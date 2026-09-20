@@ -38,6 +38,7 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
     friend class UFPSStairAudit;
     friend class UTacticalDeviceComponent;
     friend class UPistolDualWieldComponent;
+    friend class FDualPistolQuickCombatRegression;
     friend class URuneSwordComponent;
 
 public:

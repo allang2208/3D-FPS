@@ -10,6 +10,9 @@
 #include "DanWesson715WeaponAssets.h"
 #include "TacticalDeviceComponent.h"
 #include "../Skills/FPSCastingMeshComponent.h"
+#include "../Skills/FPSQuickCombatComponent.h"
+#include "QuickCombatRecovery.h"
+#include "DualPistolQuickCombatMotion.h"
 #include "../Movement/FPSFootstepAudioComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -48,7 +51,7 @@ bool UPistolDualWieldComponent::LeftBusy() const
 
 bool UPistolDualWieldComponent::InputAvailable() const
 {
-    if(!Player || !Player->HasInventoryWeapon() || Player->IsTraversing())return false;
+    if(!Player || !Player->HasInventoryWeapon() || Player->IsTraversing() || IsQuickCombatActive())return false;
     const auto* PC=Cast<APlayerController>(Player->GetController());
     if(AFPSGAMEPlayerController::BlocksOngoingActions(PC))return false;
     const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();
@@ -95,6 +98,16 @@ void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
         for(int32 Start=0;Start<6;++Start)for(int32 Count=1;Count<=6-Start;++Count)Clip(FString::Printf(TEXT("single_%d_%d"),Start,Count));
     }
     else for(const TCHAR* Kind:{TEXT("idle_empty"),TEXT("sprint_empty"),TEXT("fire_last"),TEXT("reload"),TEXT("reload_empty")})Clip(Kind);
+    for(const TCHAR* Kind:{TEXT("quickcombat"),TEXT("quickcombat_empty"),TEXT("quickcombat_left"),TEXT("quickcombat_left_empty"),
+        TEXT("quickcombat_fitted"),TEXT("quickcombat_fitted_empty"),TEXT("quickcombat_left_fitted"),TEXT("quickcombat_left_fitted_empty"),
+        TEXT("quickcombat_long"),TEXT("quickcombat_long_empty"),TEXT("quickcombat_left_long"),TEXT("quickcombat_left_long_empty")})
+    {
+        if(H.Revolver && FString(Kind).EndsWith(TEXT("_empty")))continue;
+        const TCHAR* Revision=TEXT("SpinRecoveryV5");
+        const FString Path=FString::Printf(TEXT("/Game/Weapons/DualPistolQuickCombat20260920/%s/%s/%s/Animations/A_%s_%s"),
+            Revision,H.Revolver?TEXT("DW715"):TEXT("M1911"),Index?TEXT("l"):TEXT("r"),*Name,Kind);
+        H.Clips.Add(Kind,LoadObject<UAnimSequence>(nullptr,*Path));
+    }
     H.Sounds.Empty();
     for(const TCHAR* CueName:{TEXT("Fire"),TEXT("DryClick"),TEXT("MagOut"),TEXT("MagInsert"),TEXT("MagSeat"),TEXT("ChargePull"),TEXT("ChargeRelease"),TEXT("Equip")})
     {
@@ -254,6 +267,132 @@ void UPistolDualWieldComponent::CancelInputs()
     for(auto& H:Hands)H.Held=H.Pending=false;
     if(Player)Player->bFireHeld=false;
 }
+bool UPistolDualWieldComponent::IsQuickCombatActive() const
+{
+    return bActive && Player && Player->QuickCombatPistol
+        && Player->QuickCombatPistol->GetStyle()==EQuickCombatStyle::DualPistol
+        && Player->QuickCombatPistol->IsOccupyingLeftHand();
+}
+
+bool UPistolDualWieldComponent::IsQuickCombatClip(int32 Index) const
+{
+    const auto& H=Hands[Index];
+    if(!H.Action)return false;
+    for(const auto& Clip:H.Clips)
+        if(Clip.Key.StartsWith(TEXT("quickcombat")) && H.Action==Clip.Value)return true;
+    return false;
+}
+
+FString UPistolDualWieldComponent::QuickCombatClipKind(int32 Side,bool LeftStrike) const
+{
+    const auto& H=Hands[Side];
+    FString Kind=LeftStrike?TEXT("quickcombat_left"):TEXT("quickcombat");
+    const auto* Instance=Player?Player->GetGameInstance():nullptr;
+    const auto* Gunsmith=Instance?Instance->GetSubsystem<UGunsmithSystem>():nullptr;
+    if(Gunsmith)
+    {
+        const auto Parts=Gunsmith->Installed(H.Item);
+        const FString Optic=Parts.FindRef(TEXT("optic")),Muzzle=Parts.FindRef(TEXT("muzzle")),Tactical=Parts.FindRef(TEXT("tactical"));
+        // Every profile retains the full recovery revolution. Long cans use
+        // the most canted axis, including when an optic/tactical is also fitted.
+        if(Muzzle==TEXT("true") || Muzzle==TEXT("tactical_suppressor"))Kind+=TEXT("_long");
+        else if(Optic==TEXT("holographic") || Optic==TEXT("panoramic_red_dot")
+            || Tactical==TEXT("laser") || Tactical==TEXT("flashlight"))Kind+=TEXT("_fitted");
+    }
+    if(!H.Revolver && H.Rounds==0)Kind+=TEXT("_empty");
+    return Kind;
+}
+
+const TCHAR* UPistolDualWieldComponent::QuickCombatBlockReason() const
+{
+    if(!bActive || !Player || !Player->QuickCombatPistol)return TEXT("双持控制器未就绪");
+    if(!InputAvailable())return TEXT("输入被菜单/移动/死亡/近战占用");
+    if(Player->IsCastBlockingLeftHandAction())return TEXT("施法或近战占用");
+    if(Player->IsWeaponBusy())return TEXT("换弹或其他武装动作占用");
+    if(Player->IsDodging() || Player->IsSliding())return TEXT("闪避/滑铲中");
+    const bool LeftStrike=DualPistolQuickCombatMotion::StrikingHand(Player->QuickCombatPistol->GetActionSerial()+1u)==1;
+    UAnimSequence* Clips[2]={nullptr,nullptr};
+    for(int32 Side=0;Side<2;++Side)
+    {
+        const auto& H=Hands[Side];
+        if(H.Reloading)return TEXT("单手换弹中");
+        if(!H.Mesh || !H.Anim)return TEXT("单手视模/动画实例缺失");
+        // A shot has already committed its ammo and damage before its recoil
+        // clip runs. Melee can take ownership immediately; reload transactions
+        // and unknown actions still keep their original interruption contract.
+        if(H.Action && H.Action!=H.Clips.FindRef(TEXT("fire"))
+            && H.Action!=H.Clips.FindRef(TEXT("fire_last"))
+            && H.Action!=H.Clips.FindRef(TEXT("equip")))return TEXT("不可中断的单手动作");
+        const FString Kind=QuickCombatClipKind(Side,LeftStrike);
+        Clips[Side]=H.Clips.FindRef(Kind);
+        if(!Clips[Side])return TEXT("当前出手侧/空仓近战动画缺失");
+    }
+    if(!FMath::IsNearlyEqual(Clips[0]->GetPlayLength(),Clips[1]->GetPlayLength(),.001f))return TEXT("左右近战动画时长不一致");
+    return nullptr;
+}
+
+bool UPistolDualWieldComponent::BeginQuickCombat()
+{
+    if(const TCHAR* Reason=QuickCombatBlockReason())
+    {
+        UE_LOG(LogTemp,Log,TEXT("[QuickCombatDual] 拒绝=%s 单持状态=%d 右=%s/%.3f/换弹%d 左=%s/%.3f/换弹%d"),
+            Reason,Player?int32(Player->GetWeaponState()):-1,
+            *GetNameSafe(Hands[0].Action),Hands[0].ActionTime,Hands[0].Reloading,
+            *GetNameSafe(Hands[1].Action),Hands[1].ActionTime,Hands[1].Reloading);
+        return false;
+    }
+    FString Kinds[2];
+    UAnimSequence* Clips[2]={nullptr,nullptr};
+    const bool LeftStrike=DualPistolQuickCombatMotion::StrikingHand(Player->QuickCombatPistol->GetActionSerial()+1u)==1;
+    for(int32 Side=0;Side<2;++Side)
+    {
+        const auto& H=Hands[Side];
+        Kinds[Side]=QuickCombatClipKind(Side,LeftStrike);
+        Clips[Side]=H.Clips.FindRef(Kinds[Side]);
+    }
+    CancelInputs();
+    Player->ExitSprintForWeapon();
+    Player->QuickCombatPistol->ConfigureForClipLength(Clips[0]->GetPlayLength(),true);
+    if(!Player->QuickCombatPistol->BeginAction())return false;
+    const double Started=GetWorld()->GetTimeSeconds();
+    for(int32 Side=0;Side<2;++Side)
+    {
+        // Stop interrupted equip sounds but retain any automatic reload request
+        // already queued by the shot; it resumes after the melee action ends.
+        const bool Queued=Hands[Side].ReloadQueued;
+        StopAction(Side);Hands[Side].ReloadQueued=Queued;
+        StartAction(Side,Kinds[Side]);
+        Hands[Side].ActionStarted=Started;
+        Pose(Side,0.f);
+    }
+    UE_LOG(LogTemp,Log,TEXT("[QuickCombatDual] 开始 主攻=%s 右=%s 左=%s"),
+        LeftStrike?TEXT("左"):TEXT("右"),*GetNameSafe(Clips[0]),*GetNameSafe(Clips[1]));
+    return true;
+}
+
+bool UPistolDualWieldComponent::GetQuickCombatStrikeProbe(FVector& OutOrigin,float ContactTime)
+{
+    if(!IsQuickCombatActive())return false;
+    // Resolve both meshes at the shared contact frame before tracing, even if
+    // this frame crossed 0.18 s. Only the current striking hand supplies a hit.
+    for(int32 Side=0;Side<2;++Side)
+    {
+        auto& H=Hands[Side];
+        if(!IsQuickCombatClip(Side) || !H.Mesh || !H.Anim)return false;
+        H.ActionTime=ContactTime;
+        Pose(Side,0.f);
+        H.Mesh->TickAnimation(0.f,false);
+        H.Mesh->RefreshBoneTransforms();
+    }
+    const int32 Strike=DualPistolQuickCombatMotion::StrikingHand(Player->QuickCombatPistol->GetActionSerial());
+    const auto* Mesh=Hands[Strike].Mesh.Get();
+    const FName ContactBone=Strike?TEXT("middle_01_l"):TEXT("middle_01_r");
+    // This transverse whip contacts with the gun-holding fist. Sample the
+    // anatomical knuckle instead of the old downward bash's camera-Z offset.
+    if(!Mesh || Mesh->GetBoneIndex(ContactBone)==INDEX_NONE)return false;
+    OutOrigin=Mesh->GetSocketLocation(ContactBone);
+    return true;
+}
 void UPistolDualWieldComponent::Trigger(int32 Index,bool Pressed)
 {
     if(!bActive)return;
@@ -305,6 +444,14 @@ void UPistolDualWieldComponent::Advance(float Delta)
         if(Player->IsTraversing())for(int32 Side=0;Side<2;++Side)StopAction(Side);
         if(const auto* H=Player->FindComponentByClass<UFPSCombatHealthComponent>();H && H->IsDead())for(int32 Side=0;Side<2;++Side)StopAction(Side);
     }
+    auto* Bash=Player->QuickCombatPistol.Get();
+    if(Bash && Bash->GetStyle()==EQuickCombatStyle::DualPistol)
+    {
+        if(IsQuickCombatActive() && (!IsQuickCombatClip(0) || !IsQuickCombatClip(1)))Bash->Cancel();
+        const float SinceStart=float(FMath::Max(0.0,GetWorld()->GetTimeSeconds()-Hands[0].ActionStarted));
+        Bash->AdvanceAction(IsQuickCombatActive()?FMath::Min(Delta,SinceStart):Delta);
+        Player->RefreshQuickCombatCamera();
+    }
     for(int32 Side=0;Side<2;++Side)
     {
         // Bloom follows the single-weapon contract: rise per shot, recover only
@@ -317,7 +464,15 @@ void UPistolDualWieldComponent::Advance(float Delta)
         const float Hold=FMath::Max(.12f,float(H.Stats.Interval)*DualPistolSpread::BloomHold);
         const float Recovery=FMath::Clamp(float(GetWorld()->GetTimeSeconds()-H.LastShot-Hold),0.f,Delta);
         H.Bloom=FMath::Max(0.f,H.Bloom-Recovery*DualPistolSpread::BloomRecovery);
-        if(H.Action)
+        if(IsQuickCombatClip(Side))
+        {
+            if(IsQuickCombatActive())H.ActionTime=Bash->GetActionAge();
+            else
+            {
+                const bool Queued=H.ReloadQueued;StopAction(Side);H.ReloadQueued=Queued;
+            }
+        }
+        else if(H.Action)
         {
             const float Previous=H.ActionTime/FMath::Max(.001f,H.Action->GetPlayLength())*H.SourceLength;
             H.ActionTime=FMath::Max(H.ActionTime,float(GetWorld()->GetTimeSeconds()-H.ActionStarted)*H.ActionRate);
@@ -337,7 +492,9 @@ void UPistolDualWieldComponent::Advance(float Delta)
 void UPistolDualWieldComponent::Pose(int32 Index,float Delta)
 {
     auto& H=Hands[Index];if(!H.Mesh || !H.Anim)return;
-    const bool Cast=Player->IsCastingWithLeftHand();
+    // Quick melee occupies the left hand, but it continues holding its gun.
+    // Only spell casting uses the hidden off-hand weapon presentation.
+    const bool Cast=Player->IsCastingWithLeftHand() && !IsQuickCombatActive();
     const bool Visible=!Player->IsTraversing() && Player->HasInventoryWeapon();
     H.Mesh->SetVisibility(Visible);
     if(Index==1)
@@ -363,6 +520,9 @@ void UPistolDualWieldComponent::Pose(int32 Index,float Delta)
     H.Anim->SprintAlpha=H.Sprint;
     H.Anim->ActionClip=H.Action;H.Anim->ActionTime=H.ActionTime;
     H.Anim->ActionAlpha=H.Action?FMath::Min(FMath::Clamp(H.ActionTime/.025f,0.f,1.f),FMath::Clamp((H.Action->GetPlayLength()-H.ActionTime)/.035f,0.f,1.f)):0;
+    const bool QuickAction=IsQuickCombatClip(Index);
+    if(QuickAction)H.Anim->ActionAlpha=FMath::Min(FMath::Clamp(H.ActionTime/.025f,0.f,1.f),
+        QuickCombatRecovery::RemainingWeight(H.ActionTime,H.Action->GetPlayLength(),DualPistolQuickCombatMotion::IdleHandoffStart));
     const bool FireAction=H.Action && (H.Action==H.Clips.FindRef(TEXT("fire")) || H.Action==H.Clips.FindRef(TEXT("fire_last")));
     H.Anim->bDualPistolAim=true;H.Anim->DualPistolSide=Index;
     H.Anim->DualPistolAimTargetWorld=AimTargetWorld;
@@ -380,6 +540,8 @@ void UPistolDualWieldComponent::Pose(int32 Index,float Delta)
     // hand. The authored fire clip and the ballistic pattern stay untouched.
     Player->AdvanceDualWieldHandRecoil(Index,H.Revolver,H.Stats.Handling,Delta);
     FVector KickOffset,KickAngles;Player->GetDualWieldHandRecoil(Index,KickOffset,KickAngles);
+    const float SecondaryWeight=QuickAction?1.f-H.Anim->ActionAlpha:1.f;
+    Offset*=SecondaryWeight;KickOffset*=SecondaryWeight;KickAngles*=SecondaryWeight;
     const float Mirror=Index?-1.f:1.f;
     Offset+=FVector(-KickOffset.Z*100.f,KickOffset.X*100.f*Mirror,KickOffset.Y*100.f);
     FRotator Rotation(0,-90,0);

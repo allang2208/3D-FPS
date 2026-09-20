@@ -977,6 +977,9 @@ void AFPSGAMECharacter::ReloadPressed()
 
 void AFPSGAMECharacter::InspectPressed()
 {
+    // Dual hands own their own clips. Starting the single-pistol inspect here
+    // leaves WeaponState stuck: UpdateWeaponState does not advance it in dual.
+    if(IsDualWieldingPistols())return;
     if(RuneSword && RuneSword->IsEquipped())
     {
         if(IsCastBlockingLeftHandAction() || IsWeaponBusy())return;
@@ -1010,11 +1013,11 @@ bool AFPSGAMECharacter::TriggerPistolQuickCombat()
         return false;
     };
     if(!IsPistolWeapon())return Gate(TEXT("当前不是手枪"));
-    if(IsDualWieldingPistols())return Gate(TEXT("双持状态"));
     if(IsCastBlockingLeftHandAction())return Gate(TEXT("施法/其他动作占用左手"));
     if(IsWeaponBusy())return Gate(TEXT("武器动作未结束"));
     if(IsTraversing()||IsDodging()||bIsSliding)return Gate(TEXT("移动动作中"));
     if(const auto* Health=FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return Gate(TEXT("已死亡"));
+    if(IsDualWieldingPistols())return DualPistols->BeginQuickCombat();
     if(!AKMViewmodel||!AKMViewmodel->GetSkeletalMeshAsset())return Gate(TEXT("视模不可用"));
     // 没有作者源 clip 的手枪不要"提交冷却但什么都不播"，宁可明确拒绝。
     if(!QuickCombatAnimation)return Gate(TEXT("该枪没有快速进战 clip"));
@@ -1237,7 +1240,18 @@ void AFPSGAMECharacter::UpdateSlide(float DeltaSeconds)
 
 void AFPSGAMECharacter::UpdateWeaponState(float DeltaSeconds)
 {
-    if(IsDualWieldingPistols())return;
+    if(IsDualWieldingPistols())
+    {
+        // Recover instances which entered the old, invisible single-hand
+        // inspect before this fix was applied to the running editor.
+        if(WeaponState==EAKMWeaponState::Inspecting)
+        {
+            WeaponState=EAKMWeaponState::Idle;
+            WeaponStateElapsed=WeaponStateDuration=0.f;
+            ActiveActionAnimation=nullptr;
+        }
+        return;
+    }
     if(bUseASH12&&QuickCombatPistol&&WeaponState!=EAKMWeaponState::QuickCombat)
         QuickCombatPistol->Cancel();
     if (WeaponState == EAKMWeaponState::Idle) return;
@@ -2443,8 +2457,8 @@ void AFPSGAMECharacter::ServiceRevolverReloadAfterFire()
 }
 bool AFPSGAMECharacter::IsDualWieldingPistols() const { return DualPistols && DualPistols->IsActive(); }
 bool AFPSGAMECharacter::IsWeaponFireHeld() const { return IsDualWieldingPistols()?DualPistols->HasHeldTrigger():bFireHeld; }
-bool AFPSGAMECharacter::IsReloading() const { return (IsDualWieldingPistols() && DualPistols->IsReloading()) || WeaponState == EAKMWeaponState::Reloading || WeaponState == EAKMWeaponState::ReloadingEmpty; }
-bool AFPSGAMECharacter::IsWeaponBusy() const { return IsTraversing() || (RuneSword && RuneSword->IsBusy()) || (IsDualWieldingPistols() && DualPistols->IsReloading()) || WeaponState != EAKMWeaponState::Idle || (QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand()); }
+bool AFPSGAMECharacter::IsReloading() const { return IsDualWieldingPistols()?DualPistols->IsReloading():WeaponState == EAKMWeaponState::Reloading || WeaponState == EAKMWeaponState::ReloadingEmpty; }
+bool AFPSGAMECharacter::IsWeaponBusy() const { return IsTraversing() || (RuneSword && RuneSword->IsBusy()) || (IsDualWieldingPistols()?DualPistols->IsReloading():WeaponState != EAKMWeaponState::Idle) || (QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand()); }
 float AFPSGAMECharacter::HorizontalSpeed() const { return FVector(GetVelocity().X, GetVelocity().Y, 0.0f).Size(); }
 
 float AFPSGAMECharacter::VerticalToHorizontalFOV(float VerticalFOV) const

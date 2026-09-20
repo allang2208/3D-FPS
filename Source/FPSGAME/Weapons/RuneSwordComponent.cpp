@@ -1,5 +1,6 @@
 #include "RuneSwordComponent.h"
 #include "RuneSwordMeshComponent.h"
+#include "RuneSwordOverheadFeel.h"
 #include "MeleeRuneVisual.h"
 #include "MeleeGuardAssets.h"
 #include "ModularSwordVisual.h"
@@ -136,6 +137,7 @@ void URuneSwordComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
         RiftMeshes.Add(LoadObject<UStaticMesh>(nullptr,*(FXFolder+TEXT("SM_RuneRift_Heavy"))));
         RiftMeshes.Add(LoadObject<UStaticMesh>(nullptr,*(FXFolder+TEXT("SM_RuneRift_Thrust"))));
         RiftMeshes.Add(LoadObject<UStaticMesh>(nullptr,*(FXFolder+TEXT("SM_RuneRift_Pommel"))));
+        RiftMeshes.Add(LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Weapons/AzureRunesword20260913/SprintOverhead20260920/SM_RuneRift_Overhead")));
     }
     if(!Mesh || !Animations.FindRef(TEXT("Idle")) || !Animations.FindRef(TEXT("Slash1")) || !Animations.FindRef(TEXT("Slash2")) || !Animations.FindRef(TEXT("Thrust")))
     {UE_LOG(LogTemp,Error,TEXT("Two-handed sword assets are missing for %s (animation folder %s)."),*Item->Definition,*Folder);return;}
@@ -511,6 +513,10 @@ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) 
         Location=FVector(-13.f,7.8f,3.12f)*Gather;
         Rotation=FRotator(7.8f,9.1f,6.5f)*Gather;
     }
+    else if(bAttacking && bOverheadAttack)
+    {
+        RuneSwordOverheadFeel::Camera(Elapsed,bImpactFeedbackPlayed,ImpactAge,ImpactStrength,Location,Rotation);
+    }
     else if(bAttacking && bThrustAttack)
     {
         const float ExtensionEnd=RuneSwordThrustRhythm::ExtensionEnd;
@@ -643,7 +649,7 @@ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) 
     // Confirmed contact gives one damped impulse per slash. Multi-target
     // sweeps keep their damage but cannot stack camera shake indefinitely.
     const float ImpactSpan=bPommelAttack?.30f:.20f;
-    if(!bQuickCombatContactDone&&ImpactAge<ImpactSpan)
+    if(!bOverheadAttack&&!bQuickCombatContactDone&&ImpactAge<ImpactSpan)
     {
         // A counterweight lands heavier than a blade pass: longer shake, bigger
         // axial recoil and a pitch punch on top of it.
@@ -672,17 +678,31 @@ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) 
 
 void URuneSwordComponent::StartRift(float SourceAge)
 {
-    const int32 Index=bThrustAttack?3:(bPommelAttack?4:(bHeavyAttack?2:(CurrentClip==TEXT("Slash2")?1:0)));
+    const int32 Index=bOverheadAttack?5:(bThrustAttack?3:(bPommelAttack?4:(bHeavyAttack?2:(CurrentClip==TEXT("Slash2")?1:0))));
+    // Existing live instances may still have the five original slash ribbons.
+    if(bOverheadAttack && (!RiftMeshes.IsValidIndex(Index) || !RiftMeshes[Index]))
+    {
+        RiftMeshes.SetNum(6);
+        RiftMeshes[Index]=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Weapons/AzureRunesword20260913/SprintOverhead20260920/SM_RuneRift_Overhead"));
+    }
     if(!RiftVisual || !RiftMaterial || !RiftMeshes.IsValidIndex(Index) || !RiftMeshes[Index])return;
     RiftVisual->SetStaticMesh(RiftMeshes[Index]);
     // The crescent is authored from the same blade trajectory as the contact
     // animation. Freeze its launch transform in world space so it can drift out.
     RiftOrigin=Viewmodel->GetComponentTransform();RiftDirection=Camera->GetForwardVector();
-    const float FastEnd=bThrustAttack?RuneSwordThrustRhythm::ExtensionEnd:(bPommelAttack?RuneSwordPommelRhythm::ExtensionEnd:ContactEnd);
+    if(bOverheadAttack)
+    {
+        // Reveal top-to-bottom in the stable aiming plane. Camera kick and the
+        // sprint viewmodel's residual roll must not tilt this into a side slash.
+        const FTransform Aim=Character->GetMeleeAimTransform();
+        RiftOrigin=FTransform(Aim.GetRotation()*FRotator(0,90,0).Quaternion(),Aim.GetLocation());
+        RiftDirection=-Aim.GetUnitAxis(EAxis::Z);
+    }
+    const float FastEnd=bOverheadAttack?RuneSwordOverheadFeel::ImpactTime:(bThrustAttack?RuneSwordThrustRhythm::ExtensionEnd:(bPommelAttack?RuneSwordPommelRhythm::ExtensionEnd:ContactEnd));
     RiftFastSeconds=(FastEnd-ContactStart)/SwingRate;
-    RiftDissolveSeconds=bThrustAttack?.16f:(bPommelAttack?.14f:(bHeavyAttack?.28f:.20f));
-    RiftDriftSpeed=bThrustAttack?50.f:(bPommelAttack?42.f:(bHeavyAttack?120.f:85.f));
-    RiftMaterial->SetScalarParameterValue(TEXT("RiftStrength"),bThrustAttack?.10f:(bPommelAttack?.075f:(bHeavyAttack?.14f:.085f)));
+    RiftDissolveSeconds=bOverheadAttack?.26f:(bThrustAttack?.16f:(bPommelAttack?.14f:(bHeavyAttack?.28f:.20f)));
+    RiftDriftSpeed=bOverheadAttack?95.f:(bThrustAttack?50.f:(bPommelAttack?42.f:(bHeavyAttack?120.f:85.f)));
+    RiftMaterial->SetScalarParameterValue(TEXT("RiftStrength"),bOverheadAttack?.16f:(bThrustAttack?.10f:(bPommelAttack?.075f:(bHeavyAttack?.14f:.085f))));
     RiftAge=FMath::Max(0.f,SourceAge/SwingRate);bRiftActive=true;
     RiftVisual->SetVisibility(true);TickRift(0.f);
 }
@@ -798,8 +818,15 @@ void URuneSwordComponent::SweepBlade(const FRuneSwordBladeSample& From,const FRu
             // attack reports at the impact point, including a blow that kills.
             USoundBase* ImpactCue=bPommelAttack?nullptr:HitSound;
             if((Applied>0.f || bKilled) && ImpactCue)
-                UGameplayStatics::PlaySoundAtLocation(this,ImpactCue,Hit.ImpactPoint,bHeavyAttack?.90f:.65f,
-                    bHeavyAttack?.85f:(bThrustAttack?1.1f:(bPommelAttack?.9f:1.f)));
+                UGameplayStatics::PlaySoundAtLocation(this,ImpactCue,Hit.ImpactPoint,bOverheadAttack?.95f:(bHeavyAttack?.90f:.65f),
+                    bOverheadAttack?.86f:(bHeavyAttack?.85f:(bThrustAttack?1.1f:(bPommelAttack?.9f:1.f))));
+            if((Applied>0.f || (bOverheadAttack && bKilled)) && !bImpactFeedbackPlayed)
+            {
+                bImpactFeedbackPlayed=true;ImpactAge=0.f;
+                bThrustImpact=bThrustAttack||bPommelAttack;
+                ImpactDirection=CurrentClip==TEXT("Slash2")?1.f:-1.f;
+                ImpactStrength=bOverheadAttack?1.25f:(bHeavyAttack?1.5f:(bPommelAttack?1.75f:1.f));
+            }
             if(Applied>0)
             {
                 // 快速进战：击退与眩晕由 ReceiveStun 一次提交；普通攻击只推退。
@@ -810,14 +837,6 @@ void URuneSwordComponent::SweepBlade(const FRuneSwordBladeSample& From,const FRu
                 if(Combat&&!Combat->IsDead()&&SwingRuneVulnerability>0)
                     if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))Status->AddRuneMagicVulnerability(SwingRuneVulnerability,SwingRuneVulnerabilitySeconds);
                 if(bHeavyTrainingPending&&Eligible){++HeavyTrainingHits;if(!IsValid(Target)||Combat->IsDead())++HeavyTrainingKills;}
-                if(!bImpactFeedbackPlayed)
-                {
-                    bImpactFeedbackPlayed=true;ImpactAge=0.f;
-                    // A counterweight hit kicks along the strike axis like a thrust.
-                    bThrustImpact=bThrustAttack||bPommelAttack;
-                    ImpactDirection=CurrentClip==TEXT("Slash2")?1.f:-1.f;
-                    ImpactStrength=bHeavyAttack?1.5f:(bPommelAttack?1.75f:1.f);
-                }
                 if(Target->FindComponentByClass<UMonsterCombatComponent>()&&!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining")))++SwingTrainingHits;
                 Pawn->NotifyConfirmedWeaponHit(Target,Applied,&DamageResult);ColdSteelCombat::OnHit(Target,Pawn,SwingPoison);
             }
@@ -862,7 +881,7 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
             else
             {
                 if(AttackLayerSound)UGameplayStatics::PlaySound2D(this,AttackLayerSound,1.f,1.f);
-                if(SwingSound)UGameplayStatics::PlaySound2D(this,SwingSound,bHeavyAttack?.95f:.72f,FMath::Clamp(SwingRate*(bHeavyAttack?.95f:(bThrustAttack?1.25f:1.1f)),.7f,1.4f));
+                if(SwingSound)UGameplayStatics::PlaySound2D(this,SwingSound,bOverheadAttack?.90f:(bHeavyAttack?.95f:.72f),FMath::Clamp(SwingRate*(bOverheadAttack?.95f:(bHeavyAttack?.95f:(bThrustAttack?1.25f:1.1f))),.7f,1.4f));
             }
             StartRift(Next-ContactStart);
         }

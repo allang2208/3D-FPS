@@ -138,7 +138,7 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
                 .OnClicked_Lambda([this,Key](){SelectCategory(Key);return FReply::Handled();})
                 [SNew(SHorizontalBox)+SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)[Icon]
                     +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center).Padding(8,0,0,0)
-                    [SNew(SVerticalBox)+SVerticalBox::Slot().AutoHeight()[Label(Name,16,Text,true)]
+                    [SNew(SVerticalBox)+SVerticalBox::Slot().AutoHeight()[Label(Name,16,GunsmithUI::Text,true)]
                         +SVerticalBox::Slot().AutoHeight().Padding(0,4,0,0)
                         [SNew(STextBlock).Text_Lambda([this,Key](){return FText::FromString(CategoryPartName(Key));})
                             .Font(GunsmithUI::TextFont(12)).ColorAndOpacity(Secondary).OverflowPolicy(ETextOverflowPolicy::Ellipsis)]]];
@@ -154,7 +154,7 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
         .ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)+SScrollBox::Slot()[Rail],FMargin(10));
     auto Header=SNew(SHorizontalBox)
         +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center)
-        [SNew(SVerticalBox)+SVerticalBox::Slot().AutoHeight()[Label(TEXT("装备改造"),20,Text,true)]
+        [SNew(SVerticalBox)+SVerticalBox::Slot().AutoHeight()[Label(TEXT("装备改造"),20,GunsmithUI::Text,true)]
             +SVerticalBox::Slot().AutoHeight().Padding(0,5,0,0)
             [Label((W?W->Name:TEXT("武器"))+WeaponSubtitle,12,Secondary)]]
         +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)[Button(TEXT("Esc  返回"),[this](){if(auto* PC=Cast<AFPSGAMEPlayerController>(GetOwningPlayer()))PC->CloseGunsmith();})];
@@ -170,13 +170,13 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
                 [Button(TEXT("瞄准预览"),[this](){SetAimPreview(true);})]]]
         +SOverlay::Slot().HAlign(HAlign_Center).VAlign(VAlign_Center)
         [SNew(STextBlock).Text(FText::FromString(IsMeleeWorkbench()?TEXT("武器模型暂不可用"):TEXT("该枪械尚未装备\n应用配置后装备查看")))
-            .Font(GunsmithUI::TextFont(16)).ColorAndOpacity(Text).Justification(ETextJustify::Center)
+            .Font(GunsmithUI::TextFont(16)).ColorAndOpacity(GunsmithUI::Text).Justification(ETextJustify::Center)
             .Visibility_Lambda([this](){return HasSelectedPreview()?EVisibility::Collapsed:EVisibility::HitTestInvisible;})];
     auto Surface=SNew(SM4PreviewSurface).CanRotate_Lambda([this](){return HasSelectedPreview();})
         .OnOrbit_Lambda([this](FVector2D Delta){RotatePreview(Delta);}).OnZoom_Lambda([this](float Delta){ZoomPreview(Delta);}).OnReset_Lambda([this](){SetSidePreview(true);})[Stage];
     PreviewSurface=Surface;
     auto OptionsHeader=SNew(SHorizontalBox)
-        +SHorizontalBox::Slot().FillWidth(1)[SNew(STextBlock).Text_Lambda([this](){const auto& Categories=Model()->Categories(Model()->Definition());const int32 Index=Model()->Slots(Model()->Definition()).IndexOfByKey(SelectedCategory);return FText::FromString((Categories.IsValidIndex(Index)?Categories[Index]:TEXT("配件"))+TEXT(" / 可选配件"));}).Font(GunsmithUI::TextFont(16,true)).ColorAndOpacity(Text)]
+        +SHorizontalBox::Slot().FillWidth(1)[SNew(STextBlock).Text_Lambda([this](){const auto& Categories=Model()->Categories(Model()->Definition());const int32 Index=Model()->Slots(Model()->Definition()).IndexOfByKey(SelectedCategory);return FText::FromString((Categories.IsValidIndex(Index)?Categories[Index]:TEXT("配件"))+TEXT(" / 可选配件"));}).Font(GunsmithUI::TextFont(16,true)).ColorAndOpacity(GunsmithUI::Text)]
         +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)
         [SNew(STextBlock).Text_Lambda([this](){return FText::FromString(FString::Printf(TEXT("%d 项 · 滚轮浏览"),OptionCards.Num()));}).Font(GunsmithUI::TextFont(12)).ColorAndOpacity(Muted)];
     auto Options=SNew(SVerticalBox)+SVerticalBox::Slot().AutoHeight().Padding(0,0,0,10)[OptionsHeader]
@@ -199,7 +199,7 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
         [SNew(STextBlock).Text_Lambda([this,Column](){return FText::FromString(Column==0?TEXT("项目"):Column==1?(bCompareFactory?TEXT("原厂"):TEXT("当前")):Column==2?TEXT("改造后"):TEXT("变化"));})
             .Font(GunsmithUI::TextFont(12,true)).ColorAndOpacity(Secondary).Justification(Column?ETextJustify::Right:ETextJustify::Left)];
     auto OverviewPanel=SNew(SVerticalBox)
-        +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)[Label(IsMeleeWorkbench()?TEXT("近战数值总览"):TEXT("整枪数值总览"),20,Text,true)]
+        +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)[Label(IsMeleeWorkbench()?TEXT("近战数值总览"):TEXT("整枪数值总览"),20,GunsmithUI::Text,true)]
         +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)[SNew(SHorizontalBox)
             +SHorizontalBox::Slot().FillWidth(1).Padding(0,0,4,0)[CompareButton(false)]
             +SHorizontalBox::Slot().FillWidth(1).Padding(4,0,0,0)[CompareButton(true)]]
@@ -210,7 +210,7 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
     InspectorContent=GlassPanel(SAssignNew(InspectorScroll,SScrollBox).ScrollBarThickness(FVector2D(6,6))
         .AllowOverscroll(EAllowOverscroll::No).ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)
         +SScrollBox::Slot()[SNew(SVerticalBox)
-            +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)[Label(TEXT("当前配件详情"),16,Text,true)]
+            +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)[Label(TEXT("当前配件详情"),16,GunsmithUI::Text,true)]
             +SVerticalBox::Slot().AutoHeight()[SNew(SBox).MinDesiredHeight(280).VAlign(VAlign_Top)[SAssignNew(ModificationList,SVerticalBox)]]
             +SVerticalBox::Slot().AutoHeight().Padding(0,16,0,0)
             [SNew(SBox).HeightOverride_Lambda([this](){return OverviewSectionHeight();})[OverviewPanel]]]);

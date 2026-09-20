@@ -213,3 +213,7 @@ M4 N、AKM／ASH-12 跨枪适配、QBZ191 O 与 recover 衔接的运行路径、
 ## M16A2（2026-09-20）
 
 用户已确认最新换弹回位与四款枪托接口修复成功。正式物品 `ue_m16a2` 的源码、三连发数据、作者依赖和废案归档见 [M16 发布与恢复](Weapons/m16-publication-20260920.md)。当前 Content、Manny/M4 上游动作、原模型 PBR、用户 M16 原声及密集几何/姿态输入保留本机，不公开上传。恢复时保留 Refinement → M4Insert → RemovalMelee 作者链，并最后安装 RecoveryStocks 四款枪托；AuthoringRecovery 中仍被正式资产引用的 8 个包不能随旧失败包一起删除。
+
+## 2026-09-20 双持快速近战与冲刺下砍
+
+双持改造后完整转枪 V5、双手剑全段伸展 V5、保留腕部 V4 及竖直扰动的当前运行路径、有效作者依赖与废案恢复，见 [发布说明](Weapons/dual-melee-overhead-publication-20260920.md)。合法本地 Blend／FBX／uasset、密集姿态输入和参考视频不公开提交；DW715 形变反馈仍待定位，不将静态骨轨道刚性记为问题已修复。

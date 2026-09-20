@@ -1,0 +1,2320 @@
+{
+  "date": "2026-09-20",
+  "archive_root": "trash/dual-melee-overhead-retired-20260920",
+  "file_count": 289,
+  "bytes": 5483564888,
+  "entries": [
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/FlowV2/DW715-authoring.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/FlowV2/DW715-authoring.json",
+      "bytes": 1272,
+      "sha256": "447cccd26ead22063064e22c63fd9456fe1e614ab451382f67628d96f3840c49",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/FlowV2/end_play_for_import.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/FlowV2/end_play_for_import.py",
+      "bytes": 286,
+      "sha256": "e48589721946fc71f1a4901da7b0b074358f03dd703cc548b97e04f63ec98caf",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/FlowV2/import.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/FlowV2/import.json",
+      "bytes": 867,
+      "sha256": "ae79892a66b1db9c82267ed771d2e4cad09766617c19aac8cdf82bee08c68071",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/FlowV2/import_assets.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/FlowV2/import_assets.py",
+      "bytes": 235,
+      "sha256": "e19b600f072c51fbb12893f0f981ecd9e87e97146502b3d49690be5e46f75cf1",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/FlowV2/M1911-authoring.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/FlowV2/M1911-authoring.json",
+      "bytes": 1756,
+      "sha256": "b231a2a2cc36dffdad00381989a064a4558a834a117a20ff904447fc9ced8bfd",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/FlowV2/motion.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/FlowV2/motion.json",
+      "bytes": 2698,
+      "sha256": "710193ceef55178abfdb51e60c05be7fcc3c507685f3c4c9c0f2d7e6ae425c2d",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/FlowV2/README.md",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/FlowV2/README.md",
+      "bytes": 1866,
+      "sha256": "a5c214390d22044e78af2ca3a2852da3af980484a46728b753b406d25a3b49f6",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/FlowV2/resume_import_after_play.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/FlowV2/resume_import_after_play.py",
+      "bytes": 295,
+      "sha256": "17bdc8433faf3b3d4dae64e1a4e86ff720fb0829437e173c97334e65981d49d2",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/FlowV2/DW715/l/DW715_l_QuickCombat_Editable.blend",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/FlowV2/DW715/l/DW715_l_QuickCombat_Editable.blend",
+      "bytes": 486524367,
+      "sha256": "6944321755f0ce9d03b5ae44b13b3ca15c62db03512043a191f5c13a0351b731",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/FlowV2/DW715/l/Animations/A_Dual_DW715_l_quickcombat.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/FlowV2/DW715/l/Animations/A_Dual_DW715_l_quickcombat.fbx",
+      "bytes": 1220540,
+      "sha256": "f957e84e2f36650adfc8a2dc2458f853e0a66c3ad5003e232f8224e1d31fcbea",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/FlowV2/DW715/r/DW715_r_QuickCombat_Editable.blend",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/FlowV2/DW715/r/DW715_r_QuickCombat_Editable.blend",
+      "bytes": 389382367,
+      "sha256": "c32405052d52bea4230dae9db7acb36fa611c73190eeec0747884b3184312b23",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/FlowV2/DW715/r/Animations/A_Dual_DW715_r_quickcombat.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/FlowV2/DW715/r/Animations/A_Dual_DW715_r_quickcombat.fbx",
+      "bytes": 1216940,
+      "sha256": "4b972984cafa9e0a87a9e1dd19dce24dd30977c7266ae7e48fd12ba006b45a15",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/FlowV2/M1911/l/M1911_l_QuickCombat_Editable.blend",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/FlowV2/M1911/l/M1911_l_QuickCombat_Editable.blend",
+      "bytes": 191922727,
+      "sha256": "cfc999cd0d00b9bfa519f2be3359e9ff37f806f033fb9409b55ac528d6f346a8",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/FlowV2/M1911/l/Animations/A_Dual_M1911_l_quickcombat.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/FlowV2/M1911/l/Animations/A_Dual_M1911_l_quickcombat.fbx",
+      "bytes": 1053964,
+      "sha256": "126f58371c625fb05351dbfbe8052bdb885fe8873f440349b3e30075ad048c26",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/FlowV2/M1911/l/Animations/A_Dual_M1911_l_quickcombat_empty.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/FlowV2/M1911/l/Animations/A_Dual_M1911_l_quickcombat_empty.fbx",
+      "bytes": 1053948,
+      "sha256": "1b5718304fdd983136bec90f0fee409cd05b297d2243b464edf94f3befa21c60",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/FlowV2/M1911/r/M1911_r_QuickCombat_Editable.blend",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/FlowV2/M1911/r/M1911_r_QuickCombat_Editable.blend",
+      "bytes": 183674530,
+      "sha256": "7b7593e83496839fd2450d6cd8c6ad77d0b6cd700856e54b998c376138881cf9",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/FlowV2/M1911/r/Animations/A_Dual_M1911_r_quickcombat.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/FlowV2/M1911/r/Animations/A_Dual_M1911_r_quickcombat.fbx",
+      "bytes": 1051628,
+      "sha256": "9363708d505a49cd70b2ff5b95f97af88a8be2a539b4d924d5de93c94ab0a018",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/FlowV2/M1911/r/Animations/A_Dual_M1911_r_quickcombat_empty.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/FlowV2/M1911/r/Animations/A_Dual_M1911_r_quickcombat_empty.fbx",
+      "bytes": 1051628,
+      "sha256": "eafb21ed009a20e5cc75563be734d60d1a26444b998dbeeae162d49c4a4ed741",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/author_actions.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/author_actions.py",
+      "bytes": 14110,
+      "sha256": "c9567677a90231cd12ed11cd1ef7860ae4f5809138fc827d39df986f01b523da",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/collect_diagnostics.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/collect_diagnostics.py",
+      "bytes": 930,
+      "sha256": "84ff5b1292544408febff8280c5f8d0c286cbcfe50360533b6459c6cb0fe4a50",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/compile_editor.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/compile_editor.py",
+      "bytes": 368,
+      "sha256": "22ae5d5cb5dba9ff221c39eba07fde5ebe485fdc0fecd2b569b49a5227d90699",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/DW715-authoring.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/DW715-authoring.json",
+      "bytes": 2032,
+      "sha256": "310c6138a904785598babd9ca68f8472032962f440f1098dbf502fd2b2dee8e2",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/import.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/import.json",
+      "bytes": 2148,
+      "sha256": "4a44a21fcfd5248456a8f9d533c17d1005a89f73f0bc56d7b4309ab6bb99a7f6",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/import_assets.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/import_assets.py",
+      "bytes": 221,
+      "sha256": "cc8947c312a0a39a47d95ddad3ca797285c710718647dfd010ed6f0a54409ba6",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911-authoring.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911-authoring.json",
+      "bytes": 3268,
+      "sha256": "1f8658396a21ed203cedc85e17c233c5648d7e3bc3a9b230ac2fc0daf802eea4",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/motion.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/motion.json",
+      "bytes": 9074,
+      "sha256": "55427cf473b7231bf8c8a891a68be2f9b160654d8d989e69c4fd89b9b72030ef",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/README.md",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/README.md",
+      "bytes": 4007,
+      "sha256": "b39d9f46d68665ceb02e98afb6f8097d03d4099d08e074b33df62d9644114e38",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/release_regression_fps_wait.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/release_regression_fps_wait.py",
+      "bytes": 940,
+      "sha256": "0621d6024c0cec6706b0bed99ad17715581f55dd331dad028ed16764b15338fb",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/run_state_regression.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/run_state_regression.py",
+      "bytes": 284,
+      "sha256": "34e6ef42f66406e9d0b8346f2a23d4ccf89fe728103e8802ad1b0d1ec314dfd4",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/DW715/l/DW715_l_QuickCombat_Editable.blend",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/DW715/l/DW715_l_QuickCombat_Editable.blend",
+      "bytes": 487790327,
+      "sha256": "b0720a0d546045fc11c0ce9fbc3813c84e136e706d219c3876709fc2ddddc2fe",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/DW715/l/Animations/A_Dual_DW715_l_quickcombat_fitted.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/DW715/l/Animations/A_Dual_DW715_l_quickcombat_fitted.fbx",
+      "bytes": 1419052,
+      "sha256": "50621f34208f6d69a2b2a36570b3045ecb0c47c43375e1c7f9ffe5b5a96ee585",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/DW715/l/Animations/A_Dual_DW715_l_quickcombat_left_fitted.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/DW715/l/Animations/A_Dual_DW715_l_quickcombat_left_fitted.fbx",
+      "bytes": 1428668,
+      "sha256": "7ac6d629638594af6287b8465135163082cb4bfcc7f7d622c69ce893c05e2fd0",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/DW715/r/DW715_r_QuickCombat_Editable.blend",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/DW715/r/DW715_r_QuickCombat_Editable.blend",
+      "bytes": 390956589,
+      "sha256": "650ffba845cfb607907b910e0d3230566330a2e3e0cc7f8920c44b01957f0864",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/DW715/r/Animations/A_Dual_DW715_r_quickcombat_fitted.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/DW715/r/Animations/A_Dual_DW715_r_quickcombat_fitted.fbx",
+      "bytes": 1428188,
+      "sha256": "0bfba9ece39e00cc226ade27fe4f28d3a863b7d8f1178995a17f8aa0128edb16",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/DW715/r/Animations/A_Dual_DW715_r_quickcombat_left_fitted.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/DW715/r/Animations/A_Dual_DW715_r_quickcombat_left_fitted.fbx",
+      "bytes": 1418460,
+      "sha256": "731630b7472869aaf5fed09e370f5f44fa8f4fb2847a636b292779cc7f110f5e",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/l/M1911_l_QuickCombat_Editable.blend",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/l/M1911_l_QuickCombat_Editable.blend",
+      "bytes": 193547582,
+      "sha256": "1f63f8b6eb5713b92f40bc7c1ab732e42ee8308edb13c0b3f9951c0c841f5aa7",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/l/Animations/A_Dual_M1911_l_quickcombat_fitted.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/l/Animations/A_Dual_M1911_l_quickcombat_fitted.fbx",
+      "bytes": 1224396,
+      "sha256": "91a2bb0814f04c5446d25b273d7802805479b003f2bed93062f298213f2a8ace",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/l/Animations/A_Dual_M1911_l_quickcombat_fitted_empty.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/l/Animations/A_Dual_M1911_l_quickcombat_fitted_empty.fbx",
+      "bytes": 1224412,
+      "sha256": "e56c331ddfb944b320922c21585b1e3814a12b79746007359361223938e4d92b",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/l/Animations/A_Dual_M1911_l_quickcombat_left_fitted.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/l/Animations/A_Dual_M1911_l_quickcombat_left_fitted.fbx",
+      "bytes": 1230892,
+      "sha256": "02b4353c2b51a48575c4cad08505a96e1405e42d6afc6277e4bb3caa815e79e9",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/l/Animations/A_Dual_M1911_l_quickcombat_left_fitted_empty.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/l/Animations/A_Dual_M1911_l_quickcombat_left_fitted_empty.fbx",
+      "bytes": 1230860,
+      "sha256": "7fb80f1ce46e5fdb521d7c146d592ece6d872a2056e48c460bfe1657b97a0d1e",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/r/M1911_r_QuickCombat_Editable.blend",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/r/M1911_r_QuickCombat_Editable.blend",
+      "bytes": 185326323,
+      "sha256": "530519811c8d6894f6a01c28c793e4ce04f021dd7eb8db400a742a1b1faa25ea",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/r/Animations/A_Dual_M1911_r_quickcombat_fitted.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/r/Animations/A_Dual_M1911_r_quickcombat_fitted.fbx",
+      "bytes": 1230508,
+      "sha256": "d16d6bb2c7804c563663de62bb10f8aabe73d8ad3ec3be6e602fc856a6b7475a",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/r/Animations/A_Dual_M1911_r_quickcombat_fitted_empty.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/r/Animations/A_Dual_M1911_r_quickcombat_fitted_empty.fbx",
+      "bytes": 1230508,
+      "sha256": "c8ce68b1a4d07df68a9ede9084ca6a7cf03cb34674819d91682ff7f541ff88e5",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/r/Animations/A_Dual_M1911_r_quickcombat_left_fitted.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/r/Animations/A_Dual_M1911_r_quickcombat_left_fitted.fbx",
+      "bytes": 1223884,
+      "sha256": "cd572e1b03275816c47652c620a68dba8e87b6d7685025278eb5279bf36dd808",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/r/Animations/A_Dual_M1911_r_quickcombat_left_fitted_empty.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/r/Animations/A_Dual_M1911_r_quickcombat_left_fitted_empty.fbx",
+      "bytes": 1223884,
+      "sha256": "2feca7288f4fd8f401fc035cbdd3d70a8abc7fed597dffd631b21dfe92877f02",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/M1911/l/M1911_l_QuickCombat_Editable.blend",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/M1911/l/M1911_l_QuickCombat_Editable.blend",
+      "bytes": 191890109,
+      "sha256": "2057645824b26af8c5b0a738b6c2f48df63b3354d837e4eec3351e69823c6595",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/M1911/l/Animations/A_Dual_M1911_l_quickcombat.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/M1911/l/Animations/A_Dual_M1911_l_quickcombat.fbx",
+      "bytes": 1050972,
+      "sha256": "aadc5d24050c1215bc20997e6e514dc26536cb76d1241def1282ff9f5fd07793",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/M1911/l/Animations/A_Dual_M1911_l_quickcombat_empty.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/M1911/l/Animations/A_Dual_M1911_l_quickcombat_empty.fbx",
+      "bytes": 1050940,
+      "sha256": "29a494da54f18ad004242efc550be4f5b2117de06c3b61ea9d44852d55279af6",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/M1911/r/M1911_r_QuickCombat_Editable.blend",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/M1911/r/M1911_r_QuickCombat_Editable.blend",
+      "bytes": 183687865,
+      "sha256": "f011d832c8753d6f3114ffa24e4614428b74e51724ac06039f359d8d72555927",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/M1911/r/Animations/A_Dual_M1911_r_quickcombat.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/M1911/r/Animations/A_Dual_M1911_r_quickcombat.fbx",
+      "bytes": 1053132,
+      "sha256": "77e53f0efa77f1019000ddcbc6125ab5684ea7bb8bda50d802fd0eec60c1887a",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/M1911/r/Animations/A_Dual_M1911_r_quickcombat_empty.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/M1911/r/Animations/A_Dual_M1911_r_quickcombat_empty.fbx",
+      "bytes": 1053164,
+      "sha256": "a5598222eaac5e8a046cf7ab412431fe0358aa042f6a1e3594dfe7e5c928d56d",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/DW715/l/DW715_l_QuickCombat_Editable.blend",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/DW715/l/DW715_l_QuickCombat_Editable.blend",
+      "bytes": 486499159,
+      "sha256": "0d2dbca2d5b693d63cacdc4dc3eabc5fa688b49d6059784a052c7f2855862f43",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/DW715/l/Animations/A_Dual_DW715_l_quickcombat.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/DW715/l/Animations/A_Dual_DW715_l_quickcombat.fbx",
+      "bytes": 1215228,
+      "sha256": "283b4ad71145ca64c5835dd24b8497fcff865e87e412b239bd1bf3562755e339",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/DW715/r/DW715_r_QuickCombat_Editable.blend",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/DW715/r/DW715_r_QuickCombat_Editable.blend",
+      "bytes": 389388587,
+      "sha256": "6d54a62b85f41a46ae93c7691a9c637f2611331cfd01064495fda0a72fa8d21b",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/DW715/r/Animations/A_Dual_DW715_r_quickcombat.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/DW715/r/Animations/A_Dual_DW715_r_quickcombat.fbx",
+      "bytes": 1219324,
+      "sha256": "bffc390762ee07617f176a3070909a6c8fc9e7ff66a696769f289061df669160",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/author_actions.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/author_actions.py",
+      "bytes": 11786,
+      "sha256": "69e5b1a4c5baa991aa239de0872acd9a82e4114713b529713a3e58c8ae02dc32",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/compile_editor.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/compile_editor.py",
+      "bytes": 836,
+      "sha256": "badcefa5f70ee37a20743a2e38a96c4aa3973531933c24d1d64ee38fef961228",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/compile-request.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/compile-request.json",
+      "bytes": 264,
+      "sha256": "4b05b874f80be3582c5fde5f316d8e520a8edff8d4520892613a267f337c20f7",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/DW715-authoring.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/DW715-authoring.json",
+      "bytes": 1215,
+      "sha256": "0edbf7e483cf16ea66d457c22431ce771b61f2c2540797b2c3251923fd7a4cbb",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/M1911-authoring.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/M1911-authoring.json",
+      "bytes": 1683,
+      "sha256": "2bf7cda45c4e282492806736ffb13b7a6aae249cafdf5e1a69a802f3890630a3",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/import.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/import.json",
+      "bytes": 842,
+      "sha256": "ab4205d1ef22019ba76d0b2df05ee76b0b1c61daae9239c7c6acd525ad0eefd4",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/motion.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/motion.json",
+      "bytes": 1430,
+      "sha256": "923412ec6446175a62fc79b734bc917c79f2b3a67a317a23018a6fe2bd38af53",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/inspect_attachment_clearance.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/inspect_attachment_clearance.py",
+      "bytes": 5756,
+      "sha256": "8666548c07fb26edea454dfed9c3e3a74a6a8e0cc92adf2594e2aeee99ba306b",
+      "reason": "Superseded V1/V2 or rejected no-spin V4; V5 retains the recovery revolution.",
+      "replacement": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_Equip.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_Equip.uasset",
+      "bytes": 3276673,
+      "sha256": "d93f242e13fb554c10c0a1a7c1906beb7c401e004a75317e6173c05452fad9a4",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_Guard.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_Guard.uasset",
+      "bytes": 659568,
+      "sha256": "1764096d958e752ce58f098912549dcef44620675b73d856e17a701cc8f8e884",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_GuardBreak.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_GuardBreak.uasset",
+      "bytes": 1249627,
+      "sha256": "4a70149e276fdf5b331b836deba435849c6d2f49e8a7c1e30aa5c0f9bd04dcb6",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_HeavyCharge.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_HeavyCharge.uasset",
+      "bytes": 5021235,
+      "sha256": "f5e87e1ec7a5b4397c6ad61995a43302422ab503599d2b88dc9e9837a1c361b1",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_HeavyRelease.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_HeavyRelease.uasset",
+      "bytes": 2732955,
+      "sha256": "25880d570d9642c63a13c484b6e17eaf8e802d6db8524ef2812023f40104bac1",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_Idle.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_Idle.uasset",
+      "bytes": 2228305,
+      "sha256": "f01a4b725fad2bd71f621c0278a561242e21f403f26b028baf920e319d7f480b",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_Inspect.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_Inspect.uasset",
+      "bytes": 3194426,
+      "sha256": "c3556d4445711a80cbb9281555d04439e40956105c761c8215fb0a693a3938d7",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_Overhead.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_Overhead.uasset",
+      "bytes": 1967264,
+      "sha256": "c33f5e60279b82f5688583438f4ecd7fc5d8529696c78074ffef1f4e2c81e152",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_PommelStrike.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_PommelStrike.uasset",
+      "bytes": 3619847,
+      "sha256": "bdd7a5582aa9be2c6737d33736064efce99483d66de17a5a8de53faf508c2009",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_Slash1.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_Slash1.uasset",
+      "bytes": 4741195,
+      "sha256": "78c4eb90c1ed5139cf5ff95f5cfca3c01cff3ea274428b449531453eff446c28",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_Slash2.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_Slash2.uasset",
+      "bytes": 2191467,
+      "sha256": "df59f6de69557c560f8c262c14076e0b00dfa194f9ed1b77707a3a801eefb286",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_Thrust.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_Thrust.uasset",
+      "bytes": 2927975,
+      "sha256": "9ed3a0578a24301db5deb71ad9a2f3b5ba9af75d74564d0b699d1563fa4f11e5",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_Walk.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_Walk.uasset",
+      "bytes": 871697,
+      "sha256": "8f69a4120ca0717e49a98ec2a9a2959701e5c9f0d7818aaadfdf5ba931505879",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_WhirlwindV5.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/LongGrip/A_RuneSword_WhirlwindV5.uasset",
+      "bytes": 4780448,
+      "sha256": "fee2879299f8804180a96d2b15b389d66c8170ce59405d18b86dd49ffc65321d",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_Equip.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_Equip.uasset",
+      "bytes": 3226607,
+      "sha256": "3b94ff262c01cc21761e6969e440baa3d29c2e886b28a7d3bc52e07f33598987",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_Guard.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_Guard.uasset",
+      "bytes": 661871,
+      "sha256": "fafc797a84c4fe3abb34a686033a3cb04f9cf98795afe21641d9edd75384a726",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_GuardBreak.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_GuardBreak.uasset",
+      "bytes": 1251928,
+      "sha256": "b602024f17afb9786e63ee14319261eafeb1be7d61e90f1dee8bc247ee0e2068",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_HeavyCharge.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_HeavyCharge.uasset",
+      "bytes": 5023974,
+      "sha256": "1e043ea01506af17fcc3b2e8728f717c59389b5b845d163807a554b20f156ba2",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_HeavyRelease.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_HeavyRelease.uasset",
+      "bytes": 2735648,
+      "sha256": "b335fa92af0a61d09e621842e8a8a860df893ef621f379b1e44b29dde1b3ada3",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_Idle.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_Idle.uasset",
+      "bytes": 2202081,
+      "sha256": "05a66cd37d107e7219da923950b734909460f9347709b76614ad5b323721e744",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_Inspect.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_Inspect.uasset",
+      "bytes": 3199742,
+      "sha256": "04af7cbb2c4b50991ba46d9b3210f5ba4dd38f96bd1368a846f30a105ba817b3",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_Overhead.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_Overhead.uasset",
+      "bytes": 1937006,
+      "sha256": "c7d9c2b26853764ac173069eb27f0770724b81e77c11f6bc26ce84656093ad35",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_PommelStrike.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_PommelStrike.uasset",
+      "bytes": 3674378,
+      "sha256": "8af33742edce0674d31d30738695b77c152d8486d8377fbd08eae2b3bd3100e1",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_Slash1.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_Slash1.uasset",
+      "bytes": 4743954,
+      "sha256": "de8bd6a9f51c9368cac4dcb75378f1d9f3a1364b950aef6469165396ad42e75c",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_Slash2.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_Slash2.uasset",
+      "bytes": 2190871,
+      "sha256": "c1615a64e0652c104d7a701fc08190136e7893fedf9ad77ac63e9b72bb24a3ed",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_Thrust.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_Thrust.uasset",
+      "bytes": 2908147,
+      "sha256": "a41a6c20c559cd647ab1a760e800290fca54a0bc032a1d9cb5fb68d739afe87a",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_Walk.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_Walk.uasset",
+      "bytes": 864033,
+      "sha256": "815ae0d0ffa816671f3280c4c16291f03763f7d16df20c50239bcf66c65f3cd6",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_WhirlwindV5.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Before/Standard/A_RuneSword_WhirlwindV5.uasset",
+      "bytes": 4779903,
+      "sha256": "795d278ba106307d8e0e1f378d8e5890831a9f5c4a4d7d31e1a3c7f4635dd502",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_Equip.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_Equip.fbx",
+      "bytes": 3436928,
+      "sha256": "3e90e726663432abba890d1c95b29fd07daf54bcafdb525a58319d9a06a31e8c",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_Guard.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_Guard.fbx",
+      "bytes": 1681088,
+      "sha256": "6e2af9dd33deeba2af150179ed4eb00c5d993a5939a5e1e04874a31211bf9199",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_GuardBreak.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_GuardBreak.fbx",
+      "bytes": 2228032,
+      "sha256": "f40c26b243cffc60d9d203401ae3eb7c9c1524815d95b77b53cd46660396de83",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_HeavyCharge.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_HeavyCharge.fbx",
+      "bytes": 5368544,
+      "sha256": "61a7fce24c89ae2cdc26764c06a12e2d0cc916e8be97cb539062f2fc20d73f2b",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_HeavyRelease.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_HeavyRelease.fbx",
+      "bytes": 3039536,
+      "sha256": "f4f4fb35aaba2d6e61feb6b5476caf164d0a4c5f4fe2c1fc6664ffdb751e91a0",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_Idle.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_Idle.fbx",
+      "bytes": 4485696,
+      "sha256": "729532ae74c61ba79021ca18333d3802025beb76aed094c7577479f32265c32d",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_Inspect.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_Inspect.fbx",
+      "bytes": 2456128,
+      "sha256": "f20a0726db86299e052c382b87967d3376568bff7f5207930acaa45a49cbad00",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_Overhead.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_Overhead.fbx",
+      "bytes": 2229584,
+      "sha256": "2b0ae6212e56142d036b403d8a4cd8c6c7f2c14d536bd43cf68d5b401f77e2d4",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_PommelStrike.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_PommelStrike.fbx",
+      "bytes": 4396224,
+      "sha256": "bbdcebde18b299d12fb3d952387bee69feced165bedbc9356b0a0e22ab8d5ce9",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_Slash1.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_Slash1.fbx",
+      "bytes": 4855952,
+      "sha256": "2231f069867bc939d9855a12c9e8098756072fe3160d08f1b50a15e7a0d9a43a",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_Slash2.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_Slash2.fbx",
+      "bytes": 2753200,
+      "sha256": "72493d168c8ee790fb6cfbce317001770fec6440838abb615ee367bd914c2a1d",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_Thrust.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_Thrust.fbx",
+      "bytes": 3584272,
+      "sha256": "178e0805b3994dc7d380bd9e6d35b96503d5167a8261fa6209d2034018ef0d49",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_Walk.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_Walk.fbx",
+      "bytes": 2455136,
+      "sha256": "2620f4b94bf924c71fb1787204c5e0825b248981c79c05ce673849fad13af4b7",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_WhirlwindV5.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/A_RuneSword_WhirlwindV5.fbx",
+      "bytes": 4954992,
+      "sha256": "73dd2bb981f2afb17caddf396b545d4541c2e5e0ec8010c9e1871d63fbd8b321",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/blend_actions.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/blend_actions.json",
+      "bytes": 326,
+      "sha256": "bd85d4217e319207fe0ca0483177ff7700940a2ecfd4ef6cc01aa78e06858581",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Equip_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Equip_patch.json",
+      "bytes": 1924754,
+      "sha256": "11422c70f438775b35efa3d54c6295a5c380a9504b3d1795217098c65be54fe2",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/GuardBreak_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/GuardBreak_patch.json",
+      "bytes": 637314,
+      "sha256": "f62965de22291ffc9b9574013a8f86a2c18ce717e5d3e8a5dd84f053353af183",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Guard_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Guard_patch.json",
+      "bytes": 324406,
+      "sha256": "459cdc552dec34abed8b6c36b7a054e4c14d47a19baf87eda64103d8da9bdd0f",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/HeavyCharge_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/HeavyCharge_patch.json",
+      "bytes": 3210852,
+      "sha256": "172dd0ea855ea752271bef3dda9d71d8a371118ab5e320fe74d356f4d4c5d9de",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/HeavyRelease_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/HeavyRelease_patch.json",
+      "bytes": 1607404,
+      "sha256": "6f1e252431a2197ce84f77bf971a5d573107065d3832b707554ed6a95b2aecb2",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Idle_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Idle_patch.json",
+      "bytes": 2661682,
+      "sha256": "0b7cf0b565d5174e3ca851a08620c97677de75f6ff4ab623c49cb1d0afb46e03",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Inspect_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Inspect_patch.json",
+      "bytes": 1163153,
+      "sha256": "48f13ae0216674596039f8ff9aa0abb2ada9119fa9dd4d239896ef68e5606ff4",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Overhead_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Overhead_patch.json",
+      "bytes": 1037869,
+      "sha256": "2385d15b1f9239a907d5a8269837f18605476bd358ce88b26a172c4b916b1b20",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/PommelStrike_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/PommelStrike_patch.json",
+      "bytes": 2546482,
+      "sha256": "32835538c0a910c262465f0e114a2cf97bd76536b650eb12c179091ba0f42611",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Slash1_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Slash1_patch.json",
+      "bytes": 2851858,
+      "sha256": "e1523cb49ced04c6976c6453beaa3d6ae343005031af40c7675f816f83a01cdc",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Slash2_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Slash2_patch.json",
+      "bytes": 1418348,
+      "sha256": "ee3107c88ce645114f6bae9ad886d31d7eddabf2cb60747a54c4b9ae218c07b8",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Sword_Idle_ElbowV3.blend",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Sword_Idle_ElbowV3.blend",
+      "bytes": 172513845,
+      "sha256": "80f99661707c0b3bda77aeb064e6f314ca3a6e167363680796fa9f84e36f3b00",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Sword_Overhead_ElbowV3.blend",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Sword_Overhead_ElbowV3.blend",
+      "bytes": 176542750,
+      "sha256": "f365cb5815d3d8f25eae80f2f17ea4f54aa90bc8a3045b51d0c551546612a3b2",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Sword_Walk_ElbowV3.blend",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Sword_Walk_ElbowV3.blend",
+      "bytes": 174049573,
+      "sha256": "38c373d07b0bc095755a52666ebf1f4a2d29a7529dd25c876021eca50e57e8b6",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Thrust_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Thrust_patch.json",
+      "bytes": 1991903,
+      "sha256": "99c8356e5bd53fcc6e87d727bfdf82f757d86c8fc3bca1f283c371531c90cdf8",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Walk_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/Walk_patch.json",
+      "bytes": 730291,
+      "sha256": "773e20909f41fc535648987813af88c3b9cd9cad5a94188eec4d5a96686432c4",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/LongGrip/WhirlwindV5_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/LongGrip/WhirlwindV5_patch.json",
+      "bytes": 2909746,
+      "sha256": "f857883d34196ae7e54f1f641821ff11db664969a91410d3874e0182d7dbeeeb",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_Equip.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_Equip.fbx",
+      "bytes": 3436912,
+      "sha256": "f7560f71ee9d06623f27b1e86736d2b3cf631a3914e78cbb5b00eb9fb5b11292",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_Guard.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_Guard.fbx",
+      "bytes": 1681088,
+      "sha256": "58186328d80db3a5b6b4c23b1a626cf57d8d2bbe0f1c4de45a886bfa6eb2f557",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_GuardBreak.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_GuardBreak.fbx",
+      "bytes": 2228032,
+      "sha256": "6664c2169bc00132e9db509897e8e0f8f018621436f324346f7f79534fbd5660",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_HeavyCharge.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_HeavyCharge.fbx",
+      "bytes": 5368560,
+      "sha256": "87dbbdc02df00c5bf0c6817e41cd5bcab320bed3c012915e50f47b648b5c8e53",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_HeavyRelease.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_HeavyRelease.fbx",
+      "bytes": 3039568,
+      "sha256": "da22e51fd00796abf0f3b6c0c77c59c2e790987e6cdf7e7752e92363ebede3b7",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_Idle.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_Idle.fbx",
+      "bytes": 4485712,
+      "sha256": "382e17c9d67fb422b3bbb8b8dc8216f1e911f7579a408b1c13fb46a34a88d6f4",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_Inspect.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_Inspect.fbx",
+      "bytes": 2456048,
+      "sha256": "e8e9d8edb9e1cb3a5d091e7677c74dcc7561e49f42a734ff8df7c9237856a082",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_Overhead.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_Overhead.fbx",
+      "bytes": 2229264,
+      "sha256": "1149c5d19f5bdb3f0653b41c746ac2662fc46f034c7edaacdb2d5b378b5f4612",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_PommelStrike.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_PommelStrike.fbx",
+      "bytes": 4397824,
+      "sha256": "6ae8829e4e5c8adcea74c65f372ff2e3d4516d3ad8cc89d5584a44508c02d84b",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_Slash1.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_Slash1.fbx",
+      "bytes": 4855520,
+      "sha256": "fc905ed997b0e9052820ee5a217670d81ace305003c8a7636ec78aceeb8917af",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_Slash2.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_Slash2.fbx",
+      "bytes": 2752768,
+      "sha256": "56d5fde702c5d1d351eca3e7dc9974710113ac88bb20efd9af9d9e63ba4ca26b",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_Thrust.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_Thrust.fbx",
+      "bytes": 3583312,
+      "sha256": "6cbd3e86fdc9e92ce3968f7463972a8335857af8e2f03df454799a792971d6a1",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_Walk.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_Walk.fbx",
+      "bytes": 2455136,
+      "sha256": "b568227825348c2b3f799b63008132d50c22d3ca3fbdbe4fe826b36a03b91f7c",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_WhirlwindV5.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/A_RuneSword_WhirlwindV5.fbx",
+      "bytes": 4953968,
+      "sha256": "05ef808f3ef0a14d4081964b33805087bf11fb95ac044658f8a76fbdc781712f",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/blend_actions.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/blend_actions.json",
+      "bytes": 326,
+      "sha256": "e2cccd39589b8c62459962c8288e6ed336e44df2ca01717ae968f7a1fbf02478",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/Equip_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/Equip_patch.json",
+      "bytes": 1928518,
+      "sha256": "2d75793375d5c4899bfaaaa523389d5e05905c6b43b188d72449c492fef71d03",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/GuardBreak_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/GuardBreak_patch.json",
+      "bytes": 637249,
+      "sha256": "f73742cd4cd2bcaed881f41eb9a8b7d566e3628967cdaa93d14e4568ffd4719c",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/Guard_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/Guard_patch.json",
+      "bytes": 324631,
+      "sha256": "1bf667580dede0845e7bb7047e400ff218cd2602f66151189a17d2a09281a28a",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/HeavyCharge_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/HeavyCharge_patch.json",
+      "bytes": 3211244,
+      "sha256": "ea33641bd9e17c30574d6192c2f23539fe0b5e432a358af83cb7ddce20fa36db",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/HeavyRelease_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/HeavyRelease_patch.json",
+      "bytes": 1606097,
+      "sha256": "755f69a0b8f3905f12987418ee9ce8bf70bb981e58d237742010c054a9d59b82",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/Idle_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/Idle_patch.json",
+      "bytes": 2662590,
+      "sha256": "ceec04302320eeecde2614229eaccdab29526172de7b6492be00613d6f4c2d89",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/Inspect_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/Inspect_patch.json",
+      "bytes": 1157360,
+      "sha256": "a4a5dafa1a05550d7a50e3e714268f422909b1b8252d9bffcf67959ad3df5421",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/Overhead_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/Overhead_patch.json",
+      "bytes": 1040481,
+      "sha256": "cf7b9fdef8ecc818890d9752995868115a653b30686c191e67aaa7483f3ef077",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/PommelStrike_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/PommelStrike_patch.json",
+      "bytes": 2549636,
+      "sha256": "c6897802c0b74ed0b2d051d78f4c14335d09a6ae65edc7f92327e0c129dbebac",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/Slash1_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/Slash1_patch.json",
+      "bytes": 2851464,
+      "sha256": "a1d7e1d76fa8e62a014336a5f3b227a4fddfb4bc2ae2921d6ec1f24cc758e9c4",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/Slash2_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/Slash2_patch.json",
+      "bytes": 1420639,
+      "sha256": "66f8856938c838c1f3ac9d2079e33a9748a05ccc5a01f2ea8df084c1deffe7ec",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/Sword_Idle_ElbowV3.blend",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/Sword_Idle_ElbowV3.blend",
+      "bytes": 162311689,
+      "sha256": "cc94750f83f861a417d568a0bbbb23958c5028bb6a9363bf3a78753ca33c6a8f",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/Sword_Overhead_ElbowV3.blend",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/Sword_Overhead_ElbowV3.blend",
+      "bytes": 166272603,
+      "sha256": "9edc986b0ba22b0e530ff69278f3db8641db1c6967e470e0c830440acd27c033",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/Sword_Walk_ElbowV3.blend",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/Sword_Walk_ElbowV3.blend",
+      "bytes": 163968637,
+      "sha256": "6edd0c150402da9784400d0efebb97b23a70dece5b662aabc8895e87b0313b83",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/Thrust_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/Thrust_patch.json",
+      "bytes": 1992203,
+      "sha256": "44b4c26fe1fa883feac17e731511b541e480b922bec6eb90517bff3b853cc09f",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/Walk_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/Walk_patch.json",
+      "bytes": 729317,
+      "sha256": "f3909f345ffd8ee26bd65aef13fef3d8aa13a722a21982a2d26d8c845250c79b",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/Standard/WhirlwindV5_patch.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/Standard/WhirlwindV5_patch.json",
+      "bytes": 2910180,
+      "sha256": "fa1d188309fd671cff2952fa8a8172a1f2a989bec77baf205dd553f5061bb87a",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/View/after_fp_entry.jpg",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/View/after_fp_entry.jpg",
+      "bytes": 22218,
+      "sha256": "8e2bb3a4f79e0b03f5b6fc4724eaab0f8ac151046cedc903063de04a131fb1d8",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/View/after_fp_idle.jpg",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/View/after_fp_idle.jpg",
+      "bytes": 18848,
+      "sha256": "6b994f64b5d1e1e316e83f7084096582364a576997abd809abea49a2b43b76fa",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/View/after_fp_top.jpg",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/View/after_fp_top.jpg",
+      "bytes": 12034,
+      "sha256": "02d59f1bc8a4e8b52e20c379347fd805aeb4a342355676875fb5bb2f182c7a87",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/View/before_fp_idle.jpg",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/View/before_fp_idle.jpg",
+      "bytes": 19319,
+      "sha256": "fe663031eec65114c6e2087771e988df99b35846e6400de4b63468e5097def33",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/View/before_idle.jpg",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/View/before_idle.jpg",
+      "bytes": 13163,
+      "sha256": "bd2ee5f9e9b894a04182380c0383be925cc01f347db7488fa7a374c7b512c8dc",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/View/before_impact.jpg",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/View/before_impact.jpg",
+      "bytes": 12554,
+      "sha256": "089f5c491c48cb7251d00b851f5d3828cecf7d42c92113594b3bcc4e000ed676",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/View/before_raised.jpg",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/View/before_raised.jpg",
+      "bytes": 13669,
+      "sha256": "ab5b663ac356b2ca3f9366f5ff2c45a4f73d28346592c895a0fed95318cd1e72",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/View/candidate_idle.jpg",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/View/candidate_idle.jpg",
+      "bytes": 13441,
+      "sha256": "c75f2a8b10d3c466512ef6fb86fe0ad03d325c2aee6e273f542cbf4ef66bce68",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/View/candidate_impact.jpg",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/View/candidate_impact.jpg",
+      "bytes": 12556,
+      "sha256": "2138812135b46ac57a9f3a37ee05f289d12f377fcaae88a871a288d25abab463",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/View/candidate_raised.jpg",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/View/candidate_raised.jpg",
+      "bytes": 13681,
+      "sha256": "2c2237b78c3debcd07255ecd08667e5df691d1bb4c928f3f7cd0e46953156c18",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/__pycache__/elbow_solver.cpython-313.pyc",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/__pycache__/elbow_solver.cpython-313.pyc",
+      "bytes": 8053,
+      "sha256": "8f940fe12ae929e4c78798688637257eaa525be4f951e2319235fbb86a72a21a",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/active_summary.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/active_summary.json",
+      "bytes": 6462,
+      "sha256": "a4659d031cdf2a29e031a2c75f5d058d18f4390b18fdba14e06a80cba653f2c5",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/after-idle-vision.txt",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/after-idle-vision.txt",
+      "bytes": 667,
+      "sha256": "c037ad45d177e264c9a169405bcd01dd9f06368d1b8cd59b6ff91206a5ac26b1",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/after_fp_entry.png",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/after_fp_entry.png",
+      "bytes": 642298,
+      "sha256": "d397e13c1c7c9c4d6dcdb825878e8f0925a4f5ddb73c96f4f3bd76440aa7e943",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/after_fp_idle.png",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/after_fp_idle.png",
+      "bytes": 615014,
+      "sha256": "78862d3431731bd675a68e707724a74cb52d8e4894a2c7d8a978ff66ed7b5754",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/after_fp_return.png",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/after_fp_return.png",
+      "bytes": 613789,
+      "sha256": "7ecdddc2f07e32a25ed146e093181408ec8a97230cbc43e253c980849362ab82",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/after_fp_top.png",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/after_fp_top.png",
+      "bytes": 571938,
+      "sha256": "a59071632411e03f38a00a9a26e834b842c44440f9edde47bc1977317065a8fa",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/apply-repair-result-02.txt",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/apply-repair-result-02.txt",
+      "bytes": 532,
+      "sha256": "b0b60ec3b2b35c6a66fbc07c95fbf3e09ddbec4e89c1537c4d377e9df1c65d6a",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/apply-repair-result-03.txt",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/apply-repair-result-03.txt",
+      "bytes": 2174,
+      "sha256": "8b6e9863d119c95d1692b6cbe240d1896fd1a5d1d09a668d9d4dd1da86efe708",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/apply-repair-result.txt",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/apply-repair-result.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/apply_repair.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/apply_repair.py",
+      "bytes": 3394,
+      "sha256": "616c33625ddaa63dbbf507153b36c16704acac17b6c2b8e9f8e85de2db4ede24",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/author-repair-final.log",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/author-repair-final.log",
+      "bytes": 2668,
+      "sha256": "1b1f2752816bd4d614c419d3e853fb3d644a7501040f8fa560eb7ed85e568408",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/author-repair.log",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/author-repair.log",
+      "bytes": 1638,
+      "sha256": "1c9dce12cf80c24a758aa0f4ae09c6f5934c5bdb4cc6da5463527c6687a511db",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/author-whirlwind-seam.log",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/author-whirlwind-seam.log",
+      "bytes": 1148,
+      "sha256": "aaafc52bcb01d60536e372c23f01fe10c541e0d89c0ff303e32ca751238778c7",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/authoring_report.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/authoring_report.json",
+      "bytes": 8571,
+      "sha256": "bdb04cc184e9811b210323fb24df83d50a38b876f6623a61b1d823e00839a7fb",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/author_repair.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/author_repair.py",
+      "bytes": 8022,
+      "sha256": "c57fd8975006de5295ace8fb8df338948b7c013d5bef152634f306f536b66ec8",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/before-idle-vision.txt",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/before-idle-vision.txt",
+      "bytes": 5426,
+      "sha256": "aeb2318d01b97bbeecae3c452b415fd9112da2026e147cb238d0c45ca4421a98",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/before_fp_entry.png",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/before_fp_entry.png",
+      "bytes": 639494,
+      "sha256": "32353321c24b3cb9ba0b4e4eae719263fbbfa90a5acc1e675f40f7a21d311d69",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/before_fp_idle.png",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/before_fp_idle.png",
+      "bytes": 625544,
+      "sha256": "657c89750f7908a3c46dec6a3f7fb28186864274d15368cd8ecf5f14fbc02d76",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/before_fp_return.png",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/before_fp_return.png",
+      "bytes": 623951,
+      "sha256": "eb4477848f491304bb5ccc25dfa447a5f7db876a98c7bee71dda5437ddd79056",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/before_fp_top.png",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/before_fp_top.png",
+      "bytes": 571902,
+      "sha256": "ec4bfe772babac51e8b83a89da6896b1b50f9dc7718d7d6282d424029cdbcb46",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/before_idle.png",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/before_idle.png",
+      "bytes": 492708,
+      "sha256": "8e8eccf09896a7d8a9e1765af9dc866ca2eb0f694f37a56fbff898d111840467",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/before_impact.png",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/before_impact.png",
+      "bytes": 491247,
+      "sha256": "4d58365cb3dc9ecc814aa6201f61cbe1b6912290fe2c8cc95bc986cc62729ca1",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/before_raised.png",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/before_raised.png",
+      "bytes": 499785,
+      "sha256": "557bfb7f11661c695024b0200130943c9f94e5d75b88b9f0066ab67eadddffe1",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/candidate_diagnosis.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/candidate_diagnosis.json",
+      "bytes": 1026,
+      "sha256": "33e07a0432b57d0fc1faec711b3911d73d5c4f5d7d76a1ba8f130e726dfe067c",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/candidate_idle.png",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/candidate_idle.png",
+      "bytes": 496939,
+      "sha256": "21afeeda29112d3c38bf3f990175d1132dbf81a8a79e5a60f8a5fe0064680d67",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/candidate_impact.png",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/candidate_impact.png",
+      "bytes": 491106,
+      "sha256": "69ebcaea7995dd4c050abf384269d91d396918c5ab2dbdbd65e70d51c3fc1629",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/candidate_raised.png",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/candidate_raised.png",
+      "bytes": 499863,
+      "sha256": "470081fe01884f2a1ae927164d933dd66a85ae46a2e1ae2f10e85bb7ffdaccac",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/check-installed-result.txt",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/check-installed-result.txt",
+      "bytes": 1212,
+      "sha256": "abced79654e132c28be2fb3af430d3f1c5b4f654ac6d50c55739bec8277dadc0",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/check_installed_elbows.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/check_installed_elbows.py",
+      "bytes": 3185,
+      "sha256": "dce5c9d38c8fd44c4a13b5808617af40f23558e9878ab974f477d623615076bd",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/diagnose-source.log",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/diagnose-source.log",
+      "bytes": 7786,
+      "sha256": "478f04a4069d93d694d72e1f7301d33fb21a7ba4f005fa5e9016ffbc1d3ef6b5",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/diagnose_source.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/diagnose_source.py",
+      "bytes": 4079,
+      "sha256": "c105f4d8bd178a94fa6ad4377ef5c2be85e71b4dc9d60f8b654dc039c86551cd",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/elbow_solver.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/elbow_solver.py",
+      "bytes": 3617,
+      "sha256": "f83bc9a52707a1fac8079e12bdad580eb635078e2a401e63024b06e7dd48b242",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/idle-before-after.png",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/idle-before-after.png",
+      "bytes": 488511,
+      "sha256": "ee4e47244a75dbae8aca7905c5cfea72d0b5a63436735f0e4e052aaacc30d3ca",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/installed_elbow_diagnosis.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/installed_elbow_diagnosis.json",
+      "bytes": 4358,
+      "sha256": "b8ad17cf3e581db2fc98fded606c3ee184381a5da327bce3456e5e07e081dc9c",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/make_comparison.ps1",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/make_comparison.ps1",
+      "bytes": 916,
+      "sha256": "5df975eafcb331a4088261f36d777945b17dde91ab82c4e97ed946fa7a752f01",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/prepare-import-result.txt",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/prepare-import-result.txt",
+      "bytes": 140,
+      "sha256": "2ce3817000739572a584ed4c0bb7e4ae0744a7a9c25d9d927d6b1bbb95f6c1e7",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/read-active-result.txt",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/read-active-result.txt",
+      "bytes": 460,
+      "sha256": "1ba3d981c6e4beea5dea95418d699c4b596bc7fa9988e83fe13f63c674d0394f",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/read-seams-result-02.txt",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/read-seams-result-02.txt",
+      "bytes": 110,
+      "sha256": "1fcdb25b9b6f26a6bc9015064b9f2456400803ee4ebdd60fb3b4df7e300523b2",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/read-seams-result.txt",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/read-seams-result.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/read-whirlwind-result.txt",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/read-whirlwind-result.txt",
+      "bytes": 118,
+      "sha256": "633efe09d6e980dc6d2edaa107a01dc7d89e20800ef88a68c37b459006c22b07",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/read_active.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/read_active.py",
+      "bytes": 2602,
+      "sha256": "9b289ae744bb649c48b91a673de1e3fafe084a59d998a05745eb7ab18d1841ee",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/read_seams.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/read_seams.py",
+      "bytes": 1127,
+      "sha256": "e7ed79514844d5e98f076d326f77b719b7ce8a5ec5cac0e9494c4e1c9aaf78d2",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/read_whirlwind_seam.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/read_whirlwind_seam.py",
+      "bytes": 1379,
+      "sha256": "148fdc27fe3b028b7b2363f3f921b283a56d53ca773a6c448453284e910d6685",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/render-repair.log",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/render-repair.log",
+      "bytes": 2692,
+      "sha256": "b40e16ad8942141ebcf954a1e713fab039abbc73574c1fb02ad21612f527f542",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/render_repair.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/render_repair.py",
+      "bytes": 1964,
+      "sha256": "c2d7abbbbbdc52e9be6c1a01bbac864caa1eb3a93b23deafc3658ba5fa88448f",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/source_diagnosis.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/source_diagnosis.json",
+      "bytes": 12041,
+      "sha256": "50586d423ac295e8811be3a2da1628d6cf4dcffa8845e86e3a41ac844ce3d1d2",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/try-elbow.log",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/try-elbow.log",
+      "bytes": 2213,
+      "sha256": "cd9e9b89f929e94937670e2bc69e3f35604b9f937ae37e60fe686dbfa681a6df",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/try-elbow2.log",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/try-elbow2.log",
+      "bytes": 2211,
+      "sha256": "324782dbb3ca75a48e6fe2b4870dcd6a0d56e90720fab255d8e84e092afebb64",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordElbowRepair20260920/try_elbow.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordElbowRepair20260920/try_elbow.py",
+      "bytes": 2797,
+      "sha256": "1c70b0158117985d9749aff1e6d303c604201265fd7564a51e98173dcd3d2008",
+      "reason": "Rejected V3 elbow lowering; live coordinate helpers and original snapshots retained.",
+      "replacement": "SourceAssets/RuneSwordWristLocked20260920; SourceAssets/RuneSwordDowncutReach20260920"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/Before/LongGrip/A_RuneSword_Overhead.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/Before/LongGrip/A_RuneSword_Overhead.uasset",
+      "bytes": 3716674,
+      "sha256": "3d799d0846b38db58ea98ea4d22473bcedfb39203f316e0438a5118d764969c2",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/Before/Standard/A_RuneSword_Overhead.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/Before/Standard/A_RuneSword_Overhead.uasset",
+      "bytes": 3721974,
+      "sha256": "3a33460eb6e6cf5f004109835e0812cee3a78896ee932fbf6602a0be4d274b03",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/LongGrip/A_RuneSword_Overhead.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/LongGrip/A_RuneSword_Overhead.fbx",
+      "bytes": 2387196,
+      "sha256": "a12fb857d7909ad5079d416972e776274bcd0aebc30b1f032051dfbad2761aad",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/LongGrip/editable_keys.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/LongGrip/editable_keys.json",
+      "bytes": 7836294,
+      "sha256": "dc54e6543e0b0c224529056ed617aef29f9bf4471dda7e914def13fe0e2d909a",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/LongGrip/Sword_PickaxeOverhead_Editable.blend",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/LongGrip/Sword_PickaxeOverhead_Editable.blend",
+      "bytes": 158400487,
+      "sha256": "4b1504586dd1afc551208c780839462013c25a71e96650e67b1b9a28a3699707",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/Standard/A_RuneSword_Overhead.fbx",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/Standard/A_RuneSword_Overhead.fbx",
+      "bytes": 2386764,
+      "sha256": "78689899c54959d4246683cb41ea11bd4098a96790763f4ad195001daca413cc",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/Standard/editable_keys.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/Standard/editable_keys.json",
+      "bytes": 7820959,
+      "sha256": "46dff4281123a90011ee75687c8b8a111c5d4a20628dd687f6f9ada92b74f19b",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/Standard/Sword_PickaxeOverhead_Editable.blend",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/Standard/Sword_PickaxeOverhead_Editable.blend",
+      "bytes": 156040776,
+      "sha256": "950381da0abe555f98801886818f69037dcfcc47505bcf10fe3424f6a30c55e1",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/author.log",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/author.log",
+      "bytes": 1547,
+      "sha256": "1ec63ef2d9e6c0f9cadc0f1afcd6711d7ec2f1799b9fbe87a1f96949afa028ea",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/authoring.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/authoring.json",
+      "bytes": 3811,
+      "sha256": "957c362b5bd201f73eea27e59076713b08aac4e6960cb9d69ea60973f0bf3f2b",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/author_overhead.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/author_overhead.py",
+      "bytes": 9458,
+      "sha256": "bd7851c03d4477b59b810907bf0af23ad0638c0aaf74da9acc2bcaed6866918a",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/import-result.txt",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/import-result.txt",
+      "bytes": 200,
+      "sha256": "9e91a41d000d843c2814e3fc297cfe1d697ad38a05d93ed4143e2f133d560d0f",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/import_overhead.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/import_overhead.py",
+      "bytes": 4049,
+      "sha256": "b4029455e73a1eaae09ab14b4741e525c506edd3ef36118851691de6377a9939",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/import_receipt.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/import_receipt.json",
+      "bytes": 1313,
+      "sha256": "c82107416b931bc459a239c63d35deca969930b2750e039332452f085421d2da",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/prepare-import-result.txt",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/prepare-import-result.txt",
+      "bytes": 140,
+      "sha256": "dfcfe511ebe702d9bae64e335820383ceb195190a9ea7bc39b464e23f8800b91",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/prepare_import.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/prepare_import.py",
+      "bytes": 348,
+      "sha256": "d5f6e71753959e4b69c74c0dd7cbd36aa5658a88e21c3bab7ae674e643ab9882",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/read-source.log",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/read-source.log",
+      "bytes": 2212,
+      "sha256": "afd97ea1c4bf1d565801d21e7661b2b230ffb5ae4e3493bbf1a3347820878950",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/read_authoring_source.py",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/read_authoring_source.py",
+      "bytes": 3073,
+      "sha256": "f526242938094443aad6c5490e1b60333a956744105e6a710d449b76487394a5",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/reference_pickaxe_0.00.png",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/reference_pickaxe_0.00.png",
+      "bytes": 257116,
+      "sha256": "65d6ad10de8638adfc11b12b9323e490a106610b9c78bc815e9a86f7248cd428",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/reference_pickaxe_0.32.png",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/reference_pickaxe_0.32.png",
+      "bytes": 264466,
+      "sha256": "c48dc323ecd8cdab8d0f4db876cb822c0070bdc188f9576047b8cc23616ea317",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/reference_pickaxe_0.47.png",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/reference_pickaxe_0.47.png",
+      "bytes": 262113,
+      "sha256": "5667a7590b7fcf78a8a43ae2542adafadc9f02d4817994b0911a1994326a0be5",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/reference_pickaxe_0.60.png",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/reference_pickaxe_0.60.png",
+      "bytes": 254604,
+      "sha256": "0e7b9f9efe7a873c547d23e383237158bdf0265d55cde2cb9b29715f2b22000b",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/source_layout.json",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/source_layout.json",
+      "bytes": 33956,
+      "sha256": "340d9b61e2b9d4464f506a27e9a17c9aa310bca0145f7ae9499b31b9d2a3110e",
+      "reason": "First pickaxe-derived overhead superseded by ImpactV2 and downcut V5.",
+      "replacement": "SourceAssets/RuneSwordDowncutReach20260920; RuneSwordPickaxeOverhead20260920/ImpactV2"
+    },
+    {
+      "source": "SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5/Before/PistolDualWieldComponent.cpp",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5/Before/PistolDualWieldComponent.cpp",
+      "bytes": 31184,
+      "sha256": "824112f37417adc3fcf964bfa62fa39adbaf751277ab2c83611036ee61526ca9",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/ImpactV2/Before/LongGrip/A_RuneSword_Overhead.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/ImpactV2/Before/LongGrip/A_RuneSword_Overhead.uasset",
+      "bytes": 2187643,
+      "sha256": "5e9fc0ee82b3f1c210a9e6ae4f36270780c2969ffd047367efdfdd0715ec320d",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPickaxeOverhead20260920/ImpactV2/Before/Standard/A_RuneSword_Overhead.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordPickaxeOverhead20260920/ImpactV2/Before/Standard/A_RuneSword_Overhead.uasset",
+      "bytes": 2159916,
+      "sha256": "e02a4138475d7376e04f6a5de3732a971dfa68e3b9e7a9f761c5b0f4c3ea33ba",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_Equip.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_Equip.uasset",
+      "bytes": 3483276,
+      "sha256": "5ef7e270733d3eda0fea8ee5effb86854c95b6aefd10383dfdbb070c1f54e320",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_Guard.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_Guard.uasset",
+      "bytes": 700282,
+      "sha256": "6d966e203cefaf8d13278cc72c3a608d0903bd42c43f684effbb4680f7b45f2d",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_GuardBreak.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_GuardBreak.uasset",
+      "bytes": 1327243,
+      "sha256": "e781d7c8c2ff2e24ef9c4907af1e39949e480ee2179839ff01f5c77d4e1e700b",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_HeavyCharge.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_HeavyCharge.uasset",
+      "bytes": 5393748,
+      "sha256": "16e09dc1abb410e7ab1f472a022e827c87b1f601b80033e594cd8d72bed85a38",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_HeavyRelease.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_HeavyRelease.uasset",
+      "bytes": 2921139,
+      "sha256": "00571d4d6053c327b392895a4b27d51d6afe46acb791a3eee0d7e2cc9bacea6a",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_Idle.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_Idle.uasset",
+      "bytes": 2565002,
+      "sha256": "bd140d18ca605608a087c71da078df409eb6726b0770bab5c3e881afc40c1203",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_Inspect.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_Inspect.uasset",
+      "bytes": 3197909,
+      "sha256": "5460ae47b85c07626e96a52b1ea370bf67af58ccefad22c1fde0aeb6eecfc302",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_Overhead.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_Overhead.uasset",
+      "bytes": 1957435,
+      "sha256": "0d6f22a446adffd348e684c178d2010eac4b79ad75ddbf2b6227764519096477",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_PommelStrike.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_PommelStrike.uasset",
+      "bytes": 3918631,
+      "sha256": "d90e46c6fda208f81ae4cc2427195052473c788d3f167aff85d9c064e9deb011",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_Slash1.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_Slash1.uasset",
+      "bytes": 5072236,
+      "sha256": "747641d15d717276aa83a2a792cd25c05242e51b9584d86f9715bee676a393cf",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_Slash2.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_Slash2.uasset",
+      "bytes": 2358902,
+      "sha256": "482597399566902fcc82714099e87269e2166a8d2678a75855f1741ddd5eaf8f",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_Thrust.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_Thrust.uasset",
+      "bytes": 3162238,
+      "sha256": "3be448424b0aba87fe7e74696ef1696b78006385c3de31b9208a778bda2fa975",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_Walk.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_Walk.uasset",
+      "bytes": 967110,
+      "sha256": "7a77fe0b534799bde52918b0a5e03d54c92f1225d96951c4d53020e7ab2fa8da",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_WhirlwindV5.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/LongGrip/A_RuneSword_WhirlwindV5.uasset",
+      "bytes": 5116640,
+      "sha256": "05d36f98265dd84bca2ebc3dd2325ae811462f1afef91d316d0ccc31e5fc492e",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_Equip.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_Equip.uasset",
+      "bytes": 3485327,
+      "sha256": "0cbcd80d41eb0f2d8e260cb0bb958fe23eded6edc9059feafeae26086d7c288f",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_Guard.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_Guard.uasset",
+      "bytes": 699343,
+      "sha256": "9bbec48a348c97d711d6c7d79a2c1c6ffe9306af24293a58de66a752efaaba03",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_GuardBreak.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_GuardBreak.uasset",
+      "bytes": 1326269,
+      "sha256": "88d45698c84b0da4dc82702f4b9705edf74b968546de0c85a3b85607497a70f4",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_HeavyCharge.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_HeavyCharge.uasset",
+      "bytes": 5393230,
+      "sha256": "5422989f1192ce1613e3375895723363889fbcdf3f05ab23637655c9b6bd80a0",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_HeavyRelease.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_HeavyRelease.uasset",
+      "bytes": 2920585,
+      "sha256": "44cfb38957297e57323ee65b68ddaf1f8c90d5c6f44442f57f7afc3c019b50c8",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_Idle.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_Idle.uasset",
+      "bytes": 2567027,
+      "sha256": "96b45136a3eb5a5dc6e9f1cf288e487f4b0fa9818408a1f27b95153c4c23c824",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_Inspect.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_Inspect.uasset",
+      "bytes": 3199970,
+      "sha256": "c156ab4642facecddd5641678116db0e73cead5918c0a1992494a61b78548311",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_Overhead.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_Overhead.uasset",
+      "bytes": 1937193,
+      "sha256": "6079c2ccec1eafcc87ccbf3fc52c5322a4c5d9ffb75ba6da839f677205d95039",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_PommelStrike.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_PommelStrike.uasset",
+      "bytes": 3994515,
+      "sha256": "aa9d7bbde05013b47b05801acf152b00f7c249402c0673f808d429b31c9db28b",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_Slash1.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_Slash1.uasset",
+      "bytes": 5071733,
+      "sha256": "4fb27725729d314394069451e21fe0de3b2ab836c4c4455bfb4df36639d241e8",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_Slash2.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_Slash2.uasset",
+      "bytes": 2360951,
+      "sha256": "1fe7b0c1bcfbc58cb7b608d529d39d072f0562f9ae6754a68d027243d52157b0",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_Thrust.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_Thrust.uasset",
+      "bytes": 3164259,
+      "sha256": "851cc4fd5e712a067cd0cdfb91c67a793585d85cff14c5ac472750afa29c726d",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_Walk.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_Walk.uasset",
+      "bytes": 969146,
+      "sha256": "4b8fc96856899a4f843960644339e76b47f5ec7a85f447ba4a8b6e5dfe818bfa",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_WhirlwindV5.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordWristLocked20260920/Before/Standard/A_RuneSword_WhirlwindV5.uasset",
+      "bytes": 5116095,
+      "sha256": "1f222a2ff7b8173595719df86c0458f25bbc6c9ecdbc6b9ac8a2f8542a695f29",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordDowncutReach20260920/Before/LongGrip/A_RuneSword_Overhead.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordDowncutReach20260920/Before/LongGrip/A_RuneSword_Overhead.uasset",
+      "bytes": 1957434,
+      "sha256": "fbb3c151f4305d1d1bbfb8d3c614e38540ccbf4ddf697d9106c699ae1bd1ecfd",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "SourceAssets/RuneSwordDowncutReach20260920/Before/Standard/A_RuneSword_Overhead.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/SourceAssets/RuneSwordDowncutReach20260920/Before/Standard/A_RuneSword_Overhead.uasset",
+      "bytes": 1937192,
+      "sha256": "4f27b10b52919d56b706a97b6ad9db15de021940b02f198a697fb2c424b35a61",
+      "reason": "Superseded pre-change snapshot; retained here for targeted recovery, never whole-file rollback.",
+      "replacement": "Current adjacent authoring directory"
+    },
+    {
+      "source": "Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/DW715/l/Animations/A_Dual_DW715_l_quickcombat_fitted.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/DW715/l/Animations/A_Dual_DW715_l_quickcombat_fitted.uasset",
+      "bytes": 524861,
+      "sha256": "0cb6498802fb815930c7fbc837afb96f472883dc918b5711e9118a6d9204e7dc",
+      "reason": "Unreferenced superseded dual-melee clip; removed via editor asset API.",
+      "replacement": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/DW715/l/Animations/A_Dual_DW715_l_quickcombat_left_fitted.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/DW715/l/Animations/A_Dual_DW715_l_quickcombat_left_fitted.uasset",
+      "bytes": 580870,
+      "sha256": "e16c6126a6acd12f2dd335cac73f05158c3f387be8cb923e8e8b642158722b3f",
+      "reason": "Unreferenced superseded dual-melee clip; removed via editor asset API.",
+      "replacement": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/DW715/r/Animations/A_Dual_DW715_r_quickcombat_fitted.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/DW715/r/Animations/A_Dual_DW715_r_quickcombat_fitted.uasset",
+      "bytes": 568364,
+      "sha256": "fa04c272a27f81eb9d4a48b51818dc7fff4bb667bcc3962ec49a225a4f9f7482",
+      "reason": "Unreferenced superseded dual-melee clip; removed via editor asset API.",
+      "replacement": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/DW715/r/Animations/A_Dual_DW715_r_quickcombat_left_fitted.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/DW715/r/Animations/A_Dual_DW715_r_quickcombat_left_fitted.uasset",
+      "bytes": 521896,
+      "sha256": "ce9ce9de768adcd2b9b20e85fd1c902ae1157d190f9173baa4240c2769bd5a36",
+      "reason": "Unreferenced superseded dual-melee clip; removed via editor asset API.",
+      "replacement": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/l/Animations/A_Dual_M1911_l_quickcombat_fitted.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/l/Animations/A_Dual_M1911_l_quickcombat_fitted.uasset",
+      "bytes": 492829,
+      "sha256": "1db4d7ebd8886653ee25f15d0795c662785c6d4628b8dd19f17eb4798f8310f4",
+      "reason": "Unreferenced superseded dual-melee clip; removed via editor asset API.",
+      "replacement": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/l/Animations/A_Dual_M1911_l_quickcombat_fitted_empty.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/l/Animations/A_Dual_M1911_l_quickcombat_fitted_empty.uasset",
+      "bytes": 492917,
+      "sha256": "1e6c2dedbdbfe11b9727cf5137aa175e2a79ac83e5decf7d7790580370c13607",
+      "reason": "Unreferenced superseded dual-melee clip; removed via editor asset API.",
+      "replacement": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/l/Animations/A_Dual_M1911_l_quickcombat_left_fitted.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/l/Animations/A_Dual_M1911_l_quickcombat_left_fitted.uasset",
+      "bytes": 545686,
+      "sha256": "2a1e95bd4655afe016cc2056136cd6dede3677002dbfd81d111ea921633da9db",
+      "reason": "Unreferenced superseded dual-melee clip; removed via editor asset API.",
+      "replacement": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/l/Animations/A_Dual_M1911_l_quickcombat_left_fitted_empty.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/l/Animations/A_Dual_M1911_l_quickcombat_left_fitted_empty.uasset",
+      "bytes": 545773,
+      "sha256": "2ee503ed56fa417e31c5090e5f9db0560052cc76507dfe15ed580f6529560b70",
+      "reason": "Unreferenced superseded dual-melee clip; removed via editor asset API.",
+      "replacement": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/r/Animations/A_Dual_M1911_r_quickcombat_fitted.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/r/Animations/A_Dual_M1911_r_quickcombat_fitted.uasset",
+      "bytes": 532868,
+      "sha256": "35eaf355cbae6972663ee97d9fd32529a91297605c5d240c56af37f5e975606e",
+      "reason": "Unreferenced superseded dual-melee clip; removed via editor asset API.",
+      "replacement": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/r/Animations/A_Dual_M1911_r_quickcombat_fitted_empty.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/r/Animations/A_Dual_M1911_r_quickcombat_fitted_empty.uasset",
+      "bytes": 536503,
+      "sha256": "e31cc732bd428047e3c732515d87d1ae03cc03b49924ed58444320651d5e39b5",
+      "reason": "Unreferenced superseded dual-melee clip; removed via editor asset API.",
+      "replacement": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/r/Animations/A_Dual_M1911_r_quickcombat_left_fitted.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/r/Animations/A_Dual_M1911_r_quickcombat_left_fitted.uasset",
+      "bytes": 480579,
+      "sha256": "4f94a47756bb966ca2f448273b1464f2a101eb01c25aacb9e1991a35ecd3d4ea",
+      "reason": "Unreferenced superseded dual-melee clip; removed via editor asset API.",
+      "replacement": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/r/Animations/A_Dual_M1911_r_quickcombat_left_fitted_empty.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/Content/Weapons/DualPistolQuickCombat20260920/AttachmentClearanceV4/M1911/r/Animations/A_Dual_M1911_r_quickcombat_left_fitted_empty.uasset",
+      "bytes": 480655,
+      "sha256": "d6f46b53e3456c9c38c4367c6825b6fdc4e9e98df8b6117c170f44ba0da32733",
+      "reason": "Unreferenced superseded dual-melee clip; removed via editor asset API.",
+      "replacement": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "Content/Weapons/DualPistolQuickCombat20260920/DW715/l/Animations/A_Dual_DW715_l_quickcombat.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/Content/Weapons/DualPistolQuickCombat20260920/DW715/l/Animations/A_Dual_DW715_l_quickcombat.uasset",
+      "bytes": 431614,
+      "sha256": "ae6140d257ccca2fcce5bca81bf49223258d43d4cf49e978e1a288614c1b15cd",
+      "reason": "Unreferenced superseded dual-melee clip; removed via editor asset API.",
+      "replacement": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "Content/Weapons/DualPistolQuickCombat20260920/DW715/r/Animations/A_Dual_DW715_r_quickcombat.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/Content/Weapons/DualPistolQuickCombat20260920/DW715/r/Animations/A_Dual_DW715_r_quickcombat.uasset",
+      "bytes": 515268,
+      "sha256": "23701d8d09118da10ec51a54b0fe89b14ed6826e981c9642d26e5cb698d55b0b",
+      "reason": "Unreferenced superseded dual-melee clip; removed via editor asset API.",
+      "replacement": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "Content/Weapons/DualPistolQuickCombat20260920/M1911/l/Animations/A_Dual_M1911_l_quickcombat.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/Content/Weapons/DualPistolQuickCombat20260920/M1911/l/Animations/A_Dual_M1911_l_quickcombat.uasset",
+      "bytes": 411494,
+      "sha256": "f7578df7ea259e81817209b3fbf4d4bed779f8ec8c2eb306dee4b688d9b12d16",
+      "reason": "Unreferenced superseded dual-melee clip; removed via editor asset API.",
+      "replacement": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "Content/Weapons/DualPistolQuickCombat20260920/M1911/l/Animations/A_Dual_M1911_l_quickcombat_empty.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/Content/Weapons/DualPistolQuickCombat20260920/M1911/l/Animations/A_Dual_M1911_l_quickcombat_empty.uasset",
+      "bytes": 411594,
+      "sha256": "3ef3241a6bbd2da688ad3ca7042b1d9d81e197cc32822583cf7e028ee5a28f92",
+      "reason": "Unreferenced superseded dual-melee clip; removed via editor asset API.",
+      "replacement": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "Content/Weapons/DualPistolQuickCombat20260920/M1911/r/Animations/A_Dual_M1911_r_quickcombat.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/Content/Weapons/DualPistolQuickCombat20260920/M1911/r/Animations/A_Dual_M1911_r_quickcombat.uasset",
+      "bytes": 482254,
+      "sha256": "8c6947fa93db88bf02c3dad97649ccf3b0a4451f3bcfa6fb9d1abdc13ed5850e",
+      "reason": "Unreferenced superseded dual-melee clip; removed via editor asset API.",
+      "replacement": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    },
+    {
+      "source": "Content/Weapons/DualPistolQuickCombat20260920/M1911/r/Animations/A_Dual_M1911_r_quickcombat_empty.uasset",
+      "destination": "trash/dual-melee-overhead-retired-20260920/Content/Weapons/DualPistolQuickCombat20260920/M1911/r/Animations/A_Dual_M1911_r_quickcombat_empty.uasset",
+      "bytes": 482360,
+      "sha256": "dd804153789f91555ddcad1bed4df80c76400884db431cd5522ef89045e99492",
+      "reason": "Unreferenced superseded dual-melee clip; removed via editor asset API.",
+      "replacement": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5"
+    }
+  ]
+}

@@ -279,3 +279,27 @@ __pycache__/
 # Sword modular authoring: dense interface samples remain with licensed local sources.
 /SourceAssets/RuneSwordModules20260919/interfaces.json
 /SourceAssets/SharedSwordPommels20260920/mount_sources.json
+
+# Dual melee / sword reach: publish authored code and docs, retain licensed payloads locally.
+/SourceAssets/DualPistolQuickCombat20260920/**
+!/SourceAssets/DualPistolQuickCombat20260920/**/
+!/SourceAssets/DualPistolQuickCombat20260920/**/*.py
+!/SourceAssets/DualPistolQuickCombat20260920/**/*.md
+!/SourceAssets/DualPistolQuickCombat20260920/VideoRefV3/motion.json
+/SourceAssets/RuneSwordPickaxeOverhead20260920/**
+!/SourceAssets/RuneSwordPickaxeOverhead20260920/**/
+!/SourceAssets/RuneSwordPickaxeOverhead20260920/**/*.py
+!/SourceAssets/RuneSwordPickaxeOverhead20260920/**/*.md
+/SourceAssets/RuneSwordElbowRepair20260920/**
+!/SourceAssets/RuneSwordElbowRepair20260920/pose_conversion.py
+!/SourceAssets/RuneSwordElbowRepair20260920/README.md
+/SourceAssets/RuneSwordWristLocked20260920/**
+!/SourceAssets/RuneSwordWristLocked20260920/**/
+!/SourceAssets/RuneSwordWristLocked20260920/**/*.py
+!/SourceAssets/RuneSwordWristLocked20260920/**/*.ps1
+!/SourceAssets/RuneSwordWristLocked20260920/**/*.md
+/SourceAssets/RuneSwordDowncutReach20260920/**
+!/SourceAssets/RuneSwordDowncutReach20260920/**/
+!/SourceAssets/RuneSwordDowncutReach20260920/**/*.py
+!/SourceAssets/RuneSwordDowncutReach20260920/**/*.md
+/SourceAssets/MeleePublication20260920/

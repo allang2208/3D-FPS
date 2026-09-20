@@ -71,6 +71,7 @@ UCLASS()
 class FPSGAME_API UPistolDualWieldComponent : public UActorComponent
 {
     GENERATED_BODY()
+    friend class FDualPistolQuickCombatRegression;
 public:
     UPistolDualWieldComponent();
     bool IsActive() const { return bActive; }
@@ -94,6 +95,9 @@ public:
     void Trigger(int32 Index,bool Pressed);
     void Reload();
     void CancelInputs();
+    bool BeginQuickCombat();
+    bool IsQuickCombatActive() const;
+    bool GetQuickCombatStrikeProbe(FVector& OutOrigin,float ContactTime);
     void SyncInventory(TArray<FColdSteelItem>& Items) const;
     int32 Reserve(int32 Index) const;
 private:
@@ -117,4 +121,7 @@ private:
     void Cue(int32 Index,const FString& Name,float At,float Previous,float Now);
     void Pose(int32 Index,float Delta);
     bool InputAvailable() const;
+    bool IsQuickCombatClip(int32 Index) const;
+    const TCHAR* QuickCombatBlockReason() const;
+    FString QuickCombatClipKind(int32 Side,bool LeftStrike) const;
 };

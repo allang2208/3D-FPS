@@ -7,6 +7,8 @@
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "FPSCastingMeshComponent.h"
 #include "../Weapons/FPSGunplayAnimInstance.h"
+#include "../Weapons/PistolDualWieldComponent.h"
+#include "../Weapons/DualPistolQuickCombatMotion.h"
 #include "Engine/World.h"
 #include "GameFramework/Pawn.h"
 #include "Kismet/GameplayStatics.h"
@@ -20,15 +22,22 @@ UFPSQuickCombatComponent::UFPSQuickCombatComponent()
     ConfigureForClipLength(QuickCombatPistolMotion::DefaultLength);
 }
 
-void UFPSQuickCombatComponent::ConfigureForClipLength(float Length)
+void UFPSQuickCombatComponent::ConfigureForClipLength(float Length,bool bDualPistol)
 {
     using namespace QuickCombatPistolMotion;
-    Style=EQuickCombatStyle::Pistol;
+    Style=bDualPistol?EQuickCombatStyle::DualPistol:EQuickCombatStyle::Pistol;
     ClipLength=FMath::Max(0.05f,Length);
     ReleaseEnd=ClipLength*ReleaseFraction;
     CockEnd=ClipLength*CockFraction;
     ContactTime=ClipLength*ContactFraction;
     FollowEnd=ClipLength*FollowFraction;
+    if(bDualPistol)
+    {
+        ReleaseEnd=ClipLength*DualPistolQuickCombatMotion::ReleaseFraction;
+        CockEnd=ClipLength*DualPistolQuickCombatMotion::CockFraction;
+        ContactTime=ClipLength*DualPistolQuickCombatMotion::ContactFraction;
+        FollowEnd=ClipLength*DualPistolQuickCombatMotion::FollowFraction;
+    }
     AttackEnd=ClipLength;
 }
 
@@ -95,7 +104,7 @@ void UFPSQuickCombatComponent::Cancel()
 bool UFPSQuickCombatComponent::IsImpactPaused() const
 {
     const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
-    return Player&&Player->bUseASH12&&Style!=EQuickCombatStyle::Pistol
+    return Player&&Player->bUseASH12&&!IsPistolStyle()
         &&Phase!=EQuickCombatBashPhase::None&&ImpactStrength>0.f
         &&ImpactAge<QuickCombatRifleMotion::ASH12HitStopSeconds;
 }
@@ -131,8 +140,37 @@ void UFPSQuickCombatComponent::GetCameraMotion(FVector& Location,FRotator& Rotat
         if(bContactDone)QuickCombatImpactShake::Add(ImpactAge,Location,Rotation);
         return;
     }
+    if(Style==EQuickCombatStyle::DualPistol)
+    {
+        // Follow the lateral whip, leaving the gun roll to the authored bones.
+        // The sign follows the same accepted action as the contact probe.
+        const float Sign=DualPistolQuickCombatMotion::StrikingHand(Serial)==0?1.f:-1.f;
+        const float U=ActionAge/FMath::Max(ClipLength,.001f);
+        const float Contact=DualPistolQuickCombatMotion::ContactFraction;
+        const float Follow=DualPistolQuickCombatMotion::FollowFraction;
+        if(U<Contact)
+        {
+            const float T=FMath::SmoothStep(0.f,1.f,U/Contact);
+            Location=FVector(1.2f,-.5f*Sign,-.35f)*T;
+            Rotation=FRotator(-.55f,-1.1f*Sign,-.85f*Sign)*T;
+        }
+        else if(U<Follow)
+        {
+            const float T=FMath::SmoothStep(0.f,1.f,(U-Contact)/(Follow-Contact));
+            Location=FMath::Lerp(FVector(1.2f,-.5f*Sign,-.35f),FVector(.2f,.35f*Sign,-.2f),T);
+            Rotation=FMath::Lerp(FRotator(-.55f,-1.1f*Sign,-.85f*Sign),FRotator(-.2f,.55f*Sign,.4f*Sign),T);
+        }
+        else
+        {
+            const float Weight=1.f-FMath::SmoothStep(0.f,1.f,(U-Follow)/(.72f-Follow));
+            Location=FVector(.2f,.35f*Sign,-.2f)*Weight;
+            Rotation=FRotator(-.2f,.55f*Sign,.4f*Sign)*Weight;
+        }
+        if(bContactDone)QuickCombatImpactShake::Add(ImpactAge,Location,Rotation);
+        return;
+    }
     // 步枪的整枪抬升与下扫使用更大的动作镜头幅度；判定冲量统一。
-    const bool bRifle=Style!=EQuickCombatStyle::Pistol;
+    const bool bRifle=!IsPistolStyle();
     const float Shape=bRifle?QuickCombatRifleMotion::RifleCameraShapeScale:1.f;
     const float Strength=bRifle?QuickCombatRifleMotion::RifleStockCameraStrength:PistolBashCameraStrength;
     // 镜头语言分两层（与剑版同一合同）：
@@ -178,7 +216,8 @@ void UFPSQuickCombatComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     // The character advances ASH before sampling its pose and camera. Never
     // advance twice or let the wall-clock state finish through a hit stop.
     const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
-    if(Player&&Player->bUseASH12&&Style!=EQuickCombatStyle::Pistol&&IsOccupyingLeftHand())return;
+    if(Player&&Player->IsDualWieldingPistols()&&Style==EQuickCombatStyle::DualPistol)return;
+    if(Player&&Player->bUseASH12&&!IsPistolStyle()&&IsOccupyingLeftHand())return;
     AdvanceAction(Delta);
 }
 
@@ -188,13 +227,14 @@ void UFPSQuickCombatComponent::AdvanceAction(float Delta)
     ImpactAge=FMath::Min(1.f+QuickCombatPistolMotion::ImpactSpan,ImpactAge+Delta);
     if(Phase==EQuickCombatBashPhase::None)return;
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
-    // 换枪/双持/死亡立刻收手；冷却与已提交的修炼照常保留。
+    // 单双持切换、换枪或死亡结束本次动作，保留已提交冷却与修炼。
     const auto* Health=Player?Player->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
-    const bool bWeaponMatches=Player&&(Style!=EQuickCombatStyle::Pistol
-        ?!Player->IsPistolWeapon()
-        :(Player->IsPistolWeapon()&&!Player->IsDualWieldingPistols()));
+    const bool bWeaponMatches=Player&&(Style==EQuickCombatStyle::DualPistol
+        ?Player->IsDualWieldingPistols()
+        :(!IsPistolStyle()?!Player->IsPistolWeapon()
+            :(Player->IsPistolWeapon()&&!Player->IsDualWieldingPistols())));
     if(!Player||!bWeaponMatches||(Health&&Health->IsDead())){Cancel();return;}
-    const bool bASH12=Player->bUseASH12&&Style!=EQuickCombatStyle::Pistol;
+    const bool bASH12=Player->bUseASH12&&!IsPistolStyle();
     if(bASH12)
     {
         using namespace QuickCombatRifleMotion;
@@ -262,10 +302,13 @@ void UFPSQuickCombatComponent::ContactHit()
         }
     }
     // 手枪：握把底（手骨 + 相机空间偏移）；步枪：枪身前段（枪口沿枪轴回撤，跟随实际挥击姿态）。
-    const bool bRifle=Style!=EQuickCombatStyle::Pistol;
-    const bool bProbe=bRifle
-        ?(Viewmodel&&Viewmodel->GetRifleStockMeleeProbe(ProbeOrigin,Style==EQuickCombatStyle::M4ReferenceRifle))
-        :(Viewmodel&&Viewmodel->GetQuickCombatStrikeProbe(ProbeOrigin));
+    const bool bRifle=!IsPistolStyle();
+    auto* Dual=Player->FindComponentByClass<UPistolDualWieldComponent>();
+    const bool bProbe=Style==EQuickCombatStyle::DualPistol
+        ?(Dual&&Dual->GetQuickCombatStrikeProbe(ProbeOrigin,ContactTime))
+        :(bRifle
+            ?(Viewmodel&&Viewmodel->GetRifleStockMeleeProbe(ProbeOrigin,Style==EQuickCombatStyle::M4ReferenceRifle))
+            :(Viewmodel&&Viewmodel->GetQuickCombatStrikeProbe(ProbeOrigin)));
     if(bProbe)Start=ProbeOrigin;
     const FVector End=Start+Direction*Stats.RangeCM;
     FHitResult Hit;
