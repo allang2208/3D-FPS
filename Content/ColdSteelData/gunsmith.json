@@ -98,6 +98,20 @@
             }
           },
           {
+            "id": "tactical_vertical_foregrip",
+            "name": "战术垂直握把",
+            "description": "收颈式聚合物前握把，带侧面凹区与横向防滑纹，金属夹座适配护木下导轨。",
+            "effects": [
+              {
+                "text": "缩短开镜耗时",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.25
+            }
+          },
+          {
             "id": "vertical_foregrip",
             "name": "垂直握把",
             "description": "直筒式前握把，四指环握与拇指对握，使用专用支撑及换弹回握动作。",
@@ -660,6 +674,20 @@
             "description": "移除护木下方的阻手器。",
             "effects": [],
             "stats": {}
+          },
+          {
+            "id": "tactical_vertical_foregrip",
+            "name": "战术垂直握把",
+            "description": "收颈式聚合物前握把，带侧面凹区与横向防滑纹，金属夹座适配护木下导轨。",
+            "effects": [
+              {
+                "text": "缩短开镜耗时",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.25
+            }
           },
           {
             "id": "vertical_foregrip",
@@ -1271,6 +1299,20 @@
               "recoil_mult": 0.85,
               "stability_mult": 0.85,
               "hip_spread_mult": 0.8
+            }
+          },
+          {
+            "id": "tactical_vertical_foregrip",
+            "name": "战术垂直握把",
+            "description": "收颈式聚合物前握把，带侧面凹区与横向防滑纹，金属夹座适配护木下导轨。",
+            "effects": [
+              {
+                "text": "缩短开镜耗时",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.25
             }
           },
           {
@@ -2403,6 +2445,20 @@
               "recoil_mult": 0.85,
               "stability_mult": 0.85,
               "hip_spread_mult": 0.8
+            }
+          },
+          {
+            "id": "tactical_vertical_foregrip",
+            "name": "战术垂直握把",
+            "description": "收颈式聚合物前握把，带侧面凹区与横向防滑纹，金属夹座适配护木下导轨。",
+            "effects": [
+              {
+                "text": "缩短开镜耗时",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.25
             }
           },
           {

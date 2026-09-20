@@ -243,3 +243,19 @@ __pycache__/
 !/SourceAssets/RusticPickaxe20260919/import_receipt.json
 /SourceAssets/KimodoAxeIdle20260919/BuildH2/authoring.json
 /SourceAssets/KimodoAxeIdle20260919/BuildH3/authoring.json
+
+# Tactical grip / drum publication: code, docs and provenance only; authored payloads remain local.
+/SourceAssets/TacticalVerticalForegrip20260919/**
+!/SourceAssets/TacticalVerticalForegrip20260919/**/
+!/SourceAssets/TacticalVerticalForegrip20260919/**/*.py
+!/SourceAssets/TacticalVerticalForegrip20260919/**/*.md
+!/SourceAssets/TacticalVerticalForegrip20260919/provenance.json
+/SourceAssets/LargeDrumUpgrade20260920/**
+!/SourceAssets/LargeDrumUpgrade20260920/**/
+!/SourceAssets/LargeDrumUpgrade20260920/**/*.py
+!/SourceAssets/LargeDrumUpgrade20260920/**/*.md
+!/SourceAssets/LargeDrumUpgrade20260920/provenance.json
+/SourceAssets/AKMDrumFreeDrop20260920/**
+!/SourceAssets/AKMDrumFreeDrop20260920/**/
+!/SourceAssets/AKMDrumFreeDrop20260920/**/*.py
+!/SourceAssets/AKMDrumFreeDrop20260920/**/*.md

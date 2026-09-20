@@ -377,8 +377,8 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
     if(AKMSoviet::Matches(AKMViewmodel)){
         ReloadAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload"));
         ReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload_empty"));
-        DrumReloadAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_drum_reload"));
-        DrumReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_drum_reload_empty"));
+        DrumReloadAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMDrumFreeDrop20260920/base/A_AKM_drum_reload"));
+        DrumReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMDrumFreeDrop20260920/base/A_AKM_drum_reload_empty"));
     }
     if (bUseQBZ191) {
         DrumReloadAnimation=LoadAKMAnimation(TEXT("A_AKM_drum_reload"));
@@ -792,7 +792,8 @@ void AFPSGAMECharacter::ReloadPressed()
         MechanicalCueSounds = {MagOutSound, MagInsertSound, MagSeatSound};
     }
     NextMechanicalCue = 0;
-    if(AKMSoviet::Matches(AKMViewmodel)&&bDrumInstalled)MechanicalCueTimes[0]=.5f*Scale;
+    // The AKM drum releases directly from the well at source frame 36 / 120 Hz.
+    if(AKMSoviet::Matches(AKMViewmodel)&&bDrumInstalled)MechanicalCueTimes[0]=.3f*Scale;
     for (float& Cue : MechanicalCueTimes) Cue = ReloadRuntimeTime(Cue / Scale);
     if (bUsingM4Infima)
     {

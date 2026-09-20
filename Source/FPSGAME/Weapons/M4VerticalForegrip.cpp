@@ -32,6 +32,9 @@ void AFPSGAMECharacter::InitializeVerticalGripAnimations()
 
 void AFPSGAMECharacter::SetVerticalForegrip(bool bEnabled)
 {
+    if(VerticalForegrip&&VerticalForegrip->GetStaticMesh()&&
+        VerticalForegrip->GetStaticMesh()->GetName()==TEXT("SM_TacticalVerticalForegrip"))
+        VerticalForegrip->EmptyOverrideMaterials();
     if(bUseASH12){VerticalForegrip=ASH12Attachments::Configure(this,AKMViewmodel,VerticalForegrip,TEXT("vertical"),bEnabled&&bInventoryWeaponReady);return;}
     if(bUseQBZ191){VerticalForegrip=QBZ191Attachments::Configure(this,AKMViewmodel,VerticalForegrip,TEXT("vertical"),(bEnabled)&&bInventoryWeaponReady);return;}
     if(AKMSoviet::Matches(AKMViewmodel)){VerticalForegrip=AKMAttachment::Configure(this,AKMViewmodel,VerticalForegrip,TEXT("vertical"),bEnabled&&bInventoryWeaponReady);return;}
@@ -43,16 +46,22 @@ void AFPSGAMECharacter::SetVerticalForegrip(bool bEnabled)
     const auto& Ref=Rifle->GetRefSkeleton();
     for(const TCHAR* Name:{TEXT("WPN_root"),TEXT("WPN_RearSight"),TEXT("WPN_FrontSight")})
         if(Ref.FindBoneIndex(Name)==INDEX_NONE)return;
+    auto* HandstopMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Weapons/M4VerticalGripCompact75/SM_VerticalForegrip"));
+    if(!HandstopMesh){UE_LOG(LogTemp,Error,TEXT("VERTICAL_GRIP: missing mesh"));return;}
     if(!VerticalForegrip)
     {
-        auto* HandstopMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Weapons/M4VerticalGripCompact75/SM_VerticalForegrip"));
-        if(!HandstopMesh){UE_LOG(LogTemp,Error,TEXT("VERTICAL_GRIP: missing mesh"));return;}
         VerticalForegrip=NewObject<UStaticMeshComponent>(this,TEXT("M4VerticalForegrip"));
         VerticalForegrip->SetStaticMesh(HandstopMesh);
         VerticalForegrip->SetupAttachment(AKMViewmodel,TEXT("WPN_root"));
         VerticalForegrip->SetCollisionEnabled(ECollisionEnabled::NoCollision);
         VerticalForegrip->SetCastShadow(false);VerticalForegrip->bReceivesDecals=false;
         VerticalForegrip->RegisterComponent();
+    }
+    // Restore the original model when switching back from the tactical option.
+    if(VerticalForegrip->GetStaticMesh()!=HandstopMesh)
+    {
+        VerticalForegrip->EmptyOverrideMaterials();
+        VerticalForegrip->SetStaticMesh(HandstopMesh);
     }
     auto Bone=[&](const TCHAR* Name){FTransform T=FTransform::Identity;for(int32 I=Ref.FindBoneIndex(Name);I!=INDEX_NONE;I=Ref.GetParentIndex(I))T=T*Ref.GetRefBonePose()[I];return T;};
     const auto Root=Bone(TEXT("WPN_root")),Rear=Bone(TEXT("WPN_RearSight")),Front=Bone(TEXT("WPN_FrontSight"));

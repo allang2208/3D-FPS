@@ -1,0 +1,31 @@
+{
+  "asset": "Existing large_drum model upgrade",
+  "date": "2026-09-20",
+  "authorization": "User requested a model upgrade based on two supplied photographs.",
+  "references": [
+    "Reference/user_front.png",
+    "Reference/user_rear.png"
+  ],
+  "reference_rights": "User supplied reference screenshots; original source ownership not provided. No publication performed.",
+  "geometry": "Locally authored Blender visual shell; retains each game's existing feed interface geometry and asset frame.",
+  "existing_geometry_provenance": "../M4Drum20260909/PROVENANCE.md; ../AKMAttachments20260911; ../QBZ191Attachments20260913",
+  "finish_parameters": "../TacticalVerticalForegrip20260919/Integration/finish_profiles.json; receiver coating source references retained there",
+  "generator_used": false,
+  "tools": [
+    "Blender 5.1.2",
+    "UE editor Python",
+    "Vibe3D LOD and collision"
+  ],
+  "runtime_id": "large_drum",
+  "native_code_changed": false,
+  "gameplay_stats_changed": false,
+  "animation_changed": false,
+  "game_tested": false,
+  "status": "Three existing drum meshes, dedicated materials, LODs, collision and all four gunsmith icon assets installed and explicitly saved; not gameplay tested.",
+  "publication": {
+    "date": "2026-09-20",
+    "scope": "Authoring scripts, documentation and provenance only",
+    "excluded": "User reference images, Blend/FBX/GLB, source interfaces, textures, UE packages, dense poses and local execution records",
+    "license_boundary": "Use in this local project does not grant redistribution rights to the referenced original assets."
+  }
+}

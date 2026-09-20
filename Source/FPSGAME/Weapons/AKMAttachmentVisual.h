@@ -7,6 +7,8 @@ namespace AKMAttachment
 {
 inline FString GripAnimationPath(const TCHAR* Key,const TCHAR* Clip)
 {
+    if(FCString::Strcmp(Clip,TEXT("drum_reload"))==0||FCString::Strcmp(Clip,TEXT("drum_reload_empty"))==0)
+        return FString::Printf(TEXT("/Game/Weapons/AKMDrumFreeDrop20260920/%s/A_AKM_%s_%s"),Key,Key,Clip);
     const TCHAR* Family=FCString::Strcmp(Key,TEXT("vertical"))==0?TEXT("GripVRENatural"):
         (FCString::Strcmp(Key,TEXT("canted"))==0||FCString::Strcmp(Key,TEXT("prism"))==0)?TEXT("GripVREExtensions"):TEXT("GripErgonomic");
     return FString::Printf(TEXT("/Game/Weapons/AKMIntegration/SovietFab/%s/%s/A_AKM_%s_%s"),Family,Key,Key,Clip);

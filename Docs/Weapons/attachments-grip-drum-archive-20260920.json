@@ -1,0 +1,1053 @@
+{
+  "date": "2026-09-20",
+  "scope": [
+    "AKMDrumFreeDrop20260920",
+    "LargeDrumUpgrade20260920",
+    "TacticalVerticalForegrip20260919"
+  ],
+  "operation": "move, not delete",
+  "file_count": 130,
+  "bytes": 5008320966,
+  "files": [
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/build_receipt.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/build_receipt.json",
+      "bytes": 6962,
+      "sha256": "54ac7a0635cccb86c7bb0c9de681d973873d5c01cbf036c571a45ceaf5d5124f",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/contact_fit.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/contact_fit.json",
+      "bytes": 1021,
+      "sha256": "b93be5b158bf174b68beb59e9cf6ee8dde139fde136fc67f68131586ab573685",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/import_receipt.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/import_receipt.json",
+      "bytes": 3131,
+      "sha256": "09567ce633317a2d674f3883177fcbd7dc1b92787abd0161cd05c339a4225f95",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/angled/A_AKM_angled_drum_reload_empty.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/angled/A_AKM_angled_drum_reload_empty.blend",
+      "bytes": 259381249,
+      "sha256": "d81ae98b747750c6e4946e677da33bcde8720e80efb13e2327473efa0d9d3f6d",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/angled/A_AKM_angled_drum_reload_empty.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/angled/A_AKM_angled_drum_reload_empty.fbx",
+      "bytes": 3404588,
+      "sha256": "8922db65b6bc805c60e19672babd75789cf4865e380b1232792ab138fcfd3169",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/angled/A_AKM_angled_drum_reload.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/angled/A_AKM_angled_drum_reload.blend",
+      "bytes": 256059898,
+      "sha256": "6202119ee59df810cdb5e8a6fb12e7aeec4c7b3eab7fad7bc2be5c2ca2bf3116",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/angled/A_AKM_angled_drum_reload.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/angled/A_AKM_angled_drum_reload.fbx",
+      "bytes": 2781516,
+      "sha256": "10e7c0df5283935185977b944cca90bfcffcdfa071caebc569979bdb0dafaead",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/base/A_AKM_drum_reload_empty.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/base/A_AKM_drum_reload_empty.blend",
+      "bytes": 216277198,
+      "sha256": "d45d4f26cb7d8bf36205815a235d0c4dd44fbdc4e2b5d2b920d81588749b1c48",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/base/A_AKM_drum_reload_empty.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/base/A_AKM_drum_reload_empty.fbx",
+      "bytes": 3379484,
+      "sha256": "b9692f4e547963a2a709bd348bd0cc64862a50bd5aade46ef127f57a5b1a5910",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/base/A_AKM_drum_reload.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/base/A_AKM_drum_reload.blend",
+      "bytes": 214144731,
+      "sha256": "12578ad4e7eb5f5e56844e72a63300909c5db92a65397bc6dcf533bed916ee7c",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/base/A_AKM_drum_reload.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/base/A_AKM_drum_reload.fbx",
+      "bytes": 2761996,
+      "sha256": "1333ee2bce9e56ae2b8c96d7e798c5f5ef2f835e301dcc015bd5add9ce1421f6",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/canted/A_AKM_canted_drum_reload_empty.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/canted/A_AKM_canted_drum_reload_empty.blend",
+      "bytes": 259776759,
+      "sha256": "d2c591ef938b9706ef54c765b051b57b3276757e878aba789b3102d70edb2a80",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/canted/A_AKM_canted_drum_reload_empty.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/canted/A_AKM_canted_drum_reload_empty.fbx",
+      "bytes": 3409004,
+      "sha256": "1cc8341acd046f47066aeccc074ec3b26e6c484e7de19a8429068821ae28bf0a",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/canted/A_AKM_canted_drum_reload.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/canted/A_AKM_canted_drum_reload.blend",
+      "bytes": 256442684,
+      "sha256": "5ae7d80e55c54dff7a65141a7fa1017b75aa64c9a47a2cef8d74a93cd50b8211",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/canted/A_AKM_canted_drum_reload.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/canted/A_AKM_canted_drum_reload.fbx",
+      "bytes": 2785564,
+      "sha256": "dabf912e9af4b5b66614cc0a06ceef4471cf946ffe19913aa24468a12f96ebd0",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/prism/A_AKM_prism_drum_reload_empty.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/prism/A_AKM_prism_drum_reload_empty.blend",
+      "bytes": 220992754,
+      "sha256": "f730551a901ba258b41b4efee3e7a4d839d855ed427bed3bb517db364e3ad773",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/prism/A_AKM_prism_drum_reload_empty.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/prism/A_AKM_prism_drum_reload_empty.fbx",
+      "bytes": 3409996,
+      "sha256": "38affa373dd57183edca53956c8bf1dc705aa6149a7cfd98921484d3d9b5e49c",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/prism/A_AKM_prism_drum_reload.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/prism/A_AKM_prism_drum_reload.blend",
+      "bytes": 217669442,
+      "sha256": "62ac579db00744c25150455887dd4694d70149a24087ca6da808d319c2502b78",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/prism/A_AKM_prism_drum_reload.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/prism/A_AKM_prism_drum_reload.fbx",
+      "bytes": 2786460,
+      "sha256": "f540e5d064265279b75b20b5e300ef06243f756982715664185952ad4e76a4f4",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/Scripts/build_animations.py",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/Scripts/build_animations.py",
+      "bytes": 8229,
+      "sha256": "7c5ea3c201b5664d4b19ab858620ad4d5b2850d46cf9479216f1c511a52e69bc",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/Scripts/import_animations.py",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/Scripts/import_animations.py",
+      "bytes": 2083,
+      "sha256": "5b81aa66986f8fb870703a2fb692ce57d292a74f91b6ced7935f49303d6b399c",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/vertical/A_AKM_vertical_drum_reload_empty.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/vertical/A_AKM_vertical_drum_reload_empty.blend",
+      "bytes": 259711885,
+      "sha256": "958aa81ccd42eeb594603c0981dfecad69cf1793a62a671691e2b8ce45ce06d7",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/vertical/A_AKM_vertical_drum_reload_empty.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/vertical/A_AKM_vertical_drum_reload_empty.fbx",
+      "bytes": 3409356,
+      "sha256": "754e28993072cf25c7e90fc83a1b5179bb7f58ec102058fbcbd9aaa9208b956f",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/vertical/A_AKM_vertical_drum_reload.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/vertical/A_AKM_vertical_drum_reload.blend",
+      "bytes": 256386534,
+      "sha256": "db3153cba9f58eaffbe51d7c6f01c675080592da36dbe3cae7696db64e4cd7f4",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/vertical/A_AKM_vertical_drum_reload.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/Before/vertical/A_AKM_vertical_drum_reload.fbx",
+      "bytes": 2785820,
+      "sha256": "3205ec194a34200daec8e68bdd0d397feae5b7c75f72ceb4821eaf830722a765",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/build.log",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmSupportV2/build.log",
+      "bytes": 10842,
+      "sha256": "d56f0d4d2975ac39038ac9c107e700b367ed23176467ccf3dd9e408529e2ddea",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/build_receipt.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/build_receipt.json",
+      "bytes": 7302,
+      "sha256": "cbe7447b2e3cee540e86dd2289696aa32b3502557f2dee5cd348c5215604b586",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/contact_fit.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/contact_fit.json",
+      "bytes": 4682,
+      "sha256": "c5402780315cdab11f55b3e42a989726775e66099713d9759d54ab5e6ad4f464",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/import_receipt.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/import_receipt.json",
+      "bytes": 3471,
+      "sha256": "0dd995ba59c05ff2a793162e8a38482c73a6d36d022fc66cb04e30f74d1980ce",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/angled/A_AKM_angled_drum_reload_empty.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/angled/A_AKM_angled_drum_reload_empty.blend",
+      "bytes": 259349321,
+      "sha256": "58e0c687c7ec4a55457c83c381bd3d183d604357ccf83aff1b9335fc4338e154",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/angled/A_AKM_angled_drum_reload_empty.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/angled/A_AKM_angled_drum_reload_empty.fbx",
+      "bytes": 3402860,
+      "sha256": "b2e8e433ca4cf1b91199981acaca39319c93494bf9b359c7b1c3201243268cff",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/angled/A_AKM_angled_drum_reload.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/angled/A_AKM_angled_drum_reload.blend",
+      "bytes": 256020305,
+      "sha256": "f15a49f7d02257059f1c3128e4ca90f9d5ca82768064bbedc1a779805ac963f3",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/angled/A_AKM_angled_drum_reload.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/angled/A_AKM_angled_drum_reload.fbx",
+      "bytes": 2780188,
+      "sha256": "0ea764ccba48b95afa2bc63377ca96cc2255c460af9db38a3dd4b361f65f1d81",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/base/A_AKM_drum_reload_empty.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/base/A_AKM_drum_reload_empty.blend",
+      "bytes": 216259038,
+      "sha256": "d5163709615dd24613e5277a30a8e7cf5404608313b65c23571496a501f6fac2",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/base/A_AKM_drum_reload_empty.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/base/A_AKM_drum_reload_empty.fbx",
+      "bytes": 3384396,
+      "sha256": "4decab6b32c92ad66c66dc7ba38766f675096e3a7ecd6502a865a6e3d63ca210",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/base/A_AKM_drum_reload.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/base/A_AKM_drum_reload.blend",
+      "bytes": 214127557,
+      "sha256": "c8615cbe77d3685b545d665c3d30d316cf668777bb16a644a9b5479e50311d3a",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/base/A_AKM_drum_reload.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/base/A_AKM_drum_reload.fbx",
+      "bytes": 2768156,
+      "sha256": "4353a5010e3bbfaad2727c1259bc97649517e059149807cb07c3a3bb5e56e0f5",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/canted/A_AKM_canted_drum_reload_empty.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/canted/A_AKM_canted_drum_reload_empty.blend",
+      "bytes": 259736403,
+      "sha256": "cd1a46a93b879fbdb555feed2f94ed65b26b2080e90416c9f82631ddc3745002",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/canted/A_AKM_canted_drum_reload_empty.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/canted/A_AKM_canted_drum_reload_empty.fbx",
+      "bytes": 3409308,
+      "sha256": "aab8536944afc88e7f5732ca151ffdef747d3b18803ac5bc3c3b59badd57462d",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/canted/A_AKM_canted_drum_reload.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/canted/A_AKM_canted_drum_reload.blend",
+      "bytes": 256398951,
+      "sha256": "b594e48809e034f4afcaeb123010273e617a330cc53b6ab05ae8d9e6c7c49e96",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/canted/A_AKM_canted_drum_reload.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/canted/A_AKM_canted_drum_reload.fbx",
+      "bytes": 2786476,
+      "sha256": "2ff1fec47142199dd1da4ce083ce7573abb4d389409af79b384a9b68a102e779",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/prism/A_AKM_prism_drum_reload_empty.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/prism/A_AKM_prism_drum_reload_empty.blend",
+      "bytes": 220956959,
+      "sha256": "91eab0d78d29f5319533967e4cad8925e30fdd093727ee3455a989fb5e9ed596",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/prism/A_AKM_prism_drum_reload_empty.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/prism/A_AKM_prism_drum_reload_empty.fbx",
+      "bytes": 3409340,
+      "sha256": "fea52e860f13b55b4136f384438525fcf49e3bba8336ec93286c1c86c6aed0a6",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/prism/A_AKM_prism_drum_reload.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/prism/A_AKM_prism_drum_reload.blend",
+      "bytes": 217623706,
+      "sha256": "0d86d46baa78ac87e1919e84dcac2eddf37ffead32e6ff031238ea196c299808",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/prism/A_AKM_prism_drum_reload.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/prism/A_AKM_prism_drum_reload.fbx",
+      "bytes": 2786700,
+      "sha256": "6219f25e881116f20ee829b8b95afa1930c0493f1a612d0cd2679fb52fcd84e2",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/Scripts/author_palm_support.py",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/Scripts/author_palm_support.py",
+      "bytes": 5952,
+      "sha256": "badb3e60fc668f947b963e1543db77633d1a0e7cf873da1c354912162aac80bc",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/Scripts/build_animations.py",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/Scripts/build_animations.py",
+      "bytes": 9184,
+      "sha256": "bcb6c2861152340f88849df4fb6c1a2f6555f08b4a46c561934ab850621c1d26",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/vertical/A_AKM_vertical_drum_reload_empty.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/vertical/A_AKM_vertical_drum_reload_empty.blend",
+      "bytes": 259686120,
+      "sha256": "a2b7affe7c945a08b7396ab281e72fa5a49ea8d2d47cf6b3ae03c83e5d63d881",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/vertical/A_AKM_vertical_drum_reload_empty.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/vertical/A_AKM_vertical_drum_reload_empty.fbx",
+      "bytes": 3409004,
+      "sha256": "5f95fd902097ad8a4f18aac9792955a00cfddce9b86fb8955744b67f96ca2528",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/vertical/A_AKM_vertical_drum_reload.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/vertical/A_AKM_vertical_drum_reload.blend",
+      "bytes": 256354064,
+      "sha256": "e1a6f0713a02a114284728879f88cdb38b87d9b9e408718fea795b74c94e8b44",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/vertical/A_AKM_vertical_drum_reload.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/Before/vertical/A_AKM_vertical_drum_reload.fbx",
+      "bytes": 2786556,
+      "sha256": "5ff4b3813fb8096374911f44d839bab1db1877374effe426367b8648b96003f7",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/CandidateRender/back.jpg",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/CandidateRender/back.jpg",
+      "bytes": 30165,
+      "sha256": "9216f54c36104eb8bc69ad9250b880275c5eb7715be18206a0cf7bc41a868680",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/CandidateRender/front.jpg",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/CandidateRender/front.jpg",
+      "bytes": 29389,
+      "sha256": "7c62dbc9fa9dbca199c7f0270a1b9aa30de14c5a01c193ee79645540aeef6230",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/CandidateRender/joints.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/CandidateRender/joints.json",
+      "bytes": 2137,
+      "sha256": "a23fddd3cdd78bfe6e27b7c3eb9fde82c2a90a9bbedc440a4bb9af7541016004",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/CandidateRender/underside.jpg",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/CandidateRender/underside.jpg",
+      "bytes": 28620,
+      "sha256": "8d1ae5ba14abd079c22d3fdcaf1a4c572adc45bf7e9224a6bf5668c41c88bdec",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/CurledRender/back.jpg",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/CurledRender/back.jpg",
+      "bytes": 30208,
+      "sha256": "05631f27982c511dd7f55667e2e1e32bb04c573103187ffb6dcf99dcac2ac131",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/CurledRender/front.jpg",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/CurledRender/front.jpg",
+      "bytes": 29848,
+      "sha256": "b533157eb3e38a594be5a75fa8e3e936852e7f7dc1266d583d6f5413d6d09ba2",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/CurledRender/joints.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/CurledRender/joints.json",
+      "bytes": 2134,
+      "sha256": "da3a0913c7e5f77aa0982e8182b41377325efd79145fb6d48af43316d83f29ab",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/CurledRender/underside.jpg",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/CurledRender/underside.jpg",
+      "bytes": 28686,
+      "sha256": "9cd618e499a6114dc61c3aac8caea0fe4fce73590486a351041f6c3f6d12e68a",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/FinalRender/back.jpg",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/FinalRender/back.jpg",
+      "bytes": 29946,
+      "sha256": "65079fad321710c20da5dd5878443c2ff730949e6fba9cd3801b96d427ca253b",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/FinalRender/contact_distances.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/FinalRender/contact_distances.json",
+      "bytes": 1135,
+      "sha256": "71b473376cf5d3533268533a3a373d33dc656aa2cb6063fe5c045c3ac2e992f0",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/FinalRender/front.jpg",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/FinalRender/front.jpg",
+      "bytes": 29707,
+      "sha256": "d63dd9f18467e690aeec714877b40c2dfcb335eaa3e7ade3441e2b2aa2a9fe98",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/FinalRender/joints.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/FinalRender/joints.json",
+      "bytes": 2134,
+      "sha256": "da3a0913c7e5f77aa0982e8182b41377325efd79145fb6d48af43316d83f29ab",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/FinalRender/underside.jpg",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/FinalRender/underside.jpg",
+      "bytes": 28461,
+      "sha256": "953298186ca07f00e083701482c04731983f84eb75eed22aad62040159939310",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/ContactRender/back.jpg",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/ContactRender/back.jpg",
+      "bytes": 30064,
+      "sha256": "de8992e264e2b46ddd414f1d25fb558674a35047293e689225fbb8b1348e3884",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/ContactRender/contact_distances.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/ContactRender/contact_distances.json",
+      "bytes": 1136,
+      "sha256": "6cf5a1c4ed4cae93426f7a82ee6f995d65e64c1ae7990f88f7567236d982e7bf",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/ContactRender/front.jpg",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/ContactRender/front.jpg",
+      "bytes": 30346,
+      "sha256": "3121a14c875b3f1fabab815a8978cba1e45291b84b026a636fd22a6e535ab613",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/ContactRender/joints.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/ContactRender/joints.json",
+      "bytes": 2135,
+      "sha256": "48f2e73120cc4a98344274b7813768fffb8eff23e60c9b2fd1dde536d2e520d9",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/ContactRender/underside.jpg",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/ContactRender/underside.jpg",
+      "bytes": 28847,
+      "sha256": "e4c3a1070040cd8de6487e59aec08ca6369b0968eeec0f3e92512f126460f41b",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Scripts/author_palm_support.py",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Scripts/author_palm_support.py",
+      "bytes": 5952,
+      "sha256": "badb3e60fc668f947b963e1543db77633d1a0e7cf873da1c354912162aac80bc",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Scripts/fit_contact.py",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Scripts/fit_contact.py",
+      "bytes": 4671,
+      "sha256": "b50b0380d76ed8dde003e6f466bb820fc042b7e7ddc35e5d860a46f73c18b6fb",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Scripts/read_author_geometry.py",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Scripts/read_author_geometry.py",
+      "bytes": 2438,
+      "sha256": "000d0fcbc1a5e70bbfed129b9621d9bdde9342b97b4610dd45f8d204cf3f3bf6",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/author_geometry.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/author_geometry.json",
+      "bytes": 102415,
+      "sha256": "fb17dae2151ba054261e5b7af40e0fa7d0aa6909e65b9d184555bfa471d140c6",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/build.log",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/build.log",
+      "bytes": 10842,
+      "sha256": "e1d92cdd2aa87dc079fc2fe1cd7351ceab8b27abfe9734fe24e5bf4b6dc35904",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Before/Icons/magazine_large_drum.png",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Before/Icons/magazine_large_drum.png",
+      "bytes": 567372,
+      "sha256": "7b6053cf99afd4599205c891bcfe0f6ff997a44d953c40c52bcc2518398c6c28",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/AKM/authoring_receipt.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/AKM/authoring_receipt.json",
+      "bytes": 1039,
+      "sha256": "d4f71304f421413be03c51e65b63ef2f12e4d7030afee5b2b5a64d00aaa67a93",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/AKM/Drum_Construction.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/AKM/Drum_Construction.blend",
+      "bytes": 270047,
+      "sha256": "7406bdd492b4f02c8ad950272edf5a453d82aa5a8c23dfd0ffe112c4330c2500",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/AKM/Drum_Editable.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/AKM/Drum_Editable.blend",
+      "bytes": 11615091,
+      "sha256": "f29408b029b70e2c6ada1dd4c2bb5afb4fbaec9f8ef1a1a81b28e77b4ab4c914",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/AKM/Drum_Integrated.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/AKM/Drum_Integrated.blend",
+      "bytes": 11655397,
+      "sha256": "9206f17b5a717532eb64757a8a0c9e121de156ebc929021b07b7dfee2a110a6d",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/AKM/SM_AKM_LargeDrum_Upgrade.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/AKM/SM_AKM_LargeDrum_Upgrade.fbx",
+      "bytes": 2625836,
+      "sha256": "64238119da3ba27c171729ed28a4dd4ec2f55cec0cf945e64b422b21cfe15f6b",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/Icons/AKM_DrumIcon_Editable.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/Icons/AKM_DrumIcon_Editable.blend",
+      "bytes": 7803470,
+      "sha256": "9da30ae7802ea6dc112de1fd364d986547449f9ae7e85c9df8ce152c00d1900d",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/Icons/AKM_icon_receipt.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/Icons/AKM_icon_receipt.json",
+      "bytes": 491,
+      "sha256": "cf248b07340aee5688e5bf75cd6ea283f5b5e600bf98019a361f269574898371",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/Icons/AKM_magazine_large_drum.png",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/Icons/AKM_magazine_large_drum.png",
+      "bytes": 585095,
+      "sha256": "b4bf2699d992d5b9d79388d14d3e015fe061834fe709556537bb85a988d6a891",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/Icons/M4_DrumIcon_Editable.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/Icons/M4_DrumIcon_Editable.blend",
+      "bytes": 7649947,
+      "sha256": "668302d95a647d8d240c62e2c4562ee09a75f7ab2a47cedbd7f1200f03bd59d2",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/Icons/M4_icon_receipt.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/Icons/M4_icon_receipt.json",
+      "bytes": 488,
+      "sha256": "bbbba83746247899165b046d0b94b23e4b915ac370ef70d7b58eb20626e84e35",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/Icons/M4_magazine_large_drum.png",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/Icons/M4_magazine_large_drum.png",
+      "bytes": 580616,
+      "sha256": "2fcb27da7734a06e497a3f89bd80fe39b01367d09a57075e5722817104d81296",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/Icons/QBZ191_DrumIcon_Editable.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/Icons/QBZ191_DrumIcon_Editable.blend",
+      "bytes": 7651095,
+      "sha256": "ab0c8ab5deb373877c0f66ed75436bdd486f881d3c6e4d037bce24c532596e9b",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/Icons/QBZ191_icon_receipt.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/Icons/QBZ191_icon_receipt.json",
+      "bytes": 500,
+      "sha256": "2b16e9fa1e8fede8c1f8d26624dc2a05b95d40da10b700acdd140a21d75e27b3",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/Icons/QBZ191_magazine_large_drum.png",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/Icons/QBZ191_magazine_large_drum.png",
+      "bytes": 582722,
+      "sha256": "1d36e6777668c759fd6b69eca51d1479447b615fc594cc038b8d77dca2ac9b49",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/InstalledIcons/magazine_large_drum.png",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/InstalledIcons/magazine_large_drum.png",
+      "bytes": 580616,
+      "sha256": "2fcb27da7734a06e497a3f89bd80fe39b01367d09a57075e5722817104d81296",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/InstalledIcons/ue_akm_magazine_large_drum.png",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/InstalledIcons/ue_akm_magazine_large_drum.png",
+      "bytes": 585095,
+      "sha256": "b4bf2699d992d5b9d79388d14d3e015fe061834fe709556537bb85a988d6a891",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/InstalledIcons/ue_m4a1_magazine_large_drum.png",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/InstalledIcons/ue_m4a1_magazine_large_drum.png",
+      "bytes": 580616,
+      "sha256": "2fcb27da7734a06e497a3f89bd80fe39b01367d09a57075e5722817104d81296",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/InstalledIcons/ue_qbz191_magazine_large_drum.png",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/InstalledIcons/ue_qbz191_magazine_large_drum.png",
+      "bytes": 582722,
+      "sha256": "1d36e6777668c759fd6b69eca51d1479447b615fc594cc038b8d77dca2ac9b49",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/M4/authoring_receipt.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/M4/authoring_receipt.json",
+      "bytes": 1042,
+      "sha256": "35491212628ede4ce17eb060ec308c2f702efb93fc97f1e5ec54de552747687f",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/M4/Drum_Construction.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/M4/Drum_Construction.blend",
+      "bytes": 270235,
+      "sha256": "d1cc2e6c543a121cc44dc03e9c3a4ab44a007025ac4440b411593013e424755a",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/M4/Drum_Editable.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/M4/Drum_Editable.blend",
+      "bytes": 11463192,
+      "sha256": "f731eb33fdf64e67526b91fe9c85519d611d713f14c6306b66f6de8076d11e1b",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/M4/Drum_Integrated.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/M4/Drum_Integrated.blend",
+      "bytes": 11484191,
+      "sha256": "b12758f5f5725b82c9764298eecd8e7eff62af7d2257811aa1fb9c425eb6c213",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/M4/SM_M4_LargeDrum_Upgrade.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/M4/SM_M4_LargeDrum_Upgrade.fbx",
+      "bytes": 2657292,
+      "sha256": "af10588d9ac1e73a47d96451bb470929535844af671993c44048ef379285f63c",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/QBZ191/authoring_receipt.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/QBZ191/authoring_receipt.json",
+      "bytes": 1042,
+      "sha256": "48273de8bcf5793021e3e2872bfbf591be22ae1fb9d3aab6713a5bef1a62fee1",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/QBZ191/Drum_Construction.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/QBZ191/Drum_Construction.blend",
+      "bytes": 263084,
+      "sha256": "8a7a25aebd5b6e4e7dd2574e5ba5ce56bc4c982bbe38e28cbf7842bd48a04d52",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/QBZ191/Drum_Editable.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/QBZ191/Drum_Editable.blend",
+      "bytes": 15036122,
+      "sha256": "5aa4fd714d672f1dcb541208feb1e5a6fd7234907eb64bef0e2e1d549444ac85",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/QBZ191/Drum_Integrated.blend",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/QBZ191/Drum_Integrated.blend",
+      "bytes": 15058262,
+      "sha256": "32ce46ef83884478ca17f3381c7b6f3c83e060cbd03d826da5230e45736bdd99",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/QBZ191/SM_QBZ191_LargeDrum_Upgrade.fbx",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Revisions/RemoveTowerRibs20260920/Before/QBZ191/SM_QBZ191_LargeDrum_Upgrade.fbx",
+      "bytes": 2250460,
+      "sha256": "5aecc89c8d9992124213ba69e477beffb3e99824258a0fa353b3714122754d10",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/LargeDrumUpgrade20260920/Scripts/stop_pie_for_icon_save.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/LargeDrumUpgrade20260920/Scripts/stop_pie_for_icon_save.json",
+      "bytes": 87,
+      "sha256": "69921d4c1cf587a6fc29ce60f3f841d71b04ef23d7cd403e12660c590484d1fe",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/TacticalVerticalForegrip20260919/Generation/seed_91953/cancel_receipt.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/TacticalVerticalForegrip20260919/Generation/seed_91953/cancel_receipt.json",
+      "bytes": 168,
+      "sha256": "69383cc7146f0a272a3191ec8b0ec7514d379c8605306a4b25533c5cccb232bc",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/TacticalVerticalForegrip20260919/Generation/seed_91953/node_schemas.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/TacticalVerticalForegrip20260919/Generation/seed_91953/node_schemas.json",
+      "bytes": 17194,
+      "sha256": "2b142b8fbf5ea61e876f533be8ea3906889e9af4a41f5c1acb28b2bc2753be15",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/TacticalVerticalForegrip20260919/Generation/seed_91953/queue_at_submit.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/TacticalVerticalForegrip20260919/Generation/seed_91953/queue_at_submit.json",
+      "bytes": 51,
+      "sha256": "b5002897fe2aaabcbb3149cc678ecae6513698dd132bfcc5df2e38122d0277d9",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/TacticalVerticalForegrip20260919/Generation/seed_91953/receipt.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/TacticalVerticalForegrip20260919/Generation/seed_91953/receipt.json",
+      "bytes": 97,
+      "sha256": "95d7d0e85a61709a4bc8146594074948b359ab5c7d60d4f17215f9433ac76d56",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/TacticalVerticalForegrip20260919/Generation/seed_91953/upload.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/TacticalVerticalForegrip20260919/Generation/seed_91953/upload.json",
+      "bytes": 109,
+      "sha256": "487c9a09d28661442c0e0ae3835b6b3b896d8c00a566b62a5c836a475fa2984b",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/TacticalVerticalForegrip20260919/Generation/seed_91953/workflow.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/TacticalVerticalForegrip20260919/Generation/seed_91953/workflow.json",
+      "bytes": 4933,
+      "sha256": "a9912cb75d33af4d151a8f76b4592515a3d4ba70556c77194a788dfcf737aadb",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/TacticalVerticalForegrip20260919/Integration/Before/gunsmith.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/TacticalVerticalForegrip20260919/Integration/Before/gunsmith.json",
+      "bytes": 82219,
+      "sha256": "33ba5560b8d95a94f1fe535fe13a6dc01a8af1eca31aae8b90a79d692e7777ad",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/TacticalVerticalForegrip20260919/Scripts/author_candidate.py",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/TacticalVerticalForegrip20260919/Scripts/author_candidate.py",
+      "bytes": 7401,
+      "sha256": "123bf6146892177dc87d3a713bf1799efe2e60d69d160d69c83e7e0cff940d44",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/TacticalVerticalForegrip20260919/Scripts/generate.py",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/TacticalVerticalForegrip20260919/Scripts/generate.py",
+      "bytes": 8115,
+      "sha256": "61cdae7f1e71f6293827019c7dd325fb508123f9d2fcd6bb51fab38d5dfcbcbd",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/TacticalVerticalForegrip20260919/Scripts/cancel_generation.py",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/TacticalVerticalForegrip20260919/Scripts/cancel_generation.py",
+      "bytes": 1170,
+      "sha256": "dd848ae5bee041894f637aa4250a45e175dc2ebf6ba115875a73e7f117796eca",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/TacticalVerticalForegrip20260919/Scripts/compile_live.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/TacticalVerticalForegrip20260919/Scripts/compile_live.json",
+      "bytes": 115,
+      "sha256": "1160665acc7c2ecceba809940629033999b474e6e69162add6c77782c59b3db4",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/before_render.log",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/before_render.log",
+      "bytes": 2039,
+      "sha256": "352d9cfbb580d237440bac114c853b05d203e6864ea46edb50beb699ca2abc24",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/build_base.log",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/build_base.log",
+      "bytes": 2917,
+      "sha256": "c36f6427fa235656415417c1e16c51d1d669d7689b7e61fa5904a19e88fe652e",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/candidate_render.log",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/candidate_render.log",
+      "bytes": 2051,
+      "sha256": "43228a46f1422c6ffc3b207938b300ed2e41384087a58a5634f88635968ad37e",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/contact_render.log",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/contact_render.log",
+      "bytes": 2043,
+      "sha256": "89346bd612b3d42f139fa7e2d35d0ea8dd5a0b1d53a25c29074d42029b4e835d",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/curled_render.log",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/curled_render.log",
+      "bytes": 2039,
+      "sha256": "ded0e58edf155fe061c5bf0378c73a45f17442a718f7c1a6c8f4446380034249",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/final_render.log",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/final_render.log",
+      "bytes": 2035,
+      "sha256": "30c52c8cb0743c80e7fac429220e27454bd26317b8d195976a0058dfa7704d5e",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/editor_tools_ready.txt",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/editor_tools_ready.txt",
+      "bytes": 20128,
+      "sha256": "4742457e4164b516542a9c79e5c45b9caf75cf77e7218b22fc5143c408a26173",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/editor_tools.txt",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/editor_tools.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/end_pie_python.txt",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/end_pie_python.txt",
+      "bytes": 109,
+      "sha256": "5451f65eaacfb12bd6c5e6190036e8ba5cc15c6c1fb36d42cc3a70e2c4f3a807",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/import_ue_retry.txt",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/import_ue_retry.txt",
+      "bytes": 1223,
+      "sha256": "d47a1cfc34872c1ce42a805df2a74554990c6310beca3866a889b6fbfa32028d",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/import_ue.txt",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/import_ue.txt",
+      "bytes": 1223,
+      "sha256": "d47a1cfc34872c1ce42a805df2a74554990c6310beca3866a889b6fbfa32028d",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/stop_pie_result.txt",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/stop_pie_result.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/stop_pie.json",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/stop_pie.json",
+      "bytes": 87,
+      "sha256": "69921d4c1cf587a6fc29ce60f3f841d71b04ef23d7cd403e12660c590484d1fe",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/tools.txt",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/tools.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    },
+    {
+      "original": "SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/toolsets.txt",
+      "archived": "trash/attachments-grip-drum-20260920/SourceAssets/AKMDrumFreeDrop20260920/Revisions/PalmGripV3/toolsets.txt",
+      "bytes": 13635,
+      "sha256": "480cc039349ab27cf4a7c09888f4d1f9ec12da14bb2669e61b29c99ba1c631c3",
+      "reason": "Superseded pose/model iteration, interrupted generation, or obsolete execution artifact",
+      "replacement": "Current formal model/animation sources and PalmGripV3 retained in original task directories"
+    }
+  ]
+}

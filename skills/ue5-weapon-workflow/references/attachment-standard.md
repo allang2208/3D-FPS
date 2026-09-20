@@ -86,6 +86,13 @@
 
 36 条扩展动画的源合同、UE 回读和四组新游戏进程回归已通过；垂直的 18 条与两组运行证据保留在原报告。这些为制作轮次的历史验证，本次整理不重新宣称运行。仍有手套内部交叠，用户成功确认不等于全身零穿模或打包验收。归档时保留仍用于生成和对照的旧动作、许可、冻结参考和原抓握源；明确废弃输出移到任务 trash 并核对散列。
 
+## 战术垂直握把与弹鼓局部升级（2026-09-20）
+
+- 独立外观选项可以复用已采用的接触动作族，但保持自己的目录 ID 和数值。战术垂直握把 `tactical_vertical_foregrip` 复用垂直族，单独设置 `ads_percent=-0.25`；切回原垂直握把时恢复原网格并清除材质覆盖，不能只切可见性。
+- 跨枪制作保留每枪原入枪接口、枢轴和坐标约定。AKM 的骨骼 socket 缩放补偿不能照搬 M4 网格空间；保留来源接口，替换外观壳体。局部删除独立突出件时同步分件母版、游戏网格、导出和正式图标，能保留的 UV、贴图及角点法线不重建。
+- 金属响应可参考本枪当前涂层，但仍使用新配件自己的 UV 与法线。MetalRough 通道须明确，未烘焙 AO 不应将空白 R 通道称作 AO；OpenGL 法线导入 UE 时只翻转一次绿色通道。
+- 本次源目录为 `SourceAssets/TacticalVerticalForegrip20260919/Integration`、`SourceAssets/LargeDrumUpgrade20260920`。模型/材质已保存，材质预览与实机验收分别记录；AKM 弹鼓托底闭合方法见 [姿态与接触](../../ue5-fps-arms-animation/references/pose-contact.md)。原参考图、现有枪械接口与动画源不因允许推送而自动获得公开分发许可。
+
 ## 历史制作案例（非当前抓握母版）
 
 本机 `D:/FPS3D/FPSGAME/SourceAssets/PrismHandstop20260910/GripAnimation/` 为 2026-09-11 的历史案例，当前抓握母版已由 VRE 方案取代：`fit_pose.py → refine_contact.py → build_animation.py -- idle → fit_release.py → build_animation.py → validate_source.py / check_geometry.py -- --full / review_animation.py → import_assets.py → run_validation.ps1 → make_delivery.py`。Blender 参数以脚本当前解析方式为准。

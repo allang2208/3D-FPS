@@ -1,0 +1,101 @@
+{
+  "asset": "TacticalVerticalForegrip",
+  "date": "2026-09-19",
+  "scope": "Candidate authoring followed by user-authorized game integration; original candidate records are retained below.",
+  "integration": {
+    "status": "game integration authored, assets and icons imported and saved, normal editor build succeeded; not gameplay tested",
+    "authorization": "User requested game integration, material rendering, the accessory workflow, and ADS duration -25%.",
+    "catalog_id": "tactical_vertical_foregrip",
+    "supported_weapons": [
+      "ue_m4a1",
+      "ue_akm",
+      "ue_qbz191",
+      "ue_ash12"
+    ],
+    "stat": {
+      "ads_percent": -0.25
+    },
+    "asset_root": "/Game/Weapons/TacticalVerticalForegrip20260919",
+    "source_root": "Integration",
+    "readme": "Integration/README.md",
+    "material_preview": "Integration/Preview/M4/TacticalVerticalForegrip_Material.png",
+    "render_engine": "Blender Cycles CPU",
+    "gameplay_tested": false,
+    "historical_candidate_records": "delivery_policy, authoring, and delivery below describe the preceding candidate-only stage."
+  },
+  "reference": {
+    "source": "User-supplied game inventory screenshot",
+    "file": "Reference/user_reference.png",
+    "visible_label": "鎴樻湳鍨傜洿鎻℃妸",
+    "rights": "Source ownership/license not supplied; no public redistribution performed."
+  },
+  "three_view": {
+    "file": "Reference/three_views.png",
+    "prompt": "Reference/reference_prompt.txt",
+    "generator": "Built-in imagegen",
+    "views": [
+      "broad left side",
+      "opposite broad right side",
+      "narrow ribbed front"
+    ],
+    "hidden_surfaces": "Design reconstruction from one view, not a measured replica"
+  },
+  "generation": {
+    "pipeline": "TRELLIS.2-4B multiview",
+    "seed": 91953,
+    "prompt_id": "08719b0a-99f4-4345-8c48-c9aecd7209e6",
+    "status": "interrupt_requested_after_gpu_stall",
+    "output_used": false,
+    "cancel_receipt": "../../trash/attachments-grip-drum-20260920/SourceAssets/TacticalVerticalForegrip20260919/Generation/seed_91953/cancel_receipt.json",
+    "reference_mapping": {
+      "front": 0,
+      "back": 1,
+      "left": 2
+    }
+  },
+  "delivery_policy": {
+    "candidate_only": true,
+    "replace_existing_runtime_assets": false,
+    "tests": false,
+    "preview_render": false
+  },
+  "authoring": {
+    "route": "Local Blender modeling and baking, UE in-process Python import, Vibe3D LOD and collision",
+    "route_authorization": "User explicitly selected local Blender/Vibe3D after the 5080 generation stalled",
+    "blender_version": "5.1.2",
+    "construction_script": "Scripts/build_local.py",
+    "bake_export_script": "Scripts/bake_local.py",
+    "high_triangles": 108960,
+    "export_game_triangles": 27998,
+    "texture_resolution": 2048,
+    "metal_rough_channels": "R unused white; G roughness; B metallic",
+    "normal_convention": "OpenGL tangent normal; green channel flipped on UE import",
+    "height_m": 0.1035,
+    "height_basis": "Project's existing compact vertical foregrip scale, not real-world manufacturing dimensions",
+    "pivot": "top saddle",
+    "forward": "+X",
+    "up": "+Z",
+    "game_triangle_target": 28000
+  },
+  "delivery": {
+    "status": "authored_exported_imported_saved_not_tested",
+    "editable_source": "Source/TacticalVerticalForegrip_Editable.blend",
+    "construction_source": "Source/TacticalVerticalForegrip_Construction.blend",
+    "fbx": "Export/SM_TacticalVerticalForegrip_Candidate.fbx",
+    "glb": "Export/TacticalVerticalForegrip_Candidate.glb",
+    "unreal_candidate": "/Game/Weapons/Candidates/TacticalVerticalForegrip20260919/SM_TacticalVerticalForegrip_Candidate",
+    "lod_ratios": [
+      1.0,
+      0.5,
+      0.2
+    ],
+    "collision": "ConvexHulls, maximum 2 hulls, target 32 faces",
+    "editor_kept_open": true
+  },
+  "publication": {
+    "date": "2026-09-20",
+    "scope": "Authoring scripts, documentation and provenance only",
+    "excluded": "User reference images, Blend/FBX/GLB, source interfaces, textures, UE packages, dense poses and local execution records",
+    "license_boundary": "Use in this local project does not grant redistribution rights to the referenced original assets."
+  }
+}

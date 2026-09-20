@@ -34,7 +34,26 @@ void AFPSGAMECharacter::InitializePrismGripAnimations()
 void AFPSGAMECharacter::SetGunsmithHandstop(const FString& Variant)
 {
     SetAngledForegrip(Variant==TEXT("angled_foregrip"));
-    SetVerticalForegrip(Variant==TEXT("vertical_foregrip"));
+    const bool bTacticalVertical=Variant==TEXT("tactical_vertical_foregrip");
+    // Both upright grips use this rifle's existing contact and return animation
+    // family. The catalog ID, appearance and handling modifiers stay independent.
+    SetVerticalForegrip(Variant==TEXT("vertical_foregrip")||bTacticalVertical);
+    if(bTacticalVertical&&HasVerticalForegrip())
+    {
+        const TCHAR* Rifle=bUseASH12?TEXT("ASH12"):bUseQBZ191?TEXT("QBZ191"):
+            AKMSoviet::Matches(AKMViewmodel)?TEXT("AKM"):TEXT("M4");
+        const FString Path=FString::Printf(TEXT("/Game/Weapons/TacticalVerticalForegrip20260919/%s/SM_TacticalVerticalForegrip"),Rifle);
+        if(auto* TacticalGripMesh=LoadObject<UStaticMesh>(nullptr,*Path))
+        {
+            VerticalForegrip->EmptyOverrideMaterials();
+            VerticalForegrip->SetStaticMesh(TacticalGripMesh);
+        }
+        else
+        {
+            VerticalForegrip->SetVisibility(false);
+            UE_LOG(LogTemp,Error,TEXT("TACTICAL_VERTICAL_GRIP: missing %s"),*Path);
+        }
+    }
     SetCantedForegrip(Variant==TEXT("canted_foregrip"));
     if(bUseASH12){PrismHandstop=ASH12Attachments::Configure(this,AKMViewmodel,PrismHandstop,TEXT("prism"),Variant==TEXT("prism_handstop")&&bInventoryWeaponReady);return;}
     if(bUseQBZ191){PrismHandstop=QBZ191Attachments::Configure(this,AKMViewmodel,PrismHandstop,TEXT("prism"),(Variant==TEXT("prism_handstop"))&&bInventoryWeaponReady);return;}
