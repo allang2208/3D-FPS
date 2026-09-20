@@ -345,6 +345,20 @@ void AFPSGAMEPlayerController::ToggleInventory()
     }
 }
 
+bool AFPSGAMEPlayerController::IsCursorOnlyInteraction() const
+{
+    return bShowMouseCursor && !IsMoveInputIgnored() && !IsLookInputIgnored() &&
+        !GunsmithPanel && !EnhancementPanel && (!WeatherPanel || !WeatherPanel->IsPanelOpen()) &&
+        ColdSteelHUD && !ColdSteelHUD->IsInventoryOpen() && (!VoxelBuilder || !VoxelBuilder->IsPanelOpen());
+}
+
+bool AFPSGAMEPlayerController::BlocksOngoingActions(const APlayerController* Player)
+{
+    if(!Player || Player->IsMoveInputIgnored() || Player->IsLookInputIgnored())return true;
+    const auto* FPSPlayer=Cast<AFPSGAMEPlayerController>(Player);
+    return Player->bShowMouseCursor && (!FPSPlayer || !FPSPlayer->IsCursorOnlyInteraction());
+}
+
 void AFPSGAMEPlayerController::ToggleTimelineInteraction()
 {
     if (GunsmithPanel || EnhancementPanel) return;
@@ -358,7 +372,8 @@ void AFPSGAMEPlayerController::ToggleTimelineInteraction()
     }
     bShowMouseCursor = true;
     FInputModeGameAndUI InputMode;
-    InputMode.SetWidgetToFocus(ColdSteelHUD->TakeWidget());
+    // Keep keyboard focus in the viewport. Cursor clicks still reach the HUD,
+    // without a focus transfer synthesizing releases of held combat inputs.
     InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
     InputMode.SetHideCursorDuringCapture(false);
     SetInputMode(InputMode);

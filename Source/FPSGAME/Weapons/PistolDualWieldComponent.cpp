@@ -1,5 +1,6 @@
 #include "PistolDualWieldComponent.h"
 #include "../FPSGAMECharacter.h"
+#include "../FPSGAMEPlayerController.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelPickupStudio.h"
 #include "FPSGunplayAnimInstance.h"
@@ -49,7 +50,7 @@ bool UPistolDualWieldComponent::InputAvailable() const
 {
     if(!Player || !Player->HasInventoryWeapon() || Player->IsTraversing())return false;
     const auto* PC=Cast<APlayerController>(Player->GetController());
-    if(!PC || PC->bShowMouseCursor || PC->IsMoveInputIgnored())return false;
+    if(AFPSGAMEPlayerController::BlocksOngoingActions(PC))return false;
     const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();
     return !Health || !Health->IsDead();
 }

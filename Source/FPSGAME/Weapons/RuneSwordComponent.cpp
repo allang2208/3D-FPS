@@ -1,4 +1,5 @@
 #include "RuneSwordComponent.h"
+#include "RuneSwordMeshComponent.h"
 #include "MeleeRuneVisual.h"
 #include "MeleeGuardAssets.h"
 #include "ModularSwordVisual.h"
@@ -11,6 +12,7 @@
 #include "ColdSteelEnchantmentCombat.h"
 #include "../Skills/ColdSteelSkillRules.h"
 #include "../FPSGAMECharacter.h"
+#include "../FPSGAMEPlayerController.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
@@ -65,7 +67,7 @@ void URuneSwordComponent::BeginPlay()
     Camera=Pawn->FindComponentByClass<UCameraComponent>();
     if(!Camera){SetComponentTickEnabled(false);return;}
     AddTickPrerequisiteActor(Pawn);
-    Viewmodel=NewObject<UFPSCastingMeshComponent>(Pawn,TEXT("RuneSwordViewmodel"));
+    Viewmodel=NewObject<URuneSwordMeshComponent>(Pawn,TEXT("RuneSwordViewmodel"));
     Pawn->AddInstanceComponent(Viewmodel);Viewmodel->SetupAttachment(Camera);
     Viewmodel->SetRelativeRotation(FRotator(0,90,0));
     Viewmodel->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -113,8 +115,8 @@ void URuneSwordComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
     Viewmodel->SetSkeletalMesh(Mesh);Animations.Reset();
     RefreshModularSword(Item);
     ColdSteelMeleeRune::Apply(Viewmodel,Modular?FString():ColdSteelMeleeRune::Selected(*Item));
-    for(const TCHAR* Clip:{TEXT("Idle"),TEXT("Walk"),TEXT("Equip"),TEXT("Inspect"),TEXT("Overhead"),TEXT("Slash1"),TEXT("Slash2"),TEXT("Thrust"),TEXT("PommelStrike"),TEXT("HeavyCharge"),TEXT("HeavyRelease"),TEXT("Guard"),TEXT("GuardHit"),TEXT("GuardBreak")})
-        Animations.Add(FName(Clip),LoadObject<UAnimSequence>(nullptr,*(Folder+TEXT("/A_RuneSword_")+Clip)));
+    for(const TCHAR* Clip:{TEXT("Idle"),TEXT("Walk"),TEXT("Whirlwind"),TEXT("Equip"),TEXT("Inspect"),TEXT("Overhead"),TEXT("Slash1"),TEXT("Slash2"),TEXT("Thrust"),TEXT("PommelStrike"),TEXT("HeavyCharge"),TEXT("HeavyRelease"),TEXT("Guard"),TEXT("GuardHit"),TEXT("GuardBreak")})
+        Animations.Add(FName(Clip),LoadObject<UAnimSequence>(nullptr,*(Folder+TEXT("/A_RuneSword_")+Clip+(FCString::Strcmp(Clip,TEXT("Whirlwind"))==0?TEXT("V4"):TEXT("")))));
     SwingSound=LoadObject<USoundBase>(nullptr,*ColdSteelInventory::Text(*Item,TEXT("swing_sound")));
     AttackLayerSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Audio/SwordAttack20260914/S_Sword_Attack.S_Sword_Attack"));
     HitSound=LoadObject<USoundBase>(nullptr,*ColdSteelInventory::Text(*Item,TEXT("hit_sound")));
@@ -168,7 +170,7 @@ bool URuneSwordComponent::CanUse() const
     auto* Pawn=Character.Get();const auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
     const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
     const auto* Build=PC?PC->FindComponentByClass<UVoxelBuildComponent>():nullptr;
-    return PC && !PC->bShowMouseCursor && !PC->IsMoveInputIgnored() && !PC->IsLookInputIgnored() &&
+    return !AFPSGAMEPlayerController::BlocksOngoingActions(PC) &&
         !Pawn->IsTraversing() && (!Health || !Health->IsDead()) && (!Build || !Build->IsBuilding());
 }
 
@@ -198,6 +200,7 @@ void URuneSwordComponent::BeginInspect()
 
 void URuneSwordComponent::BeginAttack()
 {
+    if(bWhirlwind)return;
     if(bGuardHeld || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose)return;
     // Let the current swing finish; only reject a new swing or queued combo.
     if(Character.IsValid() && Character->IsCastBlockingLeftHandAction()){bQueuedAttack=false;return;}
@@ -215,6 +218,7 @@ void URuneSwordComponent::BeginAttack()
 
 void URuneSwordComponent::BeginOverhead()
 {
+    if(bWhirlwind)return;
     // Sprint attack: same guards and same swing path as the ordinary slash, only
     // a different clip and its own contact window.  Damage, reach, stamina and
     // the combo stage are whatever the item already gives the normal attack.
@@ -236,6 +240,7 @@ void URuneSwordComponent::BeginOverhead()
 
 void URuneSwordComponent::BeginPrimaryAttack()
 {
+    if(bWhirlwind)return;
     if(bInspecting)CancelAction();
     if(bGuardHeld || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose)return;
     // Preserve the ordinary equip/recovery click buffer. This press belongs to
@@ -304,6 +309,7 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy)
 
 bool URuneSwordComponent::BeginQuickCombatStrike()
 {
+    if(bWhirlwind)return false;
     // 快速进战：只换动作来源与结算参数，不推进普通连击计数；占用与守卫同普通攻击。
     if(bGuardHeld || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose)return false;
     if(Character.IsValid() && Character->IsCastBlockingLeftHandAction())return false;
@@ -415,6 +421,7 @@ FVector URuneSwordComponent::AdvanceThrustLunge(float FromTime,float ToTime)
 
 void URuneSwordComponent::BeginHeavyCharge()
 {
+    if(bWhirlwind)return;
     if(bInspecting)CancelAction();
     if(!IsEquipped() || IsBusy() || !CanUse() || !Viewmodel || !Viewmodel->GetSkeletalMeshAsset())return;
     if(Character->IsCastBlockingLeftHandAction())return;
@@ -473,6 +480,7 @@ void URuneSwordComponent::ReturnFromCharge()
 
 void URuneSwordComponent::CancelAction()
 {
+    FinishWhirlwind();
     FinishHeavyTraining();bAutoHeavyRelease=false;
     ClearGuard();
     bAttacking=bEquipping=bInspecting=bQueuedAttack=bCharging=bReturningCharge=bHeavyAttack=false;HitActors.Reset();
@@ -494,6 +502,7 @@ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) 
 {
     Location=FVector::ZeroVector;Rotation=FRotator::ZeroRotator;
     if(!IsEquipped())return;
+    if(bWhirlwind)return;
     if(GetGuardCameraMotion(Location,Rotation))return;
     if(!CanUse())return;
     if(bCharging || bReturningCharge)
@@ -825,6 +834,7 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
     if((bCharging || bReturningCharge || bInspecting) && Character->IsCastBlockingLeftHandAction()){CancelAction();return;}
     ImpactAge=FMath::Min(1.f,ImpactAge+Delta);
     TickRift(Delta);
+    if(bWhirlwind){TickWhirlwind(Delta);return;}
     if(TickGuard(Delta))return;
     if(!CurrentAnimation)return;
     const float End=CurrentAnimation->GetPlayLength();
@@ -958,6 +968,7 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
 
 void URuneSwordComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
+    FinishWhirlwind();
     FinishHeavyTraining();
     // Release a cast that ended with teardown instead of a finished swing, so the
     // cooldown starts and the reserved flag is not left set for the next session.

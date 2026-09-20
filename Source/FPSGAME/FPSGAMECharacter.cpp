@@ -541,8 +541,31 @@ void AFPSGAMECharacter::Tick(float DeltaSeconds)
     LookInput = FVector2D::ZeroVector;
 }
 
+bool AFPSGAMECharacter::IsWhirlwindMovementLocked() const
+{
+    return RuneSword && RuneSword->IsWhirlwindActive();
+}
+
+void AFPSGAMECharacter::StopMovementForWhirlwind()
+{
+    ExitSprintForWeapon();
+    SprintPressedAt = -1.0;
+    MoveInput = FVector2D::ZeroVector;
+    ConsumeMovementInputVector();
+    JumpBufferRemaining = 0.f;
+    StopJumping();
+    Traversal->SetJumpHeld(false);
+    auto* Movement = GetCharacterMovement();
+    // Stop locomotion without suspending gravity if the cast starts in the air.
+    const double FallingSpeed = Movement->IsFalling() ? Movement->Velocity.Z : 0.0;
+    Movement->StopMovementImmediately();
+    Movement->Velocity.Z = FallingSpeed;
+    Movement->UpdateComponentVelocity();
+}
+
 void AFPSGAMECharacter::MoveForward(float Value)
 {
+    if (IsWhirlwindMovementLocked()) { MoveInput.Y = 0.f; return; }
     MoveInput.Y = Value;
     if (!bIsSliding && !IsDodging() && !FMath::IsNearlyZero(Value) && Controller)
         AddMovementInput(FRotationMatrix(FRotator(0.0f, Controller->GetControlRotation().Yaw, 0.0f)).GetUnitAxis(EAxis::X), Value);
@@ -550,6 +573,7 @@ void AFPSGAMECharacter::MoveForward(float Value)
 
 void AFPSGAMECharacter::MoveRight(float Value)
 {
+    if (IsWhirlwindMovementLocked()) { MoveInput.X = 0.f; return; }
     MoveInput.X = Value;
     if (!bIsSliding && !IsDodging() && !FMath::IsNearlyZero(Value) && Controller)
         AddMovementInput(FRotationMatrix(FRotator(0.0f, Controller->GetControlRotation().Yaw, 0.0f)).GetUnitAxis(EAxis::Y), Value);
@@ -557,16 +581,19 @@ void AFPSGAMECharacter::MoveRight(float Value)
 
 void AFPSGAMECharacter::Turn(float Value)
 {
+    if(RuneSword&&RuneSword->IsWhirlwindActive())return;
     if (const auto* PC=Cast<APlayerController>(Controller); PC && PC->bShowMouseCursor) return;
     LookInput.X += Value; AddControllerYawInput(Value * LookSensitivityScale());
 }
 void AFPSGAMECharacter::LookUp(float Value)
 {
+    if(RuneSword&&RuneSword->IsWhirlwindActive())return;
     if (const auto* PC=Cast<APlayerController>(Controller); PC && PC->bShowMouseCursor) return;
     LookInput.Y += Value; AddControllerPitchInput(Value * LookSensitivityScale());
 }
 void AFPSGAMECharacter::SprintPressed()
 {
+    if (IsWhirlwindMovementLocked()) return;
     if (bSprintHeld) return;
     SprintPressedAt=(!IsDodging() && !IsTraversing() && Controller && !Controller->IsMoveInputIgnored())
         ? GetWorld()->GetTimeSeconds() : -1.0;
@@ -586,7 +613,7 @@ void AFPSGAMECharacter::SprintReleased()
 
 void AFPSGAMECharacter::SlidePressed()
 {
-    if (IsTraversing() || IsDodging()) return;
+    if (IsWhirlwindMovementLocked() || IsTraversing() || IsDodging()) return;
     if (bIsSliding) { StopSlide(false); return; }
     if (bIsCrouched) { if (CanStand()) UnCrouch(); return; }
     if (GetCharacterMovement()->IsMovingOnGround() && HorizontalSpeed() >= SlideMinimumSpeed) StartSlide(); else Crouch();
@@ -594,7 +621,7 @@ void AFPSGAMECharacter::SlidePressed()
 
 void AFPSGAMECharacter::JumpPressed()
 {
-    if (IsDodging()) return;
+    if (IsWhirlwindMovementLocked() || IsDodging()) return;
     Traversal->SetJumpHeld(true);
     if (IsTraversing()) return;
     if (Traversal->TryStart(!bIsSliding && !IsWeaponBusy())) { JumpBufferRemaining=0.f; StopJumping(); return; }
@@ -1081,7 +1108,7 @@ void AFPSGAMECharacter::RefreshMovementState()
     const auto* StaminaProfile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     const bool Guarding=RuneSword && RuneSword->IsGuarding();
     SetAimingState(bAimHeld && !IsWeaponBusy());
-    bIsSprinting = !Guarding && bSprintHeld && (!StaminaProfile||StaminaProfile->CanSprint()) && !IsDodging() && GetCharacterMovement()->IsMovingOnGround() && !bIsSliding && !bIsCrouched && !bIsAiming && (!IsWeaponFireHeld() || IsReloading()) && bForwardIntent;
+    bIsSprinting = !(RuneSword&&RuneSword->IsWhirlwindActive()) && !Guarding && bSprintHeld && (!StaminaProfile||StaminaProfile->CanSprint()) && !IsDodging() && GetCharacterMovement()->IsMovingOnGround() && !bIsSliding && !bIsCrouched && !bIsAiming && (!IsWeaponFireHeld() || IsReloading()) && bForwardIntent;
     if (!bPreviouslySprinting && bIsSprinting) SprintStartedAt = GetWorld()->GetTimeSeconds();
     if (bPreviouslySprinting && !bIsSprinting) StartSprintToFireLock(GetWorld()->GetTimeSeconds());
     GetCharacterMovement()->MaxWalkSpeed = bIsSprinting ? SprintSpeed : (bIsAiming ? ADSWalkSpeed : WalkSpeed);
@@ -1124,7 +1151,7 @@ void AFPSGAMECharacter::StopSlide(bool bTryToStand)
 
 void AFPSGAMECharacter::TryBufferedJump()
 {
-    if (IsDodging()) return;
+    if (IsWhirlwindMovementLocked() || IsDodging()) return;
     if (JumpBufferRemaining <= 0.0f || !GetCharacterMovement()->IsMovingOnGround() || !CanStand()) return;
     if (bIsSliding)
     {

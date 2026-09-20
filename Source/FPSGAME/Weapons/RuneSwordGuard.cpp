@@ -1,6 +1,7 @@
 #include "RuneSwordComponent.h"
 #include "RuneSwordGuardTuning.h"
 #include "../FPSGAMECharacter.h"
+#include "../FPSGAMEPlayerController.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../Movement/PlayerGuardBreakComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
@@ -18,6 +19,7 @@
 
 void URuneSwordComponent::BeginGuard()
 {
+    if(bWhirlwind)return;
     if(!IsEquipped() || !CanUse() || !Animations.FindRef(TEXT("Guard")))return;
     if(bInspecting)CancelAction();
     bGuardHeld=true;bQueuedAttack=false;
@@ -26,7 +28,7 @@ void URuneSwordComponent::BeginGuard()
 }
 void URuneSwordComponent::TryBeginGuard()
 {
-    if(!bGuardHeld || bGuarding || bGuardBreakPose || bGuardReacting ||
+    if(bWhirlwind || !bGuardHeld || bGuarding || bGuardBreakPose || bGuardReacting ||
         bAttacking || bEquipping || bInspecting || bCharging || bReturningCharge || !CanUse())return;
     auto* Pawn=Character.Get();
     if(Pawn->IsCastBlockingLeftHandAction() || Pawn->IsDodging() || Pawn->IsSliding())return;
@@ -84,7 +86,7 @@ bool URuneSwordComponent::TickGuardBreak(float Delta)
     if(!bGuardBreakPose)return false;
     auto* Pawn=Character.Get();auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
     const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
-    if(!PC || PC->bShowMouseCursor || (Health && Health->IsDead())){CancelAction();return false;}
+    if(AFPSGAMEPlayerController::BlocksOngoingActions(PC) || (Health && Health->IsDead())){CancelAction();return false;}
     Viewmodel->SetVisibility(true);
     if(CurrentAnimation){Elapsed=FMath::Min(CurrentAnimation->GetPlayLength(),Elapsed+Delta);SamplePose(Elapsed);}
     const auto* Broken=Pawn->FindComponentByClass<UPlayerGuardBreakComponent>();

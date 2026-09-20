@@ -1,5 +1,6 @@
 #include "../UI/ColdSteelStatusModel.h"
 #include "../FPSGAMECharacter.h"
+#include "../FPSGAMEPlayerController.h"
 #include "../Weapons/RuneSwordComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "Dom/JsonObject.h"
@@ -19,7 +20,7 @@ EStaminaActivity StaminaActivity(const AFPSGAMECharacter* Pawn,const FColdSteelS
     const auto* Sword=Pawn->FindComponentByClass<URuneSwordComponent>();
     if(Sword&&Sword->IsGuarding())return EStaminaActivity::Guarding;
     const auto* PC=Cast<APlayerController>(Pawn->GetController());
-    if(Tuning.SprintPerSecond>0&&Pawn->IsSprinting()&&Pawn->GetVelocity().SizeSquared2D()>2500&&PC&&!PC->IsMoveInputIgnored()&&!PC->bShowMouseCursor)
+    if(Tuning.SprintPerSecond>0&&Pawn->IsSprinting()&&Pawn->GetVelocity().SizeSquared2D()>2500&&!AFPSGAMEPlayerController::BlocksOngoingActions(PC))
         return EStaminaActivity::Sprinting;
     return EStaminaActivity::Recovering;
 }

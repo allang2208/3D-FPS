@@ -104,6 +104,8 @@ struct FColdSteelProfile
     UPROPERTY() float IceSpikeCooldown = 0;
     UPROPERTY() float IceSpikeCooldownDuration = 0;
     UPROPERTY() bool bIceSpikeReserved = false;
+    UPROPERTY() float WhirlwindCooldown = 0;
+    UPROPERTY() float WhirlwindCooldownDuration = 0;
     UPROPERTY() float QuickCombatCooldown = 0;
     UPROPERTY() float QuickCombatCooldownDuration = 0;
     UPROPERTY() bool bQuickCombatReserved = false;

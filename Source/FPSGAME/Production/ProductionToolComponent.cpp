@@ -5,6 +5,7 @@
 #include "../Weapons/WeaponStatEvaluation.h"
 #include "ProductionHarvestSubsystem.h"
 #include "../FPSGAMECharacter.h"
+#include "../FPSGAMEPlayerController.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelPickup.h"
 #include "../Building/VoxelBuildComponent.h"
@@ -162,7 +163,7 @@ bool UProductionToolComponent::CanUse() const
     const auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
     const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
     const auto* Building=PC?PC->FindComponentByClass<UVoxelBuildComponent>():nullptr;
-    return PC && !PC->bShowMouseCursor && !PC->IsMoveInputIgnored() && !PC->IsLookInputIgnored() &&
+    return !AFPSGAMEPlayerController::BlocksOngoingActions(PC) &&
         !Pawn->IsTraversing() && (!Health || !Health->IsDead()) && (!Building || !Building->IsBuilding());
 }
 

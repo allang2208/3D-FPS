@@ -38,6 +38,7 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
     friend class UFPSStairAudit;
     friend class UTacticalDeviceComponent;
     friend class UPistolDualWieldComponent;
+    friend class URuneSwordComponent;
 
 public:
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM4Infima = true;
@@ -80,6 +81,7 @@ private:
     FMonsterHitFeedback LastMonsterHit;
 public:
     bool IsTraversing() const;
+    bool IsWhirlwindMovementLocked() const;
     UFUNCTION(BlueprintPure, Category="FPS Movement|Dodge") bool IsDodging() const;
     UFUNCTION(BlueprintCallable, Category="FPS Movement|Dodge") bool TryDodge();
     virtual float TakeDamage(float DamageAmount, const FDamageEvent& DamageEvent,
@@ -383,6 +385,7 @@ private:
     void UpdateActionPose(float DeltaSeconds);
     void UpdateADSPose();
     void ExitSprintForWeapon(double ExitTime = -1.0);
+    void StopMovementForWhirlwind();
     void StartSprintToFireLock(double StartTime);
     void ServiceHeldFire();
     void EmitMechanicalCue(int32 CueIndex);

@@ -21,6 +21,9 @@ public:
     UDevelopmentSpawnComponent* GetDevelopmentSpawner() const { return DevelopmentSpawner; }
     /** 开发面板打开期间与背包共用右侧 HUD 让位规则。 */
     UColdSteelHUDWidget* GetColdSteelHUD() const { return ColdSteelHUD; }
+    /** ALT exposes the HUD cursor without suspending the held weapon/action. */
+    bool IsCursorOnlyInteraction() const;
+    static bool BlocksOngoingActions(const APlayerController* Player);
     bool OpenGunsmith(const FString& Instance=TEXT(""));
     void CloseGunsmith();
     bool OpenEnhancement(const FString& Instance=TEXT(""));

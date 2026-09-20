@@ -57,6 +57,10 @@ description: 开发和迁移 FPSGAME 的主动、被动技能与魔法，贯通�
 
 当前实现与归档边界：项目 `Docs/Skills/fireball-left-hand-20260914.md`、`Docs/Skills/skills-magic-publication-20260914.md`；火球写实效果、要害暴击与冰锥后续整理见 `Docs/Skills/skills-magic-publication-20260915.md`。
 
+## 旋转近战与动作锁定
+
+开发大旋风或类似旋转横扫技能时，读取 [大旋风：近战范围技能与动作占用](references/whirlwind-melee.md)。覆盖近战限定、数值/修炼/存档/快捷栏、同目标去重、全阶段移动锁与ALT仅光标交互；自由移动的左手魔法规则不套用到大旋风。
+
 ## 蓄力近战与修炼
 
 开发重击等蓄力近战技能时，读取 [蓄力近战与修炼](references/charged-melee-training.md)。

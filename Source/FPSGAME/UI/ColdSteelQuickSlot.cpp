@@ -162,6 +162,19 @@ void UColdSteelQuickSlot::Refresh()
         else if(Ability->HeavyChargeFraction()>0)Message=FString::Printf(TEXT("%.0f%%"),Ability->HeavyChargeFraction()*100);
         else if(Ability->IsBusy())Message=TEXT("动作中");
     }
+    else if(Binding.Skill==TEXT("whirlwind"))
+    {
+        const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<URuneSwordComponent>():nullptr;
+        Remaining=Model->WhirlwindCooldown();
+        Fraction=Model->WhirlwindCooldownDuration()>0?Remaining/Model->WhirlwindCooldownDuration():0.f;
+        const bool Melee=Ability&&Ability->IsEquipped();
+        const bool Enough=Model->CanSpendStamina(Model->WhirlwindStats().StaminaCost);
+        Dim=!Melee||!Enough||Remaining>0||Ability->IsBusy();
+        if(!Melee)Message=TEXT("需近战");
+        else if(Ability->IsWhirlwindActive())Message=TEXT("旋风");
+        else if(!Enough)Message=TEXT("体力不足");
+        else if(Ability->IsBusy())Message=TEXT("动作中");
+    }
     else if(Binding.Skill==TEXT("dodge"))
     {
         if(const auto* Player=GetOwningPlayerPawn<AFPSGAMECharacter>();Player&&Player->IsDodging())Message=TEXT("闪避");

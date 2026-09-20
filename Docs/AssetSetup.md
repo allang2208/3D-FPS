@@ -1,5 +1,9 @@
 # 恢复完整 UE5 内容
 
+## 大旋风 V4（2026-09-20）
+
+恢复普通柄和加长柄 `A_RuneSword_WhirlwindV4`、`Skills/Whirlwind20260920/M_WhirlwindFocus` 与 `ForegroundV3`，保持前景材质JSON映射。保留Manny握持源、ChargedErgoV43母版、共享双臂求解器及V4可编辑源；旧V1–V3动画已归档，V2背景模糊/V3前景材质作者源仍有效。公开脚本与本机授权素材边界、98份归档清单、最后移动限制尚待构建的状态见 [大旋风整理与源码发布](Skills/whirlwind-publication-20260920.md)。
+
 ## 丘陵河岸、天空与地表加载（2026-09-20）
 
 恢复 `WorldGeneration/TemperateHills` 的地表、河岸生态、卵石、水体、天空和 `DA_TemperateHillsStreaming`，以及原有 PN/Normandy、WaterMaterials、PWL 和 Fab 河岸来源。当前重建入口、树木再生接入、旧材质归档及源码/本机素材边界见 [丘陵发布与恢复](WorldGeneration/hills-publication-20260920.md)。地表最后使用 `build_hills_ground_v2.py`，不要让旧三层脚本覆盖；进入范围改为附近约 96 m，加载修复已完成 Editor 构建，实际清晰度及耗时待用户测试。

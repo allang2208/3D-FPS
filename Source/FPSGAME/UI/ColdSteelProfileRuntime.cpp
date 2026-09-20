@@ -359,6 +359,8 @@ void UColdSteelStatusModel::TickRuntime(float Delta,AFPSGAMECharacter* Pawn)
     else if(!Current.bIceSpikeReserved)Current.IceSpikeCooldown=FMath::Max(0.f,Current.IceSpikeCooldown-Delta);
     if(HasNoAbilityCooldown())Current.QuickCombatCooldown=0.f;
     else if(!Current.bQuickCombatReserved)Current.QuickCombatCooldown=FMath::Max(0.f,Current.QuickCombatCooldown-Delta);
+    if(HasNoAbilityCooldown())Current.WhirlwindCooldown=0.f;
+    else Current.WhirlwindCooldown=FMath::Max(0.f,Current.WhirlwindCooldown-Delta);
     TickFormulaBuffs(Delta);
     TickStamina(Delta,Pawn);
     if(Delta>0)if(auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&!Health->IsDead()){

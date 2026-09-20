@@ -1,0 +1,794 @@
+{
+  "task": "whirlwind-retired-20260920",
+  "retained": "V4 normal and long-grip animation; V2 focus blur; V3 foreground materials",
+  "files": [
+    {
+      "original": "Content/Weapons/AzureRunesword20260913/A_RuneSword_Whirlwind.uasset",
+      "archived": "trash/whirlwind-retired-20260920/Content/Weapons/AzureRunesword20260913/A_RuneSword_Whirlwind.uasset",
+      "bytes": 3913830,
+      "sha256": "dcedfd94c773bf023b897b9f212eec782acf7217cda93faf6ca024a85ddc8ff2",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "Content/Weapons/AzureRunesword20260913/A_RuneSword_WhirlwindV2.uasset",
+      "archived": "trash/whirlwind-retired-20260920/Content/Weapons/AzureRunesword20260913/A_RuneSword_WhirlwindV2.uasset",
+      "bytes": 3864486,
+      "sha256": "140cd1b8f0c08cd14e6036477d44d767d71dab99dceb6ed0d59f20f9d98c58b4",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "Content/Weapons/AzureRunesword20260913/A_RuneSword_WhirlwindV3.uasset",
+      "archived": "trash/whirlwind-retired-20260920/Content/Weapons/AzureRunesword20260913/A_RuneSword_WhirlwindV3.uasset",
+      "bytes": 4331197,
+      "sha256": "8270d9defc568e7797f5b308cc76491d23550029aa53c7cff91d9d02753bc3e5",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "Content/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Whirlwind.uasset",
+      "archived": "trash/whirlwind-retired-20260920/Content/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Whirlwind.uasset",
+      "bytes": 3911824,
+      "sha256": "7c11a9fb6b7aa7446be53c93adb7517954b5be28f536ce69a96bb95e5bad81d8",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "Content/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_WhirlwindV2.uasset",
+      "archived": "trash/whirlwind-retired-20260920/Content/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_WhirlwindV2.uasset",
+      "bytes": 3865068,
+      "sha256": "527637aa7fb1a87aa0f6d3fdc42a9d5f0efc9622aa9ee298652de74e3ad39f65",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "Content/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_WhirlwindV3.uasset",
+      "archived": "trash/whirlwind-retired-20260920/Content/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_WhirlwindV3.uasset",
+      "bytes": 4332237,
+      "sha256": "d1ff36837eeee6b10ec4ca3a220267be9823d3252f81aecdceca9c976a6c91e9",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/__pycache__/whirlwind_motion.cpython-313.pyc",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/__pycache__/whirlwind_motion.cpython-313.pyc",
+      "bytes": 2340,
+      "sha256": "4e7e4e3153935534fee5e55f66c35dd9ebeb1fdc83c7cdaa143f5ff5e0a2778e",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/AnimationDiagnosis/asset_pose_snapshot.py",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/AnimationDiagnosis/asset_pose_snapshot.py",
+      "bytes": 2345,
+      "sha256": "617b247c7de67113776accf49f56531b10639d2857cf2ca2b7dac7ec7b93c4d2",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/AnimationDiagnosis/asset-pose-result.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/AnimationDiagnosis/asset-pose-result.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/AnimationDiagnosis/camera-order-build-output.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/AnimationDiagnosis/camera-order-build-output.txt",
+      "bytes": 7410,
+      "sha256": "8281321109171656e28521f80b8cd77bc695020c3664e0d741bb6699afc82b6d",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/AnimationDiagnosis/runtime_snapshot.json",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/AnimationDiagnosis/runtime_snapshot.json",
+      "bytes": 7359,
+      "sha256": "58f131902f79f89f757128aa16dc135bb7e40aba1be120e65466302c206582cf",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/AnimationDiagnosis/runtime_snapshot.py",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/AnimationDiagnosis/runtime_snapshot.py",
+      "bytes": 1874,
+      "sha256": "8bdcd56744faa5ebaff73787ee88f984d1251021c5700af044c3873faf2912dc",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/AnimationDiagnosis/runtime-snapshot-final.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/AnimationDiagnosis/runtime-snapshot-final.txt",
+      "bytes": 5614,
+      "sha256": "21a4816465214cda7906bcb5bdc4c8a2a8fb1a193184d020d622056524487903",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/AnimationDiagnosis/runtime-snapshot-reconnect.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/AnimationDiagnosis/runtime-snapshot-reconnect.txt",
+      "bytes": 691,
+      "sha256": "15a9804ccc74a423f651cd382efd4f6432fe7906ab1e33e85cb48d519899f4e4",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/AnimationDiagnosis/runtime-snapshot-result.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/AnimationDiagnosis/runtime-snapshot-result.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/author_long_grip.py",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/author_long_grip.py",
+      "bytes": 7261,
+      "sha256": "b0189ad3f2c06a00ee0c4fd7588bcbd9d838eeb72a7e518800bc7415ac191023",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/author_whirlwind.py",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/author_whirlwind.py",
+      "bytes": 5862,
+      "sha256": "d9263f58ef105b12d67552e31e65555d761e781ce1412c065529f58ae80e3917",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/author.log",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/author.log",
+      "bytes": 2036,
+      "sha256": "229443a148f2f402ce5f789a4b31851803d50bceb9d93e0fa06ad5c1d958f5cb",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/authoring.json",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/authoring.json",
+      "bytes": 452,
+      "sha256": "784dc91f3737149feb191828f15726683d8fcf9b5ca13ec9910cc85e3693854b",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/build-editor-resume-console.log",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/build-editor-resume-console.log",
+      "bytes": 7852,
+      "sha256": "516865a272f7ceb5ea3d972a52cdad70332aab478654adeeb7ed8480c756654b",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/build-game-console.log",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/build-game-console.log",
+      "bytes": 18795,
+      "sha256": "9cbc24fc18c8a1cd804630b40e0c17b7dba2481304c1e34c1ae68fdb430b3dfa",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/build-game-final-console.log",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/build-game-final-console.log",
+      "bytes": 13580,
+      "sha256": "165d0be206cf67d395c6357fd6fc68ca4dba088358505b4e2879f981b98c33ed",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/build-game-final.json",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/build-game-final.json",
+      "bytes": 64149,
+      "sha256": "90bf50d784469c0f5424df4a39317051991749b780e67daf7f026f6b42371bfc",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/build-game-final.log",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/build-game-final.log",
+      "bytes": 22912,
+      "sha256": "81e4c551f3792a8808f406d8b5b985d5bbea46a073536a1eaa889f55e341efc3",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/build-game.json",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/build-game.json",
+      "bytes": 85603,
+      "sha256": "0609411896755ab4cbeaaadd1722a3284a36c0a7d6d126f6da0515ff41bea07e",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/build-game.log",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/build-game.log",
+      "bytes": 31141,
+      "sha256": "f1c71490dbf31ebb690c8972a7c955fd998c01c44f3f62221c602358df0801c1",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/editor-schema.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/editor-schema.txt",
+      "bytes": 20128,
+      "sha256": "4742457e4164b516542a9c79e5c45b9caf75cf77e7218b22fc5143c408a26173",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/Export/A_RuneSword_Whirlwind.fbx",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/Export/A_RuneSword_Whirlwind.fbx",
+      "bytes": 4889068,
+      "sha256": "0826234567805c6a3014c4d56a52ff837a4d2e82b5eb26a26685618597d5bf91",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/import_receipt.json",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/import_receipt.json",
+      "bytes": 254,
+      "sha256": "19b9b078b00e1ab5ba963678757ed552fa8112061dba16f2a6d7f7f5e0fd16ce",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/import_whirlwind.py",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/import_whirlwind.py",
+      "bytes": 1713,
+      "sha256": "6132629625f05ee82b80707b0985875433e8513b7420c6d3ccc70840520d8fad",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/import-bridge.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/import-bridge.txt",
+      "bytes": 638,
+      "sha256": "00f15526c0acc1967ce069da22be3bed060d0a32bcaaf797bda51df8c509c0cd",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/livecoding-v3-schema.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/livecoding-v3-schema.txt",
+      "bytes": 721,
+      "sha256": "d4e6916c22063b617f8cffdc9361c66a1aa6149bdb0684de947a9916cabfc53f",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/livecoding-windup-schema.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/livecoding-windup-schema.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/long_grip_receipt.json",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/long_grip_receipt.json",
+      "bytes": 319,
+      "sha256": "8fa6d11a19e2e244087f2c17ef4bf5d7feb3410f1f74752129eb3917e7b6c31b",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/long-grip-bridge.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/long-grip-bridge.txt",
+      "bytes": 116,
+      "sha256": "5a5262514f82f41c460c8f213c93bcdf801229bff0ae2a38eb3ebdac7c4d23e4",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/LongGripExport/A_RuneSword_Whirlwind_editable_keys.json",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/LongGripExport/A_RuneSword_Whirlwind_editable_keys.json",
+      "bytes": 765943,
+      "sha256": "266a741de722a24264ff9fdbf085dfe94a62df812725ce98ca2abe5411b5e3be",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/LongGripExport/A_RuneSword_Whirlwind.fbx",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/LongGripExport/A_RuneSword_Whirlwind.fbx",
+      "bytes": 4508432,
+      "sha256": "9ef67ce3d8ab9dbfe14c849c4c32c725aedabca3ad208d6e84c1ec5a0aa903fa",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/save_imported_whirlwind.py",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/save_imported_whirlwind.py",
+      "bytes": 697,
+      "sha256": "1c5a61b42bfeae2fcd26a7392e48d562989e063485444121e9f1bdf576577542",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/save-bridge.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/save-bridge.txt",
+      "bytes": 184,
+      "sha256": "56b885c6903d312cd7141a3f0c008250f4a5f24da67aa739f2cb0e28d49f42c5",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/stop-pie-result.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/stop-pie-result.txt",
+      "bytes": 22,
+      "sha256": "3eed98a46af7be7199d06c7a2a139d9531f19a7dd098fc50dc51b204ba9e01b0",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/stop-pie.json",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/stop-pie.json",
+      "bytes": 88,
+      "sha256": "17dacda86b6df1539a617207077657c6127b88cbe4d112d8809e551e91d3c83a",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/toolsets.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/toolsets.txt",
+      "bytes": 13635,
+      "sha256": "dbda8c5f9778f6456074d711388a0774745d2d4d2e65760530382461d06264f3",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/Whirlwind_Manny_Editable.blend",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/Whirlwind_Manny_Editable.blend",
+      "bytes": 159978249,
+      "sha256": "a49e4c876f9c1bb9de3787ea98149fb84faf22877d2056b660f95f89890e8766",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/whirlwind_motion.py",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/whirlwind_motion.py",
+      "bytes": 1437,
+      "sha256": "76109d40b5b0961e66e386d1809b1878e14f2f20aefcaa9d9741b84a31193a2a",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/__pycache__/whirlwind_motion.cpython-313.pyc",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/__pycache__/whirlwind_motion.cpython-313.pyc",
+      "bytes": 2839,
+      "sha256": "6a2ee2d1baa3eb6706ff97c273a6b285efdbcbd38a812183ce54c1c92322e846",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/author_long_grip.py",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/author_long_grip.py",
+      "bytes": 7264,
+      "sha256": "b251e4bff8c9eda79839f2c3d02205c867b027699932d967629c92ac6af1a15d",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/author_whirlwind.py",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/author_whirlwind.py",
+      "bytes": 5939,
+      "sha256": "daefffe1cdc5479766a709fd02f108aefeb4c3f65a8b3a33c910c08883fca105",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/author.log",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/author.log",
+      "bytes": 2048,
+      "sha256": "0219cc6306e930d185109038233bee4a278a6997989783be0dac03c2e12c2524",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/authoring.json",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/authoring.json",
+      "bytes": 603,
+      "sha256": "a3f0d4bbddb7a526e67a947a36a2df1a099e1b10e8d5de073cffa46dcb4d7e05",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/build-editor-console.log",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/build-editor-console.log",
+      "bytes": 17197,
+      "sha256": "14874d915e67b658bae3c0cb4ba1ff33cd5a87c0d6f1b9c1ce621d4e8b2161d4",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/Export/A_RuneSword_WhirlwindV2.fbx",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/Export/A_RuneSword_WhirlwindV2.fbx",
+      "bytes": 4831516,
+      "sha256": "745ae135f50edab96c07c33fd03335df27b743d86d641b276102e8ab3a57dfc0",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/finish_material_compile.py",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/finish_material_compile.py",
+      "bytes": 506,
+      "sha256": "7fd66d8812f93d5f77b0ff71ffb3a7740138230c00111ae1984db0e61102d2e2",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/import_receipt.json",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/import_receipt.json",
+      "bytes": 270,
+      "sha256": "650cfc6afe3dff26ffc1f8330872823a33b7ceaeeaf97709cb70553082c24e56",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/import_revision.py",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/import_revision.py",
+      "bytes": 2380,
+      "sha256": "93941602a5439fe9df8e319da7a9413a1b8d250e8dd59483b00e06b061103922",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/import-commandlet.log",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/import-commandlet.log",
+      "bytes": 300708,
+      "sha256": "a37fd08f2a8f855439caad84d80a084d6db286cf23a84a2af1d701b6fe9a50bb",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/import-console.log",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/import-console.log",
+      "bytes": 39566,
+      "sha256": "292bcfde6ed12d99a5b719385c0c3c7a34ad5e07b2ae2b2fbff0f054a0afd963",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/long_grip_receipt.json",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/long_grip_receipt.json",
+      "bytes": 325,
+      "sha256": "a8d105ad5d21cb67656c221ed1bdc1da84c2ed91cd30868c9ac313db96d7e626",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/LongGripExport/A_RuneSword_WhirlwindV2_editable_keys.json",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/LongGripExport/A_RuneSword_WhirlwindV2_editable_keys.json",
+      "bytes": 756905,
+      "sha256": "cdd277a3f2034eefd04da40a27fe8fa1cacbb55fc466197bb32537718b166230",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/LongGripExport/A_RuneSword_WhirlwindV2.fbx",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/LongGripExport/A_RuneSword_WhirlwindV2.fbx",
+      "bytes": 4457776,
+      "sha256": "ca7c9a9bbd00210f7a6fd29ff54a5f5e6e5a9e33dc057e9c5edd369d6c5a4e79",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/material-build-console.log",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/material-build-console.log",
+      "bytes": 35602,
+      "sha256": "5a5cc714f7141396317f0ed3cc7f487de1fdc4700c91456bfc761d50765125b9",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/material-build.log",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/material-build.log",
+      "bytes": 289026,
+      "sha256": "bc800e22a4d189c804ec70c3019864aae1853470f393a7bf0be5d67e79123c02",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/README.md",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/README.md",
+      "bytes": 1412,
+      "sha256": "bf4267c3c1056e93aea85f89a0496a7873804798ce20649bc2f33a7cafe26b98",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/resume_assets.py",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/resume_assets.py",
+      "bytes": 305,
+      "sha256": "ef115f96d9b8799d412b872b6bf21dff037654d46bdfc9bd1b1da64779c54e14",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/resume-commandlet.log",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/resume-commandlet.log",
+      "bytes": 293912,
+      "sha256": "6b6588e73bd37049900ccad9888b44beafd5a70e2ea2eea2066200dd016ab278",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/resume-console.log",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/resume-console.log",
+      "bytes": 39475,
+      "sha256": "229288193a663c730ee6012c0d4c5b8a9a72ee74f7a1ef69be6d314038b03c95",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/Whirlwind_Manny_Editable.blend",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/Whirlwind_Manny_Editable.blend",
+      "bytes": 159837064,
+      "sha256": "12f880d595adfc9956be35a08608dd1aeae2a4bbd0ef69719093098165199707",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV2/whirlwind_motion.py",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV2/whirlwind_motion.py",
+      "bytes": 1546,
+      "sha256": "f2b03c5b16595d9f7f60bc655d7893c8df0197ebcf8ede5f7e96b964d9804c5b",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/__pycache__/whirlwind_motion.cpython-313.pyc",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/__pycache__/whirlwind_motion.cpython-313.pyc",
+      "bytes": 2986,
+      "sha256": "0fd3e981953ed0ecc9beb353a6092f8f23da7b376a5123b6aa245914c86c1e37",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/author_long_grip.py",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/author_long_grip.py",
+      "bytes": 7264,
+      "sha256": "1dd5d654eef2c92939d4518f73f42bfd866d76686853ca80c62aeb5207ae2438",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/author_whirlwind.py",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/author_whirlwind.py",
+      "bytes": 5968,
+      "sha256": "aa52970d998578274564a752aa247679b9a3377832ccf86c139e5ea15fb3b9e1",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/author.log",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/author.log",
+      "bytes": 2048,
+      "sha256": "f104c915f05f267a2c3ed1c8d76d5a79f0b8a0fcb9ebb1aee39babe315f51ca9",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/authoring.json",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/authoring.json",
+      "bytes": 631,
+      "sha256": "29570d549669d2847fd4eef7a82f96e87d371c47b1aaeb6fbb73677c14a5a635",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/build-editor-output.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/build-editor-output.txt",
+      "bytes": 61665,
+      "sha256": "34c6e3f6085481f0724395a110ab3558baa5e251a6a3a982cdc122269e51697f",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/editor-app-schema.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/editor-app-schema.txt",
+      "bytes": 20128,
+      "sha256": "4742457e4164b516542a9c79e5c45b9caf75cf77e7218b22fc5143c408a26173",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/Export/A_RuneSword_WhirlwindV3.fbx",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/Export/A_RuneSword_WhirlwindV3.fbx",
+      "bytes": 5343548,
+      "sha256": "a7786c1342a442042755d0b0967be3f976e235c9099571de4b1c7038d54a0fdb",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/import_receipt.json",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/import_receipt.json",
+      "bytes": 270,
+      "sha256": "f61bde5e2358b8e4ac233861ec3e1c69c8446790c2cd1830bdb71b12a542c750",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/import_revision.py",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/import_revision.py",
+      "bytes": 2377,
+      "sha256": "33add30a550bc232ee8cd9b119495358438742a811149630ef57d2cac91615f8",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/import-result.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/import-result.txt",
+      "bytes": 1324,
+      "sha256": "90492b0c478070858aad242e821072fcbdec74065c4ec9e50457e3ccdd34168b",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/long_grip_receipt.json",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/long_grip_receipt.json",
+      "bytes": 325,
+      "sha256": "08a2f5eaacfed7694b9df8b633fcff8d67044282d0429e30eeeb3184041001ef",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/LongGripExport/A_RuneSword_WhirlwindV3_editable_keys.json",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/LongGripExport/A_RuneSword_WhirlwindV3_editable_keys.json",
+      "bytes": 850186,
+      "sha256": "00e49fcadb26faf0f93462f806d7a6a6aa3a5a595b85bcb5693b5fb33ac40c30",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/LongGripExport/A_RuneSword_WhirlwindV3.fbx",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/LongGripExport/A_RuneSword_WhirlwindV3.fbx",
+      "bytes": 4925296,
+      "sha256": "5ff9e0b018531ba33a582bfed39d2cb7aca75a0f21f10dd2ba2b22964ab9fd46",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/README.md",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/README.md",
+      "bytes": 3200,
+      "sha256": "74bda925e6ceedb20cb0836cbbe7b51662fc5ad8eef9a1d68e9503286a792d0c",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/restart_for_build.py",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/restart_for_build.py",
+      "bytes": 366,
+      "sha256": "56ce532b4ee7519923a088d5cef261e8de56629fb7910553fe9d6df473847698",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/restart_state.py",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/restart_state.py",
+      "bytes": 319,
+      "sha256": "239ad9cb9ff5120dca3f9b67d444230382926c1650f6ecceb8033fe61ae507bb",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/restart-for-build-result.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/restart-for-build-result.txt",
+      "bytes": 55,
+      "sha256": "a151ae5321f90d003a9775d4dc10828b06494f04e8f01dadce09071905303653",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/restart-state-result.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/restart-state-result.txt",
+      "bytes": 115,
+      "sha256": "278d8f7d9fdaa91285fafe44efccf182a506ade55aae7a0579cc34450f1cfb2d",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/resume_material_import.py",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/resume_material_import.py",
+      "bytes": 1339,
+      "sha256": "9695c588d7a4a2d996d8cf37bb9c10683eef581320db58fd2018d97e19ad7725",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/resume-import-result.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/resume-import-result.txt",
+      "bytes": 236,
+      "sha256": "b632cf5bfdb1ac107c7b76067e64239314632bd5fc74c533dd9fc55ad88a0ac3",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/stop-pie-result.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/stop-pie-result.txt",
+      "bytes": 22,
+      "sha256": "3eed98a46af7be7199d06c7a2a139d9531f19a7dd098fc50dc51b204ba9e01b0",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/Whirlwind_Manny_Editable.blend",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/Whirlwind_Manny_Editable.blend",
+      "bytes": 160704408,
+      "sha256": "c2183731f1c3e948298b1fc9572a30db84ae1205004ba08aac065b5a0cbb0cda",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV3/whirlwind_motion.py",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV3/whirlwind_motion.py",
+      "bytes": 1552,
+      "sha256": "d0a9e04a4b0d2564655062bd679a4b5b6772f8c9d3d46e798315dc402b32bda3",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV4/__pycache__/whirlwind_motion.cpython-313.pyc",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV4/__pycache__/whirlwind_motion.cpython-313.pyc",
+      "bytes": 6502,
+      "sha256": "482e446968022c0e6a9125e84e49c51dd4d13b4d45d2f4c8cd8a20ea2f66eee2",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV4/author.log",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV4/author.log",
+      "bytes": 2048,
+      "sha256": "8a894b0fbf45432b5d4041dfaf55778afa8e8a6312fc6561b177292dbdcc8687",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV4/build-editor-output.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV4/build-editor-output.txt",
+      "bytes": 7562,
+      "sha256": "58603232334ff94011454da38c4ce61ab4f51b52fbfc5943247c3a793ab8627c",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV4/build-editor-retry-output.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV4/build-editor-retry-output.txt",
+      "bytes": 7271,
+      "sha256": "17a783dddb16fa17608818e6346887867a048c6f742df46245469f83baf66af1",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV4/import-result.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV4/import-result.txt",
+      "bytes": 313,
+      "sha256": "6bab66dad3dd2e68d00d6f4d2ab7b75460f692b6793d7307dcd959bd8264779b",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV4/restart-for-build-result.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV4/restart-for-build-result.txt",
+      "bytes": 55,
+      "sha256": "4195e227a6218f6e183c9c9ee93a67066a2fb258a4236fc1f28da0d3bc10153e",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    },
+    {
+      "original": "SourceAssets/Whirlwind20260920/WindupV4/stop-pie-result.txt",
+      "archived": "trash/whirlwind-retired-20260920/SourceAssets/Whirlwind20260920/WindupV4/stop-pie-result.txt",
+      "bytes": 49,
+      "sha256": "eb32353f6a524e417aeff62780509cc988d6b7aac64531ffc2eabbd74a9eb4fb",
+      "reason": "Superseded V1-V3 animation or completed transient authoring/build/diagnostic output",
+      "replacement": "SourceAssets/Whirlwind20260920/WindupV4; retained WindupV2 blur and WindupV3 foreground material sources"
+    }
+  ],
+  "file_count": 98,
+  "bytes": 537571594,
+  "archive_verified": true,
+  "gameplay_tested": false
+}

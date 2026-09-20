@@ -1,0 +1,23 @@
+{
+  "clip": "A_RuneSword_WhirlwindV4",
+  "fps": 480,
+  "seconds": 1.82,
+  "ready": 0.5,
+  "spin_end": 1.3,
+  "loop": false,
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedErgoV43\\AzureRunesword_ChargedHoldV45.blend",
+  "donor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_idle.blend",
+  "camera_turn_degrees": -720,
+  "camera_turn_in_runtime": true,
+  "knots_seconds": [
+    0,
+    0.14,
+    0.34,
+    0.5,
+    0.7,
+    1.3,
+    1.82
+  ],
+  "windup_curve": "C2 quintic Hermite with shared velocity; continuous pull/load/drive through the release boundary",
+  "runtime_entry_seconds": 0.1
+}

@@ -11,6 +11,7 @@
 #include "RuneSwordHitQuery.h"
 #include "MeleeWeaponStats.h"
 #include "../Combat/CombatFormulaRuntime.h"
+#include "UObject/StrongObjectPtr.h"
 #include "RuneSwordComponent.generated.h"
 
 class AFPSGAMECharacter;
@@ -22,6 +23,7 @@ class UColdSteelStatusModel;
 class UStaticMesh;
 class UStaticMeshComponent;
 class UMaterialInstanceDynamic;
+class UMaterialInterface;
 
 /** Standalone first-person sword. The inventory owns the equipped instance and saves. */
 UCLASS(ClassGroup=(Weapons), meta=(BlueprintSpawnableComponent))
@@ -35,7 +37,7 @@ public:
     virtual void TickComponent(float Delta, ELevelTick Type, FActorComponentTickFunction* Tick) override;
     void RefreshEquipment(UColdSteelStatusModel* Profile);
     UFUNCTION(BlueprintPure, Category="Rune Sword") bool IsEquipped() const { return !InstanceId.IsEmpty(); }
-    UFUNCTION(BlueprintPure, Category="Rune Sword") bool IsBusy() const { return bAttacking || bEquipping || bInspecting || bCharging || bReturningCharge || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose; }
+    UFUNCTION(BlueprintPure, Category="Rune Sword") bool IsBusy() const { return bWhirlwind || bAttacking || bEquipping || bInspecting || bCharging || bReturningCharge || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose; }
     UFUNCTION(BlueprintCallable, Category="Rune Sword") void BeginInspect();
     UFUNCTION(BlueprintPure, Category="Rune Sword") bool IsInspecting() const { return bInspecting; }
     UFUNCTION(BlueprintPure, Category="Rune Sword") bool IsGuarding() const { return bGuarding; }
@@ -54,6 +56,8 @@ public:
     UFUNCTION(BlueprintCallable, Category="Rune Sword") void ReleaseHeavyCharge();
     UFUNCTION(BlueprintPure, Category="Rune Sword") float HeavyChargeFraction() const { return bCharging ? Elapsed/RuneSwordHeavyRhythm::ChargeSeconds : 0.f; }
     bool TriggerHeavySkill();
+    bool BeginWhirlwind();
+    bool IsWhirlwindActive() const { return bWhirlwind; }
     /** 快速进战：以独立配重锤动作发动技能打击（伤害/击退/眩晕走技能公式）。 */
     UFUNCTION(BlueprintCallable, Category="Rune Sword") bool BeginQuickCombatStrike();
     void CancelAction();
@@ -98,6 +102,33 @@ private:
     bool bAutoHeavyRelease=false,bHeavyTrainingPending=false;
     int32 HeavyTrainingHits=0,HeavyTrainingKills=0;
     void FinishHeavyTraining();
+    bool bWhirlwind=false,bWhirlwindTrainingPending=false;
+    bool bWhirlwindSavedBlurOverride=false,bWhirlwindSavedBlurMaxOverride=false;
+    FWhirlwindCast WhirlwindCast;
+    FWhirlwindTuning WhirlwindTuning;
+    int32 WhirlwindHits=0,WhirlwindKills=0;
+    float WhirlwindPause=0.f,WhirlwindPauseSpent=0.f,WhirlwindYaw=0.f;
+    float WhirlwindSavedBlur=0.f,WhirlwindSavedBlurMax=0.f;
+    FVector WhirlwindEntryLocation=FVector::ZeroVector;
+    FRotator WhirlwindEntryRotation=FRotator::ZeroRotator;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> WhirlwindFocusMaterial;
+    struct FWhirlwindDepthState
+    {
+        TWeakObjectPtr<class UPrimitiveComponent> Primitive;
+        bool bRenderCustomDepth=false;
+        int32 Stencil=0;
+        uint8 WriteMask=0;
+        TArray<TStrongObjectPtr<UMaterialInterface>> Materials;
+        TArray<TStrongObjectPtr<UMaterialInterface>> OverlayMaterials;
+    };
+    TArray<FWhirlwindDepthState> WhirlwindDepthStates;
+    void BeginWhirlwindFocus();
+    void SetWhirlwindFocus(float Strength);
+    void EndWhirlwindFocus();
+    void TickWhirlwind(float Delta);
+    void SweepWhirlwind(float FromDegrees,float ToDegrees);
+    void FinishWhirlwindTraining();
+    void FinishWhirlwind();
     int32 NextSlash=0, SwingPoison=0, SwingTrainingHits=0;
     FColdSteelSkillShot SwingSkills;
     double LastAttackEnd=-100.;

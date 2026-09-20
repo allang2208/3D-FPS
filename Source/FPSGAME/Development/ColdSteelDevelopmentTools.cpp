@@ -30,7 +30,7 @@ const TArray<FName>& UColdSteelStatusModel::SkillCatalog() const
     static const TArray<FName> Ids={
         TEXT("rifleMastery"),TEXT("pistolMastery"),TEXT("swordMastery"),
         TEXT("machineGunMastery"),TEXT("shotgunMastery"),TEXT("bowMastery"),
-        TEXT("heavyStrike"),TEXT("criticalStrike"),TEXT("dodge"),
+        TEXT("heavyStrike"),TEXT("whirlwind"),TEXT("criticalStrike"),TEXT("dodge"),
         TEXT("dexterousHands"),TEXT("fireball"),TEXT("iceSpike"),TEXT("quickCombat")};
     return Ids;
 }
