@@ -41,7 +41,9 @@ for relative in ['WorldGeneration/TemperateHills/Sky/MI_HillsClouds.uasset']:
         shutil.copy2(source, destination)
 
 # Direct loading also works before the engine content asset registry has scanned.
-source = load('/Engine/EngineSky/VolumetricClouds/m_SimpleVolumetricCloud_Inst')
+# Author this shared graph with Tools/Weather/build_layered_cloud_material.py.
+# Keep regeneration on the project cloud master instead of reverting to the engine example.
+source = load('/Game/Weather/Materials/MI_FPSLayeredClouds')
 EAL.make_directory(DEST)
 path = DEST+'/MI_HillsClouds'
 cloud_mat = load(path) if EAL.does_asset_exist(path) else TOOLS.create_asset(

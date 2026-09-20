@@ -45,7 +45,7 @@ void ATemperateHillsWorld::GetGrassPlacements(const FBox& Bounds,TArray<FTempera
             const double Path=PathDistance(X,Y);
             if(Path<240)continue;
             const auto Bank=RiverPlan?RiverPlan->Sample(X,Y):TemperateRiver::FSample();
-            if(Bank.Bank>.08)continue;
+            if(Bank.Bank>.82 || (Bank.Bank>0 && Height(X,Y)<Bank.WaterZ+12))continue;
             // Warp the larger fields so species and density transitions do not
             // follow the rectangular PCG grid or the enumeration tile edges.
             const double WX=X+Noise(X*.0004,Y*.0004,1411)*650;
@@ -58,7 +58,7 @@ void ATemperateHillsWorld::GetGrassPlacements(const FBox& Bounds,TArray<FTempera
             const double Clump=Smooth((Meadow*.35+Tuft*.65-.27)/.46);
             const double Patch=Accent?Smooth((Meadow-.32)/.42)*Clump:(.28+.72*Clump);
             const double PathBlend=Smooth((Path-240)/(Accent?550.0:180.0));
-            const double BankBlend=1-Smooth(Bank.Bank/.08);
+            const double BankBlend=1-Smooth(Bank.Bank/.82);
             const double Chance=Coverage*Patch*(1-Forest*(Accent?.45:.16))*PathBlend*BankBlend;
             if(Unit(K+3)>Chance)continue;
             const FVector N=SurfaceNormal(X,Y);

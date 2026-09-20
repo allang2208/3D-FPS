@@ -17,11 +17,13 @@
 #include "Engine/World.h"
 #include "Engine/SkeletalMesh.h"
 #include "Engine/StaticMesh.h"
+#include "Engine/Texture2D.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "Materials/MaterialInstanceDynamic.h"
+#include "MaterialShared.h"
 #include "HAL/IConsoleManager.h"
 #include "PCGGraph.h"
 #include "PCGComponent.h"
@@ -37,18 +39,21 @@
 
 namespace HillsStreaming
 {
+constexpr double CellSize=6400.0;
+// Entry only waits for this playable neighborhood. The normal view ring starts
+// streaming after release, with the existing two-job / one-mesh-per-frame budget.
+constexpr double EntryRadius=9600.0;
 // Edited cells are meshed at this multiple of the normal quad count. 1 disables the
 // refinement (cheaper, faceted); 2 is the shipped default.
 static TAutoConsoleVariable<int32> EditMeshBoost(
     TEXT("fps.Hills.EditMeshBoost"), 2,
     TEXT("Extra mesh resolution for cells touched by a crater or shovel edit (1..4)."));
-constexpr double CellSize=6400.0;
 struct FMeshResult
 {
     FIntPoint Key;
+    bool Detailed=false;
     // Terrain-edit count this mesh was built with; a newer edit makes it stale.
     int32 EditCount=0;
-    bool Detailed=false;
     UE::Geometry::FDynamicMesh3 Mesh;
     UE::Geometry::FDynamicMesh3 Water;
 };
@@ -64,10 +69,10 @@ struct FCell
     TWeakObjectPtr<UInstancedStaticMeshComponent> Trunks;
     TWeakObjectPtr<UDynamicMeshComponent> Water;
     bool Detailed=false;
+    bool PendingDetailed=false;
     // Set when a runtime crater landed in this cell: the live mesh stays until a
     // replacement is cooked, then the cell is rebuilt from the new crater list.
     bool Dirty=false;
-    bool PendingDetailed=false;
 };
 struct FCVarOverride
 {
@@ -78,12 +83,13 @@ struct FCVarOverride
 
 TSharedPtr<FMeshResult,ESPMode::ThreadSafe> MakeMesh(FIntPoint Key,bool Detailed,double Half,int32 Seed,TemperateRiver::FPlanPtr River,const TArray<TemperateHillsSurface::FTerrainEdit>& Edits)
 {
-    Result->EditCount=Edits.Num();
     auto Result=MakeShared<FMeshResult,ESPMode::ThreadSafe>();Result->Key=Key;Result->Detailed=Detailed;
+    Result->EditCount=Edits.Num();
     auto& Mesh=Result->Mesh;Mesh.EnableAttributes();Mesh.Attributes()->EnablePrimaryColors();
     auto* Normals=Mesh.Attributes()->PrimaryNormals();auto* UVs=Mesh.Attributes()->PrimaryUV();
     auto* Colors=Mesh.Attributes()->PrimaryColors();
     const double OX=-Half+Key.X*CellSize,OY=-Half+Key.Y*CellSize;
+    const bool RiverCell=River&&River->IntersectsCell(OX,OY,CellSize);
     // Only the edits that can still reach this cell (plus the normal stencil) travel into the job.
     TArray<TemperateHillsSurface::FTerrainEdit> LocalEdits;
     if(!Edits.IsEmpty())for(const TemperateHillsSurface::FTerrainEdit& Edit:Edits)
@@ -91,7 +97,6 @@ TSharedPtr<FMeshResult,ESPMode::ThreadSafe> MakeMesh(FIntPoint Key,bool Detailed
         const double Reach=TemperateHillsSurface::TerrainEditReach(Edit)+110;
         if(Edit.X>OX-Reach&&Edit.X<OX+CellSize+Reach&&Edit.Y>OY-Reach&&Edit.Y<OY+CellSize+Reach)LocalEdits.Add(Edit);
     }
-    const bool RiverCell=River&&River->IntersectsCell(OX,OY,CellSize);
     // Even distant river cells retain 2 m terrain spacing to avoid a coarse LOD
     // spanning across the shallow channel and covering its water surface.
     // Edited ground gets twice the resolution: a 3 m crater or a 20 cm shovel step
@@ -115,7 +120,10 @@ TSharedPtr<FMeshResult,ESPMode::ThreadSafe> MakeMesh(FIntPoint Key,bool Detailed
         Normals->AppendElement(FVector3f(Normal));
         UVs->AppendElement(FVector2f(WX/400,WY/400));
         const auto Bank=River?River->Sample(WX,WY):TemperateRiver::FSample();
-        Colors->AppendElement(FVector4f(Bank.Bank,Bank.Wet,0,1));
+        // RG retain bank/wetness; B shares the seeded pebble bars with PCG.
+        // Actual height supplies wet pockets among the newly raised deposits.
+        const double Wet=Bank.Bank>0?Bank.Bank*(1-FMath::SmoothStep(-8.0,48.0,Z-Bank.WaterZ)):0;
+        Colors->AppendElement(FVector4f(Bank.Bank,Wet,TemperateRiver::PebbleCover(WX,WY,Seed,Bank),1));
     }
     auto Tri=[&](int32 A,int32 B,int32 C)
     {const int32 ID=Mesh.AppendTriangle(A,B,C);const UE::Geometry::FIndex3i Indices(A,B,C);Normals->SetTriangle(ID,Indices);UVs->SetTriangle(ID,Indices);Colors->SetTriangle(ID,Indices);};
@@ -144,6 +152,22 @@ template<class T> void AddPaths(TArray<FSoftObjectPath>& Out,const TArray<TSoftO
 {for(const auto& V:Values)if(!V.IsNull())Out.AddUnique(V.ToSoftObjectPath());}
 template<class T> bool Loaded(const TArray<TSoftObjectPtr<T>>& Values)
 {return !Values.IsEmpty()&&Algo::AllOf(Values,[](const auto& V){return V.IsValid();});}
+
+int32 RequiredGroundMips(const UTexture2D* Texture)
+{
+    const auto& State=Texture->GetStreamableResourceState();
+    // Respect cooked/quality limits; optional (unmounted) mip payloads must not
+    // make entry impossible. The curated ground textures use ordinary 2D mips.
+    return FMath::Min(int32(State.NumNonOptionalLODs),
+        FMath::Max(1,int32(State.MaxNumLODs)-Texture->NumCinematicMipLevels));
+}
+
+bool GroundTextureReady(const UTexture2D* Texture)
+{
+    if(!Texture||!Texture->GetResource()||Texture->HasPendingInitOrStreaming())return false;
+    const auto& State=Texture->GetStreamableResourceState();
+    return State.IsValid()&&State.NumResidentLODs>=RequiredGroundMips(Texture);
+}
 }
 
 struct FTemperateHillsStreamingState
@@ -153,6 +177,7 @@ struct FTemperateHillsStreamingState
     TFuture<TemperateRiver::FPlanPtr> RiverJob;
     bool RiverPending=false;
     TArray<TSharedPtr<FStreamableHandle>> Handles;
+    TArray<TWeakObjectPtr<UTexture2D>> GroundTextures;
     TArray<HillsStreaming::FCVarOverride> CVars;
     TMap<int32,TWeakObjectPtr<AActor>> Fog;
     TWeakObjectPtr<ACharacter> HeldPawn;
@@ -175,6 +200,11 @@ struct FTemperateHillsStreamingState
     bool WarmupRemoved=false;
     FRenderCommandFence RenderFence;
     double TextureWaitStart=0;
+    double NextGroundResidencyRefresh=0;
+    double GroundMaterialIdleWaitStart=0;
+    bool GroundTexturesCollected=false;
+    bool GroundMaterialReadinessLogged=false;
+    bool GroundTextureReadinessLogged=false;
     double NextAssetTime=0;
     double NextFogTime=0;
     FIntPoint StartCell;
@@ -192,8 +222,8 @@ void ATemperateHillsWorld::BeginStreaming()
     if(!Assets->RiverMaterial.IsNull())
     {
         S.RiverPending=true;
-        S.RiverJob=Async(EAsyncExecution::ThreadPool,[WorldSeed=Seed,Half,Spawn=FVector2D(Start)]()
-            {return TemperateRiver::Generate(WorldSeed,Half,Spawn);});
+        S.RiverJob=Async(EAsyncExecution::ThreadPool,[WorldSeed=Seed,Half,Spawn=FVector2D(Start),Relief=Assets->RiverBankReliefCm]()
+            {return TemperateRiver::Generate(WorldSeed,Half,Spawn,Relief);});
     }
     S.StartCell=FIntPoint(FMath::FloorToInt((Start.X+Half)/HillsStreaming::CellSize),FMath::FloorToInt((Start.Y+Half)/HillsStreaming::CellSize));
     // Apply only while this world exists; returning home restores previous budgets.
@@ -209,14 +239,20 @@ void ATemperateHillsWorld::BeginStreaming()
     // The cloud component uses a soft material in UE 5.8. Retain and
     // prepare that material under loading, before a later weather transition.
     if(!Assets->SkyCloudMaterial.IsNull())SurfacePaths.Add(Assets->SkyCloudMaterial.ToSoftObjectPath());
+    if(!Assets->DayNightSkyMaterial.IsNull())
+    {
+        SurfacePaths.Add(Assets->DayNightSkyMaterial.ToSoftObjectPath());
+        SurfacePaths.Add(Assets->DayNightSkyMesh.ToSoftObjectPath());
+    }
     S.Handles.Add(UAssetManager::GetStreamableManager().RequestAsyncLoad(SurfacePaths,FStreamableDelegate::CreateWeakLambda(this,[this]()
     {
         if(!Streaming||Streaming->Stopping)return;
         Streaming->LoadingAssets=false;
         if(auto* Ground=Assets->GroundMaterial.Get();Ground&&(Assets->RiverMaterial.IsNull()||Assets->RiverMaterial.IsValid())&&
             (Assets->BackdropMaterial.IsNull()||Assets->BackdropMaterial.IsValid())&&
-            (Assets->SkyCloudMaterial.IsNull()||Assets->SkyCloudMaterial.IsValid()))
-        {GroundMID=UMaterialInstanceDynamic::Create(Ground,this);ActivateSkyClouds();Streaming->GroundReady=true;}
+            (Assets->SkyCloudMaterial.IsNull()||Assets->SkyCloudMaterial.IsValid())&&
+            (Assets->DayNightSkyMaterial.IsNull()||(Assets->DayNightSkyMaterial.IsValid()&&Assets->DayNightSkyMesh.IsValid())))
+        {GroundMID=UMaterialInstanceDynamic::Create(Ground,this);ActivateSkyClouds();ActivateDayNightSky();Streaming->GroundReady=true;}
         else
         {
             Streaming->Failed=true;
@@ -236,7 +272,14 @@ void ATemperateHillsWorld::LoadNextEnvironmentStage()
     if(Stage<3)
     {
         Paths.Add(Assets->Graphs[Layer].ToSoftObjectPath());
-        if(Stage==0){HillsStreaming::AddPaths(Paths,Assets->Grass);HillsStreaming::AddPaths(Paths,Assets->GrassAccents);}
+        if(Stage==0)
+        {
+            HillsStreaming::AddPaths(Paths,Assets->Grass);HillsStreaming::AddPaths(Paths,Assets->GrassAccents);
+            HillsStreaming::AddPaths(Paths,Assets->RiverGroundCover);
+            HillsStreaming::AddPaths(Paths,Assets->RiverPebbles);
+            HillsStreaming::AddPaths(Paths,Assets->RiverReeds);HillsStreaming::AddPaths(Paths,Assets->RiverBankGrasses);
+            HillsStreaming::AddPaths(Paths,Assets->RiverUnderstory);
+        }
         if(Stage==1)HillsStreaming::AddPaths(Paths,Assets->Shrubs);
         if(Stage==2){HillsStreaming::AddPaths(Paths,Assets->Rocks);HillsStreaming::AddPaths(Paths,Assets->RiverRocks);}
         S.Status=FText::FromString(Stage==0?TEXT("正在载入附近草地…"):Stage==1?TEXT("正在载入林下灌木…"):TEXT("正在载入坡地岩石…"));
@@ -286,6 +329,16 @@ void ATemperateHillsWorld::TickStreaming()
 {
     if(!Streaming||Streaming->Stopping||!Streaming->GroundReady)return;
     auto& S=*Streaming;
+    // Dynamic terrain + Custom world-UV sampling has no reliable baked UV
+    // density. Renew a short lease for its small, shared texture set only.
+    // Keep doing this after entry, otherwise the streamer can evict the detail.
+    const double ResidencyNow=FPlatformTime::Seconds();
+    if(ResidencyNow>=S.NextGroundResidencyRefresh)
+    {
+        S.NextGroundResidencyRefresh=ResidencyNow+1;
+        for(const auto& Weak:S.GroundTextures)
+            if(auto* Texture=Weak.Get())Texture->SetForceMipLevelsToBeResident(5.f);
+    }
     if(S.RiverPending)
     {
         if(!S.RiverJob.IsReady())
@@ -313,6 +366,7 @@ void ATemperateHillsWorld::TickStreaming()
     {
         if(K.X<0||K.Y<0||K.X>=Count||K.Y>=Count)return false;
         if(!bSurfaceReady){Detailed=true;return IsStart(K);}
+        if(!bReady){Detailed=true;return IsStart(K)||DistanceSquared(K)<=FMath::Square(HillsStreaming::EntryRadius);}
         const auto* Existing=S.Cells.Find(K);
         const double FineRadius=DetailRadiusMeters*100+(Existing&&Existing->Detailed?Size:0);
         Detailed=DistanceSquared(K)<=FMath::Square(FineRadius);
@@ -448,6 +502,7 @@ void ATemperateHillsWorld::TickStreaming()
         for(const auto& Tree:Trees){const double Scale=Tree.Transform.GetScale3D().X;Transforms.Emplace(Tree.Transform.GetRotation(),Tree.Transform.GetLocation()+FVector(0,0,300*Scale),FVector(.42*Scale,.42*Scale,6*Scale));}
         T->AddInstances(Transforms,false,true,false);Cell.Trunks=T;break;
     }
+    if(S.FogReady&&GetWorld()->GetTimeSeconds()>=S.NextFogTime){BuildValleyFog();S.NextFogTime=GetWorld()->GetTimeSeconds()+.5;}
     // PCG ground cover streams back in with its cell, so edits near the player clear
     // their grass again on a slow cadence. The bounds early-out keeps this cheap.
     {
@@ -492,7 +547,6 @@ void ATemperateHillsWorld::InvalidateTerrainCells(const FVector2D& Center,double
         Cell->Dirty=true;++Invalidated;
     }
     UE_LOG(LogTemp,Display,TEXT("HILLS_CRATER invalidate_cells=%d x=%.0f y=%.0f radius=%.0f"),Invalidated,Center.X,Center.Y,Radius);
-    if(S.FogReady&&GetWorld()->GetTimeSeconds()>=S.NextFogTime){BuildValleyFog();S.NextFogTime=GetWorld()->GetTimeSeconds()+.5;}
 }
 
 void ATemperateHillsWorld::TickPreparation()
@@ -518,6 +572,26 @@ void ATemperateHillsWorld::TickPreparation()
         Report(FText::FromString(FString::Printf(TEXT("正在准备渲染资源：%d 项，着色器：%d 项…"),RemainingAssets,RemainingShaders)),.1f+.6f*S.CompletedStages/8);
         return;
     }
+    // Start the shared ground texture requests while local geometry/vegetation
+    // are being prepared, rather than serializing them behind shader readiness.
+    if(!S.GroundTexturesCollected)
+    {
+        TArray<UTexture*> UsedTextures;
+        GroundMID->GetUsedTextures(UsedTextures);
+        for(auto* Used:UsedTextures)if(auto* Texture=Cast<UTexture2D>(Used))
+        {
+            S.GroundTextures.AddUnique(Texture);
+            Texture->SetForceMipLevelsToBeResident(5.f);
+        }
+        S.GroundTexturesCollected=true;
+        UE_LOG(LogTemp,Display,TEXT("HILLS_GROUND requested material=%s textures=%d"),*GetNameSafe(GroundMID->Parent),S.GroundTextures.Num());
+        if(S.GroundTextures.IsEmpty())
+        {
+            S.Failed=true;
+            if(Loading)Loading->FailPreparation(FText::FromString(TEXT("地面纹理未能载入，请返回主场景。")));
+            return;
+        }
+    }
     if(!S.LoadingAssets&&!S.CompilingPaths.IsEmpty())
     {
         S.CompilingPaths.Reset();S.CompletedStages=S.Stage;
@@ -542,6 +616,9 @@ void ATemperateHillsWorld::TickPreparation()
     StaticAssets.Append(Assets->RiverRocks);
     StaticAssets.Append(Assets->Shrubs);StaticAssets.Append(Assets->Grass);
     StaticAssets.Append(Assets->GrassAccents);
+    StaticAssets.Append(Assets->RiverGroundCover);
+    StaticAssets.Append(Assets->RiverPebbles);
+    StaticAssets.Append(Assets->RiverReeds);StaticAssets.Append(Assets->RiverBankGrasses);StaticAssets.Append(Assets->RiverUnderstory);
     const int32 AssetCount=TreeCount+StaticAssets.Num();
     if(S.WarmupAsset<AssetCount)
     {
@@ -574,9 +651,9 @@ void ATemperateHillsWorld::TickPreparation()
         return;
     }
 
-    // Count the actual grid cells the runtime scheduler must generate around the
-    // loading pawn's view. Missing cells count as pending, so an empty queue cannot
-    // falsely release the player before the scheduler discovers those cells.
+    // Only the entry neighborhood gates release; the runtime PCG scheduler keeps
+    // its full radii for background generation. Missing nearby cells still count
+    // as pending, so an empty queue cannot release the player too early.
     FVector Center=GetStartLocation();FRotator Rotation;
     if(auto* PC=UGameplayStatics::GetPlayerController(this,0))PC->GetPlayerViewPoint(Center,Rotation);
     Center.Z=0;
@@ -587,7 +664,7 @@ void ATemperateHillsWorld::TickPreparation()
     {
         const uint32 Grid=Grids[Layer];
         auto& State=PCGLayers[Layer]->GetExecutionState();
-        const double Radius=State.GetGenerationRadiusFromGrid(Grid);
+        const double Radius=FMath::Min(double(State.GetGenerationRadiusFromGrid(Grid)),HillsStreaming::EntryRadius);
         const FPCGGridDescriptor Descriptor=FPCGGridDescriptor().SetGridSize(Grid).SetIs2DGrid(true).SetIsRuntime(true);
         const int32 MinX=FMath::FloorToInt(FMath::Max(-Half,Center.X-Radius)/Grid);
         const int32 MaxX=FMath::FloorToInt(FMath::Min(Half-1,Center.X+Radius)/Grid);
@@ -610,29 +687,100 @@ void ATemperateHillsWorld::TickPreparation()
         Report(FText::FromString(FString::Printf(TEXT("正在布置附近植被 %d/%d…"),Complete,Required)),.75f+.15f*Complete/FMath::Max(1,Required));
         return;
     }
-    // Build the initial view ring and trunk collision before release. Subsequent
-    // movement still uses two terrain jobs and one mesh/trunk submission per frame.
+    // Use the same pawn center/radius as Wanted() and the trunk builder. Camera
+    // offsets must not make us wait for a cell outside the requested neighborhood.
+    const FVector TerrainCenter=UGameplayStatics::GetPlayerPawn(this,0)->GetActorLocation();
     const int32 Count=FMath::RoundToInt(SizeMeters*100/HillsStreaming::CellSize);
-    bool TerrainPending=!S.Jobs.IsEmpty();
+    bool TerrainPending=false;
+    int32 NearbyTerrainTotal=0,NearbyTerrainReady=0;
     for(int32 Y=0;Y<Count;++Y)for(int32 X=0;X<Count;++X)
     {
-        const double DX=FMath::Max(0.0,FMath::Abs(Center.X+Half-(X+.5)*HillsStreaming::CellSize)-HillsStreaming::CellSize*.5);
-        const double DY=FMath::Max(0.0,FMath::Abs(Center.Y+Half-(Y+.5)*HillsStreaming::CellSize)-HillsStreaming::CellSize*.5);
+        const double DX=FMath::Max(0.0,FMath::Abs(TerrainCenter.X+Half-(X+.5)*HillsStreaming::CellSize)-HillsStreaming::CellSize*.5);
+        const double DY=FMath::Max(0.0,FMath::Abs(TerrainCenter.Y+Half-(Y+.5)*HillsStreaming::CellSize)-HillsStreaming::CellSize*.5);
         const double D=DX*DX+DY*DY;
-        if(D>FMath::Square(ViewRadiusMeters*100.0))continue;
+        if(D>FMath::Square(HillsStreaming::EntryRadius))continue;
+        ++NearbyTerrainTotal;
         const auto* Cell=S.Cells.Find(FIntPoint(X,Y));
-        TerrainPending|=!Cell||!Cell->Mesh.IsValid()||Cell->Pending.IsValid();
-        if(Cell&&D<=FMath::Square(9600.0))TerrainPending|=!Cell->Trunks.IsValid();
+        const bool CellReady=Cell&&Cell->Mesh.IsValid()&&Cell->Detailed&&!Cell->Dirty&&!Cell->Pending.IsValid()
+            &&(!Assets->TrunkCollisionMesh.IsValid()||Cell->Trunks.IsValid());
+        TerrainPending|=!CellReady;
+        if(CellReady)++NearbyTerrainReady;
     }
     if(TerrainPending)
-    {S.SettledFrames=0;Report(FText::FromString(TEXT("正在准备视野内地形与树干碰撞…")),.91f);return;}
+    {S.SettledFrames=0;Report(FText::FromString(FString::Printf(TEXT("正在准备附近地形与碰撞 %d/%d…"),NearbyTerrainReady,NearbyTerrainTotal)),.91f);return;}
 
+    // UE 5.8 compiles material permutations on demand. "Complete" requires even
+    // unused permutations and can remain false forever with no queued work.
+    // Nearby terrain already renders behind the overlay, requesting its passes.
+    // Wait for those actual jobs plus a renderable map, never force all variants.
+    auto* GroundResource=GroundMID?GroundMID->GetMaterialResource(GetFeatureLevelShaderPlatform_Checked(GetWorld()->GetFeatureLevel())):nullptr;
+    bool GroundCompiling=false;
+#if WITH_EDITOR
+    GroundCompiling=GroundResource&&!GroundResource->IsCompilationFinished();
+    if(GroundResource&&!GroundResource->GetCompileErrors().IsEmpty())
+    {
+        S.Failed=true;
+        UE_LOG(LogTemp,Error,TEXT("HILLS_GROUND material compile failed: %s"),*FString::Join(GroundResource->GetCompileErrors(),TEXT("; ")));
+        if(Loading)Loading->FailPreparation(FText::FromString(TEXT("地面材质编译失败，请返回主场景。")));
+        return;
+    }
+#endif
+    const auto* GroundShaderMap=GroundResource?GroundResource->GetGameThreadShaderMap():nullptr;
+    if(GroundCompiling||!GroundShaderMap||!GroundShaderMap->IsValidForRendering())
+    {
+        S.SettledFrames=0;
+        if(GroundCompiling)S.GroundMaterialIdleWaitStart=0;
+        else if(S.GroundMaterialIdleWaitStart==0)S.GroundMaterialIdleWaitStart=FPlatformTime::Seconds();
+        else if(FPlatformTime::Seconds()-S.GroundMaterialIdleWaitStart>=30)
+        {
+            // No pending compilation can resolve this state. Report failure
+            // instead of leaving a permanent spinner or releasing blurry ground.
+            S.Failed=true;
+            UE_LOG(LogTemp,Error,TEXT("HILLS_GROUND no renderable shader map after 30 idle seconds: %s resource=%d map=%d"),
+                *GetNameSafe(GroundMID?GroundMID->Parent:nullptr),GroundResource!=nullptr,GroundShaderMap!=nullptr);
+            if(Loading)Loading->FailPreparation(FText::FromString(TEXT("地面材质未能就绪，请返回主场景后重试。")));
+            return;
+        }
+        Report(FText::FromString(GroundCompiling?TEXT("正在编译附近地面材质…"):TEXT("正在准备附近地面材质…")),.92f);
+        return;
+    }
+    S.GroundMaterialIdleWaitStart=0;
+    if(!S.GroundMaterialReadinessLogged)
+    {
+        S.GroundMaterialReadinessLogged=true;
+        UE_LOG(LogTemp,Display,TEXT("HILLS_GROUND renderable material=%s all_permutations=%d elapsed=%.2fs"),
+            *GetNameSafe(GroundMID->Parent),GroundResource->IsGameThreadShaderMapComplete(),FPlatformTime::Seconds()-StartSeconds);
+    }
+
+    int32 GroundTexturesReady=0;
+    for(const auto& Weak:S.GroundTextures)
+        if(HillsStreaming::GroundTextureReady(Weak.Get()))++GroundTexturesReady;
+    // Never let the optional environment-streaming timeout below release the
+    // player onto low-resolution ground. UI stays cancellable while IO runs.
+    if(GroundTexturesReady!=S.GroundTextures.Num())
+    {
+        S.SettledFrames=0;
+        Report(FText::FromString(FString::Printf(TEXT("正在载入清晰地面纹理 %d/%d…"),GroundTexturesReady,S.GroundTextures.Num())),.92f);
+        return;
+    }
+    if(!S.GroundTextureReadinessLogged)
+    {
+        S.GroundTextureReadinessLogged=true;
+        for(const auto& Weak:S.GroundTextures)if(auto* Texture=Weak.Get())
+        {
+            const auto& State=Texture->GetStreamableResourceState();
+            const int32 FirstMip=State.LODCountToAssetFirstLODIdx(State.NumResidentLODs);
+            UE_LOG(LogTemp,Display,TEXT("HILLS_GROUND resident %s mips=%d required=%d resolution=%dx%d"),
+                *Texture->GetName(),int32(State.NumResidentLODs),HillsStreaming::RequiredGroundMips(Texture),
+                FMath::Max(1,Texture->GetSizeX()>>FirstMip),FMath::Max(1,Texture->GetSizeY()>>FirstMip));
+        }
+    }
     const uint32 PSOs=FShaderPipelineCache::NumPrecompilesRemaining();
     if(PSOs>0)
     {S.SettledFrames=0;Report(FText::FromString(FString::Printf(TEXT("正在准备显示效果：剩余 %u 项…"),PSOs)),.93f);return;}
     if(S.TextureWaitStart==0)S.TextureWaitStart=FPlatformTime::Seconds();
-    // Streaming textures obey the VRAM budget. Don't demand all top mips resident
-    // forever on machines where the pool cannot contain them.
+    // Noncritical environment textures still obey the global VRAM budget and
+    // bounded wait. Ground shader/mips above have an independent, strict gate.
     if(IStreamingManager::Get().GetNumWantingResources()>0&&FPlatformTime::Seconds()-S.TextureWaitStart<10)
     {Report(FText::FromString(TEXT("正在细化附近纹理…")),.95f);return;}
     if(!WarmupComponents.IsEmpty())
@@ -644,7 +792,7 @@ void ATemperateHillsWorld::TickPreparation()
     if(!S.RenderFence.IsFenceComplete()||++S.SettledFrames<3)return;
     bReady=true;AuditNext=GetWorld()->GetTimeSeconds()+24;
     if(Loading)Loading->CompletePreparation();
-    UE_LOG(LogTemp,Display,TEXT("HILLS_READY seed=%d world=%s pcg_cells=%d/%d preparation_ms=%.2f"),Seed,*WorldId.ToString(),Complete,Required,(FPlatformTime::Seconds()-StartSeconds)*1000);
+    UE_LOG(LogTemp,Display,TEXT("HILLS_READY seed=%d world=%s entry_radius_m=%.0f terrain_cells=%d/%d pcg_cells=%d/%d ground_textures=%d/%d preparation_ms=%.2f"),Seed,*WorldId.ToString(),HillsStreaming::EntryRadius/100,NearbyTerrainReady,NearbyTerrainTotal,Complete,Required,GroundTexturesReady,S.GroundTextures.Num(),(FPlatformTime::Seconds()-StartSeconds)*1000);
 }
 
 void ATemperateHillsWorld::BuildValleyFog()
@@ -714,6 +862,8 @@ void ATemperateHillsWorld::EndStreaming()
     EndBackdrop();
     if(!Streaming)return;
     auto& S=*Streaming;S.Stopping=true;
+    // Ground residency requests expire naturally after five seconds. Do not
+    // clear global flags on textures another world/preview may also be using.
     // Completed handles transferred to the GameInstance keep the curated biome cached.
     if(!S.ResourcesRetained)for(auto& H:S.Handles)if(H){H->CancelHandle();H->ReleaseHandle();}
     for(auto& C:S.CVars)if(FMath::IsNearlyEqual(C.Variable->GetFloat(),C.Applied))C.Variable->Set(C.Previous,ECVF_SetByCode);

@@ -1,0 +1,24 @@
+{
+  "date": "2026-09-20",
+  "scope": "Superseded pre-optimization ground material snapshots only",
+  "local_only": true,
+  "retained_authoring": "Tools/WorldGeneration/build_hills_ground_v2.py",
+  "entries": [
+    {
+      "source": "Saved/GroundMaterialOptimization20260920/BeforeAuthoring-20260920-000955-117411/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+      "target": "trash/hills-ground-superseded-20260920/WorldGeneration/TemperateHills/M_TemperateGround.uasset",
+      "bytes": 48654,
+      "sha256": "16819ccfce2ae391efb78f92c270a2dded11dbc54889f0c9d6c9b4604ec0aeed",
+      "reason": "Superseded ground material snapshot retained for recovery; current Content asset remains active.",
+      "retained_replacement": "Content/WorldGeneration/TemperateHills/M_TemperateGround.uasset"
+    },
+    {
+      "source": "Saved/GroundMaterialOptimization20260920/BeforeAuthoring-20260920-000955-117411/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+      "target": "trash/hills-ground-superseded-20260920/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset",
+      "bytes": 67892,
+      "sha256": "b2586f94ea1fbfbfdfe3f0ebe4d9deb820a08d306c8981e8949b25739cee8a85",
+      "reason": "Superseded ground material snapshot retained for recovery; current Content asset remains active.",
+      "retained_replacement": "Content/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround.uasset"
+    }
+  ]
+}

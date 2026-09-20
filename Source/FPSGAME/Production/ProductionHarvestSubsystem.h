@@ -8,6 +8,7 @@ struct FProductionResource;
 class AColdSteelPickup;
 class AProductionBreakEffect;
 class ATemperateHillsWorld;
+struct FProductionTreeGrowthPresentation;
 
 /** Bounded local presentation of profile-owned, persistent harvest drops. */
 UCLASS()
@@ -39,5 +40,11 @@ private:
     bool bStumpsDirty=true;
     double NextStumpRefresh=0;
     void UpdateStumps(const FVector& Eye,double Now);
+    void UpdateGrowingTrees(const FVector& Eye,double Now);
+    void RemoveGrowingTree(uint64 Candidate);
+    void ClearGrowingTrees();
+    TSharedPtr<FProductionTreeGrowthPresentation> GrowingTrees;
+    UPROPERTY(Transient) TArray<TObjectPtr<class UInstancedSkinnedMeshComponent>> GrowthMeshes;
+    UPROPERTY(Transient) TObjectPtr<class UInstancedStaticMeshComponent> GrowthTrunks;
     float ScanCountdown=0;
 };

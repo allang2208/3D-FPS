@@ -56,6 +56,7 @@ void UProductionHarvestSubsystem::ReleasePreparedFall(const FProductionResource&
 void UProductionHarvestSubsystem::ShowStumpAtCut(const FProductionResource& Resource)
 {
     Hills=Resource.World;bStumpsDirty=true;
+    RemoveGrowingTree(Resource.CandidateId);
     const auto* Pawn=UGameplayStatics::GetPlayerPawn(this,0);
     // Run before removing the standing tree and spawning the upper section,
     // in the same game-thread operation instead of waiting for the stream tick.
@@ -88,6 +89,7 @@ void UProductionHarvestSubsystem::Tick(float Delta)
     const FVector Eye=Pawn->GetActorLocation();
     const double Now=GetWorld()->GetTimeSeconds();
     UpdateStumps(Eye,Now);
+    UpdateGrowingTrees(Eye,Now);
     for(auto It=VisibleAfter.CreateIterator();It;++It)if(It.Value()<=Now)It.RemoveCurrent();
     struct FCandidate {FString Id;double Distance;};
     TArray<FCandidate> Candidates;
@@ -128,6 +130,7 @@ void UProductionHarvestSubsystem::Deinitialize()
         if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->SyncRuntime();
     for(auto& Pair:Pickups)if(auto* Pickup=Pair.Value.Get())Pickup->Destroy();
     Pickups.Empty();VisibleAfter.Empty();Effects.Empty();
+    ClearGrowingTrees();
     for(auto& Component:Stumps)if(Component)Component->DestroyComponent();Stumps.Empty();
     if(WoodLoad)WoodLoad->CancelHandle();if(StoneLoad)StoneLoad->CancelHandle();
     WoodLoad.Reset();StoneLoad.Reset();
@@ -140,7 +143,7 @@ void UProductionHarvestSubsystem::UpdateStumps(const FVector& Eye,double Now)
     if(Now<NextStumpRefresh&&!bStumpsDirty)return;
     NextStumpRefresh=Now+1;
     const FIntPoint Cell(FMath::FloorToInt(Eye.X/800),FMath::FloorToInt(Eye.Y/800));
-    if(!bStumpsDirty&&Cell==StumpCell&&Stumps.Num()==4)return;
+    // Growth changes the stump while the player stands still as well.
     Prepare(true);
     // Four small meshes cut from the four source trees. No hidden full-tree mesh.
     for(int32 Variant=0;Variant<4;++Variant)

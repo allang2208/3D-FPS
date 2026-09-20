@@ -17,6 +17,10 @@ struct FPoint
     double HalfWidth = 450;
     double Depth = 65;
     double Distance = 0;
+    double LeftWidth = 450;
+    double RightWidth = 450;
+    double Bend = 0;
+    double Speed = 50; // cm/s, visual flow only
 };
 
 struct FSample
@@ -28,10 +32,15 @@ struct FSample
     double Along = 0;
     double Bank = 0;
     double Wet = 0;
+    double SignedDistance = 0;
+    double Bend = 0;
+    double Speed = 50;
+    double BankExtent = 3200;
 };
 
 struct FPlan
 {
+    double BankReliefCm = 22;
     TArray<FPoint> Points;
     TMap<FIntPoint, TArray<int32>> Buckets;
     FSample Sample(double X, double Y) const;
@@ -42,5 +51,7 @@ struct FPlan
 };
 
 using FPlanPtr = TSharedPtr<const FPlan, ESPMode::ThreadSafe>;
-FPlanPtr Generate(int32 Seed, double HalfSize, const FVector2D& ProtectedSpawn);
+FPlanPtr Generate(int32 Seed, double HalfSize, const FVector2D& ProtectedSpawn, double BankReliefCm=22);
+// Shared sediment patches for ground shading, small stones and plant spacing.
+double PebbleCover(double X,double Y,int32 Seed,const FSample& River);
 }

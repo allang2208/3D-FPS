@@ -1,5 +1,10 @@
 # 恢复完整 UE5 内容
 
+## 丘陵河岸、天空与地表加载（2026-09-20）
+
+恢复 `WorldGeneration/TemperateHills` 的地表、河岸生态、卵石、水体、天空和 `DA_TemperateHillsStreaming`，以及原有 PN/Normandy、WaterMaterials、PWL 和 Fab 河岸来源。当前重建入口、树木再生接入、旧材质归档及源码/本机素材边界见 [丘陵发布与恢复](WorldGeneration/hills-publication-20260920.md)。地表最后使用 `build_hills_ground_v2.py`，不要让旧三层脚本覆盖；进入范围改为附近约 96 m，加载修复已完成 Editor 构建，实际清晰度及耗时待用户测试。
+
+
 ## 双手伐木斧与矿镐（2026-09-20）
 
 运行需要 `Items/ProductionTools/BattleAxe20260919`、`GripMotion20260913`、`RusticPickaxe20260919` 及两种竖直背包图标。当前动作源、导入顺序、骨架/声音依赖和本机归档见 [采集工具发布与恢复](Weapons/production-tools-publication-20260920.md)。公开代码与调参；用户 Meshy 源、Manny/Fab 派生资产、完整骨架采样、贴图与音频保留本机。矿镐沉重反馈已于 2026-09-20 完成正式 DLL 构建，未重新进行实机测试。

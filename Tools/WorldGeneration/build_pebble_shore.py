@@ -2,6 +2,11 @@
 
 Uses already-local scan maps and the existing WaterMaterials round rock mesh.
 Run with the updated FPSGAMEEditor module; no map or gameplay is launched.
+
+The ground graph below is historical and superseded by build_hills_ground_v2.py.
+Keep this recipe for the scan import and round-stone asset provenance; do not
+rerun it over the current biome as a ground upgrade. Restore the current local
+PebbleShore assets, then use build_hills_ground_v2.py for the active ground.
 """
 import json
 import shutil

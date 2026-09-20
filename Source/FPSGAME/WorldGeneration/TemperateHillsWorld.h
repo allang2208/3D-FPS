@@ -5,8 +5,8 @@
 #include "GameFramework/Actor.h"
 #include "GameFramework/SaveGame.h"
 #include "../FPSGAMEGameMode.h"
-#include "TemperateHillsSurface.h"
 #include "TemperateHillsRiver.h"
+#include "TemperateHillsSurface.h"
 #include "TemperateHillsWorld.generated.h"
 
 class UPCGComponent;
@@ -22,6 +22,8 @@ class ACameraActor;
 class UPrimitiveComponent;
 class UTexture2D;
 class UVolumetricCloudComponent;
+class UStaticMeshComponent;
+class AFPSWeatherManager;
 struct FTemperateHillsStreamingState;
 struct FTemperateBackdropState;
 struct FProductionResource;
@@ -48,10 +50,32 @@ public:
     UPROPERTY(EditAnywhere) TArray<TSoftObjectPtr<UPCGGraph>> Graphs;
     UPROPERTY(EditAnywhere, Category="River") TSoftObjectPtr<UMaterialInterface> RiverMaterial;
     UPROPERTY(EditAnywhere, Category="River") TArray<TSoftObjectPtr<UStaticMesh>> RiverRocks;
+    UPROPERTY(EditAnywhere, Category="River|Pebble Shore") TArray<TSoftObjectPtr<UStaticMesh>> RiverPebbles;
+    UPROPERTY(EditAnywhere, Category="River|Pebble Shore", meta=(ClampMin="0",ClampMax="40",Units="cm")) float RiverBankReliefCm=22.f;
+    UPROPERTY(EditAnywhere, Category="River|Pebble Shore", meta=(ClampMin="45",ClampMax="180",Units="cm")) float RiverPebbleSpacingCm=85.f;
+    UPROPERTY(EditAnywhere, Category="River|Pebble Shore", meta=(ClampMin="0",ClampMax="1")) float RiverPebbleCoverage=.78f;
+    UPROPERTY(EditAnywhere, Category="River|Ecology") TArray<TSoftObjectPtr<UStaticMesh>> RiverGroundCover;
+    UPROPERTY(EditAnywhere, Category="River|Ecology") TArray<TSoftObjectPtr<UStaticMesh>> RiverReeds;
+    UPROPERTY(EditAnywhere, Category="River|Ecology") TArray<TSoftObjectPtr<UStaticMesh>> RiverBankGrasses;
+    UPROPERTY(EditAnywhere, Category="River|Ecology") TArray<TSoftObjectPtr<UStaticMesh>> RiverUnderstory;
+    UPROPERTY(EditAnywhere, Category="River|Ecology", meta=(ClampMin="0",ClampMax="1")) float RiverPlantCoverage=.95f;
+    UPROPERTY(EditAnywhere, Category="River|Ecology", meta=(ClampMin="0",ClampMax="1")) float RiverGroundCoverCoverage=.96f;
+    UPROPERTY(EditAnywhere, Category="River|Ecology", meta=(ClampMin="40",ClampMax="150",Units="cm")) float RiverGroundCoverSpacingCm=52.f;
+    UPROPERTY(EditAnywhere, Category="Trees|Regrowth", meta=(ClampMin="0")) float TreeDormantDays=1.f;
+    UPROPERTY(EditAnywhere, Category="Trees|Regrowth", meta=(ClampMin="0.1")) float TreeMatureDays=6.f;
     UPROPERTY(EditAnywhere, Category="Backdrop") TSoftObjectPtr<UMaterialInterface> BackdropMaterial;
     // Native default also upgrades existing biome assets that predate this field.
     UPROPERTY(EditAnywhere, Category="Sky") TSoftObjectPtr<UMaterialInterface> SkyCloudMaterial =
         TSoftObjectPtr<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/WorldGeneration/TemperateHills/Sky/MI_HillsClouds.MI_HillsClouds")));
+    UPROPERTY(EditAnywhere, Category="Sky|Day Night") TSoftObjectPtr<UMaterialInterface> DayNightSkyMaterial =
+        TSoftObjectPtr<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/WorldGeneration/TemperateHills/Sky/MI_HillsDayNightSky.MI_HillsDayNightSky")));
+    UPROPERTY(EditAnywhere, Category="Sky|Day Night") TSoftObjectPtr<UStaticMesh> DayNightSkyMesh =
+        TSoftObjectPtr<UStaticMesh>(FSoftObjectPath(TEXT("/Engine/EngineSky/SM_SkySphere.SM_SkySphere")));
+    // Source Sunshine was authored at EV100 5.5; hills retain their EV100 1 lighting.
+    UPROPERTY(EditAnywhere, Category="Sky|Day Night") float SkyExposureCompensation = -4.5f;
+    UPROPERTY(EditAnywhere, Category="Sky|Day Night") float SkyRotationDegrees = 0.f;
+    // Source rotation speed .0005 turns/sec at the existing 2160-second game day.
+    UPROPERTY(EditAnywhere, Category="Sky|Day Night") float SkyTurnsPerGameDay = 1.08f;
     UPROPERTY(EditAnywhere, Category="Fog", meta=(ClampMin="0",ClampMax="1")) float ValleyFogDensity = .32f;
     // Embedded surface stones. They reuse the loaded rock meshes and ride the grass PCG
     // layer (no collision, 35-60 m cull) so the ground keeps detail where the player
@@ -159,6 +183,7 @@ public:
     FString ProductionResourceId(int32 Layer,uint64 Candidate) const;
     bool IsProductionDepleted(int32 Layer,uint64 Candidate) const;
     void GetHarvestedStumps(const FBox& Bounds,TArray<FTemperatePlacement>& Out) const;
+    void GetRegrowingTrees(const FBox& Bounds,TArray<FTemperatePlacement>& Out) const;
     bool ResolveProductionResource(const FHitResult& Hit,FProductionResource& Resource,FString& Reason) const;
     void CompleteProductionHarvest(const FProductionResource& Resource,const FHitResult& Hit,const FVector& Direction);
 
@@ -177,6 +202,9 @@ private:
     UPROPERTY() TObjectPtr<UTexture2D> BackdropCoverage;
     UPROPERTY() TArray<TObjectPtr<UDynamicMeshComponent>> BackdropMeshes;
     UPROPERTY() TObjectPtr<UVolumetricCloudComponent> HillsClouds;
+    UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> DayNightSky;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> DayNightSkyMID;
+    UPROPERTY(Transient) TWeakObjectPtr<AFPSWeatherManager> SkyWeather;
     UPROPERTY() TObjectPtr<UInstancedStaticMeshComponent> Trunks;
     UPROPERTY() TObjectPtr<ACameraActor> AuditCamera;
     UPROPERTY() TArray<TObjectPtr<UPrimitiveComponent>> WarmupComponents;
@@ -199,6 +227,9 @@ private:
     void GetGrassPlacements(const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
     /** Small embedded surface stones that match the ground material's dry/gravel patches. */
     void GetGroundDebrisPlacements(const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
+    void GetRiverPlantPlacements(const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
+    void GetRiverShrubPlacements(const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
+    void GetRiverPebblePlacements(const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
     void BeginStreaming();
     void TickStreaming();
     void EndStreaming();
@@ -209,11 +240,15 @@ private:
     void TickBackdrop();
     void BeginSkyClouds();
     void ActivateSkyClouds();
+    void ActivateDayNightSky();
+    void TickDayNightSky();
+    void EndDayNightSky();
     bool IsBackdropReady() const;
     void SetBackdropCellVisible(FIntPoint Cell, bool Visible);
     void EndBackdrop();
     void ResolveSession();
     void RunAudit();
+    void AuditCheck(bool Pass, const TCHAR* Message);
     void InvalidateTerrainCells(const FVector2D& Center, double Radius);
     void PersistTerrainEdits();
     void AddTerrainEdit(const TemperateHillsSurface::FTerrainEdit& Edit);
@@ -225,7 +260,6 @@ private:
     TArray<TemperateHillsSurface::FTerrainEdit> TerrainEdits;
     TMap<int64, TArray<int32>> EditBuckets;
     double NextCoverSweep = 0;
-    void AuditCheck(bool Pass, const TCHAR* Message);
 };
 
 UCLASS()

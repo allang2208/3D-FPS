@@ -20,9 +20,10 @@ bool ATemperateHillsWorld::IsProductionDepleted(int32 Layer,uint64 Candidate) co
 {
     const auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
     const FString Id=ProductionResourceId(Layer,Candidate);
-    // Surface soil digs one 20 cm layer per cycle; trees and rocks still deplete once.
+    // Regrown trees keep one owner for their whole lifetime, including maturity.
+    // PCG must not add a second full-size tree when their harvest counter resets.
     const int32 Needed=Layer==2?1:FProductionResource::RequiredHits;
-    return Profile && Profile->HarvestProgress(Id)>=Needed;
+    return Profile && ((Layer==0 && Profile->HasTreeGrowth(Id)) || Profile->HarvestProgress(Id)>=Needed);
 }
 
 bool ATemperateHillsWorld::ResolveProductionResource(const FHitResult& Hit,FProductionResource& Resource,FString& Reason) const
@@ -39,9 +40,9 @@ bool ATemperateHillsWorld::ResolveProductionResource(const FHitResult& Hit,FProd
         Resource.CandidateId=(uint64(uint32(X))<<32)|uint32(Y);
         Resource.Layer=2; Resource.World=const_cast<ATemperateHillsWorld*>(this);
         Resource.Id=ProductionResourceId(2,Resource.CandidateId); Resource.Name=TEXT("表土");
+        Resource.RequiredTool=TEXT("shovel"); Resource.Rewards.Add(TEXT("soil"),2);
         // One swing per 20 cm layer: the excavation below runs on every hit.
         Resource.HitsRequired=1;
-        Resource.RequiredTool=TEXT("shovel"); Resource.Rewards.Add(TEXT("soil"),2);
         Resource.Transform=FTransform(FVector((X+.5)*250,(Y+.5)*250,Height((X+.5)*250,(Y+.5)*250)));
         return true;
     }
@@ -55,7 +56,7 @@ bool ATemperateHillsWorld::ResolveProductionResource(const FHitResult& Hit,FProd
     FVector Origin=Transform.GetLocation();
     if (Tree) Origin.Z-=300*Transform.GetScale3D().Z/6;
     TArray<FTemperatePlacement> Candidates;
-    GetPlacements(Layer,FBox(Origin-FVector(50,50,50000),Origin+FVector(50,50,50000)),Candidates);
+    GetPlacements(Layer,FBox(Origin-FVector(50,50,50000),Origin+FVector(50,50,50000)),Candidates,true);
     for (const auto& Candidate:Candidates)
     {
         if (FVector2D::DistSquared(FVector2D(Origin),FVector2D(Candidate.Transform.GetLocation()))>25) continue;
@@ -65,6 +66,9 @@ bool ATemperateHillsWorld::ResolveProductionResource(const FHitResult& Hit,FProd
         Resource.World=const_cast<ATemperateHillsWorld*>(this); Resource.Layer=Layer;
         Resource.Transform=Candidate.Transform; Resource.Mesh=Candidate.Mesh; Resource.Seed=Candidate.Key;
         Resource.CandidateId=Candidate.CandidateId; Resource.Id=ProductionResourceId(Layer,Candidate.CandidateId);
+        if(Tree)
+            if(const auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();Profile && !Profile->IsTreeMature(Resource.Id))
+            {Reason=TEXT("树木正在生长，成熟后才能砍伐");return false;}
         Resource.RequiredTool=Tree?TEXT("axe"):TEXT("pickaxe");
         if (Tree) { Resource.Name=TEXT("树木"); Resource.Rewards.Add(TEXT("wood"),4); }
         else
@@ -136,6 +140,7 @@ void ATemperateHillsWorld::CompleteProductionHarvest(const FProductionResource& 
 
 void ATemperateHillsWorld::GetHarvestedStumps(const FBox& Bounds,TArray<FTemperatePlacement>& Out) const
 {
+    const auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
     // Reconstruct from the same seeded candidates and persisted depletion IDs.
     // No second stump save schema, and no tree/PCG regeneration on each chop.
     for(int32 Y=FMath::FloorToInt(Bounds.Min.Y/1200);Y<=FMath::FloorToInt(Bounds.Max.Y/1200);++Y)
@@ -143,6 +148,29 @@ void ATemperateHillsWorld::GetHarvestedStumps(const FBox& Bounds,TArray<FTempera
     {
         FTemperatePlacement P;
         if(TreeCandidate(X,Y,P)&&Bounds.IsInsideXY(P.Transform.GetLocation())&&IsProductionDepleted(0,P.CandidateId))
-            Out.Add(P);
+        {
+            const float Scale=Profile?Profile->TreeStumpScale(ProductionResourceId(0,P.CandidateId)):1;
+            if(Scale>.01f){P.Transform.SetScale3D(P.Transform.GetScale3D()*Scale);Out.Add(P);}
+        }
+    }
+}
+
+void ATemperateHillsWorld::GetRegrowingTrees(const FBox& Bounds,TArray<FTemperatePlacement>& Out) const
+{
+    const auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+    if(!Profile)return;
+    for(int32 Y=FMath::FloorToInt(Bounds.Min.Y/1200);Y<=FMath::FloorToInt(Bounds.Max.Y/1200);++Y)
+    for(int32 X=FMath::FloorToInt(Bounds.Min.X/1200);X<=FMath::FloorToInt(Bounds.Max.X/1200);++X)
+    {
+        FTemperatePlacement P;if(!TreeCandidate(X,Y,P))continue;
+        const FVector At=P.Transform.GetLocation();
+        if(At.X<Bounds.Min.X||At.X>=Bounds.Max.X||At.Y<Bounds.Min.Y||At.Y>=Bounds.Max.Y)continue;
+        const FString Id=ProductionResourceId(0,P.CandidateId);
+        if(!Profile->HasTreeGrowth(Id))continue;
+        const float Scale=Profile->TreeGrowthScale(Id);if(Scale<=0)continue;
+        P.Transform.SetScale3D(P.Transform.GetScale3D()*Scale);
+        // Scale around the source root, keeping the original 10 cm embed proportional.
+        P.Transform.AddToTranslation(FVector(0,0,10*(1-Scale)));
+        Out.Add(P);
     }
 }

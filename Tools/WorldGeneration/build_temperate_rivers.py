@@ -2,6 +2,9 @@
 
 Authoring only: no map opening, gameplay, screenshots or acceptance runs.
 Requires the river-enabled FPSGAMEEditor module. Source packs stay unchanged.
+For the current biome, apply build_temperate_river_ecology.py, then
+build_dense_riverbanks.py; restore PebbleShore source assets and finish with
+build_hills_ground_v2.py. The old build_pebble_shore.py ground graph is superseded.
 """
 import json
 import shutil

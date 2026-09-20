@@ -259,6 +259,7 @@ void ATemperateHillsWorld::SetBackdropCellVisible(FIntPoint Cell,bool Visible)
 
 void ATemperateHillsWorld::EndBackdrop()
 {
+    EndDayNightSky();
     if(HillsClouds){RemoveInstanceComponent(HillsClouds);HillsClouds->DestroyComponent();HillsClouds=nullptr;}
     for(const auto& Entry:BackdropMeshes)if(auto* C=Entry.Get()){RemoveInstanceComponent(C);C->DestroyComponent();}
     BackdropMeshes.Empty();BackdropMID=nullptr;BackdropColor=nullptr;BackdropCoverage=nullptr;

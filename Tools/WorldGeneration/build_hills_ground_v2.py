@@ -14,15 +14,18 @@ What the new base graph adds over the flat three-layer version:
      world scales, so the surface stops reading as one tiled sheet.
   2. Height-map weighted blending: every family's own height map drives the
      transition, so layers interlock along their relief instead of cross-fading.
-  3. Bounded, distance-faded parallax occlusion over the soil and gravel height
-     fields, which is what gives the near ground its depth.
-  4. Whiteout normal blending plus a distance-faded fine-grain detail pass.
+  3. Bounded, distance-faded parallax occlusion over aligned grass, soil and gravel
+     height fields, with contact refinement in the last intersected interval.
+  4. Weighted family normals plus RNM fine-grain detail, neutral at zero weight.
   5. Multi-scale macro variation on albedo and roughness against visible tiling.
   6. Cavity ambient occlusion derived from the same height maps.
   7. The existing weather-driven `Wetness` scalar and the per-vertex damp channel
      (vertex colour G) darken, smooth and flatten the relief.
 
-Run headless against an editor build; no map is opened and no gameplay is launched.
+2026-09-20: aligned height sampling, contact refinement, dry-crust stochastic
+tiling and masked texture fetches. Algorithm references are recorded in
+Docs/WorldGeneration/ground-material-optimization-20260920.md.
+Run inside the current editor; no map is opened and no gameplay is launched.
 """
 
 import json
@@ -34,7 +37,7 @@ import unreal as u
 ROOT = Path('D:/FPS3D/FPSGAME')
 BASE = '/Game/WorldGeneration/TemperateHills'
 PEBBLE_DIR = BASE + '/PebbleShore'
-OUT = ROOT / 'Saved/GroundMaterialUpgrade20260918'
+OUT = ROOT / 'Saved/GroundMaterialOptimization20260920'
 OUT.mkdir(parents=True, exist_ok=True)
 BACKUP = OUT / ('BeforeAuthoring-' + datetime.now().strftime('%Y%m%d-%H%M%S-%f'))
 EAL = u.EditorAssetLibrary
@@ -194,13 +197,52 @@ def required_sampler_type(texture):
     return sampler_enum('SAMPLERTYPE_COLOR' if texture.get_editor_property('srgb') else 'SAMPLERTYPE_LINEAR_COLOR')
 
 
-def sample(mat, texture, uv):
-    expr = node(mat, u.MaterialExpressionTextureSample)
-    expr.set_editor_property('texture', texture)
-    expr.set_editor_property('sampler_type', required_sampler_type(texture))
-    expr.set_editor_property('sampler_source', u.SamplerSourceMode.SSM_WRAP_WORLD_GROUP_SETTINGS)
-    wire(uv, expr, 'UVs')
-    return expr
+def sample(mat, texture, uv, gate, gradients=None, variation=None):
+    """Branch BEFORE fetching; a lerp of already-sampled graph inputs cannot do it.
+
+    Gradients come from the undisplaced projection, outside every branch. Normal
+    textures need the same platform-aware unpack that UE TextureSample uses.
+    Only the dry family uses three translated triangular-lattice samples. The
+    albedo/normal/roughness all share transforms and weights; no random rotation
+    means the sampled tangent normal does not need an extra basis rotation.
+    """
+    is_normal = required_sampler_type(texture) == u.MaterialSamplerType.SAMPLERTYPE_NORMAL
+    neutral = 'float4(0,0,1,1)' if is_normal else 'float4(.5,.5,.5,1)'
+    fetch = 'Texture2DSampleGrad(Tex,GetMaterialSharedSampler(TexSampler,Material.Wrap_WorldGroupSettings),{uv},gx,gy)'
+    if is_normal:
+        fetch = 'UnpackNormalMap(' + fetch + ')'
+    code = 'float2 gx=ddx(GradUV),gy=ddy(GradUV);\n'
+    code += '[branch] if(Gate<=0.0) return ' + neutral + ';\n'
+    inputs = {'Tex': height_object(mat, texture), 'UV': uv,
+              'GradUV': gradients if gradients is not None else uv, 'Gate': gate}
+    if variation is None:
+        code += 'return ' + fetch.format(uv='UV') + ';'
+    else:
+        inputs['Variation'] = variation
+        code += '[branch] if(Variation<=0.0) return ' + fetch.format(uv='UV') + ';\n'
+        code += '''
+// A shared triangular lattice: neighbouring triangles reuse the same vertices.
+float2 q=UV*.5;
+float2 skew=float2(q.x-q.y*.5773502692,q.y*1.1547005384);
+float2 cell=floor(skew), f=frac(skew);
+float2 id0,id1,id2;
+float3 w;
+if(f.x+f.y<=1.0)
+{id0=cell;id1=cell+float2(1,0);id2=cell+float2(0,1);w=float3(1-f.x-f.y,f.x,f.y);}
+else
+{id0=cell+1;id1=cell+float2(0,1);id2=cell+float2(1,0);w=float3(f.x+f.y-1,1-f.x,1-f.y);}
+// Sharpen shared blend weights to reduce washed-out cracks at tile boundaries.
+w=w*w;w=w*w;w/=max(dot(w,float3(1,1,1)),.00001);
+float4 result=0;
+'''
+        for i in range(3):
+            code += '''
+float2 offset%d=frac(sin(float2(dot(id%d,float2(127.1,311.7)),dot(id%d,float2(269.5,183.3))))*43758.5453);
+''' % (i, i, i)
+            code += '[branch] if(w[%d]>0.0) result+=w[%d]*' % (i, i)
+            code += fetch.format(uv='UV+offset%d*8.0*saturate(Variation)' % i) + ';\n'
+        code += ('return float4(normalize(result.xyz),1);' if is_normal else 'return result;')
+    return custom(mat, code, inputs, 4, desc='GroundMaskedSample_' + texture.get_name())
 
 
 def height_object(mat, texture):
@@ -237,6 +279,10 @@ return float4(grass,soil,gravel,dry)/max(grass+soil+gravel+dry,0.0001);
     # ---- projection: parallax the shared base UV, then rescale per family ----
     base_tiling = scalar(mat, 'GroundBaseTilingM', 3.4,
                          desc='World metres of one texture tile for the shared projection.')
+    family_tiling = [scalar(mat, layer['family'], layer['tiling']) for layer in LAYERS]
+    height_bias = scalar(mat, 'GroundHeightBias', 0.34)
+    height_contrast = scalar(mat, 'GroundHeightContrast', 2.4)
+    hill_gate = custom(mat, 'return saturate(1.0-M.r);', {'M': vcol}, 1)
     relief_fade = scalar(mat, 'GroundReliefFadeM', 7.0,
                          desc='Relief is at full strength inside this distance and gone by 2.3x.')
     wet_factor = custom(mat, 'return saturate(max(Wet,M.g));', {'Wet': wetness, 'M': vcol}, 1)
@@ -250,48 +296,85 @@ return float4(grass,soil,gravel,dry)/max(grass+soil+gravel+dry,0.0001);
     # The river bank runs its own relief march on the same surface; suppress the hill
     # march there (vertex colour R is the bank mask) so the two never stack.
     relief_amount = custom(mat,
-                           'return Depth*Fade*smoothstep(0.15,0.42,V.z)*saturate(1.0-M.r)*(1.0-0.65*WetF);',
+                           'return Depth*Fade*smoothstep(0.15,0.42,V.z)*saturate(1.0-M.r)*(1.0-0.65*WetF)*(1.0-W.w);',
                            {'Depth': scalar(mat, 'GroundReliefDepthCm', 9.0,
                                             desc='Parallax depth in cm. 0 disables the relief march.'),
-                            'Fade': relief_fade_curve, 'V': view, 'M': vcol, 'WetF': wet_factor}, 1)
-    weights_gr = custom(mat, 'return W.z/max(W.y+W.z,0.0001);', {'W': weights}, 1,
-                        desc='Parallax composite blend between the soil and gravel heights')
+                            'Fade': relief_fade_curve, 'V': view, 'M': vcol, 'WetF': wet_factor,
+                            'W': weights}, 1)
+    # Use exactly the same per-family metres/offsets AND height weights as the
+    # final surface. A shared base-UV sample at 3.4 m was not the 3.0 m soil or
+    # 2.1 m gravel that the material actually displayed.
+    trace_sample = 'float2 atWorld=(base-travel*ray)*(B*100.0);\nfloat4 heights=.5;\n'
+    for i, layer in enumerate(LAYERS[:3]):
+        ox, oy = layer['offset']
+        trace_sample += '''
+[branch] if(W[%d]>0.0)
+    heights[%d]=Texture2DSampleGrad(H%d,GetMaterialSharedSampler(H%dSampler,Material.Wrap_WorldGroupSettings),atWorld/(T%d*100.0)+float2(%.3f,%.3f),dx/(T%d*100.0),dy/(T%d*100.0)).r;
+''' % (i, i, i, i, i, ox, oy, i, i)
+    trace_sample += '''
+float4 hw=W*saturate((heights-Bias)*Contrast+1.0);
+float h=dot(hw,heights)/max(dot(hw,float4(1,1,1,1)),.0001);
+gap=1.0-h-ray;
+'''
     uv_base = custom(mat, '''
 float2 base=P.xy/(B*100.0);
-float2 gx=ddx(base),gy=ddy(base);
+float2 dx=ddx(P.xy),dy=ddy(P.xy);
 float relief=Amount/(B*100.0);
-if(relief<0.0001) return base;
+[branch] if(relief<0.0001) return base;
 float2 travel=V.xy/max(V.z,0.15)*relief;
-int steps=min((int)lerp(Steps,max(4.0,Steps*0.55),saturate(V.z)),24);
+int steps=clamp((int)ceil(lerp(4.0,lerp(Steps,max(4.0,Steps*.55),saturate(V.z)),saturate(Fade))),4,24);
 float dt=1.0/steps,ray=0.0,previousRay=0.0,previousGap=1.0,gap=1.0;
 [loop] for(int i=0;i<=24;++i)
 {
-    float2 at=base-travel*ray;
-    float a=Texture2DSampleGrad(H0,H0Sampler,at,gx,gy).r;
-    float b=Texture2DSampleGrad(H1,H1Sampler,at,gx,gy).r;
-    gap=1.0-lerp(a,b,Blend)-ray;
+''' + trace_sample + '''
     if(gap<=0.0||i==steps) break;
     previousRay=ray;previousGap=gap;ray+=dt;
+}
+// Contact refinement: traverse only the last coarse interval at finer spacing.
+// Keep the coarse hit as the upper bracket if no earlier fine sample hits.
+int fineSteps=clamp((int)ceil(lerp(1.0,Refine,saturate(Fade))),1,8);
+if(ray>previousRay && fineSteps>1)
+{
+    float upperRay=ray,upperGap=gap,lowerRay=previousRay;
+    float fineDt=(upperRay-lowerRay)/fineSteps;
+    [loop] for(int j=1;j<=8;++j)
+    {
+        if(j>=fineSteps){ray=upperRay;gap=upperGap;break;}
+        ray=lowerRay+fineDt*j;
+''' + trace_sample + '''
+        if(gap<=0.0) break;
+        previousRay=ray;previousGap=gap;
+    }
 }
 float hit=lerp(previousRay,ray,saturate(previousGap/max(previousGap-gap,0.0001)));
 return base-travel*hit;
 ''', {'P': world, 'V': view, 'B': base_tiling, 'Amount': relief_amount,
-      'Steps': scalar(mat, 'GroundReliefSteps', 10.0, desc='Maximum relief march steps (capped at 24).'),
-      'Blend': weights_gr,
-      'H0': height_object(mat, load(LAYERS[1]['height'])),
-      'H1': height_object(mat, load(LAYERS[2]['height']))}, 2, desc='GroundParallaxUV')
+      'Steps': scalar(mat, 'GroundReliefSteps', 8.0, desc='Maximum coarse steps (4-24); fewer at distance.'),
+      'Refine': scalar(mat, 'GroundReliefRefineSteps', 3.0, desc='Near contact refinement subdivisions (1-8).'),
+      'Fade': relief_fade_curve, 'W': weights, 'Bias': height_bias, 'Contrast': height_contrast,
+      **{'T%d' % i: family_tiling[i] for i in range(3)},
+      **{'H%d' % i: height_object(mat, load(LAYERS[i]['height'])) for i in range(3)}},
+      2, desc='GroundParallaxUV')
     uv_world = custom(mat, 'return U*(B*100.0);', {'U': uv_base, 'B': base_tiling}, 2)
 
-    layer_uv = []
-    for layer in LAYERS:
+    layer_uv, layer_gradients, layer_gates = [], [], []
+    for i, layer in enumerate(LAYERS):
         ox, oy = layer['offset']
         layer_uv.append(custom(mat, 'return P.xy/(T*100.0)+float2(%.3f,%.3f);' % (ox, oy),
-                               {'P': uv_world, 'T': scalar(mat, layer['family'], layer['tiling'])}, 2))
+                               {'P': uv_world, 'T': family_tiling[i]}, 2))
+        layer_gradients.append(custom(mat, 'return P.xy/(T*100.0);',
+                                      {'P': world, 'T': family_tiling[i]}, 2))
+        layer_gates.append(custom(mat, 'return W[%d]*Gate;' % i, {'W': weights, 'Gate': hill_gate}, 1))
 
-    albedo = [sample(mat, load(layer['albedo']), layer_uv[i]) for i, layer in enumerate(LAYERS)]
-    normals = [sample(mat, load(layer['normal']), layer_uv[i]) for i, layer in enumerate(LAYERS)]
-    heights = [sample(mat, load(layer['height']), layer_uv[i]) for i, layer in enumerate(LAYERS[:3])]
-    roughness = [sample(mat, load(layer['rough']), layer_uv[i]) if layer['rough']
+    dry_variation = scalar(mat, 'GroundDryStochasticStrength', 1.0,
+                           desc='Coherent translated tiles on dry crust. 0 uses the original tiling.')
+    def family_sample(i, kind):
+        return sample(mat, load(LAYERS[i][kind]), layer_uv[i], layer_gates[i], layer_gradients[i],
+                      dry_variation if i == 3 else None)
+    albedo = [family_sample(i, 'albedo') for i in range(4)]
+    normals = [family_sample(i, 'normal') for i in range(4)]
+    heights = [family_sample(i, 'height') for i in range(3)]
+    roughness = [family_sample(i, 'rough') if layer['rough']
                  else scalar(mat, 'GroundGrassRoughness', 0.86) for i, layer in enumerate(LAYERS)]
 
     # ---- height-weighted blend: a family wins where its own surface is proud ----
@@ -300,8 +383,7 @@ float4 boost=saturate((float4(hG.r,hS.r,hR.r,0.5)-Bias)*Contrast+1.0);
 float4 w=W*boost;
 return w/max(dot(w,float4(1,1,1,1)),0.0001);
 ''', {'W': weights, 'hG': heights[0], 'hS': heights[1], 'hR': heights[2],
-      'Bias': scalar(mat, 'GroundHeightBias', 0.34, desc='Height at which a family stops gaining ground.'),
-      'Contrast': scalar(mat, 'GroundHeightContrast', 2.4, desc='Sharpness of the height-based transition.')},
+      'Bias': height_bias, 'Contrast': height_contrast},
         4, desc='GroundHeightBlendedWeights')
 
     macro_a, macro_a_v = noise('a', 0.000052)
@@ -313,11 +395,14 @@ return w/max(dot(w,float4(1,1,1,1)),0.0001);
 
     # ---- fine grain: one extra sample of the gravel family at close range ----
     detail_strength = scalar(mat, 'GroundDetailStrength', 0.5, desc='Fine grain strength in the near field.')
+    detail_tiling = scalar(mat, 'GroundDetailTilingM', 0.9, desc='Metres per fine-grain tile.')
     detail_uv = custom(mat, 'return P.xy/(T*100.0)+float2(0.137,0.911);',
-                       {'P': uv_world, 'T': scalar(mat, 'GroundDetailTilingM', 0.9,
-                                                   desc='World metres of one fine-grain tile.')}, 2)
-    detail_albedo = sample(mat, load(LAYERS[2]['albedo']), detail_uv)
-    detail_normal = sample(mat, load(LAYERS[2]['normal']), detail_uv)
+                       {'P': uv_world, 'T': detail_tiling}, 2)
+    detail_gradients = custom(mat, 'return P.xy/(T*100.0);', {'P': world, 'T': detail_tiling}, 2)
+    detail_gate = custom(mat, 'return saturate(DS*Fade)*Gate;',
+                         {'DS': detail_strength, 'Fade': detail_fade_curve, 'Gate': hill_gate}, 1)
+    detail_albedo = sample(mat, load(LAYERS[2]['albedo']), detail_uv, detail_gate, detail_gradients)
+    detail_normal = sample(mat, load(LAYERS[2]['normal']), detail_uv, detail_gate, detail_gradients)
 
     color = custom(mat, '''
 float3 a=A.rgb*W.x+B.rgb*W.y+C.rgb*W.z+D.rgb*W.w;
@@ -328,12 +413,13 @@ return a*(1.0+Macro)*lerp(1.0,0.78+0.44*grain,saturate(DS*Fade));
         3, desc='GroundBaseColor')
 
     normal = custom(mat, '''
-float3 n=normalize(float3(0.0,0.0,1.0));
-n=normalize(float3(n.xy+A.rgb.xy*W.x,n.z*A.rgb.z));
-n=normalize(float3(n.xy+B.rgb.xy*W.y,n.z*B.rgb.z));
-n=normalize(float3(n.xy+C.rgb.xy*W.z,n.z*C.rgb.z));
-n=normalize(float3(n.xy+D.rgb.xy*W.w,n.z*D.rgb.z));
-n=normalize(float3(n.xy+DN.rgb.xy*saturate(DS*Fade)*0.6,n.z*DN.rgb.z));
+// Families cover different parts of the ground: interpolate all normal axes.
+// Zero weight is now an identity, rather than still multiplying the Z axis.
+float3 n=normalize(A.rgb*W.x+B.rgb*W.y+C.rgb*W.z+D.rgb*W.w);
+float3 detail=normalize(lerp(float3(0,0,1),DN.rgb,saturate(DS*Fade)*.6));
+// Reoriented normal mapping overlays detail on the blended surface normal.
+float3 t=n+float3(0,0,1), u=detail*float3(-1,-1,1);
+n=normalize(t*dot(t,u)/max(t.z,.0001)-u);
 return normalize(float3(n.xy*Str,n.z));
 ''', {'A': normals[0], 'B': normals[1], 'C': normals[2], 'D': normals[3], 'W': blend_weights,
       'DN': detail_normal, 'DS': detail_strength, 'Fade': detail_fade_curve,
@@ -382,36 +468,58 @@ def build_river_bank(mat, hill):
     camera = hill['shared']['camera']
     mask = hill['shared']['vcol']
     wet = hill['shared']['wetness']
+    bank_gate = custom(mat, 'return saturate(M.r);', {'M': mask}, 1)
     blend = custom(mat, 'return lerp(.88,.12,saturate(M.b*1.2));', {'M': mask}, 1)
     height_objects = [height_object(mat, texset['Displacement']) for texset in maps]
 
+    bank_trace_sample = '''
+    float2 at=base-travel*ray;
+    float a=Texture2DSampleGrad(H0,GetMaterialSharedSampler(H0Sampler,Material.Wrap_WorldGroupSettings),at,gx,gy).r;
+    float b=Texture2DSampleGrad(H1,GetMaterialSharedSampler(H1Sampler,Material.Wrap_WorldGroupSettings),at,gx,gy).r;
+    float weight=saturate((Blend+(b-a)*.28-.43)/.14);
+    gap=1-lerp(a,b,weight)-ray;
+'''
     uv = custom(mat, '''
 float2 base=P.xy/200.0;
 float2 gx=ddx(base), gy=ddy(base);
-float amount=saturate(M.r)*saturate(1-smoothstep(900,1800,length(Camera-P)))*smoothstep(.08,.28,V.z);
+float fade=1-smoothstep(900,1800,length(Camera-P));
+float amount=saturate(M.r)*saturate(fade)*smoothstep(.08,.28,V.z);
 float relief=HeightCm*amount;
-if(relief<.001) return base;
+[branch] if(relief<.001) return base;
 float2 travel=V.xy/max(V.z,.12)*relief/200.0;
-int steps=(int)lerp(20.0,8.0,saturate(V.z));
+int steps=clamp((int)ceil(lerp(4.0,lerp(Steps,max(4.0,Steps*.55),saturate(V.z)),fade)),4,24);
 float dt=1.0/steps;
 float ray=0, previousRay=0, previousGap=1, gap=1;
-[loop] for(int i=0;i<=20;++i)
+[loop] for(int i=0;i<=24;++i)
 {
-    float2 at=base-travel*ray;
-    float a=Texture2DSampleGrad(H0,H0Sampler,at,gx,gy).r;
-    float b=Texture2DSampleGrad(H1,H1Sampler,at,gx,gy).r;
-    float weight=saturate((Blend+(b-a)*.28-.43)/.14);
-    gap=1-lerp(a,b,weight)-ray;
+''' + bank_trace_sample + '''
     if(gap<=0 || i==steps) break;
     previousRay=ray;previousGap=gap;ray+=dt;
+}
+int fineSteps=clamp((int)ceil(lerp(1.0,Refine,fade)),1,8);
+if(ray>previousRay && fineSteps>1)
+{
+    float upperRay=ray,upperGap=gap,lowerRay=previousRay;
+    float fineDt=(upperRay-lowerRay)/fineSteps;
+    [loop] for(int j=1;j<=8;++j)
+    {
+        if(j>=fineSteps){ray=upperRay;gap=upperGap;break;}
+        ray=lowerRay+fineDt*j;
+''' + bank_trace_sample + '''
+        if(gap<=0.0) break;
+        previousRay=ray;previousGap=gap;
+    }
 }
 float hit=lerp(previousRay,ray,saturate(previousGap/max(previousGap-gap,.0001)));
 return base-travel*hit;
 ''', {'P': world, 'Camera': camera, 'V': view, 'M': mask, 'Blend': blend,
-      'HeightCm': scalar(mat, 'PebbleReliefDepthCm', 5.0),
-      'H0': height_objects[0], 'H1': height_objects[1]}, 2)
+       'HeightCm': scalar(mat, 'PebbleReliefDepthCm', 5.0),
+       'Steps': scalar(mat, 'PebbleReliefSteps', 12.0),
+       'Refine': scalar(mat, 'PebbleReliefRefineSteps', 3.0),
+       'H0': height_objects[0], 'H1': height_objects[1]}, 2)
 
-    samples = [{kind: sample(mat, texture, uv) for kind, texture in texset.items()}
+    gradients = custom(mat, 'return P.xy/200.0;', {'P': world}, 2)
+    samples = [{kind: sample(mat, texture, uv, bank_gate, gradients) for kind, texture in texset.items()}
                for texset in maps]
     height_blend = custom(mat, 'return saturate((Blend+(B.r-A.r)*.28-.43)/.14);',
                           {'Blend': blend, 'A': samples[0]['Displacement'], 'B': samples[1]['Displacement']}, 1)
@@ -420,10 +528,10 @@ return base-travel*hit;
     bank_color = custom(mat, '''
 float damp=max(M.g,saturate(Wet));
 float macro=.95+.05*sin(P.x*.00073+sin(P.y*.00053));
-return lerp(A,B,T)*macro*lerp(1.0,.62,damp)*lerp(.88,1.0,AO);
+return lerp(A.rgb,B.rgb,T)*macro*lerp(1.0,.62,damp)*lerp(.88,1.0,AO);
 ''', {'A': samples[0]['BaseColor'], 'B': samples[1]['BaseColor'], 'T': height_blend,
       'M': mask, 'Wet': wet, 'P': world, 'AO': bank_ao}, 3)
-    bank_normal = custom(mat, 'float3 n=normalize(lerp(A,B,T)); return normalize(float3(n.xy*Strength,n.z));',
+    bank_normal = custom(mat, 'float3 n=normalize(lerp(A.rgb,B.rgb,T)); return normalize(float3(n.xy*Strength,n.z));',
                          {'A': samples[0]['Normal'], 'B': samples[1]['Normal'], 'T': height_blend,
                           'Strength': scalar(mat, 'PebbleNormalStrength', 1.10)}, 3)
     bank_rough = custom(mat, 'return lerp(clamp(lerp(A.r,B.r,T),.53,.94),.25,max(M.g,saturate(Wet)));',
@@ -458,7 +566,9 @@ def rebuild(path, with_bank):
         outputs = build_river_bank(mat, outputs)
     for name in ('BASE_COLOR', 'NORMAL', 'ROUGHNESS', 'AMBIENT_OCCLUSION'):
         prop(outputs[name], name)
-    LIB.recompile_material(mat)
+    compile_errors = LIB.recompile_material(mat)
+    if compile_errors:
+        raise RuntimeError('Ground material compile failed: ' + path + '\n' + '\n'.join(str(e) for e in compile_errors))
     save(mat)
     connected = {}
     for name in ('BASE_COLOR', 'NORMAL', 'ROUGHNESS', 'AMBIENT_OCCLUSION'):

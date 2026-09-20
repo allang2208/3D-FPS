@@ -13,7 +13,7 @@ namespace TemperateRiver
 namespace
 {
 constexpr double BucketSize = 6400;
-constexpr double BankReach = 2000;
+constexpr double BankReach = 3200;
 double Smooth(double A, double B, double V)
 {
     const double T = FMath::Clamp((V-A)/(B-A), 0.0, 1.0);
@@ -44,9 +44,10 @@ struct FWaterVertex
 };
 }
 
-FPlanPtr Generate(int32 Seed, double Half, const FVector2D& Spawn)
+FPlanPtr Generate(int32 Seed, double Half, const FVector2D& Spawn, double BankReliefCm)
 {
     auto Plan = MakeShared<FPlan, ESPMode::ThreadSafe>();
+    Plan->BankReliefCm=FMath::Clamp(BankReliefCm,0.0,40.0);
     constexpr double Grid = 1600;
     const int32 N = FMath::RoundToInt(2*Half/Grid)+1;
     TArray<FDrainNode> Nodes;
@@ -156,12 +157,50 @@ FPlanPtr Generate(int32 Seed, double Half, const FVector2D& Spawn)
         P.Depth=FMath::Lerp(35.0,75.0,Smooth(0,1800,Distance));
         const FVector2D Tangent=(Curve[FMath::Min(I+1,Curve.Num()-1)].XY-Curve[FMath::Max(0,I-1)].XY).GetSafeNormal();
         P.Side=FVector2D(-Tangent.Y,Tangent.X);
+        const FVector2D Incoming=(P.XY-Curve[FMath::Max(0,I-2)].XY).GetSafeNormal();
+        const FVector2D Outgoing=(Curve[FMath::Min(I+2,Curve.Num()-1)].XY-P.XY).GetSafeNormal();
+        P.Bend=FMath::Clamp((Incoming.X*Outgoing.Y-Incoming.Y*Outgoing.X)*2.5,-.8,.8);
+        // Coherent widening and different left/right banks replace a constant-width trench.
+        // Keep the established drainage centreline and source/outlet identities.
+        const double WidthNoise=TemperateHillsSurface::Noise(Distance/2400,1.7,Seed,1951);
+        const double EdgeNoise=TemperateHillsSurface::Noise(Distance/900,3.1,Seed,1957);
+        P.HalfWidth*=1+WidthNoise*.23;
+        P.LeftWidth=P.HalfWidth*(1+EdgeNoise*.10+P.Bend*.10);
+        P.RightWidth=P.HalfWidth*(1-EdgeNoise*.10-P.Bend*.10);
+        const double Slope=I>0?(Plan->Points.Last().WaterZ-P.WaterZ)/FMath::Max(1.0,Step):.001;
+        P.Speed=FMath::Clamp(30+FMath::Sqrt(FMath::Max(.0001,Slope))*220,32.0,130.0);
+        P.Depth*=1+WidthNoise*.10;
         Plan->Points.Add(P);
+    }
+    // Round short longitudinal steps without raising water through the terrain.
+    // A downward projection retains a single downstream outlet after smoothing.
+    for(int32 Pass=0;Pass<2;++Pass)
+    {
+        TArray<double> Levels;Levels.Reserve(Plan->Points.Num());
+        for(int32 I=0;I<Plan->Points.Num();++I)
+        {
+            double Sum=0,Weight=0;
+            for(int32 J=FMath::Max(0,I-2);J<=FMath::Min(I+2,Plan->Points.Num()-1);++J)
+            {const double W=3-FMath::Abs(I-J);Sum+=Plan->Points[J].WaterZ*W;Weight+=W;}
+            Levels.Add(FMath::Min(Plan->Points[I].WaterZ,Sum/Weight));
+        }
+        for(int32 I=0;I<Plan->Points.Num();++I)
+        {
+            auto& P=Plan->Points[I];P.WaterZ=Levels[I];
+            if(I>0)P.WaterZ=FMath::Min(P.WaterZ,Plan->Points[I-1].WaterZ-(P.Distance-Plan->Points[I-1].Distance)*.001);
+        }
+    }
+    for(int32 I=0;I<Plan->Points.Num();++I)
+    {
+        auto& P=Plan->Points[I];
+        const auto& Next=Plan->Points[FMath::Min(I+1,Plan->Points.Num()-1)];
+        const double Slope=(P.WaterZ-Next.WaterZ)/FMath::Max(1.0,Next.Distance-P.Distance);
+        P.Speed=FMath::Clamp(30+FMath::Sqrt(FMath::Max(.0001,Slope))*220,32.0,130.0);
     }
     for(int32 I=0; I+1<Plan->Points.Num(); ++I)
     {
         const auto& A=Plan->Points[I];const auto& B=Plan->Points[I+1];
-        const double Reach=FMath::Max(A.HalfWidth,B.HalfWidth)+BankReach;
+        const double Reach=FMath::Max(FMath::Max(A.LeftWidth,A.RightWidth),FMath::Max(B.LeftWidth,B.RightWidth))+BankReach;
         const FIntPoint Min=Bucket(FMath::Min(A.XY.X,B.XY.X)-Reach,FMath::Min(A.XY.Y,B.XY.Y)-Reach);
         const FIntPoint Max=Bucket(FMath::Max(A.XY.X,B.XY.X)+Reach,FMath::Max(A.XY.Y,B.XY.Y)+Reach);
         for(int32 Y=Min.Y;Y<=Max.Y;++Y)for(int32 X=Min.X;X<=Max.X;++X)
@@ -183,15 +222,30 @@ FSample FPlan::Sample(double X,double Y) const
         const double D=FVector2D::Distance(P,FMath::Lerp(A.XY,B.XY,T));
         if(D>=R.Distance)continue;
         R.Distance=D;R.WaterZ=FMath::Lerp(A.WaterZ,B.WaterZ,T);
-        R.HalfWidth=FMath::Lerp(A.HalfWidth,B.HalfWidth,T);R.Depth=FMath::Lerp(A.Depth,B.Depth,T);
+        const FVector2D Side=FMath::Lerp(A.Side,B.Side,T).GetSafeNormal();
+        R.SignedDistance=FVector2D::DotProduct(P-FMath::Lerp(A.XY,B.XY,T),Side);
+        R.HalfWidth=R.SignedDistance>=0?FMath::Lerp(A.LeftWidth,B.LeftWidth,T):FMath::Lerp(A.RightWidth,B.RightWidth,T);
+        R.Depth=FMath::Lerp(A.Depth,B.Depth,T);
+        R.Bend=FMath::Lerp(A.Bend,B.Bend,T);R.Speed=FMath::Lerp(A.Speed,B.Speed,T);
         R.Along=FMath::Lerp(A.Distance,B.Distance,T);
     }
     if(R.Distance<DBL_MAX)
     {
-        R.Bank=1-Smooth(R.HalfWidth+400,R.HalfWidth+BankReach,R.Distance);
-        R.Wet=1-Smooth(R.HalfWidth-80,R.HalfWidth+300,R.Distance);
+        const double Inner=R.Bend*(R.SignedDistance>=0?1:-1);
+        R.BankExtent=FMath::Clamp(2400+Inner*900,1500.0,BankReach);
+        R.Bank=1-Smooth(R.HalfWidth+120,R.HalfWidth+R.BankExtent,R.Distance);
+        R.Wet=1-Smooth(R.HalfWidth-100,R.HalfWidth+220,R.Distance);
     }
     return R;
+}
+
+double PebbleCover(double X,double Y,int32 Seed,const FSample& River)
+{
+    if(River.Bank<=0)return 0;
+    const double Edge=River.Distance-River.HalfWidth;
+    const double Patch=TemperateHillsSurface::Noise(X*.0014,Y*.0014,Seed,2309)*.5+.5;
+    const double Fine=TemperateHillsSurface::Noise(X*.0031,Y*.0031,Seed,2311)*.5+.5;
+    return Smooth(-100,220,Edge)*(1-Smooth(1000,2100,Edge))*Smooth(.28,.72,Patch*.75+Fine*.25);
 }
 
 double FPlan::Height(double X,double Y,int32 Seed) const
@@ -199,11 +253,31 @@ double FPlan::Height(double X,double Y,int32 Seed) const
     const double Base=TemperateHillsSurface::Height(X,Y,Seed);
     const FSample S=Sample(X,Y);
     if(S.Bank<=0)return Base;
+    const double Inner=S.Bend*(S.SignedDistance>=0?1:-1);
+    const double Rough=TemperateHillsSurface::Noise(X*.004,Y*.004,Seed,1963)*4;
     double Bed=0;
     if(S.Distance<S.HalfWidth)
-        Bed=S.WaterZ-S.Depth+(S.Depth+8)*Smooth(.10,1.0,S.Distance/FMath::Max(1.0,S.HalfWidth));
+    {
+        const double Across=S.Distance/FMath::Max(1.0,S.HalfWidth);
+        const double Channel=Smooth(.05,1.0,Across);
+        const double Depth=FMath::Clamp(S.Depth*(1-Inner*.42),25.0,90.0);
+        Bed=S.WaterZ-Depth+(Depth+4)*Channel+Rough*(1-Channel);
+    }
     else
-        Bed=S.WaterZ+8+92*Smooth(S.HalfWidth,S.HalfWidth+400,S.Distance);
+    {
+        // Broad depositional inner bank, narrower eroded outer bank; the final
+        // blend reaches the original hills with zero slope at its outer edge.
+        const double Shelf=FMath::Clamp(650+Inner*450,300.0,1100.0);
+        Bed=S.WaterZ+4+55*Smooth(S.HalfWidth,S.HalfWidth+Shelf,S.Distance)
+            +Rough*Smooth(S.HalfWidth,S.HalfWidth+200,S.Distance);
+        const double Edge=S.Distance-S.HalfWidth;
+        // Broad deposited bars with smaller wash-out hollows. Wavelengths stay
+        // above the 1 m near terrain grid; individual stones are separate meshes.
+        const double Mound=TemperateHillsSurface::Noise(X*.0014,Y*.0014,Seed,2309);
+        const double Pocket=TemperateHillsSurface::Noise(X*.0031,Y*.0031,Seed,2311);
+        const double ReliefWeight=Smooth(40,300,Edge)*(1-Smooth(1200,S.BankExtent,Edge));
+        Bed+=BankReliefCm*(Mound+.38*Pocket)*ReliefWeight;
+    }
     return FMath::Lerp(Base,Bed,S.Bank);
 }
 FVector FPlan::Normal(double X,double Y,int32 Seed) const
@@ -216,7 +290,7 @@ bool FPlan::IntersectsCell(double X,double Y,double Size) const
         if(const auto* List=Buckets.Find(FIntPoint(BX,BY)))for(int32 I:*List)
         {
             const auto& A=Points[I];const auto& B=Points[I+1];
-            const double Reach=FMath::Max(A.HalfWidth,B.HalfWidth)+BankReach;
+            const double Reach=FMath::Max(FMath::Max(A.LeftWidth,A.RightWidth),FMath::Max(B.LeftWidth,B.RightWidth))+BankReach;
             if(FMath::Max(A.XY.X,B.XY.X)+Reach>=X&&FMath::Min(A.XY.X,B.XY.X)-Reach<=X+Size&&
                 FMath::Max(A.XY.Y,B.XY.Y)+Reach>=Y&&FMath::Min(A.XY.Y,B.XY.Y)-Reach<=Y+Size)return true;
         }
@@ -235,9 +309,14 @@ void FPlan::BuildWaterMesh(double X,double Y,double Size,UE::Geometry::FDynamicM
     TArray<int32> Segments=Unique.Array();Segments.Sort();
     auto Vertex=[](const FPoint& P,double Across)
     {
-        const FVector2D XY=P.XY+P.Side*(P.HalfWidth*Across);
-        return FWaterVertex{FVector3d(XY.X,XY.Y,P.WaterZ),FVector2f(P.Distance/400,Across*P.HalfWidth/400),
-            FVector4f(FMath::Pow(FMath::Abs(Across),6.0),0,0,1)};
+        const double Width=Across>=0?P.LeftWidth:P.RightWidth;
+        const FVector2D XY=P.XY+P.Side*(Width*Across);
+        const FVector2D Flow(P.Side.Y,-P.Side.X);
+        const double Speed=P.Speed*(1-.55*FMath::Pow(FMath::Abs(Across),2.0))*(1-P.Bend*Across*.22);
+        const double Depth=P.Depth*(1-Smooth(.05,1.0,FMath::Abs(Across)));
+        // RG: world flow direction; B: speed / 160 cm/s; A: depth / 100 cm.
+        return FWaterVertex{FVector3d(XY.X,XY.Y,P.WaterZ),FVector2f(P.Distance/400,Across*Width/400),
+            FVector4f(Flow.X*.5+.5,Flow.Y*.5+.5,FMath::Clamp(Speed/160,0.0,1.0),FMath::Clamp(Depth/100,0.0,1.0))};
     };
     auto Emit=[&](const FWaterVertex& A,const FWaterVertex& B,const FWaterVertex& C)
     {
