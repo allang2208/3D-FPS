@@ -264,6 +264,18 @@ UE_LOG(LogTemp,Display,TEXT("ColdSteelFountain %s 位置=(...) 质量=%d 距离�
 - **命中面→格**：命中 Actor 沿 `GetAttachParentActor()` 上溯到 `AVoxelBuildPrefabActor` 即"构件面"；
   用与体素 `ResolveHit` 相同的 `ImpactPoint − Normal×0.5` 取内侧格，再验 `PrefabCells`——占格表是唯一权威，
   摆动出来的门／窗扇打在占格外自动落回贴地分支。**中心射线与锥形辅助两处必须成对改**，否则预览与提交分叉。
+- **瞄准射线必须多命中（2026-09-20 吸附"复失灵"根因）**：上一条只修了"占格内"的构件面；
+  **摆开到占格之外的门／窗扇**（开门态、85° 开角窗扇）解析不出格子，却挡在射线最前面——
+  单命中时代中心射线 + 全部 16 条锥辅助射线都打在它身上原路返回，锥内有墙也"失灵"，且落进的贴地分支
+  **没有任何保持窗口**，吸附方案瞬间清空。修法＝中心与辅助射线全部 `LineTraceMultiByChannel`：
+  沿射线取第一个"可解析建造面"；全取不到则跳过已放置构件（`HitBelongsToPlacedPrefab`）取后面的地面；
+  整条射线只剩构件网格时按瞄空同款 0.35 s 缓冲保住上一个方案。**"最前面命中"仍单独供
+  `AimedPrefab`／拆除用**，与幽灵解算用的命中解耦。
+- **吸附问题先跑 `RunAimDiagnostics` 再怀疑代码（2026-09-20）**：它绕过输入锁直进建造态，对全场景
+  构件／体素分块逐目标**就近站位**、四姿态（直视/±3°/＋8°）直调 `UpdateTarget`，报告落盘
+  `Saved/aimdiag_report.txt`。两个教训：瞄准射线只有 **6 m**，探针/站位必须逐目标就近（否则 hits=0
+  会误判成"构件隐形"，而窗网格其实是好的）；相机 POV 晚一拍，同步帧要用 `SetCameraCachePOV` 顶到位
+  （`UpdateViewTarget` 是 protected 不能直调）。
 - **构件当锚不当梁**：六面邻居有构件占格 → 体素带锚（`CanPlaceAt` 预览／`ApplyChanges` 提交／
   `RefreshSupportGraph` 读档三处同改；读档路径要求 `RefreshPrefabOccupancy()` 先于支持图重建）。
   构件仍不是图节点——只提供"地基"，不传力、不断键。

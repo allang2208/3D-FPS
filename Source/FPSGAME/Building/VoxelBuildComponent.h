@@ -24,6 +24,8 @@ public:
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
     UPROPERTY(EditAnywhere,Category="Building") TSoftObjectPtr<UVoxelBuildPalette> PaletteAsset;
     UFUNCTION(BlueprintCallable,Category="Building") void SetBuildMode(bool Enabled);
+    /** 2026-09-20 吸附排查：绕过输入锁强制建造态，逐瞄准姿态直调 UpdateTarget，报告落盘 Saved/aimdiag_report.txt。 */
+    UFUNCTION(BlueprintCallable,Category="Building|Diagnostics") void RunAimDiagnostics();
     /** Drawer state: cursor & UI-only input while choosing, game input while placing. */
     UFUNCTION(BlueprintCallable,Category="Building") void SetPanelOpen(bool Open);
     UFUNCTION(BlueprintCallable,Category="Building") void ClosePanel() { SetPanelOpen(false); }

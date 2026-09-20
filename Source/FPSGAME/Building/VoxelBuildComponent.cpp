@@ -1,5 +1,9 @@
 #include "VoxelBuildComponent.h"
 #include "VoxelBuildDebug.h"
+#include "Camera/CameraTypes.h"
+#include "Camera/PlayerCameraManager.h"
+#include "Misc/FileHelper.h"
+#include "Misc/Paths.h"
 #include "VoxelCollapseFragment.h"
 #include "VoxelBuildWorld.h"
 #include "VoxelBuildPalette.h"
@@ -25,6 +29,9 @@
 
 namespace
 {
+    // 瞄准／辅助射线的多命中暂存（文件级复用、每帧 Reset）：稳态不分配是本文件的硬要求。
+    TArray<FHitResult> AimScratch;
+    TArray<FHitResult> ProbeScratch;
     /**
      * Cone aim assist for snap mode: the centre ray rarely lands exactly on a voxel face once the
      * player drifts a little, which used to drop the ghost into the air. Probe a small cone
@@ -45,10 +52,13 @@ namespace
                 const float Theta=2.f*PI*float(Index)/8.f;
                 const FVector Offset=Basis.RotateVector(FVector(0.f,FMath::Cos(Theta),FMath::Sin(Theta))*Spread);
                 const FVector ProbeDirection=(Direction+Offset).GetSafeNormal();
-                FHitResult Probe;
-                if(World->LineTraceSingleByChannel(Probe,Start,Start+ProbeDirection*600,ECC_Visibility,Query)
-                    &&(BuildWorld->ResolveHit(Probe,OutCell)||BuildWorld->ResolvePrefabSurfaceCell(Probe,OutCell)))
-                {OutHit=Probe;return true;}
+                // 2026-09-20：辅助射线同样多命中取"第一个可解析面"。摆开到占格之外的门／窗扇解析不出
+                // 格子，单命中时代 16 条辅助射线会全部白打在它身上原路返回——锥内有墙也"失灵"。
+                ProbeScratch.Reset();
+                if(!World->LineTraceMultiByChannel(ProbeScratch,Start,Start+ProbeDirection*600,ECC_Visibility,Query))continue;
+                for(const FHitResult& Probe:ProbeScratch)
+                    if(BuildWorld->ResolveHit(Probe,OutCell)||BuildWorld->ResolvePrefabSurfaceCell(Probe,OutCell))
+                    {OutHit=Probe;return true;}
             }
         }
         return false;
@@ -235,6 +245,89 @@ void UVoxelBuildComponent::SetBuildMode(bool Enabled)
     // Entering build mode opens the drawer with the cursor; picking an entry returns to aiming.
     SetPanelOpen(Enabled);
     if(Enabled){PlacementCheckAt=0;TargetUpdateAt=0;UpdateWidget();}
+}
+
+// ===== 2026-09-20 吸附排查：自驱瞄准扫描（同步单次调用，入口 RunAimDiagnostics） =====
+namespace
+{
+    struct FAimDiagSweep
+    {
+        TArray<FString> Report;
+        TArray<TPair<FString,FVector>> Targets;
+        FRotator SavedRotation=FRotator::ZeroRotator;
+        FVector SavedLocation=FVector::ZeroVector;
+        bool bWasActive=false,bWasPanel=false,bWasSnap=false;
+    } AimDiag;
+}
+void UVoxelBuildComponent::RunAimDiagnostics()
+{
+    auto* PC=Cast<APlayerController>(GetOwner());
+    const FString OutPath=FPaths::ProjectSavedDir()/TEXT("aimdiag_report.txt");
+    if(!PC||!PC->GetPawn()||!PC->PlayerCameraManager||!BuildWorld||!BuildWorld->IsReady())
+    {FFileHelper::SaveStringToFile(TEXT("prerequisites missing (pc/pawn/camera/world)"),*OutPath);return;}
+    if(SelectedMaterial.IsNone())
+    {FFileHelper::SaveStringToFile(TEXT("no material selected"),*OutPath);return;}
+
+    AimDiag.Report.Reset();AimDiag.Targets.Reset();
+    AimDiag.bWasActive=bActive;AimDiag.bWasPanel=bPanelOpen;AimDiag.bWasSnap=bSnapEnabled;
+    AimDiag.SavedRotation=PC->GetControlRotation();
+    AimDiag.SavedLocation=PC->GetPawn()->GetActorLocation();
+
+    // 站位：距第一件构件 3 m、眼睛高度；瞄准点：每件构件中心与顶带，加脚下地面与天空对照。
+    AVoxelBuildPrefabActor* First=nullptr;
+    for(TActorIterator<AVoxelBuildPrefabActor> It(GetWorld());It;++It)
+    {
+        AVoxelBuildPrefabActor* Piece=*It;
+        const FVector C=Piece->GetActorLocation();
+        AimDiag.Targets.Add({Piece->GetName()+TEXT("@center"),C});
+        AimDiag.Targets.Add({Piece->GetName()+TEXT("@top"),C+FVector(0,0,110)});
+        if(!First)First=Piece;
+    }
+    const FVector Stand=First?First->GetActorLocation()+FVector(300,300,130):AimDiag.SavedLocation;
+    // 体素块本身也是目标：世界 Actor 上的网格组件（分块）取前几个的包围盒中心。
+    {
+        TInlineComponentArray<UPrimitiveComponent*> Chunks(BuildWorld);
+        for(int32 CI=0;CI<Chunks.Num()&&CI<4;++CI)
+            AimDiag.Targets.Add({FString::Printf(TEXT("chunk%d@%.0f,%.0f"),CI,Chunks[CI]->Bounds.Origin.X,Chunks[CI]->Bounds.Origin.Y),Chunks[CI]->Bounds.Origin});
+    }
+    AimDiag.Targets.Add({TEXT("ground@stand"),Stand-FVector(0,0,100)});
+    AimDiag.Targets.Add({TEXT("sky"),Stand+FVector(-300,-300,2600)});
+    bActive=true;bPanelOpen=false;bSnapEnabled=true;
+    // 绕过输入锁直进瞄准态：外部驱动通道在重负载（资产导入/缩略图）下极不稳定，
+    // 全扫描在本调用内同步完成——每姿态 SetControlRotation 后直接 SetCameraCachePOV 把相机 POV
+    // 顶到位（UpdateViewTarget 是 protected，写缓存是公开等效路径），再直调 UpdateTarget。
+    AimDiag.Report.Add(FString::Printf(TEXT("targets=%d material=%s snap=1"),
+        AimDiag.Targets.Num(),*SelectedMaterial.ToString()));
+    for(int32 Index=0;Index<AimDiag.Targets.Num();++Index)
+    {
+        // 每个目标各自的就近站位（射线只有 6 m，从公共站位够不到远处的构件——第一轮就栽在这）。
+        const FVector LocalStand=AimDiag.Targets[Index].Value+FVector(300,300,130);
+        PC->GetPawn()->SetActorLocation(LocalStand,false,nullptr,ETeleportType::TeleportPhysics);
+        // 同一目标四个姿态：直视 / 偏航±3° / 抬 8°——小视角偏移不应让方案瞬间消失。
+        const int32 Pose=Index%4;
+        FVector Eye;FRotator EyeRot;
+        PC->GetPawn()->GetActorEyesViewPoint(Eye,EyeRot);
+        FRotator Aim=(AimDiag.Targets[Index].Value-Eye).Rotation();
+        if(Pose==1)Aim.Yaw+=3;
+        else if(Pose==2)Aim.Yaw-=3;
+        else if(Pose==3)Aim.Pitch=FMath::Min(Aim.Pitch+8.f,89.f);
+        PC->SetControlRotation(Aim);
+        FMinimalViewInfo POV;POV.Location=Eye;POV.Rotation=Aim;POV.FOV=90.f;
+        PC->PlayerCameraManager->SetCameraCachePOV(POV);
+        UpdateTarget();
+        const FVector AimDir=PC->PlayerCameraManager->GetCameraRotation().Vector();
+        AimDiag.Report.Add(FString::Printf(
+            TEXT("%s pose#%d plan=%d valid=%d assisted=%d grow=%d hits=%d cell=%d,%d,%d aimDir=%.2f,%.2f,%.2f hitActor=%s msg=%s"),
+            *AimDiag.Targets[Index].Key,Pose,Placement.Num(),bCanPlace?1:0,LastAimWasAssisted?1:0,GrowUpPlan?1:0,
+            AimScratch.Num(),HitCell.Cell.X,HitCell.Cell.Y,HitCell.Cell.Z,AimDir.X,AimDir.Y,AimDir.Z,
+            *GetNameSafe(Hit.GetActor()),*TargetMessage));
+    }
+    PC->SetControlRotation(AimDiag.SavedRotation);
+    PC->GetPawn()->SetActorLocation(AimDiag.SavedLocation,false,nullptr,ETeleportType::TeleportPhysics);
+    bActive=AimDiag.bWasActive;bPanelOpen=AimDiag.bWasPanel;bSnapEnabled=AimDiag.bWasSnap;
+    AimDiag.Report.Add(TEXT("== done =="));
+    FFileHelper::SaveStringToFile(FString::Join(AimDiag.Report,LINE_TERMINATOR),*OutPath);
+    UE_LOG(LogTemp,Warning,TEXT("AIMDIAG %d lines recorded"),AimDiag.Report.Num());
 }
 
 void UVoxelBuildComponent::SetPanelOpen(bool Open)
@@ -474,18 +567,35 @@ void UVoxelBuildComponent::UpdateTarget()
     const FVector Direction=PC->PlayerCameraManager->GetCameraRotation().Vector();
     const FVector End=Start+Direction*600;const FIntVector Size=BrushSize();const FVector Half=FVector(Size)*10;
     FCollisionQueryParams Query(SCENE_QUERY_STAT(VoxelAim),true,PC->GetPawn());
-    bool HasHit=GetWorld()->LineTraceSingleByChannel(Hit,Start,End,ECC_Visibility,Query);
+    // 2026-09-20：中心射线改多命中。摆开到占格之外的构件网格（开着的门扇、85° 开角的窗扇）解析不出
+    // 格子，却挡在射线最前面——单命中时代它后面的墙整条不可见，吸附方案被瞬间清空落入贴地分支，
+    // 手感上就是"吸附失灵"。现在沿射线取第一个"可解析建造面"（体素或构件占格）；全取不到时退而取
+    // 第一个"非已放置构件"命中（门扇后面的地面，交给贴地分支）；再退回最前命中（拆除／贴地老口径）。
+    AimScratch.Reset();
+    GetWorld()->LineTraceMultiByChannel(AimScratch,Start,End,ECC_Visibility,Query);
+    bool HasHit=!AimScratch.IsEmpty();
     // 瞄准的构件引用必须**每帧**按当前命中重算（2026-09-19 排查顺带修复）：以前只在构件模式里刷新，
     // 切回体素模式后 AimedPrefab 留着上一帧的门——右键拆除按 AimedPrefab 优先，会拆到根本没瞄准的构件。
+    // 拆除始终指**最前面**那件构件，与幽灵最终用哪个命中解算无关。
     AimedPrefab=nullptr;
-    if(HasHit)for(AActor* Actor=Hit.GetActor();Actor;Actor=Actor->GetAttachParentActor())
+    if(HasHit)for(AActor* Actor=AimScratch[0].GetActor();Actor;Actor=Actor->GetAttachParentActor())
         if(auto* Piece=Cast<AVoxelBuildPrefabActor>(Actor)){AimedPrefab=Piece;break;}
-    bool bVoxelSurface=HasHit&&BuildWorld->ResolveHit(Hit,HitCell);
-    bool BuildingHit=bVoxelSurface;
-    // 门／窗／柱等构件的碰撞面同样是焊接目标（2026-09-19）：以前瞄准这些面会被当成"非体素表面"
-    // 落回贴地分支，贴地寻优探到门洞／玻璃／框上悬空带就报"地面有陡坡、断崖或障碍"——
-    // 表现为"门框上砌不了方块、窗正上方建不了、幽灵在构件面上不吸附"。拆除笔刷仍只认真实体素面。
-    if(!BuildingHit&&HasHit&&BuildWorld->ResolvePrefabSurfaceCell(Hit,HitCell))BuildingHit=true;
+    int32 AimIndex=INDEX_NONE;bool bVoxelSurface=false,bPrefabCellHit=false;
+    if(HasHit)
+    {
+        for(int32 Index=0;Index<AimScratch.Num();++Index)
+        {
+            if(BuildWorld->ResolveHit(AimScratch[Index],HitCell)){AimIndex=Index;bVoxelSurface=true;break;}
+            if(BuildWorld->ResolvePrefabSurfaceCell(AimScratch[Index],HitCell)){AimIndex=Index;bPrefabCellHit=true;break;}
+        }
+        if(AimIndex==INDEX_NONE)
+            for(int32 Index=0;Index<AimScratch.Num();++Index)
+                if(!BuildWorld->HitBelongsToPlacedPrefab(AimScratch[Index])){AimIndex=Index;break;}
+        if(AimIndex==INDEX_NONE)AimIndex=0;
+        Hit=AimScratch[AimIndex];
+    }
+    else Hit=FHitResult();
+    bool BuildingHit=bVoxelSurface||bPrefabCellHit;
     LastAimWasAssisted=false;
     // Snap mode stays glued to a voxel surface inside a small cone: drifting the aim a little must
     // only switch which surface is snapped, not drop the ghost into the air. Only a real turn away
@@ -518,6 +628,11 @@ void UVoxelBuildComponent::UpdateTarget()
     }
     else if(!BuildingHit)
     {
+        // 整条射线只剩已放置构件的网格（开着的门扇、背后是空的）：按"瞄空"同款 0.35 s 缓冲保住上一个
+        // 吸附方案，别瞬间落进贴地分支——否则准星扫过一片扇面的瞬间幽灵就跳下墙，正是"吸附失灵"的手感。
+        if(bSnapEnabled&&!Placement.IsEmpty()&&Now-LastSnapTime<.35
+            &&BuildWorld->HitBelongsToPlacedPrefab(Hit))
+        {bCanPlace=false;TargetMessage=TEXT("未命中可放置表面 · 瞄准 6 米内的地面或方块");UpdatePreview(Size);return;}
         // Terrain footprint sampling is expensive, so snap mode keeps the previous plan between
         // samples. Free placement must follow the aim continuously, so it is never throttled.
         if(bSnapEnabled&&Now<GroundSampleAt)return;
@@ -709,9 +824,13 @@ void UVoxelBuildComponent::UpdateTarget()
     if(!VoxelBuildDebug::Enabled())return;
     if(Now-LastAimLog<.5)return;
     LastAimLog=Now;
-        UE_LOG(LogTemp,Warning,TEXT("VOXEL_AIM hit=%d building=%d cell=%d,%d,%d plan=%d valid=%d grow=%d assist=%d snap=%d origin=%.1f,%.1f,%.1f message=%s"),
+        // 2026-09-20 复盘加料：多命中时代光看 hit/building 分不清"谁挡的"——点名最前命中与
+        // 实际选中命中的 Actor（含选中序号/命中总数），一次复现就能定位阻挡者或选错者。
+        UE_LOG(LogTemp,Warning,TEXT("VOXEL_AIM hit=%d building=%d cell=%d,%d,%d plan=%d valid=%d grow=%d assist=%d snap=%d origin=%.1f,%.1f,%.1f message=%s hits=%d pick=%d first=%s chosen=%s"),
             HasHit?1:0,BuildingHit?1:0,HitCell.Cell.X,HitCell.Cell.Y,HitCell.Cell.Z,Placement.Num(),bCanPlace?1:0,GrowUpPlan?1:0,
-            LastAimWasAssisted?1:0,bSnapEnabled?1:0,PlacementOrigin.X,PlacementOrigin.Y,PlacementOrigin.Z,*TargetMessage);
+            LastAimWasAssisted?1:0,bSnapEnabled?1:0,PlacementOrigin.X,PlacementOrigin.Y,PlacementOrigin.Z,*TargetMessage,
+            AimScratch.Num(),AimIndex,*(AimScratch.IsEmpty()?FString(TEXT("")):GetNameSafe(AimScratch[0].GetActor())),
+            *GetNameSafe(Hit.GetActor()));
     }
 }
 

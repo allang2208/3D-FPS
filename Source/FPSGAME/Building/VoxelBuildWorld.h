@@ -82,6 +82,9 @@ public:
      * 摆动出来的门／窗扇打在占格体积之外，返回 false（照常落回贴地分支）。
      */
     bool ResolvePrefabSurfaceCell(const FHitResult& Hit,FVoxelBuildKey& Key) const;
+    /** 命中是否落在已放置构件的网格上（占位 Actor 或挂在它下面的逻辑构件），不校验占格——
+     *  摆开到占格之外的门／窗扇也算。瞄准多命中用它跳过构件找后面的墙／地面。 */
+    bool HitBelongsToPlacedPrefab(const FHitResult& Hit) const;
     /** 该世界格是否被某件已放置构件占用（自由体积的格先换算回世界格再查）。 */
     bool IsPrefabCell(FGuid Volume,FIntVector Cell) const;
     /** 世界最小角对应格的六面对面邻居里有构件占格：构件为体素提供支撑锚（2026-09-19）。 */

@@ -54,6 +54,15 @@ bool AVoxelBuildWorld::ResolvePrefabSurfaceCell(const FHitResult& Hit,FVoxelBuil
     Key=FVoxelBuildKey{{},Cell};return true;
 }
 
+bool AVoxelBuildWorld::HitBelongsToPlacedPrefab(const FHitResult& Hit) const
+{
+    // 与 ResolvePrefabSurfaceCell 同一条上溯链，但不验占格：占格外的摆开扇面也算"构件自己的网格"。
+    for(AActor* Node=Hit.GetComponent()?Hit.GetComponent()->GetOwner():nullptr;
+        Node;Node=Node->GetAttachParentActor())
+        if(Cast<AVoxelBuildPrefabActor>(Node))return true;
+    return false;
+}
+
 bool AVoxelBuildWorld::IsPrefabCell(FGuid Volume,FIntVector Cell) const
 {
     if(Volume.IsValid())
