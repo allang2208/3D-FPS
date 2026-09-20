@@ -1,4 +1,4 @@
-"""Swap the shipped axe idle for the two-hand version, in place.
+"""Swap the shipped axe idle for the outward-blade H3 version, in place.
 
 Run through the in-editor channel (Tools/AssetPipeline/ue_python_exec.py): the editor owns
 these packages, and an external process saving a loaded asset fails silently.
@@ -16,12 +16,13 @@ from pathlib import Path
 import unreal as u
 
 ROOT = Path(u.Paths.project_dir()).resolve()
-SOURCE = ROOT / 'SourceAssets/KimodoAxeIdle20260919/BuildH/Export/A_Harvest_Axe_Idle2H_H.fbx'
+SOURCE = ROOT / 'SourceAssets/KimodoAxeIdle20260919/BuildH3/Export/A_Harvest_Axe_Idle2H_H3.fbx'
 DEST = '/Game/Items/ProductionTools/GripMotion20260913'
 NAME = 'A_Harvest_Axe_Idle'
 TOOLS = u.AssetToolsHelpers.get_asset_tools()
 EAL = u.EditorAssetLibrary
-report = {'saved': [], 'runtime_tested': False, 'replaced': None, 'source': str(SOURCE.relative_to(ROOT))}
+report = {'saved': [], 'runtime_tested': False, 'rendered': False, 'revision': 'H3',
+          'replaced': None, 'source': str(SOURCE.relative_to(ROOT))}
 u.SystemLibrary.execute_console_command(None, 'Interchange.FeatureFlags.Import.FBX 0')
 
 mesh = u.load_asset(f'{DEST}/SK_Harvest_Axe')

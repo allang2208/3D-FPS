@@ -1284,6 +1284,8 @@ void AFPSGAMECharacter::RefreshQuickCombatCamera()
 
 void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
 {
+    auto* ProductionTools=FindComponentByClass<UProductionToolComponent>();
+    if(ProductionTools)ProductionTools->AdvanceActionBeforeCamera(DeltaSeconds);
     UpdateADSProgress();
     CameraADSFactor = FMath::SmoothStep(0.0f, 1.0f, ADSProgress);
     WeaponADSFactor = CameraADSFactor;
@@ -1343,9 +1345,13 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     FVector BashCameraLocation=FVector::ZeroVector;
     FRotator BashCameraRotation=FRotator::ZeroRotator;
     if(QuickCombatPistol)QuickCombatPistol->GetCameraMotion(BashCameraLocation,BashCameraRotation);
+    FVector ToolCameraLocation=FVector::ZeroVector;
+    FRotator ToolCameraRotation=FRotator::ZeroRotator;
+    if(ProductionTools)ProductionTools->GetCameraMotion(ToolCameraLocation,ToolCameraRotation);
     const FQuat ControlAim = Controller ? Controller->GetControlRotation().Quaternion() : GetActorQuat();
     TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(SwordCameraLocation))*CameraMotionScale;
     TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(BashCameraLocation))*CameraMotionScale;
+    TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(ToolCameraLocation))*CameraMotionScale;
     FirstPersonCamera->SetRelativeLocation(Traversal->IsCameraRecovering()?TargetLocation:
         FMath::Lerp(FirstPersonCamera->GetRelativeLocation(), TargetLocation, 1.0f - FMath::Exp(-18.0f * DeltaSeconds)));
 
@@ -1357,6 +1363,7 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
         MovementRoll + FMath::RadiansToDegrees(CameraJitterRotation.Z));
     CameraFeedback+=SwordCameraRotation*CameraMotionScale;
     CameraFeedback+=BashCameraRotation*CameraMotionScale;
+    CameraFeedback+=ToolCameraRotation*CameraMotionScale;
     FirstPersonCamera->SetWorldRotation(ControlAim * CameraFeedback.Quaternion());
 
     float TargetHorizontalFOV = VerticalToHorizontalFOV(FMath::Lerp(BaseVerticalFieldOfView, EffectiveADSVerticalFOV(), CameraADSFactor) + FOVPunch);

@@ -1,0 +1,33 @@
+{
+  "revision": "TwoHandAttackV2",
+  "fps": 300,
+  "runtime_duration_s": 1.10,
+  "runtime_contact_s": 0.48,
+  "source_swing_s": 0.68,
+  "source_contact_s": 0.24,
+  "source_hit_recover_s": 0.44,
+  "grip_pivot_local_m": [0, 0, 0.19],
+  "elbow_pole_limit_deg": 135,
+  "elbow_preference": 0.08,
+  "shoulder_roll_limit_deg": 95,
+  "shoulder_roll_continuity": 0.02,
+  "swing_knots": [
+    {"t": 0.06, "theta": 8, "slope": 7, "center_offset": [-0.008, -0.025, -0.018]},
+    {"t": 0.18, "theta": 1, "slope": 36, "center": [0.075, 0.325, 0.04]},
+    {"t": 0.245, "theta": -13, "slope": 53, "center": [0.13, 0.28, 0.14], "stop": true},
+    {"t": 0.312, "theta": -14, "slope": 55, "center": [0.135, 0.275, 0.138], "stop": true},
+    {"t": 0.38, "theta": -9, "slope": 52, "center": [0.11, 0.30, 0.12]},
+    {"t": 0.435, "theta": 10, "slope": 44, "center": [0.045, 0.375, 0.055]},
+    {"t": 0.48, "theta": 48, "slope": 35, "center": [-0.085, 0.41, -0.05]},
+    {"t": 0.52, "theta": 70, "slope": 22, "center": [-0.21, 0.345, -0.16]},
+    {"t": 0.625, "theta": 82, "slope": 15, "center": [-0.295, 0.27, -0.205]},
+    {"t": 0.73, "theta": 74, "slope": 3, "center": [-0.29, 0.23, -0.245]},
+    {"t": 0.88, "theta": 28, "slope": -6, "center": [-0.20, 0.29, -0.28]}
+  ],
+  "hit_hold_s": 0.028,
+  "hit_knots": [
+    {"t": 0.565, "theta": 40, "slope": 37, "center": [-0.06, 0.377, -0.047]},
+    {"t": 0.72, "theta": 52, "slope": 10, "center": [-0.16, 0.28, -0.20]},
+    {"t": 0.88, "theta": 25, "slope": -4, "center": [-0.16, 0.30, -0.27]}
+  ]
+}

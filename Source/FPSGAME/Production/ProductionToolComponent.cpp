@@ -1,5 +1,8 @@
 #include "ProductionToolComponent.h"
+#include "ProductionPickaxeImpactMotion.h"
 #include "../Skills/FPSCastingMeshComponent.h"
+#include "../Skills/ColdSteelSkillRules.h"
+#include "../Weapons/WeaponStatEvaluation.h"
 #include "ProductionHarvestSubsystem.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -58,6 +61,7 @@ void UProductionToolComponent::BeginPlay()
     if (!Pawn || !GameInstance || (World->WorldType!=EWorldType::Game && World->WorldType!=EWorldType::PIE) || Pawn->GetNetMode()!=NM_Standalone)
     { SetComponentTickEnabled(false); return; }
     AddTickPrerequisiteActor(Pawn);
+    AxeMotion.Load();
     Camera=Pawn->FindComponentByClass<UCameraComponent>();
     Pivot=NewObject<USceneComponent>(Pawn,TEXT("ProductionToolPivot"));
     Pawn->AddInstanceComponent(Pivot); Pivot->SetupAttachment(Camera); Pivot->RegisterComponent();
@@ -90,6 +94,8 @@ void UProductionToolComponent::RefreshHeldTool()
     ToolMesh->SetVisibility(false); ToolMesh->SetStaticMesh(nullptr); HitSound=nullptr; SwingSound=nullptr;
     Viewmodel->SetVisibility(false); Viewmodel->SetSkeletalMesh(nullptr);
     CurrentMotion=nullptr; Motions.Reset(); bUsesArms=false; VisualTime=0; SprintBlend=0;
+    AxeStridePhase=0; AxeLocomotionOffset=FVector::ZeroVector; AxeLocomotionRotation=FQuat::Identity;
+    Viewmodel->SetRelativeLocationAndRotation(FVector::ZeroVector,FRotator(0,90,0));
     if (LoadHandle) { LoadHandle->CancelHandle(); LoadHandle.Reset(); }
     if (!Item) return;
     Kind=ColdSteelInventory::Text(*Item,TEXT("tool_kind")); ToolName=ColdSteelInventory::Text(*Item,TEXT("name"));
@@ -97,6 +103,18 @@ void UProductionToolComponent::RefreshHeldTool()
         if(auto* Harvest=GetWorld()->GetSubsystem<UProductionHarvestSubsystem>())Harvest->Prepare(Kind==TEXT("axe"));
     SwingSeconds=FMath::Max(.4f,float(ColdSteelInventory::Number(*Item,TEXT("swing_seconds"),.68)));
     ContactSeconds=FMath::Clamp(float(ColdSteelInventory::Number(*Item,TEXT("contact_seconds"),.24)),.1f,SwingSeconds-.1f);
+    if(Kind==TEXT("axe"))
+    {
+        SwingSeconds=AxeMotion.SwingSeconds;
+        ContactSeconds=AxeMotion.ContactSeconds;
+    }
+    if(Kind==TEXT("axe") || Kind==TEXT("pickaxe"))
+    {
+        AxeHarvestReach=ColdSteelInventory::Number(*Item,TEXT("harvest_reach_cm"),Reach);
+        AxeCombatReach=ColdSteelInventory::Number(*Item,TEXT("combat_reach_cm"),180);
+        AxeHarvestRadius=ColdSteelInventory::Number(*Item,TEXT("harvest_sweep_radius_cm"),32);
+        AxeCombatRadius=ColdSteelInventory::Number(*Item,TEXT("combat_sweep_radius_cm"),24);
+    }
     const float Scale=ColdSteelInventory::Number(*Item,TEXT("tool_scale"),.65);
     ToolMesh->SetRelativeScale3D(FVector(Scale));
     ToolMesh->SetRelativeRotation(FRotator(ColdSteelInventory::Number(*Item,TEXT("mount_pitch")),
@@ -114,7 +132,8 @@ void UProductionToolComponent::RefreshHeldTool()
         Paths.Add(ViewmodelPath);
         if(!SwingPath.IsNull())Paths.Add(SwingPath);
         for(const TCHAR* Clip:{TEXT("Idle"),TEXT("Walk"),TEXT("Equip"),TEXT("Swing"),TEXT("HitRecover")})
-            Paths.Add(HarvestMotionPath(MotionPrefix,Clip));
+            if((Kind!=TEXT("axe") && Kind!=TEXT("pickaxe")) || FName(Clip)!=TEXT("Walk"))
+                Paths.Add(HarvestMotionPath(MotionPrefix,Clip));
     }
     else Paths.Add(MeshPath);
     LoadHandle=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,
@@ -125,13 +144,14 @@ void UProductionToolComponent::RefreshHeldTool()
             {
                 Viewmodel->SetSkeletalMesh(Cast<USkeletalMesh>(ViewmodelPath.ResolveObject()));
                 for(const TCHAR* Clip:{TEXT("Idle"),TEXT("Walk"),TEXT("Equip"),TEXT("Swing"),TEXT("HitRecover")})
-                    Motions.Add(FName(Clip),Cast<UAnimSequence>(HarvestMotionPath(MotionPrefix,Clip).ResolveObject()));
+                    if((Kind!=TEXT("axe") && Kind!=TEXT("pickaxe")) || FName(Clip)!=TEXT("Walk"))
+                        Motions.Add(FName(Clip),Cast<UAnimSequence>(HarvestMotionPath(MotionPrefix,Clip).ResolveObject()));
                 SwingSound=Cast<USoundBase>(SwingPath.ResolveObject());
                 if(HasReadyPresentation()){EquipElapsed=0; SampleMotion(TEXT("Equip"),0);}
             }
             else ToolMesh->SetStaticMesh(Cast<UStaticMesh>(MeshPath.ResolveObject()));
             HitSound=Cast<USoundBase>(SoundPath.ResolveObject()); ImpactDust=Cast<UParticleSystem>(DustPath.ResolveObject());
-            Feedback=HasReadyPresentation()?TEXT("左键采集 · F7 收起工具"):TEXT("工具或手部动作加载失败，请重新装备");
+            Feedback=HasReadyPresentation()?((Kind==TEXT("axe") || Kind==TEXT("pickaxe"))?TEXT("双手工具 · 左键攻击 / 采集 · G / 滚轮切换武器"):TEXT("左键采集 · F7 收起工具")):TEXT("工具或手部动作加载失败，请重新装备");
             FeedbackSeconds=3.f;
         }));
 }
@@ -155,10 +175,22 @@ void UProductionToolComponent::BeginUse()
     if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
         if(!Profile->SpendStamina(Profile->StaminaSettings().HarvestCost)){Feedback=TEXT("体力不足，稍作休息再采集");FeedbackSeconds=1.5f;return;}
     Elapsed=0; bContacted=false; bHitConfirmed=false; bSwingSoundPlayed=false;
+    AxeStrike={};
+    if(Kind==TEXT("axe") || Kind==TEXT("pickaxe"))
+        if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+            if(const auto* Item=Profile->ActiveProductionTool())
+            {
+                // Capture after the stamina transaction, which can replace inventory data.
+                AxeStrike=ColdSteelSkills::Snapshot(Character.Get(),Item);
+                AxeStrike.bMelee=true;
+                AxeStrike.DamagePanel=ColdSteelWeaponStats::DamageParts(*Item,Profile,
+                    ColdSteelInventory::Number(*Item,TEXT("melee_damage"),12));
+            }
 }
 
 void UProductionToolComponent::CancelUse()
 {
+    if((Kind==TEXT("axe") || Kind==TEXT("pickaxe")) && (Elapsed>=0.f || EquipElapsed>=0.f))VisualTime=0.f;
     Elapsed=-1; EquipElapsed=-1; bContacted=false; bHitConfirmed=false; bSwingSoundPlayed=false;
     if (Pivot) Pivot->SetRelativeRotation(FRotator::ZeroRotator);
 }
@@ -170,11 +202,14 @@ void UProductionToolComponent::ShowFeedback(const FString& Message)
 
 bool UProductionToolComponent::TraceResource(FProductionResource& Resource,FHitResult& Hit,FString& Reason) const
 {
+    if(Kind==TEXT("axe") || Kind==TEXT("pickaxe"))
+        return TraceAxeContact(Resource,Hit,Reason) && !Resource.Id.IsEmpty();
     if (!Camera || !Character.IsValid()) return false;
     FCollisionQueryParams Q(SCENE_QUERY_STAT(ProductionTool),false,Character.Get());
-    const FVector Start=Camera->GetComponentLocation();
+    const FTransform Aim=Camera->GetComponentTransform();
+    const FVector Start=Aim.GetLocation();
     const float Length=Kind==TEXT("shovel")?ToolDigReach.GetValueOnGameThread():Reach;
-    if (!GetWorld()->LineTraceSingleByChannel(Hit,Start,Start+Camera->GetForwardVector()*Length,ECC_Visibility,Q))
+    if (!GetWorld()->LineTraceSingleByChannel(Hit,Start,Start+Aim.GetRotation().GetForwardVector()*Length,ECC_Visibility,Q))
     { Reason=TEXT("靠近树干、独立岩块或干燥地面（3.2 米内）"); return false; }
     for (TActorIterator<ATemperateHillsWorld> It(GetWorld());It;++It)
         if (It->ResolveProductionResource(Hit,Resource,Reason)) return true;
@@ -185,23 +220,26 @@ bool UProductionToolComponent::TraceResource(FProductionResource& Resource,FHitR
 bool UProductionToolComponent::ResolveContact()
 {
     FProductionResource Target; FHitResult Hit; FString Reason;
-    if (!TraceResource(Target,Hit,Reason)) { Feedback=Reason; FeedbackSeconds=2; return false; }
+    const bool bCombatTool=Kind==TEXT("axe") || Kind==TEXT("pickaxe");
+    const bool Found=bCombatTool?TraceAxeContact(Target,Hit,Reason):TraceResource(Target,Hit,Reason);
+    if (!Found) { Feedback=Reason; FeedbackSeconds=2; return false; }
+    if(bCombatTool && Target.Id.IsEmpty())return ResolveAxeEnemyContact(Hit);
     if (Kind!=Target.RequiredTool)
     {
-        Feedback=Target.RequiredTool==TEXT("axe")?TEXT("砍树需要伐木斧（6）"):
-            Target.RequiredTool==TEXT("pickaxe")?TEXT("开采岩块需要矿镐（7）"):TEXT("采集表土需要铁铲（8）");
+        Feedback=Target.RequiredTool==TEXT("axe")?TEXT("砍树需要伐木斧：在背包右键装备到主手，再用 G / 滚轮切换"):
+            Target.RequiredTool==TEXT("pickaxe")?TEXT("开采岩块需要矿镐：在背包右键装备到主手，再用 G / 滚轮切换"):TEXT("采集表土需要铁铲（8）");
         FeedbackSeconds=2; return false;
     }
     auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     bool Depleted=false;
-    Target.Direction=Camera->GetForwardVector();
+    Target.Direction=(Hit.TraceEnd-Hit.TraceStart).GetSafeNormal();
     if(Target.Layer==0)
         if(auto* Harvest=GetWorld()->GetSubsystem<UProductionHarvestSubsystem>())Harvest->PrepareFall(Target);
     if (!Profile->CommitHarvestStrike(Target,Depleted)) { Feedback=Profile->ResultMessage(); FeedbackSeconds=3; return false; }
     Feedback=Profile->ResultMessage(); FeedbackSeconds=2;
     if (HitSound) UGameplayStatics::PlaySoundAtLocation(this,HitSound,Hit.ImpactPoint,.65f);
     if (ImpactDust&&(!Depleted||Target.Layer==2)) UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),ImpactDust,Hit.ImpactPoint,Hit.ImpactNormal.Rotation(),FVector(.25f),true,EPSCPoolMethod::AutoRelease);
-    if (Depleted && Target.World.IsValid()) Target.World->CompleteProductionHarvest(Target,Hit,Camera->GetForwardVector());
+    if (Depleted && Target.World.IsValid()) Target.World->CompleteProductionHarvest(Target,Hit,Target.Direction);
     if (Depleted && Target.Layer==2)
     {
         // The world just removed one 20 cm layer; say so instead of only "collected".
@@ -228,17 +266,20 @@ void UProductionToolComponent::BeginRefill()
     ShowFeedback(Message);
 }
 
-void UProductionToolComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
+void UProductionToolComponent::AdvanceActionBeforeCamera(float Delta)
 {
-    Super::TickComponent(Delta,Type,Tick);
-    const bool Usable=IsEquipped() && CanUse();
-    if (ToolMesh) ToolMesh->SetVisibility(Usable && !bUsesArms && ToolMesh->GetStaticMesh());
-    if (Viewmodel) Viewmodel->SetVisibility(Usable && bUsesArms && HasReadyPresentation());
-    if (!Usable) CancelUse();
+    // The owner calls this once, before its camera and before our presentation
+    // tick. Contact audio, camera impulses and sampled arms see the same age.
+    if(!Character.IsValid()||!Pivot)return;
+    if(!IsEquipped()||!CanUse()){CancelUse();return;}
     if (Elapsed>=0)
     {
         Elapsed+=Delta;
-        if(bUsesArms && !bSwingSoundPlayed && Elapsed>=ContactSeconds*.65f)
+        // The overhead pickaxe starts accelerating 100 ms before contact;
+        // its whoosh belongs to that downstroke, after the raised hold.
+        const float WhooshTime=Kind==TEXT("axe")?AxeMotion.SwingSoundSeconds:
+            (Kind==TEXT("pickaxe")?FMath::Max(0.f,ContactSeconds-.10f):ContactSeconds*.65f);
+        if(bUsesArms && !bSwingSoundPlayed && Elapsed>=WhooshTime)
         {
             bSwingSoundPlayed=true;
             if(SwingSound)UGameplayStatics::PlaySound2D(this,SwingSound,.38f,Kind==TEXT("axe")?.86f:.76f);
@@ -252,9 +293,26 @@ void UProductionToolComponent::TickComponent(float Delta,ELevelTick Type,FActorC
             else { const float T=FMath::Clamp((Elapsed-ContactSeconds)/(SwingSeconds-ContactSeconds),0.f,1.f); Angle=FMath::Lerp(.95f,0.f,T*T*(3-2*T)); }
             Pivot->SetRelativeRotation(FRotator(-FMath::RadiansToDegrees(Angle),0,FMath::RadiansToDegrees(Angle*.26f)));
         }
-        if (!bContacted && Elapsed>=ContactSeconds) { bContacted=true; bHitConfirmed=ResolveContact(); }
-        if (Elapsed>=SwingSeconds) CancelUse();
+        if (!bContacted && Elapsed>=ContactSeconds)
+        {
+            bContacted=true; bHitConfirmed=ResolveContact();
+            // Start the confirmed impact at zero age, even on a late frame, so
+            // a hitch cannot skip the lodged pose and its first camera impulse.
+            if(bHitConfirmed && (Kind==TEXT("axe") || Kind==TEXT("pickaxe")))Elapsed=ContactSeconds;
+        }
+        const float End=bHitConfirmed && Kind==TEXT("axe")?ContactSeconds+AxeMotion.HitRecoverSeconds:
+            bHitConfirmed && Kind==TEXT("pickaxe")?ContactSeconds+ProductionPickaxeImpact::HitRecoverSeconds:SwingSeconds;
+        if (Elapsed>=End) CancelUse();
     }
+}
+
+void UProductionToolComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
+{
+    Super::TickComponent(Delta,Type,Tick);
+    const bool Usable=IsEquipped() && CanUse();
+    if (ToolMesh) ToolMesh->SetVisibility(Usable && !bUsesArms && ToolMesh->GetStaticMesh());
+    if (Viewmodel) Viewmodel->SetVisibility(Usable && bUsesArms && HasReadyPresentation());
+    if (!Usable) CancelUse();
     if(Usable && bUsesArms && HasReadyPresentation())UpdateHandPresentation(Delta);
     FeedbackSeconds=FMath::Max(0.f,FeedbackSeconds-Delta);
     HintCountdown-=Delta;
@@ -286,7 +344,9 @@ void UProductionToolComponent::UpdateHint()
             Detail=FString::Printf(TEXT("%s · %d / %d"),*Target.Name,Profile->HarvestProgress(Target.Id),Target.HitsNeeded());
         }
     }
-    Prompt->SetCaption((IsEquipped()?ToolName+TEXT(" · 左键使用 · 6 斧 / 7 镐 / 8 铲 · F7 收起\n"):FString())+Detail);
+    const FString Controls=(Kind==TEXT("axe") || Kind==TEXT("pickaxe"))?TEXT(" · 双手 · 左键攻击 / 采集 · G / 滚轮切换武器\n"):
+        TEXT(" · 左键使用 · 8 铲 · F7 收起\n");
+    Prompt->SetCaption((IsEquipped()?ToolName+Controls:FString())+Detail);
 }
 
 void UProductionToolComponent::EndPlay(const EEndPlayReason::Type Reason)

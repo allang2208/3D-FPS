@@ -1,0 +1,46 @@
+{
+  "revision": "TwoHandAttackV3_SingleHeavyImpactV1_HitPause200ms",
+  "swing_seconds": 1.10,
+  "contact_seconds": 0.48,
+  "swing_sound_seconds": 0.405,
+  "hit_recover_seconds": 0.92,
+  "hit_stop_seconds": 0.20,
+  "pry_start_seconds": 0.23,
+  "pry_end_seconds": 0.51,
+  "extract_end_seconds": 0.64,
+  "extract_offset_m": [0.055, -0.125, 0.035],
+  "extract_pitch_degrees": -8.0,
+  "pry_keys": [
+    {"t": 0.23, "angle": 0.0},
+    {"t": 0.29, "angle": 5.5},
+    {"t": 0.355, "angle": -4.0},
+    {"t": 0.42, "angle": 4.5},
+    {"t": 0.475, "angle": -2.0},
+    {"t": 0.51, "angle": 0.0}
+  ],
+  "swing_camera": [
+    {"t": 0.0, "angles": [0,0,0], "position_cm": [0,0,0]},
+    {"t": 0.275, "angles": [1.8,1.6,1.1], "position_cm": [-1.2,0.8,0.65]},
+    {"t": 0.405, "angles": [1.9,1.7,1.1], "position_cm": [-1.25,0.85,0.68]},
+    {"t": 0.45, "angles": [1.1,0.7,0.4], "position_cm": [-0.2,0.15,0.2]},
+    {"t": 0.48, "angles": [-1.6,-0.7,-0.4], "position_cm": [0.7,-0.45,-0.7]},
+    {"t": 0.55, "angles": [-2.1,-1.2,-0.6], "position_cm": [0.85,-0.7,-1.1]},
+    {"t": 0.73, "angles": [-0.8,-0.5,-0.2], "position_cm": [-0.3,-0.3,-0.65]},
+    {"t": 1.1, "angles": [0,0,0], "position_cm": [0,0,0]}
+  ],
+  "hit_camera": [
+    {"t": 0.0, "angles": [-1.6,-0.7,-0.4], "position_cm": [0.7,-0.45,-0.7]},
+    {"t": 0.04, "angles": [-9.4,-1.9,-2.2], "position_cm": [-2.1,-0.85,-3.2]},
+    {"t": 0.085, "angles": [-9.4,-1.9,-2.2], "position_cm": [-2.1,-0.85,-3.2]},
+    {"t": 0.48, "angles": [0,0,0], "position_cm": [0,0,0]},
+    {"t": 0.92, "angles": [0,0,0], "position_cm": [0,0,0]}
+  ],
+  "impact_camera": [
+    {"t": 0.0, "angles": [0,0,0], "position_cm": [0,0,0]}
+  ],
+  "extract_camera": [
+    {"t": 0.0, "angles": [0,0,0], "position_cm": [0,0,0]}
+  ],
+  "pry_camera_pitch_per_degree": 0.0,
+  "pry_camera_up_cm_per_degree": 0.0
+}

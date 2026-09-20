@@ -43,6 +43,7 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 - 手臂、抓握、甩弹匣、普通/空仓换弹、拉栓、装备、奔跑及拍击：[手臂动画技能](../ue5-fps-arms-animation/SKILL.md)。
 - 继续当前 M4：[当前案例与证据](../ue5-fps-arms-animation/references/m4-baseline.md)。先核对实际加载路径，不能按文件夹的日期或 Final 名称选资产。
 - 原生编译/运行或用户反馈“没有应用”：[UE 验证操作](../ue5-fps-arms-animation/references/validation.md)。纯文档更新只检查内容、链接及技能元数据，不启动游戏。
+- 伐木斧、矿镐的双手装备、低伤害自卫、采集范围与旧存档迁移：[采集工具战斗接入](references/harvesting-tools.md)。
 - 整理废案、更新 Git 或用户授权推送：[清理与发布](references/publication.md)。
 
 ## 执行主线

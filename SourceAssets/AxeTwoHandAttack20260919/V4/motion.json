@@ -1,0 +1,31 @@
+{
+  "revision": "TwoHandAttackV4_LeftArm",
+  "fps": 300,
+  "runtime_profile": "Content/ColdSteelData/axe_impact_motion.json",
+  "source_swing_s": 0.68,
+  "source_contact_s": 0.24,
+  "source_hit_recover_s": 0.44,
+  "grip_pivot_local_m": [0,0,0.19],
+  "elbow_pole_limit_deg": 135,
+  "elbow_preference": 0.08,
+  "shoulder_roll_limit_deg": 95,
+  "shoulder_roll_continuity": 0.02,
+  "left_shoulder_assist_max_m": 0.095,
+  "left_elbow_preference": 0.12,
+  "left_forearm_mode": "whole_segment_from_grip",
+  "swing_knots": [
+    {"t": 0.055, "theta": 8, "slope": 8, "center_offset": [0.008,-0.025,-0.016]},
+    {"t": 0.17, "theta": -2, "slope": 35, "center": [0.12,0.29,0.045]},
+    {"t": 0.275, "theta": -17, "slope": 53, "center": [0.235,0.205,0.135], "stop": true},
+    {"t": 0.405, "theta": -19, "slope": 55, "center": [0.245,0.195,0.14], "stop": true},
+    {"t": 0.438, "theta": -12, "slope": 53, "center": [0.22,0.225,0.12]},
+    {"t": 0.458, "theta": 9, "slope": 47, "center": [0.06,0.35,0.015]},
+    {"t": 0.48, "theta": 55, "slope": 37, "center": [-0.135,0.395,-0.115]},
+    {"t": 0.515, "theta": 73, "slope": 24, "center": [-0.285,0.32,-0.24]},
+    {"t": 0.61, "theta": 82, "slope": 14, "center": [-0.365,0.235,-0.31]},
+    {"t": 0.74, "theta": 65, "slope": 1, "center": [-0.28,0.22,-0.30]},
+    {"t": 0.90, "theta": 24, "slope": -5, "center": [-0.18,0.30,-0.275]}
+  ],
+  "hit_return_corner_age_s": 0.73,
+  "hit_return_corner": {"theta": 28, "slope": -6, "center": [-0.18,0.28,-0.265]}
+}

@@ -1,0 +1,23 @@
+{
+  "saved": [
+    "/Game/Items/ProductionTools/RusticPickaxe20260919/T_RusticPickaxe_BaseColor.T_RusticPickaxe_BaseColor",
+    "/Game/Items/ProductionTools/RusticPickaxe20260919/T_RusticPickaxe_MetallicRoughness.T_RusticPickaxe_MetallicRoughness",
+    "/Game/Items/ProductionTools/RusticPickaxe20260919/T_RusticPickaxe_Normal.T_RusticPickaxe_Normal",
+    "/Game/Items/ProductionTools/RusticPickaxe20260919/M_RusticPickaxe.M_RusticPickaxe",
+    "/Game/Items/ProductionTools/RusticPickaxe20260919/SM_RusticPickaxe.SM_RusticPickaxe",
+    "/Game/Items/ProductionTools/RusticPickaxe20260919/SK_RusticPickaxe_Skeleton.SK_RusticPickaxe_Skeleton",
+    "/Game/Items/ProductionTools/RusticPickaxe20260919/SK_RusticPickaxe.SK_RusticPickaxe",
+    "/Game/Items/ProductionTools/RusticPickaxe20260919/A_RusticPickaxe_Idle.A_RusticPickaxe_Idle",
+    "/Game/Items/ProductionTools/RusticPickaxe20260919/A_RusticPickaxe_Equip.A_RusticPickaxe_Equip",
+    "/Game/Items/ProductionTools/RusticPickaxe20260919/A_RusticPickaxe_Swing.A_RusticPickaxe_Swing",
+    "/Game/Items/ProductionTools/RusticPickaxe20260919/A_RusticPickaxe_HitRecover.A_RusticPickaxe_HitRecover",
+    "/Game/Items/ProductionTools/RusticPickaxe20260919/A_RusticPickaxe_Walk.A_RusticPickaxe_Walk",
+    "/Game/Items/ProductionTools/RusticPickaxe20260919/A_RusticPickaxe_Run.A_RusticPickaxe_Run"
+  ],
+  "runtime_tested": false,
+  "preview_rendered": false,
+  "world_mesh": "/Game/Items/ProductionTools/RusticPickaxe20260919/SM_RusticPickaxe.SM_RusticPickaxe",
+  "viewmodel": "/Game/Items/ProductionTools/RusticPickaxe20260919/SK_RusticPickaxe.SK_RusticPickaxe",
+  "animation_prefix": "/Game/Items/ProductionTools/RusticPickaxe20260919/A_RusticPickaxe_",
+  "catalogue_updated": true
+}

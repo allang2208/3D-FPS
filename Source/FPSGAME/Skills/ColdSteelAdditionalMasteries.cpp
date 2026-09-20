@@ -21,6 +21,8 @@ FName UColdSteelStatusModel::WeaponMastery(const FColdSteelItem* Item)const
 }
 float UColdSteelStatusModel::AdditionalWeaponDamage(const FColdSteelItem& Item,float Damage)const
 {
+    // Production tools share the formula/defense pipeline, not weapon mastery bonuses.
+    if(ColdSteelInventory::Text(Item,TEXT("category"))==TEXT("tool"))return Damage;
     // Source computeWeaponAttack adds sword mastery before category-specific mastery.
     Damage+=MasteryEffect(TEXT("swordMastery")).FlatDamage;
     const FName Id=WeaponMastery(&Item);

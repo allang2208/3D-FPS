@@ -32,6 +32,7 @@ struct FFormulaGroup
 
 void AppendColdSteelTooltipAttackFormula(const FColdSteelItem& Item,UColdSteelStatusModel* Model,double WeaponBase,FColdSteelTooltipCard& Card)
 {
+    const bool bProductionAxe=ColdSteelInventory::IsEquippedProductionTool(Item);
     const auto* Enhancement=Model?Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;
     if(!Enhancement){FormulaRow(Card,TEXT("攻击力计算公式"),TEXT("—"));return;}
     if(const auto Formula=Enhancement->AttackFormula(Item))
@@ -58,11 +59,16 @@ void AppendColdSteelTooltipAttackFormula(const FColdSteelItem& Item,UColdSteelSt
             EnhancedExpression+=TEXT("+")+Factor+TEXT("×")+Names;
         }
         FormulaRow(Card,TEXT("攻击力计算公式"),BaseExpression);
-        FormulaRow(Card,TEXT("强化后攻击力公式 · L=强化等级"),EnhancedExpression);
+        if(!bProductionAxe)FormulaRow(Card,TEXT("强化后攻击力公式 · L=强化等级"),EnhancedExpression);
     }
     else
     {
         FormulaRow(Card,TEXT("攻击力计算公式"),FormulaNumber(WeaponBase)+TEXT("+角色攻击力"));
-        FormulaRow(Card,TEXT("强化后攻击力公式 · L=强化等级"),FormulaNumber(WeaponBase)+TEXT("×(1+")+FormulaNumber(Enhancement->IncreasePerLevel())+TEXT("L)+角色攻击力"));
+        if(!bProductionAxe)FormulaRow(Card,TEXT("强化后攻击力公式 · L=强化等级"),FormulaNumber(WeaponBase)+TEXT("×(1+")+FormulaNumber(Enhancement->IncreasePerLevel())+TEXT("L)+角色攻击力"));
+    }
+    if(bProductionAxe)
+    {
+        FormulaRow(Card,TEXT("命中结算"),TEXT("基础公式四舍五入；沿用角色暴击与敌人物理防御减免。单次攻击，不附加连击、重击或刀剑精通伤害。"));
+        return;
     }
 }

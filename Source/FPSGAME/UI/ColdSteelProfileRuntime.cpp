@@ -262,7 +262,7 @@ bool UColdSteelStatusModel::AwardKill(AActor* Victim,int64 Reward)
 }
 const FColdSteelItem* UColdSteelStatusModel::FindItem(const FString& Id)const{return Current.Items.FindByPredicate([&](const auto& I){return I.InstanceId==Id;});}
 const FColdSteelItem* UColdSteelStatusModel::Equipped(int32 S)const{int32 N=Owner(Current.Items,1,S<0?Current.ActiveWeaponSlot:S);return N>=0?&Current.Items[N]:nullptr;}
-bool UColdSteelStatusModel::CycleWeapon(){if(ActiveProductionTool())return StowProductionTool();SyncRuntime();auto P=Snapshot();int32 Other=P.ActiveWeaponSlot==6?9:6;if(Owner(P.Items,1,Other)<0){Message=TEXT("另一组武器槽为空");return false;}P.ActiveWeaponSlot=Other;return CommitState(P);}
+bool UColdSteelStatusModel::CycleWeapon(){if(!Current.ActiveProductionTool.IsEmpty())return StowProductionTool();SyncRuntime();auto P=Snapshot();int32 Other=P.ActiveWeaponSlot==6?9:6;if(Owner(P.Items,1,Other)<0){Message=TEXT("另一组武器槽为空");return false;}P.ActiveWeaponSlot=Other;return CommitState(P);}
 FColdSteelItem UColdSteelStatusModel::CreateItem(const FString& Def,int64 Count)const
 {
     FColdSteelItem I;I.InstanceId=FGuid::NewGuid().ToString(EGuidFormats::Digits);I.Definition=Def;I.Count=Count;
@@ -276,7 +276,7 @@ FColdSteelItem UColdSteelStatusModel::CreateItem(const FString& Def,int64 Count)
     return I;
 }
 FColdSteelProposal UColdSteelStatusModel::ProposeMove(const FString& Id,int32 Place,int32 Cell,int32 Orientation)const{const auto* I=FindItem(Id);if(Place==4||(I&&I->Place==4))return ProposeWarehouse(Id,Place,Cell,Orientation);auto P=ColdSteelInventory::Move(Current.Items,Id,Place,Cell,Orientation);P.Revision=Current.Generation;return P;}
-bool UColdSteelStatusModel::CommitProposal(const FColdSteelProposal& R){if(!R.bValid){Message=R.Reason;return false;}if(R.Revision!=Current.Generation){Message=TEXT("物品已变化，请重新拖动");return false;}auto P=Snapshot();P.Items=R.Items;if(R.ActiveWeaponSlot>=0)P.ActiveWeaponSlot=R.ActiveWeaponSlot;return CommitState(P);}
+bool UColdSteelStatusModel::CommitProposal(const FColdSteelProposal& R){if(!R.bValid){Message=R.Reason;return false;}if(R.Revision!=Current.Generation){Message=TEXT("物品已变化，请重新拖动");return false;}auto P=Snapshot();P.Items=R.Items;if(R.ActiveWeaponSlot>=0){P.ActiveWeaponSlot=R.ActiveWeaponSlot;P.ActiveProductionTool.Reset();}return CommitState(P);}
 bool UColdSteelStatusModel::MoveItem(const FString& Id,int32 Place,int32 Cell,int32 Orientation){SyncRuntime();return CommitProposal(ProposeMove(Id,Place,Cell,Orientation));}
 bool UColdSteelStatusModel::AddItem(const FString& Def,int64 Count){if(Count<=0||Count>9007199254740991ll||!Definitions.Contains(Def))return false;SyncRuntime();auto P=Snapshot();if(!Insert(P.Items,CreateItem(Def,Count))){Message=TEXT("背包空间不足");return false;}return CommitState(P);}
 bool UColdSteelStatusModel::Split(const FString& Id,int64 Count)
@@ -324,7 +324,7 @@ bool UColdSteelStatusModel::DefaultAction(const FString& Id)
     if(I.Place==4)return TransferWarehouse(Id,0);
     if(bWarehouseOpen&&(I.Place==0||I.Place==1))return TransferWarehouse(Id,4);
     if(I.Place==1)return MoveItem(Id,0,-1);
-    if(Text(I,TEXT("category"))==TEXT("consumable")||Text(I,TEXT("category"))==TEXT("tool"))return UseItem(Id);
+    if(Text(I,TEXT("category"))==TEXT("consumable")||(Text(I,TEXT("category"))==TEXT("tool")&&!IsEquippedProductionTool(I)))return UseItem(Id);
     for(int32 S=0;S<15;++S)if(CanEquip(I,S)&&!Equipped(S)&&!Locked(Current.Items,S))return MoveItem(Id,1,S);
     for(int32 S=0;S<15;++S)if(CanEquip(I,S)&&!Locked(Current.Items,S))return MoveItem(Id,1,S);
     Message=TEXT("该物品不能穿戴或使用");return false;

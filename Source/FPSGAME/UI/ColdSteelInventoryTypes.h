@@ -139,9 +139,14 @@ namespace ColdSteelInventory
     FPSGAME_API FString Text(const FColdSteelItem& Item, const TCHAR* Key);
     FPSGAME_API double Number(const FColdSteelItem& Item, const TCHAR* Key, double Default = 0);
     FPSGAME_API bool Flag(const FColdSteelItem& Item, const TCHAR* Key);
+    inline bool IsEquippedProductionTool(const FColdSteelItem& Item)
+    {
+        return Item.Definition==TEXT("tool_axe") || Item.Definition==TEXT("tool_pickaxe");
+    }
     inline bool IsMeleeWeapon(const FColdSteelItem& Item)
     {
-        return Item.Definition==TEXT("ue_rune_sword") || Text(Item,TEXT("category"))==TEXT("weapon_melee");
+        return Item.Definition==TEXT("ue_rune_sword") || IsEquippedProductionTool(Item) ||
+            Text(Item,TEXT("category"))==TEXT("weapon_melee");
     }
     inline bool IsTwoHandedSword(const FColdSteelItem& Item)
     {

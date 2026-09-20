@@ -26,14 +26,20 @@ void UColdSteelStatusModel::LoadProductionDefinitions()
 
 const FColdSteelItem* UColdSteelStatusModel::ActiveProductionTool() const
 {
-    const auto* Item = FindItem(Current.ActiveProductionTool);
-    return Item && Item->Place == 0 && ColdSteelInventory::Text(*Item,TEXT("category")) == TEXT("tool") ? Item : nullptr;
+    // Only the shovel overrides the selected weapon from the backpack. Axe and
+    // pickaxe are held through the active main-hand equipment slot.
+    const auto* Override = FindItem(Current.ActiveProductionTool);
+    if(Override && !ColdSteelInventory::IsEquippedProductionTool(*Override) && Override->Place==0 &&
+        ColdSteelInventory::Text(*Override,TEXT("category"))==TEXT("tool"))return Override;
+    const auto* Item=Equipped();
+    return Item && ColdSteelInventory::IsEquippedProductionTool(*Item) ? Item : nullptr;
 }
 
 void UColdSteelStatusModel::NormalizeProductionState(FColdSteelProfile& P) const
 {
     for(auto& I:P.Items)if(I.Place!=2)I.HarvestWorldId.Invalidate();
-    // Refresh only presentation fields; saved identity, placement and harvesting data stay intact.
+    // Refresh presentation, equipment, combat tuning and both tools' phase clocks; saved identity,
+    // placement and harvesting progress stay intact.
     for(auto& I:P.Items)
     {
         if(I.Definition!=TEXT("tool_axe")&&I.Definition!=TEXT("tool_pickaxe"))continue;
@@ -43,7 +49,10 @@ void UColdSteelStatusModel::NormalizeProductionState(FColdSteelProfile& P) const
            !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Definition),VisualData))continue;
         bool Changed=false;
         for(const TCHAR* Key:{TEXT("tool_mesh"),TEXT("tool_scale"),TEXT("mount_pitch"),TEXT("mount_yaw"),TEXT("mount_roll"),
-            TEXT("tool_viewmodel"),TEXT("tool_animation_prefix"),TEXT("tool_swing_sound")})
+            TEXT("tool_viewmodel"),TEXT("tool_animation_prefix"),TEXT("tool_swing_sound"),
+            TEXT("swing_seconds"),TEXT("contact_seconds"),TEXT("desc"),TEXT("melee_damage"),
+            TEXT("combat_reach_cm"),TEXT("combat_sweep_radius_cm"),TEXT("harvest_reach_cm"),TEXT("harvest_sweep_radius_cm"),
+            TEXT("grid_w"),TEXT("grid_h"),TEXT("ue_icon"),TEXT("weaponType"),TEXT("weaponTypeTag"),TEXT("equipSlot"),TEXT("isTwoHanded")})
         {
             const auto* Value=VisualData->Values.Find(Key);if(!Value)continue;
             const auto* OldValue=SavedData->Values.Find(Key);
@@ -54,10 +63,15 @@ void UColdSteelStatusModel::NormalizeProductionState(FColdSteelProfile& P) const
         {
             I.Data.Reset();
             FJsonSerializer::Serialize(SavedData.ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&I.Data));
+            // 2x3 -> 1x3 only shrinks in either orientation. Keep the saved cell and
+            // explicit player rotation; new items use the upright default.
+            if(I.Definition==TEXT("tool_axe"))ColdSteelInventory::ApplyOrientation(I,-1);
         }
+        I.Magazine=0;I.Reserve=0;
     }
     const auto* Item = P.Items.FindByPredicate([&](const auto& I){return I.InstanceId == P.ActiveProductionTool && I.Place == 0;});
-    if (!Item || ColdSteelInventory::Text(*Item,TEXT("category")) != TEXT("tool")) P.ActiveProductionTool.Reset();
+    // Discard legacy backpack selections without relocating either tool.
+    if (!Item || ColdSteelInventory::IsEquippedProductionTool(*Item) || ColdSteelInventory::Text(*Item,TEXT("category")) != TEXT("tool")) P.ActiveProductionTool.Reset();
 }
 
 bool UColdSteelStatusModel::GrantProductionTools()
@@ -66,13 +80,13 @@ bool UColdSteelStatusModel::GrantProductionTools()
     SyncRuntime(); auto P = Snapshot();
     for (const FString& Id : {FString(TEXT("tool_axe")), FString(TEXT("tool_pickaxe")), FString(TEXT("tool_shovel"))})
     {
-        if (P.Items.ContainsByPredicate([&](const auto& I){return I.Definition == Id && (I.Place == 0 || I.Place == 4);})) continue;
+        if (P.Items.ContainsByPredicate([&](const auto& I){return I.Definition == Id && (I.Place == 0 || I.Place == 1 || I.Place == 4);})) continue;
         auto Item = CreateItem(Id);
         if (Item.Data.IsEmpty()) { Message=TEXT("生产工具目录未加载"); return false; }
         if (!ColdSteelInventory::Insert(P.Items, Item))
         {
             if (!ColdSteelWarehouse::Insert(P.Items,Item,WarehouseCapacity()))
-            { Message=TEXT("背包和仓库空间不足，腾出空间后按 6 / 7 / 8 领取工具"); return false; }
+            { Message=TEXT("背包和仓库空间不足，腾出空间后按 8 领取工具；伐木斧与矿镐需在背包装备"); return false; }
         }
     }
     P.ProductionSupplyVersion = 1;
@@ -82,6 +96,12 @@ bool UColdSteelStatusModel::GrantProductionTools()
 bool UColdSteelStatusModel::ToggleProductionTool(const FString& InstanceId)
 {
     const auto* Item=FindItem(InstanceId);
+    if(Item && ColdSteelInventory::IsEquippedProductionTool(*Item))
+    {
+        if(Item->Place!=1 || (Item->Cell!=6 && Item->Cell!=9))
+        {Message=TEXT("请先在背包右键装备此工具，或将它拖入主手武器槽");return false;}
+        return MoveItem(InstanceId,1,Item->Cell);
+    }
     if (!Item || Item->Place != 0 || ColdSteelInventory::Text(*Item,TEXT("category")) != TEXT("tool")) return false;
     SyncRuntime(); auto P=Snapshot();
     P.ActiveProductionTool = P.ActiveProductionTool == InstanceId ? FString() : InstanceId;
@@ -95,6 +115,12 @@ bool UColdSteelStatusModel::SelectProductionTool(const FString& Definition)
         if(CurrentPawn.IsValid())if(auto* Tools=CurrentPawn->FindComponentByClass<UProductionToolComponent>())Tools->ShowFeedback(Message);
         return false;
     };
+    if(Definition==TEXT("tool_axe") || Definition==TEXT("tool_pickaxe"))
+    {
+        const auto* EquippedTool=Current.Items.FindByPredicate([&](const auto& I){return I.Definition==Definition && I.Place==1 && (I.Cell==6 || I.Cell==9);});
+        if(!EquippedTool){Message=TEXT("请先在背包右键装备此工具，再用 G 或滚轮切换武器");return ReportFailure();}
+        return ToggleProductionTool(EquippedTool->InstanceId) || ReportFailure();
+    }
     if (!GrantProductionTools()) return ReportFailure();
     const auto* Item=Current.Items.FindByPredicate([&](const auto& I){return I.Definition==Definition && I.Place==0;});
     if (!Item) { Message=TEXT("请先从仓库取出工具放入背包"); return ReportFailure(); }

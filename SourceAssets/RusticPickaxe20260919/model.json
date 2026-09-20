@@ -1,0 +1,32 @@
+{
+  "source": "D:\\FPS3D\\\u8d44\u4ea7\\\u6a21\u578b\\Meshy_AI_Rustic_Mountaineering_0919083808_texture.glb",
+  "source_sha256": "2abe16c6111c037c27875af732c43b024289a9fa41591789a25f3a9296416247",
+  "provenance": "User supplied Meshy model. Redistribution permission not recorded.",
+  "height_m": 0.84,
+  "scale": 0.44166801657802296,
+  "source_triangles": 314974,
+  "source_dimensions_m": [
+    0.7133729457855225,
+    0.1091890037059784,
+    1.9018809795379639
+  ],
+  "exports": {
+    "Viewmodel": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RusticPickaxe20260919\\Export\\RusticPickaxe_Viewmodel.fbx",
+      "triangles": 95999
+    },
+    "World": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RusticPickaxe20260919\\Export\\RusticPickaxe_World.fbx",
+      "triangles": 32000
+    },
+    "LOD1": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RusticPickaxe20260919\\Export\\RusticPickaxe_LOD1.fbx",
+      "triangles": 8000
+    },
+    "LOD2": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RusticPickaxe20260919\\Export\\RusticPickaxe_LOD2.fbx",
+      "triangles": 2000
+    }
+  },
+  "runtime_tested": false
+}

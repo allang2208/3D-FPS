@@ -1,0 +1,562 @@
+[
+  {
+    "source": "SourceAssets/AxeHitPause20260919/Before/A_Harvest_Axe_HitRecover.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeHitPause20260919/Before/A_Harvest_Axe_HitRecover.uasset",
+    "bytes": 778582,
+    "sha256": "8bccce8fda74348dbda50042a77fa132c8a2b88c4eee18c354bdc89d839dabff",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeImpactInventory20260919/Before/axe.png",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeImpactInventory20260919/Before/axe.png",
+    "bytes": 148285,
+    "sha256": "fcad93a77f2fe0549c2cb3d8cc7c9e243bfd547b1ef1cf4563ed26bb5fc467b0",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeImpactInventory20260919/Before/axe.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeImpactInventory20260919/Before/axe.uasset",
+    "bytes": 137371,
+    "sha256": "29a9550abdd27f9f1d6fdbae44d434f4995ae0c39820cbf57be7135f44b8432e",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeRightArm20260919/Before/A_Harvest_Axe_HitRecover.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeRightArm20260919/Before/A_Harvest_Axe_HitRecover.uasset",
+    "bytes": 775231,
+    "sha256": "2d60db843e41ebf2689550ccdf20e067eac72291da0fc72a53828aa8b513fa6c",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeRightArm20260919/Before/A_Harvest_Axe_Swing.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeRightArm20260919/Before/A_Harvest_Axe_Swing.uasset",
+    "bytes": 1302295,
+    "sha256": "19d7e92e9d0b502372754b2120545a10af1558e0ea913c2d1a4feb75ac918344",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeThumb20260919/Fixed/Before/A_Harvest_Axe_Equip.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeThumb20260919/Fixed/Before/A_Harvest_Axe_Equip.uasset",
+    "bytes": 356483,
+    "sha256": "8839f5b169058ba6edd3da0904f48d9b4e1bd97c14c63c11123dbf9f4f34db15",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeThumb20260919/Fixed/Before/A_Harvest_Axe_HitRecover.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeThumb20260919/Fixed/Before/A_Harvest_Axe_HitRecover.uasset",
+    "bytes": 778592,
+    "sha256": "915b4a46707da50139c795e7742c36517d46b31353f2a1e633ea7db43f199f77",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeThumb20260919/Fixed/Before/A_Harvest_Axe_Idle.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeThumb20260919/Fixed/Before/A_Harvest_Axe_Idle.uasset",
+    "bytes": 1314147,
+    "sha256": "f5032096808ffcf451079341687ff51f86fd74c14d3749737bd3034e702a8665",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeThumb20260919/Fixed/Before/A_Harvest_Axe_Swing.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeThumb20260919/Fixed/Before/A_Harvest_Axe_Swing.uasset",
+    "bytes": 1302305,
+    "sha256": "74c15f2db12e20d7238cc3611aa4d93dd8c49063691b4a5037a5a75797d12218",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeThumb20260919/Fixed/Before/import_axe_h4_pose_family.py",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeThumb20260919/Fixed/Before/import_axe_h4_pose_family.py",
+    "bytes": 3221,
+    "sha256": "0d83bd244924f323c655aa5c3e481bb45d40ffd7cbbaafd39b06f507c2bec045",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeThumb20260919/Fixed/Before/import_axe_two_hand_attack.py",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeThumb20260919/Fixed/Before/import_axe_two_hand_attack.py",
+    "bytes": 2610,
+    "sha256": "65ad53cb2aa587bcc12f953cb6b2d3104ea53885d6ff9e7e8850f98144fbb8a1",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeTwoHandAttack20260919/Before/A_Harvest_Axe_HitRecover.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeTwoHandAttack20260919/Before/A_Harvest_Axe_HitRecover.uasset",
+    "bytes": 403068,
+    "sha256": "f50ce50e29b2a2e29013fbcf9ac5fa82f74462aa34af52d5625cd283fc8b0106",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeTwoHandAttack20260919/Before/A_Harvest_Axe_Swing.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeTwoHandAttack20260919/Before/A_Harvest_Axe_Swing.uasset",
+    "bytes": 563329,
+    "sha256": "2fdb6b7959dea53c8e284f35113c38db27e7aef9910aa1ce93e1901b8ef6debe",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeTwoHandAttack20260919/Before/ColdSteelProductionTools.cpp",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeTwoHandAttack20260919/Before/ColdSteelProductionTools.cpp",
+    "bytes": 8961,
+    "sha256": "4bf93669b36f9400c892cddb9c72d087b5d11a658408392de8eb9498e7d771bc",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeTwoHandAttack20260919/Before/production_tools.json",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeTwoHandAttack20260919/Before/production_tools.json",
+    "bytes": 2911,
+    "sha256": "882631aede7228628947c67c68fffe69d77b34d91a446beb8e47d56d2b19d703",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeTwoHandAttack20260919/V2/Before/A_Harvest_Axe_HitRecover.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeTwoHandAttack20260919/V2/Before/A_Harvest_Axe_HitRecover.uasset",
+    "bytes": 387974,
+    "sha256": "9130bfdc60322e0721c066f2d7ed778097245553cdad9cc0af236a78b87fad20",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeTwoHandAttack20260919/V2/Before/A_Harvest_Axe_Swing.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeTwoHandAttack20260919/V2/Before/A_Harvest_Axe_Swing.uasset",
+    "bytes": 583019,
+    "sha256": "a53bb10d2d894f22ae8f5b8a88b4087b086a7769f5c2d39491ee9420047f3642",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeTwoHandAttack20260919/V2/Before/import_axe_two_hand_attack.py",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeTwoHandAttack20260919/V2/Before/import_axe_two_hand_attack.py",
+    "bytes": 2222,
+    "sha256": "707b2ef2a7d4044e4cf04f95e0956d6f9284c3a64186730fa2c14da557dbe8a3",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeTwoHandAttack20260919/V3/Before/A_Harvest_Axe_HitRecover.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeTwoHandAttack20260919/V3/Before/A_Harvest_Axe_HitRecover.uasset",
+    "bytes": 783759,
+    "sha256": "961e35096f323fd23b1d449abcf1225ea420d9ebb8f33fadf4353804ed6348e0",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeTwoHandAttack20260919/V3/Before/A_Harvest_Axe_Swing.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeTwoHandAttack20260919/V3/Before/A_Harvest_Axe_Swing.uasset",
+    "bytes": 1167793,
+    "sha256": "f60484fc658fc1aaadd519815093a4937ab7bb9f2decca9df7f35c97f3447d31",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeTwoHandAttack20260919/V3/Before/FPSGAMECharacter.cpp",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeTwoHandAttack20260919/V3/Before/FPSGAMECharacter.cpp",
+    "bytes": 147898,
+    "sha256": "e375efcb9d4286fe5f64cecdf9dff2dae56d4ad8fbfe3021a2f03bbe5c217ea1",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeTwoHandAttack20260919/V3/Before/import_axe_two_hand_attack.py",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeTwoHandAttack20260919/V3/Before/import_axe_two_hand_attack.py",
+    "bytes": 2615,
+    "sha256": "1d1def5722c3df1766ff20f54d7d1ec5c8760c614b9cb89140ad90e875afdc4a",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeTwoHandAttack20260919/V3/Before/ProductionToolComponent.cpp",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeTwoHandAttack20260919/V3/Before/ProductionToolComponent.cpp",
+    "bytes": 15974,
+    "sha256": "1407d0acb9e18953e5ff22f09252d25412ea4e8013b6dbe7022976809b2c8462",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeTwoHandAttack20260919/V3/Before/ProductionToolComponent.h",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeTwoHandAttack20260919/V3/Before/ProductionToolComponent.h",
+    "bytes": 2753,
+    "sha256": "3028630f96a2ffd93c2ce3964357e75f17a2f4469cc709a6a3b123d3c0da865c",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeTwoHandAttack20260919/V3/Before/ProductionToolMotion.cpp",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeTwoHandAttack20260919/V3/Before/ProductionToolMotion.cpp",
+    "bytes": 2454,
+    "sha256": "8941e3ef6b2595d9227e40073e5905430e0c85bc1037a9dc54af89e3f4d5d161",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeTwoHandAttack20260919/V4/Before/A_Harvest_Axe_HitRecover.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeTwoHandAttack20260919/V4/Before/A_Harvest_Axe_HitRecover.uasset",
+    "bytes": 822063,
+    "sha256": "ef0d30edd86c9676ae64252495499d97b0993b213cdbcf7d9b116fbb4dc0916e",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeTwoHandAttack20260919/V4/Before/A_Harvest_Axe_Swing.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeTwoHandAttack20260919/V4/Before/A_Harvest_Axe_Swing.uasset",
+    "bytes": 1161233,
+    "sha256": "ba67492e25e935897a8aeec42777d61fd267bdf5978c74b93da5aed1be6ef35f",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeTwoHandAttack20260919/V4/Before/import_axe_two_hand_attack.py",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeTwoHandAttack20260919/V4/Before/import_axe_two_hand_attack.py",
+    "bytes": 2615,
+    "sha256": "6bd5a73214c8d3e102c491095e98648ff3bcdbc0b92e4c4e740352e9166c9000",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeTwoHandPose20260919/H4/Before/A_Harvest_Axe_Equip.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeTwoHandPose20260919/H4/Before/A_Harvest_Axe_Equip.uasset",
+    "bytes": 275774,
+    "sha256": "9d18ec99ccec016a7e5ebf3aea1422b7e618a4cac1777ddeda3b19dfba4115ae",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeTwoHandPose20260919/H4/Before/A_Harvest_Axe_HitRecover.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeTwoHandPose20260919/H4/Before/A_Harvest_Axe_HitRecover.uasset",
+    "bytes": 829675,
+    "sha256": "45c5a015ab03a7158d402bec74d8c9d17273839428b9a4301341534f8936b220",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeTwoHandPose20260919/H4/Before/A_Harvest_Axe_Idle.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeTwoHandPose20260919/H4/Before/A_Harvest_Axe_Idle.uasset",
+    "bytes": 1357475,
+    "sha256": "01e3d2fcf3bb819bf82dfe020f6bc37d5c3bf3cfd5cea1c79cb976186f56c68e",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeTwoHandPose20260919/H4/Before/A_Harvest_Axe_Swing.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeTwoHandPose20260919/H4/Before/A_Harvest_Axe_Swing.uasset",
+    "bytes": 1322003,
+    "sha256": "aae54f58ea3278391bebd33ed4d8bde1cdce8955d781193b70a3aaa60025ae63",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/AxeTwoHandPose20260919/H4/Before/import_axe_two_hand_attack.py",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/AxeTwoHandPose20260919/H4/Before/import_axe_two_hand_attack.py",
+    "bytes": 2615,
+    "sha256": "84fec01a27ea27677a5fac3215650139e8999ef615918e4b23212da58ac6e104",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/BattleAxeReplace20260919/Before/production_tools.json",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/BattleAxeReplace20260919/Before/production_tools.json",
+    "bytes": 2911,
+    "sha256": "6f6ba91d5142a87b8983db364df916f2f94048abd1589062bf0a7f6d8230656b",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/BattleAxeReplace20260919/Before/ProductionTools_axe.png",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/BattleAxeReplace20260919/Before/ProductionTools_axe.png",
+    "bytes": 291791,
+    "sha256": "86a1dbd3101e94e932e5789cdeb72118cfb21b6af3d63781f04ec6090cfc2d63",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/BattleAxeReplace20260919/Before/SK_Harvest_Axe.fbx",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/BattleAxeReplace20260919/Before/SK_Harvest_Axe.fbx",
+    "bytes": 2720796,
+    "sha256": "f411c5b2963eb7e15adff8b23687191f652e1f468bc5acdcb816d7daf48079f4",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/A_Harvest_Axe_Equip.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/A_Harvest_Axe_Equip.uasset",
+    "bytes": 275774,
+    "sha256": "9d18ec99ccec016a7e5ebf3aea1422b7e618a4cac1777ddeda3b19dfba4115ae",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/A_Harvest_Axe_HitRecover.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/A_Harvest_Axe_HitRecover.uasset",
+    "bytes": 403068,
+    "sha256": "f50ce50e29b2a2e29013fbcf9ac5fa82f74462aa34af52d5625cd283fc8b0106",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/A_Harvest_Axe_Idle.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/A_Harvest_Axe_Idle.uasset",
+    "bytes": 507323,
+    "sha256": "2b34f5163ddcdb5ab66bd0c760c4a63583f0f05a6d9e52e71ac1ff34678635e9",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/A_Harvest_Axe_Swing.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/A_Harvest_Axe_Swing.uasset",
+    "bytes": 563329,
+    "sha256": "2fdb6b7959dea53c8e284f35113c38db27e7aef9910aa1ce93e1901b8ef6debe",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/A_Harvest_Axe_Walk.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/A_Harvest_Axe_Walk.uasset",
+    "bytes": 338651,
+    "sha256": "3c9276c5cce741a37a06a73468d34c8c9c5b6127c428c83d12ca0b9853883cfd",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/A_Harvest_Pickaxe_Equip.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/A_Harvest_Pickaxe_Equip.uasset",
+    "bytes": 277386,
+    "sha256": "8af5b5b1606fb3a6e3ebb406739d3145068b0c3d5dc8e53a8a9ed6da5f855f13",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/A_Harvest_Pickaxe_HitRecover.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/A_Harvest_Pickaxe_HitRecover.uasset",
+    "bytes": 392392,
+    "sha256": "6f0c69583209782826bf82c79383402ed583ecbd7c1d73bcc248fb19b66e664b",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/A_Harvest_Pickaxe_Idle.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/A_Harvest_Pickaxe_Idle.uasset",
+    "bytes": 491943,
+    "sha256": "1f21b529f4e15fc64f42394906fd6498f46b528733d8f176c8a620692f35ddf0",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/A_Harvest_Pickaxe_Swing.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/A_Harvest_Pickaxe_Swing.uasset",
+    "bytes": 560077,
+    "sha256": "c9d238ff882d5ce184258e3a601373d0ee1957f1ba20a1c8c31f7481fe097fed",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/A_Harvest_Pickaxe_Walk.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/A_Harvest_Pickaxe_Walk.uasset",
+    "bytes": 334823,
+    "sha256": "9ad65601d5bbc8525685ed9b43c54a440ce5116e1b7610a80c3987a13c2c4bd1",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/M_Harvest_Axe.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/M_Harvest_Axe.uasset",
+    "bytes": 10141,
+    "sha256": "54bf8da3cec772e156f5770afdbb398664992cc0b03a57ad8e273ad8aa6f7898",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/M_Harvest_Pickaxe.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/M_Harvest_Pickaxe.uasset",
+    "bytes": 9445,
+    "sha256": "42f9cea6592bdcc97fc20949ca6be42cd1fc62945acc1f134fc8575aadb27ab2",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/S_Harvest_Swing.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/S_Harvest_Swing.uasset",
+    "bytes": 10711,
+    "sha256": "3954f92c04b6a552039b7e12e55122c0e2234cf21b1055e877caa7746ce9c0e7",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/SK_Harvest_Axe.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/SK_Harvest_Axe.uasset",
+    "bytes": 5122279,
+    "sha256": "450be73f47b1447ec35f416d3c25044f0fbfeeeaf375056042b6ff15635ecb67",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/SK_Harvest_Pickaxe.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/SK_Harvest_Pickaxe.uasset",
+    "bytes": 4997210,
+    "sha256": "b2ddc8c5b1682645bdf17b525f18790888daf5bc15822d6b9cfdef6b24095338",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/KimodoAxeIdle20260919/Before/A_Harvest_Axe_Idle_vertical2H.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/KimodoAxeIdle20260919/Before/A_Harvest_Axe_Idle_vertical2H.uasset",
+    "bytes": 1469611,
+    "sha256": "36863aec0a8e63072a37a019d42744a8f89f9ab2588a7bac0b296f6d69d662e5",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/KimodoAxeIdle20260919/Before/A_Harvest_Axe_Idle.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/KimodoAxeIdle20260919/Before/A_Harvest_Axe_Idle.uasset",
+    "bytes": 507323,
+    "sha256": "2b34f5163ddcdb5ab66bd0c760c4a63583f0f05a6d9e52e71ac1ff34678635e9",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/KimodoAxeIdle20260919/Before/vertical2H-backup.json",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/KimodoAxeIdle20260919/Before/vertical2H-backup.json",
+    "bytes": 374,
+    "sha256": "4ae86ee1f62ec424ffcb86b3123fa83120b8d7b5db9f801e9de8e0357218d1e3",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/KimodoAxeIdle20260919/BeforeH2/A_Harvest_Axe_Idle.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/KimodoAxeIdle20260919/BeforeH2/A_Harvest_Axe_Idle.uasset",
+    "bytes": 1501741,
+    "sha256": "2c749dd12bc3c8024fc205695ef2c064fc1058164169f40c44b513f432ca7e8b",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/KimodoAxeIdle20260919/BeforeH2/idle-swap.json",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/KimodoAxeIdle20260919/BeforeH2/idle-swap.json",
+    "bytes": 697,
+    "sha256": "e2c18221d8958f536e638a27913642e7a03ce6d3385ea226f6138d76079787e4",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/KimodoAxeIdle20260919/BeforeH3/A_Harvest_Axe_Idle.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/KimodoAxeIdle20260919/BeforeH3/A_Harvest_Axe_Idle.uasset",
+    "bytes": 1339673,
+    "sha256": "2ec7d658e63553b40f38ba31c427f1d7002417fcd93f69f5b3c2c04a1ef8c0e6",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/KimodoAxeIdle20260919/BeforeH3/idle-swap.json",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/KimodoAxeIdle20260919/BeforeH3/idle-swap.json",
+    "bytes": 742,
+    "sha256": "060e7008b221b47d1a13227fc3af5ec581fa1bffe1751850e820feea775f42b1",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/PickaxeElbowArc20260919/Before/A_RusticPickaxe_HitRecover.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/PickaxeElbowArc20260919/Before/A_RusticPickaxe_HitRecover.uasset",
+    "bytes": 723323,
+    "sha256": "9f48bdeff4d4baa6cf2987da173543002d19dc648f2b5e619f7966702d716ac1",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/PickaxeElbowArc20260919/Before/A_RusticPickaxe_Swing.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/PickaxeElbowArc20260919/Before/A_RusticPickaxe_Swing.uasset",
+    "bytes": 1098993,
+    "sha256": "cc56d822de46a381d55c82794ad4a30161c0d99a0440c08153546259ee02d17c",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/PickaxeElbowArc20260919/Before/production_tools.json",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/PickaxeElbowArc20260919/Before/production_tools.json",
+    "bytes": 3287,
+    "sha256": "b947ab41b5d3cb2ddc3ec3032aaa6acd2404b2e545771c518fd76aab6e804905",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/PickaxeNaturalArms20260919/Before/A_RusticPickaxe_HitRecover.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/PickaxeNaturalArms20260919/Before/A_RusticPickaxe_HitRecover.uasset",
+    "bytes": 732713,
+    "sha256": "41e9250c63e82b0d7abb15c55b04323e5503d0457f23f20d7524607ef00651b9",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/PickaxeNaturalArms20260919/Before/A_RusticPickaxe_Swing.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/PickaxeNaturalArms20260919/Before/A_RusticPickaxe_Swing.uasset",
+    "bytes": 1082539,
+    "sha256": "f4e18e35ef23078ab8fd58b006a8b026ea8a4932bd9bfd5dc71b6c7785970221",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/PickaxeNaturalArms20260919/Before/production_tools.json",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/PickaxeNaturalArms20260919/Before/production_tools.json",
+    "bytes": 3287,
+    "sha256": "b947ab41b5d3cb2ddc3ec3032aaa6acd2404b2e545771c518fd76aab6e804905",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/PickaxeOverhead20260919/Before/A_RusticPickaxe_HitRecover.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/PickaxeOverhead20260919/Before/A_RusticPickaxe_HitRecover.uasset",
+    "bytes": 403092,
+    "sha256": "ae6aacd55dd8fa9f5cd2baa19bf3aefd93b71b008691858662de544787604a08",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/PickaxeOverhead20260919/Before/A_RusticPickaxe_Swing.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/PickaxeOverhead20260919/Before/A_RusticPickaxe_Swing.uasset",
+    "bytes": 566649,
+    "sha256": "8866da88b74870c3510d7005c5111eb0a8e0abb80fec0ba0c9b464680164c501",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/PickaxeOverhead20260919/Before/production_tools.json",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/PickaxeOverhead20260919/Before/production_tools.json",
+    "bytes": 3288,
+    "sha256": "a289b375dad77b435205dd14ad9b8dd594596381088c06248325deebef59e074",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/PickaxeSightline20260919/Before/A_RusticPickaxe_HitRecover.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/PickaxeSightline20260919/Before/A_RusticPickaxe_HitRecover.uasset",
+    "bytes": 719054,
+    "sha256": "6b4fddfe404fd8a94021f42a8c180cef263373955c662a5c9d5c47aed9ccb5c8",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/PickaxeSightline20260919/Before/A_RusticPickaxe_Swing.uasset",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/PickaxeSightline20260919/Before/A_RusticPickaxe_Swing.uasset",
+    "bytes": 1098986,
+    "sha256": "83dc386f419998f2a18c4594d3bd48a7bdc902743e97df326e251064763afbf4",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  },
+  {
+    "source": "SourceAssets/PickaxeSightline20260919/Before/production_tools.json",
+    "destination": "trash/production-tools-publication-20260920/SourceAssets/PickaxeSightline20260919/Before/production_tools.json",
+    "bytes": 3287,
+    "sha256": "b947ab41b5d3cb2ddc3ec3032aaa6acd2404b2e545771c518fd76aab6e804905",
+    "reason": "Superseded pre-import backup; current authoring sources and installed assets retained",
+    "retained": "Docs/Weapons/production-tools-publication-20260920.md"
+  }
+]

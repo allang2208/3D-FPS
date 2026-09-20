@@ -1,0 +1,22 @@
+{
+  "name": "A_Harvest_Axe_Idle2H_H2",
+  "fps": 150,
+  "duration_s": 3.0,
+  "handle_lean_deg": 8.0,
+  "handle_forward": 0.12,
+  "blade_forward_deg": 25.0,
+  "right_grip_along_m": 0.30,
+  "grip_spacing_m": 0.22,
+  "hold_origin_m": [-0.14, 0.43, -0.21],
+  "shoulder_forward_m": 0.025,
+  "shoulder_down_m": 0.015,
+  "reach_fraction": 0.93,
+  "elbow_outward": 0.45,
+  "elbow_backward": -0.15,
+  "palm_section_offset_m": 0.045,
+  "section_half_band_m": 0.012,
+  "breathing_position_scale": 0.10,
+  "breathing_rotation_scale": 0.08,
+  "camera_origin_m": [0.0, 0.0, 0.0],
+  "camera_vertical_fov_deg": 75.0
+}

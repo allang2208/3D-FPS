@@ -102,6 +102,18 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         Row(Main,TEXT("普通挥砍距离"),N(RuneSwordCombatTuning::ScaledReach(Number(O,TEXT("melee_reach_cm"),180))/100)+TEXT(" m"));
         Row(Main,TEXT("每次格挡体力"),N(RuneSwordGuardTuning::BlockStamina));
         Row(Main,TEXT("握持"),TEXT("双手 · 占用副手槽"));
+    }else if(ColdSteelInventory::IsEquippedProductionTool(I)){
+        const bool bPickaxe=I.Definition==TEXT("tool_pickaxe");
+        Section(Main,bPickaxe?TEXT("采矿与自卫"):TEXT("伐木与自卫"));
+        Row(Main,TEXT("握持"),TEXT("双手 · 占用同组主手与副手槽"));
+        Row(Main,TEXT("装备方式"),TEXT("背包右键 / 拖入主手武器槽；G / 滚轮切换"));
+        const double Base=Number(O,TEXT("melee_damage"),bPickaxe?10:12);
+        AppendColdSteelTooltipAttackFormula(I,Model,Base,Main);
+        Row(Main,bPickaxe?TEXT("普通下砸物理伤害"):TEXT("普通挥砍物理伤害"),N(ColdSteelWeaponStats::Damage(I,Model,Base)));
+        Row(Main,TEXT("对敌距离"),N(Number(O,TEXT("combat_reach_cm"),180)/100)+TEXT(" m · 单目标"));
+        Row(Main,bPickaxe?TEXT("采矿距离"):TEXT("伐木距离"),N(Number(O,TEXT("harvest_reach_cm"),320)/100)+(bPickaxe?TEXT(" m · 对准岩块或矿石表面"):TEXT(" m · 树干表面")));
+        if(!bPickaxe)Row(Main,TEXT("伐木命中宽容半径"),N(Number(O,TEXT("harvest_sweep_radius_cm"),32))+TEXT(" cm"));
+        Row(Main,TEXT("采集规则"),bPickaxe?TEXT("三次有效命中开采；伤害属性不改变采矿所需次数"):TEXT("三次有效命中砍倒；伤害属性不改变伐木所需次数"));
     }else if(Weapon){Section(Main,TEXT("枪械参数"));AppendColdSteelTooltipAttackFormula(I,Model,S.Damage,Main);
         Row(Main,TEXT("子弹数"),FString::Printf(TEXT("%d / %d 发"),I.Magazine,S.Capacity));Row(Main,TEXT("弹药"),ColdSteelWeaponStats::AmmoName(Weapon->Ammo));
         Row(Main,TEXT("攻击间隔"),N(FMath::RoundToInt(ColdSteelWeaponStats::Interval(&I,Model,S.Interval)*1000))+TEXT(" ms"));

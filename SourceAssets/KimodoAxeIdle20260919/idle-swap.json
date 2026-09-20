@@ -3,13 +3,15 @@
     "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Axe_Idle.A_Harvest_Axe_Idle"
   ],
   "runtime_tested": false,
+  "rendered": false,
+  "revision": "H3",
   "replaced": {
     "asset": "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Axe_Idle.A_Harvest_Axe_Idle",
     "play_length_s": 3.0,
     "skeleton": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe_Skeleton.SK_Harvest_Axe_Skeleton",
     "same_skeleton_as_mesh": true
   },
-  "source": "SourceAssets\\KimodoAxeIdle20260919\\BuildH\\Export\\A_Harvest_Axe_Idle2H_H.fbx",
+  "source": "SourceAssets\\KimodoAxeIdle20260919\\BuildH3\\Export\\A_Harvest_Axe_Idle2H_H3.fbx",
   "previous": {
     "loaded": true,
     "play_length_s": 3.0

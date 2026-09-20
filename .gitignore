@@ -225,3 +225,21 @@ __pycache__/
 !/SourceAssets/ASH12*/**/provenance.json
 /SourceAssets/ASH12*/Before/
 /SourceAssets/ASH12*/BeforeBoundsRepair/
+
+# Production-tool derived poses/skin probes and local MCP output stay with licensed sources.
+/SourceAssets/Axe*/**/*.json
+!/SourceAssets/Axe*/**/motion.json
+!/SourceAssets/Axe*/**/pose.json
+!/SourceAssets/Axe*/**/import_receipt.json
+!/SourceAssets/AxeHitPause20260919/authoring.json
+!/SourceAssets/AxeTwoHandAttack20260919/V2/Reference/source.json
+/SourceAssets/Pickaxe*/**/*.json
+!/SourceAssets/Pickaxe*/**/motion.json
+!/SourceAssets/Pickaxe*/**/import_receipt.json
+!/SourceAssets/PickaxeEquipment20260919/icon_source.json
+!/SourceAssets/PickaxeEquipment20260919/icon_import_receipt.json
+/SourceAssets/RusticPickaxe20260919/*.json
+!/SourceAssets/RusticPickaxe20260919/model.json
+!/SourceAssets/RusticPickaxe20260919/import_receipt.json
+/SourceAssets/KimodoAxeIdle20260919/BuildH2/authoring.json
+/SourceAssets/KimodoAxeIdle20260919/BuildH3/authoring.json

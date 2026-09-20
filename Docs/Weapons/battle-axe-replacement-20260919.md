@@ -24,13 +24,13 @@
 
 - **世界网格**：16,000 面 + 2 级 LOD（2,500 / 600），屏幕尺寸 1.0 / 0.35 / 0.1。
 - **第一人称视模**：32,000 面。近景能看到绳缠纹理；8,000 面档的绳纹已明显融化，故不采用。
-- 减面质量对比渲染在 `DecimateCheck/`，档位选择理由见该目录。
+- 减面档位对比渲染（探索期产物）已归档到 `trash/battle-axe-exploration-20260919/DecimateCheck/`；档位结论见本节。
 
 ## 视模重建
 
 `rebuild_battle_axe_viewmodel.py` 从已认可的作者源 `ProductionToolGrip20260913/Axe_SingleHand_Editable.blend` 出发，**只替换工具网格**，保留骨架（100 骨）、双臂、五条动作（Idle/Walk/Equip/Swing/HitRecover）和抓握关系。
 
-- 握点 `grip_z = -0.26 m`：与原斧头在同一杠杆位置，手落在绳缠握区。候选位 -0.10 / -0.17 / -0.20 / -0.24 / -0.26 均有渲染对比（`GripZoom/`、`GameView/`），最终按"保持已验收的挥动杠杆"选定。
+- 握点 `grip_z = -0.26 m`：与原斧头在同一杠杆位置，手落在绳缠握区。候选位 -0.10 / -0.17 / -0.20 / -0.24 / -0.26 均有渲染对比（探索期产物，已归档到 `trash/battle-axe-exploration-20260919/` 的 `GripZoom/`、`GameView/`），最终按"保持已验收的挥动杠杆"选定。
 - 游戏口径预览（垂直 75° FOV、视模在相机右 7 cm 下 7 cm）见 `render_game_view.py`。
 
 ## UE 安装
@@ -71,6 +71,7 @@
 ## 重建入口
 
 1. `fit_battle_axe.py` —— 源 FBX → 适配 + 减面（世界 16k / 视模 32k / LOD1 2.5k / LOD2 600）。
+   注意：减面档位对比与握位候选渲染属探索期产物，已归档到 `trash/`；重建只需本脚本 + 源 ZIP。
 2. `rebuild_battle_axe_viewmodel.py` —— 作者源 blend → 换工具几何 → 视模 FBX + 新可编辑 blend。
 3. `Tools/Production/install_battle_axe.py` —— UE 导入与引用绑定。
 4. `Tools/Production/verify_battle_axe.py` —— 新进程回读验收。

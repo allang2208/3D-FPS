@@ -1,5 +1,9 @@
 # 恢复完整 UE5 内容
 
+## 双手伐木斧与矿镐（2026-09-20）
+
+运行需要 `Items/ProductionTools/BattleAxe20260919`、`GripMotion20260913`、`RusticPickaxe20260919` 及两种竖直背包图标。当前动作源、导入顺序、骨架/声音依赖和本机归档见 [采集工具发布与恢复](Weapons/production-tools-publication-20260920.md)。公开代码与调参；用户 Meshy 源、Manny/Fab 派生资产、完整骨架采样、贴图与音频保留本机。矿镐沉重反馈已于 2026-09-20 完成正式 DLL 构建，未重新进行实机测试。
+
 ## 云层、雷电与柔和火光（2026-09-19）
 
 本轮需要恢复项目云/天空材质、四张引擎云纹理、三段 `Weather/Audio/S_Thunder_I/II/III` 派生雷声，以及火把柔光实例和 `NS_FPS_MuzzleFlashV10`。具体路径、制作顺序、音频来源及归档边界见 [天气与火光发布整理](Weather/weather-lighting-publication-20260919.md)。源码及散列元数据公开，原始/派生音频、uasset、第三方素材与 trash 保留本机。

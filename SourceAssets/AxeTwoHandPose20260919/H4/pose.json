@@ -1,0 +1,12 @@
+{
+  "revision": "H4_LeftLow_RightHigh",
+  "tilt_degrees": 12.0,
+  "fps": 150,
+  "idle_seconds": 3.0,
+  "equip_seconds": 0.48,
+  "equip_raise_seconds": 0.40,
+  "equip_start_offset_m": [0.025, -0.07, -0.30],
+  "equip_start_pitch_degrees": 14.0,
+  "equip_settle_offset_m": [0.002, 0.003, 0.006],
+  "equip_settle_pitch_degrees": -1.0
+}

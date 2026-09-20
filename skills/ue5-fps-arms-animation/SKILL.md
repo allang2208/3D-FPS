@@ -36,7 +36,9 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 
 - 技能／魔法的左手凝聚、发射、脱手恢复，或翻掌导致手臂变细：[施法与完整骨段](references/casting-arm-volume.md)。业务状态和资源存档另读 [技能／魔法工作流](../ue5-skill-magic-workflow/SKILL.md)。
 
-- 单手斧头、十字镐等采集工具的抓握与力度：[单手工具动作](references/single-hand-tools.md)。固定手与工具接触，联动腕臂，以采集提交驱动命中停顿和回弹；已有导入/构建结果不等于游戏内接受。
+- 双手伐木斧、矿镐的待机/装备/奔跑、举顶下砸、腕肘修正与停帧：[双手工具动作](references/two-handed-tools.md)。固定接触、联动整臂，敌人与资源共用确认命中的反馈时钟。
+
+- 单手采集工具及旧版模型迁移来源：[单手工具动作](references/single-hand-tools.md)。当前斧、镐已转双手，旧单手案例不代表最新装备或攻击姿态。
 
 - 手枪动作、M1911/P9 迁移、空仓机械与回握缩尾：[手枪动作适配](references/pistol-adaptation.md)。M4 的拍击/装备拉栓合同不直接套到手枪。
 
