@@ -116,4 +116,4 @@
 
 以上延迟与覆盖率均由目录数值推算；本轮没有运行游戏，也没有做 `t.MaxFPS`、`r.AntiAliasingMethod` 对照或任何画面验收。
 
-编译状态：三个改动过的 TU（`FPSBallisticsComponent.cpp`、`FPSWeaponFXComponent.cpp`、`BallisticPresentationAudit.cpp`）用 `-SingleFile` 逐个编译均 `Result: Succeeded`（日志 `Saved/BuildEditor/single2-*.log`）。**完整构建与链接取决于编辑器占用**：本轮多次尝试时 FPSGAME 编辑器由其他会话持续占用，`Tools/Build/Build-Editor.ps1` 按既有守卫拒绝构建（不结束他人进程），因此链接是否完成以实际 DLL 时间戳为准——构建成功后 `Binaries/Win64/UnrealEditor-FPSGAME.dll` 应晚于本轮全部源码。
+编译状态：三个改动过的 TU（`FPSBallisticsComponent.cpp`、`FPSWeaponFXComponent.cpp`、`BallisticPresentationAudit.cpp`）用 `-SingleFile` 逐个编译均 `Result: Succeeded`（日志 `Saved/BuildEditor/single2-*.log`）。完整构建曾被守卫拒绝多次（FPSGAME 编辑器由其他会话持续占用，未结束他人进程），**最终已链接**：`Binaries/Win64/UnrealEditor-FPSGAME.dll` 时间戳 **23:33:34**、大小 10562560（原 10557952），晚于本轮全部源码（最晚 23:14:01），且 `Source/` 下没有比它更新的文件；本会话重跑 `Build-Editor.ps1` 得到 `Target is up to date`（`Result: Succeeded`）。重启编辑器即可生效——但**仍未运行、未测试**。
