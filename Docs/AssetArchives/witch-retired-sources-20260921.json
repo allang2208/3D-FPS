@@ -1,0 +1,1162 @@
+[
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/CleanRobeV06/MotionLayers/Witch_LowerBody_Source.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/CleanRobeV06/MotionLayers/Witch_LowerBody_Source.blend1",
+    "bytes": 53944570,
+    "sha256": "83c179297412e4f7a5ce75c83c268fb0de3974f65e6a4ebd63485573bd43ba72",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/CleanRobeV06/MotionLayers/Witch_UpperBody_Carry.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/CleanRobeV06/MotionLayers/Witch_UpperBody_Carry.blend1",
+    "bytes": 54379836,
+    "sha256": "0561516cd56d6a1c5cb4475aacec3de5c270352eb6c6afc823aa7cdcfa87c970",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/CleanRobeV06/Witch_CastPoison_CleanRobeV06.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/CleanRobeV06/Witch_CastPoison_CleanRobeV06.blend1",
+    "bytes": 53612473,
+    "sha256": "f8bf1cdf923357451883b90430708e987d72f5d610fd7e6708c237bbd7fca274",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/CleanRobeV06/Witch_CleanRobeV06.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/CleanRobeV06/Witch_CleanRobeV06.blend1",
+    "bytes": 29555330,
+    "sha256": "93d9d047c7bcba650f574a412360e4b569fe9b77b555494d28c09971ff03f09c",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/CleanRobeV06/Witch_DeathBackward_CleanRobeV06.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/CleanRobeV06/Witch_DeathBackward_CleanRobeV06.blend1",
+    "bytes": 53613694,
+    "sha256": "369fd929452d2fd20a70b816c6c56058cfe03d5b4674c1e26a6f93b4ac8c96ef",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/CleanRobeV06/Witch_Idle_CleanRobeV06.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/CleanRobeV06/Witch_Idle_CleanRobeV06.blend1",
+    "bytes": 53668913,
+    "sha256": "6db92beedbd51a4fe29514fc121ba3cbc7bb38eebda3c684129a6cd1e73a880a",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/CleanRobeV06/Witch_ThrowPoisonBottle_CleanRobeV06.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/CleanRobeV06/Witch_ThrowPoisonBottle_CleanRobeV06.blend1",
+    "bytes": 53614181,
+    "sha256": "2da7bb6a6a23306b30f10852f06979de3743cf65df32c08d6202df8a57ca8010",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/CleanRobeV06/Witch_Walk_CleanRobeV06.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/CleanRobeV06/Witch_Walk_CleanRobeV06.blend1",
+    "bytes": 54906419,
+    "sha256": "7b163190342024fc92a8033228c655e5b805d9ff3b1b865e37f8e32b49f35bca",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/CloudGripV02/Witch_CastPoison_CloudGripV02.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/CloudGripV02/Witch_CastPoison_CloudGripV02.blend1",
+    "bytes": 29895288,
+    "sha256": "fef8ac74498ad3f1c99e6ffba7e74e19130a43677ee01c4defaabab17d27b3c9",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/CloudGripV02/Witch_DeathBackward_CloudGripV02.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/CloudGripV02/Witch_DeathBackward_CloudGripV02.blend1",
+    "bytes": 29891110,
+    "sha256": "c2363f52436c6fb811b069943030b67d4f146ed26fa33a871aa018a5f02f897d",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/CloudGripV02/Witch_GripBodyV02.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/CloudGripV02/Witch_GripBodyV02.blend1",
+    "bytes": 29534245,
+    "sha256": "f5b38d8b505f011348393ac48a903cffdc033bc2ef78a1bed8e45771be181a7d",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/CloudGripV02/Witch_Idle_CloudGripV02.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/CloudGripV02/Witch_Idle_CloudGripV02.blend1",
+    "bytes": 29992421,
+    "sha256": "2019d14dd56b9cd9037f77ecd4a075fecadca38b6f4a218be2a2036a1935bb11",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/CloudGripV02/Witch_StaffGripV02.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/CloudGripV02/Witch_StaffGripV02.blend1",
+    "bytes": 13642592,
+    "sha256": "b2caa09a3d58476aefad39932e16f5447cb7142e3d44d65449559a760cac22da",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/CloudGripV02/Witch_ThrowPoisonBottle_CloudGripV02.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/CloudGripV02/Witch_ThrowPoisonBottle_CloudGripV02.blend1",
+    "bytes": 29904123,
+    "sha256": "3e922432e89462534f7d70e5106f8a85c8475ecce3dc573a158c2b70e43b2fd4",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/CloudGripV02/Witch_Walk_CloudGripV02.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/CloudGripV02/Witch_Walk_CloudGripV02.blend1",
+    "bytes": 29807725,
+    "sha256": "8e55ca141766018bfcb6b5e810a99a15b7a7f84ce82d41d9a535900f9b2ac1e3",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Feet.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Feet.blend",
+    "bytes": 17949219,
+    "sha256": "d0edae96c2197077c7c096b05e7cf9d8cc2a1c981a5933022447864584470839",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Feet.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Feet.fbx",
+    "bytes": 170988,
+    "sha256": "fff4505ecc8ba01243aef9e4d149a2604b5fa43b80721a67b2374f1cabe28e80",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Hand_Left.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Hand_Left.blend",
+    "bytes": 24027583,
+    "sha256": "ec3114c2d766cfa35555a9fa5155f461ab6ad74c5d39bc7c7ce038f3a8677389",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Hand_Left.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Hand_Left.fbx",
+    "bytes": 146956,
+    "sha256": "73eecc05cb4e580e1b2b35ea1f028befa33255b72f6c579fdc7508482e71a10a",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Hand_Right.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Hand_Right.blend",
+    "bytes": 24031376,
+    "sha256": "c45c25dafaec853249be68a5b344b9b803049a63a76ad9258335532f04ee5a98",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Hand_Right.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Hand_Right.fbx",
+    "bytes": 156604,
+    "sha256": "5ccc27134d7522071564f6c11fd5f952344ed78faddad7ce27319bffe797435c",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Hat.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Hat.blend",
+    "bytes": 24205268,
+    "sha256": "afab32784207a4cf5f90154faab4ae34dae981fb6b6a8c57583b8b3351521935",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Hat.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Hat.fbx",
+    "bytes": 334604,
+    "sha256": "a7accea82dbe0b34ebc6f18892f7dd12bb8501494c8609fba593494c66a40697",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Head_Hair.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Head_Hair.blend",
+    "bytes": 24248825,
+    "sha256": "8ae569252847556ba546abd9ae621d1b672b1f948c95492cc21e7d59afc71dff",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Head_Hair.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Head_Hair.fbx",
+    "bytes": 401868,
+    "sha256": "891cb43e266423451822521719869fc76c0cadf411762886ce1af86163fc5825",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_InnerBody.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_InnerBody.blend",
+    "bytes": 947478,
+    "sha256": "fcea1e53a434b950efdcf756f09a475b3f6bd6e4b0991066bd8803b7692b65bd",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_InnerBody.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_InnerBody.fbx",
+    "bytes": 920044,
+    "sha256": "451694b4ab3480d17383865993d9af63a0630078b71a21e142b72335b5aaa0dc",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Robe_Cloth.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Robe_Cloth.blend",
+    "bytes": 2321481,
+    "sha256": "f915f04f915731649979452dbfc99b1979422f0c76aad7935275978fd6ead96e",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Robe_Cloth.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Robe_Cloth.fbx",
+    "bytes": 182524,
+    "sha256": "57a479af8d6bbcec2210d67104d6053c9caf4cf6511c7daef2d8f8f982a10e60",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Robe_ProjectionSource.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_Robe_ProjectionSource.blend",
+    "bytes": 26177301,
+    "sha256": "8594db9064d45e3742629b6304f955a215fc3239b744458a199a86a1e009cde8",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_UpperRobe.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_UpperRobe.blend",
+    "bytes": 26768512,
+    "sha256": "9278221398304947703c915a80aa37237f58e123748f43464237e465002b7ef3",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_UpperRobe.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Fitted/Witch_UpperRobe.fbx",
+    "bytes": 3163020,
+    "sha256": "0ee30a750e4061ceddaf97e032744e16b1ed9d6af8a944fadda29368fb0cba58",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Witch_CastPoison_LayeredV04.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Witch_CastPoison_LayeredV04.blend",
+    "bytes": 48627791,
+    "sha256": "3a9127c16bdfcf3f056f83710f8007de4a13d254335b06a70e5dacf294ed714a",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Witch_DeathBackward_LayeredV04.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Witch_DeathBackward_LayeredV04.blend",
+    "bytes": 48631287,
+    "sha256": "ac44a7b5714ed7195baf7de0a41b9fbe134c2e2b4e859fe471595b0269a1386e",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Witch_Idle_LayeredV04.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Witch_Idle_LayeredV04.blend",
+    "bytes": 48688489,
+    "sha256": "470a5ccdc535569500705f85bb852ab25055605d301d481aab4b055c6ad7c300",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Witch_LayeredBodyV04.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Witch_LayeredBodyV04.blend1",
+    "bytes": 48011015,
+    "sha256": "74c59f8cee614da13bd5db749bc1763abde32848005bc855bbd8534485b1ec62",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Witch_ThrowPoisonBottle_LayeredV04.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Witch_ThrowPoisonBottle_LayeredV04.blend",
+    "bytes": 48631170,
+    "sha256": "4cbfffbc1c4d9c96a51687e37177ef1d169b822c6c1c124af262768c979c8831",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Witch_Walk_LayeredV04.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LayeredV04/Witch_Walk_LayeredV04.blend",
+    "bytes": 48957259,
+    "sha256": "4118244650399f86f9b3a7defaa25bbfc2ac7677c6bcc49bc1b4bde72856c925",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LocalRetarget/Witch_CastPoison_LocalRetarget_v01.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LocalRetarget/Witch_CastPoison_LocalRetarget_v01.blend",
+    "bytes": 30016638,
+    "sha256": "02a45e02431d3b7829c04f8fb6fa3ca64941bda1d324166e85ea782e0e1900d5",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LocalRetarget/Witch_DeathBackward_LocalRetarget_v01.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LocalRetarget/Witch_DeathBackward_LocalRetarget_v01.blend",
+    "bytes": 30037210,
+    "sha256": "6aed00b7ff0fa88a1e2fd50a73c280098d90cb6491a4d0a66b77b306fbd16f40",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LocalRetarget/Witch_Idle_LocalRetarget_v01.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LocalRetarget/Witch_Idle_LocalRetarget_v01.blend",
+    "bytes": 30168550,
+    "sha256": "d794f3db196e90a78fc768a6e7850265e7f1628001c0a20772a5f80fb386d805",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LocalRetarget/Witch_ThrowPoisonBottle_LocalRetarget_v01.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LocalRetarget/Witch_ThrowPoisonBottle_LocalRetarget_v01.blend",
+    "bytes": 30030424,
+    "sha256": "68b50df35cbdbc0970d4782e32c395012e365f9d72e863aee682db3f53018dc0",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/LocalRetarget/Witch_Walk_LocalRetarget_v01.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/LocalRetarget/Witch_Walk_LocalRetarget_v01.blend",
+    "bytes": 29893874,
+    "sha256": "ef96354d4a968df273483a5ba641d87312d5aa2f86431b785662b28ad0e6c389",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/OriginalRobeV05/Parts/Witch_InnerBody.001_Donor.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/OriginalRobeV05/Parts/Witch_InnerBody.001_Donor.blend",
+    "bytes": 950808,
+    "sha256": "99fa3f55812477e85adc4cf5a11cca81126b9404f9041a7c76ef7701456300e5",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/OriginalRobeV05/Parts/Witch_InnerBody.001.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/OriginalRobeV05/Parts/Witch_InnerBody.001.blend",
+    "bytes": 960187,
+    "sha256": "0fb1d0efb9dd012786ae9483d3041979546a39db5b7847bd9a1dbe180751790f",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/OriginalRobeV05/Parts/Witch_InnerBody.001.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/OriginalRobeV05/Parts/Witch_InnerBody.001.fbx",
+    "bytes": 998076,
+    "sha256": "10fa336730a04ceb532da41ec30b07fcca41e61cbf57b5221a601eb5016d173c",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/OriginalRobeV05/Parts/Witch_InnerCalves_Donor.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/OriginalRobeV05/Parts/Witch_InnerCalves_Donor.blend",
+    "bytes": 84686,
+    "sha256": "965ba0ae978fd2aba9fcbb31233ff12be4aab92017c3bd8ef967b6e6912566bc",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/OriginalRobeV05/Parts/Witch_InnerCalves.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/OriginalRobeV05/Parts/Witch_InnerCalves.blend",
+    "bytes": 90895,
+    "sha256": "8499c75505ac13b8efab69ab4ba663333824ba1109bcd1dc06af614c114bc46b",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/OriginalRobeV05/Parts/Witch_InnerCalves.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/OriginalRobeV05/Parts/Witch_InnerCalves.fbx",
+    "bytes": 82252,
+    "sha256": "411b432f4cd6016c7628dcca85253cd3388c99aea361904c263dfca4c82773f7",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/OriginalRobeV05/Parts/Witch_Robe_SimProxy.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/OriginalRobeV05/Parts/Witch_Robe_SimProxy.blend",
+    "bytes": 132463,
+    "sha256": "3b5952235185f93d57566254c9895a312e3c15caec5075acb7131d28cbdb9527",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/OriginalRobeV05/Parts/Witch_Robe_SimProxy.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/OriginalRobeV05/Parts/Witch_Robe_SimProxy.fbx",
+    "bytes": 134044,
+    "sha256": "1f8e1280a11656e40dd5ce9762b962af4ccec6941b169d80a9d6be8a5de2ae1e",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_CastPoison_RobeGaitV03.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_CastPoison_RobeGaitV03.blend",
+    "bytes": 30300142,
+    "sha256": "f4a072c6a8550d68d8c772a20d8d934b4b6d7d4b4e255d5e98f5b4f9931b0291",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_CastPoison_RobeGaitV03.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_CastPoison_RobeGaitV03.blend1",
+    "bytes": 30296665,
+    "sha256": "f58d3ffe3cd31b0e3e52e1afe7b65e4fde0c556b28eeff093e09b85cb7da0163",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_DeathBackward_RobeGaitV03.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_DeathBackward_RobeGaitV03.blend",
+    "bytes": 30316044,
+    "sha256": "1cb1c1f9e2536e6ca7d838ce2a3b5c764677d265947cfe16fba4a0b80f25abd6",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_DeathBackward_RobeGaitV03.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_DeathBackward_RobeGaitV03.blend1",
+    "bytes": 30312566,
+    "sha256": "33e630db20882d5dcd6e361055034373a010442515abf96c423b1f6cb65afe4e",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_Idle_RobeGaitV03.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_Idle_RobeGaitV03.blend",
+    "bytes": 30608091,
+    "sha256": "3eff22cf288da4d8d0e9531aa2f2829624030d36c2753bdcbe6cb22d0f0cf983",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_Idle_RobeGaitV03.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_Idle_RobeGaitV03.blend1",
+    "bytes": 30604613,
+    "sha256": "56ae07bb7b86230a96a1318bb9fad05bf90bba41ae0add1190b37235eb4ee159",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_RobeBodyV03.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_RobeBodyV03.blend",
+    "bytes": 29525344,
+    "sha256": "3d811bbd1341d70411bccc111a65a5ce8f758a58488f4087f78b1173d274f2b9",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_RobeBodyV03.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_RobeBodyV03.blend1",
+    "bytes": 29521848,
+    "sha256": "add488808a7c59ec59da87601b1ae47473e147da6929494accff99553642056f",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_ThrowPoisonBottle_RobeGaitV03.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_ThrowPoisonBottle_RobeGaitV03.blend",
+    "bytes": 30320772,
+    "sha256": "91b0e020a9bf396cb7f3f20517f1d7b432140ab13aec5aa5d80ff4ea6c0a7a9b",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_ThrowPoisonBottle_RobeGaitV03.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_ThrowPoisonBottle_RobeGaitV03.blend1",
+    "bytes": 30317292,
+    "sha256": "6bfb6bb545e46d75b6c08c49d793edc591ee15ba279156c26c306500f39d12b3",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_Walk_RobeGaitV03.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_Walk_RobeGaitV03.blend",
+    "bytes": 30494268,
+    "sha256": "49a417a4aaddf80cc0f6277427a3383c8cc44121342b71ff9fbcd6cdbd8e421d",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_Walk_RobeGaitV03.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/RobeGaitV03/Witch_Walk_RobeGaitV03.blend1",
+    "bytes": 30490774,
+    "sha256": "90bd606f7ad1ef7b3a61ffb51122c5933f48d5cea0064a04e3494a8a0ee0d2f8",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/SpellSupportV07/Witch_CastPoison_SpellSupportV07.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/SpellSupportV07/Witch_CastPoison_SpellSupportV07.blend1",
+    "bytes": 29766933,
+    "sha256": "a5bcea9dc5d13b47896aae280c3af3b5f1bdf41166cbef528d84f8bedec2f381",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/SpellSupportV07/Witch_ThrowPoisonBottle_SpellSupportV07.blend1",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/SpellSupportV07/Witch_ThrowPoisonBottle_SpellSupportV07.blend1",
+    "bytes": 29771499,
+    "sha256": "912b65de51a8b0875bce5c420c84df38620896a9d52cba1ab7cbca14bf15ce5a",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Authoring/Witch_Idle_Candidate_v01.blend",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Authoring/Witch_Idle_Candidate_v01.blend",
+    "bytes": 29653369,
+    "sha256": "8eb505c22c11db0648d299b488949807b857c3fc6cbb9c7fe8a291dca39f5ad5",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/A_Witch_Idle_Candidate_v01.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/A_Witch_Idle_Candidate_v01.fbx",
+    "bytes": 30760556,
+    "sha256": "df16d319a08a503fa5f023219944ec5395c2ab5bab2bc3cc6f17385e84576565",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/LayeredV04/A_Witch_CastPoison_LayeredV04.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/LayeredV04/A_Witch_CastPoison_LayeredV04.fbx",
+    "bytes": 310508,
+    "sha256": "4eaba6d6fd1cc6e642b6e781fd5c8eded1b4121a4beff27dd9d49be67cbb8b42",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/LayeredV04/A_Witch_DeathBackward_LayeredV04.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/LayeredV04/A_Witch_DeathBackward_LayeredV04.fbx",
+    "bytes": 310652,
+    "sha256": "0095fb867bd0d3a6b3fcfc6d1f3e058bc6f438dbd39959167164d957b9ca8398",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/LayeredV04/A_Witch_Idle_LayeredV04.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/LayeredV04/A_Witch_Idle_LayeredV04.fbx",
+    "bytes": 353948,
+    "sha256": "f3f53152de86244e83c0490f20c1df4e87c10d525104c59d68becd8fdb5b8a1c",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/LayeredV04/A_Witch_ThrowPoisonBottle_LayeredV04.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/LayeredV04/A_Witch_ThrowPoisonBottle_LayeredV04.fbx",
+    "bytes": 311356,
+    "sha256": "d79d762cbb791ef1229ae5e195c54d4ce9473d2607f33a8364c9ec2f99955a0d",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/LayeredV04/A_Witch_Walk_LayeredV04.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/LayeredV04/A_Witch_Walk_LayeredV04.fbx",
+    "bytes": 474844,
+    "sha256": "07dee73d4d9a0b1138ec701e41d0591889d380101ef106323e2e6feae6868473",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/LayeredV04/SK_Witch_LayeredV04.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/LayeredV04/SK_Witch_LayeredV04.fbx",
+    "bytes": 5209532,
+    "sha256": "6bf90e1c4b4061cfbcfe086e96fc9b2fde73376dad9a152d9e6772cb2a622e2f",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/LocalRetarget/A_Witch_CastPoison_LocalRetarget_v01.fbm/texture_0",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/LocalRetarget/A_Witch_CastPoison_LocalRetarget_v01.fbm/texture_0",
+    "bytes": 23852710,
+    "sha256": "d6c9a01b79178308415ff5c4a78195957df11866a4d2f9cc7b7b884046dea670",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/LocalRetarget/A_Witch_CastPoison_LocalRetarget_v01.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/LocalRetarget/A_Witch_CastPoison_LocalRetarget_v01.fbx",
+    "bytes": 30686476,
+    "sha256": "716181577fc3cb00344bc8f77b49c4b8b7767d41273c37939f8a9036015bd151",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/LocalRetarget/A_Witch_DeathBackward_LocalRetarget_v01.fbm/texture_0",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/LocalRetarget/A_Witch_DeathBackward_LocalRetarget_v01.fbm/texture_0",
+    "bytes": 23852710,
+    "sha256": "d6c9a01b79178308415ff5c4a78195957df11866a4d2f9cc7b7b884046dea670",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/LocalRetarget/A_Witch_DeathBackward_LocalRetarget_v01.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/LocalRetarget/A_Witch_DeathBackward_LocalRetarget_v01.fbx",
+    "bytes": 30688268,
+    "sha256": "a737273905b004391fd15ab21fac642e3a4cfe0ba0ca81f8d96448f7cacca072",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/LocalRetarget/A_Witch_Idle_LocalRetarget_v01.fbm/texture_0",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/LocalRetarget/A_Witch_Idle_LocalRetarget_v01.fbm/texture_0",
+    "bytes": 23852710,
+    "sha256": "d6c9a01b79178308415ff5c4a78195957df11866a4d2f9cc7b7b884046dea670",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/LocalRetarget/A_Witch_Idle_LocalRetarget_v01.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/LocalRetarget/A_Witch_Idle_LocalRetarget_v01.fbx",
+    "bytes": 30773628,
+    "sha256": "11dd6e2a0b505475a6057d21c267df8672c8dbfdb7c4e147cfe79972276e6eec",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/LocalRetarget/A_Witch_ThrowPoisonBottle_LocalRetarget_v01.fbm/texture_0",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/LocalRetarget/A_Witch_ThrowPoisonBottle_LocalRetarget_v01.fbm/texture_0",
+    "bytes": 23852710,
+    "sha256": "d6c9a01b79178308415ff5c4a78195957df11866a4d2f9cc7b7b884046dea670",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/LocalRetarget/A_Witch_ThrowPoisonBottle_LocalRetarget_v01.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/LocalRetarget/A_Witch_ThrowPoisonBottle_LocalRetarget_v01.fbx",
+    "bytes": 30687596,
+    "sha256": "d13914c8627dd62c881b4c99f4851e0e9f623f9a5977a08e5c28bed799173ea7",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/LocalRetarget/A_Witch_Walk_LocalRetarget_v01.fbm/texture_0",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/LocalRetarget/A_Witch_Walk_LocalRetarget_v01.fbm/texture_0",
+    "bytes": 23852710,
+    "sha256": "d6c9a01b79178308415ff5c4a78195957df11866a4d2f9cc7b7b884046dea670",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/LocalRetarget/A_Witch_Walk_LocalRetarget_v01.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/LocalRetarget/A_Witch_Walk_LocalRetarget_v01.fbx",
+    "bytes": 30612188,
+    "sha256": "59bcd904b4b532cdfcb99044323dff0616581bbf63bbe8493beea64d82752a78",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/A_Witch_CastPoison_RobeGaitV03.fbm/texture_0",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/A_Witch_CastPoison_RobeGaitV03.fbm/texture_0",
+    "bytes": 23852710,
+    "sha256": "d6c9a01b79178308415ff5c4a78195957df11866a4d2f9cc7b7b884046dea670",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/A_Witch_CastPoison_RobeGaitV03.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/A_Witch_CastPoison_RobeGaitV03.fbx",
+    "bytes": 31235964,
+    "sha256": "57e37a0691f55b55e55eac9f03b5b30f1d28fcc70ca53b658b7089d7bd677a32",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/A_Witch_DeathBackward_RobeGaitV03.fbm/texture_0",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/A_Witch_DeathBackward_RobeGaitV03.fbm/texture_0",
+    "bytes": 23852710,
+    "sha256": "d6c9a01b79178308415ff5c4a78195957df11866a4d2f9cc7b7b884046dea670",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/A_Witch_DeathBackward_RobeGaitV03.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/A_Witch_DeathBackward_RobeGaitV03.fbx",
+    "bytes": 31239756,
+    "sha256": "29e0554a0ece5963dd2acb872780f17a8a39b1fdefa00f184b56238252c35e4c",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/A_Witch_Idle_RobeGaitV03.fbm/texture_0",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/A_Witch_Idle_RobeGaitV03.fbm/texture_0",
+    "bytes": 23852710,
+    "sha256": "d6c9a01b79178308415ff5c4a78195957df11866a4d2f9cc7b7b884046dea670",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/A_Witch_Idle_RobeGaitV03.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/A_Witch_Idle_RobeGaitV03.fbx",
+    "bytes": 31411020,
+    "sha256": "84a9554e6e97d0328864d8706db203a645a2724d20e63e95235a795fe3e89410",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/A_Witch_ThrowPoisonBottle_RobeGaitV03.fbm/texture_0",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/A_Witch_ThrowPoisonBottle_RobeGaitV03.fbm/texture_0",
+    "bytes": 23852710,
+    "sha256": "d6c9a01b79178308415ff5c4a78195957df11866a4d2f9cc7b7b884046dea670",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/A_Witch_ThrowPoisonBottle_RobeGaitV03.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/A_Witch_ThrowPoisonBottle_RobeGaitV03.fbx",
+    "bytes": 31240796,
+    "sha256": "25b3062c4356e3aae33dfd4e67e18185c68f3fefcbb36a3bbbd6c6b85b8a707b",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/A_Witch_Walk_RobeGaitV03.fbm/texture_0",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/A_Witch_Walk_RobeGaitV03.fbm/texture_0",
+    "bytes": 23852710,
+    "sha256": "d6c9a01b79178308415ff5c4a78195957df11866a4d2f9cc7b7b884046dea670",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/A_Witch_Walk_RobeGaitV03.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/A_Witch_Walk_RobeGaitV03.fbx",
+    "bytes": 31370172,
+    "sha256": "007ce050f7083cd38cd3867b22a3a1c419068e4ceb36a6beb3d44e73847f0174",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/SK_Witch_RobeBodyV03.fbm/texture_0",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/SK_Witch_RobeBodyV03.fbm/texture_0",
+    "bytes": 23852710,
+    "sha256": "d6c9a01b79178308415ff5c4a78195957df11866a4d2f9cc7b7b884046dea670",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/SK_Witch_RobeBodyV03.fbx",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Delivery/RobeGaitV03/SK_Witch_RobeBodyV03.fbx",
+    "bytes": 30425484,
+    "sha256": "0e0b56daaf51346ce3717782e6e338148ad13830d48beafd2d444682f24b5b7e",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Integration/close_for_build.py",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Integration/close_for_build.py",
+    "bytes": 533,
+    "sha256": "b12637ec323329f860598cc2fee45fe8d38434d5d4e6916576f7d59e21440b7a",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Integration/v03_compile_01.txt",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Integration/v03_compile_01.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Integration/v03_editor_schema_01.txt",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Integration/v03_editor_schema_01.txt",
+    "bytes": 20128,
+    "sha256": "4742457e4164b516542a9c79e5c45b9caf75cf77e7218b22fc5143c408a26173",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Integration/v03_import_01.txt",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Integration/v03_import_01.txt",
+    "bytes": 626,
+    "sha256": "58325ee2eeb6ee6b616e0e8815c3f88e3b1f37229e4148822639ac3d191a7fbb",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Integration/v03_import_isolated_01.txt",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Integration/v03_import_isolated_01.txt",
+    "bytes": 1163,
+    "sha256": "36c6569edc26f1642028139bbfde63e44017bcb5753d18bb81802c6971a890b0",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Integration/v03_livecoding_schema_01.txt",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Integration/v03_livecoding_schema_01.txt",
+    "bytes": 721,
+    "sha256": "d4e6916c22063b617f8cffdc9361c66a1aa6149bdb0684de947a9916cabfc53f",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Integration/v03_livecoding.json",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Integration/v03_livecoding.json",
+    "bytes": 102,
+    "sha256": "a082060e1b2f476887d96fd32ea930936c68733f6b1d8024b13c5556af712e9e",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Integration/v03_tools_01.txt",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Integration/v03_tools_01.txt",
+    "bytes": 404,
+    "sha256": "1c2007bc51c633a28f96c076966ea485ab2f1223a384f0a560a2682938ed874b",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Integration/v03_toolsets_20260920_01.txt",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Integration/v03_toolsets_20260920_01.txt",
+    "bytes": 13635,
+    "sha256": "6e9c5503de7908fa533cfa7bdb7a4d962ef67ec9c8a92001123031c3b8796db4",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Integration/WitchMonster.cpp",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Integration/WitchMonster.cpp",
+    "bytes": 15824,
+    "sha256": "94acad31e1f6357bc06cc13498de674ba628096ec46cec66c3717b8970befdee",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Integration/WitchMonster.h",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Integration/WitchMonster.h",
+    "bytes": 2656,
+    "sha256": "cd69fae086c302f4f5162425cfdf0e00418da27d9dbf889532729b670ed76ecd",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Integration/WitchProjectile.cpp",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Integration/WitchProjectile.cpp",
+    "bytes": 7308,
+    "sha256": "646d2e3967eb7759ca7efd6f8f7709b6e4a0d4631d32f81fc9baa87b21eb54c4",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/Integration/WitchProjectile.h",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/Integration/WitchProjectile.h",
+    "bytes": 1064,
+    "sha256": "fc99611f323429f196cacf0db127829f6bf257572a72eb9db6dd0c038cbf45d0",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/local_retarget_manifest.json",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/local_retarget_manifest.json",
+    "bytes": 5030,
+    "sha256": "adc24ec10b51bfdcdc4d957d07a84c2e72592f017d0b018c085b9f75110cba3a",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/local_retarget.py",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/local_retarget.py",
+    "bytes": 11640,
+    "sha256": "14e6d02b7b4d80ed74ed5119361d01167108e795e35be81fb75af1e9e00e086a",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/robe_gait_v03_manifest.json",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/robe_gait_v03_manifest.json",
+    "bytes": 1036,
+    "sha256": "0ec9a81a1ab3eeb22352b664e55543e11bcff64a2e8eb562cf1f720074890558",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/robe_gait_v03.py",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/robe_gait_v03.py",
+    "bytes": 17353,
+    "sha256": "877bea8e3e4d155a353f362a3fdd67f03942008fe590afb2bb55fe9c8794247d",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/ROBE-GAIT-V03.md",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/ROBE-GAIT-V03.md",
+    "bytes": 4662,
+    "sha256": "f2e1038c457ed0d7220d5bbf7f833436cd7f3775705e73a5b772c83105b00edc",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "SourceAssets/WitchMeshy20260919/ue_robe_gait_v03.json",
+    "destination": "trash/witch-retired-20260921/SourceAssets/WitchMeshy20260919/ue_robe_gait_v03.json",
+    "bytes": 1208,
+    "sha256": "6596af0b2dea5832e657725e90da92d8c82267c69001a902a00c37276c8a89f4",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/activate_layered_v04.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/activate_layered_v04.py",
+    "bytes": 207,
+    "sha256": "b0449ef9049ef9f5d9f901d09ddb54773357b63a4d613362bdd0393a0ce6b53c",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/close_for_v04_build.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/close_for_v04_build.py",
+    "bytes": 407,
+    "sha256": "27e9cf342337d196d4336aa55875d9a60680111dce96b449bb010b184bf360f0",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/close_for_v05_build.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/close_for_v05_build.py",
+    "bytes": 403,
+    "sha256": "f2893ae5ce64ae5406fc04509262b514cd13166dd563f05e91bdf13047646b20",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/close_spell_support_editor.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/close_spell_support_editor.py",
+    "bytes": 504,
+    "sha256": "0a5ce6fcd84ada3b5525f3158d52c0045437a79a8f2450756c262ba51dbfcb9d",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/diagnose_v05_lowerbody_source.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/diagnose_v05_lowerbody_source.py",
+    "bytes": 7785,
+    "sha256": "a012ffb4813d3b1e2c7b3ac8f7c5e1c13e953df021115421c6b73bb60755c87b",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/dump_v06_render_state.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/dump_v06_render_state.py",
+    "bytes": 171,
+    "sha256": "acc1e902accf6d8ba36c88730848654e72e829bf66e6dc9a5919d26206a7602a",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/end_pie_for_v05_import.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/end_pie_for_v05_import.py",
+    "bytes": 173,
+    "sha256": "9fc9f8fdc7deff516c26523bbb7ef035c018458b22f2b338a98e16f9eab8a3ea",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/import_layered_v04.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/import_layered_v04.py",
+    "bytes": 9480,
+    "sha256": "08c99e48ffe73a40a78ef4873c15e39773656e25a86f423ef14ac0ea7a44c9f5",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/import_robe_gait_v03.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/import_robe_gait_v03.py",
+    "bytes": 6235,
+    "sha256": "43d8f1bf55ed013a4d95a0ca35327b604920b60dd6bf6f40abcb2ef22d52b849",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/import_witch.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/import_witch.py",
+    "bytes": 7396,
+    "sha256": "1bb26ac272bbc183d7b51f6829748dcefb400d6ed848d0e44a0cbf39ae53f5da",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/inspect_v05_skirt_after.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/inspect_v05_skirt_after.py",
+    "bytes": 255,
+    "sha256": "621575c33332dfd4f752606491feb2d8ff99647cdc3df1194d0538a30cba4622",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/inspect_v05_skirt_sections.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/inspect_v05_skirt_sections.py",
+    "bytes": 1754,
+    "sha256": "06410ee5bbe766e5081290262ad11f6babea48f43b0d0423f5588780ffe87449",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/inspect_v05_source_geometry.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/inspect_v05_source_geometry.py",
+    "bytes": 948,
+    "sha256": "c3b408220f3c8bd5837215c320c1db14ecf90f2626088cc75e82c1845d718dfa",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/inspect_v06_export_transform.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/inspect_v06_export_transform.py",
+    "bytes": 1539,
+    "sha256": "b3523a4f10de7f023e0c871d1c4e7ecfe92c5c999d6fd2f4cccaa2fc70288a32",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/inspect_v06_invisible.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/inspect_v06_invisible.py",
+    "bytes": 2958,
+    "sha256": "a4956744eadde6222c25303a26552eb2702def455801ae7550bec8d6dff1680b",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/prepare_spell_build.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/prepare_spell_build.py",
+    "bytes": 682,
+    "sha256": "482f8fb830d202afca3a7a2b71ce04db981f2c5dbe878124563e58b27922d828",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/prepare_v04_build.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/prepare_v04_build.py",
+    "bytes": 563,
+    "sha256": "1a92b8930df4b848125dce0cf381c0116cf400c32860e1205ba6a23845f5c158",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/prepare_v05_build.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/prepare_v05_build.py",
+    "bytes": 558,
+    "sha256": "4f8c2f8de46e240cda1a7e3279d781834f403b37f3ad013dcf8b518b36ae0bb1",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/prepare_v05_cloth_repair.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/prepare_v05_cloth_repair.py",
+    "bytes": 657,
+    "sha256": "26445f348aa42b81027e9b7aa8d9955455061536779465e84f606fd14ce39f29",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/read_existing_witch_visibility.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/read_existing_witch_visibility.py",
+    "bytes": 1783,
+    "sha256": "ccc0e37544a7527ecd6783c65e21f628a68246ff7ba2615def03b4ab7a468554",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/read_v06_idle_pose.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/read_v06_idle_pose.py",
+    "bytes": 787,
+    "sha256": "fbc1d6d97b83343e0ded8a5eec125e5cf7140f715edf97144edb8af87a651ebe",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/read_v06_import_scale.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/read_v06_import_scale.py",
+    "bytes": 940,
+    "sha256": "f4a117d3968fc600c86346772ce282544cf6334946b64a38ab8a1ec9430d213f",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/read_v06_reimport_result.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/read_v06_reimport_result.py",
+    "bytes": 541,
+    "sha256": "193ddced30040e3494e12f739d2ad3777ea00ce76bb6b5b8d9e913b56cd57ab2",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/read_visibility_editor_state.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/read_visibility_editor_state.py",
+    "bytes": 579,
+    "sha256": "a3bb36d2d89f10228ea9069c11ead9897c626441ded6b78bcfecf417b7a81a90",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/remove_v05_render_cage.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/remove_v05_render_cage.py",
+    "bytes": 202,
+    "sha256": "81ae3cc4ed09014ec295d548ab760d88fb8ccead9ac39d8f346669db12441b53",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/save_authorized_material_and_exit.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/save_authorized_material_and_exit.py",
+    "bytes": 913,
+    "sha256": "c61989036e6b57806004a77d043704010133165252df6d81e68122ccdd68906a",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/WitchFoundation/close_for_build.py",
+    "destination": "trash/witch-retired-20260921/Tools/WitchFoundation/close_for_build.py",
+    "bytes": 871,
+    "sha256": "41b595a420531c0af0d353a0d78bd32a860ee4d258c40ef1e414c8240815bc3d",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/activate_original_robe_v05.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/activate_original_robe_v05.py",
+    "bytes": 197,
+    "sha256": "bc7ff9f046535be8a6db83df23f17eda1ca61ce227317b21e58c16183b5ebded",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/compile_clean_robe_v06.json",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/compile_clean_robe_v06.json",
+    "bytes": 141,
+    "sha256": "312226a20419dd78ebad98a4962397973a7508f1c0ef6b22fd62c0f44c1901a0",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/compile_layered_v04.json",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/compile_layered_v04.json",
+    "bytes": 103,
+    "sha256": "7442ed9366727b6a93e0c9ce147ecde239dd5e210bb28a4551fa8625c507c991",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  },
+  {
+    "source": "Tools/Witch/finish_witch.py",
+    "destination": "trash/witch-retired-20260921/Tools/Witch/finish_witch.py",
+    "bytes": 1279,
+    "sha256": "a68159336958c60d28af7d18987b4da128bfd1564a941ae0776c884c837f869e",
+    "reason": "Superseded motion/robe output, rejected donor subpart, redundant backup or completed one-off repair",
+    "retained": "Current V06/V07 problem comparison, intact WitchFoundation, preserved originals and required authoring inputs"
+  }
+]

@@ -1,5 +1,9 @@
 # 恢复完整 UE5 内容
 
+## 巫婆暂停与人体候选（2026-09-21）
+
+普通巫婆 V06/V07 未获用户满意，现暂停；独立 `WitchFoundation` 人体待机/慢走粗模可用。保留原身体问题对照、粗模候选和两个 F6 入口。当前资产、原始素材、分件、恢复依赖与 trash 散列清单见 [巫婆暂停与发布](Monsters/witch-paused-publication-20260921.md)。公开仓库只发布代码、作者脚本、参数和文字；Meshy 模型/PBR、Epic Quinn 与动作、UE 包、密集姿态采样留在本机，不能从 Git 克隆恢复完整外观。
+
 ## 大旋风 V4（2026-09-20）
 
 恢复普通柄和加长柄 `A_RuneSword_WhirlwindV4`、`Skills/Whirlwind20260920/M_WhirlwindFocus` 与 `ForegroundV3`，保持前景材质JSON映射。保留Manny握持源、ChargedErgoV43母版、共享双臂求解器及V4可编辑源；旧V1–V3动画已归档，V2背景模糊/V3前景材质作者源仍有效。公开脚本与本机授权素材边界、98份归档清单、最后移动限制尚待构建的状态见 [大旋风整理与源码发布](Skills/whirlwind-publication-20260920.md)。

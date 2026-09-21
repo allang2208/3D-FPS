@@ -6,6 +6,7 @@
 #include "HandBrainMonster.h"
 #include "PoisonMaggotMonster.h"
 #include "WolfMonster.h"
+#include "WitchMonster.h"
 #include "Animation/AnimSequence.h"
 #include "Animation/Skeleton.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -20,7 +21,7 @@ bool UMonsterCombatComponent::GetVitals(float& Health,float& MaxHealth,FText& Na
  if(const auto* W=Cast<AWolfMonster>(GetOwner()))
  {Health=W->Health;MaxHealth=W->MaxHealth;Name=W->MonsterDisplayName;return true;}
  if(const auto* N=Cast<ANurseZombie>(GetOwner()))
- {Health=N->Health;MaxHealth=N->MaxHealth;Name=FText::FromString(N->ActorHasTag(TEXT("Mutant3"))?TEXT("突变体-3"):N->ActorHasTag(TEXT("FatZombie"))?TEXT("胖子僵尸"):TEXT("护士僵尸"));return true;}
+ {Health=N->Health;MaxHealth=N->MaxHealth;Name=FText::FromString(N->ActorHasTag(TEXT("Witch"))?TEXT("巫婆"):N->ActorHasTag(TEXT("Mutant3"))?TEXT("突变体-3"):N->ActorHasTag(TEXT("FatZombie"))?TEXT("胖子僵尸"):TEXT("护士僵尸"));return true;}
  if(const auto* H=Cast<AHandBrainMonster>(GetOwner()))
  {Health=H->Health;MaxHealth=H->MaxHealth;Name=FText::FromString(TEXT("手脑"));return true;}
  if(const auto* M=Cast<APoisonMaggotMonster>(GetOwner()))
@@ -62,6 +63,7 @@ void UMonsterCombatComponent::SetTarget(APawn* P)
 bool UMonsterCombatComponent::CanAttack(APawn* P) const
 {
  if(!IsValid(P)||IsBusy())return false;
+ if(auto* Witch=Cast<AWitchMonster>(GetOwner()))return Witch->CanCast(P);
  if(auto* W=Cast<AWolfMonster>(GetOwner()))return W->CanAttack(P);
  if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->CanSpit(P);
  const float D=FVector::Dist2D(P->GetActorLocation(),GetOwner()->GetActorLocation());
@@ -74,7 +76,12 @@ bool UMonsterCombatComponent::TryAttack(APawn* P)
  if(!GetOwner()->HasAuthority()||!CanAttack(P))return false;SetTarget(P);
  if(auto* W=Cast<AWolfMonster>(GetOwner()))return W->StartAttack(P);
  if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->StartSpit(P);
- if(auto* N=Cast<ANurseZombie>(GetOwner())){N->SetActorRotation(FRotator(0,(P->GetActorLocation()-N->GetActorLocation()).Rotation().Yaw,0));N->SetState(ENurseState::Attack);return true;}
+ if(auto* N=Cast<ANurseZombie>(GetOwner()))
+ {
+  // The witch aligns before planting; rotating her actor here moves both support feet instantly.
+  if(!Cast<AWitchMonster>(N))N->SetActorRotation(FRotator(0,(P->GetActorLocation()-N->GetActorLocation()).Rotation().Yaw,0));
+  N->SetState(ENurseState::Attack);return true;
+ }
  if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->StartAttack(!(FVector::Dist2D(P->GetActorLocation(),H->GetActorLocation())<=H->SlamTriggerRange&&H->SlamLeft<=0));
  return false;
 }
@@ -88,7 +95,7 @@ void UMonsterCombatComponent::SetLocomotion(bool Moving,bool Returning)
 }
 float UMonsterCombatComponent::AggroRange() const{if(auto* W=Cast<AWolfMonster>(GetOwner()))return W->AggroRadius;if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->AggroRadius;if(auto* N=Cast<ANurseZombie>(GetOwner()))return N->AggroRadius;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->AggroRadius;return 0;}
 float UMonsterCombatComponent::LeashRange() const{if(auto* W=Cast<AWolfMonster>(GetOwner()))return W->LeashRadius;if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->LeashRadius;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->LeashRadius;return 2400;}
-float UMonsterCombatComponent::StopRange() const{if(auto* W=Cast<AWolfMonster>(GetOwner()))return FMath::Max(55.f,W->BiteTriggerRange-30.f);if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return MonsterCombatTuning::AttackDistance(M->AttackRange)*.72f;if(auto* N=Cast<ANurseZombie>(GetOwner()))return FMath::Max(40.f,MonsterCombatTuning::AttackDistance(N->AttackRange)-30);if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->SlamTriggerRange*.65f;return 100;}
+float UMonsterCombatComponent::StopRange() const{if(auto* Witch=Cast<AWitchMonster>(GetOwner()))return FMath::Max(40.f,Witch->SpellRange*.75f);if(auto* W=Cast<AWolfMonster>(GetOwner()))return FMath::Max(55.f,W->BiteTriggerRange-30.f);if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return MonsterCombatTuning::AttackDistance(M->AttackRange)*.72f;if(auto* N=Cast<ANurseZombie>(GetOwner()))return FMath::Max(40.f,MonsterCombatTuning::AttackDistance(N->AttackRange)-30);if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->SlamTriggerRange*.65f;return 100;}
 FVector UMonsterCombatComponent::Home() const{if(auto* W=Cast<AWolfMonster>(GetOwner()))return W->Home;if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->Home;if(auto* N=Cast<ANurseZombie>(GetOwner()))return N->SpawnPosition;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->Home;return GetOwner()->GetActorLocation();}
 void UMonsterCombatComponent::ReachedHome(){if(auto* W=Cast<AWolfMonster>(GetOwner()))W->ReachedHome();if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))M->Health=M->MaxHealth;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))H->Health=H->MaxHealth;SetLocomotion(false);}
 float UMonsterCombatComponent::ApplyHitWithReactionScale(float Multiplier,TFunctionRef<float()> ApplyDamage)

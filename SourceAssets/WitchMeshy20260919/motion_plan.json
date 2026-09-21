@@ -1,0 +1,87 @@
+{
+  "stage": "paused_after_user_gameplay_feedback_20260921",
+  "current_revision": {
+    "name": "V06 body, V05 idle/walk/death, V07 spells",
+    "document": "Docs/Monsters/witch-paused-publication-20260921.md",
+    "walk_duration_seconds": 3.2666666666666666,
+    "walk_speed_cm_s": 22.3955,
+    "user_feedback": "Original witch unsatisfactory; intact WitchFoundation mannequin usable",
+    "next_work": "Backlog W1-W3; pause further edits"
+  },
+  "handedness": {
+    "staff": "left",
+    "bottle": "right"
+  },
+  "source": "Reference/Original and original witch.js/BootScene.js/enemy-config.json",
+  "text_to_motion_endpoint": "https://api.meshy.ai/openapi/v1/text-to-motion",
+  "duration_note": "Meshy text-to-motion accepts 2 to 10 seconds at 0.5-second increments. Original 1.5-second attacks therefore require local time remapping; event positions must remain at the original normalized phase.",
+  "actions": [
+    {
+      "name": "Idle",
+      "target_duration_seconds": 2.0,
+      "loop": true,
+      "mode": "prime",
+      "duration": 2.0,
+      "prompt": "An elderly hunched witch stands in place, feet planted. Left hand maintains a vertical staff grip beside her left hip, right hand holds a small bottle near her stomach. Subtle breathing and tiny weight shifts only. Distinct asymmetric arms remain stable. No arm swings, no steps. Smooth idle loop returning exactly to the starting pose."
+    },
+    {
+      "name": "Walk",
+      "target_duration_seconds": 1.1,
+      "loop": true,
+      "mode": "prime",
+      "duration": 2.0,
+      "prompt": "An elderly hunched witch shuffles slowly in place in short alternating steps. Left hand keeps a vertical walking staff beside her left side; right hand holds a small bottle at stomach height. Keep both arms asymmetric and stable, mild torso rise and fall, cautious foot support. No running, no exaggerated zombie reaching, no jumping. Complete one walk cycle and return to the starting pose."
+    },
+    {
+      "name": "CastPoison",
+      "target_duration_seconds": 1.5,
+      "loop": false,
+      "event_phase": 0.35714285714285715,
+      "events_seconds": {
+        "release": 0.5357142857142857,
+        "sound": 0.5357142857142857
+      },
+      "mode": "prime",
+      "duration": 2.0,
+      "prompt": "A hunched elderly witch casts once using a staff in her LEFT hand. Feet stay planted. Lift the left elbow and the upright staff until its skull tip rises above her head, reach the casting peak at about 36 percent of the clip, pause briefly, then lower back to the starting grip. RIGHT hand holds a bottle steadily by the stomach throughout. No two-handed spell gesture, no walking or spinning."
+    },
+    {
+      "name": "ThrowPoisonBottle",
+      "target_duration_seconds": 1.5,
+      "loop": false,
+      "event_phase": 0.5,
+      "events_seconds": {
+        "sound": 0.6666666666666666,
+        "release": 0.75
+      },
+      "mode": "prime",
+      "duration": 2.0,
+      "prompt": "A hunched elderly witch makes one short forward bottle throw with her RIGHT hand. Begin holding it near her stomach, bring it forward with a slight body lean, extend the right arm and open the hand at the middle of the clip, then recover the arm. LEFT hand continuously grips an upright staff beside her body. Feet remain planted. No baseball windup, no overhead throw, no stepping."
+    },
+    {
+      "name": "DeathBackward",
+      "target_duration_seconds": 1.5,
+      "loop": false,
+      "mode": "prime",
+      "duration": 2.0,
+      "prompt": "An elderly hunched witch dies once: head recoils upward, chest tilts backward, knees buckle, pelvis drops backward into a seated fall, then torso continues backward until lying on her back. Left hand begins in a staff grip, right hand in a bottle grip. Asymmetric natural arm collapse. Stay down, no recovery, no forward fall, no somersault, no loop."
+    }
+  ],
+  "implementation_notes": [
+    "These descriptions specify motion intent; generated timing and contacts are not presumed correct.",
+    "Preserve original clean motion clips separately from time-remapped and body-fitted exports.",
+    "Use original source timing formula frame/frameCount*duration without subtracting one.",
+    "Staff grip and release bottle attachment require final local skeleton and finger adaptation.",
+    "All five source motions and all five character applications succeeded in Meshy. Source FBX and editable sources are local. Five offline character retargets and duration-remapped FBX exports are in Authoring/LocalRetarget and Delivery/LocalRetarget. Cloud-applied Idle is separately retained; four native cloud outputs remain pending download.",
+    "No visual or runtime tests have been executed."
+  ],
+  "historical_revision_v03": {
+    "name": "RobeGaitV03",
+    "document": "ROBE-GAIT-V03.md",
+    "walk_duration_seconds": 1.9666666666666666,
+    "walk_speed_cm_s": 32,
+    "walk_source": "Meshy upper-body reference plus local planted gait reconstruction",
+    "native_cloud_downloads": "all five complete",
+    "note": "The actions below retain the original generation request, not the current Walk export settings."
+  }
+}

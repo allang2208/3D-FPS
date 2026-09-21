@@ -124,7 +124,7 @@ void UFatZombieAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
     if (!ActiveClip) return;
     // Freeze the interrupted clip while the shared reaction clock drives the
     // additive upper-body recoil. Do not continue an interrupted attack.
-    if (const auto* Zombie = Cast<AFatZombie>(TryGetPawnOwner()); Zombie && Zombie->State == ENurseState::Stagger) return;
+    if (const auto* Zombie = Cast<ANurseZombie>(TryGetPawnOwner()); Zombie && Zombie->State == ENurseState::Stagger) return;
     const float Dt = FMath::Max(0.f, DeltaSeconds);
     if (!bUseCombatClock)
     {

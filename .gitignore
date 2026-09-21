@@ -1,4 +1,16 @@
 # Unreal generated/local state
+# Witch pause/publication: recipes and prose only; Meshy/Epic payloads and sampled poses remain local.
+/SourceAssets/WitchMeshy20260919/**
+!/SourceAssets/WitchMeshy20260919/**/
+!/SourceAssets/WitchMeshy20260919/**/*.py
+!/SourceAssets/WitchMeshy20260919/**/*.md
+!/SourceAssets/WitchMeshy20260919/meshy_settings.json
+!/SourceAssets/WitchMeshy20260919/motion_plan.json
+!/SourceAssets/WitchMeshy20260919/asset_roles.json
+/SourceAssets/WitchMeshy20260919/Meshy/
+/SourceAssets/WitchFoundation20260920/**
+!/SourceAssets/WitchFoundation20260920/**/
+!/SourceAssets/WitchFoundation20260920/**/*.md
 # M16 publication: source recipes and prose only; licensed assets, dense geometry,
 # sampled poses, UE transport output and local staging snapshots stay on the host.
 /SourceAssets/M16*/**

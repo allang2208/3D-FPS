@@ -1,0 +1,54 @@
+{
+  "api_base": "https://api.meshy.ai/openapi",
+  "proxy": "http://127.0.0.1:7897",
+  "common": {
+    "ai_model": "meshy-7.1",
+    "geometry_resolution": "standard",
+    "should_texture": true,
+    "enable_pbr": true,
+    "image_enhancement": false,
+    "remove_lighting": true,
+    "should_remesh": true,
+    "topology": "triangle",
+    "save_pre_remeshed_model": true,
+    "target_formats": ["glb", "fbx", "obj"],
+    "auto_size": false,
+    "alpha_thumbnail": false,
+    "multi_view_thumbnails": false
+  },
+  "assets": {
+    "body": {
+      "images": ["Inputs/body/front.png", "Inputs/body/left.png", "Inputs/body/back.png"],
+      "options": {
+        "texture_resolution": "4k",
+        "target_polycount": 80000,
+        "pose_mode": "a-pose",
+        "texture_prompt": "Match the provided elderly witch reference: desaturated grey-olive and grey-brown wrinkled dry skin, fine shallow pores, muted local discoloration, sparse dry scabs. Dry coarse charcoal and faded umber woven robes, matte worn felt hat, dirty seams and hems, sparse grey-white hair. Distinct skin and cloth roughness; no glossy plastic, no metallic skin, no all-over wetness, no saturated green. Preserve the original patch placement and face. Neutral PBR basecolor without baked illumination."
+      }
+    },
+    "staff": {
+      "images": ["Inputs/staff/front.png", "Inputs/staff/side.png", "Inputs/staff/back.png"],
+      "options": {
+        "texture_resolution": "2k",
+        "target_polycount": 16000,
+        "texture_prompt": "Preserve the reference skull-topped wooden staff. Weathered dry dark brown natural branch, shallow wood grain, small aged ivory skull with ingrained brown dirt, dry porous bone, old coarse twine binding. Low saturation realistic material scale. No metal, gemstones, bright colors, glossy resin or baked lighting."
+      }
+    },
+    "bottle": {
+      "images": ["Inputs/bottle/front.png", "Inputs/bottle/side.png", "Inputs/bottle/back.png"],
+      "options": {
+        "texture_resolution": "2k",
+        "target_polycount": 8000,
+        "texture_prompt": "Match the reference hand-held apothecary bottle: thick pale green glass, subdued olive-jade green poison, visible fill line and empty narrow neck, dirty natural cork. Simple undecorated rounded rectangular flask. No labels or ornaments, no metallic finish, no neon glow. Realistic restrained material appearance; glass and liquid will receive separate engine materials."
+      }
+    }
+  },
+  "rigging": {"height_meters": 1.9},
+  "rigging_note": "1.9 m includes the tall witch hat; working scale only, not a conversion of source pixel height.",
+  "sources": [
+    "https://docs.meshy.ai/en/api/multi-image-to-3d",
+    "https://docs.meshy.ai/en/api/rigging",
+    "https://docs.meshy.ai/en/api/animation-library",
+    "https://docs.meshy.ai/en/api/text-to-motion"
+  ]
+}
