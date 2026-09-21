@@ -12,6 +12,8 @@ namespace RuneSwordOverheadRhythm
     // blade in front of the camera.
     inline constexpr float ContactStart=1.22f;
     inline constexpr float ContactEnd=1.40f;
+    // Dash-only carry-to-strike transition, played before the shared hit window.
+    inline constexpr float DashWindupSeconds=.25f;
     // The slam is the heavy release slowed 2x; sample it at the release's own
     // density rather than the slash's 240 Hz.
     inline constexpr float SampleRate=480.f;

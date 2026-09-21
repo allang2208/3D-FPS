@@ -96,6 +96,17 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
         F.HitExperience=Num(TEXT("hitExperience"),4);F.KillExperience=Num(TEXT("killExperience"),12);
         F.MultiHitExperience=Num(TEXT("multiHitExperience"),10);F.MultiKillExperience=Num(TEXT("multiKillExperience"),10);
     }
+    if(Id==TEXT("dashAttack"))
+    {
+        auto& T=D.DashAttack;
+        T.DamageBase=Num(TEXT("damageMultiplierBase"),1.75);T.DamagePerLevel=Num(TEXT("damageMultiplierPerLevel"),.05);
+        T.ReadySeconds=Num(TEXT("readySeconds"),1);T.ReadyReductionPerLevel=Num(TEXT("readyReductionPerLevel"),.03);
+        T.StaminaCost=Num(TEXT("staminaCost"),20);T.Distance=Num(TEXT("distance"),0);
+        T.SpeedMultiplier=Num(TEXT("speedMultiplier"),0);T.BounceRatio=Num(TEXT("bounceRatio"),0);T.UnitsToCM=Num(TEXT("unitsToCM"),1.5);
+        T.RangeBase=Num(TEXT("rangeBonusBase"),6);T.RangePerLevel=Num(TEXT("rangeBonusPerLevel"),6);T.RangeFlat=Num(TEXT("rangeBonusFlat"),55);
+        T.KnockbackBonus=Num(TEXT("knockbackBonus"),188);T.KnockbackPerLevel=Num(TEXT("knockbackPerLevel"),6);
+        T.ArcDegrees=Num(TEXT("arcDegrees"),60);
+    }
     if(Id==TEXT("whirlwind"))
     {
         auto& W=D.Whirlwind;
@@ -124,7 +135,7 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
 }
 bool ColdSteelSkills::Migrate(FColdSteelProfile& P)
 {
-    if (P.SkillProgressVersion >= 12) return false;
+    if (P.SkillProgressVersion >= 15) return false;
     if (P.SkillProgressVersion < 8)
     {
         P.Skills.FindOrAdd(TEXT("rifleMastery"));P.Skills.FindOrAdd(TEXT("dodge"));P.Skills.FindOrAdd(TEXT("dexterousHands"));P.Skills.FindOrAdd(TEXT("pistolMastery"));P.Skills.FindOrAdd(TEXT("criticalStrike"));P.Skills.FindOrAdd(TEXT("fireball"));for(FName Id:{FName(TEXT("swordMastery")),FName(TEXT("machineGunMastery")),FName(TEXT("shotgunMastery")),FName(TEXT("bowMastery"))})P.Skills.FindOrAdd(Id);P.Skills.FindOrAdd(TEXT("heavyStrike"));
@@ -148,12 +159,13 @@ bool ColdSteelSkills::Migrate(FColdSteelProfile& P)
     // Version 11 adds quickCombat; the early return above means only <11 reaches here.
     P.Skills.FindOrAdd(TEXT("quickCombat"));
     P.Skills.FindOrAdd(TEXT("whirlwind"));
-    P.SkillProgressVersion=12;
+    P.Skills.FindOrAdd(TEXT("dashAttack"));
+    P.SkillProgressVersion=15;
     return true;
 }
 bool ColdSteelSkills::Validate(const FColdSteelProfile& P, FString& Reason)
 {
-    if (P.SkillProgressVersion<0 || P.SkillProgressVersion>12 || P.Skills.Num()>128) { Reason=TEXT("技能存档版本或数量无效"); return false; }
+    if (P.SkillProgressVersion<0 || P.SkillProgressVersion>15 || P.Skills.Num()>128) { Reason=TEXT("技能存档版本或数量无效"); return false; }
     if (P.SkillProgressVersion>=1 && !P.Skills.Contains(TEXT("rifleMastery"))) { Reason=TEXT("技能进度缺失"); return false; }
     if (P.SkillProgressVersion>=2 && !P.Skills.Contains(TEXT("dodge"))) { Reason=TEXT("闪避进度缺失"); return false; }
     if (P.SkillProgressVersion>=3 && !P.Skills.Contains(TEXT("dexterousHands"))) { Reason=TEXT("巧手进度缺失"); return false; }
@@ -167,6 +179,7 @@ bool ColdSteelSkills::Validate(const FColdSteelProfile& P, FString& Reason)
     if(P.SkillProgressVersion>=11&&(!FMath::IsFinite(P.QuickCombatCooldown)||P.QuickCombatCooldown<0||!FMath::IsFinite(P.QuickCombatCooldownDuration)||P.QuickCombatCooldownDuration<P.QuickCombatCooldown||P.QuickCombatCooldownDuration>300)){Reason=TEXT("快速进战冷却无效");return false;}
     if(P.SkillProgressVersion>=12&&(!P.Skills.Contains(TEXT("whirlwind"))||!FMath::IsFinite(P.WhirlwindCooldown)||P.WhirlwindCooldown<0||!FMath::IsFinite(P.WhirlwindCooldownDuration)||P.WhirlwindCooldownDuration<P.WhirlwindCooldown||P.WhirlwindCooldownDuration>300))
     {Reason=TEXT("大旋风进度或冷却无效");return false;}
+    if(P.SkillProgressVersion>=15&&!P.Skills.Contains(TEXT("dashAttack"))){Reason=TEXT("冲刺攻击进度缺失");return false;}
     for (const auto& Pair:P.Skills)
         if (Pair.Key.IsNone() || Pair.Value.Level<1 || Pair.Value.Level>20 || Pair.Value.Experience<0 || Pair.Value.Experience>2000000 || (Pair.Value.Level==20 && Pair.Value.Experience!=0))
         { Reason=TEXT("技能等级或修炼值无效"); return false; }
@@ -181,6 +194,7 @@ bool ColdSteelSkills::IsCriticalHit(const FHitResult& Hit)
 FColdSteelSkillEffect ColdSteelSkills::Effect(const FColdSteelSkillDefinition& D, int32 Level)
 {
     const int32 L=FMath::Clamp(Level,0,D.MaxLevel);
+    if(D.Id==TEXT("dashAttack"))return FColdSteelSkillEffect{};
     if(D.Id==TEXT("whirlwind")){FColdSteelSkillEffect E;E.Strength=L*D.StrengthPerLevel;return E;}
     if(D.Id==TEXT("heavyStrike")){FColdSteelSkillEffect E;E.Strength=L*D.StrengthPerLevel;E.HeavyMultiplier=D.HeavyMultiplierBase+FMath::Max(0,L-1)*D.HeavyMultiplierPerLevel;E.HeavyChargeSeconds=FMath::Max(.1f,D.HeavyChargeBase-FMath::Max(0,L-1)*D.HeavyChargeReductionPerLevel);return E;}
     if(D.Id==TEXT("swordMastery")||D.Id==TEXT("machineGunMastery")||D.Id==TEXT("shotgunMastery")||D.Id==TEXT("bowMastery"))

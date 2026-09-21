@@ -12,6 +12,8 @@ public:
     void CaptureWhirlwindEntry();
     void SetWhirlwindEntryTime(float Seconds);
     void ClearWhirlwindEntry();
+    void CaptureLocomotionEntry();
+    void AdvanceLocomotionEntry(float Delta);
     virtual void FinalizeBoneTransform() override;
 private:
     TWeakObjectPtr<USkeletalMesh> EntryMesh;

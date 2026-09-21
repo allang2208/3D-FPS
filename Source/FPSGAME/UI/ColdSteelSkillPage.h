@@ -40,6 +40,9 @@ private:
     UPROPERTY(Transient) TObjectPtr<UTexture2D> IceSpikeIconTexture;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> QuickCombatIconTexture;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> WhirlwindIconTexture;
+    UPROPERTY(Transient) TObjectPtr<UTexture2D> DashAttackIconTexture;
+    TSharedPtr<SButton> DashAttackDetailButton;
+    FSlateBrush DashAttackIconBrush;
     TSharedPtr<SButton> IceSpikeDetailButton;
     FSlateBrush IceSpikeIconBrush;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> HeavyIconTexture;

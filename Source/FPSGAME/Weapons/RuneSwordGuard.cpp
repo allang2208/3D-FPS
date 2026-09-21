@@ -19,7 +19,7 @@
 
 void URuneSwordComponent::BeginGuard()
 {
-    if(bWhirlwind)return;
+    if(bWhirlwind||bDashAttack)return;
     if(!IsEquipped() || !CanUse() || !Animations.FindRef(TEXT("Guard")))return;
     if(bInspecting)CancelAction();
     bGuardHeld=true;bQueuedAttack=false;

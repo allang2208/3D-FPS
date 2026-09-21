@@ -12,6 +12,8 @@
 #include "Components/TextBlock.h"
 #include "Components/ProgressBar.h"
 #include "Engine/GameInstance.h"
+#include "GameFramework/Pawn.h"
+#include "../Weapons/RuneSwordComponent.h"
 
 void UColdSteelHUDWidget::BuildStamina(UCanvasPanel* Root)
 {
@@ -23,6 +25,12 @@ void UColdSteelHUDWidget::BuildStamina(UCanvasPanel* Root)
     StaminaValue=WidgetTree->ConstructWidget<UTextBlock>();StaminaValue->SetJustification(ETextJustify::Right);StaminaValue->SetAutoWrapText(false);
     StaminaValue->SetShadowOffset(FVector2D(1,1));StaminaValue->SetShadowColorAndOpacity(FLinearColor(0,0,0,.8f));
     Row->AddChildToHorizontalBox(StaminaValue)->SetVerticalAlignment(VAlign_Center);
+    DashAttackReadyText=WidgetTree->ConstructWidget<UTextBlock>();
+    DashAttackReadyText->SetJustification(ETextJustify::Center);
+    DashAttackReadyText->SetShadowOffset(FVector2D(1,1));DashAttackReadyText->SetShadowColorAndOpacity(FLinearColor(0,0,0,.8f));
+    auto* DashSlot=Root->AddChildToCanvas(DashAttackReadyText);
+    DashSlot->SetAnchors(FAnchors(.5f,1));DashSlot->SetAlignment(FVector2D(.5f,1));DashSlot->SetZOrder(29);
+    DashAttackReadyText->SetVisibility(ESlateVisibility::Collapsed);
     UpdateStaminaLayout(GetCachedGeometry());RefreshStamina();
 }
 void UColdSteelHUDWidget::UpdateStaminaLayout(const FGeometry& Geometry)
@@ -34,6 +42,18 @@ void UColdSteelHUDWidget::UpdateStaminaLayout(const FGeometry& Geometry)
     const float HotbarHeight=HotbarCanvasSlot&&HotbarCanvasSlot->Content?HotbarCanvasSlot->Content->GetDesiredSize().Y:66/S;
     const float Bottom=HotbarCanvasSlot?-HotbarCanvasSlot->GetPosition().Y:12/S;
     StaminaSlot->SetPosition(FVector2D(0,-Bottom-FMath::Max(HotbarHeight,66/S)-10/S));
+    if(DashAttackReadyText)
+    {
+        auto* Pawn=GetOwningPlayerPawn();const auto* Sword=Pawn?Pawn->FindComponentByClass<URuneSwordComponent>():nullptr;
+        const float Ready=Sword?Sword->DashReadyFraction():0.f;
+        DashAttackReadyText->SetVisibility(Ready>0.f?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
+        const FText Hint=FText::FromString(Ready>=1.f?TEXT("冲刺攻击就绪 · 左键"):FString::Printf(TEXT("冲刺攻击准备  %.0f%%"),Ready*100.f));
+        if(!DashAttackReadyText->GetText().EqualTo(Hint))DashAttackReadyText->SetText(Hint);
+        DashAttackReadyText->SetColorAndOpacity(Ready>=1.f?ColdSteelUI::TextPrimary:ColdSteelUI::TextSecondary);
+        DashAttackReadyText->SetFont(ColdSteelUI::TextFont(14*.75f/S));
+        if(auto* DashCanvasSlot=Cast<UCanvasPanelSlot>(DashAttackReadyText->Slot))
+        {DashCanvasSlot->SetPosition(StaminaSlot->GetPosition()+FVector2D(0,-25/S));DashCanvasSlot->SetSize(FVector2D(FMath::Min(360.f/S,FMath::Max(1.f,View.X-24/S)),22/S));}
+    }
     if(StaminaLayoutView.Equals(View,.1f)&&FMath::IsNearlyEqual(S,StaminaLayoutScale,.0001f))return;
     StaminaLayoutView=View;StaminaLayoutScale=S;
     StaminaSlot->SetSize(FVector2D(FMath::Min(360.f/S,FMath::Max(1.f,View.X-24/S)),22/S));

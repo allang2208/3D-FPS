@@ -325,3 +325,20 @@ __pycache__/
 !/SourceAssets/A762Meshy20260920/Authoring/prompt_*.txt
 /SourceAssets/A762Meshy20260920/Meshy/
 /Docs/UI/Concepts/AmmoPouch-20260921/*.png
+
+# Melee sprint publication: authored recipes only; dense poses and local evidence stay local.
+/SourceAssets/MeleeTacticalSprint*/**
+!/SourceAssets/MeleeTacticalSprint*/**/
+!/SourceAssets/MeleeTacticalSprint*/**/*.py
+!/SourceAssets/MeleeTacticalSprint*/**/*.md
+!/SourceAssets/MeleeTacticalSprint*/motion.json
+/SourceAssets/MeleeSprintAttackWindup20260921/**
+!/SourceAssets/MeleeSprintAttackWindup20260921/**/
+!/SourceAssets/MeleeSprintAttackWindup20260921/**/*.py
+!/SourceAssets/MeleeSprintAttackWindup20260921/**/*.md
+!/SourceAssets/MeleeSprintAttackWindup20260921/motion.json
+/SourceAssets/DashAttack20260920/
+/SourceAssets/DashAttack20260921/
+/SourceAssets/Whirlwind20260920/ImpactV5/Reference/playurl.json
+/SourceAssets/Whirlwind20260920/BorderFix/*-source*.json
+/SourceAssets/Whirlwind20260920/BorderFix/material-before.json

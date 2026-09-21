@@ -2,6 +2,9 @@
 #include "Camera/CameraComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Materials/MaterialInstanceDynamic.h"
+#include "MaterialShared.h"
+#include "Engine/World.h"
+#include "SceneInterface.h"
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonSerializer.h"
 #include "Misc/FileHelper.h"
@@ -75,14 +78,26 @@ void URuneSwordComponent::BeginWhirlwindFocus()
     if(WhirlwindFocusMaterial)
     {
         WhirlwindFocusMaterial->SetScalarParameterValue(TEXT("Strength"),0.f);
-        Camera->PostProcessSettings.AddBlendable(WhirlwindFocusMaterial,1.f);
+        Camera->PostProcessSettings.RemoveBlendable(WhirlwindFocusMaterial);
     }
 }
 
 void URuneSwordComponent::SetWhirlwindFocus(float Strength)
 {
     Camera->PostProcessSettings.MotionBlurAmount=0.f;
-    if(WhirlwindFocusMaterial)WhirlwindFocusMaterial->SetScalarParameterValue(TEXT("Strength"),Strength);
+    if(!WhirlwindFocusMaterial)return;
+    WhirlwindFocusMaterial->SetScalarParameterValue(TEXT("Strength"),Strength);
+    const auto* World=GetWorld();
+    const auto* Resource=World&&World->Scene
+        ?WhirlwindFocusMaterial->GetMaterialResource(World->Scene->GetShaderPlatform()):nullptr;
+    // UE's default post-process fallback draws a brown/yellow screen rim.
+    // A zero Strength parameter cannot hide it: that shader does not use ours.
+    // Only attach the actual blur once its shaders are ready, and remove it
+    // during windup, hitstop and recovery when no blur is requested.
+    if(Strength>UE_SMALL_NUMBER&&Resource&&Resource->GetGameThreadShaderMap()&&Resource->IsGameThreadShaderMapComplete())
+        Camera->PostProcessSettings.AddBlendable(WhirlwindFocusMaterial,1.f);
+    else
+        Camera->PostProcessSettings.RemoveBlendable(WhirlwindFocusMaterial);
 }
 
 void URuneSwordComponent::EndWhirlwindFocus()

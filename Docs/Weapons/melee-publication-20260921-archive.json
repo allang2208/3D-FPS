@@ -1,0 +1,727 @@
+{
+  "date": "2026-09-21",
+  "archive": "trash/melee-sprint-retired-20260921",
+  "files": [
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/Standard/A_RuneSword_SprintEnter.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/Standard/A_RuneSword_SprintEnter.fbx",
+      "bytes": 880176,
+      "sha256": "f5b7b712575d255804dd1ab043d12829f1e979ac5f56161f47ace5d3eefd45ec",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/Standard/A_RuneSword_SprintExit.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/Standard/A_RuneSword_SprintExit.fbx",
+      "bytes": 880176,
+      "sha256": "f8c0d3d5b52b2fc70d30f8dc91585086c3eb633f91a7f9162e4ee293a8ffc433",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/Standard/A_RuneSword_SprintLoop.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/Standard/A_RuneSword_SprintLoop.fbx",
+      "bytes": 1458624,
+      "sha256": "f95313c44a0d86ec58cd31a4f7f028e258a82079aee615c4c631940f9a3538e5",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/Standard/A_RuneSword_SprintOverhead.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/Standard/A_RuneSword_SprintOverhead.fbx",
+      "bytes": 2171792,
+      "sha256": "a4bd191c3a5c59a5487a2e83c5b5a8353d2da3e7c4c3f02063e1c91fa6c3cb60",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/Standard/SprintEnter_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/Standard/SprintEnter_keys.json",
+      "bytes": 584912,
+      "sha256": "6fadc1d36635c70a50a9aafe3fe9c49de28ea316a812f277f1a393bba97fd43c",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/Standard/SprintExit_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/Standard/SprintExit_keys.json",
+      "bytes": 585072,
+      "sha256": "8466d3cd496982a032c3402368481ca5af3954279cf714d849e2fd1ea211860e",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/Standard/SprintLoop_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/Standard/SprintLoop_keys.json",
+      "bytes": 1804371,
+      "sha256": "0b654b15b026c8219d2499435b70af0669c893b6147b62c774853e17f712743f",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/Standard/SprintOverhead_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/Standard/SprintOverhead_keys.json",
+      "bytes": 7366133,
+      "sha256": "5b98aaab19f89ce6ac11137632f840ccc3297ad9e6187d61c061450526128a61",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/Standard/Sword_TacticalSprint_Editable.blend",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/Standard/Sword_TacticalSprint_Editable.blend",
+      "bytes": 158850654,
+      "sha256": "d36dc8adb62a78c5603760299385cd8b536675cc5f912621b21a82d4d7b48f70",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/LongGrip/A_RuneSword_SprintEnter.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/LongGrip/A_RuneSword_SprintEnter.fbx",
+      "bytes": 880176,
+      "sha256": "215d948b05babf14526d2125a676645431652d5cf49f35b9a264cb263d718230",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/LongGrip/A_RuneSword_SprintExit.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/LongGrip/A_RuneSword_SprintExit.fbx",
+      "bytes": 880176,
+      "sha256": "1f8418391861c90eb3aca917dd4769f550d5af6989fe03eba93e2b06b9a70cde",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/LongGrip/A_RuneSword_SprintLoop.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/LongGrip/A_RuneSword_SprintLoop.fbx",
+      "bytes": 1458624,
+      "sha256": "6216584609df25786b6d5f621dd1c522e2125c31874c8d4a5f5720a78e7583a7",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/LongGrip/A_RuneSword_SprintOverhead.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/LongGrip/A_RuneSword_SprintOverhead.fbx",
+      "bytes": 2171824,
+      "sha256": "1358889d6bdb019210d6d3e156a4030c5a7121e0ed2245d3ac4aafbb77887cd9",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/LongGrip/SprintEnter_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/LongGrip/SprintEnter_keys.json",
+      "bytes": 585588,
+      "sha256": "c155528309457e3f6321703b5ee145a7c67745c0d2e9f4f1bb802ba75b20b994",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/LongGrip/SprintExit_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/LongGrip/SprintExit_keys.json",
+      "bytes": 585853,
+      "sha256": "15ec4d69ffd3e5e5b76d5244e16dc245d42c09c04347062e70b6969686445696",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/LongGrip/SprintLoop_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/LongGrip/SprintLoop_keys.json",
+      "bytes": 1806580,
+      "sha256": "bbdb5ba0a1f5e37335118d7de644afa7299b78a641f69b372b61786fe431d098",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/LongGrip/SprintOverhead_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/LongGrip/SprintOverhead_keys.json",
+      "bytes": 7364120,
+      "sha256": "135a6b7f1d70ecbeb940c6ca2fbeeeae5cced0dcf5c1071560bb3d9a7b50fc09",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/LongGrip/Sword_TacticalSprint_Editable.blend",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/LongGrip/Sword_TacticalSprint_Editable.blend",
+      "bytes": 161705984,
+      "sha256": "4be31171f6ba1375c07e8f5fbacf805f8b96c31f927e814a30dfd121c274093f",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintRearCarry20260921/Standard/A_RuneSword_SprintEnter.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintRearCarry20260921/Standard/A_RuneSword_SprintEnter.fbx",
+      "bytes": 880192,
+      "sha256": "19c009bd5040cf41cc569acf48fa1619935f0283fd6a9231252e9bf3e3b54aa4",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintRearCarry20260921/Standard/A_RuneSword_SprintExit.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintRearCarry20260921/Standard/A_RuneSword_SprintExit.fbx",
+      "bytes": 880192,
+      "sha256": "2dbe3356886f3bf7dbf3993d85561a7306fd3e0cddbb02cb6d65f9da732a467b",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintRearCarry20260921/Standard/A_RuneSword_SprintLoop.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintRearCarry20260921/Standard/A_RuneSword_SprintLoop.fbx",
+      "bytes": 1458640,
+      "sha256": "f01c6b2c65da13c01c60aa35cce7238e8c0e1029a62361358d5092040def8014",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintRearCarry20260921/Standard/A_RuneSword_SprintOverhead.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintRearCarry20260921/Standard/A_RuneSword_SprintOverhead.fbx",
+      "bytes": 2171280,
+      "sha256": "696dd29c48f633f5b683925107bad03c2836c821737e78ef9a61f92efaf59e56",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintRearCarry20260921/Standard/SprintEnter_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintRearCarry20260921/Standard/SprintEnter_keys.json",
+      "bytes": 585549,
+      "sha256": "ad576e97472f972d2c5e787318c6d4997163dd91df7e49e4bc8dfdb5e4588207",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintRearCarry20260921/Standard/SprintExit_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintRearCarry20260921/Standard/SprintExit_keys.json",
+      "bytes": 586031,
+      "sha256": "4825fc407921e118e19f90ef06668934a526eeda9438503428d56e95e4dcf7a3",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintRearCarry20260921/Standard/SprintLoop_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintRearCarry20260921/Standard/SprintLoop_keys.json",
+      "bytes": 1805348,
+      "sha256": "b199c188b61177bd11d6cb04c481dd75a8f48b7b88e66679dec6ed9b49d18638",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintRearCarry20260921/Standard/SprintOverhead_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintRearCarry20260921/Standard/SprintOverhead_keys.json",
+      "bytes": 7375786,
+      "sha256": "c0f4702f8d0113e097db0798d81cade9d56eef270adc7c17f6584da047ec735f",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintRearCarry20260921/Standard/Sword_TacticalSprint_Editable.blend",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintRearCarry20260921/Standard/Sword_TacticalSprint_Editable.blend",
+      "bytes": 158845046,
+      "sha256": "13ae00a55c72ac1e7e47d965e14887e575d6e45622d03184f7ab6b95daad5783",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintRearCarry20260921/LongGrip/A_RuneSword_SprintEnter.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintRearCarry20260921/LongGrip/A_RuneSword_SprintEnter.fbx",
+      "bytes": 880192,
+      "sha256": "4045eb7b3f696c9dcb039ee042e572dfcef2b1a936213fc7c86f3cf0ca41883c",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintRearCarry20260921/LongGrip/A_RuneSword_SprintExit.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintRearCarry20260921/LongGrip/A_RuneSword_SprintExit.fbx",
+      "bytes": 880192,
+      "sha256": "b2fc5270c67d3a3d59db95e2ab837018aec83e67886c792fb061e13657f61a4d",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintRearCarry20260921/LongGrip/A_RuneSword_SprintLoop.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintRearCarry20260921/LongGrip/A_RuneSword_SprintLoop.fbx",
+      "bytes": 1458640,
+      "sha256": "8fa7b25b7937c4533561aced0760c8fb10d5b028c53223b24c38236a0689de52",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintRearCarry20260921/LongGrip/A_RuneSword_SprintOverhead.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintRearCarry20260921/LongGrip/A_RuneSword_SprintOverhead.fbx",
+      "bytes": 2171136,
+      "sha256": "b3291f0a0c2cea61add4b8e232cf1a1e5933d33986dc6df536c1cbd3e75daeb6",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintRearCarry20260921/LongGrip/SprintEnter_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintRearCarry20260921/LongGrip/SprintEnter_keys.json",
+      "bytes": 585923,
+      "sha256": "be2082b4bb73e77f55040ed6e54601398d6decdbad5d607b8c9b3019c26170a8",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintRearCarry20260921/LongGrip/SprintExit_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintRearCarry20260921/LongGrip/SprintExit_keys.json",
+      "bytes": 586193,
+      "sha256": "1c8432db621068ac74dda7870ee8e07085eed49bce013b2a57fbf4460a4bb565",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintRearCarry20260921/LongGrip/SprintLoop_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintRearCarry20260921/LongGrip/SprintLoop_keys.json",
+      "bytes": 1807131,
+      "sha256": "d5ad6a3bc78620f24a8b72a694ff2f23a4b82ea69078acca9d53f3c6d201e071",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintRearCarry20260921/LongGrip/SprintOverhead_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintRearCarry20260921/LongGrip/SprintOverhead_keys.json",
+      "bytes": 7371349,
+      "sha256": "0edcda63e4324c3c673f02e12a4fbeb4936a5a2213b8cd01ed8872ab71bd8e75",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintRearCarry20260921/LongGrip/Sword_TacticalSprint_Editable.blend",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintRearCarry20260921/LongGrip/Sword_TacticalSprint_Editable.blend",
+      "bytes": 161707709,
+      "sha256": "4641bb1b8559196297c985bb18d987ddd137088f0d7f3c90dfaadea0c334e258",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintClearView20260921/Standard/A_RuneSword_SprintEnter.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintClearView20260921/Standard/A_RuneSword_SprintEnter.fbx",
+      "bytes": 880192,
+      "sha256": "f536d4cabd46a6c0c90e89ee183f545782fa43892087cc2906799b2a0374c1f2",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintClearView20260921/Standard/A_RuneSword_SprintExit.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintClearView20260921/Standard/A_RuneSword_SprintExit.fbx",
+      "bytes": 880192,
+      "sha256": "746a10b666c9d83674e857865da3d5ac456d804d63a8213d40334bcf25011294",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintClearView20260921/Standard/A_RuneSword_SprintLoop.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintClearView20260921/Standard/A_RuneSword_SprintLoop.fbx",
+      "bytes": 1458640,
+      "sha256": "605b05c2be29be2e7261a851e682c47b4f165138c5aa7130e7a58ead70fc7026",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintClearView20260921/Standard/A_RuneSword_SprintOverhead.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintClearView20260921/Standard/A_RuneSword_SprintOverhead.fbx",
+      "bytes": 2171248,
+      "sha256": "07c4af2bdfd8ef106eaf57029b77b7315ff5af3776624dc7528bdad9dc213774",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintClearView20260921/Standard/SprintEnter_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintClearView20260921/Standard/SprintEnter_keys.json",
+      "bytes": 585154,
+      "sha256": "a721af4c022870ad7275bd02b4d30aa187891c1f8f8feaeddc006f58574677be",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintClearView20260921/Standard/SprintExit_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintClearView20260921/Standard/SprintExit_keys.json",
+      "bytes": 585379,
+      "sha256": "b8c048cdc9d740ab1fdbde081d2ddc6566e06958cd53af4c4f0bf289e8ca2ad1",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintClearView20260921/Standard/SprintLoop_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintClearView20260921/Standard/SprintLoop_keys.json",
+      "bytes": 1806232,
+      "sha256": "7db2f399458cee2e116fa9e2396aa52337371ceb9a6fd291bf2572dad6fd614e",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintClearView20260921/Standard/SprintOverhead_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintClearView20260921/Standard/SprintOverhead_keys.json",
+      "bytes": 7378718,
+      "sha256": "f2305c70d4063d5a6c33c1030d1d4ae708b6e0c9b0e376cc8f91a947b9a1533a",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintClearView20260921/Standard/Sword_TacticalSprint_Editable.blend",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintClearView20260921/Standard/Sword_TacticalSprint_Editable.blend",
+      "bytes": 158841852,
+      "sha256": "2ee7be28da5559e2aab599e031ecac2fdcbd300596e78c2d26410828e55fc288",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintClearView20260921/LongGrip/A_RuneSword_SprintEnter.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintClearView20260921/LongGrip/A_RuneSword_SprintEnter.fbx",
+      "bytes": 880192,
+      "sha256": "5dfbf7648a2fe5219d43c70700215b3f57a2b0d111508742f5b1eac0410e14a9",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintClearView20260921/LongGrip/A_RuneSword_SprintExit.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintClearView20260921/LongGrip/A_RuneSword_SprintExit.fbx",
+      "bytes": 880192,
+      "sha256": "3a075d5f541ca6d58c425440b8fde0e538157e2faa00973eb1dab8a25e04e08d",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintClearView20260921/LongGrip/A_RuneSword_SprintLoop.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintClearView20260921/LongGrip/A_RuneSword_SprintLoop.fbx",
+      "bytes": 1458640,
+      "sha256": "ebb0467443c0dfe3e21c50aad130c8f40ade7d8bf403c13d6cfde409cd1b36f1",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintClearView20260921/LongGrip/A_RuneSword_SprintOverhead.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintClearView20260921/LongGrip/A_RuneSword_SprintOverhead.fbx",
+      "bytes": 2171744,
+      "sha256": "d8c5f6c6e3d3779bd12f0e0930cd43c0e28015e1ca3bcf43225398931be46faf",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintClearView20260921/LongGrip/SprintEnter_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintClearView20260921/LongGrip/SprintEnter_keys.json",
+      "bytes": 585513,
+      "sha256": "3eee7bb7e01972ffea2957712f9ea358c62c7b69f15eabc6a2a1fc08049a8a31",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintClearView20260921/LongGrip/SprintExit_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintClearView20260921/LongGrip/SprintExit_keys.json",
+      "bytes": 585791,
+      "sha256": "427df875ab650abf230046083facd5d5eb241b5b84a724f47b0963a463f9d4be",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintClearView20260921/LongGrip/SprintLoop_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintClearView20260921/LongGrip/SprintLoop_keys.json",
+      "bytes": 1807003,
+      "sha256": "dffda9195457e9e9eeb03f5f41df758caee5ace99f283e9172dc83a48ff61180",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintClearView20260921/LongGrip/SprintOverhead_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintClearView20260921/LongGrip/SprintOverhead_keys.json",
+      "bytes": 7370037,
+      "sha256": "1fe4f6b3e058bad063076e427c9acb4b6020f53f05f9cf5ec5dd12504a76794f",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintClearView20260921/LongGrip/Sword_TacticalSprint_Editable.blend",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintClearView20260921/LongGrip/Sword_TacticalSprint_Editable.blend",
+      "bytes": 161706641,
+      "sha256": "226fd1f17a143329b0dff47a0073c35936bb3742841b94458f45830e8056d8e1",
+      "reason": "Superseded sprint pose outputs",
+      "replacement": "SourceAssets/MeleeTacticalSprintReady20260921 + MeleeSprintAttackWindup20260921"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintReady20260921/Standard/SprintOverhead_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintReady20260921/Standard/SprintOverhead_keys.json",
+      "bytes": 7378717,
+      "sha256": "3a5471d956479b43be72dabcaafa2c7949fe0ba828ad7fbea68dba0a073e1ed4",
+      "reason": "Instant attack entry replaced by quarter-second windup",
+      "replacement": "SourceAssets/MeleeSprintAttackWindup20260921/Standard"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintReady20260921/Standard/A_RuneSword_SprintOverhead.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintReady20260921/Standard/A_RuneSword_SprintOverhead.fbx",
+      "bytes": 2171248,
+      "sha256": "bad47850060f43cb5c9ed3236ecf9bbcd0be9aa6b5995ba5d8393072de89c71d",
+      "reason": "Instant attack entry replaced by quarter-second windup",
+      "replacement": "SourceAssets/MeleeSprintAttackWindup20260921/Standard"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintReady20260921/LongGrip/SprintOverhead_keys.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintReady20260921/LongGrip/SprintOverhead_keys.json",
+      "bytes": 7370036,
+      "sha256": "499c553b3179d68d68986ebd1a9f6070337d22d161b794a2418042e2367eaee5",
+      "reason": "Instant attack entry replaced by quarter-second windup",
+      "replacement": "SourceAssets/MeleeSprintAttackWindup20260921/LongGrip"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintReady20260921/LongGrip/A_RuneSword_SprintOverhead.fbx",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintReady20260921/LongGrip/A_RuneSword_SprintOverhead.fbx",
+      "bytes": 2171728,
+      "sha256": "380a172b9aa4c5859ad8fa0067145506b24be5a9550e58d2f477afd50203b039",
+      "reason": "Instant attack entry replaced by quarter-second windup",
+      "replacement": "SourceAssets/MeleeSprintAttackWindup20260921/LongGrip"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/CompileOnly/compile.cmd",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/CompileOnly/compile.cmd",
+      "bytes": 649,
+      "sha256": "1340299d8935e2716ccdf83ae66216ade557e17a8235ab84c78744b67d8ebe28",
+      "reason": "Temporary compile outputs, superseded by completed Editor build",
+      "replacement": "Saved/BuildEditor/build-20260921-184405.log"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordComponent.dep.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordComponent.dep.json",
+      "bytes": 13494,
+      "sha256": "8f389d362861db457bfd7b226cd4481db21eb0c485d9dfb9d3325ac5999077b3",
+      "reason": "Temporary compile outputs, superseded by completed Editor build",
+      "replacement": "Saved/BuildEditor/build-20260921-184405.log"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordComponent.obj",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordComponent.obj",
+      "bytes": 3143915,
+      "sha256": "bdaa355707b736bbc4dda1bb2c4d9a9077c8740a3f1a22fdb195b5f86b9f3d20",
+      "reason": "Temporary compile outputs, superseded by completed Editor build",
+      "replacement": "Saved/BuildEditor/build-20260921-184405.log"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordComponent.rsp",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordComponent.rsp",
+      "bytes": 1071,
+      "sha256": "4db8098adef165c3fccac25fdde9a625802be9e3a34a4a7ade2b8d3a477d5d16",
+      "reason": "Temporary compile outputs, superseded by completed Editor build",
+      "replacement": "Saved/BuildEditor/build-20260921-184405.log"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordComponent.sarif",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordComponent.sarif",
+      "bytes": 572,
+      "sha256": "82fa5f5e0e126cfbc7227f1ad9b23a4a6cb22136e9ed3895cf7a161496f0f9db",
+      "reason": "Temporary compile outputs, superseded by completed Editor build",
+      "replacement": "Saved/BuildEditor/build-20260921-184405.log"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordDashAttack.dep.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordDashAttack.dep.json",
+      "bytes": 8959,
+      "sha256": "92533cef58bf6df2ab693c41cf76b4768fca92779e5c1f87aead7405c9847140",
+      "reason": "Temporary compile outputs, superseded by completed Editor build",
+      "replacement": "Saved/BuildEditor/build-20260921-184405.log"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordDashAttack.obj",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordDashAttack.obj",
+      "bytes": 1892005,
+      "sha256": "83458b6dd6ea4da3e4393f20596d79834ce2beb0efaab49752c6aa11498d25e9",
+      "reason": "Temporary compile outputs, superseded by completed Editor build",
+      "replacement": "Saved/BuildEditor/build-20260921-184405.log"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordDashAttack.rsp",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordDashAttack.rsp",
+      "bytes": 1075,
+      "sha256": "1d351711d91cdeed607e7da0cf2df11c3ef8d18783a547ad00065efcaa0f4f1d",
+      "reason": "Temporary compile outputs, superseded by completed Editor build",
+      "replacement": "Saved/BuildEditor/build-20260921-184405.log"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordDashAttack.sarif",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordDashAttack.sarif",
+      "bytes": 572,
+      "sha256": "82fa5f5e0e126cfbc7227f1ad9b23a4a6cb22136e9ed3895cf7a161496f0f9db",
+      "reason": "Temporary compile outputs, superseded by completed Editor build",
+      "replacement": "Saved/BuildEditor/build-20260921-184405.log"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordMeshComponent.dep.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordMeshComponent.dep.json",
+      "bytes": 1117,
+      "sha256": "8c52a7a57b8af39c278c69c8bb8e058d8f5e4a6d5997a464ae24d525793a1d17",
+      "reason": "Temporary compile outputs, superseded by completed Editor build",
+      "replacement": "Saved/BuildEditor/build-20260921-184405.log"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordMeshComponent.obj",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordMeshComponent.obj",
+      "bytes": 602172,
+      "sha256": "9301ddc9a110be64d1a0b472bd18a2e7da846da4327171203b49b23e7561c73f",
+      "reason": "Temporary compile outputs, superseded by completed Editor build",
+      "replacement": "Saved/BuildEditor/build-20260921-184405.log"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordMeshComponent.rsp",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordMeshComponent.rsp",
+      "bytes": 1087,
+      "sha256": "46d9fcf8aa939c9a9864908a25417b9bba96f24391a43af3b220f921a7004d88",
+      "reason": "Temporary compile outputs, superseded by completed Editor build",
+      "replacement": "Saved/BuildEditor/build-20260921-184405.log"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordMeshComponent.sarif",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordMeshComponent.sarif",
+      "bytes": 572,
+      "sha256": "82fa5f5e0e126cfbc7227f1ad9b23a4a6cb22136e9ed3895cf7a161496f0f9db",
+      "reason": "Temporary compile outputs, superseded by completed Editor build",
+      "replacement": "Saved/BuildEditor/build-20260921-184405.log"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordSprint.dep.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordSprint.dep.json",
+      "bytes": 7817,
+      "sha256": "53311f53ca77db0ec5f54b28e2d34f8781bc548ffa7a38cd7900e33f33d07240",
+      "reason": "Temporary compile outputs, superseded by completed Editor build",
+      "replacement": "Saved/BuildEditor/build-20260921-184405.log"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordSprint.obj",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordSprint.obj",
+      "bytes": 1386606,
+      "sha256": "1ba535c8215a949064ecca845965dd504663cb5e3f51e64aa989fd6fc09484ba",
+      "reason": "Temporary compile outputs, superseded by completed Editor build",
+      "replacement": "Saved/BuildEditor/build-20260921-184405.log"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordSprint.rsp",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordSprint.rsp",
+      "bytes": 1059,
+      "sha256": "a868afe2c1650432e3b1423b7221e422119de86401e0a15c7083f89a0e1cb124",
+      "reason": "Temporary compile outputs, superseded by completed Editor build",
+      "replacement": "Saved/BuildEditor/build-20260921-184405.log"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordSprint.sarif",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprint20260921/CompileOnly/RuneSwordSprint.sarif",
+      "bytes": 572,
+      "sha256": "82fa5f5e0e126cfbc7227f1ad9b23a4a6cb22136e9ed3895cf7a161496f0f9db",
+      "reason": "Temporary compile outputs, superseded by completed Editor build",
+      "replacement": "Saved/BuildEditor/build-20260921-184405.log"
+    },
+    {
+      "source": "SourceAssets/DashAttack20260921/CompileOnly/compile.cmd",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/DashAttack20260921/CompileOnly/compile.cmd",
+      "bytes": 351,
+      "sha256": "738cd4f163868aea0f99ca89e4965d265c0344a515336ac2d37a7367c9489be1",
+      "reason": "Temporary compile outputs for earlier dash implementation",
+      "replacement": "Source/FPSGAME/Weapons/RuneSwordDashAttack.cpp"
+    },
+    {
+      "source": "SourceAssets/DashAttack20260921/CompileOnly/RuneSwordDashAttack.cpp.dep.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/DashAttack20260921/CompileOnly/RuneSwordDashAttack.cpp.dep.json",
+      "bytes": 8881,
+      "sha256": "5642fdd65312285d8a53063083fa001a699006510ed306e1d2e47ebdc9d69356",
+      "reason": "Temporary compile outputs for earlier dash implementation",
+      "replacement": "Source/FPSGAME/Weapons/RuneSwordDashAttack.cpp"
+    },
+    {
+      "source": "SourceAssets/DashAttack20260921/CompileOnly/RuneSwordDashAttack.cpp.obj",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/DashAttack20260921/CompileOnly/RuneSwordDashAttack.cpp.obj",
+      "bytes": 1773032,
+      "sha256": "38ef06217df489fe0c651379b762b707a65efd82c91021caa30bb21141b040bc",
+      "reason": "Temporary compile outputs for earlier dash implementation",
+      "replacement": "Source/FPSGAME/Weapons/RuneSwordDashAttack.cpp"
+    },
+    {
+      "source": "SourceAssets/DashAttack20260921/CompileOnly/RuneSwordDashAttack.cpp.sarif",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/DashAttack20260921/CompileOnly/RuneSwordDashAttack.cpp.sarif",
+      "bytes": 572,
+      "sha256": "82fa5f5e0e126cfbc7227f1ad9b23a4a6cb22136e9ed3895cf7a161496f0f9db",
+      "reason": "Temporary compile outputs for earlier dash implementation",
+      "replacement": "Source/FPSGAME/Weapons/RuneSwordDashAttack.cpp"
+    },
+    {
+      "source": "SourceAssets/DashAttack20260921/CompileOnly/RuneSwordDashAttack.rsp",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/DashAttack20260921/CompileOnly/RuneSwordDashAttack.rsp",
+      "bytes": 1060,
+      "sha256": "b4973ff4c65901eb61aa02fb7e40db64f6c1f50608aeb5fe7189875fd1d80d52",
+      "reason": "Temporary compile outputs for earlier dash implementation",
+      "replacement": "Source/FPSGAME/Weapons/RuneSwordDashAttack.cpp"
+    },
+    {
+      "source": "SourceAssets/DashAttack20260921/CompileOnly/RuneSwordHitQuery.cpp.dep.json",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/DashAttack20260921/CompileOnly/RuneSwordHitQuery.cpp.dep.json",
+      "bytes": 3418,
+      "sha256": "f3a844721b83f03a027dfdff2d978dfb6a08eb7d899ddddfebfd611ac7cec7a5",
+      "reason": "Temporary compile outputs for earlier dash implementation",
+      "replacement": "Source/FPSGAME/Weapons/RuneSwordDashAttack.cpp"
+    },
+    {
+      "source": "SourceAssets/DashAttack20260921/CompileOnly/RuneSwordHitQuery.cpp.obj",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/DashAttack20260921/CompileOnly/RuneSwordHitQuery.cpp.obj",
+      "bytes": 1047638,
+      "sha256": "e5455aad6741649d19bf24d1c3bc7b0ff77efd122e7e81e98eb05c584a4bf190",
+      "reason": "Temporary compile outputs for earlier dash implementation",
+      "replacement": "Source/FPSGAME/Weapons/RuneSwordDashAttack.cpp"
+    },
+    {
+      "source": "SourceAssets/DashAttack20260921/CompileOnly/RuneSwordHitQuery.cpp.sarif",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/DashAttack20260921/CompileOnly/RuneSwordHitQuery.cpp.sarif",
+      "bytes": 572,
+      "sha256": "82fa5f5e0e126cfbc7227f1ad9b23a4a6cb22136e9ed3895cf7a161496f0f9db",
+      "reason": "Temporary compile outputs for earlier dash implementation",
+      "replacement": "Source/FPSGAME/Weapons/RuneSwordDashAttack.cpp"
+    },
+    {
+      "source": "SourceAssets/DashAttack20260921/CompileOnly/RuneSwordHitQuery.rsp",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/DashAttack20260921/CompileOnly/RuneSwordHitQuery.rsp",
+      "bytes": 1052,
+      "sha256": "96d7222ba9697d4aeda0b758f9843838f61303cede3eda6795e500872db492fc",
+      "reason": "Temporary compile outputs for earlier dash implementation",
+      "replacement": "Source/FPSGAME/Weapons/RuneSwordDashAttack.cpp"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintReady20260921/OriginalCpp/FPSGAMECharacter.cpp",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintReady20260921/OriginalCpp/FPSGAMECharacter.cpp",
+      "bytes": 166916,
+      "sha256": "500915a6156fcc41134d10aed63978da48f5447fe3fe4edd39ca8886a7059955",
+      "reason": "Pre-change source snapshot retained in recoverable archive",
+      "replacement": "Source/FPSGAME"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintReady20260921/OriginalCpp/RuneSwordComponent.h",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintReady20260921/OriginalCpp/RuneSwordComponent.h",
+      "bytes": 10645,
+      "sha256": "8a561f40d2adb0900f291c6ebb00f7e179361b5c5fe481dab8d41a1a94ee93d4",
+      "reason": "Pre-change source snapshot retained in recoverable archive",
+      "replacement": "Source/FPSGAME"
+    },
+    {
+      "source": "SourceAssets/MeleeTacticalSprintReady20260921/OriginalCpp/RuneSwordSprint.cpp",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/MeleeTacticalSprintReady20260921/OriginalCpp/RuneSwordSprint.cpp",
+      "bytes": 2013,
+      "sha256": "370e116bde30bf4cfb9f1134cbf7886379a37d57a2627f96a8b64dae1a30aa23",
+      "reason": "Pre-change source snapshot retained in recoverable archive",
+      "replacement": "Source/FPSGAME"
+    },
+    {
+      "source": "SourceAssets/Whirlwind20260920/ImpactV5/Baseline/FPSGAMECharacter.cpp",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/Whirlwind20260920/ImpactV5/Baseline/FPSGAMECharacter.cpp",
+      "bytes": 159700,
+      "sha256": "33119a4230faf019dda93624b77029e3a135a63454c66d31611d4fe3fac5b975",
+      "reason": "Pre-change source snapshot retained in recoverable archive",
+      "replacement": "Source/FPSGAME"
+    },
+    {
+      "source": "SourceAssets/Whirlwind20260920/ImpactV5/Baseline/RuneSwordComponent.cpp",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/Whirlwind20260920/ImpactV5/Baseline/RuneSwordComponent.cpp",
+      "bytes": 56378,
+      "sha256": "05b5f0daaaca7c45524a611aba44aad65eccc93bddb31b153d3409805ff3993e",
+      "reason": "Pre-change source snapshot retained in recoverable archive",
+      "replacement": "Source/FPSGAME"
+    },
+    {
+      "source": "SourceAssets/Whirlwind20260920/ImpactV5/Baseline/RuneSwordWhirlwind.cpp",
+      "target": "trash/melee-sprint-retired-20260921/SourceAssets/Whirlwind20260920/ImpactV5/Baseline/RuneSwordWhirlwind.cpp",
+      "bytes": 9989,
+      "sha256": "18f34fb1029c3c14aea457cf982036e95786a1c3238b47942cc6206ed02a14ca",
+      "reason": "Pre-change source snapshot retained in recoverable archive",
+      "replacement": "Source/FPSGAME"
+    }
+  ],
+  "verified_count": 90
+}

@@ -20,6 +20,17 @@ void URuneSwordMeshComponent::ClearWhirlwindEntry()
     EntryPose.Reset();EntryMesh.Reset();EntryTime=0.f;
 }
 
+void URuneSwordMeshComponent::CaptureLocomotionEntry()
+{
+    // Reuse the grip-constrained entry solver for interrupted sprint poses.
+    CaptureWhirlwindEntry();
+}
+
+void URuneSwordMeshComponent::AdvanceLocomotionEntry(float Delta)
+{
+    if(!EntryPose.IsEmpty())SetWhirlwindEntryTime(EntryTime+FMath::Max(0.f,Delta));
+}
+
 void URuneSwordMeshComponent::FinalizeBoneTransform()
 {
     if(!EntryPose.IsEmpty())ApplyWhirlwindEntry();

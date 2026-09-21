@@ -34,6 +34,8 @@ public:
     float WhirlwindCooldownDuration() const { return Current.WhirlwindCooldownDuration; }
     bool CommitWhirlwindCast(const FWhirlwindCast& Cast);
     void TrainWhirlwind(int32 Hits,int32 Kills);
+    FDashAttackCast DashAttackStats(int32 AtLevel=-1) const;
+    void TrainDashAttack(int32 Hits,int32 Kills);
     FName WeaponMastery(const FColdSteelItem* Item) const;
     FString ArmorSet() const;
     double SetEffect(FName Key) const;

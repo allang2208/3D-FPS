@@ -258,5 +258,31 @@
     "hitStopBudget": 0.135,
     "motionBlur": 0.65,
     "source": "game-dev/data/skills.json:skills.whirlwind; src/entities/components/whirlwind-system.js; src/ui/skill-manager.js:addWhirlwindExp; src/config/skill-formulas.js:getWhirlwindRadius"
+  },
+  "dashAttack": {
+    "name": "冲刺攻击",
+    "description": "持近战兵器连续向前奔跑，就绪后按左键，经0.25秒前摇衔接下劈；命中前方60°扇区，每个目标只结算一次。停跑、后退或发动动作会重置准备。",
+    "icon": "Skills/dash_attack.png",
+    "maxLevel": 20,
+    "experiencePerLevel": 100,
+    "hitExperience": 1,
+    "multiHitExperience": 3,
+    "killExperience": 15,
+    "damageMultiplierBase": 1.75,
+    "damageMultiplierPerLevel": 0.05,
+    "readySeconds": 1,
+    "readyReductionPerLevel": 0.03,
+    "staminaCost": 20,
+    "distance": 0,
+    "speedMultiplier": 0,
+    "bounceRatio": 0,
+    "unitsToCM": 1.5,
+    "rangeBonusBase": 6,
+    "rangeBonusPerLevel": 6,
+    "rangeBonusFlat": 55,
+    "knockbackBonus": 188,
+    "knockbackPerLevel": 6,
+    "arcDegrees": 60,
+    "source": "game-dev/data/skills.json:skills.dashAttack; dash-system.js base branch; readySeconds in dash-attack-config.js"
   }
 }

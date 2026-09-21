@@ -58,6 +58,11 @@ public:
     bool TriggerHeavySkill();
     bool BeginWhirlwind();
     bool IsWhirlwindActive() const { return bWhirlwind; }
+    bool TryBeginDashAttack();
+    bool IsDashAttackActive() const { return bDashAttack; }
+    float DashReadyFraction() const;
+    /** Authored carry progress, used by the shared footstep-driven sprint camera. */
+    float TacticalSprintPoseWeight() const;
     /** 快速进战：以独立配重锤动作发动技能打击（伤害/击退/眩晕走技能公式）。 */
     UFUNCTION(BlueprintCallable, Category="Rune Sword") bool BeginQuickCombatStrike();
     void CancelAction();
@@ -146,9 +151,20 @@ private:
     // 不再借用普通挥击的 SwingReach；接触帧只判一次。
     float QuickCombatRangeCM=200.f;
     bool bQuickCombatContactDone=false;
-    // Sprint attack: the overhead chop reuses the normal swing path with its own
-    // contact window; only the clip and the timing differ.
+    // 下劈动作本身仍可独立调用；冲刺技能衔接独立持剑前摇并使用扇区结算，不附加位移。
     bool bOverheadAttack=false;
+    bool bDashAttack=false,bDashTrainingPending=false,bDashCenterCaptured=false;
+    // 保留已打开编辑器对象的字段布局；旧突进累计值不再驱动位移。
+    float DashSprintSeconds=0.f,DashTravelCM=0.f,DashBounceLeftCM=0.f;
+    int32 DashHits=0,DashKills=0;
+    FDashAttackCast DashCast;
+    FVector DashCenter=FVector::ZeroVector;
+    void TickDashReadiness(float Delta);
+    void DashAttackContractHit();
+    void FinishDashAttack();
+    bool HasTacticalSprintAnimations() const;
+    bool IsTacticalSprintClip(FName Clip) const;
+    bool TickTacticalSprintPose(float Delta);
     float PommelDepthCM=RuneSwordPommelRhythm::CounterweightCM;
     FVector LungeDirection=FVector::ZeroVector;
     bool bRiftActive=false;
@@ -157,7 +173,7 @@ private:
     double GuardStartedAt=0.,GuardFeedbackAt=-100.;
     TSet<TWeakObjectPtr<AActor>> HitActors;
     bool CanUse() const;
-    bool StartSwing(FName Clip, bool Heavy);
+    bool StartSwing(FName Clip, bool Heavy, float StaminaOverride=-1.f);
     bool StartQuickCombatStrike();
     void QuickCombatContractHit();
     FVector AdvanceThrustLunge(float FromTime,float ToTime);
@@ -166,6 +182,7 @@ private:
     void SamplePose(float Time);
     FRuneSwordBladeSample ReadBlade(const FTransform& AimFrame) const;
     void SweepBlade(const FRuneSwordBladeSample& From,const FRuneSwordBladeSample& To);
+    void ApplySwingHits(const TArray<FHitResult>& Hits,const FVector& Direction);
     void StartRift(float SourceAge);
     void TickRift(float Delta);
     void StopRift();

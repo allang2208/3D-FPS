@@ -586,12 +586,12 @@ void AFPSGAMECharacter::Tick(float DeltaSeconds)
     LookInput = FVector2D::ZeroVector;
 }
 
-bool AFPSGAMECharacter::IsWhirlwindMovementLocked() const
+bool AFPSGAMECharacter::IsMeleeSkillMovementLocked() const
 {
-    return RuneSword && RuneSword->IsWhirlwindActive();
+    return RuneSword && (RuneSword->IsWhirlwindActive() || RuneSword->IsDashAttackActive());
 }
 
-void AFPSGAMECharacter::StopMovementForWhirlwind()
+void AFPSGAMECharacter::StopMovementForMeleeSkill()
 {
     ExitSprintForWeapon();
     SprintPressedAt = -1.0;
@@ -610,7 +610,7 @@ void AFPSGAMECharacter::StopMovementForWhirlwind()
 
 void AFPSGAMECharacter::MoveForward(float Value)
 {
-    if (IsWhirlwindMovementLocked()) { MoveInput.Y = 0.f; return; }
+    if (IsMeleeSkillMovementLocked()) { MoveInput.Y = 0.f; return; }
     MoveInput.Y = Value;
     if (!bIsSliding && !IsDodging() && !FMath::IsNearlyZero(Value) && Controller)
         AddMovementInput(FRotationMatrix(FRotator(0.0f, Controller->GetControlRotation().Yaw, 0.0f)).GetUnitAxis(EAxis::X), Value);
@@ -618,7 +618,7 @@ void AFPSGAMECharacter::MoveForward(float Value)
 
 void AFPSGAMECharacter::MoveRight(float Value)
 {
-    if (IsWhirlwindMovementLocked()) { MoveInput.X = 0.f; return; }
+    if (IsMeleeSkillMovementLocked()) { MoveInput.X = 0.f; return; }
     MoveInput.X = Value;
     if (!bIsSliding && !IsDodging() && !FMath::IsNearlyZero(Value) && Controller)
         AddMovementInput(FRotationMatrix(FRotator(0.0f, Controller->GetControlRotation().Yaw, 0.0f)).GetUnitAxis(EAxis::Y), Value);
@@ -627,20 +627,20 @@ void AFPSGAMECharacter::MoveRight(float Value)
 void AFPSGAMECharacter::Turn(float Value)
 {
     if(IsAmmoWheelOpen()){MoveAmmoPointer(FVector2D(Value,0));return;}
-    if(RuneSword&&RuneSword->IsWhirlwindActive())return;
+    if(IsMeleeSkillMovementLocked())return;
     if (const auto* PC=Cast<APlayerController>(Controller); PC && PC->bShowMouseCursor) return;
     LookInput.X += Value; AddControllerYawInput(Value * LookSensitivityScale());
 }
 void AFPSGAMECharacter::LookUp(float Value)
 {
     if(IsAmmoWheelOpen()){MoveAmmoPointer(FVector2D(0,Value));return;}
-    if(RuneSword&&RuneSword->IsWhirlwindActive())return;
+    if(IsMeleeSkillMovementLocked())return;
     if (const auto* PC=Cast<APlayerController>(Controller); PC && PC->bShowMouseCursor) return;
     LookInput.Y += Value; AddControllerPitchInput(Value * LookSensitivityScale());
 }
 void AFPSGAMECharacter::SprintPressed()
 {
-    if (IsWhirlwindMovementLocked()) return;
+    if (IsMeleeSkillMovementLocked()) return;
     if (bSprintHeld) return;
     SprintPressedAt=(!IsDodging() && !IsTraversing() && Controller && !Controller->IsMoveInputIgnored())
         ? GetWorld()->GetTimeSeconds() : -1.0;
@@ -660,7 +660,7 @@ void AFPSGAMECharacter::SprintReleased()
 
 void AFPSGAMECharacter::SlidePressed()
 {
-    if (IsWhirlwindMovementLocked() || IsTraversing() || IsDodging()) return;
+    if (IsMeleeSkillMovementLocked() || IsTraversing() || IsDodging()) return;
     if (bIsSliding) { StopSlide(false); return; }
     if (bIsCrouched) { if (CanStand()) UnCrouch(); return; }
     if (GetCharacterMovement()->IsMovingOnGround() && HorizontalSpeed() >= SlideMinimumSpeed) StartSlide(); else Crouch();
@@ -668,7 +668,7 @@ void AFPSGAMECharacter::SlidePressed()
 
 void AFPSGAMECharacter::JumpPressed()
 {
-    if (IsWhirlwindMovementLocked() || IsDodging()) return;
+    if (IsMeleeSkillMovementLocked() || IsDodging()) return;
     Traversal->SetJumpHeld(true);
     if (IsTraversing()) return;
     if (Traversal->TryStart(!bIsSliding && !IsWeaponBusy())) { JumpBufferRemaining=0.f; StopJumping(); return; }
@@ -692,15 +692,13 @@ void AFPSGAMECharacter::FirePressed()
         if(RuneSword && RuneSword->IsEquipped())return;
         if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped())return;
     }
-    // Sprinting with a two-handed sword gives the overhead chop instead of the
-    // ordinary slash; everything else keeps the charge/slash flow.
+    // 冲刺攻击是连续奔跑就绪后的被动；未就绪沿用轻／重攻击。
     if(RuneSword && RuneSword->IsEquipped())
     {
-        // Read the sprint state first: ExitSprintForWeapon clears it.
-        const bool bSprintAttack=bIsSprinting;
-        UE_LOG(LogTemp,Log,TEXT("RuneSword attack pressed: sprinting=%d"),bSprintAttack?1:0);
+        // 就绪检测须在退出奔跑前完成；未就绪沿用普通左键轻／重攻击。
+        if(RuneSword->DashReadyFraction()>=1.f){RuneSword->TryBeginDashAttack();return;}
         ExitSprintForWeapon();
-        if(bSprintAttack)RuneSword->BeginOverhead();else RuneSword->BeginPrimaryAttack();
+        RuneSword->BeginPrimaryAttack();
         return;
     }
     if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped())
@@ -1194,7 +1192,7 @@ void AFPSGAMECharacter::RefreshMovementState()
     const auto* StaminaProfile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     const bool Guarding=RuneSword && RuneSword->IsGuarding();
     SetAimingState(bAimHeld && !IsWeaponBusy());
-    bIsSprinting = !(RuneSword&&RuneSword->IsWhirlwindActive()) && !Guarding && bSprintHeld && (!StaminaProfile||StaminaProfile->CanSprint()) && !IsDodging() && GetCharacterMovement()->IsMovingOnGround() && !bIsSliding && !bIsCrouched && !bIsAiming && (!IsWeaponFireHeld() || IsReloading()) && bForwardIntent;
+    bIsSprinting = !IsMeleeSkillMovementLocked() && !Guarding && bSprintHeld && (!StaminaProfile||StaminaProfile->CanSprint()) && !IsDodging() && GetCharacterMovement()->IsMovingOnGround() && !bIsSliding && !bIsCrouched && !bIsAiming && (!IsWeaponFireHeld() || IsReloading()) && bForwardIntent;
     if (!bPreviouslySprinting && bIsSprinting) SprintStartedAt = GetWorld()->GetTimeSeconds();
     if (bPreviouslySprinting && !bIsSprinting) StartSprintToFireLock(GetWorld()->GetTimeSeconds());
     GetCharacterMovement()->MaxWalkSpeed = bIsSprinting ? SprintSpeed : (bIsAiming ? ADSWalkSpeed : WalkSpeed);
@@ -1237,7 +1235,7 @@ void AFPSGAMECharacter::StopSlide(bool bTryToStand)
 
 void AFPSGAMECharacter::TryBufferedJump()
 {
-    if (IsWhirlwindMovementLocked() || IsDodging()) return;
+    if (IsMeleeSkillMovementLocked() || IsDodging()) return;
     if (JumpBufferRemaining <= 0.0f || !GetCharacterMovement()->IsMovingOnGround() || !CanStand()) return;
     if (bIsSliding)
     {
@@ -1420,10 +1418,15 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     const bool bRifleSprintCamera = bInventoryWeaponReady && !IsPistolWeapon() && !IsDualWieldingPistols()
         && TacticalSprint && TacticalSprint->OwnsPose() && !bGunsmithInspection
         && !IsTraversing() && !IsCastBlockingLeftHandAction() && !IsDodging() && !bIsSliding;
+    const bool bSwordSprintCamera = RuneSword && RuneSword->IsEquipped() && !RuneSword->IsBusy()
+        && !IsTraversing() && !IsCastBlockingLeftHandAction() && !IsDodging() && !bIsSliding;
+    const float SwordSprintWeight = bSwordSprintCamera ? RuneSword->TacticalSprintPoseWeight() : 0.f;
+    const bool bRifleSprintRequested = bIsSprinting && !IsWeaponBusy() && !bAimHeld && !bFireHeld && HorizontalSpeed() > 50.f;
     if (ActionCamera)
-        ActionCamera->UpdateSprint(DeltaSeconds, bRifleSprintCamera,
-            bIsSprinting && !IsWeaponBusy() && !bAimHeld && !bFireHeld && HorizontalSpeed() > 50.f,
-            M4SprintPhase, GroundLocomotionWeight * FMath::Clamp(HorizontalSpeed() / FMath::Max(SprintSpeed, 1.f), 0.f, 1.f));
+        ActionCamera->UpdateSprint(DeltaSeconds, bRifleSprintCamera || bSwordSprintCamera,
+            bSwordSprintCamera ? SwordSprintWeight > UE_SMALL_NUMBER : bRifleSprintRequested,
+            M4SprintPhase, GroundLocomotionWeight * FMath::Clamp(HorizontalSpeed() / FMath::Max(SprintSpeed, 1.f), 0.f, 1.f)
+                * (bSwordSprintCamera ? .65f * SwordSprintWeight : 1.f));
     // Crossfade from the ordinary walking bob into the stronger rendered view
     // offset, keeping both layers on the same footstep phase.
     const float LegacyBobWeight = ActionCamera ? 1.f - ActionCamera->SprintCameraWeight() : 1.f;
@@ -1477,7 +1480,10 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(SwordCameraLocation))*CameraMotionScale;
     TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(BashCameraLocation))*CameraMotionScale;
     TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(ToolCameraLocation))*CameraMotionScale;
-    FirstPersonCamera->SetRelativeLocation(Traversal->IsCameraRecovering()?TargetLocation:
+    // Whirlwind publishes its final action sample in PostPhysics, including
+    // contact holds. Do not smooth its camera position against the previous
+    // action frame while rotation and attached arms use the current frame.
+    FirstPersonCamera->SetRelativeLocation((Traversal->IsCameraRecovering() || (RuneSword && RuneSword->IsWhirlwindActive()))?TargetLocation:
         FMath::Lerp(FirstPersonCamera->GetRelativeLocation(), TargetLocation, 1.0f - FMath::Exp(-18.0f * DeltaSeconds)));
 
     const float NoisePitch = FMath::PerlinNoise1D(FeedbackTime * 9.0f + 17.0f) * 0.03f * TraumaStrength;

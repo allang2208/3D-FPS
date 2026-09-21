@@ -68,3 +68,5 @@ description: 开发和迁移 FPSGAME 的主动、被动技能与魔法，贯通�
 ## 快速进战（F 键主动技能，2026-09-17）
 
 `quickCombat`：触发键 F（武器检视已让位到 L）。剑类走符文剑第四连击配重锤（`BeginQuickCombatStrike`，复用第四击节奏与单目标窄走廊）；单持手枪走程序化握把砸击（**V5 关键帧化候选，等 Dan Wesson 715 实机验收**；V1–V4 被否，根因与教训见 [手枪握把砸击尝试](../ue5-fps-arms-animation/references/pistol-grip-bash-attempt.md)）。命中 2m 单目标：伤害 25+5×等级+力量×(5+0.1×等级)，击退 1m、眩晕 (2.5+0.1×等级) 秒（怪物 `ReceiveStun`）；基础冷却 12s（预留-结束起跳合同）；修炼释放 +1、技能击杀 +15。数据入口 `skills.json:quickCombat`；动作参数集中在 `QuickCombatPistolMotion.h` 的 7 键表（0.60s 六段节奏、肘极/肩线/左手松握/相机语言、命中探针方向），组件 `FPSQuickCombatComponent.*`，姿态层 `FPSCastingMeshComponent::ApplyQuickCombatPose`，打击探针 `GetQuickCombatStrikeProbe()`；案例与未测范围 `Docs/Skills/quick-combat-placeholder-20260917.md`。
+
+- 连续奔跑就绪后的被动下劈、60°扇区与群怪出手开销：[冲刺攻击](references/dash-attack.md)。动作前摇与技能判定同步修改，数值／修炼／存档／准备提示一起接入。

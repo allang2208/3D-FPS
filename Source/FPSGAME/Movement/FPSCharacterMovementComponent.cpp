@@ -9,7 +9,7 @@
 
 bool UFPSCharacterMovementComponent::DoJump(bool bReplayingMoves, float DeltaTime)
 {
-    if (const auto* Player = Cast<AFPSGAMECharacter>(CharacterOwner); Player && Player->IsWhirlwindMovementLocked()) return false;
+    if (const auto* Player = Cast<AFPSGAMECharacter>(CharacterOwner); Player && Player->IsMeleeSkillMovementLocked()) return false;
     if (IsDodging()) return false;
     const bool Result=Super::DoJump(bReplayingMoves,DeltaTime);
     if(Result) bLeavingStairJump=bLastFrameSteppedUp;
@@ -34,7 +34,7 @@ UFPSCharacterMovementComponent::UFPSCharacterMovementComponent()
 
 float UFPSCharacterMovementComponent::GetMaxSpeed() const
 {
-    if (const auto* Player = Cast<AFPSGAMECharacter>(CharacterOwner); Player && Player->IsWhirlwindMovementLocked()) return 0.f;
+    if (const auto* Player = Cast<AFPSGAMECharacter>(CharacterOwner); Player && Player->IsMeleeSkillMovementLocked()) return 0.f;
     const auto* Status=GetOwner()?GetOwner()->FindComponentByClass<UCombatStatusFormula>():nullptr;
     return Super::GetMaxSpeed()*(Status?Status->MovementMultiplier():1.f);
 }

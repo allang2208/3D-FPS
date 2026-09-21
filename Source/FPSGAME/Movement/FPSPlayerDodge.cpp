@@ -23,7 +23,7 @@ bool AFPSGAMECharacter::IsDodging() const
 
 bool AFPSGAMECharacter::TryDodge()
 {
-    if(IsWhirlwindMovementLocked())return false;
+    if(IsMeleeSkillMovementLocked())return false;
     if(RuneSword && RuneSword->IsGuarding())return false;
     auto* Movement=Cast<UFPSCharacterMovementComponent>(GetCharacterMovement());
     const auto* PC=Cast<APlayerController>(Controller);

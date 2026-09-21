@@ -3,6 +3,7 @@
 #include "FireballTypes.h"
 #include "IceSpikeTypes.h"
 #include "WhirlwindTypes.h"
+#include "DashAttackTypes.h"
 #include "../Combat/WeaponDamageTypes.h"
 #include "ColdSteelSkillTypes.generated.h"
 
@@ -61,6 +62,7 @@ struct FColdSteelSkillDefinition
     FIceSpikeTuning IceSpike;
     FQuickCombatTuning QuickCombat;
     FWhirlwindTuning Whirlwind;
+    FDashAttackTuning DashAttack;
 };
 
 struct FColdSteelSkillEffect

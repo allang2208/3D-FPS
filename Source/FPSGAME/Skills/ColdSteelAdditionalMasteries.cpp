@@ -4,7 +4,7 @@ const FColdSteelSkillDefinition& UColdSteelStatusModel::MasteryDefinition(FName 
 {
     if(Id==TEXT("rifleMastery"))return RifleDefinition();if(Id==TEXT("pistolMastery"))return PistolDefinition();
     static const TMap<FName,FColdSteelSkillDefinition> AdditionalDefinitions=[] {
-        TMap<FName,FColdSteelSkillDefinition> Out;for(FName Key:{FName(TEXT("swordMastery")),FName(TEXT("machineGunMastery")),FName(TEXT("shotgunMastery")),FName(TEXT("bowMastery")),FName(TEXT("heavyStrike")),FName(TEXT("whirlwind"))})Out.Add(Key,ColdSteelSkills::LoadDefinition(Key));return Out;}();
+        TMap<FName,FColdSteelSkillDefinition> Out;for(FName Key:{FName(TEXT("swordMastery")),FName(TEXT("machineGunMastery")),FName(TEXT("shotgunMastery")),FName(TEXT("bowMastery")),FName(TEXT("heavyStrike")),FName(TEXT("whirlwind")),FName(TEXT("dashAttack"))})Out.Add(Key,ColdSteelSkills::LoadDefinition(Key));return Out;}();
     if(const auto* D=AdditionalDefinitions.Find(Id))return *D;return RifleDefinition();
 }
 FColdSteelSkillProgress UColdSteelStatusModel::MasteryProgress(FName Id)const

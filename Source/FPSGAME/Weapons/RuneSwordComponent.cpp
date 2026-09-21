@@ -1,5 +1,6 @@
 #include "RuneSwordComponent.h"
 #include "RuneSwordMeshComponent.h"
+#include "RuneSwordWhirlwindFeel.h"
 #include "RuneSwordOverheadFeel.h"
 #include "MeleeRuneVisual.h"
 #include "MeleeGuardAssets.h"
@@ -117,7 +118,11 @@ void URuneSwordComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
     RefreshModularSword(Item);
     ColdSteelMeleeRune::Apply(Viewmodel,Modular?FString():ColdSteelMeleeRune::Selected(*Item));
     for(const TCHAR* Clip:{TEXT("Idle"),TEXT("Walk"),TEXT("Whirlwind"),TEXT("Equip"),TEXT("Inspect"),TEXT("Overhead"),TEXT("Slash1"),TEXT("Slash2"),TEXT("Thrust"),TEXT("PommelStrike"),TEXT("HeavyCharge"),TEXT("HeavyRelease"),TEXT("Guard"),TEXT("GuardHit"),TEXT("GuardBreak")})
-        Animations.Add(FName(Clip),LoadObject<UAnimSequence>(nullptr,*(Folder+TEXT("/A_RuneSword_")+Clip+(FCString::Strcmp(Clip,TEXT("Whirlwind"))==0?TEXT("V4"):TEXT("")))));
+        Animations.Add(FName(Clip),LoadObject<UAnimSequence>(nullptr,*(Folder+TEXT("/A_RuneSword_")+Clip+(FCString::Strcmp(Clip,TEXT("Whirlwind"))==0?TEXT("V5"):TEXT("")))));
+    for(const TCHAR* Clip:{TEXT("SprintEnter"),TEXT("SprintLoop"),TEXT("SprintExit"),TEXT("SprintOverhead")})
+        Animations.Add(FName(Clip),LoadObject<UAnimSequence>(nullptr,*(Folder+TEXT("/TacticalSprint20260921/A_RuneSword_")+Clip)));
+    if(!HasTacticalSprintAnimations())
+        UE_LOG(LogTemp,Warning,TEXT("Sword tactical sprint clips missing in %s; using the previous locomotion pose."),*Folder);
     SwingSound=LoadObject<USoundBase>(nullptr,*ColdSteelInventory::Text(*Item,TEXT("swing_sound")));
     AttackLayerSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Audio/SwordAttack20260914/S_Sword_Attack.S_Sword_Attack"));
     HitSound=LoadObject<USoundBase>(nullptr,*ColdSteelInventory::Text(*Item,TEXT("hit_sound")));
@@ -178,6 +183,11 @@ bool URuneSwordComponent::CanUse() const
 
 void URuneSwordComponent::SetClip(FName Name,bool bLoop)
 {
+    // Capture before PlayAnimation replaces the live pose. Whirlwind owns its
+    // own entry snapshot/clock, so its capture must not be replaced here.
+    if(Name!=TEXT("Whirlwind") && Name!=CurrentClip &&
+        (IsTacticalSprintClip(CurrentClip)||IsTacticalSprintClip(Name)))
+        if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->CaptureLocomotionEntry();
     CurrentClip=Name;CurrentAnimation=Animations.FindRef(Name);Elapsed=0;
     if(!CurrentAnimation || !Viewmodel)return;
     Viewmodel->PlayAnimation(CurrentAnimation,bLoop);Viewmodel->SetPlayRate(0.f);SamplePose(0.f);
@@ -202,7 +212,7 @@ void URuneSwordComponent::BeginInspect()
 
 void URuneSwordComponent::BeginAttack()
 {
-    if(bWhirlwind)return;
+    if(bWhirlwind||bDashAttack)return;
     if(bGuardHeld || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose)return;
     // Let the current swing finish; only reject a new swing or queued combo.
     if(Character.IsValid() && Character->IsCastBlockingLeftHandAction()){bQueuedAttack=false;return;}
@@ -220,7 +230,7 @@ void URuneSwordComponent::BeginAttack()
 
 void URuneSwordComponent::BeginOverhead()
 {
-    if(bWhirlwind)return;
+    if(bWhirlwind||bDashAttack)return;
     // Sprint attack: same guards and same swing path as the ordinary slash, only
     // a different clip and its own contact window.  Damage, reach, stamina and
     // the combo stage are whatever the item already gives the normal attack.
@@ -242,7 +252,7 @@ void URuneSwordComponent::BeginOverhead()
 
 void URuneSwordComponent::BeginPrimaryAttack()
 {
-    if(bWhirlwind)return;
+    if(bWhirlwind||bDashAttack)return;
     if(bInspecting)CancelAction();
     if(bGuardHeld || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose)return;
     // Preserve the ordinary equip/recovery click buffer. This press belongs to
@@ -267,7 +277,7 @@ void URuneSwordComponent::ReleasePrimaryAttack()
     ReleaseHeavyCharge();
 }
 
-bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy)
+bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride)
 {
     if(!Animations.FindRef(Clip))return false;
     bQueuedQuickCombat=false;bQuickCombatStrike=false;bQuickCombatContactDone=false;
@@ -279,7 +289,7 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy)
             Damage=Stats.Damage;AttackRate=Stats.AttackRate;Reach=Stats.BaseReach;MeleeModifiers=Stats.Modifiers;
             SwingKnockbackCM=Stats.KnockbackCM;
         }
-        if(!Profile->SpendStamina(ColdSteelMelee::AttackStamina(Profile->Equipped(),Profile))){bQueuedAttack=false;return false;}
+        if(!Profile->SpendStamina(StaminaOverride>=0.f?StaminaOverride:ColdSteelMelee::AttackStamina(Profile->Equipped(),Profile))){bQueuedAttack=false;return false;}
     }
     bAttacking=true;bQueuedAttack=bCharging=bReturningCharge=false;bHeavyAttack=Heavy;
     bThrustAttack=Clip==TEXT("Thrust");bPommelAttack=Clip==TEXT("PommelStrike");
@@ -311,7 +321,7 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy)
 
 bool URuneSwordComponent::BeginQuickCombatStrike()
 {
-    if(bWhirlwind)return false;
+    if(bWhirlwind||bDashAttack)return false;
     // 快速进战：只换动作来源与结算参数，不推进普通连击计数；占用与守卫同普通攻击。
     if(bGuardHeld || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose)return false;
     if(Character.IsValid() && Character->IsCastBlockingLeftHandAction())return false;
@@ -423,7 +433,7 @@ FVector URuneSwordComponent::AdvanceThrustLunge(float FromTime,float ToTime)
 
 void URuneSwordComponent::BeginHeavyCharge()
 {
-    if(bWhirlwind)return;
+    if(bWhirlwind||bDashAttack)return;
     if(bInspecting)CancelAction();
     if(!IsEquipped() || IsBusy() || !CanUse() || !Viewmodel || !Viewmodel->GetSkeletalMeshAsset())return;
     if(Character->IsCastBlockingLeftHandAction())return;
@@ -482,6 +492,7 @@ void URuneSwordComponent::ReturnFromCharge()
 
 void URuneSwordComponent::CancelAction()
 {
+    FinishDashAttack();
     FinishWhirlwind();
     FinishHeavyTraining();bAutoHeavyRelease=false;
     ClearGuard();
@@ -504,7 +515,11 @@ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) 
 {
     Location=FVector::ZeroVector;Rotation=FRotator::ZeroRotator;
     if(!IsEquipped())return;
-    if(bWhirlwind)return;
+    if(bWhirlwind)
+    {
+        WhirlwindFeel::Camera(Elapsed,WhirlwindTuning,ImpactAge,ImpactStrength,Location,Rotation);
+        return;
+    }
     if(GetGuardCameraMotion(Location,Rotation))return;
     if(!CanUse())return;
     if(bCharging || bReturningCharge)
@@ -516,6 +531,11 @@ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) 
     else if(bAttacking && bOverheadAttack)
     {
         RuneSwordOverheadFeel::Camera(Elapsed,bImpactFeedbackPlayed,ImpactAge,ImpactStrength,Location,Rotation);
+        if(bDashAttack && Elapsed<ContactStart)
+        {
+            const float Gather=FMath::SmoothStep(ContactStart-RuneSwordOverheadRhythm::DashWindupSeconds,ContactStart,Elapsed);
+            Location*=Gather;Rotation*=Gather;
+        }
     }
     else if(bAttacking && bThrustAttack)
     {
@@ -797,12 +817,19 @@ void URuneSwordComponent::SweepBlade(const FRuneSwordBladeSample& From,const FRu
         });
         Hits.SetNum(1);
     }
+    const FVector Direction=((To.Base+To.Tip)-(From.Base+From.Tip)).GetSafeNormal(SMALL_NUMBER,To.Forward);
+    ApplySwingHits(Hits,Direction);
+}
+
+void URuneSwordComponent::ApplySwingHits(const TArray<FHitResult>& Hits,const FVector& Direction)
+{
+    auto* Pawn=Character.Get();
     for(const FHitResult& Hit:Hits)
     {
             AActor* Target=Hit.GetActor();
             if(!IsValid(Target) || HitActors.Contains(Target))continue;
+            if(bDashAttack)if(const auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();Combat&&Combat->IsDead())continue;
             HitActors.Add(Target);
-            const FVector Direction=((To.Base+To.Tip)-(From.Base+From.Tip)).GetSafeNormal(SMALL_NUMBER,To.Forward);
             auto HitSkills=SwingSkills;
             if(SwingTrainingHits==1)if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())HitSkills.ExtraMasteryExperience=Profile->MasteryDefinition(TEXT("swordMastery")).MultiHitExperience;
             auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();
@@ -827,8 +854,9 @@ void URuneSwordComponent::SweepBlade(const FRuneSwordBladeSample& From,const FRu
                 ImpactDirection=CurrentClip==TEXT("Slash2")?1.f:-1.f;
                 ImpactStrength=bOverheadAttack?1.25f:(bHeavyAttack?1.5f:(bPommelAttack?1.75f:1.f));
             }
-            if(Applied>0)
+            if(Applied>0 || (bDashAttack&&bKilled))
             {
+                if(bDashAttack&&Eligible){++DashHits;if(bKilled)++DashKills;}
                 // 快速进战：击退与眩晕由 ReceiveStun 一次提交；普通攻击只推退。
                 if(Combat){if(bQuickCombatStrike)Combat->ReceiveStun(Pawn,QuickCombatStunSeconds,QuickCombatKnockbackCM);
                     else Combat->ReceiveMeleeKnockback(Pawn,SwingKnockbackCM);}
@@ -846,6 +874,9 @@ void URuneSwordComponent::SweepBlade(const FRuneSwordBladeSample& From,const FRu
 void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Delta,Type,Tick);
+    if(!bWhirlwind)
+        if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->AdvanceLocomotionEntry(Delta);
+    TickDashReadiness(Delta);
     if(!Viewmodel || !IsEquipped())return;
     if(TickGuardBreak(Delta))return;
     const bool Usable=CanUse();Viewmodel->SetVisibility(Usable && Viewmodel->GetSkeletalMeshAsset(),true);
@@ -893,7 +924,7 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
             // Attribute real capsule displacement to the thrust's phase curve.
             // When blocked, the trace stops travelling with the blocked capsule.
             const float ForwardMoved=FVector::DotProduct(LungeMoved,LungeDirection);
-            if(ForwardMoved>UE_SMALL_NUMBER)
+            if(!bDashAttack && ForwardMoved>UE_SMALL_NUMBER)
             {
                 const float Requested=bThrustAttack?
                     RuneSwordThrustRhythm::LungeDistance*(RuneSwordThrustRhythm::LungeAlpha(Time)-RuneSwordThrustRhythm::LungeAlpha(Elapsed)):
@@ -903,7 +934,11 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
             return Frame;
         };
         const float HitStart=FMath::Max(Elapsed,ContactStart),HitEnd=FMath::Min(Next,ContactEnd);
-        if(bQuickCombatStrike)
+        if(bDashAttack)
+        {
+            if(HitEnd>HitStart)DashAttackContractHit();
+        }
+        else if(bQuickCombatStrike)
         {
             // 快速进战不走动画路径采样：配重接触帧（ExtensionEnd）只做一次
             // 手枪同款合同判定；走廊/遮挡/沿挥击弧线的旧闸门全部不再参与。
@@ -934,6 +969,7 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
         Elapsed=Next;
         if(Elapsed>=End)
         {
+            FinishDashAttack();
             const bool Queued=bQueuedAttack;const bool QueuedSkill=bQueuedQuickCombat;
             bAttacking=bQueuedAttack=bHeavyAttack=bThrustAttack=bPommelAttack=bOverheadAttack=bQuickCombatStrike=false;
             bQueuedQuickCombat=false;
@@ -974,13 +1010,13 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
         Elapsed=FMath::Min(End,Elapsed+Delta);SamplePose(Elapsed);
         if(Elapsed>=End){const bool Queued=bQueuedAttack;bEquipping=bQueuedAttack=false;SetClip(TEXT("Idle"),true);if(Queued)BeginAttack();}
     }
-    else
+    else if(!TickTacticalSprintPose(Delta))
     {
         const FName Clip=Character->GetVelocity().SizeSquared2D()>400?TEXT("Walk"):TEXT("Idle");
         if(Clip!=CurrentClip)SetClip(Clip,true);
         if(CurrentAnimation){Elapsed=FMath::Fmod(Elapsed+Delta*(Character->IsSprinting()?1.45f:1.f),FMath::Max(.01f,CurrentAnimation->GetPlayLength()));SamplePose(Elapsed);}
     }
-    const bool Sprint=Character->IsSprinting() && !IsBusy();
+    const bool Sprint=Character->IsSprinting() && !IsBusy() && !HasTacticalSprintAnimations();
     Viewmodel->SetRelativeLocation(FMath::VInterpTo(Viewmodel->GetRelativeLocation(),Sprint?FVector(-4,0,-9):FVector::ZeroVector,Delta,9.f));
     Viewmodel->SetRelativeRotation(FMath::RInterpTo(Viewmodel->GetRelativeRotation(),FRotator(0,90,Sprint?22:0),Delta,9.f));
 }
