@@ -216,7 +216,7 @@ if(E.MoveSpeed>0)return FString::Printf(TEXT("手枪伤害 +%.0f%% / +%.0f   · 
 if(E.CooldownReduction>0||E.Strength>0||E.Constitution>0)return FString::Printf(TEXT("伤害 +%.0f%% / +%.0f · 属性 +%d%s"),E.DamagePercent*100,E.FlatDamage,E.Strength+E.Constitution+E.Dexterity,E.CooldownReduction>0?*FString::Printf(TEXT(" · 攻速 +%.0f%%"),(1.f/FMath::Max(.05f,1.f-E.CooldownReduction)-1.f)*100):TEXT(""));
 if(E.Dexterity>0||E.ReloadSpeed>0)return FString::Printf(TEXT("敏捷 +%d   ·   换弹速度 +%.0f%%"),E.Dexterity,E.ReloadSpeed*100);
 return FString::Printf(TEXT("步枪伤害 +%.0f%% / +%.0f   ·   精神 +%d   ·   要害伤害 +%.0f%%"),E.DamagePercent*100,E.FlatDamage,E.Wisdom,E.WeakpointPercent*100); }
-FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelItem* Item)
+FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelItem* Item,bool bFiredRound)
 {
     FColdSteelSkillShot Shot;
     if(const FColdSteelItem* Source=Item?Item:nullptr)Shot.ItemDefinition=Source->Definition;
@@ -233,6 +233,7 @@ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelIt
         }
         if(const auto* I=Item?Item:M->Equipped())
         {
+            if(bFiredRound)Shot.ArmorPenetration=FMath::Clamp(Shot.ArmorPenetration+M->AmmoArmorPenetration(*I),0.f,1.f);
             if(Shot.ItemDefinition.IsEmpty())Shot.ItemDefinition=I->Definition;
             Shot.bMelee=ColdSteelInventory::IsMeleeWeapon(*I);
             if(ColdSteelInventory::IsMeleeWeapon(*I))Shot.DamagePanel=ColdSteelMelee::Evaluate(*I,M).DamageParts;

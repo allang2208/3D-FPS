@@ -56,3 +56,7 @@ description: 为 FPSGAME 制作非枪械物品：写实图标、三视图、5080
 - 2026-09-11 两款材料地面模型接入 `/Game/Items/EnhancementMaterials`，14/16cm，运行审计 `EnhancementMaterialPickupAudit` 27项通过。冷启动发生编译卡顿时，以刚体实际落稳判定进入保存/拾取检查，固定两秒等待可能产生假阴性；正立材质对照截图与真实重力落地截图分别记录。
 
 - 2026-09-16 体素块（`voxel_block_wood/stone/marble`）：物品的"模型"就是建造用的 20 cm 体素方块，因此**不新建模型文件**，拾取物直接读活动调色板 `DA_VoxelBuildPalette` 的 `ExampleMesh` + `Surface`（缺省回落 `SM_Voxel20_Stone`），图标复用工程既有写实材质图（`Icons/wood|stone|marble.png`）。需要"方块造型图标"时再按图标流程补。残骸回收与范围拾取见 `Docs/UI/area-pickup-and-notice-bar-20260916.md`。
+
+## 数字弹药的图片边界
+
+弹药袋中的 LP/PS/AP 等弹种仅做 UI 图，不自动进入模型制作；读取 [仅数值弹药的等级图标](references/numeric-ammo-icons.md)。

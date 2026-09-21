@@ -137,17 +137,19 @@ void UColdSteelAmmoReadout::PresentDual(const UPistolDualWieldComponent& Dual,co
     for(int32 Index=0;Index<2;++Index)
     {
         const auto& Hand=Dual.Hand(Index);
+        const bool Unlimited=Dual.InfiniteReserve(Index);
         const int32 Count=FMath::Max(0,Hand.Rounds),Capacity=FMath::Max(1,Hand.Stats.Capacity),Reserve=FMath::Max(0,Dual.Reserve(Index));
         const bool Low=Count>0&&Count<=FMath::Max(1,FMath::CeilToInt(Capacity*.2f));
         Names[Index]->SetText(FText::FromString(FString(Index==0?TEXT("主手 · "):TEXT("副手 · "))+ColdSteelInventory::Text(Hand.Item,TEXT("name"))));
-        FString Detail=FString(Index==0?TEXT("左键 · "):TEXT("右键 · "))+ColdSteelWeaponStats::AmmoName(Model.AmmoDefinitionFor(Hand.Item));
+        FString Detail=FString(Index==0?TEXT("左键 · "):TEXT("右键 · "))+Model.AmmoLabel(Model.AmmoDefinitionFor(Hand.Item));
+        if(!Hand.PendingAmmoType.IsEmpty())if(const auto* Target=Model.AmmoType(Hand.PendingAmmoType))Detail+=TEXT(" → ")+Target->Name;
         if(Hand.Reloading)Detail+=TEXT(" · 换弹中");
         Details[Index]->SetText(FText::FromString(Detail));
         RoundLabels[Index]->SetText(FText::FromString(TEXT("弹匣")));SpareLabels[Index]->SetText(FText::FromString(TEXT("备弹")));
         Rounds[Index]->SetText(FText::FromString(FString::Printf(TEXT("%02d / %d"),Count,Capacity)));
         Rounds[Index]->SetColorAndOpacity(Hand.Reloading?ColdSteelUI::Accent:Count==0?ColdSteelUI::Danger:Low?ColdSteelUI::Warning:ColdSteelUI::TextPrimary);
-        Reserves[Index]->SetText(FText::FromString(InfiniteReserve?TEXT("∞"):FString::FromInt(Reserve)));
-        Reserves[Index]->SetColorAndOpacity(!InfiniteReserve&&Reserve==0?ColdSteelUI::Warning:ColdSteelUI::TextSecondary);
+        Reserves[Index]->SetText(FText::FromString(Unlimited?TEXT("∞"):FString::Printf(TEXT("%lld"),Model.PouchCount(Model.AmmoDefinitionFor(Hand.Item)))));
+        Reserves[Index]->SetColorAndOpacity(!Unlimited&&Reserve==0?ColdSteelUI::Warning:ColdSteelUI::TextSecondary);
     }
 }
 
@@ -181,11 +183,14 @@ void UColdSteelAmmoReadout::Refresh(const AFPSGAMECharacter* Character,const UCo
     if(Akimbo)PresentDual(*Dual,*Model,Character->HasInfiniteReserveAmmo());
     else
     {
-        const FString AmmoName=Model?ColdSteelWeaponStats::AmmoName(Model->AmmoDefinition()):FString();
+        FString AmmoName=Model?Model->AmmoLabel(Model->AmmoDefinition()):FString();
+        if(Character&&Model&&!Character->GetPendingAmmoType().IsEmpty())if(const auto* Target=Model->AmmoType(Character->GetPendingAmmoType()))AmmoName+=TEXT(" → ")+Target->Name+TEXT(" · 换弹中");
         Present(Item?ColdSteelInventory::Text(*Item,TEXT("name")):TEXT(""),AmmoName,Character?Character->GetMagazineAmmo():0,Character?Character->GetReserveAmmo():0,Character?Character->GetMagazineCapacity():0,Character&&Character->IsReloading(),Character&&Character->HasInventoryWeapon()&&Item);
         MagazineLabel->SetText(FText::FromString(TEXT("弹匣")));
         if(Character&&Item&&Character->HasInventoryWeapon()&&Character->HasInfiniteReserveAmmo())
         {Spare->SetText(FText::FromString(TEXT("∞")));Spare->SetColorAndOpacity(ColdSteelUI::TextSecondary);}
+        else if(Character&&Item&&Model&&Character->HasInventoryWeapon())
+        {Spare->SetText(FText::FromString(FString::Printf(TEXT("%lld"),Model->PouchCount(Model->AmmoDefinitionFor(*Item)))));}
     }
     if(bPreview&&Model&&Model->IsAudit())Preview(Character,Model);
 }

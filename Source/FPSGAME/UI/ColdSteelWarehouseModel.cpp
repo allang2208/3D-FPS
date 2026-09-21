@@ -9,7 +9,7 @@ bool UColdSteelStatusModel::TransferWarehouse(const FString& Id,int32 Place,int3
 bool UColdSteelStatusModel::GrantStartingArmory()
 {
     auto State=Snapshot();bool Changed=false;
-    for (const TCHAR* Definition : {TEXT("ue_akm"), TEXT("ue_qbz191"), TEXT("ue_ash12"), TEXT("ue_m1911"), TEXT("ue_dan_wesson715"), TEXT("ue_rune_sword")})
+    for (const TCHAR* Definition : {TEXT("ue_a762"), TEXT("ue_akm"), TEXT("ue_qbz191"), TEXT("ue_ash12"), TEXT("ue_m1911"), TEXT("ue_dan_wesson715"), TEXT("ue_rune_sword")})
     {
         if(State.ArmoryReceived.Contains(Definition))continue;
         auto Gun=CreateItem(Definition);if(Gun.Data.IsEmpty())return false;
@@ -17,23 +17,19 @@ bool UColdSteelStatusModel::GrantStartingArmory()
         if(!ColdSteelWarehouse::Insert(State.Items,Gun,WarehouseCapacity()))return false;
         if(FString(Definition)==TEXT("ue_ash12"))
         {
-            auto Ammo=CreateItem(TEXT("ammo_127"),80);
-            if(Ammo.Data.IsEmpty()||!ColdSteelWarehouse::Insert(State.Items,Ammo,WarehouseCapacity()))return false;
+            if(!AddAmmoToState(State,TEXT("ammo_127"),80))return false;
         }
         if(FString(Definition)==TEXT("ue_qbz191"))
         {
-            auto Ammo=CreateItem(TEXT("ammo_58"),120);
-            if(Ammo.Data.IsEmpty()||!ColdSteelWarehouse::Insert(State.Items,Ammo,WarehouseCapacity()))return false;
+            if(!AddAmmoToState(State,TEXT("ammo_58"),120))return false;
         }
         if(FString(Definition)==TEXT("ue_m1911"))
         {
-            auto Ammo=CreateItem(TEXT("ammo_45acp"),70);
-            if(Ammo.Data.IsEmpty()||!ColdSteelWarehouse::Insert(State.Items,Ammo,WarehouseCapacity()))return false;
+            if(!AddAmmoToState(State,TEXT("ammo_45acp"),70))return false;
         }
         if(FString(Definition)==TEXT("ue_dan_wesson715"))
         {
-            auto Ammo=CreateItem(TEXT("ammo_357"),60);
-            if(Ammo.Data.IsEmpty()||!ColdSteelWarehouse::Insert(State.Items,Ammo,WarehouseCapacity()))return false;
+            if(!AddAmmoToState(State,TEXT("ammo_357"),60))return false;
         }
         State.ArmoryReceived.Add(Definition);Changed=true;
     }
@@ -99,10 +95,12 @@ bool UColdSteelStatusModel::SortWarehouse(const FString& Mode,int32 Category)
 }
 int64 UColdSteelStatusModel::CountMaterial(const FString& Def)const
 {
+    if(AmmoType(Def))return PouchCount(Def);
     int64 Count=0;for(const auto& I:Current.Items)if((I.Place==0||I.Place==4)&&I.Definition==Def)Count+=I.Count;return Count;
 }
 bool UColdSteelStatusModel::ConsumeMaterial(const FString& Def,int64 Amount)
 {
+    if(AmmoType(Def))return SpendAmmo(Def,Amount);
     if(Amount<=0||CountMaterial(Def)<Amount)return false;
     SyncRuntime();auto P=Snapshot();int64 Left=Amount;
     for(int32 Place:{0,4})for(int32 N=P.Items.Num()-1;N>=0&&Left>0;--N){auto& I=P.Items[N];if(I.Place!=Place||I.Definition!=Def)continue;int64 Used=FMath::Min(Left,I.Count);I.Count-=Used;Left-=Used;}
@@ -110,12 +108,14 @@ bool UColdSteelStatusModel::ConsumeMaterial(const FString& Def,int64 Amount)
 }
 bool UColdSteelStatusModel::AddWarehouseItem(const FColdSteelItem& Item,int32 Preferred)
 {
+    if(AmmoType(Item.Definition))return GrantAmmo(Item.Definition,Item.Count);
     SyncRuntime();auto P=Snapshot();
     if(Preferred<0)for(int32 C=WarehousePage*ColdSteelWarehouse::CellsPerPage;C<FMath::Min(WarehouseCapacity(),(WarehousePage+1)*ColdSteelWarehouse::CellsPerPage);++C)if(ColdSteelWarehouse::Fits(P.Items,Item,C,WarehouseCapacity())){Preferred=C;break;}
     return ColdSteelWarehouse::Insert(P.Items,Item,WarehouseCapacity(),Preferred)&&CommitState(P);
 }
 int64 UColdSteelStatusModel::WarehouseRemainingCapacity(const FColdSteelItem& Item)const
 {
+    if(AmmoType(Item.Definition))return ColdSteelAmmo::MaxCount-PouchCount(Item.Definition);
     if(Item.Definition.IsEmpty()||Item.StackMax<1||Item.StackMax>9007199254740991ll)return 0;
     if(Item.Width<1||Item.Width>18||Item.Height<1||Item.Height>ColdSteelWarehouse::Rows)return 0;
     int64 Total=0;TArray<uint32> Occupied;Occupied.Init(0,WarehouseCapacity()/18);
@@ -131,6 +131,7 @@ int64 UColdSteelStatusModel::WarehouseRemainingCapacity(const FColdSteelItem& It
 }
 int64 UColdSteelStatusModel::DepositWarehouseAmount(const FColdSteelItem& Item)
 {
+    if(AmmoType(Item.Definition))return GrantAmmo(Item.Definition,Item.Count)?Item.Count:0;
     auto Part=Item;Part.Count=FMath::Min(FMath::Max<int64>(0,Item.Count),WarehouseRemainingCapacity(Item));
     return Part.Count>0&&AddWarehouseItem(Part)?Part.Count:0;
 }

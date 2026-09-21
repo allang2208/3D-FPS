@@ -28,6 +28,8 @@ class FPSGAME_API UColdSteelHUDWidget : public UCommonActivatableWidget
     GENERATED_BODY()
 
 public:
+    UFUNCTION() void OpenAmmoPouch();
+    void RequestAmmoChange(const FString& WeaponId,const FString& Target);
     UFUNCTION(BlueprintCallable, Category = "Cold Steel UI")
     void ToggleInventory();
     bool HandlePanelShortcut(const FKey& Key, bool bRepeat = false);
@@ -304,6 +306,8 @@ private:
     FString StatusDetailSignature;
     FDelegateHandle StatusModelHandle;
     UPROPERTY(Transient) TObjectPtr<UWidget> EquipmentPage;
+    UPROPERTY(Transient) TObjectPtr<UHorizontalBox> EquipmentAmmoTabs;
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelAmmoPouchWidget> AmmoPouchPage;
     UPROPERTY(Transient) TObjectPtr<class UColdSteelSkillPage> SkillPage;
     UPROPERTY(Transient) TObjectPtr<class UColdSteelProgressNotification> ProgressNotification;
     UPROPERTY(Transient) TObjectPtr<UBorder> SkillTabSurface;

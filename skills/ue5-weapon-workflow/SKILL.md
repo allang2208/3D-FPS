@@ -71,3 +71,8 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 ## 武器公式与DPS调参
 
 调整基础攻击、强化成长或比较DPS时，读取 [武器公式与DPS调参](references/weapon-formula-balancing.md)。
+
+## 数字弹药与生成枪体精修
+
+- 弹药袋、弹种兼容组、切弹事务和射击穿透：[数字弹药袋与切换弹种](references/ammo-pouch-and-types.md)。
+- 生成枪体的机瞄、漏面、接口、近景法线及分区涂层：[生成枪械近景精修](references/generated-rifle-refinement.md)。

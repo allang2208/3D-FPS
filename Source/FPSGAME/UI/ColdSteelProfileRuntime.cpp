@@ -73,7 +73,7 @@ void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
     FString Json; TSharedPtr<FJsonObject> Root;
     if(FFileHelper::LoadFileToString(Json,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/items.json")))&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json),Root))
         for(const auto& Pair:Root->Values){FString Data;FJsonSerializer::Serialize(Pair.Value->AsObject().ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&Data));Definitions.Add(FString(*Pair.Key),Data);}
-    LoadProductionDefinitions();
+    LoadProductionDefinitions();LoadAmmoCatalog();
     SaveSlot=TEXT("ColdSteelPlayer"); FString Requested;
     bAudit=FString(FCommandLine::Get()).Contains(TEXT("Audit"));
     if(FParse::Value(FCommandLine::Get(),TEXT("ColdSteelProfile="),Requested)) {
@@ -86,6 +86,7 @@ void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
     if(Exists){if(ReloadProfile()){GrantStartingArmory();if(!bAudit)GrantEnhancementMaterials();}return;}
     auto Seed=Snapshot();auto Weapon=CreateItem(TEXT("ue_m4a1"));Weapon.Place=1;Weapon.Cell=6;Seed.Items.Add(Weapon);
     for(const auto& Pair:TArray<TPair<FString,int64>>{{TEXT("hp_potion"),5},{TEXT("mp_potion"),3},{TEXT("gold"),200},{TEXT("ammo_556"),90},{TEXT("ammo_762"),90},{TEXT("ammo_127"),60}}) {
+        if(AmmoType(Pair.Key)){AddAmmoToState(Seed,Pair.Key,Pair.Value);continue;}
         auto I=CreateItem(Pair.Key,Pair.Value); if(!I.Data.IsEmpty())Insert(Seed.Items,I);
     }
     for(int32 Index=0;Index<2;++Index){const FString Def=Index==0?TEXT("hp_potion"):TEXT("mp_potion");for(const auto& I:Seed.Items)if(I.Definition==Def){Seed.Hotbar[Index]=I.InstanceId;Seed.HotbarDefinitions[Index]=Def;break;}}
@@ -102,6 +103,8 @@ bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn
 {
     if(bPersistenceBlocked||(GetWorld()&&GetWorld()->GetNetMode()!=NM_Standalone)){Message=TEXT("当前玩家数据不可写入");return false;}
     RemoveRetiredWeapons(State);
+    bool AmmoChanged=false;
+    if(!NormalizeAmmo(State,AmmoChanged)){Message=TEXT("弹药数据迁移失败，原存档保留");return false;}
     NormalizeProductionState(State);
     if(CurrentPawn.IsValid() && CurrentPawn->IsCastingWithLeftHand())
     {
@@ -191,6 +194,10 @@ bool UColdSteelStatusModel::ReloadProfile()
     for(const TCHAR* S:{TEXT("_A"),TEXT("_B")}) {auto* Save=ReadCheckedProfile(SaveSlot+S); if(Save&&Validate(Save->Profile,Reason)&&(!Best||Save->Profile.Generation>Best->Profile.Generation))Best=Save;}
     if(!Best){bPersistenceBlocked=true;Message=TEXT("两个存档版本均不可读取，已保留原文件");return false;}
     auto Clean=Best->Profile;
+    int64 RecoveredGroundAmmo=0;
+    for(const auto& Item:Clean.Items)if(Item.Place==2&&AmmoType(Item.Definition))RecoveredGroundAmmo+=Item.Count;
+    bool AmmoMigrated=false;
+    if(!NormalizeAmmo(Clean,AmmoMigrated)){bPersistenceBlocked=true;Message=TEXT("弹药迁移失败，原存档保留");return false;}
     const bool Migrated=Clean.WarehouseLayoutVersion==0;
     if(!ColdSteelWarehouse::MigrateLayout(Clean)){bPersistenceBlocked=true;Message=TEXT("仓库布局迁移失败，原存档保留");return false;}
     const bool SkillsMigrated=ColdSteelSkills::Migrate(Clean);
@@ -199,7 +206,7 @@ bool UColdSteelStatusModel::ReloadProfile()
     const bool AbandonedFireball=Clean.bFireballReserved;Clean.bFireballReserved=false;
     const bool AbandonedIce=Clean.bIceSpikeReserved;Clean.bIceSpikeReserved=false;
     const bool AbandonedQuick=Clean.bQuickCombatReserved;Clean.bQuickCombatReserved=false;
-    bool Removed=RemoveRetiredWeapons(Clean)||Migrated||SkillsMigrated||QuickBarMigrated||StaminaMigrated||AbandonedFireball||AbandonedIce||AbandonedQuick;
+    bool Removed=RemoveRetiredWeapons(Clean)||Migrated||SkillsMigrated||QuickBarMigrated||StaminaMigrated||AbandonedFireball||AbandonedIce||AbandonedQuick||AmmoMigrated;
     // Refresh authorized material rarity and scroll presentation on existing instances.
     for(auto& I:Clean.Items)
     {
@@ -223,7 +230,9 @@ bool UColdSteelStatusModel::ReloadProfile()
     // Commit through the checked A/B transaction; never reset the player's save.
     if(Removed){Publish(Best->Profile);if(!CommitState(Clean)){Publish(Previous);bPersistenceBlocked=true;return false;}}
     else Publish(Clean);
-    ApplyToPawn();RefreshDrops();OnChanged.Broadcast();return true;
+    ApplyToPawn();RefreshDrops();OnChanged.Broadcast();
+    if(RecoveredGroundAmmo>0)PostNotice(TEXT("旧版地面弹药已回收"),FString::Printf(TEXT("%lld 发已计入弹药袋"),RecoveredGroundAmmo));
+    return true;
 }
 bool UColdSteelStatusModel::SaveNow()
 {
@@ -267,6 +276,7 @@ FColdSteelItem UColdSteelStatusModel::CreateItem(const FString& Def,int64 Count)
 {
     FColdSteelItem I;I.InstanceId=FGuid::NewGuid().ToString(EGuidFormats::Digits);I.Definition=Def;I.Count=Count;
     if(const FString* Data=Definitions.Find(Def))I.Data=*Data;
+    I.LoadedAmmoType=AmmoGroupFor(I);
     I.Magazine=IsMeleeWeapon(I)?0:Number(I,TEXT("gunsmith_base_mag"),30);
     if(IsMeleeWeapon(I))I.Reserve=0;
     I.StackMax=Number(I,TEXT("maxStack"),Number(I,TEXT("stack_max"),1));
@@ -278,7 +288,7 @@ FColdSteelItem UColdSteelStatusModel::CreateItem(const FString& Def,int64 Count)
 FColdSteelProposal UColdSteelStatusModel::ProposeMove(const FString& Id,int32 Place,int32 Cell,int32 Orientation)const{const auto* I=FindItem(Id);if(Place==4||(I&&I->Place==4))return ProposeWarehouse(Id,Place,Cell,Orientation);auto P=ColdSteelInventory::Move(Current.Items,Id,Place,Cell,Orientation);P.Revision=Current.Generation;return P;}
 bool UColdSteelStatusModel::CommitProposal(const FColdSteelProposal& R){if(!R.bValid){Message=R.Reason;return false;}if(R.Revision!=Current.Generation){Message=TEXT("物品已变化，请重新拖动");return false;}auto P=Snapshot();P.Items=R.Items;if(R.ActiveWeaponSlot>=0){P.ActiveWeaponSlot=R.ActiveWeaponSlot;P.ActiveProductionTool.Reset();}return CommitState(P);}
 bool UColdSteelStatusModel::MoveItem(const FString& Id,int32 Place,int32 Cell,int32 Orientation){SyncRuntime();return CommitProposal(ProposeMove(Id,Place,Cell,Orientation));}
-bool UColdSteelStatusModel::AddItem(const FString& Def,int64 Count){if(Count<=0||Count>9007199254740991ll||!Definitions.Contains(Def))return false;SyncRuntime();auto P=Snapshot();if(!Insert(P.Items,CreateItem(Def,Count))){Message=TEXT("背包空间不足");return false;}return CommitState(P);}
+bool UColdSteelStatusModel::AddItem(const FString& Def,int64 Count){if(AmmoType(Def))return GrantAmmo(Def,Count);if(Count<=0||Count>9007199254740991ll||!Definitions.Contains(Def))return false;SyncRuntime();auto P=Snapshot();if(!Insert(P.Items,CreateItem(Def,Count))){Message=TEXT("背包空间不足");return false;}return CommitState(P);}
 bool UColdSteelStatusModel::Split(const FString& Id,int64 Count)
 {
     SyncRuntime();auto P=Snapshot();auto* I=P.Items.FindByPredicate([&](const auto& V){return V.InstanceId==Id;});
@@ -340,6 +350,7 @@ void UColdSteelStatusModel::SyncRuntime()
     // callback, before the character's main-hand display cache has been updated.
     if(!DualActive)for(auto& I:Current.Items)if(I.Place==1&&I.Cell==Current.ActiveWeaponSlot&&!IsMeleeWeapon(I))
     {
+        I.VirtualMagazineAmmo=FMath::Clamp(I.VirtualMagazineAmmo-FMath::Max(0,I.Magazine-CurrentPawn->GetMagazineAmmo()),0,CurrentPawn->GetMagazineAmmo());
         I.Magazine=CurrentPawn->GetMagazineAmmo();
         if(I.Definition==TEXT("ue_dan_wesson715") && Number(I,TEXT("revolver_case_count"),-1)!=CurrentPawn->GetRevolverCaseCount())
         {
@@ -373,8 +384,8 @@ void UColdSteelStatusModel::TickRuntime(float Delta,AFPSGAMECharacter* Pawn)
     if(bTrainingDirty){TrainingFlushAccumulator+=Delta;if(TrainingFlushAccumulator>=1.f)SaveNow();}
     SaveAccumulator+=Delta;if(SaveAccumulator>=5){SaveAccumulator=0;SaveNow();}
 }
-FString UColdSteelStatusModel::AmmoDefinition()const{const auto* I=Equipped();if(I)if(const auto* G=GetGameInstance()->GetSubsystem<UGunsmithSystem>())if(const auto* W=G->Weapon(I->Definition))return W->Ammo;return TEXT("ammo_556");}
-int32 UColdSteelStatusModel::AmmoCount()const{if(!Equipped())return 0;int64 Total=0;const FString Def=AmmoDefinition();for(const auto&I:Current.Items)if(I.Place==0&&I.Definition==Def)Total+=I.Count;return FMath::Min<int64>(Total,MAX_int32);}
+FString UColdSteelStatusModel::AmmoDefinition()const{const auto* I=Equipped();return I?AmmoDefinitionFor(*I):FString();}
+int32 UColdSteelStatusModel::AmmoCount()const{return Equipped()?int32(FMath::Min<int64>(PouchCount(AmmoDefinition()),MAX_int32)):0;}
 int32 UColdSteelStatusModel::ConsumeAmmo(int32 Requested, bool bCompletedReload, bool bReloadStep)
 {
     if(Requested<=0||!CurrentPawn.IsValid()||!Equipped()||!CurrentPawn->HasInventoryWeapon())return 0;
@@ -382,12 +393,13 @@ int32 UColdSteelStatusModel::ConsumeAmmo(int32 Requested, bool bCompletedReload,
     // Each range insertion may refill without creating inventory stacks. Only
     // the last insertion grants training, in the same successful save as ammo.
     const bool Infinite=(bCompletedReload||bReloadStep)&&CurrentPawn->HasInfiniteReserveAmmo();
-    auto P=Snapshot();int32 Left=Infinite?0:Requested;FString Def=AmmoDefinition();
-    if(!Infinite)for(auto& I:P.Items)if(I.Place==0&&I.Definition==Def){int32 N=FMath::Min<int64>(Left,I.Count);Left-=N;I.Count-=N;}
-    P.Items.RemoveAll([](const auto&I){return I.Count<=0;});int32 Taken=Requested-Left;
+    auto P=Snapshot();FString Def=AmmoDefinition();
+    const int32 Taken=Infinite?Requested:int32(FMath::Min<int64>(Requested,P.AmmoPouch.FindRef(Def)));
+    if(!Infinite)P.AmmoPouch.FindOrAdd(Def)-=Taken;
     for(auto& I:P.Items)if(I.Place==1&&I.Cell==P.ActiveWeaponSlot)
     {
         I.Magazine+=Taken;
+        if(Infinite)I.VirtualMagazineAmmo+=Taken;
         if(I.Definition==TEXT("ue_dan_wesson715"))
         {
             StoreRevolverCaseCount(I,bReloadStep?FMath::Max(I.Magazine,CurrentPawn->GetRevolverCaseCount()):I.Magazine);
@@ -410,6 +422,7 @@ bool UColdSteelStatusModel::ClearRevolverSpentCases(bool bDiscardLiveRounds)
         // A speedloader discards live rounds at extraction. Save the loss with
         // the cleared cases; do not refund reserves or grant reload experience.
         if (bDiscardLiveRounds) I.Magazine = 0;
+        I.VirtualMagazineAmmo=FMath::Min(I.VirtualMagazineAmmo,I.Magazine);
         StoreRevolverCaseCount(I, I.Magazine);
         return CommitState(P);
     }
@@ -438,7 +451,7 @@ bool UColdSteelStatusModel::Pickup(const FString& Id)
     AColdSteelPickup* Target=nullptr;for(TActorIterator<AColdSteelPickup> It(GetWorld());It;++It)if(It->ItemId==Id&&It->CanInteract(CurrentPawn.Get())){Target=*It;break;}
     if(!Target)return false;SyncRuntime();auto P=Snapshot();int32 N=P.Items.IndexOfByPredicate([&](const auto&I){return I.InstanceId==Id&&I.Place==2;});
     if(N<0||P.Items[N].Map!=UGameplayStatics::GetCurrentLevelName(this,true)||FVector::Dist(CurrentPawn->GetActorLocation(),P.Items[N].Position)>250)return false;
-    auto I=P.Items[N];P.Items.RemoveAt(N);if(!Insert(P.Items,I)){Message=TEXT("背包已满，物品留在地面");return false;}if(!CommitState(P))return false;RefreshDrops();return true;
+    auto I=P.Items[N];P.Items.RemoveAt(N);if(AmmoType(I.Definition)){if(!AddAmmoToState(P,I.Definition,I.Count))return false;}else if(!Insert(P.Items,I)){Message=TEXT("背包已满，物品留在地面");return false;}if(!CommitState(P))return false;RefreshDrops();return true;
 }
 void UColdSteelStatusModel::RefreshDrops()
 {

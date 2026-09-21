@@ -43,7 +43,7 @@
   },
   "ammo_556": {
     "category": "material",
-    "desc": "HK416与M16A2使用的弹药。换弹时自动从背包取用，每发独立计数。",
+    "desc": "HK416与M16A2使用的弹药。自动计入弹药袋，换弹时取用，每发独立计数。",
     "icon": "res://assets/ui/icons/equip/ammo_556.png",
     "icon_fallback": "▥",
     "id": "ammo_556",
@@ -55,7 +55,7 @@
   },
   "ammo_58": {
     "category": "material",
-    "desc": "QBZ-191 使用的弹药。换弹时自动从背包取用，每发独立计数。",
+    "desc": "QBZ-191 使用的弹药。自动计入弹药袋，换弹时取用，每发独立计数。",
     "icon": "res://assets/ui/icons/equip/ammo_58.png",
     "icon_fallback": "▥",
     "id": "ammo_58",
@@ -68,19 +68,19 @@
   },
   "ammo_762": {
     "category": "material",
-    "desc": "AKM与AK-105使用的弹药。换弹时自动从背包取用，每发独立计数。",
+    "desc": "7.62x39mm LP 标准弹种。自动计入弹药袋，不占背包空间。",
     "icon": "res://assets/ui/icons/equip/ammo_762.png",
     "icon_fallback": "▥",
     "id": "ammo_762",
-    "name": "7.62mm 弹药",
+    "name": "7.62x39mm LP",
     "rarity": "common",
     "stack_max": 999,
     "type": "弹药",
-    "ue_icon": "Icons/ammo_762.png"
+    "ue_icon": "Icons/Ammo76220260921/762_lp.png"
   },
   "ammo_9": {
     "category": "material",
-    "desc": "P9 使用的弹药。换弹时自动从背包取用，每发独立计数。",
+    "desc": "P9 使用的弹药。自动计入弹药袋，换弹时取用，每发独立计数。",
     "icon": "res://assets/ui/icons/equip/ammo_9.png",
     "icon_fallback": "▥",
     "id": "ammo_9",
@@ -2982,5 +2982,29 @@
     "ue_icon": "Icons/ue_m16a2.png",
     "grid_w": 5,
     "grid_h": 2
+  },
+  "ue_a762": {
+    "category": "weapon",
+    "desc": "A762 自动步枪，使用 7.62mm 弹药与 30 发弧形弹匣，配骨架枪托和顶部导轨。",
+    "equipSlot": "weapon",
+    "icon": "",
+    "id": "ue_a762",
+    "isTwoHanded": true,
+    "name": "A762",
+    "rarity": "common",
+    "stack_max": 1,
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "33.25"
+      },
+      {
+        "name": "弹匣容量",
+        "value": "30"
+      }
+    ],
+    "type": "武器",
+    "weaponType": "rifle",
+    "ue_icon": "Icons/ue_a762.png"
   }
 }

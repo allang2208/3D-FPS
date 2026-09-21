@@ -16,7 +16,7 @@ void UFPSBallisticsComponent::Launch(FVector Start,FVector Direction,float Speed
     LastLaunchStart=Start;
     WeaponFX=FX;HeadshotSound=Headshot;
     const auto Effects=ColdSteelCombat::Snapshot(GetOwner(),ShotItem);
-    FFPSFlyingRound Round;Round.Training=ColdSteelSkills::Snapshot(GetOwner(),ShotItem);Round.Position=Start;Round.Direction=Direction.GetSafeNormal();Round.Speed=SpeedCM;Round.Remaining=RangeCM;Round.Damage=Damage;Round.Timestamp=GetWorld()->GetTimeSeconds();Round.Piercing=Effects.Piercing;Round.Poison=Effects.Poison;Rounds.Add(MoveTemp(Round));
+    FFPSFlyingRound Round;Round.Training=ColdSteelSkills::Snapshot(GetOwner(),ShotItem,true);Round.Position=Start;Round.Direction=Direction.GetSafeNormal();Round.Speed=SpeedCM;Round.Remaining=RangeCM;Round.Damage=Damage;Round.Timestamp=GetWorld()->GetTimeSeconds();Round.Piercing=Effects.Piercing;Round.Poison=Effects.Poison;Rounds.Add(MoveTemp(Round));
     Rounds.Last().EffectiveRangeCM=EffectiveRangeCM;
     SetComponentTickEnabled(true);
 }

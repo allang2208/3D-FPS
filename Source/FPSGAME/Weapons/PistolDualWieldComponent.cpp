@@ -183,7 +183,7 @@ void UPistolDualWieldComponent::RefreshEquipment(UColdSteelStatusModel* Model)
         auto& H=Hands[Side];H.Item=Side?*Off:*Main;
         const auto Parts=G->Installed(H.Item);
         H.Stats=G->Calculate(H.Item.Definition,Parts);
-        H.Stats.Damage=ColdSteelWeaponStats::Damage(H.Item,Profile,H.Stats.Damage);
+        H.Stats.Damage=ColdSteelWeaponStats::Damage(H.Item,Profile,H.Stats.Damage)*Profile->AmmoDamageMultiplier(H.Item);
         H.Stats.Interval=ColdSteelWeaponStats::Interval(&H.Item,Profile,H.Stats.Interval);
         H.Stats.Reload=ColdSteelWeaponStats::Reload(&H.Item,Profile,H.Stats.Reload);
         H.Stats.EmptyReload=ColdSteelWeaponStats::Reload(&H.Item,Profile,H.Stats.EmptyReload);
@@ -259,7 +259,7 @@ void UPistolDualWieldComponent::StartAction(int32 Index,const FString& Name,floa
 }
 void UPistolDualWieldComponent::StopAction(int32 Index)
 {
-    auto& H=Hands[Index];H.Action=nullptr;H.Reloading=H.ReloadQueued=false;
+    auto& H=Hands[Index];H.Action=nullptr;H.Reloading=H.ReloadQueued=false;H.PendingAmmoType.Reset();
     for(auto& Voice:H.Voices)if(IsValid(Voice))Voice->Stop();H.Voices.Empty();
 }
 void UPistolDualWieldComponent::CancelInputs()
@@ -408,11 +408,14 @@ int32 UPistolDualWieldComponent::Reserve(int32 Index) const
 {
     return Profile?Profile->AmmoCountFor(Hands[Index].Item):0;
 }
+bool UPistolDualWieldComponent::InfiniteReserve(int32 Index) const
+{return Player&&Profile&&Player->HasInfiniteReserveAmmoFor(Profile->AmmoDefinitionFor(Hands[Index].Item));}
 void UPistolDualWieldComponent::SyncInventory(TArray<FColdSteelItem>& Items) const
 {
     if(!bActive)return;
     for(const auto& H:Hands)for(auto& I:Items)if(I.InstanceId==H.Item.InstanceId)
     {
+        I.VirtualMagazineAmmo=FMath::Clamp(I.VirtualMagazineAmmo-FMath::Max(0,I.Magazine-H.Rounds),0,H.Rounds);
         I.Magazine=H.Rounds;
         if(H.Revolver)
         {
@@ -479,10 +482,15 @@ void UPistolDualWieldComponent::Advance(float Delta)
             if(H.Reloading)AdvanceReload(Side,Previous);
             if(H.Action && H.ActionTime>=H.Action->GetPlayLength())
             {
+                if(!H.PendingAmmoType.IsEmpty())
+                {
+                    const FString Target=H.PendingAmmoType;H.PendingAmmoType.Reset();
+                    if(!Profile->CommitAmmoSwitch(H.Item.InstanceId,Target,H.Stats.Capacity))Profile->PostNotice(TEXT("切换弹种未完成"),Profile->ResultMessage());
+                }
                 const bool Queued=H.ReloadQueued;StopAction(Side);H.ReloadQueued=Queued;
             }
         }
-        if(InputAvailable() && !H.Action && (H.ReloadQueued || (H.Rounds==0 && Player->HasInfiniteReserveAmmo())))BeginReload(Side);
+        if(InputAvailable() && !Player->IsChoosingAmmo() && !H.Action && (H.ReloadQueued || (H.Rounds==0 && InfiniteReserve(Side))))BeginReload(Side);
         TryFire(Side);Pose(Side,Delta);
     }
     Player->MagazineAmmo=Hands[0].Rounds;Player->RevolverCaseCount=Hands[0].Cases;

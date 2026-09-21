@@ -229,6 +229,13 @@ void AFPSGAMEPlayerController::SetupInputComponent()
 
 bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
 {
+    if(auto* AmmoPawn=Cast<AFPSGAMECharacter>(GetPawn());AmmoPawn&&AmmoPawn->IsAmmoWheelOpen())
+    {
+        if(Params.Key==EKeys::Escape){if(Params.Event==IE_Pressed)AmmoPawn->CancelAmmoSelection();return true;}
+        if(Params.Key==EKeys::MouseScrollUp||Params.Key==EKeys::MouseScrollDown)return true;
+        if(Params.Key==EKeys::LeftMouseButton||Params.Key==EKeys::RightMouseButton)
+        {if(Params.Event==IE_Pressed)AmmoPawn->SelectAmmoWheelHand(Params.Key==EKeys::RightMouseButton?1:0);return true;}
+    }
     if(ColdSteelHUD&&ColdSteelHUD->IsQuickDragging())
     {
         if(Params.Event==IE_Pressed&&Params.Key==EKeys::Escape)ColdSteelHUD->CancelQuickDrag();

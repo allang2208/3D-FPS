@@ -3,11 +3,14 @@
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "ColdSteelInventoryTypes.h"
 #include "ColdSteelWarehouseRules.h"
+#include "ColdSteelAmmoTypes.h"
 #include "../Movement/FPSStaminaTuning.h"
 #include "ColdSteelStatusModel.generated.h"
 
 class APawn;
 struct FMeleeModifiers;
+struct FSlateBrush;
+class UTexture2D;
 
 DECLARE_MULTICAST_DELEGATE(FColdSteelStatusChanged);
 
@@ -234,6 +237,21 @@ public:
     void TickRuntime(float Delta,class AFPSGAMECharacter* Pawn);
     void SyncRuntime();
     FString AmmoDefinitionFor(const FColdSteelItem& Item) const;
+    const TArray<FColdSteelAmmoType>& AmmoCatalog() const { return AmmoTypes; }
+    const FColdSteelAmmoType* AmmoType(const FString& Id) const;
+    FString AmmoGroupFor(const FColdSteelItem& Item) const;
+    FString AmmoLabel(const FString& Id) const;
+    TArray<FColdSteelAmmoChoice> CompatibleAmmo(const FColdSteelItem& Item) const;
+    int64 PouchCount(const FString& Id) const;
+    bool GrantAmmo(const FString& Id,int64 Count);
+    bool SpendAmmo(const FString& Id,int64 Count);
+    bool AddAmmoToState(FColdSteelProfile& State,const FString& Id,int64 Count) const;
+    bool CanSwitchAmmo(const FString& WeaponId,const FString& Target) const;
+    bool CommitAmmoSwitch(const FString& WeaponId,const FString& Target,int32 Capacity);
+    float AmmoDamageMultiplier(const FColdSteelItem& Item) const;
+    float AmmoArmorPenetration(const FColdSteelItem& Item) const;
+    FString AmmoEffectSummary(const FString& Id) const;
+    const FSlateBrush* AmmoIcon(const FString& Id);
     int32 AmmoCountFor(const FColdSteelItem& Item) const;
     int32 ReloadDualPistol(const FString& InstanceId,int32 Requested,int32 Capacity,bool Completed);
     bool EjectDualPistolCases(const FString& InstanceId,bool DiscardLive);
@@ -248,6 +266,12 @@ public:
     bool AuditFailNextSave = false;
     FString ProfileSlot() const { return SaveSlot; }
 private:
+    TArray<FColdSteelAmmoType> AmmoTypes;
+    UPROPERTY(Transient) TMap<FString,TObjectPtr<UTexture2D>> AmmoIconTextures;
+    TMap<FString,TSharedPtr<FSlateBrush>> AmmoIconBrushes;
+    TMap<FString,FString> WeaponAmmoGroups;
+    void LoadAmmoCatalog();
+    bool NormalizeAmmo(FColdSteelProfile& State,bool& Changed) const;
     /** Quick slot whose ice spike preview is currently held, INDEX_NONE when none. */
     int32 AimPreviewIndex = INDEX_NONE;
     FColdSteelStaminaTuning StaminaTuning;

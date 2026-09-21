@@ -1,0 +1,234 @@
+[
+  {
+    "source": "C:\\Users\\allan\\.codex\\generated_images\\01a0bebc-64ab-7000-83fd-e3871844b41d\\exec-54f07ff1-2c32-4a35-b2fb-c8ed9fc8b5d8.png",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\GeneratedImages\\exec-54f07ff1-2c32-4a35-b2fb-c8ed9fc8b5d8.png",
+    "bytes": 1976089,
+    "sha256": "1f79a2a0169d1f5607ede1b3421f1571de9ff3efd7b75d5b65bd47018772caa8",
+    "reason": "LP initial red packaging; replaced by green tier",
+    "replacement": "Content/ColdSteelData/Icons/Ammo76220260921/762_lp.png"
+  },
+  {
+    "source": "C:\\Users\\allan\\.codex\\generated_images\\01a0bebc-64ab-7000-83fd-e3871844b41d\\exec-0a23a8dd-402a-431d-ab35-c081a637f7e3.png",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\GeneratedImages\\exec-0a23a8dd-402a-431d-ab35-c081a637f7e3.png",
+    "bytes": 1886236,
+    "sha256": "4cf6bd4e48991ff2e52e69a10e97c79a40b76af2d48dbe074b4c8de138e9c5d5",
+    "reason": "PS initial green packaging; replaced by blue tier",
+    "replacement": "Content/ColdSteelData/Icons/Ammo76220260921/762_ps.png"
+  },
+  {
+    "source": "C:\\Users\\allan\\.codex\\generated_images\\01a0bebc-64ab-7000-83fd-e3871844b41d\\exec-653d8846-bf6d-4660-b851-85040f6a49a4.png",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\GeneratedImages\\exec-653d8846-bf6d-4660-b851-85040f6a49a4.png",
+    "bytes": 2018123,
+    "sha256": "c2e21166ca3792b1575552e6a5723709b995595e08387f1859a0254751699f17",
+    "reason": "AP initial charcoal packaging; replaced by red tier",
+    "replacement": "Content/ColdSteelData/Icons/Ammo76220260921/762_ap.png"
+  },
+  {
+    "source": "C:\\Users\\allan\\.codex\\generated_images\\01a0bebc-64ab-7000-83fd-e3871844b41d\\exec-cdd07215-4df9-4935-90f3-b4f9e255b9e7.png",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\GeneratedImages\\exec-cdd07215-4df9-4935-90f3-b4f9e255b9e7.png",
+    "bytes": 2700101,
+    "sha256": "7d17b97926c3bb1a9787dce77351fc40a1de89ad9870daa96bf9ab30a3a61f57",
+    "reason": "Rejected PS transparency edit with baked checkerboard",
+    "replacement": "Content/ColdSteelData/Icons/Ammo76220260921/762_ps.png"
+  },
+  {
+    "source": "C:\\Users\\allan\\.codex\\generated_images\\01a0bebc-64ab-7000-83fd-e3871844b41d\\exec-0ed14736-ed4c-487e-bdcc-3a90efc9d0c5.png",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\GeneratedImages\\exec-0ed14736-ed4c-487e-bdcc-3a90efc9d0c5.png",
+    "bytes": 2607467,
+    "sha256": "2f1e7bdba09e095d9652452d92267116e983797d8c10475352537671a21d93a9",
+    "reason": "Rejected AP transparency edit with baked checkerboard",
+    "replacement": "Content/ColdSteelData/Icons/Ammo76220260921/762_ap.png"
+  },
+  {
+    "source": "C:\\Users\\allan\\.codex\\generated_images\\01a0bebc-64ab-7000-83fd-e3871844b41d\\exec-9d0dd4ce-fc72-4d74-a2eb-240fdb2f4cd1.png",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\GeneratedImages\\exec-9d0dd4ce-fc72-4d74-a2eb-240fdb2f4cd1.png",
+    "bytes": 1866410,
+    "sha256": "8185f07264e5e25c23134a94bb83726650370badb0fcdc180da1e7ad103bce08",
+    "reason": "Horizontal selector replaced by approved radial menu",
+    "replacement": "Docs/UI/Concepts/AmmoPouch-20260921/04-hold-r-radial-v2.png"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\Docs\\UI\\Concepts\\AmmoPouch-20260921\\03-hold-r-selector.png",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\Concepts\\03-hold-r-selector.png",
+    "bytes": 1866410,
+    "sha256": "8185f07264e5e25c23134a94bb83726650370badb0fcdc180da1e7ad103bce08",
+    "reason": "Installed copy of rejected horizontal selector",
+    "replacement": "Docs/UI/Concepts/AmmoPouch-20260921/04-hold-r-radial-v2.png"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\BeforeCode\\Content\\ColdSteelData\\combat-weapon-formulas.json",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\A762\\Accessories05\\BeforeCode\\Content\\ColdSteelData\\combat-weapon-formulas.json",
+    "bytes": 3332,
+    "sha256": "f41424dc2150a5cc621ee2f442d4a4360262ee97b2b3dc6f2fbc5f314b8a70e2",
+    "reason": "Superseded pre-edit source snapshot; not an authoring input",
+    "replacement": "Current Source/FPSGAME and Content/ColdSteelData; retained final A762 authoring sources"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\BeforeCode\\Content\\ColdSteelData\\gunsmith.json",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\A762\\Accessories05\\BeforeCode\\Content\\ColdSteelData\\gunsmith.json",
+    "bytes": 107765,
+    "sha256": "1b8b7a6a2fe8a912b6b6f11eb1f7778e3fe16cf12a0bfd5045addb67d0a63159",
+    "reason": "Superseded pre-edit source snapshot; not an authoring input",
+    "replacement": "Current Source/FPSGAME and Content/ColdSteelData; retained final A762 authoring sources"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\BeforeCode\\Source\\FPSGAME\\FPSGAMECharacter.cpp",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\A762\\Accessories05\\BeforeCode\\Source\\FPSGAME\\FPSGAMECharacter.cpp",
+    "bytes": 165789,
+    "sha256": "1a6435697cd57d35846515d8aa176e4b09b503af48d64118df0de3bdb75f44d1",
+    "reason": "Superseded pre-edit source snapshot; not an authoring input",
+    "replacement": "Current Source/FPSGAME and Content/ColdSteelData; retained final A762 authoring sources"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\A762WeaponAssets.h",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\A762\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\A762WeaponAssets.h",
+    "bytes": 1244,
+    "sha256": "44cc7d54e6d009034f84ca87d2aa82ac7002566ce054cadf09fea76cbefb0a05",
+    "reason": "Superseded pre-edit source snapshot; not an authoring input",
+    "replacement": "Current Source/FPSGAME and Content/ColdSteelData; retained final A762 authoring sources"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\GunsmithSystem.cpp",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\A762\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\GunsmithSystem.cpp",
+    "bytes": 13825,
+    "sha256": "c8b608d98555495b520fbe252d1a964a525674677e89c111cedbd71b2e42f0e6",
+    "reason": "Superseded pre-edit source snapshot; not an authoring input",
+    "replacement": "Current Source/FPSGAME and Content/ColdSteelData; retained final A762 authoring sources"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\M4AngledForegrip.cpp",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\A762\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\M4AngledForegrip.cpp",
+    "bytes": 4348,
+    "sha256": "3b88e3432ed99c00301e51e69f037ea32678231c1df2f7dea754fb8905b88e66",
+    "reason": "Superseded pre-edit source snapshot; not an authoring input",
+    "replacement": "Current Source/FPSGAME and Content/ColdSteelData; retained final A762 authoring sources"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\M4CantedForegrip.cpp",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\A762\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\M4CantedForegrip.cpp",
+    "bytes": 4806,
+    "sha256": "8b6d6b2c29f3b48eff1c189a2f47ac6cd1eea8cb96d702d484ad94644d364daa",
+    "reason": "Superseded pre-edit source snapshot; not an authoring input",
+    "replacement": "Current Source/FPSGAME and Content/ColdSteelData; retained final A762 authoring sources"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\M4DrumVisual.cpp",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\A762\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\M4DrumVisual.cpp",
+    "bytes": 14253,
+    "sha256": "e6f325079572959993817399c70bc6c985082c3e7fceae13a72d91735119935e",
+    "reason": "Superseded pre-edit source snapshot; not an authoring input",
+    "replacement": "Current Source/FPSGAME and Content/ColdSteelData; retained final A762 authoring sources"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\M4FoldingSights.cpp",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\A762\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\M4FoldingSights.cpp",
+    "bytes": 5000,
+    "sha256": "e2a57692a32329794b844c0cdc046fed3faa20c00006e7d69dfb6f9ae2e1602f",
+    "reason": "Superseded pre-edit source snapshot; not an authoring input",
+    "replacement": "Current Source/FPSGAME and Content/ColdSteelData; retained final A762 authoring sources"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\M4GunsmithVisual.cpp",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\A762\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\M4GunsmithVisual.cpp",
+    "bytes": 16018,
+    "sha256": "2ece27aad58d9f58f0c7423190050076cff3fee52aea0146becc0ac4d2144554",
+    "reason": "Superseded pre-edit source snapshot; not an authoring input",
+    "replacement": "Current Source/FPSGAME and Content/ColdSteelData; retained final A762 authoring sources"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\M4HandstopVisual.cpp",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\A762\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\M4HandstopVisual.cpp",
+    "bytes": 6386,
+    "sha256": "e4c72d03e4ef8bb86d0ce6d92ebe500ab1433c60a32b806027f3451aedd2dde2",
+    "reason": "Superseded pre-edit source snapshot; not an authoring input",
+    "replacement": "Current Source/FPSGAME and Content/ColdSteelData; retained final A762 authoring sources"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\M4MuzzleVisual.cpp",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\A762\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\M4MuzzleVisual.cpp",
+    "bytes": 10778,
+    "sha256": "da1400db628ce50c1f5cef477a867e9f423871d6b01040061968c928870848ea",
+    "reason": "Superseded pre-edit source snapshot; not an authoring input",
+    "replacement": "Current Source/FPSGAME and Content/ColdSteelData; retained final A762 authoring sources"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\M4VerticalForegrip.cpp",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\A762\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\M4VerticalForegrip.cpp",
+    "bytes": 5400,
+    "sha256": "b3f4ee6617780c5b2499a96ac442f4edeebd129d7506125b7a8823877f9bdc89",
+    "reason": "Superseded pre-edit source snapshot; not an authoring input",
+    "replacement": "Current Source/FPSGAME and Content/ColdSteelData; retained final A762 authoring sources"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\PhantomRearGripVisual.cpp",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\A762\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\PhantomRearGripVisual.cpp",
+    "bytes": 3309,
+    "sha256": "abca651338b644d2e3f6bd3ff0cb591ba5bd91e5b569b064b3e365af9ea43c8b",
+    "reason": "Superseded pre-edit source snapshot; not an authoring input",
+    "replacement": "Current Source/FPSGAME and Content/ColdSteelData; retained final A762 authoring sources"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\SkeletonStockVisual.cpp",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\A762\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\SkeletonStockVisual.cpp",
+    "bytes": 6524,
+    "sha256": "452987446a67b8c2feb925b5ef4c0eb5b2a37459f6fafb7320ed48b616701417",
+    "reason": "Superseded pre-edit source snapshot; not an authoring input",
+    "replacement": "Current Source/FPSGAME and Content/ColdSteelData; retained final A762 authoring sources"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\TacticalDeviceComponent.cpp",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\A762\\Accessories05\\BeforeCode\\Source\\FPSGAME\\Weapons\\TacticalDeviceComponent.cpp",
+    "bytes": 11739,
+    "sha256": "f0905bc003141513e5442a941dbff7f40c14c298ac73c5fe1c91d274c236d64a",
+    "reason": "Superseded pre-edit source snapshot; not an authoring input",
+    "replacement": "Current Source/FPSGAME and Content/ColdSteelData; retained final A762 authoring sources"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\InventoryIcon07\\Before\\ColdSteelPickupWeapon.cpp",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\A762\\InventoryIcon07\\Before\\ColdSteelPickupWeapon.cpp",
+    "bytes": 6298,
+    "sha256": "3cf03d14c78f9adafa0a3818c7881722dd057259a071cf77a2451272c8b88565",
+    "reason": "Superseded pre-edit source snapshot; not an authoring input",
+    "replacement": "Current Source/FPSGAME and Content/ColdSteelData; retained final A762 authoring sources"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\InventoryIcon07\\Before\\ColdSteelWeaponIconCatalogCommandlet.cpp",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\A762\\InventoryIcon07\\Before\\ColdSteelWeaponIconCatalogCommandlet.cpp",
+    "bytes": 1427,
+    "sha256": "23e859fe9fd4c2996cabee535035a66aad24ee79ea45159364a359cd96c20581",
+    "reason": "Superseded pre-edit source snapshot; not an authoring input",
+    "replacement": "Current Source/FPSGAME and Content/ColdSteelData; retained final A762 authoring sources"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\InventoryIcon07\\Before\\ColdSteelWeaponIcons.cpp",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\A762\\InventoryIcon07\\Before\\ColdSteelWeaponIcons.cpp",
+    "bytes": 19265,
+    "sha256": "0aa32538df4c5a4573c43b9f1fd34df03d8d7d9244c9a2d35476534205351e8f",
+    "reason": "Superseded pre-edit source snapshot; not an authoring input",
+    "replacement": "Current Source/FPSGAME and Content/ColdSteelData; retained final A762 authoring sources"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\InventoryIcon07\\Before\\integrate_catalog.py",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\A762\\InventoryIcon07\\Before\\integrate_catalog.py",
+    "bytes": 3330,
+    "sha256": "ac39ffe455603474a76690fa38b9f89ba374c3d9c21ee5366e9b0ae96785f713",
+    "reason": "Superseded pre-edit source snapshot; not an authoring input",
+    "replacement": "Current Source/FPSGAME and Content/ColdSteelData; retained final A762 authoring sources"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\InventoryIcon07\\Before\\items.json",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\A762\\InventoryIcon07\\Before\\items.json",
+    "bytes": 86096,
+    "sha256": "0d1b40e571b38a94172172aee329e677d367b0a9b14e31983f10d65a76bed1ac",
+    "reason": "Superseded pre-edit source snapshot; not an authoring input",
+    "replacement": "Current Source/FPSGAME and Content/ColdSteelData; retained final A762 authoring sources"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\pending_compile_fix.patch",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\a762-ammo-publication-20260921\\A762\\Accessories05\\pending_compile_fix.patch",
+    "bytes": 931,
+    "sha256": "a93c9306b033741f79ad9be9a1f83dce1aa4b3a0f8cd4b6bfd154c4e92e6b55e",
+    "reason": "Parameter rename already present in repository; obsolete pending patch",
+    "replacement": "Source/FPSGAME/Monsters/WitchMotionCandidate.h and .cpp"
+  }
+]

@@ -14,6 +14,7 @@ namespace ColdSteelSkills
     FPSGAME_API int32 ExperienceRequired(const FColdSteelSkillDefinition& Definition, int32 Level);
     FPSGAME_API void AddExperience(FColdSteelProfile& Profile, const FColdSteelSkillDefinition& Definition, int32 Amount);
     FPSGAME_API FString EffectSummary(const FColdSteelSkillEffect& Effect);
-    FPSGAME_API FColdSteelSkillShot Snapshot(AActor* Shooter,const FColdSteelItem* Item=nullptr);
+    // Ammo effects apply only to fired rounds, never to a rifle-stock/pistol melee strike.
+    FPSGAME_API FColdSteelSkillShot Snapshot(AActor* Shooter,const FColdSteelItem* Item=nullptr,bool bFiredRound=false);
     FPSGAME_API float ApplyHit(AActor* Shooter, const FHitResult& Hit, float Damage, const FVector& Direction, const FColdSteelSkillShot& Shot,FWeaponDamageResult* Result=nullptr);
 }

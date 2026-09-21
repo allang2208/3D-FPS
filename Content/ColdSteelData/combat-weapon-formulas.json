@@ -143,5 +143,22 @@
         "perEnhance": 0.05
       }
     ]
+  },
+  "ue_a762": {
+    "source": "A762_ITEM",
+    "base": 7.6,
+    "enhanceFlat": 0.57,
+    "attrs": [
+      {
+        "key": "int",
+        "base": 0.2755,
+        "perEnhance": 0.04275
+      },
+      {
+        "key": "wis",
+        "base": 0.2755,
+        "perEnhance": 0.04275
+      }
+    ]
   }
 }

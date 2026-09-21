@@ -1,4 +1,5 @@
 #include "../FPSGAMECharacter.h"
+#include "A762Attachments.h"
 #include "M16Attachments.h"
 #include "AKMSovietCalibration.h"
 #include "Components/StaticMeshComponent.h"
@@ -26,7 +27,7 @@ void AFPSGAMECharacter::SetGunsmithRearGrip(const FString& Variant)
     if(Enabled&&HasFactory)
     {
         const TCHAR* Family=bUseQBZ191?TEXT("QBZ191"):AKMSoviet::Matches(Rifle)?TEXT("AKM"):TEXT("M4");
-        const FString Path=bUseM16?M16Attachments::MeshPath(Variant):StableGrip
+        const FString Path=A762WeaponAssets::Matches(Rifle)?A762Attachments::MeshPath(Variant):bUseM16?M16Attachments::MeshPath(Variant):StableGrip
             ?FString::Printf(TEXT("/Game/Weapons/StableAntiSlipRearGrip/Selected91727/%s/SM_StableAntiSlipRearGrip.SM_StableAntiSlipRearGrip"),Family)
             :BalancedGrip
                 ?(FCString::Strcmp(Family,TEXT("M4"))==0

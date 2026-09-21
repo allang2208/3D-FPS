@@ -1,5 +1,7 @@
 #include "../FPSGAMECharacter.h"
+#include "A762Attachments.h"
 #include "M16Attachments.h"
+#include "A762WeaponAssets.h"
 #include "AKMAttachmentVisual.h"
 #include "ASH12WeaponAssets.h"
 #include "QBZ191Attachments.h"
@@ -25,6 +27,40 @@ void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
     const bool Scope2X=Variant==TEXT("prism_scope_2x");
     bool bHolographic=Variant==TEXT("holographic")||Panoramic||Scope2X||LPVO;
     if(LPVORing&&!LPVO)LPVORing->SetVisibility(false);
+    if (A762WeaponAssets::Matches(AKMViewmodel))
+    {
+        bHolographic=bHolographic&&bInventoryWeaponReady;
+        if (bHolographic)
+        {
+            const TCHAR* Name=LPVO?TEXT("SM_LPVO1to6X"):Scope2X?TEXT("SM_PrismScope2X"):Panoramic?TEXT("SM_PanoramicRedDot"):TEXT("SM_M4_Holographic");
+            auto* Optic=LoadObject<UStaticMesh>(nullptr,*A762Attachments::MeshPath(Variant));
+            if (!Optic) return;
+            if (!HolographicOptic)
+            {
+                HolographicOptic=NewObject<UStaticMeshComponent>(this,TEXT("A762Optic"));
+                HolographicOptic->SetupAttachment(AKMViewmodel,TEXT("WPN_root"));
+                HolographicOptic->SetCollisionEnabled(ECollisionEnabled::NoCollision);HolographicOptic->SetCastShadow(false);HolographicOptic->bReceivesDecals=false;HolographicOptic->RegisterComponent();
+            }
+            HolographicOptic->EmptyOverrideMaterials();HolographicOptic->SetStaticMesh(Optic);
+            HolographicMount=A762Attachments::OpticMount(Variant);
+            HolographicOptic->SetRelativeTransform(HolographicMount);
+        }
+        if (bHolographicOptic!=bHolographic || OpticVariant!=Variant) bSightCalibrated=false;
+        if (OpticVariant!=Variant) LPVOMagnification=1.f;
+        bHolographicOptic=bHolographic;OpticVariant=bHolographic?Variant:FString();
+        if (HolographicOptic) HolographicOptic->SetVisibility(bHolographic);
+        if (LPVO&&bHolographic&&!LPVORing)
+        {
+            auto* RingMesh=LoadObject<UStaticMesh>(nullptr,*A762Attachments::MeshPath(TEXT("lpvo_ring")));
+            if (RingMesh)
+            {
+                LPVORing=NewObject<UStaticMeshComponent>(this);LPVORing->SetStaticMesh(RingMesh);LPVORing->SetCollisionEnabled(ECollisionEnabled::NoCollision);LPVORing->SetCastShadow(false);
+                LPVORing->SetupAttachment(HolographicOptic);LPVORing->RegisterComponent();LPVORing->SetRelativeLocation(FVector(-7.1f,0,4.f));
+            }
+        }
+        if (LPVORing){LPVORing->SetVisibility(LPVO&&bHolographic);LPVORing->SetRelativeRotation(FRotator(0,0,(LPVOMagnification-1.f)*24.f));}
+        UpdateFoldingSights(0.f);return;
+    }
     if(AKMSoviet::Matches(AKMViewmodel)){
         bHolographic=bHolographic&&bInventoryWeaponReady;
         const bool Modern=bHolographic&&(Panoramic||Scope2X||LPVO);

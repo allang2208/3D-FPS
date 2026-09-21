@@ -92,6 +92,7 @@ const TArray<FColdSteelCatalogEntry>& UColdSteelStatusModel::ItemCatalog() const
     bItemCatalogBuilt=true;
     for(const auto& Pair:Definitions)
     {
+        if(AmmoType(Pair.Key))continue;
         TSharedPtr<FJsonObject> Object;
         if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Pair.Value),Object)||!Object)continue;
         FColdSteelCatalogEntry Entry;
@@ -104,6 +105,8 @@ const TArray<FColdSteelCatalogEntry>& UColdSteelStatusModel::ItemCatalog() const
         ClassifyItem(Category,Type,Entry.Group,Entry.GroupOrder);
         ItemCatalogCache.Add(MoveTemp(Entry));
     }
+    for(const auto& Type:AmmoTypes)if(Type.Enabled)
+    {FColdSteelCatalogEntry Entry;Entry.Definition=Type.Id;Entry.Name=AmmoLabel(Type.Id);Entry.Group=TEXT("弹药");Entry.GroupOrder=1;ItemCatalogCache.Add(MoveTemp(Entry));}
     // 类别顺序固定，类别内按名称排序；下拉列表按此顺序生成，同类条目连续。
     ItemCatalogCache.Sort([](const FColdSteelCatalogEntry& A,const FColdSteelCatalogEntry& B)
     {

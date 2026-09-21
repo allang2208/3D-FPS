@@ -1,0 +1,44 @@
+{
+  "api_base": "https://api.meshy.ai/openapi",
+  "proxy": "http://127.0.0.1:7897",
+  "common": {
+    "ai_model": "meshy-7.1",
+    "geometry_resolution": "2k",
+    "should_texture": true,
+    "enable_pbr": true,
+    "texture_resolution": "8k",
+    "should_remesh": false,
+    "image_enhancement": false,
+    "remove_lighting": true,
+    "target_formats": [
+      "glb",
+      "fbx",
+      "obj"
+    ],
+    "auto_size": false,
+    "alpha_thumbnail": false,
+    "multi_view_thumbnails": false
+  },
+  "assets": {
+    "candidate01": {
+      "images": [
+        "References/a762_side.png",
+        "References/a762_front_threequarter.png",
+        "References/a762_rear_threequarter.png"
+      ],
+      "options": {
+        "texture_prompt": "Faithful A762 game rifle. Charcoal black slightly blue-tinted blued steel receiver, barrel, gas tube, skeletal stock and curved steel magazine. Fine subtle machining, crisp seams, small rivets and screws, restrained rubbed metal only on exposed edges. Matte dark charcoal polymer pistol grip, round forearm and buttpad with fine grain. Preserve long rail grooves and magazine border channels; no camouflage, heavy rust, bright colors, luminous paint, baked highlights or shadows. Very small off-white caliber marking only where reference supports it."
+      }
+    }
+  },
+  "sources": [
+    "https://docs.meshy.ai/en/api/multi-image-to-3d",
+    "https://docs.meshy.ai/en/api/pricing"
+  ],
+  "purpose": "High-detail external visual game-asset candidate; no internal mechanical design, gameplay integration or rigging in this stage.",
+  "budget": {
+    "planned_tasks": 1,
+    "estimated_credits": 40,
+    "source": "official pricing 2026-09-20: textured8k35+geometry2k5"
+  }
+}

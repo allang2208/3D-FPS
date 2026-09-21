@@ -44,7 +44,7 @@ double ColdSteelWeaponStats::Reload(const FColdSteelItem* Item,const UColdSteelS
 }
 FString ColdSteelWeaponStats::AmmoName(const FString& Definition)
 {
-    static const TMap<FString,FString> Names={{TEXT("ammo_556"),TEXT("5.56 mm")},{TEXT("ammo_762"),TEXT("7.62 mm")},
+    static const TMap<FString,FString> Names={{TEXT("ammo_556"),TEXT("5.56 mm")},{TEXT("ammo_762"),TEXT("7.62x39mm")},
         {TEXT("ammo_58"),TEXT("5.8 mm")},{TEXT("ammo_9mm"),TEXT("9 mm")},{TEXT("ammo_45acp"),TEXT(".45 ACP")},
         {TEXT("ammo_357"),TEXT(".357 MAG")},{TEXT("ammo_127"),TEXT("12.7 mm")}};
     const auto* Name=Names.Find(Definition);

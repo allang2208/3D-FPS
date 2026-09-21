@@ -40,6 +40,7 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
     friend class UPistolDualWieldComponent;
     friend class FDualPistolQuickCombatRegression;
     friend class URuneSwordComponent;
+    friend class UM4TacticalSprintComponent;
 
 public:
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM4Infima = true;
@@ -157,6 +158,13 @@ public:
     int32 GetMagazineCapacity() const { return MagazineCapacity; }
     UFUNCTION(BlueprintPure, Category = "AKM") int32 GetReserveAmmo() const { return ReserveAmmo; }
     UFUNCTION(BlueprintPure, Category = "AKM") bool HasInfiniteReserveAmmo() const;
+    bool HasInfiniteReserveAmmoFor(const FString& AmmoType) const;
+    bool IsAmmoWheelOpen() const { return AmmoWheel!=nullptr; }
+    bool IsChoosingAmmo() const { return bReloadInputHeld||IsAmmoWheelOpen(); }
+    void CancelAmmoSelection();
+    void SelectAmmoWheelHand(int32 Hand);
+    bool StartAmmoSwitch(const FString& WeaponId,const FString& Target);
+    const FString& GetPendingAmmoType() const { return PendingAmmoType; }
     UFUNCTION(BlueprintPure, Category = "AKM") EAKMWeaponState GetWeaponState() const { return WeaponState; }
 
 protected:
@@ -366,6 +374,14 @@ private:
     void AimPressed();
     void AimReleased();
     void ReloadPressed();
+    void ReloadInputPressed();
+    void ReloadInputReleased();
+    void UpdateAmmoSelection();
+    void MoveAmmoPointer(FVector2D Delta);
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelAmmoWheel> AmmoWheel;
+    bool bReloadInputHeld=false;
+    double ReloadInputStarted=0;
+    FString AmmoSelectionWeapon,PendingAmmoType,PendingAmmoWeapon;
     void InspectPressed();
     void QuickCombatPressed();
     /** 当前 M4 的握把配置（冲刺与枪托砸击共用同一解析口径）。 */

@@ -29,6 +29,9 @@ struct FColdSteelItem
     UPROPERTY() float Cooldown = 0;
     UPROPERTY() int32 Magazine = 30;
     UPROPERTY() int32 Reserve = 90;
+    UPROPERTY() FString LoadedAmmoType;
+    // Virtual range rounds are never refunded into the owned ammunition pouch.
+    UPROPERTY() int32 VirtualMagazineAmmo = 0;
 };
 
 /** Catalog row for the F6 development panel: definition id, display name and grouped class. */
@@ -79,6 +82,8 @@ struct FColdSteelProfile
     UPROPERTY() int32 ActiveWeaponSlot = 6;
     UPROPERTY() TMap<FName, int32> Attributes;
     UPROPERTY() TArray<FColdSteelItem> Items;
+    UPROPERTY() int32 AmmoPouchVersion = 0;
+    UPROPERTY() TMap<FString,int64> AmmoPouch;
     UPROPERTY() TArray<FString> Hotbar;
     UPROPERTY() TArray<FString> HotbarDefinitions;
     UPROPERTY() int32 QuickBarVersion = 0;

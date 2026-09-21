@@ -12,7 +12,7 @@ int32 UColdSteelHUDWidget::NativePaint(const FPaintArgs& Args,const FGeometry& G
     const auto* PC=GetOwningPlayer();
     const auto* Character=PC?Cast<AFPSGAMECharacter>(PC->GetPawn()):nullptr;
     int32 Result=Super::NativePaint(Args,Geometry,Clip,Elements,Layer,Style,Enabled);
-    if(!Character||bInventoryOpen||bWarehouseOpen||PC->bShowMouseCursor)return Result;
+    if(!Character||bInventoryOpen||bWarehouseOpen||PC->bShowMouseCursor||Character->IsAmmoWheelOpen())return Result;
     const FVector2D Center=Geometry.GetLocalSize()*.5;
     const float Scale=Geometry.GetLocalSize().Y/1080.f;
     FMonsterHitFeedback Feedback;

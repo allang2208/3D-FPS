@@ -121,3 +121,7 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 ## 技能图标系列
 
 生成或替换冷钢技能图标时，读取 [技能图标系列](references/skill-icon-series.md)。
+
+## 弹药袋与圆形选择
+
+弹药袋子页、按弹种数量等分的 R 轮盘、鼠标选择和图标缓存，读取 [动态弹种轮盘与弹药袋](references/ammo-radial-and-pouch.md)。

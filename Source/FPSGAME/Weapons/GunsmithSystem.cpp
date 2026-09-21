@@ -51,6 +51,7 @@ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
         const auto B=O->GetObjectField(TEXT("base"));W.Ammo=B->GetStringField(TEXT("ammo_item_id"));
         W.Base.ADS=FMath::Loge(20.)/Num(B,TEXT("ads_smooth"),9.98577424518);W.Base.Capacity=Num(B,TEXT("mag_size"),30);
         W.Base.Recoil=Num(B,TEXT("recoil"),100);W.Base.Shake=Num(B,TEXT("camera_shake"),100);W.Base.Interval=Num(B,TEXT("fire_interval"),.13);
+        W.Base.StabilityMultiplier=Num(B,TEXT("stability_mult"),1);
         W.Base.BurstCount=FMath::Max(1,int32(Num(B,TEXT("burst_count"),1)));
         W.Base.BurstDelay=FMath::Max(0.,Num(B,TEXT("burst_delay")));
         W.Base.Reload=Num(B,TEXT("reload_time"),1.5);W.Base.EmptyReload=Num(B,TEXT("empty_reload_time"));if(W.Base.EmptyReload<=0)W.Base.EmptyReload=W.Base.Reload;
@@ -168,7 +169,7 @@ bool UGunsmithSystem::Apply()
     auto Parts=MakeShared<FJsonObject>();for(const auto& P:Preview){if(P.Value==TEXT("true"))Parts->SetBoolField(P.Key,true);else Parts->SetStringField(P.Key,P.Value);}
     Data->SetObjectField(TEXT("gunsmith_parts"),Parts);Data->SetNumberField(TEXT("gunsmith_version"),1);I.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&I.Data));
     const int32 Overflow=IsMelee(DefinitionId)?0:FMath::Max(0,I.Magazine-Calculate(DefinitionId,Preview).Capacity);
-    if(Overflow){I.Magazine-=Overflow;const auto Ammo=Profile->CreateItem(Weapon(DefinitionId)->Ammo,Overflow);if(Ammo.Data.IsEmpty()||!ColdSteelInventory::Insert(State.Items,Ammo)){Status=TEXT("背包无空间收回弹药，改造未应用");return false;}}
+    if(Overflow){const int32 Virtual=FMath::Min(Overflow,I.VirtualMagazineAmmo);I.Magazine-=Overflow;I.VirtualMagazineAmmo-=Virtual;if(!Profile->AddAmmoToState(State,Profile->AmmoDefinitionFor(I),Overflow-Virtual)){Status=TEXT("弹药无法退回弹药袋，改造未应用");return false;}}
     if(!Profile->CommitState(State)){Status=Profile->ResultMessage();return false;}
     Original=Preview;Status=TEXT("已应用改造并保存");OnChanged.Broadcast();return true;
 }

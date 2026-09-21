@@ -35,7 +35,7 @@ inline double Defense(double Damage,double Def,bool Magic=false,double Penetrati
 {
     if(Damage<=0)return Damage;
     if(Magic)Def=std::floor(Def*(1-std::clamp(Shred,0.,.95)));
-    if(Penetration!=0)Def=std::floor(Def*(1-Penetration));
+    if(Penetration!=0)Def=std::floor(Def*(1-std::clamp(Penetration,0.,1.)));
     if(!Magic)Def=std::max(0.,std::floor(Def*Corrosion));
     return std::max(std::floor(Damage*(1-Def/(Def+60))),std::floor(Damage*.1));
 }

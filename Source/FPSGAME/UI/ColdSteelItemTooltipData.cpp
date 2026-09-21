@@ -157,7 +157,12 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         if(!bPickaxe)Row(Main,TEXT("伐木命中宽容半径"),N(Number(O,TEXT("harvest_sweep_radius_cm"),32))+TEXT(" cm"));
         Row(Main,TEXT("采集规则"),bPickaxe?TEXT("三次有效命中开采；伤害属性不改变采矿所需次数"):TEXT("三次有效命中砍倒；伤害属性不改变伐木所需次数"));
     }else if(Weapon){Section(Main,TEXT("枪械参数"));AppendColdSteelTooltipAttackFormula(I,Model,S.Damage,Main);
-        Row(Main,TEXT("子弹数"),FString::Printf(TEXT("%d / %d 发"),I.Magazine,S.Capacity));Row(Main,TEXT("弹药"),ColdSteelWeaponStats::AmmoName(Weapon->Ammo));
+        Row(Main,TEXT("子弹数"),FString::Printf(TEXT("%d / %d 发"),I.Magazine,S.Capacity));Row(Main,TEXT("弹药"),Model?Model->AmmoLabel(Model->AmmoDefinitionFor(I)):ColdSteelWeaponStats::AmmoName(Weapon->Ammo));
+        if(Model)
+        {
+            Row(Main,TEXT("弹种效果"),Model->AmmoEffectSummary(Model->AmmoDefinitionFor(I)));
+            Row(Main,TEXT("装填后射击伤害"),N(ColdSteelWeaponStats::Damage(I,Model,S.Damage)*Model->AmmoDamageMultiplier(I)));
+        }
         Row(Main,S.BurstCount>1?TEXT("组内射击间隔"):TEXT("攻击间隔"),N(FMath::RoundToInt(ColdSteelWeaponStats::Interval(&I,Model,S.Interval)*1000))+TEXT(" ms"));
         const double FireInterval=ColdSteelWeaponStats::Interval(&I,Model,S.Interval);
         Row(Main,S.BurstCount>1?TEXT("组内理论射速"):TEXT("理论射速"),FireInterval>0?N(60./FireInterval)+TEXT(" 发/分"):TEXT("—"));

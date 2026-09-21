@@ -1,4 +1,5 @@
 #include "../FPSGAMECharacter.h"
+#include "A762Attachments.h"
 #include "M16Attachments.h"
 #include "AKMAttachmentVisual.h"
 #include "QBZ191Attachments.h"
@@ -13,7 +14,7 @@
 void AFPSGAMECharacter::InitializeForegripAnimations()
 {
     ForegripAnimations.Reset();
-    if(!bUsingM4Infima&&!AKMSoviet::Matches(AKMViewmodel))return;
+    if(!bUsingM4Infima&&!AKMSoviet::Matches(AKMViewmodel)&&!A762WeaponAssets::Matches(AKMViewmodel))return;
     const TPair<UAnimSequence*,const TCHAR*> Clips[]={
         {IdleAnimation,TEXT("idle")},{AimAnimation,TEXT("aim")},
         {FireAnimation,TEXT("fire")},{AimFireAnimation,TEXT("aim_fire")},
@@ -24,7 +25,7 @@ void AFPSGAMECharacter::InitializeForegripAnimations()
     {
         if((bUseQBZ191||bUseASH12||bUseM16)&&!Pair.Key)continue;
         const FString Path=AKMSoviet::Matches(AKMViewmodel)?FString::Printf(TEXT("/Game/Weapons/AKMIntegration/SovietFab/Attachments/angled/A_AKM_angled_%s"),Pair.Value):FString::Printf(TEXT("/Game/Weapons/M4ForegripWristNatural/A_M4_Foregrip_%s"),Pair.Value);
-        const FString ResolvedPath=bUseM16?M16Attachments::AnimationPath(TEXT("angled"),Pair.Value):bUseASH12?ASH12WeaponAssets::GripAnimationPath(TEXT("angled"),Pair.Value):bUseQBZ191?QBZ191Attachments::AnimationPath(TEXT("angled"),Pair.Value):AKMSoviet::Matches(AKMViewmodel)?AKMAttachment::GripAnimationPath(TEXT("angled"),Pair.Value):Path;
+        const FString ResolvedPath=A762WeaponAssets::Matches(AKMViewmodel)?A762Attachments::AnimationPath(TEXT("angled"),Pair.Value):bUseM16?M16Attachments::AnimationPath(TEXT("angled"),Pair.Value):bUseASH12?ASH12WeaponAssets::GripAnimationPath(TEXT("angled"),Pair.Value):bUseQBZ191?QBZ191Attachments::AnimationPath(TEXT("angled"),Pair.Value):AKMSoviet::Matches(AKMViewmodel)?AKMAttachment::GripAnimationPath(TEXT("angled"),Pair.Value):Path;
         auto* Clip=LoadObject<UAnimSequence>(nullptr,*ResolvedPath);
         if(Pair.Key&&Clip&&FMath::IsNearlyEqual(Pair.Key->GetPlayLength(),Clip->GetPlayLength(),.001f))ForegripAnimations.Add(Pair.Key,Clip);
         else UE_LOG(LogTemp,Error,TEXT("FOREGRIP: missing or mismatched clip %s"),*Path);
@@ -36,6 +37,7 @@ void AFPSGAMECharacter::InitializeForegripAnimations()
 
 void AFPSGAMECharacter::SetAngledForegrip(bool bEnabled)
 {
+    if(A762WeaponAssets::Matches(AKMViewmodel)){AngledForegrip=A762Attachments::Configure(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bEnabled&&bInventoryWeaponReady);return;}
     if(bUseM16){AngledForegrip=M16Attachments::Configure(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bEnabled&&bInventoryWeaponReady);return;}
     if(bUseASH12){AngledForegrip=ASH12Attachments::Configure(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bEnabled&&bInventoryWeaponReady);return;}
     if(bUseQBZ191){AngledForegrip=QBZ191Attachments::Configure(this,AKMViewmodel,AngledForegrip,TEXT("angled"),(bEnabled)&&bInventoryWeaponReady);return;}

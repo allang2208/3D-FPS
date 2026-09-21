@@ -175,6 +175,8 @@ FColdSteelProposal Move(const TArray<FColdSteelItem>& Items,const FString& Id,in
 }
 bool Validate(const FColdSteelProfile& P,FString& Reason)
 {
+    if(P.AmmoPouchVersion<0||P.AmmoPouchVersion>1){Reason=TEXT("弹药袋版本无效");return false;}
+    for(const auto& Pair:P.AmmoPouch)if(Pair.Key.IsEmpty()||Pair.Value<0||Pair.Value>9007199254740991ll){Reason=TEXT("弹药袋数量无效");return false;}
     if(!ColdSteelSkills::Validate(P,Reason))return false;
     if(!ColdSteelQuickBar::Validate(P,Reason))return false;
     if(P.StaminaVersion<0||P.StaminaVersion>1||!FMath::IsFinite(P.Stamina)||P.Stamina<0||!FMath::IsFinite(P.StaminaRecoveryDelay)||P.StaminaRecoveryDelay<0||P.StaminaRecoveryDelay>60){Reason=TEXT("体力数据无效");return false;}
@@ -185,6 +187,7 @@ bool Validate(const FColdSteelProfile& P,FString& Reason)
     for(FName Key:{FName("str"),FName("dex"),FName("intt"),FName("con"),FName("wis"),FName("luck")}) {auto V=P.Attributes.Find(Key);if(!V||*V<0||*V>1000000)return false;}
     TSet<FString> Ids;TSet<int32> LegacyWarehouseCells;TArray<FColdSteelItem> Placed;
     for(const auto& I:P.Items) {
+        if(I.VirtualMagazineAmmo<0||I.VirtualMagazineAmmo>I.Magazine){Reason=TEXT("训练弹数量无效");return false;}
         // Rows are bounded per container by Fits below; a rotated instance may exceed the backpack's four.
         if(I.InstanceId.IsEmpty()||Ids.Contains(I.InstanceId)||I.Definition.IsEmpty()||!Object(I)||I.Count<=0||I.StackMax<1||I.Count>I.StackMax||I.StackMax>9007199254740991ll||I.Width<1||I.Width>18||I.Height<1||I.Height>ColdSteelWarehouse::Rows||I.Place<0||(I.Place>2&&I.Place!=4)||!FMath::IsFinite(I.Cooldown)||I.Cooldown<0||I.Magazine<0||I.Reserve<0)return false;
         Ids.Add(I.InstanceId);

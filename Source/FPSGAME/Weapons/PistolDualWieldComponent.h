@@ -57,6 +57,7 @@ struct FDualPistolHand
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> Action;
     FGunsmithStats Stats;
     FString Recipe;
+    FString PendingAmmoType;
     int32 Rounds=0, Cases=0, ReloadStart=0, ReloadCount=0, Seated=0, Pattern=0;
     bool Revolver=false, Speedloader=false, ReloadSpeedloader=false, Suppressed=false;
     bool Held=false, Pending=false, Reloading=false, ReloadQueued=false, CasesCleared=false;
@@ -94,12 +95,14 @@ public:
     void Advance(float Delta);
     void Trigger(int32 Index,bool Pressed);
     void Reload();
+    bool SwitchAmmo(const FString& WeaponId,const FString& AmmoType);
     void CancelInputs();
     bool BeginQuickCombat();
     bool IsQuickCombatActive() const;
     bool GetQuickCombatStrikeProbe(FVector& OutOrigin,float ContactTime);
     void SyncInventory(TArray<FColdSteelItem>& Items) const;
     int32 Reserve(int32 Index) const;
+    bool InfiniteReserve(int32 Index) const;
 private:
     UPROPERTY(Transient) TArray<FDualPistolHand> Hands;
     UPROPERTY(Transient) TObjectPtr<AFPSGAMECharacter> Player;

@@ -19,12 +19,13 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     if(auto* H=FindComponentByClass<UFPSCombatHealthComponent>()){H->MaxHealth=Profile->Derived(TEXT("maxHp"));H->Health=FMath::Clamp(P.Health,0.f,H->MaxHealth);}
     const auto* I=Profile->Equipped();const FString Id=I?I->InstanceId:TEXT("");
     const bool WasWeaponReady=bInventoryWeaponReady;
-    bInventoryWeaponReady=!Profile->ActiveProductionTool()&&I&&(I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_qbz191")||I->Definition==TEXT("ue_ash12")||I->Definition==TEXT("ue_m16a2")||(I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_dan_wesson715")));
+    bInventoryWeaponReady=!Profile->ActiveProductionTool()&&I&&(I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_a762")||I->Definition==TEXT("ue_qbz191")||I->Definition==TEXT("ue_ash12")||I->Definition==TEXT("ue_m16a2")||(I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_dan_wesson715")));
     const bool ChangedWeapon=ActiveInventoryWeapon!=Id||WasWeaponReady!=bInventoryWeaponReady;
     const bool PistolInput=ChangedWeapon&&bInventoryWeaponReady&&(I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_dan_wesson715"));
     const bool ResumePistolAim=PistolInput&&bAimHeld;
     const bool ResumePistolFire=PistolInput&&bFireHeld;
     if(ChangedWeapon){
+        CancelAmmoSelection();PendingAmmoType.Reset();PendingAmmoWeapon.Reset();
         VisualRecoilUpdatedAt=-1.;LastVisualShotAt=VisualRecoverAt=-10.;VisualBurstIndex=0;
         GunKickPosition=GunKickPositionVelocity=GunKickRotation=GunKickRotationVelocity=FVector::ZeroVector;
         GunJitterPosition=GunJitterPositionVelocity=GunJitterRotation=GunJitterRotationVelocity=FVector::ZeroVector;
@@ -99,7 +100,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     EmptyReloadDuration=ColdSteelWeaponStats::Reload(I,Profile,EmptyReloadDuration);
     BurstRecoverySeconds=ColdSteelWeaponStats::Interval(I,Profile,BurstRecoverySeconds);
     FireInterval=ColdSteelWeaponStats::Interval(I,Profile,FireInterval);
-    if(I)DamagePerShot=ColdSteelWeaponStats::Damage(*I,Profile,DamagePerShot-Profile->Derived(TEXT("atk")));
+    if(I)DamagePerShot=ColdSteelWeaponStats::Damage(*I,Profile,DamagePerShot-Profile->Derived(TEXT("atk")))*Profile->AmmoDamageMultiplier(*I);
     MagazineAmmo=I&&!ColdSteelInventory::IsMeleeWeapon(*I)?FMath::Clamp(I->Magazine,0,MagazineCapacity):0;ReserveAmmo=I&&ColdSteelInventory::IsMeleeWeapon(*I)?0:Profile->AmmoCount();
     if(RuneSword && RuneSword->IsEquipped())
     {DamagePerShot=RuneSword->EquippedDamage();FireInterval=RuneSword->AttackSeconds();MagazineCapacity=0;ReloadDuration=EmptyReloadDuration=0;}
@@ -119,6 +120,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
 }
 void AFPSGAMECharacter::EndPlay(const EEndPlayReason::Type Reason)
 {
+    CancelAmmoSelection();
     StopMechanicalAudio();
     if(GetGameInstance())if(auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->SaveNow();
     Super::EndPlay(Reason);

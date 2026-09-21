@@ -315,3 +315,13 @@ __pycache__/
 !/SourceAssets/RuneSwordDowncutReach20260920/**/*.py
 !/SourceAssets/RuneSwordDowncutReach20260920/**/*.md
 /SourceAssets/MeleePublication20260920/
+
+# A762 and ammunition publication: recipes/data only; generated or licensed binaries stay local.
+/SourceAssets/A762Meshy20260920/**
+!/SourceAssets/A762Meshy20260920/**/
+!/SourceAssets/A762Meshy20260920/**/*.py
+!/SourceAssets/A762Meshy20260920/**/*.md
+!/SourceAssets/A762Meshy20260920/meshy_settings.json
+!/SourceAssets/A762Meshy20260920/Authoring/prompt_*.txt
+/SourceAssets/A762Meshy20260920/Meshy/
+/Docs/UI/Concepts/AmmoPouch-20260921/*.png

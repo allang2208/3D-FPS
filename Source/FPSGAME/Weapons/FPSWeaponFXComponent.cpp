@@ -3,6 +3,7 @@
 #include "NiagaraComponent.h"
 #include "NiagaraSystem.h"
 #include "AKMSovietCalibration.h"
+#include "A762WeaponAssets.h"
 #include "ASH12WeaponAssets.h"
 #include "../FPSGAMECharacter.h"
 
@@ -121,7 +122,7 @@ void UFPSWeaponFXComponent::Initialize(USkeletalMeshComponent* InWeaponMesh, UCa
     const FTransform Rear = Bone(TEXT("WPN_RearSight"));
     const FVector Forward = (Bone(TEXT("WPN_FrontSight")).GetLocation() - Rear.GetLocation()).GetSafeNormal();
     // Use the same authored rail normal as the rifle's gunsmith attachments.
-    const FVector Up = (AKMSoviet::Matches(WeaponMesh) ? Root : Rear).GetRotation().GetAxisZ();
+    const FVector Up = ((AKMSoviet::Matches(WeaponMesh) || A762WeaponAssets::Matches(WeaponMesh)) ? Root : Rear).GetRotation().GetAxisZ();
     CasingFrameInRoot = Root.GetRotation().Inverse() * FRotationMatrix::MakeFromXZ(Forward, Up).ToQuat();
     PreviousMuzzlePosition = MuzzleLocation();
     PreviousMuzzleForward = MuzzleForward();
@@ -425,7 +426,7 @@ void UFPSWeaponFXComponent::SpawnCasing()
                 + GetOwner()->GetVelocity();
             P->Acceleration = FVector(0.0f, 0.0f, GetWorld()->GetGravityZ());
             const float LengthCM = Character->bUseASH12 ? ASH12WeaponAssets::TracerLengthCM
-                : Character->bUseQBZ191 ? 4.2f : AKMSoviet::Matches(WeaponMesh) ? 3.9f : 4.5f;
+                : Character->bUseQBZ191 ? 4.2f : (AKMSoviet::Matches(WeaponMesh) || A762WeaponAssets::Matches(WeaponMesh)) ? 3.9f : 4.5f;
             const FVector Extent = Geometry->GetBounds().BoxExtent;
             const int32 LongAxis = Extent.X > Extent.Y ? (Extent.X > Extent.Z ? 0 : 2) : (Extent.Y > Extent.Z ? 1 : 2);
             FVector MeshAxis = FVector::ZeroVector;

@@ -1,5 +1,7 @@
 #include "../FPSGAMECharacter.h"
+#include "A762Attachments.h"
 #include "M16Attachments.h"
+#include "A762WeaponAssets.h"
 #include "AKMSovietCalibration.h"
 #include "AKMAttachmentVisual.h"
 #include "ASH12WeaponAssets.h"
@@ -21,6 +23,35 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
     const bool bASH12Tactical = bUseASH12 && Variant == TEXT("ash12_tactical_suppressor");
     const bool bASH12Brake = bUseASH12 && Variant == TEXT("ash12_tactical_brake");
     const bool Valid=bASH12Tactical||bASH12Brake||Variant==TEXT("true")||Variant==TEXT("tactical_suppressor")||Variant==TEXT("brake")||Variant==TEXT("titanium_brake");
+    if (A762WeaponAssets::Matches(AKMViewmodel))
+    {
+        const bool Enabled=Valid&&bInventoryWeaponReady;
+        if (Enabled)
+        {
+            const FString Key=Variant==TEXT("true")?TEXT("suppressor"):Variant;
+            const FString Path=A762Attachments::MeshPath(Key);
+            auto* Part=LoadObject<UStaticMesh>(nullptr,*Path);if (!Part) return;
+            if (!MuzzleAttachment)
+            {
+                MuzzleAttachment=NewObject<UStaticMeshComponent>(this,TEXT("A762Muzzle"));MuzzleAttachment->SetupAttachment(AKMViewmodel,TEXT("WPN_root"));
+                MuzzleAttachment->SetCollisionEnabled(ECollisionEnabled::NoCollision);MuzzleAttachment->SetCastShadow(false);MuzzleAttachment->RegisterComponent();
+            }
+            MuzzleAttachment->EmptyOverrideMaterials();MuzzleAttachment->SetStaticMesh(Part);
+            // Authored generic muzzle contract: local -Y points to the outlet.
+            MuzzleLocalAxis=-FVector::RightVector;
+            const double Length=Key==TEXT("tactical_suppressor")?18.68658:Key==TEXT("suppressor")?18.6:Key==TEXT("brake")?6.8:7.25;
+            MuzzleLocalTip=MuzzleLocalAxis*Length;
+            MuzzleAttachment->SetRelativeTransform(FTransform(FQuat(FVector::UpVector,PI),A762WeaponAssets::MuzzleMount,FVector(.01f)));
+        }
+        MuzzleVariant=Enabled?Variant:FString();if (MuzzleAttachment) MuzzleAttachment->SetVisibility(Enabled);
+        if (auto* Rifle=AKMViewmodel->GetSkeletalMeshAsset()) if (const auto* Render=Rifle->GetResourceForRendering())
+            for(int32 L=0;L<Render->LODRenderData.Num();++L)for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)
+            {
+                const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;
+                if (Rifle->GetMaterials()[M].MaterialSlotName==TEXT("M_A762_Flash_Hider")) AKMViewmodel->ShowMaterialSection(M,S,!Enabled,L);
+            }
+        SuppressedFireSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/M4MuzzlesV1/S_M4_Suppressed"));return;
+    }
     if(bUseQBZ191){
         const bool Enabled=Valid&&bInventoryWeaponReady;
         const FString Key=Variant==TEXT("true")?TEXT("suppressor"):Variant;

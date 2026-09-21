@@ -4,6 +4,9 @@
 #include "ASH12WeaponAssets.h"
 #include "M16WeaponAssets.h"
 #include "M16Attachments.h"
+#include "A762WeaponAssets.h"
+#include "A762Attachments.h"
+#include "../FPSGAMECharacter.h"
 
 UM4TacticalSprintComponent::UM4TacticalSprintComponent()
 {
@@ -13,11 +16,22 @@ UM4TacticalSprintComponent::UM4TacticalSprintComponent()
 void UM4TacticalSprintComponent::Configure(ERifleSprintWeapon Weapon)
 {
     Reset();
-    if (CurrentWeapon != Weapon) Clips.Reset();
+    const auto* Character=Cast<AFPSGAMECharacter>(GetOwner());
+    const bool bA762=Character && Character->ActiveInventoryWeaponDefinition==A762WeaponAssets::Definition;
+    const bool bHadA762=!Clips.IsEmpty() && Clips[0] && Clips[0]->GetPathName().StartsWith(TEXT("/Game/Weapons/A762/"));
+    if (CurrentWeapon != Weapon || bA762!=bHadA762) Clips.Reset();
     CurrentWeapon = Weapon;
     CurrentGrip = EM4SprintGrip::Base;
     bEnabled = Weapon != ERifleSprintWeapon::None;
     if (!bEnabled || !Clips.IsEmpty()) return;
+    if (bA762)
+    {
+        for (const TCHAR* Family:{TEXT("base"),TEXT("base"),TEXT("angled"),TEXT("vertical"),TEXT("canted"),TEXT("prism")})
+            for (const TCHAR* Clip:{TEXT("sprint_enter"),TEXT("sprint_loop"),TEXT("sprint_exit")})
+                Clips.Add(LoadObject<UAnimSequence>(nullptr,*(FCString::Strcmp(Family,TEXT("base"))==0
+                    ?A762WeaponAssets::AnimationPath(Clip):A762Attachments::AnimationPath(Family,Clip))));
+        return;
+    }
     if (Weapon == ERifleSprintWeapon::M16)
     {
         const TCHAR* Families[]={TEXT("base"),TEXT("drum"),TEXT("angled"),TEXT("vertical"),TEXT("canted"),TEXT("prism")};

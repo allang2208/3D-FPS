@@ -76,6 +76,7 @@ bool UColdSteelStatusModel::GrantWorldBlocks(const TMap<FString,int64>& Blocks,c
 
 bool UColdSteelStatusModel::ConsumeItem(const FString& Definition,int64 Count,FString& OutReason)
 {
+    if(AmmoType(Definition)){const bool Spent=SpendAmmo(Definition,Count);if(!Spent)OutReason=TEXT("弹药不足或保存失败");return Spent;}
     if(Count<=0||!Definitions.Contains(Definition)){OutReason=TEXT("物品目录缺少该材料");return false;}
     SyncRuntime();auto P=Snapshot();
     int64 Available=0;
@@ -119,7 +120,7 @@ int32 UColdSteelStatusModel::PickupNearby(float RadiusCm)
         // 隔墙/隔层不吸：只有"玩家能走过去"的物品才算在范围内（<=40 cm 的障碍可迈过）。
         if(!ReachableOnFoot(GetWorld(),CurrentPawn.Get(),Entry.Position))continue;
         P.Items.RemoveAt(Index);--Index;
-        if(Insert(P.Items,Entry)){++Moved;continue;}
+        if(AmmoType(Entry.Definition)?AddAmmoToState(P,Entry.Definition,Entry.Count):Insert(P.Items,Entry)){++Moved;continue;}
         // No room for this one: it stays on the ground exactly where it was.
         P.Items.Insert(Entry,Index+1);++Left;
     }

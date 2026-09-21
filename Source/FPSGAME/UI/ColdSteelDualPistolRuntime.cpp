@@ -20,14 +20,11 @@ bool EquippedPistol(const FColdSteelItem& Item,int32 Active)
 }
 FString UColdSteelStatusModel::AmmoDefinitionFor(const FColdSteelItem& Item) const
 {
-    if(auto* G=GetGameInstance()->GetSubsystem<UGunsmithSystem>())if(const auto* W=G->Weapon(Item.Definition))return W->Ammo;
-    return FString();
+    return Item.LoadedAmmoType.IsEmpty()?AmmoGroupFor(Item):Item.LoadedAmmoType;
 }
 int32 UColdSteelStatusModel::AmmoCountFor(const FColdSteelItem& Item) const
 {
-    const FString Def=AmmoDefinitionFor(Item);int64 Total=0;
-    for(const auto& I:Current.Items)if(I.Place==0 && I.Definition==Def)Total+=I.Count;
-    return int32(FMath::Min<int64>(Total,MAX_int32));
+    return int32(FMath::Min<int64>(PouchCount(AmmoDefinitionFor(Item)),MAX_int32));
 }
 int32 UColdSteelStatusModel::ReloadDualPistol(const FString& Id,int32 Requested,int32 Capacity,bool Completed)
 {
@@ -35,10 +32,11 @@ int32 UColdSteelStatusModel::ReloadDualPistol(const FString& Id,int32 Requested,
     SyncRuntime();auto P=Snapshot();auto* Gun=P.Items.FindByPredicate([&](const auto& I){return I.InstanceId==Id && EquippedPistol(I,P.ActiveWeaponSlot);});
     if(!Gun)return 0;
     const FString Def=AmmoDefinitionFor(*Gun);Requested=FMath::Clamp(Requested,0,Capacity-Gun->Magazine);
-    int32 Left=CurrentPawn->HasInfiniteReserveAmmo()?0:Requested;
-    for(auto& I:P.Items)if(I.Place==0 && I.Definition==Def){const int32 N=int32(FMath::Min<int64>(Left,I.Count));I.Count-=N;Left-=N;}
-    const int32 Taken=Requested-Left;if(Taken<=0)return 0;
+    const bool Infinite=CurrentPawn->HasInfiniteReserveAmmoFor(Def);
+    const int32 Taken=Infinite?Requested:int32(FMath::Min<int64>(Requested,P.AmmoPouch.FindRef(Def)));if(Taken<=0)return 0;
+    if(!Infinite)P.AmmoPouch.FindOrAdd(Def)-=Taken;
     Gun->Magazine+=Taken;
+    if(Infinite)Gun->VirtualMagazineAmmo+=Taken;
     if(Gun->Definition==TEXT("ue_dan_wesson715"))Cases(*Gun,FMath::Max(Gun->Magazine,int32(ColdSteelInventory::Number(*Gun,TEXT("revolver_case_count"),0))));
     P.Items.RemoveAll([](const auto& I){return I.Count<=0;});
     if(Completed)ColdSteelSkills::AddExperience(P,DexterousHandsSkill,DexterousHandsSkill.ReloadExperience);
@@ -50,7 +48,7 @@ bool UColdSteelStatusModel::EjectDualPistolCases(const FString& Id,bool DiscardL
     SyncRuntime();auto P=Snapshot();
     for(auto& I:P.Items)if(I.InstanceId==Id && EquippedPistol(I,P.ActiveWeaponSlot) && I.Definition==TEXT("ue_dan_wesson715"))
     {
-        if(DiscardLive)I.Magazine=0;Cases(I,I.Magazine);return CommitState(P);
+        if(DiscardLive){I.Magazine=0;I.VirtualMagazineAmmo=0;}Cases(I,I.Magazine);return CommitState(P);
     }
     return false;
 }

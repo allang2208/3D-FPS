@@ -3,6 +3,7 @@
 #include "ColdSteelSkillPage.h"
 #include "ColdSteelProgressNotification.h"
 #include "ColdSteelAmmoReadout.h"
+#include "ColdSteelAmmoPouchWidget.h"
 #include "ColdSteelInventoryWidget.h"
 #include "ColdSteelWorldClock.h"
 #include "ColdSteelStatusModel.h"
@@ -428,10 +429,25 @@ void UColdSteelHUDWidget::BuildInventory(UCanvasPanel* Root)
     // The persistent right rail now owns the three available panel destinations.
     Tabs->SetVisibility(ESlateVisibility::Collapsed);
 
+    EquipmentAmmoTabs=WidgetTree->ConstructWidget<UHorizontalBox>();
+    auto* GearTab=WidgetTree->ConstructWidget<UButton>();
+    GearTab->SetStyle(ColdSteelUI::ButtonStyle(ColdSteelUI::PixelScale(this)));
+    GearTab->SetContent(MakeInventoryText(TEXT("装备与背包"),14,ColdSteelUI::TextPrimary));
+    GearTab->OnClicked.AddDynamic(this,&UColdSteelHUDWidget::HandleEquipmentTabClicked);
+    EquipmentAmmoTabs->AddChildToHorizontalBox(GearTab)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+    auto* AmmoTab=WidgetTree->ConstructWidget<UButton>();
+    AmmoTab->SetStyle(ColdSteelUI::ButtonStyle(ColdSteelUI::PixelScale(this)));
+    AmmoTab->SetContent(MakeInventoryText(TEXT("弹药袋"),14,ColdSteelUI::TextPrimary));
+    AmmoTab->OnClicked.AddDynamic(this,&UColdSteelHUDWidget::OpenAmmoPouch);
+    EquipmentAmmoTabs->AddChildToHorizontalBox(AmmoTab)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+    Body->AddChildToVerticalBox(EquipmentAmmoTabs)->SetPadding(FMargin(ReferenceUnits(16),ReferenceUnits(6),ReferenceUnits(16),ReferenceUnits(8)));
+
     StatusPage = BuildStatusPage();
     EquipmentPage = BuildEquipmentPage();
     Body->AddChildToVerticalBox(StatusPage)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     Body->AddChildToVerticalBox(EquipmentPage)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+    AmmoPouchPage=CreateWidget<UColdSteelAmmoPouchWidget>(GetOwningPlayer());AmmoPouchPage->SetHUD(this);
+    Body->AddChildToVerticalBox(AmmoPouchPage)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     SkillPage=CreateWidget<UColdSteelSkillPage>(GetOwningPlayer());
     SkillPage->SetHUD(this);
     auto* SkillSlot=Body->AddChildToVerticalBox(SkillPage);
@@ -1086,8 +1102,10 @@ void UColdSteelHUDWidget::SetInventoryPage(int32 Page)
     bStatusTabActive=Page==0; bSkillsTabActive=Page==2;
     if (StatusPage) StatusPage->SetVisibility(Page==0?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
     if (EquipmentPage) EquipmentPage->SetVisibility(Page==1?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
+    if (EquipmentAmmoTabs) EquipmentAmmoTabs->SetVisibility(Page==1||Page==3?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
+    if (AmmoPouchPage) AmmoPouchPage->SetVisibility(Page==3?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
     if (SkillPage) SkillPage->SetVisibility(Page==2?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
-    if (InventoryTitleText) InventoryTitleText->SetText(FText::FromString(Page==0?TEXT("角色状态"):Page==1?TEXT("装备与背包"):TEXT("技能")));
+    if (InventoryTitleText) InventoryTitleText->SetText(FText::FromString(Page==0?TEXT("角色状态"):(Page==1||Page==3)?TEXT("装备与背包"):TEXT("技能")));
     UBorder* Surfaces[]={StatusTabSurface,EquipmentTabSurface,SkillTabSurface};
     UBorder* Underlines[]={StatusTabUnderline,EquipmentTabUnderline,SkillTabUnderline};
     UTextBlock* Labels[]={StatusTabText,EquipmentTabText,SkillTabText};

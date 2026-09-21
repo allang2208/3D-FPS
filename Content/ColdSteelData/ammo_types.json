@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "types": [
+    {"id":"ammo_762","group":"ammo_762","group_name":"7.62x39mm","name":"LP","tier_name":"绿阶","tier_color":"#4CAA70","description":"标准弹种，适合日常补给。","icon":"Icons/Ammo76220260921/762_lp.png","order":0,"enabled":true,"allow_infinite_reserve":true,"damage_multiplier":1.0,"physical_armor_penetration":0.0},
+    {"id":"ammo_762_ps","group":"ammo_762","group_name":"7.62x39mm","name":"PS","tier_name":"蓝阶","tier_color":"#4C8FD8","description":"强化穿透弹种，适合对付有物理护甲的敌人。","icon":"Icons/Ammo76220260921/762_ps.png","order":1,"enabled":true,"allow_infinite_reserve":false,"damage_multiplier":1.0,"physical_armor_penetration":0.10},
+    {"id":"ammo_762_ap","group":"ammo_762","group_name":"7.62x39mm","name":"AP","tier_name":"红阶","tier_color":"#CD545B","description":"高性能穿透弹种，兼顾伤害与物理护甲穿透。","icon":"Icons/Ammo76220260921/762_ap.png","order":2,"enabled":true,"allow_infinite_reserve":false,"damage_multiplier":1.05,"physical_armor_penetration":0.20},
+    {"id":"ammo_556","group":"ammo_556","group_name":"5.56 mm","name":"普通弹","order":10,"enabled":true,"allow_infinite_reserve":true,"damage_multiplier":1.0},
+    {"id":"ammo_58","group":"ammo_58","group_name":"5.8 mm","name":"普通弹","order":20,"enabled":true,"allow_infinite_reserve":true,"damage_multiplier":1.0},
+    {"id":"ammo_45acp","group":"ammo_45acp","group_name":".45 ACP","name":"普通弹","order":30,"enabled":true,"allow_infinite_reserve":true,"damage_multiplier":1.0},
+    {"id":"ammo_357","group":"ammo_357","group_name":".357 MAG","name":"普通弹","order":40,"enabled":true,"allow_infinite_reserve":true,"damage_multiplier":1.0},
+    {"id":"ammo_127","group":"ammo_127","group_name":"12.7 mm","name":"普通弹","order":50,"enabled":true,"allow_infinite_reserve":true,"damage_multiplier":1.0},
+    {"id":"ammo_9","group":"ammo_9","group_name":"9 mm","name":"普通弹","order":60,"enabled":true,"allow_infinite_reserve":true,"damage_multiplier":1.0}
+  ]
+}
