@@ -35,10 +35,15 @@ namespace WeaponFX
     // Tracer streaks (see Docs/Weapons/tracer-upgrade-plan-20260921.md).
     // The visible dash is clamped to a per-class window instead of "one frame of
     // travel", which used to make it frame-rate dependent and full of gaps.
-    constexpr float TracerRifleLengthCM = 250.f;
-    constexpr float TracerRifleMaxCM = 350.f;   // 30 fps 下 9.5 m/s 级长枪仍不断线
-    constexpr float TracerPistolLengthCM = 150.f;
-    constexpr float TracerPistolMaxCM = 300.f;  // 高速手枪弹单段无法同时做到不断线又不成光柱
+    // Gap-free criterion: the per-frame step (speed * 100 / fps cm) must stay below the
+    // max length, otherwise the path turns into dots. At 350 m/s that is 1167 cm at 30 fps,
+    // 583 cm at 60 fps and 243 cm at 144 fps, so the rifle window covers every rate; the
+    // dash still reads as a beam sweeping past instead of a pellet (Docs/Weapons/
+    // ballistic-feel-options-20260921.md).
+    constexpr float TracerRifleLengthCM = 600.f;
+    constexpr float TracerRifleMaxCM = 1400.f;
+    constexpr float TracerPistolLengthCM = 300.f;
+    constexpr float TracerPistolMaxCM = 1200.f;  // 30 fps 下 420 m/s 手枪仍差 200 cm 覆盖
     constexpr float TracerPixelWidth = 1.7f;    // 原 1.1 像素过细，细亮线在 TSR 下闪且容易被 bloom 抹开
     constexpr float TracerMinDiameterCM = 0.9f;
     constexpr float TracerEmission = 7.5f;      // 原 14：亮度直接决定残影强度与过曝
@@ -56,6 +61,11 @@ static TAutoConsoleVariable<float> ScopeWorldScaleMax(TEXT("fps.Scope.WorldScale
     TEXT("Hard cap for the world muzzle flash compensation."));
 static TAutoConsoleVariable<float> ScopeWorldForwardCM(TEXT("fps.Scope.WorldForwardCM"),12.f,
     TEXT("Centimetres to push the world flash along the barrel at full compensation."));
+
+// Tracer presentation knob (Docs/Weapons/ballistic-feel-options-20260921.md). Presentation
+// only: the trace, the damage and the falloff are untouched.
+static TAutoConsoleVariable<float> TracerLengthScale(TEXT("fps.Tracer.LengthScale"),1.f,
+    TEXT("Multiplier on the tracer streak window (1 = built-in 600/1400 cm rifle window)."));
 
 UFPSWeaponFXComponent::UFPSWeaponFXComponent()
 {
@@ -342,15 +352,17 @@ void UFPSWeaponFXComponent::ApplyTracerTransform(FFPSWeaponFXTracer& T)
 float UFPSWeaponFXComponent::TracerBaseLengthCM() const
 {
     const auto* Character=Cast<AFPSGAMECharacter>(GetOwner());
-    return (bIndependentPistol||(Character&&Character->IsPistolWeapon()))
-        ?WeaponFX::TracerPistolLengthCM:WeaponFX::TracerRifleLengthCM;
+    const float Scale=FMath::Clamp(TracerLengthScale.GetValueOnGameThread(),.1f,5.f);
+    return Scale*((bIndependentPistol||(Character&&Character->IsPistolWeapon()))
+        ?WeaponFX::TracerPistolLengthCM:WeaponFX::TracerRifleLengthCM);
 }
 
 float UFPSWeaponFXComponent::TracerMaxLengthCM() const
 {
     const auto* Character=Cast<AFPSGAMECharacter>(GetOwner());
-    return (bIndependentPistol||(Character&&Character->IsPistolWeapon()))
-        ?WeaponFX::TracerPistolMaxCM:WeaponFX::TracerRifleMaxCM;
+    const float Scale=FMath::Clamp(TracerLengthScale.GetValueOnGameThread(),.1f,5.f);
+    return Scale*((bIndependentPistol||(Character&&Character->IsPistolWeapon()))
+        ?WeaponFX::TracerPistolMaxCM:WeaponFX::TracerRifleMaxCM);
 }
 
 bool UFPSWeaponFXComponent::SpawnEpicFX(FVector Position,FVector Forward,float Scale)

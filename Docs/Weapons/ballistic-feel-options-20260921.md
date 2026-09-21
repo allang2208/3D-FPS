@@ -84,6 +84,34 @@
 2. 手感基线按预设②取（步枪 300–350 m/s、段长 600/1400 cm、每 3 发一条），预设③作为"仍然不够像枪"时的下一档。
 3. 弹速属于玩法数值（会影响预判、命中延迟与"可见来袭"），改动前需要用户确认；判定分流（预设③）改动更大，单独一轮。
 
-## 5. 未验证
+## 5. 实施记录（2026-09-21 第二轮，按用户选定的"CVar + 预设②"）
 
-以上延迟与覆盖率均由目录数值推算；本轮没有运行游戏，也没有做 `t.MaxFPS`、`r.AntiAliasingMethod` 对照或任何画面验收。
+**目录数值**（`Content/ColdSteelData/gunsmith.json` 的 `base.bullet_speed`）：
+
+| 枪 | 原 | 新 |
+| --- | --- | --- |
+| `ue_m4a1` / `ue_akm` / `ue_qbz191` / `ue_a762` | 90 | **350** |
+| `ue_m16a2` | 95 | **350** |
+| `ue_ash12` | 78 | **300** |
+| `ue_m1911` / `ue_dan_wesson715` | 253 / 420 | 不变（已在枪感区间） |
+| `ue_pkm` | 90 | 不变——该武器块仍属其他会话未提交改动，未触碰 |
+
+**代码**：
+
+- 段长窗口 `FPSWeaponFXComponent.cpp`：步枪 250/350 → **600/1400 cm**，手枪 150/300 → **300/1200 cm**。
+- 曳光节奏：`FFPSFlyingRound` 新增 `bShowTracer`，`UFPSBallisticsComponent` 新增每武器计数器 `TracerRoundCounter`；**第 1 发必画，其后每 3 发一条**，Tick 里 `if(WeaponFX&&R.bShowTracer)`。纯表现，命中／伤害／衰减／穿透／命中特效都不读它。
+- 三个实时 CVar：
+
+| CVar | 默认 | 作用 |
+| --- | --- | --- |
+| `fps.Ballistics.SpeedScale` | 1.0 | 发射时乘弹速（钳制 0.05–10）；1 = 目录值。抑制器的 `bullet_speed_mult 0.85/0.8` 仍在之后生效 |
+| `fps.Tracer.Every` | 3 | 每 N 发画一条曳光，≥1；1 = 每发都画 |
+| `fps.Tracer.LengthScale` | 1.0 | 同时缩放段长基准与上限（钳制 0.1–5） |
+
+- 审计合同同步：`BallisticPresentationAudit` 的 `PeakTracers>0&&PeakTracers<=2` 放宽为 `<=4`，因为"活动段数 = 在飞弹数"只在每发都画时成立，加上节奏后变成"在飞弹数 ÷ N"。
+
+**试法**：重启编辑器后先看默认值（350 m/s、6–14 m、每 3 发一条）；要现场对比就在 PIE 控制台里改 `fps.Ballistics.SpeedScale`（例如 1 → 2.7 回到原来的 90 m/s 手感、0.5 更慢）、`fps.Tracer.Every 1`（每发都画）、`fps.Tracer.LengthScale 0.4/2`。定下来的数值再写回目录与常量。
+
+## 6. 未验证
+
+以上延迟与覆盖率均由目录数值推算；本轮没有运行游戏，也没有做 `t.MaxFPS`、`r.AntiAliasingMethod` 对照或任何画面验收。编译与链接状态见文末交付说明。

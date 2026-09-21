@@ -7,6 +7,16 @@
 #include "Engine/World.h"
 #include "GameFramework/Pawn.h"
 #include "Kismet/GameplayStatics.h"
+#include "HAL/IConsoleManager.h"
+
+// Live tuning for the "projectile feel" pass (Docs/Weapons/ballistic-feel-options-20260921.md):
+// 90 m/s rounds flew at arrow speed (0.78 s to 70 m, ten rounds in the air before the first
+// one landed) which read as a thrown object. Presentation and muzzle velocity only — damage,
+// falloff, penetration and the trace are untouched.
+static TAutoConsoleVariable<float> CVarBulletSpeedScale(TEXT("fps.Ballistics.SpeedScale"),1.f,
+    TEXT("Multiplier on muzzle velocity for every launched round (1 = catalog bullet_speed)."));
+static TAutoConsoleVariable<int32> CVarTracerEvery(TEXT("fps.Tracer.Every"),3,
+    TEXT("Draw a tracer streak on every Nth round (1 = every round); round 1 always draws."));
 
 UFPSBallisticsComponent::UFPSBallisticsComponent()
 {PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.bStartWithTickEnabled=false;}
@@ -15,9 +25,14 @@ void UFPSBallisticsComponent::Launch(FVector Start,FVector Direction,float Speed
     if(!GetWorld()||!FMath::IsFinite(SpeedCM)||SpeedCM<=0||RangeCM<=0||Direction.IsNearlyZero())return;
     LastLaunchStart=Start;
     WeaponFX=FX;HeadshotSound=Headshot;
+    const float SpeedScale=FMath::Clamp(CVarBulletSpeedScale.GetValueOnGameThread(),.05f,10.f);
+    const int32 TracerInterval=FMath::Max(1,CVarTracerEvery.GetValueOnGameThread());
     const auto Effects=ColdSteelCombat::Snapshot(GetOwner(),ShotItem);
-    FFPSFlyingRound Round;Round.Id=NextRoundId++;Round.Training=ColdSteelSkills::Snapshot(GetOwner(),ShotItem,true);Round.Position=Start;Round.Direction=Direction.GetSafeNormal();Round.Speed=SpeedCM;Round.Remaining=RangeCM;Round.Damage=Damage;Round.Timestamp=GetWorld()->GetTimeSeconds();Round.Piercing=Effects.Piercing;Round.Poison=Effects.Poison;Rounds.Add(MoveTemp(Round));
+    FFPSFlyingRound Round;Round.Id=NextRoundId++;Round.Training=ColdSteelSkills::Snapshot(GetOwner(),ShotItem,true);Round.Position=Start;Round.Direction=Direction.GetSafeNormal();Round.Speed=SpeedCM*SpeedScale;Round.Remaining=RangeCM;Round.Damage=Damage;Round.Timestamp=GetWorld()->GetTimeSeconds();Round.Piercing=Effects.Piercing;Round.Poison=Effects.Poison;Rounds.Add(MoveTemp(Round));
     Rounds.Last().EffectiveRangeCM=EffectiveRangeCM;
+    // Counter starts at zero, so the first round of a magazine always carries a tracer and
+    // then every Nth one does — a burst reads as spaced streaks instead of a solid tube.
+    Rounds.Last().bShowTracer=(TracerRoundCounter++%TracerInterval)==0;
     SetComponentTickEnabled(true);
 }
 void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Fn)
@@ -52,7 +67,7 @@ void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
             if(R.Piercing>0&&Cast<APawn>(Hit.GetActor())){--R.Piercing;R.HitActors.Add(Hit.GetActor());Params.AddIgnoredActor(Hit.GetActor());R.Position=Hit.ImpactPoint;continue;}
             Stopped=true;break;
         }
-        if(WeaponFX)WeaponFX->OnTracerSegment(R.Id,Start,Stopped?Hit.ImpactPoint:End);
+        if(WeaponFX&&R.bShowTracer)WeaponFX->OnTracerSegment(R.Id,Start,Stopped?Hit.ImpactPoint:End);
         if(Stopped){Rounds.RemoveAtSwap(I);continue;}
         R.Position=End;R.Remaining-=Distance;R.TraveledCM+=Distance;
         if(R.Remaining<=KINDA_SMALL_NUMBER)Rounds.RemoveAtSwap(I);

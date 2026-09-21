@@ -98,14 +98,14 @@ GetHipSpread() = 2 × (0.0175 + 连射bloom + 移动 + 腾空) × base.spread_mu
 
 | 武器 | id | 弹药 | 弹匣 | 射击间隔 | 伤害 | 弹速 | 有效射程 | 换弹/空仓 | 后坐力 | 抖动 | 基础稳定性 | 腰射系数 | 开放槽位 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| M4A1 | `ue_m4a1` | `ammo_556` | 30 | 0.08 s | 30 | 90 | 70 | 2.1 / 2.7 s | 100 | 100 | 1 | 2 | `optic`, `magazine`, `muzzle`, `underbarrel`, `stock`, `reargrip`, `tactical` |
-| AKM | `ue_akm` | `ammo_762` | 30 | 0.1 s | 35 | 90 | 100 | 3.33333 / 4.29167 s | 100 | 100 | 1 | 2 | `optic`, `magazine`, `muzzle`, `underbarrel`, `stock`, `reargrip`, `tactical` |
-| QBZ-191 | `ue_qbz191` | `ammo_58` | 30 | 0.09 s | 32 | 90 | 85 | 2.1 / 2.73333 s | 100 | 100 | 1 | 2 | `optic`, `magazine`, `muzzle`, `underbarrel`, `stock`, `reargrip`, `tactical` |
+| M4A1 | `ue_m4a1` | `ammo_556` | 30 | 0.08 s | 30 | 350 | 70 | 2.1 / 2.7 s | 100 | 100 | 1 | 2 | `optic`, `magazine`, `muzzle`, `underbarrel`, `stock`, `reargrip`, `tactical` |
+| AKM | `ue_akm` | `ammo_762` | 30 | 0.1 s | 35 | 350 | 100 | 3.33333 / 4.29167 s | 100 | 100 | 1 | 2 | `optic`, `magazine`, `muzzle`, `underbarrel`, `stock`, `reargrip`, `tactical` |
+| QBZ-191 | `ue_qbz191` | `ammo_58` | 30 | 0.09 s | 32 | 350 | 85 | 2.1 / 2.73333 s | 100 | 100 | 1 | 2 | `optic`, `magazine`, `muzzle`, `underbarrel`, `stock`, `reargrip`, `tactical` |
 | M1911 | `ue_m1911` | `ammo_45acp` | 7 | 0.18 s | 36 | 253 | 50 | 1.75 / 2.25 s | 110 | 95 | 1 | 1 | `optic`, `muzzle`, `trigger`, `tactical` |
 | Dan-Wesson 715 | `ue_dan_wesson715` | `ammo_357` | 6 | 0.32 s | 68 | 420 | 65 | 6.8 / 8.8 s | 155 | 125 | 1 | 1 | `trigger`, `barrel`, `reload_device`, `optic`, `tactical` |
-| ASH-12 | `ue_ash12` | `ammo_127` | 20 | 0.13 s | 48 | 78 | 80 | 2.4 / 3.3 s | 145 | 135 | 1 | 2 | `optic`, `magazine`, `muzzle`, `underbarrel`, `stock`, `tactical` |
-| M16A2 | `ue_m16a2` | `ammo_556` | 30 | 0.08 s | 34 | 95 | 110 | 2.35 / 2.95 s | 90 | 85 | 1 | 2 | `optic`, `magazine`, `muzzle`, `underbarrel`, `stock`, `reargrip`, `tactical` |
-| A762 | `ue_a762` | `ammo_762` | 30 | 0.0666667 s | 33.25 | 90 | 100 | 3.33333 / 4.29167 s | 75 | 100 | 1.25 | 2 | `optic`, `magazine`, `muzzle`, `underbarrel`, `stock`, `reargrip`, `tactical` |
+| ASH-12 | `ue_ash12` | `ammo_127` | 20 | 0.13 s | 48 | 300 | 80 | 2.4 / 3.3 s | 145 | 135 | 1 | 2 | `optic`, `magazine`, `muzzle`, `underbarrel`, `stock`, `tactical` |
+| M16A2 | `ue_m16a2` | `ammo_556` | 30 | 0.08 s | 34 | 350 | 110 | 2.35 / 2.95 s | 90 | 85 | 1 | 2 | `optic`, `magazine`, `muzzle`, `underbarrel`, `stock`, `reargrip`, `tactical` |
+| A762 | `ue_a762` | `ammo_762` | 30 | 0.0666667 s | 33.25 | 350 | 100 | 3.33333 / 4.29167 s | 75 | 100 | 1.25 | 2 | `optic`, `magazine`, `muzzle`, `underbarrel`, `stock`, `reargrip`, `tactical` |
 | PKM | `ue_pkm` | `ammo_762x54r` | 100 | 0.1 s | 45 | 90 | 150 | 5.8 / 6.8 s | 130 | 120 | 1 | 2 | **无（不可改造）** |
 
 额外的每枪基础键：M16A2 `burst_count=3`、`burst_delay=0.18`、`hit_stagger=false`；

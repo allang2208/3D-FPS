@@ -15,6 +15,10 @@ struct FFPSFlyingRound
     // Stable per-round identity: the weapon FX keeps one tracer streak per Id and
     // refreshes it in place, instead of spawning a new one-frame segment each tick.
     int32 Id=INDEX_NONE;
+    // Tracer pacing (fps.Tracer.Every): only every Nth round carries a streak, so a burst
+    // reads as spaced tracers instead of one solid tube of light (real belts load one
+    // tracer every fifth round). Presentation only — damage and the trace are untouched.
+    bool bShowTracer=true;
     int32 Piercing=0,Poison=0;
     FColdSteelSkillShot Training;
     TArray<TWeakObjectPtr<AActor>> HitActors;
@@ -35,6 +39,8 @@ public:
 private:
     TArray<FFPSFlyingRound> Rounds;
     int32 NextRoundId=0;
+    // Per-weapon shot counter for fps.Tracer.Every (presentation pacing only).
+    int32 TracerRoundCounter=0;
     UPROPERTY(Transient) TObjectPtr<UFPSWeaponFXComponent> WeaponFX;
     UPROPERTY(Transient) TObjectPtr<USoundBase> HeadshotSound;
 };
