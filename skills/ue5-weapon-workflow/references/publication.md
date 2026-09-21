@@ -30,6 +30,13 @@
 - 界面类工具与暂存/发布脚本放 `Tools/AssetPipeline/`；一次性守望、备份脚本放 `Saved/`（不进仓库）。
 - 仅普通非强制推送。被拒绝时重新 fetch、检查新增提交并处理本次冲突；成功后用 `ls-remote` 回读目标 SHA。记录发布工作区与提交，不为了让共享工作区看起来干净而重置其分支。
 
+### 按标记丢弃 hunk 的通用做法（2026-09-21）
+
+- `Tools/AssetPipeline/stage_session_hunks.py` 的标记是写死的；本轮新增通用版 `Tools/Weapons/stage_weapon_hunks.py`：`--file`（可多次）加 `--drop-contains <子串>`（可多次），保留除命中标记外的全部 hunk，**先打印 KEEP/DROP 报告再写补丁**，然后 `git apply --cached <补丁>`。丢掉前面的 hunk 会让后面的行号偏移，靠上下文匹配即可（本轮 35 保留 / 7 丢弃全部干净落位，`--check` 无告警）。
+- 落地案例：`Content/ColdSteelData/gunsmith.json`（对方新增 `ue_pkm` 武器块 21 行）、`GunsmithSystem.h/.cpp`（对方 `BlockStamina` / `CooldownReduceSecondsPerHit`）、`FPSWeaponFXComponent.cpp`（对方 PKM 资产分支）、`FPSBallisticsComponent.cpp`（对方 `FWeaponDamageResult` 命中签名）。丢弃后必须复核四项：`git diff --cached` 搜对方标记为 0、`git diff --cached --check`、暂存的 JSON 能 `json.load` 且武器 id 集合与 HEAD 一致、暂存代码不引用被丢掉的字段或头文件。
+- **落在对方 hunk 内部的自己那一行**（例：`ue_pkm` 块里的 `spread_mult: 2`）不要为凑完整而连块提交：留未提交，在交付说明写明"该枪系数将随对方提交一起落地"。
+- PowerShell 会吞掉参数里的双引号（`--drop-contains '"id": "ue_pkm"'` 匹配不到），标记改用不含引号的子串（`ue_pkm`）。
+
 ## 仓库更换引擎
 
 用户要求以当前 UE 工程重新开始时，先给原 main 建立归档标签，将隔离目录内的旧引擎文件按清单移入本机 trash，然后用普通新提交替换当前树。保留历史和原共享 checkout，不做 orphan/强推，不把缓存、未核准资产或历史草案重新塞回新主目录。验证源文件取样、UE 编译、归档散列以及远端分支/标签；保留历史意味着仓库历史体积不会立即减小。

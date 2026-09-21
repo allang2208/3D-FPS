@@ -36,4 +36,14 @@
 3. **界面二次乘区**：面板/提示各自乘角色乘区会让显示与目录分叉（旧版把攻速倍率除进枪械射速，100 ms 显示成 70 ms）。射击间隔现与目录一致，换弹按 `敏捷 × 快手 × 附魔 × 改造` 乘法叠加，乘区只允许在 `ColdSteelWeaponStats` 里出现一次。
 4. **存档附加项**：附魔/改造写在物品 `Data` JSON 的 `_enchantEffects` / `_craftEffects`。`Saved/SaveGames/*.sav` 是二进制，FString 为 UTF-16LE 且 UTF-16 段落可能从奇数偏移开始——按偶、奇两种对齐各搜一遍关键字（如 `attackIntervalMul`、`_enchantEffects`），全部为 0 才能排除附魔影响。
 5. 结论必须给出可复核证据（公式、调用点、存档字段），不能只回答"应该已经生效"。
-- 上表是配置值，不是实测手感或 DPS 结论。每轮调参的落地记录写在本机 `Docs/Weapons/`（当前为 `gunsmith-attachment-details-20260917.md`）。
+- 上表是配置值，不是实测手感或 DPS 结论。每轮调参的落地记录写在本机 `Docs/Weapons/`（当前为 `Docs/Weapons/attachment-values-20260921.md`，由 `Tools/Weapons/dump_attachment_values.py` 生成）。
+
+## 腰射散布与准星耦合（2026-09-21）
+
+散布的**唯一来源**是 `Calculate` 的 `Spread` 与角色状态项：腰射锥角 `GetHipSpread() = 2 × (0.0175 + CurrentSpread + MoveSpread + AirSpread) × HipSpreadMultiplier`，`0.0175 rad/轴` 是参考静止锥。由此有三条硬规矩：
+
+- **每把枪有基础系数** `gunsmith.json` 的 `weapons[].base.spread_mult`：键不存在时**静默取 1**，所以"哪把枪漏了"只能读目录，不能信面板。2026-09-21 把所有非手枪枪械的腰射扩散翻倍（`spread_mult: 2`）。配件侧另有 `hip_spread_mult`（激光 0.5、QR 0.7、斜握把 0.8 等），两者连乘——不要在单枪上写特例绕过目录。
+- **准星跟着真实锥角自动走**：准星内缘 = `GetCrosshairHalfExtent()` 把实时锥投影到屏幕（含 FOV、窗口比例、DPI），不带绝对像素钳制。改散布**不需要也不应该**再手调准星像素；准星没跟着动，先查是不是读了旧缓存或另一套散布公式。
+- **ADS 用百分比，不用秒**：`ADS = max(0.001, base.ADS × (1+Σads_percent) + Σads_seconds)`，`base.ADS = ln(20)/base.ads_smooth`。配件目录现写成 `ads_percent`（0.1 = +10%），`ads_seconds` 只留给"固定加减时长"；换算时同步改详情/卡片文案，否则界面还写着旧的"减少 200 ms"。
+- **改完目录要同步三处**：`SkeletonStockAudit` 一类审计的期望值（例 `S.Spread==Base.Spread`）、`Docs/Weapons/attachment-values-20260921.md` 与结构一致性检查 `Tools/Weapons/check_attachment_consistency.py`。审计不过时按目录口径改断言，不要为"让审计过"退回旧公式。
+- 跨会话：目录里可能有别的会话正在加的新武器块，`spread_mult` 只加在**自己负责的那把枪**上；若那一行落在对方未提交的块内，只能留未提交并在交付说明点明。

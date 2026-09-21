@@ -3,14 +3,18 @@
 Several files here mix one work stream's changes with another session's in-flight work
 (the shared gunsmith catalog, the weapon FX component, the melee modifier applier).
 Plain `git add <path>` would publish their unverified changes and `git add -p` needs a
-terminal, so this keeps every hunk except those whose changed lines match an explicit
---drop-contains marker and writes a patch that `git apply --cached` can stage.
+terminal, so this selects hunks by explicit markers and writes a patch that
+`git apply --cached` can stage.
+
+- `--drop-contains <substr>`: keep everything except hunks whose changed lines match.
+- `--keep-contains <substr>`: keep ONLY hunks whose changed lines match (use when a
+  parallel session rewrote most of the file and only your own lines belong in the commit).
 
 Always review the printed KEEP/DROP report and `git diff --cached` before committing.
 
 Usage:
   py Tools/Weapons/stage_weapon_hunks.py --file <path> [--file <path> ...]
-      --drop-contains <substring> [--drop-contains ...] --write <patch>
+      --drop-contains <substring> [--keep-contains <substring> ...] --write <patch>
   git apply --cached <patch>
 """
 import argparse
@@ -36,6 +40,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--file', action='append', required=True)
     parser.add_argument('--drop-contains', action='append', default=[])
+    parser.add_argument('--keep-contains', action='append', default=[])
     parser.add_argument('--write', required=True)
     args = parser.parse_args()
 
@@ -49,17 +54,19 @@ def main():
         keep = []
         for hunk in hunks:
             lines = changed_lines(hunk)
-            hit = next((marker for marker in args.drop_contains
-                        for line in lines if marker in line), None)
+            drop_hit = next((marker for marker in args.drop_contains
+                             for line in lines if marker in line), None)
+            keep_hit = next((marker for marker in args.keep_contains
+                             for line in lines if marker in line), None)
             first = (lines[0].strip() if lines else '')[:78]
             where = hunk.splitlines()[0][:58]
-            if hit:
+            if drop_hit or (args.keep_contains and not keep_hit):
                 dropped += 1
-                print('DROP  %-24s %s | %s' % (hit, where, first))
+                print('DROP  %-24s %s | %s' % (drop_hit or 'keep-only', where, first))
             else:
                 kept += 1
                 keep.append(hunk)
-                print('KEEP  %-24s %s | %s' % ('', where, first))
+                print('KEEP  %-24s %s | %s' % (keep_hit or '', where, first))
         if keep:
             patch.append(header + ''.join(keep))
 

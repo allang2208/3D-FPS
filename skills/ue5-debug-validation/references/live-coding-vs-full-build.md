@@ -54,6 +54,8 @@ python Tools/AssetPipeline/ue_python_exec.py --statement "import unreal; unreal.
 
 - `Tools/Build/Build-Editor.ps1` 只要发现任何 `UnrealEditor.exe` 或 `UnrealEditor-Cmd.exe`（命令行含 `FPSGAME.uproject` 或为空）就直接拒绝构建、并且**不会**结束进程。并行会话跑的 headless 资源脚本（`UnrealEditor-Cmd -run=pythonscript`）也算，属于短暂占用：先用 `Get-CimInstance Win32_Process -Filter "Name='UnrealEditor-Cmd.exe'"` 看命令行和启动时间，等它自己退出（通常数秒到数十秒）再重跑，不要替别人关进程。
 - 失败日志先分辨归属：`Saved/BuildEditor/build-*.log` 里报错的路径若是并行会话的文件（体素地形、建筑、怪物等），照 WORKFLOW 第 7 节保留对方改动，只在自己的文件上解决；同一文件混着双方未提交改动时按 hunk 精确暂存，不要整文件提交。
+- **别人的文件编译不过时，完整构建走不到你的代码**（2026-09-21 实例）：并行会话新增的未提交 `Source/FPSGAME/Weapons/RuneGoldMaterialCommandlet.cpp` 先 include `UObject/SaveLoose.h`、改一版后又 include `EditorAssetLibrary.h`，两者在本引擎/本模块都不可用，UBT 在第一个编译动作就 `fatal error C1083` 退出——**没有链接**，本轮改动没进 `UnrealEditor-FPSGAME.dll`。处理：保留对方文件、不代改不代删、不反复重试等它，也不结束对方编辑器；仅在当前对话说明阻塞（禁跨会话协调）。
+- 此时能证明的只有自己的 TU：`& '<Engine>\Build\BatchFiles\Build.bat' FPSGAMEEditor Win64 Development -Project="D:\FPS3D\FPSGAME\FPSGAME.uproject" -SingleFile=Source/FPSGAME/Weapons/X.cpp -WaitMutex -NoHotReload -NoUBTMakefiles`，把本次改动过的 `.cpp` 逐个跑一遍。**成功**说明该 TU 在本工作区能编过；**失败**可能是上面单文件校验一节说的无共享 PCH 假错误，不能当结论。两者都不等于完整构建/链接，更不等于运行验收——交付时如实写"未编译进二进制"。
 
 ## 热补丁类不能成为关卡/资产的依赖（2026-09-18 事故，青铜火把）
 
