@@ -2,6 +2,7 @@
 #include "VoxelBuildRuntime.h"
 #include "VoxelBuildPalette.h"
 #include "VoxelBuildPrefabActor.h"
+#include "VoxelBuildGrounding.h"
 #include "ColdSteelDoor.h"
 #include "ColdSteelWindow.h"
 #include "ColdSteelFountain.h"
@@ -117,7 +118,7 @@ void AVoxelBuildWorld::ReanchorVoxelsAround(const TArray<FIntVector>& VacatedCel
             if(!Node||!Node->bAnchor)continue;           // 原本就没锚：不动它（倒塌由既有流程负责）
             if(PrefabSupportAt(Node->Min))continue;      // 还贴着别的构件：锚不变
             if(IsGroundAnchor(Node->Min))continue;       // 脚下有地面：锚不变
-            Node->bAnchor=false;AnchorCache.Add(Key,false);
+            Node->bAnchor=false;
             Runtime->DirtySupport.Add(Key);Runtime->NodeEpoch.Add(Key,Revision+1);
             bChanged=true;
         }
@@ -127,14 +128,32 @@ void AVoxelBuildWorld::ReanchorVoxelsAround(const TArray<FIntVector>& VacatedCel
     Runtime->StructureAt=GetWorld()->GetTimeSeconds()+.08;MarkSaveDirty();
 }
 
+
 bool AVoxelBuildWorld::IsPrefabOnGround(FIntVector AnchorCell,FIntVector Footprint) const
 {
     // 地面探测点：中心 + 四角（起伏地形上只测中心会误判"没着地"）。
     const int32 LastX=FMath::Max(0,Footprint.X-1),LastY=FMath::Max(0,Footprint.Y-1);
     const FIntVector Points[]={FIntVector(LastX/2,LastY/2,0),FIntVector(0,0,0),FIntVector(LastX,0,0),
         FIntVector(0,LastY,0),FIntVector(LastX,LastY,0)};
+    // 2026-09-18 根因（用户报"拆掉支撑后窗仍然悬空"）：探针带是"底面 +40.5 cm"，而构件自己的
+    // 网格正好在这条带里。不排除它时，任何构件都会把自己的碰撞当成"底下有地面"，于是拆光周围
+    // 也不会掉。这里只排除这一件自己的占位 Actor 与逻辑构件：其他构件、场景实体照旧算表面，
+    // 体素放置用的 IsGroundAnchor 口径不变。
+    FCollisionQueryParams Params=VoxelGrounding::Query(GetWorld(),this);
+    if(const TWeakObjectPtr<AActor>* Placed=PrefabActors.Find(AnchorCell))
+        if(AActor* Piece=Placed->Get())
+        {
+            Params.AddIgnoredActor(Piece);
+            if(auto* Prefab=Cast<AVoxelBuildPrefabActor>(Piece))
+                if(AActor* Logic=Prefab->Logic())Params.AddIgnoredActor(Logic);
+        }
     for(const FIntVector& Offset:Points)
-        if(IsGroundAnchor(CellMin(AnchorCell+Offset)))return true;
+    {
+        VoxelGrounding::FFootprint Ground;
+        const FVector Min=CellMin(AnchorCell+Offset);
+        if(VoxelGrounding::Sample(GetWorld(),Min,Min.Z+VoxelGrounding::AnchorProbeRiseCm,
+            Min.Z-VoxelGrounding::ContactToleranceCm,Params,Ground))return true;
+    }
     return false;
 }
 
@@ -183,10 +202,6 @@ void AVoxelBuildWorld::VerifyPrefabSupport(const TArray<FVoxelEditCell>& Edit)
         if(Candidates.Contains(Instance.Cell)&&!IsPrefabSupported(Instance))
             Drop.Add(Instance.Cell);
     if(Drop.IsEmpty())return;
-    // 先记下将被腾空的全部占格（逐件 RemovePrefab 会把条目清掉，Footprint 之后就没处查了）。
-    TArray<FIntVector> Vacated;TArray<FIntVector> Scratch;
-    for(const FVoxelBuildPrefabInstance& Entry:Prefabs)
-        if(Drop.Contains(Entry.Cell)){FillPrefabCells(Entry.Cell,Entry.Footprint,Scratch);Vacated.Append(Scratch);}
     FString Names;
     for(const FIntVector& Anchor:Drop)
     {
@@ -195,13 +210,26 @@ void AVoxelBuildWorld::VerifyPrefabSupport(const TArray<FVoxelEditCell>& Edit)
         const FVoxelBuildPrefab* Definition=Instance&&Palette?Palette->FindComponent(Instance->Id):nullptr;
         const FString Label=Definition?Definition->DisplayName.ToString():
             (Instance?Instance->Id.ToString():FString(TEXT("构件")));
-        if(AActor* Piece=PrefabActors.FindRef(Anchor).Get())RemovePrefab(Piece);
+        // 脱落 = 真的掉下来（2026-09-18）：占位网格补上调色板代表网格后切成刚体自由落体，
+        // 逻辑构件挂上去跟随、停止交互，8 秒后一起销毁。没有可用网格／物理体时退回直接移除。
+        AActor* Piece=PrefabActors.FindRef(Anchor).Get();
+        auto* Placed=Piece?Cast<AVoxelBuildPrefabActor>(Piece):nullptr;
+        const bool bFalling=Placed&&Placed->BeginFall(Definition?Definition->Mesh.LoadSynchronous():nullptr,8.f);
+        if(Piece&&!bFalling)Piece->Destroy();
+        PrefabActors.Remove(Anchor);
         Names+=Names.IsEmpty()?Label:FString::Printf(TEXT("、%s"),*Label);
-        UE_LOG(LogTemp,Warning,TEXT("PREFAB_DROP %s 失去支撑 @格(%d,%d,%d)"),
-            *Label,Anchor.X,Anchor.Y,Anchor.Z);
+        UE_LOG(LogTemp,Warning,TEXT("PREFAB_DROP %s 失去支撑 @格(%d,%d,%d) %s"),
+            *Label,Anchor.X,Anchor.Y,Anchor.Z,bFalling?TEXT("落体"):TEXT("直接移除"));
     }
-    // 腾出的格：原本只锚在这些构件上的体素要重判锚定，否则会继续被当"有地基"撑着（2026-09-19）。
+    // 先记下将被腾空的全部占格（RemoveAll 之后 Footprint 就没处查了）。
+    TArray<FIntVector> Vacated;TArray<FIntVector> Scratch;
+    for(const FVoxelBuildPrefabInstance& Entry:Prefabs)
+        if(Drop.Contains(Entry.Cell)){FillPrefabCells(Entry.Cell,Entry.Footprint,Scratch);Vacated.Append(Scratch);}
+    Prefabs.RemoveAll([&Drop](const FVoxelBuildPrefabInstance& Entry){return Drop.Contains(Entry.Cell);});
+    RefreshPrefabOccupancy();
+    // 腾出的格：原本只锚在这件构件上的体素要重判锚定，否则它会继续被当"有地基"撑着（2026-09-19）。
     ReanchorVoxelsAround(Vacated);
+    MarkSaveDirty();
     Message=FString::Printf(TEXT("%s 失去支撑已脱落"),*Names);
     if(UGameInstance* Game=GetWorld()?GetWorld()->GetGameInstance():nullptr)
         if(auto* Model=Game->GetSubsystem<UColdSteelStatusModel>())
@@ -311,6 +339,18 @@ bool AVoxelBuildWorld::RemovePrefab(AActor* Piece)
     if(!Target)for(AActor* Parent=Piece?Piece->GetAttachParentActor():nullptr;Parent;Parent=Parent->GetAttachParentActor())
         if(auto* Found=Cast<AVoxelBuildPrefabActor>(Parent)){Target=Found;break;}
     if(!bReady||GetNetMode()!=NM_Standalone||!Target){Message=TEXT("只能拆除自己放置的构件");return false;}
+    // 正在下落的构件（失去支撑后脱落）已经不在 Prefabs 记录里，但 Actor 还要飞一段时间。
+    // 不特判的话会走到下面的 RemoveAll，提示"不在建筑记录中"——玩家清不掉它；
+    // 更糟的是若同一格已经放了**新**构件，用 AnchorCell 查记录会命中新构件并把它销毁。
+    // 落体件只销毁自己：不碰记录、不重判锚定（脱落时已经 Reanchor 过了）、不退还材料
+    // （与手动拆除一致，构件本就免料）。
+    if(Target->IsFalling())
+    {
+        if(AActor* Logic=Target->Logic())Logic->Destroy();
+        Target->Destroy();
+        Message=TEXT("已清除正在坠落的构件");
+        return true;
+    }
     const FIntVector Cell=Target->AnchorCell();
     // 先记下这件构件的占格（RemoveAll 之后 Footprint 就没处查了）：拆除后贴着它的体素要重判锚定。
     TArray<FIntVector> Vacated;

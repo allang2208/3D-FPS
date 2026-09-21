@@ -32,6 +32,8 @@ namespace
 bool UColdSteelDoorInteraction::IsDoor(const AActor* Target)
 {
     if (!Target) return false;
+    // 失去支撑正在落体的构件只留外观：不再当作可交互的门／窗（标签由 VoxelBuildPrefabActor::BeginFall 打上）。
+    if (Target->ActorHasTag(TEXT("VoxelDetached"))) return false;
     if (const UClass* Interface = LoadInteractInterface())
     {
         const UClass* Class = Target->GetClass();
@@ -45,6 +47,7 @@ bool UColdSteelDoorInteraction::IsDoor(const AActor* Target)
 UFunction* UColdSteelDoorInteraction::FindEntry(AActor* Target) const
 {
     if (!Target) return nullptr;
+    if (Target->ActorHasTag(TEXT("VoxelDetached"))) return nullptr;
     for (const FName& Name : DoorEntryNames)
         if (UFunction* Function = Target->FindFunction(Name))
         {

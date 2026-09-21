@@ -39,3 +39,32 @@ void AVoxelBuildPrefabActor::Configure(FName InId,FIntVector InCell,int32 InYaw,
     if(Contact)MeshComponent->SetPhysMaterialOverride(Contact);
     Tags.AddUnique(TEXT("VoxelBuildPrefab"));
 }
+
+bool AVoxelBuildPrefabActor::BeginFall(UStaticMesh* FallbackMesh,float LifeSeconds)
+{
+    if(MeshComponent&&!MeshComponent->GetStaticMesh()&&FallbackMesh)MeshComponent->SetStaticMesh(FallbackMesh);
+    if(!MeshComponent||!MeshComponent->GetStaticMesh())return false;
+    MeshComponent->SetMobility(EComponentMobility::Movable);
+    MeshComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+    MeshComponent->SetCollisionProfileName(TEXT("BlockAll"));
+    MeshComponent->SetSimulatePhysics(true);
+    if(!MeshComponent->IsSimulatingPhysics())return false;
+    MeshComponent->AddImpulse(FVector(FMath::FRandRange(-40.f,40.f),FMath::FRandRange(-40.f,40.f),0.f),NAME_None,true);
+    if(LogicActor)
+    {
+        // 逻辑构件只留外观：挂到刚体网格上跟随落体，停止交互、Tick，并让碰撞完全由刚体承担。
+        LogicActor->AttachToComponent(MeshComponent,FAttachmentTransformRules::KeepWorldTransform);
+        LogicActor->Tags.AddUnique(TEXT("VoxelDetached"));
+        LogicActor->SetActorTickEnabled(false);
+        TInlineComponentArray<UPrimitiveComponent*> Primitives;
+        LogicActor->GetComponents(Primitives);
+        for(UPrimitiveComponent* Primitive:Primitives)Primitive->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+        // 外观交给逻辑构件（窗框＋两扇、门框＋门板）：占位网格只当物理体，不重复画同一块几何。
+        MeshComponent->SetVisibility(false);
+    }
+    SetLifeSpan(FMath::Max(1.f,LifeSeconds));
+    // 标记为落体件：它已不在 AVoxelBuildWorld::Prefabs 记录里，拆除路径要据此区分处理
+    // （见 IsFalling() 的说明）。
+    bFalling=true;
+    return true;
+}
