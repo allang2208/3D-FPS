@@ -30,7 +30,7 @@
 
 ## 剩余内容依赖与未完成
 
-- **本轮 C++ 尚未进入二进制**：完整 `FPSGAMEEditor` 构建被另一个会话未提交的 `Source/FPSGAME/Weapons/RuneGoldMaterialCommandlet.cpp` 挡住（先 include `UObject/SaveLoose.h`、改一版后换成 `EditorAssetLibrary.h`，两者在本引擎/本模块都不存在），UBT 在第一个编译动作 fatal、未链接。三个改动文件的 `-SingleFile` 编译均 `Result: Succeeded`——这只说明各 TU 能编过，不等于链接或运行验收。对方文件能编过后执行 `powershell -NoProfile -File Tools/Build/Build-Editor.ps1`。
+- **本轮 C++ 已进入二进制（曾一度被阻塞）**：完整 `FPSGAMEEditor` 构建先被另一个会话未提交的 `Source/FPSGAME/Weapons/RuneGoldMaterialCommandlet.cpp` 挡住（`UObject/SaveLoose.h`、`EditorAssetLibrary.h` 在本引擎/本模块都不存在），UBT 在第一个编译动作 fatal、未链接；对照用的 `-SingleFile` 编译虽全部 `Result: Succeeded`，但那不等于链接。对方 22:17:14 修好该文件后，22:21:48 的构建写出 `Binaries/Win64/UnrealEditor-FPSGAME.dll`（`Saved/BuildEditor/build-20260921-222152.log`，`Result: Succeeded`），本会话重跑得到 `Target is up to date`（0 动作）。DLL 晚于本轮全部源码（最晚 21:34:20），重启编辑器即可生效——但**仍未运行、未做画面验收**。
 - **PKM 的 `spread_mult: 2`** 落在对方未提交的 `ue_pkm` 武器块内，随对方提交一起落地；本轮提交的目录仍是 8 把枪（其中 6 把带 `spread_mult: 2`）。
 - **材质**：`M_BallisticTracerVisibleV13` 已在编辑器内生成、编译、保存并回读（`responsive=1` 接常量 1.0、taper 已写入、`BLEND_ADDITIVE`、`responsive_aa=True`），属本机 Content，不公开提交。
 - **已知残留**：单段几何无法同时满足"不断线"与"不成光柱"——M1911（253 m/s）与 DW715（420 m/s）在 ≤60 fps 仍有空隙。

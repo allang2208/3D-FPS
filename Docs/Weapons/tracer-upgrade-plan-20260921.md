@@ -179,8 +179,9 @@
 ### 8.6 未完成 / 未验证
 
 - **单文件编译通过**：三个改动过的 .cpp（`FPSWeaponFXComponent.cpp`、`FPSBallisticsComponent.cpp`、`BallisticPresentationAudit.cpp`）用 `-SingleFile` 逐个编译，均 `Result: Succeeded`、退出码 0（日志 `Saved/BuildEditor/single-*-20260921-2157.log`），说明本轮代码在真实引擎头文件与工具链下可编译。
-- **完整构建被阻塞（未链接）**：第一次尝试时 FPSGAME 编辑器在运行，`Tools/Build/Build-Editor.ps1` 按既有守卫拒绝构建；编辑器关闭后再试两次，都在同一个**他人未提交文件**上 fatal——`Source/FPSGAME/Weapons/RuneGoldMaterialCommandlet.cpp`（untracked，构建时该文件仍在被编辑）第 9 行 include `UObject/SaveLoose.h`、第 10 行 include `EditorAssetLibrary.h`，两者在本引擎/本模块都不可用（全 `Engine/Source` 下搜不到 `SaveLoose.h`）。UBT 在第一个编译动作即 `fatal error C1083`，链接未执行，**因此本轮 C++ 尚未进入二进制**。
+- **完整构建曾被阻塞，随后由对方修复并完成链接**：第一次尝试时 FPSGAME 编辑器在运行，`Tools/Build/Build-Editor.ps1` 按既有守卫拒绝构建；编辑器关闭后再试两次，都在同一个**他人未提交文件**上 fatal——`Source/FPSGAME/Weapons/RuneGoldMaterialCommandlet.cpp`（untracked，构建时该文件仍在被编辑）第 9 行 include `UObject/SaveLoose.h`、第 10 行 include `EditorAssetLibrary.h`，两者在本引擎/本模块都不可用（全 `Engine/Source` 下搜不到 `SaveLoose.h`）。UBT 在第一个编译动作即 `fatal error C1083`，链接未执行。
+- **现状：已链接进二进制**。对方在 22:17:14 修好该文件（改为 `UObject/SavePackage.h`，编辑器专用头移入 `#if WITH_EDITOR`），22:21:48 的构建写出了 `Binaries/Win64/UnrealEditor-FPSGAME.dll`（对应日志 `Saved/BuildEditor/build-20260921-222152.log`，`Result: Succeeded`）；本会话随后重跑 `Build-Editor.ps1` 得到 `Target is up to date`（0 个动作，`Result: Succeeded`）。DLL 时间戳晚于本轮全部源码（最晚 21:34:20），因此**本轮 C++ 已在编辑器二进制内**，重启编辑器即可生效。
 - 按项目规则未修改、未移动、未删除他人文件，也未结束他人编辑器；阻塞仅在当前对话说明（不与其他会话协调）。
 - **未运行、未测试、未做画面验收**（按用户规则）。R1 的 `r.AntiAliasingMethod` 对比诊断仍未做。
-- 解除阻塞后要执行的完整构建：`powershell -NoProfile -File Tools/Build/Build-Editor.ps1`。
+- 观感微调入口：`WeaponFX::TracerEmission`、`TracerPixelWidth`、`TracerRifleLengthCM/TracerRifleMaxCM`、`TracerPistolLengthCM/TracerPistolMaxCM` 六个常量。
 - 观感微调入口：`WeaponFX::TracerEmission`、`TracerPixelWidth`、`TracerRifleLengthCM/TracerRifleMaxCM`、`TracerPistolLengthCM/TracerPistolMaxCM` 六个常量。
