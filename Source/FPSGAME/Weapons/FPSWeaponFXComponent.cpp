@@ -44,9 +44,16 @@ namespace WeaponFX
     constexpr float TracerRifleMaxCM = 1400.f;
     constexpr float TracerPistolLengthCM = 300.f;
     constexpr float TracerPistolMaxCM = 1200.f;  // 30 fps 下 420 m/s 手枪仍差 200 cm 覆盖
-    constexpr float TracerPixelWidth = 1.7f;    // 原 1.1 像素过细，细亮线在 TSR 下闪且容易被 bloom 抹开
-    constexpr float TracerMinDiameterCM = 0.9f;
-    constexpr float TracerEmission = 7.5f;      // 原 14：亮度直接决定残影强度与过曝
+    constexpr float TracerMinDiameterCM = 1.6f;
+    // World-space caps: they only bind far away (screen width is constant), where the old
+    // 5 cm cap crushed a 60 m streak down to under one pixel.
+    constexpr float TracerDiameterMaxCM = 28.f;
+    constexpr float TracerScopedDiameterMaxCM = 12.f;
+    // Emission multiplies an additive colour and the shader pushes the core towards white,
+    // so a high value clipped every channel and read as pale: 7.5 is why the streak was not
+    // vivid. Lower emission with a saturated tint keeps red high and green/blue low.
+    constexpr float TracerEmission = 2.6f;
+    constexpr FLinearColor TracerTint = FLinearColor(1.f,.30f,.03f);
     constexpr float TracerFlashSeconds = 0.05f; // 瞬时段（无弹丸飞行）只做短暂淡出
 }
 
@@ -70,6 +77,21 @@ static TAutoConsoleVariable<float> TracerLengthScale(TEXT("fps.Tracer.LengthScal
 // lands is hard to see at all. It now holds its last position and fades out instead.
 static TAutoConsoleVariable<float> TracerLingerSeconds(TEXT("fps.Tracer.LingerSeconds"),.12f,
     TEXT("Seconds a finished tracer streak stays visible and fades out (0 = vanish at once)."));
+// Width and colour are the two knobs behind "too thin / not vivid"; both apply live, including
+// to streaks already in flight (ApplyTracerTransform re-applies them every frame).
+static TAutoConsoleVariable<float> TracerWidthPixels(TEXT("fps.Tracer.PixelWidth"),4.f,
+    TEXT("Tracer screen width in pixels at 1080p reference (higher = thicker beam)."));
+static TAutoConsoleVariable<float> TracerEmissionScale(TEXT("fps.Tracer.Emission"),2.6f,
+    TEXT("Additive emission of the tracer. Very high values clip every channel and read white."));
+static TAutoConsoleVariable<FString> TracerTintSetting(TEXT("fps.Tracer.Tint"),TEXT("1.0,0.30,0.03"),
+    TEXT("Tracer colour as R,G,B (linear, 0-1). Saturated red/orange stays vivid at low emission."));
+static bool ParseTracerTint(const FString& Text,FLinearColor& Out)
+{
+    TArray<FString> Parts;Text.ParseIntoArray(Parts,TEXT(","),true);
+    if(Parts.Num()<3)return false;
+    Out=FLinearColor(FCString::Atof(*Parts[0]),FCString::Atof(*Parts[1]),FCString::Atof(*Parts[2]),1.f);
+    return true;
+}
 
 UFPSWeaponFXComponent::UFPSWeaponFXComponent()
 {
@@ -316,7 +338,7 @@ FFPSWeaponFXTracer* UFPSWeaponFXComponent::AcquireTracer(int32 RoundId)
     if(!Result->Material)Result->Material=UMaterialInstanceDynamic::Create(TracerMaterial,Result->Mesh);
     Result->Mesh->SetMaterial(0,Result->Material);
     Result->Mesh->SetVisibility(true);
-    Result->Material->SetVectorParameterValue(TEXT("Tint"),FLinearColor(1.f,.63f,.18f));
+    Result->Material->SetVectorParameterValue(TEXT("Tint"),WeaponFX::TracerTint);
     Result->Material->SetScalarParameterValue(TEXT("Emission"),WeaponFX::TracerEmission);
     Result->Material->SetScalarParameterValue(TEXT("Opacity"),1.f);
     SetComponentTickEnabled(true);
@@ -347,10 +369,18 @@ void UFPSWeaponFXComponent::ApplyTracerTransform(FFPSWeaponFXTracer& T)
         Center-Camera->GetComponentLocation(),Camera->GetForwardVector())));
     const float PixelWidth=2.f*ViewDepth*FMath::Tan(FMath::DegreesToRadians(
         FMath::Clamp(Camera->FieldOfView,5.f,150.f)*.5f))/FMath::Max(1,ViewWidth);
-    const float Diameter=FMath::Clamp(PixelWidth*WeaponFX::TracerPixelWidth,
-        WeaponFX::TracerMinDiameterCM,ShouldHideCasings()?2.5f:5.f);
+    const float Diameter=FMath::Clamp(PixelWidth*FMath::Clamp(TracerWidthPixels.GetValueOnGameThread(),.2f,16.f),
+        WeaponFX::TracerMinDiameterCM,
+        ShouldHideCasings()?WeaponFX::TracerScopedDiameterMaxCM:WeaponFX::TracerDiameterMaxCM);
     T.Mesh->SetWorldLocationAndRotation(Center,FRotationMatrix::MakeFromZ(T.Head-Tail).Rotator());
     T.Mesh->SetWorldScale3D(FVector(Diameter,Diameter,FMath::Max(1.f,T.Length))/100.f);
+    // Colour and brightness are re-applied every frame so console changes show up on streaks
+    // that are already flying instead of only on the next shot.
+    FLinearColor Tint=WeaponFX::TracerTint;
+    ParseTracerTint(TracerTintSetting.GetValueOnGameThread(),Tint);
+    T.Material->SetVectorParameterValue(TEXT("Tint"),Tint);
+    T.Material->SetScalarParameterValue(TEXT("Emission"),
+        FMath::Clamp(TracerEmissionScale.GetValueOnGameThread(),0.f,20.f));
     const float Linger=FMath::Clamp(TracerLingerSeconds.GetValueOnGameThread(),0.f,2.f);
     T.Material->SetScalarParameterValue(TEXT("Opacity"),
         T.bFlash?FMath::Clamp(1.f-T.FlashAge/WeaponFX::TracerFlashSeconds,0.f,1.f)

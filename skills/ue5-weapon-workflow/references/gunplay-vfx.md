@@ -36,6 +36,8 @@
 - **抛射物感来自弹速，不是亮度**：`90 m/s`（≈复合弓箭速）时 70 m 要 0.78 s，M4 打出去约 10 发第一发才到，玩家看到一串可见弹丸——这是"像抛射物"的根因。提弹速到 300–350 m/s（0.20–0.23 s）配合上面的长段才读成"光扫过"；超过约 700 m/s 才会超出"一段覆盖一帧"的能力。诊断与取舍见 `Docs/Weapons/ballistic-feel-options-20260921.md`。
 - **材质走时域响应，别用 Output Velocity**。前景材质输出 `TemporalResponsivenessOutput = 1.0`，配 `r.Velocity.TemporalResponsiveness.Supported=1`（本项目已在 `Config/DefaultEngine.ini` 打开）。**不要**用 `OutputVelocity`：透明材质加 `DepthFade` 会报 `Translucent material with 'Output Velocity' enabled will write to depth buffer`，与火球材质踩过的是同一处。
 - **亮度与宽度**：高自发光（本项目原 `Emission=14`）会把 TSR 的错误样本一起放大；降到 7.5 并把核心宽度由 1.1 抬到 1.7 屏幕像素（最小直径 0.9 cm）比继续加亮更耐看。
+- **"不够鲜艳"通常是过曝，不是配色**（2026-09-21 第三轮）：加色混合的曳光材质把核心色推向白（本项目 `lerp(warm, float3(1.0,0.95,0.80), core)`）再乘 `Emission`，`Tint × Emission` 的三个分量全超过 1 就一律裁成白——**越亮越白**。修法是把 emission 降到让绿蓝不过 1（本项目 7.5 → 2.6）、同时提高 tint 饱和度（(1,0.63,0.18) → (1,0.30,0.03)），红通道裁到 1 反而是饱和色该有的样子。颜色与亮度要在每帧的变换里重申，控制台改动才会作用于**已在飞**的光段。
+- **"太细"要同时查屏幕像素宽和世界空间上限**：直径是 `clamp(每像素厘米 × 像素宽, 最小值, 世界上限)`，而"每像素厘米"随距离增长——**固定上限只在远处生效，会把远处的屏幕宽度压回 1 像素以下**（本项目 5 cm 上限在 60 m 处只剩不到 1 px，是"看不到弹道"的第二个原因）。上限要按"远处仍要有几像素"定（本项目 28 cm 腰射 / 12 cm 镜内），最小值负责近距离不变成针（1.6 cm）。宽度、亮度、颜色三件事都用实时 CVar 暴露（`fps.Tracer.PixelWidth` / `Emission` / `Tint`），让用户在两分钟内定音，不要靠反复编译猜。
 - **合同与验收**：审计里"活动段数 = 在飞子弹数""停火后归零"不能变；改了计数器语义（本项目 `ExpiredTracerSegments` 由"每帧回收"变为"每段一次"）就要同步断言并在文档写明。测法：`r.AntiAliasingMethod=1`(FXAA) 与 `=4`(TSR) 对照横移残影、`t.MaxFPS 30/60/144` 对照段长与断线、对墙打断看截断与命中点。案例见 `Docs/Weapons/tracer-upgrade-plan-20260921.md`，材质源 `SourceAssets/GunplayVFX20260914/TracerVisibleV13.hlsl`、生成器 `Tools/AssetPipeline/build_tracer_v13.py`、回读 `verify_tracer_v13.py`。
 - 双持手枪当前**没有**曳光调用点（`PistolDualWieldCombat` 直接 `Launch`，不走 `OnTracerSegment`）；要给双持加曳光先补调用，别以为它已经在走同一条路。
 
