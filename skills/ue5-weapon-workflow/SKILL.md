@@ -76,3 +76,7 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 
 - 弹药袋、弹种兼容组、切弹事务和射击穿透：[数字弹药袋与切换弹种](references/ammo-pouch-and-types.md)。
 - 生成枪体的机瞄、漏面、接口、近景法线及分区涂层：[生成枪械近景精修](references/generated-rifle-refinement.md)。
+
+## PKM 退役经验（2026-09-22）
+
+PKM 生成枪体的整轮制作和接入已被用户判为废案；拆分、可见内面、材质与归因边界见 [生成枪械近景精修](references/generated-rifle-refinement.md#失败案例pkm-全系列已退役2026-09-22)。任何 PKM 修订都不作为已接受母版；A762 等既有成功案例保持其原适用范围。
