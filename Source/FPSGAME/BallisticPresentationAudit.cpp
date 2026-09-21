@@ -237,7 +237,10 @@ void AFPSGAMECharacter::RunBallisticPresentationAudit()
         if(Elapsed>=2.0){
             FireReleased();
             Check(PeakTracers>0&&PeakTracers<=2,TEXT("lateral fire has bounded current flight segments without accumulated trails"));
-            Check(WeaponFX->ExpiredTracerSegments>20,TEXT("previous frame tracer segments are retired"));
+            // A streak now lives for the whole flight and is refreshed in place, so the
+            // old per-frame churn count no longer applies: the contract is that finished
+            // rounds do retire their streak and nothing piles up (PeakTracers, stage 21).
+            Check(WeaponFX->ExpiredTracerSegments>0,TEXT("finished rounds retire their tracer streak without accumulation"));
             Stage=21;Next=Now+6.f;
         }
         return;

@@ -12,6 +12,9 @@ struct FFPSFlyingRound
     float Speed=0,Remaining=0,Damage=0;
     float TraveledCM=0,EffectiveRangeCM=0;
     double Timestamp=0;
+    // Stable per-round identity: the weapon FX keeps one tracer streak per Id and
+    // refreshes it in place, instead of spawning a new one-frame segment each tick.
+    int32 Id=INDEX_NONE;
     int32 Piercing=0,Poison=0;
     FColdSteelSkillShot Training;
     TArray<TWeakObjectPtr<AActor>> HitActors;
@@ -31,6 +34,7 @@ public:
     FVector LastImpactPoint=FVector::ZeroVector;
 private:
     TArray<FFPSFlyingRound> Rounds;
+    int32 NextRoundId=0;
     UPROPERTY(Transient) TObjectPtr<UFPSWeaponFXComponent> WeaponFX;
     UPROPERTY(Transient) TObjectPtr<USoundBase> HeadshotSound;
 };

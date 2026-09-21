@@ -36,6 +36,29 @@ struct FFPSWeaponFXParticle
     uint64 BirthFrame = 0;
 };
 
+/** One flying round's tracer streak.
+    The streak owns a primitive for the whole flight and is refreshed in place every
+    frame, so the renderer sees a real velocity and a continuous dash instead of a
+    one-frame pop. One streak per round id, never a history pile-up. */
+USTRUCT()
+struct FFPSWeaponFXTracer
+{
+    GENERATED_BODY()
+    UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> Mesh;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> Material;
+    /** INDEX_NONE: instantaneous (hitscan) flash that only fades, no flight path. */
+    int32 RoundId = INDEX_NONE;
+    FVector Head = FVector::ZeroVector;
+    FVector Direction = FVector::ForwardVector;
+    /** Centimetres travelled since launch: the dash may never reach behind the muzzle. */
+    float TraveledCM = 0.0f;
+    float Length = 0.0f;
+    float FlashAge = 0.0f;
+    bool bFlash = false;
+    bool bActive = false;
+    uint64 LastUpdateFrame = 0;
+};
+
 /** Local cosmetic weapon feedback. No damage, replicated state or physical viewmodel collision. */
 UCLASS(ClassGroup=(Weapons), meta=(BlueprintSpawnableComponent))
 class FPSGAME_API UFPSWeaponFXComponent : public UActorComponent
@@ -53,6 +76,8 @@ public:
     UFUNCTION(BlueprintCallable, Category="Weapon FX") void OnShot(bool bADS);
     UFUNCTION(BlueprintCallable, Category="Weapon FX") void OnImpact(const FHitResult& Hit);
     void OnTracerSegment(const FVector& Start,const FVector& End);
+    /** Flying round: refreshes (or opens) the streak owned by RoundId. */
+    void OnTracerSegment(int32 RoundId,const FVector& Start,const FVector& End);
     int32 TracerSegments=0;
     int32 GetActiveTracerCount() const;
     int32 ExpiredTracerSegments=0;
@@ -93,6 +118,13 @@ private:
     FVector MuzzleLocation() const;
     FVector MuzzleForward() const;
     void ApplyParticleTransform(FFPSWeaponFXParticle& Particle);
+    // Tracer streaks live in their own pool: a streak's primitive must keep a continuous
+    // transform history (motion vectors) and must never be taken over by a casing or smoke puff.
+    FFPSWeaponFXTracer* AcquireTracer(int32 RoundId);
+    void ReleaseTracer(FFPSWeaponFXTracer& Tracer);
+    void ApplyTracerTransform(FFPSWeaponFXTracer& Tracer);
+    float TracerBaseLengthCM() const;
+    float TracerMaxLengthCM() const;
     UPROPERTY(Transient) TObjectPtr<USkeletalMeshComponent> WeaponMesh;
     UPROPERTY(Transient) TObjectPtr<UCameraComponent> Camera;
     UPROPERTY(Transient) TObjectPtr<UPointLightComponent> FlashLight;
@@ -106,6 +138,9 @@ private:
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UMaterialInterface> TracerMaterial;
     UPROPERTY(Transient) TArray<FFPSWeaponFXParticle> Particles;
     static constexpr int32 MaxParticles = 64;
+    UPROPERTY(Transient) TArray<FFPSWeaponFXTracer> Tracers;
+    // Sustained auto fire can keep a dozen rounds in flight; one streak each.
+    static constexpr int32 MaxTracers = 32;
     float BarrelHeat = 0.0f;
     // Shots arrive at the current game time, after the interval represented by this Tick.
     float PendingHeat = 0.0f;

@@ -23,7 +23,7 @@
 
 namespace WeaponFX
 {
-    enum : uint8 { FlashCore, FlashTongue, Smoke, Spark, Casing, Dust, Tracer };
+    enum : uint8 { FlashCore, FlashTongue, Smoke, Spark, Casing, Dust };
     const FLinearColor Flame(1.0f, 0.42f, 0.075f);
     const FLinearColor HotCore(1.0f, 0.76f, 0.27f);
     constexpr double SmokePeriod = 0.16;
@@ -32,6 +32,17 @@ namespace WeaponFX
     constexpr float HeatCoolingRate = 0.28f;
     constexpr float SmokeDrag = 1.3f;
     constexpr float StreamMaxLifetime = 1.1f;
+    // Tracer streaks (see Docs/Weapons/tracer-upgrade-plan-20260921.md).
+    // The visible dash is clamped to a per-class window instead of "one frame of
+    // travel", which used to make it frame-rate dependent and full of gaps.
+    constexpr float TracerRifleLengthCM = 250.f;
+    constexpr float TracerRifleMaxCM = 350.f;   // 30 fps 下 9.5 m/s 级长枪仍不断线
+    constexpr float TracerPistolLengthCM = 150.f;
+    constexpr float TracerPistolMaxCM = 300.f;  // 高速手枪弹单段无法同时做到不断线又不成光柱
+    constexpr float TracerPixelWidth = 1.7f;    // 原 1.1 像素过细，细亮线在 TSR 下闪且容易被 bloom 抹开
+    constexpr float TracerMinDiameterCM = 0.9f;
+    constexpr float TracerEmission = 7.5f;      // 原 14：亮度直接决定残影强度与过曝
+    constexpr float TracerFlashSeconds = 0.05f; // 瞬时段（无弹丸飞行）只做短暂淡出
 }
 
 // Optic firing presentation (LPVO 1-6x only). At high magnification the world
@@ -67,7 +78,7 @@ UFPSWeaponFXComponent::UFPSWeaponFXComponent()
     static ConstructorHelpers::FObjectFinder<UMaterialInterface> RifleShellSurface(TEXT("/Game/NiagaraExamples/FX_Weapons/MuzzleFlashes/Meshes/MI_BulletShell_FX.MI_BulletShell_FX"));
     RifleCasingMesh = RifleShell.Object;
     RifleCasingMaterial = RifleShellSurface.Object;
-    static ConstructorHelpers::FObjectFinder<UMaterialInterface> Tracer(TEXT("/Game/Weapons/GunplayFX/M_BallisticTracerVisibleV12.M_BallisticTracerVisibleV12"));
+    static ConstructorHelpers::FObjectFinder<UMaterialInterface> Tracer(TEXT("/Game/Weapons/GunplayFX/M_BallisticTracerVisibleV13.M_BallisticTracerVisibleV13"));
     TracerMaterial = Tracer.Object;
     static ConstructorHelpers::FObjectFinder<UNiagaraSystem> EpicMuzzle(TEXT("/Game/Weapons/GunplayFX/NS_FPS_MuzzleFlashV10.NS_FPS_MuzzleFlashV10"));
     static ConstructorHelpers::FObjectFinder<UNiagaraSystem> EpicSmoke(TEXT("/Game/Weapons/GunplayFX/NS_FPS_MuzzleSmokeStreamV12.NS_FPS_MuzzleSmokeStreamV12"));
@@ -79,6 +90,7 @@ void UFPSWeaponFXComponent::Initialize(USkeletalMeshComponent* InWeaponMesh, UCa
     if (WeaponMesh) RemoveTickPrerequisiteComponent(WeaponMesh);
     StopEmission();
     for (FFPSWeaponFXParticle& P : Particles) Release(P);
+    for (FFPSWeaponFXTracer& T : Tracers) ReleaseTracer(T);
     WeaponMesh = InWeaponMesh;
     Camera = InCamera;
     bReady = false;
@@ -209,30 +221,136 @@ void UFPSWeaponFXComponent::OnTracerSegment(const FVector& Start,const FVector& 
 {
     if(!bReady||!TracerMaterial)return;
     const FVector Travel=End-Start;
-    const float Length=FMath::Min(static_cast<float>(Travel.Size()),180.f);
-    if(Length<.1f)return;
-    if(auto* P=Acquire(WeaponFX::Tracer,CylinderMesh,TracerMaterial))
+    const float Distance=static_cast<float>(Travel.Size());
+    if(Distance<.1f)return;
+    auto* T=AcquireTracer(INDEX_NONE);
+    if(!T)return;
+    ++TracerSegments;LastTracerEnd=End;
+    // Instantaneous path (no flying round): a short dash at the impact end that fades
+    // over TracerFlashSeconds instead of vanishing inside a single frame.
+    T->bFlash=true;T->FlashAge=0.f;
+    T->Direction=Travel/Distance;
+    T->Length=FMath::Min(FMath::Clamp(Distance,TracerBaseLengthCM(),TracerMaxLengthCM()),Distance);
+    T->Head=End;
+    T->TraveledCM=Distance;
+    T->LastUpdateFrame=GFrameCounter;
+    ApplyTracerTransform(*T);
+}
+
+void UFPSWeaponFXComponent::OnTracerSegment(int32 RoundId,const FVector& Start,const FVector& End)
+{
+    if(!bReady||!TracerMaterial)return;
+    const FVector Travel=End-Start;
+    const float Distance=static_cast<float>(Travel.Size());
+    if(Distance<.1f)return;
+    auto* T=AcquireTracer(RoundId);
+    if(!T)return;
+    ++TracerSegments;LastTracerEnd=End;
+    T->bFlash=false;T->FlashAge=0.f;
+    T->RoundId=RoundId;
+    T->Direction=Travel/Distance;
+    T->Head=End;
+    T->TraveledCM+=Distance;
+    // The dash trails the round by its class length and is never shorter than this
+    // frame's travel, so consecutive frames overlap at any frame rate (no dotted path).
+    // It also may not reach behind the muzzle: the streak grows out of the barrel.
+    T->Length=FMath::Min(FMath::Clamp(Distance,TracerBaseLengthCM(),TracerMaxLengthCM()),T->TraveledCM);
+    T->LastUpdateFrame=GFrameCounter;
+    ApplyTracerTransform(*T);
+}
+
+FFPSWeaponFXTracer* UFPSWeaponFXComponent::AcquireTracer(int32 RoundId)
+{
+    if(RoundId!=INDEX_NONE)
+        for(FFPSWeaponFXTracer& T:Tracers)
+            if(T.bActive&&!T.bFlash&&T.RoundId==RoundId)return &T;
+    FFPSWeaponFXTracer* Result=Tracers.FindByPredicate([](const FFPSWeaponFXTracer& T){return !T.bActive;});
+    if(!Result)
     {
-        ++TracerSegments;LastTracerEnd=End;
-        P->Position=End-Travel.GetSafeNormal()*(Length*.5f);
-        P->Rotation=FRotationMatrix::MakeFromZ(Travel).Rotator();
-        // Preserve roughly one pixel of diameter instead of losing a 3 mm tube
-        // to subpixel filtering. The bounded width never changes the bullet path.
-        int32 ViewWidth=1920, ViewHeight=1080;
-        if(const auto* Pawn=Cast<APawn>(GetOwner()))
-            if(const auto* PC=Cast<APlayerController>(Pawn->GetController()))
-                PC->GetViewportSize(ViewWidth,ViewHeight);
-        const float ViewDepth=FMath::Max(1.f,static_cast<float>(FVector::DotProduct(
-            P->Position-Camera->GetComponentLocation(),Camera->GetForwardVector())));
-        const float PixelWidth=2.f*ViewDepth*FMath::Tan(FMath::DegreesToRadians(
-            FMath::Clamp(Camera->FieldOfView,5.f,150.f)*.5f))/FMath::Max(1,ViewWidth);
-        const float Diameter=FMath::Clamp(PixelWidth*1.1f,.8f,ShouldHideCasings()?2.5f:5.f);
-        P->Size=FVector(Diameter,Diameter,Length);
-        P->Lifetime=1.f; // Render only the current frame; retired explicitly below.
-        P->Material->SetVectorParameterValue(TEXT("Tint"),FLinearColor(1.f,.63f,.18f));
-        P->Material->SetScalarParameterValue(TEXT("Emission"),14.f);
-        ApplyParticleTransform(*P);
+        if(Tracers.Num()>=MaxTracers)
+        {
+            // Pool exhausted (very fast rounds with long flight times): recycle the streak
+            // that has gone longest without an update so no live round is left without one.
+            Result=&Tracers[0];
+            for(FFPSWeaponFXTracer& T:Tracers)if(T.LastUpdateFrame<Result->LastUpdateFrame)Result=&T;
+            ReleaseTracer(*Result);
+        }
+        else
+        {
+            Result=&Tracers.AddDefaulted_GetRef();
+            Result->Mesh=NewObject<UStaticMeshComponent>(GetOwner());
+            GetOwner()->AddInstanceComponent(Result->Mesh);
+            Result->Mesh->SetMobility(EComponentMobility::Movable);
+            Result->Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+            Result->Mesh->SetGenerateOverlapEvents(false);
+            Result->Mesh->SetCastShadow(false);
+            Result->Mesh->bReceivesDecals=false;
+            Result->Mesh->SetCanEverAffectNavigation(false);
+            Result->Mesh->RegisterComponent();
+            Result->Mesh->SetStaticMesh(CylinderMesh);
+            Result->Material=UMaterialInstanceDynamic::Create(TracerMaterial,Result->Mesh);
+            Result->Mesh->SetMaterial(0,Result->Material);
+        }
     }
+    Result->bActive=true;
+    Result->RoundId=RoundId;
+    Result->TraveledCM=0.f;
+    Result->FlashAge=0.f;
+    Result->Head=FVector::ZeroVector;
+    Result->Mesh->SetStaticMesh(CylinderMesh);
+    if(!Result->Material)Result->Material=UMaterialInstanceDynamic::Create(TracerMaterial,Result->Mesh);
+    Result->Mesh->SetMaterial(0,Result->Material);
+    Result->Mesh->SetVisibility(true);
+    Result->Material->SetVectorParameterValue(TEXT("Tint"),FLinearColor(1.f,.63f,.18f));
+    Result->Material->SetScalarParameterValue(TEXT("Emission"),WeaponFX::TracerEmission);
+    Result->Material->SetScalarParameterValue(TEXT("Opacity"),1.f);
+    SetComponentTickEnabled(true);
+    return Result;
+}
+
+void UFPSWeaponFXComponent::ReleaseTracer(FFPSWeaponFXTracer& T)
+{
+    T.bActive=false;
+    T.bFlash=false;
+    T.RoundId=INDEX_NONE;
+    if(T.Mesh)T.Mesh->SetVisibility(false);
+}
+
+void UFPSWeaponFXComponent::ApplyTracerTransform(FFPSWeaponFXTracer& T)
+{
+    if(!T.Mesh||!Camera)return;
+    // Head on the round, tail Length behind it: the dash always covers the most recent
+    // stretch of the real path, so it can never leave the bore or pierce a wall behind it.
+    const FVector Tail=T.Head-T.Direction*T.Length;
+    int32 ViewWidth=1920,ViewHeight=1080;
+    if(const auto* Pawn=Cast<APawn>(GetOwner()))
+        if(const auto* PC=Cast<APlayerController>(Pawn->GetController()))
+            PC->GetViewportSize(ViewWidth,ViewHeight);
+    const FVector Center=(T.Head+Tail)*.5f;
+    const float ViewDepth=FMath::Max(1.f,static_cast<float>(FVector::DotProduct(
+        Center-Camera->GetComponentLocation(),Camera->GetForwardVector())));
+    const float PixelWidth=2.f*ViewDepth*FMath::Tan(FMath::DegreesToRadians(
+        FMath::Clamp(Camera->FieldOfView,5.f,150.f)*.5f))/FMath::Max(1,ViewWidth);
+    const float Diameter=FMath::Clamp(PixelWidth*WeaponFX::TracerPixelWidth,
+        WeaponFX::TracerMinDiameterCM,ShouldHideCasings()?2.5f:5.f);
+    T.Mesh->SetWorldLocationAndRotation(Center,FRotationMatrix::MakeFromZ(T.Head-Tail).Rotator());
+    T.Mesh->SetWorldScale3D(FVector(Diameter,Diameter,FMath::Max(1.f,T.Length))/100.f);
+    T.Material->SetScalarParameterValue(TEXT("Opacity"),
+        T.bFlash?FMath::Clamp(1.f-T.FlashAge/WeaponFX::TracerFlashSeconds,0.f,1.f):1.f);
+}
+
+float UFPSWeaponFXComponent::TracerBaseLengthCM() const
+{
+    const auto* Character=Cast<AFPSGAMECharacter>(GetOwner());
+    return (bIndependentPistol||(Character&&Character->IsPistolWeapon()))
+        ?WeaponFX::TracerPistolLengthCM:WeaponFX::TracerRifleLengthCM;
+}
+
+float UFPSWeaponFXComponent::TracerMaxLengthCM() const
+{
+    const auto* Character=Cast<AFPSGAMECharacter>(GetOwner());
+    return (bIndependentPistol||(Character&&Character->IsPistolWeapon()))
+        ?WeaponFX::TracerPistolMaxCM:WeaponFX::TracerRifleMaxCM;
 }
 
 bool UFPSWeaponFXComponent::SpawnEpicFX(FVector Position,FVector Forward,float Scale)
@@ -488,9 +606,7 @@ void UFPSWeaponFXComponent::ApplyParticleTransform(FFPSWeaponFXParticle& P)
     FVector Size = P.Size;
     float Alpha = P.Opacity * (1.0f - Life);
     FRotator Rotation = P.Rotation;
-    if (P.Kind == WeaponFX::Tracer)
-        P.Material->SetScalarParameterValue(TEXT("Opacity"),Alpha);
-    else if (P.Kind != WeaponFX::Casing)
+    if (P.Kind != WeaponFX::Casing)
     {
         Rotation = FRotationMatrix::MakeFromZ(Camera->GetComponentLocation() - P.Position).Rotator();
         const FQuat Billboard = Rotation.Quaternion() * FQuat(FVector::UpVector, FMath::DegreesToRadians(P.Rotation.Roll));
@@ -568,6 +684,7 @@ void UFPSWeaponFXComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
     {
         StopEmission();
         for (FFPSWeaponFXParticle& P : Particles) Release(P);
+        for (FFPSWeaponFXTracer& T : Tracers) ReleaseTracer(T);
         SetComponentTickEnabled(false);
         return;
     }
@@ -587,9 +704,6 @@ void UFPSWeaponFXComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
         if (!P.bActive) continue;
         // Retire pre-ADS shells too, so a hip-fire casing cannot cross the scope after aim-in.
         if (P.Kind == WeaponFX::Casing && bHideCasings) { Release(P); continue; }
-        // A tracer is the current swept flight segment, never a stationary history trail.
-        if (P.Kind == WeaponFX::Tracer && P.BirthFrame != GFrameCounter)
-        { Release(P); ++ExpiredTracerSegments; continue; }
         // An OnShot/OnImpact particle was born at this frame's current time.
         // Both its age and motion start next Tick, preserving a zero-age first display.
         if (P.BirthFrame != GFrameCounter) AdvanceParticle(P, DeltaTime);
@@ -597,6 +711,22 @@ void UFPSWeaponFXComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
         if (P.Kind == WeaponFX::FlashCore || P.Kind == WeaponFX::FlashTongue)
             P.Position = MuzzleLocation() + MuzzleForward() * P.ForwardOffset;
         ApplyParticleTransform(P);
+    }
+    // Tracer streaks: every live round owns exactly one, refreshed in place by the
+    // ballistics tick earlier this frame. A streak that was not refreshed is a round
+    // that ended (or impacted), so it is retired immediately - no history pile-up.
+    for (FFPSWeaponFXTracer& T : Tracers)
+    {
+        if (!T.bActive) continue;
+        if (T.bFlash)
+        {
+            T.FlashAge += DeltaTime;
+            if (T.FlashAge >= WeaponFX::TracerFlashSeconds)
+            { ReleaseTracer(T); ++ExpiredTracerSegments; continue; }
+        }
+        else if (T.LastUpdateFrame != GFrameCounter)
+        { ReleaseTracer(T); ++ExpiredTracerSegments; continue; }
+        ApplyTracerTransform(T);
     }
 
     const FVector CurrentMuzzlePosition = MuzzleLocation();
@@ -638,7 +768,7 @@ void UFPSWeaponFXComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
     PreviousMuzzlePosition = CurrentMuzzlePosition;
     PreviousMuzzleForward = CurrentMuzzleForward;
     if (BarrelHeat <= WeaponFX::HeatThreshold && FlashTime <= 0.0f && GetActiveParticleCount() == 0
-        && (!SmokeStream || !SmokeStream->IsActive()))
+        && GetActiveTracerCount() == 0 && (!SmokeStream || !SmokeStream->IsActive()))
     {
         BarrelHeat = 0.0f;
         SmokeClock = 0.0;
@@ -670,6 +800,8 @@ void UFPSWeaponFXComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
     StopEmission();
     for (FFPSWeaponFXParticle& P : Particles) if (P.Mesh) P.Mesh->DestroyComponent();
     Particles.Reset();
+    for (FFPSWeaponFXTracer& T : Tracers) if (T.Mesh) T.Mesh->DestroyComponent();
+    Tracers.Reset();
     for(const auto& FX:EpicFXPool)if(FX)FX->DestroyComponent();
     EpicFXPool.Reset();
     if (SmokeStream) SmokeStream->DestroyComponent();
@@ -687,6 +819,6 @@ int32 UFPSWeaponFXComponent::GetActiveEpicFXCount() const
 int32 UFPSWeaponFXComponent::GetActiveTracerCount() const
 {
     int32 Count=0;
-    for(const auto& P:Particles) if(P.bActive && P.Kind==WeaponFX::Tracer) ++Count;
+    for(const FFPSWeaponFXTracer& T:Tracers) if(T.bActive) ++Count;
     return Count;
 }
