@@ -52,6 +52,7 @@
         "tactical"
       ],
       "base": {
+        "spread_mult": 2,
         "ammo_item_id": "ammo_556",
         "ads_smooth": 12.482217806475,
         "mag_size": 30,
@@ -616,13 +617,13 @@
                 "benefit": 1
               },
               {
-                "text": "ADS瞄准耗时减少200ms",
+                "text": "开镜耗时减少20%",
                 "benefit": 1
               }
             ],
             "stats": {
               "hip_spread_mult": 0.5,
-              "ads_seconds": -0.2
+              "ads_percent": -0.2
             }
           },
           {
@@ -654,6 +655,7 @@
         "tactical"
       ],
       "base": {
+        "spread_mult": 2,
         "ammo_item_id": "ammo_762",
         "ads_smooth": 9.98577424518,
         "mag_size": 30,
@@ -1218,13 +1220,13 @@
                 "benefit": 1
               },
               {
-                "text": "ADS瞄准耗时减少200ms",
+                "text": "开镜耗时减少20%",
                 "benefit": 1
               }
             ],
             "stats": {
               "hip_spread_mult": 0.5,
-              "ads_seconds": -0.2
+              "ads_percent": -0.2
             }
           },
           {
@@ -1256,6 +1258,7 @@
         "tactical"
       ],
       "base": {
+        "spread_mult": 2,
         "ammo_item_id": "ammo_58",
         "ads_smooth": 12.482217806475,
         "mag_size": 30,
@@ -1820,13 +1823,13 @@
                 "benefit": 1
               },
               {
-                "text": "ADS瞄准耗时减少200ms",
+                "text": "开镜耗时减少20%",
                 "benefit": 1
               }
             ],
             "stats": {
               "hip_spread_mult": 0.5,
-              "ads_seconds": -0.2
+              "ads_percent": -0.2
             }
           },
           {
@@ -1873,13 +1876,13 @@
                 "benefit": 1
               },
               {
-                "text": "ADS瞄准耗时减少200ms",
+                "text": "开镜耗时减少20%",
                 "benefit": 1
               }
             ],
             "stats": {
               "hip_spread_mult": 0.5,
-              "ads_seconds": -0.2
+              "ads_percent": -0.2
             }
           },
           {
@@ -2172,13 +2175,13 @@
                 "benefit": 1
               },
               {
-                "text": "ADS瞄准耗时减少200ms",
+                "text": "开镜耗时减少20%",
                 "benefit": 1
               }
             ],
             "stats": {
               "hip_spread_mult": 0.5,
-              "ads_seconds": -0.2
+              "ads_percent": -0.2
             }
           },
           {
@@ -2222,6 +2225,7 @@
         "tactical"
       ],
       "base": {
+        "spread_mult": 2,
         "ammo_item_id": "ammo_127",
         "ads_smooth": 14.0,
         "mag_size": 20,
@@ -2367,11 +2371,11 @@
             "description": "ASH-12 专属大直径战术消音器，采用纵向凹槽筒身、宽斜纹套环与专用后接座。",
             "effects": [
               {
-                "text": "后坐力降低25%",
+                "text": "后坐力降低30%",
                 "benefit": 1
               },
               {
-                "text": "枪械稳定性提高25%",
+                "text": "枪械稳定性提高30%",
                 "benefit": 1
               },
               {
@@ -2379,15 +2383,15 @@
                 "benefit": -1
               },
               {
-                "text": "开镜耗时增加5%",
+                "text": "开镜耗时增加10%",
                 "benefit": -1
               }
             ],
             "stats": {
-              "recoil_mult": 0.75,
-              "stability_mult": 1.25,
+              "recoil_mult": 0.7,
+              "stability_mult": 1.3,
               "bullet_speed_mult": 0.8,
-              "ads_percent": 0.05
+              "ads_percent": 0.1
             }
           },
           {
@@ -2396,22 +2400,27 @@
             "description": "ASH-12 专属黑色金属制退器，采用短粗多棱壳体、贯通侧窗与专用安装环。",
             "effects": [
               {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              },
+              {
                 "text": "后坐力降低25%",
                 "benefit": 1
               },
               {
-                "text": "枪械稳定性提高15%",
+                "text": "枪械稳定性提高25%",
                 "benefit": 1
               },
               {
-                "text": "开镜速度降低10%",
-                "benefit": -1
+                "text": "腰射随机散布减少20%",
+                "benefit": 1
               }
             ],
             "stats": {
+              "ads_percent": 0.05,
               "recoil_mult": 0.75,
-              "stability_mult": 1.15,
-              "ads_percent": 0.1111111111111111
+              "stability_mult": 1.25,
+              "hip_spread_mult": 0.8
             }
           }
         ],
@@ -2551,8 +2560,25 @@
             "id": "ash12_cheek_rest",
             "name": "ASH-12 贴合式托腮板",
             "description": "ASH-12 专用低矮托腮板，包覆原厂后托顶部，采用软质接触垫与两侧金属固定片。",
-            "effects": [],
-            "stats": {}
+            "effects": [
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低5%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05,
+              "recoil_mult": 0.95,
+              "stability_mult": 1.15
+            }
           }
         ],
         "tactical": [
@@ -2573,13 +2599,13 @@
                 "benefit": 1
               },
               {
-                "text": "ADS瞄准耗时减少200ms",
+                "text": "开镜耗时减少20%",
                 "benefit": 1
               }
             ],
             "stats": {
               "hip_spread_mult": 0.5,
-              "ads_seconds": -0.2
+              "ads_percent": -0.2
             }
           },
           {
@@ -2612,6 +2638,7 @@
         "tactical"
       ],
       "base": {
+        "spread_mult": 2,
         "ammo_item_id": "ammo_556",
         "ads_smooth": 10.699043834121396,
         "mag_size": 30,
@@ -3178,13 +3205,13 @@
                 "benefit": 1
               },
               {
-                "text": "ADS瞄准耗时减少200ms",
+                "text": "开镜耗时减少20%",
                 "benefit": 1
               }
             ],
             "stats": {
               "hip_spread_mult": 0.5,
-              "ads_seconds": -0.2
+              "ads_percent": -0.2
             }
           },
           {
@@ -3216,6 +3243,7 @@
         "tactical"
       ],
       "base": {
+        "spread_mult": 2,
         "ammo_item_id": "ammo_762",
         "ads_smooth": 9.98577424518,
         "mag_size": 30,
@@ -3781,13 +3809,13 @@
                 "benefit": 1
               },
               {
-                "text": "ADS瞄准耗时减少200ms",
+                "text": "开镜耗时减少20%",
                 "benefit": 1
               }
             ],
             "stats": {
               "hip_spread_mult": 0.5,
-              "ads_seconds": -0.2
+              "ads_percent": -0.2
             }
           },
           {

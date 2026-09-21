@@ -38,7 +38,9 @@ struct FGunsmithOption
     TArray<FString> CompatibleWeapons;
     FString Id, Name, Description;
     TArray<TPair<FString,int32>> Effects;
-    double ADS=0, ADSSeconds=0, Recoil=1, Shake=1, Stability=1, Speed=1, Interval=1, Spread=1, Range=1, Reload=1;
+    // EmptyReload defaults to Reload, so an option only needs the extra catalog
+    // key (empty_reload_mult) when normal and empty reload must differ.
+    double ADS=0, ADSSeconds=0, Recoil=1, Shake=1, Stability=1, Speed=1, Interval=1, Spread=1, Range=1, Reload=1, EmptyReload=1;
     int32 Magazine=0;
 };
 struct FGunsmithWeapon

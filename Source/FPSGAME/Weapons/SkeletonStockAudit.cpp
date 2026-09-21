@@ -60,7 +60,7 @@ void AFPSGAMECharacter::RunStockAudit()
         W->ChooseOption(TEXT("stock"),TEXT("skeleton"));if(G->Pending())Check(W->ApplyDraft(),TEXT("apply stock and save"));
         const auto S=G->Calculate(Def,G->Installed(*P->Equipped()));const auto Base=G->Calculate(Def,{});
         Check(FMath::IsNearlyEqual(S.ADS,Base.ADS*.8,.00001)&&FMath::IsNearlyEqual(ADSInDuration,float(S.ADS),.00001f),TEXT("catalog and pawn agree on twenty percent ADS"));
-        Check(FMath::IsNearlyEqual(S.RecoilMultiplier,1.1,.00001)&&FMath::IsNearlyEqual(S.ShakeMultiplier,1.1,.00001)&&S.Spread==1,TEXT("legacy recoil shake and spread preserved"));
+        Check(FMath::IsNearlyEqual(S.RecoilMultiplier,1.1,.00001)&&FMath::IsNearlyEqual(S.ShakeMultiplier,1.1,.00001)&&S.Spread==Base.Spread,TEXT("legacy recoil shake and spread preserved"));
         Check(P->Equipped()->Magazine==AuditSavedAmmo,TEXT("install preserves ammo"));W->SetSidePreview(true);
         }else Check(false,TEXT("workbench widget exists"));break;
     case 4:Shot(TEXT("installed-side"));break;
