@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/SaveGame.h"
+#include "CollisionQueryParams.h"
 #include "VoxelBuildTypes.h"
 #include "VoxelBuildWorld.generated.h"
 
@@ -153,7 +154,10 @@ private:
     TSet<FIntVector> PrefabCells;
     /** 占格 → 所属构件的锚格：支撑判定要区分"这格是别的构件"（含自己的格子）。 */
     TMap<FIntVector,FIntVector> PrefabCellOwner;
-    TMap<FVoxelBuildKey,bool> AnchorCache;
+    // 审计 P23（2026-09-21 移除）：原 `TMap<FVoxelBuildKey,bool> AnchorCache` 全目录只有写入
+    // 与删除、**没有任何读取**，所以它一条射线都没省下，只是每格多占一个 TMap 条目
+    // （键 28B + bool + 哈希槽；2 万格约 0.6 MB）。已确认 AnchorCache 不在任何回归面上：
+    // 放置判定走 CanPlaceAt 里临时构造的 Draft 图，锚定由 IsGroundAnchor/PrefabSupportAt 现算。
     TMap<FVoxelBuildKey,float> CellDamage;
     TSet<FVoxelBuildKey> LegacyProtected;
     TSharedPtr<FVoxelSupportGraph> SupportGraph;
@@ -165,7 +169,9 @@ private:
     bool bReady=false,bClosing=false;
     bool Commit(const TArray<FVoxelEditCell>& Edit,bool bRemember);
     bool CanPlaceAt(FVector Origin,const TArray<FIntVector>& Positions,FName Material,FString& Reason) const;
-    bool ScenePlacementAllowed(FVector Min,FString& Reason,bool* OutAnchor=nullptr) const;
+    /** CachedParams 由调用方在格循环外构造一次（审计 P3）：本函数会被 CanPlaceAt 逐格调用，
+     *  而 VoxelGrounding::Query 每次构造都要遍历全部 Pawn。传 nullptr 时自行构造。 */
+    bool ScenePlacementAllowed(FVector Min,FString& Reason,bool* OutAnchor=nullptr,const FCollisionQueryParams* CachedParams=nullptr) const;
     bool IsGroundAnchor(FVector Min) const;
     bool CanCommit(const TArray<FVoxelEditCell>& Edit,FString& Reason) const;
     void RefreshSupportGraph();

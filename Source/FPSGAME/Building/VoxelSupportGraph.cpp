@@ -9,10 +9,15 @@ namespace
 
 TArray<FVoxelBuildKey> FVoxelSupportGraph::Near(const FVector& Min) const
 {
-    TArray<FVoxelBuildKey> Result;const FIntVector C=Bucket(Min);
+    TArray<FVoxelBuildKey> Result;NearInto(Min,Result);return Result;
+}
+
+void FVoxelSupportGraph::NearInto(const FVector& Min,TArray<FVoxelBuildKey>& Out) const
+{
+    // 审计 P6：与 Near() 同语义，但不分配新数组——调用方复用缓冲，稳态零分配。
+    Out.Reset();const FIntVector C=Bucket(Min);
     for(int32 Z=-2;Z<=2;++Z)for(int32 Y=-2;Y<=2;++Y)for(int32 X=-2;X<=2;++X)
-        if(const auto* List=Buckets.Find(C+FIntVector(X,Y,Z)))for(const auto& Key:*List)Result.Add(Key);
-    return Result;
+        if(const auto* List=Buckets.Find(C+FIntVector(X,Y,Z)))for(const auto& Key:*List)Out.Add(Key);
 }
 
 bool FVoxelSupportGraph::Contact(const FVector& A,const FVector& B,FVoxelContact& R)
@@ -101,6 +106,8 @@ FVoxelStressResult VoxelStress::Solve(FVoxelStressInput Input)
     for(const auto& Node:Input.Nodes){Graph.Add(Node);Result.Evaluated.Add(Node.Key);}
     Graph.SolveConnectivity();Result.Supported=Graph.Supported;
     TSet<FVoxelBuildKey> Seen;
+    // 审计 P1：过载格的键 → Result.Overload 下标。替代每条接缝一次的全表线性扫描。
+    TMap<FVoxelBuildKey,int32> OverloadIndex;
     for(const auto& Entry:Graph.Nodes)
     {
         if(Seen.Contains(Entry.Key))continue;
@@ -189,11 +196,19 @@ FVoxelStressResult VoxelStress::Solve(FVoxelStressInput Input)
                 {
                     const float Durability=Key==L.A?A.Physics.Durability:B.Physics.Durability;
                     const float Rate=float(Durability/FMath::Max(Seconds,.05));
-                    if(FVoxelOverloadCell* Existing=Result.Overload.FindByPredicate([&](const FVoxelOverloadCell& E){return E.Key==Key;}))
+                    // 2026-09-21 性能修复（审计 P1）：原实现用 FindByPredicate 在 Result.Overload 上
+                    // 线性扫描，每条过载接缝 × 2 端点一次，整体是 O(过载格²)——大面积过载时单次解算
+                    // 可达千万次 28 字节键比较。改为索引表，保持"首次发现顺序"与"取最大速率"的语义。
+                    if(int32* Slot=OverloadIndex.Find(Key))
                     {
-                        if(Rate>Existing->RatePerSecond){Existing->RatePerSecond=Rate;Existing->Ratio=Ratio;}
+                        FVoxelOverloadCell& Existing=Result.Overload[*Slot];
+                        if(Rate>Existing.RatePerSecond){Existing.RatePerSecond=Rate;Existing.Ratio=Ratio;}
                     }
-                    else Result.Overload.Add({Key,Rate,Ratio});
+                    else
+                    {
+                        OverloadIndex.Add(Key,Result.Overload.Num());
+                        Result.Overload.Add({Key,Rate,Ratio});
+                    }
                 }
             }
             // An unconverged estimate must not cause irreversible destruction.

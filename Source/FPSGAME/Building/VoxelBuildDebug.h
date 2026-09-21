@@ -11,7 +11,12 @@ namespace VoxelBuildDebug
 {
     inline bool Enabled()
     {
-        const IConsoleVariable* CVar=IConsoleManager::Get().FindConsoleVariable(TEXT("fps.Building.DebugLog"));
-        return CVar&&CVar->GetInt()!=0;
+        // 审计 C12：原来每次调用都做一次哈希字符串查找（FindConsoleVariable），
+        // 而本函数在瞄准/拒绝/审计路径上被高频调用。CVar 由另一个翻译单元的
+        // TAutoConsoleVariable 持有，在其生命周期内指针稳定，因此缓存是安全的；
+        // 若尚未注册（返回空）则不缓存，下次再试。
+        static const IConsoleVariable* Cached=nullptr;
+        if(!Cached)Cached=IConsoleManager::Get().FindConsoleVariable(TEXT("fps.Building.DebugLog"));
+        return Cached&&Cached->GetInt()!=0;
     }
 }

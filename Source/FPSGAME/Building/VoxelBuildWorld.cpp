@@ -5,6 +5,7 @@
 #include "VoxelBuildPersistence.h"
 #include "VoxelCollapseFragment.h"
 #include "VoxelBuildPrefabActor.h"
+#include "VoxelBuildGrounding.h"
 
 #include "Components/DynamicMeshComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -26,6 +27,18 @@ namespace
     /** 建筑诊断日志总开关（默认关）：VOXEL_AIM / VOXEL_REJECT / VOXEL_AUDIT 都看它。 */
     TAutoConsoleVariable<int32> DebugLogCVar(TEXT("fps.Building.DebugLog"),0,
         TEXT("1 = 输出建筑诊断日志（VOXEL_AIM/REJECT/AUDIT）。默认 0。"));
+
+    /**
+     * 审计 P6：`Near()` 的复用缓冲。ResolveHit 是 const 成员函数、每帧被瞄准路径反复调用
+     * （含锥形吸附最多 16 条辅助射线），所以缓冲放在文件作用域并用 thread_local
+     * 而不是加成员（避免动头文件布局，也避免工作线程与游戏线程互踩）。
+     * 用法约定：拿到缓冲后立即用完，不要跨调用持有——同一线程上的其它 NearInto 会 Reset 它。
+     */
+    TArray<FVoxelBuildKey>& NearScratchFor()
+    {
+        static thread_local TArray<FVoxelBuildKey> Scratch;
+        return Scratch;
+    }
 
     void LogPlacementReject(const TCHAR* Stage,const FVoxelBuildKey& Key,const FVector& Min,const FString& Reason)
     {
@@ -78,7 +91,11 @@ bool AVoxelBuildWorld::ResolveHit(const FHitResult& Hit,FVoxelBuildKey& Key) con
 {
     if(!OwnsSurface(Hit.GetComponent())||!SupportGraph)return false;
     const FVector Point=Hit.ImpactPoint-Hit.ImpactNormal*.5;
-    for(const auto& Candidate:SupportGraph->Near(Point-FVector(10)))
+    // 审计 P6：Near() 按值返回 TArray，本函数每帧被瞄准路径调用多次（含锥形吸附的 16 条辅助射线）。
+    // 改用文件级复用缓冲 NearInto，稳态零分配。
+    TArray<FVoxelBuildKey>& NearScratch=NearScratchFor();
+    SupportGraph->NearInto(Point-FVector(10),NearScratch);
+    for(const auto& Candidate:NearScratch)
     {
         const FVector Min=SupportGraph->Nodes.FindChecked(Candidate).Min;
         if(FBox(Min-FVector(.01),Min+FVector(20.01)).IsInsideOrOn(Point)){Key=Candidate;return true;}
@@ -103,32 +120,95 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* 
     }
     if(SurfaceMaterials.IsEmpty()){Message=TEXT("没有可用的建造材质");return false;}
     UVoxelBuildSave* LoadedData=nullptr;
+    // 审计 C8：加载期跳过的记录数（坏记录不再让整份存档失败）。在 if 之外声明，
+    // 因为它在块外被拼进成功消息。
+    FString LoadSkipNote;
+    // 审计 C6：原来任何失败都笼统报"建筑存档版本不兼容，已保留原档"并直接让初始化失败——
+    // 于是一个 CRC 损坏（而非版本问题）的存档会让整个建造功能不可用，且玩家看到的原因是错的，
+    // 也没有日志。现在按 ELoadResult 区分原因，损坏时尝试 .pre-structure 备份。
     if(UGameplayStatics::DoesSaveGameExist(SaveSlot,0))
     {
-        LoadedData=VoxelPersistence::Load(SaveSlot);
-        if(!LoadedData||LoadedData->Version<1||LoadedData->Version>4||LoadedData->CellSizeCm!=20||LoadedData->WorldKey!=WorldKey)
+        VoxelPersistence::ELoadResult LoadResult=VoxelPersistence::ELoadResult::Ok;
+        LoadedData=VoxelPersistence::Load(SaveSlot,LoadResult);
+        if(!LoadedData)
+        {
+            const TCHAR* Reason=VoxelPersistence::Describe(LoadResult);
+            if(LoadResult==VoxelPersistence::ELoadResult::Corrupt||LoadResult==VoxelPersistence::ELoadResult::ParseFailed)
+            {
+                // 文件损坏：先打日志（这条原来完全没有），再尝试首次写入前保留的备份。
+                UE_LOG(LogTemp,Error,TEXT("Voxel structure load failed slot=%s reason=%s; trying pre-structure backup"),
+                    *SaveSlot,Reason);
+                const FString Backup=VoxelPersistence::PreStructurePath(SaveSlot);
+                if(IFileManager::Get().FileExists(*Backup))
+                {
+                    VoxelPersistence::ELoadResult BackupResult=VoxelPersistence::ELoadResult::Ok;
+                    LoadedData=VoxelPersistence::LoadFromFile(Backup,BackupResult);
+                    // 注意：必须给 if/else 都加花括号。UE_LOG 会展开成多语句（含内层 if），
+                    // 写成 `if(x)UE_LOG(...); else UE_LOG(...);` 会触发 C2181（没有匹配 if 的非法 else）。
+                    if(LoadedData)
+                    {
+                        UE_LOG(LogTemp,Warning,TEXT("Voxel structure recovered from pre-structure backup slot=%s"),*SaveSlot);
+                    }
+                    else
+                    {
+                        UE_LOG(LogTemp,Error,TEXT("Voxel structure backup also unreadable: %s"),VoxelPersistence::Describe(BackupResult));
+                    }
+                }
+            }
+            if(!LoadedData)
+            {
+                // 失败仍然保持原档、不让建造世界初始化 —— 与改动前一致，只是原因现在是准确的。
+                Message=FString::Printf(TEXT("建筑存档读取失败（%s），已保留原档"),Reason);
+                return false;
+            }
+        }
+        if(LoadedData->Version<1||LoadedData->Version>4||LoadedData->CellSizeCm!=20||LoadedData->WorldKey!=WorldKey)
         {Message=TEXT("建筑存档版本不兼容，已保留原档");return false;}
+        // 审计 C8：原来「单条坏记录」会让整份存档加载失败（一条未知材质、一个 NaN 就全废）。
+        // 材质 ID 是稳定存档键、将来可能新增或改名（工作流第 4 节），所以这条是可预期会踩到的：
+        // 删掉一种材质后，所有用到它的旧档都会整份拒绝。改为照构件的既有口径——**跳过坏记录并计数**，
+        // 其余部分照常载入。
+        // 诊断只记录去重后的材质名（数量受调色板规模限制），不做逐格日志，否则 2 万格会刷爆日志。
+        struct FLoadSkips
+        {
+            int32 Cells=0,VolumeCells=0,Fragments=0;
+            TSet<FName> MissingMaterials;
+            int32 Total() const {return Cells+VolumeCells+Fragments;}
+        };
+        FLoadSkips Skips;
         for(const auto& Cell:LoadedData->Cells)
         {
-            if(!MaterialSlots.Contains(Cell.Material)){Message=TEXT("建筑存档缺少材料定义，已保留原档");return false;}
+            // 审计 C8：未知材质 → 跳过该格（不再整份拒绝）。
+            if(!MaterialSlots.Contains(Cell.Material)){++Skips.Cells;Skips.MissingMaterials.Add(Cell.Material);continue;}
             Cells.Add(Cell.Position,Cell.Material);
         }
         for(const auto& Volume:LoadedData->FreeVolumes)
         {
+            // 体积元数据本身无效（Id 重复/原点 NaN）仍按整份拒绝：那是结构性问题，
+            // 保留半个体积会得到语义不明的世界；但"体积里个别格材质缺失"可跳过。
             if(!Volume.Id.IsValid()||Volume.Origin.ContainsNaN()||FreeVolumes.Contains(Volume.Id))
             {Message=TEXT("自由建筑存档无效，已保留原档");return false;}
-            for(const auto& Cell:Volume.Cells)if(!MaterialSlots.Contains(Cell.Value))
-            {Message=TEXT("自由建筑存档缺少材料定义，已保留原档");return false;}
-            FreeVolumes.Add(Volume.Id,Volume);
+            FVoxelFreeVolume Kept=Volume;Kept.Cells.Reset();
+            for(const auto& Cell:Volume.Cells)
+            {
+                if(!MaterialSlots.Contains(Cell.Value)){++Skips.VolumeCells;Skips.MissingMaterials.Add(Cell.Value);continue;}
+                Kept.Cells.Add(Cell.Key,Cell.Value);
+            }
+            if(!Kept.Cells.IsEmpty())FreeVolumes.Add(Volume.Id,MoveTemp(Kept));
         }
         TSet<FGuid> FragmentIds;
         for(const auto& F:LoadedData->Fragments)
         {
+            // 残骸 Id 无效/重复/变换 NaN → 丢掉这一件（原为整份拒绝）。
             if(!F.Id.IsValid()||FragmentIds.Contains(F.Id)||F.Transform.ContainsNaN())
-            {Message=TEXT("残骸存档无效，已保留原档");return false;}
+            {++Skips.Fragments;continue;}
             FragmentIds.Add(F.Id);
-            for(const auto& C:F.Cells)if(!MaterialSlots.Contains(C.Material)||C.Min.ContainsNaN())
-            {Message=TEXT("残骸材料或位置无效，已保留原档");return false;}
+            // 单件残骸里个别格材质缺失或位置 NaN → 丢掉那一件（部分格会与物理体包围盒不符）。
+            bool bBadFragment=false;
+            for(const auto& C:F.Cells)
+                if(!MaterialSlots.Contains(C.Material)||C.Min.ContainsNaN())
+                {bBadFragment=true;Skips.MissingMaterials.Add(C.Material);break;}
+            if(bBadFragment){++Skips.Fragments;continue;}
         }
         for(FVoxelBuildPrefabInstance Piece:LoadedData->Prefabs)
         {
@@ -140,17 +220,27 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* 
             Prefabs.Add(Piece);
         }
         CellDamage=LoadedData->Damage;LegacyProtected=LoadedData->LegacyProtected;
+        // 审计 C8：跳过的记录在这里汇总一行日志（材质名去重），并在状态行写明跳过了多少。
+        if(Skips.Total()>0)
+        {
+            FString Missing;
+            for(const FName& Id:Skips.MissingMaterials)
+                Missing+=(Missing.IsEmpty()?FString():TEXT("、"))+Id.ToString();
+            UE_LOG(LogTemp,Warning,
+                TEXT("Voxel structure load skipped %d record(s) (cells=%d volumeCells=%d fragments=%d) slot=%s unknownMaterials=[%s]"),
+                Skips.Total(),Skips.Cells,Skips.VolumeCells,Skips.Fragments,*SaveSlot,*Missing);
+            LoadSkipNote=FString::Printf(TEXT(" · 已跳过 %d 条无效记录"),Skips.Total());
+        }
     }
     // 占格表必须在支持图之前刷新：构件如今为贴靠它的体素提供支撑锚（2026-09-19），
     // RefreshSupportGraph 里的锚定判定要读 PrefabCells。
     RefreshPrefabOccupancy();
+    // 审计 P17：断键必须在 RefreshSupportGraph 之前打进图里。原实现在 RefreshSupportGraph()
+    // 返回后（它自己末尾已经 SolveConnectivity 一次）再 Break + 第二次 SolveConnectivity，
+    // 加载时白跑一遍全图 BFS。现在只解一次连通性。
+    if(LoadedData)for(const auto& B:LoadedData->BrokenBonds)SupportGraph->Break(B);
     RefreshSupportGraph();
-    if(LoadedData)
-    {
-        for(const auto& B:LoadedData->BrokenBonds)SupportGraph->Break(B);
-        SupportGraph->SolveConnectivity();
-        if(LoadedData->Version<3)for(const auto& E:SupportGraph->Nodes)LegacyProtected.Add(E.Key);
-    }
+    if(LoadedData&&LoadedData->Version<3)for(const auto& E:SupportGraph->Nodes)LegacyProtected.Add(E.Key);
     TArray<FVoxelEditCell> Loaded;for(const auto& E:Cells)Loaded.Add({E.Key,NAME_None,E.Value,{}});
     for(const auto& V:FreeVolumes)for(const auto& E:V.Value.Cells)Loaded.Add({E.Key,NAME_None,E.Value,V.Key});
     RebuildAffected(Loaded);bReady=true;
@@ -159,8 +249,8 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* 
     // 占格表必须在支持图之前刷新：构件如今为贴靠它的体素提供支撑锚（2026-09-19），
     // RefreshSupportGraph 里的锚定判定要读 PrefabCells。
     if(LoadedData)for(const auto& F:LoadedData->Fragments)EnqueueFragment(F);
-    Message=Prefabs.IsEmpty()?(LegacyProtected.IsEmpty()?TEXT("建筑已载入 · 承重系统已启用"):TEXT("旧建筑已保留 · 编辑相关结构后启用承重"))
-        :FString::Printf(TEXT("建筑已载入 · 构件 %d 件 · 承重系统已启用"),Prefabs.Num());
+    Message=(Prefabs.IsEmpty()?(LegacyProtected.IsEmpty()?FString(TEXT("建筑已载入 · 承重系统已启用")):FString(TEXT("旧建筑已保留 · 编辑相关结构后启用承重")))
+        :FString::Printf(TEXT("建筑已载入 · 构件 %d 件 · 承重系统已启用"),Prefabs.Num()))+LoadSkipNote;
     return true;
 }
 
@@ -223,7 +313,7 @@ void AVoxelBuildWorld::RefreshSupportGraph()
         }
         // 支撑锚（2026-09-19）：地面锚定之外，面对面贴着已放置构件（门／窗／柱）也算有着落——
         // 以前贴窗框侧面砌的块没有地基路径，整条被"缺少与地基相连的接触面"拒绝。
-        E.Value.bAnchor=!Covered&&(IsGroundAnchor(E.Value.Min)||PrefabSupportAt(E.Value.Min));AnchorCache.Add(E.Key,E.Value.bAnchor);
+        E.Value.bAnchor=!Covered&&(IsGroundAnchor(E.Value.Min)||PrefabSupportAt(E.Value.Min));
     }
     SupportGraph->SolveConnectivity();
 }
@@ -233,6 +323,10 @@ bool AVoxelBuildWorld::CanPlaceAt(FVector Origin,const TArray<FIntVector>& Posit
     if(!bReady||!SupportGraph){Reason=Message;return false;}
     const auto* Definition=Palette->Find(Material);
     if(!Definition||Positions.IsEmpty()||Origin.ContainsNaN()){Reason=TEXT("请选择有效的建筑位置和材料");return false;}
+    // 审计 P3：碰撞查询参数在**格循环外**构造一次。VoxelGrounding::Query 每次都要遍历全部
+    // Pawn（TActorIterator）并分配 IgnoreActors，而它原来被 ScenePlacementAllowed 逐格调用
+    // ——5×5 刷子就是 25 次全 Actor 表遍历 + 25 次分配，且每次校验都会重跑。
+    const FCollisionQueryParams Params=VoxelGrounding::Query(GetWorld(),this);
     FVoxelSupportGraph Draft;const FGuid DraftId=FGuid::NewGuid();TSet<FIntVector> Seen;
     for(const auto& Cell:Positions)
     {
@@ -240,7 +334,7 @@ bool AVoxelBuildWorld::CanPlaceAt(FVector Origin,const TArray<FIntVector>& Posit
         const FVector Min=Origin+CellMin(Cell);
         if(SupportGraph->Overlaps(Min)){Reason=TEXT("位置与已有建筑重叠");LogPlacementReject(TEXT("overlap"),{FGuid(),Cell},Min,Reason);return false;}
         bool Anchored=false;
-        if(!ScenePlacementAllowed(Min,Reason,&Anchored)){LogPlacementReject(TEXT("scene"),{FGuid(),Cell},Min,Reason);return false;}
+        if(!ScenePlacementAllowed(Min,Reason,&Anchored,&Params)){LogPlacementReject(TEXT("scene"),{FGuid(),Cell},Min,Reason);return false;}
         // 贴靠构件面的新格直接带锚（与 RefreshSupportGraph／ApplyChanges 同一口径；OutAnchor 会被
         // ScenePlacementAllowed 覆写，所以判锚必须放在它后面）。
         Anchored|=PrefabSupportAt(Min);
@@ -304,6 +398,9 @@ bool AVoxelBuildWorld::PlaceFree(FVector Origin,const TArray<FIntVector>& Positi
 
 bool AVoxelBuildWorld::CanCommit(const TArray<FVoxelEditCell>& Edit,FString& Reason) const
 {
+    // 审计 P3：与 CanPlaceAt 同一处理——查询参数在编辑循环外构造一次（本函数逐格调用
+    // ScenePlacementAllowed，一批 25 格就是 25 次全 Pawn 遍历）。
+    const FCollisionQueryParams Params=VoxelGrounding::Query(GetWorld(),this);
     for(const auto& E:Edit)
     {
         const FVoxelBuildKey Key{E.Volume,E.Position};
@@ -314,7 +411,7 @@ bool AVoxelBuildWorld::CanCommit(const TArray<FVoxelEditCell>& Edit,FString& Rea
         {
             if(!Palette->Find(E.After)){Reason=TEXT("缺少建筑材料定义");LogPlacementReject(TEXT("material"),Key,VolumeOrigin(E.Volume)+CellMin(E.Position),Reason);return false;}
             const FVector Min=VolumeOrigin(E.Volume)+CellMin(E.Position);
-            if(!ScenePlacementAllowed(Min,Reason)){LogPlacementReject(TEXT("commit-scene"),Key,Min,Reason);return false;}
+            if(!ScenePlacementAllowed(Min,Reason,nullptr,&Params)){LogPlacementReject(TEXT("commit-scene"),Key,Min,Reason);return false;}
             if(E.Before.IsNone()&&SupportGraph->Overlaps(Min)){Reason=TEXT("编辑位置与已有建筑重叠");LogPlacementReject(TEXT("commit-overlap"),Key,Min,Reason);return false;}
             // 与 CanPlaceInVolume 同一修复：自由体积的本地格要换算成世界格再查构件占格表。
             if(E.Before.IsNone()&&IsPrefabCell(E.Volume,E.Position)){Reason=TEXT("该位置已有构件");LogPlacementReject(TEXT("commit-prefab"),Key,Min,Reason);return false;}
@@ -340,7 +437,7 @@ void AVoxelBuildWorld::ApplyChanges(const TArray<FVoxelEditCell>& Edit)
             for(auto It=Runtime->Loads.CreateIterator();It;++It)if(It.Value().Key==Key)It.RemoveCurrent();
         if(const auto* Edges=SupportGraph->Edges.Find(Key))
             for(const auto& Neighbor:*Edges){Runtime->DirtySupport.Add(Neighbor);Runtime->NodeEpoch.Add(Neighbor,Revision+1);}
-        SupportGraph->Remove(Key);SetCell(E,true);AnchorCache.Remove(Key);CellDamage.Remove(Key);
+        SupportGraph->Remove(Key);SetCell(E,true);CellDamage.Remove(Key);
         Runtime->LoadRatios.Remove(Key);LegacyProtected.Remove(Key);
         if(!E.After.IsNone())
         {
@@ -348,7 +445,7 @@ void AVoxelBuildWorld::ApplyChanges(const TArray<FVoxelEditCell>& Edit)
             for(auto It=SupportGraph->Broken.CreateIterator();It;++It)if(It->A==Key||It->B==Key)It.RemoveCurrent();
             const FVector Min=VolumeOrigin(E.Volume)+CellMin(E.Position);
             const bool Anchor=IsGroundAnchor(Min)||PrefabSupportAt(Min);   // 贴靠构件也算地基（2026-09-19）
-            const auto* Definition=Palette->Find(E.After);AnchorCache.Add(Key,Anchor);
+            const auto* Definition=Palette->Find(E.After);
             SupportGraph->Add({Key,Min,Anchor,Definition&&Definition->bSupportsWeight,E.After,Palette->Physical(E.After)});
             // Connectivity remains provisional until the worker publishes stresses.
             bool Supported=Anchor;
@@ -494,8 +591,14 @@ FString AVoxelBuildWorld::SolverSummary() const
 {
     if(Runtime->LastSolveNodes<=0)return FString();
     // 求解规模/耗时直接写进状态行：既是给玩家的"这块多大、算得多快"的反馈，也是性能优化的基线读数。
-    return Runtime->bGatherFullSolve
-        ?FString::Printf(TEXT("\n求解 %.1f ms · %d 节点（全量）"),Runtime->LastSolveSeconds*1000.f,Runtime->LastSolveNodes)
-        :FString::Printf(TEXT("\n求解 %.1f ms · %d 节点（局部 + %d 边界）"),Runtime->LastSolveSeconds*1000.f,
+    // 审计 C10：bGatherFullSolve 只表示"这次没按 SolveRegionHops 裁剪"，**不等于收满了整块结构**。
+    // 结构超过 MaxSolveNodes 时收集会停在上限、其余邻居被记为边界，但状态行仍写"全量"——
+    // 2 万节点的建筑会在 4096 节点时声称全量。这里按"有没有边界节点"来区分是否真的收全。
+    if(!Runtime->bGatherFullSolve)
+        return FString::Printf(TEXT("\n求解 %.1f ms · %d 节点（局部 + %d 边界）"),Runtime->LastSolveSeconds*1000.f,
             Runtime->LastSolveNodes,Runtime->LastSolveBoundary);
+    return Runtime->LastSolveBoundary>0
+        ?FString::Printf(TEXT("\n求解 %.1f ms · %d 节点（全量·已达上限，%d 格按边界处理）"),
+            Runtime->LastSolveSeconds*1000.f,Runtime->LastSolveNodes,Runtime->LastSolveBoundary)
+        :FString::Printf(TEXT("\n求解 %.1f ms · %d 节点（全量）"),Runtime->LastSolveSeconds*1000.f,Runtime->LastSolveNodes);
 }

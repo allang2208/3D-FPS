@@ -47,16 +47,28 @@ void AVoxelBuildWorld::TickMeshes()
         if(Applied>=FMath::Clamp(MeshApplies.GetValueOnGameThread(),1,8)||FPlatformTime::Seconds()-Start>.0015)break;
     }
     const auto* Pawn=UGameplayStatics::GetPlayerPawn(this,0);const FVector View=Pawn?Pawn->GetActorLocation():FVector::ZeroVector;
-    while(Runtime->MeshJobs.Num()<FMath::Clamp(MeshWorkers.GetValueOnGameThread(),1,4)&&!Runtime->DirtyChunks.IsEmpty())
+    // 审计 P2：原实现在"挑最近脏块"的循环里对**每个候选**做一次
+    //   Runtime->MeshJobs.ContainsByPredicate(...)   // 扫全部在飞作业
+    // 于是每帧代价是 O(调度次数 × 脏块数 × 在飞作业数)。一次 5×5 放置就能产生数百个脏块，
+    // 连续建造时是数千次比较。
+    // 改法：① 用在飞键集合把 ContainsByPredicate 降成 O(1)；
+    //       ② 每帧只对脏块排序一次，之后按顺序取前 N 个，不再重复求距离。
+    TSet<FVoxelBuildKey> InFlight;
+    InFlight.Reserve(Runtime->MeshJobs.Num());
+    for(const FVoxelMeshJob& Job:Runtime->MeshJobs)InFlight.Add(Job.Key);
+    TArray<FVoxelBuildKey> Queue=Runtime->DirtyChunks.Array();
+    Queue.Sort([&View](const FVoxelBuildKey& A,const FVoxelBuildKey& B)
     {
-        FVoxelBuildKey Key;double Best=TNumericLimits<double>::Max();bool Found=false;
-        for(const auto& Candidate:Runtime->DirtyChunks)
-        {
-            if(Runtime->MeshJobs.ContainsByPredicate([&](const auto& Job){return Job.Key==Candidate;}))continue;
-            const double Distance=FVector::DistSquared(View,VolumeOrigin(Candidate.Volume)+CellMin(Candidate.Cell*16)+FVector(160));
-            if(Distance<Best){Best=Distance;Key=Candidate;Found=true;}
-        }
-        if(!Found)break;
+        const auto Dist=[&View](const FVoxelBuildKey& K)
+        {return FVector::DistSquared(View,FVector(K.Cell*16)*20.+FVector(160));};
+        return Dist(A)<Dist(B);
+    });
+    int32 QueueRead=0;
+    while(Runtime->MeshJobs.Num()<FMath::Clamp(MeshWorkers.GetValueOnGameThread(),1,4)&&QueueRead<Queue.Num())
+    {
+        const FVoxelBuildKey Key=Queue[QueueRead++];
+        if(InFlight.Contains(Key))continue;
+        if(!Runtime->DirtyChunks.Contains(Key))continue;   // 已被前面的迭代处理掉
         Runtime->DirtyChunks.Remove(Key);TArray<FVoxelChunkSnapshot> Inputs;TArray<FVoxelBuildKey> Empty;
         for(const auto& Source:Runtime->MeshGroups.FindChecked(Key))
         {

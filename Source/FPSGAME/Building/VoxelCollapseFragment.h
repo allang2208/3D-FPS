@@ -33,7 +33,13 @@ public:
     /** Time this debris has spent at rest; the building world recycles it into voxel blocks. */
     bool AccrueRestSeconds(float Delta,float Threshold)
     {
-        if(IsMoving()){RestSeconds=0;return false;}
+        // 2026-09-21 修复（审计 P20）：必须先确认这件残骸**已经开始模拟**。
+        // IsMoving() 是 `bStarted && !bReplacing && IsAnyRigidBodyAwake()`，而 bStarted 只在
+        // Activate() 里置真、Initialize() 不置。所以"已生成但被准入预算挡住（Bodies=128 /
+        // Shapes=2048）还没轮到模拟"的残骸 IsMoving() 恒为 false，RestSeconds 从生成那一刻
+        // 就开始累加，2 s 后被 TickFragments 的回收分支转成方块并销毁——它从未模拟过，
+        // 表现是"倒塌后一部分碎块凭空消失"。加 !bStarted 前提即修掉。
+        if(!bStarted||IsMoving()){RestSeconds=0;return false;}
         RestSeconds+=Delta;
         return RestSeconds>=Threshold;
     }

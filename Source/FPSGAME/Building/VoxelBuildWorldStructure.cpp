@@ -53,6 +53,10 @@ void AVoxelBuildWorld::ApplyOverloadDamage(const TArray<FVoxelOverloadCell>& Ove
         bChanged=true;
     }
     if(!Removed.IsEmpty()){History.Reset();ApplyChanges(Removed);}
+    // 审计 C9：累加中的损伤以前没有置脏——只有"损伤满耐久→摧毁"走 ApplyChanges 才落盘，
+    // 所以"被打伤但没打掉"的格其损伤值只靠 EndPlay 的无条件 flush 才写得下去（崩溃即丢失）。
+    // 对照伤害路径 VoxelBuildWorldDamage.cpp 是有 MarkSaveDirty() 的。
+    else if(bChanged)MarkSaveDirty();
     // 还有过载格在受伤：安排下一次解算，让损伤继续累积、面板占比随之上升。
     if(bChanged)Runtime->StructureAt=GetWorld()->GetTimeSeconds()+OverloadTickCVar.GetValueOnGameThread();
 }

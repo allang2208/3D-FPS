@@ -13,6 +13,7 @@
 #include "../FPSGAMECharacter.h"
 #include "../Development/DevelopmentTuningSubsystem.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "../UI/ColdSteelWorldInteraction.h"
 #include "../WorldGeneration/TemperateHillsWorld.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/InstancedStaticMeshComponent.h"
@@ -563,8 +564,9 @@ void UVoxelBuildComponent::UpdateTarget()
     if(auto* Edges=FindAimEdge(PreviewActor))Edges->SetVisibility(false);
     auto* PC=Cast<APlayerController>(GetOwner());
     if(!PC||!PC->PlayerCameraManager||!BuildWorld)return;
-    const FVector Start=PC->PlayerCameraManager->GetCameraLocation();
-    const FVector Direction=PC->PlayerCameraManager->GetCameraRotation().Vector();
+    FVector Start;FRotator AimRotation;
+    ColdSteelWorldInteraction::GetReachViewPoint(PC,Start,AimRotation);
+    const FVector Direction=AimRotation.Vector();
     const FVector End=Start+Direction*600;const FIntVector Size=BrushSize();const FVector Half=FVector(Size)*10;
     FCollisionQueryParams Query(SCENE_QUERY_STAT(VoxelAim),true,PC->GetPawn());
     // 2026-09-20：中心射线改多命中。摆开到占格之外的构件网格（开着的门扇、85° 开角的窗扇）解析不出
@@ -1030,6 +1032,10 @@ int32 UVoxelBuildComponent::ClipLocalPlayerCells(TArray<FIntVector>& Cells,FVect
 
 void UVoxelBuildComponent::ValidatePlacement()
 {
+    // 审计 C3：同文件其它入口（UpdateTarget:566、UpdatePrefabTarget:843）都检查了 BuildWorld，
+    // 这里没有。当前调用链上 UpdateTarget 已提前返回所以不可达，但本函数是私有成员、
+    // 将来可能被新路径调用，补上防御。
+    if(!BuildWorld)return;
     const double Now=GetWorld()->GetTimeSeconds();
     const bool Changed=CheckedRevision!=BuildWorld->StructureRevision()||CheckedMaterial!=PlacementMaterial||
         bCheckedSnap!=bPlacementSnap||CheckedVolume!=PlacementVolume||CheckedOrigin!=PlacementOrigin||CheckedCells!=Placement;
@@ -1221,7 +1227,7 @@ void UVoxelBuildComponent::UpdateWidget()
     if(bPanelOpen)
     {
         Widget->ShowState(TEXT("选择要建造的对象"),TEXT("点击卡片或按 1-9 · 选中后自动回到建造"),
-            TEXT("面板已接管光标 · 游戏操作暂停 · Esc 关闭后继续建造"),true,bSnapEnabled,
+            TEXT("鼠标用于选择 · Esc 返回瞄准并继续建造"),true,bSnapEnabled,
             BuildWorld->WeakestJointRatio(),BuildWorld->WeakestJointSummary());
         return;
     }
@@ -1256,14 +1262,22 @@ void UVoxelBuildComponent::UpdateStructureWarning(AVoxelBuildWorld& World)
     // structure that simply sits at the limit does not spam the notice bar.
     if(Risk<.8f){NoticeRisk=0;return;}
     if(Risk<.85f)return;
-    auto* Model=GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
-    if(!Model)return;
-    const FString Summary=World.WeakestJointSummary();
-    const FString Detail=Summary.IsEmpty()?FString::Printf(TEXT("%.0f%%"),Risk*100.):Summary;
-    if(Risk>=1.f&&NoticeRisk<1.f)
-        Model->PostNotice(TEXT("结构超限"),Detail+FString(TEXT(" · 接缝正在断裂")),FString(),3.2f);
-    else if(NoticeRisk<.85f)
-        Model->PostNotice(TEXT("结构预警"),Detail+FString(TEXT(" · 加厚或补支撑")),FString(),3.2f);
+    // 审计 P11：下面只会有一个分支真正播报（NoticeRisk 是上一次的读数，跨阈值才触发）。
+    // 原实现无条件先构造 WeakestJointSummary()（一次 FString::Printf），在 Risk 长期停留在
+    // 85%–100% 的结构上等于每帧白构造一次字符串。先判是否真的会播报。
+    // 注意保持原语义：Model 缺失时也要更新 NoticeRisk（否则每帧重进本函数、等于每次都重算）。
+    const bool bBreak=Risk>=1.f&&NoticeRisk<1.f;
+    const bool bWarn=Risk<1.f&&NoticeRisk<.85f;
+    if(bBreak||bWarn)
+    {
+        if(auto* Model=GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr)
+        {
+            const FString Summary=World.WeakestJointSummary();
+            const FString Detail=Summary.IsEmpty()?FString::Printf(TEXT("%.0f%%"),Risk*100.):Summary;
+            Model->PostNotice(bBreak?TEXT("结构超限"):TEXT("结构预警"),
+                bBreak?Detail+FString(TEXT(" · 接缝正在断裂")):Detail+FString(TEXT(" · 加厚或补支撑")),FString(),3.2f);
+        }
+    }
     NoticeRisk=Risk;
 }
 

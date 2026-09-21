@@ -101,7 +101,7 @@ bool AVoxelBuildWorld::IsGroundAnchor(FVector Min) const
         Min.Z-VoxelGrounding::ContactToleranceCm,VoxelGrounding::Query(GetWorld(),this),Ground);
 }
 
-bool AVoxelBuildWorld::ScenePlacementAllowed(FVector Min,FString& Reason,bool* OutAnchor) const
+bool AVoxelBuildWorld::ScenePlacementAllowed(FVector Min,FString& Reason,bool* OutAnchor,const FCollisionQueryParams* CachedParams) const
 {
     const FVector Center=Min+FVector(10);const FBox Box(Min+FVector(.25),Min+FVector(19.75));
     if(OutAnchor)*OutAnchor=false;
@@ -122,7 +122,12 @@ bool AVoxelBuildWorld::ScenePlacementAllowed(FVector Min,FString& Reason,bool* O
         if(FVector::DistSquared(Box.GetClosestPointTo(Nearest),Nearest)<double(Radius)*Radius)
         {Reason=TEXT("位置被角色占用");return false;}
     }
-    const auto Params=VoxelGrounding::Query(GetWorld(),this);VoxelGrounding::FFootprint Ground;
+    // 审计 P3：调用方（CanPlaceAt/CanCommit）会逐格调用本函数，而 VoxelGrounding::Query 每次
+    // 构造都要遍历全部 Pawn（TActorIterator）并分配 IgnoreActors 数组。现在调用方在格循环外
+    // 构造一次并传进来；CachedParams 为空时保持原行为自行构造（单点调用路径）。
+    const FCollisionQueryParams Owned=CachedParams?FCollisionQueryParams():VoxelGrounding::Query(GetWorld(),this);
+    const FCollisionQueryParams& Params=CachedParams?*CachedParams:Owned;
+    VoxelGrounding::FFootprint Ground;
     // A slope may cross an upper foundation cell without supporting every
     // corner of that cell. Permit that terrain intersection, but only mark
     // the fully seated bottom cell as a structural anchor.

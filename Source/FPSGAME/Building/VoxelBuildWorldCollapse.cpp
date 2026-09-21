@@ -13,6 +13,22 @@ namespace
     TAutoConsoleVariable<int32> Shapes(TEXT("fps.Building.MaxActiveShapes"),2048,TEXT("Admission budget for active compound shapes."));
     TAutoConsoleVariable<int32> SpawnLimit(TEXT("fps.Building.SpawnsPerFrame"),8,TEXT("Maximum prepared fragment Actor creations per frame."));
     TAutoConsoleVariable<int32> ShapesPerBody(TEXT("fps.Building.ShapesPerBody"),64,TEXT("Maximum compound boxes per prepared piece."));
+    /**
+     * 审计 P18：残骸回收的每帧重做与退避。
+     *  a) `voxel_block_<材质>` 的物品 ID 只取决于材质（有限几种），缓存掉每格一次的
+     *     `FName::ToString()` + 字符串拼接。
+     *  b) `GrantWorldBlocks` 在背包/地面物品达上限时返回 false（见 ColdSteelAreaPickup.cpp:55），
+     *     此时残骸不会被删除。原实现下一帧立刻重试，等于**每帧**重做一次全部转换工作。
+     *     改为失败后退避 1 s。
+     */
+    TMap<FName,FString> BlockItemIds;
+    TMap<FGuid,double> RecycleRetryAt;
+    const FString& BlockItemId(FName Material)
+    {
+        if(FString* Found=BlockItemIds.Find(Material))return *Found;
+        return BlockItemIds.Add(Material,FString(TEXT("voxel_block_"))+Material.ToString());
+    }
+    constexpr double RecycleRetrySeconds=1.0;
 }
 
 void AVoxelBuildWorld::RemoveFragment(AVoxelCollapseFragment* Fragment)
@@ -108,34 +124,45 @@ void AVoxelBuildWorld::TickFragments()
         if(Spawned>=FMath::Clamp(SpawnLimit.GetValueOnGameThread(),1,16)||FPlatformTime::Seconds()-Start>.0015)break;
     }
     for(FGuid Id:Finished)Runtime->PendingFragments.Remove(Id);
+    // 审计 P21：原来这段对 Fragments 有三个各自独立的完整遍历（这里统计醒着的块与 KillZ、
+    // 下面回收、再下面激活）。醒着统计与 KillZ 判定合并成一遍；回收扫描本来就要求碎片静止
+    // （AccrueRestSeconds 只在 IsMoving()==false 时累加），因此不会与醒着统计互相影响，
+    // 但**必须在 KillZ 销毁之后**跑到，否则刚销毁的条目会被重复处理——所以拆成两趟：
+    // 第一趟统计 + 记账，销毁在回收之后统一执行。
     Runtime->AwakeBodies=0;Runtime->AwakeShapes=0;
-    TArray<FGuid> OutsideWorld;
-    for(const auto& E:Fragments)if(IsValid(E.Value))
-    {
-        if(E.Value->IsMoving()){++Runtime->AwakeBodies;Runtime->AwakeShapes+=E.Value->ShapeCount();}
-        if(E.Value->GetActorLocation().Z<GetWorld()->GetWorldSettings()->KillZ)OutsideWorld.Add(E.Key);
-    }
-    for(FGuid Id:OutsideWorld){Fragments.FindChecked(Id)->Destroy();Fragments.Remove(Id);MarkSaveDirty();}
+    const double KillZ=GetWorld()->GetWorldSettings()->KillZ;
     // Settled debris comes back as pick-up-able voxel blocks: same 20 cm cube, same material, so a
     // collapsed wall turns into blocks the player can collect (Z) and build with again.
-    TArray<FGuid> Recycled;
+    TArray<FGuid> Recycled;TArray<FGuid> OutsideWorld;
     const float FrameDelta=GetWorld()->GetDeltaSeconds();
+    const double NowSeconds=GetWorld()->GetTimeSeconds();
     for(const auto& E:Fragments)
     {
         AVoxelCollapseFragment* Fragment=E.Value;
-        if(!IsValid(Fragment)||!Fragment->AccrueRestSeconds(FrameDelta,2.f))continue;
-        const FVoxelFragmentSave Settled=Fragment->Snapshot();
+        if(!IsValid(Fragment))continue;
+        if(Fragment->IsMoving()){++Runtime->AwakeBodies;Runtime->AwakeShapes+=Fragment->ShapeCount();}
+        if(Fragment->GetActorLocation().Z<KillZ){OutsideWorld.Add(E.Key);continue;}
+        if(!Fragment->AccrueRestSeconds(FrameDelta,2.f))continue;
+        // 上一次转换失败（通常是物品达上限）：退避期内不再重做整份转换工作。
+        if(const double* RetryAt=RecycleRetryAt.Find(E.Key))if(NowSeconds<*RetryAt)continue;
+        // 审计 P18：不再每帧 `Snapshot()` 拷一份完整 cells。`State.Cells` 就是当前格的权威副本
+        // （由 UpdateCellDamage 维护，FreezeForReplacement 会自行保存），这里只需要材料计数。
         TMap<FString,int64> Blocks;
-        for(const FVoxelDebrisCell& Cell:Settled.Cells)
-            if(!Cell.Material.IsNone())Blocks.FindOrAdd(FString(TEXT("voxel_block_"))+Cell.Material.ToString())++;
+        for(const FVoxelDebrisCell& Cell:Fragment->Data().Cells)
+            if(!Cell.Material.IsNone())Blocks.FindOrAdd(BlockItemId(Cell.Material))++;
         auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
-        if(Model&&!Blocks.IsEmpty()&&Model->GrantWorldBlocks(Blocks,Fragment->GetActorLocation()))Recycled.Add(E.Key);
+        if(Model&&!Blocks.IsEmpty()&&Model->GrantWorldBlocks(Blocks,Fragment->GetActorLocation()))
+        {Recycled.Add(E.Key);RecycleRetryAt.Remove(E.Key);}
+        else RecycleRetryAt.Add(E.Key,NowSeconds+RecycleRetrySeconds);
     }
     for(const FGuid Id:Recycled)
     {
+        RecycleRetryAt.Remove(Id);
         if(AVoxelCollapseFragment* Fragment=Fragments.FindRef(Id))Fragment->Destroy();
         Fragments.Remove(Id);MarkSaveDirty();
     }
+    // KillZ 之下的碎片在回收之后统一销毁（顺序与改动前一致：先统计、再回收、最后销毁落出世界的）。
+    for(const FGuid Id:OutsideWorld){RecycleRetryAt.Remove(Id);Fragments.FindChecked(Id)->Destroy();Fragments.Remove(Id);MarkSaveDirty();}
     int32 Activated=0;
     for(int32 I=0;I<Runtime->Activation.Num();)
     {

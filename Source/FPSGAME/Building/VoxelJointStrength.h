@@ -18,6 +18,8 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
+#include <mutex>
 #include <vector>
 
 namespace VoxelJointStrength
@@ -52,7 +54,64 @@ namespace VoxelJointStrength
 
     namespace Detail
     {
-        inline long long Key(const FCell& Cell) { return (Cell.X + 32) + 64 * ((Cell.Y + 32) + 64 * (Cell.Z + 32)); }
+        /**
+         * 格坐标 → 节点下标 的稀疏查找表（审计 P4 + C1 修复）。
+         *
+         * 原实现是 `static long long Lookup[64*64*64]`（**2 MB**）并**每次 Ratio() 调用**用
+         * std::fill 整个清零。Room() 只写入约 (10 + 5*(SpanCells+2)) 个格键，按当前坐标范围
+         * （X 0..4、Y 0..SpanCells+1、Z 0..5）算，写入的槽位不到表容量的 0.2%——也就是说
+         * 每次调用有 99.8% 的清零是纯浪费。面板初始化要扫 3 材质 × 2 口径 × 25 跨 ≈ 150 次，
+         * 合计约 300 MB 的内存写入，正是文档里"一次性 0.2–0.5 s"的真正来源。
+         *
+         * 换成开放寻址哈希表：容量固定（0x4000，远大于任何 Room() 的格数），但**不需要每次清零**
+         * ——用「填充游标」判定槽位是否属于本次调用：槽位里存的代（generation）等于当前代
+         * 才表示有效。代在每次 Clear() 时自增，因此上一次调用残留的数据不会命中。
+         *
+         * C1（数据竞争）：原 `static` 数组被游戏线程与线程池共享且无同步，是真实的数据竞争。
+         * 容量不能像原来那样缩到栈上（稀疏键的哈希表需要上千槽），所以保留 `static` 并加锁
+         * 串行化——这把原来"静默算错跨度"的竞争变成"正确但排队"。锁只在 Ratio() 期间持有。
+         * 本 header 是纯 C++（与离线探针共用），故用 std::mutex 而非 UE 的临界区。
+         */
+        constexpr int32_t LookupCapacity = 0x4000;   // 16384 槽
+        constexpr int32_t LookupMask = LookupCapacity - 1;
+
+        inline uint32_t HashCell(const FCell& Cell)
+        {
+            // 与原来 64³ 线性键不同的混合哈希；用于哈希表的槽位选择。
+            uint32_t H = uint32_t(Cell.X + 64) * 73856093u
+                       ^ uint32_t(Cell.Y + 64) * 19349663u
+                       ^ uint32_t(Cell.Z + 64) * 83492791u;
+            H ^= H >> 15; H *= 0x2c1b3c6du; H ^= H >> 12;
+            return H;
+        }
+
+        struct FLookupTable
+        {
+            struct FSlot { uint32_t Stamp; FCell Cell; long long Value; };
+            FSlot Slots[LookupCapacity];
+            uint32_t Generation = 0;
+            std::mutex Mutex;
+            /** 逻辑上清空（O(1)）：抬高代，旧数据自然失效。 */
+            void Clear() { ++Generation; if (Generation == 0) { std::fill(Slots, Slots + LookupCapacity, FSlot{0u, FCell{}, -1}); Generation = 1; } }
+            void Set(const FCell& Cell, long long Value)
+            {
+                uint32_t I = HashCell(Cell) & LookupMask;
+                while (Slots[I].Stamp == Generation) I = (I + 1) & LookupMask;
+                Slots[I] = {Generation, Cell, Value};
+            }
+            long long Get(const FCell& Cell) const
+            {
+                uint32_t I = HashCell(Cell) & LookupMask;
+                while (Slots[I].Stamp == Generation)
+                {
+                    const FCell& C = Slots[I].Cell;
+                    if (C.X == Cell.X && C.Y == Cell.Y && C.Z == Cell.Z) return Slots[I].Value;
+                    I = (I + 1) & LookupMask;
+                }
+                return -1;
+            }
+        };
+
         inline void Centre(const FCell& Cell, float* Out)
         {
             Out[0] = float((Cell.X + 0.5) * CellM);
@@ -83,8 +142,11 @@ namespace VoxelJointStrength
         Detail::Room(SpanCells, Cells, LoadAt);
         if (Cells.empty()) return 0.0;
 
-        static long long Lookup[64 * 64 * 64];
-        std::fill(Lookup, Lookup + 64 * 64 * 64, -1);
+        // 审计 P4 + C1：见 Detail::FLookupTable 的注释。取表即加锁（串行化并发调用），
+        // Clear() 是 O(1) 的代自增，取代原来每次调用 2 MB 的 std::fill。
+        static Detail::FLookupTable Lookup;
+        const std::lock_guard<std::mutex> Lock(Lookup.Mutex);
+        Lookup.Clear();
         const int Count = (int)Cells.size();
         int LoadCell = -1;
         for (int I = 0; I < Count; ++I)
@@ -104,7 +166,7 @@ namespace VoxelJointStrength
             Node.inertia = Node.mass * 0.04f / 6.f;
             Node.acceleration[2] = float(GravityMS2);
             Nodes.push_back(Node);
-            Lookup[Detail::Key(Cells[I])] = I;
+            Lookup.Set(Cells[I], I);
         }
         const int World = Count;
         FPSBlastNode Fixed{};
@@ -124,7 +186,7 @@ namespace VoxelJointStrength
             const FCell Neighbours[3] = { {Cell.X + 1, Cell.Y, Cell.Z}, {Cell.X, Cell.Y + 1, Cell.Z}, {Cell.X, Cell.Y, Cell.Z + 1} };
             for (int Axis = 0; Axis < 3; ++Axis)
             {
-                const int J = (int)Lookup[Detail::Key(Neighbours[Axis])];
+                const int J = (int)Lookup.Get(Neighbours[Axis]);
                 if (J < 0) continue;
                 float A[3], B[3]; Detail::Centre(Cell, A); Detail::Centre(Neighbours[Axis], B);
                 FLink Link; Link.A = I; Link.B = J; Link.Normal[Axis] = (B[Axis] - A[Axis]) > 0 ? 1.f : -1.f;

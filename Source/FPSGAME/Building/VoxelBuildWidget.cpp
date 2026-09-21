@@ -1,4 +1,4 @@
-﻿#include "VoxelBuildWidget.h"
+#include "VoxelBuildWidget.h"
 #include "VoxelBuildComponent.h"
 #include "VoxelBuildIcons.h"
 #include "../UI/ColdSteelUIStyle.h"
@@ -867,11 +867,23 @@ void UVoxelBuildWidget::RefreshLayout()
 void UVoxelBuildWidget::ShowState(const FString& Headline,const FString& Brush,const FString& Message,bool bValid,bool bSnapEnabled,
     float StructureRisk,const FString& StructureSummary)
 {
+    // 审计 P16（本函数由组件每帧调用一次）：
+    // 原实现**先**构造 SelectionText（1 次 Printf）与 Signature（1 次拼接），**之后**才比较
+    // LastState —— 守卫存在但成本已经付掉；Risk 块更是无条件执行（含 1–2 次 Printf）后才发现
+    // 内容没变。现在把"要不要更新"的判定放在最前：先用廉价分量（含风险分级与风险文本）
+    // 组签名，只有签名变化时才构造要写进控件的字符串。
+    const bool bDanger=StructureRisk>=1.f;
+    const bool bWarn=StructureRisk>=.85f;
+    // 风险行只在 bWarn 时可见且显示 StructureSummary；把分级与摘要一起纳入签名，
+    // 使得"风险从 90% 涨到 92%"这类只在文本里体现的变化仍然会刷新。
+    const int32 RiskLevel=bDanger?2:(bWarn?1:0);
+    const FString Signature=FString::Printf(TEXT("%d|%d|%d|%s|%s|%s|%s"),
+        bValid?1:0,bSnapEnabled?1:0,RiskLevel,*Headline,*Brush,*Message,bWarn?*StructureSummary:TEXT(""));
+    if(Signature==LastState)return;
+    LastState=Signature;
     if(Risk)
     {
         // 85% warns, 100% means a joint is breaking: same semantic colours as the rest of the HUD.
-        const bool bDanger=StructureRisk>=1.f;
-        const bool bWarn=StructureRisk>=.85f;
         Risk->SetVisibility(bWarn?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
         if(bWarn)
         {
@@ -882,17 +894,11 @@ void UVoxelBuildWidget::ShowState(const FString& Headline,const FString& Brush,c
             Risk->SetColorAndOpacity(bDanger?ColdSteelUI::Danger:ColdSteelUI::Warning);
         }
     }
-    const FString SelectionText=FString::Printf(TEXT("%s\n%s\n%s"),*Headline,*Brush,bSnapEnabled?TEXT("体素吸附已开启 · F 自由放置"):TEXT("自由位置 · F 开启体素吸附"));
-    const FString Signature=SelectionText+Message+(bValid?TEXT("1"):TEXT("0"));
-    if(Signature!=LastState)
-    {
-        LastState=Signature;
-        Selection->SetText(FText::FromString(Brush));
-        Status->SetText(FText::FromString(Headline));
-        Status->SetColorAndOpacity(bValid?ColdSteelUI::TextPrimary:ColdSteelUI::Warning);
-        const FString Snap=bSnapEnabled?TEXT("体素吸附已开启 · F 自由放置"):TEXT("自由位置 · F 开启体素吸附");
-        Structure->SetText(FText::FromString(Snap+TEXT("\n")+Message));
-    }
+    Selection->SetText(FText::FromString(Brush));
+    Status->SetText(FText::FromString(Headline));
+    Status->SetColorAndOpacity(bValid?ColdSteelUI::TextPrimary:ColdSteelUI::Warning);
+    const TCHAR* Snap=bSnapEnabled?TEXT("体素吸附已开启 · F 自由放置"):TEXT("自由位置 · F 开启体素吸附");
+    Structure->SetText(FText::FromString(FString(Snap)+TEXT("\n")+Message));
 }
 
 void UVoxelBuildWidget::NativeTick(const FGeometry& Geometry,float Delta)

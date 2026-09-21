@@ -9,6 +9,17 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 
+namespace
+{
+    /**
+     * DamageQueue 的读游标（审计 P19）：替代每弹一条一次的 `RemoveAt(0,1)` memmove。
+     * TickDamage 是本队列的唯一读者，因此文件级游标安全；帧末统一压缩并归零。
+     * 放在文件作用域（而非 Runtime 成员）是为了让这次改动保持"函数体 + 常量"级别，
+     * 避免动 VoxelBuildRuntime.h 触发全量重编。
+     */
+    int32 DamageRead=0;
+}
+
 float AVoxelBuildWorld::TakeDamage(float Amount,const FDamageEvent& Event,AController* EventInstigator,AActor* Causer)
 {
     if(!bReady||Amount<=0)return 0;
@@ -53,11 +64,22 @@ void AVoxelBuildWorld::TickDamage()
 {
     // Physics callbacks only enqueue; topology and collision changes happen
     // here on the game thread, outside the Chaos contact dispatch.
+    // 2026-09-21 性能修复（审计 P19）：
+    //  a) 原来的 `RemoveAt(0,1,...)` 每弹一条就是一次 O(n) memmove（n = 队列长度）；
+    //     改成读游标 DamageRead，帧末一次性压缩。
+    //  b) 原来的 `++Processed` 与预算检查同一行、位于循环末尾，而 :67/:75/:78/:88 四处
+    //     `continue` 会**跳过**它——一批碎片进入替换流程时，某些帧可以把整个队列
+    //     （可能上万条）在一个 TickDamage 里全部弹完。现在预算在循环顶部，每次弹出都计数。
+    // 本函数是 DamageQueue 的唯一读者，所以文件级游标是安全的；
+    // 仍按 `DamageRead<=DamageQueue.Num()` 做防御性钳制。
+    DamageRead=FMath::Min(DamageRead,Runtime->DamageQueue.Num());
     const double Start=FPlatformTime::Seconds();int32 Processed=0;
-    while(!Runtime->DamageQueue.IsEmpty())
+    while(DamageRead<Runtime->DamageQueue.Num())
     {
-        const auto Request=Runtime->DamageQueue[0];Runtime->DamageQueue.RemoveAt(0,1,EAllowShrinking::No);
+        if(++Processed>4||FPlatformTime::Seconds()-Start>.0015)break;
+        const auto Request=Runtime->DamageQueue[DamageRead];
         TArray<FVoxelDebrisCell> Targets;AVoxelCollapseFragment* Fragment=Request.Fragment.Get();
+        const bool bConsumed=++DamageRead>=Runtime->DamageQueue.Num();
         FVoxelFragmentSave FragmentState;
         const FVector Point=Fragment?Fragment->GetActorTransform().InverseTransformPosition(Request.Position):Request.Position;
         if(Request.bStatic)
@@ -126,7 +148,15 @@ void AVoxelBuildWorld::TickDamage()
                 }
             }
         }
-        if(++Processed>=4||FPlatformTime::Seconds()-Start>.0015)break;
+        // 本帧已把队列读空：立刻压缩一次，避免游标与容量长期偏离。
+        // 否则留到下一帧开头统一压缩——那个位置在 `bClosing` 早退之前，不会被跳过。
+        if(bConsumed)break;
+    }
+    if(DamageRead>0)
+    {
+        const int32 Drop=FMath::Min(DamageRead,Runtime->DamageQueue.Num());
+        if(Drop>0)Runtime->DamageQueue.RemoveAt(0,Drop,EAllowShrinking::No);
+        DamageRead=0;
     }
     const double Now=GetWorld()->GetTimeSeconds();if(bClosing||Now<Runtime->LoadSampleAt)return;
     Runtime->LoadSampleAt=Now+.25;

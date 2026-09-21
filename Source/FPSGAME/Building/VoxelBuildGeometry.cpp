@@ -105,7 +105,14 @@ TArray<FVoxelFragmentSave> VoxelGeometry::Split(const FVoxelFragmentSave& Source
             const auto Key=Queue[Read];if(const auto* Next=Graph.Edges.Find(Key))for(const auto& N:*Next)
                 if(!Seen.Contains(N)){Seen.Add(N);Queue.Add(N);}
         }
-        FVoxelFragmentSave Part=Source;Part.Id=FGuid::NewGuid();Part.Cells.Reset();
+        // 审计 P22：原来是 `FVoxelFragmentSave Part=Source;` 再 `Part.Cells.Reset()`——
+        // 每个连通岛都把**源碎片的全部格与全部 BrokenBonds 完整拷一遍**，然后立刻把 Cells 丢掉，
+        // 再用 Indices.FindChecked 逐格填回来。O(N × 岛数) 的纯浪费。
+        // BrokenBonds 也不必拷：本函数末尾（结果重键那段）会按 Graph.Broken ∩ 本 part 的键重建它。
+        FVoxelFragmentSave Part;
+        Part.Id=FGuid::NewGuid();Part.Transform=Source.Transform;
+        Part.Velocity=Source.Velocity;Part.AngularVelocity=Source.AngularVelocity;Part.bSleeping=Source.bSleeping;
+        Part.Cells.Reserve(Queue.Num());
         for(const auto& K:Queue)Part.Cells.Add(Source.Cells[Indices.FindChecked(K)]);
         // Merge regular solids first; only geometrically complex islands need
         // spatial subdivision to keep compound rigid-body shape counts bounded.
@@ -119,8 +126,15 @@ TArray<FVoxelFragmentSave> VoxelGeometry::Split(const FVoxelFragmentSave& Source
             FBox Bounds(ForceInit);for(const auto& C:Piece.Cells)Bounds+=C.Min;
             const FVector Extent=Bounds.GetSize();const int32 Axis=Extent.X>=Extent.Y&&Extent.X>=Extent.Z?0:(Extent.Y>=Extent.Z?1:2);
             Piece.Cells.Sort([Axis](const auto& A,const auto& B){return A.Min[Axis]<B.Min[Axis];});
-            FVoxelFragmentSave Half=Piece;Half.Id=FGuid::NewGuid();const int32 Middle=Piece.Cells.Num()/2;
-            Half.Cells.RemoveAt(0,Middle,EAllowShrinking::No);Piece.Cells.SetNum(Middle,EAllowShrinking::No);
+            // 审计 P22：原来是 `FVoxelFragmentSave Half=Piece;`（整份拷贝，含 cells 与 bonds）
+            // 再 RemoveAt 掉前半。改成只 Append 后半段。顺序必须保持不变：
+            // 先把后半段拷进 Half，**再**把 Piece 截断到前半段。
+            FVoxelFragmentSave Half;
+            Half.Id=FGuid::NewGuid();Half.Transform=Piece.Transform;
+            Half.Velocity=Piece.Velocity;Half.AngularVelocity=Piece.AngularVelocity;Half.bSleeping=Piece.bSleeping;
+            const int32 Middle=Piece.Cells.Num()/2;
+            Half.Cells.Append(Piece.Cells.GetData()+Middle,Piece.Cells.Num()-Middle);
+            Piece.Cells.SetNum(Middle,EAllowShrinking::No);
             Work.Add(MoveTemp(Piece));Work.Add(MoveTemp(Half));
         }
     }

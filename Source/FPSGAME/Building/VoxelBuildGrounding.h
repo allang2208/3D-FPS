@@ -19,7 +19,11 @@ namespace VoxelGrounding
     {
         double Low=TNumericLimits<double>::Max();
         double High=TNumericLimits<double>::Lowest();
-        TArray<TWeakObjectPtr<UPrimitiveComponent>,TInlineAllocator<5>> Surfaces;
+        // 审计 P3b：Sample() 固定跑 5 条竖直探针（中心 + 四角），所以内联容量取 5 时
+        // 只要 5 条探针命中 5 个不同组件就已满，第 6 个不同表面（地形分块边界、
+        // 探针同时打到墙与地）就会溢出到堆分配。ResolveGroundPlacement 会一次构造
+        // 最多 25 个 FFootprint（5×5 刷子），即潜在 25 次堆分配 @20Hz。提到 8。
+        TArray<TWeakObjectPtr<UPrimitiveComponent>,TInlineAllocator<8>> Surfaces;
         bool Contains(const UPrimitiveComponent* Component) const;
     };
 

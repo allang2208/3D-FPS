@@ -110,7 +110,15 @@ namespace VoxelSurface
             const double P=(I/Subdivisions)*CellSize+Offsets[I%Subdivisions];
             Coordinates.Add(P);Blends.Add(Field.Blend(P));
         }
-        TArray<float> Values;Values.SetNumUninitialized(Nodes*Nodes*Nodes);
+        // 审计 P12：Values 是 Nodes³ 个 float（Side=16、Subdivisions=5 时 81³ = 531 441 ≈ 2.03 MB），
+        // 原来每个块重建都重新分配一次。改成线程局部可复用缓冲。
+        // 必须用 thread_local：本函数由 VoxelGeometry::Batch 在 EAsyncExecution::ThreadPool 上执行，
+        // 多个网格作业可并发，跨线程共享缓冲会数据竞争。
+        // 尺寸与写入位置与原来完全一致（用绝对下标 X+Nodes*(Y+Nodes*Z)，未被写入的槽位不会被读到，
+        // 因为后面的方块循环只扫 [First,Last) 范围）。
+        static thread_local TArray<float> Values;
+        // 只在需要变大时才重分配（SetNum 不改变已有元素的值，原始代码在这里本来也不初始化）。
+        if(Values.Num()!=Nodes*Nodes*Nodes)Values.SetNum(Nodes*Nodes*Nodes,EAllowShrinking::No);
         for(int32 Z=First.Z;Z<=Last.Z;++Z)for(int32 Y=First.Y;Y<=Last.Y;++Y)for(int32 X=First.X;X<=Last.X;++X)
             Values[X+Nodes*(Y+Nodes*Z)]=float(Field.Value(Blends[X],Blends[Y],Blends[Z]));
 

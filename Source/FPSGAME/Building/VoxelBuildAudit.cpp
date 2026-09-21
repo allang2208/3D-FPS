@@ -19,9 +19,11 @@
 namespace
 {
     const TCHAR* PalettePath=TEXT("/Game/Building/Voxels/Rounded/DA_VoxelBuildPalette.DA_VoxelBuildPalette");
-    /** 材质表期望值（与 UVoxelBuildPalette::Physical() 一致）。 */
+    /** 材质表期望值（与 UVoxelBuildPalette::Physical() 一致）。
+        命名避开 `Expected`：与 Core 的 `TAtomic::CompareExchange(T& Expected, …)` 同处一个
+        unity 编译单元时会触发 C4459（本工程按错误处理），与内容无关。 */
     struct FExpectedMaterial {const TCHAR* Id;double Density,Compression,Tension,Shear,Durability,Joules;};
-    const FExpectedMaterial Expected[]={
+    const FExpectedMaterial ExpectedMaterials[]={
         {TEXT("wood"),150.,700000.,260000.,120000.,180.,6.},
         {TEXT("stone"),650.,6000000.,900000.,300000.,500.,15.},
         {TEXT("marble"),650.,6000000.,900000.,300000.,500.,15.},
@@ -53,7 +55,7 @@ bool UVoxelBuildAudit::CheckTable()
     bool bOk=Palette!=nullptr;
     Report(TEXT("palette asset loads"),bOk);
     if(!bOk)return false;
-    for(const FExpectedMaterial& E:Expected)
+    for(const FExpectedMaterial& E:ExpectedMaterials)
     {
         const FVoxelPhysicalMaterial P=Palette->Physical(E.Id);
         const bool bMatch=FMath::IsNearlyEqual(P.DensityKgM3,E.Density,1.)&&FMath::IsNearlyEqual(P.CompressionPa,E.Compression,1.)

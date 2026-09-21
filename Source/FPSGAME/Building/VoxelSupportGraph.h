@@ -34,6 +34,13 @@ struct FVoxelSupportGraph
     void SolveConnectivity();
     bool Overlaps(const FVector& Min) const;
     TArray<FVoxelBuildKey> Near(const FVector& Min) const;
+    /**
+     * 审计 P6：`Near()` 按值返回 TArray，每次调用都堆分配（结果数不定，装不进小的内联缓冲）。
+     * 它被瞄准（每帧）、放置校验（每格）、载荷登记（每 0.25 s）等高频路径调用，仅瞄准路径每帧
+     * 就是十几次分配。本入口改为写入调用方缓冲：缓冲可跨调用复用，稳态零分配。
+     * 语义与 `Near()` 完全一致（同样是 [C-2,C+2]³ 桶范围内的全部键，未排序、可能含重复）。
+     */
+    void NearInto(const FVector& Min,TArray<FVoxelBuildKey>& Out) const;
     TArray<FVoxelBuildKey> Within(FVector Point,float Radius) const;
     static bool Contact(const FVector& A,const FVector& B,FVoxelContact& Result);
 private:
