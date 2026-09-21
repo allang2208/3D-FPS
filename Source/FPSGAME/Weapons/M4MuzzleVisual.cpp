@@ -75,7 +75,7 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
         MuzzleAttachment=AKMAttachment::Configure(this,AKMViewmodel,MuzzleAttachment,*Key,Enabled);
         MuzzleVariant=Enabled?Variant:TEXT("");
         if(Enabled&&MuzzleAttachment){const auto B=MuzzleAttachment->GetStaticMesh()->GetBounds();MuzzleLocalAxis=FVector::RightVector;MuzzleLocalTip=FVector(AKMSoviet::Muzzle.X*100.f,B.Origin.Y+B.BoxExtent.Y,AKMSoviet::Muzzle.Z*100.f);}
-        if(!SuppressedFireSound)SuppressedFireSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/M4MuzzlesV1/S_M4_Suppressed"));return;
+        SuppressedFireSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/AKM/SuppressedAudio20260921/S_AKM_Suppressed"));return;
     }
     const FString Desired=Valid&&bUsingM4Infima&&bInventoryWeaponReady?Variant:TEXT("");
     auto* Rifle=AKMViewmodel->GetSkeletalMeshAsset();if(!Rifle)return;

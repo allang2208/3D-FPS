@@ -490,7 +490,9 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
                     RifleFireVariants.Add(Sound);
             const FString SuppressedPath = bUseASH12
                 ? FString::Printf(TEXT("/Game/Weapons/ASH12/SuppressedAudio20260920/S_ASH12_Suppressed_%02d"), Index)
-                : Base + FString::Printf(TEXT("Suppressed_%02d"), Index);
+                : !bUseQBZ191 && !bUseM16
+                    ? FString::Printf(TEXT("/Game/Weapons/M4SuppressedAudio20260921/S_M4_Suppressed_%02d"), Index)
+                    : Base + FString::Printf(TEXT("Suppressed_%02d"), Index);
             if (USoundBase* Sound = LoadObject<USoundBase>(nullptr, *SuppressedPath))
                 RifleSuppressedVariants.Add(Sound);
         }
@@ -506,6 +508,8 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
         RifleFireConcurrency->Concurrency.ResolutionRule = EMaxConcurrentResolutionRule::StopOldest;
         RifleFireConcurrency->Concurrency.VoiceStealReleaseTime = 0.02f;
     }
+    if (AKMSoviet::Matches(AKMViewmodel))
+        SuppressedFireSound = LoadObject<USoundBase>(nullptr, TEXT("/Game/Weapons/AKM/SuppressedAudio20260921/S_AKM_Suppressed"));
     EquipSound = LoadAKMSound(TEXT("S_AKM_Equip"));
     MagOutSound = LoadAKMSound(TEXT("S_AKM_MagOut"));
     MagInsertSound = LoadAKMSound(TEXT("S_AKM_MagInsert"));
