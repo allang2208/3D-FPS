@@ -59,6 +59,7 @@ python Tools/AssetPipeline/ue_python_exec.py --statement "import unreal; unreal.
 - **别人的文件编译不过时，完整构建走不到你的代码**（2026-09-21 实例）：并行会话新增的未提交 `Source/FPSGAME/Weapons/RuneGoldMaterialCommandlet.cpp` 先 include `UObject/SaveLoose.h`、改一版后又 include `EditorAssetLibrary.h`，两者在本引擎/本模块都不可用，UBT 在第一个编译动作就 `fatal error C1083` 退出——**没有链接**，本轮改动没进 `UnrealEditor-FPSGAME.dll`。处理：保留对方文件、不代改不代删、不反复重试等它，也不结束对方编辑器；仅在当前对话说明阻塞（禁跨会话协调）。
 - 此时能证明的只有自己的 TU：`& '<Engine>\Build\BatchFiles\Build.bat' FPSGAMEEditor Win64 Development -Project="D:\FPS3D\FPSGAME\FPSGAME.uproject" -SingleFile=Source/FPSGAME/Weapons/X.cpp -WaitMutex -NoHotReload -NoUBTMakefiles`，把本次改动过的 `.cpp` 逐个跑一遍。**成功**说明该 TU 在本工作区能编过；**失败**可能是上面单文件校验一节说的无共享 PCH 假错误，不能当结论。两者都不等于完整构建/链接，更不等于运行验收——交付时如实写"未编译进二进制"。
 - 对方修好后重跑 `Tools/Build/Build-Editor.ps1` 即可（增量构建会把本次 TU 补上）；`Target is up to date`（0 个动作）是**有效成功状态**，不必强推 rebuild。要确认"本次改动确实进了 DLL"，看 `Binaries/Win64/UnrealEditor-FPSGAME.dll` 的时间戳是否晚于自己全部源码——本轮 DLL 22:21:48、最晚源码 21:34:20，据此判定已包含（对方 22:17 修好文件后 22:21:48 的构建完成链接）。这仍不等于运行验收。
+- **直接证明法**（2026-09-21 第二轮）：UE 的字符串字面量在 Windows 上是 **UTF-16LE**，所以在 DLL 里按宽字符搜自己新增的 CVar 名就能证明代码进没进二进制——`py -c "d=open(r'Binaries\Win64\UnrealEditor-FPSGAME.dll','rb').read(); print('fps.Tracer.Every'.encode('utf-16-le') in d)"` → `True`；顺手搜一个早就存在的 CVar 名作对照。按 ASCII 搜会全部 `MISSING`，不要据此误判成"没编进去"。被编辑器占用而反复被守卫拒绝时，等窗口重试（每 45–60 s，别人不关就别动它），窗口一出现增量构建会自己补上。
 
 ## 热补丁类不能成为关卡/资产的依赖（2026-09-18 事故，青铜火把）
 
