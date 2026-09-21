@@ -114,4 +114,6 @@
 
 ## 6. 未验证
 
-以上延迟与覆盖率均由目录数值推算；本轮没有运行游戏，也没有做 `t.MaxFPS`、`r.AntiAliasingMethod` 对照或任何画面验收。编译与链接状态见文末交付说明。
+以上延迟与覆盖率均由目录数值推算；本轮没有运行游戏，也没有做 `t.MaxFPS`、`r.AntiAliasingMethod` 对照或任何画面验收。
+
+编译状态：三个改动过的 TU（`FPSBallisticsComponent.cpp`、`FPSWeaponFXComponent.cpp`、`BallisticPresentationAudit.cpp`）用 `-SingleFile` 逐个编译均 `Result: Succeeded`（日志 `Saved/BuildEditor/single2-*.log`）。**完整构建与链接取决于编辑器占用**：本轮多次尝试时 FPSGAME 编辑器由其他会话持续占用，`Tools/Build/Build-Editor.ps1` 按既有守卫拒绝构建（不结束他人进程），因此链接是否完成以实际 DLL 时间戳为准——构建成功后 `Binaries/Win64/UnrealEditor-FPSGAME.dll` 应晚于本轮全部源码。
