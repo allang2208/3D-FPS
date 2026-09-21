@@ -1,5 +1,6 @@
 #include "ColdSteelStatusModel.h"
 #include "../Weapons/PistolDualWieldComponent.h"
+#include "../Weapons/RuneOrbBladesComponent.h"
 #include "../Skills/ColdSteelSkillRules.h"
 #include "ColdSteelPickup.h"
 #include "../FPSGAMECharacter.h"
@@ -66,9 +67,14 @@ void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
     CriticalStrikeSkill=ColdSteelSkills::LoadDefinition(TEXT("criticalStrike"));
     FireballSkill=ColdSteelSkills::LoadDefinition(TEXT("fireball"));
     IceSpikeSkill=ColdSteelSkills::LoadDefinition(TEXT("iceSpike"));
+    LightningSkill=ColdSteelSkills::LoadDefinition(TEXT("lightningStrike"));
+    HolyLightSkill=ColdSteelSkills::LoadDefinition(TEXT("holyLight"));
+    MeteorSkill=ColdSteelSkills::LoadDefinition(TEXT("meteor"));
+    FlameArmorSkill=ColdSteelSkills::LoadDefinition(TEXT("flameArmor"));
     DodgeSkill=ColdSteelSkills::LoadDefinition(TEXT("dodge"));LoadStaminaTuning();
     DexterousHandsSkill=ColdSteelSkills::LoadDefinition(TEXT("dexterousHands"));
     QuickCombatSkill=ColdSteelSkills::LoadDefinition(TEXT("quickCombat"));
+    RuneBladesSkill=ColdSteelSkills::LoadDefinition(TEXT("runeBlades"));
     ColdSteelSkills::Migrate(Current);
     FString Json; TSharedPtr<FJsonObject> Root;
     if(FFileHelper::LoadFileToString(Json,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/items.json")))&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json),Root))
@@ -361,6 +367,23 @@ void UColdSteelStatusModel::SyncRuntime()
 }
 void UColdSteelStatusModel::ApplyToPawn(){if(CurrentPawn.IsValid())CurrentPawn->ApplyColdSteelProfile(this);}
 void UColdSteelStatusModel::AttachPawn(AFPSGAMECharacter* Pawn){CurrentPawn=Pawn;if(Current.Health<=0){Current.Health=Derived(TEXT("maxHp"));Current.Stamina=MaxStamina();Current.StaminaRecoveryDelay=0;Current.bSprintExhausted=false;}ApplyToPawn();RefreshDrops();OnStaminaChanged.Broadcast();}
+void UColdSteelStatusModel::ReduceAllAbilityCooldowns(float Seconds)
+{
+    if(Seconds<=0.f)return;
+    // Mirrors the TickRuntime decrement: reserved casts have not started their clock
+    // yet, so only running cooldowns shrink (2D rune-sword contract, 0.5 s per event).
+    if(!Current.bFireballReserved)Current.FireballCooldown=FMath::Max(0.f,Current.FireballCooldown-Seconds);
+    if(!Current.bIceSpikeReserved)Current.IceSpikeCooldown=FMath::Max(0.f,Current.IceSpikeCooldown-Seconds);
+    Current.LightningCooldown=FMath::Max(0.f,Current.LightningCooldown-Seconds);
+    Current.HolyLightCooldown=FMath::Max(0.f,Current.HolyLightCooldown-Seconds);
+    Current.MeteorCooldown=FMath::Max(0.f,Current.MeteorCooldown-Seconds);
+    Current.FlameArmorCooldown=FMath::Max(0.f,Current.FlameArmorCooldown-Seconds);
+    if(!Current.bQuickCombatReserved)Current.QuickCombatCooldown=FMath::Max(0.f,Current.QuickCombatCooldown-Seconds);
+    Current.WhirlwindCooldown=FMath::Max(0.f,Current.WhirlwindCooldown-Seconds);
+    if(CurrentPawn.IsValid())
+        if(auto* Blades=CurrentPawn->FindComponentByClass<URuneOrbBladesComponent>())Blades->ReduceCooldown(Seconds);
+}
+
 void UColdSteelStatusModel::TickRuntime(float Delta,AFPSGAMECharacter* Pawn)
 {
     if(Pawn!=CurrentPawn.Get())return;for(auto& I:Current.Items)I.Cooldown=FMath::Max(0.f,I.Cooldown-Delta);
@@ -368,6 +391,10 @@ void UColdSteelStatusModel::TickRuntime(float Delta,AFPSGAMECharacter* Pawn)
     else if(!Current.bFireballReserved)Current.FireballCooldown=FMath::Max(0.f,Current.FireballCooldown-Delta);
     if(HasNoAbilityCooldown())Current.IceSpikeCooldown=0.f;
     else if(!Current.bIceSpikeReserved)Current.IceSpikeCooldown=FMath::Max(0.f,Current.IceSpikeCooldown-Delta);
+    Current.LightningCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.LightningCooldown-Delta);
+    Current.HolyLightCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.HolyLightCooldown-Delta);
+    Current.MeteorCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.MeteorCooldown-Delta);
+    Current.FlameArmorCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.FlameArmorCooldown-Delta);
     if(HasNoAbilityCooldown())Current.QuickCombatCooldown=0.f;
     else if(!Current.bQuickCombatReserved)Current.QuickCombatCooldown=FMath::Max(0.f,Current.QuickCombatCooldown-Delta);
     if(HasNoAbilityCooldown())Current.WhirlwindCooldown=0.f;

@@ -338,6 +338,38 @@ void UColdSteelHUDWidget::BuildHotbar(UCanvasPanel* Root)
             ->SetPadding(FMargin(Index == 0 ? 0.0f : ReferenceUnits(HotbarGap * .5f), 0, ReferenceUnits(HotbarGap * .5f), 0));
     }
 
+    // F 专属槽（快速进战）：与前三个分组一样用细分隔线隔开。不进 QuickSlotSurfaces
+    // （QuickBarDropIndex/HighlightQuickBar 遍历它解析投放目标）也不进 HotbarDropSlots，
+    // 拖动高亮与投放都不会落到它上面；槽位自身再挡一层拖放入口。
+    {
+        UBorder* Divider = MakeSurface(ColdSteelUI::Border, 0.0f, FLinearColor::Transparent, 0.0f);
+        USizeBox* DividerSize = WidgetTree->ConstructWidget<USizeBox>();
+        DividerSize->SetWidthOverride(ReferenceUnits(1));
+        DividerSize->SetHeightOverride(ReferenceUnits(HotbarSlotSize - 16));
+        Divider->SetContent(DividerSize);
+        Row->AddChildToHorizontalBox(Divider)->SetPadding(FMargin(ReferenceUnits(4), ReferenceUnits(8)));
+        auto* FixedSlot = MakeHotbarSlot(TEXT("F"), TEXT(""));
+        Row->AddChildToHorizontalBox(FixedSlot)
+            ->SetPadding(FMargin(ReferenceUnits(HotbarGap * .5f), 0, 0.0f, 0));
+    }
+    // G 专属槽（符文长剑·环绕飞剑）：与 F 槽同一口径，只读、不接拖放；
+    // 整格与分隔线按装备状态显隐（RefreshQuickBar 驱动，收起时不占位）。
+    {
+        UBorder* Divider = MakeSurface(ColdSteelUI::Border, 0.0f, FLinearColor::Transparent, 0.0f);
+        USizeBox* DividerSize = WidgetTree->ConstructWidget<USizeBox>();
+        DividerSize->SetWidthOverride(ReferenceUnits(1));
+        DividerSize->SetHeightOverride(ReferenceUnits(HotbarSlotSize - 16));
+        Divider->SetContent(DividerSize);
+        Row->AddChildToHorizontalBox(Divider)->SetPadding(FMargin(ReferenceUnits(4), ReferenceUnits(8)));
+        auto* BladesSlot = MakeHotbarSlot(TEXT("G"), TEXT(""));
+        Row->AddChildToHorizontalBox(BladesSlot)
+            ->SetPadding(FMargin(ReferenceUnits(HotbarGap * .5f), 0, 0.0f, 0));
+        BladesSlot->SetVisibility(ESlateVisibility::Collapsed);
+        Divider->SetVisibility(ESlateVisibility::Collapsed);
+        RuneBladesSlotSurface = BladesSlot;
+        RuneBladesDivider = Divider;
+    }
+
     UCanvasPanelSlot* CanvasSlot = Root->AddChildToCanvas(Surface);
     HotbarCanvasSlot=CanvasSlot;
     CanvasSlot->SetAnchors(FAnchors(0.5f, 1.0f));
@@ -1329,6 +1361,9 @@ UBorder* UColdSteelHUDWidget::MakeHotbarSlot(const FString& KeyHint, const FStri
     SlotSurface->SetContent(Size);
     UOverlay* Overlay = WidgetTree->ConstructWidget<UOverlay>();
     Size->SetContent(Overlay);
+    // F/G 专属槽：快速进战与环绕飞剑的固定键位，只读显示，不占七槽混放绑定。
+    if(KeyHint==TEXT("F")){BuildQuickSlot(Overlay,QuickSlots.Num(),TEXT("quickCombat"));return SlotSurface;}
+    if(KeyHint==TEXT("G")){BuildQuickSlot(Overlay,QuickSlots.Num(),TEXT("runeBlades"));return SlotSurface;}
     const int32 Index=KeyHint.IsNumeric()?FCString::Atoi(*KeyHint)+2:KeyHint==TEXT("Q")?0:KeyHint==TEXT("E")?1:2;
     BuildQuickSlot(Overlay,Index);
     return SlotSurface;

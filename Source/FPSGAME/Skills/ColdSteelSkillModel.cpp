@@ -1,5 +1,6 @@
 #include "ColdSteelSkillRules.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "FPSFireMagicComponent.h"
 #include "../Combat/CoreCombatFormula.h"
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Monsters/MonsterCombatComponent.h"
@@ -166,6 +167,8 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
         // the coalesced save own the disk transaction instead of saving per hit.
         if(Trained)StageTraining(MoveTemp(P));
     }
+    if(Applied>0&&Combat&&!Combat->IsDead())
+        if(auto* Armor=Shooter->FindComponentByClass<UFPSFireMagicComponent>())Armor->OnWeaponHit(Victim,Hit.ImpactPoint);
     return Applied;
 }
 void UColdSteelStatusModel::QueueProgressNotices(const FColdSteelProfile& Before,const FColdSteelProfile& After)
@@ -176,7 +179,7 @@ void UColdSteelStatusModel::QueueProgressNotices(const FColdSteelProfile& Before
         N.Detail=FString::Printf(TEXT("获得 %d 点属性点 · 打开角色状态进行分配"),After.Points-Before.Points);
         ProgressNotices.Add(MoveTemp(N));
     }
-    const FColdSteelSkillDefinition* NoticeDefinitions[]={&RifleSkill,&PistolSkill,&CriticalStrikeSkill,&FireballSkill,&IceSpikeSkill,&DodgeSkill,&DexterousHandsSkill,&QuickCombatSkill,&MasteryDefinition(TEXT("swordMastery")),&MasteryDefinition(TEXT("machineGunMastery")),&MasteryDefinition(TEXT("shotgunMastery")),&MasteryDefinition(TEXT("bowMastery")),&MasteryDefinition(TEXT("heavyStrike")),&MasteryDefinition(TEXT("whirlwind")),&MasteryDefinition(TEXT("dashAttack"))};
+    const FColdSteelSkillDefinition* NoticeDefinitions[]={&RifleSkill,&PistolSkill,&CriticalStrikeSkill,&FireballSkill,&IceSpikeSkill,&LightningSkill,&HolyLightSkill,&MeteorSkill,&FlameArmorSkill,&DodgeSkill,&DexterousHandsSkill,&QuickCombatSkill,&MasteryDefinition(TEXT("swordMastery")),&MasteryDefinition(TEXT("machineGunMastery")),&MasteryDefinition(TEXT("shotgunMastery")),&MasteryDefinition(TEXT("bowMastery")),&MasteryDefinition(TEXT("heavyStrike")),&MasteryDefinition(TEXT("whirlwind")),&MasteryDefinition(TEXT("dashAttack"))};
     for(const auto* Definition:NoticeDefinitions)
     {
     const auto* Old=Before.Skills.Find(Definition->Id); const auto* New=After.Skills.Find(Definition->Id);
@@ -186,6 +189,9 @@ void UColdSteelStatusModel::QueueProgressNotices(const FColdSteelProfile& Before
         N.Detail=ColdSteelSkills::EffectSummary(ColdSteelSkills::Effect(*Definition,New->Level)); N.Icon=Definition->Icon;
         if(Definition->Id==TEXT("fireball"))N.Detail=FString::Printf(TEXT("火球威力提升 · 爆炸半径 %.2f 米"),FireballStats(New->Level).Radius/100);
         if(Definition->Id==TEXT("iceSpike"))N.Detail=FString::Printf(TEXT("冰锥威力提升 · 当前 %d 枚"),IceSpikeStats(New->Level).Count);
+        if(FireMagic::IsSkill(Definition->Id))N.Detail=FString::Printf(TEXT("火系魔法提升 · 持续 %.0f 秒"),FireMagicStats(Definition->Id,New->Level).Duration);
+        if(Definition->Id==TEXT("holyLight"))N.Detail=TEXT("圣光伤害与治疗提升");
+        if(Definition->Id==TEXT("lightningStrike"))N.Detail=FString::Printf(TEXT("闪电威力提升 · 最多传导 %d 个目标"),LightningStats(New->Level).Count);
         if(Definition->Id==TEXT("dashAttack"))N.Detail=FString::Printf(TEXT("冲刺攻击 ×%.2f · 准备 %.2f 秒"),DashAttackStats(New->Level).DamageMultiplier,DashAttackStats(New->Level).ReadySeconds);
         if(Definition->Id==TEXT("whirlwind"))N.Detail=FString::Printf(TEXT("大旋风 ×%.1f · 力量 +%d"),WhirlwindStats(New->Level).DamageMultiplier,New->Level);
         if(Definition->Id==TEXT("quickCombat"))N.Detail=FString::Printf(TEXT("配重锤打击 %.0f · 眩晕 %.1f 秒"),QuickCombatStats(New->Level).Damage,QuickCombatStats(New->Level).StunSeconds);

@@ -1,0 +1,14 @@
+{
+  "sound": {
+    "source": "E:\\无尽轮回\\长期备份\\2026-7-13-1\\game-dev\\assets\\sounds\\skills\\holy-light-1.mp3",
+    "sha256": "51b316629d95b11f9f6fafdd82dea08cfce5bc3a96b205ccbdeb6dd3130b8ef6",
+    "derived": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HolyLight20260920\\S_HolyLightCast.wav",
+    "rights": "Existing user project audio; local use, redistribution rights not independently established."
+  },
+  "niagara": {
+    "source": "/Game/_SplineVFX/NS/NS_Spline_Holy",
+    "pack": "Existing licensed Dr.Game Free Spline VFX",
+    "use": "Project-owned copy of Detail002; keep the original pack intact."
+  },
+  "icon": "imagegen generated for this task, graphite background, silver frame, golden pillar"
+}

@@ -16,10 +16,11 @@ void FFireballHandPose::Load()
             Value=FVector((*Array)[0]->AsNumber(),(*Array)[1]->AsNumber(),(*Array)[2]->AsNumber());
     };
     Read(Root,TEXT("shoulder"),Shoulder);Read(Root,TEXT("elbow_pole"),ElbowPole);
-    Read(Root,TEXT("gather_wrist"),GatherWrist);Read(Root,TEXT("release_wrist"),ReleaseWrist);Read(Root,TEXT("withdraw_wrist"),WithdrawWrist);
+    Read(Root,TEXT("gather_wrist"),GatherWrist);Read(Root,TEXT("release_wrist"),ReleaseWrist);
     Read(Root,TEXT("windup_wrist"),WindupWrist);Read(Root,TEXT("release_shoulder"),ReleaseShoulder);Read(Root,TEXT("release_elbow_pole"),ReleaseElbowPole);
     Read(Root,TEXT("gather_depart"),GatherDepart);Read(Root,TEXT("gather_approach"),GatherApproach);
     Read(Root,TEXT("windup_depart"),WindupDepart);Read(Root,TEXT("windup_approach"),WindupApproach);Read(Root,TEXT("recovery_depart"),RecoveryDepart);
+    Read(Root,TEXT("recovery_approach"),RecoveryApproach);
     Read(Root,TEXT("gather_forward"),GatherForward);Read(Root,TEXT("gather_normal"),GatherNormal);
     Read(Root,TEXT("release_forward"),ReleaseForward);Read(Root,TEXT("release_normal"),ReleaseNormal);Read(Root,TEXT("release_mid_normal"),ReleaseMidNormal);
     Read(Root,TEXT("orb_offset"),OrbOffset);

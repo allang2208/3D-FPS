@@ -1,0 +1,18 @@
+{
+  "source_mesh": "/Game/RuralAustralia/StaticMeshes/Rocks/Rock_M_02/SM_Rock_M_02",
+  "source_material_instance": "/Game/RuralAustralia/StaticMeshes/Rocks/Rock_M_02/MI_Rock_M_02",
+  "source_material": "/Game/RuralAustralia/Presets/M_Nature_01",
+  "source_triangles": 1091,
+  "textures": {
+    "base_color_rgb_roughness_alpha": "/Game/RuralAustralia/StaticMeshes/Rocks/Rock_M_02/T_Rock_M_02_CA",
+    "normal": "/Game/RuralAustralia/StaticMeshes/Rocks/Rock_M_02/T_Rock_M_02_NA"
+  },
+  "geometry_changes": "Bounds-centered pivot and uniform 76 cm longest-axis scaling only; existing runtime scales to 80 cm. Original topology and UVs retained.",
+  "material_changes": "Copy complete source parent and instance; preserve material attributes, PBR textures and detail normal. Final BaseColor saturation 0.42, brightness 0.52. Detail normal tiling 18. No artificial lava seam or emission.",
+  "destination": "/Game/Skills/FireMagic20260921/RealisticV3",
+  "authoring_script": "Tools/Skills/build_meteor_realistic.py",
+  "stages": ["material", "mesh"],
+  "rights": "Existing locally installed RuralAustralia assets. Preserve source pack dependencies and license; no external redistribution authorization established by this task.",
+  "tested": false,
+  "rendered_preview": false
+}

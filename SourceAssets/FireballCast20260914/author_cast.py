@@ -1,12 +1,16 @@
 """Editable Manny cast source. Runtime uses the same semantic pose JSON and a
 per-rig solver, preserving live right-hand weapon animation. No rendering/tests.
 """
-import bpy,json,math,re
+import bpy,json,math,re,sys,argparse
 from pathlib import Path
 from mathutils import Matrix,Vector,Quaternion
 
 P=Path(__file__).parent
 ROOT=P.parent.parent
+parser=argparse.ArgumentParser()
+parser.add_argument('--output-dir',type=Path,default=ROOT/'SourceAssets/CastingPalmPush20260921/ImpactV9')
+args=parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
+OUTPUT=args.output_dir.resolve();OUTPUT.mkdir(parents=True,exist_ok=True)
 CONFIG=ROOT/'Content/ColdSteelData/Skills/fireball_hand_pose.json'
 cfg=json.loads(CONFIG.read_text(encoding='utf-8'))
 timing_path=ROOT/'Source/FPSGAME/Skills/FPSFireballComponent.h'
@@ -20,6 +24,16 @@ def duration(name):
     return float(re.search(r'float '+name+r'=([.0-9]+)f;',timing_header).group(1))
 RAISE=duration('RaiseDuration');READY=duration('ReleaseEntryDuration')
 RELEASE=duration('ReleaseDuration');CONTACT=duration('LaunchContactTime');RECOVER=duration('RecoveryDuration')
+def motion_scalar(name,fallback):
+    return float(re.search(r'float '+name+r'=([.0-9]+)f;',motion_header).group(1)) if native_clocks else fallback
+RELEASE_TOTAL=motion_scalar('ReleaseTotalSeconds',clock_config['durations']['ReleaseTotalSeconds'])
+PUSH_SPEED=motion_scalar('ReleasePushSpeed',clock_config['release_push_speed'])
+ENTRY_SPEED=motion_scalar('ReleaseEntrySpeed',clock_config['release_entry_speed'])
+IMPACT={key:motion_scalar(key,value) for key,value in clock_config['impact'].items()}
+# Bake the default (1x haste) clock; preserve the moving stages and derive the
+# hold from the requested complete-cast budget.
+READY/=ENTRY_SPEED;RELEASE/=PUSH_SPEED;CONTACT/=PUSH_SPEED
+RELEASE_HOLD=max(0,RELEASE_TOTAL-READY-RELEASE-RECOVER)
 def keys(name):
     if not native_clocks:return clock_config['curves'][name]
     block=re.search(name+r'\[\]=\{(.*?)\};',motion_header,re.S).group(1)
@@ -71,6 +85,10 @@ def arc(a,b,c,d,t):
 def semantic_frame(forward,normal):
     f=forward.normalized();z=(normal-f*normal.dot(f)).normalized()
     return Matrix((f,f.cross(z),z)).transposed()
+
+def forearm_frame(direction,across):
+    x=direction.normalized();y=(across-x*across.dot(x)).normalized()
+    return Matrix((x,y,x.cross(y))).transposed().to_quaternion()
 def ue_frame(f,n):
     f=Vector(f).normalized();z=Vector(n);z=(z-f*z.dot(f)).normalized()
     return Matrix((f,z.cross(f),z)).transposed().to_quaternion()
@@ -87,15 +105,37 @@ ref_palm=semantic_frame(rest['middle_01_l'].translation-H0,ref_normal)
 correction=ref_palm.inverted()@rest['hand_l'].to_3x3()
 def blend(a,b,w):
     return Matrix.LocRotScale(a.translation.lerp(b.translation,w),a.to_quaternion().slerp(b.to_quaternion(),w),a.to_scale().lerp(b.to_scale(),w))
+def release_motion(seconds,detached=False):
+    clock=min(seconds,RELEASE)/max(.01,min(CONTACT,RELEASE));push=sample_curve(PUSH_KEYS,clock)
+    w=pos('windup_wrist' if detached else 'gather_wrist').lerp(pos('release_wrist'),push)
+    u=max(0,min(1,push));w+=C@Vector((0,-.8,-1.4))*.01*(16*u*u*(1-u)*(1-u))
+    start=.48 if detached else 0.;rel=start+(1-start)*ease((clock-.10)/.90)
+    a=pos('shoulder').lerp(pos('release_shoulder'),push)
+    p=pos('elbow_pole').lerp(pos('release_elbow_pole'),push)
+    since_contact=seconds-CONTACT
+    if 0<since_contact<IMPACT['ImpactDuration']:
+        fade=ease(since_contact/IMPACT['ImpactAttackSeconds'])*(1-ease(since_contact/IMPACT['ImpactDuration']))
+        angle=2*math.pi*IMPACT['ImpactFrequencyHz']*since_contact;wave=math.sin(angle)
+        offset=C@Vector((-IMPACT['ImpactRecoilCM']*wave,IMPACT['ImpactLateralCM']*math.sin(angle*1.5),IMPACT['ImpactLiftCM']*wave))*(.01*fade)
+        w+=offset;a+=offset;p+=offset
+    return w,a,p,(palm(rel)@correction).to_quaternion(),rel,1.,1.
+
 def motion(phase,t):
     ew=entry['hand_l'].translation;ea=entry['upperarm_l'].translation;ep=entry['lowerarm_l'].translation
     eq=entry['hand_l'].to_quaternion()
+    if phase=='PushHold':return release_motion(RELEASE+t*RELEASE_HOLD)
+    if phase=='CastDetached':
+        age=t*(READY+RELEASE+RELEASE_HOLD+RECOVER)
+        if age<READY:return motion('ReleaseWindup',age/READY)
+        if age<READY+RELEASE:return motion('ReleaseDetached',(age-READY)/RELEASE)
+        if age<READY+RELEASE+RELEASE_HOLD:return motion('PushHold',(age-READY-RELEASE)/RELEASE_HOLD)
+        return motion('Recover',(age-READY-RELEASE-RELEASE_HOLD)/RECOVER)
     if phase in ('Recover','GatherRecover'):
-        w,a,p,q,rel,fingers,weight=motion('Gather' if phase=='GatherRecover' else 'Release',1.)
+        w,a,p,q,rel,fingers,weight=motion('Gather' if phase=='GatherRecover' else 'PushHold',1.)
         u=sample_curve(RETURN_KEYS,t)
-        return (arc(w,w+pos('recovery_depart'),pos('withdraw_wrist'),ew,u),
-            a.lerp(ea,ease((t-.06)/.94)),p.lerp(ep,ease((t-.10)/.90)),
-            q.slerp(eq,ease((t-.12)/.88)),rel,fingers,weight*(1-ease((t-.48)/.52)))
+        return (arc(w,w+pos('recovery_depart'),ew+pos('recovery_approach'),ew,u),
+            a.lerp(ea,ease(t)),p.lerp(ep,ease((t-.04)/.96)),
+            q.slerp(eq,ease(t/.92)),rel,fingers*(1-ease((t-.08)/.76)),weight*(1-ease((t-.20)/.80)))
     if phase=='Gather':
         w=arc(ew,ew+pos('gather_depart'),pos('gather_wrist')+pos('gather_approach'),pos('gather_wrist'),sample_curve(GATHER_KEYS,t))
         return (w,ea.lerp(pos('shoulder'),ease(t/.84)),ep.lerp(pos('elbow_pole'),ease((t-.025)/.90)),
@@ -105,13 +145,7 @@ def motion(phase,t):
         return (w,ea.lerp(pos('shoulder'),ease(t/.85)),ep.lerp(pos('elbow_pole'),ease((t-.03)/.92)),
             eq.slerp((palm(.48)@correction).to_quaternion(),ease((t-.06)/.90)),.48,ease((t-.05)/.80),ease(t/.20))
     if phase=='Hold':return pos('gather_wrist'),pos('shoulder'),pos('elbow_pole'),(palm(0)@correction).to_quaternion(),0.,1.,1.
-    clock=t*RELEASE/max(.01,min(CONTACT,RELEASE));push=sample_curve(PUSH_KEYS,clock)
-    w=pos('windup_wrist' if phase=='ReleaseDetached' else 'gather_wrist').lerp(pos('release_wrist'),push)
-    u=max(0,min(1,push));w+=C@Vector((0,-.8,-1.4))*.01*(16*u*u*(1-u)*(1-u))
-    start=.48 if phase=='ReleaseDetached' else 0.;rel=start+(1-start)*ease((clock-.10)/.90)
-    return (w,pos('shoulder').lerp(pos('release_shoulder'),push),
-        pos('elbow_pole').lerp(pos('release_elbow_pole'),push),
-        (palm(rel)@correction).to_quaternion(),rel,1.,1.)
+    return release_motion(t*RELEASE,phase=='ReleaseDetached')
 
 def solve(phase,t):
     W,A,pole,HQ,rel,finger_blend,layer_weight=motion(phase,t)
@@ -124,9 +158,28 @@ def solve(phase,t):
     ud=(E-A).normalized();ld=(W-E).normalized();normal=ud.cross(ld).normalized();rn=RU.cross(RL).normalized()
     uq=(semantic_frame(ud,normal)@semantic_frame(RU,rn).inverted()@rest['upperarm_l'].to_3x3()).to_quaternion()
     hand_deform=HQ@rest['hand_l'].to_quaternion().inverted()
-    aligned=hand_deform@RL.normalized()
-    forearm_deform=aligned.rotation_difference(ld)@hand_deform
+    across=ref_palm.col[1]
+    forearm_deform=forearm_frame(ld,hand_deform@across)@forearm_frame(RL,across).inverted()
     fq=forearm_deform@rest['lowerarm_l'].to_quaternion()
+    upper_across=(uq@rest['upperarm_l'].to_quaternion().inverted())@across
+    palm_across=hand_deform@across
+    upper_side=(upper_across-ud*upper_across.dot(ud)).normalized()
+    palm_side=(palm_across-ud*palm_across.dot(ud)).normalized()
+    roll=math.atan2(ud.dot(upper_side.cross(palm_side)),upper_side.dot(palm_side))*.18
+    roll=max(-math.radians(12),min(math.radians(12),roll))*ease(rel)
+    uq=Quaternion(ud,roll)@uq
+    recovery_t=t if phase in ('Recover','GatherRecover') else None
+    if phase=='CastDetached':
+        age=t*(READY+RELEASE+RELEASE_HOLD+RECOVER)
+        if age>=READY+RELEASE+RELEASE_HOLD:recovery_t=(age-READY-RELEASE-RELEASE_HOLD)/RECOVER
+    if recovery_t is not None:
+        def return_roll(name,rest_axis,axis,authored):
+            source=entry[name].to_quaternion()
+            source_axis=(source@rest[name].to_quaternion().inverted())@rest_axis.normalized()
+            aligned=source_axis.rotation_difference(axis)@source
+            return authored.slerp(aligned,ease(recovery_t))
+        uq=return_roll('upperarm_l',RU,ud,uq)
+        fq=return_roll('lowerarm_l',RL,ld,fq)
     result={n:m.copy() for n,m in entry.items()}
     hand_frame=HQ.to_matrix()@rest['hand_l'].to_3x3().inverted()@ref_palm
     for n in left:
@@ -160,10 +213,10 @@ def solve(phase,t):
     for n in left:result[n]=result[parents[n]]@blend(entry_local[n],locals_goal[n],layer_weight)
     return result
 
-out=P/'Export';out.mkdir(exist_ok=True)
+out=OUTPUT/'Export';out.mkdir(exist_ok=True)
 scene.render.fps=300;scene.render.fps_base=1.
 records=[]
-for phase,seconds in [('Gather',RAISE),('GatherRecover',RECOVER),('ReleaseWindup',READY),('ReleaseDetached',RELEASE),('Recover',RECOVER),('Hold',1.),('Release',RELEASE)]:
+for phase,seconds in [('Gather',RAISE),('GatherRecover',RECOVER),('ReleaseWindup',READY),('ReleaseDetached',RELEASE),('PushHold',RELEASE_HOLD),('Recover',RECOVER),('Hold',1.),('Release',RELEASE),('CastDetached',READY+RELEASE+RELEASE_HOLD+RECOVER)]:
     action=bpy.data.actions.new('A_Fireball_'+phase);action.use_fake_user=True
     rig.animation_data_create();rig.animation_data.action=action
     end=round(seconds*300);scene.frame_start=0;scene.frame_end=end
@@ -198,11 +251,15 @@ scene.frame_start=0;scene.frame_end=round(RAISE*300);scene.frame_set(scene.frame
 camdata=bpy.data.cameras.new('Casting_Source_Camera');camera=bpy.data.objects.new('Casting_Source_Camera',camdata)
 scene.collection.objects.link(camera);camera.location=(0,0,0);camera.rotation_euler=(math.pi/2,0,0);camdata.lens=18;scene.camera=camera
 scene.render.resolution_x=1920;scene.render.resolution_y=1080
-bpy.ops.wm.save_as_mainfile(filepath=str(P/'Fireball_LeftHand_Editable.blend'))
-(P/'authoring.json').write_text(json.dumps({'references':['reference-gather.jpg','reference-release.jpg'],
+bpy.ops.wm.save_as_mainfile(filepath=str(OUTPUT/'Casting_PalmPush_Editable.blend'))
+(OUTPUT/'fireball_hand_pose.json').write_text(json.dumps(cfg,indent=2),encoding='utf-8')
+(OUTPUT/'authoring.json').write_text(json.dumps({'references':[str(P/'reference-gather.jpg'),str(OUTPUT/'reference-palm-push.jpg')],
     'source_mesh':'SK_Manny_Arms_Export','pose_config':str(CONFIG),'clips':records,
     'release_contact_seconds':CONTACT,'release_windup_seconds':READY,
-    'motion_revision':'Arm volume V3: whole-segment skinning transforms and supported shoulder advance; V2 rhythm retained',
+    'motion_revision':'Outward palm V9: one-second total, stronger/slower damped whole-arm impact, fast entry/push and V6 recovery retained',
+    'release_hold_seconds':RELEASE_HOLD,'release_push_speed':PUSH_SPEED,'release_entry_speed':ENTRY_SPEED,'impact':IMPACT,
+    'release_total_seconds':RELEASE_TOTAL,
+    'hold_clock':'derived from 1-second default total minus ready/push/recovery; derived hold remains real-time while moving stages use gesture haste',
     'timing_source':'Source/FPSGAME/Skills/FireballCastMotion.h + FPSFireballComponent.h' if native_clocks else 'motion_config.json (publication authoring snapshot)',
     'detached_hover':True,'hold_clip_usage':'reference pose only; runtime releases the hand after gathering',
     'runtime':'FPSCastingMeshComponent retargets palm and finger directions to each equipped skeleton',

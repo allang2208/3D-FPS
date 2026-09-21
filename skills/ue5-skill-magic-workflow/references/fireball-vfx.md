@@ -4,7 +4,17 @@
 
 项目特效使用已授权的 Epic Niagara Examples 和用户导入的 Dr.Game Free Spline VFX；第三方纹理、材质函数和系统留在本机。沿用 `Docs/Skills/fireball-*-20260914.md` 的来源与制作记录，不把资产发现、编译成功或用户对手臂的认可写成全套 VFX 已验收。
 
-## 缓慢悬浮燃烧
+## 当前燃烧主体：青铜火把材质重制（2026-09-21）
+
+- 用户再次要求参考当前青铜火把优化火球。初版把旧流体主体替换为两层侵蚀火焰，用户反馈只能看到燃烧、看不到主体：`TorchBurnVolume` 的烟尘遮罩、0.38 透明度与寿命 dissolve 无法维持轮廓。现用 `TorchBurnCohesiveCore` 替换该层，外围保留火把火舌；火把系统和第三方母版保持原样。
+- 当前内核为单个持续存在的 30 × 30 cm 粒子，中心固定，`Unaligned + FaceCamera` 保持各观察角度可见。Burst 由 `Engine.Emitter.TotalSpawnedParticles` 限制只生成一次，内核不运行 ParticleState 寿命淘汰，由既有投射物命中停用／销毁清理。新材质 `M_FireballCohesiveCore` 保持中心覆盖，用火把噪声流动、厚度明暗与不规则柔边形成火焰团；不能再将外焰 dissolve 套给内核。噪声采样为 Linear Grayscale。
+- 运行路径仍为 `NS_FireballSlowBurnCore` / `NS_FireballVelocityTrail`，独立材质位于 `TorchBurn20260921`。作者入口 `Tools/Skills/build_fireball_torch_burn.py`，完整 `build_fireball_assets.py` 已追加该版本；详见 `Docs/Skills/fireball-torch-burn-20260921.md`。
+- Vefects 发射器保留 System 生命周期。外焰材质动态参数 X 为 dissolve，不能当作无意义的四个 1；外焰随粒子寿命消散，内核独立持续显示。两者保留曝光补偿、深度淡化与 NiagaraSprites 用途。
+- `CustomAlignment` 模式还必须检查其绑定：旧核心继承了 `Particles.ShapeLocation.ShapeVector`，移除 ShapeLocation 后不会自动改回 `Particles.SpriteAlignment`。新版复制火把中正确的绑定，再以该属性输出朝向。
+- Niagara SpriteSize 显式乘 `Engine.Owner.Scale.x`，与 C++ 已有凝聚缩放一致；悬浮上燃，发射后 0.08 秒转到局部 -X，世界空间尾焰保留真实轨迹。
+- 主体修复已完成材质、候选及正式资产编译保存；未运行 PIE 或制作修复版验收渲染，观感待用户测试。修复前 `BeforeBodyRepair` 与最初 `Before` 备份已于 2026-09-22 移至 `trash/skills-magic-publication-20260922/SourceAssets/FireballTorchBurn20260921`。下文流体主体为历史与恢复依赖。
+
+## 历史：缓慢悬浮燃烧
 
 - 2026-09-14 后续用户要求更写实的一团燃烧火焰，已采用原创 Mantaflow 流体烘焙主序列。运行路径仍为 `NS_FireballSlowBurnCore`，内部改为两个视角的 64 帧 RGBA 燃烧层、短外焰、薄烟和轻微热扰动。新来源为 `SourceAssets/FireballFluidBurn20260914`，接入脚本 `Tools/Skills/build_fireball_fluid_burn.py`；具体制作与未测试边界见项目 `Docs/Skills/fireball-fluid-burn-20260914.md`。下列旧缓燃素材保留为重建依赖，不再是最终主体图源。
 

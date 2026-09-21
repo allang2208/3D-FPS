@@ -194,6 +194,14 @@ M4/AKM 新材质变体位于 `Content/Weapons/AttachmentFinish20260913/{M4,AKM}`
 
 当前资源入口、Fab/Manny/用户录音许可边界、保留的上游制作链及恢复顺序见 [715 资源恢复说明](Weapons/dan-wesson715-publication-20260914.md)。主体保持 Chrome，手电/激光/全息镜使用独立聚合物材质。两轮已否决模型在本机 trash 归档，清单见 [715 废案记录](Rejected/dan-wesson715-models-20260914.md)。二进制及受许可约束的密集派生数据不进入公开源码。
 
+## 闪电（2026-09-20）
+
+恢复已许可的 Dr.Game Free Spline VFX 原包 `/Game/_SplineVFX`、`SourceAssets/Lightning20260920` 中的图标与两层原施法音频。`Tools/Skills/prepare_lightning_sources.py` 从原 game-dev 音频转码，`Tools/Skills/build_lightning_assets.py` 经 UE 桥制作 `/Game/Skills/Lightning/NS_LightningChain` 并导入声音；图标恢复已进入 `Tools/UI/prepare_cold_steel_skill_icons.py`。原包和音频派生二进制继续保持本机许可边界。完整来源、数值、三维适配及未测范围见 [闪电迁移](Skills/lightning-migration-20260920.md)。
+
+### 圣光魔法（2026-09-20）
+
+同一已许可原包的 `/Game/_SplineVFX/NS/NS_Spline_Holy` 提供圣光光粒副本。恢复 `SourceAssets/HolyLight20260920` 图标和音频后，通过 `Tools/Skills/build_holy_light_assets.py` 在现有 UE 编辑器内生成 `/Game/Skills/HolyLight` 下的光柱／光池材质、`NS_HolyLightMotes` 和 `S_HolyLightCast`。声音可用 `prepare_holy_light_sources.py` 从原 game-dev 转码，图标可由共用 `prepare_cold_steel_skill_icons.py` 恢复。光柱几何由 `FPSHolyLightEffect` 运行时构造；源脚本与参数为可编辑交付。来源、完整接入与未测状态见 [圣光迁移](Skills/holy-light-migration-20260920.md)。
+
 ## 冰锥（2026-09-15）
 
 当前冰体与寒气运行目录 `/Game/Skills/IceSpike/FrostV2`；碎片、命中、冰裂纹贴图与音频仍在 `/Game/Skills/IceSpike`。首轮恢复链：保留 `SourceAssets/IceSpike20260915` 的 `IceSpike.blend`、`SM_IceSpike.fbx`、`ice_impact.wav`、`ThirdParty/CrackedIceSelected/ci_cracks.png` 和许可，UE 执行 `Tools/Skills/build_ice_spike_assets.py`。V2 另恢复 `SourceAssets/IceSpike5080_20260915` 的三视图、TRELLIS 母版、`IceSpike5080_Editable.blend` 与 `Game/` FBX／贴图，再执行 `Tools/Skills/build_ice_spike_frost_v2.py`。生成与导出入口为该源目录的 `generate.py` 和 `Tools/Skills/author_ice_spike_5080.py`，前者不会自动生成验收渲染。图标恢复由 `Tools/UI/prepare_cold_steel_skill_icons.py` 处理。依赖已有 Epic Niagara Examples、火球拖尾结构和 Realistic Starter VFX Pack Vol2，二进制原素材沿用许可边界，不公开提交。详见 [5080 模型与寒气升级](Skills/ice-spike-frost-v2-20260915.md)。
@@ -234,3 +242,18 @@ M4 N、AKM／ASH-12 跨枪适配、QBZ191 O 与 recover 衔接的运行路径、
 ## A762 与数字弹药袋（2026-09-21）
 
 A762 当前模型、配件、统一瞄具材质、目录图，以及 LP绿／PS蓝／AP红三款弹药图的本机恢复目录、制作顺序和来源边界，见 [本轮发布记录](Weapons/a762-ammo-publication-20260921.md)。公共仓库包含源码、目录与制作脚本；模型、动画、PNG、UE 资源和密集采样保持本地。基础弹药袋构建记录早于最终弹种更新，最新弹种改动仍待编译，未做游戏测试。
+
+## 陨星坠落与灼锋焰甲（2026-09-21）
+
+最新火焰为 RealisticV5：恢复本地 `Realistic_Starter_VFX_Pack_Vol2`、`MilitaryTrench` 及下述旧火系作者链，通过 MCP 桥执行 `Tools/Skills/build_fire_magic_realistic.py` 的 `materials → weapon → aura → mantle → trail → ground → impact`，输出 `/Game/Skills/FireMagic20260921/RealisticV5`。五个材质、六个 Niagara 系统覆盖两项技能的火焰，写实 V3 岩体继续使用。来源、参数、构建和未测范围见 [Realistic V5](Skills/fire-magic-realistic-v5-20260922.md)。
+
+SplineV4 为历史候选及 V5 容器来源：恢复本地 `_SplineVFX` 包及旧火系制作依赖后，通过 MCP 桥执行 `Tools/Skills/build_fire_magic_spline.py` 的七个阶段，输出 `/Game/Skills/FireMagic20260921/SplineV4`。其原材质曝光修复和 GitHub 参考见 [Free Spline VFX 替换](Skills/fire-magic-spline-vfx-20260921.md)。
+
+陨星主体最新为写实 V3：恢复 RuralAustralia 的 `StaticMeshes/Rocks/Rock_M_02`、`Presets/M_Nature_01` 及其材质函数/细节贴图依赖，运行 `Tools/Skills/build_meteor_realistic.py` 的 `material`、`mesh` 两阶段，输出 `/Game/Skills/FireMagic20260921/RealisticV3`。当前 C++ 主体与碎片均取此目录，外层火焰使用上述 RealisticV5。记录见 [写实陨星](Skills/meteor-realistic-assets-20260921.md)，素材与制作回执在 `SourceAssets/MeteorRealistic20260921`。
+
+V2 作者链作为恢复输入保留：另恢复 `SourceAssets/FireMagicPolish20260921`，运行图标使用 `meteor_hex.png` / `flame_armor_hex.png`。恢复下述初版依赖后，通过 MCP 桥对 `Tools/Skills/build_fire_magic_polish.py` 依次执行 `materials`、`mesh`、`weapon`、`mantle`、`trail`、`ground`，资产保存到 `/Game/Skills/FireMagic20260921/PolishV2`。模型后处理依赖本机 Vibe3D；火舌材质复用 `/Game/Skills/Fireball/TorchBurn20260921/M_FireballTorchErosion`。作者源与出处见该 SourceAssets 目录 `provenance.json`，实现见 [V2 计划](Skills/fire-magic-polish-plan-20260921.md)。保留旧图标和初版资产以支持重建；不再将旧方框图标写回当前技能定义。
+
+恢复本机 SourceAssets/FireMagic20260921 及青铜火把、Vefects Free Fire、Niagara Examples、EasyBuildingSystem 依赖。使用 Tools/Skills/prepare_fire_magic_sources.py 准备原音频与图标，再经 UE MCP 桥分阶段执行 build_fire_magic_assets.run；运行资产集中于 /Game/Skills/FireMagic20260921，复用已有火球飞行拖尾、写实爆炸与热浪。共用技能图标恢复清单已增加两项。详见 [火系魔法迁移](Skills/fire-magic-migration-20260921.md)。资产已制作保存并完成必要 Editor 构建；未启动游戏或测试。
+
+
+本对话技能、施法和飞剑的恢复顺序、废案与公开边界见 [2026-09-22 整理发布](Skills/skills-magic-publication-20260922.md)。

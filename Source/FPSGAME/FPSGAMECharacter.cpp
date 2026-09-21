@@ -3,11 +3,15 @@
 #include "Development/DevelopmentTuningSubsystem.h"
 #include "Production/ProductionToolComponent.h"
 #include "Weapons/RuneSwordComponent.h"
+#include "Weapons/RuneOrbBladesComponent.h"
 #include "Weapons/FrostRuneVisualDiagnosis.h"
 #include "Weapons/RuneSwordGuardTuning.h"
 #include "Skills/ColdSteelSkillRules.h"
 #include "Skills/FPSFireballComponent.h"
 #include "Skills/FPSIceSpikeComponent.h"
+#include "Skills/FPSLightningComponent.h"
+#include "Skills/FPSHolyLightComponent.h"
+#include "Skills/FPSFireMagicComponent.h"
 #include "Skills/FPSQuickCombatComponent.h"
 #include "Weapons/QuickCombatRecovery.h"
 #include "Skills/FPSCastingMeshComponent.h"
@@ -152,9 +156,13 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
     CreateDefaultSubobject<UM4TacticalSprintComponent>(TEXT("M4TacticalSprint"));
     CreateDefaultSubobject<UWeaponActionCameraComponent>(TEXT("WeaponActionCamera"));
     RuneSword=CreateDefaultSubobject<URuneSwordComponent>(TEXT("RuneSword"));
+    RuneOrbBlades=CreateDefaultSubobject<URuneOrbBladesComponent>(TEXT("RuneOrbBlades"));
     CreateDefaultSubobject<UFPSCombatHealthComponent>(TEXT("CombatHealth"));
     CreateDefaultSubobject<UFPSFireballComponent>(TEXT("FireballSkill"));
     CreateDefaultSubobject<UFPSIceSpikeComponent>(TEXT("IceSpikeSkill"));
+    CreateDefaultSubobject<UFPSLightningComponent>(TEXT("LightningSkill"));
+    CreateDefaultSubobject<UFPSHolyLightComponent>(TEXT("HolyLightSkill"));
+    CreateDefaultSubobject<UFPSFireMagicComponent>(TEXT("FireMagicSkills"));
     QuickCombatPistol=CreateDefaultSubobject<UFPSQuickCombatComponent>(TEXT("QuickCombatPistol"));
     GetCapsuleComponent()->InitCapsuleSize(42.0f, 96.0f);
     GetCapsuleComponent()->SetCollisionProfileName(TEXT("Pawn"));
@@ -542,6 +550,7 @@ void AFPSGAMECharacter::SetupPlayerInputComponent(UInputComponent* Input)
     Input->BindAction(TEXT("Reload"), IE_Released, this, &AFPSGAMECharacter::ReloadInputReleased);
     Input->BindAction(TEXT("InspectWeapon"), IE_Pressed, this, &AFPSGAMECharacter::InspectPressed);
     Input->BindAction(TEXT("QuickCombat"), IE_Pressed, this, &AFPSGAMECharacter::QuickCombatPressed);
+    Input->BindAction(TEXT("RuneBlades"), IE_Pressed, this, &AFPSGAMECharacter::RuneBladesPressed);
 }
 
 void AFPSGAMECharacter::Tick(float DeltaSeconds)
@@ -1033,6 +1042,14 @@ void AFPSGAMECharacter::QuickCombatPressed()
         Profile->TriggerQuickCombat();
 }
 
+// 符文长剑·环绕飞剑（G）：未激活时开剑阵，激活中每次按发射一把，口径对齐 2D 项目。
+// 2D 合同"攻击动画未播完不触发"：剑在做任何动作（挥砍/格挡/旋刃/收刀）期间不响应。
+void AFPSGAMECharacter::RuneBladesPressed()
+{
+    if(RuneSword && RuneSword->IsBusy())return;
+    if(RuneOrbBlades)RuneOrbBlades->Trigger();
+}
+
 // 手枪版快速进战：单持时松开左手、右手持枪以握把前砸。这里只做武装与动作仲裁，
 // 时钟、接触结算与技能提交在动作组件里。
 bool AFPSGAMECharacter::TriggerPistolQuickCombat()
@@ -1480,10 +1497,13 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     FVector ToolCameraLocation=FVector::ZeroVector;
     FRotator ToolCameraRotation=FRotator::ZeroRotator;
     if(ProductionTools)ProductionTools->GetCameraMotion(ToolCameraLocation,ToolCameraRotation);
+    FVector FireMagicLocation=FVector::ZeroVector;FRotator FireMagicRotation=FRotator::ZeroRotator;
+    if(const auto* FireMagic=FindComponentByClass<UFPSFireMagicComponent>())FireMagic->GetCameraMotion(FireMagicLocation,FireMagicRotation);
     const FQuat ControlAim = Controller ? Controller->GetControlRotation().Quaternion() : GetActorQuat();
     TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(SwordCameraLocation))*CameraMotionScale;
     TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(BashCameraLocation))*CameraMotionScale;
     TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(ToolCameraLocation))*CameraMotionScale;
+    TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(FireMagicLocation))*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
     // Whirlwind publishes its final action sample in PostPhysics, including
     // contact holds. Do not smooth its camera position against the previous
     // action frame while rotation and attached arms use the current frame.
@@ -1499,6 +1519,7 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     CameraFeedback+=SwordCameraRotation*CameraMotionScale;
     CameraFeedback+=BashCameraRotation*CameraMotionScale;
     CameraFeedback+=ToolCameraRotation*CameraMotionScale;
+    CameraFeedback+=FireMagicRotation*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
     FirstPersonCamera->SetWorldRotation(ControlAim * CameraFeedback.Quaternion());
 
     float TargetHorizontalFOV = VerticalToHorizontalFOV(FMath::Lerp(BaseVerticalFieldOfView, EffectiveADSVerticalFOV(), CameraADSFactor) + FOVPunch);
@@ -2486,13 +2507,19 @@ void AFPSGAMECharacter::SuspendWeaponForMenu()
     // A menu owns the keyboard from here on, so the preview's key release will never arrive.
     if(auto* Fireball=FindComponentByClass<UFPSFireballComponent>())Fireball->SetAimPreview(false);
     if(auto* Ice=FindComponentByClass<UFPSIceSpikeComponent>())Ice->SetAimPreview(false);
+    if(auto* Lightning=FindComponentByClass<UFPSLightningComponent>())Lightning->Cancel();
+    if(auto* HolyLight=FindComponentByClass<UFPSHolyLightComponent>())HolyLight->Cancel();
+    if(auto* FireMagic=FindComponentByClass<UFPSFireMagicComponent>())FireMagic->CancelPending();
 }
 bool AFPSGAMECharacter::IsCastBlockingLeftHandAction() const
 {
     const auto* Magic=FindComponentByClass<UFPSFireballComponent>();
     const auto* Ice=FindComponentByClass<UFPSIceSpikeComponent>();
+    const auto* Lightning=FindComponentByClass<UFPSLightningComponent>();
+    const auto* HolyLight=FindComponentByClass<UFPSHolyLightComponent>();
+    if(const auto* FireMagic=FindComponentByClass<UFPSFireMagicComponent>();FireMagic&&FireMagic->HasQueuedAction())return true;
     const auto* Bash=FindComponentByClass<UFPSQuickCombatComponent>();
-    return (Magic && Magic->BlocksNewLeftHandAction())||(Ice&&Ice->HasQueuedAction())||(Bash&&Bash->IsOccupyingLeftHand());
+    return (Magic && Magic->BlocksNewLeftHandAction())||(Ice&&Ice->HasQueuedAction())||(Lightning&&Lightning->HasQueuedAction())||(HolyLight&&HolyLight->HasQueuedAction())||(Bash&&Bash->IsOccupyingLeftHand());
 }
 void AFPSGAMECharacter::ServiceReloadAfterCasting()
 {

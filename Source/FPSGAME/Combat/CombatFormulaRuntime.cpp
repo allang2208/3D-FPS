@@ -7,7 +7,11 @@
 #include "../Monsters/WolfMonster.h"
 #include "../Skills/FireballDamage.h"
 #include "../Skills/IceSpikeDamage.h"
+#include "../Skills/LightningDamage.h"
+#include "../Skills/HolyLightDamage.h"
+#include "../Skills/FireMagicDamage.h"
 #include "../Skills/CorrosivePusDamage.h"
+#include "../Weapons/RuneOrbBladeDamage.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "Engine/GameInstance.h"
@@ -24,9 +28,10 @@ CoreCombatFormula::Attributes MonsterAttributes(const AActor* Target)
 }
 }
 thread_local const CombatFormulaRuntime::MagicHit* CombatFormulaRuntime::ActiveMagicHit=nullptr;
+thread_local CombatFormulaRuntime::WeaponHit* CombatFormulaRuntime::ActiveWeaponHit=nullptr;
 thread_local const double* CombatFormulaRuntime::ActivePhysicalPenetration=nullptr;
 bool CombatFormulaRuntime::IsMagic(const UDamageType* Type)
-{return Type&&(Type->IsA<UHandBrainMagicDamage>()||Type->IsA<UFireballDamage>()||Type->IsA<UIceSpikeDamage>()||Type->IsA<UCorrosivePusDamage>());}
+{return Type&&(Type->IsA<UHandBrainMagicDamage>()||Type->IsA<UFireballDamage>()||Type->IsA<UIceSpikeDamage>()||Type->IsA<ULightningDamage>()||Type->IsA<UHolyLightDamage>()||Type->IsA<UFireMagicDamage>()||Type->IsA<UCorrosivePusDamage>()||Type->IsA<URuneOrbBladeDamage>());}
 float CombatFormulaRuntime::MonsterDefense(const AActor* Target,bool Magic)
 {
     if(const auto* W=Cast<AWolfMonster>(Target))return Magic?W->MagicDefense:W->PhysicalDefense;
@@ -38,6 +43,25 @@ float CombatFormulaRuntime::MonsterCriticalResistance(const AActor* Target)
 float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UDamageType* Type,AActor* Source)
 {
     if(Type&&Type->IsA<UCombatDirectDamage>())return Damage;
+    if(ActiveWeaponHit&&ActiveWeaponHit->Target==Target&&!ActiveWeaponHit->bResolved&&!IsMagic(Type))
+    {
+        auto& Hit=*ActiveWeaponHit;
+        const auto* Status=Target->FindComponentByClass<UCombatStatusFormula>();
+        double Common=Status?Status->FinalMultiplier():1;
+        if(Target->GetGameInstance())if(const auto* P=Target->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+            Common*=P->TributeEffect(TEXT("monsterDamageTakenPercent"));
+        auto Resolve=[&](double Amount,bool Magic)
+        {
+            double Final=CoreCombatFormula::Defense(Amount,MonsterDefense(Target,Magic),Magic,
+                Magic?Hit.MagicPenetration:Hit.PhysicalPenetration,Status?Status->MagicShred():0,Status?Status->CorrosionMultiplier():1);
+            if(Status)Final*=Magic?Status->MagicVulnerabilityMultiplier():(Status->FrozenRemaining()>0?1.5:1.);
+            return FMath::Max(0.,std::floor(Final*Common));
+        };
+        const auto& In=Hit.Incoming;
+        Hit.Mitigated={Resolve(In.BasePhysical,false),Resolve(In.BaseMagic,true),Resolve(In.AddedPhysical,false),Resolve(In.AddedMagic,true)};
+        Hit.bResolved=true;
+        return Hit.Mitigated.Total();
+    }
     const bool Magic=IsMagic(Type);double Penetration=0;
     const auto* Player=Cast<APawn>(Source);
     if(Player&&Player->IsPlayerControlled()&&Source->GetGameInstance())if(auto* P=Source->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
@@ -50,6 +74,7 @@ float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UD
     if(Magic&&ActiveMagicHit)Result=std::floor(Result*(1+ActiveMagicHit->DamageBonus));
     else if(Magic&&Player&&Player->IsPlayerControlled()&&Source->GetGameInstance())if(const auto* P=Source->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Result=std::floor(Result*(1+P->SetEffect(TEXT("magicDamage"))));
     if(Magic&&Status)Result=std::floor(Result*Status->MagicVulnerabilityMultiplier());
+    if(Type&&Type->IsA<ULightningDamage>()&&Status)Result=std::floor(Result*Status->ElectricMultiplier());
     if(!Magic&&Status&&Status->FrozenRemaining()>0)Result=std::floor(Result*1.5);
     if(Target->GetGameInstance())if(const auto* P=Target->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Result=std::floor(Result*P->TributeEffect(TEXT("monsterDamageTakenPercent")));
     if(Magic&&ActiveMagicHit)

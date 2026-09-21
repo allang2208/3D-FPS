@@ -152,6 +152,10 @@ if __name__ == '__main__':
     build_fluid_burn()
     from build_fireball_impact_realistic import build as build_impact_realistic
     build_impact_realistic()
+    # Latest combustion replaces the old fluid body at the same runtime paths.
+    from build_fireball_torch_burn import run as build_torch_burn
+    for stage in ('materials', 'install_core', 'install_trail'):
+        build_torch_burn(stage)
     out=ROOT/'SourceAssets/Fireball20260914';out.mkdir(parents=True,exist_ok=True)
     (out/'created-assets.json').write_text(json.dumps(CREATED,indent=2),encoding='utf-8')
     unreal.log('FIREBALL_ASSETS_CREATED')

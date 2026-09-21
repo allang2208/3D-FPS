@@ -1,0 +1,15 @@
+{
+  "request": "Replace flameArmor and meteor visuals using the suggested existing alternative assets",
+  "source_packages": ["Realistic Starter VFX Pack Vol.2", "Military Trench"],
+  "original_systems": ["P_Fire_Small", "P_flamethrower", "P_Molotov", "P_Explosion_Big_A", "MilitaryTrench/P_Fire"],
+  "source_type": "Cascade ParticleSystem; read through ObjectExporterT3D without playing",
+  "adaptation": "Niagara gameplay contracts with copied native material graphs, source-specific SubUV and dynamic-mask inputs",
+  "destination": "/Game/Skills/FireMagic20260921/RealisticV5",
+  "author_script": "Tools/Skills/build_fire_magic_realistic.py",
+  "preserved_rock": "/Game/Skills/FireMagic20260921/RealisticV3/SM_MeteorNaturalRock",
+  "compiled_and_saved": true,
+  "normal_editor_build": "editor-build-01.log: Succeeded",
+  "game_tested": false,
+  "rendered_comparison": false,
+  "distribution": "Source packages, uassets and full T3D/parameter exports remain local; no new redistribution grant"
+}

@@ -38,6 +38,12 @@ private:
     UPROPERTY(Transient) TObjectPtr<UTexture2D> CriticalIconTexture;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> FireballIconTexture;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> IceSpikeIconTexture;
+    UPROPERTY(Transient) TObjectPtr<UTexture2D> LightningIconTexture;
+    TSharedPtr<SButton> LightningDetailButton;
+    FSlateBrush LightningIconBrush;
+    UPROPERTY(Transient) TObjectPtr<UTexture2D> HolyLightIconTexture;
+    TSharedPtr<SButton> HolyLightDetailButton;
+    FSlateBrush HolyLightIconBrush;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> QuickCombatIconTexture;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> WhirlwindIconTexture;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> DashAttackIconTexture;
@@ -69,4 +75,8 @@ private:
     FReply SelectCategory(int32 Index);
     FReply OpenDetail(FName Id);
     void RefreshLayout();
+    UPROPERTY(Transient) TObjectPtr<UTexture2D> MeteorIconTexture;
+    UPROPERTY(Transient) TObjectPtr<UTexture2D> FlameArmorIconTexture;
+    TSharedPtr<SButton> MeteorDetailButton,FlameArmorDetailButton;
+    FSlateBrush MeteorIconBrush,FlameArmorIconBrush;
 };

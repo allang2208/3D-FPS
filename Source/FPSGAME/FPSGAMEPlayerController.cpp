@@ -286,7 +286,8 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
         auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
         if(Params.Key==EKeys::Eight){Profile->SelectProductionTool(TEXT("tool_shovel"));return true;}
         if(Params.Key==EKeys::F7){Profile->StowProductionTool();return true;}
-        if(Params.Key==EKeys::G || Params.Key==EKeys::MouseScrollUp || Params.Key==EKeys::MouseScrollDown)
+        // G 已让位给符文长剑·环绕飞剑（角色 BindAction "RuneBlades"），武器轮换只留滚轮。
+        if(Params.Key==EKeys::MouseScrollUp || Params.Key==EKeys::MouseScrollDown)
         {if (const auto* C=Cast<AFPSGAMECharacter>(GetPawn()); !C || !C->IsTraversing()) Profile->CycleWeapon();return true;}
         if(Params.Key==EKeys::E&&GetPawn())
         {

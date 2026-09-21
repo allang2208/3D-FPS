@@ -170,6 +170,7 @@ public:
 protected:
     UPROPERTY(VisibleAnywhere, Category="FPS Movement") TObjectPtr<class UFPSTraversalComponent> Traversal;
     UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class URuneSwordComponent> RuneSword;
+    UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class URuneOrbBladesComponent> RuneOrbBlades;
     void SetAngledForegrip(bool bEnabled);
     void InitializeForegripAnimations();
     void InitializePrismGripAnimations();
@@ -384,6 +385,7 @@ private:
     FString AmmoSelectionWeapon,PendingAmmoType,PendingAmmoWeapon;
     void InspectPressed();
     void QuickCombatPressed();
+    void RuneBladesPressed();
     /** 当前 M4 的握把配置（冲刺与枪托砸击共用同一解析口径）。 */
     EM4SprintGrip ResolveRifleGripProfile() const;
     /** 按握把配置取枪托砸击 clip（六个配置各自一条作者源动画）。 */

@@ -2,6 +2,10 @@
 #include "../FPSGAMECharacter.h"
 #include "../Skills/FPSFireballComponent.h"
 #include "../Skills/FPSIceSpikeComponent.h"
+#include "../Skills/FPSLightningComponent.h"
+#include "../Skills/FPSHolyLightComponent.h"
+#include "../Skills/FPSFireMagicComponent.h"
+#include "GameFramework/PlayerController.h"
 #include "../Weapons/RuneSwordComponent.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
@@ -48,7 +52,7 @@ bool Validate(const FColdSteelProfile& P,FString& Reason)
     {
         if(!B.Skill.IsNone())
         {
-            if((B.Skill!=TEXT("fireball")&&B.Skill!=TEXT("iceSpike")&&B.Skill!=TEXT("dodge")&&B.Skill!=TEXT("heavyStrike")&&B.Skill!=TEXT("quickCombat")&&B.Skill!=TEXT("whirlwind"))||!B.ItemId.IsEmpty()||!B.ItemDefinition.IsEmpty()||Skills.Contains(B.Skill))return false;
+            if((!FireMagic::IsSkill(B.Skill)&&B.Skill!=TEXT("fireball")&&B.Skill!=TEXT("iceSpike")&&B.Skill!=TEXT("lightningStrike")&&B.Skill!=TEXT("holyLight")&&B.Skill!=TEXT("dodge")&&B.Skill!=TEXT("heavyStrike")&&B.Skill!=TEXT("quickCombat")&&B.Skill!=TEXT("whirlwind"))||!B.ItemId.IsEmpty()||!B.ItemDefinition.IsEmpty()||Skills.Contains(B.Skill))return false;
             Skills.Add(B.Skill);
         }
         else if(!B.ItemDefinition.IsEmpty())
@@ -65,7 +69,7 @@ bool Validate(const FColdSteelProfile& P,FString& Reason)
 FColdSteelQuickBinding UColdSteelStatusModel::QuickBinding(int32 Index) const
 { return Current.QuickBindings.IsValidIndex(Index)?Current.QuickBindings[Index]:FColdSteelQuickBinding(); }
 const FColdSteelSkillDefinition* UColdSteelStatusModel::QuickSkillDefinition(FName Id) const
-{ if(Id==TEXT("iceSpike"))return &IceSpikeSkill;if(Id==TEXT("heavyStrike")||Id==TEXT("whirlwind"))return &MasteryDefinition(Id);if(Id==TEXT("quickCombat"))return &QuickCombatSkill;return Id==TEXT("fireball")?&FireballSkill:Id==TEXT("dodge")?&DodgeSkill:nullptr; }
+{ if(FireMagic::IsSkill(Id))return &FireMagicDefinition(Id);if(Id==TEXT("holyLight"))return &HolyLightSkill;if(Id==TEXT("lightningStrike"))return &LightningSkill;if(Id==TEXT("iceSpike"))return &IceSpikeSkill;if(Id==TEXT("heavyStrike")||Id==TEXT("whirlwind"))return &MasteryDefinition(Id);if(Id==TEXT("quickCombat"))return &QuickCombatSkill;if(Id==TEXT("runeBlades"))return &RuneBladesSkill;return Id==TEXT("fireball")?&FireballSkill:Id==TEXT("dodge")?&DodgeSkill:nullptr; }
 bool UColdSteelStatusModel::CanBindQuickSkill(FName Id) const
 { const auto* P=Current.Skills.Find(Id);return QuickSkillDefinition(Id)&&P&&P->Level>0; }
 const FColdSteelItem* UColdSteelStatusModel::ResolveQuickItem(int32 Index) const
@@ -123,6 +127,10 @@ bool UColdSteelStatusModel::UseQuickBinding(int32 Index)
     if(B.Skill==TEXT("quickCombat"))return TriggerQuickCombat();
     if(B.Skill==TEXT("fireball"))if(auto* Ability=Player->FindComponentByClass<UFPSFireballComponent>()){Ability->Trigger();return true;}
     if(B.Skill==TEXT("iceSpike"))if(auto* Ability=Player->FindComponentByClass<UFPSIceSpikeComponent>()){Ability->Trigger();return true;}
+    if(B.Skill==TEXT("holyLight"))if(auto* Ability=Player->FindComponentByClass<UFPSHolyLightComponent>())
+    {const auto* PC=Cast<APlayerController>(Player->GetController());Ability->Trigger(PC&&(PC->IsInputKeyDown(EKeys::LeftAlt)||PC->IsInputKeyDown(EKeys::RightAlt)));return true;}
+    if(B.Skill==TEXT("lightningStrike"))if(auto* Ability=Player->FindComponentByClass<UFPSLightningComponent>()){Ability->Trigger();return true;}
+    if(FireMagic::IsSkill(B.Skill))if(auto* Ability=Player->FindComponentByClass<UFPSFireMagicComponent>()){Ability->Trigger(B.Skill);return true;}
     return false;
 }
 

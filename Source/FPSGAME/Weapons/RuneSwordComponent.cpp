@@ -316,6 +316,9 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
     SwingPoison=ColdSteelCombat::Snapshot(Character.Get()).Poison;
     SwingSkills=ColdSteelSkills::Snapshot(Character.Get());
     SwingSkills.bRifle=false;SwingSkills.bPistol=false;SwingSkills.WeakpointPercent=0;
+    // 2D 合同：符文长剑每次近战确认命中缩减全部技能冷却（攻击到目标才计，空挥不减）。
+    // 基础 0.5 秒，同一挥只结算一次。
+    SwingCooldownReduceSeconds=.5f;bSwingCooldownReduced=false;
     SetClip(Clip,false);return true;
 }
 
@@ -398,6 +401,12 @@ void URuneSwordComponent::QuickCombatContractHit()
         [&](){return ColdSteelSkills::ApplyHit(Pawn,Hit,SwingDamage,Direction,HitSkills,&DamageResult);});
     const bool bKilled=Combat->IsDead();
     if(Applied<=0.f&&!bKilled)return;
+    // 符文长剑基础冷却缩减：配重锤打击确认命中同样缩减CD（同一次快速近战只算一次）。
+    if(!bSwingCooldownReduced)
+    {
+        bSwingCooldownReduced=true;
+        if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->ReduceAllAbilityCooldowns(SwingCooldownReduceSeconds);
+    }
     // 击退与眩晕合并进 ReceiveStun 一次提交（与手枪版同一口径）。
     Combat->ReceiveStun(Pawn,QuickCombatStunSeconds,QuickCombatKnockbackCM);
     if(Eligible&&bKilled)QuickCombatKillPending=true;
@@ -497,6 +506,7 @@ void URuneSwordComponent::CancelAction()
     FinishHeavyTraining();bAutoHeavyRelease=false;
     ClearGuard();
     bAttacking=bEquipping=bInspecting=bQueuedAttack=bCharging=bReturningCharge=bHeavyAttack=false;HitActors.Reset();
+    SwingCooldownReduceSeconds=0.f;bSwingCooldownReduced=false;
     bThrustAttack=bPommelAttack=bLungeStarted=bLungeBlocked=false;LungeDirection=FVector::ZeroVector;
     bOverheadAttack=false;bQuickCombatStrike=bQueuedQuickCombat=false;bQuickCombatContactDone=false;QuickCombatStunSeconds=0.f;QuickCombatKnockbackCM=0.f;
     // 取消（死亡/换装/不可用）同样解除冷却预留并保留已提交的冷却，与火球口径一致。
@@ -746,6 +756,15 @@ void URuneSwordComponent::StopRift()
     if(RiftVisual)RiftVisual->SetVisibility(false);
 }
 
+bool URuneSwordComponent::GetFireMagicBladePoints(FVector& Base,FVector& Tip) const
+{
+    if(!IsEquipped()||!Viewmodel||!Viewmodel->IsVisible())return false;
+    if(ModularSword&&!ModularSword->ComponentHasTag(TEXT("SwordTraceFromAnimation")))
+    {Base=ModularSword->GetComponentTransform().TransformPosition(ModularBladeBase);Tip=ModularSword->GetComponentTransform().TransformPosition(ModularBladeTip);}
+    else{Base=Viewmodel->GetSocketLocation(TEXT("Blade_Base"));Tip=Viewmodel->GetSocketLocation(TEXT("Blade_Tip"));}
+    return !Base.Equals(Tip,1.f);
+}
+
 FRuneSwordBladeSample URuneSwordComponent::ReadBlade(const FTransform& AimFrame) const
 {
     const FQuat ImportBasis=FRotator(0,90,0).Quaternion();
@@ -856,6 +875,12 @@ void URuneSwordComponent::ApplySwingHits(const TArray<FHitResult>& Hits,const FV
             }
             if(Applied>0 || (bDashAttack&&bKilled))
             {
+                // 符文长剑基础冷却缩减：本挥首次确认命中即缩减全部魔法技能CD，一次挥击只触发一次。
+                if(!bSwingCooldownReduced)
+                {
+                    bSwingCooldownReduced=true;
+                    if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->ReduceAllAbilityCooldowns(SwingCooldownReduceSeconds);
+                }
                 if(bDashAttack&&Eligible){++DashHits;if(bKilled)++DashKills;}
                 // 快速进战：击退与眩晕由 ReceiveStun 一次提交；普通攻击只推退。
                 if(Combat){if(bQuickCombatStrike)Combat->ReceiveStun(Pawn,QuickCombatStunSeconds,QuickCombatKnockbackCM);
@@ -1030,6 +1055,7 @@ void URuneSwordComponent::EndPlay(const EEndPlayReason::Type Reason)
     if(auto* Profile=GetWorld()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr)Profile->FinishQuickCombatCast();
     ClearGuard();
     bAttacking=bEquipping=bInspecting=bQueuedAttack=bCharging=bReturningCharge=bHeavyAttack=false;HitActors.Reset();
+    SwingCooldownReduceSeconds=0.f;bSwingCooldownReduced=false;
     bThrustAttack=bPommelAttack=bOverheadAttack=bLungeStarted=bLungeBlocked=false;
     ImpactAge=1.f;
     if(ModularSword){ColdSteelModularSword::Clear(ModularSword);ModularSword->DestroyComponent();ModularSword=nullptr;}

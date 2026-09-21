@@ -109,6 +109,10 @@ struct FColdSteelProfile
     UPROPERTY() float IceSpikeCooldown = 0;
     UPROPERTY() float IceSpikeCooldownDuration = 0;
     UPROPERTY() bool bIceSpikeReserved = false;
+    UPROPERTY() float LightningCooldown = 0;
+    UPROPERTY() float LightningCooldownDuration = 0;
+    UPROPERTY() float HolyLightCooldown = 0;
+    UPROPERTY() float HolyLightCooldownDuration = 0;
     UPROPERTY() float WhirlwindCooldown = 0;
     UPROPERTY() float WhirlwindCooldownDuration = 0;
     UPROPERTY() float QuickCombatCooldown = 0;
@@ -121,6 +125,11 @@ struct FColdSteelProfile
     UPROPERTY() int32 TreeGrowthVersion = 0;
     UPROPERTY() double TreeGrowthDay = 0; // online gameplay time; pause/offline do not advance
     UPROPERTY() TMap<FString,FColdSteelTreeGrowth> TreeGrowth;
+    // Skill schema v16: persistent cooldowns, transient fields/buffs are not restored.
+    UPROPERTY() float MeteorCooldown = 0;
+    UPROPERTY() float MeteorCooldownDuration = 0;
+    UPROPERTY() float FlameArmorCooldown = 0;
+    UPROPERTY() float FlameArmorCooldownDuration = 0;
 };
 
 UCLASS()

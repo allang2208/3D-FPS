@@ -1,0 +1,46 @@
+{
+  "date": "2026-09-21",
+  "project": "D:/FPS3D/FPSGAME",
+  "authoring_script": "Tools/Skills/build_fire_magic_polish.py",
+  "plan": "Docs/Skills/fire-magic-polish-plan-20260921.md",
+  "destination": "/Game/Skills/FireMagic20260921/PolishV2",
+  "icons": [
+    {
+      "file": "meteor_hex.png",
+      "source": "C:/Users/allan/.codex/generated_images/01a0bdfe-ba87-7af2-8b1a-74b7b802cb54/exec-fc4a4e5f-e998-4fdc-b09c-5b6833d618eb.png",
+      "reference": "Content/ColdSteelData/Skills/fireball_ember_red.png",
+      "origin": "Generated with imagegen for this project using the existing hexagonal fireball icon as reference"
+    },
+    {
+      "file": "flame_armor_hex.png",
+      "source": "C:/Users/allan/.codex/generated_images/01a0bdfe-ba87-7af2-8b1a-74b7b802cb54/exec-25386ba0-8764-4972-b7f4-7116ba383b55.png",
+      "reference": "Content/ColdSteelData/Skills/fireball_ember_red.png",
+      "origin": "Generated with imagegen for this project using the existing hexagonal fireball icon as reference"
+    }
+  ],
+  "flames": {
+    "system_source": "/Game/Props/RomanColumn20260915/NS_TorchFlame",
+    "material_sources": [
+      "/Game/Props/RomanColumn20260915/MI_TorchSoft_Flame01",
+      "/Game/Props/RomanColumn20260915/MI_TorchSoft_Flame02"
+    ],
+    "material_parent": "/Game/Skills/Fireball/TorchBurn20260921/M_FireballTorchErosion",
+    "underlying_pack": "Vefects Free Fire, existing project dependency"
+  },
+  "rock": {
+    "source": "/Game/Skills/FireMagic20260921/SM_MeteorRock",
+    "original": "/Game/EasyBuildingSystem/Meshes/Environment/Stylized/Organic/SM_SmallRock_001",
+    "normal": "/Game/EasyBuildingSystem/Textures/Environment/Stylized/Tiles/T_Tile_Rock_Cracked_001_N",
+    "process": "Vibe3D bounds recenter, 76 cm authoring size, remesh target 9000, two noise erosion passes, normals hard angle 52 degrees; runtime longest dimension 80 cm",
+    "material": "Project-authored local-space procedural molten cracks with crust and Heat parameter"
+  },
+  "gesture": {
+    "reference": "SourceAssets/FireballCast20260914/reference-gather.jpg",
+    "config": "SourceAssets/FireballCast20260914/motion_config.json",
+    "reuse": "Existing approved gathering skeleton pose; Raise 0.95 seconds, Recover 0.50 seconds, modified by existing cast-speed interface"
+  },
+  "rebuild_stages": ["materials", "mesh", "weapon", "mantle", "trail", "ground"],
+  "rights": "Derived local project assets retain their original pack dependencies and license boundaries. External redistribution rights have not been independently established.",
+  "tested": false,
+  "runtime_visual_acceptance": "User testing pending; no PIE, captures or acceptance renders performed"
+}

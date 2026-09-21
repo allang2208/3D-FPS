@@ -66,6 +66,7 @@ public:
     /** 快速进战：以独立配重锤动作发动技能打击（伤害/击退/眩晕走技能公式）。 */
     UFUNCTION(BlueprintCallable, Category="Rune Sword") bool BeginQuickCombatStrike();
     void CancelAction();
+    bool GetFireMagicBladePoints(FVector& Base,FVector& Tip) const;
 private:
     friend class URuneSwordAuditCommandlet;
     TWeakObjectPtr<AFPSGAMECharacter> Character;
@@ -90,6 +91,7 @@ private:
     FString EquippedMeshPath;
     FMeleeModifiers MeleeModifiers;
     float SwingRuneVulnerability=0, SwingRuneVulnerabilitySeconds=0;
+    float SwingCooldownReduceSeconds=0;bool bSwingCooldownReduced=false;
     FName CurrentClip;
     float Elapsed=0.f, Damage=55.f, AttackRate=1.f, SwingDamage=55.f, SwingRate=1.f;
     // Contact timing follows the installed animation, with range captured per swing.

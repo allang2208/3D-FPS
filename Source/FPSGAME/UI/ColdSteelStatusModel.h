@@ -104,6 +104,23 @@ public:
     const FColdSteelSkillDefinition& FireballDefinition() const { return FireballSkill; }
     const FColdSteelSkillDefinition& IceSpikeDefinition() const { return IceSpikeSkill; }
     FColdSteelSkillProgress IceSpikeProgress() const;
+    const FColdSteelSkillDefinition& LightningDefinition() const { return LightningSkill; }
+    FColdSteelSkillProgress LightningProgress() const;
+    FLightningCast LightningStats(int32 AtLevel=-1) const;
+    float LightningCooldown() const { return HasNoAbilityCooldown()?0.f:Current.LightningCooldown; }
+    float LightningCooldownDuration() const { return Current.LightningCooldownDuration; }
+    bool BeginLightningCast(const FLightningCast& Cast);
+    bool ApplyLightningHit(APawn* Shooter,AActor* Target,const FVector& Origin,const FLightningCast& Cast,float Damage,FLightningRewards& Rewards,bool bTrain=true);
+    void FinishLightningCast(const FLightningRewards& Rewards);
+    const FColdSteelSkillDefinition& HolyLightDefinition() const { return HolyLightSkill; }
+    FColdSteelSkillProgress HolyLightProgress() const;
+    FHolyLightCast HolyLightStats(int32 AtLevel=-1) const;
+    float HolyLightCooldown() const { return HasNoAbilityCooldown()?0.f:Current.HolyLightCooldown; }
+    float HolyLightCooldownDuration() const { return Current.HolyLightCooldownDuration; }
+    bool BeginHolyLightCast(const FHolyLightCast& Cast);
+    bool ApplyHolyLightHit(APawn* Shooter,AActor* Target,const FVector& Origin,const FHolyLightCast& Cast,float Damage,FHolyLightRewards& Rewards,bool bTrain=true);
+    void FinishHolyLightCast(const FHolyLightRewards& Rewards);
+    bool ApplyHolyLightHealing(AActor* Target,const FHolyLightCast& Cast,FHolyLightRewards& Rewards);
     FIceSpikeCast IceSpikeStats(int32 AtLevel=-1) const;
     float IceSpikeCooldown() const { return HasNoAbilityCooldown()?0.f:Current.IceSpikeCooldown; }
     float IceSpikeCooldownDuration() const { return Current.IceSpikeCooldownDuration; }
@@ -237,6 +254,8 @@ public:
     bool ReloadProfile();
     void AttachPawn(class AFPSGAMECharacter* Pawn);
     void TickRuntime(float Delta,class AFPSGAMECharacter* Pawn);
+    /** 2D 符文长剑合同：近战出手/飞剑击杀把全部技能冷却各减 Seconds（保留 reserved 语义）。 */
+    void ReduceAllAbilityCooldowns(float Seconds);
     void SyncRuntime();
     FString AmmoDefinitionFor(const FColdSteelItem& Item) const;
     const TArray<FColdSteelAmmoType>& AmmoCatalog() const { return AmmoTypes; }
@@ -267,6 +286,14 @@ public:
     bool IsAudit() const { return bAudit; }
     bool AuditFailNextSave = false;
     FString ProfileSlot() const { return SaveSlot; }
+    const FColdSteelSkillDefinition& FireMagicDefinition(FName Id) const;
+    FColdSteelSkillProgress FireMagicProgress(FName Id) const;
+    FFireMagicCast FireMagicStats(FName Id,int32 AtLevel=-1) const;
+    float FireMagicCooldown(FName Id) const;
+    float FireMagicCooldownDuration(FName Id) const;
+    bool BeginFireMagicCast(const FFireMagicCast& Spell);
+    bool ApplyFireMagicHit(APawn* Shooter,AActor* Target,const FFireMagicCast& Spell,float Damage,FFireMagicRewards& Rewards);
+    void FinishFireMagicCast(FName Id,const FFireMagicRewards& Rewards);
 private:
     TArray<FColdSteelAmmoType> AmmoTypes;
     UPROPERTY(Transient) TMap<FString,TObjectPtr<UTexture2D>> AmmoIconTextures;
@@ -287,7 +314,10 @@ private:
     FColdSteelSkillDefinition CriticalStrikeSkill;
     FColdSteelSkillDefinition FireballSkill;
     FColdSteelSkillDefinition IceSpikeSkill;
+    FColdSteelSkillDefinition LightningSkill;
+    FColdSteelSkillDefinition HolyLightSkill;
     FColdSteelSkillDefinition QuickCombatSkill;
+    FColdSteelSkillDefinition RuneBladesSkill;
     struct FFireballRewards { TMap<TWeakObjectPtr<AActor>,int64> Kills; AActor* Victim=nullptr; };
     FFireballRewards* ActiveFireballRewards=nullptr;
     TArray<FColdSteelProgressNotice> ProgressNotices;
@@ -325,4 +355,5 @@ private:
     bool StageProductionDrops(FColdSteelProfile& State,const FProductionResource& Target,TArray<FString>& Ids);
     void StampProductionDrop(FColdSteelItem& Item) const;
     friend class AColdSteelPickup;
+    FColdSteelSkillDefinition MeteorSkill,FlameArmorSkill;
 };

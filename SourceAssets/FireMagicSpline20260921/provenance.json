@@ -1,0 +1,15 @@
+{
+  "purpose": "Free Spline VFX flames for flameArmor and meteor",
+  "asset_package": "Dr.Game Free Spline VFX, existing locally imported package",
+  "source_system": "/Game/_SplineVFX/NS/NS_Spline_Fire",
+  "source_fire_atlases": ["/Game/_SplineVFX/_GenericSource/Texture/T_Vfx_Stamp_FireFlame_88", "/Game/_SplineVFX/_GenericSource/Texture/T_Vfx_Stamp_FireFury_88"],
+  "source_smoke_instance": "/Game/_SplineVFX/_GenericSource/Material/MI/MI_Vfx_ParticleSubUV_fog03_88_fade",
+  "soft_fire_shader_source": "/Game/Skills/Fireball/M_FireballOuterFireFlame",
+  "runtime_output": "/Game/Skills/FireMagic20260921/SplineV4",
+  "author_script": "Tools/Skills/build_fire_magic_spline.py",
+  "rock_retained": "/Game/Skills/FireMagic20260921/RealisticV3/SM_MeteorNaturalRock",
+  "research_only": ["https://github.com/Unity-Technologies/VisualEffectGraph-Samples/tree/master/Assets/Samples/Meteorite/VFX/MainMeteorite", "https://github.com/travisdmathis/plume"],
+  "implementation": "Independent Niagara adaptation; analytic trigonometric curl, no third-party library integration",
+  "distribution": "Keep third-party inputs, derivatives, uasset binaries and downloaded research source copies local; no new redistribution permission assumed",
+  "runtime_tested": false
+}

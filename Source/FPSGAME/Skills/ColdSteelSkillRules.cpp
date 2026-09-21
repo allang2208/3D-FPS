@@ -20,6 +20,7 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
     if(Id==TEXT("criticalStrike")){D.Name=TEXT("暴击");D.Description=TEXT("精通暴击之道，每次暴击都能造成更致命的打击。");D.Icon=TEXT("Skills/critical_strike_cold_steel.png");}
     if(Id==TEXT("fireball")){D.Name=TEXT("火球");D.Description=TEXT("按绑定键凝聚火球，再次按键朝准星发射。直击要害必定暴击，普通直击与爆炸波及目标各自随机判定暴击。");D.Icon=TEXT("Skills/fireball_ember_red.png");D.KillExperience=24;}
     if(Id==TEXT("quickCombat")){D.Name=TEXT("快速进战");D.Description=TEXT("不限武器类型。按 F 快速打击，按当前手里的武器选动作：剑顺势使出第四连击的配重锤打击，单持手枪松开左手、右手持枪以握把向前猛砸，步枪双手持枪以枪托/枪身前段向前下砸。对前方 2 米的单个目标造成 25 + 等级×5 + 力量×（5 + 等级×0.1）伤害，击退 1 米并眩晕（2.5 + 等级×0.1）秒。基础冷却 12 秒。");D.Icon=TEXT("Skills/quick_combat_placeholder.png");}
+    if(Id==TEXT("runeBlades")){D.Name=TEXT("环绕飞剑");D.Description=TEXT("持符文长剑时按 G 唤出 4 把环绕身体的蓝色能量剑，最长驻留 30 秒；期间每按一次 G 随机发射一把朝向准星，命中造成（武器攻击＋魔法攻击）×1.2 的魔法伤害。全部发射或超时后进入 15 秒冷却，飞剑击杀可缩短冷却。");D.Icon=TEXT("Skills/rune_orb_blades.png");}
     FString Json; TSharedPtr<FJsonObject> Root;
     if (!FFileHelper::LoadFileToString(Json, *(FPaths::ProjectContentDir()/TEXT("ColdSteelData/skills.json"))) ||
         !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json), Root) || !Root) return D;
@@ -96,6 +97,59 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
         F.HitExperience=Num(TEXT("hitExperience"),4);F.KillExperience=Num(TEXT("killExperience"),12);
         F.MultiHitExperience=Num(TEXT("multiHitExperience"),10);F.MultiKillExperience=Num(TEXT("multiKillExperience"),10);
     }
+    if(FireMagic::IsSkill(Id))
+    {
+        auto& F=D.FireMagic;
+        F.DamageBase=Num(TEXT("damageBase"),F.DamageBase);F.DamagePerLevel=Num(TEXT("damagePerLevel"),F.DamagePerLevel);
+        F.MagicBase=Num(TEXT("magicBase"),F.MagicBase);F.MagicPerLevel=Num(TEXT("magicPerLevel"),F.MagicPerLevel);
+        F.IntelligenceBase=Num(TEXT("intelligenceBase"),F.IntelligenceBase);F.IntelligencePerLevel=Num(TEXT("intelligencePerLevel"),F.IntelligencePerLevel);
+        F.AuraDamageBase=Num(TEXT("auraDamageBase"),F.AuraDamageBase);F.AuraDamagePerLevel=Num(TEXT("auraDamagePerLevel"),F.AuraDamagePerLevel);
+        F.AuraMagicBase=Num(TEXT("auraMagicBase"),F.AuraMagicBase);F.AuraMagicPerLevel=Num(TEXT("auraMagicPerLevel"),F.AuraMagicPerLevel);
+        F.AuraIntelligenceBase=Num(TEXT("auraIntelligenceBase"),F.AuraIntelligenceBase);F.AuraIntelligencePerLevel=Num(TEXT("auraIntelligencePerLevel"),F.AuraIntelligencePerLevel);
+        F.RadiusBase=Num(TEXT("radiusBase"),F.RadiusBase);F.RadiusPerLevel=Num(TEXT("radiusPerLevel"),F.RadiusPerLevel);
+        F.AuraRadiusBase=Num(TEXT("auraRadiusBase"),F.AuraRadiusBase);F.AuraRadiusPerLevel=Num(TEXT("auraRadiusPerLevel"),F.AuraRadiusPerLevel);
+        F.UnitsToCM=Num(TEXT("unitsToCM"),F.UnitsToCM);F.ManaBase=Num(TEXT("manaBase"),F.ManaBase);F.ManaGrowth=Num(TEXT("manaGrowth"),F.ManaGrowth);
+        F.Cooldown=Num(TEXT("cooldown"),F.Cooldown);F.CooldownReduction=Num(TEXT("cooldownReduction"),F.CooldownReduction);
+        F.DurationBase=Num(TEXT("durationBase"),F.DurationBase);F.DurationGrowth=Num(TEXT("durationGrowth"),F.DurationGrowth);
+        F.Range=Num(TEXT("maxRange"),F.Range);F.FallSeconds=Num(TEXT("fallSeconds"),F.FallSeconds);
+        F.TickSeconds=FMath::Max(.05f,float(Num(TEXT("tickSeconds"),F.TickSeconds)));F.StunSeconds=Num(TEXT("stunSeconds"),F.StunSeconds);
+        F.BurnStacks=Num(TEXT("burnStacks"),F.BurnStacks);F.BurnSeconds=Num(TEXT("burnSeconds"),F.BurnSeconds);F.BurnMultiplier=Num(TEXT("burnMultiplier"),F.BurnMultiplier);
+        F.AuraBurnStacks=Num(TEXT("auraBurnStacks"),F.AuraBurnStacks);F.AuraBurnSeconds=Num(TEXT("auraBurnSeconds"),F.AuraBurnSeconds);F.AuraBurnMultiplier=Num(TEXT("auraBurnMultiplier"),F.AuraBurnMultiplier);
+        F.HitExperience=Num(TEXT("hitExperience"),F.HitExperience);F.KillExperience=Num(TEXT("killExperience"),F.KillExperience);
+        F.MultiHitExperience=Num(TEXT("multiHitExperience"),F.MultiHitExperience);F.MultiKillExperience=Num(TEXT("multiKillExperience"),F.MultiKillExperience);
+        O->TryGetBoolField(TEXT("requiresStaff"),F.bRequiresStaff);
+    }
+    if(Id==TEXT("holyLight"))
+    {
+        auto& F=D.HolyLight;
+        F.AmountBase=Num(TEXT("amountBase"),5);F.AmountPerLevel=Num(TEXT("amountPerLevel"),5);
+        F.MagicBase=Num(TEXT("magicBase"),.25);F.MagicPerLevel=Num(TEXT("magicPerLevel"),.25);
+        F.IntelligenceBase=Num(TEXT("intelligenceBase"),1);F.IntelligencePerLevel=Num(TEXT("intelligencePerLevel"),.5);
+        F.WisdomBase=Num(TEXT("wisdomBase"),1);F.WisdomPerLevel=Num(TEXT("wisdomPerLevel"),.5);
+        F.ManaCost=Num(TEXT("manaCost"),30);F.Cooldown=Num(TEXT("cooldown"),10);
+        F.CooldownLevelStep=FMath::Max(1,int32(Num(TEXT("cooldownLevelStep"),5)));F.CooldownStepReduction=Num(TEXT("cooldownStepReduction"),1);
+        F.Range=Num(TEXT("range"),600);F.AimRadius=Num(TEXT("aimRadius"),200);F.UnitsToCM=Num(TEXT("unitsToCM"),1.5);
+        F.ZombieMultiplier=Num(TEXT("zombieMultiplier"),2);F.Duration=Num(TEXT("duration"),2);F.Fade=Num(TEXT("fade"),.4);
+        F.TopWidth=Num(TEXT("topWidth"),60);F.BottomWidth=Num(TEXT("bottomWidth"),110);F.Height=Num(TEXT("height"),1400);F.DissolveRatio=Num(TEXT("dissolveRatio"),.28);
+        F.HitExperience=Num(TEXT("hitExperience"),5);F.KillExperience=Num(TEXT("killExperience"),10);
+    }
+    if(Id==TEXT("lightningStrike"))
+    {
+        auto& F=D.Lightning;
+        F.DamageBase=Num(TEXT("damageBase"),20);F.DamagePerLevel=Num(TEXT("damagePerLevel"),10);
+        F.MagicBase=Num(TEXT("magicBase"),1.15);F.MagicPerLevel=Num(TEXT("magicPerLevel"),.25);
+        F.IntelligenceBase=Num(TEXT("intelligenceBase"),1);F.IntelligencePerLevel=Num(TEXT("intelligencePerLevel"),.25);
+        F.ManaCost=Num(TEXT("manaCost"),30);F.Cooldown=Num(TEXT("cooldown"),12);
+        F.AimRadius=Num(TEXT("aimRadius"),200);F.Range=Num(TEXT("maxRange"),600);F.ChainRange=Num(TEXT("chainRange"),200);F.UnitsToCM=Num(TEXT("unitsToCM"),1.5);
+        F.CountBase=Num(TEXT("countBase"),1);F.CountLevelStep=FMath::Max(1,int32(Num(TEXT("countLevelStep"),5)));F.ChainDecay=Num(TEXT("chainDecay"),.1);
+        F.StunBase=Num(TEXT("stunBase"),.75);F.StunPerLevel=Num(TEXT("stunPerLevel"),.02);
+        F.Duration=Num(TEXT("duration"),.5);F.Fade=Num(TEXT("fade"),.25);F.Segments=Num(TEXT("segments"),10);F.Jitter=Num(TEXT("jitter"),.09);
+        F.ElectrifyStacks=Num(TEXT("electrifyStacks"),1);F.ElectrifyDuration=Num(TEXT("electrifyDuration"),4);F.ElectricBonusPerStack=Num(TEXT("electricBonusPerStack"),.03);
+        F.OverloadStacks=Num(TEXT("overloadStacks"),5);F.OverloadStun=Num(TEXT("overloadStun"),1.2);F.OverloadRange=Num(TEXT("overloadRange"),150);
+        F.OverloadBase=Num(TEXT("overloadBase"),20);F.OverloadMagic=Num(TEXT("overloadMagic"),1.2);F.OverloadIntelligence=Num(TEXT("overloadIntelligence"),1.2);
+        F.HitExperience=Num(TEXT("hitExperience"),4);F.KillExperience=Num(TEXT("killExperience"),10);
+        F.MultiHitExperience=Num(TEXT("multiHitExperience"),10);F.MultiKillExperience=Num(TEXT("multiKillExperience"),10);
+    }
     if(Id==TEXT("dashAttack"))
     {
         auto& T=D.DashAttack;
@@ -135,7 +189,7 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
 }
 bool ColdSteelSkills::Migrate(FColdSteelProfile& P)
 {
-    if (P.SkillProgressVersion >= 15) return false;
+    if (P.SkillProgressVersion >= 16) return false;
     if (P.SkillProgressVersion < 8)
     {
         P.Skills.FindOrAdd(TEXT("rifleMastery"));P.Skills.FindOrAdd(TEXT("dodge"));P.Skills.FindOrAdd(TEXT("dexterousHands"));P.Skills.FindOrAdd(TEXT("pistolMastery"));P.Skills.FindOrAdd(TEXT("criticalStrike"));P.Skills.FindOrAdd(TEXT("fireball"));for(FName Id:{FName(TEXT("swordMastery")),FName(TEXT("machineGunMastery")),FName(TEXT("shotgunMastery")),FName(TEXT("bowMastery"))})P.Skills.FindOrAdd(Id);P.Skills.FindOrAdd(TEXT("heavyStrike"));
@@ -159,13 +213,22 @@ bool ColdSteelSkills::Migrate(FColdSteelProfile& P)
     // Version 11 adds quickCombat; the early return above means only <11 reaches here.
     P.Skills.FindOrAdd(TEXT("quickCombat"));
     P.Skills.FindOrAdd(TEXT("whirlwind"));
+    P.Skills.FindOrAdd(TEXT("lightningStrike"));
+    P.Skills.FindOrAdd(TEXT("holyLight"));
     P.Skills.FindOrAdd(TEXT("dashAttack"));
-    P.SkillProgressVersion=15;
+    P.Skills.FindOrAdd(TEXT("meteor"));P.Skills.FindOrAdd(TEXT("flameArmor"));
+    P.SkillProgressVersion=16;
     return true;
 }
 bool ColdSteelSkills::Validate(const FColdSteelProfile& P, FString& Reason)
 {
-    if (P.SkillProgressVersion<0 || P.SkillProgressVersion>15 || P.Skills.Num()>128) { Reason=TEXT("技能存档版本或数量无效"); return false; }
+    if (P.SkillProgressVersion<0 || P.SkillProgressVersion>16 || P.Skills.Num()>128) { Reason=TEXT("技能存档版本或数量无效"); return false; }
+    if(P.SkillProgressVersion>=16)
+    {
+        if(!P.Skills.Contains(TEXT("meteor"))||!P.Skills.Contains(TEXT("flameArmor"))) {Reason=TEXT("火系技能进度缺失");return false;}
+        for(const auto Pair:{TPair<float,float>(P.MeteorCooldown,P.MeteorCooldownDuration),TPair<float,float>(P.FlameArmorCooldown,P.FlameArmorCooldownDuration)})
+            if(!FMath::IsFinite(Pair.Key)||!FMath::IsFinite(Pair.Value)||Pair.Key<0||Pair.Value<Pair.Key||Pair.Value>300){Reason=TEXT("火系技能冷却无效");return false;}
+    }
     if (P.SkillProgressVersion>=1 && !P.Skills.Contains(TEXT("rifleMastery"))) { Reason=TEXT("技能进度缺失"); return false; }
     if (P.SkillProgressVersion>=2 && !P.Skills.Contains(TEXT("dodge"))) { Reason=TEXT("闪避进度缺失"); return false; }
     if (P.SkillProgressVersion>=3 && !P.Skills.Contains(TEXT("dexterousHands"))) { Reason=TEXT("巧手进度缺失"); return false; }
@@ -179,6 +242,10 @@ bool ColdSteelSkills::Validate(const FColdSteelProfile& P, FString& Reason)
     if(P.SkillProgressVersion>=11&&(!FMath::IsFinite(P.QuickCombatCooldown)||P.QuickCombatCooldown<0||!FMath::IsFinite(P.QuickCombatCooldownDuration)||P.QuickCombatCooldownDuration<P.QuickCombatCooldown||P.QuickCombatCooldownDuration>300)){Reason=TEXT("快速进战冷却无效");return false;}
     if(P.SkillProgressVersion>=12&&(!P.Skills.Contains(TEXT("whirlwind"))||!FMath::IsFinite(P.WhirlwindCooldown)||P.WhirlwindCooldown<0||!FMath::IsFinite(P.WhirlwindCooldownDuration)||P.WhirlwindCooldownDuration<P.WhirlwindCooldown||P.WhirlwindCooldownDuration>300))
     {Reason=TEXT("大旋风进度或冷却无效");return false;}
+    if(P.SkillProgressVersion>=13&&(!P.Skills.Contains(TEXT("lightningStrike"))||!FMath::IsFinite(P.LightningCooldown)||P.LightningCooldown<0||!FMath::IsFinite(P.LightningCooldownDuration)||P.LightningCooldownDuration<P.LightningCooldown||P.LightningCooldownDuration>300))
+    {Reason=TEXT("闪电进度或冷却无效");return false;}
+    if(P.SkillProgressVersion>=14&&(!P.Skills.Contains(TEXT("holyLight"))||!FMath::IsFinite(P.HolyLightCooldown)||P.HolyLightCooldown<0||!FMath::IsFinite(P.HolyLightCooldownDuration)||P.HolyLightCooldownDuration<P.HolyLightCooldown||P.HolyLightCooldownDuration>300))
+    {Reason=TEXT("圣光进度或冷却无效");return false;}
     if(P.SkillProgressVersion>=15&&!P.Skills.Contains(TEXT("dashAttack"))){Reason=TEXT("冲刺攻击进度缺失");return false;}
     for (const auto& Pair:P.Skills)
         if (Pair.Key.IsNone() || Pair.Value.Level<1 || Pair.Value.Level>20 || Pair.Value.Experience<0 || Pair.Value.Experience>2000000 || (Pair.Value.Level==20 && Pair.Value.Experience!=0))

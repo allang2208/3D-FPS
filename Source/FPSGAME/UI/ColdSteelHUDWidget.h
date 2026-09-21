@@ -128,7 +128,7 @@ private:
     bool bWarehouseOpen=false;
     float WarehouseMotion=0,WarehouseStart=0,WarehouseElapsed=.3f;
     void BuildHotbar(UCanvasPanel* Root);
-    void BuildQuickSlot(UOverlay* Overlay,int32 Index);
+    void BuildQuickSlot(UOverlay* Overlay,int32 Index,FName FixedSkill=NAME_None);
     void RefreshQuickBar();
     int32 QuickBarDropIndex(FVector2D Position) const;
     void HighlightQuickBar(int32 Index,bool Valid);
@@ -138,6 +138,9 @@ private:
     bool bCloseAfterQuickDrag=false;
     UPROPERTY(Transient) TArray<TObjectPtr<class UColdSteelQuickSlot>> QuickSlots;
     UPROPERTY(Transient) TArray<TObjectPtr<UBorder>> QuickSlotSurfaces;
+    // G 专属槽（环绕飞剑）：仅装备符文长剑时显示，卸下收起整格与分隔线。
+    UPROPERTY(Transient) TObjectPtr<UBorder> RuneBladesSlotSurface;
+    UPROPERTY(Transient) TObjectPtr<UBorder> RuneBladesDivider;
     void BuildStamina(UCanvasPanel* Root);
     void RefreshStamina();
     void UpdateStaminaLayout(const FGeometry& Geometry);

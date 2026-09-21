@@ -7,6 +7,7 @@
 #include "../Monsters/PoisonMaggotMonster.h"
 #include "../Monsters/WolfMonster.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
+#include "../Monsters/MonsterCombatComponent.h"
 #include "../Skills/FireballDamage.h"
 #include "../UI/StatusEffectsComponent.h"
 UCombatStatusFormula::UCombatStatusFormula(){PrimaryComponentTick.bCanEverTick=true;}
@@ -31,6 +32,12 @@ void UCombatStatusFormula::AddHolyWard(float Multiplier,float Seconds)
 {if(Seconds>0){Ward=FMath::Min(WardTime>0?Ward:1,FMath::Clamp(Multiplier,.05f,1.f));WardTime=FMath::Max(WardTime,Seconds);}}
 void UCombatStatusFormula::AddMagicVulnerability(int32 Stacks)
 {if(!bImmune&&Stacks>0){VulnerabilityStacks+=Stacks;VulnerabilityTime=5;}}
+void UCombatStatusFormula::AddRuneMagicVulnerability(float Ratio,float Seconds)
+{
+    if(bImmune||Ratio<=0||Seconds<=0)return;
+    RuneVulnerability=Ratio;RuneVulnerabilityTime=Seconds;
+    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("runeMagicVulnerability"),Seconds,1);
+}
 void UCombatStatusFormula::AddBleeding(AActor* Source,int32 Stacks)
 {if(!bImmune&&Stacks>0){BleedStacks+=Stacks;BleedTime=10;if(BleedTick<=0)BleedTick=1;BleedSource=Source;}}
 void UCombatStatusFormula::AddBurn(AActor* Source,float Matk,int32 Stacks,float Seconds,float Multiplier,float TickSeconds)
@@ -44,6 +51,7 @@ void UCombatStatusFormula::TickComponent(float Delta,ELevelTick Type,FActorCompo
     Super::TickComponent(Delta,Type,Fn);ShredTime=FMath::Max(0.f,ShredTime-Delta);WardTime=FMath::Max(0.f,WardTime-Delta);
     auto Expire=[&](float& Time,int32& Stacks,FName Name){if(Time<=0)return;Time=FMath::Max(0.f,Time-Delta);if(Time==0){Stacks=0;UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(Name);}};
     Expire(ChillTime,ChillStacks,TEXT("chill"));Expire(HasteTime,HasteStacks,TEXT("haste"));Expire(ChainTime,ChainStacks,TEXT("chainSpell"));
+    Expire(ElectrifiedTime,ElectrifiedStacks,TEXT("electrified"));
     FrozenTime=FMath::Max(0.f,FrozenTime-Delta);
     RuneVulnerabilityTime=FMath::Max(0.f,RuneVulnerabilityTime-Delta);
     RiposteTime=FMath::Max(0.f,RiposteTime-Delta);
@@ -94,6 +102,15 @@ void UCombatStatusFormula::AddChill(int32 Stacks,float Seconds,float SlowPerStac
         UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("frozen"),Seconds,1);
     }
     UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("chill"),ChillTime,ChillStacks);
+}
+bool UCombatStatusFormula::AddElectrified(int32 Stacks,float Seconds,int32 OverloadThreshold,float BonusPerStack)
+{
+    if(bImmune||Stacks<=0||Seconds<=0)return false;
+    ElectrifiedStacks+=Stacks;ElectrifiedTime+=Seconds;ElectrifiedBonus=BonusPerStack;
+    auto* Display=UStatusEffectsComponent::GetOrCreate(GetOwner());
+    if(ElectrifiedStacks>=FMath::Max(1,OverloadThreshold))
+    {ElectrifiedStacks=0;ElectrifiedTime=0;Display->Remove(TEXT("electrified"));return true;}
+    Display->SetTimed(TEXT("electrified"),ElectrifiedTime,ElectrifiedStacks);return false;
 }
 void UCombatStatusFormula::AddHaste(int32 Stacks,float Seconds)
 {

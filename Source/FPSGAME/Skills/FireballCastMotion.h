@@ -12,13 +12,24 @@ struct FFireballArmMotion
 // uses these same curves; neither the weapon clip nor movement is retimed.
 namespace FireballCastMotion
 {
+    // Default complete detached cast (ready + push + hold + recovery). Derive
+    // the endpoint hold from this budget; ready/push/recovery still use haste.
+    inline constexpr float ReleaseTotalSeconds=1.f;
+    inline constexpr float ReleaseEntrySpeed=1.625f;
+    inline constexpr float ReleasePushSpeed=3.f;
+    inline constexpr float ImpactDuration=.18f;
+    inline constexpr float ImpactAttackSeconds=.012f;
+    inline constexpr float ImpactFrequencyHz=12.f;
+    inline constexpr float ImpactRecoilCM=3.f;
+    inline constexpr float ImpactLateralCM=.45f;
+    inline constexpr float ImpactLiftCM=.9f;
     struct FKey { float Time, Value, Slope; };
     inline constexpr FKey GatherKeys[]={
         {0,0,0},{.14f,.035f,.45f},{.38f,.30f,1.45f},
         {.68f,.78f,1.3f},{.86f,.97f,.4f},{1,1,0}};
     inline constexpr FKey PushKeys[]={
         {0,0,0},{.22f,-.07f,0},{.65f,.50f,2.3f},
-        {1,.94f,.3f},{1.5f,1,0}};
+        {1,.94f,.3f},{1.7f,1,0}};
     inline constexpr FKey ReturnKeys[]={
         {0,0,0},{.2f,.10f,.85f},{.55f,.65f,1.55f},{.85f,.96f,.55f},{1,1,0}};
     inline float Ease(float T)
@@ -75,15 +86,30 @@ namespace FireballCastMotion
         R.Palm=ReleasePalm(ContactClock,Detached);R.Rotation=P.PalmFrame(R.Palm)*Correction;
         return R;
     }
+    inline FFireballArmMotion WithReleaseImpact(FFireballArmMotion R,float SinceContact)
+    {
+        if(SinceContact<=0.f || SinceContact>=ImpactDuration)return R;
+        const float Fade=Ease(SinceContact/ImpactAttackSeconds)*(1.f-Ease(SinceContact/ImpactDuration));
+        const float Angle=2.f*PI*ImpactFrequencyHz*SinceContact,Wave=FMath::Sin(Angle);
+        const FVector Offset=FVector(-ImpactRecoilCM*Wave,ImpactLateralCM*FMath::Sin(Angle*1.5f),ImpactLiftCM*Wave)*Fade;
+        // Move the complete supported arm, never twist the wrist or scale a bone.
+        // The impact clock continues across the push/hold boundary and settles
+        // before recovery; no accumulated offsets and no aim/camera displacement.
+        R.Wrist+=Offset;R.Shoulder+=Offset;R.Pole+=Offset;
+        return R;
+    }
     inline FFireballArmMotion Recover(const FFireballHandPose& P,const FFireballArmMotion& From,
         const FFireballArmMotion& Current,float T)
     {
         FFireballArmMotion R=From;const float U=Curve(ReturnKeys,T);
-        R.Wrist=Arc(From.Wrist,From.Wrist+P.RecoveryDepart,P.WithdrawWrist,Current.Wrist,U);
-        R.Shoulder=FMath::Lerp(From.Shoulder,Current.Shoulder,Ease((T-.06f)/.94f));
-        R.Pole=FMath::Lerp(From.Pole,Current.Pole,Ease((T-.10f)/.90f));
-        R.Rotation=FQuat::Slerp(From.Rotation,Current.Rotation,Ease((T-.12f)/.88f));
-        R.Layer=From.Layer*(1.f-Ease((T-.48f)/.52f));
+        // Approach the current grip from nearby, instead of passing every weapon
+        // through one low/outward camera-space point before snapping back.
+        R.Wrist=Arc(From.Wrist,From.Wrist+P.RecoveryDepart,Current.Wrist+P.RecoveryApproach,Current.Wrist,U);
+        R.Shoulder=FMath::Lerp(From.Shoulder,Current.Shoulder,Ease(T));
+        R.Pole=FMath::Lerp(From.Pole,Current.Pole,Ease((T-.04f)/.96f));
+        R.Rotation=FQuat::Slerp(From.Rotation,Current.Rotation,Ease(T/.92f));
+        R.Fingers=From.Fingers*(1.f-Ease((T-.08f)/.76f));
+        R.Layer=From.Layer*(1.f-Ease((T-.20f)/.80f));
         return R;
     }
     inline float FingerWeight(float Open,FName Digit,int32 Segment)

@@ -97,13 +97,37 @@ void UFPSCastingMeshComponent::ApplyCastPose(UFPSFireballComponent* Magic)
     UpperPose.SetLocation(A);UpperPose.SetRotation(LimbFrame(UD,Plane)*LimbFrame(RU,RefPlane).Inverse()*ReferencePose[CastUpperIndex].GetRotation());
     LowerPose.SetLocation(E);
     HandPose.SetLocation(H);HandPose.SetRotation(CameraToMesh*HandRotation);
-    // Use the same closed forearm solution as RuneSword's supported grasp:
-    // inherit palm roll, then swing its forearm axis onto the solved segment.
-    // No accumulated +/-180-degree scalar is applied to skinning helpers.
+    // Derive forearm roll from the palm's width/hinge axis. Aligning the full
+    // hand quaternion first coupled wrist extension into forearm twist when
+    // the upright push palm approached a right angle to the forearm.
     const FQuat HandDeform=HandPose.GetRotation()*ReferencePose[CastHandIndex].GetRotation().Inverse();
-    const FVector AlignedForearm=HandDeform.RotateVector(RL.GetSafeNormal());
-    const FQuat ForearmDeform=FQuat::FindBetweenNormals(AlignedForearm,LD)*HandDeform;
+    const FVector RefAcross=ReferencePalm.GetAxisY();
+    const FVector Across=HandDeform.RotateVector(RefAcross);
+    const FQuat ForearmDeform=FRotationMatrix::MakeFromXY(LD,Across).ToQuat()*
+        FRotationMatrix::MakeFromXY(RL,RefAcross).ToQuat().Inverse();
     LowerPose.SetRotation((ForearmDeform*ReferencePose[CastLowerIndex].GetRotation()).GetNormalized());
+    // Share a small part of the palm turn through the upper arm. Keeping it
+    // locked to the bend plane concentrated the entire roll at the elbow seam.
+    const FVector UpperAcross=(UpperPose.GetRotation()*ReferencePose[CastUpperIndex].GetRotation().Inverse()).RotateVector(RefAcross);
+    const FVector UpperSide=(UpperAcross-UD*(UpperAcross|UD)).GetSafeNormal();
+    const FVector PalmSide=(Across-UD*(Across|UD)).GetSafeNormal();
+    const float SupportRoll=FMath::Clamp(FMath::Atan2(UD|(UpperSide^PalmSide),UpperSide|PalmSide)*.18f,
+        -FMath::DegreesToRadians(12.f),FMath::DegreesToRadians(12.f))*FireballCastMotion::Ease(Release);
+    UpperPose.SetRotation((FQuat(UD,SupportRoll)*UpperPose.GetRotation()).GetNormalized());
+    if(Phase==EFireballHandPhase::Recovering)
+    {
+        // Carry the live grip's axial orientation onto each solved bone axis.
+        // Both rotations aim along that axis, so blending them preserves length
+        // while returning roll progressively instead of during the final fade.
+        const auto ReturnRoll=[&](int32 Index,const FVector& RestAxis,const FVector& Axis,const FQuat& Authored)
+        {
+            const FQuat SourceDeform=SourcePose[Index].GetRotation()*ReferencePose[Index].GetRotation().Inverse();
+            const FQuat Aligned=FQuat::FindBetweenNormals(SourceDeform.RotateVector(RestAxis.GetSafeNormal()),Axis)*SourcePose[Index].GetRotation();
+            return FQuat::Slerp(Authored,Aligned,FireballCastMotion::Ease(T)).GetNormalized();
+        };
+        UpperPose.SetRotation(ReturnRoll(CastUpperIndex,RU,UD,UpperPose.GetRotation()));
+        LowerPose.SetRotation(ReturnRoll(CastLowerIndex,RL,LD,LowerPose.GetRotation()));
+    }
     GoalPose=SourcePose;
     const float LayerBlend=Motion.Layer;
     const FQuat DesiredPalm=HandPose.GetRotation()*ReferencePose[CastHandIndex].GetRotation().Inverse()*ReferencePalm;
@@ -145,7 +169,10 @@ void UFPSCastingMeshComponent::ApplyCastPose(UFPSFireballComponent* Magic)
                 const FQuat OpenRotation=LimbFrame(Direction,DesiredPalm.GetAxisZ())*LimbFrame(RefDirection,ReferencePalm.GetAxisZ()).Inverse()*ReferencePose[I].GetRotation();
                 const FQuat OpenLocal=GoalPose[Parent].GetRotation().Inverse()*OpenRotation;
                 const float FingerBlend=FireballCastMotion::FingerWeight(Motion.Fingers,Digit.Key,Segment);
-                const FQuat Local=FQuat::Slerp(EntryLocal[I].GetRotation(),OpenLocal,FingerBlend);
+                FQuat GripLocal=EntryLocal[I].GetRotation();
+                if(Phase==EFireballHandPhase::Recovering)
+                    GripLocal=FQuat::Slerp(GripLocal,SourcePose[Parent].GetRotation().Inverse()*SourcePose[I].GetRotation(),FireballCastMotion::Ease(T));
+                const FQuat Local=FQuat::Slerp(GripLocal,OpenLocal,FingerBlend);
                 GoalPose[I].SetRotation(GoalPose[Parent].GetRotation()*Local);
                 break;
             }

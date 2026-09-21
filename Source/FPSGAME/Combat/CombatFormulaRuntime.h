@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "WeaponDamageTypes.h"
 class UDamageType;
 class AActor;
 namespace CombatFormulaRuntime
@@ -14,6 +15,14 @@ struct MagicHit
     bool bWeakpoint=false;
 };
 extern thread_local const MagicHit* ActiveMagicHit;
+struct WeaponHit
+{
+    AActor* Target=nullptr;
+    FWeaponDamageParts Incoming,Mitigated;
+    double PhysicalPenetration=0,MagicPenetration=0;
+    bool bResolved=false;
+};
+extern thread_local WeaponHit* ActiveWeaponHit;
 extern thread_local const double* ActivePhysicalPenetration;
 bool IsMagic(const UDamageType* Type);
 float MonsterDefense(const AActor* Target,bool Magic);

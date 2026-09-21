@@ -1,0 +1,642 @@
+[
+  {
+    "source": "SourceAssets/FireMagicSplineBlackFix20260921/Before/M_SplineFireSoft.uasset",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/FireMagicSplineBlackFix20260921/Before/M_SplineFireSoft.uasset",
+    "bytes": 22620,
+    "sha256": "db1c9b6850dc18a5a2bea68b3ccaa8e4d9f58553246cf98200489d8967254ad9",
+    "reason": "Pre-fix backup superseded by saved repaired materials and RealisticV5",
+    "replacement": "Tools/Skills/build_fire_magic_spline.py; Tools/Skills/build_fire_magic_realistic.py"
+  },
+  {
+    "source": "SourceAssets/FireMagicSplineBlackFix20260921/Before/M_SplineSmoke.uasset",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/FireMagicSplineBlackFix20260921/Before/M_SplineSmoke.uasset",
+    "bytes": 31644,
+    "sha256": "45b5f9234df0afebb9331ee59e02a1a7783ef28cc699a4abc3987550b0cff519",
+    "reason": "Pre-fix backup superseded by saved repaired materials and RealisticV5",
+    "replacement": "Tools/Skills/build_fire_magic_spline.py; Tools/Skills/build_fire_magic_realistic.py"
+  },
+  {
+    "source": "SourceAssets/FireMagicSplineBlackFix20260921/Before/MI_SplineFireFlame.uasset",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/FireMagicSplineBlackFix20260921/Before/MI_SplineFireFlame.uasset",
+    "bytes": 12858,
+    "sha256": "cd7fc6e6ff216815405f821512f224fbc6ba1751ee7346cdb624f48134b3ea1e",
+    "reason": "Pre-fix backup superseded by saved repaired materials and RealisticV5",
+    "replacement": "Tools/Skills/build_fire_magic_spline.py; Tools/Skills/build_fire_magic_realistic.py"
+  },
+  {
+    "source": "SourceAssets/FireMagicSplineBlackFix20260921/Before/MI_SplineFireFury.uasset",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/FireMagicSplineBlackFix20260921/Before/MI_SplineFireFury.uasset",
+    "bytes": 13250,
+    "sha256": "12152ae02751f1bce53cc14652aab8c0876a68f1c9658b9602d98d013de73800",
+    "reason": "Pre-fix backup superseded by saved repaired materials and RealisticV5",
+    "replacement": "Tools/Skills/build_fire_magic_spline.py; Tools/Skills/build_fire_magic_realistic.py"
+  },
+  {
+    "source": "SourceAssets/FireMagicSplineBlackFix20260921/Before/MI_SplineSmoke.uasset",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/FireMagicSplineBlackFix20260921/Before/MI_SplineSmoke.uasset",
+    "bytes": 9588,
+    "sha256": "624df9ad2a1be94bd66d92b399a15d4b323c6bd1999b953675b3d2273d3eec3b",
+    "reason": "Pre-fix backup superseded by saved repaired materials and RealisticV5",
+    "replacement": "Tools/Skills/build_fire_magic_spline.py; Tools/Skills/build_fire_magic_realistic.py"
+  },
+  {
+    "source": "SourceAssets/FireMagicSpline20260921/github-02_Meteorite.vfx.txt",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/FireMagicSpline20260921/github-02_Meteorite.vfx.txt",
+    "bytes": 327428,
+    "sha256": "3e0477f925b2456156b664c0cb702ca549e9e4804a341b544ec04410adecffcc",
+    "reason": "Downloaded reference snapshot; no authoring caller, conclusions retained in docs",
+    "replacement": "Docs/Skills/fire-magic-spline-vfx-20260921.md"
+  },
+  {
+    "source": "SourceAssets/FireMagicSpline20260921/github-03_GroundImpact.vfx.txt",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/FireMagicSpline20260921/github-03_GroundImpact.vfx.txt",
+    "bytes": 497317,
+    "sha256": "c9fddcd974499547c36e9335da5d45d62df2be3f2860af02e370e3cf851e297e",
+    "reason": "Downloaded reference snapshot; no authoring caller, conclusions retained in docs",
+    "replacement": "Docs/Skills/fire-magic-spline-vfx-20260921.md"
+  },
+  {
+    "source": "SourceAssets/FireMagicSpline20260921/github-curl-noise-reference.txt",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/FireMagicSpline20260921/github-curl-noise-reference.txt",
+    "bytes": 4806,
+    "sha256": "f47ef699161f8fbf20966931fdde5e48506e86e88efafe0fe5ad8bda4cd57f78",
+    "reason": "Downloaded reference snapshot; no authoring caller, conclusions retained in docs",
+    "replacement": "Docs/Skills/fire-magic-spline-vfx-20260921.md"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/Export/A_Fireball_CastDetached.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/Export/A_Fireball_CastDetached.fbx",
+    "bytes": 4958332,
+    "sha256": "1d2339d016c8fe4993f73b59f175e27ca11050e74c0e5fc2b75d382b28ab3b96",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/Export/A_Fireball_Gather.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/Export/A_Fireball_Gather.fbx",
+    "bytes": 4436220,
+    "sha256": "884e62da40c868d74ba4122d0c4f914253832676f48e0dc16e71dae186496b34",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/Export/A_Fireball_GatherRecover.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/Export/A_Fireball_GatherRecover.fbx",
+    "bytes": 3708012,
+    "sha256": "12ac0bf4d5a2182c7b73aeb8fce2fa6de98e665c5966e09040627ea03a15de19",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/Export/A_Fireball_Hold.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/Export/A_Fireball_Hold.fbx",
+    "bytes": 4384828,
+    "sha256": "04c4cd4442210574675cd00edf5ebf5b91c209cd8922ec650c71973325b4374a",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/Export/A_Fireball_PushHold.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/Export/A_Fireball_PushHold.fbx",
+    "bytes": 3462044,
+    "sha256": "bee9ff92ae91dcc59a767dcc95f6c85c930fbad1470f53e99b198738aa1671c8",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/Export/A_Fireball_Recover.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/Export/A_Fireball_Recover.fbx",
+    "bytes": 3708204,
+    "sha256": "b1008f68b16efa98496b3a55328dfd53fe18446095f51bc0383c090e14063b08",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/Export/A_Fireball_Release.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/Export/A_Fireball_Release.fbx",
+    "bytes": 3556636,
+    "sha256": "d80853289bb8c157edaaae4f97302d6588489ec500890b7d037d60faa2876ba2",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/Export/A_Fireball_ReleaseDetached.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/Export/A_Fireball_ReleaseDetached.fbx",
+    "bytes": 3556348,
+    "sha256": "8daecb142cfb2b2f15d75be3ecf12c53177728698973b41f3b79bc794816a316",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/Export/A_Fireball_ReleaseWindup.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/Export/A_Fireball_ReleaseWindup.fbx",
+    "bytes": 3450812,
+    "sha256": "feed1acef8d67436cba04198980d155afd2a5938c084ebbfed842e6334336004",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/WristRepairV5/Export/A_Fireball_CastDetached.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/WristRepairV5/Export/A_Fireball_CastDetached.fbx",
+    "bytes": 4957996,
+    "sha256": "44d01507d328f966995b0e9767a70fe5f3a4e16c9b939f0ee521a8fb8ff22e90",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/WristRepairV5/Export/A_Fireball_Gather.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/WristRepairV5/Export/A_Fireball_Gather.fbx",
+    "bytes": 4436220,
+    "sha256": "e3f7c8de88db00d616df1c8dfe95a4672845aacd404c973af4aa30c2a42b9195",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/WristRepairV5/Export/A_Fireball_GatherRecover.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/WristRepairV5/Export/A_Fireball_GatherRecover.fbx",
+    "bytes": 3707804,
+    "sha256": "7e7cbe743441d88138c499befa6974a34f4098c699c1e280c2d50a1a23b477b5",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/WristRepairV5/Export/A_Fireball_Hold.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/WristRepairV5/Export/A_Fireball_Hold.fbx",
+    "bytes": 4384748,
+    "sha256": "c347ef199025df8386cd363dc4f9d1da8617a40985c724f9c27135a7e50bc872",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/WristRepairV5/Export/A_Fireball_PushHold.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/WristRepairV5/Export/A_Fireball_PushHold.fbx",
+    "bytes": 3462028,
+    "sha256": "51004f8c744fe216e0666128850b5c04e03cc56def418e7877dc64a3855157e2",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/WristRepairV5/Export/A_Fireball_Recover.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/WristRepairV5/Export/A_Fireball_Recover.fbx",
+    "bytes": 3707916,
+    "sha256": "3700d73bd5971bbe87e3f8b0efd851a169208620847e355abe6c2dc57f28e613",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/WristRepairV5/Export/A_Fireball_Release.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/WristRepairV5/Export/A_Fireball_Release.fbx",
+    "bytes": 3556716,
+    "sha256": "dfa17e58ab1d1257ca17648e0a60e292da09e5584d8b620bf3f923473b6d067e",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/WristRepairV5/Export/A_Fireball_ReleaseDetached.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/WristRepairV5/Export/A_Fireball_ReleaseDetached.fbx",
+    "bytes": 3556332,
+    "sha256": "71dc633976d1d35d0bf697be953cc88d18dd1c5f87e6967477567e974fa582e0",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/WristRepairV5/Export/A_Fireball_ReleaseWindup.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/WristRepairV5/Export/A_Fireball_ReleaseWindup.fbx",
+    "bytes": 3450732,
+    "sha256": "3d49d28658755e03366f9f1b6d439b1d09f6251004fdddad5717a9d79b8f31b3",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/RecoveryV6/Export/A_Fireball_CastDetached.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/RecoveryV6/Export/A_Fireball_CastDetached.fbx",
+    "bytes": 5047132,
+    "sha256": "4c23128ce89d237b2dca1ea5f83aea35a3f7cb9215564ebed363c6b03941e89f",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/RecoveryV6/Export/A_Fireball_Gather.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/RecoveryV6/Export/A_Fireball_Gather.fbx",
+    "bytes": 4436252,
+    "sha256": "af3d36e9868f809c9ffd2a4eccdfa7f988f0b4aa3b9978b5b7969241937a9c13",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/RecoveryV6/Export/A_Fireball_GatherRecover.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/RecoveryV6/Export/A_Fireball_GatherRecover.fbx",
+    "bytes": 3805724,
+    "sha256": "fd8a8f0b5785b8044dd469a23eaefd99fa880e802a2632552fd19b160bc35cae",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/RecoveryV6/Export/A_Fireball_Hold.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/RecoveryV6/Export/A_Fireball_Hold.fbx",
+    "bytes": 4384812,
+    "sha256": "6b683f42e6cabbe2948026dd52756afb8217f6edaa8626fdaea3adc8d20de7a8",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/RecoveryV6/Export/A_Fireball_PushHold.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/RecoveryV6/Export/A_Fireball_PushHold.fbx",
+    "bytes": 3462044,
+    "sha256": "0446f54841b4c826567be24df9fdb25fbbf1828e1eae51a6d0e2767bb42a166a",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/RecoveryV6/Export/A_Fireball_Recover.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/RecoveryV6/Export/A_Fireball_Recover.fbx",
+    "bytes": 3805532,
+    "sha256": "3eead568c85ceaff13496e3dc9381490eb4b939b51f946c3b318d76851612c8a",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/RecoveryV6/Export/A_Fireball_Release.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/RecoveryV6/Export/A_Fireball_Release.fbx",
+    "bytes": 3556460,
+    "sha256": "996f53e41edcadd39576a2f8ce7e0fae002b8866f3b92fbac561af8527d9eb55",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/RecoveryV6/Export/A_Fireball_ReleaseDetached.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/RecoveryV6/Export/A_Fireball_ReleaseDetached.fbx",
+    "bytes": 3556268,
+    "sha256": "3d80acb79c02743c46166587934d4d306cb33b02cf28cf165bce6c458fc9e99b",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/RecoveryV6/Export/A_Fireball_ReleaseWindup.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/RecoveryV6/Export/A_Fireball_ReleaseWindup.fbx",
+    "bytes": 3450764,
+    "sha256": "86443116a620424929f71882e8b26ae77b5c659a6673e5a09705746ff1e88102",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/PushTimingV7/Export/A_Fireball_CastDetached.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/PushTimingV7/Export/A_Fireball_CastDetached.fbx",
+    "bytes": 5029292,
+    "sha256": "a9ec2415d2445544a6001e9f3c87b70ee179b64e99baa83965e21b3f35e01feb",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/PushTimingV7/Export/A_Fireball_Gather.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/PushTimingV7/Export/A_Fireball_Gather.fbx",
+    "bytes": 4436268,
+    "sha256": "23b3e58fa9e2e856c151a3c8af7e9951c321a20aa38df20aac2471fbea4c19fc",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/PushTimingV7/Export/A_Fireball_GatherRecover.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/PushTimingV7/Export/A_Fireball_GatherRecover.fbx",
+    "bytes": 3805676,
+    "sha256": "0e81b0ce13aa321d0ae125d7b297f3e207a380505980e857ff6a63f547ec694b",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/PushTimingV7/Export/A_Fireball_Hold.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/PushTimingV7/Export/A_Fireball_Hold.fbx",
+    "bytes": 4384812,
+    "sha256": "93dc92131a07662a51330f08bc3d6b6d9aad0171c61e31d336e3253a6489babb",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/PushTimingV7/Export/A_Fireball_PushHold.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/PushTimingV7/Export/A_Fireball_PushHold.fbx",
+    "bytes": 3680780,
+    "sha256": "387fbcb4c2236ee48cc10589153354ad07adc8ecb73b2250eb1d634658e65bb4",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/PushTimingV7/Export/A_Fireball_Recover.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/PushTimingV7/Export/A_Fireball_Recover.fbx",
+    "bytes": 3805548,
+    "sha256": "148a783beb660131bf58ccc7cd5eb56c04f24a70f2b8440be87d5c5e2030886e",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/PushTimingV7/Export/A_Fireball_Release.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/PushTimingV7/Export/A_Fireball_Release.fbx",
+    "bytes": 3313900,
+    "sha256": "adbbd809b4d009e9e3aa76cdfb80977c3bb12b0795843d43184479c4d89300e7",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/PushTimingV7/Export/A_Fireball_ReleaseDetached.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/PushTimingV7/Export/A_Fireball_ReleaseDetached.fbx",
+    "bytes": 3313804,
+    "sha256": "2905c72c7c6d4c35e740f3447bcaf9db9e218e3343f9cb8f695052a7b02a763c",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/PushTimingV7/Export/A_Fireball_ReleaseWindup.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/PushTimingV7/Export/A_Fireball_ReleaseWindup.fbx",
+    "bytes": 3450700,
+    "sha256": "7df3840e54b0036ed9cacac60bf6eb7c57d7429375e93d45aa10d559dfd449f1",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/WristRepairV5/Before/player.png",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/WristRepairV5/Before/player.png",
+    "bytes": 1105713,
+    "sha256": "4c25f8fef78eab346b359d69becc71c679f09512196feb54f8c6b8ea40564b15",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/WristRepairV5/Before/pose-measurements.json",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/WristRepairV5/Before/pose-measurements.json",
+    "bytes": 7014,
+    "sha256": "85fa2c91fbcd522ea3f9d66e75d528eacfa610ab36865f1a57098abf19818e57",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/WristRepairV5/Before/side.png",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/WristRepairV5/Before/side.png",
+    "bytes": 952556,
+    "sha256": "cb0d839c8f495b33a0666548ddba06efd60790ff0242fd708dcb445cc1acec4a",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/WristRepairV5/Before/View/player.jpg",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/WristRepairV5/Before/View/player.jpg",
+    "bytes": 36256,
+    "sha256": "dc8c1c05ad35306c8d3a1bf8f935bd46c2bc0e23cafe0157160dc72bcecb3854",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/WristRepairV5/BeforeNeutral/player.png",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/WristRepairV5/BeforeNeutral/player.png",
+    "bytes": 980528,
+    "sha256": "1430ed069d6fbc8c1b389c2435dfe545bfa222c46f28c290283c24a25632b7a6",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/WristRepairV5/BeforeNeutral/pose-measurements.json",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/WristRepairV5/BeforeNeutral/pose-measurements.json",
+    "bytes": 65086,
+    "sha256": "e3ef79add4663bf58cc884cd093c6f6b6414d7dced4b045e7b350d65bd6bee06",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/WristRepairV5/BeforeNeutral/side.png",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/WristRepairV5/BeforeNeutral/side.png",
+    "bytes": 978293,
+    "sha256": "a0324f69bd5a2871eb5d333a563eae14f35ed1e0931c72e98f4442d742e6be0f",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/WristRepairV5/BeforeNeutral/summary.json",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/WristRepairV5/BeforeNeutral/summary.json",
+    "bytes": 986,
+    "sha256": "f4be6f66e49852b66b1a85f070a652c86ff3a5ed7a33c7e245e6e8dc7e150039",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/WristRepairV5/BeforeNeutral/View/player.jpg",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/WristRepairV5/BeforeNeutral/View/player.jpg",
+    "bytes": 25329,
+    "sha256": "0add781e4e86b6f5590e51ecd7013d1fb80782f74ae66aba294d7e953b986a12",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/WristRepairV5/BeforeNeutral/View/side.jpg",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/WristRepairV5/BeforeNeutral/View/side.jpg",
+    "bytes": 26589,
+    "sha256": "a356c7bbea56458dc84477e7791d5d27c7d1738fa4482f87a12f4667c1175861",
+    "reason": "Superseded palm animation output or rejected-pose capture; author reads native source and current JSON",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9; SourceAssets/FireballCast20260914/author_cast.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260921/ImpactV8/Export/A_Fireball_CastDetached.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260921/ImpactV8/Export/A_Fireball_CastDetached.fbx",
+    "bytes": 5020188,
+    "sha256": "30683761e0cecbf7c9f0111b4dbcd0b8c3f69b1d4a2d33493db1f34e09d19915",
+    "reason": "Superseded 1.4-second V8 export",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9/Export"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260921/ImpactV8/Export/A_Fireball_Gather.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260921/ImpactV8/Export/A_Fireball_Gather.fbx",
+    "bytes": 4436252,
+    "sha256": "c7102d0b4cab4493a24889c9a4307ef5bed14f74f78e35c4196997bde390882e",
+    "reason": "Superseded 1.4-second V8 export",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9/Export"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260921/ImpactV8/Export/A_Fireball_GatherRecover.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260921/ImpactV8/Export/A_Fireball_GatherRecover.fbx",
+    "bytes": 3805708,
+    "sha256": "b4be0dbc3a730369f1bd71953316adc78e9ae552ef3a29ce17f05f3305a4b22d",
+    "reason": "Superseded 1.4-second V8 export",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9/Export"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260921/ImpactV8/Export/A_Fireball_Hold.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260921/ImpactV8/Export/A_Fireball_Hold.fbx",
+    "bytes": 4384860,
+    "sha256": "a012ea50a0806294cf60ef42887ac4b01521d6ad1945f4d9b7a57db4d46f9fe5",
+    "reason": "Superseded 1.4-second V8 export",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9/Export"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260921/ImpactV8/Export/A_Fireball_PushHold.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260921/ImpactV8/Export/A_Fireball_PushHold.fbx",
+    "bytes": 3906028,
+    "sha256": "d038534e5d992c97f87fd1e33a702ae8fca01aac14fbee4b00c1d4c4331379a4",
+    "reason": "Superseded 1.4-second V8 export",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9/Export"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260921/ImpactV8/Export/A_Fireball_Recover.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260921/ImpactV8/Export/A_Fireball_Recover.fbx",
+    "bytes": 3805548,
+    "sha256": "882fc4b15a148a53b401903392b2acb9d6708bb9e3e226e4eea587ae1723567e",
+    "reason": "Superseded 1.4-second V8 export",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9/Export"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260921/ImpactV8/Export/A_Fireball_Release.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260921/ImpactV8/Export/A_Fireball_Release.fbx",
+    "bytes": 3217676,
+    "sha256": "1daebf0f4441b683e1ad4bbd0b5e15443d30e0334c2864c31a3745955f0b8173",
+    "reason": "Superseded 1.4-second V8 export",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9/Export"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260921/ImpactV8/Export/A_Fireball_ReleaseDetached.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260921/ImpactV8/Export/A_Fireball_ReleaseDetached.fbx",
+    "bytes": 3217580,
+    "sha256": "78799b2523916290c6acc14e15573e8629e27e161cf3dec244757abd2f7aec97",
+    "reason": "Superseded 1.4-second V8 export",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9/Export"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260921/ImpactV8/Export/A_Fireball_ReleaseWindup.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260921/ImpactV8/Export/A_Fireball_ReleaseWindup.fbx",
+    "bytes": 3298124,
+    "sha256": "c28fc6624ce0691850b6b775ea32493e897d3ac0670202f4c2e581963ad0bac5",
+    "reason": "Superseded 1.4-second V8 export",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9/Export"
+  },
+  {
+    "source": "SourceAssets/RuneOrbBlade20260920/build_blade.py",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/RuneOrbBlade20260920/build_blade.py",
+    "bytes": 6450,
+    "sha256": "9af8b1a7182cd842e8c22bc5ce94316c6ee70d160da2e467a00bd48b464e5d9c",
+    "reason": "Rejected coarse blade candidate superseded by reference-derived V2; icon recipe retained",
+    "replacement": "SourceAssets/RuneOrbBlade20260921/build_blade.py; Tools/AssetPipeline/import_rune_orb_blade_v2.py"
+  },
+  {
+    "source": "SourceAssets/RuneOrbBlade20260920/probe_fbx.py",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/RuneOrbBlade20260920/probe_fbx.py",
+    "bytes": 463,
+    "sha256": "a08be037118c3df20885889c6c9c33ae62efa28aee3086f85fdc0b334651bf67",
+    "reason": "Rejected coarse blade candidate superseded by reference-derived V2; icon recipe retained",
+    "replacement": "SourceAssets/RuneOrbBlade20260921/build_blade.py; Tools/AssetPipeline/import_rune_orb_blade_v2.py"
+  },
+  {
+    "source": "SourceAssets/RuneOrbBlade20260920/SM_RuneOrbBlade.fbx",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/RuneOrbBlade20260920/SM_RuneOrbBlade.fbx",
+    "bytes": 17740,
+    "sha256": "75e8c2cb7708c44bd046f7557df3093995a004d95e76e000d853734935b59856",
+    "reason": "Rejected coarse blade candidate superseded by reference-derived V2; icon recipe retained",
+    "replacement": "SourceAssets/RuneOrbBlade20260921/build_blade.py; Tools/AssetPipeline/import_rune_orb_blade_v2.py"
+  },
+  {
+    "source": "SourceAssets/RuneOrbBlade20260920/preview/blade_hero.png",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/RuneOrbBlade20260920/preview/blade_hero.png",
+    "bytes": 766037,
+    "sha256": "bb9afee05e54730d77398e71053e16de4e0e197185b2103e7a9bdf8ee2507f30",
+    "reason": "Rejected coarse blade candidate superseded by reference-derived V2; icon recipe retained",
+    "replacement": "SourceAssets/RuneOrbBlade20260921/build_blade.py; Tools/AssetPipeline/import_rune_orb_blade_v2.py"
+  },
+  {
+    "source": "SourceAssets/RuneOrbBlade20260920/preview/blade_side.png",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/RuneOrbBlade20260920/preview/blade_side.png",
+    "bytes": 724031,
+    "sha256": "f8a0f06ea849251b1ebc7a4e8a540630f8fd2a062e275b2f7a9a69a9328dffcc",
+    "reason": "Rejected coarse blade candidate superseded by reference-derived V2; icon recipe retained",
+    "replacement": "SourceAssets/RuneOrbBlade20260921/build_blade.py; Tools/AssetPipeline/import_rune_orb_blade_v2.py"
+  },
+  {
+    "source": "SourceAssets/RuneOrbBlade20260920/preview/blade_tip.png",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/RuneOrbBlade20260920/preview/blade_tip.png",
+    "bytes": 790268,
+    "sha256": "ad4bec058de921b05b27bff2a8e8b7b984f98eeb37f788dd1c1d2b60106c6369",
+    "reason": "Rejected coarse blade candidate superseded by reference-derived V2; icon recipe retained",
+    "replacement": "SourceAssets/RuneOrbBlade20260921/build_blade.py; Tools/AssetPipeline/import_rune_orb_blade_v2.py"
+  },
+  {
+    "source": "SourceAssets/RuneOrbBlade20260920/preview/blade_top.png",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/RuneOrbBlade20260920/preview/blade_top.png",
+    "bytes": 780112,
+    "sha256": "9ae22f5811ebd7450624fc84b38ad9f966c7091ecad08729a5a0123343242ad9",
+    "reason": "Rejected coarse blade candidate superseded by reference-derived V2; icon recipe retained",
+    "replacement": "SourceAssets/RuneOrbBlade20260921/build_blade.py; Tools/AssetPipeline/import_rune_orb_blade_v2.py"
+  },
+  {
+    "source": "Tools/AssetPipeline/import_rune_orb_blade.py",
+    "destination": "trash/skills-magic-publication-20260922/Tools/AssetPipeline/import_rune_orb_blade.py",
+    "bytes": 3865,
+    "sha256": "a5153d76c7cf0e3e813ddb6f17836bfcd8cd7f7565ac803ecb2e98ba0ce90627",
+    "reason": "Unused coarse V1 authoring tool; V2 importer builds its own mesh/materials",
+    "replacement": "Tools/AssetPipeline/import_rune_orb_blade_v2.py"
+  },
+  {
+    "source": "Tools/AssetPipeline/build_rune_orb_crystal_material.py",
+    "destination": "trash/skills-magic-publication-20260922/Tools/AssetPipeline/build_rune_orb_crystal_material.py",
+    "bytes": 3239,
+    "sha256": "351b6de2b380d029558971781fdb7bf20d6146ca58f2685a2598093e0bdc4d11",
+    "reason": "Unused coarse V1 authoring tool; V2 importer builds its own mesh/materials",
+    "replacement": "Tools/AssetPipeline/import_rune_orb_blade_v2.py"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/Casting_PalmPush_Editable.blend",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/Casting_PalmPush_Editable.blend",
+    "bytes": 147540384,
+    "sha256": "3022e9edd42d1200020b06e3e5d114c222c8fb38f1852ca3869e6bd8768f6781",
+    "reason": "Superseded editable candidate or pre-repair backup; no current authoring input",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9/Casting_PalmPush_Editable.blend"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/PushTimingV7/Casting_PalmPush_Editable.blend",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/PushTimingV7/Casting_PalmPush_Editable.blend",
+    "bytes": 147381177,
+    "sha256": "fc1a7700360e468318e7417fa8a214e36df91f9d7c8fa9ddf0bf8be03e7ece3b",
+    "reason": "Superseded editable candidate or pre-repair backup; no current authoring input",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9/Casting_PalmPush_Editable.blend"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/RecoveryV6/Casting_PalmPush_Editable.blend",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/RecoveryV6/Casting_PalmPush_Editable.blend",
+    "bytes": 147882544,
+    "sha256": "3b5fe9f119cf8c3b5334cef5040d040dcbad83d4d23cd80a602cfc26a81ede1d",
+    "reason": "Superseded editable candidate or pre-repair backup; no current authoring input",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9/Casting_PalmPush_Editable.blend"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260920/WristRepairV5/Casting_PalmPush_Editable.blend",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260920/WristRepairV5/Casting_PalmPush_Editable.blend",
+    "bytes": 147549502,
+    "sha256": "456f4663861fc6cdd409879eed7c9d7de203892cfb6a6f69bf599400353d634b",
+    "reason": "Superseded editable candidate or pre-repair backup; no current authoring input",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9/Casting_PalmPush_Editable.blend"
+  },
+  {
+    "source": "SourceAssets/CastingPalmPush20260921/ImpactV8/Casting_PalmPush_Editable.blend",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/CastingPalmPush20260921/ImpactV8/Casting_PalmPush_Editable.blend",
+    "bytes": 147196185,
+    "sha256": "74e99990f37dbe36af23b8b41854313115a929e32cea8bb3be481b831e01ce26",
+    "reason": "Superseded editable candidate or pre-repair backup; no current authoring input",
+    "replacement": "SourceAssets/CastingPalmPush20260921/ImpactV9/Casting_PalmPush_Editable.blend"
+  },
+  {
+    "source": "SourceAssets/FireballTorchBurn20260921/Before/NS_FireballSlowBurnCore.uasset",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/FireballTorchBurn20260921/Before/NS_FireballSlowBurnCore.uasset",
+    "bytes": 2722693,
+    "sha256": "16393b241b1a270ad56e2d1da9c77730f8e1bf317e06dcec4dc5f45876c04d62",
+    "reason": "Superseded editable candidate or pre-repair backup; no current authoring input",
+    "replacement": "Tools/Skills/build_fireball_torch_burn.py; /Game/Skills/Fireball/TorchBurn20260921"
+  },
+  {
+    "source": "SourceAssets/FireballTorchBurn20260921/Before/NS_FireballVelocityTrail.uasset",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/FireballTorchBurn20260921/Before/NS_FireballVelocityTrail.uasset",
+    "bytes": 365517,
+    "sha256": "07ed333602fc2a93de163275dd913c9c23be5fc3f24c76666c9926554e5e48cb",
+    "reason": "Superseded editable candidate or pre-repair backup; no current authoring input",
+    "replacement": "Tools/Skills/build_fireball_torch_burn.py; /Game/Skills/Fireball/TorchBurn20260921"
+  },
+  {
+    "source": "SourceAssets/FireballTorchBurn20260921/BeforeBodyRepair/NS_FireballSlowBurnCore.uasset",
+    "destination": "trash/skills-magic-publication-20260922/SourceAssets/FireballTorchBurn20260921/BeforeBodyRepair/NS_FireballSlowBurnCore.uasset",
+    "bytes": 1248035,
+    "sha256": "346e402076d4abda63162ee6ee1f5608f79c09fad391768b3218792dda099620",
+    "reason": "Superseded editable candidate or pre-repair backup; no current authoring input",
+    "replacement": "Tools/Skills/build_fireball_torch_burn.py; /Game/Skills/Fireball/TorchBurn20260921"
+  }
+]

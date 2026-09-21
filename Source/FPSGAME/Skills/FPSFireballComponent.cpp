@@ -53,9 +53,19 @@ void UFPSFireballComponent::SetHandPhase(EFireballHandPhase Phase)
     if(Phase==EFireballHandPhase::Recovering)
     {
         RecoveryReleaseAlpha=HandReleaseFraction();
-        RecoveryFromPhase=HandPhase;RecoveryFromFraction=HandPhaseFraction();
+        RecoveryFromPhase=HandPhase;
+        // Keep the unclamped release age so cancellation during impact begins
+        // recovery at the actual displaced pose, including after the push ends.
+        RecoveryFromFraction=HandPhase==EFireballHandPhase::Releasing?
+            PhaseAge/(FMath::Max(.01f,ReleaseDuration)/FireballCastMotion::ReleasePushSpeed):HandPhaseFraction();
     }
     HandPhase=Phase;PhaseAge=0.f;
+    if(Phase==EFireballHandPhase::Releasing)
+    {
+        ReleaseHoldEndAge=0.f;
+        ReleaseImpactAges.Reset();
+        ReleaseImpactAges.Add(FMath::Clamp(LaunchContactTime,0.f,FMath::Max(.01f,ReleaseDuration))/FireballCastMotion::ReleasePushSpeed);
+    }
     if(Phase==EFireballHandPhase::Raising || Phase==EFireballHandPhase::ReadyingRelease)
     { ++CastSerial;bHandEntryCaptured=false;bReleaseFromRest=Phase==EFireballHandPhase::ReadyingRelease; }
 }
@@ -69,7 +79,7 @@ float UFPSFireballComponent::HandReleaseFraction() const
     if(HandPhase==EFireballHandPhase::Recovering)return RecoveryReleaseAlpha;
     if(HandPhase==EFireballHandPhase::ReadyingRelease)return .48f;
     if(HandPhase!=EFireballHandPhase::Releasing)return 0.f;
-    const float T=PhaseAge/FMath::Max(.01f,FMath::Min(LaunchContactTime,ReleaseDuration));
+    const float T=PhaseAge*FireballCastMotion::ReleasePushSpeed/FMath::Max(.01f,FMath::Min(LaunchContactTime,ReleaseDuration));
     return FireballCastMotion::ReleasePalm(T,bReleaseFromRest);
 }
 FFireballArmMotion UFPSFireballComponent::SampleHandMotion(const FQuat& HandCorrection,const FFireballArmMotion& Current) const
@@ -82,13 +92,21 @@ FFireballArmMotion UFPSFireballComponent::SampleHandMotion(const FQuat& HandCorr
         if(Phase==EFireballHandPhase::Raising)return FireballCastMotion::Gather(PoseSettings,Entry,HandCorrection,Fraction);
         if(Phase==EFireballHandPhase::ReadyingRelease)return FireballCastMotion::Ready(PoseSettings,Entry,HandCorrection,Fraction);
         if(Phase==EFireballHandPhase::Releasing)
-            return FireballCastMotion::Release(PoseSettings,HandCorrection,
-                Fraction*FMath::Max(.01f,ReleaseDuration)/FMath::Max(.01f,FMath::Min(LaunchContactTime,ReleaseDuration)),bReleaseFromRest);
+        {
+            const float PushDuration=FMath::Max(.01f,ReleaseDuration)/FireballCastMotion::ReleasePushSpeed;
+            auto Pose=FireballCastMotion::Release(PoseSettings,HandCorrection,
+                FMath::Min(Fraction,1.f)*FMath::Max(.01f,ReleaseDuration)/FMath::Max(.01f,FMath::Min(LaunchContactTime,ReleaseDuration)),bReleaseFromRest);
+            for(const float Contact:ReleaseImpactAges)
+                Pose=FireballCastMotion::WithReleaseImpact(Pose,Fraction*PushDuration-Contact);
+            return Pose;
+        }
         return Current;
     };
     if(HandPhase==EFireballHandPhase::Recovering)
         return FireballCastMotion::Recover(PoseSettings,Sample(RecoveryFromPhase,RecoveryFromFraction),Current,HandPhaseFraction());
-    return Sample(HandPhase,HandPhaseFraction());
+    const float Fraction=HandPhase==EFireballHandPhase::Releasing?
+        PhaseAge/(FMath::Max(.01f,ReleaseDuration)/FireballCastMotion::ReleasePushSpeed):HandPhaseFraction();
+    return Sample(HandPhase,Fraction);
 }
 FVector UFPSFireballComponent::HeldOrbPosition() const
 {
@@ -117,8 +135,8 @@ void UFPSFireballComponent::UpdateFallbackHands()
 float UFPSFireballComponent::HandPhaseFraction() const
 {
     const float Duration=HandPhase==EFireballHandPhase::Raising?RaiseDuration:
-        HandPhase==EFireballHandPhase::Releasing?ReleaseDuration:
-        HandPhase==EFireballHandPhase::ReadyingRelease?ReleaseEntryDuration:RecoveryDuration;
+        HandPhase==EFireballHandPhase::Releasing?ReleaseDuration/FireballCastMotion::ReleasePushSpeed:
+        HandPhase==EFireballHandPhase::ReadyingRelease?ReleaseEntryDuration/FireballCastMotion::ReleaseEntrySpeed:RecoveryDuration;
     if(HandPhase==EFireballHandPhase::None)return 0.f;
     if(HandPhase==EFireballHandPhase::Holding)return 1.f;
     return FMath::Clamp(PhaseAge/FMath::Max(.01f,Duration),0.f,1.f);
@@ -261,20 +279,31 @@ void UFPSFireballComponent::TickComponent(float Delta,ELevelTick Type,FActorComp
         {
             if(PhaseAge<RaiseDuration)return;
             const float Remainder=PhaseAge-FMath::Max(.01f,RaiseDuration);
+            // Buff spells can apply on the completed palm-up gathering pose.
+            // Other gathering clients pass an empty delegate and retain their own logic.
+            if(GestureOwner.IsValid()&&GestureContact.IsBound())LaunchAtContact();
             SetHandPhase(!GestureOwner.IsValid()&&bQueuedLaunch?EFireballHandPhase::Releasing:EFireballHandPhase::Recovering);
             PhaseAge=FMath::Max(0.f,Remainder);
         }
         else if(HandPhase==EFireballHandPhase::ReadyingRelease)
         {
-            if(PhaseAge<FMath::Max(.01f,ReleaseEntryDuration))return;
-            const float Remainder=PhaseAge-FMath::Max(.01f,ReleaseEntryDuration);
+            const float EntryDuration=FMath::Max(.01f,ReleaseEntryDuration)/FireballCastMotion::ReleaseEntrySpeed;
+            if(PhaseAge<EntryDuration)return;
+            const float Remainder=PhaseAge-EntryDuration;
             SetHandPhase(EFireballHandPhase::Releasing);PhaseAge=Remainder;
         }
         else if(HandPhase==EFireballHandPhase::Releasing)
         {
-            if(PhaseAge>=FMath::Clamp(LaunchContactTime,0.f,FMath::Max(.01f,ReleaseDuration)))LaunchAtContact();
-            if(PhaseAge<ReleaseDuration)return;
-            const float Remainder=PhaseAge-FMath::Max(.01f,ReleaseDuration);
+            if(PhaseAge>=FMath::Clamp(LaunchContactTime,0.f,FMath::Max(.01f,ReleaseDuration))/FireballCastMotion::ReleasePushSpeed)LaunchAtContact();
+            // Keep the fast entry/push and smooth recovery, shorten the hold to
+            // fit the requested 1-second default total. The derived hold keeps
+            // its real duration; only the moving stages use casting haste.
+            const float PushDuration=FMath::Max(.01f,ReleaseDuration)/FireballCastMotion::ReleasePushSpeed;
+            const float EntryDuration=FMath::Max(.01f,ReleaseEntryDuration)/FireballCastMotion::ReleaseEntrySpeed;
+            const float HoldDuration=FMath::Max(0.f,FireballCastMotion::ReleaseTotalSeconds-EntryDuration-PushDuration-FMath::Max(.01f,RecoveryDuration));
+            const float ReleaseEnd=FMath::Max(PushDuration+HoldDuration*GestureSpeed,ReleaseHoldEndAge);
+            if(PhaseAge<ReleaseEnd)return;
+            const float Remainder=PhaseAge-ReleaseEnd;
             SetHandPhase(EFireballHandPhase::Recovering);PhaseAge=FMath::Max(0.f,Remainder);
         }
         else if(HandPhase==EFireballHandPhase::Recovering)
@@ -320,6 +349,18 @@ void UFPSFireballComponent::CancelSpellGesture(UActorComponent* Spell)
     if(GestureOwner.Get()!=Spell)return;
     GestureContact.Unbind();
     if(HandPhase!=EFireballHandPhase::Recovering)SetHandPhase(EFireballHandPhase::Recovering);
+}
+bool UFPSFireballComponent::ContinueSpellRelease(UActorComponent* Spell,float HoldSeconds,bool bAddImpact)
+{
+    if(!Spell||GestureOwner.Get()!=Spell||HandPhase!=EFireballHandPhase::Releasing||!bLaunchCommitted)return false;
+    ReleaseHoldEndAge=FMath::Max(ReleaseHoldEndAge,PhaseAge+FMath::Max(0.f,HoldSeconds)*GestureSpeed);
+    if(bAddImpact)
+    {
+        // Superpose impulses: resetting the first impulse mid-recoil would pop the wrist.
+        ReleaseImpactAges.RemoveAll([this](float Age){return PhaseAge-Age>=FireballCastMotion::ImpactDuration;});
+        ReleaseImpactAges.Add(PhaseAge);
+    }
+    return true;
 }
 void UFPSFireballComponent::SetAimPreview(bool bActive)
 {

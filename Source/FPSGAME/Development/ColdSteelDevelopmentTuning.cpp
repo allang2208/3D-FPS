@@ -32,5 +32,7 @@ void UColdSteelStatusModel::RefreshDevelopmentTuning()
 {
     if (HasNoAbilityCooldown()) Current.FireballCooldown = 0.f;
     if (HasNoAbilityCooldown()) Current.IceSpikeCooldown = 0.f;
+    if (HasNoAbilityCooldown()) Current.LightningCooldown = 0.f;
+    if (HasNoAbilityCooldown()) Current.HolyLightCooldown = 0.f;
     OnChanged.Broadcast();
 }

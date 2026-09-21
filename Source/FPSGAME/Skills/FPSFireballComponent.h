@@ -63,13 +63,15 @@ public:
     void Cancel();
     // Other projectile spells share the accepted left-arm gesture and action arbitration.
     bool TryBeginSpellGesture(UActorComponent* Spell,bool bRelease,float Speed,const FSimpleDelegate& Contact);
+    // A burst keeps the existing extended palm; only its hold deadline and impulse change.
+    bool ContinueSpellRelease(UActorComponent* Spell,float HoldSeconds,bool bAddImpact);
     void CancelSpellGesture(UActorComponent* Spell);
     bool IsSpellGesture(const UActorComponent* Spell) const { return GestureOwner.Get()==Spell; }
     UPROPERTY(EditDefaultsOnly,Category="Skills|Fireball|Hands",meta=(ClampMin="0.01",Units="s")) float RaiseDuration=.95f;
     UPROPERTY(EditDefaultsOnly,Category="Skills|Fireball|Hands",meta=(ClampMin="0.01",Units="s")) float ReleaseDuration=.34f;
     UPROPERTY(EditDefaultsOnly,Category="Skills|Fireball|Hands",meta=(ClampMin="0.01",Units="s")) float ReleaseEntryDuration=.26f;
     UPROPERTY(EditDefaultsOnly,Category="Skills|Fireball|Hands",meta=(ClampMin="0",Units="s")) float LaunchContactTime=.20f;
-    UPROPERTY(EditDefaultsOnly,Category="Skills|Fireball|Hands",meta=(ClampMin="0.01",Units="s")) float RecoveryDuration=.44f;
+    UPROPERTY(EditDefaultsOnly,Category="Skills|Fireball|Hands",meta=(ClampMin="0.01",Units="s")) float RecoveryDuration=.50f;
     UPROPERTY(EditDefaultsOnly,Category="Skills|Fireball") TSoftObjectPtr<UNiagaraSystem> CoreAsset;
     UPROPERTY(EditDefaultsOnly,Category="Skills|Fireball") TSoftObjectPtr<UNiagaraSystem> TrailAsset;
     UPROPERTY(EditDefaultsOnly,Category="Skills|Fireball") TSoftObjectPtr<UNiagaraSystem> ExplosionAsset;
@@ -98,6 +100,8 @@ private:
     float GestureSpeed=1.f;
     EFireballHandPhase HandPhase=EFireballHandPhase::None;
     float PhaseAge=0.f;
+    float ReleaseHoldEndAge=0.f;
+    TArray<float,TInlineAllocator<4>> ReleaseImpactAges;
     bool bQueuedCast=false, bQueuedLaunch=false, bLaunchCommitted=false;
     bool bReleaseFromRest=false;
     float RecoveryReleaseAlpha=0.f;

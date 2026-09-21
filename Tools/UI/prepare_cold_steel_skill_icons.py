@@ -5,6 +5,12 @@ import shutil
 PROJECT = Path(__file__).resolve().parents[2]
 RUNTIME = PROJECT / "Content/ColdSteelData/Skills"
 ICONS = {
+    "meteor_hex.png": "SourceAssets/FireMagicPolish20260921/meteor_hex.png",
+    "flame_armor_hex.png": "SourceAssets/FireMagicPolish20260921/flame_armor_hex.png",
+    "meteor_cold_steel.png": "SourceAssets/FireMagic20260921/meteor_cold_steel.png",
+    "flame_armor_cold_steel.png": "SourceAssets/FireMagic20260921/flame_armor_cold_steel.png",
+    "holy_light_cold_steel.png": "SourceAssets/HolyLight20260920/holy_light_cold_steel.png",
+    "lightning_cold_steel.png": "SourceAssets/Lightning20260920/lightning_cold_steel.png",
     "whirlwind_cold_steel.png": "SourceAssets/Whirlwind20260920/whirlwind_cold_steel.png",
     "heavy_strike_cold_steel.png": "SourceAssets/HeavyStrike20260914/heavy_strike_cold_steel.png",
     "fireball_ember_red.png": "SourceAssets/Fireball20260914/IconEmberRed/fireball_ember_red.png",

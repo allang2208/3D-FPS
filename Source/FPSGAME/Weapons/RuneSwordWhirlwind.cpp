@@ -60,6 +60,7 @@ bool URuneSwordComponent::BeginWhirlwind()
     SwingSkills.WeakpointPercent=0;SwingPoison=ColdSteelCombat::Snapshot(Character.Get()).Poison;
     SwingHitReactionMultiplier=MeleeModifiers.HitReaction;
     SwingRuneVulnerability=MeleeModifiers.RuneVulnerability;SwingRuneVulnerabilitySeconds=MeleeModifiers.RuneVulnerabilitySeconds;
+    SwingCooldownReduceSeconds=.5f;bSwingCooldownReduced=false;
     StopRift();Character->StopMovementForMeleeSkill();
     WhirlwindEntryLocation=Viewmodel->GetRelativeLocation();WhirlwindEntryRotation=Viewmodel->GetRelativeRotation();
     const auto& PP=Camera->PostProcessSettings;
@@ -197,6 +198,12 @@ void URuneSwordComponent::SweepWhirlwind(float FromDegrees,float ToDegrees)
     }
     if(Confirmed)
     {
+        // 符文长剑基础冷却缩减：旋风斩确认命中同样缩减CD（整个旋风过程只按一次）。
+        if(!bSwingCooldownReduced)
+        {
+            bSwingCooldownReduced=true;
+            if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->ReduceAllAbilityCooldowns(SwingCooldownReduceSeconds);
+        }
         const float Hold=FMath::Min(WhirlwindTuning.HitStopSeconds,WhirlwindTuning.HitStopBudget-WhirlwindPauseSpent);
         WhirlwindPause=FMath::Max(0.f,Hold);WhirlwindPauseSpent+=WhirlwindPause;
         // Contact sound/recoil remain available after the hitstop budget is

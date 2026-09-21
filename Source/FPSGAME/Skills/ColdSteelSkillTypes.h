@@ -2,6 +2,9 @@
 #include "CoreMinimal.h"
 #include "FireballTypes.h"
 #include "IceSpikeTypes.h"
+#include "LightningTypes.h"
+#include "HolyLightTypes.h"
+#include "FireMagicTypes.h"
 #include "WhirlwindTypes.h"
 #include "DashAttackTypes.h"
 #include "../Combat/WeaponDamageTypes.h"
@@ -60,9 +63,12 @@ struct FColdSteelSkillDefinition
     int32 HeavyHit2Experience=5,HeavyKill2Experience=12,HeavyHit5Experience=25,HeavyKill5Experience=60;
     FFireballTuning Fireball;
     FIceSpikeTuning IceSpike;
+    FLightningTuning Lightning;
+    FHolyLightTuning HolyLight;
     FQuickCombatTuning QuickCombat;
     FWhirlwindTuning Whirlwind;
     FDashAttackTuning DashAttack;
+    FFireMagicTuning FireMagic;
 };
 
 struct FColdSteelSkillEffect

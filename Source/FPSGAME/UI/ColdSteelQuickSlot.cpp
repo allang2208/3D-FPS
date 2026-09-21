@@ -1,5 +1,7 @@
 #include "ColdSteelQuickSlot.h"
+#include "../Skills/FPSFireMagicComponent.h"
 #include "../Weapons/RuneSwordComponent.h"
+#include "../Weapons/RuneOrbBladesComponent.h"
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelQuickDrag.h"
@@ -9,6 +11,8 @@
 #include "../FPSGAMECharacter.h"
 #include "../Skills/FPSFireballComponent.h"
 #include "../Skills/FPSIceSpikeComponent.h"
+#include "../Skills/FPSLightningComponent.h"
+#include "../Skills/FPSHolyLightComponent.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/Image.h"
 #include "Components/Overlay.h"
@@ -26,8 +30,8 @@
 void UColdSteelQuickSlot::Configure(UColdSteelHUDWidget* Owner,int32 SlotIndex,FName InFixedSkill)
 {
     HUD=Owner;Index=SlotIndex;FixedSkill=InFixedSkill;
-    // 专属槽的键位标注与固定技能一起给定（如 F · 快速进战），不走混放键位表。
-    FixedKeyLabel=FixedSkill.IsNone()?FString():TEXT("F");
+    // 专属槽的键位标注与固定技能一起给定（如 F · 快速进战、G · 环绕飞剑），不走混放键位表。
+    FixedKeyLabel=FixedSkill.IsNone()?FString():FixedSkill==TEXT("runeBlades")?TEXT("G"):TEXT("F");
     SetVisibility(ESlateVisibility::Visible);
     const float Scale=ColdSteelUI::PixelScale(this);
     auto* Overlay=WidgetTree->ConstructWidget<UOverlay>();WidgetTree->RootWidget=Overlay;
@@ -90,7 +94,12 @@ void UColdSteelQuickSlot::NativeTick(const FGeometry& Geometry,float DeltaTime)
     bool Notice=false;float NoticeAlpha=1.f,NoticeRise=0.f;
     if(const auto* Player=GetOwningPlayerPawn())
     {
-        if(Displayed.Skill==TEXT("fireball"))
+        if(FireMagic::IsSkill(Displayed.Skill))
+        {
+            if(const auto* Ability=Player->FindComponentByClass<UFPSFireMagicComponent>())
+            {Notice=Ability->IsHandOccupiedNotice(Displayed.Skill);NoticeAlpha=Ability->HandNoticeAlpha();NoticeRise=Ability->HandNoticeRise();}
+        }
+        else if(Displayed.Skill==TEXT("fireball"))
         {
             if(const auto* Ability=Player->FindComponentByClass<UFPSFireballComponent>())
             {Notice=Ability->IsHandOccupiedNotice();NoticeAlpha=Ability->HandNoticeAlpha();NoticeRise=Ability->HandNoticeRise();}
@@ -98,6 +107,16 @@ void UColdSteelQuickSlot::NativeTick(const FGeometry& Geometry,float DeltaTime)
         else if(Displayed.Skill==TEXT("iceSpike"))
         {
             if(const auto* Ability=Player->FindComponentByClass<UFPSIceSpikeComponent>())
+            {Notice=Ability->IsHandOccupiedNotice();NoticeAlpha=Ability->HandNoticeAlpha();NoticeRise=Ability->HandNoticeRise();}
+        }
+        else if(Displayed.Skill==TEXT("lightningStrike"))
+        {
+            if(const auto* Ability=Player->FindComponentByClass<UFPSLightningComponent>())
+            {Notice=Ability->IsHandOccupiedNotice();NoticeAlpha=Ability->HandNoticeAlpha();NoticeRise=Ability->HandNoticeRise();}
+        }
+        else if(Displayed.Skill==TEXT("holyLight"))
+        {
+            if(const auto* Ability=Player->FindComponentByClass<UFPSHolyLightComponent>())
             {Notice=Ability->IsHandOccupiedNotice();NoticeAlpha=Ability->HandNoticeAlpha();NoticeRise=Ability->HandNoticeRise();}
         }
     }
@@ -138,7 +157,19 @@ void UColdSteelQuickSlot::Refresh()
     }
     FString Message;float Fraction=0,Remaining=0;bool Dim=false;
     Count->SetText(FText::GetEmpty());
-    if(Binding.Skill==TEXT("fireball"))
+    if(FireMagic::IsSkill(Binding.Skill))
+    {
+        const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<UFPSFireMagicComponent>():nullptr;
+        if(Ability)
+        {
+            Message=Ability->StatusText(Binding.Skill);Fraction=Ability->CooldownFraction(Binding.Skill);
+            if(Binding.Skill==TEXT("flameArmor")&&Ability->ArmorRemaining()>0)
+                Count->SetText(FText::FromString(FString::Printf(TEXT("%.0fs"),FMath::CeilToFloat(Ability->ArmorRemaining()))));
+        }
+        if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice(Binding.Skill)))Remaining=Model->FireMagicCooldown(Binding.Skill);
+        Dim=!Model->CanSpendMana(Model->FireMagicStats(Binding.Skill).ManaCost);
+    }
+    else if(Binding.Skill==TEXT("fireball"))
     {
         const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<UFPSFireballComponent>():nullptr;
         if(Ability){Message=Ability->StatusText();Fraction=Ability->CooldownFraction();}
@@ -153,6 +184,20 @@ void UColdSteelQuickSlot::Refresh()
         // The refusal notice answers the press itself, so it outranks the countdown.
         if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice()))Remaining=Model->IceSpikeCooldown();
         Dim=!Model->CanSpendMana(Model->IceSpikeStats().ManaCost)&&(!Ability||Ability->ActiveCount()==0);
+    }
+    else if(Binding.Skill==TEXT("lightningStrike"))
+    {
+        const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<UFPSLightningComponent>():nullptr;
+        if(Ability){Message=Ability->StatusText();Fraction=Ability->CooldownFraction();}
+        if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice()))Remaining=Model->LightningCooldown();
+        Dim=!Model->CanSpendMana(Model->LightningStats().ManaCost);
+    }
+    else if(Binding.Skill==TEXT("holyLight"))
+    {
+        const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<UFPSHolyLightComponent>():nullptr;
+        if(Ability){Message=Ability->StatusText();Fraction=Ability->CooldownFraction();}
+        if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice()))Remaining=Model->HolyLightCooldown();
+        Dim=!Model->CanSpendMana(Model->HolyLightStats().ManaCost);
     }
     else if(Binding.Skill==TEXT("heavyStrike"))
     {
@@ -188,6 +233,19 @@ void UColdSteelQuickSlot::Refresh()
         Remaining=Model->QuickCombatCooldown();
         // Availability darkening mirrors the mask: unusable only while cooling.
         Dim=Fraction>0.f;
+    }
+    else if(Binding.Skill==TEXT("runeBlades"))
+    {
+        // G 专属槽（环绕飞剑）：冷却遮罩读组件自身；未持符文长剑变暗并提示。
+        const auto* Player=GetOwningPlayerPawn();
+        const auto* Blades=Player?Player->FindComponentByClass<URuneOrbBladesComponent>():nullptr;
+        const auto* Sword=Player?Player->FindComponentByClass<URuneSwordComponent>():nullptr;
+        const bool Ready=Sword&&Sword->IsEquipped();
+        Fraction=Blades?Blades->CooldownFraction():0.f;
+        Remaining=Blades?Blades->CooldownRemaining():0.f;
+        Dim=!Ready||Fraction>0.f;
+        if(!Ready)Message=TEXT("需符文长剑");
+        else if(Blades&&Blades->IsOrbitActive())Message=TEXT("已激活");
     }
     else if(!Binding.ItemDefinition.IsEmpty())
     {
