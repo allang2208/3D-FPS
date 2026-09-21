@@ -66,6 +66,10 @@ static TAutoConsoleVariable<float> ScopeWorldForwardCM(TEXT("fps.Scope.WorldForw
 // only: the trace, the damage and the falloff are untouched.
 static TAutoConsoleVariable<float> TracerLengthScale(TEXT("fps.Tracer.LengthScale"),1.f,
     TEXT("Multiplier on the tracer streak window (1 = built-in 600/1400 cm rifle window)."));
+// Fast rounds cross a room in a few frames, so a streak that vanishes the instant the round
+// lands is hard to see at all. It now holds its last position and fades out instead.
+static TAutoConsoleVariable<float> TracerLingerSeconds(TEXT("fps.Tracer.LingerSeconds"),.12f,
+    TEXT("Seconds a finished tracer streak stays visible and fades out (0 = vanish at once)."));
 
 UFPSWeaponFXComponent::UFPSWeaponFXComponent()
 {
@@ -256,7 +260,7 @@ void UFPSWeaponFXComponent::OnTracerSegment(int32 RoundId,const FVector& Start,c
     auto* T=AcquireTracer(RoundId);
     if(!T)return;
     ++TracerSegments;LastTracerEnd=End;
-    T->bFlash=false;T->FlashAge=0.f;
+    T->bFlash=false;T->FlashAge=0.f;T->LingerAge=0.f;
     T->RoundId=RoundId;
     T->Direction=Travel/Distance;
     T->Head=End;
@@ -306,6 +310,7 @@ FFPSWeaponFXTracer* UFPSWeaponFXComponent::AcquireTracer(int32 RoundId)
     Result->RoundId=RoundId;
     Result->TraveledCM=0.f;
     Result->FlashAge=0.f;
+    Result->LingerAge=0.f;
     Result->Head=FVector::ZeroVector;
     Result->Mesh->SetStaticMesh(CylinderMesh);
     if(!Result->Material)Result->Material=UMaterialInstanceDynamic::Create(TracerMaterial,Result->Mesh);
@@ -322,6 +327,7 @@ void UFPSWeaponFXComponent::ReleaseTracer(FFPSWeaponFXTracer& T)
 {
     T.bActive=false;
     T.bFlash=false;
+    T.LingerAge=0.f;
     T.RoundId=INDEX_NONE;
     if(T.Mesh)T.Mesh->SetVisibility(false);
 }
@@ -345,8 +351,10 @@ void UFPSWeaponFXComponent::ApplyTracerTransform(FFPSWeaponFXTracer& T)
         WeaponFX::TracerMinDiameterCM,ShouldHideCasings()?2.5f:5.f);
     T.Mesh->SetWorldLocationAndRotation(Center,FRotationMatrix::MakeFromZ(T.Head-Tail).Rotator());
     T.Mesh->SetWorldScale3D(FVector(Diameter,Diameter,FMath::Max(1.f,T.Length))/100.f);
+    const float Linger=FMath::Clamp(TracerLingerSeconds.GetValueOnGameThread(),0.f,2.f);
     T.Material->SetScalarParameterValue(TEXT("Opacity"),
-        T.bFlash?FMath::Clamp(1.f-T.FlashAge/WeaponFX::TracerFlashSeconds,0.f,1.f):1.f);
+        T.bFlash?FMath::Clamp(1.f-T.FlashAge/WeaponFX::TracerFlashSeconds,0.f,1.f)
+        :(T.LingerAge>0.f&&Linger>0.f?FMath::Clamp(1.f-T.LingerAge/Linger,0.f,1.f):1.f));
 }
 
 float UFPSWeaponFXComponent::TracerBaseLengthCM() const
@@ -725,8 +733,9 @@ void UFPSWeaponFXComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
         ApplyParticleTransform(P);
     }
     // Tracer streaks: every live round owns exactly one, refreshed in place by the
-    // ballistics tick earlier this frame. A streak that was not refreshed is a round
-    // that ended (or impacted), so it is retired immediately - no history pile-up.
+    // ballistics tick earlier this frame. A streak that was not refreshed belongs to a round
+    // that ended (impacted or out of range): it keeps its last position, fades out over
+    // fps.Tracer.LingerSeconds and is only then pooled again, so nothing piles up.
     for (FFPSWeaponFXTracer& T : Tracers)
     {
         if (!T.bActive) continue;
@@ -737,7 +746,14 @@ void UFPSWeaponFXComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
             { ReleaseTracer(T); ++ExpiredTracerSegments; continue; }
         }
         else if (T.LastUpdateFrame != GFrameCounter)
-        { ReleaseTracer(T); ++ExpiredTracerSegments; continue; }
+        {
+            // A 350 m/s round crosses 20 m in about three frames at 60 fps, so a streak that
+            // died with the round was almost invisible. It never moves again after this, so
+            // holding it cannot smear (the material refuses TSR history).
+            T.LingerAge += DeltaTime;
+            if (T.LingerAge >= FMath::Clamp(TracerLingerSeconds.GetValueOnGameThread(),0.f,2.f))
+            { ReleaseTracer(T); ++ExpiredTracerSegments; continue; }
+        }
         ApplyTracerTransform(T);
     }
 

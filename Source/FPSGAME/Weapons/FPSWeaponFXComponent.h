@@ -54,6 +54,8 @@ struct FFPSWeaponFXTracer
     float TraveledCM = 0.0f;
     float Length = 0.0f;
     float FlashAge = 0.0f;
+    /** Age since the owning round ended: the streak then holds still and fades out. */
+    float LingerAge = 0.0f;
     bool bFlash = false;
     bool bActive = false;
     uint64 LastUpdateFrame = 0;

@@ -15,7 +15,7 @@
 // falloff, penetration and the trace are untouched.
 static TAutoConsoleVariable<float> CVarBulletSpeedScale(TEXT("fps.Ballistics.SpeedScale"),1.f,
     TEXT("Multiplier on muzzle velocity for every launched round (1 = catalog bullet_speed)."));
-static TAutoConsoleVariable<int32> CVarTracerEvery(TEXT("fps.Tracer.Every"),3,
+static TAutoConsoleVariable<int32> CVarTracerEvery(TEXT("fps.Tracer.Every"),1,
     TEXT("Draw a tracer streak on every Nth round (1 = every round); round 1 always draws."));
 
 UFPSBallisticsComponent::UFPSBallisticsComponent()

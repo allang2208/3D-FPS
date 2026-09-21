@@ -236,10 +236,10 @@ void AFPSGAMECharacter::RunBallisticPresentationAudit()
             Capture(*FString::Printf(TEXT("Strafe/%04d.png"),StrafeFrame++));
         if(Elapsed>=2.0){
             FireReleased();
-            // One streak now lives for the whole flight and is refreshed in place, so the
-            // old per-frame churn count no longer applies; with fps.Tracer.Every=3 only a
-            // third of the rounds in flight carry one, and nothing accumulates.
-            Check(PeakTracers>0&&PeakTracers<=4,TEXT("lateral fire has bounded current flight segments without accumulated trails"));
+            // One streak now lives for the whole flight (plus fps.Tracer.LingerSeconds of fade after the
+            // round ends), so the old per-frame churn count no longer applies: the bound is
+            // "rounds in flight + shots per second * linger", and nothing accumulates.
+            Check(PeakTracers>0&&PeakTracers<=8,TEXT("lateral fire has bounded current flight segments without accumulated trails"));
             // A streak now lives for the whole flight and is refreshed in place, so the
             // old per-frame churn count no longer applies: the contract is that finished
             // rounds do retire their streak and nothing piles up (PeakTracers, stage 21).
