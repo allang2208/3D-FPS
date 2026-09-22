@@ -1,0 +1,23 @@
+{
+  "skeletal_meshes": {
+    "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416": {
+      "found": true,
+      "class": "SkeletalMesh",
+      "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton",
+      "error": "Skeleton: Failed to find property 'reference_skeleton' for attribute 'reference_skeleton' on 'Skeleton'"
+    },
+    "/Game/Weapons/AKMIntegration/SK_AKM_MannyNative": {
+      "found": false
+    },
+    "/Game/Weapons/QBZ191/SK_QBZ191_Manny": {
+      "found": true,
+      "class": "SkeletalMesh",
+      "skeleton": "/Game/Weapons/QBZ191/SK_QBZ191_Manny_Skeleton",
+      "error": "Skeleton: Failed to find property 'reference_skeleton' for attribute 'reference_skeleton' on 'Skeleton'"
+    },
+    "/Game/Weapons/M16A2/SK_M16_Manny": {
+      "found": false
+    }
+  },
+  "static_meshes": {}
+}

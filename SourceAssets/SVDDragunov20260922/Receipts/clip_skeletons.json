@@ -1,0 +1,86 @@
+{
+  "rows": [
+    {
+      "kind": "mesh",
+      "path": "/Game/Weapons/SVDDragunov20260922/Viewmodel/SK_SVD_Manny",
+      "found": true,
+      "class": "SkeletalMesh",
+      "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton"
+    },
+    {
+      "kind": "mesh",
+      "path": "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416",
+      "found": true,
+      "class": "SkeletalMesh",
+      "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton"
+    },
+    {
+      "kind": "mesh",
+      "path": "/Game/Weapons/AKMIntegration/SovietFab/SK_AKM_MannyNative",
+      "found": true,
+      "class": "SkeletalMesh",
+      "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton"
+    },
+    {
+      "kind": "clip",
+      "path": "/Game/Weapons/M4ContactImpactFinal/A_AKM_idle",
+      "found": true,
+      "class": "AnimSequence",
+      "skeleton": "/Game/Weapons/M4InfimaRigV4/SK_M4_Infima_Skeleton"
+    },
+    {
+      "kind": "clip",
+      "path": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim",
+      "found": true,
+      "class": "AnimSequence",
+      "skeleton": "/Game/Weapons/M4InfimaRigV4/SK_M4_Infima_Skeleton"
+    },
+    {
+      "kind": "clip",
+      "path": "/Game/Weapons/M4ContactImpactFinal/A_AKM_fire",
+      "found": true,
+      "class": "AnimSequence",
+      "skeleton": "/Game/Weapons/M4InfimaRigV4/SK_M4_Infima_Skeleton"
+    },
+    {
+      "kind": "clip",
+      "path": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim_fire",
+      "found": true,
+      "class": "AnimSequence",
+      "skeleton": "/Game/Weapons/M4InfimaRigV4/SK_M4_Infima_Skeleton"
+    },
+    {
+      "kind": "clip",
+      "path": "/Game/Weapons/M4TacticalTossFinal/A_M4_HK416_reload",
+      "found": true,
+      "class": "AnimSequence",
+      "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton"
+    },
+    {
+      "kind": "clip",
+      "path": "/Game/Weapons/M4SlapImpactFinal/A_M4_HK416_reload_empty",
+      "found": true,
+      "class": "AnimSequence",
+      "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton"
+    },
+    {
+      "kind": "clip",
+      "path": "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_equip_charge",
+      "found": true,
+      "class": "AnimSequence",
+      "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton"
+    }
+  ],
+  "same_skeleton": true,
+  "clips_on_m4_skeleton": [
+    "/Game/Weapons/M4TacticalTossFinal/A_M4_HK416_reload",
+    "/Game/Weapons/M4SlapImpactFinal/A_M4_HK416_reload_empty",
+    "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_equip_charge"
+  ],
+  "clips_on_other_skeleton": {
+    "/Game/Weapons/M4ContactImpactFinal/A_AKM_idle": "/Game/Weapons/M4InfimaRigV4/SK_M4_Infima_Skeleton",
+    "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim": "/Game/Weapons/M4InfimaRigV4/SK_M4_Infima_Skeleton",
+    "/Game/Weapons/M4ContactImpactFinal/A_AKM_fire": "/Game/Weapons/M4InfimaRigV4/SK_M4_Infima_Skeleton",
+    "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim_fire": "/Game/Weapons/M4InfimaRigV4/SK_M4_Infima_Skeleton"
+  }
+}

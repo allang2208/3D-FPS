@@ -1,0 +1,346 @@
+{
+  "reference_flags_on": [
+    "used_with_skeletal_mesh"
+  ],
+  "materials": {
+    "M_SVD_Body": {
+      "changed": [
+        "used_with_skeletal_mesh"
+      ],
+      "before": {
+        "used_with_skeletal_mesh": false,
+        "used_with_instanced_static_meshes": false,
+        "used_with_particle_sprites": false,
+        "used_with_niagara_sprites": false,
+        "used_with_niagara_ribbons": false,
+        "used_with_niagara_mesh_particles": false,
+        "used_with_morph_targets": false,
+        "used_with_spline_meshes": false,
+        "used_with_geometry_collections": false,
+        "used_with_clothing": false,
+        "used_with_water": false,
+        "used_with_hair_strands": false,
+        "used_with_lidar_point_cloud": false,
+        "used_with_volumetric_cloud": false,
+        "used_with_beam_trails": false,
+        "used_with_virtual_heightfield_mesh": false
+      },
+      "after": {
+        "used_with_skeletal_mesh": true,
+        "used_with_instanced_static_meshes": false,
+        "used_with_particle_sprites": false,
+        "used_with_niagara_sprites": false,
+        "used_with_niagara_ribbons": false,
+        "used_with_niagara_mesh_particles": false,
+        "used_with_morph_targets": false,
+        "used_with_spline_meshes": false,
+        "used_with_geometry_collections": false,
+        "used_with_clothing": false,
+        "used_with_water": false,
+        "used_with_hair_strands": false,
+        "used_with_lidar_point_cloud": false,
+        "used_with_volumetric_cloud": false,
+        "used_with_beam_trails": false,
+        "used_with_virtual_heightfield_mesh": false
+      }
+    },
+    "M_SVD_Magazine": {
+      "changed": [
+        "used_with_skeletal_mesh"
+      ],
+      "before": {
+        "used_with_skeletal_mesh": false,
+        "used_with_instanced_static_meshes": false,
+        "used_with_particle_sprites": false,
+        "used_with_niagara_sprites": false,
+        "used_with_niagara_ribbons": false,
+        "used_with_niagara_mesh_particles": false,
+        "used_with_morph_targets": false,
+        "used_with_spline_meshes": false,
+        "used_with_geometry_collections": false,
+        "used_with_clothing": false,
+        "used_with_water": false,
+        "used_with_hair_strands": false,
+        "used_with_lidar_point_cloud": false,
+        "used_with_volumetric_cloud": false,
+        "used_with_beam_trails": false,
+        "used_with_virtual_heightfield_mesh": false
+      },
+      "after": {
+        "used_with_skeletal_mesh": true,
+        "used_with_instanced_static_meshes": false,
+        "used_with_particle_sprites": false,
+        "used_with_niagara_sprites": false,
+        "used_with_niagara_ribbons": false,
+        "used_with_niagara_mesh_particles": false,
+        "used_with_morph_targets": false,
+        "used_with_spline_meshes": false,
+        "used_with_geometry_collections": false,
+        "used_with_clothing": false,
+        "used_with_water": false,
+        "used_with_hair_strands": false,
+        "used_with_lidar_point_cloud": false,
+        "used_with_volumetric_cloud": false,
+        "used_with_beam_trails": false,
+        "used_with_virtual_heightfield_mesh": false
+      }
+    },
+    "M_SVD_Trigger": {
+      "changed": [
+        "used_with_skeletal_mesh"
+      ],
+      "before": {
+        "used_with_skeletal_mesh": false,
+        "used_with_instanced_static_meshes": false,
+        "used_with_particle_sprites": false,
+        "used_with_niagara_sprites": false,
+        "used_with_niagara_ribbons": false,
+        "used_with_niagara_mesh_particles": false,
+        "used_with_morph_targets": false,
+        "used_with_spline_meshes": false,
+        "used_with_geometry_collections": false,
+        "used_with_clothing": false,
+        "used_with_water": false,
+        "used_with_hair_strands": false,
+        "used_with_lidar_point_cloud": false,
+        "used_with_volumetric_cloud": false,
+        "used_with_beam_trails": false,
+        "used_with_virtual_heightfield_mesh": false
+      },
+      "after": {
+        "used_with_skeletal_mesh": true,
+        "used_with_instanced_static_meshes": false,
+        "used_with_particle_sprites": false,
+        "used_with_niagara_sprites": false,
+        "used_with_niagara_ribbons": false,
+        "used_with_niagara_mesh_particles": false,
+        "used_with_morph_targets": false,
+        "used_with_spline_meshes": false,
+        "used_with_geometry_collections": false,
+        "used_with_clothing": false,
+        "used_with_water": false,
+        "used_with_hair_strands": false,
+        "used_with_lidar_point_cloud": false,
+        "used_with_volumetric_cloud": false,
+        "used_with_beam_trails": false,
+        "used_with_virtual_heightfield_mesh": false
+      }
+    },
+    "M_SVD_ChargingHandle": {
+      "changed": [
+        "used_with_skeletal_mesh"
+      ],
+      "before": {
+        "used_with_skeletal_mesh": false,
+        "used_with_instanced_static_meshes": false,
+        "used_with_particle_sprites": false,
+        "used_with_niagara_sprites": false,
+        "used_with_niagara_ribbons": false,
+        "used_with_niagara_mesh_particles": false,
+        "used_with_morph_targets": false,
+        "used_with_spline_meshes": false,
+        "used_with_geometry_collections": false,
+        "used_with_clothing": false,
+        "used_with_water": false,
+        "used_with_hair_strands": false,
+        "used_with_lidar_point_cloud": false,
+        "used_with_volumetric_cloud": false,
+        "used_with_beam_trails": false,
+        "used_with_virtual_heightfield_mesh": false
+      },
+      "after": {
+        "used_with_skeletal_mesh": true,
+        "used_with_instanced_static_meshes": false,
+        "used_with_particle_sprites": false,
+        "used_with_niagara_sprites": false,
+        "used_with_niagara_ribbons": false,
+        "used_with_niagara_mesh_particles": false,
+        "used_with_morph_targets": false,
+        "used_with_spline_meshes": false,
+        "used_with_geometry_collections": false,
+        "used_with_clothing": false,
+        "used_with_water": false,
+        "used_with_hair_strands": false,
+        "used_with_lidar_point_cloud": false,
+        "used_with_volumetric_cloud": false,
+        "used_with_beam_trails": false,
+        "used_with_virtual_heightfield_mesh": false
+      }
+    },
+    "M_SVD_SafetyLever": {
+      "changed": [
+        "used_with_skeletal_mesh"
+      ],
+      "before": {
+        "used_with_skeletal_mesh": false,
+        "used_with_instanced_static_meshes": false,
+        "used_with_particle_sprites": false,
+        "used_with_niagara_sprites": false,
+        "used_with_niagara_ribbons": false,
+        "used_with_niagara_mesh_particles": false,
+        "used_with_morph_targets": false,
+        "used_with_spline_meshes": false,
+        "used_with_geometry_collections": false,
+        "used_with_clothing": false,
+        "used_with_water": false,
+        "used_with_hair_strands": false,
+        "used_with_lidar_point_cloud": false,
+        "used_with_volumetric_cloud": false,
+        "used_with_beam_trails": false,
+        "used_with_virtual_heightfield_mesh": false
+      },
+      "after": {
+        "used_with_skeletal_mesh": true,
+        "used_with_instanced_static_meshes": false,
+        "used_with_particle_sprites": false,
+        "used_with_niagara_sprites": false,
+        "used_with_niagara_ribbons": false,
+        "used_with_niagara_mesh_particles": false,
+        "used_with_morph_targets": false,
+        "used_with_spline_meshes": false,
+        "used_with_geometry_collections": false,
+        "used_with_clothing": false,
+        "used_with_water": false,
+        "used_with_hair_strands": false,
+        "used_with_lidar_point_cloud": false,
+        "used_with_volumetric_cloud": false,
+        "used_with_beam_trails": false,
+        "used_with_virtual_heightfield_mesh": false
+      }
+    },
+    "M_SVD_ScopeBody": {
+      "changed": [
+        "used_with_skeletal_mesh"
+      ],
+      "before": {
+        "used_with_skeletal_mesh": false,
+        "used_with_instanced_static_meshes": false,
+        "used_with_particle_sprites": false,
+        "used_with_niagara_sprites": false,
+        "used_with_niagara_ribbons": false,
+        "used_with_niagara_mesh_particles": false,
+        "used_with_morph_targets": false,
+        "used_with_spline_meshes": false,
+        "used_with_geometry_collections": false,
+        "used_with_clothing": false,
+        "used_with_water": false,
+        "used_with_hair_strands": false,
+        "used_with_lidar_point_cloud": false,
+        "used_with_volumetric_cloud": false,
+        "used_with_beam_trails": false,
+        "used_with_virtual_heightfield_mesh": false
+      },
+      "after": {
+        "used_with_skeletal_mesh": true,
+        "used_with_instanced_static_meshes": false,
+        "used_with_particle_sprites": false,
+        "used_with_niagara_sprites": false,
+        "used_with_niagara_ribbons": false,
+        "used_with_niagara_mesh_particles": false,
+        "used_with_morph_targets": false,
+        "used_with_spline_meshes": false,
+        "used_with_geometry_collections": false,
+        "used_with_clothing": false,
+        "used_with_water": false,
+        "used_with_hair_strands": false,
+        "used_with_lidar_point_cloud": false,
+        "used_with_volumetric_cloud": false,
+        "used_with_beam_trails": false,
+        "used_with_virtual_heightfield_mesh": false
+      }
+    },
+    "M_SVD_ScopeMount": {
+      "changed": [
+        "used_with_skeletal_mesh"
+      ],
+      "before": {
+        "used_with_skeletal_mesh": false,
+        "used_with_instanced_static_meshes": false,
+        "used_with_particle_sprites": false,
+        "used_with_niagara_sprites": false,
+        "used_with_niagara_ribbons": false,
+        "used_with_niagara_mesh_particles": false,
+        "used_with_morph_targets": false,
+        "used_with_spline_meshes": false,
+        "used_with_geometry_collections": false,
+        "used_with_clothing": false,
+        "used_with_water": false,
+        "used_with_hair_strands": false,
+        "used_with_lidar_point_cloud": false,
+        "used_with_volumetric_cloud": false,
+        "used_with_beam_trails": false,
+        "used_with_virtual_heightfield_mesh": false
+      },
+      "after": {
+        "used_with_skeletal_mesh": true,
+        "used_with_instanced_static_meshes": false,
+        "used_with_particle_sprites": false,
+        "used_with_niagara_sprites": false,
+        "used_with_niagara_ribbons": false,
+        "used_with_niagara_mesh_particles": false,
+        "used_with_morph_targets": false,
+        "used_with_spline_meshes": false,
+        "used_with_geometry_collections": false,
+        "used_with_clothing": false,
+        "used_with_water": false,
+        "used_with_hair_strands": false,
+        "used_with_lidar_point_cloud": false,
+        "used_with_volumetric_cloud": false,
+        "used_with_beam_trails": false,
+        "used_with_virtual_heightfield_mesh": false
+      }
+    },
+    "M_SVD_ScopeLens": {
+      "changed": [
+        "used_with_skeletal_mesh"
+      ],
+      "before": {
+        "used_with_skeletal_mesh": false,
+        "used_with_instanced_static_meshes": false,
+        "used_with_particle_sprites": false,
+        "used_with_niagara_sprites": false,
+        "used_with_niagara_ribbons": false,
+        "used_with_niagara_mesh_particles": false,
+        "used_with_morph_targets": false,
+        "used_with_spline_meshes": false,
+        "used_with_geometry_collections": false,
+        "used_with_clothing": false,
+        "used_with_water": false,
+        "used_with_hair_strands": false,
+        "used_with_lidar_point_cloud": false,
+        "used_with_volumetric_cloud": false,
+        "used_with_beam_trails": false,
+        "used_with_virtual_heightfield_mesh": false
+      },
+      "after": {
+        "used_with_skeletal_mesh": true,
+        "used_with_instanced_static_meshes": false,
+        "used_with_particle_sprites": false,
+        "used_with_niagara_sprites": false,
+        "used_with_niagara_ribbons": false,
+        "used_with_niagara_mesh_particles": false,
+        "used_with_morph_targets": false,
+        "used_with_spline_meshes": false,
+        "used_with_geometry_collections": false,
+        "used_with_clothing": false,
+        "used_with_water": false,
+        "used_with_hair_strands": false,
+        "used_with_lidar_point_cloud": false,
+        "used_with_volumetric_cloud": false,
+        "used_with_beam_trails": false,
+        "used_with_virtual_heightfield_mesh": false
+      }
+    }
+  },
+  "instances_report_skeletal_mesh": {
+    "Body": true,
+    "Magazine": true,
+    "Trigger": true,
+    "ChargingHandle": true,
+    "SafetyLever": true,
+    "ScopeBody": true,
+    "ScopeMount": true,
+    "ScopeLens": true
+  },
+  "all_ok": true
+}

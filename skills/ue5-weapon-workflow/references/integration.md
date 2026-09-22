@@ -22,6 +22,19 @@
 - 验证最终渲染相机、瞄线及真实射击射线。区分整体后坐力与机械活动点；不逐帧追逐枪机/套筒驱动双手反向补偿。腰射摆位不能不加区分地叠入 ADS。
 - 用真实 FOV、近平面、光照及不同宽高比检查枪托抢镜、断臂和镜片可见性；中心截图仅证明该帧。迁移 Godot 的 FOV/轴时按实际源参数换算，历史 AKM 偏移不是 M4 标准。
 
+## 接入实测坑（2026-09-23，SVD 案例）
+
+以下均为本机实测记录，未做游戏或渲染验收；结论供新枪接入时先查，不要当成通用参数。
+
+- **Python 新建的材质必须开用途标记**：`MaterialFactoryNew()` 建出的材质默认没有 `Used with Skeletal Mesh`，骨骼网格会整件回退默认材质（棋盘格），而静态网格看起来正常。日志签名：`LogMaterial: Warning: Material ... missing usage flag SkeletalMesh! Default Material will be used in game.`。做法是从该枪已认可的运行材质抄全部用途标记（M4 侧实测只开 `used_with_skeletal_mesh` 一项）后 `recompile_material` 并保存。**资产级检查（槽位绑定、实例父级、贴图覆盖、UV 范围）在这种故障下全绿**——只有运行时日志或实机能暴露，因此导入后要专门读一次日志。
+- **非机瞄枪要自带一对瞄点**：共享 `WPN_RearSight/WPN_FrontSight` 位于 M4 机瞄处，光学为主的枪（如 SVD 的 PSO-1）需要像 `AKMSoviet::Rear/Front` 那样提供武器自身空间的点对。点对必须**由后向前**（目镜→物镜，指向枪口），单位为**骨骼局部米**（FBX 根带 100 cm 缩放），给反了开镜会把枪整体转 180°。核对方式：读 `GUNPLAY_ADS_CALIBRATED` 日志——轴向长度应等于两点距离，旋转应只等于基准偏航，且 `offset.X == EyeDistance + rear.Y`；三者对不上就是空间或符号错了。
+- **共享枪口挂点按 M4 长度放置**：1.225 m 的枪相对 0.69 m 的 M4，真实枪口在共享 `WPN_SOCKET_Muzzle` **前方约 70 cm、下方约 7.6 cm**（M4 只需 4.84 cm 后偏、ASH-12 是 6.79 cm）。长枪的枪口烟火与曳光不能沿用 M4 的偏移量，否则火光从枪身中段冒出且不报错。
+- **滚转要交叉验证口径，别在单一被污染的度量上直接烘修正**：面积加权上表面法线会被大斜面（木护木、贴腮板）带偏——SVD 朝上面积是 M4 的 4 倍，该口径给出 3.04° 的假差；窄带最高面口径对 SVD 恰好 0.000°（顶面本来就平），对 M4 又被导轨齿与准星污染；**顶点云主轴（PCA）**才给出可信的 0.658°。按前一个口径去"修正"，等于把本来没有的倾角拧进去。建议：先跑 PCA，再用平坦顶面或动画姿势复验，差值小于 M4 自身 aim/idle 散布（−0.03/+0.37）时不要修。
+- **扫描枪的分件用壳体整块分组，不要裁切**：SVD 枪体是 758 个独立壳体，机械件与主体混在一起。按测量区域把既有壳体整块归组（弹匣/扳机/拉机柄/保险杆），**不裁切任何表面**，UV、法线与闭合性不变，面数总和与源一致即可自证无丢失。实现上注意：Blender 分离一次后**面索引会被重建**，用面索引做第二次选择会错或抛 `IndexError`；改为"按材质分组 + `separate(type='MATERIAL')`"。
+- **FBX 往返坐标系**：UE 相对 Blender 导出场景的映射是 `(x, −y, z)`；用默认 FBX 导入器把导出的件读回 Blender 可以复现导出场景坐标，便于在同一空间里做对齐测量。判断朝向时不要凭单一特征推断，而要把两件（新枪与宿主枪）放在**同一个导入空间**里比同一组接触点。
+- **UE Python 资产操作细则**：`SkeletalMaterial` 等结构数组元素按副本处理，要 `set_editor_property` 后把整个数组写回；`USkeletalMesh` 没有 `get_material/set_material`（走 `materials` 数组）；`FbxSkeletalMeshImportData` 没有 `combine_meshes`（那是静态网格属性）；**资产路径不区分大小写**——仅大小写改名会命中旧包，必须经临时名往返，且可能断掉材质实例父级，需重设 `set_material_instance_parent`；**编辑器加载着资产时不要从磁盘删 `.uasset`**（包变脏，后续导入会被守卫拦下），退役一律走 `EditorAssetLibrary.delete_asset`；Windows 上 `Path.write_text` 会写 CRLF。
+- **半自动枪要复位触发语义**：项目原本只有手枪是"一按一发"（`bPistolShotPending` 仅对手枪生效）。给步枪加半自动时，用一个默认 false 的开关替换触发路径的四个判断点，并**在每次换枪的入口统一复位**——只在武器分支里赋值会让它粘到之后装备的所有武器上。
+
 ## 数据、枪匠与存档
 
 - 沿现有 `FPSGAMECharacter`、`FPSGunplayAnimInstance`、`UGunsmithSystem` 和项目库存子系统接入；读取当前实现，不为换枪复制整套角色逻辑。

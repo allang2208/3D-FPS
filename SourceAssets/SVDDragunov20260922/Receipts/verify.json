@@ -1,0 +1,229 @@
+{
+  "stage": "verify_readback",
+  "content_root": "/Game/Weapons/SVDDragunov20260922",
+  "tests_run": false,
+  "parts": {
+    "SM_SVD_Body": {
+      "found": true,
+      "size_cm": [
+        3.73,
+        122.5,
+        17.8
+      ],
+      "origin_cm": [
+        1.93,
+        0.0,
+        -0.81
+      ],
+      "slot0_name": "SM_SVD_Body",
+      "slot0_instance": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_Body",
+      "instance_parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Body",
+      "expected_parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Body",
+      "nanite": false,
+      "collision_trace_flag": "<CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE: 3>",
+      "source_tris": 19252
+    },
+    "SM_SVD_Magazine": {
+      "found": true,
+      "size_cm": [
+        2.67,
+        10.07,
+        10.03
+      ],
+      "origin_cm": [
+        1.86,
+        14.66,
+        -5.21
+      ],
+      "slot0_name": "SM_SVD_Magazine",
+      "slot0_instance": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_Magazine",
+      "instance_parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Magazine",
+      "expected_parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Magazine",
+      "nanite": false,
+      "collision_trace_flag": "<CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE: 3>",
+      "source_tris": 4936
+    },
+    "SM_SVD_Trigger": {
+      "found": true,
+      "size_cm": [
+        1.78,
+        1.87,
+        3.13
+      ],
+      "origin_cm": [
+        1.86,
+        19.66,
+        -3.07
+      ],
+      "slot0_name": "SM_SVD_Trigger",
+      "slot0_instance": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_Trigger",
+      "instance_parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Trigger",
+      "expected_parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Trigger",
+      "nanite": false,
+      "collision_trace_flag": "<CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE: 3>",
+      "source_tris": 428
+    },
+    "SM_SVD_ChargingHandle": {
+      "found": true,
+      "size_cm": [
+        2.21,
+        2.01,
+        0.63
+      ],
+      "origin_cm": [
+        4.42,
+        7.2,
+        2.88
+      ],
+      "slot0_name": "SM_SVD_ChargingHandle",
+      "slot0_instance": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_Charginghandle",
+      "instance_parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Charginghandle",
+      "expected_parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Charginghandle",
+      "nanite": false,
+      "collision_trace_flag": "<CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE: 3>",
+      "source_tris": 96
+    },
+    "SM_SVD_SafetyLever": {
+      "found": true,
+      "size_cm": [
+        0.61,
+        10.88,
+        3.54
+      ],
+      "origin_cm": [
+        3.5,
+        22.8,
+        1.24
+      ],
+      "slot0_name": "SM_SVD_SafetyLever",
+      "slot0_instance": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_Safetylever",
+      "instance_parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Safetylever",
+      "expected_parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Safetylever",
+      "nanite": false,
+      "collision_trace_flag": "<CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE: 3>",
+      "source_tris": 728
+    },
+    "SM_SVD_Scope": {
+      "found": true,
+      "size_cm": [
+        7.64,
+        30.69,
+        13.74
+      ],
+      "origin_cm": [
+        1.6,
+        24.23,
+        6.29
+      ],
+      "slot0_name": "material",
+      "slot0_instance": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_Scope",
+      "instance_parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Scope",
+      "expected_parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Scope",
+      "nanite": false,
+      "collision_trace_flag": "<CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE: 3>",
+      "source_tris": 6049
+    }
+  },
+  "textures": {
+    "T_SVD_svd_basecolor": {
+      "found": true,
+      "srgb": true,
+      "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>",
+      "flip_green": false,
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    "T_SVD_svd_normal": {
+      "found": true,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>",
+      "flip_green": true,
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    "T_SVD_svd_roughness": {
+      "found": true,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>",
+      "flip_green": false,
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    "T_SVD_svd_metallic": {
+      "found": true,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>",
+      "flip_green": false,
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    "T_SVD_svd_ao": {
+      "found": true,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>",
+      "flip_green": false,
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    "T_SVD_pso_basecolor": {
+      "found": true,
+      "srgb": true,
+      "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>",
+      "flip_green": false,
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    "T_SVD_pso_normal": {
+      "found": true,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>",
+      "flip_green": true,
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    "T_SVD_pso_roughness": {
+      "found": true,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>",
+      "flip_green": false,
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    "T_SVD_pso_metallic": {
+      "found": true,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>",
+      "flip_green": false,
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    "T_SVD_pso_ao": {
+      "found": true,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>",
+      "flip_green": false,
+      "size": [
+        4096,
+        4096
+      ]
+    }
+  }
+}

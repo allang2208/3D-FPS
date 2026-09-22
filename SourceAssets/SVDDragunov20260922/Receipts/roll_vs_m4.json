@@ -1,0 +1,51 @@
+{
+  "m4": {
+    "top_normal": [
+      -0.06432,
+      0.01797,
+      0.99777
+    ],
+    "top_area": 0.02793,
+    "roll_deg": -3.688,
+    "bore_axis": [
+      -0.00395,
+      0.99634,
+      0.0854
+    ],
+    "body": "M4_M4 Body_Export"
+  },
+  "svd": {
+    "top_normal": [
+      -0.01131,
+      0.00449,
+      0.99993
+    ],
+    "top_area": 0.12076,
+    "roll_deg": -0.648,
+    "receiver_top_verts": 0
+  },
+  "roll_difference_deg": 3.04,
+  "grip_contact_m": [
+    0.0612,
+    0.12621,
+    -0.12882
+  ],
+  "corrective_rotation": {
+    "axis": [
+      0,
+      1,
+      0
+    ],
+    "angle_deg": -3.04,
+    "about": "grip contact (SKILL: 装配矩阵绕握把接触点反向旋该角度)"
+  },
+  "pca_measurement": {
+    "m4_roll_deg": -0.572,
+    "svd_roll_deg": 0.085,
+    "difference_deg": 0.658,
+    "method": "principal axes of the vertex cloud (shape-independent)",
+    "note": "the area-weighted top-normal figure (3.04 deg) is biased: the SVD carries ~4x the top-facing area of the M4 (sloped wooden handguard and cheek piece), while its flat top band measures exactly 0.000 deg"
+  },
+  "applied_angle_deg": 0.0,
+  "decision": "reverted: PCA puts the aligned SVD within 0.66 deg of the M4, below the M4 own aim/idle spread (0.03/0.37), so baking a 3.04 deg counter-rotation would have introduced the very cant it was meant to remove. Re-apply only on visual confirmation."
+}

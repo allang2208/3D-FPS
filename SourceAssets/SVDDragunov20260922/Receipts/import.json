@@ -1,0 +1,171 @@
+{
+  "stage": "assets_saved",
+  "tests_run": false,
+  "content_root": "/Game/Weapons/SVDDragunov20260922",
+  "parts": {
+    "SM_SVD_Body": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Meshes/SM_SVD_Body",
+      "material_instance": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_Body",
+      "material_reused": true,
+      "slot": "SM_SVD_Body",
+      "texture_set": "svd",
+      "source_tris": 19252,
+      "size_cm": [
+        3.73,
+        122.5,
+        17.8
+      ],
+      "origin_cm": [
+        1.93,
+        0.0,
+        -0.81
+      ],
+      "nanite": false,
+      "collision_trace_flag": "<CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE: 3>"
+    },
+    "SM_SVD_Magazine": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Meshes/SM_SVD_Magazine",
+      "material_instance": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_Magazine",
+      "material_reused": true,
+      "slot": "SM_SVD_Magazine",
+      "texture_set": "svd",
+      "source_tris": 4936,
+      "size_cm": [
+        2.67,
+        10.07,
+        10.03
+      ],
+      "origin_cm": [
+        1.86,
+        14.66,
+        -5.21
+      ],
+      "nanite": false,
+      "collision_trace_flag": "<CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE: 3>"
+    },
+    "SM_SVD_Trigger": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Meshes/SM_SVD_Trigger",
+      "material_instance": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_Trigger",
+      "material_reused": true,
+      "slot": "SM_SVD_Trigger",
+      "texture_set": "svd",
+      "source_tris": 428,
+      "size_cm": [
+        1.78,
+        1.87,
+        3.13
+      ],
+      "origin_cm": [
+        1.86,
+        19.66,
+        -3.07
+      ],
+      "nanite": false,
+      "collision_trace_flag": "<CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE: 3>"
+    },
+    "SM_SVD_ChargingHandle": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Meshes/SM_SVD_ChargingHandle",
+      "material_instance": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_ChargingHandle",
+      "material_reused": false,
+      "slot": "SM_SVD_ChargingHandle",
+      "texture_set": "svd",
+      "source_tris": 96,
+      "size_cm": [
+        2.21,
+        2.01,
+        0.63
+      ],
+      "origin_cm": [
+        4.42,
+        7.2,
+        2.88
+      ],
+      "nanite": false,
+      "collision_trace_flag": "<CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE: 3>"
+    },
+    "SM_SVD_SafetyLever": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Meshes/SM_SVD_SafetyLever",
+      "material_instance": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_SafetyLever",
+      "material_reused": false,
+      "slot": "SM_SVD_SafetyLever",
+      "texture_set": "svd",
+      "source_tris": 728,
+      "size_cm": [
+        0.61,
+        10.88,
+        3.54
+      ],
+      "origin_cm": [
+        3.5,
+        22.8,
+        1.24
+      ],
+      "nanite": false,
+      "collision_trace_flag": "<CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE: 3>"
+    },
+    "SM_SVD_ScopeBody": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Meshes/SM_SVD_ScopeBody",
+      "material_instance": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_ScopeBody",
+      "material_reused": false,
+      "slot": "SM_SVD_ScopeBody",
+      "texture_set": "pso",
+      "source_tris": 3859,
+      "size_cm": [
+        7.64,
+        30.69,
+        13.74
+      ],
+      "origin_cm": [
+        1.6,
+        24.23,
+        6.29
+      ],
+      "nanite": false,
+      "collision_trace_flag": "<CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE: 3>"
+    },
+    "SM_SVD_ScopeMount": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Meshes/SM_SVD_ScopeMount",
+      "material_instance": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_ScopeMount",
+      "material_reused": false,
+      "slot": "SM_SVD_ScopeMount",
+      "texture_set": "pso",
+      "source_tris": 1835,
+      "size_cm": [
+        3.04,
+        15.29,
+        7.69
+      ],
+      "origin_cm": [
+        -0.7,
+        21.66,
+        3.27
+      ],
+      "nanite": false,
+      "collision_trace_flag": "<CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE: 3>"
+    },
+    "SM_SVD_ScopeLens": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Meshes/SM_SVD_ScopeLens",
+      "material_instance": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_ScopeLens",
+      "material_reused": false,
+      "slot": "SM_SVD_ScopeLens",
+      "texture_set": "pso",
+      "source_tris": 355,
+      "size_cm": [
+        4.05,
+        30.05,
+        4.05
+      ],
+      "origin_cm": [
+        1.86,
+        23.91,
+        9.42
+      ],
+      "nanite": false,
+      "collision_trace_flag": "<CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE: 3>"
+    }
+  },
+  "scope_note": "assets only: no arms rig, no animations, no item registration",
+  "superseded": [
+    "SM_SVD_Scope"
+  ]
+}

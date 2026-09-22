@@ -1,0 +1,75 @@
+{
+  "animation": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKM\\A_AKM_idle.fbx",
+  "rig_frame": {
+    "scope_axis_point_cm": [
+      6.12,
+      16.91,
+      0.42
+    ],
+    "ocular_end_cm": [
+      6.12,
+      1.89,
+      0.42
+    ],
+    "objective_end_cm": [
+      6.12,
+      31.94,
+      0.42
+    ],
+    "scope_body_y_range_cm": [
+      1.25,
+      31.94
+    ],
+    "muzzle_tip_y_cm": 102.07,
+    "trigger_center_cm": [
+      6.12,
+      21.16,
+      -12.08
+    ]
+  },
+  "model_space": {
+    "scope_axis_point_cm": [
+      1.86,
+      -23.91,
+      9.42
+    ],
+    "ocular_end_cm": [
+      1.86,
+      -38.93,
+      9.42
+    ],
+    "objective_end_cm": [
+      1.86,
+      -8.89,
+      9.42
+    ],
+    "trigger_center_cm": [
+      1.86,
+      -19.66,
+      -3.07
+    ]
+  },
+  "finger_contact": {
+    "index_tip_cm": [
+      5.2,
+      20.62,
+      -13.12
+    ],
+    "trigger_center_cm": [
+      6.12,
+      21.16,
+      -12.08
+    ],
+    "distance_cm": 1.49,
+    "offset_cm": [
+      -0.71,
+      0.98,
+      0.86
+    ]
+  },
+  "right_hand_cm": [
+    9.33,
+    3.12,
+    -13.24
+  ]
+}

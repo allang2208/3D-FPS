@@ -1,0 +1,61 @@
+{
+  "stage": "saved",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Authored\\SK_SVD_Manny.fbx",
+  "target_skeleton_from": "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416",
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton",
+  "imported": true,
+  "skeleton_used": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton",
+  "skeleton_matches_m4": true,
+  "material_slots": [
+    {
+      "slot": "MI_Manny_01",
+      "material": "/Game/Weapons/M4InfimaV3/MI_Manny_01",
+      "source": "m4_arms"
+    },
+    {
+      "slot": "MI_Manny_02",
+      "material": "/Game/Weapons/M4InfimaV3/MI_Manny_02",
+      "source": "m4_arms"
+    },
+    {
+      "slot": "SM_SVD_Body",
+      "material": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_Body",
+      "source": "svd"
+    },
+    {
+      "slot": "SM_SVD_ChargingHandle",
+      "material": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_ChargingHandle",
+      "source": "svd"
+    },
+    {
+      "slot": "SM_SVD_Magazine",
+      "material": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_Magazine",
+      "source": "svd"
+    },
+    {
+      "slot": "SM_SVD_SafetyLever",
+      "material": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_SafetyLever",
+      "source": "svd"
+    },
+    {
+      "slot": "SM_SVD_ScopeBody",
+      "material": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_ScopeBody",
+      "source": "svd"
+    },
+    {
+      "slot": "SM_SVD_ScopeLens",
+      "material": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_ScopeLens",
+      "source": "svd"
+    },
+    {
+      "slot": "SM_SVD_ScopeMount",
+      "material": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_ScopeMount",
+      "source": "svd"
+    },
+    {
+      "slot": "SM_SVD_Trigger",
+      "material": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_Trigger",
+      "source": "svd"
+    }
+  ]
+}

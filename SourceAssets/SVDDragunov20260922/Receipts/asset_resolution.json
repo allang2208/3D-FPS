@@ -1,0 +1,98 @@
+{
+  "checked": {
+    "clips.idle": {
+      "path": "/Game/Weapons/M4ContactImpactFinal/A_AKM_idle",
+      "found": true,
+      "class": "AnimSequence",
+      "length_s": 3.0
+    },
+    "clips.aim": {
+      "path": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim",
+      "found": true,
+      "class": "AnimSequence",
+      "length_s": 0.033
+    },
+    "clips.fire": {
+      "path": "/Game/Weapons/M4ContactImpactFinal/A_AKM_fire",
+      "found": true,
+      "class": "AnimSequence",
+      "length_s": 0.767
+    },
+    "clips.aim_fire": {
+      "path": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim_fire",
+      "found": true,
+      "class": "AnimSequence",
+      "length_s": 0.767
+    },
+    "clips.reload": {
+      "path": "/Game/Weapons/M4TacticalTossFinal/A_M4_HK416_reload",
+      "found": true,
+      "class": "AnimSequence",
+      "length_s": 2.1
+    },
+    "clips.reload_empty": {
+      "path": "/Game/Weapons/M4SlapImpactFinal/A_M4_HK416_reload_empty",
+      "found": true,
+      "class": "AnimSequence",
+      "length_s": 2.7
+    },
+    "clips.equip_charge": {
+      "path": "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_equip_charge",
+      "found": true,
+      "class": "AnimSequence",
+      "length_s": 0.633
+    },
+    "sounds.fire": {
+      "path": "/Game/Weapons/M4HK416Audio/S_HK416_Fire",
+      "found": true,
+      "class": "SoundWave",
+      "length_s": null
+    },
+    "sounds.mag_out": {
+      "path": "/Game/Weapons/M4HK416Audio/S_HK416_MagOut",
+      "found": true,
+      "class": "SoundWave",
+      "length_s": null
+    },
+    "sounds.mag_insert": {
+      "path": "/Game/Weapons/M4HK416Audio/S_HK416_MagInsert",
+      "found": true,
+      "class": "SoundWave",
+      "length_s": null
+    },
+    "sounds.mag_seat": {
+      "path": "/Game/Weapons/M4HK416Audio/S_HK416_MagSeat",
+      "found": true,
+      "class": "SoundWave",
+      "length_s": null
+    },
+    "sounds.equip": {
+      "path": "/Game/Weapons/M4AnimationAuditFinal/S_HK416_Equip",
+      "found": true,
+      "class": "SoundWave",
+      "length_s": null
+    },
+    "assets.viewmodel": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Viewmodel/SK_SVD_Manny",
+      "found": true,
+      "class": "SkeletalMesh",
+      "length_s": null
+    },
+    "assets.item_icon": {
+      "path": "/Game/ColdSteelData/Icons/ue_svd",
+      "found": true,
+      "class": "Texture2D",
+      "length_s": null
+    }
+  },
+  "missing": [],
+  "notes": [],
+  "skeleton_shared": true,
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton",
+  "compatible_skeletons": [
+    "/Game/Weapons/M4InfimaRigV4/SK_M4_Infima_Skeleton"
+  ],
+  "clips_match_skeleton": true,
+  "ammo_item_present": true,
+  "ok": true
+}

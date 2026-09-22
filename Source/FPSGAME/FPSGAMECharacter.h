@@ -50,7 +50,11 @@ public:
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM16 = false;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM1911 = false;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseDanWesson715 = false;
+    // Semiautomatic rifles (SVD) use the pistol's one-shot-per-press trigger path without
+    // inheriting any of the pistol framing, movement or dual-wield behaviour.
+    UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bSingleShotTrigger = false;
     bool IsPistolWeapon() const { return bUseM1911 || bUseDanWesson715; }
+    bool UsesSingleShotTrigger() const { return IsPistolWeapon() || bSingleShotTrigger; }
     UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class UPistolDualWieldComponent> DualPistols;
     UPROPERTY(VisibleAnywhere, Category="Skills") TObjectPtr<class UFPSQuickCombatComponent> QuickCombatPistol;
     bool IsDualWieldingPistols() const;

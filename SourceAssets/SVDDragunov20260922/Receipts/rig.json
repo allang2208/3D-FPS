@@ -1,0 +1,151 @@
+{
+  "armature": "SK_M4_Infima",
+  "arms_mesh": "SK_Manny_Arms_Export",
+  "removed_m4_parts": [
+    "M4_Handguard Kmode Unreal_Export",
+    "M4_Flash Hider Unreal_Export",
+    "M4_Magazine Light.003_Export",
+    "M4_Trigger Straight Unreal_Export",
+    "M4_Grip Default Unreal_Export",
+    "M4_M4 Body_Export",
+    "M4_Stock Classic Unreal_Export"
+  ],
+  "translation": [
+    0.0426,
+    0.40821,
+    -0.09002
+  ],
+  "yaw_deg": 0.0,
+  "roll_correction_deg": 0.0,
+  "roll_axis": "Y (barrel)",
+  "roll_about": [
+    0.06120000034570694,
+    0.12621000409126282,
+    -0.12882000207901
+  ],
+  "roll_reference": 3.04,
+  "parts": {
+    "SM_SVD_Body": {
+      "bone": "WPN_root",
+      "verts": 15619,
+      "bbox_min": [
+        0.04328,
+        -0.20429,
+        -0.18708
+      ],
+      "bbox_max": [
+        0.0806,
+        1.02071,
+        -0.0091
+      ]
+    },
+    "SM_SVD_Magazine": {
+      "bone": "WPN_SOCKET_Magazine",
+      "verts": 3277,
+      "bbox_min": [
+        0.04784,
+        0.21128,
+        -0.19231
+      ],
+      "bbox_max": [
+        0.07459,
+        0.31196,
+        -0.09202
+      ]
+    },
+    "SM_SVD_Trigger": {
+      "bone": "WPN_Trigger",
+      "verts": 391,
+      "bbox_min": [
+        0.05232,
+        0.20228,
+        -0.13643
+      ],
+      "bbox_max": [
+        0.0701,
+        0.22094,
+        -0.1051
+      ]
+    },
+    "SM_SVD_ChargingHandle": {
+      "bone": "WPN_ChargingHandle",
+      "verts": 94,
+      "bbox_min": [
+        0.07569,
+        0.32614,
+        -0.06432
+      ],
+      "bbox_max": [
+        0.09781,
+        0.34627,
+        -0.05805
+      ]
+    },
+    "SM_SVD_SafetyLever": {
+      "bone": "WPN_root",
+      "verts": 629,
+      "bbox_min": [
+        0.07453,
+        0.12586,
+        -0.09529
+      ],
+      "bbox_max": [
+        0.08065,
+        0.23462,
+        -0.05992
+      ]
+    },
+    "SM_SVD_ScopeBody": {
+      "bone": "WPN_root",
+      "verts": 3101,
+      "bbox_min": [
+        0.0204,
+        0.01248,
+        -0.09577
+      ],
+      "bbox_max": [
+        0.0968,
+        0.31936,
+        0.04159
+      ]
+    },
+    "SM_SVD_ScopeMount": {
+      "bone": "WPN_root",
+      "verts": 1709,
+      "bbox_min": [
+        0.0204,
+        0.11521,
+        -0.09577
+      ],
+      "bbox_max": [
+        0.05076,
+        0.26808,
+        -0.01889
+      ]
+    },
+    "SM_SVD_ScopeLens": {
+      "bone": "WPN_root",
+      "verts": 375,
+      "bbox_min": [
+        0.04097,
+        0.01889,
+        -0.01608
+      ],
+      "bbox_max": [
+        0.08149,
+        0.31936,
+        0.02444
+      ]
+    }
+  },
+  "assembled": {
+    "body_center": [
+      0.06194,
+      0.40821,
+      -0.09809
+    ],
+    "weapon_length_m": 1.225
+  },
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Authored\\SK_SVD_Viewmodel.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Authored\\SK_SVD_Manny.fbx"
+}

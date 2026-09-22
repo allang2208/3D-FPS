@@ -1,0 +1,557 @@
+{
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\SK_M4_FoldingSights_HK416.fbx",
+  "armature": "SK_M4_Infima",
+  "armature_matrix": [
+    1.0,
+    -0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+  ],
+  "bones": {
+    "WPN_root": {
+      "head": [
+        0.05769,
+        0.14375,
+        -0.09835
+      ],
+      "tail": [
+        0.05769,
+        -0.02622,
+        -0.09835
+      ],
+      "length": 0.16997,
+      "parent": "ik_hand_gun"
+    },
+    "WPN_SOCKET_Magazine": {
+      "head": [
+        0.06447,
+        0.2252,
+        -0.17623
+      ],
+      "tail": [
+        0.06447,
+        0.05523,
+        -0.17623
+      ],
+      "length": 0.16997,
+      "parent": "WPN_root"
+    },
+    "WPN_Trigger": {
+      "head": [
+        0.05557,
+        0.19337,
+        -0.07366
+      ],
+      "tail": [
+        0.05557,
+        0.0234,
+        -0.07366
+      ],
+      "length": 0.16997,
+      "parent": "WPN_root"
+    },
+    "WPN_bolt": {
+      "head": [
+        0.05481,
+        0.21284,
+        -0.06551
+      ],
+      "tail": [
+        0.05481,
+        0.04287,
+        -0.06551
+      ],
+      "length": 0.16997,
+      "parent": "WPN_root"
+    },
+    "WPN_ChargingHandle": {
+      "head": [
+        0.04941,
+        0.13375,
+        -0.00371
+      ],
+      "tail": [
+        0.04941,
+        -0.03622,
+        -0.00371
+      ],
+      "length": 0.16997,
+      "parent": "WPN_root"
+    },
+    "WPN_BoltCatch": {
+      "head": [
+        0.0389,
+        0.23715,
+        -0.05804
+      ],
+      "tail": [
+        0.0389,
+        0.06718,
+        -0.05804
+      ],
+      "length": 0.16997,
+      "parent": "WPN_root"
+    },
+    "WPN_SOCKET_Muzzle": {
+      "head": [
+        0.05141,
+        0.59375,
+        -0.02663
+      ],
+      "tail": [
+        0.05141,
+        0.42378,
+        -0.02663
+      ],
+      "length": 0.16997,
+      "parent": "WPN_root"
+    },
+    "WPN_SOCKET_Eject": {
+      "head": [
+        0.02438,
+        0.22375,
+        -0.01594
+      ],
+      "tail": [
+        0.02438,
+        0.05378,
+        -0.01594
+      ],
+      "length": 0.16997,
+      "parent": "WPN_root"
+    },
+    "WPN_RearSight": {
+      "head": [
+        0.04615,
+        0.17907,
+        0.03394
+      ],
+      "tail": [
+        0.04615,
+        0.0091,
+        0.03394
+      ],
+      "length": 0.16997,
+      "parent": "WPN_root"
+    },
+    "WPN_FrontSight": {
+      "head": [
+        0.04622,
+        0.49253,
+        0.03367
+      ],
+      "tail": [
+        0.04622,
+        0.32256,
+        0.03367
+      ],
+      "length": 0.16997,
+      "parent": "WPN_root"
+    },
+    "ik_hand_gun": {
+      "head": [
+        0.47768,
+        0.15036,
+        -0.58109
+      ],
+      "tail": [
+        0.82094,
+        0.28774,
+        -0.1989
+      ],
+      "length": 0.53176,
+      "parent": "ik_hand_root"
+    },
+    "ik_hand_l": {
+      "head": [
+        -0.47769,
+        0.15036,
+        -0.58109
+      ],
+      "tail": [
+        -0.13443,
+        0.01298,
+        -0.96327
+      ],
+      "length": 0.53176,
+      "parent": "ik_hand_gun"
+    },
+    "ik_hand_r": {
+      "head": [
+        0.47768,
+        0.15036,
+        -0.58109
+      ],
+      "tail": [
+        0.82094,
+        0.28774,
+        -0.1989
+      ],
+      "length": 0.53176,
+      "parent": "ik_hand_gun"
+    },
+    "hand_r": {
+      "head": [
+        0.47769,
+        0.15036,
+        -0.58109
+      ],
+      "tail": [
+        0.50207,
+        0.16012,
+        -0.55394
+      ],
+      "length": 0.03777,
+      "parent": "lowerarm_r"
+    },
+    "hand_l": {
+      "head": [
+        -0.47769,
+        0.15036,
+        -0.58109
+      ],
+      "tail": [
+        -0.4533,
+        0.1406,
+        -0.60823
+      ],
+      "length": 0.03777,
+      "parent": "lowerarm_l"
+    },
+    "lowerarm_r": {
+      "head": [
+        0.35007,
+        -0.0257,
+        -0.41683
+      ],
+      "tail": [
+        0.28884,
+        0.11259,
+        -0.31617
+      ],
+      "length": 0.18167,
+      "parent": "upperarm_r"
+    },
+    "lowerarm_l": {
+      "head": [
+        -0.35007,
+        -0.0257,
+        -0.41683
+      ],
+      "tail": [
+        -0.4113,
+        -0.16399,
+        -0.51749
+      ],
+      "length": 0.18167,
+      "parent": "upperarm_l"
+    },
+    "head": {
+      "head": [
+        -0.0,
+        0.0,
+        0.0
+      ],
+      "tail": [
+        0.0,
+        -0.04913,
+        0.0
+      ],
+      "length": 0.04913,
+      "parent": "neck_02"
+    },
+    "neck_01": {
+      "head": [
+        0.0,
+        -0.0223,
+        -0.09771
+      ],
+      "tail": [
+        0.0,
+        -0.07193,
+        -0.08552
+      ],
+      "length": 0.0511,
+      "parent": "spine_05"
+    }
+  },
+  "meshes": [
+    {
+      "name": "M4_Handguard Kmode Unreal_Export",
+      "verts": 3620,
+      "bbox_min": [
+        0.02489,
+        0.30966,
+        -0.05378
+      ],
+      "bbox_max": [
+        0.07826,
+        0.54808,
+        0.01237
+      ],
+      "size": [
+        0.05337,
+        0.23842,
+        0.06615
+      ],
+      "materials": [
+        "Keymod material.001"
+      ],
+      "top_vertex_groups": [
+        [
+          "WPN_root",
+          3620
+        ]
+      ]
+    },
+    {
+      "name": "M4_Flash Hider Unreal_Export",
+      "verts": 463,
+      "bbox_min": [
+        0.04203,
+        0.54539,
+        -0.03528
+      ],
+      "bbox_max": [
+        0.06053,
+        0.59232,
+        -0.01678
+      ],
+      "size": [
+        0.0185,
+        0.04693,
+        0.0185
+      ],
+      "materials": [
+        "Flash Hider.001"
+      ],
+      "top_vertex_groups": [
+        [
+          "WPN_root",
+          463
+        ]
+      ]
+    },
+    {
+      "name": "M4_Magazine Light.003_Export",
+      "verts": 1652,
+      "bbox_min": [
+        0.04231,
+        0.23132,
+        -0.21818
+      ],
+      "bbox_max": [
+        0.08029,
+        0.31654,
+        -0.04188
+      ],
+      "size": [
+        0.03799,
+        0.08522,
+        0.1763
+      ],
+      "materials": [
+        "Magazine Light.001"
+      ],
+      "top_vertex_groups": [
+        [
+          "WPN_SOCKET_Magazine",
+          1652
+        ]
+      ]
+    },
+    {
+      "name": "M4_Trigger Straight Unreal_Export",
+      "verts": 122,
+      "bbox_min": [
+        0.05231,
+        0.18981,
+        -0.10392
+      ],
+      "bbox_max": [
+        0.06139,
+        0.1969,
+        -0.07337
+      ],
+      "size": [
+        0.00908,
+        0.00709,
+        0.03055
+      ],
+      "materials": [
+        "Body.001"
+      ],
+      "top_vertex_groups": [
+        [
+          "WPN_Trigger",
+          122
+        ]
+      ]
+    },
+    {
+      "name": "SK_Manny_Arms_Export",
+      "verts": 20326,
+      "bbox_min": [
+        -0.55437,
+        -0.1236,
+        -0.73314
+      ],
+      "bbox_max": [
+        0.55437,
+        0.27436,
+        -0.10912
+      ],
+      "size": [
+        1.10874,
+        0.39796,
+        0.62402
+      ],
+      "materials": [
+        "MI_Manny_01",
+        "MI_Manny_02"
+      ],
+      "top_vertex_groups": [
+        [
+          "upperarm_twist_01_l",
+          1057
+        ],
+        [
+          "upperarm_twist_01_r",
+          1057
+        ],
+        [
+          "hand_l",
+          1042
+        ],
+        [
+          "hand_r",
+          1042
+        ],
+        [
+          "lowerarm_twist_02_l",
+          988
+        ],
+        [
+          "lowerarm_twist_02_r",
+          988
+        ],
+        [
+          "upperarm_twist_02_l",
+          949
+        ],
+        [
+          "upperarm_twist_02_r",
+          949
+        ]
+      ]
+    },
+    {
+      "name": "M4_Grip Default Unreal_Export",
+      "verts": 540,
+      "bbox_min": [
+        0.04286,
+        0.08119,
+        -0.18092
+      ],
+      "bbox_max": [
+        0.07964,
+        0.17108,
+        -0.07664
+      ],
+      "size": [
+        0.03678,
+        0.08989,
+        0.10428
+      ],
+      "materials": [
+        "Grip Default.001"
+      ],
+      "top_vertex_groups": [
+        [
+          "WPN_root",
+          540
+        ]
+      ]
+    },
+    {
+      "name": "M4_M4 Body_Export",
+      "verts": 4353,
+      "bbox_min": [
+        0.02184,
+        0.09898,
+        -0.11376
+      ],
+      "bbox_max": [
+        0.08969,
+        0.32258,
+        0.01431
+      ],
+      "size": [
+        0.06785,
+        0.22361,
+        0.12807
+      ],
+      "materials": [
+        "Body.001"
+      ],
+      "top_vertex_groups": [
+        [
+          "WPN_root",
+          3247
+        ],
+        [
+          "WPN_bolt",
+          612
+        ],
+        [
+          "WPN_ChargingHandle",
+          332
+        ],
+        [
+          "WPN_BoltCatch",
+          162
+        ]
+      ]
+    },
+    {
+      "name": "M4_Stock Classic Unreal_Export",
+      "verts": 1168,
+      "bbox_min": [
+        0.02358,
+        -0.0973,
+        -0.13709
+      ],
+      "bbox_max": [
+        0.08344,
+        0.10878,
+        -0.0115
+      ],
+      "size": [
+        0.05986,
+        0.20608,
+        0.12558
+      ],
+      "materials": [
+        "Classic Stock.001"
+      ],
+      "top_vertex_groups": [
+        [
+          "WPN_root",
+          1168
+        ]
+      ]
+    }
+  ]
+}

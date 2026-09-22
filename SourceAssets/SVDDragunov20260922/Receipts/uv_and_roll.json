@@ -1,0 +1,230 @@
+{
+  "viewmodel_fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Authored\\SK_SVD_Manny.fbx",
+  "uv": [
+    {
+      "object": "arms",
+      "uv_layers": [
+        "DiffuseUV"
+      ],
+      "polys": 37802,
+      "u_range": [
+        0.0101,
+        0.9784
+      ],
+      "v_range": [
+        0.008,
+        0.376
+      ],
+      "span": [
+        0.9683,
+        0.368
+      ],
+      "distinct_uvs": 10163,
+      "verdict": "ok"
+    },
+    {
+      "object": "SM_SVD_Body",
+      "uv_layers": [
+        "UVMap"
+      ],
+      "polys": 19252,
+      "u_range": [
+        -0.0004,
+        1.0
+      ],
+      "v_range": [
+        -0.0004,
+        1.0002
+      ],
+      "span": [
+        1.0004,
+        1.0006
+      ],
+      "distinct_uvs": 12788,
+      "verdict": "ok"
+    },
+    {
+      "object": "SM_SVD_ChargingHandle",
+      "uv_layers": [
+        "UVMap"
+      ],
+      "polys": 96,
+      "u_range": [
+        0.4314,
+        0.8968
+      ],
+      "v_range": [
+        0.2172,
+        0.6067
+      ],
+      "span": [
+        0.4654,
+        0.3895
+      ],
+      "distinct_uvs": 84,
+      "verdict": "ok"
+    },
+    {
+      "object": "SM_SVD_Magazine",
+      "uv_layers": [
+        "UVMap"
+      ],
+      "polys": 4936,
+      "u_range": [
+        0.0573,
+        0.9415
+      ],
+      "v_range": [
+        0.2816,
+        0.8641
+      ],
+      "span": [
+        0.8842,
+        0.5825
+      ],
+      "distinct_uvs": 2836,
+      "verdict": "ok"
+    },
+    {
+      "object": "SM_SVD_SafetyLever",
+      "uv_layers": [
+        "UVMap"
+      ],
+      "polys": 728,
+      "u_range": [
+        0.6706,
+        0.9428
+      ],
+      "v_range": [
+        0.736,
+        0.9422
+      ],
+      "span": [
+        0.2722,
+        0.2062
+      ],
+      "distinct_uvs": 426,
+      "verdict": "ok"
+    },
+    {
+      "object": "SM_SVD_ScopeBody",
+      "uv_layers": [
+        "UVMap"
+      ],
+      "polys": 3859,
+      "u_range": [
+        0.0,
+        0.9839
+      ],
+      "v_range": [
+        0.0,
+        1.0
+      ],
+      "span": [
+        0.9839,
+        1.0
+      ],
+      "distinct_uvs": 2701,
+      "verdict": "ok"
+    },
+    {
+      "object": "SM_SVD_ScopeLens",
+      "uv_layers": [
+        "UVMap"
+      ],
+      "polys": 355,
+      "u_range": [
+        0.1839,
+        0.9087
+      ],
+      "v_range": [
+        0.0724,
+        0.9928
+      ],
+      "span": [
+        0.7248,
+        0.9204
+      ],
+      "distinct_uvs": 339,
+      "verdict": "ok"
+    },
+    {
+      "object": "SM_SVD_ScopeMount",
+      "uv_layers": [
+        "UVMap"
+      ],
+      "polys": 1835,
+      "u_range": [
+        0.0,
+        0.9885
+      ],
+      "v_range": [
+        0.006,
+        1.0
+      ],
+      "span": [
+        0.9885,
+        0.994
+      ],
+      "distinct_uvs": 1269,
+      "verdict": "ok"
+    },
+    {
+      "object": "SM_SVD_Trigger",
+      "uv_layers": [
+        "UVMap"
+      ],
+      "polys": 428,
+      "u_range": [
+        0.9034,
+        0.9405
+      ],
+      "v_range": [
+        0.0013,
+        0.3121
+      ],
+      "span": [
+        0.0371,
+        0.3108
+      ],
+      "distinct_uvs": 304,
+      "verdict": "ok"
+    }
+  ],
+  "roll": {
+    "top_normal_area_weighted": [
+      -0.01131,
+      0.00449,
+      0.99993
+    ],
+    "top_area_m2": 0.12076,
+    "sight_axis": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "reference_up": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "roll_deg_about_sight_axis": -0.648,
+    "m4_reference_deg": {
+      "aim": -0.03,
+      "idle": 0.37
+    },
+    "ash12_first_integration_deg": 3.92,
+    "grip_contact_m": [
+      0.01865,
+      -0.28207,
+      -0.03877
+    ],
+    "corrective_rotation_axis": [
+      0,
+      1,
+      0
+    ],
+    "corrective_angle_deg": 0.648
+  },
+  "uv_ok": true
+}

@@ -1,0 +1,173 @@
+{
+  "objects": [
+    {
+      "name": "M4_Handguard Kmode Unreal_Export",
+      "center": [
+        0.0516,
+        0.4289,
+        -0.0207
+      ],
+      "parent": "SK_M4_Infima",
+      "parent_type": "OBJECT",
+      "modifiers": [
+        "ARMATURE"
+      ],
+      "hide_render": false,
+      "matrix_world_translation": [
+        0.0,
+        -0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "M4_Flash Hider Unreal_Export",
+      "center": [
+        0.0513,
+        0.5689,
+        -0.026
+      ],
+      "parent": "SK_M4_Infima",
+      "parent_type": "OBJECT",
+      "modifiers": [
+        "ARMATURE"
+      ],
+      "hide_render": false,
+      "matrix_world_translation": [
+        0.0,
+        -0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "M4_Magazine Light.003_Export",
+      "center": [
+        0.0613,
+        0.2739,
+        -0.13
+      ],
+      "parent": "SK_M4_Infima",
+      "parent_type": "OBJECT",
+      "modifiers": [
+        "ARMATURE"
+      ],
+      "hide_render": false,
+      "matrix_world_translation": [
+        0.0,
+        -0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "M4_Trigger Straight Unreal_Export",
+      "center": [
+        0.0569,
+        0.1934,
+        -0.0886
+      ],
+      "parent": "SK_M4_Infima",
+      "parent_type": "OBJECT",
+      "modifiers": [
+        "ARMATURE"
+      ],
+      "hide_render": false,
+      "matrix_world_translation": [
+        0.0,
+        -0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SK_Manny_Arms_Export",
+      "center": [
+        0.0,
+        0.0754,
+        -0.4211
+      ],
+      "parent": "SK_M4_Infima",
+      "parent_type": "OBJECT",
+      "modifiers": [
+        "ARMATURE"
+      ],
+      "hide_render": false,
+      "matrix_world_translation": [
+        0.0,
+        -0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "M4_Grip Default Unreal_Export",
+      "center": [
+        0.0613,
+        0.1261,
+        -0.1288
+      ],
+      "parent": "SK_M4_Infima",
+      "parent_type": "OBJECT",
+      "modifiers": [
+        "ARMATURE"
+      ],
+      "hide_render": false,
+      "matrix_world_translation": [
+        0.0,
+        -0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "M4_M4 Body_Export",
+      "center": [
+        0.0558,
+        0.2108,
+        -0.0497
+      ],
+      "parent": "SK_M4_Infima",
+      "parent_type": "OBJECT",
+      "modifiers": [
+        "ARMATURE"
+      ],
+      "hide_render": false,
+      "matrix_world_translation": [
+        0.0,
+        -0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "M4_Stock Classic Unreal_Export",
+      "center": [
+        0.0535,
+        0.0057,
+        -0.0743
+      ],
+      "parent": "SK_M4_Infima",
+      "parent_type": "OBJECT",
+      "modifiers": [
+        "ARMATURE"
+      ],
+      "hide_render": false,
+      "matrix_world_translation": [
+        0.0,
+        -0.0,
+        0.0
+      ]
+    }
+  ],
+  "armature_pose_position": "POSE",
+  "hand_r": [
+    0.4777,
+    0.1504,
+    -0.5811
+  ],
+  "hand_l": [
+    -0.4777,
+    0.1504,
+    -0.5811
+  ],
+  "grip_center": [
+    0.0613,
+    0.1261,
+    -0.1288
+  ],
+  "hand_r_to_grip_cm": 61.53
+}

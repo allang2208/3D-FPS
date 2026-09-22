@@ -34,6 +34,7 @@
 #include "Weapons/M1911WeaponAssets.h"
 #include "Weapons/DanWesson715WeaponAssets.h"
 #include "Weapons/ASH12WeaponAssets.h"
+#include "Weapons/SVDWeaponAssets.h"
 #include "Weapons/M16WeaponAssets.h"
 #include "Weapons/M16Attachments.h"
 #include "Weapons/GunsmithSystem.h"
@@ -285,6 +286,10 @@ void AFPSGAMECharacter::BeginPlay()
 void AFPSGAMECharacter::InitializeWeaponVisuals()
 {
     bWeaponVisualPartsApplied=false;
+    // Reset per-weapon trigger semantics here, not inside a weapon branch: the branches only
+    // assign their own weapon, so a flag set by the SVD would otherwise stick to every weapon
+    // equipped afterwards and turn the rifles semiautomatic.
+    bSingleShotTrigger=false;
     if(RearGripAttachment)RearGripAttachment->DestroyComponent();
     RearGripAttachment=nullptr;
     if(StockAttachment)StockAttachment->DestroyComponent();
@@ -383,6 +388,28 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
         HipViewmodelLocation = M4HipViewmodelLocation + FVector(6.f,0.f,0.f);
         ADSRearEyeDistance = 18.f;
         SuppressedFireSound = LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/M4MuzzlesV1/S_M4_Suppressed"));
+    }
+    if (ActiveInventoryWeaponDefinition == SVDWeaponAssets::Definition)
+    {
+        ViewmodelMesh=LoadObject<USkeletalMesh>(nullptr,SVDWeaponAssets::MeshPath,nullptr,LOAD_NoWarn);
+        // The mesh is bound to the shared M4 skeleton, so it must ride the M4 pose/cue
+        // clock (clips, arm framing, HK416 mechanical audio) rather than the AKM one.
+        bUsingM4Infima=ViewmodelMesh!=nullptr;
+        bSingleShotTrigger=SVDWeaponAssets::bSingleShotTrigger;
+        // Measured eye relief behind the PSO-1 ocular (SVDWeaponAssets::SightRear).
+        ADSRearEyeDistance=SVDWeaponAssets::ADSRearEyeDistance;
+        UE_LOG(LogTemp, Display, TEXT("SVD_ACTIVE mesh=%s eye=%.2f single_shot=%d"),
+            *GetPathNameSafe(ViewmodelMesh), ADSRearEyeDistance, bSingleShotTrigger ? 1 : 0);
+    }
+    if (ActiveInventoryWeaponDefinition == PKMLowpolyWeaponAssets::Definition)
+    {
+        ViewmodelMesh=LoadObject<USkeletalMesh>(nullptr,PKMLowpolyWeaponAssets::MeshPath);
+        bUsingM4Infima=ViewmodelMesh!=nullptr;
+        // Clear the central view of the raised carry handle as a complete
+        // weapon/arms assembly. Reload framing and calibrated ADS stay separate.
+        HipViewmodelLocation=M4HipViewmodelLocation+FVector(9.f,2.f,-4.f);
+        ADSRearEyeDistance=20.f;
+        QuickCombatAnimation=LoadObject<UAnimSequence>(nullptr,*PKMLowpolyWeaponAssets::AnimationPath(TEXT("quick_melee")));
     }
     bUsingReplacement = ViewmodelMesh != nullptr;
     if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKM/SK_AKM_Viewmodel.SK_AKM_Viewmodel"));
@@ -736,7 +763,7 @@ void AFPSGAMECharacter::FirePressed()
         NextAllowedShotTime = FMath::Max(NextAllowedShotTime, static_cast<double>(GetWorld()->GetTimeSeconds()));
         TriggerFirstShotWorldTime = -1.0;
     }
-    if (IsPistolWeapon() && !bFireHeld) bPistolShotPending = true;
+    if (UsesSingleShotTrigger() && !bFireHeld) bPistolShotPending = true;
     bFireHeld = true;
     InterruptPistolEquip();
     ExitSprintForWeapon();
@@ -1771,7 +1798,7 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
 void AFPSGAMECharacter::ServiceHeldFire()
 {
     if(IsDualWieldingPistols())return;
-    if (!bFireHeld || (IsPistolWeapon() && !bPistolShotPending)) return;
+    if (!bFireHeld || (UsesSingleShotTrigger() && !bPistolShotPending)) return;
     const double Now = GetWorld()->GetTimeSeconds();
     if (IsWeaponBusy() || bIsSprinting || (bUseM16 && IsCastBlockingLeftHandAction()))
     {
@@ -1788,7 +1815,7 @@ void AFPSGAMECharacter::ServiceHeldFire()
     {
         const double PreviousDeadline = NextAllowedShotTime;
         FireShot();
-        if (IsPistolWeapon()) break;
+        if (UsesSingleShotTrigger()) break;
         if (IsWeaponBusy() || bIsSprinting || !bFireHeld
             || NextAllowedShotTime <= PreviousDeadline) break;
     }
@@ -1818,7 +1845,7 @@ void AFPSGAMECharacter::FireShot()
     }
     --MagazineAmmo;
     if(MagazineAmmo==0 && IsCastBlockingLeftHandAction())bReloadAfterCasting=true;
-    if (IsPistolWeapon()) bPistolShotPending = false;
+    if (UsesSingleShotTrigger()) bPistolShotPending = false;
     ++ShotsFired;
     UAISense_Hearing::ReportNoiseEvent(this,GetActorLocation(),1.f,this,IsMuzzleSuppressed()?500.f:1800.f,TEXT("Gunshot"));
     LastShotWorldTime = Now; // Actual execution time, not a backdated cadence deadline.
@@ -2641,6 +2668,20 @@ void AFPSGAMECharacter::UpdateADSPose()
         }
         Rear=Root.TransformPosition(AKMSoviet::Rear)*ViewmodelScale;
         Front=Root.TransformPosition(AKMSoviet::Front)*ViewmodelScale;
+    }
+    if (SVDWeaponAssets::Matches(AKMViewmodel))
+    {
+        // The SVD aims down the PSO-1 tube, and its sights are not at the shared M4 sight
+        // bone positions, so the weapon supplies its own pair (like AKMSoviet above).
+        FTransform Root = FTransform::Identity;
+        for (int32 Index=Ref.FindBoneIndex(TEXT("WPN_root")); Index!=INDEX_NONE; Index=Ref.GetParentIndex(Index))
+        {
+            FTransform Local;
+            AimAnimation->GetBoneTransform(Local,FSkeletonPoseBoneIndex(Index),FAnimExtractContext(0.0,false),false);
+            Root=Root*Local;
+        }
+        Rear=Root.TransformPosition(SVDWeaponAssets::SightRear)*ViewmodelScale;
+        Front=Root.TransformPosition(SVDWeaponAssets::SightFront)*ViewmodelScale;
     }
     if (bHolographicOptic)
     {

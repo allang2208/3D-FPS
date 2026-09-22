@@ -3832,6 +3832,28 @@
           }
         ]
       }
+    },
+    {
+      "id": "ue_svd",
+      "model": "SVDDragunov",
+      "name": "SVD",
+      "allowed": [],
+      "base": {
+        "spread_mult": 1.6,
+        "ammo_item_id": "ammo_pkm_762x54r",
+        "ads_smooth": 11.5,
+        "mag_size": 10,
+        "recoil": 120,
+        "camera_shake": 105,
+        "fire_interval": 0.35,
+        "reload_time": 3.6,
+        "empty_reload_time": 4.6,
+        "damage": 65,
+        "bullet_speed": 520,
+        "effective_range": 150,
+        "stability_mult": 1.15
+      },
+      "options": {}
     }
   ],
   "common_options": {

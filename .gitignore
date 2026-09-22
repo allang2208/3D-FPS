@@ -477,3 +477,13 @@ __pycache__/
 !/SourceAssets/HighlandClaymoreMeshy20260922/WildRuneTotemV2_20260922/imagegen_prompt.txt
 !/SourceAssets/HighlandClaymoreMeshy20260922/ClovenGuard20260922/production.json
 /SourceAssets/HighlandClaymoreMeshy20260922/Meshy/
+
+# SVD Dragunov case (CC BY 4.0, LeroyCake): recipes, configs and read-back receipts publish;
+# the licensed source payload, authored FBX/blend binaries, textures and previews stay local.
+/SourceAssets/SVDDragunov20260922/**
+!/SourceAssets/SVDDragunov20260922/**/
+!/SourceAssets/SVDDragunov20260922/**/*.py
+!/SourceAssets/SVDDragunov20260922/**/*.ps1
+!/SourceAssets/SVDDragunov20260922/**/*.md
+!/SourceAssets/SVDDragunov20260922/Config/*.json
+!/SourceAssets/SVDDragunov20260922/Receipts/*.json

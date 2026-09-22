@@ -3007,6 +3007,30 @@
     "weaponType": "rifle",
     "ue_icon": "Icons/ue_a762.png"
   },
+  "ue_svd": {
+    "category": "weapon",
+    "desc": "冷战年代定型的半自动狙击步枪，长枪管配 7.62×54R 有底缘弹，出厂即带 PSO-1 四倍镜，镜筒偏置在机匣左侧，配骨架式枪托与十发弹匣。单发威力足，后坐偏重，射速受扳机限制，适合架住中远距离逐发放倒目标；近距离缠斗时换弹偏慢，必须留出退弹的余地。",
+    "equipSlot": "weapon",
+    "icon": "Icons/ue_svd.png",
+    "ue_icon": "Icons/ue_svd.png",
+    "id": "ue_svd",
+    "isTwoHanded": true,
+    "name": "SVD",
+    "rarity": "common",
+    "stack_max": 1,
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "65"
+      },
+      {
+        "name": "弹匣容量",
+        "value": "10"
+      }
+    ],
+    "type": "武器",
+    "weaponType": "rifle"
+  },
   "ue_frost_crystal_sword": {
     "id": "ue_frost_crystal_sword",
     "name": "寒晶·双手剑",

@@ -1,0 +1,56 @@
+{
+  "m4": {
+    "magazine_center": [
+      0.0613,
+      0.27393,
+      -0.13003
+    ],
+    "magazine_size": [
+      0.03799,
+      0.08522,
+      0.1763
+    ],
+    "WPN_SOCKET_Magazine": [
+      0.06447,
+      0.2252,
+      -0.17623
+    ],
+    "magazine_relative_to_socket": [
+      -0.00317,
+      0.04874,
+      0.0462
+    ]
+  },
+  "svd": {
+    "magazine_center": [
+      1.86,
+      -14.66,
+      -5.21
+    ],
+    "magazine_size_cm": [
+      2.67,
+      10.07,
+      10.03
+    ],
+    "WPN_SOCKET_Magazine": [
+      2.19,
+      -18.3,
+      -8.62
+    ],
+    "magazine_relative_to_socket_cm": [
+      -0.33,
+      3.64,
+      3.41
+    ],
+    "charger_handle_relative_to_trigger_bone_cm": [
+      3.12,
+      14.28,
+      1.25
+    ]
+  },
+  "delta_magazine_vs_m4_cm": [
+    -0.01,
+    -1.23,
+    -1.21
+  ]
+}

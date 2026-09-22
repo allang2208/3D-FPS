@@ -1,0 +1,74 @@
+{
+  "stage": "verify_viewmodel",
+  "mesh": "/Game/Weapons/SVDDragunov20260922/Viewmodel/SK_SVD_Manny",
+  "test_run": false,
+  "size_cm": [
+    110.87,
+    122.5,
+    77.47
+  ],
+  "origin_cm": [
+    0.0,
+    -40.82,
+    -34.58
+  ],
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton",
+  "m4_skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton",
+  "rides_shared_skeleton": true,
+  "lod_count": 1,
+  "lod0_verts": 52189,
+  "lod0_sections": 10,
+  "material_slots": [
+    {
+      "slot": "MI_Manny_01",
+      "material": "/Game/Weapons/M4InfimaV3/MI_Manny_01",
+      "parent": "/Game/Characters/ArmsSkinSleeveCandidate/M_Manny_Sleeve_01"
+    },
+    {
+      "slot": "MI_Manny_02",
+      "material": "/Game/Weapons/M4InfimaV3/MI_Manny_02",
+      "parent": "/Game/Characters/ArmsGloveCuff3cmCandidate/M_Manny_RolledCuff3cm_02"
+    },
+    {
+      "slot": "SM_SVD_Body",
+      "material": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_Body",
+      "parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Body"
+    },
+    {
+      "slot": "SM_SVD_ChargingHandle",
+      "material": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_ChargingHandle",
+      "parent": null
+    },
+    {
+      "slot": "SM_SVD_Magazine",
+      "material": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_Magazine",
+      "parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Magazine"
+    },
+    {
+      "slot": "SM_SVD_SafetyLever",
+      "material": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_SafetyLever",
+      "parent": null
+    },
+    {
+      "slot": "SM_SVD_ScopeBody",
+      "material": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_ScopeBody",
+      "parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_ScopeBody"
+    },
+    {
+      "slot": "SM_SVD_ScopeLens",
+      "material": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_ScopeLens",
+      "parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_ScopeLens"
+    },
+    {
+      "slot": "SM_SVD_ScopeMount",
+      "material": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_ScopeMount",
+      "parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_ScopeMount"
+    },
+    {
+      "slot": "SM_SVD_Trigger",
+      "material": "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_Trigger",
+      "parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Trigger"
+    }
+  ],
+  "unmapped_slots": []
+}

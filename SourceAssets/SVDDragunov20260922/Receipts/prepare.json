@@ -1,0 +1,90 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Source\\svd_source.glb",
+  "target_length_m": 1.225,
+  "source_length": 1.72084,
+  "scale_factor": 0.71186235,
+  "orientation": "muzzle -Y, up +Z (project FBX convention: axis_forward=-Y)",
+  "pivot": "assembly bbox centre (parts share one frame)",
+  "parts": {
+    "SM_SVD_Body": {
+      "source_object": "defaultMaterial",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Authored\\SM_SVD_Body.fbx",
+      "material_slot": "material_1",
+      "texture_set": "svd",
+      "tris": 25440,
+      "verts": 20010,
+      "size_m": [
+        0.05453,
+        1.225,
+        0.18322
+      ],
+      "bbox_min": [
+        0.00068,
+        -0.6125,
+        -0.10229
+      ],
+      "bbox_max": [
+        0.05521,
+        0.6125,
+        0.08092
+      ],
+      "max_loop_normal_angle_deg": 0.06,
+      "roundtrip": {
+        "tris": 25440,
+        "tris_match": true,
+        "max_loop_normal_angle_deg": 0.06,
+        "size_m": [
+          0.05453,
+          1.225,
+          0.18322
+        ],
+        "bbox_min": [
+          0.00068,
+          -0.6125,
+          -0.10229
+        ]
+      }
+    },
+    "SM_SVD_Scope": {
+      "source_object": "defaultMaterial.001",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Authored\\SM_SVD_Scope.fbx",
+      "material_slot": "material",
+      "texture_set": "pso",
+      "tris": 6049,
+      "verts": 5185,
+      "size_m": [
+        0.07641,
+        0.30687,
+        0.13736
+      ],
+      "bbox_min": [
+        -0.0222,
+        -0.39573,
+        -0.00575
+      ],
+      "bbox_max": [
+        0.0542,
+        -0.08885,
+        0.13161
+      ],
+      "max_loop_normal_angle_deg": 0.55,
+      "roundtrip": {
+        "tris": 6049,
+        "tris_match": true,
+        "max_loop_normal_angle_deg": 0.55,
+        "size_m": [
+          0.07641,
+          0.30687,
+          0.13736
+        ],
+        "bbox_min": [
+          -0.0222,
+          -0.39573,
+          -0.00575
+        ]
+      }
+    }
+  },
+  "stage": "exported",
+  "editable_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Authored\\SVD_Editable.blend"
+}

@@ -1,0 +1,116 @@
+{
+  "renames": [
+    {
+      "old": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Charginghandle",
+      "new": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_ChargingHandle",
+      "rename_to_tmp": true,
+      "rename_back": true,
+      "exists_after": true
+    },
+    {
+      "old": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Safetylever",
+      "new": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_SafetyLever",
+      "rename_to_tmp": true,
+      "rename_back": true,
+      "exists_after": true
+    }
+  ],
+  "orientation": {
+    "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416": {
+      "found": true,
+      "size_cm": [
+        110.87,
+        71.59,
+        74.74
+      ],
+      "longest_axis": "X",
+      "origin_cm": [
+        0.0,
+        -23.44,
+        -35.94
+      ],
+      "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton"
+    },
+    "/Game/Weapons/QBZ191/SK_QBZ191_Manny": {
+      "found": true,
+      "size_cm": [
+        53.35,
+        99.51,
+        45.86
+      ],
+      "longest_axis": "Y",
+      "origin_cm": [
+        -8.42,
+        -20.8,
+        -3.92
+      ],
+      "skeleton": "/Game/Weapons/QBZ191/SK_QBZ191_Manny_Skeleton"
+    },
+    "/Game/Weapons/SVDDragunov20260922/Meshes/SM_SVD_Body": {
+      "found": true,
+      "size_cm": [
+        3.73,
+        122.5,
+        17.8
+      ],
+      "longest_axis": "Y",
+      "origin_cm": [
+        1.93,
+        0.0,
+        -0.81
+      ],
+      "material_slots": 1
+    }
+  },
+  "stale": [],
+  "svd_parts": {
+    "SM_SVD_Body": {
+      "origin": [
+        1.93,
+        0.0,
+        -0.81
+      ],
+      "extent": [
+        3.73,
+        122.5,
+        17.8
+      ]
+    },
+    "SM_SVD_Magazine": {
+      "origin": [
+        1.86,
+        14.66,
+        -5.21
+      ],
+      "extent": [
+        2.67,
+        10.07,
+        10.03
+      ]
+    },
+    "SM_SVD_Trigger": {
+      "origin": [
+        1.86,
+        19.66,
+        -3.07
+      ],
+      "extent": [
+        1.78,
+        1.87,
+        3.13
+      ]
+    },
+    "SM_SVD_ScopeBody": {
+      "origin": [
+        1.6,
+        24.23,
+        6.29
+      ],
+      "extent": [
+        7.64,
+        30.69,
+        13.74
+      ]
+    }
+  }
+}

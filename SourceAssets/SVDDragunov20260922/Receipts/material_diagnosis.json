@@ -1,0 +1,539 @@
+{
+  "textures": {
+    "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_basecolor": {
+      "found": true,
+      "class": "Texture2D",
+      "size": [
+        4096,
+        4096
+      ],
+      "srgb": true,
+      "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>",
+      "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD: 0>"
+    },
+    "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_basecolor": {
+      "found": true,
+      "class": "Texture2D",
+      "size": [
+        4096,
+        4096
+      ],
+      "srgb": true,
+      "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>",
+      "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD: 0>"
+    },
+    "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_normal": {
+      "found": true,
+      "class": "Texture2D",
+      "size": [
+        4096,
+        4096
+      ],
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>",
+      "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD_NORMAL_MAP: 1>"
+    },
+    "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_normal": {
+      "found": true,
+      "class": "Texture2D",
+      "size": [
+        4096,
+        4096
+      ],
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>",
+      "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD_NORMAL_MAP: 1>"
+    },
+    "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_roughness": {
+      "found": true,
+      "class": "Texture2D",
+      "size": [
+        4096,
+        4096
+      ],
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>",
+      "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD: 0>"
+    },
+    "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_roughness": {
+      "found": true,
+      "class": "Texture2D",
+      "size": [
+        4096,
+        4096
+      ],
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>",
+      "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD: 0>"
+    },
+    "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_metallic": {
+      "found": true,
+      "class": "Texture2D",
+      "size": [
+        4096,
+        4096
+      ],
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>",
+      "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD: 0>"
+    },
+    "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_metallic": {
+      "found": true,
+      "class": "Texture2D",
+      "size": [
+        4096,
+        4096
+      ],
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>",
+      "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD: 0>"
+    },
+    "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_ao": {
+      "found": true,
+      "class": "Texture2D",
+      "size": [
+        4096,
+        4096
+      ],
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>",
+      "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD: 0>"
+    },
+    "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_ao": {
+      "found": true,
+      "class": "Texture2D",
+      "size": [
+        4096,
+        4096
+      ],
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>",
+      "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD: 0>"
+    }
+  },
+  "materials": {
+    "Body": {
+      "found": true,
+      "expressions": 10,
+      "samples": [
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_basecolor",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_basecolor",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_COLOR: 0>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_ao",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_ao",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_normal",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_normal",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_NORMAL: 3>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_roughness",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_roughness",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_metallic",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_metallic",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        }
+      ],
+      "params": [],
+      "base_color_connected": true
+    },
+    "Magazine": {
+      "found": true,
+      "expressions": 10,
+      "samples": [
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_basecolor",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_basecolor",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_COLOR: 0>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_ao",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_ao",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_normal",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_normal",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_NORMAL: 3>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_roughness",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_roughness",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_metallic",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_metallic",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        }
+      ],
+      "params": [],
+      "base_color_connected": true
+    },
+    "Trigger": {
+      "found": true,
+      "expressions": 10,
+      "samples": [
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_basecolor",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_basecolor",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_COLOR: 0>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_ao",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_ao",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_normal",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_normal",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_NORMAL: 3>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_roughness",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_roughness",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_metallic",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_metallic",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        }
+      ],
+      "params": [],
+      "base_color_connected": true
+    },
+    "ChargingHandle": {
+      "found": true,
+      "expressions": 10,
+      "samples": [
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_basecolor",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_basecolor",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_COLOR: 0>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_ao",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_ao",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_normal",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_normal",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_NORMAL: 3>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_roughness",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_roughness",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_metallic",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_metallic",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        }
+      ],
+      "params": [],
+      "base_color_connected": true
+    },
+    "SafetyLever": {
+      "found": true,
+      "expressions": 10,
+      "samples": [
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_basecolor",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_basecolor",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_COLOR: 0>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_ao",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_ao",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_normal",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_normal",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_NORMAL: 3>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_roughness",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_roughness",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_metallic",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_metallic",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        }
+      ],
+      "params": [],
+      "base_color_connected": true
+    },
+    "ScopeBody": {
+      "found": true,
+      "expressions": 10,
+      "samples": [
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_basecolor",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_basecolor",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_COLOR: 0>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_ao",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_ao",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_normal",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_normal",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_NORMAL: 3>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_roughness",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_roughness",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_metallic",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_metallic",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        }
+      ],
+      "params": [],
+      "base_color_connected": true
+    },
+    "ScopeMount": {
+      "found": true,
+      "expressions": 10,
+      "samples": [
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_basecolor",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_basecolor",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_COLOR: 0>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_ao",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_ao",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_normal",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_normal",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_NORMAL: 3>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_roughness",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_roughness",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_metallic",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_metallic",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        }
+      ],
+      "params": [],
+      "base_color_connected": true
+    },
+    "ScopeLens": {
+      "found": true,
+      "expressions": 10,
+      "samples": [
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_basecolor",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_basecolor",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_COLOR: 0>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_ao",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_ao",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_normal",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_normal",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_NORMAL: 3>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_roughness",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_roughness",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        },
+        {
+          "class": "MaterialExpressionTextureSampleParameter2D",
+          "parameter": "Tex_metallic",
+          "texture": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_metallic",
+          "sampler": "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+        }
+      ],
+      "params": [],
+      "base_color_connected": true
+    }
+  },
+  "instances": {
+    "Body": {
+      "found": true,
+      "parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Body",
+      "parameter_values": {
+        "Tex_basecolor": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_basecolor",
+        "Tex_normal": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_normal",
+        "Tex_roughness": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_roughness",
+        "Tex_metallic": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_metallic",
+        "Tex_ao": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_ao"
+      }
+    },
+    "Magazine": {
+      "found": true,
+      "parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Magazine",
+      "parameter_values": {
+        "Tex_basecolor": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_basecolor",
+        "Tex_normal": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_normal",
+        "Tex_roughness": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_roughness",
+        "Tex_metallic": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_metallic",
+        "Tex_ao": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_ao"
+      }
+    },
+    "Trigger": {
+      "found": true,
+      "parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Trigger",
+      "parameter_values": {
+        "Tex_basecolor": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_basecolor",
+        "Tex_normal": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_normal",
+        "Tex_roughness": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_roughness",
+        "Tex_metallic": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_metallic",
+        "Tex_ao": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_ao"
+      }
+    },
+    "ChargingHandle": {
+      "found": true,
+      "parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_ChargingHandle",
+      "parameter_values": {
+        "Tex_basecolor": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_basecolor",
+        "Tex_normal": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_normal",
+        "Tex_roughness": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_roughness",
+        "Tex_metallic": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_metallic",
+        "Tex_ao": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_ao"
+      }
+    },
+    "SafetyLever": {
+      "found": true,
+      "parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_SafetyLever",
+      "parameter_values": {
+        "Tex_basecolor": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_basecolor",
+        "Tex_normal": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_normal",
+        "Tex_roughness": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_roughness",
+        "Tex_metallic": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_metallic",
+        "Tex_ao": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_svd_ao"
+      }
+    },
+    "ScopeBody": {
+      "found": true,
+      "parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_ScopeBody",
+      "parameter_values": {
+        "Tex_basecolor": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_basecolor",
+        "Tex_normal": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_normal",
+        "Tex_roughness": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_roughness",
+        "Tex_metallic": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_metallic",
+        "Tex_ao": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_ao"
+      }
+    },
+    "ScopeMount": {
+      "found": true,
+      "parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_ScopeMount",
+      "parameter_values": {
+        "Tex_basecolor": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_basecolor",
+        "Tex_normal": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_normal",
+        "Tex_roughness": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_roughness",
+        "Tex_metallic": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_metallic",
+        "Tex_ao": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_ao"
+      }
+    },
+    "ScopeLens": {
+      "found": true,
+      "parent": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_ScopeLens",
+      "parameter_values": {
+        "Tex_basecolor": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_basecolor",
+        "Tex_normal": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_normal",
+        "Tex_roughness": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_roughness",
+        "Tex_metallic": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_metallic",
+        "Tex_ao": "/Game/Weapons/SVDDragunov20260922/Textures/T_SVD_pso_ao"
+      }
+    }
+  },
+  "mesh": {
+    "found": true,
+    "lod0_verts": 52189,
+    "slots": [
+      "MI_Manny_01",
+      "MI_Manny_02",
+      "SM_SVD_Body",
+      "SM_SVD_ChargingHandle",
+      "SM_SVD_Magazine",
+      "SM_SVD_SafetyLever",
+      "SM_SVD_ScopeBody",
+      "SM_SVD_ScopeLens",
+      "SM_SVD_ScopeMount",
+      "SM_SVD_Trigger"
+    ],
+    "slot_materials": [
+      "/Game/Weapons/M4InfimaV3/MI_Manny_01",
+      "/Game/Weapons/M4InfimaV3/MI_Manny_02",
+      "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_Body",
+      "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_ChargingHandle",
+      "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_Magazine",
+      "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_SafetyLever",
+      "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_ScopeBody",
+      "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_ScopeLens",
+      "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_ScopeMount",
+      "/Game/Weapons/SVDDragunov20260922/Materials/MI_SVD_Trigger"
+    ],
+    "uv_channels": 10
+  }
+}

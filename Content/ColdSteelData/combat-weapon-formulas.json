@@ -161,6 +161,23 @@
       }
     ]
   },
+  "ue_svd": {
+    "source": "SVD_ITEM",
+    "base": 15,
+    "enhanceFlat": 1.05,
+    "attrs": [
+      {
+        "key": "int",
+        "base": 0.48,
+        "perEnhance": 0.085
+      },
+      {
+        "key": "wis",
+        "base": 0.48,
+        "perEnhance": 0.085
+      }
+    ]
+  },
   "ue_highland_claymore": {
     "source": "HIGHLAND_CLAYMORE_SHARED_TWO_HANDED_RULES",
     "base": 40,

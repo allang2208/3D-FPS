@@ -1,0 +1,102 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Source\\svd_source.glb",
+  "objects": [
+    {
+      "name": "defaultMaterial",
+      "tris": 25440,
+      "verts": 20010,
+      "slots": [
+        "material_1"
+      ],
+      "slot_stats": {
+        "0": {
+          "min": [
+            0.1439,
+            -0.8604,
+            -0.0168
+          ],
+          "max": [
+            0.2205,
+            0.8604,
+            0.2406
+          ],
+          "polys": 25440,
+          "size": [
+            0.0766,
+            1.7208,
+            0.2574
+          ],
+          "center": [
+            0.1822,
+            0.0,
+            0.1119
+          ]
+        }
+      },
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "defaultMaterial.001",
+      "tris": 6049,
+      "verts": 5185,
+      "slots": [
+        "material"
+      ],
+      "slot_stats": {
+        "0": {
+          "min": [
+            0.1117,
+            -0.5559,
+            0.1188
+          ],
+          "max": [
+            0.2191,
+            -0.1248,
+            0.3118
+          ],
+          "polys": 6049,
+          "size": [
+            0.1073,
+            0.4311,
+            0.193
+          ],
+          "center": [
+            0.1654,
+            -0.3404,
+            0.2153
+          ]
+        }
+      },
+      "uv_layers": [
+        "UVMap"
+      ]
+    }
+  ],
+  "tris": 31489,
+  "bbox_min": [
+    0.1117,
+    -0.8604,
+    -0.0168
+  ],
+  "bbox_max": [
+    0.2205,
+    0.8604,
+    0.3118
+  ],
+  "size": [
+    0.1088,
+    1.7208,
+    0.3286
+  ],
+  "longest_axis": 1,
+  "images": [
+    "Image_0",
+    "Image_1",
+    "Image_2",
+    "Image_3",
+    "Image_4",
+    "Image_5"
+  ]
+}

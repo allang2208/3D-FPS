@@ -1,0 +1,21 @@
+{
+  "case": "SVDDragunov20260922",
+  "title": "SVD (Dragunov sniper rifle)",
+  "uid": "2ac78fb5a0eb40f5a02a5b0a9f566abf",
+  "url": "https://sketchfab.com/3d-models/svd-dragunov-sniper-rifle-2ac78fb5a0eb40f5a02a5b0a9f566abf",
+  "author": "LeroyCake",
+  "author_url": "https://sketchfab.com/leroycake",
+  "license": "CC Attribution (CC BY 4.0) - 允许商用，必须署名",
+  "retrieved_utc": "2026-09-22",
+  "source_faces": 31516,
+  "source_verts": 16669,
+  "source_textures": 10,
+  "source_note": "作者自述「Another weapon made by myself. A simple soviet/russian sniper rifle - SVD. Caliber 7.62. Plastic stock version」；无骨骼、无动画",
+  "real_world": {
+    "length_m": 1.225,
+    "barrel_length_m": 0.62,
+    "note": "SVD 实枪全长 1225 mm；导入按此归一化，枪口朝 +X、上方 +Z"
+  },
+  "content_root": "/Game/Weapons/SVDDragunov20260922",
+  "scope": "本轮只做下载 + 模型/材质导入为资产；绑共享 Manny 手臂、机械分件骨骼、动作、数值/图标/音效与实机验收不在本轮范围"
+}

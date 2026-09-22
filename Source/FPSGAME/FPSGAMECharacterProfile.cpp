@@ -19,7 +19,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     if(auto* H=FindComponentByClass<UFPSCombatHealthComponent>()){H->MaxHealth=Profile->Derived(TEXT("maxHp"));H->Health=FMath::Clamp(P.Health,0.f,H->MaxHealth);}
     const auto* I=Profile->Equipped();const FString Id=I?I->InstanceId:TEXT("");
     const bool WasWeaponReady=bInventoryWeaponReady;
-    bInventoryWeaponReady=!Profile->ActiveProductionTool()&&I&&(I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_a762")||I->Definition==TEXT("ue_qbz191")||I->Definition==TEXT("ue_ash12")||I->Definition==TEXT("ue_m16a2")||(I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_dan_wesson715")));
+    bInventoryWeaponReady=!Profile->ActiveProductionTool()&&I&&(I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_a762")||I->Definition==TEXT("ue_svd")||I->Definition==TEXT("ue_qbz191")||I->Definition==TEXT("ue_ash12")||I->Definition==TEXT("ue_m16a2")||(I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_dan_wesson715")));
     const bool ChangedWeapon=ActiveInventoryWeapon!=Id||WasWeaponReady!=bInventoryWeaponReady;
     const bool PistolInput=ChangedWeapon&&bInventoryWeaponReady&&(I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_dan_wesson715"));
     const bool ResumePistolAim=PistolInput&&bAimHeld;

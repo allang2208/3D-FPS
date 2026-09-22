@@ -1,0 +1,32 @@
+{
+  "fixed": [
+    {
+      "part": "ChargingHandle",
+      "was": null
+    },
+    {
+      "part": "SafetyLever",
+      "was": null
+    }
+  ],
+  "already_ok": [
+    "Body",
+    "Magazine",
+    "Trigger",
+    "ScopeBody",
+    "ScopeMount",
+    "ScopeLens"
+  ],
+  "failed": [],
+  "parents_after": {
+    "Body": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Body",
+    "Magazine": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Magazine",
+    "Trigger": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_Trigger",
+    "ChargingHandle": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_ChargingHandle",
+    "SafetyLever": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_SafetyLever",
+    "ScopeBody": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_ScopeBody",
+    "ScopeMount": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_ScopeMount",
+    "ScopeLens": "/Game/Weapons/SVDDragunov20260922/Materials/M_SVD_ScopeLens"
+  },
+  "all_parents_ok": true
+}

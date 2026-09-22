@@ -1,0 +1,149 @@
+{
+  "case": "SVDDragunov20260922",
+  "content_root": "/Game/Weapons/SVDDragunov20260922",
+  "texture_max_size": 4096,
+  "normal_to_png": true,
+  "naming": {
+    "mesh": "SM_SVD_<Part>",
+    "material": "M_SVD_<part_name>",
+    "material_instance": "MI_SVD_<part_name>",
+    "texture": "T_SVD_<Set>_<Role>"
+  },
+  "assembly": "所有部件共用整枪原点（同一坐标架），摆同一变换即为整枪装配；分件由壳体重组得到，未裁切表面",
+  "parts": [
+    {
+      "key": "body",
+      "mesh_name": "SM_SVD_Body",
+      "source_slot": null,
+      "texture_set": "svd",
+      "tris": 19252,
+      "size_m": [
+        0.0373,
+        1.225,
+        0.178
+      ],
+      "collision": "complex",
+      "role": "枪体主根：机匣、枪管、护木、枪托、握把、准星与机匣顶盖",
+      "maps": {
+        "basecolor": "source/model/model/textures/svd_albedo.jpg",
+        "normal": "source/model/model/textures/svd_normal.jpg",
+        "roughness": "source/model/model/textures/svd_roughness.jpg",
+        "metallic": "source/model/model/textures/svd_metallic.jpg",
+        "ao": "source/model/model/textures/svd_AO.jpg"
+      },
+      "part_name": "Body"
+    },
+    {
+      "key": "magazine",
+      "mesh_name": "SM_SVD_Magazine",
+      "source_slot": null,
+      "texture_set": "svd",
+      "tris": 4936,
+      "size_m": [
+        0.0268,
+        0.1007,
+        0.1003
+      ],
+      "collision": "complex",
+      "role": "弹匣（含加强筋与底板），供换弹动作驱动",
+      "part_name": "Magazine"
+    },
+    {
+      "key": "trigger",
+      "mesh_name": "SM_SVD_Trigger",
+      "source_slot": null,
+      "texture_set": "svd",
+      "tris": 428,
+      "size_m": [
+        0.0178,
+        0.0187,
+        0.0313
+      ],
+      "collision": "complex",
+      "role": "扳机",
+      "part_name": "Trigger"
+    },
+    {
+      "key": "charginghandle",
+      "mesh_name": "SM_SVD_ChargingHandle",
+      "source_slot": null,
+      "texture_set": "svd",
+      "tris": 96,
+      "size_m": [
+        0.0221,
+        0.0201,
+        0.0063
+      ],
+      "collision": "complex",
+      "role": "拉机柄（右侧，随枪机往复）",
+      "part_name": "ChargingHandle"
+    },
+    {
+      "key": "safetylever",
+      "mesh_name": "SM_SVD_SafetyLever",
+      "source_slot": null,
+      "texture_set": "svd",
+      "tris": 728,
+      "size_m": [
+        0.0061,
+        0.1088,
+        0.0354
+      ],
+      "collision": "complex",
+      "role": "保险／快慢机长杆（右侧）",
+      "part_name": "SafetyLever"
+    },
+    {
+      "key": "scopebody",
+      "mesh_name": "SM_SVD_ScopeBody",
+      "source_slot": null,
+      "texture_set": "pso",
+      "tris": 3859,
+      "size_m": [
+        0.0764,
+        0.3069,
+        0.1374
+      ],
+      "collision": "complex",
+      "role": "PSO-1 镜筒：管身、目镜罩、物镜端、高低／风偏转螺与照明座",
+      "part_name": "ScopeBody"
+    },
+    {
+      "key": "scopemount",
+      "mesh_name": "SM_SVD_ScopeMount",
+      "source_slot": null,
+      "texture_set": "pso",
+      "tris": 1835,
+      "size_m": [
+        0.0304,
+        0.1529,
+        0.0769
+      ],
+      "collision": "complex",
+      "role": "PSO-1 侧装镜座卡箍（扣在机匣导轨上）；与镜筒分开以便装拆与共用挂点",
+      "part_name": "ScopeMount"
+    },
+    {
+      "key": "scopelens",
+      "mesh_name": "SM_SVD_ScopeLens",
+      "source_slot": null,
+      "texture_set": "pso",
+      "tris": 355,
+      "size_m": [
+        0.0405,
+        0.3005,
+        0.0405
+      ],
+      "collision": "none",
+      "role": "镜片组：沿镜筒分布的 11 片光学件（物镜／转像镜／分划／目镜），口径 2.9–5.7 cm；留作后续套用项目光学玻璃与分划材质",
+      "note": "源把它们建成零厚度圆盘；本轮沿用 pso_* 材质，未替换为玻璃材质（项目光学材质规范另属一步）",
+      "part_name": "ScopeLens"
+    }
+  ],
+  "notes": [
+    "分件方式：按已测量的壳体区域重组（枪体 4 件 + 瞄具 3 件），不裁切表面，因此每个部件保持闭合、UV 与法线不变；面数总和 31,489 与源一致。",
+    "镜座判定：x≤0.156 且 z≤0.23（镜筒轴线在 z≈0.259，镜座在其左下）；镜片判定：沿 Y 零厚度、圆形（长短径差 ≤6 mm）、居中于镜筒轴线。",
+    "所有部件在 Blender 中共用同一坐标架，枪口 -Y、上方 +Z（项目 FBX 约定 → UE 中 +X 正向）。",
+    "本轮范围：模型 + 分件 + 材质导入为资产。绑共享 Manny 手臂、骨骼与动作、数值/图标/音效不在本轮。"
+  ]
+}

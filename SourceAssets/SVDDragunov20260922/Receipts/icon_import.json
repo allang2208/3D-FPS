@@ -1,0 +1,15 @@
+{
+  "icon": "/Game/ColdSteelData/Icons/ue_svd",
+  "size": [
+    768,
+    320
+  ],
+  "srgb": true,
+  "compression_settings": "<TextureCompressionSettings.TC_DEFAULT: 0>",
+  "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD: 0>",
+  "matches_reference": true,
+  "settings_missing": [
+    "texture_group: Texture2D: Failed to find property 'texture_group' for attribute 'texture_group' on 'Texture2D'"
+  ],
+  "png": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\Icons\\ue_svd.png"
+}

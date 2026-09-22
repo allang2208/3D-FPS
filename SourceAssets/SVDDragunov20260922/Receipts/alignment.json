@@ -1,0 +1,73 @@
+{
+  "m4_grip": [
+    0.06125,
+    0.12613,
+    -0.12878
+  ],
+  "m4_trigger": [
+    0.05685,
+    0.19336,
+    -0.08865
+  ],
+  "m4_grip_to_trigger": [
+    -0.0044,
+    0.06723,
+    0.04013
+  ],
+  "m4_grip_to_trigger_len": 0.07842,
+  "svd_grip": [
+    0.01865,
+    -0.28207,
+    -0.03877
+  ],
+  "svd_trigger": [
+    0.01861,
+    -0.1966,
+    -0.03074
+  ],
+  "svd_grip_to_trigger": [
+    -4e-05,
+    0.08548,
+    0.00802
+  ],
+  "svd_grip_to_trigger_len": 0.08585,
+  "grip_pts": 354,
+  "yaw_deg": 0.0,
+  "orientation_check": {
+    "m4_trigger_forward_of_grip_m": 0.06723,
+    "svd_trigger_forward_of_grip_m": 0.08548,
+    "m4_magazine_forward_of_grip_m": 0.1478,
+    "svd_magazine_forward_of_grip_m": 0.13548
+  },
+  "translation": [
+    0.0426,
+    0.40821,
+    -0.09002
+  ],
+  "trigger_error_m": 0.03719,
+  "grip_error_m": 0.0,
+  "m4_muzzle": [
+    0.05128,
+    0.56886,
+    -0.02603
+  ],
+  "svd_muzzle_y": 1.02071,
+  "svd_bore_z": -0.06576,
+  "m4_bore_z": -0.02603,
+  "marker_grip": [
+    0.06125,
+    0.12613,
+    -0.12878
+  ],
+  "marker_trigger": [
+    0.05685,
+    0.19336,
+    -0.08865
+  ],
+  "marker_muzzle": [
+    0.05128,
+    0.56886,
+    -0.02603
+  ],
+  "aligned_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Authored\\SVD_Aligned.blend"
+}

@@ -1,0 +1,108 @@
+[
+  {
+    "part": "body",
+    "role": "basecolor",
+    "texture_set": "svd",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Source\\source\\model\\model\\textures\\svd_albedo.jpg",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Textures\\T_SVD_svd_basecolor.jpg",
+    "asset_name": "T_SVD_svd_basecolor",
+    "original_size": null,
+    "bytes": 1868779
+  },
+  {
+    "part": "body",
+    "role": "normal",
+    "texture_set": "svd",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Source\\source\\model\\model\\textures\\svd_normal.jpg",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Textures\\T_SVD_svd_normal.png",
+    "asset_name": "T_SVD_svd_normal",
+    "original_size": [
+      4096,
+      4096
+    ],
+    "bytes": 9094713
+  },
+  {
+    "part": "body",
+    "role": "roughness",
+    "texture_set": "svd",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Source\\source\\model\\model\\textures\\svd_roughness.jpg",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Textures\\T_SVD_svd_roughness.jpg",
+    "asset_name": "T_SVD_svd_roughness",
+    "original_size": null,
+    "bytes": 3001317
+  },
+  {
+    "part": "body",
+    "role": "metallic",
+    "texture_set": "svd",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Source\\source\\model\\model\\textures\\svd_metallic.jpg",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Textures\\T_SVD_svd_metallic.jpg",
+    "asset_name": "T_SVD_svd_metallic",
+    "original_size": null,
+    "bytes": 2208928
+  },
+  {
+    "part": "body",
+    "role": "ao",
+    "texture_set": "svd",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Source\\source\\model\\model\\textures\\svd_AO.jpg",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Textures\\T_SVD_svd_ao.jpg",
+    "asset_name": "T_SVD_svd_ao",
+    "original_size": null,
+    "bytes": 1367419
+  },
+  {
+    "part": "scope",
+    "role": "basecolor",
+    "texture_set": "pso",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Source\\source\\model\\model\\textures\\pso_albedo.jpg",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Textures\\T_SVD_pso_basecolor.jpg",
+    "asset_name": "T_SVD_pso_basecolor",
+    "original_size": null,
+    "bytes": 2507431
+  },
+  {
+    "part": "scope",
+    "role": "normal",
+    "texture_set": "pso",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Source\\source\\model\\model\\textures\\pso_normal.jpg",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Textures\\T_SVD_pso_normal.png",
+    "asset_name": "T_SVD_pso_normal",
+    "original_size": [
+      4096,
+      4096
+    ],
+    "bytes": 9490036
+  },
+  {
+    "part": "scope",
+    "role": "roughness",
+    "texture_set": "pso",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Source\\source\\model\\model\\textures\\pso_roughness.jpg",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Textures\\T_SVD_pso_roughness.jpg",
+    "asset_name": "T_SVD_pso_roughness",
+    "original_size": null,
+    "bytes": 3070051
+  },
+  {
+    "part": "scope",
+    "role": "metallic",
+    "texture_set": "pso",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Source\\source\\model\\model\\textures\\pso_metallic.jpg",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Textures\\T_SVD_pso_metallic.jpg",
+    "asset_name": "T_SVD_pso_metallic",
+    "original_size": null,
+    "bytes": 1908756
+  },
+  {
+    "part": "scope",
+    "role": "ao",
+    "texture_set": "pso",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Source\\source\\model\\model\\textures\\pso_AO.jpg",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVDDragunov20260922\\Textures\\T_SVD_pso_ao.jpg",
+    "asset_name": "T_SVD_pso_ao",
+    "original_size": null,
+    "bytes": 1195862
+  }
+]

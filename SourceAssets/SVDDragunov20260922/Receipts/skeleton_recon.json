@@ -1,0 +1,60 @@
+{
+  "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton": {
+    "found": true,
+    "class": "Skeleton",
+    "bone_api": [
+      "copy_bones_from_skeleton",
+      "get_reference_pose"
+    ],
+    "errors": [
+      "get_reference_pose: 'AnimPose' object is not iterable",
+      "bone_tree: BoneNode: Property 'Name' for attribute 'name' on 'BoneNode' is protected and cannot be read",
+      "reference_skeleton: Skeleton: Failed to find property 'reference_skeleton' for attribute 'reference_skeleton' on 'Skeleton'"
+    ],
+    "bones": null,
+    "bone_count": 0
+  },
+  "/Game/Weapons/QBZ191/SK_QBZ191_Manny_Skeleton": {
+    "found": true,
+    "class": "Skeleton",
+    "bone_api": [
+      "copy_bones_from_skeleton",
+      "get_reference_pose"
+    ],
+    "errors": [
+      "get_reference_pose: 'AnimPose' object is not iterable",
+      "bone_tree: BoneNode: Property 'Name' for attribute 'name' on 'BoneNode' is protected and cannot be read",
+      "reference_skeleton: Skeleton: Failed to find property 'reference_skeleton' for attribute 'reference_skeleton' on 'Skeleton'"
+    ],
+    "bones": null,
+    "bone_count": 0
+  },
+  "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416": {
+    "found": true,
+    "class": "SkeletalMesh",
+    "bone_api": [
+      "get_bone_children",
+      "get_bone_parent"
+    ],
+    "errors": [
+      "bone_tree: SkeletalMesh: Failed to find property 'bone_tree' for attribute 'bone_tree' on 'SkeletalMesh'",
+      "reference_skeleton: SkeletalMesh: Failed to find property 'reference_skeleton' for attribute 'reference_skeleton' on 'SkeletalMesh'"
+    ],
+    "bones": null,
+    "bone_count": 0
+  },
+  "/Game/Weapons/QBZ191/SK_QBZ191_Manny": {
+    "found": true,
+    "class": "SkeletalMesh",
+    "bone_api": [
+      "get_bone_children",
+      "get_bone_parent"
+    ],
+    "errors": [
+      "bone_tree: SkeletalMesh: Failed to find property 'bone_tree' for attribute 'bone_tree' on 'SkeletalMesh'",
+      "reference_skeleton: SkeletalMesh: Failed to find property 'reference_skeleton' for attribute 'reference_skeleton' on 'SkeletalMesh'"
+    ],
+    "bones": null,
+    "bone_count": 0
+  }
+}
