@@ -1,0 +1,33 @@
+[
+  {
+    "id": "false",
+    "name": "原装剑身Ⅱ",
+    "key": "ue_rune_sword_blade_2_false"
+  },
+  {
+    "id": "resonance_rune",
+    "name": "共鸣符文",
+    "key": "ue_rune_sword_blade_2_resonance_rune"
+  },
+  {
+    "id": "erosion_rune",
+    "name": "侵蚀符文",
+    "key": "ue_rune_sword_blade_2_erosion_rune"
+  },
+  {
+    "id": "conduction_rune",
+    "name": "导魔符文",
+    "key": "ue_rune_sword_blade_2_conduction_rune"
+  },
+  {
+    "id": "golden_glow_rune",
+    "name": "金色符文强化",
+    "key": "ue_rune_sword_blade_2_golden_glow_rune"
+  },
+  {
+    "id": "category",
+    "name": "剑身Ⅱ分类",
+    "key": "ue_rune_sword_category_blade_2",
+    "copy": "ue_rune_sword_blade_2_false"
+  }
+]

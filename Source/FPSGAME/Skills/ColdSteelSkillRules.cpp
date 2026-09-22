@@ -155,7 +155,7 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
         auto& T=D.DashAttack;
         T.DamageBase=Num(TEXT("damageMultiplierBase"),1.75);T.DamagePerLevel=Num(TEXT("damageMultiplierPerLevel"),.05);
         T.ReadySeconds=Num(TEXT("readySeconds"),1);T.ReadyReductionPerLevel=Num(TEXT("readyReductionPerLevel"),.03);
-        T.StaminaCost=Num(TEXT("staminaCost"),20);T.Distance=Num(TEXT("distance"),0);
+        T.StaminaCost=Num(TEXT("staminaCost"),20);T.Distance=Num(TEXT("distanceCM"),100);
         T.SpeedMultiplier=Num(TEXT("speedMultiplier"),0);T.BounceRatio=Num(TEXT("bounceRatio"),0);T.UnitsToCM=Num(TEXT("unitsToCM"),1.5);
         T.RangeBase=Num(TEXT("rangeBonusBase"),6);T.RangePerLevel=Num(TEXT("rangeBonusPerLevel"),6);T.RangeFlat=Num(TEXT("rangeBonusFlat"),55);
         T.KnockbackBonus=Num(TEXT("knockbackBonus"),188);T.KnockbackPerLevel=Num(TEXT("knockbackPerLevel"),6);
@@ -317,7 +317,13 @@ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelIt
             if(bFiredRound)Shot.ArmorPenetration=FMath::Clamp(Shot.ArmorPenetration+M->AmmoArmorPenetration(*I),0.f,1.f);
             if(Shot.ItemDefinition.IsEmpty())Shot.ItemDefinition=I->Definition;
             Shot.bMelee=ColdSteelInventory::IsMeleeWeapon(*I);
-            if(ColdSteelInventory::IsMeleeWeapon(*I))Shot.DamagePanel=ColdSteelMelee::Evaluate(*I,M).DamageParts;
+            if(Shot.bMelee)
+            {
+                const auto Melee=ColdSteelMelee::Evaluate(*I,M);
+                Shot.DamagePanel=Melee.DamageParts;
+                Shot.ArmorPenetration=FMath::Clamp(Shot.ArmorPenetration+float(Melee.Modifiers.PhysicalArmorPenetration),0.f,1.f);
+                Shot.ToughnessDamageMultiplier=Melee.Modifiers.ToughnessDamage;
+            }
             else if(const auto* G=Shooter->GetGameInstance()->GetSubsystem<UGunsmithSystem>();G&&G->Weapon(I->Definition))
                 Shot.DamagePanel=ColdSteelWeaponStats::DamageParts(*I,M,G->Calculate(I->Definition,G->Installed(*I)).Damage);
         }

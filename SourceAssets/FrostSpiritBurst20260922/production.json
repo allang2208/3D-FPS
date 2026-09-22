@@ -1,0 +1,26 @@
+{
+  "icon_mode": "built-in image_gen",
+  "icon_source": "C:/Users/allan/.codex/generated_images/01a0c6c5-5fe4-7550-8c0f-abed299812e8/exec-06600840-f410-4506-a42c-d49393a84b3a.png",
+  "icon_prompt": "icon_prompt.json",
+  "mask": "/Game/Weapons/MeleeRunes20260915/SurfaceV2/T_Mask_erosion_rune",
+  "pattern": "existing erosion cracks plus three procedural diamond nodes and paired expanding waves",
+  "colors_linear": {
+    "BurstColor": [
+      0.4,
+      0.004,
+      0.92,
+      1
+    ],
+    "InnerColor": [
+      0.015,
+      0.28,
+      0.8,
+      1
+    ]
+  },
+  "scalars": {
+    "BurstRate": 0.55,
+    "BurstHalo": 0.7
+  },
+  "runtime_tests": "not run; user will test"
+}

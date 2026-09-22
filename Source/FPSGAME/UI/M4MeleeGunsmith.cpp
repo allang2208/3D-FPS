@@ -38,6 +38,8 @@ void UM4GunsmithWidget::AppendMeleeOverview(const FColdSteelItem& Item)
     Row(TEXT("基础物理伤害"),Before.DamageParts.BasePhysical,After.DamageParts.BasePhysical,2,TEXT(""));
     Row(TEXT("附加物理伤害"),Before.DamageParts.AddedPhysical,After.DamageParts.AddedPhysical,2,TEXT(""));
     Row(TEXT("附加魔法伤害"),Before.DamageParts.AddedMagic,After.DamageParts.AddedMagic,2,TEXT(""));
+    if(ColdSteelInventory::Number(Item,TEXT("innate_erosion_intelligence"))>0||ColdSteelInventory::Number(Item,TEXT("innate_erosion_wisdom"))>0)
+        Row(TEXT("自带侵蚀伤害倍率"),Before.Modifiers.InnateErosionMultiplier,After.Modifiers.InnateErosionMultiplier,2,TEXT("×"));
     Row(TEXT("第二段横斩伤害"),Before.ComboSecondDamage,After.ComboSecondDamage,2,TEXT(""));
     Row(TEXT("第三段突刺伤害"),Before.ComboThirdDamage,After.ComboThirdDamage,2,TEXT(""));
     Row(TEXT("重击伤害倍率"),Before.HeavyMultiplier,After.HeavyMultiplier,2,TEXT("×"));
@@ -57,9 +59,17 @@ void UM4GunsmithWidget::AppendMeleeOverview(const FColdSteelItem& Item)
     Row(TEXT("最大攻击距离（含突刺）"),Before.ThrustReach/100,After.ThrustReach/100,2,TEXT(" m"));
     Row(TEXT("攻击耐力消耗（含重击）"),Before.AttackStamina,After.AttackStamina,2,TEXT(""),true);
     Row(TEXT("命中硬直时间倍率"),Before.Modifiers.HitReaction,After.Modifiers.HitReaction,2,TEXT("×"));
+    Row(TEXT("韧性伤害倍率"),Before.Modifiers.ToughnessDamage,After.Modifiers.ToughnessDamage,2,TEXT("×"));
+    Row(TEXT("改造物理防御穿透"),Before.Modifiers.PhysicalArmorPenetration*100,After.Modifiers.PhysicalArmorPenetration*100,0,TEXT("%"));
     Row(TEXT("格挡伤害减免"),Before.BlockReduction*100,After.BlockReduction*100,0,TEXT("%"));
     Row(TEXT("弹反判定时间"),Before.ParrySeconds,After.ParrySeconds,2,TEXT(" s"));
     Row(TEXT("反击激励持续时间"),Before.Modifiers.RiposteSeconds,After.Modifiers.RiposteSeconds,0,TEXT(" s"));
+    if(Before.Modifiers.ClovenSeconds>0 || After.Modifiers.ClovenSeconds>0)
+    {
+        Row(TEXT("承锋·瞬重斩保留时间"),Before.Modifiers.ClovenSeconds,After.Modifiers.ClovenSeconds,1,TEXT(" s"));
+        Row(TEXT("承锋重击物理伤害加成"),(Before.Modifiers.ClovenPhysical-1)*100,(After.Modifiers.ClovenPhysical-1)*100,0,TEXT("%"));
+        Row(TEXT("承锋重击韧性伤害加成"),(Before.Modifiers.ClovenToughness-1)*100,(After.Modifiers.ClovenToughness-1)*100,0,TEXT("%"));
+    }
     Row(TEXT("反击激励攻速倍率"),Before.Modifiers.RiposteSpeed,After.Modifiers.RiposteSpeed,2,TEXT("×"));
     Row(TEXT("反击激励耐力倍率"),Before.Modifiers.RiposteStamina,After.Modifiers.RiposteStamina,2,TEXT("×"),true);
     Row(TEXT("防御受击耐力消耗"),Before.BlockStamina,After.BlockStamina,2,TEXT(""),true);

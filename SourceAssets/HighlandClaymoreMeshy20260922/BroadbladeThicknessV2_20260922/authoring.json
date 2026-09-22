@@ -1,0 +1,52 @@
+{
+  "weapon": "ue_highland_claymore",
+  "option": "highland_broadblade",
+  "mesh": "SM_Highland_Blade_Broadblade_ThickV2",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HighlandClaymoreMeshy20260922\\Broadblade20260922\\HighlandClaymore_Broadblade_Editable.blend",
+  "source_object": "SM_Highland_Blade_Broadblade_V1",
+  "ue_folder": "/Game/Weapons/HighlandClaymore20260922/BroadbladeThicknessV2_20260922",
+  "icon": "ue_highland_claymore_blade_1_highland_broadblade.png",
+  "dimensions": "metres; width X, thickness Y, tip +Z",
+  "design": {
+    "added_spine_thickness_mm": 8.4,
+    "intended_middle_spine_mm": [
+      15,
+      17
+    ],
+    "root_fade_cm": [
+      10.5,
+      17.5
+    ],
+    "tip_fade_cm": [
+      65.5,
+      88
+    ],
+    "grinding_bevel_half_width_fraction": [
+      0.67,
+      0.98
+    ],
+    "width_length_and_mount": "Same as V1; only thickness changed"
+  },
+  "source_topology": {
+    "vertices": 6589,
+    "faces": 13174
+  },
+  "topology": {
+    "vertices": 13937,
+    "triangles": 27870,
+    "uv": "Native UVs interpolated through local subdivision",
+    "normals": "Original corner normals interpolated and Jacobian transformed"
+  },
+  "production_icon": {
+    "size": [
+      1024,
+      1024
+    ],
+    "direction": "Blade tip left",
+    "background": "Transparent",
+    "studio": "Unchanged V1 orthographic studio"
+  },
+  "gameplay_changes": false,
+  "tested": false,
+  "acceptance_rendered": false
+}

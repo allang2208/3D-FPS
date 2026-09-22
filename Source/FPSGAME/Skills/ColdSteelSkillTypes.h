@@ -94,6 +94,7 @@ struct FColdSteelSkillShot
     FString ItemDefinition;
     int32 ExtraMasteryExperience=0;
     float ArmorPenetration=0;
+    float ToughnessDamageMultiplier=1;
     float MagicPenetration=0;
     FWeaponDamageParts DamagePanel;
     float CriticalChance = 0;

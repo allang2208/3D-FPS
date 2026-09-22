@@ -37,14 +37,14 @@ FMeleeWeaponStats ColdSteelMelee::Evaluate(const FColdSteelItem& Item,const UCol
     R.SlashReach=RuneSwordCombatTuning::ScaledReach(R.BaseReach)*R.Modifiers.Range;
     R.ThrustReach=RuneSwordCombatTuning::ScaledReach(R.BaseReach,RuneSwordThrustRhythm::ReachBonus)*R.Modifiers.Range;
     R.AttackStamina=(Profile?Profile->StaminaSettings().MeleeCost:FColdSteelStaminaTuning{}.MeleeCost)*R.Modifiers.Stamina*Temporary.Stamina;
-    R.BlockStamina=BlockStamina(R.Modifiers)*Temporary.Stamina;
+    R.BlockStamina=BlockStamina(R.Modifiers);
     R.BlockReduction=FMath::Clamp((1.-RuneSwordGuardTuning::DamageTakenRatio)*R.Modifiers.BlockReduction,0.,1.);
     return R;
 }
 
 double ColdSteelMelee::BlockStamina(const FMeleeModifiers& Modifiers)
 {
-    return RuneSwordGuardTuning::BlockStamina*Modifiers.Stamina;
+    return RuneSwordGuardTuning::BlockStamina*Modifiers.BlockStamina;
 }
 
 FMeleeModifiers ColdSteelMelee::EquippedModifiers(const UColdSteelStatusModel* Profile)

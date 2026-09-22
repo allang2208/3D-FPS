@@ -1,0 +1,188 @@
+[
+  {
+    "weapon": "ue_frost_crystal_sword",
+    "catalog": "frost-sword-modules.json",
+    "option": "extended_edge",
+    "mesh": "SM_FrostSword_Blade_extended_edge_V1",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordModules20260915\\FrostSword_Modular_Editable.blend",
+    "object": "SM_FrostSword_Blade_factory",
+    "donor": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SM_FrostSword_Blade_factory.SM_FrostSword_Blade_factory",
+    "rune_dimensions_cm": [
+      12.0,
+      10.015499007328492,
+      74.8488644441903
+    ],
+    "material_slot_names": [
+      "M_FrostCrystalSword"
+    ],
+    "bounds_m": [
+      [
+        -0.053891755640506744,
+        -0.021709516644477844,
+        -0.007999999448657036
+      ],
+      [
+        0.053817346692085266,
+        0.021100178360939026,
+        0.9346865152008832
+      ]
+    ],
+    "frozen_root_z_m": 0.085,
+    "icon": "ue_frost_crystal_sword_blade_1_extended_edge.png"
+  },
+  {
+    "weapon": "ue_frost_crystal_sword",
+    "catalog": "frost-sword-modules.json",
+    "option": "heavy_spine",
+    "mesh": "SM_FrostSword_Blade_heavy_spine_V1",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordModules20260915\\FrostSword_Modular_Editable.blend",
+    "object": "SM_FrostSword_Blade_factory",
+    "donor": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SM_FrostSword_Blade_factory.SM_FrostSword_Blade_factory",
+    "rune_dimensions_cm": [
+      13.680000000000001,
+      10.0,
+      63.0
+    ],
+    "material_slot_names": [
+      "M_FrostCrystalSword"
+    ],
+    "bounds_m": [
+      [
+        -0.05965361889480627,
+        -0.02651480158826183,
+        -0.007999999448657036
+      ],
+      [
+        0.05959577624315478,
+        0.025837475453578253,
+        0.8117274045944214
+      ]
+    ],
+    "frozen_root_z_m": 0.085,
+    "icon": "ue_frost_crystal_sword_blade_1_heavy_spine.png"
+  },
+  {
+    "weapon": "ue_frost_crystal_sword",
+    "catalog": "frost-sword-modules.json",
+    "option": "feather_edge",
+    "mesh": "SM_FrostSword_Blade_feather_edge_V1",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordModules20260915\\FrostSword_Modular_Editable.blend",
+    "object": "SM_FrostSword_Blade_factory",
+    "donor": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SM_FrostSword_Blade_factory.SM_FrostSword_Blade_factory",
+    "rune_dimensions_cm": [
+      10.56,
+      10.0,
+      63.0
+    ],
+    "material_slot_names": [
+      "M_FrostCrystalSword"
+    ],
+    "bounds_m": [
+      [
+        -0.052763801731409404,
+        -0.021617412567138672,
+        -0.007999999448657036
+      ],
+      [
+        0.052687154432345756,
+        0.021036952910419838,
+        0.8117274045944214
+      ]
+    ],
+    "frozen_root_z_m": 0.085,
+    "icon": "ue_frost_crystal_sword_blade_1_feather_edge.png"
+  },
+  {
+    "weapon": "ue_rune_sword",
+    "catalog": "rune-sword-modules.json",
+    "option": "extended_edge",
+    "mesh": "SM_RuneSword_Blade_extended_edge_V1",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordModules20260919\\RuneSword_Modular_Editable.blend",
+    "object": "SM_RuneSword_Blade_factory",
+    "donor": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Blade_factory.SM_RuneSword_Blade_factory",
+    "rune_dimensions_cm": [
+      10.6,
+      10.0,
+      72.84898400067897
+    ],
+    "material_slot_names": [
+      "M_AzureRunesword"
+    ],
+    "bounds_m": [
+      [
+        -0.050816986709833145,
+        -0.018655862659215927,
+        0.125
+      ],
+      [
+        0.05041095241904259,
+        0.01976313814520836,
+        0.9147364467382431
+      ]
+    ],
+    "frozen_root_z_m": 0.165,
+    "icon": "ue_rune_sword_blade_1_extended_edge.png"
+  },
+  {
+    "weapon": "ue_rune_sword",
+    "catalog": "rune-sword-modules.json",
+    "option": "heavy_spine",
+    "mesh": "SM_RuneSword_Blade_heavy_spine_V1",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordModules20260919\\RuneSword_Modular_Editable.blend",
+    "object": "SM_RuneSword_Blade_factory",
+    "donor": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Blade_factory.SM_RuneSword_Blade_factory",
+    "rune_dimensions_cm": [
+      11.872,
+      10.0,
+      63.0
+    ],
+    "material_slot_names": [
+      "M_AzureRunesword"
+    ],
+    "bounds_m": [
+      [
+        -0.051522362124635596,
+        -0.024701258366750127,
+        0.125
+      ],
+      [
+        0.05086499198862595,
+        0.02604623003371422,
+        0.8117273449897766
+      ]
+    ],
+    "frozen_root_z_m": 0.165,
+    "icon": "ue_rune_sword_blade_1_heavy_spine.png"
+  },
+  {
+    "weapon": "ue_rune_sword",
+    "catalog": "rune-sword-modules.json",
+    "option": "feather_edge",
+    "mesh": "SM_RuneSword_Blade_feather_edge_V1",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordModules20260919\\RuneSword_Modular_Editable.blend",
+    "object": "SM_RuneSword_Blade_factory",
+    "donor": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Blade_factory.SM_RuneSword_Blade_factory",
+    "rune_dimensions_cm": [
+      9.328,
+      10.0,
+      63.0
+    ],
+    "material_slot_names": [
+      "M_AzureRunesword"
+    ],
+    "bounds_m": [
+      [
+        -0.050816986709833145,
+        -0.018526916434671675,
+        0.125
+      ],
+      [
+        0.05041095241904259,
+        0.019629022349972512,
+        0.8117273449897766
+      ]
+    ],
+    "frozen_root_z_m": 0.165,
+    "icon": "ue_rune_sword_blade_1_feather_edge.png"
+  }
+]

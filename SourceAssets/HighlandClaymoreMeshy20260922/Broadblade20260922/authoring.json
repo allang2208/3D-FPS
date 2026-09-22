@@ -1,0 +1,42 @@
+{
+  "weapon": "ue_highland_claymore",
+  "option": "highland_broadblade",
+  "name": "阔锋重刃",
+  "mesh": "SM_Highland_Blade_Broadblade_V1",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HighlandClaymoreMeshy20260922\\Integration\\HighlandClaymore_Modular_Editable.blend",
+  "source_object": "SM_Highland_Blade_factory",
+  "ue_folder": "/Game/Weapons/HighlandClaymore20260922/Broadblade20260922",
+  "icon": "ue_highland_claymore_blade_1_highland_broadblade.png",
+  "units": "meters; tip +Z, width X, thickness Y",
+  "design": {
+    "middle_width_cm": [
+      11.0,
+      10.6
+    ],
+    "central_lane_width_cm": 2.4,
+    "unchanged_root_to_cm": 10.5,
+    "shoulder_transition_cm": 9.5,
+    "tip_taper_start_cm": 65.5,
+    "blade_tip_cm": 88,
+    "central_spine_thickness_mult": 1.25
+  },
+  "topology": {
+    "vertices": 6589,
+    "triangles": 13174,
+    "uv": "Original factory UV retained",
+    "normals": "Jacobian inverse transpose"
+  },
+  "icon_settings": {
+    "resolution": [
+      1024,
+      1024
+    ],
+    "format": "RGBA transparent PNG",
+    "orientation": "Tip left; front -Y; orthographic; no mirroring",
+    "subject": "SM_Highland_Blade_Broadblade_V1",
+    "production_only": true,
+    "material_note": "Native PBR; UE time-varying glow not reproduced in still icon"
+  },
+  "tested": false,
+  "acceptance_rendered": false
+}

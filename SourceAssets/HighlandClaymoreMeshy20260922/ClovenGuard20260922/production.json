@@ -1,0 +1,32 @@
+{
+  "weapon": "ue_highland_claymore",
+  "slot": "guard",
+  "option": "highland_cloven_guard",
+  "mesh": "SM_Highland_Guard_Cloven",
+  "ue_folder": "/Game/Weapons/HighlandClaymore20260922/ClovenGuard",
+  "icon": "ue_highland_claymore_guard_highland_cloven_guard.png",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HighlandClaymoreMeshy20260922\\Integration\\HighlandClaymore_Modular_Editable.blend",
+  "source_object": "SM_Highland_Guard_factory",
+  "materials": [
+    "M_HighlandClaymoreSurface",
+    "M_Cloven_Recess",
+    "M_Cloven_Inlay"
+  ],
+  "stats": {
+    "block_stamina_mult": 0.9,
+    "cloven_seconds": 4,
+    "cloven_physical_mult": 1.25,
+    "cloven_toughness_mult": 1.4
+  },
+  "mount": {
+    "location_cm": [
+      0,
+      0,
+      0
+    ],
+    "interface": "highland_hilt_v1"
+  },
+  "icon_orientation": "blade +Z left, front -Y, no mirroring; actual guard only",
+  "production_only": true,
+  "tested": false
+}

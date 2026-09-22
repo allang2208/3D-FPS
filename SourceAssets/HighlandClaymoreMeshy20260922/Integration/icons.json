@@ -1,0 +1,95 @@
+{
+  "resolution": [
+    1024,
+    1024
+  ],
+  "format": "RGBA transparent PNG",
+  "orientation": "blade +Z projects left; front -Y; no mirroring",
+  "jobs": [
+    {
+      "mesh": "SM_HighlandClaymore",
+      "filename": "ue_highland_claymore.png",
+      "slot": "inventory",
+      "id": "factory"
+    },
+    {
+      "mesh": "SM_Highland_Blade_factory",
+      "filename": "ue_highland_claymore_blade_1_false.png",
+      "slot": "blade_1",
+      "id": "factory"
+    },
+    {
+      "mesh": "SM_Highland_Guard_factory",
+      "filename": "ue_highland_claymore_guard_false.png",
+      "slot": "guard",
+      "id": "factory"
+    },
+    {
+      "mesh": "SM_Highland_Grip_factory",
+      "filename": "ue_highland_claymore_grip_false.png",
+      "slot": "grip",
+      "id": "factory"
+    },
+    {
+      "mesh": "SM_Highland_Pommel_factory",
+      "filename": "ue_highland_claymore_pommel_false.png",
+      "slot": "pommel",
+      "id": "factory"
+    },
+    {
+      "mesh": "SM_Highland_Blade_extended_edge",
+      "filename": "ue_highland_claymore_blade_1_extended_edge.png",
+      "slot": "blade_1",
+      "id": "extended_edge"
+    },
+    {
+      "mesh": "SM_Highland_Blade_heavy_spine",
+      "filename": "ue_highland_claymore_blade_1_heavy_spine.png",
+      "slot": "blade_1",
+      "id": "heavy_spine"
+    },
+    {
+      "mesh": "SM_Highland_Blade_feather_edge",
+      "filename": "ue_highland_claymore_blade_1_feather_edge.png",
+      "slot": "blade_1",
+      "id": "feather_edge"
+    },
+    {
+      "mesh": "SM_Highland_Guard_bastion_guard",
+      "filename": "ue_highland_claymore_guard_bastion_guard.png",
+      "slot": "guard",
+      "id": "bastion_guard"
+    },
+    {
+      "mesh": "SM_Highland_Guard_riposte_guard",
+      "filename": "ue_highland_claymore_guard_riposte_guard.png",
+      "slot": "guard",
+      "id": "riposte_guard"
+    },
+    {
+      "mesh": "SM_Highland_Guard_light_guard",
+      "filename": "ue_highland_claymore_guard_light_guard.png",
+      "slot": "guard",
+      "id": "light_guard"
+    },
+    {
+      "mesh": "SM_Highland_Grip_shock_wrap",
+      "filename": "ue_highland_claymore_grip_shock_wrap.png",
+      "slot": "grip",
+      "id": "shock_wrap"
+    },
+    {
+      "mesh": "SM_Highland_Grip_swift_grip",
+      "filename": "ue_highland_claymore_grip_swift_grip.png",
+      "slot": "grip",
+      "id": "swift_grip"
+    },
+    {
+      "mesh": "SM_Highland_Grip_long_twohand",
+      "filename": "ue_highland_claymore_grip_long_twohand.png",
+      "slot": "grip",
+      "id": "long_twohand"
+    }
+  ],
+  "production_only": true
+}

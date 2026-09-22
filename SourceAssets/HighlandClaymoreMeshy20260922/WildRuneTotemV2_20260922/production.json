@@ -1,0 +1,54 @@
+{
+  "name": "蛮荒符文 · 兽颚破甲战纹 V2",
+  "weapon": "ue_highland_claymore",
+  "option": "wild_rune",
+  "generated_source": "C:\\Users\\allan\\.codex\\generated_images\\01a0c6c5-5fe4-7550-8c0f-abed299812e8\\exec-2adad4cd-48b9-47d1-b7ea-ad772cd1b27b.png",
+  "mask": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HighlandClaymoreMeshy20260922\\WildRuneTotemV2_20260922\\Textures\\T_WildTotem_Generated.png",
+  "generator": "Built-in imagegen",
+  "prompt": "imagegen_prompt.txt",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "source_art_bounds_px": [
+    49,
+    407,
+    1493,
+    624
+  ],
+  "art_uv_rect": [
+    0.031901041666666664,
+    0.3974609375,
+    0.9401041666666666,
+    0.2119140625
+  ],
+  "raster_edits": false,
+  "orientation": "generated spear left, beast jaw right; blade tip maps left and guard maps right",
+  "design": "One continuous asymmetric composition: beast-jaw seal, distinct claw cuts, broken backbone and bone spear tip",
+  "colors_linear": {
+    "WildCoreColor": [
+      0.32,
+      0.006,
+      0.004,
+      1
+    ],
+    "WildGlowColor": [
+      1,
+      0.022,
+      0.006,
+      1
+    ]
+  },
+  "scalars": {
+    "WildPulseSpeed": 1.12,
+    "EmissionPeak": 1.8,
+    "RuneOpacity": 0.88,
+    "HaloOpacity": 0.145,
+    "HaloRadiusTexels": 1.8
+  },
+  "unchanged_stats": {
+    "toughness_damage_mult": 1.3,
+    "physical_armor_penetration": 0.2
+  },
+  "tested": false
+}

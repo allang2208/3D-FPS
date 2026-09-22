@@ -29,6 +29,81 @@
           -0.00014620040482076095,
           100.00002186825377
         ]
+      },
+      "extended_edge": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/BladeVariants20260922/SM_FrostSword_Blade_extended_edge_V1.SM_FrostSword_Blade_extended_edge_V1",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "interface": "frost_hilt_v1",
+        "rune_dimensions_cm": [
+          12.0,
+          10.015499007328492,
+          74.8488644441903
+        ],
+        "trace_base_cm": [
+          -5.6960768458270795e-06,
+          -5.922449879344363e-06,
+          3.0000085806471968
+        ],
+        "trace_tip_cm": [
+          -1.1983580752188336e-06,
+          -0.00014620040482076095,
+          100.00002186825377
+        ],
+        "appearance": "延展剑尖 · 修长刃形"
+      },
+      "heavy_spine": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/BladeVariants20260922/SM_FrostSword_Blade_heavy_spine_V1.SM_FrostSword_Blade_heavy_spine_V1",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "interface": "frost_hilt_v1",
+        "rune_dimensions_cm": [
+          13.680000000000001,
+          10.0,
+          63.0
+        ],
+        "trace_base_cm": [
+          -5.6960768458270795e-06,
+          -5.922449879344363e-06,
+          3.0000085806471968
+        ],
+        "trace_tip_cm": [
+          -1.1983580752188336e-06,
+          -0.00014620040482076095,
+          100.00002186825377
+        ],
+        "appearance": "加厚剑脊 · 宽阔刃面"
+      },
+      "feather_edge": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/BladeVariants20260922/SM_FrostSword_Blade_feather_edge_V1.SM_FrostSword_Blade_feather_edge_V1",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "interface": "frost_hilt_v1",
+        "rune_dimensions_cm": [
+          10.56,
+          10.0,
+          63.0
+        ],
+        "trace_base_cm": [
+          -5.6960768458270795e-06,
+          -5.922449879344363e-06,
+          3.0000085806471968
+        ],
+        "trace_tip_cm": [
+          -1.1983580752188336e-06,
+          -0.00014620040482076095,
+          100.00002186825377
+        ],
+        "appearance": "收窄削薄 · 轻巧刃形"
       }
     },
     "guard": {

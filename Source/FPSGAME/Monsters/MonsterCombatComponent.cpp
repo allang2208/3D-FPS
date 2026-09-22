@@ -103,6 +103,11 @@ float UMonsterCombatComponent::ApplyHitWithReactionScale(float Multiplier,TFunct
  TGuardValue<float> Scope(IncomingHitReactionMultiplier,Multiplier);
  return ApplyDamage();
 }
+float UMonsterCombatComponent::ApplyHitWithToughnessScale(float Multiplier,TFunctionRef<float()> ApplyDamage)
+{
+ TGuardValue<float> Scope(IncomingToughnessDamageMultiplier,FMath::Max(0.f,Multiplier));
+ return ApplyDamage();
+}
 void UMonsterCombatComponent::ReceiveHit(float Damage,APawn* Attacker)
 {
  if(!GetOwner()->HasAuthority()||IsDead())return;
@@ -111,7 +116,7 @@ void UMonsterCombatComponent::ReceiveHit(float Damage,APawn* Attacker)
  // shot it, but never flips the state machine, the poise clock or the hit
  // presentation. Melee and skills keep the existing scaled behaviour.
  if(IncomingHitReactionMultiplier<=0.f)return;
- Poise+=Damage;SinceHit=0;const bool TriggerStun=Poise>=PoiseThreshold;
+ Poise+=Damage*IncomingToughnessDamageMultiplier;SinceHit=0;const bool TriggerStun=Poise>=PoiseThreshold;
  const auto* Status=GetOwner()->FindComponentByClass<UCombatStatusFormula>();
  const float Remaining=FMath::Max(IsControlled()?FMath::Max(0.f,ReactionDuration-ReactionTime):0.f,Status?Status->FrozenRemaining():0.f);
  bStunned=TriggerStun||(bStunned&&Remaining>0);

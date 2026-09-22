@@ -22,7 +22,7 @@ bool UColdSteelWeaponIcons::PrepareMelee(const FColdSteelItem& Item)
         Studio->AddComponent(MeleeMesh,FTransform::Identity);
     }
     if(Modular){if(!ColdSteelModularSword::Apply(MeleeMesh,Item,nullptr,!bCatalogExport))return false;}
-    else {ColdSteelModularSword::Clear(MeleeMesh);MeleeMesh->EmptyOverrideMaterials();MeleeMesh->SetStaticMesh(Asset);ColdSteelMeleeRune::Apply(MeleeMesh,bCatalogExport?FString():ColdSteelMeleeRune::Selected(Item));}
+    else {ColdSteelModularSword::Clear(MeleeMesh);MeleeMesh->EmptyOverrideMaterials();MeleeMesh->SetStaticMesh(Asset);ColdSteelMeleeRune::Apply(MeleeMesh,bCatalogExport?FString():ColdSteelMeleeRune::Selected(Item),Item.Definition);}
     const FBox Local=ColdSteelModularSword::LocalBounds(MeleeMesh);
     MeleeMesh->SetWorldTransform(ColdSteelMeleePreview::Pose(Local,ColdSteelMeleePreview::Rotation(Local,true)));
     Capture->ShowOnlyComponents.Reset();for(auto* Part:ColdSteelModularSword::Components(MeleeMesh))Capture->ShowOnlyComponent(Part);

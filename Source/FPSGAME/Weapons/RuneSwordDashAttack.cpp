@@ -62,6 +62,7 @@ bool URuneSwordComponent::TryBeginDashAttack()
     DashCast=Cast;bDashAttack=bDashTrainingPending=true;bDashCenterCaptured=false;
     DashHits=DashKills=0;DashSprintSeconds=DashTravelCM=DashBounceLeftCM=0.f;
     LungeDirection=Pawn->GetMeleeAimTransform().GetUnitAxis(EAxis::X).GetSafeNormal2D();
+    bLungeStarted=true; // Keep the release direction throughout the one-metre step.
     SwingDamage=Cast.Damage;SwingReach=Cast.RangeCM;SwingKnockbackCM=Cast.KnockbackCM;
     // 冲刺持剑用0.25秒过渡到下劈接触起点；音效、裂隙和判定仍由
     // 同一接触窗触发，前摇期间不命中，接触后的落点与收势保持原时序。
@@ -83,7 +84,7 @@ void URuneSwordComponent::DashAttackContractHit()
     auto* Pawn=Character.Get();
     if(!bDashCenterCaptured)
     {
-        // 在原下劈接触开始时固定扇区中心，不再附加前冲或回弹。
+        // 在原下劈接触开始时固定扇区中心；前摇突进已结束，不附加回弹。
         DashCenter=Pawn->GetActorLocation();bDashCenterCaptured=true;
     }
     const auto Hits=RuneSwordCombat::QuerySector(GetWorld(),Pawn,DashCenter,LungeDirection,

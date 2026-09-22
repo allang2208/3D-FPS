@@ -28,6 +28,81 @@
           0,
           80.0
         ]
+      },
+      "extended_edge": {
+        "mesh": "/Game/Weapons/AzureRunesword20260913/BladeVariants20260922/SM_RuneSword_Blade_extended_edge_V1.SM_RuneSword_Blade_extended_edge_V1",
+        "location_cm": [
+          0,
+          0,
+          0.0
+        ],
+        "interface": "azure_hilt_v1",
+        "rune_dimensions_cm": [
+          10.6,
+          10.0,
+          72.84898400067897
+        ],
+        "trace_base_cm": [
+          0,
+          0,
+          2.4
+        ],
+        "trace_tip_cm": [
+          0,
+          0,
+          80.0
+        ],
+        "appearance": "延展剑尖 · 修长刃形"
+      },
+      "heavy_spine": {
+        "mesh": "/Game/Weapons/AzureRunesword20260913/BladeVariants20260922/SM_RuneSword_Blade_heavy_spine_V1.SM_RuneSword_Blade_heavy_spine_V1",
+        "location_cm": [
+          0,
+          0,
+          0.0
+        ],
+        "interface": "azure_hilt_v1",
+        "rune_dimensions_cm": [
+          11.872,
+          10.0,
+          63.0
+        ],
+        "trace_base_cm": [
+          0,
+          0,
+          2.4
+        ],
+        "trace_tip_cm": [
+          0,
+          0,
+          80.0
+        ],
+        "appearance": "加厚剑脊 · 宽阔刃面"
+      },
+      "feather_edge": {
+        "mesh": "/Game/Weapons/AzureRunesword20260913/BladeVariants20260922/SM_RuneSword_Blade_feather_edge_V1.SM_RuneSword_Blade_feather_edge_V1",
+        "location_cm": [
+          0,
+          0,
+          0.0
+        ],
+        "interface": "azure_hilt_v1",
+        "rune_dimensions_cm": [
+          9.328,
+          10.0,
+          63.0
+        ],
+        "trace_base_cm": [
+          0,
+          0,
+          2.4
+        ],
+        "trace_tip_cm": [
+          0,
+          0,
+          80.0
+        ],
+        "appearance": "收窄削薄 · 轻巧刃形"
       }
     },
     "guard": {

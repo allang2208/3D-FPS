@@ -1,0 +1,83 @@
+{
+  "asset": "Highland Claymore",
+  "date": "2026-09-22",
+  "status": "integrated_native_build_complete",
+  "reference": "References/user-selected.png",
+  "provider": "Meshy",
+  "model": "meshy-7.1",
+  "task_id": "01a0c80e-6d05-74ae-b285-d84a9eaae8d5",
+  "provider_status": "SUCCEEDED",
+  "consumed_credits": 40,
+  "downloads_count": 9,
+  "downloads": "Meshy/candidate01/downloads",
+  "primary_model": "Meshy/candidate01/downloads/model.glb",
+  "source_manifest": "Meshy/candidate01/downloads.json",
+  "ue_integrated": true,
+  "definition": "ue_highland_claymore",
+  "ue_asset_root": "/Game/Weapons/HighlandClaymore20260922",
+  "integration_record": "Integration/README.md",
+  "native_build": "FPSGAMEEditor Win64 Development: Succeeded",
+  "editor_reopened": true,
+  "tested": false,
+  "notes": "User-selected curved guard and leaf terminals. Modular parts, shared sword actions, PBR, modification catalog, inventory icons and one-time warehouse grant integrated. Production UI icons rendered; no gameplay test or acceptance render.",
+  "exclusive_modifications": {
+    "highland_broadblade": {
+      "name": "阔锋重刃",
+      "slot": "blade_1",
+      "source": "BroadbladeThicknessV2_20260922",
+      "mesh": "/Game/Weapons/HighlandClaymore20260922/BroadbladeThicknessV2_20260922/SM_Highland_Blade_Broadblade_ThickV2.SM_Highland_Blade_Broadblade_ThickV2",
+      "ue_integrated": true,
+      "stats": {
+        "damage_mult": 1.2,
+        "hit_reaction_mult": 1.15,
+        "attack_speed_mult": 0.75
+      },
+      "tested": false,
+      "note": "Added up to 8.4 mm of spine thickness with broad supported faces and a tapered grinding bevel. Width, length and gameplay stats preserved. UI icon updated.",
+      "previous_source": "Broadblade20260922",
+      "geometry_revision": "ThickV2",
+      "intended_middle_spine_mm": [
+        15,
+        17
+      ]
+    },
+    "wild_rune": {
+      "name": "蛮荒符文",
+      "slot": "blade_2",
+      "source": "WildRuneTotemV2_20260922",
+      "ue_integrated": true,
+      "material": "/Game/Weapons/HighlandClaymore20260922/WildRune/M_SilverRuneSurface_HighlandWild",
+      "stats": {
+        "toughness_damage_mult": 1.3,
+        "physical_armor_penetration": 0.2
+      },
+      "native_build": "FPSGAMEEditor Win64 Development: Succeeded (up to date)",
+      "tested": false,
+      "icon_generation": "Built-in imagegen; prompt and generated source retained",
+      "previous_source": "WildRune20260922",
+      "visual_revision": "Beast-jaw totem V2: unique asymmetric claw cuts and bone spear, dark crimson with local scarlet pulses",
+      "visual_receipt": "WildRuneTotemV2_20260922/install_receipt.json",
+      "material_compile": "Succeeded; saved in the current editor",
+      "native_build_required_for_visual_revision": false
+    },
+    "highland_cloven_guard": {
+      "time": "2026-09-22T17:52:33.313921",
+      "name": "裂角护手",
+      "slot": "guard",
+      "option": "highland_cloven_guard",
+      "source": "ClovenGuard20260922",
+      "mesh": "/Game/Weapons/HighlandClaymore20260922/ClovenGuard/SM_Highland_Guard_Cloven.SM_Highland_Guard_Cloven",
+      "ue_integrated": true,
+      "stats": {
+        "block_stamina_mult": 0.9,
+        "cloven_seconds": 4,
+        "cloven_physical_mult": 1.25,
+        "cloven_toughness_mult": 1.4
+      },
+      "native_build": "FPSGAMEEditor Win64 Development: Succeeded",
+      "tested": false,
+      "icon_source": "Actual delivered guard mesh; matching Highland camera and neutral lighting",
+      "gameplay": "Parry -> 4s one-charge next normal press becomes instant heavy release, physical x1.25 and poise x1.4"
+    }
+  }
+}

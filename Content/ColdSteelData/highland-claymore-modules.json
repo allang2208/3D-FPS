@@ -1,0 +1,327 @@
+{
+  "version": 1,
+  "weapon": "ue_highland_claymore",
+  "interface": "highland_hilt_v1",
+  "drive_bone": "WPN_root",
+  "arms_mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms",
+  "bone_mount": {
+    "location_cm": [
+      2.2488592227634334e-08,
+      4.251949004085439e-08,
+      -4.767004840075173e-08
+    ],
+    "scale": [
+      0.009999999098201857,
+      0.010000002674481073,
+      0.010000000290294644
+    ],
+    "rotation_xyzw": [
+      9.694049930993584e-08,
+      -1.471765408433967e-07,
+      -2.965553125000755e-08,
+      -0.999999999999984
+    ]
+  },
+  "trace_from_animation": false,
+  "slots": {
+    "blade_1": {
+      "factory": {
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "trace_base_cm": [
+          0,
+          0,
+          3
+        ],
+        "trace_tip_cm": [
+          0,
+          0,
+          88
+        ],
+        "rune_dimensions_cm": [
+          6.4,
+          12,
+          69
+        ],
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Blade_factory.SM_Highland_Blade_factory",
+        "interface": "highland_hilt_v1"
+      },
+      "extended_edge": {
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "trace_base_cm": [
+          0,
+          0,
+          3
+        ],
+        "trace_tip_cm": [
+          0,
+          0,
+          88
+        ],
+        "rune_dimensions_cm": [
+          6.4,
+          12,
+          79.35
+        ],
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Blade_extended_edge.SM_Highland_Blade_extended_edge",
+        "interface": "highland_hilt_v1"
+      },
+      "heavy_spine": {
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "trace_base_cm": [
+          0,
+          0,
+          3
+        ],
+        "trace_tip_cm": [
+          0,
+          0,
+          88
+        ],
+        "rune_dimensions_cm": [
+          7.295999999999999,
+          12,
+          69
+        ],
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Blade_heavy_spine.SM_Highland_Blade_heavy_spine",
+        "interface": "highland_hilt_v1"
+      },
+      "feather_edge": {
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "trace_base_cm": [
+          0,
+          0,
+          3
+        ],
+        "trace_tip_cm": [
+          0,
+          0,
+          88
+        ],
+        "rune_dimensions_cm": [
+          5.472,
+          12,
+          69
+        ],
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Blade_feather_edge.SM_Highland_Blade_feather_edge",
+        "interface": "highland_hilt_v1"
+      },
+      "highland_broadblade": {
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "trace_base_cm": [
+          0,
+          0,
+          3
+        ],
+        "trace_tip_cm": [
+          0,
+          0,
+          88
+        ],
+        "rune_dimensions_cm": [
+          6.4,
+          12,
+          69
+        ],
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/BroadbladeThicknessV2_20260922/SM_Highland_Blade_Broadblade_ThickV2.SM_Highland_Blade_Broadblade_ThickV2",
+        "interface": "highland_hilt_v1",
+        "appearance": "高地专属 · 加厚剑脊与立体刃面"
+      }
+    },
+    "guard": {
+      "factory": {
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Guard_factory.SM_Highland_Guard_factory",
+        "interface": "highland_hilt_v1"
+      },
+      "bastion_guard": {
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Guard_bastion_guard.SM_Highland_Guard_bastion_guard",
+        "interface": "highland_hilt_v1"
+      },
+      "riposte_guard": {
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Guard_riposte_guard.SM_Highland_Guard_riposte_guard",
+        "interface": "highland_hilt_v1"
+      },
+      "light_guard": {
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Guard_light_guard.SM_Highland_Guard_light_guard",
+        "interface": "highland_hilt_v1"
+      },
+      "highland_cloven_guard": {
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "interface": "highland_hilt_v1",
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/ClovenGuard/SM_Highland_Guard_Cloven.SM_Highland_Guard_Cloven",
+        "appearance": "高地专属 · 厚根裂角与赤红承锋嵌纹"
+      }
+    },
+    "grip": {
+      "factory": {
+        "location_cm": [
+          0.0,
+          0.0,
+          -5.000000074505806
+        ],
+        "pommel_offset_cm": [
+          0,
+          0,
+          0
+        ],
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Grip_factory.SM_Highland_Grip_factory",
+        "interface": "highland_hilt_v1"
+      },
+      "shock_wrap": {
+        "location_cm": [
+          0.0,
+          0.0,
+          -5.000000074505806
+        ],
+        "pommel_offset_cm": [
+          0,
+          0,
+          0
+        ],
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Grip_shock_wrap.SM_Highland_Grip_shock_wrap",
+        "interface": "highland_hilt_v1"
+      },
+      "swift_grip": {
+        "location_cm": [
+          0.0,
+          0.0,
+          -5.000000074505806
+        ],
+        "pommel_offset_cm": [
+          0,
+          0,
+          0
+        ],
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Grip_swift_grip.SM_Highland_Grip_swift_grip",
+        "interface": "highland_hilt_v1"
+      },
+      "long_twohand": {
+        "location_cm": [
+          0.0,
+          0.0,
+          -5.000000074505806
+        ],
+        "pommel_offset_cm": [
+          0,
+          0,
+          -2.8
+        ],
+        "animation_folder": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations",
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Grip_long_twohand.SM_Highland_Grip_long_twohand",
+        "interface": "highland_hilt_v1"
+      }
+    },
+    "pommel": {
+      "factory": {
+        "location_cm": [
+          0.0,
+          0.0,
+          -22.699999809265137
+        ],
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Pommel_factory.SM_Highland_Pommel_factory",
+        "interface": "highland_hilt_v1"
+      }
+    }
+  },
+  "pommel_profile": {
+    "library": "shared-sword-pommels.json",
+    "finish": "frost_bronze",
+    "interfaces": {
+      "shared_sword_pommel_v1": {
+        "location_cm": [
+          0,
+          0,
+          -23.5
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.9,
+          0.9,
+          0.9
+        ],
+        "adapter": {
+          "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_HighlandMount_Shared.SM_HighlandMount_Shared",
+          "location_cm": [
+            0,
+            0,
+            -22.7
+          ],
+          "interface": "highland_hilt_v1_to_shared_sword_pommel_v1"
+        }
+      },
+      "frost_hilt_v1": {
+        "location_cm": [
+          0,
+          0,
+          -23.5
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.85,
+          0.85,
+          0.85
+        ],
+        "adapter": {
+          "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_HighlandMount_Frost.SM_HighlandMount_Frost",
+          "location_cm": [
+            0,
+            0,
+            -22.7
+          ],
+          "interface": "highland_hilt_v1_to_frost_hilt_v1"
+        }
+      }
+    }
+  }
+}

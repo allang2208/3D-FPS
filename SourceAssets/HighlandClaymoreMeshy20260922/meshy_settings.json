@@ -1,0 +1,28 @@
+{
+  "api_base": "https://api.meshy.ai/openapi",
+  "proxy": "http://127.0.0.1:7897",
+  "endpoint": "/v1/image-to-3d",
+  "common": {
+    "ai_model": "meshy-7.1",
+    "model_type": "standard",
+    "geometry_resolution": "2k",
+    "should_texture": true,
+    "enable_pbr": true,
+    "texture_resolution": "8k",
+    "should_remesh": false,
+    "image_enhancement": false,
+    "target_formats": ["glb", "fbx", "obj"],
+    "auto_size": false,
+    "alpha_thumbnail": false,
+    "multi_view_thumbnails": false
+  },
+  "assets": {
+    "candidate01": {
+      "images": ["References/user-selected.png"],
+      "options": {
+        "texture_prompt": "Faithfully reproduce the supplied Highland two-handed sword: weathered cool silver-blue steel blade, narrow central fuller with pale ice-blue rune engravings and Celtic interlace near the base. Smooth upward-curving dark steel crossguard with compact leaf-shaped terminals and fine antique bronze borders, a muted deep cyan diamond gem in the central guard. Long dark brown leather-wrapped two-hand grip, steel collars, engraved round wheel pommel with bronze trim and a tiny blue inset. Preserve original fine surface detail, subtle scratches and material boundaries. No extra parts, rust, bright paint, strong baked lighting, circular guard terminals or spikes."
+      }
+    }
+  },
+  "budget": {"planned_tasks": 1, "estimated_credits": 40}
+}

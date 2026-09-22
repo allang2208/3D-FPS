@@ -146,7 +146,8 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
         if(const auto* W=G->Weapon(WeaponDefinition))bHitStagger=W->bHitStagger;
     auto ApplyDamage=[&](){ return UGameplayStatics::ApplyPointDamage(Victim,Amount,Direction,Hit,
         Pawn?Pawn->GetController():nullptr,Shooter,nullptr); };
-    const float Applied=(Combat&&!bHitStagger)?Combat->ApplyHitWithReactionScale(0.f,ApplyDamage):ApplyDamage();
+    auto ApplyToughness=[&](){return Combat?Combat->ApplyHitWithToughnessScale(Shot.ToughnessDamageMultiplier,ApplyDamage):ApplyDamage();};
+    const float Applied=(Combat&&!Shot.bMelee&&!bHitStagger)?Combat->ApplyHitWithReactionScale(0.f,ApplyToughness):ApplyToughness();
     if(Result)
     {
         Result->BeforeDefense=WeaponHit.Incoming;Result->AfterDefense=WeaponHit.Mitigated;

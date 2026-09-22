@@ -1,0 +1,15 @@
+{
+  "colors_linear": {
+    "BurstColor": [0.018, 0.36, 0.72, 1.0],
+    "InnerColor": [0.22, 0.70, 0.85, 1.0],
+    "AccentColor": [0.12, 0.14, 0.48, 1.0]
+  },
+  "scalars": {
+    "BurstRate": 0.34,
+    "BurstHalo": 0.45,
+    "EdgeSoftness": 0.060,
+    "SpiritOpacity": 0.56,
+    "SpiritBrightness": 1.35,
+    "HaloRadiusTexels": 4.5
+  }
+}

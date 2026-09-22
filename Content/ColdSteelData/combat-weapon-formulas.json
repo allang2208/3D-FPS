@@ -160,5 +160,22 @@
         "perEnhance": 0.04275
       }
     ]
+  },
+  "ue_highland_claymore": {
+    "source": "HIGHLAND_CLAYMORE_SHARED_TWO_HANDED_RULES",
+    "base": 40,
+    "enhanceFlat": 5,
+    "attrs": [
+      {
+        "key": "int",
+        "base": 4.5,
+        "perEnhance": 0.9
+      },
+      {
+        "key": "str",
+        "base": 3.5,
+        "perEnhance": 0.6
+      }
+    ]
   }
 }

@@ -92,6 +92,7 @@ private:
     FString EquippedMeshPath;
     FMeleeModifiers MeleeModifiers;
     float SwingRuneVulnerability=0, SwingRuneVulnerabilitySeconds=0;
+    // 金色符文强化：每次确认命中后本挥缩减技能CD的秒数与已缩减标记（每挥一次）。
     float SwingCooldownReduceSeconds=0;bool bSwingCooldownReduced=false;
     FName CurrentClip;
     float Elapsed=0.f, Damage=55.f, AttackRate=1.f, SwingDamage=55.f, SwingRate=1.f;
@@ -154,10 +155,10 @@ private:
     // 不再借用普通挥击的 SwingReach；接触帧只判一次。
     float QuickCombatRangeCM=200.f;
     bool bQuickCombatContactDone=false;
-    // 下劈动作本身仍可独立调用；冲刺技能衔接独立持剑前摇并使用扇区结算，不附加位移。
+    // 下劈动作本身仍可独立调用；冲刺技能在持剑前摇中前进一米，使用原扇区结算。
     bool bOverheadAttack=false;
     bool bDashAttack=false,bDashTrainingPending=false,bDashCenterCaptured=false;
-    // 保留已打开编辑器对象的字段布局；旧突进累计值不再驱动位移。
+    // 保留字段布局；突进由现有动作时间曲线驱动，旧累计值不参与位移。
     float DashSprintSeconds=0.f,DashTravelCM=0.f,DashBounceLeftCM=0.f;
     int32 DashHits=0,DashKills=0;
     FDashAttackCast DashCast;
@@ -174,6 +175,13 @@ private:
     bool bGuardHeld=false,bGuarding=false,bReturningGuard=false,bGuardReacting=false,bGuardBreakPose=false;
     float GuardPoseTime=0.f,GuardReactionRate=1.f,GuardFeedbackStrength=0.f;
     double GuardStartedAt=0.,GuardFeedbackAt=-100.;
+    // A single parry-earned normal-input replacement, owned by this equipped sword.
+    double ClovenReadyUntil=0.,ClovenGrantedAt=-100.;
+    float ClovenGlow=0.f;
+    void GrantClovenCounter();
+    bool TryClovenCounter();
+    void TickClovenCounter(float Delta);
+    void ClearClovenCounter();
     TSet<TWeakObjectPtr<AActor>> HitActors;
     bool CanUse() const;
     bool StartSwing(FName Clip, bool Heavy, float StaminaOverride=-1.f);

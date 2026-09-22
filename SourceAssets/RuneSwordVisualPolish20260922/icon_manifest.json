@@ -1,0 +1,674 @@
+[
+  {
+    "slot": "blade_1",
+    "id": "false",
+    "name": "原装剑身Ⅰ",
+    "key": "ue_rune_sword_blade_1_false",
+    "spec": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Blade_factory.SM_RuneSword_Blade_factory",
+      "location_cm": [
+        0,
+        0,
+        0.0
+      ],
+      "interface": "azure_hilt_v1",
+      "rune_dimensions_cm": [
+        10.6,
+        10,
+        63
+      ],
+      "trace_base_cm": [
+        0,
+        0,
+        2.4
+      ],
+      "trace_tip_cm": [
+        0,
+        0,
+        80.0
+      ]
+    },
+    "numeric_only": false
+  },
+  {
+    "slot": "blade_1",
+    "id": "extended_edge",
+    "name": "延锋刃",
+    "key": "ue_rune_sword_blade_1_extended_edge",
+    "spec": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Blade_factory.SM_RuneSword_Blade_factory",
+      "location_cm": [
+        0,
+        0,
+        0.0
+      ],
+      "interface": "azure_hilt_v1",
+      "rune_dimensions_cm": [
+        10.6,
+        10,
+        63
+      ],
+      "trace_base_cm": [
+        0,
+        0,
+        2.4
+      ],
+      "trace_tip_cm": [
+        0,
+        0,
+        80.0
+      ]
+    },
+    "numeric_only": true
+  },
+  {
+    "slot": "blade_1",
+    "id": "heavy_spine",
+    "name": "重脊刃",
+    "key": "ue_rune_sword_blade_1_heavy_spine",
+    "spec": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Blade_factory.SM_RuneSword_Blade_factory",
+      "location_cm": [
+        0,
+        0,
+        0.0
+      ],
+      "interface": "azure_hilt_v1",
+      "rune_dimensions_cm": [
+        10.6,
+        10,
+        63
+      ],
+      "trace_base_cm": [
+        0,
+        0,
+        2.4
+      ],
+      "trace_tip_cm": [
+        0,
+        0,
+        80.0
+      ]
+    },
+    "numeric_only": true
+  },
+  {
+    "slot": "blade_1",
+    "id": "feather_edge",
+    "name": "轻羽刃",
+    "key": "ue_rune_sword_blade_1_feather_edge",
+    "spec": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Blade_factory.SM_RuneSword_Blade_factory",
+      "location_cm": [
+        0,
+        0,
+        0.0
+      ],
+      "interface": "azure_hilt_v1",
+      "rune_dimensions_cm": [
+        10.6,
+        10,
+        63
+      ],
+      "trace_base_cm": [
+        0,
+        0,
+        2.4
+      ],
+      "trace_tip_cm": [
+        0,
+        0,
+        80.0
+      ]
+    },
+    "numeric_only": true
+  },
+  {
+    "slot": "blade_1",
+    "id": "category",
+    "key": "ue_rune_sword_category_blade_1",
+    "copy": "ue_rune_sword_blade_1_false"
+  },
+  {
+    "slot": "blade_2",
+    "id": "false",
+    "name": "原装剑身Ⅱ",
+    "key": "ue_rune_sword_blade_2_false",
+    "spec": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Blade_factory.SM_RuneSword_Blade_factory",
+      "location_cm": [
+        0,
+        0,
+        0.0
+      ],
+      "interface": "azure_hilt_v1",
+      "rune_dimensions_cm": [
+        10.6,
+        10,
+        63
+      ],
+      "trace_base_cm": [
+        0,
+        0,
+        2.4
+      ],
+      "trace_tip_cm": [
+        0,
+        0,
+        80.0
+      ]
+    },
+    "numeric_only": false
+  },
+  {
+    "slot": "blade_2",
+    "id": "resonance_rune",
+    "name": "共鸣符文",
+    "key": "ue_rune_sword_blade_2_resonance_rune",
+    "spec": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Blade_factory.SM_RuneSword_Blade_factory",
+      "location_cm": [
+        0,
+        0,
+        0.0
+      ],
+      "interface": "azure_hilt_v1",
+      "rune_dimensions_cm": [
+        10.6,
+        10,
+        63
+      ],
+      "trace_base_cm": [
+        0,
+        0,
+        2.4
+      ],
+      "trace_tip_cm": [
+        0,
+        0,
+        80.0
+      ]
+    },
+    "numeric_only": false
+  },
+  {
+    "slot": "blade_2",
+    "id": "erosion_rune",
+    "name": "侵蚀符文",
+    "key": "ue_rune_sword_blade_2_erosion_rune",
+    "spec": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Blade_factory.SM_RuneSword_Blade_factory",
+      "location_cm": [
+        0,
+        0,
+        0.0
+      ],
+      "interface": "azure_hilt_v1",
+      "rune_dimensions_cm": [
+        10.6,
+        10,
+        63
+      ],
+      "trace_base_cm": [
+        0,
+        0,
+        2.4
+      ],
+      "trace_tip_cm": [
+        0,
+        0,
+        80.0
+      ]
+    },
+    "numeric_only": false
+  },
+  {
+    "slot": "blade_2",
+    "id": "conduction_rune",
+    "name": "导魔符文",
+    "key": "ue_rune_sword_blade_2_conduction_rune",
+    "spec": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Blade_factory.SM_RuneSword_Blade_factory",
+      "location_cm": [
+        0,
+        0,
+        0.0
+      ],
+      "interface": "azure_hilt_v1",
+      "rune_dimensions_cm": [
+        10.6,
+        10,
+        63
+      ],
+      "trace_base_cm": [
+        0,
+        0,
+        2.4
+      ],
+      "trace_tip_cm": [
+        0,
+        0,
+        80.0
+      ]
+    },
+    "numeric_only": false
+  },
+  {
+    "slot": "blade_2",
+    "id": "golden_glow_rune",
+    "name": "金色符文强化",
+    "key": "ue_rune_sword_blade_2_golden_glow_rune",
+    "spec": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Blade_factory.SM_RuneSword_Blade_factory",
+      "location_cm": [
+        0,
+        0,
+        0.0
+      ],
+      "interface": "azure_hilt_v1",
+      "rune_dimensions_cm": [
+        10.6,
+        10,
+        63
+      ],
+      "trace_base_cm": [
+        0,
+        0,
+        2.4
+      ],
+      "trace_tip_cm": [
+        0,
+        0,
+        80.0
+      ]
+    },
+    "numeric_only": false
+  },
+  {
+    "slot": "blade_2",
+    "id": "category",
+    "key": "ue_rune_sword_category_blade_2",
+    "copy": "ue_rune_sword_blade_2_false"
+  },
+  {
+    "slot": "guard",
+    "id": "false",
+    "name": "原装护手",
+    "key": "ue_rune_sword_guard_false",
+    "spec": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Guard_factory.SM_RuneSword_Guard_factory",
+      "location_cm": [
+        0,
+        0,
+        0.0
+      ],
+      "interface": "azure_hilt_v1"
+    },
+    "numeric_only": false
+  },
+  {
+    "slot": "guard",
+    "id": "bastion_guard",
+    "name": "壁垒护手",
+    "key": "ue_rune_sword_guard_bastion_guard",
+    "spec": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Guard_bastion_guard.SM_RuneSword_Guard_bastion_guard",
+      "location_cm": [
+        0,
+        0,
+        0.0
+      ],
+      "interface": "azure_hilt_v1"
+    },
+    "numeric_only": false
+  },
+  {
+    "slot": "guard",
+    "id": "riposte_guard",
+    "name": "反击护手",
+    "key": "ue_rune_sword_guard_riposte_guard",
+    "spec": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Guard_riposte_guard.SM_RuneSword_Guard_riposte_guard",
+      "location_cm": [
+        0,
+        0,
+        0.0
+      ],
+      "interface": "azure_hilt_v1"
+    },
+    "numeric_only": false
+  },
+  {
+    "slot": "guard",
+    "id": "light_guard",
+    "name": "轻量护手",
+    "key": "ue_rune_sword_guard_light_guard",
+    "spec": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Guard_light_guard.SM_RuneSword_Guard_light_guard",
+      "location_cm": [
+        0,
+        0,
+        0.0
+      ],
+      "interface": "azure_hilt_v1"
+    },
+    "numeric_only": false
+  },
+  {
+    "slot": "guard",
+    "id": "category",
+    "key": "ue_rune_sword_category_guard",
+    "copy": "ue_rune_sword_guard_false"
+  },
+  {
+    "slot": "grip",
+    "id": "false",
+    "name": "原装握把",
+    "key": "ue_rune_sword_grip_false",
+    "spec": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Grip_factory.SM_RuneSword_Grip_factory",
+      "location_cm": [
+        0,
+        0,
+        -4.0
+      ],
+      "interface": "azure_hilt_v1"
+    },
+    "numeric_only": false
+  },
+  {
+    "slot": "grip",
+    "id": "shock_wrap",
+    "name": "吸震缠柄",
+    "key": "ue_rune_sword_grip_shock_wrap",
+    "spec": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Grip_shock_wrap.SM_RuneSword_Grip_shock_wrap",
+      "location_cm": [
+        0,
+        0,
+        -4.0
+      ],
+      "interface": "azure_hilt_v1",
+      "pommel_offset_cm": [
+        0,
+        0,
+        0
+      ]
+    },
+    "numeric_only": false
+  },
+  {
+    "slot": "grip",
+    "id": "swift_grip",
+    "name": "速握轻柄",
+    "key": "ue_rune_sword_grip_swift_grip",
+    "spec": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Grip_swift_grip.SM_RuneSword_Grip_swift_grip",
+      "location_cm": [
+        0,
+        0,
+        -4.0
+      ],
+      "interface": "azure_hilt_v1",
+      "pommel_offset_cm": [
+        0,
+        0,
+        0
+      ]
+    },
+    "numeric_only": false
+  },
+  {
+    "slot": "grip",
+    "id": "long_twohand",
+    "name": "长柄双手",
+    "key": "ue_rune_sword_grip_long_twohand",
+    "spec": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Grip_long_twohand.SM_RuneSword_Grip_long_twohand",
+      "location_cm": [
+        0,
+        0,
+        -4.0
+      ],
+      "interface": "azure_hilt_v1",
+      "pommel_offset_cm": [
+        0,
+        0,
+        -2.8
+      ],
+      "animation_folder": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations",
+      "appearance": "加长握柄 · 柄尾联动"
+    },
+    "numeric_only": false
+  },
+  {
+    "slot": "grip",
+    "id": "category",
+    "key": "ue_rune_sword_category_grip",
+    "copy": "ue_rune_sword_grip_false"
+  },
+  {
+    "slot": "pommel",
+    "id": "false",
+    "name": "原装配重锤",
+    "key": "ue_rune_sword_pommel_false",
+    "spec": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Pommel_factory.SM_RuneSword_Pommel_factory",
+      "location_cm": [
+        0,
+        0,
+        -19.5
+      ],
+      "interface": "azure_hilt_v1"
+    },
+    "numeric_only": false
+  },
+  {
+    "slot": "pommel",
+    "id": "pommel_hardened",
+    "name": "硬化配重",
+    "key": "ue_rune_sword_pommel_pommel_hardened",
+    "spec": {
+      "mesh": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_hardened/SM_FrostPommel_ballast_hardened.SM_FrostPommel_ballast_hardened",
+      "interface": "frost_hilt_v1",
+      "appearance": "硬化配重 · 剑类通用配重",
+      "location_cm": [
+        0,
+        0,
+        -20.1
+      ],
+      "rotation_deg": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "adapter": {
+        "mesh": "/Game/Weapons/SixSharedSwordPommels20260920/Interfaces/SM_SwordPommel_RuneToFrost.SM_SwordPommel_RuneToFrost",
+        "location_cm": [
+          0,
+          0,
+          -19.5
+        ],
+        "interface": "azure_hilt_v1_to_frost_hilt_v1"
+      },
+      "materials": {
+        "M_FrostPommel_Collar": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_Collar.M_SixPommel_RuneSilver_Collar",
+        "M_FrostPommel_Bronze": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_pommel_hardened.M_SixPommel_RuneSilver_pommel_hardened"
+      }
+    },
+    "numeric_only": false
+  },
+  {
+    "slot": "pommel",
+    "id": "pommel_runic",
+    "name": "符文配重",
+    "key": "ue_rune_sword_pommel_pommel_runic",
+    "spec": {
+      "mesh": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_rune/SM_FrostPommel_ballast_rune.SM_FrostPommel_ballast_rune",
+      "interface": "frost_hilt_v1",
+      "appearance": "符文配重 · 剑类通用配重",
+      "location_cm": [
+        0,
+        0,
+        -20.1
+      ],
+      "rotation_deg": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "adapter": {
+        "mesh": "/Game/Weapons/SixSharedSwordPommels20260920/Interfaces/SM_SwordPommel_RuneToFrost.SM_SwordPommel_RuneToFrost",
+        "location_cm": [
+          0,
+          0,
+          -19.5
+        ],
+        "interface": "azure_hilt_v1_to_frost_hilt_v1"
+      },
+      "materials": {
+        "M_FrostPommel_Collar": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_Collar.M_SixPommel_RuneSilver_Collar",
+        "M_FrostPommel_Bronze": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_pommel_runic.M_SixPommel_RuneSilver_pommel_runic",
+        "M_FrostPommel_InlayBorder": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_InlayBorder.M_SixPommel_RuneSilver_InlayBorder"
+      }
+    },
+    "numeric_only": false
+  },
+  {
+    "slot": "pommel",
+    "id": "pommel_mana_orb",
+    "name": "魔力球配重",
+    "key": "ue_rune_sword_pommel_pommel_mana_orb",
+    "spec": {
+      "mesh": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_magic_orb/SM_FrostPommel_ballast_magic_orb.SM_FrostPommel_ballast_magic_orb",
+      "interface": "frost_hilt_v1",
+      "appearance": "魔力球配重 · 剑类通用配重",
+      "location_cm": [
+        0,
+        0,
+        -20.1
+      ],
+      "rotation_deg": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "adapter": {
+        "mesh": "/Game/Weapons/SixSharedSwordPommels20260920/Interfaces/SM_SwordPommel_RuneToFrost.SM_SwordPommel_RuneToFrost",
+        "location_cm": [
+          0,
+          0,
+          -19.5
+        ],
+        "interface": "azure_hilt_v1_to_frost_hilt_v1"
+      },
+      "materials": {
+        "M_FrostPommel_Collar": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_Collar.M_SixPommel_RuneSilver_Collar",
+        "M_FrostPommel_Bronze": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_pommel_mana_orb.M_SixPommel_RuneSilver_pommel_mana_orb"
+      }
+    },
+    "numeric_only": false
+  },
+  {
+    "slot": "pommel",
+    "id": "ballast_hardened",
+    "name": "陨星锤首",
+    "key": "ue_rune_sword_pommel_ballast_hardened",
+    "spec": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Models/SM_RunePommel_Meteor.SM_RunePommel_Meteor",
+      "interface": "shared_sword_pommel_v1",
+      "appearance": "陨星锤首 · 剑类通用配重",
+      "location_cm": [
+        0,
+        0,
+        -19.5
+      ],
+      "rotation_deg": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "numeric_only": false
+  },
+  {
+    "slot": "pommel",
+    "id": "ballast_rune",
+    "name": "凝碧星核",
+    "key": "ue_rune_sword_pommel_ballast_rune",
+    "spec": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Models/SM_RunePommel_JadeStar.SM_RunePommel_JadeStar",
+      "interface": "shared_sword_pommel_v1",
+      "appearance": "凝碧星核 · 剑类通用配重",
+      "location_cm": [
+        0,
+        0,
+        -19.5
+      ],
+      "rotation_deg": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "numeric_only": false
+  },
+  {
+    "slot": "pommel",
+    "id": "ballast_magic_orb",
+    "name": "疾星配重",
+    "key": "ue_rune_sword_pommel_ballast_magic_orb",
+    "spec": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Models/SM_RunePommel_Swiftstar.SM_RunePommel_Swiftstar",
+      "interface": "shared_sword_pommel_v1",
+      "appearance": "疾星配重 · 剑类通用配重",
+      "location_cm": [
+        0,
+        0,
+        -19.5
+      ],
+      "rotation_deg": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "numeric_only": false
+  },
+  {
+    "slot": "pommel",
+    "id": "category",
+    "key": "ue_rune_sword_category_pommel",
+    "copy": "ue_rune_sword_pommel_false"
+  }
+]

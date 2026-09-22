@@ -1,0 +1,1218 @@
+[
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/baseline.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/baseline.json",
+    "bytes": 2621,
+    "sha256": "4812eaab59f4e55a4037147adb8a89faa87f294f8c92cf7cd3acb753343390b3",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/contact_sheet.py",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/contact_sheet.py",
+    "bytes": 619,
+    "sha256": "1055c1fa3e21fd1060f369bf30945ccddcdd7662b66700adfea6d5a65faf7809",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/deploy_receipt.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/deploy_receipt.json",
+    "bytes": 2641,
+    "sha256": "dcaa0b2047b5ba444cb429fe0e04dca8bac0d0735abe66201ea5d8fb895c7dbe",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/deploy-result.txt",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/deploy-result.txt",
+    "bytes": 119,
+    "sha256": "45efc1bd8ed1992629801fd3c792eaa88e759ee6b11636b779e3f135502cb8c3",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/deploy.py",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/deploy.py",
+    "bytes": 1605,
+    "sha256": "7dd246a21d12b83f65ec6ca73975589784ce4711b11d245479ac7468f48f3df5",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/options_snapshot.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/options_snapshot.json",
+    "bytes": 2328,
+    "sha256": "b2edbeafe9b6d8167ac01a548c4e51455f39b4439193e16626ac448845aa8c88",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/prepare.py",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/prepare.py",
+    "bytes": 1480,
+    "sha256": "de86ee09c59a8da0c84f1e86c766c7f86ff5f3c430353cb66b954c37584a0e9b",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/README.md",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/README.md",
+    "bytes": 2250,
+    "sha256": "ed3c117acb31fc1123d636b75bbc1b4769a73be208c773bd24a5b3058914ecaf",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/render_02.log",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/render_02.log",
+    "bytes": 1919,
+    "sha256": "1254264585e99326e1e05ff0fb560a8dd71459d323d23720393ae4dee1a7f21f",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/render_03.log",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/render_03.log",
+    "bytes": 1919,
+    "sha256": "613a4e736fa0b4aeac49f94efb1312b79c63b8c901edfa4135e84d0aded90530",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/render_04.log",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/render_04.log",
+    "bytes": 1485,
+    "sha256": "689fb543e9a2f0f5d40c536146f55761b5b90356c11aadf30dfd0ef655ed368c",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/render_05.log",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/render_05.log",
+    "bytes": 1485,
+    "sha256": "7492d751121fe8fec44bb1b6bbce0858dd9cf1634ef9fc6b52b9dc4bfe758f8d",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/render_06.log",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/render_06.log",
+    "bytes": 1485,
+    "sha256": "f07166eef908e21c45c7ee971bdf7761992193752a5c8a5f759cb30e1b3ef7d5",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/render_glyphs.py",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/render_glyphs.py",
+    "bytes": 7026,
+    "sha256": "6c633b4498531b44dbf33a96b484ed67f2a7ec2bdd1d6cfaf690f12a85f16910",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/render_receipt.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/render_receipt.json",
+    "bytes": 6034,
+    "sha256": "064db396073154684cb771edc499a46f6aaa824c83b32e4dcd6ae9c2e506c6c6",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/render_trace.log",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/render_trace.log",
+    "bytes": 1462,
+    "sha256": "85100e72fdaf07e87f17c2a64d1c8c77594bcb8e9a0489523dc87d538f39d410",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/render.log",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/render.log",
+    "bytes": 1919,
+    "sha256": "86ced82b008c8c8f839d3bf53128aef3a64e11194f1e20550c834005bf26664e",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/rune_icons.jpg",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/rune_icons.jpg",
+    "bytes": 56289,
+    "sha256": "86213f8f0a6e9c8643247d9c25dfd0f0523ac1579a98473fa8be0733fe5d0e7f",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/RuneGlyph_Icons.blend",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/RuneGlyph_Icons.blend",
+    "bytes": 737777,
+    "sha256": "7372b458c6dbb2775e11d8af15a1880c0a11a40dd3dee91da649dff671f1b93d",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/targets.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/targets.json",
+    "bytes": 751,
+    "sha256": "01283395fb5af25cbf51549ed42c60e5404bbfdafd962dc8e0cf439e4915446e",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_blade_2_conduction_rune.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_blade_2_conduction_rune.png",
+    "bytes": 359909,
+    "sha256": "d5302c65cdce76c6029a44bc3da37e7a3d099765a64213ab4b40b3fb5c910580",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_blade_2_conduction_rune.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_blade_2_conduction_rune.uasset",
+    "bytes": 362263,
+    "sha256": "43b2cd58346180d1051d63d8607c0b874aa9ddc0eee1fb4b23be67932d171bc1",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_blade_2_erosion_rune.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_blade_2_erosion_rune.png",
+    "bytes": 367433,
+    "sha256": "b8b501ba6e72a4b78b9350022cf406f41cccce2971e9ada804ac37ca33e95eeb",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_blade_2_erosion_rune.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_blade_2_erosion_rune.uasset",
+    "bytes": 370163,
+    "sha256": "fe08487f2d815f4487c4f42680842313a55e17e29260f04d4f01401820547cda",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_blade_2_false.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_blade_2_false.png",
+    "bytes": 365698,
+    "sha256": "43e8ef5603931a08a46656caf6d7c220504b635d7987b236b78f121a842bb0c1",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_blade_2_false.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_blade_2_false.uasset",
+    "bytes": 366005,
+    "sha256": "1b2b19a20651b5ab8d0885046b858d3a2f636b5513580d7da30ad2208b852d94",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_blade_2_golden_glow_rune.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_blade_2_golden_glow_rune.png",
+    "bytes": 366507,
+    "sha256": "141510bdff764e0ed141b4cd24b3ffe912a9d660d911fc9af83f64b11649320c",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_blade_2_golden_glow_rune.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_blade_2_golden_glow_rune.uasset",
+    "bytes": 367719,
+    "sha256": "711624b1e696bde1a75ee32705c834a314b532fda81e589dc3eea0d43c929920",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_blade_2_resonance_rune.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_blade_2_resonance_rune.png",
+    "bytes": 384731,
+    "sha256": "22967abe0b4a227d57f7f556ea96f02dbbc433b5ae6317469c2cf18e691a2078",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_blade_2_resonance_rune.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_blade_2_resonance_rune.uasset",
+    "bytes": 386073,
+    "sha256": "57c2b05fc97dbf60683c707381e803429cd8e59443264f9dee9d3d18b197d860",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_category_blade_2.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_category_blade_2.png",
+    "bytes": 365698,
+    "sha256": "43e8ef5603931a08a46656caf6d7c220504b635d7987b236b78f121a842bb0c1",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_category_blade_2.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/Before/ue_rune_sword_category_blade_2.uasset",
+    "bytes": 366067,
+    "sha256": "055120f6b8fa5be66ea06ef4e49f96309bfd6d6e70bf8e2a2192875054b97990",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/Icons/ue_rune_sword_blade_2_conduction_rune.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/Icons/ue_rune_sword_blade_2_conduction_rune.png",
+    "bytes": 672988,
+    "sha256": "bcae7c90217e66b3c4c01f79200cb5d162d59a6314e388c54674ffad3ccb826e",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/Icons/ue_rune_sword_blade_2_erosion_rune.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/Icons/ue_rune_sword_blade_2_erosion_rune.png",
+    "bytes": 766845,
+    "sha256": "67727f5d7d7bc77e8f48a8fb8d3ac5a2b3b053ec215935bc19a98e7e097e064d",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/Icons/ue_rune_sword_blade_2_false.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/Icons/ue_rune_sword_blade_2_false.png",
+    "bytes": 413381,
+    "sha256": "4ef380dc7c9cc382fdbc277da7f850f60c09822c64de4b2162666098f0c48534",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/Icons/ue_rune_sword_blade_2_golden_glow_rune.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/Icons/ue_rune_sword_blade_2_golden_glow_rune.png",
+    "bytes": 416579,
+    "sha256": "60c4b9c9e795cd8e702537bca03537f11455eb3f8183ecbafb4ba1798fc92478",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/Icons/ue_rune_sword_blade_2_resonance_rune.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/Icons/ue_rune_sword_blade_2_resonance_rune.png",
+    "bytes": 669668,
+    "sha256": "69575afcb005467b7aa5ff2b8d860c0f5f255c5572d3c484aff5c3a96850eb68",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/RuneSwordGlyphIcons20260922/Icons/ue_rune_sword_category_blade_2.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordGlyphIcons20260922/Icons/ue_rune_sword_category_blade_2.png",
+    "bytes": 413381,
+    "sha256": "4ef380dc7c9cc382fdbc277da7f850f60c09822c64de4b2162666098f0c48534",
+    "reason": "User rejected glyph-subject icons; replaced with semantic icons.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreConcept20260922/highland-claymore-v1.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreConcept20260922/highland-claymore-v1.png",
+    "bytes": 1650964,
+    "sha256": "8c3d270ba4e1fd70c2f9f32d0a8c3b8fb4a6f344182694fd3bd2ac675ddd1c0b",
+    "reason": "Unselected concept variant; selected curved leaf-tip guard retained.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/References/user-selected.png"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreConcept20260922/highland-claymore-concept.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreConcept20260922/highland-claymore-concept.png",
+    "bytes": 1590263,
+    "sha256": "d797563a311d3916905a3643a098525eab63fd8f93bce4efc18241e0958a4715",
+    "reason": "Unselected concept variant; selected curved leaf-tip guard retained.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/References/user-selected.png"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreConcept20260922/highland-claymore-sharp-guard-v2.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreConcept20260922/highland-claymore-sharp-guard-v2.png",
+    "bytes": 1551963,
+    "sha256": "9cd7d386522fc13c0c9197500cd393c049c92d5b2725747162b345166f2ee07a",
+    "reason": "Unselected concept variant; selected curved leaf-tip guard retained.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/References/user-selected.png"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreConcept20260922/highland-claymore-round-guard-v4.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreConcept20260922/highland-claymore-round-guard-v4.png",
+    "bytes": 1511353,
+    "sha256": "d3bfbbe294a9353b804e80da69a30d11755259f67f6c38b3c5167cb1e763bfac",
+    "reason": "Unselected concept variant; selected curved leaf-tip guard retained.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/References/user-selected.png"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreConcept20260922/prompt.txt",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreConcept20260922/prompt.txt",
+    "bytes": 3651,
+    "sha256": "9c444a7fdd9e7ade391c91511b0cf0d11d115dc85fb73c6fb5ad193e3913d0b2",
+    "reason": "Unselected concept variant; selected curved leaf-tip guard retained.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/References/user-selected.png"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreConcept20260922/guard-correction-prompt.txt",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreConcept20260922/guard-correction-prompt.txt",
+    "bytes": 1259,
+    "sha256": "ff42d20c15314276f0bdb96ce57d9a8141655df30a1df7d98a3e26f231b552bc",
+    "reason": "Unselected concept variant; selected curved leaf-tip guard retained.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/References/user-selected.png"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreConcept20260922/sharp-guard-v2-prompt.txt",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreConcept20260922/sharp-guard-v2-prompt.txt",
+    "bytes": 2202,
+    "sha256": "15328ae9be5662eb65a8ccd75e9209ec93b47c405916ae59a2357128817df705",
+    "reason": "Unselected concept variant; selected curved leaf-tip guard retained.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/References/user-selected.png"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreConcept20260922/round-guard-v4-prompt.txt",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreConcept20260922/round-guard-v4-prompt.txt",
+    "bytes": 1526,
+    "sha256": "0f68c6f66891774ea94ecc0db68eb1c6ad042dcd114a39e3209c5f71773368e6",
+    "reason": "Unselected concept variant; selected curved leaf-tip guard retained.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/References/user-selected.png"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/authoring.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/authoring.json",
+    "bytes": 677,
+    "sha256": "5ecad2dd2c88867aa1b24b89bc5bcdb45b292f4845d262fa1662bb76ada136fe",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/bake_native_mask.py",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/bake_native_mask.py",
+    "bytes": 4147,
+    "sha256": "0667fd76129ab0e74e5b882a587cb29cf3a37becf424b5a548e48d14bc11caea",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/blade_uv_source.npz",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/blade_uv_source.npz",
+    "bytes": 169572,
+    "sha256": "7db07641488c9b5b3dbe709855d4a30262a12e4aaccf2dc99598ac01d35d1ed5",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/T_RuneSword_NativeMask.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/T_RuneSword_NativeMask.png",
+    "bytes": 247413,
+    "sha256": "91a5e54fcf31797c5111f53de97fea06e06d462ef669a44741ab14cb8de5c0b2",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/T_RuneSword_NativeMask.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/T_RuneSword_NativeMask.uasset",
+    "bytes": 276870,
+    "sha256": "bec5d19350e956ec008658146913783f4ced302efc6dd798770902b42ed023f2",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_blade_1_extended_edge.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_blade_1_extended_edge.png",
+    "bytes": 127967,
+    "sha256": "8fd99c7cd397b09fc7cfadca476bd2b468c19d78ff2e0316e6b5b1dfa2b48b6f",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_blade_1_false.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_blade_1_false.png",
+    "bytes": 127967,
+    "sha256": "8fd99c7cd397b09fc7cfadca476bd2b468c19d78ff2e0316e6b5b1dfa2b48b6f",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_blade_1_feather_edge.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_blade_1_feather_edge.png",
+    "bytes": 127967,
+    "sha256": "8fd99c7cd397b09fc7cfadca476bd2b468c19d78ff2e0316e6b5b1dfa2b48b6f",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_blade_1_heavy_spine.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_blade_1_heavy_spine.png",
+    "bytes": 127967,
+    "sha256": "8fd99c7cd397b09fc7cfadca476bd2b468c19d78ff2e0316e6b5b1dfa2b48b6f",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_blade_2_false.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_blade_2_false.png",
+    "bytes": 127967,
+    "sha256": "8fd99c7cd397b09fc7cfadca476bd2b468c19d78ff2e0316e6b5b1dfa2b48b6f",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_category_blade_1.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_category_blade_1.png",
+    "bytes": 127967,
+    "sha256": "8fd99c7cd397b09fc7cfadca476bd2b468c19d78ff2e0316e6b5b1dfa2b48b6f",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_category_blade_2.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_category_blade_2.png",
+    "bytes": 127967,
+    "sha256": "8fd99c7cd397b09fc7cfadca476bd2b468c19d78ff2e0316e6b5b1dfa2b48b6f",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_category_grip.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_category_grip.png",
+    "bytes": 155535,
+    "sha256": "6a97fa187061abd064cfddf8175a8b6bc6053f621063aa30d6fb666595873b0e",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_category_guard.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_category_guard.png",
+    "bytes": 145257,
+    "sha256": "b7db9b27cbcea706f5d870827d9418086623bba468f91990d02dcc89a3d49e21",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_category_pommel.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_category_pommel.png",
+    "bytes": 265797,
+    "sha256": "2a70d1284a8b7d1a838b15d508385b6d69ae8b3021c63d14f085fc35224e3253",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_grip_false.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_grip_false.png",
+    "bytes": 155535,
+    "sha256": "6a97fa187061abd064cfddf8175a8b6bc6053f621063aa30d6fb666595873b0e",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_grip_long_twohand.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_grip_long_twohand.png",
+    "bytes": 146179,
+    "sha256": "da73463ca728c910af0b4e95dee3e11beb9209f2a0e07f7f6563bd0d48115018",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_grip_shock_wrap.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_grip_shock_wrap.png",
+    "bytes": 155049,
+    "sha256": "7d39e7027800fd1b4b1dae6a2673a0576b250981ba8c7d81f33c6a4ba15779d5",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_grip_swift_grip.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_grip_swift_grip.png",
+    "bytes": 155423,
+    "sha256": "a16ecf9d8350c581554a349f714699a4df540d4d6d33c5964c17a8f616eb7ad7",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_guard_bastion_guard.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_guard_bastion_guard.png",
+    "bytes": 139363,
+    "sha256": "3115e61c3c0379dc4b7d959e57773d6bf7ec889241b3ec8cf434ff87a8fe36a7",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_guard_false.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_guard_false.png",
+    "bytes": 145257,
+    "sha256": "b7db9b27cbcea706f5d870827d9418086623bba468f91990d02dcc89a3d49e21",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_guard_light_guard.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_guard_light_guard.png",
+    "bytes": 178150,
+    "sha256": "feff0b2c818d35452e3c23d704e2185371b27099ca501e9cae5ee7b3a717db00",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_guard_riposte_guard.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_guard_riposte_guard.png",
+    "bytes": 167515,
+    "sha256": "d6f3d0f4336998c9a0fc14bcb3b7efd44d3f54f2eb90690e92779e61c3465946",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_ballast_hardened.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_ballast_hardened.png",
+    "bytes": 878773,
+    "sha256": "c8f5691dd560a42fdc1272bc1740e6933b4bac66930cd27030d37df062d917df",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_ballast_hardened.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_ballast_hardened.uasset",
+    "bytes": 738017,
+    "sha256": "c9c25f270d9c6c5117a27f27656aebcadcaaeeea5e8a1eead98a61f358a3cec9",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_ballast_magic_orb.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_ballast_magic_orb.png",
+    "bytes": 595772,
+    "sha256": "157ebc3b773deacd619e6dfbbb242556b964adc813d94de2acf349d00f11ae6b",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_ballast_magic_orb.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_ballast_magic_orb.uasset",
+    "bytes": 487233,
+    "sha256": "c493ec3da6156060cfe30ce8c6bfec1bd1b61827ed3770367b2527ff53d4edf3",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_ballast_rune.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_ballast_rune.png",
+    "bytes": 723797,
+    "sha256": "0d7740301e5f6eaaa85e43c926ee5d76122bdb0bf358a4e19213c6ca4f7d878e",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_ballast_rune.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_ballast_rune.uasset",
+    "bytes": 618590,
+    "sha256": "080ba74d330f97c372ed3cc461e19422a6fb9fde7317be146b84e558539a53ae",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_false.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_false.png",
+    "bytes": 265797,
+    "sha256": "2a70d1284a8b7d1a838b15d508385b6d69ae8b3021c63d14f085fc35224e3253",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_pommel_hardened.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_pommel_hardened.png",
+    "bytes": 800440,
+    "sha256": "7a6cd5c44b5ec0056a6f15d4d65659649692cdd5e61e4e48c52ca19c9c860a5c",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_pommel_hardened.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_pommel_hardened.uasset",
+    "bytes": 680990,
+    "sha256": "f083e4214c2496f1b495784764d436f28e4bee56ae19b89faf265884bee9a446",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_pommel_mana_orb.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_pommel_mana_orb.png",
+    "bytes": 792407,
+    "sha256": "df46ab67f543f3dbe0e981981bd52f70b821216972c5a907a4a90fa425cafd46",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_pommel_mana_orb.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_pommel_mana_orb.uasset",
+    "bytes": 679946,
+    "sha256": "d437f73c54bf7e15fe863ee6023afeee1e00bdfb02a2ef2fc23a7434b7061e8f",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_pommel_runic.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_pommel_runic.png",
+    "bytes": 789874,
+    "sha256": "7150c8ca092b73195d09cffdd2055ff2535f4499d8b86b34a01236667a2ca864",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_pommel_runic.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordVisualPolish20260922/Before/ue_rune_sword_pommel_pommel_runic.uasset",
+    "bytes": 661023,
+    "sha256": "114bf0563de469ca12456945df8b547efef5e01a31aa1b62efd724d7dac405c2",
+    "reason": "Superseded rollback snapshot; live mask baseline retained separately.",
+    "replacement": "SourceAssets/RuneSwordVisualPolish20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_blade_2_conduction_rune.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_blade_2_conduction_rune.png",
+    "bytes": 672988,
+    "sha256": "bcae7c90217e66b3c4c01f79200cb5d162d59a6314e388c54674ffad3ccb826e",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_blade_2_conduction_rune.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_blade_2_conduction_rune.uasset",
+    "bytes": 619194,
+    "sha256": "eeb00d8384b6f4543a9be574a959b918c5292273ca28169b4bb044cae8729521",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_blade_2_erosion_rune.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_blade_2_erosion_rune.png",
+    "bytes": 766845,
+    "sha256": "67727f5d7d7bc77e8f48a8fb8d3ac5a2b3b053ec215935bc19a98e7e097e064d",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_blade_2_erosion_rune.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_blade_2_erosion_rune.uasset",
+    "bytes": 705093,
+    "sha256": "991ea3061187471f6ef18cfb885a3204185196d2e4c502321b488476bbbcdeca",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_blade_2_false.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_blade_2_false.png",
+    "bytes": 413381,
+    "sha256": "4ef380dc7c9cc382fdbc277da7f850f60c09822c64de4b2162666098f0c48534",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_blade_2_false.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_blade_2_false.uasset",
+    "bytes": 354813,
+    "sha256": "14c5fd5d65fce236c3c830e7a13c4e0d224ef1bff67689753ba231756eb2adf6",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_blade_2_golden_glow_rune.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_blade_2_golden_glow_rune.png",
+    "bytes": 416579,
+    "sha256": "60c4b9c9e795cd8e702537bca03537f11455eb3f8183ecbafb4ba1798fc92478",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_blade_2_golden_glow_rune.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_blade_2_golden_glow_rune.uasset",
+    "bytes": 355425,
+    "sha256": "0a69185a5891ad0681d3d8f278b2e4c94d7a821722f26ecf8422e5483ae3d734",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_blade_2_resonance_rune.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_blade_2_resonance_rune.png",
+    "bytes": 669668,
+    "sha256": "69575afcb005467b7aa5ff2b8d860c0f5f255c5572d3c484aff5c3a96850eb68",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_blade_2_resonance_rune.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_blade_2_resonance_rune.uasset",
+    "bytes": 598223,
+    "sha256": "6e726f033aa9df562c6e6892a0d37f2b6d1820f407ede5a681349bf9f75b9d70",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_category_blade_2.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_category_blade_2.png",
+    "bytes": 413381,
+    "sha256": "4ef380dc7c9cc382fdbc277da7f850f60c09822c64de4b2162666098f0c48534",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_category_blade_2.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordSemanticIcons20260922/Before/ue_rune_sword_category_blade_2.uasset",
+    "bytes": 354875,
+    "sha256": "7d983a41e992ec3b634808a86bbd3a4f52f88b38e914bcd520171b00e590b0ed",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/RuneSwordSemanticIcons20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordSemanticGlow20260922/Before/M_AzureRunesword_NativeGold.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordSemanticGlow20260922/Before/M_AzureRunesword_NativeGold.uasset",
+    "bytes": 31422,
+    "sha256": "85b796c8181e7f1bc711fdcd77911ff9967faf7f7478cb24d441e33822117e82",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/RuneSwordSemanticGlow20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordSemanticGlow20260922/Before/M_SilverRuneSurfaceV2.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordSemanticGlow20260922/Before/M_SilverRuneSurfaceV2.uasset",
+    "bytes": 24828,
+    "sha256": "626e04eba3a793ed836fc7fe81bb590f35161ebc703560835a9a57b1234af171",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/RuneSwordSemanticGlow20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordSemanticGlow20260922/Before/material_sources.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordSemanticGlow20260922/Before/material_sources.json",
+    "bytes": 13286,
+    "sha256": "41af7dfb867779e246751aacdf95e5890f092cb2463728b0e236fe616ad6a183",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/RuneSwordSemanticGlow20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/RuneSwordSemanticGlow20260922/Before/MI_AzureRunesword_NativeGold.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/RuneSwordSemanticGlow20260922/Before/MI_AzureRunesword_NativeGold.uasset",
+    "bytes": 10323,
+    "sha256": "078c84b1d0108dadaa6ced2333a41f26f88684a380f97cbdd75362f4e124edae",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/RuneSwordSemanticGlow20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/FrostSpiritBurst20260922/Before/Content/ColdSteelData/items.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/FrostSpiritBurst20260922/Before/Content/ColdSteelData/items.json",
+    "bytes": 86305,
+    "sha256": "93395baa22556f1b45502472b7c636bb0ca48bbe032f53b73e31835c039a3527",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/FrostSpiritBurst20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/FrostSpiritBurst20260922/Before/Content/ColdSteelData/melee-gunsmith.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/FrostSpiritBurst20260922/Before/Content/ColdSteelData/melee-gunsmith.json",
+    "bytes": 33102,
+    "sha256": "45ed6ad4913d8783d06be46d4826e56c54ef8f3d0842c80918aef36a1bcb9fcd",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/FrostSpiritBurst20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/FrostSpiritBurst20260922/Before/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/FrostSpiritBurst20260922/Before/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+    "bytes": 24885,
+    "sha256": "faaa4a56dfb078edef56c52559c49782bc9d4b2e9f7bd42cbe07bb4a5e7d1f2e",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/FrostSpiritBurst20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/FrostSpiritBurst20260922/Before/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/FrostSpiritBurst20260922/Before/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+    "bytes": 39144,
+    "sha256": "8ff10a33713bd5a3a83ceb72c429ada7c045f446ae6b400b42c109b30d0a6e75",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/FrostSpiritBurst20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/FrostSpiritBurst20260922/Before/Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/FrostSpiritBurst20260922/Before/Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+    "bytes": 4897,
+    "sha256": "b57ac542faa57bca1a1724e8c7d7b313b55f9dc12770df80baaa1a181a6c2921",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/FrostSpiritBurst20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/FrostSpiritBurst20260922/Before/Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/FrostSpiritBurst20260922/Before/Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+    "bytes": 14462,
+    "sha256": "7fd04d5411c1d115b4ed868d19d6b2ebd234421f050f0893ef2933e6d151c962",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/FrostSpiritBurst20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/FrostSpiritBurst20260922/Before/Source/FPSGAME/Weapons/GunsmithSystem.h",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/FrostSpiritBurst20260922/Before/Source/FPSGAME/Weapons/GunsmithSystem.h",
+    "bytes": 5447,
+    "sha256": "5a15399a59caa4000224eeca135ac6c545abc0079e00bfad735ccd86fe8d4977",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/FrostSpiritBurst20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/FrostSpiritBurst20260922/Before/Source/FPSGAME/Weapons/MeleeGunsmith.cpp",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/FrostSpiritBurst20260922/Before/Source/FPSGAME/Weapons/MeleeGunsmith.cpp",
+    "bytes": 6186,
+    "sha256": "94879b6516f20bec11f755b211f3e6034097ef8c10c0adbdb16cc4fc7fc268de",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/FrostSpiritBurst20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/FrostSpiritBurst20260922/Before/Source/FPSGAME/Weapons/MeleeRuneVisual.cpp",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/FrostSpiritBurst20260922/Before/Source/FPSGAME/Weapons/MeleeRuneVisual.cpp",
+    "bytes": 7578,
+    "sha256": "f3de0b3b6acd24439f8bfc0e1852013030987831d08bb5f0b7c95ada5ddac4be",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/FrostSpiritBurst20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/FrostSpiritBurst20260922/Before/Source/FPSGAME/Weapons/ModularSwordVisual.cpp",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/FrostSpiritBurst20260922/Before/Source/FPSGAME/Weapons/ModularSwordVisual.cpp",
+    "bytes": 14593,
+    "sha256": "86ba2c4432cfb17a46b1b82507a4db7a8ef19b02f60b40831949e68523ef5f00",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/FrostSpiritBurst20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/FrostSpiritBurst20260922/Before/Source/FPSGAME/Weapons/WeaponDamagePanel.cpp",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/FrostSpiritBurst20260922/Before/Source/FPSGAME/Weapons/WeaponDamagePanel.cpp",
+    "bytes": 2165,
+    "sha256": "3e4460cd72ba458057fa0a55d29dec2e64cebfc17747fb376aa30d4debcf1c05",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/FrostSpiritBurst20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/FrostSpiritBlend20260922/Before/M_SilverRuneSurface_FrostSpirit.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/FrostSpiritBlend20260922/Before/M_SilverRuneSurface_FrostSpirit.uasset",
+    "bytes": 35240,
+    "sha256": "2b9c841ed66eab914e49f593b62ccf30417ea016763bacebe5842d6d76fb2615",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/FrostSpiritBlend20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/FrostSpiritBlend20260922/Before/parameters.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/FrostSpiritBlend20260922/Before/parameters.json",
+    "bytes": 1886,
+    "sha256": "145a8d971c956e83972e4c78e8a404bd0c11c8221c608f81ee0bd5394c54706f",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/FrostSpiritBlend20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/FrostSpiritBlend20260922/Before/spirit_previous.hlsl",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/FrostSpiritBlend20260922/Before/spirit_previous.hlsl",
+    "bytes": 3216,
+    "sha256": "0e9d94ec23133cc6f81f4345ce31733a4b0ba69235b6e9f904a14c641173c629",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/FrostSpiritBlend20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/SwordBladeVariants20260922/Before/20260922-134450/frost-sword-modules.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/SwordBladeVariants20260922/Before/20260922-134450/frost-sword-modules.json",
+    "bytes": 5498,
+    "sha256": "1424587a596bc1d6b9d207d116e97c5026eb19ffa91c403a6c13c3c3db087b5b",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/SwordBladeVariants20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/SwordBladeVariants20260922/Before/20260922-134450/rune-sword-modules.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/SwordBladeVariants20260922/Before/20260922-134450/rune-sword-modules.json",
+    "bytes": 5142,
+    "sha256": "5bd8d18448f541fc36592daf54fcb35b3374d44e73734932c54d18f8a24684d6",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/SwordBladeVariants20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/SwordBladeVariants20260922/Before/20260922-134450/ue_rune_sword_blade_1_extended_edge.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/SwordBladeVariants20260922/Before/20260922-134450/ue_rune_sword_blade_1_extended_edge.png",
+    "bytes": 365698,
+    "sha256": "43e8ef5603931a08a46656caf6d7c220504b635d7987b236b78f121a842bb0c1",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/SwordBladeVariants20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/SwordBladeVariants20260922/Before/20260922-134450/ue_rune_sword_blade_1_extended_edge.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/SwordBladeVariants20260922/Before/20260922-134450/ue_rune_sword_blade_1_extended_edge.uasset",
+    "bytes": 366181,
+    "sha256": "b186490fe42a6f996d08da56e494d4671bd34dd21a2c8ff00e7ae7dea38970f0",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/SwordBladeVariants20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/SwordBladeVariants20260922/Before/20260922-134450/ue_rune_sword_blade_1_feather_edge.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/SwordBladeVariants20260922/Before/20260922-134450/ue_rune_sword_blade_1_feather_edge.png",
+    "bytes": 365698,
+    "sha256": "43e8ef5603931a08a46656caf6d7c220504b635d7987b236b78f121a842bb0c1",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/SwordBladeVariants20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/SwordBladeVariants20260922/Before/20260922-134450/ue_rune_sword_blade_1_feather_edge.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/SwordBladeVariants20260922/Before/20260922-134450/ue_rune_sword_blade_1_feather_edge.uasset",
+    "bytes": 366159,
+    "sha256": "87ec9159d21acc291e54daa908ec81d89a0a53bc0ca8028f3ce19e54da535ea4",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/SwordBladeVariants20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/SwordBladeVariants20260922/Before/20260922-134450/ue_rune_sword_blade_1_heavy_spine.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/SwordBladeVariants20260922/Before/20260922-134450/ue_rune_sword_blade_1_heavy_spine.png",
+    "bytes": 365698,
+    "sha256": "43e8ef5603931a08a46656caf6d7c220504b635d7987b236b78f121a842bb0c1",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/SwordBladeVariants20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/SwordBladeVariants20260922/Before/20260922-134450/ue_rune_sword_blade_1_heavy_spine.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/SwordBladeVariants20260922/Before/20260922-134450/ue_rune_sword_blade_1_heavy_spine.uasset",
+    "bytes": 366137,
+    "sha256": "3fb6892c394a032c553f885b5e06bbe864d467b4d0a9c981d44f148cedf02189",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/SwordBladeVariants20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/Broadblade20260922/Before/20260922-164333/highland-claymore-modules.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/Broadblade20260922/Before/20260922-164333/highland-claymore-modules.json",
+    "bytes": 7329,
+    "sha256": "7dea0820553c92d19b04b9ae507f19e90be129835309ed0d642cd51e004f8fe5",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/Broadblade20260922/Before/20260922-164333/melee-gunsmith.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/Broadblade20260922/Before/20260922-164333/melee-gunsmith.json",
+    "bytes": 15221,
+    "sha256": "29012c93f10b9573a92f30eb34e3ebc211b987ee8e3107b4d3dcada6046c4196",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/BroadbladeThicknessV2_20260922/Before/20260922-165448/highland-claymore-modules.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/BroadbladeThicknessV2_20260922/Before/20260922-165448/highland-claymore-modules.json",
+    "bytes": 7952,
+    "sha256": "369bbd404d09755c743ad1a7222cdc43fb2fba20f3de67acd6dfbb45353e4774",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/BroadbladeThicknessV2_20260922/Before/20260922-165448/ue_highland_claymore_blade_1_highland_broadblade.png",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/BroadbladeThicknessV2_20260922/Before/20260922-165448/ue_highland_claymore_blade_1_highland_broadblade.png",
+    "bytes": 335205,
+    "sha256": "58b75f95181d28ba0e328405dfc59b48253e9e2ca0f54578f2a44f2798a3095c",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/ClovenGuard20260922/Before/20260922-174812/highland-claymore-modules.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/ClovenGuard20260922/Before/20260922-174812/highland-claymore-modules.json",
+    "bytes": 7983,
+    "sha256": "44192dacedd4fb78e1345f3f1242f8cfc97541967443ad9ed2262684e46ce645",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/ClovenGuard20260922/Before/20260922-174812/melee-gunsmith.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/ClovenGuard20260922/Before/20260922-174812/melee-gunsmith.json",
+    "bytes": 16756,
+    "sha256": "ad559db89d172ab5c3de466909e8f138e7bc6263e6ead9b36fff476153890966",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/Integration/Before/20260922-160336/combat-weapon-formulas.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/Integration/Before/20260922-160336/combat-weapon-formulas.json",
+    "bytes": 3722,
+    "sha256": "a76aa716bf64fda09512812f73f989383ebaa7a3684f5040c5d9aed6fa02ca29",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/Integration/Before/20260922-160336/items.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/Integration/Before/20260922-160336/items.json",
+    "bytes": 87211,
+    "sha256": "8d52568faf26e61be936eb1ee47755660106a7bdba7d34c8eb101a1443004952",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/Integration/Before/20260922-160336/melee-gunsmith.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/Integration/Before/20260922-160336/melee-gunsmith.json",
+    "bytes": 34656,
+    "sha256": "13cb0732496ca6b9215dded1df7b03476165a8850b735cc9bdf29d6bd786aa44",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/WildRune20260922/Before/20260922-171539/M_HighlandClaymoreSurface_base.hlsl",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/WildRune20260922/Before/20260922-171539/M_HighlandClaymoreSurface_base.hlsl",
+    "bytes": 201,
+    "sha256": "e2bbdc918fd9e89e6ce3958387edc3128cf6cc247814021c757028d19b978eda",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/WildRune20260922/Before/20260922-171539/M_HighlandClaymoreSurface_glow.hlsl",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/WildRune20260922/Before/20260922-171539/M_HighlandClaymoreSurface_glow.hlsl",
+    "bytes": 237,
+    "sha256": "3f6b2e356c8d3438361f96344c48102081aa289e34a09b7e1fca6da212cce902",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/WildRune20260922/Before/20260922-171539/M_HighlandClaymoreSurface_Whirlwind_base.hlsl",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/WildRune20260922/Before/20260922-171539/M_HighlandClaymoreSurface_Whirlwind_base.hlsl",
+    "bytes": 201,
+    "sha256": "e2bbdc918fd9e89e6ce3958387edc3128cf6cc247814021c757028d19b978eda",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/WildRune20260922/Before/20260922-171539/M_HighlandClaymoreSurface_Whirlwind_glow.hlsl",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/WildRune20260922/Before/20260922-171539/M_HighlandClaymoreSurface_Whirlwind_glow.hlsl",
+    "bytes": 237,
+    "sha256": "3f6b2e356c8d3438361f96344c48102081aa289e34a09b7e1fca6da212cce902",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/WildRune20260922/Before/20260922-171539/M_HighlandClaymoreSurface_Whirlwind.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/WildRune20260922/Before/20260922-171539/M_HighlandClaymoreSurface_Whirlwind.uasset",
+    "bytes": 24371,
+    "sha256": "a794c893dcf7d31ba4e180001e0a15a5a8f7c6d71eaa9f188b9e138a78258fbd",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/WildRune20260922/Before/20260922-171539/M_HighlandClaymoreSurface.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/WildRune20260922/Before/20260922-171539/M_HighlandClaymoreSurface.uasset",
+    "bytes": 23428,
+    "sha256": "eb67d0102aa1086caff29fa756331d499c020345c227ce5f46206e34e204eec6",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/WildRune20260922/Before/20260922-171539/melee-gunsmith.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/WildRune20260922/Before/20260922-171539/melee-gunsmith.json",
+    "bytes": 16061,
+    "sha256": "f2437386ce59b20374353240fa60fd3e51606ccef8815ae2c5576bd97317878c",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/WildRuneTotemV2_20260922/Before/20260922-180521/M_HighlandClaymoreSurface_base.hlsl",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/WildRuneTotemV2_20260922/Before/20260922-180521/M_HighlandClaymoreSurface_base.hlsl",
+    "bytes": 427,
+    "sha256": "6f5e05aaa49f6504a2107f460586a040ecc7c0baa7cc1f7eaf54f9edd9087e5d",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/WildRuneTotemV2_20260922/Before/20260922-180521/M_HighlandClaymoreSurface_glow.hlsl",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/WildRuneTotemV2_20260922/Before/20260922-180521/M_HighlandClaymoreSurface_glow.hlsl",
+    "bytes": 457,
+    "sha256": "12b8e73ad7ec7be1c6b6f1ed118d49ab85ce58e4f1adb5fa331f3dc29b32abf3",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/WildRuneTotemV2_20260922/Before/20260922-180521/M_HighlandClaymoreSurface_Whirlwind_base.hlsl",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/WildRuneTotemV2_20260922/Before/20260922-180521/M_HighlandClaymoreSurface_Whirlwind_base.hlsl",
+    "bytes": 427,
+    "sha256": "6f5e05aaa49f6504a2107f460586a040ecc7c0baa7cc1f7eaf54f9edd9087e5d",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/WildRuneTotemV2_20260922/Before/20260922-180521/M_HighlandClaymoreSurface_Whirlwind_glow.hlsl",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/WildRuneTotemV2_20260922/Before/20260922-180521/M_HighlandClaymoreSurface_Whirlwind_glow.hlsl",
+    "bytes": 457,
+    "sha256": "12b8e73ad7ec7be1c6b6f1ed118d49ab85ce58e4f1adb5fa331f3dc29b32abf3",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/WildRuneTotemV2_20260922/Before/20260922-180521/M_HighlandClaymoreSurface_Whirlwind.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/WildRuneTotemV2_20260922/Before/20260922-180521/M_HighlandClaymoreSurface_Whirlwind.uasset",
+    "bytes": 20225,
+    "sha256": "e9868d56b93f4c3e7472f9bf14e172a18670b26ca7cffa55bbde19e06e431450",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/WildRuneTotemV2_20260922/Before/20260922-180521/M_HighlandClaymoreSurface.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/WildRuneTotemV2_20260922/Before/20260922-180521/M_HighlandClaymoreSurface.uasset",
+    "bytes": 19281,
+    "sha256": "fb9ec318cd9ced2203f4f36706b469a51314386c2f2f618fb308e7aa7cb71b7e",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/WildRuneTotemV2_20260922/Before/20260922-180521/M_SilverRuneSurface_HighlandWild.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/WildRuneTotemV2_20260922/Before/20260922-180521/M_SilverRuneSurface_HighlandWild.uasset",
+    "bytes": 35139,
+    "sha256": "46a6f37e6a5e829806117b0f0365f90bfc09012e296671677e46fa4fce630163",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/WildRuneTotemV2_20260922/Before/20260922-180521/melee-gunsmith.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/WildRuneTotemV2_20260922/Before/20260922-180521/melee-gunsmith.json",
+    "bytes": 17858,
+    "sha256": "e587fb0f2fffd9f664a92c40e87035b5da4b7aee6b213fd2c65c9ace43d99008",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/WildRuneTotemV2_20260922/Before/20260922-180521/previous_wild_rune.hlsl",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/WildRuneTotemV2_20260922/Before/20260922-180521/previous_wild_rune.hlsl",
+    "bytes": 2240,
+    "sha256": "c7ae81f4587ed36caca78eac18f5c75dc753b7011ccd716d7ae4ee63f09a8cf8",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/HighlandClaymoreMeshy20260922/WildRuneTotemV2_20260922/Before/20260922-180521/T_Mask_wild_rune.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/HighlandClaymoreMeshy20260922/WildRuneTotemV2_20260922/Before/20260922-180521/T_Mask_wild_rune.uasset",
+    "bytes": 115793,
+    "sha256": "b9bedff2e138269f427c989f0e0cc8bfb05bbebda3eeb654d5c6b533bee1b31c",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/HighlandClaymoreMeshy20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/MeleeRuneFade20260922/Before/M_AzureRunesword_NativeGold.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/MeleeRuneFade20260922/Before/M_AzureRunesword_NativeGold.uasset",
+    "bytes": 31725,
+    "sha256": "90265bbe5d60104e43d64e0dc7b0c6a9854939520d8bc50b12d0b52a2746dc3a",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/MeleeRuneFade20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/MeleeRuneFade20260922/Before/M_SilverRuneSurface_FrostSpirit.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/MeleeRuneFade20260922/Before/M_SilverRuneSurface_FrostSpirit.uasset",
+    "bytes": 40271,
+    "sha256": "20d64e4e521de2d025619453e610df73b4d24d0904d3472685a9c15f6f640648",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/MeleeRuneFade20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/MeleeRuneFade20260922/Before/M_SilverRuneSurfaceV2.uasset",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/MeleeRuneFade20260922/Before/M_SilverRuneSurfaceV2.uasset",
+    "bytes": 34480,
+    "sha256": "c765051d924dc90798ef9c40de276c439523b03c431d07b573d078b4c183a828",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/MeleeRuneFade20260922/README.md"
+  },
+  {
+    "source": "SourceAssets/MeleeRuneFade20260922/Before/material_sources.json",
+    "target": "trash/melee-runes-publication-20260922/SourceAssets/MeleeRuneFade20260922/Before/material_sources.json",
+    "bytes": 21953,
+    "sha256": "a15fb1b2519dd5fa47e7f0bc59ed0d9375903a8a096da3b3aa06c371a9da5c6e",
+    "reason": "Rollback snapshot superseded by delivered assets; retained recoverably in trash.",
+    "replacement": "SourceAssets/MeleeRuneFade20260922/README.md"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/RuneGoldMaterialCommandlet.cpp",
+    "target": "trash/melee-runes-publication-20260922/Source/FPSGAME/Weapons/RuneGoldMaterialCommandlet.cpp",
+    "bytes": 9421,
+    "sha256": "cce12ca00aa3191bdd195503579cf893019192fc3786929a7513693ae7d05c43",
+    "reason": "Superseded source-text injection commandlet. Native UV and complete semantic material recipes replace this initial gold experiment.",
+    "replacement": "SourceAssets/MeleeRuneFade20260922/README.md"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/RuneGoldMaterialCommandlet.h",
+    "target": "trash/melee-runes-publication-20260922/Source/FPSGAME/Weapons/RuneGoldMaterialCommandlet.h",
+    "bytes": 360,
+    "sha256": "b0f7025296807d4c7a736549216243e9544797bb7baa6e935bbb341d2a805324",
+    "reason": "Superseded source-text injection commandlet. Native UV and complete semantic material recipes replace this initial gold experiment.",
+    "replacement": "SourceAssets/MeleeRuneFade20260922/README.md"
+  }
+]

@@ -337,7 +337,7 @@
   },
   "dashAttack": {
     "name": "冲刺攻击",
-    "description": "持近战兵器连续向前奔跑，就绪后按左键，经0.25秒前摇衔接下劈；命中前方60°扇区，每个目标只结算一次。停跑、后退或发动动作会重置准备。",
+    "description": "持近战兵器连续向前奔跑，就绪后按左键，释放时向前突进1米，经0.25秒前摇衔接下劈；命中前方60°扇区，每个目标只结算一次。停跑、后退或发动动作会重置准备。",
     "icon": "Skills/dash_attack.png",
     "maxLevel": 20,
     "experiencePerLevel": 100,
@@ -349,7 +349,7 @@
     "readySeconds": 1,
     "readyReductionPerLevel": 0.03,
     "staminaCost": 20,
-    "distance": 0,
+    "distanceCM": 100,
     "speedMultiplier": 0,
     "bounceRatio": 0,
     "unitsToCM": 1.5,

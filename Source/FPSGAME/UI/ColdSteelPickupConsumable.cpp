@@ -23,7 +23,7 @@ bool AColdSteelPickup::BuildConsumable(const FColdSteelItem& Item)
         if(!Asset)return false;
         const auto Bounds=Asset->GetBounds();
         Mesh->SetStaticMesh(Asset);Mesh->SetRelativeScale3D(FVector(1));Mesh->SetRelativeLocation(-Bounds.Origin);
-        ColdSteelMeleeRune::Apply(Mesh,ColdSteelMeleeRune::Selected(Item));
+        ColdSteelMeleeRune::Apply(Mesh,ColdSteelMeleeRune::Selected(Item),Item.Definition);
         Body->SetBoxExtent(Bounds.BoxExtent.ComponentMax(FVector(1)));
         return true;
     }

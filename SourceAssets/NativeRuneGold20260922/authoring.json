@@ -1,0 +1,23 @@
+{
+  "source_color": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\Original\\Meshy_AI_Azure_Starblade_0913123202_texture_fbx\\Meshy_AI_Azure_Starblade_0913123202_texture.png",
+  "source_geometry": "../RuneSwordVisualPolish20260922/surface_mapping.npz",
+  "dimensions": [
+    2048,
+    2048
+  ],
+  "channels": {
+    "R": "native cyan glyph coverage",
+    "G": "narrow soft glow",
+    "B": "shared physical sword height 0.06 to 0.811727 m"
+  },
+  "uv_channel": 0,
+  "blade_extent_m": [
+    0.125,
+    0.8117273449897766
+  ],
+  "ink_pixels": 13497,
+  "selection": "actual blade UV0 cyan hysteresis; root threshold correction, separate guard-root mask",
+  "manual_corrections": [],
+  "runtime_tests": "not run; user testing",
+  "current_revision": "../RuneSwordVisualPolish20260922/mask_receipt.json"
+}

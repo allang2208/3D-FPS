@@ -1,0 +1,31 @@
+{
+  "overlay_colors_linear": {
+    "ResonanceCoreColor": [0.008, 0.48, 0.42, 1.0],
+    "ResonanceGlowColor": [0.003, 0.72, 0.62, 1.0],
+    "ErosionCoreColor": [0.30, 0.008, 0.62, 1.0],
+    "ErosionGlowColor": [0.40, 0.003, 0.92, 1.0],
+    "ConductionCoreColor": [0.008, 0.10, 0.68, 1.0],
+    "ConductionGlowColor": [0.003, 0.13, 1.0, 1.0],
+    "GoldCoreColor": [0.65, 0.26, 0.022, 1.0],
+    "GoldGlowColor": [1.0, 0.36, 0.016, 1.0]
+  },
+  "overlay_scalars": {
+    "BaseBrightness": 0.85,
+    "GlowStrength": 1.25,
+    "RuneOpacity": 0.98,
+    "HaloOpacity": 0.25,
+    "HaloRadiusTexels": 3.0,
+    "ExposureCompensation": 1.0,
+    "EmissionPeak": 1.65
+  },
+  "native_colors_linear": {
+    "GoldColor": [0.65, 0.26, 0.022, 1.0],
+    "GlowColor": [1.0, 0.36, 0.016, 1.0]
+  },
+  "native_scalars": {
+    "GlowStrength": 0.85,
+    "BreathStrength": 0.09,
+    "FlowStrength": 0.40,
+    "ExposureCompensation": 1.0
+  }
+}

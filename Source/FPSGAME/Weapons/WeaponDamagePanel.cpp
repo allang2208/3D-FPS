@@ -33,6 +33,11 @@ FWeaponDamageParts ColdSteelWeaponDamage::Evaluate(const FColdSteelItem& Item,co
     const auto Data=CombatItemFormula::Read(Item);
     R.AddedPhysical=Additional(Data,TEXT("physical"),Profile,R.Base());
     R.AddedMagic=Additional(Data,TEXT("magic"),Profile,R.Base());
+    // This weapon-native contribution is independent of the selected rune.
+    // Spirit burst doubles only innate erosion, not affixes or other additions.
+    const double Innate=Attribute(Profile,TEXT("intt"))*ColdSteelInventory::Number(Item,TEXT("innate_erosion_intelligence"))
+        +Attribute(Profile,TEXT("wis"))*ColdSteelInventory::Number(Item,TEXT("innate_erosion_wisdom"));
+    R.AddedMagic+=Innate*(Melee?Melee->InnateErosionMultiplier:1.);
     if(Melee)R.AddedMagic+=Attribute(Profile,TEXT("intt"))*Melee->RuneIntelligence+Attribute(Profile,TEXT("wis"))*Melee->RuneWisdom;
     // Attacker-side magic bonuses are already included in the panel, before any
     // attack multiplier or target defense. Do not apply them again on contact.

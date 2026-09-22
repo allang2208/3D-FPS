@@ -124,6 +124,7 @@ float URuneSwordComponent::ResolveGuardDamage(float IncomingDamage,const UDamage
         if(!Toward.IsNearlyZero() && FVector::DotProduct(Facing,Toward)>=FMath::Cos(FMath::DegreesToRadians(RuneSwordGuardTuning::ParryHalfAngleDegrees)))
         {
             GuardFeedback(true);
+            GrantClovenCounter();
             if(Type && Type->IsA<UEnemyMeleeDamage>() && !Source->ActorHasTag(TEXT("ParryImmune")))
                 if(auto* Combat=Source->FindComponentByClass<UMonsterCombatComponent>())
                     Combat->ReceiveParry(Pawn,RuneSwordGuardTuning::ParryStunSeconds,RuneSwordGuardTuning::ParryKnockbackCM);
@@ -131,8 +132,9 @@ float URuneSwordComponent::ResolveGuardDamage(float IncomingDamage,const UDamage
         }
     }
     GuardFeedback(false);
-    const bool Broken=Profile->Stamina()<RuneSwordGuardTuning::BlockStamina;
-    Profile->SpendStamina(Broken?Profile->Stamina():RuneSwordGuardTuning::BlockStamina);
+    const float BlockCost=static_cast<float>(ColdSteelMelee::BlockStamina(MeleeModifiers));
+    const bool Broken=Profile->Stamina()<BlockCost;
+    Profile->SpendStamina(Broken?Profile->Stamina():BlockCost);
     if(Broken)
     {
         auto* Stun=Pawn->FindComponentByClass<UPlayerGuardBreakComponent>();

@@ -16,6 +16,7 @@
 #include "Engine/World.h"
 #include "EngineUtils.h"
 #include "../Weapons/GunsmithSystem.h"
+#include "../Weapons/FrostSwordRunes.h"
 #include "Misc/SecureHash.h"
 
 using namespace ColdSteelInventory;
@@ -216,6 +217,43 @@ bool UColdSteelStatusModel::ReloadProfile()
     // Refresh authorized material rarity and scroll presentation on existing instances.
     for(auto& I:Clean.Items)
     {
+        if(I.Definition==ColdSteelFrostRunes::Definition)
+        {
+            const FString* Definition=Definitions.Find(I.Definition);
+            TSharedPtr<FJsonObject> Data,Defaults;
+            if(Definition&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data)&&Data&&
+                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Definition),Defaults)&&Defaults)
+            {
+                bool Updated=false;
+                for(const TCHAR* Key:{TEXT("innate_erosion_intelligence"),TEXT("innate_erosion_wisdom")})
+                {
+                    double Value=0,Old=0;
+                    if(Defaults->TryGetNumberField(Key,Value)&&(!Data->TryGetNumberField(Key,Old)||Old!=Value))
+                    {Data->SetNumberField(Key,Value);Updated=true;}
+                }
+                FString Description,OldDescription;Data->TryGetStringField(TEXT("desc"),OldDescription);
+                if(Defaults->TryGetStringField(TEXT("desc"),Description)&&Description!=OldDescription)
+                {Data->SetStringField(TEXT("desc"),Description);Updated=true;}
+                if(Updated){I.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}
+            }
+        }
+        // Remove legacy gold selections outside the rune sword, and retain the
+        // frost erosion-to-spirit migration through the existing A/B save commit.
+        if(I.Definition!=TEXT("ue_rune_sword"))
+        {
+            TSharedPtr<FJsonObject> Data;const TSharedPtr<FJsonObject>* Parts=nullptr;FString Rune;
+            if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data)&&Data&&
+                Data->TryGetObjectField(TEXT("gunsmith_parts"),Parts)&&(*Parts)->TryGetStringField(TEXT("blade_2"),Rune))
+            {
+                const FString Replacement=ColdSteelFrostRunes::Upgrade(I.Definition,Rune);
+                if(Replacement!=Rune)
+                {
+                    if(Replacement.IsEmpty())(*Parts)->RemoveField(TEXT("blade_2"));
+                    else (*Parts)->SetStringField(TEXT("blade_2"),Replacement);
+                    I.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+                }
+            }
+        }
         const bool Material=I.Definition==TEXT("enhancement_stone")||I.Definition==TEXT("magic_dust");
         if(!Material&&I.Definition!=TEXT("enchant_scroll_heavy")&&I.Definition!=TEXT("enchant_scroll_sharp")&&I.Definition!=TEXT("enchant_scroll_skeleton")&&I.Definition!=TEXT("enchant_scroll_tarantula"))continue;
         const FString* Definition=Definitions.Find(I.Definition);if(!Definition)continue;

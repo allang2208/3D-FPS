@@ -267,3 +267,7 @@ V2 作者链作为恢复输入保留：另恢复 `SourceAssets/FireMagicPolish20
 ## Player world body (2026-09-22)
 
 Manny, separate first/third-person animation, skin reconstruction, local-only dependencies and retirement records: [player-body publication](Characters/player-body-publication-20260922.md).
+
+## 近战符文与高地双手剑（2026-09-22）
+
+本批次发布代码、目录与配方；完整模型、PBR、手臂源、密集采样和 UE 资产留在本机。最终外观、恢复顺序、保留的旧输入与废案归档见 [近战符文发布记录](Weapons/melee-runes-publication-20260922.md)。

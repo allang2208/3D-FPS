@@ -1,4 +1,5 @@
 #include "GunsmithSystem.h"
+#include "FrostSwordRunes.h"
 #include "PistolDualWieldComponent.h"
 #include "M4DrumReloadTiming.h"
 #include "M1911WeaponAssets.h"
@@ -88,7 +89,7 @@ const FGunsmithWeapon* UGunsmithSystem::Weapon(const FString& D)const{return Wea
 const FGunsmithOption* UGunsmithSystem::Option(const FString& D,const FString& S,const FString& Id)const{const auto* W=ModifiableWeapon(D);if(!W||!W->Allowed.Contains(S))return nullptr;const auto* A=W->Options.Find(S);return A?A->FindByPredicate([&](const auto& V){return V.Id==Id;}):nullptr;}
 FGunsmithParts UGunsmithSystem::Normalize(const FString& D,const FGunsmithParts& Input)const
 {
-    FGunsmithParts Result;for(const auto& P:Input){FString Id=P.Value;if(P.Key==TEXT("stock")&&Id==TEXT("true"))Id=TEXT("compact");if(Id!=TEXT("false")&&Option(D,P.Key,Id))Result.Add(P.Key,Id);}return Result;
+    FGunsmithParts Result;for(const auto& P:Input){FString Id=P.Key==TEXT("blade_2")?ColdSteelFrostRunes::Upgrade(D,P.Value):P.Value;if(P.Key==TEXT("stock")&&Id==TEXT("true"))Id=TEXT("compact");if(Id!=TEXT("false")&&Option(D,P.Key,Id))Result.Add(P.Key,Id);}return Result;
 }
 FGunsmithParts UGunsmithSystem::Installed(const FColdSteelItem& I)const
 {
@@ -105,19 +106,25 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
         {
             const auto& M=Option(D,Pair.Key,Pair.Value)->Melee;
             R.Melee.Damage*=M.Damage;R.Melee.AttackSpeed*=M.AttackSpeed;R.Melee.Range*=M.Range;
-            R.Melee.Stamina*=M.Stamina;R.Melee.HitReaction*=M.HitReaction;R.Melee.BlockReduction*=M.BlockReduction;
+            R.Melee.Stamina*=M.Stamina;R.Melee.BlockStamina*=M.BlockStamina;R.Melee.HitReaction*=M.HitReaction;R.Melee.BlockReduction*=M.BlockReduction;
+            R.Melee.ToughnessDamage*=M.ToughnessDamage;
+            R.Melee.PhysicalArmorPenetration=FMath::Clamp(R.Melee.PhysicalArmorPenetration+M.PhysicalArmorPenetration,0.,1.);
             R.Melee.ComboSecond*=M.ComboSecond;R.Melee.ComboThird*=M.ComboThird;
             R.Melee.MagicCooldown*=M.MagicCooldown;R.Melee.MagicDamage*=M.MagicDamage;
             R.Melee.MagicCost*=M.MagicCost;
             R.Melee.HeavyDamage*=M.HeavyDamage;R.Melee.Knockback*=M.Knockback;
             R.Melee.HeavyDamageAdd+=M.HeavyDamageAdd;
+            R.Melee.CooldownReduceSecondsPerHit+=M.CooldownReduceSecondsPerHit;
             R.Melee.QuickCombatDamageAdd+=M.QuickCombatDamageAdd;
             R.Melee.QuickCombatKnockback*=M.QuickCombatKnockback;
             R.Melee.RuneIntelligence+=M.RuneIntelligence;R.Melee.RuneWisdom+=M.RuneWisdom;
+            R.Melee.InnateErosionMultiplier*=M.InnateErosionMultiplier;
             R.Melee.RuneVulnerability=FMath::Max(R.Melee.RuneVulnerability,M.RuneVulnerability);
             R.Melee.RuneVulnerabilitySeconds=FMath::Max(R.Melee.RuneVulnerabilitySeconds,M.RuneVulnerabilitySeconds);
             R.Melee.ParryWindow*=M.ParryWindow;R.Melee.RiposteSpeed*=M.RiposteSpeed;R.Melee.RiposteStamina*=M.RiposteStamina;
             R.Melee.RiposteSeconds=FMath::Max(R.Melee.RiposteSeconds,M.RiposteSeconds);
+            R.Melee.ClovenSeconds=FMath::Max(R.Melee.ClovenSeconds,M.ClovenSeconds);
+            R.Melee.ClovenPhysical*=M.ClovenPhysical;R.Melee.ClovenToughness*=M.ClovenToughness;
             ++R.ActiveParts;
         }
         R.Damage*=R.Melee.Damage;R.Interval/=R.Melee.AttackSpeed;R.Range*=R.Melee.Range;

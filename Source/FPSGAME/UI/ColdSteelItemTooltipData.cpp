@@ -43,6 +43,16 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
     const int32 Enhance=Number(O,TEXT("enhanceLevel"));if(Enhance>0)Out.Enhancement=FString::Printf(TEXT("已强化 +%d"),Enhance);
     auto Damage=[&](double Base){return ColdSteelWeaponStats::Damage(I,Model,Base);};
 
+    const double InnateInt=Number(O,TEXT("innate_erosion_intelligence")),InnateWis=Number(O,TEXT("innate_erosion_wisdom"));
+    if(InnateInt>0||InnateWis>0)
+    {
+        const double Multiplier=G?G->Calculate(I.Definition,G->Installed(I)).Melee.InnateErosionMultiplier:1.;
+        auto& C=Out.Cards.AddDefaulted_GetRef();C.Title=TEXT("武器自带效果 · 侵蚀");C.MinimumWidth=460;
+        Row(C,TEXT("常驻附加魔法伤害"),TEXT("智力×")+N(InnateInt*100)+TEXT("% + 精神×")+N(InnateWis*100)+TEXT("%"),1);
+        if(Multiplier!=1)Row(C,TEXT("精神迸发后"),TEXT("智力×")+N(InnateInt*Multiplier*100)+TEXT("% + 精神×")+N(InnateWis*Multiplier*100)+TEXT("%"),1);
+        Row(C,TEXT("结算"),TEXT("随连击、重击等攻击倍率放大，按魔法防御减免；更换其他符文仍保留自带侵蚀。"));
+    }
+
     const J Enchant=Object(O,TEXT("_enchantData"));const J EE=Object(O,TEXT("_enchantEffects"));
     if(Enchant&&(Object(Enchant,TEXT("prefix"))||Object(Enchant,TEXT("suffix")))){
         auto& C=Out.Cards.AddDefaulted_GetRef();C.Title=TEXT("附魔效果");C.MinimumWidth=300;
@@ -80,13 +90,23 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
                 Delta(C,TEXT("快速近战击退距离"),(S.Melee.QuickCombatKnockback-1)*100,TEXT("%"));
                 Delta(C,TEXT("附加魔法伤害·智力系数"),S.Melee.RuneIntelligence*100,TEXT("%"));
                 Delta(C,TEXT("附加魔法伤害·精神系数"),S.Melee.RuneWisdom*100,TEXT("%"));
+                Delta(C,TEXT("自带侵蚀附加伤害"),(S.Melee.InnateErosionMultiplier-1)*100,TEXT("%"));
                 Delta(C,TEXT("命中魔法易伤"),S.Melee.RuneVulnerability*100,TEXT("%"));
+                Delta(C,TEXT("命中减魔法CD(秒)"),S.Melee.CooldownReduceSecondsPerHit,TEXT("s"));
                 Delta(C,TEXT("攻击速度"),(S.Melee.AttackSpeed-1)*100,TEXT("%"));
                 Delta(C,TEXT("攻击范围"),(S.Melee.Range-1)*100,TEXT("%"));
                 Delta(C,TEXT("耐力消耗"),(S.Melee.Stamina-1)*100,TEXT("%"),true);
                 Delta(C,TEXT("造成硬直时间"),(S.Melee.HitReaction-1)*100,TEXT("%"));
+                Delta(C,TEXT("韧性伤害"),(S.Melee.ToughnessDamage-1)*100,TEXT("%"));
+                Delta(C,TEXT("物理防御穿透"),S.Melee.PhysicalArmorPenetration*100,TEXT("%"));
                 Delta(C,TEXT("格挡减伤"),(S.Melee.BlockReduction-1)*100,TEXT("%"));
                 Delta(C,TEXT("弹反判定时间"),(S.Melee.ParryWindow-1)*100,TEXT("%"));
+                if(S.Melee.ClovenSeconds>0)
+                {
+                    Row(C,TEXT("成功弹反"),TEXT("承锋·瞬重斩 · ")+N(S.Melee.ClovenSeconds)+TEXT(" s"),1);
+                    Delta(C,TEXT("承锋重击物理伤害"),(S.Melee.ClovenPhysical-1)*100,TEXT("%"));
+                    Delta(C,TEXT("承锋重击韧性伤害"),(S.Melee.ClovenToughness-1)*100,TEXT("%"));
+                }
             }
             else {
             Delta(C,TEXT("伤害"),S.Damage-B.Damage,TEXT(""));Delta(C,TEXT("弹匣容量"),S.Capacity-B.Capacity,TEXT("发"));
@@ -132,6 +152,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         Row(Main,TEXT("三连击第三段伤害"),N(Melee.ComboThirdDamage));
         if(Melee.Modifiers.MagicCooldown!=1)Row(Main,TEXT("魔法技能冷却倍率"),N(Melee.Modifiers.MagicCooldown)+TEXT("×"));
         if(Melee.Modifiers.MagicDamage!=1)Row(Main,TEXT("魔法伤害倍率"),N(Melee.Modifiers.MagicDamage)+TEXT("×"));
+        if(Melee.Modifiers.CooldownReduceSecondsPerHit>0)Row(Main,TEXT("近战命中额外减少魔法冷却"),N(.5f+Melee.Modifiers.CooldownReduceSecondsPerHit)+TEXT(" s / 挥"));
         if(Melee.Modifiers.RuneVulnerability>0)Row(Main,TEXT("命中魔法易伤"),N(Melee.Modifiers.RuneVulnerability*100)+TEXT("% · ")+N(Melee.Modifiers.RuneVulnerabilitySeconds)+TEXT(" s"));
         Row(Main,TEXT("攻击间隔"),N(Melee.AttackSeconds)+TEXT(" s"));
         Row(Main,TEXT("突刺时间"),N(Melee.ThrustSeconds)+TEXT(" s"));
@@ -139,9 +160,17 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         Row(Main,TEXT("普通挥砍距离"),N(Melee.SlashReach/100)+TEXT(" m"));
         Row(Main,TEXT("攻击耐力消耗（含重击）"),N(Melee.AttackStamina));
         Row(Main,TEXT("命中硬直时间倍率"),N(Melee.Modifiers.HitReaction)+TEXT("×"));
+        if(!FMath::IsNearlyEqual(Melee.Modifiers.ToughnessDamage,1.))Row(Main,TEXT("韧性伤害倍率"),N(Melee.Modifiers.ToughnessDamage)+TEXT("×"));
+        if(Melee.Modifiers.PhysicalArmorPenetration>0)Row(Main,TEXT("改造物理防御穿透"),N(Melee.Modifiers.PhysicalArmorPenetration*100)+TEXT("%"));
         Row(Main,TEXT("格挡伤害减免"),N(Melee.BlockReduction*100)+TEXT("%"));
         Row(Main,TEXT("弹反判定时间"),N(Melee.ParrySeconds)+TEXT(" s"));
         if(Melee.Modifiers.RiposteSeconds>0)Row(Main,TEXT("成功弹反"),TEXT("反击激励 · ")+N(Melee.Modifiers.RiposteSeconds)+TEXT(" s"));
+        if(Melee.Modifiers.ClovenSeconds>0)
+        {
+            Row(Main,TEXT("成功弹反"),TEXT("下次普攻瞬发重击 · ")+N(Melee.Modifiers.ClovenSeconds)+TEXT(" s"));
+            Row(Main,TEXT("承锋重击物理伤害"),TEXT("+")+N((Melee.Modifiers.ClovenPhysical-1)*100)+TEXT("%"));
+            Row(Main,TEXT("承锋重击韧性伤害"),TEXT("+")+N((Melee.Modifiers.ClovenToughness-1)*100)+TEXT("%"));
+        }
         Row(Main,TEXT("防御受击耐力消耗"),N(Melee.BlockStamina));
         Row(Main,TEXT("握持"),TEXT("双手 · 占用副手槽"));
     }else if(ColdSteelInventory::IsEquippedProductionTool(I)){

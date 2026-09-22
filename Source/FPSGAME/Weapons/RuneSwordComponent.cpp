@@ -103,11 +103,12 @@ void URuneSwordComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
         // instances can still contain earlier contact-window metadata.
     }
     const bool Modular=!NewId.IsEmpty()&&ColdSteelModularSword::Supports(*Item);
+    if(NewId!=InstanceId || NewId.IsEmpty() || MeleeModifiers.ClovenSeconds<=0)ClearClovenCounter();
     const FString NewMeshPath=NewId.IsEmpty()?FString():(Modular?ColdSteelModularSword::ArmsMesh(*Item):ColdSteelMeleeGuard::Viewmodel(*Item));
     const FString NewAnimationFolder=NewId.IsEmpty()?FString():ColdSteelModularSword::AnimationFolder(*Item);
     const UAnimSequence* Idle=Animations.FindRef(TEXT("Idle")).Get();
     const bool bSameAnimationFolder=NewId.IsEmpty()||(Idle&&Idle->GetPathName().StartsWith(NewAnimationFolder+TEXT("/")));
-    if(NewId==InstanceId&&NewMeshPath==EquippedMeshPath&&bSameAnimationFolder){RefreshModularSword(NewId.IsEmpty()?nullptr:Item);ColdSteelMeleeRune::Apply(Viewmodel,NewId.IsEmpty()||Modular?FString():ColdSteelMeleeRune::Selected(*Item));return;}
+    if(NewId==InstanceId&&NewMeshPath==EquippedMeshPath&&bSameAnimationFolder){RefreshModularSword(NewId.IsEmpty()?nullptr:Item);ColdSteelMeleeRune::Apply(Viewmodel,NewId.IsEmpty()||Modular?FString():ColdSteelMeleeRune::Selected(*Item),Item?Item->Definition:FString());return;}
     CancelAction();InstanceId=NewId;EquippedMeshPath=NewMeshPath;NextSlash=0;
     Viewmodel->SetVisibility(false,true);
     if(NewId.IsEmpty()){RefreshModularSword(nullptr);return;}
@@ -116,7 +117,7 @@ void URuneSwordComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
     auto* Mesh=LoadObject<USkeletalMesh>(nullptr,*EquippedMeshPath);
     Viewmodel->SetSkeletalMesh(Mesh);Animations.Reset();
     RefreshModularSword(Item);
-    ColdSteelMeleeRune::Apply(Viewmodel,Modular?FString():ColdSteelMeleeRune::Selected(*Item));
+    ColdSteelMeleeRune::Apply(Viewmodel,Modular?FString():ColdSteelMeleeRune::Selected(*Item),Item->Definition);
     for(const TCHAR* Clip:{TEXT("Idle"),TEXT("Walk"),TEXT("Whirlwind"),TEXT("Equip"),TEXT("Inspect"),TEXT("Overhead"),TEXT("Slash1"),TEXT("Slash2"),TEXT("Thrust"),TEXT("PommelStrike"),TEXT("HeavyCharge"),TEXT("HeavyRelease"),TEXT("Guard"),TEXT("GuardHit"),TEXT("GuardBreak")})
         Animations.Add(FName(Clip),LoadObject<UAnimSequence>(nullptr,*(Folder+TEXT("/A_RuneSword_")+Clip+(FCString::Strcmp(Clip,TEXT("Whirlwind"))==0?TEXT("V5"):TEXT("")))));
     for(const TCHAR* Clip:{TEXT("SprintEnter"),TEXT("SprintLoop"),TEXT("SprintExit"),TEXT("SprintOverhead")})
@@ -213,6 +214,7 @@ void URuneSwordComponent::BeginInspect()
 void URuneSwordComponent::BeginAttack()
 {
     if(bWhirlwind||bDashAttack)return;
+    if(TryClovenCounter())return;
     if(bGuardHeld || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose)return;
     // Let the current swing finish; only reject a new swing or queued combo.
     if(Character.IsValid() && Character->IsCastBlockingLeftHandAction()){bQueuedAttack=false;return;}
@@ -253,6 +255,7 @@ void URuneSwordComponent::BeginOverhead()
 void URuneSwordComponent::BeginPrimaryAttack()
 {
     if(bWhirlwind||bDashAttack)return;
+    if(TryClovenCounter())return;
     if(bInspecting)CancelAction();
     if(bGuardHeld || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose)return;
     // Preserve the ordinary equip/recovery click buffer. This press belongs to
@@ -317,8 +320,8 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
     SwingSkills=ColdSteelSkills::Snapshot(Character.Get());
     SwingSkills.bRifle=false;SwingSkills.bPistol=false;SwingSkills.WeakpointPercent=0;
     // 2D 合同：符文长剑每次近战确认命中缩减全部技能冷却（攻击到目标才计，空挥不减）。
-    // 基础 0.5 秒，同一挥只结算一次。
-    SwingCooldownReduceSeconds=.5f;bSwingCooldownReduced=false;
+    // 基础 0.5 秒；剑身Ⅱ的金色符文强化再追加装备值（合计 1.0 秒），同一挥只结算一次。
+    SwingCooldownReduceSeconds=.5f+static_cast<float>(MeleeModifiers.CooldownReduceSecondsPerHit);bSwingCooldownReduced=false;
     SetClip(Clip,false);return true;
 }
 
@@ -401,7 +404,7 @@ void URuneSwordComponent::QuickCombatContractHit()
         [&](){return ColdSteelSkills::ApplyHit(Pawn,Hit,SwingDamage,Direction,HitSkills,&DamageResult);});
     const bool bKilled=Combat->IsDead();
     if(Applied<=0.f&&!bKilled)return;
-    // 符文长剑基础冷却缩减：配重锤打击确认命中同样缩减CD（同一次快速近战只算一次）。
+    // 金色符文强化：配重锤打击确认命中同样缩减CD（同一次快速近战只算一次）。
     if(!bSwingCooldownReduced)
     {
         bSwingCooldownReduced=true;
@@ -421,8 +424,15 @@ FVector URuneSwordComponent::AdvanceThrustLunge(float FromTime,float ToTime)
 {
     // The thrust strides a metre; the counterweight strike only steps in far enough
     // to reach with a striking end that sits one pommel-length past the hands.
-    if(!bThrustAttack && !bPommelAttack)return FVector::ZeroVector;
-    const float Distance=bThrustAttack?
+    if(!bDashAttack && !bThrustAttack && !bPommelAttack)return FVector::ZeroVector;
+    float Distance;
+    if(bDashAttack)
+    {
+        // Release advances one metre during the existing windup, without retiming the hit.
+        const float Start=ContactStart-RuneSwordOverheadRhythm::DashWindupSeconds;
+        Distance=DashCast.DistanceCM*(FMath::SmoothStep(Start,ContactStart,ToTime)-FMath::SmoothStep(Start,ContactStart,FromTime));
+    }
+    else Distance=bThrustAttack?
         RuneSwordThrustRhythm::LungeDistance*(RuneSwordThrustRhythm::LungeAlpha(ToTime)-RuneSwordThrustRhythm::LungeAlpha(FromTime)):
         RuneSwordPommelRhythm::LungeDistance*(RuneSwordPommelRhythm::LungeAlpha(ToTime)-RuneSwordPommelRhythm::LungeAlpha(FromTime));
     if(bLungeBlocked || Distance<=0.f)return FVector::ZeroVector;
@@ -875,7 +885,7 @@ void URuneSwordComponent::ApplySwingHits(const TArray<FHitResult>& Hits,const FV
             }
             if(Applied>0 || (bDashAttack&&bKilled))
             {
-                // 符文长剑基础冷却缩减：本挥首次确认命中即缩减全部魔法技能CD，一次挥击只触发一次。
+                // 金色符文强化：本挥首次确认命中即缩减全部魔法技能CD，一次挥击只触发一次。
                 if(!bSwingCooldownReduced)
                 {
                     bSwingCooldownReduced=true;
@@ -905,6 +915,8 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
     if(!Viewmodel || !IsEquipped())return;
     if(TickGuardBreak(Delta))return;
     const bool Usable=CanUse();Viewmodel->SetVisibility(Usable && Viewmodel->GetSkeletalMeshAsset(),true);
+    if(!Usable)ClearClovenCounter();
+    TickClovenCounter(Delta);
     if(!Usable){if(IsBusy())CancelAction();ImpactAge=1.f;StopRift();return;}
     if((bCharging || bReturningCharge || bInspecting) && Character->IsCastBlockingLeftHandAction()){CancelAction();return;}
     ImpactAge=FMath::Min(1.f,ImpactAge+Delta);

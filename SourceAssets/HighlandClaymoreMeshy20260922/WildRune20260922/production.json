@@ -1,0 +1,40 @@
+{
+  "weapon": "ue_highland_claymore",
+  "option": "wild_rune",
+  "name": "蛮荒符文",
+  "icon": "ue_highland_claymore_blade_2_wild_rune.png",
+  "generated_icon": "C:\\Users\\allan\\.codex\\generated_images\\01a0c6c5-5fe4-7550-8c0f-abed299812e8\\exec-a247becb-7282-4494-9e09-7be1bba72486.png",
+  "icon_generator": "Built-in imagegen",
+  "mask": "Textures/T_Mask_wild_rune.png",
+  "mask_size": [
+    512,
+    2048
+  ],
+  "pattern": "Six segmented hooked fang glyphs, broken central spine, feathered coverage",
+  "colors_linear": {
+    "WildCoreColor": [
+      0.36,
+      0.012,
+      0.007,
+      1
+    ],
+    "WildGlowColor": [
+      1,
+      0.026,
+      0.007,
+      1
+    ]
+  },
+  "scalars": {
+    "WildPulseSpeed": 1.85,
+    "EmissionPeak": 2.3,
+    "RuneOpacity": 0.8,
+    "HaloOpacity": 0.19,
+    "HaloRadiusTexels": 3.5
+  },
+  "stats": {
+    "toughness_damage_mult": 1.3,
+    "physical_armor_penetration": 0.2
+  },
+  "tested": false
+}
