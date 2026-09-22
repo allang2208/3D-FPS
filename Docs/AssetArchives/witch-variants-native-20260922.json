@@ -1,0 +1,34 @@
+[
+  {
+    "source": "Source\\FPSGAME\\Monsters\\WitchMotionCandidate.cpp",
+    "destination": "trash\\witch-variants-20260922\\Source\\FPSGAME\\Monsters\\WitchMotionCandidate.cpp",
+    "bytes": 7095,
+    "sha256": "22b364787c6104f21821e52f60247c080b4fc19480803826918779ed6de5f33c",
+    "reason": "User retired the independent Foundation Witch variant",
+    "replacement": "AWitchRebuiltMonster / UWitchRebuiltAnimInstance"
+  },
+  {
+    "source": "Source\\FPSGAME\\Monsters\\WitchMotionCandidate.h",
+    "destination": "trash\\witch-variants-20260922\\Source\\FPSGAME\\Monsters\\WitchMotionCandidate.h",
+    "bytes": 1379,
+    "sha256": "0a0213e5c48db1afb5fc4942ab19e4dfeabc7908ae830d46e353149c9908bca9",
+    "reason": "User retired the independent Foundation Witch variant",
+    "replacement": "AWitchRebuiltMonster / UWitchRebuiltAnimInstance"
+  },
+  {
+    "source": "Source\\FPSGAME\\Monsters\\WitchFoundationAnimInstance.cpp",
+    "destination": "trash\\witch-variants-20260922\\Source\\FPSGAME\\Monsters\\WitchFoundationAnimInstance.cpp",
+    "bytes": 6568,
+    "sha256": "102099bbb83121e6ffc0601d34ca28e5bd0cd60d931bee63fccaefd2dc67012e",
+    "reason": "User retired the independent Foundation Witch variant",
+    "replacement": "AWitchRebuiltMonster / UWitchRebuiltAnimInstance"
+  },
+  {
+    "source": "Source\\FPSGAME\\Monsters\\WitchFoundationAnimInstance.h",
+    "destination": "trash\\witch-variants-20260922\\Source\\FPSGAME\\Monsters\\WitchFoundationAnimInstance.h",
+    "bytes": 809,
+    "sha256": "b9f09993a5035abcdd88e07d8199f096a82860227b2443e16f9c5b4802ffeb40",
+    "reason": "User retired the independent Foundation Witch variant",
+    "replacement": "AWitchRebuiltMonster / UWitchRebuiltAnimInstance"
+  }
+]

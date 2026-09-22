@@ -1,8 +1,10 @@
 #include "WitchProjectile.h"
 #include "WitchMonster.h"
+#include "PoisonMaggotVenomFX.h"
 #include "FPSCombatHealthComponent.h"
 #include "../Weapons/ColdSteelEnchantmentCombat.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/SceneComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/World.h"
@@ -14,13 +16,27 @@
 AWitchProjectile::AWitchProjectile()
 {
     PrimaryActorTick.bCanEverTick = true;
-    Visual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SpellVisual")); RootComponent = Visual;
+    RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("SpellRoot"));
+    Visual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SpellVisual"));
+    Visual->SetupAttachment(RootComponent);
     Visual->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     Visual->SetGenerateOverlapEvents(false); Visual->SetCanEverAffectNavigation(false);
     static ConstructorHelpers::FObjectFinder<UStaticMesh> Sphere(TEXT("/Engine/BasicShapes/Sphere.Sphere"));
-    static ConstructorHelpers::FObjectFinder<UMaterialInterface> Liquid(TEXT("/Game/Monsters/PoisonMaggot/VenomLiquid20260915/M_VenomCore.M_VenomCore"));
+    static ConstructorHelpers::FObjectFinder<UMaterialInterface> Liquid(TEXT("/Game/Monsters/PoisonMaggot/VenomLiquid20260915/M_VenomLiquid.M_VenomLiquid"));
+    static ConstructorHelpers::FObjectFinder<UMaterialInterface> Core(TEXT("/Game/Monsters/PoisonMaggot/VenomLiquid20260915/M_VenomCore.M_VenomCore"));
     Visual->SetStaticMesh(Sphere.Object); Visual->SetMaterial(0, Liquid.Object);
-    Visual->SetRelativeScale3D(FVector(.14f)); Visual->SetCastShadow(false);
+    Visual->SetRelativeScale3D(FVector(.14f,.105f,.105f)); Visual->SetCastShadow(false);
+    Visual->bReceivesDecals = false; Visual->bAffectDistanceFieldLighting = false;
+    Visual->SetBoundsScale(1.15f);
+    LiquidCore = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VenomOpaqueCore"));
+    LiquidCore->SetupAttachment(Visual);
+    LiquidCore->SetStaticMesh(Sphere.Object); LiquidCore->SetMaterial(0, Core.Object);
+    LiquidCore->SetRelativeScale3D(FVector(.8f,.78f,.78f));
+    LiquidCore->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    LiquidCore->SetGenerateOverlapEvents(false); LiquidCore->SetCanEverAffectNavigation(false);
+    LiquidCore->SetCastShadow(false); LiquidCore->bReceivesDecals = false;
+    LiquidCore->bAffectDistanceFieldLighting = false;
+    LiquidCore->SetVisibility(false);
 }
 
 void AWitchProjectile::Launch(AWitchMonster* Source, bool Bottle, FVector Destination, float Speed, float Damage, float Radius)
@@ -35,23 +51,72 @@ void AWitchProjectile::Launch(AWitchMonster* Source, bool Bottle, FVector Destin
         if (GetWorld()->LineTraceSingleByChannel(Ground, Goal + FVector(0,0,100), Goal - FVector(0,0,500), ECC_Visibility, Query)) Goal = Ground.ImpactPoint;
         if (Source->Bottle->GetStaticMesh())
         {
-            Visual->SetStaticMesh(Source->Bottle->GetStaticMesh()); Visual->SetRelativeScale3D(FVector(1));
+            const FTransform Held = Source->Bottle->GetComponentTransform();
+            const FVector Center = Source->Bottle->GetStaticMesh()->GetBounds().Origin;
+            Origin = Held.TransformPosition(Center);
+            BottleReleaseRotation = Held.GetRotation();
+            SetActorTransform(FTransform(BottleReleaseRotation, Origin));
+            Visual->SetStaticMesh(Source->Bottle->GetStaticMesh());
+            // The actor sweeps around the bottle's center. Its visible mesh retains
+            // exactly the held transform, including the authored bottom pivot/scale.
+            Visual->SetRelativeTransform(FTransform(FQuat::Identity,
+                -Center * Held.GetScale3D(), Held.GetScale3D()));
             for (int32 Index = 0; Index < Source->Bottle->GetNumMaterials(); ++Index)
                 Visual->SetMaterial(Index, Source->Bottle->GetMaterial(Index));
         }
+        const FVector Direction = (Goal - Origin).GetSafeNormal2D();
+        BottleSpinAxis = Direction.IsNearlyZero() ? Source->GetActorRightVector()
+            : FVector::CrossProduct(FVector::UpVector, Direction).GetSafeNormal();
         SetLifeSpan(8.f);
     }
-    else { Velocity = (Goal - Origin).GetSafeNormal() * Speed; SetLifeSpan(1000.f / FMath::Max(1.f, Speed)); }
+    else
+    {
+        Velocity = (Goal - Origin).GetSafeNormal() * Speed;
+        // Cosmetic phase does not consume the combat spread/poison random stream.
+        FRandomStream CosmeticRandom{int32(GetUniqueID())};
+        LiquidPhase = CosmeticRandom.FRand() * 2.f * PI;
+        LiquidCore->SetVisibility(true);
+        SetActorRotation(Velocity.Rotation());
+        SetLifeSpan(1000.f / FMath::Max(1.f, Speed));
+    }
+}
+
+void AWitchProjectile::UpdateLiquidVisual(float DeltaTime, const FVector& Start, const FVector& End)
+{
+    const float PreviousAge = LiquidAge;
+    LiquidAge += DeltaTime;
+    const float Stretch = 1.f + .09f * FMath::Sin(LiquidAge * 17.f + LiquidPhase);
+    const float Width = 1.f / FMath::Sqrt(Stretch);
+    Visual->SetRelativeScale3D(FVector(.14f * Stretch, .105f * Width, .105f * Width));
+    FRotator Direction = Velocity.Rotation();
+    Direction.Roll = FMath::RadiansToDegrees(LiquidPhase) + LiquidAge * 48.f;
+    SetActorRotation(Direction);
+    LiquidCore->SetRelativeScale3D(FVector(.8f, .78f + .025f * FMath::Sin(LiquidAge * 11.f + LiquidPhase), .78f));
+    auto* FX = GetWorld()->GetSubsystem<UPoisonMaggotVenomFX>();
+    if (!FX) return;
+    // Share the maggot's bounded fragment pool. Sample the traveled segment so
+    // a slow frame does not stack droplets at the endpoint or beyond a hit.
+    int32 Emitted = 0;
+    while (NextTrail <= LiquidAge && Emitted < 4)
+    {
+        const float Alpha = DeltaTime > UE_SMALL_NUMBER ? FMath::Clamp((NextTrail - PreviousAge) / DeltaTime, 0.f, 1.f) : 1.f;
+        FX->AddTrail(FMath::Lerp(Start, End, Alpha), Velocity, (TrailCount++ % 3) == 0);
+        NextTrail += .065f;
+        ++Emitted;
+    }
+    if (NextTrail <= LiquidAge) NextTrail = LiquidAge + .065f;
 }
 
 void AWitchProjectile::Land(FVector Position, FVector Normal)
 {
     if (Normal.Z < .65f) { Destroy(); return; }
+    LiquidCore->SetVisibility(false);
     bPool = true; Age = 0.f; NextPulse = .5f;
     SetActorLocation(Position + Normal * 2.f); SetActorRotation(FRotationMatrix::MakeFromZ(Normal).Rotator());
     Visual->SetStaticMesh(LoadObject<UStaticMesh>(nullptr, TEXT("/Engine/BasicShapes/Sphere.Sphere")));
     Visual->SetMaterial(0, LoadObject<UMaterialInterface>(nullptr, TEXT("/Game/Monsters/PoisonMaggot/VenomLiquid20260915/M_VenomLiquid.M_VenomLiquid")));
-    Visual->SetRelativeScale3D(FVector(.04f, .04f, .016f)); SetLifeSpan(6.f + .05f);
+    Visual->SetRelativeTransform(FTransform(FQuat::Identity, FVector::ZeroVector, FVector(.04f, .04f, .016f)));
+    SetLifeSpan(6.f + .05f);
 }
 
 void AWitchProjectile::Pulse()
@@ -93,8 +158,21 @@ void AWitchProjectile::Tick(float Delta)
     }
     if (Shooter->State == ENurseState::Dead) { Destroy(); return; }
     const FVector Start = GetActorLocation();
-    const float Phase = FMath::Clamp(Age / 1.5f, 0.f, 1.f);
-    const FVector End = bBottle ? FMath::Lerp(Origin, Goal, Phase) + FVector(0,0,4.f * 100.f * Phase * (1-Phase)) : Start + Velocity * Delta;
+    constexpr float FlightSeconds = 1.5f, ArcHeight = 100.f;
+    const float Phase = FMath::Clamp(Age / FlightSeconds, 0.f, 1.f);
+    FVector End = Start + Velocity * Delta;
+    if (bBottle)
+    {
+        End = FMath::Lerp(Origin, Goal, Phase) + FVector(0,0,4.f * ArcHeight * Phase * (1-Phase));
+        if (Age > FlightSeconds)
+        {
+            // Missing/moving ground is not a landing. Continue from the arc's
+            // end velocity until a real swept contact or the lifetime expires.
+            const float FallSeconds = Age - FlightSeconds;
+            const FVector EndVelocity = (Goal - Origin - FVector(0,0,4.f * ArcHeight)) / FlightSeconds;
+            End += EndVelocity * FallSeconds + FVector(0,0,.5f * GetWorld()->GetGravityZ() * FMath::Square(FallSeconds));
+        }
+    }
     FCollisionQueryParams Query(SCENE_QUERY_STAT(WitchSpellCollision), false, this); Query.AddIgnoredActor(Shooter.Get());
     FCollisionObjectQueryParams Objects; Objects.AddObjectTypesToQuery(ECC_WorldStatic); Objects.AddObjectTypesToQuery(ECC_WorldDynamic); Objects.AddObjectTypesToQuery(ECC_Pawn);
     TArray<FHitResult> Contacts; GetWorld()->SweepMultiByObjectType(Contacts, Start, End, FQuat::Identity, Objects, FCollisionShape::MakeSphere(5.f), Query);
@@ -120,6 +198,8 @@ void AWitchProjectile::Tick(float Delta)
         }
         else
         {
+            UpdateLiquidVisual(Delta * First->Time, Start, First->Location);
+            if (auto* FX = GetWorld()->GetSubsystem<UPoisonMaggotVenomFX>()) FX->AddImpact(*First, Velocity);
             if (auto* Pawn = Cast<APawn>(First->GetActor())) if (Pawn->IsPlayerControlled())
                 UGameplayStatics::ApplyDamage(Pawn, HitDamage, Shooter->GetController(), Shooter.Get(), UWitchMagicDamage::StaticClass());
             Destroy();
@@ -127,5 +207,7 @@ void AWitchProjectile::Tick(float Delta)
         return;
     }
     SetActorLocation(End);
-    if (bBottle) { SetActorRotation(FRotator(Age * 360.f, 0, 0)); if (Phase >= 1.f) Land(Goal, FVector::UpVector); }
+    if (bBottle)
+        SetActorRotation(FQuat(BottleSpinAxis, FMath::DegreesToRadians(Age * 360.f)) * BottleReleaseRotation);
+    else UpdateLiquidVisual(Delta, Start, End);
 }

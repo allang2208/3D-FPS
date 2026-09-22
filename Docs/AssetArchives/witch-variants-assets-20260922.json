@@ -1,0 +1,110 @@
+[
+  {
+    "package": "/Game/Monsters/WitchFoundation/Animations/A_WitchFoundation_Idle",
+    "source": "Content\\Monsters\\WitchFoundation\\Animations\\A_WitchFoundation_Idle.uasset",
+    "destination": "trash\\witch-variants-20260922\\Content\\Monsters\\WitchFoundation\\Animations\\A_WitchFoundation_Idle.uasset",
+    "bytes": 1045456,
+    "sha256": "aa4596828e062386126c1a8d9d59a17ccc2cea94ca35b40f0377f280734c3592",
+    "reason": "User removed the old Witch and Foundation selectable variants; no retained package referencers",
+    "replacement": "/Game/Monsters/WitchRebuilt and /Script/FPSGAME.WitchRebuiltMonster"
+  },
+  {
+    "package": "/Game/Monsters/WitchFoundation/Animations/A_WitchFoundation_Walk",
+    "source": "Content\\Monsters\\WitchFoundation\\Animations\\A_WitchFoundation_Walk.uasset",
+    "destination": "trash\\witch-variants-20260922\\Content\\Monsters\\WitchFoundation\\Animations\\A_WitchFoundation_Walk.uasset",
+    "bytes": 286149,
+    "sha256": "69cd60b6d8bb18accf9ec34487cb3dd1147d678bbc54daae53b8e42091715cc3",
+    "reason": "User removed the old Witch and Foundation selectable variants; no retained package referencers",
+    "replacement": "/Game/Monsters/WitchRebuilt and /Script/FPSGAME.WitchRebuiltMonster"
+  },
+  {
+    "package": "/Game/Monsters/WitchMeshy/OriginalRobeV05/Animations/A_Witch_CastPoison",
+    "source": "Content\\Monsters\\WitchMeshy\\OriginalRobeV05\\Animations\\A_Witch_CastPoison.uasset",
+    "destination": "trash\\witch-variants-20260922\\Content\\Monsters\\WitchMeshy\\OriginalRobeV05\\Animations\\A_Witch_CastPoison.uasset",
+    "bytes": 228833,
+    "sha256": "477a717496da2ffebc4c5e7d74baaeb9f6eec09f6cbde0bb6edf872f9ab1e44b",
+    "reason": "User removed the old Witch and Foundation selectable variants; no retained package referencers",
+    "replacement": "/Game/Monsters/WitchRebuilt and /Script/FPSGAME.WitchRebuiltMonster"
+  },
+  {
+    "package": "/Game/Monsters/WitchMeshy/OriginalRobeV05/Animations/A_Witch_DeathBackward",
+    "source": "Content\\Monsters\\WitchMeshy\\OriginalRobeV05\\Animations\\A_Witch_DeathBackward.uasset",
+    "destination": "trash\\witch-variants-20260922\\Content\\Monsters\\WitchMeshy\\OriginalRobeV05\\Animations\\A_Witch_DeathBackward.uasset",
+    "bytes": 223456,
+    "sha256": "b21e45b950f0b231230aa86e13c888ef6ce5243e7cac0264b4dabdfa9319dbf4",
+    "reason": "User removed the old Witch and Foundation selectable variants; no retained package referencers",
+    "replacement": "/Game/Monsters/WitchRebuilt and /Script/FPSGAME.WitchRebuiltMonster"
+  },
+  {
+    "package": "/Game/Monsters/WitchMeshy/OriginalRobeV05/Animations/A_Witch_Idle",
+    "source": "Content\\Monsters\\WitchMeshy\\OriginalRobeV05\\Animations\\A_Witch_Idle.uasset",
+    "destination": "trash\\witch-variants-20260922\\Content\\Monsters\\WitchMeshy\\OriginalRobeV05\\Animations\\A_Witch_Idle.uasset",
+    "bytes": 292043,
+    "sha256": "2b22c6aa760a9c8008baab16fefc4ed8cc90bd23d95de771f705bf19318ab2dd",
+    "reason": "User removed the old Witch and Foundation selectable variants; no retained package referencers",
+    "replacement": "/Game/Monsters/WitchRebuilt and /Script/FPSGAME.WitchRebuiltMonster"
+  },
+  {
+    "package": "/Game/Monsters/WitchMeshy/OriginalRobeV05/Animations/A_Witch_ThrowPoisonBottle",
+    "source": "Content\\Monsters\\WitchMeshy\\OriginalRobeV05\\Animations\\A_Witch_ThrowPoisonBottle.uasset",
+    "destination": "trash\\witch-variants-20260922\\Content\\Monsters\\WitchMeshy\\OriginalRobeV05\\Animations\\A_Witch_ThrowPoisonBottle.uasset",
+    "bytes": 237904,
+    "sha256": "0341d65ebec06b27d33bc6cfb60d8636b2fde3a3d5483a7beb0df611fc1f82a5",
+    "reason": "User removed the old Witch and Foundation selectable variants; no retained package referencers",
+    "replacement": "/Game/Monsters/WitchRebuilt and /Script/FPSGAME.WitchRebuiltMonster"
+  },
+  {
+    "package": "/Game/Monsters/WitchMeshy/OriginalRobeV05/Animations/A_Witch_Walk",
+    "source": "Content\\Monsters\\WitchMeshy\\OriginalRobeV05\\Animations\\A_Witch_Walk.uasset",
+    "destination": "trash\\witch-variants-20260922\\Content\\Monsters\\WitchMeshy\\OriginalRobeV05\\Animations\\A_Witch_Walk.uasset",
+    "bytes": 458913,
+    "sha256": "135ee15454dba40d03cdefd4208e19c852bbfec3030b4c166ccb7385e6568ada",
+    "reason": "User removed the old Witch and Foundation selectable variants; no retained package referencers",
+    "replacement": "/Game/Monsters/WitchRebuilt and /Script/FPSGAME.WitchRebuiltMonster"
+  },
+  {
+    "package": "/Game/Monsters/WitchMeshy/OriginalRobeV05/PA_Witch_OriginalRobeV05",
+    "source": "Content\\Monsters\\WitchMeshy\\OriginalRobeV05\\PA_Witch_OriginalRobeV05.uasset",
+    "destination": "trash\\witch-variants-20260922\\Content\\Monsters\\WitchMeshy\\OriginalRobeV05\\PA_Witch_OriginalRobeV05.uasset",
+    "bytes": 34121,
+    "sha256": "7a8c387a75c7fd75d62fdf9b8d048b2eb3ecc04c943e958ad5b18786d5e620e7",
+    "reason": "User removed the old Witch and Foundation selectable variants; no retained package referencers",
+    "replacement": "/Game/Monsters/WitchRebuilt and /Script/FPSGAME.WitchRebuiltMonster"
+  },
+  {
+    "package": "/Game/Monsters/WitchMeshy/OriginalRobeV05/SK_Witch_Meshy",
+    "source": "Content\\Monsters\\WitchMeshy\\OriginalRobeV05\\SK_Witch_Meshy.uasset",
+    "destination": "trash\\witch-variants-20260922\\Content\\Monsters\\WitchMeshy\\OriginalRobeV05\\SK_Witch_Meshy.uasset",
+    "bytes": 46891974,
+    "sha256": "f635865b934dd07a02512cdd1cab72198ab2eab41ce70fea468852af67b4bd56",
+    "reason": "User removed the old Witch and Foundation selectable variants; no retained package referencers",
+    "replacement": "/Game/Monsters/WitchRebuilt and /Script/FPSGAME.WitchRebuiltMonster"
+  },
+  {
+    "package": "/Game/Monsters/WitchMeshy/OriginalRobeV05/SK_Witch_OriginalRobeV05_Skeleton",
+    "source": "Content\\Monsters\\WitchMeshy\\OriginalRobeV05\\SK_Witch_OriginalRobeV05_Skeleton.uasset",
+    "destination": "trash\\witch-variants-20260922\\Content\\Monsters\\WitchMeshy\\OriginalRobeV05\\SK_Witch_OriginalRobeV05_Skeleton.uasset",
+    "bytes": 12294,
+    "sha256": "f96c8fccf3918bf44ac5af7fde131eb24af34b1a41ab879e4f3ee335a1331f53",
+    "reason": "User removed the old Witch and Foundation selectable variants; no retained package referencers",
+    "replacement": "/Game/Monsters/WitchRebuilt and /Script/FPSGAME.WitchRebuiltMonster"
+  },
+  {
+    "package": "/Game/Monsters/WitchMeshy/SpellSupportV07/A_Witch_CastPoison",
+    "source": "Content\\Monsters\\WitchMeshy\\SpellSupportV07\\A_Witch_CastPoison.uasset",
+    "destination": "trash\\witch-variants-20260922\\Content\\Monsters\\WitchMeshy\\SpellSupportV07\\A_Witch_CastPoison.uasset",
+    "bytes": 259234,
+    "sha256": "8038e005b69d673232fc871c09754714a57c4d717de9e41f3c0d52c60ce77f32",
+    "reason": "User removed the old Witch and Foundation selectable variants; no retained package referencers",
+    "replacement": "/Game/Monsters/WitchRebuilt and /Script/FPSGAME.WitchRebuiltMonster"
+  },
+  {
+    "package": "/Game/Monsters/WitchMeshy/SpellSupportV07/A_Witch_ThrowPoisonBottle",
+    "source": "Content\\Monsters\\WitchMeshy\\SpellSupportV07\\A_Witch_ThrowPoisonBottle.uasset",
+    "destination": "trash\\witch-variants-20260922\\Content\\Monsters\\WitchMeshy\\SpellSupportV07\\A_Witch_ThrowPoisonBottle.uasset",
+    "bytes": 268455,
+    "sha256": "8a6ac914515e864394fad81bb7e299d01f8e3fce614b901ac1a22a5843bfedf2",
+    "reason": "User removed the old Witch and Foundation selectable variants; no retained package referencers",
+    "replacement": "/Game/Monsters/WitchRebuilt and /Script/FPSGAME.WitchRebuiltMonster"
+  }
+]

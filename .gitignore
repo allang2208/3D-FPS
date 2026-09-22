@@ -11,6 +11,12 @@
 /SourceAssets/WitchFoundation20260920/**
 !/SourceAssets/WitchFoundation20260920/**/
 !/SourceAssets/WitchFoundation20260920/**/*.md
+# Rebuilt Witch: publish recipes and recovery prose; licensed geometry, sampled
+# poses, local integration receipts and retained authoring snapshots stay local.
+/SourceAssets/WitchRebuilt20260921/**
+!/SourceAssets/WitchRebuilt20260921/**/
+!/SourceAssets/WitchRebuilt20260921/README.md
+!/SourceAssets/WitchRebuilt20260921/read_author_inputs.py
 # M16 publication: source recipes and prose only; licensed assets, dense geometry,
 # sampled poses, UE transport output and local staging snapshots stay on the host.
 /SourceAssets/M16*/**

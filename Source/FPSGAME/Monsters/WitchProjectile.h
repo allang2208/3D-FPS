@@ -22,9 +22,15 @@ public:
 private:
     void Land(FVector Position, FVector Normal);
     void Pulse();
+    void UpdateLiquidVisual(float DeltaTime, const FVector& Start, const FVector& End);
     UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> Visual;
+    UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> LiquidCore;
     TWeakObjectPtr<AWitchMonster> Shooter;
     FVector Origin = FVector::ZeroVector, Goal = FVector::ZeroVector, Velocity = FVector::ZeroVector;
+    FQuat BottleReleaseRotation = FQuat::Identity;
+    FVector BottleSpinAxis = FVector::RightVector;
     bool bBottle = false, bPool = false;
     float Age = 0, HitDamage = 0, PoolRadius = 200.f, NextPulse = .5f;
+    float LiquidAge = 0.f, LiquidPhase = 0.f, NextTrail = 0.f;
+    int32 TrailCount = 0;
 };

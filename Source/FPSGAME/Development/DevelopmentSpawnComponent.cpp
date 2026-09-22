@@ -22,8 +22,7 @@ UDevelopmentSpawnComponent::UDevelopmentSpawnComponent()
     Add(TEXT("FatZombie"), TEXT("胖子僵尸"), TEXT("/Script/FPSGAME.FatZombie"), 60.f);
     Add(TEXT("Mutant3"), TEXT("突变体-3"), TEXT("/Script/FPSGAME.Mutant3"), 50.f);
     Add(TEXT("NurseZombie"), TEXT("护士僵尸"), TEXT("/Game/Monsters/NurseZombie/BP_NurseZombie.BP_NurseZombie_C"), 44.f);
-    Add(TEXT("Witch"), TEXT("巫婆"), TEXT("/Script/FPSGAME.WitchMonster"), 65.f);
-    Add(TEXT("WitchFoundation"), TEXT("巫婆·动作基础候选"), TEXT("/Script/FPSGAME.WitchMotionCandidate"), 65.f);
+    Add(TEXT("WitchRebuilt"), TEXT("巫婆·重建候选"), TEXT("/Script/FPSGAME.WitchRebuiltMonster"), 65.f);
     Add(TEXT("HandBrain"), TEXT("手脑"), TEXT("/Game/Monsters/HandBrain/BP_HandBrain.BP_HandBrain_C"), 125.f);
     Add(TEXT("PoisonMaggot"), TEXT("毒蛆"), TEXT("/Game/Monsters/PoisonMaggot/BP_PoisonMaggot.BP_PoisonMaggot_C"), 120.f);
     Add(TEXT("Wolf"), TEXT("野狼"), TEXT("/Game/Monsters/Wolf/BP_WolfMonster.BP_WolfMonster_C"), 100.f);

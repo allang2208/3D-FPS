@@ -4,7 +4,7 @@
 
 ## 输入与动作选择
 
-- 模型、材质、蒙皮和绑定由用户通过 Meshy 完成；本地工作保留其网格、UV、骨架父链和权重，负责动作适配与 UE 接入。已认可输入直接进入适配，不重新走 5080 生成或无必要重绑。
+- 对于用户已认可且适用的 Meshy 输入，本地保留网格、UV、骨架父链和权重，负责动作适配与 UE 接入，不重新生成或无必要重绑。未认可自动蒙皮先按人体、衣物和附件分类；只有外观可用的长袍壳按 `robed-humanoid-recovery.md` 处理，不能以“保留原模型”为由继续保留手受腿驱动、裙脚共顶点等结构问题。
 - 模型来源与动作来源分别记录。胖子的 Meshy ZIP 是用户资产，Mesh2Motion 的 CC0 不覆盖该模型或工程水体素材；Git 发布源码、脚本和必要记录，二进制按工程 AssetSetup 恢复。
 - 先看现有动作参考并读取实际片段，选择能表达目标身份的源动作，再制作体型修正。胖子使用 Mesh2Motion 的 `Zombie_Idle`、`Zombie_Walk`、`Zombie_Scratch`、`Death_D`，固定提交 `2d3d1ff03247d9e7e830d1ae375653da4e2146e2`。来源与散列在 `SourceAssets/FatZombieMeshy20260913/source_manifest.json`；许可副本在 `sources/LICENSE-CC0.MD`。
 - 无手指骨就明确没有独立手指动画；本例无武器抓握，不升级为持械人形通用成功案例。持械动作继续参考 `humanoid-weapon-motion.md`。

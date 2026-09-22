@@ -9,9 +9,15 @@
 
 恢复旋风V5并应用V6后摇，保留V2/V3后处理与边框修订；战术持剑采用V4六条移动动画、V5两条0.25秒前摇攻击动画。当前源、顺序、90份归档散列、许可与源码／本机素材边界见 [近战发布与恢复](Weapons/melee-publication-20260921.md)。最新前摇已通过Live Coding，公开源码不包含完整动画或参考视频，运行效果仍由用户测试。
 
-## 巫婆暂停与人体候选（2026-09-21）
+## 唯一巫婆与重建依赖（2026-09-22）
 
-普通巫婆 V06/V07 未获用户满意，现暂停；独立 `WitchFoundation` 人体待机/慢走粗模可用。保留原身体问题对照、粗模候选和两个 F6 入口。当前资产、原始素材、分件、恢复依赖与 trash 散列清单见 [巫婆暂停与发布](Monsters/witch-paused-publication-20260921.md)。公开仓库只发布代码、作者脚本、参数和文字；Meshy 模型/PBR、Epic Quinn 与动作、UE 包、密集姿态采样留在本机，不能从 Git 克隆恢复完整外观。
+用户指定只保留 F6「巫婆·重建候选」作为唯一巫婆。当前模型、八个动作、Fabric09 布面和 Drape07 位于 `Content/Monsters/WitchRebuilt`；普通巫婆和 Foundation 的独立运行入口退役。原生构建、旧包归档及实际接入状态见 [唯一巫婆](Monsters/witch-single-variant-20260922.md)。Foundation 模板网格/骨架/物理、原 Meshy 外观贴图及法杖和外部动作源仍是保留版本的依赖，不能按目录名一并删除。
+
+当前包含 FlightDistance12 投瓶/距离修正及 LiquidProjectile13 普通毒弹表现。公开源码、有效作者输入、未采用 MeshLab 实验与自动备份的 trash 归档边界见 [巫婆发布与恢复](Monsters/witch-publication-20260923.md)；最新修订未进行游戏或性能测试。
+
+### 历史：巫婆暂停与人体候选（2026-09-21）
+
+当时普通巫婆 V06/V07 未获用户满意，暂停开发；独立 `WitchFoundation` 人体待机/慢走粗模可用，保留两个 F6 入口作对照。此入口安排已被上方唯一巫婆决策替代。原始素材、分件、恢复依赖与当时的 trash 散列清单见 [巫婆暂停与发布](Monsters/witch-paused-publication-20260921.md)。公开仓库只发布代码、作者脚本、参数和文字；Meshy 模型/PBR、Epic Quinn 与动作、UE 包、密集姿态采样留在本机，不能从 Git 克隆恢复完整外观。
 
 ## 大旋风 V4（2026-09-20）
 

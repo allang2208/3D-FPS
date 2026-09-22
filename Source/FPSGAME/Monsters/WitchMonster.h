@@ -7,8 +7,8 @@ class UStaticMeshComponent;
 class AWitchProjectile;
 class UWitchSpellAnimInstance;
 
-/** Witch presentation and spell execution; the shared BT owns decisions. */
-UCLASS(Blueprintable)
+/** Shared Witch combat base; WitchRebuiltMonster is the sole concrete presentation. */
+UCLASS(Abstract)
 class FPSGAME_API AWitchMonster : public ANurseZombie
 {
     GENERATED_BODY()
@@ -18,7 +18,7 @@ public:
     virtual void BeginPlay() override;
     virtual void Tick(float DeltaSeconds) override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
-    bool CanCast(APawn* Candidate) const;
+    virtual bool CanCast(APawn* Candidate) const;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Witch|Animation") TObjectPtr<UAnimSequence> CastClip;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Witch|Animation") TObjectPtr<UAnimSequence> ThrowClip;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Witch|Animation") TObjectPtr<UAnimSequence> DeathClip;
@@ -30,8 +30,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Witch|Combat") float PoisonRadius = 200.f;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Witch|Props") TObjectPtr<UStaticMeshComponent> Staff;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Witch|Props") TObjectPtr<UStaticMeshComponent> Bottle;
-    UFUNCTION(BlueprintCallable, Category="Witch|Authoring") static bool PrepareCombatPhysics(USkeletalMesh* InMesh);
 protected:
+    virtual void AlignVisual();
+    virtual void AttachProps() PURE_VIRTUAL(AWitchMonster::AttachProps, );
     virtual void StartStateAnimation(UAnimSequence* Clip, bool bLoop) override;
     virtual void SetAttackAnimationTime(float Seconds) override;
     virtual void SetWalkAnimationRate(float Rate) override;
@@ -40,8 +41,6 @@ protected:
     virtual void SetHitPresentationTime(UAnimSequence* Clip, float Elapsed, float Remaining) override;
 private:
     UWitchSpellAnimInstance* GetSpellAnimation();
-    void AlignVisual();
-    void AttachProps();
     void ReleaseSpell();
     void StartRagdoll();
     bool bThrowing = false;

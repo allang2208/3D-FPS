@@ -36,13 +36,14 @@ public class FPSGAME : ModuleRules
         PrivateDependencyModuleNames.Add("AnimationCore");
         PrivateDependencyModuleNames.Add("AnimationWarpingRuntime");
         PrivateDependencyModuleNames.AddRange(new[] { "RenderCore", "RHI" });
+        PrivateDependencyModuleNames.AddRange(new[] { "ClothingSystemRuntimeCommon", "ClothingSystemRuntimeInterface" });
         PrivateDependencyModuleNames.AddRange(new[] { "PCG", "GeometryCore", "GeometryFramework" });
         if (Target.bBuildEditor) PrivateDependencyModuleNames.Add("NiagaraEditor");
         if (Target.bBuildEditor) PrivateDependencyModuleNames.Add("UnrealEd");
         if (Target.bBuildEditor) PrivateDependencyModuleNames.AddRange(new[]
         {
             "ClothingSystemEditor", "ClothingSystemEditorInterface",
-            "ClothingSystemRuntimeCommon", "ClothingSystemRuntimeInterface", "ChaosCloth"
+            "ChaosCloth"
         });
     }
 }

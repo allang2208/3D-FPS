@@ -1,0 +1,2002 @@
+{
+  "date": "2026-09-23",
+  "scope": "Witch rejected experiments and superseded automatic saves",
+  "archive_root": "trash/witch-rebuilt-publication-20260923",
+  "file_count": 249,
+  "bytes": 1169819787.0,
+  "verified_after_move": true,
+  "files": [
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/Experiments/author_proxy05.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/Experiments/author_proxy05.py",
+      "bytes": 3393,
+      "sha256": "886edee35ef710794a4f91ef3455d618bb98acda6c9317763b7f24f9fa56579d",
+      "reason": "MeshLab proxy remesh experiment not adopted; bounded cloth mapping retained",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/Experiments/export_proxy_inputs05.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/Experiments/export_proxy_inputs05.py",
+      "bytes": 625,
+      "sha256": "33c5f08241642395d70009bc5d8b429e11001693fdd4fdcb008c7b0b572cd6b2",
+      "reason": "MeshLab proxy remesh experiment not adopted; bounded cloth mapping retained",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/Experiments/remesh_proxy05.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/Experiments/remesh_proxy05.py",
+      "bytes": 3213,
+      "sha256": "437de5cd9210c3ec89acba8ecff7cf1163bbe507037dbfbb5889aba29bc7877d",
+      "reason": "MeshLab proxy remesh experiment not adopted; bounded cloth mapping retained",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/__init__.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/__init__.py",
+      "bytes": 1910,
+      "sha256": "76eaa8f14038b917416b89bc4673c912606241e4a128c97acb7c403b6f625110",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/E57Format.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/E57Format.dll",
+      "bytes": 614400,
+      "sha256": "f95d7c9a992dedfb9d23278e3556f2239c5854ea7ee14756d534dc228d762ce3",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/E57Format.lib",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/E57Format.lib",
+      "bytes": 183384,
+      "sha256": "2914dcc8b87c87cafd0a386a2fb4dd154badfabc5d08c09e2bcd4db5db0ec118",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/embree4.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/embree4.dll",
+      "bytes": 36419712,
+      "sha256": "967ea8c40c64f060bf697942a4ed44b8c19a9cab24585b0cf1ed6e690ff7c175",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/external-glew.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/external-glew.dll",
+      "bytes": 498176,
+      "sha256": "cf5de46c58068652b5129d5435957977f68de04783b6cec21e66499f1a7a4a70",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/external-glew.lib",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/external-glew.lib",
+      "bytes": 784658,
+      "sha256": "0f560de9879dc285f658406390b7c2174fb5a8e5e560180bf93c779a4e66680f",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/external-lib3ds.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/external-lib3ds.dll",
+      "bytes": 114688,
+      "sha256": "67b71155052086c126a0fabb2cbe55818dedddd710b22dfe1b6e4fc84d29fd32",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/external-lib3ds.lib",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/external-lib3ds.lib",
+      "bytes": 60356,
+      "sha256": "e61caf23b5d9e2355f1315e6d1142a03476c8a35861b8ab23a2bbe37b497a881",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/IDTF.lib",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/IDTF.lib",
+      "bytes": 6622090,
+      "sha256": "b71a46e34764ef3048aec0c4d729e5a950b385c5a4df2c2ebb8f7e5a17e71a5b",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/IFXCore.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/IFXCore.dll",
+      "bytes": 2534912,
+      "sha256": "d8404cc8949cc3c21b8a1b8361ebaa3066908ab7c0f0e871137549116c91ac64",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/IFXCore.lib",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/IFXCore.lib",
+      "bytes": 3538508,
+      "sha256": "6e8c0972d20e7377d6a488018428445e331ca4a5cb23ee87d5efab6da052e943",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/IFXExporting.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/IFXExporting.dll",
+      "bytes": 328192,
+      "sha256": "437d3d3cc55e163c9a56734820667f471ecda796238521260525f4ff7e2e5f1d",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/IFXExporting.lib",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/IFXExporting.lib",
+      "bytes": 374858,
+      "sha256": "f487e27d41a82b508102daea918f159476f9f3f9702d643ad05e4d36f02e5f51",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/IFXScheduling.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/IFXScheduling.dll",
+      "bytes": 191488,
+      "sha256": "80121c7be3d5626fc168c4b26ed8d795f7e74ac608a7d0c756965c8f33fffe4d",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/IFXScheduling.lib",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/IFXScheduling.lib",
+      "bytes": 325984,
+      "sha256": "5aceec37c032882fff9c72081c24fb1a9cd2eb4846f0de83b24f05d6b1dfac67",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/keys.txt",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/keys.txt",
+      "bytes": 16890,
+      "sha256": "0abe5d14fda8723a61754aa13e78b1daf3b6477c2fad05a6a59a9e1f8305017c",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib3mf.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib3mf.dll",
+      "bytes": 6221824,
+      "sha256": "ec8838be43a4b81fa70f26d59650633bddef5bba993be64b1ce553085c8fb38d",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib3mf.lib",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib3mf.lib",
+      "bytes": 18228362,
+      "sha256": "8be0210e18fa0f2fa476c1ffa5687f8ab29eb620504cfef75f4e3850f8a14c46",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/libEGL.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/libEGL.dll",
+      "bytes": 25072,
+      "sha256": "32092de077fd57b6ef355705ec46c6d21f6d72fbe3d3a5dd628f2a29185a96fa",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/libGLESv2.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/libGLESv2.dll",
+      "bytes": 3385328,
+      "sha256": "50fad5605b3d57627848b3b84a744dfb6a045609b8236b04124f2234676758d8",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/libgmp-10.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/libgmp-10.dll",
+      "bytes": 543027,
+      "sha256": "fec43cb18ce0ec8a5dd6ad1db745747167310ccb92b5acff0d445a8b3013f009",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/libgmp-10.lib",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/libgmp-10.lib",
+      "bytes": 109180,
+      "sha256": "63fbb59cd3b7879f71cf2d3d9133f6edcd6d6afb122a1fff085afb7c2f486f0f",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/libmpfr-4.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/libmpfr-4.dll",
+      "bytes": 436011,
+      "sha256": "09b3b868b96433991fc15c9c5ae6f9a44c62d2e21194110442607917391ed927",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/libmpfr-4.lib",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/libmpfr-4.lib",
+      "bytes": 68992,
+      "sha256": "db89bd46fcbbd99b56197284e5593b3f9ce744ccb8ead9aebee9b714bd2547dc",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/meshlab-common-gui.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/meshlab-common-gui.dll",
+      "bytes": 364032,
+      "sha256": "75d505599571d7031eae629e9204105225590dc3ed26724cf4bc2f8f4b297fb8",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/meshlab-common-gui.lib",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/meshlab-common-gui.lib",
+      "bytes": 984266,
+      "sha256": "51b74b0f0998bf9e0c2bf64913fdaa3de1414330c1a3490adabff69f94ae13d8",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/meshlab-common.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/meshlab-common.dll",
+      "bytes": 2177536,
+      "sha256": "af6e78826867f41258b5d26a0481bb67599a8cb2ee7f3e5414c7af4ae16dddc7",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/meshlab-common.lib",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/meshlab-common.lib",
+      "bytes": 7494432,
+      "sha256": "c1a21eb22617a2a734e286e98dc2c327c628d846f7f9e736614b61d7bcc53ee1",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/muparser.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/muparser.dll",
+      "bytes": 754688,
+      "sha256": "9c8e0b804afb3df7a42f817e44a772130d7ea53bb25150e0059c4933f9d8d522",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/muparser.lib",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/muparser.lib",
+      "bytes": 2048726,
+      "sha256": "d9201c29706a2627194e91b0c770311f06ae274054475ae85f5e210d40376be2",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/opengl32sw.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/opengl32sw.dll",
+      "bytes": 20923392,
+      "sha256": "963641a718f9cae2705d5299eae9b7444e84e72ab3bef96a691510dd05fa1da4",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/pmeshlab.cp311-win_amd64.pyd",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/pmeshlab.cp311-win_amd64.pyd",
+      "bytes": 489984,
+      "sha256": "5ed9dcff53ab02ceb264f32cd21fb95c6ac6f1b96bc93974f16a551606222f51",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/polyscope_functions.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/polyscope_functions.py",
+      "bytes": 1306,
+      "sha256": "a93c37f18813e6fba0cd33bdd5bc10a5ceb2bc6c39c2f05e08185baa10d747b2",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/Qt5Core.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/Qt5Core.dll",
+      "bytes": 6023664,
+      "sha256": "8d2ff4ce9096ddccc4f4cd62c2e41fc854cfd1b0d6e8d296645a7f5fd4ae565a",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/Qt5Gui.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/Qt5Gui.dll",
+      "bytes": 7008240,
+      "sha256": "5e7d2d41b8b92a880e83b8cc0ca173f5da61218604186196787ee1600956be1e",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/Qt5Network.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/Qt5Network.dll",
+      "bytes": 1340400,
+      "sha256": "4ef341ae9302e793878020f0740b09b0f31cb380408a697f75c69fdbd20fc7a1",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/Qt5OpenGL.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/Qt5OpenGL.dll",
+      "bytes": 321008,
+      "sha256": "0e179470446a14c3706182d88fc95e5c066957c3752defdd6d3649ae877c87a2",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/Qt5Svg.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/Qt5Svg.dll",
+      "bytes": 330736,
+      "sha256": "7348cfc6444438b8845fb3f59381227325d40ca2187d463e82fc7b8e93e38db5",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/Qt5Widgets.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/Qt5Widgets.dll",
+      "bytes": 5498352,
+      "sha256": "3788c669d4b645e5a576de9fc77fca776bf516d43c89143dc2ca28291ba14358",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/Qt5Xml.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/Qt5Xml.dll",
+      "bytes": 213488,
+      "sha256": "ebdf91f0310ab67a79abd2385fa428205856f81e3a753e6e47c31d5946ddd590",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/replacer.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/replacer.py",
+      "bytes": 1520,
+      "sha256": "85ffcafe20e7d86f0dd93e6d41ff4b5c5f644e37e97035bea4eb13159a20bf83",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/setup.cfg",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/setup.cfg",
+      "bytes": 99,
+      "sha256": "2991856befc7bc35a0bc740007d2ca4ce418a8ae8f9db0cc6f0151d64d2f5969",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tbb12.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tbb12.dll",
+      "bytes": 318080,
+      "sha256": "68c07bc7c2161637f37f11ebf4af5be2f940138cbcaa717bb71282fd55a827ef",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/xerces-c_3_2.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/xerces-c_3_2.dll",
+      "bytes": 3192832,
+      "sha256": "e850492de69c3c3044bb4eec8550bce2c95fbedd8e358b8ca68fb2246b7acaac",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/xerces-c_3.lib",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/xerces-c_3.lib",
+      "bytes": 5104734,
+      "sha256": "0486e479914b3d25e3ea59cd6dab4df82e414ed942e6aa3783020aca4a5c042b",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/bearer/qgenericbearer.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/bearer/qgenericbearer.dll",
+      "bytes": 53232,
+      "sha256": "0534cef5f54eb6d10b2e90bd6089dc413c555771e12220be9a5cc48adddc803d",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/iconengines/qsvgicon.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/iconengines/qsvgicon.dll",
+      "bytes": 41968,
+      "sha256": "42dde60befcf1d9f96b8366a9988626b97d7d0d829ebea32f756d6ecd9ea99a8",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/imageformats/qgif.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/imageformats/qgif.dll",
+      "bytes": 39408,
+      "sha256": "36174dd4c5f37c5f065c7a26e0ac65c4c3a41fdc0416882af856a23a5d03bb9d",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/imageformats/qicns.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/imageformats/qicns.dll",
+      "bytes": 45040,
+      "sha256": "f4a229a082d16f80016f366156a2b951550f1e9df6d4177323bbedd92a429909",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/imageformats/qico.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/imageformats/qico.dll",
+      "bytes": 38384,
+      "sha256": "1982a635db9652304131c9c6ff9a693e70241600d2ef22b354962aa37997de0b",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/imageformats/qjpeg.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/imageformats/qjpeg.dll",
+      "bytes": 421360,
+      "sha256": "fb4e980cb5fafa8a4cd4239329aed93f7c32ed939c94b61fb2df657f3c6ad158",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/imageformats/qsvg.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/imageformats/qsvg.dll",
+      "bytes": 32240,
+      "sha256": "b3498f0a10ac4cb42cf7213db4944a34594ff36c78c50a0f249c9085d1b1ff39",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/imageformats/qtga.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/imageformats/qtga.dll",
+      "bytes": 31728,
+      "sha256": "5b641dec81aec1cf7ac0cce9fc067bb642fbd32da138a36e3bdac3bb5b36c37a",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/imageformats/qtiff.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/imageformats/qtiff.dll",
+      "bytes": 390128,
+      "sha256": "825174429ced6b3dab18115dbc6c9da07bf5248c86ec1bd5c0dcaeca93b4c22d",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/imageformats/qwbmp.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/imageformats/qwbmp.dll",
+      "bytes": 30192,
+      "sha256": "0f05969fb926a62a338782b32446ea3e28e4bfbffc0dbd25ed303fab3404abac",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/imageformats/qwebp.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/imageformats/qwebp.dll",
+      "bytes": 510448,
+      "sha256": "6e37acd0d357871f92b7fde7206c904c734caa02f94544df646957df8c4987af",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_ao.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_ao.dll",
+      "bytes": 117248,
+      "sha256": "db11affcb3498d2dee8b5a41e03fcc15fc20ae22771de502b4abd707bb9b2545",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_camera.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_camera.dll",
+      "bytes": 87552,
+      "sha256": "8dde499dc457a03ef296570790c81ae02661d69e260c77f4b3fb4d918ee38f66",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_clean.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_clean.dll",
+      "bytes": 235520,
+      "sha256": "b6a38ae848b31e4b9ab6e209898c7eb299fd8ee5ed360aa35d419c6551e29a6a",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_color_projection.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_color_projection.dll",
+      "bytes": 107520,
+      "sha256": "3bf31e215889e21917115c2a75ee69d9b7aaaeb5201aa5f867ab13a20447f61d",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_colorproc.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_colorproc.dll",
+      "bytes": 207872,
+      "sha256": "4ee96caaf5fbd703612d30cdc74abd9b6e77b3c0c541c552e1488822ebaa6fdb",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_create.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_create.dll",
+      "bytes": 207360,
+      "sha256": "79d310fa96466961bdfc42cd1ccda90499e5b897ffbf270603c78d6ad9a5f6d4",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_createiso.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_createiso.dll",
+      "bytes": 86528,
+      "sha256": "e240aa59e3ad90cb82cd86c57fd03e3f4219509c31c37feca20507c61f2e4335",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_cubization.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_cubization.dll",
+      "bytes": 542720,
+      "sha256": "da85874e75c81d070dc6ae9f3d76dd7361f0c933998f0bc405a5326a88e902d3",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_developability.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_developability.dll",
+      "bytes": 113664,
+      "sha256": "c1c2f19d130a69cec56b54cdbeee4558a3642e37b6d579443b244b9f37f6b041",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_dirt.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_dirt.dll",
+      "bytes": 161280,
+      "sha256": "e13c8728186df0bc302367a3ad36015e9d76273ab6d4bb657ad0ea05947a2088",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_embree.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_embree.dll",
+      "bytes": 79360,
+      "sha256": "1fdc632a32630a59c0ddbb384d9891240b19e1727fcad3305424d48e9cc640b9",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_fractal.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_fractal.dll",
+      "bytes": 141824,
+      "sha256": "d3aa99b6e7b9df6afd7f05e1784dc5d9c009b9b2498586a00722c472debe8bc4",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_func.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_func.dll",
+      "bytes": 227840,
+      "sha256": "eb5514f6e823e8e4369d724cda649643c1731d3866f1d358c379343c4b5c6174",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_geodesic.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_geodesic.dll",
+      "bytes": 148992,
+      "sha256": "608ff5a3ca0a5350094fd2e64b9129905242c64cacb38715e2d1692f7c8dd7f3",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_icp.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_icp.dll",
+      "bytes": 332288,
+      "sha256": "8207c741206545ccc796c633b83c00f8d660bd96cdf1b17756937c1e842849db",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_img_patch_param.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_img_patch_param.dll",
+      "bytes": 254464,
+      "sha256": "95b4753d1d69552409317bac5906b6cec8605bd402b769639fe7e2a617348704",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_io_nxs.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_io_nxs.dll",
+      "bytes": 978432,
+      "sha256": "62e015a3059d121862daa2b209fa607d838b29ed67609b2801689ae0387dc704",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_isoparametrization.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_isoparametrization.dll",
+      "bytes": 607744,
+      "sha256": "7d3c868cc71f45bdd6358f68c75a6f252cf3941a4ed30f9f84b467cc1a5454f1",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_layer.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_layer.dll",
+      "bytes": 143360,
+      "sha256": "72e7688e249672b792b6b9ad4c728833da4f68fb1992796485e467b70b229c57",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_measure.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_measure.dll",
+      "bytes": 168448,
+      "sha256": "136cfa93190796f08820cd5ca7626ddad298ff2b1e37956b95060b38472440ec",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_mesh_alpha_wrap.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_mesh_alpha_wrap.dll",
+      "bytes": 805888,
+      "sha256": "7af664a16dd43611d3648b800caf41fba9eb7b2eb367a5295a22f30ef5defe5d",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_mesh_booleans.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_mesh_booleans.dll",
+      "bytes": 1261056,
+      "sha256": "cf0a84bd4e3edd6c62341ab31608d09fb53a7ae9dc773d8b437fea07a0620b8b",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_meshing.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_meshing.dll",
+      "bytes": 988672,
+      "sha256": "0dbcfbb2a5aa5e1e50efc6379c5880158646cda90c54c9c6e0ff326355266ee5",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_mls.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_mls.dll",
+      "bytes": 233472,
+      "sha256": "1254fb10e2a283f2458da3af6520a4fe6cb0fa32c21d772e2f8784497e0de8c6",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_mutualglobal.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_mutualglobal.dll",
+      "bytes": 202752,
+      "sha256": "6595ff6678ad229c85a48472b810ec217f8c331a171a260516c679a54f0bf91b",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_mutualinfo.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_mutualinfo.dll",
+      "bytes": 153600,
+      "sha256": "c70fd44d59e91750ab0f3829a7c282ac8bcf54f708e3e5f4bfde4421580e9800",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_parametrization.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_parametrization.dll",
+      "bytes": 355328,
+      "sha256": "1714def9f087510b9ee869fc36d7edd875016f01093ab8f51d9bdf104a315b3a",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_plymc.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_plymc.dll",
+      "bytes": 707584,
+      "sha256": "8c0ee9ac6df4234d79fee0b53c548a2321e0895285233840ea3ec9bdc68ea631",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_qhull.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_qhull.dll",
+      "bytes": 509952,
+      "sha256": "357da04b1f21852e43220fc10b232b7d17c41b5474e02c6e2cad04512a1e598b",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_quality.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_quality.dll",
+      "bytes": 58368,
+      "sha256": "ed8cb8544b64f81f6a8d389d787806192d9d6c9e81e853b2aca142e51c1b4373",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_sample_gpu.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_sample_gpu.dll",
+      "bytes": 101888,
+      "sha256": "c699f7533f2c60ea990d17bb57adb8080107248c84aef4c7608dbe23888010e3",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_sample.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_sample.dll",
+      "bytes": 41984,
+      "sha256": "25557441e17aad07243b17b6d86b91b859370721c7d1290e23c961f8c2beaac9",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_sampling.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_sampling.dll",
+      "bytes": 341504,
+      "sha256": "b8d0b68ccad25395365874ca37aa048a1a6a7c0450b66317bbb394218e392a2a",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_screened_poisson.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_screened_poisson.dll",
+      "bytes": 377856,
+      "sha256": "dbb245853bd9199cc6574dd013d35160575ad19bb56a5e05101a3292dea70f20",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_sdfgpu.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_sdfgpu.dll",
+      "bytes": 148480,
+      "sha256": "512094ac471cd869f5c829f3debe98ea6060b3ca1ac80923dc24f7b50cb86128",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_select.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_select.dll",
+      "bytes": 167424,
+      "sha256": "e693c9b43b21763a445bd7d51aed1002460b0d766dee6cb2468f8991ae55ad51",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_sketchfab.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_sketchfab.dll",
+      "bytes": 122368,
+      "sha256": "bb2ebeebd59173ac080542adce53be37c963c4386739b4975ed907601fd19c7b",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_ssynth.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_ssynth.dll",
+      "bytes": 514560,
+      "sha256": "1e8643974a1dce7e9982a2712b47dc777a8bcb48713e28fa5944ccfe0b162678",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_texture_defragmentation.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_texture_defragmentation.dll",
+      "bytes": 667648,
+      "sha256": "4f19786f51fb9ab5c0601c75e178c1bf581c850b1fcb9a5bf3ccf2638337658d",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_texture.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_texture.dll",
+      "bytes": 371200,
+      "sha256": "0908daf01eb7dc986d8d620eadf0fb941135674ddc373e1b94ad53240b36d921",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_trioptimize.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_trioptimize.dll",
+      "bytes": 182272,
+      "sha256": "0dfbf2cac4362785098279dfa1a6ba0f242d21c6f6d65623c630f97c57f06936",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_unsharp.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_unsharp.dll",
+      "bytes": 241664,
+      "sha256": "a2e4f4d974fc84c8b543374f337845add0a276de4f6706cabd28387521c7bd1e",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_voronoi.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/filter_voronoi.dll",
+      "bytes": 386048,
+      "sha256": "776b992dead6cd9a5104838a1158e052d901e8a5fb73db2281baf16406dc40f5",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_3ds.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_3ds.dll",
+      "bytes": 77824,
+      "sha256": "3ae60f85df37d961e573dcb552d55a9148e2244d6f7493d1d560b28cbd524b82",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_3mf.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_3mf.dll",
+      "bytes": 163328,
+      "sha256": "8909c32d0d26d711ca1c0b43e6099249d6d0a7d80815d7968f08f11cff1337fd",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_base.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_base.dll",
+      "bytes": 710656,
+      "sha256": "92a873895161d81eba6147c9d1afdba3684e34da6325f9d39f389676cbc576b5",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_bre.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_bre.dll",
+      "bytes": 81920,
+      "sha256": "352ffcaf4008ef51e1c8a00ef5a6258e11859f2180da9929ee0b0f1cc731b212",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_collada.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_collada.dll",
+      "bytes": 271360,
+      "sha256": "3d188ac3820d63525294b08bafd8be272c1f8a4a915382c1770d546c9c9007f0",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_ctm.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_ctm.dll",
+      "bytes": 129024,
+      "sha256": "582279e00683f0849656c3c8fa47a279b99061b1add86182f3b384691cd193cd",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_e57.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_e57.dll",
+      "bytes": 99328,
+      "sha256": "12f64e48a80c6d14d647e477ab5f26ec761c04f9f0cb9d6de1f8d5accf627701",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_expe.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_expe.dll",
+      "bytes": 73728,
+      "sha256": "3acec4a897ddb81120af6d650d346fad1467e39ca4d0cd7a2773a3f89428d4bf",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_gltf.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_gltf.dll",
+      "bytes": 559616,
+      "sha256": "e9ef1f1b2c616f451f550ec57a849dfe95bce1e45f231da16314553317d07be9",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_json.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_json.dll",
+      "bytes": 80384,
+      "sha256": "4ffee7a7eb3fa8b229ff1dbb29b0161ffaf3e095053aeb0513de877d843aaddb",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_pdb.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_pdb.dll",
+      "bytes": 168448,
+      "sha256": "9fa5e3d1296aabfb0b6ad48ad244a7ec6b4b10b8fbfa0811601ba166bb5d46cf",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_tri.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_tri.dll",
+      "bytes": 67072,
+      "sha256": "74ef661bb0f2d5c83c05833e665abfab2af6da25930a5b43b82b7162955173a7",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_txt.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_txt.dll",
+      "bytes": 62464,
+      "sha256": "d1a8bd54fbab4e1a7a1179ef8747e56c5311cf7ba51f99c77b39931e9ad324a4",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_u3d.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_u3d.dll",
+      "bytes": 459776,
+      "sha256": "3493a0b783cc28a69ec3526e05544a7889632f32548fc89818ad2a30612029bb",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_x3d.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/lib/plugins/io_x3d.dll",
+      "bytes": 351232,
+      "sha256": "83f6f1bc0233706e5c8d178c8a6b3a788ebd5664055b04d9734321f3367e3467",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/platforms/qwindows.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/platforms/qwindows.dll",
+      "bytes": 1477104,
+      "sha256": "3333ba244c97264e3bd19db5953efa80a6e47aaced9d337ac3287ec718162b85",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/styles/qwindowsvistastyle.dll",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/styles/qwindowsvistastyle.dll",
+      "bytes": 144368,
+      "sha256": "d9b21182952682fe7ba63af1df24e23ace592c35b3f31eceef9f0eabeb5881b9",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__init__.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_apply_filter_output.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_apply_filter_output.py",
+      "bytes": 1054,
+      "sha256": "aa1d33363644b93d2c370e8b5fd746d4f44036f2b85cda89d18c3e89dc1c0207",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_apply_filter_parameters_check_default_values.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_apply_filter_parameters_check_default_values.py",
+      "bytes": 724,
+      "sha256": "0f0295592b49f3b9d8826906fa6e0a2a92c88a8582723781f4e29f614e2ca835",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_apply_filter_parameters_percentage.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_apply_filter_parameters_percentage.py",
+      "bytes": 1143,
+      "sha256": "4dd4d4e9a3e43d890269c2df1f00f9c338fe17dadbe26deb8d779ad850f2a648",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_apply_filter_parameters_point.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_apply_filter_parameters_point.py",
+      "bytes": 814,
+      "sha256": "c45f9c888aa60a3b492160962584f992892a5a32b9c5057b20929e51c8a268f5",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_apply_filter_parameters.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_apply_filter_parameters.py",
+      "bytes": 728,
+      "sha256": "eadb18e1ee964e229476df06f0a575fa4904c5aee323bc0ad18e301e167054a1",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_apply_filter.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_apply_filter.py",
+      "bytes": 853,
+      "sha256": "f037d3680e2614a20d11f4a8d1b201050e1199e1faba77363760176447a507e7",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_custom_mesh_attributes.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_custom_mesh_attributes.py",
+      "bytes": 2835,
+      "sha256": "1c555934c49da2335d60ea69c806b5e0c90372a94d419ebcb825c3eda64d21fc",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_filter_script_create_and_save.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_filter_script_create_and_save.py",
+      "bytes": 1053,
+      "sha256": "81d2c9253da34aafd13659ae7fffb8ba0c54b71bd782cb4a5315b8064a873751",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_filter_script_load_and_apply.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_filter_script_load_and_apply.py",
+      "bytes": 761,
+      "sha256": "b62ef35df365726d1ac32aed8406a8fe8c0e37aa2bdac01ad592eadc3355ca88",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_get_mesh_values.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_get_mesh_values.py",
+      "bytes": 1573,
+      "sha256": "2c79e1d19be5d4fa6ebfb42cb3125aecf18be55074104333fd064415af37c71e",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_import_mesh_from_arrays.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_import_mesh_from_arrays.py",
+      "bytes": 4010,
+      "sha256": "29c43be883c3d330d01dc9660a786f9da0184829b0e7b3e610f91428dd4b01fa",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_import_poly_mesh_from_arrays.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_import_poly_mesh_from_arrays.py",
+      "bytes": 1967,
+      "sha256": "385f1e35f7d4c216fd0b4885c468a6680abe9675ebbc12af44490efc2aab79d0",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_load_mesh.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_load_mesh.py",
+      "bytes": 1225,
+      "sha256": "d66669f127abea0f0b6640ba944f2905f721a2df398204c0b3b9a8b8b40d4381",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_load_project.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_load_project.py",
+      "bytes": 734,
+      "sha256": "55b330b7793537d677758e52db8b387cd28f9f45ff3276fd453ade71c6818149",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_save_mesh.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_save_mesh.py",
+      "bytes": 640,
+      "sha256": "67eebf3e0fccf1762787d125eb9e7b9380d839098c6b2ae680211cf5a6aebce8",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_save_project.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/example_save_project.py",
+      "bytes": 493,
+      "sha256": "311ffa3597f12c9ed183bf045cc00044b7321cd4b940087dd2d8d1bf4d75cef2",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/samples_common.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/samples_common.py",
+      "bytes": 382,
+      "sha256": "8009cc761de2523bab64dbcecbaed09cc80902712ca85a9fdb7370d8d7b41c84",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/test_ambient_occlusion.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/test_ambient_occlusion.py",
+      "bytes": 457,
+      "sha256": "d4ebbdbc75ee2883143523c8c314a42c22908396bcc1e3c93d057ca89a588825",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/test_delete_mesh.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/test_delete_mesh.py",
+      "bytes": 416,
+      "sha256": "1cff7678a855aaba0bfa3d3006bdc11baeceed07ee739b7ba0a8bc2be92a2e8d",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/test_delete_small_components.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/test_delete_small_components.py",
+      "bytes": 1063,
+      "sha256": "da2fb1fa88c31e74a55503d6be3f24c869bebad351d5b8a2f7cc23e293db994c",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/test_hausdorff.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/test_hausdorff.py",
+      "bytes": 772,
+      "sha256": "2affaec856700108aae32e0e9ffa0320fbce94552f70731178f37d380fd2be82",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/test_laplacian_smoothing.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/test_laplacian_smoothing.py",
+      "bytes": 339,
+      "sha256": "91bd8ee49b83f6b0468350af921dd646fec83255db7ac34bc893e8f157a14ea5",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/test_merge_meshes.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/test_merge_meshes.py",
+      "bytes": 438,
+      "sha256": "09977ac7eb8e9d590254a99fcc092f3624b6c5a8dcd5645b76c5c89a6652af1b",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/test_mesh_booleans.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/test_mesh_booleans.py",
+      "bytes": 734,
+      "sha256": "c48065fab003695a2809f43ebc20b4e147257f91be05ab4124cffeb0df87e0bc",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/test_number_plugins.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/test_number_plugins.py",
+      "bytes": 170,
+      "sha256": "4ea7c50470d76af4503275fc69c89bb12b5a6f47e89e07df4302f85f65ac913b",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/test_select_faces_with_edge_longer_than.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/test_select_faces_with_edge_longer_than.py",
+      "bytes": 516,
+      "sha256": "0188567d053e3527bce68f364ae08516b350c5dd15999ef1929bc0c229ff7f22",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/test_texture_map_defragmentation.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/test_texture_map_defragmentation.py",
+      "bytes": 484,
+      "sha256": "4798c072999b707e3c6e09d66031ef8dcad4f8e6e2f8002dbb58de34a6941803",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/test_u3d_exporter.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/test_u3d_exporter.py",
+      "bytes": 509,
+      "sha256": "48c041e3d19cfef7a15a91a5f034d423131aa05d8ab5f36d17dfd2d420ca2121",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/airplane.obj",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/airplane.obj",
+      "bytes": 407135,
+      "sha256": "3039c296ca1d9206c3e58eac035200afa44ee5226f73a4b508cbda8e6ccba2d9",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/bone.ply",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/bone.ply",
+      "bytes": 77026,
+      "sha256": "c87b0904ba21e55abe5c9c04a65e8933d6bac91e062b26faaf05eddc850c561a",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/bunny.obj",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/bunny.obj",
+      "bytes": 3986363,
+      "sha256": "7635ff88e530cba54fcdd6f26826d69f6c7df428ddcc874f5a21ed70b4178345",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/bunny10k_textured.mtl",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/bunny10k_textured.mtl",
+      "bytes": 177,
+      "sha256": "2bc9691f52ee1953cf94a86020a09300866ac4e26181f554c955d394ddb74247",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/bunny10k_textured.obj",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/bunny10k_textured.obj",
+      "bytes": 688632,
+      "sha256": "ca73a3d8174ba9607e332ebc1ab1f7607fe5b067711578651f1f63fcabbad09c",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/chameleon.pts",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/chameleon.pts",
+      "bytes": 147130,
+      "sha256": "15b7a61e5365eab79ae592cd57a0397b5af24d2c502ee020d430b179a981c0c3",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/colored_airplane.ply",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/colored_airplane.ply",
+      "bytes": 393269,
+      "sha256": "69bb13db0070f30b9e0612ca36c17320324bbea110bd514ff29647615638c832",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/cow.obj",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/cow.obj",
+      "bytes": 189041,
+      "sha256": "ac7b96471bccc788ac4af3467cabb72bccfa33362666c1074a1abe4c46a17bee",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/cube.obj",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/cube.obj",
+      "bytes": 553,
+      "sha256": "0804003f9cc28109f8114129224ac2d444c48e44b9d055831628b438d1cc3bf1",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/sample_filter_script.mlx",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/sample_filter_script.mlx",
+      "bytes": 890,
+      "sha256": "958dedb7ee6ef847ecc6e616b06a1251eedcef0b2a4a1c59f025bb4ae63ca76e",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/sample_project.aln",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/sample_project.aln",
+      "bytes": 340,
+      "sha256": "ba0f25be4678f5e2ef6747085f4c32d9d36e887e70b52342763419612670cc00",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/sample_project.mlp",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/sample_project.mlp",
+      "bytes": 909,
+      "sha256": "1637eef2442b074aab3f308759aca00fcc44d50c1fa549a20126273cb998f352",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/TextureDouble_A.png",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/TextureDouble_A.png",
+      "bytes": 15200,
+      "sha256": "523fda9904e33e69cbd71727d6a9c9bff6345df94c4048981758d299667a1343",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/rangemaps/face000.ply",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/sample_meshes/rangemaps/face000.ply",
+      "bytes": 5209320,
+      "sha256": "29346429178879048c46d50c68794d4f2d254a6f5fd90a2f16982fed5f4764de",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/__init__.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/__init__.cpython-311.pyc",
+      "bytes": 201,
+      "sha256": "e15658344bf84c382eceb3cf822c79ad7b76eb61bfc103086f5daf49eb066713",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_apply_filter_output.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_apply_filter_output.cpython-311.pyc",
+      "bytes": 1425,
+      "sha256": "eda6386b3ba013ed6218d6e68b786d5ebf99deddec4095c1429440b04bdd8275",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_apply_filter_parameters_check_default_values.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_apply_filter_parameters_check_default_values.cpython-311.pyc",
+      "bytes": 1036,
+      "sha256": "24ffca53697a27c96877431bdb8c47baba8e98ebacd364de9f12571bdaedb7ab",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_apply_filter_parameters_percentage.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_apply_filter_parameters_percentage.cpython-311.pyc",
+      "bytes": 1632,
+      "sha256": "02814d41c0ae4031754fbbbb54ab5741578be6700118b5069061e72703971125",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_apply_filter_parameters_point.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_apply_filter_parameters_point.cpython-311.pyc",
+      "bytes": 1296,
+      "sha256": "179d8fb2c2fa2d2160447323b372499b1d4fea6ecce346c150d961ce29a63d2d",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_apply_filter_parameters.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_apply_filter_parameters.cpython-311.pyc",
+      "bytes": 1046,
+      "sha256": "bcdbaf4b3453db52e94b6ba6b715b2d73408bf6112aab34fb7afbadf52c33795",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_apply_filter.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_apply_filter.cpython-311.pyc",
+      "bytes": 1402,
+      "sha256": "da78e1795256d782a73f64d9566d22e2a66619335a6763f624a612450530c9e8",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_custom_mesh_attributes.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_custom_mesh_attributes.cpython-311.pyc",
+      "bytes": 2608,
+      "sha256": "d78a7403c7ad6cc41f4735e4501a6e96e5507b7f0ba0e085b767343ed5049167",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_filter_script_create_and_save.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_filter_script_create_and_save.cpython-311.pyc",
+      "bytes": 1461,
+      "sha256": "e4ce8e0c32baf97c6061dea417f57bb4e711180eaefb0a59e3f1a60a25e2e68f",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_filter_script_load_and_apply.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_filter_script_load_and_apply.cpython-311.pyc",
+      "bytes": 1081,
+      "sha256": "f0a68aef632991abcd98dfe958fa9ea731e5d89074ac206fa7c184e577ae6ece",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_get_mesh_values.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_get_mesh_values.cpython-311.pyc",
+      "bytes": 2153,
+      "sha256": "7a37370c26ae3e95d8065202254091e8ff0ac508bfb1b3134d6bfd293418442e",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_import_mesh_from_arrays.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_import_mesh_from_arrays.cpython-311.pyc",
+      "bytes": 4107,
+      "sha256": "c38c9cfc5e96f8fc71cde05099df3549b78ac52930a79e7a08a8852af95573e1",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_import_poly_mesh_from_arrays.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_import_poly_mesh_from_arrays.cpython-311.pyc",
+      "bytes": 2010,
+      "sha256": "75b23ba3ddb8643fdff31ef9135c2a437b8e2e07c13d953c3046fd1cfb99e598",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_load_mesh.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_load_mesh.cpython-311.pyc",
+      "bytes": 1896,
+      "sha256": "9c7ba8f9acd24145ae40ffa7fd28679590a3e200ccc596ba4b21ba38fd9ef005",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_load_project.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_load_project.cpython-311.pyc",
+      "bytes": 1217,
+      "sha256": "7fe97f9a154bc34b36ebf491ad70113f22aa763eb3bcee1a6efe9ee979a67654",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_save_mesh.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_save_mesh.cpython-311.pyc",
+      "bytes": 1081,
+      "sha256": "ce62bd6ea54ce0f7bcf0ba308710cac51e1bd87eb1532b19a9948c6da9361db0",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_save_project.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/example_save_project.cpython-311.pyc",
+      "bytes": 946,
+      "sha256": "0e0724d947503ea079859802fe927b8337792a11833c31a2a0e69bc67911ff75",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/samples_common.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/samples_common.cpython-311.pyc",
+      "bytes": 986,
+      "sha256": "9a99e1ed6b27053da1bfd3043a72456d6afd8f67fabde1992e2b216346119ab1",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/test_ambient_occlusion.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/test_ambient_occlusion.cpython-311.pyc",
+      "bytes": 1178,
+      "sha256": "2d73d31055d50bb7cb0b858b320c393d03ed171d48ef08d532f874ecafaae437",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/test_delete_mesh.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/test_delete_mesh.cpython-311.pyc",
+      "bytes": 1246,
+      "sha256": "14fe354e06a1d5db18550bfe1010647d48d2dd78ccf4694a6560ca90f29e60c5",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/test_delete_small_components.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/test_delete_small_components.cpython-311.pyc",
+      "bytes": 2265,
+      "sha256": "c393741af21a2c2eeff06da74fe5d336eca74ae38def78e365a6675294d9f949",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/test_hausdorff.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/test_hausdorff.cpython-311.pyc",
+      "bytes": 1638,
+      "sha256": "3ae426fe2777ad69b08da2695615681f5830bf42bef01ee2a14dc63c81e271c1",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/test_laplacian_smoothing.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/test_laplacian_smoothing.cpython-311.pyc",
+      "bytes": 953,
+      "sha256": "f00fe9d4b5fd0e309389fe1f104503a32ad27e86b4964641f8546b0fab8fb79b",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/test_merge_meshes.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/test_merge_meshes.cpython-311.pyc",
+      "bytes": 1106,
+      "sha256": "06774445d1e2574343459b8ebbf579fee80923d57b73cbcea12c892eebca28b2",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/test_mesh_booleans.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/test_mesh_booleans.cpython-311.pyc",
+      "bytes": 1580,
+      "sha256": "f575a3ef2eda27962c1de50accfa7f7751e9d250895d57e6766767ed7c85e6d7",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/test_number_plugins.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/test_number_plugins.cpython-311.pyc",
+      "bytes": 611,
+      "sha256": "f762cff7bfaafa0567511fbfb70846f337b7b7b9bad6ba3b3109b7fc838d3047",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/test_select_faces_with_edge_longer_than.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/test_select_faces_with_edge_longer_than.cpython-311.pyc",
+      "bytes": 1186,
+      "sha256": "d0eb9d1d1675a90f1dd4e5724bc2b6ce82db62b7e2c8e0a43bd8425a10964357",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/test_texture_map_defragmentation.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/test_texture_map_defragmentation.cpython-311.pyc",
+      "bytes": 1222,
+      "sha256": "d35b0426dd83f146545af83db6c760b1937c58113e6b64be2b1645e2edf7a97c",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/test_u3d_exporter.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/tests/__pycache__/test_u3d_exporter.cpython-311.pyc",
+      "bytes": 1272,
+      "sha256": "ba9ee774d4fc2af1706a1a8fd08b4753f8a813ad22a423059d80e8a28d68ce06",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_ar.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_ar.qm",
+      "bytes": 160017,
+      "sha256": "c14ebfaa0fecb341b43ed2179df9372d27ad20a15bafb9f5403d57838ae1d88a",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_bg.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_bg.qm",
+      "bytes": 165337,
+      "sha256": "e448ac9e3f16c29eb27af3012efe21052daa78fabfb34cd6dff2f69ee3bd3cdb",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_ca.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_ca.qm",
+      "bytes": 210126,
+      "sha256": "235f502810d5750a47421d3e57620dcae5cfcfd83bc97766ad8b99b75238a544",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_cs.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_cs.qm",
+      "bytes": 174701,
+      "sha256": "03028b42df5479270371e4c3bdc7df2f56cbbe6dda956a2864ac6f6415861fe8",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_da.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_da.qm",
+      "bytes": 181387,
+      "sha256": "7d1e5ca3310b54d104c19bf2abd402b38e584e87039a70e153c4a9af74b25c22",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_de.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_de.qm",
+      "bytes": 220467,
+      "sha256": "553c046835db9adef15954fa9a576625366ba8bfd16637038c4bcd28e5ebace1",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_en.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_en.qm",
+      "bytes": 33,
+      "sha256": "494ac9a2b2cb2fdeced353f4a9f898ed8dcf616e9bc667438c62681e3f7f79cf",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_es.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_es.qm",
+      "bytes": 165170,
+      "sha256": "4ffda56ba3bb5414ab0482d1dde64a6f226e3488f6b7f3f11a150e01f53fa4c8",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_fi.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_fi.qm",
+      "bytes": 179941,
+      "sha256": "e47fe13713e184d07fa4495dde0c589b0e8f562e91574a3558a9363443a4fa72",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_fr.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_fr.qm",
+      "bytes": 166167,
+      "sha256": "edb32a933cef376a2636634e14e2977ced6284e4aa9a4ac7e2292f9ca54c384a",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_gd.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_gd.qm",
+      "bytes": 189580,
+      "sha256": "c515dd2a2e00765b5f651aae124a55d617b24777138019abc5a7001da7417561",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_he.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_he.qm",
+      "bytes": 138690,
+      "sha256": "4281c421984772665a9d72ab32276cfe1e2a3b0ebe21d4b63c5a4c3ba1f49365",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_hu.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_hu.qm",
+      "bytes": 160494,
+      "sha256": "c61b67bb9d1e84f0ab0792b6518fe055414a68e44d0c7bc7c862773800fa8299",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_it.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_it.qm",
+      "bytes": 161139,
+      "sha256": "eeda9549376601652f8e2f35048e56548f4c15bc6ccab48f5a3d5a249d631bee",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_ja.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_ja.qm",
+      "bytes": 129911,
+      "sha256": "cba382acc44d3680d400f2c625de93d0c4bd72a90102769edfd1fe91cb9b617b",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_ko.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_ko.qm",
+      "bytes": 156799,
+      "sha256": "0179ed1b136e1cb3f583351eaa2c545ba3d83a6ee3f82c32505926a1a5f5f183",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_lv.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_lv.qm",
+      "bytes": 153608,
+      "sha256": "846e047573ae40c83671c3ba7f73e27efc24b98c82701da0df9973e574178bb2",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_pl.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_pl.qm",
+      "bytes": 162982,
+      "sha256": "ce99032a3b0bf8abad758895cc22837088ead99fd2d2514e2d180693081cfe57",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_ru.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_ru.qm",
+      "bytes": 203767,
+      "sha256": "b2c601c7decb9f8d2d6dc3b1929f2ec20656ff21783bf283df23b02dd022dc5b",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_sk.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_sk.qm",
+      "bytes": 125763,
+      "sha256": "b70c6de694e717fa05c46831b6a11927536aead937cce6ba66665d5c496eed06",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_tr.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_tr.qm",
+      "bytes": 194487,
+      "sha256": "6a0bf6e70e7920c2b193e76e92f78f315936955d3b06ac039d917f2e06c43281",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_uk.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_uk.qm",
+      "bytes": 158241,
+      "sha256": "4835b26fc4fccbf4444e4af1178ba89ada88d340ba74d61eae344d81b8a26461",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_zh_TW.qm",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/translations/qt_zh_TW.qm",
+      "bytes": 127849,
+      "sha256": "085d29eaf9bbb788b2f2503d74a1ef963a9411ceb600441254ce49a120e1ab63",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/__pycache__/__init__.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/__pycache__/__init__.cpython-311.pyc",
+      "bytes": 2620,
+      "sha256": "52da317e30efed61c6f2bb04f1e1905ab0c06bd9987d37927ab8064f97d54a50",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/__pycache__/polyscope_functions.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/__pycache__/polyscope_functions.cpython-311.pyc",
+      "bytes": 2507,
+      "sha256": "257a20bfdc70292c154eaf60f2636386d97e2c1c4b139f996a283a550308a616",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/__pycache__/replacer.cpython-311.pyc",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab/__pycache__/replacer.cpython-311.pyc",
+      "bytes": 3099,
+      "sha256": "e71f92c57f365767bf2973661dbe2db353c6139feaab1c0c2a9c892f96812d28",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab-2025.7.post1.dist-info/INSTALLER",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab-2025.7.post1.dist-info/INSTALLER",
+      "bytes": 4,
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab-2025.7.post1.dist-info/METADATA",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab-2025.7.post1.dist-info/METADATA",
+      "bytes": 4124,
+      "sha256": "a7ee5a6de47651f32cff34f3497cc895bad31c18b4ef6f69bff510c8845a3dff",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab-2025.7.post1.dist-info/RECORD",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab-2025.7.post1.dist-info/RECORD",
+      "bytes": 20180,
+      "sha256": "bcc320a501f4c0cc5eccbc49ff4ea7a3e3ad5e63ad676de5b415d517d1f871c2",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab-2025.7.post1.dist-info/REQUESTED",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab-2025.7.post1.dist-info/REQUESTED",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab-2025.7.post1.dist-info/top_level.txt",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab-2025.7.post1.dist-info/top_level.txt",
+      "bytes": 10,
+      "sha256": "d628616f6e2ffa7aae961a3fc732a869be2227cb95e5e5c83d586211a2ba82bf",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab-2025.7.post1.dist-info/WHEEL",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab-2025.7.post1.dist-info/WHEEL",
+      "bytes": 102,
+      "sha256": "6d50e9b38b4e6f49c799b314e2e2bb87d359b19266c93a9c45baef2b74d92d8e",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab-2025.7.post1.dist-info/licenses/LICENSE",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/PythonDeps/pymeshlab-2025.7.post1.dist-info/licenses/LICENSE",
+      "bytes": 35823,
+      "sha256": "230184f60bae2feaf244f10a8bac053c8ff33a183bcc365b4d8b876d2b7f4809",
+      "reason": "Local dependencies used only by the rejected MeshLab experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "Tools/WitchRebuilt/compile_polish_live.py",
+      "destination": "trash/witch-rebuilt-publication-20260923/Tools/WitchRebuilt/compile_polish_live.py",
+      "bytes": 273,
+      "sha256": "9aed4fe6d747793e5c583b1fdde32f7c96330c72e846104058473d0ee2d346b5",
+      "reason": "Historical cloth hotpatch helper superseded by regular editor build",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Authoring/WitchRebuilt_CastPoison.blend1",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Authoring/WitchRebuilt_CastPoison.blend1",
+      "bytes": 56970299,
+      "sha256": "8ca0f198ef78c5980c35db5174d70671661b1bc990c93f8611983eade405f08d",
+      "reason": "Superseded automatic Blender save; current blend and explicit authoring snapshots retained",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Authoring/WitchRebuilt_DeathBackward.blend1",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Authoring/WitchRebuilt_DeathBackward.blend1",
+      "bytes": 56959681,
+      "sha256": "b6c0a0c0fa1bbac234d47212b01dd2c1c5635b105cf1cc6ebc7fd7b83e127219",
+      "reason": "Superseded automatic Blender save; current blend and explicit authoring snapshots retained",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Authoring/WitchRebuilt_Hit.blend1",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Authoring/WitchRebuilt_Hit.blend1",
+      "bytes": 56849023,
+      "sha256": "7d8f9b25eccd11d564abdac09c541b3093b7385a5da3b0c5ead89779a7428375",
+      "reason": "Superseded automatic Blender save; current blend and explicit authoring snapshots retained",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Authoring/WitchRebuilt_Idle.blend1",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Authoring/WitchRebuilt_Idle.blend1",
+      "bytes": 58036665,
+      "sha256": "71100fe4efd0e40c5601bc891fbf1a248782a05e1b0473057bb950354d7d199c",
+      "reason": "Superseded automatic Blender save; current blend and explicit authoring snapshots retained",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Authoring/WitchRebuilt_Master.blend1",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Authoring/WitchRebuilt_Master.blend1",
+      "bytes": 32858123,
+      "sha256": "6c25c1da7cbe5a7dbf3796fad6206a399738f7e60e41d3a6d0fd7f30188ada97",
+      "reason": "Superseded automatic Blender save; current blend and explicit authoring snapshots retained",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Authoring/WitchRebuilt_ThrowPoisonBottle.blend1",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Authoring/WitchRebuilt_ThrowPoisonBottle.blend1",
+      "bytes": 57138638,
+      "sha256": "f51626fad1c25bfb0823b03d1b54a20990b91762d6744e47c6c9f155ccf7b98e",
+      "reason": "Superseded automatic Blender save; current blend and explicit authoring snapshots retained",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Authoring/WitchRebuilt_TurnLeft.blend1",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Authoring/WitchRebuilt_TurnLeft.blend1",
+      "bytes": 56841485,
+      "sha256": "279076b6e60cb4da460c9fca422c471f24833f71f4df57eb1ba7bf4169baa794",
+      "reason": "Superseded automatic Blender save; current blend and explicit authoring snapshots retained",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Authoring/WitchRebuilt_TurnRight.blend1",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Authoring/WitchRebuilt_TurnRight.blend1",
+      "bytes": 56842378,
+      "sha256": "1c0acebc639413bd2d357fcee63e8760df91161e053b7138618084edbe6b2a65",
+      "reason": "Superseded automatic Blender save; current blend and explicit authoring snapshots retained",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Authoring/WitchRebuilt_Walk.blend1",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Authoring/WitchRebuilt_Walk.blend1",
+      "bytes": 57006184,
+      "sha256": "dbbf55a27b40ab3d0909b3cb6e94a0533c2db4499644a325366ef2d5563b8ad1",
+      "reason": "Superseded automatic Blender save; current blend and explicit authoring snapshots retained",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/DrapeGrip20260922/Before/Authoring/WitchRebuilt_CastPoison.blend1",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/DrapeGrip20260922/Before/Authoring/WitchRebuilt_CastPoison.blend1",
+      "bytes": 57777444,
+      "sha256": "d6feb3f6415c1c75074f88076ca9c2a32475216adea21863d3d8555eae438a39",
+      "reason": "Superseded automatic Blender save; current blend and explicit authoring snapshots retained",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/DrapeGrip20260922/Before/Authoring/WitchRebuilt_DeathBackward.blend1",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/DrapeGrip20260922/Before/Authoring/WitchRebuilt_DeathBackward.blend1",
+      "bytes": 57774272,
+      "sha256": "d7551a3dab6f0eec8fb57f8ed6f829be7e38052f88a61c647422874899906b95",
+      "reason": "Superseded automatic Blender save; current blend and explicit authoring snapshots retained",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/DrapeGrip20260922/Before/Authoring/WitchRebuilt_Hit.blend1",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/DrapeGrip20260922/Before/Authoring/WitchRebuilt_Hit.blend1",
+      "bytes": 57650247,
+      "sha256": "399cd7d12aa26ed83cb66471f763aa1e25db041dd364a29bdea025b342311b1d",
+      "reason": "Superseded automatic Blender save; current blend and explicit authoring snapshots retained",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/DrapeGrip20260922/Before/Authoring/WitchRebuilt_Idle.blend1",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/DrapeGrip20260922/Before/Authoring/WitchRebuilt_Idle.blend1",
+      "bytes": 58905874,
+      "sha256": "34451dadfd11f78b75370fae5466799d8d3bc39cd48b055c033f1c58d0924a63",
+      "reason": "Superseded automatic Blender save; current blend and explicit authoring snapshots retained",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/DrapeGrip20260922/Before/Authoring/WitchRebuilt_Master.blend1",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/DrapeGrip20260922/Before/Authoring/WitchRebuilt_Master.blend1",
+      "bytes": 33662712,
+      "sha256": "639797c57ff1acf54589341fa5ff750198891a4184d773656be4b945e8296ba3",
+      "reason": "Superseded automatic Blender save; current blend and explicit authoring snapshots retained",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/DrapeGrip20260922/Before/Authoring/WitchRebuilt_ThrowPoisonBottle.blend1",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/DrapeGrip20260922/Before/Authoring/WitchRebuilt_ThrowPoisonBottle.blend1",
+      "bytes": 57796132,
+      "sha256": "3b1a60c159b06f23c7d814579268275c05050a7ffb83e66ceff99b79a2474bc3",
+      "reason": "Superseded automatic Blender save; current blend and explicit authoring snapshots retained",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/DrapeGrip20260922/Before/Authoring/WitchRebuilt_TurnLeft.blend1",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/DrapeGrip20260922/Before/Authoring/WitchRebuilt_TurnLeft.blend1",
+      "bytes": 57640574,
+      "sha256": "6d2ae1d392508eba25a3fa1c06c47482151a903fa4690a154ed7187c52fe1ba9",
+      "reason": "Superseded automatic Blender save; current blend and explicit authoring snapshots retained",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/DrapeGrip20260922/Before/Authoring/WitchRebuilt_TurnRight.blend1",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/DrapeGrip20260922/Before/Authoring/WitchRebuilt_TurnRight.blend1",
+      "bytes": 57641333,
+      "sha256": "4e374ae2c26f9d3a778a8a305203e8ff1a810695b417cfa7e501ed7df5ff056e",
+      "reason": "Superseded automatic Blender save; current blend and explicit authoring snapshots retained",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/DrapeGrip20260922/Before/Authoring/WitchRebuilt_Walk.blend1",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/DrapeGrip20260922/Before/Authoring/WitchRebuilt_Walk.blend1",
+      "bytes": 57830461,
+      "sha256": "5b2be8334de552368d772e622894626e3eaf78b0b14e411be74de1f9112bab15",
+      "reason": "Superseded automatic Blender save; current blend and explicit authoring snapshots retained",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/proxy_input_Lower.npz",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/proxy_input_Lower.npz",
+      "bytes": 534272,
+      "sha256": "9c56543cd391ce6cf88fce17c5ed0c270db42d888d45144a02c76eba44803c46",
+      "reason": "Input/output belonging solely to the rejected MeshLab remesh experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/proxy_input_Upper.npz",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/proxy_input_Upper.npz",
+      "bytes": 679868,
+      "sha256": "a887d3ee405d3e8081dcee48db525d26c684bdf2ee4266501041212dec1557fc",
+      "reason": "Input/output belonging solely to the rejected MeshLab remesh experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/proxy_remesh_Lower.npz",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/proxy_remesh_Lower.npz",
+      "bytes": 369392,
+      "sha256": "6de672d40de580b0a156838c5764e582eb59832ef084af104ca26621b08b9a98",
+      "reason": "Input/output belonging solely to the rejected MeshLab remesh experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/proxy_remesh_Upper.npz",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/proxy_remesh_Upper.npz",
+      "bytes": 383912,
+      "sha256": "fc0208bf37c17c236451788e6cede1ca2b078c68b74c7da7433beda75c79d70c",
+      "reason": "Input/output belonging solely to the rejected MeshLab remesh experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/remesh_result.json",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/remesh_result.json",
+      "bytes": 298,
+      "sha256": "64a75cb7eac2670ca38f32d3eb1a313019ff922bca9058f985e30cee9aa303f1",
+      "reason": "Input/output belonging solely to the rejected MeshLab remesh experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    },
+    {
+      "source": "SourceAssets/WitchRebuilt20260921/Spike20260922/proxy_fit05.json",
+      "destination": "trash/witch-rebuilt-publication-20260923/SourceAssets/WitchRebuilt20260921/Spike20260922/proxy_fit05.json",
+      "bytes": 317,
+      "sha256": "8d8ca2598a2de6472165a93ac4512bb31964b30937b8dc43e833ea8ec4d547f0",
+      "reason": "Input/output belonging solely to the rejected MeshLab remesh experiment",
+      "replacement": "Current WitchRebuilt authoring sources and bounded clothing mapping"
+    }
+  ]
+}

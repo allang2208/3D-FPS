@@ -1,10 +1,11 @@
-#include "WitchFoundationAnimInstance.h"
-#include "WitchMotionCandidate.h"
+#include "WitchRebuiltAnimInstance.h"
+#include "WitchRebuiltMonster.h"
 #include "Animation/AnimInstanceProxy.h"
 #include "Animation/AnimSequence.h"
 #include "Animation/AnimNodeSpaceConversions.h"
 #include "AnimNodes/AnimNode_SequenceEvaluator.h"
 #include "AnimNodes/AnimNode_TwoWayBlend.h"
+#include "AnimNodes/AnimNode_PoseSnapshot.h"
 #include "BoneControllers/AnimNode_CopyBone.h"
 #include "BoneControllers/AnimNode_StrideWarping.h"
 #include "BoneControllers/AnimNode_FootPlacement.h"
@@ -12,9 +13,11 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
-struct FWitchFoundationProxy : FAnimInstanceProxy
+struct FWitchRebuiltProxy : FAnimInstanceProxy
 {
-    FAnimNode_SequenceEvaluator_Standalone Idle, Walk;
+    FAnimNode_SequenceEvaluator_Standalone Idle, Walk, Turn, Action;
+    FAnimNode_PoseSnapshot Previous;
+    FAnimNode_TwoWayBlend IdleTurn, ActionTransition, State;
     FAnimNode_TwoWayBlend Locomotion;
     FAnimNode_ConvertLocalToComponentSpace ToComponent;
     FAnimNode_CopyBone LeftTarget, RightTarget;
@@ -23,10 +26,14 @@ struct FWitchFoundationProxy : FAnimInstanceProxy
     FAnimNode_LegIK Legs;
     FAnimNode_ConvertComponentToLocalSpace ToLocal;
 
-    explicit FWitchFoundationProxy(UAnimInstance* Instance) : FAnimInstanceProxy(Instance)
+    explicit FWitchRebuiltProxy(UAnimInstance* Instance) : FAnimInstanceProxy(Instance)
     {
-        Locomotion.A.SetLinkNode(&Idle); Locomotion.B.SetLinkNode(&Walk);
-        ToComponent.LocalPose.SetLinkNode(&Locomotion);
+        IdleTurn.A.SetLinkNode(&Idle); IdleTurn.B.SetLinkNode(&Turn);
+        Locomotion.A.SetLinkNode(&IdleTurn); Locomotion.B.SetLinkNode(&Walk);
+        Previous.Mode = ESnapshotSourceMode::SnapshotPin;
+        State.A.SetLinkNode(&Locomotion); State.B.SetLinkNode(&Action);
+        ActionTransition.A.SetLinkNode(&Previous); ActionTransition.B.SetLinkNode(&State);
+        ToComponent.LocalPose.SetLinkNode(&ActionTransition);
         LeftTarget.ComponentPose.SetLinkNode(&ToComponent);
         RightTarget.ComponentPose.SetLinkNode(&LeftTarget);
         Stride.ComponentPose.SetLinkNode(&RightTarget);
@@ -84,32 +91,48 @@ struct FWitchFoundationProxy : FAnimInstanceProxy
     virtual FAnimNode_Base* GetCustomRootNode() override { return &ToLocal; }
     virtual void GetCustomNodes(TArray<FAnimNode_Base*>& Nodes) override
     {
-        Nodes.Append({&Idle, &Walk, &Locomotion, &ToComponent, &LeftTarget, &RightTarget,
+        Nodes.Append({&Idle, &Walk, &Turn, &Action, &Previous, &IdleTurn, &ActionTransition, &State, &Locomotion, &ToComponent, &LeftTarget, &RightTarget,
             &Stride, &Feet, &Legs, &ToLocal});
     }
     virtual void PreUpdate(UAnimInstance* Instance, float DeltaSeconds) override
     {
         FAnimInstanceProxy::PreUpdate(Instance, DeltaSeconds);
-        const auto* Data = CastChecked<UWitchFoundationAnimInstance>(Instance);
+        const auto* Data = CastChecked<UWitchRebuiltAnimInstance>(Instance);
         Idle.SetSequence(Data->IdleClip); Walk.SetSequence(Data->WalkClip);
-        for (auto* Node : {&Idle, &Walk})
+        Turn.SetSequence(Data->TurnClip ? Data->TurnClip : Data->IdleClip);
+        Action.SetSequence(Data->ActiveClip); Action.SetShouldLoop(false);
+        Action.SetTeleportToExplicitTime(true); Action.SetExplicitTime(Data->ClipTime);
+        Previous.Snapshot = Data->PreviousPose;
+        ActionTransition.Alpha = Data->PreviousPose.bIsValid ? Data->BlendAlpha : 1.f;
+        State.Alpha = Data->bLooping ? 0.f : 1.f;
+        IdleTurn.Alpha = Data->TurnAlpha; Turn.SetExplicitTime(Data->TurnTime);
+        for (auto* Node : {&Idle, &Walk, &Turn})
         {
             Node->SetShouldLoop(true); Node->SetTeleportToExplicitTime(true);
         }
         Idle.SetExplicitTime(Data->IdleTime); Walk.SetExplicitTime(Data->WalkTime);
         Locomotion.Alpha = Data->WalkAlpha;
-        Stride.StrideScale = Data->StrideScale;
+        Stride.StrideScale = Data->bLooping ? FMath::Lerp(1.f, Data->StrideScale, Data->BlendAlpha) : 1.f;
         Stride.StrideDirection = Data->StrideDirection;
         Feet.Alpha = Data->GroundAlpha;
     }
 };
 
-void UWitchFoundationAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
+void UWitchRebuiltAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
     Super::NativeUpdateAnimation(DeltaSeconds);
-    const auto* Character = Cast<AWitchMotionCandidate>(TryGetPawnOwner());
+    const auto* Character = Cast<AWitchRebuiltMonster>(TryGetPawnOwner());
     if (!Character) return;
     IdleClip = Character->IdleClip; WalkClip = Character->WalkClip;
+    const float Yaw = Character->GetActorRotation().Yaw;
+    const float YawRate = bHasYaw ? FMath::FindDeltaAngleDegrees(PreviousYaw, Yaw) / FMath::Max(.001f, DeltaSeconds) : 0.f;
+    PreviousYaw = Yaw; bHasYaw = true;
+    TurnClip = YawRate < 0.f ? Character->TurnLeftClip : Character->TurnRightClip;
+    const float DesiredTurn = Character->GetVelocity().Size2D() < 8.f ? FMath::Clamp(FMath::Abs(YawRate) / 45.f, 0.f, 1.f) : 0.f;
+    TurnAlpha = FMath::FInterpTo(TurnAlpha, DesiredTurn, DeltaSeconds, 10.f);
+    if (TurnClip) TurnTime = FMath::Fmod(TurnTime + DeltaSeconds * FMath::Clamp(FMath::Abs(YawRate) / 60.f, .5f, 1.6f), TurnClip->GetPlayLength());
+    // The shared stagger clock advances the hit evaluator, including its entrance blend.
+    if (Character->State == ENurseState::Stagger) BlendAlpha = FMath::Clamp(ClipTime / .15f, 0.f, 1.f);
     const float Dt = FMath::Max(0.f, DeltaSeconds);
     const float Speed = Character->GetVelocity().Size2D();
     WalkAlpha = FMath::FInterpTo(WalkAlpha, FMath::Clamp(Speed / 15.f, 0.f, 1.f), Dt, 7.f);
@@ -121,5 +144,5 @@ void UWitchFoundationAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
     StrideDirection = GetSkelMeshComponent()->GetComponentTransform().InverseTransformVectorNoScale(Character->GetActorForwardVector());
 }
 
-FAnimInstanceProxy* UWitchFoundationAnimInstance::CreateAnimInstanceProxy() { return new FWitchFoundationProxy(this); }
-void UWitchFoundationAnimInstance::DestroyAnimInstanceProxy(FAnimInstanceProxy* Proxy) { delete Proxy; }
+FAnimInstanceProxy* UWitchRebuiltAnimInstance::CreateAnimInstanceProxy() { return new FWitchRebuiltProxy(this); }
+void UWitchRebuiltAnimInstance::DestroyAnimInstanceProxy(FAnimInstanceProxy* Proxy) { delete Proxy; }
