@@ -50,11 +50,20 @@ description: UE5.6-UE5.8 performance and packaging readiness workflow. Use when 
 - Freeze test map, camera path, scalability, and net mode.
 - Capture `stat unit` and `stat gpu` under same scenario repeatedly.
 - Use median or percentile metrics, not single-frame spikes.
+- **Read the thread numbers with the right semantics before drawing conclusions**；
+  本机引擎源码核对过的口径与陷阱见
+  [帧预算统计的正确读法](references/frame-budget-stat-semantics.md)。
+  三条最容易踩的：`...Time` 不含空闲而 `...TimeCriticalPath` 含依赖等待（关键路径长
+  **不等于** GPU 受限）；`GGameThreadTime` 是帧间隔减空闲（不可能超过帧时间）；
+  Game 与 Draw 在时间上重叠，**不得相加**。
 
 ## 2) Hotspot Isolation
 - Identify top-cost gameplay/render systems in the capture window.
 - Correlate high-cost actors/assets with scene context.
 - Add scoped CPU markers for custom systems when attribution is unclear.
+- 逐组件 tick 耗时与逐图元 GPU 耗时**都拿不到**（`FTickTaskLevel` 私有、MSM 不导出），
+  不要做「某组件花了 X 毫秒」的界面。可替代做法是统计**昂贵 setter 的每帧调用速率**：
+  见 [帧预算统计的正确读法](references/frame-budget-stat-semantics.md) 第 6 节。
 
 ## 3) Asset and Dependency Validation
 - Scan target paths for missing or broken asset references.
