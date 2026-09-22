@@ -5,6 +5,8 @@ description: UE5.6-UE5.8 PCG generation and runtime-heightfield ground workflow 
 
 # Quick Start
 
+- 工作台、维修墙、货架等含许多小件的室内布景，读取 [可复用室内组合件](references/reusable-interior-assemblies.md)：以配置和锚点维护组合件，受约束随机摆放，按依赖局部重建。
+
 - For decorative fountain overflow, natural water variation and seamless spatial water loops, read [fountain water and audio](references/fountain-water-audio.md).
 - For the accepted white-marble pavilion dome, real constellation inlays and finial authoring, read [pavilion roof decoration](references/pavilion-roof-decoration.md).
 

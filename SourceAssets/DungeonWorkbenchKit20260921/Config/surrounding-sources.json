@@ -1,0 +1,8 @@
+{
+  "overrides": [
+    {
+      "source_blend": "D:/FPS3D/FPSGAME/SourceAssets/DungeonWorkshopRackPolish20260922/Authored/DungeonWorkshopRackPolish.blend",
+      "replacements": {"SM_WSDetail_RackStock":"SM_WSRack_Stock", "SM_WSDetail_Markings":"SM_WSRack_Markings"}
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "seed": 922431,
+  "cable": {"diameter_mm": 11, "turns": 3.18, "center_m": [5.575, 1.685], "radii_m": [0.143, 0.112], "shelf_top_m": 1.254},
+  "bins": [
+    {"id":"Seals", "y":0.73, "base_z":0.258, "width":0.39, "height":0.21, "material":"BluePlastic", "label":4, "items":8, "yaw_deg":-1.8},
+    {"id":"Bearings", "y":1.19, "base_z":0.258, "width":0.39, "height":0.21, "material":"BluePlastic", "label":5, "items":6, "yaw_deg":2.2},
+    {"id":"Fasteners", "y":1.70, "base_z":0.258, "width":0.39, "height":0.21, "material":"BluePlastic", "label":6, "items":13, "yaw_deg":-1.1},
+    {"id":"Electrical", "y":0.83, "base_z":0.758, "width":0.40, "height":0.19, "material":"RackPaint", "label":7, "items":7, "yaw_deg":1.7},
+    {"id":"CleanParts", "y":1.33, "base_z":0.758, "width":0.40, "height":0.19, "material":"RackPaint", "label":13, "items":5, "yaw_deg":-2.4}
+  ]
+}

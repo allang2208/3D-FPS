@@ -1,0 +1,20 @@
+{
+  "revision": "AtmosphereV2",
+  "coordinates": "Blender XYZ centimetres; UE mirrors Y; yaw values below are UE degrees",
+  "props": [
+    {"id":"broken_concrete_jamb","cm":[1590,381,0],"label":"Fracture_Left","group":"RuinNiche","yaw":0,"scale":[0.82,0.75,1]},
+    {"id":"broken_concrete_jamb","cm":[2050,379,0],"label":"Fracture_Right","group":"RuinNiche","yaw":180,"scale":[0.75,0.80,0.89]},
+    {"id":"maintenance_cabinet_cluster","cm":[640,-366,0],"label":"Workshop_Electrical","group":"ServiceBays","yaw":180,"scale":[1,1,1]},
+    {"id":"maintenance_cabinet_cluster","cm":[1510,-173,0],"label":"Recess_Electrical","group":"ServiceBays","yaw":180,"scale":[0.76,0.88,0.89]},
+    {"id":"maintenance_cabinet_cluster","cm":[1165,747,0],"label":"Grille_Electrical","group":"ServiceBays","yaw":0,"scale":[0.88,1,0.94]},
+    {"id":"weathered_pipe_assembly","cm":[957,705,0],"label":"Grille_PressureStation","group":"ServiceBays","yaw":0,"scale":[1,1,1]},
+    {"id":"weathered_pipe_assembly","cm":[870,-332,0],"label":"Workshop_Bypass","group":"ServiceBays","yaw":185,"scale":[0.87,0.80,0.9]},
+    {"id":"weathered_pipe_assembly","cm":[2535,580,0],"label":"Turn_Valve","group":"Terminus","yaw":90,"scale":[0.70,0.67,0.91]},
+    {"id":"collapsed_tile_rubble","cm":[1554,431,0],"label":"Collapse_0","group":"RuinNiche","yaw":13,"scale":[0.64,0.80,0.82]},
+    {"id":"collapsed_tile_rubble","cm":[2070,441,0],"label":"Collapse_1","group":"RuinNiche","yaw":-22,"scale":[0.68,0.86,1]},
+    {"id":"collapsed_tile_rubble","cm":[1622,892,0],"label":"Collapse_2","group":"RuinNiche","yaw":37,"scale":[0.57,0.72,0.75]},
+    {"id":"collapsed_tile_rubble","cm":[2076,1015,0],"label":"Collapse_3","group":"RuinNiche","yaw":155,"scale":[0.56,0.72,0.63]},
+    {"id":"collapsed_tile_rubble","cm":[433,-40,0],"label":"Collapse_4","group":"ServiceBays","yaw":79,"scale":[0.23,0.33,0.24],"collision":false},
+    {"id":"collapsed_tile_rubble","cm":[1965,373,0],"label":"Collapse_5","group":"RuinNiche","yaw":-44,"scale":[0.28,0.32,0.24],"collision":false}
+  ]
+}

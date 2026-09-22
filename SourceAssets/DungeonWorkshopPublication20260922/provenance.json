@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "scope": "Dungeon workshop source publication, 2026-09-22",
+  "public_payload": "Original author scripts, layout/configuration, documentation, archive hashes and skill guidance only",
+  "third_party_binaries_published": false,
+  "sources": [
+    {
+      "name": "Ultimate Garage Tools Pack (10 Items) - Game Ready FREE",
+      "author": "Vladyslav Chykunov",
+      "listing": "https://www.fab.com/listings/eba94efa-c186-4004-83ba-d420d35f8f90",
+      "local_root": "SourceAssets/DungeonWorkshopFabTools20260921/Sources",
+      "use": "User-downloaded tool geometry and clean/worn PBR atlases, adapted for the workshop",
+      "redistribution": "No original FBX, Blender source, extracted texture or copied listing description included; license/entitlement retained with local acquisition records"
+    },
+    {
+      "name": "Wood051 surface source",
+      "local_root": "SourceAssets/AKMIntegration20260910/Redwood/Wood051",
+      "use": "Existing local wood surface input for workbench material authoring",
+      "redistribution": "Texture files remain local"
+    },
+    {
+      "name": "Quixel dirty_metal_rmmodbdp surface source",
+      "local_root": "SourceAssets/ChestZiarat20260909/Source/dirty_metal_rmmodbdp_4k__extracted",
+      "use": "Local material detail source",
+      "redistribution": "Source maps remain local; no public redistribution permission inferred"
+    },
+    {
+      "name": "RuralAustralia and local Fab earthwork inputs",
+      "local_root": "SourceAssets/DungeonRuinEarthwork20260921/Sources",
+      "use": "Retained upstream room/earthwork assembly dependencies",
+      "redistribution": "Third-party geometry and textures remain local"
+    },
+    {
+      "name": "Original workshop authoring and local generated candidates",
+      "local_root": "SourceAssets/Dungeon*",
+      "use": "Original parameterized assemblies, bottle geometry/labels, deterministic rack arrangement, FLUX/TRELLIS candidates",
+      "redistribution": "Only reviewed recipes and documentation; generated images, meshes and editable binaries remain local"
+    }
+  ],
+  "restoration": "Restore licensed local Content and SourceAssets plus required input/asset-import receipts before rebuilding; the public Git checkout is not a complete runnable asset backup",
+  "game_tests_run_for_publication": false
+}

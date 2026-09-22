@@ -1,0 +1,20 @@
+{
+  "revision": "industrial-v1-20260920",
+  "seed": 20260920,
+  "grid_cm": 400,
+  "wall_thickness_cm": 20,
+  "door_clear_cm": [200, 280],
+  "target_map": "/Game/GameMaps/L_Dungeon_Prototype",
+  "rooms": [
+    {"id": "maintenance", "origin_cell": [0, 0], "size_cells": [4, 2], "height_cells": 1},
+    {"id": "pump_hall", "origin_cell": [4, -1], "size_cells": [6, 5], "height_cells": 2},
+    {"id": "ruin_event", "origin_cell": [10, 1], "size_cells": [4, 4], "height_cells": 1}
+  ],
+  "connections": [
+    {"axis": "y", "i": 4, "j": 0, "rooms": ["maintenance", "pump_hall"]},
+    {"axis": "y", "i": 10, "j": 2, "rooms": ["pump_hall", "ruin_event"]}
+  ],
+  "player_start_cm": [150, 450, 102],
+  "event_anchor_cm": [5200, 1450, 0],
+  "notes": "Editor-authored art slice. Cell boundary assembly and seeded decor are implemented; runtime room graph, encounters and event rewards remain separate work."
+}

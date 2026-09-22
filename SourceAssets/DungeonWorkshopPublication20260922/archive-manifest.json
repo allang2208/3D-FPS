@@ -1,0 +1,355 @@
+{
+  "schema": 1,
+  "task": "dungeon-workshop-20260922",
+  "stage": "moved_and_hash_matched",
+  "files": [
+    {
+      "source": "SourceAssets/DungeonAtmosphereV2_20260921/Authored/DungeonAtmosphereV2_Dressed.blend1",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonAtmosphereV2_20260921/Authored/DungeonAtmosphereV2_Dressed.blend1",
+      "bytes": 387355732,
+      "sha256": "78c7e5988718cc2eb522fa6dd94db61c5da7a9fb89c990199adbccf59c1a4fad",
+      "reason": "Unreferenced Blender automatic previous-save backup",
+      "replacement": "SourceAssets/DungeonAtmosphereV2_20260921/Authored/DungeonAtmosphereV2_Dressed.blend",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonAtmosphereV2_20260921/Authored/DungeonAtmosphereV2_Structure.blend1",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonAtmosphereV2_20260921/Authored/DungeonAtmosphereV2_Structure.blend1",
+      "bytes": 182932903,
+      "sha256": "0d5fd085010cb47d8042003ac0c74664133ea37beb81564414745f9810a4ff44",
+      "reason": "Unreferenced Blender automatic previous-save backup",
+      "replacement": "SourceAssets/DungeonAtmosphereV2_20260921/Authored/DungeonAtmosphereV2_Structure.blend",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonAtmosphereV2_20260921/Generated/broken_concrete_jamb/Game/broken_concrete_jamb_Editable.blend1",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonAtmosphereV2_20260921/Generated/broken_concrete_jamb/Game/broken_concrete_jamb_Editable.blend1",
+      "bytes": 36258286,
+      "sha256": "474cd3ca43c3eb3d0f82a2a2b603a5e6999848c27d6d5dd966fdfe8b57524484",
+      "reason": "Unreferenced Blender automatic previous-save backup",
+      "replacement": "SourceAssets/DungeonAtmosphereV2_20260921/Generated/broken_concrete_jamb/Game/broken_concrete_jamb_Editable.blend",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonRoomInteriors20260921/Authored/DungeonRooms_Authored.blend1",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonRoomInteriors20260921/Authored/DungeonRooms_Authored.blend1",
+      "bytes": 176509154,
+      "sha256": "925efa69ea4328d2ca807360425f0b47811232f4a7a6c7379c38454e43895bc8",
+      "reason": "Unreferenced Blender automatic previous-save backup",
+      "replacement": "SourceAssets/DungeonRoomInteriors20260921/Authored/DungeonRooms_Authored.blend",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonWorkbenchKit20260921/Authored/DungeonRooms_WithWorkbenchKit.blend1",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonWorkbenchKit20260921/Authored/DungeonRooms_WithWorkbenchKit.blend1",
+      "bytes": 1763235232,
+      "sha256": "9c4dad35ac2803e55306812076a84e0ed93216df165805ec79bfd6d46ebcaab2",
+      "reason": "Unreferenced Blender automatic previous-save backup",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Authored/DungeonRooms_WithWorkbenchKit.blend",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonWorkbenchKit20260921/Authored/DungeonWorkbenchBottles.blend1",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonWorkbenchKit20260921/Authored/DungeonWorkbenchBottles.blend1",
+      "bytes": 11050384,
+      "sha256": "21badb2b0318083b78facbb6c2f2bfb810b80230056d6f831a9a1c010f1cc241",
+      "reason": "Unreferenced Blender automatic previous-save backup",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Authored/DungeonWorkbenchBottles.blend",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonWorkbenchKit20260921/Authored/DungeonWorkbenchKit.blend1",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonWorkbenchKit20260921/Authored/DungeonWorkbenchKit.blend1",
+      "bytes": 609205765,
+      "sha256": "376526d6633f4c69f53db662abd4d1b0674a911edf0a24c04de45a7de0708ee0",
+      "reason": "Unreferenced Blender automatic previous-save backup",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Authored/DungeonWorkbenchKit.blend",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonWorkshopBenchPolish20260921/Authored/DungeonRooms_WithBenchPolish.blend1",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonWorkshopBenchPolish20260921/Authored/DungeonRooms_WithBenchPolish.blend1",
+      "bytes": 1167784400,
+      "sha256": "8e92a1fd214111aa1db95225cc110ccd0e74447f517f93981b196b4bd87ee55d",
+      "reason": "Unreferenced Blender automatic previous-save backup",
+      "replacement": "SourceAssets/DungeonWorkshopBenchPolish20260921/Authored/DungeonRooms_WithBenchPolish.blend",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonWorkshopBenchPolish20260921/Authored/DungeonWorkshopBenchPolish.blend1",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonWorkshopBenchPolish20260921/Authored/DungeonWorkshopBenchPolish.blend1",
+      "bytes": 33278526,
+      "sha256": "ea847ee96a0355e68c2a46640d02a1193c6161b9aa093d231d69b1e28c4f1106",
+      "reason": "Unreferenced Blender automatic previous-save backup",
+      "replacement": "SourceAssets/DungeonWorkshopBenchPolish20260921/Authored/DungeonWorkshopBenchPolish.blend",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonWorkshopDetail20260921/Authored/DungeonWorkshopDetail.blend1",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonWorkshopDetail20260921/Authored/DungeonWorkshopDetail.blend1",
+      "bytes": 10627459,
+      "sha256": "5848f9cf6cccc428270be6ac88ba78547e52d4d1a0b6a20f115cd3221eac3d0e",
+      "reason": "Unreferenced Blender automatic previous-save backup",
+      "replacement": "SourceAssets/DungeonWorkshopDetail20260921/Authored/DungeonWorkshopDetail.blend",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonWorkshopFabTools20260921/Authored/DungeonWorkshopFabTools.blend1",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonWorkshopFabTools20260921/Authored/DungeonWorkshopFabTools.blend1",
+      "bytes": 107267143,
+      "sha256": "eb22641d4817808c50c21d7f57e372567a95d47d7ac979aa1a1b257239101d73",
+      "reason": "Unreferenced Blender automatic previous-save backup",
+      "replacement": "SourceAssets/DungeonWorkshopFabTools20260921/Authored/DungeonWorkshopFabTools.blend",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonWorkshopSculpt20260921/Authored/DungeonRooms_WithRefinedWorkshop.blend1",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonWorkshopSculpt20260921/Authored/DungeonRooms_WithRefinedWorkshop.blend1",
+      "bytes": 927160128,
+      "sha256": "a9ef52382b3d89f471e30c0013f3779baf3542d15e3e1b5820e02cbc4ff61dcc",
+      "reason": "Unreferenced Blender automatic previous-save backup",
+      "replacement": "SourceAssets/DungeonWorkshopSculpt20260921/Authored/DungeonRooms_WithRefinedWorkshop.blend",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonWorkshopSculpt20260921/Authored/DungeonWorkshopComponents.blend1",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonWorkshopSculpt20260921/Authored/DungeonWorkshopComponents.blend1",
+      "bytes": 45633208,
+      "sha256": "0399cb84b5bf9411ac53a76dcf08ffbbfda94a3a01a0261ab1248cffa3320028",
+      "reason": "Unreferenced Blender automatic previous-save backup",
+      "replacement": "SourceAssets/DungeonWorkshopSculpt20260921/Authored/DungeonWorkshopComponents.blend",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonWorkshopSurface20260921/Authored/DungeonRooms_WithWorkshopSurfaces.blend1",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonWorkshopSurface20260921/Authored/DungeonRooms_WithWorkshopSurfaces.blend1",
+      "bytes": 1000771263,
+      "sha256": "d9a1862fec6e3cf5fe3c681ea74cedc7a50bd7d6e2cb4a5a3dbed027ce5536bf",
+      "reason": "Unreferenced Blender automatic previous-save backup",
+      "replacement": "SourceAssets/DungeonWorkshopSurface20260921/Authored/DungeonRooms_WithWorkshopSurfaces.blend",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonWorkshopSurface20260921/Authored/DungeonWorkshopSurfaceDetails.blend1",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonWorkshopSurface20260921/Authored/DungeonWorkshopSurfaceDetails.blend1",
+      "bytes": 97983058,
+      "sha256": "759ae3192bbc3a63463291ea6c5c1e019e0ed54fcad1096707eedec89a740ffc",
+      "reason": "Unreferenced Blender automatic previous-save backup",
+      "replacement": "SourceAssets/DungeonWorkshopSurface20260921/Authored/DungeonWorkshopSurfaceDetails.blend",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonWorkshopTools20260921/Authored/DungeonWorkshopTools.blend1",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonWorkshopTools20260921/Authored/DungeonWorkshopTools.blend1",
+      "bytes": 42053508,
+      "sha256": "7d8439c4bd8063f1bd895b33a9e172a5d6a5910c43f5ec8260160deefcd910b6",
+      "reason": "Unreferenced Blender automatic previous-save backup",
+      "replacement": "SourceAssets/DungeonWorkshopTools20260921/Authored/DungeonWorkshopTools.blend",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/crops.json",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/crops.json",
+      "bytes": 240,
+      "sha256": "5484c080ac6042755f24822beccafb8b072b056458ae12c369f7054e8e19a32d",
+      "reason": "User rejected the workbench motor; final room and kit no longer place it",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Config/workbench.json",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/mesh_history.json",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/mesh_history.json",
+      "bytes": 6030,
+      "sha256": "6ae3ee5f8bc93dda3ad90bf83e84dea80050fbf8388616ef81ce1704bcfd8489",
+      "reason": "User rejected the workbench motor; final room and kit no longer place it",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Config/workbench.json",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/mesh_receipt.json",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/mesh_receipt.json",
+      "bytes": 97,
+      "sha256": "3b899cafdc630d57e00474d2f7953f326a17addd57b6b762996ab0fa9a3d7bf4",
+      "reason": "User rejected the workbench motor; final room and kit no longer place it",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Config/workbench.json",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/mesh_workflow.json",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/mesh_workflow.json",
+      "bytes": 4301,
+      "sha256": "e8ec26a33512b41b8ff14f117e9ad926368e16e825fe15657a6e8fc0a6247909",
+      "reason": "User rejected the workbench motor; final room and kit no longer place it",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Config/workbench.json",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/raw.glb",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/raw.glb",
+      "bytes": 298381756,
+      "sha256": "23986317ba67b11b4bfd7827c1fcc35c0297fbd1f86b767bcbc4f42f0a337643",
+      "reason": "User rejected the workbench motor; final room and kit no longer place it",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Config/workbench.json",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/ref_history.json",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/ref_history.json",
+      "bytes": 5015,
+      "sha256": "4e932ce08ee5cb0f146c545537dc893daf1df6da0ed5c6436682b12a8b63a1c5",
+      "reason": "User rejected the workbench motor; final room and kit no longer place it",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Config/workbench.json",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/ref_receipt.json",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/ref_receipt.json",
+      "bytes": 97,
+      "sha256": "8a3d9a5769fba7d91420776ec891ff084836f360c6c5585e053528f8bd59947b",
+      "reason": "User rejected the workbench motor; final room and kit no longer place it",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Config/workbench.json",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/ref_workflow.json",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/ref_workflow.json",
+      "bytes": 3255,
+      "sha256": "9b4eef6b1d8b8ed08c374824d17fcc55c564dc29cdac3b3e59b3c9d2fe81b1e1",
+      "reason": "User rejected the workbench motor; final room and kit no longer place it",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Config/workbench.json",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/textured_master.glb",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/textured_master.glb",
+      "bytes": 64852892,
+      "sha256": "22131c2d80e6634820b5c95b7e721f5536221310a2481647fb0f6193a905172d",
+      "reason": "User rejected the workbench motor; final room and kit no longer place it",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Config/workbench.json",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/three_views.png",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/three_views.png",
+      "bytes": 1309041,
+      "sha256": "7255434f1aef181365f5c0cb5e75118cb781f898e4d3d7cc9f34c820216580f8",
+      "reason": "User rejected the workbench motor; final room and kit no longer place it",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Config/workbench.json",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/upload.json",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/upload.json",
+      "bytes": 103,
+      "sha256": "6da5c2ba136c26c08a2002a476421228fe5dffc8562d7cea3117b17431d55036",
+      "reason": "User rejected the workbench motor; final room and kit no longer place it",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Config/workbench.json",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/Game/asset-manifest.json",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/Game/asset-manifest.json",
+      "bytes": 1384,
+      "sha256": "a02ecfbf2978d019c91491a9f5b180250c2732a93c117de78e66222d4dac4baf",
+      "reason": "User rejected the workbench motor; final room and kit no longer place it",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Config/workbench.json",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/Game/repair_motor_Editable.blend",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/Game/repair_motor_Editable.blend",
+      "bytes": 71683740,
+      "sha256": "d13779c3eafb2fbb7ccf984d550d402c1190a29dba28f062e2829b0b8396e725",
+      "reason": "User rejected the workbench motor; final room and kit no longer place it",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Config/workbench.json",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/Game/SM_Room_repair_motor.fbx",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/Game/SM_Room_repair_motor.fbx",
+      "bytes": 7333500,
+      "sha256": "80fdbd9635eb894386fba0899261642ca870432bcd1d7c45035c65f43427e65a",
+      "reason": "User rejected the workbench motor; final room and kit no longer place it",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Config/workbench.json",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/Game/T_repair_motor_0.png",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/Game/T_repair_motor_0.png",
+      "bytes": 30751526,
+      "sha256": "f4a708fba94c91c692c01af0fe370745eae3e733d133fd11b965f7b24ddf23ed",
+      "reason": "User rejected the workbench motor; final room and kit no longer place it",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Config/workbench.json",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/Game/T_repair_motor_1.png",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/Game/T_repair_motor_1.png",
+      "bytes": 20623591,
+      "sha256": "5eda2f9a9c2766869630f56d1a44499320efad0b2dfec5d50f1ca0921cc27916",
+      "reason": "User rejected the workbench motor; final room and kit no longer place it",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Config/workbench.json",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/Game/T_repair_motor_Normal.png",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor/Game/T_repair_motor_Normal.png",
+      "bytes": 8294789,
+      "sha256": "d2ed9bf7be935d199edf2166643117976faa0d360b6d2efa85e5cfdc285c9ee1",
+      "reason": "User rejected the workbench motor; final room and kit no longer place it",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Config/workbench.json",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonRoomInteriors20260921/Scripts/import_motor_phase.py",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonRoomInteriors20260921/Scripts/import_motor_phase.py",
+      "bytes": 290,
+      "sha256": "68519e0e231a9241e0ab65866390d8c67a1948fc2326708d1e1bff78c0997b37",
+      "reason": "Completed one-off import/recovery cleanup, not called by retained build entrypoints",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Scripts/build.py",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonWorkbenchKit20260921/Scripts/finish_bottle_install.py",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonWorkbenchKit20260921/Scripts/finish_bottle_install.py",
+      "bytes": 407,
+      "sha256": "d86fabf0b4ba68475536d05c58a7f4c97a849da10eec7d9b7a20b912335c7000",
+      "reason": "Completed one-off import/recovery cleanup, not called by retained build entrypoints",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Scripts/build.py",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonWorkbenchKit20260921/Scripts/prepare_editor_bottle_update.py",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonWorkbenchKit20260921/Scripts/prepare_editor_bottle_update.py",
+      "bytes": 775,
+      "sha256": "ffda94c7b8872de67d7ab60341a76f6e61f28755f42ec2d4b2ff6ab66f5c14b4",
+      "reason": "Completed one-off import/recovery cleanup, not called by retained build entrypoints",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Scripts/build.py",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonWorkshopBenchPolish20260921/Scripts/remove_unused_draft.py",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonWorkshopBenchPolish20260921/Scripts/remove_unused_draft.py",
+      "bytes": 532,
+      "sha256": "bb62e50848553162263e9de4f22cf0b85f77a5ca88cb5271557bc881cb3ca9da",
+      "reason": "Completed one-off import/recovery cleanup, not called by retained build entrypoints",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Scripts/build.py",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/DungeonWorkshopFabTools20260921/Scripts/remove_unused_material_drafts.py",
+      "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonWorkshopFabTools20260921/Scripts/remove_unused_material_drafts.py",
+      "bytes": 493,
+      "sha256": "67b02cf5595d6453622b54ee9ed11b21eea70f81f979d8be4d7b28e52601be96",
+      "reason": "Completed one-off import/recovery cleanup, not called by retained build entrypoints",
+      "replacement": "SourceAssets/DungeonWorkbenchKit20260921/Scripts/build.py",
+      "moved": true
+    }
+  ],
+  "recipe_snapshot": {
+    "source": "SourceAssets/DungeonRoomInteriors20260921/assets.json",
+    "destination": "trash/dungeon-workshop-20260922/SourceAssets/DungeonRoomInteriors20260921/assets.before-retiring-motor.json",
+    "sha256": "8f666a7ba3892de990e35e1fa721f287566e3173bcb667702f5198f588614b23"
+  },
+  "total_bytes": 7102360003
+}

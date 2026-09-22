@@ -1,0 +1,205 @@
+{
+  "id": "WorkshopBench_L",
+  "schema": 1,
+  "units": "centimetres",
+  "root": {
+    "world_location": [
+      1000,
+      148,
+      0
+    ],
+    "world_rotation": [
+      0,
+      0,
+      0
+    ],
+    "front_axis": "-X",
+    "wall_axis": "+X"
+  },
+  "table_height_cm": 93.9,
+  "original_table_height_cm": 93.9,
+  "table_thickness_cm": 6.2,
+  "supports": {
+    "Main": {
+      "x": [
+        -93,
+        -17
+      ],
+      "y": [
+        0,
+        259
+      ]
+    },
+    "Return": {
+      "x": [
+        -259,
+        -93
+      ],
+      "y": [
+        191,
+        259
+      ]
+    }
+  },
+  "anchors": {
+    "LampBase": [
+      -27,
+      65,
+      93.9
+    ],
+    "LampEntry": [
+      -20.2,
+      65,
+      95.8
+    ],
+    "SocketExit": [
+      -30,
+      111,
+      131
+    ],
+    "WallOrigin": [
+      0,
+      0,
+      115
+    ],
+    "MainWorkArea": [
+      -65,
+      125,
+      93.9
+    ],
+    "ReturnWorkArea": [
+      -180,
+      222,
+      93.9
+    ]
+  },
+  "anchor_offsets_cm": {
+    "LampEntry": [6.8, 0, 1.9],
+    "SocketExit": [-30, 111, 16]
+  },
+  "power_cable": {
+    "diameter_mm": 5.0,
+    "arm_diameter_mm": 3.3,
+    "surface_clearance_mm": 3.0
+  },
+  "task_light": {
+    "position": [
+      925.1375496387482,
+      233.39872360229492,
+      142.88073778152466
+    ],
+    "target": [
+      931.9999992847443,
+      272.00000286102295,
+      93.90000104904175
+    ],
+    "lumens": 65,
+    "temperature": 3400
+  },
+  "operator_clearance": {
+    "center": [
+      -138,
+      94,
+      90
+    ],
+    "extent": [
+      44,
+      70,
+      90
+    ]
+  },
+  "default_variant": "InUse",
+  "layout_seed": 21921,
+  "variants": {
+    "InUse": {
+      "label": "使用中",
+      "dust": 0.035,
+      "roughness_bias": 0.0,
+      "surface_tint": [
+        1,
+        1,
+        1
+      ],
+      "lamp_on": true,
+      "tool_wear_add": 0.0,
+      "omit": [],
+      "tool_offsets": {}
+    },
+    "Idle": {
+      "label": "闲置",
+      "dust": 0.12,
+      "roughness_bias": 0.035,
+      "surface_tint": [
+        0.97,
+        0.98,
+        1.0
+      ],
+      "lamp_on": false,
+      "tool_wear_add": 0.08,
+      "omit": [
+        "Fab_Bench_Chisel",
+        "Fab_Bench_Pliers"
+      ],
+      "tool_offsets": {
+        "Fab_Bench_Wrench": {
+          "translation": [
+            0,
+            7,
+            0
+          ],
+          "yaw": 14
+        },
+        "Fab_Bench_Screwdriver": {
+          "translation": [
+            -5,
+            1,
+            0
+          ],
+          "yaw": -12
+        }
+      }
+    },
+    "Abandoned": {
+      "label": "废弃",
+      "dust": 0.3,
+      "roughness_bias": 0.09,
+      "surface_tint": [
+        0.87,
+        0.9,
+        0.92
+      ],
+      "lamp_on": false,
+      "tool_wear_add": 0.2,
+      "omit": [
+        "Fab_Bench_Chisel",
+        "Fab_Bench_Screwdriver",
+        "Fab_Wall_Bolt_Cutter",
+        "Fab_Wall_Adjustable_Wrench",
+        "Fab_Wall_Pliers"
+      ],
+      "tool_offsets": {
+        "Fab_Bench_Wrench": {
+          "translation": [
+            -3,
+            9,
+            0
+          ],
+          "yaw": 32
+        },
+        "Fab_Bench_Pliers": {
+          "translation": [
+            -6,
+            -8,
+            0
+          ],
+          "yaw": -26
+        }
+      }
+    }
+  },
+  "placement": {
+    "actor_label": "DGN_WorkbenchKit_Main",
+    "variant": "InUse",
+    "locked": true
+  }
+}

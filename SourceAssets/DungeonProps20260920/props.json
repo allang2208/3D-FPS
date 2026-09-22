@@ -1,0 +1,42 @@
+{
+  "date": "2026-09-20",
+  "purpose": "地牢 P0 事件道具与有机装饰的 5080/TRELLIS.2 生成候选",
+  "note": "结构模块（墙/楼梯/门框）不进本批：按 asset-model-workflow 规则走 Vibe3D/本地 Blender。本批只做雕塑/有机类道具。",
+  "props": [
+    {
+      "id": "goddess_statue",
+      "name": "古老女神像",
+      "source": "Reference/Source/goddess-statue.png",
+      "prompt": "Create a clean orthographic three-view modeling reference sheet of a single ancient weathered stone goddess statue videogame prop. A robed female figure carved in pale grey limestone, arms gently open in a blessing gesture, serene calm face, two dull blue sapphire eyes set into the head, a small teardrop-shaped crystal at her chest glowing faintly milky white, standing on a square stone pedestal base carved with faint worn runes. Weathered pitted stone surface, thin moss traces in crevices, chipped edges, no arms broken off. Arrange EXACTLY THREE equal-width separate panels horizontally on a perfectly flat pure white background, with no panel borders: left panel exact orthographic FRONT view; middle panel exact orthographic LEFT SIDE view; right panel exact orthographic BACK view. These are three rotations of ONE IDENTICAL object with matching dimensions and features, not three alternatives. All three upright, same height and same top and bottom baseline, centered in each third with ample blank margins, NO perspective, NO isometric, NO cast shadows, NO ground plane, NO text or labels. Even studio lighting that clearly exposes the stone surface, no crushed-black regions, no background gradients. Faithful crisp PBR-style modeling reference. Landscape 1536x1024 image.",
+      "seed": 20411
+    },
+    {
+      "id": "demon_statue",
+      "name": "恶魔雕像",
+      "source": "Reference/Source/demon-statue.png",
+      "prompt": "Create a clean orthographic three-view modeling reference sheet of a single obsidian demon statue videogame prop. A crouched seated horned demon carved in glossy black volcanic obsidian, muscular hunched torso, bat-like wings folded behind the back, clawed hands resting on its knees, two slowly glowing dark red gem eyes, mounted on a blood-red stone pedestal base with a faint carved inscription band. Sharp chipped volcanic glass sheen on edges, matte base. Arrange EXACTLY THREE equal-width separate panels horizontally on a perfectly flat pure white background, with no panel borders: left panel exact orthographic FRONT view; middle panel exact orthographic LEFT SIDE view; right panel exact orthographic BACK view. These are three rotations of ONE IDENTICAL object with matching dimensions and features, not three alternatives. All three upright, same height and same top and bottom baseline, centered in each third with ample blank margins, NO perspective, NO isometric, NO cast shadows, NO ground plane, NO text or labels. Even studio lighting that clearly exposes the stone surface, no crushed-black regions, no background gradients. Faithful crisp PBR-style modeling reference. Landscape 1536x1024 image.",
+      "seed": 20412
+    },
+    {
+      "id": "supply_pile",
+      "name": "冒险者遗物（补给堆）",
+      "source": "Reference/Source/supply-pile.png",
+      "prompt": "Create a clean orthographic three-view modeling reference sheet of a single adventurer remains supply pile videogame prop. A loose low heap consisting of a torn worn brown leather backpack leaning against a half-coiled hemp rope, a crumpled piece of rusty torn chainmail draped on the ground, a dented tin cup, a few scattered dried provisions, all resting in one compact mound. Dark dried stains on the leather, frayed straps, no gore. Arrange EXACTLY THREE equal-width separate panels horizontally on a perfectly flat pure white background, with no panel borders: left panel exact orthographic FRONT view; middle panel exact orthographic LEFT SIDE view; right panel exact orthographic BACK view. These are three rotations of ONE IDENTICAL object with matching dimensions and features, not three alternatives. All three upright, same height and same top and bottom baseline, centered in each third with ample blank margins, NO perspective, NO isometric, NO cast shadows, NO ground plane, NO text or labels. Even studio lighting that clearly exposes the materials, no crushed-black regions, no background gradients. Faithful crisp PBR-style modeling reference. Landscape 1536x1024 image.",
+      "seed": 20413
+    },
+    {
+      "id": "bone_pile",
+      "name": "骨堆",
+      "source": "Reference/Source/dungeon_prop_skull_shards.png",
+      "prompt": "Create a clean orthographic three-view modeling reference sheet of a single dungeon bone pile videogame prop. A low loose mound of old dry human and rat bones: several cracked skulls, broken rib cage pieces, scattered long bones and bone splinters, a few rusty iron nails and a broken rusty shackle mixed into the heap. Aged yellowed bone color, dusty, no gore. Arrange EXACTLY THREE equal-width separate panels horizontally on a perfectly flat pure white background, with no panel borders: left panel exact orthographic FRONT view; middle panel exact orthographic LEFT SIDE view; right panel exact orthographic BACK view. These are three rotations of ONE IDENTICAL object with matching dimensions and features, not three alternatives. All three upright, same height and same top and bottom baseline, centered in each third with ample blank margins, NO perspective, NO isometric, NO cast shadows, NO ground plane, NO text or labels. Even studio lighting that clearly exposes the bone surface, no crushed-black regions, no background gradients. Faithful crisp PBR-style modeling reference. Landscape 1536x1024 image.",
+      "seed": 20414
+    },
+    {
+      "id": "broken_crate",
+      "name": "破损木箱",
+      "source": null,
+      "prompt": "Create a clean orthographic three-view modeling reference sheet of a single broken wooden crate videogame prop. An old splintered pine wood crate, roughly cubic, with one side board caved inward and cracked, damaged planks with visible grain and splinters, rusted iron corner brackets and square nails, a little dry straw spilling out through the broken side. Weathered worn wood, no text or brand marks. Arrange EXACTLY THREE equal-width separate panels horizontally on a perfectly flat pure white background, with no panel borders: left panel exact orthographic FRONT view; middle panel exact orthographic LEFT SIDE view; right panel exact orthographic BACK view. These are three rotations of ONE IDENTICAL object with matching dimensions and features, not three alternatives. All three upright, same height and same top and bottom baseline, centered in each third with ample blank margins, NO perspective, NO isometric, NO cast shadows, NO ground plane, NO text or labels. Even studio lighting that clearly exposes the wood surface, no crushed-black regions, no background gradients. Faithful crisp PBR-style modeling reference. Landscape 1536x1024 image.",
+      "seed": 20415
+    }
+  ]
+}

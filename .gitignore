@@ -390,3 +390,17 @@ __pycache__/
 !/SourceAssets/SkillMagicPublication20260922/**/*.md
 !/SourceAssets/SkillMagicPublication20260922/**/provenance.json
 !/SourceAssets/SkillMagicPublication20260922/archive-manifest.json
+
+# Dungeon workshop: publish recipes/configs; licensed and generated payloads stay local.
+/SourceAssets/Dungeon*/**
+!/SourceAssets/Dungeon*/**/
+!/SourceAssets/Dungeon*/**/*.py
+!/SourceAssets/Dungeon*/**/*.ps1
+!/SourceAssets/Dungeon*/**/*.md
+!/SourceAssets/Dungeon*/assets.json
+!/SourceAssets/Dungeon*/props.json
+!/SourceAssets/Dungeon*/layout.json
+!/SourceAssets/Dungeon*/Config/*.json
+!/SourceAssets/DungeonWorkshopPublication20260922/archive-manifest.json
+!/SourceAssets/DungeonWorkshopPublication20260922/provenance.json
+/Docs/Gameplay/Previews/

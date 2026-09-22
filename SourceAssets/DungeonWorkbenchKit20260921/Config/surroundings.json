@@ -1,0 +1,497 @@
+{
+  "actors": [
+    {
+      "label": "DGN_Room_WS_FloorDetails",
+      "class_path": "/Script/Engine.StaticMeshActor",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hidden": false,
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Authored/SM_Room_WS_FloorDetails.SM_Room_WS_FloorDetails",
+      "materials": [],
+      "visible": true,
+      "cast_shadow": true,
+      "collision": "NoCollision"
+    },
+    {
+      "label": "DGN_WSTools_CeilingArea",
+      "class_path": "/Script/Engine.RectLight",
+      "location": [
+        600.0,
+        180.0,
+        295.7
+      ],
+      "rotation": [
+        0.0,
+        -90.0,
+        90.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hidden": false,
+      "light": {
+        "intensity": 850.0,
+        "temperature": 4300.0,
+        "use_temperature": true,
+        "cast_shadows": true,
+        "attenuation_radius": 475.0,
+        "intensity_units": "<LightUnits.LUMENS: 2>",
+        "light_color": [
+          255,
+          255,
+          255,
+          255
+        ],
+        "source_width": 118.19999694824219,
+        "source_height": 18.299999237060547,
+        "barn_door_angle": 72.0,
+        "barn_door_length": 8.0
+      },
+      "visible": true
+    },
+    {
+      "label": "DGN_Room_WS_HandTools",
+      "class_path": "/Script/Engine.StaticMeshActor",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hidden": true,
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSurface/Meshes/SM_WSFinish_HandTools.SM_WSFinish_HandTools",
+      "materials": [],
+      "visible": false,
+      "cast_shadow": true,
+      "collision": "NoCollision"
+    },
+    {
+      "label": "DGN_Room_WS_Cables",
+      "class_path": "/Script/Engine.StaticMeshActor",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hidden": false,
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopTools/Meshes/SM_WSTools_CeilingCables.SM_WSTools_CeilingCables",
+      "materials": [],
+      "visible": true,
+      "cast_shadow": true,
+      "collision": "NoCollision"
+    },
+    {
+      "label": "DGN_Room_WS_RackContents",
+      "class_path": "/Script/Engine.StaticMeshActor",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hidden": false,
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopRackPolish/Meshes/SM_WSRack_Stock.SM_WSRack_Stock",
+      "materials": [],
+      "visible": true,
+      "cast_shadow": true,
+      "collision": "NoCollision"
+    },
+    {
+      "label": "DGN_Room_WS_PartsRack",
+      "class_path": "/Script/Engine.StaticMeshActor",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hidden": false,
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Meshes/SM_WSDetail_RackFrame.SM_WSDetail_RackFrame",
+      "materials": [],
+      "visible": true,
+      "cast_shadow": true,
+      "collision": "BlockAll"
+    },
+    {
+      "label": "DGN_AV2_LightFixtures",
+      "class_path": "/Script/Engine.StaticMeshActor",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hidden": false,
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopTools/Meshes/SM_WSTools_OtherFixtures.SM_WSTools_OtherFixtures",
+      "materials": [],
+      "visible": true,
+      "cast_shadow": true,
+      "collision": "NoCollision"
+    },
+    {
+      "label": "DGN_Room_WS_ToolCart",
+      "class_path": "/Script/Engine.StaticMeshActor",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hidden": false,
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Meshes/SM_WSDetail_CabinetBody.SM_WSDetail_CabinetBody",
+      "materials": [],
+      "visible": true,
+      "cast_shadow": true,
+      "collision": "BlockAll"
+    },
+    {
+      "label": "DGN_Room_WS_CableTray",
+      "class_path": "/Script/Engine.StaticMeshActor",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hidden": false,
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Authored/SM_Room_WS_CableTray.SM_Room_WS_CableTray",
+      "materials": [],
+      "visible": true,
+      "cast_shadow": true,
+      "collision": "NoCollision"
+    },
+    {
+      "label": "DGN_Room_WS_TaskLightSource",
+      "class_path": "/Script/Engine.PointLight",
+      "location": [
+        916.0,
+        220.0,
+        138.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hidden": true,
+      "light": {
+        "intensity": 0.0,
+        "temperature": 6500.0,
+        "use_temperature": false,
+        "cast_shadows": true,
+        "attenuation_radius": 230.0,
+        "intensity_units": "<LightUnits.LUMENS: 2>",
+        "light_color": [
+          255,
+          226,
+          189,
+          255
+        ],
+        "source_radius": 4.0
+      },
+      "visible": false
+    },
+    {
+      "label": "DGN_WSTools_TaskCable",
+      "class_path": "/Script/Engine.StaticMeshActor",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hidden": true,
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopTools/Meshes/SM_WSTools_TaskCable.SM_WSTools_TaskCable",
+      "materials": [],
+      "visible": false,
+      "cast_shadow": true,
+      "collision": "NoCollision"
+    },
+    {
+      "label": "DGN_Room_WS_CartDetail",
+      "class_path": "/Script/Engine.StaticMeshActor",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hidden": false,
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Meshes/SM_WSDetail_CabinetHardware.SM_WSDetail_CabinetHardware",
+      "materials": [],
+      "visible": true,
+      "cast_shadow": true,
+      "collision": "NoCollision"
+    },
+    {
+      "label": "DGN_WSTools_BenchArea",
+      "class_path": "/Script/Engine.RectLight",
+      "location": [
+        840.0,
+        310.0,
+        305.2
+      ],
+      "rotation": [
+        0.0,
+        -90.0,
+        90.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hidden": false,
+      "light": {
+        "intensity": 420.0,
+        "temperature": 4300.0,
+        "use_temperature": true,
+        "cast_shadows": true,
+        "attenuation_radius": 345.0,
+        "intensity_units": "<LightUnits.LUMENS: 2>",
+        "light_color": [
+          255,
+          255,
+          255,
+          255
+        ],
+        "source_width": 90.19999694824219,
+        "source_height": 18.299999237060547,
+        "barn_door_angle": 72.0,
+        "barn_door_length": 8.0
+      },
+      "visible": true
+    },
+    {
+      "label": "DGN_Room_WS_Utilities",
+      "class_path": "/Script/Engine.StaticMeshActor",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hidden": false,
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Meshes/SM_WSDetail_ServiceLines.SM_WSDetail_ServiceLines",
+      "materials": [],
+      "visible": true,
+      "cast_shadow": true,
+      "collision": "BlockAll"
+    },
+    {
+      "label": "DGN_Room_WS_BenchStorage",
+      "class_path": "/Script/Engine.StaticMeshActor",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hidden": false,
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Authored/SM_Room_WS_BenchStorage.SM_Room_WS_BenchStorage",
+      "materials": [],
+      "visible": true,
+      "cast_shadow": true,
+      "collision": "BlockAll"
+    },
+    {
+      "label": "DGN_WSTools_CeilingFixtures",
+      "class_path": "/Script/Engine.StaticMeshActor",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hidden": false,
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSculpt/Meshes/SM_WSSculpt_CeilingFixtures.SM_WSSculpt_CeilingFixtures",
+      "materials": [],
+      "visible": true,
+      "cast_shadow": true,
+      "collision": "NoCollision"
+    },
+    {
+      "label": "DGN_WSTools_ToolWear",
+      "class_path": "/Script/Engine.StaticMeshActor",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hidden": true,
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopTools/Meshes/SM_WSTools_ToolWear.SM_WSTools_ToolWear",
+      "materials": [],
+      "visible": false,
+      "cast_shadow": false,
+      "collision": "NoCollision"
+    },
+    {
+      "label": "DGN_WSDetail_Markings",
+      "class_path": "/Script/Engine.StaticMeshActor",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hidden": false,
+      "visible": true,
+      "cast_shadow": true,
+      "collision": "NoCollision",
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopRackPolish/Meshes/SM_WSRack_Markings.SM_WSRack_Markings",
+      "materials": []
+    }
+  ],
+  "retired_lights": [
+    "DGN_AV2_Light_Workshop",
+    "DGN_Room_WS_TaskLightSource"
+  ]
+}
