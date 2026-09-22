@@ -1,5 +1,7 @@
 # Godot 准心、腰射散布与 UE 曳光
 
+> 2026-09-21 更新：下文"10 米静止每轴 35 cm"只对**手枪**仍然成立；除手枪外的枪械腰射散布已整体翻倍，曳光部分也已被 V12→V13 与后续四轮观感调整取代，见 [曳光弹表现升级方案](Weapons/tracer-upgrade-plan-20260921.md) 与 [弹道手感取舍](Weapons/ballistic-feel-options-20260921.md)。本文其余内容是当时的历史记录。
+
 ## 当前参数：再次增大基础腰射
 
 本轮验证：模块 `UnrealEditor-FPSGAME-9110934.dll` 编译成功，新进程 `Saved/BallisticPresentationAudit-20260911082356.log` 15 / 15 通过，已查看更新后的静止准心截图。

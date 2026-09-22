@@ -36,6 +36,7 @@
 - 落地案例：`Content/ColdSteelData/gunsmith.json`（对方新增 `ue_pkm` 武器块 21 行）、`GunsmithSystem.h/.cpp`（对方 `BlockStamina` / `CooldownReduceSecondsPerHit`）、`FPSWeaponFXComponent.cpp`（对方 PKM 资产分支）、`FPSBallisticsComponent.cpp`（对方 `FWeaponDamageResult` 命中签名）。丢弃后必须复核四项：`git diff --cached` 搜对方标记为 0、`git diff --cached --check`、暂存的 JSON 能 `json.load` 且武器 id 集合与 HEAD 一致、暂存代码不引用被丢掉的字段或头文件。
 - **落在对方 hunk 内部的自己那一行**（例：`ue_pkm` 块里的 `spread_mult: 2`）不要为凑完整而连块提交：留未提交，在交付说明写明"该枪系数将随对方提交一起落地"。
 - PowerShell 会吞掉参数里的双引号（`--drop-contains '"id": "ue_pkm"'` 匹配不到），标记改用不含引号的子串（`ue_pkm`）。
+- **生成类文档只从"已提交"的目录数据生成**（2026-09-21 补记，2026-09-22 修正）：`Tools/Weapons/dump_attachment_values.py` 直接读工作区的 `gunsmith.json`，若此时对方有未提交的目录改动（本轮 `ue_pkm` 武器块），生成出来的数值表就把**未发布的数值公开发布**了；对方后来回退，表里就留下没有出处的内容。规矩：生成前先 `git status --short -- <目录文件>`，脏就不要生成／不要提交；对方回退或改动目录后**重新生成并重读正文**。本轮据此删掉 5 行 PKM 数据行。**另一个坑**：生成器里有手写的正文断言（本轮"七把长枪含 PKM 的 `spread_mult`"），目录一变它就变成假话——生成器里的每一句数值断言都要能从目录重新推出来，或至少在改动目录后回读一遍。
 
 ## 仓库更换引擎
 

@@ -44,7 +44,6 @@ Handling = FWeaponHandling::FromIndices(Recoil × RecoilMultiplier,
 | ASH-12 | 14 | 214 ms | 171 ms |
 | M16A2 | 10.699 | 280 ms | 224 ms |
 | A762 | 9.98577 | 300 ms | 240 ms |
-| PKM | 6.65718 | 450 ms | （无战术挂件槽） |
 
 > 2026-09-21 把 `laser` 从 `ads_seconds=-0.2` 改成比例 `ads_percent=-0.2`：
 > 旧写法对 M1911（基础 180 ms）会算到 −20 ms 并被 `.001` 下限截断成 1 ms，等于免费瞬镜；
@@ -75,7 +74,6 @@ GetHipSpread() = 2 × (0.0175 + 连射bloom + 移动 + 腾空) × base.spread_mu
 | ASH-12 | 2 | 70 cm | 150 cm | 170 cm | 250 cm | 322 cm |
 | M16A2 | 2 | 70 cm | 150 cm | 170 cm | 250 cm | 322 cm |
 | A762 | 2 | 70 cm | 150 cm | 170 cm | 250 cm | 322 cm |
-| PKM | 2 | 70 cm | 150 cm | 170 cm | 250 cm | 322 cm |
 
 > 单位是「10 m 处每轴最大偏移」。两个轴独立均匀采样，是方形锥不是圆形高斯。
 
@@ -106,7 +104,6 @@ GetHipSpread() = 2 × (0.0175 + 连射bloom + 移动 + 腾空) × base.spread_mu
 | ASH-12 | `ue_ash12` | `ammo_127` | 20 | 0.13 s | 48 | 300 | 80 | 2.4 / 3.3 s | 145 | 135 | 1 | 2 | `optic`, `magazine`, `muzzle`, `underbarrel`, `stock`, `tactical` |
 | M16A2 | `ue_m16a2` | `ammo_556` | 30 | 0.08 s | 34 | 350 | 110 | 2.35 / 2.95 s | 90 | 85 | 1 | 2 | `optic`, `magazine`, `muzzle`, `underbarrel`, `stock`, `reargrip`, `tactical` |
 | A762 | `ue_a762` | `ammo_762` | 30 | 0.0666667 s | 33.25 | 350 | 100 | 3.33333 / 4.29167 s | 75 | 100 | 1.25 | 2 | `optic`, `magazine`, `muzzle`, `underbarrel`, `stock`, `reargrip`, `tactical` |
-| PKM | `ue_pkm` | `ammo_762x54r` | 100 | 0.1 s | 45 | 90 | 150 | 5.8 / 6.8 s | 130 | 120 | 1 | 2 | **无（不可改造）** |
 
 额外的每枪基础键：M16A2 `burst_count=3`、`burst_delay=0.18`、`hit_stagger=false`；
 A762 `stability_mult=1.25`（只有它有基础稳定性倍率）；七把长枪 `spread_mult=2`（腰射系数，见 §1.2）。
@@ -156,7 +153,7 @@ A762 `stability_mult=1.25`（只有它有基础稳定性倍率）；七把长枪
 | `short` | 轻型短枪管 | DW715 | `ads_percent=-0.2` `recoil_mult=1.15` `stability_mult=0.85` `hip_spread_mult=0.5` `range_mult=0.8` |
 | `long` | 重型长枪管 | DW715 | `ads_percent=0.2` `recoil_mult=0.85` `stability_mult=1.15` `hip_spread_mult=1.5` `range_mult=1.25` |
 
-> A762, AKM, ASH-12, M16A2, M1911, M4A1, PKM, QBZ-191 的目录里也有 `barrel` 条目，但该槽位不在它们的 `allowed` 中，**实际不可选**。
+> A762, AKM, ASH-12, M16A2, M1911, M4A1, QBZ-191 的目录里也有 `barrel` 条目，但该槽位不在它们的 `allowed` 中，**实际不可选**。
 
 ### 4.5 `reargrip`（后握把）
 
@@ -299,7 +296,6 @@ A762 `stability_mult=1.25`（只有它有基础稳定性倍率）；七把长枪
 
 | 项 | 现状 |
 | --- | --- |
-| PKM 没有任何改造件 | `allowed: []`、`options: {}`；`Option()` 先检查 `allowed`，游戏里一件都选不了。 |
 | M1911 枪口没有 `titanium_brake` | 只有四项，其余步枪五项。 |
 | `Normalize()` 的 `stock: "true" → "compact"` | 遗留映射，目录已无 `compact` 条目，旧存档该值被静默丢弃。 |
 | `barrel` 槽「列了但没开」 | 除 DW715 外都不在 `allowed` 里，`short`/`long` 实际不可选。 |
@@ -334,7 +330,7 @@ A762 `stability_mult=1.25`（只有它有基础稳定性倍率）；七把长枪
 
 | 项 | 调整前 | 调整后 |
 | --- | --- | --- |
-| `weapons[].base.spread_mult` | 该键不存在，所有枪静默取 1 | 七把长枪（M4A1 / AKM / QBZ-191 / ASH-12 / M16A2 / A762 / PKM）= `2`；M1911 与 DW715 不写键，保持参考值 1 |
+| `weapons[].base.spread_mult` | 该键不存在，所有枪静默取 1 | 六把长枪（M4A1 / AKM / QBZ-191 / ASH-12 / M16A2 / A762）= `2`；M1911 与 DW715 不写键，保持参考值 1 |
 | `Initialize` 解析（源码） | `Base.Spread` 恒为 1 | 新增 `W.Base.Spread=Num(B,TEXT("spread_mult"),1);` |
 | 静止锥（10 m 每轴） | 长枪与手枪同为 35 cm | 长枪 70 cm，手枪仍 35 cm |
 | 准星内缘 | 35 cm 的投影 | 自动变为 70 cm 的投影（代码未改，规则见 §1.2） |
@@ -376,7 +372,6 @@ A762 `stability_mult=1.25`（只有它有基础稳定性倍率）；七把长枪
 | ASH-12 | 6 | 22 |
 | M16A2 | 7 | 31 |
 | A762 | 7 | 31 |
-| PKM | 0 | 0 |
 
 全目录合并后共 226 条（含每枪重复的共享条目）；独占 ID 只有 6 个：
 `ash12_cheek_rest`、`ash12_tactical_brake`、`ash12_tactical_suppressor`、
