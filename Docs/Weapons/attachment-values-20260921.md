@@ -358,7 +358,7 @@ A762 `stability_mult=1.25`（只有它有基础稳定性倍率）；七把长枪
 - 新增可选键：`empty_reload_mult`（只影响空仓换弹，缺省等于 `reload_mult`）；
   `ads_seconds`（绝对秒，与 `ads_percent` 同时叠加）仍受支持但当前目录未使用。
 - 核对工具：`py Tools/Weapons/check_attachment_consistency.py`（结构 + effects/stats 数值一致性，
-  报告写入 `Tools/Weapons/consistency-report.txt`）。
+  报告写入本机 `Saved/Weapons/consistency-report.txt`，不进仓库）。
 
 ## 9. 覆盖统计
 

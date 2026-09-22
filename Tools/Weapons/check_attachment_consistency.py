@@ -7,8 +7,11 @@ Exits 1 when a mismatch is found. Qualitative wording ("装填耗时更长",
 allows descriptive text there.
 """
 import json, re, sys
+from datetime import datetime
+from pathlib import Path
 
-SRC = r'D:\FPS3D\FPSGAME\Content\ColdSteelData\gunsmith.json'
+ROOT = Path(__file__).resolve().parents[2]
+SRC = ROOT / 'Content' / 'ColdSteelData' / 'gunsmith.json'
 
 d = json.load(open(SRC, encoding='utf-8'))
 slots = d['slots']
@@ -122,8 +125,10 @@ print('=== INFO (%d) ===' % len(infos))
 for i in infos:
     print('  - ' + i)
 
-report = r'D:\FPS3D\FPSGAME\Tools\Weapons\consistency-report.txt'
+report = ROOT / 'Saved' / 'Weapons' / 'consistency-report.txt'
+report.parent.mkdir(parents=True, exist_ok=True)
 with open(report, 'w', encoding='utf-8') as f:
+    f.write('# %s 生成，由 Tools/Weapons/check_attachment_consistency.py 覆盖写入\n' % datetime.now().strftime('%Y-%m-%d %H:%M'))
     f.write('=== PROBLEMS (%d) ===\n' % len(problems))
     for p in problems:
         f.write('  ! %s\n' % p)
