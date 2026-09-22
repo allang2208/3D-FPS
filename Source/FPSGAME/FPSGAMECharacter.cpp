@@ -1,4 +1,5 @@
 #include "FPSGAMECharacter.h"
+#include "Characters/FPSPlayerBodyComponent.h"
 #include "Weapons/PistolDualWieldComponent.h"
 #include "Development/DevelopmentTuningSubsystem.h"
 #include "Production/ProductionToolComponent.h"
@@ -151,6 +152,7 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
     : Super(ObjectInitializer.SetDefaultSubobjectClass<UFPSCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
     PrimaryActorTick.bCanEverTick = true;
+    CreateDefaultSubobject<UFPSPlayerBodyComponent>(TEXT("PlayerBody"));
     Traversal = CreateDefaultSubobject<UFPSTraversalComponent>(TEXT("Traversal"));
     CreateDefaultSubobject<UProductionToolComponent>(TEXT("ProductionTools"));
     CreateDefaultSubobject<UM4TacticalSprintComponent>(TEXT("M4TacticalSprint"));
@@ -166,6 +168,10 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
     QuickCombatPistol=CreateDefaultSubobject<UFPSQuickCombatComponent>(TEXT("QuickCombatPistol"));
     GetCapsuleComponent()->InitCapsuleSize(42.0f, 96.0f);
     GetCapsuleComponent()->SetCollisionProfileName(TEXT("Pawn"));
+    // ACharacter restores the class-default mesh offset after crouching, not the
+    // offset assigned later by PlayerBody::BeginPlay. Keep both at the capsule feet.
+    GetMesh()->SetRelativeLocation(FVector(0.f, 0.f, -GetCapsuleComponent()->GetUnscaledCapsuleHalfHeight()));
+    GetMesh()->SetRelativeRotation(FRotator(0.f, -90.f, 0.f));
 
     USceneComponent* StairVisualRoot = CreateDefaultSubobject<USceneComponent>(TEXT("StairVisualRoot"));
     StairVisualRoot->SetupAttachment(GetCapsuleComponent());

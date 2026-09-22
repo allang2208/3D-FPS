@@ -263,3 +263,7 @@ V2 作者链作为恢复输入保留：另恢复 `SourceAssets/FireMagicPolish20
 当前工作台源为 `SourceAssets/DungeonWorkbenchKit20260921`，货架源为 `SourceAssets/DungeonWorkshopRackPolish20260922`，地图为 `/Game/GameMaps/L_Dungeon_Prototype`。最新完整可编辑源是 `DungeonWorkbenchKit20260921/Authored/DungeonRooms_WithWorkbenchKit.blend`；旧作者目录仍提供材质、对象和整场景装配输入，不能按版本日期整体清除。
 
 本次公开作者脚本、配置、文档和归档索引；FBX／Blender／UE 包、贴图、下载原件和原始回执留本机。Fab 免费工具包等不因免费而具备原件再分发许可。恢复依赖、当前组合件入口、废弃发动机与旧备份归档、未测试范围统一见 [工作间收尾与恢复](Gameplay/dungeon-workshop-publication-20260922.md)。Git 克隆不能替代完整本机素材备份。
+
+## Player world body (2026-09-22)
+
+Manny, separate first/third-person animation, skin reconstruction, local-only dependencies and retirement records: [player-body publication](Characters/player-body-publication-20260922.md).

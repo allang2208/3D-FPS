@@ -195,3 +195,5 @@ M4 共用的，直接改会错位其它枪。相机层曲线的中间锚点用 c
 ## PKM 失败案例（2026-09-22）
 
 PKM 整轮手部与换弹开发已退役。跨枪手型、整臂支撑、左右手交接和视频遮挡边界见 [手部与整臂优化](references/grip-arm-refinement.md#失败案例pkm-持握与弹链换弹2026-09-22)；不要将其源脚本、接触参数或导入回执作为成功动作模板。
+
+For independent third-person animation alongside the accepted first-person arms, see [player world body](../ue5-cpp-gameplay/references/player-world-body.md). Preserve shared gameplay contact timing.

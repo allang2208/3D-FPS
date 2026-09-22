@@ -53,6 +53,15 @@ public:
     void Cancel();
     UFUNCTION(BlueprintPure, Category="FPS|Traversal") bool IsTraversing() const { return bTraversing; }
     UFUNCTION(BlueprintPure, Category="FPS|Traversal") bool IsCameraRecovering() const { return bReturningCamera; }
+    float GetPresentationProgress() const { return Duration>0.f?FMath::Clamp(Elapsed/Duration,0.f,1.f):0.f; }
+    float GetContactFraction() const { return Duration>0.f?Contact/Duration:0.f; }
+    float GetReleaseFraction() const { return Duration>0.f?Release/Duration:1.f; }
+    // Same support window used by UpdatePresentation; Release is the end of contact.
+    float GetHandContactWeight() const
+    {
+        return bTraversing?FMath::SmoothStep(Contact-.12f,Contact,Elapsed)
+            *(1.f-FMath::SmoothStep(Release-.12f,Release,Elapsed)):0.f;
+    }
     UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category="FPS|Traversal") bool bLastTraversalSucceeded=false;
 protected:
     virtual void BeginPlay() override;

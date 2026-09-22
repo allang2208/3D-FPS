@@ -1,0 +1,27 @@
+{
+  "scope": "All material slots on the third-person player body",
+  "source_mesh": "/Game/Characters/Mannequins/Meshes/SKM_Manny_Simple",
+  "body_mesh": "/Game/Characters/Mannequins/PlayerBodySkin/SKM_Manny_PlayerSkin.SKM_Manny_PlayerSkin",
+  "material_instance": "/Game/Characters/Mannequins/PlayerBodySkin/MI_PlayerBodySkin.MI_PlayerBodySkin",
+  "subsurface_profile": "/Game/Characters/Mannequins/PlayerBodySkin/SSP_PlayerBodySkin.SSP_PlayerBodySkin",
+  "slots": [
+    {
+      "index": 0,
+      "name": "M_HeadLegs",
+      "material": "/Game/Characters/Mannequins/PlayerBodySkin/MI_PlayerBodySkin.MI_PlayerBodySkin"
+    },
+    {
+      "index": 1,
+      "name": "M_Torso",
+      "material": "/Game/Characters/Mannequins/PlayerBodySkin/MI_PlayerBodySkin.MI_PlayerBodySkin"
+    }
+  ],
+  "saved_assets": [
+    "/Game/Characters/Mannequins/PlayerBodySkin/SKM_Manny_PlayerSkin.SKM_Manny_PlayerSkin"
+  ],
+  "configuration": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\player_body.json",
+  "source": "Locally authored procedural skin; no downloaded scan",
+  "first_person_assets_modified": false,
+  "geometry_or_skeleton_modified": false,
+  "runtime_tested": false
+}

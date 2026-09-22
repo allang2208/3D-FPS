@@ -1,0 +1,26 @@
+[
+  {
+    "original": "Tools/PlayerBody/live_compile_view_toggle.py",
+    "destination": "trash/player-body-retired-20260922/Tools/PlayerBody/live_compile_view_toggle.py",
+    "bytes": 644,
+    "sha256": "09dda159c018430aca858f52924394dfce96f00ea62a28893dfdfe49c133f786",
+    "reason": "One-off view-toggle Live Coding entry retired after normal native build",
+    "replacement": "Tools/Build/Build-Editor.ps1"
+  },
+  {
+    "original": "Tools/PlayerBody/begin_body_diagnosis.py",
+    "destination": "trash/player-body-retired-20260922/Tools/PlayerBody/begin_body_diagnosis.py",
+    "bytes": 1009,
+    "sha256": "512de647dd074fec6ac6b34fcc7df3b08e804274b047ed0b993b9bf5ceb7e58f",
+    "reason": "One-off historical dungeon-map reproduction launcher; no longer an active workflow",
+    "replacement": "User-directed runtime diagnosis; Tools/PlayerBody/inspect_body_runtime.py"
+  },
+  {
+    "original": "Tools/PlayerBody/editor_build_state.py",
+    "destination": "trash/player-body-retired-20260922/Tools/PlayerBody/editor_build_state.py",
+    "bytes": 527,
+    "sha256": "16c6b922c88773f6ea47db300295e9ffe2694be3d4205bf48dc22bc42e40abac",
+    "reason": "Duplicate editor state reader consolidated with project guard and full package paths",
+    "replacement": "Tools/PlayerBody/body_build_state.py"
+  }
+]

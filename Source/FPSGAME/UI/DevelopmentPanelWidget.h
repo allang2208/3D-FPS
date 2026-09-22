@@ -66,6 +66,7 @@ private:
     UFUNCTION() void InfiniteManaClicked();
     UFUNCTION() void NoCooldownClicked();
     UFUNCTION() void FreeBuildingClicked();
+    UFUNCTION() void ThirdPersonViewClicked();
     UFUNCTION() void DisableTuningClicked();
     UFUNCTION() void GenerateItemClicked();
     UFUNCTION() void GrantLevelClicked();

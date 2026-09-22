@@ -49,6 +49,7 @@ public:
     UPROPERTY(EditAnywhere,Category="Production|Pickaxe Locomotion") FRotator PickaxeWalkAngles=FRotator(.3f,.3f,.55f);
     UPROPERTY(EditAnywhere,Category="Production|Pickaxe Locomotion") FRotator PickaxeRunAngles=FRotator(1.f,1.f,2.f);
 private:
+    friend class UFPSPlayerBodyComponent;
     TWeakObjectPtr<AFPSGAMECharacter> Character;
     UPROPERTY(Transient) TObjectPtr<UCameraComponent> Camera;
     UPROPERTY(Transient) TObjectPtr<USceneComponent> Pivot;

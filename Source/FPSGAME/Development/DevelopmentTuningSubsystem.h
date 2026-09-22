@@ -18,7 +18,9 @@ enum class EDevelopmentTuningOption : uint8
     InfiniteMana,
     NoAbilityCooldown,
     /** 建造不消耗资源：放置体素块时不扣背包／仓库里的体块。 */
-    FreeBuilding
+    FreeBuilding,
+    /** Local development view; off is the existing first-person camera. */
+    ThirdPersonView
 };
 
 /** Single-player session overrides. These flags are deliberately absent from the profile/save. */

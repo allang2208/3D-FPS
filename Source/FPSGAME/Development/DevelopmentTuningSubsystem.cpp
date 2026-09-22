@@ -52,7 +52,7 @@ bool UDevelopmentTuningSubsystem::ShouldOneHitKill(const AActor* Victim, AContro
 
 bool UDevelopmentTuningSubsystem::SetEnabled(EDevelopmentTuningOption Option, bool bEnabled, APlayerController* Player)
 {
-    if (!CanEdit(Player) || uint8(Option) > uint8(EDevelopmentTuningOption::FreeBuilding)) return false;
+    if (!CanEdit(Player) || uint8(Option) > uint8(EDevelopmentTuningOption::ThirdPersonView)) return false;
     if (Option == EDevelopmentTuningOption::InfiniteReserveAmmo) bReserveAmmoOverride = true;
     if (bEnabled) EnabledOptions.Add(Option);
     else EnabledOptions.Remove(Option);

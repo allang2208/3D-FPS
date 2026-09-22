@@ -1,6 +1,8 @@
 #include "DevelopmentPanelWidget.h"
 #include "ColdSteelUIStyle.h"
 #include "ColdSteelHUDWidget.h"
+#include "../Characters/FPSPlayerBodyComponent.h"
+#include "GameFramework/PlayerController.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/Border.h"
 #include "Components/Button.h"
@@ -49,6 +51,7 @@ void UDevelopmentPanelWidget::BuildTuningPage(UVerticalBox* Page)
 
     struct FOptionCopy { EDevelopmentTuningOption Option; const TCHAR* Title; const TCHAR* Help; const TCHAR* Name; };
     const FOptionCopy Options[] = {
+        {EDevelopmentTuningOption::ThirdPersonView, TEXT("玩家视角"), TEXT("点击切换第一人称／第三人称；第三人称显示全身，镜头遇墙自动拉近。"), TEXT("DevelopmentThirdPersonView")},
         {EDevelopmentTuningOption::Invincible, TEXT("无敌"), TEXT("免疫受到的伤害，生命值不再因受击降低。"), TEXT("DevelopmentInvincible")},
         {EDevelopmentTuningOption::OneHitKill, TEXT("秒杀"), TEXT("玩家有效命中即可击杀敌方怪物，照常结算掉落与经验。"), TEXT("DevelopmentOneHitKill")},
         {EDevelopmentTuningOption::InfiniteReserveAmmo, TEXT("无限备弹"), TEXT("换弹不消耗背包弹药，弹匣打空后仍需换弹。"), TEXT("DevelopmentInfiniteAmmo")},
@@ -86,6 +89,7 @@ void UDevelopmentPanelWidget::BuildTuningPage(UVerticalBox* Page)
         case EDevelopmentTuningOption::InfiniteMana: Button->OnClicked.AddDynamic(this,&ThisClass::InfiniteManaClicked); break;
         case EDevelopmentTuningOption::NoAbilityCooldown: Button->OnClicked.AddDynamic(this,&ThisClass::NoCooldownClicked); break;
         case EDevelopmentTuningOption::FreeBuilding: Button->OnClicked.AddDynamic(this,&ThisClass::FreeBuildingClicked); break;
+        case EDevelopmentTuningOption::ThirdPersonView: Button->OnClicked.AddDynamic(this,&ThisClass::ThirdPersonViewClicked); break;
         }
         TuningRows.Add(Row);
     }
@@ -136,7 +140,10 @@ void UDevelopmentPanelWidget::RefreshTuning()
         Button->SetStyle(Style);
         if (auto* Label = Cast<UTextBlock>(Button->GetContent()))
         {
-            Label->SetText(FText::FromString(bEnabled ? TEXT("已开启") : TEXT("已关闭")));
+            const bool bViewSwitch = Row.Option == EDevelopmentTuningOption::ThirdPersonView;
+            Label->SetText(FText::FromString(bViewSwitch
+                ? (bEnabled ? TEXT("第三人称") : TEXT("第一人称"))
+                : (bEnabled ? TEXT("已开启") : TEXT("已关闭"))));
             Label->SetColorAndOpacity(bEnabled ? ColdSteelUI::TextPrimary : ColdSteelUI::TextSecondary);
         }
     }
@@ -151,6 +158,8 @@ void UDevelopmentPanelWidget::ToggleTuning(EDevelopmentTuningOption Option)
 {
     if (auto* Tuning = UDevelopmentTuningSubsystem::Find(this))
         Tuning->SetEnabled(Option,!Tuning->IsEnabled(Option),GetOwningPlayer());
+    if (auto* Player = GetOwningPlayer(); Player && Player->GetPawn())
+        if (auto* Body = Player->GetPawn()->FindComponentByClass<UFPSPlayerBodyComponent>()) Body->RefreshViewMode();
 }
 
 void UDevelopmentPanelWidget::InvincibleClicked() { ToggleTuning(EDevelopmentTuningOption::Invincible); }
@@ -159,7 +168,10 @@ void UDevelopmentPanelWidget::InfiniteAmmoClicked() { ToggleTuning(EDevelopmentT
 void UDevelopmentPanelWidget::InfiniteManaClicked() { ToggleTuning(EDevelopmentTuningOption::InfiniteMana); }
 void UDevelopmentPanelWidget::NoCooldownClicked() { ToggleTuning(EDevelopmentTuningOption::NoAbilityCooldown); }
 void UDevelopmentPanelWidget::FreeBuildingClicked() { ToggleTuning(EDevelopmentTuningOption::FreeBuilding); }
+void UDevelopmentPanelWidget::ThirdPersonViewClicked() { ToggleTuning(EDevelopmentTuningOption::ThirdPersonView); }
 void UDevelopmentPanelWidget::DisableTuningClicked()
 {
     if (auto* Tuning = UDevelopmentTuningSubsystem::Find(this)) Tuning->DisableAll(GetOwningPlayer());
+    if (auto* Player = GetOwningPlayer(); Player && Player->GetPawn())
+        if (auto* Body = Player->GetPawn()->FindComponentByClass<UFPSPlayerBodyComponent>()) Body->RefreshViewMode();
 }

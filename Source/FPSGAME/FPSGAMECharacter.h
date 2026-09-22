@@ -41,6 +41,7 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
     friend class FDualPistolQuickCombatRegression;
     friend class URuneSwordComponent;
     friend class UM4TacticalSprintComponent;
+    friend class UFPSPlayerBodyComponent;
 
 public:
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM4Infima = true;
@@ -143,6 +144,7 @@ public:
     bool MeasureHolographicOrientation(float& ScreenRollDegrees,float& RailErrorDegrees) const;
     bool ValidateFoldingSights(bool bFolded) const;
     virtual void Tick(float DeltaSeconds) override;
+    virtual void CalcCamera(float DeltaTime, FMinimalViewInfo& OutResult) override;
     /** Stable eye/control-aim frame for melee; excludes cosmetic camera feedback. */
     FTransform GetMeleeAimTransform() const;
     // Damage queries may tick after the normal camera update; present their

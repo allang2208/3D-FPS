@@ -48,6 +48,8 @@ public:
     /** 镜头语言（配重锤 GetCameraMotion 同款合同）：相机空间位置 cm 与旋转度。 */
     void GetCameraMotion(FVector& Location,FRotator& Rotation) const;
     uint32 GetActionSerial() const { return Serial; }
+    float GetSourceLength() const { return ClipLength; }
+    float GetContactFraction() const { return ClipLength>0.f?ContactTime/ClipLength:.45f; }
 protected:
     virtual void BeginPlay() override;
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;

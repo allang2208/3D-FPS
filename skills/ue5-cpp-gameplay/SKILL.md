@@ -115,3 +115,5 @@ For Godot first-person weapon ports, read [migration contracts and validation](r
 - Escalate when solution needs custom engine source modifications.
 
 FPSGAME traversal geometry, camera handoff and surface IK: [traversal contact](../ue5-fps-arms-animation/references/traversal-contact.md).
+
+FPSGAME first/third person animation, world equipment and outfits: [player world body](references/player-world-body.md).

@@ -69,6 +69,7 @@ public:
     bool GetFireMagicBladePoints(FVector& Base,FVector& Tip) const;
 private:
     friend class URuneSwordAuditCommandlet;
+    friend class UFPSPlayerBodyComponent;
     TWeakObjectPtr<AFPSGAMECharacter> Character;
     UPROPERTY(Transient) TObjectPtr<UCameraComponent> Camera;
     UPROPERTY(Transient) TObjectPtr<USkeletalMeshComponent> Viewmodel;
