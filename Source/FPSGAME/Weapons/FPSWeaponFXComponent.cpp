@@ -40,10 +40,10 @@ namespace WeaponFX
     // 583 cm at 60 fps and 243 cm at 144 fps, so the rifle window covers every rate; the
     // dash still reads as a beam sweeping past instead of a pellet (Docs/Weapons/
     // ballistic-feel-options-20260921.md).
-    constexpr float TracerRifleLengthCM = 600.f;
-    constexpr float TracerRifleMaxCM = 1400.f;
-    constexpr float TracerPistolLengthCM = 300.f;
-    constexpr float TracerPistolMaxCM = 1200.f;  // 30 fps 下 420 m/s 手枪仍差 200 cm 覆盖
+    constexpr float TracerRifleLengthCM = 800.f;
+    constexpr float TracerRifleMaxCM = 1800.f;
+    constexpr float TracerPistolLengthCM = 400.f;
+    constexpr float TracerPistolMaxCM = 1300.f;  // 30 fps 下 420 m/s 手枪仍差 100 cm 覆盖
     constexpr float TracerMinDiameterCM = 1.6f;
     // World-space caps: they only bind far away (screen width is constant), where the old
     // 5 cm cap crushed a 60 m streak down to under one pixel.
@@ -92,6 +92,16 @@ static bool ParseTracerTint(const FString& Text,FLinearColor& Out)
     Out=FLinearColor(FCString::Atof(*Parts[0]),FCString::Atof(*Parts[1]),FCString::Atof(*Parts[2]),1.f);
     return true;
 }
+// "Strengthen the streak" tier: a wider dim halo pass around the core, and a real light that
+// travels with the newest rounds so the beam spills onto the world around it.
+static TAutoConsoleVariable<float> TracerHaloWidth(TEXT("fps.Tracer.HaloWidth"),2.8f,
+    TEXT("Width multiplier of the soft halo pass around the core (<=1 hides it)."));
+static TAutoConsoleVariable<float> TracerHaloEmission(TEXT("fps.Tracer.HaloEmission"),.55f,
+    TEXT("Additive emission of the halo pass; keep well below fps.Tracer.Emission."));
+static TAutoConsoleVariable<float> TracerLightLumens(TEXT("fps.Tracer.LightLumens"),220.f,
+    TEXT("Lumens of the travelling tracer light; 0 disables world lighting."));
+static TAutoConsoleVariable<float> TracerLightRadiusCM(TEXT("fps.Tracer.LightRadiusCM"),220.f,
+    TEXT("Attenuation radius of the travelling tracer light in centimetres."));
 
 UFPSWeaponFXComponent::UFPSWeaponFXComponent()
 {
@@ -326,6 +336,18 @@ FFPSWeaponFXTracer* UFPSWeaponFXComponent::AcquireTracer(int32 RoundId)
             Result->Mesh->SetStaticMesh(CylinderMesh);
             Result->Material=UMaterialInstanceDynamic::Create(TracerMaterial,Result->Mesh);
             Result->Mesh->SetMaterial(0,Result->Material);
+            Result->HaloMesh=NewObject<UStaticMeshComponent>(GetOwner());
+            GetOwner()->AddInstanceComponent(Result->HaloMesh);
+            Result->HaloMesh->SetMobility(EComponentMobility::Movable);
+            Result->HaloMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+            Result->HaloMesh->SetGenerateOverlapEvents(false);
+            Result->HaloMesh->SetCastShadow(false);
+            Result->HaloMesh->bReceivesDecals=false;
+            Result->HaloMesh->SetCanEverAffectNavigation(false);
+            Result->HaloMesh->RegisterComponent();
+            Result->HaloMesh->SetStaticMesh(CylinderMesh);
+            Result->HaloMaterial=UMaterialInstanceDynamic::Create(TracerMaterial,Result->HaloMesh);
+            Result->HaloMesh->SetMaterial(0,Result->HaloMaterial);
         }
     }
     Result->bActive=true;
@@ -341,6 +363,16 @@ FFPSWeaponFXTracer* UFPSWeaponFXComponent::AcquireTracer(int32 RoundId)
     Result->Material->SetVectorParameterValue(TEXT("Tint"),WeaponFX::TracerTint);
     Result->Material->SetScalarParameterValue(TEXT("Emission"),WeaponFX::TracerEmission);
     Result->Material->SetScalarParameterValue(TEXT("Opacity"),1.f);
+    if(Result->HaloMesh)
+    {
+        Result->HaloMesh->SetStaticMesh(CylinderMesh);
+        if(!Result->HaloMaterial)Result->HaloMaterial=UMaterialInstanceDynamic::Create(TracerMaterial,Result->HaloMesh);
+        Result->HaloMesh->SetMaterial(0,Result->HaloMaterial);
+        Result->HaloMesh->SetVisibility(true);
+        Result->HaloMaterial->SetVectorParameterValue(TEXT("Tint"),WeaponFX::TracerTint);
+        Result->HaloMaterial->SetScalarParameterValue(TEXT("Emission"),TracerHaloEmission.GetValueOnGameThread());
+        Result->HaloMaterial->SetScalarParameterValue(TEXT("Opacity"),1.f);
+    }
     SetComponentTickEnabled(true);
     return Result;
 }
@@ -352,6 +384,7 @@ void UFPSWeaponFXComponent::ReleaseTracer(FFPSWeaponFXTracer& T)
     T.LingerAge=0.f;
     T.RoundId=INDEX_NONE;
     if(T.Mesh)T.Mesh->SetVisibility(false);
+    if(T.HaloMesh)T.HaloMesh->SetVisibility(false);
 }
 
 void UFPSWeaponFXComponent::ApplyTracerTransform(FFPSWeaponFXTracer& T)
@@ -382,9 +415,92 @@ void UFPSWeaponFXComponent::ApplyTracerTransform(FFPSWeaponFXTracer& T)
     T.Material->SetScalarParameterValue(TEXT("Emission"),
         FMath::Clamp(TracerEmissionScale.GetValueOnGameThread(),0.f,20.f));
     const float Linger=FMath::Clamp(TracerLingerSeconds.GetValueOnGameThread(),0.f,2.f);
-    T.Material->SetScalarParameterValue(TEXT("Opacity"),
-        T.bFlash?FMath::Clamp(1.f-T.FlashAge/WeaponFX::TracerFlashSeconds,0.f,1.f)
-        :(T.LingerAge>0.f&&Linger>0.f?FMath::Clamp(1.f-T.LingerAge/Linger,0.f,1.f):1.f));
+    const float Opacity=T.bFlash?FMath::Clamp(1.f-T.FlashAge/WeaponFX::TracerFlashSeconds,0.f,1.f)
+        :(T.LingerAge>0.f&&Linger>0.f?FMath::Clamp(1.f-T.LingerAge/Linger,0.f,1.f):1.f);
+    T.Material->SetScalarParameterValue(TEXT("Opacity"),Opacity);
+    // Halo pass: same material, wider and much dimmer, so the streak gets a soft outer glow
+    // instead of staying a hard rod. Width 1 / emission 0 turns it off at no cost.
+    if(T.HaloMesh&&T.HaloMaterial)
+    {
+        const float HaloScale=FMath::Clamp(TracerHaloWidth.GetValueOnGameThread(),0.f,6.f);
+        const float HaloEmission=FMath::Clamp(TracerHaloEmission.GetValueOnGameThread(),0.f,20.f);
+        const bool bHalo=HaloScale>1.001f&&HaloEmission>0.f;
+        T.HaloMesh->SetVisibility(bHalo);
+        if(bHalo)
+        {
+            const float HaloDiameter=Diameter*HaloScale;
+            T.HaloMesh->SetWorldLocationAndRotation(Center,FRotationMatrix::MakeFromZ(T.Head-Tail).Rotator());
+            T.HaloMesh->SetWorldScale3D(FVector(HaloDiameter,HaloDiameter,FMath::Max(1.f,T.Length))/100.f);
+            T.HaloMaterial->SetVectorParameterValue(TEXT("Tint"),Tint);
+            T.HaloMaterial->SetScalarParameterValue(TEXT("Emission"),HaloEmission);
+            T.HaloMaterial->SetScalarParameterValue(TEXT("Opacity"),Opacity);
+        }
+    }
+}
+
+UPointLightComponent* UFPSWeaponFXComponent::EnsureTracerLight(int32 Index)
+{
+    while(TracerLights.Num()<=Index)TracerLights.Add(nullptr);
+    UPointLightComponent* Light=TracerLights[Index];
+    if(!Light)
+    {
+        Light=NewObject<UPointLightComponent>(GetOwner());
+        GetOwner()->AddInstanceComponent(Light);
+        Light->SetMobility(EComponentMobility::Movable);
+        Light->SetCastShadows(false);
+        Light->SetIntensityUnits(ELightUnits::Lumens);
+        Light->SetSourceRadius(2.f);
+        Light->SetSoftSourceRadius(4.f);
+        Light->SetSpecularScale(.5f);
+        Light->SetVolumetricScatteringIntensity(0.f);
+        Light->SetIndirectLightingIntensity(0.f);
+        Light->SetVisibility(false);
+        Light->RegisterComponent();
+        TracerLights[Index]=Light;
+    }
+    return Light;
+}
+
+void UFPSWeaponFXComponent::UpdateTracerLights()
+{
+    const float Lumens=FMath::Clamp(TracerLightLumens.GetValueOnGameThread(),0.f,20000.f);
+    const float Radius=FMath::Clamp(TracerLightRadiusCM.GetValueOnGameThread(),20.f,3000.f);
+    constexpr int32 Slots=2;
+    int32 Pick[Slots]={INDEX_NONE,INDEX_NONE};
+    float PickDistance[Slots]={FLT_MAX,FLT_MAX};
+    if(Lumens>0.f)
+    {
+        // The two streaks closest to the muzzle are the shots the player just fired, so the
+        // moving light always sits where the eye already is. Fixed slot count keeps the cost
+        // independent of the fire rate.
+        const FVector Muzzle=MuzzleLocation();
+        for(int32 I=0;I<Tracers.Num();++I)
+        {
+            const FFPSWeaponFXTracer& T=Tracers[I];
+            if(!T.bActive||T.bFlash||T.LingerAge>0.f)continue;
+            const float Distance=static_cast<float>(FVector::DistSquared(T.Head,Muzzle));
+            if(Distance<PickDistance[0]){PickDistance[1]=PickDistance[0];Pick[1]=Pick[0];PickDistance[0]=Distance;Pick[0]=I;}
+            else if(Distance<PickDistance[1]){PickDistance[1]=Distance;Pick[1]=I;}
+        }
+    }
+    FLinearColor LightColor=WeaponFX::TracerTint;
+    ParseTracerTint(TracerTintSetting.GetValueOnGameThread(),LightColor);
+    for(int32 Slot=0;Slot<Slots;++Slot)
+    {
+        if(Pick[Slot]==INDEX_NONE)
+        {
+            // Park the slot without creating components for a weapon that is not firing.
+            if(Slot<TracerLights.Num()&&TracerLights[Slot]!=nullptr)TracerLights[Slot]->SetVisibility(false);
+            continue;
+        }
+        UPointLightComponent* Light=EnsureTracerLight(Slot);
+        const FFPSWeaponFXTracer& T=Tracers[Pick[Slot]];
+        Light->SetWorldLocation(T.Head-T.Direction*(T.Length*.35f));
+        Light->SetAttenuationRadius(Radius);
+        Light->SetIntensity(Lumens);
+        Light->SetLightColor(LightColor);
+        Light->SetVisibility(true);
+    }
 }
 
 float UFPSWeaponFXComponent::TracerBaseLengthCM() const
@@ -786,6 +902,7 @@ void UFPSWeaponFXComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
         }
         ApplyTracerTransform(T);
     }
+    UpdateTracerLights();
 
     const FVector CurrentMuzzlePosition = MuzzleLocation();
     const FVector CurrentMuzzleForward = MuzzleForward();
@@ -830,6 +947,10 @@ void UFPSWeaponFXComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
     {
         BarrelHeat = 0.0f;
         SmokeClock = 0.0;
+        // The tick stops here, so the travelling tracer lights must be parked explicitly:
+        // otherwise the last one would stay lit until the next shot.
+        for(const TObjectPtr<UPointLightComponent>& Light : TracerLights)
+            if(Light!=nullptr)Light->SetVisibility(false);
         SetComponentTickEnabled(false);
     }
 }

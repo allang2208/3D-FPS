@@ -46,6 +46,10 @@ struct FFPSWeaponFXTracer
     GENERATED_BODY()
     UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> Mesh;
     UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> Material;
+    /** Wider, dimmer second pass over the same material: the streak reads as a glowing beam
+        with a soft halo instead of a solid rod. Hidden when fps.Tracer.HaloWidth <= 1. */
+    UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> HaloMesh;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> HaloMaterial;
     /** INDEX_NONE: instantaneous (hitscan) flash that only fades, no flight path. */
     int32 RoundId = INDEX_NONE;
     FVector Head = FVector::ZeroVector;
@@ -143,6 +147,11 @@ private:
     UPROPERTY(Transient) TArray<FFPSWeaponFXTracer> Tracers;
     // Sustained auto fire can keep a dozen rounds in flight; one streak each.
     static constexpr int32 MaxTracers = 32;
+    /** Travelling lights for the two streaks closest to the muzzle: the beam spills light on
+        the world around it. Fixed count, so cost does not follow the fire rate. */
+    UPROPERTY(Transient) TArray<TObjectPtr<UPointLightComponent>> TracerLights;
+    UPointLightComponent* EnsureTracerLight(int32 Index);
+    void UpdateTracerLights();
     float BarrelHeat = 0.0f;
     // Shots arrive at the current game time, after the interval represented by this Tick.
     float PendingHeat = 0.0f;
