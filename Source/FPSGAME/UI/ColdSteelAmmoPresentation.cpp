@@ -14,7 +14,7 @@ const FSlateBrush* UColdSteelStatusModel::AmmoIcon(const FString& Id)
     // Brushes live at stable addresses even when later ammo icons grow the map.
     auto Brush=MakeShared<FSlateBrush>();Brush->SetResourceObject(Texture);
     Brush->ImageSize=FVector2D(Texture->GetSizeX(),Texture->GetSizeY());Brush->DrawAs=ESlateBrushDrawType::Image;
-    AmmoIconBrushes.Add(Id,Brush);return Brush.Get();
+    AmmoIconBrushes.Add(Id,Brush);return &Brush.Get();
 }
 FString UColdSteelStatusModel::AmmoEffectSummary(const FString& Id) const
 {

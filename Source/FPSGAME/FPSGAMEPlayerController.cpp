@@ -234,8 +234,8 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
         if(Params.Key==EKeys::Escape){if(Params.Event==IE_Pressed)AmmoPawn->CancelAmmoSelection();return true;}
         if(Params.Key==EKeys::MouseScrollUp||Params.Key==EKeys::MouseScrollDown)return true;
         if(Params.Key==EKeys::LeftMouseButton||Params.Key==EKeys::RightMouseButton)
-        {if(Params.Event==IE_Pressed)AmmoPawn->SelectAmmoWheelHand(Params.Key==EKeys::RightMouseButton?1:0);return true;}
-    }
+        // 手别由鼠标所在圆盘决定（双持弹两个盘），点击只吞掉，避免选弹时开火。
+        if(Params.Key==EKeys::LeftMouseButton||Params.Key==EKeys::RightMouseButton)return true;
     if(ColdSteelHUD&&ColdSteelHUD->IsQuickDragging())
     {
         if(Params.Event==IE_Pressed&&Params.Key==EKeys::Escape)ColdSteelHUD->CancelQuickDrag();

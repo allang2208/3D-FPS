@@ -51,7 +51,7 @@
     "rarity": "common",
     "stack_max": 999,
     "type": "弹药",
-    "ue_icon": "Icons/ammo_556.png"
+    "ue_icon": "Icons/Ammo55620260921/556_m193.png"
   },
   "ammo_58": {
     "category": "material",
@@ -64,7 +64,7 @@
     "rarity": "common",
     "stack_max": 999,
     "type": "弹药",
-    "ue_icon": "Icons/ammo_58.png"
+    "ue_icon": "Icons/Ammo5820260922/58_dbp87.png"
   },
   "ammo_762": {
     "category": "material",
@@ -2876,14 +2876,14 @@
   "ammo_45acp": {
     "category": "material",
     "desc": "M1911 使用的 .45 ACP 弹药。",
-    "icon": "res://assets/ui/icons/equip/ammo_556.png",
+    "icon": "",
     "icon_fallback": "▥",
     "id": "ammo_45acp",
     "name": ".45 ACP 手枪弹",
     "rarity": "common",
     "stack_max": 999,
     "type": "弹药",
-    "ue_icon": "Icons/ammo_556.png"
+    "ue_icon": ""
   },
   "ue_rune_sword": {
     "id": "ue_rune_sword",
@@ -2952,8 +2952,8 @@
     "type": "弹药",
     "rarity": "common",
     "stack_max": 999,
-    "icon": "Icons/ammo_556.png",
-    "ue_icon": "Icons/ammo_556.png",
+    "icon": "",
+    "ue_icon": "",
     "icon_fallback": "▥",
     "desc": "供 Dan-Wesson 715 使用的 .357 Magnum 弹药。"
   },

@@ -1,0 +1,32 @@
+[
+  {
+    "path": "Content/ColdSteelData/Icons/Ammo5820260922/58_dbp87.png",
+    "bytes": 46740,
+    "sha256": "2b35682371ebd233ae9468b675dcce0ca3f654d1575b6323d01aa75a624ae05f",
+    "tier": "green",
+    "group": "ammo_58",
+    "status": "placeholder",
+    "placeholder_source": "Content/ColdSteelData/Icons/ammo_58.png",
+    "public_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/Icons/Ammo5820260922/58_dbp10.png",
+    "bytes": 46740,
+    "sha256": "2b35682371ebd233ae9468b675dcce0ca3f654d1575b6323d01aa75a624ae05f",
+    "tier": "blue",
+    "group": "ammo_58",
+    "status": "placeholder",
+    "placeholder_source": "Content/ColdSteelData/Icons/ammo_58.png",
+    "public_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/Icons/Ammo5820260922/58_dbp191.png",
+    "bytes": 46740,
+    "sha256": "2b35682371ebd233ae9468b675dcce0ca3f654d1575b6323d01aa75a624ae05f",
+    "tier": "red",
+    "group": "ammo_58",
+    "status": "placeholder",
+    "placeholder_source": "Content/ColdSteelData/Icons/ammo_58.png",
+    "public_binary": false
+  }
+]

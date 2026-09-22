@@ -1,0 +1,62 @@
+[
+  {
+    "path": "Content/ColdSteelData/Icons/AmmoPistol20260922/45acp_fmj.png",
+    "bytes": 1590709,
+    "sha256": "e716b0005397a61ed9e87caa0dcb4439297026c1ecc251bbaa1836112de6f259",
+    "tier": "green",
+    "group": "ammo_45acp",
+    "status": "retired",
+    "placeholder_source": "Content/ColdSteelData/Icons/ammo_556.png",
+    "public_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/Icons/AmmoPistol20260922/45acp_p.png",
+    "bytes": 1590709,
+    "sha256": "e716b0005397a61ed9e87caa0dcb4439297026c1ecc251bbaa1836112de6f259",
+    "tier": "blue",
+    "group": "ammo_45acp",
+    "status": "retired",
+    "placeholder_source": "Content/ColdSteelData/Icons/ammo_556.png",
+    "public_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/Icons/AmmoPistol20260922/45acp_ap.png",
+    "bytes": 1590709,
+    "sha256": "e716b0005397a61ed9e87caa0dcb4439297026c1ecc251bbaa1836112de6f259",
+    "tier": "red",
+    "group": "ammo_45acp",
+    "status": "retired",
+    "placeholder_source": "Content/ColdSteelData/Icons/ammo_556.png",
+    "public_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/Icons/AmmoPistol20260922/357_sp.png",
+    "bytes": 1590709,
+    "sha256": "e716b0005397a61ed9e87caa0dcb4439297026c1ecc251bbaa1836112de6f259",
+    "tier": "green",
+    "group": "ammo_357",
+    "status": "retired",
+    "placeholder_source": "Content/ColdSteelData/Icons/ammo_556.png",
+    "public_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/Icons/AmmoPistol20260922/357_jhp.png",
+    "bytes": 1590709,
+    "sha256": "e716b0005397a61ed9e87caa0dcb4439297026c1ecc251bbaa1836112de6f259",
+    "tier": "blue",
+    "group": "ammo_357",
+    "status": "retired",
+    "placeholder_source": "Content/ColdSteelData/Icons/ammo_556.png",
+    "public_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/Icons/AmmoPistol20260922/357_ap.png",
+    "bytes": 1590709,
+    "sha256": "e716b0005397a61ed9e87caa0dcb4439297026c1ecc251bbaa1836112de6f259",
+    "tier": "red",
+    "group": "ammo_357",
+    "status": "retired",
+    "placeholder_source": "Content/ColdSteelData/Icons/ammo_556.png",
+    "public_binary": false
+  }
+]

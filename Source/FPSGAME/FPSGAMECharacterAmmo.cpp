@@ -7,6 +7,26 @@
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
 #include "Framework/Application/SlateApplication.h"
+#include "GameFramework/PlayerInput.h"
+#include "InputCoreTypes.h"
+
+namespace
+{
+    /**
+     * Turn/LookUp 收到的是经过轴灵敏度缩放后的鼠标轴值。DefaultInput.ini 里
+     * MouseX/MouseY 的 Sensitivity 是 0.07，所以 1 个屏幕像素只产生 0.07 轴值；
+     * 轮盘按像素定义手感，必须在输入层还原。灵敏度从玩家输入配置读取而不是写死，
+     * 改轴配置之后轮盘不必跟着改；读不到时才退回引擎默认 0.07。
+     */
+    float MouseAxisToScreenPixels(const APlayerController* PC)
+    {
+        FInputAxisProperties Properties;
+        const float Sensitivity = (PC && PC->PlayerInput &&
+            PC->PlayerInput->GetAxisProperties(EKeys::MouseX, Properties) &&
+            Properties.Sensitivity > KINDA_SMALL_NUMBER) ? Properties.Sensitivity : 0.07f;
+        return 1.f / Sensitivity;
+    }
+}
 
 void AFPSGAMECharacter::ReloadInputPressed()
 {
@@ -36,16 +56,24 @@ void AFPSGAMECharacter::UpdateAmmoSelection()
     {
         FireReleased();AimReleased();if(DualPistols)DualPistols->CancelInputs();
         AmmoWheel=CreateWidget<UColdSteelAmmoWheel>(Cast<APlayerController>(Controller));
-        if(AmmoWheel){AmmoWheel->OpenForWeapon(AmmoSelectionWeapon,IsDualWieldingPistols()?0:-1);AmmoWheel->AddToViewport(45);}
+        if(AmmoWheel)
+        {
+            // 双持手枪：左右两个圆盘同时弹出（左副手、右主手），复用步枪那套圆盘；
+            // 两盘共用一根自由指针，鼠标移到哪个盘里就改哪只手的弹种，不需要再点键选手。
+            if(IsDualWieldingPistols())AmmoWheel->OpenForDualPistols(DualPistols->Hand(0).Item.InstanceId,DualPistols->Hand(1).Item.InstanceId);
+            else AmmoWheel->OpenForWeapon(AmmoSelectionWeapon);
+            AmmoWheel->AddToViewport(45);
+            // 两把枪都取不到物品时没有盘可画，直接当作取消。
+            if(!AmmoWheel->HasDiscs())CancelAmmoSelection();
+        }
         else CancelAmmoSelection();
     }
 }
 void AFPSGAMECharacter::MoveAmmoPointer(FVector2D Delta)
-{if(AmmoWheel)AmmoWheel->MovePointer(Delta);}
-void AFPSGAMECharacter::SelectAmmoWheelHand(int32 Hand)
 {
-    if(!AmmoWheel||!IsDualWieldingPistols()||Hand<0||Hand>1)return;
-    AmmoWheel->OpenForWeapon(DualPistols->Hand(Hand).Item.InstanceId,Hand);
+    // 轴值 → 屏幕像素；轮盘内部再按 fps.AmmoWheel.PixelsPerRadius 换算成半径比例。
+    // MouseY 的 Scale=-1 已体现在传入值里，这里只换算单位，不翻转方向。
+    if(AmmoWheel)AmmoWheel->MovePointer(Delta*MouseAxisToScreenPixels(Cast<APlayerController>(Controller)));
 }
 void AFPSGAMECharacter::ReloadInputReleased()
 {
