@@ -1,0 +1,617 @@
+{
+  "task": "mutant3-feral-20260923",
+  "archive": "trash/mutant3-feral-20260923",
+  "state": "moved_and_sha256_verified",
+  "files": 76,
+  "bytes": 134588058,
+  "entries": [
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/ai_fix/before/MonsterAIController.h",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/ai_fix/before/MonsterAIController.h",
+      "bytes": 2019,
+      "sha256": "b28d3297e5994ba232a6368eaefd56133932cc7c007519185c238e75434d4bae",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/ai_fix/before/MonsterBTNodes.cpp",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/ai_fix/before/MonsterBTNodes.cpp",
+      "bytes": 2854,
+      "sha256": "6f88993cef377a75e913657bfc464c0a7120b7201b8168d02294e82d8c67e739",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/ai_fix/before/Mutant3.cpp",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/ai_fix/before/Mutant3.cpp",
+      "bytes": 13466,
+      "sha256": "3e03ee41f79b6f39cd941772b06a9f75d0bf11f7e309fe1f25146ceaf6c2deba",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/ai_fix/before/Mutant3.h",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/ai_fix/before/Mutant3.h",
+      "bytes": 5761,
+      "sha256": "e76cd0c1d8588c5483b4d3a5390b94dcfffb9fe3721287a483178bd1f48ef8bc",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/ai_fix/before/Mutant3Feral.cpp",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/ai_fix/before/Mutant3Feral.cpp",
+      "bytes": 12841,
+      "sha256": "6c7a3cffe2e5564025c0ae5b59badfd8594c9610f1748c5ded4756d08c697e8b",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/baseline/MonsterCombatComponent.cpp",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/baseline/MonsterCombatComponent.cpp",
+      "bytes": 15752,
+      "sha256": "4d37e45337b4eb32790e043cacf010aa15fb829b64a70e9521784cb7fa1818b3",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/baseline/Mutant3.cpp",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/baseline/Mutant3.cpp",
+      "bytes": 9573,
+      "sha256": "de368cf013d7f5b85192e4e3901567542dfcfcb0f83ef7749c929fa4da16b533",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/baseline/Mutant3.h",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/baseline/Mutant3.h",
+      "bytes": 2598,
+      "sha256": "6f7f8e270784589a964ddc60d0e4bc8f15fa85d590217dc6d9676d42cc22818b",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/SK_Mutant3_Claw_Skeleton.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/SK_Mutant3_Claw_Skeleton.uasset",
+      "bytes": 16063,
+      "sha256": "cdaa41a393e78e1d73eafa78d8736fd0f423d4814fa4182527cafdb86424ffe2",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/SK_Mutant3_Claw.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/SK_Mutant3_Claw.uasset",
+      "bytes": 3096303,
+      "sha256": "1d71252cd452419ca72b96cbc5e206438a4d935995706611538c3b64a36f768b",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_ClawA.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_ClawA.uasset",
+      "bytes": 144020,
+      "sha256": "56aa516bb5c6e1bfba9c4cd34ad7f696af4d1d8235bc6db019a00f5fa915c901",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_ClawB.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_ClawB.uasset",
+      "bytes": 150964,
+      "sha256": "d22fdd20097bbf098b84cc7778648b5322fd805c3b71903ad3312e3fc87e3475",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_ClawC.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_ClawC.uasset",
+      "bytes": 140052,
+      "sha256": "cc5498e2ae4780b4c176c94ff12eb6a460e1ddb473b94d033dd76d1dce28dab2",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_FeralIdle.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_FeralIdle.uasset",
+      "bytes": 952630,
+      "sha256": "bd37cb1f63f5055d936ba7feba3139e52a8fb99fb01b33d859b624b128786a9b",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_FeralRun.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_FeralRun.uasset",
+      "bytes": 377456,
+      "sha256": "651928deb15328c333174087462db2ce3475d4a1c93f3dc0c403b8660f6e224e",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_FeralSprint.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_FeralSprint.uasset",
+      "bytes": 262367,
+      "sha256": "da84f4edde399234a9999ad7b5772930733d4a0488b6a9a16ace68f53cabb41e",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceFlight.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceFlight.uasset",
+      "bytes": 179038,
+      "sha256": "c2636489936b96e4acef6563f22ecedb08036a19e14e37ef033cefe3a9f2a023",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceLand.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceLand.uasset",
+      "bytes": 199378,
+      "sha256": "cc89ecf6ef347269693724a5b53bc8d54fde4c3796db6395e04ea4c5e90bc58b",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceWindup.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceWindup.uasset",
+      "bytes": 162398,
+      "sha256": "5b58b752d310d36b6ba2d3e8f389fd79c3c497c308a9e489365fcc7b45808aab",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/hand_ground_fix/Mutant3_Khaimera_ClawGrounded.blend1",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/hand_ground_fix/Mutant3_Khaimera_ClawGrounded.blend1",
+      "bytes": 21625963,
+      "sha256": "537fcb4411e4805e5d612b0c435cbc266211ec6f7b1c92ff8b84bafd971ae032",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/material_return_fix/before/FPSGAME.Build.cs",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/material_return_fix/before/FPSGAME.Build.cs",
+      "bytes": 2345,
+      "sha256": "62d905bbb0d2578dbfa3955e0de45ca4f05014c2972ea817cc3cdfd3f438a547",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/material_return_fix/before/import_open_claw.py",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/material_return_fix/before/import_open_claw.py",
+      "bytes": 6272,
+      "sha256": "17a2fb16376bc0122f9eaaf5723b7929bc3c30eff27696f4f0cab78b0bbfccaf",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/material_return_fix/before/MonsterAIController.cpp",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/material_return_fix/before/MonsterAIController.cpp",
+      "bytes": 11492,
+      "sha256": "372ab247f203f119db655a34b39a58a763a4ab95b835e881402efb95cf71ab3c",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/material_return_fix/before/Mutant3.h",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/material_return_fix/before/Mutant3.h",
+      "bytes": 6088,
+      "sha256": "02bda1ceb4e003c9a3ea76303acc676e4c06b33b4ecd952c14b68873bf7297e0",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/material_return_fix/before/SK_Mutant3_Claw.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/material_return_fix/before/SK_Mutant3_Claw.uasset",
+      "bytes": 3102804,
+      "sha256": "1fc75d44ffd48e55deaa04e65852cdd771a0ecfa6b517cb478001ccd757ebb32",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_arm_refine/author_arm_only_attempt.py",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_arm_refine/author_arm_only_attempt.py",
+      "bytes": 6047,
+      "sha256": "a05ca396169e7bdc09f1ee52d704dfb01263a3d27f35d69a8575a1db8bdae05c",
+      "reason": "Rejected independent arm/wrist solving, or its historical comparison tool",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_arm_refine/before_content/Monsters/Mutant3Meshy/KhaimeraV2/SK_Mutant3_Claw_Skeleton.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_arm_refine/before_content/Monsters/Mutant3Meshy/KhaimeraV2/SK_Mutant3_Claw_Skeleton.uasset",
+      "bytes": 22336,
+      "sha256": "3150aebe5a8e86fcc7013c6607b048f30e815984a39ebc4ee72477989d0e9545",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_arm_refine/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceFlight.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_arm_refine/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceFlight.uasset",
+      "bytes": 178276,
+      "sha256": "73fa80341de3df3120654f22571a2f977e6be6f4cc98db9c7578626a51584e51",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_arm_refine/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceLand.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_arm_refine/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceLand.uasset",
+      "bytes": 204958,
+      "sha256": "d8f163a3b747390f652633ada63d7ecc938df7b547a201f4edf4b15784301e91",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_arm_refine/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceWindup.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_arm_refine/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceWindup.uasset",
+      "bytes": 192711,
+      "sha256": "45d68ec89185c628587948d19248a6bbfdc8b55a64f9b42e5fdf1e8fae251eef",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_arm_refine/inspect_reference_arms.py",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_arm_refine/inspect_reference_arms.py",
+      "bytes": 5541,
+      "sha256": "025b6333029da3c4b20c572c06a652bfbe7411b118fc0b09441eb5ca7e2d6c53",
+      "reason": "Rejected independent arm/wrist solving, or its historical comparison tool",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_arm_refine/Mutant3_Pounce_ReferenceRake.blend1",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_arm_refine/Mutant3_Pounce_ReferenceRake.blend1",
+      "bytes": 22033255,
+      "sha256": "5d7cdfed5c5bebe88fd6b03d14bbba3701825be9445657926fee6b04edadf575",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/animation_contract.json",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/animation_contract.json",
+      "bytes": 1391,
+      "sha256": "fbf95d091ab2c60a0cf5ee971912fee78d5dece2333ccc06345cfb80b4d6a9b6",
+      "reason": "Rejected independent arm/wrist solving, or its historical comparison tool",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/author_pounce_downclaw.py",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/author_pounce_downclaw.py",
+      "bytes": 7898,
+      "sha256": "1d36dfbb6c1fe010bd1365570c60bf923ef76f5f70d3961f79322c028aa6e741",
+      "reason": "Rejected independent arm/wrist solving, or its historical comparison tool",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/authoring.log",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/authoring.log",
+      "bytes": 1354,
+      "sha256": "b406101c912a2aacfd9a5c2006488b5888a3c24c00278538fbe29be4def6117b",
+      "reason": "Rejected independent arm/wrist solving, or its historical comparison tool",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/commandlet-output.log",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/commandlet-output.log",
+      "bytes": 231360,
+      "sha256": "94d2ceeb4dd08185e12cc4dbc3617a61534c8a1bce54cc2217776091b0049f36",
+      "reason": "Rejected independent arm/wrist solving, or its historical comparison tool",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/commandlet.log",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/commandlet.log",
+      "bytes": 230264,
+      "sha256": "35875cd3a2391922789bd076709145663c10fdd3fa54143ce071e9f7955204e4",
+      "reason": "Rejected independent arm/wrist solving, or its historical comparison tool",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/import_pounce_downclaw.py",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/import_pounce_downclaw.py",
+      "bytes": 4583,
+      "sha256": "a0d569689807484aa086485a2496ec174b30ae8299dd2a733bc4ce575188504f",
+      "reason": "Rejected independent arm/wrist solving, or its historical comparison tool",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/import_state.json",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/import_state.json",
+      "bytes": 888,
+      "sha256": "687ff549d26e62f45d3974d25f0792e18a48ea58389beab395ced166aa81195e",
+      "reason": "Rejected independent arm/wrist solving, or its historical comparison tool",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/import-editor-01.txt",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/import-editor-01.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Rejected independent arm/wrist solving, or its historical comparison tool",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/Mutant3_Pounce_DownClaw.blend",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/Mutant3_Pounce_DownClaw.blend",
+      "bytes": 22050953,
+      "sha256": "2b2e191e9ffa89dfcfc0d39890a1109e172337a8519eb7da6497fa38cc7ae82f",
+      "reason": "Rejected independent arm/wrist solving, or its historical comparison tool",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/staging_inputs.json",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/staging_inputs.json",
+      "bytes": 911,
+      "sha256": "edad03c9a3df3f4a0ee97b4e356400b60fb610ad8205f5d3986fe3cc6491733f",
+      "reason": "Rejected independent arm/wrist solving, or its historical comparison tool",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/animations/A_Mutant3_PounceFlight.fbx",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/animations/A_Mutant3_PounceFlight.fbx",
+      "bytes": 1390188,
+      "sha256": "202b4a91573345d5afb1ef8bb3de4813b075a626611c50f3d082f84844a89f20",
+      "reason": "Rejected independent arm/wrist solving, or its historical comparison tool",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/animations/A_Mutant3_PounceLand.fbx",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/animations/A_Mutant3_PounceLand.fbx",
+      "bytes": 1430492,
+      "sha256": "7891dfebd586e3c0e7366d308b77feaca44818b8a4e14c196525326eaecfe826",
+      "reason": "Rejected independent arm/wrist solving, or its historical comparison tool",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/animations/A_Mutant3_PounceWindup.fbx",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/animations/A_Mutant3_PounceWindup.fbx",
+      "bytes": 1371308,
+      "sha256": "77c02151bc1198e30922f3f64a839142f2aed2a62b3dd8b8f0520b17cceee1a8",
+      "reason": "Rejected independent arm/wrist solving, or its historical comparison tool",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/before_content/Monsters/Mutant3Meshy/KhaimeraV2/SK_Mutant3_Claw_Skeleton.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/before_content/Monsters/Mutant3Meshy/KhaimeraV2/SK_Mutant3_Claw_Skeleton.uasset",
+      "bytes": 22336,
+      "sha256": "3150aebe5a8e86fcc7013c6607b048f30e815984a39ebc4ee72477989d0e9545",
+      "reason": "Rejected independent arm/wrist solving, or its historical comparison tool",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceFlight.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceFlight.uasset",
+      "bytes": 184598,
+      "sha256": "1580615f153cbbdb27f1be18ada7820fb115eecb33052882960e5376c224dd8d",
+      "reason": "Rejected independent arm/wrist solving, or its historical comparison tool",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceLand.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceLand.uasset",
+      "bytes": 209584,
+      "sha256": "6f921aa69dfb5273fe70d91a23b6641de2680b38f0cd96aa2fffd7e6bd0d7a61",
+      "reason": "Rejected independent arm/wrist solving, or its historical comparison tool",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceWindup.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_downclaw/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceWindup.uasset",
+      "bytes": 170137,
+      "sha256": "7f5aa0922d9fe4ee3c830af171dfbf013947599251b44a1b036ab2a49210cb66",
+      "reason": "Rejected independent arm/wrist solving, or its historical comparison tool",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_impact_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceFlight.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_impact_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceFlight.uasset",
+      "bytes": 182467,
+      "sha256": "7d9034109d27d77038b707ae7040cbc2528e60c047954407ee56f7a45d1d59b4",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_impact_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceLand.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_impact_20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceLand.uasset",
+      "bytes": 200424,
+      "sha256": "1b938d185a08cef5bb73aa99918fed488aebad0e895d2f3d314433212cd44f24",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_impact_20260923/before_source/Mutant3.h",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_impact_20260923/before_source/Mutant3.h",
+      "bytes": 6208,
+      "sha256": "10b06705ecde1b7a7900df5fd400ae8c6c8f973b1c9b76bd078d46ed06b98123",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/pounce_impact_20260923/before_source/Mutant3Feral.cpp",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/pounce_impact_20260923/before_source/Mutant3Feral.cpp",
+      "bytes": 13334,
+      "sha256": "7c4239dd7aeaf36c84e05be96f6f2ebadde7e83a8a580173d419a3e3813c3c52",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/texture_fix/before_content/Monsters/Mutant3Meshy/Materials/M_Mutant3_Meshy.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/texture_fix/before_content/Monsters/Mutant3Meshy/Materials/M_Mutant3_Meshy.uasset",
+      "bytes": 7627,
+      "sha256": "c79cc99d82f2fca940f9a8713dd2429510b30648c39f97ff7bbb549550f561c4",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/texture_fix/Mutant3_Textured_Preview.blend1",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/texture_fix/Mutant3_Textured_Preview.blend1",
+      "bytes": 27739941,
+      "sha256": "535ad69b291c2c2af580ce0663818b41541ca7ce0ec1df7497f3324d232fe3c7",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/transitions/before/FatZombieAnimInstance.cpp",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/transitions/before/FatZombieAnimInstance.cpp",
+      "bytes": 9261,
+      "sha256": "a4599943abeb28cc83226f12510bfc8161800b0f815a0d4deacaa139bdd967a0",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/transitions/before/FatZombieAnimInstance.h",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/transitions/before/FatZombieAnimInstance.h",
+      "bytes": 1828,
+      "sha256": "6448e6623ad64d40e6fc06894d03d70db7cdb89320ca9e6d152180463372b2a4",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/transitions/before/Mutant3.cpp",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/transitions/before/Mutant3.cpp",
+      "bytes": 11688,
+      "sha256": "bb6f9471f0a8555480efa67b53a429f576e30d7d318e5043fff354088828b28e",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/transitions/before/Mutant3.h",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/transitions/before/Mutant3.h",
+      "bytes": 5668,
+      "sha256": "d9ca7503f8cf8ba75a0f35455914af18f1a292edf03db2d335290ddc7fbe69ec",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3Khaimera20260923/transitions/before/Mutant3Feral.cpp",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3Khaimera20260923/transitions/before/Mutant3Feral.cpp",
+      "bytes": 12619,
+      "sha256": "159248714293f41c2b1c90792f0357db59868262d387fb37c78e7a4f408cd1ae",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3LandingFX20260923/before_source/FPSImpactFXSubsystem.cpp",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3LandingFX20260923/before_source/FPSImpactFXSubsystem.cpp",
+      "bytes": 31374,
+      "sha256": "0439d331c8da336c0d5473e10437b53ca3765e0c4c3e6c32c541ed806320693e",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3LandingFX20260923/before_source/FPSImpactFXSubsystem.h",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3LandingFX20260923/before_source/FPSImpactFXSubsystem.h",
+      "bytes": 4852,
+      "sha256": "b4b060a2077ffc755951925abaa6224d76d9179cef08ca191f215558f6c1e144",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3LandingFX20260923/before_source/Mutant3Feral.cpp",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3LandingFX20260923/before_source/Mutant3Feral.cpp",
+      "bytes": 15622,
+      "sha256": "788598b28801a5a81c39f931f4c1561b7799cc6d0c92e287a7c72e3318701615",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3PounceLead20260923/before_source/Source/FPSGAME/Monsters/Mutant3.h",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3PounceLead20260923/before_source/Source/FPSGAME/Monsters/Mutant3.h",
+      "bytes": 6904,
+      "sha256": "af0ed3ab2189ae3f19f00da2aec4ecb6ffffe285ef947306310c88d0fd6a6783",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3PounceLead20260923/before_source/Source/FPSGAME/Monsters/Mutant3Feral.cpp",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3PounceLead20260923/before_source/Source/FPSGAME/Monsters/Mutant3Feral.cpp",
+      "bytes": 16557,
+      "sha256": "02aa32dd46d12c0e90d1b9c7eade358f17a94861265727f8578481019c05297e",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3SurfacePolish20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/SK_Mutant3_Claw.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3SurfacePolish20260923/before_content/Monsters/Mutant3Meshy/KhaimeraV2/SK_Mutant3_Claw.uasset",
+      "bytes": 3102925,
+      "sha256": "a356313765a4da68930ef8e60ccf419e9341275e87382c4e9fcd291b0b514f8c",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3SurfacePolish20260923/before_content/Monsters/Mutant3Meshy/SurfacePolish/Textures/T_Mutant3Surface_BaseColor.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3SurfacePolish20260923/before_content/Monsters/Mutant3Meshy/SurfacePolish/Textures/T_Mutant3Surface_BaseColor.uasset",
+      "bytes": 8661486,
+      "sha256": "b706d44290f0161f6dfd0d1023349cfbec2263513f62459173647aad82c97bac",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3SurfacePolish20260923/before_content/Monsters/Mutant3Meshy/SurfacePolish/Textures/T_Mutant3Surface_Normal.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3SurfacePolish20260923/before_content/Monsters/Mutant3Meshy/SurfacePolish/Textures/T_Mutant3Surface_Normal.uasset",
+      "bytes": 5206472,
+      "sha256": "10ab9831193c5f85253ac1ec066e8a6b6c77f4baa059c3b808d486afa4d3910e",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3SurfacePolish20260923/before_content/Monsters/Mutant3Meshy/SurfacePolish/Textures/T_Mutant3Surface_ORM.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3SurfacePolish20260923/before_content/Monsters/Mutant3Meshy/SurfacePolish/Textures/T_Mutant3Surface_ORM.uasset",
+      "bytes": 4425692,
+      "sha256": "7a91c3432108403f9de2f82daef63ee377e6a10de5110633203f8054e4daa7db",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3SurfacePolish20260923/before_content/Monsters/Mutant3Meshy/SurfacePolish/Textures/T_Mutant3Surface_TissueMasks.uasset",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3SurfacePolish20260923/before_content/Monsters/Mutant3Meshy/SurfacePolish/Textures/T_Mutant3Surface_TissueMasks.uasset",
+      "bytes": 3542389,
+      "sha256": "4ef3f97d46e9cfad334e470979e1bc476318580245a25217333a42850e09b4e3",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3SurfacePolish20260923/before_source/Source/FPSGAME/Monsters/Mutant3.cpp",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3SurfacePolish20260923/before_source/Source/FPSGAME/Monsters/Mutant3.cpp",
+      "bytes": 14467,
+      "sha256": "a2d03667d1d9e1bcbdb165925e8721b95741ef18ae54f6357ac0c1bf52e66b95",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3SurfacePolish20260923/before_source/Source/FPSGAME/Monsters/Mutant3.h",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3SurfacePolish20260923/before_source/Source/FPSGAME/Monsters/Mutant3.h",
+      "bytes": 6717,
+      "sha256": "c57b375e47d6305bb4107e17a56fed9cabb532a230e34eb3b2e9fde38ed70d4f",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3SurfacePolish20260923/before_source/Source/FPSGAME/Monsters/Mutant3Surface.cpp",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3SurfacePolish20260923/before_source/Source/FPSGAME/Monsters/Mutant3Surface.cpp",
+      "bytes": 3334,
+      "sha256": "bababa45f5ae900b60772832cf61637aa7f05b1fec51ed047f3c9b1798df2aab",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3SurfacePolish20260923/before_source/SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/author_open_claw.py",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3SurfacePolish20260923/before_source/SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/author_open_claw.py",
+      "bytes": 10188,
+      "sha256": "c967855fb2707170f9c59c6c2a11fe66a4afcda1fff09b7515cda32a69e9d091",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3SurfacePolish20260923/before_source/SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/import_open_claw.py",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3SurfacePolish20260923/before_source/SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/import_open_claw.py",
+      "bytes": 6854,
+      "sha256": "ff6b46e70bdf754349fe24eea7a8730f9797416b89495e7863850867c7229de6",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    },
+    {
+      "original": "SourceAssets/Mutant3SurfacePolish20260923/before_source/SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/SK_Mutant3_Claw.fbx",
+      "destination": "trash/mutant3-feral-20260923/SourceAssets/Mutant3SurfacePolish20260923/before_source/SourceAssets/Mutant3Khaimera20260923/claw_reference_20260923/SK_Mutant3_Claw.fbx",
+      "bytes": 889084,
+      "sha256": "79e5a0527e5d33fa6cb0711c67c48cc219b3e5fa7a087177f6dd6c19ed673414",
+      "reason": "Superseded recovery snapshot; retained as restorable local history",
+      "replacement": "SourceAssets/Mutant3Khaimera20260923/{claw_reference_20260923,pounce_arm_refine,pounce_impact_20260923}; SourceAssets/Mutant3SurfacePolish20260923; current Source/FPSGAME"
+    }
+  ]
+}

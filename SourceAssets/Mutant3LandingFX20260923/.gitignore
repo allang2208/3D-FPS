@@ -1,0 +1,10 @@
+# Publish reviewed author recipes and recovery prose only. Licensed payloads, dense samples, backups and local tool output stay on the host.
+*
+!*/
+!.gitignore
+!README.md
+!/author_assets.py
+before*/
+**/before*/
+baseline/
+UEAuthoring/

@@ -1,6 +1,7 @@
 #include "MonsterAIController.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterBTNodes.h"
+#include "Mutant3.h"
 #include "FPSCombatHealthComponent.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BlackboardComponent.h"
@@ -50,42 +51,59 @@ void AMonsterAIController::Perceived(AActor* Actor,FAIStimulus Stimulus)
 {
  auto* P=Cast<APawn>(Actor);auto* C=Combat();
  if(!P||!P->IsPlayerControlled()||!C||C->IsDead()||C->AggroRange()<=0||!Stimulus.WasSuccessfullySensed())return;
- KnownTarget=P;LastKnown=Stimulus.StimulusLocation;LastEvidence=GetWorld()->GetTimeSeconds();UpdateKnowledge();
+ KnownTarget=P;
+ // Stimuli are usually at torso/weapon height. Preserve their XY evidence,
+ // but store a feet-height navigation goal for characters on stacked floors.
+ LastKnown=Stimulus.StimulusLocation;
+ LastKnown.Z-=P->GetActorLocation().Z-P->GetNavAgentLocation().Z;
+ LastEvidence=GetWorld()->GetTimeSeconds();UpdateKnowledge();
 }
 void AMonsterAIController::RememberDamage(APawn* P)
 {
- if(!IsValid(P)||P==GetPawn())return;KnownTarget=P;LastKnown=P->GetActorLocation();LastEvidence=GetWorld()->GetTimeSeconds();UpdateKnowledge();
+ if(!IsValid(P)||P==GetPawn())return;KnownTarget=P;LastKnown=P->GetNavAgentLocation();LastEvidence=GetWorld()->GetTimeSeconds();UpdateKnowledge();
 }
 void AMonsterAIController::UpdateKnowledge()
 {
  auto* C=Combat();auto* B=GetBlackboardComponent();if(!C||!B||!GetPawn())return;
  const bool Disabled=!bDecisionEnabled||!GetPawn()->IsActorTickEnabled();
+ const bool FeralPursuit=GetPawn()->IsA<AMutant3>();
  B->SetValueAsBool(TEXT("Hold"),Disabled||C->IsBusy());
  if(C->IsDead()){StopMovement();if(BrainComponent)BrainComponent->StopLogic(TEXT("Dead"));ActiveAction=TEXT("Dead");return;}
  // Perception updates report changes, not every visible frame. Reacquire from
  // its sight cache after a home/target reset without requiring a second event.
- if(!KnownTarget.IsValid()&&!bReturning&&C->AggroRange()>0)
+ if(!KnownTarget.IsValid()&&(!bReturning||FeralPursuit)&&C->AggroRange()>0)
  {
   TArray<AActor*> Seen;Senses->GetCurrentlyPerceivedActors(UAISense_Sight::StaticClass(),Seen);
   float Best=FMath::Square(C->AggroRange());
   for(auto* Actor:Seen)if(auto* P=Cast<APawn>(Actor))if(P->IsPlayerControlled())
   {
    auto* Health=P->FindComponentByClass<UFPSCombatHealthComponent>();const float D=FVector::DistSquared2D(P->GetActorLocation(),GetPawn()->GetActorLocation());
-   if((!Health||!Health->IsDead())&&D<Best){Best=D;KnownTarget=P;LastKnown=P->GetActorLocation();LastEvidence=GetWorld()->GetTimeSeconds();}
+   if((!Health||!Health->IsDead())&&D<Best){Best=D;KnownTarget=P;LastKnown=P->GetNavAgentLocation();LastEvidence=GetWorld()->GetTimeSeconds();}
   }
  }
  bool Valid=KnownTarget.IsValid();
  if(Valid){auto* H=KnownTarget->FindComponentByClass<UFPSCombatHealthComponent>();Valid=!H||!H->IsDead();}
  const float Now=GetWorld()->GetTimeSeconds();
- bool Visible=Valid&&C->AggroRange()>0&&FVector::Dist2D(KnownTarget->GetActorLocation(),GetPawn()->GetActorLocation())<=C->AggroRange()&&LineOfSightTo(KnownTarget.Get());
- if(Visible){LastKnown=KnownTarget->GetActorLocation();LastEvidence=Now;}
+ // Detection and retention are different distances. Once this hunter knows
+ // a target, honor perception's lose-sight radius instead of expiring memory
+ // just because the player stepped outside the initial 12 m aggro radius.
+ float TrackingRange=C->AggroRange();
+ if(FeralPursuit&&TrackingRange>0)
+  if(const auto* Sight=Senses->GetSenseConfig<UAISenseConfig_Sight>())TrackingRange=FMath::Max(TrackingRange,Sight->LoseSightRadius);
+ bool Visible=Valid&&C->AggroRange()>0&&FVector::Dist2D(KnownTarget->GetActorLocation(),GetPawn()->GetActorLocation())<=TrackingRange&&LineOfSightTo(KnownTarget.Get());
+ if(Visible){LastKnown=KnownTarget->GetNavAgentLocation();LastEvidence=Now;}
  if(!Valid||C->AggroRange()<=0||Now-LastEvidence>MemorySeconds){KnownTarget.Reset();Valid=false;}
- if(FVector::Dist2D(GetPawn()->GetActorLocation(),C->Home())>C->LeashRange())bReturning=true;
- if(!Valid&&FVector::Dist2D(GetPawn()->GetActorLocation(),C->Home())>80)bReturning=true;
- if(bReturning&&FVector::Dist2D(GetPawn()->GetActorLocation(),C->Home())<80){bReturning=false;KnownTarget.Reset();Valid=false;C->ReachedHome();LastEvidence=-100;}
+ // A feral hunter keeps a living target while it is seen or remembered. The
+ // shared 24 m home leash used to override sight, then reacquire the same
+ // player at home forever. Other monsters retain their configured home leash.
+ if(Valid&&FeralPursuit)bReturning=false;
+ else if(FVector::Dist2D(GetPawn()->GetActorLocation(),C->Home())>C->LeashRange())bReturning=true;
+ const FVector HomeFeet=C->Home()-(GetPawn()->GetActorLocation()-GetPawn()->GetNavAgentLocation());
+ if(!Valid&&(FVector::Dist2D(GetPawn()->GetNavAgentLocation(),HomeFeet)>80||FMath::Abs(GetPawn()->GetNavAgentLocation().Z-HomeFeet.Z)>50))bReturning=true;
+ if(bReturning&&FVector::Dist2D(GetPawn()->GetNavAgentLocation(),HomeFeet)<80&&FMath::Abs(GetPawn()->GetNavAgentLocation().Z-HomeFeet.Z)<50){bReturning=false;KnownTarget.Reset();Valid=false;C->ReachedHome();LastEvidence=-100;}
  C->SetTarget(Valid&&!bReturning?KnownTarget.Get():nullptr);
  B->SetValueAsObject(TEXT("Target"),Valid?KnownTarget.Get():nullptr);
- B->SetValueAsVector(TEXT("LastKnown"),LastKnown);B->SetValueAsVector(TEXT("Home"),C->Home());
+ B->SetValueAsVector(TEXT("LastKnown"),LastKnown);B->SetValueAsVector(TEXT("Home"),HomeFeet);
  B->SetValueAsBool(TEXT("Visible"),Visible);B->SetValueAsBool(TEXT("Returning"),bReturning);
  B->SetValueAsBool(TEXT("CanAttack"),!bReturning&&Visible&&C->CanAttack(KnownTarget.Get()));
  B->SetValueAsBool(TEXT("HasTarget"),Valid&&!bReturning);

@@ -1,0 +1,27 @@
+# Publish reviewed author recipes and recovery prose only. Licensed payloads, dense samples, backups and local tool output stay on the host.
+*
+!*/
+!.gitignore
+!README.md
+!/retarget_khaimera.py
+!/author_feral.py
+!/import_feral.py
+!/hand_ground_fix/author_claw_skin.py
+!/hand_ground_fix/author_fixed.py
+!/hand_ground_fix/import_fixed.py
+!/hand_ground_fix/inspect_fingers.py
+!/claw_reference_20260923/author_open_claw.py
+!/claw_reference_20260923/import_open_claw.py
+!/pounce_arm_refine/author_reference_rake.py
+!/pounce_arm_refine/import_reference_rake.py
+!/pounce_impact_20260923/author_downward_hands.py
+!/pounce_impact_20260923/install_downward_hands.py
+!/transitions/inspect_transitions.py
+!/transitions/build_gait_map.py
+!/material_return_fix/repair_surface.py
+!/texture_fix/repair_ue_material.py
+!/texture_fix/save_repaired_material.py
+before*/
+**/before*/
+baseline/
+UEAuthoring/

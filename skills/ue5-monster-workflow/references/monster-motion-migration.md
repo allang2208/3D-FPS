@@ -1,6 +1,6 @@
 # 怪物动作选源、迁移与废案整理
 
-适用：把已有 Godot 或第三方人形动作迁移到 UE 怪物，替换某几个动作，并整理被替代的制作文件。突变体-3 的 Godot 跑步已于 2026-09-15 导入，尚未获用户游戏效果认可；不能标为成功动作模板。默认由用户测试，不因本参考启动游戏或渲染。
+适用：把已有 Godot 或第三方人形动作迁移到 UE 怪物，替换某几个动作，并整理被替代的制作文件。2026-09-15 的 Godot 跑步是历史方案，已被 Khaimera 狂奔路线替代；现行案例与用户认可边界见 [狂奔人形与飞扑](feral-humanoid-pounce.md)。默认由用户测试，不因本参考启动游戏或渲染。
 
 ## 从实际运行引用找动作
 
@@ -13,7 +13,7 @@
 - 普通 Jog 加一点僵尸上身不等于发狂丧尸狂奔。本例这条适配已被用户否定，后续必须更换符合意图的源动作，不能只加速或反复微调同一个失败方案。
 - 站立受击读取反应峰值、保持点及恢复段。Hit_Knockback 在本例会双脚离地、躺倒，已改用 Hit_Chest；倒地动作不能仅裁剪时长就声称适合站立硬直。
 - GitHub 托管不自动代表免费可用。记录动作原作者、原许可、源文件/版本、改动及模型独立授权；免费样包是否含目标片段需按实际文件判断。Hyper Chase 商业产品名不能被解释为已下载样包含 Hyper Chase；未采用候选不能称已接入。
-- 当前 Running / RunFast 来源是 Denys Almaral，CC BY 4.0，交付/发行保留作者、链接、许可及改动说明；Mesh2Motion CC0 只覆盖对应动作，不覆盖 Denys 动作或用户 Meshy 模型。署名入口见本仓库 `SourceAssets/Mutant3Meshy20260915/godot_runner/README.md`。
+- 历史 Running / RunFast 来源是 Denys Almaral，CC BY 4.0，交付/发行保留作者、链接、许可及改动说明；Mesh2Motion CC0 只覆盖对应动作，不覆盖 Denys 动作或用户 Meshy 模型。署名入口见本仓库 `SourceAssets/Mutant3Meshy20260915/godot_runner/README.md`。
 
 ## 迁移与局部替换
 

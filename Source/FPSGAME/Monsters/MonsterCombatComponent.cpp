@@ -3,6 +3,7 @@
 #include "MonsterCombatTuning.h"
 #include "MonsterAIController.h"
 #include "NurseZombie.h"
+#include "Mutant3.h"
 #include "HandBrainMonster.h"
 #include "PoisonMaggotMonster.h"
 #include "WolfMonster.h"
@@ -64,6 +65,7 @@ bool UMonsterCombatComponent::CanAttack(APawn* P) const
 {
  if(!IsValid(P)||IsBusy())return false;
  if(auto* Witch=Cast<AWitchMonster>(GetOwner()))return Witch->CanCast(P);
+ if(auto* Mutant=Cast<AMutant3>(GetOwner()))return Mutant->CanStartFeralAttack(P);
  if(auto* W=Cast<AWolfMonster>(GetOwner()))return W->CanAttack(P);
  if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->CanSpit(P);
  const float D=FVector::Dist2D(P->GetActorLocation(),GetOwner()->GetActorLocation());
@@ -74,6 +76,7 @@ bool UMonsterCombatComponent::CanAttack(APawn* P) const
 bool UMonsterCombatComponent::TryAttack(APawn* P)
 {
  if(!GetOwner()->HasAuthority()||!CanAttack(P))return false;SetTarget(P);
+ if(auto* Mutant=Cast<AMutant3>(GetOwner()))return Mutant->StartFeralAttack(P);
  if(auto* W=Cast<AWolfMonster>(GetOwner()))return W->StartAttack(P);
  if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->StartSpit(P);
  if(auto* N=Cast<ANurseZombie>(GetOwner()))

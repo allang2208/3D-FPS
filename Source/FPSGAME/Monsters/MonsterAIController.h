@@ -23,6 +23,8 @@ public:
  void UpdateKnowledge();
  void RememberDamage(APawn* Attacker);
  void NavigateTo(FVector Destination,float Acceptance);
+ /** Mutant pursuit returns whether a real path is active, including bounded blocked-path retries. */
+ bool NavigateFeralTo(FVector Destination,float Acceptance,APawn* VisibleTarget);
  UMonsterCombatComponent* Combat() const;
  UFUNCTION(BlueprintCallable,Category="MonsterAI") void SetDecisionEnabled(bool Enabled);
  UFUNCTION(BlueprintCallable,Category="MonsterAI|Editor") static bool BuildTree(UBehaviorTree* Tree);

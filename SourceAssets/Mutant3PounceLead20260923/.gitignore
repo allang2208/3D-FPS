@@ -1,0 +1,9 @@
+# Publish reviewed author recipes and recovery prose only. Licensed payloads, dense samples, backups and local tool output stay on the host.
+*
+!*/
+!.gitignore
+!README.md
+before*/
+**/before*/
+baseline/
+UEAuthoring/

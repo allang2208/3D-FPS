@@ -20,8 +20,8 @@ namespace FPSImpact
     static TAutoConsoleVariable<float> MaxDistance(TEXT("fps.Impact.MaxDistance"), 12000.f, TEXT("Impact FX cull distance in cm, adjusted for optics."));
     static TAutoConsoleVariable<float> DetailDistance(TEXT("fps.Impact.DetailDistance"), 2500.f, TEXT("Full impact detail distance in cm."));
     static TAutoConsoleVariable<float> BurstsPerSecond(TEXT("fps.Impact.BurstsPerSecond"), 40.f, TEXT("World-wide cosmetic impact rate; no effect on damage."));
-    constexpr int32 Starts[] = {0,48,72,104,128};
-    constexpr int32 Counts[] = {48,24,32,24,96};
+    constexpr int32 Starts[] = {0,48,72,104,128,224};
+    constexpr int32 Counts[] = {48,24,32,24,96,4};
     constexpr const TCHAR* Names[] = {TEXT("Metal"),TEXT("Wood"),TEXT("Stone"),TEXT("Dirt"),TEXT("Glass"),TEXT("Flesh")};
     EFPSImpactSurface FromName(const FString& Name)
     {
@@ -58,6 +58,10 @@ UFPSImpactFXSubsystem::UFPSImpactFXSubsystem()
     }
     ConstructorHelpers::FObjectFinder<UMaterialInterface> BloodMark(TEXT("/Game/Weapons/GunplayFX/Impacts/Blood/M_FleshStainV2.M_FleshStainV2"));
     BloodStainMaterial = BloodMark.Object;
+    ConstructorHelpers::FObjectFinder<UMaterialInterface> GroundWave(TEXT("/Game/Monsters/Mutant3Meshy/Effects/M_Mutant3LandingWave.M_Mutant3LandingWave"));
+    ParticleMaterials.Add(GroundWave.Object);
+    ConstructorHelpers::FObjectFinder<USoundBase> PounceSound(TEXT("/Game/Monsters/Mutant3Meshy/Effects/S_Mutant3PounceImpact.S_Mutant3PounceImpact"));
+    PounceImpactSound = PounceSound.Object;
     for (const TCHAR* Name : FPSImpact::Names)
     {
         const FString DecalPath = FString::Printf(TEXT("/Game/Weapons/GunplayFX/Impacts/MI_ImpactMark_%s.MI_ImpactMark_%s"), Name, Name);
@@ -79,14 +83,14 @@ void UFPSImpactFXSubsystem::OnWorldBeginPlay(UWorld& InWorld)
 {
     Super::OnWorldBeginPlay(InWorld);
     if (InWorld.GetNetMode() == NM_DedicatedServer || !PlaneMesh || !ChipMesh) return;
-    for (const auto& Material : ParticleMaterials)
-        if (!Material) return;
+    for (int32 Group=0; Group<5; ++Group)
+        if (!ParticleMaterials[Group]) return;
     for (auto& Surface : SurfaceTypes) Surface = EFPSImpactSurface::Unknown;
     for (const FPhysicalSurfaceName& Surface : UPhysicsSettings::Get()->PhysicalSurfaces)
         if (Surface.Type > SurfaceType_Default && Surface.Type < SurfaceType_Max)
             SurfaceTypes[Surface.Type] = FPSImpact::FromName(Surface.Name.ToString());
     SurfaceCache.Reserve(256);
-    // Allocate at world start, never on the shot path. Five shared materials,
+    // Allocate at world start, never on the contact path. Shared materials,
     // no per-particle components, MIDs, physics bodies, lights or shadow passes.
     for (int32 Group=0; Group<ParticleGroups; ++Group)
     {
@@ -140,6 +144,19 @@ void UFPSImpactFXSubsystem::OnWorldBeginPlay(UWorld& InWorld)
         Voice->SetAttenuationOverrides(Attenuation);
         Voice->RegisterComponentWithWorld(&InWorld);
         Voices.Add(Voice);
+    }
+    Attenuation.AttenuationShapeExtents = FVector(120.f);
+    Attenuation.FalloffDistance = 1880.f;
+    Attenuation.bEnableOcclusion = true;
+    Attenuation.OcclusionVolumeAttenuation = .35f;
+    Attenuation.OcclusionLowPassFilterFrequency = 1200.f;
+    for (int32 I=0; I<2; ++I)
+    {
+        auto* Voice = NewObject<UAudioComponent>(this);
+        Voice->bAutoDestroy = false; Voice->SetAutoActivate(false);
+        Voice->bOverrideAttenuation = true; Voice->SetAttenuationOverrides(Attenuation);
+        Voice->SetSound(PounceImpactSound); Voice->RegisterComponentWithWorld(&InWorld);
+        PounceVoices.Add(Voice);
     }
     LastBudgetTime = InWorld.GetTimeSeconds();
     bReady = true;
@@ -299,7 +316,7 @@ void UFPSImpactFXSubsystem::AddFleshBurst(const FHitResult& Hit,const FVector& N
     // Entry spray leaves the actual struck surface. Bias glancing hits toward
     // the incoming bullet, rather than tying a red cloud to the camera or bone.
     const FVector Axis=(Normal*.72f-Incoming*.28f).GetSafeNormal(SMALL_NUMBER,Normal);
-    for(int32 Group=3;Group<ParticleGroups;++Group)
+    for(int32 Group=3;Group<=4;++Group)
     {
         const int32 Wanted=Group==3?(Full?3:Far?1:2):(Far?1:Full?11:6);
         int32 Added=0;
@@ -504,7 +521,7 @@ void UFPSImpactFXSubsystem::Tick(float DeltaTime)
             }
             const FVector Velocity=P.Velocity*Damping+FVector(0,0,P.Gravity*Age);
             FQuat Rotation=(P.Rotation+P.Spin*Age).Quaternion();
-            if(Group!=2)
+            if(Group!=2 && Group!=5)
             {
                 const FVector Facing=(Eye-Position).GetSafeNormal();
                 Rotation=(Group==0 || Group==4)?FRotationMatrix::MakeFromZY(Facing,Velocity).ToQuat()
@@ -534,6 +551,8 @@ void UFPSImpactFXSubsystem::Deinitialize()
     for(const auto& Decal:Decals)if(Decal)Decal->DestroyComponent();
     for(const auto& Decal:BloodDecals)if(Decal)Decal->DestroyComponent();
     for(const auto& Voice:Voices)if(Voice){Voice->Stop();Voice->DestroyComponent();}
+    for(const auto& Voice:PounceVoices)if(Voice){Voice->Stop();Voice->DestroyComponent();}
+    PounceVoices.Reset();
     Renderers.Reset();Decals.Reset();BloodDecals.Reset();Voices.Reset();SurfaceCache.Reset();Camera.Reset();
     LastBloodLanding=FHitResult();LastBloodVictim.Reset();
     Super::Deinitialize();

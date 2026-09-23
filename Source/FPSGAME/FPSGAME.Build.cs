@@ -42,6 +42,7 @@ public class FPSGAME : ModuleRules
         PrivateDependencyModuleNames.AddRange(new[] { "PCG", "GeometryCore", "GeometryFramework" });
         if (Target.bBuildEditor) PrivateDependencyModuleNames.Add("NiagaraEditor");
         if (Target.bBuildEditor) PrivateDependencyModuleNames.Add("UnrealEd");
+        if (Target.bBuildEditor) PrivateDependencyModuleNames.AddRange(new[] { "MeshDescription", "StaticMeshDescription", "SkeletalMeshDescription" });
         if (Target.bBuildEditor) PrivateDependencyModuleNames.AddRange(new[]
         {
             "ClothingSystemEditor", "ClothingSystemEditorInterface",

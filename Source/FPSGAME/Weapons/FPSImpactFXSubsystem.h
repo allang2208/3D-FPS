@@ -23,6 +23,7 @@ class FPSGAME_API UFPSImpactFXSubsystem : public UTickableWorldSubsystem
 public:
     UFPSImpactFXSubsystem();
     void SpawnImpact(const FHitResult& Hit, UCameraComponent* ViewCamera);
+    void SpawnPounceLanding(const FHitResult& Ground, const FVector& Forward, float Radius, float Angle, UCameraComponent* ViewCamera, const AActor* Source);
     virtual void OnWorldBeginPlay(UWorld& InWorld) override;
     virtual void Deinitialize() override;
     virtual void Tick(float DeltaTime) override;
@@ -36,9 +37,10 @@ private:
     static constexpr int32 ChipSlots = 32;
     static constexpr int32 BloodMistSlots = 24;
     static constexpr int32 BloodDropSlots = 96;
+    static constexpr int32 GroundWaveSlots = 4;
     static constexpr int32 MaxActiveParticles = 192;
-    static constexpr int32 ParticleSlots = SparkSlots + DustSlots + ChipSlots + BloodMistSlots + BloodDropSlots;
-    static constexpr int32 ParticleGroups = 5;
+    static constexpr int32 ParticleSlots = SparkSlots + DustSlots + ChipSlots + BloodMistSlots + BloodDropSlots + GroundWaveSlots;
+    static constexpr int32 ParticleGroups = 6;
     static constexpr int32 DecalSlots = 24;
     static constexpr int32 BloodDecalSlots = 48;
     static constexpr int32 VoiceSlots = 6;
@@ -75,10 +77,12 @@ private:
     UPROPERTY() TArray<TObjectPtr<UMaterialInterface>> DecalMaterials;
     UPROPERTY() TObjectPtr<UMaterialInterface> BloodStainMaterial;
     UPROPERTY() TArray<TObjectPtr<USoundBase>> Sounds;
+    UPROPERTY() TObjectPtr<USoundBase> PounceImpactSound;
     UPROPERTY(Transient) TArray<TObjectPtr<UInstancedStaticMeshComponent>> Renderers;
     UPROPERTY(Transient) TArray<TObjectPtr<UDecalComponent>> Decals;
     UPROPERTY(Transient) TArray<TObjectPtr<UDecalComponent>> BloodDecals;
     UPROPERTY(Transient) TArray<TObjectPtr<UAudioComponent>> Voices;
+    UPROPERTY(Transient) TArray<TObjectPtr<UAudioComponent>> PounceVoices;
     TWeakObjectPtr<UCameraComponent> Camera;
     TMap<TWeakObjectPtr<const UObject>, EFPSImpactSurface> SurfaceCache;
     EFPSImpactSurface SurfaceTypes[SurfaceType_Max] = {};
