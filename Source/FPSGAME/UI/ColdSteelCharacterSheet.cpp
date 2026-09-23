@@ -5,6 +5,7 @@
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelUIStyle.h"
 #include "../FPSGAMECharacter.h"
+#include "../Weapons/WeaponStatEvaluation.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "Blueprint/WidgetTree.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
@@ -155,9 +156,9 @@ UWidget* UColdSteelHUDWidget::BuildStatusPage()
     AddCharacterRow(Combat, TEXT("暴击率"), TEXT("crit"), TEXT("基础暴击率 = 向下取整(2 + 幸运)。随机暴击率 = max(0, 暴击率 - 目标抗暴)。头部要害仍可触发一次暴击。"));
     AddCharacterRow(Combat, TEXT("暴击倍率"), TEXT("critMultiplier"), TEXT("技能倍率 = 1 + 50% + 技能等级 × 5%；步枪精通的要害倍率另行相乘。"));
     AddCharacterRow(Combat, TEXT("暴击抵抗"), TEXT("critRes"), TEXT("基础抵抗 = 体质%。"));
-    AddCharacterRow(Combat, TEXT("攻速倍率"), TEXT("aspd"), TEXT("攻速倍率 = 1 + 敏捷×0.02；实际射击间隔 = 基础间隔 / 倍率。"));
-    AddCharacterRow(Combat, TEXT("步行速度"), TEXT("moveSpeed"), TEXT("站立、未瞄准时的步行速度上限，读取角色步行配置；不采样实时速度。单位：米/秒。"));
-    AddCharacterRow(Combat, TEXT("奔跑速度"), TEXT("moveSpeedDetail"), TEXT("站立冲刺状态的速度上限，读取角色奔跑配置；不包含滑铲、瞄准或过渡状态。单位：米/秒。"));
+    AddCharacterRow(Combat, TEXT("攻速倍率"), TEXT("aspd"), TEXT("攻速倍率 = 1 + 敏捷×0.02；只看近战攻击速度。枪械射击间隔取武器基础值（配件与附魔另计）。"));
+    AddCharacterRow(Combat, TEXT("步行速度"), TEXT("moveSpeed"), TEXT("站立、未瞄准时的步行速度上限，读取角色步行配置；不采样实时速度。已含当前武器的持械移速乘区，明细见本行详情。单位：米/秒。"));
+    AddCharacterRow(Combat, TEXT("奔跑速度"), TEXT("moveSpeedDetail"), TEXT("站立冲刺状态的速度上限，读取角色奔跑配置；不包含滑铲、瞄准或过渡状态。已含当前武器的持械移速乘区。单位：米/秒。"));
 
     auto* Weapon = AddCharacterCard(Content, TEXT("当前武器实值"));
     AddCharacterRow(Weapon, TEXT("武器"), TEXT("weapon"), TEXT("当前角色使用的实际第一人称武器。"));
@@ -210,7 +211,10 @@ void UColdSteelHUDWidget::RefreshCharacterSheet()
         SetCharacterValue(TEXT("critMultiplier"),FString::Printf(TEXT("%.2fx"),1+StatusModel->CriticalStrikeEffect().CriticalDamageBonus));
         CharacterDetails.Add(TEXT("critMultiplier"),FString::Printf(TEXT("暴击技能提供额外 %.0f%% 伤害；技能倍率 %.2f。随机暴击或要害命中只应用一次；步枪要害倍率仍独立。"),StatusModel->CriticalStrikeEffect().CriticalDamageBonus*100,1+StatusModel->CriticalStrikeEffect().CriticalDamageBonus));
         CharacterDetails.Add(TEXT("dex"),FString::Printf(TEXT("基础 %d + 巧手 %d + 手枪精通 %d；技能加成常驻，不占用属性点。\n近战攻速倍率 = 1 + 总敏捷×0.02（枪械射速取武器基础值，不受敏捷影响）\n体力恢复倍率 = 1 + (基础敏捷+装备敏捷)×0.015\n换弹速度 ×（1 + (基础敏捷+装备敏捷)×0.003），与快手、附魔各自相乘\n巧手额外提供换弹速度 +%.0f%%。"),StatusModel->Attributes.FindRef(TEXT("dex")),StatusModel->DexterousHandsEffect().Dexterity,StatusModel->PistolEffect().Dexterity,StatusModel->DexterousHandsEffect().ReloadSpeed*100));
-        const FString MovementDetail=FString::Printf(TEXT("实际持手枪时，基础移动速度 ×（1 + 手枪精通移速加成）。当前倍率 %.2f；收起手枪或改持工具时移除。"),StatusModel->PistolMovementMultiplier());
+        // 一个乘区承载两类持械修正：手枪精通加成与机枪类持械减速，两者不会同时生效。
+        const float MachineGunMultiplier=StatusModel->MachineGunMovementMultiplier();
+        const FString MovementDetail=FString::Printf(TEXT("持械移速乘区：手枪按（1 + 手枪精通移速加成）提速，机枪类按机枪精通固定倍率减速（当前 %.2f，即减速 %.0f%%）；其余枪械为 1.00。收起武器或改持工具时恢复 1.00。当前总倍率 %.2f。"),
+            MachineGunMultiplier,(1.f-MachineGunMultiplier)*100.f,StatusModel->PistolMovementMultiplier()*MachineGunMultiplier);
         CharacterDetails.Add(TEXT("moveSpeed"),MovementDetail);CharacterDetails.Add(TEXT("moveSpeedDetail"),MovementDetail);
         const double DexReloadSpeed=1.+FMath::Max(0.,double(StatusModel->Attribute(TEXT("dex")))+StatusModel->EquipmentBonus(TEXT("dex")))*ColdSteelWeaponStats::DexReloadSpeedPerPoint;
         const FString ReloadDetail=FString::Printf(TEXT("基础耗时 ÷（敏捷 %.2f × 快手 %.2f × 附魔/改造）= 实际换弹时间；普通、空仓换弹均生效，动作与音效同步加速。"),DexReloadSpeed,StatusModel->ReloadSpeedMultiplier());
@@ -329,7 +333,6 @@ FReply UColdSteelHUDWidget::NativeOnPreviewKeyDown(const FGeometry& Geometry, co
     if (HandlePanelShortcut(Event.GetKey(), Event.IsRepeat())) return FReply::Handled();
     if(Event.GetKey()==EKeys::Escape && (bTimelineDetailsOpen || TimelineDetailMotion>0)){SetTimelineDetailsOpen(false);return FReply::Handled();}
     if(Event.GetKey()==EKeys::Escape&&HasPinnedItemTooltip()){HideItemTooltip(true);return FReply::Handled();}
-    if(bInventoryOpen&&Event.GetKey()==EKeys::G&&StatusModel){StatusModel->CycleWeapon();return FReply::Handled();}
     if (bInventoryOpen && Event.GetKey() == EKeys::Escape)
     {
         if(Event.GetKey()==EKeys::Escape&&UWidgetBlueprintLibrary::IsDragDropping()){UWidgetBlueprintLibrary::CancelDragDrop();return FReply::Handled();}

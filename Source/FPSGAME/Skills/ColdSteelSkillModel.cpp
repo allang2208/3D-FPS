@@ -29,6 +29,16 @@ float UColdSteelStatusModel::PistolWeaponDamage(const FColdSteelItem& Item,float
 }
 float UColdSteelStatusModel::PistolMovementMultiplier() const
 { return ColdSteelSkills::IsPistol(Equipped())&&!ActiveProductionTool()?1.f+PistolEffect().MoveSpeed:1.f; }
+float UColdSteelStatusModel::MachineGunMovementMultiplier() const
+{
+    const auto* I=Equipped();
+    if(!I||ActiveProductionTool())return 1.f;
+    // 机枪归类沿用武器专精的唯一入口（weaponType=machineGun），
+    // 这样目录里新增机枪不需要再维护第二份清单。
+    if(WeaponMastery(I)!=TEXT("machineGunMastery"))return 1.f;
+    const float Multiplier=MasteryEffect(TEXT("machineGunMastery")).MovementMultiplier;
+    return Multiplier>0.f?Multiplier:1.f;
+}
 FColdSteelSkillProgress UColdSteelStatusModel::DodgeProgress() const
 { const auto* P=Current.Skills.Find(DodgeSkill.Id);return P?*P:FColdSteelSkillProgress(); }
 FColdSteelSkillProgress UColdSteelStatusModel::DexterousHandsProgress() const
@@ -44,12 +54,13 @@ float UColdSteelStatusModel::DodgeStaminaCost() const
 bool UColdSteelStatusModel::TrainDodge(int32 Amount)
 {
     if(Amount<=0||DodgeProgress().Level>=DodgeSkill.MaxLevel)return false;
-    SyncRuntime();auto P=Snapshot();ColdSteelSkills::AddExperience(P,DodgeSkill,Amount);return CommitState(P);
+    // 进度型修炼与命中修炼同口径：实时档案立即更新，写盘交给定时自动存档。
+    SyncRuntime();auto P=Snapshot();ColdSteelSkills::AddExperience(P,DodgeSkill,Amount);return StageTraining(MoveTemp(P));
 }
 bool UColdSteelStatusModel::TrainDexterousHands(int32 Amount)
 {
     if(Amount<=0||DexterousHandsProgress().Level>=DexterousHandsSkill.MaxLevel)return false;
-    SyncRuntime();auto P=Snapshot();ColdSteelSkills::AddExperience(P,DexterousHandsSkill,Amount);return CommitState(P);
+    SyncRuntime();auto P=Snapshot();ColdSteelSkills::AddExperience(P,DexterousHandsSkill,Amount);return StageTraining(MoveTemp(P));
 }
 FColdSteelSkillProgress UColdSteelStatusModel::QuickCombatProgress() const
 { const auto* P=Current.Skills.Find(QuickCombatSkill.Id);return P?*P:FColdSteelSkillProgress(); }
@@ -72,7 +83,7 @@ FQuickCombatCast UColdSteelStatusModel::QuickCombatStats(int32 AtLevel,const FMe
 bool UColdSteelStatusModel::TrainQuickCombat(int32 Amount)
 {
     if(Amount<=0||QuickCombatProgress().Level>=QuickCombatSkill.MaxLevel)return false;
-    SyncRuntime();auto P=Snapshot();ColdSteelSkills::AddExperience(P,QuickCombatSkill,Amount);return CommitState(P);
+    SyncRuntime();auto P=Snapshot();ColdSteelSkills::AddExperience(P,QuickCombatSkill,Amount);return StageTraining(MoveTemp(P));
 }
 float UColdSteelStatusModel::QuickCombatCooldown() const
 { return HasNoAbilityCooldown() ? 0.f : Current.QuickCombatCooldown; }
@@ -138,16 +149,21 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     WeaponHit.Incoming=Shot.DamagePanel.Total()>0?Shot.DamagePanel.Scaled(Amount/Shot.DamagePanel.Total()):FWeaponDamageParts{Amount,0,0,0};
     WeaponHit.PhysicalPenetration=Shot.ArmorPenetration;WeaponHit.MagicPenetration=Shot.MagicPenetration;
     TGuardValue<CombatFormulaRuntime::WeaponHit*> DamageScope(CombatFormulaRuntime::ActiveWeaponHit,&WeaponHit);
-    // 枪械默认不给怪物硬直：只有目录显式声明 hit_stagger 的枪才关闭这道闸门。
+// 枪械默认不给怪物硬直：只有枪械目录显式声明 hit_stagger 的枪才关闭这道闸门。
     // 闸门关闭时受击端只记住攻击者，不动状态机、韧性时钟或受击表现。
-    bool bHitStagger=false;
+    // 近战武器与手持枪械发动的近战打击（bMeleeStrike）不在闸门覆盖范围内：
+    // 它们按原倍率进入受击端，否则削韧与硬直会被整段吞掉。
+    bool bFirearmWithoutStagger=false;
     const FString WeaponDefinition=Shot.ItemDefinition.IsEmpty()?(Equipped()?Equipped()->Definition:FString()):Shot.ItemDefinition;
-    if(!WeaponDefinition.IsEmpty())if(auto* G=GetGameInstance()->GetSubsystem<UGunsmithSystem>())
-        if(const auto* W=G->Weapon(WeaponDefinition))bHitStagger=W->bHitStagger;
+    if(!Shot.bMelee&&!Shot.bMeleeStrike&&!WeaponDefinition.IsEmpty())
+        if(auto* G=GetGameInstance()->GetSubsystem<UGunsmithSystem>())
+            if(const auto* W=G->Weapon(WeaponDefinition))bFirearmWithoutStagger=!W->bHitStagger;
     auto ApplyDamage=[&](){ return UGameplayStatics::ApplyPointDamage(Victim,Amount,Direction,Hit,
         Pawn?Pawn->GetController():nullptr,Shooter,nullptr); };
+    // 命中形式的唯一收口：所有武器命中都在这里标注，受击端据此折算削韧。
+    const MonsterToughness::FScopedForm FormScope(Shot.AttackForm);
     auto ApplyToughness=[&](){return Combat?Combat->ApplyHitWithToughnessScale(Shot.ToughnessDamageMultiplier,ApplyDamage):ApplyDamage();};
-    const float Applied=(Combat&&!Shot.bMelee&&!bHitStagger)?Combat->ApplyHitWithReactionScale(0.f,ApplyToughness):ApplyToughness();
+    const float Applied=(Combat&&bFirearmWithoutStagger)?Combat->ApplyHitWithReactionScale(0.f,ApplyToughness):ApplyToughness();
     if(Result)
     {
         Result->BeforeDefense=WeaponHit.Incoming;Result->AfterDefense=WeaponHit.Mitigated;

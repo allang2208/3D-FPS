@@ -50,14 +50,14 @@
               "benefit": 1
             },
             {
-              "text": "攻击速度 -15%",
+              "text": "攻击速度 -25%",
               "benefit": -1
             }
           ],
           "stats": {
             "damage_mult": 1.2,
             "hit_reaction_mult": 1.15,
-            "attack_speed_mult": 0.85
+            "attack_speed_mult": 0.75
           }
         },
         {
@@ -153,26 +153,6 @@
           }
         },
         {
-          "id": "conduction_rune",
-          "name": "导魔符文",
-          "description": "银白导魔回路沿剑刃流光。手持时强化魔法伤害；近战命中施加魔法易伤，重复命中刷新持续时间。",
-          "effects": [
-            {
-              "text": "魔法伤害 +20%",
-              "benefit": 1
-            },
-            {
-              "text": "命中施加魔法易伤 +10% · 持续10秒",
-              "benefit": 1
-            }
-          ],
-          "stats": {
-            "magic_damage_mult": 1.2,
-            "rune_vulnerability": 0.1,
-            "rune_vulnerability_seconds": 10
-          }
-        },
-        {
           "id": "spirit_burst_rune",
           "name": "精神迸发符文",
           "weapons": [
@@ -191,6 +171,26 @@
           ],
           "stats": {
             "innate_erosion_mult": 2.0
+          }
+        },
+        {
+          "id": "conduction_rune",
+          "name": "导魔符文",
+          "description": "银白导魔回路沿剑刃流光。手持时强化魔法伤害；剑刃攻击（普攻、连段、重击、旋风、冲刺及未来的剑刃攻击）命中施加魔法易伤，重复命中刷新持续时间。",
+          "effects": [
+            {
+              "text": "魔法伤害 +15%",
+              "benefit": 1
+            },
+            {
+              "text": "剑刃攻击命中施加魔法易伤 +10% · 持续10秒",
+              "benefit": 1
+            }
+          ],
+          "stats": {
+            "magic_damage_mult": 1.15,
+            "rune_vulnerability": 0.1,
+            "rune_vulnerability_seconds": 10
           }
         },
         {
@@ -255,12 +255,8 @@
               "benefit": 1
             },
             {
-              "text": "弹反判定时间 +25%",
+              "text": "防御时受击耐力消耗 -15%",
               "benefit": 1
-            },
-            {
-              "text": "耐力消耗 +10%",
-              "benefit": -1
             },
             {
               "text": "攻击速度 -5%",
@@ -269,8 +265,7 @@
           ],
           "stats": {
             "block_reduction_mult": 1.3,
-            "parry_window_mult": 1.25,
-            "stamina_mult": 1.1,
+            "block_stamina_mult": 0.85,
             "attack_speed_mult": 0.95
           }
         },
@@ -282,10 +277,10 @@
             "ue_rune_sword",
             "ue_highland_claymore"
           ],
-          "description": "上挑护翼，偏重招架反击。成功弹反获得攻速与耐力激励，再次弹反刷新持续时间。",
+          "description": "上挑护翼，偏重招架反击。扩大弹反判定窗口；成功弹反获得攻速与耐力激励，再次弹反刷新持续时间。",
           "effects": [
             {
-              "text": "成功弹反获得「反击激励」· 持续6秒",
+              "text": "弹反判定时间 +25%",
               "benefit": 1
             },
             {
@@ -298,6 +293,7 @@
             }
           ],
           "stats": {
+            "parry_window_mult": 1.25,
             "riposte_attack_speed_mult": 1.2,
             "riposte_stamina_mult": 0.8,
             "riposte_seconds": 6
@@ -429,14 +425,14 @@
               "benefit": 1
             },
             {
-              "text": "耐力消耗 +5%",
+              "text": "耐力消耗 +10%",
               "benefit": -1
             }
           ],
           "stats": {
             "range_mult": 1.1,
             "damage_mult": 1.05,
-            "stamina_mult": 1.05
+            "stamina_mult": 1.1
           }
         }
       ]
@@ -453,7 +449,7 @@
           "description": "加厚硬化剑首，偏重重击威力和击退，以攻速和耐力为代价。",
           "effects": [
             {
-              "text": "重击伤害倍率 +0.15",
+              "text": "重击伤害倍率 +0.25",
               "benefit": 1
             },
             {
@@ -470,7 +466,7 @@
             }
           ],
           "stats": {
-            "heavy_damage_add": 0.15,
+            "heavy_damage_add": 0.25,
             "knockback_mult": 1.1,
             "attack_speed_mult": 0.9,
             "stamina_mult": 1.1
@@ -536,20 +532,16 @@
         {
           "id": "ballast_rune",
           "name": "凝碧星核",
-          "description": "银色护架包覆凝碧星核，手持时强化魔法伤害，并提高魔法值消耗。",
+          "description": "银色护架包覆凝碧星核，快速近战（配重锤打击）命中施加魔法易伤。",
           "effects": [
             {
-              "text": "魔法伤害 +15%",
+              "text": "快速近战命中施加魔法易伤 +10% · 持续10秒",
               "benefit": 1
-            },
-            {
-              "text": "魔法值消耗 +20%",
-              "benefit": -1
             }
           ],
           "stats": {
-            "magic_damage_mult": 1.15,
-            "magic_cost_mult": 1.2
+            "quick_combat_rune_vulnerability": 0.1,
+            "quick_combat_rune_vulnerability_seconds": 10
           }
         },
         {
@@ -575,8 +567,31 @@
     }
   ],
   "weapons": [
-    "ue_rune_sword",
-    "ue_frost_crystal_sword",
-    "ue_highland_claymore"
+    {
+      "id": "ue_rune_sword",
+      "traits": [
+        { "icon": "magic", "text": "每次确认命中减少全部技能冷却 0.5 秒；剑身Ⅱ 金色符文再追加 0.5 秒，同一挥只结算一次" },
+        { "icon": "special", "text": "按 G 唤出 4 把环绕身体的飞剑，最长驻留 30 秒；期间再按 G 逐把射向准星，命中造成（武器攻击＋魔法攻击）×1.2 魔法伤害" },
+        { "icon": "drawback", "text": "飞剑全部发射或超时后进入 15 秒冷却；击杀可缩短冷却" },
+        { "icon": "mechanic", "text": "三段连击、蓄力重击、突刺与格挡；剑刃、护手、握把、配重锤与刃面符文可独立改造" }
+      ]
+    },
+    {
+      "id": "ue_frost_crystal_sword",
+      "traits": [
+        { "icon": "magic", "text": "自带侵蚀：近战附加 智力×10%＋精神×10% 的魔法伤害，随连击与重击倍率放大，再按目标魔法防御结算" },
+        { "icon": "special", "text": "专属精神迸发符文使这段侵蚀伤害翻倍" },
+        { "icon": "drawback", "text": "侵蚀已与晶体融为一体：普通侵蚀符文会被自动转化为精神迸发符文" },
+        { "icon": "mechanic", "text": "三段连击、蓄力重击与格挡；剑刃、护手、握把、配重与刃面符文可独立改造" }
+      ]
+    },
+    {
+      "id": "ue_highland_claymore",
+      "traits": [
+        { "icon": "mechanic", "text": "三段连击、蓄力重击、突刺与格挡" },
+        { "icon": "mechanic", "text": "弧形护手与圆盘配重把重心前移，适合双手发力" },
+        { "icon": "neutral", "text": "剑刃、护手、握把、配重与刃面符文可独立改造" }
+      ]
+    }
   ]
 }

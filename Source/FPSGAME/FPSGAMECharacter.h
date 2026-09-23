@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Weapons/WeaponHandling.h"
+#include "Weapons/WeaponReloadStages.h"
 #include "Weapons/M4TacticalSprintComponent.h"
 #include "Monsters/MonsterHitFeedback.h"
 #include "FPSGAMECharacter.generated.h"
@@ -75,6 +76,10 @@ bool TriggerPistolQuickCombat();
     bool IsLeftHandHeldForCast() const;
     bool IsCastingWithLeftHand() const;
     bool IsCastBlockingLeftHandAction() const;
+    bool IsSwitchingWeapon() const;
+    bool CanStartQuickCombatPriority() const;
+    void InterruptActionsForPriority(bool bWeaponSwitch);
+    bool IsResolvingActionInterrupt() const { return bResolvingActionInterrupt; }
     // Single-weapon hip cone, or the real per-hand dual cone while both pistols
     // are out; the reticle and the shot direction must share this one value.
     float GetHipSpread() const;
@@ -85,6 +90,8 @@ bool TriggerPistolQuickCombat();
     bool GetMonsterHitFeedback(FMonsterHitFeedback& Out) const;
 private:
     double LastConfirmedWeaponHitTime = -1000.0;
+    bool bResolvingActionInterrupt = false;
+    FString ActiveProductionToolInstance;
     UPROPERTY(Transient) TObjectPtr<USoundBase> ConfirmedMonsterHitSound;
     FMonsterHitFeedback LastMonsterHit;
 public:
@@ -99,7 +106,8 @@ public:
     void SetGunsmithOptic(bool bHolographic);
     void SetGunsmithOpticVariant(const FString& Variant);
     const FString& GetGunsmithOpticVariant() const { return OpticVariant; }
-    float GetOpticMagnification() const { return OpticVariant==TEXT("lpvo_1_6x")?LPVOMagnification:(OpticVariant==TEXT("prism_scope_2x")?2.f:1.f); }
+    bool HasSVDFactoryScope() const { return ActiveInventoryWeaponDefinition==TEXT("ue_svd"); }
+    float GetOpticMagnification() const { return HasSVDFactoryScope()?4.f:(OpticVariant==TEXT("lpvo_1_6x")?LPVOMagnification:(OpticVariant==TEXT("prism_scope_2x")?2.f:1.f)); }
     float EffectiveADSVerticalFOV() const;
     bool AdjustOpticMagnification(float Delta);
     void SetLPVOMagnification(float Value);
@@ -158,6 +166,13 @@ public:
 
     UFUNCTION(BlueprintPure, Category = "FPS Movement") bool IsSprinting() const { return bIsSprinting; }
     UFUNCTION(BlueprintPure, Category = "FPS Movement") bool IsSliding() const { return bIsSliding; }
+    /** 当前持械状态下的入铲速度门槛（满速 600，受持械移速惩罚下调，最低 402）。 */
+    UFUNCTION(BlueprintPure, Category = "FPS Movement")
+    float SlideEntrySpeed() const
+    {
+        return FMath::Max(SlideMinimumSpeedFloor,
+            SlideMinimumSpeed * FMath::Min(PistolMoveSpeedMultiplier, 1.0f));
+    }
     UFUNCTION(BlueprintPure, Category = "AKM") bool IsAiming() const { return bIsAiming; }
     UFUNCTION(BlueprintPure, Category = "AKM") bool IsReloading() const;
     UFUNCTION(BlueprintPure, Category = "AKM") int32 GetMagazineAmmo() const { return MagazineAmmo; }
@@ -168,7 +183,6 @@ public:
     bool IsAmmoWheelOpen() const { return AmmoWheel!=nullptr; }
     bool IsChoosingAmmo() const { return bReloadInputHeld||IsAmmoWheelOpen(); }
     void CancelAmmoSelection();
-    void SelectAmmoWheelHand(int32 Hand);
     bool StartAmmoSwitch(const FString& WeaponId,const FString& Target);
     const FString& GetPendingAmmoType() const { return PendingAmmoType; }
     UFUNCTION(BlueprintPure, Category = "AKM") EAKMWeaponState GetWeaponState() const { return WeaponState; }
@@ -215,7 +229,8 @@ protected:
     void RunBallisticPresentationAudit();
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
-    void InitializeWeaponVisuals();
+    /** Presentation rigs need only mesh, idle pose and visible attachments. */
+    void InitializeWeaponVisuals(bool bPresentationOnly = false);
     FString ActiveInventoryWeapon;
     FString ActiveInventoryWeaponDefinition;
     void ApplyWeaponAttachmentPresentation(const TMap<FString,FString>& Parts);
@@ -244,13 +259,26 @@ protected:
 
     UPROPERTY(EditDefaultsOnly, Category = "FPS Movement|Speed") float WalkSpeed = 450.0f;
     UPROPERTY(EditDefaultsOnly, Category = "FPS Movement|Speed") float SprintSpeed = 700.0f;
-    float PistolMoveSpeedMultiplier = 1.f;
+    /**
+     * 持枪移速乘区（收起武器或持工具时为 1）。同时承载手枪精通的移速加成与
+     * 机枪类的持械减速；行走、疾跑、瞄准与蹲行四个上限共用它，
+     * 所以不要在任何一处再单独乘一次。
+     */
+    UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = "FPS Movement|Speed") float PistolMoveSpeedMultiplier = 1.f;
     UPROPERTY(EditDefaultsOnly, Category="FPS Movement|Dodge", meta=(ClampMin="0.01", Units="s")) float DodgeDuration = .3f;
     UPROPERTY(EditDefaultsOnly, Category="FPS Movement|Dodge", meta=(ClampMin="1", Units="cm")) float DodgeDistance = 300.f;
     bool bDodgeMeleeRewarded=false, bDodgeRangedRewarded=false;
     UPROPERTY(EditDefaultsOnly, Category="FPS Movement|Dodge", meta=(ClampMin="0.01", Units="s")) float DodgeTapMaximumHold = .2f;
     UPROPERTY(EditDefaultsOnly, Category = "FPS Movement|Speed") float CrouchSpeed = 250.0f;
     UPROPERTY(EditDefaultsOnly, Category = "FPS Movement|Slide") float SlideMinimumSpeed = 600.0f;
+    /**
+     * 入铲速度的下限。原实现拿固定的 600 去比实时速度，而疾跑上限会被持械移速乘区缩放，
+     * 于是机枪的 ×0.67 把疾跑压到 469，永远跨不过 600、按键只退化成蹲下。
+     * 现在门槛随同一个乘区缩放（满速 600 不变，机枪 402），402 是允许的最低门槛；
+     * 乘区若更狠导致上限低于它，滑铲就是被有意关掉的，不会静默变成蹲下。
+     * 402 = 600 × 0.67（机枪精通当前减速）。
+     */
+    UPROPERTY(EditDefaultsOnly, Category = "FPS Movement|Slide") float SlideMinimumSpeedFloor = 402.0f;
     UPROPERTY(EditDefaultsOnly, Category = "FPS Movement|Slide") float SlideSpeedMultiplier = 2.0f;
     UPROPERTY(EditDefaultsOnly, Category = "FPS Movement|Slide") float SlideFriction = 1.5f;
     UPROPERTY(EditDefaultsOnly, Category = "FPS Movement|Slide") float SlideMaximumTime = 2.0f;
@@ -417,18 +445,28 @@ private:
     void EmitMechanicalCue(int32 CueIndex);
     void PlayMechanicalSound(USoundBase* Sound, float Volume, float StartTime = 0.f);
     void StopMechanicalAudio();
+    /** 开火声统一入口：占用一个轮转声部，旧声部短淡出，绝不硬切。 */
+    void PlayFireVoice(USoundBase* Sound, float Volume, float PitchMultiplier = 1.f);
     float ReloadSourceTime(float RuntimeTime) const;
     float ReloadRuntimeTime(float SourceTime) const;
     float LookSensitivityScale() const;
     void FireShot();
     void StartEquipCharge();
-    void InterruptPistolEquip();
     void SetM1911Optic(const FString& Variant);
     void SetDanWesson715Optic(const FString& Variant);
     void SetM1911Muzzle(const FString& Variant);
     void RunEquipFramingAcceptance(float DeltaSeconds);
     void FinishWeaponAction();
     void FinishReload();
+    bool NeedsReloadCycle() const;
+    void InitializeReloadStages(bool CycleOnly);
+    bool AdvanceReloadStages();
+    void InterruptReload();
+    void ServicePendingReloadCycle();
+    FWeaponReloadStages ReloadStages;
+    bool bReloadAmmoCommitted = false;
+    bool bReloadCycleOnly = false;
+    float ReloadResumeElapsed = 0.f;
     void ApplyShotFeedback();
     FVector ComputeShotDirection() const;
     void RunWeaponAudit(float DeltaSeconds);
@@ -513,6 +551,14 @@ private:
     UPROPERTY(Transient) TObjectPtr<class USoundConcurrency> RifleFireConcurrency;
     int32 LastRifleFireVariant = INDEX_NONE;
     UPROPERTY(VisibleAnywhere, Category = "M4|Audio") TObjectPtr<UAudioComponent> M4FireVoice;
+    /**
+     * 开火声语音池。旧实现是"一个声部 Stop 再 Play"：射速快于样本长度时，每一发都在
+     * 满幅处硬切上一发的尾巴（听感为顿挫/爆音，且丢掉叠尾）。池内每发占用一个新声部、
+     * 旧的用短淡出退出，于是连续射击的尾巴自然叠加。第 0 个沿用 M4FireVoice。
+     */
+    UPROPERTY(Transient) TArray<TObjectPtr<UAudioComponent>> FireVoices;
+    /** 下一发要占用的声部（轮转）。 */
+    int32 NextFireVoice = 0;
     UPROPERTY(Transient) TMap<FName, TObjectPtr<UAudioComponent>> MechanicalVoices;
     UPROPERTY(Transient) TObjectPtr<USoundBase> BoltReleaseSound;
     UPROPERTY(Transient) TObjectPtr<USoundBase> EquipSound;

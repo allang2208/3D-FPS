@@ -67,7 +67,7 @@ void AFPSGAMECharacter::RunSlideCombatAcceptance(float DeltaSeconds)
         Key(EKeys::W, IE_Pressed); Key(EKeys::LeftShift, IE_Pressed); Advance(); break;
     case 1:
         if (Age < .8f) break;
-        Check(TEXT("sprint_reaches_slide_speed"), bIsSprinting && HorizontalSpeed() >= SlideMinimumSpeed);
+        Check(TEXT("sprint_reaches_slide_speed"), bIsSprinting && HorizontalSpeed() >= SlideEntrySpeed());
         Key(EKeys::LeftControl, IE_Pressed); Advance(); break;
     case 2:
         if (Age < .12f) break;

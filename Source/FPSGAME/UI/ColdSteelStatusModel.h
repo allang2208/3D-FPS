@@ -98,6 +98,8 @@ public:
     FColdSteelSkillEffect PistolEffect(int32 AtLevel=-1) const;
     float PistolWeaponDamage(const FColdSteelItem& Item,float WeaponDamage) const;
     UFUNCTION(BlueprintPure, Category="Skills") float PistolMovementMultiplier() const;
+    /** 机枪类持械减速倍率（0.67 = 减速 33%）；非机枪或不持械时为 1。 */
+    UFUNCTION(BlueprintPure, Category="Skills") float MachineGunMovementMultiplier() const;
     const FColdSteelSkillDefinition& CriticalStrikeDefinition() const { return CriticalStrikeSkill; }
     UFUNCTION(BlueprintPure, Category="Skills") FColdSteelSkillProgress CriticalStrikeProgress() const;
     FColdSteelSkillEffect CriticalStrikeEffect(int32 AtLevel=-1) const;
@@ -142,6 +144,7 @@ public:
     bool HasNoAbilityCooldown() const;
     void RefreshDevelopmentTuning();
     bool BeginFireballCast();
+    bool RefundInterruptedSpellMana(float PaidMana);
     void FinishFireballCast();
     void ApplyFireballExplosion(APawn* Shooter,const FVector& Center,const FFireballCast& Cast,const FHitResult* DirectHit=nullptr);
     float ApplySkillWeaponHit(AActor* Shooter,const FHitResult& Hit,float Damage,const FVector& Direction,const FColdSteelSkillShot& Shot,FWeaponDamageResult* Result=nullptr);
@@ -268,15 +271,17 @@ public:
     bool SpendAmmo(const FString& Id,int64 Count);
     bool AddAmmoToState(FColdSteelProfile& State,const FString& Id,int64 Count) const;
     bool CanSwitchAmmo(const FString& WeaponId,const FString& Target) const;
-    bool CommitAmmoSwitch(const FString& WeaponId,const FString& Target,int32 Capacity);
+    bool CommitAmmoSwitch(const FString& WeaponId,const FString& Target,int32 Capacity,
+        int32 NeedsCycle=0,int32 LoadLimit=MAX_int32,bool Completed=true);
+    bool CompleteWeaponReloadCycle(const FString& WeaponId);
     float AmmoDamageMultiplier(const FColdSteelItem& Item) const;
     float AmmoArmorPenetration(const FColdSteelItem& Item) const;
     FString AmmoEffectSummary(const FString& Id) const;
     const FSlateBrush* AmmoIcon(const FString& Id);
     int32 AmmoCountFor(const FColdSteelItem& Item) const;
-    int32 ReloadDualPistol(const FString& InstanceId,int32 Requested,int32 Capacity,bool Completed);
+    int32 ReloadDualPistol(const FString& InstanceId,int32 Requested,int32 Capacity,bool Completed,int32 NeedsCycle=0);
     bool EjectDualPistolCases(const FString& InstanceId,bool DiscardLive);
-    int32 ConsumeAmmo(int32 Requested, bool bCompletedReload=false, bool bReloadStep=false);
+    int32 ConsumeAmmo(int32 Requested, bool bCompletedReload=false, bool bReloadStep=false, int32 NeedsCycle=0);
     bool ClearRevolverSpentCases(bool bDiscardLiveRounds = false);
     int32 AmmoCount() const;
     FString AmmoDefinition() const;
@@ -341,11 +346,13 @@ private:
     void Publish(const FColdSteelProfile& State);
     // Runtime capture only persists; gameplay transactions also apply their changes.
     bool PersistState(FColdSteelProfile State, bool bApplyPawn);
-    // Hit-driven training arrives once per accepted bullet. The live profile is
-    // updated immediately, while the checked A/B save is coalesced instead of
-    // running inside every hit.
+    // 进度型事务（命中修炼、击杀奖励、闪避与技能修炼）走这里：实时档案立即更新，
+    // 带校验的 A/B 存档交给定时自动存档（fps.Save.AutosaveSeconds）统一写盘。
     bool StageTraining(FColdSteelProfile&& State);
     bool bTrainingDirty = false;
+    // 2026-09-21 起写盘只由 fps.Save.AutosaveSeconds 驱动，这个累加器不再参与计时。
+    // 暂时保留成员：本类的 Current 不是 UPROPERTY，热补丁一旦因类布局变化重实例化本子系统，
+    // 内存档案会被清空；删掉它要随一次常规构建发布，不要单独热补丁。
     float TrainingFlushAccumulator = 0.f;
     double LastTrainingPublish = -10.;
     void ApplyToPawn();

@@ -8,6 +8,7 @@
 #include "WhirlwindTypes.h"
 #include "DashAttackTypes.h"
 #include "../Combat/WeaponDamageTypes.h"
+#include "../Combat/MonsterToughnessTypes.h"
 #include "ColdSteelSkillTypes.generated.h"
 
 USTRUCT(BlueprintType)
@@ -57,6 +58,11 @@ struct FColdSteelSkillDefinition
     int32 MeleeHitExperience=0,MeleeKillExperience=0;
     float ReloadSpeedPerLevel = .01f;
     float MoveSpeedPerLevel = .01f;
+    /**
+     * 持械移速倍率（技能满级前的固定档）。机枪精通把它压到 1 以下作为持械减速；
+     * 0 表示"本技能不改移速"，这样未配置的武器专精不会误带一个 0 倍移速。
+     */
+    float MovementMultiplier = 0.f;
     float CriticalDamageBase = .50f, CriticalDamagePerLevel = .05f;
     int32 LuckPerLevel = 1, CriticalHitExperience = 1, CriticalKillExperience = 10;
     float HeavyMultiplierBase=2.5f,HeavyMultiplierPerLevel=.1f,HeavyChargeBase=2.f,HeavyChargeReductionPerLevel=.05f;
@@ -82,6 +88,8 @@ struct FColdSteelSkillEffect
     int32 Dexterity = 0;
     float ReloadSpeed = 0;
     float MoveSpeed = 0;
+    /** 持械移速固定档：1 = 不影响；机枪精通用它承载持械减速。 */
+    float MovementMultiplier = 1.f;
     float CriticalDamageBonus = 0;
     int32 Luck = 0;
 };
@@ -92,6 +100,13 @@ struct FColdSteelSkillShot
     FName MasteryId;
     /** 命中时用于查询目录开关（枪械默认不造成硬直）。 */
     FString ItemDefinition;
+    /** 命中形式：决定该次命中按哪条韧性抗性折算削韧。 */
+    EMonsterAttackForm AttackForm = EMonsterAttackForm::Impact;
+    /**
+     * 手持枪械发动的近战打击（快速进战的握把底/枪托砸击）。这类动作按近战结算：
+     * 不受「枪械默认不硬直」闸门约束，照常累积削韧；不影响 bMelee 的修炼口径。
+     */
+    bool bMeleeStrike = false;
     int32 ExtraMasteryExperience=0;
     float ArmorPenetration=0;
     float ToughnessDamageMultiplier=1;

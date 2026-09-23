@@ -43,11 +43,11 @@
   },
   "ammo_556": {
     "category": "material",
-    "desc": "HK416与M16A2使用的弹药。自动计入弹药袋，换弹时取用，每发独立计数。",
+    "desc": "5.56x45mm M193 标准弹种。自动计入弹药袋，不占背包空间。",
     "icon": "res://assets/ui/icons/equip/ammo_556.png",
     "icon_fallback": "▥",
     "id": "ammo_556",
-    "name": "5.56mm 弹药",
+    "name": "5.56x45mm M193",
     "rarity": "common",
     "stack_max": 999,
     "type": "弹药",
@@ -55,11 +55,11 @@
   },
   "ammo_58": {
     "category": "material",
-    "desc": "QBZ-191 使用的弹药。自动计入弹药袋，换弹时取用，每发独立计数。",
+    "desc": "5.8x42mm DBP87 标准弹种，供 QBZ-191 使用。自动计入弹药袋，不占背包空间。",
     "icon": "res://assets/ui/icons/equip/ammo_58.png",
     "icon_fallback": "▥",
     "id": "ammo_58",
-    "name": "5.8mm 弹药",
+    "name": "5.8x42mm DBP87",
     "price": 2,
     "rarity": "common",
     "stack_max": 999,
@@ -2775,7 +2775,7 @@
   },
   "ue_m4a1": {
     "category": "weapon",
-    "desc": "当前 UE 第一人称 M4A1。使用 5.56mm 弹药。",
+    "desc": "阿玛莱特为美军下一代步枪设计的型号，用导气管把燃气直接引入枪机框，全枪轻、后坐小。柯尔特取得生产权后投入量产，成为服役时间很长的制式卡宾枪：5.56mm 弹药指向轻快，30 发弹匣配极短射击间隔，中距离连射与转火顺手。各项表现平均不偏科，常用作衡量其他步枪的参考。",
     "equipSlot": "weapon",
     "icon": "Icons/ue_m4a1.png",
     "id": "ue_m4a1",
@@ -2799,7 +2799,7 @@
   },
   "ue_akm": {
     "category": "weapon",
-    "desc": "AKM，使用 7.62mm 弹药，30 发标准弹匣。",
+    "desc": "卡拉什尼科夫设计的突击步枪改进型，以冲压机匣取代早期铣削件减重，长行程活塞导气配宽裕公差，落进沙里、泡过泥水照样上膛，产量与仿制型遍布各地。7.62mm 弹药单发停止作用足，代价是后坐偏大、连射枪口上跳明显。中距离点射划算；30 发弹匣与丰富的改造件，让它成为适应性很强的近战火力平台。",
     "equipSlot": "weapon",
     "icon": "Icons/ue_akm.png",
     "id": "ue_akm",
@@ -2823,7 +2823,7 @@
   },
   "ue_qbz191": {
     "category": "weapon",
-    "desc": "QBZ-191 自动步枪，使用独立的 5.8mm 弹药与 30 发标准弹匣。",
+    "desc": "中国研制的制式自动步枪，采用短行程活塞导气加回转式闭锁，在可靠与精度之间取折中；顶部自带皮卡汀尼导轨，装光学瞄具不必另配底座。5.8mm 弹药后坐平缓、弹道稳定，单发伤害略低，换来更小的散布与更均匀的连发节奏，适合中距离持续输出，也是低后坐流派容易上手的平台。",
     "equipSlot": "weapon",
     "icon": "Icons/ue_qbz191.png",
     "id": "ue_qbz191",
@@ -2861,7 +2861,7 @@
     "grid_w": 3,
     "grid_h": 2,
     "type": "武器",
-    "desc": "M1911 半自动手枪，使用 .45 ACP 弹药和 7 发标准弹匣。",
+    "desc": "约翰·勃朗宁设计的半自动手枪，采用短行程后座与单排弹匣，结构简单到几乎不会卡壳，历经两次世界大战仍在多国服役。.45 ACP 弹头初速不高，近距离停止作用却很强，单发伤害压得住多数步枪弹。代价是 7 发弹匣容量偏小、射击间隔偏长，必须靠瞄准而不是泼弹来取胜。",
     "stats": [
       {
         "name": "物理攻击",
@@ -2875,11 +2875,11 @@
   },
   "ammo_45acp": {
     "category": "material",
-    "desc": "M1911 使用的 .45 ACP 弹药。",
+    "desc": ".45 ACP FMJ 标准弹种，供 M1911 使用。自动计入弹药袋，不占背包空间。",
     "icon": "",
     "icon_fallback": "▥",
     "id": "ammo_45acp",
-    "name": ".45 ACP 手枪弹",
+    "name": ".45 ACP FMJ",
     "rarity": "common",
     "stack_max": 999,
     "type": "弹药",
@@ -2902,7 +2902,7 @@
     "price": 3200,
     "level": 1,
     "enhanceLevel": 0,
-    "desc": "苍蓝符文镶嵌于剑脊。右手握护手下方、左手握剑首上方；左键交替挥砍，收势阶段再次点击可衔接下一斩。",
+    "desc": "苍蓝之地的符文匠以陨铁为骨、以星辉为引锻成，剑脊上的苍蓝符文会随持剑者的呼吸次第点亮，据说是少数仍在自我充能的兵器。剑势自成一脉：点按左键循环衔接左右横斩与突刺的三段连击，长按蓄力后松开重击，右键从容格挡。剑刃、护手、握把与配重锤可独立改造，刃面还能叠加符文，能按流派反复重铸。",
     "ue_icon": "Icons/ue_rune_sword.png",
     "melee_damage": 55,
     "melee_reach_cm": 180,
@@ -2911,6 +2911,39 @@
     "contact_end": 0.965,
     "viewmodel_mesh": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny.SK_AzureRunesword_Manny",
     "world_mesh": "/Game/Weapons/AzureRunesword20260913/SM_AzureRunesword.SM_AzureRunesword",
+    "animation_folder": "/Game/Weapons/AzureRunesword20260913",
+    "swing_sound": "/Game/Weapons/AzureRunesword20260913/Sword_Swing.Sword_Swing",
+    "hit_sound": "/Game/Weapons/AzureRunesword20260913/Sword_Hit.Sword_Hit"
+  },
+  "ue_frost_crystal_sword": {
+    "id": "ue_frost_crystal_sword",
+    "name": "寒晶·双手剑",
+    "category": "weapon_melee",
+    "type": "双手晶体剑",
+    "weaponType": "sword",
+    "weaponTypeTag": "双手剑",
+    "equipSlot": "weapon",
+    "isTwoHanded": true,
+    "rarity": "epic",
+    "grade": "epic",
+    "stack_max": 1,
+    "grid_w": 2,
+    "grid_h": 4,
+    "price": 3200,
+    "level": 1,
+    "enhanceLevel": 0,
+    "icon_fallback": "寒晶",
+    "desc": "在永冻矿脉深处结晶的晶体剑，晶格把挥剑者的智力与精神直接导成附加魔法伤害，比例各为 10%，并随连击与重击倍率放大，再按目标魔法防御结算，法术型配点能从中拿到可观收益。代价是这份侵蚀已与晶体融为一体：刃面不再接受普通侵蚀符文，插入侵蚀符文只会被转化为专属的精神迸发，把这段伤害翻倍。",
+    "innate_erosion_intelligence": 0.1,
+    "innate_erosion_wisdom": 0.1,
+    "melee_damage": 55,
+    "melee_reach_cm": 180,
+    "melee_knockback_cm": 20,
+    "attack_seconds": 1.775,
+    "contact_start": 0.85,
+    "contact_end": 0.965,
+    "viewmodel_mesh": "/Game/Weapons/FrostCrystalSword20260915/SK_FrostCrystalSword_Manny.SK_FrostCrystalSword_Manny",
+    "world_mesh": "/Game/Weapons/FrostCrystalSword20260915/SM_FrostCrystalSword.SM_FrostCrystalSword",
     "animation_folder": "/Game/Weapons/AzureRunesword20260913",
     "swing_sound": "/Game/Weapons/AzureRunesword20260913/Sword_Swing.Sword_Swing",
     "hit_sound": "/Game/Weapons/AzureRunesword20260913/Sword_Hit.Sword_Hit"
@@ -2933,7 +2966,7 @@
     "grid_h": 2,
     "type": "武器",
     "gunsmith_base_mag": 6,
-    "desc": "Dan-Wesson 715 六发左轮手枪，使用 .357 Magnum 弹药。按次点射，弹壳保留至开巢换弹。",
+    "desc": "Dan Wesson 枪族里的 715 型转轮手枪，采用闭锁式弹巢与厚重枪身，可安全承受 .357 Magnum 的高膛压，单发威力扎实。转轮结构让它天生射速慢，节奏靠一发一发点射维持；六发打完必须逐发退壳再逐发装填，换弹时间明显偏长，射击中途也难以及时补弹。适合从容瞄准、追求单发质量的射手。",
     "stats": [
       {
         "name": "物理攻击",
@@ -2947,7 +2980,7 @@
   },
   "ammo_357": {
     "id": "ammo_357",
-    "name": ".357 Magnum 左轮弹",
+    "name": ".357 MAG SP",
     "category": "material",
     "type": "弹药",
     "rarity": "common",
@@ -2955,11 +2988,48 @@
     "icon": "",
     "ue_icon": "",
     "icon_fallback": "▥",
-    "desc": "供 Dan-Wesson 715 使用的 .357 Magnum 弹药。"
+    "desc": ".357 MAG SP 标准弹种，供 Dan-Wesson 715 使用。自动计入弹药袋，不占背包空间。"
+  },
+  "ue_ash12": {
+    "category": "weapon",
+    "desc": "俄罗斯为近距作战研制的大口径突击步枪，无托布局把枪身压短，便于在楼道与门框之间转动，12.7×55mm 弹药有专门设计的几种弹型。代价同样明确：后坐与镜头震动沉重，有效射程不长，20 发弹匣也偏浅。它不适合压制，要求你稳住呼吸点射，用单发威力换掉对面。",
+    "equipSlot": "weapon",
+    "icon": "Icons/ue_ash12.png",
+    "ue_icon": "Icons/ue_ash12.png",
+    "id": "ue_ash12",
+    "isTwoHanded": true,
+    "name": "ASH-12",
+    "rarity": "common",
+    "stack_max": 1,
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "48"
+      },
+      {
+        "name": "弹匣容量",
+        "value": "20"
+      }
+    ],
+    "type": "武器",
+    "weaponType": "rifle"
+  },
+  "ammo_127": {
+    "category": "material",
+    "desc": "ASH-12 使用的 12.7×55mm 弹药。自动计入弹药袋，换弹时取用，每发独立计数。",
+    "icon": "",
+    "ue_icon": "",
+    "icon_fallback": "▥",
+    "id": "ammo_127",
+    "name": "12.7mm 弹药",
+    "price": 4,
+    "rarity": "common",
+    "stack_max": 999,
+    "type": "弹药"
   },
   "ue_m16a2": {
     "category": "weapon",
-    "desc": "5.56 mm 三连发步枪。每次扣动扳机发射一组，适合中远距离点射。",
+    "desc": "美国在 M16A1 基础上改进的制式步枪，改用较重的枪管与可调照门，并把连发方式改为三连发——一次扣扳机只送出三发，既省弹药又压得住枪口。直枪托与架高的瞄准基线带来平直弹道，连发节奏偏快，中远距离一次点射的命中率可观，适合习惯点射、追求精准而非泼弹的射手。",
     "equipSlot": "weapon",
     "icon": "Icons/ue_m16a2.png",
     "id": "ue_m16a2",
@@ -2985,7 +3055,7 @@
   },
   "ue_a762": {
     "category": "weapon",
-    "desc": "A762 自动步枪，使用 7.62mm 弹药与 30 发弧形弹匣，配骨架枪托和顶部导轨。",
+    "desc": "边境工坊按自家图纸仿制 7.62mm 步枪时改出的一支，机匣沿用成熟的长行程导气结构，枪托换成骨架式以减轻重量，机匣顶部另加工了导轨以便加装各类瞄具。弧形弹匣保持 30 发容量，单发威力与连发节奏都取中，火力与操控都不偏废，适合在不同距离之间来回切换的打法。",
     "equipSlot": "weapon",
     "icon": "",
     "id": "ue_a762",
@@ -3031,38 +3101,43 @@
     "type": "武器",
     "weaponType": "rifle"
   },
-  "ue_frost_crystal_sword": {
-    "id": "ue_frost_crystal_sword",
-    "name": "寒晶·双手剑",
-    "category": "weapon_melee",
-    "type": "双手晶体剑",
-    "weaponType": "sword",
-    "weaponTypeTag": "双手剑",
+  "ue_pkm_lowpoly": {
+    "category": "weapon",
+    "desc": "口径 7.62×54R 的弹链供弹通用机枪，沉重的枪身配合 100 发弹箱支撑起不间断的压制火力：不用换弹就能长时间封住一条通路，单发伤害也扎实。代价是举枪与移动明显迟缓、换弹耗时偏长，只适合卡位、封锁通路与掩护推进，是把阵地钉住而不是打游击的武器。",
     "equipSlot": "weapon",
+    "icon": "",
+    "icon_fallback": "PKM",
+    "id": "ue_pkm_lowpoly",
     "isTwoHanded": true,
-    "rarity": "epic",
-    "grade": "epic",
+    "name": "PKM",
+    "rarity": "common",
     "stack_max": 1,
-    "grid_w": 2,
-    "grid_h": 4,
-    "price": 3200,
-    "level": 1,
-    "enhanceLevel": 0,
-    "icon_fallback": "寒晶",
-    "desc": "蓝色晶体剑刃自带侵蚀之力，近战附加智力×10%与精神×10%的魔法伤害。专属精神迸发符文可使这部分伤害翻倍，无法再安装普通侵蚀符文。双手握持，支持三段连击、蓄力重击与格挡，占用副手槽。",
-    "innate_erosion_intelligence": 0.1,
-    "innate_erosion_wisdom": 0.1,
-    "melee_damage": 55,
-    "melee_reach_cm": 180,
-    "melee_knockback_cm": 20,
-    "attack_seconds": 1.775,
-    "contact_start": 0.85,
-    "contact_end": 0.965,
-    "viewmodel_mesh": "/Game/Weapons/FrostCrystalSword20260915/SK_FrostCrystalSword_Manny.SK_FrostCrystalSword_Manny",
-    "world_mesh": "/Game/Weapons/FrostCrystalSword20260915/SM_FrostCrystalSword.SM_FrostCrystalSword",
-    "animation_folder": "/Game/Weapons/AzureRunesword20260913",
-    "swing_sound": "/Game/Weapons/AzureRunesword20260913/Sword_Swing.Sword_Swing",
-    "hit_sound": "/Game/Weapons/AzureRunesword20260913/Sword_Hit.Sword_Hit"
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "30"
+      },
+      {
+        "name": "弹匣容量",
+        "value": "100"
+      }
+    ],
+    "type": "武器",
+    "weaponType": "machineGun",
+    "grid_w": 5,
+    "grid_h": 2
+  },
+  "ammo_pkm_762x54r": {
+    "category": "material",
+    "desc": "7.62×54R 标准弹，自动计入弹药袋。",
+    "icon": "",
+    "icon_fallback": "▥",
+    "id": "ammo_pkm_762x54r",
+    "name": "7.62×54R LPS",
+    "rarity": "common",
+    "stack_max": 999,
+    "type": "弹药",
+    "ue_icon": "Icons/ammo_762.png"
   },
   "ue_highland_claymore": {
     "id": "ue_highland_claymore",
@@ -3081,7 +3156,7 @@
     "price": 3200,
     "level": 1,
     "enhanceLevel": 0,
-    "desc": "修长钢刃镌刻苍蓝符文，弧形护手与圆盘配重延续高地双手剑的形制。支持三段连击、蓄力重击、突刺与格挡，占用副手槽；剑刃、护手、握把、配重和刃面符文可独立改造。",
+    "desc": "高地工匠的章法：修长钢刃便于双手发力，弧形护手护住腕部，圆盘配重把重心前移，刃上苍蓝符文则承袭同一脉纹样，与符文剑出自同门而各有侧重。三段连击、蓄力重击、突刺与格挡一应俱全。剑刃、护手、握把、配重与刃面符文均可独立改造，适合靠距离与节奏取胜的稳重打法。",
     "ue_icon": "Icons/ue_highland_claymore.png",
     "melee_damage": 55,
     "melee_reach_cm": 180,

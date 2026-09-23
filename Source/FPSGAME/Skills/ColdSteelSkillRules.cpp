@@ -56,6 +56,8 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
     D.MeleeHitExperience=FMath::Clamp(int32(Num(TEXT("meleeHitExperience"),0)),0,10000);
     D.MeleeKillExperience=FMath::Clamp(int32(Num(TEXT("meleeKillExperience"),0)),0,10000);
     D.MoveSpeedPerLevel=FMath::Clamp(float(Num(TEXT("moveSpeedPerLevel"),.01)),0.f,1.f);
+    // 持械移速固定档：0 = 不配置（保持 1 倍倍率），否则钳制在 0-1.5，避免写错系数毁掉移动。
+    D.MovementMultiplier=FMath::Clamp(float(Num(TEXT("movementMultiplier"),0)),0.f,1.5f);
     D.CriticalDamageBase=FMath::Clamp(float(Num(TEXT("criticalDamageBase"),.50)),0.f,5.f);
     D.CriticalDamagePerLevel=FMath::Clamp(float(Num(TEXT("criticalDamagePerLevel"),.05)),0.f,1.f);
     D.LuckPerLevel=FMath::Clamp(int32(Num(TEXT("luckPerLevel"),1)),0,100);
@@ -265,7 +267,7 @@ FColdSteelSkillEffect ColdSteelSkills::Effect(const FColdSteelSkillDefinition& D
     if(D.Id==TEXT("whirlwind")){FColdSteelSkillEffect E;E.Strength=L*D.StrengthPerLevel;return E;}
     if(D.Id==TEXT("heavyStrike")){FColdSteelSkillEffect E;E.Strength=L*D.StrengthPerLevel;E.HeavyMultiplier=D.HeavyMultiplierBase+FMath::Max(0,L-1)*D.HeavyMultiplierPerLevel;E.HeavyChargeSeconds=FMath::Max(.1f,D.HeavyChargeBase-FMath::Max(0,L-1)*D.HeavyChargeReductionPerLevel);return E;}
     if(D.Id==TEXT("swordMastery")||D.Id==TEXT("machineGunMastery")||D.Id==TEXT("shotgunMastery")||D.Id==TEXT("bowMastery"))
-    {FColdSteelSkillEffect E;E.Strength=L*D.StrengthPerLevel;E.Constitution=L*D.ConstitutionPerLevel;E.Dexterity=L*D.DexterityPerLevel;E.DamagePercent=L*D.DamagePercentPerLevel;E.FlatDamage=L*D.FlatDamagePerLevel;E.CooldownReduction=L*D.CooldownReductionPerLevel;return E;}
+    {FColdSteelSkillEffect E;E.Strength=L*D.StrengthPerLevel;E.Constitution=L*D.ConstitutionPerLevel;E.Dexterity=L*D.DexterityPerLevel;E.DamagePercent=L*D.DamagePercentPerLevel;E.FlatDamage=L*D.FlatDamagePerLevel;E.CooldownReduction=L*D.CooldownReductionPerLevel;E.MovementMultiplier=D.MovementMultiplier;return E;}
     if(D.Id==TEXT("criticalStrike")){FColdSteelSkillEffect E;E.CriticalDamageBonus=L>0?D.CriticalDamageBase+L*D.CriticalDamagePerLevel:0.f;E.Luck=L*D.LuckPerLevel;return E;}
     if(D.Id==TEXT("dodge")){FColdSteelSkillEffect E;E.DodgeDistanceCM=L*D.DodgeDistanceCMPerLevel;E.DodgeCostReduction=L*D.DodgeCostReductionPerLevel;return E;}
     // 占位技能：正式效果定义前保持零收益，避免落入步枪精通的通用档。
@@ -317,6 +319,8 @@ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelIt
             if(bFiredRound)Shot.ArmorPenetration=FMath::Clamp(Shot.ArmorPenetration+M->AmmoArmorPenetration(*I),0.f,1.f);
             if(Shot.ItemDefinition.IsEmpty())Shot.ItemDefinition=I->Definition;
             Shot.bMelee=ColdSteelInventory::IsMeleeWeapon(*I);
+            // 近战默认按锐器折算削韧（配重锤等钝击动作由攻击端覆盖）；其余按冲击。
+            Shot.AttackForm=Shot.bMelee?EMonsterAttackForm::Blade:EMonsterAttackForm::Impact;
             if(Shot.bMelee)
             {
                 const auto Melee=ColdSteelMelee::Evaluate(*I,M);

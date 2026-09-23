@@ -1,0 +1,153 @@
+{
+  "source_raw": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PKMLowpolyAudio20260922\\S_PKM_Fire.raw.wav",
+  "source_raw_sha256": "4d3ddbc7032e36baaa9e674ce1b1ee8be8abea01cd52d4c7670f4387fb92924d",
+  "source_raw_seconds": 0.5,
+  "source_content_ms": [
+    50.0,
+    114.26
+  ],
+  "source_defect": "64 ms of sound inside a 0.5 s container; 50 ms leading silence; hard cut at full level at ~114 ms",
+  "output_seconds": 0.15,
+  "fire_interval_seconds": 0.092308,
+  "output_longer_than_interval": true,
+  "corrective_eq": [
+    {
+      "type": "lowshelf",
+      "hz": 90.0,
+      "gain_db": -1.2,
+      "q": 0.7
+    },
+    {
+      "type": "lowshelf",
+      "hz": 200.0,
+      "gain_db": 1.8,
+      "q": 0.7
+    },
+    {
+      "type": "peak",
+      "hz": 500.0,
+      "gain_db": 0.9,
+      "q": 0.9
+    },
+    {
+      "type": "peak",
+      "hz": 900.0,
+      "gain_db": -1.2,
+      "q": 0.9
+    },
+    {
+      "type": "peak",
+      "hz": 2400.0,
+      "gain_db": -0.9,
+      "q": 1.0
+    },
+    {
+      "type": "highshelf",
+      "hz": 7000.0,
+      "gain_db": -1.2,
+      "q": 0.707
+    }
+  ],
+  "tail_bands": [
+    {
+      "low": 50.0,
+      "high": 200.0,
+      "tau": 0.11,
+      "weight": 1.0
+    },
+    {
+      "low": 200.0,
+      "high": 800.0,
+      "tau": 0.07,
+      "weight": 1.0
+    },
+    {
+      "low": 800.0,
+      "high": 3500.0,
+      "tau": 0.032,
+      "weight": 1.0
+    },
+    {
+      "low": 3500.0,
+      "high": 9000.0,
+      "tau": 0.016,
+      "weight": 1.0
+    }
+  ],
+  "tail_length_ms": 85.24,
+  "tail_gain": 0.5,
+  "body_duck": 0.9,
+  "body_duck_start_ms": 35.0,
+  "peak_soften": 0.3,
+  "sample_peak": 1.0,
+  "peak_normalised_full_scale": true,
+  "level_note": "WAV is at full scale; the requested 2x loudness is split into +4.4 dB here (peak 0.6025 -> 1.0, short of clipping) and the rest via the SoundWave volume property, because a blind 2x on the WAV clips samples.",
+  "rms": 0.29508327352140457,
+  "crest_db": 10.601108146377223,
+  "pitch_multiplier": 1.0,
+  "attack_modified": "trimmed to the real sound; tilt EQ only, no time or pitch change",
+  "runtime_volume_multiplier": "unchanged (AKMSource::FireVolume * WeaponAudioGain)",
+  "envelope_db": [
+    -16.6,
+    -11.6,
+    -7.3,
+    -5.0,
+    -4.9,
+    -3.2,
+    -5.9,
+    -2.7,
+    -5.6,
+    -7.3,
+    -12.8,
+    -8.8,
+    -8.0,
+    -5.5,
+    -9.3,
+    -9.0,
+    -10.2,
+    -7.7,
+    -13.3,
+    -8.7,
+    -10.0,
+    -8.9,
+    -11.2,
+    -11.7,
+    -14.3,
+    -19.1,
+    -26.5,
+    -18.4,
+    -14.1,
+    -12.1,
+    -9.7,
+    -7.7,
+    -11.7,
+    -10.2,
+    -18.1,
+    -12.8,
+    -23.5,
+    -19.8,
+    -16.3,
+    -13.7,
+    -17.3,
+    -17.3,
+    -17.7,
+    -16.2,
+    -23.0,
+    -17.7,
+    -20.2,
+    -18.5,
+    -20.5,
+    -23.8,
+    -27.2,
+    -26.3,
+    -47.0,
+    -50.8,
+    -61.2,
+    -73.4,
+    -74.9,
+    -72.7,
+    -80.6,
+    -96.5
+  ],
+  "listening_or_gameplay_tested": false
+}

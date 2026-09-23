@@ -21,6 +21,9 @@ struct FMeleeModifiers
     double QuickCombatDamageAdd=0, QuickCombatKnockback=1;
     // 每次近战出手按武器冷却口径缩减全部魔法技能CD（金色符文强化：0.5s→1.0s）。
     double CooldownReduceSecondsPerHit=0;
+    // RuneVulnerability*=剑刃攻击通道（普攻/连段/重击/旋风/冲刺及未来的剑刃攻击）；
+    // QuickCombatRuneVulnerability*=配重锤快速近战专属通道，两种改造件触发条件不同。
+    double QuickCombatRuneVulnerability=0, QuickCombatRuneVulnerabilitySeconds=0;
     double HeavyMultiplier(double Base) const {return Base*HeavyDamage+HeavyDamageAdd;}
     double RuneVulnerability=0, RuneVulnerabilitySeconds=0;
     double ParryWindow=1, RiposteSpeed=1, RiposteStamina=1, RiposteSeconds=0;
@@ -48,6 +51,17 @@ struct FGunsmithOption
     // key (empty_reload_mult) when normal and empty reload must differ.
     double ADS=0, ADSSeconds=0, Recoil=1, Shake=1, Stability=1, Speed=1, Interval=1, Spread=1, Range=1, Reload=1, EmptyReload=1;
     int32 Magazine=0;
+};
+/**
+ * 武器特殊性质：工具提示「特殊性质」段的一行。
+ * Icon 决定这一行的颜色（见 ColdSteelItemTooltipLayout 的 TraitColor），
+ * 所以新增武器只要在目录里写 traits，不必改 UI 代码。
+ * 取值：special（特殊攻击）/ magic（魔法）/ mechanic（机制）/ drawback（代价）/ neutral。
+ * 数据直接从目录的 FGunsmithWeapon::Source 读，不额外缓存。
+ */
+struct FGunsmithTrait
+{
+    FString Icon, Text;
 };
 struct FGunsmithWeapon
 {

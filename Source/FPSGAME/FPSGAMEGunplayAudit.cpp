@@ -316,8 +316,8 @@ void AFPSGAMECharacter::RunGunplayAcceptance(float DeltaSeconds)
         break;
     case 11:
         if (GunplayAuditElapsed < 6.62f) break;
-        Verify(TEXT("reload_and_sprint_coexist"), IsReloading() && bIsSprinting && HorizontalSpeed() >= SlideMinimumSpeed,
-            FString::Printf(TEXT("reload=%d sprint=%d speed=%.2f minimum=%.2f grounded=%d"), IsReloading(), bIsSprinting, HorizontalSpeed(), SlideMinimumSpeed, GetCharacterMovement()->IsMovingOnGround()));
+        Verify(TEXT("reload_and_sprint_coexist"), IsReloading() && bIsSprinting && HorizontalSpeed() >= SlideEntrySpeed(),
+            FString::Printf(TEXT("reload=%d sprint=%d speed=%.2f minimum=%.2f grounded=%d"), IsReloading(), bIsSprinting, HorizontalSpeed(), SlideEntrySpeed(), GetCharacterMovement()->IsMovingOnGround()));
         Capture(TEXT("04_Reload_Sprint.png"));
         // C is intercepted by the character sheet; use the existing Slide binding.
         Key(EKeys::LeftControl, IE_Pressed);

@@ -117,7 +117,7 @@
   },
   "machineGunMastery": {
     "name": "机枪精通",
-    "description": "精通机枪的操控艺术，每次射击都更加致命",
+    "description": "精通机枪的操控艺术，每次射击都更加致命。持机枪时移动速度降低 33%。",
     "icon": "",
     "experiencePerLevel": 300,
     "killExperience": 10,
@@ -129,6 +129,7 @@
     "strengthPerLevel": 1,
     "constitutionPerLevel": 0,
     "dexterityPerLevel": 0,
+    "movementMultiplier": 0.67,
     "source": "gamedev/data/skills.json:machineGunMastery"
   },
   "shotgunMastery": {
@@ -209,7 +210,7 @@
   },
   "quickCombat": {
     "name": "快速进战",
-      "description": "不限武器类型。按 F 快速打击，按当前手里的武器选动作：剑顺势使出第四连击的配重锤打击，单持手枪松开左手、右手持枪以握把向前猛砸，步枪双手持枪以枪托/枪身前段向前下砸。对前方 2 米的单个目标造成 25 + 等级×5 + 力量×（5 + 等级×0.1）伤害，击退 1 米并眩晕（2.5 + 等级×0.1）秒。基础冷却 12 秒。",
+    "description": "不限武器类型。按 F 快速打击：剑使用独立配重锤打击，单持手枪以握把砸击，步枪以枪托或枪身前段砸击。对前方 2 米的单个目标造成基础伤害 25 + 等级×5 + 力量×（5 + 等级×0.1），再乘当前武器的快速近战伤害倍率。基础击退 1 米，并眩晕（2.5 + 等级×0.1）秒。配重锤的快速近战伤害与击退加成在施放时结算。基础冷却 12 秒。",
     "icon": "Skills/quick_combat_placeholder.png",
     "upgradeSound": "Skills/player_upgrade.wav",
     "experiencePerLevel": 300,

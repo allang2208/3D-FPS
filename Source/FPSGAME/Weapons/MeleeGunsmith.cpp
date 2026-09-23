@@ -62,6 +62,8 @@ void UGunsmithSystem::LoadMeleeCatalog()
             Stats->TryGetNumberField(TEXT("knockback_mult"),Part.Melee.Knockback);
             Stats->TryGetNumberField(TEXT("quick_combat_damage_add"),Part.Melee.QuickCombatDamageAdd);
             Stats->TryGetNumberField(TEXT("quick_combat_knockback_mult"),Part.Melee.QuickCombatKnockback);
+            Stats->TryGetNumberField(TEXT("quick_combat_rune_vulnerability"),Part.Melee.QuickCombatRuneVulnerability);
+            Stats->TryGetNumberField(TEXT("quick_combat_rune_vulnerability_seconds"),Part.Melee.QuickCombatRuneVulnerabilitySeconds);
             Stats->TryGetNumberField(TEXT("rune_intelligence"),Part.Melee.RuneIntelligence);
             Stats->TryGetNumberField(TEXT("rune_wisdom"),Part.Melee.RuneWisdom);
             Stats->TryGetNumberField(TEXT("innate_erosion_mult"),Part.Melee.InnateErosionMultiplier);
@@ -79,11 +81,16 @@ void UGunsmithSystem::LoadMeleeCatalog()
     }
     for(const auto& Value:Root->GetArrayField(TEXT("weapons")))
     {
-        const FString Id=Value->AsString();const auto Item=Profile->CreateItem(Id);
+        // 目录条目是对象（保留 traits 等只读展示字段）；仍兼容旧的纯字符串写法。
+        const TSharedPtr<FJsonObject> Entry=Value->AsObject();
+        const FString Id=Entry?Entry->GetStringField(TEXT("id")):Value->AsString();
+        const auto Item=Profile->CreateItem(Id);
         if(!ColdSteelInventory::IsTwoHandedSword(Item))continue;
         FGunsmithWeapon Weapon;Weapon.Id=Id;Weapon.Model=TEXT("two_handed_sword");
         Weapon.Name=ColdSteelInventory::Text(Item,TEXT("name"));
         Weapon.Allowed=MeleeSlotKeys;Weapon.Options=FactoryOptions;
+        // Source 让工具提示能读到 traits；没有它近战就永远没有「特殊性质」段。
+        Weapon.Source=Entry;
         for(auto& Column:Weapon.Options)Column.Value.RemoveAll([&](const FGunsmithOption& Part){return !Part.CompatibleWeapons.IsEmpty()&&!Part.CompatibleWeapons.Contains(Id);});
         if(Id==ColdSteelFrostRunes::Definition)
             if(auto* Runes=Weapon.Options.Find(TEXT("blade_2"));Runes&&!Runes->IsEmpty())

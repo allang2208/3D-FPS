@@ -1,4 +1,6 @@
+#include "../Dungeon/DungeonLayout.h"
 #include "ColdSteelStatusModel.h"
+#include "../Weapons/WeaponReloadStages.h"
 #include "../Weapons/PistolDualWieldComponent.h"
 #include "../Weapons/RuneOrbBladesComponent.h"
 #include "../Skills/ColdSteelSkillRules.h"
@@ -14,10 +16,19 @@
 #include "Misc/Parse.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
+#include "HAL/IConsoleManager.h"
 #include "EngineUtils.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "../Weapons/FrostSwordRunes.h"
 #include "Misc/SecureHash.h"
+
+// 定时自动存档周期（秒）。战斗与修行增量先落在内存档案里（StageTraining），由这个时钟统一写盘：
+// 旧口径是「待写盘时每 1 秒补一次」加「无条件每 5 秒一次」，战斗中几乎每秒都在写约 100 KB 的存档、
+// 回读校验、再反序列化校验一遍，全部在游戏线程上。物品、装备、强化、仓库、弹药换装这类玩家主动
+// 事务以及升级、退出仍然立即写盘，最多只会丢一个周期的战斗收益。0 表示关闭定时存档。
+static TAutoConsoleVariable<float> SaveAutosaveSeconds(TEXT("fps.Save.AutosaveSeconds"),300.f,
+    TEXT("Seconds between periodic checked autosaves. Combat and training progress is applied to the live profile immediately and lands on this clock. Inventory, equipment, enhancement, warehouse and ammo-switch transactions, level-ups and exit still save immediately. 0 disables the periodic save."),
+    ECVF_Default);
 
 using namespace ColdSteelInventory;
 namespace
@@ -31,7 +42,7 @@ void StoreRevolverCaseCount(FColdSteelItem& Item, int32 Count)
 }
 bool IsRetiredWeapon(const FString& Id)
 {
-    static const TSet<FString> Retired = {TEXT("fps_akm"),TEXT("fps_hk416"),TEXT("fps_m16"),TEXT("fps_akm_classic"),TEXT("fps_qbz191"),TEXT("fps_p9")};
+    static const TSet<FString> Retired = {TEXT("fps_akm"),TEXT("fps_hk416"),TEXT("fps_m16"),TEXT("fps_akm_classic"),TEXT("fps_qbz191"),TEXT("fps_p9"),TEXT("ue_pkm"),TEXT("ue_pkm_a"),TEXT("ammo_762x54r")};
     return Retired.Contains(Id);
 }
 bool RemoveRetiredWeapons(FColdSteelProfile& P)
@@ -45,6 +56,13 @@ bool RemoveRetiredWeapons(FColdSteelProfile& P)
             P.Hotbar[N].Reset(); if (P.HotbarDefinitions.IsValidIndex(N)) P.HotbarDefinitions[N].Reset(); Changed=true;
         }
     }
+    // Clear the selected PKM family from saved quick bindings and its ammo pouch.
+    for (auto& Binding : P.QuickBindings) {
+        if (Removed.Contains(Binding.ItemId) || IsRetiredWeapon(Binding.ItemDefinition)) {
+            Binding = FColdSteelQuickBinding(); Changed = true;
+        }
+    }
+    Changed |= P.AmmoPouch.Remove(TEXT("ammo_762x54r")) > 0;
     if (Owner(P.Items,1,P.ActiveWeaponSlot)<0) {
         const int32 Other=P.ActiveWeaponSlot==6?9:6;
         if (Owner(P.Items,1,Other)>=0) { P.ActiveWeaponSlot=Other; Changed=true; }
@@ -113,26 +131,8 @@ bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn
     bool AmmoChanged=false;
     if(!NormalizeAmmo(State,AmmoChanged)){Message=TEXT("弹药数据迁移失败，原存档保留");return false;}
     NormalizeProductionState(State);
-    if(CurrentPawn.IsValid() && CurrentPawn->IsCastingWithLeftHand())
-    {
-        const auto HeldItem=[](const FColdSteelProfile& P)->FString
-        {
-            if(!P.ActiveProductionTool.IsEmpty())return P.ActiveProductionTool;
-            const int32 Index=Owner(P.Items,1,P.ActiveWeaponSlot);
-            return P.Items.IsValidIndex(Index)?P.Items[Index].InstanceId:FString();
-        };
-        // Reject the equipment transaction before saving or changing the viewmodel.
-        // Ammo, MP, training and changes to unequipped inventory remain independent.
-        if(HeldItem(Current)!=HeldItem(State))
-        { Message=TEXT("施法占用左手，请收手后切换装备");return false; }
-        const auto Offhand=[](const FColdSteelProfile& P)->FString
-        {
-            const int32 I=Owner(P.Items,1,P.ActiveWeaponSlot==6?8:11);
-            return P.Items.IsValidIndex(I)?P.Items[I].InstanceId:FString();
-        };
-        if(Offhand(Current)!=Offhand(State))
-        { Message=TEXT("施法占用左手，请收手后切换副手");return false; }
-    }
+    // Equipment has the highest action priority. Only a successfully published
+    // equipment change interrupts the outgoing action in ApplyColdSteelProfile.
     ColdSteelSkills::Migrate(State);
     ColdSteelQuickBar::Migrate(State);
     ColdSteelQuickBar::MirrorLegacy(State);
@@ -165,11 +165,11 @@ bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn
 // profile immediately - so damage, rewards and panel readings stay exact - and
 // the checked save is coalesced to the autosave clock.
 //
-// Deliberate trade-off (2026-09-18 audit): a hard crash can lose at most the
-// coalescing window (one second, see the Tick flush) of hit experience, and a
-// rejected level-up save keeps the new level in memory until the next flush
-// self-heals it. Do not "fix" this back to a per-hit checked transaction -
-// that is the stutter this staging removed.
+// Deliberate trade-off (2026-09-18 audit, extended 2026-09-21): a hard crash can
+// lose at most one autosave period of combat progress (fps.Save.AutosaveSeconds,
+// default 300 s), and a rejected level-up save keeps the new level in memory until
+// the next autosave self-heals it. Do not "fix" this back to a per-hit checked
+// transaction - that is the stutter this staging removed.
 bool UColdSteelStatusModel::StageTraining(FColdSteelProfile&& State)
 {
     bool bLeveled=false;
@@ -185,7 +185,7 @@ bool UColdSteelStatusModel::StageTraining(FColdSteelProfile&& State)
     if(bLeveled)
     {
         if(PersistState(Snapshot(),true))return true;
-        // A rejected save keeps the staged training queued for the next flush.
+        // A rejected save keeps the staged training queued for the next autosave.
         bTrainingDirty=true;TrainingFlushAccumulator=0.f;return false;
     }
     bTrainingDirty=true;TrainingFlushAccumulator=0.f;
@@ -254,6 +254,40 @@ bool UColdSteelStatusModel::ReloadProfile()
                 }
             }
         }
+        // 武器归类以目录为准：PKM 从步枪改判机枪后，旧存档实例仍带着
+        // weaponType:"rifle"，会让持械移速与专精结算继续走步枪分支。
+        // 只同步目录里真实存在的 weaponType，且只在不同才写回。
+        if(const FString* CatalogDefinition=Definitions.Find(I.Definition))
+        {
+            TSharedPtr<FJsonObject> CatalogData,ItemData;
+            FString CatalogType,StoredType;
+            if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*CatalogDefinition),CatalogData)&&CatalogData&&
+                CatalogData->TryGetStringField(TEXT("weaponType"),CatalogType)&&!CatalogType.IsEmpty()&&
+                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData&&
+                ItemData->TryGetStringField(TEXT("weaponType"),StoredType)&&StoredType!=CatalogType)
+            {
+                ItemData->SetStringField(TEXT("weaponType"),CatalogType);
+                I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+            }
+            // 条目说明同样以目录为准。物品实例存的是创建当时的目录快照，
+            // 所以只改 items.json 时，已经持有的武器仍显示旧介绍
+            // （实测：旧文案在 ColdSteelPlayer_A.sav 里各命中 1-2 处，新文案 0 处）。
+            // 只同步纯展示文本，不碰数值、改造件或附魔数据。
+            // 实例里没有该字段时也要补上：否则战斗目录的补全逻辑会继续留着旧值。
+            FString CatalogDesc;
+            if(CatalogData->TryGetStringField(TEXT("desc"),CatalogDesc)&&!CatalogDesc.IsEmpty())
+            {
+                FString StoredDesc;
+                const bool bHasStored=FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)
+                    &&ItemData&&ItemData->TryGetStringField(TEXT("desc"),StoredDesc);
+                if(!bHasStored||StoredDesc!=CatalogDesc)
+                {
+                    if(!ItemData)ItemData=MakeShared<FJsonObject>();
+                    ItemData->SetStringField(TEXT("desc"),CatalogDesc);
+                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+                }
+            }
+        }
         const bool Material=I.Definition==TEXT("enhancement_stone")||I.Definition==TEXT("magic_dust");
         if(!Material&&I.Definition!=TEXT("enchant_scroll_heavy")&&I.Definition!=TEXT("enchant_scroll_sharp")&&I.Definition!=TEXT("enchant_scroll_skeleton")&&I.Definition!=TEXT("enchant_scroll_tarantula"))continue;
         const FString* Definition=Definitions.Find(I.Definition);if(!Definition)continue;
@@ -297,7 +331,7 @@ bool UColdSteelStatusModel::AwardKill(AActor* Victim,int64 Reward)
 {
     if(!Victim||RewardedVictims.Contains(Victim)||Reward<=0||Reward>1000000000)return false;
     if(ActiveFireballRewards && ActiveFireballRewards->Victim==Victim){ActiveFireballRewards->Kills.FindOrAdd(Victim)=Reward;return true;}
-    SyncRuntime();auto P=Snapshot();P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);P.Experience+=FMath::FloorToInt64(Reward*TributeEffect(TEXT("expPercent")));
+    SyncRuntime();auto P=Snapshot();if(!DungeonLayout::RecordKill(P.DungeonRun,Victim))return false;P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);P.Experience+=FMath::FloorToInt64(Reward*TributeEffect(TEXT("expPercent")));
     if(ActiveTrainingHit && ActiveTrainingHit->Victim==Victim && ActiveTrainingHit->bEligible)
     {
         ActiveTrainingHit->bKillAttempted=true;
@@ -311,7 +345,8 @@ bool UColdSteelStatusModel::AwardKill(AActor* Victim,int64 Reward)
     }
     while(P.Level<10000){int64 Need=(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8;if(P.Experience<Need)break;P.Experience-=Need;++P.Level;P.Points=FMath::Min(P.Points+3,1000000);}
     if(P.Level==10000)P.Experience=FMath::Min(P.Experience,(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8-1);
-    if(!CommitState(P))return false;RewardedVictims.Add(Victim);return true;
+    // 击杀奖励先落在实时档案里，写盘交给定时自动存档；升级仍走即时带校验事务。
+    if(!StageTraining(MoveTemp(P)))return false;RewardedVictims.Add(Victim);return true;
 }
 const FColdSteelItem* UColdSteelStatusModel::FindItem(const FString& Id)const{return Current.Items.FindByPredicate([&](const auto& I){return I.InstanceId==Id;});}
 const FColdSteelItem* UColdSteelStatusModel::Equipped(int32 S)const{int32 N=Owner(Current.Items,1,S<0?Current.ActiveWeaponSlot:S);return N>=0?&Current.Items[N]:nullptr;}
@@ -385,7 +420,7 @@ bool UColdSteelStatusModel::DefaultAction(const FString& Id)
 }
 void UColdSteelStatusModel::SyncRuntime()
 {
-    if(!CurrentPawn.IsValid())return;
+    if(!CurrentPawn.IsValid() || CurrentPawn->IsResolvingActionInterrupt())return;
     const auto* Dual=CurrentPawn->FindComponentByClass<UPistolDualWieldComponent>();
     const bool DualActive=Dual && Dual->IsActive();
     if(DualActive)Dual->SyncInventory(Current.Items);
@@ -444,14 +479,18 @@ void UColdSteelStatusModel::TickRuntime(float Delta,AFPSGAMECharacter* Pawn)
         Health->Health=FMath::Min(Health->MaxHealth,Health->Health+Derived(TEXT("hpRegen"))*Delta);Current.Health=Health->Health;
     }
     TickTreeGrowthClock(Delta);
-    // Training experience accumulates in the live profile and lands in the next
-    // checked save, at most once per second, instead of one save per bullet.
-    if(bTrainingDirty){TrainingFlushAccumulator+=Delta;if(TrainingFlushAccumulator>=1.f)SaveNow();}
-    SaveAccumulator+=Delta;if(SaveAccumulator>=5){SaveAccumulator=0;SaveNow();}
+    // 修行经验与击杀奖励已经落在实时档案里（StageTraining），这里只负责把「有未写盘增量」的档案
+    // 按可配置周期落盘一次；没有增量就不空写。旧口径的 1 秒补写与无条件 5 秒写盘见文件顶部的说明。
+    const float AutosaveSeconds=SaveAutosaveSeconds.GetValueOnGameThread();
+    if(AutosaveSeconds>0.f)
+    {
+        SaveAccumulator+=Delta;
+        if(SaveAccumulator>=AutosaveSeconds){SaveAccumulator=0;if(bTrainingDirty)SaveNow();}
+    }
 }
 FString UColdSteelStatusModel::AmmoDefinition()const{const auto* I=Equipped();return I?AmmoDefinitionFor(*I):FString();}
 int32 UColdSteelStatusModel::AmmoCount()const{return Equipped()?int32(FMath::Min<int64>(PouchCount(AmmoDefinition()),MAX_int32)):0;}
-int32 UColdSteelStatusModel::ConsumeAmmo(int32 Requested, bool bCompletedReload, bool bReloadStep)
+int32 UColdSteelStatusModel::ConsumeAmmo(int32 Requested, bool bCompletedReload, bool bReloadStep, int32 NeedsCycle)
 {
     if(Requested<=0||!CurrentPawn.IsValid()||!Equipped()||!CurrentPawn->HasInventoryWeapon())return 0;
     SyncRuntime();Requested=FMath::Min(Requested,CurrentPawn->GetMagazineCapacity()-CurrentPawn->GetMagazineAmmo());if(Requested<=0)return 0;
@@ -464,6 +503,7 @@ int32 UColdSteelStatusModel::ConsumeAmmo(int32 Requested, bool bCompletedReload,
     for(auto& I:P.Items)if(I.Place==1&&I.Cell==P.ActiveWeaponSlot)
     {
         I.Magazine+=Taken;
+        if(Taken>0 && !WeaponReloadStages::SetNeedsCycle(I,NeedsCycle))return 0;
         if(Infinite)I.VirtualMagazineAmmo+=Taken;
         if(I.Definition==TEXT("ue_dan_wesson715"))
         {

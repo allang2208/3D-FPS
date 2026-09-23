@@ -78,6 +78,18 @@ FSlateChildSize TooltipFill(float Weight=1.f)
 {FSlateChildSize Result(ESlateSizeRule::Fill);Result.Value=Weight;return Result;}
 FString TooltipLabel(const FString& Label)
 {return Label==TEXT("当前伤害")?TEXT("伤害"):Label;}
+/**
+ * 「特殊性质」段按类别上色。Icon 是目录里的语义标签，未知标签落到中性色，
+ * 这样将来新增武器类型不需要改这里。
+ */
+const FLinearColor& TraitColor(const FString& Icon)
+{
+    if(Icon==TEXT("special")) return ColdSteelUI::ItemTraitSpecial;
+    if(Icon==TEXT("magic")) return ColdSteelUI::ItemTraitMagic;
+    if(Icon==TEXT("mechanic")) return ColdSteelUI::ItemTraitMechanic;
+    if(Icon==TEXT("drawback")) return ColdSteelUI::ItemTraitDrawback;
+    return ColdSteelUI::ItemTraitNeutral;
+}
 }
 
 float UColdSteelItemTooltip::InnerWidth()const{return FMath::Max(1.f,(WidthPixels-42)/Scale);}
@@ -234,6 +246,21 @@ void UColdSteelItemTooltip::AddDetails(UVerticalBox* Body)
         auto* Area=AddSection(Body,TEXT("description"),TEXT("物品说明"),true);
         auto* Description=Text(Presentation.Description,14,ColdSteelUI::ItemTooltipSecondary);Description->SetWrapTextAt(FMath::Max(1.f,InnerWidth()-30/Scale));
         Cast<UVerticalBox>(Area->GetContentForSlot(TEXT("Body")))->AddChildToVerticalBox(Description)->SetPadding(FMargin(30/Scale,0,0,0));
+    }
+    if(!Presentation.Traits.IsEmpty())
+    {
+        // Placed directly under 物品说明 so the mechanical character of a weapon is
+        // read straight after its background text. Only weapons carry traits, so
+        // other categories simply never render this section.
+        auto* Area=AddSection(Body,TEXT("traits"),TEXT("特殊性质"),true);
+        auto* Rows=Cast<UVerticalBox>(Area->GetContentForSlot(TEXT("Body")));
+        for(int32 Index=0;Index<Presentation.Traits.Num();++Index)
+        {
+            const auto& Trait=Presentation.Traits[Index];
+            auto* Line=Text(Trait.Text,14,TraitColor(Trait.Icon));
+            Line->SetWrapTextAt(FMath::Max(1.f,InnerWidth()-30/Scale));
+            Rows->AddChildToVerticalBox(Line)->SetPadding(FMargin(30/Scale,Index>0?6/Scale:0,0,0));
+        }
     }
 }
 void UColdSteelItemTooltip::BuildCards()

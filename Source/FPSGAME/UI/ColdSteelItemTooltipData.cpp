@@ -91,7 +91,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
                 Delta(C,TEXT("附加魔法伤害·智力系数"),S.Melee.RuneIntelligence*100,TEXT("%"));
                 Delta(C,TEXT("附加魔法伤害·精神系数"),S.Melee.RuneWisdom*100,TEXT("%"));
                 Delta(C,TEXT("自带侵蚀附加伤害"),(S.Melee.InnateErosionMultiplier-1)*100,TEXT("%"));
-                Delta(C,TEXT("命中魔法易伤"),S.Melee.RuneVulnerability*100,TEXT("%"));
+                Delta(C,TEXT("剑刃攻击魔法易伤"),S.Melee.RuneVulnerability*100,TEXT("%"));
                 Delta(C,TEXT("命中减魔法CD(秒)"),S.Melee.CooldownReduceSecondsPerHit,TEXT("s"));
                 Delta(C,TEXT("攻击速度"),(S.Melee.AttackSpeed-1)*100,TEXT("%"));
                 Delta(C,TEXT("攻击范围"),(S.Melee.Range-1)*100,TEXT("%"));
@@ -153,7 +153,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         if(Melee.Modifiers.MagicCooldown!=1)Row(Main,TEXT("魔法技能冷却倍率"),N(Melee.Modifiers.MagicCooldown)+TEXT("×"));
         if(Melee.Modifiers.MagicDamage!=1)Row(Main,TEXT("魔法伤害倍率"),N(Melee.Modifiers.MagicDamage)+TEXT("×"));
         if(Melee.Modifiers.CooldownReduceSecondsPerHit>0)Row(Main,TEXT("近战命中额外减少魔法冷却"),N(.5f+Melee.Modifiers.CooldownReduceSecondsPerHit)+TEXT(" s / 挥"));
-        if(Melee.Modifiers.RuneVulnerability>0)Row(Main,TEXT("命中魔法易伤"),N(Melee.Modifiers.RuneVulnerability*100)+TEXT("% · ")+N(Melee.Modifiers.RuneVulnerabilitySeconds)+TEXT(" s"));
+        if(Melee.Modifiers.RuneVulnerability>0)Row(Main,TEXT("剑刃攻击命中魔法易伤"),N(Melee.Modifiers.RuneVulnerability*100)+TEXT("% · ")+N(Melee.Modifiers.RuneVulnerabilitySeconds)+TEXT(" s"));
         Row(Main,TEXT("攻击间隔"),N(Melee.AttackSeconds)+TEXT(" s"));
         Row(Main,TEXT("突刺时间"),N(Melee.ThrustSeconds)+TEXT(" s"));
         Row(Main,TEXT("最大攻击距离"),N(Melee.ThrustReach/100)+TEXT(" m"));
@@ -175,22 +175,36 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         Row(Main,TEXT("握持"),TEXT("双手 · 占用副手槽"));
     }else if(ColdSteelInventory::IsEquippedProductionTool(I)){
         const bool bPickaxe=I.Definition==TEXT("tool_pickaxe");
-        Section(Main,bPickaxe?TEXT("采矿与自卫"):TEXT("伐木与自卫"));
-        Row(Main,TEXT("握持"),TEXT("双手 · 占用同组主手与副手槽"));
-        Row(Main,TEXT("装备方式"),TEXT("背包右键 / 拖入主手武器槽；G / 滚轮切换"));
+        // Same 近战参数 layout as the swords: formula, then total/base/added damage, then
+        // interval, stamina, reach and grip; tool-only harvest numbers move to their own section.
+        Section(Main,TEXT("近战参数"));
         const double Base=Number(O,TEXT("melee_damage"),bPickaxe?10:12);
+        const auto DamageParts=ColdSteelWeaponStats::DamageParts(I,Model,Base);
         AppendColdSteelTooltipAttackFormula(I,Model,Base,Main);
-        Row(Main,bPickaxe?TEXT("普通下砸物理伤害"):TEXT("普通挥砍物理伤害"),N(ColdSteelWeaponStats::Damage(I,Model,Base)));
-        Row(Main,TEXT("对敌距离"),N(Number(O,TEXT("combat_reach_cm"),180)/100)+TEXT(" m · 单目标"));
-        Row(Main,bPickaxe?TEXT("采矿距离"):TEXT("伐木距离"),N(Number(O,TEXT("harvest_reach_cm"),320)/100)+(bPickaxe?TEXT(" m · 对准岩块或矿石表面"):TEXT(" m · 树干表面")));
+        Row(Main,TEXT("普通攻击总伤害"),N(DamageParts.Total()));
+        Row(Main,TEXT("基础物理伤害"),N(DamageParts.BasePhysical));
+        if(DamageParts.AddedPhysical>0)Row(Main,TEXT("附加物理伤害"),N(DamageParts.AddedPhysical));
+        if(DamageParts.AddedMagic>0)Row(Main,TEXT("附加魔法伤害"),N(DamageParts.AddedMagic));
+        Row(Main,TEXT("攻击间隔"),N(Number(O,TEXT("swing_seconds"),1.1))+TEXT(" s"));
+        Row(Main,TEXT("最大攻击距离"),N(Number(O,TEXT("combat_reach_cm"),180)/100)+TEXT(" m"));
+        Row(Main,TEXT("攻击耐力消耗"),N(Model?double(Model->StaminaSettings().HarvestCost):10.));
+        Row(Main,TEXT("握持"),TEXT("双手 · 占用同组主手与副手槽"));
+        Section(Main,TEXT("采集参数"));
+        Row(Main,TEXT("装备方式"),TEXT("背包右键 / 拖入主手武器槽；G / 滚轮切换"));
+        Row(Main,bPickaxe?TEXT("采矿距离"):TEXT("伐木距离"),N(Number(O,TEXT("harvest_reach_cm"),320)/100)+TEXT(" m"));
         if(!bPickaxe)Row(Main,TEXT("伐木命中宽容半径"),N(Number(O,TEXT("harvest_sweep_radius_cm"),32))+TEXT(" cm"));
         Row(Main,TEXT("采集规则"),bPickaxe?TEXT("三次有效命中开采；伤害属性不改变采矿所需次数"):TEXT("三次有效命中砍倒；伤害属性不改变伐木所需次数"));
     }else if(Weapon){Section(Main,TEXT("枪械参数"));AppendColdSteelTooltipAttackFormula(I,Model,S.Damage,Main);
+        const auto DamageParts=ColdSteelWeaponStats::DamageParts(I,Model,S.Damage);
+        Row(Main,TEXT("武器总伤害"),N(DamageParts.Total()));
+        if(DamageParts.Additional()>0)Row(Main,TEXT("基础物理伤害"),N(DamageParts.BasePhysical));
+        if(DamageParts.AddedPhysical>0)Row(Main,TEXT("附加物理伤害"),N(DamageParts.AddedPhysical));
+        if(DamageParts.AddedMagic>0)Row(Main,TEXT("附加魔法伤害"),N(DamageParts.AddedMagic));
         Row(Main,TEXT("子弹数"),FString::Printf(TEXT("%d / %d 发"),I.Magazine,S.Capacity));Row(Main,TEXT("弹药"),Model?Model->AmmoLabel(Model->AmmoDefinitionFor(I)):ColdSteelWeaponStats::AmmoName(Weapon->Ammo));
         if(Model)
         {
             Row(Main,TEXT("弹种效果"),Model->AmmoEffectSummary(Model->AmmoDefinitionFor(I)));
-            Row(Main,TEXT("装填后射击伤害"),N(ColdSteelWeaponStats::Damage(I,Model,S.Damage)*Model->AmmoDamageMultiplier(I)));
+            Row(Main,TEXT("装填后射击伤害"),N(DamageParts.Total()*Model->AmmoDamageMultiplier(I)));
         }
         Row(Main,S.BurstCount>1?TEXT("组内射击间隔"):TEXT("攻击间隔"),N(FMath::RoundToInt(ColdSteelWeaponStats::Interval(&I,Model,S.Interval)*1000))+TEXT(" ms"));
         const double FireInterval=ColdSteelWeaponStats::Interval(&I,Model,S.Interval);
@@ -235,6 +249,28 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         if(Number(O,TEXT("useCooldown"))>0)Row(Main,TEXT("冷却时间"),N(Number(O,TEXT("useCooldown")))+TEXT("秒"));Row(Main,TEXT("使用方式"),TEXT("双击 / Enter / 拖入快捷栏"));}
     if(I.Count>1)Row(Main,TEXT("堆叠数量"),FString::Printf(TEXT("%lld / %lld"),I.Count,I.StackMax));
     if(I.Place==4)Row(Main,TEXT("取出方式"),TEXT("右键 / 双击 / Enter / 拖入背包"));
+    // 武器特殊性质取自枪匠目录，而不是物品实例快照：目录每次读盘解析，
+    // 所以新增或修改 traits 不必走存档迁移就能生效（文案 desc 则需要迁移）。
+    // 用 ModifiableWeapon 而不是 Weapon：后者只覆盖枪械，近战在 MeleeWeapons 里。
+    if(const auto* Definition=G?G->ModifiableWeapon(I.Definition):nullptr)
+    {
+        if(Definition->Source.IsValid())
+        {
+            const TArray<TSharedPtr<FJsonValue>>* List=nullptr;
+            if(Definition->Source->TryGetArrayField(TEXT("traits"),List)&&List)
+            {
+                for(const auto& Entry:*List)
+                {
+                    const J Trait=Entry->AsObject();
+                    if(!Trait)continue;
+                    FColdSteelTooltipTrait TraitRow;
+                    TraitRow.Icon=String(Trait,TEXT("icon"),TEXT("neutral"));
+                    TraitRow.Text=String(Trait,TEXT("text"));
+                    if(!TraitRow.Text.IsEmpty())Out.Traits.Add(MoveTemp(TraitRow));
+                }
+            }
+        }
+    }
     CompleteColdSteelTooltipSummary(I,Model,G,Out);
     return Out;
 }

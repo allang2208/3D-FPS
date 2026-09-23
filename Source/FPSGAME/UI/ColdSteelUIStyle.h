@@ -61,6 +61,13 @@ inline constexpr float NavigationDrawerInset=0.f;
     inline const FLinearColor ItemTooltipDisclosure = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("176C86FF")));
     inline const FLinearColor ItemTooltipDisclosureFlash = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("57BCD5FF")));
     inline const FLinearColor ItemTooltipDisclosureOutline = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("123D4BFF")));
+    // 工具提示「特殊性质」段：按性质类别上色，而不是按正负。
+    // 与上面的正/负/中性三色分开，避免影响现有参数行配色。
+    inline const FLinearColor ItemTraitSpecial  = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("176C86FF"))); // 特殊攻击模式
+    inline const FLinearColor ItemTraitMagic    = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("6B4FA8FF"))); // 魔法伤害与冷却
+    inline const FLinearColor ItemTraitMechanic = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("0F7B6CFF"))); // 供弹、后坐、开镜
+    inline const FLinearColor ItemTraitDrawback = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("B82020FF"))); // 代价
+    inline const FLinearColor ItemTraitNeutral  = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("697278FF"))); // 其余
 
     FPSGAME_API FSlateBrush RoundedBrush(const FLinearColor& Fill, float Radius, const FLinearColor& Outline = Border, float OutlineWidth = 1.0f);
     FPSGAME_API FButtonStyle ButtonStyle(float Scale=1.f);

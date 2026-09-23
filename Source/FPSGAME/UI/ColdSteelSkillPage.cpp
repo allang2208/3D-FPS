@@ -393,7 +393,7 @@ FString UColdSteelSkillPage::EffectValue(int32 Index,bool bNext) const
         const auto& T=Model->QuickCombatDefinition().QuickCombat;
         if(Index==0)return TEXT("F");
         if(Index==1)return FString::Printf(TEXT("%.0f"),C.Damage);
-        if(Index==2)return FString::Printf(TEXT("×%.1f"),T.StrengthFactorBase+T.StrengthFactorPerLevel*L);
+        if(Index==2)return FString::Printf(TEXT("×%.2f"),(T.StrengthFactorBase+T.StrengthFactorPerLevel*FMath::Min(L,Model->QuickCombatDefinition().MaxLevel))*C.DamageMultiplier);
         if(Index==3)return FString::Printf(TEXT("%.1f s"),C.StunSeconds);
         if(Index==4)return FString::Printf(TEXT("%.1f m"),C.KnockbackCM/100);
         return FString::Printf(TEXT("%.1f s"),C.CooldownSeconds);
@@ -626,7 +626,9 @@ TSharedRef<SWidget> UColdSteelSkillPage::BuildPage()
             if(SelectedSkill!=TEXT("swordMastery"))Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(SelectedSkill==TEXT("machineGunMastery")?TEXT("力量"):SelectedSkill==TEXT("shotgunMastery")?TEXT("体质"):TEXT("敏捷"),2)];
             if(SelectedSkill==TEXT("swordMastery")||SelectedSkill==TEXT("bowMastery"))Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("攻击速度提升"),3)];
             Scroll->AddSlot().Padding(16/Scale,16/Scale,16/Scale,12/Scale)[TrainingCard()];
-            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(TEXT("属性被动常驻；使用对应武器修炼。伤害、强化、改造和附魔共用当前计算结果。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
+            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(SelectedSkill==TEXT("machineGunMastery")
+                ?TEXT("属性被动常驻；使用对应武器修炼。伤害、强化、改造和附魔共用当前计算结果。持机枪类武器时移动速度 ×0.67（减速 33%），收起武器或改持其他武器即恢复。")
+                :TEXT("属性被动常驻；使用对应武器修炼。伤害、强化、改造和附魔共用当前计算结果。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
         }
         else
         if(SelectedSkill==TEXT("fireball"))
@@ -721,7 +723,7 @@ TSharedRef<SWidget> UColdSteelSkillPage::BuildPage()
             const TCHAR* Rows[]={TEXT("触发快捷键"),TEXT("打击伤害（含当前力量）"),TEXT("力量系数"),TEXT("眩晕时间"),TEXT("击退距离"),TEXT("常规冷却")};
             for(int32 I=0;I<UE_ARRAY_COUNT(Rows);++I)Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(Rows[I],I)];
             Scroll->AddSlot().Padding(16/Scale,16/Scale,16/Scale,12/Scale)[TrainingCard()];
-            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("不限武器类型。按 F 或快捷栏绑定键快速打击，按当前手里的武器选动作：剑顺势使出第四连击的配重锤打击；单持手枪松开左手、右手持枪以握把向前猛砸；步枪双手持枪以枪托/枪身前段向前下砸（当前用 M4 的整枪作者源）。对前方 2 米的单个目标造成 25 + 等级×5 + 力量×（5 + 等级×0.1）伤害，击退 1 米并眩晕（2.5 + 等级×0.1）秒。力量取当前总值，基础属性、装备与技能加成合并计算。基础冷却 12 秒，冷却在动作结束后开始走表。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
+            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("不限武器类型。按 F 或快捷栏绑定键快速打击：剑使用独立配重锤打击；单持手枪以握把向前砸击；步枪以枪托或枪身前段砸击。对前方 2 米的单个目标造成基础伤害 25 + 等级×5 + 力量×（5 + 等级×0.1），再乘当前武器的快速近战伤害倍率。基础倍率为 1，陨星锤首增加 0.25；基础击退 1 米，陨星锤首延长至 1.5 米。眩晕（2.5 + 等级×0.1）秒。力量取当前总值，面板伤害与力量系数包含配重修正。基础冷却 12 秒，从动作结束后开始计时。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
             Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(TEXT("命中同时按武器命中修炼剑/手枪精通与暴击。冷却中按键无效。连击进行中按 F，剑会在接触段结束后排队补发一记。双持手枪左手被副枪占用，不触发本技能。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
         }
         else
