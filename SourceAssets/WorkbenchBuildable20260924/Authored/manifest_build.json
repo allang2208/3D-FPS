@@ -1,0 +1,109 @@
+{
+  "id": "Workbench_Standalone",
+  "name": "SM_WBStandalone_Workbench",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WorkbenchBuildable20260924\\Authored\\SM_WBStandalone_Workbench.fbx",
+  "triangles": 134110,
+  "vertices": 68705,
+  "bounds_cm": {
+    "min": [
+      -120.9,
+      -130.3,
+      0.0
+    ],
+    "max": [
+      120.9,
+      130.3,
+      158.9
+    ]
+  },
+  "slots": [
+    "WSBench_BenchWood",
+    "WSBench_EndGrain",
+    "WBKC_Paper",
+    "WBKC_Books",
+    "WBKC_Misc",
+    "WBKBottle_OilPaint",
+    "WBKBottle_SpoutSteel",
+    "WBKBottle_CapPolymer",
+    "WBKBottle_OilLabel",
+    "WBKBottle_CleanerPlastic",
+    "WBKBottle_CleanerLabel",
+    "WSDetail_RackPaint",
+    "WSSculpt_Machined",
+    "WSSculpt_RubberGrip",
+    "WSTools_Canvas",
+    "FabGarage_Wall_Adjustable_Wrench",
+    "FabGarage_Wall_Hammer",
+    "FabGarage_Wall_Hand_Saw",
+    "FabGarage_Bench_Wrench",
+    "FabGarage_Bench_Screwdriver",
+    "FabGarage_Bench_Pliers",
+    "FabGarage_Bench_Chisel",
+    "WSFinish_GroundSteel",
+    "WSFinish_ToolSteel",
+    "WSSculpt_CastGreen",
+    "WSTools_ToolLabels",
+    "WSFinish_Grip",
+    "WSTools_Enamel",
+    "WSSculpt_RedGrip",
+    "WSBench_LampPaint",
+    "WSBench_CableRubber",
+    "WSBench_Reflector",
+    "WSBench_SocketCeramic",
+    "WSBench_LampBulb"
+  ],
+  "slot_sources": {
+    "WSBench_BenchWood": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopBenchPolish/Materials/M_WSBench_BenchWood_R3.M_WSBench_BenchWood_R3",
+    "WSBench_EndGrain": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopBenchPolish/Materials/M_WSBench_EndGrain.M_WSBench_EndGrain",
+    "WBKC_Paper": null,
+    "WBKC_Books": null,
+    "WBKC_Misc": null,
+    "WBKBottle_OilPaint": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/BottleSources/MI_WBKBottle_OilPaint",
+    "WBKBottle_SpoutSteel": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/BottleSources/MI_WBKBottle_SpoutSteel",
+    "WBKBottle_CapPolymer": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/BottleSources/MI_WBKBottle_CapPolymer",
+    "WBKBottle_OilLabel": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/BottleSources/MI_WBKBottle_OilLabel",
+    "WBKBottle_CleanerPlastic": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/BottleSources/MI_WBKBottle_CleanerPlastic",
+    "WBKBottle_CleanerLabel": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/BottleSources/MI_WBKBottle_CleanerLabel",
+    "WSDetail_RackPaint": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Materials/M_WSDetail_RackPaint.M_WSDetail_RackPaint",
+    "WSSculpt_Machined": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSculpt/Materials/M_WSSculpt_Machined.M_WSSculpt_Machined",
+    "WSSculpt_RubberGrip": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSculpt/Materials/M_WSSculpt_RubberGrip.M_WSSculpt_RubberGrip",
+    "WSTools_Canvas": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopTools/Materials/M_WSTools_Canvas.M_WSTools_Canvas",
+    "FabGarage_Wall_Adjustable_Wrench": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopFabTools/Materials/MI_WSFab_Wall_Adjustable_Wrench.MI_WSFab_Wall_Adjustable_Wrench",
+    "FabGarage_Wall_Hammer": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopFabTools/Materials/MI_WSFab_Wall_Hammer.MI_WSFab_Wall_Hammer",
+    "FabGarage_Wall_Hand_Saw": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopFabTools/Materials/MI_WSFab_Wall_Hand_Saw.MI_WSFab_Wall_Hand_Saw",
+    "FabGarage_Bench_Wrench": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopFabTools/Materials/MI_WSFab_Bench_Wrench.MI_WSFab_Bench_Wrench",
+    "FabGarage_Bench_Screwdriver": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopFabTools/Materials/MI_WSFab_Bench_Screwdriver.MI_WSFab_Bench_Screwdriver",
+    "FabGarage_Bench_Pliers": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopFabTools/Materials/MI_WSFab_Bench_Pliers.MI_WSFab_Bench_Pliers",
+    "FabGarage_Bench_Chisel": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopFabTools/Materials/MI_WSFab_Bench_Chisel.MI_WSFab_Bench_Chisel",
+    "WSFinish_GroundSteel": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSurface/Materials/M_WSFinish_GroundSteel.M_WSFinish_GroundSteel",
+    "WSFinish_ToolSteel": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSurface/Materials/M_WSFinish_ToolSteel_R2.M_WSFinish_ToolSteel_R2",
+    "WSSculpt_CastGreen": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSculpt/Materials/M_WSSculpt_CastGreen.M_WSSculpt_CastGreen",
+    "WSTools_ToolLabels": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopTools/Materials/M_WSTools_ToolLabels.M_WSTools_ToolLabels",
+    "WSFinish_Grip": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSurface/Materials/M_WSFinish_Grip.M_WSFinish_Grip",
+    "WSTools_Enamel": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopTools/Materials/M_WSTools_Enamel.M_WSTools_Enamel",
+    "WSSculpt_RedGrip": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSculpt/Materials/M_WSSculpt_RedGrip.M_WSSculpt_RedGrip",
+    "WSBench_LampPaint": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopBenchPolish/Materials/M_WSBench_LampPaint.M_WSBench_LampPaint",
+    "WSBench_CableRubber": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopBenchPolish/Materials/M_WSBench_CableRubber.M_WSBench_CableRubber",
+    "WSBench_Reflector": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopBenchPolish/Materials/M_WSBench_Reflector.M_WSBench_Reflector",
+    "WSBench_SocketCeramic": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopBenchPolish/Materials/M_WSBench_SocketCeramic.M_WSBench_SocketCeramic",
+    "WSBench_LampBulb": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopBenchPolish/Materials/M_WSBench_LampBulb.M_WSBench_LampBulb"
+  },
+  "new_materials": {
+    "WBKC_Paper": {
+      "texture": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WorkbenchBuildable20260924\\Authored\\Textures\\T_WBKC_Blueprint_BaseColor.png",
+      "roughness": 0.82,
+      "metallic": 0.0
+    },
+    "WBKC_Books": {
+      "texture": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WorkbenchBuildable20260924\\Authored\\Textures\\T_WBKC_Books_BaseColor.png",
+      "roughness": 0.55,
+      "metallic": 0.0
+    },
+    "WBKC_Misc": {
+      "texture": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WorkbenchBuildable20260924\\Authored\\Textures\\T_WBKC_Misc_BaseColor.png",
+      "roughness": 0.4,
+      "metallic": 0.6
+    }
+  },
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WorkbenchBuildable20260924\\Authored\\StandaloneWorkbench.blend"
+}

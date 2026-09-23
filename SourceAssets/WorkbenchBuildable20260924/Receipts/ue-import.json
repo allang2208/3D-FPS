@@ -1,0 +1,35 @@
+{
+  "stage": "done",
+  "tests_run": false,
+  "renders_run": false,
+  "textures": {
+    "WBKC_Paper": "/Game/Building/Workbench/Textures/T_WBKC_Paper_BaseColor.T_WBKC_Paper_BaseColor",
+    "WBKC_Books": "/Game/Building/Workbench/Textures/T_WBKC_Books_BaseColor.T_WBKC_Books_BaseColor",
+    "WBKC_Misc": "/Game/Building/Workbench/Textures/T_WBKC_Misc_BaseColor.T_WBKC_Misc_BaseColor"
+  },
+  "materials": {
+    "WBKC_Paper": "/Game/Building/Workbench/Materials/MI_WBKC_Paper.MI_WBKC_Paper",
+    "WBKC_Books": "/Game/Building/Workbench/Materials/MI_WBKC_Books.MI_WBKC_Books",
+    "WBKC_Misc": "/Game/Building/Workbench/Materials/MI_WBKC_Misc.MI_WBKC_Misc"
+  },
+  "mesh": "/Game/Building/Workbench/Meshes/SM_WBStandalone_Workbench.SM_WBStandalone_Workbench",
+  "size_cm": [
+    241.8,
+    260.7,
+    158.9
+  ],
+  "footprint_cells": [
+    13,
+    14,
+    8
+  ],
+  "palette": {
+    "total": 23,
+    "found": true,
+    "footprint": [
+      13,
+      14,
+      8
+    ]
+  }
+}

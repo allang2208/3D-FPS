@@ -1,0 +1,1914 @@
+[
+ {
+  "name": "Base flex boot rib",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   1.0,
+   1.0
+  ],
+  "world_min_cm": [
+   19.1,
+   212.5,
+   95.3
+  ],
+  "tris": 692,
+  "materials": [
+   "WSBench_CableRubber.001"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 348
+ },
+ {
+  "name": "Base flex boot rib.001",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   1.0,
+   1.0
+  ],
+  "world_min_cm": [
+   19.4,
+   212.5,
+   95.3
+  ],
+  "tris": 692,
+  "materials": [
+   "WSBench_CableRubber.001"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 348
+ },
+ {
+  "name": "Base flex boot rib.002",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   1.0,
+   1.0
+  ],
+  "world_min_cm": [
+   19.7,
+   212.5,
+   95.3
+  ],
+  "tris": 692,
+  "materials": [
+   "WSBench_CableRubber.001"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 348
+ },
+ {
+  "name": "Base flex boot rib.003",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   1.0,
+   1.0
+  ],
+  "world_min_cm": [
+   20.0,
+   212.5,
+   95.3
+  ],
+  "tris": 692,
+  "materials": [
+   "WSBench_CableRubber.001"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 348
+ },
+ {
+  "name": "Base flex boot rib.004",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   1.0,
+   1.0
+  ],
+  "world_min_cm": [
+   19.1,
+   212.5,
+   95.3
+  ],
+  "tris": 692,
+  "materials": [
+   "WSBench_CableRubber.002"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 348
+ },
+ {
+  "name": "Base flex boot rib.005",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   1.0,
+   1.0
+  ],
+  "world_min_cm": [
+   19.4,
+   212.5,
+   95.3
+  ],
+  "tris": 692,
+  "materials": [
+   "WSBench_CableRubber.002"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 348
+ },
+ {
+  "name": "Base flex boot rib.006",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   1.0,
+   1.0
+  ],
+  "world_min_cm": [
+   19.7,
+   212.5,
+   95.3
+  ],
+  "tris": 692,
+  "materials": [
+   "WSBench_CableRubber.002"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 348
+ },
+ {
+  "name": "Base flex boot rib.007",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   1.0,
+   1.0
+  ],
+  "world_min_cm": [
+   20.0,
+   212.5,
+   95.3
+  ],
+  "tris": 692,
+  "materials": [
+   "WSBench_CableRubber.002"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 348
+ },
+ {
+  "name": "Five millimetre power flex on rear worktop",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   11.2,
+   46.8,
+   36.9
+  ],
+  "world_min_cm": [
+   19.9,
+   212.9,
+   94.2
+  ],
+  "tris": 3212,
+  "materials": [
+   "WSBench_CableRubber.001"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 1608
+ },
+ {
+  "name": "Five millimetre power flex on rear worktop.001",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   11.2,
+   46.8,
+   36.9
+  ],
+  "world_min_cm": [
+   19.9,
+   212.9,
+   94.2
+  ],
+  "tris": 3212,
+  "materials": [
+   "WSBench_CableRubber.002"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 1608
+ },
+ {
+  "name": "Lamp base entry grommet",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   1.0,
+   1.2,
+   1.2
+  ],
+  "world_min_cm": [
+   19.9,
+   212.4,
+   95.2
+  ],
+  "tris": 156,
+  "materials": [
+   "WSBench_CableRubber.001"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 80
+ },
+ {
+  "name": "Lamp base entry grommet.001",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   1.0,
+   1.2,
+   1.2
+  ],
+  "world_min_cm": [
+   19.9,
+   212.4,
+   95.2
+  ],
+  "tris": 156,
+  "materials": [
+   "WSBench_CableRubber.002"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 80
+ },
+ {
+  "name": "Moulded plug strain relief rib",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   1.1,
+   1.1
+  ],
+  "world_min_cm": [
+   26.6,
+   258.4,
+   130.4
+  ],
+  "tris": 788,
+  "materials": [
+   "WSBench_CableRubber.001"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 396
+ },
+ {
+  "name": "Moulded plug strain relief rib.001",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   1.1,
+   1.1
+  ],
+  "world_min_cm": [
+   27.1,
+   258.5,
+   130.5
+  ],
+  "tris": 788,
+  "materials": [
+   "WSBench_CableRubber.001"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 396
+ },
+ {
+  "name": "Moulded plug strain relief rib.002",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   1.0,
+   1.0
+  ],
+  "world_min_cm": [
+   27.6,
+   258.5,
+   130.5
+  ],
+  "tris": 788,
+  "materials": [
+   "WSBench_CableRubber.001"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 396
+ },
+ {
+  "name": "Moulded plug strain relief rib.003",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   1.0,
+   1.0
+  ],
+  "world_min_cm": [
+   28.1,
+   258.5,
+   130.5
+  ],
+  "tris": 788,
+  "materials": [
+   "WSBench_CableRubber.001"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 396
+ },
+ {
+  "name": "Moulded plug strain relief rib.004",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   0.9,
+   0.9
+  ],
+  "world_min_cm": [
+   28.6,
+   258.5,
+   130.5
+  ],
+  "tris": 788,
+  "materials": [
+   "WSBench_CableRubber.001"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 396
+ },
+ {
+  "name": "Moulded plug strain relief rib.005",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   1.1,
+   1.1
+  ],
+  "world_min_cm": [
+   26.6,
+   258.4,
+   130.4
+  ],
+  "tris": 788,
+  "materials": [
+   "WSBench_CableRubber.002"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 396
+ },
+ {
+  "name": "Moulded plug strain relief rib.006",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   1.1,
+   1.1
+  ],
+  "world_min_cm": [
+   27.1,
+   258.5,
+   130.5
+  ],
+  "tris": 788,
+  "materials": [
+   "WSBench_CableRubber.002"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 396
+ },
+ {
+  "name": "Moulded plug strain relief rib.007",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   1.0,
+   1.0
+  ],
+  "world_min_cm": [
+   27.6,
+   258.5,
+   130.5
+  ],
+  "tris": 788,
+  "materials": [
+   "WSBench_CableRubber.002"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 396
+ },
+ {
+  "name": "Moulded plug strain relief rib.008",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   1.0,
+   1.0
+  ],
+  "world_min_cm": [
+   28.1,
+   258.5,
+   130.5
+  ],
+  "tris": 788,
+  "materials": [
+   "WSBench_CableRubber.002"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 396
+ },
+ {
+  "name": "Moulded plug strain relief rib.009",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   0.9,
+   0.9
+  ],
+  "world_min_cm": [
+   28.6,
+   258.5,
+   130.5
+  ],
+  "tris": 788,
+  "materials": [
+   "WSBench_CableRubber.002"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 396
+ },
+ {
+  "name": "Moulded socket plug",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   3.1,
+   4.0,
+   4.0
+  ],
+  "world_min_cm": [
+   22.8,
+   257.0,
+   129.0
+  ],
+  "tris": 764,
+  "materials": [
+   "WSBench_CableRubber.001"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 384
+ },
+ {
+  "name": "Moulded socket plug.001",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   3.1,
+   4.0,
+   4.0
+  ],
+  "world_min_cm": [
+   22.8,
+   257.0,
+   129.0
+  ],
+  "tris": 764,
+  "materials": [
+   "WSBench_CableRubber.002"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 384
+ },
+ {
+  "name": "Plug flexible boot",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   4.6,
+   0.9,
+   0.9
+  ],
+  "world_min_cm": [
+   25.4,
+   258.5,
+   130.5
+  ],
+  "tris": 156,
+  "materials": [
+   "WSBench_CableRubber.001"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 80
+ },
+ {
+  "name": "Plug flexible boot.001",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   4.6,
+   0.9,
+   0.9
+  ],
+  "world_min_cm": [
+   25.4,
+   258.5,
+   130.5
+  ],
+  "tris": 156,
+  "materials": [
+   "WSBench_CableRubber.002"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 80
+ },
+ {
+  "name": "Plug gripping rib",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   4.0,
+   4.0
+  ],
+  "world_min_cm": [
+   23.5,
+   257.0,
+   129.0
+  ],
+  "tris": 1556,
+  "materials": [
+   "WSBench_CableRubber.001"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 780
+ },
+ {
+  "name": "Plug gripping rib.001",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   4.0,
+   4.0
+  ],
+  "world_min_cm": [
+   24.0,
+   257.0,
+   129.0
+  ],
+  "tris": 1556,
+  "materials": [
+   "WSBench_CableRubber.001"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 780
+ },
+ {
+  "name": "Plug gripping rib.002",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   4.0,
+   4.0
+  ],
+  "world_min_cm": [
+   24.5,
+   257.0,
+   129.0
+  ],
+  "tris": 1556,
+  "materials": [
+   "WSBench_CableRubber.001"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 780
+ },
+ {
+  "name": "Plug gripping rib.003",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   4.0,
+   4.0
+  ],
+  "world_min_cm": [
+   23.5,
+   257.0,
+   129.0
+  ],
+  "tris": 1556,
+  "materials": [
+   "WSBench_CableRubber.002"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 780
+ },
+ {
+  "name": "Plug gripping rib.004",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   4.0,
+   4.0
+  ],
+  "world_min_cm": [
+   24.0,
+   257.0,
+   129.0
+  ],
+  "tris": 1556,
+  "materials": [
+   "WSBench_CableRubber.002"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 780
+ },
+ {
+  "name": "Plug gripping rib.005",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   0.1,
+   4.0,
+   4.0
+  ],
+  "world_min_cm": [
+   24.5,
+   257.0,
+   129.0
+  ],
+  "tris": 1556,
+  "materials": [
+   "WSBench_CableRubber.002"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 780
+ },
+ {
+  "name": "Rubber-lined cable retaining clip",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   1.4,
+   1.1,
+   1.5
+  ],
+  "world_min_cm": [
+   31.3,
+   215.6,
+   113.5
+  ],
+  "tris": 12,
+  "materials": [
+   "WSBench_LampPaint.001"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 8
+ },
+ {
+  "name": "Rubber-lined cable retaining clip.001",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   1.4,
+   1.1,
+   1.5
+  ],
+  "world_min_cm": [
+   47.0,
+   219.6,
+   142.8
+  ],
+  "tris": 12,
+  "materials": [
+   "WSBench_LampPaint.001"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 8
+ },
+ {
+  "name": "Rubber-lined cable retaining clip.002",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   1.4,
+   1.1,
+   1.5
+  ],
+  "world_min_cm": [
+   31.3,
+   215.6,
+   113.5
+  ],
+  "tris": 12,
+  "materials": [
+   "WSBench_LampPaint.002"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 8
+ },
+ {
+  "name": "Rubber-lined cable retaining clip.003",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   1.4,
+   1.1,
+   1.5
+  ],
+  "world_min_cm": [
+   47.0,
+   219.6,
+   142.8
+  ],
+  "tris": 12,
+  "materials": [
+   "WSBench_LampPaint.002"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 8
+ },
+ {
+  "name": "SM_WBK_Bench_BenchTop",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.94
+  ],
+  "size_cm": [
+   241.8,
+   259.0,
+   6.2
+  ],
+  "world_min_cm": [
+   -259.0,
+   -259.0,
+   87.7
+  ],
+  "tris": 38760,
+  "materials": [
+   "WSBench_BenchWood",
+   "WSBench_EndGrain"
+  ],
+  "uv_layers": [
+   "UVMap",
+   "WorkshopLocalXY"
+  ],
+  "verts": 19392
+ },
+ {
+  "name": "SM_WBK_Bench_BenchWear",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.94
+  ],
+  "size_cm": [
+   233.6,
+   258.4,
+   0.0
+  ],
+  "world_min_cm": [
+   -258.7,
+   -258.7,
+   93.9
+  ],
+  "tris": 1152,
+  "materials": [
+   "WSBench_FreshCut",
+   "WSBench_IngrainedCut"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 744
+ },
+ {
+  "name": "SM_WBK_Bench_TaskLamp",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   -0.27,
+   -0.65,
+   0.94
+  ],
+  "size_cm": [
+   65.7,
+   35.8,
+   63.7
+  ],
+  "world_min_cm": [
+   -85.6,
+   -93.6,
+   93.9
+  ],
+  "tris": 56222,
+  "materials": [
+   "WSBench_LampPaint",
+   "WSBench_CableRubber",
+   "WSSculpt_Machined.001",
+   "WSBench_Reflector",
+   "WSBench_SocketCeramic",
+   "WSBench_LampBulb"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 28174
+ },
+ {
+  "name": "SM_WBK_Bottle_Degreaser",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   -1.24,
+   -2.49,
+   0.94
+  ],
+  "size_cm": [
+   8.3,
+   8.3,
+   21.1
+  ],
+  "world_min_cm": [
+   -128.1,
+   -253.1,
+   93.9
+  ],
+  "tris": 12064,
+  "materials": [
+   "WBKBottle_CleanerPlastic",
+   "WBKBottle_CapPolymer.001",
+   "WBKBottle_CleanerLabel"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 6585
+ },
+ {
+  "name": "SM_WBK_Bottle_OilCan",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   -1.12,
+   -2.49,
+   0.94
+  ],
+  "size_cm": [
+   9.6,
+   8.4,
+   25.1
+  ],
+  "world_min_cm": [
+   -116.4,
+   -253.2,
+   93.9
+  ],
+  "tris": 17760,
+  "materials": [
+   "WBKBottle_OilPaint",
+   "WBKBottle_SpoutSteel",
+   "WBKBottle_CapPolymer",
+   "WBKBottle_OilLabel"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 9510
+ },
+ {
+  "name": "SM_WBK_Fab_Bench_Chisel",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   -0.47,
+   -1.18,
+   0.94
+  ],
+  "size_cm": [
+   6.4,
+   27.0,
+   3.5
+  ],
+  "world_min_cm": [
+   -50.4,
+   -131.5,
+   94.3
+  ],
+  "tris": 4604,
+  "materials": [
+   "FabGarage_Bench_Chisel"
+  ],
+  "uv_layers": [
+   "Hand_Tools_UV_Atlas"
+  ],
+  "verts": 2382
+ },
+ {
+  "name": "SM_WBK_Fab_Bench_Pliers",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   -0.57,
+   -1.82,
+   0.94
+  ],
+  "size_cm": [
+   10.5,
+   16.8,
+   2.1
+  ],
+  "world_min_cm": [
+   -62.5,
+   -190.1,
+   94.3
+  ],
+  "tris": 4790,
+  "materials": [
+   "FabGarage_Bench_Pliers"
+  ],
+  "uv_layers": [
+   "Hand_Tools_UV_Atlas"
+  ],
+  "verts": 2408
+ },
+ {
+  "name": "SM_WBK_Fab_Bench_Screwdriver",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   -1.43,
+   -2.07,
+   0.94
+  ],
+  "size_cm": [
+   12.3,
+   26.5,
+   2.4
+  ],
+  "world_min_cm": [
+   -149.5,
+   -220.2,
+   94.3
+  ],
+  "tris": 2630,
+  "materials": [
+   "FabGarage_Bench_Screwdriver"
+  ],
+  "uv_layers": [
+   "Hand_Tools_UV_Atlas"
+  ],
+  "verts": 1349
+ },
+ {
+  "name": "SM_WBK_Fab_Bench_Wrench",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   -1.12,
+   -2.17,
+   0.94
+  ],
+  "size_cm": [
+   10.3,
+   24.0,
+   2.5
+  ],
+  "world_min_cm": [
+   -116.8,
+   -229.1,
+   94.3
+  ],
+  "tris": 1298,
+  "materials": [
+   "FabGarage_Bench_Wrench"
+  ],
+  "uv_layers": [
+   "Hand_Tools_UV_Atlas"
+  ],
+  "verts": 649
+ },
+ {
+  "name": "SM_WBK_Fab_BenchRetained",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.94
+  ],
+  "size_cm": [
+   231.2,
+   246.3,
+   23.6
+  ],
+  "world_min_cm": [
+   -254.3,
+   -253.9,
+   93.8
+  ],
+  "tris": 203620,
+  "materials": [
+   "WSFinish_GroundSteel.004",
+   "WSFinish_ToolSteel",
+   "WSSculpt_CastGreen",
+   "WSTools_ToolLabels",
+   "WSFinish_Grip.001",
+   "WSTools_Enamel",
+   "WSSculpt_RedGrip"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 102151
+ },
+ {
+  "name": "SM_WBK_Fab_LabelsRetained",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   1.15
+  ],
+  "size_cm": [
+   12.0,
+   122.7,
+   95.4
+  ],
+  "world_min_cm": [
+   -32.2,
+   -214.6,
+   124.6
+  ],
+  "tris": 2216,
+  "materials": [
+   "WSFinish_Labels",
+   "WSFinish_SheetPaint.003",
+   "WSFinish_GroundSteel.003"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 1160
+ },
+ {
+  "name": "SM_WBK_Fab_Mounts",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   1.15
+  ],
+  "size_cm": [
+   6.4,
+   189.9,
+   69.4
+  ],
+  "world_min_cm": [
+   -24.1,
+   -218.6,
+   125.1
+  ],
+  "tris": 20340,
+  "materials": [
+   "WSFinish_SheetPaint.004",
+   "WSFinish_GroundSteel.005"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 10260
+ },
+ {
+  "name": "SM_WBK_Fab_Wall_Adjustable_Wrench",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   -0.19,
+   -1.19,
+   1.81
+  ],
+  "size_cm": [
+   1.7,
+   7.8,
+   30.1
+  ],
+  "world_min_cm": [
+   -19.8,
+   -123.0,
+   166.0
+  ],
+  "tris": 6346,
+  "materials": [
+   "FabGarage_Wall_Adjustable_Wrench"
+  ],
+  "uv_layers": [
+   "Hand_Tools_UV_Atlas"
+  ],
+  "verts": 3234
+ },
+ {
+  "name": "SM_WBK_Fab_Wall_Bolt_Cutter",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   -0.2,
+   -0.6,
+   1.7
+  ],
+  "size_cm": [
+   4.7,
+   17.9,
+   59.9
+  ],
+  "world_min_cm": [
+   -22.8,
+   -69.2,
+   139.9
+  ],
+  "tris": 11794,
+  "materials": [
+   "FabGarage_Wall_Bolt_Cutter"
+  ],
+  "uv_layers": [
+   "Hand_Tools_UV_Atlas"
+  ],
+  "verts": 6064
+ },
+ {
+  "name": "SM_WBK_Fab_Wall_Hammer",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   -0.2,
+   -1.51,
+   1.79
+  ],
+  "size_cm": [
+   3.6,
+   17.9,
+   31.9
+  ],
+  "world_min_cm": [
+   -21.7,
+   -159.5,
+   163.1
+  ],
+  "tris": 3316,
+  "materials": [
+   "FabGarage_Wall_Hammer"
+  ],
+  "uv_layers": [
+   "Hand_Tools_UV_Atlas"
+  ],
+  "verts": 1660
+ },
+ {
+  "name": "SM_WBK_Fab_Wall_Hand_Saw",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   -0.2,
+   -0.6,
+   1.28
+  ],
+  "size_cm": [
+   3.4,
+   70.3,
+   12.6
+  ],
+  "world_min_cm": [
+   -21.5,
+   -95.2,
+   121.8
+  ],
+  "tris": 12646,
+  "materials": [
+   "FabGarage_Wall_Hand_Saw"
+  ],
+  "uv_layers": [
+   "Hand_Tools_UV_Atlas"
+  ],
+  "verts": 6331
+ },
+ {
+  "name": "SM_WBK_Fab_Wall_Nail_Puller",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   -0.2,
+   -0.29,
+   1.71
+  ],
+  "size_cm": [
+   4.0,
+   13.4,
+   57.5
+  ],
+  "world_min_cm": [
+   -22.2,
+   -35.7,
+   142.7
+  ],
+  "tris": 1740,
+  "materials": [
+   "FabGarage_Wall_Nail_Puller"
+  ],
+  "uv_layers": [
+   "Hand_Tools_UV_Atlas"
+  ],
+  "verts": 872
+ },
+ {
+  "name": "SM_WBK_Fab_Wall_Pipe_Wrench",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   -0.21,
+   -0.92,
+   1.79
+  ],
+  "size_cm": [
+   5.0,
+   11.4,
+   44.9
+  ],
+  "world_min_cm": [
+   -23.1,
+   -98.2,
+   156.6
+  ],
+  "tris": 10994,
+  "materials": [
+   "FabGarage_Wall_Pipe_Wrench"
+  ],
+  "uv_layers": [
+   "Hand_Tools_UV_Atlas"
+  ],
+  "verts": 5516
+ },
+ {
+  "name": "SM_WBK_Fab_Wall_Pliers",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   -0.19,
+   -1.74,
+   1.82
+  ],
+  "size_cm": [
+   2.1,
+   5.7,
+   18.1
+  ],
+  "world_min_cm": [
+   -20.2,
+   -176.6,
+   172.9
+  ],
+  "tris": 4790,
+  "materials": [
+   "FabGarage_Wall_Pliers"
+  ],
+  "uv_layers": [
+   "Hand_Tools_UV_Atlas"
+  ],
+  "verts": 2408
+ },
+ {
+  "name": "SM_WBK_Fab_Wall_Screwdriver",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   -0.19,
+   -2.16,
+   1.78
+  ],
+  "size_cm": [
+   2.4,
+   3.3,
+   28.5
+  ],
+  "world_min_cm": [
+   -20.5,
+   -218.1,
+   163.8
+  ],
+  "tris": 2630,
+  "materials": [
+   "FabGarage_Wall_Screwdriver"
+  ],
+  "uv_layers": [
+   "Hand_Tools_UV_Atlas"
+  ],
+  "verts": 1349
+ },
+ {
+  "name": "SM_WBK_Fab_Wall_Wrench",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   -0.19,
+   -1.92,
+   1.81
+  ],
+  "size_cm": [
+   2.5,
+   5.1,
+   25.0
+  ],
+  "world_min_cm": [
+   -20.6,
+   -194.7,
+   168.0
+  ],
+  "tris": 1298,
+  "materials": [
+   "FabGarage_Wall_Wrench"
+  ],
+  "uv_layers": [
+   "Hand_Tools_UV_Atlas"
+  ],
+  "verts": 649
+ },
+ {
+  "name": "SM_WBK_LampFlex",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   -0.27,
+   -0.65,
+   0.94
+  ],
+  "size_cm": [
+   57.3,
+   13.5,
+   63.8
+  ],
+  "world_min_cm": [
+   -76.4,
+   -77.9,
+   95.2
+  ],
+  "tris": 7416,
+  "materials": [
+   "WSBench_CableRubber.001",
+   "WSBench_LampPaint.001"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 3724
+ },
+ {
+  "name": "SM_WBK_PowerLead",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   11.2,
+   46.8,
+   36.9
+  ],
+  "world_min_cm": [
+   -31.1,
+   -111.7,
+   94.2
+  ],
+  "tris": 3500,
+  "materials": [
+   "WSBench_CableRubber"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 1752
+ },
+ {
+  "name": "SM_WBK_Sculpt_BenchFrame",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   240.6,
+   257.0,
+   87.6
+  ],
+  "world_min_cm": [
+   -258.3,
+   -258.0,
+   0.1
+  ],
+  "tris": 43960,
+  "materials": [
+   "WSDetail_RackPaint",
+   "WSSculpt_Machined",
+   "WSSculpt_RubberGrip"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 22160
+ },
+ {
+  "name": "SM_WBK_Sculpt_Rag",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.94
+  ],
+  "size_cm": [
+   36.9,
+   34.5,
+   19.1
+  ],
+  "world_min_cm": [
+   -93.9,
+   -94.0,
+   76.2
+  ],
+  "tris": 28480,
+  "materials": [
+   "WSTools_Canvas"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 14250
+ },
+ {
+  "name": "SM_WBK_SocketPlug",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   1.15
+  ],
+  "size_cm": [
+   7.2,
+   4.0,
+   4.0
+  ],
+  "world_min_cm": [
+   -30.0,
+   -113.0,
+   129.0
+  ],
+  "tris": 9528,
+  "materials": [
+   "WSBench_CableRubber.002"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 4784
+ },
+ {
+  "name": "SM_WBK_Surface_Organizer",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   1.15
+  ],
+  "size_cm": [
+   16.6,
+   73.3,
+   26.9
+  ],
+  "world_min_cm": [
+   -33.7,
+   -220.6,
+   118.9
+  ],
+  "tris": 73276,
+  "materials": [
+   "WSFinish_SheetPaint",
+   "WSFinish_DrawerPaint0",
+   "WSFinish_GroundSteel",
+   "WSFinish_Recess",
+   "WSFinish_ExposedEdge",
+   "WSFinish_DrawerPaint1",
+   "WSFinish_DrawerPaint2"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 37080
+ },
+ {
+  "name": "SM_WBK_Surface_Toolboard",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   1.15
+  ],
+  "size_cm": [
+   5.3,
+   220.4,
+   107.8
+  ],
+  "world_min_cm": [
+   -20.2,
+   -231.4,
+   114.6
+  ],
+  "tris": 87648,
+  "materials": [
+   "WSFinish_SheetPaint.001",
+   "WSFinish_GroundSteel.001",
+   "WSFinish_Rust"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 44204
+ },
+ {
+  "name": "SM_WBK_Surface_UtilityDetail",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   1.15
+  ],
+  "size_cm": [
+   525.7,
+   161.0,
+   184.0
+  ],
+  "world_min_cm": [
+   -542.5,
+   -265.5,
+   125.0
+  ],
+  "tris": 22496,
+  "materials": [
+   "WSFinish_GroundSteel.002",
+   "WSFinish_SheetPaint.002",
+   "WSFinish_Bakelite",
+   "WSFinish_Recess.001"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 11586
+ },
+ {
+  "name": "Three point three millimetre lamp arm flex",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   51.5,
+   9.5,
+   62.0
+  ],
+  "world_min_cm": [
+   24.8,
+   216.4,
+   97.1
+  ],
+  "tris": 3636,
+  "materials": [
+   "WSBench_CableRubber.001"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 1820
+ },
+ {
+  "name": "Three point three millimetre lamp arm flex.001",
+  "type": "MESH",
+  "visible": true,
+  "loc": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "size_cm": [
+   51.5,
+   9.5,
+   62.0
+  ],
+  "world_min_cm": [
+   24.8,
+   216.4,
+   97.1
+  ],
+  "tris": 3636,
+  "materials": [
+   "WSBench_CableRubber.002"
+  ],
+  "uv_layers": [
+   "UVMap"
+  ],
+  "verts": 1820
+ }
+]
