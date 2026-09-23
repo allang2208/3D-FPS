@@ -1,0 +1,40 @@
+{
+  "case": "DungeonGoddessStatue20260922",
+  "purpose": "地牢事件道具 F2「女神像」替换：用真实扫描的 Diana 取代已退役的 5080 生成雕像",
+  "source": {
+    "title": "Diana",
+    "author": "noe-3d.at",
+    "author_url": "https://sketchfab.com/www.noe-3d.at",
+    "model_url": "https://sketchfab.com/3d-models/diana-ea77e1d0442244aeb3d558a08ccdfc1a",
+    "uid": "ea77e1d0442244aeb3d558a08ccdfc1a",
+    "license": "CC Attribution (CC BY 4.0) - 允许商用，必须署名",
+    "origin": "奥地利 Waldreichs 城堡入口处狩猎女神狄安娜石像的摄影测量扫描；作者为专业文保扫描团队 noe-3d.at",
+    "download_formats": ["source", "glb"],
+    "retrieved_utc": "2026-09-22"
+  },
+  "content_root": "/Game/Dungeons/GoddessStatue20260922",
+  "mesh_name": "SM_GoddessStatue_Diana",
+  "material_name": "M_GoddessStatueDiana",
+  "material_instance_name": "MI_GoddessStatueDiana",
+  "target_height_m": 2.05,
+  "target_map": "/Game/GameMaps/L_Dungeon_AuthoredExpansion",
+  "placement": {
+    "room": "ShoredBreach",
+    "room_purpose": "破损支护室：穿过侧墙破口进入的 4x5 m 石质空腔",
+    "anchor_role": "side_discovery",
+    "anchor_index": 8,
+    "room_origin_m": [33, 38, 0.94],
+    "anchor_local_m": [14.1, 4, 0],
+    "world_cm": [4710, -4200, 94],
+    "facing_target_local_m": [12, 2.95],
+    "yaw_deg": 153,
+    "actor_label": "DGN_Prop_GoddessStatue_01",
+    "folder_path": "Dungeons/GoddessStatue",
+    "tags": ["DungeonGoddessStatue20260922", "GoddessStatue", "RuinEvent"]
+  },
+  "notes": [
+    "actor_label 刻意不使用 DGN_RS_/DGN_B_ 前缀：install_rooms.py 会删除这两个前缀的 Actor，用 DGN_Prop_ 避免被后续房间重装清掉。",
+    "朝向由房间本地坐标推算：雕像在空腔中心 (14.1,4)，破口中心 (12,2.95)，房间本地 yaw 206.57 度；房间本地 Y 在世界中取反，故 UE yaw = 153 度。",
+    "高度按真人尺度雕像的 2.05 m 归一（对照米洛的维纳斯 2.02 m），空腔净高 3.35 m。"
+  ]
+}

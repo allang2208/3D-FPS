@@ -27,11 +27,7 @@ for placement in placements:
     x,y,z=placement['cm'];obj.location=(x/100,y/100,z/100)
     obj.rotation_euler=(0,0,math.radians(-placement['yaw']));obj.scale=placement['scale']
 
-# A source marker records the existing statue's anchor without duplicating its
-# separately owned V1 material setup or pretending this .blend is the UE level.
-marker=bpy.data.objects.new('Existing Goddess UE asset - anchor',None);instances.objects.link(marker)
-marker.location=(18.25,9.4,.92);marker.empty_display_type='CONE';marker.empty_display_size=.5
-marker['ue_asset']='/Game/Dungeons/IndustrialV1/Props/GoddessCandidate/'
+# Rejected generated statue and its active-source marker were retired 2026-09-22.
 bpy.ops.file.pack_all()
 bpy.ops.wm.save_as_mainfile(filepath=str(ROOT/'Authored/DungeonAtmosphereV2_Dressed.blend'))
 print('EDITABLE_DRESSED_BLEND_SAVED_NO_RENDER')

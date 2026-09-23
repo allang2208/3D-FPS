@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "rooms_per_group": [
+    3,
+    5
+  ],
+  "junction_exits": [
+    "forward",
+    "left",
+    "right"
+  ],
+  "short_link_m": 0.8,
+  "group_corridor_m": 12,
+  "branch_lead_m": 24,
+  "seed": 92247,
+  "scale_locked": true,
+  "randomness": [
+    "room_order",
+    "room_entry_direction",
+    "group_length"
+  ],
+  "start_exit_cm": [
+    2400,
+    -1800,
+    94
+  ],
+  "start_direction": [
+    0,
+    -1,
+    0
+  ],
+  "reserved_start_cm": [
+    [
+      -100,
+      -1800,
+      -50
+    ],
+    [
+      3500,
+      1200,
+      800
+    ]
+  ],
+  "treasure_chance_per_room": 0.1,
+  "treasure_max_per_room": 1
+}

@@ -6,6 +6,8 @@ TARGET='/Game/GameMaps/L_Dungeon_Prototype'
 AA=u.get_editor_subsystem(u.EditorActorSubsystem);UE=u.get_editor_subsystem(u.UnrealEditorSubsystem)
 ED=u.get_editor_subsystem(u.LevelEditorSubsystem)
 manifest=json.loads((ROOT/'Authored/manifest.json').read_text())
+retired=set(json.loads((ROOT.parent/'DungeonMaintenance20260922/Config/retirement.json').read_text())['actor_labels'])
+manifest['hidden_previous']=[label for label in manifest['hidden_previous'] if label not in retired]
 assets=json.loads((ROOT/'Receipts/asset-import.json').read_text())
 if assets.get('stage')!='assets_saved':raise RuntimeError('Earthwork import is incomplete')
 if UE.get_game_world():raise RuntimeError('Gameplay active; preserve current play')

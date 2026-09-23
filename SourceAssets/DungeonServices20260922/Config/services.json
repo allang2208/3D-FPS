@@ -1,0 +1,14 @@
+{
+  "ceiling_underside_correction_m": 0.28,
+  "pipe_center_y_m": 0.52,
+  "pipe_runs": [{"z":2.92,"radius":0.13},{"z":3.35,"radius":0.09}],
+  "pier_x_m": [2.8,6.6,10.8,14.7,21.6],
+  "pier_front_y_m": 0.29,
+  "beam_underside_m": 3.525,
+  "tray_lowering_m": 0.055,
+  "paint_texture_scale_m": 0.8,
+  "light_positions_cm": {
+    "DGN_WSTools_CeilingArea": [600,180,295.0],
+    "DGN_WSTools_BenchArea": [840,310,304.5]
+  }
+}

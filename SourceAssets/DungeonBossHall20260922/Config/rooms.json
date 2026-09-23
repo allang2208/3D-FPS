@@ -1,0 +1,395 @@
+{
+  "version": 1,
+  "seed": 92291,
+  "style": {
+    "wall_thickness": 0.24,
+    "floor_thickness": 0.22,
+    "tile_width": 0.31,
+    "tile_height": 0.158,
+    "tile_rows": 9,
+    "tile_bottom": 0.16
+  },
+  "rooms": [
+    {
+      "id": "BossPumpHall",
+      "name": "终末主泵房",
+      "origin_m": [
+        0,
+        0,
+        0
+      ],
+      "height_m": 8.4,
+      "footprint": [
+        [
+          -15,
+          0
+        ],
+        [
+          15,
+          0
+        ],
+        [
+          15,
+          26
+        ],
+        [
+          -15,
+          26
+        ]
+      ],
+      "floors": [
+        [
+          -15,
+          0,
+          15,
+          26,
+          0
+        ]
+      ],
+      "ceilings": [
+        [
+          -15,
+          0,
+          15,
+          26,
+          8.4
+        ]
+      ],
+      "openings": [
+        {
+          "id": "entry",
+          "edge": 0,
+          "center": 15,
+          "width": 3,
+          "height": 2.8
+        }
+      ],
+      "columns": [
+        [
+          -11.32,
+          5.6
+        ],
+        [
+          -11.32,
+          14.6
+        ],
+        [
+          -11.32,
+          23
+        ],
+        [
+          11.32,
+          5.6
+        ],
+        [
+          11.32,
+          14.6
+        ],
+        [
+          11.32,
+          23
+        ]
+      ],
+      "beams": [],
+      "pipes": [],
+      "platform_height_m": 3.6,
+      "platforms": [
+        {
+          "id": "WestGallery",
+          "rect": [
+            -14.65,
+            5.6,
+            -11.15,
+            25.5
+          ]
+        },
+        {
+          "id": "EastGallery",
+          "rect": [
+            11.15,
+            5.6,
+            14.65,
+            25.5
+          ]
+        },
+        {
+          "id": "RearGallery",
+          "rect": [
+            -11.15,
+            22,
+            11.15,
+            25.5
+          ]
+        },
+        {
+          "id": "WestLanding",
+          "rect": [
+            -11.15,
+            11,
+            -7.6,
+            12.8
+          ]
+        },
+        {
+          "id": "EastLanding",
+          "rect": [
+            7.6,
+            12.8,
+            11.15,
+            14.6
+          ]
+        }
+      ],
+      "stairs": [
+        {
+          "id": "West",
+          "x0": -10.6,
+          "x1": -7.6,
+          "y0": 2,
+          "steps_per_flight": 12,
+          "rise": 0.15,
+          "run": 0.3,
+          "landing": 1.8
+        },
+        {
+          "id": "East",
+          "x0": 7.6,
+          "x1": 10.6,
+          "y0": 3.8,
+          "steps_per_flight": 12,
+          "rise": 0.15,
+          "run": 0.3,
+          "landing": 1.8
+        }
+      ],
+      "machines": [
+        {
+          "id": "PumpWest",
+          "at": [
+            -4.8,
+            10.7,
+            0
+          ],
+          "base": [
+            4.6,
+            5.0,
+            0.42
+          ],
+          "pipe_side": -1
+        },
+        {
+          "id": "PumpEast",
+          "at": [
+            4.8,
+            14.3,
+            0
+          ],
+          "base": [
+            4.6,
+            5.0,
+            0.42
+          ],
+          "pipe_side": 1
+        }
+      ],
+      "lights": [
+        {
+          "at": [
+            -4,
+            5,
+            7.55
+          ],
+          "warm": false,
+          "lumens": 4200,
+          "radius_cm": 1050,
+          "role": "key"
+        },
+        {
+          "at": [
+            4,
+            14,
+            7.55
+          ],
+          "warm": false,
+          "lumens": 4400,
+          "radius_cm": 1050,
+          "role": "key"
+        },
+        {
+          "at": [
+            -9,
+            19.5,
+            6.6
+          ],
+          "warm": true,
+          "lumens": 1800,
+          "radius_cm": 720,
+          "role": "fill"
+        },
+        {
+          "at": [
+            9.2,
+            21,
+            6.6
+          ],
+          "warm": true,
+          "lumens": 1800,
+          "radius_cm": 720,
+          "role": "fill"
+        },
+        {
+          "at": [
+            -13,
+            9,
+            6.4
+          ],
+          "warm": true,
+          "lumens": 1500,
+          "radius_cm": 650,
+          "role": "fill"
+        },
+        {
+          "at": [
+            13,
+            16.5,
+            6.4
+          ],
+          "warm": false,
+          "lumens": 1700,
+          "radius_cm": 680,
+          "role": "fill"
+        },
+        {
+          "at": [
+            -6,
+            23.6,
+            6.7
+          ],
+          "warm": true,
+          "lumens": 1700,
+          "radius_cm": 650,
+          "role": "fill"
+        },
+        {
+          "at": [
+            6,
+            23.6,
+            6.7
+          ],
+          "warm": false,
+          "lumens": 1800,
+          "radius_cm": 680,
+          "role": "fill"
+        },
+        {
+          "at": [
+            0,
+            1,
+            3.02
+          ],
+          "warm": true,
+          "lumens": 950,
+          "radius_cm": 460,
+          "role": "fill"
+        },
+        {
+          "at": [
+            -13,
+            18,
+            2.7
+          ],
+          "warm": true,
+          "lumens": 1000,
+          "radius_cm": 470,
+          "role": "fill"
+        },
+        {
+          "at": [
+            13,
+            9,
+            2.7
+          ],
+          "warm": false,
+          "lumens": 1100,
+          "radius_cm": 480,
+          "role": "fill"
+        }
+      ],
+      "anchors": [
+        {
+          "role": "boss_spawn",
+          "at": [
+            0,
+            19,
+            0
+          ]
+        },
+        {
+          "role": "boss_arena_center",
+          "at": [
+            0,
+            13,
+            0
+          ]
+        },
+        {
+          "role": "boss_entry_trigger",
+          "at": [
+            0,
+            3,
+            0
+          ]
+        },
+        {
+          "role": "boss_reward",
+          "at": [
+            0,
+            24,
+            0
+          ]
+        },
+        {
+          "role": "upper_west",
+          "at": [
+            -12.9,
+            16,
+            3.6
+          ]
+        },
+        {
+          "role": "upper_east",
+          "at": [
+            12.9,
+            18,
+            3.6
+          ]
+        },
+        {
+          "role": "upper_rear",
+          "at": [
+            0,
+            23.8,
+            3.6
+          ]
+        },
+        {
+          "role": "cover_west",
+          "at": [
+            -4.8,
+            7.3,
+            0
+          ]
+        },
+        {
+          "role": "cover_east",
+          "at": [
+            4.8,
+            10.9,
+            0
+          ]
+        }
+      ]
+    }
+  ],
+  "links": []
+}

@@ -1,0 +1,132 @@
+{
+  "case": "DungeonArtPass20260922",
+  "content_root": "/Game/Dungeons/ArtPass20260922",
+  "texture_max_size": 2048,
+  "naming": {
+    "mesh": "SM_Prop_<Name>",
+    "material": "M_Prop_<Name>_<Slot>",
+    "material_instance": "MI_Prop_<Name>_<Slot>",
+    "texture": "T_Prop_<Name>_<Slot>_<Role>"
+  },
+  "props": [
+    {
+      "key": "lantern", "name": "Lantern", "title": "Rusty Old Oil Lantern",
+      "uid": "de28cba29f58414c914298f648da90bf", "license": "CC BY 4.0",
+      "source": {"format": "fbx", "file": "source/Lantern01.fbx"},
+      "normalise": {"mode": "height", "target_m": 0.32},
+      "collision": "complex",
+      "materials": [{
+        "slot": "*", "blend": "opaque", "two_sided": false,
+        "maps": {
+          "basecolor": "textures/Lantern01_Lantern01_BaseColor.png",
+          "normal": "textures/Lantern01_Lantern01_Normal.png",
+          "roughness": "textures/Lantern01_Lantern01_Roughness.png",
+          "metallic": "textures/Lantern01_Lantern01_Metallic.png",
+          "ao": "textures/GrayscaleLantern01_Lantern01_AO.png"
+        },
+        "constants": {"roughness": 0.6, "metallic": 0.0},
+        "note": "灯罩玻璃用的 Opacity 图暂不接入（会打成镂空）；需要玻璃时另做半透明材质"
+      }]
+    },
+    {
+      "key": "cobwebs", "name": "Cobweb", "title": "Cobwebs Asset Pack",
+      "uid": "2dd4798676d84bc7af5d2a8f5834563a", "license": "CC BY 4.0",
+      "source": {"format": "obj", "file": "source/Test 1.obj"},
+      "normalise": {"mode": "scale", "factor": 0.01},
+      "split_by_material": true,
+      "collision": "none",
+      "materials": [
+        {"slot": "lambert4SG", "blend": "masked", "two_sided": true,
+         "maps": {"basecolor": "textures/Cobwebs_Colour_1.jpg", "opacity_mask_source": "textures/Cobwebs_Alpha_1.jpeg"}},
+        {"slot": "lambert5SG", "blend": "masked", "two_sided": true,
+         "maps": {"basecolor": "textures/Cobwebs_Colour_2.jpg", "opacity_mask_source": "textures/Cobwebs_Alpha_2.jpeg"}},
+        {"slot": "lambert6SG", "blend": "masked", "two_sided": true,
+         "maps": {"basecolor": "textures/Cobwebs_Colour_3.jpg", "opacity_mask_source": "textures/Cobwebs_Alpha_3.jpeg"}}
+      ],
+      "note": "源为 cm（×0.01 转米）；按材质拆成 3 张独立蛛网，便于分别摆放。槽与贴图的对应按顺序假定，若花纹不匹配只是图案串位，不影响可用性"
+    },
+    {
+      "key": "ladder", "name": "StepLadder", "title": "Wooden Step Ladder Scan LOWPOLY",
+      "uid": "296b91ddfe7a446db98c9a0f8f5923bd", "license": "CC BY 4.0",
+      "source": {"format": "fbx", "file": "source/Stool/Stool.fbx"},
+      "normalise": {"mode": "height", "target_m": 1.1},
+      "collision": "complex",
+      "materials": [{
+        "slot": "*", "blend": "opaque", "two_sided": false,
+        "maps": {
+          "basecolor": "source/Stool/StoolLOW__PBR StoA_Diffuse.png",
+          "ao": "source/Stool/StoolLOW__PBR_Ambient Occlusion.png"
+        },
+        "constants": {"roughness": 0.85, "metallic": 0.0}
+      }]
+    },
+    {
+      "key": "rope", "name": "Rope", "title": "Coiled Rope 2",
+      "uid": "e6fe8fedd3d04b1dac3e32e0dd515cbb", "license": "CC BY 4.0",
+      "source": {"format": "blend", "file": "source/Rope2.blend"},
+      "normalise": {"mode": "xy_max", "target_m": 0.45},
+      "collision": "complex",
+      "materials": [{"slot": "*", "blend": "opaque", "two_sided": false, "maps": {},
+                     "constants_from_blender": true}],
+      "note": "源只有 .blend，无贴图；材质颜色/粗糙度从 Blender 材质的 Principled BSDF 读出"
+    },
+    {
+      "key": "extinguisher", "name": "Extinguisher", "title": "Fire Extinguisher Old Rusty 3D Scan",
+      "uid": "70a4fdec06c64372ba3a96ae49257ce1", "license": "CC BY 4.0",
+      "source": {"format": "obj", "file": "source/hasiaci-low/hasiaci-low.obj"},
+      "normalise": {"mode": "height", "target_m": 0.55},
+      "collision": "complex",
+      "materials": [{
+        "slot": "*", "blend": "opaque", "two_sided": false,
+        "maps": {
+          "basecolor": "source/hasiaci-low/hasiaci-low-diffuse.jpg",
+          "normal": "source/hasiaci-low/hasiaci-low-normal.jpg",
+          "ao": "source/hasiaci-low/hasiaci-low-ao.jpg"
+        },
+        "constants": {"roughness": 0.7, "metallic": 0.0},
+        "note": "源为 spec-gloss；高光图不接入，粗糙度用常数"
+      }]
+    },
+    {
+      "key": "bucket", "name": "Bucket", "title": "Old Rusted Bucket v3",
+      "uid": "ca0755cc9e2d4dfd920e51b6ca9e1243", "license": "CC BY 4.0",
+      "source": {"format": "fbx", "file": "source/Bucket_low.fbx"},
+      "normalise": {"mode": "height", "target_m": 0.3},
+      "collision": "complex",
+      "materials": [
+        {"slot": "Base", "blend": "opaque", "two_sided": false,
+         "maps": {"basecolor": "textures/Bucket_low_Base_BaseColor.png", "normal": "textures/Bucket_low_Base_Normal.png",
+                  "roughness": "textures/Bucket_low_Base_Roughness.png", "metallic": "textures/Bucket_low_Base_Metallic.png"}},
+        {"slot": "interior", "blend": "opaque", "two_sided": false,
+         "maps": {"basecolor": "textures/Bucket_low_interior_BaseColor.png", "normal": "textures/Bucket_low_interior_Normal.png",
+                  "roughness": "textures/Bucket_low_interior_Roughness.png", "metallic": "textures/Bucket_low_interior_Metallic.png"}},
+        {"slot": "wood", "blend": "opaque", "two_sided": false,
+         "maps": {"basecolor": "textures/Bucket_low_wood_BaseColor.png", "normal": "textures/Bucket_low_wood_Normal.png",
+                  "roughness": "textures/Bucket_low_wood_Roughness.png", "metallic": "textures/Bucket_low_wood_Metallic.png"}},
+        {"slot": "metal ", "blend": "opaque", "two_sided": false,
+         "maps": {"basecolor": "textures/Bucket_low_metal__BaseColor.png", "normal": "textures/Bucket_low_metal__Normal.png",
+                  "roughness": "textures/Bucket_low_metal__Roughness.png", "metallic": "textures/Bucket_low_metal__Metallic.png"}}
+      ],
+      "note": "四套材质（桶身/内壁/木柄/金属提梁），逐一对应"
+    },
+    {
+      "key": "barrel", "name": "OilBarrel", "title": "Rusty and Oil Stained Oil Barrel",
+      "uid": "c879b42696634752892c7f5e747c4ae4", "license": "CC BY 4.0",
+      "source": {"format": "fbx", "file": "source/Oil_Barrel.fbx"},
+      "normalise": {"mode": "height", "target_m": 0.88},
+      "collision": "complex",
+      "materials": [{
+        "slot": "*", "blend": "masked", "two_sided": false,
+        "maps": {
+          "basecolor_alpha": "textures/oIL_barell_oil_barell_AlbedoTransparency.png",
+          "normal": "textures/oIL_barell_oil_barell_Normal.png",
+          "roughness": "textures/oIL_barell_oil_barell_Roughness.png",
+          "metallic_from_r": "textures/oIL_barell_oil_barell_MetallicSmoothness.png",
+          "ao": "textures/oIL_barell_oil_barell_Ambient_Occlusion.png"
+        },
+        "constants": {"roughness_scale": 1.0},
+        "note": "AlbedoTransparency 带 alpha（桶身开口）→ Masked；MetallicSmoothness 取 R 通道作金属度"
+      }]
+    }
+  ]
+}

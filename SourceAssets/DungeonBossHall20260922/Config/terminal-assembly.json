@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "phase": "room_authoring",
+  "boss_count": 1,
+  "room_pool_eligible": false,
+  "reference": "DungeonConcept20260920/V1/02_pump-hall.png",
+  "reused_catalog": "DungeonRoutes20260922/Config/catalog.json",
+  "assembly": [
+    {
+      "module": "BossConfluence",
+      "source": "Junction",
+      "origin_m": [
+        0,
+        -16,
+        0
+      ],
+      "yaw": 0
+    },
+    {
+      "module": "BossApproach",
+      "source": "Transit",
+      "origin_m": [
+        0,
+        -4,
+        0
+      ],
+      "yaw": 0
+    },
+    {
+      "module": "BossPumpHall",
+      "origin_m": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0
+    }
+  ],
+  "connections": [
+    {
+      "a": [
+        "BossConfluence",
+        "boss_out"
+      ],
+      "b": [
+        "BossApproach",
+        "entry"
+      ]
+    },
+    {
+      "a": [
+        "BossApproach",
+        "exit"
+      ],
+      "b": [
+        "BossPumpHall",
+        "entry"
+      ]
+    }
+  ],
+  "branch_inputs": [
+    {
+      "id": "route_left",
+      "module": "BossConfluence",
+      "source_port": "left"
+    },
+    {
+      "id": "route_middle",
+      "module": "BossConfluence",
+      "source_port": "entry"
+    },
+    {
+      "id": "route_right",
+      "module": "BossConfluence",
+      "source_port": "right"
+    }
+  ],
+  "boss_output_port": "forward",
+  "routing_requirement": "Every upstream branch must reach one confluence input through existing authored connectors; place exactly one boss hall after confluence.",
+  "routing_status": "contract_only_not_connected_to_runtime",
+  "connector_policy": "Reuse existing Transit/Threshold pieces at their authored scale; door transitions belong to the current connector catalogue.",
+  "reserve_assembly_before_branch_routing": true
+}

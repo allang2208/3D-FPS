@@ -25,6 +25,7 @@ public:
 
     void BeginTransition(const FString& Map, FSimpleDelegate OnCancel = FSimpleDelegate());
     void UpdatePreparation(const FText& Status, float Progress);
+    void BeginDungeonPreparation();
     void CompletePreparation();
     void FailPreparation(const FText& Reason);
     void CancelTransition();
@@ -47,6 +48,7 @@ private:
     double FinishedAt = 0;
     bool bMapLoading = false;
     bool bDestinationLoaded = false;
+    bool bDungeon=false;
     bool bHills = false;
     bool bPreviousIgnoreInput = false;
     bool bPreviousCursor = false;

@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "seed": 92231,
+  "target_map": "/Game/GameMaps/L_Dungeon_AuthoredExpansion",
+  "replace_segment": "DGN_B_",
+  "preserve": ["DGN_A_", "DGN_Link_", "original prototype map"],
+  "style": {"wall_thickness": 0.24, "floor_thickness": 0.22, "tile_width": 0.31, "tile_height": 0.158, "tile_rows": 9, "tile_bottom": 0.16},
+  "rooms": [
+    {
+      "id": "Distribution", "name": "管线分配间", "origin_m": [24,18,0.94], "height_m": 3.65,
+      "footprint": [[-4,0],[4,0],[4,3],[7,3],[7,7],[4,7],[4,8],[-4,8]],
+      "floors": [[-4,0,4,8,0],[4,3,7,7,0]],
+      "ceilings": [[-4,0,4,8,3.65],[4,3,7,7,2.85]],
+      "wall_heights": {"2":2.85,"3":2.85,"4":2.85},
+      "openings": [{"edge":0,"center":4,"width":1.32,"height":2.38,"id":"entry"},{"edge":6,"center":6,"width":2,"height":2.65,"id":"exit"}],
+      "columns": [[-3.72,3.0],[3.72,2.7],[-3.72,6.6],[3.72,7.3]],
+      "beams": [[[-4,3,3.35],[4,3,3.35]],[[-4,6.6,3.35],[4,6.6,3.35]]],
+      "headers": [[[4,3,3.25],[4,7,3.25],0.8]],
+      "pipes": [{"points":[[2.7,0,2.82],[2.7,5.5,2.82],[2.7,5.5,2.22],[6.5,5.5,2.22],[6.5,6.8,2.22]],"radius":0.12},{"points":[[-3.15,0,2.6],[-3.15,8,2.6]],"radius":0.075}],
+      "lights": [{"at":[0.6,2,3.35],"warm":false,"lumens":2350,"radius_cm":430},{"at":[-1.8,6.2,3.35],"warm":true,"lumens":1750,"radius_cm":360},{"at":[5.5,5,2.58],"warm":true,"lumens":850,"radius_cm":260}],
+      "anchors": [{"role":"encounter","at":[0,4,0]},{"role":"future_equipment","at":[5.7,5.6,0]},{"role":"exit","at":[-2,8,0]}]
+    },
+    {
+      "id": "Drainage", "name": "排水检修室", "origin_m": [22,29,0.94], "height_m":4.3,
+      "footprint":[[-4,0],[7,0],[7,12],[3,12],[3,14],[-4,14]],
+      "floors":[[-4,0,7,3,0],[-4,3,0,11,0],[3,3,7,11,0],[-4,11,3,14,0],[3,11,7,12,0],[0,3,3,11,-0.55]],
+      "ceilings":[[-4,0,7,12,4.3],[-4,12,3,14,3.2]],
+      "wall_heights":{"3":3.2,"4":3.2},
+      "openings":[{"edge":0,"center":4,"width":2,"height":2.65,"id":"entry"},{"edge":1,"center":9,"width":2,"height":2.8,"id":"exit"}],
+      "columns":[[-2,3],[5,3],[-2,10],[5,10]],
+      "beams":[[[-4,3,3.95],[7,3,3.95]],[[-4,10,3.95],[7,10,3.95]]],
+      "headers":[[[-4,12,3.75],[3,12,3.75],1.1]],
+      "trench":{"rect":[0,3,3,11],"depth":0.55,"bridge_y":[6.5,8.5],"hazard":{"class":"/Script/FPSGAME.DungeonPusChannel","mesh":"/Game/Dungeons/HazardPolish20260922/Meshes/SM_DungeonPusChannel","material":"/Game/Dungeons/HazardPolish20260922/Materials/MI_DungeonViscousPus","half_size_cm":[141,391],"damage":8,"interval":0.5}},
+      "pipes":[{"points":[[-3.1,0,3.2],[-3.1,10.7,3.2],[-3.1,10.7,0.85],[-1.0,10.7,0.85]],"radius":0.17},{"points":[[6,0.4,3.1],[6,8.5,3.1],[7,8.5,3.1]],"radius":0.11}],
+      "lights":[{"at":[-1.6,3.5,3.96],"warm":false,"lumens":2700,"radius_cm":470},{"at":[4.6,9.5,3.96],"warm":false,"lumens":2600,"radius_cm":440},{"at":[1.5,7.5,3.96],"warm":true,"lumens":1000,"radius_cm":300},{"at":[-1,12.7,2.93],"warm":true,"lumens":750,"radius_cm":250}],
+      "anchors":[{"role":"encounter","at":[-1.8,6.6,0]},{"role":"future_pump","at":[5,5.2,0]},{"role":"loop_bridge","at":[1.5,7.5,0]},{"role":"exit","at":[7,9,0]}]
+    },
+    {
+      "id":"ShoredBreach", "name":"破损支护室", "origin_m":[33,38,0.94], "height_m":3.85,
+      "footprint":[[0,-5],[7,-5],[7,1],[12,1],[12,8],[0,8]],
+      "floors":[[0,-5,7,8,0],[7,1,12,8,0],[12,1.5,16,6.5,0]],
+      "ceilings":[[0,-5,7,8,3.85],[7,1,12,8,3.85],[12,1.5,16,6.5,3.35]],
+      "openings":[{"edge":5,"center":8,"width":2,"height":2.8,"id":"entry"}],
+      "breach":{"edge":3,"left":1.15,"right":4.75,"height":2.72,"pocket":[12,1.5,16,6.5]},
+      "columns":[[0.3,-2.5],[6.7,-2.5],[0.3,4.5],[11.7,7.7]],
+      "beams":[[[0,-2.5,3.52],[7,-2.5,3.52]],[[0,4.5,3.52],[11,4.5,3.52]]],
+      "pipes":[{"points":[[1,-4.8,2.98],[1,6.8,2.98],[10.5,6.8,2.98]],"radius":0.10}],
+      "lights":[{"at":[2,-2.2,3.54],"warm":true,"lumens":2300,"radius_cm":400},{"at":[6,4.0,3.54],"warm":false,"lumens":2450,"radius_cm":430},{"at":[14.4,4.0,3.08],"warm":true,"lumens":1250,"radius_cm":290}],
+      "anchors":[{"role":"encounter","at":[4,3.5,0]},{"role":"side_discovery","at":[14.1,4,0]},{"role":"future_exit","at":[9,7.5,0]}]
+    }
+  ],
+  "links":[
+    {"id":"Distribution_Drainage","origin_m":[22,26,0.94],"axis":"y","width":2,"length":3,"height":2.65},
+    {"id":"Drainage_ShoredBreach","origin_m":[29,38,0.94],"axis":"x","width":2,"length":4,"height":2.8}
+  ],
+  "rules":["Generate boundary walls from each footprint, never internal walls between joined floor patches","Subtract door intervals before making wall panels and tile rows","Floor origin is the interface datum; ceiling thickness grows upward","Keep fixtures under ceiling and pipes below beams","Use rooms with different footprints, ceiling rhythm and route choices","Reserve encounter and equipment anchors without spawning gameplay or filler props"]
+}

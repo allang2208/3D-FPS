@@ -4,6 +4,9 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 OLD=Path('D:/FPS3D/FPSGAME/SourceAssets/DungeonAtmosphereV2_20260921')
 manifest=json.loads((ROOT/'Authored/room-manifest.json').read_text())
+retired=set(json.loads((ROOT.parent/'DungeonMaintenance20260922/Config/retirement.json').read_text())['actor_labels'])
+manifest['prop_moves']=[p for p in manifest['prop_moves'] if p['label'] not in retired]
+manifest['new_generated']=[p for p in manifest['new_generated'] if p['label'] not in retired]
 bpy.ops.wm.open_mainfile(filepath=str(OLD/'Authored/DungeonAtmosphereV2_Dressed.blend'))
 for label in manifest['hidden_existing']+['DGN_AV2_LightFixtures']:
     short=label.removeprefix('DGN_AV2_');obj=bpy.data.objects.get('SM_V2_'+short) or bpy.data.objects.get(short)

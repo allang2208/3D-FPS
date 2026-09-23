@@ -1,3 +1,5 @@
+> 2026-09-22 废案：本批 5080 生成物品已被用户整批否决；产物移至 `trash/dungeon-5080-rejected-20260922`，禁止作为已认可模型恢复。见 `Docs/Gameplay/dungeon-5080-retirement-20260922.md`。下文为历史记录。
+
 # 地牢 P0 道具：女神像 / 恶魔像 / 冒险者遗物 / 骨堆 / 破损木箱（2026-09-20）
 
 按 [通用游戏模型生成工作流](../../skills/asset-model-workflow/SKILL.md) 的 5080/TRELLIS.2 路线制作。为 [地牢迁移实施方案](../../Docs/Gameplay/dungeon-migration-plan-20260920.md) 与 [单房美术资产清单](../../Docs/Gameplay/dungeon-room-asset-list-20260920.md) 的 P0 清单提供候选模型。

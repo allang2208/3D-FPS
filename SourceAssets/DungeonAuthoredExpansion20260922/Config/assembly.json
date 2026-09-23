@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "status": "corrective_authored_space_candidate",
+  "baseline_map": "/Game/GameMaps/L_Dungeon_Prototype",
+  "target_map": "/Game/GameMaps/L_Dungeon_AuthoredExpansion",
+  "assembly_unit": "whole_authored_corridor_with_side_bays",
+  "segments": [
+    {"id": "A", "location_cm": [0,0,0], "yaw": 0, "open_entry": false, "open_exit": true},
+    {"id": "B", "location_cm": [2600,-1800,94], "yaw": -90, "open_entry": true, "open_exit": false}
+  ],
+  "connection": {
+    "mesh": "SM_Sample_ServiceLink",
+    "location_cm": [2400,-1400,94],
+    "yaw": 0,
+    "length_cm": 400,
+    "clear_width_cm": 132,
+    "clear_height_cm": 238,
+    "type": "raised_service_door"
+  },
+  "locked": [
+    "22m x 4m corridor and side-bay footprints",
+    "workshop lowered ceiling and 5.2m open frontage",
+    "grille visibility with equipment recessed behind it",
+    "ruin breach as a side discovery, not a square destination room",
+    "column, beam, pipe and cable clearances",
+    "fixtures, actual light units/intensities/ranges/colors and exposure",
+    "accepted materials, decals, water and authored wear",
+    "all local component transforms, original scale and visibility"
+  ],
+  "allowed_changes": ["rigid transform of whole segment", "explicit entry/exit boundary variants", "authored short service link"],
+  "prohibited_changes": ["stretching room shell", "uniform ambient lights", "cover cubes replacing fixtures", "arena role forcing rectangular geometry", "scattering signature props to satisfy room count"],
+  "gameplay_status": "previous arena generator withdrawn; combat state code retained but not attached to corrective art map",
+  "next_library": ["parallel service bays", "turn with occluded continuation", "flooded maintenance segment", "damaged segment with one side breach"]
+}

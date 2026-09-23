@@ -111,8 +111,6 @@ def wall(name,axis,a,b,fixed,height=3.9,tile=True,inside=1):
 
 def slab(name,rect,z,mat=0,ceiling=False):
     x0,y0,x1,y1=rect
-    if ceiling:
-        box(name,((x0+x1)/2,(y0+y1)/2,z+.10),(x1-x0,y1-y0,.20),mat);return
     x=x0
     while x<x1-.001:
         dx=min(R.uniform(1.1,1.8),x1-x);y=y0
@@ -123,6 +121,10 @@ def slab(name,rect,z,mat=0,ceiling=False):
         x+=dx
     # Continuous bed seals hairline slab seams while leaving the top joints visible.
     box(name,((x0+x1)/2,(y0+y1)/2,z-.20),(x1-x0,y1-y0,.16),mat)
+    if ceiling:
+        # Room height is the ceiling UNDERSIDE. Preserve the original slab RNG
+        # consumption so this correction cannot reshuffle later walls/tiles.
+        g=group(name);g['v']=[(vx,vy,vz+.28) for vx,vy,vz in g['v']]
 
 # A corridor backbone with side excavations, not a chain of similarly sized rooms.
 regions=[('MainCorridor',(0,0,22,4),3.9,0),('Dogleg',(22,0,26,10),4.25,0),
@@ -131,7 +133,7 @@ regions=[('MainCorridor',(0,0,22,4),3.9,0),('Dogleg',(22,0,26,10),4.25,0),
          ('RuinNiche',(15,4,21.5,11.5),4.6,4)]
 for name,rect,height,material in regions:
     slab(name+'_Floor',rect,0,material)
-    slab(name+'_Ceiling',rect,height,0)
+    slab(name+'_Ceiling',rect,height,0,ceiling=True)
 
 # South edge openings: 5.2 m workshop and a smaller 1.8 m service recess.
 for a,b in [(0,4.4),(9.6,14.4),(16.2,26)]:wall('Corridor_South','x',a,b,0,inside=1)

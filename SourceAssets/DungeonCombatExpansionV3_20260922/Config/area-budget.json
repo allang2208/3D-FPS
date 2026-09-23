@@ -1,0 +1,23 @@
+[
+  {
+    "room": "Distribution",
+    "previous_clear_m2": 107.15280000695553,
+    "new_clear_m2": 160.72920002967533,
+    "original_clear_m2": 71.43519999999998,
+    "factor_from_original": 1.484282243065536
+  },
+  {
+    "room": "Drainage",
+    "previous_clear_m2": 183.05040012371919,
+    "new_clear_m2": 274.57560027418054,
+    "original_clear_m2": 122.03359999999998,
+    "factor_from_original": 1.4597369998227805
+  },
+  {
+    "room": "ShoredBreach",
+    "previous_clear_m2": 207.83280001615057,
+    "new_clear_m2": 311.74920002807005,
+    "original_clear_m2": 138.55519999999996,
+    "factor_from_original": 1.5491131069138646
+  }
+]

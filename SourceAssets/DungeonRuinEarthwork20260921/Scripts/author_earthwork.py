@@ -252,8 +252,7 @@ for image in list(bpy.data.images):
         elif image.users==0:bpy.data.images.remove(image)
 bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'DungeonRuinEarthwork.blend'))
 (OUT/'manifest.json').write_text(json.dumps({'objects':manifest,'materials':recipes,'seed':921371,
- 'hidden_previous':['DGN_Room_RU_EarthBank','DGN_Room_RU_ThresholdEarth','DGN_Room_RU_BankFragments',
-                    'DGN_Room_RU_MasonryBank_A','DGN_Room_RU_MasonryBank_B'],
+ 'hidden_previous':['DGN_Room_RU_EarthBank','DGN_Room_RU_ThresholdEarth','DGN_Room_RU_BankFragments'],
  'source_blend':str(OUT/'DungeonRuinEarthwork.blend'),'coordinate_system':'Blender metres baked world; UE mirrors Y',
  'tests_run':False,'renders_run':False},indent=2),encoding='utf-8')
 print('EARTHWORK_AUTHORED',len(manifest),'NO_RENDER')

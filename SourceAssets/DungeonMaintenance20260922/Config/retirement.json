@@ -1,0 +1,265 @@
+{
+  "date": "2026-09-22",
+  "reason": "User rejected every 5080-generated item in this dungeon",
+  "retired": [
+    {
+      "id": "goddess_statue",
+      "group": "DungeonProps20260920",
+      "status": "rejected_by_user",
+      "reason": "2026-09-22 user rejected all 5080 dungeon models: insufficient quality, unusable"
+    },
+    {
+      "id": "demon_statue",
+      "group": "DungeonProps20260920",
+      "status": "rejected_by_user",
+      "reason": "2026-09-22 user rejected all 5080 dungeon models: insufficient quality, unusable"
+    },
+    {
+      "id": "supply_pile",
+      "group": "DungeonProps20260920",
+      "status": "rejected_by_user",
+      "reason": "2026-09-22 user rejected all 5080 dungeon models: insufficient quality, unusable"
+    },
+    {
+      "id": "bone_pile",
+      "group": "DungeonProps20260920",
+      "status": "rejected_by_user",
+      "reason": "2026-09-22 user rejected all 5080 dungeon models: insufficient quality, unusable"
+    },
+    {
+      "id": "broken_crate",
+      "group": "DungeonProps20260920",
+      "status": "rejected_by_user",
+      "reason": "2026-09-22 user rejected all 5080 dungeon models: insufficient quality, unusable"
+    },
+    {
+      "id": "broken_concrete_jamb",
+      "group": "DungeonAtmosphereV2_20260921",
+      "status": "rejected_by_user",
+      "reason": "2026-09-22 user rejected all 5080 dungeon models: insufficient quality, unusable"
+    },
+    {
+      "id": "maintenance_cabinet_cluster",
+      "group": "DungeonAtmosphereV2_20260921",
+      "status": "rejected_by_user",
+      "reason": "2026-09-22 user rejected all 5080 dungeon models: insufficient quality, unusable"
+    },
+    {
+      "id": "collapsed_tile_rubble",
+      "group": "DungeonAtmosphereV2_20260921",
+      "status": "rejected_by_user",
+      "reason": "2026-09-22 user rejected all 5080 dungeon models: insufficient quality, unusable"
+    },
+    {
+      "id": "weathered_pipe_assembly",
+      "group": "DungeonAtmosphereV2_20260921",
+      "status": "rejected_by_user",
+      "reason": "2026-09-22 user rejected all 5080 dungeon models: insufficient quality, unusable"
+    },
+    {
+      "id": "buried_masonry_bank",
+      "group": "DungeonRoomInteriors20260921",
+      "status": "rejected_by_user",
+      "reason": "2026-09-22 user rejected all 5080 dungeon models: insufficient quality, unusable"
+    },
+    {
+      "id": "repair_motor",
+      "group": "DungeonRoomInteriors20260921",
+      "status": "rejected_by_user",
+      "reason": "Previously retired motor; included in complete generated-prop archive"
+    }
+  ],
+  "actor_labels": [
+    "DGN_AV2_Collapse_0",
+    "DGN_AV2_Collapse_1",
+    "DGN_AV2_Collapse_2",
+    "DGN_AV2_Collapse_3",
+    "DGN_AV2_Collapse_4",
+    "DGN_AV2_Collapse_5",
+    "DGN_AV2_Fracture_Left",
+    "DGN_AV2_Fracture_Right",
+    "DGN_AV2_Goddess_Candidate",
+    "DGN_AV2_Grille_Electrical",
+    "DGN_AV2_Grille_PressureStation",
+    "DGN_AV2_Recess_Electrical",
+    "DGN_AV2_Turn_Valve",
+    "DGN_AV2_Workshop_Bypass",
+    "DGN_AV2_Workshop_Electrical",
+    "DGN_Room_RU_MasonryBank_A",
+    "DGN_Room_RU_MasonryBank_B",
+    "DGN_Room_WS_RepairMotor"
+  ],
+  "ue_roots": [
+    "/Game/Dungeons/AtmosphereV2/Generated",
+    "/Game/Dungeons/AtmosphereV2/RoomInteriors/Generated",
+    "/Game/Dungeons/IndustrialV1/Props/GoddessCandidate"
+  ],
+  "archive": "trash/dungeon-5080-rejected-20260922",
+  "entries": [
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonProps20260920\\goddess_statue",
+      "relative": "SourceAssets/DungeonProps20260920/goddess_statue",
+      "phase": "sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonProps20260920\\demon_statue",
+      "relative": "SourceAssets/DungeonProps20260920/demon_statue",
+      "phase": "sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonProps20260920\\supply_pile",
+      "relative": "SourceAssets/DungeonProps20260920/supply_pile",
+      "phase": "sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonProps20260920\\bone_pile",
+      "relative": "SourceAssets/DungeonProps20260920/bone_pile",
+      "phase": "sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonProps20260920\\broken_crate",
+      "relative": "SourceAssets/DungeonProps20260920/broken_crate",
+      "phase": "sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAtmosphereV2_20260921\\Generated\\broken_concrete_jamb",
+      "relative": "SourceAssets/DungeonAtmosphereV2_20260921/Generated/broken_concrete_jamb",
+      "phase": "sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAtmosphereV2_20260921\\Generated\\maintenance_cabinet_cluster",
+      "relative": "SourceAssets/DungeonAtmosphereV2_20260921/Generated/maintenance_cabinet_cluster",
+      "phase": "sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAtmosphereV2_20260921\\Generated\\collapsed_tile_rubble",
+      "relative": "SourceAssets/DungeonAtmosphereV2_20260921/Generated/collapsed_tile_rubble",
+      "phase": "sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAtmosphereV2_20260921\\Generated\\weathered_pipe_assembly",
+      "relative": "SourceAssets/DungeonAtmosphereV2_20260921/Generated/weathered_pipe_assembly",
+      "phase": "sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomInteriors20260921\\Generated\\buried_masonry_bank",
+      "relative": "SourceAssets/DungeonRoomInteriors20260921/Generated/buried_masonry_bank",
+      "phase": "sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomInteriors20260921\\Generated\\repair_motor",
+      "relative": "SourceAssets/DungeonRoomInteriors20260921/Generated/repair_motor",
+      "phase": "sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonProps20260920\\_view_bone_pile.jpg",
+      "relative": "SourceAssets/DungeonProps20260920/_view_bone_pile.jpg",
+      "phase": "sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonProps20260920\\_view_broken_crate.jpg",
+      "relative": "SourceAssets/DungeonProps20260920/_view_broken_crate.jpg",
+      "phase": "sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonProps20260920\\_view_demon_statue.jpg",
+      "relative": "SourceAssets/DungeonProps20260920/_view_demon_statue.jpg",
+      "phase": "sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonProps20260920\\_view_goddess_statue.jpg",
+      "relative": "SourceAssets/DungeonProps20260920/_view_goddess_statue.jpg",
+      "phase": "sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonProps20260920\\_view_supply_pile.jpg",
+      "relative": "SourceAssets/DungeonProps20260920/_view_supply_pile.jpg",
+      "phase": "sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Content\\Dungeons\\AtmosphereV2\\Generated",
+      "relative": "Content/Dungeons/AtmosphereV2/Generated",
+      "phase": "content"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Content\\Dungeons\\AtmosphereV2\\RoomInteriors\\Generated",
+      "relative": "Content/Dungeons/AtmosphereV2/RoomInteriors/Generated",
+      "phase": "content"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Content\\Dungeons\\IndustrialV1\\Props\\GoddessCandidate",
+      "relative": "Content/Dungeons/IndustrialV1/Props/GoddessCandidate",
+      "phase": "content"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Content\\Dungeons\\AtmosphereV2\\Archive\\L_Dungeon_IndustrialV1.umap",
+      "relative": "Content/Dungeons/AtmosphereV2/Archive/L_Dungeon_IndustrialV1.umap",
+      "phase": "content"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Content\\__ExternalActors__\\Dungeons\\AtmosphereV2\\Archive\\L_Dungeon_IndustrialV1",
+      "relative": "Content/__ExternalActors__/Dungeons/AtmosphereV2/Archive/L_Dungeon_IndustrialV1",
+      "phase": "content"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\Content\\__ExternalObjects__\\Dungeons\\AtmosphereV2\\Archive\\L_Dungeon_IndustrialV1",
+      "relative": "Content/__ExternalObjects__/Dungeons/AtmosphereV2/Archive/L_Dungeon_IndustrialV1",
+      "phase": "content"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAtmosphereV2_20260921\\Authored\\DungeonAtmosphereV2_Dressed.blend",
+      "relative": "SourceAssets/DungeonAtmosphereV2_20260921/Authored/DungeonAtmosphereV2_Dressed.blend",
+      "phase": "mixed_sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomInteriors20260921\\Authored\\DungeonRooms_Dressed.blend",
+      "relative": "SourceAssets/DungeonRoomInteriors20260921/Authored/DungeonRooms_Dressed.blend",
+      "phase": "mixed_sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRuinEarthwork20260921\\Authored\\DungeonRooms_WithFabEarthwork.blend",
+      "relative": "SourceAssets/DungeonRuinEarthwork20260921/Authored/DungeonRooms_WithFabEarthwork.blend",
+      "phase": "mixed_sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonWorkbenchKit20260921\\Authored\\DungeonRooms_WithWorkbenchKit.blend",
+      "relative": "SourceAssets/DungeonWorkbenchKit20260921/Authored/DungeonRooms_WithWorkbenchKit.blend",
+      "phase": "mixed_sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonWorkbenchKit20260921\\Authored\\DungeonRooms_WithWorkbenchKit.blend1",
+      "relative": "SourceAssets/DungeonWorkbenchKit20260921/Authored/DungeonRooms_WithWorkbenchKit.blend1",
+      "phase": "mixed_sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonWorkshopBenchPolish20260921\\Authored\\DungeonRooms_WithBenchPolish.blend",
+      "relative": "SourceAssets/DungeonWorkshopBenchPolish20260921/Authored/DungeonRooms_WithBenchPolish.blend",
+      "phase": "mixed_sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonWorkshopDetail20260921\\Authored\\DungeonRooms_WithWorkshopDetails.blend",
+      "relative": "SourceAssets/DungeonWorkshopDetail20260921/Authored/DungeonRooms_WithWorkshopDetails.blend",
+      "phase": "mixed_sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonWorkshopFabTools20260921\\Authored\\DungeonRooms_WithFabWorkshopTools.blend",
+      "relative": "SourceAssets/DungeonWorkshopFabTools20260921/Authored/DungeonRooms_WithFabWorkshopTools.blend",
+      "phase": "mixed_sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonWorkshopSculpt20260921\\Authored\\DungeonRooms_WithRefinedWorkshop.blend",
+      "relative": "SourceAssets/DungeonWorkshopSculpt20260921/Authored/DungeonRooms_WithRefinedWorkshop.blend",
+      "phase": "mixed_sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonWorkshopSurface20260921\\Authored\\DungeonRooms_WithWorkshopSurfaces.blend",
+      "relative": "SourceAssets/DungeonWorkshopSurface20260921/Authored/DungeonRooms_WithWorkshopSurfaces.blend",
+      "phase": "mixed_sources"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonWorkshopTools20260921\\Authored\\DungeonRooms_WithWorkshopTools.blend",
+      "relative": "SourceAssets/DungeonWorkshopTools20260921/Authored/DungeonRooms_WithWorkshopTools.blend",
+      "phase": "mixed_sources"
+    }
+  ]
+}

@@ -32,6 +32,7 @@ public class FPSGAME : ModuleRules
         PrivateDependencyModuleNames.Add("MoviePlayer");
         RuntimeDependencies.Add("$(ProjectDir)/Content/UI/TransitLoading/...", StagedFileType.UFS);
         PrivateDependencyModuleNames.Add("PhysicsCore");
+        PrivateDependencyModuleNames.Add("Chaos");
         PrivateDependencyModuleNames.Add("FPSBlast");
         PrivateDependencyModuleNames.Add("AnimationCore");
         PrivateDependencyModuleNames.Add("AnimationWarpingRuntime");

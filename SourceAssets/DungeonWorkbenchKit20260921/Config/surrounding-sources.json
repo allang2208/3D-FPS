@@ -2,7 +2,64 @@
   "overrides": [
     {
       "source_blend": "D:/FPS3D/FPSGAME/SourceAssets/DungeonWorkshopRackPolish20260922/Authored/DungeonWorkshopRackPolish.blend",
-      "replacements": {"SM_WSDetail_RackStock":"SM_WSRack_Stock", "SM_WSDetail_Markings":"SM_WSRack_Markings"}
+      "replacements": {
+        "SM_WSDetail_RackStock": "SM_WSRack_Stock",
+        "SM_WSDetail_Markings": "SM_WSRack_Markings"
+      }
+    },
+    {
+      "source_blend": "D:/FPS3D/FPSGAME/SourceAssets/DungeonWallRelief20260922/Authored/DungeonWallRelief_Source.blend",
+      "replacements": {
+        "SM_V2_EntryEnd_Tiles": "SM_WallRelief_EntryEnd",
+        "SM_V2_ServiceRecess_Tiles": "SM_WallRelief_ServiceRecess",
+        "SM_V2_EndLanding_Tiles": "SM_WallRelief_EndLanding",
+        "SM_V2_Corridor_North_Tiles": "SM_WallRelief_Corridor_North",
+        "SM_V2_Dogleg_Tiles": "SM_WallRelief_Dogleg",
+        "SM_V2_MachineBay_Tiles": "SM_WallRelief_MachineBay",
+        "SM_V2_Corridor_South_Tiles": "SM_WallRelief_Corridor_South",
+        "SM_V2_Workshop_Tiles": "SM_WallRelief_Workshop"
+      }
+    },
+    {
+      "source_blend": "D:/FPS3D/FPSGAME/SourceAssets/DungeonTileFracture20260922/Authored/DungeonTileFracture_Source.blend",
+      "replacements": {
+        "SM_WallRelief_EntryEnd": "SM_TileFracture_EntryEnd",
+        "SM_WallRelief_ServiceRecess": "SM_TileFracture_ServiceRecess",
+        "SM_WallRelief_EndLanding": "SM_TileFracture_EndLanding",
+        "SM_WallRelief_Corridor_North": "SM_TileFracture_Corridor_North",
+        "SM_WallRelief_Dogleg": "SM_TileFracture_Dogleg",
+        "SM_WallRelief_MachineBay": "SM_TileFracture_MachineBay",
+        "SM_WallRelief_Corridor_South": "SM_TileFracture_Corridor_South",
+        "SM_WallRelief_Workshop": "SM_TileFracture_Workshop"
+      }
+    },
+    {
+      "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonServices20260922\\Authored\\DungeonServices_Source.blend",
+      "replacements": {
+        "SM_V2_MainCorridor_Ceiling": "SM_Services_MainCorridor_Ceiling",
+        "SM_V2_Dogleg_Ceiling": "SM_Services_Dogleg_Ceiling",
+        "SM_V2_EndLanding_Ceiling": "SM_Services_EndLanding_Ceiling",
+        "SM_V2_Workshop_Ceiling": "SM_Services_Workshop_Ceiling",
+        "SM_V2_MachineBay_Ceiling": "SM_Services_MachineBay_Ceiling",
+        "SM_V2_ServiceRecess_Ceiling": "SM_Services_ServiceRecess_Ceiling",
+        "SM_V2_RuinNiche_Ceiling": "SM_Services_RuinNiche_Ceiling",
+        "SM_V2_CableTrays": "SM_Services_CableTrays",
+        "SM_V2_HangingCables": "SM_Services_HangingCables",
+        "SM_V2_ServicePipes": "SM_Services_ServicePipes"
+      }
+    },
+    {
+      "source_blend": "D:/FPS3D/FPSGAME/SourceAssets/DungeonGateWater20260922/Authored/DungeonGateWater_Source.blend",
+      "replacements": {
+        "SM_V2_MachineGrille": "SM_DungeonRefinedGrille",
+        "SM_V2_WetPatches": "SM_DungeonShallowPuddles"
+      }
+    },
+    {
+      "source_blend": "D:/FPS3D/FPSGAME/SourceAssets/DungeonWorkshopTools20260921/Authored/DungeonWorkshopTools.blend",
+      "replacements": {
+        "SM_WSTools_OtherFixtures": "SM_WSTools_OtherFixturesWithoutRuin"
+      }
     }
   ]
 }

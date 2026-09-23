@@ -450,5 +450,11 @@ data={'objects':manifest,'seed':921255,'coordinate_system':'Blender metres, worl
               {'label':'Oil_Bench','material':'Oil','cm':[892,-286,2],'extent':[4,17,29],'yaw':0,'pitch':-90},
               {'label':'Dust_Shelf','material':'Dust','cm':[442,-142,2],'extent':[4,32,85],'yaw':0,'pitch':-90},
               {'label':'Leak_Valve','material':'Leak','cm':[682,-405,154],'extent':[4,30,101],'yaw':90,'pitch':0}]}
+retirement=json.loads((ROOT.parent/'DungeonMaintenance20260922/Config/retirement.json').read_text())
+retired=set(retirement['actor_labels'])
+data['new_generated']=[e for e in data['new_generated'] if e['label'] not in retired]
+data['prop_moves']=[e for e in data['prop_moves'] if e['label'] not in retired]
+data['hidden_existing']=[label for label in data['hidden_existing'] if label not in retired]
+data['generated_props_retired']=True
 (OUT/'room-manifest.json').write_text(json.dumps(data,indent=2),encoding='utf-8')
 print('ROOM_GEOMETRY_AUTHORED',len(manifest),'mesh groups; no preview/test')

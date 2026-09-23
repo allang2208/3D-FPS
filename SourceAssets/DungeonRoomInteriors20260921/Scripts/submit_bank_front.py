@@ -5,6 +5,7 @@ not a fitting reference. The motor retains true multi-view generation. Never
 cancel a running job or another task's queued job.
 """
 import json,sys,urllib.request
+raise RuntimeError('The entire dungeon 5080 batch was rejected on 2026-09-22; its outputs and job receipts are archived in project trash. Do not resubmit this bank.')
 from pathlib import Path
 import local_pipeline as p
 

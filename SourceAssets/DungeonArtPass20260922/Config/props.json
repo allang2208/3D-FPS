@@ -1,0 +1,92 @@
+{
+  "case": "DungeonArtPass20260922",
+  "purpose": "地牢散件第一批：7 件写实扫描道具，统一存放到一个内容根下",
+  "author_note": "全部 CC BY 4.0，必须署名；逐件来源见 PROVENANCE.md",
+  "content_root": "/Game/Dungeons/ArtPass20260922",
+  "retrieved_utc": "2026-09-22",
+  "props": [
+    {
+      "key": "lantern",
+      "title": "Rusty Old Oil Lantern",
+      "uid": "de28cba29f58414c914298f648da90bf",
+      "url": "https://sketchfab.com/3d-models/rusty-old-oil-lantern-de28cba29f58414c914298f648da90bf",
+      "license": "CC Attribution (CC BY 4.0)",
+      "expected_faces": 7566,
+      "author": "see model page",
+      "target_height_m": 0.32,
+      "use": "遗迹侧穴、暗角提灯"
+    },
+    {
+      "key": "cobwebs",
+      "title": "Cobwebs Asset Pack",
+      "uid": "2dd4798676d84bc7af5d2a8f5834563a",
+      "url": "https://sketchfab.com/3d-models/cobwebs-asset-pack-2dd4798676d84bc7af5d2a8f5834563a",
+      "license": "CC Attribution (CC BY 4.0)",
+      "expected_faces": 419,
+      "author": "see model page",
+      "target_height_m": null,
+      "use": "顶角／门框／破口；alpha 卡",
+      "note": "可能是多件组合包，导入前需确认对象数量；尺寸按源比例保留"
+    },
+    {
+      "key": "ladder",
+      "title": "Wooden Step Ladder Scan LOWPOLY",
+      "uid": "296b91ddfe7a446db98c9a0f8f5923bd",
+      "url": "https://sketchfab.com/3d-models/wooden-step-ladder-scan-lowpoly-296b91ddfe7a446db98c9a0f8f5923bd",
+      "license": "CC Attribution (CC BY 4.0)",
+      "expected_faces": 824,
+      "author": "see model page",
+      "target_height_m": 1.2,
+      "use": "工作间／维修间"
+    },
+    {
+      "key": "rope",
+      "title": "Coiled Rope 2",
+      "uid": "e6fe8fedd3d04b1dac3e32e0dd515cbb",
+      "url": "https://sketchfab.com/3d-models/coiled-rope-2-e6fe8fedd3d04b1dac3e32e0dd515cbb",
+      "license": "CC Attribution (CC BY 4.0)",
+      "expected_faces": 19988,
+      "author": "see model page",
+      "target_height_m": 0.3,
+      "use": "管线分配间／维修间"
+    },
+    {
+      "key": "extinguisher",
+      "title": "Fire Extinguisher Old Rusty 3D Scan",
+      "uid": "70a4fdec06c64372ba3a96ae49257ce1",
+      "url": "https://sketchfab.com/3d-models/fire-extinguisher-old-rusty-3d-scan-70a4fdec06c64372ba3a96ae49257ce1",
+      "license": "CC Attribution (CC BY 4.0)",
+      "expected_faces": 29984,
+      "author": "see model page",
+      "target_height_m": 0.55,
+      "use": "走廊／维修凹室挂墙"
+    },
+    {
+      "key": "bucket",
+      "title": "Old Rusted Bucket v3",
+      "uid": "ca0755cc9e2d4dfd920e51b6ca9e1243",
+      "url": "https://sketchfab.com/3d-models/old-rusted-bucket-v3-ca0755cc9e2d4dfd920e51b6ca9e1243",
+      "license": "CC Attribution (CC BY 4.0)",
+      "expected_faces": 2936,
+      "author": "see model page",
+      "target_height_m": 0.3,
+      "use": "工作间地面"
+    },
+    {
+      "key": "barrel",
+      "title": "Rusty and Oil Stained Oil Barrel",
+      "uid": "c879b42696634752892c7f5e747c4ae4",
+      "url": "https://sketchfab.com/3d-models/rusty-and-oil-stained-oil-barrel-c879b42696634752892c7f5e747c4ae4",
+      "license": "CC Attribution (CC BY 4.0)",
+      "expected_faces": 812,
+      "author": "see model page",
+      "target_height_m": 0.88,
+      "use": "设备区／排水检修室"
+    }
+  ],
+  "notes": [
+    "内容根统一为 /Game/Dungeons/ArtPass20260922，下分 Meshes/Materials/Textures，命名 SM_Prop_* / M_Prop_* / MI_Prop_* / T_Prop_*。",
+    "目标高度按真实物件尺寸给定；导入后逐件核对。",
+    "全部 CC BY 4.0，接入时写入 ThirdPartyNotices。"
+  ]
+}

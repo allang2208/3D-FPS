@@ -1,0 +1,12 @@
+{
+  "statue": {
+    "actor_path": "/Game/GameMaps/L_Dungeon_AuthoredExpansion.L_Dungeon_AuthoredExpansion:PersistentLevel.StaticMeshActor_UAID_A036BCAAAC01260403_2022345743",
+    "label": "DGN_Prop_GoddessStatue_01",
+    "rotation": {
+      "pitch": 0.0,
+      "yaw": 63.0,
+      "roll": -0.0
+    },
+    "reason": "Turn the profile shown facing image-left towards the opening, outward along world -X; preserve the world bounds center."
+  }
+}

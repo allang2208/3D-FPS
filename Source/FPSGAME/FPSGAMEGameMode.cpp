@@ -20,6 +20,9 @@ AFPSGAMEGameMode::AFPSGAMEGameMode()
 void AFPSGAMEGameMode::RestartPlayer(AController* NewPlayer)
 {
     const FString Map = UGameplayStatics::GetCurrentLevelName(this, true);
+    // The dungeon is deliberately NOT on this list: FindSafeSpawn probes from +500 cm
+    // above each PlayerStart, which starts inside the dungeon's floor-1 ceiling slab,
+    // so every probe is rejected as initially penetrating and no pawn spawns.
     if (Map != TEXT("DayNight_Lighting") && Map != TEXT("L_Normandy_FPS_Test") && Map != TEXT("L_MilitaryTrench_FPS_Test"))
     {
         Super::RestartPlayer(NewPlayer);

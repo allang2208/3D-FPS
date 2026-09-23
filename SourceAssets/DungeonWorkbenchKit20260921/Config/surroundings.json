@@ -31,7 +31,7 @@
       "location": [
         600.0,
         180.0,
-        295.7
+        295.0
       ],
       "rotation": [
         0.0,
@@ -183,7 +183,7 @@
         1.0
       ],
       "hidden": false,
-      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopTools/Meshes/SM_WSTools_OtherFixtures.SM_WSTools_OtherFixtures",
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopTools/Meshes/SM_WSTools_OtherFixturesWithoutRuin.SM_WSTools_OtherFixturesWithoutRuin",
       "materials": [],
       "visible": true,
       "cast_shadow": true,
@@ -331,7 +331,7 @@
       "location": [
         840.0,
         310.0,
-        305.2
+        304.5
       ],
       "rotation": [
         0.0,
@@ -492,6 +492,7 @@
   ],
   "retired_lights": [
     "DGN_AV2_Light_Workshop",
-    "DGN_Room_WS_TaskLightSource"
+    "DGN_Room_WS_TaskLightSource",
+    "DGN_AV2_Light_Ruin"
   ]
 }

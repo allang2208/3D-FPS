@@ -1,0 +1,5092 @@
+{
+  "version": 1,
+  "min_rooms": 3,
+  "max_rooms": 5,
+  "group_links": 3,
+  "branch_links": 6,
+  "start_position": [
+    2400,
+    -1800,
+    94
+  ],
+  "start_normal": [
+    0,
+    -1,
+    0
+  ],
+  "reserved_min": [
+    -100,
+    -1800,
+    -50
+  ],
+  "reserved_max": [
+    3500,
+    1200,
+    800
+  ],
+  "modules": [
+    {
+      "id": "Distribution",
+      "min": [
+        -611.7128972262144,
+        -1205.4257944524288,
+        -80
+      ],
+      "max": [
+        1056.9975701458752,
+        18.0,
+        390.0
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/CombatExpansionV3_20260922/Meshes/SM_RS_Distribution_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/CombatExpansionV3_20260922/Meshes/SM_RS_Distribution_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/CombatExpansionV3_20260922/Meshes/SM_RS_Distribution_Services",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/CombatExpansionV3_20260922/Meshes/SM_RS_Distribution_Fixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatDoor_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatDoor_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatDoor_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        }
+      ],
+      "ports": [
+        {
+          "position": [
+            0.0,
+            -0.0,
+            0
+          ],
+          "normal": [
+            0.0,
+            1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280,
+          "id": "entry"
+        },
+        {
+          "position": [
+            -296.8564486131072,
+            -1187.4257944524288,
+            0
+          ],
+          "normal": [
+            0.0,
+            -1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280,
+          "id": "exit"
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            89.05693458393216,
+            -296.8564486131072,
+            326.5
+          ],
+          "intensity": 3102,
+          "radius": 638,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            -267.1708037517965,
+            -920.2549907006323,
+            326.5
+          ],
+          "intensity": 2310,
+          "radius": 534,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        },
+        {
+          "position": [
+            816.3552336860448,
+            -742.141121532768,
+            249.5
+          ],
+          "intensity": 1122,
+          "radius": 386,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        }
+      ],
+      "anchors": [
+        {
+          "position": [
+            0.0,
+            -593.7128972262144,
+            0
+          ],
+          "role": "encounter"
+        },
+        {
+          "position": [
+            846.0408785473555,
+            -831.1980561167001,
+            0
+          ],
+          "role": "future_equipment"
+        },
+        {
+          "position": [
+            -296.8564486131072,
+            -1187.4257944524288,
+            0
+          ],
+          "role": "exit"
+        }
+      ],
+      "cells": [
+        {
+          "min": [
+            -611.7128972262144,
+            -1205.4257944524288,
+            -80
+          ],
+          "max": [
+            611.7128972262144,
+            18.0,
+            390.0
+          ]
+        },
+        {
+          "min": [
+            575.7128972262144,
+            -1056.9975701458752,
+            -80
+          ],
+          "max": [
+            1056.9975701458752,
+            -427.2846729196608,
+            390.0
+          ]
+        }
+      ],
+      "side_sockets": [
+        {
+          "id": "West",
+          "variant": "Distribution_CombatTreasureWest",
+          "position": [
+            -593.7128972262144,
+            -670.0,
+            0
+          ],
+          "normal": [
+            -1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280,
+          "replace_suffixes": [
+            "_Shell",
+            "_Tiles",
+            "_Frames"
+          ],
+          "parts": [
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatTreasureWest_Shell",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            },
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatTreasureWest_Tiles",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            },
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatTreasureWest_Frames",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            }
+          ]
+        },
+        {
+          "id": "North",
+          "variant": "Distribution_CombatTreasureNorth",
+          "position": [
+            300.0,
+            -1187.4257944524288,
+            0
+          ],
+          "normal": [
+            0.0,
+            -1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280,
+          "replace_suffixes": [
+            "_Shell",
+            "_Tiles",
+            "_Frames"
+          ],
+          "parts": [
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatTreasureNorth_Shell",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            },
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatTreasureNorth_Tiles",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            },
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatTreasureNorth_Frames",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Drainage",
+      "min": [
+        -601.8947999291122,
+        -2061.6317997518927,
+        -80
+      ],
+      "max": [
+        1039.8158998759463,
+        18.0,
+        455.0
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/CombatExpansionV3_20260922/Meshes/SM_RS_Drainage_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/CombatExpansionV3_20260922/Meshes/SM_RS_Drainage_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/CombatExpansionV3_20260922/Meshes/SM_RS_Drainage_Services",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/CombatExpansionV3_20260922/Meshes/SM_RS_Drainage_Fixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/CombatExpansionV3_20260922/Meshes/SM_RS_Drainage_Bridge",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/CombatExpansion20260922/Meshes/SM_PusChannelFluid",
+          "position": [
+            218.96054997341707,
+            -1021.8158998759463,
+            -55.00000000000001
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": true,
+          "materials": [
+            "/Game/Dungeons/Routes20260922/Materials/MI_RoutePusChannel"
+          ],
+          "half_size": [
+            141,
+            391
+          ],
+          "radial": false
+        },
+        {
+          "mesh": "/Game/Dungeons/CombatExpansionV3_20260922/Meshes/SM_PipePusPuddle",
+          "position": [
+            -84.55328750221524,
+            -1391.8158998759463,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": true,
+          "materials": [
+            "/Game/Dungeons/Routes20260922/Materials/MI_RoutePusPuddle"
+          ],
+          "half_size": [
+            68.39999999999999,
+            63.65
+          ],
+          "radial": true
+        },
+        {
+          "mesh": "/Game/Dungeons/SlimeSheet20260922/Meshes/SM_PipePusDrops",
+          "position": [
+            -93.05328750221524,
+            -1391.8158998759463,
+            68.69999999999999
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": true,
+          "materials": [
+            "/Game/Dungeons/Routes20260922/Materials/M_RoutePusDrops"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/SlimeSheet20260922/Meshes/SM_PipePusTongue",
+          "position": [
+            -93.05328750221524,
+            -1391.8158998759463,
+            68.69999999999999
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": true,
+          "materials": [
+            "/Game/Dungeons/Routes20260922/Materials/M_RoutePusSheet"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatDoor_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatDoor_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatDoor_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        }
+      ],
+      "ports": [
+        {
+          "position": [
+            68.96054997341707,
+            -0.0,
+            0
+          ],
+          "normal": [
+            0.0,
+            1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280,
+          "id": "entry"
+        },
+        {
+          "position": [
+            1021.8158998759463,
+            -1221.8158998759463,
+            0
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280,
+          "id": "exit"
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            -192.18158998759466,
+            -671.8158998759463,
+            387.5
+          ],
+          "intensity": 3564,
+          "radius": 686,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            630.1026899344288,
+            -1271.8158998759463,
+            387.5
+          ],
+          "intensity": 3432,
+          "radius": 642,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            218.96054997341707,
+            -1071.8158998759463,
+            387.5
+          ],
+          "intensity": 1320,
+          "radius": 438,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        },
+        {
+          "position": [
+            -94.25328750221524,
+            -1774.1782431389827,
+            284.5
+          ],
+          "intensity": 990,
+          "radius": 365,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        }
+      ],
+      "anchors": [
+        {
+          "position": [
+            -224.82435748272107,
+            -981.8158998759463,
+            0
+          ],
+          "role": "encounter"
+        },
+        {
+          "position": [
+            695.3882249246817,
+            -841.8158998759462,
+            0
+          ],
+          "role": "future_pump"
+        },
+        {
+          "position": [
+            218.96054997341707,
+            -1071.8158998759463,
+            0
+          ],
+          "role": "loop_bridge"
+        },
+        {
+          "position": [
+            1021.8158998759463,
+            -1221.8158998759463,
+            0
+          ],
+          "role": "exit"
+        },
+        {
+          "position": [
+            -96.03945002658291,
+            -1021.8158998759463,
+            0
+          ],
+          "role": "west_flank"
+        },
+        {
+          "position": [
+            533.9605499734171,
+            -1021.8158998759463,
+            0
+          ],
+          "role": "east_flank"
+        }
+      ],
+      "cells": [
+        {
+          "min": [
+            -601.8947999291122,
+            -639.8158998759463,
+            -80
+          ],
+          "max": [
+            1039.8158998759463,
+            18.0,
+            455.0
+          ]
+        },
+        {
+          "min": [
+            -601.8947999291122,
+            -1439.8158998759463,
+            -80
+          ],
+          "max": [
+            86.96054997341707,
+            -603.8158998759463,
+            455.0
+          ]
+        },
+        {
+          "min": [
+            350.9605499734171,
+            -1439.8158998759463,
+            -80
+          ],
+          "max": [
+            1039.8158998759463,
+            -603.8158998759463,
+            455.0
+          ]
+        },
+        {
+          "min": [
+            -601.8947999291122,
+            -2061.6317997518927,
+            -80
+          ],
+          "max": [
+            386.9605499734171,
+            -1403.8158998759463,
+            455.0
+          ]
+        },
+        {
+          "min": [
+            350.9605499734171,
+            -1647.0878665012617,
+            -80
+          ],
+          "max": [
+            1039.8158998759463,
+            -1403.8158998759463,
+            455.0
+          ]
+        },
+        {
+          "min": [
+            50.96054997341707,
+            -1439.8158998759463,
+            -80
+          ],
+          "max": [
+            386.9605499734171,
+            -603.8158998759463,
+            455.0
+          ]
+        }
+      ],
+      "side_sockets": [
+        {
+          "id": "West",
+          "variant": "Drainage_CombatTreasureWest",
+          "position": [
+            -583.8947999291122,
+            -919.9999999999999,
+            0
+          ],
+          "normal": [
+            -1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280,
+          "replace_suffixes": [
+            "_Shell",
+            "_Tiles",
+            "_Frames"
+          ],
+          "parts": [
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatTreasureWest_Shell",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            },
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatTreasureWest_Tiles",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            },
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatTreasureWest_Frames",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            }
+          ]
+        },
+        {
+          "id": "East",
+          "variant": "Drainage_CombatTreasureEast",
+          "position": [
+            1021.8158998759463,
+            -400.0,
+            0
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280,
+          "replace_suffixes": [
+            "_Shell",
+            "_Tiles",
+            "_Frames"
+          ],
+          "parts": [
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatTreasureEast_Shell",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            },
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatTreasureEast_Tiles",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            },
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatTreasureEast_Frames",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ShoredBreach",
+      "min": [
+        -18.0,
+        -1257.2904855310917,
+        -80
+      ],
+      "max": [
+        2276.9357282966375,
+        792.5565534569323,
+        409.99999999999994
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_ShoredBreach_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_ShoredBreach_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_ShoredBreach_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_ShoredBreach_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_ShoredBreach_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_ShoredBreach_Services",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_ShoredBreach_Fixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_ShoredBreach_Debris",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        }
+      ],
+      "ports": [
+        {
+          "position": [
+            0.0,
+            -0.0,
+            0
+          ],
+          "normal": [
+            -1.0,
+            0.0,
+            0
+          ],
+          "width": 300.0,
+          "height": 280.0,
+          "id": "entry"
+        },
+        {
+          "position": [
+            1084.3791748397052,
+            154.55655345693228,
+            0
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0,
+          "id": "exit"
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            309.8226213827729,
+            340.8048835210503,
+            345.5
+          ],
+          "intensity": 3036,
+          "radius": 620,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        },
+        {
+          "position": [
+            929.4678641483188,
+            -619.6452427655458,
+            345.5
+          ],
+          "intensity": 3234,
+          "radius": 666,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            2098.9357282966375,
+            -619.6452427655458,
+            299.5
+          ],
+          "intensity": 1250,
+          "radius": 449,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        }
+      ],
+      "anchors": [
+        {
+          "position": [
+            619.6452427655458,
+            -542.1895874198526,
+            0
+          ],
+          "role": "encounter"
+        },
+        {
+          "position": [
+            2068.9357282966375,
+            -619.6452427655458,
+            0
+          ],
+          "role": "side_discovery"
+        },
+        {
+          "position": [
+            1394.2017962224782,
+            -1161.8348301853985,
+            0
+          ],
+          "role": "future_exit"
+        }
+      ],
+      "cells": [
+        {
+          "min": [
+            -18.0,
+            -1257.2904855310917,
+            -80
+          ],
+          "max": [
+            1102.3791748397052,
+            792.5565534569323,
+            409.99999999999994
+          ]
+        },
+        {
+          "min": [
+            1066.3791748397052,
+            -1257.2904855310917,
+            -80
+          ],
+          "max": [
+            1876.9357282966375,
+            -136.91131069138646,
+            409.99999999999994
+          ]
+        },
+        {
+          "min": [
+            1840.9357282966375,
+            -887.6452427655458,
+            -80
+          ],
+          "max": [
+            2276.9357282966375,
+            -351.64524276554585,
+            409.99999999999994
+          ]
+        }
+      ],
+      "side_sockets": [
+        {
+          "id": "West",
+          "variant": "ShoredBreach_CombatTreasureWest",
+          "position": [
+            0.0,
+            -380.00000000000006,
+            0
+          ],
+          "normal": [
+            -1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280,
+          "replace_suffixes": [
+            "_Shell",
+            "_Tiles",
+            "_Frames"
+          ],
+          "parts": [
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_ShoredBreach_CombatTreasureWest_Shell",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            },
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_ShoredBreach_CombatTreasureWest_Tiles",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            },
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_ShoredBreach_CombatTreasureWest_Frames",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            }
+          ]
+        },
+        {
+          "id": "South",
+          "variant": "ShoredBreach_CombatTreasureSouth",
+          "position": [
+            540.0,
+            774.5565534569323,
+            0
+          ],
+          "normal": [
+            0.0,
+            1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280,
+          "replace_suffixes": [
+            "_Shell",
+            "_Tiles",
+            "_Frames"
+          ],
+          "parts": [
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_ShoredBreach_CombatTreasureSouth_Shell",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            },
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_ShoredBreach_CombatTreasureSouth_Tiles",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            },
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_ShoredBreach_CombatTreasureSouth_Frames",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Junction",
+      "min": [
+        -718,
+        -1218,
+        -80
+      ],
+      "max": [
+        718,
+        18,
+        390.0
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Services",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Fixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        }
+      ],
+      "ports": [
+        {
+          "position": [
+            0.0,
+            -0.0,
+            0
+          ],
+          "normal": [
+            0.0,
+            1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0,
+          "id": "entry"
+        },
+        {
+          "position": [
+            0.0,
+            -1200.0,
+            0
+          ],
+          "normal": [
+            0.0,
+            -1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0,
+          "id": "forward"
+        },
+        {
+          "position": [
+            -700.0,
+            -600.0,
+            0
+          ],
+          "normal": [
+            -1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0,
+          "id": "left"
+        },
+        {
+          "position": [
+            700.0,
+            -600.0,
+            0
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0,
+          "id": "right"
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            0,
+            -150.0,
+            325.5
+          ],
+          "intensity": 520,
+          "radius": 500,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            -509.99999999999994,
+            -600,
+            325.5
+          ],
+          "intensity": 520,
+          "radius": 500,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        },
+        {
+          "position": [
+            509.99999999999994,
+            -600,
+            325.5
+          ],
+          "intensity": 520,
+          "radius": 500,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            0,
+            -1050.0,
+            325.5
+          ],
+          "intensity": 520,
+          "radius": 500,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        }
+      ],
+      "anchors": [
+        {
+          "position": [
+            0,
+            -550.0,
+            0
+          ],
+          "role": "route_choice"
+        },
+        {
+          "position": [
+            0,
+            -750.0,
+            0
+          ],
+          "role": "future_encounter"
+        }
+      ],
+      "cells": [
+        {
+          "min": [
+            -718,
+            -1218,
+            -80
+          ],
+          "max": [
+            718,
+            18,
+            390.0
+          ]
+        }
+      ]
+    },
+    {
+      "id": "RouteEnd",
+      "min": [
+        -238.00000000000003,
+        -418,
+        -80
+      ],
+      "max": [
+        238.00000000000003,
+        18,
+        340.0
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_RouteEnd_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_RouteEnd_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_RouteEnd_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_RouteEnd_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_RouteEnd_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_RouteEnd_Services",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_RouteEnd_Fixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        }
+      ],
+      "ports": [
+        {
+          "position": [
+            0.0,
+            -0.0,
+            0
+          ],
+          "normal": [
+            0.0,
+            1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0,
+          "id": "entry"
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            0,
+            -290.0,
+            285.5
+          ],
+          "intensity": 350,
+          "radius": 360,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        }
+      ],
+      "anchors": [
+        {
+          "position": [
+            0,
+            -300,
+            0
+          ],
+          "role": "future_route"
+        }
+      ],
+      "cells": [
+        {
+          "min": [
+            -238.00000000000003,
+            -418,
+            -80
+          ],
+          "max": [
+            238.00000000000003,
+            18,
+            340.0
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Transit",
+      "min": [
+        -174,
+        -400,
+        -22
+      ],
+      "max": [
+        174,
+        0,
+        298
+      ],
+      "ports": [
+        {
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "width": 300,
+          "height": 280
+        },
+        {
+          "position": [
+            0,
+            -400,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "width": 300,
+          "height": 280
+        }
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Transit_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Transit_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Transit_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Transit_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Transit_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Transit_Fixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            0,
+            -200,
+            249.5
+          ],
+          "intensity": 500,
+          "radius": 220,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        }
+      ],
+      "anchors": [],
+      "cells": [
+        {
+          "min": [
+            -174,
+            -400,
+            -22
+          ],
+          "max": [
+            174,
+            0,
+            298
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Threshold",
+      "min": [
+        -174,
+        -80,
+        -22
+      ],
+      "max": [
+        174,
+        0,
+        298
+      ],
+      "ports": [
+        {
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "width": 300,
+          "height": 280
+        },
+        {
+          "position": [
+            0,
+            -80,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "width": 300,
+          "height": 280
+        }
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Threshold_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Threshold_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Threshold_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Threshold_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Threshold_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        }
+      ],
+      "lights": [],
+      "anchors": [],
+      "cells": [
+        {
+          "min": [
+            -174,
+            -80,
+            -22
+          ],
+          "max": [
+            174,
+            0,
+            298
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Treasure",
+      "min": [
+        -555,
+        -1067,
+        -80
+      ],
+      "max": [
+        555,
+        43,
+        370
+      ],
+      "cells": [
+        {
+          "min": [
+            -555,
+            -1067,
+            -80
+          ],
+          "max": [
+            555,
+            43,
+            370
+          ]
+        }
+      ],
+      "ports": [
+        {
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "width": 300,
+          "height": 280,
+          "id": "entry"
+        }
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/Treasure20260922/Meshes/SM_RS_Treasure_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Treasure20260922/Meshes/SM_RS_Treasure_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Treasure20260922/Meshes/SM_RS_Treasure_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Treasure20260922/Meshes/SM_RS_Treasure_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Treasure20260922/Meshes/SM_RS_Treasure_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Treasure20260922/Meshes/SM_RS_Treasure_Accents",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Treasure20260922/Meshes/SM_RS_Treasure_Services",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Treasure20260922/Meshes/SM_RS_Treasure_Fixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            0,
+            -512.0,
+            308.5
+          ],
+          "intensity": 1100,
+          "radius": 620,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        },
+        {
+          "position": [
+            0,
+            -120.0,
+            308.5
+          ],
+          "intensity": 430,
+          "radius": 320,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        }
+      ],
+      "anchors": [
+        {
+          "position": [
+            0,
+            -512.0,
+            0
+          ],
+          "role": "treasure_chest"
+        },
+        {
+          "position": [
+            0,
+            -150.0,
+            0
+          ],
+          "role": "treasure_entry"
+        }
+      ],
+      "props": [
+        {
+          "skeletal_mesh": "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest",
+          "closed_animation": "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_ClosedPose.A_TreasureChest_ClosedPose",
+          "material_overrides": {},
+          "position": [
+            0,
+            -512,
+            0.8
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "role": "treasure_chest",
+          "collision_extent": [
+            59.47500228881836,
+            74.26250076293945,
+            55.087501525878906
+          ],
+          "collision_center": [
+            6.174999237060547,
+            5.167499542236328,
+            55.087501525878906
+          ],
+          "identity": "gamedev_dungeon_treasure",
+          "opening_animation": "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_Opening.A_TreasureChest_Opening"
+        }
+      ]
+    },
+    {
+      "id": "TreasureLink",
+      "min": [
+        -176,
+        -200,
+        -22
+      ],
+      "max": [
+        176,
+        0,
+        298
+      ],
+      "cells": [
+        {
+          "min": [
+            -176,
+            -200,
+            -22
+          ],
+          "max": [
+            176,
+            0,
+            298
+          ]
+        }
+      ],
+      "ports": [
+        {
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "width": 300,
+          "height": 280
+        },
+        {
+          "position": [
+            0,
+            -200,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "width": 300,
+          "height": 280
+        }
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/Treasure20260922/Meshes/SM_RS_TreasureLink_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Treasure20260922/Meshes/SM_RS_TreasureLink_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Treasure20260922/Meshes/SM_RS_TreasureLink_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Treasure20260922/Meshes/SM_RS_TreasureLink_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Treasure20260922/Meshes/SM_RS_TreasureLink_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        }
+      ],
+      "lights": [],
+      "anchors": []
+    },
+    {
+      "id": "VentilationLoop",
+      "min": [
+        -18,
+        -1618,
+        -25
+      ],
+      "max": [
+        1818,
+        18,
+        434.99999999999994
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Core",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Equipment",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Ducts",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Props",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Services",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Fixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "entry",
+          "position": [
+            600.0,
+            -0.0,
+            0
+          ],
+          "normal": [
+            0.0,
+            1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0
+        },
+        {
+          "id": "exit",
+          "position": [
+            1800.0,
+            -1200.0,
+            0
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            300,
+            -300,
+            353.5
+          ],
+          "intensity": 2450,
+          "radius": 575,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            1500,
+            -500,
+            353.5
+          ],
+          "intensity": 2550,
+          "radius": 585,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            300,
+            -1250.0,
+            354.5
+          ],
+          "intensity": 1650,
+          "radius": 490,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        },
+        {
+          "position": [
+            1480.0,
+            -1310.0,
+            357.5
+          ],
+          "intensity": 1950,
+          "radius": 510,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        }
+      ],
+      "anchors": [
+        {
+          "position": [
+            300,
+            -900,
+            0
+          ],
+          "role": "encounter_west"
+        },
+        {
+          "position": [
+            1500,
+            -800,
+            0
+          ],
+          "role": "encounter_east"
+        },
+        {
+          "position": [
+            470.0,
+            -1000,
+            0
+          ],
+          "role": "filter_maintenance"
+        },
+        {
+          "position": [
+            600,
+            -180.0,
+            0
+          ],
+          "role": "entry"
+        },
+        {
+          "position": [
+            1600,
+            -1200,
+            0
+          ],
+          "role": "exit"
+        }
+      ],
+      "cells": [
+        {
+          "min": [
+            -18,
+            -1618,
+            -25
+          ],
+          "max": [
+            1818,
+            18,
+            434.99999999999994
+          ]
+        }
+      ],
+      "side_sockets": [
+        {
+          "id": "North",
+          "variant": "VentilationLoop_CombatTreasureNorth",
+          "position": [
+            900.0,
+            -1600.0,
+            0
+          ],
+          "normal": [
+            0.0,
+            -1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280,
+          "replace_suffixes": [
+            "_Shell",
+            "_Tiles",
+            "_Frames"
+          ],
+          "parts": [
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_VentilationLoop_CombatTreasureNorth_Shell",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            },
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_VentilationLoop_CombatTreasureNorth_Tiles",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            },
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_VentilationLoop_CombatTreasureNorth_Frames",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            }
+          ]
+        },
+        {
+          "id": "West",
+          "variant": "VentilationLoop_CombatTreasureWest",
+          "position": [
+            0.0,
+            -600.0,
+            0
+          ],
+          "normal": [
+            -1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280,
+          "replace_suffixes": [
+            "_Shell",
+            "_Tiles",
+            "_Frames"
+          ],
+          "parts": [
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_VentilationLoop_CombatTreasureWest_Shell",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            },
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_VentilationLoop_CombatTreasureWest_Tiles",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            },
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_VentilationLoop_CombatTreasureWest_Frames",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "FreightTransfer",
+      "min": [
+        -18,
+        -1818,
+        -25
+      ],
+      "max": [
+        1818,
+        18,
+        455.0
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Dock",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Lift",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Rigging",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Props",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Markings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Services",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Fixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "entry",
+          "position": [
+            900.0,
+            -0.0,
+            0
+          ],
+          "normal": [
+            0.0,
+            1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0
+        },
+        {
+          "id": "exit",
+          "position": [
+            1800.0,
+            -1100.0,
+            0
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            900,
+            -170.0,
+            275.5
+          ],
+          "intensity": 1200,
+          "radius": 430,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        },
+        {
+          "position": [
+            850.0,
+            -600,
+            371.5
+          ],
+          "intensity": 2400,
+          "radius": 570,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            540.0,
+            -1150.0,
+            370.5
+          ],
+          "intensity": 2550,
+          "radius": 580,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            1450.0,
+            -1180.0,
+            370.5
+          ],
+          "intensity": 1900,
+          "radius": 530,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            900,
+            -1639.9999999999998,
+            380.5
+          ],
+          "intensity": 1900,
+          "radius": 520,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        }
+      ],
+      "anchors": [
+        {
+          "position": [
+            800,
+            -1019.9999999999999,
+            0
+          ],
+          "role": "encounter_lower"
+        },
+        {
+          "position": [
+            550.0,
+            -1600,
+            60.0
+          ],
+          "role": "encounter_dock"
+        },
+        {
+          "position": [
+            170.0,
+            -1100,
+            0
+          ],
+          "role": "freight_discovery"
+        },
+        {
+          "position": [
+            900,
+            -180.0,
+            0
+          ],
+          "role": "entry"
+        },
+        {
+          "position": [
+            1600,
+            -1100,
+            0
+          ],
+          "role": "exit"
+        }
+      ],
+      "cells": [
+        {
+          "min": [
+            382,
+            -818,
+            -25
+          ],
+          "max": [
+            1418,
+            18,
+            455.0
+          ]
+        },
+        {
+          "min": [
+            -18,
+            -1418,
+            -25
+          ],
+          "max": [
+            1818,
+            -782,
+            455.0
+          ]
+        },
+        {
+          "min": [
+            -18,
+            -1818,
+            -25
+          ],
+          "max": [
+            1818,
+            -1382,
+            455.0
+          ]
+        }
+      ],
+      "side_sockets": [
+        {
+          "id": "West",
+          "variant": "FreightTransfer_CombatTreasureWest",
+          "position": [
+            400.0,
+            -300.0,
+            0
+          ],
+          "normal": [
+            -1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280,
+          "replace_suffixes": [
+            "_Shell",
+            "_Tiles",
+            "_Frames"
+          ],
+          "parts": [
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_FreightTransfer_CombatTreasureWest_Shell",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            },
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_FreightTransfer_CombatTreasureWest_Frames",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            },
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_FreightTransfer_CombatTreasureWest_Tiles",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            }
+          ]
+        },
+        {
+          "id": "East",
+          "variant": "FreightTransfer_CombatTreasureEast",
+          "position": [
+            1400.0,
+            -300.0,
+            0
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280,
+          "replace_suffixes": [
+            "_Shell",
+            "_Tiles",
+            "_Frames"
+          ],
+          "parts": [
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_FreightTransfer_CombatTreasureEast_Shell",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            },
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_FreightTransfer_CombatTreasureEast_Frames",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            },
+            {
+              "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_FreightTransfer_CombatTreasureEast_Tiles",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "RouteElbow",
+      "role": "connector",
+      "min": [
+        -218,
+        -218,
+        -22
+      ],
+      "max": [
+        218,
+        218,
+        298
+      ],
+      "cells": [
+        {
+          "min": [
+            -218,
+            -218,
+            -22
+          ],
+          "max": [
+            218,
+            218,
+            298
+          ]
+        }
+      ],
+      "ports": [
+        {
+          "position": [
+            0,
+            200,
+            0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "width": 300,
+          "height": 280
+        },
+        {
+          "position": [
+            200,
+            0,
+            0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "width": 300,
+          "height": 280
+        }
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_RouteElbow_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_RouteElbow_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_RouteElbow_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_RouteElbow_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_RouteElbow_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        }
+      ],
+      "lights": [],
+      "anchors": []
+    },
+    {
+      "id": "BossConfluence",
+      "min": [
+        -718,
+        -1218,
+        -80
+      ],
+      "max": [
+        718,
+        18,
+        390.0
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Services",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Fixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        }
+      ],
+      "ports": [
+        {
+          "position": [
+            0.0,
+            -0.0,
+            0
+          ],
+          "normal": [
+            0.0,
+            1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0,
+          "id": "entry"
+        },
+        {
+          "position": [
+            0.0,
+            -1200.0,
+            0
+          ],
+          "normal": [
+            0.0,
+            -1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0,
+          "id": "forward"
+        },
+        {
+          "position": [
+            -700.0,
+            -600.0,
+            0
+          ],
+          "normal": [
+            -1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0,
+          "id": "left"
+        },
+        {
+          "position": [
+            700.0,
+            -600.0,
+            0
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0,
+          "id": "right"
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            0,
+            -150.0,
+            325.5
+          ],
+          "intensity": 520,
+          "radius": 500,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            -509.99999999999994,
+            -600,
+            325.5
+          ],
+          "intensity": 520,
+          "radius": 500,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        },
+        {
+          "position": [
+            509.99999999999994,
+            -600,
+            325.5
+          ],
+          "intensity": 520,
+          "radius": 500,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            0,
+            -1050.0,
+            325.5
+          ],
+          "intensity": 520,
+          "radius": 500,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        }
+      ],
+      "anchors": [
+        {
+          "position": [
+            0,
+            -550.0,
+            0
+          ],
+          "role": "route_choice"
+        },
+        {
+          "position": [
+            0,
+            -750.0,
+            0
+          ],
+          "role": "future_encounter"
+        }
+      ],
+      "cells": [
+        {
+          "min": [
+            -718,
+            -1218,
+            -80
+          ],
+          "max": [
+            718,
+            18,
+            390.0
+          ]
+        }
+      ],
+      "role": "terminal_confluence"
+    },
+    {
+      "id": "BossApproach",
+      "min": [
+        -174,
+        -400,
+        -22
+      ],
+      "max": [
+        174,
+        0,
+        298
+      ],
+      "ports": [
+        {
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "width": 300,
+          "height": 280
+        },
+        {
+          "position": [
+            0,
+            -400,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "width": 300,
+          "height": 280
+        }
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Transit_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Transit_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Transit_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Transit_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Transit_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Transit_Fixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            0,
+            -200,
+            249.5
+          ],
+          "intensity": 500,
+          "radius": 220,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        }
+      ],
+      "anchors": [],
+      "cells": [
+        {
+          "min": [
+            -174,
+            -400,
+            -22
+          ],
+          "max": [
+            174,
+            0,
+            298
+          ]
+        }
+      ],
+      "role": "terminal_connector"
+    },
+    {
+      "id": "BossPumpHall",
+      "role": "boss_terminal",
+      "min": [
+        -1518,
+        -2618,
+        -25
+      ],
+      "max": [
+        1518,
+        18,
+        865
+      ],
+      "cells": [
+        {
+          "min": [
+            -1518,
+            -2618,
+            -25
+          ],
+          "max": [
+            1518,
+            18,
+            865
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_FloorDetails",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Columns",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_RoofTrusses",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_GalleryDeck",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_GalleryFrames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_StairWest",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_StairEast",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_GalleryRails",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_MachineBases",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_PumpWest",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Services",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_WallServices",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_PumpEast",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Receiver",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_CableTrays",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_CableRoutes",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Drainage",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Fixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "entry",
+          "position": [
+            0.0,
+            -0.0,
+            0
+          ],
+          "normal": [
+            0.0,
+            1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            -400,
+            -500,
+            746.5
+          ],
+          "intensity": 4200,
+          "radius": 1050,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ],
+          "role": "key"
+        },
+        {
+          "position": [
+            400,
+            -1400,
+            746.5
+          ],
+          "intensity": 4400,
+          "radius": 1050,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ],
+          "role": "key"
+        },
+        {
+          "position": [
+            -900,
+            -1950.0,
+            651.5
+          ],
+          "intensity": 1800,
+          "radius": 720,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ],
+          "role": "fill"
+        },
+        {
+          "position": [
+            919.9999999999999,
+            -2100,
+            651.5
+          ],
+          "intensity": 1800,
+          "radius": 720,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ],
+          "role": "fill"
+        },
+        {
+          "position": [
+            -1300,
+            -900,
+            631.5
+          ],
+          "intensity": 1500,
+          "radius": 650,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ],
+          "role": "fill"
+        },
+        {
+          "position": [
+            1300,
+            -1650.0,
+            631.5
+          ],
+          "intensity": 1700,
+          "radius": 680,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ],
+          "role": "fill"
+        },
+        {
+          "position": [
+            -600,
+            -2360.0,
+            661.5
+          ],
+          "intensity": 1700,
+          "radius": 650,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ],
+          "role": "fill"
+        },
+        {
+          "position": [
+            600,
+            -2360.0,
+            661.5
+          ],
+          "intensity": 1800,
+          "radius": 680,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ],
+          "role": "fill"
+        },
+        {
+          "position": [
+            0,
+            -100,
+            293.5
+          ],
+          "intensity": 950,
+          "radius": 460,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ],
+          "role": "fill"
+        },
+        {
+          "position": [
+            -1300,
+            -1800,
+            261.5
+          ],
+          "intensity": 1000,
+          "radius": 470,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ],
+          "role": "fill"
+        },
+        {
+          "position": [
+            1300,
+            -900,
+            261.5
+          ],
+          "intensity": 1100,
+          "radius": 480,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ],
+          "role": "fill"
+        }
+      ],
+      "anchors": [
+        {
+          "role": "boss_spawn",
+          "position": [
+            0,
+            -1900,
+            0
+          ]
+        },
+        {
+          "role": "boss_arena_center",
+          "position": [
+            0,
+            -1300,
+            0
+          ]
+        },
+        {
+          "role": "boss_entry_trigger",
+          "position": [
+            0,
+            -300,
+            0
+          ]
+        },
+        {
+          "role": "boss_reward",
+          "position": [
+            0,
+            -2400,
+            0
+          ]
+        },
+        {
+          "role": "upper_west",
+          "position": [
+            -1290.0,
+            -1600,
+            360.0
+          ]
+        },
+        {
+          "role": "upper_east",
+          "position": [
+            1290.0,
+            -1800,
+            360.0
+          ]
+        },
+        {
+          "role": "upper_rear",
+          "position": [
+            0,
+            -2380.0,
+            360.0
+          ]
+        },
+        {
+          "role": "cover_west",
+          "position": [
+            -480.0,
+            -730.0,
+            0
+          ]
+        },
+        {
+          "role": "cover_east",
+          "position": [
+            480.0,
+            -1090.0,
+            0
+          ]
+        }
+      ],
+      "boss_encounter": {
+        "class": "/Game/Monsters/HandBrain/BP_HandBrain.BP_HandBrain_C",
+        "spawn": [
+          0,
+          -1900,
+          0
+        ],
+        "arena_min": [
+          -1470,
+          -2580,
+          -50
+        ],
+        "arena_max": [
+          1470,
+          50,
+          820
+        ],
+        "door": [
+          0.0,
+          -0.0,
+          0
+        ],
+        "door_size": [
+          300,
+          280
+        ],
+        "gate_material": "/Game/Dungeons/BossHall20260922/Materials/M_BossStructuralSteel"
+      }
+    }
+  ],
+  "start_connection": {
+    "length_m": 4,
+    "transition_start_m": 1.4,
+    "entry_clear_m": [
+      1.32,
+      2.38
+    ],
+    "exit_clear_m": [
+      3.0,
+      2.8
+    ],
+    "entry_wall_m": 0.18,
+    "exit_wall_m": 0.24,
+    "overlap_m": 0,
+    "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_StartServiceTransition",
+    "actor": "DGN_Link_A_B",
+    "map": "/Game/GameMaps/L_Dungeon_Randomized"
+  },
+  "treasure_chance_per_room": 0.1,
+  "room_ids": [
+    "Distribution",
+    "Drainage",
+    "ShoredBreach",
+    "VentilationLoop",
+    "FreightTransfer"
+  ],
+  "strict_ports": true,
+  "navigation_required": true,
+  "treasure_eligibility": "ordinary_room_with_side_sockets",
+  "boss_terminal_enabled": true
+}

@@ -49,3 +49,32 @@ else:
         for name in scripts:
             print('V2_LEGACY_WORKSHOP_STAGE '+folder+'/'+name)
             runpy.run_path(str(stage/'Scripts'/name),run_name='__main__')
+
+# Apply the current mineral-bed revision after all historical scene assemblers.
+WALL_RELIEF=ROOT.parent/'DungeonWallRelief20260922'
+if (WALL_RELIEF/'Authored/geometry-manifest.json').exists():
+    for name in ('import_materials.py','import_and_install.py'):
+        print('V2_WALL_RELIEF_STAGE '+name)
+        runpy.run_path(str(WALL_RELIEF/'Scripts'/name),run_name='__main__')
+
+TILE_FRACTURE=ROOT.parent/'DungeonTileFracture20260922'
+if (TILE_FRACTURE/'Authored/geometry-manifest.json').exists():
+    for name in ('import_materials.py','import_and_install.py'):
+        print('V2_TILE_FRACTURE_STAGE '+name)
+        runpy.run_path(str(TILE_FRACTURE/'Scripts'/name),run_name='__main__')
+
+# Final ceiling datum / service-bank revision, after historical room assemblies.
+SERVICES=ROOT.parent/'DungeonServices20260922'
+if (SERVICES/'Authored/geometry-manifest.json').exists():
+    print('V2_SERVICES_STAGE install.py')
+    runpy.run_path(str(SERVICES/'Scripts/install.py'),run_name='__main__')
+
+MAINTENANCE=ROOT.parent/'DungeonMaintenance20260922'
+if (MAINTENANCE/'Authored/manifest.json').exists():
+    print('V2_AUTHORED_MAINTENANCE_STAGE')
+    runpy.run_path(str(MAINTENANCE/'Scripts/install.py'),run_name='__main__')
+
+GATE_WATER=ROOT.parent/'DungeonGateWater20260922'
+if (GATE_WATER/'Authored/manifest.json').exists():
+    print('V2_GATE_WATER_STAGE')
+    runpy.run_path(str(GATE_WATER/'Scripts/install.py'),run_name='__main__')

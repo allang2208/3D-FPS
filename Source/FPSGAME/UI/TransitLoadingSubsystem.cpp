@@ -109,6 +109,7 @@ void UTransitLoadingSubsystem::BeginTransition(const FString& Map, FSimpleDelega
     if(IsRunningCommandlet()||!FSlateApplication::IsInitialized())return;
     if(View)CancelTransition();
     bHills=Map.Contains(TEXT("L_TemperateHills_Initial"));
+    bDungeon=Map.Contains(TEXT("L_Dungeon_Generated"))||Map.Contains(TEXT("L_Dungeon_Randomized"));
     bDestinationLoaded=false;
     StartedAt=FPlatformTime::Seconds();FinishedAt=0;
     CancelAction=MoveTemp(OnCancel);
@@ -162,7 +163,7 @@ void UTransitLoadingSubsystem::AfterMap(UWorld* World)
     bMapLoading=false;bDestinationLoaded=true;
     if(!View)return;
     AttachOverlay();
-    if(!bHills)UpdatePreparation(FText::FromString(TEXT("正在准备场景显示…")),.9f);
+    if(!bHills&&!bDungeon)UpdatePreparation(FText::FromString(TEXT("正在准备场景显示…")),.9f);
 }
 
 void UTransitLoadingSubsystem::UpdatePreparation(const FText& Status, float Progress)
@@ -170,6 +171,18 @@ void UTransitLoadingSubsystem::UpdatePreparation(const FText& Status, float Prog
     if(!View)BeginTransition(TEXT("L_TemperateHills_Initial"));
     if(!View)return;
     View->Status=Status;View->Progress=FMath::Max(View->Progress,FMath::Clamp(Progress,0.f,.99f));
+}
+
+void UTransitLoadingSubsystem::BeginDungeonPreparation()
+{
+    if (!View) BeginTransition(TEXT("L_Dungeon_Randomized"));
+    bDungeon=true;FinishedAt=0;
+    if (View)
+    {
+        View->Title=FText::FromString(TEXT("正在进入地牢…"));
+        View->Status=FText::FromString(TEXT("正在规划房间与通路…"));
+        View->Progress=0;
+    }
 }
 
 void UTransitLoadingSubsystem::CompletePreparation()
@@ -205,7 +218,7 @@ void UTransitLoadingSubsystem::Tick(float DeltaTime)
         else UGameplayStatics::OpenLevel(GetWorld(),TEXT("/Game/GameMaps/DayNight_Lighting"));
         return;
     }
-    if(bDestinationLoaded&&!bHills&&UGameplayStatics::GetPlayerPawn(GetWorld(),0)&&FShaderPipelineCache::NumPrecompilesRemaining()==0)CompletePreparation();
+    if(bDestinationLoaded&&!bHills&&!bDungeon&&UGameplayStatics::GetPlayerPawn(GetWorld(),0)&&FShaderPipelineCache::NumPrecompilesRemaining()==0)CompletePreparation();
     if(FinishedAt>0)
     {
         View->Opacity=1.f-FMath::Clamp(float((FPlatformTime::Seconds()-FinishedAt)/.3),0.f,1.f);

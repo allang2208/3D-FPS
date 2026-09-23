@@ -1,0 +1,19 @@
+{
+  "mesh": "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest",
+  "close": "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_ClosedPose.A_TreasureChest_ClosedPose",
+  "open": "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_OpenPose.A_TreasureChest_OpenPose",
+  "materials": {},
+  "collision_extent": [
+    59.47500228881836,
+    74.26250076293945,
+    55.087501525878906
+  ],
+  "collision_center": [
+    6.174999237060547,
+    5.167499542236328,
+    55.087501525878906
+  ],
+  "identity": "gamedev_dungeon_treasure",
+  "display_name": "探险宝箱",
+  "opening": "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_Opening.A_TreasureChest_Opening"
+}

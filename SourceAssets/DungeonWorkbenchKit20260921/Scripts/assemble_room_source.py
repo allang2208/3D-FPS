@@ -19,6 +19,10 @@ if surrounding_sources.exists():
         with bpy.data.libraries.load(entry['source_blend'],link=False) as (src,dst):dst.objects=list(entry['replacements'].values())
         for ob in dst.objects:
             bpy.context.scene.collection.objects.link(ob);ob.hide_render=False;ob.hide_set(False)
+maintenance=ROOT.parent/'DungeonMaintenance20260922'
+if (maintenance/'Authored/manifest.json').exists():
+    import runpy
+    runpy.run_path(str(maintenance/'Scripts/append_to_blend.py'),run_name='__main__')
 for im in bpy.data.images:
     if im.source=='FILE' and im.filepath and Path(bpy.path.abspath(im.filepath)).exists():im.pack()
 bpy.ops.wm.save_as_mainfile(filepath=str(ROOT/'Authored/DungeonRooms_WithWorkbenchKit.blend'))

@@ -24,3 +24,10 @@
 - `Source/FPSGAME/Building/ColdSteelFountain.h/.cpp`；作者根目录 `SourceAssets/RomanFountain20260917`。
 - V8制作器导入V7公共函数，使用V7薄膜网格和Niagara基础系统；V9继续使用V8噪声。V7/V8是当前重建链，不能按版本号当废案移走。
 - 制作链：`build_cascade_v7_20260919.py` → `build_cascade_v8_natural_20260919.py` → `prepare_fountain_audio_v9.py` → `build_polish_v9_20260919.py`，调色板仅更新指定喷泉条目。详细来源与路径见工程 `Docs/Building/fountain-polish-v9-20260919.md`。
+
+## 地牢腐蚀浅池复用（2026-09-22）
+
+- 浑浊粘液复用双层法线流动、表面逐像素光照与解析涟漪方法，颜色、透明度、速度和波幅另设；不能把喷泉的大波浪、白色水花或天空反射直接搬进室内坑道。不同气泡单元用固定空间相位错开，保持低幅运动。
+- 工程水材质包中既有 BC5 法线也有原始线性颜色法线。根据实际压缩类型选择 Normal／LinearColor 采样；原始线性法线手动解码，BC5 法线不重复解码。不要为了新池面修改已被喷泉使用的共享贴图设置。
+- 环境粘液接入真实伤害类型与生命值系统。排水坑案例沿用 `FFatZombiePusSettings` 的基础伤害与间隔，以及 `UCorrosivePusDamage`；永久环境池与死亡后限时残液分开管理。脚底高度和着地条件决定接触，不能仅靠胶囊重叠让上方桥面的玩家也受伤。
+- 作者入口 `SourceAssets/DungeonHazardPolish20260922`，原生类 `Source/FPSGAME/Dungeons/DungeonPusChannel`；配方在差异房间的 `trench.hazard`。本轮完成资产与地图保存，未运行伤害或视觉验收测试。

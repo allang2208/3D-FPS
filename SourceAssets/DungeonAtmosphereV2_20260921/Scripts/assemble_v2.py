@@ -9,7 +9,7 @@ import unreal as u
 
 ROOT=Path('D:/FPS3D/FPSGAME/SourceAssets/DungeonAtmosphereV2_20260921')
 TARGET='/Game/GameMaps/L_Dungeon_Prototype'
-BACKUP='/Game/Dungeons/AtmosphereV2/Archive/L_Dungeon_IndustrialV1'
+BACKUP=None # The rejected V1 snapshot is archived outside Content in project trash.
 PREFIX='DGN_AV2';FOLDER='DungeonAtmosphereV2'
 E=u.EditorAssetLibrary;AA=u.get_editor_subsystem(u.EditorActorSubsystem)
 ED=u.get_editor_subsystem(u.LevelEditorSubsystem);UE=u.get_editor_subsystem(u.UnrealEditorSubsystem)
@@ -17,7 +17,6 @@ source=json.loads((ROOT/'Authored/structure-manifest.json').read_text(encoding='
 structure=json.loads((ROOT/'Receipts/structure-import.json').read_text(encoding='utf-8'))
 generated=json.loads((ROOT/'Receipts/generated-import.json').read_text(encoding='utf-8'))
 props=json.loads((ROOT/'assets.json').read_text(encoding='utf-8'))['props']
-statue=json.loads(Path('D:/FPS3D/FPSGAME/SourceAssets/DungeonIndustrial20260920/Receipts/event-prop.json').read_text(encoding='utf-8'))
 receipt_file=ROOT/'Receipts/scene-build.json'
 previous=json.loads(receipt_file.read_text()) if receipt_file.exists() else {}
 counts={'structure_meshes':0,'generated_instances':0,'event_props':0,'lights':0,'damp_decals':0}
@@ -58,7 +57,7 @@ for p in props:
 for entry in source['objects']:
     value=structure['meshes'][entry['name']]
     load(value['path'] if isinstance(value,dict) else value)
-load(statue['mesh']);damp=load('/Game/Dungeons/AtmosphereV2/Materials/M_LocalDampStreak')
+damp=load('/Game/Dungeons/AtmosphereV2/Materials/M_LocalDampStreak')
 if UE.get_game_world():raise RuntimeError('Gameplay is active. V2 assets are staged; map install deferred.')
 dirty=[p.get_name() for p in u.EditorLoadingAndSavingUtils.get_dirty_map_packages()]
 external=('/Game/__ExternalActors__/GameMaps/L_Dungeon_Prototype/','/Game/__ExternalObjects__/GameMaps/L_Dungeon_Prototype/')
@@ -69,7 +68,7 @@ if target_dirty and previous.get('stage')!='assembling':
     raise RuntimeError('Existing unsaved dungeon edits preserved. Map install deferred.')
 current=UE.get_editor_world();receipt['previous_world']=current.get_path_name() if current else None
 # Editor duplication also handles the level's external actor packages.
-if not E.does_asset_exist(BACKUP):
+if BACKUP and not E.does_asset_exist(BACKUP):
     backup=E.duplicate_asset(TARGET,BACKUP)
     if not backup or not E.save_loaded_asset(backup,False):raise RuntimeError('Could not preserve V1 map')
 if not current or current.get_path_name().split('.')[0]!=TARGET:
@@ -92,9 +91,7 @@ for entry in source['objects']:
 # Shared with the editable Blender assembly; clear lanes and jambs are authored.
 for entry in json.loads((ROOT/'layout.json').read_text())['props']:
     prop(entry['id'],entry['cm'],entry['label'],entry['group'],entry['yaw'],entry['scale'],entry.get('collision',True))
-scale=228/(statue['extent'][2]*2)
-static(statue['mesh'],source['event_anchor_cm'],'Goddess_Candidate','RuinNiche',yaw=0,scale=(scale,)*3,bottom=True)
-counts['event_props']+=1
+# Generated event-statue candidate retired by the user on 2026-09-22.
 
 # Lighting follows real fixtures; ranges keep distinct pools and dark transitions.
 intensities={'Entry':2900,'Workshop':2400,'Corridor':3600,'MachineBay':3100,'Recess':1450,'Breach':3100,'Ruin':3400,'Turn':3000,'Exit':2300}

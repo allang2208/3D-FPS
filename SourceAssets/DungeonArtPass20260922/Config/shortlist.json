@@ -1,0 +1,59 @@
+{
+  "case": "DungeonArtPass20260922",
+  "purpose": "为新构建的地牢场景挑选美术资产：贴合（写实工业 + 古代遗迹）且许可可商用（CC0 / CC-BY）",
+  "scene_assessment": {
+    "map": "/Game/GameMaps/L_Dungeon_AuthoredExpansion",
+    "actors": 225,
+    "rooms": ["A 段原样板（走廊/低顶工作间/格栅设备区/检修壁龛/遗迹侧穴/折角/末端平台）", "检修连接通道", "管线分配间", "排水检修室", "破损支护室 + 4x5 m 石质空腔"],
+    "present": ["混凝土墙 + 象牙陶瓷墙裙", "顶面管道与电缆桥架", "荧光灯管", "钢丝网格栅与设备笼", "石拱 + 基座 + 破口 + 碎砖", "潮湿贴花"],
+    "gap": [
+      "三个新房间是纯建筑壳：只有结构、灯具与 10 个隐藏锚点，没有任何道具散件",
+      "A 段同样几乎没有散件：164 个 Actor 全是结构件、管道、栅栏与灯具",
+      "缺口与既有清单 E1–E13（桶/箱/骨堆/铁链/蛛网/破布/木架/长凳/梯子/火把托架/贴花）一致，且这些条目在清单里全部标注为「新建」"
+    ]
+  },
+  "policy": {
+    "download_first": "真实扫描件与风化/瑕疵类物件：手工建模性价比低，扫描件正是强项",
+    "author_locally": "规则构件（法兰、支架、桥架、格栅、门五金、灯壳、仪表）继续本地精确建模——项目已有先例（SM_MaintenanceCabinet、管道、桥架、灯具），下载包会与现有构件风格冲突，且违反 asset-model-workflow 的形态分流",
+    "avoid": ["风格化/低多边形包（Ancient Ruins、PS1 风格等）", "带植物的园林件（Garden Urn 的花卉不属于本场景）", "含人物的工作场景（Roman Pottery workshop）"]
+  },
+  "picks": [
+    {"slot": "A1", "use": "走廊/维修凹室挂墙", "name": "Fire Extinguisher Old Rusty 3D Scan", "uid": "70a4fdec06c64372ba3a96ae49257ce1", "license": "CC BY 4.0", "tris": 29984, "note": "真实扫描，锈蚀与风化自带"},
+    {"slot": "A2", "use": "工作间地面", "name": "Old Rusted Bucket v3", "uid": "ca0755cc9e2d4dfd920e51b6ca9e1243", "license": "CC BY 4.0", "tris": 2936},
+    {"slot": "A3", "use": "设备区/排水室", "name": "Rusty and Oil Stained Oil Barrel", "uid": "c879b42696634752892c7f5e747c4ae4", "license": "CC BY 4.0", "tris": 812},
+    {"slot": "A4", "use": "废料堆（重，建议减面）", "name": "Crushed rusty oil drum", "uid": "b1394e96fb1b4ebdb96a76524224358f", "license": "CC BY 4.0", "tris": 187672},
+    {"slot": "A5", "use": "工作间/补给点", "name": "Old Ammo Crate", "uid": "6a834e917e4f4194a29e9f66e6915d8a", "license": "CC BY 4.0", "tris": 1102},
+    {"slot": "A6", "use": "管线分配间地面", "name": "Low Poly | Pallets", "uid": "18fbfb830f294b44aa8dff530cc2ea12", "license": "CC BY 4.0", "tris": 1824},
+    {"slot": "A7", "use": "管线分配间/维修间", "name": "Cable Spool", "uid": "22ddb8e02f944fb7b5662f14fdc50e5e", "license": "CC BY 4.0", "tris": 1664},
+    {"slot": "A8", "use": "维修间", "name": "Game Ready Jerry Cans", "uid": "01fea903b3464194a4d0eec7d9a1a5d1", "license": "CC BY 4.0", "tris": 4728},
+    {"slot": "B1", "use": "遗迹破口与空腔地面", "name": "Broken ancient greek column - debris", "uid": "1ad492ad20164a108d6d37c83adba223", "license": "CC BY 4.0", "tris": 84864, "note": "与已有石拱同源的古典石作"},
+    {"slot": "B2", "use": "空腔角落", "name": "Broken Medieval column set", "uid": "962ed874cf9a4db5bc5405584c29b664", "license": "CC BY 4.0", "tris": 4664},
+    {"slot": "B3", "use": "石拱前供奉", "name": "1970.16 Neck Amphora", "uid": "0bb2525bdd734bf69d5a7b2b051928ad", "license": "CC0 1.0", "tris": 113342, "note": "无需署名"},
+    {"slot": "B4", "use": "空腔焦点（可作祭台/石棺）", "name": "A model of Queen Jadwiga's sarcophagus", "uid": "25391e3700c144d29649103d222c7efc", "license": "CC0 1.0", "tris": 127994, "note": "无需署名；体量大，需确认空腔净空 3.35 m 与 4x5 m 尺度"},
+    {"slot": "B5", "use": "墙头嵌件", "name": "Red Sandstone Winged Lion Corbel", "uid": "00a1f9e2cff54d07995f091693cc07f2", "license": "CC BY 4.0", "tris": 7894},
+    {"slot": "C1", "use": "顶角/门框/破口（性价比最高）", "name": "Cobwebs Asset Pack", "uid": "2dd4798676d84bc7af5d2a8f5834563a", "license": "CC BY 4.0", "tris": 419, "note": "2223 likes；alpha 卡，几乎零成本"},
+    {"slot": "C2", "use": "骨堆/仪式痕迹", "name": "Lowpoly Animal Skulls - 1", "uid": "2938b8237531482d9750ce2717fbe099", "license": "CC BY 4.0", "tris": 87497, "note": "整包多件，按需取用（69 张贴图）"},
+    {"slot": "C3", "use": "地面小堆", "name": "Low Poly Bone Pile (Downloadable)", "uid": "5ec580b41a934cea86d4297980d1378f", "license": "CC BY 4.0", "tris": 560},
+    {"slot": "C4", "use": "遗迹祭台", "name": "Antique Candle Holder", "uid": "cce3a987bda2410993fbc7a24db70eb5", "license": "CC BY 4.0", "tris": 2889},
+    {"slot": "C5", "use": "遗迹/暗角", "name": "Rusty Old Oil Lantern", "uid": "de28cba29f58414c914298f648da90bf", "license": "CC BY 4.0", "tris": 7566},
+    {"slot": "C6", "use": "补给堆", "name": "Burlap Sack", "uid": "e3b01fcc08e745758e65b1a997d52bf2", "license": "CC BY 4.0", "tris": 4576},
+    {"slot": "C7", "use": "工作间", "name": "Wooden Step Ladder Scan LOWPOLY", "uid": "296b91ddfe7a446db98c9a0f8f5923bd", "license": "CC BY 4.0", "tris": 824},
+    {"slot": "C8", "use": "排水检修室槽盖", "name": "Rusty metal grate", "uid": "d814366c9dd24463bfc753a88f4d3ad0", "license": "CC BY 4.0", "tris": 678},
+    {"slot": "C9", "use": "分配间/维修间", "name": "Coiled Rope 2", "uid": "e6fe8fedd3d04b1dac3e32e0dd515cbb", "license": "CC BY 4.0", "tris": 19988},
+    {"slot": "D1", "use": "大空间吊灯（可选）", "name": "Industrial Hanging Ceiling Lights Type B", "uid": "0a84b3898bcc4ec4be6aa0f5b638fcbe", "license": "CC BY 4.0", "tris": 37122}
+  ],
+  "license_summary": {
+    "CC0_no_attribution": ["1970.16 Neck Amphora", "A model of Queen Jadwiga's sarcophagus"],
+    "CC_BY_attribution_required": "其余全部，接入时写入 ThirdPartyNotices",
+    "cc0_texture_sources": ["ambientCG (CC0)", "Poly Haven (CC0)"]
+  },
+  "search_stats": {
+    "terms": 42,
+    "candidates": 786,
+    "cc_by": 754,
+    "cc0": 32,
+    "screened_thumbnails": 46,
+    "note": "Sketchfab Data API v3，downloadable=true，license=cc0|by"
+  },
+  "not_imported_yet": true
+}

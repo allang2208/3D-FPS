@@ -1,0 +1,1287 @@
+{
+  "version": 1,
+  "status": "imported_and_connected",
+  "room_ids": [],
+  "terminal_ids": [
+    "BossPumpHall"
+  ],
+  "modules": [
+    {
+      "id": "BossConfluence",
+      "min": [
+        -718,
+        -1218,
+        -80
+      ],
+      "max": [
+        718,
+        18,
+        390.0
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Services",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Fixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        }
+      ],
+      "ports": [
+        {
+          "position": [
+            0.0,
+            -0.0,
+            0
+          ],
+          "normal": [
+            0.0,
+            1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0,
+          "id": "route_middle"
+        },
+        {
+          "position": [
+            0.0,
+            -1200.0,
+            0
+          ],
+          "normal": [
+            0.0,
+            -1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0,
+          "id": "boss_out"
+        },
+        {
+          "position": [
+            -700.0,
+            -600.0,
+            0
+          ],
+          "normal": [
+            -1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0,
+          "id": "route_left"
+        },
+        {
+          "position": [
+            700.0,
+            -600.0,
+            0
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0,
+          "id": "route_right"
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            0,
+            -150.0,
+            325.5
+          ],
+          "intensity": 520,
+          "radius": 500,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            -509.99999999999994,
+            -600,
+            325.5
+          ],
+          "intensity": 520,
+          "radius": 500,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        },
+        {
+          "position": [
+            509.99999999999994,
+            -600,
+            325.5
+          ],
+          "intensity": 520,
+          "radius": 500,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            0,
+            -1050.0,
+            325.5
+          ],
+          "intensity": 520,
+          "radius": 500,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        }
+      ],
+      "anchors": [
+        {
+          "position": [
+            0,
+            -550.0,
+            0
+          ],
+          "role": "route_choice"
+        },
+        {
+          "position": [
+            0,
+            -750.0,
+            0
+          ],
+          "role": "future_encounter"
+        }
+      ],
+      "cells": [
+        {
+          "min": [
+            -718,
+            -1218,
+            -80
+          ],
+          "max": [
+            718,
+            18,
+            390.0
+          ]
+        }
+      ],
+      "role": "terminal_confluence"
+    },
+    {
+      "id": "BossApproach",
+      "min": [
+        -164,
+        -400,
+        -22
+      ],
+      "max": [
+        164,
+        0,
+        333
+      ],
+      "ports": [
+        {
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "width": 276.0,
+          "height": 315.0,
+          "id": "entry"
+        },
+        {
+          "position": [
+            0,
+            -400,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "width": 276.0,
+          "height": 315.0,
+          "id": "exit"
+        }
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Transit_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Transit_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Transit_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Transit_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Transit_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Transit_Fixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            0,
+            -200,
+            284.5
+          ],
+          "intensity": 500,
+          "radius": 220,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        }
+      ],
+      "anchors": [],
+      "cells": [
+        {
+          "min": [
+            -164,
+            -400,
+            -22
+          ],
+          "max": [
+            164,
+            0,
+            333
+          ]
+        }
+      ],
+      "role": "terminal_connector"
+    },
+    {
+      "id": "BossPumpHall",
+      "role": "boss_terminal",
+      "min": [
+        -1518,
+        -2618,
+        -25
+      ],
+      "max": [
+        1518,
+        18,
+        865
+      ],
+      "cells": [
+        {
+          "min": [
+            -1518,
+            -2618,
+            -25
+          ],
+          "max": [
+            1518,
+            18,
+            865
+          ]
+        }
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_FloorDetails",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Columns",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_RoofTrusses",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_GalleryDeck",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_GalleryFrames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_StairWest",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_StairEast",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_GalleryRails",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_MachineBases",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_PumpWest",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Services",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_WallServices",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_PumpEast",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Receiver",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_CableTrays",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_CableRoutes",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Drainage",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Fixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "entry",
+          "position": [
+            0.0,
+            -0.0,
+            0
+          ],
+          "normal": [
+            0.0,
+            1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            -400,
+            -500,
+            746.5
+          ],
+          "intensity": 4200,
+          "radius": 1050,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ],
+          "role": "key"
+        },
+        {
+          "position": [
+            400,
+            -1400,
+            746.5
+          ],
+          "intensity": 4400,
+          "radius": 1050,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ],
+          "role": "key"
+        },
+        {
+          "position": [
+            -900,
+            -1950.0,
+            651.5
+          ],
+          "intensity": 1800,
+          "radius": 720,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ],
+          "role": "fill"
+        },
+        {
+          "position": [
+            919.9999999999999,
+            -2100,
+            651.5
+          ],
+          "intensity": 1800,
+          "radius": 720,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ],
+          "role": "fill"
+        },
+        {
+          "position": [
+            -1300,
+            -900,
+            631.5
+          ],
+          "intensity": 1500,
+          "radius": 650,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ],
+          "role": "fill"
+        },
+        {
+          "position": [
+            1300,
+            -1650.0,
+            631.5
+          ],
+          "intensity": 1700,
+          "radius": 680,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ],
+          "role": "fill"
+        },
+        {
+          "position": [
+            -600,
+            -2360.0,
+            661.5
+          ],
+          "intensity": 1700,
+          "radius": 650,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ],
+          "role": "fill"
+        },
+        {
+          "position": [
+            600,
+            -2360.0,
+            661.5
+          ],
+          "intensity": 1800,
+          "radius": 680,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ],
+          "role": "fill"
+        },
+        {
+          "position": [
+            0,
+            -100,
+            293.5
+          ],
+          "intensity": 950,
+          "radius": 460,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ],
+          "role": "fill"
+        },
+        {
+          "position": [
+            -1300,
+            -1800,
+            261.5
+          ],
+          "intensity": 1000,
+          "radius": 470,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ],
+          "role": "fill"
+        },
+        {
+          "position": [
+            1300,
+            -900,
+            261.5
+          ],
+          "intensity": 1100,
+          "radius": 480,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ],
+          "role": "fill"
+        }
+      ],
+      "anchors": [
+        {
+          "role": "boss_spawn",
+          "position": [
+            0,
+            -1900,
+            0
+          ]
+        },
+        {
+          "role": "boss_arena_center",
+          "position": [
+            0,
+            -1300,
+            0
+          ]
+        },
+        {
+          "role": "boss_entry_trigger",
+          "position": [
+            0,
+            -300,
+            0
+          ]
+        },
+        {
+          "role": "boss_reward",
+          "position": [
+            0,
+            -2400,
+            0
+          ]
+        },
+        {
+          "role": "upper_west",
+          "position": [
+            -1290.0,
+            -1600,
+            360.0
+          ]
+        },
+        {
+          "role": "upper_east",
+          "position": [
+            1290.0,
+            -1800,
+            360.0
+          ]
+        },
+        {
+          "role": "upper_rear",
+          "position": [
+            0,
+            -2380.0,
+            360.0
+          ]
+        },
+        {
+          "role": "cover_west",
+          "position": [
+            -480.0,
+            -730.0,
+            0
+          ]
+        },
+        {
+          "role": "cover_east",
+          "position": [
+            480.0,
+            -1090.0,
+            0
+          ]
+        }
+      ]
+    }
+  ],
+  "instances": [
+    {
+      "module": "BossConfluence",
+      "position": [
+        0,
+        1600,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "module": "BossApproach",
+      "position": [
+        0,
+        400,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "module": "BossPumpHall",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "branch_inputs": [
+    {
+      "position": [
+        0.0,
+        1600.0,
+        0
+      ],
+      "normal": [
+        0.0,
+        1.0,
+        0
+      ],
+      "width": 300,
+      "height": 280.0,
+      "id": "route_middle",
+      "module": "BossConfluence"
+    },
+    {
+      "position": [
+        -700.0,
+        1000.0,
+        0
+      ],
+      "normal": [
+        -1.0,
+        0.0,
+        0
+      ],
+      "width": 300,
+      "height": 280.0,
+      "id": "route_left",
+      "module": "BossConfluence"
+    },
+    {
+      "position": [
+        700.0,
+        1000.0,
+        0
+      ],
+      "normal": [
+        1.0,
+        0.0,
+        0
+      ],
+      "width": 300,
+      "height": 280.0,
+      "id": "route_right",
+      "module": "BossConfluence"
+    }
+  ],
+  "connections": [
+    {
+      "a": [
+        "BossConfluence",
+        "boss_out"
+      ],
+      "b": [
+        "BossApproach",
+        "entry"
+      ]
+    },
+    {
+      "a": [
+        "BossApproach",
+        "exit"
+      ],
+      "b": [
+        "BossPumpHall",
+        "entry"
+      ]
+    }
+  ],
+  "boss_count": 1,
+  "min": [
+    -1518,
+    -2618,
+    -25
+  ],
+  "max": [
+    1518,
+    1618,
+    865
+  ],
+  "runtime_routing_connected": true,
+  "tests_run": false,
+  "integration_receipt": "../DungeonBossIntegration20260923/Receipts/install.json"
+}

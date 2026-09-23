@@ -1,0 +1,130 @@
+[
+  {
+    "source": "SourceAssets/DungeonGenerationV1/build-editor-final.log",
+    "destination": "trash/dungeon-random-boss-retired-20260923/SourceAssets/DungeonGenerationV1/build-editor-final.log",
+    "bytes": 6478,
+    "sha256": "61c66f07e5bbe1fe5e23b039315c04492144ddbb5d5089a4d15a64721dd2552e",
+    "reason": "User rejected the 14 box-room design; retain authored spatial semantics instead.",
+    "replacement": "SourceAssets/DungeonRoutes20260922 and DungeonRouteRepairs20260922"
+  },
+  {
+    "source": "SourceAssets/DungeonGenerationV1/build-editor.log",
+    "destination": "trash/dungeon-random-boss-retired-20260923/SourceAssets/DungeonGenerationV1/build-editor.log",
+    "bytes": 21773,
+    "sha256": "c43301584d4519a7946678f6e8c25ddb49e7ea415fb8f26aec1930c1f5fb83ec",
+    "reason": "User rejected the 14 box-room design; retain authored spatial semantics instead.",
+    "replacement": "SourceAssets/DungeonRoutes20260922 and DungeonRouteRepairs20260922"
+  },
+  {
+    "source": "SourceAssets/DungeonGenerationV1/level-install-01.txt",
+    "destination": "trash/dungeon-random-boss-retired-20260923/SourceAssets/DungeonGenerationV1/level-install-01.txt",
+    "bytes": 490,
+    "sha256": "7db0ae6fd86efa40022ce2450b5bf8703bf8576a034a0ec189d85e4e717cba06",
+    "reason": "User rejected the 14 box-room design; retain authored spatial semantics instead.",
+    "replacement": "SourceAssets/DungeonRoutes20260922 and DungeonRouteRepairs20260922"
+  },
+  {
+    "source": "SourceAssets/DungeonGenerationV1/level-install-02.txt",
+    "destination": "trash/dungeon-random-boss-retired-20260923/SourceAssets/DungeonGenerationV1/level-install-02.txt",
+    "bytes": 155,
+    "sha256": "4ac3fe0eea8972252d43e526499dfe5d9360cf216857347349e3d9207e39aa79",
+    "reason": "User rejected the 14 box-room design; retain authored spatial semantics instead.",
+    "replacement": "SourceAssets/DungeonRoutes20260922 and DungeonRouteRepairs20260922"
+  },
+  {
+    "source": "SourceAssets/DungeonGenerationV1/README.md",
+    "destination": "trash/dungeon-random-boss-retired-20260923/SourceAssets/DungeonGenerationV1/README.md",
+    "bytes": 2569,
+    "sha256": "26bb7dcd77a2e5c7a30f8edcf51496ed8f204a5641595544184316f54320f5cf",
+    "reason": "User rejected the 14 box-room design; retain authored spatial semantics instead.",
+    "replacement": "SourceAssets/DungeonRoutes20260922 and DungeonRouteRepairs20260922"
+  },
+  {
+    "source": "SourceAssets/DungeonGenerationV1/Config/industrial_exploration_v1.json",
+    "destination": "trash/dungeon-random-boss-retired-20260923/SourceAssets/DungeonGenerationV1/Config/industrial_exploration_v1.json",
+    "bytes": 8137,
+    "sha256": "9752a7cef4682c6ba63eab50eda517aa6e374f4aca3126e60418d80d8a1148ff",
+    "reason": "User rejected the 14 box-room design; retain authored spatial semantics instead.",
+    "replacement": "SourceAssets/DungeonRoutes20260922 and DungeonRouteRepairs20260922"
+  },
+  {
+    "source": "SourceAssets/DungeonGenerationV1/Receipts/level-authoring.json",
+    "destination": "trash/dungeon-random-boss-retired-20260923/SourceAssets/DungeonGenerationV1/Receipts/level-authoring.json",
+    "bytes": 1392,
+    "sha256": "663ecca694ceea85119aca8b1fb594ac6b21feb50c4dc94612374fd20de14092",
+    "reason": "User rejected the 14 box-room design; retain authored spatial semantics instead.",
+    "replacement": "SourceAssets/DungeonRoutes20260922 and DungeonRouteRepairs20260922"
+  },
+  {
+    "source": "SourceAssets/DungeonGenerationV1/Scripts/install_level.py",
+    "destination": "trash/dungeon-random-boss-retired-20260923/SourceAssets/DungeonGenerationV1/Scripts/install_level.py",
+    "bytes": 4199,
+    "sha256": "41d05a680854e687a59017d6d7c7819f267c60943be8adde449a5ba741ae489b",
+    "reason": "User rejected the 14 box-room design; retain authored spatial semantics instead.",
+    "replacement": "SourceAssets/DungeonRoutes20260922 and DungeonRouteRepairs20260922"
+  },
+  {
+    "source": "SourceAssets/DungeonGenerationV1/Scripts/prepare_recipe.py",
+    "destination": "trash/dungeon-random-boss-retired-20260923/SourceAssets/DungeonGenerationV1/Scripts/prepare_recipe.py",
+    "bytes": 2809,
+    "sha256": "0886c835576521f5eca4ae2791784f959dcab44c72a2a90aed0435aa3ccf811f",
+    "reason": "User rejected the 14 box-room design; retain authored spatial semantics instead.",
+    "replacement": "SourceAssets/DungeonRoutes20260922 and DungeonRouteRepairs20260922"
+  },
+  {
+    "source": "SourceAssets/DungeonGenerationV1/Scripts/resume_install_level.py",
+    "destination": "trash/dungeon-random-boss-retired-20260923/SourceAssets/DungeonGenerationV1/Scripts/resume_install_level.py",
+    "bytes": 864,
+    "sha256": "dea0b9b1a1f0a086050efad703bd86688ac2a29f3bc337c4afc6dc54a9175fb5",
+    "reason": "User rejected the 14 box-room design; retain authored spatial semantics instead.",
+    "replacement": "SourceAssets/DungeonRoutes20260922 and DungeonRouteRepairs20260922"
+  },
+  {
+    "source": "SourceAssets/DungeonRouteRepairs20260922/Scripts/compile.py",
+    "destination": "trash/dungeon-random-boss-retired-20260923/SourceAssets/DungeonRouteRepairs20260922/Scripts/compile.py",
+    "bytes": 552,
+    "sha256": "00cff77d992ece9b55bfca19241b914bdbf0468fa6e68cd1131d7f990f59ecc7",
+    "reason": "Completed one-shot patch, obsolete Live Coding wrapper, or installation diagnostic.",
+    "replacement": "Normal Editor build, then DungeonRouteRepairs20260922/Scripts/install.py"
+  },
+  {
+    "source": "SourceAssets/DungeonRouteRepairs20260922/Scripts/finish_install.py",
+    "destination": "trash/dungeon-random-boss-retired-20260923/SourceAssets/DungeonRouteRepairs20260922/Scripts/finish_install.py",
+    "bytes": 421,
+    "sha256": "224093feb513062d2f55275395d4fb9fcfbe8c667261e034ad43a9681d7c7fb7",
+    "reason": "Completed one-shot patch, obsolete Live Coding wrapper, or installation diagnostic.",
+    "replacement": "Normal Editor build, then DungeonRouteRepairs20260922/Scripts/install.py"
+  },
+  {
+    "source": "SourceAssets/DungeonRouteRepairs20260922/Scripts/patch_assembly.py",
+    "destination": "trash/dungeon-random-boss-retired-20260923/SourceAssets/DungeonRouteRepairs20260922/Scripts/patch_assembly.py",
+    "bytes": 6092,
+    "sha256": "1ba62dd3b840aca28178e2da9777a4ab6e333557542c61d77a599a1559876600",
+    "reason": "Completed one-shot patch, obsolete Live Coding wrapper, or installation diagnostic.",
+    "replacement": "Normal Editor build, then DungeonRouteRepairs20260922/Scripts/install.py"
+  },
+  {
+    "source": "SourceAssets/DungeonRouteRepairs20260922/Scripts/read_install_blocker.py",
+    "destination": "trash/dungeon-random-boss-retired-20260923/SourceAssets/DungeonRouteRepairs20260922/Scripts/read_install_blocker.py",
+    "bytes": 1174,
+    "sha256": "e9e641d3ddac3808b3b8778df08791a28ad785d8e544f8bc91538e91a5f9ad4f",
+    "reason": "Completed one-shot patch, obsolete Live Coding wrapper, or installation diagnostic.",
+    "replacement": "Normal Editor build, then DungeonRouteRepairs20260922/Scripts/install.py"
+  },
+  {
+    "source": "SourceAssets/DungeonRouteRepairs20260922/Scripts/resume_state.py",
+    "destination": "trash/dungeon-random-boss-retired-20260923/SourceAssets/DungeonRouteRepairs20260922/Scripts/resume_state.py",
+    "bytes": 2012,
+    "sha256": "8313f25e94a6db005ec363b7e399183b335bfb068650a8aba2ea664a72181d8e",
+    "reason": "Completed one-shot patch, obsolete Live Coding wrapper, or installation diagnostic.",
+    "replacement": "Normal Editor build, then DungeonRouteRepairs20260922/Scripts/install.py"
+  },
+  {
+    "source": "SourceAssets/DungeonBossIntegration20260923/Scripts/resume_import.py",
+    "destination": "trash/dungeon-random-boss-retired-20260923/SourceAssets/DungeonBossIntegration20260923/Scripts/resume_import.py",
+    "bytes": 787,
+    "sha256": "68b352858b63b886a35a7b16640055aa759b17bbb38286d72d8eda5ccc342a98",
+    "reason": "One-shot recovery of two materials and 23 meshes completed; standard importer is fixed.",
+    "replacement": "SourceAssets/DungeonBossIntegration20260923/Scripts/import_boss.py"
+  }
+]

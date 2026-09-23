@@ -1,0 +1,760 @@
+{
+  "version": 1,
+  "room_ids": [
+    "VentilationLoop",
+    "FreightTransfer"
+  ],
+  "modules": [
+    {
+      "id": "VentilationLoop",
+      "min": [
+        -18,
+        -1618,
+        -25
+      ],
+      "max": [
+        1818,
+        18,
+        434.99999999999994
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Core",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Equipment",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Ducts",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Props",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Services",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Fixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "entry",
+          "position": [
+            600.0,
+            -0.0,
+            0
+          ],
+          "normal": [
+            0.0,
+            1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0
+        },
+        {
+          "id": "exit",
+          "position": [
+            1800.0,
+            -1200.0,
+            0
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            300,
+            -300,
+            353.5
+          ],
+          "intensity": 2450,
+          "radius": 575,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            1500,
+            -500,
+            353.5
+          ],
+          "intensity": 2550,
+          "radius": 585,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            300,
+            -1250.0,
+            354.5
+          ],
+          "intensity": 1650,
+          "radius": 490,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        },
+        {
+          "position": [
+            1480.0,
+            -1310.0,
+            357.5
+          ],
+          "intensity": 1950,
+          "radius": 510,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        }
+      ],
+      "anchors": [
+        {
+          "position": [
+            300,
+            -900,
+            0
+          ],
+          "role": "encounter_west"
+        },
+        {
+          "position": [
+            1500,
+            -800,
+            0
+          ],
+          "role": "encounter_east"
+        },
+        {
+          "position": [
+            470.0,
+            -1000,
+            0
+          ],
+          "role": "filter_maintenance"
+        },
+        {
+          "position": [
+            600,
+            -180.0,
+            0
+          ],
+          "role": "entry"
+        },
+        {
+          "position": [
+            1600,
+            -1200,
+            0
+          ],
+          "role": "exit"
+        }
+      ],
+      "cells": [
+        {
+          "min": [
+            -18,
+            -1618,
+            -25
+          ],
+          "max": [
+            1818,
+            18,
+            434.99999999999994
+          ]
+        }
+      ]
+    },
+    {
+      "id": "FreightTransfer",
+      "min": [
+        -18,
+        -1818,
+        -25
+      ],
+      "max": [
+        1818,
+        18,
+        455.0
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Dock",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Lift",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Rigging",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Props",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Markings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Services",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Fixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        }
+      ],
+      "ports": [
+        {
+          "id": "entry",
+          "position": [
+            900.0,
+            -0.0,
+            0
+          ],
+          "normal": [
+            0.0,
+            1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0
+        },
+        {
+          "id": "exit",
+          "position": [
+            1800.0,
+            -1100.0,
+            0
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            900,
+            -170.0,
+            275.5
+          ],
+          "intensity": 1200,
+          "radius": 430,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        },
+        {
+          "position": [
+            850.0,
+            -600,
+            371.5
+          ],
+          "intensity": 2400,
+          "radius": 570,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            540.0,
+            -1150.0,
+            370.5
+          ],
+          "intensity": 2550,
+          "radius": 580,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            1450.0,
+            -1180.0,
+            370.5
+          ],
+          "intensity": 1900,
+          "radius": 530,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            900,
+            -1639.9999999999998,
+            380.5
+          ],
+          "intensity": 1900,
+          "radius": 520,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        }
+      ],
+      "anchors": [
+        {
+          "position": [
+            800,
+            -1019.9999999999999,
+            0
+          ],
+          "role": "encounter_lower"
+        },
+        {
+          "position": [
+            550.0,
+            -1600,
+            60.0
+          ],
+          "role": "encounter_dock"
+        },
+        {
+          "position": [
+            170.0,
+            -1100,
+            0
+          ],
+          "role": "freight_discovery"
+        },
+        {
+          "position": [
+            900,
+            -180.0,
+            0
+          ],
+          "role": "entry"
+        },
+        {
+          "position": [
+            1600,
+            -1100,
+            0
+          ],
+          "role": "exit"
+        }
+      ],
+      "cells": [
+        {
+          "min": [
+            382,
+            -818,
+            -25
+          ],
+          "max": [
+            1418,
+            18,
+            455.0
+          ]
+        },
+        {
+          "min": [
+            -18,
+            -1418,
+            -25
+          ],
+          "max": [
+            1818,
+            -782,
+            455.0
+          ]
+        },
+        {
+          "min": [
+            -18,
+            -1818,
+            -25
+          ],
+          "max": [
+            1818,
+            -1382,
+            455.0
+          ]
+        }
+      ]
+    }
+  ]
+}

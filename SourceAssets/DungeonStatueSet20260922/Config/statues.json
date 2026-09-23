@@ -1,0 +1,94 @@
+{
+  "case": "DungeonStatueSet20260922",
+  "purpose": "同一作者（noe-3d.at）可商用授权的女神石像成套导入：作为地牢遗迹雕像的可选资产池，本轮只导入不摆放",
+  "author": {
+    "name": "noe-3d.at",
+    "url": "https://sketchfab.com/www.noe-3d.at",
+    "note": "与已接入的 Diana（DungeonGoddessStatue20260922）同一作者"
+  },
+  "content_root": "/Game/Dungeons/StatueSet20260922",
+  "retrieved_utc": "2026-09-22",
+  "screening": {
+    "catalog_models_scanned": 819,
+    "commercial_downloadable": 75,
+    "deity_female_shortlist": 24,
+    "selected": 5,
+    "criteria": "真扫描 + 可商用授权（CC0/CC-BY）+ 单尊女性神祇立像（排除群像、斯芬克斯、男性纪念像与名人像）",
+    "rejected_note": "同作者另有 5 件 CC0 斯芬克斯与多处群像（Allegorie 系列、Quellnymphen、Herkules und Kalliope 等），题材不是单尊女神，未纳入本套"
+  },
+  "statues": [
+    {
+      "key": "venus",
+      "title": "Venus",
+      "uid": "47c7f4d3b6e640858e1d3afac28c1766",
+      "url": "https://sketchfab.com/3d-models/venus-47c7f4d3b6e640858e1d3afac28c1766",
+      "license": "CC0 Public Domain",
+      "expected_faces": 597703,
+      "mesh_name": "SM_Statue_Venus",
+      "material_name": "M_Statue_Venus",
+      "target_height_m": 2.0,
+      "subject": "立姿维纳斯，脚边小像，古典裸体像",
+      "yaw_deg": -90
+    },
+    {
+      "key": "flora",
+      "title": "Flora",
+      "uid": "5cae3fbe60ba4a79b83ed12e0c26db44",
+      "url": "https://sketchfab.com/3d-models/flora-5cae3fbe60ba4a79b83ed12e0c26db44",
+      "license": "CC Attribution (CC BY 4.0)",
+      "expected_faces": 502658,
+      "mesh_name": "SM_Statue_Flora",
+      "material_name": "M_Statue_Flora",
+      "target_height_m": 2.0,
+      "subject": "花神弗洛拉，手持花束，带基座",
+      "yaw_deg": -90
+    },
+    {
+      "key": "muse",
+      "title": "Muse",
+      "uid": "209c7842f0ab416cbdbd8a7484ab8930",
+      "url": "https://sketchfab.com/3d-models/muse-209c7842f0ab416cbdbd8a7484ab8930",
+      "license": "CC Attribution (CC BY 4.0)",
+      "expected_faces": 477835,
+      "mesh_name": "SM_Statue_Muse",
+      "material_name": "M_Statue_Muse",
+      "target_height_m": 2.0,
+      "up_axis": "Y",
+      "subject": "缪斯，持戏剧面具；源导出为 Y 轴向上（其余四件 Z 轴向上），烘入导入旋转后头部朝 -Y，需绕 X 转 -90 立起",
+      "yaw_deg": 180,
+      "up_axis_rot_deg": -90
+    },
+    {
+      "key": "magnamater",
+      "title": "Magna-Mater-Brunnen",
+      "uid": "f6fa0a62a03149319e4fee21cb6dd5af",
+      "url": "https://sketchfab.com/3d-models/magna-mater-brunnen-f6fa0a62a03149319e4fee21cb6dd5af",
+      "license": "CC0 Public Domain",
+      "expected_faces": 604948,
+      "mesh_name": "SM_Statue_MagnaMater",
+      "material_name": "M_Statue_MagnaMater",
+      "target_height_m": 1.8,
+      "subject": "大母神（Magna Mater）喷泉像，坐姿带两名孩童；增益／治疗事件的语义最贴合",
+      "yaw_deg": 180
+    },
+    {
+      "key": "baroque",
+      "title": "Barockstatue",
+      "uid": "ebc9a140626842fd8804b38c1dc8b8c9",
+      "url": "https://sketchfab.com/3d-models/barockstatue-ebc9a140626842fd8804b38c1dc8b8c9",
+      "license": "CC Attribution (CC BY 4.0)",
+      "expected_faces": 373544,
+      "mesh_name": "SM_Statue_Baroque",
+      "material_name": "M_Statue_Baroque",
+      "target_height_m": 2.0,
+      "subject": "巴洛克女性立像，半裸带垂布，动态扭转",
+      "yaw_deg": 180
+    }
+  ],
+  "notes": [
+    "本套只导入为资产：网格 + 材质 + 材质实例 + 贴图；不写地图、不生成摆放实例。",
+    "命名沿用 Diana 案例的约定（SM_/M_/MI_/T_ 前缀，Nanite 关闭，三角面碰撞）。",
+    "目标高度按姿态给定（立像 2.0 m，坐像 1.8 m），与 Diana 的 2.05 m 同量级，便于同场混用。"
+  ],
+  "orientation_pass": "2026-09-22 两次实测后的最终结论：(1) OBJ 导入（forward_axis=NEGATIVE_Y）把 -180 度绕 Z 留在对象变换上而非烘进网格，脚本必须先 transform_apply 烘入导入变换，否则覆盖 rotation_euler 会丢掉这 180 度（表现为 0 与 180 完全一样）；(2) 烘入后按 from_-Y 视图逐件核对，正面统一到 -Y（UE 中 yaw 0 即朝 +X，与 Diana 一致）：venus/flora -90、muse 0（另需 Y 轴立起）、magnamater 180、baroque 180。证据：Scripts/test_rotation_routes.py 的顶点校验和，以及 Previews/*_final 四视图。"
+}

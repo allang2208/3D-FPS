@@ -8,6 +8,11 @@ TARGET='/Game/GameMaps/L_Dungeon_Prototype'
 AA=u.get_editor_subsystem(u.EditorActorSubsystem);ED=u.get_editor_subsystem(u.LevelEditorSubsystem)
 UE=u.get_editor_subsystem(u.UnrealEditorSubsystem)
 manifest=json.loads((ROOT/'Authored/room-manifest.json').read_text())
+retirement=json.loads((ROOT.parent/'DungeonMaintenance20260922/Config/retirement.json').read_text())
+retired_labels=set(retirement['actor_labels'])
+manifest['hidden_existing']=[x for x in manifest['hidden_existing'] if x not in retired_labels]
+manifest['prop_moves']=[x for x in manifest['prop_moves'] if x['label'] not in retired_labels]
+manifest['new_generated']=[x for x in manifest['new_generated'] if x['label'] not in retired_labels]
 assets=json.loads((ROOT/'Receipts/asset-import.json').read_text())
 path=ROOT/'Receipts/room-install.json'
 receipt=json.loads(path.read_text()) if path.exists() else {'stage':'ready','map':TARGET,'tests_run':False,'screenshots_taken':False}
@@ -48,7 +53,7 @@ if not world or world.get_path_name().split('.')[0]!=TARGET:
     if dirty:raise RuntimeError('Cannot change a dirty editor map')
     if not ED.load_level(TARGET):raise RuntimeError('Could not load dungeon map for room install')
 actors={a.get_actor_label():a for a in AA.get_all_level_actors()}
-required=manifest['hidden_existing']+[p['label'] for p in manifest['prop_moves']]+['DGN_AV2_Goddess_Candidate','DGN_AV2_LightFixtures','DGN_AV2_Light_Workshop','DGN_AV2_Light_Ruin']
+required=manifest['hidden_existing']+[p['label'] for p in manifest['prop_moves']]+['DGN_AV2_LightFixtures','DGN_AV2_Light_Workshop','DGN_AV2_Light_Ruin']
 for label in required:
     if label not in actors:raise RuntimeError('Room input actor missing: '+label)
 meshes={e['name']:load(assets['meshes'][e['name']]) for e in manifest['objects']}
@@ -95,9 +100,7 @@ for entry in manifest['new_generated']:
     mesh=generated[entry['id']];a=own(entry['label'],u.StaticMeshActor)
     static(a,mesh,True);bottom_place(a,mesh,entry['cm'],entry['yaw'],entry['scale'])
 
-statue=actors['DGN_AV2_Goddess_Candidate'];c=statue.get_component_by_class(u.StaticMeshComponent)
-s=statue.get_actor_scale3d();yaw=statue.get_actor_rotation().yaw
-bottom_place(statue,c.static_mesh,manifest['statue_anchor_blender_cm'],yaw,[s.x,s.y,s.z])
+# The generated statue was explicitly retired, with no event gameplay attached.
 actors['DGN_AV2_Light_Ruin'].get_component_by_class(u.PointLightComponent).set_visibility(False)
 old_light=actors['DGN_AV2_Light_Workshop'].get_component_by_class(u.PointLightComponent)
 old_light.set_intensity(650);old_light.set_light_color(u.LinearColor(1,.82,.66,1))

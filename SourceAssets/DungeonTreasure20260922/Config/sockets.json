@@ -1,0 +1,104 @@
+{
+  "Distribution": [
+    {
+      "id": "West",
+      "variant": "Distribution_TreasureWest",
+      "position": [
+        -593.7128972262144,
+        -670.0,
+        0
+      ],
+      "normal": [
+        -1.0,
+        0.0,
+        0
+      ],
+      "width": 300,
+      "height": 280
+    },
+    {
+      "id": "North",
+      "variant": "Distribution_TreasureNorth",
+      "position": [
+        300.0,
+        -1187.4257944524288,
+        0
+      ],
+      "normal": [
+        0.0,
+        -1.0,
+        0
+      ],
+      "width": 300,
+      "height": 280
+    }
+  ],
+  "Drainage": [
+    {
+      "id": "West",
+      "variant": "Drainage_TreasureWest",
+      "position": [
+        -583.8947999291122,
+        -919.9999999999999,
+        0
+      ],
+      "normal": [
+        -1.0,
+        0.0,
+        0
+      ],
+      "width": 300,
+      "height": 280
+    },
+    {
+      "id": "East",
+      "variant": "Drainage_TreasureEast",
+      "position": [
+        1021.8158998759463,
+        -400.0,
+        0
+      ],
+      "normal": [
+        1.0,
+        0.0,
+        0
+      ],
+      "width": 300,
+      "height": 280
+    }
+  ],
+  "ShoredBreach": [
+    {
+      "id": "West",
+      "variant": "ShoredBreach_TreasureWest",
+      "position": [
+        0.0,
+        -380.00000000000006,
+        0
+      ],
+      "normal": [
+        -1.0,
+        0.0,
+        0
+      ],
+      "width": 300,
+      "height": 280
+    },
+    {
+      "id": "South",
+      "variant": "ShoredBreach_TreasureSouth",
+      "position": [
+        540.0,
+        774.5565534569323,
+        0
+      ],
+      "normal": [
+        0.0,
+        1.0,
+        0
+      ],
+      "width": 300,
+      "height": 280
+    }
+  ]
+}

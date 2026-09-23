@@ -1,4 +1,5 @@
 """Import an isolated copy of the existing local goddess candidate for the art slice."""
+raise RuntimeError('Retired by user 2026-09-22: dungeon 5080 candidates are archived in trash/dungeon-5080-rejected-20260922; do not reimport this candidate.')
 from pathlib import Path
 import json
 import unreal as u

@@ -277,3 +277,7 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 ## 近战符文与高地双手剑（2026-09-22）
 
 本批次发布代码、目录与配方；完整模型、PBR、手臂源、密集采样和 UE 资产留在本机。最终外观、恢复顺序、保留的旧输入与废案归档见 [近战符文发布记录](Weapons/melee-runes-publication-20260922.md)。
+
+## 随机地牢与 Boss 主泵房（2026-09-23）
+
+作者房间、随机目录、门洞修复、粘液与手脑首领接入的源码链和本机资产依赖，见 [随机地牢与主泵房源码发布](Gameplay/dungeon-random-boss-publication-20260923.md)。公开作者脚本、配置及原生代码；关卡、授权素材和导入回执仍从本机与合法来源恢复。被退回的方盒房配方和失效恢复脚本已归档到 trash。构建和地图保存记录不等于游戏测试。

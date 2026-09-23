@@ -1,0 +1,13 @@
+{
+  "seed": 922947,
+  "intact_coverage": 0.84,
+  "tile_width_m": 0.31,
+  "tile_height_m": 0.158,
+  "core_thickness_m": [0.0062, 0.0078],
+  "glaze_lip_m": 0.00035,
+  "edge_chip_m": [0.0004, 0.0022],
+  "min_retained_fraction": 0.18,
+  "max_retained_fraction": 0.68,
+  "core_texture_size_m": 0.075,
+  "scope": "Replace existing partial ceramic cells with substantial edge-attached remnants. Keep intact cells, repair patches, mortar relief and tile layout."
+}

@@ -1,0 +1,11 @@
+{
+  "width_m": 1.14,
+  "height_m": 1.90,
+  "body_depth_m": 0.32,
+  "open_door_degrees": 23,
+  "placements": [
+    {"label":"DGN_Maintenance_RecessPanel","location_cm":[1510,183,0],"yaw":180},
+    {"label":"DGN_Maintenance_MachinePanel","location_cm":[1165,-763,0],"yaw":0}
+  ],
+  "style": "Dull grey-green service enamel, readable mechanical layers, localized edge wear and handling grime"
+}

@@ -23,6 +23,7 @@ namespace ScenePortalMaps
     const TCHAR* Normandy = TEXT("/Game/GameMaps/L_Normandy_FPS_Test");
     const TCHAR* Trench = TEXT("/Game/GameMaps/L_MilitaryTrench_FPS_Test");
     const TCHAR* Hills = TEXT("/Game/GameMaps/L_TemperateHills_Initial");
+    const TCHAR* Dungeon = TEXT("/Game/GameMaps/L_Dungeon_Prototype");
 }
 
 ASceneTestPortal::ASceneTestPortal()
@@ -134,7 +135,7 @@ void USceneTestPortalSubsystem::OnWorldBeginPlay(UWorld& InWorld)
     Super::OnWorldBeginPlay(InWorld);
     if (!InWorld.IsGameWorld() || InWorld.GetNetMode() != NM_Standalone) return;
     const FString Map = UGameplayStatics::GetCurrentLevelName(&InWorld, true);
-    if (Map != TEXT("DayNight_Lighting") && Map != TEXT("L_Normandy_FPS_Test") && Map != TEXT("L_MilitaryTrench_FPS_Test") && Map != TEXT("L_TemperateHills_Initial")) return;
+    if (Map != TEXT("DayNight_Lighting") && Map != TEXT("L_Normandy_FPS_Test") && Map != TEXT("L_MilitaryTrench_FPS_Test") && Map != TEXT("L_TemperateHills_Initial") && Map != TEXT("L_Dungeon_Prototype") && Map != TEXT("L_Dungeon_AuthoredExpansion") && Map != TEXT("L_Dungeon_Randomized")) return;
     InWorld.GetTimerManager().SetTimer(SpawnTimer, this, &USceneTestPortalSubsystem::SpawnPortals, 0.5f, true);
 }
 
@@ -159,11 +160,13 @@ void USceneTestPortalSubsystem::SpawnPortals()
         FColor Color = FColor::Cyan;
     };
     TArray<FDestination> Destinations;
-    if (Current == TEXT("L_TemperateHills_Initial"))
+    if (Current == TEXT("L_TemperateHills_Initial") || Current == TEXT("L_Dungeon_Prototype") || Current == TEXT("L_Dungeon_AuthoredExpansion") || Current == TEXT("L_Dungeon_Randomized"))
     {
-        // The loading pawn is created after ground collision; the transition UI
+        // Hills: the loading pawn is created after ground collision; the transition UI
         // keeps gameplay input blocked until the remaining preparation completes.
-        Destinations.Add({ScenePortalMaps::Hub, TEXT("HOME / Main Map"), FString()});
+        // Dungeon: a self-contained prototype level, so its only door leads home.
+        Destinations.Add({ScenePortalMaps::Hub, TEXT("HOME / Main Map"), FString(),
+            Current == TEXT("L_Dungeon_Prototype") ? FColor(120, 200, 255) : FColor::Cyan});
     }
     else
     {
@@ -173,7 +176,12 @@ void USceneTestPortalSubsystem::SpawnPortals()
             if (FPackageName::GetShortName(Maps[Index]) != Current)
                 Destinations.Add({Maps[Index], Labels[Index], FString()});
         if (Current == TEXT("DayNight_Lighting"))
+        {
+            Destinations.Add({ScenePortalMaps::Dungeon, TEXT("DUNGEON\nPrototype"), FString(), FColor(255, 190, 90)});
+            Destinations.Add({TEXT("/Game/GameMaps/L_Dungeon_AuthoredExpansion"), TEXT("DUNGEON\nAuthored Expansion"), FString(), FColor(130,220,190)});
+            Destinations.Add({TEXT("/Game/GameMaps/L_Dungeon_Randomized"), TEXT("DUNGEON\nRandom Routes"), FString(), FColor(120,210,255)});
             Destinations.Add({ScenePortalMaps::Hills, TEXT("TEMPERATE HILLS\nBlack Poplar"), TEXT("HillsContinue"), FColor(100, 255, 145)});
+        }
     }
     const FRotator Facing(0, Pawn->GetActorRotation().Yaw, 0);
     const FVector Forward = Facing.Vector();
@@ -189,7 +197,7 @@ void USceneTestPortalSubsystem::SpawnPortals()
         Params.AddIgnoredActor(Pawn);
         // Fog volumes can block Visibility while deliberately ignoring the player.
         if (World->LineTraceSingleByChannel(Hit, Position + FVector(0, 0, 200), Position - FVector(0, 0, 1500), ECC_Pawn, Params))
-            Position.Z = Hit.ImpactPoint.Z + 5.f;
+            Position.Z = Hit.ImpactPoint.Z + .5f;
         else
             Position.Z -= 90.f;
         FActorSpawnParameters SpawnParams;

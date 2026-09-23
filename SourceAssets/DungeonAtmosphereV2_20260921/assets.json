@@ -3,42 +3,7 @@
   "pipeline": "Local FLUX.2 references + TRELLIS.2 candidates, Blender assembly and interface repair",
   "endpoint": "http://192.168.3.142:8188",
   "source_concept": "../DungeonConcept20260920/V1/01_maintenance-corridor.png",
-  "props": [
-    {
-      "id": "broken_concrete_jamb",
-      "view_crops": [{"x":87,"y":90,"width":396,"height":840},{"x":620,"y":90,"width":325,"height":840},{"x":1040,"y":88,"width":441,"height":843}],
-      "seed": 921201,
-      "target_size_cm": [110, 60, 330],
-      "role": "Irregular broken reveal beside a genuinely open structural breach; never the complete door collision.",
-      "prompt": "One photoreal abandoned underground maintenance facility modular prop: a tall narrow fractured concrete wall end, about 3.3 metres tall, 1.1 metres wide and 0.6 metres thick. Left silhouette relatively straight with dirty ivory ceramic tile remnants on lower third, right silhouette severely torn and scalloped by a large wall breach, exposed aggregate and a few short bent rusted steel rebars, layered plaster and concrete, subtle gravity streaking and small dark damp crevices. The module is a solid ragged jamb fragment, not a full room, no background, no floor slab. Large deliberate missing chunks, varied erosion sizes, realistic materials without painted lighting or excessive rust. Orthographic three-view modeling sheet: exactly three equal-width panels left to right FRONT, LEFT SIDE, BACK of the SAME object with consistent fracture silhouette. Pure white background, no text, no borders, no shadows, no perspective. Same vertical scale and matching top/bottom baseline. Ample blank gaps between each view. 1536x1024."
-    },
-    {
-      "id": "maintenance_cabinet_cluster",
-      "view_crops": [{"x":50,"y":66,"width":447,"height":900},{"x":562,"y":61,"width":412,"height":905},{"x":1060,"y":68,"width":421,"height":898}],
-      "seed": 921202,
-      "target_size_cm": [170, 60, 230],
-      "role": "Recessed side-bay focal asset; crooked cabinet door, conduits and service history.",
-      "prompt": "One photoreal industrial underground maintenance wall equipment assembly, 2.3 metres high, 1.7 metres wide, shallow 0.6 metres deep. Two different old olive-grey electrical cabinets on a heavily corroded mounting frame, one door unevenly half-open with visible dark switches inside, dented lower drawer unit, thick insulated cables with loose bends and three steel conduits joining the bottom, flaking paint mainly at edges, aged screw heads, water stains below hinges, grease at handling points, small chipped ivory ceramic mounting fragments. Asymmetric physically plausible equipment, no labels, no emissive screens. Entire assembly stands alone against pure white background, not a scene or room. Orthographic three-view modeling sheet: exactly three equal-width panels FRONT, LEFT SIDE, BACK of the SAME identical assembly, matching height and baseline. No text, no border, no cast shadow, no perspective, ample white gaps. 1536x1024."
-    },
-    {
-      "id": "collapsed_tile_rubble",
-      "view_crops": [{"x":0,"y":229,"width":505,"height":570},{"x":523,"y":248,"width":490,"height":548},{"x":1033,"y":307,"width":503,"height":490}],
-      "use_single_front": true,
-      "view_note": "Local reference repeated a near-front view in the side panel; use front only and treat unseen sides as reconstruction.",
-      "seed": 921203,
-      "target_size_cm": [240, 140, 65],
-      "role": "Low rubble concentrated below breaches and wet edges, never scattered across the clear walking lane.",
-      "prompt": "One photoreal loose low mound of collapsed underground maintenance wall rubble, footprint 2.4 by 1.4 metres and maximum height only 0.65 metres. Irregular broken grey concrete with visibly granular aggregate, thin dirty ivory glazed ceramic shards, layered dusty mortar, three bent rusty rebar scraps, a few darker wet fragments underneath. A believable collapse with one larger angular concrete chunk at the rear and scattered small chips around the perimeter, uneven distribution, no rectangular base, no terrain platform, no repeated equally sized stones, no glowing elements. Orthographic three-view modeling sheet with EXACTLY THREE equal-width panels FRONT, LEFT SIDE, BACK of the SAME mound. White background, no text, no borders, no ground shadow, no perspective, same scale and aligned floor baseline. Wide landscape 1536x1024."
-    },
-    {
-      "id": "weathered_pipe_assembly",
-      "view_crops": [{"x":78,"y":81,"width":417,"height":888},{"x":563,"y":80,"width":408,"height":886},{"x":1061,"y":92,"width":408,"height":876}],
-      "use_single_front": true,
-      "view_note": "Reference produced an upright U-shaped valve assembly and duplicated the front in the side panel. Preserve its identity, use front only, install upright in a side bay.",
-      "seed": 921204,
-      "target_size_cm": [130, 75, 285],
-      "role": "Upright generated pressure-valve assembly in the side machinery bay. Precise horizontal continuation pipes remain Blender geometry.",
-      "prompt": "One photoreal old industrial wall mounted pressure pipe assembly 3.6 metres long and 1.15 metres tall, with two flanged cast iron pipes of different diameters, one offset elbow bypass, one large rusty valve wheel, clamps with uneven paint loss, a small analog pressure gauge, mineral deposits below one leaking flange, faded olive green paint and dark steel showing through. Real physically plausible bolts, asymmetrical maintenance additions, localized wear, not uniformly orange rust, no fantasy ornament. Isolated complete prop no wall or room. Orthographic three-view modeling sheet with three equal-width panels FRONT, LEFT SIDE, BACK of the SAME assembly, matching scale, ample margins, pure white background, no text, no shadow, no perspective. 1536x1024."
-    }
-  ]
+  "props": [],
+  "status": "all_5080_dungeon_candidates_rejected_by_user_20260922",
+  "retirement_record": "Docs/Gameplay/dungeon-5080-retirement-20260922.md"
 }

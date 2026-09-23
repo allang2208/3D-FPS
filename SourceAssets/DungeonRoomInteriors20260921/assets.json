@@ -3,39 +3,7 @@
   "endpoint": "http://192.168.3.142:8188",
   "pipeline": "Local FLUX.2 reference + TRELLIS.2 master; Blender fit and authored structures",
   "source_concepts": "../../Docs/Gameplay/Previews/DungeonRoomConcepts_20260921",
-  "props": [
-    {
-      "id": "buried_masonry_bank",
-      "seed": 921252,
-      "target_size_cm": [
-        260,
-        105,
-        145
-      ],
-      "role": "Irregular exposed old masonry and earth bank for peripheral excavation dressing",
-      "prompt": "Photorealistic archaeological excavation environment prop, ONE irregular low elongated bank of compacted brown soil interwoven with broken ancient limestone masonry. 2.6 metres wide, 1.05 metres deep, maximum height 1.45 metres. Partially buried uneven old stone courses rise on the left rear, lowering gradually to the right into loose stones and earth, a few visible old mortar seams, naturally varied stone sizes, locally fractured granular surfaces and earth packed in joints. Exposed stone faces dusty warm gray with subtle mineral darkening only in recesses. Natural asymmetric feathered base perimeter, no flat square platform, no plants, no ceramic tiles, no rebar, no arch, no statue, no modern concrete, no cave or room. Three-view modelling reference sheet EXACTLY THREE equal-width panels: FRONT exposed masonry slope, LEFT SIDE showing depth and backing earth, BACK showing rough compacted soil with partly visible embedded stones. Same object and same physical scale across views, white gaps separating panels, pure white background, no shadow, no labels, no text, no border, no perspective, 1536x1024.",
-      "view_crops": [
-        {
-          "height": 438,
-          "x": 25,
-          "y": 65,
-          "width": 1493
-        },
-        {
-          "height": 380,
-          "x": 17,
-          "y": 601,
-          "width": 496
-        },
-        {
-          "height": 365,
-          "x": 543,
-          "y": 609,
-          "width": 458
-        }
-      ],
-      "view_note": "Reference arranged a wide front above three lower images. Use upper front, lower-left side, lower-middle back; unused fourth view is excluded. Crops exclude generated text. The game prop is embedded in a wall bank; generate from the exposed front only. Hidden sides/back are reconstructed, not an exact multiview match. Original queued multiview job was withdrawn before execution.",
-      "use_single_front": true
-    }
-  ]
+  "props": [],
+  "status": "all_5080_dungeon_candidates_rejected_by_user_20260922",
+  "retirement_record": "Docs/Gameplay/dungeon-5080-retirement-20260922.md"
 }

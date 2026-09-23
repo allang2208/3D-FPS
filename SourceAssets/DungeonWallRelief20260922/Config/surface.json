@@ -1,0 +1,14 @@
+{
+  "seed": 922731,
+  "resolution": 2048,
+  "tile_size_cm": 128.0,
+  "relief_depth_cm": 0.65,
+  "relief_steps": 12,
+  "relief_refine_steps": 4,
+  "relief_fade_start_cm": 250.0,
+  "relief_fade_end_cm": 650.0,
+  "bed_grid_cm": 2.5,
+  "bed_center_m": 0.1255,
+  "bed_amplitude_m": 0.0022,
+  "description": "Weathered mineral bed, eroded adhesive skim and interrupted trowel traces; physical height field, not colour-derived displacement."
+}
