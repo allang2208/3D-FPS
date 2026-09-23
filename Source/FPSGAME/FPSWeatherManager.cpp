@@ -447,9 +447,13 @@ void AFPSWeatherManager::UpdatePlayerFollowing()
 {
     if (APlayerCameraManager* Camera = UGameplayStatics::GetPlayerCameraManager(this, 0))
     {
-        const FVector CameraLocation = Camera->GetCameraLocation();
-        SetActorLocation(CameraLocation + FVector(0.0, 0.0, 900.0));
-
+        const FVector NewLocation = Camera->GetCameraLocation() + FVector(0.0, 0.0, 900.0);
+        // SetActorLocation runs the full movement pipeline even for identical
+        // values; skip it while the camera holds still.
+        if (!NewLocation.Equals(GetActorLocation()))
+        {
+            SetActorLocation(NewLocation);
+        }
     }
 }
 
@@ -790,49 +794,79 @@ void AFPSWeatherManager::UpdateSceneDayNight(float DeltaSeconds)
 
 bool AFPSWeatherManager::TrySynchronizeWithSkyClock()
 {
-    for (TActorIterator<AActor> It(GetWorld()); It; ++It)
+    // The clock actor and its SunHeight property are level-static content. Resolve
+    // them once; per frame only the weak handles are validated and the value read.
+    if (!SkyClockActor.IsValid())
     {
-        AActor* Actor = *It;
-        if (!Actor->GetClass()->GetName().Contains(TEXT("FPS_DayNightManager")))
+        SkyClockActor.Reset();
+        SkyClockProperty.Reset();
+        for (TActorIterator<AActor> It(GetWorld()); It; ++It)
         {
-            continue;
-        }
-
-        for (TFieldIterator<FProperty> PropertyIt(Actor->GetClass()); PropertyIt; ++PropertyIt)
-        {
-            FProperty* Property = *PropertyIt;
-            const FString PropertyName = Property->GetName().Replace(TEXT("_"), TEXT("")).Replace(TEXT(" "), TEXT(""));
-            FString DisplayName;
-#if WITH_EDITOR
-            DisplayName = Property->GetDisplayNameText().ToString().Replace(TEXT(" "), TEXT(""));
-#endif
-            if (!PropertyName.Contains(TEXT("SunHeight"), ESearchCase::IgnoreCase) &&
-                !DisplayName.Contains(TEXT("SunHeight"), ESearchCase::IgnoreCase))
+            AActor* Actor = *It;
+            if (!Actor->GetClass()->GetName().Contains(TEXT("FPS_DayNightManager")))
             {
                 continue;
             }
 
-            float SkyUnits = -1.0f;
-            if (const FFloatProperty* FloatProperty = CastField<FFloatProperty>(Property))
+            for (TFieldIterator<FProperty> PropertyIt(Actor->GetClass()); PropertyIt; ++PropertyIt)
             {
-                SkyUnits = FloatProperty->GetPropertyValue_InContainer(Actor);
-            }
-            else if (const FDoubleProperty* DoubleProperty = CastField<FDoubleProperty>(Property))
-            {
-                SkyUnits = static_cast<float>(DoubleProperty->GetPropertyValue_InContainer(Actor));
-            }
-            if (SkyUnits < 0.0f) continue;
+                FProperty* Property = *PropertyIt;
+                const FString PropertyName = Property->GetName().Replace(TEXT("_"), TEXT("")).Replace(TEXT(" "), TEXT(""));
+                FString DisplayName;
+#if WITH_EDITOR
+                DisplayName = Property->GetDisplayNameText().ToString().Replace(TEXT(" "), TEXT(""));
+#endif
+                if (!PropertyName.Contains(TEXT("SunHeight"), ESearchCase::IgnoreCase) &&
+                    !DisplayName.Contains(TEXT("SunHeight"), ESearchCase::IgnoreCase))
+                {
+                    continue;
+                }
 
-            SkyUnits = FMath::Fmod(SkyUnits, 2400.0f);
-            if (LastSkyTimeUnits >= 0.0f && SkyUnits + 1200.0f < LastSkyTimeUnits)
-            {
-                ++DaySerial;
+                if (CastField<FFloatProperty>(Property) || CastField<FDoubleProperty>(Property))
+                {
+                    SkyClockActor = Actor;
+                    SkyClockProperty = *PropertyIt;
+                    break;
+                }
             }
-            LastSkyTimeUnits = SkyUnits;
-            NormalizedDayTime = SkyUnits / 2400.0f;
-            WeatherClockSeconds = NormalizedDayTime * RealSecondsPerGameDay;
-            return true;
+            if (SkyClockActor.IsValid())
+            {
+                break;
+            }
+        }
+        if (!SkyClockActor.IsValid())
+        {
+            return false;
         }
     }
-    return false;
+
+    AActor* Actor = SkyClockActor.Get();
+    FProperty* Property = SkyClockProperty.Get();
+    if (!Actor || !Property)
+    {
+        SkyClockActor.Reset();
+        SkyClockProperty.Reset();
+        return false;
+    }
+
+    float SkyUnits = -1.0f;
+    if (const FFloatProperty* FloatProperty = CastField<FFloatProperty>(Property))
+    {
+        SkyUnits = FloatProperty->GetPropertyValue_InContainer(Actor);
+    }
+    else if (const FDoubleProperty* DoubleProperty = CastField<FDoubleProperty>(Property))
+    {
+        SkyUnits = static_cast<float>(DoubleProperty->GetPropertyValue_InContainer(Actor));
+    }
+    if (SkyUnits < 0.0f) return false;
+
+    SkyUnits = FMath::Fmod(SkyUnits, 2400.0f);
+    if (LastSkyTimeUnits >= 0.0f && SkyUnits + 1200.0f < LastSkyTimeUnits)
+    {
+        ++DaySerial;
+    }
+    LastSkyTimeUnits = SkyUnits;
+    NormalizedDayTime = SkyUnits / 2400.0f;
+    WeatherClockSeconds = NormalizedDayTime * RealSecondsPerGameDay;
+    return true;
 }

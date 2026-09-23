@@ -241,6 +241,10 @@ private:
     float ThunderRainMix = 1.0f;
     FRandomStream WeatherRandom;
     bool bSkyClockConnected = false;
+    /** Cached sky-clock discovery result. The clock actor is level-static content,
+        so the full world scan runs only until it resolves and again after it is gone. */
+    TWeakObjectPtr<AActor> SkyClockActor;
+    TWeakFieldPtr<class FProperty> SkyClockProperty;
     bool bSceneDayNightActive = false;
     float SceneLightingRefresh = 1.0f;
     TMap<TWeakObjectPtr<class ULightComponentBase>, float> SceneLightIntensities;

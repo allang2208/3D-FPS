@@ -92,6 +92,29 @@ void UWeatherSurfaceComponent::TickComponent(float Dt,ELevelTick TickType,FActor
     LastTraceCount=0;
     Wetness=FMath::Clamp(Wetness+(Rain>.04f ? Rain*.035f : -.006f)*Dt,0.f,1.f);
     const int32 Quality=GetQuality();
+    if(Quality<=0)
+    {
+        // "Off" must mean off: hide and zero the pool once, then do no per-tick work.
+        // Wetness keeps integrating so a later re-enable restores the field smoothly.
+        if(!bQualityOffApplied)
+        {
+            for(auto& Patch:Patches)
+            {
+                Patch.Decal->SetVisibility(false);
+                if(Patch.Material)
+                {
+                    Patch.Material->SetScalarParameterValue(TEXT("Wetness"),0);
+                    Patch.Material->SetScalarParameterValue(TEXT("Rain"),0);
+                }
+                Patch.Splash->SetFloatParameter(TEXT("User.SpawnRate"),0);
+                Patch.Splash->Deactivate();
+            }
+            for(UNiagaraComponent* D:DripPool){D->SetFloatParameter(TEXT("User.SpawnRate"),0);D->Deactivate();}
+            bQualityOffApplied=true;
+        }
+        return;
+    }
+    bQualityOffApplied=false;
     auto* Camera=UGameplayStatics::GetPlayerCameraManager(this,0);
     if(!Camera || Patches.IsEmpty())return;
     const FVector Position=Camera->GetCameraLocation();

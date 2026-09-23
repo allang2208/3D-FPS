@@ -46,6 +46,8 @@ private:
     int32 LastTraceCount = 0;
     FVector LastFootstep = FVector::ZeroVector;
     bool bHasFootstep = false;
+    /** One-shot pool teardown flag for the fps.RainQuality 0 state. */
+    bool bQualityOffApplied = false;
     bool Trace(const FVector& Start,const FVector& End,FHitResult& Hit);
     void Place(FWeatherSurfacePatch& Patch,FIntPoint Cell,const FVector& Camera);
 };

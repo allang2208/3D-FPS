@@ -15,6 +15,8 @@
 #include "UI/ColdSteelStatusModel.h"
 #include "Weapons/DanWesson715WeaponAssets.h"
 #include "Weapons/ASH12WeaponAssets.h"
+#include "Weapons/PKMLowpolyWeaponAssets.h"
+#include "Weapons/PSO1AttachmentAssets.h"
 #include "HAL/IConsoleManager.h"
 
 static TAutoConsoleVariable<float> CVarScreenRain(TEXT("fps.ScreenRain"),.75f,TEXT("Screen edge water strength, 0 disables."),ECVF_Scalability);
@@ -34,7 +36,14 @@ void RestoreBinding(FWeatherViewMaterial& Binding)
     if(Mesh&&Mesh->GetMaterial(Binding.Slot)==Binding.Wet)
         Mesh->SetMaterial(Binding.Slot,SourceMesh(Mesh)==Binding.MeshAsset.Get()?Binding.Original.Get():nullptr);
 }
+/** The FNames of the weather scalars, so per-frame writes skip FName construction. */
+const FName WetnessName(TEXT("WeaponWetness")),
+    ScreenWetnessName(TEXT("ScreenWetness")), StrengthName(TEXT("RainStrength")), AimName(TEXT("AimProtection"));
 }
+const FName UWeatherViewEffectsComponent::NameWetness=WetnessName;
+const FName UWeatherViewEffectsComponent::NameScreenWetness=ScreenWetnessName;
+const FName UWeatherViewEffectsComponent::NameStrength=StrengthName;
+const FName UWeatherViewEffectsComponent::NameAim=AimName;
 
 UWeatherViewEffectsComponent::UWeatherViewEffectsComponent()
 {
@@ -53,6 +62,12 @@ void UWeatherViewEffectsComponent::Initialize(UWeatherPresentationAssets* InAsse
     if(Assets)
         if(const auto* ASH12Materials=LoadObject<UWeatherPresentationAssets>(nullptr,ASH12WeaponAssets::WetMaterialsPath))
             for(const auto& Entry:ASH12Materials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
+    if(Assets)
+        if(const auto* PKMMaterials=LoadObject<UWeatherPresentationAssets>(nullptr,PKMLowpolyWeaponAssets::WetMaterialsPath))
+            for(const auto& Entry:PKMMaterials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
+    if(Assets)
+        if(const auto* PSO1Materials=LoadObject<UWeatherPresentationAssets>(nullptr,PSO1AttachmentAssets::WetMaterialsPath))
+            for(const auto& Entry:PSO1Materials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
     // Extended-magazine seam blending must also survive the wet-material swap.
     if(Assets)
         if(const auto* M16Materials=LoadObject<UWeatherPresentationAssets>(nullptr,TEXT("/Game/Weapons/M16A2/UniversalAttachments20260920/DA_M16_AttachmentWetMaterials")))
@@ -81,8 +96,32 @@ void UWeatherViewEffectsComponent::Initialize(UWeatherPresentationAssets* InAsse
         PostProcess->Settings.WeightedBlendables.Array.Add(FWeightedBlendable(1.f,LensMaterial));
         PostProcess->RegisterComponent();
     }
-    UE_LOG(LogTemp,Display,TEXT("WeatherPresentation ready screen=%d wetMaterialSources=%d"),LensMaterial!=nullptr,Assets?Assets->WetMaterials.Num():0);
+    // The wet table is keyed by FStrings from the authoring scripts. Re-key it by
+    // object path so BindWeapon never builds a path string again.
+    if(Assets)
+        for(const auto& Entry:Assets->WetMaterials)
+            if(Entry.Value)WetByPath.Add(FName(*Entry.Key),Entry.Value.Get());
+    UE_LOG(LogTemp,Display,TEXT("WeatherPresentation ready screen=%d wetMaterialSources=%d"),LensMaterial!=nullptr,WetByPath.Num());
     StartWeatherPresentationValidation(Cast<AFPSWeatherManager>(GetOwner()));
+}
+
+/** One MID per immutable original; reused whenever that material binds again.
+    Only asset-backed originals are pooled: a gunsmith MID is transient and may be
+    destroyed and recreated, so keying on its pointer could later match a recycled
+    address and hand out the wrong instance. */
+UMaterialInstanceDynamic* UWeatherViewEffectsComponent::AcquireWet(UMaterialInterface* Original,UMaterialInterface* Replacement)
+{
+    const bool bPoolable=Original&&Original->IsAsset();
+    if(bPoolable)
+        for(auto& Shared:SharedWet)
+            if(Shared.Original==Original)
+                return Shared.Wet;
+    auto* Wet=UMaterialInstanceDynamic::Create(Replacement,this);
+    if(!Wet)return nullptr;
+    Wet->CopyMaterialUniformParameters(Original);
+    Wet->SetScalarParameterValue(WetnessName,0.f);
+    if(bPoolable)SharedWet.Add(FSharedWetMaterial{Original,Wet});
+    return Wet;
 }
 
 void UWeatherViewEffectsComponent::RestoreMaterials()
@@ -91,16 +130,21 @@ void UWeatherViewEffectsComponent::RestoreMaterials()
     Bindings.Reset();
 }
 
-void UWeatherViewEffectsComponent::BindWeapon(AFPSGAMECharacter* Pawn)
+void UWeatherViewEffectsComponent::BindWeapon(AFPSGAMECharacter* Pawn,bool bScanAll)
 {
     if(Pawn!=BoundPawn.Get()){RestoreMaterials();BoundPawn=Pawn;}
     if(!Pawn||!Assets)return;
+    // Cheap prune runs every frame: a gunsmith swap empties override materials, so
+    // a stale binding is detected and repaired on the next tick instead of up to
+    // 200 ms later. The expensive slot scan only runs on demand.
+    bool bPruned=false;
     for(int32 I=Bindings.Num()-1;I>=0;--I)
     {
         auto& B=Bindings[I];auto* Mesh=B.Mesh.Get();
         if(!Mesh||SourceMesh(Mesh)!=B.MeshAsset.Get()||Mesh->GetMaterial(B.Slot)!=B.Wet)
-        {RestoreBinding(B);Bindings.RemoveAtSwap(I);}
+        {RestoreBinding(B);Bindings.RemoveAtSwap(I);bPruned=true;}
     }
+    if(!bScanAll&&!bPruned)return;
     USkeletalMeshComponent* Main=nullptr;
     for(auto* M:TInlineComponentArray<USkeletalMeshComponent*>(Pawn))
         if(M->GetFName()==TEXT("AKMViewmodel")){Main=M;break;}
@@ -113,15 +157,14 @@ void UWeatherViewEffectsComponent::BindWeapon(AFPSGAMECharacter* Pawn)
             if(Bindings.ContainsByPredicate([Mesh,Slot](const auto& B){return B.Mesh==Mesh&&B.Slot==Slot;}))continue;
             auto* Original=Mesh->GetMaterial(Slot);if(!Original)continue;
             auto* Source=Original;
-            auto* Replacement=Assets->WetMaterials.Find(Source->GetPathName());
+            auto* Replacement=WetByPath.Find(FName(*Source->GetPathName()));
             // A gunsmith may already have a MID. Preserve its texture/color values.
             if(!Replacement)if(auto* MID=Cast<UMaterialInstanceDynamic>(Source))
-                if(MID->Parent)Replacement=Assets->WetMaterials.Find(MID->Parent->GetPathName());
+                if(MID->Parent)Replacement=WetByPath.Find(FName(*MID->Parent->GetPathName()));
             if(!Replacement||!*Replacement)continue;
-            auto* Wet=UMaterialInstanceDynamic::Create(*Replacement,this);
-            Wet->CopyMaterialUniformParameters(Original);
-            Wet->SetScalarParameterValue(TEXT("WeaponWetness"),0.f);
-            FWeatherViewMaterial B;B.Mesh=Mesh;B.MeshAsset=SourceMesh(Mesh);B.Original=Original;B.Wet=Wet;B.Slot=Slot;
+            auto* Wet=AcquireWet(Original,*Replacement);
+            if(!Wet)continue;
+            FWeatherViewMaterial B;B.Mesh=Mesh;B.MeshAsset=SourceMesh(Mesh);B.Original=Original;B.Wet=Wet;B.Slot=Slot;B.LastPushed=-1.f;
             Bindings.Add(B);Mesh->SetMaterial(Slot,Wet);
         }
     }
@@ -133,7 +176,10 @@ void UWeatherViewEffectsComponent::TickComponent(float Delta,ELevelTick Type,FAc
     auto* Weather=Cast<AFPSWeatherManager>(GetOwner());if(!Weather)return;
     auto* Pawn=Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(this,0));
     BindCountdown-=Delta;
-    if(BindCountdown<=0){BindWeapon(Pawn);BindCountdown=.2f;}
+    // Full slot scan every 200 ms, or immediately once a binding was pruned.
+    const bool bScan=BindCountdown<=0;
+    if(bScan)BindCountdown=.2f;
+    BindWeapon(Pawn,bScan);
     const float Rain=Weather->GetEffectiveRainIntensity()*Weather->GetRainExposure();
     const bool bAiming=Pawn&&Pawn->IsAiming();
     const auto* Camera=UGameplayStatics::GetPlayerCameraManager(this,0);
@@ -156,18 +202,56 @@ void UWeatherViewEffectsComponent::TickComponent(float Delta,ELevelTick Type,FAc
     else ActiveWeaponWetness=0.f;
     const bool bVisible=UWeatherSurfaceComponent::GetQuality()>0;
     const float WeaponStrength=bVisible?FMath::Clamp(CVarWeaponWetness.GetValueOnGameThread(),0.f,1.f):0.f;
+    // Quantised to 1/255 steps: a MID scalar write enqueues a render command that
+    // invalidates the proxy's uniform expression cache (two global waits inside),
+    // so the 120 s drying tail must not push a float every frame.
+    constexpr float WetStep=1.f/255.f;
+    const float TargetWetness=FMath::RoundToFloat(ActiveWeaponWetness*WeaponStrength/WetStep)*WetStep;
+    int32 PushedWet=0,SkippedWet=0;
     for(auto& B:Bindings)if(B.Wet)
     {
-        B.Wet->SetScalarParameterValue(TEXT("WeaponWetness"),ActiveWeaponWetness*WeaponStrength);
-        B.Wet->SetScalarParameterValue(TEXT("WeaponRain"),Rain);
+        if(TargetWetness<=0.f)
+        {
+            if(B.LastPushed<=0.f)continue;          // already dry and reported dry
+            B.Wet->SetScalarParameterValue(WetnessName,0.f);
+            B.LastPushed=0.f;++PushedWet;
+        }
+        else if(FMath::Abs(TargetWetness-B.LastPushed)<WetStep*.5f)
+        {
+            ++SkippedWet;                            // guard absorbed the write
+        }
+        else
+        {
+            B.Wet->SetScalarParameterValue(WetnessName,TargetWetness);
+            B.LastPushed=TargetWetness;++PushedWet;
+        }
     }
     if(LensMaterial&&PostProcess)
     {
         const float Strength=bVisible?FMath::Clamp(CVarScreenRain.GetValueOnGameThread(),0.f,1.f):0.f;
-        LensMaterial->SetScalarParameterValue(TEXT("ScreenWetness"),ScreenWetness);
-        LensMaterial->SetScalarParameterValue(TEXT("RainStrength"),Strength);
-        LensMaterial->SetScalarParameterValue(TEXT("AimProtection"),bAiming?1.f:0.f);
-        PostProcess->BlendWeight=ScreenWetness>.001f&&Strength>0.f?1.f:0.f;
+        const float AimValue=bAiming?1.f:0.f;
+        if(FMath::Abs(ScreenWetness-LastScreenWetness)>=WetStep*.5f)
+        {LensMaterial->SetScalarParameterValue(ScreenWetnessName,ScreenWetness);LastScreenWetness=ScreenWetness;++PushedWet;}
+        else ++SkippedWet;
+        if(FMath::Abs(Strength-LastStrength)>=1e-3f)
+        {LensMaterial->SetScalarParameterValue(StrengthName,Strength);LastStrength=Strength;++PushedWet;}
+        else ++SkippedWet;
+        if(AimValue!=LastAim)
+        {LensMaterial->SetScalarParameterValue(AimName,AimValue);LastAim=AimValue;++PushedWet;}
+        else ++SkippedWet;
+        const float Weight=ScreenWetness>.001f&&Strength>0.f?1.f:0.f;
+        if(PostProcess->BlendWeight!=Weight)PostProcess->BlendWeight=Weight;
+    }
+    // Per-second write counter (frame-budget-stat-semantics.md section 6): the
+    // settled state must read zero; a sustained rate means a guard is not working.
+    PushedFrame+=PushedWet;SkippedFrame+=SkippedWet;
+    CounterSeconds+=Delta;
+    if(CounterSeconds>=1.f)
+    {
+        if(PushedFrame>0||SkippedFrame>0)
+            UE_LOG(LogTemp,Display,TEXT("WEATHER_WET_WRITES perSec=%d skippedPerSec=%d bindings=%d wet=%.3f screen=%.3f"),
+                PushedFrame,SkippedFrame,Bindings.Num(),ActiveWeaponWetness,ScreenWetness);
+        PushedFrame=0;SkippedFrame=0;CounterSeconds=0.f;
     }
 }
 

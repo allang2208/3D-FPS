@@ -23,6 +23,19 @@
 
 namespace
 {
+/** The wetness switches are static CVars of the same module, but the audit is a
+    diagnostic path: keep it safe if the owner is ever compiled out or renamed. */
+bool SetWeatherCVar(const TCHAR* Name,float Value)
+{
+    if(auto* CVar=IConsoleManager::Get().FindConsoleVariable(Name))
+    {
+        CVar->Set(Value,ECVF_SetByCode);
+        return true;
+    }
+    UE_LOG(LogTemp,Warning,TEXT("WEATHER_PRESENTATION cvar missing: %s"),Name);
+    return false;
+}
+
 struct FPresentationAudit
 {
     TWeakObjectPtr<AFPSWeatherManager> Weather;
@@ -51,15 +64,15 @@ struct FPresentationAudit
         Time+=Delta;
         if(ComparisonStage==0&&Time>17)
         {
-            IConsoleManager::Get().FindConsoleVariable(TEXT("fps.ScreenRain"))->Set(0.f,ECVF_SetByCode);
-            IConsoleManager::Get().FindConsoleVariable(TEXT("fps.WeaponWetness"))->Set(0.f,ECVF_SetByCode);
+            SetWeatherCVar(TEXT("fps.ScreenRain"),0.f);
+            SetWeatherCVar(TEXT("fps.WeaponWetness"),0.f);
             ComparisonStage=1;
         }
         if(ComparisonStage==1&&Time>18){Capture(TEXT("02a-rain-dry-materials"));ComparisonStage=2;}
         if(ComparisonStage==2&&Time>19)
         {
-            IConsoleManager::Get().FindConsoleVariable(TEXT("fps.ScreenRain"))->Set(.75f,ECVF_SetByCode);
-            IConsoleManager::Get().FindConsoleVariable(TEXT("fps.WeaponWetness"))->Set(1.f,ECVF_SetByCode);
+            SetWeatherCVar(TEXT("fps.ScreenRain"),.75f);
+            SetWeatherCVar(TEXT("fps.WeaponWetness"),1.f);
             ComparisonStage=3;
         }
         if(Stage==0)

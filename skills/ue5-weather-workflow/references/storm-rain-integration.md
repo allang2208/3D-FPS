@@ -31,6 +31,15 @@ Above-view rain emitters need offscreen newborn particles to survive until they 
 
 Use fixed pools for surface decals, splash emitters and eaves drips. Keep placed puddles fixed in world coordinates, limit placement/revalidation traces, recheck newly built roofs, smooth wetness accumulation/drying, and cap nearby details by quality. Zero spawn rate does not imply a particle is missing: contact-only and shelter-only effects may legitimately be idle.
 
+## Per-frame cost traps (2026-09-23 audit)
+
+- A MID `SetScalarParameterValue`/`SetVectorParameterValue` enqueues a render command that invalidates the proxy's uniform expression cache (two global waits inside). Writing an unchanged value still costs the call; only write when the quantized value actually changed (`LastPushed` guard, 1/255 step), and never write a parameter no material declares — dead writes look free in a profiler until you count them.
+- Component setters on cloud/light components are guarded engine-side (`MarkRenderStateDirty` only on change), so constant per-frame writes there are absorbed; do not confuse them with MID writes, which are not absorbed the same way.
+- Never scan the whole world (`TActorIterator`) every frame to find level-static content (a sky-clock actor, its reflected property, cloud components, lights). Resolve once, cache weak handles (`TWeakObjectPtr` + `TWeakFieldPtr<FProperty>`), and re-scan only after the handle goes stale. The same applies to `SetActorLocation` follow logic: compare against the current location first.
+- A quality CVar set to "off" must skip the work loop entirely, not just the traces: zero the pool once via a one-shot flag, then return. Integrate shared state (wetness) outside the gate if cross-quality continuity is wanted.
+- Count expensive setters before optimizing: a per-second written/skipped counter logged from the tick (`WEATHER_WET_WRITES perSec=… skippedPerSec=…`) settles "did the guard work?" without A/B guessing. Single A/B runs across editors, compilation or paging are invalid evidence.
+- Weapon wetness is per-MID, not MPC-driven; coverage gaps between dry/wet tables are invisible at runtime, so run `Tools/Weather/audit_weapon_wetness.ps1` after adding weapons or attachments.
+
 ## Acceptance and publication
 
 Render clear → storm → clear twice on every supported map. Check sunlight recovery, material/visibility restoration, component count, indoor shelter and a stable clock. Save matched-camera screenshots. Compile editor and game targets; run the changed runtime paths separately from packaged-cook or audio claims.
