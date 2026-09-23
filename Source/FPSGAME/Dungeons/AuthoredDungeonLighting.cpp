@@ -2,6 +2,8 @@
 #include "AuthoredDungeonGenerator.h"
 
 #include "Components/PointLightComponent.h"
+#include "Engine/Light.h"
+#include "EngineUtils.h"
 #include "Engine/GameViewportClient.h"
 #include "Engine/LocalPlayer.h"
 #include "Engine/World.h"
@@ -19,7 +21,7 @@ static TAutoConsoleVariable<int32> Optimize(
     TEXT("Authored dungeon light roles and shadow policy. Applied on next generation; 0 restores legacy lights."));
 static TAutoConsoleVariable<int32> RoomCulling(
     TEXT("fps.Dungeon.Lighting.RoomCulling"), 1,
-    TEXT("Fade generated dungeon lights by room/portal candidates. 0 keeps all room lights enabled."));
+    TEXT("Fade generated and preserved start-area local lights by room/portal candidates. 0 keeps all room lights enabled."));
 
 bool IsOptimizationEnabled() { return Optimize.GetValueOnGameThread() != 0; }
 }
@@ -27,7 +29,7 @@ bool IsOptimizationEnabled() { return Optimize.GetValueOnGameThread() != 0; }
 void AAuthoredDungeonGenerator::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
     CancelAssembly();
-    GetWorldTimerManager().ClearTimer(RoomLightingTimer);
+    ResetRoomLighting();
     LightModules.Reset();
     Super::EndPlay(EndPlayReason);
 }
@@ -35,9 +37,50 @@ void AAuthoredDungeonGenerator::EndPlay(const EEndPlayReason::Type EndPlayReason
 void AAuthoredDungeonGenerator::StartRoomLighting()
 {
     if (!GetWorld()->IsGameWorld() || GetNetMode() != NM_Standalone || !bLightingOptimizationApplied) return;
+    if (LightModules.IsEmpty()) return;
+    auto& Start = LightModules.Last();
+    // Only adopt standalone local lights inside the reserved start; never edit the level asset.
+    // Generated actors already belong to their own modules.
+    for (TActorIterator<ALight> It(GetWorld()); It; ++It)
+    {
+        ALight* Actor = *It;
+        if (Actor->ActorHasTag(TEXT("DungeonRouteGenerated"))) continue;
+        ULocalLightComponent* Light = Cast<ULocalLightComponent>(Actor->GetLightComponent());
+        if (!Light || !Light->IsVisible() || !Light->bAffectsWorld || Light->Intensity <= 0.f) continue;
+        if (!Start.Cells.ContainsByPredicate([Light](const FBox& Cell) { return Cell.IsInsideOrOn(Light->GetComponentLocation()); })) continue;
+        if (Start.Lights.ContainsByPredicate([Light](const FAuthoredDungeonLight& State) { return State.Component.Get() == Light; })) continue;
+        FAuthoredDungeonLight State;
+        State.Component = Light;
+        State.FullIntensity = Light->Intensity;
+        State.bPreservedActor = true;
+        State.OriginalDrawDistance = Light->MaxDrawDistance;
+        State.OriginalFadeRange = Light->MaxDistanceFadeRange;
+        Start.Lights.Add(State);
+        const float Distance = FMath::Max(4000.f, Light->AttenuationRadius + 2000.f);
+        if (Light->MaxDrawDistance <= 0.f || Light->MaxDrawDistance > Distance)
+        {
+            Light->SetMaxDrawDistance(Distance);
+            Light->SetMaxDistanceFadeRange(800.f);
+        }
+    }
     LastLightingUpdateSeconds = GetWorld()->GetTimeSeconds();
     for (auto& Module : LightModules) Module.LastWantedSeconds = LastLightingUpdateSeconds;
     GetWorldTimerManager().SetTimer(RoomLightingTimer, this, &ThisClass::UpdateRoomLighting, .1f, true);
+}
+
+void AAuthoredDungeonGenerator::ResetRoomLighting()
+{
+    GetWorldTimerManager().ClearTimer(RoomLightingTimer);
+    for (auto& Module : LightModules)
+        for (auto& State : Module.Lights)
+            if (State.bPreservedActor)
+                if (ULocalLightComponent* Light = State.Component.Get())
+                {
+                    Light->SetIntensity(State.FullIntensity);
+                    Light->SetVisibility(true);
+                    Light->SetMaxDrawDistance(State.OriginalDrawDistance);
+                    Light->SetMaxDistanceFadeRange(State.OriginalFadeRange);
+                }
 }
 
 void AAuthoredDungeonGenerator::UpdateRoomLighting()
@@ -141,7 +184,7 @@ void AAuthoredDungeonGenerator::UpdateRoomLighting()
         const bool bKeep = Wanted[Index] || Now - Module.LastWantedSeconds < 1.0;
         for (auto& State : Module.Lights)
         {
-            UPointLightComponent* Light = State.Component.Get();
+            ULocalLightComponent* Light = State.Component.Get();
             if (!Light) continue;
             const float Target = bKeep ? 1.f : 0.f;
             if (State.Alpha == Target) continue;

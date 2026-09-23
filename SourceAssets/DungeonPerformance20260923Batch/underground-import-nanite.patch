@@ -1,0 +1,15 @@
+--- a/SourceAssets/DungeonUnderground20260923/Scripts/import_assets.py
++++ b/SourceAssets/DungeonUnderground20260923/Scripts/import_assets.py
+@@ -30,7 +30,11 @@
+         if not material:raise RuntimeError('Missing inherited material '+item['materials'][name])
+         mesh.set_material(i,material)
+     mesh.get_editor_property('body_setup').set_editor_property('collision_trace_flag',u.CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE)
+-    settings=mesh.get_editor_property('nanite_settings').copy();settings.enabled=False
++    settings=mesh.get_editor_property('nanite_settings').copy();settings.enabled=True
++    settings.explicit_tangents=True
++    settings.generate_fallback=u.NaniteGenerateFallback.ENABLED
++    settings.fallback_target=u.NaniteFallbackTarget.PERCENT_TRIANGLES
++    settings.fallback_percent_triangles=1.0;settings.fallback_relative_error=0.0
+     mesh.set_editor_property('nanite_settings',settings)
+     if not u.EditorAssetLibrary.save_loaded_asset(mesh,False):raise RuntimeError('Save failed '+path)
+     receipt['meshes'][item['name']]=path

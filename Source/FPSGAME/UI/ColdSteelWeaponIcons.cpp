@@ -249,15 +249,51 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     }
     for(UMaterialInterface* Material:CaptureMaterials){
         TArray<UTexture*> Used;Material->GetUsedTextures(Used);
-        for(auto* Texture:Used)if(Texture){CaptureTextures.AddUnique(Texture);Texture->SetForceMipLevelsToBeResident(12.f);}
+        for(auto* Texture:Used)if(Texture)CaptureTextures.AddUnique(Texture);
     }
-    for(UMeshComponent* Part:CaptureMeshes)Part->PrestreamTextures(12.f,true);
+    RequestCaptureTextureMips();
     Studio->GetWorld()->SendAllEndOfFrameUpdates();
     AssemblyScope.Finish();
     PrepareStep=6;
     UE_LOG(LogTemp,Display,TEXT("WeaponIcon: prepare key=%s mesh=%s parts=%d bounds=%s"),*Key(I),*Asset->GetPathName(),Capture->ShowOnlyComponents.Num(),*Size.ToString());
     return true;
 }
+namespace
+{
+int32 IconTextureMipCount(UTexture2D* Texture, int32 CaptureSize)
+{
+    const int32 MaxPixels=FMath::Min(2048u,FMath::RoundUpToPowerOfTwo(uint32(FMath::Max(256,CaptureSize*2))));
+    int32 Mips=Texture->GetNumMips();
+    int32 Dimension=FMath::Max(Texture->GetSizeX(),Texture->GetSizeY());
+    while(Dimension>MaxPixels && Mips>1){Dimension=FMath::Max(1,Dimension/2);--Mips;}
+    return FMath::Min(Mips,Texture->GetNumMipsAllowed(false));
+}
+}
+
+void UColdSteelWeaponIcons::RequestCaptureTextureMips()
+{
+    for(UTexture* Texture:CaptureTextures){
+        if(bCatalogExport)Texture->SetForceMipLevelsToBeResident(12.f);
+        else IsCaptureTextureReady(Texture);
+    }
+}
+
+bool UColdSteelWeaponIcons::IsCaptureTextureReady(UTexture* Texture)
+{
+    if(bCatalogExport)return Texture->IsFullyStreamedIn();
+    if(auto* Texture2D=Cast<UTexture2D>(Texture)){
+        // The runtime preview only needs mips appropriate to its render target. Do not pin
+        // full 4K/8K weapon maps or take away the game scene's texture budget.
+        if(Texture2D->VirtualTextureStreaming)return Texture2D->GetResource()!=nullptr;
+        const int32 Wanted=IconTextureMipCount(Texture2D,FMath::Max(Target->SizeX,Target->SizeY));
+        if(Wanted<=0 || !Texture2D->GetResource())return false;
+        if(Texture2D->GetNumResidentMips()>=Wanted && !Texture2D->HasPendingInitOrStreaming())return true;
+        if(!Texture2D->HasPendingInitOrStreaming())Texture2D->StreamIn(Wanted,false);
+        return false;
+    }
+    return Texture->IsFullyStreamedIn();
+}
+
 void UColdSteelWeaponIcons::FinishJob(bool bSuccess)
 {
     CancelReadback();
@@ -327,6 +363,12 @@ bool UColdSteelWeaponIcons::SubmitMaterialReadiness()
 
 void UColdSteelWeaponIcons::DeferCurrentJob(double Now)
 {
+    // A blocked preview must eventually use its catalog image, not retain a permanent retry queue.
+    if(Queue[0].DeferredAttempts>=5){
+        FailureStage=TEXT("Icon.ReadinessBudget");FailureResource=WaitResource;
+        FailureReason=FString::Printf(TEXT("图标准备超过 6 次尝试，使用目录图标；最后等待状态：%s"),*WaitReason.ToString());
+        FinishJob(false);return;
+    }
     UFPSPerformanceMetricsSubsystem::CountIconAction(GetGameInstance(),EFPSIconAction::Deferred);
     UFPSPerformanceMetricsSubsystem::RecordMarker(GetGameInstance(),TEXT("Icon.Deferred"),
         FString::Printf(TEXT("%s reason=%s resource=%s polls=%d captures=%d"),*Queue[0].Key,*WaitReason.ToString(),*WaitResource,ReadinessPolls,CaptureSubmissions));
@@ -351,9 +393,9 @@ void UColdSteelWeaponIcons::Tick(float Delta)
     TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Icon_Tick);
     FFPSPerformanceScope TickScope(GetGameInstance(),TEXT("Icon.Tick"),Queue[0].Key);
     if(Stage==3){PollReadback();return;}
-    if(Stage!=0 && Stage!=4){
+    if(Stage!=0){
         const double AttemptAge=Now-AttemptStartSeconds;
-        if(AttemptAge>=10.0){DeferCurrentJob(Now);return;}
+        if(AttemptAge>=(Stage==4?20.0:10.0)){DeferCurrentJob(Now);return;}
     }
     // Only yield after this tick has confirmed the blocker: a just-ready recipe should finish.
     const auto YieldForOtherJob=[this,Now](){
@@ -400,7 +442,7 @@ void UColdSteelWeaponIcons::Tick(float Delta)
             if(Warmup>=.3f){Warmup=0;if(!SubmitMaterialReadiness())FinishJob(false);}
             return;
         }
-        for(UTexture* Texture:CaptureTextures)if(!Texture->IsFullyStreamedIn()){
+        for(UTexture* Texture:CaptureTextures)if(!IsCaptureTextureReady(Texture)){
             SetWaitState(Texture->HasPendingInitOrStreaming()?TEXT("TextureStreaming"):TEXT("TextureNotFullyResident"),Texture->GetPathName());
             if(YieldForOtherJob())return;
             return;

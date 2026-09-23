@@ -7,6 +7,10 @@ description: UE5.6-UE5.8 gameplay C++ implementation for Actors, Components, Dat
 
 后台优先：不主动启动 UE 编辑器；不主动检查、测试、启动 PIE、截图或验收渲染；不向其他对话/任务发协调消息。完整规则与「按改动选执行方式」表见仓库根 `AGENTS.md` 和 [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)。
 
+## FPSGAME 性能开发约束（2026-09-23）
+
+新增 Tick、定时器、属性查询或加载路径时，读取 [性能开发约束](../ue5-performance-packaging/references/fpsgame-performance-development.md) 的高频路径部分。复用有界只读数据缓存，保留完整失效语义，避免同步加载与同一调用链重复计算；最终战斗状态仍实时参与原公式。
+
 # Quick Start
 - Confirm target class type (`AActor`, `UActorComponent`, `UObject`, `USaveGame`, etc.).
 - Define required Blueprint-facing API before implementation.

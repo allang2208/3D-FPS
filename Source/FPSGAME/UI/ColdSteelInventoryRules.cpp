@@ -1,27 +1,37 @@
 #include "ColdSteelInventoryTypes.h"
+#include "ColdSteelItemReadCache.h"
 #include "../Skills/ColdSteelSkillRules.h"
 #include "ColdSteelSwapPlacement.h"
 #include "ColdSteelWarehouseRules.h"
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
+#include "ProfilingDebugging/CpuProfilerTrace.h"
 
 namespace ColdSteelInventory
 {
 static TSharedPtr<FJsonObject> Object(const FColdSteelItem& Item)
 {
+    TRACE_CPUPROFILER_EVENT_SCOPE(ColdSteelInventory_ParseItem);
     TSharedPtr<FJsonObject> Result;
     FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data), Result);
     return Result;
 }
-FString Text(const FColdSteelItem& Item, const TCHAR* Key) { auto O = Object(Item); FString V; if(O) O->TryGetStringField(Key,V); return V; }
-double Number(const FColdSteelItem& Item, const TCHAR* Key, double Default) { auto O=Object(Item); double V=Default; if(O) O->TryGetNumberField(Key,V); return V; }
-bool Flag(const FColdSteelItem& Item, const TCHAR* Key) { if(IsDualPistol(Item) && FCString::Strcmp(Key,TEXT("isTwoHanded"))==0)return false; auto O=Object(Item); bool V=false; if(O) O->TryGetBoolField(Key,V); return V; }
+// Scalar lookups never mutate the parsed data. Key by the complete payload so
+// crafting, attachments and same-instance edits take effect on the next read.
+// Keep mutable Object() results separate (Compatible removes identity fields).
+static TSharedPtr<const FJsonObject> ReadOnlyObject(const FColdSteelItem& Item)
+{
+    return ColdSteelItemData::Read(Item.Data);
+}
+FString Text(const FColdSteelItem& Item, const TCHAR* Key) { auto O = ReadOnlyObject(Item); FString V; if(O) O->TryGetStringField(Key,V); return V; }
+double Number(const FColdSteelItem& Item, const TCHAR* Key, double Default) { auto O=ReadOnlyObject(Item); double V=Default; if(O) O->TryGetNumberField(Key,V); return V; }
+bool Flag(const FColdSteelItem& Item, const TCHAR* Key) { if(IsDualPistol(Item) && FCString::Strcmp(Key,TEXT("isTwoHanded"))==0)return false; auto O=ReadOnlyObject(Item); bool V=false; if(O) O->TryGetBoolField(Key,V); return V; }
 FIntPoint BaseFootprint(const FColdSteelItem& I)
 {
     const FString Type=Text(I,TEXT("weaponType")),Ranged=Text(I,TEXT("rangedType")),Category=Text(I,TEXT("category")),Slot=Text(I,TEXT("equipSlot"));
     const bool Firearm=Type==TEXT("rifle")||!Ranged.IsEmpty()||Category==TEXT("weapon_ranged");
-    auto O=Object(I);const bool Two=O&&O->HasField(TEXT("isTwoHanded"))?Flag(I,TEXT("isTwoHanded")):Firearm;
+    auto O=ReadOnlyObject(I);const bool Two=O&&O->HasField(TEXT("isTwoHanded"))?Flag(I,TEXT("isTwoHanded")):Firearm;
     if(Firearm&&Type!=TEXT("pistol")&&Ranged!=TEXT("pistol")&&Two)return FIntPoint(5,2);
     const int32 W=Number(I,TEXT("grid_w")),H=Number(I,TEXT("grid_h"));if(W>0&&H>0)return FIntPoint(W,H);
     if(Type==TEXT("pistol"))return FIntPoint(3,2);

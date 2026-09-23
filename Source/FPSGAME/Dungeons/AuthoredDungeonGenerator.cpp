@@ -288,7 +288,7 @@ AAuthoredDungeonGenerator::AAuthoredDungeonGenerator()
 }
 void AAuthoredDungeonGenerator::ClearGenerated()
 {
-    GetWorldTimerManager().ClearTimer(RoomLightingTimer);LightModules.Reset();
+    ResetRoomLighting();LightModules.Reset();
     for(AActor* A:GeneratedActors)if(IsValid(A))A->Destroy();GeneratedActors.Reset();
 }
 void AAuthoredDungeonGenerator::GeneratePreview(){Generate(PreviewSeed);}
@@ -415,7 +415,7 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
     bLightingOptimizationApplied=bOptimizeLights;
     auto& StagedLightModules=State->NextLights;
     StagedLightModules.SetNum(Plan.Pieces.Num()+1);
-    StagedLightModules.Last().Cells.Add(Plan.Reserved); // Preserved start: connectivity only, no changes to its lights.
+    StagedLightModules.Last().Cells.Add(Plan.Reserved); // Include existing start lights in the room scheduler at runtime.
     for(int32 I=0;I<Plan.Pieces.Num();++I)
     {
         StagedLightModules[I].Cells=Plan.Pieces[I].Cells;
@@ -800,7 +800,7 @@ void AAuthoredDungeonGenerator::FinishAssembly()
     {State->PhaseMs.FindOrAdd(TEXT("Dungeon.Finalize"))+=(FPlatformTime::Seconds()-FinalizeStarted)*1000.;};
     if(!State->bCommitted)
     {
-        GetWorldTimerManager().ClearTimer(RoomLightingTimer);
+        ResetRoomLighting();
         for(AActor* Actor:State->PreviousActors)if(IsValid(Actor))Actor->Destroy();
         State->PreviousActors.Reset();State->bCommitted=true;
         for(AActor* Actor:GeneratedActors)if(IsValid(Actor)){Actor->SetActorHiddenInGame(false);Actor->SetActorEnableCollision(true);}

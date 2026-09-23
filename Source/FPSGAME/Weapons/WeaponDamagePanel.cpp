@@ -30,7 +30,7 @@ double Additional(const TSharedPtr<const FJsonObject>& Root,const TCHAR* Type,co
 FWeaponDamageParts ColdSteelWeaponDamage::Evaluate(const FColdSteelItem& Item,const UColdSteelStatusModel* Profile,double Base,const FMeleeModifiers* Melee)
 {
     FWeaponDamageParts R;R.BasePhysical=FMath::Max(0.,Base);
-    const auto Data=CombatItemFormula::Read(Item);
+    const auto Data=CombatItemFormula::ReadOnly(Item);
     R.AddedPhysical=Additional(Data,TEXT("physical"),Profile,R.Base());
     R.AddedMagic=Additional(Data,TEXT("magic"),Profile,R.Base());
     // This weapon-native contribution is independent of the selected rune.

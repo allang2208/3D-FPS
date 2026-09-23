@@ -290,3 +290,7 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 ## 随机地牢与 Boss 主泵房（2026-09-23）
 
 作者房间、随机目录、门洞修复、粘液与手脑首领接入的源码链和本机资产依赖，见 [随机地牢与主泵房源码发布](Gameplay/dungeon-random-boss-publication-20260923.md)。公开作者脚本、配置及原生代码；关卡、授权素材和导入回执仍从本机与合法来源恢复。被退回的方盒房配方和失效恢复脚本已归档到 trash。构建和地图保存记录不等于游戏测试。
+
+## 地牢性能优化与光照恢复（2026-09-23）
+
+保留恢复后的硬件光追、Lumen、PWL 原预设和 DayNight_Lighting 关卡。当前地牢网格及依赖材质需本机已保存的 Nanite 制作结果；源码克隆不包含 49 个修改网格、72 个材质用途更新和 2 个 ASH-12 静态弹匣材质。作者脚本、剩余资产依赖、25 项废案归档及用户反馈边界见 [地牢性能整理与发布](Performance/dungeon-performance-publication-20260923.md)。旧 RasterProfiles 和全面剔除光追脚本已退役，不从 trash 自动恢复它们。

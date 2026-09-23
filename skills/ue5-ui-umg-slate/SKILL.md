@@ -8,6 +8,10 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 后台优先：不主动启动 UE 编辑器；不主动检查、测试、启动 PIE、截图或验收渲染；不向其他对话/任务发协调消息。完整规则与「按改动选执行方式」表见仓库根 `AGENTS.md` 和 [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)。
 
 
+## FPSGAME 性能开发约束（2026-09-23）
+
+新增 HUD、快捷栏、状态面板或图标时，读取 [性能开发约束](../ue5-performance-packaging/references/fpsgame-performance-development.md) 的高频路径与图标部分。先明确刷新触发和调用链，复用属性读取与可见条目，不把重复 JSON 解析、全量控件重建或资源等待放进 NativeTick。
+
 # Quick Start
 - For FPSGAME building categories, construction cards, model thumbnails, fonts or detail popups, read [the building-panel standard](references/building-panel.md).
 - For FPSGAME persistent panel icons, hotkey effects, dual-pistol layout, or melee stamina readouts, read [HUD navigation and weapon readouts](references/hud-navigation-and-weapon-readouts.md).

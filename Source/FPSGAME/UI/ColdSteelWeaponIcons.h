@@ -90,5 +90,7 @@ private:
     void DeferCurrentJob(double Now);
     void FinishJob(bool bSuccess);
     bool SubmitMaterialReadiness();
+    void RequestCaptureTextureMips();
+    bool IsCaptureTextureReady(class UTexture* Texture);
     void SetWaitState(FName Reason, const FString& Resource = FString());
 };

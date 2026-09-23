@@ -7,9 +7,9 @@
 #include "CombatItemFormula.h"
 namespace
 {
-using J=TSharedPtr<FJsonObject>;
-J Read(const FColdSteelItem* I){return I?CombatItemFormula::Read(*I):nullptr;}
-J Obj(J O,const TCHAR* K){const J* V=nullptr;return O&&O->TryGetObjectField(K,V)?*V:nullptr;}
+using J=TSharedPtr<const FJsonObject>;
+J Read(const FColdSteelItem* I){return I?CombatItemFormula::ReadOnly(*I):nullptr;}
+J Obj(J O,const TCHAR* K){const TSharedPtr<FJsonObject>* V=nullptr;return O&&O->TryGetObjectField(K,V)?*V:nullptr;}
 double Num(J O,const TCHAR* K,double Default=0){double V=Default;if(O)O->TryGetNumberField(K,V);return V;}
 double Now(){return FDateTime::UtcNow().ToUnixTimestamp();}
 }

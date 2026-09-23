@@ -51,7 +51,7 @@ FIceSpikeCast UColdSteelStatusModel::IceSpikeStats(int32 AtLevel) const
             C.bGrantChain=Craft(TEXT("chainSpellDamagePercent"))!=0;
             C.CastHasteStacks=Craft(TEXT("castHasteStacks"));C.CastHasteDuration=E->CraftEffect(*Item,TEXT("castHasteDuration"),5000)/1000;
             C.ChillSlow=Craft(TEXT("iceChillSlowPercent"));C.ChillDuration=E->CraftEffect(*Item,TEXT("iceChillDuration"),3000)/1000;
-            const auto Data=CombatItemFormula::Read(*Item);const TSharedPtr<FJsonObject>* Effects=nullptr;FString Specialty;
+            const auto Data=CombatItemFormula::ReadOnly(*Item);const TSharedPtr<FJsonObject>* Effects=nullptr;FString Specialty;
             if(Data&&Data->TryGetObjectField(TEXT("_craftEffects"),Effects)&&(*Effects)->TryGetStringField(TEXT("staffSpecialty"),Specialty)&&Specialty==TEXT("ice"))
                 DamageFactor+=Craft(TEXT("iceDamagePercent"));
             DamageFactor*=1+Chain*Craft(TEXT("chainSpellDamagePercent"));

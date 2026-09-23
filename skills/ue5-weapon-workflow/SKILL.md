@@ -8,6 +8,10 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 后台优先：不主动启动 UE 编辑器；不主动检查、测试、启动 PIE、截图或验收渲染；不向其他对话/任务发协调消息。完整规则与「按改动选执行方式」表见仓库根 `AGENTS.md` 和 [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)。
 
 
+## FPSGAME 性能开发约束（2026-09-23）
+
+接入武器、配件、伤害面板或背包图标时，读取 [性能开发约束](../ue5-performance-packaging/references/fpsgame-performance-development.md) 的属性缓存、材质用途和图标部分。展示资源按配方异步准备，保留有界重试、缓存及目录图回退；静态附件材质不要错误继承骨骼用途。
+
 # UE5 武器标准工作流
 
 ## 统一模型生成入口（2026-09-13）

@@ -511,3 +511,9 @@ __pycache__/
 /SourceAssets/PKMLowpoly20260922/Original/
 /SourceAssets/PKMLowpoly20260922/**/Before/
 /SourceAssets/PKMLowpoly20260922/**/BeforeImport/
+
+# Dungeon performance 20260923 local production records
+/SourceAssets/DungeonPerformance20260923Batch/Before/
+/SourceAssets/DungeonPerformance20260923Batch/Receipts/
+!/SourceAssets/DungeonPerformance20260923Batch/mesh-targets.json
+!/SourceAssets/DungeonPerformance20260923Batch/underground-import-nanite.patch

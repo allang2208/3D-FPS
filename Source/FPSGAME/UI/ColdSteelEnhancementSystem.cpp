@@ -1,5 +1,6 @@
 #include "ColdSteelEnhancementSystem.h"
 #include "ColdSteelStatusModel.h"
+#include "ColdSteelItemReadCache.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "Engine/GameInstance.h"
 #include "Serialization/JsonSerializer.h"
@@ -13,6 +14,8 @@ namespace
 using J=TSharedPtr<FJsonObject>;
 J Read(const FString& S){J O;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(S),O);return O;}
 J Obj(J O,const TCHAR* Key){const J* V=nullptr;return O&&O->TryGetObjectField(Key,V)?*V:nullptr;}
+TSharedPtr<const FJsonObject> ReadObj(TSharedPtr<const FJsonObject> O,const TCHAR* Key)
+{const J* V=nullptr;return O&&O->TryGetObjectField(Key,V)?*V:nullptr;}
 double Num(TSharedPtr<const FJsonObject> O,const TCHAR* Key,double D=0){double V;return O&&O->TryGetNumberField(Key,V)?V:D;}
 FString Str(J O,const TCHAR* Key){FString V;if(O)O->TryGetStringField(Key,V);return V;}
 void Write(FColdSteelItem& I,J O){FJsonSerializer::Serialize(O.ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&I.Data));}
@@ -34,7 +37,7 @@ bool UColdSteelEnhancementSystem::Supports(const FColdSteelItem& I)const
 {
     if(!Ready||I.Count!=1||(I.Place!=0&&I.Place!=1))return false;
     if(GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))return true;
-    return Num(Obj(CombatItemFormula::Read(I),TEXT("defense")),TEXT("perEnhance"))>0;
+    return Num(ReadObj(CombatItemFormula::ReadOnly(I),TEXT("defense")),TEXT("perEnhance"))>0;
 }
 bool UColdSteelEnhancementSystem::CanEnchant(const FColdSteelItem& I,const FColdSteelEnchantOption& O)const
 {
@@ -45,17 +48,23 @@ const FColdSteelEnchantOption* UColdSteelEnhancementSystem::Scroll(const FString
 int32 UColdSteelEnhancementSystem::MaxLevel(const FColdSteelItem& I)const{return GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition)?WeaponMax:ArmorMax;}
 double UColdSteelEnhancementSystem::Effect(const FColdSteelItem& I,const TCHAR* Key,double Default)const
 {
-    const auto O=Obj(Read(I.Data),TEXT("_enchantEffects"));
+    const auto Data=ColdSteelItemData::Read(I.Data);
+    const TSharedPtr<FJsonObject>* Field=nullptr;
+    const auto O=Data&&Data->TryGetObjectField(TEXT("_enchantEffects"),Field)?*Field:nullptr;
     const auto V=O?O->TryGetField(Key):nullptr;
     if(V&&V->Type==EJson::Boolean)return V->AsBool()?1:0;
     return Num(O,Key,Default);
 }
 double UColdSteelEnhancementSystem::CraftEffect(const FColdSteelItem& I,const TCHAR* Key,double Default)const
-{return Num(Obj(Read(I.Data),TEXT("_craftEffects")),Key,Default);}
+{
+    const auto Data=ColdSteelItemData::Read(I.Data);
+    const TSharedPtr<FJsonObject>* Field=nullptr;
+    return Num(Data&&Data->TryGetObjectField(TEXT("_craftEffects"),Field)?*Field:nullptr,Key,Default);
+}
 TSharedPtr<const FJsonObject> UColdSteelEnhancementSystem::AttackFormula(const FColdSteelItem& I)const
 {
     if(const auto Formula=Obj(WeaponFormulas,*I.Definition))return Formula;
-    return Obj(CombatItemFormula::Read(I),TEXT("attackFormula"));
+    return ReadObj(CombatItemFormula::ReadOnly(I),TEXT("attackFormula"));
 }
 double UColdSteelEnhancementSystem::AttackFormulaAttribute(const FColdSteelItem& I,FName Key)const
 {
@@ -88,7 +97,7 @@ double UColdSteelEnhancementSystem::ProcessedDamage(const FColdSteelItem& I,doub
 }
 double UColdSteelEnhancementSystem::Defense(const FColdSteelItem& I)const
 {
-    const auto D=Obj(CombatItemFormula::Read(I),TEXT("defense"));return FMath::FloorToDouble(Num(D,TEXT("base"))+Num(D,TEXT("perEnhance"))*FMath::Clamp(ColdSteelInventory::Number(I,TEXT("enhanceLevel")),0.,double(ArmorMax)));
+    const auto D=ReadObj(CombatItemFormula::ReadOnly(I),TEXT("defense"));return FMath::FloorToDouble(Num(D,TEXT("base"))+Num(D,TEXT("perEnhance"))*FMath::Clamp(ColdSteelInventory::Number(I,TEXT("enhanceLevel")),0.,double(ArmorMax)));
 }
 FString UColdSteelEnhancementSystem::Affix(const FColdSteelItem& I,const TCHAR* Slot)const{return Str(Obj(Obj(Read(I.Data),TEXT("_enchantData")),Slot),TEXT("name"));}
 int64 UColdSteelEnhancementSystem::BackpackScrollCount(const FString& Definition)const

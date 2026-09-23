@@ -1,0 +1,208 @@
+{
+  "date": "2026-09-23",
+  "scope": "This conversation only; recoverable local archive",
+  "package_headers_scanned": 21518,
+  "external_profile_references": 0,
+  "files": [
+    {
+      "original": "Tools/Rendering/audit_package_tracing_names.py",
+      "archived": "trash/dungeon-performance-rejected-20260923/Tools/Rendering/audit_package_tracing_names.py",
+      "size_bytes": 5480,
+      "sha256": "07265466d7d9b6fb8970ace54fc81819142c39d45dc0682688aef5b537d1ad6a",
+      "reason": "Retired ray-tracing removal/raster compensation experiment and completed restore helpers",
+      "replacement": "Docs/Performance/lighting-baseline-restoration-20260923.md"
+    },
+    {
+      "original": "Tools/Rendering/audit_raytracing_dependencies.py",
+      "archived": "trash/dungeon-performance-rejected-20260923/Tools/Rendering/audit_raytracing_dependencies.py",
+      "size_bytes": 3359,
+      "sha256": "c971bcaf1f2a4cab6a23355f60a90501828eb0c069777d48f98a49d8e7a9b59c",
+      "reason": "Retired ray-tracing removal/raster compensation experiment and completed restore helpers",
+      "replacement": "Docs/Performance/lighting-baseline-restoration-20260923.md"
+    },
+    {
+      "original": "Tools/Rendering/build_raster_daylight_profiles.py",
+      "archived": "trash/dungeon-performance-rejected-20260923/Tools/Rendering/build_raster_daylight_profiles.py",
+      "size_bytes": 10189,
+      "sha256": "84dd4898422fddf8d94696142fdd6d7bef346912e6561830644daaf6da92b010",
+      "reason": "Retired ray-tracing removal/raster compensation experiment and completed restore helpers",
+      "replacement": "Docs/Performance/lighting-baseline-restoration-20260923.md"
+    },
+    {
+      "original": "Tools/Rendering/disable_mesh_distance_field_overrides.py",
+      "archived": "trash/dungeon-performance-rejected-20260923/Tools/Rendering/disable_mesh_distance_field_overrides.py",
+      "size_bytes": 2431,
+      "sha256": "6328e61be7baea59b0d7885178ddb6c49879bd7c5867366775887b70a5eb0327",
+      "reason": "Retired ray-tracing removal/raster compensation experiment and completed restore helpers",
+      "replacement": "Docs/Performance/lighting-baseline-restoration-20260923.md"
+    },
+    {
+      "original": "Tools/Rendering/inspect_daynight_raster_inputs.py",
+      "archived": "trash/dungeon-performance-rejected-20260923/Tools/Rendering/inspect_daynight_raster_inputs.py",
+      "size_bytes": 2938,
+      "sha256": "ef1e610f6f67f2014fb78bac0b9f9f535ff43e6d70b53ac63dbd4fb00d21b95e",
+      "reason": "Retired ray-tracing removal/raster compensation experiment and completed restore helpers",
+      "replacement": "Docs/Performance/lighting-baseline-restoration-20260923.md"
+    },
+    {
+      "original": "Tools/Rendering/inspect_raster_lighting_balance.py",
+      "archived": "trash/dungeon-performance-rejected-20260923/Tools/Rendering/inspect_raster_lighting_balance.py",
+      "size_bytes": 5382,
+      "sha256": "d3c3b896ced3cfb73e7d4e6592fff672f92d516c3bf8492239e6f313119939de",
+      "reason": "Retired ray-tracing removal/raster compensation experiment and completed restore helpers",
+      "replacement": "Docs/Performance/lighting-baseline-restoration-20260923.md"
+    },
+    {
+      "original": "Tools/Rendering/inspect_tracing_asset_overrides.py",
+      "archived": "trash/dungeon-performance-rejected-20260923/Tools/Rendering/inspect_tracing_asset_overrides.py",
+      "size_bytes": 4197,
+      "sha256": "79de8b0acf99c6e13d90dc83313712d9176f10af4183ddeae952f554d7ac3b50",
+      "reason": "Retired ray-tracing removal/raster compensation experiment and completed restore helpers",
+      "replacement": "Docs/Performance/lighting-baseline-restoration-20260923.md"
+    },
+    {
+      "original": "Tools/Rendering/prepare_lighting_restore_20260923.py",
+      "archived": "trash/dungeon-performance-rejected-20260923/Tools/Rendering/prepare_lighting_restore_20260923.py",
+      "size_bytes": 6403,
+      "sha256": "19fc7e25e09b0c4ce1ce80ab220aac4f5fa059828cf41a23b468b3755e4ff367",
+      "reason": "Retired ray-tracing removal/raster compensation experiment and completed restore helpers",
+      "replacement": "Docs/Performance/lighting-baseline-restoration-20260923.md"
+    },
+    {
+      "original": "Tools/Rendering/read_lighting_restore_editor_state.py",
+      "archived": "trash/dungeon-performance-rejected-20260923/Tools/Rendering/read_lighting_restore_editor_state.py",
+      "size_bytes": 1280,
+      "sha256": "f42433a436d9d46f92e3885905857c999f6719bc31e2551eabc59a33d6ff20b7",
+      "reason": "Retired ray-tracing removal/raster compensation experiment and completed restore helpers",
+      "replacement": "Docs/Performance/lighting-baseline-restoration-20260923.md"
+    },
+    {
+      "original": "Tools/Rendering/remove_lighting_tracing_overrides.py",
+      "archived": "trash/dungeon-performance-rejected-20260923/Tools/Rendering/remove_lighting_tracing_overrides.py",
+      "size_bytes": 10227,
+      "sha256": "ec77fbf28a4ed3eee8e3bc6240ed68da8b4b58e712e04d62288f7f7f2562dc08",
+      "reason": "Retired ray-tracing removal/raster compensation experiment and completed restore helpers",
+      "replacement": "Docs/Performance/lighting-baseline-restoration-20260923.md"
+    },
+    {
+      "original": "Tools/Rendering/remove_map_tracing_overrides.py",
+      "archived": "trash/dungeon-performance-rejected-20260923/Tools/Rendering/remove_map_tracing_overrides.py",
+      "size_bytes": 5230,
+      "sha256": "2573a594c8a458f4475a881c8e33ad39e40eef3d305f7ac15010041c6a2fa374",
+      "reason": "Retired ray-tracing removal/raster compensation experiment and completed restore helpers",
+      "replacement": "Docs/Performance/lighting-baseline-restoration-20260923.md"
+    },
+    {
+      "original": "Tools/Rendering/restore_lighting_assets_20260923.ps1",
+      "archived": "trash/dungeon-performance-rejected-20260923/Tools/Rendering/restore_lighting_assets_20260923.ps1",
+      "size_bytes": 4353,
+      "sha256": "5e01fbb272f0cdc60d1815b9e8788124c751e3ca28555f320f13664a77576af9",
+      "reason": "Retired ray-tracing removal/raster compensation experiment and completed restore helpers",
+      "replacement": "Docs/Performance/lighting-baseline-restoration-20260923.md"
+    },
+    {
+      "original": "Tools/Rendering/run_asset_pass.ps1",
+      "archived": "trash/dungeon-performance-rejected-20260923/Tools/Rendering/run_asset_pass.ps1",
+      "size_bytes": 1667,
+      "sha256": "5b615d0d29b9a62aa250ef749185e98a709e8898ef27f7086baa2ebbc7dade55",
+      "reason": "Retired ray-tracing removal/raster compensation experiment and completed restore helpers",
+      "replacement": "Docs/Performance/lighting-baseline-restoration-20260923.md"
+    },
+    {
+      "original": "Docs/Performance/raster-daylight-balance-20260923.md",
+      "archived": "trash/dungeon-performance-rejected-20260923/Docs/Performance/raster-daylight-balance-20260923.md",
+      "size_bytes": 5249,
+      "sha256": "956041f09e0f8022343a84354c558344d4b8bc517621d25dd9add94ad37d33bb",
+      "reason": "Withdrawn lighting implementation recipes; retain history locally",
+      "replacement": "Docs/Performance/lighting-baseline-restoration-20260923.md"
+    },
+    {
+      "original": "Docs/Performance/raster-lighting-raytracing-removal-20260923.md",
+      "archived": "trash/dungeon-performance-rejected-20260923/Docs/Performance/raster-lighting-raytracing-removal-20260923.md",
+      "size_bytes": 7473,
+      "sha256": "aaff783c88d411380379e14912a0f3330af70c9787aa1dfa619f97e92a27898e",
+      "reason": "Withdrawn lighting implementation recipes; retain history locally",
+      "replacement": "Docs/Performance/lighting-baseline-restoration-20260923.md"
+    },
+    {
+      "original": "Content/Lighting/RasterProfiles/LS_Raster_HDR_Sunrise.uasset",
+      "archived": "trash/dungeon-performance-rejected-20260923/Content/Lighting/RasterProfiles/LS_Raster_HDR_Sunrise.uasset",
+      "size_bytes": 8203,
+      "sha256": "569d8bb7c8c1f8e848d91460c2973a6a634db6199a2a1e2b703923e70b88663e",
+      "reason": "Unused compensation profiles after original 363 assets restored; no external package-name or source references",
+      "replacement": "Restored original PWL profiles and DayNight_Lighting map"
+    },
+    {
+      "original": "Content/Lighting/RasterProfiles/LS_Raster_HDR_Sunset_02.uasset",
+      "archived": "trash/dungeon-performance-rejected-20260923/Content/Lighting/RasterProfiles/LS_Raster_HDR_Sunset_02.uasset",
+      "size_bytes": 7888,
+      "sha256": "6ac2a5e22fc8930ec15f9c2f715516c0d4bf0531b78833f6e3fba06f15ee0a54",
+      "reason": "Unused compensation profiles after original 363 assets restored; no external package-name or source references",
+      "replacement": "Restored original PWL profiles and DayNight_Lighting map"
+    },
+    {
+      "original": "Content/Lighting/RasterProfiles/LS_Raster_HDR_Sunset_03.uasset",
+      "archived": "trash/dungeon-performance-rejected-20260923/Content/Lighting/RasterProfiles/LS_Raster_HDR_Sunset_03.uasset",
+      "size_bytes": 7879,
+      "sha256": "1291822074d3dc26a3bff7639ba9796baa80da303ea337746040e2a34371a233",
+      "reason": "Unused compensation profiles after original 363 assets restored; no external package-name or source references",
+      "replacement": "Restored original PWL profiles and DayNight_Lighting map"
+    },
+    {
+      "original": "Content/Lighting/RasterProfiles/LS_Raster_HDR_Sunset.uasset",
+      "archived": "trash/dungeon-performance-rejected-20260923/Content/Lighting/RasterProfiles/LS_Raster_HDR_Sunset.uasset",
+      "size_bytes": 8210,
+      "sha256": "8da63a124e1c6d64bcefb3f578a6b8270b6c71126bede8d545edd20b2051bf82",
+      "reason": "Unused compensation profiles after original 363 assets restored; no external package-name or source references",
+      "replacement": "Restored original PWL profiles and DayNight_Lighting map"
+    },
+    {
+      "original": "Content/Lighting/RasterProfiles/LS_Raster_HDR_Sunshine_02.uasset",
+      "archived": "trash/dungeon-performance-rejected-20260923/Content/Lighting/RasterProfiles/LS_Raster_HDR_Sunshine_02.uasset",
+      "size_bytes": 8007,
+      "sha256": "ecb0b3fe5b6e439c525fdea501a704aa1f7aafa896b99e8e99ffc61ee7afbad7",
+      "reason": "Unused compensation profiles after original 363 assets restored; no external package-name or source references",
+      "replacement": "Restored original PWL profiles and DayNight_Lighting map"
+    },
+    {
+      "original": "Content/Lighting/RasterProfiles/LS_Raster_HDR_Sunshine.uasset",
+      "archived": "trash/dungeon-performance-rejected-20260923/Content/Lighting/RasterProfiles/LS_Raster_HDR_Sunshine.uasset",
+      "size_bytes": 7869,
+      "sha256": "6cd135f9dfcbd8fbe4bc996fd1d8a8facfc465dcdd4b2d8a1b9c5ef599be9e6a",
+      "reason": "Unused compensation profiles after original 363 assets restored; no external package-name or source references",
+      "replacement": "Restored original PWL profiles and DayNight_Lighting map"
+    },
+    {
+      "original": "Content/Lighting/RasterProfiles/LS_Raster_Sunny_Day.uasset",
+      "archived": "trash/dungeon-performance-rejected-20260923/Content/Lighting/RasterProfiles/LS_Raster_Sunny_Day.uasset",
+      "size_bytes": 4510,
+      "sha256": "0455fbdf03e74086eb87817aee20ff0272eeb3964e56dd7f6a171fff7be30428",
+      "reason": "Unused compensation profiles after original 363 assets restored; no external package-name or source references",
+      "replacement": "Restored original PWL profiles and DayNight_Lighting map"
+    },
+    {
+      "original": "SourceAssets/DungeonPerformance20260923Batch/close_for_build.py",
+      "archived": "trash/dungeon-performance-rejected-20260923/SourceAssets/DungeonPerformance20260923Batch/close_for_build.py",
+      "size_bytes": 824,
+      "sha256": "a9926605bd78c77aca007b884ec04cd48c1d78f41789fa4553ee8e0f4b6c5303",
+      "reason": "Completed one-time editor handoff and fixed-session batch runner",
+      "replacement": "SourceAssets/DungeonPerformance20260923Batch/README.md"
+    },
+    {
+      "original": "SourceAssets/DungeonPerformance20260923Batch/editor_context.py",
+      "archived": "trash/dungeon-performance-rejected-20260923/SourceAssets/DungeonPerformance20260923Batch/editor_context.py",
+      "size_bytes": 462,
+      "sha256": "62cd5e06ee7ab633c8486d37efc7e0c8ff4e5b6f467b15998c46e8344537dd9e",
+      "reason": "Completed one-time editor handoff and fixed-session batch runner",
+      "replacement": "SourceAssets/DungeonPerformance20260923Batch/README.md"
+    },
+    {
+      "original": "SourceAssets/DungeonPerformance20260923Batch/run_editor_batches.ps1",
+      "archived": "trash/dungeon-performance-rejected-20260923/SourceAssets/DungeonPerformance20260923Batch/run_editor_batches.ps1",
+      "size_bytes": 852,
+      "sha256": "f5cfda9b1ca1aa8339146997fd22f61dea60b39926dcdb253b2c00a98773b97e",
+      "reason": "Completed one-time editor handoff and fixed-session batch runner",
+      "replacement": "SourceAssets/DungeonPerformance20260923Batch/README.md"
+    }
+  ]
+}

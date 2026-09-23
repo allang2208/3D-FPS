@@ -25,6 +25,9 @@ def custom(m,code,inputs):
  return n
 def seam_material(gun,original):
  path=D+'/Materials/M_'+gun+'_Continuous';base=original.get_base_material();m=clone(base.get_path_name(),path+'_Graph')
+ # These materials are exclusive to the static magazine's seven-channel seam UVs.
+ for usage in ['used_with_skeletal_mesh','used_with_morph_targets','used_with_clothing','automatically_set_usage_in_editor']:
+  m.set_editor_property(usage,False)
  if isinstance(original,u.MaterialInstanceConstant):
   result=clone(original.get_path_name(),path);values={kind:{str(n):getattr(L,'get_material_instance_'+kind+'_parameter_value')(original,n) for n in getattr(L,'get_'+kind+'_parameter_names')(base)} for kind in ['scalar','vector','texture','static_switch']}
   L.set_material_instance_parent(result,m)

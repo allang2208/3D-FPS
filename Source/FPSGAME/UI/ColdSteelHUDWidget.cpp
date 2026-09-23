@@ -51,6 +51,7 @@
 #include "Misc/Paths.h"
 #include "Styling/SlateTypes.h"
 #include "UObject/UnrealType.h"
+#include "ProfilingDebugging/CpuProfilerTrace.h"
 
 namespace
 {
@@ -159,10 +160,10 @@ void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaT
     if (AmmoRefreshAccumulator >= 0.05f)
     {
         AmmoRefreshAccumulator = 0.0f;
-        RefreshAmmo();
-        RefreshQuickBar();
-        RefreshTopVitals();
-        RefreshWorldClock();
+        // RefreshAmmo already refreshes the quick bar for all of its callers.
+        { TRACE_CPUPROFILER_EVENT_SCOPE(ColdSteelHUD_RefreshAmmo); RefreshAmmo(); }
+        { TRACE_CPUPROFILER_EVENT_SCOPE(ColdSteelHUD_RefreshTopVitals); RefreshTopVitals(); }
+        { TRACE_CPUPROFILER_EVENT_SCOPE(ColdSteelHUD_RefreshWorldClock); RefreshWorldClock(); }
     }
     StatusRefreshAccumulator += InDeltaTime;
     if (StatusRefreshAccumulator >= 0.10f && bInventoryOpen)

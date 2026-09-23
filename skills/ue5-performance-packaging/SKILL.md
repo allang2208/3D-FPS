@@ -1,16 +1,20 @@
 ---
 name: ue5-performance-packaging
-description: UE5.6-UE5.8 performance and packaging readiness workflow. Use when requests involve PIE performance checks, runtime stat review, pre-package validation, build configuration sanity, and release readiness checklists.
+description: UE5.6-UE5.8 performance budgeting, regression diagnosis, and packaging readiness. Use for FPSGAME hot-path, HUD, asset or streaming performance constraints, frame-time analysis, PIE performance work, and packaging readiness.
 ---
 
 ## UE5 默认开发方式（用户确定，2026-09-23）
 
 后台优先：不主动启动 UE 编辑器；不主动检查、测试、启动 PIE、截图或验收渲染；不向其他对话/任务发协调消息。完整规则与「按改动选执行方式」表见仓库根 `AGENTS.md` 和 [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)。
 
+## FPSGAME 性能开发约束（2026-09-23）
+
+功能开发涉及高频刷新、属性查询、场景生成、资源加载或图标时，先按改动范围读取 [FPSGAME 性能开发约束](references/fpsgame-performance-development.md)。把更新触发、重复工作和资源预算纳入实现，不等出现掉帧后再补；此入口不自动启动采样、测试或打包检查。
+
 # Quick Start
-- Confirm target platform and build configuration.
-- Collect current performance symptoms and packaging goal.
-- Output a pre-package checklist plus measurement plan.
+- Distinguish feature development, requested performance diagnosis, and packaging readiness.
+- For development, apply the relevant FPSGAME performance constraints to the changed path.
+- For requested measurements or packaging work, establish the target, scenario and available evidence; report missing evidence instead of inventing results.
 
 # API Anchors (UE5.6-UE5.8)
 - Runtime quality and frame-budget anchors:
@@ -32,15 +36,16 @@ description: UE5.6-UE5.8 performance and packaging readiness workflow. Use when 
   - `stat unit`, `stat gpu`, `stat scenerendering`, `memreport -full`
 
 # Performance and Packaging Contract
-- Every performance/packaging task must define:
+- For explicitly requested performance measurement or packaging readiness, define the applicable items:
   - target platform + build config + test map
   - reproducible capture scenario (camera path, duration, net mode)
   - baseline metrics and acceptance thresholds
   - packaging configuration set and dependency scan scope
   - go/no-go output with explicit blockers
-- If any item is missing, readiness evaluation is incomplete.
+- Missing required evidence limits the conclusion. Ordinary development does not trigger these measurements or packaging checks.
 
 # Workflow
+The capture, audit and readiness actions below apply only when requested; feature development follows the implementation constraints above.
 ## 1) Reproducible Baseline Capture
 - Freeze test map, camera path, scalability, and net mode.
 - Capture `stat unit` and `stat gpu` under same scenario repeatedly.
@@ -81,7 +86,7 @@ description: UE5.6-UE5.8 performance and packaging readiness workflow. Use when 
 - Lock scenario and settings used for sign-off evidence.
 
 # Constraints
-- Do not claim optimization wins without measurable before/after data.
+- Separate user-reported improvement from measured gains; quantify improvements only with comparable before/after data.
 - Keep profiling scenario reproducible (map, camera path, net mode).
 - Distinguish editor overhead from packaged runtime behavior.
 - Avoid changing quality scalability settings without reporting it.
@@ -156,7 +161,7 @@ description: UE5.6-UE5.8 performance and packaging readiness workflow. Use when 
 - 编辑器内只读调用也经同一桥排队，避免插入其他任务的接入批次；编辑器外文件读取可并行。
 - 桥脚本 session 缓存在 `%TEMP%\codex-ue-mcp-session.json`，同机多会话共用：要独立会话加 `-NewSession`。
 - 会硬碰硬的三处：C++ 编译（Live Coding/UBT 只有一个编译窗口）、PIE（一个编辑器同时只有一个 PIE 会话）、同一资产的导入/保存；撞上就排队，别杀进程、别抢别人的编辑器或端口。
-- 细节与依据见 [UE MCP 多会话规则](../ue5-auto-assistant/references/mcp-multi-session.md)。
+- 细节与依据见 [后台开发与批次互斥规则](../ue5-auto-assistant/references/editor-open-development.md)。
 
 性能退化、内存与显存警告归因见 [性能退化诊断](references/performance-regression.md)。
 

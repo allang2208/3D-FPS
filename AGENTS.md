@@ -21,6 +21,7 @@
 - C++ 玩法实现（Actor/Component/DataAsset、UPROPERTY/UFUNCTION、GameplayTags）读 [ue5-cpp-gameplay](skills/ue5-cpp-gameplay/SKILL.md)；世界交互（拾取、生成器、overlap/trace、反馈）读 [ue5-world-interaction](skills/ue5-world-interaction/SKILL.md)；PCG 生成、模块化建筑与运行时高度场地表读 [ue5-pcg-building](skills/ue5-pcg-building/SKILL.md)；PIE 性能、打包前检查与发布就绪读 [ue5-performance-packaging](skills/ue5-performance-packaging/SKILL.md)。
 - UE 模块名（`RenderCore`、`AIModule` 等）到领域的对照表在 [UE 模块索引](skills/ue5-module-router/references/ue5-module-routing-table-final.csv)，**技能分流以本文件上面的清单为准**；该表约 76% 的行指向已不存在的技能（`ue5-architecture`、`ue5-save-load-replication`），只当模块清单查，不要按它的 `TargetSkill` 跳转。
 - 保留动画时序、UI、库存、存档和并行修改。源码编译与真实运行验收分别报告。
+- FPSGAME 后续开发把性能约束纳入制作：触及 HUD／属性／技能读取、场景灯光与几何、纹理或图标加载时，读取 [性能开发约束](skills/ue5-performance-packaging/references/fpsgame-performance-development.md)，复用有界缓存和已有调度，避免重新引入重复刷新、同步等待与无预算资源。保留已恢复的光追／Lumen；本规则不自动授权采样或测试。
 - 截图、渲染与候选图的判读：**交互读图直接用会话内挂载的 `read_image` 工具**（能看图、可追问、不需要 key）；需要批量、headless 调用或刻意不让图片字节进会话历史时才走 [读图脚本](Tools/deepseek-vision.ps1)。用法与边界见 [DeepSeek Flash 读图](Docs/deepseek-vision.md)。读图只做定性确认和差异列表；定量几何用像素测量，最终视觉验收仍由用户拍板。
 - 技能与魔法开发、迁移及左手施法读 [技能／魔法标准工作流](skills/ue5-skill-magic-workflow/SKILL.md)。当前火球左手 V3 已获用户认可，后续复用动作占用、数据接入与完整骨段方法，数值按具体技能调整。
 - 唯一日常开发及 Git 工作目录为 `D:/FPS3D/FPSGAME`，直接从这里提交并推送 `origin/main`。本目录已有独立 `.git`，不依赖 E 盘仓库。E 盘旧仓库/发布副本已退出工作流；不要再建立常驻同步副本。并行修改精确暂存，保留未提交工作。

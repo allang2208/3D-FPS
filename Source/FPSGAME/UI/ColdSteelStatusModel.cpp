@@ -13,7 +13,7 @@ double UColdSteelStatusModel::EquipmentBonusFor(const FColdSteelProfile& State,F
     for(const auto& Item:State.Items)if(Item.Place==1)
     {
         if(ColdSteelInventory::Text(Item,TEXT("weaponType"))==TEXT("shield")&&Item.Cell!=(State.ActiveWeaponSlot==6?8:11))continue;
-        const auto O=CombatItemFormula::Read(Item);if(!O)continue;
+        const auto O=CombatItemFormula::ReadOnly(Item);if(!O)continue;
         double L=0;O->TryGetNumberField(TEXT("enhanceLevel"),L);
         for(const auto& Pair:TArray<TPair<FString,double>>{{TEXT("bonusStats"),1},{TEXT("bonusPerEnhance"),L}})
         {const TSharedPtr<FJsonObject>* B=nullptr;double V=0;if(O->TryGetObjectField(Pair.Key,B)&&(*B)->TryGetNumberField(Name,V))Sum+=V*Pair.Value;}
@@ -39,7 +39,12 @@ void UColdSteelStatusModel::GrantAttributePoints(int32 Amount)
 }
 float UColdSteelStatusModel::Derived(FName Key) const
 {
-    auto Total=[&](FName Key){return double(Attribute(Key))+EquipmentBonus(Key)-int32(EquipmentBonus(Key));};
+    // These branches depend only on raw resources, not the full combat-stat tree.
+    if (Key == TEXT("maxStamina")) return MaxStamina();
+    if (Key == TEXT("maxHp")) return ResourceMaximum(Current,false);
+    if (Key == TEXT("maxMp")) return ResourceMaximum(Current,true);
+    if (Key == TEXT("hpRegen")) return (1+TributeEffect(TEXT("hpRegenFlat")))*TributeEffect(TEXT("hpRegenPercent"));
+    auto Total=[&](FName Key){const double Bonus=EquipmentBonus(Key);return double(Attribute(Key))+Bonus-int32(Bonus);};
     const CoreCombatFormula::Attributes A{Total(TEXT("str")),Total(TEXT("dex")),Total(TEXT("intt")),
         Total(TEXT("con")),Total(TEXT("wis")),Total(TEXT("luck"))};
     const auto S=CoreCombatFormula::Player(A,Level);
@@ -55,9 +60,5 @@ float UColdSteelStatusModel::Derived(FName Key) const
     if (Key == TEXT("mpRegen")) return Resources.MpRegen*TributeEffect(TEXT("mpRegenPercent"));
     if (Key == TEXT("aspd")) return S.AttackSpeed;
     if (Key == TEXT("staminaRegen")) return Resources.StaminaRegen*SetEffect(Key)*TributeEffect(TEXT("staminaRegenPercent"));
-    if (Key == TEXT("maxStamina")) return MaxStamina();
-    if (Key == TEXT("maxHp")) return ResourceMaximum(Current,false);
-    if (Key == TEXT("maxMp")) return ResourceMaximum(Current,true);
-    if(Key==TEXT("hpRegen"))return (1+TributeEffect(TEXT("hpRegenFlat")))*TributeEffect(TEXT("hpRegenPercent"));
     return 0;
 }

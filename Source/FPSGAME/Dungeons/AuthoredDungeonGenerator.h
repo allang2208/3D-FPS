@@ -50,6 +50,7 @@ private:
     void ClearGenerated();
     void UpdateRoomLighting();
     void StartRoomLighting();
+    void ResetRoomLighting();
     TArray<FAuthoredDungeonLightModule> LightModules;
     FTimerHandle RoomLightingTimer;
     double LastLightingUpdateSeconds = 0.0;

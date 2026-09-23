@@ -26,6 +26,7 @@
 #include "Engine/Texture2D.h"
 #include "ImageUtils.h"
 #include "Misc/Paths.h"
+#include "ProfilingDebugging/CpuProfilerTrace.h"
 
 void UColdSteelQuickSlot::Configure(UColdSteelHUDWidget* Owner,int32 SlotIndex,FName InFixedSkill)
 {
@@ -129,6 +130,7 @@ void UColdSteelQuickSlot::NativeTick(const FGeometry& Geometry,float DeltaTime)
 
 void UColdSteelQuickSlot::Refresh()
 {
+    TRACE_CPUPROFILER_EVENT_SCOPE(ColdSteelQuickSlot_Refresh);
     auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();if(!Model||!Icon)return;
     // 专属槽不读混放绑定，恒显固定技能；其余数据（图标、冷却、变暗）走同一条显示路径。
     const auto Binding=FixedSkill.IsNone()?Model->QuickBinding(Index):[&]{FColdSteelQuickBinding B;B.Skill=FixedSkill;return B;}();

@@ -17,6 +17,8 @@
 
 ## 目录与装配提交
 
+新增模块同时遵守 [性能开发约束](../../ue5-performance-packaging/references/fpsgame-performance-development.md)：刚体几何制作与重导策略一致；局部灯既覆盖生成房间，也覆盖固定起始区。复用已有装配分片与房间灯调度，保留近景、碰撞、导航准备顺序和重新生成时的状态恢复。
+
 1. `catalog.modules` 是唯一模块列表。扩展过程中替换它以后，不能继续向旧的 `modules` 局部列表追加。更新全部普通房 ID，并排除重复或缺失 ID。
 2. 基础房、宝箱、新房扩展之后，最后应用 `DungeonRouteRepairs20260922/Scripts/extend_catalog.py`。否则后运行的旧安装器可能恢复旧门洞、丢失侧门或禁用 Boss。增量安装保留地图现有扩展与宝箱配置。
 3. 装配先预载资产，暂存新 Actor、布局描述和清单，完成后再替换旧实例。失败只清理本批暂存物并恢复目录及资源引用。安装器只有看到 `DungeonAssembly.Ready` 且没有 `DungeonAssembly.Failed` 才保存目标地图。

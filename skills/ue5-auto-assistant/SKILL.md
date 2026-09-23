@@ -9,6 +9,10 @@ description: UE5.6-UE5.8 automatic assistant entry for beginners. Use when users
 
 - **MCP 效率约定（2026-09-20）**：复用本任务已读 schema；已知操作批量执行，动态依赖优先编辑器内脚本；桥接输出使用唯一新 OutputFile 配合 MaxOutputChars 3000，按需读取完整结果。具体参数、失败边界与兼容性见 [开发规则](references/editor-open-development.md#mcp-效率与-token-约定2026-09-20)。
 
+## FPSGAME 性能开发约束（2026-09-23）
+
+FPSGAME 新功能也要按实际改动带入 [性能开发约束](../ue5-performance-packaging/references/fpsgame-performance-development.md)，尤其是 HUD／属性读取、地牢灯与模型、纹理／图标加载。性能约束落实在制作中；它不授权额外全项目审计、运行采样或测试。
+
 # Quick Start
 - Treat this as the default entry for UE5.6-UE5.8 requests.
 - Parse user intent first without requiring module names.

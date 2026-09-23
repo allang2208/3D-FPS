@@ -7,6 +7,10 @@ description: Build or migrate UE5.6-UE5.8 day-night and weather systems using fr
 
 后台优先：不主动启动 UE 编辑器；不主动检查、测试、启动 PIE、截图或验收渲染；不向其他对话/任务发协调消息。完整规则与「按改动选执行方式」表见仓库根 `AGENTS.md` 和 [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)。
 
+## FPSGAME 性能开发约束（2026-09-23）
+
+修改光照或新增大量局部灯时，读取 [性能开发约束](../ue5-performance-packaging/references/fpsgame-performance-development.md) 的灯光与归因部分。保留项目已恢复的硬件光追、Lumen 和昼夜配光基线；按实际耗时处理重复更新、局部灯距离及生命周期。
+
 # UE5 weather workflow
 
 Use this skill for the current Unreal migration when work touches the game clock,

@@ -192,7 +192,12 @@ for index in range(len(slots)):
 
 # --- shading / collision policy ---
 nanite = mesh.get_editor_property('nanite_settings')
-nanite.enabled = False
+nanite.enabled = True
+nanite.explicit_tangents = True
+nanite.generate_fallback = u.NaniteGenerateFallback.ENABLED
+nanite.fallback_target = u.NaniteFallbackTarget.PERCENT_TRIANGLES
+nanite.fallback_percent_triangles = 1.0
+nanite.fallback_relative_error = 0.0
 mesh.set_editor_property('nanite_settings', nanite)
 # Irregular scanned surface: no simple primitives, triangle mesh is the collision
 # (project rule for shells/curved meshes - generated sphere/sphyl primitives would

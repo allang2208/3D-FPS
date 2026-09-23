@@ -46,13 +46,12 @@ bool UColdSteelWeaponIcons::PrepareMelee(const FColdSteelItem& Item)
         CaptureMeshes.Add(Part);
         for(auto* Material:Part->GetMaterials())if(Material)CaptureMaterials.AddUnique(Material);
         for(int32 Slot=0;Slot<Part->GetNumMaterials();++Slot)if(auto* Overlay=Part->GetOverlayMaterial(true,Slot))CaptureMaterials.AddUnique(Overlay);
-        Part->PrestreamTextures(12.f,true);
     }
     for(UMaterialInterface* Material:CaptureMaterials)
     {
         TArray<UTexture*> UsedTextures;Material->GetUsedTextures(UsedTextures);
-        for(auto* Texture:UsedTextures)if(Texture){CaptureTextures.AddUnique(Texture);Texture->SetForceMipLevelsToBeResident(12.f);}
+        for(auto* Texture:UsedTextures)if(Texture)CaptureTextures.AddUnique(Texture);
     }
-    MeleeMesh->PrestreamTextures(12.f,true);Studio->GetWorld()->SendAllEndOfFrameUpdates();
+    RequestCaptureTextureMips();Studio->GetWorld()->SendAllEndOfFrameUpdates();
     return true;
 }

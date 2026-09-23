@@ -52,7 +52,7 @@ FHolyLightCast UColdSteelStatusModel::HolyLightStats(int32 AtLevel) const
             C.CastHasteStacks=Craft(TEXT("castHasteStacks"));C.CastHasteDuration=E->CraftEffect(*Item,TEXT("castHasteDuration"),5000)/1000;
             C.RenewalStacks=Craft(TEXT("holyLightHoTStacks"));C.RenewalSeconds=E->CraftEffect(*Item,TEXT("holyLightHoTSeconds"),3);
             C.HealHasteStacks=Craft(TEXT("lightHasteStacks"));C.HealHasteSeconds=E->CraftEffect(*Item,TEXT("lightHasteDuration"),5000)/1000;
-            const auto Data=CombatItemFormula::Read(*Item);const TSharedPtr<FJsonObject>* Effects=nullptr;FString Specialty;
+            const auto Data=CombatItemFormula::ReadOnly(*Item);const TSharedPtr<FJsonObject>* Effects=nullptr;FString Specialty;
             if(Data&&Data->TryGetObjectField(TEXT("_craftEffects"),Effects)&&(*Effects)->TryGetStringField(TEXT("staffSpecialty"),Specialty)&&Specialty==TEXT("light"))
                 HealFactor+=Craft(TEXT("lightHealPercent"));
         }

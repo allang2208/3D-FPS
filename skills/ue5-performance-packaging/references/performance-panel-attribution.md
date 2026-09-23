@@ -4,6 +4,8 @@
 
 ## 时间与观察范围
 
+- Slate.WindowPaint 内可能嵌套游戏 HUD NativeTick。2026-09-23 地牢案例通过 trace 才将周期性慢帧归到 HUD；看到窗口 Paint 高不能直接归咎编辑器外壳，看到光追／VSM 警告也不能跳过 CPU 归因。已有明确热点时，开发约束见 [高频路径与资源预算](fpsgame-performance-development.md)。
+
 - 先确认 schema、地图、运行模式、相机、分辨率、质量设置、样本窗口和暂停/后台状态。不同 session 或视角的数据不能直接宣称为优化前后收益。
 - 用单调时钟将 CPU scope 与帧区间裁剪后关联；父子 scope 不重复求和。没有来源帧 ID 的 Game/Draw/GPU 发布读数保留各自分布，不自行平移来制造逐帧对应。
 - `Slate.TickAndDrawWidgets` 是进程级区间，可能包含其他编辑器窗口、布局、绘制和缓冲等待。`Slate.WindowPaint` 只覆盖窗口 Paint；两者之差不能直接命名为等待。性能页刷新一次的耗时也不是每帧耗时。

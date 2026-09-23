@@ -7,6 +7,10 @@ description: UE5.6-UE5.8 PCG generation and runtime-heightfield ground workflow 
 
 后台优先：不主动启动 UE 编辑器；不主动检查、测试、启动 PIE、截图或验收渲染；不向其他对话/任务发协调消息。完整规则与「按改动选执行方式」表见仓库根 `AGENTS.md` 和 [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)。
 
+## FPSGAME 性能开发约束（2026-09-23）
+
+扩展地牢、灯光或高密度模块时，读取 [性能开发约束](../ue5-performance-packaging/references/fpsgame-performance-development.md) 的灯光与几何部分。固定起始区与新增房间都接入灯光调度；模型资产和后续导入脚本同步保留 Nanite／LOD、材质用途与碰撞策略。
+
 # Quick Start
 
 - 扩展已认可样板、随机房间池、门洞拼接、岔路和 Boss 终点时，读取 [保留设计语义的随机地牢](references/authored-dungeon-generation.md)。

@@ -7,6 +7,10 @@ description: 开发和迁移 FPSGAME 的主动、被动技能与魔法，贯通�
 
 后台优先：不主动启动 UE 编辑器；不主动检查、测试、启动 PIE、截图或验收渲染；不向其他对话/任务发协调消息。完整规则与「按改动选执行方式」表见仓库根 `AGENTS.md` 和 [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)。
 
+## FPSGAME 性能开发约束（2026-09-23）
+
+新增技能、被动、属性加成或快捷栏说明时，读取 [性能开发约束](../ue5-performance-packaging/references/fpsgame-performance-development.md) 的高频路径部分。界面只读查询复用解析结果，不递归重复计算整套属性；技能等级、装备、临时状态和时间变化必须继续影响即时结算。
+
 # UE5 技能与魔法开发
 
 实际工程为 `D:/FPS3D/FPSGAME`。用户于 2026-09-14 确认火球左手 V3「基本达到预期」，指定本工作流为后续技能／魔法标准。此确认针对当前效果，不代表所有武器、联机或异常状态均经过回归。

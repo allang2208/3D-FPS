@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 
-class UPointLightComponent;
+class ULocalLightComponent;
 
 namespace AuthoredDungeonLighting
 {
@@ -11,9 +11,12 @@ namespace AuthoredDungeonLighting
 
 struct FAuthoredDungeonLight
 {
-    TWeakObjectPtr<UPointLightComponent> Component;
+    TWeakObjectPtr<ULocalLightComponent> Component;
     float FullIntensity = 0.f;
     float Alpha = 1.f;
+    bool bPreservedActor = false;
+    float OriginalDrawDistance = 0.f;
+    float OriginalFadeRange = 0.f;
 };
 
 struct FAuthoredDungeonLightPortal
