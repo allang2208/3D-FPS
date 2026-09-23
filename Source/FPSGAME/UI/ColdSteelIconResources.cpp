@@ -5,6 +5,7 @@
 #include "../Weapons/FrostSwordRunes.h"
 #include "../Weapons/A762Attachments.h"
 #include "../Weapons/PKMAttachments.h"
+#include "../Weapons/PKMBipodComponent.h"
 #include "../Weapons/M16Attachments.h"
 #include "../Weapons/M16WeaponAssets.h"
 #include "../Weapons/QBZ191Attachments.h"
@@ -106,7 +107,12 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
             else if(Key==TEXT("canted_foregrip"))Key=TEXT("canted");
             else if(Key==TEXT("prism_handstop"))Key=TEXT("prism");
             if(D==TEXT("ue_a762"))Add(A762Attachments::MeshPath(Key));
-            else if(D==TEXT("ue_pkm_lowpoly"))Add(PKMAttachments::MeshPath(Key));
+            else if(D==TEXT("ue_pkm_lowpoly"))
+            {
+                if(Key==TEXT("pkm_bipod"))
+                {Add(PKMBipodAssets::Base);Add(PKMBipodAssets::LegA);Add(PKMBipodAssets::LegB);}
+                else Add(PKMAttachments::MeshPath(Key));
+            }
             else if(D==TEXT("ue_m16a2"))Add(M16Attachments::MeshPath(Key));
             else if(D==TEXT("ue_qbz191"))Add(QBZ191Attachments::MeshPath(Key));
             else if(D==TEXT("ue_ash12"))Add(ASH12WeaponAssets::OpticMeshPath(Key));

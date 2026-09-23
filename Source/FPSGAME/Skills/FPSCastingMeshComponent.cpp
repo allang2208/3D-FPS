@@ -42,6 +42,8 @@ void UFPSCastingMeshComponent::FinalizeBoneTransform()
     if(bCastActive&&IsVisible()&&!bHiddenInGame){ApplyCastPose(Magic);bApplied=true;}
     // 火球施法结束（不再占用左手）时清入场快照，下一次施法重新捕获。
     if(!bCastActive){EntrySerial=0;EntryLocal.Reset();}
+    CarryHandleDynamics.Apply(*this, GetEditableComponentSpaceTransforms());
+    OutgoingBeltDynamics.Apply(*this, GetEditableComponentSpaceTransforms());
     Super::FinalizeBoneTransform();
 }
 

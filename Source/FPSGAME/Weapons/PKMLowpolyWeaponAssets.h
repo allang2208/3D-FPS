@@ -11,9 +11,18 @@ namespace PKMLowpolyWeaponAssets
 {
 inline constexpr const TCHAR* Definition = TEXT("ue_pkm_lowpoly");
 inline constexpr const TCHAR* MeshPath = TEXT("/Game/Weapons/PKMLowpoly20260922/Accessories14/SK_PKM_Manny_Modular.SK_PKM_Manny_Modular");
+inline constexpr const TCHAR* WetMaterialsPath = TEXT("/Game/Weapons/PKMLowpoly20260922/Finish20/DA_PKM_WetMaterials.DA_PKM_WetMaterials");
 // PKM keeps its own fire one-shot. It replaces the AKM voice the family fallback
 // used to borrow; source and level record: SourceAssets/PKMLowpolyAudio20260922.
 inline constexpr const TCHAR* FireSoundPath = TEXT("/Game/Weapons/PKMLowpoly20260922/Audio/S_PKM_Fire.S_PKM_Fire");
+inline FString ReloadSoundPath(const TCHAR* Contact)
+{
+    return FString::Printf(TEXT("/Game/Weapons/PKMLowpoly20260922/ReloadAudio22/S_PKM_%s.S_PKM_%s"),Contact,Contact);
+}
+inline FString ChargeSoundPath(const TCHAR* Contact)
+{
+    return FString::Printf(TEXT("/Game/Weapons/PKMLowpoly20260922/ChargeAudio35/S_PKM_%s.S_PKM_%s"),Contact,Contact);
+}
 inline bool Matches(const USkeletalMeshComponent* Mesh)
 {
     return Mesh && Mesh->GetSkeletalMeshAsset() && Mesh->GetSkeletalMeshAsset()->GetPathName().StartsWith(TEXT("/Game/Weapons/PKMLowpoly20260922/"));
@@ -40,34 +49,7 @@ inline void RemoveBipod(AActor* Owner)
 {
     if (auto* Part=FindBipod(Owner)) Part->DestroyComponent();
 }
-inline void ConfigureBipod(AActor* Owner, USkeletalMeshComponent* Weapon, bool Enabled)
-{
-    auto* Part=FindBipod(Owner);
-    if (Part) Part->SetVisibility(false);
-    if (!Enabled || !Matches(Weapon)) return;
-    auto* Asset=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Weapons/PKMLowpoly20260922/Bipod07/SM_PKM_Bipod.SM_PKM_Bipod"));
-    if (!Asset) { UE_LOG(LogTemp,Error,TEXT("PKM_BIPOD: missing attachment mesh")); return; }
-    const auto& Ref=Weapon->GetSkeletalMeshAsset()->GetRefSkeleton();
-    const int32 RootIndex=Ref.FindBoneIndex(TEXT("WPN_root"));
-    if (RootIndex==INDEX_NONE) return;
-    if (!Part)
-    {
-        Part=NewObject<UStaticMeshComponent>(Owner,TEXT("PKMBipod"));
-        Owner->AddInstanceComponent(Part);
-        Part->ComponentTags.Add(TEXT("PKMBipod"));
-        Part->SetupAttachment(Weapon,TEXT("WPN_root"));
-        Part->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-        Part->SetCastShadow(false);Part->bReceivesDecals=false;
-        Part->RegisterComponent();
-    }
-    Part->SetStaticMesh(Asset);
-    // The separated mesh retains the rifle's component bind coordinates.
-    // Cancel the socket's bind transform once, then follow its animated pose.
-    FTransform Root=FTransform::Identity;
-    for (int32 I=RootIndex;I!=INDEX_NONE;I=Ref.GetParentIndex(I)) Root=Root*Ref.GetRefBonePose()[I];
-    Part->SetRelativeTransform(Root.Inverse());
-    Part->SetVisibility(true);
-}
+void ConfigureBipod(AActor* Owner, USkeletalMeshComponent* Weapon, bool Enabled);
 // Animated props move at their authored size. Hidden parked duplicates never
 // participate in item framing or appear during the action-to-idle handoff.
 inline void SetSections(USkeletalMeshComponent* Mesh, bool Reloading, bool Empty, float SourceTime, int32 Rounds)

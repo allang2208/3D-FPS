@@ -20,6 +20,9 @@ struct FWeaponHandling
     float Stability = 50.f;
 
     static FWeaponHandling FromIndices(double Recoil, double Shake, double StabilityMultiplier = 1.);
+    // Temporary stance bonus on the already-composed rating, without mutating
+    // equipment stats or re-clamping its effective shake index as raw input.
+    FWeaponHandling WithStabilityMultiplier(double Multiplier) const;
     static FVector2D Pattern(int32 ShotIndex);
     static constexpr int32 PatternCount = 9;
     float RecoveryRate() const { return 1.f / RecoveryTimeScale; }

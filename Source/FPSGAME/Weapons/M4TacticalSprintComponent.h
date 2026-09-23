@@ -8,7 +8,7 @@ class UAnimSequence;
 class UFPSGunplayAnimInstance;
 
 enum class EM4SprintGrip : uint8 { Base, Drum, Angled, Vertical, Canted, Prism };
-enum class ERifleSprintWeapon : uint8 { None, M4, AKM, QBZ191, ASH12, M16 };
+enum class ERifleSprintWeapon : uint8 { None, M4, AKM, QBZ191, ASH12, M16, PKM, SVD };
 
 // Presentation only: the character retains ownership of speed and fire timing.
 UCLASS()

@@ -1,5 +1,6 @@
 #include "../FPSGAMECharacter.h"
 #include "A762Attachments.h"
+#include "PKMAttachments.h"
 #include "M16Attachments.h"
 #include "AKMAttachmentVisual.h"
 #include "QBZ191Attachments.h"
@@ -14,7 +15,7 @@
 void AFPSGAMECharacter::InitializeCantedGripAnimations()
 {
     CantedGripAnimations.Reset();
-    if(!bUsingM4Infima&&!AKMSoviet::Matches(AKMViewmodel)&&!A762WeaponAssets::Matches(AKMViewmodel))return;
+    if(!bUsingM4Infima&&!AKMSoviet::Matches(AKMViewmodel)&&!A762WeaponAssets::Matches(AKMViewmodel)&&!PKMLowpolyWeaponAssets::Matches(AKMViewmodel))return;
     const TPair<UAnimSequence*,const TCHAR*> Clips[]={
         {IdleAnimation,TEXT("idle")},{AimAnimation,TEXT("aim")},
         {FireAnimation,TEXT("fire")},{AimFireAnimation,TEXT("aim_fire")},
@@ -23,19 +24,20 @@ void AFPSGAMECharacter::InitializeCantedGripAnimations()
         {DrumReloadEmptyAnimation,TEXT("drum_reload_empty")}};
     for(const auto& Pair:Clips)
     {
-        if((bUseQBZ191||bUseASH12||bUseM16)&&!Pair.Key)continue;
-        const FString Path=A762WeaponAssets::Matches(AKMViewmodel)?A762Attachments::AnimationPath(TEXT("canted"),Pair.Value):bUseM16?M16Attachments::AnimationPath(TEXT("canted"),Pair.Value):bUseASH12?ASH12WeaponAssets::GripAnimationPath(TEXT("canted"),Pair.Value):bUseQBZ191?QBZ191Attachments::AnimationPath(TEXT("canted"),Pair.Value):AKMSoviet::Matches(AKMViewmodel)?AKMAttachment::GripAnimationPath(TEXT("canted"),Pair.Value):FString::Printf(TEXT("/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_%s"),Pair.Value);
+        if(!Pair.Key)continue;
+        const FString Path=PKMLowpolyWeaponAssets::Matches(AKMViewmodel)?PKMAttachments::AnimationPath(TEXT("canted"),Pair.Value):A762WeaponAssets::Matches(AKMViewmodel)?A762Attachments::AnimationPath(TEXT("canted"),Pair.Value):bUseM16?M16Attachments::AnimationPath(TEXT("canted"),Pair.Value):bUseASH12?ASH12WeaponAssets::GripAnimationPath(TEXT("canted"),Pair.Value):bUseQBZ191?QBZ191Attachments::AnimationPath(TEXT("canted"),Pair.Value):AKMSoviet::Matches(AKMViewmodel)?AKMAttachment::GripAnimationPath(TEXT("canted"),Pair.Value):FString::Printf(TEXT("/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_%s"),Pair.Value);
         auto* Clip=LoadObject<UAnimSequence>(nullptr,*Path);
         if(Pair.Key&&Clip&&FMath::IsNearlyEqual(Pair.Key->GetPlayLength(),Clip->GetPlayLength(),.001f))CantedGripAnimations.Add(Pair.Key,Clip);
         else UE_LOG(LogTemp,Error,TEXT("CANTED_GRIP: missing or mismatched clip %s"),*Path);
     }
-    if(bUseM16&&InspectAnimation)
-        if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*M16Attachments::AnimationPath(TEXT("canted"),TEXT("inspect"))))
+    if((bUseM16||PKMLowpolyWeaponAssets::Matches(AKMViewmodel))&&InspectAnimation)
+        if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*(PKMLowpolyWeaponAssets::Matches(AKMViewmodel)?PKMAttachments::AnimationPath(TEXT("canted"),TEXT("inspect")):M16Attachments::AnimationPath(TEXT("canted"),TEXT("inspect")))))
             CantedGripAnimations.Add(InspectAnimation,Clip);
 }
 
 void AFPSGAMECharacter::SetCantedForegrip(bool bEnabled)
 {
+    if(PKMLowpolyWeaponAssets::Matches(AKMViewmodel)){CantedForegrip=PKMAttachments::Configure(this,AKMViewmodel,CantedForegrip,TEXT("canted"),bEnabled&&bInventoryWeaponReady);return;}
     if(A762WeaponAssets::Matches(AKMViewmodel)){CantedForegrip=A762Attachments::Configure(this,AKMViewmodel,CantedForegrip,TEXT("canted"),bEnabled&&bInventoryWeaponReady);return;}
     if(bUseM16){CantedForegrip=M16Attachments::Configure(this,AKMViewmodel,CantedForegrip,TEXT("canted"),bEnabled&&bInventoryWeaponReady);return;}
     if(bUseASH12){CantedForegrip=ASH12Attachments::Configure(this,AKMViewmodel,CantedForegrip,TEXT("canted"),bEnabled&&bInventoryWeaponReady);return;}

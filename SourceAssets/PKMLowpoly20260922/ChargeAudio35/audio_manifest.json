@@ -1,0 +1,62 @@
+{
+  "source_url": "https://www.bilibili.com/video/BV1jHeA6sEmj/",
+  "source_file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PKMLowpoly20260922\\References\\PKM_UserReloadReference.mp4",
+  "source_sha256": "635e754a54108ee3caa59ba718dbbf077bb1660a7e5d39cc2c04a55644bdfe69",
+  "rights": "User-provided game-video reference; source recording and derivatives retained locally; redistribution rights not established.",
+  "processing": "Video original mix, mono 48 kHz PCM16; 80 Hz highpass; movement only stretched without pitch change; stop attacks trimmed to onset; fades; shared -4 dBFS set peak.",
+  "common_gain_db": -0.22140514287644383,
+  "contacts": [
+    {
+      "name": "ChargePullMove",
+      "asset_name": "S_PKM_ChargePullMove",
+      "wav": "S_PKM_ChargePullMove.wav",
+      "video_start": 24.18,
+      "video_end": 24.71,
+      "trim_lead_seconds": 0.0,
+      "empty_source_time": 5.13,
+      "duration": 0.23,
+      "tempo": 2.3043478260869614,
+      "settings_reference": "/Game/Weapons/PKMLowpoly20260922/ReloadAudio22/S_PKM_ChargePull",
+      "wav_sha256": "2fd0a9c2b0214e82ab9d6082af91481dbc1e2feda872ea49f8bec0302ac27395"
+    },
+    {
+      "name": "ChargeRearStop",
+      "asset_name": "S_PKM_ChargeRearStop",
+      "wav": "S_PKM_ChargeRearStop.wav",
+      "video_start": 24.71,
+      "video_end": 24.905,
+      "trim_lead_seconds": 0.003,
+      "empty_source_time": 5.36,
+      "duration": 0.192,
+      "tempo": 1.0,
+      "settings_reference": "/Game/Weapons/PKMLowpoly20260922/ReloadAudio22/S_PKM_ChargePull",
+      "wav_sha256": "d85013025c4f7490547ad717de8112b8f350ee8f4a5d8f9723943386cdd8ab59"
+    },
+    {
+      "name": "ChargePushMove",
+      "asset_name": "S_PKM_ChargePushMove",
+      "wav": "S_PKM_ChargePushMove.wav",
+      "video_start": 24.905,
+      "video_end": 25.01,
+      "trim_lead_seconds": 0.0,
+      "empty_source_time": 5.48,
+      "duration": 0.34,
+      "tempo": 0.30882352941176594,
+      "settings_reference": "/Game/Weapons/PKMLowpoly20260922/ReloadAudio22/S_PKM_ChargeRelease",
+      "wav_sha256": "c91d1410f4bd1ceeaa02b0cf962d107bbf18807be48473e45793ade9596ce5e5"
+    },
+    {
+      "name": "ChargeFrontStop",
+      "asset_name": "S_PKM_ChargeFrontStop",
+      "wav": "S_PKM_ChargeFrontStop.wav",
+      "video_start": 25.01,
+      "video_end": 25.225,
+      "trim_lead_seconds": 0.003,
+      "empty_source_time": 5.82,
+      "duration": 0.212,
+      "tempo": 1.0,
+      "settings_reference": "/Game/Weapons/PKMLowpoly20260922/ReloadAudio22/S_PKM_ChargeRelease",
+      "wav_sha256": "89e9842853d8c513760325710e9e22dd63155bbb952ae617a2f75358906393c3"
+    }
+  ]
+}

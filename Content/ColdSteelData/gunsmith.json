@@ -9,7 +9,8 @@
     "扳机",
     "战术挂件",
     "前握把",
-    "装填装置"
+    "装填装置",
+    "脚架"
   ],
   "defaults": [
     "原厂瞄具",
@@ -21,7 +22,8 @@
     "标准扳机",
     "无战术挂件",
     "无前握把",
-    "逐发装填"
+    "逐发装填",
+    "无脚架"
   ],
   "fixtures": [],
   "slots": [
@@ -34,7 +36,8 @@
     "trigger",
     "tactical",
     "underbarrel",
-    "reload_device"
+    "reload_device",
+    "bipod"
   ],
   "version": 1,
   "weapons": [
@@ -3907,7 +3910,8 @@
         "underbarrel",
         "stock",
         "reargrip",
-        "tactical"
+        "tactical",
+        "bipod"
       ],
       "base": {
         "spread_mult": 2.5,
@@ -3934,7 +3938,7 @@
         "underbarrel": [
           {
             "id": "false",
-            "name": "原厂托握（无脚架）",
+            "name": "原厂托握",
             "description": "保持当前机匣前下方托握。",
             "effects": [],
             "stats": {}
@@ -4053,11 +4057,20 @@
               "recoil_mult": 0.85,
               "stability_mult": 1.15
             }
+          }
+        ],
+        "bipod": [
+          {
+            "id": "false",
+            "name": "无脚架",
+            "description": "默认配置，拆下脚架及其夹座。可选择前握把改造。",
+            "effects": [],
+            "stats": {}
           },
           {
             "id": "pkm_bipod",
-            "name": "PKM 折叠脚架",
-            "description": "安装原厂折叠脚架，随枪体运动。当前为收拢状态。",
+            "name": "PKM 脚架",
+            "description": "独立安装的脚架，两条支腿默认向下，随移动轻微摆动并逐渐回稳。可与前握把同时装备。",
             "effects": [],
             "stats": {}
           }

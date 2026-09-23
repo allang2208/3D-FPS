@@ -89,7 +89,23 @@ const FGunsmithWeapon* UGunsmithSystem::Weapon(const FString& D)const{return Wea
 const FGunsmithOption* UGunsmithSystem::Option(const FString& D,const FString& S,const FString& Id)const{const auto* W=ModifiableWeapon(D);if(!W||!W->Allowed.Contains(S))return nullptr;const auto* A=W->Options.Find(S);return A?A->FindByPredicate([&](const auto& V){return V.Id==Id;}):nullptr;}
 FGunsmithParts UGunsmithSystem::Normalize(const FString& D,const FGunsmithParts& Input)const
 {
-    FGunsmithParts Result;for(const auto& P:Input){FString Id=P.Key==TEXT("blade_2")?ColdSteelFrostRunes::Upgrade(D,P.Value):P.Value;if(P.Key==TEXT("stock")&&Id==TEXT("true"))Id=TEXT("compact");if(Id!=TEXT("false")&&Option(D,P.Key,Id))Result.Add(P.Key,Id);}return Result;
+    FGunsmithParts Result;
+    for(const auto& P:Input)
+    {
+        FString Slot=P.Key;
+        // Earlier PKM instances stored the optional bipod in the grip slot.
+        // Only an explicitly installed old bipod migrates; empty/new loadouts
+        // stay empty, and an explicit new-slot choice always wins.
+        if(D==TEXT("ue_pkm_lowpoly") && Slot==TEXT("underbarrel") && P.Value==TEXT("pkm_bipod"))
+        {
+            if(Input.Contains(TEXT("bipod")))continue;
+            Slot=TEXT("bipod");
+        }
+        FString Id=Slot==TEXT("blade_2")?ColdSteelFrostRunes::Upgrade(D,P.Value):P.Value;
+        if(Slot==TEXT("stock")&&Id==TEXT("true"))Id=TEXT("compact");
+        if(Id!=TEXT("false")&&Option(D,Slot,Id))Result.Add(Slot,Id);
+    }
+    return Result;
 }
 FGunsmithParts UGunsmithSystem::Installed(const FColdSteelItem& I)const
 {

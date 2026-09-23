@@ -1,5 +1,26 @@
 #include "WeaponHandling.h"
 
+namespace
+{
+void ApplyStabilityScore(FWeaponHandling& R,double Score)
+{
+    const double Target=FMath::Clamp(Score,0.,100.);
+    // Below the legacy 400-shake boundary (25 points), continue the inverse
+    // curve along its tangent. This reaches zero points with finite feedback,
+    // matching both the value and slope at 25 instead of dividing by zero.
+    constexpr double Boundary = 25.;
+    const double Severity = Target >= Boundary ? 100. / Target - 1.
+        : 100. / Boundary - 1. + (Boundary - Target) * 100. / (Boundary * Boundary);
+    // Solve x*x + x = 2*Severity, where x is sqrt(shake amplitude).
+    // This equivalent root avoids subtracting near-equal numbers at 100 points.
+    const double Root = 4. * Severity / (FMath::Sqrt(1. + 8. * Severity) + 1.);
+    R.ShakeScale = Root * Root;
+    R.ShakeIndex = R.ShakeScale * 100.f;
+    R.RecoveryTimeScale = FMath::Max(FWeaponHandling::MinimumRecoveryTimeScale, static_cast<float>(Root));
+    R.Stability = Target;
+}
+}
+
 FWeaponHandling FWeaponHandling::FromIndices(double Recoil, double Shake, double StabilityMultiplier)
 {
     FWeaponHandling R;
@@ -12,21 +33,14 @@ FWeaponHandling FWeaponHandling::FromIndices(double Recoil, double Shake, double
     // continuous down to zero shake; the physical time floor is applied below.
     const double BaseStability = 100. / (1. + .5 * R.ShakeScale + .5 * FMath::Sqrt(R.ShakeScale));
     const double Multiplier = FMath::IsFinite(StabilityMultiplier) ? StabilityMultiplier : 1.;
-    const double Target = FMath::Clamp(BaseStability * Multiplier, 0., 100.);
+    ApplyStabilityScore(R,BaseStability*Multiplier);
+    return R;
+}
 
-    // Below the legacy 400-shake boundary (25 points), continue the inverse
-    // curve along its tangent. This reaches zero points with finite feedback,
-    // matching both the value and slope at 25 instead of dividing by zero.
-    constexpr double Boundary = 25.;
-    const double Severity = Target >= Boundary ? 100. / Target - 1.
-        : 100. / Boundary - 1. + (Boundary - Target) * 100. / (Boundary * Boundary);
-    // Solve x*x + x = 2*Severity, where x is sqrt(shake amplitude).
-    // This equivalent root avoids subtracting near-equal numbers at 100 points.
-    const double Root = 4. * Severity / (FMath::Sqrt(1. + 8. * Severity) + 1.);
-    R.ShakeScale = Root * Root;
-    R.ShakeIndex = R.ShakeScale * 100.f;
-    R.RecoveryTimeScale = FMath::Max(MinimumRecoveryTimeScale, static_cast<float>(Root));
-    R.Stability = Target;
+FWeaponHandling FWeaponHandling::WithStabilityMultiplier(double Multiplier) const
+{
+    FWeaponHandling R=*this;
+    if(FMath::IsFinite(Multiplier) && Multiplier!=1.)ApplyStabilityScore(R,Stability*Multiplier);
     return R;
 }
 

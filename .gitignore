@@ -497,3 +497,17 @@ __pycache__/
 # Main-scene performance: publish source recipes, keep capture receipts and recovery copies local.
 /SourceAssets/MainScenePerformance20260923/Receipts/
 /SourceAssets/MainScenePerformance20260923/Before/
+
+# PKM lowpoly reconstruction: recipes and attribution only; licensed payloads stay local.
+/SourceAssets/PKMLowpoly20260922/**
+!/SourceAssets/PKMLowpoly20260922/**/
+!/SourceAssets/PKMLowpoly20260922/**/*.py
+!/SourceAssets/PKMLowpoly20260922/**/*.ps1
+!/SourceAssets/PKMLowpoly20260922/**/*.md
+!/SourceAssets/PKMLowpoly20260922/**/*.hlsl
+!/SourceAssets/PKMLowpoly20260922/finish_settings.json
+!/SourceAssets/PKMLowpoly20260922/BeltAudio22/audio_manifest.json
+!/SourceAssets/PKMLowpoly20260922/ChargeAudio35/audio_manifest.json
+/SourceAssets/PKMLowpoly20260922/Original/
+/SourceAssets/PKMLowpoly20260922/**/Before/
+/SourceAssets/PKMLowpoly20260922/**/BeforeImport/

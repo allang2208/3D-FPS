@@ -4,6 +4,7 @@
 #include "NiagaraSystem.h"
 #include "AKMSovietCalibration.h"
 #include "A762WeaponAssets.h"
+#include "PKMLowpolyWeaponAssets.h"
 #include "ASH12WeaponAssets.h"
 #include "../FPSGAMECharacter.h"
 
@@ -709,7 +710,7 @@ void UFPSWeaponFXComponent::SpawnCasing()
                 FMath::FRandRange(185.0f, 260.0f), FMath::FRandRange(70.0f, 125.0f)))
                 + GetOwner()->GetVelocity();
             P->Acceleration = FVector(0.0f, 0.0f, GetWorld()->GetGravityZ());
-            const float LengthCM = Character->bUseASH12 ? ASH12WeaponAssets::TracerLengthCM
+            const float LengthCM = PKMLowpolyWeaponAssets::Matches(WeaponMesh) ? 5.4f : Character->bUseASH12 ? ASH12WeaponAssets::TracerLengthCM
                 : Character->bUseQBZ191 ? 4.2f : (AKMSoviet::Matches(WeaponMesh) || A762WeaponAssets::Matches(WeaponMesh)) ? 3.9f : 4.5f;
             const FVector Extent = Geometry->GetBounds().BoxExtent;
             const int32 LongAxis = Extent.X > Extent.Y ? (Extent.X > Extent.Z ? 0 : 2) : (Extent.Y > Extent.Z ? 1 : 2);

@@ -36,7 +36,7 @@
 #include "Serialization/JsonSerializer.h"
 #endif
 
-bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelMeleePreview::Supports(I)||I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_a762")||I.Definition==TEXT("ue_qbz191")||I.Definition==TEXT("ue_ash12")||I.Definition==TEXT("ue_m16a2")||(I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_dan_wesson715"));}
+bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelMeleePreview::Supports(I)||I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_a762")||I.Definition==TEXT("ue_pkm_lowpoly")||I.Definition==TEXT("ue_qbz191")||I.Definition==TEXT("ue_ash12")||I.Definition==TEXT("ue_m16a2")||(I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_dan_wesson715"));}
 FString UColdSteelWeaponIcons::Key(const FColdSteelItem& I) const
 {
     if(ColdSteelModularSword::Supports(I))return I.Definition+TEXT("|")+ColdSteelModularSword::Key(I,nullptr,!bCatalogExport);
@@ -151,8 +151,8 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     }
     const auto Parts=bCatalogExport?FGunsmithParts():GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(I);
     // One fitting per tick; the game-thread component APIs are not thread safe.
-    if(AttachmentStep<8){
-        const TCHAR* Slots[]={TEXT("underbarrel"),TEXT("optic"),TEXT("magazine"),TEXT("muzzle"),TEXT("stock"),TEXT("reargrip"),TEXT("tactical"),TEXT("sights")};
+    if(AttachmentStep<9){
+        const TCHAR* Slots[]={TEXT("underbarrel"),TEXT("optic"),TEXT("magazine"),TEXT("muzzle"),TEXT("stock"),TEXT("reargrip"),TEXT("tactical"),TEXT("bipod"),TEXT("sights")};
         FFPSPerformanceScope FitScope(bCatalogExport?nullptr:GetGameInstance(),TEXT("Icon.AttachmentSlice"),Slots[AttachmentStep]);
         switch(AttachmentStep++){
         case 0:Rig->SetGunsmithHandstop(Parts.FindRef(TEXT("underbarrel")));break;
@@ -162,6 +162,7 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
         case 4:Rig->SetGunsmithStock(Parts.FindRef(TEXT("stock")));break;
         case 5:Rig->SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")));break;
         case 6:Rig->SetGunsmithTactical(Parts.FindRef(TEXT("tactical")));break;
+        case 7:Rig->SetGunsmithBipod(Parts.FindRef(TEXT("bipod")));break;
         default:Rig->UpdateFoldingSights(1.f);break;
         }
         return true;

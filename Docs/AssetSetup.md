@@ -1,6 +1,10 @@
 # 恢复完整 UE5 内容
 
-## PKM 全系列废案（2026-09-22）
+## PKM 低模重建（2026-09-23）
+
+当前 PKM 是 `PKMLowpoly20260922`，与下文退役的早期 Meshy `PKM20260921` 不同。恢复本机 `Content/Weapons/PKMLowpoly20260922` 的模块化枪体、五类握姿动作、干湿材质、绿色弹箱、配件、脚架和原声资产，同时保留共享 Manny／QBZ-191／AKM 等依赖。最新空仓尾段来自 Charge34，声音来自 ChargeAudio35；作者链、31 项归档及公开源码／本机素材边界见 [PKM 低模恢复与发布](Weapons/pkm-lowpoly-publication-20260923.md)。最新后台构建成功，未运行实机验收。
+
+## 早期 Meshy PKM 分支废案（2026-09-22）
 
 用户已否定并退役本轮 PKM，`SourceAssets/PKM20260921`、`Content/Weapons/PKM` 及专用接入头文件归档至本机 `trash/pkm-rejected-20260922`。武器目录、初始发放、动作/材质引用、预加载和 cook 入口已移除；这些 PKM 包不再属于当前运行内容恢复清单。全部修订均不得按“最新版”自动恢复。范围、SHA-256 清单、构建限制及公开发布边界见 [PKM 废案归档](Weapons/pkm-retirement-20260922.md)。
 

@@ -1,5 +1,6 @@
 #include "../FPSGAMECharacter.h"
 #include "A762Attachments.h"
+#include "PKMAttachments.h"
 #include "M16Attachments.h"
 #include "A762WeaponAssets.h"
 #include "AKMAttachmentVisual.h"
@@ -20,6 +21,8 @@ void AFPSGAMECharacter::SetGunsmithOptic(bool bHolographic)
 }
 void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
 {
+    const bool bPKM=PKMLowpolyWeaponAssets::Matches(AKMViewmodel);
+    PKMAttachments::ConfigureRail(this,AKMViewmodel,bInventoryWeaponReady&&(Variant==TEXT("holographic")||Variant==TEXT("panoramic_red_dot")||Variant==TEXT("prism_scope_2x")||Variant==TEXT("lpvo_1_6x")));
     if (bUseDanWesson715) { SetDanWesson715Optic(Variant); return; }
     if (bUseM1911) { SetM1911Optic(Variant); return; }
     const bool LPVO=Variant==TEXT("lpvo_1_6x");
@@ -27,22 +30,23 @@ void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
     const bool Scope2X=Variant==TEXT("prism_scope_2x");
     bool bHolographic=Variant==TEXT("holographic")||Panoramic||Scope2X||LPVO;
     if(LPVORing&&!LPVO)LPVORing->SetVisibility(false);
-    if (A762WeaponAssets::Matches(AKMViewmodel))
+    if (A762WeaponAssets::Matches(AKMViewmodel) || bPKM)
     {
         bHolographic=bHolographic&&bInventoryWeaponReady;
         if (bHolographic)
         {
             const TCHAR* Name=LPVO?TEXT("SM_LPVO1to6X"):Scope2X?TEXT("SM_PrismScope2X"):Panoramic?TEXT("SM_PanoramicRedDot"):TEXT("SM_M4_Holographic");
-            auto* Optic=LoadObject<UStaticMesh>(nullptr,*A762Attachments::MeshPath(Variant));
+            auto* Optic=LoadObject<UStaticMesh>(nullptr,*(bPKM?PKMAttachments::MeshPath(Variant):A762Attachments::MeshPath(Variant)));
             if (!Optic) return;
             if (!HolographicOptic)
             {
                 HolographicOptic=NewObject<UStaticMeshComponent>(this,TEXT("A762Optic"));
-                HolographicOptic->SetupAttachment(AKMViewmodel,TEXT("WPN_root"));
+                HolographicOptic->SetupAttachment(AKMViewmodel,bPKM?TEXT("PKM_Cover"):TEXT("WPN_root"));
                 HolographicOptic->SetCollisionEnabled(ECollisionEnabled::NoCollision);HolographicOptic->SetCastShadow(false);HolographicOptic->bReceivesDecals=false;HolographicOptic->RegisterComponent();
             }
             HolographicOptic->EmptyOverrideMaterials();HolographicOptic->SetStaticMesh(Optic);
-            HolographicMount=A762Attachments::OpticMount(Variant);
+            HolographicMount=bPKM?PKMAttachments::OpticMount(Variant):A762Attachments::OpticMount(Variant);
+            HolographicOptic->AttachToComponent(AKMViewmodel,FAttachmentTransformRules::KeepRelativeTransform,bPKM?TEXT("PKM_Cover"):TEXT("WPN_root"));
             HolographicOptic->SetRelativeTransform(HolographicMount);
         }
         if (bHolographicOptic!=bHolographic || OpticVariant!=Variant) bSightCalibrated=false;
@@ -51,7 +55,7 @@ void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
         if (HolographicOptic) HolographicOptic->SetVisibility(bHolographic);
         if (LPVO&&bHolographic&&!LPVORing)
         {
-            auto* RingMesh=LoadObject<UStaticMesh>(nullptr,*A762Attachments::MeshPath(TEXT("lpvo_ring")));
+            auto* RingMesh=LoadObject<UStaticMesh>(nullptr,*(bPKM?PKMAttachments::MeshPath(TEXT("lpvo_ring")):A762Attachments::MeshPath(TEXT("lpvo_ring"))));
             if (RingMesh)
             {
                 LPVORing=NewObject<UStaticMeshComponent>(this);LPVORing->SetStaticMesh(RingMesh);LPVORing->SetCollisionEnabled(ECollisionEnabled::NoCollision);LPVORing->SetCastShadow(false);

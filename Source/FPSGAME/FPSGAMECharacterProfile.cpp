@@ -23,6 +23,7 @@ void AFPSGAMECharacter::ApplyWeaponAttachmentPresentation(const TMap<FString,FSt
     if(Changed(TEXT("magazine")))SetGunsmithMagazineAttachment(Parts.FindRef(TEXT("magazine")));
     if(Changed(TEXT("muzzle")))SetGunsmithMuzzle(Parts.FindRef(TEXT("muzzle")));
     if(Changed(TEXT("underbarrel")))SetGunsmithHandstop(Parts.FindRef(TEXT("underbarrel")));
+    if(Changed(TEXT("bipod")))SetGunsmithBipod(Parts.FindRef(TEXT("bipod")));
     if(Changed(TEXT("stock")))SetGunsmithStock(Parts.FindRef(TEXT("stock")));
     if(Changed(TEXT("reargrip")))SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")));
     if(Changed(TEXT("tactical")))SetGunsmithTactical(Parts.FindRef(TEXT("tactical")));

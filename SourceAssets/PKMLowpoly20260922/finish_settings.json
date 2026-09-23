@@ -1,0 +1,14 @@
+{
+  "bevel_width_m": 0.00018,
+  "bevel_segments": 3,
+  "bevel_angle_degrees": 40,
+  "bevel_source_parts": [42,43,44,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,134,137,138,139,140],
+  "materials": [
+    {"source":"material","name":"PKM_CaseLacquer","color":[0.016524,0.030354,0.010195],"metallic":0.0,"roughness":0.48,"variation":0.035,"bump_m":0.000006,"resolution":1024,"wood":false},
+    {"source":"Carbon_Steel","name":"PKM_BluedSteel","color":[0.047,0.052,0.061],"metallic":1.0,"roughness":0.39,"variation":0.035,"bump_m":0.000004,"resolution":1024,"wood":false},
+    {"source":"Copper","name":"PKM_CopperJacket","color":[0.48,0.21,0.105],"metallic":1.0,"roughness":0.34,"variation":0.025,"bump_m":0.000003,"resolution":1024,"wood":false},
+    {"source":"2K_Wood08","name":"PKM_LaminatedWood","color":[0.170764,0.043,0.012],"metallic":0.0,"roughness":0.38,"variation":0.045,"bump_m":0.000012,"resolution":2048,"wood":true},
+    {"source":"2K_Wood18","name":"PKM_WoodGripPanel","color":[0.107881,0.029,0.009],"metallic":0.0,"roughness":0.46,"variation":0.05,"bump_m":0.000012,"resolution":2048,"wood":true},
+    {"source":"material_5","name":"PKM_AmmoBoxPaint","color":[0.049332,0.097971,0.028066],"metallic":0.0,"roughness":0.52,"variation":0.04,"bump_m":0.000008,"resolution":1024,"wood":false}
+  ]
+}

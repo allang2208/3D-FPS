@@ -14,6 +14,8 @@
 #include "Engine/GameInstance.h"
 #include "GameFramework/Pawn.h"
 #include "../Weapons/RuneSwordComponent.h"
+#include "../FPSGAMECharacter.h"
+#include "../Weapons/WeaponBipodDeploymentComponent.h"
 
 void UColdSteelHUDWidget::BuildStamina(UCanvasPanel* Root)
 {
@@ -44,12 +46,32 @@ void UColdSteelHUDWidget::UpdateStaminaLayout(const FGeometry& Geometry)
     StaminaSlot->SetPosition(FVector2D(0,-Bottom-FMath::Max(HotbarHeight,66/S)-10/S));
     if(DashAttackReadyText)
     {
-        auto* Pawn=GetOwningPlayerPawn();const auto* Sword=Pawn?Pawn->FindComponentByClass<URuneSwordComponent>():nullptr;
-        const float Ready=Sword?Sword->DashReadyFraction():0.f;
-        DashAttackReadyText->SetVisibility(Ready>0.f?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
-        const FText Hint=FText::FromString(Ready>=1.f?TEXT("冲刺攻击就绪 · 左键"):FString::Printf(TEXT("冲刺攻击准备  %.0f%%"),Ready*100.f));
+        // Share the existing action hint row; read actual deployment state,
+        // without running support traces or a second progress timer in the HUD.
+        auto* Pawn=GetOwningPlayerPawn();const auto* Character=Cast<AFPSGAMECharacter>(Pawn);
+        const auto* Bipod=Character?Character->BipodDeployment.Get():nullptr;
+        const auto State=Bipod?Bipod->GetDeploymentState():EWeaponBipodDeploymentState::Unavailable;
+        FString ActionHint;bool Complete=false;
+        if(State==EWeaponBipodDeploymentState::Deploying || State==EWeaponBipodDeploymentState::Deployed)
+        {
+            Complete=State==EWeaponBipodDeploymentState::Deployed;
+            const int32 Percent=FMath::Clamp(FMath::FloorToInt(Bipod->GetDeploymentBlend()*100.f),0,99);
+            ActionHint=Complete?TEXT("已部署脚架"):FString::Printf(TEXT("部署脚架  %d%%"),Percent);
+        }
+        else
+        {
+            const auto* Sword=Pawn?Pawn->FindComponentByClass<URuneSwordComponent>():nullptr;
+            const float Ready=Sword?Sword->DashReadyFraction():0.f;
+            Complete=Ready>=1.f;
+            if(Ready>0.f)
+                ActionHint=Complete
+                    ?TEXT("冲刺攻击就绪 · 左键")
+                    :FString::Printf(TEXT("冲刺攻击准备  %.0f%%"),Ready*100.f);
+        }
+        DashAttackReadyText->SetVisibility(ActionHint.IsEmpty()?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
+        const FText Hint=FText::FromString(ActionHint);
         if(!DashAttackReadyText->GetText().EqualTo(Hint))DashAttackReadyText->SetText(Hint);
-        DashAttackReadyText->SetColorAndOpacity(Ready>=1.f?ColdSteelUI::TextPrimary:ColdSteelUI::TextSecondary);
+        DashAttackReadyText->SetColorAndOpacity(Complete?ColdSteelUI::TextPrimary:ColdSteelUI::TextSecondary);
         DashAttackReadyText->SetFont(ColdSteelUI::TextFont(14*.75f/S));
         if(auto* DashCanvasSlot=Cast<UCanvasPanelSlot>(DashAttackReadyText->Slot))
         {DashCanvasSlot->SetPosition(StaminaSlot->GetPosition()+FVector2D(0,-25/S));DashCanvasSlot->SetSize(FVector2D(FMath::Min(360.f/S,FMath::Max(1.f,View.X-24/S)),22/S));}

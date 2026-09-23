@@ -62,6 +62,7 @@
 #include "Sound/SoundBase.h"
 #include "Sound/SoundConcurrency.h"
 #include "Weapons/FPSVisualRecoil.h"
+#include "Weapons/WeaponBipodDeploymentComponent.h"
 #include "Weapons/PistolLocomotionAssets.h"
 #include "Weapons/M4TacticalSprintComponent.h"
 #include "Weapons/WeaponActionCameraComponent.h"
@@ -164,6 +165,7 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
     CreateDefaultSubobject<UProductionToolComponent>(TEXT("ProductionTools"));
     CreateDefaultSubobject<UM4TacticalSprintComponent>(TEXT("M4TacticalSprint"));
     CreateDefaultSubobject<UWeaponActionCameraComponent>(TEXT("WeaponActionCamera"));
+    BipodDeployment=CreateDefaultSubobject<UWeaponBipodDeploymentComponent>(TEXT("BipodDeployment"));
     RuneSword=CreateDefaultSubobject<URuneSwordComponent>(TEXT("RuneSword"));
     RuneOrbBlades=CreateDefaultSubobject<URuneOrbBladesComponent>(TEXT("RuneOrbBlades"));
     CreateDefaultSubobject<UFPSCombatHealthComponent>(TEXT("CombatHealth"));
@@ -649,11 +651,13 @@ void AFPSGAMECharacter::Tick(float DeltaSeconds)
     // Also recover an empty magazine loaded from a saved profile after equipping.
     if (!IsDualWieldingPistols() && (HasInfiniteReserveAmmo() || (bUseM16 && ReserveAmmo > 0))
         && bInventoryWeaponReady && MagazineAmmo == 0 && !IsWeaponBusy() && !IsChoosingAmmo()) ReloadPressed();
+    if(BipodDeployment)BipodDeployment->Advance(DeltaSeconds);
     UpdateWeaponFeedback(DeltaSeconds);
     UpdateCamera(DeltaSeconds);
     UpdateViewmodel(DeltaSeconds);
     UpdateScopePresentation();
     Traversal->UpdatePresentation(DeltaSeconds);
+    if(BipodDeployment)BipodDeployment->ApplyPresentation();
     ServiceHeldFire();
     UpdateActionPose(DeltaSeconds);
     UpdateDrumDropVisual();
@@ -701,6 +705,7 @@ void AFPSGAMECharacter::StopMovementForMeleeSkill()
 
 void AFPSGAMECharacter::MoveForward(float Value)
 {
+    if(BipodDeployment && !FMath::IsNearlyZero(Value,.05f))BipodDeployment->Release();
     if (IsMeleeSkillMovementLocked()) { MoveInput.Y = 0.f; return; }
     MoveInput.Y = Value;
     if (!bIsSliding && !IsDodging() && !FMath::IsNearlyZero(Value) && Controller)
@@ -709,6 +714,7 @@ void AFPSGAMECharacter::MoveForward(float Value)
 
 void AFPSGAMECharacter::MoveRight(float Value)
 {
+    if(BipodDeployment && !FMath::IsNearlyZero(Value,.05f))BipodDeployment->Release();
     if (IsMeleeSkillMovementLocked()) { MoveInput.X = 0.f; return; }
     MoveInput.X = Value;
     if (!bIsSliding && !IsDodging() && !FMath::IsNearlyZero(Value) && Controller)
@@ -731,6 +737,7 @@ void AFPSGAMECharacter::LookUp(float Value)
 }
 void AFPSGAMECharacter::SprintPressed()
 {
+    if(BipodDeployment)BipodDeployment->Release();
     if (IsMeleeSkillMovementLocked()) return;
     if (bSprintHeld) return;
     SprintPressedAt=(!IsDodging() && !IsTraversing() && Controller && !Controller->IsMoveInputIgnored())
@@ -751,6 +758,7 @@ void AFPSGAMECharacter::SprintReleased()
 
 void AFPSGAMECharacter::SlidePressed()
 {
+    if(BipodDeployment)BipodDeployment->Release();
     if (IsMeleeSkillMovementLocked() || IsTraversing() || IsDodging()) return;
     if (bIsSliding) { StopSlide(false); return; }
     if (bIsCrouched) { if (CanStand()) UnCrouch(); return; }
@@ -761,6 +769,7 @@ void AFPSGAMECharacter::SlidePressed()
 
 void AFPSGAMECharacter::JumpPressed()
 {
+    if(BipodDeployment)BipodDeployment->Release();
     if (IsMeleeSkillMovementLocked() || IsDodging()) return;
     Traversal->SetJumpHeld(true);
     if (IsTraversing()) return;
@@ -988,21 +997,38 @@ void AFPSGAMECharacter::ReloadPressed()
         // Source animation seconds, evaluated by the very same clock as the pose.
         if (PKMLowpolyWeaponAssets::Matches(AKMViewmodel))
         {
+            // Dedicated reference cuts, scheduled on the pose's source clock.
+            // The queue holds the loaded objects for the entire reload action.
+            const auto PKMContact=[](const TCHAR* Name, USoundBase* Fallback)
+            {
+                const FString Path=FString(Name).StartsWith(TEXT("Charge"))
+                    ? PKMLowpolyWeaponAssets::ChargeSoundPath(Name)
+                    : PKMLowpolyWeaponAssets::ReloadSoundPath(Name);
+                if (auto* Sound=LoadObject<USoundBase>(nullptr,*Path)) return Sound;
+                UE_LOG(LogTemp,Warning,TEXT("PKM reload contact missing: %s"),*Path);
+                return Fallback;
+            };
             MechanicalCueTimes={.65f};
-            MechanicalCueSounds={ChargeReleaseSound};
+            MechanicalCueSounds={PKMContact(TEXT("CoverOpen"),ChargeReleaseSound)};
             if (!bPendingEmptyReload)
             {
                 MechanicalCueTimes.Add(1.65f);
-                MechanicalCueSounds.Add(MagOutSound);
+                MechanicalCueSounds.Add(PKMContact(TEXT("BeltLift"),MagOutSound));
             }
             for (const float Contact : {2.6f,4.35f,5.1f,5.72f})
                 MechanicalCueTimes.Add(PKMLowpolyWeaponAssets::ReloadEventTime(Contact,bPendingEmptyReload));
-            MechanicalCueSounds.Append({MagOutSound,MagInsertSound,MagSeatSound,ChargeReleaseSound});
+            MechanicalCueSounds.Append({PKMContact(TEXT("BoxOut"),MagOutSound),
+                PKMContact(TEXT("BoxInsert"),MagInsertSound),PKMContact(TEXT("BeltSeat"),MagSeatSound),
+                PKMContact(TEXT("CoverClose"),ChargeReleaseSound)});
             if (bPendingEmptyReload)
             {
-                MechanicalCueTimes.Append({PKMLowpolyWeaponAssets::ReloadEventTime(6.03f,true),
-                    PKMLowpolyWeaponAssets::ReloadEventTime(6.45f,true)});
-                MechanicalCueSounds.Append({ChargePullSound,ChargeReleaseSound});
+                // Charge34/Audio35: travel and stop are separate reference cuts.
+                // Both metal attacks stay on their exact pose-clock contacts.
+                MechanicalCueTimes.Append({5.13f, 5.36f, 5.48f, 5.82f});
+                MechanicalCueSounds.Append({PKMContact(TEXT("ChargePullMove"),ChargePullSound),
+                    PKMContact(TEXT("ChargeRearStop"),ChargePullSound),
+                    PKMContact(TEXT("ChargePushMove"),ChargePullSound),
+                    PKMContact(TEXT("ChargeFrontStop"),ChargeReleaseSound)});
             }
         }
         else if (SVDWeaponAssets::Matches(AKMViewmodel))
@@ -1470,7 +1496,8 @@ void AFPSGAMECharacter::UpdateWeaponFeedback(float DeltaSeconds)
     }
     // Scale spring time, not frame-dependent interpolation or damping alone.
     // Peak impulse response retains its amplitude; higher stability settles sooner.
-    const float FeedbackDelta = DeltaSeconds * WeaponHandling.RecoveryRate();
+    const FWeaponHandling FeedbackHandling=BipodDeployment?BipodDeployment->ApplyStability(WeaponHandling):WeaponHandling;
+    const float FeedbackDelta = DeltaSeconds * FeedbackHandling.RecoveryRate();
     AdvanceVisualWeaponRecoil(GetWorld()->GetTimeSeconds());
     if(ClipRecoilSeconds>=0.f)ClipRecoilSeconds+=DeltaSeconds;
     AdvanceSpring(CameraKickPitch, CameraKickPitchVelocity, AKMSource::CameraKickStiffness, AKMSource::CameraKickDamping + AKMSource::CameraADSExtraDamping * CameraADSFactor, FeedbackDelta);
@@ -1508,6 +1535,11 @@ void AFPSGAMECharacter::SetAimingState(bool bNewAiming)
     ADSStartProgress = ADSProgress;
     ADSStartedAt = GetWorld()->GetTimeSeconds();
     bIsAiming = bNewAiming;
+    if(BipodDeployment)
+    {
+        if(bIsAiming)BipodDeployment->TryDeployFromADS();
+        else BipodDeployment->Release();
+    }
 }
 
 FTransform AFPSGAMECharacter::GetMeleeAimTransform() const
@@ -1527,6 +1559,7 @@ void AFPSGAMECharacter::RefreshQuickCombatCamera()
 
 void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
 {
+    if(BipodDeployment)BipodDeployment->RestoreCameraOffset();
     auto* ProductionTools=FindComponentByClass<UProductionToolComponent>();
     if(ProductionTools)ProductionTools->AdvanceActionBeforeCamera(DeltaSeconds);
     UpdateADSProgress();
@@ -1629,16 +1662,18 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
         EM4CameraAction CameraAction = EM4CameraAction::None;
         float SourceTime = 0.f;
         float SourceEnd = 0.f;
-        // ASH-12 shares the M4 pose/cue clock but is not ue_m4a1, so it has to
-        // be named here or it silently loses the whole reload/equip camera.
-        const bool bActionCamera = bInventoryWeaponReady && bUsingM4Infima && (bUseM4Infima || bUseASH12 || bUseM16)
+        // Each family selects its own contact order and source-clock profile.
+        const bool bPKMActionCamera = PKMLowpolyWeaponAssets::Matches(AKMViewmodel);
+        const bool bActionCamera = bInventoryWeaponReady && bUsingM4Infima && (bUseM4Infima || bUseASH12 || bUseM16 || bPKMActionCamera)
             && !bUseQBZ191 && !IsPistolWeapon() && !IsDualWieldingPistols()
             && !bGunsmithInspection && !IsTraversing() && !IsCastBlockingLeftHandAction();
         if (bActionCamera && ActiveActionAnimation)
         {
             if (IsReloading())
             {
-                if (bUseASH12 || (bUseM16 && bPendingEmptyReload))
+                if (bPKMActionCamera)
+                    CameraAction = bPendingEmptyReload ? EM4CameraAction::PKMReloadEmpty : EM4CameraAction::PKMReload;
+                else if (bUseASH12 || (bUseM16 && bPendingEmptyReload))
                     CameraAction = bPendingEmptyReload ? EM4CameraAction::Ash12ReloadEmpty : EM4CameraAction::Ash12Reload;
                 else
                     CameraAction = bDrumInstalled
@@ -1649,7 +1684,7 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
             }
             else if (WeaponState == EAKMWeaponState::Equipping && ActiveActionAnimation == EquipAnimation)
             {
-                CameraAction = EM4CameraAction::EquipCharge;
+                CameraAction = bPKMActionCamera ? EM4CameraAction::PKMEquip : EM4CameraAction::EquipCharge;
                 SourceTime = ActionStartPosition + WeaponStateElapsed * ActionPlayRate;
                 SourceEnd = ActiveActionAnimation->GetPlayLength();
             }
@@ -1679,6 +1714,8 @@ FRotator AFPSGAMECharacter::GetViewmodelBaseRotation() const
 void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
 {
     if(IsDualWieldingPistols()){DualPistols->Advance(DeltaSeconds);return;}
+    const float BipodMotion=BipodDeployment?BipodDeployment->MotionMultiplier():1.f;
+    const float BipodRecoil=BipodDeployment?BipodDeployment->RecoilMultiplier():1.f;
     UpdateADSPose();
     // Reload/inspection need room for the support hand. Equip is performed at
     // this weapon's hip anchor and must not visit the centered action framing.
@@ -1771,7 +1808,7 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     const auto RecoilProfile=FPSVisualRecoil::ForWeapon(IsPistolWeapon(),bUseDanWesson715,bUseQBZ191,bUseM4Infima || bUseM16);
     // A negative multiplier flips the whole compensation, which is how the
     // direction of the added motion is checked in game without a rebuild.
-    const float ClipWave=FPSVisualRecoil::ClipWave(ClipRecoilSeconds)*ClipRecoilScale.GetValueOnGameThread();
+    const float ClipWave=FPSVisualRecoil::ClipWave(ClipRecoilSeconds)*ClipRecoilScale.GetValueOnGameThread()*BipodRecoil;
     const FVector ClipPosition=RecoilProfile.ClipPosition*ClipWave;
     const FVector ClipRotation=RecoilProfile.ClipRotation*ClipWave;
     const FVector ClipADSPosition=RecoilProfile.ClipADSPosition*ClipWave;
@@ -1796,7 +1833,7 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
         ? (M4SprintOffset + FVector(0.25f * SprintStep, M4SprintSwayCM * SprintSide, -0.45f * SprintStep) * GroundLocomotionWeight) * RifleSprintAlpha
             + M4SprintMidpointOffset * (4.f * RifleSprintAlpha * (1.f - RifleSprintAlpha))
         : FVector::ZeroVector;
-    const FVector GodotPose = HipOffset + (WeaponBobPosition + WeaponSwayPosition + FVector(0.0f, -0.10f * LegacySprint, 0.0f)) * Suppress + ClipPosition;
+    const FVector GodotPose = HipOffset + (WeaponBobPosition + WeaponSwayPosition + FVector(0.0f, -0.10f * LegacySprint, 0.0f)) * Suppress * BipodMotion + ClipPosition;
     const FVector UEHipPose(-GodotPose.Z * 100.0f, GodotPose.X * 100.0f, GodotPose.Y * 100.0f);
     const float ScopeWeight=GetScopePresentationAlpha();
     const float ScopeConvergence=FMath::Lerp(1.f,FMath::Clamp(
@@ -1813,7 +1850,8 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     const FVector Eye = FirstPersonCamera->GetComponentLocation();
     FCollisionQueryParams WallParams(SCENE_QUERY_STAT(GunplayNearWall), false, this);
     const bool bNearWall = GetWorld()->LineTraceSingleByChannel(WallHit, Eye, Eye + FirstPersonCamera->GetForwardVector() * 80.0f, ECC_Visibility, WallParams);
-    const float WallTarget = bNearWall ? 1.0f - FMath::Clamp((WallHit.Distance - 25.0f) / 55.0f, 0.0f, 1.0f) : 0.0f;
+    const float WallTarget = bNearWall ? (1.0f - FMath::Clamp((WallHit.Distance - 25.0f) / 55.0f, 0.0f, 1.0f))
+        * (1.f-(BipodDeployment?BipodDeployment->GetDeploymentBlend():0.f)) : 0.0f;
     NearWallAlpha = FMath::Lerp(NearWallAlpha, WallTarget, 1.0f - FMath::Exp(-12.0f * DeltaSeconds));
     const FVector ADSTarget = bSightCalibrated ? CalibratedADSLocation : ADSViewmodelLocation;
     // Standard magazine and drum share the same camera-space framing.
@@ -1823,7 +1861,7 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
         ? FMath::Lerp(HipLocation, ActionLocation, M4ActionFramingAlpha)
         : HipLocation;
     FVector TargetLocation = FMath::Lerp(HipFraming + UEHipPose + SprintOffset, ADSTarget + UEADSRecoil, WeaponADSFactor);
-    const float RifleMotionWeight = bPistol ? 0.f : RifleLocomotionWeight * Suppress * Suppress;
+    const float RifleMotionWeight = bPistol ? 0.f : RifleLocomotionWeight * Suppress * Suppress * BipodMotion;
     TargetLocation += RifleInertiaOffset * RifleMotionWeight;
     TargetLocation += FVector(-NearWallAlpha * 12.0f, 0.0f, LandingOffset * 0.35f * (1.0f - WeaponADSFactor));
 
@@ -1837,7 +1875,7 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     // long iron sight radii (AKM: 38.7 cm) from swinging the post out of the notch.
     ADSKickAngles = ADSKickAngles.GetClampedToMaxSize(0.025f) * VisualRecoilScale * RecoilProfile.ADSRotationScale * ScopeConvergence
         + ClipADSRotation * ScopeConvergence;
-    const FVector GodotAngles = HipAngles + (WeaponBobRotation + WeaponSwayRotation + FVector(0.39f * LegacySprint, 0.0f, 0.0f)) * Suppress + ClipRotation;
+    const FVector GodotAngles = HipAngles + (WeaponBobRotation + WeaponSwayRotation + FVector(0.39f * LegacySprint, 0.0f, 0.0f)) * Suppress * BipodMotion + ClipRotation;
     const FRotator BaseRotation = GetViewmodelBaseRotation();
     const FRotator HipRotation(BaseRotation.Pitch + FMath::RadiansToDegrees(GodotAngles.X), BaseRotation.Yaw - FMath::RadiansToDegrees(GodotAngles.Y), BaseRotation.Roll - FMath::RadiansToDegrees(GodotAngles.Z));
     // Premultiply in camera space: adding pitch to a mesh already yawed 90 degrees
@@ -1898,6 +1936,7 @@ void AFPSGAMECharacter::ServiceHeldFire()
 void AFPSGAMECharacter::FireShot()
 {
     if(IsDualWieldingPistols())return;
+    if(BipodDeployment && BipodDeployment->BlocksFire())return;
     if (!bInventoryWeaponReady) return;
     if (bUseM16 && BurstShotsRemaining <= 0) return;
     const float WeaponAudioGain = bUseQBZ191 ? 1.0f : 2.0f;
@@ -2022,6 +2061,8 @@ void AFPSGAMECharacter::FireShot()
 
 void AFPSGAMECharacter::ApplyShotFeedback()
 {
+    const float BipodRecoil=BipodDeployment?BipodDeployment->RecoilMultiplier():1.f;
+    const FWeaponHandling FeedbackHandling=BipodDeployment?BipodDeployment->ApplyStability(WeaponHandling):WeaponHandling;
     const double VisualNow=GetWorld()->GetTimeSeconds();
     AdvanceVisualWeaponRecoil(VisualNow);
     const double BurstReset=FMath::Clamp(static_cast<double>(FireInterval)*2.5,.25,.45);
@@ -2042,8 +2083,8 @@ void AFPSGAMECharacter::ApplyShotFeedback()
     if (Controller)
     {
         FRotator Aim = Controller->GetControlRotation();
-        Aim.Pitch = FMath::Clamp(FRotator::NormalizeAxis(Aim.Pitch) + FMath::RadiansToDegrees(Pattern.X) * BallisticRecoilScale, -85.0f, 85.0f);
-        Aim.Yaw += HorizontalDegrees;
+        Aim.Pitch = FMath::Clamp(FRotator::NormalizeAxis(Aim.Pitch) + FMath::RadiansToDegrees(Pattern.X) * BallisticRecoilScale * BipodRecoil, -85.0f, 85.0f);
+        Aim.Yaw += HorizontalDegrees * BipodRecoil;
         Controller->SetControlRotation(Aim);
     }
     RecoilPatternIndex = FMath::Min(RecoilPatternIndex + 1, PatternCount - 1);
@@ -2051,12 +2092,12 @@ void AFPSGAMECharacter::ApplyShotFeedback()
     TimeSinceLastShot = 0.0f;
     PatternRecoveryAccumulator = 0.0f;
     const float Horizontal = FMath::Clamp(Pattern.Y / 0.003f + FMath::FRandRange(-0.35f, 0.35f), -1.0f, 1.0f);
-    const float RecoilLoad = (1.0f + FMath::Clamp((CurrentSpread + MoveSpread + AirSpread) / 0.024f, 0.0f, 2.0f) * 0.7f);
+    const float RecoilLoad = (1.0f + FMath::Clamp((CurrentSpread + MoveSpread + AirSpread) / 0.024f, 0.0f, 2.0f) * 0.7f) * BipodRecoil;
     GunKickPositionVelocity += FVector(-Horizontal * 0.24f, FMath::FRandRange(0.04f, 0.10f), FMath::FRandRange(0.55f, 0.85f)) * VisualProfile.Position * AKMSource::ViewmodelGain * RecoilLoad * WeaponHandling.RecoilScale * BurstGain;
     GunKickRotationVelocity += FVector(FMath::FRandRange(0.55f, 1.0f), Horizontal * 0.50f, FMath::FRandRange(-0.7f, 0.7f)) * VisualProfile.Rotation * AKMSource::ViewmodelGain * RecoilLoad * WeaponHandling.RecoilScale * BurstGain;
     // Godot's ADS convergence is applied once to the common gun/camera pulse.
     // Aim progress already eases continuously through both ADS transitions.
-    const float JitterScale = RecoilLoad * WeaponHandling.ShakeScale
+    const float JitterScale = RecoilLoad * FeedbackHandling.ShakeScale
         * FMath::Lerp(1.f, FWeaponHandling::ADSJitterMultiplier, WeaponADSFactor);
     const FVector PositionImpulse = FVector(FMath::FRandRange(-0.7f, 0.7f), FMath::FRandRange(-0.7f, 0.7f), FMath::FRandRange(-0.7f, 0.7f)) * JitterScale;
     const FVector RotationImpulse = FVector(FMath::FRandRange(-2.2f, 2.2f), FMath::FRandRange(-2.2f, 2.2f), FMath::FRandRange(-2.2f, 2.2f)) * JitterScale;
@@ -2065,13 +2106,13 @@ void AFPSGAMECharacter::ApplyShotFeedback()
     GunFlipVelocity += 1.5f * RecoilLoad * WeaponHandling.RecoilScale * VisualProfile.Flip * BurstGain;
     CameraJitterPositionVelocity += PositionImpulse * 0.11f * AKMSource::FeedbackScale * CameraShake;
     CameraJitterRotationVelocity += RotationImpulse * 0.34f * AKMSource::FeedbackScale * CameraShake;
-    const float ImpulseScale = FMath::Lerp(13.0f, 19.0f, WeaponADSFactor) * VisualRecoilScale * WeaponHandling.ShakeScale * CameraShake;
+    const float ImpulseScale = FMath::Lerp(13.0f, 19.0f, WeaponADSFactor) * VisualRecoilScale * FeedbackHandling.ShakeScale * CameraShake * BipodRecoil;
     CameraKickPitchVelocity += (Pattern.X + FMath::FRandRange(-0.0012f, 0.0012f)) * ImpulseScale * AKMSource::FeedbackScale;
     CameraKickYawVelocity += (Pattern.Y + FMath::FRandRange(-0.0008f, 0.0008f)) * ImpulseScale * AKMSource::FeedbackScale;
-    FOVPunch = FMath::Lerp(1.2f, 0.4f, WeaponADSFactor) * CameraShake;
+    FOVPunch = FMath::Lerp(1.2f, 0.4f, WeaponADSFactor) * CameraShake * BipodRecoil;
     // Trauma is squared when rendered: sqrt keeps a single-shot amplitude linear,
     // and the gain below is what makes a burst build up before the crosshair.
-    FireTrauma = FMath::Min(1.0f, FireTrauma + 0.11f * RecoilLoad * FMath::Sqrt(WeaponHandling.ShakeScale));
+    FireTrauma = FMath::Min(1.0f, FireTrauma + 0.11f * RecoilLoad * FMath::Sqrt(FeedbackHandling.ShakeScale));
 }
 
 // Dual wield fires two independent triggers into one camera. The per-hand
@@ -2170,7 +2211,8 @@ float AFPSGAMECharacter::GetHipSpread() const
     // bloom, averaged across both guns. Ballistics stay where they were - the dual
     // component still owns the shot direction and pattern.
     if(IsDualWieldingPistols()&&DualPistols)return DualPistols->SharedConeSpread();
-    return 2.f*(0.0175f+CurrentSpread+MoveSpread+AirSpread)*HipSpreadMultiplier;
+    return 2.f*(0.0175f+CurrentSpread+MoveSpread+AirSpread)*HipSpreadMultiplier
+        *(BipodDeployment?BipodDeployment->SpreadMultiplier():1.f);
 }
 
 FVector2D AFPSGAMECharacter::GetCrosshairHalfExtent(FVector2D LocalSize) const
@@ -2337,7 +2379,9 @@ void AFPSGAMECharacter::StartEquipCharge()
     else PlayMechanicalSound(EquipSound, AKMSource::ActionVolume);
     if (EquipAnimation)
     {
-        WeaponStateDuration = bUsingM4Infima && !IsPistolWeapon() && !SVDWeaponAssets::Matches(AKMViewmodel) ? 0.72f : EquipAnimation->GetPlayLength();
+        // PKM's video-authored raise/catch/settle uses its own clip clock.
+        WeaponStateDuration = bUsingM4Infima && !IsPistolWeapon() && !SVDWeaponAssets::Matches(AKMViewmodel)
+            && !PKMLowpolyWeaponAssets::Matches(AKMViewmodel) ? 0.72f : EquipAnimation->GetPlayLength();
         PlayWeaponAnimation(EquipAnimation, false, EquipAnimation->GetPlayLength() / WeaponStateDuration);
     }
     else if (ReloadEmptyAnimation)
@@ -2654,6 +2698,7 @@ bool AFPSGAMECharacter::IsCastingWithLeftHand() const
 bool AFPSGAMECharacter::IsLeftHandHeldForCast() const { return IsDualWieldingPistols(); }
 void AFPSGAMECharacter::SuspendWeaponForMenu()
 {
+    if(BipodDeployment)BipodDeployment->Release(true);
     CancelAmmoSelection();
     InterruptReload();
     if(IsDualWieldingPistols())DualPistols->InterruptReloads();
@@ -2877,7 +2922,7 @@ void AFPSGAMECharacter::EmitMechanicalCue(int32 CueIndex)
     const float ScheduledTime = bSourceCueClock ? ReloadRuntimeTime(MechanicalCueTimes[CueIndex]) : MechanicalCueTimes[CueIndex];
     const float Lateness = FMath::Max(0.0f, WeaponStateElapsed - ScheduledTime);
     const bool bPKMReload = PKMLowpolyWeaponAssets::Matches(AKMViewmodel) && IsReloading();
-    const int32 BoltReleaseCueIndex = bPKMReload ? (bPendingEmptyReload ? 6 : INDEX_NONE)
+    const int32 BoltReleaseCueIndex = bPKMReload ? (bPendingEmptyReload ? 8 : INDEX_NONE)
         : bUsingM4Infima && !bUseASH12 && !bUseM16 ? 3 : 4;
     const bool bM16ChargeRelease = bUseM16 && bPendingEmptyReload && IsReloading() && CueIndex == BoltReleaseCueIndex;
     // Do not emit an obsolete burst of old contacts after a long game-thread stall.
@@ -2904,8 +2949,8 @@ void AFPSGAMECharacter::EmitMechanicalCue(int32 CueIndex)
         UE_LOG(LogTemp, Display, TEXT("M4_AUDIO_CUE empty=%d index=%d source=%.6f target=%.6f runtime=%.6f late=%.6f sound=%s played=%d"),
             bPendingEmptyReload, CueIndex, ReloadSourceTime(WeaponStateElapsed), MechanicalCueTimes[CueIndex], WeaponStateElapsed, Lateness, *GetNameSafe(Sound), bPlayContact);
     }
-    // PKM's reload contact impulses are baked with the gun and both hands;
-    // avoid adding the M4 index-based kick a second time.
+    // PKM's gun/hand impulses are baked; its camera contacts are sampled by
+    // WeaponActionCamera. Do not add the M4 index-based impulse to either layer.
     if (!bUseDanWesson715 && !bPKMReload && (CueIndex == 2 || CueIndex == BoltReleaseCueIndex))
     {
         // A seated magazine and released bolt push the whole supported weapon; wrists retain their source pose.
@@ -2933,6 +2978,10 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
         ? FMath::Max(1, MagazineAmmo) : MagazineAmmo;
     PKMLowpolyWeaponAssets::SetSections(AKMViewmodel,IsReloading(),bPendingEmptyReload,
         IsReloading()?ReloadSourceTime(WeaponStateElapsed):0.f,bGunsmithInspection?100:PKMPresentationRounds);
+    if (auto* View=Cast<UFPSCastingMeshComponent>(AKMViewmodel))
+        View->OutgoingBeltDynamics.Configure(bPKMWeapon,IsReloading(),bPendingEmptyReload,
+            IsReloading()?ReloadSourceTime(WeaponStateElapsed):0.f,MagazineAmmo,MagazineCapacity,
+            bPKMFeedAction,ActionStartPosition+static_cast<float>(PKMShotAge)*ActionPlayRate,bGunsmithInspection);
     const auto DrumPose=[this](UAnimSequence* Clip)->UAnimSequence*
     {
         if(HasAngledForegrip())if(const auto* Support=ForegripAnimations.Find(Clip))return Support->Get();
@@ -2990,6 +3039,10 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
         // Both prop sets have different parked poses. Fade only into the reload;
         // its authored grip return hands off to idle without blending props through the gun.
         if (bPKMWeapon && IsReloading()) GunplayAnimation->ActionAlpha=In;
+        // The equip starts below the view and ends at the exact family idle.
+        // Blending against visible idle would shorten the authored lifting arc.
+        if (bPKMWeapon && WeaponState == EAKMWeaponState::Equipping && ActiveActionAnimation == EquipAnimation)
+            GunplayAnimation->ActionAlpha=1.0f;
         // At the end of a feed, identical visible belt units occupy the prior
         // unit's slot. Fading indexed bones back to idle would reverse the feed.
         // The source starts at idle and finishes its recoil before the handoff.

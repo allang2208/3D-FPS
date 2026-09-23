@@ -43,6 +43,7 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
     friend class URuneSwordComponent;
     friend class UM4TacticalSprintComponent;
     friend class UFPSPlayerBodyComponent;
+    friend class UWeaponBipodDeploymentComponent;
 
 public:
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM4Infima = true;
@@ -123,6 +124,9 @@ public:
     void SetGunsmithMagazineAttachment(const FString& Id);
     void SetGunsmithMuzzle(const FString& Variant);
     void SetGunsmithHandstop(const FString& Variant);
+    void SetGunsmithBipod(const FString& Variant);
+    FString GetBipodDeploymentHint() const;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Weapon|Bipod") TObjectPtr<class UWeaponBipodDeploymentComponent> BipodDeployment;
     void SetGunsmithStock(const FString& Variant);
     void SetGunsmithRearGrip(const FString& Variant);
     void SetGunsmithTactical(const FString& Variant);

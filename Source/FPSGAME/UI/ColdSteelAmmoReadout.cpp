@@ -184,6 +184,11 @@ void UColdSteelAmmoReadout::Refresh(const AFPSGAMECharacter* Character,const UCo
     else
     {
         FString AmmoName=Model?Model->AmmoLabel(Model->AmmoDefinition()):FString();
+        if(Character)
+        {
+            const FString BipodHint=Character->GetBipodDeploymentHint();
+            if(!BipodHint.IsEmpty())AmmoName+=TEXT("\n")+BipodHint;
+        }
         if(Character&&Model&&!Character->GetPendingAmmoType().IsEmpty())if(const auto* Target=Model->AmmoType(Character->GetPendingAmmoType()))AmmoName+=TEXT(" → ")+Target->Name+TEXT(" · 换弹中");
         Present(Item?ColdSteelInventory::Text(*Item,TEXT("name")):TEXT(""),AmmoName,Character?Character->GetMagazineAmmo():0,Character?Character->GetReserveAmmo():0,Character?Character->GetMagazineCapacity():0,Character&&Character->IsReloading(),Character&&Character->HasInventoryWeapon()&&Item);
         MagazineLabel->SetText(FText::FromString(TEXT("弹匣")));

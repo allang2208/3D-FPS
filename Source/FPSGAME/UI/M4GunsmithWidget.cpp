@@ -31,13 +31,7 @@ void UM4GunsmithWidget::UndoDraft()
     if(auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();!IsMeleeWorkbench()&&P->Equipped()&&P->Equipped()->InstanceId==Model()->Instance())
         if(auto* C=Cast<AFPSGAMECharacter>(GetOwningPlayerPawn()))
         {
-            C->SetGunsmithOpticVariant(Model()->Draft().FindRef(TEXT("optic")));
-            C->SetGunsmithDrum(Model()->Draft().FindRef(TEXT("magazine"))==TEXT("large_drum"));
-            C->SetGunsmithMuzzle(Model()->Draft().FindRef(TEXT("muzzle")));
-            C->SetGunsmithHandstop(Model()->Draft().FindRef(TEXT("underbarrel")));
-            C->SetGunsmithStock(Model()->Draft().FindRef(TEXT("stock")));
-            C->SetGunsmithRearGrip(Model()->Draft().FindRef(TEXT("reargrip")));
-            C->SetGunsmithTactical(Model()->Draft().FindRef(TEXT("tactical")));
+            C->ApplyWeaponAttachmentPresentation(Model()->Draft());
         }
     RefreshPresentation();
 }
@@ -54,13 +48,7 @@ void UM4GunsmithWidget::ChooseOption(const FString& SlotKey,const FString& Id)
     if(!IsMeleeWorkbench()&&P->Equipped()&&P->Equipped()->InstanceId==Model()->Instance())
         if(auto* C=Cast<AFPSGAMECharacter>(GetOwningPlayerPawn()))
         {
-            C->SetGunsmithOpticVariant(Model()->Draft().FindRef(TEXT("optic")));
-            C->SetGunsmithDrum(Model()->Draft().FindRef(TEXT("magazine"))==TEXT("large_drum"));
-            C->SetGunsmithMuzzle(Model()->Draft().FindRef(TEXT("muzzle")));
-            C->SetGunsmithHandstop(Model()->Draft().FindRef(TEXT("underbarrel")));
-            C->SetGunsmithStock(Model()->Draft().FindRef(TEXT("stock")));
-            C->SetGunsmithRearGrip(Model()->Draft().FindRef(TEXT("reargrip")));
-            C->SetGunsmithTactical(Model()->Draft().FindRef(TEXT("tactical")));
+            C->ApplyWeaponAttachmentPresentation(Model()->Draft());
         }
 }
 void UM4GunsmithWidget::SetAimPreview(bool bAim)

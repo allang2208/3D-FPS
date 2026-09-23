@@ -5,7 +5,9 @@
 #include "M16WeaponAssets.h"
 #include "M16Attachments.h"
 #include "A762WeaponAssets.h"
+#include "PKMLowpolyWeaponAssets.h"
 #include "A762Attachments.h"
+#include "PKMAttachments.h"
 #include "../FPSGAMECharacter.h"
 
 UM4TacticalSprintComponent::UM4TacticalSprintComponent()
@@ -24,6 +26,13 @@ void UM4TacticalSprintComponent::Configure(ERifleSprintWeapon Weapon)
     CurrentGrip = EM4SprintGrip::Base;
     bEnabled = Weapon != ERifleSprintWeapon::None;
     if (!bEnabled || !Clips.IsEmpty()) return;
+    if (Weapon==ERifleSprintWeapon::PKM)
+    {
+        for (const TCHAR* Family:{TEXT("base"),TEXT("base"),TEXT("angled"),TEXT("vertical"),TEXT("canted"),TEXT("prism")})
+            for (const TCHAR* Clip:{TEXT("sprint_enter"),TEXT("sprint_loop"),TEXT("sprint_exit")})
+                Clips.Add(LoadObject<UAnimSequence>(nullptr,*(FCString::Strcmp(Family,TEXT("base"))==0?PKMLowpolyWeaponAssets::AnimationPath(Clip):PKMAttachments::AnimationPath(Family,Clip))));
+        return;
+    }
     if (bA762)
     {
         for (const TCHAR* Family:{TEXT("base"),TEXT("base"),TEXT("angled"),TEXT("vertical"),TEXT("canted"),TEXT("prism")})

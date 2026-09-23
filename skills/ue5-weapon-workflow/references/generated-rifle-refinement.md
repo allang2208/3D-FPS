@@ -22,7 +22,7 @@ Refinement02 的几何函数仍供 Refinement04/Accessories05 使用，初始 In
 
 ## 失败案例：PKM 全系列已退役（2026-09-22）
 
-用户否定了 PKM 从初次接入到 VideoAdaptation10 的建模和动作，整轮已归档到本机 `trash/pkm-rejected-20260922`。Integration、Refinement02、Rebuild03、SourcePreserve04、SightGrip05、Recovery07、GripFinish08、SeamContact09、VideoAdaptation10 都不是成功母版。工程记录见 `Docs/Weapons/pkm-retirement-20260922.md`；不要因“源表面保留”“导入成功”或版本号更大而自动恢复其中任何版。
+本节仅指早期 Meshy `PKM20260921`，不包括后续用户提供的 `PKMLowpoly20260922`。用户否定了早期分支从初次接入到 VideoAdaptation10 的建模和动作，整轮已归档到本机 `trash/pkm-rejected-20260922`。Integration、Refinement02、Rebuild03、SourcePreserve04、SightGrip05、Recovery07、GripFinish08、SeamContact09、VideoAdaptation10 都不是成功母版。工程记录见 `Docs/Weapons/pkm-retirement-20260922.md`；不要因“源表面保留”“导入成功”或版本号更大而自动恢复其中任何版。
 
 - **不能据此判定 Meshy 上限或 UE 导入器有错。** 本次同时改过拆分、补面、法线、材质、握点与动作，没有形成能单独归因的对照。A762 已被接受只说明那一条处理链适配成功，不证明相同切割与动作方法适用于开盖、弹链供弹的 PKM。
 - 生成网格的连通岛不是机械零件标签；上盖可能与机匣粘连，完整弹箱也可能被空间范围切坏。拆分须依据参考接缝与原表面归属，保留原三角面、UV 和角点法线的对应。用包围盒/坐标阈值批量切分、布尔后猜原面归属，容易得到碎片、薄片和运动时露空；接缝算法本身也不等于结果已正确。
