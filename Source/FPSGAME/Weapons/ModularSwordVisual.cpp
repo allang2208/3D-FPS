@@ -86,6 +86,30 @@ TSharedPtr<FJsonObject> Part(const FColdSteelItem& Item,const TCHAR* Slot,const 
 bool ColdSteelModularSword::Supports(const FColdSteelItem& Item)
 {return Catalog(Item).IsValid();}
 
+void ColdSteelModularSword::GatherVisualResources(const FColdSteelItem& Item,TArray<FSoftObjectPath>& Out,const FGunsmithParts* Draft)
+{
+    // Resolve the same selected specs as Apply, including shared pommel adapters and finishes.
+    const auto Parts=Installed(Item,Draft);
+    const auto Add=[&Out](const FString& Path)
+    {
+        if(!Path.IsEmpty())Out.AddUnique(FSoftObjectPath(Path.Contains(TEXT("."))?Path:Path+TEXT(".")+FPaths::GetCleanFilename(Path)));
+    };
+    const auto Gather=[&Add](const TSharedPtr<FJsonObject>& Spec)
+    {
+        FString Mesh; if(Spec->TryGetStringField(TEXT("mesh"),Mesh))Add(Mesh);
+        const TSharedPtr<FJsonObject>* Materials=nullptr;
+        if(Spec->TryGetObjectField(TEXT("materials"),Materials))
+            for(const auto& Pair:(*Materials)->Values){FString Path;if(Pair.Value->TryGetString(Path))Add(Path);}
+    };
+    for(const TCHAR* Slot:{TEXT("blade_1"),TEXT("guard"),TEXT("grip"),TEXT("pommel")})
+        if(const auto Spec=Part(Item,Slot,Parts))
+        {
+            Gather(Spec);
+            const TSharedPtr<FJsonObject>* Adapter=nullptr;
+            if(Spec->TryGetObjectField(TEXT("adapter"),Adapter))Gather(*Adapter);
+        }
+}
+
 FString ColdSteelModularSword::ArmsMesh(const FColdSteelItem& Item)
 {
     FString Path;if(const auto Root=Catalog(Item))Root->TryGetStringField(TEXT("arms_mesh"),Path);return Path;

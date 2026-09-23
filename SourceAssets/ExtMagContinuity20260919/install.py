@@ -25,6 +25,9 @@ def custom(m,code,inputs):
  return n
 def seam_material(gun,original):
  path=D+'/Materials/M_'+gun+'_Continuous';base=original.get_base_material();m=clone(base.get_path_name(),path+'_Graph')
+ # Static magazine seam UV0-6 must not inherit the rifle's GPUSkin usage permutations.
+ for usage in ['used_with_skeletal_mesh','used_with_morph_targets','used_with_clothing','automatically_set_usage_in_editor']:
+  m.set_editor_property(usage,False)
  if isinstance(original,u.MaterialInstanceConstant):
   result=clone(original.get_path_name(),path);values={kind:{str(n):getattr(L,'get_material_instance_'+kind+'_parameter_value')(original,n) for n in getattr(L,'get_'+kind+'_parameter_names')(base)} for kind in ['scalar','vector','texture','static_switch']}
   L.set_material_instance_parent(result,m)
@@ -76,7 +79,7 @@ def seam_material(gun,original):
    for prop,out in roots:
     src,output=channel(out);L.connect_material_property(src,output,prop)
   E.set_metadata_tag(m,'MagazineSeamContinuity','20260919');E.set_metadata_tag(m,'SourceRifleMaterial',original.get_path_name());L.recompile_material(m)
- save(m)
+ L.recompile_material(m);save(m)
  if result!=m:L.update_material_instance(result);save(result)
  return result
 jobs={

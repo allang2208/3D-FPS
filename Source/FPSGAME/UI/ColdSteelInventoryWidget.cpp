@@ -1,5 +1,73 @@
-        PreviewCells=FIntPoint(1,1);bPreviewRotatable=false;
-    if(const auto* Carried=Model->FindItem(KeyboardCarry))PreviewCells=FIntPoint(Carried->Width,Carried->Height);else PreviewCells=FIntPoint(1,1);
+#include "ColdSteelInventoryWidget.h"
+#include "ColdSteelQuickDrag.h"
+#include "ColdSteelDragVisual.h"
+#include "ColdSteelHUDWidget.h"
+#include "../FPSGAMEPlayerController.h"
+#include "ColdSteelStatusModel.h"
+#include "ColdSteelWeaponIcons.h"
+#include "../Weapons/GunsmithSystem.h"
+#include "ColdSteelUIStyle.h"
+#include "Blueprint/WidgetTree.h"
+#include "Components/SizeBox.h"
+#include "Components/ScrollBox.h"
+#include "Components/TextBlock.h"
+#include "Components/Image.h"
+#include "Components/ScaleBox.h"
+#include "ColdSteelInventoryPopup.h"
+#include "Engine/GameInstance.h"
+#include "Engine/Texture2D.h"
+#include "ImageUtils.h"
+#include "Misc/Paths.h"
+#include "Rendering/DrawElements.h"
+#include "Framework/Application/SlateApplication.h"
+#include "InputCoreTypes.h"
+using namespace ColdSteelInventory;
+bool UColdSteelItemDrag::IsCurrent(const UColdSteelStatusModel* Model)const
+{
+    const auto* I=Model?Model->FindItem(ItemId):nullptr;
+    if(!I||I->Place!=SourcePlace||I->Cell!=SourceCell)return false;
+    if(!bHasSourceSnapshot)return true;
+    auto Current=*I;Current.Cooldown=SourceSnapshot.Cooldown; // Natural cooldown ticking does not change the held stack.
+    return FColdSteelItem::StaticStruct()->CompareScriptStruct(&Current,&SourceSnapshot,0);
+}
+void UColdSteelInventoryWidget::ConfigureWarehouse(UColdSteelHUDWidget* Owner){bWarehouse=true;StorageHUD=Owner;FocusPlace=4;FocusCell=StorageStart();LoadIcons();}
+int32 UColdSteelInventoryWidget::StorageStart()const{return bWarehouse&&Model?Model->WarehousePage*ColdSteelWarehouse::CellsPerPage:0;}
+int32 UColdSteelInventoryWidget::StorageRows()const{return bWarehouse?ColdSteelWarehouse::Rows:4;}
+void UColdSteelInventoryWidget::ResetStoragePage(){CancelInteraction();FocusPlace=StoragePlace();FocusCell=StorageStart();HoverPlace=-1;PointerCell=-1;LoadIcons();}
+void UColdSteelItemDrag::ReleaseVisual(){if(PointerVisual)PointerVisual->RemoveFromParent();PointerVisual=nullptr;}
+void UColdSteelItemDrag::Drop_Implementation(const FPointerEvent& E){ReleaseVisual();if(SourceHUD.IsValid())SourceHUD->EndInventoryDrag();if(SourceBoard.IsValid())SourceBoard->FinishDrag();Super::Drop_Implementation(E);}
+void UColdSteelItemDrag::DragCancelled_Implementation(const FPointerEvent& E){ReleaseVisual();if(SourceHUD.IsValid())SourceHUD->EndInventoryDrag();if(SourceBoard.IsValid())SourceBoard->FinishDrag();Super::DragCancelled_Implementation(E);}
+void UColdSteelItemDrag::Dragged_Implementation(const FPointerEvent& E){if(PointerVisual)PointerVisual->MoveTo(E.GetScreenSpacePosition());if(SourceHUD.IsValid())SourceHUD->UpdateInventoryDrag(this,E.GetScreenSpacePosition());Super::Dragged_Implementation(E);}
+void UColdSteelInventoryWidget::FinishDrag(){if(auto Drag=ActivePointerDrag.Get())Drag->ReleaseVisual();ActivePointerDrag.Reset();if(auto* HUD=TooltipHUD())HUD->EndInventoryDrag();DraggedItem.Empty();bPendingClick=false;ClearDragPreview();}
+void UColdSteelInventoryWidget::ClearDragPreview(){bPreviewValid=false;PreviewReason.Empty();SwapDestinations.Empty();PreviewPlace=-1;PreviewCell=-1;PreviewCells=FIntPoint(1,1);bPreviewRotatable=false;}
+void UColdSteelInventoryWidget::CancelInteraction(){PendingTooltip.Empty();FinishDrag();Selected.Empty();KeyboardCarry.Empty();KeyboardHotbar=-1;bConfirmDrop=false;InteractionMessage.Empty();if(ItemMenu)ItemMenu->Close(false);ItemMenu=nullptr;}
+void UColdSteelInventoryWidget::OpenItemMenu(FVector2D Anchor,bool SplitOnly){if(ItemMenu)ItemMenu->Close(false);if(auto* HUD=TooltipHUD())HUD->HideItemTooltip(true);ItemMenu=CreateWidget<UColdSteelInventoryPopup>(GetOwningPlayer());ItemMenu->Open(this,Model,Selected,Anchor,SplitOnly);}
+
+void UColdSteelInventoryWidget::NativeOnInitialized()
+{
+    Super::NativeOnInitialized();SetIsFocusable(true);Scale=ColdSteelUI::PixelScale(this);
+    Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    WeaponIcons=GetGameInstance()->GetSubsystem<UColdSteelWeaponIcons>();
+    if(!WidgetTree->RootWidget){auto* Size=WidgetTree->ConstructWidget<USizeBox>();WidgetTree->RootWidget=Size;}
+    SetVisibility(ESlateVisibility::Visible);LoadIcons();
+}
+void UColdSteelInventoryWidget::NativeConstruct(){Super::NativeConstruct();if(Model&&!ModelHandle.IsValid())ModelHandle=Model->OnChanged.AddUObject(this,&ThisClass::LoadIcons);if(WeaponIcons&&!IconHandle.IsValid())IconHandle=WeaponIcons->OnReady.AddUObject(this,&ThisClass::OnWeaponIconReady);LoadIcons();}
+void UColdSteelInventoryWidget::NativeTick(const FGeometry& G,float Delta)
+{
+    Super::NativeTick(G,Delta);
+    Scale=ColdSteelUI::PixelScale(this);
+    if(IsVisible()&&IsHovered()&&!PendingTooltip.IsEmpty()&&!bHoverTooltipShown&&!bPendingClick&&KeyboardCarry.IsEmpty()&&!FSlateApplication::Get().IsDragDropping())
+    {
+        TooltipHoverTime+=Delta;
+        if(TooltipHoverTime>=.2f)if(auto* HUD=TooltipHUD()){HUD->ShowItemTooltip(PendingTooltip,TooltipAnchor,false,this);bHoverTooltipShown=true;}
+    }
+    if(IsVisible()&&bProcessingAnimated){GlintSeconds+=Delta;if(auto Slate=GetCachedWidget();Slate.IsValid())Slate->Invalidate(EInvalidateWidgetReason::Paint);}
+    if(auto* Size=Cast<USizeBox>(WidgetTree->RootWidget)){
+        const float Height=Layout(G).Height/Scale;
+        if(!FMath::IsNearlyEqual(Size->GetMinDesiredHeight(),Height,.5f))Size->SetMinDesiredHeight(Height);
+    }
+}
+void UColdSteelInventoryWidget::NativeDestruct(){if(Model)Model->OnChanged.Remove(ModelHandle);ModelHandle.Reset();if(WeaponIcons)WeaponIcons->OnReady.Remove(IconHandle);IconHandle.Reset();CancelInteraction();Super::NativeDestruct();}
 FIntPoint UColdSteelInventoryWidget::PendingFootprint(const FColdSteelItem& Item,const UColdSteelItemDrag& Drag)const
 {
     const FIntPoint Stored(Item.Width,Item.Height);
@@ -59,76 +127,19 @@ void UColdSteelInventoryWidget::RefreshDragPreview(UColdSteelItemDrag& Drag)
     PreviewItemDrag(Drag,CursorPos);
     if(auto Slate=GetCachedWidget();Slate.IsValid())Slate->Invalidate(EInvalidateWidgetReason::Paint);
 }
-#include "ColdSteelInventoryWidget.h"
-#include "ColdSteelQuickDrag.h"
-#include "ColdSteelDragVisual.h"
-#include "ColdSteelHUDWidget.h"
-#include "../FPSGAMEPlayerController.h"
-#include "ColdSteelStatusModel.h"
-#include "ColdSteelWeaponIcons.h"
-#include "../Weapons/GunsmithSystem.h"
-#include "ColdSteelUIStyle.h"
-#include "Blueprint/WidgetTree.h"
-#include "Components/SizeBox.h"
-#include "Components/ScrollBox.h"
-#include "Components/TextBlock.h"
-#include "Components/Image.h"
-#include "Components/ScaleBox.h"
-#include "ColdSteelInventoryPopup.h"
-#include "Engine/GameInstance.h"
-#include "Engine/Texture2D.h"
-#include "ImageUtils.h"
-#include "Misc/Paths.h"
-#include "Rendering/DrawElements.h"
-#include "Framework/Application/SlateApplication.h"
-#include "InputCoreTypes.h"
-using namespace ColdSteelInventory;
-bool UColdSteelItemDrag::IsCurrent(const UColdSteelStatusModel* Model)const
+void UColdSteelInventoryWidget::OnWeaponIconReady(const FString& Recipe)
 {
-    const auto* I=Model?Model->FindItem(ItemId):nullptr;
-    if(!I||I->Place!=SourcePlace||I->Cell!=SourceCell)return false;
-    if(!bHasSourceSnapshot)return true;
-    auto Current=*I;Current.Cooldown=SourceSnapshot.Cooldown; // Natural cooldown ticking does not change the held stack.
-    return FColdSteelItem::StaticStruct()->CompareScriptStruct(&Current,&SourceSnapshot,0);
-}
-void UColdSteelInventoryWidget::ConfigureWarehouse(UColdSteelHUDWidget* Owner){bWarehouse=true;StorageHUD=Owner;FocusPlace=4;FocusCell=StorageStart();LoadIcons();}
-int32 UColdSteelInventoryWidget::StorageStart()const{return bWarehouse&&Model?Model->WarehousePage*ColdSteelWarehouse::CellsPerPage:0;}
-int32 UColdSteelInventoryWidget::StorageRows()const{return bWarehouse?ColdSteelWarehouse::Rows:4;}
-void UColdSteelInventoryWidget::ResetStoragePage(){CancelInteraction();FocusPlace=StoragePlace();FocusCell=StorageStart();HoverPlace=-1;PointerCell=-1;LoadIcons();}
-void UColdSteelItemDrag::ReleaseVisual(){if(PointerVisual)PointerVisual->RemoveFromParent();PointerVisual=nullptr;}
-void UColdSteelItemDrag::Drop_Implementation(const FPointerEvent& E){ReleaseVisual();if(SourceHUD.IsValid())SourceHUD->EndInventoryDrag();if(SourceBoard.IsValid())SourceBoard->FinishDrag();Super::Drop_Implementation(E);}
-void UColdSteelItemDrag::DragCancelled_Implementation(const FPointerEvent& E){ReleaseVisual();if(SourceHUD.IsValid())SourceHUD->EndInventoryDrag();if(SourceBoard.IsValid())SourceBoard->FinishDrag();Super::DragCancelled_Implementation(E);}
-void UColdSteelItemDrag::Dragged_Implementation(const FPointerEvent& E){if(PointerVisual)PointerVisual->MoveTo(E.GetScreenSpacePosition());if(SourceHUD.IsValid())SourceHUD->UpdateInventoryDrag(this,E.GetScreenSpacePosition());Super::Dragged_Implementation(E);}
-void UColdSteelInventoryWidget::FinishDrag(){if(auto Drag=ActivePointerDrag.Get())Drag->ReleaseVisual();ActivePointerDrag.Reset();if(auto* HUD=TooltipHUD())HUD->EndInventoryDrag();DraggedItem.Empty();bPendingClick=false;ClearDragPreview();}
-void UColdSteelInventoryWidget::ClearDragPreview(){bPreviewValid=false;PreviewReason.Empty();SwapDestinations.Empty();PreviewPlace=-1;PreviewCell=-1;PreviewCells=FIntPoint(1,1);bPreviewRotatable=false;}
-void UColdSteelInventoryWidget::CancelInteraction(){PendingTooltip.Empty();FinishDrag();Selected.Empty();KeyboardCarry.Empty();KeyboardHotbar=-1;bConfirmDrop=false;InteractionMessage.Empty();if(ItemMenu)ItemMenu->Close(false);ItemMenu=nullptr;}
-void UColdSteelInventoryWidget::OpenItemMenu(FVector2D Anchor,bool SplitOnly){if(ItemMenu)ItemMenu->Close(false);if(auto* HUD=TooltipHUD())HUD->HideItemTooltip(true);ItemMenu=CreateWidget<UColdSteelInventoryPopup>(GetOwningPlayer());ItemMenu->Open(this,Model,Selected,Anchor,SplitOnly);}
-
-void UColdSteelInventoryWidget::NativeOnInitialized()
-{
-    Super::NativeOnInitialized();SetIsFocusable(true);Scale=ColdSteelUI::PixelScale(this);
-    Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
-    WeaponIcons=GetGameInstance()->GetSubsystem<UColdSteelWeaponIcons>();
-    if(!WidgetTree->RootWidget){auto* Size=WidgetTree->ConstructWidget<USizeBox>();WidgetTree->RootWidget=Size;}
-    SetVisibility(ESlateVisibility::Visible);LoadIcons();
-}
-void UColdSteelInventoryWidget::NativeConstruct(){Super::NativeConstruct();if(Model&&!ModelHandle.IsValid())ModelHandle=Model->OnChanged.AddUObject(this,&ThisClass::LoadIcons);if(WeaponIcons&&!IconHandle.IsValid())IconHandle=WeaponIcons->OnReady.AddUObject(this,&ThisClass::LoadIcons);LoadIcons();}
-void UColdSteelInventoryWidget::NativeTick(const FGeometry& G,float Delta)
-{
-    Super::NativeTick(G,Delta);
-    Scale=ColdSteelUI::PixelScale(this);
-    if(IsVisible()&&IsHovered()&&!PendingTooltip.IsEmpty()&&!bHoverTooltipShown&&!bPendingClick&&KeyboardCarry.IsEmpty()&&!FSlateApplication::Get().IsDragDropping())
+    if (!Model || !WeaponIcons || !IsVisible()) return;
+    for (const auto& Item : Model->Items())
     {
-        TooltipHoverTime+=Delta;
-        if(TooltipHoverTime>=.2f)if(auto* HUD=TooltipHUD()){HUD->ShowItemTooltip(PendingTooltip,TooltipAnchor,false,this);bHoverTooltipShown=true;}
-    }
-    if(IsVisible()&&bProcessingAnimated){GlintSeconds+=Delta;if(auto Slate=GetCachedWidget();Slate.IsValid())Slate->Invalidate(EInvalidateWidgetReason::Paint);}
-    if(auto* Size=Cast<USizeBox>(WidgetTree->RootWidget)){
-        const float Height=Layout(G).Height/Scale;
-        if(!FMath::IsNearlyEqual(Size->GetMinDesiredHeight(),Height,.5f))Size->SetMinDesiredHeight(Height);
+        const bool InView = bWarehouse ? Item.Place == 4 && Item.Cell >= StorageStart() && Item.Cell < StorageStart() + ColdSteelWarehouse::CellsPerPage : Item.Place == 0 || Item.Place == 1;
+        if (InView && WeaponIcons->Supports(Item) && WeaponIcons->Key(Item) == Recipe)
+        {
+            if (auto Slate = GetCachedWidget(); Slate.IsValid()) Slate->Invalidate(EInvalidateWidgetReason::Paint);
+            return;
+        }
     }
 }
-void UColdSteelInventoryWidget::NativeDestruct(){if(Model)Model->OnChanged.Remove(ModelHandle);ModelHandle.Reset();if(WeaponIcons)WeaponIcons->OnReady.Remove(IconHandle);IconHandle.Reset();CancelInteraction();Super::NativeDestruct();}
 void UColdSteelInventoryWidget::LoadIcons()
 {
     RefreshPresentation();

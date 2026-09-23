@@ -85,6 +85,7 @@ private:
     class UExpandableArea* AddSection(UVerticalBox*,const FString& Key,const FString& Title,bool Open);
     void UpdateRows();
     void RefreshIcon();
+    void OnWeaponIconReady(const FString& Recipe);
     FString StructureSignature()const;
     float InnerWidth()const;
     const FColdSteelTooltipRow& RowData(const FRowView&)const;

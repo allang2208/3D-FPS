@@ -159,3 +159,7 @@ description: UE5.6-UE5.8 PCG generation and runtime-heightfield ground workflow 
 - Escalate when architecture requires custom C++ PCG elements or engine plugin extension.
 - Escalate when city-scale generation must be integrated with World Partition streaming policy.
 - Escalate when generated layout must be synchronized with save/load or multiplayer authority rules.
+
+## 已生成构件的批量优化
+
+制作局部 Nanite/ISM 分组及后台关卡保存时，读取 [静态构件实例化](references/static-mesh-instance-production.md)，保留碰撞、变换及独立玩法对象语义。

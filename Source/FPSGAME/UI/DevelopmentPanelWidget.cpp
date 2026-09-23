@@ -74,13 +74,16 @@ void UDevelopmentPanelWidget::NativeOnInitialized()
     WeatherTab = CreatePanelButton(TEXT("天气环境"), TEXT("DevelopmentWeatherTab"));
     MonsterTab = CreatePanelButton(TEXT("怪物生成"), TEXT("DevelopmentMonsterTab"));
     TuningTab = CreatePanelButton(TEXT("基本调参"), TEXT("DevelopmentTuningTab"));
-    for (auto* Button : {TuningTab.Get(), WeatherTab.Get(), MonsterTab.Get()})
+    PerformanceTab = CreatePanelButton(TEXT("性能监测"), TEXT("DevelopmentPerformanceTab"));
+    for (auto* Button : {TuningTab.Get(), WeatherTab.Get(), MonsterTab.Get(), PerformanceTab.Get()})
     {
+        if (auto* Label = Cast<UTextBlock>(Button->GetContent())) Label->SetAutoWrapText(false);
         auto* TabSlot = Tabs->AddChildToHorizontalBox(Button); TabSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill)); TabSlot->SetPadding(FMargin(2,0));
     }
     WeatherTab->OnClicked.AddDynamic(this, &ThisClass::WeatherClicked);
     MonsterTab->OnClicked.AddDynamic(this, &ThisClass::MonstersClicked);
     TuningTab->OnClicked.AddDynamic(this, &ThisClass::TuningClicked);
+    PerformanceTab->OnClicked.AddDynamic(this, &ThisClass::PerformanceClicked);
     auto* Scroll = WidgetTree->ConstructWidget<UScrollBox>();
     Scroll->SetScrollbarThickness(FVector2D(6,6));
     Stack->AddChildToVerticalBox(Scroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
@@ -116,6 +119,9 @@ void UDevelopmentPanelWidget::NativeOnInitialized()
 
     auto* TuningPage = WidgetTree->ConstructWidget<UVerticalBox>(); Pages->AddChild(TuningPage);
     BuildTuningPage(TuningPage);
+
+    auto* PerformancePage = WidgetTree->ConstructWidget<UVerticalBox>(); Pages->AddChild(PerformancePage);
+    BuildPerformancePage(PerformancePage);
     auto* TuningFooter = WidgetTree->ConstructWidget<UVerticalBox>(); TuningActions = TuningFooter;
     Stack->AddChildToVerticalBox(TuningFooter)->SetPadding(FMargin(0,12,0,0));
     DisableTuningButton = AddButton(TuningFooter, TEXT("全部关闭"), TEXT("DevelopmentDisableTuning"));
@@ -246,6 +252,7 @@ void UDevelopmentPanelWidget::SetPanelOpen(bool bOpen)
 
 void UDevelopmentPanelWidget::SetPage(int32 Index)
 {
+    if (ActivePage != Index && Index == 3) PerformanceNextUpdate = 0.0;
     ActivePage = Index;
     Pages->SetActiveWidgetIndex(Index);
     SpawnActions->SetVisibility(Index == 1 ? ESlateVisibility::Visible : ESlateVisibility::Collapsed);
@@ -256,6 +263,7 @@ void UDevelopmentPanelWidget::SetPage(int32 Index)
     WeatherTab->SetStyle(Index == 0 ? Selected : ColdSteelUI::ButtonStyle(1.f / Scale));
     MonsterTab->SetStyle(Index == 1 ? Selected : ColdSteelUI::ButtonStyle(1.f / Scale));
     TuningTab->SetStyle(Index == 2 ? Selected : ColdSteelUI::ButtonStyle(1.f / Scale));
+    if (PerformanceTab) PerformanceTab->SetStyle(Index == 3 ? Selected : ColdSteelUI::ButtonStyle(1.f / Scale));
     RefreshStatus();
     RefreshTuning();
     RefreshFeatures();
@@ -473,6 +481,7 @@ void UDevelopmentPanelWidget::UpdateLayout()
     StyleChoice(MonsterChoice, Scale);
     StyleChoice(ItemChoice, Scale);
     StyleChoice(SkillChoice, Scale);
+    UpdatePerformanceLayout(Scale);
     for (auto* Spin : {CountBox.Get(), DistanceBox.Get(), ItemCountBox.Get()}) StyleCount(Spin, Scale);
     SetPage(ActivePage);
 }
@@ -532,6 +541,8 @@ void UDevelopmentPanelWidget::NativeTick(const FGeometry& Geometry, float DeltaS
     Super::NativeTick(Geometry, DeltaSeconds);
     UpdateLayout();
     TickDrawer(DeltaSeconds);
+    // 性能页只在它自己可见时刷新：扫描要遍历世界，没必要在别的页面上白跑。
+    if (ActivePage == 3 && IsPanelOpen()) RefreshPerformance(DeltaSeconds);
 }
 
 void UDevelopmentPanelWidget::OpenDeveloper() { if (auto* Player = GetOwningPlayer<AFPSGAMEPlayerController>()) Player->ToggleDevelopmentPanel(); }

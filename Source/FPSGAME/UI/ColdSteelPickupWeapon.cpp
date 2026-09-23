@@ -1,5 +1,7 @@
 #include "ColdSteelPickup.h"
 #include "ColdSteelPickupStudio.h"
+#include "FPSPerformanceMetrics.h"
+#include "ProfilingDebugging/CpuProfilerTrace.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "PreviewScene.h"
@@ -24,8 +26,14 @@ bool AColdSteelPickup::BuildWeapon(const FColdSteelItem& Item,UGameInstance* Con
     const double Begin=FPlatformTime::Seconds();ON_SCOPE_EXIT { UE_LOG(LogTemp,Display,TEXT("DropTiming: model %.3f ms"),(FPlatformTime::Seconds()-Begin)*1000); };
     if(Item.Definition!=TEXT("ue_m4a1")&&Item.Definition!=TEXT("ue_akm")&&Item.Definition!=TEXT("ue_a762")&&Item.Definition!=TEXT("ue_qbz191")&&Item.Definition!=TEXT("ue_ash12")&&Item.Definition!=TEXT("ue_m16a2")&&Item.Definition!=TEXT("ue_m1911")&&Item.Definition!=TEXT("ue_dan_wesson715"))return false;
     if(!Context)Context=GetGameInstance();auto* Pool=Context->GetSubsystem<UColdSteelPickupStudio>();
+    TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Pickup_BuildWeapon);
+    FFPSPerformanceScope BuildScope(Context,TEXT("Pickup.BuildWeapon"),Pool->Key(Item));
     bool Created=false;auto* Rig=Pool->Acquire(Item.Definition,Created);if(!Rig)return false;
-    if(Created){Rig->ActiveInventoryWeaponDefinition=Item.Definition;Rig->bUseM4Infima=Item.Definition==TEXT("ue_m4a1");Rig->bUseQBZ191=Item.Definition==TEXT("ue_qbz191");Rig->bUseASH12=Item.Definition==TEXT("ue_ash12");Rig->bUseM16=Item.Definition==TEXT("ue_m16a2");Rig->bUseM1911=Item.Definition==TEXT("ue_m1911");Rig->bUseDanWesson715=Item.Definition==TEXT("ue_dan_wesson715");Rig->InitializeWeaponVisuals();}
+    if(Created){
+        TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Pickup_InitializeVisuals);
+        FFPSPerformanceScope VisualScope(Context,TEXT("Pickup.InitializeVisuals"));
+        Rig->ActiveInventoryWeaponDefinition=Item.Definition;Rig->bUseM4Infima=Item.Definition==TEXT("ue_m4a1");Rig->bUseQBZ191=Item.Definition==TEXT("ue_qbz191");Rig->bUseASH12=Item.Definition==TEXT("ue_ash12");Rig->bUseM16=Item.Definition==TEXT("ue_m16a2");Rig->bUseM1911=Item.Definition==TEXT("ue_m1911");Rig->bUseDanWesson715=Item.Definition==TEXT("ue_dan_wesson715");Rig->InitializeWeaponVisuals(true);
+    }
     auto* Source=Rig->AKMViewmodel.Get();if(!Source||!Source->GetSkeletalMeshAsset())return false;
     Source->SetWorldTransform(FTransform::Identity);Source->PlayAnimation(Rig->IdleAnimation,false);Source->SetPosition(0,false);Source->TickAnimation(0,false);Source->RefreshBoneTransforms();Source->UpdateComponentToWorld();
     const auto Parts=Context->GetSubsystem<UGunsmithSystem>()->Installed(Item);

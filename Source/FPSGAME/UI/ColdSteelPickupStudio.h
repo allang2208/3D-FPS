@@ -13,7 +13,7 @@ class UColdSteelPickupStudio : public UGameInstanceSubsystem
 public:
     class AFPSGAMECharacter* Acquire(const FString& Definition,bool& Created);
     FString Key(const FColdSteelItem& Item) const;
-    void Warm(const FColdSteelItem& Item);
+    void Warm(const FColdSteelItem& Item, const FBox* PreparedBounds = nullptr);
     virtual void Deinitialize() override;
     TMap<FString,FBox> Bounds;
 private:

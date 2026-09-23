@@ -33,6 +33,7 @@ public class FPSGAME : ModuleRules
         RuntimeDependencies.Add("$(ProjectDir)/Content/UI/TransitLoading/...", StagedFileType.UFS);
         PrivateDependencyModuleNames.Add("PhysicsCore");
         PrivateDependencyModuleNames.Add("Chaos");
+        PrivateDependencyModuleNames.Add("ChaosCore"); // TAABB methods used by dungeon geometry are exported by ChaosCore in UE 5.8.
         PrivateDependencyModuleNames.Add("FPSBlast");
         PrivateDependencyModuleNames.Add("AnimationCore");
         PrivateDependencyModuleNames.Add("AnimationWarpingRuntime");

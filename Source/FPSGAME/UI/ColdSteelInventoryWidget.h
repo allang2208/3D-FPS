@@ -115,6 +115,7 @@ private:
     bool Hit(const FGeometry&,FVector2D Screen,int32& Place,int32& Cell)const;
     FString IdAt(int32 Place,int32 Cell)const;
     void LoadIcons();
+    void OnWeaponIconReady(const FString& Recipe);
     void RefreshPresentation();
     void ClearDragPreview();
     FIntPoint PendingFootprint(const FColdSteelItem& Item,const UColdSteelItemDrag& Drag)const;

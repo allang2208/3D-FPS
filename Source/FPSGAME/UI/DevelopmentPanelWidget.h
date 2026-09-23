@@ -1,6 +1,7 @@
 #pragma once
 #include "WeatherControlWidget.h"
 #include "ColdSteelStatusModel.h"
+#include "FPSPerformanceMetrics.h"
 #include "Components/ComboBoxString.h"
 #include "../Development/DevelopmentTuningSubsystem.h"
 #include "DevelopmentPanelWidget.generated.h"
@@ -17,6 +18,9 @@ class UBackgroundBlur;
 class UGridPanel;
 class UHorizontalBox;
 class UButton;
+class UTextBlock;
+class UUserWidget;
+class UProgressBar;
 
 /** Unified developer shell for session tuning, weather and monster spawning. */
 UCLASS()
@@ -48,6 +52,26 @@ private:
     void UpdateTuningLayout(float ContentWidth, float Scale);
     void BuildFeatureRows(UVerticalBox* Page);
     void UpdateFeatureLayout(float ContentWidth, float Scale);
+    /** 性能监测页：帧预算 + 组件开销排行。 */
+    void BuildPerformancePage(UVerticalBox* Page);
+    void RefreshPerformance(float Delta);
+    void RefreshPerformanceDiagnostics();
+    void RefreshPerformanceLighting();
+    void SetPerformancePaused(bool bPaused);
+    void UpdatePerformanceLayout(float Scale);
+    /** 排行列表里的一行。控件弱引用，页面重建时自然失效。 */
+    struct FPerformanceRow
+    {
+        /** 整行的容器，用于隐藏多余的预留行。 */
+        TWeakObjectPtr<UBorder> Card;
+        /** Relative complexity, not measured time. */
+        TWeakObjectPtr<UProgressBar> Bar;
+        TWeakObjectPtr<UTextBlock> Rank;
+        TWeakObjectPtr<UTextBlock> Label;
+        TWeakObjectPtr<UTextBlock> Numbers;
+        TWeakObjectPtr<UTextBlock> Detail;
+        TWeakObjectPtr<UTextBlock> Share;
+    };
     void RefreshTuning();
     void RefreshFeatures();
     void RefreshTimeHelp();
@@ -60,6 +84,13 @@ private:
     UFUNCTION() void WeatherClicked();
     UFUNCTION() void MonstersClicked();
     UFUNCTION() void TuningClicked();
+    UFUNCTION() void PerformanceClicked();
+    UFUNCTION() void PerformancePauseClicked();
+    UFUNCTION() void PerformanceRecordingClicked();
+    UFUNCTION() void PerformanceResetClicked();
+    UFUNCTION() void PerformanceExportClicked();
+    UFUNCTION() void PerformanceIntervalChanged(FString Selected, ESelectInfo::Type Type);
+    UFUNCTION() void PerformanceRowsChanged(FString Selected, ESelectInfo::Type Type);
     UFUNCTION() void InvincibleClicked();
     UFUNCTION() void OneHitKillClicked();
     UFUNCTION() void InfiniteAmmoClicked();
@@ -96,6 +127,38 @@ private:
     UPROPERTY(Transient) TObjectPtr<UButton> WeatherTab;
     UPROPERTY(Transient) TObjectPtr<UButton> MonsterTab;
     UPROPERTY(Transient) TObjectPtr<UButton> TuningTab;
+    UPROPERTY(Transient) TObjectPtr<UButton> PerformanceTab;
+    // ---- 性能监测页 ----
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> PerformanceBudget;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> PerformanceStats;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> PerformanceHitches;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> PerformanceIconTasks;
+    /** Project event counts, separate from skeletal configuration and measured timings. */
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> PerformanceCounters;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> PerformanceStatus;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> PerformanceLiveState;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> PerformanceCoverage;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> PerformanceLights;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> PerformanceEnvironment;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> PerformanceMessage;
+    UPROPERTY(Transient) TObjectPtr<UButton> PerformancePauseButton;
+    UPROPERTY(Transient) TObjectPtr<UButton> PerformanceRecordingButton;
+    UPROPERTY(Transient) TObjectPtr<UButton> PerformanceResetButton;
+    UPROPERTY(Transient) TObjectPtr<UButton> PerformanceExportButton;
+    UPROPERTY(Transient) TObjectPtr<UComboBoxString> PerformanceInterval;
+    UPROPERTY(Transient) TObjectPtr<UComboBoxString> PerformanceRowCount;
+    UPROPERTY(Transient) TObjectPtr<UVerticalBox> PerformanceList;
+    TArray<FPerformanceRow> PerformanceEntries;
+    FFPSPerformanceSnapshot PerformanceCache;
+    TArray<TPair<TWeakObjectPtr<USizeBox>, float>> PerformanceControlBoxes;
+    double PerformanceNextUpdate = 0.0;
+    double PerformanceNextStatus = 0.0;
+    double PerformanceLastRefresh = 0.0;
+    float PerformanceIntervalMs = 500.f;
+    int32 PerformanceRowLimit = 20;
+    bool bPerformancePaused = false;
+    bool bPerformanceExporting = false;
+    uint64 PerformanceExportGeneration = 0;
     UPROPERTY(Transient) TObjectPtr<UButton> Shortcut;
     UPROPERTY(Transient) TObjectPtr<UButton> GenerateItemButton;
     UPROPERTY(Transient) TObjectPtr<UButton> GrantLevelButton;

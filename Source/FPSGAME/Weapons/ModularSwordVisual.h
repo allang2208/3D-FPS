@@ -9,6 +9,7 @@ namespace ColdSteelModularSword
     bool Supports(const FColdSteelItem& Item);
     FString ArmsMesh(const FColdSteelItem& Item);
     FString AnimationFolder(const FColdSteelItem& Item);
+    void GatherVisualResources(const FColdSteelItem& Item,TArray<FSoftObjectPath>& Out,const FGunsmithParts* Draft=nullptr);
     FString Key(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr,bool IncludeRune=true);
     bool Apply(UStaticMeshComponent* Blade,const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr,bool IncludeRune=true);
     void Clear(UStaticMeshComponent* Blade);

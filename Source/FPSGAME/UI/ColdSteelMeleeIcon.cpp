@@ -1,4 +1,7 @@
 #include "ColdSteelWeaponIcons.h"
+#include "FPSPerformanceMetrics.h"
+#include "Engine/GameInstance.h"
+#include "ProfilingDebugging/CpuProfilerTrace.h"
 #include "ColdSteelMeleePreview.h"
 #include "../Weapons/MeleeRuneVisual.h"
 #include "../Weapons/ModularSwordVisual.h"
@@ -11,6 +14,8 @@
 
 bool UColdSteelWeaponIcons::PrepareMelee(const FColdSteelItem& Item)
 {
+    TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Icon_PrepareMelee);
+    FFPSPerformanceScope MeleeScope(bCatalogExport?nullptr:GetGameInstance(),TEXT("Icon.MeleeAssembly"));
     const bool Modular=ColdSteelModularSword::Supports(Item);
     const FString Path=Modular?FString():ColdSteelMeleePreview::MeshPath(Item);
     auto* Asset=Path.IsEmpty()?nullptr:LoadObject<UStaticMesh>(nullptr,*Path);

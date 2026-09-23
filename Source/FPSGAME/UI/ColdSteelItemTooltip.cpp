@@ -40,7 +40,7 @@ void UColdSteelItemTooltip::NativeConstruct()
 {
     Super::NativeConstruct();
     if(Model&&!ChangedHandle.IsValid())ChangedHandle=Model->OnChanged.AddUObject(this,&ThisClass::Refresh);
-    if(WeaponIcons&&!IconHandle.IsValid())IconHandle=WeaponIcons->OnReady.AddUObject(this,&ThisClass::RefreshIcon);
+    if(WeaponIcons&&!IconHandle.IsValid())IconHandle=WeaponIcons->OnReady.AddUObject(this,&ThisClass::OnWeaponIconReady);
 }
 void UColdSteelItemTooltip::NativeDestruct()
 {
@@ -91,6 +91,12 @@ void UColdSteelItemTooltip::Refresh()
     const FString Next=StructureSignature();
     if(Next!=Signature){Signature=Next;BuildCards();}
     UpdateRows();RefreshIcon();SettleSeconds=.15f;
+}
+void UColdSteelItemTooltip::OnWeaponIconReady(const FString& Recipe)
+{
+    if (!IsVisible() || !Model || !WeaponIcons) return;
+    const auto* Item = Model->FindItem(InstanceId);
+    if (Item && WeaponIcons->Supports(*Item) && WeaponIcons->Key(*Item) == Recipe) RefreshIcon();
 }
 void UColdSteelItemTooltip::RefreshIcon()
 {

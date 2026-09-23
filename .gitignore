@@ -493,3 +493,7 @@ __pycache__/
 !/SourceAssets/SVDDragunov20260922/**/*.md
 !/SourceAssets/SVDDragunov20260922/Config/*.json
 !/SourceAssets/SVDDragunov20260922/Receipts/*.json
+
+# Main-scene performance: publish source recipes, keep capture receipts and recovery copies local.
+/SourceAssets/MainScenePerformance20260923/Receipts/
+/SourceAssets/MainScenePerformance20260923/Before/

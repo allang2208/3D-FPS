@@ -125,3 +125,7 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 ## 弹药袋与圆形选择
 
 弹药袋子页、按弹种数量等分的 R 轮盘、鼠标选择和图标缓存，读取 [动态弹种轮盘与弹药袋](references/ammo-radial-and-pouch.md)。
+
+## 运行时图标与诊断界面开销
+
+处理动态图标首次准备卡顿、图标通知全量刷新或诊断文本反复失效时，读取 [运行时图标准备](references/runtime-icon-pipeline.md)。

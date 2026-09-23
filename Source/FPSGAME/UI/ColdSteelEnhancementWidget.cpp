@@ -41,7 +41,7 @@ void UColdSteelEnhancementWidget::NativeConstruct()
 {
     Super::NativeConstruct();
     if(!ProfileHandle.IsValid())ProfileHandle=Profile()->OnChanged.AddUObject(this,&ThisClass::Refresh);
-    if(!IconHandle.IsValid())IconHandle=GetGameInstance()->GetSubsystem<UColdSteelWeaponIcons>()->OnReady.AddUObject(this,&ThisClass::RefreshIcons);
+    if(!IconHandle.IsValid())IconHandle=GetGameInstance()->GetSubsystem<UColdSteelWeaponIcons>()->OnReady.AddUObject(this,&ThisClass::OnWeaponIconReady);
     Refresh();
 }
 void UColdSteelEnhancementWidget::NativeDestruct()
@@ -55,6 +55,17 @@ void UColdSteelEnhancementWidget::NativeTick(const FGeometry& Geometry,float Del
 {
     Super::NativeTick(Geometry,Delta);UpdateResponsiveLayout();
     if(WorkbenchPreview)WorkbenchPreview->TickStandalonePreview(Delta,PreviewSurface);
+}
+void UColdSteelEnhancementWidget::OnWeaponIconReady(const FString& Recipe)
+{
+    if (!IsVisible()) return;
+    auto* Icons = GetGameInstance()->GetSubsystem<UColdSteelWeaponIcons>();
+    for (const auto& Pair : ItemImages)
+        if (const auto* Item = Profile()->FindItem(Pair.Key); Item && Icons->Supports(*Item) && Icons->Key(*Item) == Recipe)
+        {
+            const auto* Brush = Icons->Find(*Item);
+            Pair.Value->SetImage(Brush ? Brush : MaterialIcon(Item->Definition));
+        }
 }
 void UColdSteelEnhancementWidget::RefreshIcons()
 {

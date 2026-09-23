@@ -145,3 +145,7 @@ description: UE5.6-UE5.8 performance and packaging readiness workflow. Use when 
 - 细节与依据见 [UE MCP 多会话规则](../ue5-auto-assistant/references/mcp-multi-session.md)。
 
 性能退化、内存与显存警告归因见 [性能退化诊断](references/performance-regression.md)。
+
+## 性能面板与离线导出归因
+
+分析性能面板 JSON、修正 LOD/线程时间口径或定位 UI 长帧时，读取 [性能面板归因](references/performance-panel-attribution.md)。

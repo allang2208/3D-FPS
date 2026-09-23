@@ -40,6 +40,7 @@ private:
     TSharedRef<class SWidget> GlassPanel(TSharedRef<class SWidget> Content);
     void UpdateResponsiveLayout();
     void RefreshIcons();
+    void OnWeaponIconReady(const FString& Recipe);
     const FSlateBrush* MaterialIcon(const FString& Definition);
     TMap<FString,TSharedPtr<FSlateBrush>> MaterialBrushes;
     TMap<FString,TSharedPtr<class SImage>> ItemImages;
