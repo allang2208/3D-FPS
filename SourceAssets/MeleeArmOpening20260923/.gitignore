@@ -1,0 +1,6 @@
+# Recipes are public; licensed meshes, dense poses, binaries and receipts stay local.
+*
+!.gitignore
+!README.md
+!*.py
+!*.ps1

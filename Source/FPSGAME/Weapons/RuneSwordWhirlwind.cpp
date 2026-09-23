@@ -49,10 +49,6 @@ bool URuneSwordComponent::BeginWhirlwind()
     if(!Profile->CommitWhirlwindCast(Cast))return false;
     WhirlwindCast=Cast;WhirlwindTuning=Profile->MasteryDefinition(TEXT("whirlwind")).Whirlwind;
     bWhirlwind=true;bWhirlwindTrainingPending=true;bSwingCuePlayed=false;
-    // World ticks PostPhysics before caching the player camera. Keep the turn,
-    // attached arms/weapon and post process in that same rendered frame.
-    // The existing owner prerequisite still places us after character movement.
-    SetTickGroup(TG_PostPhysics);
     WhirlwindHits=WhirlwindKills=0;WhirlwindPause=WhirlwindPauseSpent=0.f;
     ImpactAge=1.f;ImpactStrength=1.f;
     WhirlwindYaw=Character->GetControlRotation().Yaw;
@@ -86,7 +82,6 @@ void URuneSwordComponent::FinishWhirlwind()
     if(!bWhirlwind)return;
     // Clear first: saving training can refresh equipment and re-enter cancellation.
     bWhirlwind=false;
-    SetTickGroup(TG_PostUpdateWork);
     if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->ClearWhirlwindEntry();
     EndWhirlwindFocus();
     if(Camera)

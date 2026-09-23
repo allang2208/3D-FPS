@@ -32,6 +32,8 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 
 - 枪械快速近战、跨枪握点、自然腕臂与结束后二次回正：[快速近战接触与收势](references/quick-melee-contact-recovery.md)。固定本枪握点，联动整枪与双手，在 recover 内完成姿态和视模锚点交接。
 - 双持 F 偶发失效、改造枪转枪恢复与枪身形变排查：[双持快速近战](references/dual-pistol-quick-melee.md)。区分动作所有权、配件转轴、腕臂支撑和运行时形变证据。
+- 第三段突刺肘部拧细、伸展露出袖口，或修肘后再露口：[突刺肘部与开口保护](references/thrust-elbow-clearance.md)。分开骨骼轴向差、相机缓存顺序和开口权重，锁住握点并按真实蒙皮分配旋转。
+
 - 双手过顶下砍中段屈肘、保留原腕部观感：[过顶下砍伸展](references/overhead-reach-wrist.md)。约束全段肩腕距离，整体前送剑与双手，保留握点和骨长。
 - 换弹结束瞬移、展示偏移滞后或复用已认可的插匣/拉柄动作：[换弹收尾与待机衔接](references/reload-handoff.md)。先区分动画末帧与运行时锚点，保持机械接触时钟。
 

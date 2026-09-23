@@ -1,0 +1,5 @@
+# Publish reusable readers and offline render recipes, not local capture payloads.
+*
+!.gitignore
+!*.py
+!README.md

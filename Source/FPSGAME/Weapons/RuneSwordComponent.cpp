@@ -37,7 +37,10 @@
 URuneSwordComponent::URuneSwordComponent()
 {
     PrimaryComponentTick.bCanEverTick=true;
-    PrimaryComponentTick.TickGroup=TG_PostUpdateWork;
+    // Lunge movement and the attached arms must finish before World caches the
+    // player camera. Keep this order for every state: changing groups on attack
+    // entry can be too late for the first frame's already queued tick.
+    PrimaryComponentTick.TickGroup=TG_PostPhysics;
 }
 
 bool URuneSwordComponent::TriggerHeavySkill()
@@ -68,7 +71,10 @@ void URuneSwordComponent::BeginPlay()
     {SetComponentTickEnabled(false);return;}
     Camera=Pawn->FindComponentByClass<UCameraComponent>();
     if(!Camera){SetComponentTickEnabled(false);return;}
+    // Enforce the same order for instances serialized with the former group.
+    SetTickGroup(TG_PostPhysics);
     AddTickPrerequisiteActor(Pawn);
+    AddTickPrerequisiteComponent(Pawn->GetCharacterMovement());
     Viewmodel=NewObject<URuneSwordMeshComponent>(Pawn,TEXT("RuneSwordViewmodel"));
     Pawn->AddInstanceComponent(Viewmodel);Viewmodel->SetupAttachment(Camera);
     Viewmodel->SetRelativeRotation(FRotator(0,90,0));

@@ -1,0 +1,6 @@
+# Keep sampled rig data, editable meshes, exports and diagnostic output on this host.
+*
+!.gitignore
+!README.md
+!*.py
+!*.ps1
