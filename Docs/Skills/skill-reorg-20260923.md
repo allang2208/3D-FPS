@@ -125,7 +125,7 @@
 - **未处理** `ue5-auto-assistant/references/` 下 3 个引用不存在技能的文件
   （`mcp-skill-mapping.md`、`natural-language-triggers.md`、`beginner-smoke-prompts.md`，共约 5.8 KB）。
 - **未重生成** 755 行路由表（需按当前 15 个技能重做映射，属独立工作）。
-- 未提交 git；工作区原有未提交改动保持原样。
+- 已按 WORKFLOW.md §8 提交并推送到 `origin/main`（见下方发布记录）；工作区其它会话的未提交改动保持原样。
 
 ## 回滚
 
@@ -141,3 +141,19 @@
 | `SourceAssets/SkillReorg20260923/split_fps_arms_skill.py` | 拆分第二个入口 |
 | `SourceAssets/SkillReorg20260923/verify_links.py` | 链接解析校验（快照 vs 现状） |
 | `SourceAssets/SkillReorg20260923/*.json` | 四步各自的回执 |
+
+## 发布记录（WORKFLOW.md §8.7）
+
+| 项 | 值 |
+| --- | --- |
+| 远端 / 分支 | `https://github.com/allang2208/3D-FPS.git` 的 `main` |
+| 本次发布提交 | `da074e9dab45dff54afaa1f1929919023832566f` 技能重组（36 文件）<br>`98471f239eaf3d1224e3eae60882637ab55cc0ae` 主场景广场与性能分析（24 文件） |
+| 推送前基线 | `59fdf64`（origin/main；fetch 后确认远端无新提交，可快进） |
+| 推送方式 | `git push origin HEAD:main`，普通非强制。推送后 `git ls-remote` 回读 `refs/heads/main` 与本地 HEAD 一致；归档标签 `archive/godot-before-ue5-20260910` 保留 |
+| 暂存方式 | 显式文件清单，未使用 `git add -A` / `git add .` / `git clean` / `reset --hard` |
+| 过程中的一次纠正 | 首轮误用目录 pathspec（`git commit -- skills`）——`git commit <路径>` 提交的是该路径的**工作区内容**，于是把 18 个其他会话未提交的 reference 改动一并提交。推送前用 `git reset --soft`（只移动 HEAD，不动工作区）撤销，`git restore --staged` 退回索引，核对 18 个文件工作区哈希全部未变，再改用显式清单重做。 |
+| 验证 | 293 条相对链接断链 0；搬迁章节逐字断言通过；对改动前快照 diff 0 处意外改动；暂存内容 410 KB 全文本、无二进制、敏感信息未命中；`git diff --cached --check` 干净 |
+| 剩余内容依赖 | 发布树中 5 条链接指向**尚未发布**的兄弟文档：`Docs/UI/performance-attribution-plan-20260922.md`、`Docs/Performance/hitch-player-body-20260921.md`、`Docs/Performance/performance-export-analysis-20260922-1315.md`、`Docs/Performance/performance-export-analysis-20260922-1554.md`、`skills/ue5-auto-assistant/references/mcp-multi-session.md`（最后一条在 HEAD 中已存在）。目标文件本机均存在，随各自任务发布后即可解析。 |
+| 未纳入本次发布 | `SourceAssets/MainPlaza20260922/` 的 `build_main_plaza.py`、`merge_plaza.py`、`apply_plaza_optimization.py`——已被另一并行会话改作 bounded-Nanite 实例化路线，归属未清，保留现场未提交。 |
+| 已知的夹带 | 7 个 SKILL.md 因同一文件内混有并行会话的文档行（合计约 34 行，如 `ue5-performance-packaging` 的 cook 断言排查段、`ue5-world-interaction` 的喷泉 V9 环境声段）而一并发布；按"路径清单"精度处理，未做行级拆分。逐文件明细见对话交付说明。 |
+
