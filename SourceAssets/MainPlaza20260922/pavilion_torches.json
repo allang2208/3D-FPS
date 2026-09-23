@@ -1,0 +1,59 @@
+{
+  "map": "/Game/GameMaps/DayNight_Lighting",
+  "columns_found": 10,
+  "dropped_previous": 0,
+  "torches": [
+    {
+      "label": "PavilionTorch_01",
+      "host": "RomanPavilion2_Column_01",
+      "loc": [
+        1710.0,
+        -400.0,
+        210.0
+      ],
+      "yaw": 0.0
+    },
+    {
+      "label": "PavilionTorch_02",
+      "host": "RomanPavilion2_Column_03",
+      "loc": [
+        1461.2,
+        -57.6,
+        210.0
+      ],
+      "yaw": 72.0
+    },
+    {
+      "label": "PavilionTorch_03",
+      "host": "RomanPavilion2_Column_05",
+      "loc": [
+        1058.8,
+        -188.4,
+        210.0
+      ],
+      "yaw": 144.0
+    },
+    {
+      "label": "PavilionTorch_04",
+      "host": "RomanPavilion2_Column_07",
+      "loc": [
+        1058.8,
+        -611.6,
+        210.0
+      ],
+      "yaw": -144.0
+    },
+    {
+      "label": "PavilionTorch_05",
+      "host": "RomanPavilion2_Column_09",
+      "loc": [
+        1461.2,
+        -742.4,
+        210.0
+      ],
+      "yaw": -72.0
+    }
+  ],
+  "saved": true,
+  "switched_from": null
+}

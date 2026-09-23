@@ -1,0 +1,94 @@
+[
+  {
+    "path": "SM_MarbleFloorTiles",
+    "before": [
+      120140
+    ],
+    "after": [
+      120140,
+      12014,
+      3604
+    ],
+    "percents": [
+      1.0,
+      0.1,
+      0.03
+    ],
+    "screens": [
+      1.0,
+      0.6,
+      0.2
+    ],
+    "saved": true,
+    "reduced": true
+  },
+  {
+    "path": "SM_RomanColumn_Detailed",
+    "before": [
+      32702
+    ],
+    "after": [
+      32702,
+      8176,
+      2616
+    ],
+    "percents": [
+      1.0,
+      0.25,
+      0.08
+    ],
+    "screens": [
+      1.0,
+      0.35,
+      0.1
+    ],
+    "saved": true,
+    "reduced": true
+  },
+  {
+    "path": "SM_RomanColumn_Round_20",
+    "before": [
+      32902
+    ],
+    "after": [
+      32902,
+      8226,
+      2632
+    ],
+    "percents": [
+      1.0,
+      0.25,
+      0.08
+    ],
+    "screens": [
+      1.0,
+      0.35,
+      0.1
+    ],
+    "saved": true,
+    "reduced": true
+  },
+  {
+    "path": "SM_RomanBaluster_Small",
+    "before": [
+      12140
+    ],
+    "after": [
+      12140,
+      2974,
+      952
+    ],
+    "percents": [
+      1.0,
+      0.25,
+      0.08
+    ],
+    "screens": [
+      1.0,
+      0.35,
+      0.1
+    ],
+    "saved": true,
+    "reduced": true
+  }
+]

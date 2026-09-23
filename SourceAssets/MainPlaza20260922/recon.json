@@ -1,0 +1,2092 @@
+{
+  "world": "/Game/GameMaps/DayNight_Lighting.DayNight_Lighting",
+  "pie_active": false,
+  "dirty_maps": [],
+  "actor_count": 183,
+  "playerstarts": [
+    {
+      "label": "PlayerStart_SceneTest",
+      "cls": "PlayerStart",
+      "loc": [
+        -0.1,
+        0.0,
+        102.0
+      ],
+      "center": [
+        55.9,
+        0.0,
+        102.0
+      ],
+      "extent": [
+        184.0,
+        128.0,
+        128.0
+      ],
+      "tags": []
+    }
+  ],
+  "playerstart_yaw": 0.0,
+  "floor": {
+    "label": "Floor",
+    "cls": "StaticMeshActor",
+    "loc": [
+      -0.1,
+      0.0,
+      -20.0
+    ],
+    "center": [
+      -0.1,
+      0.0,
+      -20.0
+    ],
+    "extent": [
+      250000.1,
+      250000.0,
+      20.0
+    ],
+    "tags": []
+  },
+  "altar_tagged": [
+    {
+      "label": "Expedition_SquareAltar",
+      "cls": "StaticMeshActor",
+      "loc": [
+        649.9,
+        -400.0,
+        0.0
+      ],
+      "center": [
+        649.9,
+        -400.0,
+        70.5
+      ],
+      "extent": [
+        110.0,
+        100.0,
+        70.5
+      ],
+      "tags": [
+        "ColdSteel.ExpeditionAltar"
+      ]
+    }
+  ],
+  "props_in_scene": [
+    {
+      "label": "MarbleFloor_Colonnade",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "loc": [
+        1350.0,
+        550.0,
+        0.0
+      ]
+    },
+    {
+      "label": "RomanFence_Column_01",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "loc": [
+        600.0,
+        930.0,
+        20.0
+      ]
+    },
+    {
+      "label": "RomanFence_Column_02",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "loc": [
+        800.0,
+        930.0,
+        20.0
+      ]
+    },
+    {
+      "label": "RomanFence_Column_03",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "loc": [
+        1000.0,
+        930.0,
+        20.0
+      ]
+    },
+    {
+      "label": "RomanFence_Column_04",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "loc": [
+        1200.0,
+        930.0,
+        20.0
+      ]
+    },
+    {
+      "label": "RomanFence_Column_05",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "loc": [
+        1400.0,
+        930.0,
+        20.0
+      ]
+    },
+    {
+      "label": "RomanFence_Column_06",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "loc": [
+        1600.0,
+        930.0,
+        20.0
+      ]
+    },
+    {
+      "label": "RomanFence_Column_07",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "loc": [
+        1800.0,
+        930.0,
+        20.0
+      ]
+    },
+    {
+      "label": "RomanFence_Column_08",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "loc": [
+        2000.0,
+        930.0,
+        20.0
+      ]
+    },
+    {
+      "label": "RomanFence_Rail_01",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "loc": [
+        600.0,
+        930.0,
+        120.0
+      ]
+    },
+    {
+      "label": "RomanFence_Rail_02",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "loc": [
+        800.0,
+        930.0,
+        120.0
+      ]
+    },
+    {
+      "label": "RomanFence_Rail_03",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "loc": [
+        1000.0,
+        930.0,
+        120.0
+      ]
+    },
+    {
+      "label": "RomanFence_Rail_04",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "loc": [
+        1200.0,
+        930.0,
+        120.0
+      ]
+    },
+    {
+      "label": "RomanFence_Rail_05",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "loc": [
+        1400.0,
+        930.0,
+        120.0
+      ]
+    },
+    {
+      "label": "RomanFence_Rail_06",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "loc": [
+        1600.0,
+        930.0,
+        120.0
+      ]
+    },
+    {
+      "label": "RomanFence_Rail_07",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "loc": [
+        1800.0,
+        930.0,
+        120.0
+      ]
+    },
+    {
+      "label": "RomanFence_Rail_08",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "loc": [
+        2000.0,
+        930.0,
+        120.0
+      ]
+    },
+    {
+      "label": "RomanPavilion2_Base",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanPavilionBase_20.SM_RomanPavilionBase_20",
+      "loc": [
+        1350.0,
+        -400.0,
+        0.0
+      ]
+    },
+    {
+      "label": "RomanPavilion2_Arch",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanPavilionArch_20.SM_RomanPavilionArch_20",
+      "loc": [
+        1350.0,
+        -400.0,
+        280.0
+      ]
+    },
+    {
+      "label": "RomanPavilion2_Dome",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanPavilionDome_20.SM_RomanPavilionDome_20",
+      "loc": [
+        1350.0,
+        -400.0,
+        360.0
+      ]
+    },
+    {
+      "label": "RomanPavilion2_Column_01",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20",
+      "loc": [
+        1710.0,
+        -400.0,
+        20.0
+      ]
+    },
+    {
+      "label": "RomanPavilion2_Column_02",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20",
+      "loc": [
+        1641.2,
+        -188.4,
+        20.0
+      ]
+    },
+    {
+      "label": "RomanPavilion2_Column_03",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20",
+      "loc": [
+        1461.2,
+        -57.6,
+        20.0
+      ]
+    },
+    {
+      "label": "RomanPavilion2_Column_04",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20",
+      "loc": [
+        1238.8,
+        -57.6,
+        20.0
+      ]
+    },
+    {
+      "label": "RomanPavilion2_Column_05",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20",
+      "loc": [
+        1058.8,
+        -188.4,
+        20.0
+      ]
+    },
+    {
+      "label": "RomanPavilion2_Column_06",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20",
+      "loc": [
+        990.0,
+        -400.0,
+        20.0
+      ]
+    },
+    {
+      "label": "RomanPavilion2_Column_07",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20",
+      "loc": [
+        1058.8,
+        -611.6,
+        20.0
+      ]
+    },
+    {
+      "label": "RomanPavilion2_Column_08",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20",
+      "loc": [
+        1238.8,
+        -742.4,
+        20.0
+      ]
+    },
+    {
+      "label": "RomanPavilion2_Column_09",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20",
+      "loc": [
+        1461.2,
+        -742.4,
+        20.0
+      ]
+    },
+    {
+      "label": "RomanPavilion2_Column_10",
+      "cls": "StaticMeshActor",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20",
+      "loc": [
+        1641.2,
+        -611.6,
+        20.0
+      ]
+    },
+    {
+      "label": "RomanFence_Voxel_40_g00_l0_00",
+      "cls": "StaticMeshActor",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "loc": [
+        510.0,
+        930.0,
+        30.0
+      ]
+    },
+    {
+      "label": "RomanFence_Voxel_40_g00_l0_01",
+      "cls": "StaticMeshActor",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "loc": [
+        530.0,
+        930.0,
+        30.0
+      ]
+    },
+    {
+      "label": "RomanFence_Voxel_40_g00_l0_02",
+      "cls": "StaticMeshActor",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "loc": [
+        550.0,
+        930.0,
+        30.0
+      ]
+    },
+    {
+      "label": "RomanFence_Voxel_40_g00_l0_03",
+      "cls": "StaticMeshActor",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "loc": [
+        570.0,
+        930.0,
+        30.0
+      ]
+    },
+    {
+      "label": "RomanFence_Voxel_40_g00_l1_00",
+      "cls": "StaticMeshActor",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "loc": [
+        510.0,
+        930.0,
+        50.0
+      ]
+    },
+    {
+      "label": "RomanFence_Voxel_40_g00_l1_01",
+      "cls": "StaticMeshActor",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "loc": [
+        530.0,
+        930.0,
+        50.0
+      ]
+    },
+    {
+      "label": "RomanFence_Voxel_40_g00_l1_02",
+      "cls": "StaticMeshActor",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "loc": [
+        550.0,
+        930.0,
+        50.0
+      ]
+    },
+    {
+      "label": "RomanFence_Voxel_40_g00_l1_03",
+      "cls": "StaticMeshActor",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "loc": [
+        570.0,
+        930.0,
+        50.0
+      ]
+    },
+    {
+      "label": "RomanFence_Voxel_40_g01_l0_00",
+      "cls": "StaticMeshActor",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "loc": [
+        630.0,
+        930.0,
+        30.0
+      ]
+    },
+    {
+      "label": "RomanFence_Voxel_40_g01_l0_01",
+      "cls": "StaticMeshActor",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "loc": [
+        650.0,
+        930.0,
+        30.0
+      ]
+    },
+    {
+      "label": "RomanFence_Voxel_40_g01_l0_02",
+      "cls": "StaticMeshActor",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "loc": [
+        670.0,
+        930.0,
+        30.0
+      ]
+    },
+    {
+      "label": "RomanFence_Voxel_40_g01_l0_03",
+      "cls": "StaticMeshActor",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "loc": [
+        690.0,
+        930.0,
+        30.0
+      ]
+    },
+    {
+      "label": "RomanFence_Voxel_40_g01_l0_04",
+      "cls": "StaticMeshActor",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "loc": [
+        710.0,
+        930.0,
+        30.0
+      ]
+    },
+    {
+      "label": "RomanFence_Voxel_40_g01_l0_05",
+      "cls": "StaticMeshActor",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "loc": [
+        730.0,
+        930.0,
+        30.0
+      ]
+    },
+    {
+      "label": "RomanFence_Voxel_40_g01_l0_06",
+      "cls": "StaticMeshActor",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "loc": [
+        750.0,
+        930.0,
+        30.0
+      ]
+    },
+    {
+      "label": "RomanFence_Voxel_40_g01_l0_07",
+      "cls": "StaticMeshActor",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "loc": [
+        770.0,
+        930.0,
+        30.0
+      ]
+    },
+    {
+      "label": "RomanFence_Voxel_40_g01_l1_00",
+      "cls": "StaticMeshActor",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "loc": [
+        630.0,
+        930.0,
+        50.0
+      ]
+    },
+    {
+      "label": "RomanFence_Voxel_40_g01_l1_01",
+      "cls": "StaticMeshActor",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "loc": [
+        650.0,
+        930.0,
+        50.0
+      ]
+    },
+    {
+      "label": "RomanFence_Voxel_40_g01_l1_02",
+      "cls": "StaticMeshActor",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "loc": [
+        670.0,
+        930.0,
+        50.0
+      ]
+    },
+    {
+      "label": "RomanFence_Voxel_40_g01_l1_03",
+      "cls": "StaticMeshActor",
+      "mesh": "/Engine/BasicShapes/Cube.Cube",
+      "loc": [
+        690.0,
+        930.0,
+        50.0
+      ]
+    }
+  ],
+  "near_playerstart_3000": [
+    {
+      "label": "Floor",
+      "cls": "StaticMeshActor",
+      "loc": [
+        -0.1,
+        0.0,
+        -20.0
+      ],
+      "center": [
+        -0.1,
+        0.0,
+        -20.0
+      ],
+      "extent": [
+        250000.1,
+        250000.0,
+        20.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "BP_FPS_DayNightManager",
+      "cls": "BP_FPS_DayNightManager_C",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "center": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "extent": [
+        47450354.9,
+        40960000.0,
+        47450354.9
+      ],
+      "tags": [
+        "gmp"
+      ]
+    },
+    {
+      "label": "StairWalk_Step_01",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1059.9,
+        270.0,
+        10.0
+      ],
+      "center": [
+        1059.9,
+        270.0,
+        10.0
+      ],
+      "extent": [
+        30.0,
+        110.0,
+        10.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "MonsterNavigation",
+      "cls": "NavMeshBoundsVolume",
+      "loc": [
+        1000.0,
+        1000.0,
+        300.0
+      ],
+      "center": [
+        1000.0,
+        1000.0,
+        300.0
+      ],
+      "extent": [
+        10000.0,
+        10000.0,
+        600.0
+      ],
+      "tags": [
+        "MonsterNavigation"
+      ]
+    },
+    {
+      "label": "RecastNavMesh-Nurse",
+      "cls": "RecastNavMesh",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "center": [
+        988.0,
+        988.0,
+        385.0
+      ],
+      "extent": [
+        10868.0,
+        10868.0,
+        375.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RecastNavMesh-HandBrain",
+      "cls": "RecastNavMesh",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "center": [
+        988.0,
+        988.0,
+        375.0
+      ],
+      "extent": [
+        10868.0,
+        10868.0,
+        365.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RecastNavMesh-PoisonMaggot",
+      "cls": "RecastNavMesh",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "center": [
+        988.0,
+        988.0,
+        375.0
+      ],
+      "extent": [
+        10868.0,
+        10868.0,
+        365.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "Colonnade_C01",
+      "cls": "StaticMeshActor",
+      "loc": [
+        600.0,
+        600.0,
+        20.0
+      ],
+      "center": [
+        600.0,
+        600.0,
+        150.0
+      ],
+      "extent": [
+        40.0,
+        40.0,
+        130.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "Colonnade_C02",
+      "cls": "StaticMeshActor",
+      "loc": [
+        900.0,
+        600.0,
+        20.0
+      ],
+      "center": [
+        900.0,
+        600.0,
+        150.0
+      ],
+      "extent": [
+        40.0,
+        40.0,
+        130.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "Colonnade_C03",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1200.0,
+        600.0,
+        20.0
+      ],
+      "center": [
+        1200.0,
+        600.0,
+        150.0
+      ],
+      "extent": [
+        40.0,
+        40.0,
+        130.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "Colonnade_C04",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1500.0,
+        600.0,
+        20.0
+      ],
+      "center": [
+        1500.0,
+        600.0,
+        150.0
+      ],
+      "extent": [
+        40.0,
+        40.0,
+        130.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "Colonnade_C05",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1800.0,
+        600.0,
+        20.0
+      ],
+      "center": [
+        1800.0,
+        600.0,
+        150.0
+      ],
+      "extent": [
+        40.0,
+        40.0,
+        130.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "Colonnade_C06",
+      "cls": "StaticMeshActor",
+      "loc": [
+        2100.0,
+        600.0,
+        20.0
+      ],
+      "center": [
+        2100.0,
+        600.0,
+        150.0
+      ],
+      "extent": [
+        40.0,
+        40.0,
+        130.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "Colonnade_Entablature",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1350.0,
+        600.0,
+        265.0
+      ],
+      "center": [
+        1350.0,
+        600.0,
+        284.5
+      ],
+      "extent": [
+        816.0,
+        38.0,
+        19.5
+      ],
+      "tags": []
+    },
+    {
+      "label": "MarbleFloor_Colonnade",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1350.0,
+        550.0,
+        0.0
+      ],
+      "center": [
+        1350.0,
+        550.0,
+        10.0
+      ],
+      "extent": [
+        900.0,
+        400.0,
+        10.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "StaticMeshActor",
+      "cls": "StaticMeshActor",
+      "loc": [
+        400.0,
+        300.0,
+        0.0
+      ],
+      "center": [
+        400.0,
+        300.0,
+        0.0
+      ],
+      "extent": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Column_01",
+      "cls": "StaticMeshActor",
+      "loc": [
+        600.0,
+        930.0,
+        20.0
+      ],
+      "center": [
+        600.0,
+        930.0,
+        70.0
+      ],
+      "extent": [
+        20.0,
+        20.0,
+        50.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Column_02",
+      "cls": "StaticMeshActor",
+      "loc": [
+        800.0,
+        930.0,
+        20.0
+      ],
+      "center": [
+        800.0,
+        930.0,
+        70.0
+      ],
+      "extent": [
+        20.0,
+        20.0,
+        50.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Column_03",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1000.0,
+        930.0,
+        20.0
+      ],
+      "center": [
+        1000.0,
+        930.0,
+        70.0
+      ],
+      "extent": [
+        20.0,
+        20.0,
+        50.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Column_04",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1200.0,
+        930.0,
+        20.0
+      ],
+      "center": [
+        1200.0,
+        930.0,
+        70.0
+      ],
+      "extent": [
+        20.0,
+        20.0,
+        50.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Column_05",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1400.0,
+        930.0,
+        20.0
+      ],
+      "center": [
+        1400.0,
+        930.0,
+        70.0
+      ],
+      "extent": [
+        20.0,
+        20.0,
+        50.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Column_06",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1600.0,
+        930.0,
+        20.0
+      ],
+      "center": [
+        1600.0,
+        930.0,
+        70.0
+      ],
+      "extent": [
+        20.0,
+        20.0,
+        50.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Column_07",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1800.0,
+        930.0,
+        20.0
+      ],
+      "center": [
+        1800.0,
+        930.0,
+        70.0
+      ],
+      "extent": [
+        20.0,
+        20.0,
+        50.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Column_08",
+      "cls": "StaticMeshActor",
+      "loc": [
+        2000.0,
+        930.0,
+        20.0
+      ],
+      "center": [
+        2000.0,
+        930.0,
+        70.0
+      ],
+      "extent": [
+        20.0,
+        20.0,
+        50.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Rail_01",
+      "cls": "StaticMeshActor",
+      "loc": [
+        600.0,
+        930.0,
+        120.0
+      ],
+      "center": [
+        600.0,
+        930.0,
+        140.0
+      ],
+      "extent": [
+        100.0,
+        20.0,
+        20.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Rail_02",
+      "cls": "StaticMeshActor",
+      "loc": [
+        800.0,
+        930.0,
+        120.0
+      ],
+      "center": [
+        800.0,
+        930.0,
+        140.0
+      ],
+      "extent": [
+        100.0,
+        20.0,
+        20.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Rail_03",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1000.0,
+        930.0,
+        120.0
+      ],
+      "center": [
+        1000.0,
+        930.0,
+        140.0
+      ],
+      "extent": [
+        100.0,
+        20.0,
+        20.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Rail_04",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1200.0,
+        930.0,
+        120.0
+      ],
+      "center": [
+        1200.0,
+        930.0,
+        140.0
+      ],
+      "extent": [
+        100.0,
+        20.0,
+        20.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Rail_05",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1400.0,
+        930.0,
+        120.0
+      ],
+      "center": [
+        1400.0,
+        930.0,
+        140.0
+      ],
+      "extent": [
+        100.0,
+        20.0,
+        20.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Rail_06",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1600.0,
+        930.0,
+        120.0
+      ],
+      "center": [
+        1600.0,
+        930.0,
+        140.0
+      ],
+      "extent": [
+        100.0,
+        20.0,
+        20.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Rail_07",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1800.0,
+        930.0,
+        120.0
+      ],
+      "center": [
+        1800.0,
+        930.0,
+        140.0
+      ],
+      "extent": [
+        100.0,
+        20.0,
+        20.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Rail_08",
+      "cls": "StaticMeshActor",
+      "loc": [
+        2000.0,
+        930.0,
+        120.0
+      ],
+      "center": [
+        2000.0,
+        930.0,
+        140.0
+      ],
+      "extent": [
+        100.0,
+        20.0,
+        20.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanPavilion2_Base",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1350.0,
+        -400.0,
+        0.0
+      ],
+      "center": [
+        1350.0,
+        -400.0,
+        10.0
+      ],
+      "extent": [
+        480.0,
+        480.0,
+        10.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanPavilion2_Arch",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1350.0,
+        -400.0,
+        280.0
+      ],
+      "center": [
+        1350.0,
+        -400.0,
+        320.0
+      ],
+      "extent": [
+        440.0,
+        440.0,
+        40.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanPavilion2_Dome",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1350.0,
+        -400.0,
+        360.0
+      ],
+      "center": [
+        1350.0,
+        -400.0,
+        650.0
+      ],
+      "extent": [
+        405.9,
+        405.9,
+        290.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanPavilion2_Column_01",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1710.0,
+        -400.0,
+        20.0
+      ],
+      "center": [
+        1710.0,
+        -400.0,
+        150.0
+      ],
+      "extent": [
+        45.0,
+        45.0,
+        130.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanPavilion2_Column_02",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1641.2,
+        -188.4,
+        20.0
+      ],
+      "center": [
+        1641.2,
+        -188.4,
+        150.0
+      ],
+      "extent": [
+        45.0,
+        45.0,
+        130.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanPavilion2_Column_03",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1461.2,
+        -57.6,
+        20.0
+      ],
+      "center": [
+        1461.2,
+        -57.6,
+        150.0
+      ],
+      "extent": [
+        45.0,
+        45.0,
+        130.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanPavilion2_Column_04",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1238.8,
+        -57.6,
+        20.0
+      ],
+      "center": [
+        1238.8,
+        -57.6,
+        150.0
+      ],
+      "extent": [
+        45.0,
+        45.0,
+        130.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanPavilion2_Column_05",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1058.8,
+        -188.4,
+        20.0
+      ],
+      "center": [
+        1058.8,
+        -188.4,
+        150.0
+      ],
+      "extent": [
+        45.0,
+        45.0,
+        130.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanPavilion2_Column_06",
+      "cls": "StaticMeshActor",
+      "loc": [
+        990.0,
+        -400.0,
+        20.0
+      ],
+      "center": [
+        990.0,
+        -400.0,
+        150.0
+      ],
+      "extent": [
+        45.0,
+        45.0,
+        130.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanPavilion2_Column_07",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1058.8,
+        -611.6,
+        20.0
+      ],
+      "center": [
+        1058.8,
+        -611.6,
+        150.0
+      ],
+      "extent": [
+        45.0,
+        45.0,
+        130.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanPavilion2_Column_08",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1238.8,
+        -742.4,
+        20.0
+      ],
+      "center": [
+        1238.8,
+        -742.4,
+        150.0
+      ],
+      "extent": [
+        45.0,
+        45.0,
+        130.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanPavilion2_Column_09",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1461.2,
+        -742.4,
+        20.0
+      ],
+      "center": [
+        1461.2,
+        -742.4,
+        150.0
+      ],
+      "extent": [
+        45.0,
+        45.0,
+        130.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanPavilion2_Column_10",
+      "cls": "StaticMeshActor",
+      "loc": [
+        1641.2,
+        -611.6,
+        20.0
+      ],
+      "center": [
+        1641.2,
+        -611.6,
+        150.0
+      ],
+      "extent": [
+        45.0,
+        45.0,
+        130.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Voxel_40_g00_l0_00",
+      "cls": "StaticMeshActor",
+      "loc": [
+        510.0,
+        930.0,
+        30.0
+      ],
+      "center": [
+        510.0,
+        930.0,
+        30.0
+      ],
+      "extent": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Voxel_40_g00_l0_01",
+      "cls": "StaticMeshActor",
+      "loc": [
+        530.0,
+        930.0,
+        30.0
+      ],
+      "center": [
+        530.0,
+        930.0,
+        30.0
+      ],
+      "extent": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Voxel_40_g00_l0_02",
+      "cls": "StaticMeshActor",
+      "loc": [
+        550.0,
+        930.0,
+        30.0
+      ],
+      "center": [
+        550.0,
+        930.0,
+        30.0
+      ],
+      "extent": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Voxel_40_g00_l0_03",
+      "cls": "StaticMeshActor",
+      "loc": [
+        570.0,
+        930.0,
+        30.0
+      ],
+      "center": [
+        570.0,
+        930.0,
+        30.0
+      ],
+      "extent": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Voxel_40_g00_l1_00",
+      "cls": "StaticMeshActor",
+      "loc": [
+        510.0,
+        930.0,
+        50.0
+      ],
+      "center": [
+        510.0,
+        930.0,
+        50.0
+      ],
+      "extent": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Voxel_40_g00_l1_01",
+      "cls": "StaticMeshActor",
+      "loc": [
+        530.0,
+        930.0,
+        50.0
+      ],
+      "center": [
+        530.0,
+        930.0,
+        50.0
+      ],
+      "extent": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Voxel_40_g00_l1_02",
+      "cls": "StaticMeshActor",
+      "loc": [
+        550.0,
+        930.0,
+        50.0
+      ],
+      "center": [
+        550.0,
+        930.0,
+        50.0
+      ],
+      "extent": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Voxel_40_g00_l1_03",
+      "cls": "StaticMeshActor",
+      "loc": [
+        570.0,
+        930.0,
+        50.0
+      ],
+      "center": [
+        570.0,
+        930.0,
+        50.0
+      ],
+      "extent": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Voxel_40_g01_l0_00",
+      "cls": "StaticMeshActor",
+      "loc": [
+        630.0,
+        930.0,
+        30.0
+      ],
+      "center": [
+        630.0,
+        930.0,
+        30.0
+      ],
+      "extent": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Voxel_40_g01_l0_01",
+      "cls": "StaticMeshActor",
+      "loc": [
+        650.0,
+        930.0,
+        30.0
+      ],
+      "center": [
+        650.0,
+        930.0,
+        30.0
+      ],
+      "extent": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Voxel_40_g01_l0_02",
+      "cls": "StaticMeshActor",
+      "loc": [
+        670.0,
+        930.0,
+        30.0
+      ],
+      "center": [
+        670.0,
+        930.0,
+        30.0
+      ],
+      "extent": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Voxel_40_g01_l0_03",
+      "cls": "StaticMeshActor",
+      "loc": [
+        690.0,
+        930.0,
+        30.0
+      ],
+      "center": [
+        690.0,
+        930.0,
+        30.0
+      ],
+      "extent": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Voxel_40_g01_l0_04",
+      "cls": "StaticMeshActor",
+      "loc": [
+        710.0,
+        930.0,
+        30.0
+      ],
+      "center": [
+        710.0,
+        930.0,
+        30.0
+      ],
+      "extent": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Voxel_40_g01_l0_05",
+      "cls": "StaticMeshActor",
+      "loc": [
+        730.0,
+        930.0,
+        30.0
+      ],
+      "center": [
+        730.0,
+        930.0,
+        30.0
+      ],
+      "extent": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "tags": []
+    },
+    {
+      "label": "RomanFence_Voxel_40_g01_l0_06",
+      "cls": "StaticMeshActor",
+      "loc": [
+        750.0,
+        930.0,
+        30.0
+      ],
+      "center": [
+        750.0,
+        930.0,
+        30.0
+      ],
+      "extent": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "tags": []
+    }
+  ],
+  "mesh_bounds": {
+    "/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20": {
+      "min": [
+        -45.0,
+        -45.0,
+        0.0
+      ],
+      "max": [
+        45.0,
+        45.0,
+        260.0
+      ],
+      "size": [
+        90.0,
+        90.0,
+        260.0
+      ]
+    },
+    "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed": {
+      "min": [
+        -40.0,
+        -40.0,
+        -0.0
+      ],
+      "max": [
+        40.0,
+        40.0,
+        260.0
+      ],
+      "size": [
+        80.0,
+        80.0,
+        260.0
+      ]
+    },
+    "/Game/Props/RomanColumn20260915/SM_RomanColumn": {
+      "min": [
+        -38.0,
+        -38.0,
+        0.0
+      ],
+      "max": [
+        38.0,
+        38.0,
+        257.0
+      ],
+      "size": [
+        76.0,
+        76.0,
+        257.0
+      ]
+    },
+    "/Game/Props/RomanColumn20260915/SM_Colonnade_Entablature": {
+      "min": [
+        -816.0,
+        -38.0,
+        0.0
+      ],
+      "max": [
+        816.0,
+        38.0,
+        39.0
+      ],
+      "size": [
+        1632.0,
+        76.0,
+        39.0
+      ]
+    },
+    "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles": {
+      "min": [
+        -900.0,
+        -400.0,
+        0.0
+      ],
+      "max": [
+        900.0,
+        400.0,
+        20.0
+      ],
+      "size": [
+        1800.0,
+        800.0,
+        20.0
+      ]
+    },
+    "/Game/Props/RomanColumn20260915/SM_BalustradeSegment_20": {
+      "min": [
+        -100.0,
+        -20.0,
+        0.0
+      ],
+      "max": [
+        100.0,
+        20.0,
+        160.0
+      ],
+      "size": [
+        200.0,
+        40.0,
+        160.0
+      ]
+    },
+    "/Game/Props/RomanColumn20260915/SM_Balustrade_Rail": {
+      "min": [
+        -150.0,
+        -20.0,
+        0.0
+      ],
+      "max": [
+        150.0,
+        40.0,
+        40.0
+      ],
+      "size": [
+        300.0,
+        60.0,
+        40.0
+      ]
+    },
+    "/Game/Props/RomanColumn20260915/SM_Balustrade_Plinth": {
+      "min": [
+        -750.0,
+        -20.0,
+        0.0
+      ],
+      "max": [
+        750.0,
+        20.0,
+        20.0
+      ],
+      "size": [
+        1500.0,
+        40.0,
+        20.0
+      ]
+    },
+    "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small": {
+      "min": [
+        -20.0,
+        -20.0,
+        -0.0
+      ],
+      "max": [
+        20.0,
+        20.0,
+        100.0
+      ],
+      "size": [
+        40.0,
+        40.0,
+        100.0
+      ]
+    },
+    "/Game/Props/RomanColumn20260915/SM_RomanRail_100": {
+      "min": [
+        -50.0,
+        -20.0,
+        0.0
+      ],
+      "max": [
+        50.0,
+        20.0,
+        40.0
+      ],
+      "size": [
+        100.0,
+        40.0,
+        40.0
+      ]
+    },
+    "/Game/Props/RomanColumn20260915/SM_RomanRail_200": {
+      "min": [
+        -100.0,
+        -20.0,
+        0.0
+      ],
+      "max": [
+        100.0,
+        20.0,
+        40.0
+      ],
+      "size": [
+        200.0,
+        40.0,
+        40.0
+      ]
+    },
+    "/Game/Props/RomanColumn20260915/SM_RomanRail_300": {
+      "min": [
+        -150.0,
+        -20.0,
+        0.0
+      ],
+      "max": [
+        150.0,
+        20.0,
+        40.0
+      ],
+      "size": [
+        300.0,
+        40.0,
+        40.0
+      ]
+    },
+    "/Game/Props/RomanColumn20260915/SM_RomanPavilionFull_20": {
+      "min": [
+        -480.0,
+        -480.0,
+        0.0
+      ],
+      "max": [
+        480.0,
+        480.0,
+        940.0
+      ],
+      "size": [
+        960.0,
+        960.0,
+        940.0
+      ]
+    },
+    "/Game/Props/RomanColumn20260915/SM_RomanPavilionBase_20": {
+      "min": [
+        -480.0,
+        -480.0,
+        0.0
+      ],
+      "max": [
+        480.0,
+        480.0,
+        20.0
+      ],
+      "size": [
+        960.0,
+        960.0,
+        20.0
+      ]
+    },
+    "/Game/Props/RomanColumn20260915/SM_BronzeTorch": {
+      "min": [
+        16.0,
+        -16.5,
+        -44.0
+      ],
+      "max": [
+        66.5,
+        16.5,
+        42.6
+      ],
+      "size": [
+        50.5,
+        33.0,
+        86.6
+      ]
+    },
+    "/Game/Props/RomanFountain20260917/SM_RomanFountain_20": {
+      "min": [
+        -480.0,
+        -480.0,
+        0.0
+      ],
+      "max": [
+        480.0,
+        480.0,
+        720.0
+      ],
+      "size": [
+        960.0,
+        960.0,
+        720.0
+      ]
+    },
+    "/Game/Props/RomanFountain20260917/OverflowV7/SM_FountainOverflowV7": {
+      "min": [
+        -461.8,
+        -461.8,
+        16.0
+      ],
+      "max": [
+        461.8,
+        461.8,
+        577.0
+      ],
+      "size": [
+        923.7,
+        923.7,
+        561.0
+      ]
+    },
+    "/Game/Props/SquareAltar20260922/SM_SquareAltar": {
+      "min": [
+        -110.0,
+        -100.0,
+        0.0
+      ],
+      "max": [
+        110.0,
+        100.0,
+        141.0
+      ],
+      "size": [
+        220.0,
+        200.0,
+        141.0
+      ]
+    }
+  },
+  "missing_meshes": [
+    "/Game/Props/RomanFountain20260917/SM_FountainPolishedV9"
+  ]
+}

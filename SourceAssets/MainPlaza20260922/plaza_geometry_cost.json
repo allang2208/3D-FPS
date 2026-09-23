@@ -1,0 +1,94 @@
+{
+  "rows": [
+    {
+      "mesh": "SM_RomanRail_200",
+      "instances": 216,
+      "triangles": 98,
+      "vertices": 97,
+      "material_slots": 1,
+      "triangles_total": 21168,
+      "rank": 563263.2,
+      "size_cm": [
+        200.0,
+        40.0,
+        40.0
+      ]
+    },
+    {
+      "mesh": "SM_RomanBaluster_Small",
+      "instances": 212,
+      "triangles": 12140,
+      "vertices": 10889,
+      "material_slots": 1,
+      "triangles_total": 2573680,
+      "rank": 3334526.8,
+      "size_cm": [
+        40.0,
+        40.0,
+        100.0
+      ]
+    },
+    {
+      "mesh": "SM_MarbleFloorTiles",
+      "instances": 78,
+      "triangles": 120140,
+      "vertices": 126994,
+      "material_slots": 1,
+      "triangles_total": 9370920,
+      "rank": 10556473.2,
+      "size_cm": [
+        1800.0,
+        800.0,
+        20.0
+      ]
+    },
+    {
+      "mesh": "SM_RomanColumn_Detailed",
+      "instances": 68,
+      "triangles": 32702,
+      "vertices": 38021,
+      "material_slots": 1,
+      "triangles_total": 2223736,
+      "rank": 2652278.8,
+      "size_cm": [
+        80.0,
+        80.0,
+        260.0
+      ]
+    },
+    {
+      "mesh": "SM_Colonnade_Entablature",
+      "instances": 20,
+      "triangles": 36,
+      "vertices": 72,
+      "material_slots": 1,
+      "triangles_total": 720,
+      "rank": 50864.0,
+      "size_cm": [
+        1632.0,
+        76.0,
+        39.0
+      ]
+    },
+    {
+      "mesh": "SM_RomanColumn_Round_20",
+      "instances": 12,
+      "triangles": 32902,
+      "vertices": 38371,
+      "material_slots": 1,
+      "triangles_total": 394824,
+      "rank": 470869.2,
+      "size_cm": [
+        90.0,
+        90.0,
+        260.0
+      ]
+    }
+  ],
+  "plaza_instances": 606,
+  "plaza_triangles": 14585048,
+  "plaza_rank": 17628275.2,
+  "snapshot_all_rank": 20691645.0,
+  "plaza_share_of_snapshot": 0.852,
+  "scene_rank_without_plaza": 3063369.8
+}

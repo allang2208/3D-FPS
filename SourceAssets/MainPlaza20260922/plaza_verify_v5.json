@@ -1,0 +1,103 @@
+{
+  "map": "/Game/GameMaps/DayNight_Lighting",
+  "switched_from": null,
+  "counts": {
+    "paving": 78,
+    "colonnade": 88,
+    "balustrade": 372,
+    "precinct": 68
+  },
+  "precinct_roles": {
+    "posts": 36,
+    "rails": 32,
+    "columns": 0
+  },
+  "precinct_columns_expected_zero": true,
+  "gate_check": {
+    "examined": 440,
+    "violations": []
+  },
+  "torches": [
+    {
+      "label": "PavilionTorch_01",
+      "cls": "BronzeTorch",
+      "loc": [
+        1710.0,
+        -400.0,
+        210.0
+      ],
+      "yaw": 0.0,
+      "radial_outward": 0.0,
+      "yaw_matches_outward": true,
+      "min_z": 210.0,
+      "has_mesh": true,
+      "has_flame": true,
+      "has_light": true
+    },
+    {
+      "label": "PavilionTorch_02",
+      "cls": "BronzeTorch",
+      "loc": [
+        1461.2,
+        -57.6,
+        210.0
+      ],
+      "yaw": 72.0,
+      "radial_outward": 72.0,
+      "yaw_matches_outward": true,
+      "min_z": 210.0,
+      "has_mesh": true,
+      "has_flame": true,
+      "has_light": true
+    },
+    {
+      "label": "PavilionTorch_03",
+      "cls": "BronzeTorch",
+      "loc": [
+        1058.8,
+        -188.4,
+        210.0
+      ],
+      "yaw": 144.0,
+      "radial_outward": 144.0,
+      "yaw_matches_outward": true,
+      "min_z": 210.0,
+      "has_mesh": true,
+      "has_flame": true,
+      "has_light": true
+    },
+    {
+      "label": "PavilionTorch_04",
+      "cls": "BronzeTorch",
+      "loc": [
+        1058.8,
+        -611.6,
+        210.0
+      ],
+      "yaw": -144.0,
+      "radial_outward": -144.0,
+      "yaw_matches_outward": true,
+      "min_z": 210.0,
+      "has_mesh": true,
+      "has_flame": true,
+      "has_light": true
+    },
+    {
+      "label": "PavilionTorch_05",
+      "cls": "BronzeTorch",
+      "loc": [
+        1461.2,
+        -742.4,
+        210.0
+      ],
+      "yaw": -72.0,
+      "radial_outward": -72.0,
+      "yaw_matches_outward": true,
+      "min_z": 210.0,
+      "has_mesh": true,
+      "has_flame": true,
+      "has_light": true
+    }
+  ],
+  "torch_count": 5
+}

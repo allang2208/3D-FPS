@@ -1,0 +1,193 @@
+# class histogram
+ 169  StaticMeshActor
+   6  BronzeTorch
+   4  RecastNavMesh
+   1  BP_FPS_DayNightManager_C
+   1  PlayerStart
+   1  NavMeshBoundsVolume
+   1  ColdSteelFountain
+
+# actors
+BP_FPS_DayNightManager | BP_FPS_DayNightManager_C | 0,0,0 |
+ColonnadeTorch_01 | BronzeTorch | 600,600,190 |
+ColonnadeTorch_02 | BronzeTorch | 900,600,190 |
+ColonnadeTorch_03 | BronzeTorch | 1200,600,190 |
+ColonnadeTorch_04 | BronzeTorch | 1500,600,190 |
+ColonnadeTorch_05 | BronzeTorch | 1800,600,190 |
+ColonnadeTorch_06 | BronzeTorch | 2100,600,190 |
+Colonnade_C01 | StaticMeshActor | 600,600,20 | RomanColumn20260915/SM_RomanColumn_Detailed
+Colonnade_C02 | StaticMeshActor | 900,600,20 | RomanColumn20260915/SM_RomanColumn_Detailed
+Colonnade_C03 | StaticMeshActor | 1200,600,20 | RomanColumn20260915/SM_RomanColumn_Detailed
+Colonnade_C04 | StaticMeshActor | 1500,600,20 | RomanColumn20260915/SM_RomanColumn_Detailed
+Colonnade_C05 | StaticMeshActor | 1800,600,20 | RomanColumn20260915/SM_RomanColumn_Detailed
+Colonnade_C06 | StaticMeshActor | 2100,600,20 | RomanColumn20260915/SM_RomanColumn_Detailed
+Colonnade_Entablature | StaticMeshActor | 1350,600,265 | RomanColumn20260915/SM_Colonnade_Entablature
+Expedition_SquareAltar | StaticMeshActor | 650,-400,0 | SquareAltar20260922/SM_SquareAltar
+Floor | StaticMeshActor | -0,0,-20 | SM_MainGround_Subdivided
+MarbleFloor_Colonnade | StaticMeshActor | 1350,550,0 | RomanColumn20260915/SM_MarbleFloorTiles
+MonsterNavigation | NavMeshBoundsVolume | 1000,1000,300 |
+PlayerStart_SceneTest | PlayerStart | -0,0,102 |
+RecastNavMesh-HandBrain | RecastNavMesh | 0,0,0 |
+RecastNavMesh-Nurse | RecastNavMesh | 0,0,0 |
+RecastNavMesh-PoisonMaggot | RecastNavMesh | 0,0,0 |
+RecastNavMesh-Witch | RecastNavMesh | 0,0,0 |
+RomanFence_Column_01 | StaticMeshActor | 600,930,20 | RomanColumn20260915/SM_RomanBaluster_Small
+RomanFence_Column_02 | StaticMeshActor | 800,930,20 | RomanColumn20260915/SM_RomanBaluster_Small
+RomanFence_Column_03 | StaticMeshActor | 1000,930,20 | RomanColumn20260915/SM_RomanBaluster_Small
+RomanFence_Column_04 | StaticMeshActor | 1200,930,20 | RomanColumn20260915/SM_RomanBaluster_Small
+RomanFence_Column_05 | StaticMeshActor | 1400,930,20 | RomanColumn20260915/SM_RomanBaluster_Small
+RomanFence_Column_06 | StaticMeshActor | 1600,930,20 | RomanColumn20260915/SM_RomanBaluster_Small
+RomanFence_Column_07 | StaticMeshActor | 1800,930,20 | RomanColumn20260915/SM_RomanBaluster_Small
+RomanFence_Column_08 | StaticMeshActor | 2000,930,20 | RomanColumn20260915/SM_RomanBaluster_Small
+RomanFence_Rail_01 | StaticMeshActor | 600,930,120 | RomanColumn20260915/SM_RomanRail_200
+RomanFence_Rail_02 | StaticMeshActor | 800,930,120 | RomanColumn20260915/SM_RomanRail_200
+RomanFence_Rail_03 | StaticMeshActor | 1000,930,120 | RomanColumn20260915/SM_RomanRail_200
+RomanFence_Rail_04 | StaticMeshActor | 1200,930,120 | RomanColumn20260915/SM_RomanRail_200
+RomanFence_Rail_05 | StaticMeshActor | 1400,930,120 | RomanColumn20260915/SM_RomanRail_200
+RomanFence_Rail_06 | StaticMeshActor | 1600,930,120 | RomanColumn20260915/SM_RomanRail_200
+RomanFence_Rail_07 | StaticMeshActor | 1800,930,120 | RomanColumn20260915/SM_RomanRail_200
+RomanFence_Rail_08 | StaticMeshActor | 2000,930,120 | RomanColumn20260915/SM_RomanRail_200
+RomanFence_Voxel_40_g00_l0_00 | StaticMeshActor | 510,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g00_l0_01 | StaticMeshActor | 530,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g00_l0_02 | StaticMeshActor | 550,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g00_l0_03 | StaticMeshActor | 570,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g00_l1_00 | StaticMeshActor | 510,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g00_l1_01 | StaticMeshActor | 530,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g00_l1_02 | StaticMeshActor | 550,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g00_l1_03 | StaticMeshActor | 570,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g01_l0_00 | StaticMeshActor | 630,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g01_l0_01 | StaticMeshActor | 650,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g01_l0_02 | StaticMeshActor | 670,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g01_l0_03 | StaticMeshActor | 690,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g01_l0_04 | StaticMeshActor | 710,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g01_l0_05 | StaticMeshActor | 730,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g01_l0_06 | StaticMeshActor | 750,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g01_l0_07 | StaticMeshActor | 770,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g01_l1_00 | StaticMeshActor | 630,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g01_l1_01 | StaticMeshActor | 650,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g01_l1_02 | StaticMeshActor | 670,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g01_l1_03 | StaticMeshActor | 690,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g01_l1_04 | StaticMeshActor | 710,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g01_l1_05 | StaticMeshActor | 730,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g01_l1_06 | StaticMeshActor | 750,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g01_l1_07 | StaticMeshActor | 770,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g02_l0_00 | StaticMeshActor | 830,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g02_l0_01 | StaticMeshActor | 850,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g02_l0_02 | StaticMeshActor | 870,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g02_l0_03 | StaticMeshActor | 890,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g02_l0_04 | StaticMeshActor | 910,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g02_l0_05 | StaticMeshActor | 930,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g02_l0_06 | StaticMeshActor | 950,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g02_l0_07 | StaticMeshActor | 970,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g02_l1_00 | StaticMeshActor | 830,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g02_l1_01 | StaticMeshActor | 850,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g02_l1_02 | StaticMeshActor | 870,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g02_l1_03 | StaticMeshActor | 890,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g02_l1_04 | StaticMeshActor | 910,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g02_l1_05 | StaticMeshActor | 930,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g02_l1_06 | StaticMeshActor | 950,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g02_l1_07 | StaticMeshActor | 970,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g03_l0_00 | StaticMeshActor | 1030,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g03_l0_01 | StaticMeshActor | 1050,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g03_l0_02 | StaticMeshActor | 1070,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g03_l0_03 | StaticMeshActor | 1090,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g03_l0_04 | StaticMeshActor | 1110,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g03_l0_05 | StaticMeshActor | 1130,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g03_l0_06 | StaticMeshActor | 1150,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g03_l0_07 | StaticMeshActor | 1170,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g03_l1_00 | StaticMeshActor | 1030,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g03_l1_01 | StaticMeshActor | 1050,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g03_l1_02 | StaticMeshActor | 1070,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g03_l1_03 | StaticMeshActor | 1090,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g03_l1_04 | StaticMeshActor | 1110,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g03_l1_05 | StaticMeshActor | 1130,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g03_l1_06 | StaticMeshActor | 1150,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g03_l1_07 | StaticMeshActor | 1170,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g04_l0_00 | StaticMeshActor | 1230,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g04_l0_01 | StaticMeshActor | 1250,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g04_l0_02 | StaticMeshActor | 1270,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g04_l0_03 | StaticMeshActor | 1290,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g04_l0_04 | StaticMeshActor | 1310,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g04_l0_05 | StaticMeshActor | 1330,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g04_l0_06 | StaticMeshActor | 1350,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g04_l0_07 | StaticMeshActor | 1370,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g04_l1_00 | StaticMeshActor | 1230,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g04_l1_01 | StaticMeshActor | 1250,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g04_l1_02 | StaticMeshActor | 1270,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g04_l1_03 | StaticMeshActor | 1290,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g04_l1_04 | StaticMeshActor | 1310,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g04_l1_05 | StaticMeshActor | 1330,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g04_l1_06 | StaticMeshActor | 1350,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g04_l1_07 | StaticMeshActor | 1370,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g05_l0_00 | StaticMeshActor | 1430,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g05_l0_01 | StaticMeshActor | 1450,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g05_l0_02 | StaticMeshActor | 1470,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g05_l0_03 | StaticMeshActor | 1490,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g05_l0_04 | StaticMeshActor | 1510,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g05_l0_05 | StaticMeshActor | 1530,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g05_l0_06 | StaticMeshActor | 1550,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g05_l0_07 | StaticMeshActor | 1570,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g05_l1_00 | StaticMeshActor | 1430,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g05_l1_01 | StaticMeshActor | 1450,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g05_l1_02 | StaticMeshActor | 1470,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g05_l1_03 | StaticMeshActor | 1490,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g05_l1_04 | StaticMeshActor | 1510,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g05_l1_05 | StaticMeshActor | 1530,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g05_l1_06 | StaticMeshActor | 1550,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g05_l1_07 | StaticMeshActor | 1570,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g06_l0_00 | StaticMeshActor | 1630,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g06_l0_01 | StaticMeshActor | 1650,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g06_l0_02 | StaticMeshActor | 1670,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g06_l0_03 | StaticMeshActor | 1690,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g06_l0_04 | StaticMeshActor | 1710,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g06_l0_05 | StaticMeshActor | 1730,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g06_l0_06 | StaticMeshActor | 1750,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g06_l0_07 | StaticMeshActor | 1770,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g06_l1_00 | StaticMeshActor | 1630,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g06_l1_01 | StaticMeshActor | 1650,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g06_l1_02 | StaticMeshActor | 1670,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g06_l1_03 | StaticMeshActor | 1690,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g06_l1_04 | StaticMeshActor | 1710,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g06_l1_05 | StaticMeshActor | 1730,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g06_l1_06 | StaticMeshActor | 1750,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g06_l1_07 | StaticMeshActor | 1770,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g07_l0_00 | StaticMeshActor | 1830,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g07_l0_01 | StaticMeshActor | 1850,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g07_l0_02 | StaticMeshActor | 1870,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g07_l0_03 | StaticMeshActor | 1890,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g07_l0_04 | StaticMeshActor | 1910,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g07_l0_05 | StaticMeshActor | 1930,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g07_l0_06 | StaticMeshActor | 1950,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g07_l0_07 | StaticMeshActor | 1970,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g07_l1_00 | StaticMeshActor | 1830,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g07_l1_01 | StaticMeshActor | 1850,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g07_l1_02 | StaticMeshActor | 1870,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g07_l1_03 | StaticMeshActor | 1890,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g07_l1_04 | StaticMeshActor | 1910,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g07_l1_05 | StaticMeshActor | 1930,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g07_l1_06 | StaticMeshActor | 1950,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g07_l1_07 | StaticMeshActor | 1970,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g08_l0_00 | StaticMeshActor | 2030,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g08_l0_01 | StaticMeshActor | 2050,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g08_l0_02 | StaticMeshActor | 2070,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g08_l0_03 | StaticMeshActor | 2090,930,30 | ENGINE:Cube
+RomanFence_Voxel_40_g08_l1_00 | StaticMeshActor | 2030,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g08_l1_01 | StaticMeshActor | 2050,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g08_l1_02 | StaticMeshActor | 2070,930,50 | ENGINE:Cube
+RomanFence_Voxel_40_g08_l1_03 | StaticMeshActor | 2090,930,50 | ENGINE:Cube
+RomanFountain1 | ColdSteelFountain | 1350,-1550,0 |
+RomanPavilion2_Arch | StaticMeshActor | 1350,-400,280 | RomanColumn20260915/SM_RomanPavilionArch_20
+RomanPavilion2_Base | StaticMeshActor | 1350,-400,0 | RomanColumn20260915/SM_RomanPavilionBase_20
+RomanPavilion2_Column_01 | StaticMeshActor | 1710,-400,20 | RomanColumn20260915/SM_RomanColumn_Round_20
+RomanPavilion2_Column_02 | StaticMeshActor | 1641,-188,20 | RomanColumn20260915/SM_RomanColumn_Round_20
+RomanPavilion2_Column_03 | StaticMeshActor | 1461,-58,20 | RomanColumn20260915/SM_RomanColumn_Round_20
+RomanPavilion2_Column_04 | StaticMeshActor | 1239,-58,20 | RomanColumn20260915/SM_RomanColumn_Round_20
+RomanPavilion2_Column_05 | StaticMeshActor | 1059,-188,20 | RomanColumn20260915/SM_RomanColumn_Round_20
+RomanPavilion2_Column_06 | StaticMeshActor | 990,-400,20 | RomanColumn20260915/SM_RomanColumn_Round_20
+RomanPavilion2_Column_07 | StaticMeshActor | 1059,-612,20 | RomanColumn20260915/SM_RomanColumn_Round_20
+RomanPavilion2_Column_08 | StaticMeshActor | 1239,-742,20 | RomanColumn20260915/SM_RomanColumn_Round_20
+RomanPavilion2_Column_09 | StaticMeshActor | 1461,-742,20 | RomanColumn20260915/SM_RomanColumn_Round_20
+RomanPavilion2_Column_10 | StaticMeshActor | 1641,-612,20 | RomanColumn20260915/SM_RomanColumn_Round_20
+RomanPavilion2_Dome | StaticMeshActor | 1350,-400,360 | RomanColumn20260915/SM_RomanPavilionDome_20
+StairWalk_Step_01 | StaticMeshActor | 1060,270,10 | ENGINE:Cube
+StaticMeshActor | StaticMeshActor | 400,300,0 |

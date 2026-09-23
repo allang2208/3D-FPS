@@ -55,6 +55,36 @@ void ASceneTestPortal::Configure(const FString& Map, const FString& Label, const
     DestinationLabel = Label;
     Sign->SetText(FText::FromString(Label + TEXT("\n[E] Travel (within 2m)")));
     Sign->SetTextRenderColor(Color);
+
+    // Original gamedev portal: preserve the existing travel actor/input contract and
+    // replace its three placeholder bars with the migrated frame and animated core.
+    auto* PortalFrame=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Props/GamedevPortal20260922/SM_GamedevPortal_Frame.SM_GamedevPortal_Frame"));
+    auto* PortalEnergy=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Props/GamedevPortal20260922/SM_GamedevPortal_Energy.SM_GamedevPortal_Energy"));
+    if(PortalFrame && PortalEnergy)
+    {
+        TInlineComponentArray<UStaticMeshComponent*> Pieces(this);
+        for(auto* Piece:Pieces)
+        {
+            const FName PieceName=Piece->GetFName();
+            if(PieceName==TEXT("Frame0") || PieceName==TEXT("Frame1"))
+            {
+                const bool Solid=PieceName==TEXT("Frame0");
+                Piece->SetStaticMesh(Solid?PortalFrame:PortalEnergy);
+                Piece->SetRelativeTransform(FTransform::Identity);
+                Piece->SetVisibility(true);
+                Piece->SetCollisionProfileName(Solid?TEXT("BlockAll"):TEXT("NoCollision"));
+                Piece->SetCollisionEnabled(Solid?ECollisionEnabled::QueryAndPhysics:ECollisionEnabled::NoCollision);
+                Piece->SetGenerateOverlapEvents(false);
+                Piece->SetCastShadow(Solid);
+            }
+            else if(PieceName==TEXT("Frame2"))
+            {
+                Piece->SetVisibility(false);
+                Piece->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+            }
+        }
+        Sign->SetRelativeLocation(FVector(12,0,PortalFrame->GetBounds().Origin.Z+PortalFrame->GetBounds().BoxExtent.Z+45.f));
+    }
 }
 
 void ASceneTestPortal::BeginPlay()
@@ -99,6 +129,19 @@ void ASceneTestPortal::UsePortal()
         PreloadHandle=UAssetManager::GetStreamableManager().RequestAsyncLoad(FSoftObjectPath(ObjectPath),FStreamableDelegate::CreateUObject(this,&ASceneTestPortal::FinishLoading));
         return;
     }
+    if(Destination.Contains(TEXT("L_Dungeon_")))
+    {
+        // Let the opaque transition UI paint before OpenLevel can block the game thread,
+        // including PIE where the MoviePlayer handoff may not be available.
+        GetWorldTimerManager().SetTimer(DungeonTravelTimer,this,&ASceneTestPortal::OpenDestination,.1f,false);
+        return;
+    }
+    OpenDestination();
+}
+
+void ASceneTestPortal::OpenDestination()
+{
+    if(!bTravelling)return;
     UE_LOG(LogTemp, Display, TEXT("ScenePortal: Travel %s"), *Destination);
     UGameplayStatics::OpenLevel(this, FName(*Destination), true, DestinationOptions);
 }
@@ -118,6 +161,7 @@ void ASceneTestPortal::FinishLoading()
 void ASceneTestPortal::CancelLoading()
 {
     if (!bTravelling) return;
+    GetWorldTimerManager().ClearTimer(DungeonTravelTimer);
     if(PreloadHandle){PreloadHandle->CancelHandle();PreloadHandle.Reset();}
     bTravelling=false;
     if(auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())Loading->CancelTransition();
@@ -126,6 +170,7 @@ void ASceneTestPortal::CancelLoading()
 
 void ASceneTestPortal::EndPlay(const EEndPlayReason::Type Reason)
 {
+    GetWorldTimerManager().ClearTimer(DungeonTravelTimer);
     if(PreloadHandle){PreloadHandle->CancelHandle();PreloadHandle.Reset();}
     Super::EndPlay(Reason);
 }
@@ -190,8 +235,12 @@ void USceneTestPortalSubsystem::SpawnPortals()
     for (int32 Index = 0; Index < Destinations.Num(); ++Index)
     {
         const FDestination& Entry = Destinations[Index];
-        const float Side = (Index - (Destinations.Num() - 1) * .5f) * 440.f;
-        FVector Position = Pawn->GetActorLocation() + Forward * 350.f + Right * Side;
+        // The original 4.4m platform needs clear space between adjacent gateways.
+        const float Side = (Index - (Destinations.Num() - 1) * .5f) * 520.f;
+        // The main hub spawns inside the 100x100 marble plaza, whose central precinct ring
+        // now encloses the fountain and pavilion; a row in front of the pawn would land
+        // inside that precinct. Keep the row behind the spawn so it clears the ring.
+        FVector Position = Pawn->GetActorLocation() + Forward * -350.f + Right * Side;
         FHitResult Hit;
         FCollisionQueryParams Params;
         Params.AddIgnoredActor(Pawn);

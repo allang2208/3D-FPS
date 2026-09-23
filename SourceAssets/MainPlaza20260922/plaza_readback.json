@@ -1,0 +1,163 @@
+{
+  "actor_total": 661,
+  "generated": 606,
+  "generated_extent_cm": {
+    "x": [
+      -3550.0,
+      6250.0
+    ],
+    "y": [
+      -5875.0,
+      3925.0
+    ]
+  },
+  "pavilion": {
+    "actors": 13,
+    "min_z": 20.0,
+    "max_z": 960.0
+  },
+  "fountain": {
+    "min_z": 20.0,
+    "max_z": 868.0,
+    "center": [
+      1350.0,
+      -1550.0,
+      444.0
+    ],
+    "extent": [
+      480.0,
+      480.0,
+      424.0
+    ]
+  },
+  "altar": {
+    "min_z": 20.0,
+    "max_z": 161.0,
+    "center": [
+      1350.0,
+      -2700.0,
+      90.5
+    ],
+    "extent": [
+      110.0,
+      100.0,
+      70.5
+    ]
+  },
+  "samples": {
+    "paving": {
+      "label": "PlazaPaving_00_00",
+      "box": {
+        "min_z": 0.0,
+        "max_z": 20.0,
+        "center": [
+          -2816.7,
+          -5590.4,
+          10.0
+        ],
+        "extent": [
+          833.3,
+          384.6,
+          10.0
+        ]
+      },
+      "scale": [
+        0.9,
+        1.0,
+        1.0
+      ]
+    },
+    "colonnade": {
+      "label": "PlazaColumn_N_00",
+      "box": {
+        "min_z": 20.0,
+        "max_z": 280.0,
+        "center": [
+          -3150.0,
+          3525.0,
+          150.0
+        ],
+        "extent": [
+          40.0,
+          40.0,
+          130.0
+        ]
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "entablature": {
+      "label": "PlazaEntablature_S_00",
+      "box": {
+        "min_z": 265.0,
+        "max_z": 304.0,
+        "center": [
+          -2250.0,
+          -5475.0,
+          284.5
+        ],
+        "extent": [
+          900.0,
+          38.0,
+          19.5
+        ]
+      },
+      "scale": [
+        1.1,
+        1.0,
+        1.0
+      ]
+    },
+    "balustrade": {
+      "label": "PlazaSPost_00",
+      "box": {
+        "min_z": 20.0,
+        "max_z": 120.0,
+        "center": [
+          -3550.0,
+          -5875.0,
+          70.0
+        ],
+        "extent": [
+          20.0,
+          20.0,
+          50.0
+        ]
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "precinct": {
+      "label": "PrecinctPWPost_01",
+      "box": {
+        "min_z": 20.0,
+        "max_z": 120.0,
+        "center": [
+          450.0,
+          -1975.0,
+          70.0
+        ],
+        "extent": [
+          20.0,
+          20.0,
+          50.0
+        ]
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "gate_check": {
+    "examined": 440,
+    "violations": []
+  }
+}

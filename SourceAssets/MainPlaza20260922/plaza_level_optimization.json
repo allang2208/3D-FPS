@@ -1,0 +1,42 @@
+{
+  "map": "/Game/GameMaps/DayNight_Lighting",
+  "paving": 78,
+  "columns": 88,
+  "balusters": 372,
+  "changed": 0,
+  "saved": false,
+  "samples": [
+    {
+      "label": "PlazaPaving_00_00",
+      "forced_prop": "forced_lod_model",
+      "forced_lod": 1,
+      "shadow_prop": "cast_shadow",
+      "cast_shadow": false,
+      "mesh_lods": 3
+    },
+    {
+      "label": "PlazaPaving_00_01",
+      "forced_prop": "forced_lod_model",
+      "forced_lod": 1,
+      "shadow_prop": "cast_shadow",
+      "cast_shadow": false,
+      "mesh_lods": 3
+    },
+    {
+      "label": "PlazaPaving_00_02",
+      "forced_prop": "forced_lod_model",
+      "forced_lod": 1,
+      "shadow_prop": "cast_shadow",
+      "cast_shadow": false,
+      "mesh_lods": 3
+    }
+  ],
+  "column_sample": {
+    "label": "PlazaColumn_N_00",
+    "mesh_lods": 3
+  },
+  "baluster_sample": {
+    "label": "PlazaSPost_00",
+    "mesh_lods": 3
+  }
+}

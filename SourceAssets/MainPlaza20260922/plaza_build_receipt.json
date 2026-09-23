@@ -1,0 +1,113 @@
+{
+  "map": "/Game/GameMaps/DayNight_Lighting",
+  "center_cm": [
+    1350.0,
+    -975.0
+  ],
+  "half_size_cm": 5000.0,
+  "paving_top_z": 20.0,
+  "registry_removed": [],
+  "superseded": [
+    {
+      "label": "StairWalk_Step_01",
+      "loc": [
+        1059.94,
+        270.03,
+        10.0
+      ],
+      "was_component_visible": false
+    },
+    {
+      "label": "MarbleFloor_Colonnade",
+      "loc": [
+        1350.0,
+        550.0,
+        0.0
+      ],
+      "was_component_visible": false
+    }
+  ],
+  "moved": [
+    {
+      "label": "Expedition_SquareAltar",
+      "kind": "altar",
+      "from_cm": [
+        1350.0,
+        -2700.0,
+        20.0
+      ],
+      "to_cm": [
+        1350.0,
+        -2700.0,
+        20.0
+      ],
+      "yaw": 180.0
+    },
+    {
+      "label": "RomanFountain1",
+      "kind": "fountain",
+      "from_cm": [
+        1350.0,
+        -1550.0,
+        8.0
+      ],
+      "to_cm": [
+        1350.0,
+        -1550.0,
+        36.0
+      ]
+    }
+  ],
+  "generated": {
+    "paving": 78,
+    "colonnade": 68,
+    "entablature": 20,
+    "baluster_posts": 188,
+    "baluster_rails": 184,
+    "precinct_posts": 36,
+    "precinct_rails": 32,
+    "precinct_columns": 0
+  },
+  "layout": {
+    "paving": "6x13",
+    "perimeter_column": "SM_RomanColumn_Detailed (square base)",
+    "colonnade_half": 4500.0,
+    "colonnade_bay": 500.0,
+    "entablature": "5 beams/side at z=265",
+    "balustrade_half": 4900.0,
+    "balustrade_bay": 200.0,
+    "outer_gates": "4 midpoints, 560 clear",
+    "precinct_half": [
+      900.0,
+      1200.0
+    ],
+    "precinct_columns": "SM_RomanColumn_Round_20 every 600",
+    "precinct_gates": "4 (one per side)",
+    "altar_axis": [
+      1350.0,
+      -2700.0
+    ]
+  },
+  "pavilion": {
+    "actors": 13,
+    "shift_cm": 0.0,
+    "min_z_before": 20.0
+  },
+  "verified_counts": {
+    "paving": 78,
+    "colonnade": 68,
+    "entablature": 20,
+    "balustrade": 372,
+    "precinct": 68
+  },
+  "expected_counts": {
+    "paving": 78,
+    "colonnade": 68,
+    "entablature": 20,
+    "balustrade": 372,
+    "precinct": 68
+  },
+  "saved": true,
+  "runtime_tested": false,
+  "switched_from": null
+}
