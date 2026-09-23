@@ -1,4 +1,5 @@
 #include "../UI/ColdSteelStatusModel.h"
+#include "../Monsters/MonsterCoreStats.h"
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "ColdSteelSkillRules.h"
@@ -156,7 +157,7 @@ void UColdSteelStatusModel::ApplyFireballExplosion(APawn* Shooter,const FVector&
     const auto& F=FireballSkill.Fireball;
     ColdSteelSkills::AddExperience(P,FireballSkill,HitCount*F.HitExperience+KillCount*FireballSkill.KillExperience+(HitCount>=2?F.MultiHitExperience:0)+(KillCount>=2?F.MultiKillExperience:0));
     ColdSteelSkills::AddExperience(P,CriticalStrikeSkill,CriticalHits*CriticalStrikeSkill.CriticalHitExperience+CriticalKills*CriticalStrikeSkill.CriticalKillExperience);
-    for(const auto& K:Rewards.Kills){P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);P.Experience+=FMath::FloorToInt64(K.Value*TributeEffect(TEXT("expPercent")));}
+    for(const auto& K:Rewards.Kills){P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);auto* Dead=K.Key.Get();P.Experience+=FMath::FloorToInt64(MonsterCoreStats::ScaleKillExperience(Dead,P.Level,K.Value)*TributeEffect(TEXT("expPercent")));if(const int64 Gold=MonsterCoreStats::RollKillGold(Dead))ColdSteelInventory::Insert(P.Items,CreateItem(TEXT("gold"),Gold));}
     while(P.Level<10000){const int64 Need=(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8;if(P.Experience<Need)break;P.Experience-=Need;++P.Level;P.Points=FMath::Min(P.Points+3,1000000);}
     if(P.Level==10000)P.Experience=FMath::Min(P.Experience,(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8-1);
     if(CommitState(P))for(const auto& K:Rewards.Kills)RewardedVictims.Add(K.Key);

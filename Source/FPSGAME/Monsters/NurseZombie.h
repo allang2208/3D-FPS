@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "MonsterCoreStats.h"
 #include "NurseZombie.generated.h"
 
 class UAnimSequence;
@@ -27,6 +28,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float MaxHealth = 120.f;
     // Source: tutorial-runtime.json enemyXp.zombie[0]. Tunable per encounter.
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Rewards") int32 ExperienceReward = 241;
+    // 配置等级与品阶（原 enemy-config 口径；奖励按等级/品阶核算，见 MonsterCoreStats）。
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Rewards") int32 Level = 3;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Rewards") EMonsterRank Rank = EMonsterRank::Normal;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float AttackDamage = 15.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float AggroRadius = 1200.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float AttackRange = 145.f;
@@ -56,6 +60,9 @@ private:
     bool CanSee(const AActor* Actor) const;
     void TryMelee();
     TWeakObjectPtr<APawn> Target;
+    // Clip currently owned by the single-node reaction/state player, so repeated
+    // bullets can refresh the pose instead of rebuilding the player per hit.
+    UPROPERTY(Transient) TObjectPtr<UAnimSequence> PresentedClip;
     float StateTime = 0.f;
     float Cooldown = 0.f;
     float StaggerSeconds = .25f;

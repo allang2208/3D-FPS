@@ -1,4 +1,5 @@
 #include "../Dungeon/DungeonLayout.h"
+#include "../Monsters/MonsterCoreStats.h"
 #include "ColdSteelStatusModel.h"
 #include "../Weapons/WeaponReloadStages.h"
 #include "../Weapons/PistolDualWieldComponent.h"
@@ -331,7 +332,8 @@ bool UColdSteelStatusModel::AwardKill(AActor* Victim,int64 Reward)
 {
     if(!Victim||RewardedVictims.Contains(Victim)||Reward<=0||Reward>1000000000)return false;
     if(ActiveFireballRewards && ActiveFireballRewards->Victim==Victim){ActiveFireballRewards->Kills.FindOrAdd(Victim)=Reward;return true;}
-    SyncRuntime();auto P=Snapshot();if(!DungeonLayout::RecordKill(P.DungeonRun,Victim))return false;P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);P.Experience+=FMath::FloorToInt64(Reward*TributeEffect(TEXT("expPercent")));
+    SyncRuntime();auto P=Snapshot();if(!DungeonLayout::RecordKill(P.DungeonRun,Victim))return false;P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);P.Experience+=FMath::FloorToInt64(MonsterCoreStats::ScaleKillExperience(Victim,P.Level,Reward)*TributeEffect(TEXT("expPercent")));
+    if(const int64 Gold=MonsterCoreStats::RollKillGold(Victim))ColdSteelInventory::Insert(P.Items,CreateItem(TEXT("gold"),Gold));
     if(ActiveTrainingHit && ActiveTrainingHit->Victim==Victim && ActiveTrainingHit->bEligible)
     {
         ActiveTrainingHit->bKillAttempted=true;

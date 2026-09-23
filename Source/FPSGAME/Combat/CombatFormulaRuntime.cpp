@@ -5,6 +5,7 @@
 #include "../Monsters/HandBrainMonster.h"
 #include "../Monsters/PoisonMaggotMonster.h"
 #include "../Monsters/WolfMonster.h"
+#include "../Monsters/MonsterCoreStats.h"
 #include "../Skills/FireballDamage.h"
 #include "../Skills/IceSpikeDamage.h"
 #include "../Skills/LightningDamage.h"
@@ -20,11 +21,9 @@ namespace
 {
 CoreCombatFormula::Attributes MonsterAttributes(const AActor* Target)
 {
-    if(Target->IsA<AHandBrainMonster>())return {50,25,30,40,20,10};
-    if(Target->IsA<APoisonMaggotMonster>())return {7,13,24,22,24,13};
-    if(Target->ActorHasTag(TEXT("FatZombie")))return {18,6,3,20,3,5};
-    // Nurse is a UE-specific creature with no World-122 config identity.
-    return {0,0,0,0,0,0};
+    // 2026-09-23：六维统一走 MonsterCoreStats 注册表（含狼/护士反解项与巫婆/突变体3）。
+    FMonsterCoreStats S;
+    return MonsterCoreStats::Get(Target,S)?S.A:CoreCombatFormula::Attributes{0,0,0,0,0,0};
 }
 }
 thread_local const CombatFormulaRuntime::MagicHit* CombatFormulaRuntime::ActiveMagicHit=nullptr;

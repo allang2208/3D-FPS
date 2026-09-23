@@ -81,7 +81,7 @@ float AWolfMonster::ClipLength(FName Action) const
 void AWolfMonster::BeginPlay()
 {
     Super::BeginPlay();
-    Home = GetActorLocation(); Health = FMath::Max(1.f, MaxHealth);
+    Home = GetActorLocation(); MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier()); Health = FMath::Max(1.f, MaxHealth); // 全局生命成长层；归巢回血读取的也是放大后的 MaxHealth
     AlignVisual();
     WoundAppearance->ApplyAppearance(GetMesh());
     if (!Animation() || !Animation()->SetAnimationSet(AnimationSet))

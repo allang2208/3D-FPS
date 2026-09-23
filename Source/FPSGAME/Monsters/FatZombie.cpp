@@ -20,7 +20,7 @@ AFatZombie::AFatZombie(const FObjectInitializer& ObjectInitializer) : Super(Obje
     // Development defaults; independently editable without changing the nurse.
     MaxHealth = 600.f; AttackDamage = 25.f; WalkSpeed = 65.f;
     AttackRange = 155.f; ContactTime = 1.f; ContactEnd = 1.18f;
-    RecoveryTime = 1.f; CorpseSeconds = 15.f; ExperienceReward = 241;
+    RecoveryTime = 1.f; CorpseSeconds = 15.f; ExperienceReward = 241; Level = 4;
     static ConstructorHelpers::FObjectFinder<USkeletalMesh> Model(TEXT("/Game/Monsters/FatZombieMeshy/SK_FatZombie_Meshy.SK_FatZombie_Meshy"));
     static ConstructorHelpers::FObjectFinder<UAnimSequence> Idle(TEXT("/Game/Monsters/FatZombieMeshy/Animations/A_FatZombie_Idle.A_FatZombie_Idle"));
     static ConstructorHelpers::FObjectFinder<UAnimSequence> Walk(TEXT("/Game/Monsters/FatZombieMeshy/Animations/A_FatZombie_Walk.A_FatZombie_Walk"));

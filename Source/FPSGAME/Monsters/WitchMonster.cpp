@@ -21,7 +21,7 @@ AWitchMonster::AWitchMonster(const FObjectInitializer& Initializer) : Super(Init
     GetCapsuleComponent()->InitCapsuleSize(34.f, 94.f);
     // Health/magic/cooldowns come from the original witch config. World units
     // are authored centimetres, not an automatic conversion of source pixels.
-    MaxHealth = 1300.f; Health = MaxHealth; WalkSpeed = 82.5f; AggroRadius = 1600.f;
+    MaxHealth = 1300.f; Level = 8; Rank = EMonsterRank::Lord; Health = MaxHealth; WalkSpeed = 82.5f; AggroRadius = 1600.f;
     AttackRange = SpellRange; AttackDamage = 0.f; RecoveryTime = 0.f;
     // The inherited attack clock drives our overridden presentation hook.
     // Its melee contact branch is disabled: only ReleaseSpell deals attacks.

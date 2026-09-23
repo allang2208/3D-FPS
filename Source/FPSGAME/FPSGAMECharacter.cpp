@@ -705,7 +705,7 @@ void AFPSGAMECharacter::StopMovementForMeleeSkill()
 
 void AFPSGAMECharacter::MoveForward(float Value)
 {
-    if(BipodDeployment && !FMath::IsNearlyZero(Value,.05f))BipodDeployment->Release();
+    if(BipodDeployment&&BipodDeployment->BlocksMovement())return; // 架枪锁定：移动输入被忽略，退出后恢复
     if (IsMeleeSkillMovementLocked()) { MoveInput.Y = 0.f; return; }
     MoveInput.Y = Value;
     if (!bIsSliding && !IsDodging() && !FMath::IsNearlyZero(Value) && Controller)
@@ -714,7 +714,7 @@ void AFPSGAMECharacter::MoveForward(float Value)
 
 void AFPSGAMECharacter::MoveRight(float Value)
 {
-    if(BipodDeployment && !FMath::IsNearlyZero(Value,.05f))BipodDeployment->Release();
+    if(BipodDeployment&&BipodDeployment->BlocksMovement())return; // 架枪锁定：移动输入被忽略，退出后恢复
     if (IsMeleeSkillMovementLocked()) { MoveInput.X = 0.f; return; }
     MoveInput.X = Value;
     if (!bIsSliding && !IsDodging() && !FMath::IsNearlyZero(Value) && Controller)
@@ -737,7 +737,7 @@ void AFPSGAMECharacter::LookUp(float Value)
 }
 void AFPSGAMECharacter::SprintPressed()
 {
-    if(BipodDeployment)BipodDeployment->Release();
+    if(BipodDeployment&&BipodDeployment->BlocksMovement())return; // 架枪锁定：冲刺/疾避键无效
     if (IsMeleeSkillMovementLocked()) return;
     if (bSprintHeld) return;
     SprintPressedAt=(!IsDodging() && !IsTraversing() && Controller && !Controller->IsMoveInputIgnored())
@@ -758,7 +758,7 @@ void AFPSGAMECharacter::SprintReleased()
 
 void AFPSGAMECharacter::SlidePressed()
 {
-    if(BipodDeployment)BipodDeployment->Release();
+    if(BipodDeployment&&BipodDeployment->BlocksMovement())return; // 架枪锁定：蹲/滑铲键无效
     if (IsMeleeSkillMovementLocked() || IsTraversing() || IsDodging()) return;
     if (bIsSliding) { StopSlide(false); return; }
     if (bIsCrouched) { if (CanStand()) UnCrouch(); return; }
@@ -769,7 +769,7 @@ void AFPSGAMECharacter::SlidePressed()
 
 void AFPSGAMECharacter::JumpPressed()
 {
-    if(BipodDeployment)BipodDeployment->Release();
+    if(BipodDeployment&&BipodDeployment->BlocksMovement())return; // 架枪锁定：跳跃/翻越键无效
     if (IsMeleeSkillMovementLocked() || IsDodging()) return;
     Traversal->SetJumpHeld(true);
     if (IsTraversing()) return;

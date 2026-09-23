@@ -3,6 +3,7 @@
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "../Weapons/MeleeWeaponStats.h"
 #include "../Weapons/WeaponStatEvaluation.h"
+#include "../Monsters/HandBrainMonster.h"
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonSerializer.h"
 #include "Misc/FileHelper.h"
@@ -259,7 +260,13 @@ bool ColdSteelSkills::IsRifle(const FColdSteelItem* I)
 bool ColdSteelSkills::IsPistol(const FColdSteelItem* I)
 { return I && ColdSteelInventory::Text(*I,TEXT("weaponType"))==TEXT("pistol"); }
 bool ColdSteelSkills::IsCriticalHit(const FHitResult& Hit)
-{ const FString Bone=Hit.BoneName.ToString();return Bone.Contains(TEXT("head"),ESearchCase::IgnoreCase)||Bone.Equals(TEXT("cranium"),ESearchCase::IgnoreCase); }
+{
+    // 手脑怪要害自定义：只有释放吼叫（Howl）期间命中张开的口部才算弱点；其余时间头部
+    // （cranium）一律不触发要害必暴。随机暴击是角色属性驱动（见 Snapshot 的 crit chance），
+    // 不经此处，所以近战/枪械仍可按概率对其暴击，符合"平时无固定弱点、可被随机暴击"的口径。
+    if(const auto* Brain=Cast<AHandBrainMonster>(Hit.GetActor()))return Brain->IsWeakpointHit(Hit);
+    const FString Bone=Hit.BoneName.ToString();return Bone.Contains(TEXT("head"),ESearchCase::IgnoreCase)||Bone.Equals(TEXT("cranium"),ESearchCase::IgnoreCase);
+}
 FColdSteelSkillEffect ColdSteelSkills::Effect(const FColdSteelSkillDefinition& D, int32 Level)
 {
     const int32 L=FMath::Clamp(Level,0,D.MaxLevel);
@@ -319,6 +326,9 @@ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelIt
             if(bFiredRound)Shot.ArmorPenetration=FMath::Clamp(Shot.ArmorPenetration+M->AmmoArmorPenetration(*I),0.f,1.f);
             if(Shot.ItemDefinition.IsEmpty())Shot.ItemDefinition=I->Definition;
             Shot.bMelee=ColdSteelInventory::IsMeleeWeapon(*I);
+            // 武器自带的暴击伤害加成（items 定义 critDamageBonus，SVD=0.5）与暴击技能倍率相加后，
+            // 在 ColdSteelSkillModel 里只乘一次（要害或随机暴击同一击不叠加）。
+            Shot.CriticalDamageBonus+=FMath::Max(0.,ColdSteelInventory::Number(*I,TEXT("critDamageBonus")));
             // 近战默认按锐器折算削韧（配重锤等钝击动作由攻击端覆盖）；其余按冲击。
             Shot.AttackForm=Shot.bMelee?EMonsterAttackForm::Blade:EMonsterAttackForm::Impact;
             if(Shot.bMelee)

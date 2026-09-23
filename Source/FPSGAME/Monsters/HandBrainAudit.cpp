@@ -58,7 +58,7 @@ void UHandBrainAudit::Step()
   if(!Spawner.IsValid()||!IsValid(Spawner->LiveMonster))return;Brain=Spawner->LiveMonster;Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();if(!Health.IsValid())return;
   for(TActorIterator<ANurseZombie> I(GetWorld());I;++I)I->SetActorTickEnabled(false);
   Check(TEXT("village_spawner_created_one"),Spawner->SpawnCount==1);Check(TEXT("default_respawn_300s"),Spawner->RespawnSeconds==300);
-  Check(TEXT("lord_stats"),Brain->MaxHealth==1500&&Brain->PhysicalAttack==50&&Brain->MagicAttack==55&&Brain->SlamCooldown==6&&Brain->HowlCooldown==30);
+  Check(TEXT("lord_stats"),Brain->MaxHealth==1500*MonsterCoreStats::HealthMultiplier()&&Brain->PhysicalAttack==50&&Brain->MagicAttack==55&&Brain->SlamCooldown==6&&Brain->HowlCooldown==30);
   Check(TEXT("five_clips_loaded"),Brain->IdleClip&&Brain->MoveClip&&Brain->SlamClip&&Brain->HowlClip&&Brain->DeathClip);
   Check(TEXT("root_and_three_fitted_ragdoll_bodies"),Brain->GetMesh()->GetPhysicsAsset()&&Brain->GetMesh()->GetPhysicsAsset()->SkeletalBodySetups.Num()==4);
   Health->MaxHealth=10000;Health->Health=10000;Brain->AggroRadius=3000;Brain->HowlRadius=0;PlacePlayer(400);Start=Brain->GetActorLocation();BeforeHealth=Brain->Health;

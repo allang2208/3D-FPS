@@ -35,6 +35,7 @@ public:
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Stats") float MagicAttack=24;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Stats") float WalkSpeed=120;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Stats") int32 Level=4;
+ UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Stats") EMonsterRank Rank=EMonsterRank::Elite;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Stats") int32 ExperienceReward=240;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|AI") float AggroRadius=1400;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|AI") float LeashRadius=2400;

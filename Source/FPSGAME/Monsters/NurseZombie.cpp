@@ -56,6 +56,8 @@ void ANurseZombie::BeginPlay()
 {
     Super::BeginPlay();
     SpawnPosition=GetActorLocation();
+    // 全局成长层（MonsterCoreStats::HealthMultiplier）：护士/胖子/突变体3/巫婆共用此初始化点。
+    MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier());
     Health = MaxHealth;
     if (VisualMesh) GetMesh()->SetSkeletalMeshAsset(VisualMesh);
     GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;

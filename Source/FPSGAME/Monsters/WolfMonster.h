@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "MonsterCoreStats.h"
 #include "WolfMonster.generated.h"
 
 class UQuadrupedAnimationSet;
@@ -35,6 +36,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Stats") float MagicDefense = 8.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Stats") float CriticalResistance = 5.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Stats") int32 ExperienceReward = 180;
+    // 配置等级/品阶对照原 blackWolf（L5 normal）；六维反解见 MonsterCoreStats。
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Stats") int32 Level = 5;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Stats") EMonsterRank Rank = EMonsterRank::Normal;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Movement", meta=(Units="cm/s")) float WalkSpeed = 100.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Movement", meta=(Units="cm/s")) float ChaseSpeed = 380.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|AI", meta=(Units="cm")) float AggroRadius = 1500.f;

@@ -12,7 +12,7 @@ inline constexpr const TCHAR* LegA = TEXT("/Game/Weapons/PKMLowpoly20260922/Bipo
 inline constexpr const TCHAR* LegB = TEXT("/Game/Weapons/PKMLowpoly20260922/Bipod26/SM_PKM_Bipod_LegB");
 }
 
-/** Articulated visual: free inertial motion or deployment-controller contacts. */
+/** Articulated visual: free inertial motion, or frozen default-droop while deployed. */
 UCLASS()
 class FPSGAME_API UPKMBipodComponent : public UStaticMeshComponent
 {
@@ -24,6 +24,8 @@ public:
     FVector GetRestFootWorld(int32 Leg) const;
     bool CanReachContacts(const FVector& A,const FVector& B,const FVector& MountDelta) const;
     void SetDeploymentContacts(const FVector& A,const FVector& B,float Weight);
+    // 架设期间把两腿固定在默认下垂姿态：不随枪旋转解算、不做摆动动力学，允许穿模。
+    void SetLegsFrozen(bool bFrozen);
     virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
     virtual void OnComponentDestroyed(bool bDestroyingHierarchy) override;
 private:
@@ -31,6 +33,7 @@ private:
     void ApplyAngle();
     TWeakObjectPtr<USkeletalMeshComponent> Weapon;
     double LastTime = -1.;
+    bool bLegsFrozen = false;
     FVector LastPosition = FVector::ZeroVector, LastVelocity = FVector::ZeroVector;
     FVector LastSpin = FVector::ZeroVector, Acceleration = FVector::ZeroVector, SpinAcceleration = FVector::ZeroVector;
     FQuat LastRotation = FQuat::Identity;

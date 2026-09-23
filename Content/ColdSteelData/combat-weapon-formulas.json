@@ -21,8 +21,16 @@
     "base": 10,
     "enhanceFlat": 0,
     "attrs": [
-      { "key": "str", "base": 1.0, "perEnhance": 0 },
-      { "key": "dex", "base": 0.2, "perEnhance": 0 }
+      {
+        "key": "str",
+        "base": 1.0,
+        "perEnhance": 0
+      },
+      {
+        "key": "dex",
+        "base": 0.2,
+        "perEnhance": 0
+      }
     ]
   },
   "ue_m4a1": {
@@ -163,18 +171,18 @@
   },
   "ue_svd": {
     "source": "SVD_ITEM",
-    "base": 15,
-    "enhanceFlat": 1.05,
+    "base": 32.5,
+    "enhanceFlat": 0,
     "attrs": [
       {
         "key": "int",
-        "base": 0.48,
-        "perEnhance": 0.085
+        "base": 1.0,
+        "perEnhance": 0.125
       },
       {
         "key": "wis",
-        "base": 0.48,
-        "perEnhance": 0.085
+        "base": 2.0,
+        "perEnhance": 0.1875
       }
     ]
   },

@@ -46,7 +46,7 @@ APoisonMaggotMonster::APoisonMaggotMonster(const FObjectInitializer& ObjectIniti
 void APoisonMaggotMonster::OnConstruction(const FTransform& T){Super::OnConstruction(T);if(VisualMesh)GetMesh()->SetSkeletalMeshAsset(VisualMesh);}
 void APoisonMaggotMonster::BeginPlay()
 {
- Super::BeginPlay();Health=MaxHealth;Home=GetActorLocation();if(VisualMesh)GetMesh()->SetSkeletalMeshAsset(VisualMesh);GetCharacterMovement()->MaxWalkSpeed=WalkSpeed;
+ Super::BeginPlay();MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier());Health=MaxHealth;Home=GetActorLocation();if(VisualMesh)GetMesh()->SetSkeletalMeshAsset(VisualMesh);GetCharacterMovement()->MaxWalkSpeed=WalkSpeed;
  if(!VisualMesh||!IdleClip||!MoveClip||!SpitClip||!DeathClip||!Combat->HitClip||!GetMesh()->GetPhysicsAsset())
  {UE_LOG(LogTemp,Error,TEXT("MAGGOT_ASSET_MISSING %s"),*GetName());SetActorTickEnabled(false);return;}
  SetState(EPoisonMaggotState::Idle);UE_LOG(LogTemp,Display,TEXT("MAGGOT_READY mesh=%s home=%s"),*VisualMesh->GetPathName(),*Home.ToString());

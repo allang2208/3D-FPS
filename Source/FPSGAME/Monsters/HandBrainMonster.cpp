@@ -57,12 +57,14 @@ AHandBrainMonster::AHandBrainMonster(const FObjectInitializer& ObjectInitializer
  for(auto* Ring:{SlamRing.Get(),HowlRing.Get()}){Ring->SetupAttachment(GetRootComponent());Ring->SetAbsolute(true,true,true);Ring->SetCollisionEnabled(ECollisionEnabled::NoCollision);Ring->SetCastShadow(false);Ring->SetVisibility(false);if(Plane.Succeeded())Ring->SetStaticMesh(Plane.Object);}
  Voice=CreateDefaultSubobject<UAudioComponent>(TEXT("HowlVoice"));Voice->SetupAttachment(GetMesh());Voice->bAutoActivate=false;
  Voice->bOverrideAttenuation=true;Voice->AttenuationOverrides.bAttenuate=true;Voice->AttenuationOverrides.bSpatialize=true;Voice->AttenuationOverrides.FalloffDistance=1800;
+ // 咆哮时张开的口部：可动骨骼为 jaw（口腔内壁/老牙是材质槽不是骨骼）。
+ WeakpointBones={TEXT("jaw"),TEXT("mouth"),TEXT("oral"),TEXT("teeth")};
 }
 void AHandBrainMonster::OnConstruction(const FTransform& T){Super::OnConstruction(T);if(VisualMesh)GetMesh()->SetSkeletalMeshAsset(VisualMesh);}
 void AHandBrainMonster::BeginPlay()
 {
- Super::BeginPlay();Health=MaxHealth;Home=GetActorLocation();if(VisualMesh)GetMesh()->SetSkeletalMeshAsset(VisualMesh);
- GetCharacterMovement()->MaxWalkSpeed=WalkSpeed;
+ Super::BeginPlay();MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier());Health=MaxHealth;Home=GetActorLocation();if(VisualMesh)GetMesh()->SetSkeletalMeshAsset(VisualMesh);
+ GetCharacterMovement()->MaxWalkSpeed=WalkSpeed*FMath::Max(.05f,MoveSpeedMultiplier);
  if(!VisualMesh||!IdleClip||!MoveClip||!SlamClip||!HowlClip||!DeathClip||!GetMesh()->GetPhysicsAsset()){UE_LOG(LogTemp,Error,TEXT("HANDBRAIN_ASSET_MISSING %s"),*GetName());SetActorTickEnabled(false);return;}
  if(GroundRingMaterial){SlamMaterial=UMaterialInstanceDynamic::Create(GroundRingMaterial,this);HowlMaterial=UMaterialInstanceDynamic::Create(GroundRingMaterial,this);SlamRing->SetMaterial(0,SlamMaterial);HowlRing->SetMaterial(0,HowlMaterial);}
  SetState(EHandBrainState::Idle);UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_READY hp=%.0f home=%s physics=%s"),Health,*Home.ToString(),*GetMesh()->GetPhysicsAsset()->GetName());
@@ -159,10 +161,20 @@ void AHandBrainMonster::Tick(float Dt)
   if(StateSeconds>=3){State=EHandBrainState::Recovery;StateSeconds=0;HowlRing->SetVisibility(false);Voice->Stop();}return;
  }
  if(State==EHandBrainState::Stagger){if(StateSeconds>=StaggerSeconds)Combat->FinishReaction();return;}
- if(State==EHandBrainState::Chase||State==EHandBrainState::Returning){GetMesh()->SetPlayRate(FMath::Clamp(GetVelocity().Size2D()/WalkSpeed,.2f,1.5f));StepClock+=Dt;if(StepClock>=.5f&&GetVelocity().Size2D()>10){StepClock=0;if(MoveSound)UGameplayStatics::PlaySoundAtLocation(this,MoveSound,GetActorLocation(),.35f);}}
+ if(State==EHandBrainState::Chase||State==EHandBrainState::Returning){const float Ratio=FMath::Clamp(GetVelocity().Size2D()/WalkSpeed,.2f,1.5f);GetMesh()->SetPlayRate(Ratio);StepClock+=Dt*Ratio;if(StepClock>=.5f&&GetVelocity().Size2D()>10){StepClock=0;if(MoveSound)UGameplayStatics::PlaySoundAtLocation(this,MoveSound,GetActorLocation(),.35f);}}
 
 }
 void AHandBrainMonster::InterruptAttack(float Seconds){if(!HasAuthority()||Dead())return;bSlamConsumed=true;StaggerSeconds=FMath::Max(.1f,Seconds);SetState(EHandBrainState::Stagger);Combat->BeginReaction(StaggerSeconds);}
+bool AHandBrainMonster::IsWeakpointHit(const FHitResult& Hit) const
+{
+ // 弱点只在释放吼叫（Howl，3 秒吟唱）时存在：张开的是口部；其余时间全身无要害，
+ // 头部命中不再必暴，只保留各武器/近战共用的随机暴击概率判定。
+ if(State!=EHandBrainState::Howl||Dead())return false;
+ const FString Bone=Hit.BoneName.ToString();
+ for(const auto& Token:WeakpointBones)if(!Token.IsEmpty()&&Bone.Contains(Token,ESearchCase::IgnoreCase))return true;
+ return false;
+}
+
 float AHandBrainMonster::TakeDamage(float Damage,const FDamageEvent& Event,AController* DamageInstigator,AActor* Causer)
 {
  if(!HasAuthority()||Dead()||Damage<=0)return 0;

@@ -84,7 +84,8 @@ bool UPKMBipodComponent::CanReachContacts(const FVector& A,const FVector& B,cons
         const FVector Rest=Frame.TransformVector(Tip);
         const FVector Target=Goals[I]-Pivot;
         const double Ratio=Target.Size()/FMath::Max(.01,Rest.Size());
-        if(Ratio<.95 || Ratio>1.05 || FVector::DotProduct(Rest.GetSafeNormal(),Target.GetSafeNormal())<.82)return false;
+        // 2026-09-23 放宽架设判定：腿长适应 ±5%→±8%，方向容差 cos .82→.78。
+        if(Ratio<.92 || Ratio>1.08 || FVector::DotProduct(Rest.GetSafeNormal(),Target.GetSafeNormal())<.78)return false;
     }
     return true;
 }
@@ -125,9 +126,23 @@ void UPKMBipodComponent::ApplyAngle()
     }
 }
 
+void UPKMBipodComponent::SetLegsFrozen(bool bFrozen)
+{
+    if(bLegsFrozen==bFrozen)return;
+    bLegsFrozen=bFrozen;
+    if(bFrozen)
+    {
+        // 冻结即回到默认下垂：网格自带 legs-down 静止姿态，零角即可。
+        LastTime=-1.;ContactWeight=0.f;
+        Angles[0]=Angles[1]=AngularSpeeds[0]=AngularSpeeds[1]=0.f;
+        ApplyAngle();
+    }
+}
+
 void UPKMBipodComponent::TickComponent(float DeltaTime,ELevelTick TickType,FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(DeltaTime,TickType,Tick);
+    if(bLegsFrozen)return; // 架设中两腿钉死在默认下垂，不跟随枪体移动
     const auto* World=GetWorld();const auto* Rifle=Weapon.Get();
     if(!World || !World->IsGameWorld() || !Rifle || !Rifle->IsVisible() || Rifle->bHiddenInGame ||
        !IsVisible() || bHiddenInGame || GetOwner()->IsHidden() || !GetOwner()->IsActorTickEnabled())

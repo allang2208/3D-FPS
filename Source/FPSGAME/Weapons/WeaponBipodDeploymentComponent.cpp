@@ -11,6 +11,8 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/PlayerController.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundBase.h"
 #include "Engine/World.h"
 
 namespace
@@ -29,6 +31,17 @@ UWeaponBipodDeploymentComponent::UWeaponBipodDeploymentComponent()
 FWeaponHandling UWeaponBipodDeploymentComponent::ApplyStability(const FWeaponHandling& Base) const
 {
     return Blend>0.f ? Base.WithStabilityMultiplier(FMath::Lerp(1.f,MountedStabilityMultiplier,Blend)) : Base;
+}
+
+void UWeaponBipodDeploymentComponent::FireDeployCue(bool bSeat)
+{
+    auto* C=Character.Get();if(!C||!GetWorld())return;
+    // 复用 PKM 换弹处理弹链的两段录音：抬带（起手）与坐带咔哒（落位）。
+    const FString Path=PKMLowpolyWeaponAssets::ReloadSoundPath(bSeat?TEXT("BeltSeat"):TEXT("BeltLift"));
+    auto* Sound=LoadObject<USoundBase>(nullptr,*Path);
+    if(!Sound){UE_LOG(LogTemp,Warning,TEXT("PKM bipod %s cue missing: %s"),bSeat?TEXT("seat"):TEXT("lift"),*Path);return;}
+    const FVector At=C->FirstPersonCamera?C->FirstPersonCamera->GetComponentLocation():C->GetActorLocation()+FVector(0,0,90);
+    UGameplayStatics::PlaySoundAtLocation(this,Sound,At,bSeat?1.28f:.75f,FMath::FRandRange(.96f,1.05f));
 }
 
 void UWeaponBipodDeploymentComponent::BeginPlay()
@@ -60,7 +73,7 @@ bool UWeaponBipodDeploymentComponent::Eligible() const
     if(!C || !C->IsLocallyControlled() || !GetWorld() || GetWorld()->GetNetMode()!=NM_Standalone)return false;
     const auto* PC=Cast<APlayerController>(C->GetController());
     if(!PC || AFPSGAMEPlayerController::BlocksOngoingActions(PC))return false;
-    if(!EquippedBipod() || !C->GetCharacterMovement()->IsMovingOnGround() || C->GetVelocity().SizeSquared()>25.f)return false;
+    if(!EquippedBipod() || !C->GetCharacterMovement()->IsMovingOnGround() || C->GetVelocity().SizeSquared()>100.f)return false;
     if(C->GetWeaponState()!=EAKMWeaponState::Idle || C->IsChoosingAmmo() || C->bSprintHeld || C->IsSprinting()
         || C->IsSliding() || C->IsDodging() || C->IsTraversing() || C->IsCastBlockingLeftHandAction()
         || C->bGunsmithInspection || !C->MoveInput.IsNearlyZero(.05f))return false;
@@ -88,7 +101,7 @@ bool UWeaponBipodDeploymentComponent::HasSupportHint(UPKMBipodComponent& Part) c
 {
     const auto* C=Character.Get();if(!C)return false;
     const FRotator Aim=C->GetControlRotation();
-    if(FMath::Abs(FRotator::NormalizeAxis(Aim.Pitch))>30.f)return false;
+    if(FMath::Abs(FRotator::NormalizeAxis(Aim.Pitch))>40.f)return false;
     const FVector Forward=FRotator(0.,Aim.Yaw,0.).Vector();
     const FVector Feet[]={Part.GetRestFootWorld(0),Part.GetRestFootWorld(1)};
     const float Offsets[]={0.f,ForwardSearch*.5f,-ForwardSearch*.5f,ForwardSearch,-ForwardSearch};
@@ -107,7 +120,7 @@ bool UWeaponBipodDeploymentComponent::HasSupportHint(UPKMBipodComponent& Part) c
                 Probe-FVector::UpVector*MaximumHeightSnap,SupportChannel,Params)
                 || Hit.bStartPenetrating || Hit.ImpactNormal.Z<MinNormal || !Hit.GetComponent()
                 || Cast<APawn>(Hit.GetActor()) || Hit.GetComponent()->IsSimulatingPhysics()
-                || Hit.GetComponent()->GetComponentVelocity().SizeSquared()>1.){Valid=false;break;}
+                || Hit.GetComponent()->GetComponentVelocity().SizeSquared()>4.){Valid=false;break;}
         }
         if(Valid)return true;
     }
@@ -118,7 +131,7 @@ bool UWeaponBipodDeploymentComponent::FindSupport(UPKMBipodComponent& Part,FSupp
 {
     const auto* C=Character.Get();if(!C)return false;
     const FRotator Aim=C->GetControlRotation();
-    if(FMath::Abs(FRotator::NormalizeAxis(Aim.Pitch))>30.f)return false;
+    if(FMath::Abs(FRotator::NormalizeAxis(Aim.Pitch))>40.f)return false;
     const FVector Forward=FRotator(0.,Aim.Yaw,0.).Vector();
     const FVector Right=FVector::CrossProduct(FVector::UpVector,Forward);
     const FVector Hinge=Part.GetHingeWorld();
@@ -144,13 +157,13 @@ bool UWeaponBipodDeploymentComponent::FindSupport(UPKMBipodComponent& Part,FSupp
                 Probe-FVector::UpVector*MaximumHeightSnap,SupportChannel,Params)
                 || Hit.bStartPenetrating || Hit.ImpactNormal.Z<MinNormal || !Hit.GetComponent()
                 || Cast<APawn>(Hit.GetActor()) || Hit.GetComponent()->IsSimulatingPhysics()
-                || Hit.GetComponent()->GetComponentVelocity().SizeSquared()>1.){Valid=false;break;}
+                || Hit.GetComponent()->GetComponentVelocity().SizeSquared()>4.){Valid=false;break;}
             Candidate.Feet[Leg]=Hit.ImpactPoint+FVector::UpVector*.12;
             Candidate.Components[Leg]=Hit.GetComponent();
             Candidate.Transforms[Leg]=Hit.GetComponent()->GetComponentTransform();
             // Confirm finite sole area so an edge or thin rail cannot support
             // a foot that would otherwise hang mostly in empty space.
-            for(const FVector& Side:{Right*1.2,-Right*1.2,Forward*1.2,-Forward*1.2})
+            for(const FVector& Side:{Right*1.6,-Right*1.6,Forward*1.6,-Forward*1.6})
             {
                 FHitResult Edge;const FVector Center=Hit.ImpactPoint+Side;
                 if(!GetWorld()->LineTraceSingleByChannel(Edge,Center+FVector::UpVector*2.,Center-FVector::UpVector*2.,SupportChannel,Params)
@@ -160,7 +173,7 @@ bool UWeaponBipodDeploymentComponent::FindSupport(UPKMBipodComponent& Part,FSupp
         if(!Valid)continue;
         const FVector Delta=(Candidate.Feet[0]+Candidate.Feet[1]-RestFeet[0]-RestFeet[1])*.5;
         Candidate.Anchor=Hinge+Delta;
-        if(!Part.CanReachContacts(Candidate.Feet[0],Candidate.Feet[1],Delta))continue;
+        // 两腿已固定默认下垂、允许穿模，不再以腿长可达性拒绝候选落点。
         const float Cost=static_cast<float>(Delta.SizeSquared())+FMath::Abs(Offset)*2.f;
         Candidates.Add(FCandidate{Candidate,Delta,Cost});
     }
@@ -219,15 +232,17 @@ bool UWeaponBipodDeploymentComponent::TryDeployFromADS()
     RestoreCameraOffset();FSupport Candidate;
     if(!FindSupport(*Part,Candidate)){bCandidate=false;return false;}
     Bipod=Part;Support=Candidate;InitialAim=C->GetControlRotation();InitialAim.Pitch=FRotator::NormalizeAxis(InitialAim.Pitch);
-    PawnAnchor=C->GetActorLocation();bRequested=true;bCandidate=false;
+    PawnAnchor=C->GetActorLocation();bRequested=true;bCandidate=false;bSeatFired=false;
     NextSupportProbe=GetWorld()->GetTimeSeconds()+BipodSupportInterval;
     C->GetCharacterMovement()->StopMovementImmediately();
+    FireDeployCue(false); // 抬弹链：架起动作的起手机械声
     SetComponentTickEnabled(true);return true;
 }
 
 void UWeaponBipodDeploymentComponent::Release(bool bImmediate)
 {
-    bRequested=false;bCandidate=false;
+    bRequested=false;bCandidate=false;bSeatFired=false;SettleClock=-1.f;
+    if(auto* Part=Bipod.Get())Part->SetLegsFrozen(false); // 解除即恢复两腿自然摆动，防止冻结泄漏
     if(bImmediate)
     {
         Blend=0.f;RestoreCameraOffset();
@@ -245,7 +260,12 @@ void UWeaponBipodDeploymentComponent::Advance(float DeltaSeconds)
     if(bRequested && (!Allowed || !C->bIsAiming || Bipod.Get()!=EquippedBipod()
         || FVector::DistSquared(C->GetActorLocation(),PawnAnchor)>4. || !SupportStillValid(Probe)))Release();
     if(bRequested)ClampAim();
+    // 锁定兜底：击退等外力给到的速度每帧掐掉，角色钉在架设点（>2cm 位移仍走解除）。
+    if(bRequested){if(auto* M=C->GetCharacterMovement();!M->Velocity.IsNearlyZero())M->StopMovementImmediately();}
     Blend=FMath::FInterpConstantTo(Blend,bRequested?1.f:0.f,DeltaSeconds,bRequested?1.f/.32f:1.f/.16f);
+    // 完全落位的瞬间：坐弹链咔哒 + 起枪身衰减抖（表现"架在固体上"的沉降）。
+    if(bRequested&&!bSeatFired&&Blend>=.999f){bSeatFired=true;SettleClock=0.f;FireDeployCue(true);}
+    if(SettleClock>=0.f){SettleClock+=DeltaSeconds;if(SettleClock>.9f)SettleClock=-1.f;}
     if(!bRequested && Blend<=UE_SMALL_NUMBER)
     {
         if(Bipod.IsValid() || !AppliedCameraOffset.IsNearlyZero())Release(true);
@@ -274,20 +294,41 @@ void UWeaponBipodDeploymentComponent::ApplyPresentation(bool bAfterPose)
     if(!C || !Part || Part!=EquippedBipod()){Release(true);return;}
     if(Blend<=UE_SMALL_NUMBER)return;
     if(bRequested && (!C->bIsAiming || !Eligible()))Release();
-    const FVector Delta=(Support.Anchor-Part->GetHingeWorld())*FMath::SmoothStep(0.f,1.f,Blend);
+    const FVector Full=(Support.Anchor-Part->GetHingeWorld())*FMath::SmoothStep(0.f,1.f,Blend);
     const FVector Eye=C->FirstPersonCamera->GetComponentLocation();
+    // 窗口内的视角旋转会带动枪体姿态：净空扫掠失败不是支撑失效，不能解除架枪
+    // （解除只由 Advance 里的结构性检查负责）。先把校正量减半退让，仍不行这一帧
+    // 干脆不平移，保持架设状态；两腿固定默认下垂，脚掌落点仅用于支撑判定。
+    FVector Delta=Full;bool bPlaced=false;
+    for(int32 Attempt=0;Attempt<4;++Attempt)
+    {
+        if(ClearPlacement(Eye,Delta,Part->GetHingeWorld()+Delta,C->GetEffectiveMuzzleForward(),bAfterPose)){bPlaced=true;break;}
+        Delta*=.5f;
+        if(Delta.IsNearlyZero(1.f)){Delta=FVector::ZeroVector;break;}
+    }
     // Both camera moves need a fresh sweep: the second follows skeletal and
     // world physics updates. The weapon corridor is checked once, at the final
     // pose, instead of also querying the previous bone pose before firing.
-    if(!ClearPlacement(Eye,Delta,Part->GetHingeWorld()+Delta,C->GetEffectiveMuzzleForward(),bAfterPose)
-        || (bRequested && !Part->CanReachContacts(Support.Feet[0],Support.Feet[1],Support.Anchor-Part->GetHingeWorld())))
-    {Release(true);return;}
-    // Translate camera and the complete arms/weapon hierarchy together. This
-    // pins the measured hinge while retaining ADS alignment and hand contacts.
-    const FVector Before=C->FirstPersonCamera->GetRelativeLocation();
-    C->FirstPersonCamera->SetWorldLocation(Eye+Delta);
-    AppliedCameraOffset=C->FirstPersonCamera->GetRelativeLocation()-Before;
-    Part->SetDeploymentContacts(Support.Feet[0],Support.Feet[1],FMath::SmoothStep(0.f,1.f,Blend));
+    if(bPlaced && !Delta.IsNearlyZero())
+    {
+        const FVector Before=C->FirstPersonCamera->GetRelativeLocation();
+        C->FirstPersonCamera->SetWorldLocation(Eye+Delta);
+        AppliedCameraOffset=C->FirstPersonCamera->GetRelativeLocation()-Before;
+    }
+    // 2026-09-23 用户要求：架设期间不再对脚架做动画——两腿固定在默认下垂姿态，不随
+    // 枪体旋转/平移解算接触点（穿模可接受）；解除后恢复正常摆动表现。
+    Part->SetLegsFrozen(bRequested);
+    if(!bRequested)Part->SetDeploymentContacts(FVector::ZeroVector,FVector::ZeroVector,0.f);
+    // 落位沉降抖：骨骼姿态与相机修正都定稿之后再叠加，只动枪身——两腿钉死在默认
+    // 下垂，视觉上是枪体坐实在架点上，镜头与手臂不受扰。
+    if(bAfterPose&&SettleClock>=0.f&&C->AKMViewmodel)
+    {
+        const float Decay=FMath::Exp(-SettleClock*7.5f);
+        if(Decay>.01f)
+            C->AKMViewmodel->AddRelativeRotation(FRotator(
+                FMath::Sin(SettleClock*38.f)*Decay*1.8f,0.f,FMath::Sin(SettleClock*27.f+1.7f)*Decay*1.05f));
+        else SettleClock=-1.f;
+    }
 }
 
 void UWeaponBipodDeploymentComponent::TickComponent(float DeltaTime,ELevelTick TickType,FActorComponentTickFunction* Tick)
