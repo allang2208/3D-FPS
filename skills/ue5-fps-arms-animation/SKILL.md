@@ -61,6 +61,7 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 
 - 复刻／迁移参考动作、或动手前要先量（可达性、指尖到目标、视锥+近平面穿模、局部 vs 世界向量、换弹可见性、重定向共轭）：[先量后写](references/measure-before-writing.md)。
 - 手指扭曲、穿模、抓握、腕肘变形、重定时或冲击感：[姿态与接触方法](references/pose-contact.md)。
+- 异形／宽长弹匣撑开虎口、拇指内收，或只需修一根手指：[异形弹匣自然抓握](references/irregular-magazine-grip.md)。优先选局部抓握区域，参考用户认可的 SVD 前半段包握与拇指向上延展，冻结已合适的其他关节。
 - 配件缩放后改手指数，或握姿已正确但腕肘衔接僵硬：[配件手部与整臂优化](references/grip-arm-refinement.md)。先保留已接受接触，诊断腕部折弯与扭转，再联动肩肘支撑；具体案例数值不跨枪型照搬。
 - 握把、阻手器及改造后握姿：[改造配件标准](../ue5-weapon-workflow/references/attachment-standard.md)。先复用已接受的成组手型，适配整手方向、握点与腕臂；必须用实际游戏掌侧、玩家视点及换弹回握验证，距离近或零相交不作为独立成功依据。
 - 现成抓握源的镜像/重定向：[GitHub 抓握迁移](references/github-grasp-donor.md)；45° 握把、阻手器及前臂扭转误判：[已接受适配案例](references/grasp-canted-handstop.md)。

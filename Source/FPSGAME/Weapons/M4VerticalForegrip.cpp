@@ -1,5 +1,6 @@
 #include "../FPSGAMECharacter.h"
 #include "A762Attachments.h"
+#include "SVDAttachments.h"
 #include "PKMAttachments.h"
 #include "M16Attachments.h"
 #include "AKMAttachmentVisual.h"
@@ -26,13 +27,13 @@ void AFPSGAMECharacter::InitializeVerticalGripAnimations()
     for(const auto& Pair:Clips)
     {
         if(!Pair.Key)continue;
-        const FString Path=PKMLowpolyWeaponAssets::Matches(AKMViewmodel)?PKMAttachments::AnimationPath(TEXT("vertical"),Pair.Value):A762WeaponAssets::Matches(AKMViewmodel)?A762Attachments::AnimationPath(TEXT("vertical"),Pair.Value):bUseM16?M16Attachments::AnimationPath(TEXT("vertical"),Pair.Value):bUseASH12?ASH12WeaponAssets::GripAnimationPath(TEXT("vertical"),Pair.Value):bUseQBZ191?QBZ191Attachments::AnimationPath(TEXT("vertical"),Pair.Value):AKMSoviet::Matches(AKMViewmodel)?AKMAttachment::GripAnimationPath(TEXT("vertical"),Pair.Value):VerticalGripAnimationFamily::M4ClipPath(VerticalGripAnimationFamily::EContactProfile::Vertical,Pair.Value);
+        const FString Path=SVDWeaponAssets::Matches(AKMViewmodel)?SVDAttachments::AnimationPath(TEXT("vertical"),Pair.Value):PKMLowpolyWeaponAssets::Matches(AKMViewmodel)?PKMAttachments::AnimationPath(TEXT("vertical"),Pair.Value):A762WeaponAssets::Matches(AKMViewmodel)?A762Attachments::AnimationPath(TEXT("vertical"),Pair.Value):bUseM16?M16Attachments::AnimationPath(TEXT("vertical"),Pair.Value):bUseASH12?ASH12WeaponAssets::GripAnimationPath(TEXT("vertical"),Pair.Value):bUseQBZ191?QBZ191Attachments::AnimationPath(TEXT("vertical"),Pair.Value):AKMSoviet::Matches(AKMViewmodel)?AKMAttachment::GripAnimationPath(TEXT("vertical"),Pair.Value):VerticalGripAnimationFamily::M4ClipPath(VerticalGripAnimationFamily::EContactProfile::Vertical,Pair.Value);
         auto* Clip=LoadObject<UAnimSequence>(nullptr,*Path);
         if(Pair.Key&&Clip&&FMath::IsNearlyEqual(Pair.Key->GetPlayLength(),Clip->GetPlayLength(),.001f))VerticalGripAnimations.Add(Pair.Key,Clip);
         else UE_LOG(LogTemp,Error,TEXT("VERTICAL_GRIP: missing or mismatched clip %s"),*Path);
     }
-    if((bUseM16||PKMLowpolyWeaponAssets::Matches(AKMViewmodel))&&InspectAnimation)
-        if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*(PKMLowpolyWeaponAssets::Matches(AKMViewmodel)?PKMAttachments::AnimationPath(TEXT("vertical"),TEXT("inspect")):M16Attachments::AnimationPath(TEXT("vertical"),TEXT("inspect")))))
+    if((bUseM16||SVDWeaponAssets::Matches(AKMViewmodel)||PKMLowpolyWeaponAssets::Matches(AKMViewmodel))&&InspectAnimation)
+        if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*(SVDWeaponAssets::Matches(AKMViewmodel)?SVDAttachments::AnimationPath(TEXT("vertical"),TEXT("inspect")):PKMLowpolyWeaponAssets::Matches(AKMViewmodel)?PKMAttachments::AnimationPath(TEXT("vertical"),TEXT("inspect")):M16Attachments::AnimationPath(TEXT("vertical"),TEXT("inspect")))))
             VerticalGripAnimations.Add(InspectAnimation,Clip);
 }
 
@@ -41,6 +42,7 @@ void AFPSGAMECharacter::SetVerticalForegrip(bool bEnabled)
     if(VerticalForegrip&&VerticalForegrip->GetStaticMesh()&&
         VerticalForegrip->GetStaticMesh()->GetName()==TEXT("SM_TacticalVerticalForegrip"))
         VerticalForegrip->EmptyOverrideMaterials();
+    if(SVDWeaponAssets::Matches(AKMViewmodel)){VerticalForegrip=SVDAttachments::Configure(this,AKMViewmodel,VerticalForegrip,TEXT("vertical"),bEnabled&&bInventoryWeaponReady);return;}
     if(PKMLowpolyWeaponAssets::Matches(AKMViewmodel)){VerticalForegrip=PKMAttachments::Configure(this,AKMViewmodel,VerticalForegrip,TEXT("vertical"),bEnabled&&bInventoryWeaponReady);return;}
     if(A762WeaponAssets::Matches(AKMViewmodel)){VerticalForegrip=A762Attachments::Configure(this,AKMViewmodel,VerticalForegrip,TEXT("vertical"),bEnabled&&bInventoryWeaponReady);return;}
     if(bUseM16){VerticalForegrip=M16Attachments::Configure(this,AKMViewmodel,VerticalForegrip,TEXT("vertical"),bEnabled&&bInventoryWeaponReady);return;}

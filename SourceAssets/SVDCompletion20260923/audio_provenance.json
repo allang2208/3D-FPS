@@ -1,0 +1,31 @@
+{
+  "license": "CC0-1.0",
+  "source_record": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FirearmAudio20260913\\provenance.json",
+  "description": "Designed rifle voices from Free Firearm library recordings; not an authentic SVD recording. Existing AKM mechanical cues retain their original provenance.",
+  "files": [
+    {
+      "asset": "S_SVD_Fire_01",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FirearmAudio20260913\\Original\\AK-47\\C_29P.wav",
+      "source_sha256": "d8731d4c9afce639964fbb5a529677e75c6eb316176aee405d6f634707360987",
+      "onset_anchor": 1.07
+    },
+    {
+      "asset": "S_SVD_Fire_02",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FirearmAudio20260913\\Original\\AK-47\\C_29P.wav",
+      "source_sha256": "d8731d4c9afce639964fbb5a529677e75c6eb316176aee405d6f634707360987",
+      "onset_anchor": 5.612
+    },
+    {
+      "asset": "S_SVD_Fire_03",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FirearmAudio20260913\\Original\\AR-15\\D_24P.wav",
+      "source_sha256": "4c6a54ca0583150bbb32b7f658bc64da9ad9ba42fd3aca769c6120b44af8d3f0",
+      "onset_anchor": 0.584
+    },
+    {
+      "asset": "S_SVD_Fire_04",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FirearmAudio20260913\\Original\\AR-15\\D_32P.wav",
+      "source_sha256": "acee9d2106b68fe5956225a19d7aedf943d97793817f9bda9d486a2b74b0a812",
+      "onset_anchor": 0.706
+    }
+  ]
+}

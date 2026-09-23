@@ -1,5 +1,6 @@
 #include "../FPSGAMECharacter.h"
 #include "A762Attachments.h"
+#include "SVDAttachments.h"
 #include "PKMAttachments.h"
 #include "M16Attachments.h"
 #include "A762WeaponAssets.h"
@@ -25,13 +26,14 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
     const bool bASH12Brake = bUseASH12 && Variant == TEXT("ash12_tactical_brake");
     const bool Valid=bASH12Tactical||bASH12Brake||Variant==TEXT("true")||Variant==TEXT("tactical_suppressor")||Variant==TEXT("brake")||Variant==TEXT("titanium_brake");
     const bool bPKM=PKMLowpolyWeaponAssets::Matches(AKMViewmodel);
-    if (A762WeaponAssets::Matches(AKMViewmodel) || bPKM)
+    const bool bSVD=SVDWeaponAssets::Matches(AKMViewmodel);
+    if (bSVD || A762WeaponAssets::Matches(AKMViewmodel) || bPKM)
     {
         const bool Enabled=Valid&&bInventoryWeaponReady;
         if (Enabled)
         {
             const FString Key=Variant==TEXT("true")?TEXT("suppressor"):Variant;
-            const FString Path=bPKM?PKMAttachments::MeshPath(Key):A762Attachments::MeshPath(Key);
+            const FString Path=bSVD?SVDAttachments::MeshPath(Key):bPKM?PKMAttachments::MeshPath(Key):A762Attachments::MeshPath(Key);
             auto* Part=LoadObject<UStaticMesh>(nullptr,*Path);if (!Part) return;
             if (!MuzzleAttachment)
             {
@@ -43,8 +45,9 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
             MuzzleLocalAxis=-FVector::RightVector;
             const double Length=Key==TEXT("tactical_suppressor")?18.68658:Key==TEXT("suppressor")?18.6:Key==TEXT("brake")?6.8:7.25;
             MuzzleLocalTip=MuzzleLocalAxis*Length;
-            MuzzleAttachment->SetRelativeTransform(FTransform(FQuat(FVector::UpVector,PI),bPKM?PKMAttachments::MuzzleMount:A762WeaponAssets::MuzzleMount,FVector(.01f)));
+            MuzzleAttachment->SetRelativeTransform(FTransform(FQuat(FVector::UpVector,PI),bSVD?SVDAttachments::MuzzleMount:bPKM?PKMAttachments::MuzzleMount:A762WeaponAssets::MuzzleMount,FVector(.01f)));
         }
+        if(bSVD)SVDAttachments::FactorySections(AKMViewmodel,TEXT("FactoryMuzzle"),!Enabled);
         MuzzleVariant=Enabled?Variant:FString();if (MuzzleAttachment) MuzzleAttachment->SetVisibility(Enabled);
         if (auto* Rifle=AKMViewmodel->GetSkeletalMeshAsset()) if (const auto* Render=Rifle->GetResourceForRendering())
             for(int32 L=0;L<Render->LODRenderData.Num();++L)for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)

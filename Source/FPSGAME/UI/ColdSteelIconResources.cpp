@@ -5,12 +5,14 @@
 #include "../Weapons/FrostSwordRunes.h"
 #include "../Weapons/A762Attachments.h"
 #include "../Weapons/PKMAttachments.h"
+#include "../Weapons/PSO1AttachmentAssets.h"
 #include "../Weapons/PKMBipodComponent.h"
 #include "../Weapons/M16Attachments.h"
 #include "../Weapons/M16WeaponAssets.h"
 #include "../Weapons/QBZ191Attachments.h"
 #include "../Weapons/ASH12WeaponAssets.h"
 #include "../Weapons/SVDWeaponAssets.h"
+#include "../Weapons/SVDAttachments.h"
 #include "../Weapons/M1911WeaponAssets.h"
 #include "../Weapons/DanWesson715WeaponAssets.h"
 #include "Engine/AssetManager.h"
@@ -101,11 +103,24 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
         {
             FString Key=Part.Value;
             if(Key.IsEmpty()||Key==TEXT("false")||Key==TEXT("factory"))continue;
+            if(Part.Key==TEXT("optic")&&Key==PSO1AttachmentAssets::Variant)
+            {
+                if(PSO1AttachmentAssets::Supports(D))Add(PSO1AttachmentAssets::MeshPath(D));
+                continue;
+            }
             if(Key==TEXT("angled_foregrip"))Key=TEXT("angled");
             else if(Key==TEXT("vertical_foregrip"))Key=TEXT("vertical");
             else if(Key==TEXT("tactical_vertical_foregrip"))Key=TEXT("tactical_vertical");
             else if(Key==TEXT("canted_foregrip"))Key=TEXT("canted");
             else if(Key==TEXT("prism_handstop"))Key=TEXT("prism");
+            if(D==TEXT("ue_svd"))
+            {
+                if(Part.Key==TEXT("muzzle")&&Key==TEXT("true"))Key=TEXT("suppressor");
+                if(Part.Key!=TEXT("barrel"))Add(SVDAttachments::MeshPath(Key));
+                if(Part.Key==TEXT("optic"))Add(SVDAttachments::MeshPath(TEXT("optic_bridge")));
+                if(Key==TEXT("lpvo_1_6x"))Add(SVDAttachments::MeshPath(TEXT("lpvo_ring")));
+                continue;
+            }
             if(D==TEXT("ue_a762"))Add(A762Attachments::MeshPath(Key));
             else if(D==TEXT("ue_pkm_lowpoly"))
             {

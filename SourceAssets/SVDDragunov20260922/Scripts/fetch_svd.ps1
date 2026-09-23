@@ -1,4 +1,4 @@
-param(
+﻿param(
     [string]$Token = $env:SKETCHFAB_TOKEN,
     [string]$Proxy = 'http://127.0.0.1:7897',
     [string]$Uid = '2ac78fb5a0eb40f5a02a5b0a9f566abf'

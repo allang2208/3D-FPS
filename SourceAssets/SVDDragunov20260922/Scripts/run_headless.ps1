@@ -1,4 +1,4 @@
-param(
+﻿param(
     [Parameter(Mandatory = $true)][string]$Script,
     [Parameter(Mandatory = $true)][string]$LogName,
     [int]$MutexWaitSeconds = 900,

@@ -312,7 +312,7 @@ void PaintOpticFlash(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G
     FlushLensVerts(Out,Layer,G,Center,ApertureR,Verts,Indices);
 }
 
-void PaintLPVOScope(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,float Alpha,const FScopeFx& Fx)
+void PaintLPVOScope(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,float Alpha,const FScopeFx& Fx,bool bSVD)
 {
     const FVector2f Size(G.GetLocalSize()),Center=Size*.5f;
     const float S=FMath::Min(Size.X,Size.Y)/900.f,R=FMath::Min(Size.X,Size.Y)*.425f;
@@ -340,6 +340,22 @@ void PaintLPVOScope(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,
     PaintEmber(Out,Layer,G,Center,R,Fx.Ember,Fx.Seed);
     PaintEdgeBloom(Out,Layer,G,Center,R,S,Fx);
     PaintHeatWisp(Out,Layer,G,Center,R,Fx);
+    if(bSVD)
+    {
+        const FLinearColor Ink(.035f,.045f,.035f,Alpha);
+        auto Stroke=[&](TArray<FVector2D> Points)
+        {
+            for(auto& P:Points)P=FVector2D(Center)+P*S;
+            FSlateDrawElement::MakeLines(Out,Layer+1,G.ToPaintGeometry(),Points,ESlateDrawEffect::None,Ink,true,1.6f*S);
+        };
+        Stroke({{-18,14},{0,0},{18,14}});
+        for(float Y:{40.f,70.f,100.f})Stroke({{-12,Y+10},{0,Y},{12,Y+10}});
+        Stroke({{-180,0},{-45,0}});Stroke({{45,0},{180,0}});
+        for(float X:{-150.f,-120.f,-90.f,-60.f,60.f,90.f,120.f,150.f})Stroke({{X,-5},{X,5}});
+        Stroke({{-170,150},{-50,150}});
+        Stroke({{-170,85},{-145,101},{-120,115},{-95,126},{-70,134},{-50,139}});
+        return;
+    }
     const FLinearColor Red(1,.045f,.025f,Alpha);
     for(const FVector2D Axis:{FVector2D(1,0),FVector2D(-1,0),FVector2D(0,1),FVector2D(0,-1)}){
         TArray<FVector2D> Points={FVector2D(Center)+Axis*12*S,FVector2D(Center)+Axis*42*S};
@@ -400,7 +416,7 @@ int32 ULPVOScopeWidget::NativePaint(const FPaintArgs& Args,const FGeometry& Geom
                 Fx.WispT=T;
             }
         }
-        PaintLPVOScope(Elements,Result,Geometry,Alpha,Fx);
+        PaintLPVOScope(Elements,Result,Geometry,Alpha,Fx,Character&&Character->HasPSO1Scope());
     }
     return Result+2;
 }

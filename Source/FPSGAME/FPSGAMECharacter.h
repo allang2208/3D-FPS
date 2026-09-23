@@ -107,8 +107,9 @@ public:
     void SetGunsmithOptic(bool bHolographic);
     void SetGunsmithOpticVariant(const FString& Variant);
     const FString& GetGunsmithOpticVariant() const { return OpticVariant; }
-    bool HasSVDFactoryScope() const { return ActiveInventoryWeaponDefinition==TEXT("ue_svd"); }
-    float GetOpticMagnification() const { return HasSVDFactoryScope()?4.f:(OpticVariant==TEXT("lpvo_1_6x")?LPVOMagnification:(OpticVariant==TEXT("prism_scope_2x")?2.f:1.f)); }
+    bool HasSVDFactoryScope() const { return ActiveInventoryWeaponDefinition==TEXT("ue_svd") && !bHolographicOptic; }
+    bool HasPSO1Scope() const { return HasSVDFactoryScope() || (bHolographicOptic && OpticVariant==TEXT("pso1_4x")); }
+    float GetOpticMagnification() const { return HasPSO1Scope()?4.f:(OpticVariant==TEXT("lpvo_1_6x")?LPVOMagnification:(OpticVariant==TEXT("prism_scope_2x")?2.f:1.f)); }
     float EffectiveADSVerticalFOV() const;
     bool AdjustOpticMagnification(float Delta);
     void SetLPVOMagnification(float Value);

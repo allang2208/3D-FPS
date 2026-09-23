@@ -145,5 +145,6 @@
     "镜座判定：x≤0.156 且 z≤0.23（镜筒轴线在 z≈0.259，镜座在其左下）；镜片判定：沿 Y 零厚度、圆形（长短径差 ≤6 mm）、居中于镜筒轴线。",
     "所有部件在 Blender 中共用同一坐标架，枪口 -Y、上方 +Z（项目 FBX 约定 → UE 中 +X 正向）。",
     "本轮范围：模型 + 分件 + 材质导入为资产。绑共享 Manny 手臂、骨骼与动作、数值/图标/音效不在本轮。"
-  ]
+  ],
+  "uv_contract": "GLB-derived source meshes flip UV0.v once to match unflipped original 4K textures; see UVRepair/texture_compare.json. Runtime material TexCoord0 stays unchanged."
 }

@@ -299,3 +299,7 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 ## 地牢性能优化与光照恢复（2026-09-23）
 
 保留恢复后的硬件光追、Lumen、PWL 原预设和 DayNight_Lighting 关卡。当前地牢网格及依赖材质需本机已保存的 Nanite 制作结果；源码克隆不包含 49 个修改网格、72 个材质用途更新和 2 个 ASH-12 静态弹匣材质。作者脚本、剩余资产依赖、25 项废案归档及用户反馈边界见 [地牢性能整理与发布](Performance/dungeon-performance-publication-20260923.md)。旧 RasterProfiles 和全面剔除光追脚本已退役，不从 trash 自动恢复它们。
+
+## SVD 完成、抓握与接口细化（2026-09-23）
+
+恢复当前 SVD 需要本机 `Content/Weapons/SVDDragunov20260922`、跨枪 `Content/Weapons/PSO1Russian20260923` 及共享 Manny／配件资产。当前换弹为用户认可的 `SVDThumbUp20260923`，模型／材质为 `SVDRefinedFinish20260923`；旧 Blend 制作链仍需保留，退役导出与恢复快照按清单归档。来源、当前入口、公开发布边界及本机恢复见 [SVD 发布说明](Weapons/svd-publication-20260923.md)。视频提取音频未获公开再分发许可，公共仓库仅提供脚本与来源记录，不包含音视频本体。

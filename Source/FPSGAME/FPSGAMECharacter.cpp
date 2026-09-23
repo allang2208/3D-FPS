@@ -37,6 +37,7 @@
 #include "Weapons/DanWesson715WeaponAssets.h"
 #include "Weapons/ASH12WeaponAssets.h"
 #include "Weapons/SVDWeaponAssets.h"
+#include "Weapons/SVDAttachments.h"
 #include "Weapons/M16WeaponAssets.h"
 #include "Weapons/M16Attachments.h"
 #include "Weapons/GunsmithSystem.h"
@@ -425,7 +426,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
         bPistolShotPending=false;
         HipViewmodelLocation=M4HipViewmodelLocation+FVector(6.f,0.f,0.f);
         if (!bPresentationOnly) QuickCombatAnimation=LoadObject<UAnimSequence>(nullptr,*SVDWeaponAssets::AnimationPath(TEXT("quick_melee")));
-        // Measured eye relief behind the PSO-1 ocular (SVDWeaponAssets::SightRear).
+        // Measured eye relief behind the baked PSO-1 rear sight marker.
         ADSRearEyeDistance=SVDWeaponAssets::ADSRearEyeDistance;
         UE_LOG(LogTemp, Display, TEXT("SVD_ACTIVE mesh=%s eye=%.2f single_shot=%d"),
             *GetPathNameSafe(ViewmodelMesh), ADSRearEyeDistance, bSingleShotTrigger ? 1 : 0);
@@ -469,8 +470,8 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
     AimFireAnimation = LoadAKMAnimation(TEXT("A_AKM_aim_fire"));
     ReloadAnimation = LoadAKMAnimation(TEXT("A_AKM_reload"));
     ReloadEmptyAnimation = LoadAKMAnimation(TEXT("A_AKM_reload_empty"));
-    DrumReloadAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload"));
-    DrumReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty"));
+    DrumReloadAnimation=SVDWeaponAssets::Matches(AKMViewmodel)?nullptr:LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload"));
+    DrumReloadEmptyAnimation=SVDWeaponAssets::Matches(AKMViewmodel)?nullptr:LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty"));
     if(AKMSoviet::Matches(AKMViewmodel)){
         ReloadAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload"));
         ReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload_empty"));
@@ -585,7 +586,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
         if (bUseASH12 && FireSound) RifleFireVariants.Add(FireSound);
         if (bUseM16 && FireSound) RifleFireVariants.Add(FireSound);
         if (SVDWeaponAssets::Matches(AKMViewmodel))
-            for(int32 Index=1;Index<=4;++Index)
+            for(int32 Index=1;Index<=SVDWeaponAssets::FireVariantCount;++Index)
                 if(auto* Sound=LoadObject<USoundBase>(nullptr,*SVDWeaponAssets::FireSoundPath(Index)))RifleFireVariants.Add(Sound);
         if (!RifleFireVariants.IsEmpty()) FireSound = RifleFireVariants[0];
         if (!RifleSuppressedVariants.IsEmpty()) SuppressedFireSound = RifleSuppressedVariants[0];
@@ -1245,7 +1246,12 @@ EM4SprintGrip AFPSGAMECharacter::ResolveRifleGripProfile() const
 
 UAnimSequence* AFPSGAMECharacter::RifleQuickCombatClip(EM4SprintGrip Grip)
 {
-    if(SVDWeaponAssets::Matches(AKMViewmodel))return QuickCombatAnimation;
+    if(SVDWeaponAssets::Matches(AKMViewmodel))
+    {
+        const TCHAR* Families[]={TEXT("base"),TEXT("base"),TEXT("angled"),TEXT("vertical"),TEXT("canted"),TEXT("prism")};
+        const int32 Index=static_cast<int32>(Grip);
+        return Index>1&&Index<UE_ARRAY_COUNT(Families)?LoadObject<UAnimSequence>(nullptr,*SVDAttachments::AnimationPath(Families[Index],TEXT("quick_melee"))):QuickCombatAnimation.Get();
+    }
     if (PKMLowpolyWeaponAssets::Matches(AKMViewmodel))
     {
         const TCHAR* Families[]={TEXT("base"),TEXT("base"),TEXT("angled"),TEXT("vertical"),TEXT("canted"),TEXT("prism")};
@@ -2626,6 +2632,16 @@ USoundBase* AFPSGAMECharacter::LoadAKMSound(const TCHAR* AssetName)
     {
         if(FCString::Strcmp(AssetName,TEXT("S_AKM_Fire"))==0)
             return LoadObject<USoundBase>(nullptr,*SVDWeaponAssets::FireSoundPath(1));
+        if(FCString::Strcmp(AssetName,TEXT("S_AKM_MagOut"))==0 ||
+           FCString::Strcmp(AssetName,TEXT("S_AKM_MagInsert"))==0 ||
+           FCString::Strcmp(AssetName,TEXT("S_AKM_MagSeat"))==0 ||
+           FCString::Strcmp(AssetName,TEXT("S_AKM_ChargePull"))==0 ||
+           FCString::Strcmp(AssetName,TEXT("S_AKM_ChargeRelease"))==0)
+        {
+            FString Cue(AssetName);
+            Cue.RemoveFromStart(TEXT("S_AKM_"));
+            return LoadObject<USoundBase>(nullptr,*SVDWeaponAssets::MechanicalSoundPath(*Cue));
+        }
         return LoadObject<USoundBase>(nullptr,*FString::Printf(TEXT("/Game/Weapons/AKM/Audio/%s.%s"),AssetName,AssetName));
     }
     if (PKMLowpolyWeaponAssets::Matches(AKMViewmodel))
@@ -2852,7 +2868,8 @@ void AFPSGAMECharacter::UpdateADSPose()
     if (bHolographicOptic)
     {
         FTransform Root = FTransform::Identity;
-        for (int32 Index=Ref.FindBoneIndex(bUseM1911 ? TEXT("WPN_Slide") : PKMLowpolyWeaponAssets::Matches(AKMViewmodel) ? TEXT("PKM_Cover") : TEXT("WPN_root")); Index!=INDEX_NONE; Index=Ref.GetParentIndex(Index))
+        const FName OpticBone=HolographicOptic?HolographicOptic->GetAttachSocketName():FName(TEXT("WPN_root"));
+        for (int32 Index=Ref.FindBoneIndex(OpticBone); Index!=INDEX_NONE; Index=Ref.GetParentIndex(Index))
         {
             FTransform Local;
             AimAnimation->GetBoneTransform(Local,FSkeletonPoseBoneIndex(Index),FAnimExtractContext(0.0,false),false);

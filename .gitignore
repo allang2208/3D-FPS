@@ -517,3 +517,24 @@ __pycache__/
 /SourceAssets/DungeonPerformance20260923Batch/Receipts/
 !/SourceAssets/DungeonPerformance20260923Batch/mesh-targets.json
 !/SourceAssets/DungeonPerformance20260923Batch/underground-import-nanite.patch
+
+# SVD / PSO production: publish recipes and provenance, not licensed payloads,
+# sampled poses, dense geometry, transport output, local receipts or recovery copies.
+/SourceAssets/SVD*/**
+/SourceAssets/PSO*/**
+!/SourceAssets/SVD*/**/
+!/SourceAssets/PSO*/**/
+!/SourceAssets/SVD*/**/*.py
+!/SourceAssets/PSO*/**/*.py
+!/SourceAssets/SVD*/**/*.ps1
+!/SourceAssets/PSO*/**/*.ps1
+!/SourceAssets/SVD*/**/*.md
+!/SourceAssets/PSO*/**/*.md
+!/SourceAssets/SVD*/**/*.hlsl
+!/SourceAssets/PSO*/**/*.hlsl
+!/SourceAssets/SVD*/**/provenance.json
+!/SourceAssets/SVDCompletion20260923/audio_provenance.json
+!/SourceAssets/SVDDragunov20260922/Config/*.json
+/SourceAssets/SVD*/**/Before*/
+/SourceAssets/PSO*/**/Before*/
+/SourceAssets/PSO*/**/before-*/

@@ -264,7 +264,10 @@ void UFPSPlayerBodyComponent::UpdateOwnerVisibility()
         // Every setter below marks the primitive's render state dirty and
         // re-registers it in the shadow scene, so only touch what actually
         // changed: this runs again on every camera update and every 0.2 s.
-        FPSBodyEquipment::ApplyOwnerVisibilityFlags(Primitive,/*bOnlyOwnerSee=*/true,/*bOwnerNoSee=*/bThirdPerson);
+        // The scope owns its recorded hide request until it releases it. Clearing
+        // it here every 0.2 s exposes the rifle/arms for a frame during scoped ADS.
+        const bool bHideFromOwner=bThirdPerson||Character->ScopeHiddenParts.Contains(Primitive);
+        FPSBodyEquipment::ApplyOwnerVisibilityFlags(Primitive,/*bOnlyOwnerSee=*/true,/*bOwnerNoSee=*/bHideFromOwner);
         FPSBodyEquipment::ApplyShadowFlags(Primitive,false);
     }
     // The world body is only drawn in third person. While it is hidden, keep

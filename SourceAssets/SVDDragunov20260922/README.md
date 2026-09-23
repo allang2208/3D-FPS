@@ -1,5 +1,11 @@
 # SVD（德拉贡诺夫狙击步枪）导入
 
+## 2026-09-23 整理后的当前入口
+
+旧换弹导出已由 `SVDThumbUp20260923` 替代；当前模型与材质入口为 `SVDRefinedFinish20260923`。本目录的旧制作记录保留其历史日期与验收边界。已经移走的旧导出、自动备份及恢复快照位于 `trash/svd-superseded-20260923/SourceAssets/` 下的同名目录，原路径、散列及保留替代物见 [归档清单](../../Docs/AssetArchives/svd-superseded-20260923.json)。当前所需 Blend、脚本、参数与原素材仍保留；不要直接重跑旧导入覆盖用户已认可的抓握。新 checkout 的恢复方式见 [SVD 发布说明](../../Docs/Weapons/svd-publication-20260923.md)。
+
+> **2026-09-23 当前状态更新：** 本枪已完成专用源资产和运行接入，当前目录为 `Complete20260923`，详见 [SVD 开发补齐](../../Docs/Weapons/svd-completion-20260923.md)。下文是前期导入历史；其中“未接入”“复用 M4 动作”、旧挂点/侧倾测量和当时待办均不是当前标准。源坐标与动画空间混用的测量已重做。
+
 用户指定的 [Sketchfab 模型](https://sketchfab.com/3d-models/svd-dragunov-sniper-rifle-2ac78fb5a0eb40f5a02a5b0a9f566abf)（作者 **LeroyCake**，**CC BY 4.0**）的下载、机械分件与导入。
 
 **当前状态：枪体 4 件 + PSO-1 瞄具 3 件已分件并导入；还不是可在游戏中使用的武器。**

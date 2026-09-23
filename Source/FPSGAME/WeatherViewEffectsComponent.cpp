@@ -17,6 +17,7 @@
 #include "Weapons/ASH12WeaponAssets.h"
 #include "Weapons/PKMLowpolyWeaponAssets.h"
 #include "Weapons/PSO1AttachmentAssets.h"
+#include "Weapons/SVDAttachments.h"
 #include "HAL/IConsoleManager.h"
 
 static TAutoConsoleVariable<float> CVarScreenRain(TEXT("fps.ScreenRain"),.75f,TEXT("Screen edge water strength, 0 disables."),ECVF_Scalability);
@@ -68,6 +69,9 @@ void UWeatherViewEffectsComponent::Initialize(UWeatherPresentationAssets* InAsse
     if(Assets)
         if(const auto* PSO1Materials=LoadObject<UWeatherPresentationAssets>(nullptr,PSO1AttachmentAssets::WetMaterialsPath))
             for(const auto& Entry:PSO1Materials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
+    if(Assets)
+        if(const auto* SVDMaterials=LoadObject<UWeatherPresentationAssets>(nullptr,SVDAttachments::WetMaterialsPath))
+            for(const auto& Entry:SVDMaterials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
     // Extended-magazine seam blending must also survive the wet-material swap.
     if(Assets)
         if(const auto* M16Materials=LoadObject<UWeatherPresentationAssets>(nullptr,TEXT("/Game/Weapons/M16A2/UniversalAttachments20260920/DA_M16_AttachmentWetMaterials")))

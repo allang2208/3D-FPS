@@ -13,7 +13,8 @@ analyze_scope_shells.py):
   PSO-1 scope (tube axis at z~0.259, objective at +Y end, eyepiece at -Y end)
     mount             the left-side clamp: xmax <= 0.156 and zmax <= 0.23
     lens              flat optical discs inside the tube: zero thickness along Y,
-                      diameter 2-7 cm, centred on the tube axis
+                      diameter 2-7 cm, centred on and covering the tube axis;
+                      annular retaining collars belong to the opaque body
 
 Groups are assigned as material slots and split with separate(type='MATERIAL') - reusing
 polygon indices after a split is unsafe because Blender rebuilds the arrays.
@@ -79,6 +80,21 @@ def shells(obj):
             for i in range(3):
                 entry['min'][i] = min(entry['min'][i], p[i])
                 entry['max'][i] = max(entry['max'][i], p[i])
+    # A thin annulus has the same bounds as a lens. Only a surface covering
+    # the optical axis is glass; retaining collars must stay opaque.
+    mesh.calc_loop_triangles()
+    for entry in table.values():
+        entry['covers_optical_axis'] = False
+    for tri in mesh.loop_triangles:
+        entry = table[poly_of[tri.polygon_index]]
+        c = ((entry['min'][0] + entry['max'][0]) * .5,
+             (entry['min'][2] + entry['max'][2]) * .5)
+        points = [mw @ mesh.vertices[i].co for i in tri.vertices]
+        signs = [(b.x-a.x)*(c[1]-a.z)-(b.z-a.z)*(c[0]-a.x)
+                 for a,b in zip(points, points[1:]+points[:1])]
+        area = (points[1].x-points[0].x)*(points[2].z-points[0].z)-(points[1].z-points[0].z)*(points[2].x-points[0].x)
+        if abs(area) > 1e-12 and (min(signs) >= -1e-12 or max(signs) <= 1e-12):
+            entry['covers_optical_axis'] = True
     return table
 
 
@@ -107,7 +123,7 @@ def classify_scope(entry):
     # optical discs: flat along the tube axis, circular, centred on the tube axis
     if (size[1] <= 0.0015 and 0.02 <= max(size[0], size[2]) <= 0.07
             and abs(size[0] - size[2]) <= 0.006 and abs(cx - 0.169) <= 0.01
-            and abs(cz - 0.259) <= 0.02):
+            and abs(cz - 0.259) <= 0.02 and entry['covers_optical_axis']):
         return 'SM_SVD_ScopeLens'
     return 'SM_SVD_ScopeBody'
 
@@ -178,6 +194,13 @@ def main():
     bpy.ops.import_scene.gltf(filepath=str(glb))
     bpy.context.view_layer.update()
     meshes = [o for o in bpy.context.scene.objects if o.type == 'MESH']
+    # The GLB embeds vertically flipped copies of the original 4K images.
+    # This pipeline uses the unflipped original atlases, so adapt UV0 once
+    # before splitting. Arms, bone transforms and original images are unchanged.
+    for obj in meshes:
+        for uv in obj.data.uv_layers[0].data:
+            uv.uv.y = 1.0 - uv.uv.y
+        obj.data['svd_uv_original_4k'] = True
     body = max(meshes, key=lambda o: len(o.data.polygons))
     scope = min(meshes, key=lambda o: len(o.data.polygons))
     body.name = 'SM_SVD_Body'

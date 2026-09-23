@@ -1,0 +1,137 @@
+{
+  "source_url": "https://www.bilibili.com/video/BV15MqbBcEQh/",
+  "source_bvid": "BV15MqbBcEQh",
+  "source_uploader": "127毫米",
+  "source_title": "三角洲音效对比 PSG-1&SR25&SVD",
+  "source_audio": "source_audio.m4a",
+  "source_audio_sha256": "422343bc8e882c8fd6f1ed86c9e56532c84d78ebb1e56bafe3d37f81df11e3ae",
+  "source_video_sha256": "d04af993e76c70718d79993020bb34e8ddbc20ddbcc4dbb88b4b9c838a0b0185",
+  "source_format": "Bilibili format 30280, AAC LC, approx 125.372 kbps, 44100 Hz stereo",
+  "request_start": 110.0,
+  "identification": "SVD label and game animation frames plus soundtrack transients. No listening review performed.",
+  "authenticity": "Video comparison soundtrack; independent real-SVD recording provenance is not established.",
+  "rights": "User-directed local extraction. Third-party rights retained; no public redistribution license established. Not CC0.",
+  "quality": "Lossy AAC source. Unedited decoded samples retained as float32 WAV; runtime PCM16 WAV adds no perceptual encoding. Not an original lossless recording.",
+  "processing": "Sample slicing; runtime only: 0.25 ms fade-in, 8 ms fade-out, peak protection to 0.95 only when needed. No upsampling, pitch/time change, denoise or EQ.",
+  "cues": [
+    {
+      "cue": "Fire_01",
+      "name": "S_SVD_Fire_01",
+      "source_start": 117.465,
+      "source_end": 118.335,
+      "offset_samples_in_110s_reference": [
+        329207,
+        367573
+      ],
+      "duration": 0.8699773242630385,
+      "sample_rate": 44100,
+      "channels": 2,
+      "gain": 1.0,
+      "peak_before_gain": 0.9406616687774658,
+      "master": "Masters\\S_SVD_Fire_01_float.wav",
+      "file": "Audio\\S_SVD_Fire_01.wav",
+      "sha256": "6a91f830a820b42226c29ee3cbb7ac69f2490b4cd1da2ca8abfb1f86e8528a00"
+    },
+    {
+      "cue": "MagOut",
+      "name": "S_SVD_MagOut",
+      "source_start": 111.8,
+      "source_end": 112.085,
+      "offset_samples_in_110s_reference": [
+        79380,
+        91948
+      ],
+      "duration": 0.2849886621315193,
+      "sample_rate": 44100,
+      "channels": 2,
+      "gain": 1.0,
+      "peak_before_gain": 0.30942028760910034,
+      "master": "Masters\\S_SVD_MagOut_float.wav",
+      "file": "Audio\\S_SVD_MagOut.wav",
+      "sha256": "759657235b14a457e71c227174489caa2c799d0edc48e43ff8cb78a56e191ecc"
+    },
+    {
+      "cue": "MagInsert",
+      "name": "S_SVD_MagInsert",
+      "source_start": 112.985,
+      "source_end": 113.17,
+      "offset_samples_in_110s_reference": [
+        131638,
+        139797
+      ],
+      "duration": 0.18501133786848073,
+      "sample_rate": 44100,
+      "channels": 2,
+      "gain": 1.0,
+      "peak_before_gain": 0.18053698539733887,
+      "master": "Masters\\S_SVD_MagInsert_float.wav",
+      "file": "Audio\\S_SVD_MagInsert.wav",
+      "sha256": "848c7243bf9083cd3f8957a1c3b2d32235653cdd58acac10eae697582f2a298a"
+    },
+    {
+      "cue": "MagSeat",
+      "name": "S_SVD_MagSeat",
+      "source_start": 113.17,
+      "source_end": 113.43,
+      "offset_samples_in_110s_reference": [
+        139797,
+        151263
+      ],
+      "duration": 0.26,
+      "sample_rate": 44100,
+      "channels": 2,
+      "gain": 1.0,
+      "peak_before_gain": 0.2819882333278656,
+      "master": "Masters\\S_SVD_MagSeat_float.wav",
+      "file": "Audio\\S_SVD_MagSeat.wav",
+      "sha256": "8c49b8ee4a8faae17f0e46624aa07010011803d5a607ee543c805acfda9b5e71"
+    },
+    {
+      "cue": "ChargePull",
+      "name": "S_SVD_ChargePull",
+      "source_start": 114.08,
+      "source_end": 114.255,
+      "offset_samples_in_110s_reference": [
+        179928,
+        187645
+      ],
+      "duration": 0.17498866213151928,
+      "sample_rate": 44100,
+      "channels": 2,
+      "gain": 1.0,
+      "peak_before_gain": 0.5495914220809937,
+      "master": "Masters\\S_SVD_ChargePull_float.wav",
+      "file": "Audio\\S_SVD_ChargePull.wav",
+      "sha256": "89b967e9128d61199bed5104c6a809bf3ecad942dbec3601c924a01528dce50b"
+    },
+    {
+      "cue": "ChargeRelease",
+      "name": "S_SVD_ChargeRelease",
+      "source_start": 114.255,
+      "source_end": 114.515,
+      "offset_samples_in_110s_reference": [
+        187645,
+        199112
+      ],
+      "duration": 0.2600226757369615,
+      "sample_rate": 44100,
+      "channels": 2,
+      "gain": 1.0,
+      "peak_before_gain": 0.4185235798358917,
+      "master": "Masters\\S_SVD_ChargeRelease_float.wav",
+      "file": "Audio\\S_SVD_ChargeRelease.wav",
+      "sha256": "22b7d852650b9a560508a140f4c3b5c3367398c8a7c3df472e8ce8bb1539699b"
+    }
+  ],
+  "reference_segments": {
+    "SVD_Reload_Full_01": [
+      111.4,
+      114.7
+    ],
+    "SVD_Reload_Full_02": [
+      121.1,
+      124.55
+    ]
+  },
+  "game_tested": false
+}

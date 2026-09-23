@@ -73,8 +73,16 @@ void UM4GunsmithWidget::RefreshPresentation()
     if(S.Speed<=0)Overview.Add({TEXT("子弹速度"),TEXT("即时命中"),TEXT("即时命中"),TEXT("—"),0});
     else Row(TEXT("子弹速度"),B.Speed,S.Speed,0,TEXT(" m/s"));
     const auto BeforeParts=bCompareFactory?FGunsmithParts():G->Installed(*I);
-    Overview.Add({TEXT("瞄具倍率"),BeforeParts.FindRef(TEXT("optic"))==TEXT("lpvo_1_6x")?TEXT("1–6×"):BeforeParts.FindRef(TEXT("optic"))==TEXT("prism_scope_2x")?TEXT("2×"):TEXT("1×"),G->Draft().FindRef(TEXT("optic"))==TEXT("lpvo_1_6x")?TEXT("1–6×"):G->Draft().FindRef(TEXT("optic"))==TEXT("prism_scope_2x")?TEXT("2×"):TEXT("1×"),TEXT("—"),0});
+    auto MagnificationLabel=[&](const FGunsmithParts& Parts)->FString
+    {
+        const FString Optic=Parts.FindRef(TEXT("optic"));
+        if(Optic==TEXT("pso1_4x")||(G->Definition()==TEXT("ue_svd")&&(Optic.IsEmpty()||Optic==TEXT("false"))))return TEXT("4×");
+        if(Optic==TEXT("lpvo_1_6x"))return TEXT("1–6×");
+        return Optic==TEXT("prism_scope_2x")?TEXT("2×"):TEXT("1×");
+    };
+    Overview.Add({TEXT("瞄具倍率"),MagnificationLabel(BeforeParts),MagnificationLabel(G->Draft()),TEXT("—"),0});
     if(G->Definition()==TEXT("ue_m16a2"))Overview.Add({TEXT("机械瞄具"),TEXT("固定提把"),TEXT("固定提把"),TEXT("—"),0});
+    else if(G->Definition()==TEXT("ue_akm")||G->Definition()==TEXT("ue_pkm_lowpoly")||G->Definition()==TEXT("ue_svd"))Overview.Add({TEXT("机械瞄具"),TEXT("固定机瞄"),TEXT("固定机瞄"),TEXT("—"),0});
     else Overview.Add({TEXT("机械瞄具"),BeforeParts.Contains(TEXT("optic"))?TEXT("折下"):TEXT("竖起"),G->Draft().Contains(TEXT("optic"))?TEXT("折下"):TEXT("竖起"),TEXT("—"),0});
     }
     StatusText=G->Pending()>0?FString::Printf(TEXT("待应用 · %d 项    %s"),G->Pending(),*G->Message()):TEXT("当前配置    ")+G->Message();
