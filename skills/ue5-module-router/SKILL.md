@@ -1,41 +1,48 @@
 ---
 name: ue5-module-router
-description: Route UE5.6-UE5.8 questions to the most precise skill using module names, aliases, intent keywords, and layer context. Works for explicit module prompts (RenderCore, AIModule, AssetRegistry) and natural language requests.
+description: UE5.6-UE5.8 module-name inventory for this project. Maps UE module names (RenderCore, AIModule, AssetRegistry) and Build.cs paths to the area that owns them. The authoritative skill list and routing live in the repository-root AGENTS.md; this table is a lookup index, not a routing authority.
 ---
 
-# Quick Start
-- Extract explicit module names from user prompt first.
-- If module is found, route by exact module mapping before keyword heuristics.
-- If module is not found, use aliases and layer context.
-- Monster production, custom creature rigs, animation-to-ragdoll handoff and monster combat/spawning route to `ue5-monster-workflow`; use module skills as secondary when implementation detail requires them.
+## UE5 默认开发方式（用户确定，2026-09-23）
 
-# Workflow
-- Parse prompt for module candidates (for example `RenderCore`, `AIModule`, `AssetRegistry`).
-- Lookup module in `ue5-module-routing-table-final.csv`.
-- If multiple hits, prioritize:
-  1. exact module name match
-  2. Build.cs path similarity
-  3. alias overlap with prompt keywords
-- Return routing payload:
-  - `primary_skill`
-  - `secondary_skill`
-  - `recommended_mcp_tools[]`
-  - `route_confidence`
-  - `route_reason`
-- Use `secondary_skill` when request spans multiple concerns in one module context.
+后台优先：不主动启动 UE 编辑器；不主动检查、测试、启动 PIE、截图或验收渲染；不向其他对话/任务发协调消息。完整规则与「按改动选执行方式」表见仓库根 `AGENTS.md` 和 [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)。
 
-# Constraints
-- Prefer deterministic routing; avoid broad guesses if exact module match exists.
-- Keep one primary target skill unless user explicitly asks cross-module analysis.
-- If module maps to `ue5-architecture`, answer module-boundary/design first.
-- Prefer dedicated MCP tools before `execute_script`.
+# 用途
 
-# Failure Handling
-- If no module is recognized, fallback to closest capability skill and state reason.
-- If confidence is low, provide top 2 candidates and request module confirmation.
-- Use `execute_script` only when dedicated MCP tools are insufficient and explain why.
-- If mapping is outdated, regenerate from `ue5-architecture/scripts/generate_module_index_v2.py`.
+把 UE 模块名 / `Build.cs` 路径解析到本项目负责该领域的技能。
 
-# Escalation
-- Escalate for large cross-cutting refactors across many modules.
-- Escalate when requested module belongs to plugin source outside indexed scope.
+**技能清单与分流以仓库根 `AGENTS.md` 为准**，本表只做「模块名 → 领域」查表。命中本表后仍按 `AGENTS.md` 点名的技能进入。
+
+# 查表
+
+- 表：`references/ue5-module-routing-table-final.csv`（755 行）。
+  该表约 46k token，**必须用 grep/筛选查，不要整篇读进上下文**。
+- 列：`ModuleName, Layer, TargetSkill, SecondarySkill, RouteConfidence, RouteReason, PrimaryAliases, ExcludeTerms, RelativeBuildCsPath`
+- 匹配优先级：① `ModuleName` 精确匹配 ② `RelativeBuildCsPath` 段匹配 ③ `PrimaryAliases` 关键词重叠 ④ 领域兜底。
+- `ExcludeTerms` 命中即判为不相关（例如 `email`、`translation`、`copywriting` 对 `AITestSuite`）。
+
+# 表内已知失效（2026-09-23 核对）
+
+| `TargetSkill` | 行数 | 状态 |
+| --- | ---: | --- |
+| `ue5-architecture` | 532 | **技能不存在** |
+| `ue5-save-load-replication` | 40 | **技能不存在** |
+| `ue5-cpp-gameplay`、`ue5-performance-packaging`、`ue5-ui-umg-slate`、`ue5-world-interaction` | 183 | 存在 |
+
+命中前两者时**不要跳转**——按 `AGENTS.md` 的技能清单人工判断，模块边界/设计类问题落到 `ue5-cpp-gameplay`。
+重生成脚本引用的 `ue5-architecture/scripts/generate_module_index_v2.py` 同样不存在，该路径已失效。
+
+# 工具口径
+
+`references/routing-policy.md` 里的「Tool Priority Matrix」描述的是**另一套 MCP 工具**
+（`blueprint_feature_build`、`spawn_actor`、`character_data`、`execute_script`、`task_*`），**不是本项目的桥**。
+
+本项目实际走 `Tools/AssetPipeline/mcp_call_codex.ps1`：工具集形如 `Vibe3D.ModelingService`、
+`EditorToolset.EditorAppToolset`、`LiveCodingToolset.LiveCodingToolset`；`call_tool` 用
+`toolset_name` + 裸 `tool_name`；编辑器内 Python 走 `-PythonScript`。**以 `-ListToolsets` 的实时结果为准**，
+不要按上述旧矩阵去找不存在的工具。
+
+# 维护
+
+本表是本机 UE 源码的模块清单，不是项目资产。技能改名或新增时同步更新上表；
+不要依赖 `*_draft.deprecated.csv`（2026-09-23 已移除）。

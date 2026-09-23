@@ -3,7 +3,10 @@ name: ue5-ui-umg-slate
 description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and popups using UMG and Slate. Use for new UI or UI upgrades, FPSGAME Cold Steel design rules, panel/column workflows, Widget Blueprint setup, lifecycle binding, data visibility, input/focus, tooltips and viewport layout.
 ---
 
-**用户规则（2026-09-12）：未明确要求时不主动检查、测试或验收；完成必要制作、构建与接入后交由用户测试。**
+## UE5 默认开发方式（用户确定，2026-09-23）
+
+后台优先：不主动启动 UE 编辑器；不主动检查、测试、启动 PIE、截图或验收渲染；不向其他对话/任务发协调消息。完整规则与「按改动选执行方式」表见仓库根 `AGENTS.md` 和 [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)。
+
 
 # Quick Start
 - For FPSGAME building categories, construction cards, model thumbnails, fonts or detail popups, read [the building-panel standard](references/building-panel.md).

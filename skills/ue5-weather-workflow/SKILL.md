@@ -3,6 +3,10 @@ name: ue5-weather-workflow
 description: Build or migrate UE5.6-UE5.8 day-night and weather systems using frame-rate-independent time, Niagara rain, wetness parameters, shelter attenuation, puddles, lightning, thunder, and evidence-based validation.
 ---
 
+## UE5 默认开发方式（用户确定，2026-09-23）
+
+后台优先：不主动启动 UE 编辑器；不主动检查、测试、启动 PIE、截图或验收渲染；不向其他对话/任务发协调消息。完整规则与「按改动选执行方式」表见仓库根 `AGENTS.md` 和 [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)。
+
 # UE5 weather workflow
 
 Use this skill for the current Unreal migration when work touches the game clock,

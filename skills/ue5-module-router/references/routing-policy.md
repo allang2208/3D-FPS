@@ -1,5 +1,16 @@
 # Routing Policy (UE5.6-UE5.8)
 
+> **2026-09-23 更正：本文件下方的「Tool Priority Matrix」描述的是另一套 MCP 工具**
+> （`blueprint_feature_build`、`spawn_actor`、`character_data`、`execute_script`、`task_*`），
+> **不是本项目的桥**。本项目实际走 `Tools/AssetPipeline/mcp_call_codex.ps1`：工具集形如
+> `Vibe3D.ModelingService`、`EditorToolset.EditorAppToolset`、`LiveCodingToolset.LiveCodingToolset`；
+> `call_tool` 用 `toolset_name` + 裸 `tool_name`；编辑器内 Python 走 `-PythonScript`。
+> 工具可用性一律以 `-ListToolsets` 的实时结果为准。
+>
+> 技能分流以仓库根 `AGENTS.md` 为准；本目录只做「模块名 → 领域」查表。
+> 表内 `TargetSkill` 为 `ue5-architecture`（532 行）与 `ue5-save-load-replication`（40 行）的行已失效，
+> 不要按它们跳转。
+
 ## Priority Order
 1. Exact module name match in routing table.
 2. Exact Build.cs path segment match.

@@ -3,14 +3,9 @@ name: ue5-performance-packaging
 description: UE5.6-UE5.8 performance and packaging readiness workflow. Use when requests involve PIE performance checks, runtime stat review, pre-package validation, build configuration sanity, and release readiness checklists.
 ---
 
-## UE5 默认开发方式（用户确定，2026-09-20）
+## UE5 默认开发方式（用户确定，2026-09-23）
 
-**用户规则（2026-09-20）：禁止主动向其他对话/任务发送协调消息。** 不调用 send_message_to_thread 或跨任务消息工具询问占用、请求让位、通知释放、协商编译/重启；不通过轮询其他对话或共享留言板变相协调。接入等待交由桥的批次互斥处理，期间继续独立制作。真实文件/资产归属冲突或无法安全执行的编译/重启，保留现场，仅在当前对话向用户简要说明阻塞；不联系其他对话。此规则覆盖旧文中的“定向协调/集中协调”等要求；只有用户明确另行要求发送指定消息时才执行。
-
-- **默认并行制作、短时接入（2026-09-20）。** 源码、外部模型/贴图/动画、生成与导入脚本先按文件和目标资产分工独立完成；只在需要实时 UE 状态或最终修改/导入/保存时进入 MCP。规则几何按需使用 Vibe3D，不要求所有制作全程占用编辑器。编辑器可保持打开，必要构建/重启按改动选择。
-- 现有 C++ 函数逻辑按需使用 Live Coding；资产结构、新类落盘、模块/DLL 更换按具体条件安排常规构建和重启。停止 PIE 与关闭编辑器分别处理。
-- 涉及编辑器操作或原生构建时，先读 [保持编辑器打开的开发规则](../ue5-auto-assistant/references/editor-open-development.md)，按表选择方式；多个会话按目标分工；接入统一走 mcp_call_codex.ps1，单次调用/整个 BatchFile 自动互斥。等待期间继续独立制作，不逐步询问其他对话；同一文件/资产归属冲突或编译/重启受阻时仅在当前对话报告用户，不向其他对话发送消息。
-- **默认不主动检查、测试、启动 PIE、截图或验收渲染。** 必要制作、构建和接入照常完成，未测试交由用户测试；本规则优先于下文及引用中的旧默认验收步骤。
+后台优先：不主动启动 UE 编辑器；不主动检查、测试、启动 PIE、截图或验收渲染；不向其他对话/任务发协调消息。完整规则与「按改动选执行方式」表见仓库根 `AGENTS.md` 和 [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)。
 
 # Quick Start
 - Confirm target platform and build configuration.
@@ -106,6 +101,16 @@ description: UE5.6-UE5.8 performance and packaging readiness workflow. Use when 
 - Symptom: package build fails with long error cascade.
   - Locate: first blocking error and its direct dependency chain.
   - Fix: resolve earliest blocker first; rerun to reveal next blockers.
+- Symptom: cook dies with an engine assertion instead of a content error, e.g.
+  `Assertion failed: !Hash.IsZero() ... AnimSequence.cpp`.
+  - Locate: it is a **missing asset dependency**, not a cooker bug. Search the same log for
+    `has a dependency on package ... which does not exist` to get the exact package list, and for
+    `Skeleton == nullptr` / `Zero key hash compressed animation data` to confirm the anim family.
+    In the 2026-09-23 case six packages referenced a Skeleton that had never been saved to disk
+    since the original import; the editor never complained, so it surfaced only at the first cook.
+  - Fix: restore the missing asset at the path the clips already reference (the name match restores
+    the binding automatically), read the reference back in a new process, then re-cook. Do not
+    "solve" it by dropping the AlwaysCook entry — that silently ships a package without those clips.
 - Symptom: packaged build launches with missing assets.
   - Locate: cook list coverage and dependency graph gaps.
   - Fix: include missing maps/directories and resolve broken references.
@@ -119,10 +124,19 @@ description: UE5.6-UE5.8 performance and packaging readiness workflow. Use when 
 # Packaging Ops
 - Prefer explicit map/cook lists over implicit discovery for release builds.
 - Use AssetRegistry queries to validate dependencies before packaging.
+- **Run a dependency pre-flight before the first real cook of a project**
+  （本机 2026-09-23 首次 Cook 就撞上：`AnimSequence` 引用的 Skeleton 包缺失时，
+  Cooker 不用清晰报错，而是在 `AnimSequence.cpp` 断言 `!Hash.IsZero()` 直接崩掉整次 Cook）。
+  预检要点：凡按槽位/骨架导入的骨骼资产，在新进程里读回 `SkeletalMesh.get_editor_property('skeleton')`
+  非空；再用 `LogCook` 的 `has a dependency on package ... which does not exist` 反查缺口清单。
+  这类缺陷在编辑器里不报错（缺骨架的组件不会立刻失败），只在 Cook 暴露。
 - Keep one source of truth for release packaging settings per target profile.
 - In UE5.8, treat Zenserver cooked output as an iteration store; keep Pak/IoStore staging validation for distributable builds.
 - Treat UE5.8 Incremental Cooking as a beta iteration path and retain a clean/full-cook release check.
 - Re-run readiness checks after any packaging setting change.
+- 打包运行器不要把 `RunUAT` 当普通可执行文件：它是批处理，`Start-Process -PassThru` 在本机
+  对失败的构建返回**空退出码**（曾把一次失败报成成功）。用调用运算符 + `$LASTEXITCODE` 取真实退出码。
+  另外要区分**编译失败**与 **Cook 失败**：前者可能是并行会话的在途改动，重试有意义；后者重试无意义。
 
 # UE5.6-UE5.8 Compatibility Notes
 - `UGameUserSettings`, `UProjectPackagingSettings`, and AssetRegistry APIs above are stable in UE5.6-UE5.8.
@@ -149,3 +163,12 @@ description: UE5.6-UE5.8 performance and packaging readiness workflow. Use when 
 ## 性能面板与离线导出归因
 
 分析性能面板 JSON、修正 LOD/线程时间口径或定位 UI 长帧时，读取 [性能面板归因](references/performance-panel-attribution.md)。
+
+## 场景几何成本与 LOD 收敛（2026-09-23）
+
+给网格补 LOD 链、对大面积平铺件强制 LOD、判断"该不该合并/实例化重复构件"、
+或需要确认 `all_rank_total` 与 `gpu0`/`draw` 各自能证明什么时，读取
+[场景几何成本与 LOD 收敛](references/scene-geometry-cost-and-lod.md)。
+要点：`all_rank_total` 是 LOD0 口径、**看不出 LOD 效果**；组件数是否为主要开销要先分别测
+`draw` 与 `gpu0` 再下结论；UE 5.8 生成 LOD 走 `StaticMeshEditorSubsystem.set_lods`
+（不是 `EditorStaticMeshLibrary.set_lod_count`）。

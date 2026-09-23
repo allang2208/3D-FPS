@@ -3,9 +3,13 @@ name: asset-model-workflow
 description: 使用参考图、三视图和 5080 管线生成游戏模型，完成候选迭代、高低模、PBR、真实接口适配及引擎交付。用于配件、枪械、怪物、道具和建材的模型制作；动画、战斗、枪匠和建筑放置继续使用对应领域技能。
 ---
 
+## UE5 默认开发方式（用户确定，2026-09-23）
+
+后台优先：不主动启动 UE 编辑器；不主动检查、测试、启动 PIE、截图或验收渲染；不向其他对话/任务发协调消息。完整规则与「按改动选执行方式」表见仓库根 `AGENTS.md` 和 [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)。
+
 # 通用游戏模型生成工作流
 
-用户于 2026-09-13 指定本流程为后续配件、枪械、怪物、建材等模型生成的共同标准。个人技能为维护源，`D:/FPS3D/FPSGAME/skills/asset-model-workflow` 为工程镜像。
+本流程用于后续配件、枪械、怪物、建材等模型制作；2026-09-22 起先按下述形态与精度分流，再进入相应制作分支。个人技能为维护源，`D:/FPS3D/FPSGAME/skills/asset-model-workflow` 为工程镜像。
 
 **执行边界：默认不主动测试、验收、启动游戏或生成验收渲染。** 资料读取、制作、必要构建、导出、导入及已授权接入照常完成；用户明确要求的预览、排查、测试只按指定范围开展。记录流程不触发生成任务、远端部署或资产替换。
 
@@ -20,6 +24,20 @@ description: 使用参考图、三视图和 5080 管线生成游戏模型，完�
 
 本次地牢的 11 类 5080 候选全部被用户判定不可用，涵盖雕像、杂物、破墙、碎砖、电柜、阀组、土坡与维修电机；不规则粗糙物品也包含在否决范围中。不得将这些产物当作已合格案例或从旧整场景源恢复。活动生成清单与装配引用同步退役，原始模型和回执保留在 `D:/FPS3D/FPSGAME/trash/dungeon-5080-rejected-20260922`，项目记录为 `Docs/Gameplay/dungeon-5080-retirement-20260922.md`。前述天然主体分流适用于未来候选，仍需用户认可，不覆盖这次明确否决。
 
+## 触发表：什么时候读哪份 references
+
+入口只保留每次都要用的流程与不变量。下面这些是**对一类任务**都有效的技法，
+遇到对应情形再读，不要预先全部加载：
+
+| 什么时候读 | 读哪份 |
+| --- | --- |
+| 做 Blender 程序化硬表面建模、用 `from_pydata` 堆封闭实体、从零重建网格，或排查"白模正常但着色后扭曲" | [blender-hardsurface-checklist.md](references/blender-hardsurface-checklist.md) |
+| 要把别人给好的模型改成工程尺寸、而不重做几何 | [mesh-scaling.md](references/mesh-scaling.md) |
+| 用无头 Python 建/改材质、材质实例、Niagara 材质，或材质"能编译但没接对" | [python-material-authoring.md](references/python-material-authoring.md) |
+| 必须进编辑器操作（活物理、视口相关、只有编辑器能做的资产操作）时 | [in-editor-asset-authoring.md](references/in-editor-asset-authoring.md) |
+
+任务过程、数值与验收记录属于「那一次」，在 `Docs/` 里；上面每份 references 都标了正本链接。
+
 ## 1. 参考与三视图先行
 
 - 先确定对象身份、用途、目标引擎、尺寸、朝向、关键孔洞/细杆、分件和连接面。读现有宿主与源资产；配件读取实际枪体和挂点，怪物读取体型及动作参考，建材读取模块尺寸和拼接边。
@@ -32,7 +50,7 @@ description: 使用参考图、三视图和 5080 管线生成游戏模型，完�
 
 ## 2. 生成与小批候选
 
-- 当前默认生成起点为 **TRELLIS.2 三视角**；用户指定其他模型时遵从。先读取当前工作流、节点定义和可用服务以完成调用，历史地址/节点安装不等于当前可执行。具体入口见 [5080 案例与工具](references/5080-case.md)。
+- 选定 5080 自然粗糙物体分支时，当前生成起点为 **TRELLIS.2 三视角**；用户指定其他模型时遵从。先读取当前工作流、节点定义和可用服务以完成调用，历史地址/节点安装不等于当前可执行。具体入口见 [5080 案例与工具](references/5080-case.md)。
 - 备选生成路线：**Meshy API**（2026-09-19 用户登记为备选，会员积分同池、Pro 起含 API）。用户指定 Meshy、本地 5080 对有机/角色造型反复出不了合格候选、或要给已绑骨怪物搜套现成动作（库 678 个，GIF 预览由用户挑选）时使用；分流、调用、积分表与 3 天保留/不退分等硬约束见 [Meshy API 管线](references/meshy-api-pipeline.md)。key 只走环境变量 `MESHY_API_KEY`，产物任务一完成就落盘归档，回执入库前剥预签名查询串。精确接口机械件与建材模块仍走 Vibe3D/本地 Blender。
 - 精细候选参考起点：TRELLIS.2-4B、1024_cascade、结构分辨率 64、结构/形状/纹理 16/32/24 步、4K 纹理、50 万面母版导出目标。它是后握把成功生成的档位，不是跨类别最优参数，也不表示实际面数恰好 50 万。
 - 有意图的机械孔洞保留：不要盲目开启 fill_holes 或 keep_only_shell。怪物、岩石等按自身封闭表面需求决定，不能将机械件开关推广成全局禁令。
@@ -58,7 +76,7 @@ description: 使用参考图、三视图和 5080 管线生成游戏模型，完�
 ## 4. 接入与交付
 
 - 按已授权范围接入对应 ID、材质、碰撞、挂点、存档及打包目录；生成授权不自动扩大为替换所有既有资产。涉及玩法、动画或建筑放置时转对应领域技能。
-- 资产被占用时，不关闭用户/其他任务的编辑器或强行覆盖。可在独立修订路径完成导入，再精确切换运行引用；保留旧资产及来源，避免覆盖并行材质修改。原生改动完成必要编译，使用独立模块后缀。
+- 已加载资产优先在当前编辑器内通过 MCP/Python 修改与保存，不以外部进程覆盖同一包。并行修改冲突时使用独立修订路径，再按授权切换引用；保留旧资产与来源。原生改动按前述开发规则选择 Live Coding 或常规构建，不默认使用独立模块后缀绕过占用。
 - 交付原图/三视图、候选与选中版本、母版、可编辑源、游戏导出、作者脚本、导入回执及实际运行引用。原始参考的权利不因 AI 生成自动改变，复用许可与公开分发许可分别记录。
 - 分开说明“已生成、用户选中、已导入、已编译、游戏已测试”。用户要预览时给实际模型渲染，注明 Blender 源模型或引擎画面，不能拿概念图替代；未测试交由用户测试，不把历史通过记录套用到新资产。
 
@@ -73,161 +91,14 @@ description: 使用参考图、三视图和 5080 管线生成游戏模型，完�
 
 ## 读图与视觉判读（2026-09-15）
 
-- 渲染、候选图和截图用入口 `D:/FPS3D/FPSGAME/Tools/deepseek-vision.ps1` 读回文字，用法与边界见 `D:/FPS3D/FPSGAME/Docs/deepseek-vision.md`。默认走 DeepSeek Flash 自带图片通道；需要交叉验证时再用个人技能 `deepseek-vision-skill`（智谱 GLM-4.6V 中继）。两条路都只返回文字描述，不返回像素。
-- 读图用于**定性确认和列差异**：主体是否对、朝向是否合理、文字或标签是否要改、明显缺陷是否仍在。追问细节必须重新调用一次；一张图配一个具体问题，多图合并判断会串扰。
+- 渲染、候选图和截图：**交互判读直接用会话内挂载的 `read_image` 工具**（我能看到像素，可追问）；批量、headless 或不想让图片进会话历史时才用 `D:/FPS3D/FPSGAME/Tools/deepseek-vision.ps1`，用法与边界见 `D:/FPS3D/FPSGAME/Docs/deepseek-vision.md`。需要交叉验证时再用个人技能 `deepseek-vision-skill`（智谱 GLM-4.6V 中继）。脚本与中继只返回文字描述，不返回像素。
+- 读图用于**定性确认和列差异**：主体是否对、朝向是否合理、文字或标签是否要改、明显缺陷是否仍在。走**脚本**时追问细节必须重新调用一次；一张图配一个具体问题，多图合并判断会串扰（`read_image` 因为是同一段对话，可以正常追问）。
 - **定量结论不交给读图**：角度、哪端更低、是否镜像、孔洞或接缝尺寸用像素测量（掩模 bbox、底边拟合、IoU）当 ground truth。读图说“朝向反了”不足以推翻用户已认可的资产。
 - 读图结果写入案例时注明使用通道与提示词。不把读图结果写成用户的视觉验收，也不写成引擎运行测试通过；最终接受与否仍由用户决定。
-
-## 在运行中的编辑器里做资产（2026-09-16）
-
-- **保存静默失败**：编辑器加载着 `.uasset` 时，外部进程（独立 commandlet、脚本宿主）保存会失败却不报错，接口仍返回 `success=True`。改已被加载的资产必须在**编辑器进程内**做（Python 远程执行／MCP）；验收看**磁盘时间戳与下一个进程读回**，同一进程内的读回不算证据。案例：`SourceAssets/RomanColumn20260915/README.md` 的保存事故段落。
-- 同一进程内新建的资产，下一个进程才可靠可加载；引用前先轮询可加载，不凭“刚创建成功”断定可用。
-- Vibe3D（`unreal.ModelingService`）四个坑：`append_revolve_polygon` 的半径是 **radius + 剖面 X**（剖面须回中轴才封闭）；`project_uv(Planar)` 输出**厘米级 UV**，需缩放投影器；相切堆叠件**不能 `SelfUnion`**，会裂出开放边；布尔与自并集之后要重新检查封闭性、开放边与连通体数量。
-- 建筑构件按 **20 cm 格**对齐：分段交界、pivot 与包围盒边缘都取 20 的倍数，否则与体素件叠放错位。
-- **`self_union(handle, bFillHoles, bTrimFlaps)` 的第二个布尔会毁几何**（2026-09-17）：`bTrimFlaps=True` 把凉亭半球穹顶的弧面塌成直弦（顶点 z 20→286 之间一个不剩，看起来"穹顶像圆锥"），也曾破坏矮栏杆法线出黑块。曲面构件一律用多壳重叠不并集；确需并集时传 `(False, False)`。
-- **Python 的 `unreal.Rotator(...)` 构造顺序是 (roll, pitch, yaw)**，不是 C++ 的 (pitch, yaw, roll)（实测 `Rotator(10,20,30)` 读回 pitch=20 yaw=30 roll=10）；按 C++ 顺序传会把构件绕错轴（径向肋条被镜像到起拱面以下）。该旋转下局部轴：**X 沿子午线、Y 切向、Z 法线**，模板盒子要"深度在 X、宽度在 Y"。
-- **旋成剖面一律用构件局部 z（0 = 底面）**：写成世界高度会让整个网格偏离 pivot，表现为"构件飘在半空 + 别处冒出一圈"。建完先读 `get_bounds()` 的本地 z 是否从 0 起，再摆场。
-- **`generate_collision` 会给圆弧网格补一个超大的 sphere/sphyl/taper 形状**：穹顶因此从地面垂到穹顶、堵死整个建筑内部（玩家进不去）。壳体与环的正确口径是**清空简单碰撞 + `CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE`**（三角面即碰撞体，内部通透、子弹照常命中）；盒子类构件才用逐壳 `AlignedBoxes`。生成后**必须读回形状计数**确认。改资产后运行中的 actor 要 `set_collision_enabled(NO_COLLISION)`→`QUERY_AND_PHYSICS` 重建物理状态才会生效。
-- **拆装多壳体网格用 `select_connected(handle, name, point)`**：打一个"只有目标壳体才包含"的点（圆盘的空角处），选不中即自检；`selection_bounds` 在该绑定里返回空，别用它校验选区，改用 `selection_count` + 删除后 `get_mesh_info` 的边界反推。**按 z 分带 + 半宽判断"方形"会把同宽圆盘也算进去**（Ø80 圆盘半宽同样是 40，只有对角半径 56.5 区分得出）。
 
 ## 已确认的生成器切换案例
 
 手电在 TRELLIS 候选与本地硬表面重建后仍被用户否决，改用用户指定的混元 3D 3.1/PBR 后获游戏接入认可。参见 [战术手电案例](../ue5-weapon-workflow/references/tactical-devices.md)。不要把这一次选择升级为所有资产的默认生成器；保留新旧来源、最终母版及材质分区。
-
-## 白模光滑、着色后扭曲的处理
-
-用户要求排查时，冻结同一网格、相机和灯光，依次关闭结构法线、颜色贴图，再用常量材质比较；同时比较 raw、纹理导出与修整版本的几何。纹理导出可能包含减面，不能将前后差异全部归因于贴图。低反光材质只会弱化起伏，不修复孔洞和轮廓。法线重算、加面或提高纹理分辨率也不能保证修复形状；根据定位结果决定材质修正、局部制作或生成重抽。该诊断只在用户授权时执行，不成为默认验收。案例见 [5080 案例](references/5080-case.md)。
-
-
-## 从零重建网格后必验硬边（2026-09-17）
-
-把源几何按部件重建为新网格再导出（`from_pydata` 路线）时，**自定义法线的设置顺序会决定硬边存亡**：先设 `normals_split_custom_set()` 再设 `use_smooth = True`，Blender 会丢弃在平面着色网格上设的自定义法线，导出后整件变成全平滑（ASH-12 案例：源 113,832 对硬边 → 导出 0 对、最大夹角 0.0°），引擎里表现为"扭曲粗糙"而非材质问题。判据：**同一顶点上不同 loop 法线的最大夹角**，>25° 计为硬边；正确顺序是先平滑再设法线。材质与贴图换新不会修复这个损失。
-
-## 缩放已有网格到目标尺寸（不重建几何，2026-09-18）
-
-需要把**别人给好的模型**改成工程尺寸（例如把包里 24.8 × 114 × 212 的门框改成 40 × 100 × 200）时，不要重做几何：
-
-1. 走 GeometryScript 原生路线：`GeometryScript_AssetUtils.copy_mesh_from_static_mesh` →
-   `GeometryScript_MeshTransforms.scale_mesh(dm, Vector(sx, sy, sz), Vector(0,0,0), True)`（**支持逐轴**）→
-   `copy_mesh_to_static_mesh`。先例 `SourceAssets/RomanFountain20260917/scale_fountain_2x_20260918.py`（2× 等比）。
-2. **必须保留材质槽**：`copy_mesh_to_static_mesh` 默认只留**一个空槽**。包里 `SM_Door` 原本 `[M_Door, M_Glass]`
-   两槽（门扇自带小窗＝半透明），并成空槽后玻璃就没了——这是用户可见的回归。烘焙后**核对 `slots` 数与源一致**
-   （喷泉脚本校验过 `materials_kept == 2`，门那次漏了才出的问题）；必要时把源资产 `static_materials` 逐槽拷回。
-3. **碰撞要重做**：缩放后旧的简单碰撞（`box_elems`／`convex_elems`…）已过期。环状／薄壳（门框、穹顶）必须
-   清空简单碰撞并设 `CTF_USE_COMPLEX_AS_SIMPLE`（三角面即碰撞体）——包成盒会把门洞／内部空间堵死。
-4. **pivot 不会跟着变**：包里网格的 pivot 常在边上或底边，缩放后照旧。所以摆放、预览与离线渲染一律按**包围盒**算；
-   离线渲染脚本要先把网格平移到"Actor 口径"（包围盒 X／Y 居中、底面 z=0），否则会出现"门板飘到半空"这种假故障。
-5. **只改尺寸就别动代码**：Actor 侧若本来就按包围盒摆位（本工程的门线就是这样），缩放后一行都不用改。
-   改动顺序是"网格 → 渲染 → 进游戏只验能放能开 → 再谈代码"，越界改代码就是 2026-09-18 那次整轮回退的原因。
-6. 先出渲染图核对尺寸与外观，再进引擎；改完在**独立进程**里读回包围盒与槽位数当证据（同进程读回不算）。
-7. **逐轴缩放要挑轴**（2026-09-18 门框／门扇第二轮）：目标只有一轴不同就只缩那一轴（单扇门框 24.84 → **40**
-   只缩 X）；缩"别人模型"时还要看清哪一轴是**功能尺寸**——门扇的 X 是名义板厚，跟着缩放会让铰链深度失配
-   （把 5 cm 厚的门扇拉成 29.8 cm），那一轴必须保持原值，只缩洞口方向的 Y／Z。
-8. **容器用 `duplicate_asset`**：本版 Python 里没有 `unreal.StaticMeshFactoryNew`，`create_asset` 建不出静态网格；
-   先复制一份**源资产**当容器（材质槽一并带过来）再 `copy_mesh_to_static_mesh` 覆盖几何，比烘完再补槽更省事。
-9. **包围盒原点要按消费者要求归一**：缩放不改 pivot，但如果下游是按"包围盒中心＝原点"写公式的（本工程门窗 Actor 给
-   "转 180° 的那一扇"算 Y 偏移就是这样），原点偏 (0,−45,+100) 的包模型缩放后必须**平移把包围盒中心放回原点**，
-   否则那件会整体偏半个身位。归零后要读回 `origin≈(0,0,0)` 当证据。
-10. **"同步调整"先定基准尺寸**：用户说"门和门框一起调"时，把**外廓**缩到目标（单扇门框做成 40 × 114 × **220**，
-    220 ＝ 11 格），跟着一起动的**门板**套同一个比例（220/212 → 207.55）而不是取整——包里洞口本来就＝门板尺寸，
-    同比例才不会出现"门框变大、门板边上留缝"。自建框则直接取"洞口 − 缝"。
-11. **烘完必须确认真的落盘**：`save_loaded_asset` / `save_packages` 会因**别的 Unreal 进程占着包**而静默失败
-    （日志里是 `Error moving … to temp directory (Error Code 32)`＋`Error saving`），此时脚本的"读回"只是内存值。
-    重跑前先确认没有其它 UnrealEditor/UnrealEditor-Cmd 在跑，重跑后核对 `.uasset` 的 mtime／大小确实变了。
-12. **可调尺寸只留一处**：同一批资产被反复调尺寸（门高 2.2 m → 2.4 m）时，把**资产名去掉可调尺寸**
-    （`…_D40` 只标进深）、脚本里只留**一个常量**（高度），下游（调色板占格／缩略图网格）改成**从包围盒算**
-    而不是写死数字——这样下一次调尺寸只改一个常量重跑，C++ 与注册脚本都不用动。被取代的旧资产移入
-    `trash/<task>/` 并记录原路径、大小、SHA-256 与保留替代物。
-
-## 用 Python 造材质／材质实例（2026-09-18 喷泉水体，实战踩坑表）
-
-项目里已经有一套成熟的"无头 Python 造材质"路线（先例 `Tools/Building/create_voxel_assets.py`、
-`Tools/ZombieDog/install_random_wounds.py`、`Tools/Building/create_build_preview.py`）。喷泉那轮又补了几条：
-
-1. **`create_asset` 要工厂实例**：`TOOLS.create_asset(name, folder, unreal.Material, unreal.MaterialFactoryNew())`
-   —— 传**类**会报 `Cannot nativize 'MaterialFactoryNew' as 'Factory'`；材质实例用
-   `unreal.MaterialInstanceConstantFactoryNew()`。顺带：本版 Python **没有** `unreal.StaticMeshFactoryNew`
-   （静态网格容器要靠 `duplicate_asset` 复制一份源资产）。
-2. **引脚名**：`MaterialExpressionTextureSample[Parameter2D]` 的 UV 输入叫 **`UVs`**（不是 `UV`）；
-   `MaterialExpressionClamp` 的输入是**默认名**（`""`）；`Multiply/Add` 用 `A/B`，`LinearInterpolate` 用
-   `A/B/Alpha`，`Power` 用 `Base/Exp`，`Fresnel` 用 `ExponentIn/BaseReflectFractionIn/Normal`，
-   纹理采样节点取单通道用输出名 `"R"`。连错时 `connect_material_expressions` 返回 False **但不抛异常**——
-   必须逐条检查返回值，否则会得到一个"能编译但没接对"的材质。
-3. **`recompile_material` 返回的是错误列表**：`[]` ＝ 编译通过；`bool([])` 是 False，别拿它当 bool 判。
-   结构自证可以用 `get_material_expressions().Num()` 加上
-   `get_material_property_input_node(mat, MP_EMISSIVE_COLOR / MP_OPACITY)` 看输出挂在哪个节点上。
-4. **`FCustomInput` 没有 `input_type`**（5.8 会报 `Failed to find property 'input_type'`）：
-   Custom 节点的输入类型**跟着接入的表达式走**，只设 `input_name` 即可。
-5. **特效网格不要依赖网格 UV**：本工程网格走 XAtlas，UV 方向不可控。水膜/泡沫/水帘这类"要按方向滚动"的材质，
-   在 Custom 节点里**自算柱面 UV**（`ObjectPositionWS` → `atan2(y,x)` 与 `−z`，按世界尺寸归一），
-   这样泡沫尺寸是世界尺寸、与 UV 岛无关；`MaterialExpressionObjectPositionWS` 在本版可用。
-6. **实例参数写不进去也别慌**：`set_material_instance_scalar/vector/texture_parameter_value` 在 5.8 常返回 False
-   但**实际写成功**（ZombieDog 那轮已记）；判断依据是 `scalar_parameter_values / vector_parameter_values /
-   texture_parameter_values` 里出现的覆盖项名字与数量，把这份清单打进日志，用户才能知道有哪些旋钮可调。
-7. **无头 commandlet 里没有关卡编辑器状态**：`LevelEditorSubsystem.is_in_play_in_editor()` 会
-   `ACCESS_VIOLATION` 崩进程（喷泉那轮又踩一次）；无头脚本用环境变量护栏跳过 PIE 查询，
-   加载关卡用 `LevelEditorSubsystem.load_level()` 是安全的。
-8. **材质已被引用时不要重建它的表达式表**（2026-09-18 喷泉水面 v6，崩了两次）：
-   `MaterialEditingLibrary.delete_all_material_expressions(mat)` 对**已被已保存的网格/材质实例引用**的材质
-   会断言 `!IsRooted()`（`UObjectBaseUtility.h:209`）并直接杀掉进程。规矩：
-   - 常态化做法是**只改材质实例参数**（`set_material_instance_*` + `update_material_instance`），图不动；
-   - 非要改图：先删掉引用它的实例（并把网格槽指过去之前不要保存），或**换一个新的材质资产名**再建；
-   - 脚本里写成"已存在且有表达式 → 跳过重建并打印提示"，就不会因为重跑而崩。
-9. **别用 PowerShell 的 `Set-Content`/`Out-File` 改写源文件**：PS 5.1 会加 UTF-8 BOM、换行也可能被改，
-   中文注释在 `Select-String` 默认编码下还会显示成乱码（看起来像文件坏了，其实只是读法）。只读检查用
-   `-Encoding UTF8` 或 Python `open(..., encoding="utf-8")` 读；真要改文本走 `apply_patch`。
-10. **XAtlas 网格上的法线扰动可能完全无效**：切线空间法线依赖网格切线基，而切线基来自 **UV 梯度**；
-    本工程网格走 XAtlas（岛方向随机、局部可能退化）→ 算好的涟漪法线被乱掉的切线基转掉，
-    观感就是"一块没起伏的平板"。**水平面（水面、地面贴花）改用世界空间法线**：
-    `mat.set_editor_property("tangent_space_normal", False)`，材质里直接给 `(x, y, 1)` 这种向上法线。
-    一个属性解决，不改图、不依赖 UV。
-11. **"动感"不要只靠一张贴图**：贴图偏平时滚动几乎看不见。确定可见的做法是
-    **程序化条纹（sin 波）+ 贴图**叠加，滚动方向由自算柱面 UV 的 v 决定；
-    要改已投产材质的图时**新建一个资产名**（重建被网格引用的材质会断言 `!IsRooted` 崩进程）。
-12. **拿现成材质当"底板／衬底"前先查 blend mode**（2026-09-18 喷泉"像固体"真凶）：
-    包内 `M_Caustics` 是 **`BLEND_OPAQUE`**，拿它垫在盆底＝每个盆一块**不透明平板**，
-    透过半透明水看下去就是"实心地板"——**水面波浪做得再好也改不了盆底的读感**。
-    要"只加光"就自己做 **ADDITIVE + Unlit** 的材质（把花纹只接到 Emissive），
-    让下面的实体表面照常可见；参数名与原实例保持一致，旧覆盖项才能继续生效。
-13. **诊断顺序：先证明"运行态用的是哪套资产"，再谈调参**：
-    ① 只读探针读资产属性（blend / shading / TLM / tangent_space_normal / WPO 与 Normal 接在哪个节点 / 参数默认值），
-       并且**设完立刻读回**（本版枚举名写错会静默退回默认值）；
-    ② 读 `Saved/Logs/*.log` 证明那次 PIE 进的是哪张图、编译了哪些系统、用的是哪次烘的资产；
-    ③ 读 `Saved/SaveGames/*.sav` 证明玩家**有没有摆过**该构件（本例据此排除了"旧构件干盆"假设）；
-    ④ 给构件加**运行期一次性日志**（组件 / 网格 / 槽 0 材质 / 可见性），一条日志定性"到底渲染了什么"。
-    这四步比"再猜一轮参数"快得多 —— 本例连续 5 轮盲调没解决，靠 ① 立刻定位到不透明衬底。
-14. **`MaterialExpressionObjectPositionWS` 是"物体原点"常量，不是逐像素位置**（2026-09-19 喷泉水体
-    v5–v10 六轮"像固体"的**唯一根因**）：拿它当 Custom 节点的位置输入，波高场/法线/柱面 UV 全部在
-    **常量点**求值 → 水面整体刚性升降（看不见）、法线均匀倾斜（无明暗变化）、水帘条纹与泡沫/焦散
-    采样单一 texel（平板/隐形）。逐像素局部坐标 = **`WorldPosition − ObjectPositionWS`**（Subtract 节点），
-    既逐像素又随摆放平移不变。判别法：隐藏水面网格拍一张 + 把 WaveHeight 调 3 倍拍一张，若轮廓/明暗
-    都不变即命中此坑（参数读回全对也照样命中）。
-15. **编辑器模式（非 PIE）关卡里没有太阳/天空**：昼夜是运行时 BP（如 `BP_FPS_DayNightManager`）在
-    BeginPlay 生成的，编辑器视口/SceneCapture 拍出来是**夜景黑地**。实拍自检前先临时 spawn
-    `DirectionalLight`(intensity 10–30) + `SkyAtmosphere` + `SkyLight(real_time_capture=True)`，
-    拍完销毁、**不存关卡**。SceneCapture 配方（5.8 远程通道实测）：
-    `RenderingLibrary.create_render_target2d(world,w,h,RTF_RGBA8_SRGB)` →
-    `comp.set_editor_property("texture_target"/"capture_source"(SCS_FINAL_COLOR_LDR)/"fov_angle")` →
-    每视角 `set_actor_transform(Transform(loc, look_at 四元数), False, True)` + `capture_scene()`×4 →
-    `RenderingLibrary.export_render_target(world, rt, dir, name)`（**产物无扩展名**，要自己补 .png；
-    Niagara 在编辑器 capture 里不 tick，水柱/粒子拍不到）。
-16. **PIE 进行中远程脚本会静默早退**：脚本开头的 `is_in_play_in_editor()` 护栏 raise SystemExit(0)，
-    表现为"success=True 但零输出零产物"；先等 PIE 结束（日志里出现 TRAVERSAL/输入行 = 正在 PIE）。
-    另外**编辑器启动未完全就绪时**往远程通道发"重建材质"类命令会触发 MaterialEditor 的
-    `!IsRooted()` 断言崩进程——等 `Engine Initialization) Total time` 日志后再发。
-17. **滚动纹理的方向与"复制感"（2026-09-19 喷泉水帘）**：①柱面 UV 取 `v = −P.z/S` 时，
-    `uv + (0,T)` 是**向上**流（特征点 z = S·(T−c) 递增）；要向下，所有含 T 的相位写成
-    `(u·a + v·b − T·c)` 且 b,c>0。**验证法**：FlowSpeed 临时调到"3 s 位移 < 图案半周期"（如 0.05），
-    同机位间隔 3 s 拍两张，离线对目标带做垂直互相关取 argmax dy（dy>0 = 下移）；正常速度下间隔太大
-    会**混叠**得 dy=0 假阴性。②"几乎一模一样"的两个来源：纯 `sin(u·N)`（N 整数）绕圈精确复制、
-    贴图整数平铺同理 → 用**非整数列尺度**采样噪声/贴图（唯一缝落在背面子午线）+ 逐列噪声调制
-    相位/宽度/亮度。③重构材质图时**逐条核对每个算出来的场是否真接到了输出**（V4/V5 的 streak
-    算了没接，画面只剩泡沫层读作平板）——`get_material_property_input_node` 只能查末级，
-    中间场要顺着 Multiply/Add 链走一遍。
-18. **归档前复核引用别用 `grep "名字."`**：uasset 导入表里的父级/槽引用不带尾点，会漏判
-    （2026-09-19 把活跃的 `M_FountainWaterFilmV2` 当废案移进 trash 一次，靠 MIC 包字节扫描发现后恢复）。
-    正确做法：扫候选资产包字节里的名字表（`re.findall(rb'M_名字[A-Za-z0-9_]*', bytes)`）或直接读
-    MIC 的 `parent` 属性 / 网格的 `get_material(i)`；移完再列一遍 Materials 目录对账"应保留清单"。
 
 ## Vibe3D 规则几何与后处理入口（2026-09-19）
 

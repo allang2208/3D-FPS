@@ -3,6 +3,10 @@ name: ue5-debug-validation
 description: UE5.6-UE5.8 debugging and validation workflow for logs, asset checks, and regression triage. Use when requests involve troubleshooting why gameplay does not work, validating expected output, narrowing minimal repro, and producing concrete fix steps.
 ---
 
+## UE5 默认开发方式（用户确定，2026-09-23）
+
+后台优先：不主动启动 UE 编辑器；不主动检查、测试、启动 PIE、截图或验收渲染；不向其他对话/任务发协调消息。完整规则与「按改动选执行方式」表见仓库根 `AGENTS.md` 和 [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)。
+
 # Quick Start
 - For blurry DynamicMesh ground, material-readiness stalls or nearby-first world loading, read [dynamic terrain material loading](references/dynamic-terrain-material-loading.md).
 - For invisible cloud fields or logged lightning/thunder without perceptible output, read [cloud and A/V diagnosis](../ue5-weather-workflow/references/cloud-lightning-audio.md); distinguish material inputs, trigger state, mixer capture and user feedback.

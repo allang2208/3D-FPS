@@ -1,0 +1,38 @@
+{
+  "snapshot": {
+    "total": 284,
+    "broken": [
+      {
+        "file": "ue5-fps-arms-animation/references/grip-arm-refinement.md",
+        "target": "../../../Docs/Weapons/akm-sprint-left-wrist-relax-20260917.md"
+      },
+      {
+        "file": "ue5-item-asset-workflow/references/numeric-ammo-icons.md",
+        "target": "../../../Docs/Combat/ammo-icon-wiring-20260922.md"
+      },
+      {
+        "file": "ue5-weapon-workflow/references/melee.md",
+        "target": "../../../Docs/Weapons/m4-stock-melee-20260918.md"
+      }
+    ]
+  },
+  "current": {
+    "total": 293,
+    "broken": []
+  },
+  "newly_broken": [],
+  "fixed": [
+    [
+      "ue5-fps-arms-animation/references/grip-arm-refinement.md",
+      "../../../Docs/Weapons/akm-sprint-left-wrist-relax-20260917.md"
+    ],
+    [
+      "ue5-item-asset-workflow/references/numeric-ammo-icons.md",
+      "../../../Docs/Combat/ammo-icon-wiring-20260922.md"
+    ],
+    [
+      "ue5-weapon-workflow/references/melee.md",
+      "../../../Docs/Weapons/m4-stock-melee-20260918.md"
+    ]
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "task": "main-plaza-scaffolding-20260923",
+  "retired": [
+    {
+      "original": "SourceAssets/MainPlaza20260922/plaza_build_error.txt",
+      "archived": "trash/main-plaza-scaffolding-20260923/plaza_build_error.txt",
+      "bytes": 496,
+      "sha256": "b1129960ac100093e627af7e4a652ca7bd7aa42b9b13f9d1f8c3d4d2fc4c2fb9",
+      "reason": "已被取代的失败转储",
+      "replacement": "set_lod_count 不存在导致的 AttributeError；API 已改用 StaticMeshEditorSubsystem.set_lods，结论写入 Docs/Skills 与本轮 performance references。权威记录见 plaza_build_receipt.json",
+      "readback_ok": true
+    },
+    {
+      "original": "SourceAssets/MainPlaza20260922/plaza_asset_lods_error.txt",
+      "archived": "trash/main-plaza-scaffolding-20260923/plaza_asset_lods_error.txt",
+      "bytes": 1022,
+      "sha256": "61401bb7bbee8e78b232e970d9860e5a766233d90975846476b18f130da6d515",
+      "reason": "已被取代的失败转储",
+      "replacement": "StaticMeshReductionOptions 结构体传参错误的 traceback；正确用法已落地并写入 perf references。权威记录见 plaza_asset_lods.json",
+      "readback_ok": true
+    },
+    {
+      "original": "SourceAssets/MainPlaza20260922/plaza_geometry_cost_error.txt",
+      "archived": "trash/main-plaza-scaffolding-20260923/plaza_geometry_cost_error.txt",
+      "bytes": 441,
+      "sha256": "1ed629f129f31fa9b8d54760faee3792cd2ffd61011dbce1ac4523d843e40dd5",
+      "reason": "已被取代的失败转储",
+      "replacement": "StaticMesh.get_static_materials 不存在的 AttributeError；已改用 get_editor_property('static_materials')。权威记录见 plaza_geometry_cost.json",
+      "readback_ok": true
+    },
+    {
+      "original": "SourceAssets/MainPlaza20260922/plaza_verify_v5_error.txt",
+      "archived": "trash/main-plaza-scaffolding-20260923/plaza_verify_v5_error.txt",
+      "bytes": 214,
+      "sha256": "e8c0f0e667806d66538de55af3eedab632884b672b638d07b26d65d988e73414",
+      "reason": "已被取代的失败转储",
+      "replacement": "校验脚本尾部的 NameError（switched 作用域）；已在 verify_plaza_v5.py 内修复。权威记录见 plaza_verify_v5.json",
+      "readback_ok": true
+    },
+    {
+      "original": "SourceAssets/MainPlaza20260922/pavilion_torches_error.txt",
+      "archived": "trash/main-plaza-scaffolding-20260923/pavilion_torches_error.txt",
+      "bytes": 456,
+      "sha256": "cd04c38bcc8256e0458371ca992bc68e240c8ab118e937527725233b6f88aeaf",
+      "reason": "已被取代的失败转储",
+      "replacement": "当时编辑器打开的是 L_Dungeon_Randomized 触发的保护性中止（护栏正常工作）；两个脚本此后已加安全切图逻辑，火把已建成。权威记录见 pavilion_torches.json",
+      "readback_ok": true
+    },
+    {
+      "original": "SourceAssets/MainPlaza20260922/probe_merge_api.py",
+      "archived": "trash/main-plaza-scaffolding-20260923/probe_merge_api.py",
+      "bytes": 1806,
+      "sha256": "c06706f2227bc8700cc174762264877412ff0f26c13841d975512db27a6da4a6",
+      "reason": "被否决方案的一次性探测",
+      "replacement": "只为已判定不需要的\"整边合并\"方案做 API 探测；结论见 Docs/Performance/plaza-geometry-regression-20260922.md（16:16 数据显示合并无必要）",
+      "readback_ok": true
+    },
+    {
+      "original": "SourceAssets/MainPlaza20260922/probe_merge_options.py",
+      "archived": "trash/main-plaza-scaffolding-20260923/probe_merge_options.py",
+      "bytes": 2523,
+      "sha256": "f4249ccc8a42cfc862e1c9a6008e52c95fe38ba0faa89b24a49b1d1dec83162e",
+      "reason": "被否决方案的一次性探测",
+      "replacement": "同上：为整边合并读取 MergeStaticMeshActorsOptions 字段，方案已否决",
+      "readback_ok": true
+    },
+    {
+      "original": "SourceAssets/MainPlaza20260922/restore_editor_map.py",
+      "archived": "trash/main-plaza-scaffolding-20260923/restore_editor_map.py",
+      "bytes": 2306,
+      "sha256": "63efa5523fb86d5510d09364a11f354d4e4d060514ec7bc03698ac32088ed378",
+      "reason": "一次性修复工具，问题已在源头修掉",
+      "replacement": "用于修回校验脚本异常退出后遗留的地图；verify_plaza_v5.py 已把切回逻辑移入 run()，不再需要",
+      "readback_ok": true
+    },
+    {
+      "original": "SourceAssets/MainPlaza20260922/editor_map_restore.json",
+      "archived": "trash/main-plaza-scaffolding-20260923/editor_map_restore.json",
+      "bytes": 153,
+      "sha256": "1d233ac69e619b8b17493fd26adf42473f46d8141f716c04d100a4446bfc753b",
+      "reason": "随 restore_editor_map.py 一并退役",
+      "replacement": "同上",
+      "readback_ok": true
+    }
+  ],
+  "skipped": []
+}

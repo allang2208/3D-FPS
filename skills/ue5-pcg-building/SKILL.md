@@ -3,6 +3,10 @@ name: ue5-pcg-building
 description: UE5.6-UE5.8 PCG generation and runtime-heightfield ground workflow for modular buildings, blockouts, facade rules, runtime generation, and layered terrain ground materials. Use when requests involve Procedural Content Generation (PCG), Shape Grammar, lot-based building spawn, deterministic random seeds, density/filter pipelines, converting designer constraints into reusable PCG graphs, or the detail/layering of a streamed non-Landscape ground surface.
 ---
 
+## UE5 默认开发方式（用户确定，2026-09-23）
+
+后台优先：不主动启动 UE 编辑器；不主动检查、测试、启动 PIE、截图或验收渲染；不向其他对话/任务发协调消息。完整规则与「按改动选执行方式」表见仓库根 `AGENTS.md` 和 [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)。
+
 # Quick Start
 
 - 扩展已认可样板、随机房间池、门洞拼接、岔路和 Boss 终点时，读取 [保留设计语义的随机地牢](references/authored-dungeon-generation.md)。
@@ -159,6 +163,10 @@ description: UE5.6-UE5.8 PCG generation and runtime-heightfield ground workflow 
 - Escalate when architecture requires custom C++ PCG elements or engine plugin extension.
 - Escalate when city-scale generation must be integrated with World Partition streaming policy.
 - Escalate when generated layout must be synchronized with save/load or multiplayer authority rules.
+
+## Vibe3D 模块本体制作（2026-09-19）
+
+楼梯、梁柱、栏杆、管件等明确尺寸的规则模块，优先考虑 [Vibe3D 制作分支](../asset-model-workflow/references/vibe3d-workflow.md) 在 UE 内直接制作；参考与尺寸充分时无需先跑图生模型。生成资产或已有资产可按需做局部几何、UV、碰撞和 LOD。保持本项目尺寸、枢轴、拼接面与建筑放置合同，完成模块后再由 PCG 排布。Vibe3D 是编辑器制作工具，不替代运行时地貌破坏或 20 cm 玩家建造系统；不自动执行本技能或插件文档中的测试与预览。
 
 ## 已生成构件的批量优化
 

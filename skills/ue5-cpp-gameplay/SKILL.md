@@ -3,6 +3,10 @@ name: ue5-cpp-gameplay
 description: UE5.6-UE5.8 gameplay C++ implementation for Actors, Components, DataAssets, and gameplay logic. Use when requests ask to write .h/.cpp pairs, expose UPROPERTY/UFUNCTION to Blueprint, use GameplayTags, or build reusable component-based systems.
 ---
 
+## UE5 默认开发方式（用户确定，2026-09-23）
+
+后台优先：不主动启动 UE 编辑器；不主动检查、测试、启动 PIE、截图或验收渲染；不向其他对话/任务发协调消息。完整规则与「按改动选执行方式」表见仓库根 `AGENTS.md` 和 [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)。
+
 # Quick Start
 - Confirm target class type (`AActor`, `UActorComponent`, `UObject`, `USaveGame`, etc.).
 - Define required Blueprint-facing API before implementation.
@@ -115,5 +119,7 @@ For Godot first-person weapon ports, read [migration contracts and validation](r
 - Escalate when solution needs custom engine source modifications.
 
 FPSGAME traversal geometry, camera handoff and surface IK: [traversal contact](../ue5-fps-arms-animation/references/traversal-contact.md).
+
+FPSGAME directional dodge, Shift tap/hold and invulnerability: [player dodge](references/player-dodge.md).
 
 FPSGAME first/third person animation, world equipment and outfits: [player world body](references/player-world-body.md).

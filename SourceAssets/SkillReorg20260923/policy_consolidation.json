@@ -1,0 +1,144 @@
+{
+  "dead_csv": {
+    "path": "skills\\ue5-module-router\\references\\ue5-module-routing-table-draft.deprecated.csv",
+    "bytes_removed": 111740
+  },
+  "files": [
+    {
+      "skill": "asset-model-workflow",
+      "before": 21684,
+      "links_before": 15,
+      "after": 21025,
+      "removed_restatements": 0,
+      "links_after": 15,
+      "action": "collapsed"
+    },
+    {
+      "skill": "ue5-auto-assistant",
+      "before": 5269,
+      "links_before": 4,
+      "after": 4610,
+      "removed_restatements": 0,
+      "links_after": 4,
+      "action": "collapsed"
+    },
+    {
+      "skill": "ue5-cpp-gameplay",
+      "before": 8765,
+      "links_before": 8,
+      "after": 8106,
+      "removed_restatements": 0,
+      "links_after": 8,
+      "action": "collapsed"
+    },
+    {
+      "skill": "ue5-debug-validation",
+      "before": 10650,
+      "links_before": 7,
+      "after": 9991,
+      "removed_restatements": 0,
+      "links_after": 7,
+      "action": "collapsed"
+    },
+    {
+      "skill": "ue5-fps-arms-animation",
+      "before": 12829,
+      "links_before": 33,
+      "after": 12170,
+      "removed_restatements": 0,
+      "links_after": 33,
+      "action": "collapsed"
+    },
+    {
+      "skill": "ue5-item-asset-workflow",
+      "before": 6424,
+      "links_before": 6,
+      "after": 5765,
+      "removed_restatements": 0,
+      "links_after": 6,
+      "action": "collapsed"
+    },
+    {
+      "skill": "ue5-module-router",
+      "before": 2904,
+      "links_before": 1,
+      "after": 2245,
+      "removed_restatements": 0,
+      "links_after": 1,
+      "action": "collapsed"
+    },
+    {
+      "skill": "ue5-monster-workflow",
+      "before": 7359,
+      "links_before": 19,
+      "after": 6700,
+      "removed_restatements": 0,
+      "links_after": 19,
+      "action": "collapsed"
+    },
+    {
+      "skill": "ue5-pcg-building",
+      "before": 11388,
+      "links_before": 9,
+      "after": 10729,
+      "removed_restatements": 0,
+      "links_after": 9,
+      "action": "collapsed"
+    },
+    {
+      "skill": "ue5-performance-packaging",
+      "before": 10326,
+      "links_before": 6,
+      "after": 9667,
+      "removed_restatements": 0,
+      "links_after": 6,
+      "action": "collapsed"
+    },
+    {
+      "skill": "ue5-skill-magic-workflow",
+      "before": 6047,
+      "links_before": 17,
+      "after": 5388,
+      "removed_restatements": 0,
+      "links_after": 17,
+      "action": "collapsed"
+    },
+    {
+      "skill": "ue5-ui-umg-slate",
+      "before": 7793,
+      "links_before": 10,
+      "after": 7074,
+      "removed_restatements": 1,
+      "links_after": 10,
+      "action": "collapsed"
+    },
+    {
+      "skill": "ue5-weapon-workflow",
+      "before": 6378,
+      "links_before": 35,
+      "after": 5578,
+      "removed_restatements": 1,
+      "links_after": 35,
+      "action": "collapsed"
+    },
+    {
+      "skill": "ue5-weather-workflow",
+      "before": 6174,
+      "links_before": 3,
+      "after": 5515,
+      "removed_restatements": 0,
+      "links_after": 3,
+      "action": "collapsed"
+    },
+    {
+      "skill": "ue5-world-interaction",
+      "before": 9381,
+      "links_before": 5,
+      "after": 8722,
+      "removed_restatements": 0,
+      "links_after": 5,
+      "action": "collapsed"
+    }
+  ],
+  "skipped": []
+}

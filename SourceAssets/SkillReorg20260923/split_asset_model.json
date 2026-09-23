@@ -1,0 +1,39 @@
+{
+  "moved": [
+    {
+      "target": "blender-hardsurface-checklist.md",
+      "sections": 3,
+      "chars": 4662,
+      "verified_in_new_file": true
+    },
+    {
+      "target": "mesh-scaling.md",
+      "sections": 1,
+      "chars": 2300,
+      "verified_in_new_file": true
+    },
+    {
+      "target": "python-material-authoring.md",
+      "sections": 1,
+      "chars": 6479,
+      "verified_in_new_file": true
+    },
+    {
+      "target": "in-editor-asset-authoring.md",
+      "sections": 1,
+      "chars": 1680,
+      "verified_in_new_file": true
+    }
+  ],
+  "triggers": [
+    "| 做 Blender 程序化硬表面建模、用 `from_pydata` 堆封闭实体、从零重建网格，或排查\"白模正常但着色后扭曲\" | [blender-hardsurface-checklist.md](references/blender-hardsurface-checklist.md) |",
+    "| 要把别人给好的模型改成工程尺寸、而不重做几何 | [mesh-scaling.md](references/mesh-scaling.md) |",
+    "| 用无头 Python 建/改材质、材质实例、Niagara 材质，或材质\"能编译但没接对\" | [python-material-authoring.md](references/python-material-authoring.md) |",
+    "| 必须进编辑器操作（活物理、视口相关、只有编辑器能做的资产操作）时 | [in-editor-asset-authoring.md](references/in-editor-asset-authoring.md) |"
+  ],
+  "written": [],
+  "skill_before": 21025,
+  "skill_after": 6531,
+  "skill_links_before": 15,
+  "skill_links_after": 18
+}

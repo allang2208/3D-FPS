@@ -3,6 +3,10 @@ name: ue5-world-interaction
 description: UE5.6-UE5.8 world interaction systems for pickups, spawners, overlap/trace checks, and visual feedback. Use when requests involve interactive world actors, spawn logic, pickup behavior, interaction radius checks, success/failure feedback, and actor lifecycle control.
 ---
 
+## UE5 默认开发方式（用户确定，2026-09-23）
+
+后台优先：不主动启动 UE 编辑器；不主动检查、测试、启动 PIE、截图或验收渲染；不向其他对话/任务发协调消息。完整规则与「按改动选执行方式」表见仓库根 `AGENTS.md` 和 [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)。
+
 # Quick Start
 - For harvested trees, original stumps, cut-plane hinges, or Nanite tree crowns, read [tree cutting and falling](references/tree-harvest-cut-and-fall.md).
 - For FPSGAME dropped weapon models, gravity, camera-aimed E interactions, or drop hitches, read [physical pickups and preview reuse](references/fpsgame-physical-pickups.md).
@@ -128,3 +132,10 @@ description: UE5.6-UE5.8 world interaction systems for pickups, spawners, overla
 # Escalation
 - Escalate when design requires persistent world state synchronization across sessions.
 - Escalate when system must integrate with GAS ability targeting rules.
+
+## 持续环境声：喷泉 V9（2026-09-19）
+
+- 水流采用已处理首尾交叉淡化的循环音源和持续 `UAudioComponent`；避免用定时重播或脚步水花模拟连续流动。两层用不同长度及实例相位，进出范围只淡入淡出并保留距离回差。
+- 3D 单声道、距离衰减/低通与共享并发预算一起接入；声源不依赖画面可见性。并发替换用释放淡化，被拒绝后限频重试，EndPlay 停止组件。
+- UE 5.8 衰减低通字段为 `bAttenuateWithLPF`。并发最大数量可用 `SetMaxCount`；`VolumeScale` 是私有字段，不能直接赋值。
+- 记录作者、许可、实际下载版本和处理参数。公开 HQ MP3 与原始 WAV 分开说明；导出 PCM 不代表恢复原始无损质量。资产制作与编译完成不代表已试听。
