@@ -118,6 +118,7 @@ private:
     UFUNCTION() void HandleNavigationStatus();
     UFUNCTION() void HandleNavigationBackpack();
     UFUNCTION() void HandleNavigationSkills();
+    UFUNCTION() void HandleNavigationCodex();
     UPROPERTY(Transient) TObjectPtr<UVerticalBox> PanelNavigation;
     UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> PanelNavigationSlot;
     UPROPERTY(Transient) TArray<TObjectPtr<UButton>> PanelNavigationButtons;
@@ -365,6 +366,7 @@ private:
     UPROPERTY(Transient) TObjectPtr<UHorizontalBox> EquipmentAmmoTabs;
     UPROPERTY(Transient) TObjectPtr<class UColdSteelAmmoPouchWidget> AmmoPouchPage;
     UPROPERTY(Transient) TObjectPtr<class UColdSteelSkillPage> SkillPage;
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelCodexPage> CodexPage;
     UPROPERTY(Transient) TObjectPtr<class UColdSteelProgressNotification> ProgressNotification;
     UPROPERTY(Transient) TObjectPtr<UBorder> SkillTabSurface;
     UPROPERTY(Transient) TObjectPtr<UBorder> SkillTabUnderline;
@@ -494,6 +496,7 @@ private:
     float StatusRefreshAccumulator = 0.0f;
     bool bStatusTabActive = false;
     bool bSkillsTabActive = false;
+    bool bCodexTabActive = false;
     bool bEquipmentTooltipPinned = false;
     float TimelineRefreshAccumulator = 0.0f;
     float TimelinePulse = 0.0f;

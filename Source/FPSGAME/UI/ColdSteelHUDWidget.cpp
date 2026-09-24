@@ -341,11 +341,15 @@ void UColdSteelHUDWidget::ToggleInventory()
 
 bool UColdSteelHUDWidget::HandlePanelShortcut(const FKey& Key, bool bRepeat)
 {
-    if (Key != EKeys::Tab && Key != EKeys::CapsLock && Key != EKeys::P) return false;
+    // 注意：K／J 属强化台与改造台（FPSGAMEPlayerController 先消费），C 是滑铲，图鉴用 N。
+    if (Key != EKeys::Tab && Key != EKeys::CapsLock && Key != EKeys::P && Key != EKeys::N) return false;
     if (bRepeat) return true;
     if(IsQuickDragging()){CancelQuickDrag();return true;}
     const bool bStatus = Key == EKeys::CapsLock;
-    if (bInventoryOpen && (Key == EKeys::Tab || (Key==EKeys::P?bSkillsTabActive:bStatusTabActive)))
+    const bool bCodex = Key == EKeys::N;
+    const bool bSkills = Key == EKeys::P;
+    // 已打开且按下的就是当前页 → 收起；Tab 关闭任意抽屉。
+    if (bInventoryOpen && (Key == EKeys::Tab || (bSkills&&bSkillsTabActive) || (bStatus&&bStatusTabActive) || (bCodex&&bCodexTabActive)))
     {
         SetInventoryOpen(false);
         return true;
@@ -353,8 +357,8 @@ bool UColdSteelHUDWidget::HandlePanelShortcut(const FKey& Key, bool bRepeat)
     UWidgetBlueprintLibrary::CancelDragDrop();
     if (auto* Scroll = Cast<UScrollBox>(EquipmentPage))
         if (auto* Board = Cast<UColdSteelInventoryWidget>(Scroll->GetChildAt(0))) Board->CancelInteraction();
-    if (bStatus || Key==EKeys::P) CloseWarehouse();
-    SetInventoryPage(Key==EKeys::P?2:(bStatus?0:1));
+    if (bStatus || bSkills || bCodex) CloseWarehouse();
+    SetInventoryPage(bCodex?4:(bSkills?2:(bStatus?0:1)));
     SetInventoryOpen(true);
     if (CloseButton) CloseButton->SetKeyboardFocus();
     return true;
@@ -624,6 +628,11 @@ void UColdSteelHUDWidget::BuildInventory(UCanvasPanel* Root)
     SkillPage->SetHUD(this);
     auto* SkillSlot=Body->AddChildToVerticalBox(SkillPage);
     SkillSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));SkillSlot->SetHorizontalAlignment(HAlign_Fill);
+    // 图鉴与技能页同为抽屉内的自包含 Slate 页，共用同一 Fill 槽位与生命周期。
+    CodexPage=CreateWidget<UColdSteelCodexPage>(GetOwningPlayer());
+    CodexPage->SetHUD(this);
+    auto* CodexSlot=Body->AddChildToVerticalBox(CodexPage);
+    CodexSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));CodexSlot->SetHorizontalAlignment(HAlign_Fill);
     auto* Footer=Body->AddChildToVerticalBox(MakeInventoryText(TEXT("Tab 收起  ·  Caps 状态  ·  P 技能  ·  右键物品操作"),12,GunsmithUI::Muted));
     InventoryFooterSlot=Footer;
     Footer->SetPadding(FMargin(ReferenceUnits(18),ReferenceUnits(8),ReferenceUnits(18),ReferenceUnits(10)));
@@ -1270,16 +1279,24 @@ void UColdSteelHUDWidget::OpenSkills()
     if(CloseButton)CloseButton->SetKeyboardFocus();
 }
 
+void UColdSteelHUDWidget::OpenCodex()
+{
+    UWidgetBlueprintLibrary::CancelDragDrop(); CloseWarehouse();
+    SetInventoryPage(4); SetInventoryOpen(true);
+    if(CloseButton)CloseButton->SetKeyboardFocus();
+}
+
 void UColdSteelHUDWidget::SetInventoryPage(int32 Page)
 {
     HideItemTooltip(true);
-    bStatusTabActive=Page==0; bSkillsTabActive=Page==2;
+    bStatusTabActive=Page==0; bSkillsTabActive=Page==2; bCodexTabActive=Page==4;
     if (StatusPage) StatusPage->SetVisibility(Page==0?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
     if (EquipmentPage) EquipmentPage->SetVisibility(Page==1?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
     if (EquipmentAmmoTabs) EquipmentAmmoTabs->SetVisibility(Page==1||Page==3?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
     if (AmmoPouchPage) AmmoPouchPage->SetVisibility(Page==3?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
     if (SkillPage) SkillPage->SetVisibility(Page==2?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
-    if (InventoryTitleText) InventoryTitleText->SetText(FText::FromString(Page==0?TEXT("角色状态"):(Page==1||Page==3)?TEXT("装备与背包"):TEXT("技能")));
+    if (CodexPage) CodexPage->SetVisibility(Page==4?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
+    if (InventoryTitleText) InventoryTitleText->SetText(FText::FromString(Page==0?TEXT("角色状态"):(Page==1||Page==3)?TEXT("装备与背包"):Page==4?TEXT("图鉴"):TEXT("技能")));
     UBorder* Surfaces[]={StatusTabSurface,EquipmentTabSurface,SkillTabSurface};
     UBorder* Underlines[]={StatusTabUnderline,EquipmentTabUnderline,SkillTabUnderline};
     UTextBlock* Labels[]={StatusTabText,EquipmentTabText,SkillTabText};
@@ -1377,7 +1394,7 @@ void UColdSteelHUDWidget::RefreshStatus()
 
 void UColdSteelHUDWidget::ShowEquipmentTooltip()
 {
-    if (!EquipmentTooltip || !bInventoryOpen || bStatusTabActive || bSkillsTabActive) return;
+    if (!EquipmentTooltip || !bInventoryOpen || bStatusTabActive || bSkillsTabActive || bCodexTabActive) return;
     RefreshStatus();
     EquipmentTooltip->SetVisibility(ESlateVisibility::Visible);
     EquipmentTooltipScroll->ScrollToEnd();
