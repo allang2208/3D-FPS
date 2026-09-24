@@ -3,6 +3,7 @@
 #include "VoxelBuildPalette.h"
 #include "VoxelBuildPrefabActor.h"
 #include "VoxelBuildGrounding.h"
+#include "SmeltingSystem.h"
 #include "ColdSteelDoor.h"
 #include "ColdSteelWindow.h"
 #include "ColdSteelFountain.h"
@@ -212,7 +213,25 @@ void AVoxelBuildWorld::VerifyPrefabSupport(const TArray<FVoxelEditCell>& Edit)
             (Instance?Instance->Id.ToString():FString(TEXT("构件")));
         // 脱落 = 真的掉下来（2026-09-18）：占位网格补上调色板代表网格后切成刚体自由落体，
         // 逻辑构件挂上去跟随、停止交互，8 秒后一起销毁。没有可用网格／物理体时退回直接移除。
+        // 炉内冶炼/存料的高炉脱落：尽力退料（落体无法像手动拆除那样拒绝）；背包放不下则随炉
+        // 清任务与存料并在提示栏点名，不留孤儿条目（读档侧同样会丢弃孤儿，双保险）。
+        if(FindSmelting(Anchor)||FuelAt(Anchor)>0)
+        {
+            FString RefundReason;
+            if(!RefundSmeltingAt(Anchor,RefundReason))
+            {
+                UE_LOG(LogTemp,Warning,TEXT("PREFAB_DROP %s 炉内冶炼无法退料（%s），任务随炉清理"),*Label,*RefundReason);
+                ClearSmelting(Anchor);SetFuel(Anchor,0);
+                if(UGameInstance* Game=GetWorld()?GetWorld()->GetGameInstance():nullptr)
+                    if(auto* Model=Game->GetSubsystem<UColdSteelStatusModel>())
+                        Model->PostNotice(TEXT("构件脱落"),FString::Printf(TEXT("%s 炉内冶炼随炉丢失（背包已满）"),*Label),FString(),3.2f);
+            }
+        }
         AActor* Piece=PrefabActors.FindRef(Anchor).Get();
+        // 审计 W3（2026-09-23）：记录里还有这件构件、占位 Actor 却已经没了（外部销毁/GC 边界），
+        // 原来会**无声**走完"删记录+清占格"——玩家只看到构件凭空消失。现在点名记日志。
+        if(!Piece)UE_LOG(LogTemp,Error,TEXT("PREFAB_DROP %s @格(%d,%d,%d) 占位 Actor 已缺失 · 仅清理记录"),
+            *Label,Anchor.X,Anchor.Y,Anchor.Z);
         auto* Placed=Piece?Cast<AVoxelBuildPrefabActor>(Piece):nullptr;
         const bool bFalling=Placed&&Placed->BeginFall(Definition?Definition->Mesh.LoadSynchronous():nullptr,8.f);
         if(Piece&&!bFalling)Piece->Destroy();
@@ -226,6 +245,10 @@ void AVoxelBuildWorld::VerifyPrefabSupport(const TArray<FVoxelEditCell>& Edit)
     for(const FVoxelBuildPrefabInstance& Entry:Prefabs)
         if(Drop.Contains(Entry.Cell)){FillPrefabCells(Entry.Cell,Entry.Footprint,Scratch);Vacated.Append(Scratch);}
     Prefabs.RemoveAll([&Drop](const FVoxelBuildPrefabInstance& Entry){return Drop.Contains(Entry.Cell);});
+    // 脱落的高炉连燃料记录一起清（2026-09-24 回头审查）：SetFuel(0) 遇已升级记录会保留等级（为"烧空不丢升级"，
+    // 炉子还在才对），但炉子本体脱落掉出后那条等级记录就成了无主残留——同格重建新炉会白捡旧等级。
+    // 上面退料段已按格退过，这里无差别清掉脱落格的燃料记录；下一行 MarkSaveDirty 顺带落盘。
+    Fuels.RemoveAll([&Drop](const FVoxelFurnaceFuel& E){return Drop.Contains(E.Cell);});
     RefreshPrefabOccupancy();
     // 腾出的格：原本只锚在这件构件上的体素要重判锚定，否则它会继续被当"有地基"撑着（2026-09-19）。
     ReanchorVoxelsAround(Vacated);
@@ -352,6 +375,13 @@ bool AVoxelBuildWorld::RemovePrefab(AActor* Piece)
         return true;
     }
     const FIntVector Cell=Target->AnchorCell();
+    // 高炉拆除特判（2026-09-23 冶炼）：炉内有矿料或存料先退料（完成退产物、未完退原料、燃料折木材）；
+    // 背包放不下就拒绝拆除——与放置"先扣料再提交"同一口径，不静默吞料也不凭空产锭。
+    if(FindSmelting(Cell)||FuelAt(Cell)>0)
+    {
+        FString RefundReason;
+        if(!RefundSmeltingAt(Cell,RefundReason)){Message=RefundReason;return false;}
+    }
     // 先记下这件构件的占格（RemoveAll 之后 Footprint 就没处查了）：拆除后贴着它的体素要重判锚定。
     TArray<FIntVector> Vacated;
     if(const FVoxelBuildPrefabInstance* Entry=Prefabs.FindByPredicate(
@@ -371,9 +401,136 @@ bool AVoxelBuildWorld::RemovePrefab(AActor* Piece)
         PrefabActors.Remove(Cell);
     }
     if(IsValid(Target))Target->Destroy();
+    // 拆除高炉＝这座炉连同它的升级与存料一起作废：清掉燃料记录（含只升过级、存料已烧空/为零的残留记录）。
+    // 退料在上面已按格退过；非炉格的拆除这里 RemoveAll 命中 0，无副作用。
+    Fuels.RemoveAll([Cell](const FVoxelFurnaceFuel& E){return E.Cell==Cell;});
     RefreshPrefabOccupancy();
     ReanchorVoxelsAround(Vacated);
     MarkSaveDirty();
     Message=Prefabs.IsEmpty()?TEXT("已拆除构件 · 正在保存"):FString::Printf(TEXT("已拆除构件 · 余 %d 件 · 正在保存"),Prefabs.Num());
     return true;
+}
+
+// —— 炉内冶炼（VBX v6）：任务与存料都按高炉锚格存，与构件记录同一份存档、同一生命周期。
+// 进度＝已积累秒数＋当前燃烧段（UTC ticks，关闭游戏也计入，但受燃料封顶）；
+// 结算/续燃/添燃料在 UColdSteelSmeltingSystem，这里只存状态。
+
+const FVoxelSmeltingJob* AVoxelBuildWorld::FindSmelting(FIntVector Cell) const
+{
+    const FVoxelSmeltingJob* Job=SmeltingJobs.FindByPredicate([Cell](const FVoxelSmeltingJob& E){return E.Cell==Cell;});
+    return Job&&!Job->Recipe.IsNone()?Job:nullptr;
+}
+
+FVoxelSmeltingJob* AVoxelBuildWorld::FindSmeltingMutable(FIntVector Cell)
+{
+    FVoxelSmeltingJob* Job=SmeltingJobs.FindByPredicate([Cell](const FVoxelSmeltingJob& E){return E.Cell==Cell;});
+    return Job&&!Job->Recipe.IsNone()?Job:nullptr;
+}
+
+bool AVoxelBuildWorld::BeginSmelting(FIntVector Cell,FName Recipe,FString& Reason,int64 Batch)
+{
+    if(!bReady||GetNetMode()!=NM_Standalone){Reason=TEXT("建筑世界未就绪");return false;}
+    const FVoxelBuildPrefabInstance* Piece=Prefabs.FindByPredicate(
+        [Cell](const FVoxelBuildPrefabInstance& E){return E.Cell==Cell;});
+    if(!Piece||Piece->Id!=VoxelSmeltingFurnaceId){Reason=TEXT("目标不是已放置的冶炼高炉");return false;}
+    if(FindSmelting(Cell)){Reason=TEXT("这座高炉正在冶炼");return false;}
+    if(Recipe.IsNone()){Reason=TEXT("冶炼任务无效");return false;}
+    // 以"待燃"落账：是否立刻起燃由系统层 EnsureBurning 按存料决定。
+    FVoxelSmeltingJob& Job=SmeltingJobs.AddDefaulted_GetRef();
+    Job.Cell=Cell;Job.Recipe=Recipe;Job.ProgressSeconds=0;Job.BurnStartTicks=0;
+    Job.BatchCount=FMath::Max<int64>(1,Batch);
+    MarkSaveDirty();
+    return true;
+}
+
+int32 AVoxelBuildWorld::FurnaceLevel(FIntVector Cell) const
+{   return FurnaceUpgradeLevel(Cell,VoxelFurnaceAxisSpeed);   }
+
+namespace { int32 FVoxelFurnaceFuel::* FurnaceLevelField(int32 Axis)
+{   switch(Axis){case VoxelFurnaceAxisFuelCapacity:return &FVoxelFurnaceFuel::FuelLevel;
+    case VoxelFurnaceAxisBatch:return &FVoxelFurnaceFuel::BatchLevel;default:return &FVoxelFurnaceFuel::Level;}   }   }
+
+int32 AVoxelBuildWorld::FurnaceUpgradeLevel(FIntVector Cell,int32 Axis) const
+{
+    const FVoxelFurnaceFuel* Fuel=Fuels.FindByPredicate([Cell](const FVoxelFurnaceFuel& E){return E.Cell==Cell;});
+    return Fuel?FMath::Clamp(Fuel->*FurnaceLevelField(Axis),1,VoxelFurnaceAxisMax(Axis)):1;
+}
+
+void AVoxelBuildWorld::SetFurnaceUpgradeLevel(FIntVector Cell,int32 Axis,int32 Level)
+{
+    Level=FMath::Clamp(Level,1,VoxelFurnaceAxisMax(Axis));   // 燃料仓 6 档、其余 5 档（2026-09-24 数值调参）
+    FVoxelFurnaceFuel* Fuel=Fuels.FindByPredicate([Cell](const FVoxelFurnaceFuel& E){return E.Cell==Cell;});
+    if(!Fuel)
+    {   // 升级可以发生在零存料时：建一条 0 秒记录承载等级（读档过滤认任一轴>1 的记录，不会丢）。
+        FVoxelFurnaceFuel& Created=Fuels.AddDefaulted_GetRef();Created.Cell=Cell;Fuel=&Created;
+    }
+    int32 FVoxelFurnaceFuel::* Field=FurnaceLevelField(Axis);
+    if(Fuel->*Field==Level)return;
+    Fuel->*Field=Level;MarkSaveDirty();
+}
+
+void AVoxelBuildWorld::SetFurnaceLevel(FIntVector Cell,int32 Level)
+{   SetFurnaceUpgradeLevel(Cell,VoxelFurnaceAxisSpeed,Level);   }
+
+bool AVoxelBuildWorld::ClearSmelting(FIntVector Cell)
+{
+    const int32 Removed=SmeltingJobs.RemoveAll([Cell](const FVoxelSmeltingJob& E){return E.Cell==Cell;});
+    if(Removed>0)MarkSaveDirty();
+    return Removed>0;
+}
+
+double AVoxelBuildWorld::FuelAt(FIntVector Cell) const
+{
+    const FVoxelFurnaceFuel* Fuel=Fuels.FindByPredicate([Cell](const FVoxelFurnaceFuel& E){return E.Cell==Cell;});
+    return Fuel?Fuel->FuelSeconds:0.;
+}
+
+void AVoxelBuildWorld::SetFuel(FIntVector Cell,double Seconds)
+{
+    const int32 Index=Fuels.IndexOfByPredicate([Cell](const FVoxelFurnaceFuel& E){return E.Cell==Cell;});
+    if(Seconds<=0)
+    {
+        // 零存料但已升级的炉子：记录要留着承载等级（否则升级随烧空丢失，2026-09-24 排查发现）。
+        // v9 三轴：任一轴升过级都要保记录，不然烧空一次就把那条轴的等级洗掉。
+        if(Index!=INDEX_NONE)
+        {
+            const FVoxelFurnaceFuel& E=Fuels[Index];
+            if(E.Level>1||E.FuelLevel>1||E.BatchLevel>1)
+            {   if(!FMath::IsNearlyEqual(E.FuelSeconds,0.0)){Fuels[Index].FuelSeconds=0;MarkSaveDirty();} return; }
+            Fuels.RemoveAt(Index);MarkSaveDirty();
+        }
+        return;
+    }
+    if(Index!=INDEX_NONE)
+    {
+        if(FMath::IsNearlyEqual(Fuels[Index].FuelSeconds,Seconds))return;   // 值没变就不标脏
+        Fuels[Index].FuelSeconds=Seconds;
+    }
+    else
+    {
+        FVoxelFurnaceFuel& Fuel=Fuels.AddDefaulted_GetRef();
+        Fuel.Cell=Cell;Fuel.FuelSeconds=Seconds;
+    }
+    MarkSaveDirty();
+}
+
+void AVoxelBuildWorld::SetFurnaceFireTicks(FIntVector Cell,int64 Ticks)
+{
+    if(FVoxelFurnaceFuel* Fuel=Fuels.FindByPredicate([Cell](const FVoxelFurnaceFuel& E){return E.Cell==Cell;}))
+        if(Fuel->FireStartTicks!=Ticks){Fuel->FireStartTicks=Ticks;MarkSaveDirty();}
+}
+
+int64 AVoxelBuildWorld::FurnaceFireTicks(FIntVector Cell) const
+{
+    const FVoxelFurnaceFuel* Fuel=Fuels.FindByPredicate([Cell](const FVoxelFurnaceFuel& E){return E.Cell==Cell;});
+    return Fuel?Fuel->FireStartTicks:0;
+}
+
+bool AVoxelBuildWorld::RefundSmeltingAt(FIntVector Cell,FString& Reason)
+{
+    if(!FindSmelting(Cell)&&FuelAt(Cell)<=0)return true;   // 炉内本就没有矿料和存料。
+    UGameInstance* Game=GetWorld()?GetWorld()->GetGameInstance():nullptr;
+    auto* System=Game?Game->GetSubsystem<UColdSteelSmeltingSystem>():nullptr;
+    if(!System){Reason=TEXT("冶炼系统未就绪");return false;}
+    return System->RefundForTeardown(this,Cell,Reason);
 }

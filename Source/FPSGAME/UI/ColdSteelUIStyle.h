@@ -70,11 +70,18 @@ inline constexpr float NavigationDrawerInset=0.f;
     inline const FLinearColor ItemTraitNeutral  = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("697278FF"))); // 其余
 
     FPSGAME_API FSlateBrush RoundedBrush(const FLinearColor& Fill, float Radius, const FLinearColor& Outline = Border, float OutlineWidth = 1.0f);
+    /** 逐角半径版（X=左上 Y=右上 Z=右下 W=左下）：贴缝凸舌只圆外侧两角，圆接缝侧会咬出背景缺口。 */
+    FPSGAME_API FSlateBrush RoundedBrushCorners(const FLinearColor& Fill, const FVector4& CornerRadii, const FLinearColor& Outline = FLinearColor::Transparent, float OutlineWidth = 0.f);
     FPSGAME_API FButtonStyle ButtonStyle(float Scale=1.f);
     // These legacy entry points take Slate points. Screen px -> points: px * .75 / PixelScale.
     FPSGAME_API FSlateFontInfo TextFont(float Size, bool bMedium = false);
     FPSGAME_API FSlateFontInfo NumberFont(float Size, bool bBold = false);
     FPSGAME_API float PixelScale(const UObject* Context);
+    /** 滑移动画统一缓动（2026-09-24 用户"高帧率平滑过渡"）：进度变量仍由 FInterpConstantTo
+     *  驱动（固定时长、帧率无关），渲染位移/透明度按 smoothstep T²(3−2T) 走——起步收尾皆静止、
+     *  中段最快；抽屉、冶炼面板、升级弹层三层共用同一条曲线，骑乘收回仍保持同一取值＝刚体。 */
+    inline float EaseSmooth(float T)
+    {   const float X=FMath::Clamp(T,0.f,1.f);return X*X*(3.f-2.f*X);   }
     // Source cold-steel rarity/processing tokens; keep item semantics shared by UI surfaces.
     FPSGAME_API FLinearColor RarityColor(const FString& Rarity);
     FPSGAME_API FString RarityLabel(const FString& Rarity);

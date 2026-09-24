@@ -1,0 +1,79 @@
+{
+  "Masonry": {
+    "errors_before": 0,
+    "errors_after": 0,
+    "changed": [
+      "AO:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+      "Roughness:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+      "Metallic:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+      "Normal:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_NORMAL: 3>"
+    ],
+    "remaining": []
+  },
+  "Firebrick": {
+    "errors_before": 0,
+    "errors_after": 0,
+    "changed": [
+      "AO:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+      "Roughness:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+      "Metallic:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+      "Normal:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_NORMAL: 3>"
+    ],
+    "remaining": []
+  },
+  "WroughtIron": {
+    "errors_before": 0,
+    "errors_after": 0,
+    "changed": [
+      "AO:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+      "Roughness:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+      "Metallic:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+      "Normal:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_NORMAL: 3>"
+    ],
+    "remaining": []
+  },
+  "ClayLuting": {
+    "errors_before": 0,
+    "errors_after": 0,
+    "changed": [
+      "AO:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+      "Roughness:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+      "Metallic:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+      "Normal:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_NORMAL: 3>"
+    ],
+    "remaining": []
+  },
+  "SlagLining": {
+    "errors_before": 0,
+    "errors_after": 0,
+    "changed": [
+      "AO:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+      "Roughness:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+      "Metallic:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+      "Normal:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_NORMAL: 3>"
+    ],
+    "remaining": []
+  },
+  "EmberBed": {
+    "errors_before": 0,
+    "errors_after": 0,
+    "changed": [
+      "AO:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+      "Roughness:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+      "Metallic:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+      "Normal:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_NORMAL: 3>"
+    ],
+    "remaining": []
+  },
+  "OreLump": {
+    "errors_before": 0,
+    "errors_after": 0,
+    "changed": [
+      "AO:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+      "Roughness:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+      "Metallic:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+      "Normal:<MaterialSamplerType.SAMPLERTYPE_LINEAR_COLOR: 6>-><MaterialSamplerType.SAMPLERTYPE_NORMAL: 3>"
+    ],
+    "remaining": []
+  }
+}

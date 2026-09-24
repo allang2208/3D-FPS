@@ -13,6 +13,7 @@
 - [建筑面板冷钢审计与修复（分类／完整装配预览／字体／详情浮窗）](building-panel-cold-steel-audit-20260919.md)
 - [建筑面板统一 SKILL 标准](../../skills/ue5-ui-umg-slate/references/building-panel.md)
 - [建筑预览完整居中与名称横排](building-panel-preview-layout-20260919.md)
+- [冶炼面板规划与实现记录（高炉 E 交互 · 背包左侧半宽侧板 · 真实时间矿→锭）](smelting-panel-plan-20260923.md)
 - [UE UI 技能与复用经验](../../skills/ue5-ui-umg-slate/SKILL.md)
 - [面板工作流与废案归档记录](panel-workflow-archive-20260913.md)
 - [装备／背包图标修复经验](inventory-icons-20260913.md)

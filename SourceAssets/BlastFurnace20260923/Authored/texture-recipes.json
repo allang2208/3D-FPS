@@ -1,0 +1,142 @@
+{
+  "seed": 20260923,
+  "tileable": true,
+  "generator": "prepare_furnace_textures.py",
+  "albedo_encoding": "authored linear, saved as sRGB BaseColor; other channels linear",
+  "materials": {
+    "BlastFurnace_Masonry": {
+      "size": 2048,
+      "relief_texels": 15,
+      "normal_peak_tilt_deg": 82.72,
+      "normal_mean_tilt_deg": 5.38,
+      "base_linear_mean": [
+        0.2203,
+        0.2171,
+        0.2063
+      ],
+      "maps": {
+        "BaseColor": "BlastFurnace_Masonry_BaseColor.png",
+        "Roughness": "BlastFurnace_Masonry_Roughness.png",
+        "Metallic": "BlastFurnace_Masonry_Metallic.png",
+        "Normal": "BlastFurnace_Masonry_Normal.png",
+        "AO": "BlastFurnace_Masonry_AO.png"
+      },
+      "content_hash": "b90b187d11c7c43615361f0b1a01fc86c55731392a2c1083e5bd450420575ba4"
+    },
+    "BlastFurnace_Firebrick": {
+      "size": 2048,
+      "relief_texels": 22,
+      "normal_peak_tilt_deg": 85.54,
+      "normal_mean_tilt_deg": 4.24,
+      "base_linear_mean": [
+        0.1962,
+        0.1452,
+        0.105
+      ],
+      "maps": {
+        "BaseColor": "BlastFurnace_Firebrick_BaseColor.png",
+        "Roughness": "BlastFurnace_Firebrick_Roughness.png",
+        "Metallic": "BlastFurnace_Firebrick_Metallic.png",
+        "Normal": "BlastFurnace_Firebrick_Normal.png",
+        "AO": "BlastFurnace_Firebrick_AO.png"
+      },
+      "content_hash": "8db5d0674a7f0863a90f73d332637b1fca81652dcbb4e8c6ae2d46b3319f557b"
+    },
+    "BlastFurnace_WroughtIron": {
+      "size": 1024,
+      "relief_texels": 26,
+      "normal_peak_tilt_deg": 75.07,
+      "normal_mean_tilt_deg": 16.4,
+      "base_linear_mean": [
+        0.3101,
+        0.2702,
+        0.2478
+      ],
+      "maps": {
+        "BaseColor": "BlastFurnace_WroughtIron_BaseColor.png",
+        "Roughness": "BlastFurnace_WroughtIron_Roughness.png",
+        "Metallic": "BlastFurnace_WroughtIron_Metallic.png",
+        "Normal": "BlastFurnace_WroughtIron_Normal.png",
+        "AO": "BlastFurnace_WroughtIron_AO.png"
+      },
+      "content_hash": "05ff0cbfc2eecca0b2b8c83c0b3bc8d34c04519524496c0df48e2a358a796ddf"
+    },
+    "BlastFurnace_ClayLuting": {
+      "size": 1024,
+      "relief_texels": 24,
+      "normal_peak_tilt_deg": 79.54,
+      "normal_mean_tilt_deg": 24.63,
+      "base_linear_mean": [
+        0.1301,
+        0.0834,
+        0.0529
+      ],
+      "maps": {
+        "BaseColor": "BlastFurnace_ClayLuting_BaseColor.png",
+        "Roughness": "BlastFurnace_ClayLuting_Roughness.png",
+        "Metallic": "BlastFurnace_ClayLuting_Metallic.png",
+        "Normal": "BlastFurnace_ClayLuting_Normal.png",
+        "AO": "BlastFurnace_ClayLuting_AO.png"
+      },
+      "content_hash": "ff4f971a41c9e94c3d4fc440d98de3b411c847ba3f170070f6b20559f282d7e8"
+    },
+    "BlastFurnace_SlagLining": {
+      "size": 1024,
+      "relief_texels": 20,
+      "normal_peak_tilt_deg": 58.38,
+      "normal_mean_tilt_deg": 6.95,
+      "base_linear_mean": [
+        0.071,
+        0.0688,
+        0.0666
+      ],
+      "maps": {
+        "BaseColor": "BlastFurnace_SlagLining_BaseColor.png",
+        "Roughness": "BlastFurnace_SlagLining_Roughness.png",
+        "Metallic": "BlastFurnace_SlagLining_Metallic.png",
+        "Normal": "BlastFurnace_SlagLining_Normal.png",
+        "AO": "BlastFurnace_SlagLining_AO.png"
+      },
+      "content_hash": "b18e2b33e0d0d1c8f11ecbd604c61d0533caf8c74cb9cc9a6f186bb56f639d6e"
+    },
+    "BlastFurnace_EmberBed": {
+      "size": 1024,
+      "relief_texels": 18,
+      "normal_peak_tilt_deg": 31.18,
+      "normal_mean_tilt_deg": 8.21,
+      "base_linear_mean": [
+        0.0687,
+        0.0388,
+        0.032
+      ],
+      "maps": {
+        "BaseColor": "BlastFurnace_EmberBed_BaseColor.png",
+        "Roughness": "BlastFurnace_EmberBed_Roughness.png",
+        "Metallic": "BlastFurnace_EmberBed_Metallic.png",
+        "Normal": "BlastFurnace_EmberBed_Normal.png",
+        "AO": "BlastFurnace_EmberBed_AO.png"
+      },
+      "content_hash": "3b3bbb9d8505a511535f5bcfbb2c2c244939e9128a1980c95131665f5735c120"
+    },
+    "BlastFurnace_OreLump": {
+      "size": 1024,
+      "relief_texels": 24,
+      "normal_peak_tilt_deg": 55.05,
+      "normal_mean_tilt_deg": 15.96,
+      "base_linear_mean": [
+        0.0678,
+        0.0576,
+        0.0483
+      ],
+      "maps": {
+        "BaseColor": "BlastFurnace_OreLump_BaseColor.png",
+        "Roughness": "BlastFurnace_OreLump_Roughness.png",
+        "Metallic": "BlastFurnace_OreLump_Metallic.png",
+        "Normal": "BlastFurnace_OreLump_Normal.png",
+        "AO": "BlastFurnace_OreLump_AO.png"
+      },
+      "content_hash": "e8fe9431a6769a104d36790536346725004b7bced30a3ffeed6bba5caead9e6a"
+    }
+  },
+  "runtime_tested": false
+}

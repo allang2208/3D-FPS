@@ -1,0 +1,32 @@
+{
+  "blast_furnace": {
+    "nanite": true,
+    "fallback_percent_triangles": 1.0,
+    "fallback_relative_error": 1.0,
+    "keep_percent_triangles": 1.0,
+    "trim_relative_error": 0.0,
+    "position_precision": -2147483648,
+    "get_num_lods": 1,
+    "get_num_triangles": 4764,
+    "get_num_vertices": 9759,
+    "get_num_uv_channels": "missing",
+    "lod_screen_sizes": [
+      null
+    ]
+  },
+  "square_altar": {
+    "nanite": true,
+    "fallback_percent_triangles": 1.0,
+    "fallback_relative_error": 1.0,
+    "keep_percent_triangles": 1.0,
+    "trim_relative_error": 0.0,
+    "position_precision": -2147483648,
+    "get_num_lods": 1,
+    "get_num_triangles": 2164,
+    "get_num_vertices": 3619,
+    "get_num_uv_channels": "missing",
+    "lod_screen_sizes": [
+      null
+    ]
+  }
+}

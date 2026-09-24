@@ -1,0 +1,30 @@
+{
+  "_comment": "冶炼配方（Docs/UI/smelting-panel-plan-20260923.md 第 5.2 节）。输入输出都是 items.json 的稳定定义 id；进度只在炉内有燃料的燃烧段内按真实世界时间（UTC）推进，关闭游戏也计入。fuel=燃料配置：一件 item 折算 secondsPerUnit 秒燃烧，单炉存料封顶 capacity 秒（存料跨批次保留，拆除按整件折回）。2026-09-24 数值调参：初始容量 600 秒（10 分钟），燃料仓升级每级再乘一档、封顶 6 级=60 分钟。",
+  "fuel": { "item": "wood", "secondsPerUnit": 60.0, "capacity": 600.0 },
+  "recipes": [
+    {
+      "id": "smelt_iron",
+      "input": { "item": "iron_ore", "count": 1 },
+      "output": { "item": "ironIngot", "count": 1 },
+      "seconds": 8.0
+    },
+    {
+      "id": "smelt_copper",
+      "input": { "item": "copper_ore", "count": 1 },
+      "output": { "item": "copperIngot", "count": 1 },
+      "seconds": 10.0
+    },
+    {
+      "id": "smelt_silver",
+      "input": { "item": "silver_ore", "count": 1 },
+      "output": { "item": "silverIngot", "count": 1 },
+      "seconds": 14.0
+    },
+    {
+      "id": "smelt_gold",
+      "input": { "item": "gold_ore", "count": 1 },
+      "output": { "item": "goldIngot", "count": 1 },
+      "seconds": 20.0
+    }
+  ]
+}

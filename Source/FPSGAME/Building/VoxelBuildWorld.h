@@ -21,7 +21,12 @@ class FPSGAME_API UVoxelBuildSave : public USaveGame
 {
     GENERATED_BODY()
 public:
-    UPROPERTY() int32 Version=4;
+    // Version 5 appended furnace smelting jobs (pure wall-clock); version 6 replaces that chunk
+    // with the fuel model (accumulated progress + per-furnace stored fuel); version 7 adds batch
+    // count to jobs and furnace upgrade level to fuel records; version 8 adds the idle-fire clock;
+    // version 9 splits upgrades into three axes (fuel capacity + per-run input cap).
+    // 该默认值是 UHT 字面量，升版本时必须与 VoxelBuildPersistence.h 的 GVoxelBuildSaveVersion 同步。
+    UPROPERTY() int32 Version=9;
     UPROPERTY() int32 CellSizeCm=20;
     UPROPERTY() FString WorldKey;
     UPROPERTY() TArray<FVoxelSavedCell> Cells;
@@ -32,6 +37,11 @@ public:
     UPROPERTY() TSet<FVoxelBuildKey> LegacyProtected;
     // Written by the custom VBX snapshot serializer, not by UObject reflection.
     TArray<FVoxelBuildPrefabInstance> Prefabs;
+    // v6: smelting jobs (fuel model) + per-furnace stored fuel. VBX v6 trailing chunks.
+    TArray<FVoxelSmeltingJob> Smelting;
+    TArray<FVoxelFurnaceFuel> Fuel;
+    // v5 read path only: old wall-clock jobs, migrated during load and never written back as-is.
+    TArray<FVoxelSmeltingJobV5> LegacySmelting;
 };
 
 /** Local single-player world owner. Static voxels are batched; debris uses compound bodies. */
@@ -117,6 +127,41 @@ public:
     UFUNCTION(BlueprintCallable,Category="Building|Prefab") bool PlacePrefab(FName Id,FIntVector Cell,int32 Yaw=0);
     UFUNCTION(BlueprintCallable,Category="Building|Prefab") bool RemovePrefab(AActor* Piece);
     UFUNCTION(BlueprintPure,Category="Building|Prefab") int32 PrefabCount() const {return Prefabs.Num();}
+    /** 该锚格上是否还有一件**在记录里**的构件（落体件不算：它已离开 Prefabs）。 */
+    bool HasPrefabAt(FIntVector Cell) const
+    {return Prefabs.ContainsByPredicate([Cell](const FVoxelBuildPrefabInstance& E){return E.Cell==Cell;});}
+    /**
+     * 炉内冶炼（VBX v6，随构件记录同生共死）：任务与燃料都按高炉锚格存。
+     * 进度模型＝已积累秒数＋当前燃烧段（UTC ticks），燃料耗尽即停炉；
+     * 结算/续燃在 UColdSteelSmeltingSystem（配方与物品侧），这里只存状态。
+     */
+    const FVoxelSmeltingJob* FindSmelting(FIntVector Cell) const;
+    /** 就地结算入口——只应被 UColdSteelSmeltingSystem 的 Settle/AddFuel 使用。 */
+    FVoxelSmeltingJob* FindSmeltingMutable(FIntVector Cell);
+    /** 该锚格上是一件**在记录里**的高炉（Id 匹配稳定键）。燃料/开炉入口用它把关。 */
+    bool IsFurnaceAt(FIntVector Cell) const
+    {return Prefabs.ContainsByPredicate([Cell](const FVoxelBuildPrefabInstance& E){return E.Cell==Cell&&E.Id==VoxelSmeltingFurnaceId;});}
+    /** 结算改写任务字段后标脏存档（FindSmeltingMutable 的写回配套；SetFuel 自带标脏）。 */
+    void MarkSmeltingDirty(){MarkSaveDirty();}
+    bool BeginSmelting(FIntVector Cell,FName Recipe,FString& Reason,int64 Batch=1);
+    /** 高炉升级等级（VBX v7，存在燃料记录里）：无记录＝1 级。速度轴的旧名（大量既有调用）。 */
+    int32 FurnaceLevel(FIntVector Cell) const;
+    /** 写等级（封顶 VoxelFurnaceMaxLevel）；没有记录时创建一条 0 燃料记录承载等级。 */
+    void SetFurnaceLevel(FIntVector Cell,int32 Level);
+    /** 三轴升级等级（VBX v9，轴号见 VoxelFurnaceAxis*）：无记录/未升＝1 级。 */
+    int32 FurnaceUpgradeLevel(FIntVector Cell,int32 Axis) const;
+    void SetFurnaceUpgradeLevel(FIntVector Cell,int32 Axis,int32 Level);
+    bool ClearSmelting(FIntVector Cell);
+    double FuelAt(FIntVector Cell) const;
+    /** 写燃料（秒）；<=0 清除条目。标脏存档。 */
+    void SetFuel(FIntVector Cell,double Seconds);
+    /** 空闲火种段起点（VBX v8，存在燃料记录里）：无记录/火已熄＝0。 */
+    int64 FurnaceFireTicks(FIntVector Cell) const;
+    /** 写火种段起点；仅记录存在时生效（火种随燃料同生共死，不单独标脏——料在烧自然会脏）。 */
+    void SetFurnaceFireTicks(FIntVector Cell,int64 Ticks);
+    /** 拆除前退回炉内矿料与存料（完成退产物、未完退原料，燃料折回木材）；
+     *  false=背包放不下，状态保留、拒绝拆除。 */
+    bool RefundSmeltingAt(FIntVector Cell,FString& Reason);
     /** bSurfaceBacked：本次瞄准命中了竖直表面（壁挂构件用它代替地面/邻接支撑判定）。 */
     bool CanPlacePrefab(FName Id,FIntVector Cell,int32 Yaw,FString& Reason,bool bSurfaceBacked=false) const;
     /** 构件底面下有没有地形（中心＋四角共 5 个探测点，与体素地面锚定同一口径）。 */
@@ -151,6 +196,10 @@ private:
     TMap<FIntVector,FName> Cells;
     TMap<FGuid,FVoxelFreeVolume> FreeVolumes;
     TArray<FVoxelBuildPrefabInstance> Prefabs;
+    /** 炉内冶炼任务（锚格→配方+积累进度+燃烧段），与 Prefabs 同档持久化（VBX v6）。 */
+    TArray<FVoxelSmeltingJob> SmeltingJobs;
+    /** 各炉存料（秒）：跨批次保留，拆除时折回木材退库。 */
+    TArray<FVoxelFurnaceFuel> Fuels;
     TSet<FIntVector> PrefabCells;
     /** 占格 → 所属构件的锚格：支撑判定要区分"这格是别的构件"（含自己的格子）。 */
     TMap<FIntVector,FIntVector> PrefabCellOwner;
@@ -187,6 +236,10 @@ private:
     void TickFragments();
     void TickDamage();
     void TickPersistence(bool bFlush=false);
+    /** 冶炼后台落账（2026-09-24 排查"燃料不随时间减少"）：挂钟结算不能只活在面板 Tick 里，
+     *  关着背包也要按真实时间烧料/推进并标脏存档（"关闭游戏也计入"承诺的兑现处）。 */
+    void TickSmelting(float Delta);
+    float SmeltingSettleAccum=0.f;
     void MarkSaveDirty();
     UVoxelBuildSave* MakeSnapshot() const;
     void EnqueueFragment(FVoxelFragmentSave State,TArray<FVoxelBuildKey> Sources={},FGuid Replaces={},bool bFailureDebris=false);

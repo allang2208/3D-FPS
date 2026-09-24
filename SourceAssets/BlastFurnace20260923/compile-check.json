@@ -1,0 +1,163 @@
+{
+  "Masonry": {
+    "compile_errors": [
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Normal for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Masonry_Normal.T_BlastFurnace_Masonry_Normal",
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Masks for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Masonry_AO.T_BlastFurnace_Masonry_AO",
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Masks for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Masonry_Metallic.T_BlastFurnace_Masonry_Metallic",
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Masks for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Masonry_Roughness.T_BlastFurnace_Masonry_Roughness"
+    ],
+    "expression_count": 16,
+    "inputs": {
+      "BaseColor": {
+        "node": "MaterialExpressionMultiply"
+      },
+      "Roughness": {
+        "node": "MaterialExpressionMultiply"
+      },
+      "Normal": {
+        "node": "MaterialExpressionAdd"
+      },
+      "Metallic": {
+        "node": "MaterialExpressionMultiply"
+      }
+    }
+  },
+  "Firebrick": {
+    "compile_errors": [
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Normal for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Firebrick_Normal.T_BlastFurnace_Firebrick_Normal",
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Masks for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Firebrick_AO.T_BlastFurnace_Firebrick_AO",
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Masks for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Firebrick_Metallic.T_BlastFurnace_Firebrick_Metallic",
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Masks for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Firebrick_Roughness.T_BlastFurnace_Firebrick_Roughness"
+    ],
+    "expression_count": 16,
+    "inputs": {
+      "BaseColor": {
+        "node": "MaterialExpressionMultiply"
+      },
+      "Roughness": {
+        "node": "MaterialExpressionMultiply"
+      },
+      "Normal": {
+        "node": "MaterialExpressionAdd"
+      },
+      "Metallic": {
+        "node": "MaterialExpressionMultiply"
+      }
+    }
+  },
+  "WroughtIron": {
+    "compile_errors": [
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Normal for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_WroughtIron_Normal.T_BlastFurnace_WroughtIron_Normal",
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Masks for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_WroughtIron_AO.T_BlastFurnace_WroughtIron_AO",
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Masks for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_WroughtIron_Metallic.T_BlastFurnace_WroughtIron_Metallic",
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Masks for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_WroughtIron_Roughness.T_BlastFurnace_WroughtIron_Roughness"
+    ],
+    "expression_count": 16,
+    "inputs": {
+      "BaseColor": {
+        "node": "MaterialExpressionMultiply"
+      },
+      "Roughness": {
+        "node": "MaterialExpressionMultiply"
+      },
+      "Normal": {
+        "node": "MaterialExpressionAdd"
+      },
+      "Metallic": {
+        "node": "MaterialExpressionMultiply"
+      }
+    }
+  },
+  "ClayLuting": {
+    "compile_errors": [
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Normal for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_ClayLuting_Normal.T_BlastFurnace_ClayLuting_Normal",
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Masks for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_ClayLuting_AO.T_BlastFurnace_ClayLuting_AO",
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Masks for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_ClayLuting_Metallic.T_BlastFurnace_ClayLuting_Metallic",
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Masks for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_ClayLuting_Roughness.T_BlastFurnace_ClayLuting_Roughness"
+    ],
+    "expression_count": 16,
+    "inputs": {
+      "BaseColor": {
+        "node": "MaterialExpressionMultiply"
+      },
+      "Roughness": {
+        "node": "MaterialExpressionMultiply"
+      },
+      "Normal": {
+        "node": "MaterialExpressionAdd"
+      },
+      "Metallic": {
+        "node": "MaterialExpressionMultiply"
+      }
+    }
+  },
+  "SlagLining": {
+    "compile_errors": [
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Normal for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_SlagLining_Normal.T_BlastFurnace_SlagLining_Normal",
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Masks for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_SlagLining_AO.T_BlastFurnace_SlagLining_AO",
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Masks for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_SlagLining_Metallic.T_BlastFurnace_SlagLining_Metallic",
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Masks for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_SlagLining_Roughness.T_BlastFurnace_SlagLining_Roughness"
+    ],
+    "expression_count": 16,
+    "inputs": {
+      "BaseColor": {
+        "node": "MaterialExpressionMultiply"
+      },
+      "Roughness": {
+        "node": "MaterialExpressionMultiply"
+      },
+      "Normal": {
+        "node": "MaterialExpressionAdd"
+      },
+      "Metallic": {
+        "node": "MaterialExpressionMultiply"
+      }
+    }
+  },
+  "EmberBed": {
+    "compile_errors": [
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Normal for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_EmberBed_Normal.T_BlastFurnace_EmberBed_Normal",
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Masks for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_EmberBed_AO.T_BlastFurnace_EmberBed_AO",
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Masks for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_EmberBed_Metallic.T_BlastFurnace_EmberBed_Metallic",
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Masks for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_EmberBed_Roughness.T_BlastFurnace_EmberBed_Roughness"
+    ],
+    "expression_count": 16,
+    "inputs": {
+      "BaseColor": {
+        "node": "MaterialExpressionMultiply"
+      },
+      "Roughness": {
+        "node": "MaterialExpressionMultiply"
+      },
+      "Normal": {
+        "node": "MaterialExpressionAdd"
+      },
+      "Metallic": {
+        "node": "MaterialExpressionMultiply"
+      }
+    }
+  },
+  "OreLump": {
+    "compile_errors": [
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Normal for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_OreLump_Normal.T_BlastFurnace_OreLump_Normal",
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Masks for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_OreLump_AO.T_BlastFurnace_OreLump_AO",
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Masks for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_OreLump_Metallic.T_BlastFurnace_OreLump_Metallic",
+      "(Node TextureSampleParameter2D) Sampler type is Linear Color, should be Masks for /Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_OreLump_Roughness.T_BlastFurnace_OreLump_Roughness"
+    ],
+    "expression_count": 16,
+    "inputs": {
+      "BaseColor": {
+        "node": "MaterialExpressionMultiply"
+      },
+      "Roughness": {
+        "node": "MaterialExpressionMultiply"
+      },
+      "Normal": {
+        "node": "MaterialExpressionAdd"
+      },
+      "Metallic": {
+        "node": "MaterialExpressionMultiply"
+      }
+    }
+  }
+}

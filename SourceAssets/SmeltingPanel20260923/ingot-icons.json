@@ -1,0 +1,26 @@
+[
+  {
+    "id": "ironIngot",
+    "target": "Content\\ColdSteelData\\Icons\\ironIngot.png",
+    "source": "generated: SourceAssets/SmeltingPanel20260923/make_ingot_icons.py",
+    "note": "占位图标（规划文档 20260923 第 1 节），正式渲染图后续按 ue5-item-asset-workflow 替换"
+  },
+  {
+    "id": "copperIngot",
+    "target": "Content\\ColdSteelData\\Icons\\copperIngot.png",
+    "source": "generated: SourceAssets/SmeltingPanel20260923/make_ingot_icons.py",
+    "note": "占位图标（规划文档 20260923 第 1 节），正式渲染图后续按 ue5-item-asset-workflow 替换"
+  },
+  {
+    "id": "silverIngot",
+    "target": "Content\\ColdSteelData\\Icons\\silverIngot.png",
+    "source": "generated: SourceAssets/SmeltingPanel20260923/make_ingot_icons.py",
+    "note": "占位图标（规划文档 20260923 第 1 节），正式渲染图后续按 ue5-item-asset-workflow 替换"
+  },
+  {
+    "id": "goldIngot",
+    "target": "Content\\ColdSteelData\\Icons\\goldIngot.png",
+    "source": "generated: SourceAssets/SmeltingPanel20260923/make_ingot_icons.py",
+    "note": "占位图标（规划文档 20260923 第 1 节），正式渲染图后续按 ue5-item-asset-workflow 替换"
+  }
+]

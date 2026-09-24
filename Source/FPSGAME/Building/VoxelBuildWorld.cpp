@@ -6,6 +6,8 @@
 #include "VoxelCollapseFragment.h"
 #include "VoxelBuildPrefabActor.h"
 #include "VoxelBuildGrounding.h"
+#include "SmeltingSystem.h"
+#include "Engine/GameInstance.h"
 
 #include "Components/DynamicMeshComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -162,8 +164,9 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* 
                 return false;
             }
         }
-        if(LoadedData->Version<1||LoadedData->Version>4||LoadedData->CellSizeCm!=20||LoadedData->WorldKey!=WorldKey)
-        {Message=TEXT("建筑存档版本不兼容，已保留原档");return false;}
+        // 上界引用单一版本常量（别再写死数字：v8/v9 时这里落后一档，把好档误判成不兼容）。
+        if(LoadedData->Version<1||LoadedData->Version>GVoxelBuildSaveVersion||LoadedData->CellSizeCm!=20||LoadedData->WorldKey!=WorldKey)
+        {Message=FString::Printf(TEXT("建筑存档版本不兼容（存档 v%d，本程序支持 v1-v%d），已保留原档"),LoadedData->Version,GVoxelBuildSaveVersion);return false;}
         // 审计 C8：原来「单条坏记录」会让整份存档加载失败（一条未知材质、一个 NaN 就全废）。
         // 材质 ID 是稳定存档键、将来可能新增或改名（工作流第 4 节），所以这条是可预期会踩到的：
         // 删掉一种材质后，所有用到它的旧档都会整份拒绝。改为照构件的既有口径——**跳过坏记录并计数**，
@@ -214,10 +217,62 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* 
         {
             // Footprints come from the palette so edited component assets stay authoritative.
             const FVoxelBuildPrefab* Definition=Palette->FindComponent(Piece.Id);
-            if(!Definition||Piece.Yaw<0||Piece.Yaw>3||!Definition->Mesh.LoadSynchronous())
+            if(!Definition||Piece.Yaw<0||Piece.Yaw>3||(Definition->ActorClass.IsNull()&&!Definition->Mesh.LoadSynchronous()))
             {UE_LOG(LogTemp,Warning,TEXT("Voxel structure skipped an unknown prefab piece: %s"),*Piece.Id.ToString());continue;}
             Piece.Footprint=AVoxelBuildPrefabActor::RotatedFootprint(Definition->Footprint,Piece.Yaw);
             Prefabs.Add(Piece);
+        }
+        // VBX v6：燃料模型的炉内状态——任务（锚格→配方+积累秒数+燃烧段）与存料（锚格→燃料秒）
+        // 分开两张表。孤儿（锚格上已不是高炉记录）与坏字段逐条丢弃并记日志，与"未知构件跳过不整废"
+        // 的审计 C8 口径一致；老档（v≤4）此段为空＝没有炉子在炼。
+        auto IsFurnaceCell=[&](const FIntVector& Cell)
+        {
+            const FVoxelBuildPrefabInstance* Piece=Prefabs.FindByPredicate(
+                [Cell](const FVoxelBuildPrefabInstance& E){return E.Cell==Cell;});
+            return Piece&&Piece->Id==VoxelSmeltingFurnaceId;
+        };
+        for(const FVoxelSmeltingJob& Job:LoadedData->Smelting)
+        {
+            if(!IsFurnaceCell(Job.Cell)||Job.Recipe.IsNone()||Job.ProgressSeconds<0||Job.BurnStartTicks<0)
+            {UE_LOG(LogTemp,Warning,TEXT("Voxel structure skipped an orphan smelting job @格(%d,%d,%d)"),
+                Job.Cell.X,Job.Cell.Y,Job.Cell.Z);continue;}
+            SmeltingJobs.Add(Job);
+        }
+        for(const FVoxelFurnaceFuel& Fuel:LoadedData->Fuel)
+        {
+            // 燃料独立于任务存在：可以先存料后开炉；0/负数与孤儿格丢弃。
+            // v7 起等级住在这条记录里，v9 变三轴（速度/燃料仓/批量）：零存料但任一轴已升级的记录必须保留。
+            if(!IsFurnaceCell(Fuel.Cell)||(Fuel.FuelSeconds<=0&&Fuel.Level<=1&&Fuel.FuelLevel<=1&&Fuel.BatchLevel<=1))
+            {UE_LOG(LogTemp,Warning,TEXT("Voxel structure skipped an orphan furnace fuel @格(%d,%d,%d)"),
+                Fuel.Cell.X,Fuel.Cell.Y,Fuel.Cell.Z);continue;}
+            Fuels.Add(Fuel);
+        }
+        // VBX v5（纯挂钟任务）迁移：把挂钟已经走到的秒数全额折进积累进度（封顶配方秒数），
+        // 统一按"停炉待燃"落账（燃烧段清零、燃料为零）——玩家添燃料后续炼。配方下架无法结算 → 丢弃并记日志。
+        if(!LoadedData->LegacySmelting.IsEmpty())
+        {
+            UColdSteelSmeltingSystem* Smelting=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelSmeltingSystem>():nullptr;
+            if(!Smelting)
+            {UE_LOG(LogTemp,Warning,TEXT("Voxel structure kept %d v5 smelting job(s) unmigrated: smelting subsystem unavailable"),
+                LoadedData->LegacySmelting.Num());}   // UE_LOG 带 if 结构：else 分支两侧必须加花括号
+            else
+            {
+                const int64 NowTicks=FDateTime::UtcNow().GetTicks();
+                for(const FVoxelSmeltingJobV5& Legacy:LoadedData->LegacySmelting)
+                {
+                    const FColdSteelSmeltingRecipe* Recipe=Smelting->Find(Legacy.Recipe);
+                    if(!IsFurnaceCell(Legacy.Cell)||!Recipe||Legacy.StartTicks<=0||Legacy.StartTicks>NowTicks)
+                    {UE_LOG(LogTemp,Warning,TEXT("Voxel structure dropped a v5 smelting job @格(%d,%d,%d)"),
+                        Legacy.Cell.X,Legacy.Cell.Y,Legacy.Cell.Z);continue;}
+                    const double Elapsed=static_cast<double>(NowTicks-Legacy.StartTicks)/
+                        static_cast<double>(ETimespan::TicksPerSecond);
+                    FVoxelSmeltingJob Migrated;
+                    Migrated.Cell=Legacy.Cell;Migrated.Recipe=Legacy.Recipe;
+                    Migrated.ProgressSeconds=FMath::Clamp(Elapsed,0.,Recipe->Seconds);
+                    Migrated.BurnStartTicks=0;   // 待燃：燃料模型下老档不白送火
+                    SmeltingJobs.Add(Migrated);
+                }
+            }
         }
         CellDamage=LoadedData->Damage;LegacyProtected=LoadedData->LegacyProtected;
         // 审计 C8：跳过的记录在这里汇总一行日志（材质名去重），并在状态行写明跳过了多少。
@@ -513,7 +568,24 @@ void AVoxelBuildWorld::Tick(float Delta)
 {
     Super::Tick(Delta);if(!bReady||bClosing)return;
     for(const auto& E:Fragments)if(IsValid(E.Value))E.Value->SampleVelocity();
-    TickDamage();TickMeshes();TickFragments();TickStructure();TickPersistence();
+    TickDamage();TickMeshes();TickFragments();TickStructure();TickPersistence();TickSmelting(Delta);
+}
+
+void AVoxelBuildWorld::TickSmelting(float Delta)
+{
+    if(SmeltingJobs.Num()<=0&&Fuels.IsEmpty())return;
+    UGameInstance* GI=GetGameInstance();
+    UColdSteelSmeltingSystem* System=GI?GI->GetSubsystem<UColdSteelSmeltingSystem>():nullptr;
+    if(!System)return;
+    SmeltingSettleAccum+=Delta;
+    if(SmeltingSettleAccum<.1f)return;   // 与面板同频 10Hz；落账幂等，两边交错不会双计
+    SmeltingSettleAccum=0.f;
+    for(const FVoxelSmeltingJob& Job:SmeltingJobs)System->SettleFurnace(this,Job.Cell);   // 只改字段不动数组
+    // 空闲炉也在烧料（v8 火种）——但先取格快照再逐个结算：SettleFurnace 落账会把"烧尽且零升级"的
+    // 燃料记录整条移除（SetFuel(0)→RemoveAt），直接引用式遍历 Fuels 就是迭代器失效（2026-09-24 回头审查发现）。
+    TArray<FIntVector> IdleCells;IdleCells.Reserve(Fuels.Num());
+    for(const FVoxelFurnaceFuel& F:Fuels)if(F.FuelSeconds>0)IdleCells.Add(F.Cell);
+    for(const FIntVector& Cell:IdleCells)System->SettleFurnace(this,Cell);
 }
 
 void AVoxelBuildWorld::EndPlay(const EEndPlayReason::Type Reason)

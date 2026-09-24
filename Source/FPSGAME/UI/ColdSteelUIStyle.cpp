@@ -38,6 +38,11 @@ FSlateBrush ColdSteelUI::RoundedBrush(const FLinearColor& Fill, float Radius, co
     return FSlateRoundedBoxBrush(Fill, Radius, Outline, OutlineWidth);
 }
 
+FSlateBrush ColdSteelUI::RoundedBrushCorners(const FLinearColor& Fill, const FVector4& CornerRadii, const FLinearColor& Outline, float OutlineWidth)
+{
+    return FSlateRoundedBoxBrush(Fill, CornerRadii, Outline, OutlineWidth);
+}
+
 FButtonStyle ColdSteelUI::ButtonStyle(float Scale)
 {
     return FButtonStyle().SetNormal(RoundedBrush(ButtonNormal,ButtonRadius/Scale,Border,1/Scale))

@@ -1,0 +1,510 @@
+{
+  "mesh": {
+    "asset": "/Game/Props/BlastFurnace20260923/SM_BlastFurnace.SM_BlastFurnace",
+    "slots": [
+      {
+        "slot": "BlastFurnace_Masonry",
+        "material": "/Game/Props/BlastFurnace20260923/Materials/M_BlastFurnace_Masonry.M_BlastFurnace_Masonry"
+      },
+      {
+        "slot": "BlastFurnace_Firebrick",
+        "material": "/Game/Props/BlastFurnace20260923/Materials/M_BlastFurnace_Firebrick.M_BlastFurnace_Firebrick"
+      },
+      {
+        "slot": "BlastFurnace_WroughtIron",
+        "material": "/Game/Props/BlastFurnace20260923/Materials/M_BlastFurnace_WroughtIron.M_BlastFurnace_WroughtIron"
+      },
+      {
+        "slot": "BlastFurnace_ClayLuting",
+        "material": "/Game/Props/BlastFurnace20260923/Materials/M_BlastFurnace_ClayLuting.M_BlastFurnace_ClayLuting"
+      },
+      {
+        "slot": "BlastFurnace_SlagLining",
+        "material": "/Game/Props/BlastFurnace20260923/Materials/M_BlastFurnace_SlagLining.M_BlastFurnace_SlagLining"
+      },
+      {
+        "slot": "BlastFurnace_EmberBed",
+        "material": "/Game/Props/BlastFurnace20260923/Materials/M_BlastFurnace_EmberBed.M_BlastFurnace_EmberBed"
+      },
+      {
+        "slot": "BlastFurnace_OreLump",
+        "material": "/Game/Props/BlastFurnace20260923/Materials/M_BlastFurnace_OreLump.M_BlastFurnace_OreLump"
+      }
+    ],
+    "nanite": true
+  },
+  "materials": {
+    "Masonry": {
+      "class": "Material",
+      "textures": {
+        "BaseColor": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Masonry_BaseColor.T_BlastFurnace_Masonry_BaseColor",
+        "AO": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Masonry_AO.T_BlastFurnace_Masonry_AO",
+        "Roughness": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Masonry_Roughness.T_BlastFurnace_Masonry_Roughness",
+        "Metallic": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Masonry_Metallic.T_BlastFurnace_Masonry_Metallic",
+        "Normal": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Masonry_Normal.T_BlastFurnace_Masonry_Normal"
+      }
+    },
+    "Firebrick": {
+      "class": "Material",
+      "textures": {
+        "BaseColor": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Firebrick_BaseColor.T_BlastFurnace_Firebrick_BaseColor",
+        "AO": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Firebrick_AO.T_BlastFurnace_Firebrick_AO",
+        "Roughness": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Firebrick_Roughness.T_BlastFurnace_Firebrick_Roughness",
+        "Metallic": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Firebrick_Metallic.T_BlastFurnace_Firebrick_Metallic",
+        "Normal": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Firebrick_Normal.T_BlastFurnace_Firebrick_Normal"
+      }
+    },
+    "WroughtIron": {
+      "class": "Material",
+      "textures": {
+        "BaseColor": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_WroughtIron_BaseColor.T_BlastFurnace_WroughtIron_BaseColor",
+        "AO": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_WroughtIron_AO.T_BlastFurnace_WroughtIron_AO",
+        "Roughness": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_WroughtIron_Roughness.T_BlastFurnace_WroughtIron_Roughness",
+        "Metallic": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_WroughtIron_Metallic.T_BlastFurnace_WroughtIron_Metallic",
+        "Normal": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_WroughtIron_Normal.T_BlastFurnace_WroughtIron_Normal"
+      }
+    },
+    "ClayLuting": {
+      "class": "Material",
+      "textures": {
+        "BaseColor": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_ClayLuting_BaseColor.T_BlastFurnace_ClayLuting_BaseColor",
+        "AO": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_ClayLuting_AO.T_BlastFurnace_ClayLuting_AO",
+        "Roughness": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_ClayLuting_Roughness.T_BlastFurnace_ClayLuting_Roughness",
+        "Metallic": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_ClayLuting_Metallic.T_BlastFurnace_ClayLuting_Metallic",
+        "Normal": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_ClayLuting_Normal.T_BlastFurnace_ClayLuting_Normal"
+      }
+    },
+    "SlagLining": {
+      "class": "Material",
+      "textures": {
+        "BaseColor": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_SlagLining_BaseColor.T_BlastFurnace_SlagLining_BaseColor",
+        "AO": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_SlagLining_AO.T_BlastFurnace_SlagLining_AO",
+        "Roughness": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_SlagLining_Roughness.T_BlastFurnace_SlagLining_Roughness",
+        "Metallic": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_SlagLining_Metallic.T_BlastFurnace_SlagLining_Metallic",
+        "Normal": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_SlagLining_Normal.T_BlastFurnace_SlagLining_Normal"
+      }
+    },
+    "EmberBed": {
+      "class": "Material",
+      "textures": {
+        "BaseColor": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_EmberBed_BaseColor.T_BlastFurnace_EmberBed_BaseColor",
+        "AO": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_EmberBed_AO.T_BlastFurnace_EmberBed_AO",
+        "Roughness": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_EmberBed_Roughness.T_BlastFurnace_EmberBed_Roughness",
+        "Metallic": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_EmberBed_Metallic.T_BlastFurnace_EmberBed_Metallic",
+        "Normal": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_EmberBed_Normal.T_BlastFurnace_EmberBed_Normal"
+      }
+    },
+    "OreLump": {
+      "class": "Material",
+      "textures": {
+        "BaseColor": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_OreLump_BaseColor.T_BlastFurnace_OreLump_BaseColor",
+        "AO": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_OreLump_AO.T_BlastFurnace_OreLump_AO",
+        "Roughness": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_OreLump_Roughness.T_BlastFurnace_OreLump_Roughness",
+        "Metallic": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_OreLump_Metallic.T_BlastFurnace_OreLump_Metallic",
+        "Normal": "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_OreLump_Normal.T_BlastFurnace_OreLump_Normal"
+      }
+    }
+  },
+  "textures": {
+    "BaseColor": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": true,
+      "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+    },
+    "AO": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "Roughness": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "Metallic": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "Normal": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Masonry_BaseColor": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": true,
+      "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Masonry_Roughness": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Masonry_Metallic": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Masonry_Normal": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Masonry_AO": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Firebrick_BaseColor": {
+      "loaded": true,
+      "size": [
+        1700,
+        845
+      ],
+      "placeholder": false,
+      "srgb": true,
+      "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Firebrick_Roughness": {
+      "loaded": true,
+      "size": [
+        1700,
+        845
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Firebrick_Metallic": {
+      "loaded": true,
+      "size": [
+        1700,
+        845
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Firebrick_Normal": {
+      "loaded": true,
+      "size": [
+        1700,
+        845
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_Firebrick_AO": {
+      "loaded": true,
+      "size": [
+        1700,
+        845
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_WroughtIron_BaseColor": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": true,
+      "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_WroughtIron_Roughness": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_WroughtIron_Metallic": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_WroughtIron_Normal": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_WroughtIron_AO": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_ClayLuting_BaseColor": {
+      "loaded": true,
+      "size": [
+        1024,
+        1024
+      ],
+      "placeholder": false,
+      "srgb": true,
+      "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_ClayLuting_Roughness": {
+      "loaded": true,
+      "size": [
+        1024,
+        1024
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_ClayLuting_Metallic": {
+      "loaded": true,
+      "size": [
+        1024,
+        1024
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_ClayLuting_Normal": {
+      "loaded": true,
+      "size": [
+        1024,
+        1024
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_ClayLuting_AO": {
+      "loaded": true,
+      "size": [
+        1024,
+        1024
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_SlagLining_BaseColor": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": true,
+      "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_SlagLining_Roughness": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_SlagLining_Metallic": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_SlagLining_Normal": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_SlagLining_AO": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_EmberBed_BaseColor": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": true,
+      "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_EmberBed_Roughness": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_EmberBed_Metallic": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_EmberBed_Normal": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_EmberBed_AO": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_OreLump_BaseColor": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": true,
+      "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_OreLump_Roughness": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_OreLump_Metallic": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_OreLump_Normal": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>"
+    },
+    "/Game/Props/BlastFurnace20260923/Textures/T_BlastFurnace_OreLump_AO": {
+      "loaded": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "placeholder": false,
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>"
+    }
+  }
+}

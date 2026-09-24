@@ -1,0 +1,25 @@
+{
+  "mm_per_pixel": 2.0968,
+  "measurements": [
+    {
+      "source": "elevation_front_clay.png",
+      "annotated": "annotated_side_Y100.png",
+      "measured_width_cm": 99.81,
+      "measured_height_cm": 220.16,
+      "contract_width_cm": 100.0,
+      "contract_height_cm": 220.0,
+      "width_error_cm": -0.19,
+      "height_error_cm": 0.16
+    },
+    {
+      "source": "elevation_side_clay.png",
+      "annotated": "annotated_front_X120.png",
+      "measured_width_cm": 119.94,
+      "measured_height_cm": 220.16,
+      "contract_width_cm": 120.0,
+      "contract_height_cm": 220.0,
+      "width_error_cm": -0.06,
+      "height_error_cm": 0.16
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "source_pack": "Sharur's Normandy Village + PCG Plants (Fab)",
+  "packing": {
+    "RHAOM.R": "roughness",
+    "RHAOM.G": "height",
+    "RHAOM.B": "ambient occlusion",
+    "RHAOM.A": "metallic"
+  },
+  "materials": {
+    "BlastFurnace_Firebrick": {
+      "source_base": "T_HB_Wall4x4_00A_BaseColor",
+      "source_normal": "T_HB_Wall4x4_00A_Normal",
+      "source_rhaom": "T_HB_Wall4x4_00A_RHAOM",
+      "crop": [
+        60,
+        2400,
+        3460,
+        4090
+      ],
+      "output_size": [
+        1700,
+        845
+      ],
+      "base_linear_mean": [
+        0.0991,
+        0.0715,
+        0.0514
+      ],
+      "metallic_mean": 0.0,
+      "notes": []
+    },
+    "BlastFurnace_Masonry": {
+      "source_base": "T_StoneSurface_01A_BaseColor",
+      "source_normal": "T_StoneSurface_01A_Normal",
+      "source_rhaom": "T_StoneSurface_01A_RHAOM",
+      "crop": null,
+      "output_size": [
+        2048,
+        2048
+      ],
+      "base_linear_mean": [
+        0.1595,
+        0.1468,
+        0.1345
+      ],
+      "metallic_mean": 0.0,
+      "notes": []
+    },
+    "BlastFurnace_WroughtIron": {
+      "source_base": "T_MetalRust_00A_BaseColor",
+      "source_normal": "T_MetalRust_00A_Normal",
+      "source_rhaom": "T_MetalRust_00A_RHAOM",
+      "crop": null,
+      "output_size": [
+        2048,
+        2048
+      ],
+      "base_linear_mean": [
+        0.1,
+        0.0655,
+        0.0527
+      ],
+      "metallic_mean": 0.0703,
+      "notes": [
+        "desaturated 0.62 and darkened 0.72 like the tool materials",
+        "metallic from RHAOM alpha"
+      ]
+    },
+    "BlastFurnace_ClayLuting": {
+      "source_base": "T_SoilSurface_02A_BaseColor",
+      "source_normal": "T_SoilSurface_02A_Normal",
+      "source_rhaom": "T_SoilSurface_02A_RHAOM",
+      "crop": null,
+      "output_size": [
+        1024,
+        1024
+      ],
+      "base_linear_mean": [
+        0.0757,
+        0.052,
+        0.032
+      ],
+      "metallic_mean": 0.0,
+      "notes": []
+    },
+    "BlastFurnace_SlagLining": {
+      "source_base": "T_LC_BasaltCliff_00A_Albedo",
+      "source_normal": "T_LC_BasaltCliff_00A_Normal",
+      "source_rhaom": "T_LC_BasaltCliff_00A_RHAOM",
+      "crop": null,
+      "output_size": [
+        2048,
+        2048
+      ],
+      "base_linear_mean": [
+        0.1874,
+        0.1631,
+        0.1207
+      ],
+      "metallic_mean": 0.0,
+      "notes": [
+        "exposure 0.72"
+      ]
+    },
+    "BlastFurnace_EmberBed": {
+      "source_base": "T_LC_BasaltCliffCracked_00A_Albedo",
+      "source_normal": "T_LC_BasaltCliffCracked_00A_Normal",
+      "source_rhaom": "T_LC_BasaltCliffCracked_00A_RHAOM",
+      "crop": null,
+      "output_size": [
+        2048,
+        2048
+      ],
+      "base_linear_mean": [
+        0.0847,
+        0.0709,
+        0.0467
+      ],
+      "metallic_mean": 0.0,
+      "notes": [
+        "exposure 0.55"
+      ]
+    },
+    "BlastFurnace_OreLump": {
+      "source_base": "T_LC_RockBasaltLichen_00A_Albedo",
+      "source_normal": "T_LC_RockBasaltLichen_00A_Normal",
+      "source_rhaom": "T_LC_RockBasaltLichen_00A_RHAOM",
+      "crop": null,
+      "output_size": [
+        2048,
+        2048
+      ],
+      "base_linear_mean": [
+        0.1736,
+        0.1495,
+        0.0968
+      ],
+      "metallic_mean": 0.0,
+      "notes": []
+    }
+  },
+  "runtime_tested": false
+}

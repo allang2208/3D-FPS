@@ -1,4 +1,5 @@
 #include "ColdSteelHUDWidget.h"
+#include "ColdSteelSmeltingWidget.h"
 #include "ColdSteelItemTooltip.h"
 #include "ColdSteelWarehouseWidget.h"
 #include "ColdSteelWarehouseChest.h"
@@ -76,10 +77,12 @@ bool UColdSteelHUDWidget::HandleInventoryOutsideClick(FVector2D Position)
     if(bInventoryOpen&&!UWidgetBlueprintLibrary::IsDragDropping()){
         const bool InBag=InventoryPanel&&InventoryPanel->GetCachedGeometry().IsUnderLocation(Position);
         const bool InWarehouse=bWarehouseOpen&&WarehouseWidget&&WarehouseWidget->GetCachedGeometry().IsUnderLocation(Position);
+        // 冶炼面板与背包同生命周期：点在它上面不算"屏外点击"，不能把两块一起关掉。
+        const bool InSmelting=bSmeltingOpen&&SmeltingWidget&&SmeltingWidget->GetCachedGeometry().IsUnderLocation(Position);
         const bool InDetails=WarehouseDetails&&WarehouseDetails->GetCachedGeometry().IsUnderLocation(Position);
         const auto Inside=[&](UWidget* W){return W&&W->IsVisible()&&W->GetCachedGeometry().IsUnderLocation(Position);};
         const bool InTooltip=Inside(ItemTooltip)||Inside(StatusTooltip)||Inside(EquipmentTooltip);
-        if(!InBag&&!InWarehouse&&!InDetails&&!InTooltip){SetInventoryOpen(false);return true;}
+        if(!InBag&&!InWarehouse&&!InSmelting&&!InDetails&&!InTooltip){SetInventoryOpen(false);return true;}
     }
     return false;
 }

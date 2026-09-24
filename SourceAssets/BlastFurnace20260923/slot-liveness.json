@@ -1,0 +1,53 @@
+{
+  "slots": [
+    {
+      "slot": "BlastFurnace_Masonry",
+      "interface_type": "Material",
+      "interface_path": "/Game/Props/BlastFurnace20260923/Materials/M_BlastFurnace_Masonry.M_BlastFurnace_Masonry",
+      "resolves_to": "Material",
+      "is_valid": true
+    },
+    {
+      "slot": "BlastFurnace_Firebrick",
+      "interface_type": "Material",
+      "interface_path": "/Game/Props/BlastFurnace20260923/Materials/M_BlastFurnace_Firebrick.M_BlastFurnace_Firebrick",
+      "resolves_to": "Material",
+      "is_valid": true
+    },
+    {
+      "slot": "BlastFurnace_WroughtIron",
+      "interface_type": "Material",
+      "interface_path": "/Game/Props/BlastFurnace20260923/Materials/M_BlastFurnace_WroughtIron.M_BlastFurnace_WroughtIron",
+      "resolves_to": "Material",
+      "is_valid": true
+    },
+    {
+      "slot": "BlastFurnace_ClayLuting",
+      "interface_type": "Material",
+      "interface_path": "/Game/Props/BlastFurnace20260923/Materials/M_BlastFurnace_ClayLuting.M_BlastFurnace_ClayLuting",
+      "resolves_to": "Material",
+      "is_valid": true
+    },
+    {
+      "slot": "BlastFurnace_SlagLining",
+      "interface_type": "Material",
+      "interface_path": "/Game/Props/BlastFurnace20260923/Materials/M_BlastFurnace_SlagLining.M_BlastFurnace_SlagLining",
+      "resolves_to": "Material",
+      "is_valid": true
+    },
+    {
+      "slot": "BlastFurnace_EmberBed",
+      "interface_type": "Material",
+      "interface_path": "/Game/Props/BlastFurnace20260923/Materials/M_BlastFurnace_EmberBed.M_BlastFurnace_EmberBed",
+      "resolves_to": "Material",
+      "is_valid": true
+    },
+    {
+      "slot": "BlastFurnace_OreLump",
+      "interface_type": "Material",
+      "interface_path": "/Game/Props/BlastFurnace20260923/Materials/M_BlastFurnace_OreLump.M_BlastFurnace_OreLump",
+      "resolves_to": "Material",
+      "is_valid": true
+    }
+  ]
+}

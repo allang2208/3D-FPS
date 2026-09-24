@@ -1,0 +1,27 @@
+{
+  "palette": "/Game/Building/Voxels/Rounded/DA_VoxelBuildPalette",
+  "id": "blast_furnace",
+  "before": {
+    "material": "stone",
+    "mesh": "/Game/Props/BlastFurnace20260923/SM_BlastFurnace.SM_BlastFurnace",
+    "footprint": [
+      6,
+      5,
+      11
+    ]
+  },
+  "after": {
+    "material_str": "None",
+    "material_is_none": true,
+    "classified_into_other_tab": true,
+    "mesh": "/Game/Props/BlastFurnace20260923/SM_BlastFurnace.SM_BlastFurnace",
+    "footprint": [
+      6,
+      5,
+      11
+    ]
+  },
+  "entries": 22,
+  "saved": true,
+  "runtime_tested": false
+}

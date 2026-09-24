@@ -20,7 +20,9 @@ int32 UColdSteelHUDWidget::NativePaint(const FPaintArgs& Args,const FGeometry& G
     const bool bHasFeedback=Character->GetMonsterHitFeedback(Feedback);
     const AActor* UseTarget=bHasFeedback?nullptr:ColdSteelWorldInteraction::TraceTarget(PC);
     const bool bTreasure=ColdSteelWorldInteraction::IsTreasureChest(UseTarget);
-    if(!bHasFeedback && bTreasure)
+    const bool bFurnace=!bTreasure&&ColdSteelWorldInteraction::IsSmeltingFurnace(UseTarget);
+    const bool bWorkbench=!bTreasure&&!bFurnace&&ColdSteelWorldInteraction::IsWorkbench(UseTarget);
+    if(!bHasFeedback && (bTreasure||bFurnace||bWorkbench||ColdSteelWorldInteraction::IsExpeditionAltar(UseTarget)))
     {
         const float Pixel=1.f/ColdSteelUI::PixelScale(this);
         const FVector2D HintSize=FVector2D(232,48)*Pixel;
@@ -31,7 +33,10 @@ int32 UColdSteelHUDWidget::NativePaint(const FPaintArgs& Args,const FGeometry& G
         if(!bTreasure||!ColdSteelWorldInteraction::IsTreasureChestActivated(UseTarget))
         FSlateDrawElement::MakeText(Elements,Result+2,Geometry.ToPaintGeometry(HintSize,FSlateLayoutTransform(HintAt+FVector2D(16,12)*Pixel)),
             TEXT("E"),ColdSteelUI::NumberFont(12.f*Pixel,true),ESlateDrawEffect::None,ColdSteelUI::Accent);
-        const FString HintText=ColdSteelWorldInteraction::TreasureChestPrompt(UseTarget);
+        const FString HintText=bTreasure?ColdSteelWorldInteraction::TreasureChestPrompt(UseTarget)
+            :bFurnace?ColdSteelWorldInteraction::SmeltingFurnacePrompt(UseTarget)
+            :bWorkbench?ColdSteelWorldInteraction::WorkbenchPrompt(UseTarget)
+            :FString(TEXT("祭坛 · 打开出征面板"));
         FSlateDrawElement::MakeText(Elements,Result+2,Geometry.ToPaintGeometry(HintSize,FSlateLayoutTransform(HintAt+FVector2D(44,14)*Pixel)),
             HintText,ColdSteelUI::TextFont(10.5f*Pixel),ESlateDrawEffect::None,ColdSteelUI::TextPrimary);
         Result+=2;

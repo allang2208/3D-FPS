@@ -1,0 +1,25 @@
+{
+  "reason": "PBR sets replaced with the project's own UnrealNormandy library (Sharur's Normandy Village + PCG Plants, 4096 photogrammetry): brick from the wall atlas clean block, T_StoneSurface_01A ashlar, T_MetalRust_00A iron, T_SoilSurface_02A loam; on top of the earlier rounded arrises and the removed launder/flow geometry",
+  "runtime_tested": false,
+  "rendered": false,
+  "textures_replaced": 35,
+  "mesh": {
+    "asset": "/Game/Props/BlastFurnace20260923/SM_BlastFurnace.SM_BlastFurnace",
+    "slots": [
+      "BlastFurnace_Masonry",
+      "BlastFurnace_Firebrick",
+      "BlastFurnace_WroughtIron",
+      "BlastFurnace_ClayLuting",
+      "BlastFurnace_SlagLining",
+      "BlastFurnace_EmberBed",
+      "BlastFurnace_OreLump"
+    ],
+    "size_cm": [
+      120.0,
+      100.0,
+      220.0
+    ],
+    "collision": "CTF_USE_COMPLEX_AS_SIMPLE",
+    "nanite": true
+  }
+}

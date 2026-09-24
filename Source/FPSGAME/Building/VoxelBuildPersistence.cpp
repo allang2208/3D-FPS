@@ -20,15 +20,42 @@ static FArchive& operator<<(FArchive& Ar,FVoxelDebrisCell& C){return Ar<<C.Key<<
 static FArchive& operator<<(FArchive& Ar,FVoxelFragmentSave& F)
 {return Ar<<F.Id<<F.Transform<<F.Cells<<F.BrokenBonds<<F.Velocity<<F.AngularVelocity<<F.bSleeping;}
 static FArchive& operator<<(FArchive& Ar,FVoxelBuildPrefabInstance& P){return Ar<<P.Id<<P.Cell<<P.Yaw<<P.Footprint;}
+static FArchive& operator<<(FArchive& Ar,FVoxelSmeltingJobV5& J){return Ar<<J.Cell<<J.Recipe<<J.StartTicks;}
+static FArchive& operator<<(FArchive& Ar,FVoxelSmeltingJob& J){return Ar<<J.Cell<<J.Recipe<<J.ProgressSeconds<<J.BurnStartTicks<<J.BatchCount;}
+static FArchive& operator<<(FArchive& Ar,FVoxelFurnaceFuel& F){return Ar<<F.Cell<<F.FuelSeconds<<F.Level<<F.FireStartTicks<<F.FuelLevel<<F.BatchLevel;}
+// v6 老布局（无批量数/等级/火种戳）：逐条按旧字段读，新字段取结构默认值（Batch=1、Level=1＝行为与 v6 一致）。
+static void ReadSmeltingJobV6(FArchive& Ar,FVoxelSmeltingJob& J){Ar<<J.Cell<<J.Recipe<<J.ProgressSeconds<<J.BurnStartTicks;J.BatchCount=1;}
+static void ReadFurnaceFuelV6(FArchive& Ar,FVoxelFurnaceFuel& F){Ar<<F.Cell<<F.FuelSeconds;F.Level=1;F.FireStartTicks=0;F.FuelLevel=1;F.BatchLevel=1;}
+// v7 布局（有等级、无火种戳）：火种取 0＝读档后首次结算重新起燃（空闲燃烧从进世界起算，不追溯离线时段）。
+static void ReadFurnaceFuelV7(FArchive& Ar,FVoxelFurnaceFuel& F){Ar<<F.Cell<<F.FuelSeconds<<F.Level;F.FireStartTicks=0;F.FuelLevel=1;F.BatchLevel=1;}
+// v8 布局（有火种、无燃料仓/批量等级）：两轴取 1＝与 v8 单轴速度行为一致。
+static void ReadFurnaceFuelV8(FArchive& Ar,FVoxelFurnaceFuel& F){Ar<<F.Cell<<F.FuelSeconds<<F.Level<<F.FireStartTicks;F.FuelLevel=1;F.BatchLevel=1;}
+template<typename T>
+static void ReadListV6(FArchive& Ar,TArray<T>& List,void(*ReadOne)(FArchive&,T&))
+{
+    int32 Num=0;Ar<<Num;
+    if(Num<0||Num>200000){Ar.SetError();return;}   // 与 TArray 序列化同样的坏计数防线
+    List.SetNum(Num);for(int32 i=0;i<Num;++i)ReadOne(Ar,List[i]);
+}
 
 namespace
 {
     constexpr uint32 Magic=0x33584256; // VBX3, independent of USaveGame/UObject serialization.
-    // Version 4 appends placed prefab pieces; older files stop before that field.
+    // Version 4 appends placed prefab pieces; version 5 appended wall-clock smelting jobs;
+    // version 6 replaces that chunk with the fuel model (jobs + per-furnace fuel); version 7
+    // adds batch count to jobs and upgrade level to fuel records; version 8 adds the idle-fire
+    // clock to fuel records (2026-09-24 用户定稿：存料随挂钟持续燃烧); version 9 adds the fuel
+    // capacity and per-smelt batch axes to fuel records (三轴升级). Older files stop before
+    // the field their version does not reach; v5-v8 read through the migration-only paths.
     void Serialize(FArchive& Ar,FVoxelDiskSnapshot& S)
     {
         Ar<<S.Version<<S.CellSizeCm<<S.WorldKey<<S.Cells<<S.FreeVolumes<<S.Damage<<S.BrokenBonds<<S.Fragments<<S.LegacyProtected;
         if(S.Version>=4)Ar<<S.Prefabs;
+        if(S.Version==5)Ar<<S.LegacySmelting;
+        else if(S.Version==6){ReadListV6(Ar,S.Smelting,ReadSmeltingJobV6);ReadListV6(Ar,S.Fuel,ReadFurnaceFuelV6);}
+        else if(S.Version==7){Ar<<S.Smelting;ReadListV6(Ar,S.Fuel,ReadFurnaceFuelV7);}
+        else if(S.Version==8){Ar<<S.Smelting;ReadListV6(Ar,S.Fuel,ReadFurnaceFuelV8);}
+        else if(S.Version>=9){Ar<<S.Smelting;Ar<<S.Fuel;}
     }
     FString Path(const FString& Slot){return FPaths::ProjectSavedDir()/TEXT("SaveGames")/(Slot+TEXT(".sav"));}
     // 审计 C6：Write 在首次覆盖前保留的备份路径（原来只在 Write 内部拼一次字符串）。
@@ -82,7 +109,9 @@ namespace
         auto* S=NewObject<UVoxelBuildSave>();S->Version=Payload.Version;S->CellSizeCm=Payload.CellSizeCm;S->WorldKey=MoveTemp(Payload.WorldKey);
         S->Cells=MoveTemp(Payload.Cells);S->FreeVolumes=MoveTemp(Payload.FreeVolumes);S->Damage=MoveTemp(Payload.Damage);
         S->BrokenBonds=MoveTemp(Payload.BrokenBonds);S->Fragments=MoveTemp(Payload.Fragments);S->LegacyProtected=MoveTemp(Payload.LegacyProtected);
-        S->Prefabs=MoveTemp(Payload.Prefabs);OutResult=VoxelPersistence::ELoadResult::Ok;return S;
+        S->Prefabs=MoveTemp(Payload.Prefabs);S->Smelting=MoveTemp(Payload.Smelting);S->Fuel=MoveTemp(Payload.Fuel);
+        S->LegacySmelting=MoveTemp(Payload.LegacySmelting);   // v5 读入，世界加载时迁移；v6 写侧恒空
+        OutResult=VoxelPersistence::ELoadResult::Ok;return S;
     }
 }
 
@@ -96,7 +125,7 @@ FVoxelDiskSnapshot VoxelPersistence::Take(UVoxelBuildSave* S)
     D.Version=S->Version;D.CellSizeCm=S->CellSizeCm;D.WorldKey=MoveTemp(S->WorldKey);
     D.Cells=MoveTemp(S->Cells);D.FreeVolumes=MoveTemp(S->FreeVolumes);D.Damage=MoveTemp(S->Damage);
     D.BrokenBonds=MoveTemp(S->BrokenBonds);D.Fragments=MoveTemp(S->Fragments);D.LegacyProtected=MoveTemp(S->LegacyProtected);
-    D.Prefabs=MoveTemp(S->Prefabs);return D;
+    D.Prefabs=MoveTemp(S->Prefabs);D.Smelting=MoveTemp(S->Smelting);D.Fuel=MoveTemp(S->Fuel);return D;
 }
 
 UVoxelBuildSave* VoxelPersistence::Load(const FString& Slot,ELoadResult& OutResult,bool bAllowLegacy)

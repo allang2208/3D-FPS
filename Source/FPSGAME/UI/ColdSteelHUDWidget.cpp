@@ -1,10 +1,17 @@
 #include "ColdSteelHUDWidget.h"
+#include "ColdSteelSmeltingWidget.h"
+#include "ColdSteelWorkbenchWidget.h"
+#include "../Building/VoxelBuildWorld.h"
 #include "Widgets/SWidget.h"
 #include "ColdSteelSkillPage.h"
+#include "ColdSteelCodexPage.h"
 #include "ColdSteelProgressNotification.h"
 #include "ColdSteelAmmoReadout.h"
 #include "ColdSteelAmmoPouchWidget.h"
 #include "ColdSteelInventoryWidget.h"
+#include "ColdSteelSmeltingWidget.h"
+#include "ColdSteelWorkbenchWidget.h"
+#include "../Building/VoxelBuildWorld.h"
 #include "ColdSteelWorldClock.h"
 #include "ColdSteelStatusModel.h"
 #include "../Weapons/MeleeWeaponStats.h"
@@ -191,18 +198,78 @@ void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaT
 
     const float Target = bInventoryOpen ? 1.0f : 0.0f;
     DrawerProgress = FMath::FInterpConstantTo(DrawerProgress, Target, InDeltaTime, 4.0f);
+    // 缓动统一在渲染输出处做（进度本身保持线性＝时长恒定）；骑乘收回的面板共用这个值＝同曲线刚体。
+    const float DrawerEase = ColdSteelUI::EaseSmooth(DrawerProgress);
     if (InventoryPanel)
     {
-        const float DrawerWidth = FMath::Max(1.0f, (InventoryWidth+ColdSteelUI::NavigationDrawerInset) / ColdSteelUI::PixelScale(this));
-        InventoryPanel->SetRenderTranslation(FVector2D((1.0f - DrawerProgress) * DrawerWidth, 0.0f));
+        // 整体骑乘收回时抽屉行程加长面板宽（多出的行程本就在屏幕外不可见），
+        // 让面板与抽屉共用同一条位移曲线＝一个刚体向右缩回（2026-09-24 用户定稿口径）。
+        const float DrawerWidth = FMath::Max(1.0f, (InventoryWidth+ColdSteelUI::NavigationDrawerInset+(bSmeltRiding?SmeltSlidePx:0.f)+(bWorkbenchRiding?WorkbenchSlidePx:0.f)) / ColdSteelUI::PixelScale(this));
+        InventoryPanel->SetRenderTranslation(FVector2D((1.0f - DrawerEase) * DrawerWidth, 0.0f));
     }
     if (InventoryBackdrop)
     {
-        InventoryBackdrop->SetRenderOpacity(bCloseAfterQuickDrag||(bInventoryDragOutside&&!bWarehouseOpen)?0.f:DrawerProgress);
+        InventoryBackdrop->SetRenderOpacity(bCloseAfterQuickDrag||(bInventoryDragOutside&&!bWarehouseOpen)?0.f:DrawerEase);
     }
     if (InventoryBlur)
     {
-        InventoryBlur->SetRenderOpacity(bCloseAfterQuickDrag||(bInventoryDragOutside&&!bWarehouseOpen)?0.f:DrawerProgress);
+        InventoryBlur->SetRenderOpacity(bCloseAfterQuickDrag||(bInventoryDragOutside&&!bWarehouseOpen)?0.f:DrawerEase);
+    }
+    // 冶炼面板动画（2026-09-24 用户定稿）：
+    // 弹出＝抽屉滑到位后，面板贴着背包左缘从抽屉背后向左滑出（SmeltMotion，运动中 Z 序 40、落位恢复 42）；
+    // 关闭＝冶炼栏＋背包视为一个整体：立即关抽屉并让面板与抽屉同一位移曲线刚体骑乘向右缩回（bSmeltRiding）；
+    //       背包本就已关时，面板单独向右滑出屏幕。
+    // 本体/根画布均为 SelfHitTestInvisible：透明区放行世界点击，子控件照常命中
+    //（HitTestInvisible 会连子树一起屏蔽命中——按钮全灭的根因，已入档）。
+    if(SmeltingWidget)
+    {
+        if(bSmeltingOpen&&(!SmeltingWorld.IsValid()||!SmeltingWorld->HasPrefabAt(SmeltingCell)))CloseSmelting();
+        const float S=ColdSteelUI::PixelScale(this);
+        if(bSmeltRiding)
+        {   SmeltMotion=FMath::FInterpConstantTo(SmeltMotion,0.f,InDeltaTime,4.0f);   // 复位进度，下次弹出重新起步
+            SmeltingWidget->SetVisibility(DrawerProgress>KINDA_SMALL_NUMBER?ESlateVisibility::SelfHitTestInvisible:ESlateVisibility::Collapsed);
+            if(SmeltingSlot)SmeltingSlot->SetZOrder(40);
+            SmeltingWidget->SetRenderTranslation(FVector2D((1.f-DrawerEase)*(InventoryWidth+ColdSteelUI::NavigationDrawerInset+SmeltSlidePx)/S,0.f));
+            if(DrawerProgress<=KINDA_SMALL_NUMBER){bSmeltRiding=false;SmeltingWidget->SetRenderTranslation(FVector2D::ZeroVector);}
+        }
+        else
+        {
+            if(bSmeltingOpen&&SmeltWidth>1.f)SmeltSlidePx=SmeltWidth+24.f;   // 开着时记住滑距（关闭瞬间 SmeltWidth 即被布局清零）
+            const float SmeltTarget=bSmeltingOpen&&DrawerProgress>1.f-KINDA_SMALL_NUMBER&&SmeltWidth>1.f?1.f:0.f;
+            SmeltMotion=FMath::FInterpConstantTo(SmeltMotion,SmeltTarget,InDeltaTime,4.0f);
+            const float SmeltEase=ColdSteelUI::EaseSmooth(SmeltMotion);
+            SmeltingWidget->SetVisibility(SmeltMotion>KINDA_SMALL_NUMBER?ESlateVisibility::SelfHitTestInvisible:ESlateVisibility::Collapsed);
+            if(SmeltingSlot)SmeltingSlot->SetZOrder(SmeltMotion>1.f-KINDA_SMALL_NUMBER?42:40);
+            if(SmeltMotion>KINDA_SMALL_NUMBER)
+                SmeltingWidget->SetRenderTranslation(FVector2D((1.f-SmeltEase)*FMath::Max(SmeltSlidePx,24.f)/S,0.f));
+            else SmeltingWidget->SetRenderTranslation(FVector2D::ZeroVector);
+        }
+    }
+    // 工作台制作面板动画：与冶炼面板逐行同构（同贴位互斥，同一时刻至多一块在骑乘，
+    // 抽屉行程加长项两旗标互斥相加即可；Docs/UI/workbench-panel-plan-20260924.md）。
+    if(WorkbenchWidget)
+    {
+        if(bWorkbenchOpen&&(!WorkbenchWorld.IsValid()||!WorkbenchWorld->HasPrefabAt(WorkbenchCell)))CloseWorkbench();
+        const float S=ColdSteelUI::PixelScale(this);
+        if(bWorkbenchRiding)
+        {   WorkbenchMotion=FMath::FInterpConstantTo(WorkbenchMotion,0.f,InDeltaTime,4.0f);   // 复位进度，下次弹出重新起步
+            WorkbenchWidget->SetVisibility(DrawerProgress>KINDA_SMALL_NUMBER?ESlateVisibility::SelfHitTestInvisible:ESlateVisibility::Collapsed);
+            if(WorkbenchSlot)WorkbenchSlot->SetZOrder(40);
+            WorkbenchWidget->SetRenderTranslation(FVector2D((1.f-DrawerEase)*(InventoryWidth+ColdSteelUI::NavigationDrawerInset+WorkbenchSlidePx)/S,0.f));
+            if(DrawerProgress<=KINDA_SMALL_NUMBER){bWorkbenchRiding=false;WorkbenchWidget->SetRenderTranslation(FVector2D::ZeroVector);}
+        }
+        else
+        {
+            if(bWorkbenchOpen&&WorkbenchWidth>1.f)WorkbenchSlidePx=WorkbenchWidth+24.f;   // 开着时记住滑距（关闭瞬间布局会把 WorkbenchWidth 清零）
+            const float WorkbenchTarget=bWorkbenchOpen&&DrawerProgress>1.f-KINDA_SMALL_NUMBER&&WorkbenchWidth>1.f?1.f:0.f;
+            WorkbenchMotion=FMath::FInterpConstantTo(WorkbenchMotion,WorkbenchTarget,InDeltaTime,4.0f);
+            const float WorkbenchEase=ColdSteelUI::EaseSmooth(WorkbenchMotion);
+            WorkbenchWidget->SetVisibility(WorkbenchMotion>KINDA_SMALL_NUMBER?ESlateVisibility::SelfHitTestInvisible:ESlateVisibility::Collapsed);
+            if(WorkbenchSlot)WorkbenchSlot->SetZOrder(WorkbenchMotion>1.f-KINDA_SMALL_NUMBER?42:40);
+            if(WorkbenchMotion>KINDA_SMALL_NUMBER)
+                WorkbenchWidget->SetRenderTranslation(FVector2D((1.f-WorkbenchEase)*FMath::Max(WorkbenchSlidePx,24.f)/S,0.f));
+            else WorkbenchWidget->SetRenderTranslation(FVector2D::ZeroVector);
+        }
     }
     if (EquipmentTooltip && EquipmentTooltip->IsVisible() && !bEquipmentTooltipPinned)
     {
@@ -233,6 +300,18 @@ FReply UColdSteelHUDWidget::NativeOnKeyDown(const FGeometry& InGeometry, const F
     if (InKeyEvent.GetKey() == EKeys::Escape && TimelinePopover && TimelinePopover->IsVisible())
     {
         SetTimelineDetailsOpen(false);
+        return FReply::Handled();
+    }
+    // 冶炼面板独立开合：Esc 先收面板，再轮到背包（面板打开时键盘焦点在它身上，事件冒泡到这里）。
+    if (InKeyEvent.GetKey() == EKeys::Escape && !InKeyEvent.IsRepeat() && bSmeltingOpen)
+    {
+        CloseSmelting();
+        return FReply::Handled();
+    }
+    // 工作台制作面板同款独立开合（与冶炼互斥，二者至多一个在开）。
+    if (InKeyEvent.GetKey() == EKeys::Escape && !InKeyEvent.IsRepeat() && bWorkbenchOpen)
+    {
+        CloseWorkbench();
         return FReply::Handled();
     }
     if (bInventoryOpen)
@@ -290,6 +369,8 @@ void UColdSteelHUDWidget::BuildInterface()
     BuildInventory(Root);
     BuildCharacterSummary(Root);
     BuildWarehouse(Root);
+    BuildSmelting(Root);
+    BuildWorkbench(Root);
     BuildPanelNavigation(Root);
     ProgressNotification=CreateWidget<UColdSteelProgressNotification>(GetOwningPlayer());
     FillSlot(Root->AddChildToCanvas(ProgressNotification),FAnchors(0,0,1,1),FMargin(0),90);
@@ -1079,6 +1160,8 @@ void UColdSteelHUDWidget::SetInventoryOpen(bool bOpen)
     if(!bOpen)CancelQuickDrag();
     if(!bOpen)HideItemTooltip(true);
     if(!bOpen)CloseWarehouse();
+    if(!bOpen)CloseSmelting();   // 收背包连带收面板：保证"再打开背包"永远不会带出上次的面板
+    if(!bOpen)CloseWorkbench();  // 工作台制作面板同一连带口径（同文件同规则）
     if (bInventoryOpen == bOpen) return;
     bInventoryOpen = bOpen;
     SetVisibility(bOpen?ESlateVisibility::Visible:ESlateVisibility::SelfHitTestInvisible);

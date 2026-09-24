@@ -52,6 +52,7 @@ public:
     void RunInventoryAudit();
     void RunWeaponIconAudit();
     void RunInventoryVisualAudit();
+    void RunSmeltingVisualAudit();
     void RunInventoryGlassAudit();
     void RunInventoryDragAudit();
     void RunDropHitchAudit();
@@ -73,9 +74,21 @@ public:
     void FocusItemTooltip();
     void OpenStatus();
     UFUNCTION(BlueprintCallable,Category="Cold Steel UI") void OpenSkills();
+    /** 图鉴：右侧抽屉第 4 页（武器／怪物档案），快捷键 K。 */
+    UFUNCTION(BlueprintCallable,Category="Cold Steel UI") void OpenCodex();
     void OpenWarehouse(class AColdSteelWarehouseChest* Chest);
     void CloseWarehouse();
     bool IsWarehouseOpen() const { return bWarehouseOpen; }
+    /** 冶炼高炉 E 交互：打开背包并把冶炼面板挂到背包左侧（同一开合生命周期）。
+     *  参数是命中的占位构件 Actor（内部校验为 blast_furnace），无效时静默不响应。 */
+    void OpenSmelting(AActor* Furnace);
+    void CloseSmelting();
+    bool IsSmeltingOpen() const { return bSmeltingOpen; }
+    /** 工作台 E 交互：打开背包并把制作面板挂到背包左侧（格式大小复刻冶炼面板，
+     *  Docs/UI/workbench-panel-plan-20260924.md）；与冶炼面板同贴位、互斥。 */
+    void OpenWorkbench(AActor* Workbench);
+    void CloseWorkbench();
+    bool IsWorkbenchOpen() const { return bWorkbenchOpen; }
     void RunWarehouseAudit();
     void RunWarehouseGlassAudit();
     void ShowWarehouseDetails(UWidget* Details);
@@ -127,6 +140,35 @@ private:
     TWeakObjectPtr<class AColdSteelWarehouseChest> WarehouseChest;
     bool bWarehouseOpen=false;
     float WarehouseMotion=0,WarehouseStart=0,WarehouseElapsed=.3f;
+    // 冶炼面板：贴在背包抽屉左侧的半宽侧板（Docs/UI/smelting-panel-plan-20260923.md）。
+    // 与抽屉共用同一条 DrawerProgress 滑入滑出；上下文（哪座炉子）在 E 交互时写入、关背包时清空。
+    void BuildSmelting(UCanvasPanel* Root);
+    UPROPERTY() TObjectPtr<class UColdSteelSmeltingWidget> SmeltingWidget;
+    UPROPERTY() TObjectPtr<UCanvasPanelSlot> SmeltingSlot;
+    TWeakObjectPtr<class AVoxelBuildWorld> SmeltingWorld;
+    FIntVector SmeltingCell=FIntVector::ZeroValue;
+    bool bSmeltingOpen=false;
+    float SmeltWidth=0;
+    float SmeltDock=0;   // 冶炼面板右缘到视口右缘的当前间距（背包开＝背包宽+12，关＝12），参与布局变化判定
+    float SmeltMotion=0; // 冶炼面板滑入滑出进度（2026-09-24 用户要求与背包同动画：从左到右弹出，速率同 DrawerProgress）
+    bool bSmeltRiding=false;   // 关闭相位：冶炼栏与背包刚体骑乘、同曲线整体向右缩回（2026-09-24 用户定稿）
+    float SmeltSlidePx=0;      // 面板滑距＝面板宽+24（开着时记忆；关闭瞬间布局会把 SmeltWidth 清零）
+    // 工作台制作面板：与冶炼面板同贴位（背包抽屉左侧半宽侧板）、同动画、互斥
+    //（Docs/UI/workbench-panel-plan-20260924.md，成员命名逐一对应冶炼侧，方便对照审查）。
+    void BuildWorkbench(UCanvasPanel* Root);
+    UPROPERTY() TObjectPtr<class UColdSteelWorkbenchWidget> WorkbenchWidget;
+    UPROPERTY() TObjectPtr<UCanvasPanelSlot> WorkbenchSlot;
+    TWeakObjectPtr<class AVoxelBuildWorld> WorkbenchWorld;
+    FIntVector WorkbenchCell=FIntVector::ZeroValue;
+    bool bWorkbenchOpen=false;
+    float WorkbenchWidth=0;
+    float WorkbenchDock=0;     // 面板右缘到视口右缘的当前间距（同冶炼口径，参与布局变化判定）
+    float WorkbenchMotion=0;   // 滑入滑出进度（同冶炼动画速率）
+    bool bWorkbenchRiding=false;   // 关闭相位：与背包刚体骑乘向右缩回
+    float WorkbenchSlidePx=0;      // 面板滑距＝面板宽+24（开着时记忆）
+    /** 互斥瞬收：两面板共用同一贴位，开一个时另一个立即收起（不播骑乘动画）。 */
+    void HideSmeltingInstantly();
+    void HideWorkbenchInstantly();
     void BuildHotbar(UCanvasPanel* Root);
     void BuildQuickSlot(UOverlay* Overlay,int32 Index,FName FixedSkill=NAME_None);
     void RefreshQuickBar();

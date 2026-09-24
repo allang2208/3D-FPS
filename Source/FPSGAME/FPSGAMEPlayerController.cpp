@@ -210,6 +210,11 @@ void AFPSGAMEPlayerController::BeginPlay()
             FTimerHandle InventoryTimer;
             GetWorldTimerManager().SetTimer(InventoryTimer,[this](){ColdSteelHUD->RunInventoryAudit();},12.f,false);
         }
+        if(FParse::Param(FCommandLine::Get(),TEXT("SmeltingVisualAudit")))
+        {
+            FTimerHandle SmeltingTimer;
+            GetWorldTimerManager().SetTimer(SmeltingTimer,[this](){ColdSteelHUD->RunSmeltingVisualAudit();},12.f,false);
+        }
         if(FParse::Param(FCommandLine::Get(),TEXT("ColdSteelItemTooltipAudit")))
         {
             FTimerHandle TooltipTimer;
@@ -290,13 +295,22 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
         if(Params.Key==EKeys::F7){Profile->StowProductionTool();return true;}
         // G 已让位给符文长剑·环绕飞剑（角色 BindAction "RuneBlades"），武器轮换只留滚轮。
         if(Params.Key==EKeys::MouseScrollUp || Params.Key==EKeys::MouseScrollDown)
-        {if (const auto* C=Cast<AFPSGAMECharacter>(GetPawn()); !C || !C->IsTraversing()) Profile->CycleWeapon();return true;}
+        {Profile->CycleWeapon();return true;}
         if(Params.Key==EKeys::E&&GetPawn())
         {
             auto* Target=ColdSteelWorldInteraction::TraceTarget(this);
+            if(ColdSteelWorldInteraction::IsExpeditionAltar(Target)){OpenExpedition();return true;}
             if(ColdSteelWorldInteraction::IsTreasureChest(Target)){ColdSteelWorldInteraction::OpenTreasureChest(this,Target);return true;}
             if(auto* Chest=Cast<AColdSteelWarehouseChest>(Target);Chest&&ColdSteelHUD){ColdSteelHUD->OpenWarehouse(Chest);return true;}
             if(auto* Pickup=Cast<AColdSteelPickup>(Target)){Profile->Pickup(Pickup->ItemId);return true;}
+            // 冶炼高炉：E 同时打开背包与独立冶炼面板（面板贴抽屉左侧，可被 Esc／× 单独关闭；炉内按真实时间继续冶炼）。
+            // 放在门判定之前：高炉不是门，但两者都靠"命中 Actor 是什么"分派，先特异后泛化。
+            if(ColdSteelWorldInteraction::IsSmeltingFurnace(Target)&&ColdSteelHUD)
+            {ColdSteelHUD->OpenSmelting(Target);return true;}
+            // 工作台：E 同时打开背包与制作面板（格式复刻冶炼面板，制作内容后续设计；
+            // Docs/UI/workbench-panel-plan-20260924.md）。与高炉判定并列、互斥同贴位。
+            if(ColdSteelWorldInteraction::IsWorkbench(Target)&&ColdSteelHUD)
+            {ColdSteelHUD->OpenWorkbench(Target);return true;}
             // Door System 的门：准星命中后按门自己的交互入口开门／关门（隐藏玩家代理在子系统里维护）。
             if(Target&&UColdSteelDoorInteraction::IsDoor(Target))
             {

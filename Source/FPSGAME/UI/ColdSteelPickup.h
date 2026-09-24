@@ -33,7 +33,7 @@ private:
     bool BuildConsumable(const FColdSteelItem& Item);
     bool BuildProductionTool(const FColdSteelItem& Item);
     bool BuildProductionMaterial(const FColdSteelItem& Item);
-    void InstallProductionMaterial(class UStaticMesh* Asset,bool Wood);
+    void InstallProductionMaterial(class UStaticMesh* Asset,bool Wood,const FString& Definition=FString());
     void TickProductionMaterial(float Delta);
     /** Voxel blocks drop as the 20 cm cube of their palette material, so the pickup matches the build. */
     bool BuildVoxelBlock(const FColdSteelItem& Item);
