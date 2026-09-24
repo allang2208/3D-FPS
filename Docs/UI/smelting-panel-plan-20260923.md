@@ -585,6 +585,25 @@ function timelineProgressColor(value) {
   新增 `ColdSteelUI::RoundedBrushCorners(Fill,FVector4 半径)`（逐角半径，走 `FSlateRoundedBoxBrush`）；
   hover/pressed 药丸仍 6px 全圆角（轻反馈不涉接缝）。纯函数改动，Live Coding 可热补丁。
 
+### 7.24 发布切片与推送（2026-09-24 用户"废案入 trash、更新 git、沉淀 SKILL、允许推送"）
+
+- **废案核对**：本会话无项目级废案——v10→v12b 全部是同一 `ColdSteelSmeltingWidget.*` 原地迭代；
+  各轮候选/看守产物都在 `Saved/`（gitignore，不入仓不归档）。`Tools/Smelting/build_ingot_blender.py`
+  经查为在用管线环节（§7.17"重跑管线"），非废案。
+- **发布范围**：用户拍板"整套冶炼（后端 v5–v9 + UI 全 19 轮）"，并授权**连带近战会话的
+  572d188 一起推**。暂存法：纯文件整加＋`stage_marked_hunks.py`（本次新增的通用逐块过滤工具）
+  标记摘块，85 文件 +11777/−29，无二进制、无敏感串、`--check` 干净。
+- **顺带披露（用户已裁决"连工作台面板一起发"）**：workbench 面板与冶炼接线**同一 hunk 甚至同一
+  行内表达式交织**（抽屉宽度三元 `bSmeltRiding/bWorkbenchRiding` 等），物理不可分；剔除即编译断链。
+  故 `ColdSteelWorkbenchWidget.h/.cpp`、`ColdSteelWorkbenchHUD.cpp`、其规划文档与祭坛谓词一并纳入。
+- **隔离编译门**：worktree 检出发布提交构建验证。首验（936b61f）暴露 workbench 引用缺口
+  （UHT `UColdSteelWorkbenchWidget` 未找到）→ 补齐成 b465f0e。编辑器占用期间 Live Coding 全局
+  封锁完整构建，验证＋`git push origin HEAD:main` 交由看守在编辑器关闭后执行：**编译不绿不推送**，
+  结果落 `Saved/SmeltingPanel20260923/publish_result.txt`。19 项独立审计仍被启动期环境阻断（第 4 次）。
+- **残留本地依赖（不进 git，按第 5 节）**：`/Game/Items/Smelting` 锭网格与 MI、高炉/工作台构件网格
+  （`Content/**` gitignore）；复建走 `Tools/Smelting` 管线与两个 SourceAssets 目录。
+- **二进制现状**：主树 DLL 已是 v12b（22:07 看守构建，Succeeded）——当前打开的编辑器即圆角凸舌版。
+
 ## 8. 剩余工作
 - 锭的图标正式渲染图（`ue5-item-asset-workflow`）。
 - Niagara 挂点（`NS_CauldronBlacksmith`/`NS_ForgeSparks` → `ChargingMouth/BlastFlange/TapHole`）

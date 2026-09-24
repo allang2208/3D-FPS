@@ -8,6 +8,12 @@
 
 ## 暂存分三档
 
+0. **通用版逐块过滤（2026-09-24 冶炼发布沉淀）**：`Tools/AssetPipeline/stage_marked_hunks.py`
+   标记走 `--keep`（可多次，选 ASCII 独有串），默认只打 KEEP/DROP 报告，`--detail` 打印每块增删行
+   供人工审；`--write out.patch` + `git apply --cached --recount`。先报告后动手，别信"计数对上了"。
+   **相邻功能行骑乘**：横向触点（准星/交互谓词/HUD 路由）常被并行功能挤进同一 hunk（本次
+   workbench/祭坛与冶炼同行混排）；剔掉它们会把保留块的引用掏空成链接缺口，为发布做"改写手术"
+   又等于提交一份没跑过的代码。默认**整块保留、在提交信息与发布记录里点明顺带行**，把取舍留给用户拍板。
 1. **整文件属于本次会话** → `git add -- <精确路径…>`，最省事也最安全。
 2. **同文件多会话** → `Tools/AssetPipeline/stage_session_hunks.py --file a --marker <本次独有串> [--exclude '<hunk 头>'] --write out.patch`，再 `git apply --cached out.patch`。
    - 标记要选本次**新增行**里独有的 ASCII 串（中文经 argv 传递可能被控制台编码搞坏）。
@@ -30,7 +36,10 @@
 ## 退役与推送
 
 - 确认退役的文件移入 `trash/<task>/`，README 记录原路径、字节数、SHA-256、原因和替代物；`trash/` 与 `Content/ColdSteelData/*` 已被 .gitignore 忽略，**不进提交**（二进制按第 5 节默认不提交）。
+- **HEAD 领先别人一个未推送提交时**（2026-09-24 实测：分支上挂着近战会话的提交）：不要替对方决定发布，向用户给两个选项——连对方提交一起 `HEAD:main`，或基于 origin/main 重组干净基线（commit-tree）。用户拍板后再动手。
+- **验证暂存子集能编译**：`git worktree add --detach` 指向新提交后构建；本地插件目录不在跟踪范围，junction 挂过去；**生成式模块要先在 worktree 里生成**（如 `python Tools/Building/build_blast.py` 造 FPSBlast，否则 UBT 直接 RulesError）。验证完 `git worktree remove`。
 - 推送：`git fetch origin main` → 确认 `origin/main..HEAD` 只有自己的提交 → `git push origin HEAD:main`（非强制）→ `git ls-remote origin refs/heads/main` 与本地 `rev-parse HEAD` 比对，并确认归档标签仍在（`git ls-remote --tags origin`，找 `godot`）。
+- **0 字节的自动化产物不是通过凭证**：审计/看守的结果文件为空只会静默通过下游 `Select-String` 检查；汇报时把"跑了但没抓到 PASS 行"如实写成未验证，不当成绿。
 
 ## 旧 Godot 工程在哪（2026-09-22 核实）
 

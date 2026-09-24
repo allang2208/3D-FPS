@@ -135,6 +135,22 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 
 弹药袋子页、按弹种数量等分的 R 轮盘、鼠标选择和图标缓存，读取 [动态弹种轮盘与弹药袋](references/ammo-radial-and-pouch.md)。
 
+## C++ 动态构建面板的硬教训（2026-09-24 冶炼面板，实测踩坑）
+
+- **非 UWidget 的点击代理对象要专列数组保命**：给 `FScriptDelegate`/`AddDynamic` 绑定的
+  `NewObject` 辅助 UObject 若塞进"每次刷新都 `Reset()`"的行对象缓存数组，GC 会在两次刷新之间
+  回收代理，事件**静默失效**（不报错、不崩溃）。此类对象放专用 `UPROPERTY` 数组，永不随列表重建清空；
+  回归测试必须"先 `CollectGarbage()` 再 `OnClicked.Broadcast()`"才有效。
+- **贴缝凸舌（tab）不是卡片**：想让按钮"长在"面板上，就把描边/圆角卡片底全部拿掉——本体填充色
+  **跟随所贴主体**（收起用面板色、展开用弹层色，ZOrder 盖住接缝），内层按钮 Normal 透明、只在
+  Hover/Pressed 浮轻底；需要逐角半径（贴缝侧直角）时用 `ColdSteelUI::RoundedBrushCorners`
+  （FSlateRoundedBoxBrush 的 FVector4 半径版），并让凸舌压过接缝 1~2px 消抗锯齿发丝。
+- **UTextBlock 多行默认左对齐**：竖排"升\n级"要 `SetJustification(ETextJustify::Center)` 才逐行居中，
+  CJK 双行贴紧可配 `SetLineHeightPercentage(0.88)`。
+- **交付措辞看二进制状态**：编辑器开着时改的 C++ 一律"未生效"；看守构建要先在日志里确认
+  `Result: Succeeded` 再告诉用户重开（用户往往在构建完成前就重开测了旧二进制，会把上轮的修复
+  当成"没改"）。纯函数体改动可提示 Live Coding（Ctrl+Alt+F11）热补，动了类成员/反射就必须冷编译重启。
+
 ## 运行时图标与诊断界面开销
 
 处理动态图标首次准备卡顿、图标通知全量刷新或诊断文本反复失效时，读取 [运行时图标准备](references/runtime-icon-pipeline.md)。
