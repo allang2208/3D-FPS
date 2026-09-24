@@ -295,6 +295,36 @@
 **验证**：`-DisableUnity` 构建中 `ColdSteelCodexPage.cpp` 与 `ColdSteelMonsterPortraits.cpp` **实际参与编译且零错误**（`Saved/BuildEditor/build-codex-async.log`）。该次整体构建失败，报错来自其它任务正在改的 `Production/ProductionToolComponent.cpp`（未提交改动，`fatal error C1083` 无法打开包含文件），与本任务无关，未触碰。
 **未测试**：未运行游戏、未做 UI 测试；异步加载的实际卡帧改善与立绘出图由用户实机确认。
 
+## 内存与加载时机修正（2026-09-25 第十轮）：打开才加载、逐个顺序、当前项优先
+
+用户反馈：**加载导致内存占用而卡死游戏进程**。要求改为「只在打开图鉴栏时加载、逐步单个顺序加载、优先加载玩家正在查看的项」。
+
+### 诊断：真正的病根不是「请求太多」
+
+先核对了实际情况，结论与直觉相反：
+
+- **请求本来就是懒的**：`RequestPortrait` 只在 `SelectEntry` 里调用（`ColdSteelCodexPage.cpp:726`），即玩家点选才拍，**从来没有预取整份列表**。所以「改成只在打开时加载」这条本身几乎已满足。
+- **真正的常驻问题在工作室内存**：`EnsureStudio()` 创建的 `FPreviewScene` + `512×768 RTF_RGBA16f` 渲染目标（约 6MB），**只在 `Deinitialize()` 里释放**（原 `Studio.Reset()` 仅出现在析构路径）。也就是说**只要拍过一张图，预览场景和渲染目标就整个会话一直驻留**，且 `FPreviewScene` 会持续参与场景更新——这是「占内存 + 卡」的主要来源。
+- 单次捕获的瞬时峰值约 10.5MB（FFloat16 数组 3MB + FColor 数组 1.5MB + GPU staging 3MB + RT 3MB），属正常单张开销，不是主因。
+- 缓存上限 32 张 × 1.5MB ≈ 48MB（CPU+GPU 各一份），偏大。
+
+### 修正
+
+1. **关闭即释放工作室**：新增 `TeardownStudio()`，整段拆掉预览场景／捕获组件／渲染目标，并把被摄体材质引用一并放手。新增 `ReleaseIdleResources()` = 清空未拍的排队项 + 拆工作室，**但保留已完成的小图缓存**（缓存是独立的小纹理，不依赖工作室，保留可让重开面板立即命中）。
+2. **打开才加载**：图鉴页新增 `bCodexVisible` 状态，在 `NativeTick` 里按可见性变化驱动——**关闭→释放，打开→只把「当前选中项」排进队列**（没有选中项就什么都不加载，等玩家点选）。
+3. **严格单个顺序**：核对确认 `Tick()` 每个分支只处理一个作业且立即 return，函数体内**无 for／while 循环**，`CaptureScene` 与 `BeginReadback` 各只有一处调用——一次只有一个捕获在飞，天然逐个顺序。
+4. **当前查看项优先**：新增 `RequestPriority()`。玩家点选的那张**插到队首**（排在已排队的项之前），正在拍的那项不动；若该键已在队列中则**挪到最前并保留其已消耗的尝试次数**。同时修正 `ActiveIndex`，避免挪动后被指向别的作业。
+5. **缓存收紧**：32 → **12 张**（约 18MB）。图鉴一屏最多看一张详情图，12 张足够覆盖「翻回去不用重拍」。
+
+### 顺带修好的并行冲突
+
+`ColdSteelCodexPage.cpp` 里出现了一处**并行任务造成的半成品改名**：某并行任务为规避新增类成员 `bActive` 的遮蔽（C4458），把 `BuildPage()` 里的两个局部量 `bActive` 改名为 `bIsActive`，但**只改了一半**——局部量声明与部分引用改了，L394／L399 仍写 `bActive`，于是编译不过（`error C2065: bActive 未声明`）。
+
+本轮把类成员改名为 `bCodexVisible`（本文件已有同名局部量，成员叫 `bActive` 本身就不合适），局部量统一回 `bActive`，两处页签渲染恢复一致。`TabLabel` 的**参数** `bIsActive` 保持不变（它是形参，与成员无关）。
+
+**验证**：`-DisableUnity` 构建 **`Result: Succeeded`，全模块 0 错误**（`Saved/BuildEditor/build-codex-lazy3.log`）；我的两个文件零错误零警告。此前受阻的 `WolfMonster.cpp`／`ProductionToolComponent.cpp` 在本次构建中也已通过（由各自任务补齐）。
+**未测试**：未运行游戏；内存占用改善、关闭后是否真的释放、以及当前项优先的实际手感由用户实机确认。
+
 ## 新增武器／怪物的接入成本（2026-09-24 核查）
 
 回答「图鉴有无自动添加机制」：**列表与详情是全自动的，唯有立绘需要额外一步，且武器与怪物的成本不同**。

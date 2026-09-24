@@ -137,7 +137,36 @@ void UColdSteelCodexPage::ReleaseSlateResources(bool bReleaseChildren)
 void UColdSteelCodexPage::NativeTick(const FGeometry& Geometry, float Delta)
 {
     Super::NativeTick(Geometry, Delta);
+
+    // 立绘只在图鉴打开时加载：可见性一变就切换加载状态。
+    // 关闭时释放预览工作室与渲染目标（约 6MB 常驻）并丢弃未拍的排队项，
+    // 避免「没打开图鉴也在后台拍图」把内存和帧时间吃满。
+    const bool bVisibleNow = GetVisibility() != ESlateVisibility::Collapsed
+        && GetVisibility() != ESlateVisibility::Hidden;
+    if (bVisibleNow != bCodexVisible)
+    {
+        bCodexVisible = bVisibleNow;
+        if (!bCodexVisible) ReleasePortraitResources();
+        else EnsureSelectedPortraitQueued();
+    }
+
     if (!FMath::IsNearlyEqual(Scale, ColdSteelUI::PixelScale(this))) RefreshLayout();
+}
+
+void UColdSteelCodexPage::ReleasePortraitResources()
+{
+    // 两个工作室都放掉：图鉴关闭后没有在拍的立绘，也没必要占着预览场景。
+    if (UGameInstance* GI = GetGameInstance())
+    {
+        if (auto* Portraits = GI->GetSubsystem<UColdSteelMonsterPortraits>()) Portraits->ReleaseIdleResources();
+    }
+}
+
+void UColdSteelCodexPage::EnsureSelectedPortraitQueued()
+{
+    // 打开图鉴时只请求「当前选中项」一张；没有选中项就什么都不加载，
+    // 等玩家点选时再按需请求。绝不在这里预取整份列表。
+    if (!SelectedId.IsEmpty()) RequestPortrait(Section == 0, SelectedId);
 }
 
 void UColdSteelCodexPage::RefreshLayout()
@@ -624,7 +653,8 @@ void UColdSteelCodexPage::RequestPortrait(bool bWeapon, const FString& Id) const
     const FDevelopmentMonsterEntry* Entry = Spawner->GetMonsters().FindByPredicate(
         [&Id](const FDevelopmentMonsterEntry& E) { return E.Id.ToString() == Id; });
     if (!Entry) return;
-    if (auto* Portraits = GI->GetSubsystem<UColdSteelMonsterPortraits>()) Portraits->Request(*Entry);
+    // 玩家点选的那张优先：插到队首，排在已排队的预取项之前。
+    if (auto* Portraits = GI->GetSubsystem<UColdSteelMonsterPortraits>()) Portraits->RequestPriority(*Entry);
 }
 
 bool UColdSteelCodexPage::MonsterStatsOf(const FDevelopmentMonsterEntry& Entry, FMonsterCoreStats& Out) const

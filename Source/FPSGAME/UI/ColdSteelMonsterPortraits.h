@@ -38,10 +38,16 @@ public:
     static FString Key(const FDevelopmentMonsterEntry& Entry);
 
     void Request(const FDevelopmentMonsterEntry& Entry);
+    /** 玩家当前正在查看的项：插到队首优先拍，已有的排队项顺序不变。
+     *  与 Request 分开，避免「预取」和「玩家要看」抢同一优先级。 */
+    void RequestPriority(const FDevelopmentMonsterEntry& Entry);
     const FSlateBrush* Find(const FString& Key) const;
     FColdSteelMonsterPortraitReady OnReady;
     bool IsIdle() const { return Queue.IsEmpty(); }
     int32 RenderCount() const { return Completed; }
+    /** 图鉴关闭时调用：停掉队列并释放工作室与渲染目标，空闲期不驻留预览场景。
+     *  已缓存的小图保留（1.5MB/张，解耦于工作室），重开面板可立即命中。 */
+    void ReleaseIdleResources();
 
 private:
     struct FJob { FString Key; TSoftClassPtr<ACharacter> CharacterClass; double RequestedSeconds = 0.0; double RetryAfterSeconds = 0.0; int32 Attempts = 0; };
@@ -82,6 +88,8 @@ private:
     static constexpr int32 PortraitHeight = 768;
 
     bool EnsureStudio();
+    /** 拆掉工作室／捕获／渲染目标，释放预览场景与 RT 显存。队列清空、被摄体销毁。 */
+    void TeardownStudio();
     /** 异步预载怪物类（不阻塞游戏线程）；与武器图标工作室同一策略。
      *  仅登记到本分区的预览用类，不改变怪物资产本身。 */
     void BeginAsyncLoad();
