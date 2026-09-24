@@ -29,7 +29,7 @@
 - 灼烧跳伤保持 `UFireballDamage`（已注册魔防链）；只有新机制（矿毒）才开 `UStatusMagicDamage` 并同步 `CombatFormulaRuntime::IsMagic`。
 - 过载链传导要给被传导者 **+1 感电层**（级联过载），只传伤害是漏项。
 - PowerShell 读 emoji JSON 一律 `-Encoding UTF8`；`FMath::Max(0,...)` 混 float/int 会 C2782。
-- 并行工作树（本仓库 600+ 脏文件常态）：发布前用 `git worktree add <tmp> HEAD` 组装"HEAD+本任务 hunks"、在临时树编译验证绿后 `git apply --cached` 回主仓暂存——**文件级 add 会把他人未提交的感染/储物/韧性等 hunks 夹带发布**。
+- 并行工作树（本仓库 600+ 脏文件常态）：文件级 `git add` 会把他人未提交的感染/储物/巫婆/手势计费等 hunks 夹带发布。实操：纯本任务文件按路径 `git add`；混合文件从工作树拷贝到 scratch，整行删他人新增行 + 行内回改他人对 HEAD 行的修改（`git show HEAD:<path>` 取原文），断言零残留标记后 `git hash-object -w --path=<rel> <blob>` + `git update-index --cacheinfo 100644,<sha>,<rel>` 入索引——工作树逐字节不动，他人未提交内容在提交后仍以未暂存 diff 形式留在树上。暂存完用 `git grep --cached <他人标记>` 与 `git diff --cached --check` 复核。切片在并行期无法独立编译（基线 HEAD 亦引用未发布子系统），以全工作树构建绿作为代码正确性证据并在提交说明中如实记录。
 
 ## 5. 新增一个状态的标准步骤
 

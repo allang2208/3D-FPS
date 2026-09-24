@@ -108,5 +108,6 @@
 ## 构建记录
 
 - `FPSGAMEEditor Win64 Development`：**最终全绿**（含全部迁移批次：核心机制、63 地牢目录、地牢卡 diff TMap 化、感电级联传导、`CleanseDebuffs`；`Saved/buff-migration-build.log`，Result: Succeeded）。中途一轮曾被并行编辑器会话的 Live Coding 进程护栏拒写 DLL（瞬态，重试即过），同批源码另以 `FPSGAME Win64 Development` 游戏目标全量编译链接通过（`Saved/buff-migration-build-game.log`）。
+- 发布：commit `9c32ad9` → `origin/main`（https://github.com/allang2208/3D-FPS.git）。工作树混有多个并行会话的未提交内容（感染/储物会话/巫婆/手势计费等），本提交按 hunk 级筛选暂存：9 个混合文件从工作树过滤他人行后以 blob 入索引（工作树逐字节未动），他人文件整体不入库。切片树在并行期无法独立编译（基线 HEAD 已引用未发布的 Dungeon 子系统），以全工作树构建绿作为代码正确性证据。
 - 按用户规则未做运行/PIE 测试：机制行为以代码级复刻 + 构建通过为准（**未测试**）。
 - `Definition()`/事件目录均为进程内 static 缓存：`status_effects.json`（108 条）与 `dungeon_event_buffs.json` 的新增内容在**编辑器重启后**生效。
