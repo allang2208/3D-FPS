@@ -180,6 +180,12 @@ rough = custom(wet, 'WetFilmRoughness', 'return lerp(.62,.12,Life);', {'Life':li
 surface(wet, {'BASE_COLOR':base,'OPACITY':mask,'ROUGHNESS':rough,'SPECULAR':constant(wet,.58)}, decal=True)
 finish(wet)
 
+# Keep the current flowing mist and seeded cosmetic residue on full rebuilds.
+import sys
+sys.path.insert(0,str(ROOT/'Tools/Fluids'))
+from author_impact_smoke_corrosion import smoke_material,wet_film
+smoke_material(True);wet_film()
+
 # This waits for authoring/compilation only; it does not execute a game or render.
 materials = [u.load_asset(path) for path in CREATED]
 if not u.PoisonMaggotMonster.compile_material_assets(materials):

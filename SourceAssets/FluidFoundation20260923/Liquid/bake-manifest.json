@@ -1,0 +1,15 @@
+{
+  "kind": "liquid",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FluidFoundation20260923\\Liquid\\Mantaflow_liquid.blend",
+  "fps": 24,
+  "frames": 48,
+  "resolution": 48,
+  "units": "meters",
+  "grids": [],
+  "files": [
+    "D:\\FPS3D\\FPSGAME\\SourceAssets\\FluidFoundation20260923\\Liquid\\LiquidDrop.abc"
+  ],
+  "provenance": "Original procedural Mantaflow setup authored for FPSGAME",
+  "status": "baked_not_runtime_tested",
+  "seamless_loop": false
+}

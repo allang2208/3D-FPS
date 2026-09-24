@@ -1,5 +1,9 @@
 # 恢复完整 UE5 内容
 
+## 流体特效与交互（2026-09-24）
+
+恢复本机 `Content/Fluids`、枪口 V14 密度／V15 系统、火系流体燃烧场、血液新材质、冰锥冷雾及喷泉／地牢水面与腐液的既有依赖。原始 Mantaflow 源、缓存、图集、UE 包和制作回执留在本机；源码仓库不替代完整内容备份。重建顺序、68 份退役快照／自动备份的 trash 清单、许可和未测试边界见 [流体整理与恢复](Fluids/fluid-publication-20260924.md)，后续制作遵循 [流体特效工作流](../skills/ue5-fluid-vfx-workflow/SKILL.md)。
+
 ## 突变体-3 狂奔、爪型与飞扑（2026-09-23）
 
 恢复 KhaimeraV2 主体/骨架/9 段动作、SurfacePolish 四贴图与 MI、Effects 落地材质和声音，并保留 Meshy 原物理/Death/Stagger、共享感染母材质、AI 与合法 Fab 纹理/音源。先完整身体重排，再叠加飞扑手部旋转，最后安装表面修订；完整依赖、76 份归档及本次源码发布边界见 [突变体恢复与发布](Monsters/Mutant3FeralPublication20260923.md)。用户反馈基本成功，本次整理未运行游戏测试；二进制仍留本机。

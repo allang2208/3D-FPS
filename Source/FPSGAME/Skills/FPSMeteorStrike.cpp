@@ -1,4 +1,6 @@
 #include "FPSMeteorStrike.h"
+#include "../WorldGeneration/RiverPilotFXSubsystem.h"
+#include "../WorldGeneration/FluidPresentationSubsystem.h"
 #include "FireMagicArea.h"
 #include "FPSFireMagicComponent.h"
 #include "FPSFireballProjectile.h"
@@ -94,7 +96,7 @@ void AFPSMeteorStrike::Impact()
         if(auto* Wave=GetWorld()->SpawnActor<AFireballShockwave>(Destination+Normal*3,FRotationMatrix::MakeFromZ(Normal).Rotator()))Wave->Setup(Heat,CastSnapshot.Radius,true);
     const float Scale=CastSnapshot.Radius/210.375f;
     if(auto* FX=UNiagaraFunctionLibrary::SpawnSystemAtLocation(this,ImpactSystem,Destination+Normal*6,FRotationMatrix::MakeFromZ(Normal).Rotator(),FVector(Scale*1.5f),true,false,ENCPoolMethod::AutoRelease))
-    {FX->SetVariableFloat(TEXT("User.SurfaceHit"),1);FX->SetVariableVec3(TEXT("User.LocalUp"),FX->GetComponentTransform().InverseTransformVectorNoScale(FVector::UpVector));FX->SetVariableFloat(TEXT("User.ImpactGrowth"),Scale-1);FX->Activate(true);}
+    {FX->SetVariableFloat(TEXT("User.SurfaceHit"),1);FX->SetVariableVec3(TEXT("User.LocalUp"),FX->GetComponentTransform().InverseTransformVectorNoScale(FVector::UpVector));FX->SetVariableFloat(TEXT("User.ImpactGrowth"),Scale-1);if(auto* Budget=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>())Budget->ConfigureSmoke(FX,12,bWaterContact);FX->Activate(true);}
     GroundFlames->Activate(true);Burning->Play();Glow->SetWorldLocation(Destination+Normal*60);Glow->SetAttenuationRadius(CastSnapshot.Radius*2);
 }
 void AFPSMeteorStrike::Tick(float Delta)
@@ -107,6 +109,9 @@ void AFPSMeteorStrike::Tick(float Delta)
     {
         const float T=FMath::Clamp(Age/FMath::Max(.05f,CastSnapshot.FallSeconds),0.f,1.f);
         const FVector Previous=Rock->GetComponentLocation(),Position=FMath::Lerp(Start,Destination+Normal*30,.28f*T+.72f*T*T);
+        if(!bWaterContact)
+            if(auto* Water=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>())
+                bWaterContact=Water->TryFireCrossing(Previous,T>=1?Destination:Position,CastSnapshot.Radius,true);
         Rock->SetWorldLocation(Position);Rock->SetWorldRotation(FQuat(SpinAxis,FMath::DegreesToRadians(28*T+17*T*T))*InitialRockRotation);
         const float Onset=FMath::Clamp(Age/.075f,0.f,1.f);Mantle->SetVariableFloat(TEXT("User.Fade"),Onset*Onset*(3-2*Onset));
         const FVector FlightDirection=(Position-Previous).GetSafeNormal();

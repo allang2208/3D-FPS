@@ -1,4 +1,5 @@
 #include "ColdSteelFountain.h"
+#include "../WorldGeneration/RiverPilotFXSubsystem.h"
 #include "Components/SceneComponent.h"
 #include "Components/AudioComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -188,6 +189,7 @@ void AColdSteelFountain::BeginPlay()
         CascadeFarInstance->SetScalarParameterValue(TEXT("InstancePhase"),Phase);
     }
     FountainSprayBudgets.FindOrAdd(GetWorld()).Fountains.AddUnique(this);
+    if(auto* WaterFX=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>())WaterFX->RegisterWaterSurface(WaterMesh);
     ApplyFxQuality();
     InitializeLoopAudio();
     UpdateLoopAudio();
@@ -212,6 +214,7 @@ void AColdSteelFountain::BeginPlay()
 
 void AColdSteelFountain::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
+    if(auto* WaterFX=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>())WaterFX->UnregisterWaterSurface(WaterMesh);
     SetSprayBudget(false,0.f);
     if(WaterLoop)WaterLoop->Stop();
     if(CloseWaterLoop)CloseWaterLoop->Stop();

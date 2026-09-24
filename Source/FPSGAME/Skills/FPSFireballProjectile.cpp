@@ -1,4 +1,6 @@
 #include "FPSFireballProjectile.h"
+#include "../WorldGeneration/RiverPilotFXSubsystem.h"
+#include "../WorldGeneration/FluidPresentationSubsystem.h"
 #include "FPSMagicPreview.h"
 #include "Components/LineBatchComponent.h"
 #include "FPSFireballComponent.h"
@@ -148,6 +150,9 @@ void AFPSFireballProjectile::Tick(float Delta)
     Velocity=LaunchVelocity+Gravity*FlightAge;
     const bool Blocked=GetWorld()->SweepSingleByChannel(Hit,PreviousPosition,NextPosition,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(14),Query);
     SetActorLocation(Blocked?Hit.Location:NextPosition);
+    if(!bWaterContact)
+        if(auto* Water=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>())
+            bWaterContact=Water->TryFireCrossing(PreviousPosition,Blocked?FVector(Hit.ImpactPoint):NextPosition,Cast.Radius,false);
     Distance+=FVector::Distance(PreviousPosition,GetActorLocation());
     UpdateFlightFX(PreviousPosition);
     if(Blocked)Explode(&Hit);else if(Distance>=Cast.Range-UE_KINDA_SMALL_NUMBER)Explode(nullptr);
@@ -172,6 +177,7 @@ void AFPSFireballProjectile::Explode(const FHitResult* Hit)
         FX->SetVariableFloat(TEXT("User.SurfaceHit"),Hit?1.f:0.f);
         FX->SetVariableVec3(TEXT("User.LocalUp"),ImpactRotation.UnrotateVector(FVector::UpVector));
         FX->SetVariableFloat(TEXT("User.ImpactGrowth"),EffectScale-1.f);
+        if(auto* Budget=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>())Budget->ConfigureSmoke(FX,9,bWaterContact);
         FX->Activate(true);
     }
     const FVector WaveOrigin=Contact+(Hit?Normal*4:FVector::ZeroVector);

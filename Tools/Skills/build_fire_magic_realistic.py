@@ -46,6 +46,12 @@ def materials():
         if LIB.get_material_property_input_node(m,u.MaterialProperty.MP_EMISSIVE_COLOR):compensate_exposure(m)
         for node in LIB.get_material_expressions(m):
             if isinstance(node,u.MaterialExpressionDepthFade):node.set_editor_property('fade_distance_default',5.)
+        if key != 'Smoke':
+            # Preserve the shared Mantaflow thermal-field upgrade on rebuild;
+            # native atlas decoding and the complete opacity path remain intact.
+            sys.path.insert(0,str(ROOT/'Tools/Fluids'))
+            from apply_fire_magic_fluid_fields import install_on_material
+            install_on_material(m,key)
         errors=LIB.recompile_material(m)
         if errors:raise RuntimeError(name+': '+str(errors))
         save(m)
@@ -154,7 +160,9 @@ def impact():
         a=appearance(kind,f'{size}*(.8+.25*{VAR})*(.9+{N}*.35)',str(alpha),f'normalize(float3(cos({THETA}),sin({THETA}),1))')
         a.update({'Particles.Position':(POSITION,p),'Particles.Velocity':(VEC3,'float3(0,0,0)')})
         layer(s,name,kind,0,True,{'Particles.Lifetime':(FLOAT,life),**a},a,burst=count,delay=delay)
-    save(s)
+    sys.path.insert(0,str(ROOT/'Tools/Fluids'))
+    from author_impact_smoke_corrosion import impact_smoke
+    impact_smoke(s,True)
 
 def run(stage):
     OUT.mkdir(parents=True,exist_ok=True);u.EditorAssetLibrary.make_directory(DEST)

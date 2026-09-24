@@ -16,24 +16,27 @@ APoisonMaggotProjectile::APoisonMaggotProjectile()
  PrimaryActorTick.bCanEverTick=true;
  Visual=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VenomDroplet"));RootComponent=Visual;
  static ConstructorHelpers::FObjectFinder<UStaticMesh> Sphere(TEXT("/Engine/BasicShapes/Sphere.Sphere"));
- static ConstructorHelpers::FObjectFinder<UMaterialInterface> Liquid(TEXT("/Game/Monsters/PoisonMaggot/VenomLiquid20260915/M_VenomLiquid.M_VenomLiquid"));
- static ConstructorHelpers::FObjectFinder<UMaterialInterface> Core(TEXT("/Game/Monsters/PoisonMaggot/VenomLiquid20260915/M_VenomCore.M_VenomCore"));
+ static ConstructorHelpers::FObjectFinder<UMaterialInterface> Liquid(TEXT("/Game/Fluids/VenomProjectiles20260924/M_VenomBody.M_VenomBody"));
+ static ConstructorHelpers::FObjectFinder<UMaterialInterface> Core(TEXT("/Game/Fluids/VenomProjectiles20260924/M_VenomCore.M_VenomCore"));
  if(Sphere.Succeeded())Visual->SetStaticMesh(Sphere.Object);
  Visual->SetMaterial(0,Liquid.Object);
  Visual->SetCollisionEnabled(ECollisionEnabled::NoCollision);Visual->SetCastShadow(false);Visual->SetRelativeScale3D(FVector(.125,.095,.095));
  Visual->SetCanEverAffectNavigation(false);Visual->bReceivesDecals=false;Visual->bAffectDistanceFieldLighting=false;
- Visual->SetBoundsScale(1.15f);
+ Visual->SetBoundsScale(1.6f);
  LiquidCore=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VenomOpaqueCore"));LiquidCore->SetupAttachment(Visual);
  LiquidCore->SetStaticMesh(Sphere.Object);LiquidCore->SetMaterial(0,Core.Object);
  LiquidCore->SetRelativeScale3D(FVector(.80,.78,.78));
  LiquidCore->SetCollisionEnabled(ECollisionEnabled::NoCollision);LiquidCore->SetCastShadow(false);
  LiquidCore->SetCanEverAffectNavigation(false);LiquidCore->bReceivesDecals=false;LiquidCore->bAffectDistanceFieldLighting=false;
+ LiquidCore->SetBoundsScale(1.6f);
 }
 void APoisonMaggotProjectile::Launch(APoisonMaggotMonster* Source,FVector Dir,float Speed,float Range,float Damage,float Chance)
 {
  Shooter=Source;Velocity=Dir.GetSafeNormal()*Speed;Remaining=Range;HitDamage=Damage;PoisonChance=Chance;
  // Cosmetics use their own random stream, never consuming combat poison/spread RNG.
  VisualRandom.Initialize(int32(GetUniqueID()));VisualPhase=VisualRandom.FRand()*2.f*PI;
+ Visual->SetCustomPrimitiveDataFloat(0,VisualPhase/(2.f*PI));
+ LiquidCore->SetCustomPrimitiveDataFloat(0,VisualPhase/(2.f*PI));
  SetActorRotation(Dir.Rotation());SetLifeSpan(Range/FMath::Max(1.f,Speed)+.1f);
 }
 void APoisonMaggotProjectile::UpdateLiquidVisual(float Dt,const FVector& Start,const FVector& End)

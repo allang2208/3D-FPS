@@ -48,6 +48,9 @@ struct FPlan
     FVector Normal(double X, double Y, int32 Seed) const;
     bool IntersectsCell(double X, double Y, double Size) const;
     void BuildWaterMesh(double X, double Y, double Size, UE::Geometry::FDynamicMesh3& Mesh) const;
+    /** Cosmetic downward crossing of the same ribbon triangles used by BuildWaterMesh. */
+    bool IntersectWaterSegment(const FVector& Start, const FVector& End, double AlongMin, double AlongMax,
+        FVector& Position, FVector& Normal, double& Along) const;
 };
 
 using FPlanPtr = TSharedPtr<const FPlan, ESPMode::ThreadSafe>;

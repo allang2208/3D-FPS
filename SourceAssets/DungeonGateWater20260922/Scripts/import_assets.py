@@ -91,6 +91,11 @@ for key,r in MAN['materials'].items():
             restrained=custom('return normalize(float3(N.xy*Strength,N.z));',{'N':normal,'Strength':scalar('MicroNormalStrength',.50)},3)
             output(restrained,'NORMAL')
         output(base,'BASE_COLOR');output(rough,'ROUGHNESS');output(metal,'METALLIC');output(constant(.38),'SPECULAR')
+    if key=='Water':
+        import sys
+        sys.path.insert(0,str(ROOT.parents[1]/'Tools/Fluids'))
+        from author_water_impacts_all import augment_static_surface
+        augment_static_surface(mat)
     finish();materials['GateWater_'+key]=mat
 
 meshes=[]

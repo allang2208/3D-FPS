@@ -1,4 +1,5 @@
 #include "FPSFootstepAudioComponent.h"
+#include "../WorldGeneration/RiverPilotFXSubsystem.h"
 #include "AutoFootstepEffectContext.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -112,9 +113,10 @@ void UFPSFootstepAudioComponent::TickComponent(float Dt,ELevelTick Type,FActorCo
         FindWorldCountdown=2.f;
         for(TActorIterator<ATemperateHillsWorld> It(GetWorld());It;++It){Hills=*It;break;}
     }
-    const auto River=Hills.IsValid()?Hills->SampleRiver(P.X,P.Y):TemperateRiver::FSample();
-    const float WaterDepth=River.Distance<River.HalfWidth?FMath::Max(0.f,float(River.WaterZ-Feet.Z)):0.f;
-    const bool Wet=WaterDepth>3.f;
+    auto* Water=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>();
+    FFluidWaterContact WaterContact;
+    const bool Wet=Water&&Water->SampleWater(Feet,180.f,WaterContact);
+    const float WaterDepth=Wet?WaterContact.Depth:0.f;
     const bool Grounded=Move->IsMovingOnGround();
     const float Travel=FVector::Dist2D(P,Previous);
     if(!bInitialized||Travel>500.f)
@@ -124,8 +126,11 @@ void UFPSFootstepAudioComponent::TickComponent(float Dt,ELevelTick Type,FActorCo
     }
     Previous=P;
     const float Speed=Move->Velocity.Size2D();
+    if(Wet)Water->UpdateWake(Pawn,WaterContact,Move->Velocity,Pawn->GetSimpleCollisionRadius());
     const bool Landed=Grounded&&!bWasGrounded&&LastVerticalSpeed< -200.f;
     if(Wet!=bWasWet)Play(TEXT("Water"),Feet, Wet?.9f:.45f);
+    if(Wet && (Landed||(!bWasWet&&Move->Velocity.Z<0)))
+        Water->CharacterWater(WaterContact,Move->Velocity,FMath::Abs(LastVerticalSpeed),true);
     if(Landed)
     {
         Play(Wet?FName(TEXT("Water")):GroundBank(Move->CurrentFloor.HitResult),Feet,1.15f);
@@ -139,6 +144,12 @@ void UFPSFootstepAudioComponent::TickComponent(float Dt,ELevelTick Type,FActorCo
         {
             if (FMath::FloorToInt(Distance / Stride) % 2 != 0) bAlternateStep = !bAlternateStep;
             Distance=FMath::Fmod(Distance,Stride);
+            if(Wet)
+            {
+                FFluidWaterContact FootContact;
+                const FVector Foot=Feet+Pawn->GetActorRightVector()*(bAlternateStep?11.f:-11.f);
+                if(Water->SampleWater(Foot,180.f,FootContact))Water->CharacterWater(FootContact,Move->Velocity,0,true);
+            }
             const float Gain=Pawn->bIsCrouched?.42f:FMath::GetMappedRangeValueClamped(FVector2D(100,650),FVector2D(.65,1.15),Speed);
             if(Wet||Move->IsSwimming())
             {

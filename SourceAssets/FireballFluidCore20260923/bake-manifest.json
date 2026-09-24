@@ -1,0 +1,36 @@
+{
+  "source": "Original FPSGAME Mantaflow combustion simulation",
+  "resolution": [
+    96,
+    96,
+    96
+  ],
+  "simulation_frames": 104,
+  "simulation_fps": 24,
+  "simulation_time_scale": 0.8,
+  "atlas": [
+    2048,
+    2048
+  ],
+  "grid": [
+    8,
+    8
+  ],
+  "frames": 64,
+  "tile_size": 256,
+  "channels": {
+    "R": "integrated flame",
+    "G": "flame-weighted temperature",
+    "B": "integrated smoke"
+  },
+  "linear_data": true,
+  "normalization": [
+    0.41783060901911795,
+    2.82739413852978,
+    0.18667862103614608
+  ],
+  "loop_seam": "8-frame smooth overlap from 72 warm simulation frames",
+  "provenance": "Original procedural sources, no downloaded artwork",
+  "runtime_tested": false,
+  "visual_tested": false
+}

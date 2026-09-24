@@ -110,6 +110,10 @@ dither=node(u.MaterialExpressionMaterialFunctionCall)
 dither.set_editor_property('material_function', load('/Engine/Functions/Engine_MaterialFunctions02/Utility/DitherTemporalAA'))
 alpha_pin = lib.get_material_expression_input_names(dither)[0]
 wire(opacity,dither,alpha_pin);output(dither,'OPACITY_MASK')
+import sys
+sys.path.insert(0,str(Path(u.Paths.project_dir())/'Tools/Fluids'))
+from author_impact_smoke_corrosion import pool_surface
+pool_surface(mat)
 lib.layout_material_expressions(mat)
 compile_errors = lib.recompile_material(mat)
 if compile_errors:

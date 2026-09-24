@@ -1,4 +1,5 @@
 #include "FPSIceSpikeVolley.h"
+#include "../WorldGeneration/FluidPresentationSubsystem.h"
 #include "FPSIceSpikeComponent.h"
 #include "FPSFireballComponent.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -72,6 +73,17 @@ void AFPSIceSpikeVolley::UpdateVapor(int32 Index,const FVector& Previous,float S
     Vapor->SetVariableVec3(TEXT("User.Up"),Core->GetUpVector());
     Vapor->SetVariableFloat(TEXT("User.Flight"),bFlying?1.f:0.f);
     Vapor->SetVariableFloat(TEXT("User.Strength"),Strength);
+    if(Age>=Flights[Index].NextFluidEnvironment)
+    {
+        if(auto* Fluid=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>())
+        {
+            const int32 Wanted=bFlying?8:2;
+            const int32 Granted=Fluid->AllocateDetail(Flights[Index].Position,Wanted,false);
+            Vapor->SetVariableFloat(TEXT("User.DetailReduction"),1.f-float(Granted)/Wanted);
+            Vapor->SetVariableVec3(TEXT("User.Wind"),Fluid->WindAt(Flights[Index].Position)*.25f);
+        }
+        Flights[Index].NextFluidEnvironment=Age+.10f;
+    }
     Vapor->SetVariableFloat(TEXT("User.ReleasePulse"),bFlying?FMath::Clamp(1.f-FlightAge/.16f,0.f,1.f):0.f);
     auto* Trail=Trails[Index].Get();Trail->SetWorldLocation(Flights[Index].Position);
     Trail->SetVariablePosition(TEXT("User.PreviousPosition"),Previous);Trail->SetVariablePosition(TEXT("User.CurrentPosition"),Flights[Index].Position);
@@ -272,6 +284,7 @@ void AFPSIceSpikeVolley::Shatter(int32 Index,const FVector& Position,const FVect
     auto* Vapor=Vapors[Index].Get();Vapor->SetVariableFloat(TEXT("User.Strength"),0.f);
     if(VaporHosts[Index].IsValid())VaporHosts[Index]->SetLifeSpan(.85f);
     if(!bEffect)return;
+    if(auto* Fluid=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>())Fluid->EmitColdImpact(Position,Normal);
     if(ImpactFX)UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),ImpactFX,Position,Normal.Rotation(),FVector(.7f),true,EPSCPoolMethod::AutoRelease);
     if(ShardMesh&&IceMaterial)if(auto* F=GetWorld()->SpawnActor<AFPSIceSpikeFragments>(Position,FRotator::ZeroRotator))F->Setup(ShardMesh,IceMaterial,Normal);
     const double Now=GetWorld()->GetTimeSeconds();

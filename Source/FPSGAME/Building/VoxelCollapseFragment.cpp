@@ -1,4 +1,6 @@
 #include "VoxelCollapseFragment.h"
+#include "Engine/World.h"
+#include "../WorldGeneration/FluidPresentationSubsystem.h"
 #include "VoxelBuildWorld.h"
 #include "VoxelBuildGeometry.h"
 #include "Components/DynamicMeshComponent.h"
@@ -41,7 +43,9 @@ void AVoxelCollapseFragment::EnableWaitingCollision()
 void AVoxelCollapseFragment::Activate()
 {
     if(bReplacing||bStarted)return;
-    EnableWaitingCollision();Body->SetSimulatePhysics(true);Body->SetMassOverrideInKg(NAME_None,Mass,true);
+    EnableWaitingCollision();Body->SetSimulatePhysics(true);
+    if(auto* Fluid=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>())Fluid->RegisterWaterBody(Body);
+    Body->SetMassOverrideInKg(NAME_None,Mass,true);
     Body->SetCenterOfMass(DesiredCenter-GetActorTransform().InverseTransformPosition(Body->GetCenterOfMass()));
     Body->SetPhysicsLinearVelocity(State.Velocity);Body->SetPhysicsAngularVelocityInRadians(State.AngularVelocity);
     PreviousVelocity=State.Velocity;bStarted=true;

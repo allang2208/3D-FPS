@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "UObject/WeakFieldPtr.h"
 #include "FPSWeatherManager.generated.h"
 
 class UAudioComponent;

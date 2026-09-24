@@ -61,14 +61,14 @@ def mist():
     for script in ['ParticleSpawnScript','ParticleUpdateScript']:u.EditorAssetLibrary.remove_metadata_tag(s,'Fireball.Assignments.'+en+'.'+script)
     setdata('SetEmitterData',u.NiagaraExt_EmitterData,ref(s,en),{'bLocalSpace':False,'SimTarget':'CPUSim','bInterpolatedSpawning':False})
     setdata('SetRendererData',u.NiagaraExt_RendererData,ref(s,en,renderer=0),{'Material':m.get_path_name(),'MaterialUserParamBinding':{'Parameter':{'Name':'None'}},'SubImageSize':{'X':8,'Y':8},'Alignment':'Unaligned','FacingMode':'FaceCamera','bSubImageBlend':True,'bCastShadows':False,'MotionVectorSetting':'Disable','CutoutTexture':None,'bUseMaterialCutoutTexture':False})
-    for name,typ in [('Side',VEC3),('Up',VEC3),('Flight',FLOAT),('Strength',FLOAT),('ReleasePulse',FLOAT)]:user_parameter(s,name,typ)
-    expression(s,en,'EmitterUpdateScript','SpawnRate','SpawnRate','saturate(User.Strength)*(18+User.Flight*65+User.ReleasePulse*90)')
+    for name,typ in [('Side',VEC3),('Up',VEC3),('Flight',FLOAT),('Strength',FLOAT),('ReleasePulse',FLOAT),('Wind',VEC3),('DetailReduction',FLOAT)]:user_parameter(s,name,typ)
+    expression(s,en,'EmitterUpdateScript','SpawnRate','SpawnRate','saturate(User.Strength)*(18+User.Flight*65+User.ReleasePulse*90)*(1-saturate(User.DetailReduction))')
     a='frac(float(Particles.UniqueID)*.61803398875)';b='frac(float(Particles.UniqueID)*.754877666)'
     theta=f'({b}*6.2831853)';rad=f'(User.Side*cos({theta})+User.Up*sin({theta}))'
     assignments(s,en,'ParticleSpawnScript',{
         'Particles.Lifetime':(FLOAT,f'lerp(.40+.26*{a},.10+.06*{a},User.Flight)'),
         'Particles.Position':(POSITION,f'lerp(User.PreviousPosition,User.CurrentPosition,{a})+User.FlightDirection*(-21+{a}*29)+{rad}*(3+{b}*3)'),
-        'Particles.Velocity':(VEC3,f'{rad}*(6+{a}*8)+float3(0,0,-15)-User.FlightDirection*User.Flight*38'),
+        'Particles.Velocity':(VEC3,f'{rad}*(6+{a}*8)+float3(0,0,-15)-User.FlightDirection*User.Flight*38+User.Wind'),
         'Particles.SpriteSize':(VEC2,f'float2(11,15)*(1+{b}*.5)'),
         'Particles.SpriteRotation':(FLOAT,f'{a}*360'),
         'Particles.Color':(COLOR,'float4(.60,.73,.79,.42)'),

@@ -19,6 +19,7 @@ struct FFPSFlyingRound
     // reads as spaced tracers instead of one solid tube of light (real belts load one
     // tracer every fifth round). Presentation only — damage and the trace are untouched.
     bool bShowTracer=true;
+    bool bRiverEntryPlayed=false;
     int32 Piercing=0,Poison=0;
     FColdSteelSkillShot Training;
     TArray<TWeakObjectPtr<AActor>> HitActors;

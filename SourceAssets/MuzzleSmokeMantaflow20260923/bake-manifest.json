@@ -1,0 +1,21 @@
+{
+  "frames": 64,
+  "columns": 8,
+  "rows": 8,
+  "tile_px": 256,
+  "gutter_px": 4,
+  "atlas_px": [
+    2048,
+    2048
+  ],
+  "channel": "R linear density coverage, RGB identical",
+  "frame_order": "left to right, top to bottom",
+  "interpolation": "two adjacent frames",
+  "projection": "density integrated along Y; center/extent tracked per frame",
+  "fps_source": 30,
+  "time_scale": 0.7,
+  "resolution": 96,
+  "source": "Original FPSGAME Mantaflow impulse smoke",
+  "runtime": "World-space Niagara sprites; no runtime volume simulation",
+  "status": "authored_not_gameplay_or_visual_tested"
+}

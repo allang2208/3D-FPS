@@ -1,4 +1,5 @@
 #include "FPSImpactFXSubsystem.h"
+#include "../WorldGeneration/FluidPresentationSubsystem.h"
 #include "Camera/CameraComponent.h"
 #include "Components/InstancedStaticMeshComponent.h"
 #include "Components/DecalComponent.h"
@@ -50,13 +51,13 @@ UFPSImpactFXSubsystem::UFPSImpactFXSubsystem()
         ConstructorHelpers::FObjectFinder<UMaterialInterface> Asset(*Path);
         ParticleMaterials.Add(Asset.Object);
     }
-    for (const TCHAR* Name : {TEXT("M_FleshMistV1"), TEXT("M_FleshDropletV1")})
+    for (const TCHAR* Name : {TEXT("M_FleshMistV1"), TEXT("M_FleshDropletV2")})
     {
         const FString Path = FString::Printf(TEXT("/Game/Weapons/GunplayFX/Impacts/Blood/%s.%s"), Name, Name);
         ConstructorHelpers::FObjectFinder<UMaterialInterface> Asset(*Path);
         ParticleMaterials.Add(Asset.Object);
     }
-    ConstructorHelpers::FObjectFinder<UMaterialInterface> BloodMark(TEXT("/Game/Weapons/GunplayFX/Impacts/Blood/M_FleshStainV2.M_FleshStainV2"));
+    ConstructorHelpers::FObjectFinder<UMaterialInterface> BloodMark(TEXT("/Game/Weapons/GunplayFX/Impacts/Blood/M_FleshStainV3.M_FleshStainV3"));
     BloodStainMaterial = BloodMark.Object;
     ConstructorHelpers::FObjectFinder<UMaterialInterface> GroundWave(TEXT("/Game/Monsters/Mutant3Meshy/Effects/M_Mutant3LandingWave.M_Mutant3LandingWave"));
     ParticleMaterials.Add(GroundWave.Object);
@@ -270,6 +271,11 @@ void UFPSImpactFXSubsystem::SpawnImpact(const FHitResult& Hit, UCameraComponent*
         const bool bLanding=Distance<4500.f && FindBloodLanding(Hit,ViewCamera,Now,Ground);
         AddFleshBurst(Hit,Normal,Full,Far,bLanding?&Ground:nullptr);
         if (bLanding) AddBloodStain(Ground,Hit.ImpactPoint,Now);
+        if(Full&&Distance<2500.f)
+        {
+            const FVector Incoming=(Hit.TraceEnd-Hit.TraceStart).GetSafeNormal(SMALL_NUMBER,-Normal);
+            AddBloodWall(Hit,(Normal*.72f-Incoming*.28f).GetSafeNormal(),ViewCamera,Now);
+        }
         PlayImpactSound(Hit.ImpactPoint,Surface,Distance,Now);
         return;
     }
@@ -318,7 +324,9 @@ void UFPSImpactFXSubsystem::AddFleshBurst(const FHitResult& Hit,const FVector& N
     const FVector Axis=(Normal*.72f-Incoming*.28f).GetSafeNormal(SMALL_NUMBER,Normal);
     for(int32 Group=3;Group<=4;++Group)
     {
-        const int32 Wanted=Group==3?(Full?3:Far?1:2):(Far?1:Full?11:6);
+        const int32 Requested=Group==3?(Full?3:Far?1:2):(Far?1:Full?11:6);
+        auto* Fluid=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>();
+        const int32 Wanted=Fluid?Fluid->AllocateDetail(Hit.ImpactPoint,Requested,true):Requested;
         int32 Added=0;
         const int32 Start=FPSImpact::Starts[Group],End=Start+FPSImpact::Counts[Group];
         for(int32 Slot=Start;Slot<End && Added<Wanted && ActiveParticles<MaxActiveParticles;++Slot)
@@ -327,24 +335,24 @@ void UFPSImpactFXSubsystem::AddFleshBurst(const FHitResult& Hit,const FVector& N
             auto& P=Particles[Slot];P=FParticle();
             P.Born=Now;
             P.Position=Hit.ImpactPoint+Normal*2.f;
-            P.Rotation.Roll=FMath::FRandRange(-180.f,180.f);
-            P.Variation=FMath::FRand();
-            const FVector Direction=FMath::VRandCone(Axis,FMath::DegreesToRadians(Group==3?36.f:48.f));
+            P.Rotation.Roll=BloodRandom.FRandRange(-180.f,180.f);
+            P.Variation=BloodRandom.FRand();
+            const FVector Direction=BloodRandom.VRandCone(Axis,FMath::DegreesToRadians(Group==3?36.f:48.f));
             if(Group==3)
             {
                 P.Position+=FVector::VectorPlaneProject(Direction,Normal)*3.f;
-                P.Velocity=Direction*FMath::FRandRange(65.f,115.f)+FVector(0,0,14.f);
-                P.Life=FMath::FRandRange(.32f,.44f);P.Gravity=-25.f;
-                P.Size=FVector(FMath::FRandRange(25.f,33.f)*(Far?1.15f:1.f));
+                P.Velocity=Direction*BloodRandom.FRandRange(65.f,115.f)+FVector(0,0,14.f);
+                P.Life=BloodRandom.FRandRange(.32f,.44f);P.Gravity=-25.f;
+                P.Size=FVector(BloodRandom.FRandRange(25.f,33.f)*(Far?1.15f:1.f));
                 P.Color=FLinearColor(.34f,.010f,.007f);
                 P.Opacity=Added==0?.80f:.48f;
             }
             else
             {
-                P.Velocity=Direction*FMath::FRandRange(150.f,290.f)+FVector(0,0,24.f);
-                P.Life=FMath::FRandRange(.60f,.88f);P.Gravity=-980.f;
-                P.Size=FVector(FMath::FRandRange(1.6f,2.9f),FMath::FRandRange(5.f,9.f),1.f);
-                P.Color=FLinearColor(FMath::FRandRange(.23f,.36f),.006f,.004f);
+                P.Velocity=Direction*BloodRandom.FRandRange(150.f,290.f)+FVector(0,0,24.f);
+                P.Life=BloodRandom.FRandRange(.60f,.88f);P.Gravity=-980.f;
+                P.Size=FVector(BloodRandom.FRandRange(1.6f,2.9f),BloodRandom.FRandRange(5.f,9.f),1.f);
+                P.Color=FLinearColor(BloodRandom.FRandRange(.23f,.36f),.006f,.004f);
                 P.Opacity=.96f;
                 if(Ground)
                 {
@@ -356,15 +364,20 @@ void UFPSImpactFXSubsystem::AddFleshBurst(const FHitResult& Hit,const FVector& N
                         // queried landing point. Solve the same analytic motion
                         // used in Tick; no per-drop traces or physics bodies.
                         const float Height=FMath::Max(0.f,static_cast<float>(P.Position.Z-Ground->ImpactPoint.Z));
-                        const float Flight=FMath::Clamp(FMath::Sqrt(2.f*Height/980.f),.24f,1.1f)*FMath::FRandRange(.96f,1.06f);
+                        const float Flight=FMath::Clamp(FMath::Sqrt(2.f*Height/980.f),.24f,1.1f)*BloodRandom.FRandRange(.96f,1.06f);
                         const float Travel=(1.f-FMath::Exp(-1.6f*Flight))/1.6f;
-                        const FVector Spread=FVector::VectorPlaneProject(FMath::VRand()*FMath::FRandRange(2.f,12.f),P.LandingNormal);
+                        const FVector Spread=FVector::VectorPlaneProject(BloodRandom.VRand()*BloodRandom.FRandRange(2.f,12.f),P.LandingNormal);
                         const FVector Target=P.LandingPoint+Spread+P.LandingNormal*.5f;
                         P.Velocity=(Target-P.Position-FVector(0,0,P.Gravity*.5f*Flight*Flight))/Travel;
                         P.Life=Flight+.18f;
                         P.Size.Y*=.75f;
                     }
                 }
+            }
+            if(Group==4&&Full&&Added<2)
+            {
+                // Two thin ligaments split in the age-driven mask; use existing drop slots.
+                P.Size.X*=.72f;P.Size.Y*=2.1f;
             }
             ++Added;++ActiveParticles;
         }
@@ -410,6 +423,21 @@ bool UFPSImpactFXSubsystem::FindBloodLanding(const FHitResult& Hit,UCameraCompon
     return false;
 }
 
+void UFPSImpactFXSubsystem::AddBloodWall(const FHitResult& Hit,const FVector& Axis,UCameraComponent* View,double Now)
+{
+    if(!View||Now-LastBloodWallTime<.12)return;
+    auto* Fluid=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>();
+    if(Fluid&&!Fluid->ReserveGeometryQueries(1))return;
+    LastBloodWallTime=Now;
+    FHitResult Wall;FCollisionQueryParams Query(SCENE_QUERY_STAT(BloodWallResidue),true,Hit.GetActor());
+    Query.AddIgnoredActor(View->GetOwner());
+    const FVector Start=Hit.ImpactPoint+Hit.ImpactNormal*5;
+    if(GetWorld()->LineTraceSingleByChannel(Wall,Start,Start+Axis*180.f-FVector(0,0,25),ECC_Visibility,Query))
+        if(auto* Component=Wall.GetComponent();Component&&Component->bReceivesDecals&&!Component->IsSimulatingPhysics()
+            &&FMath::Abs(Wall.ImpactNormal.Z)<.5f&&!Cast<APawn>(Wall.GetActor())&&!Cast<AVoxelBuildWorld>(Wall.GetActor()))
+            AddBloodStain(Wall,Hit.ImpactPoint,Now);
+}
+
 void UFPSImpactFXSubsystem::AddBloodStain(const FHitResult& Ground,const FVector& Origin,double Now)
 {
     UPrimitiveComponent* Component=Ground.GetComponent();
@@ -438,14 +466,17 @@ void UFPSImpactFXSubsystem::AddBloodStain(const FHitResult& Ground,const FVector
     auto* Decal=BloodDecals[Index].Get();Decal->SetVisibility(false);
     Decal->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
     const FVector Normal=Ground.ImpactNormal.GetSafeNormal();
-    const FQuat Rotation=(-Normal).ToOrientationQuat()*FQuat(FVector::ForwardVector,FMath::FRandRange(0.f,2.f*PI));
-    const float Radius=FMath::FRandRange(16.f,24.f);
-    Decal->DecalSize=FVector(8.f,Radius,Radius*FMath::FRandRange(.85f,1.2f));
+    const bool Wall=FMath::Abs(Normal.Z)<.5f;
+    const FQuat Rotation=Wall?FRotationMatrix::MakeFromXZ(-Normal,FVector::UpVector).ToQuat()
+        :(-Normal).ToOrientationQuat()*FQuat(FVector::ForwardVector,BloodRandom.FRandRange(0.f,2.f*PI));
+    const float Radius=BloodRandom.FRandRange(16.f,24.f);
+    Decal->DecalSize=FVector(8.f,Radius,Radius*BloodRandom.FRandRange(.85f,1.2f));
     Decal->SetWorldLocationAndRotation(Ground.ImpactPoint+Normal*.3f,Rotation);
     Decal->AttachToComponent(Component,FAttachmentTransformRules::KeepWorldTransform);
     const float Height=FMath::Max(0.f,static_cast<float>(Origin.Z-Ground.ImpactPoint.Z));
-    const float Flight=FMath::Clamp(FMath::Sqrt(2.f*Height/980.f),.24f,1.1f);
-    Decal->SetDecalColor(FLinearColor(FMath::FRand(),static_cast<float>(Now)+Flight,1.f,1.f));
+    const float Flight=Wall?FMath::Clamp(float(FVector::Dist(Origin,Ground.ImpactPoint))/260.f,.08f,.5f)
+        :FMath::Clamp(FMath::Sqrt(2.f*Height/980.f),.24f,1.1f);
+    Decal->SetDecalColor(FLinearColor(BloodRandom.FRand(),static_cast<float>(Now)+Flight,Wall?1.f:0.f,1.f));
     Decal->SetFadeIn(Flight,.09f);Decal->SetFadeOut(Flight+22.f,6.f,false);Decal->SetLifeSpan(0.f);
     Decal->SetVisibility(true);BloodDecalUntil[Index]=Now+Flight+28.;
 }
@@ -529,7 +560,12 @@ void UFPSImpactFXSubsystem::Tick(float DeltaTime)
             }
             const float SizeScale=Group==1?.65f+Life*1.5f:Group==3?.70f+Life*1.25f:1.f;
             FVector Size=P.Size*SizeScale;
-            if(Group==4)Size.Y*=FMath::Lerp(1.f,.50f,Life);
+            if(Group==4)
+            {
+                const float Stretch=FMath::Clamp(float(Velocity.Size())/240.f,.55f,1.6f);
+                Size.Y*=Stretch*FMath::Lerp(1.f,.40f,Life);
+                Size.X*=FMath::InvSqrt(Stretch);
+            }
             Transforms[Group][Local]=FTransform(Rotation,Position,Size/100.f);
             float Fade=Group==4?1.f-FMath::SmoothStep(.78f,1.f,Life):Group==2?1.f-FMath::SmoothStep(.5f,1.f,Life):FMath::Square(1.f-Life);
             if(Group==3)Fade=FMath::SmoothStep(0.f,.035f,Life)*(1.f-FMath::SmoothStep(.20f,1.f,Life));

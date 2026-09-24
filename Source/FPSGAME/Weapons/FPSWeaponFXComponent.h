@@ -111,9 +111,11 @@ private:
     void SpawnCasing();
     bool ShouldHideCasings() const;
     bool SpawnEpicFX(FVector Position, FVector Forward, float Scale);
+    void SpawnSmokeImpulse(bool bADS);
     void UpdateSmokeStream(float DeltaTime);
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UNiagaraSystem> EpicMuzzleSystem;
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UNiagaraSystem> EpicSmokeSystem;
+    UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UNiagaraSystem> SmokeImpulseSystem;
     UPROPERTY(Transient) TArray<TObjectPtr<UNiagaraComponent>> EpicFXPool;
     UPROPERTY(Transient) TObjectPtr<UNiagaraComponent> SmokeStream;
     FFPSWeaponFXParticle* Acquire(uint8 Kind, UStaticMesh* Geometry, UMaterialInterface* Material);

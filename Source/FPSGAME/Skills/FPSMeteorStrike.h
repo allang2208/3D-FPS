@@ -34,6 +34,7 @@ private:
     FFireMagicCast CastSnapshot;
     FFireMagicRewards Rewards;
     FVector Destination,Normal,Start;
+    bool bWaterContact=false;
     float Age=0,LavaAge=0,NextLavaTick=0;
     bool bImpacted=false,bSettled=false;
     void Impact();

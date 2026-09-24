@@ -1,4 +1,5 @@
 #include "AuthoredDungeonGenerator.h"
+#include "../WorldGeneration/RiverPilotFXSubsystem.h"
 #include "DungeonPusChannel.h"
 #include "Async/Async.h"
 #include "Components/InstancedStaticMeshComponent.h"
@@ -558,6 +559,7 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
                 Instances->ComponentTags.Add(FName(*FString::Printf(TEXT("DungeonModule.%d.%s"),Index,*State->Plan.Modules[Piece.Module].Id)));
                 State->InstanceGroups.Add(Key,Instances);++State->Instances;++State->InstanceComponents;
             }
+            if(auto* WaterFX=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>())WaterFX->RegisterWaterSurface(C);
             ++State->Parts;
             }});
         }

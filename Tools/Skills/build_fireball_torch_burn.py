@@ -136,9 +136,11 @@ return float4(rgb*(.78+.22*thickness),edge*(.82+.12*turbulence));
     connect(exposed,emission,'A');connect(fade,emission,'B')
     LIB.connect_material_property(emission,'',unreal.MaterialProperty.MP_EMISSIVE_COLOR)
     LIB.connect_material_property(fade,'',unreal.MaterialProperty.MP_OPACITY)
-    errors=LIB.recompile_material(mat)
-    if errors:raise RuntimeError('Cohesive core material: '+str(errors))
-    save(mat)
+    # Keep the 2026-09-23 combustion-field upgrade when rebuilding the torch core.
+    # It retains this persistent silhouette and only adds thermal field detail.
+    sys.path.insert(0,str(ROOT/'Tools/Fluids'))
+    from apply_fireball_fluid_core import install_on_material
+    install_on_material(mat)
 
 def materials():
     parent=copy('/Game/Vefects/Free_Fire/Shared/Materials/M_VFX_Erosion','M_FireballTorchErosion')

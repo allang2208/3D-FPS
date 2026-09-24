@@ -4,6 +4,7 @@
 #include "../FPSGAMECharacter.h"
 #include "FPSWeaponFXComponent.h"
 #include "ColdSteelEnchantmentCombat.h"
+#include "../WorldGeneration/RiverPilotFXSubsystem.h"
 #include "Engine/World.h"
 #include "GameFramework/Pawn.h"
 #include "Kismet/GameplayStatics.h"
@@ -40,6 +41,7 @@ void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
     Super::TickComponent(Delta,Type,Fn);
     const double Now=GetWorld()->GetTimeSeconds();
     const auto* Pawn=Cast<APawn>(GetOwner());
+    auto* RiverFX=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>();
     for(int32 I=Rounds.Num()-1;I>=0;--I)
     {
         auto& R=Rounds[I];const float Distance=FMath::Min(R.Remaining,R.Speed*static_cast<float>(FMath::Max(0.,Now-R.Timestamp)));
@@ -61,13 +63,15 @@ void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
                 if(auto* Shooter=Cast<AFPSGAMECharacter>(GetOwner())) Shooter->NotifyConfirmedWeaponHit(Hit.GetActor(),Applied);
             }
             ColdSteelCombat::OnHit(Hit.GetActor(),GetOwner(),R.Poison);
-            if(WeaponFX)WeaponFX->OnImpact(Hit);
+            if(WeaponFX&&(!RiverFX||!RiverFX->IsSubmergedRiverbed(Hit)))WeaponFX->OnImpact(Hit);
             if(HeadshotSound&&ColdSteelSkills::IsCriticalHit(Hit))UGameplayStatics::PlaySound2D(this,HeadshotSound,.630957f);
             // Penetrate targets, never walls. Each target takes damage once per round.
             if(R.Piercing>0&&Cast<APawn>(Hit.GetActor())){--R.Piercing;R.HitActors.Add(Hit.GetActor());Params.AddIgnoredActor(Hit.GetActor());R.Position=Hit.ImpactPoint;continue;}
             Stopped=true;break;
         }
-        if(WeaponFX&&R.bShowTracer)WeaponFX->OnTracerSegment(R.Id,Start,Stopped?Hit.ImpactPoint:End);
+        const FVector Reached=Stopped?Hit.ImpactPoint:End;
+        if(!R.bRiverEntryPlayed&&RiverFX&&RiverFX->TryBulletCrossing(Start,Reached,R.Speed))R.bRiverEntryPlayed=true;
+        if(WeaponFX&&R.bShowTracer)WeaponFX->OnTracerSegment(R.Id,Start,Reached);
         if(Stopped){Rounds.RemoveAtSwap(I);continue;}
         R.Position=End;R.Remaining-=Distance;R.TraveledCM+=Distance;
         if(R.Remaining<=KINDA_SMALL_NUMBER)Rounds.RemoveAtSwap(I);

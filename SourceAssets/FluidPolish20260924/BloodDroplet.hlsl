@@ -1,0 +1,15 @@
+float seed=Variation*6.283185;
+float2 p=(UV-.5)*2;
+float shrink=lerp(1,.70,saturate(Age));
+p.x+=(sin(p.y*6+seed+Age*11)*.055)*(1-Age);
+float width=(.13+.10*(1-p.y*.3))*shrink;
+float shaft=1-smoothstep(.7,1,length(float2(p.x/width,(p.y+.10)/.82)));
+float breakup=smoothstep(.18,.64,Age);
+float neck=exp(-pow((p.y-(-.24+.10*sin(seed)))/.085,2));
+shaft*=1-neck*breakup;
+float bead=1-smoothstep(.72,1,length((p-float2(.035*sin(seed),.59))/float2(.19,.19)));
+float index=min(5,floor(Variation*6));
+float2 coord=(float2(fmod(index,3),floor(index/3))+clamp(UV,.015,.985))/float2(3,2);
+float atlas=smoothstep(.035,.7,Texture2DSample(Drops,DropsSampler,coord).b);
+float2 edge=smoothstep(0,.075,UV)*smoothstep(0,.075,1-UV);
+return saturate(lerp(atlas,max(shaft,bead),.62)*edge.x*edge.y);

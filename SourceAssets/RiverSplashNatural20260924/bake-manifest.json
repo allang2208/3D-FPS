@@ -1,0 +1,82 @@
+{
+  "source": "Original Blender Mantaflow FLIP displaced-liquid impulses",
+  "variants": 4,
+  "frames_per_variant": 32,
+  "fps": 50,
+  "domain_resolution": 72,
+  "mesh_upres": 2,
+  "atlas": [
+    1024,
+    2048
+  ],
+  "grid": [
+    8,
+    16
+  ],
+  "tile": 128,
+  "channels": {
+    "RG": "camera-space normal XY, encoded 0..1",
+    "B": "aerated edge shading weight",
+    "A": "coverage"
+  },
+  "world_width_cm": 64,
+  "waterline_pivot_v": 0.79,
+  "provenance": "Project-original simulations; no downloaded artwork",
+  "empty_frame_policy": "zero cached FLIP vertices => fully transparent tile; never render domain fallback",
+  "empty_frames": {
+    "0": [
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "1": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "2": [
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "3": [
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ]
+  },
+  "repacked_existing_frames": true,
+  "runtime_tested": false,
+  "visual_tested": false
+}

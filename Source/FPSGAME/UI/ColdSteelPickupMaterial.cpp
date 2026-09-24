@@ -1,4 +1,6 @@
 #include "ColdSteelPickup.h"
+#include "Engine/World.h"
+#include "../WorldGeneration/FluidPresentationSubsystem.h"
 #include "../Production/ProductionHarvestAssets.h"
 #include "../WorldGeneration/TemperateHillsWorld.h"
 #include "Components/BoxComponent.h"
@@ -32,7 +34,9 @@ void AColdSteelPickup::InstallProductionMaterial(UStaticMesh* Asset,bool Wood)
     const FVector Size=Bounds.BoxExtent*(2*Scale);
     ProductionMassKg=Wood?FMath::Clamp(float(Size.X*Size.Y*Size.Z)*.000001f*.7854f*550.f,4.f,40.f):.8f;
     Body->SetLinearDamping(Wood?.7f:1.8f);Body->SetAngularDamping(Wood?1.2f:4.f);
-    Body->SetSimulatePhysics(true);Body->SetMassOverrideInKg(NAME_None,ProductionMassKg);
+    Body->SetSimulatePhysics(true);
+    if(auto* Fluid=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>())Fluid->RegisterWaterBody(Body);
+    Body->SetMassOverrideInKg(NAME_None,ProductionMassKg);
     // Older saves contain narrow branch-sized drops; lift a wider replacement out of the ground.
     for(TActorIterator<ATemperateHillsWorld> It(GetWorld());It;++It)
     {

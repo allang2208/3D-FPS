@@ -18,6 +18,8 @@ public:
     UPoisonMaggotVenomFX();
     void AddTrail(const FVector& Position, const FVector& Velocity, bool bMist);
     void AddImpact(const FHitResult& Hit, const FVector& IncomingVelocity);
+    void AddBottleImpact(const FVector& Position, const FVector& Normal, const FVector& IncomingVelocity, float Radius);
+    void AddPoolVapor(const FVector& Position, const FVector& Normal, float Radius);
     virtual void OnWorldBeginPlay(UWorld& World) override;
     virtual void Deinitialize() override;
     virtual void Tick(float DeltaTime) override;
@@ -32,6 +34,8 @@ private:
     struct FFragment
     {
         FVector Position = FVector::ZeroVector, Velocity = FVector::ZeroVector;
+        FVector Wind = FVector::ZeroVector, CollisionPosition = FVector::ZeroVector;
+        float NextCollision=.08f;
         FVector PlanePoint = FVector::ZeroVector, PlaneNormal = FVector::ZeroVector;
         float Age = 0, Life = 0, Size = 1, Stretch = 1, Gravity = 0, Opacity = 1, Seed = 0;
     };

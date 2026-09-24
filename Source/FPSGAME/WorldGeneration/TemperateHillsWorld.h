@@ -145,6 +145,8 @@ public:
     virtual void OnConstruction(const FTransform& Transform) override;
     virtual void Tick(float DeltaSeconds) override;
     UPROPERTY(EditAnywhere, Category="Hills") TObjectPtr<UTemperateHillsAssets> Assets;
+    UPROPERTY(EditDefaultsOnly, Category="River|Pilot") TSoftObjectPtr<UMaterialInterface> RiverPilotMaterial = TSoftObjectPtr<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/Fluids/RiverPilot20260923/M_RiverPilot.M_RiverPilot")));
+    UPROPERTY(EditDefaultsOnly, Category="River|Pilot") TSoftObjectPtr<class UNiagaraSystem> RiverPilotSplash = TSoftObjectPtr<UNiagaraSystem>(FSoftObjectPath(TEXT("/Game/Fluids/RiverPilot20260923/NS_RiverBulletSplash.NS_RiverBulletSplash")));
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Hills") int32 Seed = 122;
     UPROPERTY(EditAnywhere, Category="Hills", meta=(ClampMin="256",ClampMax="1024")) float SizeMeters = 1024.f;
     UPROPERTY(EditAnywhere, Category="Hills|Streaming", meta=(ClampMin="96",ClampMax="256")) float DetailRadiusMeters = 160.f;

@@ -1,0 +1,552 @@
+{
+  "date": "2026-09-24",
+  "scope": "Fluid work only; no runtime assets, current sources, simulation caches or unrelated tasks removed",
+  "count": 68,
+  "bytes": 25121140.0,
+  "files": [
+    {
+      "original": "SourceAssets/FluidFoundation20260923/Before/DefaultEngine.ini",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/FluidFoundation20260923/Before/DefaultEngine.ini",
+      "bytes": 5552,
+      "sha256": "df9f35df2d0c72f67f413ad9a9aa9efc67d9c36f85b1d3602e45278e2be275c5",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/FluidFoundation20260923"
+    },
+    {
+      "original": "SourceAssets/FluidFoundation20260923/Before/FPSGAME.uproject",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/FluidFoundation20260923/Before/FPSGAME.uproject",
+      "bytes": 1739,
+      "sha256": "f8d6f775390b9a45586f24ae0a822c945d823d2949bbcf2090164d4e81505b4e",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/FluidFoundation20260923"
+    },
+    {
+      "original": "SourceAssets/FluidFoundation20260923/Fire/Mantaflow_fire.blend1",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/FluidFoundation20260923/Fire/Mantaflow_fire.blend1",
+      "bytes": 95475,
+      "sha256": "9d434a0fd04d37f0fb51a9eb3a1b718b73646b0e86617aa4ad4f627847fdbaf0",
+      "reason": "Blender automatic previous-save backup; current .blend and simulation cache retained",
+      "retained_replacement": "SourceAssets/FluidFoundation20260923/Fire/Mantaflow_fire.blend"
+    },
+    {
+      "original": "SourceAssets/FluidFoundation20260923/Liquid/Mantaflow_liquid.blend1",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/FluidFoundation20260923/Liquid/Mantaflow_liquid.blend1",
+      "bytes": 95625,
+      "sha256": "58e6125511ed88971ef0140d4132c2af9583118c4c452e8db94b08934078a1f7",
+      "reason": "Blender automatic previous-save backup; current .blend and simulation cache retained",
+      "retained_replacement": "SourceAssets/FluidFoundation20260923/Liquid/Mantaflow_liquid.blend"
+    },
+    {
+      "original": "SourceAssets/MuzzleSmokeMantaflow20260923/MuzzleSmokeMantaflowV14.blend1",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/MuzzleSmokeMantaflow20260923/MuzzleSmokeMantaflowV14.blend1",
+      "bytes": 103409,
+      "sha256": "4b6662d91a38f5790781f4a756548cf2dd5ec7c604160e18c8f876e09d4b9e4d",
+      "reason": "Blender automatic previous-save backup; current .blend and simulation cache retained",
+      "retained_replacement": "SourceAssets/MuzzleSmokeMantaflow20260923/MuzzleSmokeMantaflowV14.blend"
+    },
+    {
+      "original": "SourceAssets/FireballFluidCore20260923/Before/M_FireballCohesiveCore.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/FireballFluidCore20260923/Before/M_FireballCohesiveCore.uasset",
+      "bytes": 22010,
+      "sha256": "31c28aa0d8ec2d450b8af0541822cd88db76eeb244fa65efdd7b4564e2a6ea71",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/FireballFluidCore20260923"
+    },
+    {
+      "original": "SourceAssets/FireballFluidCore20260923/FireballCombustion.blend1",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/FireballFluidCore20260923/FireballCombustion.blend1",
+      "bytes": 112619,
+      "sha256": "dd2c916c20a380d33f6ec4399ed511a609489966924809b654b3a672e6171a9d",
+      "reason": "Blender automatic previous-save backup; current .blend and simulation cache retained",
+      "retained_replacement": "SourceAssets/FireballFluidCore20260923/FireballCombustion.blend"
+    },
+    {
+      "original": "SourceAssets/FireMagicFluidFields20260923/Before/M_NaturalBladeFlame.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/FireMagicFluidFields20260923/Before/M_NaturalBladeFlame.uasset",
+      "bytes": 15110,
+      "sha256": "ef644623b3ccf0de180f39aaaa5fbdd023ca76e901908e2585b840fdf21217d5",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/FireMagicFluidFields20260923"
+    },
+    {
+      "original": "SourceAssets/FireMagicFluidFields20260923/Before/M_NaturalImpact.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/FireMagicFluidFields20260923/Before/M_NaturalImpact.uasset",
+      "bytes": 19778,
+      "sha256": "5305cd5871c8e137c7de23af4e95665d5322ddb0d4604a0fdaae75f74c027f06",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/FireMagicFluidFields20260923"
+    },
+    {
+      "original": "SourceAssets/FireMagicFluidFields20260923/Before/M_NaturalMeteorFlame.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/FireMagicFluidFields20260923/Before/M_NaturalMeteorFlame.uasset",
+      "bytes": 22155,
+      "sha256": "677db1a304a689d34584ba3bc02a36213c1e70efb087f019fbddc75f5f3cab73",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/FireMagicFluidFields20260923"
+    },
+    {
+      "original": "SourceAssets/FireMagicFluidFields20260923/Before/M_NaturalRollingFlame.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/FireMagicFluidFields20260923/Before/M_NaturalRollingFlame.uasset",
+      "bytes": 20858,
+      "sha256": "715cb9630f00610c057a2ad8937b992900ccd7937cec7225f6667231f21b3677",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/FireMagicFluidFields20260923"
+    },
+    {
+      "original": "SourceAssets/RiverPilotPolish20260923/Before-20260923-235813/assets.json",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverPilotPolish20260923/Before-20260923-235813/assets.json",
+      "bytes": 515,
+      "sha256": "7c50212466b549ff9c2f46fe3b35e66fe491d990a56407526af4c66ced1f6ae9",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverPilotPolish20260923"
+    },
+    {
+      "original": "SourceAssets/RiverPilotPolish20260923/Before-20260923-235813/author_river_pilot.py",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverPilotPolish20260923/Before-20260923-235813/author_river_pilot.py",
+      "bytes": 13810,
+      "sha256": "8d1b67a485d6f4f058036fadab06c56a96317fe70f67c02e8f49b78294048f9e",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverPilotPolish20260923"
+    },
+    {
+      "original": "SourceAssets/RiverPilotPolish20260923/Before-20260923-235813/M_RiverCrown.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverPilotPolish20260923/Before-20260923-235813/M_RiverCrown.uasset",
+      "bytes": 12240,
+      "sha256": "c65cd9d8380175d246912adacc061c871afbbf653f055cdb624738391a09b50e",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverPilotPolish20260923"
+    },
+    {
+      "original": "SourceAssets/RiverPilotPolish20260923/Before-20260923-235813/M_RiverDrop.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverPilotPolish20260923/Before-20260923-235813/M_RiverDrop.uasset",
+      "bytes": 12011,
+      "sha256": "8e71e9c592400f7cc6e8245a197543e428fe258959a9af586c81d0a21db82d4d",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverPilotPolish20260923"
+    },
+    {
+      "original": "SourceAssets/RiverPilotPolish20260923/Before-20260923-235813/M_RiverPilot.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverPilotPolish20260923/Before-20260923-235813/M_RiverPilot.uasset",
+      "bytes": 36986,
+      "sha256": "558294e0ffe6b49a029a42cf51831ced797188b624ef5b9f5b84da146a70f988",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverPilotPolish20260923"
+    },
+    {
+      "original": "SourceAssets/RiverPilotPolish20260923/Before-20260923-235813/NS_RiverBulletSplash.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverPilotPolish20260923/Before-20260923-235813/NS_RiverBulletSplash.uasset",
+      "bytes": 901962,
+      "sha256": "ae35526945aa12299bb5be2bebbec02da1b4a866140f182548503a3f264893e2",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverPilotPolish20260923"
+    },
+    {
+      "original": "SourceAssets/RiverPilotPolish20260923/Before-20260923-235813/RippleField.hlsl",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverPilotPolish20260923/Before-20260923-235813/RippleField.hlsl",
+      "bytes": 843,
+      "sha256": "390bc4aadbd1592509c4d2f80d8a138dd45e606bed1ac42de8c64a83a668a921",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverPilotPolish20260923"
+    },
+    {
+      "original": "SourceAssets/RiverPilotPolish20260923/Before-20260923-235813/ShoreFoam.hlsl",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverPilotPolish20260923/Before-20260923-235813/ShoreFoam.hlsl",
+      "bytes": 597,
+      "sha256": "b0d69da1428c9aa9eefe391ed980db5c5bd3074af0384aecd9162e204dd50c48",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverPilotPolish20260923"
+    },
+    {
+      "original": "SourceAssets/RiverPilotPolish20260923/Before-20260923-235813/SurfaceNormal.hlsl",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverPilotPolish20260923/Before-20260923-235813/SurfaceNormal.hlsl",
+      "bytes": 682,
+      "sha256": "78fe7e87fc74dd0cca7a75bf37207efe3a7450284cc8dda35726d6b62625443f",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverPilotPolish20260923"
+    },
+    {
+      "original": "SourceAssets/RiverSplashVisibility20260924/Before-20260924-001031/assets.json",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashVisibility20260924/Before-20260924-001031/assets.json",
+      "bytes": 571,
+      "sha256": "5c762bc8b8e304acae43c8adcae468af344100597b567e6b5dd5ada81fb59172",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverSplashVisibility20260924"
+    },
+    {
+      "original": "SourceAssets/RiverSplashVisibility20260924/Before-20260924-001031/author_river_pilot.py",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashVisibility20260924/Before-20260924-001031/author_river_pilot.py",
+      "bytes": 15804,
+      "sha256": "418fc1730f5db401067b9086927c3ac7619e2f7ee90455c4b6f6ac12f3017b46",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverSplashVisibility20260924"
+    },
+    {
+      "original": "SourceAssets/RiverSplashVisibility20260924/Before-20260924-001031/CrownShape.hlsl",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashVisibility20260924/Before-20260924-001031/CrownShape.hlsl",
+      "bytes": 653,
+      "sha256": "7e6b4c0a6031b2b41d78c07364571d44abb779d7cc03359aa24fd409fe991bb3",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverSplashVisibility20260924"
+    },
+    {
+      "original": "SourceAssets/RiverSplashVisibility20260924/Before-20260924-001031/DropShape.hlsl",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashVisibility20260924/Before-20260924-001031/DropShape.hlsl",
+      "bytes": 349,
+      "sha256": "b927df1da1704b33972971fd7d753ec18534d4f66da406d231cebc16e4edc048",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverSplashVisibility20260924"
+    },
+    {
+      "original": "SourceAssets/RiverSplashVisibility20260924/Before-20260924-001031/M_RiverCrown.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashVisibility20260924/Before-20260924-001031/M_RiverCrown.uasset",
+      "bytes": 20616,
+      "sha256": "8444b60bbb01371e798e5d1cdc20a33605d0cbd71d8488b42b3c28ccff1784f6",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverSplashVisibility20260924"
+    },
+    {
+      "original": "SourceAssets/RiverSplashVisibility20260924/Before-20260924-001031/M_RiverDrop.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashVisibility20260924/Before-20260924-001031/M_RiverDrop.uasset",
+      "bytes": 18822,
+      "sha256": "05db7c1372331fa22dc980c62c28f93c590f141401a86ed7f29d6122025534ab",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverSplashVisibility20260924"
+    },
+    {
+      "original": "SourceAssets/RiverSplashVisibility20260924/Before-20260924-001031/NS_RiverBulletSplash.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashVisibility20260924/Before-20260924-001031/NS_RiverBulletSplash.uasset",
+      "bytes": 937227,
+      "sha256": "6c2dca1ae7d463ad14dbaca07a133267d64eb1ad3ad0256fcd39b692c1ccf02a",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverSplashVisibility20260924"
+    },
+    {
+      "original": "SourceAssets/RiverSplashNatural20260924/Before-20260924-091751/author_river_pilot.py",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashNatural20260924/Before-20260924-091751/author_river_pilot.py",
+      "bytes": 16577,
+      "sha256": "47694daef43d0ade4d00b75057ac5fcd4912f6cbc764d6a65089575cc0cbd608",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverSplashNatural20260924"
+    },
+    {
+      "original": "SourceAssets/RiverSplashNatural20260924/Before-20260924-091751/M_RiverCrown.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashNatural20260924/Before-20260924-091751/M_RiverCrown.uasset",
+      "bytes": 20949,
+      "sha256": "6cc136647c6b5750573e47129fb55256cda7d90eaddefc4ee2572c9fe982af3b",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverSplashNatural20260924"
+    },
+    {
+      "original": "SourceAssets/RiverSplashNatural20260924/Before-20260924-091751/M_RiverDrop.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashNatural20260924/Before-20260924-091751/M_RiverDrop.uasset",
+      "bytes": 19158,
+      "sha256": "5ba36612fe459d9f30189e470d0ffdfe3f27ca1acbd4ff1becabe34177edcdf4",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverSplashNatural20260924"
+    },
+    {
+      "original": "SourceAssets/RiverSplashNatural20260924/Before-20260924-091751/NS_RiverBulletSplash.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashNatural20260924/Before-20260924-091751/NS_RiverBulletSplash.uasset",
+      "bytes": 971326,
+      "sha256": "c9e8027982c59ff4a76c8c966ab51d66b939582ff078811a9c77981cfb77b2e3",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverSplashNatural20260924"
+    },
+    {
+      "original": "SourceAssets/RiverSplashNatural20260924/CardFix/Before-20260924-093339/author_river_splash_natural.py",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashNatural20260924/CardFix/Before-20260924-093339/author_river_splash_natural.py",
+      "bytes": 13150,
+      "sha256": "ee51d29af1c0a70a86d2893bc9585289af9cf3b25d22d323035256e3851e0470",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverSplashNatural20260924"
+    },
+    {
+      "original": "SourceAssets/RiverSplashNatural20260924/CardFix/Before-20260924-093339/M_RiverCrown.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashNatural20260924/CardFix/Before-20260924-093339/M_RiverCrown.uasset",
+      "bytes": 22685,
+      "sha256": "f66e3a7a5aa678a5a426f798699a9278c1bf773fe0f078116c831551fc1508b4",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverSplashNatural20260924"
+    },
+    {
+      "original": "SourceAssets/RiverSplashNatural20260924/CardFix/Before-20260924-093339/M_RiverDrop.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashNatural20260924/CardFix/Before-20260924-093339/M_RiverDrop.uasset",
+      "bytes": 20934,
+      "sha256": "6fe08e0d7880872f0e32beec1d116ecaa942eb1ccfed9bac8ed0f4395afea00e",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverSplashNatural20260924"
+    },
+    {
+      "original": "SourceAssets/RiverSplashNatural20260924/CardFix/Before-20260924-093339/SplashSample.hlsl",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashNatural20260924/CardFix/Before-20260924-093339/SplashSample.hlsl",
+      "bytes": 995,
+      "sha256": "fb4b1e132f46b606462c1748ebc39a1b612fa402dbd2cdb6074dceea209a473b",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverSplashNatural20260924"
+    },
+    {
+      "original": "SourceAssets/RiverSplashNatural20260924/CardFix/Before-EmptyFrames-20260924-100020/bake_river_splash_natural.py",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashNatural20260924/CardFix/Before-EmptyFrames-20260924-100020/bake_river_splash_natural.py",
+      "bytes": 9111,
+      "sha256": "95c442e26ea64d23a00e284d5e27d077f25b14754822ee1afc62d7a9205a4cd9",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverSplashNatural20260924"
+    },
+    {
+      "original": "SourceAssets/RiverSplashNatural20260924/CardFix/Before-EmptyFrames-20260924-100020/gpu-alpha-before.json",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashNatural20260924/CardFix/Before-EmptyFrames-20260924-100020/gpu-alpha-before.json",
+      "bytes": 243,
+      "sha256": "68c1e13d16d6fe52249621f02ba5407278a0b167b4b6c708e5aa6c3fa224f0da",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverSplashNatural20260924"
+    },
+    {
+      "original": "SourceAssets/RiverSplashNatural20260924/CardFix/Before-EmptyFrames-20260924-100020/T_RiverSplashPacked.png",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashNatural20260924/CardFix/Before-EmptyFrames-20260924-100020/T_RiverSplashPacked.png",
+      "bytes": 363387,
+      "sha256": "28469c1a36c765d95bcb19134ec11008fb986211d81d7e5045067ff4db2411be",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverSplashNatural20260924"
+    },
+    {
+      "original": "SourceAssets/RiverSplashNatural20260924/CardFix/Before-EmptyFrames-20260924-100020/T_RiverSplashPacked.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashNatural20260924/CardFix/Before-EmptyFrames-20260924-100020/T_RiverSplashPacked.uasset",
+      "bytes": 315777,
+      "sha256": "925fa7ee3e5d876deeeb114e2347eb7db4cd331c3c81dcf58cc70c9c2ea80942",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/RiverSplashNatural20260924"
+    },
+    {
+      "original": "SourceAssets/RiverSplashNatural20260924/variant_0/LiquidImpulse.blend1",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashNatural20260924/variant_0/LiquidImpulse.blend1",
+      "bytes": 110813,
+      "sha256": "81d090d47b562a92e7ce1dedef7f2df29656aa6e619b1ed956b4fe8fa6ef3793",
+      "reason": "Blender automatic previous-save backup; current .blend and simulation cache retained",
+      "retained_replacement": "SourceAssets/RiverSplashNatural20260924/variant_0/LiquidImpulse.blend"
+    },
+    {
+      "original": "SourceAssets/RiverSplashNatural20260924/variant_1/LiquidImpulse.blend1",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashNatural20260924/variant_1/LiquidImpulse.blend1",
+      "bytes": 108465,
+      "sha256": "456782cc128d3fcef6b46aca69778e9fcc25629d845430de75929218fe1289f3",
+      "reason": "Blender automatic previous-save backup; current .blend and simulation cache retained",
+      "retained_replacement": "SourceAssets/RiverSplashNatural20260924/variant_1/LiquidImpulse.blend"
+    },
+    {
+      "original": "SourceAssets/RiverSplashNatural20260924/variant_2/LiquidImpulse.blend1",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashNatural20260924/variant_2/LiquidImpulse.blend1",
+      "bytes": 111699,
+      "sha256": "9b4e630c23cc9bc1a6153ee6c58b00842874702850665f64c13eeb799f9a26ea",
+      "reason": "Blender automatic previous-save backup; current .blend and simulation cache retained",
+      "retained_replacement": "SourceAssets/RiverSplashNatural20260924/variant_2/LiquidImpulse.blend"
+    },
+    {
+      "original": "SourceAssets/RiverSplashNatural20260924/variant_3/LiquidImpulse.blend1",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/RiverSplashNatural20260924/variant_3/LiquidImpulse.blend1",
+      "bytes": 109664,
+      "sha256": "f9f14804898bd63e9f50deed7863527c4aa131dd3410d7883fed969ecb2ed46c",
+      "reason": "Blender automatic previous-save backup; current .blend and simulation cache retained",
+      "retained_replacement": "SourceAssets/RiverSplashNatural20260924/variant_3/LiquidImpulse.blend"
+    },
+    {
+      "original": "SourceAssets/WaterImpactAll20260924/Before-20260924-103655/M_Dungeon_ShallowPuddle.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/WaterImpactAll20260924/Before-20260924-103655/M_Dungeon_ShallowPuddle.uasset",
+      "bytes": 23155,
+      "sha256": "b3df0f458a3bf469b6b8802d87cc7c9a0c5fb74cc5fd0fa78a2f5a1b5e8424d2",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/WaterImpactAll20260924"
+    },
+    {
+      "original": "SourceAssets/WaterImpactAll20260924/Before-20260924-103655/M_FountainWaveWaterV3.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/WaterImpactAll20260924/Before-20260924-103655/M_FountainWaveWaterV3.uasset",
+      "bytes": 55850,
+      "sha256": "426bc98fca2380a0d348d12e1f36472cc189893b7f3e49829db9fbf8e179819a",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/WaterImpactAll20260924"
+    },
+    {
+      "original": "SourceAssets/WaterImpactAll20260924/Before-20260924-103655/M_RiverPilot.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/WaterImpactAll20260924/Before-20260924-103655/M_RiverPilot.uasset",
+      "bytes": 42004,
+      "sha256": "bef9e8bb25393ab1d9a13fef728f9c404adf2c0b7fdaeb801331485f018b505c",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/WaterImpactAll20260924"
+    },
+    {
+      "original": "SourceAssets/WaterImpactAll20260924/Before-20260924-103655/NS_RiverBulletSplash.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/WaterImpactAll20260924/Before-20260924-103655/NS_RiverBulletSplash.uasset",
+      "bytes": 998316,
+      "sha256": "5f557cc9e12f5bafd0bf4103ca97f8c2252a9a5a96a56bd4adb69ca1d34a1cba",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/WaterImpactAll20260924"
+    },
+    {
+      "original": "SourceAssets/ImpactSmokeCorrosion20260924/Backup/Dungeons/CombatExpansion20260922/Materials/M_PusFluidV2.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/ImpactSmokeCorrosion20260924/Backup/Dungeons/CombatExpansion20260922/Materials/M_PusFluidV2.uasset",
+      "bytes": 33054,
+      "sha256": "34ac2ce328b50f79af85e8b14a31fc4d23a50326f99f3e6493267e4c52992074",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/ImpactSmokeCorrosion20260924"
+    },
+    {
+      "original": "SourceAssets/ImpactSmokeCorrosion20260924/Backup/Dungeons/Routes20260922/Materials/M_RoutePusChannel.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/ImpactSmokeCorrosion20260924/Backup/Dungeons/Routes20260922/Materials/M_RoutePusChannel.uasset",
+      "bytes": 34061,
+      "sha256": "312a7adc3b556cfd514a5827ce688f13545fc5e0f04cbba1170b1bcf4a1378ca",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/ImpactSmokeCorrosion20260924"
+    },
+    {
+      "original": "SourceAssets/ImpactSmokeCorrosion20260924/Backup/Dungeons/Routes20260922/Materials/M_RoutePusImpact.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/ImpactSmokeCorrosion20260924/Backup/Dungeons/Routes20260922/Materials/M_RoutePusImpact.uasset",
+      "bytes": 34039,
+      "sha256": "e61991ac396d55cfb1732d0da5049dedf86ecf5fe573597fd6eb106db129e963",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/ImpactSmokeCorrosion20260924"
+    },
+    {
+      "original": "SourceAssets/ImpactSmokeCorrosion20260924/Backup/Dungeons/SlimeSheet20260922/Materials/M_PusSingleImpact.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/ImpactSmokeCorrosion20260924/Backup/Dungeons/SlimeSheet20260922/Materials/M_PusSingleImpact.uasset",
+      "bytes": 34119,
+      "sha256": "53c8c719910d8388d376afea35eb56f5ac986d4eaa73ada0cb72fcf4d6eb5b08",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/ImpactSmokeCorrosion20260924"
+    },
+    {
+      "original": "SourceAssets/ImpactSmokeCorrosion20260924/Backup/Fluids/ImpactSmokeCorrosion20260924/M_RollingImpactSmoke.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/ImpactSmokeCorrosion20260924/Backup/Fluids/ImpactSmokeCorrosion20260924/M_RollingImpactSmoke.uasset",
+      "bytes": 12916,
+      "sha256": "551bf64cc4c8cbc110f4b31c01db02ebf5fd8e992e8dd04a69597add56e4e44e",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/ImpactSmokeCorrosion20260924"
+    },
+    {
+      "original": "SourceAssets/ImpactSmokeCorrosion20260924/Backup/Monsters/FatZombieMeshy/Pus/M_FatZombie_Pus.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/ImpactSmokeCorrosion20260924/Backup/Monsters/FatZombieMeshy/Pus/M_FatZombie_Pus.uasset",
+      "bytes": 39670,
+      "sha256": "d0bee1517c471416c64d48eec18b4a7eeebe9bcd5194e9f066e43f7926570c24",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/ImpactSmokeCorrosion20260924"
+    },
+    {
+      "original": "SourceAssets/ImpactSmokeCorrosion20260924/Backup/Monsters/PoisonMaggot/VenomLiquid20260915/M_VenomMist.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/ImpactSmokeCorrosion20260924/Backup/Monsters/PoisonMaggot/VenomLiquid20260915/M_VenomMist.uasset",
+      "bytes": 13149,
+      "sha256": "42ed42e75a09d94011e1632972190a5ef7b539d4b86fb5f1d849d0cfc67243e1",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/ImpactSmokeCorrosion20260924"
+    },
+    {
+      "original": "SourceAssets/ImpactSmokeCorrosion20260924/Backup/Monsters/PoisonMaggot/VenomLiquid20260915/M_VenomWetFilm.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/ImpactSmokeCorrosion20260924/Backup/Monsters/PoisonMaggot/VenomLiquid20260915/M_VenomWetFilm.uasset",
+      "bytes": 10891,
+      "sha256": "a3bc00633b872cb69012109245b826d6fa9448038f7bec8c5109cb8686e92d15",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/ImpactSmokeCorrosion20260924"
+    },
+    {
+      "original": "SourceAssets/ImpactSmokeCorrosion20260924/Backup/Skills/Fireball/ImpactRealistic20260914/NS_FireballImpactRealistic.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/ImpactSmokeCorrosion20260924/Backup/Skills/Fireball/ImpactRealistic20260914/NS_FireballImpactRealistic.uasset",
+      "bytes": 2488536,
+      "sha256": "0bf5289bd4a5afb7a28865306b9bd3b3872462d633d4901c79dd821db34fe393",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/ImpactSmokeCorrosion20260924"
+    },
+    {
+      "original": "SourceAssets/ImpactSmokeCorrosion20260924/Backup/Skills/FireMagic20260921/RealisticV5/NS_MeteorNaturalImpact.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/ImpactSmokeCorrosion20260924/Backup/Skills/FireMagic20260921/RealisticV5/NS_MeteorNaturalImpact.uasset",
+      "bytes": 1673325,
+      "sha256": "bb432847c3ba7b81af9c3e44ce6402ab134b85ebff8548e6e0dea33d1aae70cc",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/ImpactSmokeCorrosion20260924"
+    },
+    {
+      "original": "SourceAssets/FluidInteractions20260924/Backup/Fluids/RiverPilot20260923/NS_RiverBulletSplash.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/FluidInteractions20260924/Backup/Fluids/RiverPilot20260923/NS_RiverBulletSplash.uasset",
+      "bytes": 999168,
+      "sha256": "a1fb9143b89f3676eae7db1059bc2333c600c616246d8a5d5032a3567a277aff",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/FluidInteractions20260924"
+    },
+    {
+      "original": "SourceAssets/FluidInteractions20260924/Backup/Fluids/VenomProjectiles20260924/M_WitchPoisonPool.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/FluidInteractions20260924/Backup/Fluids/VenomProjectiles20260924/M_WitchPoisonPool.uasset",
+      "bytes": 14455,
+      "sha256": "339df132e5110e125c8af1b7d40fb7f48ae1b805039eae98cd39577bbcdc3f4b",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/FluidInteractions20260924"
+    },
+    {
+      "original": "SourceAssets/FluidInteractions20260924/Backup/Skills/Fireball/ImpactRealistic20260914/NS_FireballImpactRealistic.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/FluidInteractions20260924/Backup/Skills/Fireball/ImpactRealistic20260914/NS_FireballImpactRealistic.uasset",
+      "bytes": 3283851,
+      "sha256": "abe2d0e61c6ff756c7d8866a5299ff8dbd209d0d39b5997b906d1b656563cfd8",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/FluidInteractions20260924"
+    },
+    {
+      "original": "SourceAssets/FluidInteractions20260924/Backup/Skills/FireMagic20260921/RealisticV5/NS_MeteorNaturalImpact.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/FluidInteractions20260924/Backup/Skills/FireMagic20260921/RealisticV5/NS_MeteorNaturalImpact.uasset",
+      "bytes": 2747468,
+      "sha256": "44a4cd19e52c6adfd495321aeb61535767a44107765c69361ed398f63c4923e6",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/FluidInteractions20260924"
+    },
+    {
+      "original": "SourceAssets/FluidPolish20260924/Backup/Dungeons/AtmosphereV2/GateWater/Materials/M_Dungeon_ShallowPuddle.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/FluidPolish20260924/Backup/Dungeons/AtmosphereV2/GateWater/Materials/M_Dungeon_ShallowPuddle.uasset",
+      "bytes": 42769,
+      "sha256": "64e75f1c62412fda46d6d1e041560b1309f9d06ed3a957d29e5159ca9617e9fa",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/FluidPolish20260924"
+    },
+    {
+      "original": "SourceAssets/FluidPolish20260924/Backup/Fluids/FluidInteractions20260924/NS_WaterImpactSteam.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/FluidPolish20260924/Backup/Fluids/FluidInteractions20260924/NS_WaterImpactSteam.uasset",
+      "bytes": 1288340,
+      "sha256": "9089aaf322b319ca090a6aab46240923cdd5ad9a1e1debb80ea170b2835d1c8f",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/FluidPolish20260924"
+    },
+    {
+      "original": "SourceAssets/FluidPolish20260924/Backup/Fluids/RiverPilot20260923/M_RiverPilot.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/FluidPolish20260924/Backup/Fluids/RiverPilot20260923/M_RiverPilot.uasset",
+      "bytes": 48303,
+      "sha256": "cff555e8b505b73b95bb5add467af0714e91640e4df7406a8743a050496c58f1",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/FluidPolish20260924"
+    },
+    {
+      "original": "SourceAssets/FluidPolish20260924/Backup/Props/RomanFountain20260917/Materials/M_FountainWaveWaterV3.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/FluidPolish20260924/Backup/Props/RomanFountain20260917/Materials/M_FountainWaveWaterV3.uasset",
+      "bytes": 75518,
+      "sha256": "56b404249a95345e920d6b3026f025297ae9a47013e9174e1106c629835f8381",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/FluidPolish20260924"
+    },
+    {
+      "original": "SourceAssets/FluidPolish20260924/Backup/Skills/Fireball/ImpactRealistic20260914/NS_FireballImpactRealistic.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/FluidPolish20260924/Backup/Skills/Fireball/ImpactRealistic20260914/NS_FireballImpactRealistic.uasset",
+      "bytes": 3314828,
+      "sha256": "ae7228978c26eddd0a69a59a315b44eb37a3752ca534e7710b88f2e0ea637d50",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/FluidPolish20260924"
+    },
+    {
+      "original": "SourceAssets/FluidPolish20260924/Backup/Skills/FireMagic20260921/RealisticV5/NS_MeteorNaturalImpact.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/FluidPolish20260924/Backup/Skills/FireMagic20260921/RealisticV5/NS_MeteorNaturalImpact.uasset",
+      "bytes": 2777448,
+      "sha256": "6fbdbe222fb7a66f56467dbc2c12dc90c201ea494e9266777afb40efcc1c2900",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/FluidPolish20260924"
+    },
+    {
+      "original": "SourceAssets/FluidPolish20260924/Backup/Skills/IceSpike/FrostV2/NS_ColdMist.uasset",
+      "archive": "trash/fluid-publication-20260924/SourceAssets/FluidPolish20260924/Backup/Skills/IceSpike/FrostV2/NS_ColdMist.uasset",
+      "bytes": 332956,
+      "sha256": "996277d6eaca7856315b6d67d0ebf4b02f884e72266160ed496fd83cd51017f7",
+      "reason": "Superseded pre-edit recovery snapshot; current authoring source and saved assets retained outside trash",
+      "retained_replacement": "SourceAssets/FluidPolish20260924"
+    }
+  ]
+}

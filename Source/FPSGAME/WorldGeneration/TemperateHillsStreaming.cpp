@@ -1,6 +1,8 @@
 #include "TemperateHillsWorld.h"
 #include "TemperateHillsSurface.h"
 #include "TemperateHillsBackdrop.h"
+#include "RiverPilotFXSubsystem.h"
+#include "NiagaraSystem.h"
 #include "../UI/TransitLoadingSubsystem.h"
 #include "Async/Async.h"
 #include "Algo/AllOf.h"
@@ -233,8 +235,19 @@ void ATemperateHillsWorld::BeginStreaming()
         if(auto* C=IConsoleManager::Get().FindConsoleVariable(Setting.Key))
         {S.CVars.Add({C,C->GetFloat(),Setting.Value});C->Set(Setting.Value,ECVF_SetByCode);}
     S.LoadingAssets=true;
+    // Repair the pilot's original package-only references if an editor saved them
+    // on a placed actor. A package can load successfully without being the typed asset.
+    if(RiverPilotMaterial.ToSoftObjectPath()==FSoftObjectPath(TEXT("/Game/Fluids/RiverPilot20260923/M_RiverPilot")))
+        RiverPilotMaterial=GetDefault<ATemperateHillsWorld>()->RiverPilotMaterial;
+    if(RiverPilotSplash.ToSoftObjectPath()==FSoftObjectPath(TEXT("/Game/Fluids/RiverPilot20260923/NS_RiverBulletSplash")))
+        RiverPilotSplash=GetDefault<ATemperateHillsWorld>()->RiverPilotSplash;
     TArray<FSoftObjectPath> SurfacePaths={Assets->GroundMaterial.ToSoftObjectPath()};
-    if(!Assets->RiverMaterial.IsNull())SurfacePaths.Add(Assets->RiverMaterial.ToSoftObjectPath());
+    if(!Assets->RiverMaterial.IsNull())
+    {
+        SurfacePaths.Add(Assets->RiverMaterial.ToSoftObjectPath());
+        SurfacePaths.Add(RiverPilotMaterial.ToSoftObjectPath());
+        SurfacePaths.Add(RiverPilotSplash.ToSoftObjectPath());
+    }
     if(!Assets->BackdropMaterial.IsNull())SurfacePaths.Add(Assets->BackdropMaterial.ToSoftObjectPath());
     // The cloud component uses a soft material in UE 5.8. Retain and
     // prepare that material under loading, before a later weather transition.
@@ -248,6 +261,17 @@ void ATemperateHillsWorld::BeginStreaming()
     {
         if(!Streaming||Streaming->Stopping)return;
         Streaming->LoadingAssets=false;
+        // Check the actual typed objects, not just completion of the package load.
+        if(!Assets->RiverMaterial.IsNull()&&(!RiverPilotMaterial.Get()||!RiverPilotSplash.Get()))
+        {
+            Streaming->Failed=true;
+            UE_LOG(LogTemp,Error,TEXT("RIVER_PILOT load failed material=%s resolved=%s splash=%s resolved=%s"),
+                *RiverPilotMaterial.ToString(),*GetPathNameSafe(RiverPilotMaterial.Get()),
+                *RiverPilotSplash.ToString(),*GetPathNameSafe(RiverPilotSplash.Get()));
+            if(auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())
+                Loading->FailPreparation(FText::FromString(TEXT("河流特效资源加载失败，请返回主场景后重试。")));
+            return;
+        }
         if(auto* Ground=Assets->GroundMaterial.Get();Ground&&(Assets->RiverMaterial.IsNull()||Assets->RiverMaterial.IsValid())&&
             (Assets->BackdropMaterial.IsNull()||Assets->BackdropMaterial.IsValid())&&
             (Assets->SkyCloudMaterial.IsNull()||Assets->SkyCloudMaterial.IsValid())&&
@@ -348,6 +372,8 @@ void ATemperateHillsWorld::TickStreaming()
             return;
         }
         RiverPlan=S.RiverJob.Get();S.RiverPending=false;
+        if(auto* RiverFX=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>())
+            RiverFX->BindRiver(this,RiverPlan,RiverPilotMaterial.Get(),RiverPilotSplash.Get());
         UE_LOG(LogTemp,Display,TEXT("HILLS_RIVER seed=%d samples=%d length_m=%.1f"),Seed,RiverPlan->Points.Num(),RiverPlan->Points.IsEmpty()?0:RiverPlan->Points.Last().Distance/100);
     }
     constexpr double Size=HillsStreaming::CellSize;
@@ -418,7 +444,9 @@ void ATemperateHillsWorld::TickStreaming()
             Water->SetMobility(EComponentMobility::Movable);Water->SetCanEverAffectNavigation(false);
             Water->SetCollisionEnabled(ECollisionEnabled::NoCollision);Water->SetCastShadow(false);
             Water->SetTangentsType(EDynamicMeshComponentTangentsMode::AutoCalculated);
-            Water->SetMaterial(0,Assets->RiverMaterial.Get());Water->SetMesh(MoveTemp(Result->Water));
+            auto* RiverFX=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>();
+            Water->SetMaterial(0,RiverFX&&RiverFX->GetRiverMaterial()?RiverFX->GetRiverMaterial():Assets->RiverMaterial.Get());
+            Water->SetMesh(MoveTemp(Result->Water));
             Water->RegisterComponent();Water->PrecachePSOs();Cell.Water=Water;Terrain.Add(Water);
         }
         break;
@@ -859,6 +887,7 @@ void ATemperateHillsWorld::BuildValleyFog()
 
 void ATemperateHillsWorld::EndStreaming()
 {
+    if(auto* RiverFX=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>())RiverFX->UnbindRiver(this);
     EndBackdrop();
     if(!Streaming)return;
     auto& S=*Streaming;S.Stopping=true;

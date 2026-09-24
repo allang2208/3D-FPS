@@ -1,0 +1,13 @@
+if(Pilot<=0) return Baseline;
+float2 direction=normalize(Flow.rg*2-1+float2(.00001,0));
+float2 side=float2(-direction.y,direction.x);
+float along=dot(Position.xy,direction),across=dot(Position.xy,side);
+float speed=Flow.b*160;
+float travel=along-Clock*speed;
+float broad=sin(travel*.055+sin(across*.024)*.5);
+float small=sin(travel*.115-across*.041+Clock*.37);
+float patch=.55+.45*sin(Position.x*.0031+Position.y*.0047+Clock*.22);
+float shallow=smoothstep(2,18,Depth);
+float2 detail=(direction*broad*.040+side*small*.024)*(.5+Flow.b)*patch*shallow;
+float3 upgraded=normalize(float3(Baseline.xy+detail+Ripple.xy,max(.2,Baseline.z)));
+return normalize(lerp(Baseline,upgraded,Pilot));

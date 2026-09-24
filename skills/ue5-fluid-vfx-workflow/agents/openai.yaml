@@ -1,0 +1,5 @@
+interface:
+  display_name: "UE5 流体特效工作流"
+  short_description: "统一烟火、水花、毒液、血液与冷雾的制作、后台接入和运行性能预算"
+policy:
+  allow_implicit_invocation: true

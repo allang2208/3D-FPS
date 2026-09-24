@@ -11,6 +11,7 @@
 - 开发和发布先读 [WORKFLOW.md](WORKFLOW.md)，仓库整理、归档与推送遵守第 8 节。
 - 枪械读 [ue5-weapon-workflow](skills/ue5-weapon-workflow/SKILL.md)，手臂和 MAT 读 [ue5-fps-arms-animation](skills/ue5-fps-arms-animation/SKILL.md)。先参考现有动作，核对实际运行加载，再修改。
 - 天气读 [ue5-weather-workflow](skills/ue5-weather-workflow/SKILL.md)，调试读 [ue5-debug-validation](skills/ue5-debug-validation/SKILL.md)。
+- 流体特效（枪口烟、火焰／爆燃烟、水花／涟漪、毒液／毒池、血液及冷雾）的新增、优化与针对性修复，先读 [流体特效工作流](skills/ue5-fluid-vfx-workflow/SKILL.md)。后续同类任务按此标准制作，复用离线流体源、共享调度与有界池，保留已认可的水花方块修复；技能数值、枪械动作和怪物 AI 仍走对应领域技能。执行后台制作／必要编译／资产保存，不自动测试或验收。
 - 新建或改造面板、页签、栏目、卡片与弹窗，先读 [面板与栏目工作流](UI-WORKFLOW.md) 和 [UE UI 技能](skills/ue5-ui-umg-slate/SKILL.md)，按 [规划模板](Docs/UI/panel-column-plan-template.md) 明确结构、响应布局、数据范围、状态和交互，再按授权阶段制作／接入。
 - 冷钢 UI 以 [正式设计规则](Docs/UI/ui-cold-steel-design-system.md) 为准：黑灰低透明度玻璃、Noto Sans SC／JetBrains Mono、统一按钮；冲突的旧字体、配色和抽屉条款由该文替换。共享 `ColdSteelUIStyle`，不再复制近似主题。
 - 非枪械物品（药水、材料、弹药包装、卷轴）的图标、三视图、按精度分流的模型制作、材质与稀有度光效读 [ue5-item-asset-workflow](skills/ue5-item-asset-workflow/SKILL.md)。

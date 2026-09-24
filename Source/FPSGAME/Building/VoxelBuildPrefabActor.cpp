@@ -1,4 +1,6 @@
 #include "VoxelBuildPrefabActor.h"
+#include "Engine/World.h"
+#include "../WorldGeneration/FluidPresentationSubsystem.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 
@@ -48,6 +50,7 @@ bool AVoxelBuildPrefabActor::BeginFall(UStaticMesh* FallbackMesh,float LifeSecon
     MeshComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
     MeshComponent->SetCollisionProfileName(TEXT("BlockAll"));
     MeshComponent->SetSimulatePhysics(true);
+    if(auto* Fluid=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>())Fluid->RegisterWaterBody(MeshComponent);
     if(!MeshComponent->IsSimulatingPhysics())return false;
     MeshComponent->AddImpulse(FVector(FMath::FRandRange(-40.f,40.f),FMath::FRandRange(-40.f,40.f),0.f),NAME_None,true);
     if(LogicActor)

@@ -64,6 +64,10 @@ for e in L.get_material_expressions(parent):
     # undo UE's FBX V flip in the wave formula to place impacts at the actual centre.
     if 'UV.y=1-UV.y;' not in code:code='UV.y=1-UV.y;\n'+code
     e.set_editor_property('code',code)
+import sys
+sys.path.insert(0,str(Path(u.Paths.project_dir())/'Tools/Fluids'))
+from author_impact_smoke_corrosion import pool_surface
+pool_surface(parent)
 errors=L.recompile_material(parent)
 if errors:raise RuntimeError(str(errors))
 save(parent)

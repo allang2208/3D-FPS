@@ -1,4 +1,5 @@
 #include "WitchProjectile.h"
+#include "../WorldGeneration/FluidPresentationSubsystem.h"
 #include "WitchMonster.h"
 #include "PoisonMaggotVenomFX.h"
 #include "FPSCombatHealthComponent.h"
@@ -6,10 +7,12 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/SceneComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/DecalComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/World.h"
 #include "GameFramework/PlayerController.h"
 #include "Materials/MaterialInterface.h"
+#include "Materials/MaterialInstanceDynamic.h"
 #include "Kismet/GameplayStatics.h"
 #include "UObject/ConstructorHelpers.h"
 
@@ -22,12 +25,15 @@ AWitchProjectile::AWitchProjectile()
     Visual->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     Visual->SetGenerateOverlapEvents(false); Visual->SetCanEverAffectNavigation(false);
     static ConstructorHelpers::FObjectFinder<UStaticMesh> Sphere(TEXT("/Engine/BasicShapes/Sphere.Sphere"));
-    static ConstructorHelpers::FObjectFinder<UMaterialInterface> Liquid(TEXT("/Game/Monsters/PoisonMaggot/VenomLiquid20260915/M_VenomLiquid.M_VenomLiquid"));
-    static ConstructorHelpers::FObjectFinder<UMaterialInterface> Core(TEXT("/Game/Monsters/PoisonMaggot/VenomLiquid20260915/M_VenomCore.M_VenomCore"));
+    static ConstructorHelpers::FObjectFinder<UMaterialInterface> Liquid(TEXT("/Game/Fluids/VenomProjectiles20260924/M_VenomBody.M_VenomBody"));
+    static ConstructorHelpers::FObjectFinder<UMaterialInterface> Core(TEXT("/Game/Fluids/VenomProjectiles20260924/M_VenomCore.M_VenomCore"));
+    static ConstructorHelpers::FObjectFinder<UMaterialInterface> Pool(TEXT("/Game/Fluids/VenomProjectiles20260924/M_WitchPoisonPool.M_WitchPoisonPool"));
+    static ConstructorHelpers::FObjectFinder<UMaterialInterface> BottleLiquid(TEXT("/Game/Fluids/VenomProjectiles20260924/M_WitchBottleLiquid.M_WitchBottleLiquid"));
+    PoolMaterial = Pool.Object; BottleLiquidMaterial = BottleLiquid.Object;
     Visual->SetStaticMesh(Sphere.Object); Visual->SetMaterial(0, Liquid.Object);
     Visual->SetRelativeScale3D(FVector(.14f,.105f,.105f)); Visual->SetCastShadow(false);
     Visual->bReceivesDecals = false; Visual->bAffectDistanceFieldLighting = false;
-    Visual->SetBoundsScale(1.15f);
+    Visual->SetBoundsScale(1.6f);
     LiquidCore = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VenomOpaqueCore"));
     LiquidCore->SetupAttachment(Visual);
     LiquidCore->SetStaticMesh(Sphere.Object); LiquidCore->SetMaterial(0, Core.Object);
@@ -36,6 +42,7 @@ AWitchProjectile::AWitchProjectile()
     LiquidCore->SetGenerateOverlapEvents(false); LiquidCore->SetCanEverAffectNavigation(false);
     LiquidCore->SetCastShadow(false); LiquidCore->bReceivesDecals = false;
     LiquidCore->bAffectDistanceFieldLighting = false;
+    LiquidCore->SetBoundsScale(1.6f);
     LiquidCore->SetVisibility(false);
 }
 
@@ -43,6 +50,10 @@ void AWitchProjectile::Launch(AWitchMonster* Source, bool Bottle, FVector Destin
 {
     Shooter = Source; bBottle = Bottle; Origin = GetActorLocation(); Goal = Destination;
     HitDamage = Damage; PoolRadius = Radius;
+    FRandomStream CosmeticRandom{int32(GetUniqueID())};
+    LiquidPhase = CosmeticRandom.FRand()*2.f*PI;
+    Visual->SetCustomPrimitiveDataFloat(0,LiquidPhase/(2.f*PI));
+    LiquidCore->SetCustomPrimitiveDataFloat(0,LiquidPhase/(2.f*PI));
     if (Source->ActorHasTag(TEXT("DevelopmentSpawned"))) Tags.Add(TEXT("DevelopmentSpawned"));
     if (bBottle)
     {
@@ -61,8 +72,13 @@ void AWitchProjectile::Launch(AWitchMonster* Source, bool Bottle, FVector Destin
             // exactly the held transform, including the authored bottom pivot/scale.
             Visual->SetRelativeTransform(FTransform(FQuat::Identity,
                 -Center * Held.GetScale3D(), Held.GetScale3D()));
+            const auto& Slots = Source->Bottle->GetStaticMesh()->GetStaticMaterials();
             for (int32 Index = 0; Index < Source->Bottle->GetNumMaterials(); ++Index)
-                Visual->SetMaterial(Index, Source->Bottle->GetMaterial(Index));
+            {
+                const bool bLiquidSlot = Slots.IsValidIndex(Index) &&
+                    Slots[Index].MaterialSlotName.ToString().Contains(TEXT("BottleLiquid"));
+                Visual->SetMaterial(Index,bLiquidSlot && BottleLiquidMaterial ? BottleLiquidMaterial.Get() : Source->Bottle->GetMaterial(Index));
+            }
         }
         const FVector Direction = (Goal - Origin).GetSafeNormal2D();
         BottleSpinAxis = Direction.IsNearlyZero() ? Source->GetActorRightVector()
@@ -73,8 +89,6 @@ void AWitchProjectile::Launch(AWitchMonster* Source, bool Bottle, FVector Destin
     {
         Velocity = (Goal - Origin).GetSafeNormal() * Speed;
         // Cosmetic phase does not consume the combat spread/poison random stream.
-        FRandomStream CosmeticRandom{int32(GetUniqueID())};
-        LiquidPhase = CosmeticRandom.FRand() * 2.f * PI;
         LiquidCore->SetVisibility(true);
         SetActorRotation(Velocity.Rotation());
         SetLifeSpan(1000.f / FMath::Max(1.f, Speed));
@@ -107,16 +121,104 @@ void AWitchProjectile::UpdateLiquidVisual(float DeltaTime, const FVector& Start,
     if (NextTrail <= LiquidAge) NextTrail = LiquidAge + .065f;
 }
 
-void AWitchProjectile::Land(FVector Position, FVector Normal)
+void AWitchProjectile::Land(const FHitResult& Contact, const FVector& IncomingVelocity)
 {
+    const FVector Position = Contact.ImpactPoint;
+    const FVector Normal = Contact.ImpactNormal.GetSafeNormal();
+    if (auto* FX=GetWorld()->GetSubsystem<UPoisonMaggotVenomFX>()) FX->AddBottleImpact(Position,Normal,IncomingVelocity,PoolRadius);
     if (Normal.Z < .65f) { Destroy(); return; }
-    LiquidCore->SetVisibility(false);
-    bPool = true; Age = 0.f; NextPulse = .5f;
+    Visual->SetVisibility(false,true);
+    bPool = true; Age = 0.f; NextPulse = .5f; NextPoolVapor = .35f;
     SetActorLocation(Position + Normal * 2.f); SetActorRotation(FRotationMatrix::MakeFromZ(Normal).Rotator());
-    Visual->SetStaticMesh(LoadObject<UStaticMesh>(nullptr, TEXT("/Engine/BasicShapes/Sphere.Sphere")));
-    Visual->SetMaterial(0, LoadObject<UMaterialInterface>(nullptr, TEXT("/Game/Monsters/PoisonMaggot/VenomLiquid20260915/M_VenomLiquid.M_VenomLiquid")));
-    Visual->SetRelativeTransform(FTransform(FQuat::Identity, FVector::ZeroVector, FVector(.04f, .04f, .016f)));
-    SetLifeSpan(6.f + .05f);
+    PoolSlope=Normal;BuildPoolFootprint();
+    PoolSurface = NewObject<UDecalComponent>(this,TEXT("PoisonPoolSurface"));
+    PoolSurface->SetupAttachment(RootComponent);
+    PoolSurface->SetDecalMaterial(PoolMaterial);
+    PoolSurface->DecalSize = FVector(50.f/Normal.Z,PoolRadius/Normal.Z,PoolRadius/Normal.Z);
+    PoolSurface->SetWorldLocation(Position+Normal*2.f);
+    PoolSurface->SetWorldRotation((-Normal).Rotation());
+    PoolSurface->SetFadeScreenSize(.0001f);
+    PoolSurface->RegisterComponent();
+    if (auto* Material=PoolSurface->CreateDynamicMaterialInstance())
+    {
+        const FVector Center = GetActorLocation();
+        Material->SetVectorParameterValue(TEXT("PoolCenter"),FLinearColor(Center.X,Center.Y,Center.Z));
+        Material->SetVectorParameterValue(TEXT("PoolNormal"),FLinearColor(Normal.X,Normal.Y,Normal.Z));
+        Material->SetScalarParameterValue(TEXT("PoolRadius"),PoolRadius);
+        Material->SetScalarParameterValue(TEXT("PoolStartTime"),GetWorld()->GetTimeSeconds());
+        Material->SetScalarParameterValue(TEXT("PoolSeed"),LiquidPhase/(2.f*PI));
+        for(int32 I=0;I<4;++I)
+            Material->SetVectorParameterValue(FName(*FString::Printf(TEXT("PoolReach%d"),I)),
+                FLinearColor(PoolReach[I*4],PoolReach[I*4+1],PoolReach[I*4+2],PoolReach[I*4+3]));
+    }
+    // Six seconds of damage, then a cosmetic-only drying tail.
+    SetLifeSpan(6.65f);
+}
+
+void AWitchProjectile::BuildPoolFootprint()
+{
+    for(int32 I=0;I<16;++I)PoolReach[I]=SamplePoolSector(I);
+    FootprintCursor=0;NextFootprintUpdate=.08f+.06f*LiquidPhase/(2.f*PI);
+}
+
+float AWitchProjectile::SamplePoolSector(int32 Index) const
+{
+    const FVector Center=GetActorLocation();
+    FCollisionQueryParams Query(SCENE_QUERY_STAT(WitchPoolFootprint),false,this);
+    Query.AddIgnoredActor(Shooter.Get());
+    for(FConstPlayerControllerIterator It=GetWorld()->GetPlayerControllerIterator();It;++It)
+        if(It->IsValid()&&It->Get()->GetPawn())Query.AddIgnoredActor(It->Get()->GetPawn());
+    const float Angle=Index*2.f*PI/16.f;
+    const FVector Direction(FMath::Cos(Angle),FMath::Sin(Angle),0);
+    float Reach=0;FVector End=Center;
+    for(int32 Step=1;Step<=3;++Step)
+    {
+        const FVector Sample=Center+Direction*(PoolRadius*Step/3.f);
+        FHitResult Floor;
+        if(!GetWorld()->LineTraceSingleByChannel(Floor,Sample+FVector(0,0,50),Sample-FVector(0,0,50),ECC_Visibility,Query)
+            ||Floor.ImpactNormal.Z<.65f)break;
+        Reach=float(Step)/3.f;End=Floor.ImpactPoint;
+    }
+    if(Reach>0)
+    {
+        FHitResult Wall;
+        if(GetWorld()->LineTraceSingleByChannel(Wall,Center+FVector(0,0,15),End+FVector(0,0,15),ECC_Visibility,Query))
+            Reach=FMath::Max(0.f,float(FVector::Dist2D(Center,Wall.ImpactPoint)-5.f)/FMath::Max(1.f,PoolRadius));
+    }
+    return Reach;
+}
+
+void AWitchProjectile::PushPoolFootprint()
+{
+    if(auto* Material=PoolSurface?Cast<UMaterialInstanceDynamic>(PoolSurface->GetDecalMaterial()):nullptr)
+        for(int32 I=0;I<4;++I)
+            Material->SetVectorParameterValue(FName(*FString::Printf(TEXT("PoolReach%d"),I)),
+                FLinearColor(PoolReach[I*4],PoolReach[I*4+1],PoolReach[I*4+2],PoolReach[I*4+3]));
+}
+
+void AWitchProjectile::RefreshPoolFootprint()
+{
+    auto* Budget=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>();
+    bool Changed=false;
+    for(int32 I=0;I<2;++I)
+    {
+        if(Budget&&!Budget->ReserveGeometryQueries(4,true))break;
+        const int32 Sector=FootprintCursor++%16;
+        const float Reach=SamplePoolSector(Sector);
+        Changed|=!FMath::IsNearlyEqual(Reach,PoolReach[Sector],.001f);
+        PoolReach[Sector]=Reach;
+    }
+    if(Changed)PushPoolFootprint(); // Publish the same values damage uses, in the same frame.
+    NextFootprintUpdate=Age+.10f+.02f*FMath::Frac(LiquidPhase+FootprintCursor*.618f);
+}
+
+float AWitchProjectile::PoolBoundary(const FVector& Position) const
+{
+    const FVector Offset=Position-GetActorLocation();
+    float Sector=FMath::Atan2(Offset.Y,Offset.X)*(16.f/(2.f*PI));if(Sector<0)Sector+=16;
+    const int32 I=FMath::FloorToInt(Sector)%16;
+    // The same smooth spoke interpolation is used by the decal shader and damage mask.
+    return FMath::Lerp(PoolReach[I],PoolReach[(I+1)%16],FMath::Frac(Sector));
 }
 
 void AWitchProjectile::Pulse()
@@ -128,7 +230,8 @@ void AWitchProjectile::Pulse()
         auto* Health = Player ? Player->FindComponentByClass<UFPSCombatHealthComponent>() : nullptr;
         if (!Health || Health->IsDead() || Health->IsInvulnerable()) continue;
         const FVector Feet = Player->GetActorLocation() - FVector(0,0,Player->GetSimpleCollisionHalfHeight());
-        if (FVector::DistSquared2D(Feet, GetActorLocation()) > FMath::Square(PoolRadius)
+        const float Boundary=PoolBoundary(Feet);
+        if (Boundary<=.001f || FVector::DistSquared2D(Feet, GetActorLocation()) > FMath::Square(PoolRadius*Boundary)
             || FMath::Abs(Feet.Z - GetActorLocation().Z) > 50.f) continue;
         FHitResult Wall; FCollisionQueryParams Query(SCENE_QUERY_STAT(WitchPoisonOcclusion), false, this);
         Query.AddIgnoredActor(Shooter.Get()); Query.AddIgnoredActor(Player);
@@ -150,10 +253,19 @@ void AWitchProjectile::Tick(float Delta)
     Age += Delta;
     if (bPool)
     {
-        const float Scale = PoolRadius / 50.f * FMath::Clamp(Age / .3f, .01f, 1.f);
-        Visual->SetRelativeScale3D(FVector(Scale, Scale, .016f));
+        if(Age>=NextFootprintUpdate&&Age<=6.f)RefreshPoolFootprint();
+        if (Age>=NextPoolVapor && Age<5.8f)
+        {
+            const float Angle=Age*2.39996f+LiquidPhase;
+            FVector Sample=GetActorLocation()+FVector(FMath::Cos(Angle),FMath::Sin(Angle),0)*(PoolRadius*.4f);
+            const FVector Offset=Sample-GetActorLocation();
+            Sample.Z-=FVector::DotProduct(Offset,PoolSlope)/FMath::Max(.65f,float(PoolSlope.Z));
+            if(PoolBoundary(Sample)>.45f)
+                if(auto* FX=GetWorld()->GetSubsystem<UPoisonMaggotVenomFX>())FX->AddPoolVapor(Sample,GetActorUpVector(),0);
+            NextPoolVapor=Age+.70f;
+        }
         while (NextPulse <= 6.f && Age >= NextPulse) { Pulse(); NextPulse += .5f; }
-        if (Age >= 6.f) Destroy();
+        if (Age >= 6.6f) Destroy();
         return;
     }
     if (Shooter->State == ENurseState::Dead) { Destroy(); return; }
@@ -188,13 +300,14 @@ void AWitchProjectile::Tick(float Delta)
     {
         if (bBottle)
         {
+            const FVector ImpactVelocity = Delta>UE_SMALL_NUMBER ? (End-Start)/Delta : FVector::ZeroVector;
             if (Cast<APawn>(First->GetActor()))
             {
                 FHitResult Ground; auto GroundQuery = Query; GroundQuery.AddIgnoredActor(First->GetActor());
-                if (GetWorld()->LineTraceSingleByChannel(Ground, First->ImpactPoint, First->ImpactPoint - FVector(0,0,300), ECC_Visibility, GroundQuery)) Land(Ground.ImpactPoint, Ground.ImpactNormal);
+                if (GetWorld()->LineTraceSingleByChannel(Ground, First->ImpactPoint, First->ImpactPoint - FVector(0,0,300), ECC_Visibility, GroundQuery)) Land(Ground,ImpactVelocity);
                 else Destroy();
             }
-            else Land(First->ImpactPoint, First->ImpactNormal);
+            else Land(*First,ImpactVelocity);
         }
         else
         {

@@ -45,6 +45,7 @@ private:
     /** Ballistic launch state: the flight and the preview share this integration exactly. */
     FVector LaunchPosition=FVector::ZeroVector,LaunchVelocity=FVector::ZeroVector;
     TArray<FVector> PreviewPoints;
+    bool bWaterContact=false;
     float Age=0,Distance=0,FlightAge=0,ImpactAge=0,ImpactLightPeak=0;
     bool bFlying=false,bFinished=false;
     bool bAimPreview=false;

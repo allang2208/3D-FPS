@@ -67,6 +67,7 @@ private:
         EFPSImpactSurface Surface, float DetailScale);
     void AddFleshBurst(const FHitResult& Hit, const FVector& Normal, bool Full, bool Far, const FHitResult* Ground);
     bool FindBloodLanding(const FHitResult& Hit, UCameraComponent* ViewCamera, double Now, FHitResult& Ground);
+    void AddBloodWall(const FHitResult& Hit,const FVector& Axis,UCameraComponent* View,double Now);
     void AddBloodStain(const FHitResult& Ground, const FVector& Origin, double Now);
     void AddDecal(const FHitResult& Hit, EFPSImpactSurface Surface, double Now);
     void PlayImpactSound(const FVector& Position, EFPSImpactSurface Surface, float Distance, double Now);
@@ -93,7 +94,8 @@ private:
     double DecalUntil[DecalSlots] = {};
     double BloodDecalUntil[BloodDecalSlots] = {};
     double LastBudgetTime = 0., LastSoundTime = -10.;
-    double LastBloodStainTime = -10.;
+    double LastBloodStainTime = -10., LastBloodWallTime = -10.;
+    FRandomStream BloodRandom{24092026};
     FHitResult LastBloodLanding;
     FVector LastBloodOrigin = FVector::ZeroVector;
     TWeakObjectPtr<AActor> LastBloodVictim;

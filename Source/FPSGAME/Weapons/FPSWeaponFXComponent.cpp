@@ -32,7 +32,7 @@ namespace WeaponFX
     constexpr float HeatThreshold = 0.10f;
     constexpr float HeatCoolingRate = 0.28f;
     constexpr float SmokeDrag = 1.3f;
-    constexpr float StreamMaxLifetime = 1.1f;
+    constexpr float StreamMaxLifetime = 1.30f;
     // Tracer streaks (see Docs/Weapons/tracer-upgrade-plan-20260921.md).
     // The visible dash is clamped to a per-class window instead of "one frame of
     // travel", which used to make it frame-rate dependent and full of gaps.
@@ -69,6 +69,9 @@ static TAutoConsoleVariable<float> ScopeWorldScaleMax(TEXT("fps.Scope.WorldScale
     TEXT("Hard cap for the world muzzle flash compensation."));
 static TAutoConsoleVariable<float> ScopeWorldForwardCM(TEXT("fps.Scope.WorldForwardCM"),12.f,
     TEXT("Centimetres to push the world flash along the barrel at full compensation."));
+
+static TAutoConsoleVariable<float> SmokeIntensity(TEXT("fps.Smoke.Intensity"),1.f,
+    TEXT("Muzzle smoke opacity multiplier for shot, continuous plume and heat tail (0-2)."));
 
 // Tracer presentation knob (Docs/Weapons/ballistic-feel-options-20260921.md). Presentation
 // only: the trace, the damage and the falloff are untouched.
@@ -128,8 +131,10 @@ UFPSWeaponFXComponent::UFPSWeaponFXComponent()
     static ConstructorHelpers::FObjectFinder<UMaterialInterface> Tracer(TEXT("/Game/Weapons/GunplayFX/M_BallisticTracerVisibleV13.M_BallisticTracerVisibleV13"));
     TracerMaterial = Tracer.Object;
     static ConstructorHelpers::FObjectFinder<UNiagaraSystem> EpicMuzzle(TEXT("/Game/Weapons/GunplayFX/NS_FPS_MuzzleFlashV10.NS_FPS_MuzzleFlashV10"));
-    static ConstructorHelpers::FObjectFinder<UNiagaraSystem> EpicSmoke(TEXT("/Game/Weapons/GunplayFX/NS_FPS_MuzzleSmokeStreamV12.NS_FPS_MuzzleSmokeStreamV12"));
+    static ConstructorHelpers::FObjectFinder<UNiagaraSystem> EpicSmoke(TEXT("/Game/Weapons/GunplayFX/NS_FPS_MuzzleSmokeStreamV15.NS_FPS_MuzzleSmokeStreamV15"));
+    static ConstructorHelpers::FObjectFinder<UNiagaraSystem> SmokeImpulse(TEXT("/Game/Weapons/GunplayFX/NS_FPS_MuzzleSmokeShotV15.NS_FPS_MuzzleSmokeShotV15"));
     EpicMuzzleSystem=EpicMuzzle.Object;EpicSmokeSystem=EpicSmoke.Object;
+    SmokeImpulseSystem=SmokeImpulse.Object;
 }
 
 void UFPSWeaponFXComponent::Initialize(USkeletalMeshComponent* InWeaponMesh, UCameraComponent* InCamera)
@@ -566,6 +571,50 @@ bool UFPSWeaponFXComponent::SpawnEpicFX(FVector Position,FVector Forward,float S
     return true;
 }
 
+void UFPSWeaponFXComponent::SpawnSmokeImpulse(bool bADS)
+{
+    if (!SmokeImpulseSystem) return;
+    // Reuse the existing capped cosmetic pool, with the same stop/end-play cleanup.
+    UNiagaraComponent* FX = nullptr;
+    for (const auto& Candidate : EpicFXPool)
+        if (Candidate->GetAsset() == SmokeImpulseSystem && !Candidate->IsActive())
+        {
+            FX = Candidate;
+            break;
+        }
+    if (!FX && EpicFXPool.Num() < 24)
+    {
+        FX = NewObject<UNiagaraComponent>(GetOwner());
+        FX->SetAutoActivate(false);
+        FX->SetAutoDestroy(false);
+        FX->SetAsset(SmokeImpulseSystem);
+        FX->SetCastShadow(false);
+        FX->RegisterComponent();
+        EpicFXPool.Add(FX);
+    }
+    if (!FX) return;
+
+    const auto* Character = Cast<AFPSGAMECharacter>(GetOwner());
+    const bool bPistol = bIndependentPistol || (Character && Character->IsPistolWeapon());
+    const bool bScope = ShouldHideCasings();
+    const bool bSuppressed = LastSuppression < .5f;
+    const float Size = .26f * (bPistol ? .8f : 1.f) * LastADSMultiplier
+        * (bSuppressed ? .8f : 1.f) * FMath::FRandRange(.92f, 1.08f);
+    const float Opacity = FMath::Clamp(SmokeOpacity, 0.f, 1.f)
+        * FMath::Clamp(SmokeIntensity.GetValueOnGameThread(), 0.f, 2.f)
+        * (bScope ? .34f : bADS ? .38f : .44f) * (bSuppressed ? .65f : 1.f);
+    FX->SetWorldLocationAndRotation(MuzzleLocation(), MuzzleForward().Rotation());
+    FX->SetVariableFloat(TEXT("User.SpawnRate"), 0.f);
+    FX->SetVariableFloat(TEXT("User.SmokeScale"), Size);
+    FX->SetVariableFloat(TEXT("User.SmokeForwardSpeed"), bSuppressed ? 180.f : bPistol ? 210.f : 280.f);
+    FX->SetVariableFloat(TEXT("User.SmokeSpreadScale"), 1.f);
+    FX->SetVariableFloat(TEXT("User.SmokeTailBlend"), 0.f);
+    FX->SetVariableFloat(TEXT("User.SightProtection"), bScope ? .82f : bADS ? .68f : .28f);
+    FX->SetVariableVec3(TEXT("User.SmokeDrift"), FVector(3.f, -2.f, 4.f));
+    FX->SetVariableLinearColor(TEXT("User.Smoke Color"), FLinearColor(.78f, .80f, .82f, Opacity));
+    FX->Activate(true); // Three short-lived sprites once per shot, independent of stream heat.
+}
+
 void UFPSWeaponFXComponent::UpdateSmokeStream(float DeltaTime)
 {
     if (!EpicSmokeSystem) return;
@@ -578,9 +627,9 @@ void UFPSWeaponFXComponent::UpdateSmokeStream(float DeltaTime)
     const float TailAge = FMath::Clamp(static_cast<float>((Now - SmokeFeedUntil)
         / FMath::Max(.01, SmokeTailUntil - SmokeFeedUntil)), 0.f, 1.f);
     const float TailFade = 1.f - TailAge * TailAge * (3.f - 2.f * TailAge);
-    const float TailRate = FMath::Lerp(10.f, 14.f, SmokeHeatAtLastShot) * TailFade;
+    const float TailRate = FMath::Lerp(4.f, 11.f, SmokeHeatAtLastShot) * TailFade;
     const float TargetRate = Now < SmokeTailUntil
-        ? FMath::Lerp(FMath::Lerp(44.f, 48.f, Heat), TailRate, TailBlend) : 0.f;
+        ? FMath::Lerp(FMath::Lerp(26.f, 36.f, Heat), TailRate, TailBlend) : 0.f;
     if (!SmokeStream && TargetRate <= 0.f) return;
     if (!SmokeStream)
     {
@@ -599,21 +648,22 @@ void UFPSWeaponFXComponent::UpdateSmokeStream(float DeltaTime)
     SmokeStream->SetVariableFloat(TEXT("User.SpawnRate"), SmokeEmissionRate);
     // Size, speed and color are sampled at birth; the tail cannot shrink or
     // recolor the larger shot smoke that is still dissipating above the barrel.
-    SmokeStream->SetVariableFloat(TEXT("User.SmokeScale"), FMath::Lerp(.28f, .13f, TailBlend) * LastADSMultiplier);
-    SmokeStream->SetVariableFloat(TEXT("User.SmokeForwardSpeed"), FMath::Lerp(95.f, 22.f, TailBlend));
+    SmokeStream->SetVariableFloat(TEXT("User.SmokeScale"), FMath::Lerp(.34f, .14f, TailBlend) * LastADSMultiplier);
+    SmokeStream->SetVariableFloat(TEXT("User.SmokeForwardSpeed"), FMath::Lerp(65.f, 6.f, TailBlend));
     SmokeStream->SetVariableFloat(TEXT("User.SmokeSpreadScale"), FMath::Clamp(SmokeSpreadScale, 1.f, 2.5f));
     SmokeStream->SetVariableFloat(TEXT("User.SmokeTailBlend"), TailBlend);
-    // A gentle outward drift is sampled only at birth, so even a stationary
-    // shooter leaves a thin trail beside the bore instead of stacking a curtain.
-    SmokeStream->SetVariableVec3(TEXT("User.SmokeDrift"),
-        Camera->GetRightVector() * FMath::Lerp(12.f, 7.f, TailBlend) + FVector::UpVector * 3.f);
+    // World-space breeze avoids forcing every plume towards camera-right.
+    SmokeStream->SetVariableVec3(TEXT("User.SmokeDrift"), FVector(3.f, -2.f, 4.f));
     const auto* Character = Cast<AFPSGAMECharacter>(GetOwner());
     const bool bAiming = Character && Character->IsAiming();
-    const float ViewOpacity = ShouldHideCasings() ? .17f : (bAiming ? .20f : .24f);
+    const bool bScope = ShouldHideCasings();
+    const float ViewOpacity = bScope ? .25f : (bAiming ? .28f : .32f);
     const float LayerOpacity = FMath::Clamp(SmokeOpacity, 0.f, 1.f)
+        * FMath::Clamp(SmokeIntensity.GetValueOnGameThread(), 0.f, 2.f)
         * ViewOpacity * FMath::Lerp(1.f, .85f, Heat)
         * FMath::Lerp(1.f, .55f, TailBlend);
-    SmokeStream->SetVariableLinearColor(TEXT("User.Smoke Color"), FLinearColor(.92f, .94f, .96f, LayerOpacity));
+    SmokeStream->SetVariableFloat(TEXT("User.SightProtection"), bScope ? .82f : bAiming ? .68f : .28f);
+    SmokeStream->SetVariableLinearColor(TEXT("User.Smoke Color"), FLinearColor(.78f, .80f, .82f, LayerOpacity));
     if (TargetRate > 0.f && !SmokeStream->IsActive())
     {
         SmokeStream->Activate(true);
@@ -670,9 +720,13 @@ void UFPSWeaponFXComponent::OnShot(bool bADS)
     if (const auto* OwnerCharacter = Cast<AFPSGAMECharacter>(GetOwner()); bIndependentPistol?!bIndependentRevolver:(!OwnerCharacter || !OwnerCharacter->bUseDanWesson715)) SpawnCasing();
     PendingHeat = FMath::Min(1.0f, PendingHeat + 0.18f);
     SmokeHeatAtLastShot = FMath::Min(1.f, BarrelHeat + PendingHeat);
-    SmokeFeedUntil = LastFXShotTime + FMath::Lerp(.18f, .24f, SmokeHeatAtLastShot);
-    SmokeTailUntil = SmokeFeedUntil + FMath::Lerp(.45f, .80f, SmokeHeatAtLastShot);
-    if (EpicSmokeSystem) UpdateSmokeStream(0.f);
+    SmokeFeedUntil = LastFXShotTime + FMath::Lerp(.14f, .20f, SmokeHeatAtLastShot);
+    SmokeTailUntil = SmokeFeedUntil + FMath::Lerp(.30f, 1.60f, SmokeHeatAtLastShot);
+    if (EpicSmokeSystem)
+    {
+        SpawnSmokeImpulse(bADS);
+        UpdateSmokeStream(0.f);
+    }
     else SpawnSmoke(true, 0.0f, MuzzleLocation(), MuzzleForward(), FMath::Min(1.0f, BarrelHeat + PendingHeat));
     FlashTime = Epic?0.f:0.045f;
     FlashBirthFrame = GFrameCounter;

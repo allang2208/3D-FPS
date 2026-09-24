@@ -106,6 +106,10 @@ return float4(h,g,foam);''',{'UV':uv,'T':time,'Impact':scalar('ImpactStrength',0
     # Indoor reflections come from the scene; no emissive outdoor cubemap or opaque scum overlay.
     out(custom('return C*.014;',{'C':base}),'EMISSIVE_COLOR');finish()
 parent=load(BASE+'/Materials/M_PusFluidV2');fluids=json.loads((ROOT/'Authored/fluids.json').read_text())
+import sys
+sys.path.insert(0,str(Path(u.Paths.project_dir())/'Tools/Fluids'))
+from author_impact_smoke_corrosion import pool_surface
+pool_surface(parent)
 instance('MI_PusChannelFluid',parent,{'WaveScale':1.05,'NormalSlope':1.65,'ImpactStrength':0,'BaseOpacity':.23,'DepthScaleCm':15,'Roughness':.075})
 instance('MI_PusPuddleFluid',parent,{'WaveScale':.16,'NormalSlope':2.1,'ImpactStrength':2.5,'BaseOpacity':.18,'DepthScaleCm':4,'Roughness':.065,'DropFallSeconds':fluids['falltime'],'MicroNormalStrength':.12})
 

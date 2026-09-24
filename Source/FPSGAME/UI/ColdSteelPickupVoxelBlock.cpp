@@ -1,4 +1,6 @@
 #include "ColdSteelPickup.h"
+#include "Engine/World.h"
+#include "../WorldGeneration/FluidPresentationSubsystem.h"
 #include "../Building/VoxelBuildPalette.h"
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -31,5 +33,6 @@ bool AColdSteelPickup::BuildVoxelBlock(const FColdSteelItem& Item)
     Body->SetCollisionResponseToChannel(ECC_PhysicsBody,ECR_Ignore);
     Body->SetLinearDamping(.6f);Body->SetAngularDamping(2.f);
     Body->SetSimulatePhysics(true);
+    if(auto* Fluid=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>())Fluid->RegisterWaterBody(Body);
     return true;
 }

@@ -30,6 +30,8 @@
 
 维护相关 UE5 技能，个人技能和工程镜像同步；当前入口使用仓库相对链接。案例日期和历史验收不能写成当前重新测试结果。Godot 的旧命令和旧标准留在归档历史。
 
+流体特效统一遵循 [流体特效工作流](skills/ue5-fluid-vfx-workflow/SKILL.md)（用户确定，2026-09-24）。覆盖烟火、水花与水面交互、毒液残留、血液和冷雾的离线制作、运行接入、性能预算与透明贴片问题；源码、作者脚本、实际保存资产和必要构建一起交付，历史用户认可与本轮未测状态分别记录。
+
 新建或改造面板／栏目先走 [UI-WORKFLOW](UI-WORKFLOW.md)，使用 [规划模板](Docs/UI/panel-column-plan-template.md) 定义信息结构、响应布局、数据范围和交互状态，按 [冷钢 UI 正式规则](Docs/UI/ui-cold-steel-design-system.md) 制作。数值规范在正式规则中维护，可复用经验进入 `ue5-ui-umg-slate`；确认退役的本次废案按第 4 节归档，保留已采用素材与来源。
 
 技能／魔法制作遵循 [专用工作流](skills/ue5-skill-magic-workflow/SKILL.md)，施法手臂与蒙皮细节进入 [手臂技能](skills/ue5-fps-arms-animation/references/casting-arm-volume.md)。2026-09-14 火球左手 V3 为用户认可的制作基线；认可范围、构建和未测试部分分别记录。

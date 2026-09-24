@@ -333,6 +333,12 @@ return normalize(float3(-g.x * slope, -g.y * slope, 1.0));""",
     MEL.connect_material_property(scalar(mat, "Roughness", 0.05), "", unreal.MaterialProperty.MP_ROUGHNESS)
     MEL.connect_material_property(scalar(mat, "Specular", 1.0), "", unreal.MaterialProperty.MP_SPECULAR)
     MEL.connect_material_property(scalar(mat, "Metallic", 0.0), "", unreal.MaterialProperty.MP_METALLIC)
+    # Preserve the shared bullet-water overlay when this source graph is rebuilt.
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(unreal.Paths.project_dir()) / 'Tools/Fluids'))
+    from author_water_impacts_all import augment_static_surface
+    augment_static_surface(mat)
     errs = MEL.recompile_material(mat)
     check("wave3_compile", errs == [])
     save_fresh(mat, WAVE3, "M_FountainWaveWaterV3")

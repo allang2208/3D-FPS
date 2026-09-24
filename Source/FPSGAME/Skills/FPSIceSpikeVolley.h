@@ -37,7 +37,7 @@ private:
         /** Ballistic launch state: the flight and the preview share this integration exactly. */
         FVector LaunchPosition=FVector::ZeroVector,LaunchVelocity=FVector::ZeroVector;
         FVector2D HoverNoiseSeed=FVector2D::ZeroVector,HoverNoiseRate=FVector2D::ZeroVector;
-        float Remaining=0;
+        float Remaining=0,NextFluidEnvironment=0;
         bool bActive=true,bAimEndpoint=false;
     };
     TArray<FFlight> Flights;

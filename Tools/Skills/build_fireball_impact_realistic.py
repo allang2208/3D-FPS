@@ -138,7 +138,11 @@ def explosion(flame,smoke,ember):
                                     ('CoolingWisps',smoke,3,.11,'smoke'),('ShortEmbers',ember,14,.035,'ember')]:
         layer(system,name,mat,count,delay,kind,lifecycle)
     system.set_editor_property('fixed_bounds',u.Box(min=u.Vector(-350,-350,-350),max=u.Vector(350,350,350)))
-    save(system);return system
+    # Reapply the bounded impact-only smoke after rebuilding native combustion.
+    sys.path.insert(0,str(ROOT/'Tools/Fluids'))
+    from author_impact_smoke_corrosion import impact_smoke
+    impact_smoke(system,False)
+    return system
 
 def shockwave():
     mat=new_material('M_FireballHeatShockwave')
