@@ -1,5 +1,9 @@
 # 恢复完整 UE5 内容
 
+## 裸皮感染犬与 Godot 四足模板（2026-09-25）
+
+恢复 `Content/Monsters/InfectedDog/MeshyV2`、`BP_InfectedDog`、共享血迹 `M_FleshStainV3`，保留合法 Wolf 动作/行为树与完整 Meshy 作者源。当前奔跑为用户认可的 GodotRunNaturalV3；飞扑、咬击和索敌升级仅完成后台构建与保存，未作游戏测试。废案 319 文件已归档至 `trash/infected-dog-retired-20260925`，重建依赖、来源许可及发布边界见 [感染犬发布记录](Monsters/InfectedDogPublication20260925.md)。
+
 ## 仓库储物箱五档与统一 E 交互提示（2026-09-24）
 
 运行资产 `Content/Props/WarehouseCrateTiers20260924`（体素贴图×10、材质×5、母材质实例×8、骨骼网格×5 共享源宝箱骨架与开合片段）为内容目录，不随公开仓库分发，克隆后需从本机恢复。制作链脚本与逐环节收发布尔在 `SourceAssets/WarehouseCrateTiers20260924`（作者化→导入安装→骨骼变体派生→贴图材质→usage 标志修复→探针，见其 README）。本轮废案探针两份（v1 顶面探针、FBX 导出尝试）归档至 `trash/warehouse-crate-tiers-probes-20260924/`，散列清单 `trash/warehouse-crate-tiers-probes-20260924.sha256.txt`。C++ 侧发布五档储物箱 Actor、按容器储物面板与统一准星毛玻璃小浮窗（模型上方世界名牌全部撤除）；共享文件（HUD/PlayerController/Backlog 等）按 hunk 过滤只取本次改动，远征面板、弹药轮、木质占位迁移等并行内容留在其会话未提交状态。表面材质提升计划 `SourceAssets/WarehouseCrateTiers20260924/material_upgrade_plan_20260924.md` 待办于 [Docs/Backlog.md](Backlog.md)。完整构建成功（23:26），未做游戏内验收，由用户测试。

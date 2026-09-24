@@ -624,3 +624,12 @@ __pycache__/
 !/SourceAssets/MuzzleSmokeMantaflow20260923/bake-manifest.json
 !/SourceAssets/FireballFluidCore20260923/bake-manifest.json
 !/SourceAssets/RiverSplashNatural20260924/bake-manifest.json
+
+# Infected dog: publish recipes; keep models, service responses and dense samples local.
+/SourceAssets/InfectedDogMeshy20260924/**
+!/SourceAssets/InfectedDogMeshy20260924/**/
+!/SourceAssets/InfectedDogMeshy20260924/**/*.py
+!/SourceAssets/InfectedDogMeshy20260924/**/*.md
+!/SourceAssets/InfectedDogMeshy20260924/meshy_settings.json
+!/SourceAssets/InfectedDogMeshy20260924/CompletionV2/source_action_bindings.json
+/SourceAssets/InfectedDogHunting20260925/

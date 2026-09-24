@@ -24,9 +24,9 @@ float drip=0;
     // Decal local Z is world up; UE decal UV.x follows local Z, so gravity is -p.x.
     float lengthDown=(.15+.45*h)*smoothstep(0,2.1,age);
     float down=-p.x;
-    float line=(1-smoothstep(.008,.024,abs(p.y-x)))*smoothstep(-.08,.05,down)
+    float dripMask=(1-smoothstep(.008,.024,abs(p.y-x)))*smoothstep(-.08,.05,down)
         *(1-smoothstep(lengthDown-.025,lengthDown+.025,down));
-    drip=max(drip,line*Wall);
+    drip=max(drip,dripMask*Wall);
 }
 float2 edge=smoothstep(0,.04,UV)*smoothstep(0,.04,1-UV);
 return saturate(max(max(core,satellites),drip)*edge.x*edge.y);

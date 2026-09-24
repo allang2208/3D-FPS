@@ -71,7 +71,7 @@ double UColdSteelEnhancementSystem::AttackFormulaAttribute(const FColdSteelItem&
     if(Key==TEXT("int"))Key=TEXT("intt");
     const auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     // Match raw allocated + equipment attributes used by the original weapon formulas.
-    return double(P->Attributes.FindRef(Key))+P->EquipmentBonus(Key)+(Key==TEXT("str")&&P->WeaponMastery(&I)==TEXT("swordMastery")?P->MasteryEffect(TEXT("heavyStrike")).Strength:0);
+    return (double(P->Attributes.FindRef(Key))+P->EquipmentBonus(Key)+(Key==TEXT("str")&&P->WeaponMastery(&I)==TEXT("swordMastery")?P->MasteryEffect(TEXT("heavyStrike")).Strength:0))*P->InfectionAttributeMultiplier();
 }
 double UColdSteelEnhancementSystem::ProcessedDamage(const FColdSteelItem& I,double Base,double Attack)const
 {

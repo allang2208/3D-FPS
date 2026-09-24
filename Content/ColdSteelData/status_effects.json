@@ -750,6 +750,13 @@
       "description": "地牢事件减益：def-20%；按战斗场次消耗（默认3场）。"
     },
     {
+      "type": "infection",
+      "icon": "☣",
+      "name": "感染",
+      "color": "#80b34e",
+      "description": "逐步恶化为初期、中期、后期；六维降低5%、30%、50%，每秒损失最大生命值的0.2%、0.5%、1%。60秒进入中期，180秒进入后期；持续至治愈，净化可移除。"
+    },
+    {
       "type": "observatoryFrostFracture",
       "icon": "☄️",
       "name": "星镜霜裂",

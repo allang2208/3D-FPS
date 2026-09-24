@@ -2,6 +2,7 @@
 #include "MonsterAIController.h"
 #include "MonsterCombatComponent.h"
 #include "Mutant3.h"
+#include "WolfMonster.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
@@ -34,6 +35,15 @@ void UBTTask_MonsterAction::TickTask(UBehaviorTreeComponent& Owner,uint8* Memory
     : SameLevel&&FVector::Dist2D(Dest,Feet)<=Stop;
    if(Reached){AI->StopMovement();C->SetLocomotion(false);}
    else C->SetLocomotion(AI->NavigateFeralTo(Dest,FeralStop,Victim),Returning);
+  }
+  else if(auto* Canine=Cast<AWolfMonster>(AI->GetPawn());Canine&&Canine->bUsePredictiveHunting)
+  {
+   APawn* Victim=!Returning&&B->GetValueAsBool(TEXT("Visible"))?Cast<APawn>(B->GetValueAsObject(TEXT("Target"))):nullptr;
+   const bool Reached=Victim
+    ? Canine->GetCharacterMovement()->IsMovingOnGround()&&Canine->CanBiteFrom(Victim,Canine->GetActorLocation(),Stop)
+    : SameLevel&&FVector::Dist2D(Dest,Feet)<=Stop;
+   if(Reached){AI->StopMovement();C->SetLocomotion(false);}
+   else C->SetLocomotion(AI->NavigateFeralTo(Dest,Stop,Victim),Returning);
   }
   else if(SameLevel&&FVector::Dist2D(Dest,Feet)<=Stop){AI->StopMovement();C->SetLocomotion(false);}
   else{C->SetLocomotion(true,Returning);AI->NavigateTo(Dest,Stop);}

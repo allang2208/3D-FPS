@@ -1,4 +1,5 @@
 #include "CombatStatusFormula.h"
+#include "ProgressiveInfectionComponent.h"
 #include "GameFramework/Actor.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Pawn.h"
@@ -207,6 +208,9 @@ float UCombatStatusFormula::OutgoingDamageMultiplier()const
 {
     float Multiplier=(CamelTime>0?1-CamelReduction:1)*(InspireTime>0?InspireAtk:1);
     const auto* Pawn=Cast<APawn>(GetOwner());
+    // Player weapons/spells already read the reduced six attributes. Monster
+    // attacks retain explicit authored damage, so apply their attribute ratio here.
+    if(!Pawn||!Pawn->IsPlayerControlled())Multiplier*=UProgressiveInfectionComponent::AttributeMultiplier(GetOwner());
     return Multiplier;
 }
 float UCombatStatusFormula::MovementMultiplier()const
@@ -352,6 +356,7 @@ void UCombatStatusFormula::ShowProcTile(FName Type,float Seconds)
 {if(Seconds>0)UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(Type,Seconds,1);}
 void UCombatStatusFormula::PurgeTransient()
 {
+    if(auto* Infection=GetOwner()->FindComponentByClass<UProgressiveInfectionComponent>())Infection->Cure();
     ChillStacks=HasteStacks=ChainStacks=ElectrifiedStacks=CorrosionStacks=VulnerabilityStacks=BleedStacks=0;
     ChillTime=HasteTime=ChainTime=ElectrifiedTime=CorrosionTime=VulnerabilityTime=BleedTime=BurnTick=0;
     FrozenTime=StunTime=BindTime=SlowTime=WaxTime=WeaponHasteTime=PetrifyTime=MarkedTime=InspireTime=0;
@@ -371,6 +376,7 @@ int32 UCombatStatusFormula::CleanseDebuffs(int32 Count)
     int32 Cleansed=0;
     auto Take=[&](){return Cleansed<Count;};
     auto Clear=[&](FName Tile){if(Display)Display->Remove(Tile);};
+    if(Take())if(auto* Infection=Owner->FindComponentByClass<UProgressiveInfectionComponent>();Infection&&Infection->GetState().bActive){Infection->Cure();++Cleansed;}
     if(Take())if(auto* P=Owner->FindComponentByClass<UMaggotPoisonComponent>();P&&P->Stacks>0){P->ClearPoison();++Cleansed;}
     if(Take())if(BleedStacks>0){BleedStacks=0;BleedTime=BleedTick=0;BleedSource.Reset();Clear(TEXT("bleed"));++Cleansed;}
     if(Take())if(auto* F=Owner->FindComponentByClass<UHandBrainFearComponent>();F&&F->Stacks>0){F->Cleanse();++Cleansed;}

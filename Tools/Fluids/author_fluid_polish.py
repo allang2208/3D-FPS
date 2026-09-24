@@ -52,6 +52,13 @@ def blood_materials():
         alpha=custom(m,'return Mask*Life;',{'Mask':owned,'Life':node(m,u.MaterialExpressionDecalLifetimeOpacity)})
         smoke.surface(m,{'BASE_COLOR':tint,'OPACITY':alpha,'ROUGHNESS':rough,'SPECULAR':smoke.constant(m,.42)},decal=True)
     else:owned.set_editor_property('code',code('BloodStain'))
+    # Substrate decal coverage is separate from the shading-model opacity.
+    # Its unconnected default is one, which exposes the entire projector box.
+    coverage=L.get_material_property_input_node(m,u.MaterialProperty.MP_OPACITY)
+    convert=L.get_material_property_input_node(m,u.MaterialProperty.MP_FRONT_MATERIAL)
+    if not isinstance(convert,u.MaterialExpressionSubstrateConvertToDecal) or coverage is None:
+        raise RuntimeError('Blood stain is missing its Substrate decal/coverage nodes')
+    wire(coverage,convert,'Coverage')
     smoke.save(m)
 
 def cold_impact():

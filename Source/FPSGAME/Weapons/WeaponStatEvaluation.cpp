@@ -32,7 +32,7 @@ double ColdSteelWeaponStats::Reload(const FColdSteelItem* Item,const UColdSteelS
     if(!Model)return Base;
     // One multiplicative stack: 敏捷 × 快手 × 附魔 × 改造. Speed factors divide the
     // time, so every source stays independent instead of adding up into one bonus.
-    const double Dex=double(Model->Attribute(TEXT("dex")))+Model->EquipmentBonus(TEXT("dex"));
+    const double Dex=Model->Attribute(TEXT("dex"))+Model->EquipmentBonus(TEXT("dex"))*Model->InfectionAttributeMultiplier();
     double Speed=1.+FMath::Max(0.,Dex)*DexReloadSpeedPerPoint;
     Speed*=FMath::Max(0.05,Model->ReloadSpeedMultiplier());
     if(Item)if(const auto* Enhancement=Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())

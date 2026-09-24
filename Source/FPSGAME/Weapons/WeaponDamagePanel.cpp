@@ -11,8 +11,7 @@ double Attribute(const UColdSteelStatusModel* Profile,FName Key)
     if(!Profile)return 0;
     if(Key==TEXT("int"))Key=TEXT("intt");
     if(Key==TEXT("atk")||Key==TEXT("matk"))return Profile->Derived(Key);
-    const double Bonus=Profile->EquipmentBonus(Key);
-    return Profile->Attribute(Key)+Bonus-int32(Bonus);
+    return Profile->Attribute(Key);
 }
 double Additional(const TSharedPtr<const FJsonObject>& Root,const TCHAR* Type,const UColdSteelStatusModel* Profile,double Base)
 {

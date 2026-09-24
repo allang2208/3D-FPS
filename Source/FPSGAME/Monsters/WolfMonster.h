@@ -63,6 +63,17 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Pounce", meta=(Units="s")) float PounceTravelStart = .1f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Pounce", meta=(Units="s")) float PounceTravelEnd = .5f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Pounce", meta=(Units="cm")) float PounceArcHeight = 25.f;
+    /** Opt-in hunting profile; enabled by the infected dog, reusable by other canine variants. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Hunting") bool bUsePredictiveHunting = false;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Hunting", meta=(ClampMin="0", ClampMax="1.5")) float PounceLeadStrength = 1.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Hunting", meta=(ClampMin="0", Units="cm")) float PounceMaxLeadDistance = 260.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Hunting", meta=(ClampMin="0", Units="cm")) float PounceStandOff = 85.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Hunting", meta=(ClampMin="0", Units="cm")) float BiteContactSlack = 20.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Hunting", meta=(ClampMin="1", ClampMax="180", Units="deg")) float BiteContactAngle = 130.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Hunting", meta=(ClampMin="1", Units="cm")) float PounceContactReach = 190.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Hunting", meta=(ClampMin="1", ClampMax="180", Units="deg")) float PounceContactAngle = 130.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Hunting", meta=(ClampMin="0", Units="cm")) float HuntingHeightTolerance = 90.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Hunting", meta=(ClampMin="0", Units="deg/s")) float AttackTrackingYawRate = 540.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Death", meta=(Units="s")) float CorpseSeconds = 15.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Death", meta=(ClampMin="0", ClampMax="1")) float DeathAnimationFraction = .6f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Death") bool bUseRagdoll = true;
@@ -75,6 +86,8 @@ public:
     bool Dead() const { return State == EWolfState::Dying || State == EWolfState::Ragdoll; }
     bool Busy() const;
     bool CanAttack(APawn* Victim) const;
+    /** Range is from the hunter center to the target capsule surface, independent of cooldown. */
+    bool CanBiteFrom(const APawn* Victim, const FVector& From, float Range) const;
     bool StartAttack(APawn* Victim);
     void SetTarget(APawn* Victim) { Target = Victim; }
     void SetLocomotion(bool bMoving, bool bReturning);
@@ -85,7 +98,9 @@ public:
     void FinishHitReaction();
     /** Author only the gameplay copy's bone hit queries, retaining its existing body shapes. */
     UFUNCTION(BlueprintCallable, Category="Wolf|Authoring") static bool PrepareCombatPhysics(USkeletalMesh* InMesh);
-private:
+ protected:
+    virtual void OnAttackLanded(APawn* Victim) {}
+ private:
     void AlignVisual();
     UQuadrupedTemplateAnimInstance* Animation() const;
     void EnterState(EWolfState NewState);
@@ -96,6 +111,11 @@ private:
     void AdvancePounce(float SourceSeconds);
     void FinishPounceMovement();
     void TryContact(float SourceSeconds);
+    bool BuildHuntingPounce(APawn* Victim, FVector& Landing) const;
+    bool HuntingContact(const APawn* Victim, bool bPounce) const;
+    bool HuntingSightFrom(const APawn* Victim, const FVector& From) const;
+    FVector PredictHuntingTarget(APawn* Victim, float Seconds, float MaxDistance) const;
+    void TrackHuntingWindup(float PreviousSeconds);
     void AlertPack();
     void Die(AController* Killer);
     void EnterRagdoll();
@@ -106,6 +126,7 @@ private:
     FVector AttackDirection = FVector::ForwardVector;
     FVector PounceOrigin = FVector::ZeroVector;
     float PounceDistance = 0.f;
+    float PounceHeightDelta = 0.f;
     float LastPounceSourceTime = 0.f;
     float BiteCooldownLeft = 0.f;
     float PounceCooldownLeft = 0.f;

@@ -25,7 +25,7 @@ public:
  /** The encounter owns this lock and destroys/releases it on exit, death or completion. */
  void SetEncounterTarget(APawn* Player);
  void NavigateTo(FVector Destination,float Acceptance);
- /** Mutant pursuit returns whether a real path is active, including bounded blocked-path retries. */
+ /** Mutant / opt-in canine pursuit, with attack positions and bounded blocked-path retries. */
  bool NavigateFeralTo(FVector Destination,float Acceptance,APawn* VisibleTarget);
  UMonsterCombatComponent* Combat() const;
  UFUNCTION(BlueprintCallable,Category="MonsterAI") void SetDecisionEnabled(bool Enabled);

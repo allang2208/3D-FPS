@@ -334,6 +334,7 @@ bool UColdSteelStatusModel::ReloadProfile()
     if(Removed){Publish(Best->Profile);if(!CommitState(Clean)){Publish(Previous);bPersistenceBlocked=true;return false;}}
     else Publish(Clean);
     ApplyToPawn();
+    if(CurrentPawn.IsValid())UProgressiveInfectionComponent::GetOrAdd(CurrentPawn.Get())->Restore(Current.Infection);
     RefreshDrops();OnChanged.Broadcast();
     if(RecoveredGroundAmmo>0)PostNotice(TEXT("旧版地面弹药已回收"),FString::Printf(TEXT("%lld 发已计入弹药袋"),RecoveredGroundAmmo));
     return true;
@@ -472,6 +473,7 @@ void UColdSteelStatusModel::SyncRuntime()
     const bool DualActive=Dual && Dual->IsActive();
     if(DualActive)Dual->SyncInventory(Current.Items);
     if(auto* H=CurrentPawn->FindComponentByClass<UFPSCombatHealthComponent>())Current.Health=H->Health;
+    if(const auto* Infection=CurrentPawn->FindComponentByClass<UProgressiveInfectionComponent>())Current.Infection=Infection->GetState();
     // Dual hand counters are authoritative even inside a synchronous hit/reward
     // callback, before the character's main-hand display cache has been updated.
     if(!DualActive)for(auto& I:Current.Items)if(I.Place==1&&I.Cell==Current.ActiveWeaponSlot&&!IsMeleeWeapon(I))
@@ -489,8 +491,9 @@ void UColdSteelStatusModel::ApplyToPawn(){if(CurrentPawn.IsValid())CurrentPawn->
 void UColdSteelStatusModel::AttachPawn(AFPSGAMECharacter* Pawn)
 {
     CurrentPawn=Pawn;
-    if(Current.Health<=0){Current.Health=Derived(TEXT("maxHp"));Current.Stamina=MaxStamina();Current.StaminaRecoveryDelay=0;Current.bSprintExhausted=false;}
+    if(Current.Health<=0){Current.Infection=FInfectionState{};Current.Health=Derived(TEXT("maxHp"));Current.Stamina=MaxStamina();Current.StaminaRecoveryDelay=0;Current.bSprintExhausted=false;}
     ApplyToPawn();
+    if(Pawn)UProgressiveInfectionComponent::GetOrAdd(Pawn)->Restore(Current.Infection);
     RefreshDrops();OnStaminaChanged.Broadcast();
 }
 void UColdSteelStatusModel::ReduceAllAbilityCooldowns(float Seconds)

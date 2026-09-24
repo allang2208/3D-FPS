@@ -2,6 +2,7 @@
 #include "../Monsters/PoisonMaggotProjectile.h"
 #include "../Monsters/HandBrainFearComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
+#include "../Combat/ProgressiveInfectionComponent.h"
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
 #include "Misc/FileHelper.h"
@@ -31,6 +32,17 @@ TArray<FStatusEffectView> UStatusEffectsComponent::Snapshot() const
  TArray<FStatusEffectView> Result;if(auto* H=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>())if(H->IsDead())return Result;
  if(auto* P=GetOwner()->FindComponentByClass<UMaggotPoisonComponent>())if(P->Stacks>0){auto V=Definition(TEXT("poison"));V.Stacks=P->Stacks;V.Duration=5;V.Remaining=P->GetDecayRemaining();V.Description+=TEXT(" 每 5 秒消退 1 层；倒计时为下一次减层时间。");Result.Add(V);}
  if(auto* F=GetOwner()->FindComponentByClass<UHandBrainFearComponent>())if(F->Stacks>0){auto V=Definition(TEXT("fear"));V.Stacks=F->Stacks;V.Duration=3;V.Remaining=F->GetRemainingSeconds();Result.Add(V);}
+ if(const auto* Infection=GetOwner()->FindComponentByClass<UProgressiveInfectionComponent>();Infection&&Infection->GetState().bActive)
+ {
+  const auto& State=Infection->GetState();const auto Stage=State.Stage();auto V=Definition(TEXT("infection"));
+  const TCHAR* StageName=Stage==EInfectionStage::Early?TEXT("初期"):Stage==EInfectionStage::Middle?TEXT("中期"):TEXT("后期");
+  V.Name=FString::Printf(TEXT("感染·%s"),StageName);V.Persistent=true;
+  const float Middle=FMath::Max(1.f,State.Tuning.MiddleAtSeconds),Late=FMath::Max(Middle+1.f,State.Tuning.LateAtSeconds);
+  const float Next=Stage==EInfectionStage::Early?Middle:Late;
+  V.DurationText=Stage==EInfectionStage::Late?TEXT("持续至治愈"):FString::Printf(TEXT("%ds恶化"),FMath::CeilToInt(FMath::Max(0.f,Next-State.ElapsedSeconds)));
+  V.Description=FString::Printf(TEXT("%s：每秒损失当前最大生命值的 %.2f%%，六维属性降低 %.0f%%。重复感染不叠加、不重置恶化时间；净化可治愈。"),StageName,State.HealthLossRatio()*100.f,(1.f-State.AttributeMultiplier())*100.f);
+  Result.Add(V);
+ }
  const double Now=GetWorld()->GetTimeSeconds();
  for(const auto& R:Records){auto V=R.View;if(!V.Persistent&&V.Battles<0){V.Remaining=FMath::Max(0.f,float(R.End-Now));if(V.Remaining<=0)continue;}if(V.Battles==0)continue;if(!Result.ContainsByPredicate([&](const auto& E){return E.Type==V.Type;}))Result.Add(V);}
  return Result;

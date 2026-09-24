@@ -33,3 +33,5 @@ UE 原包 Run 长 16/30≈0.5333 s，本身有收腿、伸展及头躯起伏；�
 本次按用户要求查看了旧源动作资料；修改后的动画、游戏和 F6 行为未进行测试或渲染验收，由用户试玩。必要构建及配置保存结果另记，不据此宣称视觉问题已通过验收。
 
 交付记录：Editor 必要构建完成，日志 `Saved/BuildEditor/build-20260915-084722.log`；两个动作数据集的 V2 参数已保存，制作日志 `Saved/WolfLocomotionV2Configure.log`，制作清单 `SourceAssets/QuadrupedTemplates/LocomotionV2/authoring_manifest.json`。重新打开工程后，从 F6 生成“野狼”即可使用。
+
+2026-09-24 后续：[犬类 Gallop V3](CanineGallopV3.md) 从 Git 归档找回了旧 Godot 的完整动作，但重定向结果因错位、穿模被用户否决。现已恢复野狼、僵尸犬、感染犬和母版的原 Run、左右转向以及替换前的步幅参考，V3 不再作为当前奔跑版本。本篇仍记录 9 月 15 日保留原动作的参数调整。

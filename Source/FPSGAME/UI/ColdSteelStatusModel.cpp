@@ -5,6 +5,8 @@
 #include "Dom/JsonObject.h"
 #include "../Combat/CombatItemFormula.h"
 #include "Serialization/JsonSerializer.h"
+#include "../FPSGAMECharacter.h"
+#include "../Monsters/FPSCombatHealthComponent.h"
 double UColdSteelStatusModel::EquipmentBonus(FName Key) const
 {return EquipmentBonusFor(Current,Key);}
 double UColdSteelStatusModel::EquipmentBonusFor(const FColdSteelProfile& State,FName Key)
@@ -22,10 +24,34 @@ double UColdSteelStatusModel::EquipmentBonusFor(const FColdSteelProfile& State,F
 }
 double UColdSteelStatusModel::ResourceMaximum(const FColdSteelProfile& State,bool Mana)
 {
-    auto Raw=[&](FName Key){return State.Attributes.FindRef(Key)+EquipmentBonusFor(State,Key);};
+    auto Raw=[&](FName Key){return (State.Attributes.FindRef(Key)+EquipmentBonusFor(State,Key))*State.Infection.AttributeMultiplier();};
     return 100+(State.Level-1)*10+(Mana?Raw(TEXT("wis"))*10+Raw(TEXT("intt"))*5:Raw(TEXT("con"))*10)+EquipmentBonusFor(State,Mana?TEXT("maxMp"):TEXT("maxHp"));
 }
-int32 UColdSteelStatusModel::Attribute(FName Key) const { const int32* Value = Attributes.Find(Key); return (Value ? *Value : 0)+int32(EquipmentBonus(Key))+(Key==TEXT("str")?MasteryEffect(TEXT("machineGunMastery")).Strength+MasteryEffect(TEXT("heavyStrike")).Strength+MasteryEffect(TEXT("whirlwind")).Strength:0)+(Key==TEXT("con")?MasteryEffect(TEXT("shotgunMastery")).Constitution:0)+(Key==TEXT("wis")?RifleEffect().Wisdom:0)+(Key==TEXT("dex")?DexterousHandsEffect().Dexterity+PistolEffect().Dexterity+MasteryEffect(TEXT("bowMastery")).Dexterity:0)+(Key==TEXT("luck")?CriticalStrikeEffect().Luck:0); }
+double UColdSteelStatusModel::Attribute(FName Key) const
+{
+    if(Key==TEXT("int"))Key=TEXT("intt");
+    const double Base=Attributes.FindRef(Key)+EquipmentBonus(Key)
+        +(Key==TEXT("str")?MasteryEffect(TEXT("machineGunMastery")).Strength+MasteryEffect(TEXT("heavyStrike")).Strength+MasteryEffect(TEXT("whirlwind")).Strength:0)
+        +(Key==TEXT("con")?MasteryEffect(TEXT("shotgunMastery")).Constitution:0)
+        +(Key==TEXT("wis")?RifleEffect().Wisdom:0)
+        +(Key==TEXT("dex")?DexterousHandsEffect().Dexterity+PistolEffect().Dexterity+MasteryEffect(TEXT("bowMastery")).Dexterity:0)
+        +(Key==TEXT("luck")?CriticalStrikeEffect().Luck:0);
+    return Base*InfectionAttributeMultiplier();
+}
+void UColdSteelStatusModel::SetInfectionState(const FInfectionState& State,bool bStageChanged)
+{
+    Current.Infection=State;
+    bTrainingDirty=true; // Use the existing coalesced autosave; no per-tick disk writes.
+    if(!bStageChanged)return;
+    if(CurrentPawn.IsValid())if(auto* Health=CurrentPawn->FindComponentByClass<UFPSCombatHealthComponent>())
+    {
+        Health->MaxHealth=Derived(TEXT("maxHp"));
+        Health->Health=FMath::Min(Health->Health,Health->MaxHealth);
+        Current.Health=Health->Health;
+    }
+    Current.Mana=FMath::Min(Current.Mana,Derived(TEXT("maxMp")));
+    OnChanged.Broadcast();
+}
 bool UColdSteelStatusModel::AllocateAttribute(FName Key)
 {
     SyncRuntime(); auto Next=Snapshot(); int32* Value=Next.Attributes.Find(Key);
@@ -44,11 +70,12 @@ float UColdSteelStatusModel::Derived(FName Key) const
     if (Key == TEXT("maxHp")) return ResourceMaximum(Current,false);
     if (Key == TEXT("maxMp")) return ResourceMaximum(Current,true);
     if (Key == TEXT("hpRegen")) return (1+TributeEffect(TEXT("hpRegenFlat")))*TributeEffect(TEXT("hpRegenPercent"));
-    auto Total=[&](FName Key){const double Bonus=EquipmentBonus(Key);return double(Attribute(Key))+Bonus-int32(Bonus);};
+    auto Total=[&](FName Key){return Attribute(Key);};
     const CoreCombatFormula::Attributes A{Total(TEXT("str")),Total(TEXT("dex")),Total(TEXT("intt")),
         Total(TEXT("con")),Total(TEXT("wis")),Total(TEXT("luck"))};
     const auto S=CoreCombatFormula::Player(A,Level);
-    auto Raw=A;Raw.Str-=MasteryEffect(TEXT("machineGunMastery")).Strength+MasteryEffect(TEXT("heavyStrike")).Strength+MasteryEffect(TEXT("whirlwind")).Strength;Raw.Con-=MasteryEffect(TEXT("shotgunMastery")).Constitution;Raw.Dex-=DexterousHandsEffect().Dexterity+PistolEffect().Dexterity+MasteryEffect(TEXT("bowMastery")).Dexterity;Raw.Wis-=RifleEffect().Wisdom;Raw.Luck-=CriticalStrikeEffect().Luck;
+    const double Infection=InfectionAttributeMultiplier();
+    auto Raw=A;Raw.Str-=(MasteryEffect(TEXT("machineGunMastery")).Strength+MasteryEffect(TEXT("heavyStrike")).Strength+MasteryEffect(TEXT("whirlwind")).Strength)*Infection;Raw.Con-=MasteryEffect(TEXT("shotgunMastery")).Constitution*Infection;Raw.Dex-=(DexterousHandsEffect().Dexterity+PistolEffect().Dexterity+MasteryEffect(TEXT("bowMastery")).Dexterity)*Infection;Raw.Wis-=RifleEffect().Wisdom*Infection;Raw.Luck-=CriticalStrikeEffect().Luck*Infection;
     const auto Resources=CoreCombatFormula::Player(Raw,Level);
     if (Key == TEXT("atk")) return AdjustCombatStat(Key,S.Atk+CoreCombatFormula::Round(EquipmentBonus(Key)));
     if (Key == TEXT("def")) {float Equipment=0;if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())for(const auto& Item:Current.Items)if(Item.Place==1&&(ColdSteelInventory::Text(Item,TEXT("weaponType"))!=TEXT("shield")||Item.Cell==(Current.ActiveWeaponSlot==6?8:11)))Equipment+=E->Defense(Item);double Value=S.Def+Equipment;if(const auto* I=Equipped())if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())Value=std::floor(Value*(1+E->CraftEffect(*I,TEXT("defensePercent"))));return AdjustCombatStat(Key,Value);}

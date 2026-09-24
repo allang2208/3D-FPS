@@ -118,11 +118,19 @@ bool AWolfMonster::CanAttack(APawn* Victim) const
     const auto* Vitals = Victim->FindComponentByClass<UFPSCombatHealthComponent>();
     if (Vitals && Vitals->IsDead()) return false;
     const FVector Offset = Victim->GetActorLocation() - GetActorLocation();
-    if (FMath::Abs(Offset.Z) > 120.f || !CanSee(Victim)) return false;
+    if (bUsePredictiveHunting ? !HuntingSightFrom(Victim, GetActorLocation()) : (FMath::Abs(Offset.Z) > 120.f || !CanSee(Victim))) return false;
     const float Distance = Offset.Size2D();
     if (bHowlOnEncounter && !bHasAlerted && Distance > PounceMinRange && Distance <= AggroRadius && ClipLength(TEXT("Howl")) > 0.f) return true;
     const auto* Bite = AnimationSet ? AnimationSet->FindAction(TEXT("AttackBite")) : nullptr;
     const auto* Pounce = AnimationSet ? AnimationSet->FindAction(TEXT("AttackPounce")) : nullptr;
+    if (bUsePredictiveHunting)
+    {
+        if (CanBiteFrom(Victim, GetActorLocation(), BiteTriggerRange))
+            return BiteCooldownLeft <= 0.f && Bite && Bite->ContactStartSeconds >= 0.f && Bite->ContactEndSeconds > Bite->ContactStartSeconds;
+        FVector Landing;
+        return PounceCooldownLeft <= 0.f && Pounce && Pounce->ContactStartSeconds >= 0.f &&
+            Pounce->ContactEndSeconds > Pounce->ContactStartSeconds && BuildHuntingPounce(Victim, Landing);
+    }
     return (Distance <= BiteTriggerRange && BiteCooldownLeft <= 0.f && Bite && Bite->ContactStartSeconds >= 0.f && Bite->ContactEndSeconds > Bite->ContactStartSeconds)
         || (Distance >= PounceMinRange && Distance <= PounceMaxRange && PounceCooldownLeft <= 0.f && Pounce && Pounce->ContactStartSeconds >= 0.f && Pounce->ContactEndSeconds > Pounce->ContactStartSeconds);
 }
@@ -138,7 +146,7 @@ bool AWolfMonster::StartAttack(APawn* Victim)
         bHasAlerted = true; bPackAlertSent = false;
         EnterState(EWolfState::Howl);
     }
-    else if (Distance <= BiteTriggerRange)
+    else if (bUsePredictiveHunting ? CanBiteFrom(Victim, GetActorLocation(), BiteTriggerRange) : Distance <= BiteTriggerRange)
     {
         bHasAlerted = true; BiteCooldownLeft = BiteCooldown;
         EnterState(EWolfState::Bite);
@@ -147,6 +155,7 @@ bool AWolfMonster::StartAttack(APawn* Victim)
     {
         bHasAlerted = true; PounceCooldownLeft = PounceCooldown;
         PounceOrigin = GetActorLocation();
+        PounceHeightDelta = 0.f;
         // Lock the landing direction/length now. A sidestep can evade the pounce.
         PounceDistance = FMath::Clamp(Distance - 110.f, 0.f, PounceMaxRange - 110.f);
         LastPounceSourceTime = 0.f; bPounceBlocked = false;
@@ -199,19 +208,32 @@ void AWolfMonster::SampleAction(FName Action, float SourceSeconds)
 }
 void AWolfMonster::TryContact(float SourceSeconds)
 {
-    if (bAttackConsumed || !Target.IsValid() || !CanSee(Target.Get())) return;
+    if (bAttackConsumed || !Target.IsValid()) return;
     const auto* Vitals = Target->FindComponentByClass<UFPSCombatHealthComponent>();
     if (Vitals && Vitals->IsDead()) return;
-    const FVector Offset = Target->GetActorLocation() - GetActorLocation();
-    if (Offset.Size2D() > BiteTriggerRange + 35.f || FVector::DotProduct(AttackDirection, Offset.GetSafeNormal2D()) < .35f) return;
-    auto* TargetBody = Cast<UPrimitiveComponent>(Target->GetRootComponent());
-    FVector Closest;
-    if (!TargetBody || TargetBody->GetClosestPointOnCollision(Mouth(), Closest) < 0.f || FVector::DistSquared(Mouth(), Closest) > FMath::Square(ContactRadius)) return;
+    if (bUsePredictiveHunting)
+    {
+        if (!HuntingContact(Target.Get(), State == EWolfState::Pounce)) return;
+    }
+    else
+    {
+        if (!CanSee(Target.Get())) return;
+        const FVector Offset = Target->GetActorLocation() - GetActorLocation();
+        if (Offset.Size2D() > BiteTriggerRange + 35.f || FVector::DotProduct(AttackDirection, Offset.GetSafeNormal2D()) < .35f) return;
+        auto* TargetBody = Cast<UPrimitiveComponent>(Target->GetRootComponent());
+        FVector Closest;
+        if (!TargetBody || TargetBody->GetClosestPointOnCollision(Mouth(), Closest) < 0.f || FVector::DistSquared(Mouth(), Closest) > FMath::Square(ContactRadius)) return;
+    }
     // Consume before the callback: parry can synchronously cancel this attack.
     bAttackConsumed = true;
+    const float HealthBefore = Vitals ? Vitals->Health : 0.f;
     const float Damage = State == EWolfState::Pounce ? PounceDamage : BiteDamage;
     const float Applied = UGameplayStatics::ApplyDamage(Target.Get(), Damage, GetController(), this, UEnemyMeleeDamage::StaticClass());
-    if (Applied > 0.f) ++SuccessfulHits;
+    if (Applied > 0.f)
+    {
+        ++SuccessfulHits;
+        if (Target.IsValid() && (!Vitals || Vitals->Health < HealthBefore)) OnAttackLanded(Target.Get());
+    }
 }
 void AWolfMonster::AdvancePounce(float SourceSeconds)
 {
@@ -219,6 +241,25 @@ void AWolfMonster::AdvancePounce(float SourceSeconds)
     auto* Move = GetCharacterMovement();
     if (!bPounceMovement)
     {
+        if (bUsePredictiveHunting)
+        {
+            FVector Landing;
+            // Replan at actual takeoff. Windup has already elapsed, so only the
+            // remaining flight time is predicted; the airborne course then locks.
+            if (!BuildHuntingPounce(Target.Get(), Landing))
+            {
+                bAttackConsumed = true; bPounceBlocked = true;
+                PounceCooldownLeft = FMath::Min(PounceCooldownLeft, .75f);
+                RecoverySeconds = .2f;
+                EnterState(EWolfState::Recovery);
+                return;
+            }
+            PounceOrigin = GetActorLocation();
+            AttackDirection = (Landing-PounceOrigin).GetSafeNormal2D();
+            PounceDistance = FVector::Dist2D(PounceOrigin, Landing);
+            PounceHeightDelta = Landing.Z-PounceOrigin.Z;
+            SetActorRotation(AttackDirection.Rotation());
+        }
         bPounceMovement = true;
         Move->SetMovementMode(MOVE_Flying);
         Move->StopMovementImmediately();
@@ -230,7 +271,7 @@ void AWolfMonster::AdvancePounce(float SourceSeconds)
         Time = FMath::Min(End, Time + 1.f / 60.f);
         const float Alpha = (Time - PounceTravelStart) / (PounceTravelEnd - PounceTravelStart);
         const FVector Desired = PounceOrigin + AttackDirection * (PounceDistance * Alpha)
-            + FVector(0, 0, FMath::Sin(Alpha * PI) * PounceArcHeight);
+            + FVector(0, 0, PounceHeightDelta * Alpha + FMath::Sin(Alpha * PI) * PounceArcHeight);
         FHitResult Hit;
         Move->SafeMoveUpdatedComponent(Desired - GetActorLocation(), GetActorQuat(), true, Hit);
         if (Hit.bBlockingHit)
@@ -258,6 +299,7 @@ void AWolfMonster::AdvanceAttack(float PreviousSeconds)
     const float Windup = State == EWolfState::Pounce ? PounceWindup : BiteWindup;
     const float Now = FMath::Max(0.f, StateSeconds - Windup);
     const float Before = FMath::Max(0.f, PreviousSeconds - Windup);
+    if (bUsePredictiveHunting) TrackHuntingWindup(PreviousSeconds);
     if (StateSeconds < Windup) return;
     if (!bAttackAnimationStarted)
     {
@@ -272,13 +314,25 @@ void AWolfMonster::AdvanceAttack(float PreviousSeconds)
     // advancing to the recovery pose. Both movement and animation use source time.
     if (InContact && !bAttackConsumed)
     {
-        const float Contact = FMath::Clamp(Now, Definition->ContactStartSeconds, Definition->ContactEndSeconds - .0001f);
-        if (State == EWolfState::Pounce) AdvancePounce(Contact);
-        SampleAction(Action, Contact);
-        TryContact(Contact);
-        if (State != AttackState) return;
+        const float End = FMath::Clamp(Now, Definition->ContactStartSeconds, Definition->ContactEndSeconds - .0001f);
+        const float Start = bUsePredictiveHunting ? FMath::Clamp(Before, Definition->ContactStartSeconds, End) : End;
+        // A fast pounce can traverse the entire target during one long frame.
+        // Sample the authored contact interval along the swept movement, with
+        // bounded work and the existing once-per-action damage consumption.
+        const int32 Steps = FMath::Clamp(FMath::CeilToInt((End-Start)*60.f), 1, 16);
+        for (int32 Step = 0; Step <= Steps; ++Step)
+        {
+            const float Contact = FMath::Lerp(Start, End, Step/static_cast<float>(Steps));
+            if (State == EWolfState::Pounce) AdvancePounce(Contact);
+            if (State != AttackState) return;
+            SampleAction(Action, Contact);
+            TryContact(Contact);
+            if (State != AttackState) return;
+            if (bAttackConsumed || Start == End) break;
+        }
     }
     if (State == EWolfState::Pounce) AdvancePounce(Now);
+    if (State != AttackState) return;
     SampleAction(Action, FMath::Min(Now, ClipLength(Action)));
     if (Now >= ClipLength(Action))
     {

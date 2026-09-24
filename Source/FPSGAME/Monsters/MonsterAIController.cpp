@@ -2,6 +2,7 @@
 #include "MonsterCombatComponent.h"
 #include "MonsterBTNodes.h"
 #include "Mutant3.h"
+#include "WolfMonster.h"
 #include "FPSCombatHealthComponent.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BlackboardComponent.h"
@@ -72,7 +73,8 @@ void AMonsterAIController::UpdateKnowledge()
 {
  auto* C=Combat();auto* B=GetBlackboardComponent();if(!C||!B||!GetPawn())return;
  const bool Disabled=!bDecisionEnabled||!GetPawn()->IsActorTickEnabled();
- const bool FeralPursuit=GetPawn()->IsA<AMutant3>();
+ const auto* Canine=Cast<AWolfMonster>(GetPawn());
+ const bool FeralPursuit=GetPawn()->IsA<AMutant3>()||(Canine&&Canine->bUsePredictiveHunting);
  B->SetValueAsBool(TEXT("Hold"),Disabled||C->IsBusy());
  if(C->IsDead()){StopMovement();if(BrainComponent)BrainComponent->StopLogic(TEXT("Dead"));ActiveAction=TEXT("Dead");return;}
  if(EncounterTarget.IsValid())KnownTarget=EncounterTarget;

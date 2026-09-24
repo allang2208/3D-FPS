@@ -1,0 +1,36 @@
+{
+  "api_base": "https://api.meshy.ai/openapi",
+  "proxy": "http://127.0.0.1:7897",
+  "endpoint": "/v1/multi-image-to-3d",
+  "common": {
+    "ai_model": "meshy-7.1",
+    "geometry_resolution": "2k",
+    "should_texture": true,
+    "enable_pbr": true,
+    "texture_resolution": "4k",
+    "should_remesh": false,
+    "image_enhancement": false,
+    "remove_lighting": true,
+    "target_formats": ["glb", "fbx"],
+    "multi_view_thumbnails": true,
+    "alpha_thumbnail": true,
+    "pose_mode": ""
+  },
+  "assets": {
+    "candidate01": {
+      "images": [
+        "References/01_front_oblique.png",
+        "References/02_left_profile.png",
+        "References/03_rear_oblique.png"
+      ],
+      "options": {
+        "texture_prompt": "Photorealistic completely hairless canine with consistent muted olive/sage green mammalian skin, subtle green pigment variation and paler green underside. Fine pores and restrained natural skin folds at neck underside and joints; preserve smooth anatomical muscle transitions. Charcoal green moist nose and lips, natural amber brown eyes, dark claws. Matte to softly satin skin, low specular, subtle roughness variation, nonmetallic. No fur, whiskers, reptile scales, coarse pits, regular grooves, wound overlays, baked illumination, painted shadows, plastic shine, stone texture or added accessories. Follow the input character consistently."
+      }
+    }
+  },
+  "estimated_generation_credits": 35,
+  "pricing_source": "https://docs.meshy.ai/en/api/pricing",
+  "api_schema_source": "https://docs.meshy.ai/en/api/multi-image-to-3d",
+  "rigging_plan": "2026-09-24 user requested Meshy quadruped template: create quad50k remesh, then rig with animation_type=quadruped per official OpenAPI schema. See meshy_quadruped.py and saved task receipts.",
+  "activation": "Candidate only until user selects the actual model"
+}

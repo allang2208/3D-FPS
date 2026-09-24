@@ -19,6 +19,12 @@
 
 ## 按证据缩小问题
 
+### 血液黑色方块：编译回退与 Substrate Coverage
+
+感染犬受击案例（2026-09-24）使用共享 `M_FleshStainV3`。`BloodStain.hlsl` 把 HLSL 保留字 `line` 用作局部变量，SM6 编译失败回退后出现方片；改为 `dripMask`。同时 `SubstrateConvertToDecal.Coverage` 未连接，默认满覆盖，连接传统 Opacity 或 ShadingModels.Opacity 并不能替代它。将带遮罩及寿命的最终 Alpha 接到 Coverage，保留原图形边缘。
+
+修复须同步 `SourceAssets/FluidPolish20260924/BloodStain.hlsl`、`Tools/Fluids/author_fluid_polish.py` 与实际材质。局部修复入口为 `Tools/InfectedDog/repair_blood_stain.py`；不因血液方块重做角色皮肤或全部流体。源码编译、资产保存与用户观感分别记录，不把无编译错误当成视觉验收。
+
 | 现象 | 优先读取的链条 | 常见局部处理 |
 | --- | --- | --- |
 | 完整方片，尤其动画后段 | 原始帧覆盖→图集有效帧→GPU 纹理设置→材质空白路径 | 修空帧、末帧钳制、tile 边界；别只调总体透明度 |

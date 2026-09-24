@@ -1,6 +1,8 @@
 #include "CombatFormulaRuntime.h"
 #include "CoreCombatFormula.h"
 #include "CombatStatusFormula.h"
+#include "ProgressiveInfectionComponent.h"
+#include "../Monsters/InfectedDogMonster.h"
 #include "../Monsters/NurseZombie.h"
 #include "../Monsters/HandBrainMonster.h"
 #include "../Monsters/PoisonMaggotMonster.h"
@@ -33,12 +35,14 @@ bool CombatFormulaRuntime::IsMagic(const UDamageType* Type)
 {return Type&&(Type->IsA<UHandBrainMagicDamage>()||Type->IsA<UFireballDamage>()||Type->IsA<UIceSpikeDamage>()||Type->IsA<ULightningDamage>()||Type->IsA<UHolyLightDamage>()||Type->IsA<UFireMagicDamage>()||Type->IsA<UCorrosivePusDamage>()||Type->IsA<URuneOrbBladeDamage>()||Type->IsA<UStatusMagicDamage>());}
 float CombatFormulaRuntime::MonsterDefense(const AActor* Target,bool Magic)
 {
-    if(const auto* W=Cast<AWolfMonster>(Target))return Magic?W->MagicDefense:W->PhysicalDefense;
-    if(Magic)if(const auto* H=Cast<AHandBrainMonster>(Target))return H->MagicDefense; // Original permitted direct override: 65.
+    if(Target->IsA<AInfectedDogMonster>()){const auto S=CoreCombatFormula::Enemy(MonsterAttributes(Target));return Magic?S.Mdef:S.Def;}
+    const float Infection=UProgressiveInfectionComponent::AttributeMultiplier(Target);
+    if(const auto* W=Cast<AWolfMonster>(Target))return (Magic?W->MagicDefense:W->PhysicalDefense)*Infection;
+    if(Magic)if(const auto* H=Cast<AHandBrainMonster>(Target))return H->MagicDefense*Infection; // Original permitted direct override: 65.
     const auto S=CoreCombatFormula::Enemy(MonsterAttributes(Target));return Magic?S.Mdef:S.Def;
 }
 float CombatFormulaRuntime::MonsterCriticalResistance(const AActor* Target)
-{if(const auto* W=Cast<AWolfMonster>(Target))return W->CriticalResistance;return CoreCombatFormula::Enemy(MonsterAttributes(Target)).CritRes;}
+{if(const auto* W=Cast<AWolfMonster>(Target))return W->CriticalResistance*UProgressiveInfectionComponent::AttributeMultiplier(Target);return CoreCombatFormula::Enemy(MonsterAttributes(Target)).CritRes;}
 float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UDamageType* Type,AActor* Source)
 {
     if(Type&&Type->IsA<UCombatDirectDamage>())return Damage;

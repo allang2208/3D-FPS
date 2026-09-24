@@ -171,7 +171,9 @@ public:
     bool PopProgressNotice(FColdSteelProgressNotice& Out);
     virtual void Initialize(FSubsystemCollectionBase& Collection) override;
     virtual void Deinitialize() override;
-    int32 Attribute(FName Key) const;
+    double Attribute(FName Key) const;
+    double InfectionAttributeMultiplier() const { return Current.Infection.AttributeMultiplier(); }
+    void SetInfectionState(const FInfectionState& State, bool bStageChanged);
     UFUNCTION(BlueprintCallable, Category="Character") bool AllocateAttribute(FName Key);
     UFUNCTION(BlueprintCallable, Category="Character") void GrantAttributePoints(int32 Amount);
     UFUNCTION(BlueprintCallable, Category="Character") void NotifyChanged() { OnChanged.Broadcast(); }

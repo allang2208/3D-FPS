@@ -3,6 +3,7 @@
 #include "GameFramework/SaveGame.h"
 #include "../Skills/ColdSteelSkillTypes.h"
 #include "ColdSteelQuickBarTypes.h"
+#include "../Combat/ProgressiveInfectionComponent.h"
 #include "ColdSteelInventoryTypes.generated.h"
 
 USTRUCT(BlueprintType)
@@ -159,6 +160,7 @@ struct FColdSteelProfile
     UPROPERTY() float MeteorCooldownDuration = 0;
     UPROPERTY() float FlameArmorCooldown = 0;
     UPROPERTY() float FlameArmorCooldownDuration = 0;
+    UPROPERTY() FInfectionState Infection;
 };
 
 UCLASS()

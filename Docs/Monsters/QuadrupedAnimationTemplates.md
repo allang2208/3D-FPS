@@ -2,6 +2,8 @@
 
 2026-09-14。UE 5.8.2，狼为首个母版。交付阶段为本机可复用动画资源、播放接口和骨链；本次不开展游戏测试、动作渲染或人工验收。
 
+2026-09-25 用户确认裸皮感染犬 GodotRunNaturalV3“基本成功，可以作为四足犬科的模板了”。后续犬科奔跑优先参考该已认可版本及其直接适配方法，入口见 [NaturalV3 制作与复用](../../SourceAssets/InfectedDogMeshy20260924/GodotRunNaturalV3/README.md)。它使用 MeshyV2 的 41 骨目标绑定；下文原 WolfV1 的 34 骨资产继续作为历史来源，不能直接互换动画。新的提前量、接触范围与狩猎 AI 属于后续独立升级，记录见 [感染犬狩猎配置](InfectedDogHunting20260925.md)，不借用此次奔跑认可作为攻击验收。
+
 ## 来源与适用范围
 
 [ANIMAL VARIETY PACK / PROTOFACTOR INC](https://www.fab.com/listings/2dd7964c-a601-4264-a53d-465dcae1644c) 包含乌鸦、狐狸、鹿、猪、狼五类动物，其中鹿分公鹿和母鹿。本机源资产位于 `/Game/AnimalVarietyPack`，具有模型、独立 Skeleton、Physics Asset、材质、贴图和动画。源文件的帧数、时长、Skeleton、Notify 名称与骨骼父链记录在 [source_catalog.json](../../SourceAssets/QuadrupedTemplates/source_catalog.json)。商品页动画数量与本机版本/原地及 RM 变体计数分别记录，不混为同一口径。

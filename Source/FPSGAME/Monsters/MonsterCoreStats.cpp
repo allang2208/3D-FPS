@@ -2,6 +2,8 @@
 #include "HandBrainMonster.h"
 #include "PoisonMaggotMonster.h"
 #include "WolfMonster.h"
+#include "InfectedDogMonster.h"
+#include "../Combat/ProgressiveInfectionComponent.h"
 #include "FatZombie.h"
 #include "Mutant3.h"
 #include "WitchMonster.h"
@@ -32,6 +34,7 @@ bool Get(const AActor* Target,FMonsterCoreStats& Out)
     CoreCombatFormula::Attributes A;int32 Level=1;EMonsterRank Rank=EMonsterRank::Normal;bool bKnown=false;
     if(const auto* H=Cast<AHandBrainMonster>(Target)){A={50,25,30,40,20,10};Level=H->Level>0?H->Level:12;Rank=H->Rank;bKnown=true;}
     else if(const auto* M=Cast<APoisonMaggotMonster>(Target)){A={7,13,24,22,24,13};Level=M->Level>0?M->Level:4;Rank=M->Rank;bKnown=true;}
+    else if(const auto* D=Cast<AInfectedDogMonster>(Target)){A=D->BaseAttributes();Level=D->Level;Rank=D->Rank;bKnown=true;}
     else if(const auto* W=Cast<AWolfMonster>(Target)){A={16,28,3,5,6,8};Level=W->Level>0?W->Level:5;Rank=W->Rank;bKnown=true;}
     else if(const auto* F=Cast<AFatZombie>(Target)){A={18,6,3,20,3,5};Level=F->Level>0?F->Level:4;Rank=F->Rank;bKnown=true;}
     else if(const auto* U=Cast<AMutant3>(Target)){A={50,30,5,40,10,6};Level=U->Level>0?U->Level:9;Rank=U->Rank;bKnown=true;}
@@ -41,6 +44,9 @@ bool Get(const AActor* Target,FMonsterCoreStats& Out)
     else if(Target->ActorHasTag(TEXT("Mutant3"))){A={50,30,5,40,10,6};Level=9;Rank=EMonsterRank::Elite;bKnown=true;}
     else if(Target->ActorHasTag(TEXT("Witch"))){A={20,15,30,33,25,13};Level=8;Rank=EMonsterRank::Lord;bKnown=true;}
     if(!bKnown)return false;
+    const double Infection=UProgressiveInfectionComponent::AttributeMultiplier(Target);
+    A.Str*=Infection; A.Dex*=Infection; A.Int*=Infection;
+    A.Con*=Infection; A.Wis*=Infection; A.Luck*=Infection;
     Out={A,Level,Rank};
     return true;
 }

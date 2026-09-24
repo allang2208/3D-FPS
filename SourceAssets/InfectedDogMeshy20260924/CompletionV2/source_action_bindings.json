@@ -1,0 +1,26 @@
+{
+  "source_mesh": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf",
+  "clips": {
+    "Idle": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_Idle.A_QP_Wolf_Idle",
+    "IdleAlert": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_IdleAlert.A_QP_Wolf_IdleAlert",
+    "LookAround": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_LookAround.A_QP_Wolf_LookAround",
+    "Walk": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_Walk.A_QP_Wolf_Walk",
+    "WalkTurnLeft": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_WalkTurnLeft.A_QP_Wolf_WalkTurnLeft",
+    "WalkTurnRight": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_WalkTurnRight.A_QP_Wolf_WalkTurnRight",
+    "Run": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_Run.A_QP_Wolf_Run",
+    "RunTurnLeft": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_RunTurnLeft.A_QP_Wolf_RunTurnLeft",
+    "RunTurnRight": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_RunTurnRight.A_QP_Wolf_RunTurnRight",
+    "AttackBite": "/Game/Monsters/QuadrupedTemplates/WolfV2/Animations/A_QP_Wolf_Bite_WeightShift.A_QP_Wolf_Bite_WeightShift",
+    "AttackRunBite": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_AttackRunBite.A_QP_Wolf_AttackRunBite",
+    "AttackPounce": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_AttackPounce.A_QP_Wolf_AttackPounce",
+    "HitFront": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_HitFront.A_QP_Wolf_HitFront",
+    "HitLeft": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_HitLeft.A_QP_Wolf_HitLeft",
+    "HitRight": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_HitRight.A_QP_Wolf_HitRight",
+    "Howl": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_Howl.A_QP_Wolf_Howl",
+    "RestEnter": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_RestEnter.A_QP_Wolf_RestEnter",
+    "RestLoop": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_RestLoop.A_QP_Wolf_RestLoop",
+    "RestExit": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_RestExit.A_QP_Wolf_RestExit",
+    "SleepLoop": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_SleepLoop.A_QP_Wolf_SleepLoop",
+    "Death": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_Death.A_QP_Wolf_Death"
+  }
+}

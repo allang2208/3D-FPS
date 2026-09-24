@@ -26,6 +26,8 @@ description: 制作与接入 UE5 怪物，支持 Meshy 已蒙皮绑骨的人形�
 
 ## 四足怪物与通用动作模板（2026-09-14）
 
+裸皮犬、多骨架犬科重定向、F6 根单位异常及预测飞扑，补读 [Meshy 犬科与预测攻击](references/canine-meshy-and-hunting.md)。用户认可的跑姿模板是 MeshyV2 + GodotRunNaturalV3，勿与退役 WolfV3 混淆。
+
 四足开发先读 [狼母版与四足动作模板](references/quadruped-animation-template.md)。Wolf 已接入 F6，跑姿与撕咬修订保留在原动作数据集；从狼派生僵尸犬时另读 [换皮与随机伤口](references/wolf-reskin.md)。动作 ID 和数据结构通用，目标骨架仍需重定向与体型修正；不把源包动画数量、保存记录或本轮材质认可当成新角色动作验收。
 
 ## 1. 建立造型与动作合同

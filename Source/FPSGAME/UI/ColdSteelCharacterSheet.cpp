@@ -216,12 +216,12 @@ void UColdSteelHUDWidget::RefreshCharacterSheet()
         const FString MovementDetail=FString::Printf(TEXT("持械移速乘区：手枪按（1 + 手枪精通移速加成）提速，机枪类按机枪精通固定倍率减速（当前 %.2f，即减速 %.0f%%）；其余枪械为 1.00。收起武器或改持工具时恢复 1.00。当前总倍率 %.2f。"),
             MachineGunMultiplier,(1.f-MachineGunMultiplier)*100.f,StatusModel->PistolMovementMultiplier()*MachineGunMultiplier);
         CharacterDetails.Add(TEXT("moveSpeed"),MovementDetail);CharacterDetails.Add(TEXT("moveSpeedDetail"),MovementDetail);
-        const double DexReloadSpeed=1.+FMath::Max(0.,double(StatusModel->Attribute(TEXT("dex")))+StatusModel->EquipmentBonus(TEXT("dex")))*ColdSteelWeaponStats::DexReloadSpeedPerPoint;
+        const double DexReloadSpeed=1.+FMath::Max(0.,StatusModel->Attribute(TEXT("dex"))+StatusModel->EquipmentBonus(TEXT("dex"))*StatusModel->InfectionAttributeMultiplier())*ColdSteelWeaponStats::DexReloadSpeedPerPoint;
         const FString ReloadDetail=FString::Printf(TEXT("基础耗时 ÷（敏捷 %.2f × 快手 %.2f × 附魔/改造）= 实际换弹时间；普通、空仓换弹均生效，动作与音效同步加速。"),DexReloadSpeed,StatusModel->ReloadSpeedMultiplier());
         CharacterDetails.Add(TEXT("reload"),ReloadDetail);CharacterDetails.Add(TEXT("emptyReload"),ReloadDetail);
         for (const auto& Pair : StatusModel->Attributes)
         {
-            SetCharacterValue(Pair.Key.ToString(), FString::FromInt(StatusModel->Attribute(Pair.Key)));
+            SetCharacterValue(Pair.Key.ToString(), FString::Printf(TEXT("%g"), StatusModel->Attribute(Pair.Key)));
             if (auto* Row = CharacterRows.Find(Pair.Key.ToString())) (*Row)->SetCanAllocate(StatusModel->AttributePoints > 0);
         }
         for (const TCHAR* Key : {TEXT("atk"), TEXT("def"), TEXT("matk"), TEXT("mdef")}) SetCharacterValue(Key, FString::Printf(TEXT("%.0f"), StatusModel->Derived(Key)));
