@@ -11,6 +11,8 @@ description: UE5.6-UE5.8 performance budgeting, regression diagnosis, and packag
 
 功能开发涉及高频刷新、属性查询、场景生成、资源加载或图标时，先按改动范围读取 [FPSGAME 性能开发约束](references/fpsgame-performance-development.md)。把更新触发、重复工作和资源预算纳入实现，不等出现掉帧后再补；此入口不自动启动采样、测试或打包检查。
 
+天空 HDR 常驻显存、BC6H 压缩或间歇性持枪低清，读取 [HDR 与纹理驻留](references/hdr-texture-residency.md)，注意诊断命令可能推进流送。
+
 # Quick Start
 
 - 启动前完整预加载、两档加载与纹理池准备，读取 [进入场景前的资源准备](references/entry-resource-preparation.md)，区分结构就绪、材质/纹理就绪和有限显存预算。

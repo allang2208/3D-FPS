@@ -1,0 +1,441 @@
+{
+  "date": "2026-09-25",
+  "scope": "This conversation: cancelled large altar, superseded prop-import attempts and failed sky/texture diagnostics",
+  "archive_root": "trash/gamedev-sky-retired-20260925",
+  "count": 54,
+  "hash_verified_after_move": true,
+  "files": [
+    {
+      "source": "SourceAssets/MainHubAltar20260922/author_altar.py",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/MainHubAltar20260922/author_altar.py",
+      "bytes": 12811,
+      "sha256": "85a5cab78dd918a74ea3fcb1907fe7a6566834a40a08b226744216f1087cba33",
+      "reason": "User cancelled the large main-hub direction; authoring was never executed.",
+      "retained_replacement": "SourceAssets/SquareAltar20260922/README.md"
+    },
+    {
+      "source": "SourceAssets/MainHubAltar20260922/read_source.py",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/MainHubAltar20260922/read_source.py",
+      "bytes": 2268,
+      "sha256": "3a7c4c4e740df08f954d3acdae2371d9678a6070afab8d0e281068f98443b92c",
+      "reason": "User cancelled the large main-hub direction; authoring was never executed.",
+      "retained_replacement": "SourceAssets/SquareAltar20260922/README.md"
+    },
+    {
+      "source": "SourceAssets/MainHubAltar20260922/README.md",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/MainHubAltar20260922/README.md",
+      "bytes": 337,
+      "sha256": "60f277fd0f3734d7e8b59a413737114f6f10f3a4d08dcbf30e25cb0dedefa8df",
+      "reason": "User cancelled the large main-hub direction; authoring was never executed.",
+      "retained_replacement": "SourceAssets/SquareAltar20260922/README.md"
+    },
+    {
+      "source": "SourceAssets/MainHubAltar20260922/source_inputs.json",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/MainHubAltar20260922/source_inputs.json",
+      "bytes": 541436,
+      "sha256": "9f66762f44c46cc6865978a0aed4c1632b0e409508064702cedc2bc6ab560b7e",
+      "reason": "User cancelled the large main-hub direction; authoring was never executed.",
+      "retained_replacement": "SourceAssets/SquareAltar20260922/README.md"
+    },
+    {
+      "source": "SourceAssets/GamedevPortal20260922/meshes-import.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevPortal20260922/meshes-import.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Superseded portal import attempts before final centimetre and axis authoring.",
+      "retained_replacement": "SourceAssets/GamedevPortal20260922/meshes-import-cm-3.txt"
+    },
+    {
+      "source": "SourceAssets/GamedevPortal20260922/meshes-import-2.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevPortal20260922/meshes-import-2.txt",
+      "bytes": 1051,
+      "sha256": "8619222e9f1997094299503c823f16276d35f10cf96ec1767a88859433335cba",
+      "reason": "Superseded portal import attempts before final centimetre and axis authoring.",
+      "retained_replacement": "SourceAssets/GamedevPortal20260922/meshes-import-cm-3.txt"
+    },
+    {
+      "source": "SourceAssets/GamedevPortal20260922/meshes-import-axis.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevPortal20260922/meshes-import-axis.txt",
+      "bytes": 1051,
+      "sha256": "6aa7a6e4ead3cd1799e7f12e5c9e0a7ace2163b099053d30cbf68cfd2ff4f566",
+      "reason": "Superseded portal import attempts before final centimetre and axis authoring.",
+      "retained_replacement": "SourceAssets/GamedevPortal20260922/meshes-import-cm-3.txt"
+    },
+    {
+      "source": "SourceAssets/GamedevPortal20260922/meshes-import-axis-2.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevPortal20260922/meshes-import-axis-2.txt",
+      "bytes": 583,
+      "sha256": "371dcaf1a7c1f0d121570fa85c4b819e6e44ad5a41d1dab91e8bfbfae2f033e9",
+      "reason": "Superseded portal import attempts before final centimetre and axis authoring.",
+      "retained_replacement": "SourceAssets/GamedevPortal20260922/meshes-import-cm-3.txt"
+    },
+    {
+      "source": "SourceAssets/GamedevPortal20260922/meshes-import-axis-3.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevPortal20260922/meshes-import-axis-3.txt",
+      "bytes": 1035,
+      "sha256": "48d20e2da60a5006d9cf1d0c0d98b3c3e3ce335f65da2c2bab945e358b2a38b1",
+      "reason": "Superseded portal import attempts before final centimetre and axis authoring.",
+      "retained_replacement": "SourceAssets/GamedevPortal20260922/meshes-import-cm-3.txt"
+    },
+    {
+      "source": "SourceAssets/GamedevPortal20260922/meshes-import-cm.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevPortal20260922/meshes-import-cm.txt",
+      "bytes": 567,
+      "sha256": "463ad437d6aa83082bbd08ded53536be300184e8949b5496a656657f1465888a",
+      "reason": "Superseded portal import attempts before final centimetre and axis authoring.",
+      "retained_replacement": "SourceAssets/GamedevPortal20260922/meshes-import-cm-3.txt"
+    },
+    {
+      "source": "SourceAssets/GamedevPortal20260922/meshes-import-cm-2.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevPortal20260922/meshes-import-cm-2.txt",
+      "bytes": 567,
+      "sha256": "463ad437d6aa83082bbd08ded53536be300184e8949b5496a656657f1465888a",
+      "reason": "Superseded portal import attempts before final centimetre and axis authoring.",
+      "retained_replacement": "SourceAssets/GamedevPortal20260922/meshes-import-cm-3.txt"
+    },
+    {
+      "source": "SourceAssets/GamedevPortal20260922/meshes-import-complete.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevPortal20260922/meshes-import-complete.txt",
+      "bytes": 777,
+      "sha256": "640d6db6ad5897931c596b3f14dd01f7546e016c7c08a48134fc6511c45bf662",
+      "reason": "Superseded portal import attempts before final centimetre and axis authoring.",
+      "retained_replacement": "SourceAssets/GamedevPortal20260922/meshes-import-cm-3.txt"
+    },
+    {
+      "source": "SourceAssets/GamedevPortal20260922/meshes-import-complete-2.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevPortal20260922/meshes-import-complete-2.txt",
+      "bytes": 1035,
+      "sha256": "48a3ad58ae231387a734a3d50f3fc72ab454d2a968768d1b3eea98d9a695bc2a",
+      "reason": "Superseded portal import attempts before final centimetre and axis authoring.",
+      "retained_replacement": "SourceAssets/GamedevPortal20260922/meshes-import-cm-3.txt"
+    },
+    {
+      "source": "SourceAssets/GamedevPortal20260922/meshes-import-editor.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevPortal20260922/meshes-import-editor.txt",
+      "bytes": 1035,
+      "sha256": "5c867f13d4c7623c33878649dd3d7d06c925f11ef430163ac8172e8fca96ae51",
+      "reason": "Superseded portal import attempts before final centimetre and axis authoring.",
+      "retained_replacement": "SourceAssets/GamedevPortal20260922/meshes-import-cm-3.txt"
+    },
+    {
+      "source": "SourceAssets/GamedevPortal20260922/meshes-import-final.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevPortal20260922/meshes-import-final.txt",
+      "bytes": 1035,
+      "sha256": "7ff644d01a838e71cae261ed8214c2e1ab6ea5fd8e33285e42119c6de6c9b900",
+      "reason": "Superseded portal import attempts before final centimetre and axis authoring.",
+      "retained_replacement": "SourceAssets/GamedevPortal20260922/meshes-import-cm-3.txt"
+    },
+    {
+      "source": "SourceAssets/GamedevPortal20260922/meshes-import-units.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevPortal20260922/meshes-import-units.txt",
+      "bytes": 1035,
+      "sha256": "869656e55a580f9ed6160c1826eaa078b13c71d05e8c9f519e8af51d47f34f06",
+      "reason": "Superseded portal import attempts before final centimetre and axis authoring.",
+      "retained_replacement": "SourceAssets/GamedevPortal20260922/meshes-import-cm-3.txt"
+    },
+    {
+      "source": "SourceAssets/GamedevPortal20260922/materials-import.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevPortal20260922/materials-import.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Failed editor discovery; later material import succeeded.",
+      "retained_replacement": "SourceAssets/GamedevPortal20260922/materials-import-2.txt"
+    },
+    {
+      "source": "SourceAssets/GamedevTreasureChest20260922/editor-tools.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevTreasureChest20260922/editor-tools.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed or empty migration attempt superseded by saved assets and later successful opening installation.",
+      "retained_replacement": "SourceAssets/GamedevTreasureChest20260922/README.md"
+    },
+    {
+      "source": "SourceAssets/GamedevTreasureChest20260922/install-map.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevTreasureChest20260922/install-map.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Failed or empty migration attempt superseded by saved assets and later successful opening installation.",
+      "retained_replacement": "SourceAssets/GamedevTreasureChest20260922/README.md"
+    },
+    {
+      "source": "SourceAssets/GamedevTreasureChest20260922/install-map-2.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevTreasureChest20260922/install-map-2.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Failed or empty migration attempt superseded by saved assets and later successful opening installation.",
+      "retained_replacement": "SourceAssets/GamedevTreasureChest20260922/README.md"
+    },
+    {
+      "source": "SourceAssets/GamedevTreasureChest20260922/materials-import.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevTreasureChest20260922/materials-import.txt",
+      "bytes": 493,
+      "sha256": "03211133f461a8d9d0ece85db30995f1e035215079be47c7372517b88e846002",
+      "reason": "Failed or empty migration attempt superseded by saved assets and later successful opening installation.",
+      "retained_replacement": "SourceAssets/GamedevTreasureChest20260922/README.md"
+    },
+    {
+      "source": "SourceAssets/GamedevTreasureChest20260922/materials-import-2.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevTreasureChest20260922/materials-import-2.txt",
+      "bytes": 541,
+      "sha256": "add66cd1f4f5b8573ea25c2b6d688d39b4cb87edd73376ba6caa833de0d15fed",
+      "reason": "Failed or empty migration attempt superseded by saved assets and later successful opening installation.",
+      "retained_replacement": "SourceAssets/GamedevTreasureChest20260922/README.md"
+    },
+    {
+      "source": "SourceAssets/GamedevTreasureChest20260922/materials-import-3.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevTreasureChest20260922/materials-import-3.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed or empty migration attempt superseded by saved assets and later successful opening installation.",
+      "retained_replacement": "SourceAssets/GamedevTreasureChest20260922/README.md"
+    },
+    {
+      "source": "SourceAssets/GamedevTreasureChest20260922/materials-import-4.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevTreasureChest20260922/materials-import-4.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed or empty migration attempt superseded by saved assets and later successful opening installation.",
+      "retained_replacement": "SourceAssets/GamedevTreasureChest20260922/README.md"
+    },
+    {
+      "source": "SourceAssets/GamedevTreasureChest20260922/materials-import-5.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevTreasureChest20260922/materials-import-5.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed or empty migration attempt superseded by saved assets and later successful opening installation.",
+      "retained_replacement": "SourceAssets/GamedevTreasureChest20260922/README.md"
+    },
+    {
+      "source": "SourceAssets/GamedevTreasureChest20260922/materials-import-6.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevTreasureChest20260922/materials-import-6.txt",
+      "bytes": 724,
+      "sha256": "146201b1b1aa9e3a8f2e4286326bd607a54583883deecdc2bef3ed550f203cd2",
+      "reason": "Failed or empty migration attempt superseded by saved assets and later successful opening installation.",
+      "retained_replacement": "SourceAssets/GamedevTreasureChest20260922/README.md"
+    },
+    {
+      "source": "SourceAssets/GamedevTreasureChest20260922/meshes-import.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevTreasureChest20260922/meshes-import.txt",
+      "bytes": 925,
+      "sha256": "bd0c1b4ab0fdb0655b85a23f5d85fa243607e82a54f3f71b59298fee4353e6b4",
+      "reason": "Failed or empty migration attempt superseded by saved assets and later successful opening installation.",
+      "retained_replacement": "SourceAssets/GamedevTreasureChest20260922/README.md"
+    },
+    {
+      "source": "SourceAssets/GamedevTreasureChest20260922/native-compile.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevTreasureChest20260922/native-compile.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Failed or empty migration attempt superseded by saved assets and later successful opening installation.",
+      "retained_replacement": "SourceAssets/GamedevTreasureChest20260922/README.md"
+    },
+    {
+      "source": "SourceAssets/GamedevTreasureChest20260922/opening-install-map-1.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevTreasureChest20260922/opening-install-map-1.txt",
+      "bytes": 784,
+      "sha256": "af4af480e8395df1164c179d20e69d640258633eb53b11aaeec0a7c0f8175d7e",
+      "reason": "Failed or empty migration attempt superseded by saved assets and later successful opening installation.",
+      "retained_replacement": "SourceAssets/GamedevTreasureChest20260922/README.md"
+    },
+    {
+      "source": "SourceAssets/GamedevTreasureChest20260923/finish-static-build-1.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevTreasureChest20260923/finish-static-build-1.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Failed import/build attempt superseded by the saved repair and static-build receipts; originals remain recoverable here.",
+      "retained_replacement": "SourceAssets/GamedevTreasureChest20260923/README.md"
+    },
+    {
+      "source": "SourceAssets/GamedevTreasureChest20260923/finish-static-build-cmd-console.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevTreasureChest20260923/finish-static-build-cmd-console.txt",
+      "bytes": 31787,
+      "sha256": "4109fbc078609e817b0f6eb7d4da1522abcb912a4479d93ef0650f4976e0d200",
+      "reason": "Failed import/build attempt superseded by the saved repair and static-build receipts; originals remain recoverable here.",
+      "retained_replacement": "SourceAssets/GamedevTreasureChest20260923/README.md"
+    },
+    {
+      "source": "SourceAssets/GamedevTreasureChest20260923/finish-static-build-cmd-2-console.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevTreasureChest20260923/finish-static-build-cmd-2-console.txt",
+      "bytes": 37347,
+      "sha256": "26028c80f4f849143f5a61e1033730d69575d08258ac7c77b23f1084b8a3dd6f",
+      "reason": "Failed import/build attempt superseded by the saved repair and static-build receipts; originals remain recoverable here.",
+      "retained_replacement": "SourceAssets/GamedevTreasureChest20260923/README.md"
+    },
+    {
+      "source": "SourceAssets/GamedevTreasureChest20260923/finish-static-build-cmd.log",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevTreasureChest20260923/finish-static-build-cmd.log",
+      "bytes": 267404,
+      "sha256": "a8d0dc80234acc0df952ce2f458ded9a57425e5439a9e5dda3d8f30b5e8eb076",
+      "reason": "Failed import/build attempt superseded by the saved repair and static-build receipts; originals remain recoverable here.",
+      "retained_replacement": "SourceAssets/GamedevTreasureChest20260923/README.md"
+    },
+    {
+      "source": "SourceAssets/GamedevTreasureChest20260923/finish-static-build-cmd-2.log",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevTreasureChest20260923/finish-static-build-cmd-2.log",
+      "bytes": 276646,
+      "sha256": "343d8f3410b531a96acf6a70ff82636151f80988429407b1d0c216ccf0419b23",
+      "reason": "Failed import/build attempt superseded by the saved repair and static-build receipts; originals remain recoverable here.",
+      "retained_replacement": "SourceAssets/GamedevTreasureChest20260923/README.md"
+    },
+    {
+      "source": "SourceAssets/GamedevTreasureChest20260923/import-mode.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevTreasureChest20260923/import-mode.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Failed import/build attempt superseded by the saved repair and static-build receipts; originals remain recoverable here.",
+      "retained_replacement": "SourceAssets/GamedevTreasureChest20260923/README.md"
+    },
+    {
+      "source": "SourceAssets/GamedevTreasureChest20260923/install-existing-editor-1.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevTreasureChest20260923/install-existing-editor-1.txt",
+      "bytes": 494,
+      "sha256": "da03eb3ca3f93c0cfd686f5c5842b1d6805321a41cc7aaf40ad9ba5a3bfe618f",
+      "reason": "Failed import/build attempt superseded by the saved repair and static-build receipts; originals remain recoverable here.",
+      "retained_replacement": "SourceAssets/GamedevTreasureChest20260923/README.md"
+    },
+    {
+      "source": "SourceAssets/GamedevTreasureChest20260923/install-existing-editor-2.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevTreasureChest20260923/install-existing-editor-2.txt",
+      "bytes": 494,
+      "sha256": "da03eb3ca3f93c0cfd686f5c5842b1d6805321a41cc7aaf40ad9ba5a3bfe618f",
+      "reason": "Failed import/build attempt superseded by the saved repair and static-build receipts; originals remain recoverable here.",
+      "retained_replacement": "SourceAssets/GamedevTreasureChest20260923/README.md"
+    },
+    {
+      "source": "SourceAssets/GamedevTreasureChest20260923/install-finished-1-console.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevTreasureChest20260923/install-finished-1-console.txt",
+      "bytes": 50090,
+      "sha256": "ac399af9ba0e05adb1f0c32bed87c738254fe8501c00590325d5abfd62b6b9c5",
+      "reason": "Failed import/build attempt superseded by the saved repair and static-build receipts; originals remain recoverable here.",
+      "retained_replacement": "SourceAssets/GamedevTreasureChest20260923/README.md"
+    },
+    {
+      "source": "SourceAssets/GamedevTreasureChest20260923/install-finished-1.log",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/GamedevTreasureChest20260923/install-finished-1.log",
+      "bytes": 312861,
+      "sha256": "9d24f35c5da03404335d691a597dd2921850527a5a8d0783997e3bc4d936cbbc",
+      "reason": "Failed import/build attempt superseded by the saved repair and static-build receipts; originals remain recoverable here.",
+      "retained_replacement": "SourceAssets/GamedevTreasureChest20260923/README.md"
+    },
+    {
+      "source": "SourceAssets/SquareAltar20260922/hub-placement-source.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/SquareAltar20260922/hub-placement-source.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Failed placement-source read superseded by successful read.",
+      "retained_replacement": "SourceAssets/SquareAltar20260922/hub-placement-source-3.txt"
+    },
+    {
+      "source": "SourceAssets/SquareAltar20260922/hub-placement-source-2.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/SquareAltar20260922/hub-placement-source-2.txt",
+      "bytes": 563,
+      "sha256": "ac1c5f3cf31187398c5940a5d536909220c7f1642d1588f6de77150a2096e4c3",
+      "reason": "Failed placement-source read superseded by successful read.",
+      "retained_replacement": "SourceAssets/SquareAltar20260922/hub-placement-source-3.txt"
+    },
+    {
+      "source": "SourceAssets/SquareAltar20260922/hub-placement-save.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/SquareAltar20260922/hub-placement-save.txt",
+      "bytes": 676,
+      "sha256": "efe5d51cd9c8232b150a4fb56ffab4b73c02ed51b94d24108f7c0a9f19f87e57",
+      "reason": "Superseded placement attempts; retain latest unresolved map-save evidence and pending note.",
+      "retained_replacement": "SourceAssets/SquareAltar20260922/hub-placement-save-6.txt"
+    },
+    {
+      "source": "SourceAssets/SquareAltar20260922/hub-placement-save-2.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/SquareAltar20260922/hub-placement-save-2.txt",
+      "bytes": 535,
+      "sha256": "c56bbf9969095fb24506cb06451f6173810e43244125c0a47952560775bf6551",
+      "reason": "Superseded placement attempts; retain latest unresolved map-save evidence and pending note.",
+      "retained_replacement": "SourceAssets/SquareAltar20260922/hub-placement-save-6.txt"
+    },
+    {
+      "source": "SourceAssets/SquareAltar20260922/hub-placement-save-3.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/SquareAltar20260922/hub-placement-save-3.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded placement attempts; retain latest unresolved map-save evidence and pending note.",
+      "retained_replacement": "SourceAssets/SquareAltar20260922/hub-placement-save-6.txt"
+    },
+    {
+      "source": "SourceAssets/SquareAltar20260922/hub-placement-save-4.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/SquareAltar20260922/hub-placement-save-4.txt",
+      "bytes": 155,
+      "sha256": "4fa674e4bb5a1f3561b789d69b92123d90a453027326929af5347e355572b19e",
+      "reason": "Superseded placement attempts; retain latest unresolved map-save evidence and pending note.",
+      "retained_replacement": "SourceAssets/SquareAltar20260922/hub-placement-save-6.txt"
+    },
+    {
+      "source": "SourceAssets/SquareAltar20260922/hub-placement-save-5.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/SquareAltar20260922/hub-placement-save-5.txt",
+      "bytes": 478,
+      "sha256": "a9a6343a26cfe77c5857b8e71e6b2d454ad4311a09d0bcefd50de6de257da0b7",
+      "reason": "Superseded placement attempts; retain latest unresolved map-save evidence and pending note.",
+      "retained_replacement": "SourceAssets/SquareAltar20260922/hub-placement-save-6.txt"
+    },
+    {
+      "source": "SourceAssets/HDRSkyBC6H20260924/Runs/20260924-223254-104378/authoring.json",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/HDRSkyBC6H20260924/Runs/20260924-223254-104378/authoring.json",
+      "bytes": 336,
+      "sha256": "5c03e2a633f1507a26a1a89c9cc92428f755c46f0681fb06ad359d876b3900f1",
+      "reason": "Failed property read before any asset mutation.",
+      "retained_replacement": "SourceAssets/HDRSkyBC6H20260924/Runs/20260924-223349-456610/authoring.json"
+    },
+    {
+      "source": "SourceAssets/HDRSkyBC6H20260924/Runs/20260924-223325-090604/authoring.json",
+      "destination": "trash/gamedev-sky-retired-20260925/SourceAssets/HDRSkyBC6H20260924/Runs/20260924-223325-090604/authoring.json",
+      "bytes": 351,
+      "sha256": "dba8e36eb469c50e9860a151eb7dd7934535103e056519895bd24e9cedaa5340",
+      "reason": "Failed property read before any asset mutation.",
+      "retained_replacement": "SourceAssets/HDRSkyBC6H20260924/Runs/20260924-223349-456610/authoring.json"
+    },
+    {
+      "source": "Saved/HDRSkyBC6H20260924/apply-20260924-01.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/Saved/HDRSkyBC6H20260924/apply-20260924-01.txt",
+      "bytes": 954,
+      "sha256": "1420e660b5c3fdb5d49bc48973f18affb4d7bbdebfad40d41e4cff6f6ae8bb9e",
+      "reason": "Failed HDR property access superseded by BC6H build/save.",
+      "retained_replacement": "Saved/HDRSkyBC6H20260924/apply-20260924-03.txt"
+    },
+    {
+      "source": "Saved/HDRSkyBC6H20260924/apply-20260924-02.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/Saved/HDRSkyBC6H20260924/apply-20260924-02.txt",
+      "bytes": 969,
+      "sha256": "e3d94dc15c1eb51ac6cd874f53a0e7dd55501fdd78a1281c7191d9e642f21f96",
+      "reason": "Failed HDR property access superseded by BC6H build/save.",
+      "retained_replacement": "Saved/HDRSkyBC6H20260924/apply-20260924-03.txt"
+    },
+    {
+      "source": "Saved/Diagnostics/DoubleSun20260924/alignment-01.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/Saved/Diagnostics/DoubleSun20260924/alignment-01.txt",
+      "bytes": 591,
+      "sha256": "70d60dbe84d3c2350c6547057a5d676b577c3317bf929f6aabf6f4ac51302e98",
+      "reason": "Unavailable KismetMaterialLibrary Python alias; corrected read succeeded.",
+      "retained_replacement": "Saved/Diagnostics/DoubleSun20260924/alignment-02.txt"
+    },
+    {
+      "source": "Saved/Diagnostics/M4Texture20260924/runtime-output.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/Saved/Diagnostics/M4Texture20260924/runtime-output.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Failed editor discovery or empty tool output; not diagnostic evidence.",
+      "retained_replacement": "Saved/Diagnostics/M4Texture20260924/README.md"
+    },
+    {
+      "source": "Saved/Diagnostics/M4Texture20260924/material-view-output.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/Saved/Diagnostics/M4Texture20260924/material-view-output.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Failed editor discovery or empty tool output; not diagnostic evidence.",
+      "retained_replacement": "Saved/Diagnostics/M4Texture20260924/README.md"
+    },
+    {
+      "source": "Saved/Diagnostics/M4Texture20260924/toolsets.txt",
+      "destination": "trash/gamedev-sky-retired-20260925/Saved/Diagnostics/M4Texture20260924/toolsets.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed editor discovery or empty tool output; not diagnostic evidence.",
+      "retained_replacement": "Saved/Diagnostics/M4Texture20260924/README.md"
+    }
+  ]
+}

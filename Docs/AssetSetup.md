@@ -1,5 +1,9 @@
 # 恢复完整 UE5 内容
 
+## 方形祭坛、出征面板、传送门、探险宝箱与 HDR（2026-09-25）
+
+恢复本机 `Props/SquareAltar20260922`、`Props/GamedevPortal20260922`、`Props/GamedevTreasureChest20260922`、相关关卡／调色板及 PWL／NaturalV2 天空资源。宝箱沿用原路径，当前空心结构和材质写回由 20260923 制作链负责；旧源仍提供骨架和开盖动作。七张 PWL HDR 已保存 BC6H 压缩，原分辨率不变。源码发布、54 份废案归档、旧祭坛保存阻塞和未确认的 M4／天空亮斑问题见 [本次发布与恢复](Publication/gamedev-sky-publication-20260925.md)。不公开模型、贴图、原始材质／蓝图导出或 UE 包；本轮未启动引擎或进行游戏测试。
+
 ## 裸皮感染犬与 Godot 四足模板（2026-09-25）
 
 恢复 `Content/Monsters/InfectedDog/MeshyV2`、`BP_InfectedDog`、共享血迹 `M_FleshStainV3`，保留合法 Wolf 动作/行为树与完整 Meshy 作者源。当前奔跑为用户认可的 GodotRunNaturalV3；飞扑、咬击和索敌升级仅完成后台构建与保存，未作游戏测试。废案 319 文件已归档至 `trash/infected-dog-retired-20260925`，重建依赖、来源许可及发布边界见 [感染犬发布记录](Monsters/InfectedDogPublication20260925.md)。

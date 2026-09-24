@@ -28,6 +28,8 @@ public:
     void CloseGunsmith();
     bool OpenEnhancement(const FString& Instance=TEXT(""));
     void CloseEnhancement();
+    UFUNCTION(BlueprintCallable, Category="Cold Steel UI") bool OpenExpedition();
+    UFUNCTION(BlueprintCallable, Category="Cold Steel UI") void CloseExpedition();
     void RunEnhancementAudit();
     void RunM4GunsmithAudit();
     void RunM4DrumAudit();
@@ -54,6 +56,9 @@ private:
     UPROPERTY(Transient) TObjectPtr<class UM4GunsmithWidget> GunsmithPanel;
     UPROPERTY(Transient) TObjectPtr<class UColdSteelEnhancementWidget> EnhancementPanel;
     bool bEnhancementReturnToInventory=false;
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelExpeditionWidget> ExpeditionPanel;
+    bool bExpeditionReturnToInventory=false;
+    bool bExpeditionReturnToCursor=false;
     void ToggleInventory();
     void ToggleTimelineInteraction();
     void CaptureTimelineAudit(const FString& Filename, int32 State);

@@ -633,3 +633,23 @@ __pycache__/
 !/SourceAssets/InfectedDogMeshy20260924/meshy_settings.json
 !/SourceAssets/InfectedDogMeshy20260924/CompletionV2/source_action_bindings.json
 /SourceAssets/InfectedDogHunting20260925/
+
+# Gamedev props and HDR publication: author recipes/prose only; licensed inputs,
+# mesh/material dumps, binary backups and local execution receipts stay local.
+/SourceAssets/SquareAltar20260922/**
+!/SourceAssets/SquareAltar20260922/**/
+!/SourceAssets/SquareAltar20260922/**/*.py
+!/SourceAssets/SquareAltar20260922/**/*.md
+/SourceAssets/GamedevPortal20260922/**
+!/SourceAssets/GamedevPortal20260922/**/
+!/SourceAssets/GamedevPortal20260922/**/*.py
+!/SourceAssets/GamedevPortal20260922/**/*.md
+/SourceAssets/GamedevTreasureChest20260922/**
+!/SourceAssets/GamedevTreasureChest20260922/**/
+!/SourceAssets/GamedevTreasureChest20260922/**/*.py
+!/SourceAssets/GamedevTreasureChest20260922/**/*.md
+/SourceAssets/GamedevTreasureChest20260923/**
+!/SourceAssets/GamedevTreasureChest20260923/**/
+!/SourceAssets/GamedevTreasureChest20260923/**/*.py
+!/SourceAssets/GamedevTreasureChest20260923/**/*.md
+/SourceAssets/HDRSkyBC6H20260924/

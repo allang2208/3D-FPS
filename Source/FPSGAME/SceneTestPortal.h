@@ -22,11 +22,13 @@ private:
     void UsePortal();
     void CancelLoading();
     void FinishLoading();
+    void OpenDestination();
     UPROPERTY() TObjectPtr<UTextRenderComponent> Sign;
     UPROPERTY() FString Destination;
     UPROPERTY() FString DestinationOptions;
     FString DestinationLabel;
     TSharedPtr<FStreamableHandle> PreloadHandle;
+    FTimerHandle DungeonTravelTimer;
     bool bTravelling = false;
 };
 

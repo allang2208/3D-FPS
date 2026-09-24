@@ -29,6 +29,8 @@ old Godot implementation.
   in the manager. Treat multiplayer replication as a separate requirement; the
   current implementation is single-player.
 
+主场景出现第二太阳、反向光晕或反射方向不一致时，读取 [天空高亮归因](references/sky-highlight-attribution.md)，先追实际 MID、相机覆盖与 SkyLight 方向。
+
 ## Effects integration
 
 For cloud/solar conflicts, coarse rain particles, pooled wet surfaces or transition

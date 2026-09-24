@@ -249,13 +249,18 @@ void AFPSGAMEPlayerController::SetupInputComponent()
 
 bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
 {
+    if (ExpeditionPanel)
+    {
+        if (Params.Event == IE_Pressed && Params.Key == EKeys::Escape) CloseExpedition();
+        return true;
+    }
     if(auto* AmmoPawn=Cast<AFPSGAMECharacter>(GetPawn());AmmoPawn&&AmmoPawn->IsAmmoWheelOpen())
     {
         if(Params.Key==EKeys::Escape){if(Params.Event==IE_Pressed)AmmoPawn->CancelAmmoSelection();return true;}
         if(Params.Key==EKeys::MouseScrollUp||Params.Key==EKeys::MouseScrollDown)return true;
-        if(Params.Key==EKeys::LeftMouseButton||Params.Key==EKeys::RightMouseButton)
         // 手别由鼠标所在圆盘决定（双持弹两个盘），点击只吞掉，避免选弹时开火。
         if(Params.Key==EKeys::LeftMouseButton||Params.Key==EKeys::RightMouseButton)return true;
+    }
     if(ColdSteelHUD&&ColdSteelHUD->IsQuickDragging())
     {
         if(Params.Event==IE_Pressed&&Params.Key==EKeys::Escape)ColdSteelHUD->CancelQuickDrag();
@@ -386,7 +391,7 @@ void AFPSGAMEPlayerController::ToggleInventory()
 bool AFPSGAMEPlayerController::IsCursorOnlyInteraction() const
 {
     return bShowMouseCursor && !IsMoveInputIgnored() && !IsLookInputIgnored() &&
-        !GunsmithPanel && !EnhancementPanel && (!WeatherPanel || !WeatherPanel->IsPanelOpen()) &&
+        !GunsmithPanel && !EnhancementPanel && !ExpeditionPanel && (!WeatherPanel || !WeatherPanel->IsPanelOpen()) &&
         ColdSteelHUD && !ColdSteelHUD->IsInventoryOpen() && (!VoxelBuilder || !VoxelBuilder->IsPanelOpen());
 }
 
@@ -399,7 +404,7 @@ bool AFPSGAMEPlayerController::BlocksOngoingActions(const APlayerController* Pla
 
 void AFPSGAMEPlayerController::ToggleTimelineInteraction()
 {
-    if (GunsmithPanel || EnhancementPanel) return;
+    if (GunsmithPanel || EnhancementPanel || ExpeditionPanel) return;
     if (WeatherPanel && WeatherPanel->IsPanelOpen()) return;
     if (!ColdSteelHUD || ColdSteelHUD->IsInventoryOpen()) return;
     if (bShowMouseCursor)
@@ -425,6 +430,7 @@ void AFPSGAMEPlayerController::ToggleWeatherPanel()
 void AFPSGAMEPlayerController::ToggleDevelopmentPanel()
 {
     if (!WeatherPanel) return;
+    CloseExpedition();
     if (GunsmithPanel) CloseGunsmith();
     if (EnhancementPanel) CloseEnhancement();
     if (ColdSteelHUD && ColdSteelHUD->IsInventoryOpen()) ColdSteelHUD->ToggleInventory();
