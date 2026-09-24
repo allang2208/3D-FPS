@@ -1,0 +1,30 @@
+{
+  "voxel_source_material": "/Game/Building/Voxels/Rounded/M_Voxel_Wood",
+  "shared_textures": [
+    "/Game/UnrealNormandy/Textures/T_WoodSurface_00A_BaseColor.T_WoodSurface_00A_BaseColor",
+    "/Game/UnrealNormandy/Textures/T_WoodSurface_00A_RHAOM.T_WoodSurface_00A_RHAOM",
+    "/Game/UnrealNormandy/Textures/T_WoodSurface_00A_Normal.T_WoodSurface_00A_Normal"
+  ],
+  "materials": {
+    "Crate_Wood": {
+      "two_sided": true,
+      "tiling": 1.0,
+      "textures": [
+        "/Game/UnrealNormandy/Textures/T_WoodSurface_00A_BaseColor.T_WoodSurface_00A_BaseColor",
+        "/Game/UnrealNormandy/Textures/T_WoodSurface_00A_RHAOM.T_WoodSurface_00A_RHAOM",
+        "/Game/UnrealNormandy/Textures/T_WoodSurface_00A_Normal.T_WoodSurface_00A_Normal"
+      ]
+    },
+    "Crate_WoodDark": {
+      "two_sided": true,
+      "tiling": 1.0,
+      "textures": [
+        "/Game/UnrealNormandy/Textures/T_WoodSurface_00A_BaseColor.T_WoodSurface_00A_BaseColor",
+        "/Game/UnrealNormandy/Textures/T_WoodSurface_00A_RHAOM.T_WoodSurface_00A_RHAOM",
+        "/Game/UnrealNormandy/Textures/T_WoodSurface_00A_Normal.T_WoodSurface_00A_Normal"
+      ]
+    }
+  },
+  "note": "T_Crate_Wood_* now unreferenced, kept on disk; crates reuse the voxel wood scans (no new texture data)",
+  "runtime_tested": false
+}

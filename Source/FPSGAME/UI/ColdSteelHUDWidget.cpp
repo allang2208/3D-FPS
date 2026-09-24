@@ -23,6 +23,7 @@
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "ColdSteelUIStyle.h"
 #include "GunsmithUIStyle.h"
+#include "ColdSteelWorldInteraction.h"
 
 #include "Blueprint/WidgetTree.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
@@ -162,6 +163,7 @@ void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaT
     UpdateStaminaLayout(MyGeometry);
     UpdateInventoryLayout(MyGeometry);
     TickPanelNavigation(MyGeometry,InDeltaTime);
+    UpdateInteractHint();
     TickWarehouse(MyGeometry,InDeltaTime);
     AmmoRefreshAccumulator += InDeltaTime;
     if (AmmoRefreshAccumulator >= 0.05f)
@@ -358,6 +360,61 @@ bool UColdSteelHUDWidget::HandlePanelShortcut(const FKey& Key, bool bRepeat)
     return true;
 }
 
+void UColdSteelHUDWidget::BuildInteractHint(UCanvasPanel* Root)
+{
+    // 统一 E 交互小浮窗（2026-09-24 用户指令）：准星下方居中的毛玻璃灰黑卡＋白字，
+    // 取代高炉/工作台/宝箱/储物箱/拾取等一切挂在模型上方的世界空间名牌。
+    auto* Blur=WidgetTree->ConstructWidget<UBackgroundBlur>();
+    Blur->SetBlurStrength(ColdSteelUI::GlassBlurStrength);
+    Blur->SetOverrideAutoRadiusCalculation(true);
+    Blur->SetBlurRadius(ColdSteelUI::GlassBlurRadius);
+    Blur->SetCornerRadius(FVector4(ReferenceUnits(ColdSteelUI::CardRadius)));
+    Blur->SetApplyAlphaToBlur(true);
+    Blur->SetLowQualityFallbackBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassFallback,ColdSteelUI::CardRadius));
+    Blur->SetVisibility(ESlateVisibility::Collapsed);
+    auto* Surface=MakeSurface(ColdSteelUI::GlassTint,ReferenceUnits(ColdSteelUI::CardRadius),ColdSteelUI::Border,ReferenceUnits(1));
+    Surface->SetPadding(FMargin(ReferenceUnits(12),ReferenceUnits(7)));
+    Blur->SetContent(Surface);
+    auto* Row=WidgetTree->ConstructWidget<UHorizontalBox>();
+    Surface->SetContent(Row);
+    InteractHintKey=MakeReferenceText(TEXT("E"),16,FLinearColor::White,true,true);
+    auto* KeySlot=Row->AddChildToHorizontalBox(InteractHintKey);
+    KeySlot->SetPadding(FMargin(0,0,ReferenceUnits(9),0));
+    KeySlot->SetVerticalAlignment(VAlign_Center);
+    InteractHintText=MakeReferenceText(FString(),15,FLinearColor::White);
+    auto* TextSlot=Row->AddChildToHorizontalBox(InteractHintText);
+    TextSlot->SetVerticalAlignment(VAlign_Center);
+    auto* HintSlot=Root->AddChildToCanvas(Blur);
+    HintSlot->SetAnchors(FAnchors(0.5f,0.5f));
+    HintSlot->SetAlignment(FVector2D(0.5f,0.f));
+    HintSlot->SetPosition(FVector2D(0,ReferenceUnits(56)));
+    HintSlot->SetAutoSize(true);
+    HintSlot->SetZOrder(38);
+    InteractHintBlur=Blur;
+}
+
+void UColdSteelHUDWidget::UpdateInteractHint()
+{
+    if(!InteractHintBlur)return;
+    APlayerController* PC=GetOwningPlayer();
+    const auto* Character=PC?Cast<AFPSGAMECharacter>(PC->GetPawn()):nullptr;
+    // 与旧准星提示同一出现条件：任一面板打开／光标显示／弹药轮／命中反馈 期间都不出浮窗。
+    FString Text;bool bAction=true;
+    if(Character&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor&&!Character->IsAmmoWheelOpen())
+    {
+        FMonsterHitFeedback Feedback;
+        if(!Character->GetMonsterHitFeedback(Feedback))
+        {
+            const auto Hint=ColdSteelWorldInteraction::ResolveInteractionHint(ColdSteelWorldInteraction::TraceTarget(PC));
+            if(!Hint.Text.IsEmpty()){Text=Hint.Text;bAction=Hint.bAction;}
+        }
+    }
+    if(Text.IsEmpty()){InteractHintBlur->SetVisibility(ESlateVisibility::Collapsed);LastInteractHintText.Reset();return;}
+    InteractHintBlur->SetVisibility(ESlateVisibility::HitTestInvisible);
+    if(Text!=LastInteractHintText){InteractHintText->SetText(FText::FromString(Text));LastInteractHintText=Text;}
+    if(bAction!=bLastInteractHintAction){InteractHintKey->SetVisibility(bAction?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);bLastInteractHintAction=bAction;}
+}
+
 void UColdSteelHUDWidget::BuildInterface()
 {
     UCanvasPanel* Root = WidgetTree->ConstructWidget<UCanvasPanel>(UCanvasPanel::StaticClass(), TEXT("ColdSteelRoot"));
@@ -372,6 +429,7 @@ void UColdSteelHUDWidget::BuildInterface()
     BuildSmelting(Root);
     BuildWorkbench(Root);
     BuildPanelNavigation(Root);
+    BuildInteractHint(Root); // 统一 E 交互小浮窗（在面板 Z 之下：面板打开时本就不显示）
     ProgressNotification=CreateWidget<UColdSteelProgressNotification>(GetOwningPlayer());
     FillSlot(Root->AddChildToCanvas(ProgressNotification),FAnchors(0,0,1,1),FMargin(0),90);
     RefreshAmmo();

@@ -1,0 +1,68 @@
+{
+ "sm_attrs": [
+  "get_bone_children",
+  "get_bone_parent",
+  "get_overlay_material",
+  "get_overlay_material_max_draw_distance",
+  "materials",
+  "overlay_material",
+  "overlay_material_max_draw_distance",
+  "set_overlay_material",
+  "set_overlay_material_max_draw_distance",
+  "skeleton"
+ ],
+ "mat_count": 11,
+ "mat0_attrs": [
+  "material_interface",
+  "material_slot_name",
+  "overlay_material_interface",
+  "set_editor_property",
+  "uv_channel_data"
+ ],
+ "rows": [
+  {
+   "imported_material_slot_name": "Gold_PBR"
+  },
+  {
+   "imported_material_slot_name": "White_Marble_PBR"
+  },
+  {
+   "imported_material_slot_name": "Navy_Velvet"
+  },
+  {
+   "imported_material_slot_name": "Interior_Magic_Blue"
+  },
+  {
+   "imported_material_slot_name": "Sapphire_PBR"
+  },
+  {
+   "imported_material_slot_name": "Brass_Frame"
+  },
+  {
+   "imported_material_slot_name": "Brass_Hardware"
+  },
+  {
+   "imported_material_slot_name": "Ritual_Champagne"
+  },
+  {
+   "imported_material_slot_name": "Ritual_Gunmetal"
+  },
+  {
+   "imported_material_slot_name": "Ritual_Engraving"
+  },
+  {
+   "imported_material_slot_name": "Brass_Strap"
+  }
+ ],
+ "skel": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigid_Skeleton.warehouse_chest_rigid_Skeleton",
+ "skel_attrs": [
+  "copy_bones_from_skeleton"
+ ],
+ "refbones": [
+  "<Struct 'BoneNode' (0x000001E14B1A5BA0) {}>",
+  "<Struct 'BoneNode' (0x000001E14B1A5F20) {}>",
+  "<Struct 'BoneNode' (0x000001E14B1A5BC0) {}>",
+  "<Struct 'BoneNode' (0x000001E14B1A5B80) {}>",
+  "<Struct 'BoneNode' (0x000001E14B1A5A60) {}>"
+ ]
+}

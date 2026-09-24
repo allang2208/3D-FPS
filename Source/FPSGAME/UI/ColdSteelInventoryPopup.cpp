@@ -43,7 +43,7 @@ void UColdSteelInventoryPopup::Open(UColdSteelInventoryWidget* Board,UColdSteelS
     auto* Scroll=WidgetTree->ConstructWidget<UScrollBox>();Scroll->SetScrollbarThickness(FVector2D(5/Scale));Surface->SetContent(Scroll);
     Stack=WidgetTree->ConstructWidget<UVerticalBox>();Scroll->AddChild(Stack);
     Stack->AddChildToVerticalBox(Label(Text(*I,TEXT("name"))));
-    if(!SplitOnly){Button(I->Place==4?TEXT("取出到背包"):Model->bWarehouseOpen?TEXT("存入仓库"):I->Place==1?TEXT("卸下装备"):TEXT("使用 / 穿戴"))->OnClicked.AddDynamic(this,&ThisClass::Use);
+    if(!SplitOnly){const FString DepositLabel=FString::Printf(TEXT("存入%s"),Model->ActiveStorageCaption.IsEmpty()?TEXT("仓库"):*Model->ActiveStorageCaption);Button(I->Place==4?FString(TEXT("取出到背包")):Model->bWarehouseOpen?DepositLabel:I->Place==1?FString(TEXT("卸下装备")):FString(TEXT("使用 / 穿戴")))->OnClicked.AddDynamic(this,&ThisClass::Use);
         if((I->Place==0||I->Place==4)&&I->Count>1&&Text(*I,TEXT("category"))!=TEXT("gold"))Button(TEXT("拆分数量…"))->OnClicked.AddDynamic(this,&ThisClass::Split);
         Button(TEXT("查看详情"))->OnClicked.AddDynamic(this,&ThisClass::Details);
         auto* D=Button(TEXT("丢下物品…"));DropCaption=Cast<UTextBlock>(D->GetContent());D->OnClicked.AddDynamic(this,&ThisClass::Drop);

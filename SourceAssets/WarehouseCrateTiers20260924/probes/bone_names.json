@@ -1,0 +1,14 @@
+{
+ "mesh_methods": [
+  "get_bone_children",
+  "get_bone_parent"
+ ],
+ "mesh_err": "'SkeletalMesh' object has no attribute 'get_bone_count'",
+ "tree_dicts": [
+  {},
+  {},
+  {},
+  {},
+  {}
+ ]
+}

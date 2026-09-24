@@ -1,0 +1,9 @@
+{
+ "class": "SkeletalMesh",
+ "lod_err": "SkeletalMesh: Failed to find property 'num_lods' for attribute 'num_lods' on 'SkeletalMesh'",
+ "rendered_err": "SkeletalMesh: Failed to find property 'rendered_materials' for attribute 'rendered_materials' on 'SkeletalMesh'",
+ "rendered_materials": [],
+ "skeletal_material_slots_err": "SkeletalMesh: Failed to find property 'skeletal_material_slots' for attribute 'skeletal_material_slots' on 'SkeletalMesh'",
+ "materials_err": "SkeletalMaterial: Failed to find property 'material_index' for attribute 'material_index' on 'SkeletalMaterial'",
+ "material_slots_err": "SkeletalMesh: Failed to find property 'material_slots' for attribute 'material_slots' on 'SkeletalMesh'"
+}

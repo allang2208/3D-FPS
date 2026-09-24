@@ -41,7 +41,7 @@ void UColdSteelWarehouseWidget::NativeOnInitialized()
     Header=WidgetTree->ConstructWidget<UBorder>();Header->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::HeaderTint,ColdSteelUI::PanelRadius/Scale));Stack->AddChildToVerticalBox(Header);
     HeaderSize=WidgetTree->ConstructWidget<USizeBox>();Header->SetContent(HeaderSize);
     auto* Heading=WidgetTree->ConstructWidget<UHorizontalBox>();HeaderSize->SetContent(Heading);
-    auto* TitleSlot=Heading->AddChildToHorizontalBox(Text(TEXT("仓库"),20,false,true));TitleSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));TitleSlot->SetVerticalAlignment(VAlign_Center);
+    Title=Text(TEXT("仓库"),20,false,true);auto* TitleSlot=Heading->AddChildToHorizontalBox(Title);TitleSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));TitleSlot->SetVerticalAlignment(VAlign_Center);
     Capacity=Text(TEXT(""),12,true);auto* CapacitySlot=Heading->AddChildToHorizontalBox(Capacity);CapacitySlot->SetVerticalAlignment(VAlign_Center);CapacitySlot->SetPadding(FMargin(0,0,12/Scale,0));
     auto* X=Button(TEXT("收起仓库"));Heading->AddChildToHorizontalBox(X);X->OnClicked.AddDynamic(this,&ThisClass::Close);
     ActionSize=WidgetTree->ConstructWidget<USizeBox>();ActionSlot=Stack->AddChildToVerticalBox(ActionSize);
@@ -82,9 +82,10 @@ void UColdSteelWarehouseWidget::NativeTick(const FGeometry& G,float Delta){Super
 void UColdSteelWarehouseWidget::NativeDestruct(){if(Model)Model->OnChanged.Remove(ChangedHandle);ChangedHandle.Reset();CancelInteraction();Super::NativeDestruct();}
 void UColdSteelWarehouseWidget::CancelInteraction(){if(Board)Board->CancelInteraction();}
 void UColdSteelWarehouseWidget::ResetPage(){Model->WarehousePage=0;Board->ResetStoragePage();Scroll->ScrollToStart();Refresh();}
+void UColdSteelWarehouseWidget::SetTitle(const FString& Caption){if(Title&&Title->GetText().ToString()!=Caption)Title->SetText(FText::FromString(Caption));}
 void UColdSteelWarehouseWidget::Refresh()
 {
-    if(!Model||!Capacity)return;int32 Used=0,Count=0;for(const auto& I:Model->Items())if(I.Place==4){Used+=I.Width*I.Height;++Count;}
+    if(!Model||!Capacity)return;int32 Used=0,Count=0;for(const auto& I:Model->Items())if(Model->InOpenStorage(I)){Used+=I.Width*I.Height;++Count;}
     const int32 Pages=Model->WarehouseCapacity()/ColdSteelWarehouse::CellsPerPage;Model->WarehousePage=FMath::Clamp(Model->WarehousePage,0,Pages-1);
     if(ShownPage!=Model->WarehousePage){ShownPage=Model->WarehousePage;if(Board)Board->ResetStoragePage();Scroll->ScrollToStart();}
     Capacity->SetText(FText::FromString(FString::Printf(TEXT("%d / %d 格"),Used,Model->WarehouseCapacity())));

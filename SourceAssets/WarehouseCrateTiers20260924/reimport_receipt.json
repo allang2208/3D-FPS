@@ -1,0 +1,189 @@
+{
+  "meshes": [
+    {
+      "id": "warehouse_crate_wood",
+      "asset": "SM_WarehouseCrate_T1_Wood_v2",
+      "size_cm": [
+        151.2,
+        119.6,
+        123.3
+      ],
+      "triangles": 43369,
+      "reused": true,
+      "slots": [
+        "Crate_Wood",
+        "Crate_WoodDark",
+        "Crate_IronDark"
+      ]
+    },
+    {
+      "id": "warehouse_crate_stonewood",
+      "asset": "SM_WarehouseCrate_T2_StoneWood_v2",
+      "size_cm": [
+        151.2,
+        119.6,
+        123.3
+      ],
+      "triangles": 43369,
+      "reused": true,
+      "slots": [
+        "Crate_Wood",
+        "Crate_WoodDark",
+        "Crate_Stone",
+        "Crate_Iron",
+        "Crate_IronDark"
+      ]
+    },
+    {
+      "id": "warehouse_crate_iron",
+      "asset": "SM_WarehouseCrate_T3_Iron_v2",
+      "size_cm": [
+        151.2,
+        119.6,
+        123.3
+      ],
+      "triangles": 43369,
+      "reused": true,
+      "slots": [
+        "Crate_Iron",
+        "Crate_IronDark"
+      ]
+    },
+    {
+      "id": "warehouse_crate_irongold",
+      "asset": "SM_WarehouseCrate_T4_IronGold_v2",
+      "size_cm": [
+        151.2,
+        119.6,
+        123.3
+      ],
+      "triangles": 43369,
+      "reused": true,
+      "slots": [
+        "Crate_Iron",
+        "Crate_IronDark",
+        "Crate_Gold"
+      ]
+    },
+    {
+      "id": "warehouse_crate_silvergem",
+      "asset": "SM_WarehouseCrate_T5_SilverGem_v2",
+      "size_cm": [
+        151.2,
+        119.6,
+        123.3
+      ],
+      "triangles": 43369,
+      "reused": true,
+      "slots": [
+        "Crate_IronDark",
+        "Crate_Gold",
+        "Crate_Silver",
+        "Crate_Gem"
+      ]
+    }
+  ],
+  "palette_updated": [
+    {
+      "id": "warehouse_crate_wood",
+      "mesh": "SM_WarehouseCrate_T1_Wood_v2",
+      "footprint": [
+        8,
+        6,
+        7
+      ],
+      "pivot_z": -8.35
+    },
+    {
+      "id": "warehouse_crate_stonewood",
+      "mesh": "SM_WarehouseCrate_T2_StoneWood_v2",
+      "footprint": [
+        8,
+        6,
+        7
+      ],
+      "pivot_z": -8.35
+    },
+    {
+      "id": "warehouse_crate_iron",
+      "mesh": "SM_WarehouseCrate_T3_Iron_v2",
+      "footprint": [
+        8,
+        6,
+        7
+      ],
+      "pivot_z": -8.35
+    },
+    {
+      "id": "warehouse_crate_irongold",
+      "mesh": "SM_WarehouseCrate_T4_IronGold_v2",
+      "footprint": [
+        8,
+        6,
+        7
+      ],
+      "pivot_z": -8.35
+    },
+    {
+      "id": "warehouse_crate_silvergem",
+      "mesh": "SM_WarehouseCrate_T5_SilverGem_v2",
+      "footprint": [
+        8,
+        6,
+        7
+      ],
+      "pivot_z": -8.35
+    }
+  ],
+  "palette_verified": {
+    "warehouse_crate_wood": {
+      "footprint": [
+        8,
+        6,
+        7
+      ],
+      "mesh": "SM_WarehouseCrate_T1_Wood_v2",
+      "material_empty": true
+    },
+    "warehouse_crate_stonewood": {
+      "footprint": [
+        8,
+        6,
+        7
+      ],
+      "mesh": "SM_WarehouseCrate_T2_StoneWood_v2",
+      "material_empty": true
+    },
+    "warehouse_crate_iron": {
+      "footprint": [
+        8,
+        6,
+        7
+      ],
+      "mesh": "SM_WarehouseCrate_T3_Iron_v2",
+      "material_empty": true
+    },
+    "warehouse_crate_irongold": {
+      "footprint": [
+        8,
+        6,
+        7
+      ],
+      "mesh": "SM_WarehouseCrate_T4_IronGold_v2",
+      "material_empty": true
+    },
+    "warehouse_crate_silvergem": {
+      "footprint": [
+        8,
+        6,
+        7
+      ],
+      "mesh": "SM_WarehouseCrate_T5_SilverGem_v2",
+      "material_empty": true
+    }
+  },
+  "saved": [
+    "/Game/Building/Voxels/Rounded/DA_VoxelBuildPalette"
+  ],
+  "runtime_tested": false
+}

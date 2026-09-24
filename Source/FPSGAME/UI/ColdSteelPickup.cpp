@@ -32,7 +32,6 @@ AColdSteelPickup::AColdSteelPickup()
     LootBeam=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LootBeam"));LootBeam->SetupAttachment(LootFXRoot);LootBeam->SetCollisionEnabled(ECollisionEnabled::NoCollision);LootBeam->SetCastShadow(false);LootBeam->SetVisibility(false);LootBeam->SetCullDistance(8000.f);
     LootCenter=CreateDefaultSubobject<UMaterialBillboardComponent>(TEXT("LootCenter"));LootCenter->SetupAttachment(LootFXRoot);LootCenter->SetCollisionEnabled(ECollisionEnabled::NoCollision);LootCenter->SetCastShadow(false);LootCenter->SetVisibility(false);LootCenter->SetCullDistance(8000.f);
     Weapon=CreateDefaultSubobject<UPoseableMeshComponent>(TEXT("DroppedWeapon"));Weapon->SetupAttachment(Body);Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-    Prompt=CreateDefaultSubobject<UWidgetComponent>(TEXT("PickupPrompt"));Prompt->SetupAttachment(Body);Prompt->SetWidgetSpace(EWidgetSpace::Screen);Prompt->SetDrawSize(FVector2D(360,42));Prompt->SetWidgetClass(UColdSteelPickupPrompt::StaticClass());Prompt->SetCollisionEnabled(ECollisionEnabled::NoCollision);Prompt->SetVisibility(false);
 }
 void AColdSteelPickup::InitializeItem(const FColdSteelItem& Item)
 {
@@ -40,10 +39,8 @@ void AColdSteelPickup::InitializeItem(const FColdSteelItem& Item)
     auto* Surface=NewObject<UPhysicalMaterial>(this);Surface->Friction=.8f;Surface->Restitution=.08f;Body->SetPhysMaterialOverride(Surface);
     Body->SetMassOverrideInKg(NAME_None,Gun?3.4f:bVoxelBlock?2.5f:bProductionMaterial?ProductionMassKg:.4f);Body->SetEnableGravity(true);Body->SetSimulatePhysics(!bProductionMaterial||bProductionMaterialReady);
     BuildLootGlow(Item);
-    Prompt->InitWidget();if(auto* UI=Cast<UColdSteelPickupPrompt>(Prompt->GetUserWidgetObject())){
-        FString Name=ColdSteelInventory::Text(Item,TEXT("name"));if(Name.IsEmpty())Name=Item.Definition;
-        UI->SetCaption(FString::Printf(TEXT("E · 拾取 %s ×%lld"),*Name,Item.Count));
-    }
+    FString Name=ColdSteelInventory::Text(Item,TEXT("name"));if(Name.IsEmpty())Name=Item.Definition;
+    PromptCaption=FString::Printf(TEXT("拾取 %s ×%lld"),*Name,Item.Count); // 准星统一小浮窗读取；不再有模型上方名牌
 }
 bool AColdSteelPickup::CanInteract(const APawn* Pawn)const{return !ItemId.IsEmpty()&&IsValid(Pawn)&&FVector::DistSquared(Pawn->GetActorLocation(),GetActorLocation())<=FMath::Square(250.f)&&ColdSteelWorldInteraction::IsFocused(Pawn,this);}
 void AColdSteelPickup::Tick(float Delta)
@@ -51,5 +48,4 @@ void AColdSteelPickup::Tick(float Delta)
     Super::Tick(Delta);auto* PC=UGameplayStatics::GetPlayerController(this,0);
     if(bProductionMaterial)TickProductionMaterial(Delta);
     FaceLootBeam(PC);
-    Prompt->SetWorldLocation(GetActorLocation()+FVector(0,0,Body->Bounds.BoxExtent.Z+15));Prompt->SetVisibility(PC&&CanInteract(PC->GetPawn()));
 }

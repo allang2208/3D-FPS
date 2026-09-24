@@ -80,7 +80,13 @@ bool CanEquip(const FColdSteelItem& I,int32 Slot)
 }
 int32 Owner(const TArray<FColdSteelItem>& Items,int32 Place,int32 Cell)
 {
+    static const FString GlobalWarehouse;
+    return Owner(Items,Place,Cell,GlobalWarehouse);
+}
+int32 Owner(const TArray<FColdSteelItem>& Items,int32 Place,int32 Cell,const FString& Container)
+{
     for(int32 N=0;N<Items.Num();++N) { const auto& I=Items[N]; if(I.Place!=Place) continue;
+        if(Place==4&&I.Container!=Container) continue; // 仓库格空间按储物容器分域
         if(Place!=0&&Place!=4) { if(I.Cell==Cell) return N; }
         else if(Cell>=0&&(Place==4?Cell/ColdSteelWarehouse::CellsPerPage==I.Cell/ColdSteelWarehouse::CellsPerPage:Cell<72)&&Cell%18>=I.Cell%18&&Cell%18<I.Cell%18+I.Width&&Cell/18>=I.Cell/18&&Cell/18<I.Cell/18+I.Height) return N;
     } return INDEX_NONE;

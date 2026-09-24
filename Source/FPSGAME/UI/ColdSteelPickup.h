@@ -22,6 +22,8 @@ class FPSGAME_API AColdSteelPickup : public AActor
 public:
     AColdSteelPickup();
     FString ItemId;
+    /** 准星小浮窗统一读取（不再挂世界空间名牌）：形如"拾取 铁锭 ×12"。 */
+    const FString& GetPromptText()const{return PromptCaption;}
     void InitializeItem(const FColdSteelItem& Item);
     virtual void Tick(float DeltaSeconds) override;
     bool CanInteract(const APawn* Pawn) const;
@@ -50,5 +52,6 @@ private:
     UPROPERTY() TObjectPtr<class UStaticMeshComponent> LootBeam;
     UPROPERTY() TObjectPtr<class UMaterialBillboardComponent> LootCenter;
     UPROPERTY() TObjectPtr<class UStaticMeshComponent> Mesh;
-    UPROPERTY() TObjectPtr<class UWidgetComponent> Prompt;
+    /** 2026-09-24：世界空间名牌撤下，文本改由准星统一小浮窗呈现（ColdSteelHUDWidget::UpdateInteractHint）。 */
+    FString PromptCaption;
 };

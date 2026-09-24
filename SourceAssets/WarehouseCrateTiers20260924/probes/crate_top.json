@@ -1,0 +1,443 @@
+{
+ "meshes": {
+  "source": {
+   "slots": [
+    {
+     "slot": "Gold_PBR",
+     "mat": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Gold_PBR.Gold_PBR"
+    },
+    {
+     "slot": "White_Marble_PBR",
+     "mat": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/White_Marble_PBR.White_Marble_PBR"
+    },
+    {
+     "slot": "Navy_Velvet",
+     "mat": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Navy_Velvet.Navy_Velvet"
+    },
+    {
+     "slot": "Interior_Magic_Blue",
+     "mat": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Interior_Magic_Blue.Interior_Magic_Blue"
+    },
+    {
+     "slot": "Sapphire_PBR",
+     "mat": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Sapphire_PBR.Sapphire_PBR"
+    },
+    {
+     "slot": "Brass_Frame",
+     "mat": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Brass_Frame.Brass_Frame"
+    },
+    {
+     "slot": "Brass_Hardware",
+     "mat": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Brass_Hardware.Brass_Hardware"
+    },
+    {
+     "slot": "Ritual_Champagne",
+     "mat": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Ritual_Champagne.Ritual_Champagne"
+    },
+    {
+     "slot": "Ritual_Gunmetal",
+     "mat": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Ritual_Gunmetal.Ritual_Gunmetal"
+    },
+    {
+     "slot": "Ritual_Engraving",
+     "mat": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Ritual_Engraving.Ritual_Engraving"
+    },
+    {
+     "slot": "Brass_Strap",
+     "mat": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Brass_Strap.Brass_Strap"
+    }
+   ],
+   "bounds": "<Struct 'BoxSphereBounds' (0x000001603C242DC0) {origin: {x: 0.000000, y: 2.169996, z: 61.670376}, box_extent: {x: 75.600006, y: 59.780001, z: 61.670376}, sphere_radius: 114.421347}>",
+   "lod0_tri": null,
+   "sections": []
+  },
+  "T1": {
+   "slots": [
+    {
+     "slot": "Gold_PBR",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_WoodDark.M_Crate_WoodDark"
+    },
+    {
+     "slot": "White_Marble_PBR",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Wood.M_Crate_Wood"
+    },
+    {
+     "slot": "Navy_Velvet",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_WoodDark.M_Crate_WoodDark"
+    },
+    {
+     "slot": "Interior_Magic_Blue",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_WoodDark.M_Crate_WoodDark"
+    },
+    {
+     "slot": "Sapphire_PBR",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_WoodDark.M_Crate_WoodDark"
+    },
+    {
+     "slot": "Brass_Frame",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_WoodDark.M_Crate_WoodDark"
+    },
+    {
+     "slot": "Brass_Hardware",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_IronDark.M_Crate_IronDark"
+    },
+    {
+     "slot": "Ritual_Champagne",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_WoodDark.M_Crate_WoodDark"
+    },
+    {
+     "slot": "Ritual_Gunmetal",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Wood.M_Crate_Wood"
+    },
+    {
+     "slot": "Ritual_Engraving",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_IronDark.M_Crate_IronDark"
+    },
+    {
+     "slot": "Brass_Strap",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_WoodDark.M_Crate_WoodDark"
+    }
+   ],
+   "bounds": "<Struct 'BoxSphereBounds' (0x000001603C2450C0) {origin: {x: 0.000000, y: 2.169996, z: 61.670376}, box_extent: {x: 75.600006, y: 59.780001, z: 61.670376}, sphere_radius: 114.421347}>",
+   "lod0_tri": null,
+   "sections": []
+  },
+  "T2": {
+   "slots": [
+    {
+     "slot": "Gold_PBR",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Stone.M_Crate_Stone"
+    },
+    {
+     "slot": "White_Marble_PBR",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Wood.M_Crate_Wood"
+    },
+    {
+     "slot": "Navy_Velvet",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_WoodDark.M_Crate_WoodDark"
+    },
+    {
+     "slot": "Interior_Magic_Blue",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_WoodDark.M_Crate_WoodDark"
+    },
+    {
+     "slot": "Sapphire_PBR",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_IronDark.M_Crate_IronDark"
+    },
+    {
+     "slot": "Brass_Frame",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Stone.M_Crate_Stone"
+    },
+    {
+     "slot": "Brass_Hardware",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Iron.M_Crate_Iron"
+    },
+    {
+     "slot": "Ritual_Champagne",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Stone.M_Crate_Stone"
+    },
+    {
+     "slot": "Ritual_Gunmetal",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Stone.M_Crate_Stone"
+    },
+    {
+     "slot": "Ritual_Engraving",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_IronDark.M_Crate_IronDark"
+    },
+    {
+     "slot": "Brass_Strap",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Stone.M_Crate_Stone"
+    }
+   ],
+   "bounds": "<Struct 'BoxSphereBounds' (0x000001603C24DB80) {origin: {x: 0.000000, y: 2.169996, z: 61.670376}, box_extent: {x: 75.600006, y: 59.780001, z: 61.670376}, sphere_radius: 114.421347}>",
+   "lod0_tri": null,
+   "sections": []
+  },
+  "T3": {
+   "slots": [
+    {
+     "slot": "Gold_PBR",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_IronDark.M_Crate_IronDark"
+    },
+    {
+     "slot": "White_Marble_PBR",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Iron.M_Crate_Iron"
+    },
+    {
+     "slot": "Navy_Velvet",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_IronDark.M_Crate_IronDark"
+    },
+    {
+     "slot": "Interior_Magic_Blue",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_IronDark.M_Crate_IronDark"
+    },
+    {
+     "slot": "Sapphire_PBR",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_IronDark.M_Crate_IronDark"
+    },
+    {
+     "slot": "Brass_Frame",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Iron.M_Crate_Iron"
+    },
+    {
+     "slot": "Brass_Hardware",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_IronDark.M_Crate_IronDark"
+    },
+    {
+     "slot": "Ritual_Champagne",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Iron.M_Crate_Iron"
+    },
+    {
+     "slot": "Ritual_Gunmetal",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_IronDark.M_Crate_IronDark"
+    },
+    {
+     "slot": "Ritual_Engraving",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_IronDark.M_Crate_IronDark"
+    },
+    {
+     "slot": "Brass_Strap",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Iron.M_Crate_Iron"
+    }
+   ],
+   "bounds": "<Struct 'BoxSphereBounds' (0x000001603C246100) {origin: {x: 0.000000, y: 2.169996, z: 61.670376}, box_extent: {x: 75.600006, y: 59.780001, z: 61.670376}, sphere_radius: 114.421347}>",
+   "lod0_tri": null,
+   "sections": []
+  },
+  "T4": {
+   "slots": [
+    {
+     "slot": "Gold_PBR",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Gold.M_Crate_Gold"
+    },
+    {
+     "slot": "White_Marble_PBR",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Iron.M_Crate_Iron"
+    },
+    {
+     "slot": "Navy_Velvet",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_IronDark.M_Crate_IronDark"
+    },
+    {
+     "slot": "Interior_Magic_Blue",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_IronDark.M_Crate_IronDark"
+    },
+    {
+     "slot": "Sapphire_PBR",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_IronDark.M_Crate_IronDark"
+    },
+    {
+     "slot": "Brass_Frame",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Gold.M_Crate_Gold"
+    },
+    {
+     "slot": "Brass_Hardware",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Gold.M_Crate_Gold"
+    },
+    {
+     "slot": "Ritual_Champagne",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Gold.M_Crate_Gold"
+    },
+    {
+     "slot": "Ritual_Gunmetal",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_IronDark.M_Crate_IronDark"
+    },
+    {
+     "slot": "Ritual_Engraving",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Gold.M_Crate_Gold"
+    },
+    {
+     "slot": "Brass_Strap",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Gold.M_Crate_Gold"
+    }
+   ],
+   "bounds": "<Struct 'BoxSphereBounds' (0x000001603C241F40) {origin: {x: 0.000000, y: 2.169996, z: 61.670376}, box_extent: {x: 75.600006, y: 59.780001, z: 61.670376}, sphere_radius: 114.421347}>",
+   "lod0_tri": null,
+   "sections": []
+  },
+  "T5": {
+   "slots": [
+    {
+     "slot": "Gold_PBR",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Gold.M_Crate_Gold"
+    },
+    {
+     "slot": "White_Marble_PBR",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Silver.M_Crate_Silver"
+    },
+    {
+     "slot": "Navy_Velvet",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_IronDark.M_Crate_IronDark"
+    },
+    {
+     "slot": "Interior_Magic_Blue",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_IronDark.M_Crate_IronDark"
+    },
+    {
+     "slot": "Sapphire_PBR",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Gem.M_Crate_Gem"
+    },
+    {
+     "slot": "Brass_Frame",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Gold.M_Crate_Gold"
+    },
+    {
+     "slot": "Brass_Hardware",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Gold.M_Crate_Gold"
+    },
+    {
+     "slot": "Ritual_Champagne",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Gold.M_Crate_Gold"
+    },
+    {
+     "slot": "Ritual_Gunmetal",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Silver.M_Crate_Silver"
+    },
+    {
+     "slot": "Ritual_Engraving",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Gold.M_Crate_Gold"
+    },
+    {
+     "slot": "Brass_Strap",
+     "mat": "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Gold.M_Crate_Gold"
+    }
+   ],
+   "bounds": "<Struct 'BoxSphereBounds' (0x000001603C244F80) {origin: {x: 0.000000, y: 2.169996, z: 61.670376}, box_extent: {x: 75.600006, y: 59.780001, z: 61.670376}, sphere_radius: 114.421347}>",
+   "lod0_tri": null,
+   "sections": []
+  }
+ },
+ "materials": {
+  "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Gold_PBR.Gold_PBR": {
+   "class": "MaterialInstanceConstant",
+   "two_sided": false,
+   "blend": "<BlendMode.BLEND_OPAQUE: 0>"
+  },
+  "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/White_Marble_PBR.White_Marble_PBR": {
+   "class": "MaterialInstanceConstant",
+   "two_sided": false,
+   "blend": "<BlendMode.BLEND_OPAQUE: 0>"
+  },
+  "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Navy_Velvet.Navy_Velvet": {
+   "class": "MaterialInstanceConstant",
+   "two_sided": false,
+   "blend": "<BlendMode.BLEND_OPAQUE: 0>"
+  },
+  "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Interior_Magic_Blue.Interior_Magic_Blue": {
+   "class": "MaterialInstanceConstant",
+   "two_sided": false,
+   "blend": "<BlendMode.BLEND_OPAQUE: 0>"
+  },
+  "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Sapphire_PBR.Sapphire_PBR": {
+   "class": "MaterialInstanceConstant",
+   "two_sided": false,
+   "blend": "<BlendMode.BLEND_OPAQUE: 0>"
+  },
+  "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Brass_Frame.Brass_Frame": {
+   "class": "MaterialInstanceConstant",
+   "two_sided": false,
+   "blend": "<BlendMode.BLEND_OPAQUE: 0>"
+  },
+  "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Brass_Hardware.Brass_Hardware": {
+   "class": "MaterialInstanceConstant",
+   "two_sided": false,
+   "blend": "<BlendMode.BLEND_OPAQUE: 0>"
+  },
+  "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Ritual_Champagne.Ritual_Champagne": {
+   "class": "MaterialInstanceConstant",
+   "two_sided": false,
+   "blend": "<BlendMode.BLEND_OPAQUE: 0>"
+  },
+  "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Ritual_Gunmetal.Ritual_Gunmetal": {
+   "class": "MaterialInstanceConstant",
+   "two_sided": false,
+   "blend": "<BlendMode.BLEND_OPAQUE: 0>"
+  },
+  "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Ritual_Engraving.Ritual_Engraving": {
+   "class": "MaterialInstanceConstant",
+   "two_sided": false,
+   "blend": "<BlendMode.BLEND_OPAQUE: 0>"
+  },
+  "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Brass_Strap.Brass_Strap": {
+   "class": "MaterialInstanceConstant",
+   "two_sided": false,
+   "blend": "<BlendMode.BLEND_OPAQUE: 0>"
+  },
+  "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_WoodDark.M_Crate_WoodDark": {
+   "class": "Material",
+   "two_sided": true,
+   "blend": "<BlendMode.BLEND_OPAQUE: 0>"
+  },
+  "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Wood.M_Crate_Wood": {
+   "class": "Material",
+   "two_sided": true,
+   "blend": "<BlendMode.BLEND_OPAQUE: 0>"
+  },
+  "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_IronDark.M_Crate_IronDark": {
+   "class": "Material",
+   "two_sided": true,
+   "blend": "<BlendMode.BLEND_OPAQUE: 0>"
+  },
+  "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Stone.M_Crate_Stone": {
+   "class": "Material",
+   "two_sided": true,
+   "blend": "<BlendMode.BLEND_OPAQUE: 0>"
+  },
+  "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Iron.M_Crate_Iron": {
+   "class": "Material",
+   "two_sided": true,
+   "blend": "<BlendMode.BLEND_OPAQUE: 0>"
+  },
+  "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Gold.M_Crate_Gold": {
+   "class": "Material",
+   "two_sided": true,
+   "blend": "<BlendMode.BLEND_OPAQUE: 0>"
+  },
+  "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Silver.M_Crate_Silver": {
+   "class": "Material",
+   "two_sided": true,
+   "blend": "<BlendMode.BLEND_OPAQUE: 0>"
+  },
+  "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Gem.M_Crate_Gem": {
+   "class": "Material",
+   "two_sided": false,
+   "blend": "<BlendMode.BLEND_OPAQUE: 0>"
+  }
+ },
+ "api": {
+  "mesh_dir": [
+   "get_bounds",
+   "get_imported_bounds",
+   "get_min_lod_for_quality_levels",
+   "get_overlay_material",
+   "get_overlay_material_max_draw_distance",
+   "is_section_using_cloth",
+   "lod_settings",
+   "materials",
+   "negative_bounds_extension",
+   "overlay_material",
+   "overlay_material_max_draw_distance",
+   "positive_bounds_extension",
+   "regenerate_lod",
+   "set_min_lod_for_quality_levels",
+   "set_overlay_material",
+   "set_overlay_material_max_draw_distance"
+  ],
+  "ok": [
+   "get_lod_number_of_triangles(0,)=None",
+   "get_lod_number_of_triangles(0,)=None",
+   "get_lod_number_of_triangles(0,)=None",
+   "get_lod_number_of_triangles(0,)=None",
+   "get_lod_number_of_triangles(0,)=None",
+   "get_lod_number_of_triangles(0,)=None"
+  ],
+  "fail": [
+   "get_lod_number_of_triangles(0,): int() argument must be a string, a bytes-like object or a real number, not 'NoneType'",
+   "get_lod_number_of_triangles(0,): int() argument must be a string, a bytes-like object or a real number, not 'NoneType'",
+   "get_lod_number_of_triangles(0,): int() argument must be a string, a bytes-like object or a real number, not 'NoneType'",
+   "get_lod_number_of_triangles(0,): int() argument must be a string, a bytes-like object or a real number, not 'NoneType'",
+   "get_lod_number_of_triangles(0,): int() argument must be a string, a bytes-like object or a real number, not 'NoneType'",
+   "get_lod_number_of_triangles(0,): int() argument must be a string, a bytes-like object or a real number, not 'NoneType'"
+  ]
+ }
+}

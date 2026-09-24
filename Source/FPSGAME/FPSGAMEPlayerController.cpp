@@ -15,6 +15,7 @@
 #include "UI/ColdSteelPickup.h"
 #include "UI/ColdSteelWorldInteraction.h"
 #include "UI/ColdSteelWarehouseChest.h"
+#include "UI/ColdSteelCrateChest.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/GameInstance.h"
 #include "EngineUtils.h"
@@ -129,18 +130,30 @@ void AFPSGAMEPlayerController::BeginPlay()
             if(FParse::Param(FCommandLine::Get(),TEXT("GunplayAudit"))){UE_LOG(LogTemp,Display,TEXT("Gunplay audit: omit automatic chest from movement fixture"));return;}
             const bool Audit=FParse::Param(FCommandLine::Get(),TEXT("ColdSteelWarehouseAudit"));
             if(!GetPawn()||(!Audit&&UGameplayStatics::GetCurrentLevelName(this,true)!=TEXT("DayNight_Lighting")))return;
-            bool Exists=false;for(TActorIterator<AColdSteelWarehouseChest> It(GetWorld());It;++It){Exists=true;break;}
+            bool Exists=false;for(TActorIterator<AColdSteelWarehouseChest> It(GetWorld());It;++It)if(!Cast<AColdSteelCrateChest>(*It)){Exists=true;break;}
             if(!Exists){
-                FCollisionQueryParams Query;Query.AddIgnoredActor(GetPawn());
-                const FRotator Facing=GetPawn()->GetActorRotation();
-                for(float Angle:{60.f,-60.f,120.f,-120.f,0.f,180.f}){
-                    FVector P=GetPawn()->GetActorLocation()+Facing.Vector().RotateAngleAxis(Angle,FVector::UpVector)*190;
-                    FHitResult Ground;
-                    if(!GetWorld()->LineTraceSingleByChannel(Ground,P+FVector(0,0,100),P-FVector(0,0,500),ECC_Visibility,Query)||Ground.ImpactNormal.Z<.8f)continue;
-                    P=Ground.ImpactPoint+FVector(0,0,2);
-                    if(GetWorld()->OverlapBlockingTestByChannel(P+FVector(0,0,68),Facing.Quaternion(),ECC_Pawn,FCollisionShape::MakeBox(FVector(58,76,65)),Query))continue;
-                    if(GetWorld()->SpawnActor<AColdSteelWarehouseChest>(P,Facing))break;
+                // 固定生成：锚点取地图 PlayerStart（与 GameMode 出生同一数据源），位置由关卡与
+                // Content/ColdSteelData/warehouse_assets.json 的 spawn 段决定。不再读取玩家当前
+                // 站位与视角，所以每次进入游戏的落点一致；只有关卡没有 PlayerStart 时才退回旧口径。
+                FVector Where;FRotator Facing;FString Source;
+                if(AColdSteelWarehouseChest::ResolveFixedSpawn(GetWorld(),GetPawn(),Where,Facing,Source))
+                {
+                    GetWorld()->SpawnActor<AColdSteelWarehouseChest>(Where,Facing);
+                    UE_LOG(LogTemp,Display,TEXT("WarehouseChest: fixed spawn %s facing %s (anchor=%s)"),*Where.ToString(),*Facing.ToString(),*Source);
                 }
+                else UE_LOG(LogTemp,Warning,TEXT("WarehouseChest: fixed spawn unresolved; chest not placed"));
+            }
+            // 五档储物箱：宝箱右侧成排固定生成（同朝向，间距 170cm），复用仓库面板与开合动画；
+            // 仓库审计流程保持原有场景，不自动加箱子。
+            if(!Audit){bool HasCrates=false;for(TActorIterator<AColdSteelCrateChest> It(GetWorld());It;++It){HasCrates=true;break;}
+                if(!HasCrates)for(TActorIterator<AColdSteelWarehouseChest> It(GetWorld());It;++It)
+                    if(auto* Anchor=*It;Anchor&&!Cast<AColdSteelCrateChest>(Anchor))
+                    {
+                        int32 Placed=0;
+                        for(int32 Slot=0;Slot<5;++Slot)if(AColdSteelCrateChest::SpawnBeside(GetWorld(),Anchor,static_cast<EColdSteelCrateTier>(Slot),0.f,190.f+170.f*Slot))++Placed;
+                        UE_LOG(LogTemp,Display,TEXT("CrateChest: storage row beside %s placed %d/5"),*Anchor->GetName(),Placed);
+                        break;
+                    }
             }
             if(Audit)ColdSteelHUD->RunWarehouseAudit();
         },3.f,false);

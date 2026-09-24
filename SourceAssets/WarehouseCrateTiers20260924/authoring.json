@@ -1,0 +1,129 @@
+{
+  "unit": "cm",
+  "front": "-Y",
+  "reference": "warehouse chest RitualV8 ~150x120x120cm",
+  "tiers": {
+    "SM_WarehouseCrate_T1_Wood": {
+      "slots": [
+        [
+          "Crate_Wood",
+          2708
+        ],
+        [
+          "Crate_WoodDark",
+          3104
+        ],
+        [
+          "Crate_IronDark",
+          3572
+        ]
+      ],
+      "tris": 9384,
+      "dims_cm": [
+        164.0,
+        132.5,
+        111.1
+      ],
+      "open_hole_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    "SM_WarehouseCrate_T2_StoneWood": {
+      "slots": [
+        [
+          "Crate_Wood",
+          2708
+        ],
+        [
+          "Crate_Stone",
+          3328
+        ],
+        [
+          "Crate_Iron",
+          1192
+        ],
+        [
+          "Crate_IronDark",
+          488
+        ]
+      ],
+      "tris": 7716,
+      "dims_cm": [
+        164.0,
+        132.5,
+        111.3
+      ],
+      "open_hole_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    "SM_WarehouseCrate_T3_Iron": {
+      "slots": [
+        [
+          "Crate_Iron",
+          24856
+        ],
+        [
+          "Crate_IronDark",
+          2112
+        ]
+      ],
+      "tris": 26968,
+      "dims_cm": [
+        164.0,
+        132.5,
+        111.3
+      ],
+      "open_hole_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    "SM_WarehouseCrate_T4_IronGold": {
+      "slots": [
+        [
+          "Crate_Iron",
+          15844
+        ],
+        [
+          "Crate_IronDark",
+          2492
+        ],
+        [
+          "Crate_Gold",
+          11553
+        ]
+      ],
+      "tris": 29889,
+      "dims_cm": [
+        164.0,
+        132.5,
+        111.3
+      ],
+      "open_hole_edges": 10,
+      "nonmanifold_edges": 9
+    },
+    "SM_WarehouseCrate_T5_SilverGem": {
+      "slots": [
+        [
+          "Crate_Gold",
+          26053
+        ],
+        [
+          "Crate_Silver",
+          3936
+        ],
+        [
+          "Crate_Gem",
+          2640
+        ]
+      ],
+      "tris": 32629,
+      "dims_cm": [
+        164.0,
+        132.5,
+        116.9
+      ],
+      "open_hole_edges": 10,
+      "nonmanifold_edges": 9
+    }
+  },
+  "rendered": false,
+  "tested": false
+}

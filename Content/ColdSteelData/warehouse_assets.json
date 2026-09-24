@@ -1,4 +1,9 @@
 {
+  "spawn": {
+    "comment": "宝箱固定生成：锚点取关卡 PlayerStart（与 GameMode 出生同一数据源），进入游戏后不再跟随玩家站位与视角，所以每次落点一致。offset 为锚点局部偏移，单位 cm，X 前 / Y 右 / Z 上，缺省 190cm 正前方＝原自动生成距离；location 填 {x,y,z} 世界坐标可彻底钉死位置（Z 会重新贴地）；yaw 固定朝向（度），yawOffset 相对锚点朝向的偏航；angles 是首选点被占用时依次尝试的偏航角度。删掉这一段即回到代码默认值。",
+    "offset": { "x": 190, "y": 0, "z": 0 },
+    "angles": [0, 60, -60, 120, -120, 180]
+  },
   "mesh": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigid.warehouse_chest_rigid",
   "close": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigidClose.warehouse_chest_rigidClose",
   "open": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigidOpen.warehouse_chest_rigidOpen",

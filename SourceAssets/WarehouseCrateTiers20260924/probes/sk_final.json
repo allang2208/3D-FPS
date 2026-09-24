@@ -1,0 +1,31 @@
+{
+ "clips_on_shared_skeleton": true,
+ "variants": {
+  "T1_Wood": {
+   "skeleton_shared": true,
+   "slot_count": 11,
+   "mismatches": {}
+  },
+  "T2_StoneWood": {
+   "skeleton_shared": true,
+   "slot_count": 11,
+   "mismatches": {}
+  },
+  "T3_Iron": {
+   "skeleton_shared": true,
+   "slot_count": 11,
+   "mismatches": {}
+  },
+  "T4_IronGold": {
+   "skeleton_shared": true,
+   "slot_count": 11,
+   "mismatches": {}
+  },
+  "T5_SilverGem": {
+   "skeleton_shared": true,
+   "slot_count": 11,
+   "mismatches": {}
+  }
+ },
+ "ALL_OK": true
+}

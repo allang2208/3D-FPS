@@ -7,6 +7,9 @@
 #include "../Building/VoxelBuildPrefabActor.h"
 #include "../Building/VoxelBuildWorld.h"
 #include "../Building/SmeltingSystem.h"
+#include "../Building/ColdSteelDoorInteraction.h"
+#include "ColdSteelWarehouseChest.h"
+#include "ColdSteelPickup.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Animation/AnimSequence.h"
 #include "Misc/FileHelper.h"
@@ -158,4 +161,25 @@ bool ColdSteelWorldInteraction::OpenTreasureChest(const APlayerController* PC,AA
         Target->Tags.AddUnique(TreasureOpenedTag);
     }),Duration,false);
     return true;
+}
+
+ColdSteelWorldInteraction::FInteractionHint ColdSteelWorldInteraction::ResolveInteractionHint(const AActor* Target)
+{
+    // 准星统一小浮窗的唯一文案来源（2026-09-24 用户指令：一切 E 交互走小浮窗，模型上方不再挂名牌）。
+    // 分派顺序与 PlayerController 的 E 键处理一致：先特异后泛化；空文本＝不显示浮窗。
+    FInteractionHint Hint;
+    if(!IsValid(Target))return Hint;
+    if(IsExpeditionAltar(Target)){Hint.Text=TEXT("祭坛 · 打开出征面板");return Hint;}
+    if(IsTreasureChest(Target))
+    {
+        Hint.Text=TreasureChestPrompt(Target);
+        Hint.bAction=!IsTreasureChestActivated(Target)&&!Target->ActorHasTag(FName(TEXT("DungeonReward.Locked")));
+        return Hint;
+    }
+    if(const auto* Chest=Cast<AColdSteelWarehouseChest>(Target)){Hint.Text=Chest->GetPromptLabel();return Hint;}
+    if(const auto* Pickup=Cast<AColdSteelPickup>(Target)){Hint.Text=Pickup->GetPromptText();return Hint;}
+    if(IsSmeltingFurnace(Target)){Hint.Text=SmeltingFurnacePrompt(Target);return Hint;}
+    if(IsWorkbench(Target)){Hint.Text=WorkbenchPrompt(Target);return Hint;}
+    if(UColdSteelDoorInteraction::IsDoor(Target)){Hint.Text=TEXT("门 · 开／关");return Hint;}
+    return Hint;
 }

@@ -1,0 +1,35 @@
+{
+ "M_Crate_Wood": {
+  "skeletal": true,
+  "two_sided": true
+ },
+ "M_Crate_WoodDark": {
+  "skeletal": true,
+  "two_sided": true
+ },
+ "M_Crate_Stone": {
+  "skeletal": true,
+  "two_sided": true
+ },
+ "M_Crate_Iron": {
+  "skeletal": true,
+  "two_sided": true
+ },
+ "M_Crate_IronDark": {
+  "skeletal": true,
+  "two_sided": true
+ },
+ "M_Crate_Gold": {
+  "skeletal": true,
+  "two_sided": true
+ },
+ "M_Crate_Silver": {
+  "skeletal": true,
+  "two_sided": true
+ },
+ "M_Crate_Gem": {
+  "skeletal": true,
+  "two_sided": false
+ },
+ "ALL_OK": false
+}

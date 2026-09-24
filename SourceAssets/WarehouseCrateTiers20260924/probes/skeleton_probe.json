@@ -1,0 +1,75 @@
+{
+ "assets": [
+  [
+   "SkeletalMesh",
+   "/Game/ColdSteelUI/Warehouse20260909/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigid"
+  ],
+  [
+   "AnimSequence",
+   "/Game/ColdSteelUI/Warehouse20260909/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigidClose"
+  ],
+  [
+   "AnimSequence",
+   "/Game/ColdSteelUI/Warehouse20260909/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigidOpen"
+  ],
+  [
+   "Skeleton",
+   "/Game/ColdSteelUI/Warehouse20260909/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigid_Skeleton"
+  ],
+  [
+   "SkeletalMesh",
+   "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigid"
+  ],
+  [
+   "AnimSequence",
+   "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigidClose"
+  ],
+  [
+   "AnimSequence",
+   "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigidOpen"
+  ],
+  [
+   "Skeleton",
+   "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigid_Skeleton"
+  ],
+  [
+   "SkeletalMesh",
+   "/Game/ColdSteelUI/Warehouse20260909/OrnamentsV7/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigid"
+  ],
+  [
+   "AnimSequence",
+   "/Game/ColdSteelUI/Warehouse20260909/OrnamentsV7/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigidClose"
+  ],
+  [
+   "AnimSequence",
+   "/Game/ColdSteelUI/Warehouse20260909/OrnamentsV7/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigidOpen"
+  ],
+  [
+   "Skeleton",
+   "/Game/ColdSteelUI/Warehouse20260909/OrnamentsV7/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigid_Skeleton"
+  ]
+ ],
+ "skeleton": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigid_Skeleton.warehouse_chest_rigid_Skeleton",
+ "bone_attrs": [],
+ "bones": [
+  null,
+  null,
+  null,
+  null,
+  null
+ ],
+ "mesh": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigid.warehouse_chest_rigid",
+ "mesh_skel_match": true,
+ "anims": [
+  {
+   "name": "warehouse_chest_rigidClose",
+   "len": 0.699999988079071,
+   "skel_match": true
+  },
+  {
+   "name": "warehouse_chest_rigidOpen",
+   "len": 0.8999999761581421,
+   "skel_match": true
+  }
+ ]
+}

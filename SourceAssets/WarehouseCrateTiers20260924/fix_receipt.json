@@ -1,0 +1,84 @@
+{
+  "textures": [
+    "T_Crate_Wood_Surface",
+    "T_Crate_Wood_Normal",
+    "T_Crate_Stone_Surface",
+    "T_Crate_Stone_Normal",
+    "T_Crate_Iron_Surface",
+    "T_Crate_Iron_Normal",
+    "T_Crate_Gold_Surface",
+    "T_Crate_Gold_Normal",
+    "T_Crate_Silver_Surface",
+    "T_Crate_Silver_Normal"
+  ],
+  "materials": {
+    "Crate_Wood": {
+      "two_sided": true,
+      "tiling": 1.6,
+      "rough": [
+        0.45,
+        0.68
+      ],
+      "spec": 0.35
+    },
+    "Crate_WoodDark": {
+      "two_sided": true,
+      "tiling": 1.6,
+      "rough": [
+        0.5,
+        0.72
+      ],
+      "spec": 0.35
+    },
+    "Crate_Stone": {
+      "two_sided": true,
+      "tiling": 2.2,
+      "rough": [
+        0.7,
+        0.92
+      ],
+      "spec": 0.25
+    },
+    "Crate_Iron": {
+      "two_sided": true,
+      "tiling": 3.0,
+      "rough": [
+        0.32,
+        0.58
+      ],
+      "spec": 0.55
+    },
+    "Crate_IronDark": {
+      "two_sided": true,
+      "tiling": 3.0,
+      "rough": [
+        0.45,
+        0.68
+      ],
+      "spec": 0.5
+    },
+    "Crate_Gold": {
+      "two_sided": true,
+      "tiling": 4.0,
+      "rough": [
+        0.18,
+        0.34
+      ],
+      "spec": 0.6
+    },
+    "Crate_Silver": {
+      "two_sided": true,
+      "tiling": 3.5,
+      "rough": [
+        0.08,
+        0.22
+      ],
+      "spec": 0.6
+    },
+    "Crate_Gem": {
+      "two_sided": false,
+      "roughness": 0.05
+    }
+  },
+  "runtime_tested": false
+}

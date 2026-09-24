@@ -1,0 +1,72 @@
+{
+ "T_Crate_Wood_Surface": {
+  "compression_settings": "<TextureCompressionSettings.TC_MASKS: 2>",
+  "srgb": "False",
+  "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD: 0>",
+  "never_stream": "False",
+  "class": "Texture2D"
+ },
+ "T_Crate_Wood_Normal": {
+  "compression_settings": "<TextureCompressionSettings.TC_NORMALMAP: 1>",
+  "srgb": "False",
+  "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD_NORMAL_MAP: 1>",
+  "never_stream": "False",
+  "class": "Texture2D"
+ },
+ "T_Crate_Stone_Surface": {
+  "compression_settings": "<TextureCompressionSettings.TC_MASKS: 2>",
+  "srgb": "False",
+  "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD_NORMAL_MAP: 1>",
+  "never_stream": "False",
+  "class": "Texture2D"
+ },
+ "T_Crate_Stone_Normal": {
+  "compression_settings": "<TextureCompressionSettings.TC_NORMALMAP: 1>",
+  "srgb": "False",
+  "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD_NORMAL_MAP: 1>",
+  "never_stream": "False",
+  "class": "Texture2D"
+ },
+ "T_Crate_Iron_Surface": {
+  "compression_settings": "<TextureCompressionSettings.TC_MASKS: 2>",
+  "srgb": "False",
+  "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD: 0>",
+  "never_stream": "False",
+  "class": "Texture2D"
+ },
+ "T_Crate_Iron_Normal": {
+  "compression_settings": "<TextureCompressionSettings.TC_NORMALMAP: 1>",
+  "srgb": "False",
+  "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD_NORMAL_MAP: 1>",
+  "never_stream": "False",
+  "class": "Texture2D"
+ },
+ "T_Crate_Gold_Surface": {
+  "compression_settings": "<TextureCompressionSettings.TC_MASKS: 2>",
+  "srgb": "False",
+  "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD: 0>",
+  "never_stream": "False",
+  "class": "Texture2D"
+ },
+ "T_Crate_Gold_Normal": {
+  "compression_settings": "<TextureCompressionSettings.TC_NORMALMAP: 1>",
+  "srgb": "False",
+  "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD_NORMAL_MAP: 1>",
+  "never_stream": "False",
+  "class": "Texture2D"
+ },
+ "T_Crate_Silver_Surface": {
+  "compression_settings": "<TextureCompressionSettings.TC_MASKS: 2>",
+  "srgb": "False",
+  "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD: 0>",
+  "never_stream": "False",
+  "class": "Texture2D"
+ },
+ "T_Crate_Silver_Normal": {
+  "compression_settings": "<TextureCompressionSettings.TC_NORMALMAP: 1>",
+  "srgb": "False",
+  "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD_NORMAL_MAP: 1>",
+  "never_stream": "False",
+  "class": "Texture2D"
+ }
+}

@@ -1,5 +1,9 @@
 # 恢复完整 UE5 内容
 
+## 仓库储物箱五档与统一 E 交互提示（2026-09-24）
+
+运行资产 `Content/Props/WarehouseCrateTiers20260924`（体素贴图×10、材质×5、母材质实例×8、骨骼网格×5 共享源宝箱骨架与开合片段）为内容目录，不随公开仓库分发，克隆后需从本机恢复。制作链脚本与逐环节收发布尔在 `SourceAssets/WarehouseCrateTiers20260924`（作者化→导入安装→骨骼变体派生→贴图材质→usage 标志修复→探针，见其 README）。本轮废案探针两份（v1 顶面探针、FBX 导出尝试）归档至 `trash/warehouse-crate-tiers-probes-20260924/`，散列清单 `trash/warehouse-crate-tiers-probes-20260924.sha256.txt`。C++ 侧发布五档储物箱 Actor、按容器储物面板与统一准星毛玻璃小浮窗（模型上方世界名牌全部撤除）；共享文件（HUD/PlayerController/Backlog 等）按 hunk 过滤只取本次改动，远征面板、弹药轮、木质占位迁移等并行内容留在其会话未提交状态。表面材质提升计划 `SourceAssets/WarehouseCrateTiers20260924/material_upgrade_plan_20260924.md` 待办于 [Docs/Backlog.md](Backlog.md)。完整构建成功（23:26），未做游戏内验收，由用户测试。
+
 ## 地牢生成、墙面与两档加载（2026-09-24）
 
 恢复 `GameMaps/L_Dungeon_Randomized`、本机 `Dungeons` 模板/墙面/杂物资源、Boss 与最终宝箱/返回传送门依赖；完整档主界面直接覆盖当前启动地图，无需新的菜单地图。当前源码、制作链、八份归档、第三方署名及本机二进制边界见 [地牢与加载发布说明](Gameplay/dungeon-loading-publication-20260924.md)。本次只做源码整理和推送检查，未重新运行游戏测试。

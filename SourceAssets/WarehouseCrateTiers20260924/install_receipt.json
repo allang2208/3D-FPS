@@ -1,0 +1,97 @@
+{
+  "saved": [
+    "/Game/Props/WarehouseCrateTiers20260924/Textures/T_Crate_Wood_Surface.T_Crate_Wood_Surface",
+    "/Game/Props/WarehouseCrateTiers20260924/Textures/T_Crate_Wood_Normal.T_Crate_Wood_Normal",
+    "/Game/Props/WarehouseCrateTiers20260924/Textures/T_Crate_Stone_Surface.T_Crate_Stone_Surface",
+    "/Game/Props/WarehouseCrateTiers20260924/Textures/T_Crate_Stone_Normal.T_Crate_Stone_Normal",
+    "/Game/Props/WarehouseCrateTiers20260924/Textures/T_Crate_Iron_Surface.T_Crate_Iron_Surface",
+    "/Game/Props/WarehouseCrateTiers20260924/Textures/T_Crate_Iron_Normal.T_Crate_Iron_Normal",
+    "/Game/Props/WarehouseCrateTiers20260924/Textures/T_Crate_Gold_Surface.T_Crate_Gold_Surface",
+    "/Game/Props/WarehouseCrateTiers20260924/Textures/T_Crate_Gold_Normal.T_Crate_Gold_Normal",
+    "/Game/Props/WarehouseCrateTiers20260924/Textures/T_Crate_Silver_Surface.T_Crate_Silver_Surface",
+    "/Game/Props/WarehouseCrateTiers20260924/Textures/T_Crate_Silver_Normal.T_Crate_Silver_Normal",
+    "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Wood.M_Crate_Wood",
+    "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_WoodDark.M_Crate_WoodDark",
+    "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Stone.M_Crate_Stone",
+    "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Iron.M_Crate_Iron",
+    "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_IronDark.M_Crate_IronDark",
+    "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Gold.M_Crate_Gold",
+    "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Silver.M_Crate_Silver",
+    "/Game/Props/WarehouseCrateTiers20260924/Materials/M_Crate_Gem.M_Crate_Gem",
+    "/Game/Props/WarehouseCrateTiers20260924/SM_WarehouseCrate_T1_Wood.SM_WarehouseCrate_T1_Wood",
+    "/Game/Props/WarehouseCrateTiers20260924/SM_WarehouseCrate_T2_StoneWood.SM_WarehouseCrate_T2_StoneWood",
+    "/Game/Props/WarehouseCrateTiers20260924/SM_WarehouseCrate_T3_Iron.SM_WarehouseCrate_T3_Iron",
+    "/Game/Props/WarehouseCrateTiers20260924/SM_WarehouseCrate_T4_IronGold.SM_WarehouseCrate_T4_IronGold",
+    "/Game/Props/WarehouseCrateTiers20260924/SM_WarehouseCrate_T5_SilverGem.SM_WarehouseCrate_T5_SilverGem"
+  ],
+  "meshes": [
+    {
+      "name": "SM_WarehouseCrate_T1_Wood",
+      "size_cm": [
+        164.0,
+        132.5,
+        111.1
+      ],
+      "slots": [
+        "Crate_Wood",
+        "Crate_WoodDark",
+        "Crate_IronDark"
+      ]
+    },
+    {
+      "name": "SM_WarehouseCrate_T2_StoneWood",
+      "size_cm": [
+        164.0,
+        132.5,
+        111.3
+      ],
+      "slots": [
+        "Crate_Wood",
+        "Crate_Stone",
+        "Crate_Iron",
+        "Crate_IronDark"
+      ]
+    },
+    {
+      "name": "SM_WarehouseCrate_T3_Iron",
+      "size_cm": [
+        164.0,
+        132.5,
+        111.3
+      ],
+      "slots": [
+        "Crate_Iron",
+        "Crate_IronDark"
+      ]
+    },
+    {
+      "name": "SM_WarehouseCrate_T4_IronGold",
+      "size_cm": [
+        164.0,
+        132.5,
+        111.3
+      ],
+      "slots": [
+        "Crate_Iron",
+        "Crate_IronDark",
+        "Crate_Gold"
+      ]
+    },
+    {
+      "name": "SM_WarehouseCrate_T5_SilverGem",
+      "size_cm": [
+        164.0,
+        132.5,
+        116.9
+      ],
+      "slots": [
+        "Crate_Gold",
+        "Crate_Silver",
+        "Crate_Gem"
+      ]
+    }
+  ],
+  "gui_editor_started": false,
+  "tested": false,
+  "rendered": false
+}

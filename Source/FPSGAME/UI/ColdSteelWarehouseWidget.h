@@ -18,6 +18,8 @@ public:
     void ResetPage();
     void Refresh();
     void CancelInteraction();
+    /** 面板标题跟随当前储物容器："仓库"或某个储物箱的档位名。 */
+    void SetTitle(const FString& Caption);
 protected:
     virtual void NativeOnInitialized() override;
     virtual void NativeConstruct() override;
@@ -31,6 +33,7 @@ private:
     UPROPERTY() TObjectPtr<UColdSteelInventoryWidget> Board;
     UPROPERTY() TObjectPtr<UTextBlock> Capacity;
     UPROPERTY() TObjectPtr<UTextBlock> Page;
+    UPROPERTY() TObjectPtr<UTextBlock> Title;
     UPROPERTY() TObjectPtr<UButton> Previous;
     UPROPERTY() TObjectPtr<UButton> Next;
     UPROPERTY() TObjectPtr<UComboBoxString> SortMenu;

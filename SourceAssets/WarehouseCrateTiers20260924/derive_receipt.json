@@ -1,0 +1,94 @@
+{
+  "source_glb": "warehouse_chest_ritual_v8.glb",
+  "source_slots": [
+    "Gold_PBR",
+    "White_Marble_PBR",
+    "Navy_Velvet",
+    "Interior_Magic_Blue",
+    "Sapphire_PBR",
+    "Brass_Frame",
+    "Brass_Hardware",
+    "Ritual_Champagne",
+    "Ritual_Gunmetal",
+    "Ritual_Engraving",
+    "Brass_Strap"
+  ],
+  "closed_rest_pose": true,
+  "split_normals_clear": "{'FINISHED'}",
+  "unit": "cm",
+  "front": "-Y",
+  "tiers": {
+    "T1_Wood": {
+      "fbx": "SM_WarehouseCrate_T1_Wood.fbx",
+      "tris": 46674,
+      "size_cm": [
+        151.2,
+        119.6,
+        123.3
+      ],
+      "slots": [
+        "Crate_Wood",
+        "Crate_WoodDark",
+        "Crate_IronDark"
+      ]
+    },
+    "T2_StoneWood": {
+      "fbx": "SM_WarehouseCrate_T2_StoneWood.fbx",
+      "tris": 46674,
+      "size_cm": [
+        151.2,
+        119.6,
+        123.3
+      ],
+      "slots": [
+        "Crate_Wood",
+        "Crate_WoodDark",
+        "Crate_Stone",
+        "Crate_Iron",
+        "Crate_IronDark"
+      ]
+    },
+    "T3_Iron": {
+      "fbx": "SM_WarehouseCrate_T3_Iron.fbx",
+      "tris": 46674,
+      "size_cm": [
+        151.2,
+        119.6,
+        123.3
+      ],
+      "slots": [
+        "Crate_Iron",
+        "Crate_IronDark"
+      ]
+    },
+    "T4_IronGold": {
+      "fbx": "SM_WarehouseCrate_T4_IronGold.fbx",
+      "tris": 46674,
+      "size_cm": [
+        151.2,
+        119.6,
+        123.3
+      ],
+      "slots": [
+        "Crate_Iron",
+        "Crate_IronDark",
+        "Crate_Gold"
+      ]
+    },
+    "T5_SilverGem": {
+      "fbx": "SM_WarehouseCrate_T5_SilverGem.fbx",
+      "tris": 46674,
+      "size_cm": [
+        151.2,
+        119.6,
+        123.3
+      ],
+      "slots": [
+        "Crate_IronDark",
+        "Crate_Gold",
+        "Crate_Silver",
+        "Crate_Gem"
+      ]
+    }
+  }
+}

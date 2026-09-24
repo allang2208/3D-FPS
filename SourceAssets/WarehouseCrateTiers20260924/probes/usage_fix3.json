@@ -1,0 +1,55 @@
+{
+ "assets": {
+  "M_Crate_Wood": {
+   "now": true,
+   "save_ret": true,
+   "mtime_changed": true
+  },
+  "M_Crate_WoodDark": {
+   "now": true,
+   "save_ret": true,
+   "mtime_changed": true
+  },
+  "M_Crate_Stone": {
+   "now": true,
+   "save_ret": true,
+   "mtime_changed": true
+  },
+  "M_Crate_Iron": {
+   "now": true,
+   "save_ret": true,
+   "mtime_changed": true
+  },
+  "M_Crate_IronDark": {
+   "now": true,
+   "save_ret": true,
+   "mtime_changed": true
+  },
+  "M_Crate_Gold": {
+   "now": true,
+   "save_ret": true,
+   "mtime_changed": true
+  },
+  "M_Crate_Silver": {
+   "now": true,
+   "save_ret": true,
+   "mtime_changed": true
+  },
+  "M_Crate_Gem": {
+   "now": true,
+   "save_ret": true,
+   "mtime_changed": true
+  }
+ },
+ "bulk_save_err": "type object 'EditorLoadingAndSavingUtils' has no attribute 'save_assets'",
+ "final_mtimes": {
+  "M_Crate_Wood": 1790253847.659775,
+  "M_Crate_WoodDark": 1790253848.2065609,
+  "M_Crate_Stone": 1790253848.772305,
+  "M_Crate_Iron": 1790253849.326234,
+  "M_Crate_IronDark": 1790253849.8799202,
+  "M_Crate_Gold": 1790253850.6586146,
+  "M_Crate_Silver": 1790253851.3277311,
+  "M_Crate_Gem": 1790253851.8928134
+ }
+}

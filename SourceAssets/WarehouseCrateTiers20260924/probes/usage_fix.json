@@ -1,0 +1,34 @@
+{
+ "M_Crate_Wood": {
+  "was": true,
+  "now": true
+ },
+ "M_Crate_WoodDark": {
+  "was": false,
+  "now": true
+ },
+ "M_Crate_Stone": {
+  "was": false,
+  "now": true
+ },
+ "M_Crate_Iron": {
+  "was": false,
+  "now": true
+ },
+ "M_Crate_IronDark": {
+  "was": false,
+  "now": true
+ },
+ "M_Crate_Gold": {
+  "was": false,
+  "now": true
+ },
+ "M_Crate_Silver": {
+  "was": false,
+  "now": true
+ },
+ "M_Crate_Gem": {
+  "was": false,
+  "now": true
+ }
+}

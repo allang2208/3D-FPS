@@ -30,8 +30,12 @@ void UColdSteelHUDWidget::OpenWarehouse(AColdSteelWarehouseChest* Chest)
     if(bWarehouseOpen)return;
     WarehouseChest=Chest;SetInventoryTab(false);SetInventoryOpen(true);
     auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();M->GrantStartingArmory();if(!M->IsAudit())M->GrantEnhancementMaterials();M->bWarehouseOpen=true;
+    // 储物会话：由被交互的 Actor 决定面板绑定的容器（默认主仓库；储物箱传独立键+容量+档位标题）。
+    // 上面的新手军械/强化补给始终落在主仓库，先于会话开启。
+    const FString Caption=Chest->GetStorageCaption().IsEmpty()?FString(TEXT("仓库")):Chest->GetStorageCaption();
+    M->BeginStorageSession(Chest->GetStorageKey(),Chest->GetStoragePages(),Caption);
     bWarehouseOpen=true;WarehouseStart=WarehouseMotion;WarehouseElapsed=0;
-    WarehouseWidget->ResetPage();WarehouseWidget->SetVisibility(ESlateVisibility::Visible);WarehouseWidget->SetKeyboardFocus();Chest->SetOpen(true);
+    WarehouseWidget->SetTitle(Caption);WarehouseWidget->ResetPage();WarehouseWidget->SetVisibility(ESlateVisibility::Visible);WarehouseWidget->SetKeyboardFocus();Chest->SetOpen(true);
 }
 void UColdSteelHUDWidget::CloseWarehouse()
 {
@@ -40,7 +44,7 @@ void UColdSteelHUDWidget::CloseWarehouse()
     HideWarehouseDetails();
     WarehouseWidget->CancelInteraction();
     FSlateApplication::Get().CancelDragDrop();bWarehouseOpen=false;
-    GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->bWarehouseOpen=false;
+    auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();M->bWarehouseOpen=false;M->EndStorageSession(); // 关闭即回到主仓库口径
     WarehouseStart=WarehouseMotion;WarehouseElapsed=0;WarehouseWidget->SetVisibility(ESlateVisibility::HitTestInvisible);
     if(bInventoryOpen&&CloseButton)CloseButton->SetKeyboardFocus();
 }

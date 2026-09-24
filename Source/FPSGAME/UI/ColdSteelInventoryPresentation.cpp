@@ -78,7 +78,7 @@ void UColdSteelInventoryWidget::RefreshPresentation()
         const TSharedPtr<FJsonObject>* Craft=nullptr;const TSharedPtr<FJsonObject>* Enchant=nullptr;
         P.Crafted=(Guns&&!Guns->Installed(I).IsEmpty())||(Data->TryGetObjectField(TEXT("_craftData"),Craft)&&!(*Craft)->Values.IsEmpty());
         if(Data->TryGetObjectField(TEXT("_enchantData"),Enchant)){const TSharedPtr<FJsonObject>* Affix=nullptr;P.Enchanted=(*Enchant)->TryGetObjectField(TEXT("prefix"),Affix)||(*Enchant)->TryGetObjectField(TEXT("suffix"),Affix);}
-        bProcessingAnimated|=(bWarehouse?(I.Place==4&&I.Cell>=StorageStart()&&I.Cell<StorageStart()+StorageRows()*18):(I.Place==0||I.Place==1))&&(P.Enhancement>0||P.Crafted||P.Enchanted);
+        bProcessingAnimated|=(bWarehouse?(Model->InOpenStorage(I)&&I.Cell>=StorageStart()&&I.Cell<StorageStart()+StorageRows()*18):(I.Place==0||I.Place==1))&&(P.Enhancement>0||P.Crafted||P.Enchanted);
     }
 }
 
@@ -177,16 +177,16 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
             Label(Lock?TEXT("—"):TEXT("+"),X+L.GearWidth-28,Y+(L.GearHeight-16)/2,16,GunsmithUI::Gray(Lock?100:145),18);}
     }
     }
-    int32 Cells=0,Count=0;for(const auto& I:Model->Items())if(I.Place==Container&&I.Cell>=Start&&I.Cell<Start+Rows*18){Cells+=I.Width*I.Height;++Count;}
+    int32 Cells=0,Count=0;for(const auto& I:Model->Items())if(I.Place==Container&&(!bWarehouse||I.Container==Model->ActiveContainer)&&I.Cell>=Start&&I.Cell<Start+Rows*18){Cells+=I.Width*I.Height;++Count;}
     Box(4,L.BagY-36,L.Width-8,Rows*L.Cell+42,GunsmithUI::Gray(120,8),GunsmithUI::Gray(220,22),10);
-    Label(bWarehouse?TEXT("仓储空间"):TEXT("空间背包"),12,L.BagY-28,16,GunsmithUI::Text,104);
+    Label(bWarehouse?(Model->ActiveContainer.IsEmpty()?TEXT("仓储空间"):*Model->ActiveStorageCaption):TEXT("空间背包"),12,L.BagY-28,16,GunsmithUI::Text,150);
     Label(FString::Printf(TEXT("%d / %d 格 · %d 件"),Cells,Rows*18,Count),L.Width-246,L.BagY-25,12,Cells>=Rows*18?ColdSteelUI::Warning:GunsmithUI::Secondary,180,true);
     Box(L.Width-60,L.BagY-30,48,24,bSortHovered?GunsmithUI::Gray(75,200):GunsmithUI::Gray(43,160),bSortHovered?GunsmithUI::Silver:GunsmithUI::Edge,4);Label(TEXT("整理"),L.Width-50,L.BagY-25,12,GunsmithUI::Text,38);
     Box(12,L.BagY-5,L.Width-24,2,GunsmithUI::Gray(15,180));Box(12,L.BagY-5,(L.Width-24)*FMath::Clamp(Cells/float(Rows*18),0.f,1.f),2,Cells>=Rows*18?ColdSteelUI::Warning:Fade(GunsmithUI::Silver,.6f));
     Box(12,L.BagY,L.Width-24,L.Cell*Rows,GunsmithUI::Gray(15,95),GunsmithUI::Edge,0);
     for(int32 N=1;N<18;++N)Box(12+N*L.Cell,L.BagY,1,Rows*L.Cell,GunsmithUI::Gray(220,22),FLinearColor::Transparent,0);
     for(int32 N=1;N<Rows;++N)Box(12,L.BagY+N*L.Cell,L.Width-24,1,GunsmithUI::Gray(220,22),FLinearColor::Transparent,0);
-    for(const auto& I:Model->Items())if(I.Place==Container&&I.Cell>=Start&&I.Cell<Start+Rows*18)Item(I,12+I.Cell%18*L.Cell,L.BagY+(I.Cell-Start)/18*L.Cell,I.Width*L.Cell,I.Height*L.Cell,true);
+    for(const auto& I:Model->Items())if(I.Place==Container&&(!bWarehouse||I.Container==Model->ActiveContainer)&&I.Cell>=Start&&I.Cell<Start+Rows*18)Item(I,12+I.Cell%18*L.Cell,L.BagY+(I.Cell-Start)/18*L.Cell,I.Width*L.Cell,I.Height*L.Cell,true);
     if(HoverPlace==Container&&PointerCell>=Start&&HoverId.IsEmpty())Box(12+PointerCell%18*L.Cell,L.BagY+(PointerCell-Start)/18*L.Cell,L.Cell,L.Cell,Fade(ColdSteelUI::Accent,.04f),Fade(ColdSteelUI::Accent,.65f),2,1,5);
     if(!bWarehouse){
     Label(TEXT("数字快捷栏"),12,L.HotY-21,14,GunsmithUI::Text,100);Label(TEXT("技能 / 消耗品"),L.Width-128,L.HotY-19,12,GunsmithUI::Muted,116);

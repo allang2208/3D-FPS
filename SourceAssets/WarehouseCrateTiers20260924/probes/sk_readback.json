@@ -1,0 +1,98 @@
+{
+ "open_bound_skeleton": false,
+ "close_bound_skeleton": false,
+ "open_len": 0.9,
+ "close_len": 0.7,
+ "variants": {
+  "SK_WarehouseCrate_T1_Wood": {
+   "shared_skeleton": false,
+   "slot_count": 11,
+   "n_none": 0,
+   "distinct_mats": [
+    "Brass_Frame",
+    "Brass_Hardware",
+    "Brass_Strap",
+    "Gold_PBR",
+    "Interior_Magic_Blue",
+    "Navy_Velvet",
+    "Ritual_Champagne",
+    "Ritual_Engraving",
+    "Ritual_Gunmetal",
+    "Sapphire_PBR",
+    "White_Marble_PBR"
+   ]
+  },
+  "SK_WarehouseCrate_T2_StoneWood": {
+   "shared_skeleton": false,
+   "slot_count": 11,
+   "n_none": 0,
+   "distinct_mats": [
+    "Brass_Frame",
+    "Brass_Hardware",
+    "Brass_Strap",
+    "Gold_PBR",
+    "Interior_Magic_Blue",
+    "Navy_Velvet",
+    "Ritual_Champagne",
+    "Ritual_Engraving",
+    "Ritual_Gunmetal",
+    "Sapphire_PBR",
+    "White_Marble_PBR"
+   ]
+  },
+  "SK_WarehouseCrate_T3_Iron": {
+   "shared_skeleton": false,
+   "slot_count": 11,
+   "n_none": 0,
+   "distinct_mats": [
+    "Brass_Frame",
+    "Brass_Hardware",
+    "Brass_Strap",
+    "Gold_PBR",
+    "Interior_Magic_Blue",
+    "Navy_Velvet",
+    "Ritual_Champagne",
+    "Ritual_Engraving",
+    "Ritual_Gunmetal",
+    "Sapphire_PBR",
+    "White_Marble_PBR"
+   ]
+  },
+  "SK_WarehouseCrate_T4_IronGold": {
+   "shared_skeleton": false,
+   "slot_count": 11,
+   "n_none": 0,
+   "distinct_mats": [
+    "Brass_Frame",
+    "Brass_Hardware",
+    "Brass_Strap",
+    "Gold_PBR",
+    "Interior_Magic_Blue",
+    "Navy_Velvet",
+    "Ritual_Champagne",
+    "Ritual_Engraving",
+    "Ritual_Gunmetal",
+    "Sapphire_PBR",
+    "White_Marble_PBR"
+   ]
+  },
+  "SK_WarehouseCrate_T5_SilverGem": {
+   "shared_skeleton": false,
+   "slot_count": 11,
+   "n_none": 0,
+   "distinct_mats": [
+    "Brass_Frame",
+    "Brass_Hardware",
+    "Brass_Strap",
+    "Gold_PBR",
+    "Interior_Magic_Blue",
+    "Navy_Velvet",
+    "Ritual_Champagne",
+    "Ritual_Engraving",
+    "Ritual_Gunmetal",
+    "Sapphire_PBR",
+    "White_Marble_PBR"
+   ]
+  }
+ }
+}

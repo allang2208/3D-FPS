@@ -276,6 +276,9 @@ private:
 
     UTextBlock* MakeText(const FString& Text, int32 Size, const FLinearColor& Color, bool bNumeric = false, bool bBold = false);
     UTextBlock* MakeReferenceText(const FString& Text, float PixelSize, const FLinearColor& Color, bool bNumeric = false, bool bBold = false);
+    /** 统一 E 交互小浮窗（2026-09-24）：准星下方，毛玻璃灰黑＋白字；替代一切模型上方世界空间名牌。 */
+    void BuildInteractHint(UCanvasPanel* Root);
+    void UpdateInteractHint();
     float ReferenceUnits(float PixelSize) const;
     UBorder* MakeSurface(const FLinearColor& Fill, float Radius, const FLinearColor& Outline, float OutlineWidth = 1.0f);
     UBorder* MakeHotbarSlot(const FString& KeyHint, const FString& Caption);
@@ -322,6 +325,13 @@ private:
 
     UPROPERTY(Transient)
     TObjectPtr<UBackgroundBlur> InventoryBlur;
+
+    /** 统一 E 交互小浮窗：毛玻璃灰黑（真模糊＋GlassTint）＋白字，准星下方；替代一切模型上方名牌。 */
+    UPROPERTY(Transient) TObjectPtr<UBackgroundBlur> InteractHintBlur;
+    UPROPERTY(Transient) TObjectPtr<class UTextBlock> InteractHintKey;
+    UPROPERTY(Transient) TObjectPtr<class UTextBlock> InteractHintText;
+    FString LastInteractHintText;
+    bool bLastInteractHintAction=true;
 
     UPROPERTY(Transient)
     TObjectPtr<UBorder> InventoryPanel;

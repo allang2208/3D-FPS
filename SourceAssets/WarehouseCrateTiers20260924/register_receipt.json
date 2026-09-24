@@ -1,0 +1,91 @@
+{
+  "palette": "/Game/Building/Voxels/Rounded/DA_VoxelBuildPalette",
+  "entries_before": 23,
+  "pie_active": true,
+  "registered": {
+    "warehouse_crate_wood": {
+      "mesh": "SM_WarehouseCrate_T1_Wood",
+      "display": "木箱",
+      "footprint": [
+        9,
+        7,
+        6
+      ],
+      "size_cm": [
+        164.0,
+        132.5,
+        111.1
+      ],
+      "pivot_z": -4.45
+    },
+    "warehouse_crate_stonewood": {
+      "mesh": "SM_WarehouseCrate_T2_StoneWood",
+      "display": "石饰木箱",
+      "footprint": [
+        9,
+        7,
+        6
+      ],
+      "size_cm": [
+        164.0,
+        132.5,
+        111.3
+      ],
+      "pivot_z": -4.35
+    },
+    "warehouse_crate_iron": {
+      "mesh": "SM_WarehouseCrate_T3_Iron",
+      "display": "铁箱",
+      "footprint": [
+        9,
+        7,
+        6
+      ],
+      "size_cm": [
+        164.0,
+        132.5,
+        111.3
+      ],
+      "pivot_z": -4.35
+    },
+    "warehouse_crate_irongold": {
+      "mesh": "SM_WarehouseCrate_T4_IronGold",
+      "display": "金纹铁箱",
+      "footprint": [
+        9,
+        7,
+        6
+      ],
+      "size_cm": [
+        164.0,
+        132.5,
+        111.3
+      ],
+      "pivot_z": -4.35
+    },
+    "warehouse_crate_silvergem": {
+      "mesh": "SM_WarehouseCrate_T5_SilverGem",
+      "display": "宝石银箱",
+      "footprint": [
+        9,
+        7,
+        6
+      ],
+      "size_cm": [
+        164.0,
+        132.5,
+        116.92
+      ],
+      "pivot_z": -1.54
+    }
+  },
+  "updated": [],
+  "skipped": [],
+  "entries_after": 28,
+  "total_components": 28,
+  "uasset_mtime": [
+    1790183895.986,
+    1790208717.483
+  ],
+  "runtime_tested": false
+}

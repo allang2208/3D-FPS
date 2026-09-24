@@ -18,29 +18,8 @@ int32 UColdSteelHUDWidget::NativePaint(const FPaintArgs& Args,const FGeometry& G
     const float Scale=Geometry.GetLocalSize().Y/1080.f;
     FMonsterHitFeedback Feedback;
     const bool bHasFeedback=Character->GetMonsterHitFeedback(Feedback);
-    const AActor* UseTarget=bHasFeedback?nullptr:ColdSteelWorldInteraction::TraceTarget(PC);
-    const bool bTreasure=ColdSteelWorldInteraction::IsTreasureChest(UseTarget);
-    const bool bFurnace=!bTreasure&&ColdSteelWorldInteraction::IsSmeltingFurnace(UseTarget);
-    const bool bWorkbench=!bTreasure&&!bFurnace&&ColdSteelWorldInteraction::IsWorkbench(UseTarget);
-    if(!bHasFeedback && (bTreasure||bFurnace||bWorkbench||ColdSteelWorldInteraction::IsExpeditionAltar(UseTarget)))
-    {
-        const float Pixel=1.f/ColdSteelUI::PixelScale(this);
-        const FVector2D HintSize=FVector2D(232,48)*Pixel;
-        const FVector2D HintAt=Center+FVector2D(-116,48)*Pixel;
-        static const FSlateBrush HintBrush=ColdSteelUI::RoundedBrush(ColdSteelUI::Tooltip,ColdSteelUI::CardRadius);
-        FSlateDrawElement::MakeBox(Elements,Result+1,Geometry.ToPaintGeometry(HintSize,FSlateLayoutTransform(HintAt)),
-            &HintBrush,ESlateDrawEffect::None,FLinearColor::White);
-        if(!bTreasure||!ColdSteelWorldInteraction::IsTreasureChestActivated(UseTarget))
-        FSlateDrawElement::MakeText(Elements,Result+2,Geometry.ToPaintGeometry(HintSize,FSlateLayoutTransform(HintAt+FVector2D(16,12)*Pixel)),
-            TEXT("E"),ColdSteelUI::NumberFont(12.f*Pixel,true),ESlateDrawEffect::None,ColdSteelUI::Accent);
-        const FString HintText=bTreasure?ColdSteelWorldInteraction::TreasureChestPrompt(UseTarget)
-            :bFurnace?ColdSteelWorldInteraction::SmeltingFurnacePrompt(UseTarget)
-            :bWorkbench?ColdSteelWorldInteraction::WorkbenchPrompt(UseTarget)
-            :FString(TEXT("祭坛 · 打开出征面板"));
-        FSlateDrawElement::MakeText(Elements,Result+2,Geometry.ToPaintGeometry(HintSize,FSlateLayoutTransform(HintAt+FVector2D(44,14)*Pixel)),
-            HintText,ColdSteelUI::TextFont(10.5f*Pixel),ESlateDrawEffect::None,ColdSteelUI::TextPrimary);
-        Result+=2;
-    }
+    // 2026-09-24：原「准星下方交互提示」即时绘制块已移除——高炉/工作台/宝箱/储物箱/拾取/门/祭坛/宝箱
+    // 全部改由 UColdSteelHUDWidget::UpdateInteractHint 的毛玻璃小浮窗统一承载（NativeTick 驱动）。
     if(bHasFeedback)
     {
         const float S=1.f/ColdSteelUI::PixelScale(this);

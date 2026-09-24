@@ -26,4 +26,12 @@ namespace ColdSteelWorldInteraction
      *  (Docs/UI/workbench-panel-plan-20260924.md — shell mirrors the smelting panel). */
     bool IsWorkbench(const AActor* Target);
     FString WorkbenchPrompt(const AActor* Target);
+    /** 2026-09-24 用户统一口径：准星下小浮窗（毛玻璃灰黑＋白字）承载一切 E 交互提示，
+     *  模型上方不再挂世界空间名牌。返回空文本＝不显示；bAction=false＝只读状态（已开启等），不出现 E 键徽标。 */
+    struct FInteractionHint
+    {
+        FString Text;
+        bool bAction=true;
+    };
+    FInteractionHint ResolveInteractionHint(const AActor* Target);
 }

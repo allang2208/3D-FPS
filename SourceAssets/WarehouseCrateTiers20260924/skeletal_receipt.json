@@ -1,0 +1,87 @@
+{
+  "source": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigid",
+  "skeleton": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigid_Skeleton.warehouse_chest_rigid_Skeleton",
+  "variants": {
+    "SK_WarehouseCrate_T1_Wood": {
+      "slots": {
+        "Gold_PBR": "Crate_WoodDark",
+        "White_Marble_PBR": "Crate_Wood",
+        "Navy_Velvet": "Crate_WoodDark",
+        "Interior_Magic_Blue": "Crate_WoodDark",
+        "Sapphire_PBR": "Crate_WoodDark",
+        "Brass_Frame": "Crate_WoodDark",
+        "Brass_Hardware": "Crate_IronDark",
+        "Ritual_Champagne": "Crate_WoodDark",
+        "Ritual_Gunmetal": "Crate_Wood",
+        "Ritual_Engraving": "Crate_IronDark",
+        "Brass_Strap": "Crate_WoodDark"
+      },
+      "skeleton_shared": true
+    },
+    "SK_WarehouseCrate_T2_StoneWood": {
+      "slots": {
+        "Gold_PBR": "Crate_Stone",
+        "White_Marble_PBR": "Crate_Wood",
+        "Navy_Velvet": "Crate_WoodDark",
+        "Interior_Magic_Blue": "Crate_WoodDark",
+        "Sapphire_PBR": "Crate_IronDark",
+        "Brass_Frame": "Crate_Stone",
+        "Brass_Hardware": "Crate_Iron",
+        "Ritual_Champagne": "Crate_Stone",
+        "Ritual_Gunmetal": "Crate_Stone",
+        "Ritual_Engraving": "Crate_IronDark",
+        "Brass_Strap": "Crate_Stone"
+      },
+      "skeleton_shared": true
+    },
+    "SK_WarehouseCrate_T3_Iron": {
+      "slots": {
+        "Gold_PBR": "Crate_IronDark",
+        "White_Marble_PBR": "Crate_Iron",
+        "Navy_Velvet": "Crate_IronDark",
+        "Interior_Magic_Blue": "Crate_IronDark",
+        "Sapphire_PBR": "Crate_IronDark",
+        "Brass_Frame": "Crate_Iron",
+        "Brass_Hardware": "Crate_IronDark",
+        "Ritual_Champagne": "Crate_Iron",
+        "Ritual_Gunmetal": "Crate_IronDark",
+        "Ritual_Engraving": "Crate_IronDark",
+        "Brass_Strap": "Crate_Iron"
+      },
+      "skeleton_shared": true
+    },
+    "SK_WarehouseCrate_T4_IronGold": {
+      "slots": {
+        "Gold_PBR": "Crate_Gold",
+        "White_Marble_PBR": "Crate_Iron",
+        "Navy_Velvet": "Crate_IronDark",
+        "Interior_Magic_Blue": "Crate_IronDark",
+        "Sapphire_PBR": "Crate_IronDark",
+        "Brass_Frame": "Crate_Gold",
+        "Brass_Hardware": "Crate_Gold",
+        "Ritual_Champagne": "Crate_Gold",
+        "Ritual_Gunmetal": "Crate_IronDark",
+        "Ritual_Engraving": "Crate_Gold",
+        "Brass_Strap": "Crate_Gold"
+      },
+      "skeleton_shared": true
+    },
+    "SK_WarehouseCrate_T5_SilverGem": {
+      "slots": {
+        "Gold_PBR": "Crate_Gold",
+        "White_Marble_PBR": "Crate_Silver",
+        "Navy_Velvet": "Crate_IronDark",
+        "Interior_Magic_Blue": "Crate_IronDark",
+        "Sapphire_PBR": "Crate_Gem",
+        "Brass_Frame": "Crate_Gold",
+        "Brass_Hardware": "Crate_Gold",
+        "Ritual_Champagne": "Crate_Gold",
+        "Ritual_Gunmetal": "Crate_Silver",
+        "Ritual_Engraving": "Crate_Gold",
+        "Brass_Strap": "Crate_Gold"
+      },
+      "skeleton_shared": true
+    }
+  },
+  "runtime_tested": false
+}

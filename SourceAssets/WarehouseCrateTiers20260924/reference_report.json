@@ -1,0 +1,73 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ChestRitual20260909\\warehouse_chest_ritual_v8.glb",
+  "objects": [
+    {
+      "name": "BodyAssembly",
+      "polys": 41100,
+      "verts": 64876,
+      "materials": [
+        "Gold_PBR",
+        "White_Marble_PBR",
+        "Navy_Velvet",
+        "Interior_Magic_Blue",
+        "Sapphire_PBR",
+        "Brass_Frame",
+        "Brass_Hardware",
+        "Ritual_Champagne",
+        "Ritual_Gunmetal",
+        "Ritual_Engraving"
+      ],
+      "local_dims": [
+        214.0,
+        170.8,
+        113.3
+      ]
+    },
+    {
+      "name": "LidAssembly",
+      "polys": 5386,
+      "verts": 10341,
+      "materials": [
+        "Navy_Velvet",
+        "White_Marble_PBR",
+        "Brass_Frame",
+        "Brass_Strap",
+        "Brass_Hardware"
+      ],
+      "local_dims": [
+        216.0,
+        164.0,
+        71.2
+      ]
+    },
+    {
+      "name": "WarehouseChest_LidLatch",
+      "polys": 188,
+      "verts": 384,
+      "materials": [
+        "Brass_Hardware"
+      ],
+      "local_dims": [
+        18.0,
+        10.0,
+        48.0
+      ]
+    }
+  ],
+  "bounds_min": [
+    -0.76,
+    -0.62,
+    0.0
+  ],
+  "bounds_max": [
+    0.76,
+    0.58,
+    1.23
+  ],
+  "dims_cm": [
+    1.51,
+    1.2,
+    1.23
+  ],
+  "total_polys": 46674
+}

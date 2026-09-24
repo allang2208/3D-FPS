@@ -5,14 +5,16 @@ namespace ColdSteelInventory
 {
 // Only displaced instances are repacked. Fixed neighbours and item metadata stay intact.
 // The caller owns the transaction; an exhausted search never publishes a partial layout.
+// Container scopes the occupancy scan and the repacked rows' storage affiliation when
+// Place is the warehouse grid; pass "" (default) for backpack moves and the main warehouse.
 inline bool PlaceDisplaced(TArray<FColdSteelItem>& Items, TArray<FColdSteelItem> Displaced,
-    const FColdSteelItem& Source, int32 TargetCell, bool& Exhausted,int32 Place=0,int32 PageStart=0,int32 Rows=4)
+    const FColdSteelItem& Source, int32 TargetCell, bool& Exhausted,int32 Place=0,int32 PageStart=0,int32 Rows=4,const FString& Container=FString())
 {
     struct FCandidate { int32 Cell, Outside, Distance; uint32 Mask; };
     struct FEntry { FColdSteelItem Item; TArray<FCandidate> Candidates; };
     TArray<FEntry> Entries;
     TArray<uint32> Occupied;Occupied.Init(0,Rows);
-    for(const auto& I:Items) if(I.Place==Place&&I.Cell>=PageStart&&I.Cell<PageStart+Rows*18)
+    for(const auto& I:Items) if(I.Place==Place&&I.Container==Container&&I.Cell>=PageStart&&I.Cell<PageStart+Rows*18)
         for(int32 Y=0;Y<I.Height;++Y) Occupied[(I.Cell-PageStart)/18+Y]|=((1u<<I.Width)-1)<< (I.Cell%18);
     for(const auto& I:Displaced)
     {
@@ -70,7 +72,7 @@ inline bool PlaceDisplaced(TArray<FColdSteelItem>& Items, TArray<FColdSteelItem>
         Budget=20000;Exhausted=false;
         if(!Search(Search,0,false))return false;
     }
-    for(int32 N=0;N<Entries.Num();++N){auto I=Entries[N].Item;I.Place=Place;I.Cell=Cells[N];Items.Add(MoveTemp(I));}
+    for(int32 N=0;N<Entries.Num();++N){auto I=Entries[N].Item;I.Place=Place;I.Container=Container;I.Cell=Cells[N];Items.Add(MoveTemp(I));}
     return true;
 }
 }

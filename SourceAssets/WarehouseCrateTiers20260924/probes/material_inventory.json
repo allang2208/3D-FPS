@@ -1,0 +1,121 @@
+{
+ "crate_materials": {
+  "M_Crate_Wood": {
+   "class": "Material",
+   "blend_mode": "<BlendMode.BLEND_OPAQUE: 0>",
+   "shading_model": "<MaterialShadingModel.MSM_DEFAULT_LIT: 1>",
+   "two_sided": "True",
+   "used_with_skeletal_mesh": "True",
+   "used_with_static_mesh": "True",
+   "graph": null
+  },
+  "M_Crate_WoodDark": {
+   "class": "Material",
+   "blend_mode": "<BlendMode.BLEND_OPAQUE: 0>",
+   "shading_model": "<MaterialShadingModel.MSM_DEFAULT_LIT: 1>",
+   "two_sided": "True",
+   "used_with_skeletal_mesh": "True",
+   "used_with_static_mesh": "True",
+   "graph": null
+  },
+  "M_Crate_Stone": {
+   "class": "Material",
+   "blend_mode": "<BlendMode.BLEND_OPAQUE: 0>",
+   "shading_model": "<MaterialShadingModel.MSM_DEFAULT_LIT: 1>",
+   "two_sided": "True",
+   "used_with_skeletal_mesh": "True",
+   "used_with_static_mesh": "True",
+   "graph": null
+  },
+  "M_Crate_Iron": {
+   "class": "Material",
+   "blend_mode": "<BlendMode.BLEND_OPAQUE: 0>",
+   "shading_model": "<MaterialShadingModel.MSM_DEFAULT_LIT: 1>",
+   "two_sided": "True",
+   "used_with_skeletal_mesh": "True",
+   "used_with_static_mesh": "True",
+   "graph": null
+  },
+  "M_Crate_IronDark": {
+   "class": "Material",
+   "blend_mode": "<BlendMode.BLEND_OPAQUE: 0>",
+   "shading_model": "<MaterialShadingModel.MSM_DEFAULT_LIT: 1>",
+   "two_sided": "True",
+   "used_with_skeletal_mesh": "True",
+   "used_with_static_mesh": "True",
+   "graph": null
+  },
+  "M_Crate_Gold": {
+   "class": "Material",
+   "blend_mode": "<BlendMode.BLEND_OPAQUE: 0>",
+   "shading_model": "<MaterialShadingModel.MSM_DEFAULT_LIT: 1>",
+   "two_sided": "True",
+   "used_with_skeletal_mesh": "True",
+   "used_with_static_mesh": "True",
+   "graph": null
+  },
+  "M_Crate_Silver": {
+   "class": "Material",
+   "blend_mode": "<BlendMode.BLEND_OPAQUE: 0>",
+   "shading_model": "<MaterialShadingModel.MSM_DEFAULT_LIT: 1>",
+   "two_sided": "True",
+   "used_with_skeletal_mesh": "True",
+   "used_with_static_mesh": "True",
+   "graph": null
+  },
+  "M_Crate_Gem": {
+   "class": "Material",
+   "blend_mode": "<BlendMode.BLEND_OPAQUE: 0>",
+   "shading_model": "<MaterialShadingModel.MSM_DEFAULT_LIT: 1>",
+   "two_sided": "False",
+   "used_with_skeletal_mesh": "True",
+   "used_with_static_mesh": "True",
+   "graph": null
+  }
+ },
+ "ritual_materials": {
+  "MI_Ritual_Frame": {
+   "class": "MaterialInstanceConstant",
+   "path": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Frame",
+   "parent": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/M_Ritual_Metal.M_Ritual_Metal",
+   "parent_graph": null
+  },
+  "MI_Ritual_Strap": {
+   "class": "MaterialInstanceConstant",
+   "path": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Strap",
+   "parent": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/M_Ritual_Metal.M_Ritual_Metal",
+   "parent_graph": null
+  },
+  "MI_Ritual_Hardware": {
+   "class": "MaterialInstanceConstant",
+   "path": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Hardware",
+   "parent": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/M_Ritual_Metal.M_Ritual_Metal",
+   "parent_graph": null
+  },
+  "MI_Ritual_Sapphire": {
+   "class": "MaterialInstanceConstant",
+   "path": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Sapphire",
+   "parent": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/M_Ritual_Sapphire.M_Ritual_Sapphire",
+   "parent_graph": null
+  },
+  "MI_Ritual_Champagne": {
+   "class": "MaterialInstanceConstant",
+   "path": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Champagne",
+   "parent": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/M_Ritual_Metal.M_Ritual_Metal",
+   "parent_graph": null
+  },
+  "MI_Ritual_Engraving": {
+   "class": "MaterialInstanceConstant",
+   "path": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Engraving",
+   "parent": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/M_Ritual_Metal.M_Ritual_Metal",
+   "parent_graph": null
+  },
+  "MI_Chest_Ziarat_4K": {
+   "class": "MaterialInstanceConstant",
+   "path": "/Game/ColdSteelUI/Warehouse20260909/ZiaratWhiteMarble/MI_Chest_Ziarat_4K",
+   "parent": "/Game/ColdSteelUI/Warehouse20260909/ZiaratWhiteMarble/M_Chest_Ziarat.M_Chest_Ziarat",
+   "parent_graph": null
+  }
+ },
+ "textures": {}
+}

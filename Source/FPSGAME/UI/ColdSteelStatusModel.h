@@ -271,6 +271,16 @@ public:
     int64 CountMaterial(const FString& Definition) const;
     bool ConsumeMaterial(const FString& Definition,int64 Amount);
     int32 WarehouseCapacity() const { return Current.WarehousePages*ColdSteelWarehouse::CellsPerPage; }
+    /** ---- 当前储物会话 ----：同一套仓库面板既服务档案主仓库，也服务储物箱 Actor。
+     *  ActiveContainer=="" 时是主仓库（既有语义逐字节不变）；非空时面板绑定该容器的
+     *  独立格空间（物品仍在 Items 平铺数组内，Place==4 + Container 归属区分），容量
+     *  取 StoragePages 登记的页数，只增不减，防止调档后箱内物品越界。 */
+    FString ActiveContainer;
+    FString ActiveStorageCaption; // "仓库"/"木质储物箱"…：面板标题与按钮文案跟随
+    int32 OpenStorageCapacity() const;
+    void BeginStorageSession(const FString& ContainerKey,int32 Pages,const FString& Caption);
+    void EndStorageSession();
+    bool InOpenStorage(const FColdSteelItem& Item) const { return Item.Place==ColdSteelWarehouse::Place&&Item.Container==ActiveContainer; }
     int32 WarehousePage = 0;
     bool bWarehouseOpen = false;
     bool SaveNow();
