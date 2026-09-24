@@ -81,7 +81,7 @@ bool UColdSteelStatusModel::ConsumeItem(const FString& Definition,int64 Count,FS
     SyncRuntime();auto P=Snapshot();
     int64 Available=0;
     for(const FColdSteelItem& Item:P.Items)
-        if(Item.Definition==Definition&&(Item.Place==0||Item.Place==4))Available+=Item.Count;
+        if(Item.Definition==Definition&&(Item.Place==0||(Item.Place==4&&Item.Container.IsEmpty())))Available+=Item.Count; // 与 ConsumeMaterial 同域：储物箱不参与
     if(Available<Count)
     {
         OutReason=FString::Printf(TEXT("缺少 %lld 块（背包+仓库共 %lld）"),Count-Available,Available);
@@ -94,7 +94,7 @@ bool UColdSteelStatusModel::ConsumeItem(const FString& Definition,int64 Count,FS
         for(int32 Index=P.Items.Num()-1;Index>=0&&Left>0;--Index)
         {
             FColdSteelItem& Item=P.Items[Index];
-            if(Item.Definition!=Definition||Item.Place!=Place)continue;
+            if(Item.Definition!=Definition||Item.Place!=Place||(Place==4&&!Item.Container.IsEmpty()))continue;
             const int64 Used=FMath::Min(Left,Item.Count);
             Item.Count-=Used;Left-=Used;
             if(Item.Count<=0)P.Items.RemoveAt(Index);

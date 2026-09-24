@@ -227,7 +227,9 @@ void UFPSFireballComponent::TryBeginQueuedCast()
     auto* Ball=GetWorld()->SpawnActor<AFPSFireballProjectile>(Position,FRotator::ZeroRotator,Spawn);
     if(!Ball)return;
     const FFireballCast Snapshot=P->FireballStats();
+    const float BeforeMana=P->Snapshot().Mana;
     if(!P->BeginFireballCast()){Ball->Destroy();Feedback(TEXT("未施放"));return;}
+    RecordGesturePayment(BeforeMana,P->Snapshot().Mana);
     Active=Ball;Ball->Prepare(this,Player,Snapshot,Core,Trail,Explosion,Shockwave,ImpactSound);
     bQueuedLaunch=bLaunchCommitted=false;SetHandPhase(EFireballHandPhase::Raising);
     LastMessage.Reset();MessageUntil=0;
@@ -268,7 +270,15 @@ void UFPSFireballComponent::TickComponent(float Delta,ELevelTick Type,FActorComp
     // Also covers empty hands and traversal's short weapon-stow/retract gaps.
     ON_SCOPE_EXIT { UpdateFallbackHands(); };
     if(auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())
-    { Cancel();return; }
+    {
+        if(!GestureOwner.IsValid())
+        {
+            if(!bLaunchCommitted&&GesturePaidMana>0.f)
+                if(auto* P=Model())P->RefundUnreleasedCast(GesturePaidMana,TEXT("fireball"));
+            GesturePaidMana=0.f;
+        }
+        Cancel();return;
+    }
     if(bQueuedCast){TryBeginQueuedCast();return;}
     if(HandPhase==EFireballHandPhase::None){TryBeginQueuedLaunch();return;}
     PhaseAge+=Delta*GestureSpeed;
@@ -344,6 +354,12 @@ bool UFPSFireballComponent::TryBeginSpellGesture(UActorComponent* Spell,bool bRe
     GestureOwner=Spell;GestureContact=Contact;GestureSpeed=FMath::Max(.1f,Speed);bLaunchCommitted=false;
     SetHandPhase(bRelease?EFireballHandPhase::ReadyingRelease:EFireballHandPhase::Raising);return true;
 }
+void UFPSFireballComponent::RecordGesturePayment(float BeforeMana,float AfterMana,bool bDirectCast)
+{
+    GesturePaidMana=FMath::Max(0.f,BeforeMana-AfterMana);
+    bDirectCastWindup=bDirectCast;
+}
+
 void UFPSFireballComponent::CancelSpellGesture(UActorComponent* Spell)
 {
     if(GestureOwner.Get()!=Spell)return;

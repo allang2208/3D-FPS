@@ -10,6 +10,9 @@ namespace ColdSteelWarehouse
     FPSGAME_API bool Fits(const TArray<FColdSteelItem>& Items,const FColdSteelItem& Item,int32 Cell,int32 Capacity);
     FPSGAME_API bool MigrateLayout(FColdSteelProfile& Profile);
     FPSGAME_API bool Insert(TArray<FColdSteelItem>& Items,FColdSteelItem Item,int32 Capacity,int32 Preferred=-1);
-    FPSGAME_API FColdSteelProposal Transfer(const TArray<FColdSteelItem>& Items,const FString& Id,int32 Destination,int32 Cell,int32 Capacity,int32 Page=0,int32 Orientation=-1);
+    /** WarehouseContainer selects which place-4 grid the item lands in: "" is the profile
+     *  warehouse (default, legacy behaviour); a crate key scopes it to that crate's own
+     *  capacity, whose cells are matched by the same field on every occupancy query. */
+    FPSGAME_API FColdSteelProposal Transfer(const TArray<FColdSteelItem>& Items,const FString& Id,int32 Destination,int32 Cell,int32 Capacity,int32 Page=0,int32 Orientation=-1,const FString& WarehouseContainer=FString());
     FPSGAME_API int32 Category(const FColdSteelItem& Item);
 }

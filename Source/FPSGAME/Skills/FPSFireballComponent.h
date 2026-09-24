@@ -98,6 +98,9 @@ private:
     TWeakObjectPtr<UActorComponent> GestureOwner;
     FSimpleDelegate GestureContact;
     float GestureSpeed=1.f;
+    void RecordGesturePayment(float BeforeMana,float AfterMana,bool bDirectCast=false);
+    float GesturePaidMana=0.f;
+    bool bDirectCastWindup=false;
     EFireballHandPhase HandPhase=EFireballHandPhase::None;
     float PhaseAge=0.f;
     float ReleaseHoldEndAge=0.f;

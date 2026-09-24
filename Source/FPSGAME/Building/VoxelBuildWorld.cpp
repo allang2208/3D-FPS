@@ -303,9 +303,23 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* 
     for(const FVoxelBuildPrefabInstance& Piece:Prefabs)SpawnPrefab(Piece);
     // 占格表必须在支持图之前刷新：构件如今为贴靠它的体素提供支撑锚（2026-09-19），
     // RefreshSupportGraph 里的锚定判定要读 PrefabCells。
-    if(LoadedData)for(const auto& F:LoadedData->Fragments)EnqueueFragment(F);
+    if(LoadedData)
+    {
+        TSet<FGuid> SeenFragments;
+        for(const auto& F:LoadedData->Fragments)
+        {
+            if(!F.Id.IsValid()||SeenFragments.Contains(F.Id)||F.Transform.ContainsNaN())continue;
+            SeenFragments.Add(F.Id);
+            bool bBadFragment=false;
+            for(const auto& C:F.Cells)
+                if(!MaterialSlots.Contains(C.Material)||C.Min.ContainsNaN()){bBadFragment=true;break;}
+            if(!bBadFragment)EnqueueFragment(F);
+        }
+    }
     Message=(Prefabs.IsEmpty()?(LegacyProtected.IsEmpty()?FString(TEXT("建筑已载入 · 承重系统已启用")):FString(TEXT("旧建筑已保留 · 编辑相关结构后启用承重")))
         :FString::Printf(TEXT("建筑已载入 · 构件 %d 件 · 承重系统已启用"),Prefabs.Num()))+LoadSkipNote;
+    if(UGameInstance* GI=GetGameInstance())
+        if(auto* Smelting=GI->GetSubsystem<UColdSteelSmeltingSystem>())Smelting->ReconcileIntents(this);
     return true;
 }
 

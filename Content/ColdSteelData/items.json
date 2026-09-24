@@ -2803,11 +2803,13 @@
     "category": "material",
     "desc": "砍伐树木后收集的木材。用于搭建木质体素，每块消耗 1 份。",
     "icon": "res://assets/ui/building/floor.png",
+    "grid_w": 1,
+    "grid_h": 2,
     "name": "木材",
     "rarity": "common",
     "stack_max": 999,
     "type": "材料",
-    "ue_icon": "Icons/wood.png"
+    "ue_icon": "Icons/wood_log.png"
   },
   "ue_m4a1": {
     "category": "weapon",

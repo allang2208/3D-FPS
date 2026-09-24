@@ -177,3 +177,7 @@ description: UE5.6-UE5.8 PCG generation and runtime-heightfield ground workflow 
 ## 已生成构件的批量优化
 
 制作局部 Nanite/ISM 分组及后台关卡保存时，读取 [静态构件实例化](references/static-mesh-instance-production.md)，保留碰撞、变换及独立玩法对象语义。
+
+## 冶炼点击存档（2026-09-24）
+
+熔炉的开始、加燃料、收取、升级、拆除与档案意图、立即刷盘和读档对账，读取 [冶炼点击意图](references/smelting-click-intents.md)。连续挖掘仍用约 2 秒合并存档。

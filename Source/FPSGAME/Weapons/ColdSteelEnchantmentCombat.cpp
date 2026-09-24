@@ -8,6 +8,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "TimerManager.h"
 #include "../Combat/CombatStatusFormula.h"
+#include "../Monsters/MonsterCombatComponent.h"
 
 FColdSteelShotEffects ColdSteelCombat::Snapshot(AActor* Source,const FColdSteelItem* Item)
 {
@@ -17,7 +18,7 @@ FColdSteelShotEffects ColdSteelCombat::Snapshot(AActor* Source,const FColdSteelI
 }
 void ColdSteelCombat::OnHit(AActor* Target,AActor* Shooter,int32 Poison)
 {
-    if(!IsValid(Target)||Target==Shooter||!Target->HasAuthority()||!Cast<APawn>(Target)||Poison<=0)return;
+    if(!IsValid(Target)||Target==Shooter||Target->ActorHasTag(TEXT("Friendly"))||Target->ActorHasTag(TEXT("Companion"))||!Target->HasAuthority()||!Cast<APawn>(Target)||Poison<=0)return;
     auto* C=Target->FindComponentByClass<UColdSteelPoisonComponent>();if(!C){C=NewObject<UColdSteelPoisonComponent>(Target);Target->AddInstanceComponent(C);C->RegisterComponent();}C->AddStacks(Shooter,Poison);
 }
 void UColdSteelPoisonComponent::AddStacks(AActor* Source,int32 Amount)

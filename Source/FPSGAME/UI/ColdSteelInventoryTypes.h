@@ -20,6 +20,10 @@ struct FColdSteelItem
     // Bag/warehouse placement orientation: a rotated instance swaps its grid footprint.
     UPROPERTY() bool bRotated = false;
     UPROPERTY() int32 Place = 0; // 0 backpack, 1 equipment, 2 world, 4 warehouse (3 is UI hotbar)
+    /** 扩展储物容器归属：""=背包/装备/主仓库（既有语义不变）；非空=某储物箱的独立格空间
+     *  （如 "crate.tier.3"）。物品仍存于同一 Items 数组、沿用 Place 4 与格坐标， occupancy
+     *  按 Container 分域，容量记于 Profile.StoragePages。 */
+    UPROPERTY() FString Container;
     UPROPERTY() int32 Cell = 0;
     UPROPERTY() int32 BackpackCell = -1;
     UPROPERTY() FString Map;
@@ -71,6 +75,23 @@ struct FColdSteelFormulaBuff
     // 运行时一次性标记（与旧 _worldPeachReviveUsed 同寿命：重新献祭才刷新）：
     bool bPeachUsed=false,bMoonshadowUsed=false;
 };
+/** 冶炼点击已写入角色档、建筑档可能还没落盘时的对账条。Kind：1投料 2收取 3添燃料 4升级 5拆炉。 */
+USTRUCT()
+struct FColdSteelSmeltIntent
+{
+    GENERATED_BODY()
+    UPROPERTY() FString WorldKey;
+    UPROPERTY() int32 X=0,Y=0,Z=0;
+    UPROPERTY() int32 Kind=0;
+    UPROPERTY() FString Item;
+    UPROPERTY() int64 Count=0;
+    UPROPERTY() FString Recipe;
+    UPROPERTY() int64 Batch=1;
+    UPROPERTY() int32 Axis=0;
+    UPROPERTY() int32 Level=0;
+    UPROPERTY() double FuelBefore=0;
+    UPROPERTY() double FuelAfter=0;
+};
 USTRUCT()
 struct FColdSteelProfile
 {
@@ -86,6 +107,10 @@ struct FColdSteelProfile
     UPROPERTY() int32 ActiveWeaponSlot = 6;
     UPROPERTY() TMap<FName, int32> Attributes;
     UPROPERTY() TArray<FColdSteelItem> Items;
+    /** 储物容器键->容量页数（一页 18x12=216 格）。首次打开对应箱子时按档位登记，
+     *  之后只增不减，避免调低档位后箱内物品越界。 */
+    UPROPERTY() TMap<FString,int32> StoragePages;
+    UPROPERTY() TArray<FColdSteelSmeltIntent> SmeltIntents;
     UPROPERTY() int32 AmmoPouchVersion = 0;
     UPROPERTY() TMap<FString,int64> AmmoPouch;
     UPROPERTY() TArray<FString> Hotbar;
@@ -184,9 +209,14 @@ namespace ColdSteelInventory
     FPSGAME_API bool CanEquip(const FColdSteelItem& Item, int32 Slot);
     FPSGAME_API bool Locked(const TArray<FColdSteelItem>& Items, int32 Slot);
     FPSGAME_API int32 Owner(const TArray<FColdSteelItem>& Items, int32 Place, int32 Cell);
+    /** 仓库(4)格位占用查询按储物归属分域：主仓库传 ""，储物箱传其 Container 键；
+     *  背包/装备等非仓库位的占用判定忽略 Container。 */
+    FPSGAME_API int32 Owner(const TArray<FColdSteelItem>& Items, int32 Place, int32 Cell, const FString& Container);
     FPSGAME_API bool Fits(const TArray<FColdSteelItem>& Items, const FColdSteelItem& Item, int32 Cell);
     FPSGAME_API bool Insert(TArray<FColdSteelItem>& Items, FColdSteelItem Item, int32 Preferred = -1);
     FPSGAME_API FColdSteelProposal Move(const TArray<FColdSteelItem>& Items, const FString& Id, int32 Place, int32 Cell, int32 Orientation = -1);
     FPSGAME_API bool Validate(const FColdSteelProfile& Profile, FString& Reason);
+    // Checked load migration only; normal inventory transactions keep strict validation.
+    FPSGAME_API bool MigrateLegacyWoodFootprints(FColdSteelProfile& Profile, bool& Changed, FString& Reason);
     FPSGAME_API const TArray<FString>& SlotNames();
 }

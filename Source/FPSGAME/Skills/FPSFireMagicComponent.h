@@ -20,6 +20,7 @@ public:
     UFUNCTION(BlueprintCallable,Category="Skills") void Trigger(FName Skill);
     void CancelPending();
     bool HasQueuedAction() const{return !QueuedSkill.IsNone();}
+    FName UnreleasedSkill() const{return CommittedSkill;}
     FString StatusText(FName Skill) const;
     float CooldownFraction(FName Skill) const;
     bool IsHandOccupiedNotice(FName Skill) const;

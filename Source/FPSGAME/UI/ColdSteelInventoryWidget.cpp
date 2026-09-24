@@ -100,8 +100,9 @@ bool UColdSteelInventoryWidget::RotateDraggedItem(const FGeometry& G)
     auto Drag=ActivePointerDrag.Get();
     if(!Drag||!Model)return false;
     const auto* I=Model->FindItem(Drag->ItemId);
-    const bool bAllowed=I&&(Drag->SourcePlace==0||Drag->SourcePlace==4)&&CanRotate(*I)&&Drag->PointerVisual!=nullptr;
-    // Only spatial storage turns: equipment slots and the hotbar keep the authored shape.
+    // Backpack, warehouse, and gear may turn while carried; hotbar binds keep the authored shape.
+    // Gear drops still ignore orientation — Move/Transfer only apply it into place 0 or 4.
+    const bool bAllowed=I&&(Drag->SourcePlace==0||Drag->SourcePlace==1||Drag->SourcePlace==4)&&CanRotate(*I)&&Drag->PointerVisual!=nullptr;
     if(!bAllowed)return false;
     Drag->bRotated=!Drag->bRotated;
     // Both grabs derive from the values captured at drag start, so turning back restores the anchor exactly
@@ -318,6 +319,7 @@ bool UColdSteelInventoryWidget::NativeOnDragOver(const FGeometry& G,const FDragD
     if(auto* Quick=Cast<UColdSteelQuickDrag>(O))
     {
         SwapDestinations.Empty();HoverPreview.Reset();
+        PreviewCells=FIntPoint(1,1);bPreviewRotatable=false;
         if(!Hit(G,E.GetScreenSpacePosition(),PreviewPlace,PreviewCell))PreviewPlace=-1;
         bPreviewValid=Quick->IsCurrent()&&PreviewPlace==3;
         PreviewReason=bPreviewValid?TEXT("松开移动或交换快捷绑定"):TEXT("松开仅解绑，不丢弃背包物品");return true;
@@ -337,7 +339,8 @@ bool UColdSteelInventoryWidget::PreviewItemDrag(UColdSteelItemDrag& D,FVector2D 
     if(!D.IsCurrent(Model)){PreviewReason=TEXT("物品已变化，请重新拖动");return true;}
     const int32 Orientation=D.bRotated?1:0;
     PreviewCells=PendingFootprint(*Source,D);
-    bPreviewRotatable=(D.SourcePlace==0||D.SourcePlace==4)&&CanRotate(*Source);
+    // Hint only over bag/warehouse grids. Gear and hotbar targets keep authored shape on drop.
+    bPreviewRotatable=(PreviewPlace==0||PreviewPlace==4)&&(D.SourcePlace==0||D.SourcePlace==1||D.SourcePlace==4)&&CanRotate(*Source);
     if(D.HotbarIndex>=0){const auto* Bound=Model->ResolveHotbar(D.HotbarIndex);bPreviewValid=Bound&&Bound->InstanceId==D.ItemId&&(PreviewPlace==0||PreviewPlace==3);PreviewReason=bPreviewValid?(PreviewPlace==0?TEXT("松开解绑，物品保留在背包"):TEXT("松开交换快捷栏")):TEXT("快捷物品只能放回背包或快捷栏");return true;}
     if(PreviewPlace==0||PreviewPlace==4){
         const int32 TargetPlace=PreviewPlace,Start=StorageStart();
@@ -371,6 +374,7 @@ bool UColdSteelInventoryWidget::PreviewItemDrag(UColdSteelItemDrag& D,FVector2D 
             if(Before&&(Before->Place!=I.Place||Before->Cell!=I.Cell))SwapDestinations.Add(FIntRect(I.Cell%18,(I.Cell-Start)/18,I.Cell%18+I.Width,(I.Cell-Start)/18+I.Height));
         }
         if(!SwapDestinations.IsEmpty())PreviewReason=FString::Printf(TEXT("松开交换 %d 件物品 · 高亮框为回填位置"),SwapDestinations.Num());
+        if(D.SourcePlace==1&&TargetPlace==4)for(const auto& Worn:Proposal.Items)if(Worn.Place==1&&Worn.Cell==D.SourceCell&&Worn.InstanceId!=D.ItemId){PreviewReason=TEXT("松开替换装备");break;}
     }
     else if(PreviewPlace==3){bPreviewValid=Source->Place==0&&Text(*Source,TEXT("category"))==TEXT("consumable");PreviewReason=bPreviewValid?TEXT("松开绑定快捷物品"):TEXT("快捷栏仅接受背包中的消耗品");}
     else {const auto Proposal=Model->ProposeMove(D.ItemId,PreviewPlace,PreviewCell,Orientation);bPreviewValid=Proposal.bValid;PreviewReason=Proposal.bValid?TEXT("松开放置 / 交换物品"):Proposal.Reason;}

@@ -16,8 +16,8 @@ FSoftObjectPath PickupMesh(const FString& Definition,int32 Variant)
 {
     if(Definition==TEXT("wood"))
     {
-        const TCHAR Letter=TEXT('A')+FMath::Clamp(Variant,0,2);
-        return FSoftObjectPath(FString::Printf(TEXT("/Game/Items/HarvestTimber/SM_PoplarLog_Solid_%c.SM_PoplarLog_Solid_%c"),Letter,Letter));
+        (void)Variant;
+        return FSoftObjectPath(TEXT("/Game/Items/HarvestTimber/SM_PoplarLog_Solid_A.SM_PoplarLog_Solid_A"));
     }
     if(IsSmeltingOre(Definition))   // 矿石借用强化石晶体网格（用户 2026-09-24 定案），材质按矿种覆写
         return FSoftObjectPath(TEXT("/Game/Items/EnhancementMaterials/enhancement_stone/SM_enhancement_stone.SM_enhancement_stone"));
@@ -81,7 +81,7 @@ TArray<FSoftObjectPath> LoadSet(bool Wood)
         FSoftObjectPath(TEXT("/Engine/BasicShapes/Plane.Plane"))};
     if(Wood)
     {
-        Paths.Append({PickupMesh(TEXT("wood"),1),PickupMesh(TEXT("wood"),2),FallingMaterial(0),FallingMaterial(1),FallingMaterial(2),TreeSound(false),TreeSound(true)});
+        Paths.Append({FallingMaterial(0),FallingMaterial(1),FallingMaterial(2),TreeSound(false),TreeSound(true)});
         for(int32 Variant=0;Variant<4;++Variant)Paths.Append({Stump(Variant),CutProfile(Variant)});
     }
     return Paths;

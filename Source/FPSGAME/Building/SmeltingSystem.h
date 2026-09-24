@@ -82,6 +82,8 @@ public:
     bool UpgradeFurnace(AVoxelBuildWorld* World,FIntVector Cell,FString& Reason,int32 Axis=VoxelFurnaceAxisSpeed);
     /** 升级按钮可用性预览（不改状态）：未满级且铁锭够。 */
     bool CanUpgrade(const AVoxelBuildWorld* World,FIntVector Cell,int32 Axis=VoxelFurnaceAxisSpeed) const;
+    /** 建筑档读入后对账：角色档里还留着的冶炼意图，按炉内任务/燃料/等级收口或退料。 */
+    void ReconcileIntents(AVoxelBuildWorld* World);
     /** 任务总秒数＝配方秒×批量÷等级速度（进度分母与结算封顶同源）。 */
     double JobTotalSeconds(const AVoxelBuildWorld* World,const FVoxelSmeltingJob& Job,const FColdSteelSmeltingRecipe& R) const;
 private:

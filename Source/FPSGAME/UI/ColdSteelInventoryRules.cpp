@@ -32,6 +32,7 @@ FIntPoint BaseFootprint(const FColdSteelItem& I)
     const FString Type=Text(I,TEXT("weaponType")),Ranged=Text(I,TEXT("rangedType")),Category=Text(I,TEXT("category")),Slot=Text(I,TEXT("equipSlot"));
     const bool Firearm=Type==TEXT("rifle")||!Ranged.IsEmpty()||Category==TEXT("weapon_ranged");
     auto O=ReadOnlyObject(I);const bool Two=O&&O->HasField(TEXT("isTwoHanded"))?Flag(I,TEXT("isTwoHanded")):Firearm;
+    if(I.Definition==TEXT("wood"))return FIntPoint(1,2);
     if(Firearm&&Type!=TEXT("pistol")&&Ranged!=TEXT("pistol")&&Two)return FIntPoint(5,2);
     const int32 W=Number(I,TEXT("grid_w")),H=Number(I,TEXT("grid_h"));if(W>0&&H>0)return FIntPoint(W,H);
     if(Type==TEXT("pistol"))return FIntPoint(3,2);
@@ -183,7 +184,7 @@ FColdSteelProposal Move(const TArray<FColdSteelItem>& Items,const FString& Id,in
     }
     R.bValid=true; R.Reason.Empty();return R;
 }
-bool Validate(const FColdSteelProfile& P,FString& Reason)
+static bool ValidateProfile(const FColdSteelProfile& P,FString& Reason,bool AllowLegacyWood)
 {
     if(P.AmmoPouchVersion<0||P.AmmoPouchVersion>1){Reason=TEXT("弹药袋版本无效");return false;}
     for(const auto& Pair:P.AmmoPouch)if(Pair.Key.IsEmpty()||Pair.Value<0||Pair.Value>9007199254740991ll){Reason=TEXT("弹药袋数量无效");return false;}
@@ -201,17 +202,76 @@ bool Validate(const FColdSteelProfile& P,FString& Reason)
         // Rows are bounded per container by Fits below; a rotated instance may exceed the backpack's four.
         if(I.InstanceId.IsEmpty()||Ids.Contains(I.InstanceId)||I.Definition.IsEmpty()||!Object(I)||I.Count<=0||I.StackMax<1||I.Count>I.StackMax||I.StackMax>9007199254740991ll||I.Width<1||I.Width>18||I.Height<1||I.Height>ColdSteelWarehouse::Rows||I.Place<0||(I.Place>2&&I.Place!=4)||!FMath::IsFinite(I.Cooldown)||I.Cooldown<0||I.Magazine<0||I.Reserve<0)return false;
         Ids.Add(I.InstanceId);
-        if(Footprint(I)!=FIntPoint(I.Width,I.Height))return false;
+        if(Footprint(I)!=FIntPoint(I.Width,I.Height)&&
+            !(AllowLegacyWood&&I.Definition==TEXT("wood")&&I.Width==1&&I.Height==1))
+        {Reason=FString::Printf(TEXT("物品占格与当前定义不一致：%s (%d×%d)"),*I.Definition,I.Width,I.Height);return false;}
         if(I.Place==0&&!Fits(Placed,I,I.Cell))return false;
         if(I.Place==1&&(!CanEquip(I,I.Cell)||Owner(Placed,1,I.Cell)>=0))return false;
         if(I.Place==2&&(I.Map.IsEmpty()||I.Position.ContainsNaN()||I.WorldRotation.ContainsNaN()))return false;
         if(I.Place==4){
-            if(P.WarehouseLayoutVersion==0){if(I.Cell<0||I.Cell>=P.WarehousePages*20||LegacyWarehouseCells.Contains(I.Cell))return false;LegacyWarehouseCells.Add(I.Cell);}
-            else if(!ColdSteelWarehouse::Fits(Placed,I,I.Cell,P.WarehousePages*ColdSteelWarehouse::CellsPerPage))return false;
+            if(P.WarehouseLayoutVersion==0){if(!I.Container.IsEmpty())return false;if(I.Cell<0||I.Cell>=P.WarehousePages*20||LegacyWarehouseCells.Contains(I.Cell))return false;LegacyWarehouseCells.Add(I.Cell);}
+            // 主仓库行按档案页数；储物箱行按 StoragePages 登记的自身页数（Fits 依 Container 分域查占用）。
+            else {const int32 Cap=(I.Container.IsEmpty()?P.WarehousePages:FMath::Max(1,P.StoragePages.FindRef(I.Container)))*ColdSteelWarehouse::CellsPerPage;
+                if(I.Cell<0||I.Cell>=Cap||!ColdSteelWarehouse::Fits(Placed,I,I.Cell,Cap))return false;}
         }
         Placed.Add(I);
     }
     for(int32 S:{8,11})if(Locked(Placed,S)&&Owner(Placed,1,S)>=0)return false;
     Reason.Empty();return true;
+}
+bool Validate(const FColdSteelProfile& P,FString& Reason)
+{
+    return ValidateProfile(P,Reason,false);
+}
+bool MigrateLegacyWoodFootprints(FColdSteelProfile& Profile,bool& Changed,FString& Reason)
+{
+    Changed=false;
+    // Validate the saved layout before changing it. Only the known 1x1 wood
+    // footprint is accepted here; malformed items and overlaps remain errors.
+    if(!ValidateProfile(Profile,Reason,true))return false;
+    auto Next=Profile;
+    for(int32 N=0;N<Next.Items.Num();++N)
+    {
+        auto& Item=Next.Items[N];
+        if(Item.Definition!=TEXT("wood")||Item.Width!=1||Item.Height!=1)continue;
+        ApplyOrientation(Item,-1);
+        if(Item.Place==0||(Item.Place==4&&Next.WarehouseLayoutVersion==1))
+        {
+            auto Others=Next.Items;Others.RemoveAt(N);
+            const int32 Capacity=Item.Place==0?72:
+                (Item.Container.IsEmpty()?Next.WarehousePages:FMath::Max(1,Next.StoragePages.FindRef(Item.Container)))*ColdSteelWarehouse::CellsPerPage;
+            const auto FitsHere=[&](int32 Cell){return Item.Place==0?Fits(Others,Item,Cell):ColdSteelWarehouse::Fits(Others,Item,Cell,Capacity);};
+            if(!FitsHere(Item.Cell))
+            {
+                int32 Cell=INDEX_NONE;
+                for(int32 C=0;C<Capacity;++C)if(FitsHere(C)){Cell=C;break;}
+                if(Cell!=INDEX_NONE)Item.Cell=Cell;
+                else
+                {
+                    // An expanded item must never erase the profile when its
+                    // old bag/crate is full. Preserve its ID/count in the main
+                    // warehouse, adding a page only if existing pages are full.
+                    if(Next.WarehouseLayoutVersion!=1)
+                    {Reason=TEXT("旧木材占格迁移空间不足，原存档保留");return false;}
+                    Item.Place=4;Item.Container.Reset();Item.BackpackCell=-1;
+                    while(Cell==INDEX_NONE)
+                    {
+                        const int32 WarehouseCapacity=Next.WarehousePages*ColdSteelWarehouse::CellsPerPage;
+                        for(int32 C=0;C<WarehouseCapacity;++C)
+                            if(ColdSteelWarehouse::Fits(Others,Item,C,WarehouseCapacity)){Cell=C;break;}
+                        if(Cell!=INDEX_NONE)break;
+                        if(Next.WarehousePages>=ColdSteelWarehouse::MaxPages)
+                        {Reason=TEXT("旧木材占格迁移空间不足，原存档保留");return false;}
+                        ++Next.WarehousePages;
+                    }
+                    Item.Cell=Cell;
+                }
+            }
+        }
+        Changed=true;
+    }
+    if(!Validate(Next,Reason))return false;
+    if(Changed)Profile=MoveTemp(Next);
+    return true;
 }
 }

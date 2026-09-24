@@ -103,6 +103,26 @@ bool UColdSteelStatusModel::BeginFireballCast()
     return CommitState(P);
 }
 
+bool UColdSteelStatusModel::RefundInterruptedSpellMana(float PaidMana)
+{
+    return RefundUnreleasedCast(PaidMana,NAME_None);
+}
+
+bool UColdSteelStatusModel::RefundUnreleasedCast(float PaidMana,FName Skill)
+{
+    if(PaidMana<=0.f&&Skill.IsNone())return true;
+    SyncRuntime();auto P=Snapshot();
+    if(PaidMana>0.f)P.Mana=FMath::Min(float(Derived(TEXT("maxMp"))),P.Mana+PaidMana);
+    auto Clear=[&](float& Remaining,float& Duration){Remaining=0.f;Duration=0.f;};
+    if(Skill==TEXT("holyLight"))Clear(P.HolyLightCooldown,P.HolyLightCooldownDuration);
+    else if(Skill==TEXT("lightning"))Clear(P.LightningCooldown,P.LightningCooldownDuration);
+    else if(Skill==TEXT("meteor"))Clear(P.MeteorCooldown,P.MeteorCooldownDuration);
+    else if(Skill==TEXT("flameArmor"))Clear(P.FlameArmorCooldown,P.FlameArmorCooldownDuration);
+    else if(Skill==TEXT("fireball")){P.bFireballReserved=false;Clear(P.FireballCooldown,P.FireballCooldownDuration);}
+    else if(Skill==TEXT("iceSpike"))Clear(P.IceSpikeCooldown,P.IceSpikeCooldownDuration);
+    return CommitState(MoveTemp(P));
+}
+
 void UColdSteelStatusModel::FinishFireballCast()
 {
     if(!Current.bFireballReserved)return;

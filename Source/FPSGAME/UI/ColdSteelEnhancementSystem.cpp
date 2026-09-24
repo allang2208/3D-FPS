@@ -148,7 +148,7 @@ bool UColdSteelEnhancementSystem::Apply(const FColdSteelEnhanceQuote& Expected,F
     auto Next=P->Snapshot();auto* I=Next.Items.FindByPredicate([&](const auto& V){return V.InstanceId==Q.ItemId;});if(!I)return false;
     // Only processing JSON changes: identity, cells, ammo, cooldown, attachments stay intact.
     I->Data=Q.After.Data;
-    for(const auto& C:Q.Costs){int64 Left=C.Need;for(int32 Place:{0,4}){if(C.BackpackOnly&&Place!=0)continue;for(auto& M:Next.Items)if(M.Place==Place&&M.Definition==C.Definition&&Left>0){const int64 Used=FMath::Min(Left,M.Count);M.Count-=Used;Left-=Used;}}if(Left){Message=TEXT("材料已变化");return false;}}
+    for(const auto& C:Q.Costs){int64 Left=C.Need;for(int32 Place:{0,4}){if(C.BackpackOnly&&Place!=0)continue;for(auto& M:Next.Items)if(M.Place==Place&&(Place!=4||M.Container.IsEmpty())&&M.Definition==C.Definition&&Left>0){const int64 Used=FMath::Min(Left,M.Count);M.Count-=Used;Left-=Used;}}if(Left){Message=TEXT("材料已变化");return false;}}
     Next.Items.RemoveAll([](const auto& V){return V.Count<=0;});
     if(!P->CommitState(Next)){Message=P->ResultMessage();return false;}Message=Q.ScrollId.IsEmpty()?TEXT("强化成功，已保存"):TEXT("附魔成功，已保存");return true;
 }

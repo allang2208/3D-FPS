@@ -95,9 +95,13 @@ void UFPSHolyLightComponent::ServiceQueue()
     const auto Spell=M->HolyLightStats();FString Failure;AActor* Target=bQueuedSelf?Player:SelectTarget(Spell,Failure);
     if(!Target){bQueued=false;Feedback(Failure);return;}
     if(M->HolyLightCooldown()>0||!M->CanSpendMana(Spell.ManaCost)){bQueued=false;Feedback(TEXT("未就绪"));return;}
-    if(!H->TryBeginSpellGesture(this,true,Spell.CastSpeed,FSimpleDelegate::CreateUObject(this,&ThisClass::ReleaseAtContact)))return;
+    // Freeze the gesture choice with the actual committed target, including
+    // queued Alt self-casts. Other targets keep the shared outward palm push.
+    if(!H->TryBeginSpellGesture(this,true,Spell.CastSpeed,FSimpleDelegate::CreateUObject(this,&ThisClass::ReleaseAtContact),Target==Player))return;
     bQueued=false;
+    const float BeforeMana=M->Snapshot().Mana;
     if(!M->BeginHolyLightCast(Spell)){H->CancelSpellGesture(this);return;}
+    H->RecordGesturePayment(BeforeMana,M->Snapshot().Mana,true);
     CastSnapshot=Spell;LockedTarget=Target;bCommitted=true;MessageUntil=0;
     if(auto* Status=Player->FindComponentByClass<UCombatStatusFormula>())Status->ConsumeChainSpell();
 }
@@ -107,7 +111,7 @@ void UFPSHolyLightComponent::ReleaseAtContact()
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();const auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();
     AActor* Target=LockedTarget.Get();LockedTarget.Reset();
     if(!Player||!M||!Camera||!IsTarget(Target)||(Target!=Player&&(FVector::Dist(Player->GetActorLocation(),Target->GetActorLocation())>CastSnapshot.Range||!VisibleFrom(Player,Target,Camera->GetComponentLocation()))))
-    {Feedback(TEXT("目标已失效或被遮挡"));return;}
+    {if(M)M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT("holyLight"));Feedback(TEXT("目标已失效或被遮挡"));return;}
     for(const auto& Sound:CastSounds)if(Sound)UGameplayStatics::PlaySoundAtLocation(this,Sound.Get(),Target->GetActorLocation());
     FHolyLightRewards Rewards;
     if(HolyLightTargets::IsFriendly(Target))
@@ -126,10 +130,17 @@ void UFPSHolyLightComponent::Cancel()
     if(auto* H=Hands())H->CancelSpellGesture(this);
     for(auto& Arc:Effects)if(Arc.IsValid())Arc->Destroy();Effects.Reset();
 }
+void UFPSHolyLightComponent::InterruptPending()
+{
+    if(bCommitted)Feedback(TEXT("施法中断"));
+    bQueued=bCommitted=false;LockedTarget.Reset();
+    // Healing/damage and an already released light keep their own lifetime.
+}
 void UFPSHolyLightComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Delta,Type,Tick);
-    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead()){Cancel();return;}
+    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())
+    {if(bCommitted)if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT("holyLight"));Cancel();return;}
     if(bCommitted&&(!Hands()||!Hands()->IsSpellGesture(this))){bCommitted=false;LockedTarget.Reset();}
     Effects.RemoveAll([](const auto& A){return !A.IsValid();});ServiceQueue();
 }

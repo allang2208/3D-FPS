@@ -62,6 +62,10 @@ __pycache__/
 !/Content/ColdSteelData/
 /Content/ColdSteelData/*
 !/Content/ColdSteelData/*.json
+# Wood drop icon rasterized from SM_PoplarLog_Solid_A and the project bark texture.
+!/Content/ColdSteelData/Icons/
+/Content/ColdSteelData/Icons/*
+!/Content/ColdSteelData/Icons/wood_log.png
 !/Content/ColdSteelData/Skills/
 /Content/ColdSteelData/Skills/*
 !/Content/ColdSteelData/Skills/fireball_hand_pose.json

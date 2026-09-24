@@ -163,6 +163,8 @@ public:
     void RefreshDevelopmentTuning();
     bool BeginFireballCast();
     bool RefundInterruptedSpellMana(float PaidMana);
+    /** Gesture paid mana and started cooldown, but the spell was not released. Empty skill refunds mana only. */
+    bool RefundUnreleasedCast(float PaidMana, FName Skill);
     void FinishFireballCast();
     void ApplyFireballExplosion(APawn* Shooter,const FVector& Center,const FFireballCast& Cast,const FHitResult* DirectHit=nullptr);
     float ApplySkillWeaponHit(AActor* Shooter,const FHitResult& Hit,float Damage,const FVector& Direction,const FColdSteelSkillShot& Shot,FWeaponDamageResult* Result=nullptr);

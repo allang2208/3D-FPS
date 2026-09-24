@@ -74,6 +74,9 @@ public:
     UFUNCTION(BlueprintCallable,Category="Building") bool Undo();
     bool Undo(TMap<FName,int32>* OutRemovedBlocks);
     UFUNCTION(BlueprintCallable,Category="Building") bool Save();
+    /** 点击冶炼用：立刻把当前快照写入建筑档，不走 2 秒合并。 */
+    bool FlushPersistenceNow();
+    const FString& BuildingWorldKey() const { return WorldKey; }
     UFUNCTION(BlueprintCallable,Category="Building|Structure") void SetAppliedLoad(FName LoadId,FVector ContactPoint,float MassKg);
     UFUNCTION(BlueprintCallable,Category="Building|Damage") void DamageBuilding(FVector Position,float Amount,float RadiusCm=0);
     bool CanPlace(const TArray<FIntVector>& Positions,FName Material,FString& Reason) const;

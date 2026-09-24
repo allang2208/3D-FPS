@@ -44,6 +44,13 @@ bool AVoxelBuildWorld::Save()
     if(!bReady||GetNetMode()!=NM_Standalone)return false;
     MarkSaveDirty();Runtime->SaveAt=0;Message=TEXT("建筑保存已排队");return true;
 }
+bool AVoxelBuildWorld::FlushPersistenceNow()
+{
+    if(!bReady||GetNetMode()!=NM_Standalone)return false;
+    TickPersistence(true);
+    if(!Runtime->bSaveFailed)Runtime->bSaveDirty=false;
+    return !Runtime->bSaveFailed;
+}
 
 UVoxelBuildSave* AVoxelBuildWorld::MakeSnapshot() const
 {

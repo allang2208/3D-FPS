@@ -99,10 +99,15 @@ void ATemperateHillsWorld::CompleteProductionHarvest(const FProductionResource& 
         const double CY=FMath::GridSnap(Resource.Transform.GetLocation().Y,SnapCm);
         // The sink limit lives in ApplyTerrainStep (fps.Hills.MaxDropCm). Once it is hit the
         // dig is refused and the cell stays depleted, so soil cannot be farmed forever.
+        auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
         if(ApplyTerrainStep(FVector(CX,CY,Height(CX,CY)),HalfCm,HalfCm,-LayerCm,
             TemperateHillsSurface::Key(int32(CX),int32(CY),uint32(Seed),9111)))
-            if(auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr)
-                Profile->ResetHarvestProgress(Resource.Id);
+        {if(Profile)Profile->ResetHarvestProgress(Resource.Id);}
+        else if(Profile)
+        {
+            for(const auto& Reward:Resource.Rewards)Profile->ConsumeMaterial(Reward.Key,Reward.Value);
+            Profile->PostNotice(TEXT("已到下挖上限"),TEXT("这一格不能再挖，土壤未收入"));
+        }
         return;
     }
     if (auto* ISM=Cast<UInstancedStaticMeshComponent>(Hit.GetComponent())) ISM->RemoveInstance(Hit.Item);

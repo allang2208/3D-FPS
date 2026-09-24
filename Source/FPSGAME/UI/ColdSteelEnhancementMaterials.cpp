@@ -19,7 +19,7 @@ bool UColdSteelStatusModel::GrantEnhancementMaterials()
             for(const TCHAR* Key:{TEXT("category"),TEXT("type"),TEXT("icon"),TEXT("ue_icon"),TEXT("stack_max")})Data->SetField(Key,Base->TryGetField(Key));
             Data->SetNumberField(TEXT("maxStack"),99999);Item.StackMax=99999;
             Item.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&Item.Data));
-            if(Item.Place==4)Stored+=Item.Count;
+            if(Item.Place==0||(Item.Place==4&&Item.Container.IsEmpty()))Stored+=Item.Count; // 背包和主仓库计入补给；储物箱另算
         }
         // One-time top-up. Existing excess is preserved; consumed materials are never regenerated on reopening.
         if(Stored<99999&&!ColdSteelWarehouse::Insert(Next.Items,CreateItem(Definition,99999-Stored),WarehouseCapacity()))

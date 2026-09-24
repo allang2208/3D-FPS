@@ -112,7 +112,9 @@ void UFPSFireMagicComponent::ServiceQueue()
     const bool bPushGesture=Spell.Skill!=TEXT("flameArmor");
     if(!H->TryBeginSpellGesture(this,bPushGesture,Spell.CastSpeed,FSimpleDelegate::CreateUObject(this,&ThisClass::ReleaseAtContact)))return;
     QueuedSkill=NAME_None;
+    const float BeforeMana=M->Snapshot().Mana;
     if(!M->BeginFireMagicCast(Spell)){H->CancelSpellGesture(this);return;}
+    H->RecordGesturePayment(BeforeMana,M->Snapshot().Mana,true);
     CastSnapshot=Spell;CommittedSkill=Spell.Skill;MessageUntil=0;
     if(auto* Status=Player->FindComponentByClass<UCombatStatusFormula>())Status->ConsumeChainSpell();
 }
@@ -125,10 +127,11 @@ void UFPSFireMagicComponent::ReleaseAtContact()
         const auto* Camera=Player->FindComponentByClass<UCameraComponent>();FHitResult Block;
         const bool bBlocked=!Camera||FireMagic::TraceSurface(Player,Camera->GetComponentLocation(),LockedPoint+LockedNormal*12,Block);
         if(bBlocked||FVector::Dist2D(Player->GetActorLocation(),LockedPoint)>CastSnapshot.Range)
-        {Feedback(Skill,TEXT("落点被遮挡或超距"));return;}
+        {if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,Skill);Feedback(Skill,TEXT("落点被遮挡或超距"));return;}
         FActorSpawnParameters P;P.Owner=Player;P.Instigator=Player;P.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
         auto* Strike=GetWorld()->SpawnActor<AFPSMeteorStrike>(LockedPoint,FRotator::ZeroRotator,P);
-        if(!Strike||!Strike->InitializeStrike(Player,CastSnapshot,LockedPoint,LockedNormal)){Feedback(Skill,TEXT("陨星素材未就绪"));return;}
+        if(!Strike||!Strike->InitializeStrike(Player,CastSnapshot,LockedPoint,LockedNormal))
+        {if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,Skill);Feedback(Skill,TEXT("陨星素材未就绪"));return;}
         Strikes.Add(Strike);
     }
     else StartArmor();
@@ -212,6 +215,7 @@ void UFPSFireMagicComponent::EndArmor(bool bTrain)
 }
 void UFPSFireMagicComponent::CancelPending()
 {
+    if(!CommittedSkill.IsNone())Feedback(CommittedSkill,TEXT("施法中断"));
     QueuedSkill=NAME_None;CommittedSkill=NAME_None;if(auto* H=Hands())H->CancelSpellGesture(this);
 }
 void UFPSFireMagicComponent::ClearEffects()
@@ -233,7 +237,8 @@ void UFPSFireMagicComponent::GetCameraMotion(FVector& Location,FRotator& Rotatio
 void UFPSFireMagicComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Delta,Type,Tick);
-    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead()){ClearEffects();return;}
+    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())
+    {if(!CommittedSkill.IsNone())if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,CommittedSkill);ClearEffects();return;}
     if(!CommittedSkill.IsNone()&&(!Hands()||!Hands()->IsSpellGesture(this)))CommittedSkill=NAME_None;
     Strikes.RemoveAll([](const auto& A){return !A.IsValid();});TickArmor(Delta);ServiceQueue();
 }

@@ -18,7 +18,9 @@ public:
     UFPSHolyLightComponent();
     UFUNCTION(BlueprintCallable,Category="Skills") void Trigger(bool bSelf=false);
     void Cancel();
+    void InterruptPending();
     bool HasQueuedAction() const{return bQueued;}
+    bool HasUnreleasedCast() const{return bCommitted;}
     FString StatusText() const;
     float CooldownFraction() const;
     bool IsHandOccupiedNotice() const;

@@ -97,7 +97,9 @@ void UFPSLightningComponent::ServiceQueue()
     if(M->LightningCooldown()>0||!M->CanSpendMana(Spell.ManaCost)){bQueued=false;Feedback(TEXT("未就绪"));return;}
     if(!H->TryBeginSpellGesture(this,true,Spell.CastSpeed,FSimpleDelegate::CreateUObject(this,&ThisClass::ReleaseAtContact)))return;
     bQueued=false;
+    const float BeforeMana=M->Snapshot().Mana;
     if(!M->BeginLightningCast(Spell)){H->CancelSpellGesture(this);return;}
+    H->RecordGesturePayment(BeforeMana,M->Snapshot().Mana,true);
     CastSnapshot=Spell;LockedTarget=Target;bCommitted=true;MessageUntil=0;
     if(auto* Status=Player->FindComponentByClass<UCombatStatusFormula>())Status->ConsumeChainSpell();
 }
@@ -134,7 +136,7 @@ void UFPSLightningComponent::ReleaseAtContact()
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();const auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();
     AActor* First=LockedTarget.Get();LockedTarget.Reset();
     if(!Player||!M||!Camera||!IsTarget(First)||FVector::Dist(Player->GetActorLocation(),First->GetActorLocation())>CastSnapshot.Range||!VisibleFrom(Player,First,Camera->GetComponentLocation()))
-    {Feedback(TEXT("目标已失效或被遮挡"));return;}
+    {if(M)M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT("lightning"));Feedback(TEXT("目标已失效或被遮挡"));return;}
     TArray<TWeakObjectPtr<AActor>> Chain;Chain.Add(First);AActor* Cursor=First;
     while(Chain.Num()<CastSnapshot.Count)
     {
@@ -182,10 +184,17 @@ void UFPSLightningComponent::Cancel()
     if(auto* H=Hands())H->CancelSpellGesture(this);
     for(auto& Arc:Arcs)if(Arc.IsValid())Arc->Destroy();Arcs.Reset();
 }
+void UFPSLightningComponent::InterruptPending()
+{
+    if(bCommitted)Feedback(TEXT("施法中断"));
+    bQueued=bCommitted=false;LockedTarget.Reset();
+    // Contact already applied its damage; cancelling recovery does not undo it.
+}
 void UFPSLightningComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Delta,Type,Tick);
-    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead()){Cancel();return;}
+    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())
+    {if(bCommitted)if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT("lightning"));Cancel();return;}
     if(bCommitted&&(!Hands()||!Hands()->IsSpellGesture(this))){bCommitted=false;LockedTarget.Reset();}
     Arcs.RemoveAll([](const auto& A){return !A.IsValid();});ServiceQueue();
 }

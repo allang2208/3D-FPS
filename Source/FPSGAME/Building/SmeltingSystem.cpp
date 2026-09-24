@@ -2,6 +2,7 @@
 #include "VoxelBuildWorld.h"
 #include "VoxelBuildTypes.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "../UI/ColdSteelInventoryTypes.h"
 #include "Engine/GameInstance.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
@@ -14,6 +15,60 @@ namespace
     constexpr double TicksToSeconds=1.0/static_cast<double>(ETimespan::TicksPerSecond);
 
     int64 NowTicks(){return FDateTime::UtcNow().GetTicks();}
+    enum { SmeltBegin=1, SmeltCollect=2, SmeltFuel=3, SmeltUpgrade=4, SmeltTeardown=5 };
+
+    FColdSteelSmeltIntent MakeIntent(AVoxelBuildWorld* World,FIntVector Cell,int32 Kind)
+    {
+        FColdSteelSmeltIntent Intent;
+        Intent.WorldKey=World->BuildingWorldKey();
+        Intent.X=Cell.X;Intent.Y=Cell.Y;Intent.Z=Cell.Z;Intent.Kind=Kind;
+        return Intent;
+    }
+    FIntVector IntentCell(const FColdSteelSmeltIntent& Intent){return FIntVector(Intent.X,Intent.Y,Intent.Z);}
+    bool SameIntent(const FColdSteelSmeltIntent& A,const FColdSteelSmeltIntent& B)
+    {
+        return A.WorldKey==B.WorldKey&&A.X==B.X&&A.Y==B.Y&&A.Z==B.Z&&A.Kind==B.Kind&&A.Item==B.Item&&A.Count==B.Count
+            &&A.Recipe==B.Recipe&&A.Batch==B.Batch&&A.Axis==B.Axis&&A.Level==B.Level;
+    }
+    bool Deduct(FColdSteelProfile& P,const FString& Def,int64 Count)
+    {
+        int64 Available=0;
+        for(const FColdSteelItem& Item:P.Items)
+            if(Item.Definition==Def&&(Item.Place==0||(Item.Place==4&&Item.Container.IsEmpty())))Available+=Item.Count;
+        if(Available<Count)return false;
+        int64 Left=Count;
+        for(int32 Place:{0,4})
+            for(int32 Index=P.Items.Num()-1;Index>=0&&Left>0;--Index)
+            {
+                FColdSteelItem& Item=P.Items[Index];
+                if(Item.Definition!=Def||Item.Place!=Place||(Place==4&&!Item.Container.IsEmpty()))continue;
+                const int64 Used=FMath::Min(Left,Item.Count);
+                Item.Count-=Used;Left-=Used;
+                if(Item.Count<=0)P.Items.RemoveAt(Index);
+            }
+        return Left==0;
+    }
+    bool Grant(UColdSteelStatusModel* Model,FColdSteelProfile& P,const FString& Def,int64 Count)
+    {
+        const FColdSteelItem Item=Model->CreateItem(Def,Count);
+        return !Item.Data.IsEmpty()&&ColdSteelInventory::Insert(P.Items,Item);
+    }
+    void DropIntent(UColdSteelStatusModel* Model,const FColdSteelSmeltIntent& Intent)
+    {
+        if(!Model)return;
+        Model->SyncRuntime();auto P=Model->Snapshot();
+        const int32 N=P.SmeltIntents.IndexOfByPredicate([&](const FColdSteelSmeltIntent& E){return SameIntent(E,Intent);});
+        if(N!=INDEX_NONE){P.SmeltIntents.RemoveAt(N);Model->CommitState(MoveTemp(P));}
+    }
+    bool RefundIntent(UColdSteelStatusModel* Model,const FColdSteelSmeltIntent& Intent)
+    {
+        if(!Model||Intent.Item.IsEmpty()||Intent.Count<=0){DropIntent(Model,Intent);return true;}
+        Model->SyncRuntime();auto P=Model->Snapshot();
+        if(!Grant(Model,P,Intent.Item,Intent.Count))return false;
+        const int32 N=P.SmeltIntents.IndexOfByPredicate([&](const FColdSteelSmeltIntent& E){return SameIntent(E,Intent);});
+        if(N!=INDEX_NONE)P.SmeltIntents.RemoveAt(N);
+        return Model->CommitState(MoveTemp(P));
+    }
 }
 
 void UColdSteelSmeltingSystem::Initialize(FSubsystemCollectionBase& Collection)
@@ -236,15 +291,27 @@ bool UColdSteelSmeltingSystem::BeginSmelting(AVoxelBuildWorld* World,FIntVector 
     if(!Model){Reason=TEXT("角色数据未就绪");return false;}
     // 全有或全无：不足时 ConsumeItem 不扣任何东西并给出"缺少 N（背包+仓库共 M）"文案。
     const int64 Ore=R->InputCount*Batch;
-    if(!Model->ConsumeItem(R->Input,Ore,Reason))return false;
+    if(Model->CreateItem(R->Input).Data.IsEmpty()){Reason=TEXT("物品目录缺少该材料");return false;}
+    Model->SyncRuntime();auto P=Model->Snapshot();
+    if(!Deduct(P,R->Input,Ore)){Reason=FString::Printf(TEXT("缺少 %lld 块（背包+仓库）"),Ore);return false;}
+    FColdSteelSmeltIntent Intent=MakeIntent(World,Cell,SmeltBegin);
+    Intent.Item=R->Input;Intent.Count=Ore;Intent.Recipe=Recipe.ToString();Intent.Batch=Batch;
+    P.SmeltIntents.Add(Intent);
+    if(!Model->CommitState(MoveTemp(P))){Reason=TEXT("保存失败，材料未扣除");return false;}
     FString StartReason;
     if(!World->BeginSmelting(Cell,Recipe,StartReason,Batch))
     {
-        // 校验后仍失败（理论上只剩竞态）：把矿料原样退回，不留无主消耗。
-        Model->AddItem(R->Input,Ore);
+        if(!RefundIntent(Model,Intent))UE_LOG(LogTemp,Error,TEXT("Smelting begin rollback kept an intent @格(%d,%d,%d)"),Cell.X,Cell.Y,Cell.Z);
         Reason=StartReason;return false;
     }
-    SettleFurnace(World,Cell);   // 起炉即起燃（存料>0 已由上面的门槛保证）
+    if(!World->FlushPersistenceNow())
+    {
+        World->ClearSmelting(Cell);
+        if(!RefundIntent(Model,Intent))UE_LOG(LogTemp,Error,TEXT("Smelting begin flush failed and refund kept an intent @格(%d,%d,%d)"),Cell.X,Cell.Y,Cell.Z);
+        Reason=TEXT("炉子存档失败，矿料已退回");return false;
+    }
+    DropIntent(Model,Intent);
+    SettleFurnace(World,Cell);
     return true;
 }
 
@@ -259,9 +326,22 @@ bool UColdSteelSmeltingSystem::AddFuel(AVoxelBuildWorld* World,FIntVector Cell,F
     {Reason=FString::Printf(TEXT("燃料仓剩余不足（上限 %d 分钟）"),FMath::RoundToInt32(Cap/60.0));return false;}
     auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
     if(!Model){Reason=TEXT("角色数据未就绪");return false;}
-    if(!Model->ConsumeItem(Fuel.Item,1,Reason))return false;
+    if(Model->CreateItem(Fuel.Item).Data.IsEmpty()){Reason=TEXT("物品目录缺少该材料");return false;}
+    Model->SyncRuntime();auto P=Model->Snapshot();
+    if(!Deduct(P,Fuel.Item,1)){Reason=TEXT("缺少 1 块（背包+仓库）");return false;}
+    FColdSteelSmeltIntent Intent=MakeIntent(World,Cell,SmeltFuel);
+    Intent.Item=Fuel.Item;Intent.Count=1;Intent.FuelBefore=Stored;Intent.FuelAfter=Stored+Fuel.SecondsPerUnit;
+    P.SmeltIntents.Add(Intent);
+    if(!Model->CommitState(MoveTemp(P))){Reason=TEXT("保存失败，材料未扣除");return false;}
     World->SetFuel(Cell,Stored+Fuel.SecondsPerUnit);
-    SettleFurnace(World,Cell);   // 停炉待燃的任务：添料瞬间续燃
+    if(!World->FlushPersistenceNow())
+    {
+        World->SetFuel(Cell,Stored);
+        if(!RefundIntent(Model,Intent))UE_LOG(LogTemp,Error,TEXT("Smelting fuel flush failed and refund kept an intent @格(%d,%d,%d)"),Cell.X,Cell.Y,Cell.Z);
+        Reason=TEXT("炉子存档失败，燃料已退回");return false;
+    }
+    DropIntent(Model,Intent);
+    SettleFurnace(World,Cell);
     return true;
 }
 
@@ -284,9 +364,16 @@ bool UColdSteelSmeltingSystem::CollectSmelting(AVoxelBuildWorld* World,FIntVecto
     if(!IsDone(World,Cell)){Reason=TEXT("冶炼尚未完成");return false;}
     auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
     if(!Model){Reason=TEXT("角色数据未就绪");return false;}
-    // 背包放不下就不清空任务：产物留在炉内，整理背包后可重试（不静默丢件）。
-    if(!Model->AddItem(R->Output,R->OutputCount*FMath::Max<int64>(1,Job->BatchCount))){Reason=TEXT("背包放不下，先整理背包");return false;}
-    World->ClearSmelting(Cell);   // 存料留在炉里：下一批直接开炉
+    const int64 OutCount=R->OutputCount*FMath::Max<int64>(1,Job->BatchCount);
+    Model->SyncRuntime();auto P=Model->Snapshot();
+    if(!Grant(Model,P,R->Output,OutCount)){Reason=TEXT("背包放不下，先整理背包");return false;}
+    FColdSteelSmeltIntent Intent=MakeIntent(World,Cell,SmeltCollect);
+    Intent.Item=R->Output;Intent.Count=OutCount;Intent.Recipe=Job->Recipe.ToString();Intent.Batch=Job->BatchCount;
+    P.SmeltIntents.Add(Intent);
+    if(!Model->CommitState(MoveTemp(P))){Reason=TEXT("保存失败，产物仍留在炉内");return false;}
+    World->ClearSmelting(Cell);
+    if(World->FlushPersistenceNow())DropIntent(Model,Intent);
+    else UE_LOG(LogTemp,Warning,TEXT("Smelting collect wrote the ingots; furnace file will reconcile @格(%d,%d,%d)"),Cell.X,Cell.Y,Cell.Z);
     return true;
 }
 
@@ -312,21 +399,15 @@ bool UColdSteelSmeltingSystem::RefundForTeardown(AVoxelBuildWorld* World,FIntVec
     else if(Job&&!R)UE_LOG(LogTemp,Warning,TEXT("Smelting teardown: recipe %s removed, ore lost @格(%d,%d,%d)"),
         *Job->Recipe.ToString(),Cell.X,Cell.Y,Cell.Z);   // 配方下架：矿料无法折算，只退燃料（不留卡死的炉子）
     if(WoodUnits>0)Gives.Add({Fuel.Item,WoodUnits});
-    auto Probe=Model->Snapshot();
-    for(const auto& Give:Gives)if(!ColdSteelInventory::Insert(Probe.Items,Model->CreateItem(Give.Key,Give.Value)))
-    {Reason=TEXT("炉内有物料，背包放不下退料");return false;}
-    int32 Given=0;
-    for(;Given<Gives.Num();++Given)if(!Model->AddItem(Gives[Given].Key,Gives[Given].Value))break;
-    if(Given<Gives.Num())
-    {
-        bool bRolledBack=true;
-        for(int32 i=0;i<Given;++i){FString Rollback;if(!Model->ConsumeItem(Gives[i].Key,Gives[i].Value,Rollback))bRolledBack=false;}
-        if(!bRolledBack)UE_LOG(LogTemp,Error,TEXT("Smelting teardown rollback failed @格(%d,%d,%d)"),Cell.X,Cell.Y,Cell.Z);
-        Reason=TEXT("炉内有物料，背包放不下退料");
-        return false;
-    }
+    Model->SyncRuntime();auto P=Model->Snapshot();
+    for(const auto& Give:Gives)if(!Grant(Model,P,Give.Key,Give.Value)){Reason=TEXT("炉内有物料，背包放不下退料");return false;}
+    FColdSteelSmeltIntent Intent=MakeIntent(World,Cell,SmeltTeardown);
+    P.SmeltIntents.Add(Intent);
+    if(!Model->CommitState(MoveTemp(P))){Reason=TEXT("保存失败，炉子未拆除");return false;}
     World->ClearSmelting(Cell);
     World->SetFuel(Cell,0);
+    if(World->FlushPersistenceNow())DropIntent(Model,Intent);
+    else UE_LOG(LogTemp,Warning,TEXT("Smelting teardown refunded items; furnace file will reconcile @格(%d,%d,%d)"),Cell.X,Cell.Y,Cell.Z);
     return true;
 }
 
@@ -339,9 +420,22 @@ bool UColdSteelSmeltingSystem::UpgradeFurnace(AVoxelBuildWorld* World,FIntVector
     const int64 Cost=UpgradeCostFor(Level);
     auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
     if(!Model){Reason=TEXT("角色数据未就绪");return false;}
-    if(!Model->ConsumeItem(TEXT("ironIngot"),Cost,Reason))return false;   // 全有或全无，与投料同口径
+    if(Model->CreateItem(TEXT("ironIngot")).Data.IsEmpty()){Reason=TEXT("物品目录缺少该材料");return false;}
+    Model->SyncRuntime();auto P=Model->Snapshot();
+    if(!Deduct(P,TEXT("ironIngot"),Cost)){Reason=FString::Printf(TEXT("缺少 %lld 块（背包+仓库）"),Cost);return false;}
+    FColdSteelSmeltIntent Intent=MakeIntent(World,Cell,SmeltUpgrade);
+    Intent.Item=TEXT("ironIngot");Intent.Count=Cost;Intent.Axis=Axis;Intent.Level=Level+1;
+    P.SmeltIntents.Add(Intent);
+    if(!Model->CommitState(MoveTemp(P))){Reason=TEXT("保存失败，材料未扣除");return false;}
     World->SetFurnaceUpgradeLevel(Cell,Axis,Level+1);
-    SettleFurnace(World,Cell);   // 速度轴：在炼任务的剩余秒数按新倍率即时缩短；其余轴顺带落账
+    if(!World->FlushPersistenceNow())
+    {
+        World->SetFurnaceUpgradeLevel(Cell,Axis,Level);
+        if(!RefundIntent(Model,Intent))UE_LOG(LogTemp,Error,TEXT("Smelting upgrade flush failed and refund kept an intent @格(%d,%d,%d)"),Cell.X,Cell.Y,Cell.Z);
+        Reason=TEXT("炉子存档失败，铁锭已退回");return false;
+    }
+    DropIntent(Model,Intent);
+    SettleFurnace(World,Cell);
     return true;
 }
 
@@ -352,4 +446,55 @@ bool UColdSteelSmeltingSystem::CanUpgrade(const AVoxelBuildWorld* World,FIntVect
     if(Level>=VoxelFurnaceAxisMax(Axis))return false;
     auto* Model=this->Model();
     return Model&&Model->CountMaterial(TEXT("ironIngot"))>=UpgradeCostFor(Level);
+}
+
+void UColdSteelSmeltingSystem::ReconcileIntents(AVoxelBuildWorld* World)
+{
+    auto* Model=this->Model();
+    if(!IsValid(World)||!Model)return;
+    Model->SyncRuntime();
+    const FString Key=World->BuildingWorldKey();
+    TArray<FColdSteelSmeltIntent> Pending;
+    for(const FColdSteelSmeltIntent& Intent:Model->Snapshot().SmeltIntents)
+        if(Intent.WorldKey==Key)Pending.Add(Intent);
+    for(const FColdSteelSmeltIntent& Intent:Pending)
+    {
+        const FIntVector Cell=IntentCell(Intent);
+        if(Intent.Kind==SmeltBegin)
+        {
+            if(World->FindSmelting(Cell))DropIntent(Model,Intent);
+            else if(!RefundIntent(Model,Intent))UE_LOG(LogTemp,Error,TEXT("Smelting reconcile could not refund ore @格(%d,%d,%d)"),Cell.X,Cell.Y,Cell.Z);
+        }
+        else if(Intent.Kind==SmeltCollect)
+        {
+            if(World->FindSmelting(Cell))
+            {
+                World->ClearSmelting(Cell);
+                if(!World->FlushPersistenceNow())continue;
+            }
+            DropIntent(Model,Intent);
+        }
+        else if(Intent.Kind==SmeltFuel)
+        {
+            const double Now=World->FuelAt(Cell);
+            if(Now+1e-3>=Intent.FuelAfter||!FMath::IsNearlyEqual(Now,Intent.FuelBefore,0.05))DropIntent(Model,Intent);
+            else if(!RefundIntent(Model,Intent))UE_LOG(LogTemp,Error,TEXT("Smelting reconcile could not refund fuel @格(%d,%d,%d)"),Cell.X,Cell.Y,Cell.Z);
+        }
+        else if(Intent.Kind==SmeltUpgrade)
+        {
+            if(World->FurnaceUpgradeLevel(Cell,Intent.Axis)>=Intent.Level)DropIntent(Model,Intent);
+            else if(!RefundIntent(Model,Intent))UE_LOG(LogTemp,Error,TEXT("Smelting reconcile could not refund upgrade @格(%d,%d,%d)"),Cell.X,Cell.Y,Cell.Z);
+        }
+        else if(Intent.Kind==SmeltTeardown)
+        {
+            const bool bLeft=World->FindSmelting(Cell)||World->FuelAt(Cell)>0;
+            if(bLeft)
+            {
+                World->ClearSmelting(Cell);
+                World->SetFuel(Cell,0);
+                if(!World->FlushPersistenceNow())continue;
+            }
+            DropIntent(Model,Intent);
+        }
+    }
 }

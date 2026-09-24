@@ -199,8 +199,18 @@ bool UColdSteelStatusModel::StageTraining(FColdSteelProfile&& State)
 }
 bool UColdSteelStatusModel::ReloadProfile()
 {
-    UColdSteelProfileSave* Best=nullptr;FString Reason;
-    for(const TCHAR* S:{TEXT("_A"),TEXT("_B")}) {auto* Save=ReadCheckedProfile(SaveSlot+S); if(Save&&Validate(Save->Profile,Reason)&&(!Best||Save->Profile.Generation>Best->Profile.Generation))Best=Save;}
+    UColdSteelProfileSave* Best=nullptr;FString Reason;bool BestFootprintMigrated=false;
+    for(const TCHAR* S:{TEXT("_A"),TEXT("_B")})
+    {
+        auto* Save=ReadCheckedProfile(SaveSlot+S);if(!Save)continue;
+        bool FootprintMigrated=false;
+        // Wood changed from 1x1 to 1x2 on 2026-09-24. The old loader
+        // rejected both slots before reaching its later wood migration.
+        if(!MigrateLegacyWoodFootprints(Save->Profile,FootprintMigrated,Reason))
+        {UE_LOG(LogTemp,Warning,TEXT("ColdSteel profile %s%s rejected: %s"),*SaveSlot,S,*Reason);continue;}
+        if(!Best||Save->Profile.Generation>Best->Profile.Generation)
+        {Best=Save;BestFootprintMigrated=FootprintMigrated;}
+    }
     if(!Best){bPersistenceBlocked=true;Message=TEXT("两个存档版本均不可读取，已保留原文件");return false;}
     auto Clean=Best->Profile;
     int64 RecoveredGroundAmmo=0;
@@ -215,10 +225,23 @@ bool UColdSteelStatusModel::ReloadProfile()
     const bool AbandonedFireball=Clean.bFireballReserved;Clean.bFireballReserved=false;
     const bool AbandonedIce=Clean.bIceSpikeReserved;Clean.bIceSpikeReserved=false;
     const bool AbandonedQuick=Clean.bQuickCombatReserved;Clean.bQuickCombatReserved=false;
-    bool Removed=RemoveRetiredWeapons(Clean)||Migrated||SkillsMigrated||QuickBarMigrated||StaminaMigrated||AbandonedFireball||AbandonedIce||AbandonedQuick||AmmoMigrated;
+    bool Removed=RemoveRetiredWeapons(Clean)||Migrated||SkillsMigrated||QuickBarMigrated||StaminaMigrated||AbandonedFireball||AbandonedIce||AbandonedQuick||AmmoMigrated||BestFootprintMigrated;
     // Refresh authorized material rarity and scroll presentation on existing instances.
     for(auto& I:Clean.Items)
     {
+        if(I.Definition==TEXT("wood"))
+        {
+            const FIntPoint Size=ColdSteelInventory::Footprint(I);
+            if(I.Width!=Size.X||I.Height!=Size.Y){I.Width=Size.X;I.Height=Size.Y;Removed=true;}
+            const FString* Catalog=Definitions.Find(I.Definition);
+            TSharedPtr<FJsonObject> Data,Defaults;
+            if(Catalog&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data)&&Data&&
+                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Catalog),Defaults)&&Defaults)
+            {
+                FString Icon,Old;Defaults->TryGetStringField(TEXT("ue_icon"),Icon);Data->TryGetStringField(TEXT("ue_icon"),Old);
+                if(!Icon.IsEmpty()&&Icon!=Old){Data->SetStringField(TEXT("ue_icon"),Icon);I.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}
+            }
+        }
         if(I.Definition==ColdSteelFrostRunes::Definition)
         {
             const FString* Definition=Definitions.Find(I.Definition);
@@ -335,8 +358,20 @@ bool UColdSteelStatusModel::AwardKill(AActor* Victim,int64 Reward)
     if(!Victim||RewardedVictims.Contains(Victim)||Reward<=0||Reward>1000000000)return false;
     if(ActiveFireballRewards && ActiveFireballRewards->Victim==Victim){ActiveFireballRewards->Kills.FindOrAdd(Victim)=Reward;return true;}
     SyncRuntime();auto P=Snapshot();if(!DungeonLayout::RecordKill(P.DungeonRun,Victim))return false;P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);
-    P.Experience+=FMath::FloorToInt64(MonsterCoreStats::ScaleKillExperience(Victim,P.Level,Reward)*TributeEffect(TEXT("expPercent")));
-    if(const int64 Gold=MonsterCoreStats::RollKillGold(Victim))ColdSteelInventory::Insert(P.Items,CreateItem(TEXT("gold"),Gold));
+    // 2026-09-23 迁移原 exp-system.js/goldDrop：经验按玩家与怪物配置等级的压级/越级倍率
+    // （未注册目标恒 1，行为不变），金币按 等级×4+随机1..10、全局×.5、rank elite2/lord3。
+    P.Experience+=FMath::FloorToInt64(MonsterCoreStats::ScaleKillExperience(Victim,Level,Reward)*TributeEffect(TEXT("expPercent")));
+    if(const int64 Gold=MonsterCoreStats::RollKillGold(Victim))
+    {
+        auto Item=CreateItem(TEXT("gold"),Gold);
+        if(!Item.Data.IsEmpty()&&!ColdSteelInventory::Insert(P.Items,Item))
+        {
+            Item.Place=2;Item.Cell=-1;Item.BackpackCell=-1;
+            Item.Map=UGameplayStatics::GetCurrentLevelName(this,true);
+            Item.Position=Victim->GetActorLocation()+FVector(0,0,12);
+            P.Items.Add(MoveTemp(Item));
+        }
+    }
     if(ActiveTrainingHit && ActiveTrainingHit->Victim==Victim && ActiveTrainingHit->bEligible)
     {
         ActiveTrainingHit->bKillAttempted=true;

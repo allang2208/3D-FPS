@@ -11,7 +11,7 @@ void UFPSHolyRenewalComponent::Apply(AActor* Target,int32 Stacks,float Seconds)
     auto* C=Target->FindComponentByClass<UFPSHolyRenewalComponent>();
     if(!C){C=NewObject<UFPSHolyRenewalComponent>(Target);Target->AddInstanceComponent(C);C->RegisterComponent();}
     if(C->Remaining<=0)C->UntilTick=1;
-    C->Count+=Stacks;C->Remaining+=Seconds;
+    C->Count=FMath::Min(10,C->Count+Stacks);C->Remaining+=Seconds;
     C->SetComponentTickEnabled(true);
     UStatusEffectsComponent::GetOrCreate(Target)->SetTimed(TEXT("holyRenewal"),C->Remaining,C->Count);
 }

@@ -53,7 +53,10 @@ namespace AuthoredDungeon
 using JObject=TSharedPtr<FJsonObject>;
 FVector Vec(const JObject& O,const TCHAR* Key)
 {
-    const auto& V=O->GetArrayField(Key);return FVector(V[0]->AsNumber(),V[1]->AsNumber(),V[2]->AsNumber());
+    const TArray<TSharedPtr<FJsonValue>>* V=nullptr;
+    if(!O.IsValid()||!O->TryGetArrayField(Key,V)||!V||V->Num()<3||!(*V)[0].IsValid()||!(*V)[1].IsValid()||!(*V)[2].IsValid())
+        return FVector::ZeroVector;
+    return FVector((*V)[0]->AsNumber(),(*V)[1]->AsNumber(),(*V)[2]->AsNumber());
 }
 struct FPort { FVector P,N; double Width=300,Height=280; };
 FPort ReadPort(const JObject& Data)

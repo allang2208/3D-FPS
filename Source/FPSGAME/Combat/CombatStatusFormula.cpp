@@ -38,7 +38,7 @@ void UCombatStatusFormula::AddHolyWard(float Multiplier,float Seconds)
         UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("holyWard"),WardTime);}
 }
 void UCombatStatusFormula::AddMagicVulnerability(int32 Stacks)
-{if(!IsImmune()&&Stacks>0){VulnerabilityStacks+=Stacks;VulnerabilityTime=5;}}
+{if(!IsImmune()&&Stacks>0){VulnerabilityStacks=FMath::Min(20,VulnerabilityStacks+Stacks);VulnerabilityTime=5;}}
 void UCombatStatusFormula::AddRuneMagicVulnerability(float Ratio,float Seconds)
 {
     if(IsImmune()||Ratio<=0||Seconds<=0)return;
@@ -338,7 +338,7 @@ bool UCombatStatusFormula::AddElectrified(int32 Stacks,float Seconds,int32 Overl
 }
 void UCombatStatusFormula::AddHaste(int32 Stacks,float Seconds)
 {
-    if(IsImmune()||Stacks<=0||Seconds<=0)return;HasteStacks+=Stacks;HasteTime+=Stacks*Seconds;
+    if(IsImmune()||Stacks<=0||Seconds<=0)return;HasteStacks=FMath::Min(10,HasteStacks+Stacks);HasteTime+=Stacks*Seconds;
     UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("haste"),HasteTime,HasteStacks);
 }
 void UCombatStatusFormula::AddChainSpell()
