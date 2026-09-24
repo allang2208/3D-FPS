@@ -51,3 +51,11 @@
 Niagara 模板要读取其生命周期、SimTarget、LocalSpace、Renderer、User 参数和 Dynamic Parameter 约定，再接入；外部包发射器的生命周期不能盲设为主体的 `Self`。新粒子的出生帧就写入大小、颜色、朝向、UV、速度与寿命，不能等下一帧更新补齐。
 
 保留原有材质输入和曝光／预乘规则。当前项目曾因删除 rooted 材质表达式触发断言；增量重接时复用已标记节点，必要时保留已断开的旧节点，不在效果任务中顺带清理整张图。编译和保存必须针对本次目标，并同步原始生成器，防止全量重建退回旧效果。
+
+## 作者脚本与构建窗口的已知坑（2026-09-24 高炉烟实战）
+
+- VectorVM CPU 自定义 HLSL：表达式里**不能引用 `Engine.Environment.DeltaTime`**（帧率用 SpawnRate 标准模块）；无 `smoothstep` 内建（手写 smooth(low,high,v)）；`sqrt/sin/cos/exp/frac/saturate/lerp` 可用。
+- 幂等重跑：`trim()` 会删除生成的 SetVariables 模块——重跑前必须**无条件退役**上一轮写进资产的赋值 tag（`Fireball.Assignments.*`、`FluidContact.<emitter>.<script>.i`），否则 assignments 按 tag 找回已删模块名直接编译失败。局部变量名不得遮蔽模块别名（`import unreal as u` 配 `u=` 局部变量＝整个函数别名被吞）。
+- Unity 批量编译：跨 .cpp 的同名匿名 namespace 符号会并进同一翻译单元（C2374/C2086）——文件级符号一律带文件前缀。
+- Windows PowerShell 5.1 语义的 `Get-Content -Raw` 按 ANSI 解码无 BOM UTF-8：`-replace`＋回写会把源文件全部 CJK 变乱码且**不可无损逆转**；源文件文本处理一律用 Python 或编辑工具，不用 PS 管道改写。
+- 构建窗口：`Build-Editor.ps1` 同时检测 `UnrealEditor.exe` 与 `UnrealEditor-Cmd.exe`（含他人会话的 commandlet），占用即 `throw`——该 throw 会穿透 `&` 调用杀死等待脚本，序列里必须 try/catch 接住再走重试；轮询用 1s＋连续多次空采样（10s 会漏掉快速重启窗口），不强关他人进程。

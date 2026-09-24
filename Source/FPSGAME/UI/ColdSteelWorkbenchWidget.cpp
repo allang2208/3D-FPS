@@ -21,7 +21,8 @@
 
 // 占位轴名（同冶炼 AxisNames 口径的三页签结构）：工作台升级轴后续设计时只换这张表和
 // RefreshUpgrade 里的 Lv/效果/材料三处读数，控件结构与动画一概不动。
-namespace { const TCHAR* const AxisNames[3]={TEXT("升级轴一"),TEXT("升级轴二"),TEXT("升级轴三")}; }
+// 命名带文件前缀：unity 批量编译会把本文件与冶炼 .cpp 并进同一翻译单元，匿名 namespace 拦不住重名（2026-09-24 构建 C2374 教训）。
+namespace { const TCHAR* const WorkbenchAxisNames[3]={TEXT("升级轴一"),TEXT("升级轴二"),TEXT("升级轴三")}; }
 
 void UColdSteelWorkbenchRowProxy::AxisClicked()
 {
@@ -33,7 +34,7 @@ UTextBlock* UColdSteelWorkbenchWidget::Text(const FString& Caption,float Pixels,
     auto* Label=WidgetTree->ConstructWidget<UTextBlock>();
     Label->SetText(FText::FromString(Caption));Label->SetColorAndOpacity(Color);
     Label->SetFont(Numeric?GunsmithUI::NumberFont(Pixels/Scale,Medium):GunsmithUI::TextFont(Pixels/Scale,Medium));
-    if(bWrap)Label->SetAutoWrapText(true);   // Slate 不裁剪不换行=文字画出玻璃框（正式规则 §3）。
+    if(bWrap)Label->SetAutoWrapText(true);   // Slate 不裁剪不换位＝文字画出玻璃框（正式规则 §3）。
     Label->SetVisibility(ESlateVisibility::HitTestInvisible);
     Labels.Add({Label,Pixels,Numeric,Medium});
     return Label;
@@ -134,8 +135,8 @@ void UColdSteelWorkbenchWidget::NativeOnInitialized()
     Footer=Text(TEXT("Esc 或 × 关闭 · 制作配方与升级内容后续设计"),12,ColdSteelUI::TextTertiary,false,false,true);
     FooterSlot=Stack->AddChildToVerticalBox(Footer);
 
-    // —— 左缘「升级」页签（冶炼 v11c 同款）：36×60 方片，竖排两字逐行居中，
-    //    收起态右缘压面板左缘缝 2px，展开态随弹层左缘推到最左、文案换"收回"（点击＝关闭）。——
+    // —— 左缘「升级」页签（冶炼 v11c 同款）：36×60 方片，竖排两字逐行居中；
+    //    收起态右缘压面板左缘缝 2px，展开态随弹层左缘推到最左、文案换"收回"（点击＝关闭）———
     UpgradeTab=WidgetTree->ConstructWidget<UBorder>();
     UpgradeTab->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassTint,8.f/Scale,GunsmithUI::Edge,1/Scale));
     UpgradeTab->SetPadding(FMargin(3/Scale));
@@ -153,8 +154,8 @@ void UColdSteelWorkbenchWidget::NativeOnInitialized()
     UpgradeTabSlot->SetZOrder(1);
     UpgradeTab->SetVisibility(ESlateVisibility::Collapsed);   // 有工作台上下文时由 SetWorkbench 打开
 
-    // —— 升级弹层（冶炼 v9/v10 同构）：与面板同尺寸的独立页面，右缘钉在面板左缘那条缝上，
-    //    横向缩放 0→1 向左展开/收回（枢轴右中；不从磨砂玻璃背后滑出——半透明会漏成穿帮）。
+    // —— 升级弹层（冶炼 v9/v10 同构）：与面板同尺寸的独立页面，右缘钉在面板左缘那条缝上；
+    //    横向缩放 0→1 向左展开/收回（枢纽右中；不从磨砂玻璃背后滑出——半透明会漏穿帮）。
     //    版面＝头部底色条（20px 标题＋标准 ×）＋三页签卡列（整行可点）＋下方详情带＋垫底说明行。——
     UpgradeFlyout=WidgetTree->ConstructWidget<UBorder>();
     UpgradeFlyout->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Content,10.f/Scale,GunsmithUI::Edge,1/Scale));
@@ -195,7 +196,7 @@ void UColdSteelWorkbenchWidget::NativeOnInitialized()
         if(auto* CBS=Cast<UButtonSlot>(Content->Slot))   // UButtonSlot 默认居中收缩（配方行 2026-09-23 的坑）：铺满才撑得开 Fill
             {CBS->SetPadding(FMargin(0));CBS->SetHorizontalAlignment(HAlign_Fill);CBS->SetVerticalAlignment(VAlign_Center);}
         UpgTabs.Add(Tab);UpgTabSurfs.Add(Surf);
-        auto* Name=Text(AxisNames[A],14,ColdSteelUI::TextPrimary,false,A==UpgSel);
+        auto* Name=Text(WorkbenchAxisNames[A],14,ColdSteelUI::TextPrimary,false,A==UpgSel);
         if(auto* NS=Content->AddChildToHorizontalBox(Name))
         {   NS->SetSize(FSlateChildSize(ESlateSizeRule::Fill));NS->SetVerticalAlignment(VAlign_Center);   }
         UpgTabNames.Add(Name);
@@ -214,16 +215,16 @@ void UColdSteelWorkbenchWidget::NativeOnInitialized()
     if(auto* DS=FlyStack->AddChildToVerticalBox(FlyDetail))DS->SetPadding(FMargin(12/Scale,2/Scale,12/Scale,0));
     auto* DCol=WidgetTree->ConstructWidget<UVerticalBox>();FlyDetail->SetContent(DCol);
     auto* DHead=WidgetTree->ConstructWidget<UHorizontalBox>();DCol->AddChildToVerticalBox(DHead);
-    FlyDetailName=Text(AxisNames[0],16,ColdSteelUI::TextPrimary,false,true);
+    FlyDetailName=Text(WorkbenchAxisNames[0],16,ColdSteelUI::TextPrimary,false,true);
     DHead->AddChildToHorizontalBox(FlyDetailName)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     FlyDetailLv=Text(TEXT("Lv.—"),12,ColdSteelUI::TextSecondary,false,true);
     DHead->AddChildToHorizontalBox(FlyDetailLv)->SetVerticalAlignment(VAlign_Center);
     FlyRuleSize=WidgetTree->ConstructWidget<USizeBox>();FlyRuleSize->SetHeightOverride(1.f/Scale);
     if(auto* RS=DCol->AddChildToVerticalBox(FlyRuleSize))RS->SetPadding(FMargin(0,8/Scale,0,6/Scale));
     auto* Rule=WidgetTree->ConstructWidget<UImage>();
-    Rule->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Border,0.f));FlyRuleSize->SetContent(Rule);   // §"细线分区"
+    Rule->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Border,0.f));FlyRuleSize->SetContent(Rule);   // §4 细线分区
     DCol->AddChildToVerticalBox(Text(TEXT("升级效果"),12,ColdSteelUI::TextTertiary));
-    FlyFx=Text(TEXT("效果数值后续设计"),16,ColdSteelUI::TextSecondary,true,false);   // 上线后＝"30 分钟 → 40 分钟"档
+    FlyFx=Text(TEXT("效果数值后续设计"),16,ColdSteelUI::TextSecondary,true,false);   // 上线后＝"30 分钟 → 40 分钟"类
     if(auto* XS=DCol->AddChildToVerticalBox(FlyFx))XS->SetPadding(FMargin(0,2/Scale,0,8/Scale));
     DCol->AddChildToVerticalBox(Text(TEXT("所需材料"),12,ColdSteelUI::TextTertiary));
     FlyMatRow=WidgetTree->ConstructWidget<UHorizontalBox>();
@@ -285,8 +286,8 @@ void UColdSteelWorkbenchWidget::UpdateScale()
     if(FlyRuleSize)FlyRuleSize->SetHeightOverride(1.f/Scale);
     if(FlyMatIconSize){FlyMatIconSize->SetWidthOverride(28/Scale);FlyMatIconSize->SetHeightOverride(28/Scale);}
     if(FlyBtnSize)FlyBtnSize->SetHeightOverride(ColdSteelUI::ActionHeight/Scale);
-    RowsScroll->SetScrollbarThickness(FVector2D(6/Scale));   // 正式规则 §3：中性灰约 6px 滚动条
-    // 分区留白（§3"明度、细边、留白建立层级"）：与冶炼面板同一组 16px 边缘留白。
+    RowsScroll->SetScrollbarThickness(FVector2D(6/Scale));   // 正式规则 §3：中性灰线 6px 滚动条
+    // 分区留白（§4"明度、细边、留白建立层级"）：与冶炼面板同一组 16px 边缘留白。
     BodySlot->SetPadding(FMargin(16/Scale,12/Scale,16/Scale,0));
     StartSlot->SetPadding(FMargin(16/Scale,2/Scale,16/Scale,4/Scale));
     StatusSlot->SetPadding(FMargin(16/Scale,2/Scale,16/Scale,2/Scale));
@@ -305,7 +306,7 @@ void UColdSteelWorkbenchWidget::UpdateScale()
 void UColdSteelWorkbenchWidget::ApplyScreenLayout()
 {
     if(PanelScreenPx<0.f||Scale<=0.f)return;
-    // 槽位原点＝屏幕 x=0（主题层把 widget 扩为全宽命中区），偏移×Scale 即屏幕像素，无需任何几何反推。
+    // 槽位原点＝屏幕 x=0（主题层把 widget 扩为全宽命中区），偏移/Scale 即屏幕像素，无需任何几何反推。
     const float P=PanelScreenPx/Scale;
     if(ShellSlot)ShellSlot->SetOffsets(FMargin(P,0.f,0.f,0.f));
     if(UpgradeTabSlot)LayoutUpgradeTab();   // v11：摆位收敛到一个函数（收起贴缝/展开随弹层，见下）
@@ -325,7 +326,7 @@ void UColdSteelWorkbenchWidget::LayoutUpgradeTab()
     const float W=FMath::Max(1.f,LayoutWidth)/Scale;
     const float L=FMath::Max(8.f/Scale,P-W);                // 弹层全开左缘（与 ApplyScreenLayout 同式）
     const float TabW=36.f/Scale;
-    // 右缘压过接缝 2px（冶炼 v11c，两轮"有间隙"反馈的定位）：方片与面板各带 1px 描边，边对边
+    // 右缘压过接缝 2px（冶炼 v11c，两档"有间隙"反馈的定位）：方片与面板各带 1px 描边，边对边
     // 必夹一条可见缝，非整数 Scale 下还会再宽 1px；压 2px 后方片描边盖在面板描边之上，玻璃对玻璃无缝。
     // 展开态跟随：EaseSmooth(FlyMotion) 与弹层 RenderScale 同曲线同拍，方片右缘钉在弹层左缘上推到最左；
     // 屏幕边钳制：方片贴到 x=0 盖在弹层角上（ZOrder 1，可点收回）。
@@ -361,7 +362,7 @@ void UColdSteelWorkbenchWidget::NativeTick(const FGeometry& MyGeometry,float InD
     Super::NativeTick(MyGeometry,InDeltaTime);
     if(!FMath::IsNearlyEqual(Scale,ColdSteelUI::PixelScale(this),.001f)){UpdateScale();return;}
     if(GetVisibility()==ESlateVisibility::Collapsed)return;
-    // 升级弹层动画（冶炼 §7.12 同款）：右缘钉死在面板左缘那条缝上（枢轴右中），
+    // 升级弹层动画（冶炼 §7.12 同款）：右缘钉死在面板左缘那条缝上（枢纽右中），
     // 横向缩放 0→1 向左展开、1→0 向右收回，4.0/s＋EaseSmooth。
     FlyMotion=FMath::FInterpConstantTo(FlyMotion,bUpgradeOpen?1.f:0.f,InDeltaTime,4.0f);
     if(UpgradeFlyout)
@@ -391,7 +392,7 @@ void UColdSteelWorkbenchWidget::RefreshUpgrade()
             bSel?ColdSteelUI::ButtonHover:ColdSteelUI::StatusCard,ColdSteelUI::CardRadius/Scale,
             bSel?ColdSteelUI::Accent:ColdSteelUI::Border,bSel?2.f/Scale:1.f/Scale));
         if(UpgTabNames.IsValidIndex(A)&&UpgTabNames[A])
-            UpgTabNames[A]->SetFont(GunsmithUI::TextFont(14/Scale,bSel));   // §4：Medium＝选中项
+            UpgTabNames[A]->SetFont(GunsmithUI::TextFont(14/Scale,bSel));   // §4：Medium＝选中页
     }
     if(FlyDetailName&&UpgTabNames.IsValidIndex(UpgSel)&&UpgTabNames[UpgSel])
         FlyDetailName->SetText(UpgTabNames[UpgSel]->GetText());   // 详情带轴名随选中页签（占位名同步切换）

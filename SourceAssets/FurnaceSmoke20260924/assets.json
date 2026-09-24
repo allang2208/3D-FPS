@@ -1,0 +1,53 @@
+{
+  "saved": [
+    "/Game/Fluids/FurnaceSmoke20260924/NS_FurnaceBlackSmoke.NS_FurnaceBlackSmoke"
+  ],
+  "material_reused": "/Game/Fluids/ImpactSmokeCorrosion20260924/M_RollingImpactSmoke",
+  "atlas": "/Game/Weapons/GunplayFX/T_MuzzleSmokeMantaflowV14",
+  "throat": {
+    "centre_local_cm": [
+      -18,
+      0,
+      208
+    ],
+    "opening_radius_cm": 18.4,
+    "measured_from": "Saved/furnace_throat.json (Blender ray profile)"
+  },
+  "rise_model": {
+    "exit_cm_s": 150.0,
+    "terminal_cm_s": 78.0,
+    "tau_s": 0.7
+  },
+  "rain_coupling": {
+    "param": "User.Rainfall (C++ UpdateFurnaceSmoke @5Hz + RainGust random-direction wind)",
+    "buoyancy_cut": 0.45,
+    "wind_boost": 2.2,
+    "fade_hold_at_full": 0.15,
+    "lifetime_cut": 0.38,
+    "rate_cut": 0.25,
+    "size_growth_boost": 0.5
+  },
+  "rate_per_second": 16.0,
+  "life": [
+    2.6,
+    3.6
+  ],
+  "birth_size_cm": 27.0,
+  "birth_softening_v4": {
+    "grey_start_rgb": [
+      0.05,
+      0.048,
+      0.05
+    ],
+    "grey_end_rgb": [
+      0.088,
+      0.084,
+      0.08
+    ],
+    "alpha": "0.26+0.12*seed (was 0.44+0.16)",
+    "fade_in_norm_age": 0.22,
+    "note": "user: hard black outline at mouth looked fake; unified toward the soft grey top"
+  },
+  "max_particles_per_plume": 66,
+  "status": "authored_compiled_saved; not game or visually tested"
+}

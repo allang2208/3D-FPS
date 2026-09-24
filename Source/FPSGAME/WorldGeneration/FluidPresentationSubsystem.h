@@ -9,6 +9,7 @@ class UNiagaraComponent;
 class ULevel;
 class UNiagaraSystem;
 class UPrimitiveComponent;
+class AVoxelBuildPrefabActor;
 struct FStreamableHandle;
 
 /** Shared cosmetic scheduling. Never owns damage, projectile collision or hazard decals. */
@@ -23,7 +24,7 @@ public:
     virtual bool IsTickable() const override { return bReady; }
     virtual TStatId GetStatId() const override;
     int32 AllocateDetail(const FVector& Position,int32 Requested,bool bImportant=false);
-    FVector WindAt(const FVector& Position);
+    FVector WindAt(const FVector& Position,float* OutShelter=nullptr);   // OutShelter＝屋檐遮蔽系数（阵风同系数缩放，防雨天下风向不一致）
     void ConfigureSmoke(UNiagaraComponent* FX,int32 Requested,bool bWet=false);
     bool ReserveGeometryQueries(int32 Count,bool bHazard=false);
     bool MoveMist(FVector& Position,FVector& Velocity,const FVector& Previous,float Radius);
@@ -40,8 +41,16 @@ private:
         bool Initialized=false,Grounded=false,Wet=false;
     };
     struct FShelter { float Factor=0; double Time=-100; };
-    struct FSmoke { TWeakObjectPtr<UNiagaraComponent> FX; double Expires=0; int32 Probe=0; };
+    struct FSmoke { TWeakObjectPtr<UNiagaraComponent> FX; double Expires=0; int32 Probe=0; bool bOwnWind=false; };
     struct FWaterBody { TWeakObjectPtr<UPrimitiveComponent> Body; FVector Previous=FVector::ZeroVector; double NextHit=0; bool Initialized=false; };
+    /** 冶炼中的高炉烟囱黑烟：构件登记驱动，共享风/接触/细节预算；语义同枪口持续烟（Docs/Fluids/furnace-black-smoke-20260924.md）。 */
+    struct FFurnaceSmoke
+    {
+        TWeakObjectPtr<AVoxelBuildPrefabActor> Piece;
+        TWeakObjectPtr<UNiagaraComponent> FX;
+        float Rate=0;
+        double LastSeen=0,NextConfigure=0,LastFeed=-100;
+    };
     TArray<FWalker> Walkers;
     TArray<FSmoke> Smoke;
     TArray<FWaterBody> WaterBodies;
@@ -59,6 +68,14 @@ private:
         FSoftObjectPath(TEXT("/Game/Fluids/FluidPolish20260924/NS_IceImpactMist.NS_IceImpactMist")));
     UPROPERTY(Transient) TArray<TObjectPtr<UNiagaraComponent>> ColdPool;
     TSharedPtr<FStreamableHandle> ColdLoad;
+    /** 高炉黑烟（2026-09-24）：工作＝有在炼任务或炉内存料（同 VoxelBuildWorld 护炉谓词），烟从炉顶碗口出。 */
+    TArray<FFurnaceSmoke> Furnaces;
+    float FurnaceClock=0;
+    double FurnaceScanAt=0;   // 1Hz 构件对账（SpawnActor 生成事件早于 Configure 写 Id，不可靠）
+    UPROPERTY() TSoftObjectPtr<UNiagaraSystem> FurnaceTemplate=TSoftObjectPtr<UNiagaraSystem>(
+        FSoftObjectPath(TEXT("/Game/Fluids/FurnaceSmoke20260924/NS_FurnaceBlackSmoke.NS_FurnaceBlackSmoke")));
+    UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> FurnaceAsset;
+    TSharedPtr<FStreamableHandle> FurnaceLoad;
     bool bReady=false,bHasView=false;
     void RegisterActor(AActor* Actor);
     void RegisterLevel(ULevel* Level,UWorld* World);
@@ -66,4 +83,5 @@ private:
     void UpdateSmokeGeometry(FSmoke& Entry,int32 Count);
     void PrepareColdPool();
     void UpdateWaterBody(FWaterBody& Entry);
+    void UpdateFurnaceSmoke();
 };
