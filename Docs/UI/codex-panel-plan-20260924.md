@@ -325,6 +325,32 @@
 **验证**：`-DisableUnity` 构建 **`Result: Succeeded`，全模块 0 错误**（`Saved/BuildEditor/build-codex-lazy3.log`）；我的两个文件零错误零警告。此前受阻的 `WolfMonster.cpp`／`ProductionToolComponent.cpp` 在本次构建中也已通过（由各自任务补齐）。
 **未测试**：未运行游戏；内存占用改善、关闭后是否真的释放、以及当前项优先的实际手感由用户实机确认。
 
+### 废案文件核查
+
+本轮**没有产生废案文件**：改的是 6 个既有文件，另新增 2 个（`ProductionToolStats.h/.cpp`，见下），没有文件被取代或作废，因此未向 `trash/` 归档任何内容。
+
+唯一的「废案」是**函数体内部**的重复：`Deinitialize()` 里原先抄了一份与工作室拆除相同的代码。已改为调用 `TeardownStudio()`，消除分叉——拆除写法一旦两处各写一份，日后只会改到一处。这是代码合并，不是文件退役。
+
+根目录的 `_tmp_probe.py`（2026-09-23，读取 `MainScenePerformance20260923` 收据）属**性能任务**，与本轮无关，未动。
+
+### 修复 main 的悬空 include（本轮重点）
+
+发布前扫描发现 **`main` 当时无法编译**：上一轮合并进去的 `ColdSteelCodexPage.cpp` 引用了 `Source/FPSGAME/Production/ProductionToolStats.h`，而该头**从未提交**。本机文件在盘上所以一直编得过，缺陷因此隐藏了整整一轮。
+
+核对方法（只查本任务文件，不扫全库）：对本任务所有项目内 `#include` 逐个 `git ls-files --error-unmatch`。当时全树只有一个引用方——正是本任务的文件：
+
+```
+git grep -l ProductionToolStats.h HEAD -- 'Source/FPSGAME/*.h' 'Source/FPSGAME/*.cpp'
+  HEAD:Source/FPSGAME/UI/ColdSteelCodexPage.cpp
+```
+
+同区域另外两个未跟踪头（`ProductionToolEnhance.h`、`ProductionToolAppearance.h`）**只被工作区未提交的改动引用**，不在 main 上，因此**不需要**为修复 main 而提交——避免了把别的任务的半成品一并发布。
+
+修复：把 `ProductionToolStats.h` 与 `.cpp` 一起精确暂存（二者自洽，全部 include 均已跟踪，且 `.cpp` 已参与过成功构建）。推送分支 `cursor/highland-blade-seat` → PR #2 → 合并 `abc52bb0`，回读确认两个文件已在 `main`。
+
+**验证**：`-DisableUnity` 构建 `Result: Succeeded`，全模块 0 错误（`Saved/BuildEditor/build-codex-publish.log`）。`git diff --cached --check` 通过、无敏感信息、无二进制。远端回读：分支 `13990a54`、`main` `abc52bb0`，与本地一致。
+**未测试**：未运行游戏。
+
 ## 新增武器／怪物的接入成本（2026-09-24 核查）
 
 回答「图鉴有无自动添加机制」：**列表与详情是全自动的，唯有立绘需要额外一步，且武器与怪物的成本不同**。
