@@ -162,4 +162,4 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 
 ## 运行时图标与诊断界面开销
 
-处理动态图标首次准备卡顿、图标通知全量刷新或诊断文本反复失效时，读取 [运行时图标准备](references/runtime-icon-pipeline.md)。
+处理动态图标首次准备卡顿、图标通知全量刷新或诊断文本反复失效时，读取 [运行时图标准备](references/runtime-icon-pipeline.md)。该文另含**预览资源必须异步加载（禁止游戏线程 `LoadSynchronous`、超时值不得作为正确性的一部分）、延后重试后的作业身份、立绘独占整栏**三条硬口径。

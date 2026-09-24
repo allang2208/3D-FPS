@@ -38,3 +38,31 @@ maxHp/atk/matk/mdef 允许直接指定覆盖（原版 direct-override 口径）�
 `UColdSteelStatusModel::AwardKill` 与火球延迟击杀提交循环（`ColdSteelFireballModel.cpp`
 遍历 Kills 处）**必须成对**改，否则宏杀奖励口径漂移；金币入包用 `CreateItem("gold",n)`
 合并堆叠，背包满静默失败为既有行为。
+
+## 预览／立绘用的临时生成体：绝不改写 CDO（2026-09-24）
+
+怪物类在构造里设 `AutoPossessAI = PlacedInWorldOrSpawned`（如 `WolfMonster.cpp`），
+**直接 `SpawnActor` 会在预览场景里生成 AI 控制器并跑行为树**。UI 立绘、开发面板预览这类纯展示用途
+必须关掉自动附身，但关的方式有对错：
+
+- **错**：`Class->GetDefaultObject<ACharacter>()->AutoPossessAI = Disabled;`
+  改写的是**共享 CDO**，会污染真正的游戏怪物（所有同类怪都不再附身 AI），且是全局持久副作用。
+- **对**：用 `FActorSpawnParameters::Template` 传一个临时模板——
+  `Template = NewObject<ACharacter>(GetTransientPackage(), Class, NAME_None, RF_Transient);`
+  `Template->AutoPossessAI = Disabled; Template->AIControllerClass = nullptr;`
+  生成体复制**模板**属性而非 CDO 属性，只影响这一具预览体。
+
+同理，任何"预览专用"的属性调整都应走模板或生成后改实例，不落到 CDO。
+
+## 图鉴栏的怪物数据来源与接入成本（2026-09-24）
+
+- 图鉴的怪物列表／六维／品阶全部取自 `UDevelopmentSpawnComponent::GetMonsters()` +
+  `MonsterCoreStats::Get()`，与开发面板、刷怪**共用同一张登记表**，不另建名单。
+- **登记表挂在 `AFPSGAMEPlayerController`**（构造里 `CreateDefaultSubobject`），**不在 Pawn 上**。
+  按 Pawn `FindComponentByClass` 取会永远拿到 null，表现为"怪物分区恒为空"——这个症状很容易被
+  误判成"怪物没分配品阶"。
+- 新增怪物进图鉴 = 在 `DevelopmentSpawnComponent` 构造函数加一行 `Add(Id, Name, ClassPath, Radius)`；
+  登记后列表、详情、立绘全自动，无需再改图鉴代码。这是**有意为之**：该表同时是刷怪名单，
+  不应自动收录磁盘上任何怪物资产。
+- 立绘取怪物类后由 `UColdSteelMonsterPortraits` 运行时渲染，口径见
+  [运行时图标准备与定向刷新](../../ue5-ui-umg-slate/references/runtime-icon-pipeline.md)。
