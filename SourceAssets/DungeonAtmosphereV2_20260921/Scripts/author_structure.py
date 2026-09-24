@@ -7,6 +7,7 @@ import bpy
 import json
 import math
 import random
+import sys
 from pathlib import Path
 from mathutils import Vector
 
@@ -216,9 +217,9 @@ for x,y,r in [(3,.75,.55),(10.9,3.45,.43),(18.1,3.3,.72),(5.7,-1,.30)]:
 # End turn rises by one metre via two short runs and a broad intermediate landing.
 for i in range(5):box('EndStairs',(24,8.1+i*.36,.10+i*.20),(2.05,.36,.20),0)
 box('EndStairs',(24,10.0,.91),(2.1,.70,.18),0)
-for x in (22.96,25.04):
-    tube('EndStairRails',[(x,7.95,1.0),(x,9.9,2.0),(x,10.3,2.0)],.027,2,10)
-    for y,z in ((8,0),(8.9,.5),(9.8,1)):tube('EndStairRails',[(x,y,z),(x,y,z+1)],.024,2,10)
+sys.path.insert(0,str(ROOT.parent/'DungeonRailCart20260923/Scripts'))
+from rail_geometry import legacy_corridor
+legacy_corridor(globals())
 # Raised terminus platform continues to a warm closed service door, without a drop.
 box('EndStairs',(24,12.0,.47),(3.7,4,.94),0)
 box('ServiceDoor',(24,13.86,2.15),(1.32,.10,2.28),2)
@@ -264,7 +265,7 @@ for name,g in groups.items():
             uv.data[li].uv=(co[dims[0]]/2,co[dims[1]]/2)
     bpy.context.view_layer.objects.active=obj;obj.select_set(True)
     if name not in ('WetPatches','MachineGrille','CableTrays','HangingCables','Drains'):
-        mod=obj.modifiers.new('Small manufactured edge bevel','BEVEL');mod.width=.004 if 'Tiles' in name else .010
+        mod=obj.modifiers.new('Small manufactured edge bevel','BEVEL');mod.width=.001 if name=='EndStairRails' else .004 if 'Tiles' in name else .010
         mod.segments=2;mod.limit_method='ANGLE';mod.angle_limit=.65
         bpy.ops.object.modifier_apply(modifier=mod.name)
     # Keep planar faces hard. Curved tube faces alone can carry smooth normals later.

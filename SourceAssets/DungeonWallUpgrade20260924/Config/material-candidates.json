@@ -1,0 +1,15 @@
+{
+  "stage": "production_materials_saved",
+  "sample_map": "/Game/Dungeons/WallUpgrade20260924/Preview/L_WallMaterialComparison",
+  "production_bindings_changed": true,
+  "existing_material_identities_preserved": true,
+  "runtime_tested": false,
+  "baseline_folder": "/Game/Dungeons/WallUpgrade20260924/Baseline",
+  "production_receipt": "SourceAssets/DungeonWallUpgrade20260924/Receipts/production-install.json",
+  "candidates": {
+    "/Game/Dungeons/AtmosphereV2/Materials/M_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete",
+    "/Game/Dungeons/WallDamage20260923/Materials/MI_FabExposedBed": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_ExposedMortar",
+    "/Game/Dungeons/WallDamage20260923/Materials/MI_FabBondingMortar": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_BondingMortar",
+    "/Game/Dungeons/WallDamage20260923/Materials/MI_FabBrokenConcrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_BrokenConcrete"
+  }
+}

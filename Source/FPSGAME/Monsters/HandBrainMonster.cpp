@@ -281,3 +281,19 @@ bool AHandBrainMonster::FindVillageSpawn(UObject* Context,FVector Origin,FRotato
   Location=P;return true;
  }return false;
 }
+
+bool AHandBrainMonster::CanSlamTarget(const APawn* P) const
+{
+ if(!IsValid(P)||SlamLeft>0||FVector::Dist2D(P->GetActorLocation(),GetActorLocation())>SlamTriggerRange)return false;
+ const FVector Direction=(P->GetActorLocation()-GetActorLocation()).GetSafeNormal2D();
+ const FVector Center=GroundPoint(GetActorLocation()+Direction*SlamReach);
+ // Match DealSlam's height/occlusion gate before spending an attack on a
+ // player standing above or below the floor the impact will actually hit.
+ return FMath::Abs(P->GetActorLocation().Z-Center.Z)<=170&&CanSee(P,Center+FVector(0,0,60));
+}
+
+bool AHandBrainMonster::CanHowlTarget(const APawn* P) const
+{
+ return IsValid(P)&&HowlLeft<=0&&FVector::Dist2D(P->GetActorLocation(),GetActorLocation())<=HowlRadius
+  &&FMath::Abs(P->GetActorLocation().Z-GetActorLocation().Z)<=170&&CanSee(P,GetActorLocation()+FVector(0,0,30));
+}

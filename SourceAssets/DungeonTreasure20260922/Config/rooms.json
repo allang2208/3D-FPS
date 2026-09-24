@@ -2081,7 +2081,9 @@
       "width": 3.24,
       "length": 2,
       "height": 2.8,
-      "light": false
+      "light": false,
+      "portal_collar_m": 0.15,
+      "portal_recess_m": 0.04
     }
   ]
 }

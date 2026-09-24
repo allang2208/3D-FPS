@@ -1,0 +1,66 @@
+[
+  {
+    "original": "Tools/Loading/end_play_for_startup_build.py",
+    "archived": "trash/dungeon-loading-publication-20260924/Tools/Loading/end_play_for_startup_build.py",
+    "bytes": 352,
+    "sha256": "B8927B2352B77F6FE4B85F873CB00023BD976476D1DA6F90301C3E77DEC09B4C",
+    "reason": "Completed one-time editor control / Live Coding helper; not a current authoring dependency",
+    "replacement": "Current background Build.bat and asset authoring entrypoints"
+  },
+  {
+    "original": "Tools/Loading/save_close_for_startup_build.py",
+    "archived": "trash/dungeon-loading-publication-20260924/Tools/Loading/save_close_for_startup_build.py",
+    "bytes": 851,
+    "sha256": "B0F9D706825AF94D5D393F72E422986F74163F3E64D37513BFAB7CFFF385E9FA",
+    "reason": "Completed one-time editor control / Live Coding helper; not a current authoring dependency",
+    "replacement": "Current background Build.bat and asset authoring entrypoints"
+  },
+  {
+    "original": "SourceAssets/DungeonSeamMetal20260923/Scripts/end_play.py",
+    "archived": "trash/dungeon-loading-publication-20260924/SourceAssets/DungeonSeamMetal20260923/Scripts/end_play.py",
+    "bytes": 355,
+    "sha256": "D151ADC0E998C3F5D1E96390B873275544930B27BDD1A3B59C9FDD55CADEA289",
+    "reason": "Completed one-time editor control / Live Coding helper; not a current authoring dependency",
+    "replacement": "Current background Build.bat and asset authoring entrypoints"
+  },
+  {
+    "original": "SourceAssets/DungeonUnderground20260923/Scripts/end_play.py",
+    "archived": "trash/dungeon-loading-publication-20260924/SourceAssets/DungeonUnderground20260923/Scripts/end_play.py",
+    "bytes": 215,
+    "sha256": "1AD1FC42444765999AB08C58CBC93A471DA2A3F784E93F03EB1843BB00042C0E",
+    "reason": "Completed one-time editor control / Live Coding helper; not a current authoring dependency",
+    "replacement": "Current background Build.bat and asset authoring entrypoints"
+  },
+  {
+    "original": "SourceAssets/DungeonUnderground20260923/Scripts/save_and_close.py",
+    "archived": "trash/dungeon-loading-publication-20260924/SourceAssets/DungeonUnderground20260923/Scripts/save_and_close.py",
+    "bytes": 880,
+    "sha256": "20D83F7CCB49A8BFB90961417A74B8074AE597D971A4CE490D3AA7E45FFC1A36",
+    "reason": "Completed one-time editor control / Live Coding helper; not a current authoring dependency",
+    "replacement": "Current background Build.bat and asset authoring entrypoints"
+  },
+  {
+    "original": "SourceAssets/DungeonUnderground20260923/Scripts/compile_live.py",
+    "archived": "trash/dungeon-loading-publication-20260924/SourceAssets/DungeonUnderground20260923/Scripts/compile_live.py",
+    "bytes": 381,
+    "sha256": "00D8F3EAAC7DBFAE08ED4C4ED40C09DCFCD5EACC34AA0436BDDF0D28E0C02C22",
+    "reason": "Completed one-time editor control / Live Coding helper; not a current authoring dependency",
+    "replacement": "Current background Build.bat and asset authoring entrypoints"
+  },
+  {
+    "original": "SourceAssets/DungeonWallDamage20260923/Scripts/stop_authorized_dungeon_play.py",
+    "archived": "trash/dungeon-loading-publication-20260924/SourceAssets/DungeonWallDamage20260923/Scripts/stop_authorized_dungeon_play.py",
+    "bytes": 615,
+    "sha256": "CA9B239906BDB5B00DA5463100938DADDDFEB7FFABAD88CA7803B79D83348C8E",
+    "reason": "Completed one-time editor control / Live Coding helper; not a current authoring dependency",
+    "replacement": "Current background Build.bat and asset authoring entrypoints"
+  },
+  {
+    "original": "SourceAssets/DungeonFinalReward20260923/Config/catalog-candidate.json",
+    "archived": "trash/dungeon-loading-publication-20260924/SourceAssets/DungeonFinalReward20260923/Config/catalog-candidate.json",
+    "bytes": 126231,
+    "sha256": "14E366FFEF3079D1C8A24250DF80312F15F3EE990C6498645EF3FB02F5F4C87E",
+    "reason": "Obsolete generated reward-room catalog snapshot; no readers, replaced by the live route catalog",
+    "replacement": "SourceAssets/DungeonRoutes20260922/Config/catalog.json; future snapshots under local Receipts"
+  }
+]

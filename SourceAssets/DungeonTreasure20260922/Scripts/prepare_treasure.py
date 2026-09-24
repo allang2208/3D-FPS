@@ -31,7 +31,8 @@ for parent,specs in {
         a=room['footprint'][edge];b=room['footprint'][(edge+1)%len(room['footprint'])];dx=b[0]-a[0];dy=b[1]-a[1];length=math.hypot(dx,dy)
         sockets[parent].append(dict(id=label,variant=room['id'],position=[(a[0]+dx/length*center)*100,-(a[1]+dy/length*center)*100,0],normal=[dy/length,dx/length,0],width=300,height=280))
 config=dict(version=1,seed=92231,style=old['style'],rooms=[treasure]+variants,
- links=[dict(id='TreasureLink',origin_m=[0,0,0],axis='y',width=3.24,length=2,height=2.8,light=False)])
+ links=[dict(id='TreasureLink',origin_m=[0,0,0],axis='y',width=3.24,length=2,height=2.8,light=False,
+             portal_collar_m=.15,portal_recess_m=.04)])
 (ROOT/'Config/rooms.json').write_text(json.dumps(config,ensure_ascii=False,indent=2),encoding='utf-8')
 (ROOT/'Config/sockets.json').write_text(json.dumps(sockets,indent=2))
 rules=json.loads((ROUTES/'Config/rules.json').read_text());rules.setdefault('treasure_chance_per_room',.1)

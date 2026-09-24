@@ -7,6 +7,9 @@ class AHandBrainMonster;
 class UBoxComponent;
 class UInstancedStaticMeshComponent;
 class UMaterialInterface;
+class UStaticMesh;
+class UStaticMeshComponent;
+class ASceneTestPortal;
 
 /** One encounter per generated terminal. The generator arms it only after navigation is ready. */
 UCLASS()
@@ -26,6 +29,9 @@ public:
     UPROPERTY(VisibleAnywhere, Transient, Category="Dungeon|Boss") TObjectPtr<AHandBrainMonster> LiveBoss;
     virtual void OnConstruction(const FTransform& Transform) override;
     void ActivateEncounter();
+    /** All assets/actors are prepared by the generator before this encounter is armed. */
+    void ConfigureRewardExit(UStaticMesh* LeafMesh,const FVector& Position,const FVector& Travel,
+        const FVector& ClearSize,AActor* Chest,ASceneTestPortal* ReturnPortal);
 protected:
     virtual void BeginPlay() override;
     virtual void Tick(float DeltaSeconds) override;
@@ -33,6 +39,13 @@ protected:
 private:
     UPROPERTY() TObjectPtr<UInstancedStaticMeshComponent> Gate;
     UPROPERTY() TObjectPtr<UBoxComponent> GateCollision;
+    UPROPERTY() TObjectPtr<UStaticMeshComponent> RewardGate;
+    UPROPERTY() TObjectPtr<UBoxComponent> RewardGateCollision;
+    TWeakObjectPtr<AActor> RewardChest;
+    TWeakObjectPtr<ASceneTestPortal> RewardPortal;
+    FVector RewardDoorPoint=FVector::ZeroVector,RewardDoorTravel=FVector::ZeroVector;
+    float RewardGateOpen=0.f;
+    bool bRewardsUnlocked=false;
     TWeakObjectPtr<APawn> Entrant;
     bool bArmed=false,bActive=false,bAwaitExit=false;
     float GateOpen=1.f;
@@ -40,4 +53,5 @@ private:
     bool SpawnBoss(APawn* Player);
     void UpdateGate();
     void ResetEncounter();
+    void UpdateRewardExit(float DeltaSeconds);
 };

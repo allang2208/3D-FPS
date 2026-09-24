@@ -22,6 +22,8 @@ public:
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="MonsterAI") bool bDecisionEnabled=true;
  void UpdateKnowledge();
  void RememberDamage(APawn* Attacker);
+ /** The encounter owns this lock and destroys/releases it on exit, death or completion. */
+ void SetEncounterTarget(APawn* Player);
  void NavigateTo(FVector Destination,float Acceptance);
  /** Mutant pursuit returns whether a real path is active, including bounded blocked-path retries. */
  bool NavigateFeralTo(FVector Destination,float Acceptance,APawn* VisibleTarget);
@@ -33,6 +35,7 @@ private:
  UPROPERTY() TObjectPtr<UAIPerceptionComponent> Senses;
  UFUNCTION() void Perceived(AActor* Actor,FAIStimulus Stimulus);
  TWeakObjectPtr<APawn> KnownTarget;
+ TWeakObjectPtr<APawn> EncounterTarget;
  FVector LastKnown=FVector::ZeroVector,LastDestination=FVector::ZeroVector;
  float LastEvidence=-100.f,LastMove=-100.f;
  bool bReturning=false;

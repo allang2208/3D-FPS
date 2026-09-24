@@ -1,0 +1,2304 @@
+{
+  "modules": [
+    {
+      "id": "Drainage_NearBridge",
+      "min": [
+        -601.8947999291122,
+        -1981.6317997518927,
+        -80
+      ],
+      "max": [
+        1039.8158998759463,
+        18.0,
+        455.0
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/CombatExpansionV3_20260922/Meshes/SM_RS_Drainage_Services",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/CombatExpansion20260922/Meshes/SM_PusChannelFluid",
+          "position": [
+            218.96054997341707,
+            -1021.8158998759463,
+            -55.00000000000001
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": true,
+          "materials": [
+            "/Game/Dungeons/Routes20260922/Materials/MI_RoutePusChannel"
+          ],
+          "half_size": [
+            141,
+            391
+          ],
+          "radial": false
+        },
+        {
+          "mesh": "/Game/Dungeons/CombatExpansionV3_20260922/Meshes/SM_PipePusPuddle",
+          "position": [
+            -84.55328750221524,
+            -1391.8158998759463,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": true,
+          "materials": [
+            "/Game/Dungeons/Routes20260922/Materials/MI_RoutePusPuddle"
+          ],
+          "half_size": [
+            68.39999999999999,
+            63.65
+          ],
+          "radial": true
+        },
+        {
+          "mesh": "/Game/Dungeons/SlimeSheet20260922/Meshes/SM_PipePusDrops",
+          "position": [
+            -93.05328750221524,
+            -1391.8158998759463,
+            68.69999999999999
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": true,
+          "materials": [
+            "/Game/Dungeons/Routes20260922/Materials/M_RoutePusDrops"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/SlimeSheet20260922/Meshes/SM_PipePusTongue",
+          "position": [
+            -93.05328750221524,
+            -1391.8158998759463,
+            68.69999999999999
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": true,
+          "materials": [
+            "/Game/Dungeons/Routes20260922/Materials/M_RoutePusSheet"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Floors"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Ceilings"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Shell"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Tiles",
+          "surface_mesh_variants": [
+            "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_Tiles",
+            "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_Skin1_Tiles",
+            "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_Skin2_Tiles"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Frames"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_Fixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Fixtures"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_Bridge",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Bridge"
+        }
+      ],
+      "ports": [
+        {
+          "id": "entry",
+          "position": [
+            68.96054997341707,
+            -0.0,
+            0
+          ],
+          "normal": [
+            0.0,
+            1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0
+        },
+        {
+          "id": "exit",
+          "position": [
+            1021.8158998759463,
+            -1221.8158998759463,
+            0
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            -192.18158998759466,
+            -671.8158998759463,
+            387.5
+          ],
+          "intensity": 3564,
+          "radius": 686,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            630.1026899344288,
+            -1271.8158998759463,
+            387.5
+          ],
+          "intensity": 3432,
+          "radius": 642,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            218.96054997341707,
+            -926.8158998759465,
+            387.5
+          ],
+          "intensity": 1320,
+          "radius": 438,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        },
+        {
+          "position": [
+            -94.25328750221524,
+            -1734.1782431389827,
+            284.5
+          ],
+          "intensity": 990,
+          "radius": 365,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        }
+      ],
+      "anchors": [
+        {
+          "role": "encounter",
+          "position": [
+            -224.82435748272107,
+            -981.8158998759463,
+            0
+          ]
+        },
+        {
+          "role": "future_pump",
+          "position": [
+            695.3882249246817,
+            -841.8158998759462,
+            0
+          ]
+        },
+        {
+          "role": "loop_bridge",
+          "position": [
+            218.96054997341707,
+            -926.8158998759465,
+            0
+          ]
+        },
+        {
+          "role": "exit",
+          "position": [
+            1021.8158998759463,
+            -1221.8158998759463,
+            0
+          ]
+        },
+        {
+          "role": "west_flank",
+          "position": [
+            -96.03945002658291,
+            -1021.8158998759463,
+            0
+          ]
+        },
+        {
+          "role": "east_flank",
+          "position": [
+            533.9605499734171,
+            -1021.8158998759463,
+            0
+          ]
+        }
+      ],
+      "cells": [
+        {
+          "min": [
+            -601.8947999291122,
+            -639.8158998759463,
+            -80
+          ],
+          "max": [
+            1039.8158998759463,
+            18.0,
+            455.0
+          ]
+        },
+        {
+          "min": [
+            -601.8947999291122,
+            -1439.8158998759463,
+            -80
+          ],
+          "max": [
+            86.96054997341707,
+            -603.8158998759463,
+            455.0
+          ]
+        },
+        {
+          "min": [
+            350.9605499734171,
+            -1439.8158998759463,
+            -80
+          ],
+          "max": [
+            1039.8158998759463,
+            -603.8158998759463,
+            455.0
+          ]
+        },
+        {
+          "min": [
+            -601.8947999291122,
+            -1981.6317997518927,
+            -80
+          ],
+          "max": [
+            386.9605499734171,
+            -1403.8158998759463,
+            455.0
+          ]
+        },
+        {
+          "min": [
+            350.9605499734171,
+            -1647.0878665012617,
+            -80
+          ],
+          "max": [
+            1039.8158998759463,
+            -1403.8158998759463,
+            455.0
+          ]
+        },
+        {
+          "min": [
+            50.96054997341707,
+            -1439.8158998759463,
+            -80
+          ],
+          "max": [
+            386.9605499734171,
+            -603.8158998759463,
+            455.0
+          ]
+        }
+      ],
+      "side_sockets": [
+        {
+          "id": "West",
+          "variant": "Drainage_NearBridge_SideWest",
+          "position": [
+            -583.8947999291122,
+            -919.9999999999999,
+            0
+          ],
+          "normal": [
+            -1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0,
+          "replace_suffixes": [
+            "_Shell",
+            "_Tiles",
+            "_Frames"
+          ],
+          "parts": [
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_SideWest_Shell",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Shell"
+            },
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_SideWest_Tiles",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Tiles"
+            },
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_SideWest_Frames",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Frames"
+            }
+          ]
+        },
+        {
+          "id": "East",
+          "variant": "Drainage_NearBridge_SideEast",
+          "position": [
+            1021.8158998759463,
+            -400.0,
+            0
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0,
+          "replace_suffixes": [
+            "_Shell",
+            "_Tiles",
+            "_Frames"
+          ],
+          "parts": [
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_SideEast_Shell",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Shell"
+            },
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_SideEast_Tiles",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Tiles"
+            },
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_SideEast_Frames",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Frames"
+            }
+          ]
+        }
+      ],
+      "family_id": "Drainage",
+      "structural_variant": "NearBridge",
+      "dressing_parameters": {
+        "rear_delta_cm": -80.0,
+        "bridge_delta_cm": -145.0
+      }
+    },
+    {
+      "id": "Drainage_FarBridge",
+      "min": [
+        -601.8947999291122,
+        -2141.6317997518927,
+        -80
+      ],
+      "max": [
+        1039.8158998759463,
+        18.0,
+        455.0
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/CombatExpansionV3_20260922/Meshes/SM_RS_Drainage_Services",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/CombatExpansion20260922/Meshes/SM_PusChannelFluid",
+          "position": [
+            218.96054997341707,
+            -1021.8158998759463,
+            -55.00000000000001
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": true,
+          "materials": [
+            "/Game/Dungeons/Routes20260922/Materials/MI_RoutePusChannel"
+          ],
+          "half_size": [
+            141,
+            391
+          ],
+          "radial": false
+        },
+        {
+          "mesh": "/Game/Dungeons/CombatExpansionV3_20260922/Meshes/SM_PipePusPuddle",
+          "position": [
+            -84.55328750221524,
+            -1391.8158998759463,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": true,
+          "materials": [
+            "/Game/Dungeons/Routes20260922/Materials/MI_RoutePusPuddle"
+          ],
+          "half_size": [
+            68.39999999999999,
+            63.65
+          ],
+          "radial": true
+        },
+        {
+          "mesh": "/Game/Dungeons/SlimeSheet20260922/Meshes/SM_PipePusDrops",
+          "position": [
+            -93.05328750221524,
+            -1391.8158998759463,
+            68.69999999999999
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": true,
+          "materials": [
+            "/Game/Dungeons/Routes20260922/Materials/M_RoutePusDrops"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/SlimeSheet20260922/Meshes/SM_PipePusTongue",
+          "position": [
+            -93.05328750221524,
+            -1391.8158998759463,
+            68.69999999999999
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": true,
+          "materials": [
+            "/Game/Dungeons/Routes20260922/Materials/M_RoutePusSheet"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Floors"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Ceilings"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Shell"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Tiles",
+          "surface_mesh_variants": [
+            "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_Tiles",
+            "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_Skin1_Tiles",
+            "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_Skin2_Tiles"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Frames"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_Fixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Fixtures"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_Bridge",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Bridge"
+        }
+      ],
+      "ports": [
+        {
+          "id": "entry",
+          "position": [
+            68.96054997341707,
+            -0.0,
+            0
+          ],
+          "normal": [
+            0.0,
+            1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0
+        },
+        {
+          "id": "exit",
+          "position": [
+            1021.8158998759463,
+            -1221.8158998759463,
+            0
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            -192.18158998759466,
+            -671.8158998759463,
+            387.5
+          ],
+          "intensity": 3564,
+          "radius": 686,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            630.1026899344288,
+            -1271.8158998759463,
+            387.5
+          ],
+          "intensity": 3432,
+          "radius": 642,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            218.96054997341707,
+            -1216.8158998759463,
+            387.5
+          ],
+          "intensity": 1320,
+          "radius": 438,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        },
+        {
+          "position": [
+            -94.25328750221524,
+            -1814.1782431389825,
+            284.5
+          ],
+          "intensity": 990,
+          "radius": 365,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        }
+      ],
+      "anchors": [
+        {
+          "role": "encounter",
+          "position": [
+            -224.82435748272107,
+            -981.8158998759463,
+            0
+          ]
+        },
+        {
+          "role": "future_pump",
+          "position": [
+            695.3882249246817,
+            -841.8158998759462,
+            0
+          ]
+        },
+        {
+          "role": "loop_bridge",
+          "position": [
+            218.96054997341707,
+            -1216.8158998759463,
+            0
+          ]
+        },
+        {
+          "role": "exit",
+          "position": [
+            1021.8158998759463,
+            -1221.8158998759463,
+            0
+          ]
+        },
+        {
+          "role": "west_flank",
+          "position": [
+            -96.03945002658291,
+            -1021.8158998759463,
+            0
+          ]
+        },
+        {
+          "role": "east_flank",
+          "position": [
+            533.9605499734171,
+            -1021.8158998759463,
+            0
+          ]
+        }
+      ],
+      "cells": [
+        {
+          "min": [
+            -601.8947999291122,
+            -639.8158998759463,
+            -80
+          ],
+          "max": [
+            1039.8158998759463,
+            18.0,
+            455.0
+          ]
+        },
+        {
+          "min": [
+            -601.8947999291122,
+            -1439.8158998759463,
+            -80
+          ],
+          "max": [
+            86.96054997341707,
+            -603.8158998759463,
+            455.0
+          ]
+        },
+        {
+          "min": [
+            350.9605499734171,
+            -1439.8158998759463,
+            -80
+          ],
+          "max": [
+            1039.8158998759463,
+            -603.8158998759463,
+            455.0
+          ]
+        },
+        {
+          "min": [
+            -601.8947999291122,
+            -2141.6317997518927,
+            -80
+          ],
+          "max": [
+            386.9605499734171,
+            -1403.8158998759463,
+            455.0
+          ]
+        },
+        {
+          "min": [
+            350.9605499734171,
+            -1647.0878665012617,
+            -80
+          ],
+          "max": [
+            1039.8158998759463,
+            -1403.8158998759463,
+            455.0
+          ]
+        },
+        {
+          "min": [
+            50.96054997341707,
+            -1439.8158998759463,
+            -80
+          ],
+          "max": [
+            386.9605499734171,
+            -603.8158998759463,
+            455.0
+          ]
+        }
+      ],
+      "side_sockets": [
+        {
+          "id": "West",
+          "variant": "Drainage_FarBridge_SideWest",
+          "position": [
+            -583.8947999291122,
+            -919.9999999999999,
+            0
+          ],
+          "normal": [
+            -1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0,
+          "replace_suffixes": [
+            "_Shell",
+            "_Tiles",
+            "_Frames"
+          ],
+          "parts": [
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_SideWest_Shell",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Shell"
+            },
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_SideWest_Tiles",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Tiles"
+            },
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_SideWest_Frames",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Frames"
+            }
+          ]
+        },
+        {
+          "id": "East",
+          "variant": "Drainage_FarBridge_SideEast",
+          "position": [
+            1021.8158998759463,
+            -400.0,
+            0
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0,
+          "replace_suffixes": [
+            "_Shell",
+            "_Tiles",
+            "_Frames"
+          ],
+          "parts": [
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_SideEast_Shell",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Shell"
+            },
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_SideEast_Tiles",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Tiles"
+            },
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_SideEast_Frames",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Frames"
+            }
+          ]
+        }
+      ],
+      "family_id": "Drainage",
+      "structural_variant": "FarBridge",
+      "dressing_parameters": {
+        "rear_delta_cm": 80.0,
+        "bridge_delta_cm": 145.0
+      }
+    },
+    {
+      "id": "VentilationLoop_WestCore",
+      "min": [
+        -18,
+        -1618,
+        -80
+      ],
+      "max": [
+        1818,
+        18,
+        434.99999999999994
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Floors"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Ceilings"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_Core",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Core"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_Equipment",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Equipment"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_Ducts",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Ducts"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_Props",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Props"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_Services",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Services"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Shell"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Tiles",
+          "surface_mesh_variants": [
+            "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_Tiles",
+            "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_Skin1_Tiles",
+            "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_Skin2_Tiles"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Frames"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_Fixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Fixtures"
+        }
+      ],
+      "ports": [
+        {
+          "id": "entry",
+          "position": [
+            600.0,
+            -0.0,
+            0
+          ],
+          "normal": [
+            0.0,
+            1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0
+        },
+        {
+          "id": "exit",
+          "position": [
+            1800.0,
+            -1200.0,
+            0
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            281.25,
+            -300,
+            353.5
+          ],
+          "intensity": 2450,
+          "radius": 575,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            1481.25,
+            -500,
+            353.5
+          ],
+          "intensity": 2550,
+          "radius": 585,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            281.25,
+            -1250.0,
+            354.5
+          ],
+          "intensity": 1650,
+          "radius": 490,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        },
+        {
+          "position": [
+            1461.25,
+            -1310.0,
+            357.5
+          ],
+          "intensity": 1950,
+          "radius": 510,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        }
+      ],
+      "anchors": [
+        {
+          "role": "encounter_west",
+          "position": [
+            300,
+            -900,
+            0
+          ]
+        },
+        {
+          "role": "encounter_east",
+          "position": [
+            1500,
+            -800,
+            0
+          ]
+        },
+        {
+          "role": "filter_maintenance",
+          "position": [
+            395.0,
+            -1000,
+            0
+          ]
+        },
+        {
+          "role": "entry",
+          "position": [
+            600,
+            -180.0,
+            0
+          ]
+        },
+        {
+          "role": "exit",
+          "position": [
+            1600,
+            -1200,
+            0
+          ]
+        }
+      ],
+      "cells": [
+        {
+          "min": [
+            -18,
+            -1618,
+            -80
+          ],
+          "max": [
+            1818,
+            18,
+            434.99999999999994
+          ]
+        }
+      ],
+      "side_sockets": [
+        {
+          "id": "North",
+          "variant": "VentilationLoop_WestCore_SideNorth",
+          "position": [
+            900.0,
+            -1600.0,
+            0
+          ],
+          "normal": [
+            0.0,
+            -1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0,
+          "replace_suffixes": [
+            "_Shell",
+            "_Tiles",
+            "_Frames"
+          ],
+          "parts": [
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_SideNorth_Shell",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Shell"
+            },
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_SideNorth_Tiles",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Tiles"
+            },
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_SideNorth_Frames",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Frames"
+            }
+          ]
+        },
+        {
+          "id": "West",
+          "variant": "VentilationLoop_WestCore_SideWest",
+          "position": [
+            0.0,
+            -600.0,
+            0
+          ],
+          "normal": [
+            -1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0,
+          "replace_suffixes": [
+            "_Shell",
+            "_Tiles",
+            "_Frames"
+          ],
+          "parts": [
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_SideWest_Shell",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Shell"
+            },
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_SideWest_Tiles",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Tiles"
+            },
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_SideWest_Frames",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Frames"
+            }
+          ]
+        }
+      ],
+      "family_id": "VentilationLoop",
+      "structural_variant": "WestCore",
+      "dressing_parameters": {
+        "core_offset_cm": -75.0
+      }
+    },
+    {
+      "id": "VentilationLoop_EastCore",
+      "min": [
+        -18,
+        -1618,
+        -80
+      ],
+      "max": [
+        1818,
+        18,
+        434.99999999999994
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Floors"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_Ceilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Ceilings"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_Core",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Core"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_Equipment",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Equipment"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_Ducts",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Ducts"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_Props",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Props"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_Services",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Services"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Shell"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Tiles",
+          "surface_mesh_variants": [
+            "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_Tiles",
+            "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_Skin1_Tiles",
+            "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_Skin2_Tiles"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Frames"
+        },
+        {
+          "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_Fixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": [],
+          "assembly_role": "Fixtures"
+        }
+      ],
+      "ports": [
+        {
+          "id": "entry",
+          "position": [
+            600.0,
+            -0.0,
+            0
+          ],
+          "normal": [
+            0.0,
+            1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0
+        },
+        {
+          "id": "exit",
+          "position": [
+            1800.0,
+            -1200.0,
+            0
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            318.75,
+            -300,
+            353.5
+          ],
+          "intensity": 2450,
+          "radius": 575,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            1518.75,
+            -500,
+            353.5
+          ],
+          "intensity": 2550,
+          "radius": 585,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ]
+        },
+        {
+          "position": [
+            318.75,
+            -1250.0,
+            354.5
+          ],
+          "intensity": 1650,
+          "radius": 490,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        },
+        {
+          "position": [
+            1498.75,
+            -1310.0,
+            357.5
+          ],
+          "intensity": 1950,
+          "radius": 510,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ]
+        }
+      ],
+      "anchors": [
+        {
+          "role": "encounter_west",
+          "position": [
+            300,
+            -900,
+            0
+          ]
+        },
+        {
+          "role": "encounter_east",
+          "position": [
+            1500,
+            -800,
+            0
+          ]
+        },
+        {
+          "role": "filter_maintenance",
+          "position": [
+            545.0,
+            -1000,
+            0
+          ]
+        },
+        {
+          "role": "entry",
+          "position": [
+            600,
+            -180.0,
+            0
+          ]
+        },
+        {
+          "role": "exit",
+          "position": [
+            1600,
+            -1200,
+            0
+          ]
+        }
+      ],
+      "cells": [
+        {
+          "min": [
+            -18,
+            -1618,
+            -80
+          ],
+          "max": [
+            1818,
+            18,
+            434.99999999999994
+          ]
+        }
+      ],
+      "side_sockets": [
+        {
+          "id": "North",
+          "variant": "VentilationLoop_EastCore_SideNorth",
+          "position": [
+            900.0,
+            -1600.0,
+            0
+          ],
+          "normal": [
+            0.0,
+            -1.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0,
+          "replace_suffixes": [
+            "_Shell",
+            "_Tiles",
+            "_Frames"
+          ],
+          "parts": [
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_SideNorth_Shell",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Shell"
+            },
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_SideNorth_Tiles",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Tiles"
+            },
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_SideNorth_Frames",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Frames"
+            }
+          ]
+        },
+        {
+          "id": "West",
+          "variant": "VentilationLoop_EastCore_SideWest",
+          "position": [
+            0.0,
+            -600.0,
+            0
+          ],
+          "normal": [
+            -1.0,
+            0.0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0,
+          "replace_suffixes": [
+            "_Shell",
+            "_Tiles",
+            "_Frames"
+          ],
+          "parts": [
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_SideWest_Shell",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Shell"
+            },
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_SideWest_Tiles",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Tiles"
+            },
+            {
+              "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_SideWest_Frames",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "yaw": 0,
+              "collision": true,
+              "fluid": false,
+              "materials": [],
+              "assembly_role": "Frames"
+            }
+          ]
+        }
+      ],
+      "family_id": "VentilationLoop",
+      "structural_variant": "EastCore",
+      "dressing_parameters": {
+        "core_offset_cm": 75.0
+      }
+    }
+  ]
+}

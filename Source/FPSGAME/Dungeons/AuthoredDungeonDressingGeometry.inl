@@ -3,6 +3,7 @@
 #include "PhysicsEngine/BodySetup.h"
 #include "Chaos/TriangleMeshImplicitObject.h"
 #include "Chaos/Box.h"
+#include "AuthoredDungeonDressingBodies.inl"
 
 namespace DungeonDressing
 {
@@ -52,6 +53,17 @@ struct FPlacementScene
 {
     TArray<FGeometry> Geometry;
     TArray<FBox> FixedBoxes,Accepted;
+    TSet<FIntPoint> AcceptedClusters;
+    TArray<FSettledProp> Settled;
+    TMap<UStaticMesh*,TSharedPtr<FPropGeometry>> PropGeometry;
+    int32 StackCount=0,LeanCount=0,FallenCount=0,PlacementAttempts=0;
+
+    bool Place(UStaticMesh* Mesh,const FObject& Part,const FObject& Module,const FTransform& Room,
+        int32 ModuleIndex,FTransform& World,FString& Reason);
+    bool PropBlocked(const FPropBody& Body,FString& Reason) const;
+    bool FloorContact(FPropBody& Body,int32 Module,double Expected,double& Height,FString& Reason) const;
+    bool StackContact(FPropBody& Body,const FSettledProp& Parent,FString& Reason) const;
+    bool LeanContact(FPropBody& Body,const FSettledProp& Parent,const FVector& Direction,FString& Reason) const;
 
     void AddMesh(UStaticMesh* Mesh,const FTransform& Transform,int32 Module,const FString& Name)
     {
@@ -116,6 +128,7 @@ struct FPlacementScene
     bool Blocked(const FBox& Box,FString& Reason) const
     {
         for(const FBox& Other:Accepted) if(Other.ExpandBy(3).Intersect(Box)) {Reason=TEXT("another_prop");return true;}
+        for(const auto& Other:Settled) if(Other.Body.Bounds().ExpandBy(.1).Intersect(Box)) {Reason=TEXT("another_prop");return true;}
         for(const FBox& Other:FixedBoxes) if(Other.Intersect(Box)) {Reason=TEXT("fixed_prop");return true;}
         for(const auto& G:Geometry)
         {
@@ -135,19 +148,24 @@ struct FPlacementScene
         int32 ModuleIndex,FTransform& World,FString& Reason)
     {
         bool Wall=false;Part->TryGetBoolField(TEXT("dressing_wall"),Wall);
+        int32 Cluster=INDEX_NONE;Part->TryGetNumberField(TEXT("dressing_cluster"),Cluster);
+        bool Primary=false;Part->TryGetBoolField(TEXT("dressing_primary"),Primary);
+        if(!Wall && Cluster!=INDEX_NONE && !Primary && !AcceptedClusters.Contains(FIntPoint(ModuleIndex,Cluster)))
+        {Reason=TEXT("cluster_primary_rejected");return false;}
         const FVector WallNormal=Wall?Room.TransformVectorNoScale(Vector(Part,TEXT("dressing_normal"))).GetSafeNormal():FVector::ZeroVector;
         FBox Bounds=MeshBounds.TransformBy(World);
         if(!Wall)
         {
             // The authored floor height restricts the search to this storey (12 cm).
             // An absent gallery cannot fall through to the ground floor below it.
-            const double Expected=Room.TransformPosition(Vector(Part,TEXT("position"))).Z;
+            FVector SupportPosition=Vector(Part,TEXT("position"));
+            Part->TryGetNumberField(TEXT("dressing_base_z"),SupportPosition.Z);
+            const double Expected=Room.TransformPosition(SupportPosition).Z;
             double Low=DBL_MAX,High=-DBL_MAX;
-            const FVector Center=MeshBounds.GetCenter(),Extent=MeshBounds.GetExtent();
+            const FVector Center=Bounds.GetCenter(),Extent=Bounds.GetExtent();
             for(int32 X=-1;X<=1;++X) for(int32 Y=-1;Y<=1;++Y)
             {
-                FVector Sample=World.TransformPosition(FVector(Center.X+Extent.X*.94*X,Center.Y+Extent.Y*.94*Y,MeshBounds.Min.Z));
-                Sample.Z=Expected;
+                const FVector Sample(Center.X+Extent.X*.94*X,Center.Y+Extent.Y*.94*Y,Expected);
                 FVector Hit,Normal;
                 if(!Trace(Sample+FVector(0,0,12),Sample-FVector(0,0,12),ModuleIndex,false,Hit,Normal) || Normal.Z<.985)
                 {Reason=TEXT("missing_or_sloping_support");return false;}
@@ -177,7 +195,7 @@ struct FPlacementScene
         }
         Bounds=MeshBounds.TransformBy(World);
         const FBox LocalBounds=MeshBounds.TransformBy(World.GetRelativeTransform(Room));
-        if(!Fits(LocalBounds,Module,Profile(Module->GetStringField(TEXT("id"))),{},Wall))
+        if(!Fits(LocalBounds,Module,Profile(Module),{},Wall))
         {Reason=TEXT("reserved_space_after_snap");return false;}
         // Side/top clearance includes thin rails and overhead pipes. Do not expand
         // downward across the support plane, or a correct floor contact would fail.
@@ -185,7 +203,9 @@ struct FPlacementScene
         const FBox Clearance(Bounds.Min-FVector(Margin.X,Margin.Y,Wall?2:-.05),Bounds.Max+Margin);
         if(Blocked(Clearance,Reason)) return false;
         Accepted.Add(Bounds);
+        if(!Wall && Primary && Cluster!=INDEX_NONE) AcceptedClusters.Add(FIntPoint(ModuleIndex,Cluster));
         return true;
     }
 };
 }
+#include "AuthoredDungeonDressingSettlement.inl"

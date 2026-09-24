@@ -1,5 +1,6 @@
 #include "FPSGAMEPlayerController.h"
 #include "UI/ColdSteelQuickBarTypes.h"
+#include "UI/TransitLoadingSubsystem.h"
 #include "SceneTestPortal.h"
 #include "EngineUtils.h"
 #include "FPSGAMECharacter.h"
@@ -215,6 +216,7 @@ void AFPSGAMEPlayerController::BeginPlay()
             GetWorldTimerManager().SetTimer(TooltipTimer,[this](){ColdSteelHUD->RunItemTooltipAudit();},12.f,false);
         }
     }
+    if(auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())Loading->ShowStartupMenu(this);
 }
 
 void AFPSGAMEPlayerController::SetupInputComponent()
@@ -292,6 +294,7 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
         if(Params.Key==EKeys::E&&GetPawn())
         {
             auto* Target=ColdSteelWorldInteraction::TraceTarget(this);
+            if(ColdSteelWorldInteraction::IsTreasureChest(Target)){ColdSteelWorldInteraction::OpenTreasureChest(this,Target);return true;}
             if(auto* Chest=Cast<AColdSteelWarehouseChest>(Target);Chest&&ColdSteelHUD){ColdSteelHUD->OpenWarehouse(Chest);return true;}
             if(auto* Pickup=Cast<AColdSteelPickup>(Target)){Profile->Pickup(Pickup->ItemId);return true;}
             // Door System 的门：准星命中后按门自己的交互入口开门／关门（隐藏玩家代理在子系统里维护）。

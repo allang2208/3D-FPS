@@ -1,0 +1,141 @@
+{
+  "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatDoor_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatDoor_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatDoor_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatDoor_Damage2_Tiles"
+  ],
+  "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatTreasureNorth_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatTreasureNorth_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatTreasureNorth_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatTreasureNorth_Damage2_Tiles"
+  ],
+  "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatTreasureWest_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatTreasureWest_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatTreasureWest_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatTreasureWest_Damage2_Tiles"
+  ],
+  "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatDoor_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatDoor_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatDoor_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatDoor_Damage2_Tiles"
+  ],
+  "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatTreasureEast_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatTreasureEast_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatTreasureEast_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatTreasureEast_Damage2_Tiles"
+  ],
+  "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatTreasureWest_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatTreasureWest_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatTreasureWest_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatTreasureWest_Damage2_Tiles"
+  ],
+  "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_FreightTransfer_CombatTreasureEast_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_CombatTreasureEast_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_CombatTreasureEast_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_CombatTreasureEast_Damage2_Tiles"
+  ],
+  "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_FreightTransfer_CombatTreasureWest_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_CombatTreasureWest_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_CombatTreasureWest_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_CombatTreasureWest_Damage2_Tiles"
+  ],
+  "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_RouteElbow_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_RouteElbow_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_RouteElbow_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_RouteElbow_Damage2_Tiles"
+  ],
+  "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_ShoredBreach_CombatTreasureSouth_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_CombatTreasureSouth_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_CombatTreasureSouth_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_CombatTreasureSouth_Damage2_Tiles"
+  ],
+  "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_ShoredBreach_CombatTreasureWest_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_CombatTreasureWest_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_CombatTreasureWest_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_CombatTreasureWest_Damage2_Tiles"
+  ],
+  "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Threshold_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Threshold_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Threshold_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Threshold_Damage2_Tiles"
+  ],
+  "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Transit_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Transit_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Transit_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Transit_Damage2_Tiles"
+  ],
+  "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_VentilationLoop_CombatTreasureNorth_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_CombatTreasureNorth_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_CombatTreasureNorth_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_CombatTreasureNorth_Damage2_Tiles"
+  ],
+  "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_VentilationLoop_CombatTreasureWest_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_CombatTreasureWest_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_CombatTreasureWest_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_CombatTreasureWest_Damage2_Tiles"
+  ],
+  "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Junction_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Junction_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Junction_Damage2_Tiles"
+  ],
+  "/Game/Dungeons/Routes20260922/Meshes/SM_RS_RouteEnd_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_RouteEnd_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_RouteEnd_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_RouteEnd_Damage2_Tiles"
+  ],
+  "/Game/Dungeons/Routes20260922/Meshes/SM_RS_ShoredBreach_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_Damage2_Tiles"
+  ],
+  "/Game/Dungeons/Treasure20260922/Meshes/SM_RS_TreasureLink_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_TreasureLink_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_TreasureLink_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_TreasureLink_Damage2_Tiles"
+  ],
+  "/Game/Dungeons/Treasure20260922/Meshes/SM_RS_Treasure_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Treasure_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Treasure_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Treasure_Damage2_Tiles"
+  ],
+  "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_Damage2_Tiles"
+  ],
+  "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_Damage2_Tiles"
+  ],
+  "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Start_EntryEnd_Damage0_Tiles"
+  ],
+  "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_Corridor_South": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Start_Corridor_South_Damage0_Tiles"
+  ],
+  "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_Corridor_North": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Start_Corridor_North_Damage0_Tiles"
+  ],
+  "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_Workshop": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Start_Workshop_Damage0_Tiles"
+  ],
+  "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_MachineBay": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Start_MachineBay_Damage0_Tiles"
+  ],
+  "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_ServiceRecess": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Start_ServiceRecess_Damage0_Tiles"
+  ],
+  "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_Dogleg": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Start_Dogleg_Damage0_Tiles"
+  ],
+  "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EndLanding": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Start_EndLanding_Damage0_Tiles"
+  ],
+  "/Game/Dungeons/FinalReward20260923/Meshes/SM_RS_FinalRewardRoom_Tiles": [
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FinalRewardRoom_Damage0_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FinalRewardRoom_Damage1_Tiles",
+    "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FinalRewardRoom_Damage2_Tiles"
+  ]
+}

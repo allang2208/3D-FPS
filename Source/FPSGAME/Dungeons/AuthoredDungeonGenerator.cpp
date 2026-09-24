@@ -12,6 +12,7 @@
 #include "DungeonPerformanceScope.h"
 #include "../UI/TransitLoadingSubsystem.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/PrimitiveComponent.h"
 #include "Components/PointLightComponent.h"
 #include "Components/SpotLightComponent.h"
 #include "Engine/StaticMeshActor.h"
@@ -28,14 +29,20 @@
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonSerializer.h"
 #include "Materials/MaterialInterface.h"
+#include "Materials/Material.h"
+#include "Materials/MaterialInstanceDynamic.h"
+#include "Components/DecalComponent.h"
+#include "Engine/DecalActor.h"
 #include "Misc/DateTime.h"
 #include "TimerManager.h"
 #include "DungeonBossEncounter.h"
 #include "../Monsters/HandBrainMonster.h"
+#include "../SceneTestPortal.h"
 #include "NavigationSystem.h"
 #include "NavMesh/NavMeshBoundsVolume.h"
 #include "Components/BrushComponent.h"
 #include "EngineUtils.h"
+#include "AuthoredDungeonWallStains.inl"
 #include "AuthoredDungeonDressing.inl"
 #include "AuthoredDungeonDressingGeometry.inl"
 #include "AuthoredDungeonDressingTests.inl"
@@ -56,9 +63,9 @@ FPort ReadPort(const JObject& Data)
     return Port;
 }
 struct FSideSocket { FPort Port; JObject Data; };
-struct FModule { FString Id; FBox Bounds; TArray<FPort> Ports; JObject Data; TArray<FBox> Cells; TArray<FSideSocket> SideSockets; };
+struct FModule { FString Id,Family; FBox Bounds; TArray<FPort> Ports; JObject Data; TArray<FBox> Cells; TArray<FSideSocket> SideSockets; };
 struct FPlaced { int32 Module; FTransform Transform; FBox Bounds; FString Route; TArray<FBox> Cells; int32 Side=-1; };
-struct FSocket { FVector P,N; int32 Owner=-1; double Width=300,Height=280; };
+struct FSocket { FVector P,N; int32 Owner=-1; double Width=300,Height=280; double ReservedLead=0; };
 struct FPlan
 {
     TArray<FModule> Modules;
@@ -76,6 +83,9 @@ struct FPlan
     {
         if(!Modules.IsValidIndex(Module)||!Modules[Module].Ports.IsValidIndex(Entry))return false;
         const auto& Port=Modules[Module].Ports[Entry];
+        if(Port.P.ContainsNaN()||Port.N.ContainsNaN()||Socket.P.ContainsNaN()||Socket.N.ContainsNaN()||
+           FMath::Abs(Port.N.Z)>.001||FMath::Abs(Socket.N.Z)>.001||
+           !FMath::IsNearlyEqual(Port.N.SizeSquared(),1.,.001)||!FMath::IsNearlyEqual(Socket.N.SizeSquared(),1.,.001))return false;
         return !bStrictPorts||(Port.Width>=300&&Port.Height>=280&&FMath::Abs(Port.Width-Socket.Width)<1&&FMath::Abs(Port.Height-Socket.Height)<1);
     }
     TArray<int32> Counts;
@@ -83,7 +93,8 @@ struct FPlan
     bool Overlap(const FBox& A,const FBox& B)const
     {
         return FMath::Min(A.Max.X,B.Max.X)-FMath::Max(A.Min.X,B.Min.X)>8 &&
-               FMath::Min(A.Max.Y,B.Max.Y)-FMath::Max(A.Min.Y,B.Min.Y)>8;
+               FMath::Min(A.Max.Y,B.Max.Y)-FMath::Max(A.Min.Y,B.Min.Y)>8 &&
+               FMath::Min(A.Max.Z,B.Max.Z)-FMath::Max(A.Min.Z,B.Min.Z)>8;
     }
     FTransform Fit(int32 Module,int32 Entry,const FSocket& S)const
     {
@@ -98,15 +109,24 @@ struct FPlan
         return {A.Transform.TransformPosition(P.P),A.Transform.TransformVectorNoScale(P.N),Owner,P.Width,P.Height};
     }
     int32 PortCount(int32 Owner)const{return Modules[Pieces[Owner].Module].Ports.Num()+(Pieces[Owner].Side>=0?1:0);}
+    #include "AuthoredDungeonRoomChoices.inl"
     bool Place(int32 Module,const FTransform& T,const FString& Route,int32 IgnoreFrom=-2,int32 IgnoreOwner=-2,
                FVector SectorOrigin=FVector::ZeroVector,FVector SectorDir=FVector::ZeroVector,int32 SecondOwner=-2)
     {
+        // Room shells stay rigid. Only straight connector length may change.
+        const FVector Scale=T.GetScale3D();
+        if(T.ContainsNaN()||Scale.GetMin()<=0||!FMath::IsNearlyEqual(Scale.X,1.,.0001)||
+           !FMath::IsNearlyEqual(Scale.Z,1.,.0001)||(Module!=Transit&&!FMath::IsNearlyEqual(Scale.Y,1.,.0001)))return false;
         const FBox B=Modules[Module].Bounds.TransformBy(T);
         TArray<FBox> Cells;for(const FBox& Local:Modules[Module].Cells)Cells.Add(Local.TransformBy(T));
+        if(bCompactBoss&&!InCompactLane(Cells,Route))return false;
         if(IgnoreOwner!=-1)for(const FBox& Cell:Cells)if(Overlap(Cell,Reserved))return false;
         for(int32 I=0;I<Pieces.Num();++I)
-            if(I!=IgnoreOwner && I!=SecondOwner && !(IgnoreFrom>=0&&I>=IgnoreFrom) && Overlap(B,Pieces[I].Bounds))
-                for(const FBox& Cell:Cells)for(const FBox& Other:Pieces[I].Cells)if(Overlap(Cell,Other))return false;
+            if(Overlap(B,Pieces[I].Bounds))
+                for(const FBox& Cell:Cells)for(const FBox& Other:Pieces[I].Cells)if(Overlap(Cell,Other))
+                {
+                    if(!JoinedWallSeam(Module,T,I,Cell.Overlap(Other)))return false;
+                }
         if(!SectorDir.IsNearlyZero())
         {
             const FVector Side(-SectorDir.Y,SectorDir.X,0);
@@ -130,27 +150,28 @@ struct FPlan
         }
         return true;
     }
+    #include "AuthoredDungeonShortLinks.inl"
     bool Chain(int32 Remaining,FSocket& S,const FString& Route,FVector SectorOrigin={},FVector SectorDir={})
     {
         if(Remaining==0)return true;
-        if(--SearchBudget<0)return false;
-        TArray<TPair<int32,int32>> Choices;
-        for(int32 M:Combat)for(int32 Entry=0;Entry<2;++Entry)Choices.Emplace(M,Entry);
-        for(int32 I=Choices.Num()-1;I>0;--I)Choices.Swap(I,Random.RandRange(0,I));
+        if(SearchBudget<=0)return false;
+        const auto Choices=RoomChoices(Route);
         const int32 Before=Pieces.Num();const FSocket Initial=S;
-        for(const auto& Choice:Choices)for(int32 Length:{1,2,3,5})
+        const auto Links=RoomLinks(Initial);
+        for(const auto& Choice:Choices)for(const auto& Link:Links)
         {
             Pieces.SetNum(Before);S=Initial;
-            if(!Corridor(Length,S,Route,Threshold))continue;
-            if(!Compatible(S,Choice.Key,Choice.Value)||!Place(Choice.Key,Fit(Choice.Key,Choice.Value,S),Route,Before,-2,SectorOrigin,SectorDir))continue;
-            S=Socket(Pieces.Num()-1,1-Choice.Value);
+            if(--SearchBudget<0)return false;
+            if(!AttachRoom(Choice.Key,Choice.Value,Initial,Link,Route,S,SectorOrigin,SectorDir))continue;
             if(Chain(Remaining-1,S,Route,SectorOrigin,SectorDir))return true;
         }
         Pieces.SetNum(Before);S=Initial;return false;
     }
     #include "AuthoredDungeonRouting.inl"
+    #include "AuthoredDungeonCompactRouting.inl"
     bool Build(int32 Seed,const FSocket& Start)
     {
+        if(bBossTerminal&&bCompactBoss)return BuildCompact(Seed,Start);
         for(int32 Attempt=0;Attempt<80;++Attempt)
         {
             Pieces.Reset();Counts.Reset();Random.Initialize(Seed+Attempt*7919);SearchBudget=2500;
@@ -179,7 +200,7 @@ struct FPlan
                 if(bBossTerminal? !RouteTo(Branch,BossTargets[I],Route+TEXT("_Confluence")):
                    !Place(End,Fit(End,0,Branch),Route,-2,Branch.Owner)){Good=false;break;}
             }
-            if(Good)return true;
+            if(Good&&CompleteSocketGraph(Start))return true;
         }
         return false;
     }
@@ -201,9 +222,10 @@ struct FPlan
                 const FTransform ParentTransform=Pieces[Owner].Transform;
                 FSocket S{ParentTransform.TransformPosition(P.P),ParentTransform.TransformVectorNoScale(P.N),Owner,P.Width,P.Height};
                 const FString Route=Pieces[Owner].Route+FString::Printf(TEXT("_Treasure%d"),Owner);
-                if(!Place(TreasureLink,Fit(TreasureLink,0,S),Route,-2,Owner))continue;
+                Pieces[Owner].Side=Side; // Expose the proposed socket to the exact seam rule.
+                if(!Place(TreasureLink,Fit(TreasureLink,0,S),Route,-2,Owner)){Pieces[Owner].Side=-1;continue;}
                 S=Socket(Pieces.Num()-1,1);
-                if(!Place(Treasure,Fit(Treasure,0,S),Route,-2,S.Owner))continue;
+                if(!Place(Treasure,Fit(Treasure,0,S),Route,-2,S.Owner)){Pieces[Owner].Side=-1;continue;}
                 // The wall is opened only after both the vestibule and the entire side room fit.
                 Pieces[Owner].Side=Side;++TreasureCount;break;
             }
@@ -228,11 +250,14 @@ struct FAuthoredDungeonBuildState
     TMap<FString,UObject*> Assets; // Retained by generator's GenerationResources during assembly.
     TMap<FString,TWeakObjectPtr<UInstancedStaticMeshComponent>> InstanceGroups;
     TMap<FString,int32> InstanceCandidates;
+    TMap<int32,TWeakObjectPtr<AActor>> FinalRewardChests;
     TMap<FName,double> PhaseMs;
     DungeonDressing::FPlacementScene DressingScene;
     TMap<FString,int32> DressingRejections;
     int32 DressingCandidates=0,DressingSkipped=0;
     int32 Seed=0,Cursor=0,Parts=0,Instances=0,InstanceComponents=0,StaticFallbacks=0,Hazards=0,Props=0,DressingProps=0,Lights=0,AssetResolutions=0,Slices=0;
+    int32 PhysicsActorCursor=0,PhysicsStatesCreated=0,RetireCursor=0,RevealCursor=0;
+    FText LoadingStatus;
     double StartedAt=FPlatformTime::Seconds(),FinishedAt=0,PlanMs=0,PeakSliceMs=0;
     FString Error;
     FString PendingDescription,PendingManifest;
@@ -278,6 +303,16 @@ UTransitLoadingSubsystem* DungeonLoading(const AActor* Actor)
 {
     const UWorld* World=Actor->GetWorld();
     return World&&World->IsGameWorld()&&World->GetGameInstance()?World->GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>():nullptr;
+}
+
+FText AssemblyStatus(FName Stage)
+{
+    if(Stage==TEXT("Dungeon.Resources"))return FText::FromString(TEXT("正在载入地牢资源…"));
+    if(Stage==TEXT("Dungeon.MeshCollision"))return FText::FromString(TEXT("正在铺设地面、连接段与楼梯…"));
+    if(Stage==TEXT("Dungeon.MeshVisuals"))return FText::FromString(TEXT("正在布置房间外观…"));
+    if(Stage==TEXT("Dungeon.Lights"))return FText::FromString(TEXT("正在准备房间灯光…"));
+    if(Stage==TEXT("Dungeon.DressingScene")||Stage==TEXT("Dungeon.Dressing"))return FText::FromString(TEXT("正在布置环境摆件…"));
+    return FText::FromString(TEXT("正在准备场景物件…"));
 }
 }
 
@@ -326,7 +361,8 @@ void AAuthoredDungeonGenerator::Generate(int32 Seed)
     Plan.Reserved=FBox(Vec(Catalog,TEXT("reserved_min")),Vec(Catalog,TEXT("reserved_max")));
     for(const auto& Value:Catalog->GetArrayField(TEXT("modules")))
     {
-        JObject D=Value->AsObject();FModule M;M.Data=D;M.Id=D->GetStringField(TEXT("id"));M.Bounds=FBox(Vec(D,TEXT("min")),Vec(D,TEXT("max")));
+        JObject D=Value->AsObject();FModule M;M.Data=D;M.Id=D->GetStringField(TEXT("id"));M.Family=M.Id;
+        D->TryGetStringField(TEXT("family_id"),M.Family);M.Bounds=FBox(Vec(D,TEXT("min")),Vec(D,TEXT("max")));
         for(const auto& V:D->GetArrayField(TEXT("ports")))M.Ports.Add(ReadPort(V->AsObject()));
         for(const auto& V:D->GetArrayField(TEXT("cells"))){JObject C=V->AsObject();M.Cells.Add(FBox(Vec(C,TEXT("min")),Vec(C,TEXT("max"))));}
         const TArray<TSharedPtr<FJsonValue>>* Sides=nullptr;
@@ -341,6 +377,13 @@ void AAuthoredDungeonGenerator::Generate(int32 Seed)
     Catalog->TryGetBoolField(TEXT("boss_terminal_enabled"),Plan.bBossTerminal);
     Plan.BossRoom=Plan.Find(TEXT("BossPumpHall"));Plan.BossConfluence=Plan.Find(TEXT("BossConfluence"));
     Plan.BossApproach=Plan.Find(TEXT("BossApproach"));Plan.Elbow=Plan.Find(TEXT("RouteElbow"));
+    Catalog->TryGetBoolField(TEXT("compact_underground_boss"),Plan.bCompactBoss);
+    Plan.StairDrop=Plan.Find(TEXT("StairDrop1080"));
+    if(Plan.bCompactBoss)
+    {
+        if(!Plan.bBossTerminal||Plan.StairDrop<0||Plan.Modules[Plan.StairDrop].Ports.Num()!=2||Plan.AuthoredWalk(Plan.StairDrop)<=0)
+        {State->Error=TEXT("地下终点缺少完整下行楼梯和路程数据");State->bPlanning=false;PumpAssembly(true);return;}
+    }
     if(Plan.bBossTerminal&&(Plan.BossRoom<0||Plan.BossConfluence<0||Plan.BossApproach<0||Plan.Elbow<0))
     {State->Error=TEXT("Boss 汇流目录缺少终端或转角模块");State->bPlanning=false;PumpAssembly(true);return;}
     Catalog->TryGetNumberField(TEXT("treasure_chance_per_room"),Plan.TreasureChance);Plan.TreasureChance=FMath::Clamp(Plan.TreasureChance,0.0,1.0);
@@ -369,7 +412,19 @@ void AAuthoredDungeonGenerator::Generate(int32 Seed)
         TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Dungeon_LayoutSearch);
         const double Begin=FPlatformTime::Seconds();
         State->bPlanSucceeded=State->Plan.Build(State->Seed,Start);
-        if(State->bPlanSucceeded)State->Plan.AddTreasureRooms(State->Seed);
+        if(!State->bPlanSucceeded)
+        {
+            const auto Pool=State->Plan.Combat;
+            State->Plan.Combat.RemoveAll([&](int32 M){return State->Plan.Modules[M].Id!=State->Plan.Modules[M].Family;});
+            if(!State->Plan.Combat.IsEmpty()&&State->Plan.Combat.Num()<Pool.Num())
+                State->bPlanSucceeded=State->Plan.Build(State->Seed,Start);
+            State->Plan.Combat=Pool;
+        }
+        if(State->bPlanSucceeded)
+        {
+            State->Plan.AddTreasureRooms(State->Seed);
+            State->bPlanSucceeded=State->Plan.CompleteSocketGraph(Start);
+        }
         State->PlanMs=(FPlatformTime::Seconds()-Begin)*1000.;
     };
     if(State->bRuntime)
@@ -397,20 +452,12 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
     auto* State=BuildState.Get();
     FPlan& Plan=State->Plan;const JObject Catalog=State->Catalog;const int32 Seed=State->Seed;
     if(!State->bPlanSucceeded)
-    {State->Error=FString::Printf(TEXT("种子 %d 未找到完整布局，保留原场景"),Seed);return;}
+    {State->Error=FString::Printf(TEXT("种子 %d 未找到完整布局，保留原场景。%s"),Seed,*Plan.CompactFailure);return;}
     DungeonPerformance::FScope Scope(this,TEXT("Dungeon.PrepareJobs"));
     const double PrepareStarted=FPlatformTime::Seconds();
     // A complete plan is obtained before replacing the current preview or runtime assembly.
-    if(State->bRuntime)
-    {
-        // Teardown is sorted after successful staging; keep the old room lights alive until commit.
-        // Keep ownership entries until destruction completes, including cancellation/re-generation.
-        for(AActor* Actor:GeneratedActors)if(IsValid(Actor))
-        {
-            TWeakObjectPtr<AActor> Old(Actor);
-            State->Jobs.Add({TEXT("Dungeon.Teardown"),[Old](){if(auto* A=Old.Get())A->Destroy();}});
-        }
-    }
+    // FinishAssembly retires the previous actors only after new collision exists.
+    // Deleting them as assembly jobs would make collision failures impossible to roll back.
     // Editor preview also retains the previous geometry until staging succeeds.
     const bool bOptimizeLights=AuthoredDungeonLighting::IsOptimizationEnabled();
     bLightingOptimizationApplied=bOptimizeLights;
@@ -421,7 +468,7 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
     {
         StagedLightModules[I].Cells=Plan.Pieces[I].Cells;
         const FString& Id=Plan.Modules[Plan.Pieces[I].Module].Id;
-        StagedLightModules[I].bConnector=Id==TEXT("Transit")||Id==TEXT("Threshold")||Id==TEXT("TreasureLink")||Id==TEXT("RouteElbow")||Id==TEXT("BossApproach");
+        StagedLightModules[I].bConnector=Id==TEXT("Transit")||Id==TEXT("Threshold")||Id==TEXT("TreasureLink")||Id==TEXT("RouteElbow")||Id==TEXT("BossApproach")||Id==TEXT("StairDrop1080");
     }
     auto ConnectLights=[&](int32 From,int32 To,FVector Door)
     {
@@ -432,12 +479,22 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
     };
     ConnectLights(Plan.Pieces.Num(),0,Vec(Catalog,TEXT("start_position")));
     JObject Graph=MakeShared<FJsonObject>();Graph->SetNumberField(TEXT("seed"),Seed);
+    Graph->SetNumberField(TEXT("generator_version"),Plan.bCompactBoss?2:1);
+    Graph->SetNumberField(TEXT("room_connection_version"),3);
+    if(Plan.bCompactBoss)Graph->SetStringField(TEXT("compact_terminal_placement"),TEXT("completed_middle_branch"));
+    Graph->SetNumberField(TEXT("room_connection_max_cm"),FPlan::ShortLinkLimit);
+    Graph->SetNumberField(TEXT("room_connection_max_turns"),2);
+    Graph->SetNumberField(TEXT("boss_depth_cm"),Plan.bCompactBoss?Plan.BossDepth:0);
+    TArray<TSharedPtr<FJsonValue>> WalkLengths;for(double Length:Plan.TerminalWalkLengths)WalkLengths.Add(MakeShared<FJsonValueNumber>(Length));
+    Graph->SetArrayField(TEXT("terminal_walk_cm"),WalkLengths);
     TArray<TSharedPtr<FJsonValue>> Nodes,Edges;
     auto JsonVector=[](FVector V){return TArray<TSharedPtr<FJsonValue>>{MakeShared<FJsonValueNumber>(V.X),MakeShared<FJsonValueNumber>(V.Y),MakeShared<FJsonValueNumber>(V.Z)};};
     for(int32 I=0;I<Plan.Pieces.Num();++I)
     {
         const auto& P=Plan.Pieces[I];JObject N=MakeShared<FJsonObject>();N->SetNumberField(TEXT("id"),I);N->SetStringField(TEXT("module"),Plan.Modules[P.Module].Id);N->SetStringField(TEXT("route"),P.Route);N->SetArrayField(TEXT("origin"),JsonVector(P.Transform.GetLocation()));N->SetNumberField(TEXT("yaw"),P.Transform.Rotator().Yaw);
         Nodes.Add(MakeShared<FJsonValueObject>(N));
+        N->SetNumberField(TEXT("floor"),FMath::RoundToInt((P.Transform.GetLocation().Z-Vec(Catalog,TEXT("start_position")).Z)/540.));
+        N->SetArrayField(TEXT("volume_min"),JsonVector(P.Bounds.Min));N->SetArrayField(TEXT("volume_max"),JsonVector(P.Bounds.Max));
         if(P.Side>=0)N->SetStringField(TEXT("side_socket"),Plan.Modules[P.Module].SideSockets[P.Side].Data->GetStringField(TEXT("id")));
         for(int32 J=0;J<I;++J)for(int32 A=0;A<Plan.PortCount(I);++A)for(int32 B=0;B<Plan.PortCount(J);++B)
         {
@@ -451,6 +508,8 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
     }
     Graph->SetNumberField(TEXT("treasure_rooms"),Plan.TreasureCount);
     Graph->SetNumberField(TEXT("boss_rooms"),Plan.bBossTerminal?1:0);
+    Graph->SetNumberField(TEXT("final_reward_rooms"),Plan.bBossTerminal&&Plan.BossRoom>=0&&
+        Plan.Modules[Plan.BossRoom].Data->HasField(TEXT("reward_exit"))?1:0);
     Graph->SetArrayField(TEXT("nodes"),Nodes);Graph->SetArrayField(TEXT("connections"),Edges);State->PendingManifest.Empty();FJsonSerializer::Serialize(Graph.ToSharedRef(),TJsonWriterFactory<>::Create(&State->PendingManifest));
     TSet<FString> QueuedAssets;
     auto QueueAsset=[this,State,&QueuedAssets](const FString& Path)
@@ -467,6 +526,8 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
     }});
     FActorSpawnParameters Params;Params.Owner=this;Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     const bool bDressRooms=DungeonDressingEnabled.GetValueOnGameThread()!=0;
+    // Surface selection has its own seed stream; changing wall art never reroutes the dungeon.
+    TMap<FString,int32> PreviousSurfaceChoices;
     for(int32 Index=0;Index<Plan.Pieces.Num();++Index)
     {
         const FPlaced& Piece=Plan.Pieces[Index];const JObject D=Plan.Modules[Piece.Module].Data;
@@ -481,13 +542,29 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
         if(bDressRooms) Parts.Append(DungeonDressing::Build(D,Seed,Index));
         for(const auto& V:Parts)
         {
-            const JObject Part=V->AsObject();
+            JObject Part=V->AsObject();
+            const TArray<TSharedPtr<FJsonValue>>* SurfaceVariants=nullptr;
+            if(Part->TryGetArrayField(TEXT("surface_mesh_variants"),SurfaceVariants)&&!SurfaceVariants->IsEmpty())
+            {
+                const FString BaseMesh=Part->GetStringField(TEXT("mesh"));
+                FRandomStream SurfaceRandom(int32(HashCombineFast(uint32(Seed)^0x6D43A917u,
+                    HashCombineFast(uint32(Index),GetTypeHash(BaseMesh)))));
+                int32 Choice=SurfaceRandom.RandRange(0,SurfaceVariants->Num()-1);
+                if(const int32* Previous=PreviousSurfaceChoices.Find(BaseMesh);
+                    Previous&&*Previous==Choice&&SurfaceVariants->Num()>1)
+                    Choice=(Choice+SurfaceRandom.RandRange(1,SurfaceVariants->Num()-1))%SurfaceVariants->Num();
+                PreviousSurfaceChoices.Add(BaseMesh,Choice);
+                // Copy the part before changing its mesh. Shared module JSON remains immutable.
+                Part=MakeShared<FJsonObject>(*Part);
+                Part->SetStringField(TEXT("mesh"),(*SurfaceVariants)[Choice]->AsString());
+            }
             bool Dressing=false;Part->TryGetBoolField(TEXT("dressing"),Dressing);
             QueueAsset(Part->GetStringField(TEXT("mesh")));
             for(const auto& M:Part->GetArrayField(TEXT("materials")))QueueAsset(M->AsString());
             const FString Key=InstanceKey(Part,Piece,bOptimizeLights);
             if(!Part->GetBoolField(TEXT("fluid"))&&!Part->HasField(TEXT("half_size")))++State->InstanceCandidates.FindOrAdd(Key);
-            State->Jobs.Add({Dressing?FName(TEXT("Dungeon.Dressing")):FName(TEXT("Dungeon.MeshCollision")),[this,State,Part,Piece,Index,Params,bOptimizeLights,Key,Dressing,bDressRooms]()
+            const FName Stage=Dressing?TEXT("Dungeon.Dressing"):Part->GetBoolField(TEXT("collision"))?TEXT("Dungeon.MeshCollision"):TEXT("Dungeon.MeshVisuals");
+            State->Jobs.Add({Stage,[this,State,Part,Piece,Index,Params,bOptimizeLights,Key,Dressing,bDressRooms]()
             {
             auto* Mesh=Cast<UStaticMesh>(ResolveGenerationAsset(Part->GetStringField(TEXT("mesh"))));
             if(!Mesh){State->Error=TEXT("地牢网格无法载入：")+Part->GetStringField(TEXT("mesh"));return;}
@@ -496,7 +573,7 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             if(Dressing)
             {
                 ++State->DressingCandidates;FString Reason;
-                if(!State->DressingScene.Place(Mesh->GetBoundingBox(),Part,State->Plan.Modules[Piece.Module].Data,Piece.Transform,Index,T,Reason))
+                if(!State->DressingScene.Place(Mesh,Part,State->Plan.Modules[Piece.Module].Data,Piece.Transform,Index,T,Reason))
                 {++State->DressingSkipped;++State->DressingRejections.FindOrAdd(Reason);return;}
             }
             else if(bDressRooms)
@@ -537,7 +614,14 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
                 if(!S){State->Error=TEXT("地牢网格组件创建失败");return;}
                 A=S;C=S->GetStaticMeshComponent();if(!Fluid)++State->StaticFallbacks;
             }
-            OwnGenerated(A,Index);C->SetCanEverAffectNavigation(PartAffectsNavigation(Part));C->SetStaticMesh(Mesh);
+            OwnGenerated(A,Index);
+            // SpawnActor registers AStaticMeshActor's static component immediately. After BeginPlay,
+            // UE rejects SetStaticMesh on that component. Configure it while unregistered so both
+            // the render proxy and physics body are created from the assigned mesh on registration.
+            if(C->IsRegistered())C->UnregisterComponent();
+            C->SetCanEverAffectNavigation(PartAffectsNavigation(Part));C->SetStaticMesh(Mesh);
+            if(C->GetStaticMesh()!=Mesh)
+            {State->Error=TEXT("地牢网格赋值失败：")+Part->GetStringField(TEXT("mesh"));return;}
             if(Dressing){A->Tags.Add(TEXT("DungeonDressing"));++State->DressingProps;}
             const auto& Materials=Part->GetArrayField(TEXT("materials"));for(int32 I=0;I<Materials.Num();++I)if(!Materials[I]->AsString().IsEmpty())C->SetMaterial(I,Cast<UMaterialInterface>(ResolveGenerationAsset(Materials[I]->AsString())));
             C->SetMobility(Fluid?EComponentMobility::Movable:EComponentMobility::Static);
@@ -555,10 +639,13 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             if(bInstance)
             {
                 auto* Instances=CastChecked<UInstancedStaticMeshComponent>(C);
-                Instances->AddInstance(T,true);Instances->RegisterComponent();
+                Instances->AddInstance(T,true);
                 Instances->ComponentTags.Add(FName(*FString::Printf(TEXT("DungeonModule.%d.%s"),Index,*State->Plan.Modules[Piece.Module].Id)));
                 State->InstanceGroups.Add(Key,Instances);++State->Instances;++State->InstanceComponents;
             }
+            C->RegisterComponent();
+            if(!C->IsRegistered())
+            {State->Error=TEXT("地牢网格组件注册失败：")+Part->GetStringField(TEXT("mesh"));return;}
             if(auto* WaterFX=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>())WaterFX->RegisterWaterSurface(C);
             ++State->Parts;
             }});
@@ -576,6 +663,12 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             auto* A=GetWorld()->SpawnActor<ASkeletalMeshActor>(ASkeletalMeshActor::StaticClass(),Local(Prop)*Piece.Transform,Params);
             if(!A){State->Error=TEXT("宝箱创建失败");return;}OwnGenerated(A,Index);
             A->Tags.Add(TEXT("DungeonTreasureChest"));A->Tags.Add(TEXT("FutureTreasureLoot"));
+            FString PropRole;
+            if(Prop->TryGetStringField(TEXT("role"),PropRole)&&PropRole==TEXT("final_reward_chest"))
+            {
+                A->Tags.Add(TEXT("DungeonFinalTreasure"));A->Tags.Add(TEXT("DungeonReward.Locked"));
+                State->FinalRewardChests.Add(Index,A);
+            }
             auto* C=A->GetSkeletalMeshComponent();C->SetSkeletalMeshAsset(Mesh);C->SetCollisionEnabled(ECollisionEnabled::NoCollision);
             const auto& Surfaces=Prop->GetObjectField(TEXT("material_overrides"));
             for(int32 I=0;I<C->GetNumMaterials();++I){FString Path;if(C->GetMaterial(I)&&Surfaces->TryGetStringField(C->GetMaterial(I)->GetName(),Path))C->SetMaterial(I,Cast<UMaterialInterface>(ResolveGenerationAsset(Path)));}
@@ -599,7 +692,13 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
         {
             const JObject Encounter=D->GetObjectField(TEXT("boss_encounter"));
             QueueAsset(Encounter->GetStringField(TEXT("class")));QueueAsset(Encounter->GetStringField(TEXT("gate_material")));
-            State->Jobs.Add({TEXT("Dungeon.BossEncounter"),[this,State,Encounter,Piece,Index]()
+            const JObject Reward=D->HasTypedField<EJson::Object>(TEXT("reward_exit"))?D->GetObjectField(TEXT("reward_exit")):nullptr;
+            if(Reward)
+            {
+                QueueAsset(Reward->GetStringField(TEXT("leaf_mesh")));
+                for(const auto& Asset:Reward->GetArrayField(TEXT("return_assets")))QueueAsset(Asset->AsString());
+            }
+            State->Jobs.Add({TEXT("Dungeon.BossEncounter"),[this,State,Encounter,Reward,Piece,Index]()
             {
                 auto* Class=Cast<UClass>(ResolveGenerationAsset(Encounter->GetStringField(TEXT("class"))));
                 if(!Class||!Class->IsChildOf(AHandBrainMonster::StaticClass())){State->Error=TEXT("地牢首领类无法载入");return;}
@@ -610,6 +709,22 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
                 E->DoorPoint=Vec(Encounter,TEXT("door"));
                 const auto& Size=Encounter->GetArrayField(TEXT("door_size"));E->DoorSize=FVector2D(Size[0]->AsNumber(),Size[1]->AsNumber());
                 E->GateMaterial=Cast<UMaterialInterface>(ResolveGenerationAsset(Encounter->GetStringField(TEXT("gate_material"))));
+                if(Reward)
+                {
+                    auto* Leaf=Cast<UStaticMesh>(ResolveGenerationAsset(Reward->GetStringField(TEXT("leaf_mesh"))));
+                    AActor* Chest=State->FinalRewardChests.FindRef(Index).Get();
+                    if(!Leaf||!IsValid(Chest))
+                    {E->Destroy();State->Error=TEXT("最终宝箱房缺少机械门或宝箱");return;}
+                    const JObject Return=Reward->GetObjectField(TEXT("return_portal"));
+                    const FTransform ReturnTransform=Local(Return)*Piece.Transform;
+                    auto* Portal=GetWorld()->SpawnActorDeferred<ASceneTestPortal>(ASceneTestPortal::StaticClass(),ReturnTransform,this,nullptr,ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
+                    if(!Portal){E->Destroy();State->Error=TEXT("最终宝箱房返程入口创建失败");return;}
+                    Portal->Tags.Add(TEXT("DungeonReward.Locked"));Portal->Tags.Add(TEXT("DungeonFinalReturn"));
+                    Portal->Configure(Return->GetStringField(TEXT("destination")),TEXT("RETURN TO BASE"),FString(),FColor(130,230,195));
+                    Portal->FinishSpawning(ReturnTransform);OwnGenerated(Portal,Index);
+                    E->ConfigureRewardExit(Leaf,Vec(Reward,TEXT("door_position")),Vec(Reward,TEXT("door_travel")),
+                        Vec(Reward,TEXT("door_clear_size")),Chest,Portal);
+                }
                 E->FinishSpawning(Piece.Transform);OwnGenerated(E,Index);
             }});
         }
@@ -621,9 +736,10 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
         {
             const JObject L=Lights[LightIndex]->AsObject();
             const bool Corridor=Plan.Modules[Piece.Module].Id==TEXT("Transit");
+            const bool BossHall=Plan.Modules[Piece.Module].Id==TEXT("BossPumpHall");
             FString LightRole=Corridor?TEXT("corridor"):Brightest.Find(LightIndex)<2?TEXT("key"):TEXT("fill");
             L->TryGetStringField(TEXT("role"),LightRole);
-            State->Jobs.Add({TEXT("Dungeon.Lights"),[this,State,L,Piece,Index,Params,bOptimizeLights,Corridor,LightRole]()
+            State->Jobs.Add({TEXT("Dungeon.Lights"),[this,State,L,Piece,Index,Params,bOptimizeLights,Corridor,BossHall,LightRole]()
             {
             const bool Fill=LightRole==TEXT("fill");
             FString Type=(Fill||Corridor)?TEXT("spot"):TEXT("point");L->TryGetStringField(TEXT("type"),Type);
@@ -647,12 +763,15 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             double DrawDistance=2400,FadeRange=500;bool Shadows=true;
             if(bOptimizeLights)
             {
-                Radius=Fill?FMath::Min(Radius*.8,300.0):Radius;
-                DrawDistance=Fill?1400:Corridor?1800:2400;FadeRange=Fill?400:500;Shadows=!Fill;
+                // The 30 x 26 m, two-storey hall cannot use a small room's 3 m fill radius:
+                // several overhead fills then end above their floor or at the gallery surface.
+                Radius=Fill&&!BossHall?FMath::Min(Radius*.8,300.0):Radius;
+                DrawDistance=BossHall?5200:Fill?1400:Corridor?1800:2400;
+                FadeRange=BossHall?700:Fill?400:500;Shadows=BossHall||!Fill;
                 L->TryGetNumberField(TEXT("optimized_radius_cm"),Radius);
                 L->TryGetNumberField(TEXT("max_draw_distance_cm"),DrawDistance);
                 L->TryGetNumberField(TEXT("fade_range_cm"),FadeRange);
-                if(Fill)
+                if(Fill&&!BossHall)
                 {
                     // An unshadowed fill must fit inside an occupied floor cell. Lamps near walls
                     // retain shadows instead of illuminating the neighboring room through solid walls.
@@ -670,7 +789,8 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
                 L->TryGetBoolField(TEXT("cast_shadows"),Shadows);
             }
             C->SetIntensity(Intensity);C->SetAttenuationRadius(FMath::Max(1.0,Radius));
-            const FVector Color=Vec(L,TEXT("color"));C->SetLightColor(FLinearColor(Color.X,Color.Y,Color.Z));C->SetSourceRadius(5);C->SetSourceLength(Spot?0:60);C->SetCastShadows(Shadows);
+            const FVector Color=Vec(L,TEXT("color"));C->SetLightColor(FLinearColor(Color.X,Color.Y,Color.Z));
+            C->SetSourceRadius(BossHall?2:5);C->SetSourceLength(Spot?0:60);C->SetCastShadows(Shadows);
             C->SetMaxDrawDistance(FMath::Max(0.0,DrawDistance));C->SetMaxDistanceFadeRange(FMath::Clamp(FadeRange,0.0,FMath::Max(0.0,DrawDistance)));
             State->NextLights[Index].Lights.Add({C,Intensity,1.f});
             ++State->Lights;
@@ -692,12 +812,20 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
         FBox Bounds(ForceInit);for(const auto& Piece:State->Plan.Pieces) Bounds+=Piece.Bounds;
         State->DressingScene.AddPlacedActors(GetWorld(),this,Bounds);
     }});
-    // All structural geometry and fixed props must exist before dressing, including
-    // later modules and side-door variants. Teardown remains last for rollback.
+    // Build every module's collidable structure first. Each actor's physics is drained
+    // by PumpAssembly before the next job; dressing still sees all geometry/fixed props.
     State->Jobs.StableSort([](const auto& A,const auto& B)
     {
         auto Rank=[](FName Stage)
-        {return Stage==TEXT("Dungeon.Resources")?0:Stage==TEXT("Dungeon.DressingScene")?2:Stage==TEXT("Dungeon.Dressing")?3:Stage==TEXT("Dungeon.Teardown")?4:1;};
+        {
+            if(Stage==TEXT("Dungeon.Resources"))return 0;
+            if(Stage==TEXT("Dungeon.MeshCollision"))return 1;
+            if(Stage==TEXT("Dungeon.MeshVisuals"))return 2;
+            if(Stage==TEXT("Dungeon.Lights"))return 3;
+            if(Stage==TEXT("Dungeon.DressingScene"))return 5;
+            if(Stage==TEXT("Dungeon.Dressing"))return 6;
+            return 4;
+        };
         return Rank(A.Stage)<Rank(B.Stage);
     });
     State->PhaseMs.Add(TEXT("Dungeon.PrepareJobs"),(FPlatformTime::Seconds()-PrepareStarted)*1000.);
@@ -758,6 +886,7 @@ void AAuthoredDungeonGenerator::PumpAssembly(bool bSynchronous)
 {
     if(!BuildState||BuildState->bPlanning)return;
     auto* State=BuildState.Get();
+    const int32 InitialJobCursor=State->Cursor,InitialPhysicsCursor=State->PhysicsActorCursor;
     if(State->Error.IsEmpty())
     {
         TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Dungeon_AssemblySlice);
@@ -766,10 +895,49 @@ void AAuthoredDungeonGenerator::PumpAssembly(bool bSynchronous)
         const double Budget=FMath::Clamp(double(DungeonBuildBudget.GetValueOnGameThread()),.25,16.)/1000.;
         do
         {
+            // Complete the newly configured actor before starting another job. Keeping
+            // this cursor under the assembly budget avoids a whole-dungeon physics spike
+            // at commit. Existing ISM groups already have a physics state when AddInstance
+            // appends another instance, so UE creates that instance's body with the job.
+            if(State->bStaging&&State->PhysicsActorCursor<GeneratedActors.Num())
+            {
+                const double PhysicsStart=FPlatformTime::Seconds();
+                bool bPendingPhysics=false;
+                {
+                    DungeonPerformance::FScope PhysicsScope(this,TEXT("Dungeon.PhysicsActivation"));
+                    if(AActor* Actor=GeneratedActors[State->PhysicsActorCursor];IsValid(Actor))
+                    {
+                        Actor->SetActorEnableCollision(true);
+                        TInlineComponentArray<UPrimitiveComponent*> Primitives(Actor);
+                        for(UPrimitiveComponent* Primitive:Primitives)
+                        {
+                            if(!Primitive->IsRegistered()||!Primitive->IsCollisionEnabled())continue;
+                            if(Primitive->IsAsyncCreatePhysicsStateRunning()){bPendingPhysics=true;continue;}
+                            // Registration while OwnGenerated has actor collision disabled
+                            // can skip body creation. Enabling only updates existing filters.
+                            if(!Primitive->IsPhysicsStateCreated())
+                            {
+                                Primitive->CreatePhysicsState(false);
+                                if(!Primitive->IsPhysicsStateCreated())
+                                {
+                                    State->Error=TEXT("地牢碰撞体创建失败：")+Primitive->GetPathName();
+                                    break;
+                                }
+                                ++State->PhysicsStatesCreated;
+                            }
+                        }
+                    }
+                }
+                State->PhaseMs.FindOrAdd(TEXT("Dungeon.PhysicsActivation"))+=(FPlatformTime::Seconds()-PhysicsStart)*1000.;
+                if(bPendingPhysics||!State->Error.IsEmpty())break;
+                ++State->PhysicsActorCursor;
+                continue;
+            }
             if(!State->Jobs.IsValidIndex(State->Cursor))break;
             auto& Job=State->Jobs[State->Cursor];
             if(!State->bStaging&&Job.Stage!=TEXT("Dungeon.Resources"))
             {State->PreviousActors=MoveTemp(GeneratedActors);GeneratedActors.Reset();State->bStaging=true;}
+            State->LoadingStatus=AssemblyStatus(Job.Stage);
             const double JobStart=FPlatformTime::Seconds();
             {
                 DungeonPerformance::FScope JobScope(this,Job.Stage);
@@ -788,25 +956,67 @@ void AAuthoredDungeonGenerator::PumpAssembly(bool bSynchronous)
         if(auto* Loading=DungeonLoading(this))Loading->FailPreparation(FText::FromString(State->Error+TEXT("；可取消并返回主场景。")));
         return;
     }
-    if(State->Cursor>=State->Jobs.Num()){FinishAssembly();return;}
-    if(auto* Loading=DungeonLoading(this))Loading->UpdatePreparation(FText::FromString(TEXT("正在构建房间、灯光与碰撞…")),
-        .1f+.85f*float(State->Cursor)/FMath::Max(1,State->Jobs.Num()));
+    if(State->Cursor>=State->Jobs.Num()&&State->PhysicsActorCursor>=GeneratedActors.Num())
+    {
+        // Give commit its own frame budget instead of adding it to the final build slice.
+        if(!bSynchronous&&(State->Cursor!=InitialJobCursor||State->PhysicsActorCursor!=InitialPhysicsCursor))
+        {
+            if(auto* Loading=DungeonLoading(this))Loading->UpdatePreparation(FText::FromString(TEXT("正在切换至新的地牢布局…")),.88f);
+            return;
+        }
+        FinishAssembly(bSynchronous);return;
+    }
+    if(auto* Loading=DungeonLoading(this))Loading->UpdatePreparation(State->LoadingStatus,
+        .1f+.78f*float(State->Cursor)/FMath::Max(1,State->Jobs.Num()));
 }
 
-void AAuthoredDungeonGenerator::FinishAssembly()
+void AAuthoredDungeonGenerator::FinishAssembly(bool bSynchronous)
 {
     DungeonPerformance::FScope FinalizeScope(this,TEXT("Dungeon.Finalize"));
     const double FinalizeStarted=FPlatformTime::Seconds();
     auto* State=BuildState.Get();
     auto RecordFinalize=[State,FinalizeStarted]()
     {State->PhaseMs.FindOrAdd(TEXT("Dungeon.Finalize"))+=(FPlatformTime::Seconds()-FinalizeStarted)*1000.;};
+    const double Budget=FMath::Clamp(double(DungeonBuildBudget.GetValueOnGameThread()),.25,16.)/1000.;
+    auto OutOfTime=[bSynchronous,FinalizeStarted,Budget]()
+    {return !bSynchronous&&FPlatformTime::Seconds()-FinalizeStarted>=Budget;};
     if(!State->bCommitted)
     {
+        // PumpAssembly has finished every actor's collision before reaching this point.
+        // From the first retirement onwards the new layout owns the scene; rolling back
+        // to a partially destroyed old layout is no longer possible.
         ResetRoomLighting();
-        for(AActor* Actor:State->PreviousActors)if(IsValid(Actor))Actor->Destroy();
-        State->PreviousActors.Reset();State->bCommitted=true;
-        for(AActor* Actor:GeneratedActors)if(IsValid(Actor)){Actor->SetActorHiddenInGame(false);Actor->SetActorEnableCollision(true);}
+        State->bCommitted=true;
         LightModules=MoveTemp(State->NextLights);
+    }
+    // Destroying the saved preview and revealing thousands of new components can also
+    // stall the loading UI. Keep both operations resumable, with input still held.
+    while(State->RetireCursor<State->PreviousActors.Num())
+    {
+        const double StepStart=FPlatformTime::Seconds();
+        AActor* Actor=State->PreviousActors[State->RetireCursor++];
+        if(IsValid(Actor))Actor->Destroy();
+        State->PhaseMs.FindOrAdd(TEXT("Dungeon.Teardown"))+=(FPlatformTime::Seconds()-StepStart)*1000.;
+        if(OutOfTime())
+        {
+            if(auto* Loading=DungeonLoading(this))Loading->UpdatePreparation(FText::FromString(TEXT("正在切换至新的地牢布局…")),
+                .88f+.03f*float(State->RetireCursor)/FMath::Max(1,State->PreviousActors.Num()));
+            RecordFinalize();return;
+        }
+    }
+    State->PreviousActors.Reset();
+    while(State->RevealCursor<GeneratedActors.Num())
+    {
+        const double StepStart=FPlatformTime::Seconds();
+        AActor* Actor=GeneratedActors[State->RevealCursor++];
+        if(IsValid(Actor))Actor->SetActorHiddenInGame(false);
+        State->PhaseMs.FindOrAdd(TEXT("Dungeon.Reveal"))+=(FPlatformTime::Seconds()-StepStart)*1000.;
+        if(OutOfTime())
+        {
+            if(auto* Loading=DungeonLoading(this))Loading->UpdatePreparation(FText::FromString(TEXT("正在准备地牢显示…")),
+                .91f+.04f*float(State->RevealCursor)/FMath::Max(1,GeneratedActors.Num()));
+            RecordFinalize();return;
+        }
     }
     bool RequireNavigation=false;State->Catalog->TryGetBoolField(TEXT("navigation_required"),RequireNavigation);
     if(RequireNavigation&&!State->bNavigationRequested)
@@ -834,6 +1044,7 @@ void AAuthoredDungeonGenerator::FinishAssembly()
         }
     }
     GeneratedSeed=State->Seed;LayoutDescription=State->PendingDescription;LayoutManifestJson=State->PendingManifest;
+    DungeonWallStains::Apply(GetWorld(),GeneratedSeed);
     Tags.AddUnique(TEXT("DungeonAssembly.Ready"));Tags.Remove(TEXT("DungeonAssembly.Failed"));
     BuildState->bCompleted=true;BuildState->FinishedAt=FPlatformTime::Seconds();
     RecordFinalize();
@@ -869,7 +1080,7 @@ FString AAuthoredDungeonGenerator::GetGenerationMetricsJson() const
     Report->SetStringField(TEXT("generator"),GetPathName());Report->SetNumberField(TEXT("seed"),S.Seed);
     Report->SetStringField(TEXT("status"),S.bPlanning?TEXT("planning"):!S.Error.IsEmpty()?TEXT("failed"):S.bCompleted?TEXT("ready"):TEXT("assembling"));
     Report->SetStringField(TEXT("error"),S.Error);
-    Report->SetStringField(TEXT("contract"),TEXT("CPU preparation for this generation. Layout search runs on a worker in game worlds. Stage values are inclusive synchronous game-thread wall times, not additive with AssemblySlice, GPU timings or measured FPS improvements. MeshCollision includes mesh assignment, component/physics registration; collision cooking is not separately measured. A single indivisible job can exceed BudgetMs. Planning data is not read until worker completion."));
+    Report->SetStringField(TEXT("contract"),TEXT("CPU preparation for this generation. Layout search runs on a worker in game worlds. Stage values are inclusive synchronous game-thread wall times, not additive with AssemblySlice/Finalize, GPU timings or measured FPS improvements. MeshCollision covers collidable mesh setup; PhysicsActivation covers staged actor body creation. Teardown/Reveal are also time sliced before navigation and player release. A single indivisible job can exceed BudgetMs. Planning data is not read until worker completion."));
     Report->SetNumberField(TEXT("elapsed_ms"),((S.FinishedAt>0?S.FinishedAt:FPlatformTime::Seconds())-S.StartedAt)*1000.);
     // The worker mutates only Plan, PlanMs and bPlanSucceeded. Do not inspect those while it runs.
     if(S.bPlanning){Report->SetField(TEXT("layout_worker_ms"),MakeShared<FJsonValueNull>());Report->SetField(TEXT("modules"),MakeShared<FJsonValueNull>());}
@@ -879,9 +1090,15 @@ FString AAuthoredDungeonGenerator::GetGenerationMetricsJson() const
     Report->SetNumberField(TEXT("assembly_slices"),S.Slices);Report->SetNumberField(TEXT("peak_slice_ms"),S.PeakSliceMs);
     Report->SetNumberField(TEXT("unique_assets_resolved"),S.AssetResolutions);Report->SetNumberField(TEXT("parts"),S.Parts);
     Report->SetNumberField(TEXT("instanced_parts"),S.Instances);Report->SetNumberField(TEXT("instance_components"),S.InstanceComponents);
+    Report->SetNumberField(TEXT("physics_states_created_during_assembly"),S.PhysicsStatesCreated);
+    Report->SetNumberField(TEXT("physics_actors_prepared"),S.PhysicsActorCursor);
     Report->SetNumberField(TEXT("individual_rigid_parts"),S.StaticFallbacks);Report->SetNumberField(TEXT("hazards"),S.Hazards);
     Report->SetNumberField(TEXT("skeletal_props"),S.Props);Report->SetNumberField(TEXT("lights"),S.Lights);
     Report->SetNumberField(TEXT("dressing_props"),S.DressingProps);
+    Report->SetNumberField(TEXT("dressing_stacked"),S.DressingScene.StackCount);
+    Report->SetNumberField(TEXT("dressing_leaning"),S.DressingScene.LeanCount);
+    Report->SetNumberField(TEXT("dressing_fallen"),S.DressingScene.FallenCount);
+    Report->SetNumberField(TEXT("dressing_placement_attempts"),S.DressingScene.PlacementAttempts);
     Report->SetNumberField(TEXT("dressing_candidates"),S.DressingCandidates);Report->SetNumberField(TEXT("dressing_skipped"),S.DressingSkipped);
     auto DressingReasons=MakeShared<FJsonObject>();for(const auto& P:S.DressingRejections) DressingReasons->SetNumberField(P.Key,P.Value);
     Report->SetObjectField(TEXT("dressing_rejections"),DressingReasons);

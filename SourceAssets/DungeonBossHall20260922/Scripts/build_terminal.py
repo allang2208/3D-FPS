@@ -1,6 +1,8 @@
 """Build the offline terminal catalogue; never register a boss as a random ordinary room."""
 import json,math,copy
+from build_walk_surfaces import build as build_walk_surfaces
 from pathlib import Path
+build_walk_surfaces()
 ROOT=Path(__file__).resolve().parents[1]
 cfg=json.loads((ROOT/'Config/rooms.json').read_text(encoding='utf-8'))
 manifest=json.loads((ROOT/'Authored/manifest.json').read_text(encoding='utf-8'))

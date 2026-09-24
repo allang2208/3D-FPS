@@ -1,0 +1,49 @@
+// Use centimetres and an instance-space surface basis: adhesive side faces have
+// collapsed authored UVs, so neither their UV0 nor their imported tangents are used.
+float3 n = normalize(SurfaceNormal);
+float3 an = abs(n);
+float3 axisU, axisV;
+if (an.z > max(an.x,an.y)) {
+    axisU=float3(1,0,0);axisV=float3(0,n.z>=0?1:-1,0);
+} else if (an.x > an.y) {
+    axisU=float3(0,n.x>=0?1:-1,0);axisV=float3(0,0,1);
+} else {
+    axisU=float3(n.y>=0?-1:1,0,0);axisV=float3(0,0,1);
+}
+float tile=max(SurfaceTileCm,1);
+float2 uv=float2(dot(Position,axisU),dot(Position,axisV))/tile;
+float2 gx=ddx(uv),gy=ddy(uv);
+float3 v=normalize(ViewLocal);
+float vz=dot(v,n);
+float fade=(1-smoothstep(FadeStart,max(FadeStart+1,FadeEnd),DistanceCm))*smoothstep(.10,.30,vz);
+[branch] if (DepthCm>0 && fade>.001) {
+    float2 ray=float2(dot(v,axisU),dot(v,axisV))/max(vz,.16)*min(DepthCm,1.0)/tile*fade;
+    int count=(int)clamp(ceil(Steps*lerp(1,.6,saturate(vz))),4,12);
+    float lo=0,hi=1;
+    [loop] for (int i=1;i<=12;++i) {
+        if(i>count)break;
+        hi=(float)i/count;
+        float h=Texture2DSampleGrad(HeightTex,HeightTexSampler,uv-ray*hi,gx,gy).r;
+        if(hi>=1-h)break;
+        lo=hi;
+    }
+    [loop] for (int j=0;j<4;++j) {
+        if(j>=(int)RefineSteps)break;
+        float mid=(lo+hi)*.5;
+        float h=Texture2DSampleGrad(HeightTex,HeightTexSampler,uv-ray*mid,gx,gy).r;
+        if(mid>=1-h)hi=mid;else lo=mid;
+    }
+    uv-=ray*(lo+hi)*.5;
+}
+// These maps were authored from ONE physical height field. The Fab scan remains
+// on broken concrete sections; its unrelated normals no longer drown out mortar.
+float3 color=Texture2DSampleGrad(ReliefColor,ReliefColorSampler,uv,gx,gy).rgb;
+float3 surface=Texture2DSampleGrad(ReliefSurface,ReliefSurfaceSampler,uv,gx,gy).rgb;
+float2 xy=Texture2DSampleGrad(ReliefNormal,ReliefNormalSampler,uv,gx,gy).rg*2-1;
+float nz=sqrt(max(1-dot(xy,xy),.001));
+float3 tangent=normalize(axisU-n*dot(axisU,n));
+float3 bitangent=normalize(cross(n,tangent));
+NormalLocal=normalize(n*nz+(tangent*xy.x+bitangent*xy.y)*ReliefStrength);
+AO=surface.g;
+float macro=sin(dot(Position,float3(.0037,.0021,.0013)))*sin(dot(Position,float3(.0023,-.0043,-.0021)));
+return float4(color*(1+macro*.035),surface.r);

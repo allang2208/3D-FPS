@@ -51,6 +51,8 @@ class CorridorSurfaces:
                 records=self.without_rectangular_repair(records)
             self.panels.append((hi-lo,records,name,lo))
         for ob in objects.values():bpy.data.objects.remove(ob,do_unlink=True)
+        from natural_wall_damage import donor_tiles
+        self.donors=donor_tiles(self.panels)
 
     @staticmethod
     def without_rectangular_repair(records):
@@ -72,7 +74,9 @@ class CorridorSurfaces:
         return kept
 
     def wall(self,host,start,direction,normal,length,openings,breach,depth):
-        rid=host['ROOM']['id'];seed_id=host['ROOM'].get('surface_seed_id',rid);seed=zlib.crc32((seed_id+str(tuple(start))).encode())
+        rid=host['ROOM']['id'];seed_id=host['ROOM'].get('surface_seed_id',rid)
+        variant=host['ROOM'].get('surface_variant',0)
+        seed=zlib.crc32((seed_id+str(tuple(start))+':wall:'+str(variant)).encode())
         cuts=list(openings)
         if breach:cuts.append(dict(center=(breach['left']+breach['right'])/2,width=breach['right']-breach['left']+.46,height=breach['height']+.22))
         g=host['group']('Tiles');cache={};cursor=0;panel_index=seed%len(self.panels)
@@ -87,8 +91,10 @@ class CorridorSurfaces:
             if len(set(face))<3:return
             g['f'].append(tuple(face));g['m'].append(material)
             g['uv'].append([(p[3],p[4]) for p in points]);g['smooth'].append(smooth)
+        from natural_wall_damage import records_for_wall
+        natural,summary=records_for_wall(self.panels,length,seed,self.donors)
         while cursor<length-.001:
-            width,records,name,source_start=self.panels[panel_index%len(self.panels)]
+            width,records,name,source_start=length,natural,'clustered bonded ceramic loss',0
             span=min(width,length-cursor)
             for data,material,smooth in records:
                 q=clip([(t+cursor,d,z,u,v) for t,d,z,u,v in data],0,length,False)
@@ -104,7 +110,7 @@ class CorridorSurfaces:
                             clip(clip(clip(piece,0,left,True),0,right,False),2,opening['height'],True)])
                     pieces=[p for p in next_pieces if len(p)>=3]
                 for piece in pieces:emit(piece,material,smooth)
-            self.placements.append(dict(room=rid,source=name,source_start=source_start,length=span,wall_start=list(start),offset=cursor))
+            self.placements.append(dict(room=rid,source=name,source_start=source_start,length=span,wall_start=list(start),offset=cursor,variant=variant,distribution=summary))
             cursor+=width;panel_index+=1
 
 def clip(poly,axis,threshold,greater):

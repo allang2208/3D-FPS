@@ -13,6 +13,8 @@ description: UE5.6-UE5.8 PCG generation and runtime-heightfield ground workflow 
 
 # Quick Start
 
+- 地牢墙面扫描、颗粒/视差、霉斑与渗水贴花，读取 [地牢表面制作](references/dungeon-surface-authoring.md)，先确定实际材质入口与污渍层，再调整密度和表现。
+
 - 扩展已认可样板、随机房间池、门洞拼接、岔路和 Boss 终点时，读取 [保留设计语义的随机地牢](references/authored-dungeon-generation.md)。
 
 - 工作台、维修墙、货架等含许多小件的室内布景，读取 [可复用室内组合件](references/reusable-interior-assemblies.md)：以配置和锚点维护组合件，受约束随机摆放，按依赖局部重建。

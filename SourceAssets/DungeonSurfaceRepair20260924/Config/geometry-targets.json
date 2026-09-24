@@ -1,0 +1,5332 @@
+[
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatDoor_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_Distribution_CombatDoor_Shell.fbx",
+    "source_sha256": "f76e8ac33eb32021c73fbfc44d56c8d1c7394322848a8db47428f9952864183c",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "position": [
+          0.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "entry"
+      },
+      {
+        "position": [
+          -296.8564486131072,
+          -1187.4257944524288,
+          0
+        ],
+        "normal": [
+          0.0,
+          -1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "exit"
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatDoor_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_Distribution_CombatDoor_Frames.fbx",
+    "source_sha256": "ddd5c616de34a3ef7cef23cdb2ac61df79f5cac5410a4f865fcf339f96529763",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "position": [
+          0.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "entry"
+      },
+      {
+        "position": [
+          -296.8564486131072,
+          -1187.4257944524288,
+          0
+        ],
+        "normal": [
+          0.0,
+          -1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "exit"
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatTreasureWest_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_Distribution_CombatTreasureWest_Shell.fbx",
+    "source_sha256": "91d693ab6acca602d99c9ade9e44107a4e1fe12d1c8161d564bf3e9988a7d5ef",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "position": [
+          0.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "entry"
+      },
+      {
+        "position": [
+          -296.8564486131072,
+          -1187.4257944524288,
+          0
+        ],
+        "normal": [
+          0.0,
+          -1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "exit"
+      },
+      {
+        "id": "West",
+        "variant": "Distribution_CombatTreasureWest",
+        "position": [
+          -593.7128972262144,
+          -670.0,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatTreasureWest_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatTreasureWest_Damage0_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "surface_mesh_variants": [
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatTreasureWest_Damage0_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatTreasureWest_Damage1_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatTreasureWest_Damage2_Tiles"
+            ]
+          },
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatTreasureWest_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatTreasureWest_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_Distribution_CombatTreasureWest_Frames.fbx",
+    "source_sha256": "7af748a1bfd274d72945b2e9150902494fa51db26cb8441143f2ae6a49a93663",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "position": [
+          0.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "entry"
+      },
+      {
+        "position": [
+          -296.8564486131072,
+          -1187.4257944524288,
+          0
+        ],
+        "normal": [
+          0.0,
+          -1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "exit"
+      },
+      {
+        "id": "West",
+        "variant": "Distribution_CombatTreasureWest",
+        "position": [
+          -593.7128972262144,
+          -670.0,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatTreasureWest_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatTreasureWest_Damage0_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "surface_mesh_variants": [
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatTreasureWest_Damage0_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatTreasureWest_Damage1_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatTreasureWest_Damage2_Tiles"
+            ]
+          },
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatTreasureWest_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatTreasureNorth_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_Distribution_CombatTreasureNorth_Shell.fbx",
+    "source_sha256": "64d3965b2410a2a133b668d75ee1ab27ec3a5ee853c28e2747d92418a79df1a6",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "position": [
+          0.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "entry"
+      },
+      {
+        "position": [
+          -296.8564486131072,
+          -1187.4257944524288,
+          0
+        ],
+        "normal": [
+          0.0,
+          -1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "exit"
+      },
+      {
+        "id": "North",
+        "variant": "Distribution_CombatTreasureNorth",
+        "position": [
+          300.0,
+          -1187.4257944524288,
+          0
+        ],
+        "normal": [
+          0.0,
+          -1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatTreasureNorth_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatTreasureNorth_Damage0_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "surface_mesh_variants": [
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatTreasureNorth_Damage0_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatTreasureNorth_Damage1_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatTreasureNorth_Damage2_Tiles"
+            ]
+          },
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatTreasureNorth_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatTreasureNorth_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_Distribution_CombatTreasureNorth_Frames.fbx",
+    "source_sha256": "663ef6168256dcf356929e4887620251ed332c9f22e3946b10e432d1aae57ea2",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "position": [
+          0.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "entry"
+      },
+      {
+        "position": [
+          -296.8564486131072,
+          -1187.4257944524288,
+          0
+        ],
+        "normal": [
+          0.0,
+          -1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "exit"
+      },
+      {
+        "id": "North",
+        "variant": "Distribution_CombatTreasureNorth",
+        "position": [
+          300.0,
+          -1187.4257944524288,
+          0
+        ],
+        "normal": [
+          0.0,
+          -1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatTreasureNorth_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatTreasureNorth_Damage0_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "surface_mesh_variants": [
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatTreasureNorth_Damage0_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatTreasureNorth_Damage1_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Distribution_CombatTreasureNorth_Damage2_Tiles"
+            ]
+          },
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Distribution_CombatTreasureNorth_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatDoor_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_Drainage_CombatDoor_Shell.fbx",
+    "source_sha256": "d5da06c0ca5d38b4991a43e575e7acb521d048ea04f60e29cad21c202468fc43",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "position": [
+          68.96054997341707,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "entry"
+      },
+      {
+        "position": [
+          1021.8158998759463,
+          -1221.8158998759463,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "exit"
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatDoor_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_Drainage_CombatDoor_Frames.fbx",
+    "source_sha256": "76240d94d3ec4d26965d3b86561a2cd5a38297bd3f359768f1bda010b74d8b17",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "position": [
+          68.96054997341707,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "entry"
+      },
+      {
+        "position": [
+          1021.8158998759463,
+          -1221.8158998759463,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "exit"
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatTreasureWest_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_Drainage_CombatTreasureWest_Shell.fbx",
+    "source_sha256": "d155639f594fdc92db93aeffbeab9c66df5387430efd148c1e9e3363233b63f7",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "position": [
+          68.96054997341707,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "entry"
+      },
+      {
+        "position": [
+          1021.8158998759463,
+          -1221.8158998759463,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "exit"
+      },
+      {
+        "id": "West",
+        "variant": "Drainage_CombatTreasureWest",
+        "position": [
+          -583.8947999291122,
+          -919.9999999999999,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatTreasureWest_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatTreasureWest_Damage0_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "surface_mesh_variants": [
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatTreasureWest_Damage0_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatTreasureWest_Damage1_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatTreasureWest_Damage2_Tiles"
+            ]
+          },
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatTreasureWest_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatTreasureWest_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_Drainage_CombatTreasureWest_Frames.fbx",
+    "source_sha256": "26cce1d08472ae685871ffe674c192891bd6c54d28607dbb1a6406800eefceb6",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "position": [
+          68.96054997341707,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "entry"
+      },
+      {
+        "position": [
+          1021.8158998759463,
+          -1221.8158998759463,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "exit"
+      },
+      {
+        "id": "West",
+        "variant": "Drainage_CombatTreasureWest",
+        "position": [
+          -583.8947999291122,
+          -919.9999999999999,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatTreasureWest_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatTreasureWest_Damage0_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "surface_mesh_variants": [
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatTreasureWest_Damage0_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatTreasureWest_Damage1_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatTreasureWest_Damage2_Tiles"
+            ]
+          },
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatTreasureWest_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatTreasureEast_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_Drainage_CombatTreasureEast_Shell.fbx",
+    "source_sha256": "5832deb906f468bdec86be586160713141a980058567abe526364d106bdfb760",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "position": [
+          68.96054997341707,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "entry"
+      },
+      {
+        "position": [
+          1021.8158998759463,
+          -1221.8158998759463,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "exit"
+      },
+      {
+        "id": "East",
+        "variant": "Drainage_CombatTreasureEast",
+        "position": [
+          1021.8158998759463,
+          -400.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatTreasureEast_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatTreasureEast_Damage0_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "surface_mesh_variants": [
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatTreasureEast_Damage0_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatTreasureEast_Damage1_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatTreasureEast_Damage2_Tiles"
+            ]
+          },
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatTreasureEast_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatTreasureEast_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_Drainage_CombatTreasureEast_Frames.fbx",
+    "source_sha256": "5c12636bb8166fef646fefc7de03f64007ded5e700d26264cba920e9a0d9c187",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "position": [
+          68.96054997341707,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "entry"
+      },
+      {
+        "position": [
+          1021.8158998759463,
+          -1221.8158998759463,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "exit"
+      },
+      {
+        "id": "East",
+        "variant": "Drainage_CombatTreasureEast",
+        "position": [
+          1021.8158998759463,
+          -400.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatTreasureEast_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatTreasureEast_Damage0_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "surface_mesh_variants": [
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatTreasureEast_Damage0_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatTreasureEast_Damage1_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Drainage_CombatTreasureEast_Damage2_Tiles"
+            ]
+          },
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Drainage_CombatTreasureEast_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_ShoredBreach_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoutes20260922\\Authored\\SM_RS_ShoredBreach_Shell.fbx",
+    "source_sha256": "89ce981380c1e2beb0918804d65179b1fa6705f3476e3e40a0a8774c687784f6",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "position": [
+          0.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300.0,
+        "height": 280.0,
+        "id": "entry"
+      },
+      {
+        "position": [
+          1084.3791748397052,
+          154.55655345693228,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "id": "exit"
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_ShoredBreach_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoutes20260922\\Authored\\SM_RS_ShoredBreach_Frames.fbx",
+    "source_sha256": "bf70f7f65868166d653fa4b4ae11cdccc9eeff9207008c77ddfbdd6db3c790c2",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "position": [
+          0.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300.0,
+        "height": 280.0,
+        "id": "entry"
+      },
+      {
+        "position": [
+          1084.3791748397052,
+          154.55655345693228,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "id": "exit"
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_ShoredBreach_CombatTreasureWest_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_ShoredBreach_CombatTreasureWest_Shell.fbx",
+    "source_sha256": "08dd3cc515f025486f1f22d9205311541f48eba1690a69fd7c7bee2636f71245",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "position": [
+          0.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300.0,
+        "height": 280.0,
+        "id": "entry"
+      },
+      {
+        "position": [
+          1084.3791748397052,
+          154.55655345693228,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "id": "exit"
+      },
+      {
+        "id": "West",
+        "variant": "ShoredBreach_CombatTreasureWest",
+        "position": [
+          0.0,
+          -380.00000000000006,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_ShoredBreach_CombatTreasureWest_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_CombatTreasureWest_Damage0_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "surface_mesh_variants": [
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_CombatTreasureWest_Damage0_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_CombatTreasureWest_Damage1_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_CombatTreasureWest_Damage2_Tiles"
+            ]
+          },
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_ShoredBreach_CombatTreasureWest_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_ShoredBreach_CombatTreasureWest_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_ShoredBreach_CombatTreasureWest_Frames.fbx",
+    "source_sha256": "d3b07925ab8f27035b2d4f97f1afaf4dffb957d7999a8cffbb06e1b51d8a3499",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "position": [
+          0.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300.0,
+        "height": 280.0,
+        "id": "entry"
+      },
+      {
+        "position": [
+          1084.3791748397052,
+          154.55655345693228,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "id": "exit"
+      },
+      {
+        "id": "West",
+        "variant": "ShoredBreach_CombatTreasureWest",
+        "position": [
+          0.0,
+          -380.00000000000006,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_ShoredBreach_CombatTreasureWest_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_CombatTreasureWest_Damage0_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "surface_mesh_variants": [
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_CombatTreasureWest_Damage0_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_CombatTreasureWest_Damage1_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_CombatTreasureWest_Damage2_Tiles"
+            ]
+          },
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_ShoredBreach_CombatTreasureWest_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_ShoredBreach_CombatTreasureSouth_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_ShoredBreach_CombatTreasureSouth_Shell.fbx",
+    "source_sha256": "1f8d64eaee2671274bf8f8e477073ac4ef486faad8a464c4cd68751bc2dd1f09",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "position": [
+          0.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300.0,
+        "height": 280.0,
+        "id": "entry"
+      },
+      {
+        "position": [
+          1084.3791748397052,
+          154.55655345693228,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "id": "exit"
+      },
+      {
+        "id": "South",
+        "variant": "ShoredBreach_CombatTreasureSouth",
+        "position": [
+          540.0,
+          774.5565534569323,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_ShoredBreach_CombatTreasureSouth_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_CombatTreasureSouth_Damage0_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "surface_mesh_variants": [
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_CombatTreasureSouth_Damage0_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_CombatTreasureSouth_Damage1_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_CombatTreasureSouth_Damage2_Tiles"
+            ]
+          },
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_ShoredBreach_CombatTreasureSouth_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_ShoredBreach_CombatTreasureSouth_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_ShoredBreach_CombatTreasureSouth_Frames.fbx",
+    "source_sha256": "79c8e221cfe75fa7d01d0ea700dc36c1797b13d70414bbbfe7bc41616b1436ff",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "position": [
+          0.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300.0,
+        "height": 280.0,
+        "id": "entry"
+      },
+      {
+        "position": [
+          1084.3791748397052,
+          154.55655345693228,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "id": "exit"
+      },
+      {
+        "id": "South",
+        "variant": "ShoredBreach_CombatTreasureSouth",
+        "position": [
+          540.0,
+          774.5565534569323,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_ShoredBreach_CombatTreasureSouth_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_CombatTreasureSouth_Damage0_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "surface_mesh_variants": [
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_CombatTreasureSouth_Damage0_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_CombatTreasureSouth_Damage1_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_ShoredBreach_CombatTreasureSouth_Damage2_Tiles"
+            ]
+          },
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_ShoredBreach_CombatTreasureSouth_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoutes20260922\\Authored\\SM_RS_Junction_Shell.fbx",
+    "source_sha256": "e9f75af325d7a19f9e29b55c2dd0922e3a9c191e9d536ddcb4ce794c6750d156",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "position": [
+          0.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "id": "entry"
+      },
+      {
+        "position": [
+          0.0,
+          -1200.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          -1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "id": "forward"
+      },
+      {
+        "position": [
+          -700.0,
+          -600.0,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "id": "left"
+      },
+      {
+        "position": [
+          700.0,
+          -600.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "id": "right"
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoutes20260922\\Authored\\SM_RS_Junction_Frames.fbx",
+    "source_sha256": "3e4225ffb063ebc331d2e073cd4caa2caaf5b22a6908931252e1d9305afcfc8c",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "position": [
+          0.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "id": "entry"
+      },
+      {
+        "position": [
+          0.0,
+          -1200.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          -1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "id": "forward"
+      },
+      {
+        "position": [
+          -700.0,
+          -600.0,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "id": "left"
+      },
+      {
+        "position": [
+          700.0,
+          -600.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "id": "right"
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_RouteEnd_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoutes20260922\\Authored\\SM_RS_RouteEnd_Shell.fbx",
+    "source_sha256": "fd71042719d43b148d6c6aac374ce99a60262ff0257af374995567cf0bc913f6",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "position": [
+          0.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "id": "entry"
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_RouteEnd_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoutes20260922\\Authored\\SM_RS_RouteEnd_Frames.fbx",
+    "source_sha256": "1c8e9b6571f25715a0458e74ae1e61c4334b6d7df11bc206b5dbe1e25408b891",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "position": [
+          0.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "id": "entry"
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Transit_Ceilings",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_Transit_Ceilings.fbx",
+    "source_sha256": "354ba21ffdb760ed06dd8b0cc3dafb5326a5d5045375d83ddbfdc91e54bb0188",
+    "operation": "connector_ceilings",
+    "ports": [],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Transit_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_Transit_Shell.fbx",
+    "source_sha256": "c575258bd9ee6dd5e9ba1460efb14f8e24fb030c9a1e4a2b9e4f3c78a8575446",
+    "operation": "connector_shell",
+    "ports": [],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Transit_Damage0_Tiles",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonWallDamage20260923\\Authored\\SM_RS_Transit_Damage0_Tiles.fbx",
+    "source_sha256": "3863bc5394369f4ca4c4d0ca2b96ab3ff423732f29af210fc50f24aaabcf089c",
+    "operation": "connector_tiles",
+    "ports": [],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Transit_Damage1_Tiles",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonWallDamage20260923\\Authored\\SM_RS_Transit_Damage1_Tiles.fbx",
+    "source_sha256": "cb47d30eeb009c136acb7d26707b02b6da74cbc485c04a418c79e0e199e361f7",
+    "operation": "connector_tiles",
+    "ports": [],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Transit_Damage2_Tiles",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonWallDamage20260923\\Authored\\SM_RS_Transit_Damage2_Tiles.fbx",
+    "source_sha256": "e9dbea5cb7c53904df57dd35d5458e8b40873d28be6870c11319345bde84f1bc",
+    "operation": "connector_tiles",
+    "ports": [],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Transit_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_Transit_Frames.fbx",
+    "source_sha256": "29f1251cf9d0ec4180255329b351d4ddde26170f96076f1f702bfde611f4df90",
+    "operation": "connector_frames",
+    "ports": [],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Threshold_Ceilings",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_Threshold_Ceilings.fbx",
+    "source_sha256": "7d4f9cf292318f17390e76d303303bc3a85140c28180521e1a6e89148cccc0d3",
+    "operation": "connector_ceilings",
+    "ports": [],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Threshold_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_Threshold_Shell.fbx",
+    "source_sha256": "56252b3bf579c9705040a21f04be83403e638bc0be9a35c57c328ca10560bc1f",
+    "operation": "connector_shell",
+    "ports": [],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Threshold_Damage0_Tiles",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonWallDamage20260923\\Authored\\SM_RS_Threshold_Damage0_Tiles.fbx",
+    "source_sha256": "eb296edfe999dd3198492353988588eb43e8eb560264de39fac37fbe2ff5b266",
+    "operation": "connector_tiles",
+    "ports": [],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Threshold_Damage1_Tiles",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonWallDamage20260923\\Authored\\SM_RS_Threshold_Damage1_Tiles.fbx",
+    "source_sha256": "8331ad5d9b360eb40924b0cad4df176c0cf9bc7155f341a87659c0f2c0154d6b",
+    "operation": "connector_tiles",
+    "ports": [],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Threshold_Damage2_Tiles",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonWallDamage20260923\\Authored\\SM_RS_Threshold_Damage2_Tiles.fbx",
+    "source_sha256": "d7bb289d4ec84f5ccb91c7c7e8e78288092af46b5fbb05ddb18d021f2a633f48",
+    "operation": "connector_tiles",
+    "ports": [],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Threshold_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_Threshold_Frames.fbx",
+    "source_sha256": "8168eccc76ddd364ab24634b510f389582d02f089b1f50aabeeae16aaf9601f4",
+    "operation": "connector_frames",
+    "ports": [],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/Treasure20260922/Meshes/SM_RS_Treasure_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonTreasure20260922\\Authored\\SM_RS_Treasure_Shell.fbx",
+    "source_sha256": "d2f8800d2a159ef6ae86ff099a29709c9de8deabccd10871b4517098ca1745dc",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "entry"
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/Treasure20260922/Meshes/SM_RS_Treasure_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonTreasure20260922\\Authored\\SM_RS_Treasure_Frames.fbx",
+    "source_sha256": "452b36120e1c50d0df939b6d30f8ded86006b679b1ac9e793c5764507f0578ed",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "id": "entry"
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonVentFreight20260922\\Authored\\SM_RS_VentilationLoop_Shell.fbx",
+    "source_sha256": "ce74326f52c6d0b75b962298af0bdf232075b4674aabee258c20b068bd8971fd",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          600.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1200.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonVentFreight20260922\\Authored\\SM_RS_VentilationLoop_Frames.fbx",
+    "source_sha256": "9264533d9874fdda7c73f88386b9f274688ec6f502af60f1ead1ee4213c54953",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          600.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1200.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_VentilationLoop_CombatTreasureNorth_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_VentilationLoop_CombatTreasureNorth_Shell.fbx",
+    "source_sha256": "b763cc7726bf59d763936b8745e2431f4ffecf012d6a6936652c019bf49aecdc",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          600.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1200.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "North",
+        "variant": "VentilationLoop_CombatTreasureNorth",
+        "position": [
+          900.0,
+          -1600.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          -1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_VentilationLoop_CombatTreasureNorth_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_CombatTreasureNorth_Damage0_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "surface_mesh_variants": [
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_CombatTreasureNorth_Damage0_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_CombatTreasureNorth_Damage1_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_CombatTreasureNorth_Damage2_Tiles"
+            ]
+          },
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_VentilationLoop_CombatTreasureNorth_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_VentilationLoop_CombatTreasureNorth_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_VentilationLoop_CombatTreasureNorth_Frames.fbx",
+    "source_sha256": "019e4e66bf7ab5e9a1d6469dc1edbee66fded7f53045bbc1ea309c834bb691fa",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          600.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1200.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "North",
+        "variant": "VentilationLoop_CombatTreasureNorth",
+        "position": [
+          900.0,
+          -1600.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          -1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_VentilationLoop_CombatTreasureNorth_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_CombatTreasureNorth_Damage0_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "surface_mesh_variants": [
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_CombatTreasureNorth_Damage0_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_CombatTreasureNorth_Damage1_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_CombatTreasureNorth_Damage2_Tiles"
+            ]
+          },
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_VentilationLoop_CombatTreasureNorth_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_VentilationLoop_CombatTreasureWest_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_VentilationLoop_CombatTreasureWest_Shell.fbx",
+    "source_sha256": "8d244f4ec0d42e4afa1dfc37c90c0539dcbbb0f8a004e584d9f6609bfa723c7a",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          600.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1200.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "West",
+        "variant": "VentilationLoop_CombatTreasureWest",
+        "position": [
+          0.0,
+          -600.0,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_VentilationLoop_CombatTreasureWest_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_CombatTreasureWest_Damage0_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "surface_mesh_variants": [
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_CombatTreasureWest_Damage0_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_CombatTreasureWest_Damage1_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_CombatTreasureWest_Damage2_Tiles"
+            ]
+          },
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_VentilationLoop_CombatTreasureWest_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_VentilationLoop_CombatTreasureWest_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_VentilationLoop_CombatTreasureWest_Frames.fbx",
+    "source_sha256": "bdd55574f3adc1da08413c25cc8c5387ce7f7c707ee6a9da5afe90d3957bc177",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          600.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1200.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "West",
+        "variant": "VentilationLoop_CombatTreasureWest",
+        "position": [
+          0.0,
+          -600.0,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_VentilationLoop_CombatTreasureWest_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_CombatTreasureWest_Damage0_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "surface_mesh_variants": [
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_CombatTreasureWest_Damage0_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_CombatTreasureWest_Damage1_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_VentilationLoop_CombatTreasureWest_Damage2_Tiles"
+            ]
+          },
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_VentilationLoop_CombatTreasureWest_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonVentFreight20260922\\Authored\\SM_RS_FreightTransfer_Shell.fbx",
+    "source_sha256": "3ab85f6fb0e888a9efc52cebd4aac2bef2ff9005b2f472766ffcda4f315ceeb5",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          900.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1100.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonVentFreight20260922\\Authored\\SM_RS_FreightTransfer_Frames.fbx",
+    "source_sha256": "4b9f3cae4c94913921469d6c5ba2f807db44cd3e4271328ab162cee6c1329495",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          900.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1100.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_FreightTransfer_CombatTreasureWest_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_FreightTransfer_CombatTreasureWest_Shell.fbx",
+    "source_sha256": "ee9e08f4383eb898ee170229be32f585e2818a865507b7c83851b0894d77672c",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          900.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1100.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "West",
+        "variant": "FreightTransfer_CombatTreasureWest",
+        "position": [
+          400.0,
+          -300.0,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_FreightTransfer_CombatTreasureWest_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_FreightTransfer_CombatTreasureWest_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_CombatTreasureWest_Damage0_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "surface_mesh_variants": [
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_CombatTreasureWest_Damage0_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_CombatTreasureWest_Damage1_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_CombatTreasureWest_Damage2_Tiles"
+            ]
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_FreightTransfer_CombatTreasureWest_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_FreightTransfer_CombatTreasureWest_Frames.fbx",
+    "source_sha256": "86de8e05a903a26aa85c67ffd88ebdfc4ee4c4896826e121e17773d697ba90ae",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          900.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1100.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "West",
+        "variant": "FreightTransfer_CombatTreasureWest",
+        "position": [
+          400.0,
+          -300.0,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_FreightTransfer_CombatTreasureWest_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_FreightTransfer_CombatTreasureWest_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_CombatTreasureWest_Damage0_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "surface_mesh_variants": [
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_CombatTreasureWest_Damage0_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_CombatTreasureWest_Damage1_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_CombatTreasureWest_Damage2_Tiles"
+            ]
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_FreightTransfer_CombatTreasureEast_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_FreightTransfer_CombatTreasureEast_Shell.fbx",
+    "source_sha256": "ddd7ab357c4f4aa74ef176f96bb9e548b362729a300274b2449fb63a69fc57e7",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          900.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1100.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "East",
+        "variant": "FreightTransfer_CombatTreasureEast",
+        "position": [
+          1400.0,
+          -300.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_FreightTransfer_CombatTreasureEast_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_FreightTransfer_CombatTreasureEast_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_CombatTreasureEast_Damage0_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "surface_mesh_variants": [
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_CombatTreasureEast_Damage0_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_CombatTreasureEast_Damage1_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_CombatTreasureEast_Damage2_Tiles"
+            ]
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_FreightTransfer_CombatTreasureEast_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_FreightTransfer_CombatTreasureEast_Frames.fbx",
+    "source_sha256": "5b4d3ab405f9b8bcc435781767b0737e81ce5fab12b276be31e7cb0221b3afe5",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          900.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1100.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "East",
+        "variant": "FreightTransfer_CombatTreasureEast",
+        "position": [
+          1400.0,
+          -300.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_FreightTransfer_CombatTreasureEast_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_FreightTransfer_CombatTreasureEast_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": []
+          },
+          {
+            "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_CombatTreasureEast_Damage0_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "surface_mesh_variants": [
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_CombatTreasureEast_Damage0_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_CombatTreasureEast_Damage1_Tiles",
+              "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_CombatTreasureEast_Damage2_Tiles"
+            ]
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_RouteElbow_Ceilings",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_RouteElbow_Ceilings.fbx",
+    "source_sha256": "8af95cb22972cb372c35c9625d8b93608cfd9d6e618fd51b88c0b17575f2cc02",
+    "operation": "connector_ceilings",
+    "ports": [],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_RouteElbow_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_RouteElbow_Shell.fbx",
+    "source_sha256": "bd95042d03e62385974e183ca9750449971f096a924df7e2af534e6af2bc5cd7",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "position": [
+          0,
+          200,
+          0
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "width": 300,
+        "height": 280
+      },
+      {
+        "position": [
+          200,
+          0,
+          0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "width": 300,
+        "height": 280
+      }
+    ],
+    "elbow": true
+  },
+  {
+    "path": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_RouteElbow_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRouteRepairs20260922\\Authored\\SM_RS_RouteElbow_Frames.fbx",
+    "source_sha256": "0e2a32af18b290329a885d03261a3b495a084c92010a0c983179bae00412ae78",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "position": [
+          0,
+          200,
+          0
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "width": 300,
+        "height": 280
+      },
+      {
+        "position": [
+          200,
+          0,
+          0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "width": 300,
+        "height": 280
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_Drainage_NearBridge_Shell.fbx",
+    "source_sha256": "fb64d16dffc322ff93932bb3be85222177d332592c531fefaf2c7d21da750be2",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          68.96054997341707,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1021.8158998759463,
+          -1221.8158998759463,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_Drainage_NearBridge_Frames.fbx",
+    "source_sha256": "81eadbe2db5f257e75eb338f990d807212584f4c3cd8d0e1046d475d051534b2",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          68.96054997341707,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1021.8158998759463,
+          -1221.8158998759463,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_SideWest_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_Drainage_NearBridge_SideWest_Shell.fbx",
+    "source_sha256": "bbc2ccfeb6876d874354e9fe9d37d3ff2c56dbabad19a4f6778d3155a86d0c3d",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          68.96054997341707,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1021.8158998759463,
+          -1221.8158998759463,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "West",
+        "variant": "Drainage_NearBridge_SideWest",
+        "position": [
+          -583.8947999291122,
+          -919.9999999999999,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_SideWest_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Shell"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_SideWest_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Tiles"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_SideWest_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Frames"
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_SideWest_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_Drainage_NearBridge_SideWest_Frames.fbx",
+    "source_sha256": "0837a9078df536989820056416077037152c3141611faade0c690a9eabee4fa6",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          68.96054997341707,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1021.8158998759463,
+          -1221.8158998759463,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "West",
+        "variant": "Drainage_NearBridge_SideWest",
+        "position": [
+          -583.8947999291122,
+          -919.9999999999999,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_SideWest_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Shell"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_SideWest_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Tiles"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_SideWest_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Frames"
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_SideEast_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_Drainage_NearBridge_SideEast_Shell.fbx",
+    "source_sha256": "c92ddcda33ff98543f0d0f75c4dbd1aba555144727f272c80ab52c445fcd8f64",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          68.96054997341707,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1021.8158998759463,
+          -1221.8158998759463,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "East",
+        "variant": "Drainage_NearBridge_SideEast",
+        "position": [
+          1021.8158998759463,
+          -400.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_SideEast_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Shell"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_SideEast_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Tiles"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_SideEast_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Frames"
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_SideEast_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_Drainage_NearBridge_SideEast_Frames.fbx",
+    "source_sha256": "6ca7640cff444ffedb803a32dc751791fccfa5b5f0a1d236c61f4a6a2410bb86",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          68.96054997341707,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1021.8158998759463,
+          -1221.8158998759463,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "East",
+        "variant": "Drainage_NearBridge_SideEast",
+        "position": [
+          1021.8158998759463,
+          -400.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_SideEast_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Shell"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_SideEast_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Tiles"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_NearBridge_SideEast_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Frames"
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_Drainage_FarBridge_Shell.fbx",
+    "source_sha256": "5bd2fb283c0626e97f1866429aa46ae9f5ab7f4ad3c36efb9910852fb8556fc8",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          68.96054997341707,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1021.8158998759463,
+          -1221.8158998759463,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_Drainage_FarBridge_Frames.fbx",
+    "source_sha256": "798a0758d80b400fccca6cfc14e24c8858ceb13e955229516e1e871a50c9876d",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          68.96054997341707,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1021.8158998759463,
+          -1221.8158998759463,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_SideWest_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_Drainage_FarBridge_SideWest_Shell.fbx",
+    "source_sha256": "671af3e25bbb3f6ca3658e157d0a90b8b0cf096b0500ac5abee7b5c518d2a8fd",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          68.96054997341707,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1021.8158998759463,
+          -1221.8158998759463,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "West",
+        "variant": "Drainage_FarBridge_SideWest",
+        "position": [
+          -583.8947999291122,
+          -919.9999999999999,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_SideWest_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Shell"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_SideWest_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Tiles"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_SideWest_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Frames"
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_SideWest_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_Drainage_FarBridge_SideWest_Frames.fbx",
+    "source_sha256": "dcb27513128a039f51dbf3310190e3ed947ba3b0151e99a7045582749f6ac59a",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          68.96054997341707,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1021.8158998759463,
+          -1221.8158998759463,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "West",
+        "variant": "Drainage_FarBridge_SideWest",
+        "position": [
+          -583.8947999291122,
+          -919.9999999999999,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_SideWest_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Shell"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_SideWest_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Tiles"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_SideWest_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Frames"
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_SideEast_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_Drainage_FarBridge_SideEast_Shell.fbx",
+    "source_sha256": "b76f4e52075e951481fcad04fef9c26850aacd1dadc0b1e4ff5570a32719115a",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          68.96054997341707,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1021.8158998759463,
+          -1221.8158998759463,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "East",
+        "variant": "Drainage_FarBridge_SideEast",
+        "position": [
+          1021.8158998759463,
+          -400.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_SideEast_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Shell"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_SideEast_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Tiles"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_SideEast_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Frames"
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_SideEast_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_Drainage_FarBridge_SideEast_Frames.fbx",
+    "source_sha256": "ef04d0db0545a2c85dcddbe220051c09da114ce72a043bad3bc30c0045a060ba",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          68.96054997341707,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1021.8158998759463,
+          -1221.8158998759463,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "East",
+        "variant": "Drainage_FarBridge_SideEast",
+        "position": [
+          1021.8158998759463,
+          -400.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_SideEast_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Shell"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_SideEast_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Tiles"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_Drainage_FarBridge_SideEast_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Frames"
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_VentilationLoop_WestCore_Shell.fbx",
+    "source_sha256": "426e10a155c017f6ffc0ff6c21ca7f92f6c0de68312347cb3afe2e444fb01c97",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          600.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1200.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_VentilationLoop_WestCore_Frames.fbx",
+    "source_sha256": "83060e16ed144cb6c844de8423e0d4ec4bad75ce0086712eda6fc61a8975fc3b",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          600.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1200.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_SideNorth_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_VentilationLoop_WestCore_SideNorth_Shell.fbx",
+    "source_sha256": "1ad25ef88c33ad4db4959d7119eda58df0fcf3b175e2ead5ed99c05aa39efed6",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          600.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1200.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "North",
+        "variant": "VentilationLoop_WestCore_SideNorth",
+        "position": [
+          900.0,
+          -1600.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          -1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_SideNorth_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Shell"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_SideNorth_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Tiles"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_SideNorth_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Frames"
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_SideNorth_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_VentilationLoop_WestCore_SideNorth_Frames.fbx",
+    "source_sha256": "0c9ce7f6bed16a241fd0924f14954f671d1cc66e9e84689d2a696a800937b53f",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          600.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1200.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "North",
+        "variant": "VentilationLoop_WestCore_SideNorth",
+        "position": [
+          900.0,
+          -1600.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          -1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_SideNorth_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Shell"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_SideNorth_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Tiles"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_SideNorth_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Frames"
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_SideWest_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_VentilationLoop_WestCore_SideWest_Shell.fbx",
+    "source_sha256": "1f6ab219eac256c6c965ea7a3821b8fbb73c58dffde951af80fba53898476ddd",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          600.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1200.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "West",
+        "variant": "VentilationLoop_WestCore_SideWest",
+        "position": [
+          0.0,
+          -600.0,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_SideWest_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Shell"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_SideWest_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Tiles"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_SideWest_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Frames"
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_SideWest_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_VentilationLoop_WestCore_SideWest_Frames.fbx",
+    "source_sha256": "e0d2ac52d2fba6cc8eb3e313ffc31475faa10dbbf567347145b12bb0f5a156b1",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          600.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1200.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "West",
+        "variant": "VentilationLoop_WestCore_SideWest",
+        "position": [
+          0.0,
+          -600.0,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_SideWest_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Shell"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_SideWest_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Tiles"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_WestCore_SideWest_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Frames"
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_VentilationLoop_EastCore_Shell.fbx",
+    "source_sha256": "7f5cccedfd63e0dfd9f60e843fb3d3d953af93b5059c208b8160851fd14567ff",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          600.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1200.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_VentilationLoop_EastCore_Frames.fbx",
+    "source_sha256": "02950b4537a0cb70a84cfe29de4c5a588ed233de43d85ee00fdad15c7791ee62",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          600.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1200.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_SideNorth_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_VentilationLoop_EastCore_SideNorth_Shell.fbx",
+    "source_sha256": "0340d708fca08da63bc63fc9d8a28ddf658368b03fab87cf105f084c661ef09d",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          600.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1200.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "North",
+        "variant": "VentilationLoop_EastCore_SideNorth",
+        "position": [
+          900.0,
+          -1600.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          -1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_SideNorth_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Shell"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_SideNorth_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Tiles"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_SideNorth_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Frames"
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_SideNorth_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_VentilationLoop_EastCore_SideNorth_Frames.fbx",
+    "source_sha256": "1bf4b63be1223c5c7357a77d09c30a643ef986d06e2c5a753f1337e28797413c",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          600.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1200.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "North",
+        "variant": "VentilationLoop_EastCore_SideNorth",
+        "position": [
+          900.0,
+          -1600.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          -1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_SideNorth_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Shell"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_SideNorth_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Tiles"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_SideNorth_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Frames"
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_SideWest_Shell",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_VentilationLoop_EastCore_SideWest_Shell.fbx",
+    "source_sha256": "6ee182c0bd3ac92e1f4557cc853d742ce91aa96418d2966658850ef796c0d175",
+    "operation": "portal_shell",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          600.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1200.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "West",
+        "variant": "VentilationLoop_EastCore_SideWest",
+        "position": [
+          0.0,
+          -600.0,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_SideWest_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Shell"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_SideWest_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Tiles"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_SideWest_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Frames"
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  },
+  {
+    "path": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_SideWest_Frames",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoomVariants20260924\\Authored\\SM_RS_VentilationLoop_EastCore_SideWest_Frames.fbx",
+    "source_sha256": "b84502100b9b83bde8fb458e23af195b8b26264e1050b3a8728d19b224a8deee",
+    "operation": "portal_frames",
+    "ports": [
+      {
+        "id": "entry",
+        "position": [
+          600.0,
+          -0.0,
+          0
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "exit",
+        "position": [
+          1800.0,
+          -1200.0,
+          0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0
+      },
+      {
+        "id": "West",
+        "variant": "VentilationLoop_EastCore_SideWest",
+        "position": [
+          0.0,
+          -600.0,
+          0
+        ],
+        "normal": [
+          -1.0,
+          0.0,
+          0
+        ],
+        "width": 300,
+        "height": 280.0,
+        "replace_suffixes": [
+          "_Shell",
+          "_Tiles",
+          "_Frames"
+        ],
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_SideWest_Shell",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Shell"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_SideWest_Tiles",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Tiles"
+          },
+          {
+            "mesh": "/Game/Dungeons/RoomVariants20260924/Meshes/SM_RS_VentilationLoop_EastCore_SideWest_Frames",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "yaw": 0,
+            "collision": true,
+            "fluid": false,
+            "materials": [],
+            "assembly_role": "Frames"
+          }
+        ]
+      }
+    ],
+    "elbow": false
+  }
+]

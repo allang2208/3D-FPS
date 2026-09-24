@@ -1,0 +1,63 @@
+// Millimetre mortar relief restored from the 2026-09-22 physical height field.
+// UV0 is authored at 128 cm on these wall-bed/adhesive slots. All six maps follow
+// one surface intersection; no world-position offset or pixel-depth offset.
+float2 uv = UV;
+float2 gx = ddx(uv), gy = ddy(uv);
+float3 view = normalize(View);
+float fade = (1 - smoothstep(FadeStart, max(FadeStart + 1, FadeEnd), DistanceCm))
+           * smoothstep(.12, .32, view.z);
+[branch] if (DepthCm > 0 && fade > .001)
+{
+    float2 ray = view.xy / max(view.z, .16) * min(DepthCm, .8) / 128.0 * fade;
+    int count = (int)clamp(ceil(Steps * lerp(1, .55, saturate(view.z))), 4, 12);
+    float lower = 0, upper = 1;
+    // Bracket the first intersection only. White is high, hence depth = 1-height.
+    [loop] for (int i = 1; i <= 12; ++i)
+    {
+        if (i > count) break;
+        upper = (float)i / (float)count;
+        float h = Texture2DSampleGrad(HeightTex, HeightTexSampler, uv - ray * upper, gx, gy).r;
+        if (upper >= 1 - h) break;
+        lower = upper;
+    }
+    int refine = (int)clamp(RefineSteps, 0, 4);
+    [loop] for (int j = 0; j < 4; ++j)
+    {
+        if (j >= refine) break;
+        float mid = (lower + upper) * .5;
+        float h = Texture2DSampleGrad(HeightTex, HeightTexSampler, uv - ray * mid, gx, gy).r;
+        if (mid >= 1 - h) upper = mid; else lower = mid;
+    }
+    float ha = Texture2DSampleGrad(HeightTex, HeightTexSampler, uv - ray * lower, gx, gy).r;
+    float hb = Texture2DSampleGrad(HeightTex, HeightTexSampler, uv - ray * upper, gx, gy).r;
+    float fa = lower - (1 - ha), fb = upper - (1 - hb);
+    float crossing = lerp(lower, upper, saturate(-fa / max(fb - fa, .00001)));
+    uv -= ray * crossing;
+}
+
+// Keep the selected Fab appearance at its existing physical scale; offset every
+// channel by the same physical displacement instead of sliding only the colour.
+float scanScale = 128.0 / max(TileSize, 1.0);
+float2 scanUV = uv * scanScale;
+float3 scanColor = Texture2DSampleGrad(ScanColor, ScanColorSampler, scanUV, gx * scanScale, gy * scanScale).rgb;
+float3 scanORM = Texture2DSampleGrad(ScanORM, ScanORMSampler, scanUV, gx * scanScale, gy * scanScale).rgb;
+float3 mortar = Texture2DSampleGrad(ReliefSurface, ReliefSurfaceSampler, uv, gx, gy).rgb;
+
+// TextureObject BC5 sampling is raw RG; decode exactly once. Both imported normal
+// maps already have the authored green-channel convention applied by the importer.
+float2 scanXY = Texture2DSampleGrad(ScanNormal, ScanNormalSampler, scanUV, gx * scanScale, gy * scanScale).rg * 2 - 1;
+float2 reliefXY = Texture2DSampleGrad(ReliefNormal, ReliefNormalSampler, uv, gx, gy).rg * 2 - 1;
+float3 scanN = normalize(float3(scanXY * NormalStrength, sqrt(saturate(1 - dot(scanXY, scanXY)))));
+float3 reliefN = normalize(float3(reliefXY * ReliefStrength, sqrt(saturate(1 - dot(reliefXY, reliefXY)))));
+NormalTangent = normalize(float3(scanN.xy + reliefN.xy, max(scanN.z * reliefN.z, .001)));
+
+// Height-authored coverage affects the adhesive/mineral finish. Do not bake dark
+// fake crevices into colour; the matched physical surface supplies its own AO.
+float coverage = mortar.b;
+float3 p = Position / max(TileSize, 1.0);
+float macro = sin(dot(p, float3(.73,.51,.67))) * sin(dot(p, float3(.21,-.39,.47)));
+float3 color = scanColor * Tint * Brightness * (1 + macro * min(Variation, .08));
+color *= lerp(.98, 1.03, coverage);
+float roughness = clamp(lerp(scanORM.g * RoughnessScale, mortar.r, .28), .65, .98);
+AO = saturate(lerp(1, scanORM.r, .55) * lerp(1, mortar.g, saturate(ReliefStrength)));
+return float4(saturate(color), roughness);

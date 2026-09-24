@@ -17,6 +17,7 @@
 #include "Perception/AISense_Sight.h"
 #include "Navigation/PathFollowingComponent.h"
 #include "NavigationSystem.h"
+#include "NavigationData.h"
 #include "NavMesh/NavMeshBoundsVolume.h"
 #include "BrainComponent.h"
 #include "Engine/World.h"
@@ -45,7 +46,7 @@ void AMonsterAIController::OnPossess(APawn* P)
  if(Behavior){RunBehaviorTree(Behavior);UpdateKnowledge();UE_LOG(LogTemp,Display,TEXT("MONSTER_BT_READY %s tree=%s"),*P->GetName(),*Behavior->GetPathName());}
  else UE_LOG(LogTemp,Error,TEXT("MONSTER_BT_MISSING %s"),*P->GetName());
 }
-void AMonsterAIController::OnUnPossess(){StopMovement();if(BrainComponent)BrainComponent->StopLogic(TEXT("Unpossessed"));KnownTarget.Reset();Super::OnUnPossess();}
+void AMonsterAIController::OnUnPossess(){StopMovement();if(BrainComponent)BrainComponent->StopLogic(TEXT("Unpossessed"));KnownTarget.Reset();EncounterTarget.Reset();Super::OnUnPossess();}
 void AMonsterAIController::SetDecisionEnabled(bool Enabled){bDecisionEnabled=Enabled;if(!Enabled)StopMovement();UpdateKnowledge();}
 void AMonsterAIController::Perceived(AActor* Actor,FAIStimulus Stimulus)
 {
@@ -62,6 +63,11 @@ void AMonsterAIController::RememberDamage(APawn* P)
 {
  if(!IsValid(P)||P==GetPawn())return;KnownTarget=P;LastKnown=P->GetNavAgentLocation();LastEvidence=GetWorld()->GetTimeSeconds();UpdateKnowledge();
 }
+void AMonsterAIController::SetEncounterTarget(APawn* P)
+{
+ EncounterTarget=P;bReturning=false;
+ if(IsValid(P))RememberDamage(P);
+}
 void AMonsterAIController::UpdateKnowledge()
 {
  auto* C=Combat();auto* B=GetBlackboardComponent();if(!C||!B||!GetPawn())return;
@@ -69,6 +75,7 @@ void AMonsterAIController::UpdateKnowledge()
  const bool FeralPursuit=GetPawn()->IsA<AMutant3>();
  B->SetValueAsBool(TEXT("Hold"),Disabled||C->IsBusy());
  if(C->IsDead()){StopMovement();if(BrainComponent)BrainComponent->StopLogic(TEXT("Dead"));ActiveAction=TEXT("Dead");return;}
+ if(EncounterTarget.IsValid())KnownTarget=EncounterTarget;
  // Perception updates report changes, not every visible frame. Reacquire from
  // its sight cache after a home/target reset without requiring a second event.
  if(!KnownTarget.IsValid()&&(!bReturning||FeralPursuit)&&C->AggroRange()>0)
@@ -91,7 +98,10 @@ void AMonsterAIController::UpdateKnowledge()
  if(FeralPursuit&&TrackingRange>0)
   if(const auto* Sight=Senses->GetSenseConfig<UAISenseConfig_Sight>())TrackingRange=FMath::Max(TrackingRange,Sight->LoseSightRadius);
  bool Visible=Valid&&C->AggroRange()>0&&FVector::Dist2D(KnownTarget->GetActorLocation(),GetPawn()->GetActorLocation())<=TrackingRange&&LineOfSightTo(KnownTarget.Get());
- if(Visible){LastKnown=KnownTarget->GetNavAgentLocation();LastEvidence=Now;}
+ // A sealed boss encounter tracks its living entrant through cover. Attacks
+ // still require sight; ordinary monsters keep the existing perception memory.
+ const bool Locked=Valid&&EncounterTarget.IsValid()&&KnownTarget==EncounterTarget;
+ if(Visible||Locked){LastKnown=KnownTarget->GetNavAgentLocation();LastEvidence=Now;}
  if(!Valid||C->AggroRange()<=0||Now-LastEvidence>MemorySeconds){KnownTarget.Reset();Valid=false;}
  // A feral hunter keeps a living target while it is seen or remembered. The
  // shared 24 m home leash used to override sight, then reacquire the same
@@ -113,9 +123,23 @@ void AMonsterAIController::NavigateTo(FVector Destination,float Acceptance)
  const float Now=GetWorld()->GetTimeSeconds();if(Now-LastMove<.65f)return;
  if(GetMoveStatus()==EPathFollowingStatus::Moving&&FVector::DistSquared(Destination,LastDestination)<FMath::Square(45.f))return;
  LastMove=Now;LastDestination=Destination;++NavigationRequests;
- const auto Result=MoveToLocation(Destination,Acceptance,false,true,true,false,nullptr,false);
+ auto* Nav=FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld());
+ const auto& Agent=GetNavAgentPropertiesRef();
+ const auto* Data=Nav?Nav->GetNavDataForProps(Agent,GetNavAgentLocation()):nullptr;
+ FNavLocation Goal;
+ // Player capsules can stand nearer the railing than the boss's 62 cm radius.
+ // Search laterally for its walkable interior, with a short vertical window so
+ // a missing upper-floor polygon cannot silently select the ground floor.
+ const float XY=FMath::Max(100.f,Agent.AgentRadius*2.f+30.f);
+ if(!Data||!Nav->ProjectPointToNavigation(Destination,Goal,FVector(XY,XY,100),Data))
+ {
+  bNavigationFailed=true;
+  UE_LOG(LogTemp,Warning,TEXT("MONSTER_NAV_FAILED %s reason=goal_projection feet=%s nav=%s"),*GetNameSafe(GetPawn()),*Destination.ToString(),*GetNameSafe(Data));
+  return;
+ }
+ const auto Result=MoveToLocation(Goal.Location,Acceptance,false,true,false,false,nullptr,false);
  bNavigationFailed=Result==EPathFollowingRequestResult::Failed;
- if(bNavigationFailed)UE_LOG(LogTemp,Warning,TEXT("MONSTER_NAV_FAILED %s destination=%s"),*GetPawn()->GetName(),*Destination.ToString());
+ if(bNavigationFailed)UE_LOG(LogTemp,Warning,TEXT("MONSTER_NAV_FAILED %s reason=path start=%s goal=%s nav=%s"),*GetNameSafe(GetPawn()),*GetNavAgentLocation().ToString(),*Goal.Location.ToString(),*GetNameSafe(Data));
 }
 bool AMonsterAIController::BuildTree(UBehaviorTree* Tree)
 {

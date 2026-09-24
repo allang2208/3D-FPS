@@ -1,11 +1,16 @@
 """Precise industrial room modelling using the approved corridor surface library."""
-import os, json, math, random
+import os, json, math, random, sys
 from pathlib import Path
 import bpy
 from mathutils import Vector
 from mathutils.geometry import tessellate_polygon
 
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT.parent/'DungeonRailCart20260923/Scripts'))
+from rail_geometry import freight as freight_guardrails
+from pallet_jack import build as build_pallet_jack
+sys.path.insert(0,str(ROOT.parent/'DungeonFreightDoor20260923/Scripts'))
+from door_geometry import build as build_freight_door, export_lift
 LIB=ROOT.parent/'DungeonRoomShells20260922/Scripts/author_rooms.py'
 os.environ['DUNGEON_AUTHOR_ROOT']=str(ROOT)
 # Load only the library definitions. Never execute the old room generation loop.
@@ -94,6 +99,7 @@ def rack(x,y,z=0):
 
 def ventilation():
     room=H['ROOM'];p=room['footprint']
+    core_offset=room.get('core_offset_x',0.0)
     slab_polygon(p,0,.22,'Floors');slab_polygon(p,4.28,.18,'Ceilings')
     H['slab']([.12,2,1,14,3.2],'Ceilings',True)
     box('Core',(9,8,.18),(6,8,.36),'Concrete')
@@ -111,10 +117,10 @@ def ventilation():
         box('Core',(x,8,3.91),(.1,7.9,.14),'BareSteel')
     for y in (4.12,11.88):
         for x in (6.2,7.7,9.2,10.7,11.8):detail.fastener((x,y,.37),(0,0,1),.018,kind='Core')
-    duct((9,8,3.74),(17.8,8,3.74),1.15,.52)
-    duct((9,6,3.63),(1.05,6,3.63),.85,.46)
+    duct((9+core_offset,8,3.74),(17.8,8,3.74),1.15,.52)
+    duct((9+core_offset,6,3.63),(1.05,6,3.63),.85,.46)
     for x in (5.55,12.48):
-        for j in range(7):box('Ducts',(x+j*.025,6 if x<6 else 8,3.63 if x<6 else 3.74),(.012,.87 if x<6 else 1.17,.49 if x<6 else .55),'Rubber')
+        for j in range(7):box('Ducts',(x+core_offset+j*.025,6 if x<6 else 8,3.63 if x<6 else 3.74),(.012,.87 if x<6 else 1.17,.49 if x<6 else .55),'Rubber')
     # Filter storage against the outside wall, clear of the ring route.
     rack(1.12,10)
     for i in range(4):
@@ -125,6 +131,13 @@ def ventilation():
         tube('Equipment',[(5.84,y,2.53),(5.83,y,2.53)],.078,'IvoryTile',32)
         tube('Equipment',[(5.82,y,2.53),(5.82,y+.041,2.57)],.003,'BareSteel',12)
     cable_run([(5.84,4.75,2.47),(5.78,4.75,.52),(5.78,11.5,.52),(5.85,11.5,2.5)])
+    # Move the complete rigid machine assembly in the authored mesh, including its
+    # fan guards, feet, gauges and cables. Wall fixtures stay put; ducts above are
+    # rebuilt between the moved machine and their original wall termination.
+    if core_offset:
+        for kind in ('Core','Equipment','Services'):
+            g=H['GROUPS'].get(kind)
+            if g:g['v']=[(v[0]+core_offset,v[1],v[2]) for v in g['v']]
 
 def freight():
     room=H['ROOM']
@@ -138,32 +151,10 @@ def freight():
             z=(i+1)*.15;y=y0+i*.3
             box('Dock',((x0+x1)/2,y+.15,z/2),(x1-x0,.3,z),'Concrete')
             box('Dock',((x0+x1)/2,y+.025,z+.003),(x1-x0,.045,.006),'BareSteel')
-        for x in (x0+.06,x1-.06):
-            tube('Dock',[(x,y0-.15,.98),(x,y1+.15,1.66)],.024,'PaintedSteel')
-            for y,z in ((y0,.98),(y1,1.66)):
-                tube('Dock',[(x,y,0 if y==y0 else .6),(x,y,z)],.024,'PaintedSteel')
     for x0,x1 in ((.15,1.9),(5.1,12.9),(16.1,17.85)):
         box('Dock',((x0+x1)/2,13.97,.57),(x1-x0,.085,.09),'BareSteel')
-        H['railing']((x0,14.06,.6),(x1,14.06,.6))
-    # Closed freight gate with actual guide channels, repeated slats and a folding guard.
-    box('Lift',(9,17.84,2.16),(4.65,.13,3.12),'Rubber')
-    for x in (6.6,11.4):
-        box('Lift',(x,17.73,2.18),(.18,.20,3.2),'ServicePaint')
-        box('Lift',(x,17.58,2.18),(.06,.12,3.15),'BareSteel')
-        for z in (.79,1.59,2.39,3.19):detail.fastener((x,17.59,z),(0,-1,0),.016,kind='Lift')
-    box('Lift',(9,17.68,3.83),(5.0,.30,.26),'ServicePaint')
-    for i in range(21):
-        z=.69+i*.144
-        box('Lift',(9,17.745,z),(4.6,.075,.12),'PaintedSteel')
-        box('Lift',(9,17.69,z-.051),(4.6,.023,.02),'BareSteel')
-    for i in range(12):
-        x=6.75+i*.37
-        tube('Lift',[(x,17.54,.66),(x+.37,17.54,3.52)],.013,'BareSteel',12)
-        tube('Lift',[(x,17.52,3.52),(x+.37,17.52,.66)],.013,'BareSteel',12)
-    tube('Lift',[(8.93,17.40,1.8),(8.93,17.33,1.8),(9.13,17.33,1.8),(9.13,17.40,1.8)],.018,'BareSteel')
-    for x in (6.35,11.65):box('Lift',(x,17.69,.83),(.18,.30,.42),'Rubber')
-    box('Lift',(12.05,17.63,1.73),(.22,.18,.40),'ServicePaint')
-    for z in (1.65,1.80):tube('Lift',[(12.05,17.51,z),(12.05,17.49,z)],.026,'WarmGlass' if z>1.7 else 'Rubber',24)
+    freight_guardrails(H)
+    build_freight_door(H)
     # Short overhead I rail carried on two cross beams, with parked hoist above the dock.
     for z in (3.80,4.0):box('Rigging',(9,14,z),(.24,7.5,.045),'BareSteel')
     box('Rigging',(9,14,3.9),(.025,7.5,.18),'PaintedSteel')
@@ -175,13 +166,7 @@ def freight():
     tube('Rigging',[(9,16.75,3.3),(9,16.75,3.22),(9.055,16.75,3.18),(9.09,16.75,3.21)],.017,'BareSteel')
     pallet(1.35,9.8,0,.07);pallet(1.39,9.76,.215,.02)
     rack(16.75,16,.6)
-    # Pallet jack in the left transfer bay; two forks, pump body, wheels and shaped handle.
-    for x in (1.1,1.68):
-        box('Props',(x,11.45,.19),(.19,1.45,.14),'YellowPaint')
-        tube('Props',[(x-.09,10.85,.10),(x+.09,10.85,.10)],.09,'Rubber',24)
-    box('Props',(1.39,12.1,.28),(.70,.30,.3),'ServicePaint')
-    tube('Props',[(1.14,12.22,.18),(1.65,12.22,.18)],.15,'Rubber',32)
-    tube('Props',[(1.39,12.13,.36),(1.39,12.3,1.01),(1.11,12.3,1.17),(1.11,12.3,1.39),(1.66,12.3,1.39),(1.66,12.3,1.17),(1.39,12.3,1.01)],.024,'PaintedSteel')
+    build_pallet_jack(H)
     # Floor transport markings belong to the loading bays, never cover the whole room.
     for x in (2.35,15.85):box('Markings',(x,10.7,.003),(.075,3.6,.005),'YellowPaint')
     for x in (5.7,12.3):
@@ -202,6 +187,9 @@ for index,room in enumerate(H['CFG']['rooms']):
         x,y,z=l['at'];top=detail.ceiling_at(Vector((x,y,z)))
         for dx in (-.34,.34):tube('Fixtures',[(x+dx,y,z+.035),(x+dx,y,top)],.008,'BareSteel',12)
     for a in room['anchors']:H['ANCHORS'].append(dict(room=room['id'],origin_m=room['origin_m'],**a))
+    if 'Lift' in H['GROUPS']:
+        export_lift(H)
+        del H['GROUPS']['Lift']
     H['export']()
     print('ROOM_EXPORTED',room['id'],flush=True)
 

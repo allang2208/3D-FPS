@@ -1,0 +1,56 @@
+// Centimetres in instance space. Dominant planar projection preserves the room's
+// rotation and does not depend on the damaged adhesive mesh's degenerate UVs.
+float3 n=normalize(SurfaceNormal), an=abs(n);
+float3 U,V;
+if(an.z>max(an.x,an.y)){U=float3(1,0,0);V=float3(0,n.z>=0?1:-1,0);}
+else if(an.x>an.y){U=float3(0,n.x>=0?1:-1,0);V=float3(0,0,1);}
+else {U=float3(n.y>=0?-1:1,0,0);V=float3(0,0,1);}
+float2 plane=float2(dot(Position,U),dot(Position,V));
+float2 uv=plane/max(TileCm,1),gx=ddx(uv),gy=ddy(uv);
+float3 T=normalize(U-n*dot(n,U)),B=normalize(cross(n,T));
+Specular=.25;
+// WALL_HORIZONTAL_FALLBACK
+float3 view=normalize(ViewLocal);
+float vz=dot(view,n);
+float fade=(1-smoothstep(180,500,DistanceCm))*smoothstep(.12,.3,vz);
+float2 shift=0;
+[branch] if(DepthCm>.0001 && fade>.001){
+    float2 ray=float2(dot(view,U),dot(view,V))/max(vz,.18)*DepthCm/max(TileCm,1)*fade;
+    float lo=0,hi=1;
+    [loop] for(int i=1;i<=8;++i){
+        hi=i/8.0;
+        float h=Texture2DSampleGrad(HeightTex,HeightTexSampler,uv-ray*hi,gx,gy).r;
+        if(hi>=1-h)break;
+        lo=hi;
+    }
+    [unroll] for(int j=0;j<2;++j){
+        float mid=(lo+hi)*.5;
+        float h=Texture2DSampleGrad(HeightTex,HeightTexSampler,uv-ray*mid,gx,gy).r;
+        if(mid>=1-h)hi=mid;else lo=mid;
+    }
+    shift=-ray*(lo+hi)*.5;
+}
+uv+=shift;
+float3 c=Texture2DSampleGrad(ColorTex,ColorTexSampler,uv,gx,gy).rgb;
+float3 orm=Texture2DSampleGrad(SurfaceTex,SurfaceTexSampler,uv,gx,gy).rgb;
+float2 xy=(Texture2DSampleGrad(NormalTex,NormalTexSampler,uv,gx,gy).rg*2-1)*NormalStrength;
+float3 baseN=normalize(float3(xy,sqrt(max(1-dot(xy,xy),.01))));
+float2 grainUV=(plane+shift*TileCm)/max(GrainTileCm,1);
+float2 dx=ddx(plane)/max(GrainTileCm,1),dy=ddy(plane)/max(GrainTileCm,1);
+float mip=log2(max(max(length(dx),length(dy))*1024,1));
+float detailFade=(1-smoothstep(180,500,DistanceCm))*(1-smoothstep(.7,2.2,mip));
+float rough=orm.g*RoughnessScale;AO=orm.r;
+[branch] if(detailFade>.001){
+    float2 dxy=(Texture2DSampleGrad(GrainNormal,GrainNormalSampler,grainUV,dx,dy).rg*2-1)*GrainStrength*detailFade;
+    float3 detailN=normalize(float3(dxy,sqrt(max(1-dot(dxy,dxy),.01))));
+    // Reoriented normal mapping, both normals in the same projected tangent basis.
+    float3 t=baseN+float3(0,0,1),u=detailN*float3(-1,-1,1);
+    baseN=normalize(t*dot(t,u)/max(t.z,.001)-u);
+    float3 detail=Texture2DSampleGrad(GrainSurface,GrainSurfaceSampler,grainUV,dx,dy).rgb;
+    rough+=(detail.r-.78)*GrainStrength*detailFade*.65;
+    c*=1+(detail.g-.5)*detailFade*GrainStrength*.6;
+    AO*=lerp(1,detail.b,detailFade*.35);
+}
+NormalLocal=normalize(T*baseN.x+B*baseN.y+n*baseN.z);
+float macro=sin(dot(Position,float3(.0041,.0023,.0017)))*sin(dot(Position,float3(-.0027,.0031,.0009)));
+return float4(saturate(c*Tint*Brightness*(1+macro*.035)),clamp(rough,.55,.97));

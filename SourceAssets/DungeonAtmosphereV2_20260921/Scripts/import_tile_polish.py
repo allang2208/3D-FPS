@@ -77,6 +77,10 @@ if not decal:
     rough=L.create_material_expression(decal,u.MaterialExpressionConstant);rough.r=.48
     L.connect_material_property(rough,'',u.MaterialProperty.MP_ROUGHNESS)
     L.layout_material_expressions(decal);L.recompile_material(decal);save(decal)
+import sys
+sys.path.insert(0,str(ROOT.parents[1]/'Tools/AssetPipeline'))
+from dungeon_wall_stains import install_material as install_wall_stain
+install_wall_stain(decal_path)
 for actor in AA.get_all_level_actors():
     if actor.get_actor_label().startswith('DGN_AV2_TilePolish_Leak_'):AA.destroy_actor(actor)
 for i,(pos,yaw,size) in enumerate([

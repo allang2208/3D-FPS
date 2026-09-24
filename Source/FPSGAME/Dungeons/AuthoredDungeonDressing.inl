@@ -18,7 +18,7 @@ struct FProfile
 {
     TArray<FSocket> Floor, Web;
     TArray<FBox> KeepClear;
-    int32 MinClusters = 2, MaxClusters = 4, MaxFloorProps = 9, MaxWebs = 2;
+    int32 MinClusters = 1, MaxClusters = 4, MaxFloorProps = 16, MaxWebs = 2;
 };
 
 static FProfile Profile(const FString& Id)
@@ -67,14 +67,14 @@ static FProfile Profile(const FString& Id)
     }
     else if (Id == TEXT("Treasure"))
     {
-        P.MinClusters=1; P.MaxClusters=2; P.MaxFloorProps=4;
+        P.MinClusters=1; P.MaxClusters=2; P.MaxFloorProps=7;
         P.Floor = {{{-430,-275,0},0,Quiet},{{430,-765,0},180,Quiet},{{-420,-870,0},90,Quiet}};
         P.Web = {{{-505,-110,337},0},{{505,-920,337},180},{{-440,-995,337},90}};
         P.KeepClear = {FBox(FVector(-240,-780,-5),FVector(240,0,240))};
     }
     else if (Id == TEXT("BossPumpHall"))
     {
-        P.MinClusters=4; P.MaxClusters=6; P.MaxFloorProps=14; P.MaxWebs=3;
+        P.MinClusters=3; P.MaxClusters=5; P.MaxFloorProps=26; P.MaxWebs=3;
         P.Floor = {{{-1380,-250,0},0,Service},{{1380,-260,0},180,Service},
             {{-1380,-1180,0},0,Wet},{{1380,-1840,0},180,Wet},
             {{-1385,-915,360},0,Service},{{1385,-1080,360},180,Service},
@@ -141,23 +141,58 @@ static bool Fits(const FBox& Box,const FObject& Module,const FProfile& P,const T
     return true;
 }
 
+static FProfile Profile(const FObject& Module)
+{
+    FString Family=Module->GetStringField(TEXT("id"));Module->TryGetStringField(TEXT("family_id"),Family);
+    FProfile P=Profile(Family);
+    const TSharedPtr<FJsonObject>* Parameters=nullptr;
+    if(Module->TryGetObjectField(TEXT("dressing_parameters"),Parameters))
+    {
+        double Rear=0,Bridge=0,Core=0;
+        (*Parameters)->TryGetNumberField(TEXT("rear_delta_cm"),Rear);
+        (*Parameters)->TryGetNumberField(TEXT("bridge_delta_cm"),Bridge);
+        (*Parameters)->TryGetNumberField(TEXT("core_offset_cm"),Core);
+        if(Family==TEXT("Drainage"))
+        {
+            for(auto& S:P.Floor)if(S.Position.Y<-1630)S.Position.Y-=Rear;
+            for(auto& S:P.Web)if(S.Position.Y<-1630)S.Position.Y-=Rear;
+            if(P.KeepClear.IsValidIndex(1))P.KeepClear[1]=P.KeepClear[1].ShiftBy(FVector(0,-Bridge,0));
+        }
+        else if(Family==TEXT("VentilationLoop")&&!P.KeepClear.IsEmpty())
+            P.KeepClear[0]=P.KeepClear[0].ShiftBy(FVector(Core,0,0));
+    }
+    return P;
+}
+
 static TArray<TSharedPtr<FJsonValue>> Build(const FObject& Module,int32 Seed,int32 ModuleIndex)
 {
-    const FProfile P=Profile(Module->GetStringField(TEXT("id")));
+    const FProfile P=Profile(Module);
     TArray<TSharedPtr<FJsonValue>> Parts;
     if(P.Floor.IsEmpty()) return Parts;
     // Independent stream: dressing changes never alter branch, treasure or boss selection.
     FRandomStream Random(int32(uint32(Seed)^0x5D23A71Bu^(uint32(ModuleIndex)*0x9E3779B9u)));
     TArray<FBox> Occupied;
     int32 FloorCount=0,Ladders=0;
+    int32 Cluster=INDEX_NONE;
+    bool Primary=false;
+    int32 ParentItem=INDEX_NONE;
+    FVector ParentPosition=FVector::ZeroVector;
+    FString Arrangement=TEXT("floor");
+    const TArray<FBox> NoProvisionalOccupancy;
     auto Add=[&](EProp Type,const FVector& Position,const FRotator& Rotation,double Scale,bool Web,FVector WallNormal=FVector::ZeroVector)
     {
         if(!Web && FloorCount>=P.MaxFloorProps) return false;
-        FBox Box=AssetBox(Type,Rotation,Scale).ShiftBy(Position);
-        if(!Fits(Box,Module,P,Occupied,Web)) return false;
+        const FBox Rotated=AssetBox(Type,Rotation,Scale);
+        // A sideways barrel/bucket rests on its transformed bottom, not its original pivot.
+        // Preserve the authored support height separately for the later real floor query.
+        const FVector Pivot=Position+FVector(0,0,Web?0:-Rotated.Min.Z);
+        FBox Box=Rotated.ShiftBy(Pivot);
+        // Floor candidates may share a footprint: actual mesh envelopes and support
+        // relationships decide separation/stacking during assembly, not expanded AABBs.
+        if(!Fits(Box,Module,P,Web?Occupied:NoProvisionalOccupancy,Web)) return false;
         auto Part=MakeShared<FJsonObject>();
         Part->SetStringField(TEXT("mesh"),FString(TEXT("/Game/Dungeons/ArtPass20260922/Meshes/SM_Prop_"))+Assets[uint8(Type)].Name);
-        Part->SetArrayField(TEXT("position"),Array(Position)); Part->SetArrayField(TEXT("scale"),Array(FVector(Scale)));
+        Part->SetArrayField(TEXT("position"),Array(Pivot)); Part->SetArrayField(TEXT("scale"),Array(FVector(Scale)));
         Part->SetNumberField(TEXT("yaw"),Rotation.Yaw);
         Part->SetNumberField(TEXT("pitch"),Rotation.Pitch); Part->SetNumberField(TEXT("roll"),Rotation.Roll);
         Part->SetArrayField(TEXT("materials"),TArray<TSharedPtr<FJsonValue>>());
@@ -165,6 +200,18 @@ static TArray<TSharedPtr<FJsonValue>> Build(const FObject& Module,int32 Seed,int
         Part->SetBoolField(TEXT("affects_navigation"),false); Part->SetBoolField(TEXT("dressing"),true);
         Part->SetBoolField(TEXT("dressing_wall"),Web);
         if(Web) Part->SetArrayField(TEXT("dressing_normal"),Array(WallNormal));
+        else
+        {
+            Part->SetNumberField(TEXT("dressing_base_z"),Position.Z);
+            Part->SetNumberField(TEXT("dressing_cluster"),Cluster);
+            Part->SetBoolField(TEXT("dressing_primary"),Primary);
+            Part->SetNumberField(TEXT("dressing_item"),FloorCount);
+            Part->SetNumberField(TEXT("dressing_type"),int32(Type));
+            Part->SetNumberField(TEXT("dressing_parent"),ParentItem);
+            Part->SetArrayField(TEXT("dressing_parent_position"),Array(ParentPosition));
+            Part->SetStringField(TEXT("dressing_arrangement"),Arrangement);
+            Part->SetNumberField(TEXT("dressing_seed"),int32(Random.GetUnsignedInt()));
+        }
         Part->SetBoolField(TEXT("cast_shadow"),!Web);
         Parts.Add(MakeShared<FJsonValueObject>(Part)); Occupied.Add(Box);
         if(!Web) {++FloorCount; if(Type==EProp::Ladder) ++Ladders;}
@@ -175,12 +222,28 @@ static TArray<TSharedPtr<FJsonValue>> Build(const FObject& Module,int32 Seed,int
     for(int32 I=Slots.Num()-1;I>0;--I) Slots.Swap(I,Random.RandRange(0,I));
     const int32 Target=Random.RandRange(P.MinClusters,P.MaxClusters);
     int32 Clusters=0;
+    TArray<FVector> Centers;
+    auto Pose=[&](EProp Type,const FSocket& S)
+    {
+        const bool Round=Type==EProp::Barrel||Type==EProp::Bucket||Type==EProp::Rope;
+        FRotator R(0,Round?Random.FRandRange(-180,180):S.Yaw-90+Random.FRandRange(-28,28),0);
+        const bool Disordered=S.Use==EUse::Freight||S.Use==EUse::Ruins||S.Use==EUse::Wet;
+        const bool CanFall=Type==EProp::Barrel||Type==EProp::Bucket||Type==EProp::Extinguisher||Type==EProp::Lantern;
+        if(CanFall&&Random.FRand()<(Disordered?.55f:.35f))
+        {
+            // Horizontal long axis, with independent axial spin. Mesh contact is solved
+            // later from the real geometry; every fallen barrel need not show one side.
+            R=(FQuat(FVector::UpVector,FMath::DegreesToRadians(R.Yaw))
+                *FQuat(FVector::ForwardVector,PI*.5)
+                *FQuat(FVector::UpVector,Random.FRandRange(-PI,PI))).Rotator();
+        }
+        return R;
+    };
     for(int32 I:Slots)
     {
         if(Clusters>=Target) break;
         const auto& S=P.Floor[I]; const FRotator Facing(0,S.Yaw,0);
         const FVector Normal=Facing.Vector(),Tangent(-Normal.Y,Normal.X,0);
-        FVector Center=S.Position+Tangent*Random.FRandRange(-14,14)+Normal*Random.FRandRange(-4,6);
         EProp Main=EProp::Bucket;
         const int32 Choice=Random.RandRange(0,99);
         switch(S.Use)
@@ -192,17 +255,49 @@ static TArray<TSharedPtr<FJsonValue>> Build(const FObject& Module,int32 Seed,int
         case EUse::Quiet: Main=Choice<65?EProp::Lantern:EProp::Rope;break;
         }
         if(Main==EProp::Ladder && Ladders>=1) Main=EProp::Bucket;
-        const double Yaw=Main==EProp::Barrel?Random.FRandRange(-180,180):S.Yaw-90+Random.FRandRange(-9,9);
-        if(!Add(Main,Center,FRotator(0,Yaw,0),Random.FRandRange(.97,1.03),false)) continue;
+        Cluster=I;Primary=true;ParentItem=INDEX_NONE;Arrangement=TEXT("floor");
+        const FRotator MainPose=Pose(Main,S);
+        const double MainScale=Random.FRandRange(.96,1.04);
+        FVector Center;bool Placed=false;
+        // Separate the piles, not every item. A shared spill direction and uneven density
+        // below break the old constant-radius necklace around the main prop.
+        for(int32 Attempt=0;Attempt<10&&!Placed;++Attempt)
+        {
+            Center=S.Position+Tangent*Random.FRandRange(-120,120)+Normal*Random.FRandRange(-8,65);
+            bool Separated=true;
+            for(const FVector& Other:Centers) if(FMath::Abs(Other.Z-Center.Z)<140 && FVector::DistSquared2D(Other,Center)<FMath::Square(210.0))
+                {Separated=false;break;}
+            Placed=Separated&&Add(Main,Center,MainPose,MainScale,false);
+        }
+        if(!Placed) continue;
+        Centers.Add(Center);
         ++Clusters;
-        const int32 Companions=S.Use==EUse::Quiet?Random.RandRange(0,1):Random.RandRange(0,2);
+        Primary=false;
+        ParentItem=FloorCount-1;
+        ParentPosition=Vector(Parts.Last()->AsObject(),TEXT("position"));
+        const double MainRadius=AssetBox(Main,MainPose,MainScale).GetExtent().Size2D();
+        const bool Dense=Random.FRand()<.72f;
+        const int32 Companions=S.Use==EUse::Quiet?Random.RandRange(1,3):Dense?Random.RandRange(3,6):Random.RandRange(0,2);
+        const double SpillAngle=Random.FRandRange(-PI,PI);
         for(int32 J=0;J<Companions;++J)
         {
-            EProp Small=Random.FRand()<.55?EProp::Rope:EProp::Bucket;
+            const float Pick=Random.FRand();
+            EProp Small=Pick<.35?EProp::Rope:Pick<.67?EProp::Bucket:Pick<.86?EProp::Extinguisher:EProp::Lantern;
             if(S.Use==EUse::Ruins || S.Use==EUse::Quiet) Small=Random.FRand()<.5?EProp::Lantern:EProp::Rope;
-            if(S.Use==EUse::Freight && Main==EProp::Barrel && J==0 && Random.FRand()<.5) Small=EProp::Barrel;
-            const FVector At=Center+Tangent*(J==0?1.0:-1.0)*Random.FRandRange(78,94)+Normal*Random.FRandRange(0,12);
-            Add(Small,At,FRotator(0,Random.FRandRange(-180,180),0),Random.FRandRange(.96,1.04),false);
+            if(S.Use==EUse::Freight && Main==EProp::Barrel && J<2 && Random.FRand()<.65) Small=EProp::Barrel;
+            const FRotator SmallPose=Pose(Small,S);const double Scale=Random.FRandRange(.94,1.06);
+            const double SmallRadius=AssetBox(Small,SmallPose,Scale).GetExtent().Size2D();
+            const bool Outlier=J==Companions-1&&Random.FRand()<.3f;
+            const float Relation=Random.FRand();
+            Arrangement=(Main==EProp::Barrel||Main==EProp::Rope)&&Small!=EProp::Barrel&&Relation<.38f?TEXT("stack")
+                :Main==EProp::Barrel&&Small!=EProp::Rope&&Relation<.7f?TEXT("lean"):TEXT("heap");
+            for(int32 Attempt=0;Attempt<12;++Attempt)
+            {
+                const double Angle=SpillAngle+Random.FRandRange(-1.9,1.9);
+                const double Radius=(MainRadius+SmallRadius)*Random.FRandRange(.42,Outlier?2.1:1.15);
+                const FVector At=Center+Tangent*(FMath::Cos(Angle)*Radius)+Normal*(FMath::Sin(Angle)*Radius*Random.FRandRange(.55,1.1));
+                if(Add(Small,At,SmallPose,Scale,false)) break;
+            }
         }
     }
     Slots.Reset(); for(int32 I=0;I<P.Web.Num();++I) Slots.Add(I);

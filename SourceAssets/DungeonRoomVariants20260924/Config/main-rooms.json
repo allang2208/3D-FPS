@@ -1,0 +1,1358 @@
+[
+  {
+    "id": "Drainage_NearBridge",
+    "name": "排水检修室",
+    "origin_m": [
+      0,
+      0,
+      0
+    ],
+    "height_m": 4.3,
+    "footprint": [
+      [
+        -5.838947999291122,
+        0.0
+      ],
+      [
+        10.218158998759463,
+        0.0
+      ],
+      [
+        10.218158998759463,
+        16.290878665012617
+      ],
+      [
+        3.6896054997341707,
+        16.290878665012617
+      ],
+      [
+        3.6896054997341707,
+        19.636317997518926
+      ],
+      [
+        -5.838947999291122,
+        19.636317997518926
+      ]
+    ],
+    "floors": [
+      [
+        -5.838947999291122,
+        0.0,
+        10.218158998759463,
+        6.218158998759463,
+        0
+      ],
+      [
+        -5.838947999291122,
+        6.218158998759463,
+        0.6896054997341707,
+        14.218158998759463,
+        0
+      ],
+      [
+        3.6896054997341707,
+        6.218158998759463,
+        10.218158998759463,
+        14.218158998759463,
+        0
+      ],
+      [
+        -5.838947999291122,
+        14.218158998759463,
+        3.6896054997341707,
+        19.636317997518926,
+        0
+      ],
+      [
+        3.6896054997341707,
+        14.218158998759463,
+        10.218158998759463,
+        16.290878665012617,
+        0
+      ],
+      [
+        0.6896054997341707,
+        6.218158998759463,
+        3.6896054997341707,
+        14.218158998759463,
+        -0.55
+      ]
+    ],
+    "ceilings": [
+      [
+        -5.838947999291122,
+        0.0,
+        10.218158998759463,
+        16.290878665012617,
+        4.3
+      ],
+      [
+        -5.838947999291122,
+        16.290878665012617,
+        3.6896054997341707,
+        19.636317997518926,
+        3.2
+      ]
+    ],
+    "wall_heights": {
+      "3": 3.2,
+      "4": 3.2
+    },
+    "openings": [
+      {
+        "edge": 0,
+        "center": 6.528553499025293,
+        "width": 3,
+        "height": 2.8,
+        "id": "entry"
+      },
+      {
+        "edge": 1,
+        "center": 12.218158998759463,
+        "width": 3,
+        "height": 2.8,
+        "id": "exit"
+      }
+    ],
+    "columns": [
+      [
+        -2.730394500265829,
+        6.218158998759463
+      ],
+      [
+        7.109605499734171,
+        6.218158998759463
+      ],
+      [
+        -2.730394500265829,
+        13.218158998759463
+      ],
+      [
+        7.109605499734171,
+        13.218158998759463
+      ]
+    ],
+    "beams": [
+      [
+        [
+          -5.838947999291122,
+          6.218158998759463,
+          3.95
+        ],
+        [
+          10.218158998759463,
+          6.218158998759463,
+          3.95
+        ]
+      ],
+      [
+        [
+          -5.838947999291122,
+          13.218158998759463,
+          3.95
+        ],
+        [
+          10.218158998759463,
+          13.218158998759463,
+          3.95
+        ]
+      ]
+    ],
+    "headers": [
+      [
+        [
+          -5.838947999291122,
+          16.290878665012617,
+          3.75
+        ],
+        [
+          3.6896054997341707,
+          16.290878665012617,
+          3.75
+        ],
+        1.1
+      ]
+    ],
+    "trench": {
+      "rect": [
+        0.6896054997341707,
+        6.218158998759463,
+        3.6896054997341707,
+        14.218158998759463
+      ],
+      "depth": 0.55,
+      "bridge_y": [
+        8.268158998759464,
+        10.268158998759464
+      ],
+      "hazard": {
+        "class": "/Script/FPSGAME.DungeonPusChannel",
+        "mesh": "/Game/Dungeons/CombatExpansion20260922/Meshes/SM_PusChannelFluid",
+        "material": "/Game/Dungeons/CombatExpansion20260922/Materials/MI_PusChannelFluid",
+        "half_size_cm": [
+          141,
+          391
+        ],
+        "damage": 8,
+        "interval": 0.5
+      }
+    },
+    "pipes": [
+      {
+        "points": [
+          [
+            -4.3700234620104315,
+            0.0,
+            3.2
+          ],
+          [
+            -4.3700234620104315,
+            13.918158998759463,
+            3.2
+          ],
+          [
+            -4.3700234620104315,
+            13.918158998759463,
+            0.85
+          ],
+          [
+            -0.9425328750221524,
+            13.918158998759463,
+            0.85
+          ]
+        ],
+        "radius": 0.17
+      },
+      {
+        "points": [
+          [
+            8.58602062400314,
+            0.8290878665012619,
+            3.1
+          ],
+          [
+            8.58602062400314,
+            11.718158998759463,
+            3.1
+          ],
+          [
+            10.218158998759463,
+            11.718158998759463,
+            3.1
+          ]
+        ],
+        "radius": 0.11
+      }
+    ],
+    "lights": [
+      {
+        "at": [
+          -1.9218158998759467,
+          6.718158998759463,
+          3.96
+        ],
+        "warm": false,
+        "lumens": 3564,
+        "radius_cm": 686
+      },
+      {
+        "at": [
+          6.301026899344287,
+          12.718158998759463,
+          3.96
+        ],
+        "warm": false,
+        "lumens": 3432,
+        "radius_cm": 642
+      },
+      {
+        "at": [
+          2.1896054997341707,
+          9.268158998759464,
+          3.96
+        ],
+        "warm": true,
+        "lumens": 1320,
+        "radius_cm": 438
+      },
+      {
+        "at": [
+          -0.9425328750221524,
+          17.341782431389827,
+          2.93
+        ],
+        "warm": true,
+        "lumens": 990,
+        "radius_cm": 365
+      }
+    ],
+    "anchors": [
+      {
+        "role": "encounter",
+        "at": [
+          -2.2482435748272107,
+          9.818158998759463,
+          0
+        ]
+      },
+      {
+        "role": "future_pump",
+        "at": [
+          6.953882249246817,
+          8.418158998759463,
+          0
+        ]
+      },
+      {
+        "role": "loop_bridge",
+        "at": [
+          2.1896054997341707,
+          9.268158998759464,
+          0
+        ]
+      },
+      {
+        "role": "exit",
+        "at": [
+          10.218158998759463,
+          12.218158998759463,
+          0
+        ]
+      },
+      {
+        "role": "west_flank",
+        "at": [
+          -0.9603945002658292,
+          10.218158998759463,
+          0
+        ]
+      },
+      {
+        "role": "east_flank",
+        "at": [
+          5.339605499734171,
+          10.218158998759463,
+          0
+        ]
+      }
+    ],
+    "combat_expansion_factor": 1.4597369998227805,
+    "tactical_routes": {
+      "column_to_rail_clear_m": 3.214,
+      "front_bypass_depth_m": 6.098158998759463,
+      "bridge_route_width_m": 2.0
+    },
+    "pipe_slime": {
+      "objects": [
+        {
+          "name": "SM_PipePusPuddle",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCombatExpansionV3_20260922\\Authored\\SM_PipePusPuddle.fbx",
+          "destination": "/Game/Dungeons/CombatExpansionV3_20260922/Meshes",
+          "materials": {
+            "CF_MI_PusPuddleRadial": "/Game/Dungeons/CombatExpansionV3_20260922/Materials/MI_PusPuddleRadial"
+          },
+          "collision": false,
+          "room": "Drainage",
+          "local_m": [
+            -0.8455328750221525,
+            13.918158998759463,
+            0
+          ],
+          "half_size_cm": [
+            72,
+            67
+          ],
+          "radial_footprint": true,
+          "material_override": "/Game/Dungeons/SlimeSheet20260922/Materials/MI_PusPuddleSingleImpact"
+        },
+        {
+          "name": "SM_PipePusDrops",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonSlimeSheet20260922\\Authored\\SM_PipePusDrops.fbx",
+          "destination": "/Game/Dungeons/SlimeSheet20260922/Meshes",
+          "materials": {
+            "CF_M_PusConvergedDrops": "/Game/Dungeons/SlimeSheet20260922/Materials/M_PusConvergedDrops"
+          },
+          "collision": false,
+          "room": "Drainage",
+          "local_m": [
+            -0.9305328750221524,
+            13.918158998759463,
+            0.6869999999999999
+          ],
+          "half_size_cm": null,
+          "radial_footprint": false
+        },
+        {
+          "name": "SM_PipePusTongue",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonSlimeSheet20260922\\Authored\\SM_PipePusTongue.fbx",
+          "destination": "/Game/Dungeons/SlimeSheet20260922/Meshes",
+          "materials": {
+            "CF_M_PusConvergingSheet": "/Game/Dungeons/SlimeSheet20260922/Materials/M_PusConvergingSheet"
+          },
+          "collision": false,
+          "room": "Drainage",
+          "local_m": [
+            -0.9305328750221524,
+            13.918158998759463,
+            0.6869999999999999
+          ],
+          "half_size_cm": null,
+          "radial_footprint": false
+        }
+      ],
+      "damage": 8,
+      "interval": 0.5
+    },
+    "surface_seed_id": "Drainage_NearBridge",
+    "source_id": "Drainage",
+    "family_id": "Drainage",
+    "surface_variant": 0,
+    "dressing_parameters": {
+      "rear_delta_cm": -80.0,
+      "bridge_delta_cm": -145.0
+    },
+    "export_kinds": [
+      "Shell",
+      "Tiles",
+      "Frames",
+      "Floors",
+      "Ceilings",
+      "Bridge",
+      "Fixtures"
+    ]
+  },
+  {
+    "id": "Drainage_FarBridge",
+    "name": "排水检修室",
+    "origin_m": [
+      0,
+      0,
+      0
+    ],
+    "height_m": 4.3,
+    "footprint": [
+      [
+        -5.838947999291122,
+        0.0
+      ],
+      [
+        10.218158998759463,
+        0.0
+      ],
+      [
+        10.218158998759463,
+        16.290878665012617
+      ],
+      [
+        3.6896054997341707,
+        16.290878665012617
+      ],
+      [
+        3.6896054997341707,
+        21.236317997518928
+      ],
+      [
+        -5.838947999291122,
+        21.236317997518928
+      ]
+    ],
+    "floors": [
+      [
+        -5.838947999291122,
+        0.0,
+        10.218158998759463,
+        6.218158998759463,
+        0
+      ],
+      [
+        -5.838947999291122,
+        6.218158998759463,
+        0.6896054997341707,
+        14.218158998759463,
+        0
+      ],
+      [
+        3.6896054997341707,
+        6.218158998759463,
+        10.218158998759463,
+        14.218158998759463,
+        0
+      ],
+      [
+        -5.838947999291122,
+        14.218158998759463,
+        3.6896054997341707,
+        21.236317997518928,
+        0
+      ],
+      [
+        3.6896054997341707,
+        14.218158998759463,
+        10.218158998759463,
+        16.290878665012617,
+        0
+      ],
+      [
+        0.6896054997341707,
+        6.218158998759463,
+        3.6896054997341707,
+        14.218158998759463,
+        -0.55
+      ]
+    ],
+    "ceilings": [
+      [
+        -5.838947999291122,
+        0.0,
+        10.218158998759463,
+        16.290878665012617,
+        4.3
+      ],
+      [
+        -5.838947999291122,
+        16.290878665012617,
+        3.6896054997341707,
+        21.236317997518928,
+        3.2
+      ]
+    ],
+    "wall_heights": {
+      "3": 3.2,
+      "4": 3.2
+    },
+    "openings": [
+      {
+        "edge": 0,
+        "center": 6.528553499025293,
+        "width": 3,
+        "height": 2.8,
+        "id": "entry"
+      },
+      {
+        "edge": 1,
+        "center": 12.218158998759463,
+        "width": 3,
+        "height": 2.8,
+        "id": "exit"
+      }
+    ],
+    "columns": [
+      [
+        -2.730394500265829,
+        6.218158998759463
+      ],
+      [
+        7.109605499734171,
+        6.218158998759463
+      ],
+      [
+        -2.730394500265829,
+        13.218158998759463
+      ],
+      [
+        7.109605499734171,
+        13.218158998759463
+      ]
+    ],
+    "beams": [
+      [
+        [
+          -5.838947999291122,
+          6.218158998759463,
+          3.95
+        ],
+        [
+          10.218158998759463,
+          6.218158998759463,
+          3.95
+        ]
+      ],
+      [
+        [
+          -5.838947999291122,
+          13.218158998759463,
+          3.95
+        ],
+        [
+          10.218158998759463,
+          13.218158998759463,
+          3.95
+        ]
+      ]
+    ],
+    "headers": [
+      [
+        [
+          -5.838947999291122,
+          16.290878665012617,
+          3.75
+        ],
+        [
+          3.6896054997341707,
+          16.290878665012617,
+          3.75
+        ],
+        1.1
+      ]
+    ],
+    "trench": {
+      "rect": [
+        0.6896054997341707,
+        6.218158998759463,
+        3.6896054997341707,
+        14.218158998759463
+      ],
+      "depth": 0.55,
+      "bridge_y": [
+        11.168158998759463,
+        13.168158998759463
+      ],
+      "hazard": {
+        "class": "/Script/FPSGAME.DungeonPusChannel",
+        "mesh": "/Game/Dungeons/CombatExpansion20260922/Meshes/SM_PusChannelFluid",
+        "material": "/Game/Dungeons/CombatExpansion20260922/Materials/MI_PusChannelFluid",
+        "half_size_cm": [
+          141,
+          391
+        ],
+        "damage": 8,
+        "interval": 0.5
+      }
+    },
+    "pipes": [
+      {
+        "points": [
+          [
+            -4.3700234620104315,
+            0.0,
+            3.2
+          ],
+          [
+            -4.3700234620104315,
+            13.918158998759463,
+            3.2
+          ],
+          [
+            -4.3700234620104315,
+            13.918158998759463,
+            0.85
+          ],
+          [
+            -0.9425328750221524,
+            13.918158998759463,
+            0.85
+          ]
+        ],
+        "radius": 0.17
+      },
+      {
+        "points": [
+          [
+            8.58602062400314,
+            0.8290878665012619,
+            3.1
+          ],
+          [
+            8.58602062400314,
+            11.718158998759463,
+            3.1
+          ],
+          [
+            10.218158998759463,
+            11.718158998759463,
+            3.1
+          ]
+        ],
+        "radius": 0.11
+      }
+    ],
+    "lights": [
+      {
+        "at": [
+          -1.9218158998759467,
+          6.718158998759463,
+          3.96
+        ],
+        "warm": false,
+        "lumens": 3564,
+        "radius_cm": 686
+      },
+      {
+        "at": [
+          6.301026899344287,
+          12.718158998759463,
+          3.96
+        ],
+        "warm": false,
+        "lumens": 3432,
+        "radius_cm": 642
+      },
+      {
+        "at": [
+          2.1896054997341707,
+          12.168158998759463,
+          3.96
+        ],
+        "warm": true,
+        "lumens": 1320,
+        "radius_cm": 438
+      },
+      {
+        "at": [
+          -0.9425328750221524,
+          18.141782431389824,
+          2.93
+        ],
+        "warm": true,
+        "lumens": 990,
+        "radius_cm": 365
+      }
+    ],
+    "anchors": [
+      {
+        "role": "encounter",
+        "at": [
+          -2.2482435748272107,
+          9.818158998759463,
+          0
+        ]
+      },
+      {
+        "role": "future_pump",
+        "at": [
+          6.953882249246817,
+          8.418158998759463,
+          0
+        ]
+      },
+      {
+        "role": "loop_bridge",
+        "at": [
+          2.1896054997341707,
+          12.168158998759463,
+          0
+        ]
+      },
+      {
+        "role": "exit",
+        "at": [
+          10.218158998759463,
+          12.218158998759463,
+          0
+        ]
+      },
+      {
+        "role": "west_flank",
+        "at": [
+          -0.9603945002658292,
+          10.218158998759463,
+          0
+        ]
+      },
+      {
+        "role": "east_flank",
+        "at": [
+          5.339605499734171,
+          10.218158998759463,
+          0
+        ]
+      }
+    ],
+    "combat_expansion_factor": 1.4597369998227805,
+    "tactical_routes": {
+      "column_to_rail_clear_m": 3.214,
+      "front_bypass_depth_m": 6.098158998759463,
+      "bridge_route_width_m": 2.0
+    },
+    "pipe_slime": {
+      "objects": [
+        {
+          "name": "SM_PipePusPuddle",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCombatExpansionV3_20260922\\Authored\\SM_PipePusPuddle.fbx",
+          "destination": "/Game/Dungeons/CombatExpansionV3_20260922/Meshes",
+          "materials": {
+            "CF_MI_PusPuddleRadial": "/Game/Dungeons/CombatExpansionV3_20260922/Materials/MI_PusPuddleRadial"
+          },
+          "collision": false,
+          "room": "Drainage",
+          "local_m": [
+            -0.8455328750221525,
+            13.918158998759463,
+            0
+          ],
+          "half_size_cm": [
+            72,
+            67
+          ],
+          "radial_footprint": true,
+          "material_override": "/Game/Dungeons/SlimeSheet20260922/Materials/MI_PusPuddleSingleImpact"
+        },
+        {
+          "name": "SM_PipePusDrops",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonSlimeSheet20260922\\Authored\\SM_PipePusDrops.fbx",
+          "destination": "/Game/Dungeons/SlimeSheet20260922/Meshes",
+          "materials": {
+            "CF_M_PusConvergedDrops": "/Game/Dungeons/SlimeSheet20260922/Materials/M_PusConvergedDrops"
+          },
+          "collision": false,
+          "room": "Drainage",
+          "local_m": [
+            -0.9305328750221524,
+            13.918158998759463,
+            0.6869999999999999
+          ],
+          "half_size_cm": null,
+          "radial_footprint": false
+        },
+        {
+          "name": "SM_PipePusTongue",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonSlimeSheet20260922\\Authored\\SM_PipePusTongue.fbx",
+          "destination": "/Game/Dungeons/SlimeSheet20260922/Meshes",
+          "materials": {
+            "CF_M_PusConvergingSheet": "/Game/Dungeons/SlimeSheet20260922/Materials/M_PusConvergingSheet"
+          },
+          "collision": false,
+          "room": "Drainage",
+          "local_m": [
+            -0.9305328750221524,
+            13.918158998759463,
+            0.6869999999999999
+          ],
+          "half_size_cm": null,
+          "radial_footprint": false
+        }
+      ],
+      "damage": 8,
+      "interval": 0.5
+    },
+    "surface_seed_id": "Drainage_FarBridge",
+    "source_id": "Drainage",
+    "family_id": "Drainage",
+    "surface_variant": 0,
+    "dressing_parameters": {
+      "rear_delta_cm": 80.0,
+      "bridge_delta_cm": 145.0
+    },
+    "export_kinds": [
+      "Shell",
+      "Tiles",
+      "Frames",
+      "Floors",
+      "Ceilings",
+      "Bridge",
+      "Fixtures"
+    ]
+  },
+  {
+    "id": "VentilationLoop_WestCore",
+    "name": "环廊通风机房",
+    "origin_m": [
+      0,
+      0,
+      0
+    ],
+    "height_m": 4.1,
+    "footprint": [
+      [
+        1.0,
+        0
+      ],
+      [
+        17.0,
+        0
+      ],
+      [
+        18,
+        1.0
+      ],
+      [
+        18,
+        15.0
+      ],
+      [
+        17.0,
+        16
+      ],
+      [
+        1.0,
+        16
+      ],
+      [
+        0,
+        15.0
+      ],
+      [
+        0,
+        1.0
+      ]
+    ],
+    "floors": [
+      [
+        0,
+        0,
+        18,
+        16,
+        0
+      ]
+    ],
+    "ceilings": [
+      [
+        0,
+        0,
+        18,
+        16,
+        4.1
+      ],
+      [
+        0.12,
+        2,
+        1.0,
+        14,
+        3.2
+      ]
+    ],
+    "openings": [
+      {
+        "edge": 0,
+        "center": 5.0,
+        "width": 3,
+        "height": 2.8,
+        "id": "entry"
+      },
+      {
+        "edge": 2,
+        "center": 11.0,
+        "width": 3,
+        "height": 2.8,
+        "id": "exit"
+      }
+    ],
+    "columns": [
+      [
+        0.24,
+        4
+      ],
+      [
+        0.24,
+        12
+      ],
+      [
+        17.76,
+        4
+      ],
+      [
+        17.76,
+        8
+      ]
+    ],
+    "beams": [
+      [
+        [
+          0.3,
+          2,
+          3.91
+        ],
+        [
+          17.7,
+          2,
+          3.91
+        ]
+      ],
+      [
+        [
+          0.3,
+          14,
+          3.91
+        ],
+        [
+          17.7,
+          14,
+          3.91
+        ]
+      ]
+    ],
+    "pipes": [
+      {
+        "points": [
+          [
+            0.65,
+            1.3,
+            2.86
+          ],
+          [
+            0.65,
+            14.5,
+            2.86
+          ],
+          [
+            5,
+            14.5,
+            2.86
+          ]
+        ],
+        "radius": 0.062
+      }
+    ],
+    "lights": [
+      {
+        "at": [
+          2.8125,
+          3,
+          3.62
+        ],
+        "warm": false,
+        "lumens": 2450,
+        "radius_cm": 575
+      },
+      {
+        "at": [
+          14.8125,
+          5,
+          3.62
+        ],
+        "warm": false,
+        "lumens": 2550,
+        "radius_cm": 585
+      },
+      {
+        "at": [
+          2.8125,
+          12.5,
+          3.63
+        ],
+        "warm": true,
+        "lumens": 1650,
+        "radius_cm": 490
+      },
+      {
+        "at": [
+          14.6125,
+          13.1,
+          3.66
+        ],
+        "warm": true,
+        "lumens": 1950,
+        "radius_cm": 510
+      }
+    ],
+    "anchors": [
+      {
+        "role": "encounter_west",
+        "at": [
+          3,
+          9,
+          0
+        ]
+      },
+      {
+        "role": "encounter_east",
+        "at": [
+          15,
+          8,
+          0
+        ]
+      },
+      {
+        "role": "filter_maintenance",
+        "at": [
+          3.95,
+          10,
+          0
+        ]
+      },
+      {
+        "role": "entry",
+        "at": [
+          6,
+          1.8,
+          0
+        ]
+      },
+      {
+        "role": "exit",
+        "at": [
+          16,
+          12,
+          0
+        ]
+      }
+    ],
+    "core": {
+      "rect": [
+        5.25,
+        4,
+        11.25,
+        12
+      ],
+      "height": 4.1
+    },
+    "target_walkable_m2": [
+      210,
+      220
+    ],
+    "family_id": "VentilationLoop",
+    "source_id": "VentilationLoop",
+    "surface_seed_id": "VentilationLoop_WestCore",
+    "surface_variant": 0,
+    "core_offset_x": -0.75,
+    "dressing_parameters": {
+      "core_offset_cm": -75.0
+    }
+  },
+  {
+    "id": "VentilationLoop_EastCore",
+    "name": "环廊通风机房",
+    "origin_m": [
+      0,
+      0,
+      0
+    ],
+    "height_m": 4.1,
+    "footprint": [
+      [
+        1.8,
+        0
+      ],
+      [
+        16.2,
+        0
+      ],
+      [
+        18,
+        1.8
+      ],
+      [
+        18,
+        14.2
+      ],
+      [
+        16.2,
+        16
+      ],
+      [
+        1.8,
+        16
+      ],
+      [
+        0,
+        14.2
+      ],
+      [
+        0,
+        1.8
+      ]
+    ],
+    "floors": [
+      [
+        0,
+        0,
+        18,
+        16,
+        0
+      ]
+    ],
+    "ceilings": [
+      [
+        0,
+        0,
+        18,
+        16,
+        4.1
+      ],
+      [
+        0.12,
+        2,
+        1.0,
+        14,
+        3.2
+      ]
+    ],
+    "openings": [
+      {
+        "edge": 0,
+        "center": 4.2,
+        "width": 3,
+        "height": 2.8,
+        "id": "entry"
+      },
+      {
+        "edge": 2,
+        "center": 10.2,
+        "width": 3,
+        "height": 2.8,
+        "id": "exit"
+      }
+    ],
+    "columns": [
+      [
+        0.24,
+        4
+      ],
+      [
+        0.24,
+        12
+      ],
+      [
+        17.76,
+        4
+      ],
+      [
+        17.76,
+        8
+      ]
+    ],
+    "beams": [
+      [
+        [
+          0.3,
+          2,
+          3.91
+        ],
+        [
+          17.7,
+          2,
+          3.91
+        ]
+      ],
+      [
+        [
+          0.3,
+          14,
+          3.91
+        ],
+        [
+          17.7,
+          14,
+          3.91
+        ]
+      ]
+    ],
+    "pipes": [
+      {
+        "points": [
+          [
+            0.65,
+            1.3,
+            2.86
+          ],
+          [
+            0.65,
+            14.5,
+            2.86
+          ],
+          [
+            5,
+            14.5,
+            2.86
+          ]
+        ],
+        "radius": 0.062
+      }
+    ],
+    "lights": [
+      {
+        "at": [
+          3.1875,
+          3,
+          3.62
+        ],
+        "warm": false,
+        "lumens": 2450,
+        "radius_cm": 575
+      },
+      {
+        "at": [
+          15.1875,
+          5,
+          3.62
+        ],
+        "warm": false,
+        "lumens": 2550,
+        "radius_cm": 585
+      },
+      {
+        "at": [
+          3.1875,
+          12.5,
+          3.63
+        ],
+        "warm": true,
+        "lumens": 1650,
+        "radius_cm": 490
+      },
+      {
+        "at": [
+          14.9875,
+          13.1,
+          3.66
+        ],
+        "warm": true,
+        "lumens": 1950,
+        "radius_cm": 510
+      }
+    ],
+    "anchors": [
+      {
+        "role": "encounter_west",
+        "at": [
+          3,
+          9,
+          0
+        ]
+      },
+      {
+        "role": "encounter_east",
+        "at": [
+          15,
+          8,
+          0
+        ]
+      },
+      {
+        "role": "filter_maintenance",
+        "at": [
+          5.45,
+          10,
+          0
+        ]
+      },
+      {
+        "role": "entry",
+        "at": [
+          6,
+          1.8,
+          0
+        ]
+      },
+      {
+        "role": "exit",
+        "at": [
+          16,
+          12,
+          0
+        ]
+      }
+    ],
+    "core": {
+      "rect": [
+        6.75,
+        4,
+        12.75,
+        12
+      ],
+      "height": 4.1
+    },
+    "target_walkable_m2": [
+      210,
+      220
+    ],
+    "family_id": "VentilationLoop",
+    "source_id": "VentilationLoop",
+    "surface_seed_id": "VentilationLoop_EastCore",
+    "surface_variant": 0,
+    "core_offset_x": 0.75,
+    "dressing_parameters": {
+      "core_offset_cm": 75.0
+    }
+  }
+]

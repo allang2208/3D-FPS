@@ -46,9 +46,9 @@ def prism(kind,points,start,direction,normal,depth,mat):
     # Cross section t/z has normal -interior normal.
     faces=[tuple(range(n)),tuple(n+i for i in reversed(range(n)))]
     faces.extend((i,i+n,(i+1)%n+n,(i+1)%n) for i in range(n));poly(kind,vs,faces,mat)
-def wall(start,end,height,openings=(),breach=None,tiles=True,mat='Concrete'):
+def wall(start,end,height,openings=(),breach=None,tiles=True,mat='Concrete',depth_override=None):
     start,end=Vector(start),Vector(end);direction=(end-start).normalized();normal=Vector((-direction.y,direction.x));length=(end-start).length
-    style=CFG['style'];wall_depth=style['wall_thickness']
+    style=CFG['style'];wall_depth=style['wall_thickness'] if depth_override is None else depth_override
     def block(t0,t1,z0,z1,kind='Shell',material=mat,depth=None,offset=0):
         if t1-t0<.001 or z1-z0<.001:return
         if depth is None:depth=wall_depth
@@ -57,7 +57,9 @@ def wall(start,end,height,openings=(),breach=None,tiles=True,mat='Concrete'):
     if breach:
         detail.breach_wall(start,direction,normal,length,height,breach,mat)
     else:
-        intervals=sorted((o['center']-o['width']/2,o['center']+o['width']/2,o['height']) for o in openings)
+        # Steel owns the reveal: retain a 1 cm hidden backing lip inside the
+        # 7 cm jamb / 8 cm header, rather than duplicating their visible faces.
+        intervals=sorted((o['center']-o['width']/2-.06,o['center']+o['width']/2+.06,o['height']+.07) for o in openings)
         cursor=0
         for a,b,h in intervals:
             block(cursor,a,0,height);block(a,b,h,height);cursor=b
@@ -72,8 +74,8 @@ def wall(start,end,height,openings=(),breach=None,tiles=True,mat='Concrete'):
     block(cursor,length,0,.14,'Frames','PaintedSteel',.028,wall_depth/2+.02)
     for opening in openings:
         for t in [opening['center']-opening['width']/2-.035,opening['center']+opening['width']/2+.035]:
-            block(t-.035,t+.035,0,opening['height'],'Frames','BareSteel',.29,0)
-        block(opening['center']-opening['width']/2-.07,opening['center']+opening['width']/2+.07,opening['height'],opening['height']+.08,'Frames','BareSteel',.29)
+            block(t-.035,t+.035,0,opening['height'],'Frames','BareSteel',.32,0)
+        block(opening['center']-opening['width']/2-.07,opening['center']+opening['width']/2+.07,opening['height'],opening['height']+.08,'Frames','BareSteel',.32)
 def slab(rect,kind,ceiling=False,mat='Concrete'):
     x0,y0,x1,y1,z=rect
     thickness=.18 if ceiling else CFG['style']['floor_thickness']
@@ -119,10 +121,14 @@ def export():
 for index,room in enumerate(CFG['rooms']):
     ROOM=room;GROUPS={};R=random.Random(CFG['seed']+index)
     for rect in room['floors']:slab(rect,'Floors')
-    for rect in room['ceilings']:slab(rect,'Ceilings',True)
+    for rect in room['ceilings']:
+        if room['id']=='RouteElbow':
+            x0,y0,x1,y1,z=rect
+            box('Ceilings',((x0+x1)/2,(y0+y1)/2,z+.11),(x1-x0,y1-y0,.14))
+        else:slab(rect,'Ceilings',True)
     outline=room['footprint']
     for edge,(a,b) in enumerate(zip(outline,outline[1:]+outline[:1])):
-        wall(a,b,room.get('wall_heights',{}).get(str(edge),room['height_m']),[o for o in room['openings'] if o['edge']==edge],room.get('breach') if room.get('breach',{}).get('edge')==edge else None)
+        wall(a,b,room.get('wall_heights',{}).get(str(edge),room['height_m'])+(.04 if room['id']=='RouteElbow' else 0),[o for o in room['openings'] if o['edge']==edge],room.get('breach') if room.get('breach',{}).get('edge')==edge else None)
     for x,y in room.get('columns',[]):box('Shell',(x,y,room['height_m']/2),(.36,.36,room['height_m']))
     for a,b in room.get('beams',[]):bar('Shell',a,b,.38,.36)
     for a,b,h in room.get('headers',[]):bar('Shell',a,b,.26,h)
@@ -157,11 +163,32 @@ for index,room in enumerate(CFG['rooms']):
 for index,link in enumerate(CFG['links']):
     ROOM={'id':link['id'],'origin_m':link['origin_m'],'height_m':link['height']};GROUPS={};R=random.Random(CFG['seed']+50+index)
     w=link['width'];l=link['length'];h=link['height'];along_x=link['axis']=='x'
+    if link['id'] in ('Transit','Threshold'):
+        # Keep the original footprint and floor. Recess the inside of the wall
+        # and ceiling by 4 cm, consuming their thickness instead of expanding cells.
+        rect=[0,-w/2,l,w/2,0] if along_x else [-w/2,0,w/2,l,0]
+        slab(rect,'Floors')
+        x0,y0,x1,y1=rect[:4]
+        box('Ceilings',((x0+x1)/2,(y0+y1)/2,h+.11),(x1-x0,y1-y0,.14))
+        w+=.04;h+=.04
+        walls=[((0,-w/2),(l,-w/2)),((l,w/2),(0,w/2))] if along_x else [((-w/2,l),(-w/2,0)),((w/2,0),(w/2,l))]
+        for a,b in walls:wall(a,b,h,depth_override=CFG['style']['wall_thickness']-.04)
+        if link.get('light',True):lamp({'at':[l/2,0,h-.26] if along_x else [0,l/2,h-.26],'warm':True,'lumens':500,'radius_cm':220})
+        export();continue
+    # The room owns the projecting portal frame. Recess connector walls/ceiling
+    # behind its reveal; keep ceramic skins out of the frame's 29 cm collar.
+    collar=link.get('portal_collar_m',0.0)
+    recess=link.get('portal_recess_m',0.0)
+    w+=2*recess;h+=recess
     rect=[0,-w/2,l,w/2,0] if along_x else [-w/2,0,w/2,l,0]
     slab(rect,'Floors');slab(rect[:4]+[h],'Ceilings',True)
     if along_x:walls=[((0,-w/2),(l,-w/2)),((l,w/2),(0,w/2))]
     else:walls=[((-w/2,l),(-w/2,0)),((w/2,0),(w/2,l))]
-    for a,b in walls:wall(a,b,h)
+    for a,b in walls:
+        wall(a,b,h,tiles=not bool(collar))
+        if collar:
+            a,b=Vector(a),Vector(b);direction=(b-a).normalized();normal=Vector((-direction.y,direction.x))
+            SURFACES.wall(globals(),a+direction*collar,direction,normal,l-2*collar,(),None,CFG['style']['wall_thickness'])
     if link.get('light',True):lamp({'at':[l/2,0,h-.22] if along_x else [0,l/2,h-.22],'warm':True,'lumens':500,'radius_cm':220})
     export()
 bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'Dungeon_DistinctRoomShells.blend'))

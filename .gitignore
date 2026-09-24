@@ -407,6 +407,9 @@ __pycache__/
 !/SourceAssets/Dungeon*/props.json
 !/SourceAssets/Dungeon*/layout.json
 !/SourceAssets/Dungeon*/Config/*.json
+# Project-authored wall shaders needed by the published material recipes.
+!/SourceAssets/DungeonWallUpgrade20260924/Scripts/mineral_surface.ush
+!/SourceAssets/DungeonWallReliefRestore20260924/Scripts/*.ush
 !/SourceAssets/DungeonWorkshopPublication20260922/archive-manifest.json
 !/SourceAssets/DungeonWorkshopPublication20260922/provenance.json
 /Docs/Gameplay/Previews/

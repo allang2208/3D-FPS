@@ -6,7 +6,7 @@ from service_routing import pipe_age
 def export(H):
     widths=dict(Columns=.006,MachineBases=.018,PumpWest=.003,PumpEast=.003,Receiver=.002,
         GalleryFrames=.0015,RoofTrusses=.0015,GalleryRails=.001,WallServices=.002,
-        Floors=.005,Ceilings=.005,Shell=.005,Frames=.0015)
+        Floors=.005,Ceilings=.005,Shell=.005,Frames=.0015,StairWest=.001,StairEast=.001)
     replacement={'ServicePaint':'BossMachinePaint','PaintedSteel':'BossStructuralSteel','BridgeDeck':'BossGrating'}
     for kind,g in H['GROUPS'].items():
         labels=[('BossPipeCoat' if m=='PipeEnamel' else 'BossPipeHardware' if kind=='Services' and m in ('ServiceHardware','BareSteel','PipeCutSteel') else replacement.get(m,m)) for m in g['m']]

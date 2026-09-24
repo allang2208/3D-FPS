@@ -102,7 +102,7 @@ void ASceneTestPortal::BeginPlay()
 
 bool ASceneTestPortal::IsWithinInteractionRange(const APawn* Pawn) const
 {
-    if(!Pawn)return false;
+    if(!Pawn||ActorHasTag(TEXT("DungeonReward.Locked")))return false;
     const FVector Delta=Pawn->GetActorLocation()-GetActorLocation();
     return Delta.SizeSquared2D()<=FMath::Square(200.f)&&FMath::Abs(Delta.Z)<=250.f;
 }

@@ -41,4 +41,31 @@ def extend(catalog):
         catalog['modules']=[m for m in catalog['modules'] if m['id'] not in ('BossPumpHall','BossConfluence','BossApproach')]+[confluence,approach,boss]
         catalog['boss_terminal_enabled']=True
     else:catalog.setdefault('boss_terminal_enabled',False)
+    underground=ROOT.parent/'DungeonUnderground20260923'
+    stair_receipt=underground/'Receipts/install.json'
+    if stair_receipt.exists() and read(stair_receipt).get('stage')=='map_saved':
+        stairs=read(underground/'Config/modules.json')['modules']
+        ids={m['id'] for m in stairs}
+        catalog['modules']=[m for m in catalog['modules'] if m['id'] not in ids]+copy.deepcopy(stairs)
+        catalog.update(compact_underground_boss=True,generator_version=2,branch_links=1,group_links=1)
+    reward=ROOT.parent/'DungeonFinalReward20260923'
+    reward_receipt=reward/'Receipts/install.json'
+    if reward_receipt.exists() and read(reward_receipt).get('stage')=='map_saved':
+        import runpy
+        catalog=runpy.run_path(str(reward/'Scripts/extend_catalog.py'))['extend'](catalog)
+    finish=ROOT.parent/'DungeonSeamMetal20260923'
+    finish_receipt=finish/'Receipts/install.json'
+    if finish_receipt.exists() and read(finish_receipt).get('stage')=='map_saved':
+        import runpy
+        catalog=runpy.run_path(str(finish/'Scripts/extend_catalog.py'))['extend'](catalog)
+    wall_damage=ROOT.parent/'DungeonWallDamage20260923'
+    wall_receipt=wall_damage/'Receipts/install.json'
+    if wall_receipt.exists() and read(wall_receipt).get('stage')=='map_saved':
+        import runpy
+        catalog=runpy.run_path(str(wall_damage/'Scripts/extend_catalog.py'))['extend'](catalog)
+    room_variants=ROOT.parent/'DungeonRoomVariants20260924'
+    variants_receipt=room_variants/'Receipts/install.json'
+    if variants_receipt.exists() and read(variants_receipt).get('stage')=='map_saved':
+        import runpy
+        catalog=runpy.run_path(str(room_variants/'Scripts/extend_catalog.py'))['extend'](catalog)
     return catalog

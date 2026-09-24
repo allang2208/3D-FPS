@@ -1,0 +1,424 @@
+{
+  "version": 2,
+  "room_ids": [],
+  "modules": [
+    {
+      "id": "StairDrop1080",
+      "role": "vertical_connector",
+      "min": [
+        -174,
+        -1104,
+        -1114
+      ],
+      "max": [
+        504,
+        204,
+        320
+      ],
+      "cells": [
+        {
+          "min": [
+            -174,
+            -1104,
+            -1114
+          ],
+          "max": [
+            504,
+            204,
+            320
+          ]
+        }
+      ],
+      "ports": [
+        {
+          "id": "upper",
+          "position": [
+            0,
+            180,
+            0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "width": 300,
+          "height": 280
+        },
+        {
+          "id": "lower",
+          "position": [
+            0,
+            -1080,
+            -1080
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "width": 300,
+          "height": 280
+        }
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/Underground20260923/Meshes/SM_RS_StairDrop1080_Floors",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Underground20260923/Meshes/SM_RS_StairDrop1080_Frames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Underground20260923/Meshes/SM_RS_StairDrop1080_StairWest",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Underground20260923/Meshes/SM_RS_StairDrop1080_GalleryRails",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Underground20260923/Meshes/SM_RS_StairDrop1080_Shell",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Underground20260923/Meshes/SM_RS_StairDrop1080_Tiles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Underground20260923/Meshes/SM_RS_StairDrop1080_Services",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": true,
+          "fluid": false,
+          "materials": []
+        },
+        {
+          "mesh": "/Game/Dungeons/Underground20260923/Meshes/SM_RS_StairDrop1080_Fixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "yaw": 0,
+          "collision": false,
+          "fluid": false,
+          "materials": []
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            0,
+            -540.0,
+            41.5
+          ],
+          "intensity": 1600,
+          "radius": 540,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ],
+          "role": "key",
+          "cast_shadows": true
+        },
+        {
+          "position": [
+            330.0,
+            -720.0,
+            -228.5
+          ],
+          "intensity": 1600,
+          "radius": 540,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ],
+          "role": "key",
+          "cast_shadows": true
+        },
+        {
+          "position": [
+            330.0,
+            -180.0,
+            -408.5
+          ],
+          "intensity": 1600,
+          "radius": 540,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ],
+          "role": "key",
+          "cast_shadows": true
+        },
+        {
+          "position": [
+            0,
+            -360.0,
+            -678.5
+          ],
+          "intensity": 1600,
+          "radius": 540,
+          "color": [
+            0.73,
+            0.84,
+            1
+          ],
+          "role": "key",
+          "cast_shadows": true
+        },
+        {
+          "position": [
+            0,
+            80.0,
+            231.5
+          ],
+          "intensity": 1250,
+          "radius": 480,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ],
+          "role": "key",
+          "cast_shadows": true
+        },
+        {
+          "position": [
+            165.0,
+            -990.0,
+            -128.5
+          ],
+          "intensity": 1250,
+          "radius": 480,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ],
+          "role": "key",
+          "cast_shadows": true
+        },
+        {
+          "position": [
+            330.0,
+            -450.0,
+            -308.5
+          ],
+          "intensity": 1250,
+          "radius": 480,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ],
+          "role": "key",
+          "cast_shadows": true
+        },
+        {
+          "position": [
+            165.0,
+            90.0,
+            -488.5
+          ],
+          "intensity": 1250,
+          "radius": 480,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ],
+          "role": "key",
+          "cast_shadows": true
+        },
+        {
+          "position": [
+            0,
+            -990.0,
+            -848.5
+          ],
+          "intensity": 1250,
+          "radius": 480,
+          "color": [
+            1,
+            0.64,
+            0.36
+          ],
+          "role": "key",
+          "cast_shadows": true
+        }
+      ],
+      "anchors": [],
+      "walk_polyline": [
+        [
+          0,
+          180.0,
+          0
+        ],
+        [
+          0,
+          -180.0,
+          0
+        ],
+        [
+          0,
+          -900,
+          -360.0
+        ],
+        [
+          0,
+          -990.0,
+          -360.0
+        ],
+        [
+          330.0,
+          -990.0,
+          -360.0
+        ],
+        [
+          330.0,
+          -900,
+          -360.0
+        ],
+        [
+          330.0,
+          -540.0,
+          -540.0
+        ],
+        [
+          330.0,
+          -360.0,
+          -540.0
+        ],
+        [
+          330.0,
+          0,
+          -720.0
+        ],
+        [
+          330.0,
+          90.0,
+          -720.0
+        ],
+        [
+          0,
+          90.0,
+          -720.0
+        ],
+        [
+          0,
+          0,
+          -720.0
+        ],
+        [
+          0,
+          -720.0,
+          -1080.0
+        ],
+        [
+          0,
+          -1080.0,
+          -1080.0
+        ]
+      ],
+      "floor_delta": -2
+    }
+  ]
+}

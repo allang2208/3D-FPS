@@ -1,9 +1,17 @@
 """Import room shell groups only; no map mutation or automatic tests."""
-import json,re
+import json,re,sys
 from pathlib import Path
 import unreal as u
 ROOT=Path(__file__).resolve().parents[1];BASE='/Game/Dungeons/RoomShells20260922'
+sys.path.insert(0,str(ROOT.parents[1]/'Tools/AssetPipeline'))
+from dungeon_material_usage import ensure_mesh_material_usage
 MAN=json.loads((ROOT/'Authored/manifest.json').read_text(encoding='utf-8'))
+finish_file=ROOT.parent/'DungeonSeamMetal20260923/Config/material-remap.json'
+finish_receipt=ROOT.parent/'DungeonSeamMetal20260923/Receipts/install.json'
+FINISH=json.loads(finish_file.read_text(encoding='utf-8')) if finish_file.exists() and finish_receipt.exists() and json.loads(finish_receipt.read_text()).get('stage')=='map_saved' else {}
+wall_finish=ROOT.parent/'DungeonWallDamage20260923'
+if (wall_finish/'Receipts/install.json').exists() and json.loads((wall_finish/'Receipts/install.json').read_text()).get('stage')=='map_saved':
+    FINISH.update(json.loads((wall_finish/'Config/material-remap.json').read_text()))
 E=u.EditorAssetLibrary;AT=u.AssetToolsHelpers.get_asset_tools()
 if Path(u.Paths.project_dir()).resolve()!=ROOT.parents[1].resolve():raise RuntimeError('Different project')
 if u.get_editor_subsystem(u.UnrealEditorSubsystem).get_game_world():raise RuntimeError('Preserve running game')
@@ -27,9 +35,11 @@ for item in MAN['objects']:
     if not mesh:raise RuntimeError('Import failed '+asset_path)
     for index,slot in enumerate(mesh.get_editor_property('static_materials')):
         name=re.sub(r'[._][0-9]{3}$','',str(slot.material_slot_name))
-        material=u.load_asset(item['materials'][name])
+        original=item['materials'][name]
+        material=u.load_asset(FINISH.get(original.split('.')[0],original))
         if not material:raise RuntimeError('Missing source material '+item['materials'][name])
         mesh.set_material(index,material)
+    ensure_mesh_material_usage(mesh)
     mesh.get_editor_property('body_setup').set_editor_property('collision_trace_flag',u.CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE)
     if previous_nanite is not None:u.get_editor_subsystem(u.StaticMeshEditorSubsystem).set_nanite_settings(mesh,previous_nanite,True)
     if not E.save_loaded_asset(mesh,False):raise RuntimeError('Mesh save failed '+asset_path)

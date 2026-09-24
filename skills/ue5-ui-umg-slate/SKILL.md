@@ -13,6 +13,8 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 新增 HUD、快捷栏、状态面板或图标时，读取 [性能开发约束](../ue5-performance-packaging/references/fpsgame-performance-development.md) 的高频路径与图标部分。先明确刷新触发和调用链，复用属性读取与可见条目，不把重复 JSON 解析、全量控件重建或资源等待放进 NativeTick。
 
 # Quick Start
+
+- 启动选档、进场加载、重试与取消页面，读取 [资源准备与交互状态](../ue5-performance-packaging/references/entry-resource-preparation.md)，沿用 `TransitLoadingSubsystem` 和冷钢共享样式。
 - For FPSGAME building categories, construction cards, model thumbnails, fonts or detail popups, read [the building-panel standard](references/building-panel.md).
 - For FPSGAME persistent panel icons, hotkey effects, dual-pistol layout, or melee stamina readouts, read [HUD navigation and weapon readouts](references/hud-navigation-and-weapon-readouts.md).
 - For FPSGAME new panels, tabs, sections, cards, or UI upgrades, first read [panel planning and Cold Steel rules](references/fpsgame-panels.md). Plan structure, layout, data scope and states before implementation; use the project's current design system.

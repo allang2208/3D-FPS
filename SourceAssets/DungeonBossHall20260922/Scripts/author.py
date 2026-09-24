@@ -33,16 +33,11 @@ def ibeam(kind,a,b,width=.22,height=.32,thick=.016,mat='BossStructuralSteel'):
     for sign in (-1,1):oriented_box(kind,center+up*sign*(height-thick)/2,axes,(width,thick,d.length),mat)
     oriented_box(kind,center,axes,(thick,height-2*thick,d.length),mat)
 
+from guardrails import Guardrails
+GUARDS=Guardrails(H,oriented_box)
+
 def rail(a,b,base=3.6,kind='GalleryRails',yellow=True):
-    a=Vector((a[0],a[1],base));b=Vector((b[0],b[1],base));length=(b-a).length
-    mat='YellowPaint' if yellow else 'PaintedSteel'
-    for z in (.54,1.10):tube(kind,[a+Vector((0,0,z)),b+Vector((0,0,z))],.023,mat)
-    n=max(1,math.ceil(length/1.35))
-    for i in range(n+1):
-        p=a+(b-a)*i/n
-        tube(kind,[p,p+Vector((0,0,1.10))],.025,mat)
-        box(kind,tuple(p+Vector((0,0,.014))),(.11,.11,.028),'BareSteel')
-    bar(kind,a+Vector((0,0,.06)),b+Vector((0,0,.06)),.026,.12,'PaintedSteel')
+    GUARDS.horizontal(a,b,base,kind,yellow)
 
 def grate_deck(rect,z,kind='GalleryDeck'):
     x0,y0,x1,y1=rect
@@ -90,10 +85,6 @@ def flight(x0,x1,y0,z0,count,rise,run,kind):
     end_y=y0+count*run;end_z=z0+count*rise
     for x in (x0+.035,x1-.035):
         ibeam(kind,(x,y0,z0-.06),(x,end_y,end_z-.21),.10,.25,.012)
-        tube(kind,[(x,y0-.15,z0+1.10),(x,end_y,end_z+1.10)],.024,'YellowPaint')
-        for i in (0,4,8,12):
-            y=y0+i*run;z=z0+i*rise
-            tube(kind,[(x,y,z),(x,y,z+1.10)],.025,'YellowPaint')
     return end_y,end_z
 
 def staircase(s):
@@ -103,8 +94,8 @@ def staircase(s):
     for x in (x0+.06,x1-.06):
         ibeam(kind,(x,y,z-.18),(x,y+s['landing'],z-.18),.14,.25)
         for yy in (y+.10,y+s['landing']-.10):ibeam(kind,(x,yy,.08),(x,yy,z-.23),.14,.16)
-        rail((x,y),(x,y+s['landing']),z,kind)
     flight(x0,x1,y+s['landing'],z,s['steps_per_flight'],s['rise'],s['run'],kind)
+    GUARDS.staircase(s,kind)
     for x in (x0+.04,x1-.04):
         box(kind,(x,y0,.03),(.28,.35,.06),'BareSteel')
         for yy in (y0-.10,y0+.10):detail.fastener((x,yy,.068),(0,0,1),.015,kind=kind)
@@ -293,7 +284,7 @@ for sign in (-1,1):
         ibeam('GalleryFrames',(sign*14.65,y,2.10),(sign*11.25,y,3.28),.12,.16)
         box('GalleryFrames',(sign*14.70,y,2.12),(.10,.45,.50),'BareSteel')
 for s in room['stairs']:staircase(s)
-for a,b in [((-11.15,5.6),(-11.15,11)),((-11.15,12.8),(-11.15,22)),((11.15,5.6),(11.15,12.8)),((11.15,14.6),(11.15,22)),((-11.15,22),(11.15,22)),((-14.65,5.6),(-11.15,5.6)),((11.15,5.6),(14.65,5.6)),((-11.15,12.8),(-7.6,12.8)),((-7.6,11),(-7.6,12.8)),((-11.15,11),(-10.6,11)),((7.6,14.6),(11.15,14.6)),((7.6,12.8),(7.6,14.6)),((10.6,12.8),(11.15,12.8))]:rail(a,b)
+for a,b in [((-11.15,5.6),(-11.15,11)),((-11.15,12.8),(-11.15,22)),((11.15,5.6),(11.15,12.8)),((11.15,14.6),(11.15,22)),((-11.15,22),(11.15,22)),((-14.65,5.6),(-11.15,5.6)),((11.15,5.6),(14.65,5.6)),((-11.15,12.8),(-7.665,12.8)),((-7.665,11),(-7.665,12.8)),((-11.15,11),(-10.535,11)),((7.665,14.6),(11.15,14.6)),((7.665,12.8),(7.665,14.6)),((10.535,12.8),(11.15,12.8))]:rail(a,b)
 for m in room['machines']:machine(m)
 # A rear pressure vessel adds a third, narrow equipment silhouette without closing the centre.
 revolved('Receiver',(7.5,19.4,0),(0,0,1),[(.57,.08),(.59,.24),(.67,.45),(.79,.58),(.94,.63),(2.65,.63),(2.80,.58),(2.92,.45),(3.00,.24),(3.02,.08)],'BossMachinePaint',64)

@@ -156,6 +156,9 @@ L.recompile_material(mat)
 save(mat)
 
 receipt['instances'] = {}
+import sys
+sys.path.insert(0,str(ROOT.parents[1]/'Tools/AssetPipeline'))
+import dungeon_wall_release
 for name, relief, normal_strength in [('Bed', CFG['relief_depth_cm'], 1), ('Finish', .065, .10)]:
     asset_name = 'MI_WallMortar_'+name
     mi = u.load_asset(BASE+'/Materials/'+asset_name)
@@ -165,6 +168,7 @@ for name, relief, normal_strength in [('Bed', CFG['relief_depth_cm'], 1), ('Fini
     L.set_material_instance_parent(mi, mat)
     L.set_material_instance_scalar_parameter_value(mi, 'WallReliefDepthCm', relief)
     L.set_material_instance_scalar_parameter_value(mi, 'WallNormalStrength', normal_strength)
+    dungeon_wall_release.apply_instance(mi,save_asset=False)
     L.update_material_instance(mi)
     save(mi)
     receipt['instances'][name] = mi.get_path_name()

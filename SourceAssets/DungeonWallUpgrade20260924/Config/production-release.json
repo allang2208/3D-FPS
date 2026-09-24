@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "authorization": "User confirmed continuation after the saved upgrade sample on 2026-09-24",
+  "concrete": "/Game/Dungeons/AtmosphereV2/Materials/M_Concrete",
+  "approved_concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete",
+  "instance_aliases": {
+    "/Game/Dungeons/WallDamage20260923/Materials/MI_FabExposedBed": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_ExposedMortar",
+    "/Game/Dungeons/WallDamage20260923/Materials/MI_FabBondingMortar": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_BondingMortar",
+    "/Game/Dungeons/WallDamage20260923/Materials/MI_FabBrokenConcrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_BrokenConcrete",
+    "/Game/Dungeons/AtmosphereV2/WallRelief/Materials/MI_WallMortar_Bed": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_ExposedMortar",
+    "/Game/Dungeons/AtmosphereV2/WallRelief/Materials/MI_WallMortar_Finish": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_BondingMortar",
+    "/Game/Dungeons/HazardPolish20260922/Materials/MI_FracturedConcrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_BrokenConcrete"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "seed": 92231,
+  "style": {
+    "wall_thickness": 0.24,
+    "floor_thickness": 0.22,
+    "tile_width": 0.31,
+    "tile_height": 0.158,
+    "tile_rows": 9,
+    "tile_bottom": 0.16
+  },
+  "rooms": [],
+  "links": [
+    {
+      "id": "TreasureLink",
+      "origin_m": [
+        0,
+        0,
+        0
+      ],
+      "axis": "y",
+      "width": 3.24,
+      "length": 2,
+      "height": 2.8,
+      "light": false,
+      "portal_collar_m": 0.15,
+      "portal_recess_m": 0.04
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelWorldInteraction.h"
 #include "../FPSGAMECharacter.h"
 #include "GameFramework/PlayerController.h"
 #include "Rendering/DrawElements.h"
@@ -17,6 +18,24 @@ int32 UColdSteelHUDWidget::NativePaint(const FPaintArgs& Args,const FGeometry& G
     const float Scale=Geometry.GetLocalSize().Y/1080.f;
     FMonsterHitFeedback Feedback;
     const bool bHasFeedback=Character->GetMonsterHitFeedback(Feedback);
+    const AActor* UseTarget=bHasFeedback?nullptr:ColdSteelWorldInteraction::TraceTarget(PC);
+    const bool bTreasure=ColdSteelWorldInteraction::IsTreasureChest(UseTarget);
+    if(!bHasFeedback && bTreasure)
+    {
+        const float Pixel=1.f/ColdSteelUI::PixelScale(this);
+        const FVector2D HintSize=FVector2D(232,48)*Pixel;
+        const FVector2D HintAt=Center+FVector2D(-116,48)*Pixel;
+        static const FSlateBrush HintBrush=ColdSteelUI::RoundedBrush(ColdSteelUI::Tooltip,ColdSteelUI::CardRadius);
+        FSlateDrawElement::MakeBox(Elements,Result+1,Geometry.ToPaintGeometry(HintSize,FSlateLayoutTransform(HintAt)),
+            &HintBrush,ESlateDrawEffect::None,FLinearColor::White);
+        if(!bTreasure||!ColdSteelWorldInteraction::IsTreasureChestActivated(UseTarget))
+        FSlateDrawElement::MakeText(Elements,Result+2,Geometry.ToPaintGeometry(HintSize,FSlateLayoutTransform(HintAt+FVector2D(16,12)*Pixel)),
+            TEXT("E"),ColdSteelUI::NumberFont(12.f*Pixel,true),ESlateDrawEffect::None,ColdSteelUI::Accent);
+        const FString HintText=ColdSteelWorldInteraction::TreasureChestPrompt(UseTarget);
+        FSlateDrawElement::MakeText(Elements,Result+2,Geometry.ToPaintGeometry(HintSize,FSlateLayoutTransform(HintAt+FVector2D(44,14)*Pixel)),
+            HintText,ColdSteelUI::TextFont(10.5f*Pixel),ESlateDrawEffect::None,ColdSteelUI::TextPrimary);
+        Result+=2;
+    }
     if(bHasFeedback)
     {
         const float S=1.f/ColdSteelUI::PixelScale(this);

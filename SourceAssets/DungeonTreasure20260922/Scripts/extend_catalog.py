@@ -33,8 +33,8 @@ def extend(catalog):
                      position=[0,-512,.8],yaw=90,scale=[1,1,1],role='treasure_chest',identity=chest['identity'])]
     if chest.get('opening'):m['props'][0]['opening_animation']=chest['opening']
     catalog['modules'].append(m)
-    catalog['modules'].append(dict(id='TreasureLink',min=[-176,-200,-22],max=[176,0,298],
-       cells=[dict(min=[-176,-200,-22],max=[176,0,298])],
+    catalog['modules'].append(dict(id='TreasureLink',min=[-180,-200,-22],max=[180,0,302],
+       cells=[dict(min=[-180,-200,-22],max=[180,0,302])],
        ports=[dict(position=[0,0,0],normal=[0,1,0],width=300,height=280),dict(position=[0,-200,0],normal=[0,-1,0],width=300,height=280)],
        parts=parts('TreasureLink'),lights=[],anchors=[]))
     return catalog

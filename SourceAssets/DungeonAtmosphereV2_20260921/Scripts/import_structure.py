@@ -1,5 +1,5 @@
 """Install authored V2 structure and PBR maps into revision-only UE packages."""
-import json
+import json,sys
 from pathlib import Path
 import unreal as u
 
@@ -51,6 +51,11 @@ for name,color,rough,emissive in [('WetFloor',(.035,.045,.042),.095,0),('WarmGla
             em=node(m,u.MaterialExpressionConstant3Vector);em.constant=u.LinearColor(*(v*emissive for v in color),1);output(em,'EMISSIVE_COLOR')
         L.recompile_material(m);save(m)
     receipt['materials'][name]=path
+
+# Retain wall-only relief when the structure producer is rerun on a fresh import.
+sys.path.insert(0,str(ROOT.parent/'DungeonWallReliefRestore20260924/Scripts'))
+from restore_concrete_wall import install as install_concrete_wall_relief
+install_concrete_wall_relief()
 
 for entry in manifest['objects']:
     name=entry['name'];path=OUT+'/Structure/'+name

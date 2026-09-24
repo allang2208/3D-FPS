@@ -39,7 +39,7 @@ private:
     FString LastGenerationMetricsJson;
     void PrepareAssembly();
     void PumpAssembly(bool bSynchronous);
-    void FinishAssembly();
+    void FinishAssembly(bool bSynchronous);
     void RollbackAssembly();
     void CancelAssembly();
     void HoldPlayers();

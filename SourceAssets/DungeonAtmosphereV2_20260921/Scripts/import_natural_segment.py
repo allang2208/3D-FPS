@@ -40,6 +40,8 @@ for name,maps in ([] if RESUME_DECALS else recipes.items()):
     path=OUT+'/Materials/M_'+name;mat=u.load_asset(path)
     if not mat:
         mat=A.create_asset('M_'+name,OUT+'/Materials',u.Material,u.MaterialFactoryNew())
+        mat.set_editor_property('used_with_instanced_static_meshes',True)
+        mat.set_editor_property('used_with_nanite',True)
         for channel,prop in [('BaseColor','BASE_COLOR'),('Roughness','ROUGHNESS'),('Normal','NORMAL')]:
             n=expr(mat,u.MaterialExpressionTextureSample);n.texture=tex[channel]
             n.sampler_type={'BaseColor':u.MaterialSamplerType.SAMPLERTYPE_COLOR,'Roughness':u.MaterialSamplerType.SAMPLERTYPE_MASKS,'Normal':u.MaterialSamplerType.SAMPLERTYPE_NORMAL}[channel]
@@ -109,6 +111,10 @@ decals={
     'Wet':decal_material('NaturalWet','NaturalWet_Opacity',(.032,.038,.031),.15),
     'Dust':decal_material('NaturalDust','NaturalDust_Opacity',(.24,.22,.17),.96),
     'Silt':decal_material('NaturalSilt','NaturalDust_Opacity',(.074,.067,.045),.72)}
+import sys
+sys.path.insert(0,str(ROOT.parents[1]/'Tools/AssetPipeline'))
+from dungeon_wall_stains import install_material as install_wall_stain
+install_wall_stain(OUT+'/Materials/M_NaturalLeakVertical')
 disabled=[]
 for actor in AA.get_all_level_actors():
     label=actor.get_actor_label()

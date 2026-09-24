@@ -32,6 +32,10 @@ for channel,filename in data['channels'].items():
 fracture=instance('MI_FracturedConcrete',load('/Game/Dungeons/AtmosphereV2/WallRelief/Materials/M_WallMortarRelief'))
 for channel,tex in textures.items():L.set_material_instance_texture_parameter_value(fracture,channel+'Texture',tex)
 for key,value in {'WallReliefDepthCm':data['height_range_cm'],'WallTileSizeCm':64,'WallNormalStrength':1,'WallMacroAmount':.025,'WallSpecular':.22}.items():L.set_material_instance_scalar_parameter_value(fracture,key,value)
+import sys
+sys.path.insert(0,str(ROOT.parents[1]/'Tools/AssetPipeline'))
+import dungeon_wall_release
+dungeon_wall_release.apply_instance(fracture,save_asset=False)
 L.update_material_instance(fracture);save(fracture)
 
 path=BASE+'/Materials/M_DungeonViscousPus'

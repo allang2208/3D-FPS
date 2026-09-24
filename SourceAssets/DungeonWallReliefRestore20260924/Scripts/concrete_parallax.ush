@@ -1,0 +1,23 @@
+// Existing concrete UVs and all original material channels remain coherent.
+// Apply relief to vertical wall faces only; floors/ceilings keep their old surface.
+float2 gx=ddx(UV),gy=ddy(UV);
+float3 view=normalize(View);
+float fade=(1-smoothstep(250,650,DistanceCm))*smoothstep(.10,.30,view.z)
+          *(1-smoothstep(.3,.8,abs(WorldNormal.z)));
+[branch] if(fade<=.001)return UV;
+float2 ray=view.xy/max(view.z,.16)*DepthCm/200.0*fade;
+int count=(int)lerp(12,8,saturate(view.z));
+float lo=0,hi=1;
+[loop] for(int i=1;i<=12;++i) {
+    if(i>count)break;
+    hi=(float)i/count;
+    float h=Texture2DSampleGrad(HeightTex,HeightTexSampler,UV-ray*hi,gx,gy).r;
+    if(hi>=1-h)break;
+    lo=hi;
+}
+[unroll] for(int j=0;j<4;++j) {
+    float mid=(lo+hi)*.5;
+    float h=Texture2DSampleGrad(HeightTex,HeightTexSampler,UV-ray*mid,gx,gy).r;
+    if(mid>=1-h)hi=mid;else lo=mid;
+}
+return UV-ray*(lo+hi)*.5;

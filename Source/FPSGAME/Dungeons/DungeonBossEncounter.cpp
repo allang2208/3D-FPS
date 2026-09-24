@@ -6,6 +6,8 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/InstancedStaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "../SceneTestPortal.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/World.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -26,6 +28,34 @@ ADungeonBossEncounter::ADungeonBossEncounter()
     GateCollision->SetupAttachment(RootComponent);GateCollision->SetCollisionProfileName(TEXT("BlockAll"));
     GateCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     GateCollision->SetCanEverAffectNavigation(false);
+    RewardGate=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("FinalRewardMechanicalGate"));
+    RewardGate->SetupAttachment(RootComponent);RewardGate->SetMobility(EComponentMobility::Movable);
+    RewardGate->SetCollisionEnabled(ECollisionEnabled::NoCollision);RewardGate->SetCanEverAffectNavigation(false);
+    RewardGateCollision=CreateDefaultSubobject<UBoxComponent>(TEXT("FinalRewardGateBlocker"));
+    RewardGateCollision->SetupAttachment(RootComponent);
+    RewardGateCollision->SetCollisionProfileName(TEXT("BlockAll"));
+    RewardGateCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    RewardGateCollision->SetGenerateOverlapEvents(false);RewardGateCollision->SetCanEverAffectNavigation(false);
+    // Microscopic grating triangles are a poor rasterization/capsule support
+    // surface. Fill only each authored tread/deck's thickness and footprint.
+    // Rails, columns and machinery still export their real blocking geometry.
+    auto AddWalkSurface=[this](FName Name,const FVector& Center,const FVector& Extent)
+    {
+        auto* Surface=CreateDefaultSubobject<UBoxComponent>(Name);
+        Surface->SetupAttachment(RootComponent);
+        Surface->SetRelativeLocation(Center);Surface->InitBoxExtent(Extent);
+        Surface->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+        Surface->SetCollisionObjectType(ECC_WorldStatic);
+        Surface->SetCollisionResponseToAllChannels(ECR_Ignore);
+        Surface->SetCollisionResponseToChannel(ECC_Pawn,ECR_Block);
+        // GroundPoint uses WorldStatic traces to place the slam on this storey.
+        // Visibility/weapon traces still see the original open grating.
+        Surface->SetCollisionResponseToChannel(ECC_WorldStatic,ECR_Block);
+        Surface->SetGenerateOverlapEvents(false);Surface->SetCanEverAffectNavigation(true);
+        Surface->SetVisibility(false);Surface->SetHiddenInGame(true);
+        Surface->ComponentTags.Add(TEXT("DungeonBossWalkSurface"));
+    };
+#include "DungeonBossWalkSurfaces.inl"
     PrimaryActorTick.bCanEverTick=true;PrimaryActorTick.bStartWithTickEnabled=false;
     PrimaryActorTick.TickInterval=.05f;
     Tags.Add(TEXT("DungeonBossEncounter"));
@@ -56,6 +86,35 @@ void ADungeonBossEncounter::ActivateEncounter()
 {
     if(!GetWorld()->IsGameWorld()||!HasAuthority()||bArmed)return;
     bArmed=true;SetActorTickEnabled(true);
+}
+
+void ADungeonBossEncounter::ConfigureRewardExit(UStaticMesh* LeafMesh,const FVector& Position,
+    const FVector& Travel,const FVector& ClearSize,AActor* Chest,ASceneTestPortal* ReturnPortal)
+{
+    RewardGate->SetStaticMesh(LeafMesh);RewardDoorPoint=Position;RewardDoorTravel=Travel;
+    RewardGateOpen=0;bRewardsUnlocked=false;RewardChest=Chest;RewardPortal=ReturnPortal;
+    RewardGate->SetRelativeLocation(Position);
+    RewardGateCollision->SetRelativeLocation(Position+FVector(0,0,ClearSize.Z*.5));
+    RewardGateCollision->SetBoxExtent(ClearSize*.5);
+    RewardGateCollision->SetCollisionEnabled(LeafMesh?ECollisionEnabled::QueryAndPhysics:ECollisionEnabled::NoCollision);
+    if(Chest)Chest->Tags.AddUnique(TEXT("DungeonReward.Locked"));
+    if(ReturnPortal)ReturnPortal->Tags.AddUnique(TEXT("DungeonReward.Locked"));
+}
+
+void ADungeonBossEncounter::UpdateRewardExit(float DeltaSeconds)
+{
+    if(!RewardGate->GetStaticMesh())return;
+    if(bEncounterComplete)RewardGateOpen=FMath::Min(1.f,RewardGateOpen+DeltaSeconds/2.8f);
+    const float Lift=FMath::SmoothStep(0.f,1.f,RewardGateOpen);
+    RewardGate->SetRelativeLocation(RewardDoorPoint+RewardDoorTravel*Lift);
+    if(bEncounterComplete&&RewardGateOpen>=1.f&&!bRewardsUnlocked)
+    {
+        // Collision and interaction are released together after the complete lift.
+        RewardGateCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+        if(auto* Chest=RewardChest.Get())Chest->Tags.Remove(TEXT("DungeonReward.Locked"));
+        if(auto* Portal=RewardPortal.Get())Portal->Tags.Remove(TEXT("DungeonReward.Locked"));
+        bRewardsUnlocked=true;Tags.AddUnique(TEXT("DungeonReward.Ready"));
+    }
 }
 
 bool ADungeonBossEncounter::Contains(const APawn* Pawn) const
@@ -100,7 +159,7 @@ bool ADungeonBossEncounter::SpawnBoss(APawn* Player)
     auto* Controller=Cast<AMonsterAIController>(Boss->GetController());
     if(!Controller||!Controller->Behavior){Boss->Destroy();return false;}
     LiveBoss=Boss;Entrant=Player;bActive=true;
-    Controller->RememberDamage(Player);
+    Controller->SetEncounterTarget(Player);
     GateCollision->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
     Tags.AddUnique(TEXT("DungeonBoss.Active"));
     UE_LOG(LogTemp,Display,TEXT("DUNGEON_BOSS_STARTED %s"),*Boss->GetPathName());
@@ -129,6 +188,8 @@ void ADungeonBossEncounter::Tick(float DeltaSeconds)
         {
             bActive=false;bEncounterComplete=true;Tags.Remove(TEXT("DungeonBoss.Active"));Tags.AddUnique(TEXT("DungeonBoss.Cleared"));
             GateCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+            // Full-rate motion is needed only for the short reward-door opening.
+            if(RewardGate->GetStaticMesh())SetActorTickInterval(0.f);
             UE_LOG(LogTemp,Display,TEXT("DUNGEON_BOSS_CLEARED %s"),*GetPathName());
             // The monster grants its existing kill reward once and owns its corpse lifetime.
         }
@@ -156,7 +217,8 @@ void ADungeonBossEncounter::Tick(float DeltaSeconds)
         }
     }
     GateOpen=FMath::FInterpConstantTo(GateOpen,bActive?0.f:1.f,DeltaSeconds,2.f);UpdateGate();
-    if(bEncounterComplete&&GateOpen>=1)SetActorTickEnabled(false);
+    UpdateRewardExit(DeltaSeconds);
+    if(bEncounterComplete&&GateOpen>=1&&(!RewardGate->GetStaticMesh()||bRewardsUnlocked))SetActorTickEnabled(false);
 }
 
 void ADungeonBossEncounter::EndPlay(const EEndPlayReason::Type Reason)
