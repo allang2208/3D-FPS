@@ -14,6 +14,9 @@
    **相邻功能行骑乘**：横向触点（准星/交互谓词/HUD 路由）常被并行功能挤进同一 hunk（本次
    workbench/祭坛与冶炼同行混排）；剔掉它们会把保留块的引用掏空成链接缺口，为发布做"改写手术"
    又等于提交一份没跑过的代码。默认**整块保留、在提交信息与发布记录里点明顺带行**，把取舍留给用户拍板。
+   - **默认 U3 上下文会把相邻的别人 hunk 吸进同一块**（2026-09-24 统一浮窗发布：准星旧提示删除块
+     与伤害面板 Split 改动只隔 3 行，KEEP 块直接带上对方 `+` 行）；`--context 1` 重切后先看报告再审
+     暂存增行（`git diff --cached HEAD` 里 grep 对方独有标记），仍粘连走第 3 档重建 blob。
 1. **整文件属于本次会话** → `git add -- <精确路径…>`，最省事也最安全。
 2. **同文件多会话** → `Tools/AssetPipeline/stage_session_hunks.py --file a --marker <本次独有串> [--exclude '<hunk 头>'] --write out.patch`，再 `git apply --cached out.patch`。
    - 标记要选本次**新增行**里独有的 ASCII 串（中文经 argv 传递可能被控制台编码搞坏）。
@@ -32,6 +35,8 @@
 - **用条目 `id` 做作用域会串味**：JSON 里条目 id 与顶层 key 不必同名，且遇到不认识的条目不会重置状态，规则会一路套到文件末尾（实测把几十个物品的 `ue_icon` 改成同一个值）。作用域必须用顶层 key 行 `^  "key": \{$`，并且**改完先逐行断言"只有目标行变化"**再写索引。
 - **PowerShell 读 `git show` 输出按 ANSI 解码中文**：`Select-String`/`Get-Content` 判断"HEAD 是否已有某段中文"会得到相反结论。这类核对用 node（`execSync('git show :path')` 按 UTF-8 处理）。
 - **提交前必跑**：`git diff --cached --stat`、`git diff --cached --check`、二进制筛查（`--numstat` 里 `- -` 的行）、`--name-only` 确认没夹带别人的 `.cpp/.h`。
+- **用临时索引 `read-tree HEAD` + `commit-tree` + `update-ref` 发布、绕开别人已 `git add` 的脏索引**（2026-09-24 统一浮窗实测）：好处是真实索引与工作树逐字节不动；代价是 `update-ref` 把分支推前后，**真实索引里本次提交集的文件会全部变成陈旧 blob**，别人一次普通 `git commit` 就会回退我的发布（实测 97 个文件呈 `0 83` 反向差异）。发布后立即用 `git ls-tree HEAD -- <f>` 逐文件对齐（注意 mode/sha/path 在 `-split '\s+'` 后是 `[0]/[2]`、path 在 `` `t `` 之后；新文件 `--cacheinfo` 还要带 `--add`），直到 `git diff --cached --name-only` 为空且只剩别人的活。
+- **`git diff --check` 的"new blank line at EOF"是真拦截（exit 2）**：`--only` 补一个只删尾空行的 hygiene 提交即可，别为此 force-push。
 
 ## 退役与推送
 
