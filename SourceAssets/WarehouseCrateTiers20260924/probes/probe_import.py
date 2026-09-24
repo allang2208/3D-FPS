@@ -28,4 +28,3 @@ finally:
     u.SystemLibrary.execute_console_command(None, flag+' '+str(prev))
 print('STATUS', task.get_import_status() if hasattr(task,'get_import_status') else 'n/a')
 for o in task.get_objects(): print('IMPORTED', o.get_path_name(), o.get_class().get_name())
-

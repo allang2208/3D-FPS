@@ -26,5 +26,3 @@ print('MESH_MATS', [(str(m.get_editor_property('material_set_name')), m.get_edit
 for c,p in r8:
     if c=='AnimSequence':
         an=u.load_asset(p); print('ANIM', an.get_name(), 'len', round(an.get_play_length(),3), 'skel_match', an.get_editor_property('skeleton').get_path_name()==skel.get_path_name(), flush=True)
-
-

@@ -159,4 +159,3 @@ rough = to8(0.18 + 0.10 * (brush_x - 0.5) + 0.06 * (soft - 0.5))
 height = 0.4 * brush_x + 0.4 * brush_y
 save_pair('Silver', broad, fine, rough, height, 14)
 print('MAPS_V2_DONE', flush=True)
-

@@ -423,4 +423,3 @@ bpy.ops.wm.save_as_mainfile(filepath=str(OUT / 'WarehouseCrateTiers.blend'))
 authoring['rendered'] = False; authoring['tested'] = False
 (HERE / 'authoring.json').write_text(json.dumps(authoring, indent=2), encoding='utf-8')
 print('CRATES_AUTHORED ' + str(len(TIERS)))
-

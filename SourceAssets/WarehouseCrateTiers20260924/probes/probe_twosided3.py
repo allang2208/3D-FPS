@@ -12,4 +12,3 @@ for p in paths:
     if m is None:
         print('MISSING', p, flush=True); continue
     print('TS', p.split('/')[-1], m.get_editor_property('two_sided'), flush=True)
-
