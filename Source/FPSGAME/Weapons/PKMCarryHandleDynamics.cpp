@@ -60,7 +60,9 @@ void FPKMCarryHandleDynamics::Apply(USkeletalMeshComponent& Mesh, TArray<FTransf
         Delta.ToAxisAndAngle(SpinAxis, SpinAngle);
         if (SpinAngle > UE_PI) SpinAngle -= 2. * UE_PI;
         const FVector SpinVelocity = SpinAxis * (SpinAngle / Elapsed);
-        const float Filter = 1.f - FMath::Exp(-28.f * static_cast<float>(Elapsed));
+        // Slower input filter: small aiming motions and hand tremor used to
+        // reach the hinge almost unfiltered and show up as constant rocking.
+        const float Filter = 1.f - FMath::Exp(-8.f * static_cast<float>(Elapsed));
         Acceleration = FMath::Lerp(Acceleration,
             ((Velocity - LastVelocity) / Elapsed).GetClampedToMaxSize(12000.), Filter);
         AngularAcceleration = FMath::Lerp(AngularAcceleration,
@@ -71,12 +73,27 @@ void FPKMCarryHandleDynamics::Apply(USkeletalMeshComponent& Mesh, TArray<FTransf
         // with its axial component removed. No imported bone scale is reapplied.
         const FVector Axis = ParentWorld.TransformVectorNoScale(FVector(0., -1., 0.)).GetSafeNormal();
         const FVector RestLever = ParentWorld.TransformVectorNoScale(FVector(4.695156, 0., 3.939710));
-        const FVector ForceAcceleration = FVector(0., 0., World->GetGravityZ() * .24f) - Acceleration * .95;
+        // Sensitivity pass 3: walking, aiming and hand tremor are below the
+        // dead zone and move the hinge exactly zero. Above it the threshold is
+        // subtracted before the gain, so the ramp in stays continuous and only
+        // sharp events (sprint start/stop, landings, reload and fire impacts)
+        // drive the lever. Set both thresholds to 0 to restore a plain gain.
+        constexpr float LinearDeadZone = 250.f;
+        constexpr float AngularDeadZone = 2.5f;
+        constexpr float LinearGain = .10f;
+        constexpr float AngularGain = .15f;
+        const float LinearAmount = Acceleration.Size();
+        const float AngularAmount = AngularAcceleration.Size();
+        const float LinearDrive = FMath::Max(0.f, LinearAmount - LinearDeadZone) / FMath::Max(1.f, LinearAmount);
+        const float AngularDrive = FMath::Max(0.f, AngularAmount - AngularDeadZone) / FMath::Max(1.f, AngularAmount);
+        // Gravity stays the resting hang, at half its previous coupling so
+        // tilting the weapon no longer swings the wood through its travel.
+        const FVector ForceAcceleration = FVector(0., 0., World->GetGravityZ() * .12f) - Acceleration * (LinearGain * LinearDrive);
         constexpr float Frequency = 2.15f;
         constexpr float Omega = 2.f * PI * Frequency;
-        constexpr float DampingRatio = .30f;
-        constexpr float MinAngle = -15.f * PI / 180.f;
-        constexpr float MaxAngle = 18.f * PI / 180.f;
+        constexpr float DampingRatio = .55f;
+        constexpr float MinAngle = -10.f * PI / 180.f;
+        constexpr float MaxAngle = 12.f * PI / 180.f;
         constexpr float SoftZone = 3.f * PI / 180.f;
         const double Duration = FMath::Min(Elapsed,.06);
         const int32 Steps = FMath::Max(1, FMath::CeilToInt(Duration * 240.));
@@ -86,16 +103,17 @@ void FPKMCarryHandleDynamics::Apply(USkeletalMeshComponent& Mesh, TArray<FTransf
             const FVector Lever = FQuat(Axis, Angle).RotateVector(RestLever);
             const double Inertia = FVector::DotProduct(Axis, FVector::CrossProduct(Lever, ForceAcceleration))
                 / FMath::Max(1., Lever.SizeSquared())
-                - .85 * FVector::DotProduct(Axis, AngularAcceleration);
+                - AngularGain * AngularDrive * FVector::DotProduct(Axis, AngularAcceleration);
             const float Torque = FMath::Clamp(static_cast<float>(Inertia), -180.f, 180.f);
             // A soft stop progressively catches the handle before the hard
-            // limit. Moderate restitution leaves a small settling swing.
+            // limit. Low restitution: the stop should not throw it back into
+            // another visible rock.
             const float Stop = 1800.f*(FMath::Max(0.f,MinAngle+SoftZone-Angle)
                 - FMath::Max(0.f,Angle-(MaxAngle-SoftZone)));
             AngularSpeed += (Torque + Stop - Omega * Omega * Angle - 2.f * DampingRatio * Omega * AngularSpeed) * Dt;
             Angle += AngularSpeed * Dt;
-            if (Angle < MinAngle) { Angle = MinAngle; if (AngularSpeed<0.f) AngularSpeed *= -.18f; }
-            if (Angle > MaxAngle) { Angle = MaxAngle; if (AngularSpeed>0.f) AngularSpeed *= -.18f; }
+            if (Angle < MinAngle) { Angle = MinAngle; if (AngularSpeed<0.f) AngularSpeed *= -.08f; }
+            if (Angle > MaxAngle) { Angle = MaxAngle; if (AngularSpeed>0.f) AngularSpeed *= -.08f; }
         }
         LastTime = Now;
         LastPosition = Position;
