@@ -1,7 +1,11 @@
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
+#include "../UI/StatusEffectsComponent.h"
+#include "../FPSGAMECharacter.h"
 #include "Engine/GameInstance.h"
 #include "Misc/DateTime.h"
+#include "Misc/FileHelper.h"
+#include "Misc/Paths.h"
 #include "Serialization/JsonSerializer.h"
 #include "CoreCombatFormula.h"
 #include "CombatItemFormula.h"
@@ -37,6 +41,61 @@ double UColdSteelStatusModel::TributeEffect(FName Key)const
     for(const auto& B:Current.FormulaBuffs)if(B.bTribute&&B.RemainingSeconds>0)if(const auto* V=B.Effects.Find(Key)){if(Flat)Total+=*V;else Total*=1+*V/100.;}
     return Total;
 }
+double UColdSteelStatusModel::TributeSpecial(FName Key)const
+{
+    double Best=0;
+    for(const auto& B:Current.FormulaBuffs)if(B.bTribute&&B.RemainingSeconds>0)if(const auto* V=B.Specials.Find(Key))Best=FMath::Max(Best,double(*V));
+    return Best;
+}
+bool UColdSteelStatusModel::ConsumePeachRevive(double& OutRatio)
+{
+    OutRatio=0;
+    for(auto& B:Current.FormulaBuffs)
+    {
+        if(!B.bTribute||B.RemainingSeconds<=0||B.bPeachUsed)continue;
+        const double V=B.Effects.FindRef(TEXT("revivePercent"));
+        if(V>1){B.bPeachUsed=true;OutRatio=FMath::Clamp(V/100.,.01,.99);return true;} // 旧口径：revivePercent 为百分数（30→30%），缺省兜底由调用方处理
+    }
+    return false;
+}
+double UColdSteelStatusModel::TryActivateMoonshadow()
+{
+    const double Now=GetWorld()?GetWorld()->GetTimeSeconds():0;
+    if(Now<MoonshadowUntil)return MoonshadowUntil;
+    for(auto& B:Current.FormulaBuffs)
+    {
+        if(!B.bTribute||B.RemainingSeconds<=0||B.bMoonshadowUsed)continue;
+        const double Ms=B.Specials.FindRef(TEXT("moonshadowDuration"));
+        if(Ms>0){B.bMoonshadowUsed=true;MoonshadowUntil=Now+Ms/1000.;return MoonshadowUntil;}
+    }
+    return 0;
+}
+bool UColdSteelStatusModel::IsMoonshadowActive()const
+{
+    const double Now=GetWorld()?GetWorld()->GetTimeSeconds():0;
+    return Now<MoonshadowUntil;
+}
+void UColdSteelStatusModel::SyncTributeTiles()
+{
+    // 旧 SPECIAL_BUFFS 键→卡片映射；effects 走聚合倍率>1，special 走原值>0。
+    static const TPair<FName,FName> EffectTiles[]={ // {tribute effect key, tile type}
+        {TEXT("expPercent"),TEXT("tributeSnowLotus")},{TEXT("killMpHealPercent"),TEXT("tributeGinseng")},{TEXT("revivePercent"),TEXT("tributePeach")}};
+    static const TPair<FName,FName> SpecialTiles[]={ // {tribute special key, tile type}
+        {TEXT("surviveCapPercent"),TEXT("tributeDiamond")},{TEXT("moonshadowDuration"),TEXT("tributeMoonstone")},
+        {TEXT("oreUpgrade"),TEXT("tributePhilosopher")},{TEXT("friendlyLifestealPercent"),TEXT("tributeBloodVine")},
+        {TEXT("friendlyAura"),TEXT("tributeWolfBanner")},{TEXT("recruitCountMul"),TEXT("tributeJadeTwins")},
+        {TEXT("productionResourcePercent"),TEXT("tributeAstrolabe")}};
+    TSet<FName> Active;
+    for(const auto& P:EffectTiles)if(TributeEffect(P.Key)>1)Active.Add(P.Value);
+    for(const auto& P:SpecialTiles)if(TributeSpecial(P.Key)>0)Active.Add(P.Value);
+    auto* Pawn=CurrentPawn.Get();
+    if(auto* Display=IsValid(Pawn)?UStatusEffectsComponent::GetOrCreate(Pawn):nullptr)
+    {
+        for(const auto& Old:PublishedTributeTiles)if(!Active.Contains(Old))Display->Remove(Old);
+        for(const auto& Type:Active)if(!PublishedTributeTiles.Contains(Type))Display->SetPersistent(Type,TEXT("跟随献祭倒计时"));
+    }
+    PublishedTributeTiles=MoveTemp(Active);
+}
 double UColdSteelStatusModel::DungeonEffect(FName Key)const
 {
     double Total=0;for(const auto& B:Current.FormulaBuffs)if(!B.bTribute&&B.Battles>0)Total+=B.Effects.FindRef(Key);return Total;
@@ -66,6 +125,10 @@ bool UColdSteelStatusModel::OfferTribute(const FString& Id)
     const auto E=Obj(Read(&I),TEXT("effects"));if(!E)return false;
     FColdSteelFormulaBuff Buff;Buff.Id=FName(*I.Definition);Buff.bTribute=true;Buff.RemainingSeconds=1800;Buff.Rarity=ColdSteelInventory::Text(I,TEXT("rarity"));
     for(const auto& V:E->Values)if(V.Value->Type==EJson::Number)Buff.Effects.Add(FName(*V.Key),V.Value->AsNumber());
+    // 旧 tribute 的 special 块同样随献祭携带（布尔按 1 记），由机制端（金刚石/月影/血藤等）消费。
+    if(const auto S=Obj(Read(&I),TEXT("special")))for(const auto& V:S->Values)
+    {if(V.Value->Type==EJson::Number)Buff.Specials.Add(FName(*V.Key),V.Value->AsNumber());
+     else if(V.Value->Type==EJson::Boolean)Buff.Specials.Add(FName(*V.Key),V.Value->AsBool()?1.f:0.f);}
     P.FormulaBuffs.RemoveAll([&](const auto& B){return B.bTribute&&(B.Rarity==Buff.Rarity||B.RemainingSeconds<=0);});P.FormulaBuffs.Add(Buff);
     if(--I.Count<=0)P.Items.RemoveAt(Index);return CommitState(P);
 }
@@ -73,16 +136,60 @@ bool UColdSteelStatusModel::ApplyDungeonFormulaBuff(FName Id,const TMap<FName,fl
 {
     if(Id.IsNone()||Battles<=0)return false;
     SyncRuntime();auto P=Snapshot();P.FormulaBuffs.RemoveAll([&](const auto& B){return !B.bTribute&&B.Id==Id;});
-    FColdSteelFormulaBuff B;B.Id=Id;B.Effects=Effects;B.Battles=Battles;P.FormulaBuffs.Add(B);return CommitState(P);
+    FColdSteelFormulaBuff B;B.Id=Id;B.Effects=Effects;B.Battles=Battles;P.FormulaBuffs.Add(B);
+    if(!CommitState(P))return false;
+    SyncDungeonBattleTiles();return true;
+}
+bool UColdSteelStatusModel::ApplyDungeonEventBuff(FName Id)
+{
+    // 旧 _applyTemporaryBuff（dungeon-event-definitions.js:1901-1935）：参数以事件目录为准，默认 3 场。
+    static TMap<FName,TPair<TMap<FName,float>,int32>> Catalog;
+    if(Catalog.IsEmpty())
+    {
+        FString Text;TSharedPtr<FJsonObject> Json;
+        if(FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/dungeon_event_buffs.json")))
+            &&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Json))
+            for(const auto& Pair:Json->Values)
+            {
+                const TSharedPtr<FJsonObject>* V=nullptr;
+                if(!Pair.Value->TryGetObject(V))continue;
+                TMap<FName,float> Effects;double Battles=3;
+                if(const TSharedPtr<FJsonObject>* F=nullptr;(*V)->TryGetObjectField(TEXT("effects"),F))
+                    for(const auto& Field:(*F)->Values)if(Field.Value->Type==EJson::Number)Effects.Add(FName(*Field.Key),Field.Value->AsNumber());
+                (*V)->TryGetNumberField(TEXT("battles"),Battles);
+                Catalog.Add(FName(*Pair.Key),{MoveTemp(Effects),FMath::Max(1,FMath::RoundToInt(Battles))});
+            }
+    }
+    const auto* E=Catalog.Find(Id);
+    return E?ApplyDungeonFormulaBuff(Id,E->Key,E->Value):false;
 }
 bool UColdSteelStatusModel::CompleteDungeonFormulaBattle()
 {
     SyncRuntime();auto P=Snapshot();for(auto& B:P.FormulaBuffs)if(!B.bTribute)--B.Battles;
-    P.FormulaBuffs.RemoveAll([](const auto& B){return !B.bTribute&&B.Battles<=0;});return CommitState(P);
+    P.FormulaBuffs.RemoveAll([](const auto& B){return !B.bTribute&&B.Battles<=0;});
+    if(!CommitState(P))return false;
+    SyncDungeonBattleTiles();return true;
+}
+void UColdSteelStatusModel::SyncDungeonBattleTiles()
+{
+    // 旧 2.34/2.45：地牢事件 buff 以自身 ID 作卡片 type、「N场」倒计时展示，逐场消耗；
+    // 目录门（HasType）确保 dungeon_relay 等无目录条目 ID 不渲染 "?" 卡；diff 发布避免逐帧广播。
+    TMap<FName,int32> Active;
+    for(const auto& B:Current.FormulaBuffs)if(!B.bTribute&&B.Battles>0&&!B.Id.IsNone()&&UStatusEffectsComponent::HasType(B.Id))
+        Active.FindOrAdd(B.Id)=FMath::Max(Active.FindRef(B.Id),B.Battles);
+    auto* Pawn=CurrentPawn.Get();
+    if(auto* Display=IsValid(Pawn)?UStatusEffectsComponent::GetOrCreate(Pawn):nullptr)
+    {
+        for(const auto& Pair:PublishedDungeonTiles)if(!Active.Contains(Pair.Key))Display->Remove(Pair.Key);
+        for(const auto& Pair:Active){const int32* Prev=PublishedDungeonTiles.Find(Pair.Key);if(!Prev||*Prev!=Pair.Value)Display->SetBattles(Pair.Key,Pair.Value);}
+    }
+    PublishedDungeonTiles=MoveTemp(Active);
 }
 
 void UColdSteelStatusModel::TickFormulaBuffs(float Delta)
 {
     for(auto& B:Current.FormulaBuffs)if(B.bTribute)B.RemainingSeconds-=Delta;
     if(Current.FormulaBuffs.RemoveAll([](const auto& B){return B.bTribute&&B.RemainingSeconds<=0;})>0){SyncRuntime();ApplyToPawn();}
+    SyncTributeTiles();
+    SyncDungeonBattleTiles();
 }

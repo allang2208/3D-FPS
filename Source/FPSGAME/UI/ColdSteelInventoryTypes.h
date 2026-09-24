@@ -62,10 +62,14 @@ struct FColdSteelFormulaBuff
     GENERATED_BODY()
     UPROPERTY() FName Id;
     UPROPERTY() TMap<FName,float> Effects;
+    /** 旧 tribute 的 "special" 块（原样毫秒/百分比存），仅供机制消费，不进属性聚合。 */
+    UPROPERTY() TMap<FName,float> Specials;
     UPROPERTY() float RemainingSeconds=0;
     UPROPERTY() FString Rarity;
     UPROPERTY() int32 Battles=0;
     UPROPERTY() bool bTribute=false;
+    // 运行时一次性标记（与旧 _worldPeachReviveUsed 同寿命：重新献祭才刷新）：
+    bool bPeachUsed=false,bMoonshadowUsed=false;
 };
 USTRUCT()
 struct FColdSteelProfile

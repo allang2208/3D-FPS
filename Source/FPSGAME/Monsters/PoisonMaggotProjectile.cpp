@@ -11,6 +11,7 @@
 #include "Misc/CommandLine.h"
 #include "Misc/Parse.h"
 #include "../UI/StatusEffectsComponent.h"
+#include "../Combat/CombatStatusFormula.h"
 APoisonMaggotProjectile::APoisonMaggotProjectile()
 {
  PrimaryActorTick.bCanEverTick=true;
@@ -102,7 +103,14 @@ void UMaggotPoisonComponent::AddStack(APoisonMaggotMonster* Source)
 {
  if(!GetOwner()->HasAuthority()||!IsValid(Source))return;
  auto* H=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();if(!H||H->IsDead()||H->IsInvulnerable())return;
+ if(const auto* S=GetOwner()->FindComponentByClass<UCombatStatusFormula>();S&&S->IsImmune())return; // 旧 applyPoison：statusImmune 直接拒绝上毒
+ if(const auto* S=GetOwner()->FindComponentByClass<UCombatStatusFormula>();S&&S->IsImmune())return; // 旧 applyPoison 先过 statusImmune 闸门
  if(Stacks==0)NextTick=1;Stacks=FMath::Min(20,Stacks+1);DecayLeft=5;DamageSource=Source;DamageInstigator=Source->GetController();SetComponentTickEnabled(true);
+ UStatusEffectsComponent::Notify(GetOwner());
+}
+void UMaggotPoisonComponent::ClearPoison()
+{
+ Stacks=0;NextTick=1;DecayLeft=5;DamageSource.Reset();DamageInstigator.Reset();SetComponentTickEnabled(false);
  UStatusEffectsComponent::Notify(GetOwner());
 }
 void UMaggotPoisonComponent::TickComponent(float Dt,ELevelTick Type,FActorComponentTickFunction* Tick)

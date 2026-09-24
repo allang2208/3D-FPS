@@ -114,6 +114,7 @@ void UFPSLightningComponent::Overload(AActor* Origin,FLightningRewards& Rewards)
 {
     auto* Player=Cast<APawn>(GetOwner());auto* M=Model();if(!Origin||!Player||!M)return;
     if(auto* C=Origin->FindComponentByClass<UMonsterCombatComponent>())C->ReceiveStun(Player,CastSnapshot.OverloadStun,0);
+    if(auto* S=UCombatStatusFormula::GetOrAdd(Origin))S->AddStun(CastSnapshot.OverloadStun); // 过载眩晕 1.2s：旧 applyStun 口径
     const FVector Start=Origin->GetActorLocation();
     // Source intent is hostile-to-caster. The old target-faction comparison could shock the player.
     for(TActorIterator<AActor> It(GetWorld());It;++It)
@@ -122,6 +123,9 @@ void UFPSLightningComponent::Overload(AActor* Origin,FLightningRewards& Rewards)
         if(Target==Origin||!IsTarget(Target)||FVector::Dist(Start,Target->GetActorLocation())>CastSnapshot.OverloadRange||!VisibleFrom(Origin,Target,Start))continue;
         SpawnArc(Start,Target->GetActorLocation(),.45f,true);
         M->ApplyLightningHit(Player,Target,Start,CastSnapshot,CastSnapshot.OverloadDamage,Rewards,false);
+        // 旧 _triggerElectrifiedOverload：传导电击给每个被链到的敌人 +1 感电层（其自身满层可再过载，级联同旧行为）。
+        if(auto* S=UCombatStatusFormula::GetOrAdd(Target))
+            if(!S->IsImmune()&&S->AddElectrified(1,CastSnapshot.ElectrifyDuration,CastSnapshot.OverloadStacks,CastSnapshot.ElectricBonusPerStack))Overload(Target,Rewards);
     }
 }
 void UFPSLightningComponent::ReleaseAtContact()
@@ -162,6 +166,7 @@ void UFPSLightningComponent::ReleaseAtContact()
                 if(!Status->IsImmune())
                 {
                     C->ReceiveStun(Player,CastSnapshot.StunSeconds,0);
+                    Status->AddStun(CastSnapshot.StunSeconds); // 旧 applyStun：眩晕卡片+动作/移动封锁
                     if(Status->AddElectrified(CastSnapshot.ElectrifyStacks,CastSnapshot.ElectrifyDuration,CastSnapshot.OverloadStacks,CastSnapshot.ElectricBonusPerStack))Overload(Target,Rewards);
                 }
             }

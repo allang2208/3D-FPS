@@ -1,0 +1,652 @@
+{
+  "foremanDebtMark": {
+    "name": "工头债印",
+    "icon": "📒",
+    "color": "#7a5a3a",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "matkPercent": -15.0
+    }
+  },
+  "minersGratitude": {
+    "name": "矿工谢意",
+    "icon": "⛏",
+    "color": "#c6a56b",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "defPercent": 10.0
+    }
+  },
+  "minersCadence": {
+    "name": "掘进节拍",
+    "icon": "⚙️",
+    "color": "#b48a5a",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "atkPercent": 10.0,
+      "moveSpeedPercent": 10.0
+    }
+  },
+  "deepShaftEcho": {
+    "name": "深井回声",
+    "icon": "🕳️",
+    "color": "#52515f",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "defPercent": -15.0
+    }
+  },
+  "reedLament": {
+    "name": "芦苇哀鸣",
+    "icon": "🌾",
+    "color": "#8b9670",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "moveSpeedPercent": -15.0
+    }
+  },
+  "bogHunterInstinct": {
+    "name": "沼猎直觉",
+    "icon": "🏹",
+    "color": "#a59a62",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "atkPercent": 10.0,
+      "moveSpeedPercent": 10.0
+    }
+  },
+  "hunterBurden": {
+    "name": "猎手重负",
+    "icon": "🦴",
+    "color": "#786b55",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "defPercent": -10.0,
+      "moveSpeedPercent": -10.0
+    }
+  },
+  "druidShelter": {
+    "name": "林神庇护",
+    "icon": "🌿",
+    "color": "#65a86f",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "defPercent": 10.0
+    }
+  },
+  "swampWhisper": {
+    "name": "沼语侵扰",
+    "icon": "🌀",
+    "color": "#63745b",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "matkPercent": -10.0
+    }
+  },
+  "wildSap": {
+    "name": "野性树液",
+    "icon": "🍂",
+    "color": "#91a34f",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "atkPercent": 10.0
+    }
+  },
+  "marshGasNumbness": {
+    "name": "沼气麻痹",
+    "icon": "☁️",
+    "color": "#9a9b45",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "moveSpeedPercent": -20.0
+    }
+  },
+  "livingRootWard": {
+    "name": "活根护符",
+    "icon": "🌱",
+    "color": "#6f9550",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "defPercent": 15.0,
+      "matkPercent": 10.0
+    }
+  },
+  "blackwaterChill": {
+    "name": "黑水寒意",
+    "icon": "🕯️",
+    "color": "#55777c",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "atkPercent": -10.0,
+      "matkPercent": -10.0
+    }
+  },
+  "waterloggedArmor": {
+    "name": "浸水护甲",
+    "icon": "💧",
+    "color": "#4c6f78",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "defPercent": -15.0,
+      "moveSpeedPercent": -10.0
+    }
+  },
+  "graveMurmur": {
+    "name": "墓洲低语",
+    "icon": "🪦",
+    "color": "#7d8862",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "matkPercent": -10.0
+    }
+  },
+  "frogBoneCurse": {
+    "name": "蛙骨诅咒",
+    "icon": "🦴",
+    "color": "#7f8b56",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "defPercent": -10.0
+    }
+  },
+  "witchDistillate": {
+    "name": "女巫馏液",
+    "icon": "⚗️",
+    "color": "#8d75a6",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "matkPercent": 15.0
+    }
+  },
+  "bogWitchTonic": {
+    "name": "沼巫强壮剂",
+    "icon": "🥄",
+    "color": "#778f5a",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "atkPercent": 10.0,
+      "defPercent": 10.0
+    }
+  },
+  "failedWitchBrew": {
+    "name": "失败药剂",
+    "icon": "🧪",
+    "color": "#66576f",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "defPercent": -15.0,
+      "moveSpeedPercent": -15.0
+    }
+  },
+  "crocodileHideWard": {
+    "name": "鳄神厚皮",
+    "icon": "🐊",
+    "color": "#536d4f",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "defPercent": 15.0
+    }
+  },
+  "ancientSpell": {
+    "name": "古代咒语",
+    "icon": "🔮",
+    "color": "#8a7aff",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "matkPercent": 25.0
+    }
+  },
+  "bloodFury": {
+    "name": "血怒",
+    "icon": "🩸",
+    "color": "#aa3333",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "atkPercent": 20.0
+    }
+  },
+  "cursedArmorShell": {
+    "name": "诅咒板甲",
+    "icon": "🛡️",
+    "color": "#7a7a7a",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "defPercent": 20.0
+    }
+  },
+  "armorCurse": {
+    "name": "板甲诅咒",
+    "icon": "💀",
+    "color": "#5a5a5a",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "defPercent": -20.0
+    }
+  },
+  "steadyMind": {
+    "name": "稳定心神",
+    "icon": "🍃",
+    "color": "#7abaff",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "moveSpeedPercent": 15.0
+    }
+  },
+  "madVision": {
+    "name": "疯狂幻象",
+    "icon": "👁️",
+    "color": "#8a5a9a",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "moveSpeedPercent": -25.0
+    }
+  },
+  "corpseWaxSeal": {
+    "name": "尸蜡封层",
+    "icon": "🕯️",
+    "color": "#c8b997",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "defPercent": 15.0
+    }
+  },
+  "waxStiffness": {
+    "name": "尸蜡僵结",
+    "icon": "🕯️",
+    "color": "#81745f",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "moveSpeedPercent": -20.0
+    }
+  },
+  "funeralTempo": {
+    "name": "送葬节拍",
+    "icon": "🎼",
+    "color": "#9aa7b5",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "atkPercent": 20.0,
+      "matkPercent": 20.0
+    }
+  },
+  "discordantEcho": {
+    "name": "失谐回声",
+    "icon": "🎵",
+    "color": "#746879",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "matkPercent": -20.0
+    }
+  },
+  "plagueAntiserum": {
+    "name": "净化血清",
+    "icon": "🧬",
+    "color": "#78a995",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "defPercent": 20.0
+    }
+  },
+  "plagueExposure": {
+    "name": "瘟疫暴露",
+    "icon": "☣️",
+    "color": "#76834f",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "atkPercent": -20.0,
+      "defPercent": -20.0,
+      "moveSpeedPercent": -15.0
+    }
+  },
+  "frostDisorientation": {
+    "name": "霜途迷向",
+    "icon": "🧭",
+    "color": "#8aa8ba",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "moveSpeedPercent": -15.0
+    }
+  },
+  "iceBridgePoise": {
+    "name": "冰桥定势",
+    "icon": "🧊",
+    "color": "#83b4ca",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "defPercent": 15.0,
+      "moveSpeedPercent": 15.0
+    }
+  },
+  "iceBridgeNumbness": {
+    "name": "寒桥麻木",
+    "icon": "🥶",
+    "color": "#6d91a8",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "moveSpeedPercent": -15.0
+    }
+  },
+  "iceBridgeDetourChill": {
+    "name": "绕路失温",
+    "icon": "🥶",
+    "color": "#6d91a8",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "moveSpeedPercent": -10.0
+    }
+  },
+  "frostberryVigor": {
+    "name": "霜莓活力",
+    "icon": "🫐",
+    "color": "#668bb5",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "defPercent": 15.0
+    }
+  },
+  "frostberryChill": {
+    "name": "霜莓寒毒",
+    "icon": "🫐",
+    "color": "#526b92",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "moveSpeedPercent": -15.0
+    }
+  },
+  "whiteStagStride": {
+    "name": "白鹿轻步",
+    "icon": "🦌",
+    "color": "#b7d7e4",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "moveSpeedPercent": 20.0
+    }
+  },
+  "whiteStagMercy": {
+    "name": "白鹿善意",
+    "icon": "🦌",
+    "color": "#b7d7e4",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "defPercent": 10.0,
+      "moveSpeedPercent": 10.0
+    }
+  },
+  "auroraCadence": {
+    "name": "极光律动",
+    "icon": "🌌",
+    "color": "#77c6d7",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "matkPercent": 15.0,
+      "moveSpeedPercent": 15.0
+    }
+  },
+  "auroraFrostbite": {
+    "name": "极光冻伤",
+    "icon": "💠",
+    "color": "#7199b8",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "moveSpeedPercent": -15.0
+    }
+  },
+  "shroudedAurora": {
+    "name": "极光残扰",
+    "icon": "🌌",
+    "color": "#718da9",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "matkPercent": -10.0
+    }
+  },
+  "avalancheBrace": {
+    "name": "抗崩架势",
+    "icon": "🏔️",
+    "color": "#879ba7",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "defPercent": 20.0
+    }
+  },
+  "crevasseWhispers": {
+    "name": "冰隙低语",
+    "icon": "🗣️",
+    "color": "#7796aa",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "matkPercent": -15.0,
+      "moveSpeedPercent": -15.0
+    }
+  },
+  "glacierLungs": {
+    "name": "冰川吐息",
+    "icon": "🌬️",
+    "color": "#6fa0bd",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "defPercent": 20.0
+    }
+  },
+  "crevasseNumbness": {
+    "name": "冰隙失温",
+    "icon": "🥶",
+    "color": "#63869c",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "moveSpeedPercent": -20.0
+    }
+  },
+  "crevasseDetourNumbness": {
+    "name": "冰隙寒侵",
+    "icon": "🌬️",
+    "color": "#63869c",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "moveSpeedPercent": -15.0
+    }
+  },
+  "frozenSanctuary": {
+    "name": "寒堂圣佑",
+    "icon": "❄️",
+    "color": "#b7dce8",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "defPercent": 20.0,
+      "matkPercent": 20.0
+    }
+  },
+  "rejectedPrayer": {
+    "name": "冰堂拒斥",
+    "icon": "🕯️",
+    "color": "#778ca0",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "matkPercent": -20.0
+    }
+  },
+  "reliquaryBurden": {
+    "name": "圣匣重压",
+    "icon": "⛓️",
+    "color": "#70889a",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "moveSpeedPercent": -20.0
+    }
+  },
+  "drenchedInIcewater": {
+    "name": "冰水浸身",
+    "icon": "💧",
+    "color": "#557f9a",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "moveSpeedPercent": -20.0
+    }
+  },
+  "signalFlamePace": {
+    "name": "烽火引路",
+    "icon": "🔥",
+    "color": "#d7a76b",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "moveSpeedPercent": 20.0
+    }
+  },
+  "blizzardFireguard": {
+    "name": "暴雪火卫",
+    "icon": "🔥",
+    "color": "#cb8e64",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "defPercent": 20.0
+    }
+  },
+  "shutterBruise": {
+    "name": "风板挫伤",
+    "icon": "🌀",
+    "color": "#6e8798",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "atkPercent": -15.0,
+      "moveSpeedPercent": -15.0
+    }
+  },
+  "frostSpiritMark": {
+    "name": "寒灵印记",
+    "icon": "👻",
+    "color": "#75b9d2",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "matkPercent": 20.0
+    }
+  },
+  "frostSpiritRage": {
+    "name": "寒灵震慑",
+    "icon": "👻",
+    "color": "#637e9b",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "matkPercent": -20.0
+    }
+  },
+  "crystalBackflow": {
+    "name": "寒晶逆流",
+    "icon": "💎",
+    "color": "#658da7",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "atkPercent": -20.0,
+      "defPercent": -20.0
+    }
+  },
+  "frostSpiritRejection": {
+    "name": "寒灵拒斥",
+    "icon": "👻",
+    "color": "#637e9b",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "matkPercent": -15.0
+    }
+  },
+  "auroraOmen": {
+    "name": "极光战兆",
+    "icon": "🌠",
+    "color": "#8cc8d8",
+    "trigger": "success",
+    "battles": 3,
+    "effects": {
+      "atkPercent": 20.0,
+      "matkPercent": 20.0
+    }
+  },
+  "falseOmen": {
+    "name": "伪星兆",
+    "icon": "🌑",
+    "color": "#686f91",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "atkPercent": -20.0,
+      "matkPercent": -20.0
+    }
+  },
+  "starfallFracture": {
+    "name": "坠星震裂",
+    "icon": "☄️",
+    "color": "#747fa0",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "defPercent": -20.0
+    }
+  },
+  "observatoryFrostFracture": {
+    "name": "星镜霜裂",
+    "icon": "☄️",
+    "color": "#747fa0",
+    "trigger": "fail",
+    "battles": 3,
+    "effects": {
+      "defPercent": -15.0
+    }
+  }
+}

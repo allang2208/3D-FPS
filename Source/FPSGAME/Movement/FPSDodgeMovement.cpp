@@ -2,12 +2,16 @@
 #include "FPSDodgeRootMotionSource.h"
 #include "Engine/World.h"
 #include "GameFramework/Character.h"
+#include "../Combat/CombatStatusFormula.h"
 
 bool UFPSCharacterMovementComponent::StartDodge(const FVector& Direction, float DistanceCM, float DurationSeconds)
 {
     if (!CharacterOwner || !UpdatedComponent || GetNetMode()!=NM_Standalone || IsDodging() ||
         (!IsMovingOnGround() && !IsFalling()) || !FMath::IsFinite(DistanceCM) ||
         !FMath::IsFinite(DurationSeconds) || DistanceCM<=0.f || DurationSeconds<=UE_SMALL_NUMBER)
+        return false;
+    // 旧口径：眩晕/束缚/冻结/石化下禁止闪避（bind 在 dodge 入口直接 return false）。
+    if(const auto* Status=CharacterOwner->FindComponentByClass<UCombatStatusFormula>();Status&&Status->BlocksMovement())
         return false;
     const FVector HorizontalDirection=Direction.GetSafeNormal2D();
     if (HorizontalDirection.IsNearlyZero()) return false;

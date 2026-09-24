@@ -21,6 +21,8 @@ FStatusEffectView UStatusEffectsComponent::Definition(FName Type)
  }
  if(const auto* Found=Catalog.Find(Type))return *Found;FStatusEffectView V;V.Type=Type;V.Name=Type.ToString();V.Icon=TEXT("?");return V;
 }
+bool UStatusEffectsComponent::HasType(FName Type)
+{if(Type.IsNone())return false;const FStatusEffectView V=Definition(Type);return !(V.Icon==TEXT("?")&&V.Type==Type&&V.Description.IsEmpty());}
 UStatusEffectsComponent* UStatusEffectsComponent::GetOrCreate(AActor* Owner)
 {if(!Owner)return nullptr;if(auto* C=Owner->FindComponentByClass<UStatusEffectsComponent>())return C;auto* C=NewObject<UStatusEffectsComponent>(Owner);Owner->AddInstanceComponent(C);C->RegisterComponent();return C;}
 void UStatusEffectsComponent::Notify(AActor* Owner){if(auto* C=GetOrCreate(Owner))C->OnChanged.Broadcast();}
@@ -34,9 +36,13 @@ TArray<FStatusEffectView> UStatusEffectsComponent::Snapshot() const
  return Result;
 }
 void UStatusEffectsComponent::SetTimed(FName Type,float Seconds,int32 Stacks)
+{SetTimedDisplay(Type,Seconds,Stacks,FString(),FString(),FString());}
+void UStatusEffectsComponent::SetTimedDisplay(FName Type,float Seconds,int32 Stacks,const FString& Name,const FString& Icon,const FString& ColorHex)
 {
  if(Seconds<=0){Remove(Type);return;}const double Now=GetWorld()->GetTimeSeconds();FRecord* R=Records.FindByPredicate([&](const auto& E){return E.View.Type==Type;});if(!R){Records.AddDefaulted();R=&Records.Last();R->View=Definition(Type);}
- const bool WasTimed=!R->View.Persistent&&R->View.Battles<0;R->End=WasTimed?FMath::Max(R->End,Now+Seconds):Now+Seconds;R->View.Duration=WasTimed?FMath::Max(R->View.Duration,Seconds):Seconds;R->View.Persistent=false;R->View.Battles=-1;R->View.Stacks=Stacks;OnChanged.Broadcast();
+ const bool WasTimed=!R->View.Persistent&&R->View.Battles<0;R->End=WasTimed?FMath::Max(R->End,Now+Seconds):Now+Seconds;R->View.Duration=WasTimed?FMath::Max(R->View.Duration,Seconds):Seconds;R->View.Persistent=false;R->View.Battles=-1;R->View.Stacks=Stacks;
+ if(!Name.IsEmpty())R->View.Name=Name;if(!Icon.IsEmpty())R->View.Icon=Icon;if(!ColorHex.IsEmpty())R->View.Color=FLinearColor::FromSRGBColor(FColor::FromHex(ColorHex));
+ OnChanged.Broadcast();
 }
 void UStatusEffectsComponent::SetPersistent(FName Type,const FString& Text,int32 Stacks)
 {Records.RemoveAll([&](const auto& R){return R.View.Type==Type;});FRecord R;R.View=Definition(Type);R.View.Persistent=true;R.View.DurationText=Text;R.View.Stacks=Stacks;Records.Add(R);OnChanged.Broadcast();}

@@ -12,7 +12,7 @@ public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Combat") float Health = 100.f;
     UFUNCTION(BlueprintPure, Category="Combat") bool IsDead() const { return Health <= 0.f; }
     UFUNCTION(BlueprintPure, Category="Combat") bool IsInvulnerable() const;
-    float DamageAfterArmor(float Damage,const UDamageType* Type) const;
+    float DamageAfterArmor(float Damage,const UDamageType* Type,AActor* Attacker=nullptr) const;
 protected:
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;

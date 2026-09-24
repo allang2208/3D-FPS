@@ -32,6 +32,8 @@ class FPSGAME_API UMaggotPoisonComponent : public UActorComponent
 public:
  UMaggotPoisonComponent();
  void AddStack(APoisonMaggotMonster* Source);
+ /** 复活/净化钩子：清空全部中毒层数与计时（旧 _reviveInPlace 的 _poisonStacks=0）。 */
+ void ClearPoison();
  virtual void TickComponent(float Dt,ELevelTick Type,FActorComponentTickFunction* Tick) override;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Poison") int32 Stacks=0;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Poison") int32 TicksApplied=0;

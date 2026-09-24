@@ -1,5 +1,4 @@
 #include "../Dungeon/DungeonLayout.h"
-#include "../Monsters/MonsterCoreStats.h"
 #include "ColdSteelStatusModel.h"
 #include "../Weapons/WeaponReloadStages.h"
 #include "../Weapons/PistolDualWieldComponent.h"
@@ -8,6 +7,8 @@
 #include "ColdSteelPickup.h"
 #include "../FPSGAMECharacter.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
+#include "../Combat/CombatStatusFormula.h"
+#include "../Monsters/MonsterCoreStats.h"
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonSerializer.h"
 #include "Kismet/GameplayStatics.h"
@@ -309,7 +310,8 @@ bool UColdSteelStatusModel::ReloadProfile()
     // Commit through the checked A/B transaction; never reset the player's save.
     if(Removed){Publish(Best->Profile);if(!CommitState(Clean)){Publish(Previous);bPersistenceBlocked=true;return false;}}
     else Publish(Clean);
-    ApplyToPawn();RefreshDrops();OnChanged.Broadcast();
+    ApplyToPawn();
+    RefreshDrops();OnChanged.Broadcast();
     if(RecoveredGroundAmmo>0)PostNotice(TEXT("旧版地面弹药已回收"),FString::Printf(TEXT("%lld 发已计入弹药袋"),RecoveredGroundAmmo));
     return true;
 }
@@ -332,7 +334,8 @@ bool UColdSteelStatusModel::AwardKill(AActor* Victim,int64 Reward)
 {
     if(!Victim||RewardedVictims.Contains(Victim)||Reward<=0||Reward>1000000000)return false;
     if(ActiveFireballRewards && ActiveFireballRewards->Victim==Victim){ActiveFireballRewards->Kills.FindOrAdd(Victim)=Reward;return true;}
-    SyncRuntime();auto P=Snapshot();if(!DungeonLayout::RecordKill(P.DungeonRun,Victim))return false;P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);P.Experience+=FMath::FloorToInt64(MonsterCoreStats::ScaleKillExperience(Victim,P.Level,Reward)*TributeEffect(TEXT("expPercent")));
+    SyncRuntime();auto P=Snapshot();if(!DungeonLayout::RecordKill(P.DungeonRun,Victim))return false;P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);
+    P.Experience+=FMath::FloorToInt64(MonsterCoreStats::ScaleKillExperience(Victim,P.Level,Reward)*TributeEffect(TEXT("expPercent")));
     if(const int64 Gold=MonsterCoreStats::RollKillGold(Victim))ColdSteelInventory::Insert(P.Items,CreateItem(TEXT("gold"),Gold));
     if(ActiveTrainingHit && ActiveTrainingHit->Victim==Victim && ActiveTrainingHit->bEligible)
     {
@@ -348,7 +351,14 @@ bool UColdSteelStatusModel::AwardKill(AActor* Victim,int64 Reward)
     while(P.Level<10000){int64 Need=(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8;if(P.Experience<Need)break;P.Experience-=Need;++P.Level;P.Points=FMath::Min(P.Points+3,1000000);}
     if(P.Level==10000)P.Experience=FMath::Min(P.Experience,(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8-1);
     // 击杀奖励先落在实时档案里，写盘交给定时自动存档；升级仍走即时带校验事务。
-    if(!StageTraining(MoveTemp(P)))return false;RewardedVictims.Add(Victim);return true;
+    if(!StageTraining(MoveTemp(P)))return false;RewardedVictims.Add(Victim);
+    // 白玉/人参献祭：击杀后 1 秒内回复 maxHp×(killHpHealPercent-1) 与 maxMp×(killMpHealPercent-1)。
+    if(const double HpRatio=TributeEffect(TEXT("killHpHealPercent"))-1;HpRatio>0)
+        if(auto* H=CurrentPawn.Get()?CurrentPawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr)if(!H->IsDead())
+        {KillProcHp+=H->MaxHealth*HpRatio;KillProcTime=1;if(auto* S=UCombatStatusFormula::GetOrAdd(CurrentPawn.Get()))S->ShowProcTile(TEXT("marbleHeal"),1);}
+    if(const double MpRatio=TributeEffect(TEXT("killMpHealPercent"))-1;MpRatio>0)
+        if(CurrentPawn.IsValid()){KillProcMp+=Derived(TEXT("maxMp"))*MpRatio;KillProcTime=1;if(auto* S=UCombatStatusFormula::GetOrAdd(CurrentPawn.Get()))S->ShowProcTile(TEXT("ginsengHeal"),1);}
+    return true;
 }
 const FColdSteelItem* UColdSteelStatusModel::FindItem(const FString& Id)const{return Current.Items.FindByPredicate([&](const auto& I){return I.InstanceId==Id;});}
 const FColdSteelItem* UColdSteelStatusModel::Equipped(int32 S)const{int32 N=Owner(Current.Items,1,S<0?Current.ActiveWeaponSlot:S);return N>=0?&Current.Items[N]:nullptr;}
@@ -375,7 +385,7 @@ bool UColdSteelStatusModel::Split(const FString& Id,int64 Count)
     SyncRuntime();auto P=Snapshot();auto* I=P.Items.FindByPredicate([&](const auto& V){return V.InstanceId==Id;});
     if(!I||(I->Place!=0&&I->Place!=4)||Count<=0||Count>=I->Count||Text(*I,TEXT("category"))==TEXT("gold"))return false;
     auto Part=*I;Part.InstanceId=FGuid::NewGuid().ToString(EGuidFormats::Digits);Part.Count=Count;int32 Cell=-1;
-    const int32 Capacity=I->Place==4?WarehouseCapacity():72;
+    const int32 Capacity=I->Place==4?WarehouseCapacity():72; // 储物箱按自身会话容量找空位
     const int32 Start=I->Place==4?(I->Cell/ColdSteelWarehouse::CellsPerPage)*ColdSteelWarehouse::CellsPerPage:0;
     for(int32 N=0;N<Capacity;++N){const int32 C=(Start+N)%Capacity;if(I->Place==4?ColdSteelWarehouse::Fits(P.Items,Part,C,Capacity):Fits(P.Items,Part,C)){Cell=C;break;}}
     if(Cell<0){Message=TEXT("没有连续空间拆分，原数量保留");return false;}
@@ -441,7 +451,13 @@ void UColdSteelStatusModel::SyncRuntime()
     for(TActorIterator<AColdSteelPickup> It(GetWorld());It;++It)if(auto* I=Current.Items.FindByPredicate([&](const auto& V){return V.InstanceId==It->ItemId&&V.Place==2;})){I->Position=It->GetActorLocation();I->WorldRotation=It->GetActorRotation();}
 }
 void UColdSteelStatusModel::ApplyToPawn(){if(CurrentPawn.IsValid())CurrentPawn->ApplyColdSteelProfile(this);}
-void UColdSteelStatusModel::AttachPawn(AFPSGAMECharacter* Pawn){CurrentPawn=Pawn;if(Current.Health<=0){Current.Health=Derived(TEXT("maxHp"));Current.Stamina=MaxStamina();Current.StaminaRecoveryDelay=0;Current.bSprintExhausted=false;}ApplyToPawn();RefreshDrops();OnStaminaChanged.Broadcast();}
+void UColdSteelStatusModel::AttachPawn(AFPSGAMECharacter* Pawn)
+{
+    CurrentPawn=Pawn;
+    if(Current.Health<=0){Current.Health=Derived(TEXT("maxHp"));Current.Stamina=MaxStamina();Current.StaminaRecoveryDelay=0;Current.bSprintExhausted=false;}
+    ApplyToPawn();
+    RefreshDrops();OnStaminaChanged.Broadcast();
+}
 void UColdSteelStatusModel::ReduceAllAbilityCooldowns(float Seconds)
 {
     if(Seconds<=0.f)return;
@@ -479,6 +495,10 @@ void UColdSteelStatusModel::TickRuntime(float Delta,AFPSGAMECharacter* Pawn)
     if(Delta>0)if(auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&!Health->IsDead()){
         Current.Mana=FMath::Clamp(Current.Mana+Derived(TEXT("mpRegen"))*Delta,0.f,Derived(TEXT("maxMp")));
         Health->Health=FMath::Min(Health->MaxHealth,Health->Health+Derived(TEXT("hpRegen"))*Delta);Current.Health=Health->Health;
+        // 白玉/人参击杀回复：KillProc* 按 1 秒窗口折算成每秒量，窗口内步进结清。
+        if(KillProcTime>0){const float Step=FMath::Min(Delta,KillProcTime);KillProcTime-=Step;
+            Health->Health=FMath::Min(Health->MaxHealth,Health->Health+KillProcHp*Step);Current.Health=Health->Health;
+            Current.Mana=FMath::Clamp(Current.Mana+KillProcMp*Step,0.f,Derived(TEXT("maxMp")));}
     }
     TickTreeGrowthClock(Delta);
     // 修行经验与击杀奖励已经落在实时档案里（StageTraining），这里只负责把「有未写盘增量」的档案

@@ -5,6 +5,7 @@
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../Combat/CombatStatusFormula.h"
+#include "../UI/StatusEffectsComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "../Weapons/RuneSwordComponent.h"
 #include "Camera/CameraComponent.h"
@@ -148,6 +149,8 @@ void UFPSFireMagicComponent::StartArmor()
     }
     TickArmor(0);
     if(AuraFX)AuraFX->Activate(true);if(WeaponFX)WeaponFX->Activate(true);
+    // 旧 flame-armor-system：命中即刷 🔥 护盾卡片，duration 跟随技能面板。
+    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("flameArmor"),ArmorSnapshot.Duration);
 }
 void UFPSFireMagicComponent::Sparks(const FVector& Point)
 {if(SparkSystem)UNiagaraFunctionLibrary::SpawnSystemAtLocation(this,SparkSystem,Point,FRotator::ZeroRotator,FVector(1),true,true,ENCPoolMethod::AutoRelease);}
@@ -203,11 +206,14 @@ void UFPSFireMagicComponent::TickArmor(float Delta)
 void UFPSFireMagicComponent::EndArmor(bool bTrain)
 {
     if(bTrain)if(auto* M=Model())M->FinishFireMagicCast(TEXT("flameArmor"),ArmorRewards);
+    if(ArmorTime>0)UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(TEXT("flameArmor"));
     ArmorTime=0;AuraTimer=0;ArmorRewards={};bWeaponSampleValid=false;
     if(AuraFX){AuraFX->DestroyComponent();AuraFX=nullptr;}if(WeaponFX){WeaponFX->DestroyComponent();WeaponFX=nullptr;}
 }
 void UFPSFireMagicComponent::CancelPending()
-{QueuedSkill=NAME_None;CommittedSkill=NAME_None;if(auto* H=Hands())H->CancelSpellGesture(this);}
+{
+    QueuedSkill=NAME_None;CommittedSkill=NAME_None;if(auto* H=Hands())H->CancelSpellGesture(this);
+}
 void UFPSFireMagicComponent::ClearEffects()
 {CancelPending();EndArmor(false);for(auto& Strike:Strikes)if(Strike.IsValid())Strike->Destroy();Strikes.Reset();ImpactTime=-1;}
 void UFPSFireMagicComponent::NotifyMeteorImpact(const FVector& Point)

@@ -42,12 +42,30 @@ public:
     double AdjustCombatStat(FName Key,double Value) const;
     double EquipmentMagicAttack() const;
     UFUNCTION(BlueprintPure) double TributeEffect(FName Key) const;
+    /** 献祭 "special" 块聚合（取最强值，原样毫秒/百分比）。 */
+    UFUNCTION(BlueprintPure) double TributeSpecial(FName Key) const;
+    /** 蟠桃续命：一次生命机会，消耗后需重新献祭才会恢复。返回复活生命比例（0-1）。 */
+    bool ConsumePeachRevive(double& OutRatio);
+    /** 月影庇护：首次受击触发参战无敌（旧“进入战斗”口径）；返回无敌结束时刻。 */
+    double TryActivateMoonshadow();
+    bool IsMoonshadowActive() const;
+    /** 与旧 syncTributeBuffs 对齐：把生效中的献祭特殊 buff 映射成玩家状态栏卡片。 */
+    void SyncTributeTiles();
+    /** 击杀回复（白玉/人参）：1 秒滴灌池，AwardKill 注入、TickRuntime 结算。 */
+    float KillProcHp=0,KillProcMp=0,KillProcTime=0;
+    TSet<FName> PublishedTributeTiles;
+    TMap<FName,int32> PublishedDungeonTiles;
+    double MoonshadowUntil=0;
     UFUNCTION(BlueprintPure) double DungeonEffect(FName Key) const;
     float CombatMoveMultiplier() const;
     void TickFormulaBuffs(float Delta);
     UFUNCTION(BlueprintCallable) bool OfferTribute(const FString& ItemId);
     UFUNCTION(BlueprintCallable) bool ApplyDungeonFormulaBuff(FName Id,const TMap<FName,float>& Effects,int32 Battles);
+    /** 旧 _applyTemporaryBuff 通道：按事件 ID 从 dungeon_event_buffs.json 取参数并挂「N场」buff。 */
+    UFUNCTION(BlueprintCallable) bool ApplyDungeonEventBuff(FName Id);
     UFUNCTION(BlueprintCallable) bool CompleteDungeonFormulaBattle();
+    /** 把地牢战斗型 buff 的剩余场次同步为「N场」卡片（goddessBless/demonPrayer）。 */
+    void SyncDungeonBattleTiles();
     static double EquipmentBonusFor(const FColdSteelProfile& State,FName Key);
     static double ResourceMaximum(const FColdSteelProfile& State,bool Mana);
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Character") int32 AttributePoints = 0;

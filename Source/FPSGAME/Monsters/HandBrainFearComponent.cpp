@@ -5,12 +5,15 @@
 #include "GameFramework/Controller.h"
 #include "Engine/World.h"
 #include "../UI/StatusEffectsComponent.h"
+#include "../Combat/CombatStatusFormula.h"
 #include "../Movement/FPSTraversalComponent.h"
 float UHandBrainFearComponent::GetRemainingSeconds() const {return Expirations.IsEmpty()?0.f:FMath::Max(0.f,float(Expirations.Last()-GetWorld()->GetTimeSeconds()));}
 UHandBrainFearComponent::UHandBrainFearComponent(){ PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.bStartWithTickEnabled=false; }
 void UHandBrainFearComponent::Apply(AActor* Source)
 {
  auto* C=Cast<ACharacter>(GetOwner());if(!C||!C->HasAuthority()||!Source)return;
+ if(const auto* Health=C->FindComponentByClass<UFPSCombatHealthComponent>();Health&&(Health->IsDead()||Health->IsInvulnerable()))return;
+ if(const auto* S=GetOwner()->FindComponentByClass<UCombatStatusFormula>();S&&S->IsImmune())return; // 旧 applyFear：statusImmune 拒绝恐惧
  Threat=Source;
  const double Now=GetWorld()->GetTimeSeconds();Expirations.RemoveAll([Now](double T){return T<=Now;});
  if(Expirations.Num()>=3)Expirations.RemoveAt(0);Expirations.Add(Now+3.0);Stacks=Expirations.Num();
