@@ -13,4 +13,30 @@
 - 高频诊断文本只在内容变化时设置；一份事件快照单次汇总多个统计栏目，复用已有行控件。不要通过重建整个控件树“刷新”未改变的数据。
 - `Too many texture coordinate sets ... GPUSkin` 先核实真实使用者与材质 usage。静态附件从骨骼母材质克隆后可能误带 skeletal/morph/cloth/自动用途；只有确定不用于骨骼时才清除不适用用途，保留原 UV、接缝、湿润与法线图，不先重排 UV 或隐藏错误。
 
-FPSGAME 源码：`ColdSteelWeaponIcons`、`ColdSteelIconResources.cpp`、`ColdSteelWeaponIconReadback.cpp`、`ModularSwordVisual::GatherVisualResources`。采样解释见 [性能面板归因](../../ue5-performance-packaging/references/performance-panel-attribution.md)。
+## 不要用超时兜底：超时值不该是正确性的一部分（2026-09-24）
+
+怪物立绘首次接入时用 `LoadSynchronous()` 加载预览类，并给等待设 10s 超时、超时即记永久失败。这个设计有两处错：
+
+- **病根是同步加载，不是超时值。** `LoadSynchronous()` 在游戏线程硬等包加载与类构造，卡帧时长取决于磁盘与包大小，不可预测；把超时从 10s 调到 30s、或加"最多重试 3 次"，都只是把等待往后挪，没有消除卡顿。
+- **首次渲染本来就慢。** 着色器编译 + 贴图首次流送常超过单次超时窗口，于是一个正常但慢的场景被误判成永久失败，条目再也不再出图（`Failed` 集合没有清除路径）。
+
+正确做法是**把加载交给异步句柄，把超时降级为纯失败兜底**：
+
+- 预览用类与贴图一律 `UAssetManager::GetStreamableManager().RequestAsyncLoad(...)`，阶段机每帧只查 `HasLoadCompleted()`；**加载阶段不设人为超时、不消耗重试次数**。
+- `SpawnSubject()` 里改用 `Get()` 而非 `LoadSynchronous()`——此时异步加载已完成，取值不阻塞。
+- **等待要分阶段**："等异步加载"与"等着色器／贴图就绪"是两种不同等待，不要合并成一个阶段配一个总超时；前者永不超时，后者才需要上限（防资源永久不就绪占住队列）。
+- 句柄保留到捕获结束防 GC 卸资源，并在**作业结束／延后／析构三处** `CancelHandle()`；只在一处释放会漏。
+
+## 队列作业身份：延后重试后不能再用 Queue[0]（2026-09-24）
+
+给队列加"失败延后重试"时，如果实现是**把作业移到队尾**，那么此后 `Tick`／`FinishJob`／`PollReadback`／`SpawnSubject` 里所有 `Queue[0]` 都不再是"当前正在处理的作业"——会销毁或发布错误的作业，`Pending` 集合也会残留。
+
+约定：阶段机用**显式 `ActiveIndex`** 记录在拍作业，所有取作业身份的地方一律经它取（并 `Clamp` 防越界），只有"取下一个"时才动 `Queue[0]`。
+
+## 立绘要横跨整栏，就不能与文字并排（2026-09-24）
+
+把立绘放进 `AutoWidth` 槽与文字并排时，槽宽只等于图片自身宽度，图片**永远无法横跨整列**——现象是"改了缩放仍显示在很小范围"，容易被误判成缩放参数没生效。正确做法是让立绘**独占一整行**，行宽由所在列实际宽度推出。
+
+等比显示用 `SImage::DesiredSizeOverride` 配合笔刷真实 `ImageSize` 求 `Fit = min(可用宽/图宽, 可用高/图高)`；**禁止**改写笔刷 `ImageSize` 成可用宽高硬拉（会变形）。
+
+FPSGAME 源码：`ColdSteelWeaponIcons`、`ColdSteelIconResources.cpp`、`ColdSteelWeaponIconReadback.cpp`、`ModularSwordVisual::GatherVisualResources`、`ColdSteelMonsterPortraits`（怪物立绘，异步句柄 + `ActiveIndex` 参考实现）。较完整的图鉴立绘口径另见 [FPSGAME 面板实现](fpsgame-panels.md) 与 [图鉴栏系统规划](../../../Docs/UI/codex-panel-plan-20260924.md)。采样解释见 [性能面板归因](../../ue5-performance-packaging/references/performance-panel-attribution.md)。

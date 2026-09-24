@@ -45,10 +45,10 @@ void UColdSteelHUDWidget::BuildPanelNavigation(UCanvasPanel* Root)
     PanelNavigationSlot->SetAlignment(FVector2D(1,0));
     PanelNavigationSlot->SetAutoSize(true);
     PanelNavigationSlot->SetZOrder(45);
-    const TCHAR* Names[]={TEXT("人物状态"),TEXT("背包"),TEXT("技能")};
-    const TCHAR* Keys[]={TEXT("Caps"),TEXT("Tab"),TEXT("P")};
-    const TCHAR* Files[]={TEXT("Navigation/status_subject.png"),TEXT("Navigation/backpack_subject.png"),TEXT("Navigation/skills_subject.png")};
-    for(int32 Index=0;Index<3;++Index)
+    const TCHAR* Names[]={TEXT("人物状态"),TEXT("背包"),TEXT("技能"),TEXT("图鉴")};
+    const TCHAR* Keys[]={TEXT("Caps"),TEXT("Tab"),TEXT("P"),TEXT("N")};
+    const TCHAR* Files[]={TEXT("Navigation/status_subject.png"),TEXT("Navigation/backpack_subject.png"),TEXT("Navigation/skills_subject.png"),TEXT("Navigation/codex_subject.png")};
+    for(int32 Index=0;Index<4;++Index)
     {
         auto* Size=WidgetTree->ConstructWidget<USizeBox>();PanelNavigationSizes.Add(Size);
         PanelNavigation->AddChildToVerticalBox(Size);
@@ -96,8 +96,9 @@ void UColdSteelHUDWidget::BuildPanelNavigation(UCanvasPanel* Root)
     PanelNavigationButtons[0]->OnClicked.AddDynamic(this,&UColdSteelHUDWidget::HandleNavigationStatus);
     PanelNavigationButtons[1]->OnClicked.AddDynamic(this,&UColdSteelHUDWidget::HandleNavigationBackpack);
     PanelNavigationButtons[2]->OnClicked.AddDynamic(this,&UColdSteelHUDWidget::HandleNavigationSkills);
-    PanelNavigationStates.Init(255,3);
-    PanelNavigationHover.SetNum(3);
+    PanelNavigationButtons[3]->OnClicked.AddDynamic(this,&UColdSteelHUDWidget::HandleNavigationCodex);
+    PanelNavigationStates.Init(255,4);
+    PanelNavigationHover.SetNum(4);
 }
 
 void UColdSteelHUDWidget::TickPanelNavigation(const FGeometry& Geometry,float Delta)
@@ -113,10 +114,11 @@ void UColdSteelHUDWidget::TickPanelNavigation(const FGeometry& Geometry,float De
             Bottom=FMath::Min(Bottom,float(View.Y)+(float(AmmoSlot->GetPosition().Y)-FMath::Max(124.f/Scale,float(AmmoReadout->GetDesiredSize().Y)))*Scale-12.f);
     const float MinimumTop=TopHUDBottom*Scale+12.f;
     const float Available=FMath::Max(1.f,Bottom-MinimumTop);
-    const float Gap=FMath::Min(ColdSteelUI::NavigationGap,FMath::Max(0.f,(Available-3.25f*ColdSteelUI::NavigationSize)*.5f));
-    const float Size=FMath::Min(ColdSteelUI::NavigationSize,(Available-2*Gap)/3.25f);
+    // 四个入口：可分配高度里先扣悬停外伸（0.25×Size），再按 4 项与 3 段间距分配。
+    const float Gap=FMath::Min(ColdSteelUI::NavigationGap,FMath::Max(0.f,(Available-4.25f*ColdSteelUI::NavigationSize)/3.f));
+    const float Size=FMath::Min(ColdSteelUI::NavigationSize,(Available-3*Gap)/4.25f);
     const float Overflow=Size*(ColdSteelUI::NavigationHoverScale-1.f)*.5f;
-    const float Height=3*Size+2*Gap;
+    const float Height=4*Size+3*Gap;
     const float LastTop=FMath::Max(12.f,Bottom-Height-Overflow);
     const float FirstTop=FMath::Min(MinimumTop+Overflow,LastTop);
     const bool Rescale=!FMath::IsNearlyEqual(Scale,PanelNavigationScale,.001f)
@@ -132,8 +134,8 @@ void UColdSteelHUDWidget::TickPanelNavigation(const FGeometry& Geometry,float De
     PanelNavigation->SetVisibility(bDrawerOut?ESlateVisibility::Collapsed:(Interactive?ESlateVisibility::Visible:ESlateVisibility::HitTestInvisible));
     PanelNavigationElapsed=FMath::Fmod(PanelNavigationElapsed+Delta,ColdSteelQuickSlotFX::KeyPeriod);
     const float KeyAlpha=ColdSteelQuickSlotFX::KeyOpacity(PanelNavigationElapsed);
-    const int32 Active=bInventoryOpen?(bStatusTabActive?0:bSkillsTabActive?2:1):INDEX_NONE;
-    for(int32 Index=0;Index<3;++Index)
+    const int32 Active=bInventoryOpen?(bStatusTabActive?0:bSkillsTabActive?2:bCodexTabActive?3:1):INDEX_NONE;
+    for(int32 Index=0;Index<4;++Index)
     {
         auto* Button=PanelNavigationButtons[Index].Get();
         auto* Key=PanelNavigationKeys[Index].Get();
@@ -147,7 +149,7 @@ void UColdSteelHUDWidget::TickPanelNavigation(const FGeometry& Geometry,float De
             Style.SetNormalPadding(FMargin(0)).SetPressedPadding(FMargin(0));Button->SetStyle(Style);
             PanelNavigationSizes[Index]->SetWidthOverride(Size/Scale);
             PanelNavigationSizes[Index]->SetHeightOverride(Size/Scale);
-            Cast<UVerticalBoxSlot>(PanelNavigationSizes[Index]->Slot)->SetPadding(FMargin(0,0,0,Index<2?Gap/Scale:0));
+            Cast<UVerticalBoxSlot>(PanelNavigationSizes[Index]->Slot)->SetPadding(FMargin(0,0,0,Index<3?Gap/Scale:0));
             Key->SetFont(ColdSteelUI::NumberFont((Size>=64.f?12.f:9.f)/Scale,true));Key->SetShadowOffset(FVector2D(0,1/Scale));
             Cast<UOverlaySlot>(Key->Slot)->SetPadding(FMargin(0,0,4/Scale,2/Scale));
             PanelNavigationFallbacks[Index]->SetFont(ColdSteelUI::TextFont(9/Scale));
@@ -182,11 +184,13 @@ void UColdSteelHUDWidget::TickPanelNavigation(const FGeometry& Geometry,float De
     PanelNavigationSize=Size;PanelNavigationGap=Gap;
 }
 
-void UColdSteelHUDWidget::ActivatePanelNavigation(int32 Page)
+void UColdSteelHUDWidget::ActivatePanelNavigation(int32 Entry)
 {
     if(IsQuickDragging()){CancelQuickDrag();return;}
-    const int32 Active=bStatusTabActive?0:bSkillsTabActive?2:1;
-    if(bInventoryOpen&&Active==Page){SetInventoryOpen(false);return;}
+    // 入口序（0 状态／1 背包／2 技能／3 图鉴）与抽屉页面号不同：图鉴是第 4 页。
+    const int32 Page=Entry==3?4:Entry;
+    const int32 Active=bStatusTabActive?0:bSkillsTabActive?2:bCodexTabActive?3:1;
+    if(bInventoryOpen&&Active==Entry){SetInventoryOpen(false);return;}
     UWidgetBlueprintLibrary::CancelDragDrop();
     if(Page!=1)CloseWarehouse();
     SetInventoryPage(Page);
@@ -197,6 +201,7 @@ void UColdSteelHUDWidget::ActivatePanelNavigation(int32 Page)
 void UColdSteelHUDWidget::HandleNavigationStatus(){ActivatePanelNavigation(0);}
 void UColdSteelHUDWidget::HandleNavigationBackpack(){ActivatePanelNavigation(1);}
 void UColdSteelHUDWidget::HandleNavigationSkills(){ActivatePanelNavigation(2);}
+void UColdSteelHUDWidget::HandleNavigationCodex(){ActivatePanelNavigation(3);}
 
 bool UColdSteelHUDWidget::HandlePanelNavigationClick(FVector2D Position)
 {
