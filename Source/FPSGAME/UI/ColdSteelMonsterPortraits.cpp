@@ -92,6 +92,43 @@ bool UColdSteelMonsterPortraits::EnsureStudio()
     return true;
 }
 
+void UColdSteelMonsterPortraits::TeardownStudio()
+{
+    // 预览场景与 512x768 RGBA16f 渲染目标合计约 6MB 常驻显存／内存；图鉴关闭后
+    // 没有任何理由继续留着，且 FPreviewScene 会持续参与场景更新。这里整段拆掉。
+    CancelReadback();
+    ResetAsyncLoad();
+    ResetSubject();
+    if (Capture)
+    {
+        Capture->TextureTarget = nullptr;
+        if (Studio) Studio->RemoveComponent(Capture);
+        Capture->DestroyComponent();
+    }
+    Capture = nullptr;
+    Target = nullptr;
+    Studio.Reset();
+    // Materials/Textures 是对被摄体材质的引用，被摄体已销毁，一并放手避免吊住资产。
+    CaptureMaterials.Empty();
+    CaptureTextures.Empty();
+    MaterialStatus.Reset();
+    Stage = 0;
+    ActiveIndex = 0;
+    ReadinessPolls = 0;
+    WaitStartSeconds = 0.0;
+}
+
+void UColdSteelMonsterPortraits::ReleaseIdleResources()
+{
+    // 图鉴关闭：丢弃未拍的排队项（下次打开会按需重新请求），但**保留已完成的缓存**。
+    // 缓存是 512x768 PF_B8G8R8A8（1.5MB/张，上限 12 张）的独立小图，不依赖工作室；
+    // 保留它可让重开面板立即命中，不必重拍。
+    Queue.Empty();
+    Pending.Empty();
+    Failed.Empty();
+    TeardownStudio();
+}
+
 void UColdSteelMonsterPortraits::ResetSubject()
 {
     if (Subject)
@@ -379,7 +416,10 @@ bool UColdSteelMonsterPortraits::Publish(const FString& KeyValue, const TArray<F
     Mip.BulkData.Unlock();
     Texture->UpdateResource();
 
-    if (Cache.Num() >= 32)
+    // 缓存上限：每张 512x768 PF_B8G8R8A8 约 1.5MB（CPU+GPU 各一份），32 张要约 48MB。
+    // 图鉴一屏最多看一张详情图，玩家实际会翻看的条目远少于这个数，故收紧到 12 张（约 18MB），
+    // 兼顾「翻回去不用重拍」和「不把内存吃掉」。
+    if (Cache.Num() >= 12)
     {
         FString Old; uint64 Use = MAX_uint64;
         for (const auto& Pair : Cache) if (Pair.Value.Use < Use) { Use = Pair.Value.Use; Old = Pair.Key; }
@@ -454,6 +494,38 @@ void UColdSteelMonsterPortraits::Request(const FDevelopmentMonsterEntry& Entry)
     Queue.Add(MoveTemp(Job));
 }
 
+void UColdSteelMonsterPortraits::RequestPriority(const FDevelopmentMonsterEntry& Entry)
+{
+    if (!Supports(Entry)) return;
+    const FString K = Key(Entry);
+    if (Cache.Contains(K) || Failed.Contains(K)) return;
+
+    // 已在队列里：若不在最前，挪到最前（保留其已消耗的尝试次数，不重置重试状态）。
+    if (Pending.Contains(K))
+    {
+        const int32 Found = Queue.IndexOfByPredicate([&K](const FJob& J) { return J.Key == K; });
+        if (Found != INDEX_NONE && Found != 0)
+        {
+            FJob Job = Queue[Found];
+            Queue.RemoveAt(Found);
+            Queue.Insert(MoveTemp(Job), 0);
+            // 正在拍的不是它了，当前作业下标要跟着修正。
+            if (ActiveIndex == Found) ActiveIndex = 0;
+            else if (ActiveIndex < Found) ++ActiveIndex;
+        }
+        return;
+    }
+
+    Pending.Add(K);
+    FJob Job;
+    Job.Key = K;
+    Job.CharacterClass = Entry.CharacterClass;
+    Job.RequestedSeconds = FPlatformTime::Seconds();
+    // 插到队首：正在拍的那项（ActiveIndex）保持不动，新项成为「下一个」。
+    // 若当前空闲，下标仍是 0，立刻开拍。
+    Queue.Insert(MoveTemp(Job), FMath::Clamp(ActiveIndex + (Queue.IsEmpty() ? 0 : 1), 0, Queue.Num()));
+}
+
 void UColdSteelMonsterPortraits::Tick(float DeltaTime)
 {
     if (Queue.IsEmpty()) return;
@@ -517,30 +589,13 @@ void UColdSteelMonsterPortraits::Tick(float DeltaTime)
 
 void UColdSteelMonsterPortraits::Deinitialize()
 {
-    CancelReadback();
-    ResetAsyncLoad();
-    ResetSubject();
+    // 工作室／捕获／渲染目标的拆除统一走 TeardownStudio，避免两处各写一份
+    // （性能与显存释放的写法一旦分叉，容易只改一处）。本函数只补上析构特有的清理。
     Queue.Empty();
     Pending.Empty();
     Failed.Empty();
-    // 一并回零状态机：本对象虽将销毁，但保持「清空即完全空闲」的语义，
-    // 避免基类或后续复用路径看到半截状态。
-    Stage = 0;
-    ActiveIndex = 0;
-    AttemptStartSeconds = 0.0;
-    MaterialStatus.Reset();
-    ReadinessPolls = 0;
-    WaitStartSeconds = 0.0;
     OnReady.Clear();
-    if (Capture)
-    {
-        Capture->TextureTarget = nullptr;
-        if (Studio) Studio->RemoveComponent(Capture);
-        Capture->DestroyComponent();
-    }
-    Capture = nullptr;
-    Studio.Reset();
-    Target = nullptr;
+    TeardownStudio();
     Cache.Empty();
     Textures.Empty();
     Super::Deinitialize();

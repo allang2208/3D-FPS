@@ -32,6 +32,15 @@ protected:
     virtual void ReleaseSlateResources(bool bReleaseChildren) override;
     virtual void NativeTick(const FGeometry& Geometry, float Delta) override;
 private:
+    /** 图鉴是否处于打开状态（由可见性变化驱动）。立绘只在打开时加载，
+     *  关闭即释放预览工作室与未拍的排队项，空闲期不占内存。
+     *  名字带 Codex 前缀是为了不与本文件里既有的局部量 bActive（页签/卡片选中态）冲突。 */
+    bool bCodexVisible = false;
+    /** 关闭图鉴时放掉立绘工作室资源（保留已完成的小图缓存）。 */
+    void ReleasePortraitResources();
+    /** 打开图鉴时只把「当前选中项」排进队列；无选中项则不加载。 */
+    void EnsureSelectedPortraitQueued();
+
     /** 一条档案：武器与怪物共用一个条目形状，Selected 时按 Section 解释字段。 */
     struct FCodexEntry
     {
