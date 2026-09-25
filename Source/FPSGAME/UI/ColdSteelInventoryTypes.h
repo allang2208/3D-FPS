@@ -199,6 +199,12 @@ namespace ColdSteelInventory
     {
         return Item.Definition==TEXT("ue_rune_sword") ||
             (IsMeleeWeapon(Item) && Text(Item,TEXT("weaponType"))==TEXT("sword") && Flag(Item,TEXT("isTwoHanded")));
+    // 弓是独立类别：不进近战判定，也不进枪械的 definition 白名单，
+    // 由 `UProductionToolComponent` 之外的 `UBowWeaponComponent` 接管手上表现。
+    inline bool IsBow(const FColdSteelItem& Item)
+    {
+        return Text(Item,TEXT("category"))==TEXT("weapon_bow") || Text(Item,TEXT("weaponType"))==TEXT("bow");
+    }
     }
     FPSGAME_API FIntPoint Footprint(const FColdSteelItem& Item);
     // Authored footprint before the placement orientation is applied.

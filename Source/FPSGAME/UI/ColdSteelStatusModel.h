@@ -251,6 +251,10 @@ public:
     bool GrantStartingArmory();
     bool GrantEnhancementMaterials();
     bool GrantProductionTools();
+    /** 主手武器槽上当前装备的弓；非弓（枪械／剑／工具）返回 nullptr。 */
+    const FColdSteelItem* ActiveBow() const;
+    /** 首次进入世界时把目录里的弓与箭发进背包（幂等，不覆盖玩家已有摆放）。 */
+    bool GrantBow();
     const FColdSteelItem* ActiveProductionTool() const;
     bool ToggleProductionTool(const FString& InstanceId);
     bool SelectProductionTool(const FString& Definition);
@@ -389,6 +393,8 @@ private:
     double LastTrainingPublish = -10.;
     void ApplyToPawn();
     void RefreshDrops();
+    // 弓目录与生产工具同一口径：Content/ColdSteelData/bows.json 按 definition 合并进 Definitions。
+    void LoadBowDefinitions();
     void LoadProductionDefinitions();
     void NormalizeProductionState(FColdSteelProfile& State) const;
     bool StageProductionDrops(FColdSteelProfile& State,const FProductionResource& Target,TArray<FString>& Ids);

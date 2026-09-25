@@ -1,0 +1,100 @@
+{
+ "runtime_tested": false,
+ "rendered": false,
+ "sections": {
+  "import": {
+   "error": "'AssetImportTask' object has no attribute 'errors'",
+   "trace": "Traceback (most recent call last):\n  File \"D:/FPS3D/FPSGAME/SourceAssets/DarkBow20260925/Scripts/author_dark_bow_geometry.py\", line 41, in section\n    report['sections'][name] = function()\n                               ^^^^^^^^^^\n  File \"D:/FPS3D/FPSGAME/SourceAssets/DarkBow20260925/Scripts/author_dark_bow_geometry.py\", line 73, in do_import\n    out = {'errors': [str(e) for e in list(task.errors or [])]}\n                                           ^^^^^^^^^^^\nAttributeError: 'AssetImportTask' object has no attribute 'errors'\n"
+  },
+  "imported_materials": {
+   "packages": [
+    "/Game/Weapons/DarkBow20260925/Material_002.Material_002",
+    "/Game/Weapons/DarkBow20260925/Material_003.Material_003",
+    "/Game/Weapons/DarkBow20260925/Material_005.Material_005",
+    "/Game/Weapons/DarkBow20260925/SK_DarkBow.SK_DarkBow"
+   ],
+   "assets": [
+    {
+     "path": "/Game/Weapons/DarkBow20260925/Material_002.Material_002",
+     "class": "MaterialInstanceConstant",
+     "parameter_error": "MaterialInstanceConstant: Failed to find property 'editor_only_settings' for attribute 'editor_only_settings' on 'MaterialInstanceConstant'"
+    },
+    {
+     "path": "/Game/Weapons/DarkBow20260925/Material_003.Material_003",
+     "class": "MaterialInstanceConstant",
+     "parameter_error": "MaterialInstanceConstant: Failed to find property 'editor_only_settings' for attribute 'editor_only_settings' on 'MaterialInstanceConstant'"
+    },
+    {
+     "path": "/Game/Weapons/DarkBow20260925/Material_005.Material_005",
+     "class": "MaterialInstanceConstant",
+     "parameter_error": "MaterialInstanceConstant: Failed to find property 'editor_only_settings' for attribute 'editor_only_settings' on 'MaterialInstanceConstant'"
+    }
+   ]
+  },
+  "animations": {
+   "idle": {
+    "path": "/Game/ParagonSparrow/Characters/Heroes/Sparrow/Animations/idle",
+    "class": "AnimSequence",
+    "play_seconds": 10.0,
+    "skeleton": "/Game/ParagonSparrow/Characters/Heroes/Sparrow/Meshes/Sparrow_Skeleton.Sparrow_Skeleton"
+   },
+   "idle_relaxed": {
+    "path": "/Game/ParagonSparrow/Characters/Heroes/Sparrow/Animations/idle_relaxed",
+    "class": "AnimSequence",
+    "play_seconds": 33.7333,
+    "skeleton": "/Game/ParagonSparrow/Characters/Heroes/Sparrow/Meshes/Sparrow_Skeleton.Sparrow_Skeleton"
+   },
+   "travel_idle_bow_down": {
+    "path": "/Game/ParagonSparrow/Characters/Heroes/Sparrow/Animations/Travel_Mode_Idle_BowDown",
+    "class": "AnimSequence",
+    "play_seconds": 9.1667,
+    "skeleton": "/Game/ParagonSparrow/Characters/Heroes/Sparrow/Meshes/Sparrow_Skeleton.Sparrow_Skeleton"
+   },
+   "draw_back": {
+    "path": "/Game/ParagonSparrow/Characters/Heroes/Sparrow/Animations/RMB_Drawback",
+    "class": "AnimSequence",
+    "play_seconds": 2.4667,
+    "skeleton": "/Game/ParagonSparrow/Characters/Heroes/Sparrow/Meshes/Sparrow_Skeleton.Sparrow_Skeleton"
+   },
+   "aim_strafe_idle": {
+    "path": "/Game/ParagonSparrow/Characters/Heroes/Sparrow/Animations/Ability_StarShower",
+    "error": "not found"
+   },
+   "fire_slow": {
+    "path": "/Game/ParagonSparrow/Characters/Heroes/Sparrow/Animations/R_Ability_Slow_Fire",
+    "class": "AnimSequence",
+    "play_seconds": 1.0,
+    "skeleton": "/Game/ParagonSparrow/Characters/Heroes/Sparrow/Meshes/Sparrow_Skeleton.Sparrow_Skeleton"
+   },
+   "fire_medium": {
+    "path": "/Game/ParagonSparrow/Characters/Heroes/Sparrow/Animations/R_Ability_Med_Fire",
+    "class": "AnimSequence",
+    "play_seconds": 1.0,
+    "skeleton": "/Game/ParagonSparrow/Characters/Heroes/Sparrow/Meshes/Sparrow_Skeleton.Sparrow_Skeleton"
+   },
+   "fire_fast": {
+    "path": "/Game/ParagonSparrow/Characters/Heroes/Sparrow/Animations/R_Ability_Fast_Fire",
+    "class": "AnimSequence",
+    "play_seconds": 0.6,
+    "skeleton": "/Game/ParagonSparrow/Characters/Heroes/Sparrow/Meshes/Sparrow_Skeleton.Sparrow_Skeleton"
+   }
+  },
+  "arms_profile": {
+   "axe_arms": {
+    "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Axe/SK_Axe_BareArmsV7",
+    "class": "SkeletalMesh",
+    "skeleton_error": "'SkeletalMesh' object has no attribute 'get_skeleton'"
+   },
+   "m4_arms": {
+    "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7",
+    "class": "SkeletalMesh",
+    "skeleton_error": "'SkeletalMesh' object has no attribute 'get_skeleton'"
+   },
+   "sparrow_body": {
+    "path": "/Game/ParagonSparrow/Characters/Heroes/Sparrow/Meshes/Sparrow",
+    "class": "SkeletalMesh",
+    "skeleton_error": "'SkeletalMesh' object has no attribute 'get_skeleton'"
+   }
+  }
+ }
+}

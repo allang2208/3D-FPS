@@ -1,0 +1,36 @@
+{
+ "runtime_tested": false,
+ "rendered": false,
+ "target_length_cm": 140.0,
+ "measured_length_cm": 414.087,
+ "import_scale": 0.33809,
+ "size_cm": [
+  38.223,
+  3.511,
+  139.999
+ ],
+ "origin_cm": [
+  -6.574,
+  -0.935,
+  0.153
+ ],
+ "triangles": 5710,
+ "vertices": 10243,
+ "sections": 3,
+ "material_slots": [
+  [
+   "Material_003",
+   "/Game/Weapons/DarkBow20260925/Material_003.Material_003"
+  ],
+  [
+   "Material_005",
+   "/Game/Weapons/DarkBow20260925/Material_005.Material_005"
+  ],
+  [
+   "Material_002",
+   "/Game/Weapons/DarkBow20260925/Material_002.Material_002"
+  ]
+ ],
+ "error": "'Vector' object is not iterable",
+ "trace": "Traceback (most recent call last):\n  File \"D:/FPS3D/FPSGAME/SourceAssets/DarkBow20260925/Scripts/import_dark_bow_scaled.py\", line 79, in <module>\n    report['grip_trim_cm'] = [-round(v, 3) for v in mesh.get_bounds().origin]\n                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: 'Vector' object is not iterable\n"
+}

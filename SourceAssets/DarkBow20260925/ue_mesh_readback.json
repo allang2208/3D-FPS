@@ -1,0 +1,69 @@
+{
+ "runtime_tested": false,
+ "rendered": false,
+ "sections": {
+  "mesh": {
+   "class": "StaticMesh",
+   "size_cm": [
+    11305.682,
+    1038.531,
+    41408.672
+   ],
+   "origin_cm": [
+    -1944.377,
+    -276.656,
+    45.238
+   ],
+   "sphere_radius_cm": 21289.261,
+   "triangles": 5774,
+   "vertices": 10292,
+   "sections": 3,
+   "lods": 1,
+   "material_slots": [
+    {
+     "slot": "Material_003",
+     "material": "/Game/Weapons/DarkBow20260925/Material_003.Material_003",
+     "class": "MaterialInstanceConstant",
+     "parent": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial"
+    },
+    {
+     "slot": "Material_005",
+     "material": "/Game/Weapons/DarkBow20260925/Material_005.Material_005",
+     "class": "MaterialInstanceConstant",
+     "parent": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial"
+    },
+    {
+     "slot": "Material_002",
+     "material": "/Game/Weapons/DarkBow20260925/Material_002.Material_002",
+     "class": "MaterialInstanceConstant",
+     "parent": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial"
+    }
+   ],
+   "saved": true
+  },
+  "mesh_tools": {
+   "get_socket_names": false,
+   "add_socket": true,
+   "find_socket": true,
+   "get_sockets_by_tag": true,
+   "sockets": []
+  },
+  "arms_skeletons": {
+   "SK_Axe_BareArmsV7": {
+    "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Axe/SK_Axe_BareArmsV7",
+    "skeleton": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe_Skeleton.SK_Harvest_Axe_Skeleton",
+    "skeleton_class": "Skeleton"
+   },
+   "SK_M4_BareArmsV7": {
+    "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7",
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "skeleton_class": "Skeleton"
+   },
+   "Sparrow": {
+    "path": "/Game/ParagonSparrow/Characters/Heroes/Sparrow/Meshes/Sparrow",
+    "skeleton": "/Game/ParagonSparrow/Characters/Heroes/Sparrow/Meshes/Sparrow_Skeleton.Sparrow_Skeleton",
+    "skeleton_class": "Skeleton"
+   }
+  }
+ }
+}

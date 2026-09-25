@@ -1,6 +1,6 @@
 ---
 name: ue5-weapon-workflow
-description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻重攻击、连击、突刺、格挡，以及新枪与手模接入、枪匠配件、ADS、机械部件、音效、武器数据与装备存档闭环。用于 FPSGAME 的武器标准工作流；手臂姿态与换弹精修转 ue5-fps-arms-animation。
+description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻重攻击、连击、突刺、格挡、第一人称弓与可替换部件表（弓体／弓弦／箭台按槽名改造），以及新枪与手模接入、枪匠配件、ADS、机械部件、音效、武器数据与装备存档闭环。用于 FPSGAME 的武器标准工作流；手臂姿态与换弹精修转 ue5-fps-arms-animation。
 ---
 
 ## UE5 默认开发方式（用户确定，2026-09-23）
@@ -53,6 +53,10 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 - 手臂、抓握、甩弹匣、普通/空仓换弹、拉栓、装备、奔跑及拍击：[手臂动画技能](../ue5-fps-arms-animation/SKILL.md)。
 - 继续当前 M4：[当前案例与证据](../ue5-fps-arms-animation/references/m4-baseline.md)。先核对实际加载路径，不能按文件夹的日期或 Final 名称选资产。
 - 原生编译/运行或用户反馈“没有应用”：[UE 验证操作](../ue5-fps-arms-animation/references/validation.md)。纯文档更新只检查内容、链接及技能元数据，不启动游戏。
+- 第一人称**弓**、以及不用 AnimBP 的相机空间武器（弓／采集工具／法杖同族）：部件表拆分（弓体／弓弦／弦上箭按槽名寻址）、
+  `bow_part_<槽名>_*` 数据键与表现签名重载、程序化细杆占位口径、参考片段只取实测秒数的时钟合同、
+  5.8 headless 导入字段位置与 C++ 编译陷阱：[第一人称弓与部件表](references/first-person-bow-parts.md)。
+  改 `bows.json` 后跑 `Tools/Bow/check_bow_consistency.py` 做离线自检。
 - 伐木斧、矿镐的双手装备、低伤害自卫、采集范围与旧存档迁移：[采集工具战斗接入](references/harvesting-tools.md)。
 - 砍树木材占 1×2、掉落全程只用短原木 `SM_PoplarLog_Solid_A`、图标按枪械剪影居中离线栅格化：[木材掉落与图标](references/harvest-wood-drop.md)。不要用场景捕获导出当图标交付。
 - 整理废案、更新 Git 或用户授权推送：[清理与发布](references/publication.md)。

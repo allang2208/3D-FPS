@@ -5,6 +5,7 @@
 #include "Development/DevelopmentTuningSubsystem.h"
 #include "Production/ProductionToolComponent.h"
 #include "Weapons/RuneSwordComponent.h"
+#include "Weapons/Bow/BowWeaponComponent.h"
 #include "Weapons/RuneOrbBladesComponent.h"
 #include "Weapons/FrostRuneVisualDiagnosis.h"
 #include "Weapons/RuneSwordGuardTuning.h"
@@ -170,6 +171,7 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
     CreateDefaultSubobject<UWeaponActionCameraComponent>(TEXT("WeaponActionCamera"));
     BipodDeployment=CreateDefaultSubobject<UWeaponBipodDeploymentComponent>(TEXT("BipodDeployment"));
     RuneSword=CreateDefaultSubobject<URuneSwordComponent>(TEXT("RuneSword"));
+    Bow=CreateDefaultSubobject<UBowWeaponComponent>(TEXT("Bow"));
     RuneOrbBlades=CreateDefaultSubobject<URuneOrbBladesComponent>(TEXT("RuneOrbBlades"));
     CreateDefaultSubobject<UFPSCombatHealthComponent>(TEXT("CombatHealth"));
     CreateDefaultSubobject<UFPSFireballComponent>(TEXT("FireballSkill"));
@@ -794,6 +796,7 @@ void AFPSGAMECharacter::FirePressed()
     if(QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand())return;
     if(IsCastBlockingLeftHandAction())
     {
+        if(Bow && Bow->IsEquipped())return;
         if(RuneSword && RuneSword->IsEquipped())return;
         if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped())return;
     }
@@ -805,6 +808,8 @@ void AFPSGAMECharacter::FirePressed()
         ExitSprintForWeapon();
         RuneSword->BeginPrimaryAttack();
         return;
+    // 弓：左键一次按下＝弦上空先搭箭、已搭箭开始拉开；只有真实松手才结算发射。
+    if(Bow&&Bow->IsEquipped()){ExitSprintForWeapon();Bow->SetTriggerHeld(true);Bow->BeginPrimaryAttack();return;}
     }
     if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped())
     {ExitSprintForWeapon();Tools->BeginUse();return;}
@@ -832,6 +837,8 @@ void AFPSGAMECharacter::FireInputReleased()
 {
     // Only the physical input release may commit a charged sword attack.
     // Menu/traversal/equipment callers still use FireReleased to stop actions.
+    // 松手是弓唯一的发射入口；菜单／翻越等打断走 FireReleased，不放箭。
+    if(Bow&&Bow->IsEquipped()){Bow->SetTriggerHeld(false);Bow->ReleasePrimaryAttack();return;}
     if(RuneSword && RuneSword->IsEquipped()){RuneSword->ReleasePrimaryAttack();return;}
     if (bUseM16) { bBurstTriggerHeld = false; return; }
     FireReleased();
@@ -842,6 +849,8 @@ void AFPSGAMECharacter::FireReleased()
     bFireHeld=false;bPistolShotPending=false;GetWorldTimerManager().ClearTimer(FireTimerHandle);
     bBurstTriggerHeld=false;BurstShotsRemaining=0;
     if(IsDualWieldingPistols()){DualPistols->Trigger(0,false);return;}
+    // 切枪／菜单这类"非真实松手"只收弓，箭留在弦上，不结算发射。
+    if(Bow&&Bow->IsDrawing()){Bow->SetTriggerHeld(false);Bow->CancelAction();}
     if(RuneSword && RuneSword->IsEquipped())RuneSword->CancelAction();
     const double Now=GetWorld()->GetTimeSeconds();
     AdvanceVisualWeaponRecoil(Now);
@@ -854,6 +863,8 @@ void AFPSGAMECharacter::AimPressed()
     if(IsAmmoWheelOpen() || IsSwitchingWeapon())return;
     if(IsDualWieldingPistols()){DualPistols->Trigger(1,true);return;}
     if(IsCastBlockingLeftHandAction())return;
+    // 弓的右键＝稳持（压住满拉呼吸抖动），不进枪械机瞄状态机。
+    if(Bow&&Bow->IsEquipped()){ExitSprintForWeapon();Bow->SetSteadyHeld(true);return;}
     if(RuneSword && RuneSword->IsEquipped()){ExitSprintForWeapon();RuneSword->BeginGuard();return;}
     // Right-click with a production tool out is the shovel's refill, never ADS.
     if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped()){Tools->BeginRefill();return;}
@@ -866,12 +877,15 @@ void AFPSGAMECharacter::AimReleased()
 {
     if(IsDualWieldingPistols()){DualPistols->Trigger(1,false);bAimHeld=false;return;}
     bAimHeld=false;
+    if(Bow&&Bow->IsEquipped()){Bow->SetSteadyHeld(false);return;}
     if(RuneSword && RuneSword->IsEquipped()){RuneSword->ReleaseGuard();return;}
     SetAimingState(false);if(!IsWeaponBusy())ResumeWeaponPose();
 }
 
 void AFPSGAMECharacter::ReloadPressed()
 {
+    // 弓的 R＝从箭袋取箭上弦；已上弦时不重复消耗。
+    if(Bow&&Bow->IsEquipped()){Bow->BeginNock();return;}
     if(IsChoosingAmmo())return;
     if(IsDualWieldingPistols()){DualPistols->Reload();return;}
     if(IsCastBlockingLeftHandAction())
@@ -1569,6 +1583,8 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
 {
     if(BipodDeployment)BipodDeployment->RestoreCameraOffset();
     auto* ProductionTools=FindComponentByClass<UProductionToolComponent>();
+    // 弓的拉距时钟与镜头同帧：先推进动作，再合成相机，抖动与释放冲量读到同一个 age。
+    if(Bow)Bow->AdvanceActionBeforeCamera(DeltaSeconds);
     if(ProductionTools)ProductionTools->AdvanceActionBeforeCamera(DeltaSeconds);
     UpdateADSProgress();
     CameraADSFactor = FMath::SmoothStep(0.0f, 1.0f, ADSProgress);
@@ -1636,12 +1652,17 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     if(QuickCombatPistol)QuickCombatPistol->GetCameraMotion(BashCameraLocation,BashCameraRotation);
     FVector ToolCameraLocation=FVector::ZeroVector;
     FRotator ToolCameraRotation=FRotator::ZeroRotator;
+    // 拉弓的镜头语言（弓身后带、满拉呼吸抖动、撒弦回弹）与工具／剑同一叠加口径。
+    FVector BowCameraLocation=FVector::ZeroVector;
+    FRotator BowCameraRotation=FRotator::ZeroRotator;
+    if(Bow)Bow->GetCameraMotion(BowCameraLocation,BowCameraRotation);
     if(ProductionTools)ProductionTools->GetCameraMotion(ToolCameraLocation,ToolCameraRotation);
     FVector FireMagicLocation=FVector::ZeroVector;FRotator FireMagicRotation=FRotator::ZeroRotator;
     if(const auto* FireMagic=FindComponentByClass<UFPSFireMagicComponent>())FireMagic->GetCameraMotion(FireMagicLocation,FireMagicRotation);
     const FQuat ControlAim = Controller ? Controller->GetControlRotation().Quaternion() : GetActorQuat();
     TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(SwordCameraLocation))*CameraMotionScale;
     TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(BashCameraLocation))*CameraMotionScale;
+    TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(BowCameraLocation))*CameraMotionScale;
     TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(ToolCameraLocation))*CameraMotionScale;
     TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(FireMagicLocation))*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
     // Whirlwind publishes its final action sample in PostPhysics, including
@@ -1658,6 +1679,7 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
         MovementRoll + FMath::RadiansToDegrees(CameraJitterRotation.Z));
     CameraFeedback+=SwordCameraRotation*CameraMotionScale;
     CameraFeedback+=BashCameraRotation*CameraMotionScale;
+    CameraFeedback+=BowCameraRotation*CameraMotionScale;
     CameraFeedback+=ToolCameraRotation*CameraMotionScale;
     CameraFeedback+=FireMagicRotation*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
     FirstPersonCamera->SetWorldRotation(ControlAim * CameraFeedback.Quaternion());

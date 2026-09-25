@@ -195,6 +195,8 @@ public:
 protected:
     UPROPERTY(VisibleAnywhere, Category="FPS Movement") TObjectPtr<class UFPSTraversalComponent> Traversal;
     UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class URuneSwordComponent> RuneSword;
+    // 第一人称弓：与双手工具同族，由库存实例驱动；动作时钟在相机合成之前推进。
+    UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class UBowWeaponComponent> Bow;
     UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class URuneOrbBladesComponent> RuneOrbBlades;
     void SetAngledForegrip(bool bEnabled);
     void InitializeForegripAnimations();

@@ -262,6 +262,36 @@
       "allow_infinite_reserve": true,
       "damage_multiplier": 1.0,
       "physical_armor_penetration": 0.0
+    },
+    {
+      "id": "arrow_wood",
+      "group": "arrow",
+      "group_name": "箭",
+      "name": "猎箭",
+      "tier_name": "绿阶",
+      "tier_color": "#4CAA70",
+      "description": "白蜡木箭杆、铁片箭头的通用猎箭，弓的消耗品。",
+      "icon": "",
+      "order": 0,
+      "enabled": true,
+      "allow_infinite_reserve": true,
+      "damage_multiplier": 1.0,
+      "physical_armor_penetration": 0.0
+    },
+    {
+      "id": "arrow_broadhead",
+      "group": "arrow",
+      "group_name": "箭",
+      "name": "破甲锥箭",
+      "tier_name": "蓝阶",
+      "tier_color": "#4C8FD8",
+      "description": "锥形钢镞的重箭，穿透更好，代价是初速更低。",
+      "icon": "",
+      "order": 1,
+      "enabled": true,
+      "allow_infinite_reserve": false,
+      "damage_multiplier": 1.18,
+      "physical_armor_penetration": 0.22
     }
   ]
 }

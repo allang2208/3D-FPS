@@ -117,6 +117,16 @@ For Godot first-person weapon ports, read [migration contracts and validation](r
 # UE5.6-UE5.8 Compatibility Notes
 - Reflection, replication, and GameplayTag APIs above are stable across UE5.6-UE5.8.
 - Favor stable core APIs over editor-only helpers when runtime behavior is required.
+- 5.8 removes/renames hit while bringing up a camera-space weapon component (each one is a compile error, not a warning):
+  `FString::CreateParseDelimiter` and `FParse::ParseVector` are gone (use `FString::ParseIntoArray` and, for `"x,y,z"`
+  data keys, a local three-float parser — `LexFromString` no longer covers `FVector`/`FRotator`);
+  `TAutoConsoleVariable` accepts scalars and strings only, so vector/rotator tuning cvars must be `FString` (`"0,0,0"`)
+  and parsed at use; `USkeleton::GetRefSkeleton` is no longer public (query the component: `USkeletalMeshComponent::DoesSocketExist`);
+  `USkeletalMeshComponent::GetSkeletalMesh` → `GetSkeletalMeshAsset`; `FRotator::ClampAxis` → `Clamp`;
+  `FHitResult::GetBoneName` → the `BoneName` field; `TObjectPtr` has no `Reset()` and `FName` has no `Reset()`
+  (assign `nullptr` / `NAME_None`), and a ternary must call `.Get()` on both arms when mixing `TObjectPtr` with raw pointers.
+- Component setters must not name parameters after inherited fields: `bool bVisible` already exists on `USceneComponent`,
+  so a `SetPartVisible(bool bVisible)` definition fails C4458. Use an `bIn…` prefix.
 
 # Escalation
 - Escalate when user asks for plugin/module-level refactor beyond a single gameplay class.

@@ -1,0 +1,29 @@
+{
+ "runtime_tested": false,
+ "rendered": false,
+ "runs": {
+  "split_scale1": {
+   "scale": 1.0,
+   "combine": false,
+   "assets": [
+    {
+     "path": "/Game/Weapons/DarkBow20260925/_Diagnose/PM_DarkBow.PM_DarkBow",
+     "class": "StaticMesh",
+     "size_cm": [
+      113.057,
+      10.385,
+      414.087
+     ],
+     "origin_cm": [
+      -19.444,
+      -2.767,
+      0.452
+     ],
+     "triangles": 5710,
+     "vertices": 10243,
+     "sections": 3
+    }
+   ]
+  }
+ }
+}

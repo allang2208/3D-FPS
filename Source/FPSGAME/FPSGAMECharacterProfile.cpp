@@ -1,6 +1,7 @@
 #include "FPSGAMECharacter.h"
 #include "Weapons/PistolDualWieldComponent.h"
 #include "Production/ProductionToolComponent.h"
+#include "Weapons/Bow/BowWeaponComponent.h"
 #include "Weapons/RuneSwordComponent.h"
 #include "UI/ColdSteelStatusModel.h"
 #include "UI/ColdSteelEnhancementSystem.h"
@@ -84,6 +85,8 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     }
     AKMViewmodel->SetVisibility(bInventoryWeaponReady && !IsTraversing(),ChangedWeapon);
     if(auto* Tools=FindComponentByClass<UProductionToolComponent>())Tools->RefreshHeldTool();
+    // 弓走自己的视模：主手槽不是弓就收起，避免换枪后弓还挂在相机上。
+    if(Bow)Bow->RefreshEquipment(Profile);
     if(RuneSword)RuneSword->RefreshEquipment(Profile);
     // Handling stays in UE units; damage resolves through the canonical gamedev weapon formula below.
     const auto* Defaults=GetClass()->GetDefaultObject<AFPSGAMECharacter>();
