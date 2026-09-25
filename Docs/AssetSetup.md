@@ -2,7 +2,7 @@
 
 ## 暗纹猎弓 ContactV9（2026-09-25）
 
-恢复 ContactV9 手模与八段动作、ArmsV4 骨架及衣袖／手套、ArmsV2 当前静态弓体／木箭／材质，以及原 dark bow 和裸手材质依赖。源码、配置、作者脚本与技能公开；含第三方表面／姿态的 JSON、Blend／FBX／UE 包及回执留在本机。175 个废案文件已归档至 trash；保留输入、重建顺序、散列清单和未游戏测试边界见 [V9 整理与恢复](Weapons/dark-bow-publication-v9-20260925.md)。
+恢复 ContactV9 手模与八段动作、ArmsV4 骨架及衣袖／手套、ArmsV2 静态箭／木纹、细节弓体 `RiserDetail20260925/SM_DarkBow_RiserDetail`、结构重构作者源 `RiserForm20260925`、木质长弓替换 `WoodLongbow20260925`，以及原 dark bow、Normandy `T_WoodSurface_00A` / `T_RottenWoodSurface_00A` 和裸手材质依赖。弓体木纹见 [木纹表面](Weapons/dark-bow-wood-finish-20260925.md)，网格升级见 [弓体细节](Weapons/dark-bow-riser-detail-20260925.md)，结构重构见 [弓体结构](Weapons/dark-bow-riser-form-20260925.md)，长弓替换见 [木质长弓](Weapons/dark-bow-wood-longbow-20260925.md)。源码、配置、作者脚本与技能公开；含第三方表面／姿态的 JSON、Blend／FBX／UE 包及回执留在本机。175 个废案文件已归档至 trash；保留输入、重建顺序、散列清单和未游戏测试边界见 [V9 整理与恢复](Weapons/dark-bow-publication-v9-20260925.md)。
 
 ## V7 默认裸手与独立手套／衣物（2026-09-25）
 

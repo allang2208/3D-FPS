@@ -1,0 +1,218 @@
+[
+    {
+        "source":  "Content/Weapons/DarkBow20260925/WoodLongbowCm40k/SM_DarkBow_WoodLongbowCm40k.uasset",
+        "destination":  "trash/wood-longbow-probes-20260926/Content/Weapons/DarkBow20260925/WoodLongbowCm40k/SM_DarkBow_WoodLongbowCm40k.uasset",
+        "size":  1271737,
+        "sha256":  "8db55eafdd5af9aa09df9985a7d265c18cfa941473c76c4e6e80f512d7bb9ae7",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "Content/Weapons/DarkBow20260925/WoodLongbowCmFull/SM_DarkBow_WoodLongbowCmFull.uasset",
+        "destination":  "trash/wood-longbow-probes-20260926/Content/Weapons/DarkBow20260925/WoodLongbowCmFull/SM_DarkBow_WoodLongbowCmFull.uasset",
+        "size":  5160282,
+        "sha256":  "cba601b04ccbafa80c99abb56958cc5aaf9a6b2534f0e0e9d33c5ef29baea369",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "Content/Weapons/DarkBow20260925/WoodLongbowGLBProbe/SM_DarkBow_WoodLongbow/Textures/Image_0.uasset",
+        "destination":  "trash/wood-longbow-probes-20260926/Content/Weapons/DarkBow20260925/WoodLongbowGLBProbe/SM_DarkBow_WoodLongbow/Textures/Image_0.uasset",
+        "size":  15111672,
+        "sha256":  "659dc640e48e73a30bdb1b83c46a69a59cfe3db1787877074349dfa746024d19",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "Content/Weapons/DarkBow20260925/WoodLongbowGLBProbe/SM_DarkBow_WoodLongbow/Textures/Image_1.uasset",
+        "destination":  "trash/wood-longbow-probes-20260926/Content/Weapons/DarkBow20260925/WoodLongbowGLBProbe/SM_DarkBow_WoodLongbow/Textures/Image_1.uasset",
+        "size":  13233334,
+        "sha256":  "6557091ba090ecdd89fd0c7c7966d8fe87bb10aca5d6bb3ac99359e36cda1db8",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "Content/Weapons/DarkBow20260925/WoodLongbowGLBProbe/SM_DarkBow_WoodLongbow/Textures/Image_2.uasset",
+        "destination":  "trash/wood-longbow-probes-20260926/Content/Weapons/DarkBow20260925/WoodLongbowGLBProbe/SM_DarkBow_WoodLongbow/Textures/Image_2.uasset",
+        "size":  15676239,
+        "sha256":  "6eb9b20ba5a017d938d5602794bc1cad39860f0e337103a6abeb0df70bfb0516",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "SourceAssets/DarkBow20260925/Logs/wood_finish_20260925.log",
+        "destination":  "trash/wood-longbow-probes-20260926/SourceAssets/DarkBow20260925/Logs/wood_finish_20260925.log",
+        "size":  272247,
+        "sha256":  "a249535061b295e8be80796461f3b482e3433aead184a194e707349c3de75065",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "SourceAssets/DarkBow20260925/Logs/wood_finish_20260925b.log",
+        "destination":  "trash/wood-longbow-probes-20260926/SourceAssets/DarkBow20260925/Logs/wood_finish_20260925b.log",
+        "size":  274768,
+        "sha256":  "99300ba62e400d22af27ccc1c290227bf86f994c11fb293572be9ba8adcadf7f",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "SourceAssets/DarkBow20260925/Logs/wood_finish_20260925c.log",
+        "destination":  "trash/wood-longbow-probes-20260926/SourceAssets/DarkBow20260925/Logs/wood_finish_20260925c.log",
+        "size":  280584,
+        "sha256":  "309825edaf996888b0fc75f66cc51aa6235c1c4f4a824014899913fde18120cf",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "SourceAssets/DarkBow20260925/Logs/wood_longbow_import.log",
+        "destination":  "trash/wood-longbow-probes-20260926/SourceAssets/DarkBow20260925/Logs/wood_longbow_import.log",
+        "size":  273454,
+        "sha256":  "53c7d7f16c83d86776a7783703b46f9fa5d48416fd531bfd82144987ce2e4d1f",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "SourceAssets/DarkBow20260925/RiserDetail20260925/ue-axis-01.txt",
+        "destination":  "trash/wood-longbow-probes-20260926/SourceAssets/DarkBow20260925/RiserDetail20260925/ue-axis-01.txt",
+        "size":  521,
+        "sha256":  "e558e6d7af5e03d273d167dd7c29b2454b3ae6d7d32fefdfe3191d7a06c8c0b5",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "SourceAssets/DarkBow20260925/RiserDetail20260925/ue-import-01.txt",
+        "destination":  "trash/wood-longbow-probes-20260926/SourceAssets/DarkBow20260925/RiserDetail20260925/ue-import-01.txt",
+        "size":  553,
+        "sha256":  "8b1516590c34e69f5cbd7d12705cbf61ef5b31dc13467457b83ad80353080ff0",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "SourceAssets/DarkBow20260925/RiserDetail20260925/ue-import-02.txt",
+        "destination":  "trash/wood-longbow-probes-20260926/SourceAssets/DarkBow20260925/RiserDetail20260925/ue-import-02.txt",
+        "size":  982,
+        "sha256":  "50fdeca6f5e35d0a22a8220652767e5e483fd62cc970fb20cb7d16c98705d143",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "SourceAssets/DarkBow20260925/RiserForm20260925/import_mcp_out.txt",
+        "destination":  "trash/wood-longbow-probes-20260926/SourceAssets/DarkBow20260925/RiserForm20260925/import_mcp_out.txt",
+        "size":  0,
+        "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "SourceAssets/DarkBow20260925/WoodFinish20260925/probe_mcp_out.txt",
+        "destination":  "trash/wood-longbow-probes-20260926/SourceAssets/DarkBow20260925/WoodFinish20260925/probe_mcp_out.txt",
+        "size":  0,
+        "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "SourceAssets/DarkBow20260925/WoodFinish20260925/probe_wood_library.py",
+        "destination":  "trash/wood-longbow-probes-20260926/SourceAssets/DarkBow20260925/WoodFinish20260925/probe_wood_library.py",
+        "size":  4623,
+        "sha256":  "096d0767b154f95f54edbe3826978c2d9ae37a359eed2daff8c7d7f46518d94c",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "SourceAssets/DarkBow20260925/WoodFinish20260925/recolor_mcp_out.txt",
+        "destination":  "trash/wood-longbow-probes-20260926/SourceAssets/DarkBow20260925/WoodFinish20260925/recolor_mcp_out.txt",
+        "size":  315,
+        "sha256":  "b17f3d0bf486c0e13333dd7dd10f530bb09a61aae77725fd65bfd5114fdb578f",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "SourceAssets/DarkBow20260925/WoodFinish20260925/ue-install-01.txt",
+        "destination":  "trash/wood-longbow-probes-20260926/SourceAssets/DarkBow20260925/WoodFinish20260925/ue-install-01.txt",
+        "size":  0,
+        "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/export_cm_variants.py",
+        "destination":  "trash/wood-longbow-probes-20260926/SourceAssets/DarkBow20260925/WoodLongbow20260925/export_cm_variants.py",
+        "size":  1087,
+        "sha256":  "d75fbbe64e1d49be7407a654edbade4572f9b0767d4895a90dc2a042a6c01b9c",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/import_cm_variants.py",
+        "destination":  "trash/wood-longbow-probes-20260926/SourceAssets/DarkBow20260925/WoodLongbow20260925/import_cm_variants.py",
+        "size":  2272,
+        "sha256":  "568e3bd64997be972468a3fc32cec89bcd85ca691dc17b405d9ae80a135174b0",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/import_glb_fresh.py",
+        "destination":  "trash/wood-longbow-probes-20260926/SourceAssets/DarkBow20260925/WoodLongbow20260925/import_glb_fresh.py",
+        "size":  2010,
+        "sha256":  "2542dbfa5f39218aa153f2c9c77c90c322fdb7d975d1fb8657b2af9c649b7d01",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/import_glb_test.py",
+        "destination":  "trash/wood-longbow-probes-20260926/SourceAssets/DarkBow20260925/WoodLongbow20260925/import_glb_test.py",
+        "size":  1601,
+        "sha256":  "eb4364a9f139dc28a1533c8393f95e9de6fafaf39c244aa9e0e626e901d639fa",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/probe_imported.py",
+        "destination":  "trash/wood-longbow-probes-20260926/SourceAssets/DarkBow20260925/WoodLongbow20260925/probe_imported.py",
+        "size":  1214,
+        "sha256":  "cdecea5de4aea5d1eb83bfdf35033b5c3cb8f818c4c8403a4854e4a2231c28d9",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/Export/SM_DarkBow_WoodLongbow.fbx",
+        "destination":  "trash/wood-longbow-probes-20260926/SourceAssets/DarkBow20260925/WoodLongbow20260925/Export/SM_DarkBow_WoodLongbow.fbx",
+        "size":  12683196,
+        "sha256":  "34559eb487048b1dc29d7a25db30f6b5213c7489fef2c83b06b7ac773166d840",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/Export/SM_DarkBow_WoodLongbow.glb",
+        "destination":  "trash/wood-longbow-probes-20260926/SourceAssets/DarkBow20260925/WoodLongbow20260925/Export/SM_DarkBow_WoodLongbow.glb",
+        "size":  49281040,
+        "sha256":  "ccb329738da74b9636924d3c05887029a6d00e291290c86bf7c91fff7e67cd17",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/Export/SM_DarkBow_WoodLongbow_cm40k.fbx",
+        "destination":  "trash/wood-longbow-probes-20260926/SourceAssets/DarkBow20260925/WoodLongbow20260925/Export/SM_DarkBow_WoodLongbow_cm40k.fbx",
+        "size":  1325196,
+        "sha256":  "f885b37cb16f646fd08d2ab1548fabf95d8911fd1fe7dbe351fbac5b47ec53a3",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/Export/SM_DarkBow_WoodLongbow.fbm/Image_0.png",
+        "destination":  "trash/wood-longbow-probes-20260926/SourceAssets/DarkBow20260925/WoodLongbow20260925/Export/SM_DarkBow_WoodLongbow.fbm/Image_0.png",
+        "size":  4725859,
+        "sha256":  "023e57083975984250ea5811fef40d6dc051013f9e5d515da8605173830a1d55",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    },
+    {
+        "source":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/Export/SM_DarkBow_WoodLongbow.fbm/Image_2.png",
+        "destination":  "trash/wood-longbow-probes-20260926/SourceAssets/DarkBow20260925/WoodLongbow20260925/Export/SM_DarkBow_WoodLongbow.fbm/Image_2.png",
+        "size":  14176803,
+        "sha256":  "ac72c2b82dd513a6477f84548a6e2005a9d3d44796402d233a7349cd0995e394",
+        "reason":  "Wood longbow import probe / meter-scale FBX stub / superseded diagnostic script; keep only cm FBX author entry",
+        "replacement":  "SourceAssets/DarkBow20260925/WoodLongbow20260925/{author_wood_longbow.py,export_fbx_mesh.py,import_wood_longbow.py}; Content/Weapons/.../SM_DarkBow_WoodLongbow"
+    }
+]

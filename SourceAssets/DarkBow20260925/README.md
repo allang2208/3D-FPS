@@ -6,6 +6,10 @@
 | --- | --- | --- |
 | 原弓与动作来源 | `Scripts/`，`ArmsV2/export_authoring_inputs.py` | 原 Fab dark bow、Paragon Sparrow；输出 `bow_surface.json`、`sparrow_motion.json` |
 | 木箭与静态分件 | Blender `ArmsV2/author_arrow.py`，UE `ArmsV2/import_parts.py` | `WoodArrow_Editable.blend`、`Export/SM_Bow_WoodArrow.fbx`；保留原握把，只去除 124 个旧弦三角 |
+| 木纹表面 | UE `WoodFinish20260925/recolor_structure_woods.py` | 弓体胡桃／弓臂枫木／镶条红木／箭杆白蜡；`M_BowWood_LocalScanV2` 局部三平面染色；原 Fab Phong 与 V1 母材质留作回退 |
+| 弓体细节 | Blender `RiserDetail20260925/author_riser_detail.py`，UE `import_riser_detail.py` | 倒角＋细分＋加权法线；`SM_DarkBow_RiserDetail` 仍作当前运行回退 |
+| 弓体结构 | Blender `RiserForm20260925/author_riser_form.py`，UE `import_riser_form.py` | 抄把／箭台／镶条／层板／弦槽；`SM_DarkBow_RiserForm` 留作回退 |
+| 木质长弓替换 | Blender `WoodLongbow20260925/author_wood_longbow.py`，UE `import_wood_longbow.py` | Sadra `source.glb`；拆弦、握把归零、厘米 FBX；运行网格 `SM_DarkBow_WoodLongbow`，源 4K PBR |
 | 正确参考骨架 | `ArmsV4/author_actions.py`、`import_assets.py`、`bind_outfits.py` | ArmsV4 可编辑源、FBX、Skeleton 与 Outfits；当前 V9 不另建 Skeleton |
 | 左手完整抓握 | Blender `GripV5/read_grasp_reference.py`，Python `convert_grasp_reference.py` | 已认可 M4 VRE 源动作、原生 M4 骨架；输出 `grasp_reference.json`、`grasp_native.json` |
 | 接触输入 | Blender `ContactV9/read_hand_authoring.py` | `reference_hand_frame.py` 仅定义参考手部空间，输出 `hand_authoring_input.json` |

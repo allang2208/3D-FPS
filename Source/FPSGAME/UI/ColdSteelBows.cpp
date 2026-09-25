@@ -9,6 +9,26 @@
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
 
+namespace
+{
+bool IsShippedDarkBowPartMesh(const FString& Path)
+{
+    static const TCHAR* Official[] = {
+        TEXT("/Game/Weapons/DarkBow20260925/SK_DarkBow.SK_DarkBow"),
+        TEXT("/Game/Weapons/DarkBow20260925/ArmsV2/SM_DarkBow_Riser.SM_DarkBow_Riser"),
+        TEXT("/Game/Weapons/DarkBow20260925/ArmsV2/SM_Bow_WoodArrow.SM_Bow_WoodArrow"),
+        TEXT("/Game/Weapons/DarkBow20260925/RiserDetail20260925/SM_DarkBow_RiserDetail.SM_DarkBow_RiserDetail"),
+        TEXT("/Game/Weapons/DarkBow20260925/RiserForm20260925/SM_DarkBow_RiserForm.SM_DarkBow_RiserForm"),
+        TEXT("/Game/Weapons/DarkBow20260925/WoodLongbow20260925/SM_DarkBow_WoodLongbow.SM_DarkBow_WoodLongbow"),
+    };
+    for (const TCHAR* One : Official)
+    {
+        if (Path == One) return true;
+    }
+    return false;
+}
+}
+
 void UColdSteelStatusModel::LoadBowDefinitions()
 {
     FString Json; TSharedPtr<FJsonObject> Root;
@@ -58,7 +78,7 @@ bool UColdSteelStatusModel::NormalizeBowState(FColdSteelProfile& State) const
                 FString Previous;
                 if (Key.StartsWith(TEXT("bow_part_")) && Key.EndsWith(TEXT("_mesh")) &&
                     Data->TryGetStringField(Key, Previous) && !Previous.IsEmpty() &&
-                    Previous != TEXT("/Game/Weapons/DarkBow20260925/SK_DarkBow.SK_DarkBow")) continue;
+                    !IsShippedDarkBowPartMesh(Previous)) continue;
                 Data->SetField(Key, Field.Value);
             }
             Item.Data.Reset();

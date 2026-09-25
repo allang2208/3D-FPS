@@ -1,6 +1,6 @@
 # 第一人称弓：部件表与相机空间组件
 
-当前暗纹猎弓为 ContactV9 视模和八段动作，表现版本 9；ArmsV4 提供共享骨架／装备，ArmsV2 提供已分离弓体、箭和材质。V9 已保存，仍待用户游戏确认。
+当前暗纹猎弓为 ContactV9 视模和八段动作，表现版本 14；ArmsV4 提供共享骨架／装备，运行弓体为独立候选 `WoodLongbow20260925/SM_DarkBow_WoodLongbow`（Sadra 木质长弓，已拆烘焙弦，源 4K PBR）。`RiserForm20260925`、`RiserDetail20260925` 与 ArmsV2 原拆分弓体留作回退。弦口已按新外形重测。库存迁移会覆盖官方旧弓体，不会覆盖玩家自制换件。已保存，仍待用户游戏确认。
 绑定、握把掌向、指腹接触和掌面修补读 [弓手型与弦接触](../../ue5-fps-arms-animation/references/bow-hand-string-contact.md)。本案例全过程、失败原因及恢复范围见工程 `Docs/Weapons/dark-bow-publication-v9-20260925.md`；历史版本号不作为当前选择依据。
 
 ## 什么时候用这条路线
@@ -76,6 +76,8 @@ bow_part_<槽名>_{mesh, material, hide_slot, rods, radius_cm, scale}
 
 - **不要相信文件名里的尺寸**。FBX 常按作者单位导入（本案原始包 414 cm 高，不是标称的 148 cm）；
   先量包络再按最长轴归一，并把 `import_scale`、归一后 `size_cm`、`origin_cm`、材质槽写进 `ue_import_readback.json`。
+- 米制 Blender 网格（约 1.4 m）用 FbxFactory 会塌成约 1k 三角的残片。导出前把顶点写成厘米再进 5.8；不要 embed 贴图。正式入口是 `WoodLongbow20260925/Export/SM_DarkBow_WoodLongbow_cm.fbx`。
+- 换官方弓体时必须把上一版官方路径写进 `IsShippedDarkBowPartMesh`，并升高 `bow_presentation_revision`。迁移默认保留非空 `bow_part_*_mesh`，只放行原 `SK_DarkBow` 时，`RiserForm` 会被当成自制换件，目录已换、存档画面不变。
 - 静态网格的**长度轴不一定是 X**：本例长轴 Z，实际烘焙弦 X≈-21.46、Y≈-0.935，箭朝局部 +X，静态回落 yaw 0。保留作者握把原点；不要仅凭包络极值推断弦侧。
 - 分件诊断用 `combine_meshes=False` 逐个 section 导出再量，能区分「网格真的没弦」还是「弦烘在网格里」；
   必要时用 Fab 商店缩略图判读（`read_image`），比猜材质槽名快。
