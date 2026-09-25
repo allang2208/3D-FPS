@@ -1,0 +1,554 @@
+{
+ "clips": {
+  "base/reload": {
+   "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M16RemovalMelee20260920\\Animations\\base\\A_M16_reload.blend",
+   "action": "A_M16_reload_GripPrecise",
+   "height_mm": 50.99,
+   "convention": "same_from_floorplate",
+   "m4_shell_length_mm": 176.77,
+   "m16_shell_length_mm": 205.9,
+   "options": {
+    "same_from_floorplate": {
+     "height_mm": 50.99,
+     "error": 268.1,
+     "profile": {
+      "hand_l": 41.64,
+      "thumb_01_l": -1.74,
+      "thumb_02_l": 4.46,
+      "thumb_03_l": 25.76,
+      "index_01_l": 22.33,
+      "index_02_l": 26.27,
+      "index_03_l": 20.51,
+      "middle_01_l": 11.3,
+      "middle_02_l": 6.22,
+      "middle_03_l": -0.34,
+      "ring_01_l": 0.74,
+      "ring_02_l": -1.13,
+      "ring_03_l": -4.71,
+      "pinky_01_l": -3.41,
+      "pinky_02_l": 8.55,
+      "pinky_03_l": 1.75
+     }
+    },
+    "same_from_feed_end": {
+     "height_mm": 80.13,
+     "error": 3474.7,
+     "profile": {
+      "hand_l": 33.03,
+      "thumb_01_l": 5.27,
+      "thumb_02_l": -2.24,
+      "thumb_03_l": 9.59,
+      "index_01_l": 40.9,
+      "index_02_l": 49.5,
+      "index_03_l": 38.78,
+      "middle_01_l": 30.99,
+      "middle_02_l": 27.9,
+      "middle_03_l": 11.94,
+      "ring_01_l": 13.6,
+      "ring_02_l": 5.02,
+      "ring_03_l": -6.75,
+      "pinky_01_l": -4.93,
+      "pinky_02_l": 1.16,
+      "pinky_03_l": 12.62
+     }
+    }
+   },
+   "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\m16_cache\\base\\A_M16_reload_GripPrecise.fbx"
+  },
+  "base/reload_empty": {
+   "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M16RemovalMelee20260920\\Animations\\base\\A_M16_reload_empty.blend",
+   "action": "A_M16_reload_empty_GripPrecise",
+   "height_mm": 50.99,
+   "convention": "same_from_floorplate",
+   "m4_shell_length_mm": 176.77,
+   "m16_shell_length_mm": 205.9,
+   "options": {
+    "same_from_floorplate": {
+     "height_mm": 50.99,
+     "error": 268.1,
+     "profile": {
+      "hand_l": 41.64,
+      "thumb_01_l": -1.74,
+      "thumb_02_l": 4.46,
+      "thumb_03_l": 25.76,
+      "index_01_l": 22.33,
+      "index_02_l": 26.27,
+      "index_03_l": 20.51,
+      "middle_01_l": 11.3,
+      "middle_02_l": 6.22,
+      "middle_03_l": -0.34,
+      "ring_01_l": 0.74,
+      "ring_02_l": -1.13,
+      "ring_03_l": -4.71,
+      "pinky_01_l": -3.41,
+      "pinky_02_l": 8.55,
+      "pinky_03_l": 1.75
+     }
+    },
+    "same_from_feed_end": {
+     "height_mm": 80.13,
+     "error": 3477.8,
+     "profile": {
+      "hand_l": 33.03,
+      "thumb_01_l": 5.27,
+      "thumb_02_l": -2.24,
+      "thumb_03_l": 9.6,
+      "index_01_l": 40.9,
+      "index_02_l": 49.51,
+      "index_03_l": 38.78,
+      "middle_01_l": 30.99,
+      "middle_02_l": 27.9,
+      "middle_03_l": 11.94,
+      "ring_01_l": 13.63,
+      "ring_02_l": 5.36,
+      "ring_03_l": -6.75,
+      "pinky_01_l": -4.94,
+      "pinky_02_l": 1.16,
+      "pinky_03_l": 12.65
+     }
+    }
+   },
+   "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\m16_cache\\base\\A_M16_reload_empty_GripPrecise.fbx"
+  },
+  "vertical/reload": {
+   "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M16RemovalMelee20260920\\Animations\\vertical\\A_M16_vertical_reload.blend",
+   "action": "A_M16_vertical_reload_GripPrecise",
+   "height_mm": 50.99,
+   "convention": "same_from_floorplate",
+   "m4_shell_length_mm": 176.77,
+   "m16_shell_length_mm": 205.9,
+   "options": {
+    "same_from_floorplate": {
+     "height_mm": 50.99,
+     "error": 268.1,
+     "profile": {
+      "hand_l": 41.64,
+      "thumb_01_l": -1.74,
+      "thumb_02_l": 4.46,
+      "thumb_03_l": 25.76,
+      "index_01_l": 22.33,
+      "index_02_l": 26.27,
+      "index_03_l": 20.51,
+      "middle_01_l": 11.3,
+      "middle_02_l": 6.22,
+      "middle_03_l": -0.34,
+      "ring_01_l": 0.74,
+      "ring_02_l": -1.13,
+      "ring_03_l": -4.71,
+      "pinky_01_l": -3.41,
+      "pinky_02_l": 8.55,
+      "pinky_03_l": 1.75
+     }
+    },
+    "same_from_feed_end": {
+     "height_mm": 80.13,
+     "error": 3474.7,
+     "profile": {
+      "hand_l": 33.03,
+      "thumb_01_l": 5.27,
+      "thumb_02_l": -2.24,
+      "thumb_03_l": 9.59,
+      "index_01_l": 40.9,
+      "index_02_l": 49.5,
+      "index_03_l": 38.78,
+      "middle_01_l": 30.99,
+      "middle_02_l": 27.9,
+      "middle_03_l": 11.94,
+      "ring_01_l": 13.6,
+      "ring_02_l": 5.02,
+      "ring_03_l": -6.75,
+      "pinky_01_l": -4.93,
+      "pinky_02_l": 1.16,
+      "pinky_03_l": 12.62
+     }
+    }
+   },
+   "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\m16_cache\\vertical\\A_M16_vertical_reload_GripPrecise.fbx"
+  },
+  "vertical/reload_empty": {
+   "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M16RemovalMelee20260920\\Animations\\vertical\\A_M16_vertical_reload_empty.blend",
+   "action": "A_M16_vertical_reload_empty_GripPrecise",
+   "height_mm": 50.99,
+   "convention": "same_from_floorplate",
+   "m4_shell_length_mm": 176.77,
+   "m16_shell_length_mm": 205.9,
+   "options": {
+    "same_from_floorplate": {
+     "height_mm": 50.99,
+     "error": 268.1,
+     "profile": {
+      "hand_l": 41.64,
+      "thumb_01_l": -1.74,
+      "thumb_02_l": 4.46,
+      "thumb_03_l": 25.76,
+      "index_01_l": 22.33,
+      "index_02_l": 26.27,
+      "index_03_l": 20.51,
+      "middle_01_l": 11.3,
+      "middle_02_l": 6.22,
+      "middle_03_l": -0.34,
+      "ring_01_l": 0.74,
+      "ring_02_l": -1.13,
+      "ring_03_l": -4.71,
+      "pinky_01_l": -3.41,
+      "pinky_02_l": 8.55,
+      "pinky_03_l": 1.75
+     }
+    },
+    "same_from_feed_end": {
+     "height_mm": 80.13,
+     "error": 3477.8,
+     "profile": {
+      "hand_l": 33.03,
+      "thumb_01_l": 5.27,
+      "thumb_02_l": -2.24,
+      "thumb_03_l": 9.6,
+      "index_01_l": 40.9,
+      "index_02_l": 49.51,
+      "index_03_l": 38.78,
+      "middle_01_l": 30.99,
+      "middle_02_l": 27.9,
+      "middle_03_l": 11.94,
+      "ring_01_l": 13.63,
+      "ring_02_l": 5.36,
+      "ring_03_l": -6.75,
+      "pinky_01_l": -4.94,
+      "pinky_02_l": 1.16,
+      "pinky_03_l": 12.65
+     }
+    }
+   },
+   "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\m16_cache\\vertical\\A_M16_vertical_reload_empty_GripPrecise.fbx"
+  },
+  "canted/reload": {
+   "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M16RemovalMelee20260920\\Animations\\canted\\A_M16_canted_reload.blend",
+   "action": "A_M16_canted_reload_GripPrecise",
+   "height_mm": 50.99,
+   "convention": "same_from_floorplate",
+   "m4_shell_length_mm": 176.77,
+   "m16_shell_length_mm": 205.9,
+   "options": {
+    "same_from_floorplate": {
+     "height_mm": 50.99,
+     "error": 268.1,
+     "profile": {
+      "hand_l": 41.64,
+      "thumb_01_l": -1.74,
+      "thumb_02_l": 4.46,
+      "thumb_03_l": 25.76,
+      "index_01_l": 22.33,
+      "index_02_l": 26.27,
+      "index_03_l": 20.51,
+      "middle_01_l": 11.3,
+      "middle_02_l": 6.22,
+      "middle_03_l": -0.34,
+      "ring_01_l": 0.74,
+      "ring_02_l": -1.13,
+      "ring_03_l": -4.71,
+      "pinky_01_l": -3.41,
+      "pinky_02_l": 8.55,
+      "pinky_03_l": 1.75
+     }
+    },
+    "same_from_feed_end": {
+     "height_mm": 80.13,
+     "error": 3474.7,
+     "profile": {
+      "hand_l": 33.03,
+      "thumb_01_l": 5.27,
+      "thumb_02_l": -2.24,
+      "thumb_03_l": 9.59,
+      "index_01_l": 40.9,
+      "index_02_l": 49.5,
+      "index_03_l": 38.78,
+      "middle_01_l": 30.99,
+      "middle_02_l": 27.9,
+      "middle_03_l": 11.94,
+      "ring_01_l": 13.6,
+      "ring_02_l": 5.02,
+      "ring_03_l": -6.75,
+      "pinky_01_l": -4.93,
+      "pinky_02_l": 1.16,
+      "pinky_03_l": 12.62
+     }
+    }
+   },
+   "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\m16_cache\\canted\\A_M16_canted_reload_GripPrecise.fbx"
+  },
+  "canted/reload_empty": {
+   "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M16RemovalMelee20260920\\Animations\\canted\\A_M16_canted_reload_empty.blend",
+   "action": "A_M16_canted_reload_empty_GripPrecise",
+   "height_mm": 50.99,
+   "convention": "same_from_floorplate",
+   "m4_shell_length_mm": 176.77,
+   "m16_shell_length_mm": 205.9,
+   "options": {
+    "same_from_floorplate": {
+     "height_mm": 50.99,
+     "error": 268.1,
+     "profile": {
+      "hand_l": 41.64,
+      "thumb_01_l": -1.74,
+      "thumb_02_l": 4.46,
+      "thumb_03_l": 25.76,
+      "index_01_l": 22.33,
+      "index_02_l": 26.27,
+      "index_03_l": 20.51,
+      "middle_01_l": 11.3,
+      "middle_02_l": 6.22,
+      "middle_03_l": -0.34,
+      "ring_01_l": 0.74,
+      "ring_02_l": -1.13,
+      "ring_03_l": -4.71,
+      "pinky_01_l": -3.41,
+      "pinky_02_l": 8.55,
+      "pinky_03_l": 1.75
+     }
+    },
+    "same_from_feed_end": {
+     "height_mm": 80.13,
+     "error": 3477.8,
+     "profile": {
+      "hand_l": 33.03,
+      "thumb_01_l": 5.27,
+      "thumb_02_l": -2.24,
+      "thumb_03_l": 9.6,
+      "index_01_l": 40.9,
+      "index_02_l": 49.51,
+      "index_03_l": 38.78,
+      "middle_01_l": 30.99,
+      "middle_02_l": 27.9,
+      "middle_03_l": 11.94,
+      "ring_01_l": 13.63,
+      "ring_02_l": 5.36,
+      "ring_03_l": -6.75,
+      "pinky_01_l": -4.94,
+      "pinky_02_l": 1.16,
+      "pinky_03_l": 12.65
+     }
+    }
+   },
+   "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\m16_cache\\canted\\A_M16_canted_reload_empty_GripPrecise.fbx"
+  },
+  "prism/reload": {
+   "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M16RemovalMelee20260920\\Animations\\prism\\A_M16_prism_reload.blend",
+   "action": "A_M16_prism_reload_GripPrecise",
+   "height_mm": 50.99,
+   "convention": "same_from_floorplate",
+   "m4_shell_length_mm": 176.77,
+   "m16_shell_length_mm": 205.9,
+   "options": {
+    "same_from_floorplate": {
+     "height_mm": 50.99,
+     "error": 268.1,
+     "profile": {
+      "hand_l": 41.64,
+      "thumb_01_l": -1.74,
+      "thumb_02_l": 4.46,
+      "thumb_03_l": 25.76,
+      "index_01_l": 22.33,
+      "index_02_l": 26.27,
+      "index_03_l": 20.51,
+      "middle_01_l": 11.3,
+      "middle_02_l": 6.22,
+      "middle_03_l": -0.34,
+      "ring_01_l": 0.74,
+      "ring_02_l": -1.13,
+      "ring_03_l": -4.71,
+      "pinky_01_l": -3.41,
+      "pinky_02_l": 8.55,
+      "pinky_03_l": 1.75
+     }
+    },
+    "same_from_feed_end": {
+     "height_mm": 80.13,
+     "error": 3474.7,
+     "profile": {
+      "hand_l": 33.03,
+      "thumb_01_l": 5.27,
+      "thumb_02_l": -2.24,
+      "thumb_03_l": 9.59,
+      "index_01_l": 40.9,
+      "index_02_l": 49.5,
+      "index_03_l": 38.78,
+      "middle_01_l": 30.99,
+      "middle_02_l": 27.9,
+      "middle_03_l": 11.94,
+      "ring_01_l": 13.6,
+      "ring_02_l": 5.02,
+      "ring_03_l": -6.75,
+      "pinky_01_l": -4.93,
+      "pinky_02_l": 1.16,
+      "pinky_03_l": 12.62
+     }
+    }
+   },
+   "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\m16_cache\\prism\\A_M16_prism_reload_GripPrecise.fbx"
+  },
+  "prism/reload_empty": {
+   "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M16RemovalMelee20260920\\Animations\\prism\\A_M16_prism_reload_empty.blend",
+   "action": "A_M16_prism_reload_empty_GripPrecise",
+   "height_mm": 50.99,
+   "convention": "same_from_floorplate",
+   "m4_shell_length_mm": 176.77,
+   "m16_shell_length_mm": 205.9,
+   "options": {
+    "same_from_floorplate": {
+     "height_mm": 50.99,
+     "error": 268.1,
+     "profile": {
+      "hand_l": 41.64,
+      "thumb_01_l": -1.74,
+      "thumb_02_l": 4.46,
+      "thumb_03_l": 25.76,
+      "index_01_l": 22.33,
+      "index_02_l": 26.27,
+      "index_03_l": 20.51,
+      "middle_01_l": 11.3,
+      "middle_02_l": 6.22,
+      "middle_03_l": -0.34,
+      "ring_01_l": 0.74,
+      "ring_02_l": -1.13,
+      "ring_03_l": -4.71,
+      "pinky_01_l": -3.41,
+      "pinky_02_l": 8.55,
+      "pinky_03_l": 1.75
+     }
+    },
+    "same_from_feed_end": {
+     "height_mm": 80.13,
+     "error": 3477.8,
+     "profile": {
+      "hand_l": 33.03,
+      "thumb_01_l": 5.27,
+      "thumb_02_l": -2.24,
+      "thumb_03_l": 9.6,
+      "index_01_l": 40.9,
+      "index_02_l": 49.51,
+      "index_03_l": 38.78,
+      "middle_01_l": 30.99,
+      "middle_02_l": 27.9,
+      "middle_03_l": 11.94,
+      "ring_01_l": 13.63,
+      "ring_02_l": 5.36,
+      "ring_03_l": -6.75,
+      "pinky_01_l": -4.94,
+      "pinky_02_l": 1.16,
+      "pinky_03_l": 12.65
+     }
+    }
+   },
+   "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\m16_cache\\prism\\A_M16_prism_reload_empty_GripPrecise.fbx"
+  },
+  "angled/reload": {
+   "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M16RemovalMelee20260920\\Animations\\angled\\A_M16_angled_reload.blend",
+   "action": "A_M16_angled_reload_GripPrecise",
+   "height_mm": 50.99,
+   "convention": "same_from_floorplate",
+   "m4_shell_length_mm": 176.77,
+   "m16_shell_length_mm": 205.9,
+   "options": {
+    "same_from_floorplate": {
+     "height_mm": 50.99,
+     "error": 268.1,
+     "profile": {
+      "hand_l": 41.64,
+      "thumb_01_l": -1.74,
+      "thumb_02_l": 4.46,
+      "thumb_03_l": 25.76,
+      "index_01_l": 22.33,
+      "index_02_l": 26.27,
+      "index_03_l": 20.51,
+      "middle_01_l": 11.3,
+      "middle_02_l": 6.22,
+      "middle_03_l": -0.34,
+      "ring_01_l": 0.74,
+      "ring_02_l": -1.13,
+      "ring_03_l": -4.71,
+      "pinky_01_l": -3.41,
+      "pinky_02_l": 8.55,
+      "pinky_03_l": 1.75
+     }
+    },
+    "same_from_feed_end": {
+     "height_mm": 80.13,
+     "error": 3474.7,
+     "profile": {
+      "hand_l": 33.03,
+      "thumb_01_l": 5.27,
+      "thumb_02_l": -2.24,
+      "thumb_03_l": 9.59,
+      "index_01_l": 40.9,
+      "index_02_l": 49.5,
+      "index_03_l": 38.78,
+      "middle_01_l": 30.99,
+      "middle_02_l": 27.9,
+      "middle_03_l": 11.94,
+      "ring_01_l": 13.6,
+      "ring_02_l": 5.02,
+      "ring_03_l": -6.75,
+      "pinky_01_l": -4.93,
+      "pinky_02_l": 1.16,
+      "pinky_03_l": 12.62
+     }
+    }
+   },
+   "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\m16_cache\\angled\\A_M16_angled_reload_GripPrecise.fbx"
+  },
+  "angled/reload_empty": {
+   "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M16RemovalMelee20260920\\Animations\\angled\\A_M16_angled_reload_empty.blend",
+   "action": "A_M16_angled_reload_empty_GripPrecise",
+   "height_mm": 50.99,
+   "convention": "same_from_floorplate",
+   "m4_shell_length_mm": 176.77,
+   "m16_shell_length_mm": 205.9,
+   "options": {
+    "same_from_floorplate": {
+     "height_mm": 50.99,
+     "error": 268.1,
+     "profile": {
+      "hand_l": 41.64,
+      "thumb_01_l": -1.74,
+      "thumb_02_l": 4.46,
+      "thumb_03_l": 25.76,
+      "index_01_l": 22.33,
+      "index_02_l": 26.27,
+      "index_03_l": 20.51,
+      "middle_01_l": 11.3,
+      "middle_02_l": 6.22,
+      "middle_03_l": -0.34,
+      "ring_01_l": 0.74,
+      "ring_02_l": -1.13,
+      "ring_03_l": -4.71,
+      "pinky_01_l": -3.41,
+      "pinky_02_l": 8.55,
+      "pinky_03_l": 1.75
+     }
+    },
+    "same_from_feed_end": {
+     "height_mm": 80.13,
+     "error": 3477.8,
+     "profile": {
+      "hand_l": 33.03,
+      "thumb_01_l": 5.27,
+      "thumb_02_l": -2.24,
+      "thumb_03_l": 9.6,
+      "index_01_l": 40.9,
+      "index_02_l": 49.51,
+      "index_03_l": 38.78,
+      "middle_01_l": 30.99,
+      "middle_02_l": 27.9,
+      "middle_03_l": 11.94,
+      "ring_01_l": 13.63,
+      "ring_02_l": 5.36,
+      "ring_03_l": -6.75,
+      "pinky_01_l": -4.94,
+      "pinky_02_l": 1.16,
+      "pinky_03_l": 12.65
+     }
+    }
+   },
+   "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\m16_cache\\angled\\A_M16_angled_reload_empty_GripPrecise.fbx"
+  }
+ }
+}

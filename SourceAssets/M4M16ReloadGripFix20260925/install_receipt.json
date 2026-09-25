@@ -1,0 +1,110 @@
+{
+ "/Game/Weapons/ExtMagContact20260919/A_M4_ExtContact_reload": {
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\M4Animations\\A_M4_ExtContact_reload_GripPrecise.fbx",
+  "duration": 2.0999999046325684,
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "saved": true,
+  "imported": [
+   "/Game/Weapons/ExtMagContact20260919/A_M4_ExtContact_reload.A_M4_ExtContact_reload"
+  ]
+ },
+ "/Game/Weapons/ExtMagContact20260919/A_M4_ExtContact_reload_empty": {
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\M4Animations\\A_M4_ExtContact_reload_empty_GripPrecise.fbx",
+  "duration": 2.700000047683716,
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "saved": true,
+  "imported": [
+   "/Game/Weapons/ExtMagContact20260919/A_M4_ExtContact_reload_empty.A_M4_ExtContact_reload_empty"
+  ]
+ },
+ "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_reload": {
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\m16_cache\\base\\A_M16_reload_GripPrecise.fbx",
+  "duration": 2.0999999046325684,
+  "skeleton": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny_Skeleton.SK_M16_Manny_Skeleton",
+  "saved": true,
+  "imported": [
+   "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_reload.A_M16_reload"
+  ]
+ },
+ "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_reload_empty": {
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\m16_cache\\base\\A_M16_reload_empty_GripPrecise.fbx",
+  "duration": 2.700000047683716,
+  "skeleton": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny_Skeleton.SK_M16_Manny_Skeleton",
+  "saved": true,
+  "imported": [
+   "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_reload_empty.A_M16_reload_empty"
+  ]
+ },
+ "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_reload": {
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\m16_cache\\vertical\\A_M16_vertical_reload_GripPrecise.fbx",
+  "duration": 2.0999999046325684,
+  "skeleton": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny_Skeleton.SK_M16_Manny_Skeleton",
+  "saved": true,
+  "imported": [
+   "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_reload.A_M16_vertical_reload"
+  ]
+ },
+ "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_reload_empty": {
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\m16_cache\\vertical\\A_M16_vertical_reload_empty_GripPrecise.fbx",
+  "duration": 2.700000047683716,
+  "skeleton": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny_Skeleton.SK_M16_Manny_Skeleton",
+  "saved": true,
+  "imported": [
+   "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_reload_empty.A_M16_vertical_reload_empty"
+  ]
+ },
+ "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_reload": {
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\m16_cache\\canted\\A_M16_canted_reload_GripPrecise.fbx",
+  "duration": 2.0999999046325684,
+  "skeleton": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny_Skeleton.SK_M16_Manny_Skeleton",
+  "saved": true,
+  "imported": [
+   "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_reload.A_M16_canted_reload"
+  ]
+ },
+ "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_reload_empty": {
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\m16_cache\\canted\\A_M16_canted_reload_empty_GripPrecise.fbx",
+  "duration": 2.700000047683716,
+  "skeleton": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny_Skeleton.SK_M16_Manny_Skeleton",
+  "saved": true,
+  "imported": [
+   "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_reload_empty.A_M16_canted_reload_empty"
+  ]
+ },
+ "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_reload": {
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\m16_cache\\prism\\A_M16_prism_reload_GripPrecise.fbx",
+  "duration": 2.0999999046325684,
+  "skeleton": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny_Skeleton.SK_M16_Manny_Skeleton",
+  "saved": true,
+  "imported": [
+   "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_reload.A_M16_prism_reload"
+  ]
+ },
+ "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_reload_empty": {
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\m16_cache\\prism\\A_M16_prism_reload_empty_GripPrecise.fbx",
+  "duration": 2.700000047683716,
+  "skeleton": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny_Skeleton.SK_M16_Manny_Skeleton",
+  "saved": true,
+  "imported": [
+   "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_reload_empty.A_M16_prism_reload_empty"
+  ]
+ },
+ "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_reload": {
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\m16_cache\\angled\\A_M16_angled_reload_GripPrecise.fbx",
+  "duration": 2.0999999046325684,
+  "skeleton": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny_Skeleton.SK_M16_Manny_Skeleton",
+  "saved": true,
+  "imported": [
+   "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_reload.A_M16_angled_reload"
+  ]
+ },
+ "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_reload_empty": {
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\m16_cache\\angled\\A_M16_angled_reload_empty_GripPrecise.fbx",
+  "duration": 2.700000047683716,
+  "skeleton": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny_Skeleton.SK_M16_Manny_Skeleton",
+  "saved": true,
+  "imported": [
+   "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_reload_empty.A_M16_angled_reload_empty"
+  ]
+ }
+}

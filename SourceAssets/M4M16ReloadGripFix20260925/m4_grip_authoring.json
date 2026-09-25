@@ -1,0 +1,73 @@
+{
+ "correction": {
+  "translation_mm": [
+   6.158,
+   -4.4171,
+   -4.5902
+  ],
+  "euler_xyz_deg": [
+   5.5298,
+   1.7995,
+   -5.6092
+  ],
+  "matrix": [
+   [
+    0.9947208762,
+    0.1002997532,
+    0.0216869973,
+    0.0061580208
+   ],
+   [
+    -0.097694926,
+    0.9902843833,
+    -0.0989575833,
+    -0.0044170823
+   ],
+   [
+    -0.0314017162,
+    0.0963164568,
+    0.9948553443,
+    -0.0045902012
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  ],
+  "order": "Translation @ Rz @ Ry @ Rx, expressed in the magazine shell frame"
+ },
+ "clips": {
+  "reload": {
+   "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\A_M4_ExtContact_reload.blend",
+   "action": "A_M4_ExtContact_reload_GripPrecise",
+   "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\M4Animations\\A_M4_ExtContact_reload.blend",
+   "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\M4Animations\\A_M4_ExtContact_reload_GripPrecise.fbx",
+   "end": 126,
+   "window": [
+    43,
+    61,
+    95,
+    108
+   ],
+   "grip_height_mm": 123.28,
+   "shell_length_mm": 176.77
+  },
+  "reload_empty": {
+   "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\A_M4_ExtContact_reload_empty.blend",
+   "action": "A_M4_ExtContact_reload_empty_GripPrecise",
+   "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\M4Animations\\A_M4_ExtContact_reload_empty.blend",
+   "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4M16ReloadGripFix20260925\\M4Animations\\A_M4_ExtContact_reload_empty_GripPrecise.fbx",
+   "end": 162,
+   "window": [
+    35,
+    43,
+    80,
+    100
+   ],
+   "grip_height_mm": 123.28,
+   "shell_length_mm": 176.77
+  }
+ }
+}

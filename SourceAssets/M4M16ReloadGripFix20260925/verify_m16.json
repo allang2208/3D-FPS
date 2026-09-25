@@ -1,0 +1,62 @@
+{
+ "base/reload": {
+  "err_before": 2530.4,
+  "err_after": 269.0,
+  "body_pen_before_mm": 1.62,
+  "body_pen_after_mm": 2.08
+ },
+ "base/reload_empty": {
+  "err_before": 2532.1,
+  "err_after": 269.1,
+  "body_pen_before_mm": 1.62,
+  "body_pen_after_mm": 2.08
+ },
+ "vertical/reload": {
+  "err_before": 2530.4,
+  "err_after": 269.0,
+  "body_pen_before_mm": 1.62,
+  "body_pen_after_mm": 2.08
+ },
+ "vertical/reload_empty": {
+  "err_before": 2532.1,
+  "err_after": 269.1,
+  "body_pen_before_mm": 1.62,
+  "body_pen_after_mm": 2.08
+ },
+ "canted/reload": {
+  "err_before": 2530.4,
+  "err_after": 269.0,
+  "body_pen_before_mm": 1.62,
+  "body_pen_after_mm": 2.08
+ },
+ "canted/reload_empty": {
+  "err_before": 2532.1,
+  "err_after": 269.1,
+  "body_pen_before_mm": 1.62,
+  "body_pen_after_mm": 2.08
+ },
+ "prism/reload": {
+  "err_before": 2530.4,
+  "err_after": 269.0,
+  "body_pen_before_mm": 1.62,
+  "body_pen_after_mm": 2.08
+ },
+ "prism/reload_empty": {
+  "err_before": 2532.1,
+  "err_after": 269.1,
+  "body_pen_before_mm": 1.62,
+  "body_pen_after_mm": 2.08
+ },
+ "angled/reload": {
+  "err_before": 2530.4,
+  "err_after": 269.0,
+  "body_pen_before_mm": 1.62,
+  "body_pen_after_mm": 2.08
+ },
+ "angled/reload_empty": {
+  "err_before": 2532.1,
+  "err_after": 269.1,
+  "body_pen_before_mm": 1.62,
+  "body_pen_after_mm": 2.08
+ }
+}

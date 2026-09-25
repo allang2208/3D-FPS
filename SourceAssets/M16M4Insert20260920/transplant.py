@@ -2,6 +2,14 @@
 
 Registration moves the complete left chain rigidly. No new finger poses, IK,
 bone lengths or source insertion curves. M16 empty charging tail stays original.
+
+WARNING (2026-09-25): the `contact_shift` below is a hand-tuned offset in weapon
+space and puts the left hand in the wrong place on the M16 magazine (index
+proximal 21 mm inside the shell, pinky 16-20 mm outside).  The shipped clips were
+re-registered on the magazine shell by
+`SourceAssets/M4M16ReloadGripFix20260925/author_m16_grip.py`; re-running this
+script without adopting that registration reverts the fix.  See
+`skills/ue5-fps-arms-animation/references/magazine-grip-registration.md`.
 """
 import bpy,json,sys
 from pathlib import Path

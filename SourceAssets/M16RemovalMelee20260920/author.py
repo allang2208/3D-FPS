@@ -2,6 +2,13 @@
 
 Only the reload head changes; the previous insertion/charging poses are input
 and remain untouched. No finger solver, wrist-only IK or twist-bone reset.
+
+WARNING (2026-09-25): this script also reuses the weapon-space `contact_shift`
+from `M16M4Insert20260920/transplant.json`, which misplaces the left hand on the
+M16 magazine.  The shipped reload clips were re-registered on the magazine shell
+by `SourceAssets/M4M16ReloadGripFix20260925/author_m16_grip.py`; adopt that
+registration before re-running.  See
+`skills/ue5-fps-arms-animation/references/magazine-grip-registration.md`.
 """
 import bpy,json,sys
 from pathlib import Path
