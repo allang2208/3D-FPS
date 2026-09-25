@@ -1,5 +1,7 @@
 # 手部装备表现：皮肤、衣袖与手套
 
+**当前默认（用户于 2026-09-25 确定）**：新增动画与基础视模使用 [认可的 V7 裸手](accepted-bare-hands.md)。手套、衣袖的制作与接入统一按 [第一人称装备标准工作流](first-person-equipment-workflow.md)。下文 2026-09-12 的原版手套材质案例属于历史作者源，仅供材质分区参考，不作为恢复默认带手套的指令。文中旧检查、预览及验收步骤仅在用户明确要求时执行。
+
 用于更换现有手模的材质、裸露皮肤、衣物袖子、手套材质/覆盖范围/袖口。2026-09-12 用户已接受 Manny 原色棕皮革手套延长 3 cm、薄卷边、皮肤前臂与炭灰布袖，并指定此方法作为后续手部装备表现标准。
 
 FPSGAME 正式作者入口：`D:/FPS3D/FPSGAME/SourceAssets/HandEquipmentAppearance/README.md`；完整项目参数、资产表、许可依赖和恢复命令：`D:/FPS3D/FPSGAME/Docs/Weapons/hand-equipment-appearance.md`。先读这两个入口；旧 `Arms*20260912` 试验作者目录已归档，不能继续从它们生成新版本。
@@ -12,6 +14,7 @@ FPSGAME 正式作者入口：`D:/FPS3D/FPSGAME/SourceAssets/HandEquipmentAppeara
 
 ## 可复用做法
 
+- 当前模块化毛衣的袖口、蒙皮和布料边界见 [第一人称装备标准工作流](first-person-equipment-workflow.md)。玩家衣物尚未接入巫婆 Chaos；制作记录见工程 `Docs/Characters/fitted-sleeves-cloth-state-20260925.md`。
 - 皮革区域：R 手套、G 掌面/指腹、B 真实壳边缝线；前臂区域：R 皮肤、G 肘腕纵向坐标、B 内侧、A 布袖口。UV 切缝不能直接当衣物缝线。
 - PBR 的真实扫描尺寸要换算到原模型/UV；原色皮革保留扫描 RGB，金属度 0，掌面更粗糙。记录来源/散列/通道及本地依赖，素材可商用不等于原扫描可公开再分发。
 - 皮肤只在裸露区做低幅毛孔与散射，去掉原盔甲板法线；布袖与皮革不吃皮肤散射。颜色/强度以当前照明与实机视点调整，3 cm、0.18 等均是此案例参数。

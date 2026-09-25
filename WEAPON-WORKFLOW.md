@@ -1,5 +1,7 @@
 # UE5 武器与手臂标准
 
+**默认手模（用户于 2026-09-25 更新）**：新增动画和新武器统一以已认可的 V7 裸手、裸臂开发，基础视模默认也是这套。手套、衣袖适配裸手并复用动作。作者源与接入规则见 [认可的裸手基准](skills/ue5-fps-arms-animation/references/accepted-bare-hands.md)。
+
 当前工程入口为根目录 `FPSGAME.uproject`，完整本机宿主及 Git 工作目录都是 `D:/FPS3D/FPSGAME`，直接在该目录提交和推送。
 
 - [M4 枪托砸击（快速进战·步枪版）](Docs/Weapons/m4-stock-melee-20260918.md)：作者源 clip 路线（六握把配置各一条）、Blender 对位胶片、命中探针取枪身前段；未实机测试。

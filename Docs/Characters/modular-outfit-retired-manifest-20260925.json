@@ -1,0 +1,645 @@
+{
+  "task": "modular-outfit-retired-20260925",
+  "project": "D:/FPS3D/FPSGAME",
+  "entries": [
+    {
+      "source": "SourceAssets/ModularOutfit20260924/A762_Equipment.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/A762_Equipment.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/A762_Equipment.blend1",
+      "bytes": 3558131,
+      "sha256": "d64c9caf3a367efa46cc74e8517a5f0c3c8283b5ae3e7670022058479f1a835c",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/AKM_Equipment.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/AKM_Equipment.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/AKM_Equipment.blend1",
+      "bytes": 3449622,
+      "sha256": "ea77b502aae33c45f85b2a70221ea7476f245f3eb5565f6f498b6fbc61068bbb",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/AnatomicalHands_Master.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/AnatomicalHands_Master.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/AnatomicalHands_Master.blend1",
+      "bytes": 6747402,
+      "sha256": "8d61a437d3463336ac3cd4f0fe1bcc8c1879c10434735b8daa49c0e402c284fd",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/ASH12_Equipment.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/ASH12_Equipment.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/ASH12_Equipment.blend1",
+      "bytes": 3472356,
+      "sha256": "9d640631f82c0e9dd5655efdc8fd120fa1258c7d22c491202e4765a26144f875",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/Axe_Equipment.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/Axe_Equipment.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/Axe_Equipment.blend1",
+      "bytes": 3450865,
+      "sha256": "7f3e212056456b8e4dfef7450d9069ec60b45ed9950f49133e5490a5bd841439",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/Body_Equipment.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/Body_Equipment.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/Body_Equipment.blend1",
+      "bytes": 5950997,
+      "sha256": "1272b839897328ccc30e9764990d4eeb99add43825e4fa60b5571a2d2ffdd221",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/DW715_Equipment.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/DW715_Equipment.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/DW715_Equipment.blend1",
+      "bytes": 3554148,
+      "sha256": "e7d5f1b9dca19458311b7be6e170c2a853b06751b9d6633ce9fd792763f17de1",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/DW715_l_Equipment.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/DW715_l_Equipment.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/DW715_l_Equipment.blend1",
+      "bytes": 1835033,
+      "sha256": "6d9752e332a1f165355207ba963fd83b4105b204abfa24b997ba88abf6755e26",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/DW715_r_Equipment.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/DW715_r_Equipment.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/DW715_r_Equipment.blend1",
+      "bytes": 1838870,
+      "sha256": "d87b888b40f1386e25d6784cbde1954347e301d940c437e22187e5a39c928729",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/FieldEquipment_Master.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/FieldEquipment_Master.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/FieldEquipment_Master.blend1",
+      "bytes": 5077125,
+      "sha256": "c728c5a47eac7cdaadd99b7bcb1c345b4047e09dd5aa7258e681935283997754",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/FrostArms_Equipment.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/FrostArms_Equipment.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/FrostArms_Equipment.blend1",
+      "bytes": 3450229,
+      "sha256": "585546dce88ed6dfff050226903268cc6e8b1386de4846ec2101988d83c4be28",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/FrostSword_Equipment.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/FrostSword_Equipment.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/FrostSword_Equipment.blend1",
+      "bytes": 3532919,
+      "sha256": "3350bb1de708b2c8d2bedeffb238b2c90bd2a1174ae1edbaf58ff59bbbc7e515",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/ItemPresentation.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/ItemPresentation.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/ItemPresentation.blend1",
+      "bytes": 2117608,
+      "sha256": "5d60a0c85bdb7c901725328fd4d1bed4f32075599549e60eb41c4361c5d1969a",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/M16_Equipment.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/M16_Equipment.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/M16_Equipment.blend1",
+      "bytes": 3488813,
+      "sha256": "4e6ed83013ab7a99fdffcaeaf31e0db1c816c49dc45d7e45a00bd7dbcbbe0290",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/M1911_Equipment.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/M1911_Equipment.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/M1911_Equipment.blend1",
+      "bytes": 3464432,
+      "sha256": "0b3b403a515dde8bf266964e501ddfdcde5d29ae638d1520570526d824842930",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/M1911_l_Equipment.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/M1911_l_Equipment.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/M1911_l_Equipment.blend1",
+      "bytes": 1796165,
+      "sha256": "b5bbb883ec958f4600e7c4b4c4a4232628b493b881b6fc86b7fe0129edfc1de0",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/M1911_r_Equipment.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/M1911_r_Equipment.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/M1911_r_Equipment.blend1",
+      "bytes": 1799239,
+      "sha256": "fc76e720abf7f75cc20fad53134bbf326192e1731fb20e6ce61a829e3f357560",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/M4_Equipment.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/M4_Equipment.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/M4_Equipment.blend1",
+      "bytes": 3453217,
+      "sha256": "d2668c40667d583d66258087a7dc356914dcb3437a64337d4b4abb505e61553e",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/Pickaxe_Equipment.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/Pickaxe_Equipment.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/Pickaxe_Equipment.blend1",
+      "bytes": 3532557,
+      "sha256": "e9ad523d09b027c4fbf09e585858715188f6a9e556f59003b6cdb42d78c63c88",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/PKM_Equipment.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/PKM_Equipment.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/PKM_Equipment.blend1",
+      "bytes": 3582205,
+      "sha256": "8b0791ad765e3eb36dad9feabcae0cbc0426da40a2715eafc9fc461ccc9fb672",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/QBZ191_Equipment.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/QBZ191_Equipment.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/QBZ191_Equipment.blend1",
+      "bytes": 3543868,
+      "sha256": "cb3bbd45d182aab216e65c226a20b712e38f280c527148cadd13b24ad1b4f892",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/RuneSword_Equipment.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/RuneSword_Equipment.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/RuneSword_Equipment.blend1",
+      "bytes": 3447785,
+      "sha256": "9ed1bd714d220c61f38654b21c9de42111175e00eec17b3c2c3519a1254d78c1",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/SVD_Equipment.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/SVD_Equipment.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/SVD_Equipment.blend1",
+      "bytes": 3465101,
+      "sha256": "92cca45deef643d7b03c62a5d0279211924cd56da8949f8282575aae3a3fb1a9",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/Traversal_Equipment.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/Traversal_Equipment.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/Traversal_Equipment.blend1",
+      "bytes": 3444200,
+      "sha256": "909b66d7ded18c71e92a187f72c930980f1b62b6acabe72f39849c84fff015cb",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/NativeSkin/A762_BareSkin.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/NativeSkin/A762_BareSkin.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/NativeSkin/A762_BareSkin.blend1",
+      "bytes": 1347616,
+      "sha256": "75c83e2cd9c3e58b185f182ebc7b35aed8cecea23cd7e1205aabca5eca00ab4e",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/NativeSkin/AKM_BareSkin.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/NativeSkin/AKM_BareSkin.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/NativeSkin/AKM_BareSkin.blend1",
+      "bytes": 1352649,
+      "sha256": "e9264e4e5995ed506c1e49046ae8d68cdaf1ba7f953dae2cfe5a4854d2094dae",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/NativeSkin/ASH12_BareSkin.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/NativeSkin/ASH12_BareSkin.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/NativeSkin/ASH12_BareSkin.blend1",
+      "bytes": 1346075,
+      "sha256": "9a953205c6091155119515c57260b9314772924287d7655c5423722ff31338db",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/NativeSkin/Axe_BareSkin.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/NativeSkin/Axe_BareSkin.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/NativeSkin/Axe_BareSkin.blend1",
+      "bytes": 1347851,
+      "sha256": "2347f4d2719154b781613f3df1f1c3be5c386c24eeb7295b7b1c21c616a22999",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/NativeSkin/Body_BareSkin.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/NativeSkin/Body_BareSkin.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/NativeSkin/Body_BareSkin.blend1",
+      "bytes": 3213668,
+      "sha256": "80a87935fb5443f4b513543dddeefb329c3dd2fdcbd6f157fdf48b3edb71bd8e",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/NativeSkin/DW715_BareSkin.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/NativeSkin/DW715_BareSkin.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/NativeSkin/DW715_BareSkin.blend1",
+      "bytes": 1346648,
+      "sha256": "06bee33fbd0b91ad3a1078ec307c6b112b45c976466d007062c6f8f93155d0fc",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/NativeSkin/DW715_l_BareSkin.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/NativeSkin/DW715_l_BareSkin.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/NativeSkin/DW715_l_BareSkin.blend1",
+      "bytes": 735220,
+      "sha256": "185bfdf0fa002c71bad4fe8648143a6fc2505696cc206bab022be97795e1f47b",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/NativeSkin/DW715_r_BareSkin.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/NativeSkin/DW715_r_BareSkin.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/NativeSkin/DW715_r_BareSkin.blend1",
+      "bytes": 739834,
+      "sha256": "0410b2f951ef6b56370290f6441ba166d8b4f051cfa71d739c84840e1482f9a7",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/NativeSkin/FrostArms_BareSkin.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/NativeSkin/FrostArms_BareSkin.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/NativeSkin/FrostArms_BareSkin.blend1",
+      "bytes": 1347542,
+      "sha256": "71c05df107b024539f5130ed3d31fe46a56f566572766789639bdf3bf5a1c9f6",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/NativeSkin/FrostSword_BareSkin.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/NativeSkin/FrostSword_BareSkin.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/NativeSkin/FrostSword_BareSkin.blend1",
+      "bytes": 1349184,
+      "sha256": "8c79d4cbe89756cffc1e352d8761e1c327299df7c102f1c731898de9adc008bd",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/NativeSkin/M16_BareSkin.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/NativeSkin/M16_BareSkin.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/NativeSkin/M16_BareSkin.blend1",
+      "bytes": 1350267,
+      "sha256": "6ce01317c8c1ce0b4266b2256bea0be99f6b12c04a3cb9efe8257f2272b5e37b",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/NativeSkin/M1911_BareSkin.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/NativeSkin/M1911_BareSkin.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/NativeSkin/M1911_BareSkin.blend1",
+      "bytes": 1348024,
+      "sha256": "2c9883a701f755de5063e3c13db4828ff1fc111b96d42ea6d94b14f1454e5510",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/NativeSkin/M1911_l_BareSkin.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/NativeSkin/M1911_l_BareSkin.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/NativeSkin/M1911_l_BareSkin.blend1",
+      "bytes": 736044,
+      "sha256": "4c413aae7e27c082f6c69f4cd30e1b56b37b639e5f6f6287277573ad25cb70fd",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/NativeSkin/M1911_r_BareSkin.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/NativeSkin/M1911_r_BareSkin.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/NativeSkin/M1911_r_BareSkin.blend1",
+      "bytes": 739774,
+      "sha256": "6635dba88fd6d36470d5e461c7a123596c52e5e505cd6d8601afea5f83fb1915",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/NativeSkin/M4_BareSkin.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/NativeSkin/M4_BareSkin.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/NativeSkin/M4_BareSkin.blend1",
+      "bytes": 1346501,
+      "sha256": "2bf525bd3be410078f70c30bef856a3b7437ff5f9c464315add1c3a7b1a8cad7",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/NativeSkin/Pickaxe_BareSkin.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/NativeSkin/Pickaxe_BareSkin.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/NativeSkin/Pickaxe_BareSkin.blend1",
+      "bytes": 1346758,
+      "sha256": "6d0704e40bb11b360a346eae02e54bc3a0fc5af186d7e09657399328625df947",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/NativeSkin/PKM_BareSkin.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/NativeSkin/PKM_BareSkin.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/NativeSkin/PKM_BareSkin.blend1",
+      "bytes": 1353511,
+      "sha256": "9f46412d6ec28aefb5d1e231d74ac574f4d0aa8b66d33b1cc736537a2e774d49",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/NativeSkin/QBZ191_BareSkin.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/NativeSkin/QBZ191_BareSkin.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/NativeSkin/QBZ191_BareSkin.blend1",
+      "bytes": 1346828,
+      "sha256": "20365f3c5b91928cd3c1651c919f6565c1ee5f382466bbef11b217f5a6b29846",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/NativeSkin/RuneSword_BareSkin.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/NativeSkin/RuneSword_BareSkin.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/NativeSkin/RuneSword_BareSkin.blend1",
+      "bytes": 1346655,
+      "sha256": "574bbeb7d97b4315576d9fa6e3c72a6162ea4cae070e1656ee67182cc63e502a",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/NativeSkin/SVD_BareSkin.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/NativeSkin/SVD_BareSkin.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/NativeSkin/SVD_BareSkin.blend1",
+      "bytes": 1346899,
+      "sha256": "99b2acb3726c1aa56eff85dbf21027e616f14d6dddfc92386f464e8fecc0f8f1",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/NativeSkin/Traversal_BareSkin.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/NativeSkin/Traversal_BareSkin.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/NativeSkin/Traversal_BareSkin.blend1",
+      "bytes": 1346172,
+      "sha256": "4d8f3b40a0a555fd34137b7ded1df8cebdfb281d0f965a00a8eba80fc441c5cf",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/OriginalShapeBareM4/M4_OriginalShape_BareHands_Editable.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/OriginalShapeBareM4/M4_OriginalShape_BareHands_Editable.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/OriginalShapeBareM4/M4_OriginalShape_BareHands_Editable.blend1",
+      "bytes": 82560572,
+      "sha256": "e0c056c7082aeb01ca0be257307c4f4a1d5c2e98b2d6aa08512dedd7e1ff7de8",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/OriginalShapeBareM4/RefinedSkinV3/M4_OriginalShape_BareHands_Editable.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/OriginalShapeBareM4/RefinedSkinV3/M4_OriginalShape_BareHands_Editable.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/OriginalShapeBareM4/RefinedSkinV3/M4_OriginalShape_BareHands_Editable.blend1",
+      "bytes": 84293645,
+      "sha256": "90cf2ae4e9261c5ba291c87ed9f371e6c91d77a381e791b1eddfa3b361894694",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/OriginalShapeBareM4/SmoothSkinV2/M4_OriginalShape_BareHands_Editable.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/OriginalShapeBareM4/SmoothSkinV2/M4_OriginalShape_BareHands_Editable.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/OriginalShapeBareM4/SmoothSkinV2/M4_OriginalShape_BareHands_Editable.blend1",
+      "bytes": 84045438,
+      "sha256": "c212b337074fe06a3337bb2a821f0e02739770258f9df85ce92b9bd518370f69",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260924/OriginalShapeBareM4/WristContourV4/M4_OriginalShape_BareHands_Editable.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260924/OriginalShapeBareM4/WristContourV4/M4_OriginalShape_BareHands_Editable.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260924/OriginalShapeBareM4/WristContourV4/M4_OriginalShape_BareHands_Editable.blend1",
+      "bytes": 92370364,
+      "sha256": "908a63f190aac9909ece20b87321b6975c9a46f86165f8778687651d7dfa61fc",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/A762_FittedSleevesV1.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/A762_FittedSleevesV1.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/A762_FittedSleevesV1.blend1",
+      "bytes": 705721,
+      "sha256": "7a352818cce43589e73949b7779ca35586d58627d63b1906c5f42185c281651f",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/AKM_FittedSleevesV1.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/AKM_FittedSleevesV1.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/AKM_FittedSleevesV1.blend1",
+      "bytes": 705068,
+      "sha256": "9fe250d3f03ca1b70fb8a53a760bf028d945366baa19ae28636e74530e633c9f",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/ASH12_FittedSleevesV1.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/ASH12_FittedSleevesV1.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/ASH12_FittedSleevesV1.blend1",
+      "bytes": 849998,
+      "sha256": "8e1dfe35f28a623e34573f32d583870b98cfeca3ea2037878937841185fbaee6",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/Axe_FittedSleevesV1.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/Axe_FittedSleevesV1.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/Axe_FittedSleevesV1.blend1",
+      "bytes": 709674,
+      "sha256": "3017911b4a96962919c149668934a4b474e7b46e76349fc6b12ede42002edcc1",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/DW715_FittedSleevesV1.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/DW715_FittedSleevesV1.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/DW715_FittedSleevesV1.blend1",
+      "bytes": 709010,
+      "sha256": "3de2ee05a6d130e1874a67282d3fe713259059c5d120bcebc414fef6f6ab18d8",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/DW715_l_FittedSleevesV1.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/DW715_l_FittedSleevesV1.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/DW715_l_FittedSleevesV1.blend1",
+      "bytes": 404112,
+      "sha256": "0fb6aabd3500f927b41c45ae51a1ba855dd9d6bdf04d7c34d61dcc9a716b1e05",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/DW715_r_FittedSleevesV1.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/DW715_r_FittedSleevesV1.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/DW715_r_FittedSleevesV1.blend1",
+      "bytes": 404073,
+      "sha256": "831dabd5ba14d7f3b2de7f8d6819f1985e87f3eea587e5f46ca9c713194a06dd",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/FrostArms_FittedSleevesV1.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/FrostArms_FittedSleevesV1.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/FrostArms_FittedSleevesV1.blend1",
+      "bytes": 705602,
+      "sha256": "7af06bae5b76ab61271f50d5bdc5467b48a522a962a37682839a29b349c22e59",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/FrostSword_FittedSleevesV1.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/FrostSword_FittedSleevesV1.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/FrostSword_FittedSleevesV1.blend1",
+      "bytes": 705541,
+      "sha256": "25bcf6087fc8d720d37abaa8eb96a516edd485dc43fdb086c72f1b2116c442bc",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/M16_FittedSleevesV1.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/M16_FittedSleevesV1.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/M16_FittedSleevesV1.blend1",
+      "bytes": 842014,
+      "sha256": "d91c87d80bd802a9f9af083bdcf7dd728edb8f50fba910dcbda099aea2b83bbc",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/M1911_FittedSleevesV1.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/M1911_FittedSleevesV1.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/M1911_FittedSleevesV1.blend1",
+      "bytes": 709631,
+      "sha256": "8f59c759e0276e63ab3dd48d0f8468f3816942ac97d6f710f2ec3755abc54be0",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/M1911_l_FittedSleevesV1.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/M1911_l_FittedSleevesV1.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/M1911_l_FittedSleevesV1.blend1",
+      "bytes": 402324,
+      "sha256": "37f2649bc91986677847beb2b4ab7b6fd573aa1d3bd39a9b1c5c84d3cf22306c",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/M1911_r_FittedSleevesV1.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/M1911_r_FittedSleevesV1.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/M1911_r_FittedSleevesV1.blend1",
+      "bytes": 403383,
+      "sha256": "0743850868e0f8b3cfc61beab95b1f9cc757f50aa225d08533d2cddab9ed542a",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/M4_FittedSleevesV1.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/M4_FittedSleevesV1.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/M4_FittedSleevesV1.blend1",
+      "bytes": 709354,
+      "sha256": "031e2bad8446d95ac387c52dac543c7624c808dceef7c46dd0fdfac88060d53b",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/Pickaxe_FittedSleevesV1.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/Pickaxe_FittedSleevesV1.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/Pickaxe_FittedSleevesV1.blend1",
+      "bytes": 704439,
+      "sha256": "be10de61510de3d2117435fdc782d2ebbdf06d03bedee5a1a5c872ee3f27a9ca",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/PKM_FittedSleevesV1.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/PKM_FittedSleevesV1.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/PKM_FittedSleevesV1.blend1",
+      "bytes": 716457,
+      "sha256": "5dc7ca961ed85667732aae175209dc91b61c033d70f518f7f6a033a5e77e00ee",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/QBZ191_FittedSleevesV1.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/QBZ191_FittedSleevesV1.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/QBZ191_FittedSleevesV1.blend1",
+      "bytes": 704068,
+      "sha256": "908a1de6401192324fdba6fd702ca2ce4e7a7e99fc25856d1dbdce36c5b82bd9",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/RuneSword_FittedSleevesV1.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/RuneSword_FittedSleevesV1.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/RuneSword_FittedSleevesV1.blend1",
+      "bytes": 707572,
+      "sha256": "4f20c5559dcdc58de66b3519316a38a5f5fcb60bd294baa78d9337b052da8c99",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/SVD_FittedSleevesV1.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/SVD_FittedSleevesV1.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/SVD_FittedSleevesV1.blend1",
+      "bytes": 709359,
+      "sha256": "436e9eecd68dc35fbf246c17d5843bf6c2dbc9d380a1e0ca11353680abfa2b4c",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/Traversal_FittedSleevesV1.blend1",
+      "reason": "Superseded Blender automatic backup; corresponding editable source retained",
+      "retained": "SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/Traversal_FittedSleevesV1.blend",
+      "target": "trash/modular-outfit-retired-20260925/SourceAssets/ModularOutfit20260925/FittedSleevesV1/Editable/Traversal_FittedSleevesV1.blend1",
+      "bytes": 704919,
+      "sha256": "20c861718559a3af5a3ac49ff52f069e77d53196e5c2c88190129875c6b50db6",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "Tools/ModularOutfit/end_play_for_native_skin.py",
+      "reason": "Completed one-off editor-session operation; not an authoring dependency",
+      "retained": "Tools/ModularOutfit/Run-Authoring.ps1",
+      "target": "trash/modular-outfit-retired-20260925/Tools/ModularOutfit/end_play_for_native_skin.py",
+      "bytes": 234,
+      "sha256": "3d8a013600393e6056e9e595f01da2134c3d06621d178bbaf7987fab2ffea0a6",
+      "status": "moved_hash_verified"
+    },
+    {
+      "source": "Tools/ModularOutfit/repair_default_hands_livecoding.json",
+      "reason": "Completed one-off editor-session operation; not an authoring dependency",
+      "retained": "Tools/ModularOutfit/Run-Authoring.ps1",
+      "target": "trash/modular-outfit-retired-20260925/Tools/ModularOutfit/repair_default_hands_livecoding.json",
+      "bytes": 115,
+      "sha256": "1160665acc7c2ecceba809940629033999b474e6e69162add6c77782c59b3db4",
+      "status": "moved_hash_verified"
+    }
+  ]
+}

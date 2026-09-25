@@ -1,4 +1,5 @@
 #include "FPSPlayerBodyComponent.h"
+#include "FPSModularOutfitComponent.h"
 #include "FPSPlayerBodyAnimInstance.h"
 #include "FPSPlayerBodyPoses.h"
 #include "../FPSGAMECharacter.h"
@@ -259,6 +260,7 @@ void UFPSPlayerBodyComponent::UpdateWorldWeaponPresentation()
 
 void UFPSPlayerBodyComponent::ApplyOutfit(const TArray<FFPSBodyOutfitSlot>& Outfit)
 {
+    if(auto* Modular=GetOwner()->FindComponentByClass<UFPSModularOutfitComponent>())Modular->SetWorldOutfit(Outfit);
     if(FPSPlayerBodyWorldBodySuppressed())return;
     auto* Body=GetBodyMesh();if(!Body||!Configuration.IsValid())return;
     for(auto Part:OutfitMeshes)if(Part)Part->DestroyComponent();OutfitMeshes.Reset();

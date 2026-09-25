@@ -1,5 +1,6 @@
 #include "FPSGAMECharacter.h"
 #include "Characters/FPSPlayerBodyComponent.h"
+#include "Characters/FPSModularOutfitComponent.h"
 #include "Weapons/PistolDualWieldComponent.h"
 #include "Development/DevelopmentTuningSubsystem.h"
 #include "Production/ProductionToolComponent.h"
@@ -162,6 +163,7 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
 {
     PrimaryActorTick.bCanEverTick = true;
     CreateDefaultSubobject<UFPSPlayerBodyComponent>(TEXT("PlayerBody"));
+    CreateDefaultSubobject<UFPSModularOutfitComponent>(TEXT("ModularOutfit"));
     Traversal = CreateDefaultSubobject<UFPSTraversalComponent>(TEXT("Traversal"));
     CreateDefaultSubobject<UProductionToolComponent>(TEXT("ProductionTools"));
     CreateDefaultSubobject<UM4TacticalSprintComponent>(TEXT("M4TacticalSprint"));

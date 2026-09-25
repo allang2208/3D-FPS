@@ -1,4 +1,12 @@
 # Unreal generated/local state
+# Modular outfit publication: recipes only; licensed geometry, bindings,
+# textures, source packages and local import receipts stay on this host.
+/SourceAssets/ModularOutfit20260924/**
+!/SourceAssets/ModularOutfit20260924/**/
+!/SourceAssets/ModularOutfit20260924/**/*.md
+/SourceAssets/ModularOutfit20260925/**
+!/SourceAssets/ModularOutfit20260925/**/
+!/SourceAssets/ModularOutfit20260925/**/*.md
 # Witch pause/publication: recipes and prose only; Meshy/Epic payloads and sampled poses remain local.
 /SourceAssets/WitchMeshy20260919/**
 !/SourceAssets/WitchMeshy20260919/**/
