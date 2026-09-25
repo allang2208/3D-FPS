@@ -11,6 +11,7 @@
 - [当前 M4 合同](skills/ue5-fps-arms-animation/references/m4-baseline.md)：参数应用前核对实际 C++ 加载。
 - [M16A2 发布与恢复](Docs/Weapons/m16-publication-20260920.md)：三连发、M4 换弹/近战复用、空仓拉机柄、通用配件及四款枪托封口；已获用户确认，保留最终作者依赖链。
 - [M4 / M16 换弹左手抓握精度修复](Docs/Weapons/m4-m16-reload-grip-precision-20260925.md)：把抓握存成弹匣自身壳坐标系的关系再跨枪搬运，替换 M16 移植里手估的武器空间常量偏移；12 条换弹重导。方法沉淀见 [弹匣抓握跨枪配准](skills/ue5-fps-arms-animation/references/magazine-grip-registration.md)。
+- [AKM / A762 换弹拇指扭曲修复](Docs/Weapons/akm-a762-reload-thumb-twist-20260925.md)：抓握把拇指根部绕自身轴扭了 67°，按 SVD 经验只重做拇指三条轨道（根部纯 swing）；30 条换弹重导。判据与改法沉淀见 [异形弹匣自然抓握](skills/ue5-fps-arms-animation/references/irregular-magazine-grip.md)。
 - [发布规则](WORKFLOW.md#8-仓库整理与推送) 与 [资产恢复](Docs/AssetSetup.md)。
 
 M4 普通/空仓都甩掉旧弹匣、镜头外取新匣、左手包握插入；空仓保留拍击，装备按其拉栓动作处理。手枪按实际源动作和机械状态适配，M1911 采用拔枪与空仓套筒释放，支持装备途中开火和 ADS。不同枪型重新校准接触和时序，个人技能源与工程镜像保持同步。

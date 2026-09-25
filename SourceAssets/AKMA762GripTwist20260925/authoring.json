@@ -1,0 +1,1442 @@
+{
+ "AKM/standard/base/reload": {
+  "asset": "/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\base\\A_AKM_reload.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\standard\\base\\A_AKM_reload.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\standard\\base\\A_AKM_reload.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.97948,
+    0.12646,
+    0.0,
+    0.15693
+   ],
+   "thumb_02_l": [
+    0.96593,
+    0.0,
+    0.0,
+    0.25882
+   ],
+   "thumb_03_l": [
+    0.97636,
+    0.0,
+    0.0,
+    0.21617
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 69.08,
+    "twist_after": 66.81
+   },
+   "thumb_02_l": {
+    "twist_before": -17.27,
+    "twist_after": -17.27
+   },
+   "thumb_03_l": {
+    "twist_before": 8.61,
+    "twist_after": 8.61
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "AKM/extended/base/reload": {
+  "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_reload",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\base\\A_AKM_ExtContact_reload.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\extended\\base\\A_AKM_ExtContact_reload.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\extended\\base\\A_AKM_ExtContact_reload.fbx",
+  "fps": 120,
+  "sample_step": 0.5,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.97948,
+    0.12646,
+    0.0,
+    0.15693
+   ],
+   "thumb_02_l": [
+    0.96593,
+    0.0,
+    0.0,
+    0.25882
+   ],
+   "thumb_03_l": [
+    0.97636,
+    0.0,
+    0.0,
+    0.21617
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 69.08,
+    "twist_after": 66.81
+   },
+   "thumb_02_l": {
+    "twist_before": -17.27,
+    "twist_after": -17.27
+   },
+   "thumb_03_l": {
+    "twist_before": 8.61,
+    "twist_after": 8.61
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "AKM/standard/base/reload_empty": {
+  "asset": "/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload_empty",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\base\\A_AKM_reload_empty.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\standard\\base\\A_AKM_reload_empty.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\standard\\base\\A_AKM_reload_empty.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.97948,
+    0.12646,
+    0.0,
+    0.15693
+   ],
+   "thumb_02_l": [
+    0.96593,
+    0.0,
+    0.0,
+    0.25882
+   ],
+   "thumb_03_l": [
+    0.97636,
+    0.0,
+    0.0,
+    0.21617
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 69.9,
+    "twist_after": 65.79
+   },
+   "thumb_02_l": {
+    "twist_before": -17.27,
+    "twist_after": -17.27
+   },
+   "thumb_03_l": {
+    "twist_before": 8.61,
+    "twist_after": 8.61
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "AKM/extended/base/reload_empty": {
+  "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_reload_empty",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\base\\A_AKM_ExtContact_reload_empty.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\extended\\base\\A_AKM_ExtContact_reload_empty.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\extended\\base\\A_AKM_ExtContact_reload_empty.fbx",
+  "fps": 120,
+  "sample_step": 0.5,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.97948,
+    0.12646,
+    0.0,
+    0.15693
+   ],
+   "thumb_02_l": [
+    0.96593,
+    0.0,
+    0.0,
+    0.25882
+   ],
+   "thumb_03_l": [
+    0.97636,
+    0.0,
+    0.0,
+    0.21617
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 69.9,
+    "twist_after": 65.93
+   },
+   "thumb_02_l": {
+    "twist_before": -17.27,
+    "twist_after": -17.27
+   },
+   "thumb_03_l": {
+    "twist_before": 8.61,
+    "twist_after": 8.61
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "AKM/standard/angled/reload": {
+  "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_reload",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\angled\\A_AKM_angled_reload.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\standard\\angled\\A_AKM_angled_reload.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\standard\\angled\\A_AKM_angled_reload.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.97948,
+    0.12646,
+    0.0,
+    0.15693
+   ],
+   "thumb_02_l": [
+    0.96593,
+    0.0,
+    0.0,
+    0.25882
+   ],
+   "thumb_03_l": [
+    0.97636,
+    0.0,
+    0.0,
+    0.21617
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 66.81,
+    "twist_after": 66.81
+   },
+   "thumb_02_l": {
+    "twist_before": -8.92,
+    "twist_after": -8.92
+   },
+   "thumb_03_l": {
+    "twist_before": 4.75,
+    "twist_after": 4.75
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "AKM/extended/angled/reload": {
+  "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_angled_reload",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\angled\\A_AKM_ExtContact_angled_reload.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\extended\\angled\\A_AKM_ExtContact_angled_reload.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\extended\\angled\\A_AKM_ExtContact_angled_reload.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.97948,
+    0.12646,
+    0.0,
+    0.15693
+   ],
+   "thumb_02_l": [
+    0.96593,
+    0.0,
+    0.0,
+    0.25882
+   ],
+   "thumb_03_l": [
+    0.97636,
+    0.0,
+    0.0,
+    0.21617
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 66.81,
+    "twist_after": 66.81
+   },
+   "thumb_02_l": {
+    "twist_before": -8.92,
+    "twist_after": -8.92
+   },
+   "thumb_03_l": {
+    "twist_before": 4.75,
+    "twist_after": 4.75
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "AKM/standard/angled/reload_empty": {
+  "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_reload_empty",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\angled\\A_AKM_angled_reload_empty.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\standard\\angled\\A_AKM_angled_reload_empty.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\standard\\angled\\A_AKM_angled_reload_empty.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.97948,
+    0.12646,
+    0.0,
+    0.15693
+   ],
+   "thumb_02_l": [
+    0.96593,
+    0.0,
+    0.0,
+    0.25882
+   ],
+   "thumb_03_l": [
+    0.97636,
+    0.0,
+    0.0,
+    0.21617
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 66.78,
+    "twist_after": 65.79
+   },
+   "thumb_02_l": {
+    "twist_before": -8.92,
+    "twist_after": -8.92
+   },
+   "thumb_03_l": {
+    "twist_before": 4.78,
+    "twist_after": 4.78
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "AKM/extended/angled/reload_empty": {
+  "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_angled_reload_empty",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\angled\\A_AKM_ExtContact_angled_reload_empty.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\extended\\angled\\A_AKM_ExtContact_angled_reload_empty.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\extended\\angled\\A_AKM_ExtContact_angled_reload_empty.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.97948,
+    0.12646,
+    0.0,
+    0.15693
+   ],
+   "thumb_02_l": [
+    0.96593,
+    0.0,
+    0.0,
+    0.25882
+   ],
+   "thumb_03_l": [
+    0.97636,
+    0.0,
+    0.0,
+    0.21617
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 66.78,
+    "twist_after": 65.79
+   },
+   "thumb_02_l": {
+    "twist_before": -8.92,
+    "twist_after": -8.92
+   },
+   "thumb_03_l": {
+    "twist_before": 4.78,
+    "twist_after": 4.78
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "AKM/standard/vertical/reload": {
+  "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVRENatural/vertical/A_AKM_vertical_reload",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\vertical\\A_AKM_vertical_reload.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\standard\\vertical\\A_AKM_vertical_reload.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\standard\\vertical\\A_AKM_vertical_reload.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.97948,
+    0.12646,
+    0.0,
+    0.15693
+   ],
+   "thumb_02_l": [
+    0.96593,
+    0.0,
+    0.0,
+    0.25882
+   ],
+   "thumb_03_l": [
+    0.97636,
+    0.0,
+    0.0,
+    0.21617
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 66.81,
+    "twist_after": 66.81
+   },
+   "thumb_02_l": {
+    "twist_before": -5.16,
+    "twist_after": -5.16
+   },
+   "thumb_03_l": {
+    "twist_before": 3.42,
+    "twist_after": 3.42
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "AKM/extended/vertical/reload": {
+  "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_vertical_reload",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\vertical\\A_AKM_ExtContact_vertical_reload.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\extended\\vertical\\A_AKM_ExtContact_vertical_reload.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\extended\\vertical\\A_AKM_ExtContact_vertical_reload.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.97948,
+    0.12646,
+    0.0,
+    0.15693
+   ],
+   "thumb_02_l": [
+    0.96593,
+    0.0,
+    0.0,
+    0.25882
+   ],
+   "thumb_03_l": [
+    0.97636,
+    0.0,
+    0.0,
+    0.21617
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 66.81,
+    "twist_after": 66.81
+   },
+   "thumb_02_l": {
+    "twist_before": -5.16,
+    "twist_after": -5.16
+   },
+   "thumb_03_l": {
+    "twist_before": 3.42,
+    "twist_after": 3.42
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "AKM/standard/vertical/reload_empty": {
+  "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVRENatural/vertical/A_AKM_vertical_reload_empty",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\vertical\\A_AKM_vertical_reload_empty.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\standard\\vertical\\A_AKM_vertical_reload_empty.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\standard\\vertical\\A_AKM_vertical_reload_empty.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.97948,
+    0.12646,
+    0.0,
+    0.15693
+   ],
+   "thumb_02_l": [
+    0.96593,
+    0.0,
+    0.0,
+    0.25882
+   ],
+   "thumb_03_l": [
+    0.97636,
+    0.0,
+    0.0,
+    0.21617
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 66.78,
+    "twist_after": 65.79
+   },
+   "thumb_02_l": {
+    "twist_before": -4.07,
+    "twist_after": -4.07
+   },
+   "thumb_03_l": {
+    "twist_before": 4.09,
+    "twist_after": 4.09
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "AKM/extended/vertical/reload_empty": {
+  "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_vertical_reload_empty",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\vertical\\A_AKM_ExtContact_vertical_reload_empty.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\extended\\vertical\\A_AKM_ExtContact_vertical_reload_empty.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\extended\\vertical\\A_AKM_ExtContact_vertical_reload_empty.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.97948,
+    0.12646,
+    0.0,
+    0.15693
+   ],
+   "thumb_02_l": [
+    0.96593,
+    0.0,
+    0.0,
+    0.25882
+   ],
+   "thumb_03_l": [
+    0.97636,
+    0.0,
+    0.0,
+    0.21617
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 66.78,
+    "twist_after": 65.79
+   },
+   "thumb_02_l": {
+    "twist_before": -4.07,
+    "twist_after": -4.07
+   },
+   "thumb_03_l": {
+    "twist_before": 4.09,
+    "twist_after": 4.09
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "AKM/standard/prism/reload": {
+  "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_reload",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\prism\\A_AKM_prism_reload.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\standard\\prism\\A_AKM_prism_reload.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\standard\\prism\\A_AKM_prism_reload.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.97948,
+    0.12646,
+    0.0,
+    0.15693
+   ],
+   "thumb_02_l": [
+    0.96593,
+    0.0,
+    0.0,
+    0.25882
+   ],
+   "thumb_03_l": [
+    0.97636,
+    0.0,
+    0.0,
+    0.21617
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 89.22,
+    "twist_after": 89.22
+   },
+   "thumb_02_l": {
+    "twist_before": -18.83,
+    "twist_after": -18.83
+   },
+   "thumb_03_l": {
+    "twist_before": -25.25,
+    "twist_after": -25.25
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "AKM/extended/prism/reload": {
+  "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_prism_reload",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\prism\\A_AKM_ExtContact_prism_reload.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\extended\\prism\\A_AKM_ExtContact_prism_reload.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\extended\\prism\\A_AKM_ExtContact_prism_reload.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.97948,
+    0.12646,
+    0.0,
+    0.15693
+   ],
+   "thumb_02_l": [
+    0.96593,
+    0.0,
+    0.0,
+    0.25882
+   ],
+   "thumb_03_l": [
+    0.97636,
+    0.0,
+    0.0,
+    0.21617
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 89.22,
+    "twist_after": 89.22
+   },
+   "thumb_02_l": {
+    "twist_before": -18.83,
+    "twist_after": -18.83
+   },
+   "thumb_03_l": {
+    "twist_before": -25.25,
+    "twist_after": -25.25
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "AKM/standard/prism/reload_empty": {
+  "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_reload_empty",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\prism\\A_AKM_prism_reload_empty.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\standard\\prism\\A_AKM_prism_reload_empty.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\standard\\prism\\A_AKM_prism_reload_empty.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.97948,
+    0.12646,
+    0.0,
+    0.15693
+   ],
+   "thumb_02_l": [
+    0.96593,
+    0.0,
+    0.0,
+    0.25882
+   ],
+   "thumb_03_l": [
+    0.97636,
+    0.0,
+    0.0,
+    0.21617
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 89.46,
+    "twist_after": 89.46
+   },
+   "thumb_02_l": {
+    "twist_before": -18.85,
+    "twist_after": -18.85
+   },
+   "thumb_03_l": {
+    "twist_before": -25.23,
+    "twist_after": -25.23
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "AKM/extended/prism/reload_empty": {
+  "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_prism_reload_empty",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\prism\\A_AKM_ExtContact_prism_reload_empty.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\extended\\prism\\A_AKM_ExtContact_prism_reload_empty.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\extended\\prism\\A_AKM_ExtContact_prism_reload_empty.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.97948,
+    0.12646,
+    0.0,
+    0.15693
+   ],
+   "thumb_02_l": [
+    0.96593,
+    0.0,
+    0.0,
+    0.25882
+   ],
+   "thumb_03_l": [
+    0.97636,
+    0.0,
+    0.0,
+    0.21617
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 89.46,
+    "twist_after": 89.46
+   },
+   "thumb_02_l": {
+    "twist_before": -18.85,
+    "twist_after": -18.85
+   },
+   "thumb_03_l": {
+    "twist_before": -25.23,
+    "twist_after": -25.23
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "AKM/standard/canted/reload": {
+  "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_reload",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\canted\\A_AKM_canted_reload.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\standard\\canted\\A_AKM_canted_reload.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\standard\\canted\\A_AKM_canted_reload.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.97948,
+    0.12646,
+    0.0,
+    0.15693
+   ],
+   "thumb_02_l": [
+    0.96593,
+    0.0,
+    0.0,
+    0.25882
+   ],
+   "thumb_03_l": [
+    0.97636,
+    0.0,
+    0.0,
+    0.21617
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 67.12,
+    "twist_after": 66.81
+   },
+   "thumb_02_l": {
+    "twist_before": -19.76,
+    "twist_after": -19.76
+   },
+   "thumb_03_l": {
+    "twist_before": -21.54,
+    "twist_after": -21.54
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "AKM/extended/canted/reload": {
+  "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_canted_reload",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\canted\\A_AKM_ExtContact_canted_reload.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\extended\\canted\\A_AKM_ExtContact_canted_reload.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\extended\\canted\\A_AKM_ExtContact_canted_reload.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.97948,
+    0.12646,
+    0.0,
+    0.15693
+   ],
+   "thumb_02_l": [
+    0.96593,
+    0.0,
+    0.0,
+    0.25882
+   ],
+   "thumb_03_l": [
+    0.97636,
+    0.0,
+    0.0,
+    0.21617
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 67.12,
+    "twist_after": 66.81
+   },
+   "thumb_02_l": {
+    "twist_before": -19.76,
+    "twist_after": -19.76
+   },
+   "thumb_03_l": {
+    "twist_before": -21.54,
+    "twist_after": -21.54
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "AKM/standard/canted/reload_empty": {
+  "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_reload_empty",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\canted\\A_AKM_canted_reload_empty.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\standard\\canted\\A_AKM_canted_reload_empty.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\standard\\canted\\A_AKM_canted_reload_empty.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.97948,
+    0.12646,
+    0.0,
+    0.15693
+   ],
+   "thumb_02_l": [
+    0.96593,
+    0.0,
+    0.0,
+    0.25882
+   ],
+   "thumb_03_l": [
+    0.97636,
+    0.0,
+    0.0,
+    0.21617
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 67.29,
+    "twist_after": 65.79
+   },
+   "thumb_02_l": {
+    "twist_before": -19.79,
+    "twist_after": -19.79
+   },
+   "thumb_03_l": {
+    "twist_before": -21.52,
+    "twist_after": -21.52
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "AKM/extended/canted/reload_empty": {
+  "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_canted_reload_empty",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\canted\\A_AKM_ExtContact_canted_reload_empty.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\extended\\canted\\A_AKM_ExtContact_canted_reload_empty.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\extended\\canted\\A_AKM_ExtContact_canted_reload_empty.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.97948,
+    0.12646,
+    0.0,
+    0.15693
+   ],
+   "thumb_02_l": [
+    0.96593,
+    0.0,
+    0.0,
+    0.25882
+   ],
+   "thumb_03_l": [
+    0.97636,
+    0.0,
+    0.0,
+    0.21617
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 67.29,
+    "twist_after": 65.79
+   },
+   "thumb_02_l": {
+    "twist_before": -19.79,
+    "twist_after": -19.79
+   },
+   "thumb_03_l": {
+    "twist_before": -21.52,
+    "twist_after": -21.52
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "A762/standard/base/reload": {
+  "asset": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_reload",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\base\\A_A762_reload.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\A762\\standard\\base\\A_A762_reload.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\A762\\standard\\base\\A_A762_reload.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.95121,
+    0.22007,
+    -0.0,
+    0.21625
+   ],
+   "thumb_02_l": [
+    0.95757,
+    0.0,
+    0.0,
+    0.2882
+   ],
+   "thumb_03_l": [
+    0.95421,
+    0.0,
+    0.0,
+    0.29914
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 69.29,
+    "twist_after": 67.0
+   },
+   "thumb_02_l": {
+    "twist_before": -17.27,
+    "twist_after": -17.27
+   },
+   "thumb_03_l": {
+    "twist_before": 8.61,
+    "twist_after": 8.61
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "A762/standard/base/reload_empty": {
+  "asset": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_reload_empty",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\base\\A_A762_reload_empty.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\A762\\standard\\base\\A_A762_reload_empty.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\A762\\standard\\base\\A_A762_reload_empty.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.95121,
+    0.22007,
+    -0.0,
+    0.21625
+   ],
+   "thumb_02_l": [
+    0.95757,
+    0.0,
+    0.0,
+    0.2882
+   ],
+   "thumb_03_l": [
+    0.95421,
+    0.0,
+    0.0,
+    0.29914
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 70.12,
+    "twist_after": 66.04
+   },
+   "thumb_02_l": {
+    "twist_before": -17.27,
+    "twist_after": -17.27
+   },
+   "thumb_03_l": {
+    "twist_before": 8.61,
+    "twist_after": 8.61
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "A762/standard/angled/reload": {
+  "asset": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_reload",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\angled\\A_A762_angled_reload.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\A762\\standard\\angled\\A_A762_angled_reload.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\A762\\standard\\angled\\A_A762_angled_reload.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.95121,
+    0.22007,
+    -0.0,
+    0.21625
+   ],
+   "thumb_02_l": [
+    0.95757,
+    0.0,
+    0.0,
+    0.2882
+   ],
+   "thumb_03_l": [
+    0.95421,
+    0.0,
+    0.0,
+    0.29914
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 67.04,
+    "twist_after": 67.0
+   },
+   "thumb_02_l": {
+    "twist_before": -8.92,
+    "twist_after": -8.92
+   },
+   "thumb_03_l": {
+    "twist_before": 4.75,
+    "twist_after": 4.75
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "A762/standard/angled/reload_empty": {
+  "asset": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_reload_empty",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\angled\\A_A762_angled_reload_empty.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\A762\\standard\\angled\\A_A762_angled_reload_empty.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\A762\\standard\\angled\\A_A762_angled_reload_empty.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.95121,
+    0.22007,
+    -0.0,
+    0.21625
+   ],
+   "thumb_02_l": [
+    0.95757,
+    0.0,
+    0.0,
+    0.2882
+   ],
+   "thumb_03_l": [
+    0.95421,
+    0.0,
+    0.0,
+    0.29914
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 67.04,
+    "twist_after": 66.04
+   },
+   "thumb_02_l": {
+    "twist_before": -8.92,
+    "twist_after": -8.92
+   },
+   "thumb_03_l": {
+    "twist_before": 4.78,
+    "twist_after": 4.78
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "A762/standard/vertical/reload": {
+  "asset": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_reload",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\vertical\\A_A762_vertical_reload.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\A762\\standard\\vertical\\A_A762_vertical_reload.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\A762\\standard\\vertical\\A_A762_vertical_reload.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.95121,
+    0.22007,
+    -0.0,
+    0.21625
+   ],
+   "thumb_02_l": [
+    0.95757,
+    0.0,
+    0.0,
+    0.2882
+   ],
+   "thumb_03_l": [
+    0.95421,
+    0.0,
+    0.0,
+    0.29914
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 67.04,
+    "twist_after": 67.0
+   },
+   "thumb_02_l": {
+    "twist_before": -5.16,
+    "twist_after": -5.16
+   },
+   "thumb_03_l": {
+    "twist_before": 3.43,
+    "twist_after": 3.43
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "A762/standard/vertical/reload_empty": {
+  "asset": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_reload_empty",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\vertical\\A_A762_vertical_reload_empty.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\A762\\standard\\vertical\\A_A762_vertical_reload_empty.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\A762\\standard\\vertical\\A_A762_vertical_reload_empty.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.95121,
+    0.22007,
+    -0.0,
+    0.21625
+   ],
+   "thumb_02_l": [
+    0.95757,
+    0.0,
+    0.0,
+    0.2882
+   ],
+   "thumb_03_l": [
+    0.95421,
+    0.0,
+    0.0,
+    0.29914
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 67.04,
+    "twist_after": 66.04
+   },
+   "thumb_02_l": {
+    "twist_before": -4.07,
+    "twist_after": -4.07
+   },
+   "thumb_03_l": {
+    "twist_before": 4.09,
+    "twist_after": 4.09
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "A762/standard/prism/reload": {
+  "asset": "/Game/Weapons/A762/Accessories05/Animations/prism/A_A762_prism_reload",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\prism\\A_A762_prism_reload.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\A762\\standard\\prism\\A_A762_prism_reload.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\A762\\standard\\prism\\A_A762_prism_reload.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.95121,
+    0.22007,
+    -0.0,
+    0.21625
+   ],
+   "thumb_02_l": [
+    0.95757,
+    0.0,
+    0.0,
+    0.2882
+   ],
+   "thumb_03_l": [
+    0.95421,
+    0.0,
+    0.0,
+    0.29914
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 89.22,
+    "twist_after": 89.22
+   },
+   "thumb_02_l": {
+    "twist_before": -18.83,
+    "twist_after": -18.83
+   },
+   "thumb_03_l": {
+    "twist_before": -25.25,
+    "twist_after": -25.25
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "A762/standard/prism/reload_empty": {
+  "asset": "/Game/Weapons/A762/Accessories05/Animations/prism/A_A762_prism_reload_empty",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\prism\\A_A762_prism_reload_empty.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\A762\\standard\\prism\\A_A762_prism_reload_empty.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\A762\\standard\\prism\\A_A762_prism_reload_empty.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.95121,
+    0.22007,
+    -0.0,
+    0.21625
+   ],
+   "thumb_02_l": [
+    0.95757,
+    0.0,
+    0.0,
+    0.2882
+   ],
+   "thumb_03_l": [
+    0.95421,
+    0.0,
+    0.0,
+    0.29914
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 89.46,
+    "twist_after": 89.46
+   },
+   "thumb_02_l": {
+    "twist_before": -18.85,
+    "twist_after": -18.85
+   },
+   "thumb_03_l": {
+    "twist_before": -25.23,
+    "twist_after": -25.23
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "A762/standard/canted/reload": {
+  "asset": "/Game/Weapons/A762/Accessories05/Animations/canted/A_A762_canted_reload",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\canted\\A_A762_canted_reload.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\A762\\standard\\canted\\A_A762_canted_reload.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\A762\\standard\\canted\\A_A762_canted_reload.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.95121,
+    0.22007,
+    -0.0,
+    0.21625
+   ],
+   "thumb_02_l": [
+    0.95757,
+    0.0,
+    0.0,
+    0.2882
+   ],
+   "thumb_03_l": [
+    0.95421,
+    0.0,
+    0.0,
+    0.29914
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 67.35,
+    "twist_after": 67.0
+   },
+   "thumb_02_l": {
+    "twist_before": -19.76,
+    "twist_after": -19.76
+   },
+   "thumb_03_l": {
+    "twist_before": -21.54,
+    "twist_after": -21.54
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ },
+ "A762/standard/canted/reload_empty": {
+  "asset": "/Game/Weapons/A762/Accessories05/Animations/canted/A_A762_canted_reload_empty",
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\canted\\A_A762_canted_reload_empty.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\A762\\standard\\canted\\A_A762_canted_reload_empty.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\A762\\standard\\canted\\A_A762_canted_reload_empty.fbx",
+  "fps": 120,
+  "sample_step": 1.0,
+  "thumb_target": {
+   "thumb_01_l": [
+    0.95121,
+    0.22007,
+    -0.0,
+    0.21625
+   ],
+   "thumb_02_l": [
+    0.95757,
+    0.0,
+    0.0,
+    0.2882
+   ],
+   "thumb_03_l": [
+    0.95421,
+    0.0,
+    0.0,
+    0.29914
+   ]
+  },
+  "twist": {
+   "thumb_01_l": {
+    "twist_before": 67.52,
+    "twist_after": 66.04
+   },
+   "thumb_02_l": {
+    "twist_before": -19.79,
+    "twist_after": -19.79
+   },
+   "thumb_03_l": {
+    "twist_before": -21.52,
+    "twist_after": -21.52
+   }
+  },
+  "changed_bones": [
+   "thumb_01_l",
+   "thumb_02_l",
+   "thumb_03_l"
+  ],
+  "updated_receipt": "AKMA762GripTwist20260925"
+ }
+}

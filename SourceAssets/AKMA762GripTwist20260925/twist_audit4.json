@@ -1,0 +1,432 @@
+{
+ "AKM_std": {
+  "action": "A_AKM_reload_IndexClearanceV4",
+  "frames": {
+   "100": {
+    "angles": {
+     "thumb_01_l": 72.65,
+     "thumb_02_l": 54.62,
+     "thumb_03_l": 30.72,
+     "index_01_l": 65.33,
+     "index_02_l": 2.55,
+     "index_03_l": 39.51,
+     "middle_01_l": 54.11,
+     "middle_02_l": 28.62,
+     "middle_03_l": 28.05,
+     "ring_01_l": 48.85,
+     "ring_02_l": 41.2,
+     "ring_03_l": 20.23,
+     "pinky_01_l": 31.84,
+     "pinky_02_l": 46.33,
+     "pinky_03_l": 41.28,
+     "hand_l": 59.12,
+     "lowerarm_l": 37.12,
+     "upperarm_l": 72.01
+    },
+    "twist": {
+     "grip_roll": -50.95,
+     "wrist_bend_rest": 3.97,
+     "wrist_bend_pose": 50.45
+    }
+   },
+   "148": {
+    "angles": {
+     "thumb_01_l": 72.65,
+     "thumb_02_l": 54.62,
+     "thumb_03_l": 30.72,
+     "index_01_l": 65.33,
+     "index_02_l": 2.55,
+     "index_03_l": 39.51,
+     "middle_01_l": 54.11,
+     "middle_02_l": 28.62,
+     "middle_03_l": 28.05,
+     "ring_01_l": 48.85,
+     "ring_02_l": 41.2,
+     "ring_03_l": 20.23,
+     "pinky_01_l": 31.84,
+     "pinky_02_l": 46.33,
+     "pinky_03_l": 41.28,
+     "hand_l": 58.04,
+     "lowerarm_l": 14.99,
+     "upperarm_l": 51.43
+    },
+    "twist": {
+     "grip_roll": -19.58,
+     "wrist_bend_rest": 3.97,
+     "wrist_bend_pose": 56.45
+    }
+   },
+   "200": {
+    "angles": {
+     "thumb_01_l": 72.65,
+     "thumb_02_l": 54.62,
+     "thumb_03_l": 30.72,
+     "index_01_l": 65.33,
+     "index_02_l": 2.55,
+     "index_03_l": 39.51,
+     "middle_01_l": 54.11,
+     "middle_02_l": 28.62,
+     "middle_03_l": 28.05,
+     "ring_01_l": 48.85,
+     "ring_02_l": 41.2,
+     "ring_03_l": 20.23,
+     "pinky_01_l": 31.84,
+     "pinky_02_l": 46.33,
+     "pinky_03_l": 41.28,
+     "hand_l": 57.1,
+     "lowerarm_l": 9.28,
+     "upperarm_l": 88.16
+    },
+    "twist": {
+     "grip_roll": 7.39,
+     "wrist_bend_rest": 3.97,
+     "wrist_bend_pose": 59.31
+    }
+   }
+  }
+ },
+ "AKM_ext": {
+  "action": "A_AKM_ExtContact_reload_IndexClearanceV4",
+  "frames": {
+   "100": {
+    "angles": {
+     "thumb_01_l": 72.65,
+     "thumb_02_l": 54.62,
+     "thumb_03_l": 30.72,
+     "index_01_l": 65.33,
+     "index_02_l": 2.55,
+     "index_03_l": 39.51,
+     "middle_01_l": 54.11,
+     "middle_02_l": 28.62,
+     "middle_03_l": 28.05,
+     "ring_01_l": 48.85,
+     "ring_02_l": 41.2,
+     "ring_03_l": 20.23,
+     "pinky_01_l": 31.84,
+     "pinky_02_l": 46.33,
+     "pinky_03_l": 41.28,
+     "hand_l": 59.11,
+     "lowerarm_l": 37.12,
+     "upperarm_l": 72.01
+    },
+    "twist": {
+     "grip_roll": -50.95,
+     "wrist_bend_rest": 3.97,
+     "wrist_bend_pose": 50.45
+    }
+   },
+   "148": {
+    "angles": {
+     "thumb_01_l": 72.65,
+     "thumb_02_l": 54.62,
+     "thumb_03_l": 30.72,
+     "index_01_l": 65.33,
+     "index_02_l": 2.55,
+     "index_03_l": 39.51,
+     "middle_01_l": 54.11,
+     "middle_02_l": 28.62,
+     "middle_03_l": 28.05,
+     "ring_01_l": 48.85,
+     "ring_02_l": 41.2,
+     "ring_03_l": 20.23,
+     "pinky_01_l": 31.84,
+     "pinky_02_l": 46.33,
+     "pinky_03_l": 41.28,
+     "hand_l": 58.04,
+     "lowerarm_l": 14.98,
+     "upperarm_l": 51.43
+    },
+    "twist": {
+     "grip_roll": -19.58,
+     "wrist_bend_rest": 3.97,
+     "wrist_bend_pose": 56.45
+    }
+   },
+   "200": {
+    "angles": {
+     "thumb_01_l": 72.65,
+     "thumb_02_l": 54.62,
+     "thumb_03_l": 30.72,
+     "index_01_l": 65.33,
+     "index_02_l": 2.55,
+     "index_03_l": 39.51,
+     "middle_01_l": 54.11,
+     "middle_02_l": 28.62,
+     "middle_03_l": 28.05,
+     "ring_01_l": 48.85,
+     "ring_02_l": 41.2,
+     "ring_03_l": 20.23,
+     "pinky_01_l": 31.84,
+     "pinky_02_l": 46.33,
+     "pinky_03_l": 41.28,
+     "hand_l": 57.1,
+     "lowerarm_l": 9.28,
+     "upperarm_l": 88.16
+    },
+    "twist": {
+     "grip_roll": 7.39,
+     "wrist_bend_rest": 3.97,
+     "wrist_bend_pose": 59.31
+    }
+   }
+  }
+ },
+ "A762": {
+  "action": "A_A762_reload_IndexClearanceV4",
+  "frames": {
+   "100": {
+    "angles": {
+     "thumb_01_l": 73.76,
+     "thumb_02_l": 53.52,
+     "thumb_03_l": 26.05,
+     "index_01_l": 54.68,
+     "index_02_l": 5.45,
+     "index_03_l": 41.39,
+     "middle_01_l": 52.6,
+     "middle_02_l": 20.59,
+     "middle_03_l": 44.7,
+     "ring_01_l": 49.39,
+     "ring_02_l": 31.68,
+     "ring_03_l": 37.72,
+     "pinky_01_l": 32.15,
+     "pinky_02_l": 43.99,
+     "pinky_03_l": 34.17,
+     "hand_l": 60.23,
+     "lowerarm_l": 37.96,
+     "upperarm_l": 72.47
+    },
+    "twist": {
+     "grip_roll": -53.72,
+     "wrist_bend_rest": 3.97,
+     "wrist_bend_pose": 51.15
+    }
+   },
+   "148": {
+    "angles": {
+     "thumb_01_l": 73.76,
+     "thumb_02_l": 53.52,
+     "thumb_03_l": 26.05,
+     "index_01_l": 54.68,
+     "index_02_l": 5.45,
+     "index_03_l": 41.39,
+     "middle_01_l": 52.6,
+     "middle_02_l": 20.59,
+     "middle_03_l": 44.7,
+     "ring_01_l": 49.39,
+     "ring_02_l": 31.68,
+     "ring_03_l": 37.72,
+     "pinky_01_l": 32.15,
+     "pinky_02_l": 43.99,
+     "pinky_03_l": 34.17,
+     "hand_l": 59.28,
+     "lowerarm_l": 14.97,
+     "upperarm_l": 50.16
+    },
+    "twist": {
+     "grip_roll": -21.3,
+     "wrist_bend_rest": 3.97,
+     "wrist_bend_pose": 57.52
+    }
+   },
+   "200": {
+    "angles": {
+     "thumb_01_l": 73.76,
+     "thumb_02_l": 53.52,
+     "thumb_03_l": 26.05,
+     "index_01_l": 54.68,
+     "index_02_l": 5.45,
+     "index_03_l": 41.39,
+     "middle_01_l": 52.6,
+     "middle_02_l": 20.59,
+     "middle_03_l": 44.7,
+     "ring_01_l": 49.39,
+     "ring_02_l": 31.68,
+     "ring_03_l": 37.72,
+     "pinky_01_l": 32.15,
+     "pinky_02_l": 43.99,
+     "pinky_03_l": 34.17,
+     "hand_l": 58.24,
+     "lowerarm_l": 7.45,
+     "upperarm_l": 85.92
+    },
+    "twist": {
+     "grip_roll": 7.19,
+     "wrist_bend_rest": 3.97,
+     "wrist_bend_pose": 60.4
+    }
+   }
+  }
+ },
+ "SVD_ok": {
+  "action": "A_SVD_reload",
+  "frames": {
+   "100": {
+    "angles": {
+     "thumb_01_l": 14.41,
+     "thumb_02_l": 4.0,
+     "thumb_03_l": 3.0,
+     "index_01_l": 47.63,
+     "index_02_l": 39.09,
+     "index_03_l": 25.41,
+     "middle_01_l": 53.29,
+     "middle_02_l": 34.84,
+     "middle_03_l": 22.65,
+     "ring_01_l": 56.8,
+     "ring_02_l": 33.97,
+     "ring_03_l": 22.08,
+     "pinky_01_l": 51.0,
+     "pinky_02_l": 40.09,
+     "pinky_03_l": 26.06,
+     "hand_l": 17.98,
+     "lowerarm_l": 41.38,
+     "upperarm_l": 35.31
+    },
+    "twist": {
+     "grip_roll": -42.72,
+     "wrist_bend_rest": 3.97,
+     "wrist_bend_pose": 16.93
+    }
+   },
+   "148": {
+    "angles": {
+     "thumb_01_l": 14.41,
+     "thumb_02_l": 4.0,
+     "thumb_03_l": 3.0,
+     "index_01_l": 47.63,
+     "index_02_l": 39.09,
+     "index_03_l": 25.41,
+     "middle_01_l": 53.29,
+     "middle_02_l": 34.84,
+     "middle_03_l": 22.65,
+     "ring_01_l": 56.8,
+     "ring_02_l": 33.97,
+     "ring_03_l": 22.08,
+     "pinky_01_l": 51.0,
+     "pinky_02_l": 40.09,
+     "pinky_03_l": 26.06,
+     "hand_l": 17.97,
+     "lowerarm_l": 27.67,
+     "upperarm_l": 36.63
+    },
+    "twist": {
+     "grip_roll": -18.72,
+     "wrist_bend_rest": 3.97,
+     "wrist_bend_pose": 18.28
+    }
+   },
+   "200": {
+    "angles": {
+     "thumb_01_l": 14.41,
+     "thumb_02_l": 4.0,
+     "thumb_03_l": 3.0,
+     "index_01_l": 47.63,
+     "index_02_l": 39.09,
+     "index_03_l": 25.41,
+     "middle_01_l": 53.29,
+     "middle_02_l": 34.84,
+     "middle_03_l": 22.65,
+     "ring_01_l": 56.8,
+     "ring_02_l": 33.97,
+     "ring_03_l": 22.08,
+     "pinky_01_l": 51.0,
+     "pinky_02_l": 40.09,
+     "pinky_03_l": 26.06,
+     "hand_l": 18.01,
+     "lowerarm_l": 20.39,
+     "upperarm_l": 86.66
+    },
+    "twist": {
+     "grip_roll": -7.97,
+     "wrist_bend_rest": 3.97,
+     "wrist_bend_pose": 20.63
+    }
+   }
+  }
+ },
+ "M4_ok": {
+  "action": "A_M4_ExtContact_reload",
+  "frames": {
+   "61": {
+    "angles": {
+     "thumb_01_l": 45.08,
+     "thumb_02_l": 44.47,
+     "thumb_03_l": 17.43,
+     "index_01_l": 39.03,
+     "index_02_l": 33.76,
+     "index_03_l": 59.21,
+     "middle_01_l": 40.18,
+     "middle_02_l": 38.67,
+     "middle_03_l": 69.81,
+     "ring_01_l": 44.63,
+     "ring_02_l": 43.98,
+     "ring_03_l": 62.33,
+     "pinky_01_l": 43.49,
+     "pinky_02_l": 56.67,
+     "pinky_03_l": 73.11,
+     "hand_l": 70.59,
+     "lowerarm_l": 25.41,
+     "upperarm_l": 104.21
+    },
+    "twist": {
+     "grip_roll": -66.49,
+     "wrist_bend_rest": 3.97,
+     "wrist_bend_pose": 50.71
+    }
+   },
+   "76": {
+    "angles": {
+     "thumb_01_l": 45.08,
+     "thumb_02_l": 44.47,
+     "thumb_03_l": 17.43,
+     "index_01_l": 39.03,
+     "index_02_l": 33.76,
+     "index_03_l": 59.21,
+     "middle_01_l": 40.18,
+     "middle_02_l": 38.67,
+     "middle_03_l": 69.81,
+     "ring_01_l": 44.63,
+     "ring_02_l": 43.98,
+     "ring_03_l": 62.33,
+     "pinky_01_l": 43.49,
+     "pinky_02_l": 56.67,
+     "pinky_03_l": 73.11,
+     "hand_l": 70.59,
+     "lowerarm_l": 25.41,
+     "upperarm_l": 104.21
+    },
+    "twist": {
+     "grip_roll": -59.08,
+     "wrist_bend_rest": 3.97,
+     "wrist_bend_pose": 50.71
+    }
+   },
+   "95": {
+    "angles": {
+     "thumb_01_l": 45.08,
+     "thumb_02_l": 44.47,
+     "thumb_03_l": 17.43,
+     "index_01_l": 39.03,
+     "index_02_l": 33.76,
+     "index_03_l": 59.21,
+     "middle_01_l": 40.18,
+     "middle_02_l": 38.67,
+     "middle_03_l": 69.81,
+     "ring_01_l": 44.63,
+     "ring_02_l": 43.98,
+     "ring_03_l": 62.33,
+     "pinky_01_l": 43.49,
+     "pinky_02_l": 56.67,
+     "pinky_03_l": 73.11,
+     "hand_l": 70.59,
+     "lowerarm_l": 25.41,
+     "upperarm_l": 104.21
+    },
+    "twist": {
+     "grip_roll": -46.44,
+     "wrist_bend_rest": 3.97,
+     "wrist_bend_pose": 50.71
+    }
+   }
+  }
+ }
+}

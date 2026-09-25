@@ -1,0 +1,22 @@
+{
+ "AKM": {
+  "thumb_tip_to_index_tip_mm": 67.2,
+  "thumb_tip_to_middle_tip_mm": 74.3,
+  "thumb_tip_to_shell_mm": 17245000
+ },
+ "A762": {
+  "thumb_tip_to_index_tip_mm": 79.2,
+  "thumb_tip_to_middle_tip_mm": 80.8,
+  "thumb_tip_to_shell_mm": 3169000
+ },
+ "SVD": {
+  "thumb_tip_to_index_tip_mm": 10.7,
+  "thumb_tip_to_middle_tip_mm": 30.6,
+  "thumb_tip_to_shell_mm": 7209000
+ },
+ "M4": {
+  "thumb_tip_to_index_tip_mm": 71.4,
+  "thumb_tip_to_middle_tip_mm": 62.9,
+  "thumb_tip_to_shell_mm": 901000
+ }
+}
