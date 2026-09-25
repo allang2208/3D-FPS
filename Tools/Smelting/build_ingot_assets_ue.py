@@ -35,8 +35,14 @@ def vector(m,name,col,x=0,y=0):
     e.set_editor_property('default_value',unreal.LinearColor(col[0],col[1],col[2],1.0));return e
 def tex(m,texp,x=0,y=0):
     e=expr(m,unreal.MaterialExpressionTextureObject,x,y);e.set_editor_property('texture',load(texp));return e
-def to_main(e,prop):MEL.connect_material_property(e,'',prop)          # 3-arg: e -> its material's input
-def link(a,b,aout='',bin=''):MEL.connect_material_expressions(a,aout,b,bin)
+def to_main(e,prop):
+    assert MEL.connect_material_property(e,'',prop),'connect_material_property 失败'   # 3-arg: e -> its material's input
+def link(a,b,aout='',bin=''):
+    assert MEL.connect_material_expressions(a,aout,b,bin),'connect_material_expressions 失败 %r->%r'%(aout,bin)
+# 5.8 的这两个连线 API 名字写错时只静默返回 False，不抛异常：TextureSample 与 Multiply 唯一
+# 可用的输出名是 ''（'RGBA'/'rgb' 也可），写 'color' 一律 False —— 原来矿石链路的 'color' 就是
+# 这么丢掉的，Multiply 的 A 空输入让 BaseColor 恒为黑，四个矿种渲染完全一致。
+# 实测矩阵见 Tools/Smelting/probe_conn_names.py。
 
 # —— 1) Ingot mesh (Interchange FBX import) ——
 if not exists(INGOT_DIR+'/SM_Ingot'):
@@ -74,10 +80,10 @@ if USE_TEX:
         e.set_editor_property('texture',load(texp));e.set_editor_property('sampler_type',styp);return e
     sb=sample(m_ore,STONE+'/T_enhancement_stone_0_Base_Color',unreal.MaterialSamplerType.SAMPLERTYPE_COLOR,-900,0)
     mul=expr(m_ore,unreal.MaterialExpressionMultiply,-500,100)
-    link(sb,mul,'color','A');link(tint,mul,'','B')
-    MEL.connect_material_property(mul,'color',unreal.MaterialProperty.MP_BASE_COLOR)
+    link(sb,mul,'','A');link(tint,mul,'','B')
+    to_main(mul,unreal.MaterialProperty.MP_BASE_COLOR)
     sn=sample(m_ore,STONE+'/T_enhancement_stone_0_Normal',unreal.MaterialSamplerType.SAMPLERTYPE_NORMAL,-900,-400)
-    MEL.connect_material_property(sn,'color',unreal.MaterialProperty.MP_NORMAL)
+    to_main(sn,unreal.MaterialProperty.MP_NORMAL)
     to_main(scalar(m_ore,'Metallic',0.15,-500,600),unreal.MaterialProperty.MP_METALLIC)
     to_main(scalar(m_ore,'Roughness',0.62,-500,800),unreal.MaterialProperty.MP_ROUGHNESS)
     LOG.append('M_Ore_Tinted wired (textured)')

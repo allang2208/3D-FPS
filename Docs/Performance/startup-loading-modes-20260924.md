@@ -44,3 +44,17 @@
 用户已授权保存并关闭编辑器。交互编辑器在桥接关闭请求送达前已正常退出，因此本轮桥接未执行保存操作；随后等待已有后台 commandlet 退出，完成 DLL 链接，没有重新打开编辑器。
 
 未启动游戏、PIE、截图、性能采样或验收，由用户自行测试实际外观和加载体验。
+
+## 初始界面没有鼠标（2026-09-25 修复）
+
+用户反馈启动主界面看不到鼠标指针。菜单自身逻辑是对的：`ShowStartupMenu` 设 `bShowMouseCursor=true` 并 `SetInputMode(FInputModeUIOnly())`；`FInputModeUIOnly::ApplyInputMode`（`PlayerController.cpp:6372`）随后把视口设为 `NoCapture` + `SetIgnoreInput(true)`，所以既不会因捕获隐藏光标，第 352 行那句 `VP->SetIgnoreInput(true)` 也只是与它重复（拆除时按 `bStartupPreviousIgnore` 还原，不改变结论）。
+
+真正原因是执行顺序：`ShowStartupMenu` 在 `AFPSGAMEPlayerController::BeginPlay` 末尾调用，而 `AFPSGAMECharacter::BeginPlay` 晚于它，末尾无条件执行 `PC->SetShowMouseCursor(false)` + `SetInputMode(FInputModeGameOnly())` 来恢复第一人称默认，把菜单刚设好的光标和输入模式抢了回去。引擎日志逐条对应：`04:26:22` `MouseLockMode LockOnCapture -> DoNotLock`（菜单生效）→ `04:26:25` `Player bShowMouseCursor Changed, True -> False` 且 `DoNotLock -> LockOnCapture`（Pawn 抢占）。全日志只有这一次 `True -> False`，故启动路径上抢占者唯一；背包、枪匠、强化、体素面板等 `SetInputMode(FInputModeGameOnly())` 都由面板开关驱动，不参与启动。
+
+修复三处：
+
+- `UTransitLoadingSubsystem::OwnsPlayerCursor()`：主界面或加载遮罩当前是否持有光标（只读 `StartupOverlay` / `Overlay` + `CursorController`，不新增状态）。头文件补 `class SWidget;` 前置声明，使该头不依赖包含顺序。
+- `AFPSGAMECharacter::BeginPlay`：`OwnsPlayerCursor()` 为真时跳过恢复第一人称默认。菜单与遮罩拆除时都会自行还原 `GameOnly` + 隐藏光标，因此跳过不留残余状态；若顺序反过来（Pawn 先、菜单后），菜单仍会在最后覆盖，两种顺序都成立。
+- 加载遮罩的 Tick：原来只在 `CursorController != PC` 时夺回光标，被后来者清掉后不会恢复；补 `else if(!PC->bShowMouseCursor)PC->bShowMouseCursor=true;`，遮罩存续期间每帧夺回。地图旅行中新 Pawn 的 `BeginPlay` 同样会晚于遮罩，这条覆盖那一类时序。
+
+按用户选择等待其关闭编辑器后再构建，本轮未编译、未运行，实际指针表现待用户自测。

@@ -51,6 +51,9 @@ private:
     UPROPERTY(Transient) TMap<FString,TObjectPtr<class UTexture2D>> Textures;
     UPROPERTY(Transient) TObjectPtr<class AFPSGAMECharacter> Rig;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> MeleeMesh;
+    // Production materials (ores, ingots, stone) render through their pickup mesh and
+    // per-spec material instance, so the bag image is the object the player picks up.
+    UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> MaterialMesh;
     UPROPERTY(Transient) TObjectPtr<class USceneCaptureComponent2D> Capture;
     UPROPERTY(Transient) TObjectPtr<class UTextureRenderTarget2D> Target;
     UPROPERTY(Transient) TArray<TObjectPtr<class UMeshComponent>> CaptureMeshes;
@@ -66,6 +69,9 @@ private:
     FTransform BoundsIconPose, BoundsPickupPose;
     TArray<FMatrix44f> BoundsBoneMatrices;
     FString RigDefinition;
+    // Capture canvas width in pixels, derived once per definition from the item's authored
+    // inventory footprint at 320 px per grid row; the height stays 320.
+    int32 IconCanvasWidth=768;
     // -2: render command pending; -1: ready; >=0: first unready material index.
     TSharedPtr<TAtomic<int32>,ESPMode::ThreadSafe> CaptureMaterialStatus;
     TSharedPtr<FColdSteelIconReadback,ESPMode::ThreadSafe> PendingReadback;
@@ -82,6 +88,7 @@ private:
     void BeginResourceLoad(const FColdSteelItem& Item);
     void ResetPreparation();
     bool PrepareMelee(const FColdSteelItem& Item);
+    bool PrepareMaterial(const FColdSteelItem& Item);
     void BeginReadback(const FString& Key);
     void PollReadback();
     void CancelReadback();

@@ -492,6 +492,16 @@ function timelineProgressColor(value) {
 - **验证**：`verify_ingot_assets.py` 强制加载 11 个资产全部成功、冶炼材质零编译失败
   （仅无关的旧 M_FleshStainV3 失败）。世界矿点岩块外观未动（本次范围＝材料本体）。
 - 重跑管线：Blender 脚本→`-run=pythonscript build_ingot_assets_ue.py`（幂等，MI 覆写按名解析）。
+- **09-25 修坏线（背包图标捕获查出）**：四张矿石图标渲染逐字节相同且近黑（平均 RGB 35,35,35），
+  定位到脚本三处连线静默失败。5.8 的 `connect_material_expressions` / `connect_material_property`
+  名字不匹配时**只返回 False，不抛异常**，而 `TextureSample` 与 `Multiply` 唯一可用的输出名是 `''`
+  （`'color'`、`'Color'` 一律 False，`'RGBA'`/`'rgb'` 可以；节点输入名 `'A'`/`'B'` 正常）。于是
+  Multiply 的 A 输入为空 → BaseColor 恒为 `0 × Tint = 黑`，四个矿种的 Tint 全部失效；法线同样没接上
+  （读回 `MP_NORMAL` 为 None）。`verify_ingot_assets.py` 只验加载与着色器编译，测不出连线丢失，
+  所以 09-24 那句"零编译失败"属实但不完整。修复：`to_main`/`link` 改为断言返回值，三处输出名统一
+  `''`，重跑后四矿分色为暖灰／青绿／冷灰／橄榄黄（实测平均 RGB 67,62,59｜55,68,65｜69,71,74｜
+  74,68,52），四锭不变；世界掉落与图标共用同一材质，因此地上矿石的分色也一并修好。
+  实测矩阵留在 `Tools/Smelting/probe_conn_names.py`，读回探针 `probe_ore_values.py`。
 
 ### 7.18 存档版本闸门脱钩修复（2026-09-24 用户"建筑存档版本不兼容，这个是你修改导致的吗"）
 

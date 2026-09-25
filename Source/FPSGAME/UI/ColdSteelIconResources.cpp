@@ -15,6 +15,7 @@
 #include "../Weapons/SVDAttachments.h"
 #include "../Weapons/M1911WeaponAssets.h"
 #include "../Weapons/DanWesson715WeaponAssets.h"
+#include "../Production/ProductionHarvestAssets.h"
 #include "Engine/AssetManager.h"
 #include "Engine/GameInstance.h"
 #include "Engine/StreamableManager.h"
@@ -43,7 +44,13 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
     };
     Add(TEXT("/Game/UI/GunsmithWorkbench/T_StudioEnvironment"),true);
     const FString& D=Item.Definition;
-    if(ColdSteelMeleePreview::Supports(Item))
+    if(ProductionHarvestAssets::IsIconSubject(D))
+    {
+        // 材料只需要拾取网格与分种材质；不能让它们落到下面的枪械装配分支去拉 SK_AKM。
+        Add(ProductionHarvestAssets::PickupMesh(D,0).ToString(),true);
+        Add(ProductionHarvestAssets::PickupMaterial(D).ToString(),true);
+    }
+    else if(ColdSteelMeleePreview::Supports(Item))
     {
         if(ColdSteelModularSword::Supports(Item))
         {

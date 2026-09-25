@@ -59,3 +59,17 @@
 等比显示用 `SImage::DesiredSizeOverride` 配合笔刷真实 `ImageSize` 求 `Fit = min(可用宽/图宽, 可用高/图高)`；**禁止**改写笔刷 `ImageSize` 成可用宽高硬拉（会变形）。
 
 FPSGAME 源码：`ColdSteelWeaponIcons`、`ColdSteelIconResources.cpp`、`ColdSteelWeaponIconReadback.cpp`、`ModularSwordVisual::GatherVisualResources`、`ColdSteelMonsterPortraits`（怪物立绘，异步句柄 + `ActiveIndex` 参考实现）。较完整的图鉴立绘口径另见 [FPSGAME 面板实现](fpsgame-panels.md) 与 [图鉴栏系统规划](../../../Docs/UI/codex-panel-plan-20260924.md)。采样解释见 [性能面板归因](../../ue5-performance-packaging/references/performance-panel-attribution.md)。
+
+## 统一构图规则：三个捕获通道共用一套数字（2026-09-25）
+
+同一张背包里既有枪械、近战，又有材料与装备，**观感一致靠的是把取景参数写成同一条规则**，不是各通道各自调"看起来差不多"：
+
+- **画幅按作者占格推导**，320 px／格行，长宽比＝格子长宽比：`Width = Max(256, Round(320 * Grid.X / max(1, Grid.Y)))`，高度固定 320。所以 5×2 的长枪得到 800×320，1×2 的木柴得到 160→256×320，而**方形占格（3×3 上衣、2×2 手套）一律得到 320×320**。
+- **主轴填满 91%**（`/.91f`），且以**轮廓中心**（不是任何偏移常量）对齐画幅中心。正交宽度取 `Max(Size.Y, Size.Z * Aspect) / .91`，配 `FReversedZOrthoMatrix(..., 1/2000, -.1)`。
+- 规则要**同时落在运行时捕获和离线渲染脚本里**，否则离线补的图一进背包就和捕获图打架。
+
+目前三条通道：枪械装配 rig（`ColdSteelWeaponIcons.cpp`）、近战（`ColdSteelMeleeIcon.cpp`）、**材料／拾取道具（`ColdSteelMaterialIcon.cpp`）**。第三条通道复用掉落物已有的 `PickupMesh`／`PickupMaterial`，挂一个 `RF_Transient` 的 `UStaticMeshComponent`（`SetForcedLodModel(1)` 关掉 LOD 抖动，缩放归一 `24 / max(1, 2*BoxExtent.GetMax())`），因此**图标与世界掉落物天然同模型同材质**，不会各画一张。姿态旋转要在算包围盒**之前**施加，并改用组件变换取界，否则 3/4 视角会超出画幅被裁。
+
+**`Supports()` 为假的物品，目录 PNG 就是最终图标**——没有运行时捕获去覆盖它，所以不存在"实时图和目录图不一致"，但也意味着这类图只能靠离线脚本返工。判断某张图归谁管，先看 `Supports()` 与 `Key()`，不要凭文件在不在来判断。
+
+**画幅耦合的是 `BaseFootprint`，不是槽位默认值**：`ColdSteelInventoryRules.cpp` 里作者显式 `grid_w/grid_h` 优先于按 `equipSlot` 的默认（`armor` 默认 3×4，但上衣写了 3×3 就用 3×3）。所以**改占格字段等于改画幅**，删掉 `grid_*` 会让 320×320 变成 256×320；重出图前先确认这条推导取的是哪一支。

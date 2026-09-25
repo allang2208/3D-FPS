@@ -5,6 +5,7 @@
 #include "../Weapons/MeleeRuneVisual.h"
 #include "../Weapons/ModularSwordVisual.h"
 #include "ColdSteelPickupStudio.h"
+#include "../Production/ProductionHarvestAssets.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "Animation/AnimSequence.h"
@@ -36,11 +37,13 @@
 #include "Serialization/JsonSerializer.h"
 #endif
 
-bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelMeleePreview::Supports(I)||I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_a762")||I.Definition==TEXT("ue_svd")||I.Definition==TEXT("ue_pkm_lowpoly")||I.Definition==TEXT("ue_qbz191")||I.Definition==TEXT("ue_ash12")||I.Definition==TEXT("ue_m16a2")||(I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_dan_wesson715"));}
+bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelMeleePreview::Supports(I)||ProductionHarvestAssets::IsIconSubject(I.Definition)||I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_a762")||I.Definition==TEXT("ue_svd")||I.Definition==TEXT("ue_pkm_lowpoly")||I.Definition==TEXT("ue_qbz191")||I.Definition==TEXT("ue_ash12")||I.Definition==TEXT("ue_m16a2")||(I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_dan_wesson715"));}
 FString UColdSteelWeaponIcons::Key(const FColdSteelItem& I) const
 {
     if(ColdSteelModularSword::Supports(I))return I.Definition+TEXT("|")+ColdSteelModularSword::Key(I,nullptr,!bCatalogExport);
     if(ColdSteelMeleePreview::Supports(I))return I.Definition+TEXT("|")+ColdSteelMeleePreview::MeshPath(I)+TEXT("|")+(bCatalogExport?FString():ColdSteelMeleeRune::Selected(I));
+    // 生产材料没有配件也没有装配变体：拾取网格与材质只由定义决定，键就是定义本身。
+    if(ProductionHarvestAssets::IsIconSubject(I.Definition))return I.Definition;
     const auto Parts=bCatalogExport?FGunsmithParts():GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(I);TArray<FString> Names;Parts.GetKeys(Names);Names.Sort();
     FString Result=I.Definition;for(const auto& N:Names)Result+=TEXT("|")+N+TEXT("=")+Parts[N];return Result;
 }
@@ -92,6 +95,7 @@ void UColdSteelWeaponIcons::Deinitialize()
     Queue.Empty();Pending.Empty();OnReady.Clear();if(Capture){Capture->TextureTarget=nullptr;Studio->RemoveComponent(Capture);Capture->DestroyComponent();}
     CaptureMeshes.Empty();CaptureMaterials.Empty();CaptureTextures.Empty();
     if(MeleeMesh){ColdSteelModularSword::Clear(MeleeMesh);Studio->RemoveComponent(MeleeMesh);MeleeMesh->DestroyComponent();MeleeMesh=nullptr;}
+    if(MaterialMesh){Studio->RemoveComponent(MaterialMesh);MaterialMesh->DestroyComponent();MaterialMesh=nullptr;}
     Capture=nullptr;Rig=nullptr;Studio.Reset();Target=nullptr;Cache.Empty();PreparedBoundsCache.Empty();Textures.Empty();Failed.Empty();RecentFailures.Empty();Super::Deinitialize();
 }
 bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
@@ -112,6 +116,7 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     }
     PrepareStep=1;return true;
     }
+    if(ProductionHarvestAssets::IsIconSubject(I.Definition)){const bool Ready=PrepareMaterial(I);PrepareStep=7;return Ready;}
     if(ColdSteelMeleePreview::Supports(I)){const bool Ready=PrepareMelee(I);PrepareStep=7;return Ready;}
     if(PrepareStep==1){
     if(!Rig){
@@ -134,6 +139,9 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
         TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Icon_InitializeVisuals);
         FFPSPerformanceScope VisualScope(bCatalogExport?nullptr:GetGameInstance(),TEXT("Icon.InitializeVisuals"));
         Rig->ActiveInventoryWeaponDefinition=I.Definition;Rig->bUseM4Infima=I.Definition==TEXT("ue_m4a1");Rig->bUseQBZ191=I.Definition==TEXT("ue_qbz191");Rig->bUseASH12=I.Definition==TEXT("ue_ash12");Rig->bUseM16=I.Definition==TEXT("ue_m16a2");Rig->bUseM1911=I.Definition==TEXT("ue_m1911");Rig->bUseDanWesson715=I.Definition==TEXT("ue_dan_wesson715");Rig->InitializeWeaponVisuals(true);RigDefinition=I.Definition;
+        // Canvas follows the authored footprint: a fixed table keyed on definition names silently
+        // shrinks any weapon whose slot aspect differs (QBZ-191 and ASH-12 rendered ~25% narrow).
+        const FIntPoint Grid=ColdSteelInventory::BaseFootprint(I);IconCanvasWidth=FMath::Max(256,FMath::RoundToInt(320.f*float(Grid.X)/FMath::Max(1,Grid.Y)));
     }
     PrepareStep=3;return true;
     }
@@ -170,7 +178,7 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     for(int32 L=0;L<Render->LODRenderData.Num();++L)for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S){
         const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;const FString Name=Asset->GetMaterials()[M].MaterialSlotName.ToString().ToLower();
         // Handguard is a gun surface, not part of the first-person hands.
-        const bool HandMaterial=Name.Contains(TEXT("hand"))&&!Name.Contains(TEXT("handguard"));
+        const bool HandMaterial=Name.Contains(TEXT("hand"))&&!Name.Contains(TEXT("handguard"))&&!Name.Contains(TEXT("charginghandle"));
         if(Name.Contains(TEXT("manny"))||HandMaterial||Name.Contains(TEXT("glove"))||Name.Contains(TEXT("sleeve"))||Name==TEXT("skin"))Mesh->ShowMaterialSection(M,S,false,L);
     }
     const FVector Pivot=Mesh->GetSocketLocation(TEXT("WPN_SOCKET_Magazine"));
@@ -235,9 +243,11 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     const FVector Extent=Mesh->Bounds.BoxExtent;
     const float CullingScale=FMath::Max3(float(Required.X/FMath::Max(Extent.X,.01)),float(Required.Y/FMath::Max(Extent.Y,.01)),float(Required.Z/FMath::Max(Extent.Z,.01)));
     Mesh->SetBoundsScale(FMath::Max(1.f,CullingScale*1.02f));Mesh->InvalidateCachedBounds();Mesh->UpdateBounds();
-    const int32 Width=(I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_dan_wesson715"))?480:768;
+    const int32 Width=IconCanvasWidth;
     if(Target->SizeX!=Width||Target->SizeY!=320)Target->ResizeTarget(Width,320);
     const FVector Size=Bounds.GetSize(),Center=Bounds.GetCenter();const float Aspect=float(Width)/320.f;
+    // .91f is the melee rule (ColdSteelMeleeIcon.cpp): the dominant axis fills 91% of the frame,
+    // and the silhouette centre, not a magic offset, sits at the frame centre.
     Capture->SetWorldLocation(FVector(Bounds.Min.X-200,Center.Y,Center.Z));Capture->SetWorldRotation(FRotator::ZeroRotator);Capture->OrthoWidth=FMath::Max(float(Size.Y),float(Size.Z)*Aspect)/.91f;
     Capture->bAutoCalculateOrthoPlanes=false;Capture->bUseCustomProjectionMatrix=true;Capture->CustomProjectionMatrix=FReversedZOrthoMatrix(Capture->OrthoWidth*.5f,Capture->OrthoWidth*.5f/Aspect,1.f/2000.f,-.1f);
     CaptureMeshes.Reset();CaptureMaterials.Reset();CaptureTextures.Reset();CaptureMeshes.Add(Mesh);

@@ -33,6 +33,12 @@ FSoftObjectPath PickupMaterial(const FString& Definition)
         return FSoftObjectPath(FString::Printf(TEXT("/Game/Items/Smelting/Ore/MI_%s.MI_%s"),*Definition,*Definition));
     return FSoftObjectPath();
 }
+bool IsIconSubject(const FString& Definition)
+{
+    // 木材已有离线渲染的 1x2 竖幅目录图，不进捕获通道；其余生产材料都是 1x1 方格，
+    // 捕获画布按同一规则推成 320x320，与格子比例一致。
+    return IsMaterial(Definition)&&Definition!=TEXT("wood");
+}
 int32 TreeVariant(const FSoftObjectPath& Tree)
 {
     for(int32 Index=0;Index<4;++Index)

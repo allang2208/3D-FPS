@@ -11,6 +11,17 @@
 | V7 裸手 | `author_bare_palm_v7.py` | `save_bare_palm_v7_blends.py` | `import_bare_palm_v7.py`，然后 `bake_native_bare_defaults_v7.py` 写入基础视模 |
 | 贴合手套 | `author_fitted_field_gloves.py` | `save_fitted_field_gloves_blends.py` | `import_fitted_field_gloves.py` |
 | 贴合衣袖 | `author_fitted_sleeves.py` | `save_fitted_sleeves_blends.py` | `import_fitted_sleeves.py` |
+| 背包图标 | `render_equipment_icons.py` | `ItemPresentation.blend`（由 `author_item_presentation.py` 产出） | 直接写 `Content/ColdSteelData/Icons/ModularOutfit20260924/*.png` |
+
+## 装备背包图标（2026-09-25）
+
+`render_equipment_icons.py`（Blender 无头）取代 `author_item_presentation.py` 的出图部分，按背包统一规则重出上衣与手套图标：画幅按 `BaseFootprint` 的占格推导（3×3 与 2×2 都是 320×320，`grid_w/grid_h` 在 `ColdSteelInventoryRules.cpp:37` 优先于槽位默认，所以 `armor` 的 3×4 默认不参与），主轴填满 91%，轮廓中心落在画幅中心，透明底。装备按用户确认保持**竖直**，不做近战／工具那种横置。
+
+出图部分单独成脚本是因为 `author_item_presentation.py` 同时会重导拾取 FBX，图标返工不应连带改动已导入的模型。
+
+旧图标过曝 2.1–2.9 倍：`Standard` 视图变换之外，0.5 强度的环境光与 160/90/130 W 面光把深棕（0.18,0.085,0.035）冲成肤色、近黑（0.026,0.03,0.034）冲成浅灰，所以"棕革短手套"看起来像裸手。新脚本把本体色与 `import_equipment.py` 建的 UE 材质取同一组线性值，渲染后按不透明区均值自校准曝光（读回时强制 `Non-Color` 再反解线性，避免色彩管理把修正方向搞反），实测成图平均 RGB 94,101,80／60,64,70／113,82,57／45,48,50 对应材质目标 95,103,80／60,65,72／118,82,53／45,48,52。原件备份在 `SourceAssets/ModularOutfit20260924/IconsBefore20260925/`。
+
+`ue_original_gloves` 与棕革共用拾取网格与材质，因此继续共用同一张图。
 
 V7 包装器复用 `author_bare_arms_family.py`、`save_bare_family_blends.py`、`import_bare_arms_family.py`。原生绑定输入来自 `BareArmsFamilyV6/Sources`；掌面上游仍用 `OriginalShapeBareM4` 的 V3／V6 对应数据。皮肤表面链保留 V4 烘焙、V5 材质及 `skin_surface_v5.hlsl`。这些旧版本是依赖，不因日期旧而退役。
 

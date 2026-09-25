@@ -19,6 +19,7 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 - For FPSGAME persistent panel icons, hotkey effects, dual-pistol layout, or melee stamina readouts, read [HUD navigation and weapon readouts](references/hud-navigation-and-weapon-readouts.md).
 - For FPSGAME new panels, tabs, sections, cards, or UI upgrades, first read [panel planning and Cold Steel rules](references/fpsgame-panels.md). Plan structure, layout, data scope and states before implementation; use the project's current design system.
 - For FPSGAME inventory drawers, detached item menus, or drag/close regressions, read [inventory input and validation](references/fpsgame-inventory-input.md).
+- 模态遮罩（启动主界面／加载界面）设了 `bShowMouseCursor=true` 却看不到鼠标时，先读同文的**模态遮罩的光标会被后来的 BeginPlay 抢走**一节：用引擎自带的 `LogViewport` 两条 Display 日志排时间线（直接写成员不打日志，别只凭日志判断没人改过），修法是给遮罩一个只读自身状态的 `OwnsPlayerCursor()` 判据让"恢复玩法默认"处跳过，并在遮罩存续期每帧夺回。
 - 改动任何 E 交互提示（准星浮窗、模型名牌、新交互物接入）前，读 [统一 E 交互小浮窗](references/unified-interaction-hint-popup.md)：单一文案解析器合同、毛玻璃配方与刷新纪律（2026-09-24 定版，模型上方不挂世界空间名牌）。
 - For a blurry weapon/item preview, incomplete-looking materials, or transparent SceneCapture composition, read [preview rendering and texture residency](references/preview-rendering.md).
 - Identify whether feature belongs to UMG, Slate, or hybrid bridge.
@@ -162,4 +163,4 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 
 ## 运行时图标与诊断界面开销
 
-处理动态图标首次准备卡顿、图标通知全量刷新或诊断文本反复失效时，读取 [运行时图标准备](references/runtime-icon-pipeline.md)。该文另含**预览资源必须异步加载（禁止游戏线程 `LoadSynchronous`、超时值不得作为正确性的一部分）、延后重试后的作业身份、立绘独占整栏**三条硬口径。
+处理动态图标首次准备卡顿、图标通知全量刷新或诊断文本反复失效时，读取 [运行时图标准备](references/runtime-icon-pipeline.md)。该文另含**预览资源必须异步加载（禁止游戏线程 `LoadSynchronous`、超时值不得作为正确性的一部分）、延后重试后的作业身份、立绘独占整栏**三条硬口径，以及**三个捕获通道（枪械 rig／近战／材料与拾取道具）共用同一套构图数字**：画幅按 `BaseFootprint` 占格 320 px／格行、主轴填满 91%、轮廓中心对齐画幅中心；`Supports()` 为假的物品目录 PNG 即最终图标；作者 `grid_w/grid_h` 优先于槽位默认，改占格等于改画幅。

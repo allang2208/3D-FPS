@@ -20,7 +20,26 @@
 - 拖出面板时 HUD 会把抽屉设成 `Hidden`（既有的"拖出即丢下"逻辑），所以**刷新落点预览不能因为面板不可见就提前返回**：否则按 F 转回原方向后高亮会停在旧的红色拒绝上，看起来"转回去还是红的、动不了"。正确做法是指针不在本面板内时清空高亮、回到面板内由正常 DragOver 重算；同时把转向键放在 HUD 层兜底（拖动进行中转发给发起面板），并在待提交朝向塞不进当前容器行数时给出明确原因（例如竖放步枪需要 5 行而背包只有 4 行）。拖动中的抓取基准要记录拖动开始时的 `BaseGrabOffset`／`BaseGrabNorm` 并由其推导每次转向，禁止在当前值上反复转置／夹取；`UColdSteelDragVisual::Configure` 会被重复调用，不能重建活动 widget 树。
 - 落点要按"可见即所得"处理外层格：`PreviewItemDrag` 计算出的抓取锚点必须夹取进容器（列 `0…18-W`、行 `0…Rows-H`），否则光标停在最外一两列时，5 格宽枪械会一直报 `物品超出背包边界，请向内移动`，而用户会把它读成"转向把物品弄坏了"（实测日志 `INVDRAG` 证明转向状态当时完全正常）。夹取后高亮框即真实落点；`ColdSteelInventory::Move` 一侧保持严格规则不变（golden case 与视觉审计仍按模型行为断言）。
 
+## 模态遮罩的光标会被"后来者的 BeginPlay"抢走（2026-09-25）
+
+启动主界面（`TransitLoadingSubsystem::ShowStartupMenu`）看不到鼠标，但按钮仍可点。菜单本身逻辑没错：它设了 `bShowMouseCursor=true` 并 `SetInputMode(FInputModeUIOnly())`。真正原因是**执行顺序**——菜单在 `APlayerController::BeginPlay` 末尾调用，而 `AFPSGAMECharacter::BeginPlay` 更晚，它末尾无条件 `SetShowMouseCursor(false)` + `SetInputMode(FInputModeGameOnly())` 来恢复第一人称默认，把刚设好的状态覆盖掉。
+
+**诊断口径：不要自己加日志，引擎已经把时间线打出来了。** `LogViewport` 有两条 Display 级日志：`Player bShowMouseCursor Changed, A -> B`（只在走 `SetShowMouseCursor()` setter 时打）和 `Viewport MouseLockMode Changed, ...`（每次 `SetInputMode` 都打）。按时间顺序 grep 本次运行日志，就能直接看出"谁在谁之后抢的"。注意**直接写成员 `PC->bShowMouseCursor=true` 不打日志**，所以"日志里没有 True->False 之外的变化"不等于没人改过。
+
+5.8 的相关事实（别再按旧版经验找 `bHideCursorDuringTransition`，该字段在 5.8 已不存在）：
+
+- `FInputModeUIOnly::ApplyInputMode` 会 `SetIgnoreInput(true)` + `SetMouseCaptureMode(NoCapture)`，**不会**因捕获隐藏光标；所以遮罩里额外调 `VP->SetIgnoreInput(true)` 是冗余的（无害）。
+- `FInputModeGameAndUI` 相反：`SetIgnoreInput(false)`，且默认 `bHideCursorDuringCapture=true` 会写进视口客户端；`FSceneViewport::AcquireFocusAndCapture` 路径在鼠标按下时按该标志置 `bCursorHiddenDueToCapture`。需要"按下也不藏光标"的 GameAndUI 场景要显式 `SetHideCursorDuringCapture(false)`。
+
+修法约定（比"在菜单里每帧重设"更干净）：
+
+- 给遮罩一个**只读自身状态**的判据（`OwnsPlayerCursor()`：主界面或加载遮罩在挂），让所有"恢复玩法默认"的地方据此跳过。遮罩拆除时本来就会还原 `GameOnly` + 隐藏光标，跳过不留残余；两种先后顺序都成立。
+- 遮罩侧把"只在首次夺光标"改成"**存续期间每帧夺回**"（`else if(!PC->bShowMouseCursor) PC->bShowMouseCursor=true;`）。地图旅行会生成新 Pawn，它的 `BeginPlay` 同样晚于遮罩，属同一类时序问题。
+- 判据只读现有字段，不新增状态，避免遮罩与玩法各存一份"谁拥有光标"而互相不一致。
+
 ## 验证入口与失败判读
+
+
 
 - `Tools/UI/run_drop_hitch_acceptance.ps1`：真实 Slate 键鼠输入，覆盖普通/独立菜单/拆分框关闭、拖出松手、TAB 取消、仓库内外点击及模型缓存。当前脚本要求 25 项全部执行并通过。
 - `Tools/UI/run_inventory_drag_acceptance.ps1`：交换、堆叠、拆分、装备、快捷栏及保存回滚。运行前读当前脚本与审计源码；宿主可能含其他尚未发布的扩展阶段，不能用 Git 中较早的阶段数解释当前日志。

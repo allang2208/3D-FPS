@@ -30,6 +30,7 @@
 #include "Movement/FPSCharacterMovementComponent.h"
 #include "Movement/FPSStairAudit.h"
 #include "UI/ColdSteelStatusModel.h"
+#include "UI/TransitLoadingSubsystem.h"
 #include "Building/VoxelBuildComponent.h"
 #include "Engine/GameInstance.h"
 #include "Monsters/FPSCombatHealthComponent.h"
@@ -305,8 +306,15 @@ void AFPSGAMECharacter::BeginPlay()
     bRunSlideCombatAudit = FParse::Param(FCommandLine::Get(), TEXT("SlideCombatAudit"));
     if (APlayerController* PC = Cast<APlayerController>(Controller))
     {
-        PC->SetShowMouseCursor(false);
-        PC->SetInputMode(FInputModeGameOnly());
+        // 启动方式菜单／加载遮罩是模态的且先于本函数取得光标与输入模式（Pawn 的
+        // BeginPlay 晚于 PlayerController 的），此时抢占第一人称默认会让初始界面看不见鼠标。
+        // 菜单与遮罩自行拆除时都会还原 GameOnly + 隐藏光标，跳过这里不会留下错误状态。
+        auto* Loading = GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>();
+        if (!Loading || !Loading->OwnsPlayerCursor())
+        {
+            PC->SetShowMouseCursor(false);
+            PC->SetInputMode(FInputModeGameOnly());
+        }
     }
 }
 

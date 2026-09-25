@@ -270,6 +270,8 @@ void UTransitLoadingSubsystem::Tick(float DeltaTime)
             PC->bShowMouseCursor=true;
             if(Overlay)FSlateApplication::Get().SetAllUserFocus(Overlay,EFocusCause::SetDirectly);
         }
+        // 遮罩还挂着时，若有后来者（例如新 Pawn 的 BeginPlay）把光标关掉，下一帧夺回。
+        else if(!PC->bShowMouseCursor)PC->bShowMouseCursor=true;
     }
     if(View->CancelRequested)
     {

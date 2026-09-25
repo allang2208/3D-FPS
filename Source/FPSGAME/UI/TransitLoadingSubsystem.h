@@ -11,6 +11,7 @@ class UGameViewportClient;
 class APlayerController;
 class ACharacter;
 class FGameResourcePreparation;
+class SWidget;
 struct FStartupLoadingView;
 
 /** Owns the transition UI across map teardown and the destination's preparation phase. */
@@ -36,6 +37,9 @@ public:
     void RetainBiomeResources(const TArray<TSharedPtr<FStreamableHandle>>& Handles);
     void ShowStartupMenu(APlayerController* Controller);
     bool IsCompletePreloadSelected() const { return bCompletePreload; }
+    // 启动方式菜单或加载遮罩当前是否持有玩家光标与输入模式。Pawn 的 BeginPlay 晚于
+    // ShowStartupMenu，需要据此跳过"恢复第一人称默认"的抢占，否则初始界面看不见鼠标。
+    bool OwnsPlayerCursor() const { return StartupOverlay.IsValid() || (Overlay.IsValid() && CursorController.IsValid()); }
 
 private:
     void BeforeMap(const FString& Map);
