@@ -37,7 +37,7 @@ public:
     virtual void TickComponent(float Delta, ELevelTick Type, FActorComponentTickFunction* Tick) override;
     void RefreshEquipment(UColdSteelStatusModel* Profile);
     UFUNCTION(BlueprintPure, Category="Rune Sword") bool IsEquipped() const { return !InstanceId.IsEmpty(); }
-    UFUNCTION(BlueprintPure, Category="Rune Sword") bool IsBusy() const { return bWhirlwind || bAttacking || bEquipping || bInspecting || bCharging || bReturningCharge || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose; }
+    UFUNCTION(BlueprintPure, Category="Rune Sword") bool IsBusy() const { return bWhirlwind || bAttacking || bEquipping || bCharging || bReturningCharge || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose; }
     UFUNCTION(BlueprintCallable, Category="Rune Sword") void BeginInspect();
     UFUNCTION(BlueprintPure, Category="Rune Sword") bool IsInspecting() const { return bInspecting; }
     UFUNCTION(BlueprintPure, Category="Rune Sword") bool IsGuarding() const { return bGuarding; }
@@ -183,6 +183,11 @@ private:
     void TickClovenCounter(float Delta);
     void ClearClovenCounter();
     TSet<TWeakObjectPtr<AActor>> HitActors;
+    void TickWalkInspect(float Delta);
+    void ScheduleWalkInspect(bool bAfterInspect);
+    bool IsWalkInspectStride() const;
+    bool ShouldBreakWalkInspect() const;
+    float WalkInspectDelay=0.f;
     bool CanUse() const;
     bool StartSwing(FName Clip, bool Heavy, float StaminaOverride=-1.f);
     bool StartQuickCombatStrike();

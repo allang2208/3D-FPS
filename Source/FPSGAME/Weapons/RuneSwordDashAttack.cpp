@@ -43,6 +43,7 @@ bool URuneSwordComponent::TryBeginDashAttack()
     TRACE_CPUPROFILER_EVENT_SCOPE(DashAttack_Entry);
     const double BeginSeconds=FPlatformTime::Seconds();
     auto* Pawn=Character.Get();
+    if(bInspecting)CancelAction();
     if(!Pawn||!IsEquipped()||IsBusy()||bGuardHeld||!CanUse()||!Viewmodel||!Viewmodel->GetSkeletalMeshAsset()||
         !Animations.FindRef(TEXT("Overhead"))||!Pawn->IsSprinting()||Pawn->IsCastBlockingLeftHandAction()||
         Pawn->IsDodging()||Pawn->IsSliding()||!Pawn->GetCharacterMovement()->IsMovingOnGround()||

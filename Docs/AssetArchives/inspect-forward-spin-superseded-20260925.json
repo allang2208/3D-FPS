@@ -1,0 +1,1071 @@
+{
+  "date": "2026-09-25",
+  "project": "D:/FPS3D/FPSGAME",
+  "archive_root": "trash/inspect-forward-spin-superseded-20260925",
+  "status": "completed_sha256_verified",
+  "reason": "User paused inspect at V79. Superseded V54-V78 authors, exports, logs and probes archived. Live rebuild stays on author_inspect_v79.py.",
+  "runtime": "A_RuneSword_Inspect remains V79 in Azure and long-grip folders, 1.267s. Blend/FBX stay local (gitignored).",
+  "kept": [
+    "AzureRunesword_InspectForwardSpinV79.blend",
+    "ExportV79/",
+    "Reference/",
+    "author_inspect_v79.py",
+    "authoring_v79.json",
+    "import_inspect_v54_all.py",
+    "import_receipt_v54_all.json",
+    "run_import_v54.ps1",
+    "spin_design.py"
+  ],
+  "files": [
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v54.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v54.py",
+      "bytes": 20685,
+      "sha256": "66952e413ea528848c6df21ea2c99956943c227db3a4a93243454291fe483565"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v55.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v55.py",
+      "bytes": 20558,
+      "sha256": "0ec06e2a0bb85b1eddc0ffba0229a5833c9b9c46272076fa7fbc9b2ad628cf27"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v56.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v56.py",
+      "bytes": 20797,
+      "sha256": "9b9b0440b5926d1d53e44cd2267f5f960bc193bac2dae354feac381920043bae"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v57.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v57.py",
+      "bytes": 20797,
+      "sha256": "4e2081e8ac46740bef8c7fd68d84d8101bcd8ed360a8a8c44d091760fb6796c6"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v58.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v58.py",
+      "bytes": 21206,
+      "sha256": "eeec704cfc3c0214c91cf5825409ddd949c9bf1cacade6edd35bca5febd3c85e"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v59.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v59.py",
+      "bytes": 25957,
+      "sha256": "8ff822493db846979f6cb8e4b71b3e78c7681c959c4defd98ca3766f3d32ce7f"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v60.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v60.py",
+      "bytes": 25173,
+      "sha256": "8bac0e1d1c91c9b412c236ced0868fb1f64abdfad4d0eed9b5a59c119219e446"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v61.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v61.py",
+      "bytes": 27749,
+      "sha256": "4a0fce3e0d4b6ca19acb6bc4cd42153e73076bede2a2f8f7ed4761e0d1b42e6b"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v62.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v62.py",
+      "bytes": 29372,
+      "sha256": "f24a808dc18cf5264feb8e6f32e301300ad5ca9af30a200697e24fbf52cf4bc3"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v63.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v63.py",
+      "bytes": 30546,
+      "sha256": "f6eba7531e3f87c298c77482f32d383bd77fc1c489ebc6f59dde48662eb6f0af"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v64.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v64.py",
+      "bytes": 30329,
+      "sha256": "a3b166a74555f97a9c00eaaf7262401e3f7eea6eb4d261f3e698d21984b923ba"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v65.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v65.py",
+      "bytes": 31790,
+      "sha256": "5f57a18a9f49cd4d7def42f4488bdbf4d868da0d613f1a0abf20bbeb0528158b"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v66.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v66.py",
+      "bytes": 32208,
+      "sha256": "dfbcddfd2d2a1972689fac3215e4a924f254e1dd6b5e32d229ece3cbe6ca3ba8"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v67.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v67.py",
+      "bytes": 32634,
+      "sha256": "2e7e15a9d8b77bc9a803c40a3646fbf5d87589a74bce81b5421dcdf1fc3c5b7c"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v68.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v68.py",
+      "bytes": 32588,
+      "sha256": "887b9aa7ea31e2a711cac901d7483c7360d9dea80f13a79455185179d3173978"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v69.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v69.py",
+      "bytes": 32442,
+      "sha256": "4a86f35d7eb2ad1a057d4a392bbd92b060f10a02a1ca7aeedc3b6880d3885cc8"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v70.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v70.py",
+      "bytes": 33490,
+      "sha256": "efa3e6984c81268e19ba8cef1ea9c03fddc73adf2c3f3c28966c10af680d0102"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v71.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v71.py",
+      "bytes": 34311,
+      "sha256": "7e65e4a92654e7f3e2209ca5aa41e872e0815c569b1f780401e58f8a1ff54a04"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v72.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v72.py",
+      "bytes": 34201,
+      "sha256": "a42d98705811a295d34780bb53e9081027aa844f023b7e0b72eb9761a401a1fe"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v73.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v73.py",
+      "bytes": 36468,
+      "sha256": "3769f01a2fb8dba6a12b9739da2ad6ecfb25e0cb28e24919b8b5d74bd852847a"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v74.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v74.py",
+      "bytes": 36289,
+      "sha256": "8315028f3a238dbc93127c459072d1532e9e47add31a3e58c09de3246cb70aeb"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v75.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v75.py",
+      "bytes": 36356,
+      "sha256": "6c94993b41cb2c9338e5781745888937577cac13dcf1300e3e17688c11e533c8"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v76.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v76.py",
+      "bytes": 37049,
+      "sha256": "10024c84e786833c9d19355e529758cafbd782ccdb29de8527f46351e1927314"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v77.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v77.py",
+      "bytes": 39826,
+      "sha256": "3918cd9487983948b8d6885afcf488a73b6617d09b3558b076c5f09237f3aacc"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v78.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_inspect_v78.py",
+      "bytes": 39731,
+      "sha256": "984e5504d4e6f442d954e75598844615a93253a03ee579278a36c8a0a93b2e36"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v54.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v54.log",
+      "bytes": 2298,
+      "sha256": "1d3690186fbf28d2c87c9ed80b934458d934a44d830b0be585f15066e383be27"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v55.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v55.log",
+      "bytes": 2274,
+      "sha256": "5e58d159dcd5a88ca223abb5555d08a3473cbf2c68c2de0d1cfb4f190dbf2929"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v60.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v60.log",
+      "bytes": 2764,
+      "sha256": "fde3c98c76721fc9636b726b665be8b1442773e44c98489430ba777ee8a230b0"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v61.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v61.log",
+      "bytes": 2796,
+      "sha256": "257457ed5107261e9da98eb42aa5ab66ece1683baf70ef0500b0d4983f63f15e"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v62.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v62.log",
+      "bytes": 2820,
+      "sha256": "94fde2bfc52c09a1d601fbff2b002a89de091d79135dae5eb3b78bceb25b62c4"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v67.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v67.log",
+      "bytes": 2798,
+      "sha256": "1dd6297c637e29b2cada63a6f3c9b92010395bbe47f52450c0c9a7b0ed021550"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v68.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v68.log",
+      "bytes": 2800,
+      "sha256": "dcd2a5f30d48250a6199058708bde90a1204f585135a50a1580eb43cbb0ba4e8"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v69.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v69.log",
+      "bytes": 2800,
+      "sha256": "8fbbbf50e461842f65c8f802f01fbabb8a869cdbb3e5ca4c8ad981fed65c0d5f"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v70.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v70.log",
+      "bytes": 2800,
+      "sha256": "f115fd478fc0545ace14f436ddea658e80061e34d25cb53640a48dba72d12439"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v70b.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v70b.log",
+      "bytes": 2800,
+      "sha256": "994a5b6fbf798c38f8fda5ce10f82ecdcc61996f9e06441d8d374815abf46676"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v71.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v71.log",
+      "bytes": 2800,
+      "sha256": "1b471c83f52f939029c576b971cd0e33c09719f0225f06389579122957459bd4"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v72.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v72.log",
+      "bytes": 2800,
+      "sha256": "ef10fdbcfb9975908c4ce4c9f9fd0e3d4122459c6d92606cd8ae6b7d10596c49"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v73.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v73.log",
+      "bytes": 2800,
+      "sha256": "229cbaf28320496fb405fb5ee8bffcd85d69ce9f2c9bab451d4ef677ce3a8008"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v74.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v74.log",
+      "bytes": 2800,
+      "sha256": "08aa09b68e6c947c896dd2e4f494b9b30f0a0f5b1fd8da3090a0fb3c4820a5a6"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v75.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v75.log",
+      "bytes": 2800,
+      "sha256": "44ac40c00ff5f1057c0f876b6c413d26c03d2019f0ae58ba322eeff5cd81f6c3"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v76.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v76.log",
+      "bytes": 2800,
+      "sha256": "49c06f5e2b9f1d1ef201d81b0009d8c15744d0ba50830117e334fbdd7d52edc1"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v77.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v77.log",
+      "bytes": 2800,
+      "sha256": "990cdc0499aac895a88de290582076e9b2d7fee83d17ece90335c3906f70cb82"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v78.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v78.log",
+      "bytes": 2800,
+      "sha256": "d241a4cf81c0c73e76d16f88c46a4161712b333b466c48cf0b1a5eecc7d5ebf3"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v79.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/author_v79.log",
+      "bytes": 2800,
+      "sha256": "e4bffcfb061ec892b33c7e72ff3fe94983c2703e1e6d7f8db564e5afff69c780"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v54.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v54.json",
+      "bytes": 25532,
+      "sha256": "822bb2a6daee86d3568f83f43164b081c2da1aa5db6ca09a99eec1b8552bc3e6"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v55.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v55.json",
+      "bytes": 21098,
+      "sha256": "8c5184a913a91e6e6328efe22c4099e7ab815460cc4b1fb08646872c3add14ae"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v56.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v56.json",
+      "bytes": 20337,
+      "sha256": "113325d39079b73ac95f09c743e837af8ca73697e925d6867bbf42bef840c03f"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v57.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v57.json",
+      "bytes": 15522,
+      "sha256": "a2bcd55d7ba5b3c7a561b22a48676f84b3626c1a3c1248c387b49ffe6f66dcdd"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v58.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v58.json",
+      "bytes": 12606,
+      "sha256": "03fe13005e75cd77db09af247f632d6ae546c1e32a213dd270063f55433cfdd6"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v59.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v59.json",
+      "bytes": 17582,
+      "sha256": "4059a341c3d7977f47eedc66d40947dfe006a47d075c76df3c86f90fa584f814"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v60.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v60.json",
+      "bytes": 17610,
+      "sha256": "8bbf5044317001bdee142552189cf30f42f52014e0171b4ec787f66839e245cc"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v61.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v61.json",
+      "bytes": 17562,
+      "sha256": "139a7d9722f9b08edd251ba493a95088e9c689c63d2a30676323ea5210b90684"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v62.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v62.json",
+      "bytes": 17562,
+      "sha256": "107c340b0a230375711d631f6b71d89e79f5e4a1e2b29fdd028d856eb21c3a11"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v63.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v63.json",
+      "bytes": 17478,
+      "sha256": "b50bc4710fd9bc1d251f8e1ef3756fdfc29cf698e19130a67a89b3cd5eec4ecd"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v64.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v64.json",
+      "bytes": 19011,
+      "sha256": "52897fa083bfe162f75abb4d5f1b616a519d8518974d30b493303d852236164a"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v65.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v65.json",
+      "bytes": 19003,
+      "sha256": "a20461d55b75070cac5c437b0072eea1ecca795d96af149acbe091103556c6df"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v66.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v66.json",
+      "bytes": 19012,
+      "sha256": "7505da01668940d05d79c7842a633400d9b348a6fef9d4148bda99dde115690d"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v67.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v67.json",
+      "bytes": 19448,
+      "sha256": "b0c870d667a29750616c7668e3f254e82447b45f206fe9368585e9769baa52bf"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v68.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v68.json",
+      "bytes": 19414,
+      "sha256": "3528dd0e3ef5f7375409d6b4e9a367e78f6e224ec3e2931115c4cde533757d5f"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v69.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v69.json",
+      "bytes": 19388,
+      "sha256": "27eb6d91e304a1ff02e7f1c363273910d16a06b4c560c3b526a14240c1cb0748"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v70.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v70.json",
+      "bytes": 20360,
+      "sha256": "6d41d2af807dacf47828f3b24663daddc4a85210b471ea123ecc1fb8f8098768"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v71.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v71.json",
+      "bytes": 20308,
+      "sha256": "d373f1057e2112eb30ea55fde919f0cacfb29114f649d5bf1f9f7e76c5e7785e"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v72.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v72.json",
+      "bytes": 20271,
+      "sha256": "9225b9e024137f3328e14dcc200f2e41c4514328b68fb26702d34fa160afa529"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v73.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v73.json",
+      "bytes": 20316,
+      "sha256": "d4a33e4432cf8dabfbec4c0715460937f0ab0ac0bb47d3e29ef9ba053f09ecec"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v74.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v74.json",
+      "bytes": 20249,
+      "sha256": "c0b09cc0a069878a6191d55205403d15f744c7bb2b5ebdeedcfaa6d7a01645cb"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v75.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v75.json",
+      "bytes": 23320,
+      "sha256": "a01440d58f248f087cb67679b2fac5ae45879fa414abcfc786d0ba0d72803122"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v76.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v76.json",
+      "bytes": 24432,
+      "sha256": "14b787b9ffdcd1079f1357f319813f16624ce28321298c73dcf155ccb4052ff2"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v77.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v77.json",
+      "bytes": 27696,
+      "sha256": "d2a23df954bbf667c12752acb9e0a28785aff17eb1104ccb038b7f5abbcefaec"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v78.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/authoring_v78.json",
+      "bytes": 27606,
+      "sha256": "300aa3f23b3a04d4e16411e832ff838b691d13808ce053c295e0504b3894fbe3"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV54.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV54.blend",
+      "bytes": 163527248,
+      "sha256": "df547f6f88c2471e55ba5ceac8968131c3265efe51b2106d5e5529455f8c18f4"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV55.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV55.blend",
+      "bytes": 163180409,
+      "sha256": "05f07e8f2f72cdde437c000de7c1378e0b7edba63d9ed7004698b93271a089d1"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV56.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV56.blend",
+      "bytes": 163102122,
+      "sha256": "662ec55ba7e4e18583c04913c4b7664957fe20b77c9038f3bc9b5a0abd9334b9"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV57.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV57.blend",
+      "bytes": 162995537,
+      "sha256": "a427cccb651f5a19752466700375f93523bb3393b02e296f8d437b60d5bd9c42"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV58.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV58.blend",
+      "bytes": 162670586,
+      "sha256": "2d8973d63904e438459944a71116d4658928a502b2ae14a1a941015fc1256eec"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV59.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV59.blend",
+      "bytes": 162685308,
+      "sha256": "1041e5f0e405f2ee05174312eef7746581727c6cfb9a0f63b6c7cb714f833480"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV60.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV60.blend",
+      "bytes": 162666922,
+      "sha256": "932fba1df4ddaee0dcd5994d1483f9b036892ecf3309ff571e9b39f8de30acc2"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV61.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV61.blend",
+      "bytes": 162658288,
+      "sha256": "523e254c8a08a2c931eeb678242f833e75e29b1415fa08977d955baa907c7abd"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV62.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV62.blend",
+      "bytes": 162669974,
+      "sha256": "3634b1b889bb33e6965350989a4d31874f6727e7f1356263d4fe15afd9ec77e3"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV63.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV63.blend",
+      "bytes": 162616089,
+      "sha256": "1b64e9bdf2cef01a2add9b818a999a8e56b0d44b6c787cae4bf0c75794a50ed5"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV64.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV64.blend",
+      "bytes": 162610905,
+      "sha256": "be3db3209825832a0893e5c185e62ad8ae1b43ac61647e10a456cdec277fc0b7"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV65.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV65.blend",
+      "bytes": 162620323,
+      "sha256": "08e202160578188ff49bda43b0f2747077f7de030d3de0b1b7896890600a899e"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV66.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV66.blend",
+      "bytes": 162610859,
+      "sha256": "dee493dc0e56489a5636d6d75dc0ef66d9b48735977c32a20ed8407656fe7be3"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV67.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV67.blend",
+      "bytes": 162623858,
+      "sha256": "4b7ec3fe0f649f36f88a86b45b871179af7d7af218613f2bc053e7ed820aff99"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV68.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV68.blend",
+      "bytes": 162632433,
+      "sha256": "0097a694f4ba7f5addb4d26ec532e2947bebc0521ea58ae535f32e8adc420991"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV69.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV69.blend",
+      "bytes": 162635905,
+      "sha256": "ab8287a933c108d644281164c7c75428a7aaf542483ed0fb8915b0aab5b15e5f"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV70.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV70.blend",
+      "bytes": 162838409,
+      "sha256": "31aba16bf52e05ecd73c0725943cf5f6b54fcbc74a3d0d55ee8cc47b9f2c2dc3"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV71.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV71.blend",
+      "bytes": 162820478,
+      "sha256": "dd28f8b8c1e9a0678ff634c8373419b2876f103e452a6d05be99a311ab710265"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV72.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV72.blend",
+      "bytes": 162747041,
+      "sha256": "a94a005ee3214ee503eab216a5dee76f80d9cb61fc8d52b6818091b37cb1666f"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV73.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV73.blend",
+      "bytes": 162752657,
+      "sha256": "c01fc74af9159eb9539cec67e118b348673d6792abda6e8369358c3b95f916bd"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV74.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV74.blend",
+      "bytes": 162779886,
+      "sha256": "8322af7f93da41113f9ad6da5c400ac4053dc2791baeb9e4f11ea84402975c5f"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV75.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV75.blend",
+      "bytes": 163304270,
+      "sha256": "55686e0cab806a7d39bf66763e7d9834482100bd595eb679cf1dff44e0aba685"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV76.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV76.blend",
+      "bytes": 163303495,
+      "sha256": "2b1ef37f27b5021daef9da8d99896e8dc12f70d2fe8292f139cdf63766ff725a"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV77.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV77.blend",
+      "bytes": 163312338,
+      "sha256": "981a67a5244bed40bfa9319f60a65ea67fa6f3419b5f32acc139690bd96d2447"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV78.blend",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/AzureRunesword_InspectForwardSpinV78.blend",
+      "bytes": 163314634,
+      "sha256": "5a5ab7b09ad426c26170ed4c466e65b74e53fbdb07ef83d6bac905a06c8e5143"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/BeforeV54/A_RuneSword_Inspect.uasset",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/BeforeV54/A_RuneSword_Inspect.uasset",
+      "bytes": 3199969,
+      "sha256": "2083c9fb93d530fd1ae6a2955a8790037d6f0ae9cc442f8a86ad049dfdb568ba"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/BeforeV54/Weapons_AzureRunesword20260913/A_RuneSword_Inspect.uasset",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/BeforeV54/Weapons_AzureRunesword20260913/A_RuneSword_Inspect.uasset",
+      "bytes": 2591742,
+      "sha256": "8a5f76acaeba8fc7a2ca701bff31ce1a7fed33467910dd8b19d05f502e03c324"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/BeforeV54/Weapons_FrostCrystalSword20260915_Grips20260919_LongGripAnimations/A_RuneSword_Inspect.uasset",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/BeforeV54/Weapons_FrostCrystalSword20260915_Grips20260919_LongGripAnimations/A_RuneSword_Inspect.uasset",
+      "bytes": 3197908,
+      "sha256": "e71551dbec5a043b4fdf5e4576c14f7c1db90fdcf5c9db6520ea9905ac59179f"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/compare_idle.20260925-190800.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/compare_idle.20260925-190800.bridge.txt",
+      "bytes": 415,
+      "sha256": "f05d27c7a3c9ec6087a44b7d5099cde257a254cb4dcaf0a0754a4de16223a3db"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/compare_idle_inspect.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/compare_idle_inspect.json",
+      "bytes": 36755,
+      "sha256": "61c41c3a4039b3a8b188c650eb3dc6a5cc9b8efde0a63b6b5835a764ec96efc9"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/compare_idle_inspect.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/compare_idle_inspect.py",
+      "bytes": 2494,
+      "sha256": "1a9e7221c75cbfbb21f5008935f0760dafec7eab84501194848b580bb68099f5"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/compare_v66.20260925-191120.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/compare_v66.20260925-191120.bridge.txt",
+      "bytes": 407,
+      "sha256": "5bcebf384251db1d70131c40a91176fa30e0b8b0755c2ee2b0f6cff98f4a9609"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV54/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV54/A_RuneSword_Inspect.fbx",
+      "bytes": 2535708,
+      "sha256": "6a26e24862c162eed83fe2c9eb905b3f9f52c164038f7a773f1ea7be7cd7a0fb"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV55/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV55/A_RuneSword_Inspect.fbx",
+      "bytes": 2073196,
+      "sha256": "de687f94582d2338dca4945bc9add6d66411b82131a455353443297ef0f66ef0"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV56/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV56/A_RuneSword_Inspect.fbx",
+      "bytes": 1990444,
+      "sha256": "c84c2fe2e89fe62484447e072a744a29070435047958cc5f22f5cfa9189bee4a"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV57/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV57/A_RuneSword_Inspect.fbx",
+      "bytes": 1648188,
+      "sha256": "a2d6ef969658ff08347f2eb65ede97f9388b08b260807aae710ac9276b7aa91d"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV58/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV58/A_RuneSword_Inspect.fbx",
+      "bytes": 1449580,
+      "sha256": "071a4583414cd38f8b1b32bbbb87b5934320335bd3969a821d18ef57393bc924"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV59/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV59/A_RuneSword_Inspect.fbx",
+      "bytes": 1455004,
+      "sha256": "da6ba9efb132e51af1232bc5e3cf696b4ee2fe3bb2971663434133a8f23d31e0"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV60/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV60/A_RuneSword_Inspect.fbx",
+      "bytes": 1449580,
+      "sha256": "dedad2f634846cd42031f928b2b397382dea1f13760c6f4d8f9c243f3668eaf7"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV61/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV61/A_RuneSword_Inspect.fbx",
+      "bytes": 1447548,
+      "sha256": "a6a6519cdcadfeb9e7b81858a46a79c6abbaedc11c18887aca801f5a7cdfe28c"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV62/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV62/A_RuneSword_Inspect.fbx",
+      "bytes": 1447980,
+      "sha256": "1b5a16d08ec832c9dd2adf6a1c5abb97e411070189bcf403ee1f0858a02c3540"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV63/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV63/A_RuneSword_Inspect.fbx",
+      "bytes": 1442540,
+      "sha256": "e2cb80116023ccf618e5f901ab863598fe6a64f370318393f6d657dd3d3e14ba"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV64/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV64/A_RuneSword_Inspect.fbx",
+      "bytes": 1439388,
+      "sha256": "d88efa390942febe081cf6b0a1c8370c1a1ec979a7f6dc4d14a8f5f771782524"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV65/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV65/A_RuneSword_Inspect.fbx",
+      "bytes": 1439516,
+      "sha256": "f1c5434a3673da8cf5a63d63fe025446ab0dec832bcb66509d6dc1330e51e211"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV66/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV66/A_RuneSword_Inspect.fbx",
+      "bytes": 1439356,
+      "sha256": "dd389b5dab2f910ee35fbf6e7c971831ec90a0eb991e29323a4b4d2d198575b3"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV67/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV67/A_RuneSword_Inspect.fbx",
+      "bytes": 1444156,
+      "sha256": "87123a330393b557d115cd7b6b6702efccfbd6779e3549655add54b0db2074a9"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV68/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV68/A_RuneSword_Inspect.fbx",
+      "bytes": 1444556,
+      "sha256": "b4121a41e6b082dea5c0715a5817dbbd812ca34217a54a0346b50dadf007fe25"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV69/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV69/A_RuneSword_Inspect.fbx",
+      "bytes": 1445020,
+      "sha256": "c55d7d0571a8af301122e3d45273000b533ab69143750488e49b1c46850f9c69"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV70/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV70/A_RuneSword_Inspect.fbx",
+      "bytes": 1451676,
+      "sha256": "8fb39ebdf344aa85da9f03fbac5e92a0fcd0ea547a8c8ceff0a7223de5e9c394"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV71/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV71/A_RuneSword_Inspect.fbx",
+      "bytes": 1447228,
+      "sha256": "17a50c58524dea65d53a2dafb2d07f0d13edbf026da3d2f94637203c65c9de61"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV72/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV72/A_RuneSword_Inspect.fbx",
+      "bytes": 1425996,
+      "sha256": "8fe0bba6bee659a2c870e494a36c1412188a2b9fe6d5087eefe1c3000b3ba70e"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV73/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV73/A_RuneSword_Inspect.fbx",
+      "bytes": 1426012,
+      "sha256": "3a9abb37dba538a8c6b65f381bbdf542af5ed0eb1df674f2bb977b090ed5eb2b"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV74/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV74/A_RuneSword_Inspect.fbx",
+      "bytes": 1422636,
+      "sha256": "055dc8fef665addc6618da19381f9ab4a2662263e2af900ec0ec00d26f667740"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV75/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV75/A_RuneSword_Inspect.fbx",
+      "bytes": 1566268,
+      "sha256": "b01df13f17d32709e2cbc827de9917960458ab0e7881184a1cdcb00148390a6b"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV76/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV76/A_RuneSword_Inspect.fbx",
+      "bytes": 1566284,
+      "sha256": "cfe39761121f038b618913009caf4a7e41d105eb9ade69234f1cf45207a94f0a"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV77/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV77/A_RuneSword_Inspect.fbx",
+      "bytes": 1566508,
+      "sha256": "e069153fc224a903aa00ec3f77c570ba10947acaf33a676466749172647e50a4"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV78/A_RuneSword_Inspect.fbx",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/ExportV78/A_RuneSword_Inspect.fbx",
+      "bytes": 1566732,
+      "sha256": "428e57ac542245ab8a6c7879716f90679173daa77618e81d4e4a1999342a5c1d"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/fix_utf8.ps1",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/fix_utf8.ps1",
+      "bytes": 376,
+      "sha256": "826c47706701deeeb6fc9b6f5fe9dbec7308d72aa74fb58fbeb5285a0cba2bd3"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_inspect_v54.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_inspect_v54.py",
+      "bytes": 2750,
+      "sha256": "7911daf4fc062b9f5af9a338ca91079d16c778784a29736354dcb313ab2827e3"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_receipt_v54.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_receipt_v54.json",
+      "bytes": 747,
+      "sha256": "5c51205ed6d78d8cc7010fcb183d4abd406c8fdbac0dfb971a30e30a3117200d"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v54.20260925-154803.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v54.20260925-154803.bridge.txt",
+      "bytes": 128,
+      "sha256": "c64ea764fedc9dc5ec5b4044581da495450754005e1928ffd1faaa2e55ec176b"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v54_all.20260925-155534.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v54_all.20260925-155534.bridge.txt",
+      "bytes": 308,
+      "sha256": "9dd03c8edbb93e8e304f30d8b3e91adce73c1f1ef440c26caeead7034bfb29a1"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v55.20260925-160013.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v55.20260925-160013.bridge.txt",
+      "bytes": 748,
+      "sha256": "0639d4fcf600ceee657063005d7705341acbb9aa98276ff973d36d46938fb788"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v55b.20260925-160029.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v55b.20260925-160029.bridge.txt",
+      "bytes": 308,
+      "sha256": "bf2bec9a5c222911b1266e514771ce38cc07b154c603c8edcc7b493c05d79ad3"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v60.20260925-164800.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v60.20260925-164800.bridge.txt",
+      "bytes": 308,
+      "sha256": "d293e686693273004a07248dd5cc2ed619b2913e7d869907c869bfa90878051f"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v61.20260925-165400.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v61.20260925-165400.bridge.txt",
+      "bytes": 308,
+      "sha256": "d293e686693273004a07248dd5cc2ed619b2913e7d869907c869bfa90878051f"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v62.20260925-165900.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v62.20260925-165900.bridge.txt",
+      "bytes": 308,
+      "sha256": "d293e686693273004a07248dd5cc2ed619b2913e7d869907c869bfa90878051f"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v63.20260925-170400.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v63.20260925-170400.bridge.txt",
+      "bytes": 308,
+      "sha256": "d293e686693273004a07248dd5cc2ed619b2913e7d869907c869bfa90878051f"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v64.20260925-174800.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v64.20260925-174800.bridge.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v64_commandlet.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v64_commandlet.log",
+      "bytes": 278029,
+      "sha256": "47c5137156b3add5a9eae941520974d17e2fbf6db91fd8c2e8528c131c768047"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v65.20260925-190200.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v65.20260925-190200.bridge.txt",
+      "bytes": 308,
+      "sha256": "80d7dc6a225afbe397d4e70520e68a6da6315a33d8782a9a82b4beb2309dee5d"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v66.20260925-191000.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v66.20260925-191000.bridge.txt",
+      "bytes": 308,
+      "sha256": "80d7dc6a225afbe397d4e70520e68a6da6315a33d8782a9a82b4beb2309dee5d"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v67.20260925-195300.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v67.20260925-195300.bridge.txt",
+      "bytes": 308,
+      "sha256": "8e730ae3d5389fc7519451a3124400dcc99c0efa922992adeaab5a309e1f019c"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v68.20260925-195700.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v68.20260925-195700.bridge.txt",
+      "bytes": 308,
+      "sha256": "8e730ae3d5389fc7519451a3124400dcc99c0efa922992adeaab5a309e1f019c"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v69.20260925-200700.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v69.20260925-200700.bridge.txt",
+      "bytes": 308,
+      "sha256": "8e730ae3d5389fc7519451a3124400dcc99c0efa922992adeaab5a309e1f019c"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v70.commandlet.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v70.commandlet.log",
+      "bytes": 562130,
+      "sha256": "9309827d7c13bc450686325a725eed0d544e9adef658572dcf19418517aee595"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v71.commandlet.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v71.commandlet.log",
+      "bytes": 561354,
+      "sha256": "952700506734c95b370e57ff51866e2dd699527e9e276a2d1c34dd8e3d92275e"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v72.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v72.bridge.txt",
+      "bytes": 308,
+      "sha256": "1e37cbc0e32a22b49478a06373495600268294a3f948a9316fcf6f385c9d0e94"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v73.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v73.bridge.txt",
+      "bytes": 308,
+      "sha256": "1e37cbc0e32a22b49478a06373495600268294a3f948a9316fcf6f385c9d0e94"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v73_restore.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v73_restore.bridge.txt",
+      "bytes": 308,
+      "sha256": "4311cb8dfb2c2171f7707b4b22868b6c888efc8b3067c78387755110a7e0d285"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v74.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v74.bridge.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v74.commandlet.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v74.commandlet.log",
+      "bytes": 173976,
+      "sha256": "a3460dc2851f97e486b9531f237a80abc4a60b07dc70e7d117752d3b65a718dc"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v75.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v75.bridge.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v76.20260925-222921.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v76.20260925-222921.bridge.txt",
+      "bytes": 308,
+      "sha256": "ce5f294c10bdc2f1f44eb66e0f01250fc556e3e0a83e8ddd43521453a6ecf626"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v77.commandlet.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v77.commandlet.log",
+      "bytes": 278142,
+      "sha256": "a4f082b8dafdc1be50c42d62790e6f542e27baf4e98fa75565265b3f502f2aa5"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v77.stdout.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v77.stdout.log",
+      "bytes": 66862,
+      "sha256": "0b93f0087a72d59b57253ae2b6eb266460c76a6ba62fccfd6e526e33b5f00907"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v78.20260925-225616.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v78.20260925-225616.bridge.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v78.commandlet.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v78.commandlet.log",
+      "bytes": 279069,
+      "sha256": "bbbf55c15020c7f92d154dc351c2c4e0809d2016922a88b4fa48bfa9d1a51ae5"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v78.stdout.log",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v78.stdout.log",
+      "bytes": 67750,
+      "sha256": "9f4f886ab14ffcbbae53038fefa189aa7b80b35ba4936b9d9647e2bc268c173c"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v79.20260925-232735.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/import_v79.20260925-232735.bridge.txt",
+      "bytes": 308,
+      "sha256": "3e64bb72ff4b046ef220ea3c81e9ecc75052b79255828b40f3a39a1f1fa57262"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/live_compile_walk_inspect.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/live_compile_walk_inspect.bridge.txt",
+      "bytes": 332,
+      "sha256": "659b7ca4b484c8b455f019eeebfb7f59fc2bb253fcf9df3e1597b40695da9cea"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/live_compile_walk_inspect.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/live_compile_walk_inspect.py",
+      "bytes": 2454,
+      "sha256": "5738ba79cafd69535ba2099f1f3331aa00aca35480b799297276a09a32896222"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/probe_blend_contents.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/probe_blend_contents.json",
+      "bytes": 194187,
+      "sha256": "df7274a10f12da2dc5d467fce5195bd046b376c0b2aba09f533150daf47581b1"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/probe_blend_contents.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/probe_blend_contents.py",
+      "bytes": 1977,
+      "sha256": "7e768ff99f412e99db8c7cae3bc9b32d3d6f034885945a3ad1ac54e49b535d40"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/probe_idle_geometry.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/probe_idle_geometry.json",
+      "bytes": 43794,
+      "sha256": "d84011b0a0df193db0770ecfc7869421503bdcb4ac50ddbf82f1f72a0988fcdb"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/probe_idle_geometry.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/probe_idle_geometry.py",
+      "bytes": 7682,
+      "sha256": "39bb2ccc74d5b6471f7db6ddf1cf8117a628bc199dccc8b8d5ff218ff4091b9d"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/probe_right_wrist_v64.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/probe_right_wrist_v64.json",
+      "bytes": 7633,
+      "sha256": "666a8652879b70b01e8b3db0cb915a443200cd7225bf5489b0dd3b4aae9933e5"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/probe_right_wrist_v64.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/probe_right_wrist_v64.py",
+      "bytes": 5723,
+      "sha256": "699cbe5bf359c4265d9dff5d2bd6ac90495f169baf771b286a00a8fea97cfb14"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/verify_inspect_v65.json",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/verify_inspect_v65.json",
+      "bytes": 5286,
+      "sha256": "571c572489ff4e620e68ba816ba943d15460f193637c0a4375e7ae350cb17cc2"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/verify_inspect_v65.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/verify_inspect_v65.py",
+      "bytes": 1855,
+      "sha256": "924149ed2e98d3bc6f89bc53070cf7baa75e7e65a48ab0958b8719464f4555d5"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/verify_inspect_v77.py",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/verify_inspect_v77.py",
+      "bytes": 4522,
+      "sha256": "74186ec60a680d1391c74da3fdf5effcd37ff5ea6e1efed420b7cc54cedac81a"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/verify_v65.20260925-190500.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/verify_v65.20260925-190500.bridge.txt",
+      "bytes": 1305,
+      "sha256": "75d19bfd0cf711158f55a33820c46e4b626de0bddf3fc5b0c48be60549128f3d"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/verify_v65.20260925-190520.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/verify_v65.20260925-190520.bridge.txt",
+      "bytes": 1305,
+      "sha256": "75d19bfd0cf711158f55a33820c46e4b626de0bddf3fc5b0c48be60549128f3d"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/verify_v65.20260925-190540.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/verify_v65.20260925-190540.bridge.txt",
+      "bytes": 1650,
+      "sha256": "a335a3bc04b5ec3d0d9c1ca97e29d8d9e6e178fb512eb7aac9f643563c84b88a"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/verify_v65.20260925-190600.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/verify_v65.20260925-190600.bridge.txt",
+      "bytes": 276,
+      "sha256": "e9997a06f93083b2ac74e1464e54cd30de6cad745f11e72c58fc085546413e05"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectForwardSpinV54/verify_v77.20260925-225115.bridge.txt",
+      "destination": "trash/inspect-forward-spin-superseded-20260925/SourceAssets/RuneSword20260913/InspectForwardSpinV54/verify_v77.20260925-225115.bridge.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

@@ -155,6 +155,7 @@ void URuneSwordComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
     {UE_LOG(LogTemp,Error,TEXT("Two-handed sword assets are missing for %s (animation folder %s)."),*Item->Definition,*Folder);return;}
     bEquipping=true;SetClip(TEXT("Equip"),false);
     if(!CurrentAnimation){bEquipping=false;SetClip(TEXT("Idle"),true);}
+    ScheduleWalkInspect(false);
     Viewmodel->SetVisibility(CanUse(),true);
 }
 
@@ -193,7 +194,10 @@ void URuneSwordComponent::SetClip(FName Name,bool bLoop)
     // Capture before PlayAnimation replaces the live pose. Whirlwind owns its
     // own entry snapshot/clock, so its capture must not be replaced here.
     if(Name!=TEXT("Whirlwind") && Name!=CurrentClip &&
-        (IsTacticalSprintClip(CurrentClip)||IsTacticalSprintClip(Name)))
+        (IsTacticalSprintClip(CurrentClip)||IsTacticalSprintClip(Name)||
+         (CurrentClip==TEXT("Walk")&&Name==TEXT("Idle"))||(CurrentClip==TEXT("Idle")&&Name==TEXT("Walk"))||
+         (CurrentClip==TEXT("Walk")&&Name==TEXT("Inspect"))||(CurrentClip==TEXT("Inspect")&&Name==TEXT("Walk"))||
+         (CurrentClip==TEXT("Idle")&&Name==TEXT("Inspect"))||(CurrentClip==TEXT("Inspect")&&Name==TEXT("Idle"))))
         if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->CaptureLocomotionEntry();
     CurrentClip=Name;CurrentAnimation=Animations.FindRef(Name);Elapsed=0;
     if(!CurrentAnimation || !Viewmodel)return;
@@ -213,8 +217,49 @@ void URuneSwordComponent::BeginInspect()
     if(!IsEquipped() || IsBusy() || bGuardHeld || !CanUse() || !Viewmodel || !Viewmodel->GetSkeletalMeshAsset())return;
     if(Character->IsCastBlockingLeftHandAction() || !Animations.FindRef(TEXT("Inspect")))return;
     // Cosmetic action: its own real-time clock, no attack rate, stamina or hit window.
+    // Inspect is interruptible and does not occupy combat IsBusy.
     bInspecting=true;bQueuedAttack=false;StopRift();
+    ScheduleWalkInspect(true);
     SetClip(TEXT("Inspect"),false);
+}
+
+void URuneSwordComponent::ScheduleWalkInspect(bool bAfterInspect)
+{
+    WalkInspectDelay=bAfterInspect?FMath::FRandRange(5.f,8.f):FMath::FRandRange(2.f,3.5f);
+}
+
+bool URuneSwordComponent::IsWalkInspectStride() const
+{
+    const auto* Pawn=Character.Get();
+    if(!Pawn)return false;
+    const auto* Movement=Pawn->GetCharacterMovement();
+    return Movement && Movement->IsMovingOnGround()
+        && !Pawn->bWeaponJumpAirborne && !Pawn->IsSliding() && !Pawn->IsDodging() && !Pawn->IsTraversing()
+        && !Pawn->IsSprinting() && Pawn->GetVelocity().SizeSquared2D()>400.f;
+}
+
+bool URuneSwordComponent::ShouldBreakWalkInspect() const
+{
+    const auto* Pawn=Character.Get();
+    return !Pawn || Pawn->IsSprinting() || Pawn->bWeaponJumpAirborne || Pawn->IsSliding()
+        || Pawn->IsDodging() || Pawn->IsTraversing();
+}
+
+void URuneSwordComponent::TickWalkInspect(float Delta)
+{
+    if(!IsEquipped() || !CanUse() || !Character.IsValid())return;
+    if(bInspecting)
+    {
+        if(ShouldBreakWalkInspect())CancelAction();
+        return;
+    }
+    if(IsBusy() || bGuardHeld || Character->IsCastBlockingLeftHandAction() || !Animations.FindRef(TEXT("Inspect")))return;
+    if(!IsWalkInspectStride())return;
+    if(WalkInspectDelay>8.f)WalkInspectDelay*=0.5f;
+    WalkInspectDelay-=Delta;
+    if(WalkInspectDelay>0.f)return;
+    BeginInspect();
+    if(!bInspecting)WalkInspectDelay=FMath::FRandRange(1.f,2.f);
 }
 
 void URuneSwordComponent::BeginAttack()
@@ -923,10 +968,11 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
     const bool Usable=CanUse();Viewmodel->SetVisibility(Usable && Viewmodel->GetSkeletalMeshAsset(),true);
     if(!Usable)ClearClovenCounter();
     TickClovenCounter(Delta);
-    if(!Usable){if(IsBusy())CancelAction();ImpactAge=1.f;StopRift();return;}
+    if(!Usable){if(IsBusy()||bInspecting)CancelAction();ImpactAge=1.f;StopRift();return;}
     if((bCharging || bReturningCharge || bInspecting) && Character->IsCastBlockingLeftHandAction()){CancelAction();return;}
     ImpactAge=FMath::Min(1.f,ImpactAge+Delta);
     TickRift(Delta);
+    TickWalkInspect(Delta);
     if(bWhirlwind){TickWhirlwind(Delta);return;}
     if(TickGuard(Delta))return;
     if(!CurrentAnimation)return;
@@ -1046,7 +1092,13 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
     else if(bInspecting)
     {
         Elapsed=FMath::Min(End,Elapsed+Delta);SamplePose(Elapsed);
-        if(Elapsed>=End){bInspecting=false;SetClip(TEXT("Idle"),true);}
+        if(Elapsed>=End)
+        {
+            bInspecting=false;
+            const bool GroundStride=Character->GetCharacterMovement()->IsMovingOnGround()
+                && !Character->bWeaponJumpAirborne && !Character->IsSliding();
+            SetClip(GroundStride&&Character->GetVelocity().SizeSquared2D()>400.f?TEXT("Walk"):TEXT("Idle"),true);
+        }
     }
     else if(bEquipping)
     {

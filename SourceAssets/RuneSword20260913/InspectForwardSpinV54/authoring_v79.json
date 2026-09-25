@@ -1,0 +1,1066 @@
+{
+  "revision": "InspectForwardSpinV79",
+  "reference": "V78 poses; spin 25% faster, prepare/throw/recover length kept",
+  "spin_speed": 1.25,
+  "idle_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordWristLocked20260920\\Standard\\Sword_Idle_WristLockedV4.blend",
+  "seconds": 1.268,
+  "spin_window_s": [
+    0.4,
+    0.928
+  ],
+  "fps": 120,
+  "contact_distance_m": 0.000593,
+  "contact_hand_local": [
+    -0.08261,
+    -0.03838,
+    -0.0315
+  ],
+  "blade_axis_idle": [
+    0.0368,
+    0.2327,
+    0.9718
+  ],
+  "spin_axis": [
+    -0.6683,
+    -0.7426,
+    -0.0446
+  ],
+  "flatten_deg": 13.929,
+  "min_tip_depth_m": 0.1229,
+  "max_contact_drift_m": 0.0,
+  "max_reach_clamp_m": 0.0145,
+  "max_wrist_twist_r_deg": 18.0,
+  "max_wrist_twist_l_deg": 0.0,
+  "max_wrist_axis_bend_r_deg": 22.0,
+  "max_wrist_axis_bend_l_deg": 12.83,
+  "max_hand_r_travel_m": 0.15805125820999358,
+  "max_hand_l_travel_m": 0.18179230836262558,
+  "max_shoulder_r_travel_m": 0.0,
+  "max_elbow_r_travel_m": 0.10075435727811627,
+  "end_translation_error_m": 0.0,
+  "samples": [
+    {
+      "seconds": 0.0,
+      "phi_deg": 0.0,
+      "psi_deg": 0.0,
+      "theta_deg": 0.0,
+      "grip": 1.0,
+      "finger_thumb": 0.0,
+      "finger_index": 0.0,
+      "finger_middle": 0.0,
+      "finger_ring": 0.0,
+      "finger_pinky": 0.0,
+      "flatten": 0.0,
+      "recover": 0.0,
+      "out_m": 0.0,
+      "lift_m": 0.0,
+      "forward_m": 0.0,
+      "left_path": 0.0,
+      "tip_depth_m": 0.7302,
+      "pommel_depth_m": 0.4034,
+      "contact_drift_m": 0.0,
+      "reach_clamp_r_m": 0.0,
+      "reach_clamp_l_m": 0.0,
+      "wrist_twist_r_deg": 0.0,
+      "wrist_twist_l_deg": 0.0,
+      "wrist_axis_bend_r_deg": 15.91,
+      "wrist_axis_bend_l_deg": 12.83,
+      "elbow_interior_r_deg": 94.5,
+      "elbow_interior_l_deg": 121.22,
+      "hand_r": [
+        0.1969,
+        0.4234,
+        -0.1384
+      ],
+      "hand_l": [
+        0.0545,
+        0.4188,
+        -0.2421
+      ],
+      "shoulder_r_delta_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "elbow_r_delta_m": [
+        0.0,
+        -0.0,
+        -0.0
+      ],
+      "elbow_twist_r": 44.51,
+      "elbow_twist_l": -8.38
+    },
+    {
+      "seconds": 0.067,
+      "phi_deg": 0.0,
+      "psi_deg": 0.0,
+      "theta_deg": 0.0,
+      "grip": 1.0,
+      "finger_thumb": 0.0,
+      "finger_index": 0.0,
+      "finger_middle": 0.0,
+      "finger_ring": 0.0,
+      "finger_pinky": 0.0,
+      "flatten": 0.0,
+      "recover": 0.0,
+      "out_m": 0.0004,
+      "lift_m": 0.0,
+      "forward_m": 0.0,
+      "left_path": 0.0,
+      "tip_depth_m": 0.7302,
+      "pommel_depth_m": 0.4034,
+      "contact_drift_m": 0.0,
+      "reach_clamp_r_m": 0.0,
+      "reach_clamp_l_m": 0.0,
+      "wrist_twist_r_deg": 0.03,
+      "wrist_twist_l_deg": 0.0,
+      "wrist_axis_bend_r_deg": 15.9,
+      "wrist_axis_bend_l_deg": 12.83,
+      "elbow_interior_r_deg": 94.5,
+      "elbow_interior_l_deg": 121.3,
+      "hand_r": [
+        0.1973,
+        0.4234,
+        -0.1384
+      ],
+      "hand_l": [
+        0.0549,
+        0.4188,
+        -0.2421
+      ],
+      "shoulder_r_delta_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "elbow_r_delta_m": [
+        0.0002,
+        -0.0002,
+        -0.0
+      ],
+      "elbow_twist_r": 44.52,
+      "elbow_twist_l": -8.34
+    },
+    {
+      "seconds": 0.133,
+      "phi_deg": 0.0,
+      "psi_deg": 0.0,
+      "theta_deg": 0.0,
+      "grip": 1.0,
+      "finger_thumb": 0.0,
+      "finger_index": 0.0,
+      "finger_middle": 0.0,
+      "finger_ring": 0.0,
+      "finger_pinky": 0.0,
+      "flatten": 0.0,
+      "recover": 0.0,
+      "out_m": 0.0318,
+      "lift_m": 0.0,
+      "forward_m": 0.0,
+      "left_path": 0.0,
+      "tip_depth_m": 0.7301,
+      "pommel_depth_m": 0.4034,
+      "contact_drift_m": 0.0,
+      "reach_clamp_r_m": 0.0,
+      "reach_clamp_l_m": 0.0,
+      "wrist_twist_r_deg": 2.76,
+      "wrist_twist_l_deg": -0.0,
+      "wrist_axis_bend_r_deg": 15.87,
+      "wrist_axis_bend_l_deg": 12.83,
+      "elbow_interior_r_deg": 94.35,
+      "elbow_interior_l_deg": 129.67,
+      "hand_r": [
+        0.2288,
+        0.4235,
+        -0.1385
+      ],
+      "hand_l": [
+        0.0864,
+        0.4188,
+        -0.2421
+      ],
+      "shoulder_r_delta_m": [
+        0.0,
+        -0.0,
+        -0.0
+      ],
+      "elbow_r_delta_m": [
+        0.0167,
+        -0.0144,
+        -0.0029
+      ],
+      "elbow_twist_r": 44.65,
+      "elbow_twist_l": -4.65
+    },
+    {
+      "seconds": 0.2,
+      "phi_deg": -0.24,
+      "psi_deg": 0.0,
+      "theta_deg": 0.0,
+      "grip": 0.998,
+      "finger_thumb": 0.0,
+      "finger_index": 0.0,
+      "finger_middle": 0.0,
+      "finger_ring": 0.0,
+      "finger_pinky": 0.0,
+      "flatten": 0.0,
+      "recover": 0.0,
+      "out_m": 0.0899,
+      "lift_m": 0.0,
+      "forward_m": 0.0,
+      "left_path": 0.322,
+      "tip_depth_m": 0.7277,
+      "pommel_depth_m": 0.404,
+      "contact_drift_m": 0.0,
+      "reach_clamp_r_m": 0.0,
+      "reach_clamp_l_m": 0.0,
+      "wrist_twist_r_deg": 9.63,
+      "wrist_twist_l_deg": -0.0,
+      "wrist_axis_bend_r_deg": 19.34,
+      "wrist_axis_bend_l_deg": 12.83,
+      "elbow_interior_r_deg": 96.11,
+      "elbow_interior_l_deg": 153.13,
+      "hand_r": [
+        0.2872,
+        0.4238,
+        -0.1389
+      ],
+      "hand_l": [
+        0.1251,
+        0.4276,
+        -0.3155
+      ],
+      "shoulder_r_delta_m": [
+        -0.0,
+        0.0,
+        0.0
+      ],
+      "elbow_r_delta_m": [
+        0.0408,
+        -0.0397,
+        -0.0095
+      ],
+      "elbow_twist_r": 44.14,
+      "elbow_twist_l": 1.92
+    },
+    {
+      "seconds": 0.267,
+      "phi_deg": -3.67,
+      "psi_deg": 0.0,
+      "theta_deg": -1.56,
+      "grip": 0.958,
+      "finger_thumb": 0.0,
+      "finger_index": 0.0,
+      "finger_middle": 0.0,
+      "finger_ring": 0.0,
+      "finger_pinky": 0.011,
+      "flatten": 0.0,
+      "recover": 0.0,
+      "out_m": 0.147,
+      "lift_m": 0.0056,
+      "forward_m": 0.0035,
+      "left_path": 0.774,
+      "tip_depth_m": 0.7026,
+      "pommel_depth_m": 0.4212,
+      "contact_drift_m": 0.0,
+      "reach_clamp_r_m": 0.0,
+      "reach_clamp_l_m": 0.0145,
+      "wrist_twist_r_deg": 13.6,
+      "wrist_twist_l_deg": -0.0,
+      "wrist_axis_bend_r_deg": 22.0,
+      "wrist_axis_bend_l_deg": 12.83,
+      "elbow_interior_r_deg": 100.8,
+      "elbow_interior_l_deg": 177.87,
+      "hand_r": [
+        0.3433,
+        0.4256,
+        -0.1383
+      ],
+      "hand_l": [
+        0.1454,
+        0.4155,
+        -0.38
+      ],
+      "shoulder_r_delta_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "elbow_r_delta_m": [
+        0.0551,
+        -0.0569,
+        -0.0243
+      ],
+      "elbow_twist_r": 42.6,
+      "elbow_twist_l": -1.48
+    },
+    {
+      "seconds": 0.333,
+      "phi_deg": -9.43,
+      "psi_deg": 4.71,
+      "theta_deg": -7.22,
+      "grip": 0.757,
+      "finger_thumb": 0.0,
+      "finger_index": 0.018,
+      "finger_middle": 0.223,
+      "finger_ring": 0.561,
+      "finger_pinky": 0.651,
+      "flatten": 0.21,
+      "recover": 0.0,
+      "out_m": 0.1599,
+      "lift_m": -0.0227,
+      "forward_m": 0.0134,
+      "left_path": 0.975,
+      "tip_depth_m": 0.6133,
+      "pommel_depth_m": 0.4436,
+      "contact_drift_m": 0.0,
+      "reach_clamp_r_m": 0.0,
+      "reach_clamp_l_m": 0.0139,
+      "wrist_twist_r_deg": 16.41,
+      "wrist_twist_l_deg": -0.0,
+      "wrist_axis_bend_r_deg": 22.0,
+      "wrist_axis_bend_l_deg": 12.83,
+      "elbow_interior_r_deg": 101.3,
+      "elbow_interior_l_deg": 177.87,
+      "hand_r": [
+        0.3495,
+        0.4308,
+        -0.1708
+      ],
+      "hand_l": [
+        0.1466,
+        0.4101,
+        -0.397
+      ],
+      "shoulder_r_delta_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "elbow_r_delta_m": [
+        0.0547,
+        -0.0558,
+        -0.052
+      ],
+      "elbow_twist_r": -0.66,
+      "elbow_twist_l": -0.73
+    },
+    {
+      "seconds": 0.4,
+      "phi_deg": -18.0,
+      "psi_deg": 11.44,
+      "theta_deg": -14.0,
+      "grip": 0.38,
+      "finger_thumb": 0.045,
+      "finger_index": 0.32,
+      "finger_middle": 0.745,
+      "finger_ring": 0.95,
+      "finger_pinky": 1.0,
+      "flatten": 1.0,
+      "recover": 0.0,
+      "out_m": 0.16,
+      "lift_m": -0.048,
+      "forward_m": 0.038,
+      "left_path": 1.0,
+      "tip_depth_m": 0.4183,
+      "pommel_depth_m": 0.5132,
+      "contact_drift_m": 0.0,
+      "reach_clamp_r_m": 0.0,
+      "reach_clamp_l_m": 0.0126,
+      "wrist_twist_r_deg": 18.0,
+      "wrist_twist_l_deg": -0.0,
+      "wrist_axis_bend_r_deg": 16.48,
+      "wrist_axis_bend_l_deg": 12.83,
+      "elbow_interior_r_deg": 103.48,
+      "elbow_interior_l_deg": 177.86,
+      "hand_r": [
+        0.3298,
+        0.4457,
+        -0.1951
+      ],
+      "hand_l": [
+        0.1461,
+        0.4101,
+        -0.3989
+      ],
+      "shoulder_r_delta_m": [
+        -0.0,
+        0.0,
+        0.0
+      ],
+      "elbow_r_delta_m": [
+        0.0424,
+        -0.0404,
+        -0.0649
+      ],
+      "elbow_twist_r": 4.97,
+      "elbow_twist_l": -0.67
+    },
+    {
+      "seconds": 0.467,
+      "phi_deg": 62.79,
+      "psi_deg": 27.48,
+      "theta_deg": 6.45,
+      "grip": 0.152,
+      "finger_thumb": 0.227,
+      "finger_index": 0.538,
+      "finger_middle": 0.982,
+      "finger_ring": 0.998,
+      "finger_pinky": 1.0,
+      "flatten": 1.0,
+      "recover": 0.0,
+      "out_m": 0.16,
+      "lift_m": -0.015,
+      "forward_m": 0.0253,
+      "left_path": 1.0,
+      "tip_depth_m": 1.0882,
+      "pommel_depth_m": 0.3714,
+      "contact_drift_m": 0.0,
+      "reach_clamp_r_m": 0.0,
+      "reach_clamp_l_m": 0.0126,
+      "wrist_twist_r_deg": 9.88,
+      "wrist_twist_l_deg": -0.0,
+      "wrist_axis_bend_r_deg": 22.0,
+      "wrist_axis_bend_l_deg": 12.83,
+      "elbow_interior_r_deg": 106.0,
+      "elbow_interior_l_deg": 177.86,
+      "hand_r": [
+        0.3281,
+        0.4479,
+        -0.1463
+      ],
+      "hand_l": [
+        0.1461,
+        0.4101,
+        -0.3989
+      ],
+      "shoulder_r_delta_m": [
+        -0.0,
+        -0.0,
+        0.0
+      ],
+      "elbow_r_delta_m": [
+        0.0382,
+        -0.0437,
+        0.018
+      ],
+      "elbow_twist_r": 10.04,
+      "elbow_twist_l": -0.67
+    },
+    {
+      "seconds": 0.533,
+      "phi_deg": 161.3,
+      "psi_deg": 81.12,
+      "theta_deg": -3.18,
+      "grip": 0.0,
+      "finger_thumb": 0.62,
+      "finger_index": 0.998,
+      "finger_middle": 1.0,
+      "finger_ring": 1.0,
+      "finger_pinky": 1.0,
+      "flatten": 1.0,
+      "recover": 0.0,
+      "out_m": 0.16,
+      "lift_m": 0.006,
+      "forward_m": 0.017,
+      "left_path": 1.0,
+      "tip_depth_m": 0.6005,
+      "pommel_depth_m": 0.4523,
+      "contact_drift_m": 0.0,
+      "reach_clamp_r_m": 0.0,
+      "reach_clamp_l_m": 0.0126,
+      "wrist_twist_r_deg": 6.44,
+      "wrist_twist_l_deg": -0.0,
+      "wrist_axis_bend_r_deg": 22.0,
+      "wrist_axis_bend_l_deg": 12.83,
+      "elbow_interior_r_deg": 104.09,
+      "elbow_interior_l_deg": 177.86,
+      "hand_r": [
+        0.3443,
+        0.4348,
+        -0.1333
+      ],
+      "hand_l": [
+        0.1461,
+        0.4101,
+        -0.3989
+      ],
+      "shoulder_r_delta_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "elbow_r_delta_m": [
+        0.0489,
+        -0.0476,
+        -0.0298
+      ],
+      "elbow_twist_r": 6.92,
+      "elbow_twist_l": -0.67
+    },
+    {
+      "seconds": 0.6,
+      "phi_deg": 235.86,
+      "psi_deg": 85.37,
+      "theta_deg": -17.98,
+      "grip": 0.0,
+      "finger_thumb": 0.592,
+      "finger_index": 0.972,
+      "finger_middle": 1.0,
+      "finger_ring": 1.0,
+      "finger_pinky": 1.0,
+      "flatten": 1.0,
+      "recover": 0.0,
+      "out_m": 0.16,
+      "lift_m": 0.0127,
+      "forward_m": 0.0131,
+      "left_path": 1.0,
+      "tip_depth_m": 0.1281,
+      "pommel_depth_m": 0.5345,
+      "contact_drift_m": 0.0,
+      "reach_clamp_r_m": 0.0,
+      "reach_clamp_l_m": 0.0126,
+      "wrist_twist_r_deg": 7.14,
+      "wrist_twist_l_deg": -0.0,
+      "wrist_axis_bend_r_deg": 22.0,
+      "wrist_axis_bend_l_deg": 12.83,
+      "elbow_interior_r_deg": 104.04,
+      "elbow_interior_l_deg": 177.86,
+      "hand_r": [
+        0.3472,
+        0.4322,
+        -0.1264
+      ],
+      "hand_l": [
+        0.1461,
+        0.4101,
+        -0.3989
+      ],
+      "shoulder_r_delta_m": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "elbow_r_delta_m": [
+        0.0405,
+        -0.0379,
+        -0.0639
+      ],
+      "elbow_twist_r": 25.38,
+      "elbow_twist_l": -0.67
+    },
+    {
+      "seconds": 0.667,
+      "phi_deg": 288.11,
+      "psi_deg": 66.52,
+      "theta_deg": -6.51,
+      "grip": 0.097,
+      "finger_thumb": 0.283,
+      "finger_index": 0.547,
+      "finger_middle": 0.898,
+      "finger_ring": 0.954,
+      "finger_pinky": 0.984,
+      "flatten": 1.0,
+      "recover": 0.0,
+      "out_m": 0.16,
+      "lift_m": 0.016,
+      "forward_m": 0.0102,
+      "left_path": 1.0,
+      "tip_depth_m": 0.1229,
+      "pommel_depth_m": 0.5384,
+      "contact_drift_m": 0.0,
+      "reach_clamp_r_m": 0.0,
+      "reach_clamp_l_m": 0.0126,
+      "wrist_twist_r_deg": 9.27,
+      "wrist_twist_l_deg": -0.0,
+      "wrist_axis_bend_r_deg": 22.0,
+      "wrist_axis_bend_l_deg": 12.83,
+      "elbow_interior_r_deg": 103.41,
+      "elbow_interior_l_deg": 177.86,
+      "hand_r": [
+        0.3482,
+        0.4312,
+        -0.1322
+      ],
+      "hand_l": [
+        0.1461,
+        0.4101,
+        -0.3989
+      ],
+      "shoulder_r_delta_m": [
+        -0.0,
+        -0.0,
+        0.0
+      ],
+      "elbow_r_delta_m": [
+        0.0462,
+        -0.0441,
+        -0.0547
+      ],
+      "elbow_twist_r": 7.72,
+      "elbow_twist_l": -0.67
+    },
+    {
+      "seconds": 0.733,
+      "phi_deg": 324.52,
+      "psi_deg": 31.74,
+      "theta_deg": -1.33,
+      "grip": 0.574,
+      "finger_thumb": 0.015,
+      "finger_index": 0.115,
+      "finger_middle": 0.281,
+      "finger_ring": 0.426,
+      "finger_pinky": 0.548,
+      "flatten": 1.0,
+      "recover": 0.0,
+      "out_m": 0.16,
+      "lift_m": 0.0178,
+      "forward_m": 0.0074,
+      "left_path": 1.0,
+      "tip_depth_m": 0.2193,
+      "pommel_depth_m": 0.5259,
+      "contact_drift_m": 0.0,
+      "reach_clamp_r_m": 0.0,
+      "reach_clamp_l_m": 0.0126,
+      "wrist_twist_r_deg": 18.0,
+      "wrist_twist_l_deg": -0.0,
+      "wrist_axis_bend_r_deg": 19.47,
+      "wrist_axis_bend_l_deg": 12.83,
+      "elbow_interior_r_deg": 100.74,
+      "elbow_interior_l_deg": 177.86,
+      "hand_r": [
+        0.3538,
+        0.4237,
+        -0.147
+      ],
+      "hand_l": [
+        0.1461,
+        0.4101,
+        -0.3989
+      ],
+      "shoulder_r_delta_m": [
+        -0.0,
+        -0.0,
+        0.0
+      ],
+      "elbow_r_delta_m": [
+        0.0504,
+        -0.0518,
+        -0.0702
+      ],
+      "elbow_twist_r": 4.82,
+      "elbow_twist_l": -0.67
+    },
+    {
+      "seconds": 0.8,
+      "phi_deg": 348.0,
+      "psi_deg": 12.55,
+      "theta_deg": 1.95,
+      "grip": 0.92,
+      "finger_thumb": 0.0,
+      "finger_index": 0.011,
+      "finger_middle": 0.011,
+      "finger_ring": 0.06,
+      "finger_pinky": 0.173,
+      "flatten": 1.0,
+      "recover": 0.0,
+      "out_m": 0.16,
+      "lift_m": 0.0171,
+      "forward_m": 0.004,
+      "left_path": 1.0,
+      "tip_depth_m": 0.4691,
+      "pommel_depth_m": 0.4878,
+      "contact_drift_m": 0.0,
+      "reach_clamp_r_m": 0.0,
+      "reach_clamp_l_m": 0.0126,
+      "wrist_twist_r_deg": 18.0,
+      "wrist_twist_l_deg": -0.0,
+      "wrist_axis_bend_r_deg": 17.82,
+      "wrist_axis_bend_l_deg": 12.83,
+      "elbow_interior_r_deg": 100.64,
+      "elbow_interior_l_deg": 177.86,
+      "hand_r": [
+        0.3547,
+        0.4194,
+        -0.1296
+      ],
+      "hand_l": [
+        0.1461,
+        0.4101,
+        -0.3989
+      ],
+      "shoulder_r_delta_m": [
+        -0.0,
+        -0.0,
+        0.0
+      ],
+      "elbow_r_delta_m": [
+        0.0573,
+        -0.0593,
+        -0.0393
+      ],
+      "elbow_twist_r": 10.1,
+      "elbow_twist_l": -0.67
+    },
+    {
+      "seconds": 0.867,
+      "phi_deg": 355.93,
+      "psi_deg": 3.95,
+      "theta_deg": 0.8,
+      "grip": 0.986,
+      "finger_thumb": 0.0,
+      "finger_index": 0.0,
+      "finger_middle": 0.0,
+      "finger_ring": 0.0,
+      "finger_pinky": 0.0,
+      "flatten": 1.0,
+      "recover": 0.0,
+      "out_m": 0.16,
+      "lift_m": 0.0121,
+      "forward_m": 0.0011,
+      "left_path": 1.0,
+      "tip_depth_m": 0.5584,
+      "pommel_depth_m": 0.4759,
+      "contact_drift_m": 0.0,
+      "reach_clamp_r_m": 0.0,
+      "reach_clamp_l_m": 0.0126,
+      "wrist_twist_r_deg": 18.0,
+      "wrist_twist_l_deg": -0.0,
+      "wrist_axis_bend_r_deg": 16.77,
+      "wrist_axis_bend_l_deg": 12.83,
+      "elbow_interior_r_deg": 100.96,
+      "elbow_interior_l_deg": 177.86,
+      "hand_r": [
+        0.3534,
+        0.4195,
+        -0.1236
+      ],
+      "hand_l": [
+        0.1461,
+        0.4101,
+        -0.3989
+      ],
+      "shoulder_r_delta_m": [
+        -0.0,
+        -0.0,
+        0.0
+      ],
+      "elbow_r_delta_m": [
+        0.0588,
+        -0.0634,
+        -0.0177
+      ],
+      "elbow_twist_r": 17.68,
+      "elbow_twist_l": -0.67
+    },
+    {
+      "seconds": 0.933,
+      "phi_deg": 360.0,
+      "psi_deg": 0.0,
+      "theta_deg": 0.0,
+      "grip": 1.0,
+      "finger_thumb": 0.0,
+      "finger_index": 0.0,
+      "finger_middle": 0.0,
+      "finger_ring": 0.0,
+      "finger_pinky": 0.0,
+      "flatten": 1.0,
+      "recover": 0.0,
+      "out_m": 0.16,
+      "lift_m": 0.0078,
+      "forward_m": 0.0,
+      "left_path": 1.0,
+      "tip_depth_m": 0.6035,
+      "pommel_depth_m": 0.4693,
+      "contact_drift_m": 0.0,
+      "reach_clamp_r_m": 0.0,
+      "reach_clamp_l_m": 0.0126,
+      "wrist_twist_r_deg": 18.0,
+      "wrist_twist_l_deg": -0.0,
+      "wrist_axis_bend_r_deg": 16.59,
+      "wrist_axis_bend_l_deg": 12.83,
+      "elbow_interior_r_deg": 101.19,
+      "elbow_interior_l_deg": 177.86,
+      "hand_r": [
+        0.3518,
+        0.4204,
+        -0.1221
+      ],
+      "hand_l": [
+        0.1461,
+        0.4101,
+        -0.3989
+      ],
+      "shoulder_r_delta_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "elbow_r_delta_m": [
+        0.0583,
+        -0.0649,
+        -0.0064
+      ],
+      "elbow_twist_r": 20.37,
+      "elbow_twist_l": -0.67
+    },
+    {
+      "seconds": 1.0,
+      "phi_deg": 360.0,
+      "psi_deg": 0.0,
+      "theta_deg": 0.0,
+      "grip": 1.0,
+      "finger_thumb": 0.0,
+      "finger_index": 0.0,
+      "finger_middle": 0.0,
+      "finger_ring": 0.0,
+      "finger_pinky": 0.0,
+      "flatten": 0.86,
+      "recover": 0.14,
+      "out_m": 0.1376,
+      "lift_m": 0.0047,
+      "forward_m": 0.0,
+      "left_path": 0.86,
+      "tip_depth_m": 0.6386,
+      "pommel_depth_m": 0.4531,
+      "contact_drift_m": 0.0,
+      "reach_clamp_r_m": 0.0,
+      "reach_clamp_l_m": 0.0051,
+      "wrist_twist_r_deg": 18.0,
+      "wrist_twist_l_deg": -0.0,
+      "wrist_axis_bend_r_deg": 16.22,
+      "wrist_axis_bend_l_deg": 12.83,
+      "elbow_interior_r_deg": 98.96,
+      "elbow_interior_l_deg": 177.84,
+      "hand_r": [
+        0.3302,
+        0.4208,
+        -0.1263
+      ],
+      "hand_l": [
+        0.1372,
+        0.42,
+        -0.3905
+      ],
+      "shoulder_r_delta_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "elbow_r_delta_m": [
+        0.0537,
+        -0.0583,
+        -0.0044
+      ],
+      "elbow_twist_r": 21.37,
+      "elbow_twist_l": -1.32
+    },
+    {
+      "seconds": 1.067,
+      "phi_deg": 360.0,
+      "psi_deg": 0.0,
+      "theta_deg": 0.0,
+      "grip": 1.0,
+      "finger_thumb": 0.0,
+      "finger_index": 0.0,
+      "finger_middle": 0.0,
+      "finger_ring": 0.0,
+      "finger_pinky": 0.0,
+      "flatten": 0.202,
+      "recover": 0.798,
+      "out_m": 0.0323,
+      "lift_m": 0.0007,
+      "forward_m": 0.0,
+      "left_path": 0.202,
+      "tip_depth_m": 0.7236,
+      "pommel_depth_m": 0.4044,
+      "contact_drift_m": 0.0,
+      "reach_clamp_r_m": 0.0,
+      "reach_clamp_l_m": 0.0,
+      "wrist_twist_r_deg": 2.54,
+      "wrist_twist_l_deg": -0.0,
+      "wrist_axis_bend_r_deg": 15.88,
+      "wrist_axis_bend_l_deg": 12.83,
+      "elbow_interior_r_deg": 94.39,
+      "elbow_interior_l_deg": 130.49,
+      "hand_r": [
+        0.2284,
+        0.4231,
+        -0.136
+      ],
+      "hand_l": [
+        0.0747,
+        0.4253,
+        -0.2906
+      ],
+      "shoulder_r_delta_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "elbow_r_delta_m": [
+        0.0165,
+        -0.0146,
+        -0.0007
+      ],
+      "elbow_twist_r": 1.9,
+      "elbow_twist_l": -0.38
+    },
+    {
+      "seconds": 1.133,
+      "phi_deg": 360.0,
+      "psi_deg": 0.0,
+      "theta_deg": 0.0,
+      "grip": 1.0,
+      "finger_thumb": 0.0,
+      "finger_index": 0.0,
+      "finger_middle": 0.0,
+      "finger_ring": 0.0,
+      "finger_pinky": 0.0,
+      "flatten": 0.001,
+      "recover": 0.999,
+      "out_m": 0.0002,
+      "lift_m": 0.0,
+      "forward_m": 0.0,
+      "left_path": 0.001,
+      "tip_depth_m": 0.7302,
+      "pommel_depth_m": 0.4034,
+      "contact_drift_m": 0.0,
+      "reach_clamp_r_m": 0.0,
+      "reach_clamp_l_m": 0.0,
+      "wrist_twist_r_deg": 0.02,
+      "wrist_twist_l_deg": 0.0,
+      "wrist_axis_bend_r_deg": 15.91,
+      "wrist_axis_bend_l_deg": 12.83,
+      "elbow_interior_r_deg": 94.5,
+      "elbow_interior_l_deg": 121.27,
+      "hand_r": [
+        0.1971,
+        0.4234,
+        -0.1384
+      ],
+      "hand_l": [
+        0.0546,
+        0.4189,
+        -0.2424
+      ],
+      "shoulder_r_delta_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "elbow_r_delta_m": [
+        0.0001,
+        -0.0001,
+        -0.0
+      ],
+      "elbow_twist_r": 1.32,
+      "elbow_twist_l": -0.91
+    },
+    {
+      "seconds": 1.2,
+      "phi_deg": 360.0,
+      "psi_deg": 0.0,
+      "theta_deg": 0.0,
+      "grip": 1.0,
+      "finger_thumb": 0.0,
+      "finger_index": 0.0,
+      "finger_middle": 0.0,
+      "finger_ring": 0.0,
+      "finger_pinky": 0.0,
+      "flatten": 0.0,
+      "recover": 1.0,
+      "out_m": 0.0,
+      "lift_m": 0.0,
+      "forward_m": 0.0,
+      "left_path": 0.0,
+      "tip_depth_m": 0.7302,
+      "pommel_depth_m": 0.4034,
+      "contact_drift_m": 0.0,
+      "reach_clamp_r_m": 0.0,
+      "reach_clamp_l_m": 0.0,
+      "wrist_twist_r_deg": 0.0,
+      "wrist_twist_l_deg": 0.0,
+      "wrist_axis_bend_r_deg": 15.91,
+      "wrist_axis_bend_l_deg": 12.83,
+      "elbow_interior_r_deg": 94.5,
+      "elbow_interior_l_deg": 121.22,
+      "hand_r": [
+        0.1969,
+        0.4234,
+        -0.1384
+      ],
+      "hand_l": [
+        0.0545,
+        0.4188,
+        -0.2421
+      ],
+      "shoulder_r_delta_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "elbow_r_delta_m": [
+        0.0,
+        -0.0,
+        -0.0
+      ],
+      "elbow_twist_r": 44.51,
+      "elbow_twist_l": -8.38
+    },
+    {
+      "seconds": 1.267,
+      "phi_deg": 360.0,
+      "psi_deg": 0.0,
+      "theta_deg": 0.0,
+      "grip": 1.0,
+      "finger_thumb": 0.0,
+      "finger_index": 0.0,
+      "finger_middle": 0.0,
+      "finger_ring": 0.0,
+      "finger_pinky": 0.0,
+      "flatten": 0.0,
+      "recover": 1.0,
+      "out_m": 0.0,
+      "lift_m": 0.0,
+      "forward_m": 0.0,
+      "left_path": 0.0,
+      "tip_depth_m": 0.7302,
+      "pommel_depth_m": 0.4034,
+      "contact_drift_m": 0.0,
+      "reach_clamp_r_m": 0.0,
+      "reach_clamp_l_m": 0.0,
+      "wrist_twist_r_deg": 0.0,
+      "wrist_twist_l_deg": 0.0,
+      "wrist_axis_bend_r_deg": 15.91,
+      "wrist_axis_bend_l_deg": 12.83,
+      "elbow_interior_r_deg": 94.5,
+      "elbow_interior_l_deg": 121.22,
+      "hand_r": [
+        0.1969,
+        0.4234,
+        -0.1384
+      ],
+      "hand_l": [
+        0.0545,
+        0.4188,
+        -0.2421
+      ],
+      "shoulder_r_delta_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "elbow_r_delta_m": [
+        0.0,
+        -0.0,
+        -0.0
+      ],
+      "elbow_twist_r": 44.51,
+      "elbow_twist_l": -8.38
+    }
+  ],
+  "prepare_right_m": 0.16,
+  "method": "No mesh edit. Uniform 1.25x retiming of the spin window only. Wrist caps and outward axis stay.",
+  "testing": "No gameplay, PIE or acceptance run; user tests."
+}

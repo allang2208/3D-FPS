@@ -1,0 +1,24 @@
+{
+  "revision": "InspectForwardSpinV79",
+  "folders": [
+    {
+      "path": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Inspect.A_RuneSword_Inspect",
+      "duration": 1.2666666507720947,
+      "imported": [
+        "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Inspect.A_RuneSword_Inspect"
+      ],
+      "disk": "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\AzureRunesword20260913\\A_RuneSword_Inspect.uasset",
+      "disk_bytes": 1043912
+    },
+    {
+      "path": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Inspect.A_RuneSword_Inspect",
+      "duration": 1.2666666507720947,
+      "imported": [
+        "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Inspect.A_RuneSword_Inspect"
+      ],
+      "disk": "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\FrostCrystalSword20260915\\Grips20260919\\LongGripAnimations\\A_RuneSword_Inspect.uasset",
+      "disk_bytes": 1044480
+    }
+  ],
+  "testing": "No gameplay, PIE or acceptance run; user tests."
+}

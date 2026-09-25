@@ -32,6 +32,7 @@ float WhirlwindEntry(float Time,float Duration)
 
 bool URuneSwordComponent::BeginWhirlwind()
 {
+    if(bInspecting)CancelAction();
     if(!IsEquipped()||IsBusy()||bGuardHeld||!CanUse()||!Viewmodel||!Camera||
         Character->IsCastBlockingLeftHandAction()||Character->IsDodging()||Character->IsSliding())return false;
     auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
