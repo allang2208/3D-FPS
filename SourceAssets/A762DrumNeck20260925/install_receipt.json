@@ -1,0 +1,31 @@
+{
+ "asset": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_drum.SM_A762_drum",
+ "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762DrumNeck20260925\\Exports\\SM_A762_drum.fbx",
+ "slots_before": [
+  "A762_drum_0",
+  "A762_drum_1",
+  "A762_drum_2"
+ ],
+ "slots_after": [
+  "A762_drum_0",
+  "A762_drum_1",
+  "A762_drum_2"
+ ],
+ "materials": [
+  "/Game/Weapons/LargeDrumUpgrade20260920/AKM/M_AKM_DrumSurface.M_AKM_DrumSurface",
+  "/Game/Weapons/A762/Accessories05/Materials/M_A762_drum_1.M_A762_drum_1",
+  "/Game/Weapons/LargeDrumUpgrade20260920/AKM/M_AKM_DrumSurface.M_AKM_DrumSurface"
+ ],
+ "bbox_extent_before_cm": [
+  6.147,
+  5.172,
+  9.875
+ ],
+ "bbox_extent_after_cm": [
+  6.147,
+  5.172,
+  9.875
+ ],
+ "saved": true,
+ "game_tested": false
+}

@@ -61,8 +61,12 @@ for key,info in sources['meshes'].items():
   mat=material('A762_'+key+'_Interface');materials[mat.name]='A762_STEEL'
   obs.append(cube('A762_SideRailSaddle',(.025,-.310,.062),(.007,.071,.018),mat))
  if key=='drum':
-  # Drum is already in this shared magazine bone's own frame. Keep contact frame.
-  # Its complete closed feed tower is retained; upper neck is reshaped to A762 well.
+  # SUPERSEDED (2026-09-25): this smoothstep-blended affine remap creases the feed
+  # tower and squeezes it to 58 mm where the A762 magazine is 72 mm deep, which is
+  # the visible "twisted" joint the user reported.  The shipping SM_A762_drum is
+  # authored by SourceAssets/A762DrumNeck20260925/author_drum.py instead (straight
+  # linear ramp, envelope taken from the A762 factory magazine).  Re-running this
+  # block would restore the creased neck; port the rebuild before doing so.
   for ob in obs:
    for v in ob.data.vertices:
     t=max(0,min(1,(v.co.z-.045)/.030));t=t*t*(3-2*t)
