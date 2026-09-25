@@ -1121,20 +1121,62 @@ void AFPSGAMECharacter::ReloadPressed()
         {
             if (bRevolverSingleReload)
             {
-                MechanicalCueTimes = {DanWesson715WeaponAssets::Open};
-                MechanicalCueSounds = {MagOutSound};
+                // The three phases single-round loading shares with the speedloader
+                // route -- swinging the cylinder out, clearing spent cases and
+                // closing it -- use the recorded 715 one-shots, which are the same
+                // mechanism. The four loader-only recordings (Retrieve/Insert/
+                // Release/Withdraw) have no single-round equivalent and are
+                // deliberately not used here.
+                // Index into SpeedloaderSoundCues: 0 Open, 2 Eject, 6 Close.
+                // Explicit USoundBase* throughout: the recorded sounds are held as
+                // TObjectPtr and must not meet a raw pointer inside a conditional.
+                auto RecordedCue = [this](int32 CueIndex, float& OutLead) -> USoundBase*
+                {
+                    const float Lead = DanWesson715WeaponAssets::SpeedloaderSoundCues[CueIndex].LeadSeconds;
+                    OutLead = Lead;
+                    TObjectPtr<USoundBase> Recorded = RevolverSpeedloaderSounds.IsValidIndex(CueIndex)
+                        ? RevolverSpeedloaderSounds[CueIndex] : nullptr;
+                    // Missing asset, or a clip too short to hold its own pre-roll:
+                    // fall back to the revolver's own contact with no advance.
+                    if (!Recorded || Recorded->GetDuration() <= Lead) { OutLead = 0.f; return MagOutSound; }
+                    return Recorded.Get();
+                };
+                // Eject uses EmptyCaseClear for the same reason AdvanceReloadStages
+                // does: on an empty cylinder the authored clip clears cases there,
+                // not at the speedloader-bound .Eject constant.
+                const float OpenContact = DanWesson715WeaponAssets::Open;
+                const float EjectContact = DanWesson715WeaponAssets::EmptyCaseClear;
+                const float CloseContact = DanWesson715WeaponAssets::SingleLoopBegin(bPendingEmptyReload)
+                    + RevolverReloadCount * DanWesson715WeaponAssets::SingleStep
+                    + DanWesson715WeaponAssets::SingleCloseContact;
+                float OpenLead = 0.f, EjectLead = 0.f, CloseLead = 0.f;
+                USoundBase* OpenCue = RecordedCue(0, OpenLead);
+                USoundBase* EjectCue = RecordedCue(2, EjectLead);
+                USoundBase* CloseCue = RecordedCue(6, CloseLead);
+                // Each recording carries unpitched pre-roll before its impact, so
+                // the trigger advances by that lead and the impact -- not the file
+                // start -- meets the contact. Same rule as the speedloader route.
+                MechanicalCueTimes = {OpenContact - OpenLead};
+                MechanicalCueSounds = {OpenCue};
                 if (bPendingEmptyReload)
                 {
-                    MechanicalCueTimes.Add(DanWesson715WeaponAssets::Eject);
-                    MechanicalCueSounds.Add(ChargePullSound);
+                    MechanicalCueTimes.Add(EjectContact - EjectLead);
+                    MechanicalCueSounds.Add(EjectCue);
                 }
                 for (int32 Index = 0; Index < RevolverReloadCount; ++Index)
                 {
+                    // Seating one cartridge. MagSeat is the sample named for this
+                    // mechanism but it is soft and mid-weighted (79% of its energy in
+                    // the first 30 ms, only 27% above 1.5 kHz), so six in a row read
+                    // as mushy. DryClick is the tightest sample the revolver has --
+                    // 98.9% of its energy inside 30 ms and 81% above 1.5 kHz, with a
+                    // 0.33 ms attack -- which gives each cartridge an audible click.
+                    // Swap back to MagSeatSound if the sharper sound reads as too dry.
                     MechanicalCueTimes.Add(DanWesson715WeaponAssets::SingleSeatTime(Index, bPendingEmptyReload));
-                    MechanicalCueSounds.Add(MagSeatSound);
+                    MechanicalCueSounds.Add(DryClickSound ? DryClickSound.Get() : MagSeatSound.Get());
                 }
-                MechanicalCueTimes.Add(DanWesson715WeaponAssets::SingleLoopBegin(bPendingEmptyReload) + RevolverReloadCount * DanWesson715WeaponAssets::SingleStep + .37f);
-                MechanicalCueSounds.Add(ChargeReleaseSound);
+                MechanicalCueTimes.Add(CloseContact - CloseLead);
+                MechanicalCueSounds.Add(CloseCue);
             }
             else
             {

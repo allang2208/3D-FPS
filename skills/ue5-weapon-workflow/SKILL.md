@@ -23,7 +23,7 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 
 ## 按任务读取
 
-- 普通／消音开火声、连射变体和仅改音色的响度处理：[枪械音效与消音分支](references/weapon-audio.md)。
+- 普通／消音开火声、连射变体和仅改音色的响度处理，以及换弹机械 cue 序列、录制音预卷补偿、录音里风声／背景音的识别与处理：[枪械音效与消音分支](references/weapon-audio.md)。
 
 - 枪托／握把快速近战的跨枪适配、腕臂和 recover 衔接：[快速近战接触与收势](../ue5-fps-arms-animation/references/quick-melee-contact-recovery.md)。保留命中时钟与技能合同，以各枪当前待机为归位目标。
 - 双持手枪快速近战的状态仲裁、单次接触、改造件转枪和腕臂恢复：[双持快速近战](../ue5-fps-arms-animation/references/dual-pistol-quick-melee.md)；双手剑冲刺下砍及竖直冲击：[过顶下砍伸展](../ue5-fps-arms-animation/references/overhead-reach-wrist.md)。
@@ -43,7 +43,7 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 
 - 新枪、模型/材质、枪匠或瞄具：[接入与装配](references/integration.md)。
 - 配件图标制作、方向统一、单件机瞄或全面图标审计：[改造配件图标标准](references/attachment-icons.md)，采用已接受的实际模型水平左向规则。
-- 制作或修改改造配件：[改造配件标准](references/attachment-standard.md)，覆盖生成修整、装配、展览、真实包握、换弹回握和游戏验收；2026-09-12 用户确认 VRE 成组抓握迁移成功；握把分支优先复用已接受手型并适配整手与腕臂，小阻手器按用户许可整体包握。配件数值口径、卡片/详情说明分工（描述只写基本描述、百分比由目录倍率推导并显示在详情行旁）与当前 ADS/握把数值表见该文档「配件数值与说明分工」。
+- 制作或修改改造配件：[改造配件标准](references/attachment-standard.md)，覆盖生成修整、装配、展览、真实包握、换弹回握和游戏验收；2026-09-12 用户确认 VRE 成组抓握迁移成功；握把分支优先复用已接受手型并适配整手与腕臂，小阻手器按用户许可整体包握。配件数值口径、说明分工（描述禁写可推导数字、静态规格数字须注明权威来源、行名与措辞各处统一）与 ADS/握把数值快照见该文档「配件数值与说明分工」；改完跑 `Tools/Weapons/check_attachment_consistency.py` 做离线自检。
 - 在原厂件基础上加长/改造的配件（扩容/加长弹匣、延长枪管、导气管等）：[加长件改造规则](references/extmag-lengthening.md)——按原件曲线坐标延续完整纹路，处理截面差异与 UV 对应；避开抓握区，不将旧弧管或直接复制焊接视为定稿。
 - 调整武器基础数值（有效射程、射击间隔、伤害、弹速、弹匣）或比较 DPS：[武器基础与强化系数调参](references/weapon-formula-balancing.md)，改 `base` 即改面板/实战/提示，配件倍率只按目录相乘。
 - 写或改武器的**详细介绍**（`items.json` 的 `desc`）与**特殊性质**（枪匠目录的 `traits`）：[武器说明文字与「特殊性质」段](references/weapon-copy-and-traits.md)。用户 2026-09-22/23 已定格式：`desc` ≤200 字、写来历/特征/用法、现实武器参考百科、虚构武器编背景、**不用"最/第几档"等排行词、不引用别的武器型号**；`traits` 放枪匠目录因此免迁移，`icon` 决定提示里的颜色。
@@ -57,7 +57,7 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
   `bow_part_<槽名>_*` 数据键与表现签名重载、程序化细杆占位口径、参考手／肘轨迹、阶段秒数与实际片段采样合同、
   5.8 headless 导入字段位置与 C++ 编译陷阱：[第一人称弓与部件表](references/first-person-bow-parts.md)。
   手型／掌面／弦接触另读 [弓手型与弦接触](../ue5-fps-arms-animation/references/bow-hand-string-contact.md)；仅在用户要求检查时运行 `Tools/Bow/check_bow_consistency.py`。
-- 伐木斧、矿镐的双手装备、低伤害自卫、采集范围与旧存档迁移：[采集工具战斗接入](references/harvesting-tools.md)。
+- 伐木斧、矿镐的双手装备、低伤害自卫、采集范围与旧存档迁移：[采集工具战斗接入](references/harvesting-tools.md)。同文档含 2026-09-24 的四栏数值改造口径（握把／握柄／改件／主部件，采集与自卫分开结算，真实时钟与作者秒换算）；改 `tool-gunsmith.json` 后跑 `Tools/Production/check_tool_modification_consistency.py` 做离线自检，口径与枪械的 `check_attachment_consistency.py` 同源。
 - 砍树木材占 1×2、掉落全程只用短原木 `SM_PoplarLog_Solid_A`、图标按枪械剪影居中离线栅格化：[木材掉落与图标](references/harvest-wood-drop.md)。不要用场景捕获导出当图标交付。
 - 整理废案、更新 Git 或用户授权推送：[清理与发布](references/publication.md)。
 
@@ -72,7 +72,7 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 5. 保持武器层级与挂点：枪体主根驱动整体，弹匣、扳机、枪机、拉机柄及枪机释放件各有明确的机械身份。禁止用静态网格居中/逐件缩放流程破坏蒙皮视模。
 6. 动画姿态、播放时长、机械事件、音效与补弹业务共用明确的时间映射。更换动画不改变弹药结算、拥有权、输入打断或移动合同。普通弹匣与弹鼓分别识别、分别验证。
 7. 交付实际游戏预览、可编辑源、导出/导入入口和简短验收记录。证明“已应用”需要新进程实际加载和相关行为，不只依靠编译、资产存在或静音图片。
-8. 数值与说明分开维护：卡片描述只写基本描述，增减百分比由目录倍率推导后显示在详情行旁，`effects` 与 `stats` 必须同义同数；改基础数值（射程、射击间隔等）时同步枪匠总览、详情行与物品提示三处显示。武器的详细介绍与特殊性质按 [说明文字与「特殊性质」段](references/weapon-copy-and-traits.md) 的格式生成；`desc` 是物品实例快照、改完必须经"构建 → 重启编辑器 → 进一次游玩"才会在旧存档显示，`traits` 放枪匠目录则直接生效。
+8. 数值与说明分开维护：卡片描述只写基本描述，可推导的增减数字一律由 `stats` 推导后显示在详情行旁（描述中的静态规格数字必须注明权威来源），`effects` 与 `stats` 同义同数且同 id 跨枪逐字一致；行名统一「开镜耗时」（旧 `瞄准耗时` 作废）、「普通换弹」（旧 `正常换弹` 作废）。改基础数值（射程、射击间隔等）时同步枪匠总览、详情行与物品提示三处显示；改完配件跑 `Tools/Weapons/check_attachment_consistency.py`，非零退出即失败。武器的详细介绍与特殊性质按 [说明文字与「特殊性质」段](references/weapon-copy-and-traits.md) 的格式生成；`desc` 是物品实例快照、改完必须经"构建 → 重启编辑器 → 进一次游玩"才会在旧存档显示，`traits` 放枪匠目录则直接生效。
 
 ## 标准的层次
 
