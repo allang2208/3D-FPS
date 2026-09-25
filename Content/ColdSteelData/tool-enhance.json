@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "metal_slot": "Metal",
+  "wood_slot": "Wood",
+  "levels": [
+    {
+      "level": 1,
+      "id": "stone",
+      "name": "石头刃",
+      "description": "打磨石块捆扎成的刃部，粗粝但够用。",
+      "materials": {
+        "tool_axe": "/Game/Items/ProductionTools/Enhance20260925/MI_ToolHead_Axe_Stone",
+        "tool_pickaxe": "/Game/Items/ProductionTools/Enhance20260925/MI_ToolHead_Pick_Stone"
+      },
+      "cost": {},
+      "stats": {}
+    },
+    {
+      "level": 2,
+      "id": "bronze",
+      "name": "青铜",
+      "description": "现有的青铜／风化金属外观，原样保留为第二档基线。",
+      "materials": {
+        "tool_axe": "/Game/Items/ProductionTools/BattleAxe20260919/M_BattleAxe",
+        "tool_pickaxe": "/Game/Items/ProductionTools/RusticPickaxe20260919/M_RusticPickaxe"
+      },
+      "cost": {},
+      "stats": {}
+    },
+    {
+      "level": 3,
+      "id": "steel",
+      "name": "钢铁",
+      "description": "冷灰锻钢，比青铜更亮更硬，磨痕沿刃口方向。",
+      "materials": {
+        "tool_axe": "/Game/Items/ProductionTools/Enhance20260925/MI_ToolHead_Axe_Steel",
+        "tool_pickaxe": "/Game/Items/ProductionTools/Enhance20260925/MI_ToolHead_Pick_Steel"
+      },
+      "cost": {},
+      "stats": {}
+    },
+    {
+      "level": 4,
+      "id": "stainless",
+      "name": "不锈钢强化反射",
+      "description": "镜面级反射，刃口高光锐利，强化反射观感明确。",
+      "materials": {
+        "tool_axe": "/Game/Items/ProductionTools/Enhance20260925/MI_ToolHead_Axe_Stainless",
+        "tool_pickaxe": "/Game/Items/ProductionTools/Enhance20260925/MI_ToolHead_Pick_Stainless"
+      },
+      "cost": {},
+      "stats": {}
+    },
+    {
+      "level": 5,
+      "id": "purple_stone",
+      "name": "紫色强化石",
+      "description": "紫色矿石质感，非金属但有内透光感，最高档辨识度。",
+      "materials": {
+        "tool_axe": "/Game/Items/ProductionTools/Enhance20260925/MI_ToolHead_Axe_PurpleStone",
+        "tool_pickaxe": "/Game/Items/ProductionTools/Enhance20260925/MI_ToolHead_Pick_PurpleStone"
+      },
+      "cost": {},
+      "stats": {}
+    }
+  ],
+  "weapons": [
+    {
+      "id": "tool_axe",
+      "traits": [
+        { "icon": "mechanic", "text": "强化只更换金属部位材质，不影响采集产出、所需命中与自卫数值" },
+        { "icon": "mechanic", "text": "等级逐级 +1 提升，不可降级、不可跳级，出厂为 Lv.1 石头刃；木柄、绑带与皮革保持原装" },
+        { "icon": "neutral", "text": "强化消耗与强化后数值尚未开放，两项目前均为待定" }
+      ]
+    },
+    {
+      "id": "tool_pickaxe",
+      "traits": [
+        { "icon": "mechanic", "text": "强化只更换金属部位材质，不影响采集产出、所需命中与自卫数值" },
+        { "icon": "mechanic", "text": "等级逐级 +1 提升，不可降级、不可跳级，出厂为 Lv.1 石头刃；木柄、绑带与皮革保持原装" },
+        { "icon": "neutral", "text": "强化消耗与强化后数值尚未开放，两项目前均为待定" }
+      ]
+    }
+  ]
+}

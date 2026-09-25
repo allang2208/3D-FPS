@@ -1,0 +1,66 @@
+{
+  "saved": [
+    "/Game/Items/ProductionTools/BattleAxe20260919/SM_BattleAxe.SM_BattleAxe",
+    "/Game/Items/ProductionTools/RusticPickaxe20260919/SM_RusticPickaxe.SM_RusticPickaxe"
+  ],
+  "runtime_tested": false,
+  "masters": {},
+  "instances": {},
+  "meshes": {
+    "Axe": {
+      "asset": "/Game/Items/ProductionTools/BattleAxe20260919/SM_BattleAxe.SM_BattleAxe",
+      "before": {
+        "bounds": "<Struct 'BoxSphereBounds' (0x000001ED335DBD40) {origin: {x: 0.008080, y: -0.002198, z: 0.019737}, box_extent: {x: 11.528249, y: 3.858532, z: 38.986641}, sphere_radius: 40.230447}>",
+        "lods": 3,
+        "slots": [
+          "Metal",
+          "Wood"
+        ],
+        "nanite": false
+      },
+      "after": {
+        "bounds": "<Struct 'BoxSphereBounds' (0x000001ED33620000) {origin: {x: 0.008080, y: -0.002198, z: 0.019737}, box_extent: {x: 11.528249, y: 3.858532, z: 38.986641}, sphere_radius: 40.230447}>",
+        "lods": 3,
+        "slots": [
+          "Metal",
+          "Wood"
+        ],
+        "nanite": false
+      },
+      "assigned": {
+        "Metal": "/Game/Items/ProductionTools/Enhance20260925/MI_ToolHead_Axe_Stone.MI_ToolHead_Axe_Stone",
+        "Wood": "/Game/Items/ProductionTools/BattleAxe20260919/M_BattleAxe.M_BattleAxe"
+      }
+    },
+    "Pick": {
+      "asset": "/Game/Items/ProductionTools/RusticPickaxe20260919/SM_RusticPickaxe.SM_RusticPickaxe",
+      "before": {
+        "bounds": "<Struct 'BoxSphereBounds' (0x000001ED33620D00) {origin: {x: 0.003310, y: -0.001459, z: 0.001526}, box_extent: {x: 15.759728, y: 2.409105, z: 42.008465}, sphere_radius: 42.718420}>",
+        "lods": 3,
+        "slots": [
+          "M_RusticPickaxe",
+          "Metal",
+          "Wood"
+        ],
+        "nanite": false
+      },
+      "after": {
+        "bounds": "<Struct 'BoxSphereBounds' (0x000001ED33623500) {origin: {x: 0.003310, y: -0.001459, z: 0.001526}, box_extent: {x: 15.759728, y: 2.409105, z: 42.008465}, sphere_radius: 42.718420}>",
+        "lods": 3,
+        "slots": [
+          "Metal",
+          "Wood"
+        ],
+        "nanite": false
+      },
+      "assigned": {
+        "Metal": "/Game/Items/ProductionTools/Enhance20260925/MI_ToolHead_Pick_Stone.MI_ToolHead_Pick_Stone",
+        "Wood": "/Game/Items/ProductionTools/RusticPickaxe20260919/M_RusticPickaxe.M_RusticPickaxe"
+      }
+    }
+  },
+  "deleted_before_import": [
+    "/Game/Items/ProductionTools/BattleAxe20260919/SM_BattleAxe",
+    "/Game/Items/ProductionTools/RusticPickaxe20260919/SM_RusticPickaxe"
+  ]
+}

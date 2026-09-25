@@ -1,0 +1,76 @@
+{
+  "entries": [
+    {
+      "after_sha256": "D733186957F6E1CB08C0741FDF2DC0986541FCED5D94C160AAAF0F8C95BF8788",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BattleAxeReplace20260919\\Fitted\\BattleAxe_16000.fbx",
+      "backup": "SourceAssets\\ToolEnhance20260925\\Before\\BattleAxe_16000.fbx",
+      "before_sha256": "E9B782D60662B9AD36B051ED4D86D2C432E9802D38FB7367620589E093C8DEF1",
+      "replacement_sha256": "D733186957F6E1CB08C0741FDF2DC0986541FCED5D94C160AAAF0F8C95BF8788"
+    },
+    {
+      "after_sha256": "78761C5F8B04F6AA95E169CAA4F7D12B432D13D3C5BDAAE3A57FDC79A55B3D26",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BattleAxeReplace20260919\\Fitted\\BattleAxe_LOD1.fbx",
+      "backup": "SourceAssets\\ToolEnhance20260925\\Before\\BattleAxe_LOD1.fbx",
+      "before_sha256": "5C9FB19A59FBB16630E57E278E7816A13A8D3B0016B2A5844AC51FF624A36662",
+      "replacement_sha256": "78761C5F8B04F6AA95E169CAA4F7D12B432D13D3C5BDAAE3A57FDC79A55B3D26"
+    },
+    {
+      "after_sha256": "B543FE62B503ADF54213FDFD4C6CE4A3AB8F403572531B0BE54220DC4D294632",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BattleAxeReplace20260919\\Fitted\\BattleAxe_LOD2.fbx",
+      "backup": "SourceAssets\\ToolEnhance20260925\\Before\\BattleAxe_LOD2.fbx",
+      "before_sha256": "E3E30E35CC94D7FC302FEBBC4FD4B6BE03DDEAC17E39D6981C0141698DEF77F5",
+      "replacement_sha256": "B543FE62B503ADF54213FDFD4C6CE4A3AB8F403572531B0BE54220DC4D294632"
+    },
+    {
+      "after_sha256": "3B91CA9008FE9CD1E9298978C1CC408E9A572C0D5D85D5F6A2F34DCC57DCC9A6",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RusticPickaxe20260919\\Export\\RusticPickaxe_World.fbx",
+      "backup": "SourceAssets\\ToolEnhance20260925\\Before\\RusticPickaxe_World.fbx",
+      "before_sha256": "22E9499116E05EB28FE0535F2360C01290A2ADCEC2BDB41FBE4F741DB1B8B8D3",
+      "replacement_sha256": "3B91CA9008FE9CD1E9298978C1CC408E9A572C0D5D85D5F6A2F34DCC57DCC9A6"
+    },
+    {
+      "after_sha256": "1278820BEA01206814BC777E1DC19B57864766BD3F53D0FA32FDC20928B0DA66",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RusticPickaxe20260919\\Export\\RusticPickaxe_LOD1.fbx",
+      "backup": "SourceAssets\\ToolEnhance20260925\\Before\\RusticPickaxe_LOD1.fbx",
+      "before_sha256": "97425E4FC500EBC842F6DD2668309C24C67B8243044A677D431A527B3F2CB036",
+      "replacement_sha256": "1278820BEA01206814BC777E1DC19B57864766BD3F53D0FA32FDC20928B0DA66"
+    },
+    {
+      "after_sha256": "4EAC437B6825897E732AF04B07CDCC21C7FFA363FA7E9C21505E7A403226362B",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RusticPickaxe20260919\\Export\\RusticPickaxe_LOD2.fbx",
+      "backup": "SourceAssets\\ToolEnhance20260925\\Before\\RusticPickaxe_LOD2.fbx",
+      "before_sha256": "4F0DA1B3CF535847661E5C16A8A5CB3F94AEAF33E551D14723E782F40347F37F",
+      "replacement_sha256": "4EAC437B6825897E732AF04B07CDCC21C7FFA363FA7E9C21505E7A403226362B"
+    },
+    {
+      "path": "Content/ColdSteelData/ProductionTools/axe.png",
+      "backup": "SourceAssets/ToolEnhance20260925/Before/icon-axe.png",
+      "before_sha256": "3d7bfb9fb65e02817ec42c140214507bc776b14a0b6df68aa25f9307b876b3e6",
+      "replacement_sha256": "5d1222f75c3299d73b005938097b193fee1c21ef348783f61464dd29b5d38e02",
+      "after_sha256": "5d1222f75c3299d73b005938097b193fee1c21ef348783f61464dd29b5d38e02"
+    },
+    {
+      "path": "Content/ColdSteelData/ProductionTools/pickaxe_upright.png",
+      "backup": "SourceAssets/ToolEnhance20260925/Before/icon-pickaxe_upright.png",
+      "before_sha256": "7ef38762c312d1ce81e78666525f112e4522303b3ac2f2bfce0dc04b2edc3c29",
+      "replacement_sha256": "adf537dce35640400a2f9881db73b621b7c2e0221faee961216ac9b824db50c3",
+      "after_sha256": "adf537dce35640400a2f9881db73b621b7c2e0221faee961216ac9b824db50c3"
+    },
+    {
+      "path": "Content/ColdSteelData/ProductionTools/axe.png",
+      "backup": "SourceAssets/ToolEnhance20260925/Before/icon-axe.png",
+      "before_sha256": "5d1222f75c3299d73b005938097b193fee1c21ef348783f61464dd29b5d38e02",
+      "replacement_sha256": "bc2f3d227ec6148edd7af4e5280638c338e207c11e48be9fc27f00e3c8ca6fc0",
+      "after_sha256": "bc2f3d227ec6148edd7af4e5280638c338e207c11e48be9fc27f00e3c8ca6fc0"
+    },
+    {
+      "path": "Content/ColdSteelData/ProductionTools/pickaxe_upright.png",
+      "backup": "SourceAssets/ToolEnhance20260925/Before/icon-pickaxe_upright.png",
+      "before_sha256": "adf537dce35640400a2f9881db73b621b7c2e0221faee961216ac9b824db50c3",
+      "replacement_sha256": "d6cfd8a25c7be7bbad1e9b11044967059ddac27934ddbef8250bc18de63fcb16",
+      "after_sha256": "d6cfd8a25c7be7bbad1e9b11044967059ddac27934ddbef8250bc18de63fcb16"
+    }
+  ],
+  "timestamp": "2026-09-25T01:40:58",
+  "reason": "tool enhancement phase 2: material slot split (Metal/Wood)"
+}

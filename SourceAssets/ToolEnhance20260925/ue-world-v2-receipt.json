@@ -1,0 +1,68 @@
+{
+  "lod_returns": [
+    {
+      "tag": "Axe",
+      "index": 1,
+      "ret": "1",
+      "before": 1,
+      "after": 2
+    },
+    {
+      "tag": "Axe",
+      "index": 2,
+      "ret": "2",
+      "before": 2,
+      "after": 3
+    },
+    {
+      "tag": "Pick",
+      "index": 1,
+      "ret": "1",
+      "before": 1,
+      "after": 2
+    },
+    {
+      "tag": "Pick",
+      "index": 2,
+      "ret": "2",
+      "before": 2,
+      "after": 3
+    }
+  ],
+  "Axe": {
+    "assigned": {
+      "Metal": "/Game/Items/ProductionTools/Enhance20260925/MI_ToolHead_Axe_Stone.MI_ToolHead_Axe_Stone",
+      "Wood": "/Game/Items/ProductionTools/BattleAxe20260919/M_BattleAxe.M_BattleAxe"
+    },
+    "lods": 3,
+    "tris_lod0": 16000,
+    "slots": [
+      [
+        "Metal",
+        "/Game/Items/ProductionTools/Enhance20260925/MI_ToolHead_Axe_Stone.MI_ToolHead_Axe_Stone"
+      ],
+      [
+        "Wood",
+        "/Game/Items/ProductionTools/BattleAxe20260919/M_BattleAxe.M_BattleAxe"
+      ]
+    ]
+  },
+  "Pick": {
+    "assigned": {
+      "Metal": "/Game/Items/ProductionTools/Enhance20260925/MI_ToolHead_Pick_Stone.MI_ToolHead_Pick_Stone",
+      "Wood": "/Game/Items/ProductionTools/RusticPickaxe20260919/M_RusticPickaxe.M_RusticPickaxe"
+    },
+    "lods": 3,
+    "tris_lod0": 32000,
+    "slots": [
+      [
+        "Metal",
+        "/Game/Items/ProductionTools/Enhance20260925/MI_ToolHead_Pick_Stone.MI_ToolHead_Pick_Stone"
+      ],
+      [
+        "Wood",
+        "/Game/Items/ProductionTools/RusticPickaxe20260919/M_RusticPickaxe.M_RusticPickaxe"
+      ]
+    ]
+  }
+}

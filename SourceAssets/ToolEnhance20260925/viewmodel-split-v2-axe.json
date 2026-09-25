@@ -1,0 +1,15 @@
+{
+  "target": "axe",
+  "rule": "face",
+  "z_gate": 0.195,
+  "faces": 32000,
+  "metal_faces": 7200,
+  "metal_fraction": 0.225,
+  "slots": [
+    "Wood",
+    "Metal"
+  ],
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ToolEnhance20260925\\Viewmodel\\Export\\SK_Harvest_Axe.fbx",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ToolEnhance20260925\\Viewmodel\\BattleAxe_SingleHand_Split.blend",
+  "detail": {}
+}

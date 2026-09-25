@@ -1,0 +1,58 @@
+{
+  "Axe": {
+    "asset": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe.SK_Harvest_Axe",
+    "slots": [
+      {
+        "slot": "Wood",
+        "material": "/Game/Items/ProductionTools/BattleAxe20260919/M_BattleAxe.M_BattleAxe"
+      },
+      {
+        "slot": "Metal",
+        "material": "/Game/Items/ProductionTools/Enhance20260925/MI_ToolHead_Axe_Stone.MI_ToolHead_Axe_Stone"
+      },
+      {
+        "slot": "MI_Manny_01",
+        "material": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Materials/MI_BareNative_Default.MI_BareNative_Default"
+      },
+      {
+        "slot": "MI_Manny_02",
+        "material": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Materials/MI_BareNative_Default.MI_BareNative_Default"
+      }
+    ],
+    "skeleton": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe_Skeleton.SK_Harvest_Axe_Skeleton",
+    "previous_slots": [
+      "MI_Manny_01",
+      "MI_Manny_02",
+      "Metal",
+      "Wood"
+    ]
+  },
+  "Pick": {
+    "asset": "/Game/Items/ProductionTools/RusticPickaxe20260919/SK_RusticPickaxe.SK_RusticPickaxe",
+    "slots": [
+      {
+        "slot": "Wood",
+        "material": "/Game/Items/ProductionTools/RusticPickaxe20260919/M_RusticPickaxe.M_RusticPickaxe"
+      },
+      {
+        "slot": "Metal",
+        "material": "/Game/Items/ProductionTools/Enhance20260925/MI_ToolHead_Pick_Stone.MI_ToolHead_Pick_Stone"
+      },
+      {
+        "slot": "MI_Manny_01",
+        "material": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Materials/MI_BareNative_Default.MI_BareNative_Default"
+      },
+      {
+        "slot": "MI_Manny_02",
+        "material": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Materials/MI_BareNative_Default.MI_BareNative_Default"
+      }
+    ],
+    "skeleton": "/Game/Items/ProductionTools/RusticPickaxe20260919/SK_RusticPickaxe_Skeleton.SK_RusticPickaxe_Skeleton",
+    "previous_slots": [
+      "MI_Manny_01",
+      "MI_Manny_02",
+      "Metal",
+      "Wood"
+    ]
+  }
+}

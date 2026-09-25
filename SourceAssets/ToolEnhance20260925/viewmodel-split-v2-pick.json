@@ -1,0 +1,496 @@
+{
+  "target": "pick",
+  "rule": "component",
+  "z_gate": 0.33,
+  "faces": 95999,
+  "metal_faces": 8465,
+  "metal_fraction": 0.0882,
+  "slots": [
+    "Wood",
+    "Metal"
+  ],
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ToolEnhance20260925\\Viewmodel\\Export\\SK_RusticPickaxe.fbx",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ToolEnhance20260925\\Viewmodel\\RusticPickaxe_TwoHand_Split.blend",
+  "detail": [
+    {
+      "comp": 0,
+      "faces": 167,
+      "metallic": 0.7564,
+      "chroma": 0.0134,
+      "wzmin": 0.3476,
+      "metal": true
+    },
+    {
+      "comp": 1,
+      "faces": 170,
+      "metallic": 0.3976,
+      "chroma": 0.008,
+      "wzmin": 0.3662,
+      "metal": true
+    },
+    {
+      "comp": 2,
+      "faces": 320,
+      "metallic": 0.5325,
+      "chroma": 0.0236,
+      "wzmin": 0.3439,
+      "metal": true
+    },
+    {
+      "comp": 3,
+      "faces": 45,
+      "metallic": 0.2667,
+      "chroma": 0.0192,
+      "wzmin": 0.3921,
+      "metal": true
+    },
+    {
+      "comp": 4,
+      "faces": 550,
+      "metallic": 0.3779,
+      "chroma": 0.0381,
+      "wzmin": 0.364,
+      "metal": true
+    },
+    {
+      "comp": 5,
+      "faces": 456,
+      "metallic": 0.3444,
+      "chroma": 0.0345,
+      "wzmin": 0.3618,
+      "metal": true
+    },
+    {
+      "comp": 6,
+      "faces": 25,
+      "metallic": 0.5934,
+      "chroma": 0.0231,
+      "wzmin": 0.3613,
+      "metal": true
+    },
+    {
+      "comp": 7,
+      "faces": 1229,
+      "metallic": 0.3004,
+      "chroma": 0.0403,
+      "wzmin": 0.3738,
+      "metal": true
+    },
+    {
+      "comp": 8,
+      "faces": 95,
+      "metallic": 0.449,
+      "chroma": 0.0233,
+      "wzmin": 0.3668,
+      "metal": true
+    },
+    {
+      "comp": 9,
+      "faces": 403,
+      "metallic": 0.3514,
+      "chroma": 0.0843,
+      "wzmin": 0.3641,
+      "metal": true
+    },
+    {
+      "comp": 10,
+      "faces": 511,
+      "metallic": 0.6148,
+      "chroma": 0.0351,
+      "wzmin": 0.3658,
+      "metal": true
+    },
+    {
+      "comp": 11,
+      "faces": 1291,
+      "metallic": 0.0675,
+      "chroma": 0.1891,
+      "wzmin": 0.3941,
+      "metal": false
+    },
+    {
+      "comp": 12,
+      "faces": 1309,
+      "metallic": 0.0902,
+      "chroma": 0.1859,
+      "wzmin": 0.3933,
+      "metal": false
+    },
+    {
+      "comp": 13,
+      "faces": 155,
+      "metallic": 0.2099,
+      "chroma": 0.1555,
+      "wzmin": 0.3641,
+      "metal": true
+    },
+    {
+      "comp": 14,
+      "faces": 458,
+      "metallic": 0.409,
+      "chroma": 0.0642,
+      "wzmin": 0.3624,
+      "metal": true
+    },
+    {
+      "comp": 15,
+      "faces": 996,
+      "metallic": 0.0006,
+      "chroma": 0.1085,
+      "wzmin": 0.3174,
+      "metal": false
+    },
+    {
+      "comp": 16,
+      "faces": 1454,
+      "metallic": 0.0009,
+      "chroma": 0.111,
+      "wzmin": 0.3122,
+      "metal": false
+    },
+    {
+      "comp": 17,
+      "faces": 159,
+      "metallic": 0.0034,
+      "chroma": 0.1204,
+      "wzmin": 0.3132,
+      "metal": false
+    },
+    {
+      "comp": 25,
+      "faces": 396,
+      "metallic": 0.0007,
+      "chroma": 0.134,
+      "wzmin": 0.3122,
+      "metal": false
+    },
+    {
+      "comp": 43,
+      "faces": 35,
+      "metallic": 0.0025,
+      "chroma": 0.2394,
+      "wzmin": 0.3127,
+      "metal": false
+    },
+    {
+      "comp": 44,
+      "faces": 26,
+      "metallic": 0.0002,
+      "chroma": 0.2976,
+      "wzmin": 0.3491,
+      "metal": false
+    },
+    {
+      "comp": 45,
+      "faces": 173,
+      "metallic": 0.0011,
+      "chroma": 0.2957,
+      "wzmin": 0.3423,
+      "metal": false
+    },
+    {
+      "comp": 49,
+      "faces": 311,
+      "metallic": 0.0016,
+      "chroma": 0.2323,
+      "wzmin": 0.3391,
+      "metal": false
+    },
+    {
+      "comp": 51,
+      "faces": 667,
+      "metallic": 0.0014,
+      "chroma": 0.2333,
+      "wzmin": 0.2914,
+      "metal": false
+    },
+    {
+      "comp": 52,
+      "faces": 304,
+      "metallic": 0.0014,
+      "chroma": 0.1203,
+      "wzmin": 0.3327,
+      "metal": false
+    },
+    {
+      "comp": 54,
+      "faces": 895,
+      "metallic": 0.0016,
+      "chroma": 0.1956,
+      "wzmin": 0.2866,
+      "metal": false
+    },
+    {
+      "comp": 55,
+      "faces": 227,
+      "metallic": 0.0006,
+      "chroma": 0.1009,
+      "wzmin": 0.3214,
+      "metal": false
+    },
+    {
+      "comp": 60,
+      "faces": 237,
+      "metallic": 0.0918,
+      "chroma": 0.1404,
+      "wzmin": 0.3626,
+      "metal": false
+    },
+    {
+      "comp": 71,
+      "faces": 419,
+      "metallic": 0.0008,
+      "chroma": 0.1294,
+      "wzmin": 0.3127,
+      "metal": false
+    },
+    {
+      "comp": 90,
+      "faces": 173,
+      "metallic": 0.0007,
+      "chroma": 0.1245,
+      "wzmin": 0.3132,
+      "metal": false
+    },
+    {
+      "comp": 97,
+      "faces": 466,
+      "metallic": 0.0002,
+      "chroma": 0.1026,
+      "wzmin": 0.3205,
+      "metal": false
+    },
+    {
+      "comp": 98,
+      "faces": 395,
+      "metallic": 0.0001,
+      "chroma": 0.0965,
+      "wzmin": 0.323,
+      "metal": false
+    },
+    {
+      "comp": 99,
+      "faces": 946,
+      "metallic": 0.0012,
+      "chroma": 0.145,
+      "wzmin": 0.328,
+      "metal": false
+    },
+    {
+      "comp": 103,
+      "faces": 634,
+      "metallic": 0.0005,
+      "chroma": 0.0986,
+      "wzmin": 0.3144,
+      "metal": false
+    },
+    {
+      "comp": 104,
+      "faces": 386,
+      "metallic": 0.0005,
+      "chroma": 0.1062,
+      "wzmin": 0.314,
+      "metal": false
+    },
+    {
+      "comp": 105,
+      "faces": 805,
+      "metallic": 0.0008,
+      "chroma": 0.1107,
+      "wzmin": 0.3237,
+      "metal": false
+    },
+    {
+      "comp": 112,
+      "faces": 60,
+      "metallic": 0.0007,
+      "chroma": 0.2878,
+      "wzmin": 0.3467,
+      "metal": false
+    },
+    {
+      "comp": 114,
+      "faces": 176,
+      "metallic": 0.002,
+      "chroma": 0.2996,
+      "wzmin": 0.2866,
+      "metal": false
+    },
+    {
+      "comp": 121,
+      "faces": 245,
+      "metallic": 0.0004,
+      "chroma": 0.1006,
+      "wzmin": 0.3191,
+      "metal": false
+    },
+    {
+      "comp": 133,
+      "faces": 135,
+      "metallic": 0.2452,
+      "chroma": 0.1313,
+      "wzmin": 0.4067,
+      "metal": true
+    },
+    {
+      "comp": 134,
+      "faces": 51,
+      "metallic": 0.0005,
+      "chroma": 0.2857,
+      "wzmin": 0.3457,
+      "metal": false
+    },
+    {
+      "comp": 135,
+      "faces": 80,
+      "metallic": 0.1753,
+      "chroma": 0.1638,
+      "wzmin": 0.4088,
+      "metal": false
+    },
+    {
+      "comp": 141,
+      "faces": 282,
+      "metallic": 0.0003,
+      "chroma": 0.1036,
+      "wzmin": 0.3169,
+      "metal": false
+    },
+    {
+      "comp": 142,
+      "faces": 1262,
+      "metallic": 0.0005,
+      "chroma": 0.1017,
+      "wzmin": 0.317,
+      "metal": false
+    },
+    {
+      "comp": 144,
+      "faces": 826,
+      "metallic": 0.0006,
+      "chroma": 0.1132,
+      "wzmin": 0.3224,
+      "metal": false
+    },
+    {
+      "comp": 145,
+      "faces": 932,
+      "metallic": 0.3121,
+      "chroma": 0.1005,
+      "wzmin": 0.3661,
+      "metal": true
+    },
+    {
+      "comp": 147,
+      "faces": 299,
+      "metallic": 0.1675,
+      "chroma": 0.1938,
+      "wzmin": 0.3429,
+      "metal": false
+    },
+    {
+      "comp": 149,
+      "faces": 139,
+      "metallic": 0.3369,
+      "chroma": 0.1054,
+      "wzmin": 0.3596,
+      "metal": true
+    },
+    {
+      "comp": 150,
+      "faces": 369,
+      "metallic": 0.4385,
+      "chroma": 0.0437,
+      "wzmin": 0.3665,
+      "metal": true
+    },
+    {
+      "comp": 156,
+      "faces": 213,
+      "metallic": 0.0015,
+      "chroma": 0.1447,
+      "wzmin": 0.3039,
+      "metal": false
+    },
+    {
+      "comp": 166,
+      "faces": 185,
+      "metallic": 0.0003,
+      "chroma": 0.1056,
+      "wzmin": 0.3177,
+      "metal": false
+    },
+    {
+      "comp": 169,
+      "faces": 90,
+      "metallic": 0.4059,
+      "chroma": 0.0372,
+      "wzmin": 0.3896,
+      "metal": true
+    },
+    {
+      "comp": 170,
+      "faces": 478,
+      "metallic": 0.4242,
+      "chroma": 0.0408,
+      "wzmin": 0.3772,
+      "metal": true
+    },
+    {
+      "comp": 171,
+      "faces": 96,
+      "metallic": 0.2752,
+      "chroma": 0.0435,
+      "wzmin": 0.3883,
+      "metal": true
+    },
+    {
+      "comp": 172,
+      "faces": 183,
+      "metallic": 0.2448,
+      "chroma": 0.0449,
+      "wzmin": 0.3879,
+      "metal": true
+    },
+    {
+      "comp": 173,
+      "faces": 88,
+      "metallic": 0.4484,
+      "chroma": 0.0167,
+      "wzmin": 0.3929,
+      "metal": true
+    },
+    {
+      "comp": 174,
+      "faces": 83,
+      "metallic": 0.5082,
+      "chroma": 0.0059,
+      "wzmin": 0.3909,
+      "metal": true
+    },
+    {
+      "comp": 175,
+      "faces": 676,
+      "metallic": 0.6008,
+      "chroma": 0.0206,
+      "wzmin": 0.3611,
+      "metal": true
+    },
+    {
+      "comp": 176,
+      "faces": 494,
+      "metallic": 0.6446,
+      "chroma": 0.0048,
+      "wzmin": 0.359,
+      "metal": true
+    },
+    {
+      "comp": 177,
+      "faces": 118,
+      "metallic": 0.7854,
+      "chroma": 0.0018,
+      "wzmin": 0.359,
+      "metal": true
+    }
+  ]
+}
