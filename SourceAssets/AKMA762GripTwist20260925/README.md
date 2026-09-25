@@ -38,11 +38,18 @@
 7. **目标在"弹匣长轴—掌心"平面内偏 22°**（正对轴会把指腹埋进壳里 12–16 mm）；五个握把实测弹匣轴互差 ≤0.6°，每把枪一组参数覆盖全部 30 条。
 8. 第二轮输出到 `v2/`（第一轮文件原地保留），导入前逐条备份到 `Before2/`。
 
-第三轮（自然延申，不碰虎口，当前）：
+第三轮（自然延申，不碰虎口）：
 
 9. **根部一个角度都不动**：直接沿用第一轮出货的根部四元数（绕骨轴扭转分量 0），只把后两节屈曲由 30°/25°（A762 33.5°/34.8°）改成 SVD 的 **4°/3°** 轻屈——伸直完全由拇指自己的远端两节提供。
 10. **单独量虎口**：`thumb_01_l` 与 `index_01_l` 蒙皮质心间距作虎口宽度，`thumb_01_l` 权重顶点相对出货姿态的最大位移作虎口被拖动量。第二轮是 +33 %/+29 % 与 62/65 mm，第三轮降到 ≤1.5 mm 与 2.9/3.2 mm。
 11. 第三轮输出到 `v3/`，导入前逐条备份到 `Before3/`。
+
+第四轮（拇指抬到食指上方，当前）：
+
+12. **量面片相交**：拇指与食指各自建 `BVHTree` 求 `overlap()`——第三轮姿态 AKM 104 对 / A762 202 对相交（第一轮那个扭着缩着的拇指反而 0 对）。
+13. **改法**：在第三轮目标上再叠一次小摆动，绕手部前向轴（`hand_l`→`middle_01_l`）**垂直于可见拇指方向的分量**转 **AKM −8°、A762 −16°**（只摆动、不改已认可的滚转）；角度取"最小能完全脱离相交"的一档（AKM 4° 仍剩 54 对、A762 12° 仍剩 39 对）。
+14. **逐帧核**：保持段拇指局部姿态是常量但手在转，因此在 68/148/220 三个保持帧各查一次相交；30 条 clip 全为 0、最近距离 3.75/5.14 mm、可见拇指 63.0/62.9 mm、虎口相对出货 −0.12/−0.14 mm。
+15. 第四轮输出到 `v4/`，导入前逐条备份到 `Before4/`。
 
 **核对当前实际加载**要用 `RifleMagazineGrip20260922/IndexClearanceV4/sources.json` 的 asset→blend 映射：该目录根下的 `selected_grasp.json` 与 `AKM/`、`A762/` 子目录是早期版本，不是运行来源。
 
@@ -65,7 +72,11 @@
 | 第三轮求解 | `select_target3.py` → `thumb_target3.json`（沿用出货根部 + 4°/3°）、`render_v3.py` → `thumb5_*.png` |
 | 第三轮作者输出 | `author_thumb3.py` → `v3/<枪>/<弹匣>/<握把>/` + `.fbx`；回执 `authoring3.json` |
 | 第三轮验证 | `verify3.py` → `verify3.json`（逐条：根部与出货四元数 0.0000°、拇指等于目标、窗口外与源一致、可见长度/夹角/虎口宽度/穿透） |
-| 导入 | 第一轮 `install.py` / `install_receipt.json`、`Before/`；第二轮 `install2.py`、`Before2/`；**第三轮 `install3.py` / `install3_receipt_*.json`、`Before3/`**；`run_import2.ps1`、编辑器桥 `Tools/AssetPipeline/mcp_call_codex.ps1 -PythonScript` |
+| 第四轮诊断 | `thumb_index.py` → `thumb_index.json`（拇指/食指面片相交对数、最近距离、按手部各轴扫描最小脱离角度）、`render_index.py` → `thumb6_*.png`（拇指洋红、食指青色，从手背方向判读"上方"） |
+| 第四轮求解 | `select_target4.py` → `thumb_target4.json`（叠 fwd 轴 −8°/−16°），逐保持帧核对相交 |
+| 第四轮作者输出 | `author_thumb4.py` → `v4/<枪>/<弹匣>/<握把>/` + `.fbx`；回执 `authoring4.json` |
+| 第四轮验证 | `verify4.py` → `verify4_*.json`（分片运行；逐条：相交对数、最近距离、虎口相对出货、根部/拇指/窗口外、穿透） |
+| 导入 | 第一轮 `install.py` / `install_receipt.json`、`Before/`；第二轮 `install2.py`、`Before2/`；第三轮 `install3.py`、`Before3/`；**第四轮 `install4.py` / `install4_receipt.json`、`Before4/`**；`run_import4.ps1`（无编辑器时走 commandlet）、有编辑器时走桥 `Tools/AssetPipeline/mcp_call_codex.ps1 -PythonScript` |
 
 ## 未覆盖
 

@@ -2,7 +2,7 @@
 
 Only the 30 magazine-grip reload sequences are replaced; every other clip, mesh,
 material and the C++ side are untouched.  The packages currently in the project
-are the round-1 twist repair and are copied to Before3/ before being overwritten,
+are the round-1 twist repair and are copied to Before4/ before being overwritten,
 and every import is read back for duration, skeleton and compression settings.
 """
 import json
@@ -21,15 +21,15 @@ SOURCES = json.loads((V4 / 'sources.json').read_text(encoding='utf-8'))['animati
 # The editor bridge runs python with a bounded timeout, so the 30 imports can be
 # driven in slices.  A slice file selects [start, start+count) from sources.json;
 # the per-clip work is idempotent, so a repeated or resumed slice is safe.
-CHUNK_FILE = O / 'install3_chunk.json'
+CHUNK_FILE = O / 'install4_chunk.json'
 if CHUNK_FILE.exists():
     chunk = json.loads(CHUNK_FILE.read_text(encoding='utf-8-sig'))
     start, count = int(chunk['start']), int(chunk['count'])
     jobs = SOURCES[start:start + count]
-    receipt_name = 'install3_receipt_%02d.json' % start
+    receipt_name = 'install4_receipt_%02d.json' % start
 else:
     jobs = SOURCES
-    receipt_name = 'install3_receipt.json'
+    receipt_name = 'install4_receipt.json'
 
 A = u.AssetToolsHelpers.get_asset_tools()
 E = u.EditorAssetLibrary
@@ -41,7 +41,7 @@ COMPRESSION = u.load_asset('/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel')
 report = {}
 for job in jobs:
     stem = Path(job['asset']).name
-    fbx = O / 'v3' / job['gun'] / job['magazine'] / job['family'] / (stem + '.fbx')
+    fbx = O / 'v4' / job['gun'] / job['magazine'] / job['family'] / (stem + '.fbx')
     if not fbx.exists():
         raise RuntimeError('missing FBX ' + str(fbx))
     asset = job['asset']
@@ -49,7 +49,7 @@ for job in jobs:
     if not old:
         raise RuntimeError('missing target asset ' + asset)
     disk = P / 'Content' / (asset.removeprefix('/Game/') + '.uasset')
-    backup = O / 'Before3' / (asset.removeprefix('/Game/') + '.uasset')
+    backup = O / 'Before4' / (asset.removeprefix('/Game/') + '.uasset')
     if disk.exists() and not backup.exists():
         backup.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(disk, backup)
@@ -97,5 +97,5 @@ for job in jobs:
                    'save_returned': returned, 'package_written': written,
                    'package_mtime': after_mtime, 'saved': True}
     (O / receipt_name).write_text(json.dumps(report, indent=1), encoding='utf-8')
-    print('THUMB3_IMPORTED', key, anim.get_play_length(), 'written=%s returned=%s' % (written, returned), flush=True)
-print('THUMB3_IMPORT_COMPLETE', len(report), receipt_name)
+    print('THUMB4_IMPORTED', key, anim.get_play_length(), 'written=%s returned=%s' % (written, returned), flush=True)
+print('THUMB4_IMPORT_COMPLETE', len(report), receipt_name)

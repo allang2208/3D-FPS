@@ -1,0 +1,124 @@
+[
+ {
+  "gun": "AKM",
+  "tag": "base",
+  "spec": null,
+  "visible_len_mm": 63.3,
+  "thumb_vs_index_side_mm": -84.61,
+  "root_wxyz": [
+   0.97948,
+   0.12646,
+   0.0,
+   0.15693
+  ]
+ },
+ {
+  "gun": "AKM",
+  "tag": "n_m8",
+  "spec": [
+   "normal",
+   -8.0
+  ],
+  "visible_len_mm": 63.0,
+  "thumb_vs_index_side_mm": -81.24,
+  "root_wxyz": [
+   0.986738,
+   0.134236,
+   -0.016054,
+   0.08984
+  ]
+ },
+ {
+  "gun": "AKM",
+  "tag": "f_m8",
+  "spec": [
+   "fwd",
+   -8.0
+  ],
+  "visible_len_mm": 63.0,
+  "thumb_vs_index_side_mm": -83.43,
+  "root_wxyz": [
+   0.987674,
+   0.129653,
+   0.000982,
+   0.087694
+  ]
+ },
+ {
+  "gun": "AKM",
+  "tag": "f_p32",
+  "spec": [
+   "fwd",
+   32.0
+  ],
+  "visible_len_mm": 65.8,
+  "thumb_vs_index_side_mm": -82.3,
+  "root_wxyz": [
+   0.899732,
+   0.107729,
+   -0.003879,
+   0.422921
+  ]
+ },
+ {
+  "gun": "A762",
+  "tag": "base",
+  "spec": null,
+  "visible_len_mm": 63.7,
+  "thumb_vs_index_side_mm": -88.4,
+  "root_wxyz": [
+   0.95121,
+   0.22007,
+   -0.0,
+   0.21625
+  ]
+ },
+ {
+  "gun": "A762",
+  "tag": "n_m20",
+  "spec": [
+   "normal",
+   -20.0
+  ],
+  "visible_len_mm": 63.3,
+  "thumb_vs_index_side_mm": -75.46,
+  "root_wxyz": [
+   0.963686,
+   0.241937,
+   -0.08962,
+   0.068876
+  ]
+ },
+ {
+  "gun": "A762",
+  "tag": "f_p20",
+  "spec": [
+   "fwd",
+   20.0
+  ],
+  "visible_len_mm": 65.3,
+  "thumb_vs_index_side_mm": -83.84,
+  "root_wxyz": [
+   0.899287,
+   0.212424,
+   -0.009788,
+   0.382183
+  ]
+ },
+ {
+  "gun": "A762",
+  "tag": "f_m16",
+  "spec": [
+   "fwd",
+   -16.0
+  ],
+  "visible_len_mm": 62.9,
+  "thumb_vs_index_side_mm": -89.07,
+  "root_wxyz": [
+   0.97199,
+   0.221376,
+   0.007844,
+   0.078522
+  ]
+ }
+]

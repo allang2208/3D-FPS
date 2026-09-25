@@ -1,0 +1,222 @@
+{
+ "AKM": {
+  "root_quat_wxyz": [
+   0.987674,
+   0.129653,
+   0.000982,
+   0.087694
+  ],
+  "c_02": 4.0,
+  "d_03": 3.0,
+  "extra_swing_axis": "fwd",
+  "extra_swing_deg": -8.0,
+  "extra_swing_axis_armature": [
+   -0.7109,
+   0.6346,
+   0.3032
+  ],
+  "v3_root_wxyz": [
+   0.97948,
+   0.12646,
+   0.0,
+   0.15693
+  ],
+  "frames": [
+   {
+    "frame": 44,
+    "overlaps": 0,
+    "min_gap_mm": 3.63,
+    "shipping_overlaps": 0,
+    "shipping_min_gap_mm": 29.41,
+    "web_gap_vs_v4_source_mm": -26.24,
+    "visible_len_mm": 63.0
+   },
+   {
+    "frame": 68,
+    "overlaps": 0,
+    "min_gap_mm": 3.75,
+    "shipping_overlaps": 0,
+    "shipping_min_gap_mm": 28.15,
+    "web_gap_vs_v4_source_mm": -26.23,
+    "visible_len_mm": 63.0
+   },
+   {
+    "frame": 92,
+    "overlaps": 0,
+    "min_gap_mm": 3.75,
+    "shipping_overlaps": 0,
+    "shipping_min_gap_mm": 28.15,
+    "web_gap_vs_v4_source_mm": -26.23,
+    "visible_len_mm": 63.0
+   },
+   {
+    "frame": 116,
+    "overlaps": 0,
+    "min_gap_mm": 3.75,
+    "shipping_overlaps": 0,
+    "shipping_min_gap_mm": 28.15,
+    "web_gap_vs_v4_source_mm": -26.23,
+    "visible_len_mm": 63.0
+   },
+   {
+    "frame": 148,
+    "overlaps": 0,
+    "min_gap_mm": 3.75,
+    "shipping_overlaps": 0,
+    "shipping_min_gap_mm": 28.15,
+    "web_gap_vs_v4_source_mm": -26.23,
+    "visible_len_mm": 63.0
+   },
+   {
+    "frame": 172,
+    "overlaps": 0,
+    "min_gap_mm": 3.75,
+    "shipping_overlaps": 0,
+    "shipping_min_gap_mm": 28.15,
+    "web_gap_vs_v4_source_mm": -26.23,
+    "visible_len_mm": 63.0
+   },
+   {
+    "frame": 196,
+    "overlaps": 0,
+    "min_gap_mm": 3.75,
+    "shipping_overlaps": 0,
+    "shipping_min_gap_mm": 28.15,
+    "web_gap_vs_v4_source_mm": -26.23,
+    "visible_len_mm": 63.0
+   },
+   {
+    "frame": 220,
+    "overlaps": 0,
+    "min_gap_mm": 3.75,
+    "shipping_overlaps": 0,
+    "shipping_min_gap_mm": 28.15,
+    "web_gap_vs_v4_source_mm": -26.23,
+    "visible_len_mm": 63.0
+   },
+   {
+    "frame": 237,
+    "overlaps": 0,
+    "min_gap_mm": 3.75,
+    "shipping_overlaps": 0,
+    "shipping_min_gap_mm": 28.15,
+    "web_gap_vs_v4_source_mm": -26.23,
+    "visible_len_mm": 63.0
+   }
+  ],
+  "clean_frames": 9,
+  "worst_overlaps": 0,
+  "worst_web_delta_vs_v4_source_mm": 26.24,
+  "shipping_worst_overlaps": 0
+ },
+ "A762": {
+  "root_quat_wxyz": [
+   0.97199,
+   0.221376,
+   0.007844,
+   0.078522
+  ],
+  "c_02": 4.0,
+  "d_03": 3.0,
+  "extra_swing_axis": "fwd",
+  "extra_swing_deg": -16.0,
+  "extra_swing_axis_armature": [
+   -0.6855,
+   0.4656,
+   0.5598
+  ],
+  "v3_root_wxyz": [
+   0.95121,
+   0.22007,
+   -0.0,
+   0.21625
+  ],
+  "frames": [
+   {
+    "frame": 44,
+    "overlaps": 0,
+    "min_gap_mm": 5.04,
+    "shipping_overlaps": 0,
+    "shipping_min_gap_mm": 33.97,
+    "web_gap_vs_v4_source_mm": -26.81,
+    "visible_len_mm": 62.9
+   },
+   {
+    "frame": 68,
+    "overlaps": 0,
+    "min_gap_mm": 5.14,
+    "shipping_overlaps": 0,
+    "shipping_min_gap_mm": 33.8,
+    "web_gap_vs_v4_source_mm": -26.82,
+    "visible_len_mm": 62.9
+   },
+   {
+    "frame": 92,
+    "overlaps": 0,
+    "min_gap_mm": 5.14,
+    "shipping_overlaps": 0,
+    "shipping_min_gap_mm": 33.8,
+    "web_gap_vs_v4_source_mm": -26.82,
+    "visible_len_mm": 62.9
+   },
+   {
+    "frame": 116,
+    "overlaps": 0,
+    "min_gap_mm": 5.14,
+    "shipping_overlaps": 0,
+    "shipping_min_gap_mm": 33.8,
+    "web_gap_vs_v4_source_mm": -26.82,
+    "visible_len_mm": 62.9
+   },
+   {
+    "frame": 148,
+    "overlaps": 0,
+    "min_gap_mm": 5.14,
+    "shipping_overlaps": 0,
+    "shipping_min_gap_mm": 33.8,
+    "web_gap_vs_v4_source_mm": -26.82,
+    "visible_len_mm": 62.9
+   },
+   {
+    "frame": 172,
+    "overlaps": 0,
+    "min_gap_mm": 5.14,
+    "shipping_overlaps": 0,
+    "shipping_min_gap_mm": 33.8,
+    "web_gap_vs_v4_source_mm": -26.82,
+    "visible_len_mm": 62.9
+   },
+   {
+    "frame": 196,
+    "overlaps": 0,
+    "min_gap_mm": 5.14,
+    "shipping_overlaps": 0,
+    "shipping_min_gap_mm": 33.8,
+    "web_gap_vs_v4_source_mm": -26.82,
+    "visible_len_mm": 62.9
+   },
+   {
+    "frame": 220,
+    "overlaps": 0,
+    "min_gap_mm": 5.14,
+    "shipping_overlaps": 0,
+    "shipping_min_gap_mm": 33.8,
+    "web_gap_vs_v4_source_mm": -26.82,
+    "visible_len_mm": 62.9
+   },
+   {
+    "frame": 237,
+    "overlaps": 0,
+    "min_gap_mm": 5.14,
+    "shipping_overlaps": 0,
+    "shipping_min_gap_mm": 33.8,
+    "web_gap_vs_v4_source_mm": -26.82,
+    "visible_len_mm": 62.9
+   }
+  ],
+  "clean_frames": 9,
+  "worst_overlaps": 0,
+  "worst_web_delta_vs_v4_source_mm": 26.82,
+  "shipping_worst_overlaps": 0
+ }
+}

@@ -1,0 +1,647 @@
+{
+ "rows": [
+  {
+   "clip": "A762/standard/base/reload",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "400": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "root_vs_shipping_deg": 0.0,
+   "web_gap_mm": 59.55,
+   "web_gap_rest_mm": 62.55,
+   "web_gap_shipping_mm": 59.69,
+   "web_gap_delta_vs_shipping_mm": -0.14,
+   "vis_len_mm": 62.9,
+   "angle_to_mag_deg": 82.66,
+   "rise_mm": 24.0,
+   "thumb_index_crossing": {
+    "68": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    },
+    "148": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    },
+    "220": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    }
+   },
+   "thumb_index_worst_overlaps": 0,
+   "thumb_index_worst_gap_mm": 5.14,
+   "tip_to_mag_axis_mm": 63.58,
+   "tip_to_mag_axis_shipping_mm": 35.03,
+   "tip_moved_away_mm": 28.55,
+   "pad_min_mm": {
+    "thumb_01_l": 1.18,
+    "thumb_02_l": -25.13,
+    "thumb_03_l": -0.81
+   },
+   "pad_min_shipping_mm": {
+    "thumb_01_l": 1.25,
+    "thumb_02_l": 0.07,
+    "thumb_03_l": -1.13
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 13.08,
+    "thumb_02_l": 14.31,
+    "thumb_03_l": 20.36
+   }
+  },
+  {
+   "clip": "A762/standard/base/reload_empty",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "515": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "root_vs_shipping_deg": 0.0,
+   "web_gap_mm": 59.55,
+   "web_gap_rest_mm": 62.55,
+   "web_gap_shipping_mm": 59.69,
+   "web_gap_delta_vs_shipping_mm": -0.14,
+   "vis_len_mm": 62.9,
+   "angle_to_mag_deg": 82.66,
+   "rise_mm": 23.9,
+   "thumb_index_crossing": {
+    "68": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    },
+    "148": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    },
+    "220": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    }
+   },
+   "thumb_index_worst_overlaps": 0,
+   "thumb_index_worst_gap_mm": 5.14,
+   "tip_to_mag_axis_mm": 63.58,
+   "tip_to_mag_axis_shipping_mm": 35.03,
+   "tip_moved_away_mm": 28.55,
+   "pad_min_mm": {
+    "thumb_01_l": 1.18,
+    "thumb_02_l": -25.13,
+    "thumb_03_l": -0.81
+   },
+   "pad_min_shipping_mm": {
+    "thumb_01_l": 1.25,
+    "thumb_02_l": 0.07,
+    "thumb_03_l": -1.13
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 13.08,
+    "thumb_02_l": 14.31,
+    "thumb_03_l": 20.36
+   }
+  },
+  {
+   "clip": "A762/standard/angled/reload",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "400": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "root_vs_shipping_deg": 0.0,
+   "web_gap_mm": 59.55,
+   "web_gap_rest_mm": 62.55,
+   "web_gap_shipping_mm": 59.69,
+   "web_gap_delta_vs_shipping_mm": -0.14,
+   "vis_len_mm": 62.9,
+   "angle_to_mag_deg": 82.66,
+   "rise_mm": 24.0,
+   "thumb_index_crossing": {
+    "68": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    },
+    "148": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    },
+    "220": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    }
+   },
+   "thumb_index_worst_overlaps": 0,
+   "thumb_index_worst_gap_mm": 5.14,
+   "tip_to_mag_axis_mm": 63.58,
+   "tip_to_mag_axis_shipping_mm": 35.03,
+   "tip_moved_away_mm": 28.55,
+   "pad_min_mm": {
+    "thumb_01_l": 1.18,
+    "thumb_02_l": -25.13,
+    "thumb_03_l": -0.81
+   },
+   "pad_min_shipping_mm": {
+    "thumb_01_l": 1.25,
+    "thumb_02_l": 0.07,
+    "thumb_03_l": -1.13
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 13.08,
+    "thumb_02_l": 14.31,
+    "thumb_03_l": 20.36
+   }
+  },
+  {
+   "clip": "A762/standard/angled/reload_empty",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "515": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "root_vs_shipping_deg": 0.0,
+   "web_gap_mm": 59.55,
+   "web_gap_rest_mm": 62.55,
+   "web_gap_shipping_mm": 59.69,
+   "web_gap_delta_vs_shipping_mm": -0.14,
+   "vis_len_mm": 62.9,
+   "angle_to_mag_deg": 82.66,
+   "rise_mm": 23.9,
+   "thumb_index_crossing": {
+    "68": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    },
+    "148": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    },
+    "220": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    }
+   },
+   "thumb_index_worst_overlaps": 0,
+   "thumb_index_worst_gap_mm": 5.14,
+   "tip_to_mag_axis_mm": 63.58,
+   "tip_to_mag_axis_shipping_mm": 35.03,
+   "tip_moved_away_mm": 28.55,
+   "pad_min_mm": {
+    "thumb_01_l": 1.18,
+    "thumb_02_l": -25.13,
+    "thumb_03_l": -0.81
+   },
+   "pad_min_shipping_mm": {
+    "thumb_01_l": 1.25,
+    "thumb_02_l": 0.07,
+    "thumb_03_l": -1.13
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 13.08,
+    "thumb_02_l": 14.31,
+    "thumb_03_l": 20.36
+   }
+  },
+  {
+   "clip": "A762/standard/vertical/reload",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "400": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "root_vs_shipping_deg": 0.0,
+   "web_gap_mm": 59.55,
+   "web_gap_rest_mm": 62.55,
+   "web_gap_shipping_mm": 59.69,
+   "web_gap_delta_vs_shipping_mm": -0.14,
+   "vis_len_mm": 62.9,
+   "angle_to_mag_deg": 82.66,
+   "rise_mm": 24.0,
+   "thumb_index_crossing": {
+    "68": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    },
+    "148": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    },
+    "220": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    }
+   },
+   "thumb_index_worst_overlaps": 0,
+   "thumb_index_worst_gap_mm": 5.14,
+   "tip_to_mag_axis_mm": 63.58,
+   "tip_to_mag_axis_shipping_mm": 35.03,
+   "tip_moved_away_mm": 28.55,
+   "pad_min_mm": {
+    "thumb_01_l": 1.18,
+    "thumb_02_l": -25.13,
+    "thumb_03_l": -0.81
+   },
+   "pad_min_shipping_mm": {
+    "thumb_01_l": 1.25,
+    "thumb_02_l": 0.07,
+    "thumb_03_l": -1.13
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 13.08,
+    "thumb_02_l": 14.31,
+    "thumb_03_l": 20.36
+   }
+  },
+  {
+   "clip": "A762/standard/vertical/reload_empty",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "515": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "root_vs_shipping_deg": 0.0,
+   "web_gap_mm": 59.55,
+   "web_gap_rest_mm": 62.55,
+   "web_gap_shipping_mm": 59.69,
+   "web_gap_delta_vs_shipping_mm": -0.14,
+   "vis_len_mm": 62.9,
+   "angle_to_mag_deg": 82.66,
+   "rise_mm": 23.9,
+   "thumb_index_crossing": {
+    "68": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    },
+    "148": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    },
+    "220": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    }
+   },
+   "thumb_index_worst_overlaps": 0,
+   "thumb_index_worst_gap_mm": 5.14,
+   "tip_to_mag_axis_mm": 63.58,
+   "tip_to_mag_axis_shipping_mm": 35.03,
+   "tip_moved_away_mm": 28.55,
+   "pad_min_mm": {
+    "thumb_01_l": 1.18,
+    "thumb_02_l": -25.13,
+    "thumb_03_l": -0.81
+   },
+   "pad_min_shipping_mm": {
+    "thumb_01_l": 1.25,
+    "thumb_02_l": 0.07,
+    "thumb_03_l": -1.13
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 13.08,
+    "thumb_02_l": 14.31,
+    "thumb_03_l": 20.36
+   }
+  },
+  {
+   "clip": "A762/standard/prism/reload",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "400": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "root_vs_shipping_deg": 0.0,
+   "web_gap_mm": 59.55,
+   "web_gap_rest_mm": 62.55,
+   "web_gap_shipping_mm": 59.69,
+   "web_gap_delta_vs_shipping_mm": -0.14,
+   "vis_len_mm": 62.9,
+   "angle_to_mag_deg": 82.66,
+   "rise_mm": 24.0,
+   "thumb_index_crossing": {
+    "68": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    },
+    "148": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    },
+    "220": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    }
+   },
+   "thumb_index_worst_overlaps": 0,
+   "thumb_index_worst_gap_mm": 5.14,
+   "tip_to_mag_axis_mm": 63.58,
+   "tip_to_mag_axis_shipping_mm": 35.03,
+   "tip_moved_away_mm": 28.55,
+   "pad_min_mm": {
+    "thumb_01_l": 1.18,
+    "thumb_02_l": -25.13,
+    "thumb_03_l": -0.81
+   },
+   "pad_min_shipping_mm": {
+    "thumb_01_l": 1.25,
+    "thumb_02_l": 0.07,
+    "thumb_03_l": -1.13
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 13.08,
+    "thumb_02_l": 14.31,
+    "thumb_03_l": 20.36
+   }
+  },
+  {
+   "clip": "A762/standard/prism/reload_empty",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "515": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "root_vs_shipping_deg": 0.0,
+   "web_gap_mm": 59.55,
+   "web_gap_rest_mm": 62.55,
+   "web_gap_shipping_mm": 59.69,
+   "web_gap_delta_vs_shipping_mm": -0.14,
+   "vis_len_mm": 62.9,
+   "angle_to_mag_deg": 82.66,
+   "rise_mm": 23.9,
+   "thumb_index_crossing": {
+    "68": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    },
+    "148": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    },
+    "220": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    }
+   },
+   "thumb_index_worst_overlaps": 0,
+   "thumb_index_worst_gap_mm": 5.14,
+   "tip_to_mag_axis_mm": 63.58,
+   "tip_to_mag_axis_shipping_mm": 35.03,
+   "tip_moved_away_mm": 28.55,
+   "pad_min_mm": {
+    "thumb_01_l": 1.18,
+    "thumb_02_l": -25.13,
+    "thumb_03_l": -0.81
+   },
+   "pad_min_shipping_mm": {
+    "thumb_01_l": 1.25,
+    "thumb_02_l": 0.07,
+    "thumb_03_l": -1.13
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 13.08,
+    "thumb_02_l": 14.31,
+    "thumb_03_l": 20.36
+   }
+  },
+  {
+   "clip": "A762/standard/canted/reload",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "400": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "root_vs_shipping_deg": 0.0,
+   "web_gap_mm": 59.55,
+   "web_gap_rest_mm": 62.55,
+   "web_gap_shipping_mm": 59.69,
+   "web_gap_delta_vs_shipping_mm": -0.14,
+   "vis_len_mm": 62.9,
+   "angle_to_mag_deg": 82.66,
+   "rise_mm": 24.0,
+   "thumb_index_crossing": {
+    "68": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    },
+    "148": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    },
+    "220": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    }
+   },
+   "thumb_index_worst_overlaps": 0,
+   "thumb_index_worst_gap_mm": 5.14,
+   "tip_to_mag_axis_mm": 63.58,
+   "tip_to_mag_axis_shipping_mm": 35.03,
+   "tip_moved_away_mm": 28.55,
+   "pad_min_mm": {
+    "thumb_01_l": 1.18,
+    "thumb_02_l": -25.13,
+    "thumb_03_l": -0.81
+   },
+   "pad_min_shipping_mm": {
+    "thumb_01_l": 1.25,
+    "thumb_02_l": 0.07,
+    "thumb_03_l": -1.13
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 13.08,
+    "thumb_02_l": 14.31,
+    "thumb_03_l": 20.36
+   }
+  },
+  {
+   "clip": "A762/standard/canted/reload_empty",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "515": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "root_vs_shipping_deg": 0.0,
+   "web_gap_mm": 59.55,
+   "web_gap_rest_mm": 62.55,
+   "web_gap_shipping_mm": 59.69,
+   "web_gap_delta_vs_shipping_mm": -0.14,
+   "vis_len_mm": 62.9,
+   "angle_to_mag_deg": 82.66,
+   "rise_mm": 23.9,
+   "thumb_index_crossing": {
+    "68": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    },
+    "148": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    },
+    "220": {
+     "overlaps": 0,
+     "min_gap_mm": 5.14
+    }
+   },
+   "thumb_index_worst_overlaps": 0,
+   "thumb_index_worst_gap_mm": 5.14,
+   "tip_to_mag_axis_mm": 63.58,
+   "tip_to_mag_axis_shipping_mm": 35.03,
+   "tip_moved_away_mm": 28.55,
+   "pad_min_mm": {
+    "thumb_01_l": 1.18,
+    "thumb_02_l": -25.13,
+    "thumb_03_l": -0.81
+   },
+   "pad_min_shipping_mm": {
+    "thumb_01_l": 1.25,
+    "thumb_02_l": 0.07,
+    "thumb_03_l": -1.13
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 13.08,
+    "thumb_02_l": 14.31,
+    "thumb_03_l": 20.36
+   }
+  }
+ ],
+ "problems": [],
+ "notes": [
+  "A762/standard/base/reload: shell clearance reads worse on ['thumb_02_l'] while the tip is +28.55 mm further from the magazine axis; the authoring-scene magazine proxy is unreliable on this clip",
+  "A762/standard/base/reload_empty: shell clearance reads worse on ['thumb_02_l'] while the tip is +28.55 mm further from the magazine axis; the authoring-scene magazine proxy is unreliable on this clip",
+  "A762/standard/angled/reload: shell clearance reads worse on ['thumb_02_l'] while the tip is +28.55 mm further from the magazine axis; the authoring-scene magazine proxy is unreliable on this clip",
+  "A762/standard/angled/reload_empty: shell clearance reads worse on ['thumb_02_l'] while the tip is +28.55 mm further from the magazine axis; the authoring-scene magazine proxy is unreliable on this clip",
+  "A762/standard/vertical/reload: shell clearance reads worse on ['thumb_02_l'] while the tip is +28.55 mm further from the magazine axis; the authoring-scene magazine proxy is unreliable on this clip",
+  "A762/standard/vertical/reload_empty: shell clearance reads worse on ['thumb_02_l'] while the tip is +28.55 mm further from the magazine axis; the authoring-scene magazine proxy is unreliable on this clip",
+  "A762/standard/prism/reload: shell clearance reads worse on ['thumb_02_l'] while the tip is +28.55 mm further from the magazine axis; the authoring-scene magazine proxy is unreliable on this clip",
+  "A762/standard/prism/reload_empty: shell clearance reads worse on ['thumb_02_l'] while the tip is +28.55 mm further from the magazine axis; the authoring-scene magazine proxy is unreliable on this clip",
+  "A762/standard/canted/reload: shell clearance reads worse on ['thumb_02_l'] while the tip is +28.55 mm further from the magazine axis; the authoring-scene magazine proxy is unreliable on this clip",
+  "A762/standard/canted/reload_empty: shell clearance reads worse on ['thumb_02_l'] while the tip is +28.55 mm further from the magazine axis; the authoring-scene magazine proxy is unreliable on this clip"
+ ]
+}
