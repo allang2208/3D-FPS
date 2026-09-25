@@ -1,0 +1,66 @@
+[
+ {
+  "gun": "AKM",
+  "tag": "cur",
+  "c_02": 30,
+  "d_03": 24.96875,
+  "visible_len_mm": 55.5,
+  "angle_to_mag_deg": 120.9,
+  "rise_mm": -15.5,
+  "web_gap_mm": 54.73,
+  "root_wxyz": [
+   0.97948,
+   0.126464,
+   0.0,
+   0.156927
+  ]
+ },
+ {
+  "gun": "AKM",
+  "tag": "v3",
+  "c_02": 4.0,
+  "d_03": 3.0,
+  "visible_len_mm": 63.3,
+  "angle_to_mag_deg": 95.3,
+  "rise_mm": 9.6,
+  "web_gap_mm": 54.62,
+  "root_wxyz": [
+   0.97948,
+   0.126464,
+   0.0,
+   0.156927
+  ]
+ },
+ {
+  "gun": "A762",
+  "tag": "cur",
+  "c_02": 33.5,
+  "d_03": 34.8125,
+  "visible_len_mm": 53.3,
+  "angle_to_mag_deg": 130.3,
+  "rise_mm": -20.6,
+  "web_gap_mm": 57.18,
+  "root_wxyz": [
+   0.951213,
+   0.220066,
+   -0.0,
+   0.216253
+  ]
+ },
+ {
+  "gun": "A762",
+  "tag": "v3",
+  "c_02": 4.0,
+  "d_03": 3.0,
+  "visible_len_mm": 63.7,
+  "angle_to_mag_deg": 99.4,
+  "rise_mm": 5.9,
+  "web_gap_mm": 57.06,
+  "root_wxyz": [
+   0.951213,
+   0.220066,
+   -0.0,
+   0.216253
+  ]
+ }
+]

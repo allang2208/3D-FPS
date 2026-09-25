@@ -1,0 +1,92 @@
+{
+ "AKM/standard/base/reload": {
+  "asset": "/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\v3\\AKM\\standard\\base\\A_AKM_reload.fbx",
+  "duration": 3.3333332538604736,
+  "save_returned": true,
+  "package_written": true,
+  "package_mtime": 1790337453.2274668,
+  "saved": true
+ },
+ "AKM/extended/base/reload": {
+  "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_reload",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\v3\\AKM\\extended\\base\\A_AKM_ExtContact_reload.fbx",
+  "duration": 3.3333332538604736,
+  "save_returned": true,
+  "package_written": true,
+  "package_mtime": 1790337456.8975334,
+  "saved": true
+ },
+ "AKM/standard/base/reload_empty": {
+  "asset": "/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload_empty",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\v3\\AKM\\standard\\base\\A_AKM_reload_empty.fbx",
+  "duration": 4.291666507720947,
+  "save_returned": true,
+  "package_written": true,
+  "package_mtime": 1790337458.8016336,
+  "saved": true
+ },
+ "AKM/extended/base/reload_empty": {
+  "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_reload_empty",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\v3\\AKM\\extended\\base\\A_AKM_ExtContact_reload_empty.fbx",
+  "duration": 4.291666507720947,
+  "save_returned": true,
+  "package_written": true,
+  "package_mtime": 1790337460.7501333,
+  "saved": true
+ },
+ "AKM/standard/angled/reload": {
+  "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_reload",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\v3\\AKM\\standard\\angled\\A_AKM_angled_reload.fbx",
+  "duration": 3.3333332538604736,
+  "save_returned": true,
+  "package_written": true,
+  "package_mtime": 1790337466.7483656,
+  "saved": true
+ },
+ "AKM/extended/angled/reload": {
+  "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_angled_reload",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\v3\\AKM\\extended\\angled\\A_AKM_ExtContact_angled_reload.fbx",
+  "duration": 3.3333332538604736,
+  "save_returned": true,
+  "package_written": true,
+  "package_mtime": 1790337473.8555858,
+  "saved": true
+ },
+ "AKM/standard/angled/reload_empty": {
+  "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_reload_empty",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\v3\\AKM\\standard\\angled\\A_AKM_angled_reload_empty.fbx",
+  "duration": 4.291666507720947,
+  "save_returned": true,
+  "package_written": true,
+  "package_mtime": 1790337477.3385143,
+  "saved": true
+ },
+ "AKM/extended/angled/reload_empty": {
+  "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_angled_reload_empty",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\v3\\AKM\\extended\\angled\\A_AKM_ExtContact_angled_reload_empty.fbx",
+  "duration": 4.291666507720947,
+  "save_returned": true,
+  "package_written": true,
+  "package_mtime": 1790337479.1241417,
+  "saved": true
+ },
+ "AKM/standard/vertical/reload": {
+  "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVRENatural/vertical/A_AKM_vertical_reload",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\v3\\AKM\\standard\\vertical\\A_AKM_vertical_reload.fbx",
+  "duration": 3.3333332538604736,
+  "save_returned": true,
+  "package_written": true,
+  "package_mtime": 1790337482.1757214,
+  "saved": true
+ },
+ "AKM/extended/vertical/reload": {
+  "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_vertical_reload",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\v3\\AKM\\extended\\vertical\\A_AKM_ExtContact_vertical_reload.fbx",
+  "duration": 3.3333332538604736,
+  "save_returned": true,
+  "package_written": true,
+  "package_mtime": 1790337485.736233,
+  "saved": true
+ }
+}

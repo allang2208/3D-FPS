@@ -1,0 +1,330 @@
+{
+ "AKM": {
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\base\\A_AKM_reload.blend",
+  "shipped_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\AKM\\standard\\base\\A_AKM_reload.blend",
+  "shipping_root_wxyz": [
+   0.97948,
+   0.126464,
+   0.0,
+   0.156927
+  ],
+  "rest_web_gap_mm": 58.59,
+  "rest_visible_len_mm": 63.5,
+  "candidates": [
+   {
+    "name": "installed_flex43",
+    "root": "installed",
+    "c_02": 4.0,
+    "d_03": 3.0,
+    "root_swing_vs_shipping_deg": 0.0,
+    "visible_len_mm": 63.3,
+    "visible_vs_rest_pct": 99.6,
+    "angle_to_mag_deg": 95.3,
+    "rise_mm": 9.6,
+    "web_gap_mm": 54.62,
+    "web_gap_vs_rest_pct": 93131.25,
+    "web_skin_moved_vs_shipping_mm": 2.86,
+    "pad_min_mm": {
+     "thumb_01_l": -30.1,
+     "thumb_02_l": -2.59,
+     "thumb_03_l": -0.51
+    },
+    "root_quat_wxyz": [
+     0.97948,
+     0.126464,
+     0.0,
+     0.156927
+    ]
+   },
+   {
+    "name": "installed_flex00",
+    "root": "installed",
+    "c_02": 0.0,
+    "d_03": 0.0,
+    "root_swing_vs_shipping_deg": 0.0,
+    "visible_len_mm": 64.0,
+    "visible_vs_rest_pct": 100.7,
+    "angle_to_mag_deg": 91.5,
+    "rise_mm": 13.8,
+    "web_gap_mm": 54.61,
+    "web_gap_vs_rest_pct": 93100.6,
+    "web_skin_moved_vs_shipping_mm": 3.29,
+    "pad_min_mm": {
+     "thumb_01_l": -30.1,
+     "thumb_02_l": -2.6,
+     "thumb_03_l": -0.6
+    },
+    "root_quat_wxyz": [
+     0.97948,
+     0.126464,
+     0.0,
+     0.156927
+    ]
+   },
+   {
+    "name": "installed_flex86",
+    "root": "installed",
+    "c_02": 8.0,
+    "d_03": 6.0,
+    "root_swing_vs_shipping_deg": 0.0,
+    "visible_len_mm": 62.5,
+    "visible_vs_rest_pct": 98.3,
+    "angle_to_mag_deg": 99.1,
+    "rise_mm": 5.5,
+    "web_gap_mm": 54.64,
+    "web_gap_vs_rest_pct": 93161.7,
+    "web_skin_moved_vs_shipping_mm": 2.42,
+    "pad_min_mm": {
+     "thumb_01_l": -30.1,
+     "thumb_02_l": -2.57,
+     "thumb_03_l": -0.93
+    },
+    "root_quat_wxyz": [
+     0.97948,
+     0.126464,
+     0.0,
+     0.156927
+    ]
+   },
+   {
+    "name": "installed_as_shipped",
+    "root": "installed",
+    "c_02": 30,
+    "d_03": 24.96875,
+    "root_swing_vs_shipping_deg": 0.0,
+    "visible_len_mm": 55.5,
+    "visible_vs_rest_pct": 87.4,
+    "angle_to_mag_deg": 120.9,
+    "rise_mm": -15.5,
+    "web_gap_mm": 54.73,
+    "web_gap_vs_rest_pct": 93314.55,
+    "web_skin_moved_vs_shipping_mm": 0.0,
+    "pad_min_mm": {
+     "thumb_01_l": -30.1,
+     "thumb_02_l": -3.86,
+     "thumb_03_l": -4.6
+    },
+    "root_quat_wxyz": [
+     0.97948,
+     0.126464,
+     0.0,
+     0.156927
+    ]
+   },
+   {
+    "name": "rest_root_flex43",
+    "root": "rest",
+    "c_02": 4.0,
+    "d_03": 3.0,
+    "root_swing_vs_shipping_deg": 23.25,
+    "visible_len_mm": 62.7,
+    "visible_vs_rest_pct": 98.7,
+    "angle_to_mag_deg": 75.8,
+    "rise_mm": 28.3,
+    "web_gap_mm": 58.61,
+    "web_gap_vs_rest_pct": 99928.85,
+    "web_skin_moved_vs_shipping_mm": 19.0,
+    "pad_min_mm": {
+     "thumb_01_l": -1.63,
+     "thumb_02_l": 0.85,
+     "thumb_03_l": -1.3
+    },
+    "root_quat_wxyz": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "v2_swing_flex43",
+    "root": "v2",
+    "c_02": 4.0,
+    "d_03": 3.0,
+    "root_swing_vs_shipping_deg": 74.15,
+    "visible_len_mm": 65.2,
+    "visible_vs_rest_pct": 102.7,
+    "angle_to_mag_deg": 15.7,
+    "rise_mm": 56.2,
+    "web_gap_mm": 77.87,
+    "web_gap_vs_rest_pct": 132807.96,
+    "web_skin_moved_vs_shipping_mm": 62.15,
+    "pad_min_mm": {
+     "thumb_01_l": -0.54,
+     "thumb_02_l": 8.16,
+     "thumb_03_l": 3.43
+    },
+    "root_quat_wxyz": [
+     0.875856,
+     0.020756,
+     0.270008,
+     -0.399426
+    ]
+   }
+  ]
+ },
+ "A762": {
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\base\\A_A762_reload.blend",
+  "shipped_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\A762\\standard\\base\\A_A762_reload.blend",
+  "shipping_root_wxyz": [
+   0.951213,
+   0.220066,
+   -0.0,
+   0.216253
+  ],
+  "rest_web_gap_mm": 62.55,
+  "rest_visible_len_mm": 63.5,
+  "candidates": [
+   {
+    "name": "installed_flex43",
+    "root": "installed",
+    "c_02": 4.0,
+    "d_03": 3.0,
+    "root_swing_vs_shipping_deg": 0.0,
+    "visible_len_mm": 63.7,
+    "visible_vs_rest_pct": 100.2,
+    "angle_to_mag_deg": 99.4,
+    "rise_mm": 5.9,
+    "web_gap_mm": 57.06,
+    "web_gap_vs_rest_pct": 91127.61,
+    "web_skin_moved_vs_shipping_mm": 3.23,
+    "pad_min_mm": {
+     "thumb_01_l": -0.04,
+     "thumb_02_l": -4.14,
+     "thumb_03_l": -1.36
+    },
+    "root_quat_wxyz": [
+     0.951213,
+     0.220066,
+     -0.0,
+     0.216253
+    ]
+   },
+   {
+    "name": "installed_flex00",
+    "root": "installed",
+    "c_02": 0.0,
+    "d_03": 0.0,
+    "root_swing_vs_shipping_deg": 0.0,
+    "visible_len_mm": 64.4,
+    "visible_vs_rest_pct": 101.3,
+    "angle_to_mag_deg": 95.6,
+    "rise_mm": 9.9,
+    "web_gap_mm": 57.05,
+    "web_gap_vs_rest_pct": 91097.92,
+    "web_skin_moved_vs_shipping_mm": 3.66,
+    "pad_min_mm": {
+     "thumb_01_l": -0.04,
+     "thumb_02_l": -4.45,
+     "thumb_03_l": -0.93
+    },
+    "root_quat_wxyz": [
+     0.951213,
+     0.220066,
+     -0.0,
+     0.216253
+    ]
+   },
+   {
+    "name": "installed_flex86",
+    "root": "installed",
+    "c_02": 8.0,
+    "d_03": 6.0,
+    "root_swing_vs_shipping_deg": 0.0,
+    "visible_len_mm": 62.9,
+    "visible_vs_rest_pct": 99.0,
+    "angle_to_mag_deg": 103.3,
+    "rise_mm": 2.0,
+    "web_gap_mm": 57.08,
+    "web_gap_vs_rest_pct": 91156.6,
+    "web_skin_moved_vs_shipping_mm": 2.8,
+    "pad_min_mm": {
+     "thumb_01_l": -0.05,
+     "thumb_02_l": -4.07,
+     "thumb_03_l": -2.29
+    },
+    "root_quat_wxyz": [
+     0.951213,
+     0.220066,
+     -0.0,
+     0.216253
+    ]
+   },
+   {
+    "name": "installed_as_shipped",
+    "root": "installed",
+    "c_02": 33.5,
+    "d_03": 34.8125,
+    "root_swing_vs_shipping_deg": 0.0,
+    "visible_len_mm": 53.3,
+    "visible_vs_rest_pct": 83.8,
+    "angle_to_mag_deg": 130.3,
+    "rise_mm": -20.6,
+    "web_gap_mm": 57.18,
+    "web_gap_vs_rest_pct": 91316.73,
+    "web_skin_moved_vs_shipping_mm": 0.0,
+    "pad_min_mm": {
+     "thumb_01_l": -0.04,
+     "thumb_02_l": -3.05,
+     "thumb_03_l": -4.28
+    },
+    "root_quat_wxyz": [
+     0.951213,
+     0.220066,
+     -0.0,
+     0.216253
+    ]
+   },
+   {
+    "name": "rest_root_flex43",
+    "root": "rest",
+    "c_02": 4.0,
+    "d_03": 3.0,
+    "root_swing_vs_shipping_deg": 35.94,
+    "visible_len_mm": 62.7,
+    "visible_vs_rest_pct": 98.7,
+    "angle_to_mag_deg": 72.4,
+    "rise_mm": 30.4,
+    "web_gap_mm": 62.57,
+    "web_gap_vs_rest_pct": 99926.94,
+    "web_skin_moved_vs_shipping_mm": 26.31,
+    "pad_min_mm": {
+     "thumb_01_l": -0.4,
+     "thumb_02_l": 1.5,
+     "thumb_03_l": -4.37
+    },
+    "root_quat_wxyz": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "v2_swing_flex43",
+    "root": "v2",
+    "c_02": 4.0,
+    "d_03": 3.0,
+    "root_swing_vs_shipping_deg": 78.53,
+    "visible_len_mm": 65.0,
+    "visible_vs_rest_pct": 102.2,
+    "angle_to_mag_deg": 15.1,
+    "rise_mm": 56.8,
+    "web_gap_mm": 80.8,
+    "web_gap_vs_rest_pct": 129080.45,
+    "web_skin_moved_vs_shipping_mm": 65.47,
+    "pad_min_mm": {
+     "thumb_01_l": 0.22,
+     "thumb_02_l": 6.05,
+     "thumb_03_l": 1.07
+    },
+    "root_quat_wxyz": [
+     0.875353,
+     0.120434,
+     0.255003,
+     -0.392716
+    ]
+   }
+  ]
+ }
+}

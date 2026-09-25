@@ -1,0 +1,88 @@
+{
+ "AKM": {
+  "root_quat_wxyz": [
+   0.97948,
+   0.12646,
+   0.0,
+   0.15693
+  ],
+  "c_02": 4.0,
+  "d_03": 3.0,
+  "root_source": "authoring.json AKM/standard/base/reload thumb_target.thumb_01_l (round-1, shipping)",
+  "shipping_root_wxyz": [
+   0.97948,
+   0.126464,
+   0.0,
+   0.156927
+  ],
+  "root_swing_vs_shipping_deg": 0.0,
+  "visible_len_mm": 63.3,
+  "visible_vs_rest_pct": 99.6,
+  "angle_to_mag_deg": 95.3,
+  "rise_mm": 9.6,
+  "web_gap_mm": 54.62,
+  "web_skin_moved_vs_shipping_mm": 2.86,
+  "pad_min_mm": {
+   "thumb_01_l": -30.1,
+   "thumb_02_l": -2.59,
+   "thumb_03_l": -0.51
+  },
+  "shipping": {
+   "visible_len_mm": 55.5,
+   "visible_vs_rest_pct": 87.4,
+   "angle_to_mag_deg": 120.9,
+   "rise_mm": -15.5,
+   "c_02": 30,
+   "d_03": 24.96875
+  },
+  "round1_fit_params": {
+   "a_z": 18.5,
+   "b_x": 14.34375,
+   "c_02": 30,
+   "d_03": 24.96875
+  }
+ },
+ "A762": {
+  "root_quat_wxyz": [
+   0.95121,
+   0.22007,
+   -0.0,
+   0.21625
+  ],
+  "c_02": 4.0,
+  "d_03": 3.0,
+  "root_source": "authoring.json A762/standard/base/reload thumb_target.thumb_01_l (round-1, shipping)",
+  "shipping_root_wxyz": [
+   0.951213,
+   0.220066,
+   -0.0,
+   0.216253
+  ],
+  "root_swing_vs_shipping_deg": 0.0,
+  "visible_len_mm": 63.7,
+  "visible_vs_rest_pct": 100.2,
+  "angle_to_mag_deg": 99.4,
+  "rise_mm": 5.9,
+  "web_gap_mm": 57.06,
+  "web_skin_moved_vs_shipping_mm": 3.23,
+  "pad_min_mm": {
+   "thumb_01_l": -0.04,
+   "thumb_02_l": -4.14,
+   "thumb_03_l": -1.36
+  },
+  "shipping": {
+   "visible_len_mm": 53.3,
+   "visible_vs_rest_pct": 83.8,
+   "angle_to_mag_deg": 130.3,
+   "rise_mm": -20.6,
+   "c_02": 33.5,
+   "d_03": 34.8125
+  },
+  "round1_fit_params": {
+   "a_z": 26.9375,
+   "b_x": 24.75,
+   "c_02": 33.5,
+   "d_03": 34.8125
+  }
+ }
+}

@@ -1,0 +1,92 @@
+{
+ "A762/standard/base/reload": {
+  "asset": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_reload",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\v3\\A762\\standard\\base\\A_A762_reload.fbx",
+  "duration": 3.3333332538604736,
+  "save_returned": true,
+  "package_written": true,
+  "package_mtime": 1790337506.3341188,
+  "saved": true
+ },
+ "A762/standard/base/reload_empty": {
+  "asset": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_reload_empty",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\v3\\A762\\standard\\base\\A_A762_reload_empty.fbx",
+  "duration": 4.291666507720947,
+  "save_returned": true,
+  "package_written": true,
+  "package_mtime": 1790337507.2537053,
+  "saved": true
+ },
+ "A762/standard/angled/reload": {
+  "asset": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_reload",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\v3\\A762\\standard\\angled\\A_A762_angled_reload.fbx",
+  "duration": 3.3333332538604736,
+  "save_returned": true,
+  "package_written": true,
+  "package_mtime": 1790337509.2708852,
+  "saved": true
+ },
+ "A762/standard/angled/reload_empty": {
+  "asset": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_reload_empty",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\v3\\A762\\standard\\angled\\A_A762_angled_reload_empty.fbx",
+  "duration": 4.291666507720947,
+  "save_returned": true,
+  "package_written": true,
+  "package_mtime": 1790337510.261918,
+  "saved": true
+ },
+ "A762/standard/vertical/reload": {
+  "asset": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_reload",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\v3\\A762\\standard\\vertical\\A_A762_vertical_reload.fbx",
+  "duration": 3.3333332538604736,
+  "save_returned": true,
+  "package_written": true,
+  "package_mtime": 1790337512.3659017,
+  "saved": true
+ },
+ "A762/standard/vertical/reload_empty": {
+  "asset": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_reload_empty",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\v3\\A762\\standard\\vertical\\A_A762_vertical_reload_empty.fbx",
+  "duration": 4.291666507720947,
+  "save_returned": true,
+  "package_written": true,
+  "package_mtime": 1790337513.3675523,
+  "saved": true
+ },
+ "A762/standard/prism/reload": {
+  "asset": "/Game/Weapons/A762/Accessories05/Animations/prism/A_A762_prism_reload",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\v3\\A762\\standard\\prism\\A_A762_prism_reload.fbx",
+  "duration": 3.3333332538604736,
+  "save_returned": true,
+  "package_written": true,
+  "package_mtime": 1790337515.5323708,
+  "saved": true
+ },
+ "A762/standard/prism/reload_empty": {
+  "asset": "/Game/Weapons/A762/Accessories05/Animations/prism/A_A762_prism_reload_empty",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\v3\\A762\\standard\\prism\\A_A762_prism_reload_empty.fbx",
+  "duration": 4.291666507720947,
+  "save_returned": true,
+  "package_written": true,
+  "package_mtime": 1790337516.5152588,
+  "saved": true
+ },
+ "A762/standard/canted/reload": {
+  "asset": "/Game/Weapons/A762/Accessories05/Animations/canted/A_A762_canted_reload",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\v3\\A762\\standard\\canted\\A_A762_canted_reload.fbx",
+  "duration": 3.3333332538604736,
+  "save_returned": true,
+  "package_written": true,
+  "package_mtime": 1790337518.702869,
+  "saved": true
+ },
+ "A762/standard/canted/reload_empty": {
+  "asset": "/Game/Weapons/A762/Accessories05/Animations/canted/A_A762_canted_reload_empty",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMA762GripTwist20260925\\v3\\A762\\standard\\canted\\A_A762_canted_reload_empty.fbx",
+  "duration": 4.291666507720947,
+  "save_returned": true,
+  "package_written": true,
+  "package_mtime": 1790337519.6628137,
+  "saved": true
+ }
+}
