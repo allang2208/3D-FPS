@@ -30,6 +30,21 @@
 - 界面类工具与暂存/发布脚本放 `Tools/AssetPipeline/`；一次性守望、备份脚本放 `Saved/`（不进仓库）。
 - 仅普通非强制推送。被拒绝时重新 fetch、检查新增提交并处理本次冲突；成功后用 `ls-remote` 回读目标 SHA。记录发布工作区与提交，不为了让共享工作区看起来干净而重置其分支。
 
+### 推送网络故障：DNS 解析到不可达 IP（2026-09-25）
+
+本机 `github.com` 会解析到 `20.205.243.166`，该地址 443 不可达，于是 `git fetch`/`push` 报
+`fatal: unable to access ...: Recv failure: Connection was reset`。**这不是凭据或权限问题，原样重试不会好。**
+
+先分清是 DNS 还是链路：`Resolve-DnsName github.com` 看解析结果，`Test-NetConnection <ip> -Port 443` 逐 IP 测连通。若换一个 GitHub IP 可达（实测 `140.82.112.3:443` 通），用一次性配置覆盖解析即可，**不改 hosts、不改系统 DNS**：
+
+```
+git -c http.curloptResolve="github.com:443:140.82.112.3" fetch origin
+git -c http.curloptResolve="github.com:443:140.82.112.3" push origin HEAD:main
+git -c http.curloptResolve="github.com:443:140.82.112.3" ls-remote origin
+```
+
+`-c` 只对本次命令生效，不落进仓库或全局配置。fetch、push、`ls-remote` 回读三步都要带同一个覆盖值，否则验证步骤自己会失败。可达 IP 会随时间变化，下次失败先重测，不把某个 IP 当固定值写进脚本。
+
 ### 按标记丢弃 hunk 的通用做法（2026-09-21）
 
 - `Tools/AssetPipeline/stage_session_hunks.py` 的标记是写死的；本轮新增通用版 `Tools/Weapons/stage_weapon_hunks.py`：`--file`（可多次）加 `--drop-contains <子串>`（可多次），保留除命中标记外的全部 hunk，**先打印 KEEP/DROP 报告再写补丁**，然后 `git apply --cached <补丁>`。丢掉前面的 hunk 会让后面的行号偏移，靠上下文匹配即可（本轮 35 保留 / 7 丢弃全部干净落位，`--check` 无告警）。
