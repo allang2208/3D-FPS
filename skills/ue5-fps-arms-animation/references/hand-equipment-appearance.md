@@ -15,6 +15,7 @@ FPSGAME 正式作者入口：`D:/FPS3D/FPSGAME/SourceAssets/HandEquipmentAppeara
 ## 可复用做法
 
 - 当前模块化毛衣的袖口、蒙皮和布料边界见 [第一人称装备标准工作流](first-person-equipment-workflow.md)。玩家衣物尚未接入巫婆 Chaos；制作记录见工程 `Docs/Characters/fitted-sleeves-cloth-state-20260925.md`。
+- 当前两件野外手套（薄皮黑 / 猎装棕）的 rest-pose 三平面皮革、Quixel 颗粒与分家族外形见 [野外手套皮革与猎装外形](field-glove-leather-and-hunt-shape.md)。
 - 皮革区域：R 手套、G 掌面/指腹、B 真实壳边缝线；前臂区域：R 皮肤、G 肘腕纵向坐标、B 内侧、A 布袖口。UV 切缝不能直接当衣物缝线。
 - PBR 的真实扫描尺寸要换算到原模型/UV；原色皮革保留扫描 RGB，金属度 0，掌面更粗糙。记录来源/散列/通道及本地依赖，素材可商用不等于原扫描可公开再分发。
 - 皮肤只在裸露区做低幅毛孔与散射，去掉原盔甲板法线；布袖与皮革不吃皮肤散射。颜色/强度以当前照明与实机视点调整，3 cm、0.18 等均是此案例参数。

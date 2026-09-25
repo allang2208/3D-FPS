@@ -12,7 +12,7 @@
 ## 本机恢复顺序
 
 1. 恢复已有合法的各武器、工具、剑、施法、攀爬视模及其原生骨架、动作和材料。V7 已将裸手写入 20 个基础视模的原手臂区域；恢复旧枪械包可能重新带回手套，不能只恢复独立裸手资产。
-2. 恢复 `Content/Characters/ModularOutfit20260924`，尤其 `BarePalmV7`、`FittedFieldGlovesV1`、`FittedSleevesV1`、共享 Materials、Pickups，以及仍被 Body 使用的 NativeSkin／Profiles。恢复 `Content/ColdSteelData/Icons/ModularOutfit20260924` 库存图标。
+2. 恢复 `Content/Characters/ModularOutfit20260924`，尤其 `BarePalmV7`、`FittedFieldGlovesV1`、`HuntFieldGlovesV1`、`FittedSleevesV1`、共享 Materials、Pickups，以及仍被 Body 使用的 NativeSkin／Profiles。恢复 `Content/ColdSteelData/Icons/ModularOutfit20260924` 库存图标。
 3. 保留 `BarePalmV7/OriginalSources`、`OriginalGloves` 和作者目录 `NativeDefaults/Packages`：分别提供原生绑定与原版手套恢复件、原磁盘包。它们不是废案；不拿整包旧武器覆盖后续枪体改动。
 4. 若需重建，恢复 `SourceAssets/ModularOutfit20260924` 和 `ModularOutfit20260925` 的实际输入与最终可编辑源。V7 仍依赖 V3 顶点对应、V4 表面数据、V6 腕臂和原生骨架导出；当前衣袖还读取 `FittedSleevesV1/M4_shirt_before.json`，这个带 before 的文件是制作输入。
 5. 按 [工具入口](../../Tools/ModularOutfit/README.md) 先保存资产再更新对应配方。当前 `native_bare_arms=true` 表示基础模型已经裸手化；全局历史 `native_bare_hands_default=false` 并不代表这些基础模型仍戴手套。无需重开旧候选开关。
@@ -25,6 +25,7 @@
 已将 69 份存在对应正式 Blend 的 `.blend1` 自动备份，以及两份已完成的一次性结束 PIE／Live Coding 文件移入本机 `trash/modular-outfit-retired-20260925/`。未删除源内容，没有移动任何正在使用的 UE 资产。
 
 [71 项清单](modular-outfit-retired-manifest-20260925.json) 记录每项原路径、trash 目标、大小、SHA-256、原因、保留替代物及移动后散列确认。trash 实体不上传 Git。旧目录、候选名或 before 后缀本身不能作为废案判据；当前依赖、合法来源、正式可编辑源及关键失败对照继续保留。
+后续皮革中间验证与猎装 MCP 日志见 [field-glove-retired-manifest-20260925.json](field-glove-retired-manifest-20260925.json)，实体在本机 `trash/field-glove-superseded-20260925/`。
 
 ## 标准与未测试范围
 

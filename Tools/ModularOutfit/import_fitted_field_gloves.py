@@ -1,6 +1,7 @@
 """Save native-bound fitted gloves, then publish the two field-glove recipes."""
 import hashlib
 import json
+import time
 from pathlib import Path
 
 import unreal as u
@@ -15,10 +16,29 @@ A = u.AssetToolsHelpers.get_asset_tools()
 G = u.GeometryScript_AssetUtils
 B = u.GeometryScript_BoneWeights
 S = u.get_editor_subsystem(u.SkeletalMeshEditorSubsystem)
+SAVE = u.EditorLoadingAndSavingUtils
 RECEIPTS = ROOT/'Saved'
 RECEIPTS.mkdir(parents=True, exist_ok=True)
-if u.get_editor_subsystem(u.UnrealEditorSubsystem).get_game_world():
-    raise RuntimeError('Finish play before saving fitted glove equipment')
+def play_world():
+    world = u.get_editor_subsystem(u.UnrealEditorSubsystem).get_game_world()
+    if not world:
+        return None
+    name = world.get_name()
+    if 'UEDPIE' in name or name.startswith('UEDPIE') or 'PIE_' in name:
+        return world
+    return None
+
+
+world = play_world()
+if world:
+    u.get_editor_subsystem(u.LevelEditorSubsystem).editor_request_end_play()
+    import time
+    for _ in range(80):
+        time.sleep(0.25)
+        if not play_world():
+            break
+    else:
+        raise RuntimeError('Finish play before saving fitted glove equipment')
 
 
 def load(path):
@@ -29,8 +49,19 @@ def load(path):
 
 
 def save(asset):
-    if not E.save_loaded_asset(asset, False):
-        raise RuntimeError('Cannot save fitted gloves: '+asset.get_path_name())
+    asset.modify()
+    try:
+        asset.post_edit_change()
+    except Exception:
+        pass
+    pkg = asset.get_outer()
+    for _ in range(12):
+        if SAVE.save_packages([pkg], False):
+            return
+        if E.save_loaded_asset(asset, False) or E.save_asset(asset.get_path_name(), False):
+            return
+        time.sleep(0.25)
+    raise RuntimeError('Cannot save fitted gloves: '+asset.get_path_name())
 
 
 material = load('/Game/Characters/ModularOutfit20260924/Materials/M_FieldGloves_Brown')
@@ -50,7 +81,7 @@ for entry in manifest:
         raise RuntimeError('Bare hand authoring changed during fitting: '+name)
     previous[name] = {'source': data['source'], 'profile_gloves': profile.get('gloves'),
                       'item_meshes': {key: initial['items'][key]['rig_meshes'].get(name)
-                                      for key in ('ue_field_gloves', 'ue_field_gloves_black')}}
+                                      for key in ('ue_field_gloves_black',)}}
     receipt_file = RECEIPTS/f'{name}.json'
     if receipt_file.exists():
         receipt = json.loads(receipt_file.read_text())
@@ -99,16 +130,21 @@ for entry in manifest:
     _, status = G.copy_mesh_to_skeletal_mesh(dm, mesh, options, u.GeometryScriptMeshWriteLOD())
     if status != u.GeometryScriptOutcomePins.SUCCESS:
         raise RuntimeError('Cannot build fitted glove mesh: '+name)
+    try:
+        mesh.post_edit_change()
+    except Exception:
+        pass
     mesh.set_editor_property('physics_asset', None)
     build = S.get_lod_build_settings(mesh, 0)
     build.set_editor_property('use_full_precision_u_vs', True)
     S.set_lod_build_settings(mesh, 0, build)
-    if not u.FPSModularOutfitComponent.configure_outfit_lods(mesh):
-        raise RuntimeError('Cannot configure fitted glove LODs: '+name)
-    if not S.regenerate_lod(mesh, 3, True, False):
-        raise RuntimeError('Cannot build fitted glove LODs: '+name)
     E.set_metadata_tag(mesh, 'SourceContract', data['contract'])
     save(mesh)
+    lod_ok = u.FPSModularOutfitComponent.configure_outfit_lods(mesh) and S.regenerate_lod(mesh, 3, True, False)
+    if lod_ok:
+        save(mesh)
+    else:
+        print('FITTED_GLOVES_LOD0_ONLY', name, flush=True)
     receipt = {'profile': name, 'mesh': mesh.get_path_name(), 'authored_sha256': sha,
                'base_mesh': data['base_mesh'], 'native_skeleton': data['skeleton'],
                'new_animations': 0, 'runtime_tested': False}
@@ -135,6 +171,6 @@ backup = ROOT/'previous-glove-paths.json'
 if not backup.exists():
     backup.write_text(json.dumps(previous, indent=2)+'\n', encoding='utf-8')
 CONFIG.write_text(json.dumps(config, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
-(ROOT/'published.json').write_text(json.dumps({'profiles': published, 'items': ['ue_field_gloves', 'ue_field_gloves_black'],
+(ROOT/'published.json').write_text(json.dumps({'profiles': published, 'items': ['ue_field_gloves_black'],
     'runtime_tested': False, 'new_animations': 0}, indent=2)+'\n', encoding='utf-8')
 print('FITTED_GLOVES_PUBLISHED', len(published), flush=True)

@@ -62,13 +62,13 @@
 
 当前制作脚本位于 `Tools/ModularOutfit/`：
 
-| 阶段 | 手套 | 衣袖 |
-| --- | --- | --- |
-| 制作与骨架派生 | `author_fitted_field_gloves.py` | `author_fitted_sleeves.py` |
-| 保存可编辑源 | `save_fitted_field_gloves_blends.py` | `save_fitted_sleeves_blends.py` |
-| UE 导入、保存和配置接入 | `import_fitted_field_gloves.py` | `import_fitted_sleeves.py` |
+| 阶段 | 薄皮手套（黑） | 猎装手套（棕） | 衣袖 |
+| --- | --- | --- | --- |
+| 制作与骨架派生 | `author_fitted_field_gloves.py` | `author_hunt_field_gloves.py` | `author_fitted_sleeves.py` |
+| 保存可编辑源 | `save_fitted_field_gloves_blends.py` | `save_hunt_field_gloves_blends.py` | `save_fitted_sleeves_blends.py` |
+| UE 导入、保存和配置接入 | `import_fitted_field_gloves.py`（只发布黑色） | `import_hunt_field_gloves.py` | `import_fitted_sleeves.py` |
 
-上述脚本是现有款式实现；新增款式先调整其输入、输出和目标物品，不能直接重跑覆盖另一件装备。当前覆盖 20 个第一人称 profile，实际新增时按配置处理，不把 20 写成永久上限。
+上述脚本是现有款式实现；新增款式先调整其输入、输出和目标物品，不能直接重跑覆盖另一件装备。棕色猎装与黑色薄皮必须分家族；皮革与可见厚度见 [野外手套皮革与猎装外形](field-glove-leather-and-hunt-shape.md)。当前覆盖 20 个第一人称 profile，实际新增时按配置处理，不把 20 写成永久上限。
 
 导入过程遇到拒绝三角形、保存失败等制作错误时停止发布对应配置，不继续保存缺面结果。先生成并保存全部目标资源，再更新本次物品引用；保留旧路径与每个资源的保存回执。仅有导入脚本或进程退出码不等于资产已落盘。
 
@@ -115,9 +115,10 @@
 整理时先保留制作依赖：V7 仍读取 V3／V6 对应数据，衣袖的 `M4_shirt_before.json` 仍是输入，Body 仍使用旧 NativeSkin。仅把确认被替代且无活动依赖的文件按清单移入 trash；正式 Blend 存在的自动备份可归档。含第三方几何、权重或采样数据的 JSON 与二进制同样留本机，公开作者脚本、配置与方法。工程恢复边界见 `Docs/Characters/modular-outfit-publication-20260925.md`。
 
 当前实现记录：
-- 手套：`Docs/Characters/fitted-gloves-animation-sharing-20260925.md`；作者源 `SourceAssets/ModularOutfit20260925/FittedFieldGlovesV1/`。
+- 薄皮手套：`Docs/Characters/fitted-gloves-animation-sharing-20260925.md`；作者源 `SourceAssets/ModularOutfit20260925/FittedFieldGlovesV1/`。
+- 猎装手套：同文档；作者源 `SourceAssets/ModularOutfit20260925/HuntFieldGlovesV1/`；只接入 `ue_field_gloves`。
 - 衣袖：`Docs/Characters/fitted-sleeves-cloth-state-20260925.md`；作者源 `SourceAssets/ModularOutfit20260925/FittedSleevesV1/`。
-- 两者 UE 资产根分别为 `/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/`、`/Game/Characters/ModularOutfit20260924/FittedSleevesV1/`。
+- UE 资产根：`/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/`、`HuntFieldGlovesV1/`、`FittedSleevesV1/`。
 
 本次两类装备已保存并接入各 20 个第一人称派生，未做运行验收；V7 裸手获认可不等于新装备全部获认可。衣袖原肩端重合封口仍有 LOD 简化警告，不能把构建成功称为所有姿态和距离均无问题。
 

@@ -91,7 +91,10 @@ contact_thickness = .015   # 0.15 mm at palm/finger pads; skin below is hidden.
 back_thickness = .070      # 0.70 mm on the outer hand, without moving grip bones.
 thickness = (contact_thickness + (back_thickness-contact_thickness)*back)
 thickness *= smooth(0, .60, edge_distance)
-thickness += .025*np.exp(-((edge_distance-.24)/.14)**2)*smooth(0, .16, edge_distance)
+# 1.0 mm rolled hem 2.5 mm inboard, plus a 0.18 mm groove. Opening stays on the V7 boundary.
+thickness += .100*np.exp(-((edge_distance-.25)/.12)**2)*smooth(0, .16, edge_distance)
+thickness -= .018*np.exp(-((edge_distance-.50)/.055)**2)*smooth(.10, .22, edge_distance)
+thickness = np.maximum(thickness, 0)
 offset = np.zeros_like(p)
 offset[hand_ids] = n[hand_ids]*thickness[hand_ids, None]
 offset[boundary] = 0
@@ -120,10 +123,24 @@ for entry in read(BARE/'manifest.json'):
     else:
         side = -1 if rest[:, 0].mean() < 0 else 1
         mapping = np.flatnonzero(p[:, 0]*side > 0)
-    # The family author preserves vertex order; positional nearest neighbours
-    # are ambiguous at coincident UV/surface seams.
-    if len(rest) != len(mapping) or float(np.max(np.linalg.norm(rest-p[mapping], axis=1))) > 1e-7:
+    # Family author keeps original vertex order. New palm-fill centers are
+    # appended and can swap within one side; match those by exact position.
+    # Do not use nearest-neighbour for the rest of the mesh: coincident seams
+    # would pick the wrong vertex.
+    if len(rest) != len(mapping):
         raise RuntimeError('Canonical hand correspondence changed: '+name)
+    candidates = p[mapping]
+    if float(np.max(np.linalg.norm(rest-candidates, axis=1))) > 1e-7:
+        order = []
+        used = set()
+        for sample in rest:
+            d = np.linalg.norm(candidates-sample, axis=1)
+            pick = int(np.argmin(d))
+            if pick in used or float(d[pick]) > 1e-7:
+                raise RuntimeError('Canonical hand correspondence changed: '+name)
+            used.add(pick)
+            order.append(pick)
+        mapping = mapping[order]
     faces = [i for i, mat in enumerate(bare['triangle_materials']) if mat == 2]
     ids = sorted({v for fi in faces for v in bare['triangles'][fi]})
     remap = {v: i for i, v in enumerate(ids)}
@@ -169,7 +186,7 @@ for entry in read(BARE/'manifest.json'):
 (ROOT/'fit-policy.json').write_text(json.dumps({
     'canonical': str(BARE/'M4_original.json'), 'canonical_sha256': hashlib.sha256(canonical_raw).hexdigest(),
     'contact_thickness_mm': contact_thickness*10, 'dorsal_thickness_mm': back_thickness*10,
-    'cuff_blend_mm': 6, 'cuff_lip_extra_mm': .25, 'cuff_boundary': 'Original V7 section 2 boundary, zero displacement and copied weights',
+    'cuff_blend_mm': 6, 'cuff_lip_extra_mm': 1.0, 'cuff_groove_mm': .18, 'cuff_boundary': 'Original V7 section 2 boundary, zero displacement and copied weights',
     'new_animations': 0, 'runtime_tested': False,
-    'items': ['ue_field_gloves', 'ue_field_gloves_black'], 'third_person': 'Existing Body glove retained',
+    'items': ['ue_field_gloves_black'], 'third_person': 'Existing Body glove retained',
 }, indent=2)+'\n', encoding='utf-8')

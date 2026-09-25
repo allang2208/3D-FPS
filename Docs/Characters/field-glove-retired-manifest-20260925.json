@@ -1,0 +1,446 @@
+{
+  "task": "field-glove-superseded-20260925",
+  "count": 55,
+  "items": [
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\verify-v2.json",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\verify-v2.json",
+      "bytes": 1159,
+      "sha256": "6856771D58051B49FC2ABA0EB48BF2889852181A10AE3650423CBDF97C185365",
+      "reason": "Leather tune superseded by v7 grain 0.36/mip 1.1; keep verify-v7.json and ue-cmd-v7.log",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json and ue-cmd-v7.log; HuntFieldGlovesV1/HuntItemPresentation.blend; HuntFieldGlovesV1/Saved/<Profile>.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\verify-v3.json",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\verify-v3.json",
+      "bytes": 4986,
+      "sha256": "472870437234BD22D97A92AA9535178C09A64487137B22930CE8579DFEC311A4",
+      "reason": "Leather tune superseded by v7 grain 0.36/mip 1.1; keep verify-v7.json and ue-cmd-v7.log",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json and ue-cmd-v7.log; HuntFieldGlovesV1/HuntItemPresentation.blend; HuntFieldGlovesV1/Saved/<Profile>.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\verify-v4.json",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\verify-v4.json",
+      "bytes": 3371,
+      "sha256": "DAC465EAF555EDC38B5471EDE785FC8A640BB64306C0ABC3BF4E08A7B7B03060",
+      "reason": "Leather tune superseded by v7 grain 0.36/mip 1.1; keep verify-v7.json and ue-cmd-v7.log",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json and ue-cmd-v7.log; HuntFieldGlovesV1/HuntItemPresentation.blend; HuntFieldGlovesV1/Saved/<Profile>.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\verify-v5.json",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\verify-v5.json",
+      "bytes": 3695,
+      "sha256": "CAFB0985DEB3101586D8EB2A674CD336683A17E32B8A4519E3B475B54C1E6651",
+      "reason": "Leather tune superseded by v7 grain 0.36/mip 1.1; keep verify-v7.json and ue-cmd-v7.log",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json and ue-cmd-v7.log; HuntFieldGlovesV1/HuntItemPresentation.blend; HuntFieldGlovesV1/Saved/<Profile>.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\verify-v6.json",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\verify-v6.json",
+      "bytes": 4241,
+      "sha256": "9BF8DBEDE041B7ABC9AAAD785EDF96EC67CBCB3D4A71B0C54EF1C62F25E063C3",
+      "reason": "Leather tune superseded by v7 grain 0.36/mip 1.1; keep verify-v7.json and ue-cmd-v7.log",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json and ue-cmd-v7.log; HuntFieldGlovesV1/HuntItemPresentation.blend; HuntFieldGlovesV1/Saved/<Profile>.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-verify-v3.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-verify-v3.txt",
+      "bytes": 426,
+      "sha256": "53D4170640C9CBAB9DC1CD5C89001B0D289BB0B69A1D2DC006A6ADC416154504",
+      "reason": "Leather tune superseded by v7 grain 0.36/mip 1.1; keep verify-v7.json and ue-cmd-v7.log",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json and ue-cmd-v7.log; HuntFieldGlovesV1/HuntItemPresentation.blend; HuntFieldGlovesV1/Saved/<Profile>.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-verify-v4.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-verify-v4.txt",
+      "bytes": 3140,
+      "sha256": "E25B0175505592D153351EF71AC44FC175989EAA0E4B254B8C1A8E417D7325BD",
+      "reason": "Leather tune superseded by v7 grain 0.36/mip 1.1; keep verify-v7.json and ue-cmd-v7.log",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json and ue-cmd-v7.log; HuntFieldGlovesV1/HuntItemPresentation.blend; HuntFieldGlovesV1/Saved/<Profile>.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-verify-v5.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-verify-v5.txt",
+      "bytes": 3436,
+      "sha256": "E037E5ACFA6CACD02D2C62D297DE0C72360491759495A6929F48F865E8832DD8",
+      "reason": "Leather tune superseded by v7 grain 0.36/mip 1.1; keep verify-v7.json and ue-cmd-v7.log",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json and ue-cmd-v7.log; HuntFieldGlovesV1/HuntItemPresentation.blend; HuntFieldGlovesV1/Saved/<Profile>.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-cmd-v6.log",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-cmd-v6.log",
+      "bytes": 373592,
+      "sha256": "D7AA05582BDE7350B7539F76CFA26F42E28EA70BD1F7411CA843E7EB3D5E0C04",
+      "reason": "Leather tune superseded by v7 grain 0.36/mip 1.1; keep verify-v7.json and ue-cmd-v7.log",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json and ue-cmd-v7.log; HuntFieldGlovesV1/HuntItemPresentation.blend; HuntFieldGlovesV1/Saved/<Profile>.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\HuntFieldGlovesV1\\HuntItemPresentation.blend1",
+      "trash": "trash\\field-glove-superseded-20260925\\HuntFieldGlovesV1\\HuntItemPresentation.blend1",
+      "bytes": 620135,
+      "sha256": "956E9E4539AC23F09A9921395E14FBC66D9BCE8C59B72D16FCAA2530B7A8737E",
+      "reason": "Blender autosave; formal HuntItemPresentation.blend remains",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json and ue-cmd-v7.log; HuntFieldGlovesV1/HuntItemPresentation.blend; HuntFieldGlovesV1/Saved/<Profile>.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\HuntFieldGlovesV1\\Saved\\mcp-body-a091bb4c3488470da808b4815a5303c7.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\HuntFieldGlovesV1\\Saved\\mcp-body-a091bb4c3488470da808b4815a5303c7.txt",
+      "bytes": 228,
+      "sha256": "63212351B5AFFFF948A59CDE67C4F70045A30CB231E87B79C265C0021019BBB7",
+      "reason": "One-shot MCP bridge log; import receipts Saved/<Profile>.json remain",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json and ue-cmd-v7.log; HuntFieldGlovesV1/HuntItemPresentation.blend; HuntFieldGlovesV1/Saved/<Profile>.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\HuntFieldGlovesV1\\Saved\\mcp-body-dcc3f4211a91491c8254b5561af4451f.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\HuntFieldGlovesV1\\Saved\\mcp-body-dcc3f4211a91491c8254b5561af4451f.txt",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "One-shot MCP bridge log; import receipts Saved/<Profile>.json remain",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json and ue-cmd-v7.log; HuntFieldGlovesV1/HuntItemPresentation.blend; HuntFieldGlovesV1/Saved/<Profile>.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\HuntFieldGlovesV1\\Saved\\mcp-bow-7739b18b7fc64fb392dc613d594ddc8c.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\HuntFieldGlovesV1\\Saved\\mcp-bow-7739b18b7fc64fb392dc613d594ddc8c.txt",
+      "bytes": 206,
+      "sha256": "6AF392EEA59F7C5D62D7E850292042AD70D5549111640B374DA6B126B8E12D0B",
+      "reason": "One-shot MCP bridge log; import receipts Saved/<Profile>.json remain",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json and ue-cmd-v7.log; HuntFieldGlovesV1/HuntItemPresentation.blend; HuntFieldGlovesV1/Saved/<Profile>.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\HuntFieldGlovesV1\\Saved\\mcp-import-1p-bf333a0dd91d4a7699464da0b7fc7161.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\HuntFieldGlovesV1\\Saved\\mcp-import-1p-bf333a0dd91d4a7699464da0b7fc7161.txt",
+      "bytes": 5026,
+      "sha256": "C9E20A9DF067D6180CEC180EFEEA7D8E02B031339955649E0A31D7711B049249",
+      "reason": "One-shot MCP bridge log; import receipts Saved/<Profile>.json remain",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json and ue-cmd-v7.log; HuntFieldGlovesV1/HuntItemPresentation.blend; HuntFieldGlovesV1/Saved/<Profile>.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\HuntFieldGlovesV1\\Saved\\mcp-pickup-af91deeda4d347d1999286fec3502448.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\HuntFieldGlovesV1\\Saved\\mcp-pickup-af91deeda4d347d1999286fec3502448.txt",
+      "bytes": 208,
+      "sha256": "E721633EAF060518939AC8931BBDA6C528B6F07921E6DE365B0FD592A50D5448",
+      "reason": "One-shot MCP bridge log; import receipts Saved/<Profile>.json remain",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json and ue-cmd-v7.log; HuntFieldGlovesV1/HuntItemPresentation.blend; HuntFieldGlovesV1/Saved/<Profile>.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\HuntFieldGlovesV1\\Saved\\mcp-re-body-d64eb00c3fa14c1c8be83570d7245521.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\HuntFieldGlovesV1\\Saved\\mcp-re-body-d64eb00c3fa14c1c8be83570d7245521.txt",
+      "bytes": 290,
+      "sha256": "0E39989312B5D281A709A1ED8071C0DBFCBA866DB68C788C6A37FB6C2B5E8BB2",
+      "reason": "One-shot MCP bridge log; import receipts Saved/<Profile>.json remain",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json and ue-cmd-v7.log; HuntFieldGlovesV1/HuntItemPresentation.blend; HuntFieldGlovesV1/Saved/<Profile>.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\HuntFieldGlovesV1\\Saved\\mcp-re-bow-7e200a7d0df744e8b5a3e3a5350aaaba.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\HuntFieldGlovesV1\\Saved\\mcp-re-bow-7e200a7d0df744e8b5a3e3a5350aaaba.txt",
+      "bytes": 206,
+      "sha256": "BDBCF764DF60EEB639C24C7EDA052948E69445CD294E62546CD8661887C64627",
+      "reason": "One-shot MCP bridge log; import receipts Saved/<Profile>.json remain",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json and ue-cmd-v7.log; HuntFieldGlovesV1/HuntItemPresentation.blend; HuntFieldGlovesV1/Saved/<Profile>.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\HuntFieldGlovesV1\\Saved\\mcp-re-pickup-08466d35e439454aaa22b798c89f7f85.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\HuntFieldGlovesV1\\Saved\\mcp-re-pickup-08466d35e439454aaa22b798c89f7f85.txt",
+      "bytes": 208,
+      "sha256": "091AC71162B6911214BCCAC3E92720CCBECA8A9B8917AEA4D84591DF901A8E3D",
+      "reason": "One-shot MCP bridge log; import receipts Saved/<Profile>.json remain",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json and ue-cmd-v7.log; HuntFieldGlovesV1/HuntItemPresentation.blend; HuntFieldGlovesV1/Saved/<Profile>.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\HuntFieldGlovesV1\\Saved\\mcp-reimport-1p-0f6b773eee77499680d657d7a5c3e2e7.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\HuntFieldGlovesV1\\Saved\\mcp-reimport-1p-0f6b773eee77499680d657d7a5c3e2e7.txt",
+      "bytes": 5026,
+      "sha256": "5B03C51E5E4112DEC0368A8A9682370668D9C162DF8C015D635901A51D517D59",
+      "reason": "One-shot MCP bridge log; import receipts Saved/<Profile>.json remain",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json and ue-cmd-v7.log; HuntFieldGlovesV1/HuntItemPresentation.blend; HuntFieldGlovesV1/Saved/<Profile>.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-build-01.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-build-01.txt",
+      "bytes": 1862,
+      "sha256": "F84665C76AC2267D73EA1D1769E049A0D4232E6108B97DB1A1D002EB1C8D8B52",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-build-02.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-build-02.txt",
+      "bytes": 449,
+      "sha256": "71FAAB1B6AF9FCF415F4D4DA2DC93D9CEA0B50449AD71C555AB5837549402586",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-build-03.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-build-03.txt",
+      "bytes": 463,
+      "sha256": "16625866AA8F4E58B33D8E5E29E0240E674DF168031798EC5A9EE4B4F1F6C179",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-build-04.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-build-04.txt",
+      "bytes": 463,
+      "sha256": "16625866AA8F4E58B33D8E5E29E0240E674DF168031798EC5A9EE4B4F1F6C179",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-build-05.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-build-05.txt",
+      "bytes": 798,
+      "sha256": "6196A9507F6D75BE8694D1BC041DC1AD1334F52C5D926C63AC019D60F7718272",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-build-06.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-build-06.txt",
+      "bytes": 1037,
+      "sha256": "92BD658B14D93B7BA555FD709DD5283553495B944D8853C56ECD033CD6042768",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-build-07.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-build-07.txt",
+      "bytes": 1904,
+      "sha256": "BB4762238162ED633EFFAD1FDC5532826320B6B3EC15B5A1FCE56AB452B2FC86",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-build-08.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-build-08.txt",
+      "bytes": 2033,
+      "sha256": "392CEC58459E43879C31570B4EC4DD7C21A1752B6BBF68CDB9B16A19FD49D7FF",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-build-ao-01.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-build-ao-01.txt",
+      "bytes": 2250,
+      "sha256": "972F8CD21CBEFE3E25BC8BFA6F143E8B8F88D5A7FAC1A063D77176A9FA540096",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-build-spec-01.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-build-spec-01.txt",
+      "bytes": 2418,
+      "sha256": "FC96E9DB2A4721F9550F9D79A80A44E8A28C8BCDAB960FD4ADCD3982697A40F0",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-import-cuff-02.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-import-cuff-02.txt",
+      "bytes": 497,
+      "sha256": "4B8739F095852B6FB0B50977CF9B62B19242E7D422EE37F0131A1AE19E653A3A",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-import-cuff-03.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-import-cuff-03.txt",
+      "bytes": 118,
+      "sha256": "B58E3987F56A3A55E6C382E209D89E686E9B1E391A5A87D8EEE9BB0F6ECF6133",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-import-cuff-04.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-import-cuff-04.txt",
+      "bytes": 850,
+      "sha256": "E96B6693D07D0680D2618A46DE80E1259704481033619E961BE93AF920F1F759",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-import-cuff-05.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-import-cuff-05.txt",
+      "bytes": 788,
+      "sha256": "DEA3BEACB4AEB5CA0E0971A6EF8E412F82D80833C346CFD0DB9308168B71CA63",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-import-cuff-06.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-import-cuff-06.txt",
+      "bytes": 788,
+      "sha256": "5E5F6BD85257B62AFA0AC59DBA0F0DB0B74A564B26AED74EB7DF896ED92DDA6B",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-import-cuff-07.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-import-cuff-07.txt",
+      "bytes": 6542,
+      "sha256": "FC6014A3C88693E364255FC417A62AD75DD34A732DE650E7E7B930CDB610A3DF",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-probe-copy-save-01.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-probe-copy-save-01.txt",
+      "bytes": 287,
+      "sha256": "8297105FACA15D9F6CC239499894F80ECE74B179CB776F7AE486B65BCA58BB07",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-probe-copy-save-02.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-probe-copy-save-02.txt",
+      "bytes": 756,
+      "sha256": "406262BE0F9A0F42550BB50FB7D892A4E04883D40FB30E24D143A62026DD353E",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-probe-copy-save-03.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-probe-copy-save-03.txt",
+      "bytes": 1164,
+      "sha256": "D9BD03E79FFED161FFDC6B6B347C72D6450E793910EDBF169F9AF802BE391780",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-probe-save-01.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-probe-save-01.txt",
+      "bytes": 841,
+      "sha256": "B7520840336F3D9BE2AE25B794CC58FC6B1A330A5BB8B09AF514C747AD8A1BC8",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-probe-play.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-probe-play.txt",
+      "bytes": 687,
+      "sha256": "017259F4BBD5FA733DE92B0C610851FE0A98982F768079D2B6F70D6B986F2F05",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-repair-m4-01.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-repair-m4-01.txt",
+      "bytes": 616,
+      "sha256": "5CA53804DED924C87FCF39BF0871322BA8FF18326E668D12E3D41E5E7156F95B",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-repair-m4-02.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-repair-m4-02.txt",
+      "bytes": 1052,
+      "sha256": "8FEAEA8F724D2DAE7AB2F73F9B8757AE70880C70ACBACC4BB955F9C0168E9A54",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-repair-m4-03.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-repair-m4-03.txt",
+      "bytes": 713,
+      "sha256": "B2CF227B4C439AAD3EAB26D552845036F4BCF9A4690205BED9F0CF88BD6FDEF8",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-debug-m4-01.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-debug-m4-01.txt",
+      "bytes": 743,
+      "sha256": "B00D6EB1C076E3B220914A6145A4D2F9ED63E926C46E2303B82FEA8C7DB8CEDB",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-debug-m4-02.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-debug-m4-02.txt",
+      "bytes": 844,
+      "sha256": "BD36B8E2214005B090A38CC06467E1766C7CD0B2F3F54CD5F7DBD38DD7346BDA",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-verify-01.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-verify-01.txt",
+      "bytes": 4286,
+      "sha256": "3A3CBD8E9405A3A68A3C141E2FF2A4CFADF89D0C3EBDC75995315009E42F1C0E",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-verify-02.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-verify-02.txt",
+      "bytes": 1016,
+      "sha256": "46685311AA69AC329B3F4F1998CC6C37C0969009DB61D318E10023AA55554A9A",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\verify.json",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\verify.json",
+      "bytes": 4935,
+      "sha256": "41C264AD7EA30485A486A600E2DA4FBE8D71450D9577E97F5E84E735EAE58925",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-bow-rebind-01.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-bow-rebind-01.txt",
+      "bytes": 199,
+      "sha256": "47C9CB23D102B308505E71609C304ECC6757E7440DB7A39ADEB92A3F022FF254",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-bow-rebind-holes-01.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-bow-rebind-holes-01.txt",
+      "bytes": 199,
+      "sha256": "47C9CB23D102B308505E71609C304ECC6757E7440DB7A39ADEB92A3F022FF254",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-bake-rune-arms-01.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-bake-rune-arms-01.txt",
+      "bytes": 478,
+      "sha256": "7243DC633D78C5D681B1EA6366E9AAC115115AF4C12D8915EF5636EA954A3B55",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-melee-slots-01.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-melee-slots-01.txt",
+      "bytes": 1631,
+      "sha256": "A08786C914368EF0797F3EA2B5CF2531C12E348D0AE76173C011ECED9794EED9",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-diagnose-live-01.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-diagnose-live-01.txt",
+      "bytes": 5722,
+      "sha256": "0AB5022E6BC2B49D8B8038B9CA9773E42BA35BE7E9693ED9FEB4598065B2D50F",
+      "reason": "One-shot leather commandlet/MCP log superseded by v7; keep verify-v7.json, ue-cmd-v7.log, hlsl, and diagnose-live.json rubber contrast",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl, diagnose-live.json"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-build-v6-01.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-build-v6-01.txt",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "v6 leather build log superseded by v7 grain 0.36/mip 1.1",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl"
+    },
+    {
+      "source": "SourceAssets\\ModularOutfit20260925\\FieldGlovesLeatherV1\\ue-build-v6-02.txt",
+      "trash": "trash\\field-glove-superseded-20260925\\FieldGlovesLeatherV1\\ue-build-v6-02.txt",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "v6 leather build log superseded by v7 grain 0.36/mip 1.1",
+      "replacement": "FieldGlovesLeatherV1/verify-v7.json, ue-cmd-v7.log, field_glove_leather.hlsl"
+    }
+  ]
+}

@@ -3224,6 +3224,26 @@
       "perEnhance": 1
     }
   },
+  "ue_field_gloves": {
+    "defense": {
+      "base": 4,
+      "perEnhance": 1
+    },
+    "bonusStats": {
+      "meleeAttackSpeed": 0.05,
+      "reloadSpeed": 0.05
+    }
+  },
+  "ue_field_gloves_black": {
+    "defense": {
+      "base": 4,
+      "perEnhance": 1
+    },
+    "bonusStats": {
+      "meleeAttackSpeed": 0.05,
+      "reloadSpeed": 0.05
+    }
+  },
   "秘法法帽": {
     "armorSet": "robe",
     "bonusStats": {

@@ -49,3 +49,7 @@
 导入脚本保留旧引用于 `previous-glove-paths.json`；各资源保存后写入 `Saved/<Profile>.json`，整批配置接入后写入 `published.json`。本说明不替代实际导入回执。未运行游戏测试，由用户测试。
 
 本轮已完成 20 个原生骨架派生、20 份可编辑 Blend、20 个 UE 手套资源及三级 LOD 保存，并接入棕色、黑色手套配方。后台制作日志为 `Saved/FittedFieldGlovesV1/blender-01.log` 和 `Saved/FittedFieldGlovesV1/import-01.log`；导入结束标记为 `FITTED_GLOVES_PUBLISHED 20`，commandlet 退出码 0。这是制作与落盘结果，不是动画或运行时验收结果。
+
+## 猎装短手套（2026-09-25）
+
+棕色 `ue_field_gloves` 已改为独立家族 `HuntFieldGlovesV1`，不再与黑色共享外形。黑色仍用本页上方的薄皮入口。猎装厚度、皮革与弓派生见 [野外手套皮革与猎装外形](../../skills/ue5-fps-arms-animation/references/field-glove-leather-and-hunt-shape.md)。`import_fitted_field_gloves.py` 现在只发布黑色。未做运行验收。

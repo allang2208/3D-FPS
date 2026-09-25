@@ -9,7 +9,8 @@
 | 内容 | 制作 | 可编辑源 | 导入／接入 |
 | --- | --- | --- | --- |
 | V7 裸手 | `author_bare_palm_v7.py` | `save_bare_palm_v7_blends.py` | `import_bare_palm_v7.py`，然后 `bake_native_bare_defaults_v7.py` 写入基础视模 |
-| 贴合手套 | `author_fitted_field_gloves.py` | `save_fitted_field_gloves_blends.py` | `import_fitted_field_gloves.py` |
+| 贴合薄皮手套（黑） | `author_fitted_field_gloves.py` | `save_fitted_field_gloves_blends.py` | `import_fitted_field_gloves.py`（只发布黑色） |
+| 猎装短手套（棕） | `author_hunt_field_gloves.py` | `save_hunt_field_gloves_blends.py` | `import_hunt_field_gloves.py` |
 | 贴合衣袖 | `author_fitted_sleeves.py` | `save_fitted_sleeves_blends.py` | `import_fitted_sleeves.py` |
 | 背包图标 | `render_equipment_icons.py` | `ItemPresentation.blend`（由 `author_item_presentation.py` 产出） | 直接写 `Content/ColdSteelData/Icons/ModularOutfit20260924/*.png` |
 
