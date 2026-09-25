@@ -24,27 +24,74 @@ void UColdSteelStatusModel::LoadBowDefinitions()
 
 const FColdSteelItem* UColdSteelStatusModel::ActiveBow() const
 {
+    if (ActiveProductionTool()) return nullptr;
     const auto* Item=Equipped();
     return Item && ColdSteelInventory::IsBow(*Item) ? Item : nullptr;
+}
+
+bool UColdSteelStatusModel::NormalizeBowState(FColdSteelProfile& State) const
+{
+    bool Changed = false;
+    for (auto& Item : State.Items)
+    {
+        if (!ColdSteelInventory::IsBow(Item)) continue;
+        const FString* Catalog = Definitions.Find(Item.Definition);
+        TSharedPtr<FJsonObject> Data, Defaults;
+        if (!Catalog || !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data), Data) || !Data ||
+            !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Catalog), Defaults) || !Defaults) continue;
+        const double Version = ColdSteelInventory::Number(Item, TEXT("bow_presentation_revision"), 0);
+        double Latest = 0.;
+        Defaults->TryGetNumberField(TEXT("bow_presentation_revision"), Latest);
+        if (Version < Latest)
+        {
+            // Migrate presentation only: keep instance ID, placement, quality,
+            // combat numbers, upgrades and any custom replacement part meshes.
+            for (const auto& Field : Defaults->Values)
+            {
+                const FString Key(*Field.Key);
+                const bool Owned = Key.StartsWith(TEXT("bow_")) || Key.StartsWith(TEXT("nock_")) ||
+                    Key.StartsWith(TEXT("reference_")) || Key == TEXT("brace_nock_cm") || Key == TEXT("draw_anchor_cm") ||
+                    Key == TEXT("arrow_rest_cm") || Key == TEXT("draw_curve") || Key == TEXT("arrow_head_mesh") ||
+                    Key == TEXT("equip_seconds") || Key == TEXT("draw_seconds") || Key == TEXT("release_seconds") ||
+                    Key == TEXT("recover_seconds") || Key == TEXT("ue_icon");
+                if (!Owned) continue;
+                FString Previous;
+                if (Key.StartsWith(TEXT("bow_part_")) && Key.EndsWith(TEXT("_mesh")) &&
+                    Data->TryGetStringField(Key, Previous) && !Previous.IsEmpty() &&
+                    Previous != TEXT("/Game/Weapons/DarkBow20260925/SK_DarkBow.SK_DarkBow")) continue;
+                Data->SetField(Key, Field.Value);
+            }
+            Item.Data.Reset();
+            FJsonSerializer::Serialize(Data.ToSharedRef(), TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&Item.Data));
+            Changed = true;
+        }
+        // The first revision inherited the generic default of a 30-round gun
+        // magazine; arrows live in the pouch and have no magazine or reserve.
+        if (Item.Magazine != 0 || Item.Reserve != 0) { Item.Magazine = Item.Reserve = 0; Changed = true; }
+    }
+    return Changed;
 }
 
 bool UColdSteelStatusModel::GrantBow()
 {
     SyncRuntime(); auto P=Snapshot();
     FString BowId, ArrowId, Category;
-    for (const auto& Pair : Definitions)
+    TArray<FString> Keys;
+    Definitions.GetKeys(Keys); Keys.Sort();
+    for (const auto& Key : Keys)
     {
         TSharedPtr<FJsonObject> Root;
-        if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Pair.Value),Root)||!Root) continue;
+        if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Definitions.FindChecked(Key)),Root)||!Root) continue;
+        Category.Reset();
         Root->TryGetStringField(TEXT("category"),Category);
         if(Category!=TEXT("weapon_bow")) continue;
-        BowId= FString(*Pair.Key);
+        BowId= Key;
         Root->TryGetStringField(TEXT("arrow_ammo"),ArrowId);
         break;                                  // 目录里出现多把弓时取遍历到的第一把
     }
     if(BowId.IsEmpty()) return true;            // 没配弓就不打扰存档
-    const bool bNeedArrows=!ArrowId.IsEmpty() && PouchCount(ArrowId)<=0;
-    bool Changed=false;
+    bool Changed=NormalizeBowState(P);
+    bool bCreatedBow=false;
     if(!P.Items.ContainsByPredicate([&](const auto& I){return I.Definition==BowId;}))
     {
         auto Item=CreateItem(BowId);
@@ -56,8 +103,10 @@ bool UColdSteelStatusModel::GrantBow()
             return false;
         }
         Changed=true;
+        bCreatedBow=true;
     }
-    if(Changed) CommitState(MoveTemp(P));
-    if(bNeedArrows) GrantAmmo(ArrowId,24);      // 首支箭给 24 支，够拉弓试手感
+    if(bCreatedBow && !ArrowId.IsEmpty() && !AddAmmoToState(P,ArrowId,24))
+    {Message=TEXT("箭种未登记或箭袋已满，弓尚未发放");return false;}
+    if(Changed && !CommitState(MoveTemp(P))) return false;
     return true;
 }

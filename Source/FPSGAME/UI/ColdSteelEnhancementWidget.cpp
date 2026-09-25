@@ -6,6 +6,7 @@
 #include "M4GunsmithWidget.h"
 #include "../FPSGAMEPlayerController.h"
 #include "../Weapons/GunsmithSystem.h"
+#include "../Weapons/WeaponStatEvaluation.h"
 #include "Engine/GameInstance.h"
 #include "Engine/Texture2D.h"
 #include "Widgets/Layout/SBorder.h"
@@ -184,14 +185,20 @@ void UColdSteelEnhancementWidget::Refresh()
             Inspector->AddSlot().AutoHeight().Padding(0,0,0,1)[TableRow(Name,FString::Printf(TEXT("%.*f"),Digits,Before),
                 FString::Printf(TEXT("%.*f"),Digits,Final),Benefit?FString::Printf(TEXT("%+.*f"),Digits,Delta):TEXT("—"),Benefit)];
         };
-        if(G->Weapon(I->Definition))
+        if(G->Weapon(I->Definition)||ColdSteelInventory::IsBow(*I))
         {
-            const auto Stats=G->Calculate(I->Definition,G->Installed(*I));const double Base=Stats.Damage,Attack=P->Derived(TEXT("atk"));
+            const auto Stats=G->Calculate(I->Definition,G->Installed(*I));
+            const double Base=ColdSteelInventory::IsBow(*I)?Number(*I,TEXT("full_damage"),46):Stats.Damage;
             Row(TEXT("强化等级"),bCompareBase?0:Number(*I,TEXT("enhanceLevel")),Number(After,TEXT("enhanceLevel")),0);
             Row(TEXT("附魔伤害加成 %"),bCompareBase?0:E->Effect(*I,TEXT("damagePercent"))*100,E->Effect(After,TEXT("damagePercent"))*100);
             auto Comparison=*I;
             if(bCompareBase){TSharedPtr<FJsonObject> Data;if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Comparison.Data),Data)){Data->SetNumberField(TEXT("enhanceLevel"),0);Data->RemoveField(TEXT("_enchantEffects"));FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Comparison.Data));}}
-            Row(TEXT("基础命中伤害"),E->ProcessedDamage(Comparison,Base,Attack),E->ProcessedDamage(After,Base,Attack));
+            const auto BeforeDamage=ColdSteelWeaponStats::DamageParts(Comparison,P,Base);
+            const auto AfterDamage=ColdSteelWeaponStats::DamageParts(After,P,Base);
+            Row(TEXT("武器总伤害"),BeforeDamage.Total(),AfterDamage.Total(),2);
+            Row(TEXT("基础物理伤害"),BeforeDamage.BasePhysical,AfterDamage.BasePhysical,2);
+            if(BeforeDamage.AddedPhysical>0||AfterDamage.AddedPhysical>0)Row(TEXT("附加物理伤害"),BeforeDamage.AddedPhysical,AfterDamage.AddedPhysical,2);
+            if(BeforeDamage.AddedMagic>0||AfterDamage.AddedMagic>0)Row(TEXT("附加魔法伤害"),BeforeDamage.AddedMagic,AfterDamage.AddedMagic,2);
             Row(TEXT("额外穿透目标"),bCompareBase?0:E->Effect(*I,TEXT("piercingBonus")),E->Effect(After,TEXT("piercingBonus")),0);
             Row(TEXT("命中叠毒层数"),bCompareBase?0:E->Effect(*I,TEXT("poisonStacks")),E->Effect(After,TEXT("poisonStacks")),0);
         }

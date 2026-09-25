@@ -38,10 +38,16 @@ namespace
         const float Authored = bPlaceholder ? 100.f
             : (bAlongX ? Mesh->GetBounds().BoxExtent.X : Mesh->GetBounds().BoxExtent.Z) * 2.f;
         const float Thickness = bPlaceholder ? FMath::Max(.01f, RadiusCM) / 50.f : 1.f;
-        Rod->SetRelativeLocation((From + To) * .5f);
-        Rod->SetRelativeRotation(FQuat::FindBetweenNormals(Axis, Delta.GetSafeNormal()));
-        Rod->SetRelativeScale3D(FVector(Thickness, Thickness,
-            Authored > KINDA_SMALL_NUMBER ? Length / Authored : Length / 100.f));
+        const float LongScale = Authored > KINDA_SMALL_NUMBER ? Length / Authored : Length / 100.f;
+        const FVector Scale = bAlongX ? FVector(LongScale, Thickness, Thickness)
+                                     : FVector(Thickness, Thickness, LongScale);
+        const FQuat Rotation = FQuat::FindBetweenNormals(Axis, Delta.GetSafeNormal());
+        // Preserve the authored shaft axis: asymmetric fletching must not shift
+        // the nock away from the string merely because its bounds are off-centre.
+        const FVector Centre = Mesh ? Axis * FVector::DotProduct(Mesh->GetBounds().Origin, Axis) : FVector::ZeroVector;
+        Rod->SetRelativeLocation((From + To) * .5f - Rotation.RotateVector(Centre * Scale));
+        Rod->SetRelativeRotation(Rotation);
+        Rod->SetRelativeScale3D(Scale);
         Rod->SetVisibility(true);
     }
 }
@@ -74,7 +80,13 @@ void UBowPartComponent::InitializeAsPart(AActor* Owner, const FName& InSlot, USc
 void UBowPartComponent::SetMesh(UStaticMesh* Mesh)
 {
     PartMesh = Mesh;
-    if (Visual) Visual->SetStaticMesh(Mesh ? Mesh : RodMesh.Get());
+    if (Visual)
+    {
+        Visual->EmptyOverrideMaterials();
+        Visual->SetStaticMesh(Mesh);
+        Visual->SetVisibility(bPartVisible && Mesh && Rods.IsEmpty());
+    }
+    for (const auto& Rod : Rods) if (Rod) Rod->EmptyOverrideMaterials();
 }
 
 int32 UBowPartComponent::AddRod(const TCHAR* Label)
@@ -86,6 +98,7 @@ int32 UBowPartComponent::AddRod(const TCHAR* Label)
     Rod->SetupAttachment(this);
     ConfigureViewmodelPiece(Rod, RodMesh);
     Rod->RegisterComponent();
+    if (Visual) Visual->SetVisibility(false);
     return Rods.Add(Rod);
 }
 
@@ -109,7 +122,8 @@ void UBowPartComponent::SetPartVisible(bool bInVisible)
     bPartVisible = bInVisible;
     // 子件跟着父挂点走：这里只切部件本身，细杆的可见性由 StretchRod 自己按长度判定。
     SetVisibility(bInVisible);
-    if (Visual) Visual->SetVisibility(bInVisible);
+    if (Visual) Visual->SetVisibility(bInVisible && PartMesh && Rods.IsEmpty());
+    if (!bInVisible) for (const auto& Rod : Rods) if (Rod) Rod->SetVisibility(false);
 }
 
 void UBowPartComponent::SetMount(const FVector& Location, const FRotator& Rotation, float Scale)
@@ -122,7 +136,8 @@ void UBowPartComponent::SetMount(const FVector& Location, const FRotator& Rotati
 int32 UBowPartComponent::FindMaterialSlot(const FString& InSlotName) const
 {
     UStaticMesh* Mesh = GetMesh();
-    if (!Mesh || InSlotName.IsEmpty()) return INDEX_NONE;
+    if (InSlotName.IsEmpty()) return 0;
+    if (!Mesh) return INDEX_NONE;
     if (InSlotName.IsNumeric()) return FCString::Atoi(*InSlotName);
     return Mesh->GetMaterialIndex(FName(*InSlotName));
 }
@@ -133,5 +148,6 @@ bool UBowPartComponent::SetMaterialOverride(const FString& InSlotName, UMaterial
     const int32 Index = FindMaterialSlot(InSlotName);
     if (Index == INDEX_NONE) return false;
     Visual->SetMaterial(Index, Material);
+    for (const auto& Rod : Rods) if (Rod) Rod->SetMaterial(Index, Material);
     return true;
 }

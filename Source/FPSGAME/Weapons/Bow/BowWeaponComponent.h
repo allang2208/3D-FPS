@@ -8,6 +8,7 @@
 #include "BowWeaponComponent.generated.h"
 
 class ABowArrow;
+class UBowArmsMeshComponent;
 class AFPSGAMECharacter;
 class UBowPartComponent;
 class UCameraComponent;
@@ -37,22 +38,11 @@ enum class EBowStage : uint8
 };
 
 /**
- * 弓武器组件。数值与节奏全部来自 `Content/ColdSteelData/bows.json`，代码里不留第二套。
- * 参考动作实测（`SourceAssets/DarkBow20260925/ue_readback.json`，Paragon Sparrow 骨架）：
- * `RMB_Drawback` 全长 2.4667 s、`idle` 10.0 s、`R_Ability_Fast_Fire` 0.6 s、
- * `Slow|Med_Fire` 1.0 s。拉开窗口 `draw_seconds` 与释放／回收窗口落在这些实测区间内作者取值，
- * 裸手 Bow 视模接入后再按接触帧逐帧复核（见 Docs/Weapons/dark-bow-first-person-20260925.md）。
- *
- * 弓体坐标契约（`ue_import_readback.json` 实测，导入已按最长轴归一到 140 cm）：
- * **长度沿局部 Z**（±70），**前后沿局部 X**（弦在 -X 侧、弓背凸向 +X），**薄沿局部 Y**。
- * 组件把网格包围盒中心搬到挂点原点，所以下面的锚点都以"握把中心"为参考。
- *
- * 弓弦与箭是**程序化几何**：Fab "dark bow" 是无骨骼静态网格，弦已经烘进网格里（一条直线）。
- * 运行时用两根细段连接上下弓梢到"弦结点"：弦结点优先取手臂 `hand_r` 骨骼，没有裸手视模时
- * 回落到 `brace_nock_cm → draw_anchor_cm` 的插值；静止位与烘焙弦重合，因此合弓时看不出双线。
- * 若要在拉开后彻底消掉烘焙弦，把该材质槽换成隐形材质：`bow_part_string_hide_slot` +
- * `bow_part_string_material` 两个键填上即可（旧平铺键 `bow_string_hidden_material` 仍作材质回落；
- * 槽名要在编辑器里试一次，见文档待办）。
+ * 弓武器组件：数值、节奏和资源由 bows.json 驱动；单一动作时钟采样 Bow 原生骨架的八段动画。
+ * Sparrow 的手／肘轨迹经 V7 裸臂比例适配，弓挂 bow_grip、弦挂 bow_nock 接触标记。
+ * 当前弓体保留作者握把原点、长轴 Z、弦在 -X 侧、箭沿 +X；独立弓体资产已分离烘焙弦。
+ * 先采样手臂再更新弓／弦／箭，释放后弦回弹与右手随动分离。
+ * 详见 Docs/Weapons/dark-bow-actions-v2-20260925.md；未进行运行与视觉验收。
  */
 UCLASS(ClassGroup=(Weapons), meta=(BlueprintSpawnableComponent))
 class FPSGAME_API UBowWeaponComponent : public UActorComponent
@@ -80,11 +70,11 @@ public:
     UFUNCTION(BlueprintPure, Category="Bow") int32 ArrowsInPouch() const;
     FString StatusLine() const;
 
-    /** 左键按下：弦上无箭先搭箭（消耗一支），已搭箭开始拉弓。 */
+    /** 左键按下：弦上无箭先搭箭，已搭箭开始拉弓；箭支只在成功发射时扣除。 */
     void BeginPrimaryAttack();
     /** 从箭袋取箭上弦（R 键／自动搭箭共用）；弦上已有箭时什么都不做。 */
     void BeginNock();
-    /** 左键真实松开：拉满或中途都在这一次结算并发射（只有输入释放才提交）。 */
+    /** 左键松开或满拉力竭：按当前拉距结算并发射；中断另走 CancelAction。 */
     void ReleasePrimaryAttack();
     /** 右键按住：稳持（呼吸幅度下降），与枪械机瞄共用"稳定"语义。 */
     void SetSteadyHeld(bool bHeld) { bSteadyHeld = bHeld; }
@@ -120,8 +110,8 @@ protected:
     UPROPERTY(Transient) TMap<FName, TObjectPtr<UBowPartComponent>> Parts;
     /** 每个部件的程序化细杆句柄：string 两条（上／下弓梢到弦结点），arrow_rest 一条。 */
     TMap<FName, TArray<int32>> PartRods;
-    /** 裸手手臂视模；Bow profile 制作完成后由 bows.json 的 bow_viewmodel 指向。 */
-    UPROPERTY(Transient) TObjectPtr<USkeletalMeshComponent> Viewmodel;
+    /** V7 裸手 Bow 原生骨架，外观装备使用匹配的 Bow 蒙皮派生。 */
+    UPROPERTY(Transient) TObjectPtr<UBowArmsMeshComponent> Viewmodel;
     UPROPERTY(Transient) TMap<FName, TObjectPtr<UAnimSequence>> Animations;
     /** 占位细杆／箭头由各自组件负责（`UBowPartComponent` 用引擎圆柱，`ABowArrow` 用圆柱+圆锥），
      *  这里不再留第二份。 */
@@ -146,30 +136,27 @@ private:
     float Elapsed = -1.f, StageSeconds = 0.f, HoldElapsed = 0.f, VisualTime = 0.f;
     float FeedbackSeconds = 0.f, HintCountdown = 0.f, ReleaseKick = 0.f;
 
-    // 节奏（秒）：作者值直接来自 bows.json，`draw_seconds` 以 Sparrow `RMB_Drawback` 实测为准。
-    float NockSeconds = .42f, DrawSeconds = 1.4f, HoldSeconds = 2.2f, ReleaseSeconds = .3f,
+    // 节奏（秒）：作者值由 bows.json 覆盖，参考轨迹按阶段归一化映射到实际片段时长。
+    float NockSeconds = .68f, DrawSeconds = 1.4f, HoldSeconds = 2.2f, ReleaseSeconds = .3f,
           RecoverSeconds = .34f;
     // 数值。`critical_chance` / `toughness_multiplier` 缺省即不覆盖射击瞬间的修炼快照。
     float FullDamage = 46.f, MinDamageRatio = .25f, FullSpeedCM = 9800.f, MinSpeedRatio = .35f,
           GravityCM = 520.f, RangeCM = 3200.f, StaminaCost = 3.f, CriticalChance = -1.f,
           ToughnessMultiplier = 0.f;
-    // 弓体尺寸与摆放（cm / 度）。坐标契约为实测结果：长度沿局部 Z（±70），弦在局部 +X ≈ +12.5
-    // （实测的弓梢连线，即烘焙弦所在平面），弓背凸向 -X —— 所以箭朝局部 -X 出膛、拉弦往 +X 退到颊侧；
-    // 薄沿局部 Y。挂点取网格自身原点（作者放在握把），偏差用 bow_grip_trim_cm 平移。
+    // 当前暗纹猎弓的几何回落（cm / 度）；新弓体必须提供自己的锚点，不能由包络猜弦侧。
     float LengthCM = 140.f, DepthCM = 38.2f, BowScale = 1.f;
-    float StringRadiusCM = .55f, ArrowRadiusCM = .5f, ArrowLengthCM = 76.f;
+    float StringRadiusCM = .09f, ArrowRadiusCM = .3f, ArrowLengthCM = 76.f;
     float SwayAmplitudeCM = .9f, SteadySwayScale = .35f;
-    FVector UpperTipCM = FVector(12.5f, 0.f, 70.f);
-    FVector LowerTipCM = FVector(12.5f, 0.f, -70.f);
-    FVector BraceNockCM = FVector(12.5f, 0.f, 0.f);
-    FVector DrawAnchorCM = FVector(45.f, 0.f, 0.f);
-    FVector ArrowRestCM = FVector(0.f, 0.f, 1.2f);
-    FVector BowLocationCM = FVector(52.f, -12.f, -6.f);
-    // 局部 -X（出膛方向）要对到相机 +X（准星方向），因此基准偏航 180°；再给一点外倾。
-    FRotator BowRotation = FRotator(0.f, 180.f, -6.f);
+    FVector UpperTipCM = FVector(-21.46f, -.935f, 64.11f);
+    FVector LowerTipCM = FVector(-21.46f, -.935f, -64.04f);
+    FVector BraceNockCM = FVector(-21.46f, -.935f, 1.5f);
+    FVector DrawAnchorCM = FVector(-52.5f, 8.f, 3.f);
+    FVector ArrowRestCM = FVector(0.f, -.935f, 1.5f);
+    FVector BowLocationCM = FVector(57.f, -15.f, -13.f);
+    FRotator BowRotation = FRotator(0.f, 0.f, 12.f);
     FVector GripTrimCM = FVector::ZeroVector;
-    /** 裸手臂视模的相机空间摆放：V7 Bow 裸手 profile 做出来后再实测（当前无手臂，键先留好）。 */
-    FRotator ArmsRotation = FRotator(0.f, 90.f, 0.f);
+    /** Bow 动画已按相机 +X 前、+Y 右、+Z 上导出。 */
+    FRotator ArmsRotation = FRotator::ZeroRotator;
     bool bUsesArms = false, bArrowNocked = false, bSteadyHeld = false, bTriggerHeld = false,
          bDrawSoundPlayed = false, bHasRightHandBone = false;
 
@@ -190,7 +177,7 @@ private:
     FString PresentationSignature(const FColdSteelItem* Item) const;
     void CollectPartAssets(const FColdSteelItem* Item);
     bool ConsumeArrowFromPouch(FString& Reason);
-    void LooseArrow(float Ratio);
+    bool LooseArrow(float Ratio);
     FVector NockPoint() const;
     FVector ArrowTipPoint() const;
     /** 手动采样手臂片段：Position 是片段内秒数，bLoop 时按秒取模（与采集工具同一口径）。 */
@@ -209,4 +196,12 @@ private:
 
     /** 当前正在采样手臂的片段名；换片段时才重新起播。 */
     FName CurrentClip;
+    bool bPresentationReady = false, bHasGripMarker = false, bHasNockMarker = false;
+    bool bNockSoundPlayed = false;
+    float EquipSeconds = .45f, NockContactFraction = .82f;
+    float ReleaseRatio = 0.f;
+    FVector ReleasedNockCM = FVector::ZeroVector;
+    TArray<float> DrawCurve;
+    void SampleArms();
+    float ClipLength(const TCHAR* Name) const;
 };

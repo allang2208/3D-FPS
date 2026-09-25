@@ -39,6 +39,17 @@ TArray<FMetric> Metrics(const FColdSteelItem& Item,UColdSteelStatusModel* Model,
         Add(TEXT("stability"),TEXT("枪械稳定性"),S.Handling.Stability,TEXT(" 分"),1,false,false);
         Add(TEXT("range"),TEXT("有效射程"),S.Range,TEXT(" m"),2);
     }
+    else if(ColdSteelInventory::IsBow(Item))
+    {
+        const auto Damage=ColdSteelWeaponStats::DamageParts(Item,Model,ColdSteelInventory::Number(Item,TEXT("full_damage"),46));
+        Add(TEXT("damage"),TEXT("满拉武器伤害"),Damage.Total(),TEXT(""),2);
+        Add(TEXT("draw_seconds"),TEXT("拉满耗时"),FMath::Max(.3,ColdSteelWeaponStats::Interval(&Item,Model,ColdSteelInventory::Number(Item,TEXT("draw_seconds"),1.4))),TEXT(" s"),2,true);
+        Add(TEXT("nock_seconds"),TEXT("搭箭耗时"),ColdSteelInventory::Number(Item,TEXT("nock_seconds"),.68),TEXT(" s"),2,true);
+        Add(TEXT("range"),TEXT("最大飞行距离"),ColdSteelInventory::Number(Item,TEXT("range_cm"),3200)/100,TEXT(" m"),2);
+        Add(TEXT("bow_speed"),TEXT("满拉箭速"),ColdSteelInventory::Number(Item,TEXT("full_speed_cm"),9800)/100,TEXT(" m/s"),1,false,false);
+        if(Damage.AddedPhysical>0)Add(TEXT("added_physical_damage"),TEXT("附加物理伤害"),Damage.AddedPhysical,TEXT(""),2,false,false);
+        if(Damage.AddedMagic>0)Add(TEXT("added_magic_damage"),TEXT("附加魔法伤害"),Damage.AddedMagic,TEXT(""),2,false,false);
+    }
     else if(ColdSteelInventory::IsTwoHandedSword(Item))
     {
         const auto S=ColdSteelMelee::Evaluate(Item,Model);
@@ -114,7 +125,8 @@ void CompleteColdSteelTooltipSummary(const FColdSteelItem& Item,UColdSteelStatus
             if(const auto* V=Values.FindByPredicate([&](const auto& Entry){return Entry.Key==Key;}))Out.Summary.Add({V->Label,Format(V->Value,V->Digits)+V->Unit});
     }
     else for(const auto& V:Values)if(V.Core&&Out.Summary.Num()<4)Out.Summary.Add({V.Label,Format(V.Value,V.Digits)+V.Unit});
-    if(ColdSteelInventory::IsTwoHandedSword(Item))Out.ValueScope=TEXT("按当前角色加成计算；伤害未计要害和目标护甲。最大距离含突刺。");
+    if(ColdSteelInventory::IsBow(Item))Out.ValueScope=TEXT("按当前角色与强化计算满拉伤害；未计箭种倍率、暴击和目标护甲。提前松手按拉距折算。");
+    else if(ColdSteelInventory::IsTwoHandedSword(Item))Out.ValueScope=TEXT("按当前角色加成计算；伤害未计要害和目标护甲。最大距离含突刺。");
     else if(Values.ContainsByPredicate([](const auto& V){return V.Key==TEXT("damage");}))Out.ValueScope=TEXT("按当前角色加成计算；伤害未计要害、目标护甲及距离衰减。");
     else if(!Values.IsEmpty())Out.ValueScope=TEXT("物品属性；防御包含强化，属性加成按物品标注显示。");
     if(Out.Summary.Num()<4&&!Out.Cards.IsEmpty())

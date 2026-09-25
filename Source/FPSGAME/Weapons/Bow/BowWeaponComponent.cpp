@@ -1,6 +1,8 @@
 #include "BowWeaponComponent.h"
 #include "BowArrow.h"
+#include "BowArmsMeshComponent.h"
 #include "BowPartComponent.h"
+#include "../WeaponStatEvaluation.h"
 #include "../../FPSGAMECharacter.h"
 #include "../../FPSGAMEPlayerController.h"
 #include "../../UI/ColdSteelStatusModel.h"
@@ -54,7 +56,7 @@ namespace
         return ReadVector3Text(ColdSteelInventory::Text(*Item, Key), Out);
     }
 
-    // 弓体是"无弦静态网格"（弦已烘进网格），锚点全部在弓的局部空间：长度沿 Z、出膛沿 -X。
+    // 弓体是移除旧烘焙弦后的静态网格；锚点在弓局部空间，长度沿 Z、出膛沿 +X。
     // 下面两个 cvar 是**叠加在数据表之上的实机对点偏移**，默认 0，不改存档也不改 JSON。
     // `TAutoConsoleVariable` 只支持标量／字符串，向量按 "x,y,z" 文本解析（与数据表同一口径）。
     TAutoConsoleVariable<FString> CVarBowLocation(TEXT("fps.Bow.LocationOffset"), TEXT("0,0,0"),
@@ -140,10 +142,10 @@ void UBowWeaponComponent::BeginPlay()
     MakePart(SlotString, Riser, 2);
     MakePart(SlotArrowRest, Riser, 1);
 
-    Viewmodel = NewObject<USkeletalMeshComponent>(Pawn, TEXT("BowHands"));
+    Viewmodel = NewObject<UBowArmsMeshComponent>(Pawn, TEXT("BowHands"));
     Pawn->AddInstanceComponent(Viewmodel);
-    Viewmodel->SetupAttachment(Camera);
-    Viewmodel->SetRelativeRotation(FRotator(0.f, 90.f, 0.f));
+    Viewmodel->SetupAttachment(Pivot);
+    Viewmodel->SetRelativeRotation(ArmsRotation);
     Viewmodel->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     Viewmodel->SetCanEverAffectNavigation(false);
     Viewmodel->SetCastShadow(false);
@@ -210,6 +212,8 @@ void UBowWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
     ArrowHeadMesh = nullptr;
     CurrentClip = NAME_None;
     bUsesArms = false;
+    bPresentationReady = false;
+    bHasGripMarker = bHasNockMarker = false;
     bHasRightHandBone = false;
     bArrowNocked = false;
     VisualTime = 0.f;
@@ -243,7 +247,7 @@ void UBowWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
     if (bUsesArms)
     {
         Paths.Add(ArmsPath);
-        for (const TCHAR* Clip : { ClipIdle, ClipDraw, ClipHold, ClipRelease, ClipNock })
+        for (const TCHAR* Clip : { ClipIdle, ClipDraw, ClipHold, ClipRelease, ClipNock, TEXT("Ready"), TEXT("Equip"), TEXT("Run") })
             Paths.Add(BowAssetPath(Prefix, Clip));
     }
     if (!HeadPath.IsNull()) Paths.Add(HeadPath);
@@ -253,11 +257,11 @@ void UBowWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
         if (!Sound.IsNull()) Paths.Add(Sound);
     }
     LoadHandle = UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,
-        FStreamableDelegate::CreateWeakLambda(this, [this, Prefix, ArmsPath, HeadPath]()
+        FStreamableDelegate::CreateWeakLambda(this, [this, Prefix, ArmsPath, HeadPath, NewId, NewSignature]()
         {
             auto* LiveProfile = GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
             const auto* Item = LiveProfile ? LiveProfile->ActiveBow() : nullptr;
-            if (!Item || Item->InstanceId != InstanceId) return;
+            if (!Item || Item->InstanceId != NewId || InstanceId != NewId || EquippedSignature != NewSignature) return;
             // 每个部件自己认领网格与材质覆盖：换弓臂／换弦／换箭台都只是改数据键。
             for (const auto& Pair : Parts)
             {
@@ -268,8 +272,9 @@ void UBowWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
                 {
                     // 本包的弦是烘进网格的直线：填上槽名 + 隐形材质后，用组件级材质覆盖消掉它，
                     // 只留程序化的两段弦跟手走。覆盖在组件上，不动资产本身。
-                    Component->SetMaterialOverride(
-                        ColdSteelInventory::Text(*Item, *PartKey(Pair.Key, TEXT("hide_slot"))), Material);
+                    const FString HideSlot = ColdSteelInventory::Text(*Item, *PartKey(Pair.Key, TEXT("hide_slot")));
+                    UBowPartComponent* Target = Pair.Key == SlotString && !HideSlot.IsEmpty() ? Part(SlotRiser) : Component;
+                    if (Target) Target->SetMaterialOverride(HideSlot, Material);
                 }
             }
             ArrowHeadMesh = Cast<UStaticMesh>(HeadPath.ResolveObject());
@@ -280,19 +285,23 @@ void UBowWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
                 const auto* Skeleton = Mesh ? Mesh->GetSkeleton() : nullptr;
                 // 5.8 的 USkeleton 不再直接暴露 GetRefSkeleton，用组件级 socket／骨骼查询。
                 bHasRightHandBone = Skeleton && Viewmodel->DoesSocketExist(FName(TEXT("hand_r")));
-                for (const TCHAR* Clip : { ClipIdle, ClipDraw, ClipHold, ClipRelease, ClipNock })
+                bHasGripMarker = Skeleton && Viewmodel->DoesSocketExist(TEXT("bow_grip"));
+                bHasNockMarker = Skeleton && Viewmodel->DoesSocketExist(TEXT("bow_nock"));
+                for (const TCHAR* Clip : { ClipIdle, ClipDraw, ClipHold, ClipRelease, ClipNock, TEXT("Ready"), TEXT("Equip"), TEXT("Run") })
                     Animations.Add(FName(Clip), Cast<UAnimSequence>(BowAssetPath(Prefix, Clip).ResolveObject()));
             }
             DrawSound = Cast<USoundBase>(FSoftObjectPath(ColdSteelInventory::Text(*Item, TEXT("bow_draw_sound"))).ResolveObject());
             ReleaseSound = Cast<USoundBase>(FSoftObjectPath(ColdSteelInventory::Text(*Item, TEXT("bow_release_sound"))).ResolveObject());
             NockSound = Cast<USoundBase>(FSoftObjectPath(ColdSteelInventory::Text(*Item, TEXT("bow_nock_sound"))).ResolveObject());
             auto* Riser = Part(SlotRiser);
-            const bool bReady = bUsesArms ? (Viewmodel->GetSkeletalMeshAsset() != nullptr)
-                                          : (Riser && Riser->GetMesh() != nullptr);
+            const bool bReady = Riser && Riser->GetMesh() && (!bUsesArms ||
+                (Viewmodel->GetSkeletalMeshAsset() && Animations.FindRef(ClipIdle) && Animations.FindRef(ClipDraw)
+                 && Animations.FindRef(ClipNock) && Animations.FindRef(ClipRelease)));
+            bPresentationReady = bReady;
             Feedback = bReady ? TEXT("弓 · 左键搭箭并拉开，松手发射 · 右键稳持 · G／滚轮切换武器")
                               : TEXT("弓模型未加载完成，重新装备试试");
             FeedbackSeconds = 3.f;
-            if (bReady) SetStage(EBowStage::Equip, .35f);
+            if (bReady) SetStage(EBowStage::Equip, EquipSeconds);
         }));
 }
 
@@ -300,11 +309,18 @@ void UBowWeaponComponent::ApplyNumbers(const FColdSteelItem* Item)
 {
     auto Number = [&](const TCHAR* Key, float Default)
     { return static_cast<float>(ColdSteelInventory::Number(*Item, Key, Default)); };
-    NockSeconds = FMath::Max(.12f, Number(TEXT("nock_seconds"), .42f));
-    DrawSeconds = FMath::Max(.3f, Number(TEXT("draw_seconds"), 1.4f));
+    NockSeconds = FMath::Max(.12f, Number(TEXT("nock_seconds"), .68f));
+    const auto* Profile = GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    DrawSeconds = FMath::Max(.3f, float(ColdSteelWeaponStats::Interval(Item, Profile, Number(TEXT("draw_seconds"), 1.4f))));
     HoldSeconds = FMath::Max(0.f, Number(TEXT("hold_seconds"), 2.2f));
     ReleaseSeconds = FMath::Max(.08f, Number(TEXT("release_seconds"), .3f));
     RecoverSeconds = FMath::Max(.08f, Number(TEXT("recover_seconds"), .34f));
+    EquipSeconds = FMath::Max(.1f, Number(TEXT("equip_seconds"), .45f));
+    NockContactFraction = FMath::Clamp(Number(TEXT("nock_contact_fraction"), .82f), 0.f, 1.f);
+    DrawCurve.Reset();
+    TArray<FString> CurveText;
+    ColdSteelInventory::Text(*Item, TEXT("draw_curve")).ParseIntoArray(CurveText, TEXT(","), true);
+    for (const FString& Value : CurveText) DrawCurve.Add(FMath::Clamp(FCString::Atof(*Value), 0.f, 1.f));
     FullDamage = Number(TEXT("full_damage"), 46.f);
     MinDamageRatio = FMath::Clamp(Number(TEXT("min_damage_ratio"), .25f), 0.f, 1.f);
     FullSpeedCM = Number(TEXT("full_speed_cm"), 9800.f);
@@ -333,17 +349,10 @@ void UBowWeaponComponent::ApplyNumbers(const FColdSteelItem* Item)
     FVector Rotation;
     if (ReadVector3(Item, TEXT("bow_rotation_deg"), Rotation))
         BowRotation = FRotator(Rotation.X, Rotation.Y, Rotation.Z);
-    // 裸手臂视模的相机空间摆放：V7 Bow profile 做出来前这两个键留空，代码不猜。
+    // 原生 Bow 动画的相机空间变换；不沿用 M4 的组件旋转。
     if (ReadVector3(Item, TEXT("bow_arms_rotation_deg"), Rotation))
     {
         Viewmodel->SetRelativeRotation(FRotator(Rotation.X, Rotation.Y, Rotation.Z));
-    }
-    // 数据表没给弓梢时按实测包络推算：长度轴=局部 Z，弦平面在 +X 侧（实测 140 cm 弓的梢头连线）。
-    const float Half = LengthCM * .5f;
-    if (FMath::IsNearlyZero(UpperTipCM.Z) && FMath::IsNearlyZero(LowerTipCM.Z))
-    {
-        UpperTipCM = FVector(DepthCM * .327f, 0.f, Half);
-        LowerTipCM = FVector(DepthCM * .327f, 0.f, -Half);
     }
 }
 
@@ -388,15 +397,19 @@ FString UBowWeaponComponent::PresentationSignature(const FColdSteelItem* Item) c
 {
     FString Text = ColdSteelInventory::Text(*Item, TEXT("bow_viewmodel")) + TEXT("|")
         + ColdSteelInventory::Text(*Item, TEXT("bow_animation_prefix")) + TEXT("|")
-        + ColdSteelInventory::Text(*Item, TEXT("arrow_head_mesh")) + TEXT("|");
+        + ColdSteelInventory::Text(*Item, TEXT("arrow_head_mesh")) + TEXT("|")
+        + ColdSteelInventory::Text(*Item, TEXT("arrow_ammo")) + TEXT("|");
     for (const FName& Slot : BowSlotNames(ColdSteelInventory::Text(*Item, TEXT("bow_part_slots"))))
     {
         Text += Slot.ToString() + TEXT("=") + ColdSteelInventory::Text(*Item, *PartKey(Slot, TEXT("mesh")))
-            + TEXT("/") + ColdSteelInventory::Text(*Item, *PartKey(Slot, TEXT("material"))) + TEXT(";");
+            + TEXT("/") + ColdSteelInventory::Text(*Item, *PartKey(Slot, TEXT("material")))
+            + TEXT("/") + ColdSteelInventory::Text(*Item, *PartKey(Slot, TEXT("hide_slot"))) + TEXT(";");
     }
     // 旧平铺键也进签名：还没写部件键的表，改 `bow_mesh` 同样能触发表现代码的重载。
     Text += ColdSteelInventory::Text(*Item, TEXT("bow_mesh")) + TEXT("/")
         + ColdSteelInventory::Text(*Item, TEXT("arrow_mesh"));
+    for (const TCHAR* Key : { TEXT("bow_draw_sound"), TEXT("bow_release_sound"), TEXT("bow_nock_sound"), TEXT("bow_string_hidden_material") })
+        Text += TEXT("|") + ColdSteelInventory::Text(*Item, Key);
     return Text;
 }
 
@@ -449,6 +462,7 @@ void UBowWeaponComponent::ApplyParts(const FColdSteelItem* Item)
     ArrowRadiusCM = Number(*PartKey(SlotArrowRest, TEXT("radius_cm")), ArrowRadiusCM);
     BowScale = Number(*PartKey(SlotRiser, TEXT("scale")), BowScale);
     if (Riser) Riser->SetRelativeScale3D(FVector(BowScale));
+    for (auto& Pair : Parts) if (!SlotOrder.Contains(Pair.Key) && Pair.Value) Pair.Value->SetPartVisible(false);
     CollectPartAssets(Item);
 }
 
@@ -459,7 +473,8 @@ bool UBowWeaponComponent::CanUse() const
     const auto* PC = Cast<APlayerController>(Pawn->GetController());
     const auto* Health = Pawn->FindComponentByClass<UFPSCombatHealthComponent>();
     const auto* Building = PC ? PC->FindComponentByClass<UVoxelBuildComponent>() : nullptr;
-    return !AFPSGAMEPlayerController::BlocksOngoingActions(PC) && !Pawn->IsTraversing()
+    return bPresentationReady && !AFPSGAMEPlayerController::BlocksOngoingActions(PC) && !Pawn->IsTraversing()
+        && !Pawn->IsCastBlockingLeftHandAction()
         && (!Health || !Health->IsDead()) && (!Building || !Building->IsBuilding());
 }
 
@@ -467,7 +482,11 @@ float UBowWeaponComponent::DrawFraction() const
 {
     if (Stage == EBowStage::Holding) return 1.f;
     if (Stage != EBowStage::Drawing || Elapsed < 0.f) return 0.f;
-    return FMath::Clamp(Elapsed / FMath::Max(.0001f, DrawSeconds), 0.f, 1.f);
+    const float T = FMath::Clamp(Elapsed / FMath::Max(.0001f, DrawSeconds), 0.f, 1.f);
+    if (DrawCurve.Num() < 2) return T;
+    const float Sample = T * (DrawCurve.Num() - 1);
+    const int32 I = FMath::Min(FMath::FloorToInt(Sample), DrawCurve.Num() - 2);
+    return FMath::Lerp(DrawCurve[I], DrawCurve[I + 1], Sample - I);
 }
 
 int32 UBowWeaponComponent::ArrowsInPouch() const
@@ -476,7 +495,7 @@ int32 UBowWeaponComponent::ArrowsInPouch() const
     auto* GameInstance = World ? World->GetGameInstance() : nullptr;
     const auto* Profile = GameInstance ? GameInstance->GetSubsystem<UColdSteelStatusModel>() : nullptr;
     if (!Profile || ArrowId.IsEmpty()) return 0;
-    return static_cast<int32>(FMath::Max<int64>(0, Profile->PouchCount(ArrowId)));
+    return static_cast<int32>(FMath::Clamp<int64>(Profile->PouchCount(ArrowId), 0, MAX_int32));
 }
 
 bool UBowWeaponComponent::ConsumeArrowFromPouch(FString& Reason)
@@ -485,7 +504,7 @@ bool UBowWeaponComponent::ConsumeArrowFromPouch(FString& Reason)
     if (!Profile) return false;
     auto* Pawn = Character.Get();
     // 开发面板的"无限备弹"按弹种生效：arrow_wood 在 ammo_types.json 里允许无限，
-    // 于是搭箭不扣箭袋，与枪械换弹同一口径。
+    // 于是发射不扣箭袋，与枪械无限备弹同一口径。
     if (Pawn && Pawn->HasInfiniteReserveAmmoFor(ArrowId)) return true;
     if (Profile->PouchCount(ArrowId) > 0 && Profile->SpendAmmo(ArrowId, 1)) return true;
     // 旧存档或开发发放可能把箭记成普通物品：同一 id 再走一次物品消耗，不重复扣。
@@ -497,11 +516,17 @@ bool UBowWeaponComponent::ConsumeArrowFromPouch(FString& Reason)
 
 void UBowWeaponComponent::SetStage(EBowStage Next, float Seconds)
 {
+    if (Next == EBowStage::Drawing)
+        if (const auto* Profile = GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+            if (const auto* Item = Profile->ActiveBow())
+                DrawSeconds = FMath::Max(.3f, float(ColdSteelWeaponStats::Interval(Item, Profile,
+                    ColdSteelInventory::Number(*Item, TEXT("draw_seconds"), 1.4))));
     Stage = Next;
     StageSeconds = Seconds;
     Elapsed = 0.f;
     HoldElapsed = 0.f;
     bDrawSoundPlayed = false;
+    bNockSoundPlayed = false;
 }
 
 void UBowWeaponComponent::BeginNock()
@@ -509,14 +534,14 @@ void UBowWeaponComponent::BeginNock()
     if (!IsEquipped() || !CanUse()) return;
     if (Stage != EBowStage::Ready || bArrowNocked) return;
     if (Character.IsValid() && Character->IsCastBlockingLeftHandAction()) return;
-    FString Reason;
-    if (!ConsumeArrowFromPouch(Reason))
+    const auto* Pawn = Character.Get();
+    if (ArrowsInPouch() <= 0 && (!Pawn || !Pawn->HasInfiniteReserveAmmoFor(ArrowId)))
     {
-        ShowFeedback(Reason);
+        ShowFeedback(TEXT("箭袋里没有可用的箭"));
         return;
     }
-    bArrowNocked = true;
-    if (NockSound) UGameplayStatics::PlaySound2D(this, NockSound, .5f);
+    // Nocking is a visual reservation. Spend once at successful launch, so
+    // switching weapons, saving or interruption cannot destroy an unfired arrow.
     SetStage(EBowStage::Nocking, NockSeconds);
 }
 
@@ -543,65 +568,87 @@ void UBowWeaponComponent::BeginPrimaryAttack()
 
 void UBowWeaponComponent::ReleasePrimaryAttack()
 {
-    if (!IsEquipped()) return;
+    if (!IsEquipped() || !CanUse()) { CancelAction(); return; }
     if (Stage != EBowStage::Drawing && Stage != EBowStage::Holding) return;
-    // 只有真实输入释放才结算发射；菜单／翻越等打断走 CancelAction，不放箭。
-    LooseArrow(DrawFraction());
-    SetStage(EBowStage::Release, ReleaseSeconds);
+    // 输入释放或满拉力竭发射；菜单／翻越等打断走 CancelAction，不放箭。
+    ReleaseRatio = DrawFraction();
+    SampleArms();
+    UpdateBowGeometry();
+    ReleasedNockCM = NockPoint();
+    if (LooseArrow(ReleaseRatio)) SetStage(EBowStage::Release, ReleaseSeconds);
+    else SetStage(EBowStage::Ready, 0.f);
 }
 
 void UBowWeaponComponent::CancelAction()
 {
+    bTriggerHeld = bSteadyHeld = false;
     if (Stage == EBowStage::Stowed) return;
     if ((Stage == EBowStage::Drawing || Stage == EBowStage::Holding) && bArrowNocked)
         ShowFeedback(TEXT("收弓：箭仍在弦上"));
-    Stage = EBowStage::Stowed;
-    Elapsed = -1.f;
-    HoldElapsed = 0.f;
+    if (IsEquipped() && CanUse()) SetStage(EBowStage::Ready, 0.f);
+    else { Stage = EBowStage::Stowed; Elapsed = -1.f; HoldElapsed = 0.f; }
 }
 
 FVector UBowWeaponComponent::NockPoint() const
 {
-    // 有裸手视模时以右手骨骼为准：之后真正的拉弓手臂动画接上，弓弦与箭自己跟上。
+    // The string attaches to the finger contact marker only while held. After
+    // release it returns to brace independently of the hand's follow-through.
     auto* Riser = Part(SlotRiser);
-    if (bUsesArms && bHasRightHandBone && Viewmodel && Viewmodel->GetSkeletalMeshAsset() && Riser)
+    if (Stage == EBowStage::Release)
     {
-        const FVector Hand = Viewmodel->GetBoneTransform(FName(TEXT("hand_r")))
-            .TransformPosition(FVector::ZeroVector);
-        return Riser->GetComponentTransform().InverseTransformPosition(Hand);
+        const float T = FMath::Clamp(Elapsed / .075f, 0.f, 1.f);
+        return FMath::Lerp(ReleasedNockCM, BraceNockCM, FMath::SmoothStep(0.f, 1.f, T));
     }
+    if (!IsDrawing() && !(Stage == EBowStage::Ready && bArrowNocked)) return BraceNockCM;
+    if (bUsesArms && bHasNockMarker && Viewmodel && Viewmodel->IsVisible() && Riser)
+        return Riser->GetComponentTransform().InverseTransformPosition(Viewmodel->GetSocketLocation(TEXT("bow_nock")));
     return FMath::Lerp(BraceNockCM, DrawAnchorCM, DrawFraction());
 }
 
 FVector UBowWeaponComponent::ArrowTipPoint() const
 {
-    // 实测契约：出膛方向是局部 -X（背离弦侧、越过弓背），箭尾在弦结点上。
-    return NockPoint() + ArrowRestCM + FVector(-ArrowLengthCM, 0.f, 0.f);
+    // 箭尾落在弦结点，箭轴穿过箭台，沿弓体局部 +X 越过握把。
+    const FVector Nock = NockPoint();
+    return Nock + (ArrowRestCM - Nock).GetSafeNormal() * ArrowLengthCM;
 }
 
-void UBowWeaponComponent::LooseArrow(float Ratio)
+bool UBowWeaponComponent::LooseArrow(float Ratio)
 {
     auto* Pawn = Character.Get();
     auto* Profile = GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
-    if (!Pawn || !Camera) return;
+    if (!Pawn || !Camera || !Profile || !bArrowNocked) return false;
     const float Clamped = FMath::Clamp(Ratio, 0.f, 1.f);
-    const float Damage = FullDamage * FMath::Lerp(MinDamageRatio, 1.f, Clamped);
+    const float Cost = FMath::Max(0.f, StaminaCost * FMath::Lerp(.4f, 1.f, Clamped));
+    if (!Profile->CanSpendStamina(Cost)) { ShowFeedback(TEXT("体力不足，已收弓")); return false; }
     const float Speed = FullSpeedCM * FMath::Lerp(MinSpeedRatio, 1.f, Clamped);
-    // 出膛点取弓上的箭尖、方向取相机朝向：弹道从准星出发，箭身从弓上长出，
-    // 两条线在两米外自然收敛，这是第一人称投射物的既有口径。
+    // 从实际箭尖发射并朝准星落点收敛；近墙时另做相机到箭尖的阻挡扫掠。
     auto* Riser = Part(SlotRiser);
     auto* ArrowRest = Part(SlotArrowRest);
     const FVector Muzzle = Riser ? Riser->GetComponentTransform().TransformPosition(ArrowTipPoint())
                                  : Camera->GetComponentLocation();
-    const FRotator Direction = Camera->GetComponentRotation();
+    FHitResult AimHit;
+    const FVector CameraOrigin = Camera->GetComponentLocation();
+    const FVector FarAim = CameraOrigin + Camera->GetForwardVector() * RangeCM;
+    FCollisionQueryParams AimQuery(SCENE_QUERY_STAT(BowAim), true, Pawn);
+    const bool bHitAim = GetWorld()->LineTraceSingleByChannel(AimHit, CameraOrigin, FarAim, ECC_Visibility, AimQuery);
+    const FVector AimPoint = bHitAim ? AimHit.ImpactPoint : FarAim;
+    const FVector AimVector = AimPoint - Muzzle;
+    const FRotator Direction = (FVector::DotProduct(AimVector, Camera->GetForwardVector()) > 0.f
+        ? AimVector : Camera->GetForwardVector()).Rotation();
     FActorSpawnParameters Spawn;
     Spawn.Owner = Pawn;
     Spawn.Instigator = Pawn;
     Spawn.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     if (auto* Arrow = GetWorld()->SpawnActor<ABowArrow>(Muzzle, Direction, Spawn))
     {
+        FString Reason;
+        if (!ConsumeArrowFromPouch(Reason)) { Arrow->Destroy(); bArrowNocked = false; ShowFeedback(Reason); return false; }
         // 射击瞬间的修炼／符文快照与弹道组件同源；弓自己的暴击与破韧只在配了值时覆盖。
         FColdSteelSkillShot Shot = ColdSteelSkills::Snapshot(Pawn, Profile ? Profile->ActiveBow() : nullptr, true);
+        const auto* Item = Profile->ActiveBow();
+        const float BaseDamage = Shot.DamagePanel.Total() > 0.f ? Shot.DamagePanel.Total() : FullDamage;
+        const float Damage = BaseDamage * FMath::Lerp(MinDamageRatio, 1.f, Clamped)
+            * (Item ? Profile->AmmoDamageMultiplier(*Item) : 1.f);
         if (CriticalChance >= 0.f) Shot.CriticalChance = FMath::Max(Shot.CriticalChance, CriticalChance);
         if (ToughnessMultiplier > 0.f) Shot.ToughnessDamageMultiplier = ToughnessMultiplier;
         // 箭模取自 arrow_rest 部件：改造系统换箭台／箭杆网格，弦上与飞行中的箭一起跟着变。
@@ -609,11 +656,14 @@ void UBowWeaponComponent::LooseArrow(float Ratio)
                          ArrowRest ? ArrowRest->GetMesh() : nullptr,
                          ArrowHeadMesh ? ArrowHeadMesh.Get() : nullptr,
                          ArrowRadiusCM, ArrowLengthCM, ArrowId);
+        Arrow->ResolveLaunchObstruction(CameraOrigin);
     }
+    else return false;
     bArrowNocked = false;
     ReleaseKick = FMath::Lerp(.25f, 1.f, Clamped);
     if (ReleaseSound) UGameplayStatics::PlaySound2D(this, ReleaseSound, .6f, 1.f + .06f * Clamped);
-    if (Profile) Profile->SpendStamina(StaminaCost * FMath::Lerp(.4f, 1.f, Clamped));
+    Profile->SpendStamina(Cost);
+    return true;
 }
 
 void UBowWeaponComponent::AdvanceActionBeforeCamera(float Delta)
@@ -624,7 +674,11 @@ void UBowWeaponComponent::AdvanceActionBeforeCamera(float Delta)
         CancelAction();
         return;
     }
+    if (Stage == EBowStage::Stowed) SetStage(EBowStage::Equip, EquipSeconds);
     if (Elapsed < 0.f) return;
+    if (Character.IsValid() && Character->IsSprinting() && Stage != EBowStage::Ready && Stage != EBowStage::Equip)
+        CancelAction();
+    Viewmodel->AdvanceEntry(Delta);
     Elapsed += Delta;
     VisualTime += Delta;
     switch (Stage)
@@ -633,9 +687,15 @@ void UBowWeaponComponent::AdvanceActionBeforeCamera(float Delta)
         if (Elapsed >= StageSeconds) SetStage(EBowStage::Ready, 0.f);
         break;
     case EBowStage::Nocking:
+        if (!bNockSoundPlayed && Elapsed >= NockSeconds * NockContactFraction)
+        {
+            bNockSoundPlayed = true;
+            if (NockSound) UGameplayStatics::PlaySound2D(this, NockSound, .5f);
+        }
         // 搭箭完成：左键仍按着就顺势开始拉弓，否则停在已上弦的 Ready。
         if (Elapsed >= StageSeconds)
         {
+            bArrowNocked = true;
             SetStage(EBowStage::Ready, 0.f);
             if (bTriggerHeld) SetStage(EBowStage::Drawing, 0.f);
         }
@@ -672,7 +732,7 @@ void UBowWeaponComponent::GetCameraMotion(FVector& Location, FRotator& Rotation)
     const float Scale = FMath::Max(0.f, CVarBowSway.GetValueOnGameThread());
     const float Ratio = DrawFraction();
     // 拉弓把手上的弓往后带：位移沿相机 -X，与拉距同步；释放瞬间给一次小幅回弹。
-    const float Kick = Stage == EBowStage::Release ? ReleaseKick : 0.f;
+    const float Kick = Stage == EBowStage::Release ? ReleaseKick * FMath::Exp(-18.f * Elapsed) : 0.f;
     Location += FVector(-3.2f * Ratio + 1.6f * Kick, 0.f, 0.f) * Scale;
     Rotation.Pitch += (-.5f * Ratio + 1.1f * Kick) * Scale;
     Rotation.Roll += .8f * Ratio * Scale;
@@ -700,7 +760,15 @@ void UBowWeaponComponent::UpdateBowGeometry()
     auto* Riser = Part(SlotRiser);
     if (Riser)
     {
-        Riser->SetMount(BowLocationCM + GripTrimCM + Offset, (BowRotation + RotationOffset).Clamp(), BowScale);
+        if (bHasGripMarker && Viewmodel->IsVisible())
+        {
+            FTransform Mount = Viewmodel->GetSocketTransform(TEXT("bow_grip"), RTS_World).GetRelativeTransform(Pivot->GetComponentTransform());
+            Mount.SetScale3D(FVector(BowScale));
+            Mount.AddToTranslation(GripTrimCM + Offset);
+            Mount.SetRotation((RotationOffset.Quaternion() * Mount.GetRotation()).GetNormalized());
+            Riser->SetRelativeTransform(Mount);
+        }
+        else Riser->SetMount(BowLocationCM + GripTrimCM + Offset, (BowRotation + RotationOffset).Clamp(), BowScale);
         Riser->SetPartVisible(Riser->GetMesh() != nullptr);
     }
     const FVector Nock = NockPoint();
@@ -712,8 +780,17 @@ void UBowWeaponComponent::UpdateBowGeometry()
     }
     if (auto* ArrowRest = Part(SlotArrowRest))
     {
-        ArrowRest->SetPartVisible(bArrowNocked);
-        if (bArrowNocked) ArrowRest->StretchRod(RodFor(SlotArrowRest, 0), Nock, ArrowTipPoint(), ArrowRadiusCM);
+        const bool bTakingArrow = Stage == EBowStage::Nocking && Elapsed >= NockSeconds * .34f;
+        const bool bVisibleArrow = bArrowNocked || bTakingArrow;
+        ArrowRest->SetPartVisible(bVisibleArrow);
+        if (bVisibleArrow)
+        {
+            FVector Tail = Nock;
+            if (bTakingArrow && bHasNockMarker && Viewmodel->IsVisible() && Riser)
+                Tail = Riser->GetComponentTransform().InverseTransformPosition(Viewmodel->GetSocketLocation(TEXT("bow_nock")));
+            const FVector Tip = Tail + (ArrowRestCM - Tail).GetSafeNormal() * ArrowLengthCM;
+            ArrowRest->StretchRod(RodFor(SlotArrowRest, 0), Tail, Tip, ArrowRadiusCM);
+        }
     }
 }
 
@@ -729,6 +806,7 @@ void UBowWeaponComponent::PlayClip(const TCHAR* Name, float Position, bool bLoop
     // 否则每帧重新起播会让手臂停在片段开头。
     if (CurrentClip != Name)
     {
+        if (!CurrentClip.IsNone()) Viewmodel->CaptureEntry(Stage == EBowStage::Release ? .10f : .12f);
         Viewmodel->PlayAnimation(Sequence, false);
         Viewmodel->SetPlayRate(0.f);
         CurrentClip = Name;
@@ -739,6 +817,40 @@ void UBowWeaponComponent::PlayClip(const TCHAR* Name, float Position, bool bLoop
     Viewmodel->TickAnimation(0.f, false);
     Viewmodel->RefreshBoneTransforms();
     Viewmodel->SetVisibility(true);
+}
+
+float UBowWeaponComponent::ClipLength(const TCHAR* Name) const
+{
+    const UAnimSequence* Sequence = Animations.FindRef(FName(Name));
+    return Sequence ? Sequence->GetPlayLength() : 0.f;
+}
+
+void UBowWeaponComponent::SampleArms()
+{
+    if (!bUsesArms) { Viewmodel->SetVisibility(false); return; }
+    const auto Phase = [this](const TCHAR* Clip, float Fraction)
+    { PlayClip(Clip, FMath::Clamp(Fraction, 0.f, 1.f) * ClipLength(Clip), false); };
+    switch (Stage)
+    {
+    case EBowStage::Equip:
+        Phase(TEXT("Equip"), Elapsed / EquipSeconds); break;
+    case EBowStage::Nocking:
+        Phase(ClipNock, Elapsed / NockSeconds); break;
+    case EBowStage::Drawing:
+        Phase(ClipDraw, Elapsed / DrawSeconds); break;
+    case EBowStage::Holding:
+        if (ClipLength(ClipHold) > 0.f) PlayClip(ClipHold, HoldElapsed, true);
+        else Phase(ClipDraw, 1.f);
+        break;
+    case EBowStage::Release:
+        Phase(ClipRelease, Elapsed / (ReleaseSeconds + RecoverSeconds)); break;
+    case EBowStage::Recover:
+        Phase(ClipRelease, (ReleaseSeconds + Elapsed) / (ReleaseSeconds + RecoverSeconds)); break;
+    default:
+        if (!bArrowNocked && Character.IsValid() && Character->IsSprinting()) PlayClip(TEXT("Run"), VisualTime, true);
+        else PlayClip(bArrowNocked ? TEXT("Ready") : ClipIdle, VisualTime, true);
+        break;
+    }
 }
 
 void UBowWeaponComponent::TickComponent(float Delta, ELevelTick Type, FActorComponentTickFunction* Tick)
@@ -753,33 +865,10 @@ void UBowWeaponComponent::TickComponent(float Delta, ELevelTick Type, FActorComp
     }
     else
     {
+        // Publish this frame's arms before querying grip/nock sockets. The
+        // equip lift belongs to Equip, never to every newly entered stage.
+        SampleArms();
         UpdateBowGeometry();
-        // 手臂片段按阶段取秒：待机循环、拉弓按拉距采样（这就是"参考拉弓动作"的接法）、
-        // 搭箭与释放按阶段时钟正向播放。片段缺失时 PlayClip 自己隐藏视模。
-        if (bUsesArms)
-        {
-            const float Grow = FMath::Clamp(Elapsed / .35f, 0.f, 1.f);
-            const float Raise = 1.f - Grow;
-            switch (Stage)
-            {
-            case EBowStage::Nocking:
-                PlayClip(ClipNock, Elapsed, false);
-                break;
-            case EBowStage::Drawing:
-            case EBowStage::Holding:
-                PlayClip(ClipDraw, DrawFraction() * DrawSeconds, false);
-                break;
-            case EBowStage::Release:
-            case EBowStage::Recover:
-                PlayClip(ClipRelease, Elapsed, false);
-                break;
-            default:
-                PlayClip(ClipIdle, VisualTime, true);
-                break;
-            }
-            Viewmodel->SetRelativeLocation(FVector(0.f, 0.f, Raise * 18.f));
-        }
-        else Viewmodel->SetVisibility(false);
     }
     FeedbackSeconds = FMath::Max(0.f, FeedbackSeconds - Delta);
     HintCountdown -= Delta;
@@ -818,7 +907,7 @@ void UBowWeaponComponent::UpdateHint()
         Prompt->AddToViewport(25);
         Prompt->SetAlignmentInViewport(FVector2D(.5f, .5f));
     }
-    const bool Show = IsEquipped() && CanUse();
+    const bool Show = IsEquipped() && CanUse() && FeedbackSeconds > 0.f;
     Prompt->SetVisibility(Show ? ESlateVisibility::HitTestInvisible : ESlateVisibility::Collapsed);
     if (!Show) return;
     int32 X = 0, Y = 0;

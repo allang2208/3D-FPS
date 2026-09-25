@@ -1,3 +1,10 @@
+# Dark Bow: publish recipes/prose only. Licensed surfaces, poses, FBX/Blend,
+# imported packages, authoring output and transport receipts remain local.
+/SourceAssets/DarkBow20260925/**
+!/SourceAssets/DarkBow20260925/**/
+!/SourceAssets/DarkBow20260925/**/*.py
+!/SourceAssets/DarkBow20260925/**/*.ps1
+!/SourceAssets/DarkBow20260925/**/*.md
 # Unreal generated/local state
 # Modular outfit publication: recipes only; licensed geometry, bindings,
 # textures, source packages and local import receipts stay on this host.

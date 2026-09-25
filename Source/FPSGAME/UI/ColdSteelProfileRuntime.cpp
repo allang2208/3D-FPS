@@ -328,6 +328,7 @@ bool UColdSteelStatusModel::ReloadProfile()
         }
         if(Updated){I.Data.Empty();FJsonSerializer::Serialize(CurrentData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}
     }
+    Removed = NormalizeBowState(Clean) || Removed;
     NormalizeProductionState(Clean);
     const auto Previous=Snapshot();bPersistenceBlocked=false;
     // Commit through the checked A/B transaction; never reset the player's save.
@@ -404,8 +405,8 @@ FColdSteelItem UColdSteelStatusModel::CreateItem(const FString& Def,int64 Count)
     FColdSteelItem I;I.InstanceId=FGuid::NewGuid().ToString(EGuidFormats::Digits);I.Definition=Def;I.Count=Count;
     if(const FString* Data=Definitions.Find(Def))I.Data=*Data;
     I.LoadedAmmoType=AmmoGroupFor(I);
-    I.Magazine=IsMeleeWeapon(I)?0:Number(I,TEXT("gunsmith_base_mag"),30);
-    if(IsMeleeWeapon(I))I.Reserve=0;
+    I.Magazine=(IsMeleeWeapon(I)||IsBow(I))?0:Number(I,TEXT("gunsmith_base_mag"),30);
+    if(IsMeleeWeapon(I)||IsBow(I))I.Reserve=0;
     I.StackMax=Number(I,TEXT("maxStack"),Number(I,TEXT("stack_max"),1));
     if(Def==TEXT("reforge_ticket"))I.StackMax=9999;
     if(Text(I,TEXT("category"))==TEXT("gold"))I.StackMax=9007199254740991ll;

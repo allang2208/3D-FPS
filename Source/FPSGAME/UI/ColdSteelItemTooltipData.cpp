@@ -194,6 +194,21 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         Row(Main,bPickaxe?TEXT("采矿距离"):TEXT("伐木距离"),N(Number(O,TEXT("harvest_reach_cm"),320)/100)+TEXT(" m"));
         if(!bPickaxe)Row(Main,TEXT("伐木命中宽容半径"),N(Number(O,TEXT("harvest_sweep_radius_cm"),32))+TEXT(" cm"));
         Row(Main,TEXT("采集规则"),bPickaxe?TEXT("三次有效命中开采；伤害属性不改变采矿所需次数"):TEXT("三次有效命中砍倒；伤害属性不改变伐木所需次数"));
+    }else if(ColdSteelInventory::IsBow(I)){
+        Section(Main,TEXT("弓箭参数"));
+        const auto BowDamage=ColdSteelWeaponStats::DamageParts(I,Model,Number(O,TEXT("full_damage"),46));
+        Row(Main,TEXT("满拉武器伤害"),N(BowDamage.Total()));
+        Row(Main,TEXT("基础物理伤害"),N(BowDamage.BasePhysical));
+        if(BowDamage.AddedPhysical>0)Row(Main,TEXT("附加物理伤害"),N(BowDamage.AddedPhysical));
+        if(BowDamage.AddedMagic>0)Row(Main,TEXT("附加魔法伤害"),N(BowDamage.AddedMagic));
+        Row(Main,TEXT("拉满耗时"),N(FMath::Max(.3,ColdSteelWeaponStats::Interval(&I,Model,Number(O,TEXT("draw_seconds"),1.4))))+TEXT(" s"));
+        Row(Main,TEXT("搭箭耗时"),N(Number(O,TEXT("nock_seconds"),.68))+TEXT(" s"));
+        Row(Main,TEXT("满拉箭速"),N(Number(O,TEXT("full_speed_cm"),9800)/100)+TEXT(" m/s"));
+        Row(Main,TEXT("最大飞行距离"),N(Number(O,TEXT("range_cm"),3200)/100)+TEXT(" m"));
+        Row(Main,TEXT("满拉体力消耗"),N(Number(O,TEXT("stamina_cost"),3)));
+        if(Model){Row(Main,TEXT("箭种"),Model->AmmoLabel(Model->AmmoDefinitionFor(I)));Row(Main,TEXT("箭种效果"),Model->AmmoEffectSummary(Model->AmmoDefinitionFor(I)));}
+        Row(Main,TEXT("操作"),TEXT("左键按住搭箭、拉开，松开出箭；右键稳持；R 搭箭"));
+        Row(Main,TEXT("握持"),TEXT("双手 · 占用副手槽"));
     }else if(Weapon){Section(Main,TEXT("枪械参数"));AppendColdSteelTooltipAttackFormula(I,Model,S.Damage,Main);
         const auto DamageParts=ColdSteelWeaponStats::DamageParts(I,Model,S.Damage);
         Row(Main,TEXT("武器总伤害"),N(DamageParts.Total()));

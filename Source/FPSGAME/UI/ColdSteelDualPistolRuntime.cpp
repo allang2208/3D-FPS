@@ -20,6 +20,11 @@ bool EquippedPistol(const FColdSteelItem& Item,int32 Active)
 }
 FString UColdSteelStatusModel::AmmoDefinitionFor(const FColdSteelItem& Item) const
 {
+    if(ColdSteelInventory::IsBow(Item))
+    {
+        const FString Arrow=ColdSteelInventory::Text(Item,TEXT("arrow_ammo"));
+        return Arrow.IsEmpty()?FString(TEXT("arrow_wood")):Arrow;
+    }
     return Item.LoadedAmmoType.IsEmpty()?AmmoGroupFor(Item):Item.LoadedAmmoType;
 }
 int32 UColdSteelStatusModel::AmmoCountFor(const FColdSteelItem& Item) const

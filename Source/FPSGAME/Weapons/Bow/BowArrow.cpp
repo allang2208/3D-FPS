@@ -41,6 +41,7 @@ void ABowArrow::Configure(float InDamage, float InSpeed, float InGravityCM, floa
     AmmoId = InAmmoId;
     const float Radius = FMath::Clamp(InRadiusCM, .05f, 6.f);
     const float Length = FMath::Clamp(InLengthCM, 20.f, 200.f);
+    CollisionRadiusCM = FMath::Clamp(Radius * 1.2f, .25f, 2.f);
     Velocity = GetActorForwardVector() * Speed;
 
     // 占位箭：引擎圆柱做箭杆、引擎圆锥做箭头；两者局部 +Z 沿箭身，转 90° 俯仰对到 Actor +X。
@@ -50,19 +51,37 @@ void ABowArrow::Configure(float InDamage, float InSpeed, float InGravityCM, floa
         TEXT("/Engine/BasicShapes/Cone.Cone"));
     const float HeadLength = FMath::Min(9.f, Length * .12f);
     Shaft->SetStaticMesh(ShaftMesh);
+    if (InShaftMesh)
+    {
+        // Authored arrow includes shaft, nock, fletching and head. Actor origin
+        // is always its tip, which is also the collision/launch contact point.
+        const auto Bounds = InShaftMesh->GetBounds();
+        const bool bAlongX = Bounds.BoxExtent.X > Bounds.BoxExtent.Z;
+        const float Authored = 2.f * (bAlongX ? Bounds.BoxExtent.X : Bounds.BoxExtent.Z);
+        const float LongScale = Length / FMath::Max(.01f, Authored);
+        const FVector Scale = bAlongX ? FVector(LongScale, 1.f, 1.f) : FVector(1.f, 1.f, LongScale);
+        const FQuat Rotation = FQuat::FindBetweenNormals(bAlongX ? FVector::XAxisVector : FVector::ZAxisVector, FVector::XAxisVector);
+        Shaft->SetRelativeRotation(Rotation);
+        Shaft->SetRelativeScale3D(Scale);
+        const FVector Axis = bAlongX ? FVector::XAxisVector : FVector::ZAxisVector;
+        const FVector Centre = Axis * FVector::DotProduct(Bounds.Origin, Axis);
+        Shaft->SetRelativeLocation(FVector(-Length * .5f, 0.f, 0.f) - Rotation.RotateVector(Centre * Scale));
+        Head->SetVisibility(false);
+        return;
+    }
     Shaft->SetRelativeRotation(FRotator(90.f, 0.f, 0.f));
-    Shaft->SetRelativeLocation(FVector((Length - HeadLength) * .5f, 0.f, 0.f));
+    Shaft->SetRelativeLocation(FVector(-(Length + HeadLength) * .5f, 0.f, 0.f));
     Shaft->SetRelativeScale3D(FVector(Radius / 50.f, Radius / 50.f, (Length - HeadLength) / 100.f));
     Head->SetStaticMesh(HeadMesh);
     Head->SetRelativeRotation(FRotator(90.f, 0.f, 0.f));
-    Head->SetRelativeLocation(FVector(Length - HeadLength * .5f, 0.f, 0.f));
+    Head->SetRelativeLocation(FVector(-HeadLength * .5f, 0.f, 0.f));
     Head->SetRelativeScale3D(FVector(Radius * 2.1f / 50.f, Radius * 2.1f / 50.f, HeadLength / 100.f));
 }
 
 void ABowArrow::Tick(float Delta)
 {
     Super::Tick(Delta);
-    Delta = FMath::Clamp(Delta, 0.f, .1f);
+    Delta = FMath::Max(0.f, Delta);
     Age += Delta;
     if (bStuck)
     {
@@ -76,30 +95,31 @@ void ABowArrow::Tick(float Delta)
         return;
     }
     if (Delta <= 0.f || Velocity.IsNearlyZero()) return;
-    Velocity.Z -= GravityCM * Delta;
-    // 箭头始终指着速度方向：重力抛物线要能在屏幕上看出来。
-    SetActorRotation(Velocity.GetSafeNormal().Rotation());
-
-    float Remaining = Speed * Delta;
-    const FVector Start = GetActorLocation();
-    FVector Previous = Start;
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(BowArrow), false, GetInstigator());
+    float Remaining = FMath::Min(Delta, 8.f);
+    FVector Previous = GetActorLocation();
+    FCollisionQueryParams Query(SCENE_QUERY_STAT(BowArrow), true, GetInstigator());
     Query.AddIgnoredActor(this);
     FHitResult Hit;
     while (Remaining > KINDA_SMALL_NUMBER)
     {
-        const float Step = FMath::Min(StepCM, Remaining);
-        const FVector Next = Previous + (Velocity.GetSafeNormal() * Step);
+        const float Dt = FMath::Min3(Remaining, 1.f / 120.f, StepCM / FMath::Max(1.f, float(Velocity.Size())));
+        const FVector Acceleration(0.f, 0.f, -GravityCM);
+        FVector Displacement = Velocity * Dt + Acceleration * (.5f * Dt * Dt);
+        const float Available = FMath::Max(0.f, MaxDistanceCM - TravelledCM);
+        if (Displacement.Size() > Available) Displacement = Displacement.GetSafeNormal() * Available;
+        const FVector Next = Previous + Displacement;
+        Velocity += Acceleration * Dt;
+        SetActorRotation(Velocity.Rotation());
         const bool Blocked = GetWorld()->SweepSingleByChannel(Hit, Previous, Next, FQuat::Identity,
-            ECC_Visibility, FCollisionShape::MakeSphere(12.f), Query);
-        TravelledCM += Step;
+            ECC_Visibility, FCollisionShape::MakeSphere(CollisionRadiusCM), Query);
+        TravelledCM += Displacement.Size() * (Blocked ? Hit.Time : 1.f);
         if (Blocked)
         {
             ApplyHit(Hit);
             return;
         }
         Previous = Next;
-        Remaining -= Step;
+        Remaining -= Dt;
         if (TravelledCM >= MaxDistanceCM)
         {
             Destroy();
@@ -110,9 +130,18 @@ void ABowArrow::Tick(float Delta)
     if (TravelledCM >= MaxDistanceCM || Age > 8.f) Destroy();
 }
 
+void ABowArrow::ResolveLaunchObstruction(const FVector& CameraOrigin)
+{
+    FHitResult Hit;
+    FCollisionQueryParams Query(SCENE_QUERY_STAT(BowLaunch), true, GetInstigator());
+    Query.AddIgnoredActor(this);
+    if (GetWorld()->SweepSingleByChannel(Hit, CameraOrigin, GetActorLocation(), FQuat::Identity,
+        ECC_Visibility, FCollisionShape::MakeSphere(CollisionRadiusCM), Query)) ApplyHit(Hit);
+}
+
 void ABowArrow::ApplyHit(const FHitResult& Hit)
 {
-    SetActorLocation(Hit.Location - Hit.Normal * 2.f);
+    SetActorLocation(Hit.ImpactPoint + Velocity.GetSafeNormal() * 2.f);
     if (!bResolved)
     {
         bResolved = true;

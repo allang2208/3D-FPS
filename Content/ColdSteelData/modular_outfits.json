@@ -26,7 +26,8 @@
         "DW715_r": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/DW715_r/SK_DW715_r_FittedSleevesV1.SK_DW715_r_FittedSleevesV1",
         "M1911_l": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/M1911_l/SK_M1911_l_FittedSleevesV1.SK_M1911_l_FittedSleevesV1",
         "M1911_r": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/M1911_r/SK_M1911_r_FittedSleevesV1.SK_M1911_r_FittedSleevesV1",
-        "Traversal": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/Traversal/SK_Traversal_FittedSleevesV1.SK_Traversal_FittedSleevesV1"
+        "Traversal": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/Traversal/SK_Traversal_FittedSleevesV1.SK_Traversal_FittedSleevesV1",
+        "Bow": "/Game/Weapons/DarkBow20260925/ArmsV4/Outfits/SK_Bow_Sleeves.SK_Bow_Sleeves"
       }
     },
     "ue_field_sweater_charcoal": {
@@ -54,7 +55,8 @@
         "DW715_r": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/DW715_r/SK_DW715_r_FittedSleevesV1.SK_DW715_r_FittedSleevesV1",
         "M1911_l": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/M1911_l/SK_M1911_l_FittedSleevesV1.SK_M1911_l_FittedSleevesV1",
         "M1911_r": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/M1911_r/SK_M1911_r_FittedSleevesV1.SK_M1911_r_FittedSleevesV1",
-        "Traversal": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/Traversal/SK_Traversal_FittedSleevesV1.SK_Traversal_FittedSleevesV1"
+        "Traversal": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/Traversal/SK_Traversal_FittedSleevesV1.SK_Traversal_FittedSleevesV1",
+        "Bow": "/Game/Weapons/DarkBow20260925/ArmsV4/Outfits/SK_Bow_Sleeves.SK_Bow_Sleeves"
       }
     },
     "ue_field_gloves": {
@@ -82,7 +84,8 @@
         "DW715_r": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/DW715_r/SK_DW715_r_FittedFieldGlovesV1.SK_DW715_r_FittedFieldGlovesV1",
         "M1911_l": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/M1911_l/SK_M1911_l_FittedFieldGlovesV1.SK_M1911_l_FittedFieldGlovesV1",
         "M1911_r": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/M1911_r/SK_M1911_r_FittedFieldGlovesV1.SK_M1911_r_FittedFieldGlovesV1",
-        "Traversal": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/Traversal/SK_Traversal_FittedFieldGlovesV1.SK_Traversal_FittedFieldGlovesV1"
+        "Traversal": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/Traversal/SK_Traversal_FittedFieldGlovesV1.SK_Traversal_FittedFieldGlovesV1",
+        "Bow": "/Game/Weapons/DarkBow20260925/ArmsV4/Outfits/SK_Bow_FieldGloves.SK_Bow_FieldGloves"
       }
     },
     "ue_field_gloves_black": {
@@ -110,7 +113,8 @@
         "DW715_r": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/DW715_r/SK_DW715_r_FittedFieldGlovesV1.SK_DW715_r_FittedFieldGlovesV1",
         "M1911_l": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/M1911_l/SK_M1911_l_FittedFieldGlovesV1.SK_M1911_l_FittedFieldGlovesV1",
         "M1911_r": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/M1911_r/SK_M1911_r_FittedFieldGlovesV1.SK_M1911_r_FittedFieldGlovesV1",
-        "Traversal": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/Traversal/SK_Traversal_FittedFieldGlovesV1.SK_Traversal_FittedFieldGlovesV1"
+        "Traversal": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/Traversal/SK_Traversal_FittedFieldGlovesV1.SK_Traversal_FittedFieldGlovesV1",
+        "Bow": "/Game/Weapons/DarkBow20260925/ArmsV4/Outfits/SK_Bow_FieldGloves.SK_Bow_FieldGloves"
       }
     },
     "ue_original_gloves": {
@@ -578,6 +582,50 @@
       "native_bare_arms": true,
       "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_Traversal_OriginalGlovedArms.SK_Traversal_OriginalGlovedArms",
       "original_gloved_source": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_Traversal_GlovedSource.SK_Traversal_GlovedSource"
+    },
+    "/Game/Weapons/DarkBow20260925/ArmsV4/SK_Bow_BareArmsV7.SK_Bow_BareArmsV7": {
+      "rig_profile": "Bow",
+      "base": "/Game/Weapons/DarkBow20260925/ArmsV4/SK_Bow_BareArmsV7.SK_Bow_BareArmsV7",
+      "native_bare_skin": "/Game/Weapons/DarkBow20260925/ArmsV4/SK_Bow_BareArmsV7.SK_Bow_BareArmsV7",
+      "bare_arms_candidate": "/Game/Weapons/DarkBow20260925/ArmsV4/SK_Bow_BareArmsV7.SK_Bow_BareArmsV7",
+      "native_bare_arms": true,
+      "hide_source_materials": [
+        0,
+        1,
+        2
+      ],
+      "shirt_covers": [
+        0,
+        1
+      ],
+      "glove_covers": [
+        2
+      ],
+      "shirt": "/Game/Weapons/DarkBow20260925/ArmsV4/Outfits/SK_Bow_Sleeves.SK_Bow_Sleeves",
+      "gloves": "/Game/Weapons/DarkBow20260925/ArmsV4/Outfits/SK_Bow_FieldGloves.SK_Bow_FieldGloves",
+      "original_gloved_arms": "/Game/Weapons/DarkBow20260925/ArmsV4/Outfits/SK_Bow_OriginalGlovedArms.SK_Bow_OriginalGlovedArms"
+    },
+    "/Game/Weapons/DarkBow20260925/ContactV9/SK_Bow_BareArmsV7.SK_Bow_BareArmsV7": {
+      "rig_profile": "Bow",
+      "base": "/Game/Weapons/DarkBow20260925/ContactV9/SK_Bow_BareArmsV7.SK_Bow_BareArmsV7",
+      "native_bare_skin": "/Game/Weapons/DarkBow20260925/ContactV9/SK_Bow_BareArmsV7.SK_Bow_BareArmsV7",
+      "bare_arms_candidate": "/Game/Weapons/DarkBow20260925/ContactV9/SK_Bow_BareArmsV7.SK_Bow_BareArmsV7",
+      "native_bare_arms": true,
+      "hide_source_materials": [
+        0,
+        1,
+        2
+      ],
+      "shirt_covers": [
+        0,
+        1
+      ],
+      "glove_covers": [
+        2
+      ],
+      "shirt": "/Game/Weapons/DarkBow20260925/ArmsV4/Outfits/SK_Bow_Sleeves.SK_Bow_Sleeves",
+      "gloves": "/Game/Weapons/DarkBow20260925/ArmsV4/Outfits/SK_Bow_FieldGloves.SK_Bow_FieldGloves",
+      "original_gloved_arms": "/Game/Weapons/DarkBow20260925/ArmsV4/Outfits/SK_Bow_OriginalGlovedArms.SK_Bow_OriginalGlovedArms"
     }
   },
   "native_bare_hands_default": false

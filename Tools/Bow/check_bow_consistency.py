@@ -92,7 +92,11 @@ for definition, row in sorted(bows.items()):
         if key not in row:
             problems.append(f"{definition}: 缺少资源键 {key}（不用也要留空串）")
         elif row[key]:
-            check_asset(definition, key, str(row[key]))
+            if key == "bow_animation_prefix":
+                for clip in ("Idle", "Ready", "Equip", "Nock", "Draw", "Hold", "Release", "Run"):
+                    check_asset(definition, key + clip, str(row[key]) + clip)
+            else:
+                check_asset(definition, key, str(row[key]))
 
     slots = [s.strip() for s in str(row.get("bow_part_slots", "")).split(",") if s.strip()]
     if not slots:
@@ -118,8 +122,8 @@ for definition, row in sorted(bows.items()):
         # 纯程序化槽（有细杆、没网格）与实体槽（有网格）至少得有一个来源。
         if not rods and not row.get(f"bow_part_{slot}_mesh"):
             problems.append(f"{definition}: 槽 {slot} 既无 _rods 也无 _mesh，画不出任何东西")
-        if row.get(f"bow_part_{slot}_material") and not row.get(f"bow_part_{slot}_hide_slot"):
-            problems.append(f"{definition}: 槽 {slot} 给了替换材质却没给 bow_part_{slot}_hide_slot")
+        # Empty hide_slot selects this part's material 0. A string hide_slot is
+        # only needed for the legacy override of a separate baked-string slot.
     for required in ("riser", "string", "arrow_rest"):
         if required not in slots:
             problems.append(f"{definition}: bow_part_slots 缺 {required}（弓体／弓弦／弦上箭三件是运行前提）")

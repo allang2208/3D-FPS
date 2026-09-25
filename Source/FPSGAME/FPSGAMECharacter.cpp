@@ -816,9 +816,9 @@ void AFPSGAMECharacter::FirePressed()
         ExitSprintForWeapon();
         RuneSword->BeginPrimaryAttack();
         return;
+    }
     // 弓：左键一次按下＝弦上空先搭箭、已搭箭开始拉开；只有真实松手才结算发射。
     if(Bow&&Bow->IsEquipped()){ExitSprintForWeapon();Bow->SetTriggerHeld(true);Bow->BeginPrimaryAttack();return;}
-    }
     if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped())
     {ExitSprintForWeapon();Tools->BeginUse();return;}
     if (bUseM16)
@@ -858,7 +858,7 @@ void AFPSGAMECharacter::FireReleased()
     bBurstTriggerHeld=false;BurstShotsRemaining=0;
     if(IsDualWieldingPistols()){DualPistols->Trigger(0,false);return;}
     // 切枪／菜单这类"非真实松手"只收弓，箭留在弦上，不结算发射。
-    if(Bow&&Bow->IsDrawing()){Bow->SetTriggerHeld(false);Bow->CancelAction();}
+    if(Bow&&Bow->IsEquipped()){Bow->SetTriggerHeld(false);Bow->CancelAction();}
     if(RuneSword && RuneSword->IsEquipped())RuneSword->CancelAction();
     const double Now=GetWorld()->GetTimeSeconds();
     AdvanceVisualWeaponRecoil(Now);

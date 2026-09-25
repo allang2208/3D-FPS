@@ -27,6 +27,7 @@ public:
                    const FColdSteelSkillShot& InShot, UStaticMesh* InShaftMesh, UStaticMesh* InHeadMesh,
                    float InRadiusCM, float InLengthCM, const FString& InAmmoId);
     virtual void Tick(float Delta) override;
+    void ResolveLaunchObstruction(const FVector& CameraOrigin);
 
 private:
     /** 命中结算：一次扫掠一个目标，命中后不再重复扣血。 */
@@ -50,4 +51,5 @@ private:
     static constexpr float StepCM = 60.f;
     /** 插地／插身后停留多久再消失（秒）。 */
     static constexpr float StickSeconds = 8.f;
+    float CollisionRadiusCM = .35f;
 };

@@ -28,6 +28,8 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 
 ## 按问题读取
 
+- 弓的握把掌向、三指勾弦、掌面漏洞和左右手构图：[弓手型与弦接触](references/bow-hand-string-contact.md)。使用实际蒙皮指腹约束，保留原生绑定与共享手模边界。
+
 - 旋转技能手/肩/武器错帧、蓄势分段顿挫或入场跳姿态：[旋转技能与连续蓄势](references/spin-windup-continuity.md)。先处理相机缓存时序，再用连续曲线与实际姿态衔接；区分背景模糊和前景时域残影。
 
 - 枪械快速近战、跨枪握点、自然腕臂与结束后二次回正：[快速近战接触与收势](references/quick-melee-contact-recovery.md)。固定本枪握点，联动整枪与双手，在 recover 内完成姿态和视模锚点交接。

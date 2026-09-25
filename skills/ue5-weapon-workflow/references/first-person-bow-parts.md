@@ -1,7 +1,7 @@
-# 第一人称弓：部件表拆分与相机空间武器组件
+# 第一人称弓：部件表与相机空间组件
 
-从 2026-09-25「暗纹猎弓（Fab dark bow）第一人称接入」沉淀。案例正文与实测表在
-`Docs/Weapons/dark-bow-first-person-20260925.md`；本篇只留可复用的结构与口径，弓的具体数值不当通用标准。
+当前暗纹猎弓为 ContactV9 视模和八段动作，表现版本 9；ArmsV4 提供共享骨架／装备，ArmsV2 提供已分离弓体、箭和材质。V9 已保存，仍待用户游戏确认。
+绑定、握把掌向、指腹接触和掌面修补读 [弓手型与弦接触](../../ue5-fps-arms-animation/references/bow-hand-string-contact.md)。本案例全过程、失败原因及恢复范围见工程 `Docs/Weapons/dark-bow-publication-v9-20260925.md`；历史版本号不作为当前选择依据。
 
 ## 什么时候用这条路线
 
@@ -25,8 +25,8 @@
 拉开后必然双线。
 
 - 弦上箭与飞行中的箭共用 `arrow_rest` 的网格：换箭台件时手上与空中的箭一起变，不需要第二处登记。
-- 材质覆盖用**组件级** `SetMaterial(Index, Material)`（部件的 `SetMaterialOverride(槽名或序号, 材质)` 封装），
-  不动资产本身，因此第三人称／掉落物不受影响。这是消掉「烘进网格的弦」的唯一正确手段。
+- 材质覆盖用**组件级** `SetMaterial(Index, Material)`，空槽名表示本部件的材质 0，覆盖同时应用到细杆。
+  只有烘焙弦独占材质槽时才可隐藏整槽。本例旧弦与握把、端件共用材质，已在独立弓体副本中分离 124 个弦三角，保留原资产。
 - 数据表新增槽时组件**就地补建**（挂在 `riser` 下），不必重建武器组件——加瞄具／稳定器只加键。
 
 ## 数据键与刷新合同
@@ -41,41 +41,45 @@ bow_part_<槽名>_{mesh, material, hide_slot, rods, radius_cm, scale}
 - 换件的三步：`PartSlots()` / `FindPart(槽)` / `PartMeshPath(槽)` 查询 → 改这件物品 Data 的 `bow_part_<槽>_mesh` →
   `RefreshEquipment(Profile)`。三个查询都是 `BlueprintPure`，UI 直接可用。**不提供 `ReplacePart` 这类 C++ 变更 API**，
   避免第二处事实源。
-- 刷新走**表现签名**：`PresentationSignature()` 只看资源路径集合（各槽 mesh/material + 视模 + 动画前缀 + 箭镞 + 旧平铺键）。
+- 刷新走**表现签名**：`PresentationSignature()` 包含各槽 mesh/material/hide_slot、视模、动画前缀、箭镞、音效、箭种及旧平铺键。
   签名没变＝纯数值/参数改动，只重算数值与部件，**不重载资产、手上不闪帧**；变了才异步重载并重装。
-- 自检：`python Tools/Bow/check_bow_consistency.py`。它校验键集合与代码读取点一致、`"x,y,z"` 可解析、
+- 仅用户明确要求检查时运行 `python Tools/Bow/check_bow_consistency.py`。它校验键集合、`"x,y,z"` 可解析、
   `/Game` 路径在 `Content/` 真的落盘、槽清单齐三件且每槽键完整、纯程序化槽不能既无 `_rods` 又无 `_mesh`、
-  给了替换材质却没给 `hide_slot`、箭种是否登记在 `ammo_types.json`。口径与 `Tools/Weapons/check_attachment_consistency.py` 同源。
+  动画前缀对应的八段资产、箭种是否登记在 `ammo_types.json`。空 `hide_slot` 是合法的本槽材质覆盖，不应报错。
 
 ## 程序化几何与占位
 
 - 占位用引擎 `/Engine/BasicShapes/Cylinder`（轴向 +Z、长 100、半径 50）：拉伸时**粗细由 `_radius_cm` 决定、长度由端点决定**，
   两个自由度分开，别把半径也按长度缩放。
 - 给了正式网格时按其 `GetBounds()` 自取轴（`BoxExtent.X > BoxExtent.Z` → 轴 +X）与作者长度，**不再拉伸粗细**。
+- 只补偿长度轴上的中心；不对横向包围盒中心做平移，否则不对称尾羽会使箭杆脱离弦结点。
+- 投射物 Actor 原点在箭尖，网格沿后方展开；弦上箭与飞行箭保持同一根长轴。
 - 视模子件统一口径：`NoCollision` / 不影响导航 / 不投影 / `SetOnlyOwnerSee(true)` / 默认隐藏。
 - 挂点组件必须**先注册父挂点再建子件**，否则子件注册时拿不到有效父变换。
 
-## 参考动作的时钟口径（没有动画资产时）
+## 参考动作与原生 Bow 骨架
 
-参考包（如 Paragon Sparrow）只给**实测秒数**当节奏上界，不复制片段、不引用第三方骨架：
+片段长度只能提供节奏信息，不能代替参考动作制作。本例已提取 Sparrow 的手／肘轨迹：
 
-- 待机与拉弓的片段长度用 headless 读回记录成 `reference_*_clip_seconds`，`draw_seconds` 这类作者值必须落在实测区间内并在文档标明是作者选择。
+- `reference_*_clip_seconds` 记录原始片段时长，`draw_seconds` 是作者选择的游戏时长。拉弓的手部间距归一为 17 点 `draw_curve`；骨长与接触由 V7 裸臂的两段 IK 约束，不拉伸手臂迁就第三人称姿态。
+- 本例新建 `SK_Bow_BareArmsV7_Skeleton` 和八段 Idle／Ready／Equip／Nock／Draw／Hold／Release／Run；Sparrow 不作为运行时骨架。保留 V7 表面、权重分布与皮肤，衣袖／手套按 Bow 原生参考姿态派生。
+- 弓体挂 `bow_grip`，弦触点挂 `bow_nock`，不能以手腕原点代替指端接触点。
 - 播放合同：只 `PlayAnimation` 一次 → `SetPlayRate(0)` → 每帧 `SetPosition(秒)`（循环段 `Fmod`，单向段 `Clamp`）→
   `TickAnimation(0, false)` → `RefreshBoneTransforms()`。**每帧重新起播会让手臂停在片段开头**（与采集工具同一口径）。
-- 阶段映射：待机循环用累计视觉时钟；拉弓用 `DrawFraction() * DrawSeconds` 采样（这才是「参考拉弓动作」的正确接法）；
-  搭箭与释放按阶段时钟正向播。片段缺失时采样函数自己隐藏视模，不报错。
-- 骨架必须自有的：裸手 V7 各 profile 用的是自己的原生骨架，弓也需要一把「弓＋裸臂」骨架；
-  在那之前 `bow_viewmodel` / `bow_animation_prefix` 留空，画面就是悬空弓 + 程序化弦——**刻意不假造手**。
+- 阶段映射：按阶段时间比例乘实际片段全长。Draw 动画内部已有参考拉距曲线，不能再次用 `DrawFraction` 重映射，否则曲线重复应用。
+- 先手动采样、刷新手臂，再查询标记更新弓弦；Release 与 Recover 连续采样同一段，不在 Recover 重播开头。阶段过渡在局部骨段空间混合，保持骨长。
+- 放箭后弦独立回弹至弓档，右手继续随动；未搭箭 Idle、已搭箭 Ready、满拉 Hold 分开。
+- 动画资源加载完成前不可进入射击。异步回调核对实例及表现签名，避免旧弓回调覆盖新装备。
+- 制作完成不等于运行／视觉验收；当前 ContactV9 资产已保存，未运行游戏，由用户测试。
 
 ## UE 5.8 实测与导入要点
 
 - **不要相信文件名里的尺寸**。FBX 常按作者单位导入（本案原始包 414 cm 高，不是标称的 148 cm）；
   先量包络再按最长轴归一，并把 `import_scale`、归一后 `size_cm`、`origin_cm`、材质槽写进 `ue_import_readback.json`。
-- 静态网格的**长度轴不一定是 X**：本案长度沿局部 Z、弦在 +X 侧、薄沿 Y。锚点、出膛方向、`bow_rotation_deg` 的基准偏航
-  全部由实测轴推出来，不要照抄别的枪。文档里要写清「出膛方向是局部 -X → 相机 +X 所以基准 yaw 180」。
+- 静态网格的**长度轴不一定是 X**：本例长轴 Z，实际烘焙弦 X≈-21.46、Y≈-0.935，箭朝局部 +X，静态回落 yaw 0。保留作者握把原点；不要仅凭包络极值推断弦侧。
 - 分件诊断用 `combine_meshes=False` 逐个 section 导出再量，能区分「网格真的没弦」还是「弦烘在网格里」；
   必要时用 Fab 商店缩略图判读（`read_image`），比猜材质槽名快。
-- 弦到底烘在哪个材质槽，只能进编辑器逐个隐藏确认——这是留到编辑器的待办，不要在后台瞎填。
+- 烘焙弦可通过 GeometryScript 的网格连通性、顶点坐标和材质 ID 在后台分离；无须为此启动交互编辑器。已有编辑器时用批次互斥保存本任务资产。
 
 ### 5.8 headless Python 字段位置
 
@@ -105,9 +109,12 @@ bow_part_<槽名>_{mesh, material, hide_slot, rods, radius_cm, scale}
 ## 交付边界
 
 - Fab／第三方包：商用授权 ≠ 可再分发。原始 `.fbx` 与导入出的 `.uasset` 由 `.gitignore`（`/Content/*`、`*.fbx`、`*.log`）挡在仓库外，
-  提交的是**作者脚本 + 实测回执 + 文档里的许可表**（来源 uid、发布时间、EULA 结论）。
-- 开发期自动发放（首次进世界送一把弓 + 24 支箭）必须写进文档，并说明它只是开发便利钩子，不是正式获取途径。
+  提交作者脚本、配置、文档和归档散列元数据。含网格／骨骼／密集姿态的 JSON 及导入回执仍留在本机，不能仅因扩展名是文本就公开。
+- 开发期自动发放一把弓与 24 支箭使用同一库存事务；只有首次新建弓才发箭，不能每次箭袋空了自动补充。该钩子不是正式获取途径。
+- 搭箭只预留表现，成功发射才扣箭；打断不能吞箭。旧实例仅迁移表现字段，保留强化／战斗数值与自定义部件，清除继承的枪械弹匣数值。
+- 发射伤害、强化预览与 Tooltip 共用 DamageParts；箭种倍率／穿透在发射快照进入战斗系统。弓术攻速缩放拉满耗时，动画仍采样全段。
 - 弓不进 `FPSGAMECharacterProfile.cpp` 的枪械 definition 白名单，枪械视模因此保持隐藏、弓自己出画。
 - 弹道投射物沿用既有口径：分步推进（单步 ≤ 60 cm）+ 球形扫掠 `ECC_Visibility`，命中走 `ColdSteelSkills::ApplyHit` 唯一入口，
   再 `NotifyConfirmedWeaponHit` 出反馈；插地 8 s 并按 `Hit.BoneName` 挂到被击组件。
-- 屏幕状态行复用 `UColdSteelPickupPrompt`，不新开 HUD 部件。
+- 现有弹药 HUD 显示拉距、箭袋与搭箭状态；PickupPrompt 只留短时失败反馈。不要复制一套常驻调试状态行。
+- 该系列尚无弓臂形变、专用音效／图标、箭拾回、独立改造 UI／第三人称动作；部件接口已存在不代表这些内容已完成。

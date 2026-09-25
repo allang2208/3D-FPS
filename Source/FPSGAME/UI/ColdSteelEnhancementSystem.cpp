@@ -36,7 +36,7 @@ void UColdSteelEnhancementSystem::Initialize(FSubsystemCollectionBase& C)
 bool UColdSteelEnhancementSystem::Supports(const FColdSteelItem& I)const
 {
     if(!Ready||I.Count!=1||(I.Place!=0&&I.Place!=1))return false;
-    if(GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))return true;
+    if(ColdSteelInventory::IsBow(I)||GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))return true;
     return Num(ReadObj(CombatItemFormula::ReadOnly(I),TEXT("defense")),TEXT("perEnhance"))>0;
 }
 bool UColdSteelEnhancementSystem::CanEnchant(const FColdSteelItem& I,const FColdSteelEnchantOption& O)const
@@ -45,7 +45,7 @@ bool UColdSteelEnhancementSystem::CanEnchant(const FColdSteelItem& I,const FCold
     return O.Restriction==TEXT("firearm")||O.Restriction==TEXT("weapon");
 }
 const FColdSteelEnchantOption* UColdSteelEnhancementSystem::Scroll(const FString& Id)const{return Options.FindByPredicate([&](const auto& O){return O.Id==Id;});}
-int32 UColdSteelEnhancementSystem::MaxLevel(const FColdSteelItem& I)const{return GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition)?WeaponMax:ArmorMax;}
+int32 UColdSteelEnhancementSystem::MaxLevel(const FColdSteelItem& I)const{return (ColdSteelInventory::IsBow(I)||GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))?WeaponMax:ArmorMax;}
 double UColdSteelEnhancementSystem::Effect(const FColdSteelItem& I,const TCHAR* Key,double Default)const
 {
     const auto Data=ColdSteelItemData::Read(I.Data);
@@ -93,7 +93,13 @@ double UColdSteelEnhancementSystem::ProcessedDamage(const FColdSteelItem& I,doub
         Result=P->AdditionalWeaponDamage(I,Result);
         return CoreCombatFormula::Round(Result*(1+Effect(I,TEXT("damagePercent"))));
     }
-    return (Base*(1+L*Increase)+Attack)*(1+FMath::Clamp(Effect(I,TEXT("damagePercent")),0.,10.));
+    double Result=Base*(1+L*Increase)+Attack;
+    if(ColdSteelInventory::IsBow(I))
+    {
+        Result=CoreCombatFormula::Round(Result*(1+CraftEffect(I,TEXT("damagePercent"))));
+        Result=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AdditionalWeaponDamage(I,Result);
+    }
+    return Result*(1+FMath::Clamp(Effect(I,TEXT("damagePercent")),0.,10.));
 }
 double UColdSteelEnhancementSystem::Defense(const FColdSteelItem& I)const
 {

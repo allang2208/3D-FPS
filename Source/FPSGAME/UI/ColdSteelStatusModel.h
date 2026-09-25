@@ -395,6 +395,7 @@ private:
     void RefreshDrops();
     // 弓目录与生产工具同一口径：Content/ColdSteelData/bows.json 按 definition 合并进 Definitions。
     void LoadBowDefinitions();
+    bool NormalizeBowState(FColdSteelProfile& State) const;
     void LoadProductionDefinitions();
     void NormalizeProductionState(FColdSteelProfile& State) const;
     bool StageProductionDrops(FColdSteelProfile& State,const FProductionResource& Target,TArray<FString>& Ids);

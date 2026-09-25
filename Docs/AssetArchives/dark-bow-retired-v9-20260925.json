@@ -1,0 +1,1402 @@
+[
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV2/A_Bow_Draw.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV2/A_Bow_Draw.uasset",
+    "size": 342805,
+    "sha256": "0b7189730b34b1770f411d4f2b5bc799f899851643506691100b2e1c59dc5d24",
+    "reason": "Rejected V2 arm rig; active static parts/materials retained",
+    "replacement": "ContactV9 mesh/actions; ArmsV4 Skeleton/outfits"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV2/A_Bow_Equip.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV2/A_Bow_Equip.uasset",
+    "size": 153349,
+    "sha256": "4dacab517cc613e5e01d4cacb8fef65fc30e80108c9095f8f8051a7a5d78b678",
+    "reason": "Rejected V2 arm rig; active static parts/materials retained",
+    "replacement": "ContactV9 mesh/actions; ArmsV4 Skeleton/outfits"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV2/A_Bow_Hold.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV2/A_Bow_Hold.uasset",
+    "size": 72412,
+    "sha256": "692853a7ca7186a08b7b26547ce0bff1c8f1e1e1d2e4d758bfd545717581d592",
+    "reason": "Rejected V2 arm rig; active static parts/materials retained",
+    "replacement": "ContactV9 mesh/actions; ArmsV4 Skeleton/outfits"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV2/A_Bow_Idle.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV2/A_Bow_Idle.uasset",
+    "size": 427142,
+    "sha256": "d1dff8f595f2137572d30b7b1e9a034b89f5f803cd636372c8e0e4f1bdb48eac",
+    "reason": "Rejected V2 arm rig; active static parts/materials retained",
+    "replacement": "ContactV9 mesh/actions; ArmsV4 Skeleton/outfits"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV2/A_Bow_Nock.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV2/A_Bow_Nock.uasset",
+    "size": 247738,
+    "sha256": "b87cbad65f1ca88e28c69046b86e447b17bcd07b4cf78d866171814d2842bc60",
+    "reason": "Rejected V2 arm rig; active static parts/materials retained",
+    "replacement": "ContactV9 mesh/actions; ArmsV4 Skeleton/outfits"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV2/A_Bow_Ready.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV2/A_Bow_Ready.uasset",
+    "size": 427140,
+    "sha256": "8e8582ec0890c84fb4b5bf819b012220697c3bee00ad5e1fc89da92871c182f0",
+    "reason": "Rejected V2 arm rig; active static parts/materials retained",
+    "replacement": "ContactV9 mesh/actions; ArmsV4 Skeleton/outfits"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV2/A_Bow_Release.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV2/A_Bow_Release.uasset",
+    "size": 324537,
+    "sha256": "443360abf56ccc89c79f8ddf2ffecbdff68ff6227933abd9c6b00b887dc61023",
+    "reason": "Rejected V2 arm rig; active static parts/materials retained",
+    "replacement": "ContactV9 mesh/actions; ArmsV4 Skeleton/outfits"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV2/A_Bow_Run.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV2/A_Bow_Run.uasset",
+    "size": 215177,
+    "sha256": "90fb0fff29c768af5d530b82721227b8e65f18f98f98798b89f7f4a807abfa9b",
+    "reason": "Rejected V2 arm rig; active static parts/materials retained",
+    "replacement": "ContactV9 mesh/actions; ArmsV4 Skeleton/outfits"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV2/Outfits/SK_Bow_FieldGloves.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV2/Outfits/SK_Bow_FieldGloves.uasset",
+    "size": 3244928,
+    "sha256": "a25280cb7f998979dfe735c0ba5fbf628f75ae5be521989f68fa8ec14c965c8e",
+    "reason": "Rejected V2 arm rig; active static parts/materials retained",
+    "replacement": "ContactV9 mesh/actions; ArmsV4 Skeleton/outfits"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV2/Outfits/SK_Bow_OriginalGlovedArms.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV2/Outfits/SK_Bow_OriginalGlovedArms.uasset",
+    "size": 5020907,
+    "sha256": "321da5e6361bfd5d2c2cb1ee5f53c031e0874a00fd8a634dc04a178694673cec",
+    "reason": "Rejected V2 arm rig; active static parts/materials retained",
+    "replacement": "ContactV9 mesh/actions; ArmsV4 Skeleton/outfits"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV2/Outfits/SK_Bow_Sleeves.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV2/Outfits/SK_Bow_Sleeves.uasset",
+    "size": 2385274,
+    "sha256": "0ab5c84f98e9e6b7e414037c537908f6d2d88c2dcf1898f9498745da9eab6cb2",
+    "reason": "Rejected V2 arm rig; active static parts/materials retained",
+    "replacement": "ContactV9 mesh/actions; ArmsV4 Skeleton/outfits"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV2/SK_Bow_BareArmsV7.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV2/SK_Bow_BareArmsV7.uasset",
+    "size": 5553671,
+    "sha256": "1375a89308f6aa5cfb177cbc8b1d4afc39e031b8d324204d0bc6f36dc81047c5",
+    "reason": "Rejected V2 arm rig; active static parts/materials retained",
+    "replacement": "ContactV9 mesh/actions; ArmsV4 Skeleton/outfits"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV2/SK_Bow_BareArmsV7_Skeleton.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV2/SK_Bow_BareArmsV7_Skeleton.uasset",
+    "size": 21576,
+    "sha256": "17a69c16707343bc5b75a151df921a552f7c6b7231cbf04f5ce5f0822513c54f",
+    "reason": "Rejected V2 arm rig; active static parts/materials retained",
+    "replacement": "ContactV9 mesh/actions; ArmsV4 Skeleton/outfits"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV3/A_Bow_Draw.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV3/A_Bow_Draw.uasset",
+    "size": 209207,
+    "sha256": "165013fbf26fcd463ba1c97f6838d64997fd875097f993e553c9f6682fd0df77",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV3/A_Bow_Equip.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV3/A_Bow_Equip.uasset",
+    "size": 109176,
+    "sha256": "af87504282f0dfe3f70ee97d8809c8a2b0941558255fcda387f997957e3c683c",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV3/A_Bow_Hold.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV3/A_Bow_Hold.uasset",
+    "size": 73999,
+    "sha256": "5d15b836aad4872dabae4a97d1749345684350b25498ed5363befc7ea8733cf7",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV3/A_Bow_Idle.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV3/A_Bow_Idle.uasset",
+    "size": 228212,
+    "sha256": "94cf5e3370afe35db560be1ec9e06cc01e8c2b3c4378472d87138d1664b02e45",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV3/A_Bow_Nock.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV3/A_Bow_Nock.uasset",
+    "size": 214798,
+    "sha256": "c0acb2218684fbd338d0f5b4decdb4c6b13680160725ba248cc2e5d9914954ae",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV3/A_Bow_Ready.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV3/A_Bow_Ready.uasset",
+    "size": 228211,
+    "sha256": "06f486eb3f6a4fe8398c9ace8ffbe230019cf16f1e966c769bbb0da253319340",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV3/A_Bow_Release.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV3/A_Bow_Release.uasset",
+    "size": 261239,
+    "sha256": "3fe50479cf78ac70a3c088eeb68d480a24a53b832130d18acbad35895447adba",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV3/A_Bow_Run.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV3/A_Bow_Run.uasset",
+    "size": 139203,
+    "sha256": "000524701431ff0fe93becad85c6e47a02737944103fa2d008c3ff28ad16623e",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV3/Outfits/SK_Bow_FieldGloves.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV3/Outfits/SK_Bow_FieldGloves.uasset",
+    "size": 3245247,
+    "sha256": "67780ec1d3b12d2538de42185b8daee9d0859384e29a94eafdd57e55b323b253",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV3/Outfits/SK_Bow_OriginalGlovedArms.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV3/Outfits/SK_Bow_OriginalGlovedArms.uasset",
+    "size": 5021340,
+    "sha256": "6ca2d378ea7c7e1fee1b079e2d84cb3a7541ab2bf2d5f50f63c5f5f0b64f6e3d",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV3/Outfits/SK_Bow_Sleeves.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV3/Outfits/SK_Bow_Sleeves.uasset",
+    "size": 2385605,
+    "sha256": "e397636f1bcd51a7908bfafd9ca8ce8bda6e78fa965e137eee6e8047de7478ec",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV3/SK_Bow_BareArmsV7.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV3/SK_Bow_BareArmsV7.uasset",
+    "size": 5551865,
+    "sha256": "25ef10ce28ae59d3b0549354e55857aa38a56c7b7f373ce42f16fc6effe2e8a3",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/ArmsV3/SK_Bow_BareArmsV7_Skeleton.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/ArmsV3/SK_Bow_BareArmsV7_Skeleton.uasset",
+    "size": 20565,
+    "sha256": "974902622628c915d278cdbd6c9d2422914e6ec52dc208d707c562d3863a1266",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/FramingV6/A_Bow_Draw.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/FramingV6/A_Bow_Draw.uasset",
+    "size": 186033,
+    "sha256": "2a02acbce687969548da737d61b137b2f7b774eb325f57f5dd78e72e030efe82",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/FramingV6/A_Bow_Equip.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/FramingV6/A_Bow_Equip.uasset",
+    "size": 91905,
+    "sha256": "de28c70308fc2951457403a9d4630e57bce760b0d0d2663e898f708d9f61624d",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/FramingV6/A_Bow_Hold.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/FramingV6/A_Bow_Hold.uasset",
+    "size": 72443,
+    "sha256": "b4d73117f74f04dc2998a68f5c56a4cc40f19f6bef44c0b2267efbba2ca5e7cf",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/FramingV6/A_Bow_Idle.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/FramingV6/A_Bow_Idle.uasset",
+    "size": 195951,
+    "sha256": "539bfc88d84214973b05ea46855336d14f93c68831ae7aefd71aa69f26fcbfc0",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/FramingV6/A_Bow_Nock.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/FramingV6/A_Bow_Nock.uasset",
+    "size": 215961,
+    "sha256": "563ee272cd847437afff6219ee5ab766ff198a45cba295921cdd7c4585629e1f",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/FramingV6/A_Bow_Ready.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/FramingV6/A_Bow_Ready.uasset",
+    "size": 195956,
+    "sha256": "ba9ebe6b164924977b636ad90591d3459164afef798a180dd0c50c78eebbeb47",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/FramingV6/A_Bow_Release.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/FramingV6/A_Bow_Release.uasset",
+    "size": 234698,
+    "sha256": "8406da00618a01a9c9227c81383469f8eafc7bf0245ece1b1bdf6b46e75c19be",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/FramingV6/A_Bow_Run.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/FramingV6/A_Bow_Run.uasset",
+    "size": 131490,
+    "sha256": "e007679078038db60a5a327f94d7bdf6959c0563606039dcc8aeddaee30810e7",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/GripV5/A_Bow_Draw.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/GripV5/A_Bow_Draw.uasset",
+    "size": 164372,
+    "sha256": "4a9a7ec3b496ae12aaa59c501819f5403bc6c5ebdf4710f4b1da4178f6bde1f7",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/GripV5/A_Bow_Equip.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/GripV5/A_Bow_Equip.uasset",
+    "size": 100603,
+    "sha256": "7860ee233264884b41dc0f073eeb5ba08347e013f6587eb8907e9a4237067338",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/GripV5/A_Bow_Hold.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/GripV5/A_Bow_Hold.uasset",
+    "size": 72447,
+    "sha256": "5717e42495f58f078fa500cd67db7e3b8f7ee9f4379f42fdf2d7e3dca76ea637",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/GripV5/A_Bow_Idle.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/GripV5/A_Bow_Idle.uasset",
+    "size": 195847,
+    "sha256": "4cf12f031d2c317323e2f9621866bd25ad5bab29f77fac6570d0e67771f71d28",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/GripV5/A_Bow_Nock.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/GripV5/A_Bow_Nock.uasset",
+    "size": 213289,
+    "sha256": "c35ca9b1336558c3e71c73087d160185041318a56aa6a16a4b51a9e67bec2037",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/GripV5/A_Bow_Ready.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/GripV5/A_Bow_Ready.uasset",
+    "size": 195818,
+    "sha256": "8125e09d4b101bca0cb7bf5fa7f8135d2aeada1fef8e8782fa5a312d2e4f0512",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/GripV5/A_Bow_Release.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/GripV5/A_Bow_Release.uasset",
+    "size": 232208,
+    "sha256": "a9750c8f5a141e12517c19d56963162df278d50eba43c2a211cc9ca24efe99ac",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/GripV5/A_Bow_Run.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/GripV5/A_Bow_Run.uasset",
+    "size": 122141,
+    "sha256": "c480fcb62962517bac1bf1e30847d1cc02afe4744f037ed0998c13271ad315c3",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/RightDrawV7/A_Bow_Draw.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/RightDrawV7/A_Bow_Draw.uasset",
+    "size": 207690,
+    "sha256": "47cc6211cea3e95d5128933451439ecc6546fe7738b75e094643c069acd8fc14",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/RightDrawV7/A_Bow_Equip.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/RightDrawV7/A_Bow_Equip.uasset",
+    "size": 91905,
+    "sha256": "cc69d9e51ccf69ccb393344e30415003196bc989a7e11b67406a7e78c339c209",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/RightDrawV7/A_Bow_Hold.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/RightDrawV7/A_Bow_Hold.uasset",
+    "size": 72492,
+    "sha256": "937d2ad1f0721b10afe53d12e162899162ef8118a3490d4b77613759416f3503",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/RightDrawV7/A_Bow_Idle.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/RightDrawV7/A_Bow_Idle.uasset",
+    "size": 195941,
+    "sha256": "b6d3913658f09e737fda1f79b62232468d0d55e7bc6555fbee82af5d65317b46",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/RightDrawV7/A_Bow_Nock.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/RightDrawV7/A_Bow_Nock.uasset",
+    "size": 215966,
+    "sha256": "88957e83725c89d8def7b94a0eaf910f2b959b87f7a0f7ac4fb3a05d1fa1614a",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/RightDrawV7/A_Bow_Ready.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/RightDrawV7/A_Bow_Ready.uasset",
+    "size": 195951,
+    "sha256": "01af5c2275402d66d22b92ab79a92e15954be07a4e77aa1f7192ef0049253a43",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/RightDrawV7/A_Bow_Release.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/RightDrawV7/A_Bow_Release.uasset",
+    "size": 252205,
+    "sha256": "7e3a65a1485c5c8fd6b9f37c5ab713045a4ca00a33567b1a7338cba811463251",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/RightDrawV7/A_Bow_Run.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/RightDrawV7/A_Bow_Run.uasset",
+    "size": 131491,
+    "sha256": "6d7835e78168221c9776e48fd0bef9490cdabc8ecfda31791dfa9802c86fa88a",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/RightHandV8/A_Bow_Draw.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/RightHandV8/A_Bow_Draw.uasset",
+    "size": 207694,
+    "sha256": "d6f2c96bd96211455a777e3269b359d1b9617dcff62d838ef3ccdfc37de03c73",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/RightHandV8/A_Bow_Equip.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/RightHandV8/A_Bow_Equip.uasset",
+    "size": 91886,
+    "sha256": "bd994183e15399aca4ed1fd6e61e59044a97e95efa052c46968a21b73e53ccc2",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/RightHandV8/A_Bow_Hold.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/RightHandV8/A_Bow_Hold.uasset",
+    "size": 72486,
+    "sha256": "d8440379d5dce76132b9cf73769febd15894a89de841f6491a1fcd704c85a7d9",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/RightHandV8/A_Bow_Idle.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/RightHandV8/A_Bow_Idle.uasset",
+    "size": 195924,
+    "sha256": "4667d490aa7f6ff6ae9c5c3a0fff5a53c66215ede7ca03227cfc800279b48fea",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/RightHandV8/A_Bow_Nock.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/RightHandV8/A_Bow_Nock.uasset",
+    "size": 215964,
+    "sha256": "82924bdf55682dced75f8085f54cdf0de1904d95e9830c220406d8b8ecd59748",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/RightHandV8/A_Bow_Ready.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/RightHandV8/A_Bow_Ready.uasset",
+    "size": 195939,
+    "sha256": "583c4874e47b7771d2e297dc4dfdff709918bd7db1fe0f0fd1e41304f161ff2c",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/RightHandV8/A_Bow_Release.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/RightHandV8/A_Bow_Release.uasset",
+    "size": 244710,
+    "sha256": "8aba2e68fd9c962ed4f8c7490cd094680eafb37e7280fadb52d20579ab308f7e",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "Content/Weapons/DarkBow20260925/RightHandV8/A_Bow_Run.uasset",
+    "destination": "trash/dark-bow-retired-v9-20260925/Content/Weapons/DarkBow20260925/RightHandV8/A_Bow_Run.uasset",
+    "size": 131489,
+    "sha256": "883eea8d79c66c10b0cfe83aa42cc9b389decd98b74247d1a26768a3c80daa94",
+    "reason": "Retired imported candidate; no active config reference",
+    "replacement": "Content/Weapons/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/author_actions.log",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/author_actions.log",
+    "size": 1973,
+    "sha256": "c159827553650906d218c11abed7454297471c42911b19e821673becbf198061",
+    "reason": "Retired intermediate log; final build and import receipts retained",
+    "replacement": "ArmsV2/native_build_retry.log; ContactV9/import_receipt.json"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/author_actions.py",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/author_actions.py",
+    "size": 12728,
+    "sha256": "44f00c7356071229c271a190cbfadf2454e0533eeae74cc83337d918b15a5926",
+    "reason": "Rejected V2 rig or obsolete operational helper",
+    "replacement": "ContactV9; ArmsV4 binding; ArmsV2/import_parts.py"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/author_actions_contacts.log",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/author_actions_contacts.log",
+    "size": 1973,
+    "sha256": "29b69167f3d06e00f3601dfcea0c11b1fb5369885a3e20dd6ccc58ac113470e6",
+    "reason": "Retired intermediate log; final build and import receipts retained",
+    "replacement": "ArmsV2/native_build_retry.log; ContactV9/import_receipt.json"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/bind_outfits.log",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/bind_outfits.log",
+    "size": 1062,
+    "sha256": "b6a0783202bbd8303b70d3a75512eca4666ecf61474308e54de2b5799cb7e900",
+    "reason": "Retired intermediate log; final build and import receipts retained",
+    "replacement": "ArmsV2/native_build_retry.log; ContactV9/import_receipt.json"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/bind_outfits.py",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/bind_outfits.py",
+    "size": 5129,
+    "sha256": "addfea58f5304906ea8c29397b9909661164f93c8623700517a7728ae440d536",
+    "reason": "Rejected V2 rig or obsolete operational helper",
+    "replacement": "ContactV9; ArmsV4 binding; ArmsV2/import_parts.py"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/bind_outfits_2.log",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/bind_outfits_2.log",
+    "size": 659,
+    "sha256": "82755bb5272752055e9a1e145f30ff5c2434c588278b1a40d42c6101b47ed3af",
+    "reason": "Retired intermediate log; final build and import receipts retained",
+    "replacement": "ArmsV2/native_build_retry.log; ContactV9/import_receipt.json"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/bind_outfits_3.log",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/bind_outfits_3.log",
+    "size": 129,
+    "sha256": "3546a71a5caa9e2859f72f880c1bd7f9561717a5255d75751cce6dc37b022ce9",
+    "reason": "Retired intermediate log; final build and import receipts retained",
+    "replacement": "ArmsV2/native_build_retry.log; ContactV9/import_receipt.json"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/Bow_BareArmsV7_Actions.blend",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/Bow_BareArmsV7_Actions.blend",
+    "size": 6933090,
+    "sha256": "5c83060f45501afb746ae6a1c5eab193cc468baccf705ec7b923fefc86040692",
+    "reason": "Rejected V2 rig or obsolete operational helper",
+    "replacement": "ContactV9; ArmsV4 binding; ArmsV2/import_parts.py"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/end_play.log",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/end_play.log",
+    "size": 121,
+    "sha256": "903e9890daf724252827f10bd7278cfb1dd0a29c9c60b80aa5b3abfee9d19013",
+    "reason": "Retired intermediate log; final build and import receipts retained",
+    "replacement": "ArmsV2/native_build_retry.log; ContactV9/import_receipt.json"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/end_play_for_import.py",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/end_play_for_import.py",
+    "size": 211,
+    "sha256": "9945a61858759931cd98ae5984a57440829a800cbc315b089ace356cabdd1a24",
+    "reason": "Rejected V2 rig or obsolete operational helper",
+    "replacement": "ContactV9; ArmsV4 binding; ArmsV2/import_parts.py"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/Export/A_Bow_Draw.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/Export/A_Bow_Draw.fbx",
+    "size": 1041516,
+    "sha256": "393c9a65a2627b88944253cb4e8cd005fc4c9e0c487985469dfff1ba3b90e2cf",
+    "reason": "Rejected V2 rig or obsolete operational helper",
+    "replacement": "ContactV9; ArmsV4 binding; ArmsV2/import_parts.py"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/Export/A_Bow_Equip.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/Export/A_Bow_Equip.fbx",
+    "size": 630316,
+    "sha256": "3ec776b190852ffc3d6533ac888f14476ccc8a037bb790d61bf7aa62b8113699",
+    "reason": "Rejected V2 rig or obsolete operational helper",
+    "replacement": "ContactV9; ArmsV4 binding; ArmsV2/import_parts.py"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/Export/A_Bow_Hold.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/Export/A_Bow_Hold.fbx",
+    "size": 1141660,
+    "sha256": "58243e91048bb854bcccab4f721374c9a754cc9a5e0f3b2751f48f140be66264",
+    "reason": "Rejected V2 rig or obsolete operational helper",
+    "replacement": "ContactV9; ArmsV4 binding; ArmsV2/import_parts.py"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/Export/A_Bow_Idle.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/Export/A_Bow_Idle.fbx",
+    "size": 1281644,
+    "sha256": "877359023bd46039a4748dcad3b0c4cf5d2d920a34e43866b4558b48d7d04182",
+    "reason": "Rejected V2 rig or obsolete operational helper",
+    "replacement": "ContactV9; ArmsV4 binding; ArmsV2/import_parts.py"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/Export/A_Bow_Nock.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/Export/A_Bow_Nock.fbx",
+    "size": 712364,
+    "sha256": "ebe7fbc79594e8e2c9c606a3e84c0868b7eda5301e304cf636526443c6c61273",
+    "reason": "Rejected V2 rig or obsolete operational helper",
+    "replacement": "ContactV9; ArmsV4 binding; ArmsV2/import_parts.py"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/Export/A_Bow_Ready.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/Export/A_Bow_Ready.fbx",
+    "size": 1278316,
+    "sha256": "51be8e4a0d1f5ad8fc84574ac2ccc645354f6dd9224a4eb9f65555640ce746f0",
+    "reason": "Rejected V2 rig or obsolete operational helper",
+    "replacement": "ContactV9; ArmsV4 binding; ArmsV2/import_parts.py"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/Export/A_Bow_Release.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/Export/A_Bow_Release.fbx",
+    "size": 715532,
+    "sha256": "0efac9afcd51ced7631ba49270b5ac303d91062e93bcfb3ff8a6a9d901e6239c",
+    "reason": "Rejected V2 rig or obsolete operational helper",
+    "replacement": "ContactV9; ArmsV4 binding; ArmsV2/import_parts.py"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/Export/A_Bow_Run.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/Export/A_Bow_Run.fbx",
+    "size": 781692,
+    "sha256": "738a5dfe0667cf8f6277152b33404bc0d3ea06f9cbd6b4c343eefb22cb850ad3",
+    "reason": "Rejected V2 rig or obsolete operational helper",
+    "replacement": "ContactV9; ArmsV4 binding; ArmsV2/import_parts.py"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/Export/SK_Bow_BareArmsV7.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/Export/SK_Bow_BareArmsV7.fbx",
+    "size": 6886236,
+    "sha256": "7b0cf2a7aa662266aa1be6da805fd5d340920d4fa5ccac80208724711d09c6af",
+    "reason": "Rejected V2 rig or obsolete operational helper",
+    "replacement": "ContactV9; ArmsV4 binding; ArmsV2/import_parts.py"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/export_inputs.log",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/export_inputs.log",
+    "size": 475,
+    "sha256": "d296301a7465cadba1af848e0b013f8d9604b76236dfbf873bf5262c89633467",
+    "reason": "Retired intermediate log; final build and import receipts retained",
+    "replacement": "ArmsV2/native_build_retry.log; ContactV9/import_receipt.json"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/export_inputs_2.log",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/export_inputs_2.log",
+    "size": 175,
+    "sha256": "e33e8c20ae45db7adb03915f8e50bfcfc96d561de302dd812daeccd353b090bf",
+    "reason": "Retired intermediate log; final build and import receipts retained",
+    "replacement": "ArmsV2/native_build_retry.log; ContactV9/import_receipt.json"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/import_assets.log",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/import_assets.log",
+    "size": 507,
+    "sha256": "f946bb2f3ab52335451bd6ddb360d24a2aebe1a9a4cb842d2408280d98981559",
+    "reason": "Retired intermediate log; final build and import receipts retained",
+    "replacement": "ArmsV2/native_build_retry.log; ContactV9/import_receipt.json"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/import_assets.py",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/import_assets.py",
+    "size": 7627,
+    "sha256": "0f9ee8405076bfd602e2a309be35e4eb660f401b553a947c1933b5fb64fca513",
+    "reason": "Rejected V2 rig or obsolete operational helper",
+    "replacement": "ContactV9; ArmsV4 binding; ArmsV2/import_parts.py"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/import_assets_2.log",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/import_assets_2.log",
+    "size": 913,
+    "sha256": "4d573be99840163742b7cd14ab10aab0f223f24b734cc2f87b8f92e74727425a",
+    "reason": "Retired intermediate log; final build and import receipts retained",
+    "replacement": "ArmsV2/native_build_retry.log; ContactV9/import_receipt.json"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/import_assets_3.log",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/import_assets_3.log",
+    "size": 532,
+    "sha256": "a4899069c7f63d6eb84a437cd1497bb11bd49e9536504a26b4cc39dbe3ed3c16",
+    "reason": "Retired intermediate log; final build and import receipts retained",
+    "replacement": "ArmsV2/native_build_retry.log; ContactV9/import_receipt.json"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/import_assets_4.log",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/import_assets_4.log",
+    "size": 914,
+    "sha256": "e672af5799fc6eaba31cc64a1bebc9fbb192b176aea33c196dae7755bab4f0e4",
+    "reason": "Retired intermediate log; final build and import receipts retained",
+    "replacement": "ArmsV2/native_build_retry.log; ContactV9/import_receipt.json"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/import_assets_5.log",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/import_assets_5.log",
+    "size": 114,
+    "sha256": "aa096457ca647bba53c7be61f5a3b496caea4c0a5e8aace1c44ccc10d8e2cc8c",
+    "reason": "Retired intermediate log; final build and import receipts retained",
+    "replacement": "ArmsV2/native_build_retry.log; ContactV9/import_receipt.json"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/import_basis.log",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/import_basis.log",
+    "size": 114,
+    "sha256": "79bdfcfcccba0e62bb327ca7e17ec8ddb17b79eff2ce36939f7b57f222bf5522",
+    "reason": "Retired intermediate log; final build and import receipts retained",
+    "replacement": "ArmsV2/native_build_retry.log; ContactV9/import_receipt.json"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/native_build.log",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/native_build.log",
+    "size": 22749,
+    "sha256": "7f3baee06d931e321fe1f5d95591ae9b1ff9eac561d6b562b173fd7aff868320",
+    "reason": "Retired intermediate log; final build and import receipts retained",
+    "replacement": "ArmsV2/native_build_retry.log; ContactV9/import_receipt.json"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/prepare_native_build.py",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/prepare_native_build.py",
+    "size": 666,
+    "sha256": "e1abb1ad347a0e635c301166df9dc04158a9d65313f53eeb4e507e5d9d295225",
+    "reason": "Rejected V2 rig or obsolete operational helper",
+    "replacement": "ContactV9; ArmsV4 binding; ArmsV2/import_parts.py"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/read_author_cause.py",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/read_author_cause.py",
+    "size": 539,
+    "sha256": "60d828afd15bbae2cc1ffd9e566fd7fb87f9135adc9b1c1a839d169dfc83a365",
+    "reason": "Rejected V2 rig or obsolete operational helper",
+    "replacement": "ContactV9; ArmsV4 binding; ArmsV2/import_parts.py"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/read_import_basis.py",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/read_import_basis.py",
+    "size": 1106,
+    "sha256": "9e98f9ae6953e1c7eca7f5eabb1da975d94a1696f6081fb15acddbcf999f9376",
+    "reason": "Rejected V2 rig or obsolete operational helper",
+    "replacement": "ContactV9; ArmsV4 binding; ArmsV2/import_parts.py"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/read_skin_cause.py",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/read_skin_cause.py",
+    "size": 1747,
+    "sha256": "43b5bc6e27d0234cd0f67935ac9f0ba453be033cfba30471218201761d8b88b9",
+    "reason": "Rejected V2 rig or obsolete operational helper",
+    "replacement": "ContactV9; ArmsV4 binding; ArmsV2/import_parts.py"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/resume_mesh.log",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/resume_mesh.log",
+    "size": 632,
+    "sha256": "d8d4fcb5baa2c8aa1089fdb06b1abf698fc81b7850dcf729c916493f53a5fdca",
+    "reason": "Retired intermediate log; final build and import receipts retained",
+    "replacement": "ArmsV2/native_build_retry.log; ContactV9/import_receipt.json"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/resume_mesh_2.log",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/resume_mesh_2.log",
+    "size": 114,
+    "sha256": "2704a41abe025a9e00fde344636eca8f917fcdde0dfce3e6e57f940666174a47",
+    "reason": "Retired intermediate log; final build and import receipts retained",
+    "replacement": "ArmsV2/native_build_retry.log; ContactV9/import_receipt.json"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV2/resume_mesh_save.py",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV2/resume_mesh_save.py",
+    "size": 665,
+    "sha256": "f1b828c72bf49f56633ef0b14562b20a8f96271142cead0f887773c9ca38e0d7",
+    "reason": "Rejected V2 rig or obsolete operational helper",
+    "replacement": "ContactV9; ArmsV4 binding; ArmsV2/import_parts.py"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV3/author_actions.py",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV3/author_actions.py",
+    "size": 14096,
+    "sha256": "bd2047e11f04224a7f7bc46513379996bb8fc4a85971fa67e12166e67cb15195",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV3/authoring.json",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV3/authoring.json",
+    "size": 998,
+    "sha256": "8360f3ce4145b39ee2f3bf3d8e8256eec20c404bce12604d821ee3b2a61c259f",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV3/bind_outfits.py",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV3/bind_outfits.py",
+    "size": 5196,
+    "sha256": "6adeafcda5051d02362071ed8ab9a362399d857fc44954849c6f07707ba8c4ef",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV3/Bow_BareArmsV7_Actions.blend",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV3/Bow_BareArmsV7_Actions.blend",
+    "size": 6747484,
+    "sha256": "b985aec31dc2e77d015d5da109a1a91819d2224a2bbab76eb49716aa99aaaa8f",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV3/Export/A_Bow_Draw.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV3/Export/A_Bow_Draw.fbx",
+    "size": 1035516,
+    "sha256": "ca713af76594ca0591666fef93ce313dce0a55d519618da10ca6c3b75a1820f7",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV3/Export/A_Bow_Equip.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV3/Export/A_Bow_Equip.fbx",
+    "size": 628460,
+    "sha256": "935e34c4dbfc17045b77d521c2153c7156e217567205ffac7dbcaf854bb0559c",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV3/Export/A_Bow_Hold.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV3/Export/A_Bow_Hold.fbx",
+    "size": 1141660,
+    "sha256": "3dc1c3f4f846c1d0a6787f545a35ae03c20600dc82b41f2b695008d0797c5026",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV3/Export/A_Bow_Idle.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV3/Export/A_Bow_Idle.fbx",
+    "size": 1275404,
+    "sha256": "1411d89b77d84d4fd48d131b618efd45c3d7919320107595c933822818dfcb8a",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV3/Export/A_Bow_Nock.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV3/Export/A_Bow_Nock.fbx",
+    "size": 710732,
+    "sha256": "e19b3e0e7aba0c464c6561d51959d0f1f92a39f1f4bf28f69644cce6f60c0ffa",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV3/Export/A_Bow_Ready.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV3/Export/A_Bow_Ready.fbx",
+    "size": 1271564,
+    "sha256": "c309e60dc1d4c9ae18c74daaf6e346d42689bf6ca3c671d4a59dc9dfb86b231b",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV3/Export/A_Bow_Release.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV3/Export/A_Bow_Release.fbx",
+    "size": 713180,
+    "sha256": "8ae88f047e7a22a92691f0559b5f1a61b1a56e8278889080c9a2b1291e545f53",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV3/Export/A_Bow_Run.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV3/Export/A_Bow_Run.fbx",
+    "size": 779596,
+    "sha256": "a1c0a43cf1fa982b6b8403d8f015ff661b2eca266a288cda4ee70ee54b44a48f",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV3/Export/SK_Bow_BareArmsV7.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV3/Export/SK_Bow_BareArmsV7.fbx",
+    "size": 7214380,
+    "sha256": "6f88b94bcee85e95e7457142eb17632849e17c398e3b4c25e252d649605a4b1e",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV3/import_assets.py",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV3/import_assets.py",
+    "size": 5120,
+    "sha256": "ab627a0ff0306f73c2e99acdd62fd32a1cb63f79c12b1688452b37c9cb10b8ac",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV3/import_bridge.txt",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV3/import_bridge.txt",
+    "size": 124,
+    "sha256": "6d16d65a51cb851cab5838e4213b26c22dceb8e92ad1f9c926438c5f5e7c2560",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV3/import_receipt.json",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV3/import_receipt.json",
+    "size": 941,
+    "sha256": "4c44723d6b4dc3ecda878f47776e23c8c7d5655cc013982218c4e8ec1388882c",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV3/imported_reference.json",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV3/imported_reference.json",
+    "size": 19278,
+    "sha256": "05f8ace5dbd75e1f7849a9bdadefc9fed2b2b74d3b308cb971a35e7273bfa9fe",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV3/outfit_receipt.json",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV3/outfit_receipt.json",
+    "size": 377,
+    "sha256": "60386ea25b61253373c1bb9390516c88187d7c74e22e97f3f456975924962f7b",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV3/outfits_bridge.txt",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV3/outfits_bridge.txt",
+    "size": 129,
+    "sha256": "812a95236aa30c240ccec322b2be3b3dfe82a3b8819b247a90522b0219a74208",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV3/prepare_import.py",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV3/prepare_import.py",
+    "size": 235,
+    "sha256": "d44e85cb337d3984f39fc17b6ce509fec81f188ef82ec3e3bdf6bd7e34035f9f",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV3/prepare_import_bridge.txt",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV3/prepare_import_bridge.txt",
+    "size": 120,
+    "sha256": "c0d1d93c7943167713ea9ce33db0daf336b38e7c02ee188c009e062e4b58ab7d",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/ArmsV3/read_bind_basis.py",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/ArmsV3/read_bind_basis.py",
+    "size": 614,
+    "sha256": "923aa1e6883945e60342ec29db013bb09e18275b994e0f17d5945f0ebc73308c",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/FramingV6/author_actions.py",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/FramingV6/author_actions.py",
+    "size": 16203,
+    "sha256": "7d9cfcdfa68634bdc7fd3d3c893cfe9c96ec3503aa852872d101a972027d2acf",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/FramingV6/authoring.json",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/FramingV6/authoring.json",
+    "size": 1598,
+    "sha256": "6dc488fede6242c9aa4a57c31144df4c67954e9df7ffbbc8e9df18f65766ce21",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/FramingV6/authoring.log",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/FramingV6/authoring.log",
+    "size": 1801,
+    "sha256": "199d2ec1673d4c1d7302ca29b1fbf469fc31d95b1963554ae564c4620ecf942a",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/FramingV6/Bow_BareArmsV7_Actions.blend",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/FramingV6/Bow_BareArmsV7_Actions.blend",
+    "size": 7077319,
+    "sha256": "3ea55179b2a0b185b9dd9382fe7b530ae5c269be4f267c6031e5c583e4153bed",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/FramingV6/Export/A_Bow_Draw.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/FramingV6/Export/A_Bow_Draw.fbx",
+    "size": 1039148,
+    "sha256": "be01a55b1b6b83539cf8ccc0019bcc5a6dee83be4bb4a2eef23f577ca34fe036",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/FramingV6/Export/A_Bow_Equip.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/FramingV6/Export/A_Bow_Equip.fbx",
+    "size": 610796,
+    "sha256": "6930717a509d219da5bf0756d76936d9c160328396ddd6c706de96bfeec56d63",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/FramingV6/Export/A_Bow_Hold.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/FramingV6/Export/A_Bow_Hold.fbx",
+    "size": 1141644,
+    "sha256": "adfa7b07fa286716134cee9f7e1690561123e909030f8f126a1a12ca6b848e02",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/FramingV6/Export/A_Bow_Idle.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/FramingV6/Export/A_Bow_Idle.fbx",
+    "size": 1282444,
+    "sha256": "216028e57a27b58855bb75c090c152f6e33fa09808e22ec2dd136180668ea00a",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/FramingV6/Export/A_Bow_Nock.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/FramingV6/Export/A_Bow_Nock.fbx",
+    "size": 709948,
+    "sha256": "99962f4a5a4d1f5ee558308916c21559a246e675db4d2e40bd2ab38c9df4c8b2",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/FramingV6/Export/A_Bow_Ready.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/FramingV6/Export/A_Bow_Ready.fbx",
+    "size": 1282444,
+    "sha256": "d480e788078bbd5dd83432d21ab669f7fa6a5f58d34a71396b889c52b2250055",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/FramingV6/Export/A_Bow_Release.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/FramingV6/Export/A_Bow_Release.fbx",
+    "size": 714652,
+    "sha256": "763a116890cd595b382a59b500da5c635cc0a9bdd9d359180da4fa41ad823652",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/FramingV6/Export/A_Bow_Run.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/FramingV6/Export/A_Bow_Run.fbx",
+    "size": 770156,
+    "sha256": "3df2f4f901916d241681aff260ba57b279d26d1f95a516b04bbe3371fd88123d",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/FramingV6/import_animations.py",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/FramingV6/import_animations.py",
+    "size": 2287,
+    "sha256": "64f1109d3010be0a5f6dbe2eeaaac5c205a992718b6105f9a7b9ea2493429aae",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/FramingV6/import_bridge.txt",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/FramingV6/import_bridge.txt",
+    "size": 125,
+    "sha256": "2da5a4515c3806b53e195afbb6a007054a9b2ba7cf07c23d8ab47bf41c9a4c50",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/FramingV6/import_receipt.json",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/FramingV6/import_receipt.json",
+    "size": 734,
+    "sha256": "0021162f899f8eb1511ff9cd04be3f23ceb558d16ec8782d9910ee10242bf349",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/GripV5/author_actions.py",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/GripV5/author_actions.py",
+    "size": 15183,
+    "sha256": "ede79e4e96a546cbc7770c54621518b23946c875ae2640823c85a27e4aa7654d",
+    "reason": "V5 action output superseded; grasp inputs retained",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/GripV5/authoring.json",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/GripV5/authoring.json",
+    "size": 988,
+    "sha256": "34091174d0244395441b84e4e138e9c528067e73097c3856490706821668d2d9",
+    "reason": "V5 action output superseded; grasp inputs retained",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/GripV5/Bow_BareArmsV7_Actions.blend",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/GripV5/Bow_BareArmsV7_Actions.blend",
+    "size": 7123091,
+    "sha256": "c8f8e02136fb6c672986536cbe6cd03bf97c4d154140ff1f05aaa3b502efd051",
+    "reason": "V5 action output superseded; grasp inputs retained",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/GripV5/Export/A_Bow_Draw.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/GripV5/Export/A_Bow_Draw.fbx",
+    "size": 1039468,
+    "sha256": "4885566f8b210eb406bdfdea2f2f2f4e0d55018731e1baf1b9bdf089c84ad284",
+    "reason": "V5 animation exports superseded",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9/Export"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/GripV5/Export/A_Bow_Equip.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/GripV5/Export/A_Bow_Equip.fbx",
+    "size": 630156,
+    "sha256": "3e1072a256c2edc9efd5ef1f635a12b9ddb3ffc393a90951afca143762e78aaa",
+    "reason": "V5 animation exports superseded",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9/Export"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/GripV5/Export/A_Bow_Hold.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/GripV5/Export/A_Bow_Hold.fbx",
+    "size": 1141644,
+    "sha256": "37e9978aa53cc2d4982739945f89bea7ff74169963cb6ec5fa8c1469df05ada6",
+    "reason": "V5 animation exports superseded",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9/Export"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/GripV5/Export/A_Bow_Idle.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/GripV5/Export/A_Bow_Idle.fbx",
+    "size": 1283004,
+    "sha256": "8152335b7dadd97b789d66b3015f7020d145349e0c7b2459256905c094c86d67",
+    "reason": "V5 animation exports superseded",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9/Export"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/GripV5/Export/A_Bow_Nock.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/GripV5/Export/A_Bow_Nock.fbx",
+    "size": 709884,
+    "sha256": "c1db79b6ee94c3e8f763d0f6bb98ba333fd330ac7ae4e2443d492025807ab746",
+    "reason": "V5 animation exports superseded",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9/Export"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/GripV5/Export/A_Bow_Ready.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/GripV5/Export/A_Bow_Ready.fbx",
+    "size": 1279708,
+    "sha256": "da4a94f2850f5b0762b0d416273278fc1d94caec1b42bd9eb64c9d7688599066",
+    "reason": "V5 animation exports superseded",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9/Export"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/GripV5/Export/A_Bow_Release.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/GripV5/Export/A_Bow_Release.fbx",
+    "size": 714460,
+    "sha256": "7baf2363df8628c172604d86aa0b908067f21f540784242ddb1cd26686459ca4",
+    "reason": "V5 animation exports superseded",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9/Export"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/GripV5/Export/A_Bow_Run.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/GripV5/Export/A_Bow_Run.fbx",
+    "size": 780764,
+    "sha256": "aba21b5b005d506a97388cbe52cb3fd7bf6f65a8162c867d970e80cc37a8bb07",
+    "reason": "V5 animation exports superseded",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9/Export"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/GripV5/import_animations.py",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/GripV5/import_animations.py",
+    "size": 2278,
+    "sha256": "cb9ec133f58dbc34ff122470cdc157a986730388fe7c3cf38799246f738b040c",
+    "reason": "V5 action output superseded; grasp inputs retained",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/GripV5/import_bridge.txt",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/GripV5/import_bridge.txt",
+    "size": 122,
+    "sha256": "0991f6ee890875e1787ed17d77a4926b87db53ba7559fbcf2b5d383571728e5c",
+    "reason": "V5 action output superseded; grasp inputs retained",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/GripV5/import_receipt.json",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/GripV5/import_receipt.json",
+    "size": 710,
+    "sha256": "8567b2fc0f483dac6646ca2639693a02cb912c162a2343796f4c8678a469ccc2",
+    "reason": "V5 action output superseded; grasp inputs retained",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightDrawV7/author_actions.py",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightDrawV7/author_actions.py",
+    "size": 17656,
+    "sha256": "a8ef2b329a9cce8ddee497a3066f62aa257ef1ba5217c2a771efa2c3aa9a5a18",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightDrawV7/authoring.json",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightDrawV7/authoring.json",
+    "size": 2054,
+    "sha256": "56fe62d0b2043ea02fc55d7bf3b9462709461b75dc8d1daaa7853ae682fc29a0",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightDrawV7/authoring.log",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightDrawV7/authoring.log",
+    "size": 1817,
+    "sha256": "aecaf83344c5025715c84f2f30ed0418a16a758915cec6249fc32d5d9185a137",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightDrawV7/Bow_BareArmsV7_Actions.blend",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightDrawV7/Bow_BareArmsV7_Actions.blend",
+    "size": 7248363,
+    "sha256": "60acde6c80f0da482c22991909d82c4aed0913aa1290d9574ce3dd9153dccddd",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightDrawV7/Export/A_Bow_Draw.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightDrawV7/Export/A_Bow_Draw.fbx",
+    "size": 1048316,
+    "sha256": "bb21327605faac2b4127d0d226f198c5d50d477d9955f3e3afc92ed4d14cc94b",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightDrawV7/Export/A_Bow_Equip.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightDrawV7/Export/A_Bow_Equip.fbx",
+    "size": 610860,
+    "sha256": "1716bb8df4ef6f067caf2772b1384da0ed8cfde45ab508fbc0bcb8af086e7bc7",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightDrawV7/Export/A_Bow_Hold.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightDrawV7/Export/A_Bow_Hold.fbx",
+    "size": 1141644,
+    "sha256": "d1af2eb4c776d7b65e9284f3acbdbdfa0b6efd4685518c5a57be0cb9716d96c9",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightDrawV7/Export/A_Bow_Idle.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightDrawV7/Export/A_Bow_Idle.fbx",
+    "size": 1283084,
+    "sha256": "2d913470b18b387e3590d599d1803c169e32d9c50108dd5f9eb3aeae4bbf152a",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightDrawV7/Export/A_Bow_Nock.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightDrawV7/Export/A_Bow_Nock.fbx",
+    "size": 710012,
+    "sha256": "54b5193b3b8fcfd189ed72e02bbcb2a6e865ba3767417a9fe7f6bc523b4fa370",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightDrawV7/Export/A_Bow_Ready.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightDrawV7/Export/A_Bow_Ready.fbx",
+    "size": 1283084,
+    "sha256": "2dbfe322a2568d9e75f78f56c7a16d7d55e50da2d3f3a67eee91d47fec8446fb",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightDrawV7/Export/A_Bow_Release.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightDrawV7/Export/A_Bow_Release.fbx",
+    "size": 717836,
+    "sha256": "bef849d675b06b39c135440abed9b705569002155326944b64f1427587b8a3ab",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightDrawV7/Export/A_Bow_Run.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightDrawV7/Export/A_Bow_Run.fbx",
+    "size": 770508,
+    "sha256": "527f8836a6270b98870f95a9f240ad453ea56ac41423090fec94343cde00cf8d",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightDrawV7/import_animations.py",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightDrawV7/import_animations.py",
+    "size": 2292,
+    "sha256": "2eb926f024cafbf60c6f74f3f61811e821f9688f04fb193ec917566cbde9454a",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightDrawV7/import_bridge.txt",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightDrawV7/import_bridge.txt",
+    "size": 128,
+    "sha256": "6374c0f62a9ae3b341a7f715b2404e922524ff3f475ceaa8ab7ca38c2ec78274",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightDrawV7/import_receipt.json",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightDrawV7/import_receipt.json",
+    "size": 750,
+    "sha256": "b99641c3c8e49d9555b928267977e38f9de3f78d842b1cb9142517241a28ab76",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightHandV8/author_actions.py",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightHandV8/author_actions.py",
+    "size": 20110,
+    "sha256": "fbdf1265bb7d98b4a890365ad13d75f256b32c52765b52b12ddd877d1635c9be",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightHandV8/authoring.json",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightHandV8/authoring.json",
+    "size": 4514,
+    "sha256": "713ac0efe1904d8118716354e3f074552bd20d6625a5445881a01451ed8272fa",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightHandV8/authoring.log",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightHandV8/authoring.log",
+    "size": 1817,
+    "sha256": "90a85dae7c3a9d4fe07fbefb38d29952579c3d56ae20344069340c82b3691cba",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightHandV8/Bow_BareArmsV7_Actions.blend",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightHandV8/Bow_BareArmsV7_Actions.blend",
+    "size": 7280572,
+    "sha256": "313f6d5ce7e1ba801512c48a834415cbf2193895954d9cd34fcea74577a4e93d",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightHandV8/Export/A_Bow_Draw.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightHandV8/Export/A_Bow_Draw.fbx",
+    "size": 1048252,
+    "sha256": "13b62c867cdf947e4fae0091c2a1962ddf6f6d5fab867b7802bf0299e5bc14bb",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightHandV8/Export/A_Bow_Equip.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightHandV8/Export/A_Bow_Equip.fbx",
+    "size": 610860,
+    "sha256": "e13a7d002d1d35b8e7bedf7d5e8d43b1a794449d4485d5a807b1f2d85ae33c76",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightHandV8/Export/A_Bow_Hold.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightHandV8/Export/A_Bow_Hold.fbx",
+    "size": 1141644,
+    "sha256": "5179b5a9cf59026fbadcb8b8578d4c1234967a0b75cc075c947e69240e1c6373",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightHandV8/Export/A_Bow_Idle.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightHandV8/Export/A_Bow_Idle.fbx",
+    "size": 1280780,
+    "sha256": "c7939b972b15dc561a92c683fd86c2b2225233c8daccb8f8a9d42a43fc793f11",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightHandV8/Export/A_Bow_Nock.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightHandV8/Export/A_Bow_Nock.fbx",
+    "size": 710620,
+    "sha256": "08bc068d0379e7dc9ec1cebb6f5d9a24de69959d43d49a8ffb19e2ef29b18ef9",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightHandV8/Export/A_Bow_Ready.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightHandV8/Export/A_Bow_Ready.fbx",
+    "size": 1280780,
+    "sha256": "8e379c6bbbbf0598e142a9a4a10aba5d41b30f86ce8d121bf143940602567753",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightHandV8/Export/A_Bow_Release.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightHandV8/Export/A_Bow_Release.fbx",
+    "size": 719292,
+    "sha256": "83c23e4881a55ecf1fb6aed8db06ea5d7708352f8c91dd5a55b8d3eb3cd7027f",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightHandV8/Export/A_Bow_Run.fbx",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightHandV8/Export/A_Bow_Run.fbx",
+    "size": 770188,
+    "sha256": "71ac07d32631e1ef0fdb8df6ade80a4d381bb5d21b8fdaec452c87d3618f988c",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightHandV8/import_animations.py",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightHandV8/import_animations.py",
+    "size": 2292,
+    "sha256": "fd602125807b39c37532817c7f0c8ffbc4c7c7bcad5a98b72bbfc9fa5fb573e9",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightHandV8/import_bridge.txt",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightHandV8/import_bridge.txt",
+    "size": 128,
+    "sha256": "f4487c41798708af675f3927d6ea8c14f7fca44d0aefde32af029a595f2ed133",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  },
+  {
+    "source": "SourceAssets/DarkBow20260925/RightHandV8/import_receipt.json",
+    "destination": "trash/dark-bow-retired-v9-20260925/SourceAssets/DarkBow20260925/RightHandV8/import_receipt.json",
+    "size": 750,
+    "sha256": "2e0ab8a288463b7700f134ba0d93397a606c3db4e4bd6ff455dd94aba62c3da9",
+    "reason": "Superseded Bow candidate and intermediates",
+    "replacement": "SourceAssets/DarkBow20260925/ContactV9; ArmsV4 binding retained"
+  }
+]

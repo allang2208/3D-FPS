@@ -338,6 +338,8 @@ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelIt
                 Shot.ArmorPenetration=FMath::Clamp(Shot.ArmorPenetration+float(Melee.Modifiers.PhysicalArmorPenetration),0.f,1.f);
                 Shot.ToughnessDamageMultiplier=Melee.Modifiers.ToughnessDamage;
             }
+            else if(ColdSteelInventory::IsBow(*I))
+                Shot.DamagePanel=ColdSteelWeaponStats::DamageParts(*I,M,ColdSteelInventory::Number(*I,TEXT("full_damage"),46));
             else if(const auto* G=Shooter->GetGameInstance()->GetSubsystem<UGunsmithSystem>();G&&G->Weapon(I->Definition))
                 Shot.DamagePanel=ColdSteelWeaponStats::DamageParts(*I,M,G->Calculate(I->Definition,G->Installed(*I)).Damage);
         }

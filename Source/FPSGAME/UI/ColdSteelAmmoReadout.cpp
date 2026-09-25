@@ -4,6 +4,7 @@
 #include "../Weapons/WeaponStatEvaluation.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/PistolDualWieldComponent.h"
+#include "../Weapons/Bow/BowWeaponComponent.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/Border.h"
 #include "Components/HorizontalBox.h"
@@ -173,6 +174,21 @@ void UColdSteelAmmoReadout::Refresh(const AFPSGAMECharacter* Character,const UCo
 {
     if(!Current)return;SetVisibility(MenuOpen?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
     const auto* Item=Model?Model->Equipped():nullptr;
+    const auto* Bow=Character?Character->FindComponentByClass<UBowWeaponComponent>():nullptr;
+    if(Item&&Model&&Bow&&Bow->IsEquipped()&&!Model->ActiveProductionTool()&&ColdSteelInventory::IsBow(*Item))
+    {
+        auto Set=[](UTextBlock* Block,const FString& Value){if(Block->GetText().ToString()!=Value)Block->SetText(FText::FromString(Value));};
+        SetReserveStatusText(false);SetDualVisible(false);
+        Set(Weapon,ColdSteelInventory::Text(*Item,TEXT("name")));
+        Set(Calibre,Model->AmmoLabel(Bow->ArrowDefinition())+(Bow->HasArrowNocked()?TEXT(" · 已搭箭"):TEXT(" · 未搭箭")));
+        Set(MagazineLabel,TEXT("拉距"));Set(ReserveLabel,TEXT("箭袋"));
+        Set(Current,FString::Printf(TEXT("%.0f%%"),Bow->DrawFraction()*100.f));
+        const bool Infinite=Character->HasInfiniteReserveAmmoFor(Bow->ArrowDefinition());
+        Set(Spare,Infinite?TEXT("∞"):FString::Printf(TEXT("%lld"),Model->PouchCount(Bow->ArrowDefinition())));
+        Current->SetColorAndOpacity(Bow->IsDrawing()?ColdSteelUI::Accent:ColdSteelUI::TextPrimary);
+        Spare->SetColorAndOpacity(!Infinite&&Bow->ArrowsInPouch()==0?ColdSteelUI::Warning:ColdSteelUI::TextSecondary);
+        return;
+    }
     if(Item&&Model&&!Model->ActiveProductionTool()&&Item->Definition==TEXT("ue_rune_sword"))
     {
         PresentMelee(*Item,*Model,Character);return;
