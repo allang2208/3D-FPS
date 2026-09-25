@@ -193,4 +193,10 @@ X 的两个极值是 `-25.69`（弓背最深）与 `+12.54`；网格自身原点
   部件槽是否齐三件且每槽键完整、资产是否真在盘上、箭种是否登记在 ammo_types.json。
 - 真实运行验收：**未做**（按项目规则由用户测试）。§4 的朝向判定、锚点数值、节奏手感均为
   实测包络 + 参考片段推导，**未实测未测试**；没有裸手视模，画面是悬空弓 + 程序化弦。
-- 未提交：本轮只落盘，不 `git add`；Fab 原始 FBX 与导入 uasset 的提交边界按 AGENTS.md 资产规则处理。
+- 发布：本轮以提交 `1acd00c2`「Add first-person Dark Bow with a data-driven bow part table」推送
+  `https://github.com/allang2208/3D-FPS.git` 的 `main`（31 个文件，+2965/-2）。并行会话的未发布改动
+  按 hunk 排除在外（角色跳跃／蹲伏视模、地牢存档、生产工具收获签名等仍留在工作区未提交）。
+- 资产提交边界：Fab 原始 `dark_bow.fbx`、导入出的 `SK_DarkBow.uasset` 与三段材质 MIC、headless 运行日志
+  都由 `.gitignore`（`/Content/*`、`*.fbx`、`*.log`）挡在仓库外，入库的只有作者脚本、实测回执与本文件的许可表。
+- 退役：首次制作尝试与两个一次性 API 探针脚本移入 `trash/dark-bow-superseded-scripts-20260925/`，
+  清单与 SHA-256 见该目录 `manifest.json` 与 `README.md`（`trash/` 不入仓库）。
