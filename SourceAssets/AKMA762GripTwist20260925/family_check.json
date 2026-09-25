@@ -1,0 +1,1092 @@
+[
+ {
+  "clip": "AKM/standard/base/reload",
+  "family": "base",
+  "gun": "AKM",
+  "proxy": [
+   [
+    "AKM_FactoryMagazine_Preview",
+    200.0
+   ]
+  ],
+  "library_fallback": false,
+  "vis_len_mm": 65.2,
+  "vis_vs_rest_pct": 102.7,
+  "angle_to_mag_deg": 15.7,
+  "rise_mm": 56.2,
+  "along_mag_mm": 62.8,
+  "axis_vs_base_deg": null,
+  "clear": {
+   "thumb_01_l": {
+    "min": -0.54,
+    "p05": 0.6,
+    "med": 20.87
+   },
+   "thumb_02_l": {
+    "min": 8.16,
+    "p05": 10.42,
+    "med": 24.66
+   },
+   "thumb_03_l": {
+    "min": 3.43,
+    "p05": 6.64,
+    "med": 19.43
+   }
+  }
+ },
+ {
+  "clip": "AKM/extended/base/reload",
+  "family": "base",
+  "gun": "AKM",
+  "proxy": [
+   [
+    "AKM_FactoryMagazine_Preview",
+    200.0
+   ]
+  ],
+  "library_fallback": false,
+  "vis_len_mm": 65.2,
+  "vis_vs_rest_pct": 102.7,
+  "angle_to_mag_deg": 15.7,
+  "rise_mm": 56.2,
+  "along_mag_mm": 62.8,
+  "axis_vs_base_deg": null,
+  "clear": {
+   "thumb_01_l": {
+    "min": -0.54,
+    "p05": 0.6,
+    "med": 20.87
+   },
+   "thumb_02_l": {
+    "min": 8.16,
+    "p05": 10.42,
+    "med": 24.66
+   },
+   "thumb_03_l": {
+    "min": 3.43,
+    "p05": 6.64,
+    "med": 19.43
+   }
+  }
+ },
+ {
+  "clip": "AKM/standard/base/reload_empty",
+  "family": "base",
+  "gun": "AKM",
+  "proxy": [
+   [
+    "AKM_FactoryMagazine_Preview",
+    199.7
+   ]
+  ],
+  "library_fallback": false,
+  "vis_len_mm": 65.2,
+  "vis_vs_rest_pct": 102.7,
+  "angle_to_mag_deg": 15.7,
+  "rise_mm": 56.0,
+  "along_mag_mm": 62.8,
+  "axis_vs_base_deg": null,
+  "clear": {
+   "thumb_01_l": {
+    "min": -0.54,
+    "p05": 0.6,
+    "med": 20.87
+   },
+   "thumb_02_l": {
+    "min": 8.16,
+    "p05": 10.42,
+    "med": 24.66
+   },
+   "thumb_03_l": {
+    "min": 3.43,
+    "p05": 6.64,
+    "med": 19.43
+   }
+  }
+ },
+ {
+  "clip": "AKM/extended/base/reload_empty",
+  "family": "base",
+  "gun": "AKM",
+  "proxy": [
+   [
+    "AKM_FactoryMagazine_Preview",
+    199.7
+   ]
+  ],
+  "library_fallback": false,
+  "vis_len_mm": 65.2,
+  "vis_vs_rest_pct": 102.7,
+  "angle_to_mag_deg": 15.7,
+  "rise_mm": 56.0,
+  "along_mag_mm": 62.8,
+  "axis_vs_base_deg": null,
+  "clear": {
+   "thumb_01_l": {
+    "min": -0.54,
+    "p05": 0.6,
+    "med": 20.87
+   },
+   "thumb_02_l": {
+    "min": 8.16,
+    "p05": 10.42,
+    "med": 24.66
+   },
+   "thumb_03_l": {
+    "min": 3.43,
+    "p05": 6.64,
+    "med": 19.44
+   }
+  }
+ },
+ {
+  "clip": "AKM/standard/angled/reload",
+  "family": "angled",
+  "gun": "AKM",
+  "proxy": [
+   [
+    "AKM_FactoryMagazine_Preview",
+    200.0
+   ]
+  ],
+  "library_fallback": false,
+  "vis_len_mm": 65.2,
+  "vis_vs_rest_pct": 102.7,
+  "angle_to_mag_deg": 15.7,
+  "rise_mm": 56.2,
+  "along_mag_mm": 62.8,
+  "axis_vs_base_deg": 0.6,
+  "clear": {
+   "thumb_01_l": {
+    "min": -0.54,
+    "p05": 0.6,
+    "med": 20.87
+   },
+   "thumb_02_l": {
+    "min": 8.16,
+    "p05": 10.42,
+    "med": 24.66
+   },
+   "thumb_03_l": {
+    "min": 3.43,
+    "p05": 6.64,
+    "med": 19.43
+   }
+  }
+ },
+ {
+  "clip": "AKM/extended/angled/reload",
+  "family": "angled",
+  "gun": "AKM",
+  "proxy": [
+   [
+    "AKM_FactoryMagazine_Preview",
+    200.0
+   ]
+  ],
+  "library_fallback": false,
+  "vis_len_mm": 65.2,
+  "vis_vs_rest_pct": 102.7,
+  "angle_to_mag_deg": 15.7,
+  "rise_mm": 56.2,
+  "along_mag_mm": 62.8,
+  "axis_vs_base_deg": 0.6,
+  "clear": {
+   "thumb_01_l": {
+    "min": -0.54,
+    "p05": 0.6,
+    "med": 20.87
+   },
+   "thumb_02_l": {
+    "min": 8.16,
+    "p05": 10.42,
+    "med": 24.66
+   },
+   "thumb_03_l": {
+    "min": 3.43,
+    "p05": 6.64,
+    "med": 19.43
+   }
+  }
+ },
+ {
+  "clip": "AKM/standard/angled/reload_empty",
+  "family": "angled",
+  "gun": "AKM",
+  "proxy": [
+   [
+    "AKM_FactoryMagazine_Preview",
+    199.7
+   ]
+  ],
+  "library_fallback": false,
+  "vis_len_mm": 65.2,
+  "vis_vs_rest_pct": 102.7,
+  "angle_to_mag_deg": 15.7,
+  "rise_mm": 56.0,
+  "along_mag_mm": 62.8,
+  "axis_vs_base_deg": 0.0,
+  "clear": {
+   "thumb_01_l": {
+    "min": -0.54,
+    "p05": 0.6,
+    "med": 20.87
+   },
+   "thumb_02_l": {
+    "min": 8.16,
+    "p05": 10.42,
+    "med": 24.66
+   },
+   "thumb_03_l": {
+    "min": 3.43,
+    "p05": 6.64,
+    "med": 19.43
+   }
+  }
+ },
+ {
+  "clip": "AKM/extended/angled/reload_empty",
+  "family": "angled",
+  "gun": "AKM",
+  "proxy": [
+   [
+    "AKM_FactoryMagazine_Preview",
+    199.7
+   ]
+  ],
+  "library_fallback": false,
+  "vis_len_mm": 65.2,
+  "vis_vs_rest_pct": 102.7,
+  "angle_to_mag_deg": 15.7,
+  "rise_mm": 56.0,
+  "along_mag_mm": 62.8,
+  "axis_vs_base_deg": 0.0,
+  "clear": {
+   "thumb_01_l": {
+    "min": -0.54,
+    "p05": 0.6,
+    "med": 20.87
+   },
+   "thumb_02_l": {
+    "min": 8.16,
+    "p05": 10.42,
+    "med": 24.66
+   },
+   "thumb_03_l": {
+    "min": 3.43,
+    "p05": 6.64,
+    "med": 19.44
+   }
+  }
+ },
+ {
+  "clip": "AKM/standard/vertical/reload",
+  "family": "vertical",
+  "gun": "AKM",
+  "proxy": [
+   [
+    "AKM_FactoryMagazine_Preview",
+    200.0
+   ]
+  ],
+  "library_fallback": false,
+  "vis_len_mm": 65.2,
+  "vis_vs_rest_pct": 102.7,
+  "angle_to_mag_deg": 15.7,
+  "rise_mm": 56.2,
+  "along_mag_mm": 62.8,
+  "axis_vs_base_deg": 0.6,
+  "clear": {
+   "thumb_01_l": {
+    "min": -0.54,
+    "p05": 0.6,
+    "med": 20.87
+   },
+   "thumb_02_l": {
+    "min": 8.16,
+    "p05": 10.42,
+    "med": 24.66
+   },
+   "thumb_03_l": {
+    "min": 3.43,
+    "p05": 6.64,
+    "med": 19.43
+   }
+  }
+ },
+ {
+  "clip": "AKM/extended/vertical/reload",
+  "family": "vertical",
+  "gun": "AKM",
+  "proxy": [
+   [
+    "AKM_FactoryMagazine_Preview",
+    200.0
+   ]
+  ],
+  "library_fallback": false,
+  "vis_len_mm": 65.2,
+  "vis_vs_rest_pct": 102.7,
+  "angle_to_mag_deg": 15.7,
+  "rise_mm": 56.2,
+  "along_mag_mm": 62.8,
+  "axis_vs_base_deg": 0.6,
+  "clear": {
+   "thumb_01_l": {
+    "min": -0.54,
+    "p05": 0.6,
+    "med": 20.87
+   },
+   "thumb_02_l": {
+    "min": 8.16,
+    "p05": 10.42,
+    "med": 24.66
+   },
+   "thumb_03_l": {
+    "min": 3.43,
+    "p05": 6.64,
+    "med": 19.43
+   }
+  }
+ },
+ {
+  "clip": "AKM/standard/vertical/reload_empty",
+  "family": "vertical",
+  "gun": "AKM",
+  "proxy": [
+   [
+    "AKM_FactoryMagazine_Preview",
+    199.7
+   ]
+  ],
+  "library_fallback": false,
+  "vis_len_mm": 65.2,
+  "vis_vs_rest_pct": 102.7,
+  "angle_to_mag_deg": 15.7,
+  "rise_mm": 56.0,
+  "along_mag_mm": 62.8,
+  "axis_vs_base_deg": 0.0,
+  "clear": {
+   "thumb_01_l": {
+    "min": -0.54,
+    "p05": 0.6,
+    "med": 20.87
+   },
+   "thumb_02_l": {
+    "min": 8.16,
+    "p05": 10.42,
+    "med": 24.66
+   },
+   "thumb_03_l": {
+    "min": 3.43,
+    "p05": 6.64,
+    "med": 19.43
+   }
+  }
+ },
+ {
+  "clip": "AKM/extended/vertical/reload_empty",
+  "family": "vertical",
+  "gun": "AKM",
+  "proxy": [
+   [
+    "AKM_FactoryMagazine_Preview",
+    199.7
+   ]
+  ],
+  "library_fallback": false,
+  "vis_len_mm": 65.2,
+  "vis_vs_rest_pct": 102.7,
+  "angle_to_mag_deg": 15.7,
+  "rise_mm": 56.0,
+  "along_mag_mm": 62.8,
+  "axis_vs_base_deg": 0.0,
+  "clear": {
+   "thumb_01_l": {
+    "min": -0.54,
+    "p05": 0.6,
+    "med": 20.87
+   },
+   "thumb_02_l": {
+    "min": 8.16,
+    "p05": 10.42,
+    "med": 24.66
+   },
+   "thumb_03_l": {
+    "min": 3.43,
+    "p05": 6.64,
+    "med": 19.44
+   }
+  }
+ },
+ {
+  "clip": "AKM/standard/prism/reload",
+  "family": "prism",
+  "gun": "AKM",
+  "proxy": [
+   [
+    "AKM_FactoryMagazine_Preview",
+    200.0
+   ]
+  ],
+  "library_fallback": false,
+  "vis_len_mm": 65.2,
+  "vis_vs_rest_pct": 102.7,
+  "angle_to_mag_deg": 15.7,
+  "rise_mm": 56.2,
+  "along_mag_mm": 62.8,
+  "axis_vs_base_deg": 0.6,
+  "clear": {
+   "thumb_01_l": {
+    "min": -0.54,
+    "p05": 0.6,
+    "med": 20.87
+   },
+   "thumb_02_l": {
+    "min": 8.16,
+    "p05": 10.42,
+    "med": 24.66
+   },
+   "thumb_03_l": {
+    "min": 3.43,
+    "p05": 6.64,
+    "med": 19.43
+   }
+  }
+ },
+ {
+  "clip": "AKM/extended/prism/reload",
+  "family": "prism",
+  "gun": "AKM",
+  "proxy": [
+   [
+    "AKM_FactoryMagazine_Preview",
+    200.0
+   ]
+  ],
+  "library_fallback": false,
+  "vis_len_mm": 65.2,
+  "vis_vs_rest_pct": 102.7,
+  "angle_to_mag_deg": 15.7,
+  "rise_mm": 56.2,
+  "along_mag_mm": 62.8,
+  "axis_vs_base_deg": 0.6,
+  "clear": {
+   "thumb_01_l": {
+    "min": -0.54,
+    "p05": 0.6,
+    "med": 20.87
+   },
+   "thumb_02_l": {
+    "min": 8.16,
+    "p05": 10.42,
+    "med": 24.66
+   },
+   "thumb_03_l": {
+    "min": 3.43,
+    "p05": 6.64,
+    "med": 19.43
+   }
+  }
+ },
+ {
+  "clip": "AKM/standard/prism/reload_empty",
+  "family": "prism",
+  "gun": "AKM",
+  "proxy": [
+   [
+    "AKM_FactoryMagazine_Preview",
+    199.7
+   ]
+  ],
+  "library_fallback": false,
+  "vis_len_mm": 65.2,
+  "vis_vs_rest_pct": 102.7,
+  "angle_to_mag_deg": 15.7,
+  "rise_mm": 56.0,
+  "along_mag_mm": 62.8,
+  "axis_vs_base_deg": 0.0,
+  "clear": {
+   "thumb_01_l": {
+    "min": -0.54,
+    "p05": 0.6,
+    "med": 20.87
+   },
+   "thumb_02_l": {
+    "min": 8.16,
+    "p05": 10.42,
+    "med": 24.66
+   },
+   "thumb_03_l": {
+    "min": 3.43,
+    "p05": 6.64,
+    "med": 19.43
+   }
+  }
+ },
+ {
+  "clip": "AKM/extended/prism/reload_empty",
+  "family": "prism",
+  "gun": "AKM",
+  "proxy": [
+   [
+    "AKM_FactoryMagazine_Preview",
+    199.7
+   ]
+  ],
+  "library_fallback": false,
+  "vis_len_mm": 65.2,
+  "vis_vs_rest_pct": 102.7,
+  "angle_to_mag_deg": 15.7,
+  "rise_mm": 56.0,
+  "along_mag_mm": 62.8,
+  "axis_vs_base_deg": 0.0,
+  "clear": {
+   "thumb_01_l": {
+    "min": -0.54,
+    "p05": 0.6,
+    "med": 20.87
+   },
+   "thumb_02_l": {
+    "min": 8.16,
+    "p05": 10.42,
+    "med": 24.66
+   },
+   "thumb_03_l": {
+    "min": 3.43,
+    "p05": 6.64,
+    "med": 19.44
+   }
+  }
+ },
+ {
+  "clip": "AKM/standard/canted/reload",
+  "family": "canted",
+  "gun": "AKM",
+  "proxy": [
+   [
+    "AKM_FactoryMagazine_Preview",
+    200.0
+   ]
+  ],
+  "library_fallback": false,
+  "vis_len_mm": 65.2,
+  "vis_vs_rest_pct": 102.7,
+  "angle_to_mag_deg": 15.7,
+  "rise_mm": 56.2,
+  "along_mag_mm": 62.8,
+  "axis_vs_base_deg": 0.6,
+  "clear": {
+   "thumb_01_l": {
+    "min": -0.54,
+    "p05": 0.6,
+    "med": 20.87
+   },
+   "thumb_02_l": {
+    "min": 8.16,
+    "p05": 10.42,
+    "med": 24.66
+   },
+   "thumb_03_l": {
+    "min": 3.43,
+    "p05": 6.64,
+    "med": 19.43
+   }
+  }
+ },
+ {
+  "clip": "AKM/extended/canted/reload",
+  "family": "canted",
+  "gun": "AKM",
+  "proxy": [
+   [
+    "AKM_FactoryMagazine_Preview",
+    200.0
+   ]
+  ],
+  "library_fallback": false,
+  "vis_len_mm": 65.2,
+  "vis_vs_rest_pct": 102.7,
+  "angle_to_mag_deg": 15.7,
+  "rise_mm": 56.2,
+  "along_mag_mm": 62.8,
+  "axis_vs_base_deg": 0.6,
+  "clear": {
+   "thumb_01_l": {
+    "min": -0.54,
+    "p05": 0.6,
+    "med": 20.87
+   },
+   "thumb_02_l": {
+    "min": 8.16,
+    "p05": 10.42,
+    "med": 24.66
+   },
+   "thumb_03_l": {
+    "min": 3.43,
+    "p05": 6.64,
+    "med": 19.43
+   }
+  }
+ },
+ {
+  "clip": "AKM/standard/canted/reload_empty",
+  "family": "canted",
+  "gun": "AKM",
+  "proxy": [
+   [
+    "AKM_FactoryMagazine_Preview",
+    199.7
+   ]
+  ],
+  "library_fallback": false,
+  "vis_len_mm": 65.2,
+  "vis_vs_rest_pct": 102.7,
+  "angle_to_mag_deg": 15.7,
+  "rise_mm": 56.0,
+  "along_mag_mm": 62.8,
+  "axis_vs_base_deg": 0.0,
+  "clear": {
+   "thumb_01_l": {
+    "min": -0.54,
+    "p05": 0.6,
+    "med": 20.87
+   },
+   "thumb_02_l": {
+    "min": 8.16,
+    "p05": 10.42,
+    "med": 24.66
+   },
+   "thumb_03_l": {
+    "min": 3.43,
+    "p05": 6.64,
+    "med": 19.43
+   }
+  }
+ },
+ {
+  "clip": "AKM/extended/canted/reload_empty",
+  "family": "canted",
+  "gun": "AKM",
+  "proxy": [
+   [
+    "AKM_FactoryMagazine_Preview",
+    199.7
+   ]
+  ],
+  "library_fallback": false,
+  "vis_len_mm": 65.2,
+  "vis_vs_rest_pct": 102.7,
+  "angle_to_mag_deg": 15.7,
+  "rise_mm": 56.0,
+  "along_mag_mm": 62.8,
+  "axis_vs_base_deg": 0.0,
+  "clear": {
+   "thumb_01_l": {
+    "min": -0.54,
+    "p05": 0.6,
+    "med": 20.87
+   },
+   "thumb_02_l": {
+    "min": 8.16,
+    "p05": 10.42,
+    "med": 24.66
+   },
+   "thumb_03_l": {
+    "min": 3.43,
+    "p05": 6.64,
+    "med": 19.44
+   }
+  }
+ },
+ {
+  "clip": "A762/standard/base/reload",
+  "family": "base",
+  "gun": "A762",
+  "proxy": [
+   [
+    "A762_R02_Magazine_RearCatch",
+    null
+   ],
+   [
+    "A762_R02_Magazine_RearBead_1",
+    null
+   ]
+  ],
+  "library_fallback": true,
+  "vis_len_mm": 65.0,
+  "vis_vs_rest_pct": 102.2,
+  "angle_to_mag_deg": 15.1,
+  "rise_mm": 56.8,
+  "along_mag_mm": 62.7,
+  "axis_vs_base_deg": null,
+  "clear": {
+   "thumb_01_l": {
+    "min": 0.22,
+    "p05": 1.37,
+    "med": 20.33
+   },
+   "thumb_02_l": {
+    "min": 6.05,
+    "p05": 8.64,
+    "med": 22.81
+   },
+   "thumb_03_l": {
+    "min": 1.07,
+    "p05": 3.37,
+    "med": 14.53
+   }
+  }
+ },
+ {
+  "clip": "A762/standard/base/reload_empty",
+  "family": "base",
+  "gun": "A762",
+  "proxy": [
+   [
+    "A762_R02_Magazine_RearCatch",
+    null
+   ],
+   [
+    "A762_R02_Magazine_RearBead_1",
+    null
+   ]
+  ],
+  "library_fallback": true,
+  "vis_len_mm": 65.0,
+  "vis_vs_rest_pct": 102.2,
+  "angle_to_mag_deg": 15.2,
+  "rise_mm": 56.7,
+  "along_mag_mm": 62.7,
+  "axis_vs_base_deg": null,
+  "clear": {
+   "thumb_01_l": {
+    "min": 0.22,
+    "p05": 1.37,
+    "med": 20.33
+   },
+   "thumb_02_l": {
+    "min": 6.05,
+    "p05": 8.64,
+    "med": 22.81
+   },
+   "thumb_03_l": {
+    "min": 1.07,
+    "p05": 3.37,
+    "med": 14.53
+   }
+  }
+ },
+ {
+  "clip": "A762/standard/angled/reload",
+  "family": "angled",
+  "gun": "A762",
+  "proxy": [
+   [
+    "A762_R02_Magazine_RearCatch",
+    null
+   ],
+   [
+    "A762_R02_Magazine_RearBead_1",
+    null
+   ]
+  ],
+  "library_fallback": true,
+  "vis_len_mm": 65.0,
+  "vis_vs_rest_pct": 102.2,
+  "angle_to_mag_deg": 15.1,
+  "rise_mm": 56.8,
+  "along_mag_mm": 62.7,
+  "axis_vs_base_deg": 0.6,
+  "clear": {
+   "thumb_01_l": {
+    "min": 0.22,
+    "p05": 1.37,
+    "med": 20.34
+   },
+   "thumb_02_l": {
+    "min": 6.05,
+    "p05": 8.64,
+    "med": 22.81
+   },
+   "thumb_03_l": {
+    "min": 1.07,
+    "p05": 3.37,
+    "med": 14.53
+   }
+  }
+ },
+ {
+  "clip": "A762/standard/angled/reload_empty",
+  "family": "angled",
+  "gun": "A762",
+  "proxy": [
+   [
+    "A762_R02_Magazine_RearCatch",
+    null
+   ],
+   [
+    "A762_R02_Magazine_RearBead_1",
+    null
+   ]
+  ],
+  "library_fallback": true,
+  "vis_len_mm": 65.0,
+  "vis_vs_rest_pct": 102.2,
+  "angle_to_mag_deg": 15.2,
+  "rise_mm": 56.7,
+  "along_mag_mm": 62.7,
+  "axis_vs_base_deg": 0.0,
+  "clear": {
+   "thumb_01_l": {
+    "min": 0.22,
+    "p05": 1.37,
+    "med": 20.34
+   },
+   "thumb_02_l": {
+    "min": 6.05,
+    "p05": 8.64,
+    "med": 22.81
+   },
+   "thumb_03_l": {
+    "min": 1.07,
+    "p05": 3.37,
+    "med": 14.53
+   }
+  }
+ },
+ {
+  "clip": "A762/standard/vertical/reload",
+  "family": "vertical",
+  "gun": "A762",
+  "proxy": [
+   [
+    "A762_R02_Magazine_RearCatch",
+    null
+   ],
+   [
+    "A762_R02_Magazine_RearBead_1",
+    null
+   ]
+  ],
+  "library_fallback": true,
+  "vis_len_mm": 65.0,
+  "vis_vs_rest_pct": 102.2,
+  "angle_to_mag_deg": 15.1,
+  "rise_mm": 56.8,
+  "along_mag_mm": 62.7,
+  "axis_vs_base_deg": 0.6,
+  "clear": {
+   "thumb_01_l": {
+    "min": 0.22,
+    "p05": 1.37,
+    "med": 20.33
+   },
+   "thumb_02_l": {
+    "min": 6.05,
+    "p05": 8.64,
+    "med": 22.81
+   },
+   "thumb_03_l": {
+    "min": 1.07,
+    "p05": 3.37,
+    "med": 14.53
+   }
+  }
+ },
+ {
+  "clip": "A762/standard/vertical/reload_empty",
+  "family": "vertical",
+  "gun": "A762",
+  "proxy": [
+   [
+    "A762_R02_Magazine_RearCatch",
+    null
+   ],
+   [
+    "A762_R02_Magazine_RearBead_1",
+    null
+   ]
+  ],
+  "library_fallback": true,
+  "vis_len_mm": 65.0,
+  "vis_vs_rest_pct": 102.2,
+  "angle_to_mag_deg": 15.2,
+  "rise_mm": 56.7,
+  "along_mag_mm": 62.7,
+  "axis_vs_base_deg": 0.0,
+  "clear": {
+   "thumb_01_l": {
+    "min": 0.22,
+    "p05": 1.37,
+    "med": 20.33
+   },
+   "thumb_02_l": {
+    "min": 6.05,
+    "p05": 8.64,
+    "med": 22.81
+   },
+   "thumb_03_l": {
+    "min": 1.07,
+    "p05": 3.37,
+    "med": 14.53
+   }
+  }
+ },
+ {
+  "clip": "A762/standard/prism/reload",
+  "family": "prism",
+  "gun": "A762",
+  "proxy": [
+   [
+    "A762_R02_Magazine_RearCatch",
+    null
+   ],
+   [
+    "A762_R02_Magazine_RearBead_1",
+    null
+   ]
+  ],
+  "library_fallback": true,
+  "vis_len_mm": 65.0,
+  "vis_vs_rest_pct": 102.2,
+  "angle_to_mag_deg": 15.1,
+  "rise_mm": 56.8,
+  "along_mag_mm": 62.7,
+  "axis_vs_base_deg": 0.6,
+  "clear": {
+   "thumb_01_l": {
+    "min": 0.22,
+    "p05": 1.37,
+    "med": 20.33
+   },
+   "thumb_02_l": {
+    "min": 6.05,
+    "p05": 8.64,
+    "med": 22.81
+   },
+   "thumb_03_l": {
+    "min": 1.07,
+    "p05": 3.37,
+    "med": 14.53
+   }
+  }
+ },
+ {
+  "clip": "A762/standard/prism/reload_empty",
+  "family": "prism",
+  "gun": "A762",
+  "proxy": [
+   [
+    "A762_R02_Magazine_RearCatch",
+    null
+   ],
+   [
+    "A762_R02_Magazine_RearBead_1",
+    null
+   ]
+  ],
+  "library_fallback": true,
+  "vis_len_mm": 65.0,
+  "vis_vs_rest_pct": 102.2,
+  "angle_to_mag_deg": 15.2,
+  "rise_mm": 56.7,
+  "along_mag_mm": 62.7,
+  "axis_vs_base_deg": 0.0,
+  "clear": {
+   "thumb_01_l": {
+    "min": 0.22,
+    "p05": 1.37,
+    "med": 20.33
+   },
+   "thumb_02_l": {
+    "min": 6.05,
+    "p05": 8.64,
+    "med": 22.81
+   },
+   "thumb_03_l": {
+    "min": 1.07,
+    "p05": 3.37,
+    "med": 14.53
+   }
+  }
+ },
+ {
+  "clip": "A762/standard/canted/reload",
+  "family": "canted",
+  "gun": "A762",
+  "proxy": [
+   [
+    "A762_R02_Magazine_RearCatch",
+    null
+   ],
+   [
+    "A762_R02_Magazine_RearBead_1",
+    null
+   ]
+  ],
+  "library_fallback": true,
+  "vis_len_mm": 65.0,
+  "vis_vs_rest_pct": 102.2,
+  "angle_to_mag_deg": 15.1,
+  "rise_mm": 56.8,
+  "along_mag_mm": 62.7,
+  "axis_vs_base_deg": 0.6,
+  "clear": {
+   "thumb_01_l": {
+    "min": 0.22,
+    "p05": 1.37,
+    "med": 20.33
+   },
+   "thumb_02_l": {
+    "min": 6.05,
+    "p05": 8.64,
+    "med": 22.81
+   },
+   "thumb_03_l": {
+    "min": 1.07,
+    "p05": 3.37,
+    "med": 14.53
+   }
+  }
+ },
+ {
+  "clip": "A762/standard/canted/reload_empty",
+  "family": "canted",
+  "gun": "A762",
+  "proxy": [
+   [
+    "A762_R02_Magazine_RearCatch",
+    null
+   ],
+   [
+    "A762_R02_Magazine_RearBead_1",
+    null
+   ]
+  ],
+  "library_fallback": true,
+  "vis_len_mm": 65.0,
+  "vis_vs_rest_pct": 102.2,
+  "angle_to_mag_deg": 15.2,
+  "rise_mm": 56.7,
+  "along_mag_mm": 62.7,
+  "axis_vs_base_deg": 0.0,
+  "clear": {
+   "thumb_01_l": {
+    "min": 0.22,
+    "p05": 1.37,
+    "med": 20.33
+   },
+   "thumb_02_l": {
+    "min": 6.05,
+    "p05": 8.64,
+    "med": 22.81
+   },
+   "thumb_03_l": {
+    "min": 1.07,
+    "p05": 3.37,
+    "med": 14.53
+   }
+  }
+ }
+]

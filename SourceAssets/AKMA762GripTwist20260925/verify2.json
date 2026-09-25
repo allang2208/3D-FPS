@@ -1,0 +1,1025 @@
+{
+ "rows": [
+  {
+   "clip": "AKM/standard/base/reload",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "400": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.2,
+   "angle_to_mag_deg": 15.65,
+   "rise_mm": 56.2,
+   "pad_min_mm": {
+    "thumb_01_l": -0.54,
+    "thumb_02_l": 8.16,
+    "thumb_03_l": 3.43
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.87,
+    "thumb_02_l": 24.66,
+    "thumb_03_l": 19.43
+   }
+  },
+  {
+   "clip": "AKM/extended/base/reload",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "400": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.2,
+   "angle_to_mag_deg": 15.65,
+   "rise_mm": 56.2,
+   "pad_min_mm": {
+    "thumb_01_l": -0.54,
+    "thumb_02_l": 8.16,
+    "thumb_03_l": 3.43
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.87,
+    "thumb_02_l": 24.66,
+    "thumb_03_l": 19.43
+   }
+  },
+  {
+   "clip": "AKM/standard/base/reload_empty",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "515": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.2,
+   "angle_to_mag_deg": 15.66,
+   "rise_mm": 56.0,
+   "pad_min_mm": {
+    "thumb_01_l": -0.54,
+    "thumb_02_l": 8.16,
+    "thumb_03_l": 3.43
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.87,
+    "thumb_02_l": 24.66,
+    "thumb_03_l": 19.43
+   }
+  },
+  {
+   "clip": "AKM/extended/base/reload_empty",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "515": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.2,
+   "angle_to_mag_deg": 15.66,
+   "rise_mm": 56.0,
+   "pad_min_mm": {
+    "thumb_01_l": -0.54,
+    "thumb_02_l": 8.16,
+    "thumb_03_l": 3.43
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.87,
+    "thumb_02_l": 24.66,
+    "thumb_03_l": 19.43
+   }
+  },
+  {
+   "clip": "AKM/standard/angled/reload",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "400": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.2,
+   "angle_to_mag_deg": 15.65,
+   "rise_mm": 56.2,
+   "pad_min_mm": {
+    "thumb_01_l": -0.54,
+    "thumb_02_l": 8.16,
+    "thumb_03_l": 3.43
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.87,
+    "thumb_02_l": 24.66,
+    "thumb_03_l": 19.43
+   }
+  },
+  {
+   "clip": "AKM/extended/angled/reload",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "400": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.2,
+   "angle_to_mag_deg": 15.65,
+   "rise_mm": 56.2,
+   "pad_min_mm": {
+    "thumb_01_l": -0.54,
+    "thumb_02_l": 8.16,
+    "thumb_03_l": 3.43
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.87,
+    "thumb_02_l": 24.66,
+    "thumb_03_l": 19.43
+   }
+  },
+  {
+   "clip": "AKM/standard/angled/reload_empty",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "515": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.2,
+   "angle_to_mag_deg": 15.66,
+   "rise_mm": 56.0,
+   "pad_min_mm": {
+    "thumb_01_l": -0.54,
+    "thumb_02_l": 8.16,
+    "thumb_03_l": 3.43
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.87,
+    "thumb_02_l": 24.66,
+    "thumb_03_l": 19.43
+   }
+  },
+  {
+   "clip": "AKM/extended/angled/reload_empty",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "515": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.2,
+   "angle_to_mag_deg": 15.66,
+   "rise_mm": 56.0,
+   "pad_min_mm": {
+    "thumb_01_l": -0.54,
+    "thumb_02_l": 8.16,
+    "thumb_03_l": 3.43
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.87,
+    "thumb_02_l": 24.66,
+    "thumb_03_l": 19.44
+   }
+  },
+  {
+   "clip": "AKM/standard/vertical/reload",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "400": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.2,
+   "angle_to_mag_deg": 15.65,
+   "rise_mm": 56.2,
+   "pad_min_mm": {
+    "thumb_01_l": -0.54,
+    "thumb_02_l": 8.16,
+    "thumb_03_l": 3.43
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.87,
+    "thumb_02_l": 24.66,
+    "thumb_03_l": 19.43
+   }
+  },
+  {
+   "clip": "AKM/extended/vertical/reload",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "400": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.2,
+   "angle_to_mag_deg": 15.65,
+   "rise_mm": 56.2,
+   "pad_min_mm": {
+    "thumb_01_l": -0.54,
+    "thumb_02_l": 8.16,
+    "thumb_03_l": 3.43
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.87,
+    "thumb_02_l": 24.66,
+    "thumb_03_l": 19.43
+   }
+  },
+  {
+   "clip": "AKM/standard/vertical/reload_empty",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "515": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.2,
+   "angle_to_mag_deg": 15.66,
+   "rise_mm": 56.0,
+   "pad_min_mm": {
+    "thumb_01_l": -0.54,
+    "thumb_02_l": 8.16,
+    "thumb_03_l": 3.43
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.87,
+    "thumb_02_l": 24.66,
+    "thumb_03_l": 19.43
+   }
+  },
+  {
+   "clip": "AKM/extended/vertical/reload_empty",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "515": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.2,
+   "angle_to_mag_deg": 15.66,
+   "rise_mm": 56.0,
+   "pad_min_mm": {
+    "thumb_01_l": -0.54,
+    "thumb_02_l": 8.16,
+    "thumb_03_l": 3.43
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.87,
+    "thumb_02_l": 24.66,
+    "thumb_03_l": 19.44
+   }
+  },
+  {
+   "clip": "AKM/standard/prism/reload",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "400": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.2,
+   "angle_to_mag_deg": 15.65,
+   "rise_mm": 56.2,
+   "pad_min_mm": {
+    "thumb_01_l": -0.54,
+    "thumb_02_l": 8.16,
+    "thumb_03_l": 3.43
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.87,
+    "thumb_02_l": 24.66,
+    "thumb_03_l": 19.43
+   }
+  },
+  {
+   "clip": "AKM/extended/prism/reload",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "400": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.2,
+   "angle_to_mag_deg": 15.65,
+   "rise_mm": 56.2,
+   "pad_min_mm": {
+    "thumb_01_l": -0.54,
+    "thumb_02_l": 8.16,
+    "thumb_03_l": 3.43
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.87,
+    "thumb_02_l": 24.66,
+    "thumb_03_l": 19.43
+   }
+  },
+  {
+   "clip": "AKM/standard/prism/reload_empty",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "515": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.2,
+   "angle_to_mag_deg": 15.66,
+   "rise_mm": 56.0,
+   "pad_min_mm": {
+    "thumb_01_l": -0.54,
+    "thumb_02_l": 8.16,
+    "thumb_03_l": 3.43
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.87,
+    "thumb_02_l": 24.66,
+    "thumb_03_l": 19.43
+   }
+  },
+  {
+   "clip": "AKM/extended/prism/reload_empty",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "515": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.2,
+   "angle_to_mag_deg": 15.66,
+   "rise_mm": 56.0,
+   "pad_min_mm": {
+    "thumb_01_l": -0.54,
+    "thumb_02_l": 8.16,
+    "thumb_03_l": 3.43
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.87,
+    "thumb_02_l": 24.66,
+    "thumb_03_l": 19.43
+   }
+  },
+  {
+   "clip": "AKM/standard/canted/reload",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "400": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.2,
+   "angle_to_mag_deg": 15.65,
+   "rise_mm": 56.2,
+   "pad_min_mm": {
+    "thumb_01_l": -0.54,
+    "thumb_02_l": 8.16,
+    "thumb_03_l": 3.43
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.87,
+    "thumb_02_l": 24.66,
+    "thumb_03_l": 19.43
+   }
+  },
+  {
+   "clip": "AKM/extended/canted/reload",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "400": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.2,
+   "angle_to_mag_deg": 15.65,
+   "rise_mm": 56.2,
+   "pad_min_mm": {
+    "thumb_01_l": -0.54,
+    "thumb_02_l": 8.16,
+    "thumb_03_l": 3.43
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.87,
+    "thumb_02_l": 24.66,
+    "thumb_03_l": 19.43
+   }
+  },
+  {
+   "clip": "AKM/standard/canted/reload_empty",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "515": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.2,
+   "angle_to_mag_deg": 15.66,
+   "rise_mm": 56.0,
+   "pad_min_mm": {
+    "thumb_01_l": -0.54,
+    "thumb_02_l": 8.16,
+    "thumb_03_l": 3.43
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.87,
+    "thumb_02_l": 24.66,
+    "thumb_03_l": 19.43
+   }
+  },
+  {
+   "clip": "AKM/extended/canted/reload_empty",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "515": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.2,
+   "angle_to_mag_deg": 15.66,
+   "rise_mm": 56.0,
+   "pad_min_mm": {
+    "thumb_01_l": -0.54,
+    "thumb_02_l": 8.16,
+    "thumb_03_l": 3.43
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.87,
+    "thumb_02_l": 24.66,
+    "thumb_03_l": 19.43
+   }
+  },
+  {
+   "clip": "A762/standard/base/reload",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "400": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.0,
+   "angle_to_mag_deg": 15.15,
+   "rise_mm": 56.8,
+   "pad_min_mm": {
+    "thumb_01_l": 0.22,
+    "thumb_02_l": 6.05,
+    "thumb_03_l": 1.07
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.33,
+    "thumb_02_l": 22.81,
+    "thumb_03_l": 14.53
+   }
+  },
+  {
+   "clip": "A762/standard/base/reload_empty",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "515": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.0,
+   "angle_to_mag_deg": 15.15,
+   "rise_mm": 56.7,
+   "pad_min_mm": {
+    "thumb_01_l": 0.22,
+    "thumb_02_l": 6.05,
+    "thumb_03_l": 1.07
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.34,
+    "thumb_02_l": 22.81,
+    "thumb_03_l": 14.53
+   }
+  },
+  {
+   "clip": "A762/standard/angled/reload",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "400": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.0,
+   "angle_to_mag_deg": 15.15,
+   "rise_mm": 56.8,
+   "pad_min_mm": {
+    "thumb_01_l": 0.22,
+    "thumb_02_l": 6.05,
+    "thumb_03_l": 1.07
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.34,
+    "thumb_02_l": 22.81,
+    "thumb_03_l": 14.53
+   }
+  },
+  {
+   "clip": "A762/standard/angled/reload_empty",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "515": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.0,
+   "angle_to_mag_deg": 15.15,
+   "rise_mm": 56.7,
+   "pad_min_mm": {
+    "thumb_01_l": 0.22,
+    "thumb_02_l": 6.05,
+    "thumb_03_l": 1.07
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.34,
+    "thumb_02_l": 22.81,
+    "thumb_03_l": 14.53
+   }
+  },
+  {
+   "clip": "A762/standard/vertical/reload",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "400": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.0,
+   "angle_to_mag_deg": 15.15,
+   "rise_mm": 56.8,
+   "pad_min_mm": {
+    "thumb_01_l": 0.22,
+    "thumb_02_l": 6.05,
+    "thumb_03_l": 1.07
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.33,
+    "thumb_02_l": 22.81,
+    "thumb_03_l": 14.53
+   }
+  },
+  {
+   "clip": "A762/standard/vertical/reload_empty",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "515": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.0,
+   "angle_to_mag_deg": 15.15,
+   "rise_mm": 56.7,
+   "pad_min_mm": {
+    "thumb_01_l": 0.22,
+    "thumb_02_l": 6.05,
+    "thumb_03_l": 1.07
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.33,
+    "thumb_02_l": 22.81,
+    "thumb_03_l": 14.53
+   }
+  },
+  {
+   "clip": "A762/standard/prism/reload",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "400": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.0,
+   "angle_to_mag_deg": 15.15,
+   "rise_mm": 56.8,
+   "pad_min_mm": {
+    "thumb_01_l": 0.22,
+    "thumb_02_l": 6.05,
+    "thumb_03_l": 1.07
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.33,
+    "thumb_02_l": 22.81,
+    "thumb_03_l": 14.53
+   }
+  },
+  {
+   "clip": "A762/standard/prism/reload_empty",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "515": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.0,
+   "angle_to_mag_deg": 15.15,
+   "rise_mm": 56.7,
+   "pad_min_mm": {
+    "thumb_01_l": 0.22,
+    "thumb_02_l": 6.05,
+    "thumb_03_l": 1.07
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.33,
+    "thumb_02_l": 22.81,
+    "thumb_03_l": 14.53
+   }
+  },
+  {
+   "clip": "A762/standard/canted/reload",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "400": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.0,
+   "angle_to_mag_deg": 15.15,
+   "rise_mm": 56.8,
+   "pad_min_mm": {
+    "thumb_01_l": 0.22,
+    "thumb_02_l": 6.05,
+    "thumb_03_l": 1.07
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.33,
+    "thumb_02_l": 22.81,
+    "thumb_03_l": 14.53
+   }
+  },
+  {
+   "clip": "A762/standard/canted/reload_empty",
+   "moved_non_thumb": {},
+   "thumb_vs_target_deg": {
+    "thumb_01_l": 0.0,
+    "thumb_02_l": 0.0,
+    "thumb_03_l": 0.0
+   },
+   "thumb_vs_source_at_ends_deg": {
+    "0": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    },
+    "515": {
+     "thumb_01_l": 0.0,
+     "thumb_02_l": 0.0,
+     "thumb_03_l": 0.0
+    }
+   },
+   "vis_len_mm": 65.0,
+   "angle_to_mag_deg": 15.15,
+   "rise_mm": 56.7,
+   "pad_min_mm": {
+    "thumb_01_l": 0.22,
+    "thumb_02_l": 6.05,
+    "thumb_03_l": 1.07
+   },
+   "pad_med_mm": {
+    "thumb_01_l": 20.33,
+    "thumb_02_l": 22.81,
+    "thumb_03_l": 14.53
+   }
+  }
+ ],
+ "problems": []
+}

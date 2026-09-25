@@ -1,0 +1,266 @@
+{
+ "SVD": {
+  "mag_bones": [
+   "WPN_SOCKET_Magazine"
+  ],
+  "mag_meshes": [
+   "SM_SVD_Magazine"
+  ],
+  "frame": 148,
+  "mag_axis_world": [
+   0.079,
+   -0.084,
+   -0.993
+  ],
+  "mag_extent_mm": 100.9,
+  "thumb_length_mm": 63.6,
+  "thumb_dir_world": [
+   0.809,
+   0.588,
+   -0.003
+  ],
+  "angle_thumb_vs_mag_deg": 89.0,
+  "rise_z_mm": -0.2,
+  "along_axis_mm": 1.1,
+  "rise_per_seg_mm": -95.1,
+  "segments": {
+   "thumb_01_l": {
+    "swing": 8.0,
+    "twist": -12.0,
+    "rot_wxyz": [
+     0.9921,
+     -0.0073,
+     -0.1043,
+     -0.0694
+    ]
+   },
+   "thumb_02_l": {
+    "swing": 0.0,
+    "twist": 0.0,
+    "rot_wxyz": [
+     0.9994,
+     0.0,
+     0.0,
+     0.0349
+    ]
+   },
+   "thumb_03_l": {
+    "swing": 0.0,
+    "twist": 0.0,
+    "rot_wxyz": [
+     0.9997,
+     0.0,
+     0.0,
+     0.0262
+    ]
+   }
+  }
+ },
+ "M4": {
+  "mag_bones": [
+   "WPN_SOCKET_Magazine"
+  ],
+  "mag_meshes": [
+   "M4_Magazine Light.003_Export"
+  ],
+  "frame": 76,
+  "mag_axis_world": [
+   -0.083,
+   -0.098,
+   0.992
+  ],
+  "mag_extent_mm": 176.8,
+  "thumb_length_mm": 54.6,
+  "thumb_dir_world": [
+   0.19,
+   0.783,
+   -0.593
+  ],
+  "angle_thumb_vs_mag_deg": 132.9,
+  "rise_z_mm": -32.4,
+  "along_axis_mm": -37.2,
+  "rise_per_seg_mm": -55.7,
+  "segments": {
+   "thumb_01_l": {
+    "swing": 10.5,
+    "twist": 43.9,
+    "rot_wxyz": [
+     0.9236,
+     0.0271,
+     0.3722,
+     0.0877
+    ]
+   },
+   "thumb_02_l": {
+    "swing": 36.3,
+    "twist": -26.2,
+    "rot_wxyz": [
+     0.9256,
+     -0.0487,
+     -0.2154,
+     0.3073
+    ]
+   },
+   "thumb_03_l": {
+    "swing": 13.1,
+    "twist": 11.6,
+    "rot_wxyz": [
+     0.9885,
+     0.0067,
+     0.1,
+     -0.1137
+    ]
+   }
+  }
+ },
+ "AKM": {
+  "mag_bones": [
+   "WPN_SOCKET_Magazine"
+  ],
+  "mag_meshes": [
+   "M4_Magazine Light.003_Export",
+   "AKM_Soviet_Native",
+   "AKM_FactoryMagazine_Preview"
+  ],
+  "frame": 148,
+  "mag_axis_world": [
+   0.014,
+   -0.991,
+   -0.132
+  ],
+  "mag_extent_mm": 870.5,
+  "thumb_length_mm": 33.6,
+  "thumb_dir_world": [
+   0.745,
+   -0.607,
+   0.275
+  ],
+  "angle_thumb_vs_mag_deg": 54.8,
+  "rise_z_mm": 9.3,
+  "along_axis_mm": 19.4,
+  "rise_per_seg_mm": -36.7,
+  "segments": {
+   "thumb_01_l": {
+    "swing": 30.4,
+    "twist": 66.8,
+    "rot_wxyz": [
+     0.8057,
+     -0.1672,
+     0.5311,
+     -0.2021
+    ]
+   },
+   "thumb_02_l": {
+    "swing": 54.6,
+    "twist": -1.0,
+    "rot_wxyz": [
+     0.8885,
+     0.0,
+     -0.0077,
+     0.4587
+    ]
+   },
+   "thumb_03_l": {
+    "swing": 30.7,
+    "twist": -0.7,
+    "rot_wxyz": [
+     0.9643,
+     -0.0004,
+     -0.0058,
+     0.2648
+    ]
+   }
+  }
+ },
+ "A762": {
+  "mag_bones": [
+   "WPN_SOCKET_Magazine"
+  ],
+  "mag_meshes": [
+   "A762_R02_Magazine_RearCatch",
+   "A762_R02_Magazine_RearBead_1",
+   "A762_R02_Magazine_RearBead_-1",
+   "A762_R02_Magazine_PressedPanel_1",
+   "A762_R02_Magazine_PressedPanel_-1",
+   "A762_R02_Magazine_FrontInnerBead_1",
+   "A762_R02_Magazine_FrontInnerBead_-1",
+   "A762_R02_Magazine_FrontCatch",
+   "A762_R02_Magazine_FrontBead_1",
+   "A762_R02_Magazine_FrontBead_-1",
+   "A762_R02_Magazine_Follower",
+   "A762_R02_Magazine_Floorplate",
+   "A762_R02_Magazine_FeedLip_1",
+   "A762_R02_Magazine_FeedLip_-1",
+   "A762_R02_Magazine_CrossRib_1_9",
+   "A762_R02_Magazine_CrossRib_1_8",
+   "A762_R02_Magazine_CrossRib_1_7",
+   "A762_R02_Magazine_CrossRib_1_6",
+   "A762_R02_Magazine_CrossRib_1_5",
+   "A762_R02_Magazine_CrossRib_1_4",
+   "A762_R02_Magazine_CrossRib_1_3",
+   "A762_R02_Magazine_CrossRib_1_2",
+   "A762_R02_Magazine_CrossRib_1_1",
+   "A762_R02_Magazine_CrossRib_1_0",
+   "A762_R02_Magazine_CrossRib_-1_9",
+   "A762_R02_Magazine_CrossRib_-1_8",
+   "A762_R02_Magazine_CrossRib_-1_7",
+   "A762_R02_Magazine_CrossRib_-1_6",
+   "A762_R02_Magazine_CrossRib_-1_5",
+   "A762_R02_Magazine_CrossRib_-1_4",
+   "A762_R02_Magazine_CrossRib_-1_3",
+   "A762_R02_Magazine_CrossRib_-1_2",
+   "A762_R02_Magazine_CrossRib_-1_1",
+   "A762_R02_Magazine_CrossRib_-1_0",
+   "A762_R02_Magazine_CompleteShell"
+  ],
+  "frame": 148,
+  "mag_axis_world": [
+   0.147,
+   -0.428,
+   0.892
+  ],
+  "mag_extent_mm": 202.4,
+  "thumb_length_mm": 34.4,
+  "thumb_dir_world": [
+   0.742,
+   -0.609,
+   0.28
+  ],
+  "angle_thumb_vs_mag_deg": 51.7,
+  "rise_z_mm": 9.6,
+  "along_axis_mm": 21.3,
+  "rise_per_seg_mm": -38.2,
+  "segments": {
+   "thumb_01_l": {
+    "swing": 32.8,
+    "twist": 67.0,
+    "rot_wxyz": [
+     0.7999,
+     -0.1838,
+     0.5298,
+     -0.2139
+    ]
+   },
+   "thumb_02_l": {
+    "swing": 53.5,
+    "twist": -1.0,
+    "rot_wxyz": [
+     0.8929,
+     0.0,
+     -0.0075,
+     0.4502
+    ]
+   },
+   "thumb_03_l": {
+    "swing": 26.0,
+    "twist": -0.6,
+    "rot_wxyz": [
+     0.9743,
+     -0.0003,
+     -0.0051,
+     0.2253
+    ]
+   }
+  }
+ }
+}
