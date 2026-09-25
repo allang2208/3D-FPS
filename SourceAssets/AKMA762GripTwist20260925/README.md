@@ -1,24 +1,27 @@
-# AKM / A762 换弹左手拇指：扭曲修复 → 向上自由延展（2026-09-25）
+# AKM / A762 换弹左手拇指：扭曲修复 → 自然伸直 → 抬开食指（2026-09-25，用户已认可）
 
-用户先反馈 A762 与 AKM 换弹时抓握弹匣的手有扭曲，按 SVD 换弹经验定位为**拇指根部的轴向滚转**（`thumb_01_l` 绕自身长轴 67°）并只重做拇指三条旋转轨道；随后反馈拇指**向内收缩进虎口**，要求精调成向上自由延伸，于是改用**蒙皮可见方向**重定目标再做一次最小弧摆动。未启动游戏、未跑 PIE，观感由用户实机判读。
+用户先后反馈三次：抓握弹匣的手**有扭曲** → 扭转归零后拇指**向内收缩进虎口** → 摆到弹匣轴上后**虎口被错误拉伸** → 自然伸直后**拇指与食指交错穿模**。最终通过的是第四轮：根部沿用第一轮出货的四元数**一个角度都不动**、后两节用 SVD 的 4°/3° 轻屈把拇指伸直，再叠一次绕手部前向轴的小摆动（AKM −8°、A762 −16°）把拇指抬到食指上方。未启动游戏、未跑 PIE，观感由用户实机判读。
 
-结论、量测表与根因见 [AKM / A762 换弹拇指扭曲](../../Docs/Weapons/akm-a762-reload-thumb-twist-20260925.md)。
+结论、量测表与四轮记录见 [AKM / A762 换弹拇指扭曲](../../Docs/Weapons/akm-a762-reload-thumb-twist-20260925.md)。
+
+**当前状态**：`v4/` 的 30 条导出 + `thumb_target4.json` + `author_thumb4.py` + `verify4_00/10/20.json` + `install4_receipt.json` + `readback4.json`。前三轮的导出、包备份、脚本与渲染（19.51 GB / 675 文件）已归档到 `trash/AKMA762GripTwist20260925/`，逐文件记录原路径、大小、SHA-256、退役原因与替代物（`manifest.json`）；`trash` 不入库，归档脚本是 `archive_superseded.ps1`。
 
 ## 量测（握持中段第 148 帧，120 Hz 源）
 
-| 量测 | SVD（认可） | M4（认可） | AKM / A762 第一轮前 | 第一轮后 | 第二轮（被否） | **第三轮（当前）** |
+| 量测 | SVD（认可） | AKM / A762 第一轮前 | 第一轮后 | 第二轮（被否） | 第三轮（被否） | **第四轮（当前）** |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| `thumb_01_l` 绕自身轴扭转 | −12.0° | +44.0° | +66.8° / +67.0° | 0.0° | 0.0° | 0.0° |
-| 根部相对第一轮摆动 | 小 | — | — | 0° | 74.2° / 78.5° | **0°（不动）** |
-| 虎口宽度 vs rest | — | — | — | −6.6 % / −8.6 % | +32.9 % / +29.2 % | **−6.8 % / −8.7 %** |
-| 虎口蒙皮被拖动 | — | — | — | — | 62.2 / 65.5 mm | **2.9 / 3.2 mm** |
-| 可见拇指长度（蒙皮质心链） | — | — | — | 55.5 / 53.3 mm（87 % / 84 %） | 65.2 / 65.0 mm | **63.3 / 63.7 mm（99.6 % / 100.2 %）** |
-| 可见拇指与弹匣长轴夹角 | 89°–91° | — | — | 120.9° / 130.3° | 15.7° / 15.1° | **95.3° / 99.4°** |
-| 指尖相对根部抬升 | — | — | — | −15.5 / −20.6 mm | +56.2 / +56.8 mm | **+9.6 / +5.9 mm** |
-| 指腹到壳面最近间隙 | — | — | 12.4 / 14.8 mm | −3.9 / −3.1 mm | +3.4 / +1.1 mm | **−0.5 / −1.4 mm** |
-| 其余骨骼相较源 clip 的最大变化 | — | — | — | ≤ 0.0000° | ≤ 0.0000° | **≤ 0.0000°** |
+| `thumb_01_l` 绕自身轴扭转 | −12.0° | +66.8° / +67.0° | 0.0° | 0.0° | 0.0° | 0.0° |
+| 根部相对第一轮摆动 | 小 | — | 0° | 74.2° / 78.5° | 0° | **AKM −8° / A762 −16°（一次小摆动）** |
+| 虎口蒙皮被拖动 | — | — | — | 62.2 / 65.5 mm | 2.9 / 3.2 mm | **2.9 / 3.2 mm** |
+| 虎口宽度相对出货 | — | — | 0 | +33 % / +29 % | −0.11 / −0.12 mm | **−0.12 / −0.14 mm** |
+| 可见拇指长度（蒙皮质心链） | — | — | 55.5 / 53.3 mm（87 % / 84 %） | 65.2 / 65.0 mm | 63.3 / 63.7 mm | **63.0 / 62.9 mm（99.6 % / 100.2 %）** |
+| 可见拇指与弹匣长轴夹角 | 89°–91° | — | 120.9° / 130.3° | 15.7° / 15.1° | 95.3° / 99.4° | **87.2° / 82.7°** |
+| 指尖相对根部抬升 | — | — | −15.5 / −20.6 mm | +56.2 / +56.8 mm | +9.6 / +5.9 mm | **+18.9 / +24.0 mm** |
+| 拇指／食指相交面片对 | — | — | 0 | 0 | **104 / 202** | **0 / 0** |
+| 拇指到食指最近距离 | — | — | — | — | 相交 | **3.75 / 5.14 mm** |
+| 其余骨骼相较源 clip 的最大变化 | — | — | ≤ 0.0000° | ≤ 0.0000° | ≤ 0.0000° | **≤ 0.0000°** |
 
-> 第一轮的"绕骨 +Y 扭转"是当时的量测口径；第二轮查明本骨架拇指骨轴与可见指节方向相差约 70°，之后一律量蒙皮可见方向。第三轮再加虎口宽度与虎口蒙皮位移两项。
+> 第一轮的"绕骨 +Y 扭转"是当时的量测口径；第二轮查明本骨架拇指骨轴与可见指节方向相差约 70°，之后一律量蒙皮可见方向，第三轮再加虎口宽度、第四轮再加面片相交对数。
 
 ## 根因
 
@@ -49,7 +52,9 @@
 12. **量面片相交**：拇指与食指各自建 `BVHTree` 求 `overlap()`——第三轮姿态 AKM 104 对 / A762 202 对相交（第一轮那个扭着缩着的拇指反而 0 对）。
 13. **改法**：在第三轮目标上再叠一次小摆动，绕手部前向轴（`hand_l`→`middle_01_l`）**垂直于可见拇指方向的分量**转 **AKM −8°、A762 −16°**（只摆动、不改已认可的滚转）；角度取"最小能完全脱离相交"的一档（AKM 4° 仍剩 54 对、A762 12° 仍剩 39 对）。
 14. **逐帧核**：保持段拇指局部姿态是常量但手在转，因此在 68/148/220 三个保持帧各查一次相交；30 条 clip 全为 0、最近距离 3.75/5.14 mm、可见拇指 63.0/62.9 mm、虎口相对出货 −0.12/−0.14 mm。
-15. 第四轮输出到 `v4/`，导入前逐条备份到 `Before4/`。
+15. 第四轮输出到 `v4/`，导入前逐条备份到 `Before4/`（备份随后随废案一并归档）。
+
+16. **归档**：`Before/`、`Before2/`、`Before3/`、`Before4/`、第一轮 `AKM/`+`A762/`、`v2/`、`v3/` 与前三轮的脚本/回执/渲染共 675 文件 19.51 GB 移入 `trash/AKMA762GripTwist20260925/`，逐文件记录 SHA-256（`manifest.json`）。
 
 **核对当前实际加载**要用 `RifleMagazineGrip20260922/IndexClearanceV4/sources.json` 的 asset→blend 映射：该目录根下的 `selected_grasp.json` 与 `AKM/`、`A762/` 子目录是早期版本，不是运行来源。
 
@@ -62,21 +67,24 @@
 | 作者输出 | `author_thumb.py` → `<枪>/<弹匣>/<握把>/A_*.blend` + `.fbx`；回执 `authoring.json` |
 | 验证 | `verify_thumb.py` → `verify_thumb.json`（其余骨骼位移 ≤0.0000°、扭转为 0、指腹间隙） |
 | 渲染 | `render_thumb_fit.py`（修复前 / 候选 / 近 rest 对比）、`render_hand.py`、`render_grip2.py` |
-| 第二轮诊断 | `ref_thumb.py`（SVD/M4 参考对照）、`probe_mag2.py` / `probe_mag3.py`（弹匣代理与真实弹匣几何）、`rest_chain.py` / `probe_heads.py`（rest 骨链与蒙皮质心，暴露骨轴与可见指节差 70°） |
-| 第二轮求解 | `aim_visual.py`（目标扫描）、`aim_vis2.py`（闭式最小弧摆动，两种滚转基准）→ `thumb_aim_vis2.json`；`select_target.py` → `thumb_target2.json` |
-| 第二轮族别核对 | `family_check.py` → `family_check.json`（30 条逐条可见长度/夹角/抬升/穿透） |
-| 第二轮作者输出 | `author_thumb2.py` → `v2/<枪>/<弹匣>/<握把>/` + `.fbx`；回执 `authoring2.json` |
-| 第二轮验证 | `verify2.py` → `verify2.json`、`twist_added.py` → `twist_added.json`（追加滚转量） |
-| 第二轮渲染 | `render_aim.py`、`render_side.py`、`render_final.py` → `thumb4_*.png`（拇指单独着色，side/side2/game/back 四视角，带匣与不带匣） |
-| 第三轮诊断 | `web_check.py` / `web_check2.py` → `thumb_web_check.json`（虎口宽度、虎口蒙皮位移、根部摆动、可见拇指，按根部基准逐候选对比） |
-| 第三轮求解 | `select_target3.py` → `thumb_target3.json`（沿用出货根部 + 4°/3°）、`render_v3.py` → `thumb5_*.png` |
-| 第三轮作者输出 | `author_thumb3.py` → `v3/<枪>/<弹匣>/<握把>/` + `.fbx`；回执 `authoring3.json` |
-| 第三轮验证 | `verify3.py` → `verify3.json`（逐条：根部与出货四元数 0.0000°、拇指等于目标、窗口外与源一致、可见长度/夹角/虎口宽度/穿透） |
+| 第二轮诊断（已废案） | 归档于 `trash/…/ref_thumb.py`、`probe_mag2.py`、`probe_mag3.py`、`rest_chain.py`、`probe_heads.py` 等；本轮只保留仍被使用的 `ref_thumb.py`（SVD/M4 参考）与 `probe_heads.py`、`rest_chain.py`、`probe_mag2/3.py`（骨轴与可见指节差 70° 的原始诊断） |
+| 第二轮求解（已废案） | `aim_visual.py`、`aim_vis2.py`、`select_target.py`、`thumb_target2.json` 等已归档；判定依据留在 `thumb_web_check.json`（虎口宽度/蒙皮位移/根部摆动逐候选对比） |
+| 第二轮验证/渲染（已废案） | `verify2.py`、`family_check.py`、`twist_added.py`、`render_aim.py`、`render_side.py`、`render_final.py`、`thumb4_*.png` 已归档 |
+| 第三轮求解（**保留**） | `select_target3.py` → `thumb_target3.json`（沿用出货根部 + 4°/3°，是第四轮的输入）、`web_check2.py` → `thumb_web_check.json` |
+| 第三轮其余（已废案） | `author_thumb3.py`、`verify3.py`、`install3.py`、`readback3.py`、`render_v3.py`、`thumb5_*.png`、`v3/` 导出已归档 |
 | 第四轮诊断 | `thumb_index.py` → `thumb_index.json`（拇指/食指面片相交对数、最近距离、按手部各轴扫描最小脱离角度）、`render_index.py` → `thumb6_*.png`（拇指洋红、食指青色，从手背方向判读"上方"） |
-| 第四轮求解 | `select_target4.py` → `thumb_target4.json`（叠 fwd 轴 −8°/−16°），逐保持帧核对相交 |
+| 第四轮求解 | `select_target4.py` → `thumb_target4.json`（叠 fwd 轴 −8°/−16°），并在 68/148/220 三个保持帧核对相交 |
 | 第四轮作者输出 | `author_thumb4.py` → `v4/<枪>/<弹匣>/<握把>/` + `.fbx`；回执 `authoring4.json` |
-| 第四轮验证 | `verify4.py` → `verify4_*.json`（分片运行；逐条：相交对数、最近距离、虎口相对出货、根部/拇指/窗口外、穿透） |
-| 导入 | 第一轮 `install.py` / `install_receipt.json`、`Before/`；第二轮 `install2.py`、`Before2/`；第三轮 `install3.py`、`Before3/`；**第四轮 `install4.py` / `install4_receipt.json`、`Before4/`**；`run_import4.ps1`（无编辑器时走 commandlet）、有编辑器时走桥 `Tools/AssetPipeline/mcp_call_codex.ps1 -PythonScript` |
+| 第四轮验证 | `verify4.py` → `verify4_00/10/20.json`（分片运行；逐条：相交对数、最近距离、虎口相对出货、根部/拇指/窗口外、穿透） |
+| 导入 | **第四轮 `install4.py` / `install4_receipt.json`、`run_import4.ps1`（无编辑器时走 commandlet）、`run_readback4.ps1` / `readback4.json`**；有编辑器时走桥 `Tools/AssetPipeline/mcp_call_codex.ps1 -PythonScript`。前三轮的 `install*.py`、`Before*/` 全部随废案归档 |
+| 归档 | `archive_superseded.ps1`（可重复执行核对）→ `trash/AKMA762GripTwist20260925/manifest.json`（675 条：原路径、大小、SHA-256、原因、替代物） |
+
+## 未覆盖
+
+- 未启动游戏、未跑 PIE、未做真机截图。
+- 只处理换弹持匣段；同目录的快速近战、装备、检视、冲刺等左手段落未改。
+- 抓握本身（四指与掌面位置）保持 `IndexClearanceV4` 状态，未重新拟合。
+- 第四轮只核了相交、虎口、可见长度与视角渲染，未做 UE 侧运行时观感复核。
 
 ## 未覆盖
 

@@ -1,6 +1,10 @@
 # AKM / A762 换弹左手拇指扭曲修复（2026-09-25）
 
-用户反馈：A762 与 AKM 换弹时抓握弹匣的手都有一定程度的扭曲，参考此前 SVD 换弹的同类经验排查修复。
+**最终状态（用户已认可）**：第四轮——根部沿用第一轮出货四元数不动、后两节轻屈 4°/3° 伸直、再叠一次 fwd 轴小摆动（AKM −8°、A762 −16°）把拇指抬到食指上方。可见拇指 63.0 / 62.9 mm（rest 的 99.6 % / 100.2 %）、与弹匣长轴 87.2° / 82.7°、虎口相对出货 −0.12 / −0.14 mm、拇指与食指相交 0 对（最近 3.75 / 5.14 mm）。当前导出在 `SourceAssets/AKMA762GripTwist20260925/v4/`，UE 侧 30 条资产由该轮 FBX 导入（`readback4.json`）。
+
+用户反馈：A762 与 AKM 换弹时抓握弹匣的手都有一定程度的扭曲，参考此前 SVD 换弹的同类经验排查修复；随后又提出"向内收缩进虎口"、"虎口被错误拉伸"、"拇指与食指交错穿模"三次反馈，本文按四轮记录，只有第四轮是当前状态。
+
+**前几轮的废案已归档**：前三轮的导出、包备份、脚本与渲染整体移到 `trash/AKMA762GripTwist20260925/`，逐文件记录原路径、大小、SHA-256、退役原因与替代物（`manifest.json`，675 条）；该目录不入库。
 
 ## 结论（先量后写）
 
@@ -98,10 +102,13 @@
 
 ## 交付与入口
 
-制作与诊断入口见 [SourceAssets/AKMA762GripTwist20260925/README.md](../../SourceAssets/AKMA762GripTwist20260925/README.md)。
+制作与诊断入口见 [SourceAssets/AKMA762GripTwist20260925/README.md](../../SourceAssets/AKMA762GripTwist20260925/README.md)。当前状态是第四轮：`v4/`（30 条导出）+ `thumb_target4.json` + `author_thumb4.py` + `verify4_*.json` + `install4.py` / `install4_receipt.json` + `readback4.json`；第三轮目标 `thumb_target3.json` 是它的输入，一并保留。
+
+前三轮的废案在 `trash/AKMA762GripTwist20260925/`（`manifest.json` 记 675 条原路径/大小/SHA-256/原因/替代物，`trash` 不入库）；归档脚本为 `archive_superseded.ps1`，可重复执行核对。
 
 ## 未覆盖
 
 - 未启动游戏、未跑 PIE、未做真机截图；观感由用户实机判读。
 - 只处理换弹的持匣段。同目录的快速近战、装备、检视、冲刺等左手段落未改；这些段落不在本次反馈范围。
 - 抓握本身（四指与掌面位置）保持 V4 状态，未重新拟合。
+- 第四轮只核了相交、虎口、可见长度与视角渲染，未做 UE 侧运行时观感复核。
