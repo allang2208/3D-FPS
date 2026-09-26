@@ -50,6 +50,15 @@
 
 按用户全局规则：**未做任何运行时测试**（无 PIE、无自动进图、无实测截图）。编译、安装、二进制标记均为静态实证。实测清单见计划文档"首批验收清单"（进图怪物落点/休眠唤醒/警报传播/清房不重生/精英房封门开门/宝箱三档战利品/最终箱三倍/档案 DeduplicationTags 持久化）。
 
+## 发布记录（WORKFLOW §8，2026-09-26）
+
+- 提交：`df95b57059166dee03e65f241205ade9ce4ba43e`（cursor/highland-blade-seat → `HEAD:main` 普通推送，远端 main=`df95b570`，`ls-remote` 回读核实；归档标签 `archive/godot-before-ue5-20260910` 完好）。
+- 发布内容（20 文件，+3079/-6，精确路径暂存）：8 个新源文件、`dungeon_loot.json`、2 份 Docs、`DungeonSpawn20260925` 批次 4 文件（Receipts/Sources 按 `.gitignore:421` 留本地，符合前例口径）、RouteRepairs 两脚本钩子、catalog.json 镜像（diff 纯度逐行核验：仅 9 个 spawn 段+标点）、怪物技能沉淀 2 文件（新参考 `dungeon-spawn-director.md` + SKILL.md 入口行）。
+- **未发布（归属交织，留在工作区）**：`AuthoredDungeonGenerator.cpp` 与 `ColdSteelWorldInteraction.cpp` 的挂接改动——两文件同缠另一会话未发布功能（布局搜索截止时间/HomePortal/装载进度 UI/.inl 签名变更；BowArrow 回收交互），按 §8.3"不夹带其他未发布历史"整体暂缓。发布树中本批新文件为可编译的自包含单元：所有被引用符号已在 HEAD 版脏头中逐一核实（ItemCatalog/PostNotice/SyncRuntime/Snapshot/CommitState/AddItem/ResultMessage/IsDead/IsBusy/Home/UGameInstanceSubsystem 基类）。功能激活（导演/战利品挂接）随对方发布或后续授权合并提交生效，本机工作区已含全部挂接且 09:38 构建实证。
+- 发布前检查：`git diff --cached --check` 干净、敏感信息扫描零命中、无新二进制入库（生成器 OFPA 包按 `/Content/*` 忽略规则留本地，磁盘 catalog 镜像为提交侧事实源）。
+- 废案判定：本批次**无废案**——`catalog-extended-candidate.json`（离线验证工件）与 `catalog-before.json`（首装备份）均为 README 契约产物且按忽略规则留本地；无退役文件，未向 `trash/` 移动任何内容。
+- 剩余内容依赖：怪物 BP/native 类、门材质 `MI_BossStructuralSteel`、`/Engine/BasicShapes/Cube` 均为已入库或引擎资产，无新增外部许可依赖。
+
 ## 已知风险与后续候选
 
 - FatZombie 借 HandBrain 网格（62 净空）：3m 门洞相容，房内窄处卡怪则从池 JSON 移除或补专用 agent（第 5 份 navmesh 代价）。
