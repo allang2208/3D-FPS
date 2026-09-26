@@ -98,3 +98,15 @@
 | A2 | **手指开合时序** | 未做（换匣与拉栓各一段整体收拳，无逐帧开合） | 现在两处"握得住"了，但没有"松—握—松"的时序 | 按 `pose-contact.md` 的接触驱动方法给食指/拇指/四指分阶段开合；用 `probe_reload_visibility.py` 的指尖到抓点距离验收 |
 | A3 | **战术换弹同构** | 未做（`reload` 仍是 M4 支撑手路线） | 两条片段在游戏里分工不一致会很明显 | 同一套机制加 `reload`：cue 帧 29/76/95，无拉栓段（枪机闭合），入匣后右手直接回握把 |
 | A4 | **实机静帧夹具** | 夹具已写好、目标已编，**跑不起来** | `-game -RenderOffscreen` 跑约 15 s 崩溃（`EXCEPTION_ACCESS_VIOLATION`，栈无项目模块；去掉本枪夹具同样崩），疑与并行会话 23:55–00:15 的 C++ 改动有关 | 等那些会话提交后再跑；命令见 `Docs/Weapons/ash12-integration-20260917.md`，Git Bash 下要 `MSYS_NO_PATHCONV=1` |
+
+## GPU 草交互（2026-09-26 代码+资产收敛，实机仍无反应，用户指示暂停记入待办）
+
+状态：M1–M4 全部完成并合并构建成功（DLL 2026-09-26 12:53:03，4 个新符号验证在内）。"草无任何反应"的三重断点修复已双端落地——mf-v4（WorldPos/UpwardFactor/HeightMask 改为 MF 内部自供；双 RT 纹理参数默认值直指 `RT_GrassDeformA/B`；MPC 新增 `ReadIsB` 选读侧），C++ 改为持久 RT 资产绑定并修复 `SetEnabled(false)` 置空 pass MID 后的永久哑火 bug；资产批次经 MCP 桥在编辑器内执行成功（exit 0、幂等复跑通过）。用户重测**仍无任何反应**，指示"先这样吧"。契约与排障全记录：`Docs/WorldGeneration/grass-interaction-gpu-20260925.md` §10.5（v2）/§10.6（v3）；架构与教训沉淀：`skills/ue5-world-interaction/references/grass-gpu-deform-rt-window.md`。
+
+| 编号 | 事项 | 现状 | 为什么没做完 / 需要什么 | 建议下一步 |
+| --- | --- | --- | --- | --- |
+| G1 | **草在实机无可见形变（未解决，最高优先）** | 代码、资产、构建三端收敛；用户两轮实测零反馈 | 全部修复按仓库规则在后台完成、未经实机验证；剩余嫌疑未在 PIE 内诊断 | 按序诊断：① PIE 控制台 `GrassDeform.Status`——看 RT 绑定、Center 是否跟随玩家、ReadIsB 是否随翻转变化；② 走几步后 `GrassDeform.DumpRT` 导出掩码——应有脚印；③ 掩码有但草不动→材质编辑器查 MA_Grass 的 MF 调用节点在 mf-v4 重建后是否仍正确指向、草 MI（grass_0X_YY_Mat）有无覆盖 WPO/参数，再专项验证 **Nanite foliage（r.Nanite.Foliage=1）是否评估该材质 WPO** 及 Substrate/MDF 是否吞偏移；④ 掩码为空→查 `LogGrassDeform` 的 pass/DrawMaterial 日志；⑤ 倒伏从叶尖开始→MI 标量 `GrassDeformMaskFlip` 改 1 |
+| G2 | **M3 Niagara 粒子预算未验证** | `NS_GrassFootstepPuff` 用 NE_Heat 模板默认值 | Niagara toolset API 拒写 Lifetime/Spawn Count（脚本 manual 条目已记录） | 编辑器内手工确认并发粒子 ≤64，必要时按 `Tools/GrassDeform/setup_assets_m3.py` 的 manual 条目手调 |
+| G3 | **距玩家 >24 m 的爆炸不留草痕（已知边界）** | §10.5 v2 已接受 | 48 m RT 窗口设计边界，非缺陷 | 如需覆盖远距爆炸，评估扩大窗口或按爆炸点第二张 RT |
+
+仓库边界说明：`.gitignore` 的 `/Content/*` 与 `/Plugins/` 使 GrassDeform 的 10 个 uasset 与 AutoFootstep 插件的 `FAutoFootstepPlayed` 委托改动**不入 git**——资产可由 `Tools/GrassDeform/setup_assets_m1.py`、`setup_assets_m3.py` 重跑重建；插件目录若被重置需按 M3 描述重新加委托。本次提交仅含草交互批次（精确暂存）；`FPSGAMECharacter.h`、Backlog 其余段落、python-material-authoring 其余段落及 Water/Clearwater 等并行会话改动仍保留在工作区未暂存，等各自会话自行提交。

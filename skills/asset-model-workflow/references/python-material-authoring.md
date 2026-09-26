@@ -105,3 +105,19 @@ Niagara 的发射器脚本仍走 CPU VM，即使粒子设为 GPU；本机 VM 不
     （2026-09-19 把活跃的 `M_FountainWaterFilmV2` 当废案移进 trash 一次，靠 MIC 包字节扫描发现后恢复）。
     正确做法：扫候选资产包字节里的名字表（`re.findall(rb'M_名字[A-Za-z0-9_]*', bytes)`）或直接读
     MIC 的 `parent` 属性 / 网格的 `get_material(i)`；移完再列一遍 Materials 目录对账"应保留清单"。
+
+## 材质函数、RT 资产与图枚举限制（2026-09-26 草交互 GPU 排障，UE 5.8 本机实测）
+
+| 想做什么 | 坑 / 结论 |
+| --- | --- |
+| 在材质函数图里建节点 | `MEL.create_material_expression` 只收 `UMaterial`；函数图必须用 `create_material_expression_in_function`（Python 绑定强制声明类型，传错报 "Cannot nativize 'MaterialFunction' as 'Object'"） |
+| 重编译材质函数 | `recompile_material` 只收 `UMaterial`；函数用 `MEL.update_material_function(fn, None)`——会级联重编译所有引用它的材质 |
+| 读材质图节点列表（事后修接线） | **做不到**：`UMaterial.Expressions` 对 Python 是 protected（"Property 'Expressions' ... is protected and cannot be read"）。已存在的 MF 调用节点无法脚本重接线——设计时就把函数输入做成内部自供（WorldPosition/VertexNormalWS/TexCoord 节点直接建在 MF 里），调用节点只取输出、零接线 |
+| FunctionInput 没接线会怎样 | 静默取 preview 默认值（通常 0），**不报任何错**——HeightMask=0 把 WPO 输出恒置零，实机表现为"完全无反应"，是最难定位的断点 |
+| 建 RenderTarget 资产 | 工厂类名 `TextureRenderTargetFactoryNew`（**不带 "2D"**，`TextureRenderTarget2DFactoryNew` 不存在）；其 `Width/Height/Format` 是无 Edit 标记的 UPROPERTY，Python 视为 protected 拒设——先按工厂默认创建，再在资产上设 `size_x`/`size_y`/`render_target_format`（这些是 EditAnywhere） |
+| RT 资源刷新 | `TextureRenderTarget2D` 在 5.8 Python **没有** `update_resource()`（那是 `UCanvasRenderTarget2D` 的 API）；`set_editor_property` 已触发 PostEditChangeProperty 自动重建资源。`b_auto_generate_mips` 同样不可设（RT 默认无 mip 链，实测无害） |
+| TextureSample 的 UV 引脚 | 引脚名是 **`UVs`**（GetShortenPinName 规则：Coordinates→UVs），`UV`、`Coordinates` 都连不上；FunctionOutput 的输入引脚名是**空字符串**（GetInputName 返回 NAME_None） |
+| Custom 节点输出类型 | Python 枚举拼写全大写带数字：`CMOT_FLOAT1`；C++ 源码拼写 `CMOT_Float1` 解析不到 |
+| 材质版本标记 | `UMaterial` 没有 `description` 属性（只有 `UMaterialFunction` 有）；材质版本标签走 `EditorAssetLibrary` 的 asset metadata（如键 `GrassDeformVersion`），随资产序列化、可驱动幂等重建 |
+| 给"所有实例"下发运行时纹理 | MPC 只有标量/矢量，**没有纹理参数类型**；给共享材质资产写纹理参数会污染保存内容，子系统 MID 又到不了实际渲染的 MI/foliage。可行模式：**持久 RT 资产对 + 两个 TextureSampleParameter2D 的默认值分别指向 A/B + MPC 标量（如 `ReadIsB`）uniform 分支选读侧**——默认值沿材质链继承到全部 MI，零运行时绑定 |
+| 编辑器被占用时跑资产脚本 | headless runner 检测到工程被占会拒跑；对**交互式编辑器**可用桥 `Tools/AssetPipeline/mcp_call_codex.ps1 -PythonScript ...`（remote execution）；对 headless commandlet 持有者桥不通（无 remote execution）；编辑器重启窗口期桥的节点发现也会失败，等其 responding 后重试 |

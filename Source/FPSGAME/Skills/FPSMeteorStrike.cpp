@@ -1,6 +1,7 @@
 #include "FPSMeteorStrike.h"
 #include "../WorldGeneration/RiverPilotFXSubsystem.h"
 #include "../WorldGeneration/FluidPresentationSubsystem.h"
+#include "../WorldGeneration/GrassDeform/GrassDeformSubsystem.h"
 #include "FireMagicArea.h"
 #include "FPSFireMagicComponent.h"
 #include "FPSFireballProjectile.h"
@@ -70,6 +71,15 @@ void AFPSMeteorStrike::DamageArea(bool bExplosion)
 {
     APawn* Caster=Shooter.Get();auto* M=Caster&&Caster->GetGameInstance()?Caster->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;if(!M)return;
     const float Radius=bExplosion?CastSnapshot.Radius:CastSnapshot.AuraRadius;
+    // Only the impact flattens grass. The burning field re-enters this function every
+    // CastSnapshot.TickSeconds while it lives, so hooking the aura branch would stamp a fresh
+    // flatten and a fresh wavefront into the render target several times a second for the whole
+    // Duration - a permanent scorch ring instead of one shockwave. Anchored on Destination with
+    // the same normal the decal, fragments and impact FX use, so grass and fire share a frame.
+    if(bExplosion)
+        if(auto* GrassDeform=GetWorld()->GetSubsystem<UGrassDeformSubsystem>())
+            GrassDeform->AddImpulse(Destination,Radius*GrassDeformTuning::MeteorRadiusMultiplier,
+                GrassDeformTuning::MeteorImpulseStrength,GrassDeformTuning::MeteorImpulseWaveSpeed);
     int32 Hits=0;
     for(AActor* Target:FireMagic::GroundTargets(Caster,Destination,Normal,Radius))
     {

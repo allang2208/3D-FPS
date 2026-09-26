@@ -12,6 +12,7 @@ description: UE5.6-UE5.8 world interaction systems for pickups, spawners, overla
 - For FPSGAME dropped weapon models, gravity, camera-aimed E interactions, or drop hitches, read [physical pickups and preview reuse](references/fpsgame-physical-pickups.md).
 - For FPSGAME 20 cm voxel building (grid snapping, ghost preview, instanced gold outline, snap vs free placement), read [voxel placement interaction](references/fpsgame-voxel-placement.md).
 - For FPSGAME heightfield terrain destruction (explosion craters, shovel dig/refill, 20 cm grid quantization, sink/rise caps, per-cell rebuild and edit bucketing), read [terrain destruction](references/fpsgame-terrain-destruction.md).
+- For FPSGAME GPU grass interaction (player-following RT-window trample flatten, footstep puff/decal feedback, explosion impulse wavefront, MF/RT asset contract, and its unresolved live-reaction status), read [grass GPU deform RT window](references/grass-gpu-deform-rt-window.md).
 - For FPSGAME item art, three-view references, or RTX 5080 model generation, use the `ue5-item-asset-workflow` skill for photorealistic item style and asset validation.
 - Define interaction model: overlap-driven, trace-driven, or explicit use key.
 - Define actor set: pickup actor, optional spawner, optional visual mapping data asset.

@@ -1,6 +1,7 @@
 #include "TerrainDestruction.h"
 
 #include "TemperateHillsWorld.h"
+#include "GrassDeform/GrassDeformSubsystem.h"
 #include "Engine/Engine.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
@@ -35,6 +36,15 @@ namespace TerrainDestruction
             const double Depth = Radius * CraterDepthScale.GetValueOnGameThread();
             const double Rim = Radius * CraterRimScale.GetValueOnGameThread();
             const bool bApplied = It->ApplyCrater(Contact, Radius, Depth, Rim);
+            // Grass within the same footprint as the bowl. ClearCoverForEdit only removes the
+            // tufts PCG already instanced inside 1.15x this radius, and nothing regenerates
+            // them afterwards (ActivateVegetationLayer runs once at entry), so this stamp adds
+            // the bent tufts between the crater rim and the cleared zone instead of duplicating
+            // the removal. Radius is the crater radius itself, so the multiplier stays at 1.
+            // Call sites reach here once per impact, unlike the bottle, so no double stamp.
+            if (UGrassDeformSubsystem* GrassDeform = World->GetSubsystem<UGrassDeformSubsystem>())
+                GrassDeform->AddImpulse(Contact, float(Radius) * GrassDeformTuning::CraterRadiusMultiplier,
+                    GrassDeformTuning::CraterImpulseStrength, GrassDeformTuning::CraterImpulseWaveSpeed);
             if (!bApplied && DebugLog.GetValueOnGameThread() != 0)
                 UE_LOG(LogTemp, Display, TEXT("HILLS_CRATER rejected x=%.1f y=%.1f radius=%.1f (depth limit)"),
                     Contact.X, Contact.Y, Radius);

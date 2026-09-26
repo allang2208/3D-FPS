@@ -16,6 +16,7 @@
 #include "Skills/FPSHolyLightComponent.h"
 #include "Skills/FPSFireMagicComponent.h"
 #include "Skills/FPSQuickCombatComponent.h"
+#include "WorldGeneration/GrassDeform/GrassFootstepFeedbackComponent.h"
 #include "Weapons/QuickCombatRecovery.h"
 #include "Skills/FPSCastingMeshComponent.h"
 #include "Perception/AISense_Hearing.h"
@@ -181,6 +182,10 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
     CreateDefaultSubobject<UFPSHolyLightComponent>(TEXT("HolyLightSkill"));
     CreateDefaultSubobject<UFPSFireMagicComponent>(TEXT("FireMagicSkills"));
     QuickCombatPistol=CreateDefaultSubobject<UFPSQuickCombatComponent>(TEXT("QuickCombatPistol"));
+    // Grass interaction feedback (grass-deform M3): footstep puff + decal trail + trample stamp.
+    // Stays inert by design until its config asset (DA_GrassFootstepFeedback, authored by
+    // Tools/GrassDeform/setup_assets_m3.py) exists; see GrassFootstepFeedbackComponent.h.
+    CreateDefaultSubobject<UGrassFootstepFeedbackComponent>(TEXT("GrassFootstepFeedback"));
     GetCapsuleComponent()->InitCapsuleSize(42.0f, 96.0f);
     GetCapsuleComponent()->SetCollisionProfileName(TEXT("Pawn"));
     // ACharacter restores the class-default mesh offset after crouching, not the

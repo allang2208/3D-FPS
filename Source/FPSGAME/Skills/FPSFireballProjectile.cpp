@@ -6,8 +6,9 @@
 #include "FPSFireballComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
-#include "../WorldGeneration/TerrainDestruction.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
+#include "../WorldGeneration/TerrainDestruction.h"
+#include "../WorldGeneration/GrassDeform/GrassDeformSubsystem.h"
 #include "Camera/CameraComponent.h"
 #include "Components/SphereComponent.h"
 #include "Components/PointLightComponent.h"
@@ -165,10 +166,16 @@ void AFPSFireballProjectile::Explode(const FHitResult* Hit)
     const FVector Normal=Hit?FVector(Hit->ImpactNormal):-Velocity.GetSafeNormal();
     const FVector Contact=Hit?FVector(Hit->ImpactPoint):Center;
     const FRotator ImpactRotation=FRotationMatrix::MakeFromZ(Normal).Rotator();
+    const float EffectScale=Cast.Radius/FireballImpactVisuals::BaselineRadius;
     // Terrain damage: the hills heightfield gets a stamped crater. The hub arena is a
     // static floor and stays unchanged.
     TerrainDestruction::CarveCrater(this,Contact,Normal,Cast.Radius);
-    const float EffectScale=Cast.Radius/FireballImpactVisuals::BaselineRadius;
+    // Same event, same foot: the grass flatten is stamped on the contact the crater used, so
+    // the flattened tufts and the bowl stay concentric. Cast.Radius is the single radius this
+    // cast shares between damage and impact presentation, hence a 1.0 multiplier.
+    if(auto* GrassDeform=GetWorld()->GetSubsystem<UGrassDeformSubsystem>())
+        GrassDeform->AddImpulse(Contact,Cast.Radius*GrassDeformTuning::FireballRadiusMultiplier,
+            GrassDeformTuning::FireballImpulseStrength,GrassDeformTuning::FireballImpulseWaveSpeed);
     // Set the hit contract before activation, including when taking a pooled component.
     // The local-space transform scales spread; Niagara sprite sizes are world
     // units, so the same growth must also be applied explicitly in the system.

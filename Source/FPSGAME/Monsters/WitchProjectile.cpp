@@ -1,5 +1,6 @@
 #include "WitchProjectile.h"
 #include "../WorldGeneration/FluidPresentationSubsystem.h"
+#include "../WorldGeneration/GrassDeform/GrassDeformSubsystem.h"
 #include "WitchMonster.h"
 #include "PoisonMaggotVenomFX.h"
 #include "FPSCombatHealthComponent.h"
@@ -126,6 +127,13 @@ void AWitchProjectile::Land(const FHitResult& Contact, const FVector& IncomingVe
     const FVector Position = Contact.ImpactPoint;
     const FVector Normal = Contact.ImpactNormal.GetSafeNormal();
     if (auto* FX=GetWorld()->GetSubsystem<UPoisonMaggotVenomFX>()) FX->AddBottleImpact(Position,Normal,IncomingVelocity,PoolRadius);
+    // One bottle, one flatten: stamped before the steep-ground reject below, because the glass
+    // really did hit here even when no pool forms, and a second stamp on the eventually flat
+    // ground would double the event. PoolRadius is the pool's own outward limit, so the two
+    // footprints line up; this is a splash rather than a blast, hence the softer tuning.
+    if(auto* GrassDeform=GetWorld()->GetSubsystem<UGrassDeformSubsystem>())
+        GrassDeform->AddImpulse(Position,PoolRadius*GrassDeformTuning::WitchRadiusMultiplier,
+            GrassDeformTuning::WitchImpulseStrength,GrassDeformTuning::WitchImpulseWaveSpeed);
     if (Normal.Z < .65f) { Destroy(); return; }
     Visual->SetVisibility(false,true);
     bPool = true; Age = 0.f; NextPulse = .5f; NextPoolVapor = .35f;
