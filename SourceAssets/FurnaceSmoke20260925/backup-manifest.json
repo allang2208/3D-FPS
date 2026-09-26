@@ -1,0 +1,19 @@
+{
+  "task": "T1 file-level backup of NS_FurnaceBlackSmoke (v4) before the v5 three-layer rework",
+  "plan": "Docs/Fluids/furnace-smoke-optimization-plan-20260925.md",
+  "source": {
+    "path": "Content/Fluids/FurnaceSmoke20260924/NS_FurnaceBlackSmoke.uasset",
+    "sha256": "2061B6EB603F6FBAD6247263F3A6D4C93DCF3DF5719C5D3167779D54014E2E36",
+    "bytes": 969207,
+    "last_write_utc": "2026-09-24T23:22:06"
+  },
+  "backup": {
+    "path": "SourceAssets/FurnaceSmoke20260925/backup-NS_FurnaceBlackSmoke-V4.uasset",
+    "sha256": "2061B6EB603F6FBAD6247263F3A6D4C93DCF3DF5719C5D3167779D54014E2E36",
+    "bytes": 969207
+  },
+  "hashes_match": true,
+  "hashed_at": "2026-09-25T22:22:35",
+  "note": "Placed outside Content/ on purpose: an identical .uasset inside Content would collide with the existing package name. This is a byte-for-byte restore point, not an importable asset.",
+  "rollback": "C++ revert the two FluidPresentationSubsystem files, then copy this file back over Content/Fluids/FurnaceSmoke20260924/NS_FurnaceBlackSmoke.uasset and re-run the author sequence."
+}

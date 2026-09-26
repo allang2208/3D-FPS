@@ -16,6 +16,20 @@
 > ① **"没随风飘散"＝构建未落地，非逻辑错**：用户 23:12 重启编辑器时，v3 雨天 C++ 从未编译（DLL 停在 22:22:48，序列 10s 轮询漏抓关闭窗口）——截图跑的是纯 v2（恒定天气风单向）。序列轮询改 **1s＋连续两次无编辑器采样**，确保抓窗。
 > ② **出生黑烟边界/线条感过重**：小(24cm)、浓(α .44-.60)、近黑(.016)的卡片重叠描出扇贝状轮廓；上段消散灰反而真实。用户要求**统一到消散段观感**。改：出生色 .016→**.050 灰**（与顶段 .088 同族，只留轻渐变）、α **.44+.16→.26+.12**（重叠不再压出暗缝）、出生尺寸 **24→27cm**（大团边缘曲率低、轮廓弱）、淡入 **.07→.22 归一化年龄**（不"啪"地以满不透明出现＝无锐利首帧边）、出生尺寸下限系数 .72→.82。晴天/雨天表达式同受此软化。
 
+> **v5（2026-09-25，状态驱动＋L1 内芯／L2 事件层；方案＝[高炉运行烟雾优化升级方案](furnace-smoke-optimization-plan-20260925.md)）**
+> 目标：让"炉子三轴升级／批量／火力强弱"在烟上可见，并补近景内芯翻卷与炉口事件层。**L0 主体形态不变**，只接一个热档门。
+> ① **C++ 状态驱动（`UpdateFurnaceSmoke` 内，仍 5Hz 同拍，无新遍历/容器/分配）**：四路 `User.*` 写入——
+> `User.Heat`（在炼任务∧燃料燃烧中＝**1**；仅燃料火种＝.25；有任务但燃料耗尽段＝`.55+.15·min(BatchCount,5)/5` 与燃烧状态合成，clamp 0..1，升档即时、降档按 2.5/s 限速）；
+> `User.Ignition`（`now−max(BurnStartTicks,FireStartTicks)` 归一化 4s，clamp 0..1；**熄火段不写**，资产端沿用断供曲线）；
+> `User.Puff`（`ProgressSeconds` 跨越整批边界写 1，1.2s 线性衰减回 0；边界口径直接复用既有 `UColdSteelSmeltingSystem::JobTotalSeconds`＝配方秒×批量÷速度倍率，`LastProgress` 比较，**无新事件系统**）；
+> `User.L1Gate`（距 Eye<3500cm 且画质≥中；画质源与 `AllocateDetail` 同一处 `Scalability::GetQualityLevels().EffectsQuality`）。
+> `bWorking`/`Rate`/风/`Rainfall`/散尽窗**全部保持 v4 逻辑逐字不动**；`FFurnaceSmoke` 仅 +`LastProgress`(double)/`PuffAt`(double)/`Heat`(float)。
+> ② **资产（作者脚本增量）**：同组件内新增两个发射器（**组件池/≤6 上限零变化**）——
+> **L1 `FurnaceSmokeCore` 内芯翻卷层**：大卡 40→110cm、慢速 .6×主体、深灰、**α 硬顶 .18**、独立种子/镜像/flipbook 相位，SpawnRate ≤6/s × L1Gate × (1−DetailReduction)，寿命 ≤2.5s（峰值 ≤15 粒）；
+> **L2 `FurnaceSmokeEvent` 炉口事件层**：`Ignition<1` 时蒸汽灰白→炭黑混入，`Puff>0` 时一次性 puff（活门 `saturate(max(1−Ignition,Puff))`×<50m 距离淡出），**稳态速率为 0**（不占常驻预算）。
+> ③ **恒等锚点（零回归，写进表达式注释）**：`Heat=1` 时 L0 的 SpawnRate 门 `(.55+.45·1)=1`、色门 `(1−.40·(1−1))=1`、α 门 `(.55+.45·1)=1` —— **三处逐式恒等 v4**（已数值验证＝1.0000000000）；`Rain=0` 时全部新表达式退化为 v4。L1/L2 门为 0 时整层不产粒。
+> ④ **已知坑规避**：重跑前**无条件退役**上一轮 assignment/contact tag（`Fireball.Assignments.*`、`FluidContact.*`、`FurnaceSmoke20260924`/`20260925.*`，见 `retire_tags()`）；新稳定 tag `FurnaceSmoke20260925.*`；表达式不引用 `Engine.Environment.DeltaTime`、无 `smoothstep` 内建（手写 `smooth()`）；只编译保存目标包。
+
 ## 任务记录
 
 - **事件与接触面**：高炉构件 `blast_furnace` 工作＝有在炼任务或炉内存料（同 `AVoxelBuildWorld` 护炉谓词 `FindSmelting||FuelAt>0`，即"有料随挂钟烧"定稿口径的可视表达）。发射口＝实测喉口（见上 v2；v1 的"包围盒顶+8cm"已废弃）。
@@ -46,3 +60,28 @@
 - v2 状态（已达成）：用户实测确认黑烟可见、喉口对齐（"成功了"）。
 - v3 状态（进行中，如实）：雨天阵风＋吹散/快散耦合两侧已改源（C++ RainGust/bOwnWind/User.Rainfall；资产 rain 门表达式与 Rainfall 参数声明）。**资产重作与构建由 `Tools/Fluids/run_furnace_v2_sequence.ps1` 排队**——编辑器关闭后自动重作（须 `FURNACE_SMOKE_SAVED`）再 `Build-Editor.ps1`；不覆盖运行中编辑器的已加载资产、不强关他人编辑器。
 - 未运行游戏/PIE，无观感与性能验收：晴天＝v2 恒等；雨天形态请用户实测（可用天气调试命令切换下雨验证），参数（阵风幅度、撕裂、各雨量因子）在 `RainGust`/作者脚本表达式内。
+
+## v5 实施状态（2026-09-25，如实）
+
+- **T1 留底（完成）**：`Content/Fluids/FurnaceSmoke20260924/NS_FurnaceBlackSmoke.uasset` 文件级复制到
+  `SourceAssets/FurnaceSmoke20260925/backup-NS_FurnaceBlackSmoke-V4.uasset`（放 Content 外避免包名冲突）。
+  前后 `Get-FileHash -Algorithm SHA256` **一致**：`2061B6EB603F6FBAD6247263F3A6D4C93DCF3DF5719C5D3167779D54014E2E36`（969207 字节，源文件时间戳未变）。
+  回执：`SourceAssets/FurnaceSmoke20260925/backup-manifest.json`。
+- **T2 C++ 状态驱动（源码已改，未编译）**：仅 `FluidPresentationSubsystem.{h,cpp}` 的 `FFurnaceSmoke`＋`UpdateFurnaceSmoke`；
+  新增 `#include "../Building/SmeltingSystem.h"`（只为复用既有 `Find`/`JobTotalSeconds`/`FuelConfig` 口径，不新造结算）。
+  无新自由函数/匿名 namespace 符号（Unity 批编译 C2374/C2086 前缀要求不适用）。**未编译**，见 T4 阻塞。
+- **T3 作者脚本（已改，未执行）**：`Tools/Fluids/author_furnace_black_smoke.py` 增量——声明 `User.Heat/Ignition/Puff/L1Gate`；
+  新增 `author_core()`（L1）与 `author_event()`（L2）两个发射器 + `retire_tags()`/`ensure_emitter()`/`renderer()`/`streams()` 复用件；
+  L0 只加 Heat 门。语法通过 `ast.parse`；`Engine.Environment.DeltaTime` 与 `smoothstep` 经全文件检索**零出现**（仅注释提到该坑）。
+  **幂等性**：tag 退役在 `author()` 开头、任何 add/trim 之前无条件执行，L0/L1/L2 三个发射器全覆盖。
+- **T4 构建（已完成）**：子代理首报阻塞（PID 27164 占用）属实；其后编辑器空窗内由序列/前台构建收尾。
+  首轮编译报子代理笔误 C3861（`UWorldSubsystem` 无裸 `GetGameInstance()`），主代理改为
+  `GetWorld()->GetGameInstance()` 链；**`Saved/BuildEditor/build-20260925-223752.log` Result: Succeeded**，
+  `UnrealEditor-FPSGAME.dll` 已链接（含 v5 状态驱动）。
+- **T5 资产执行（已完成）**：序列脚本在编辑器空窗内 headless 重作成功，回执
+  `FURNACE_SMOKE_SAVED`（`Saved/furnace_author_v2seq.log`，22:33:54）；`NS_FurnaceBlackSmoke.uasset`
+  落盘 2270858 字节（v4 留底 969207 字节）。期间一个孤儿 `UnrealEditor-Cmd` 作者进程自行退出，未强杀。
+- **未做（用户规则）**：未跑 PIE/截图/性能采样/自动测试。v5 观感（内芯分层、点火蒸汽→黑烟、整批脉冲、熄火余烟、雨天零回归、远距分级无突变）**待用户实机确认**。
+- **姊妹案（2026-09-26）**：出铁口熔融金属流与凝固锭已交付（同一 5Hz 拍、同一细节预算口径、共用 User.DetailReduction 契约），
+  见 [furnace-tap-metal-20260925.md](furnace-tap-metal-20260925.md)；其 §5.1 记录了「资产名不得为发射器名前缀」的
+  Niagara 编译陷阱（`NS_FurnaceTapMetal` 弃名实录）。

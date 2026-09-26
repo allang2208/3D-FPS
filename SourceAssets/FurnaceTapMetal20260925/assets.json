@@ -1,0 +1,73 @@
+{
+  "saved": [
+    "/Game/Fluids/FurnaceTapMetal20260925/M_TapMetalFlow.M_TapMetalFlow",
+    "/Game/Fluids/FurnaceTapMetal20260925/NS_FurnaceMoltenTap.NS_FurnaceMoltenTap"
+  ],
+  "material": "/Game/Fluids/FurnaceTapMetal20260925/M_TapMetalFlow",
+  "material_is_procedural": true,
+  "new_bitmaps": [],
+  "anchor_cm": {
+    "tap_arch_mouth": [
+      17.5,
+      0,
+      69.4
+    ],
+    "tap_channel": [
+      17.5,
+      0,
+      63.5
+    ],
+    "tap_exit": [
+      24.7,
+      0,
+      63.5
+    ],
+    "landing_bed": [
+      32.9,
+      0,
+      20.0
+    ],
+    "ingot_mould": [
+      45.0,
+      0,
+      20.0
+    ],
+    "space": "SM_BlastFurnace mesh local (cm); component attached to Body with identity relative rotation"
+  },
+  "gravity_cm_s2": 600.0,
+  "flight_seconds": 0.43,
+  "v0_cm_s": [
+    19.07,
+    0,
+    -129.0
+  ],
+  "budget": {
+    "l0": {
+      "rate": 16,
+      "life": [
+        2.1,
+        2.4
+      ],
+      "live_cap": 36
+    },
+    "l1_pool_per_second": 1,
+    "l1_life": 2.8,
+    "l3_sparks_per_burst": 12,
+    "l2_glow_life": 3.0
+  },
+  "parameters": {
+    "User.Flow": "C++ writes 1 on the completion rise edge, 0 when the job ends",
+    "User.SparkGate": "C++ writes 1 only when the furnace is <3500cm from Eye and EffectsQuality>=1",
+    "User.IngotGlow": "C++ writes 1 while the ingot is on show, 0 when hidden",
+    "User.DetailReduction": "shared budget (ConfigureSmoke-style token bucket)"
+  },
+  "emitters": [
+    "FurnaceTapMetalFlow",
+    "FurnaceTapPool",
+    "FurnaceTapSpark",
+    "FurnaceTapIngotGlow"
+  ],
+  "no_contact_planes_note": "the stream/pool may use the shared User.SmokePlane0..4 approximations; the C++ side writes zeros, so the projection terms are inert",
+  "author_lines": 599,
+  "status": "authored_compiled_saved; not game or visually tested"
+}

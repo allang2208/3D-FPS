@@ -49,5 +49,41 @@
     "note": "user: hard black outline at mouth looked fake; unified toward the soft grey top"
   },
   "max_particles_per_plume": 66,
+  "emitters_v5": {
+    "L0_main": {
+      "name": "FurnaceSmoke",
+      "rank": "16.0/s",
+      "life": [
+        2.6,
+        3.6
+      ],
+      "heat_gate": "rate/alpha/tone all multiplied by (.55+.45*Heat) style factors that are 1 at Heat=1 (v4 identity anchor)"
+    },
+    "L1_core": {
+      "name": "FurnaceSmokeCore",
+      "rate": 6.0,
+      "life": [
+        1.6,
+        2.5
+      ],
+      "size_cm": [
+        40.0,
+        110.0
+      ],
+      "alpha_cap": 0.18,
+      "speed_vs_main": 0.6,
+      "gate": "User.L1Gate (C++: dist<3500cm AND EffectsQuality>=1) x (1-DetailReduction)",
+      "peak_particles": 17
+    },
+    "L2_event": {
+      "name": "FurnaceSmokeEvent",
+      "rate": 8.0,
+      "puff_max": 12,
+      "gate": "saturate(max(1-User.Ignition, User.Puff)) x <50m LOD fade x (1-DetailReduction)",
+      "note": "ignition steam grey-white -> soot black over User.Ignition; puff one-shot at batch boundary"
+    }
+  },
+  "peak_particles_per_plume_v5": 95,
+  "identity_anchor": "Rain=0 and Heat=1 => every L0 expression reduces verbatim to v4; L1/L2 gate to 0 when their gates are 0",
   "status": "authored_compiled_saved; not game or visually tested"
 }
