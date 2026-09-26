@@ -119,6 +119,47 @@ $resultPath = Join-Path $env:TEMP ('ue-mcp-' + [guid]::NewGuid().ToString('N') +
   动手前先读完整命令行（`Get-CimInstance Win32_Process -Filter "ProcessId=<pid>"` 取 `CommandLine`）；
   分不清归属就不要动 —— 同上文，不得通过强制终止其他任务的进程来绕过占用。
 
+## 后台构建的重试判据与产物核对（2026-09-26 实测）
+
+并行会话开着编辑器是常态，构建失败最常见的两个原因都不是代码问题。把"等得起、判得准"写进重试驱动脚本：
+
+- **判"能不能链"要看 DLL，不要看进程名**。`LNK1104: 无法打开 …\UnrealEditor-FPSGAME.dll` 说明有
+  `UnrealEditor`／`UnrealEditor-Cmd`／游戏进程占着输出二进制。只检查 `UnrealEditor` 的 GUI 进程会漏掉
+  commandlet（本机踩过：等待条件看着"没人占用"，构建照样 LNK1104）。可靠判据是**试着以独占方式打开**
+  目标 DLL：`[IO.File]::Open($dll,'Open','ReadWrite','None')` 抛异常＝还被占用。重试循环里同时检查
+  别的构建（`cl.exe`／`link.exe`／`dotnet.exe` 的命令行是否含本工程）与 `Saved/BuildEditor/` 最新日志，
+  每次等待只打印一行，不抢 `-WaitMutex`（§WORKFLOW 7）。
+- **构建成功后再核对产物**：读 `-Log=<path>` 里的 `^Result: Succeeded`，再确认 DLL 的字节数与
+  `LastWriteTime` 变了。想在提交前确认"新符号真的进包了"，可对 DLL 做**严格 UTF-16 逐字节扫描**
+  找新 CVar／函数名：不要用 `[Text.Encoding]::Unicode.GetString($bytes) -match ...` 之类的近似判断
+  （踩过：只比较 3 个字节、跳过 `+2` 的错位实现给出假阳性）。这个检查只能证明**符号在**，
+  不能证明行为正确——行为验收仍按用户规则交给用户。
+- **加了 `UPROPERTY` 的源文件不要用 `/Zs` 自检当结论**。用旧 rsp 单独 `/Zs` 编译会因 UHT 未重跑而报
+  `UCLASS`／`GENERATED_BODY()` "宏未展开／缺少类型说明符"这类假错误，看着像代码写错。真正的判定是让
+  UBT 跑一遍（UHT + 编译）；不要在假错误上改代码。
+- **PowerShell 里 `$x = <函数>` 会吞掉函数的 `Write-Output`**。本机踩过：把构建函数写成
+  `$x = Invoke-Build ...`，函数内的所有进度输出都进了返回值，日志里只剩一行空白。要么用 `Write-Host`，
+  要么让函数把结果写文件再读。
+
+## 活编辑器里的资产制作与校验（2026-09-26 实测）
+
+- 需要读写**已加载**资产时走桥：`Tools/AssetPipeline/mcp_call_codex.ps1 -PythonScript <脚本>`（批次互斥，
+  输出内联返回，默认 120 秒超时）。只读复核也走桥；不额外起 commandlet／第二个编辑器去覆盖同一包。
+- **Geometry Script 的资产制作配方必须按 5.8 实际签名核对**，记忆里的 API 名常常不存在。本机验证可用的组合：
+  `GeometryScript_AssetUtils.copy_mesh_from_static_mesh(静态网格, DynamicMesh(), GeometryScriptCopyMeshFromAssetOptions(), GeometryScriptMeshReadLOD(lod_type=SOURCE_MODEL))`
+  → `GeometryScript_Materials.get_triangle_material_id` 统计材质分布 → `delete_triangles_by_material_id`
+  按材质裁面 → `remap_material_i_ds` 归一槽号 →
+  `GeometryScript_NewAssetUtils.create_new_static_mesh_asset_from_mesh(..., GeometryScriptCreateNewStaticMeshAssetOptions(enable_collision=False))`。
+  三角面计数是 `DynamicMesh.get_triangle_count()`（`GeometryScript_MeshQueries` **没有**这个函数）；
+  5.8 里 `EditorStaticMeshLibrary` 与 `StaticMeshEditorSubsystem.set_material` 都不可用，赋材质用
+  `UStaticMesh.set_material(槽号, 材质)`。
+- **材质缺使用标志会静默变默认灰材质**，日志里是 `Default Material will be used in game`。改标志要在
+  python 里设完 `save_asset`；无头环境下 `recompile_material` 恒返回 False，不要据此判定失败，
+  改成"告警 + 保存"并在日志里留下改前改后的散列。
+- 骨骼网格的 **Nanite 组合数据**：python 只能读到 `FNaniteAssemblyData.Parts`（用了哪些网格），
+  **读不到 `Nodes`**（摆位/变换空间/骨骼绑定）。`IsValid()` 要求两者都非空，所以"`Parts` 齐全"
+  不能证明树冠摆位正常——运行期只能靠引擎侧诊断日志核对。
+
 
 ## 依据
 

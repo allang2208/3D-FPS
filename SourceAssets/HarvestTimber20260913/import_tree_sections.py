@@ -20,6 +20,10 @@ for name,fade in [('M_TreeCutSurface',False),('M_FallingCutEnd',True)]:
     for n in list(L.get_material_expressions(material)):L.delete_material_expression(material,n)
     material.set_editor_property('two_sided',True)
     material.set_editor_property('used_with_skeletal_mesh',fade)
+    # 使用标志必须和实际渲染路径一致，否则游戏里会被替换成默认材质：
+    # 上半段是 Nanite 骨骼网格（断面材质挂在槽 2），树桩切面画在静态实例上。
+    material.set_editor_property('used_with_nanite',fade)
+    material.set_editor_property('used_with_instanced_static_meshes',not fade)
     material.set_editor_property('blend_mode',u.BlendMode.BLEND_MASKED if fade else u.BlendMode.BLEND_OPAQUE)
     uv=node(material,u.MaterialExpressionTextureCoordinate,coordinate_index=0)
     scale=node(material,u.MaterialExpressionConstant2Vector,r=.28,g=.56)

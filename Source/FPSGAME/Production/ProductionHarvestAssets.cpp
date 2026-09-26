@@ -60,11 +60,22 @@ FSoftObjectPath CutProfile(int32 Variant)
     const TCHAR Letter=TEXT('A')+FMath::Clamp(Variant,0,3);
     return FSoftObjectPath(FString::Printf(TEXT("/Game/Items/HarvestTimber/DA_TreeCut_%c.DA_TreeCut_%c"),Letter,Letter));
 }
+FSoftObjectPath CutCap(int32 Variant)
+{
+    // 2026-09-26 用户反馈"倒下的树断面中空"：封盖网格由
+    // Tools/Production/build_tree_cut_caps.py 从 SM_CutUpper_* 按切口材质提取（单槽 M_FallingCutEnd，
+    // 顶点在树本地坐标、切面 Z=42），贴在倒树断口上闭合。
+    const TCHAR Letter=TEXT('A')+FMath::Clamp(Variant,0,3);
+    return FSoftObjectPath(FString::Printf(TEXT("/Game/Items/HarvestTimber/SM_CutCap_%c.SM_CutCap_%c"),Letter,Letter));
+}
 FSoftObjectPath FallingMaterial(int32 Slot)
 {
+    // 2026-09-26 三角碎片修复后的默认口径：倒树上半段用原树网格，切口靠 material-space 遮罩，
+    // 因此槽 0/1 指向上一代那套带 `step(H,P.z)` 的 M_FallingPoplar 实例（使用标志齐全）。
+    // 槽 2 仍是重制路径的断面材质，供 fps.Harvest.TreeFallUseSourceMesh 0 时对照使用。
     if(Slot==2)return FSoftObjectPath(TEXT("/Game/Items/HarvestTimber/M_FallingCutEnd.M_FallingCutEnd"));
-    return FSoftObjectPath(Slot==0?TEXT("/Game/Items/HarvestTimber/MI_CutUpper_Bark.MI_CutUpper_Bark"):
-        TEXT("/Game/Items/HarvestTimber/MI_CutUpper_Foliage.MI_CutUpper_Foliage"));
+    return FSoftObjectPath(Slot==0?TEXT("/Game/Items/HarvestTimber/MI_FallingPoplar_Bark.MI_FallingPoplar_Bark"):
+        TEXT("/Game/Items/HarvestTimber/MI_FallingPoplar_Foliage.MI_FallingPoplar_Foliage"));
 }
 FSoftObjectPath TreeSound(bool Landing)
 {
@@ -88,7 +99,10 @@ TArray<FSoftObjectPath> LoadSet(bool Wood)
     if(Wood)
     {
         Paths.Append({FallingMaterial(0),FallingMaterial(1),FallingMaterial(2),TreeSound(false),TreeSound(true)});
-        for(int32 Variant=0;Variant<4;++Variant)Paths.Append({Stump(Variant),CutProfile(Variant)});
+        // 重制路径（fps.Harvest.TreeFallUseSourceMesh 0）对照用：它用网格自带的槽材质。
+        Paths.Append({FSoftObjectPath(TEXT("/Game/Items/HarvestTimber/MI_CutUpper_Bark.MI_CutUpper_Bark")),
+            FSoftObjectPath(TEXT("/Game/Items/HarvestTimber/MI_CutUpper_Foliage.MI_CutUpper_Foliage"))});
+        for(int32 Variant=0;Variant<4;++Variant)Paths.Append({Stump(Variant),CutProfile(Variant),CutCap(Variant)});
     }
     return Paths;
 }

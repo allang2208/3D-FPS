@@ -2,6 +2,7 @@
 #include "../Production/ProductionResource.h"
 #include "../Production/ProductionFallingTree.h"
 #include "../Production/ProductionHarvestSubsystem.h"
+#include "../Production/ProductionTreeHealth.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "Components/InstancedStaticMeshComponent.h"
 #include "Components/InstancedSkinnedMeshComponent.h"
@@ -70,7 +71,9 @@ bool ATemperateHillsWorld::ResolveProductionResource(const FHitResult& Hit,FProd
             if(const auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();Profile && !Profile->IsTreeMature(Resource.Id))
             {Reason=TEXT("树木正在生长，成熟后才能砍伐");return false;}
         Resource.RequiredTool=Tree?TEXT("axe"):TEXT("pickaxe");
-        if (Tree) { Resource.Name=TEXT("树木"); Resource.Rewards.Add(TEXT("wood"),4); }
+        // 树木像怪物一样有生命值：上限按树种与实例尺寸取，斧头按伤害扣血、归零才倒。
+        // 只在这里算一次，结算与提示栏都读这一份资源快照。
+        if (Tree) { Resource.Name=TEXT("树木"); Resource.Rewards.Add(TEXT("wood"),4); Resource.MaxHealth=ProductionTreeHealth::MaxHealth(Resource); }
         else
         {
             const uint32 Pick=Candidate.Key%100;

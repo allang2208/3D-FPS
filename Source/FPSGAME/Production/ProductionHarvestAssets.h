@@ -16,6 +16,8 @@ namespace ProductionHarvestAssets
     FSoftObjectPath Stump(int32 Variant=0);
     FSoftObjectPath FallingMesh(int32 Variant);
     FSoftObjectPath CutProfile(int32 Variant);
+    /** 切口封盖面（从重制网格按切口材质提取的单片小网格），补在倒下的树断口上。 */
+    FSoftObjectPath CutCap(int32 Variant);
     FSoftObjectPath FallingMaterial(int32 Slot);
     FSoftObjectPath TreeSound(bool Landing);
     FSoftObjectPath Destruction(bool Wood);
