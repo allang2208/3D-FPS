@@ -1,0 +1,96 @@
+{
+  "batch": "DungeonSpawn20260925",
+  "description": "Frozen per-room spawn sections for the nine combat rooms. Each entry below is injected verbatim as the module-level 'spawn' field of the catalog module named by its key. Class paths are verified against DevelopmentSpawnComponent.cpp registry lines 22-30.",
+  "spawn_groups": {
+    "Distribution": {
+      "source": "DungeonSpawn20260925",
+      "theme": "wet",
+      "count": [2, 4],
+      "anchor_roles": ["encounter"],
+      "pool": [
+        {"id": "NurseZombie", "class": "/Game/Monsters/NurseZombie/BP_NurseZombie.BP_NurseZombie_C", "weight": 3},
+        {"id": "FatZombie", "class": "/Script/FPSGAME.FatZombie", "weight": 2}
+      ]
+    },
+    "Drainage": {
+      "source": "DungeonSpawn20260925",
+      "theme": "wet",
+      "count": [2, 4],
+      "anchor_roles": ["encounter"],
+      "pool": [
+        {"id": "PoisonMaggot", "class": "/Game/Monsters/PoisonMaggot/BP_PoisonMaggot.BP_PoisonMaggot_C", "weight": 3},
+        {"id": "NurseZombie", "class": "/Game/Monsters/NurseZombie/BP_NurseZombie.BP_NurseZombie_C", "weight": 1}
+      ]
+    },
+    "Drainage_NearBridge": {
+      "source": "DungeonSpawn20260925",
+      "theme": "wet",
+      "count": [2, 4],
+      "anchor_roles": ["encounter"],
+      "pool": [
+        {"id": "PoisonMaggot", "class": "/Game/Monsters/PoisonMaggot/BP_PoisonMaggot.BP_PoisonMaggot_C", "weight": 3},
+        {"id": "NurseZombie", "class": "/Game/Monsters/NurseZombie/BP_NurseZombie.BP_NurseZombie_C", "weight": 1}
+      ]
+    },
+    "Drainage_FarBridge": {
+      "source": "DungeonSpawn20260925",
+      "theme": "wet",
+      "count": [2, 4],
+      "anchor_roles": ["encounter"],
+      "pool": [
+        {"id": "PoisonMaggot", "class": "/Game/Monsters/PoisonMaggot/BP_PoisonMaggot.BP_PoisonMaggot_C", "weight": 3},
+        {"id": "NurseZombie", "class": "/Game/Monsters/NurseZombie/BP_NurseZombie.BP_NurseZombie_C", "weight": 1}
+      ]
+    },
+    "ShoredBreach": {
+      "source": "DungeonSpawn20260925",
+      "theme": "wet",
+      "count": [2, 3],
+      "anchor_roles": ["encounter"],
+      "pool": [
+        {"id": "Wolf", "class": "/Game/Monsters/Wolf/BP_WolfMonster.BP_WolfMonster_C", "weight": 2},
+        {"id": "InfectedDog", "class": "/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C", "weight": 2}
+      ]
+    },
+    "VentilationLoop": {
+      "source": "DungeonSpawn20260925",
+      "theme": "industrial",
+      "count": [2, 4],
+      "anchor_roles": ["encounter"],
+      "pool": [
+        {"id": "Mutant3", "class": "/Script/FPSGAME.Mutant3", "weight": 2},
+        {"id": "NurseZombie", "class": "/Game/Monsters/NurseZombie/BP_NurseZombie.BP_NurseZombie_C", "weight": 2}
+      ]
+    },
+    "VentilationLoop_WestCore": {
+      "source": "DungeonSpawn20260925",
+      "theme": "industrial",
+      "count": [2, 4],
+      "anchor_roles": ["encounter"],
+      "pool": [
+        {"id": "Mutant3", "class": "/Script/FPSGAME.Mutant3", "weight": 2},
+        {"id": "NurseZombie", "class": "/Game/Monsters/NurseZombie/BP_NurseZombie.BP_NurseZombie_C", "weight": 2}
+      ]
+    },
+    "VentilationLoop_EastCore": {
+      "source": "DungeonSpawn20260925",
+      "theme": "industrial",
+      "count": [2, 4],
+      "anchor_roles": ["encounter"],
+      "pool": [
+        {"id": "Mutant3", "class": "/Script/FPSGAME.Mutant3", "weight": 2},
+        {"id": "NurseZombie", "class": "/Game/Monsters/NurseZombie/BP_NurseZombie.BP_NurseZombie_C", "weight": 2}
+      ]
+    },
+    "FreightTransfer": {
+      "source": "DungeonSpawn20260925",
+      "theme": "industrial",
+      "count": [2, 4],
+      "anchor_roles": ["encounter"],
+      "pool": [
+        {"id": "FatZombie", "class": "/Script/FPSGAME.FatZombie", "weight": 3},
+        {"id": "Mutant3", "class": "/Script/FPSGAME.Mutant3", "weight": 1}
+      ]
+    }
+  }
+}

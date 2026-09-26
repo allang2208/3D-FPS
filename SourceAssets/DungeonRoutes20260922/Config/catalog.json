@@ -451,7 +451,30 @@
           ]
         }
       ],
-      "family_id": "Distribution"
+      "family_id": "Distribution",
+      "spawn": {
+        "source": "DungeonSpawn20260925",
+        "theme": "wet",
+        "count": [
+          2,
+          4
+        ],
+        "anchor_roles": [
+          "encounter"
+        ],
+        "pool": [
+          {
+            "id": "NurseZombie",
+            "class": "/Game/Monsters/NurseZombie/BP_NurseZombie.BP_NurseZombie_C",
+            "weight": 3
+          },
+          {
+            "id": "FatZombie",
+            "class": "/Script/FPSGAME.FatZombie",
+            "weight": 2
+          }
+        ]
+      }
     },
     {
       "id": "Drainage",
@@ -1068,7 +1091,30 @@
           ]
         }
       ],
-      "family_id": "Drainage"
+      "family_id": "Drainage",
+      "spawn": {
+        "source": "DungeonSpawn20260925",
+        "theme": "wet",
+        "count": [
+          2,
+          4
+        ],
+        "anchor_roles": [
+          "encounter"
+        ],
+        "pool": [
+          {
+            "id": "PoisonMaggot",
+            "class": "/Game/Monsters/PoisonMaggot/BP_PoisonMaggot.BP_PoisonMaggot_C",
+            "weight": 3
+          },
+          {
+            "id": "NurseZombie",
+            "class": "/Game/Monsters/NurseZombie/BP_NurseZombie.BP_NurseZombie_C",
+            "weight": 1
+          }
+        ]
+      }
     },
     {
       "id": "ShoredBreach",
@@ -1525,7 +1571,30 @@
           ]
         }
       ],
-      "family_id": "ShoredBreach"
+      "family_id": "ShoredBreach",
+      "spawn": {
+        "source": "DungeonSpawn20260925",
+        "theme": "wet",
+        "count": [
+          2,
+          3
+        ],
+        "anchor_roles": [
+          "encounter"
+        ],
+        "pool": [
+          {
+            "id": "Wolf",
+            "class": "/Game/Monsters/Wolf/BP_WolfMonster.BP_WolfMonster_C",
+            "weight": 2
+          },
+          {
+            "id": "InfectedDog",
+            "class": "/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C",
+            "weight": 2
+          }
+        ]
+      }
     },
     {
       "id": "Junction",
@@ -3283,7 +3352,30 @@
           ]
         }
       ],
-      "family_id": "VentilationLoop"
+      "family_id": "VentilationLoop",
+      "spawn": {
+        "source": "DungeonSpawn20260925",
+        "theme": "industrial",
+        "count": [
+          2,
+          4
+        ],
+        "anchor_roles": [
+          "encounter"
+        ],
+        "pool": [
+          {
+            "id": "Mutant3",
+            "class": "/Script/FPSGAME.Mutant3",
+            "weight": 2
+          },
+          {
+            "id": "NurseZombie",
+            "class": "/Game/Monsters/NurseZombie/BP_NurseZombie.BP_NurseZombie_C",
+            "weight": 2
+          }
+        ]
+      }
     },
     {
       "id": "FreightTransfer",
@@ -3852,7 +3944,30 @@
           ]
         }
       ],
-      "family_id": "FreightTransfer"
+      "family_id": "FreightTransfer",
+      "spawn": {
+        "source": "DungeonSpawn20260925",
+        "theme": "industrial",
+        "count": [
+          2,
+          4
+        ],
+        "anchor_roles": [
+          "encounter"
+        ],
+        "pool": [
+          {
+            "id": "FatZombie",
+            "class": "/Script/FPSGAME.FatZombie",
+            "weight": 3
+          },
+          {
+            "id": "Mutant3",
+            "class": "/Script/FPSGAME.Mutant3",
+            "weight": 1
+          }
+        ]
+      }
     },
     {
       "id": "RouteElbow",
@@ -6580,6 +6695,29 @@
       "dressing_parameters": {
         "rear_delta_cm": -80.0,
         "bridge_delta_cm": -145.0
+      },
+      "spawn": {
+        "source": "DungeonSpawn20260925",
+        "theme": "wet",
+        "count": [
+          2,
+          4
+        ],
+        "anchor_roles": [
+          "encounter"
+        ],
+        "pool": [
+          {
+            "id": "PoisonMaggot",
+            "class": "/Game/Monsters/PoisonMaggot/BP_PoisonMaggot.BP_PoisonMaggot_C",
+            "weight": 3
+          },
+          {
+            "id": "NurseZombie",
+            "class": "/Game/Monsters/NurseZombie/BP_NurseZombie.BP_NurseZombie_C",
+            "weight": 1
+          }
+        ]
       }
     },
     {
@@ -7205,6 +7343,29 @@
       "dressing_parameters": {
         "rear_delta_cm": 80.0,
         "bridge_delta_cm": 145.0
+      },
+      "spawn": {
+        "source": "DungeonSpawn20260925",
+        "theme": "wet",
+        "count": [
+          2,
+          4
+        ],
+        "anchor_roles": [
+          "encounter"
+        ],
+        "pool": [
+          {
+            "id": "PoisonMaggot",
+            "class": "/Game/Monsters/PoisonMaggot/BP_PoisonMaggot.BP_PoisonMaggot_C",
+            "weight": 3
+          },
+          {
+            "id": "NurseZombie",
+            "class": "/Game/Monsters/NurseZombie/BP_NurseZombie.BP_NurseZombie_C",
+            "weight": 1
+          }
+        ]
       }
     },
     {
@@ -7730,6 +7891,29 @@
       "structural_variant": "WestCore",
       "dressing_parameters": {
         "core_offset_cm": -75.0
+      },
+      "spawn": {
+        "source": "DungeonSpawn20260925",
+        "theme": "industrial",
+        "count": [
+          2,
+          4
+        ],
+        "anchor_roles": [
+          "encounter"
+        ],
+        "pool": [
+          {
+            "id": "Mutant3",
+            "class": "/Script/FPSGAME.Mutant3",
+            "weight": 2
+          },
+          {
+            "id": "NurseZombie",
+            "class": "/Game/Monsters/NurseZombie/BP_NurseZombie.BP_NurseZombie_C",
+            "weight": 2
+          }
+        ]
       }
     },
     {
@@ -8255,6 +8439,29 @@
       "structural_variant": "EastCore",
       "dressing_parameters": {
         "core_offset_cm": 75.0
+      },
+      "spawn": {
+        "source": "DungeonSpawn20260925",
+        "theme": "industrial",
+        "count": [
+          2,
+          4
+        ],
+        "anchor_roles": [
+          "encounter"
+        ],
+        "pool": [
+          {
+            "id": "Mutant3",
+            "class": "/Script/FPSGAME.Mutant3",
+            "weight": 2
+          },
+          {
+            "id": "NurseZombie",
+            "class": "/Game/Monsters/NurseZombie/BP_NurseZombie.BP_NurseZombie_C",
+            "weight": 2
+          }
+        ]
       }
     }
   ],

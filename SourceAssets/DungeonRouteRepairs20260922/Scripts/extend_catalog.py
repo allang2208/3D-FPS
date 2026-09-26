@@ -68,4 +68,9 @@ def extend(catalog):
     if variants_receipt.exists() and read(variants_receipt).get('stage')=='map_saved':
         import runpy
         catalog=runpy.run_path(str(room_variants/'Scripts/extend_catalog.py'))['extend'](catalog)
+    spawn=ROOT.parent/'DungeonSpawn20260925'
+    spawn_receipt=spawn/'Receipts/install.json'
+    if spawn_receipt.exists() and read(spawn_receipt).get('stage')=='map_saved':
+        import runpy
+        catalog=runpy.run_path(str(spawn/'Scripts/extend_catalog.py'))['extend'](catalog)
     return catalog

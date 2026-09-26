@@ -30,10 +30,13 @@ for module in catalog['modules']:
     for p in module.get('props',[]):paths.extend([p['skeletal_mesh'],p['closed_animation']]+list(p['material_overrides'].values()))
     if module.get('boss_encounter'):
         encounter=module['boss_encounter'];paths.extend([encounter['class'],encounter['gate_material']])
+    # Spawn pools ride the same catalog-driven collection; present only once DungeonSpawn20260925 is installed.
+    for entry in module.get('spawn',{}).get('pool',[]):paths.append(entry['class'])
 paths.append(catalog['start_connection']['mesh'])
 for path in dict.fromkeys(paths):
     if not path:continue
-    asset=u.load_class(None,path) if path.endswith('_C') else u.load_asset(path)
+    # load_class is the reliable route for BP *_C and native /Script/ classes (spawn pools) alike.
+    asset=u.load_class(None,path) if (path.endswith('_C') or path.startswith('/Script/')) else u.load_asset(path)
     if not asset:raise RuntimeError('Missing repaired dependency '+path)
     assets[asset.get_path_name()]=asset
 navigation=next((a for a in actors if a.actor_has_tag('DungeonRouteNavigation')),None)
