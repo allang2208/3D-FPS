@@ -13,6 +13,7 @@ description: UE5.6-UE5.8 debugging and validation workflow for logs, asset check
 - For weather/cloud validation, read [weather transition diagnostics](../ue5-weather-workflow/references/storm-rain-integration.md); sample after all light writers and distinguish editor actor enumeration from runtime world state.
 - For imported maps, spawn/floating bugs and relocation, read [scene validation](references/scene-import-spawn-validation.md).
 - For changes that only reproduce in one editor session, whether a hot patch can carry a change, or assets reading back as None, read [live coding vs full build](references/live-coding-vs-full-build.md).
+- For materials that compile but render wrong (flat gradient, missing structure), read [material emissive probes](references/material-emissive-probes.md); one probe answers one question, gate quantities into spatial bands because auto-exposure normalizes constant colors.
 - Reproduce issue with minimal steps.
 - Collect output log lines and relevant actor/asset state.
 - Classify fault domain: data, Blueprint, C++, networking, or editor config.

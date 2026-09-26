@@ -217,3 +217,99 @@ python D:\FPS3D\FPSGAME\Tools\Fluids\clearwater_embed_check.py      # 按 UE 包
    `trash/clearwater-superseded-20260926/`；探针本身可弃，探针**这条路线**要留着）。
 5. **先读真实数据再下结论。** 引擎自带的 `AutoScreenshot.png` 一行数字就证明了天空已修，
    而我在此之前推理了三轮。
+---
+
+## 7. 探针排查结果（2026-09-26 下午，本节为实测新增）
+
+工具：`Tools/Fluids/clearwater_probe_surface.py` + `run_clearwater_probes.ps1`（21 个探针，
+方法=把中间量接到 Emissive 后无头实拍；图在 `Saved/ClearwaterProbes/*.png`）。探针通过
+把 MI_ClearwaterWater 临时 re-parent 到 Probes 下的探针材质来生效，跑完已还原并核验。
+
+### 7.1 水面渐变的直接构成（全部实测）
+
+| 量 | 状态 | 证据探针 |
+|---|---|---|
+| 世界坐标 P / Time / 标量参数（Chop/AmpScale） | ✅ 正常送达 | PINS / SCLR |
+| 焦散标量（图采样链 → optics 节点引脚） | ✅ 网状图案完整 | CAUS |
+| **全部 VectorParameter（Wave01..48/SunColor/SunDirection/Sigma…）** | ❌ **运行时精确读零** | H / PINS / SUNV / OPTP |
+| **SceneColor（optics 的 Floor 项）** | ❌ 读黑，海床透不进来 | SCN |
+
+由此水面 = F·Refl(天空渐变) 一项独活 —— 与"平滑竖直渐变、行内 std≈0.003"完全吻合：
+波高=0→法线平、WPO 不动；SunColor=0→散射 Lin/高光 Spec 全灭；SceneColor=0→海床/水下焦散
+不可见。**不是调参问题，是向量参数传递断了。**
+
+### 7.2 排除项（每个都单独实测存活）
+
+参数数量（1/8/16/32/59 个向量参数单节点全活：CNT 系列）、`#include` 宏库（FTINC）、
+Time 引脚（FTTIME）、SceneColor 输入连接（FTSCN）、数组初始化+unroll 循环体（FTLOOP）、
+同组参数喂两个 Custom 节点（FTSHARE）、WPO 顶点+像素双频共享（FTWPO）、used_with_nanite
+标志（FTNAN）——**逐项单独复刻全部健康**。断开 WPO 也不复活（NOWPO）。
+
+### 7.3 资产侧一切正确（全部回读核验）
+
+主材质 48 波默认值非零（45/48，3 个本来就是零幅分量）、MI 50 条覆写齐全、
+`get_material_instance_vector_parameter_value` 经父链解析全部正确、
+Custom 节点 59/59+17/17 引脚连接完好、材质编译通过、探针补丁代码确实在跑
+（每个探针画面都不同）。**盘上资产没有任何可指认的毛病。**
+
+### 7.4 结论与下一步
+
+- 病灶在**已保存的 M_ClearwaterWater 资产**与**从零新建材质**之间：duplicate 会继承病灶
+  （所有大材质探针全死），从零建的小底盘全活。两者的差别只剩"完整图一次性重建 vs 从零建"。
+- **下一步（唯一悬而未决的实验）**：编辑器关闭后重跑
+  `author_clearwater_water.py`（文档第 4 节命令，它本身就是删除重建）。
+  - 若重建后水面出波 → 昨天保存的主材质带陈旧状态，病根=资产级，重建即修复；
+  - 若仍死 → 拿到了从零可复现的完整病例，可离线二分到翻译器层面。
+  - 本轮两次尝试该实验均被并行打开的编辑器锁 MI_ClearwaterWater（Error 32）打断，
+    属环境冲突不是结论。
+- 附带发现（独立缺陷，修水面时一并处理，见下）。
+
+### 7.5 顺带确诊的独立问题（即使向量修好也会歪）
+
+1. **CW_SKY 用 `.y` 当 Up**（Y-up 直译进 Z-up 世界）：`pow(saturate(D.y),0.42)`、
+   `Rr.y=abs(Rr.y)`、`Ts` 用 `SunDir.y` —— 反射天空的渐变轴错了、太阳瓣算错轴。
+   应改 `.z` / `SunDir.z`。
+2. **高光数学上点不亮**：GlintWidening=0.0016 → Beckmann 瓣 ~2.4°，而半向量偏离 Up
+   30–45°；正常斜率 RMS 0.016 的法线永远进不了瓣。需按 LEAN 用实际斜率方差
+   （clearwater TARGET_SLOPE²≈0.006+）或大幅加宽。
+3. **烘焙谱偏平**：RMS 斜率 0.016 vs 参考 0.078（约 5 倍差距）。
+4. **折射无扭曲**：Floor 直接用未偏移的 SceneColor，没有折射 UV 偏移。
+5. **WaterDepthCm 恒为 160**：近岸衰减也按深水算。
+6. build_level 相机 `pitch=-6` 注释写"向下"，UE 正 pitch 才向下，实际略抬头（小问题）。
+
+### 7.6 环境备忘
+
+- 用户编辑器开着时会间歇性锁 `MI_ClearwaterWater.uasset`（保存 Error 32）；探针脚本已加
+  保存重试；**重建/authoring 必须等编辑器关闭**（author 脚本头部本来就这么要求）。
+- `-run=pythonscript` 的 script 参数用正斜杠可用（与 PS 驱动等价）；
+  Git Bash 直传 `/Game/...` 会被 MSYS 改写成 `E:/Git/Game/...`，地图参数必须走 PowerShell。
+- `r.DumpShaderDebugInfo` 经 `-ExecCmds` 生效太晚（地图加载编译在前）；要 dump 得写进
+  DefaultEngine.ini [ConsoleVariables]（跑完记得删）。本轮水材质的 dump 始终未捕获
+  （DDC 命中），如需着色器级证据这是现成路径。
+- MINOVR 探针曾把 Wave01 覆写成 (0,0,2,0)，**已修复回 (0.025952,0.017757,1.049779,5.550147)
+  并保存**；MI 父项已还原为 M_ClearwaterWater 并核验。
+---
+
+## 8. 测试盆地深度分区重做（2026-09-26 傍晚）
+
+需求：传送落点必须干燥；盆地要有明确的深水区/浅水区便于测试。
+
+新剖面（`Tools/Fluids/clearwater_meshes.py` `seabed_height()`，径向 r=距中心/10000）：
+
+| 区 | 范围 | 床面 | 用途 |
+|---|---|---|---|
+| 深水盆 | r≤0.30（≤30 m） | 约 −300 cm | 站底眼睛(≈脚上170cm)没入水下 −130，测水下后处理 |
+| 缓坡 | 0.30–0.60 | −300→−50 平滑 | 走进/走出深水的过渡（约 8% 坡度可走） |
+| 浅水滩 | 0.60–0.80 | 约 −50 cm±起伏 | 涉水测水线/近岸焦散/岸边交互 |
+| 岸线 | 0.80–1.00 | −50→+60 | 水线落在 r≈0.895（8950 cm） |
+
+烘焙自检（CLEARWATER_MESHES 报告）：深盆 −294.4、滩 −55.7、**落点(9600)床面 +48.6 cm 干地、
+干舷 650 cm**——传送落点与回程门(9660, ≈+52)都在水线之外。起伏噪声在 r≥0.72 起完全衰减，
+水线是干净曲线且落点高度确定。
+
+材质的 WaterDepthCm 仍是均匀 160（第 7.5 条已知限制）：地形分区后它在两个区都不准，
+逐像素深度依赖 SceneDepth（当前读黑）——修向量参数时应一并处理。
+
+工具：`Tools/Fluids/clearwater_relief_update.py` 只重导两张网格+重建关卡（灯光/海床/相机/
+PlayerStart），**不动 M/MI_ClearwaterWater**，避免与 7.4 的重建实验混淆。
+注意：Git Bash 下 `tasklist //FI` 过滤形式会静默假阴性，检测编辑器要用 `tasklist | grep UnrealEditor`。

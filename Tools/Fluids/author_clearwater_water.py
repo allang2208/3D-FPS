@@ -70,16 +70,24 @@ SUN_STRENGTH = 10.0
 # clearwater constants (index.html line 358)
 SIG_A = [0.40, 0.074, 0.088]
 SIG_S = [0.028, 0.052, 0.068]
+# UNIFORM optics depth for the material's exp(-SigT*Path) attenuation. The 2026-09-26 test
+# basin has REAL depth zones (deep floor ~-300, wading shelf ~-50; see
+# Tools/Fluids/clearwater_meshes.py), so this constant is now a compromise average, wrong
+# in both zones -- replacing it with per-pixel depth is on the fix list in
+# Docs/Fluids/clearwater-water-migration-20260926.md section 7.5. The C++ caustic shift
+# constant mirrors it (ClearwaterWater.cpp WaterDepthCm).
 DEPTH_CM = 160.0          # DEPTH = 1.6 m
 
-# Stand the player on the basin's shore, not over the deep water.
+# Stand the player on the basin's shore, not over the water: arrivals must land dry.
 #
 # This is the most important placement in the level. Spawning over the deep part drops the
-# player to the bed at about -154 cm, which puts the EYE below the surface; every frame is
-# then the back face of a single-sided translucent plane, which renders as pure black.
-# The shore ring starts at ~8700 cm from the centre (where the bed crosses z = 0) and rises
-# to +60 cm at 10000. Must stay in step with seabed_height() and SHORE_HEIGHT_CM in
-# Tools/Fluids/clearwater_meshes.py.
+# player to the bed at about -300 cm, which puts the EYE well below the surface; every
+# frame is then the back face of a single-sided translucent plane, which renders as pure
+# black. The bed crosses z = 0 at ~8950 cm from the centre and rises to +60 cm at 10000,
+# so 9600 lands on ~+49 cm of dry bed with ~6.5 m of shore before the waterline -- the
+# portal arrival and the return door both stay clear of the water. Must stay in step with
+# seabed_height() and SHORE_HEIGHT_CM in Tools/Fluids/clearwater_meshes.py (the bake's own
+# spawn_bed_z_cm / spawn_dry_margin_cm report these numbers).
 SHORE_STAND_X = 9600.0
 VIEW_DISTANCE_CM = SHORE_STAND_X
 # Eye height above the water plane. The player standing on the rim puts their eye at about

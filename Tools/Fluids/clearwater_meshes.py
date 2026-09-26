@@ -90,31 +90,44 @@ def value_noise(x, y, seed):
 
 
 def seabed_height(x, y, half_cm, depth_cm):
-    """A basin: shallow near the rim so the rim stands ABOVE the water plane, deepening
-    toward the middle.
+    """A test basin in three explicit zones (all radii are fractions of half_cm):
+
+      r <= 0.30   deep floor at -depth_cm (default 3 m). A standing player's eye
+                  (~170 cm above the feet) goes under, which is what makes the
+                  underwater post-process and the subsurface view testable at all.
+      0.30-0.60   graded rise from the deep floor to the shelf.
+      0.60-0.80   shallow shelf at ~-50 cm: knee-deep wading, eye well above the
+                  surface, the place to watch the waterline and shore caustics.
+      0.80-1.00   shore rise from the shelf to +SHORE_HEIGHT_CM at the rim, crossing
+                  z = 0 at about r = 0.89. The PlayerStart (SHORE_STAND_X = 9600 on a
+                  10000 half-extent, r = 0.96) lands on dry bed ~+49 cm with ~7 m of
+                  dry ground before the waterline -- teleport arrivals never splash.
 
     This is not decoration. With a uniformly deep bed the player spawns, falls, and lands
-    with their eye 80 cm UNDER the surface, so every frame is the back face of a
-    single-sided translucent plane -- which renders as literally pure black. The rim has to
-    break the water plane at z = 0 so there is somewhere to stand and look across.
+    with their eye UNDER the surface, so every frame is the back face of a single-sided
+    translucent plane -- which renders as literally pure black. The rim has to break the
+    water plane at z = 0 so there is somewhere to stand and look across, and the shelf
+    has to be shallow enough to wade for the shoreline behaviour to be observable.
 
     Parameter order is (half_cm, depth_cm): swapping them silently makes the normalised
     radius tiny, which drives the whole basin to full depth and reads as a bottomless pit.
 
     Returns centimetres; negative is below the water plane.
     """
-    # Normalised radius, 0 at the centre and 1 at the rim.
+    SHELF_DEPTH_CM = 50.0
     r = math.hypot(x, y) / max(half_cm, 1.0)
-    # t is 1 across the middle and falls to 0 at the rim, so the interpolation below runs
-    # from full depth in the centre up to +SHORE_HEIGHT at the edge. Getting this backwards
-    # raises the middle and sinks the rim, which looks like a bottomless pit from the shore.
-    t = smoothstep(0.62, 1.0, r)
-    base = -depth_cm + t * (depth_cm + SHORE_HEIGHT_CM)
-    # Keep the procedural relief, damped out as the bed approaches the rim so the
-    # waterline does not turn ragged.
+    # Deep bowl -> shelf: 0 inside r=0.30, 1 past r=0.60.
+    rise = smoothstep(0.30, 0.60, r)
+    z = -depth_cm + rise * (depth_cm - SHELF_DEPTH_CM)
+    # Shelf -> rim shore: 0 before r=0.80, 1 at the rim.
+    shore = smoothstep(0.80, 1.00, r)
+    z += shore * (SHORE_HEIGHT_CM + SHELF_DEPTH_CM)
+    # Procedural relief for the shelf and bowl to read as terrain. Damped BEFORE the
+    # waterline (fully gone by r=0.88) so the shoreline stays a clean curve; the spawn
+    # radius (0.96) is past the damp range, so the arrival bed height is deterministic.
     relief = (value_noise(x / 4200.0, y / 4200.0, 3) - 0.5) * 44.0
     relief += (value_noise(x / 1300.0, y / 1300.0, 11) - 0.5) * 16.0
-    return base + relief * (1.0 - t)
+    return z + relief * (1.0 - smoothstep(0.72, 0.88, r))
 
 
 def smoothstep(edge0, edge1, x):
@@ -137,7 +150,8 @@ def main():
     ap.add_argument('--plane-quads', type=int, default=192, help='water plane subdivisions per side')
     ap.add_argument('--bed-half', type=float, default=10000.0, help='seabed half extent, cm')
     ap.add_argument('--bed-quads', type=int, default=96, help='seabed subdivisions per side')
-    ap.add_argument('--depth', type=float, default=160.0, help='water depth over the basin floor, cm')
+    ap.add_argument('--depth', type=float, default=300.0,
+                    help='deep-zone floor depth, cm (the shallow shelf is fixed at ~50)')
     args = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
 
@@ -164,13 +178,22 @@ def main():
             shore_r = r_frac * args.bed_half
             break
 
+    def bed_z(r_frac):
+        return seabed_height(r_frac * args.bed_half, 0.0, args.bed_half, args.depth)
+
     print('CLEARWATER_MESHES ' + str({
         'plane': {'verts': nv, 'quads': nf, 'tris': nf * 2,
                   'half_cm': args.plane_half, 'spacing_cm': round(2 * args.plane_half / args.plane_quads, 2)},
         'seabed': {'verts': nvb, 'quads': nfb, 'tris': nfb * 2,
                    'half_cm': args.bed_half, 'spacing_cm': round(2 * args.bed_half / args.bed_quads, 2),
                    'rim_z_cm': round(rim_z, 1), 'deepest_z_cm': round(inner_z, 1),
-                   'waterline_radius_cm': round(shore_r, 0) if shore_r else None},
+                   'waterline_radius_cm': round(shore_r, 0) if shore_r else None,
+                   # Zone probes on +X so the spawn/arrival dryness is part of the bake's
+                   # own verification, not something discovered in-game.
+                   'deep_bed_z_cm': round(bed_z(0.0), 1),
+                   'shelf_bed_z_cm': round(bed_z(0.70), 1),
+                   'spawn_bed_z_cm': round(bed_z(0.96), 1),
+                   'spawn_dry_margin_cm': round((0.96 * args.bed_half) - (shore_r or 0.0), 0)},
         'out': str(OUT),
     }))
 
