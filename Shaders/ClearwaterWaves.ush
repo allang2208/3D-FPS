@@ -1,0 +1,68 @@
+// Clearwater material helper macros.
+//
+// Ported from https://github.com/Aureliengmz/clearwater (MIT, (c) 2026 Lumaris).
+//
+// These are MACROS, not functions, and that is forced by the host: Unreal emits a Custom
+// node's code field into the body of a generated function, where a function definition is
+// illegal HLSL and a `#include` just drags the same problem into the body. Macros create no
+// scope, so they are the only reusable unit a material graph can reach.
+//
+// GENERATED FILE -- edit Tools/Fluids/clearwater_generate_nodes.py and re-run it. Do not
+// hand-edit; the node bodies are generated from the same definitions.
+#pragma once
+
+#define CW_FRAC(x)          ((x) - floor(x))
+#define CW_FRAC2(x)         ((x) - floor(x))
+#define CW_FRAC3(x)         ((x) - floor(x))
+
+#define CW_HASH12(p)        (CW_FRAC(dot(CW_FRAC3(float3((p).xyx) * 0.1031), \
+                                CW_FRAC3(float3((p).xyx) * 0.1031).yzx + 33.33)))
+
+#define CW_VNOISE(p)        (lerp(lerp(CW_HASH12(floor(p)), \
+                                       CW_HASH12(floor(p) + float2(1.0, 0.0)), \
+                                       CW_FRAC2(p).x * CW_FRAC2(p).x * (3.0 - 2.0 * CW_FRAC2(p).x)), \
+                                  lerp(CW_HASH12(floor(p) + float2(0.0, 1.0)), \
+                                       CW_HASH12(floor(p) + float2(1.0, 1.0)), \
+                                       CW_FRAC2(p).x * CW_FRAC2(p).x * (3.0 - 2.0 * CW_FRAC2(p).x)), \
+                                  CW_FRAC2(p).y * CW_FRAC2(p).y * (3.0 - 2.0 * CW_FRAC2(p).y)))
+
+// Exact single-interface dielectric Fresnel (clearwater fresnel(), index.html 424-430).
+//
+// Single expression, no branch. clearwater returns 1.0 when the refracted angle is
+// evanescent (st2 >= 1); `step` selects that case so the macro stays branch-free and legal
+// inside a function body. sqrt is guarded by max(.., 0) because both sides are evaluated.
+#define CW_FRESNEL(cosI, n) (CW_FsFresnelAll((cosI), (n)))
+#define CW_FRESNEL_ALL(cosI, n)                                                     \
+    CW_FsSelect((cosI), (n))
+
+// Both branches, then select -- keeps this a single expression.
+#define CW_FsFresnelAll(ci0, n)                                                     \
+    (lerp(CW_FsNormal((ci0), (n)), 1.0,                                            \
+          step(1.0, CW_FsSt2((ci0), (n)))))
+
+#define CW_FsSt2(ci0, n)   ((1.0 - CW_FsCi(ci0) * CW_FsCi(ci0)) / ((n) * (n)))
+#define CW_FsCi(ci0)       (clamp((ci0), 0.0, 1.0))
+#define CW_FsCt(ci0, n)    (sqrt(max(1.0 - CW_FsSt2((ci0), (n)), 0.0)))
+#define CW_FsNormal(ci0, n)                                                          \
+    (0.5 * (CW_FsRs(ci0, n) * CW_FsRs(ci0, n) + CW_FsRp(ci0, n) * CW_FsRp(ci0, n)))
+#define CW_FsRs(ci0, n)    ((CW_FsCi(ci0) - (n) * CW_FsCt(ci0, n))                   \
+                            / max(CW_FsCi(ci0) + (n) * CW_FsCt(ci0, n), 1e-5))
+#define CW_FsRp(ci0, n)    (((n) * CW_FsCi(ci0) - CW_FsCt(ci0, n))                   \
+                            / max((n) * CW_FsCi(ci0) + CW_FsCt(ci0, n), 1e-5))
+
+// Clearwater's sky(), reduced to the analytic gradient and the sun lobes. The distant
+// headland, pine canopy and aerial perspective are dropped: the level has real terrain and
+// SkyAtmosphere does the scattering.
+//
+// These two constants matter more than they look. Water is almost fully reflective at
+// grazing angles (Fresnel -> 1 across most of a sea-level view), so the sky IS the water's
+// colour. The first tuned values -- zenith (0.11, 0.27, 0.62), horizon (0.66, 0.78, 0.90) --
+// rendered the surface as a pale washed-out blue-grey (measured mean RGB 0.518/0.601/0.676
+// with only 0.055 luminance contrast). Darkening the horizon toward turquoise is what turns
+// that into the saturated shallow-water look clearwater's reference image shows.
+#define CW_SKY(D, SunDir)                                                            \
+    (lerp(float3(0.66, 0.78, 0.90), float3(0.11, 0.27, 0.62),                        \
+          pow(saturate((D).y), 0.42))                                                \
+     + float3(1.0, 0.86, 0.66) * (0.22 * pow(max(dot((D), (SunDir)), 0.0), 6.0)      \
+                                + 0.30 * pow(max(dot((D), (SunDir)), 0.0), 64.0)     \
+                                + 1.60 * pow(max(dot((D), (SunDir)), 0.0), 2400.0)))

@@ -50,6 +50,10 @@ public:
     bool IsSubmergedRiverbed(const FHitResult& Hit) const;
     void RegisterWaterSurface(UStaticMeshComponent* Component);
     void UnregisterWaterSurface(UStaticMeshComponent* Component);
+    /** True when the component is an active water surface. RegisterWaterSurface returns
+     *  void and silently refuses components with no impact footprint, so a caller that
+     *  must know whether interaction is live needs to ask. */
+    bool IsWaterSurfaceRegistered(const UStaticMeshComponent* Component) const;
     virtual void OnWorldBeginPlay(UWorld& InWorld) override;
     virtual void Deinitialize() override;
 protected:

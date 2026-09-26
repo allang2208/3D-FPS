@@ -17,4 +17,5 @@ protected:
     virtual void BeginPlay() override;
 private:
     void SpawnAfterStreaming(TWeakObjectPtr<AController> Player);
+    void TryInstallHillsPortal();
 };

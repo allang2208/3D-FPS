@@ -2,6 +2,11 @@
 #include "WaterImpactFootprints.h"
 #include "Engine/StaticMesh.h"
 
+// Companion shapes for water bodies authored outside the generator (currently the
+// Clearwater plane, SourceAssets/ClearwaterWater20260926). Kept in its own translation
+// unit so re-running the generator does not drop them.
+const FWaterImpactFootprint* FindComplementaryWaterFootprint(const UStaticMesh* Mesh);
+
 const FWaterImpactFootprint* FindWaterImpactFootprint(const UStaticMesh* Mesh)
 {
     if(!Mesh)return nullptr;
@@ -248,5 +253,5 @@ const FWaterImpactFootprint* FindWaterImpactFootprint(const UStaticMesh* Mesh)
     }();
     const FString Path=Mesh->GetPathName();
     for(const auto& Shape:Footprints)if(Shape.MeshPath==Path)return &Shape;
-    return nullptr;
+    return FindComplementaryWaterFootprint(Mesh);
 }

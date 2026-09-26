@@ -61,6 +61,13 @@ void URiverPilotFXSubsystem::UnregisterWaterSurface(UStaticMeshComponent* Compon
     StaticSurfaces.RemoveAll([Component](const FRegisteredWaterSurface& S){return !S.Component.IsValid()||S.Component.Get()==Component;});
 }
 
+bool URiverPilotFXSubsystem::IsWaterSurfaceRegistered(const UStaticMeshComponent* Component) const
+{
+    if(!Component)return false;
+    for(const auto& Surface:StaticSurfaces)if(Surface.Component.Get()==const_cast<UStaticMeshComponent*>(Component))return true;
+    return false;
+}
+
 void URiverPilotFXSubsystem::PrepareSplashPool(UNiagaraSystem* Splash)
 {
     if(!Splash||!SplashPool.IsEmpty()||GetWorld()->GetNetMode()==NM_DedicatedServer)return;

@@ -6,6 +6,8 @@
 #include "Misc/CommandLine.h"
 #include "Misc/Parse.h"
 #include "SceneSpawnValidation.h"
+#include "SceneTestPortal.h"
+#include "Water/ClearwaterWater.h"
 #include "GameFramework/PlayerStart.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/Engine.h"
@@ -65,6 +67,7 @@ void AFPSGAMEGameMode::SpawnAfterStreaming(TWeakObjectPtr<AController> Player)
 void AFPSGAMEGameMode::BeginPlay()
 {
     Super::BeginPlay();
+    TryInstallHillsPortal();
 
     // Keep the isolated UI acceptance route independent from world/weather work.
     if (FParse::Param(FCommandLine::Get(), TEXT("ColdSteelUIAudit")))
@@ -78,4 +81,24 @@ void AFPSGAMEGameMode::BeginPlay()
     }
 
     GetWorld()->SpawnActor<AFPSWeatherManager>();
+}
+
+void AFPSGAMEGameMode::TryInstallHillsPortal()
+{
+    UWorld* World = GetWorld();
+    if (!World) return;
+    // The water body spawns itself into whichever map it is installed in; it is a no-op in
+    // maps that do not link to the Clearwater test level, so this is safe to call always.
+    AClearwaterWater::Install(World);
+    // The water link is independent of the hills link: it targets its own map and installs
+    // its own door, so install it first and let the hills chain keep its own retry.
+    ASceneTestPortal::InstallWaterLink(World);
+    const int32 Result = ASceneTestPortal::InstallHillsLink(World);
+    if (Result != 0) return;
+    TWeakObjectPtr<AFPSGAMEGameMode> Weak(this);
+    FTimerHandle Handle;
+    World->GetTimerManager().SetTimer(Handle, FTimerDelegate::CreateLambda([Weak]()
+    {
+        if (auto* Self = Weak.Get()) Self->TryInstallHillsPortal();
+    }), .5f, false);
 }

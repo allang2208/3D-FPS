@@ -1,12 +1,12 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Subsystems/WorldSubsystem.h"
 #include "SceneTestPortal.generated.h"
 
 class UTextRenderComponent;
 struct FStreamableHandle;
 
+    /** Travel actor for the hills hub door and authored dungeon return doors. */
 UCLASS()
 class FPSGAME_API ASceneTestPortal : public AActor
 {
@@ -15,6 +15,10 @@ public:
     ASceneTestPortal();
     void Configure(const FString& Map, const FString& Label, const FString& Options = FString(), FColor Color = FColor::Cyan);
     bool IsWithinInteractionRange(const APawn* Pawn) const;
+    /** 0 = wait for pawn, 1 = installed or already present, 2 = skip this map. */
+    static int32 InstallHillsLink(UWorld* World);
+    /** Two-way link between the main hub and the Clearwater water test level. */
+    static int32 InstallWaterLink(UWorld* World);
 protected:
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
@@ -30,18 +34,4 @@ private:
     TSharedPtr<FStreamableHandle> PreloadHandle;
     FTimerHandle DungeonTravelTimer;
     bool bTravelling = false;
-};
-
-// Installs scene links in the hub/test maps and a home link in the hills prototype.
-UCLASS()
-class FPSGAME_API USceneTestPortalSubsystem : public UWorldSubsystem
-{
-    GENERATED_BODY()
-public:
-    virtual void OnWorldBeginPlay(UWorld& InWorld) override;
-    virtual void Deinitialize() override;
-private:
-    void SpawnPortals();
-    FTimerHandle SpawnTimer;
-    int32 Attempts = 0;
 };
