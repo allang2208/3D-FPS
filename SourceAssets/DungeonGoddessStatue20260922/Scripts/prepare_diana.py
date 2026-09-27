@@ -9,7 +9,8 @@ Output: Authored/SM_GoddessStatue_Diana.fbx      game mesh, metres, base at Z=0,
 
 The model's front faces -Y after this import (verified by rendering the four
 orthogonal views: Previews/orientation.jpg). The project FBX convention
-(axis_forward='-Y') maps that to +X in UE, so actor yaw controls the facing.
+(axis_forward='-Y') retains X/Z and reflects Y in this import route, so the
+front is +Y in UE. Subtract 90 degrees from a target direction's UE yaw.
 
 Run:
     "E:/Program Files/Blender Foundation/Blender 5.1/blender.exe" --background --factory-startup \

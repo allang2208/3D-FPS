@@ -1,0 +1,14 @@
+{
+  "source": "DungeonGateWater20260922/Scripts/author_geometry.py",
+  "nominal_width_cm": 300,
+  "nominal_height_cm": 280,
+  "panel_count": 4,
+  "panel_overlap_cm": 4,
+  "side_overlap_cm": 2,
+  "first_track_cm": 25,
+  "track_pitch_cm": 7.2,
+  "panel_thickness_cm": 6.2,
+  "open_clearance_cm": 2,
+  "hood_margin_cm": 2,
+  "travel_seconds": 1.4
+}

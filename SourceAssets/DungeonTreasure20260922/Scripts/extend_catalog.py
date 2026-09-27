@@ -4,6 +4,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];PROJECT=ROOT.parents[1]
 def extend(catalog):
     config=json.loads((ROOT/'Config/rooms.json').read_text(encoding='utf-8'))
+    room_specs={r['id']:r for r in config['rooms']}
     manifest=json.loads((ROOT/'Authored/manifest.json').read_text())
     mapping=json.loads((ROOT/'Receipts/import.json').read_text())['meshes']
     sockets=json.loads((ROOT/'Config/sockets.json').read_text())
@@ -11,8 +12,11 @@ def extend(catalog):
     catalog['treasure_chance_per_room']=rules.get('treasure_chance_per_room',.1)
     catalog['modules']=[m for m in catalog['modules'] if m['id'] not in ('Treasure','TreasureLink')]
     def parts(rid):
+        # An older FBX manifest may still contain the removed floor accent.
+        # The current room recipe decides whether that group is instantiated.
         return [dict(mesh=mapping[o['name']],position=[0,0,0],scale=[1,1,1],yaw=0,collision=o['collision'],fluid=False,materials=[])
-                for o in manifest['objects'] if o['room']==rid]
+                for o in manifest['objects'] if o['room']==rid
+                and (o['kind']!='Accents' or room_specs.get(rid,{}).get('accents'))]
     for module in catalog['modules']:
         if module['id'] not in sockets:continue
         module['side_sockets']=[]
@@ -30,7 +34,7 @@ def extend(catalog):
     chest=json.loads((PROJECT/'Content/ColdSteelData/treasure_chest_assets.json').read_text(encoding='utf-8-sig'))
     m['props']=[dict(skeletal_mesh=chest['mesh'],closed_animation=chest['close'],material_overrides=chest['materials'],
                      collision_extent=chest['collision_extent'],collision_center=chest['collision_center'],
-                     position=[0,-512,.8],yaw=90,scale=[1,1,1],role='treasure_chest',identity=chest['identity'])]
+                     position=[0,-512,0],yaw=90,scale=[1,1,1],role='treasure_chest',identity=chest['identity'])]
     if chest.get('opening'):m['props'][0]['opening_animation']=chest['opening']
     catalog['modules'].append(m)
     catalog['modules'].append(dict(id='TreasureLink',min=[-180,-200,-22],max=[180,0,302],

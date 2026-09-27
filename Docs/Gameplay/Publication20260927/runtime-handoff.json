@@ -1,0 +1,148 @@
+{
+  "base_commit": "549580c36c24f6222cc5d57c2c2566f06204f8d5",
+  "standalone_sources": [
+    "Source/FPSGAME/Dungeons/AuthoredDungeonCatalog.h",
+    "Source/FPSGAME/Dungeons/AuthoredDungeonCatalog.cpp",
+    "Source/FPSGAME/Dungeons/AuthoredDungeonRoomScenes.h",
+    "Source/FPSGAME/Dungeons/AuthoredDungeonRoomScenes.cpp",
+    "Source/FPSGAME/Monsters/MonsterObstacleCollision.h",
+    "Source/FPSGAME/Monsters/MonsterObstacleCollision.cpp"
+  ],
+  "runtime_handoff": [
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonCompactRouting.inl",
+      "sha256": "17cc7fc3d61e7613497471e8358c48c29b00688e2ae1d98ea9714490e36ac883",
+      "bytes": 22340,
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonDressing.inl",
+      "sha256": "79d1634127d89ffcbd298f7ab29ac6ae1f00d7546c11705a955e023d97ded24f",
+      "bytes": 18786,
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp",
+      "sha256": "cf2e074a6262800eb333289053b87747a93da563331713882e4db604213bee53",
+      "bytes": 90265,
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonRoomChoices.inl",
+      "sha256": "0ed348b17d130dde6f5378e83fe30f616c663f49f67d553fca14f2b44d3818bd",
+      "bytes": 4926,
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonRouting.inl",
+      "sha256": "c03f855118056fc5b41e767fea28046e70a0847bb0dbcb5129bc04fcd4b52e04",
+      "bytes": 9651,
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonShortLinks.inl",
+      "sha256": "2a0dc388ab63299ccede563db85d9e81523500af4665301004b654ff29291274",
+      "bytes": 9211,
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRoomEncounter.cpp",
+      "sha256": "2a34ec7667045406a55fd53b9d9b21079a3040eef3ef94292cd813c63e08e91e",
+      "bytes": 14415,
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRoomEncounter.h",
+      "sha256": "92fbcde647af034fa9d48e7cd2d6ce7adac675ed89489ba6d2ce1728ab38f2ff",
+      "bytes": 3819,
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp",
+      "sha256": "53c84752661eb9e101065d1fb3a378aecd87a8a9ba172928a40700c47cefa7fc",
+      "bytes": 18547,
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.h",
+      "sha256": "0c6ddd115a3cd816dbf553d34b38ab9b946cf9c811790bb1007748bc3f1126ae",
+      "bytes": 7346,
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonSpawnDirector.cpp",
+      "sha256": "1abd407c5723a81f8db79f14a1f1ab551cf9cff01fd7696e9a29c8a47270e916",
+      "bytes": 42733,
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonSpawnDirector.h",
+      "sha256": "522d7302a6daaaed05312557645d8e6c67bcbf1f95484910c2d69823582608b7",
+      "bytes": 6626,
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonMission.inl",
+      "sha256": "0323e2ef52913492745781cc33e31383de8d45bc8014e223ba5dbf636da969eb",
+      "bytes": 16622,
+      "kind": "new"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonTopology.inl",
+      "sha256": "2aa4e78a1e6c8fe22665f9421b1d4904eb544b2a88ce2b0225c25fca9432c08f",
+      "bytes": 6968,
+      "kind": "new"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRoomGate.cpp",
+      "sha256": "ee93502fd08cb31daf41429b4a964ebb1bfe408ab8994158e115f1e585939166",
+      "bytes": 8698,
+      "kind": "new"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRoomGate.h",
+      "sha256": "7235b884bdc501d35a05059bca665df14adb1a3f3ae58afc818ac429babc5007",
+      "bytes": 1234,
+      "kind": "new"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRoomGateDimensions.h",
+      "sha256": "18a981afc6ae55197843f7a4b7df19bbed3cf9a6664a2b95d4632879709910c2",
+      "bytes": 666,
+      "kind": "new"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonShrine.cpp",
+      "sha256": "3a99bc8949f76e4f169691a13b144747b5bcfb209f0bc8e0ec1342e0c2cb0e1c",
+      "bytes": 4513,
+      "kind": "new"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HumanoidKnockdownObstacles.cpp",
+      "sha256": "c492a6eddee82f000ff6c14f51017bdbb648f4cb030fec19d7ad5d7b15ed854c",
+      "bytes": 9401,
+      "kind": "new"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelDungeonLoot.h",
+      "sha256": "f051563e02daca4a066e456a92fe7b8074ed258cb701ec8a2da4e7e2fa0e19f4",
+      "bytes": 842,
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelDungeonLoot.cpp",
+      "sha256": "154200414b5a78a34e010ab6ac58492182ba5ae0559aa9f1cb8d288a3df5422e",
+      "bytes": 10037,
+      "kind": "modified"
+    }
+  ],
+  "monster_delta_base": "Docs/Monsters/Publication20260927/new-runtime-sources.patch",
+  "dependencies_not_integrated": [
+    "FleshHand runtime and MonsterCombat / movement interfaces from the monster handoff",
+    "FDungeonRunState layout/progression fields and profile serialization",
+    "ColdSteelStatusModel shrine formula, world interaction and status display",
+    "HumanoidKnockdownComponent obstacle declarations and call sites"
+  ],
+  "tests_run_this_publication": false,
+  "complete_runtime_from_publication_alone": false
+}

@@ -18,8 +18,12 @@ catalog.modules[].spawn（唯一数据源，覆盖批次注入实时 Actor）
 
 `spawn` 段 schema（冻结）：`{source, theme, count:[min,max], anchor_roles:["encounter"], pool:[{id,class,weight}]}`。
 `anchor_roles` 按**前缀**匹配锚点 role tag（`encounter_west`/`encounter_lower` 等变体自动命中）。
-首批冻结池：Mutant3、NurseZombie、PoisonMaggot、Wolf、InfectedDog、FatZombie；
+历史首批池：Mutant3、NurseZombie、PoisonMaggot、Wolf、InfectedDog、FatZombie；
 排除 ZombieDog（纯 BP 未验证）、HandBrain（Boss 身份）、Witch（规划决策）。
+
+2026-09-27 用户调整废弃地牢池：移除 NurseZombie，增加 FleshHand、FleshHandMinion，并将 InfectedDog 扩展到全部现有战斗房家族；其余种类与数量区间保留。配置真源仍为 DungeonSpawn20260925，按模块 ID / family_id 同步基础房、共享配方和内部库，不能只改磁盘目录快照。制作及实际保存状态见工程 `Docs/Gameplay/dungeon-spawn-pool-20260927.md`。
+
+小手自然刷新的区别使用导演在 FinishSpawning 前设置的 `DungeonSpawned` 标签：取消 90 秒自动消失，允许技能训练及击杀登记，零奖励默认替换为 20 基础经验；召唤小手仍保留寿命和无奖励/无训练合同。不要通过全局修改小手 CDO 取消召唤物限制。该数值未做平衡或实机测试。
 
 ## 休眠配方（顺序严格，PoisonMaggotAudit.cpp:201 先例）
 
@@ -55,9 +59,8 @@ gameplay 流 = `seed ^ 域常量`（SpawnComposition/SpawnPlacement/EliteSelecti
 
 ## 封门精英房（Boss 遭遇泛化，不改 Boss 类）
 
-玩家越过门内侧触发线 → 落门板（/Engine Cube + 结构钢材质，`SetCanEverAffectNavigation(false)`，几何包含判定不产 overlap）→ 房内落点生成精英组（唤醒态，LevelBonus+2，Rank=Elite）→ 全员死亡开门并登记清房。
-**防卡死**：门口估算无效则不封门只生成；玩家死亡/离房放行开门（怪保留），回触发线重封；落点全放弃也会开门。
-门板绝不参与导航重建；精英组同样走导演静态闸门（共用 `SpawnMonsterAtGround`）。
+当前实现（2026-09-27）：玩家进房 → 按全局存活预算生成精英组 → 全组落地后，以 `DungeonRoomGate` 沿每个真实连通门洞安装分节铁闸 → 全员死亡开门并登记清房。模型源复用通道铁闸，尺寸来自清单端口，不能恢复旧 Cube 门板和固定宽高。
+门口扫掠区有人则延后落门；门洞/资产不完整、落点未完成时保留出口。死亡/离房开门，原怪保留；临时门不参与导航重建。具体构造见工程 `Docs/Gameplay/dungeon-elite-grille-20260926.md`，保存/构建记录不等于实机封门验收。
 
 ## 生成器挂接三段式（镜像 Boss 先例）
 

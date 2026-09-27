@@ -201,148 +201,99 @@
       ],
       "lights": [
         {
+          "id": "upper_entry",
           "position": [
             0,
-            -540.0,
-            41.5
+            150.0,
+            281.5
           ],
-          "intensity": 1600,
-          "radius": 540,
+          "intensity": 1350,
+          "radius": 720,
           "color": [
             1,
             0.64,
             0.36
           ],
           "role": "key",
-          "cast_shadows": true
+          "cast_shadows": true,
+          "max_draw_distance_cm": 2400,
+          "fade_range_cm": 500
         },
         {
-          "position": [
-            330.0,
-            -720.0,
-            -228.5
-          ],
-          "intensity": 1600,
-          "radius": 540,
-          "color": [
-            0.73,
-            0.84,
-            1
-          ],
-          "role": "key",
-          "cast_shadows": true
-        },
-        {
-          "position": [
-            330.0,
-            -180.0,
-            -408.5
-          ],
-          "intensity": 1600,
-          "radius": 540,
-          "color": [
-            1,
-            0.64,
-            0.36
-          ],
-          "role": "key",
-          "cast_shadows": true
-        },
-        {
-          "position": [
-            0,
-            -360.0,
-            -678.5
-          ],
-          "intensity": 1600,
-          "radius": 540,
-          "color": [
-            0.73,
-            0.84,
-            1
-          ],
-          "role": "key",
-          "cast_shadows": true
-        },
-        {
-          "position": [
-            0,
-            80.0,
-            231.5
-          ],
-          "intensity": 1250,
-          "radius": 480,
-          "color": [
-            1,
-            0.64,
-            0.36
-          ],
-          "role": "key",
-          "cast_shadows": true
-        },
-        {
+          "id": "north_turn",
           "position": [
             165.0,
-            -990.0,
-            -128.5
+            -1050.0,
+            -53.5
           ],
-          "intensity": 1250,
-          "radius": 480,
+          "intensity": 1900,
+          "radius": 700,
           "color": [
-            1,
-            0.64,
-            0.36
+            0.73,
+            0.84,
+            1
           ],
           "role": "key",
-          "cast_shadows": true
+          "cast_shadows": true,
+          "max_draw_distance_cm": 2400,
+          "fade_range_cm": 500
         },
         {
+          "id": "middle_pause",
           "position": [
-            330.0,
+            450.0,
             -450.0,
-            -308.5
+            -233.5
           ],
-          "intensity": 1250,
-          "radius": 480,
+          "intensity": 1450,
+          "radius": 560,
           "color": [
-            1,
-            0.64,
-            0.36
+            0.73,
+            0.84,
+            1
           ],
           "role": "key",
-          "cast_shadows": true
+          "cast_shadows": true,
+          "max_draw_distance_cm": 2400,
+          "fade_range_cm": 500
         },
         {
+          "id": "south_turn",
           "position": [
             165.0,
-            90.0,
-            -488.5
+            150.0,
+            -413.5
           ],
-          "intensity": 1250,
-          "radius": 480,
+          "intensity": 1900,
+          "radius": 700,
           "color": [
-            1,
-            0.64,
-            0.36
+            0.73,
+            0.84,
+            1
           ],
           "role": "key",
-          "cast_shadows": true
+          "cast_shadows": true,
+          "max_draw_distance_cm": 2400,
+          "fade_range_cm": 500
         },
         {
+          "id": "lower_exit",
           "position": [
             0,
-            -990.0,
-            -848.5
+            -1050.0,
+            -773.5
           ],
-          "intensity": 1250,
-          "radius": 480,
+          "intensity": 1600,
+          "radius": 660,
           "color": [
             1,
             0.64,
             0.36
           ],
           "role": "key",
-          "cast_shadows": true
+          "cast_shadows": true,
+          "max_draw_distance_cm": 2400,
+          "fade_range_cm": 500
         }
       ],
       "anchors": [],
@@ -418,7 +369,8 @@
           -1080.0
         ]
       ],
-      "floor_delta": -2
+      "floor_delta": -2,
+      "lighting_revision": "stair-platform-lights-20260927"
     }
   ]
 }

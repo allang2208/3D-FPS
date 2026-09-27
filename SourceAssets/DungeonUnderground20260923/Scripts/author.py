@@ -82,18 +82,9 @@ for x in (-1.40,4.70):
     for z in (1,-1.7,-4.4,-7.1,-9.8):
         tube('Services',[(x,10.60,z),(x,10.8,z)],.025,'BossPipeHardware',16)
 
-lamps=[]
-for flight,(xc,y0,y1,z0,z1,count) in enumerate(flights):
-    z=(z0+z1)/2+2.30; y=(y0+y1)/2
-    spec={'at':[xc,y,z],'warm':flight%2==0,'lumens':1600,'radius_cm':540,'role':'key'}
-    H['lamp'](spec);lamps.append(spec)
-    wall_x=-1.50 if xc==0 else 4.8
-    tube('Fixtures',[(wall_x,y,z+.08),(xc,y,z+.08),(xc,y,z+.035)],.023,'BossStructuralSteel',16)
-for x,y,z in ((0,-.8,2.4),(1.65,9.9,-1.2),(3.3,4.5,-3.),(1.65,-.9,-4.8),(0,9.9,-8.4)):
-    spec={'at':[x,y,z],'warm':True,'lumens':1250,'radius_cm':480,'role':'key'}
-    H['lamp'](spec);lamps.append(spec)
-    wall_y=10.8 if y>5 else -1.8
-    tube('Fixtures',[(x,wall_y,z+.08),(x,y,z+.08),(x,y,z+.035)],.023,'BossStructuralSteel',16)
+sys.path.insert(0,str(ROOT/'Scripts'))
+from lighting_layout import build as build_lighting,light_records
+lamps=build_lighting(H)
 
 from export_boss import export
 H['PIPE_RUNS']=[]
@@ -107,8 +98,7 @@ module=dict(id='StairDrop1080',role='vertical_connector',min=minimum,max=maximum
            dict(id='lower',position=[0,-1080,-1080],normal=[0,-1,0],width=300,height=280)],
     parts=[dict(mesh='/Game/Dungeons/Underground20260923/Meshes/'+r['name'],position=[0,0,0],scale=[1,1,1],yaw=0,
                 collision=r['kind']!='Fixtures',fluid=False,materials=[]) for r in H['RECORDS']],
-    lights=[dict(position=vec([*l['at'][:2],l['at'][2]-.085]),intensity=l['lumens'],radius=l['radius_cm'],
-                 color=[1,.64,.36] if l['warm'] else [.73,.84,1],role='key',cast_shadows=True) for l in lamps],
+    lights=light_records(),
     anchors=[],walk_polyline=[vec(p) for p in walk],floor_delta=-2)
 (ROOT/'Config/modules.json').write_text(json.dumps({'version':2,'room_ids':[],'modules':[module]},ensure_ascii=False,indent=2),encoding='utf-8')
 print('UNDERGROUND_STAIR_AUTHORED',len(H['RECORDS']),'mesh groups',flush=True)

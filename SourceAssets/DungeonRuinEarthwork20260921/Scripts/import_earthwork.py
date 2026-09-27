@@ -1,7 +1,9 @@
 """Import fitted Fab derivatives into new dungeon-only packages; preserve source packs."""
-import unreal as u,json,re
+import unreal as u,json,re,importlib.util
 from pathlib import Path
 ROOT=Path('D:/FPS3D/FPSGAME/SourceAssets/DungeonRuinEarthwork20260921')
+spec=importlib.util.spec_from_file_location('dungeon_earthwork_materials',ROOT/'Scripts/earthwork_materials.py')
+graphs=importlib.util.module_from_spec(spec);spec.loader.exec_module(graphs)
 OUT='/Game/Dungeons/AtmosphereV2/RoomInteriors/Earthwork'
 manifest=json.loads((ROOT/'Authored/manifest.json').read_text())
 E=u.EditorAssetLibrary;A=u.AssetToolsHelpers.get_asset_tools();L=u.MaterialEditingLibrary
@@ -15,25 +17,6 @@ def load(path):
     obj=u.load_asset(path)
     if not obj:raise RuntimeError('Required source unavailable '+path)
     return obj
-def node(mat,cls):return L.create_material_expression(mat,cls)
-def wire(a,b,pin,out=''):
-    if not L.connect_material_expressions(a,out,b,pin):raise RuntimeError('Cannot connect '+pin)
-def output(a,prop,pin=''):
-    if not L.connect_material_property(a,pin,getattr(u.MaterialProperty,'MP_'+prop)):raise RuntimeError('Cannot connect output '+prop)
-def scalar(mat,value):
-    n=node(mat,u.MaterialExpressionConstant);n.r=value;return n
-def vector(mat,name,value):
-    n=node(mat,u.MaterialExpressionVectorParameter);n.set_editor_property('parameter_name',name);n.set_editor_property('default_value',u.LinearColor(*value,1));return n
-def multiply(mat,a,b):
-    n=node(mat,u.MaterialExpressionMultiply);wire(a,n,'A');wire(b,n,'B');return n
-def sample(mat,path,name,kind,uv=None):
-    tex=load(path);n=node(mat,u.MaterialExpressionTextureSampleParameter2D);n.set_editor_property('parameter_name',name);n.texture=tex
-    spelling='SAMPLERTYPE'+('VIRTUAL' if tex.virtual_texture_streaming else '')+kind
-    member=next(key for key in dir(u.MaterialSamplerType) if key.replace('_','')==spelling)
-    n.sampler_type=getattr(u.MaterialSamplerType,member)
-    if uv:wire(uv,n,'UVs')
-    return n
-
 if u.get_editor_subsystem(u.UnrealEditorSubsystem).get_game_world():raise RuntimeError('Gameplay active; keep current play intact')
 for name,recipe in manifest['materials'].items():
     instance_path=OUT+'/Materials/MI_Earth_'+name
@@ -45,27 +28,7 @@ for name,recipe in manifest['materials'].items():
             material_path=OUT+'/Materials/M_Earth_'+name;parent=u.load_asset(material_path)
             if not parent:
                 parent=A.create_asset('M_Earth_'+name,OUT+'/Materials',u.Material,u.MaterialFactoryNew())
-                base=sample(parent,recipe['textures']['base'],'BaseColor','COLOR')
-                normal=sample(parent,recipe['textures']['normal'],'Normal','NORMAL')
-                color=multiply(parent,base,vector(parent,'Tint',recipe['tint']))
-                mask=None
-                if recipe['textures'].get('mask'):mask=sample(parent,recipe['textures']['mask'],'SurfaceMasks','MASKS')
-                rough=node(parent,u.MaterialExpressionClamp)
-                rough.set_editor_property('min_default',recipe['roughness_min']);rough.set_editor_property('max_default',recipe['roughness_max'])
-                if recipe['roughness_channel']=='base_alpha':wire(base,rough,'','A')
-                else:wire(mask,rough,'','G' if recipe['roughness_channel']=='orm_green' else 'R')
-                if name in ('Ridge','Gravel'):
-                    uv=node(parent,u.MaterialExpressionTextureCoordinate);uv.set_editor_property('coordinate_index',1)
-                    soil=sample(parent,manifest['materials']['Soil']['textures']['base'],'ContactSoil','COLOR',uv)
-                    soil_color=multiply(parent,soil,vector(parent,'ContactSoilTint',manifest['materials']['Soil']['tint']))
-                    blend=node(parent,u.MaterialExpressionLinearInterpolate);wire(color,blend,'A');wire(soil_color,blend,'B')
-                    vc=node(parent,u.MaterialExpressionVertexColor);wire(vc,blend,'Alpha','R');color=blend
-                output(color,'BASE_COLOR');output(normal,'NORMAL');output(rough,'ROUGHNESS')
-                output(scalar(parent,0),'METALLIC');output(scalar(parent,.24),'SPECULAR')
-                if mask:
-                    ao=node(parent,u.MaterialExpressionClamp);ao.set_editor_property('min_default',.42);ao.set_editor_property('max_default',1)
-                    wire(mask,ao,'','R' if recipe['roughness_channel']=='orm_green' else 'B');output(ao,'AMBIENT_OCCLUSION')
-                L.layout_material_expressions(parent);L.recompile_material(parent);save(parent)
+                graphs.build_graph(parent,name,recipe,manifest['materials']);save(parent)
         instance=A.create_asset('MI_Earth_'+name,OUT+'/Materials',u.MaterialInstanceConstant,u.MaterialInstanceConstantFactoryNew())
         L.set_material_instance_parent(instance,parent)
     if recipe.get('tint'):L.set_material_instance_vector_parameter_value(instance,'Tint',u.LinearColor(*recipe['tint'],1))

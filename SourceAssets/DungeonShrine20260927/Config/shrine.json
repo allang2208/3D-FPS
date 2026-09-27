@@ -1,0 +1,115 @@
+{
+  "actor_tag": "DungeonStart.ShrineStatue",
+  "selection": "one_equal_weight_choice_per_run_independent_seed",
+  "lifetime": "current_dungeon_run",
+  "statues": [
+    {
+      "id": "diana",
+      "name": "狩猎女神·狄安娜",
+      "source_title": "Diana",
+      "mesh": "/Game/Dungeons/GoddessStatue20260922/Meshes/SM_GoddessStatue_Diana.SM_GoddessStatue_Diana",
+      "buff_id": "shrineDiana",
+      "blessing_name": "狩猎赐福",
+      "icon": "🏹",
+      "color": "#b0c994",
+      "description": "物理攻击提高12%，移动速度提高8%；本次地牢有效。",
+      "effects": {
+        "atkPercent": 12,
+        "moveSpeedPercent": 8
+      },
+      "front_local_yaw_deg": 90.0,
+      "orientation_source": "Individual final front view: -Y in Blender; FBX import retains X/Z and reflects Y, so front is +Y in UE."
+    },
+    {
+      "id": "venus",
+      "name": "爱与美之神·维纳斯",
+      "source_title": "Venus",
+      "mesh": "/Game/Dungeons/StatueSet20260922/Meshes/SM_Statue_Venus.SM_Statue_Venus",
+      "buff_id": "shrineVenus",
+      "blessing_name": "和悦赐福",
+      "icon": "♡",
+      "color": "#d5a5ba",
+      "description": "每秒额外恢复2点生命，法力恢复速度提高10%；本次地牢有效。",
+      "effects": {
+        "hpRegenFlat": 2,
+        "mpRegenPercent": 10
+      },
+      "front_local_yaw_deg": 90.0,
+      "orientation_source": "Individual final front view: -Y in Blender; FBX import retains X/Z and reflects Y, so front is +Y in UE."
+    },
+    {
+      "id": "flora",
+      "name": "花神·芙罗拉",
+      "source_title": "Flora",
+      "mesh": "/Game/Dungeons/StatueSet20260922/Meshes/SM_Statue_Flora.SM_Statue_Flora",
+      "buff_id": "shrineFlora",
+      "blessing_name": "繁花赐福",
+      "icon": "✿",
+      "color": "#b3c57b",
+      "description": "每秒额外恢复1点生命，耐力恢复速度提高25%；本次地牢有效。",
+      "effects": {
+        "hpRegenFlat": 1,
+        "staminaRegenPercent": 25
+      },
+      "front_local_yaw_deg": 90.0,
+      "orientation_source": "Individual final front view: -Y in Blender; FBX import retains X/Z and reflects Y, so front is +Y in UE."
+    },
+    {
+      "id": "muse",
+      "name": "灵感女神·缪斯",
+      "source_title": "Muse",
+      "mesh": "/Game/Dungeons/StatueSet20260922/Meshes/SM_Statue_Muse.SM_Statue_Muse",
+      "buff_id": "shrineMuse",
+      "blessing_name": "灵感赐福",
+      "icon": "♫",
+      "color": "#a6b5dd",
+      "description": "魔法攻击提高15%，法力恢复速度提高20%；本次地牢有效。",
+      "effects": {
+        "matkPercent": 15,
+        "mpRegenPercent": 20
+      },
+      "front_local_yaw_deg": 90.0,
+      "orientation_source": "Individual final front view: -Y in Blender; FBX import retains X/Z and reflects Y, so front is +Y in UE."
+    },
+    {
+      "id": "magnamater",
+      "name": "大母神",
+      "source_title": "Magna-Mater-Brunnen",
+      "mesh": "/Game/Dungeons/StatueSet20260922/Meshes/SM_Statue_MagnaMater.SM_Statue_MagnaMater",
+      "buff_id": "shrineMagnaMater",
+      "blessing_name": "慈佑赐福",
+      "icon": "✚",
+      "color": "#d8c49d",
+      "description": "领取时恢复最大生命的30%，物理防御提高15%；本次地牢有效。",
+      "heal_fraction": 0.3,
+      "effects": {
+        "defPercent": 15
+      },
+      "front_local_yaw_deg": 90.0,
+      "orientation_source": "Individual final front view: -Y in Blender; FBX import retains X/Z and reflects Y, so front is +Y in UE."
+    },
+    {
+      "id": "baroque",
+      "name": "无名守望者",
+      "source_title": "Barockstatue",
+      "identity_note": "原作品未标明具体神祇；无名守望者为游戏内命名。",
+      "mesh": "/Game/Dungeons/StatueSet20260922/Meshes/SM_Statue_Baroque.SM_Statue_Baroque",
+      "buff_id": "shrineBaroque",
+      "blessing_name": "守望赐福",
+      "icon": "⛨",
+      "color": "#b8bdc8",
+      "description": "物理防御提高10%，魔法防御提高20%；本次地牢有效。",
+      "effects": {
+        "defPercent": 10,
+        "mdefPercent": 20
+      },
+      "front_local_yaw_deg": 90.0,
+      "orientation_source": "Individual final front view: -Y in Blender; FBX import retains X/Z and reflects Y, so front is +Y in UE."
+    }
+  ],
+  "exit_target_cm": [
+    1825,
+    -335,
+    54.5
+  ]
+}

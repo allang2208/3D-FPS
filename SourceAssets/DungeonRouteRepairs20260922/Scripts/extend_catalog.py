@@ -73,4 +73,14 @@ def extend(catalog):
     if spawn_receipt.exists() and read(spawn_receipt).get('stage')=='map_saved':
         import runpy
         catalog=runpy.run_path(str(spawn/'Scripts/extend_catalog.py'))['extend'](catalog)
+    composition=ROOT.parent/'DungeonComposition20260926'
+    composition_receipt=composition/'Receipts/install.json'
+    if composition_receipt.exists() and read(composition_receipt).get('stage')=='map_saved':
+        import runpy
+        catalog=runpy.run_path(str(composition/'Scripts/extend_catalog.py'))['extend'](catalog)
+    facility=ROOT.parent/'DungeonFacilityScenes20260927'
+    facility_receipt=facility/'Receipts/install.json'
+    if facility_receipt.exists() and read(facility_receipt).get('stage')=='map_saved':
+        import runpy
+        catalog=runpy.run_path(str(facility/'Scripts/extend_catalog.py'))['extend'](catalog)
     return catalog

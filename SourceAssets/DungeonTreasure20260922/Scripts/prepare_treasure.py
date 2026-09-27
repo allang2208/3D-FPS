@@ -15,8 +15,8 @@ treasure=dict(id='Treasure',name='宝箱储藏室',origin_m=[0,0,0],height_m=3.4
  pipes=[dict(points=[[-4.82,.45,3.08],[-4.82,9.8,3.08],[4.82,9.8,3.08]],radius=.065)],
  lights=[dict(at=[0,5.12,3.17],warm=True,lumens=1100,radius_cm=620),dict(at=[0,1.2,3.17],warm=False,lumens=430,radius_cm=320)],
  anchors=[dict(role='treasure_chest',at=[0,5.12,0]),dict(role='treasure_entry',at=[0,1.5,0])],
- # Floor inset marks the reward position without adding a blocking platform.
- accents=[dict(center=[0,5.12,.004],size=[2.6,2.2,.008],material='BareSteel')])
+ # The chest rests directly on the existing concrete floor.
+ accents=[])
 variants=[];sockets={}
 for parent,specs in {
  'Distribution':[(7,sources['Distribution']['footprint'][7][1]-6.7,'West'),(6,sources['Distribution']['footprint'][6][0]-3.0,'North')],

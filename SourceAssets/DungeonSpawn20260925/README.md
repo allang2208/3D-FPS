@@ -1,23 +1,25 @@
 # DungeonSpawn20260925 — 地牢战斗房刷怪配置批次
 
-把冻结的每房 `spawn` 段（主题 / 数量区间 / 锚点角色 / 加权怪物池）注入
-`module_catalog_json` 中 9 个战斗房模块（Distribution、Drainage、Drainage_NearBridge、
-Drainage_FarBridge、ShoredBreach、VentilationLoop、VentilationLoop_WestCore、
-VentilationLoop_EastCore、FreightTransfer）。怪物 class 路径逐一核对过
-`Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp:22-30` 的注册表。
+把每房 `spawn` 段（主题 / 数量区间 / 锚点角色 / 加权怪物池）注入
+`module_catalog_json` 的基础战斗房及共享房壳配方。九份源房配置继续服务当前十二个
+普通房 ID；通风配方按 `family_id` 继承，并同步内部配方库，避免恢复旧池。
+怪物 class 路径来自 `Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp` 注册表。
+
+2026-09-27：移除 NurseZombie（女/护士僵尸），扩展 InfectedDog，并加入 FleshHand、
+FleshHandMinion；其他原有种类和每房数量保留。制作与接入状态见
+`Docs/Gameplay/dungeon-spawn-pool-20260927.md`。本批配置同时供普通房和封门精英房使用。
 
 ## 文件
 
 - `Config/spawn-groups.json` — 唯一数据源。每个键对应一个战斗房模块 id，值为逐字注入的
   `spawn` 段（含 `"source": "DungeonSpawn20260925"` 幂等标记）。
 - `Scripts/extend_catalog.py` — 纯离线函数模块（FinalReward 模式）：
-  - `extend(catalog)`：deepcopy 后按 `catalog['room_ids']` **整段替换**各模块的 `spawn`
-    字段；`room_ids` 出现没有对应 spawn 组的 id（或模块缺失）时抛错；spawn 组多于
-    `room_ids` 时也抛错。重复执行幂等。
+  - `extend(catalog)`：deepcopy 后按模块 ID / 家族 **整段替换** `spawn` 字段，更新
+    保留的源房、活动配方及其内部配方；活动房无对应配置或源房缺失时抛错。重复执行幂等。
   - `asset_paths(catalog)`：生成器，按模块稳定顺序去重 yield 所有 pool 条目的 class 路径。
   - `__main__`：离线候选生成（见下）。
 - `Scripts/install.py` — headless UE Python 安装器（镜像 DungeonRoomVariants20260924 骨架）。
-- `Sources/catalog-before.json` — 安装时生成的 Actor 原 catalog 备份（首次安装才写）。
+- `Sources/catalog-before-<sha12>.json` — 每个不同安装前目录的备份；历史首次备份保留。
 - `Receipts/catalog-extended-candidate.json` — 离线候选（只写本批次目录）。
 - `Receipts/install.json` — 安装回执。
 

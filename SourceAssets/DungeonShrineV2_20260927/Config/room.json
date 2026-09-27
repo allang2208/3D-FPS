@@ -1,0 +1,18 @@
+{
+  "revision": "shrine-room-v2-20260927",
+  "origin_ue_cm": [1500, -400, 0],
+  "width_m": 6.5,
+  "depth_m": 7.5,
+  "breach": {"left": 1.35, "right": 5.15, "height": 3.3},
+  "wall_thickness_m": 0.55,
+  "statue_position_cm": [1825, -1024, 54.5],
+  "exit_target_cm": [1825, -335, 54.5],
+  "seed": 927314,
+  "clear_path_width_m": 1.8,
+  "concept": "Docs/Gameplay/Previews/DungeonShrineV2_20260927/concept-room.png",
+  "style": "fitted weathered grey-brown limestone, shallow vault, recessed niche, clean central approach, thick layered concrete breach",
+  "lights": [
+    {"label": "DGN_A_ShrineV2_SconceLeft", "position_cm": [1640, -1063, 211], "intensity": 550, "radius_cm": 400, "temperature": 3400},
+    {"label": "DGN_A_ShrineV2_SconceRight", "position_cm": [2010, -1063, 211], "intensity": 550, "radius_cm": 400, "temperature": 3400}
+  ]
+}

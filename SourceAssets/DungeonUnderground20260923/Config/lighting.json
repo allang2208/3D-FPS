@@ -1,0 +1,11 @@
+{
+  "revision": "stair-platform-lights-20260927",
+  "description": "Five high-mounted platform lights; no fixtures suspended over stair flights.",
+  "lamps": [
+    {"id":"upper_entry","at":[0,-1.50,2.90],"floor_z":0,"wall_axis":"y","wall_at":-1.80,"yaw":0,"warm":true,"lumens":1350,"radius_cm":720},
+    {"id":"north_turn","at":[1.65,10.50,-0.45],"floor_z":-3.60,"wall_axis":"y","wall_at":10.80,"yaw":0,"warm":false,"lumens":1900,"radius_cm":700},
+    {"id":"middle_pause","at":[4.50,4.50,-2.25],"floor_z":-5.40,"wall_axis":"x","wall_at":4.80,"yaw":90,"warm":false,"lumens":1450,"radius_cm":560},
+    {"id":"south_turn","at":[1.65,-1.50,-4.05],"floor_z":-7.20,"wall_axis":"y","wall_at":-1.80,"yaw":0,"warm":false,"lumens":1900,"radius_cm":700},
+    {"id":"lower_exit","at":[0,10.50,-7.65],"floor_z":-10.80,"wall_axis":"y","wall_at":10.80,"yaw":0,"warm":true,"lumens":1600,"radius_cm":660}
+  ]
+}

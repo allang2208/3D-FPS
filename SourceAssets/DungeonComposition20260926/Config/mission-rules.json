@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "grammars": [
+    "parallel_three_way",
+    "staggered_left",
+    "staggered_right"
+  ],
+  "corridor_cm_per_room": 900,
+  "fixed_corridor_cm": 14000,
+  "route_estimate_max_cm": 42000,
+  "optional_loop_goal": [
+    1,
+    2
+  ],
+  "risk_route": "shortest_branch",
+  "risk_level_bonus": 2,
+  "risk_reward_multiplier": 1.5
+}

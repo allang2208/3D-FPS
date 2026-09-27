@@ -65,3 +65,7 @@
 - Docs/Performance/dungeon-hud-stall-20260923.md：已采集的 HUD 慢帧归因与第一批改动。
 - Docs/Performance/dungeon-performance-completion-20260923.md：后续五项优化、资产制作和后台构建。
 - SourceAssets/DungeonPerformance20260923Batch/Receipts/assets.json、build.json：制作／构建记录；不是性能复测。
+
+### 走动卡顿与进入加载分段（2026-09-27）
+
+地牢性能日志按本次 run 的进入前、释放玩家后分别统计；进入阶段的图标准备或导航警告不能直接解释几分钟后的转视角慢帧。没有对应 CPU/GPU 帧采样时只列候选原因，不把“可能是加载”写成结论。当前案例见工程 `Docs/Performance/dungeon-walking-stutter-20260927.md`；本次未取得有效卡顿 trace，房间组件预算和资源复用不是已测出的帧率改善。

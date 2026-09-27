@@ -32,6 +32,17 @@ for path in treasure_extension['asset_paths'](catalog):
     if path not in assets:
         assets[path]=u.load_class(None,path) if path.endswith('_C') else u.load_asset(path)
         if not assets[path]:raise RuntimeError('Missing treasure dependency '+path)
+for entry in catalog.get('start_shrine',{}).get('statues',[]):
+    path=entry['mesh'];assets[path]=u.load_asset(path)
+    if not assets[path]:raise RuntimeError('Missing shrine dependency '+path)
+for module in catalog['modules']:
+    for recipe in module.get('scene_recipes',[]):
+        for layer in [recipe]+recipe.get('states',[]):
+            for part in layer.get('parts',[]):
+                for path in [part['mesh']]+part.get('materials',[]):
+                    if path and path not in assets:
+                        assets[path]=u.load_asset(path)
+                        if not assets[path]:raise RuntimeError('Missing facility scene dependency '+path)
 actors={a.get_actor_label():a for a in AA.get_all_level_actors()}
 g=actors.get('DGN_RouteGenerator') or AA.spawn_actor_from_class(generator_class,u.Vector(0,0,0))
 g.modify();g.set_actor_label('DGN_RouteGenerator');g.set_folder_path('DungeonRoutes');g.set_editor_property('module_catalog_json',json.dumps(catalog));g.set_editor_property('module_assets',list(assets.values()));g.set_editor_property('preview_seed',92247);g.set_editor_property('randomize_on_entry',True)
@@ -66,7 +77,7 @@ for label,a in actors.items():
         a.modify();a.set_editor_property('tags',list(set(list(a.tags)+[u.Name('DungeonStart.Workbench' if 'Workbench' in label else 'DungeonStart.Shrine')])));
 
 statue=actors.get('DGN_Start_ShrineStatue') or AA.spawn_actor_from_class(u.StaticMeshActor,u.Vector(1910,-995,51),u.Rotator(pitch=0,yaw=90,roll=0))
-statue.modify();statue.set_actor_label('DGN_Start_ShrineStatue');statue.set_folder_path('DungeonStart/Shrine');statue.static_mesh_component.set_static_mesh(u.load_asset('/Game/Dungeons/GoddessStatue20260922/Meshes/SM_GoddessStatue_Diana'));statue.static_mesh_component.set_collision_profile_name('BlockAll');statue.set_editor_property('tags',[u.Name('DungeonStart.Shrine'),u.Name('FutureBlessingAndQuest')])
+statue.modify();statue.set_actor_label('DGN_Start_ShrineStatue');statue.set_folder_path('DungeonStart/Shrine');statue.static_mesh_component.set_static_mesh(u.load_asset('/Game/Dungeons/GoddessStatue20260922/Meshes/SM_GoddessStatue_Diana'));statue.static_mesh_component.set_collision_profile_name('BlockAll');statue.set_editor_property('tags',[u.Name('DungeonStart.Shrine'),u.Name('DungeonStart.ShrineStatue')])
 transition_state=runpy.run_path(str(ROOT.parent/'DungeonDoorTransitions20260922/Scripts/apply_start_connection.py'),run_name='__main__')
 del transition_state;gc.collect()
 dirty=list(u.EditorLoadingAndSavingUtils.get_dirty_map_packages())+list(u.EditorLoadingAndSavingUtils.get_dirty_content_packages())
@@ -76,3 +87,6 @@ if not ED.save_current_level():raise RuntimeError('Cannot save random dungeon ma
 (ROOT/'Receipts/install.json').write_text(json.dumps(dict(stage='map_saved',map=TARGET,description=g.get_editor_property('layout_description'),saved_packages=len(owned),tests_run=False),indent=2))
 (ROOT/'Receipts/installed-layout.json').write_text(g.get_editor_property('layout_manifest_json'))
 print('RANDOM_DUNGEON_MAP_SAVED',g.get_editor_property('layout_description'))
+shrine=ROOT.parent/'DungeonShrine20260927'
+if (shrine/'Receipts/install.json').exists():
+    runpy.run_path(str(shrine/'Scripts/install_shrine.py'),run_name='__main__')

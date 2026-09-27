@@ -1,0 +1,1897 @@
+{
+  "version": 1,
+  "families": {
+    "Drainage": [
+      {
+        "id": "pump_service",
+        "label": "排水泵组检修",
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_PumpSkid",
+            "position": [
+              430,
+              -190,
+              0
+            ],
+            "yaw": 0,
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "materials": [],
+            "collision": true,
+            "fluid": false,
+            "affects_navigation": true,
+            "cast_shadow": true,
+            "assembly_role": "FacilityScene"
+          },
+          {
+            "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_RepairBench",
+            "position": [
+              -260,
+              -1770,
+              0
+            ],
+            "yaw": 0,
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "materials": [],
+            "collision": true,
+            "fluid": false,
+            "affects_navigation": true,
+            "cast_shadow": true,
+            "assembly_role": "FacilityScene"
+          }
+        ],
+        "scene_keep_clear": [
+          {
+            "min": [
+              302.0,
+              -255.5,
+              -5
+            ],
+            "max": [
+              558.0,
+              -124.5,
+              145
+            ]
+          },
+          {
+            "min": [
+              -368.0,
+              -1825.5,
+              -5
+            ],
+            "max": [
+              -152.0,
+              -1714.5,
+              165
+            ]
+          }
+        ],
+        "states": [
+          {
+            "id": "maintenance",
+            "label": "中断的检修",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_ServiceSpares",
+                "position": [
+                  -465,
+                  -1630,
+                  0
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  -523.0,
+                  -1673.0,
+                  -5
+                ],
+                "max": [
+                  -407.0,
+                  -1587.0,
+                  45
+                ]
+              }
+            ],
+            "light_intensity_scale": 1.0
+          },
+          {
+            "id": "abandoned",
+            "label": "撤离后的废弃",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_AbandonedPanels",
+                "position": [
+                  -465,
+                  -1630,
+                  0
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  -528.0,
+                  -1680.5,
+                  -5
+                ],
+                "max": [
+                  -402.0,
+                  -1579.5,
+                  37
+                ]
+              }
+            ],
+            "light_intensity_scale": 0.9
+          },
+          {
+            "id": "isolated",
+            "label": "应急封存",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_IsolationStand",
+                "position": [
+                  -465,
+                  -1630,
+                  0
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  -522.0,
+                  -1674.0,
+                  -5
+                ],
+                "max": [
+                  -408.0,
+                  -1586.0,
+                  100
+                ]
+              }
+            ],
+            "light_intensity_scale": 0.85
+          }
+        ]
+      },
+      {
+        "id": "filter_exchange",
+        "label": "过滤回收作业",
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_FilterRack",
+            "position": [
+              -260,
+              -1770,
+              0
+            ],
+            "yaw": 0,
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "materials": [],
+            "collision": true,
+            "fluid": false,
+            "affects_navigation": true,
+            "cast_shadow": true,
+            "assembly_role": "FacilityScene"
+          },
+          {
+            "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_PumpSkid",
+            "position": [
+              840,
+              -820,
+              0
+            ],
+            "yaw": 90,
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "materials": [],
+            "collision": true,
+            "fluid": false,
+            "affects_navigation": true,
+            "cast_shadow": true,
+            "assembly_role": "FacilityScene"
+          }
+        ],
+        "scene_keep_clear": [
+          {
+            "min": [
+              -368.0,
+              -1820.5,
+              -5
+            ],
+            "max": [
+              -152.0,
+              -1719.5,
+              195
+            ]
+          },
+          {
+            "min": [
+              774.5,
+              -948.0,
+              -5
+            ],
+            "max": [
+              905.5,
+              -692.0,
+              145
+            ]
+          }
+        ],
+        "states": [
+          {
+            "id": "maintenance",
+            "label": "中断的检修",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_ServiceSpares",
+                "position": [
+                  -465,
+                  -1630,
+                  0
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  -523.0,
+                  -1673.0,
+                  -5
+                ],
+                "max": [
+                  -407.0,
+                  -1587.0,
+                  45
+                ]
+              }
+            ],
+            "light_intensity_scale": 1.0
+          },
+          {
+            "id": "abandoned",
+            "label": "撤离后的废弃",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_AbandonedPanels",
+                "position": [
+                  -465,
+                  -1630,
+                  0
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  -528.0,
+                  -1680.5,
+                  -5
+                ],
+                "max": [
+                  -402.0,
+                  -1579.5,
+                  37
+                ]
+              }
+            ],
+            "light_intensity_scale": 0.9
+          },
+          {
+            "id": "isolated",
+            "label": "应急封存",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_IsolationStand",
+                "position": [
+                  -465,
+                  -1630,
+                  0
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  -522.0,
+                  -1674.0,
+                  -5
+                ],
+                "max": [
+                  -408.0,
+                  -1586.0,
+                  100
+                ]
+              }
+            ],
+            "light_intensity_scale": 0.85
+          }
+        ]
+      },
+      {
+        "id": "emergency_power",
+        "label": "排水应急供电",
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_PowerCabinet",
+            "position": [
+              840,
+              -820,
+              0
+            ],
+            "yaw": 90,
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "materials": [],
+            "collision": true,
+            "fluid": false,
+            "affects_navigation": true,
+            "cast_shadow": true,
+            "assembly_role": "FacilityScene"
+          },
+          {
+            "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+            "position": [
+              -260,
+              -1770,
+              0
+            ],
+            "yaw": 0,
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "materials": [],
+            "collision": true,
+            "fluid": false,
+            "affects_navigation": true,
+            "cast_shadow": true,
+            "assembly_role": "FacilityScene"
+          }
+        ],
+        "scene_keep_clear": [
+          {
+            "min": [
+              788.0,
+              -918.0,
+              -5
+            ],
+            "max": [
+              892.0,
+              -722.0,
+              207
+            ]
+          },
+          {
+            "min": [
+              -373.0,
+              -1844.0,
+              -5
+            ],
+            "max": [
+              -147.0,
+              -1696.0,
+              164
+            ]
+          }
+        ],
+        "states": [
+          {
+            "id": "maintenance",
+            "label": "中断的检修",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_ServiceSpares",
+                "position": [
+                  -465,
+                  -1630,
+                  0
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  -523.0,
+                  -1673.0,
+                  -5
+                ],
+                "max": [
+                  -407.0,
+                  -1587.0,
+                  45
+                ]
+              }
+            ],
+            "light_intensity_scale": 1.0
+          },
+          {
+            "id": "abandoned",
+            "label": "撤离后的废弃",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_AbandonedPanels",
+                "position": [
+                  -465,
+                  -1630,
+                  0
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  -528.0,
+                  -1680.5,
+                  -5
+                ],
+                "max": [
+                  -402.0,
+                  -1579.5,
+                  37
+                ]
+              }
+            ],
+            "light_intensity_scale": 0.9
+          },
+          {
+            "id": "isolated",
+            "label": "应急封存",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_IsolationStand",
+                "position": [
+                  -465,
+                  -1630,
+                  0
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  -522.0,
+                  -1674.0,
+                  -5
+                ],
+                "max": [
+                  -408.0,
+                  -1586.0,
+                  100
+                ]
+              }
+            ],
+            "light_intensity_scale": 0.85
+          }
+        ]
+      }
+    ],
+    "VentilationLoop": [
+      {
+        "id": "filter_service",
+        "label": "风道滤芯更换",
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_FilterRack",
+            "position": [
+              180,
+              -1370,
+              0
+            ],
+            "yaw": 90,
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "materials": [],
+            "collision": true,
+            "fluid": false,
+            "affects_navigation": true,
+            "cast_shadow": true,
+            "assembly_role": "FacilityScene"
+          },
+          {
+            "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_RepairBench",
+            "position": [
+              1600,
+              -270,
+              0
+            ],
+            "yaw": 0,
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "materials": [],
+            "collision": true,
+            "fluid": false,
+            "affects_navigation": true,
+            "cast_shadow": true,
+            "assembly_role": "FacilityScene"
+          }
+        ],
+        "scene_keep_clear": [
+          {
+            "min": [
+              129.5,
+              -1478.0,
+              -5
+            ],
+            "max": [
+              230.5,
+              -1262.0,
+              195
+            ]
+          },
+          {
+            "min": [
+              1492.0,
+              -325.5,
+              -5
+            ],
+            "max": [
+              1708.0,
+              -214.5,
+              165
+            ]
+          }
+        ],
+        "states": [
+          {
+            "id": "maintenance",
+            "label": "中断的检修",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_ServiceSpares",
+                "position": [
+                  400,
+                  -1400,
+                  0
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  342.0,
+                  -1443.0,
+                  -5
+                ],
+                "max": [
+                  458.0,
+                  -1357.0,
+                  45
+                ]
+              }
+            ],
+            "light_intensity_scale": 1.0
+          },
+          {
+            "id": "abandoned",
+            "label": "撤离后的废弃",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_AbandonedPanels",
+                "position": [
+                  400,
+                  -1400,
+                  0
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  337.0,
+                  -1450.5,
+                  -5
+                ],
+                "max": [
+                  463.0,
+                  -1349.5,
+                  37
+                ]
+              }
+            ],
+            "light_intensity_scale": 0.9
+          },
+          {
+            "id": "isolated",
+            "label": "应急封存",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_IsolationStand",
+                "position": [
+                  400,
+                  -1400,
+                  0
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  343.0,
+                  -1444.0,
+                  -5
+                ],
+                "max": [
+                  457.0,
+                  -1356.0,
+                  100
+                ]
+              }
+            ],
+            "light_intensity_scale": 0.85
+          }
+        ]
+      },
+      {
+        "id": "duct_overhaul",
+        "label": "风道拆换工位",
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_DuctCradle",
+            "position": [
+              1600,
+              -270,
+              0
+            ],
+            "yaw": 0,
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "materials": [],
+            "collision": true,
+            "fluid": false,
+            "affects_navigation": true,
+            "cast_shadow": true,
+            "assembly_role": "FacilityScene"
+          },
+          {
+            "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_RepairBench",
+            "position": [
+              1630,
+              -750,
+              0
+            ],
+            "yaw": 90,
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "materials": [],
+            "collision": true,
+            "fluid": false,
+            "affects_navigation": true,
+            "cast_shadow": true,
+            "assembly_role": "FacilityScene"
+          }
+        ],
+        "scene_keep_clear": [
+          {
+            "min": [
+              1492.0,
+              -335.0,
+              -5
+            ],
+            "max": [
+              1708.0,
+              -205.0,
+              109
+            ]
+          },
+          {
+            "min": [
+              1574.5,
+              -858.0,
+              -5
+            ],
+            "max": [
+              1685.5,
+              -642.0,
+              165
+            ]
+          }
+        ],
+        "states": [
+          {
+            "id": "maintenance",
+            "label": "中断的检修",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_ServiceSpares",
+                "position": [
+                  400,
+                  -1400,
+                  0
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  342.0,
+                  -1443.0,
+                  -5
+                ],
+                "max": [
+                  458.0,
+                  -1357.0,
+                  45
+                ]
+              }
+            ],
+            "light_intensity_scale": 1.0
+          },
+          {
+            "id": "abandoned",
+            "label": "撤离后的废弃",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_AbandonedPanels",
+                "position": [
+                  400,
+                  -1400,
+                  0
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  337.0,
+                  -1450.5,
+                  -5
+                ],
+                "max": [
+                  463.0,
+                  -1349.5,
+                  37
+                ]
+              }
+            ],
+            "light_intensity_scale": 0.9
+          },
+          {
+            "id": "isolated",
+            "label": "应急封存",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_IsolationStand",
+                "position": [
+                  400,
+                  -1400,
+                  0
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  343.0,
+                  -1444.0,
+                  -5
+                ],
+                "max": [
+                  457.0,
+                  -1356.0,
+                  100
+                ]
+              }
+            ],
+            "light_intensity_scale": 0.85
+          }
+        ]
+      },
+      {
+        "id": "fan_power",
+        "label": "风机供电维护",
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_PowerCabinet",
+            "position": [
+              1630,
+              -750,
+              0
+            ],
+            "yaw": 90,
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "materials": [],
+            "collision": true,
+            "fluid": false,
+            "affects_navigation": true,
+            "cast_shadow": true,
+            "assembly_role": "FacilityScene"
+          },
+          {
+            "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_FilterRack",
+            "position": [
+              180,
+              -1370,
+              0
+            ],
+            "yaw": 90,
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "materials": [],
+            "collision": true,
+            "fluid": false,
+            "affects_navigation": true,
+            "cast_shadow": true,
+            "assembly_role": "FacilityScene"
+          }
+        ],
+        "scene_keep_clear": [
+          {
+            "min": [
+              1578.0,
+              -848.0,
+              -5
+            ],
+            "max": [
+              1682.0,
+              -652.0,
+              207
+            ]
+          },
+          {
+            "min": [
+              129.5,
+              -1478.0,
+              -5
+            ],
+            "max": [
+              230.5,
+              -1262.0,
+              195
+            ]
+          }
+        ],
+        "states": [
+          {
+            "id": "maintenance",
+            "label": "中断的检修",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_ServiceSpares",
+                "position": [
+                  400,
+                  -1400,
+                  0
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  342.0,
+                  -1443.0,
+                  -5
+                ],
+                "max": [
+                  458.0,
+                  -1357.0,
+                  45
+                ]
+              }
+            ],
+            "light_intensity_scale": 1.0
+          },
+          {
+            "id": "abandoned",
+            "label": "撤离后的废弃",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_AbandonedPanels",
+                "position": [
+                  400,
+                  -1400,
+                  0
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  337.0,
+                  -1450.5,
+                  -5
+                ],
+                "max": [
+                  463.0,
+                  -1349.5,
+                  37
+                ]
+              }
+            ],
+            "light_intensity_scale": 0.9
+          },
+          {
+            "id": "isolated",
+            "label": "应急封存",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_IsolationStand",
+                "position": [
+                  400,
+                  -1400,
+                  0
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  343.0,
+                  -1444.0,
+                  -5
+                ],
+                "max": [
+                  457.0,
+                  -1356.0,
+                  100
+                ]
+              }
+            ],
+            "light_intensity_scale": 0.85
+          }
+        ]
+      }
+    ],
+    "FreightTransfer": [
+      {
+        "id": "cargo_staging",
+        "label": "待运货物堆场",
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+            "position": [
+              400,
+              -1630,
+              60
+            ],
+            "yaw": 0,
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "materials": [],
+            "collision": true,
+            "fluid": false,
+            "affects_navigation": true,
+            "cast_shadow": true,
+            "assembly_role": "FacilityScene"
+          },
+          {
+            "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_PowerCabinet",
+            "position": [
+              1320,
+              -520,
+              0
+            ],
+            "yaw": 90,
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "materials": [],
+            "collision": true,
+            "fluid": false,
+            "affects_navigation": true,
+            "cast_shadow": true,
+            "assembly_role": "FacilityScene"
+          }
+        ],
+        "scene_keep_clear": [
+          {
+            "min": [
+              287.0,
+              -1704.0,
+              55
+            ],
+            "max": [
+              513.0,
+              -1556.0,
+              224
+            ]
+          },
+          {
+            "min": [
+              1268.0,
+              -618.0,
+              -5
+            ],
+            "max": [
+              1372.0,
+              -422.0,
+              207
+            ]
+          }
+        ],
+        "states": [
+          {
+            "id": "maintenance",
+            "label": "中断的检修",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_ServiceSpares",
+                "position": [
+                  1400,
+                  -1710,
+                  60
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  1342.0,
+                  -1753.0,
+                  55
+                ],
+                "max": [
+                  1458.0,
+                  -1667.0,
+                  105
+                ]
+              }
+            ],
+            "light_intensity_scale": 1.0
+          },
+          {
+            "id": "abandoned",
+            "label": "撤离后的废弃",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_AbandonedPanels",
+                "position": [
+                  1400,
+                  -1710,
+                  60
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  1337.0,
+                  -1760.5,
+                  55
+                ],
+                "max": [
+                  1463.0,
+                  -1659.5,
+                  97
+                ]
+              }
+            ],
+            "light_intensity_scale": 0.9
+          },
+          {
+            "id": "isolated",
+            "label": "应急封存",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_IsolationStand",
+                "position": [
+                  1400,
+                  -1710,
+                  60
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  1343.0,
+                  -1754.0,
+                  55
+                ],
+                "max": [
+                  1457.0,
+                  -1666.0,
+                  160
+                ]
+              }
+            ],
+            "light_intensity_scale": 0.85
+          }
+        ]
+      },
+      {
+        "id": "dock_repair",
+        "label": "装卸维修工位",
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_RepairBench",
+            "position": [
+              490,
+              -360,
+              0
+            ],
+            "yaw": 90,
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "materials": [],
+            "collision": true,
+            "fluid": false,
+            "affects_navigation": true,
+            "cast_shadow": true,
+            "assembly_role": "FacilityScene"
+          },
+          {
+            "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_DuctCradle",
+            "position": [
+              400,
+              -1630,
+              60
+            ],
+            "yaw": 0,
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "materials": [],
+            "collision": true,
+            "fluid": false,
+            "affects_navigation": true,
+            "cast_shadow": true,
+            "assembly_role": "FacilityScene"
+          }
+        ],
+        "scene_keep_clear": [
+          {
+            "min": [
+              434.5,
+              -468.0,
+              -5
+            ],
+            "max": [
+              545.5,
+              -252.0,
+              165
+            ]
+          },
+          {
+            "min": [
+              292.0,
+              -1695.0,
+              55
+            ],
+            "max": [
+              508.0,
+              -1565.0,
+              169
+            ]
+          }
+        ],
+        "states": [
+          {
+            "id": "maintenance",
+            "label": "中断的检修",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_ServiceSpares",
+                "position": [
+                  1400,
+                  -1710,
+                  60
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  1342.0,
+                  -1753.0,
+                  55
+                ],
+                "max": [
+                  1458.0,
+                  -1667.0,
+                  105
+                ]
+              }
+            ],
+            "light_intensity_scale": 1.0
+          },
+          {
+            "id": "abandoned",
+            "label": "撤离后的废弃",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_AbandonedPanels",
+                "position": [
+                  1400,
+                  -1710,
+                  60
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  1337.0,
+                  -1760.5,
+                  55
+                ],
+                "max": [
+                  1463.0,
+                  -1659.5,
+                  97
+                ]
+              }
+            ],
+            "light_intensity_scale": 0.9
+          },
+          {
+            "id": "isolated",
+            "label": "应急封存",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_IsolationStand",
+                "position": [
+                  1400,
+                  -1710,
+                  60
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  1343.0,
+                  -1754.0,
+                  55
+                ],
+                "max": [
+                  1457.0,
+                  -1666.0,
+                  160
+                ]
+              }
+            ],
+            "light_intensity_scale": 0.85
+          }
+        ]
+      },
+      {
+        "id": "spare_dispatch",
+        "label": "设备备件周转",
+        "parts": [
+          {
+            "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_PumpSkid",
+            "position": [
+              400,
+              -1630,
+              60
+            ],
+            "yaw": 0,
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "materials": [],
+            "collision": true,
+            "fluid": false,
+            "affects_navigation": true,
+            "cast_shadow": true,
+            "assembly_role": "FacilityScene"
+          },
+          {
+            "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_FilterRack",
+            "position": [
+              1320,
+              -520,
+              0
+            ],
+            "yaw": 90,
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "materials": [],
+            "collision": true,
+            "fluid": false,
+            "affects_navigation": true,
+            "cast_shadow": true,
+            "assembly_role": "FacilityScene"
+          }
+        ],
+        "scene_keep_clear": [
+          {
+            "min": [
+              272.0,
+              -1695.5,
+              55
+            ],
+            "max": [
+              528.0,
+              -1564.5,
+              205
+            ]
+          },
+          {
+            "min": [
+              1269.5,
+              -628.0,
+              -5
+            ],
+            "max": [
+              1370.5,
+              -412.0,
+              195
+            ]
+          }
+        ],
+        "states": [
+          {
+            "id": "maintenance",
+            "label": "中断的检修",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_ServiceSpares",
+                "position": [
+                  1400,
+                  -1710,
+                  60
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  1342.0,
+                  -1753.0,
+                  55
+                ],
+                "max": [
+                  1458.0,
+                  -1667.0,
+                  105
+                ]
+              }
+            ],
+            "light_intensity_scale": 1.0
+          },
+          {
+            "id": "abandoned",
+            "label": "撤离后的废弃",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_AbandonedPanels",
+                "position": [
+                  1400,
+                  -1710,
+                  60
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  1337.0,
+                  -1760.5,
+                  55
+                ],
+                "max": [
+                  1463.0,
+                  -1659.5,
+                  97
+                ]
+              }
+            ],
+            "light_intensity_scale": 0.9
+          },
+          {
+            "id": "isolated",
+            "label": "应急封存",
+            "parts": [
+              {
+                "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_IsolationStand",
+                "position": [
+                  1400,
+                  -1710,
+                  60
+                ],
+                "yaw": 0,
+                "scale": [
+                  1,
+                  1,
+                  1
+                ],
+                "materials": [],
+                "collision": false,
+                "fluid": false,
+                "affects_navigation": false,
+                "cast_shadow": false,
+                "assembly_role": "FacilityScene"
+              }
+            ],
+            "scene_keep_clear": [
+              {
+                "min": [
+                  1343.0,
+                  -1754.0,
+                  55
+                ],
+                "max": [
+                  1457.0,
+                  -1666.0,
+                  160
+                ]
+              }
+            ],
+            "light_intensity_scale": 0.85
+          }
+        ]
+      }
+    ]
+  },
+  "bays": {
+    "Drainage": {
+      "A": [
+        [
+          430,
+          -190,
+          0
+        ],
+        0
+      ],
+      "B": [
+        [
+          -260,
+          -1770,
+          0
+        ],
+        0
+      ],
+      "C": [
+        [
+          840,
+          -820,
+          0
+        ],
+        90
+      ],
+      "state": [
+        [
+          -465,
+          -1630,
+          0
+        ],
+        0
+      ]
+    },
+    "VentilationLoop": {
+      "A": [
+        [
+          180,
+          -1370,
+          0
+        ],
+        90
+      ],
+      "B": [
+        [
+          1600,
+          -270,
+          0
+        ],
+        0
+      ],
+      "C": [
+        [
+          1630,
+          -750,
+          0
+        ],
+        90
+      ],
+      "state": [
+        [
+          400,
+          -1400,
+          0
+        ],
+        0
+      ]
+    },
+    "FreightTransfer": {
+      "A": [
+        [
+          490,
+          -360,
+          0
+        ],
+        90
+      ],
+      "B": [
+        [
+          1320,
+          -520,
+          0
+        ],
+        90
+      ],
+      "C": [
+        [
+          400,
+          -1630,
+          60
+        ],
+        0
+      ],
+      "state": [
+        [
+          1400,
+          -1710,
+          60
+        ],
+        0
+      ]
+    }
+  },
+  "policy": {
+    "selection": "after_route_plan_independent_seed_streams",
+    "large_equipment": "authored_UCX_boxes",
+    "small_clutter": "no_collision_no_tick",
+    "maximum_added_mesh_parts_per_room": 3,
+    "added_lights_per_room": 0,
+    "loose_floor_prop_limit": 8,
+    "loose_cluster_limit": 2
+  }
+}

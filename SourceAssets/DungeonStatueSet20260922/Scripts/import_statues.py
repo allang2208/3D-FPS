@@ -221,7 +221,7 @@ for statue in CFG['statues']:
         'origin_cm': [round(float(bounds.origin.x), 2), round(float(bounds.origin.y), 2),
                       round(float(bounds.origin.z), 2)],
         'target_height_m': statue['target_height_m'],
-        'front': '+X at actor yaw 0 (source normalised to front = -Y in Blender)',
+        'front': '+Y at actor yaw 0 (FBX preserves X/Z and reflects Blender Y; source front is -Y)',
         'material_reused_from_previous_run': reused,
     }
     receipt['stage'] = 'partial'

@@ -64,6 +64,8 @@ repair=ROOT.parent/'DungeonRouteRepairs20260922/Scripts/extend_catalog.py'
 if repair.exists() and (repair.parents[1]/'Receipts/import.json').exists():
     catalog=runpy.run_path(str(repair))['extend'](catalog)
 module_ids=[m['id'] for m in catalog['modules']]
+shrine=ROOT.parent/'DungeonShrine20260927/Scripts/extend_catalog.py'
+if shrine.exists():catalog=runpy.run_path(str(shrine))['extend'](catalog)
 if len(module_ids)!=len(set(module_ids)):raise RuntimeError('Duplicate dungeon module IDs')
 missing=set(catalog.get('room_ids',[]))-set(module_ids)
 if missing:raise RuntimeError('Missing room modules: '+', '.join(sorted(missing)))

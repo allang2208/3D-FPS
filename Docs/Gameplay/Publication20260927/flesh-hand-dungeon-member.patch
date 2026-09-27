@@ -1,0 +1,35 @@
+diff --git a/Source/FPSGAME/Monsters/FleshHandMonster.cpp b/Source/FPSGAME/Monsters/FleshHandMonster.cpp
+--- a/Source/FPSGAME/Monsters/FleshHandMonster.cpp
++++ b/Source/FPSGAME/Monsters/FleshHandMonster.cpp
+@@ -120,7 +120,21 @@
+  PalmFist->SetRelativeRotation(GetMesh()->GetRelativeRotation());
+  if(WarningMaterial){RingMID=UMaterialInstanceDynamic::Create(WarningMaterial,this);WarningRing->SetMaterial(0,RingMID);}
+  if(!bMinion&&ChargeWarningMaterial)ChargeRingMID=UMaterialInstanceDynamic::Create(ChargeWarningMaterial,this);
+- if(bMinion){GetMesh()->SetForcedLOD(3);SetLifeSpan(90);}
++ if(bMinion)
++ {
++  GetMesh()->SetForcedLOD(3);
++  // The dungeon director sets this tag before FinishSpawning / BeginPlay.
++  // An encounter member must not expire and silently complete its spawn slot.
++  if(ActorHasTag(TEXT("DungeonSpawned")))
++  {
++   SetLifeSpan(0);
++   Tags.Remove(TEXT("Summoned"));Tags.Remove(TEXT("NoSkillTraining"));Tags.Remove(TEXT("NoKillRewards"));
++   // Natural dungeon members participate in kill registration and progression.
++   // Keep any authored reward override; the summon class otherwise defaults to zero.
++   if(ExperienceReward<=0)ExperienceReward=20;
++  }
++  else SetLifeSpan(90);
++ }
+  SetState(EFleshHandState::Idle);
+ }
+ void AFleshHandMonster::EndPlay(const EEndPlayReason::Type Reason)
+@@ -548,7 +562,7 @@
+   Combat->SetComponentTickEnabled(false);Status->SetComponentTickEnabled(false);
+   if(auto* AI=Cast<AMonsterAIController>(GetController())){AI->StopMovement();AI->SetDecisionEnabled(false);AI->UpdateKnowledge();}
+   SetLifeSpan(CorpseSeconds);
+-  if(!bMinion)if(auto* PC=Cast<APlayerController>(DamageInstigator);PC&&PC->IsLocalController()&&GetGameInstance())GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);
++  if(!bMinion||ActorHasTag(TEXT("DungeonSpawned")))if(auto* PC=Cast<APlayerController>(DamageInstigator);PC&&PC->IsLocalController()&&GetGameInstance())GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);
+  }
+  else Combat->ReceiveHit(Applied,DamageInstigator?DamageInstigator->GetPawn().Get():Cast<APawn>(Causer),MonsterToughness::FormOf(Type));
+  return Applied;
