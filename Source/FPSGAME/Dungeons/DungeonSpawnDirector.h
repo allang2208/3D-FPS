@@ -110,6 +110,8 @@ protected:
 private:
     /** 任一族受击 → 该房进入警报集（本 run 不再休眠）+ 相邻房（共享 connector 邻居，1 跳）临时唤醒。 */
     UFUNCTION() void OnMonsterDamaged(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser);
+    /** Separate from the damage delegate so a silent shot can await death resolution. */
+    void RaiseDamageAlarm(AActor* DamagedActor);
     UFUNCTION() void OnMonsterDestroyed(AActor* DestroyedActor);
 
     void Patrol();

@@ -54,7 +54,7 @@ void UM4GunsmithWidget::LoadCategoryIcons()
         if(!IsCategoryAvailable(Key))continue;
         const FString IconDirectory=FPaths::ProjectContentDir()/TEXT("ColdSteelData/AttachmentIcons20260913");
         const FString WeaponIconPath=IconDirectory/(Model()->Definition()+TEXT("_category_")+Key+TEXT(".png"));
-        if(IsMeleeWorkbench()&&!FPaths::FileExists(WeaponIconPath))continue;
+        if((IsMeleeWorkbench()||IsBowWorkbench())&&!FPaths::FileExists(WeaponIconPath))continue;
         const FString IconPath=FPaths::FileExists(WeaponIconPath)?WeaponIconPath:IconDirectory/(TEXT("category_")+Key+TEXT(".png"));
         if(auto* Texture=FImageUtils::ImportFileAsTexture2D(IconPath))
         {
@@ -108,18 +108,18 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
     BackgroundTexture=LoadObject<UTexture2D>(nullptr,TEXT("/Game/UI/GunsmithWorkbench/T_WorkshopBackground.T_WorkshopBackground"));
     BackgroundBrush.SetResourceObject(BackgroundTexture);BackgroundBrush.ImageSize=FVector2D(1672,941);BackgroundBrush.DrawAs=ESlateBrushDrawType::Image;
     LoadCategoryIcons();InitializePreview();
-    if(IsMeleeWorkbench())
-        if(const auto* Item=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->FindItem(Model()->Instance()))SetStandaloneMeleeItem(*Item);
+    if((IsMeleeWorkbench()||IsBowWorkbench()))
+        if(const auto* Item=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->FindItem(Model()->Instance())){if(IsBowWorkbench())SetStandaloneBowItem(*Item);else SetStandaloneMeleeItem(*Item);}
     auto Button=[this](const FString& ButtonText,TFunction<void()> Fn,bool Primary=false)
     {
         return SNew(SButton).ButtonStyle(Primary?&PrimaryButton:&NormalButton).ContentPadding(FMargin(14,10))
-            .IsEnabled_Lambda([this,Primary](){if(!Primary||!IsMeleeWorkbench())return true;FString Reason;return Model()->CanApply(Reason);})
+            .IsEnabled_Lambda([this,Primary](){if(!Primary||!(IsMeleeWorkbench()||IsBowWorkbench()))return true;FString Reason;return Model()->CanApply(Reason);})
             .OnClicked_Lambda([Fn](){Fn();return FReply::Handled();})
             [SNew(STextBlock).Text(FText::FromString(ButtonText)).Font(GunsmithUI::TextFont(14,true))
                 .ColorAndOpacity(Primary?GunsmithUI::Gray(22):GunsmithUI::Text).MinDesiredWidth(84).Justification(ETextJustify::Center)];
     };
     const auto* W=Model()->ModifiableWeapon(Model()->Definition());
-    const FString WeaponSubtitle=IsMeleeWorkbench()?TEXT("   /   双手近战武器"):
+    const FString WeaponSubtitle=IsBowWorkbench()?TEXT("   /   双手弓 · 五槽改造"):(IsMeleeWorkbench()||IsBowWorkbench())?TEXT("   /   双手近战武器"):
         W&&W->Ammo==TEXT("ammo_357")?TEXT("   /   .357 Magnum"):W&&W->Ammo==TEXT("ammo_45acp")?TEXT("   /   .45 ACP"):
         W&&W->Ammo==TEXT("ammo_58")?TEXT("   /   5.8 mm"):W&&W->Ammo==TEXT("ammo_762")?TEXT("   /   7.62 mm"):TEXT("   /   5.56 mm");
     auto Rail=SNew(SVerticalBox);
@@ -130,7 +130,7 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
             if(!IsCategoryAvailable(Key))continue;
             TSharedRef<SWidget> IconContent=SNew(SImage).Image(CategoryBrushes.Contains(Key)?CategoryBrushes.FindChecked(Key).Get():FCoreStyle::Get().GetBrush("NoBrush"))
                 .ColorAndOpacity(FLinearColor::White);
-            if(IsMeleeWorkbench()&&!CategoryBrushes.Contains(Key))IconContent=SNew(SMeleePartIcon).Part(Key);
+            if((IsMeleeWorkbench()||IsBowWorkbench())&&!CategoryBrushes.Contains(Key))IconContent=SNew(SMeleePartIcon).Part(Key);
             auto Icon=SNew(SBox).WidthOverride(48).HeightOverride(48)
                 [IconContent];
             auto Category=SNew(SButton).ButtonStyle(&NormalButton).ContentPadding(FMargin(8,7))
@@ -166,10 +166,10 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
         [SNew(STextBlock).Text(FText::FromString(TEXT("左键拖动旋转 · 滚轮缩放 · 双击复位"))).Font(GunsmithUI::TextFont(12)).ColorAndOpacity(Secondary)]
         +SOverlay::Slot().VAlign(VAlign_Bottom).HAlign(HAlign_Right).Padding(12)
         [SNew(SHorizontalBox)+SHorizontalBox::Slot().AutoWidth().Padding(0,0,8,0)[Button(TEXT("水平复位"),[this](){SetSidePreview(true);})]
-            +SHorizontalBox::Slot().AutoWidth()[SNew(SBox).Visibility(IsMeleeWorkbench()?EVisibility::Collapsed:EVisibility::Visible)
+            +SHorizontalBox::Slot().AutoWidth()[SNew(SBox).Visibility((IsMeleeWorkbench()||IsBowWorkbench())?EVisibility::Collapsed:EVisibility::Visible)
                 [Button(TEXT("瞄准预览"),[this](){SetAimPreview(true);})]]]
         +SOverlay::Slot().HAlign(HAlign_Center).VAlign(VAlign_Center)
-        [SNew(STextBlock).Text(FText::FromString(IsMeleeWorkbench()?TEXT("武器模型暂不可用"):TEXT("该枪械尚未装备\n应用配置后装备查看")))
+        [SNew(STextBlock).Text(FText::FromString((IsMeleeWorkbench()||IsBowWorkbench())?TEXT("武器模型暂不可用"):TEXT("该枪械尚未装备\n应用配置后装备查看")))
             .Font(GunsmithUI::TextFont(16)).ColorAndOpacity(GunsmithUI::Text).Justification(ETextJustify::Center)
             .Visibility_Lambda([this](){return HasSelectedPreview()?EVisibility::Collapsed:EVisibility::HitTestInvisible;})];
     auto Surface=SNew(SM4PreviewSurface).CanRotate_Lambda([this](){return HasSelectedPreview();})
@@ -199,7 +199,7 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
         [SNew(STextBlock).Text_Lambda([this,Column](){return FText::FromString(Column==0?TEXT("项目"):Column==1?(bCompareFactory?TEXT("原厂"):TEXT("当前")):Column==2?TEXT("改造后"):TEXT("变化"));})
             .Font(GunsmithUI::TextFont(12,true)).ColorAndOpacity(Secondary).Justification(Column?ETextJustify::Right:ETextJustify::Left)];
     auto OverviewPanel=SNew(SVerticalBox)
-        +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)[Label(IsMeleeWorkbench()?TEXT("近战数值总览"):TEXT("整枪数值总览"),20,GunsmithUI::Text,true)]
+        +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)[Label((IsMeleeWorkbench()||IsBowWorkbench())?TEXT("近战数值总览"):TEXT("整枪数值总览"),20,GunsmithUI::Text,true)]
         +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)[SNew(SHorizontalBox)
             +SHorizontalBox::Slot().FillWidth(1).Padding(0,0,4,0)[CompareButton(false)]
             +SHorizontalBox::Slot().FillWidth(1).Padding(4,0,0,0)[CompareButton(true)]]
@@ -295,7 +295,7 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
         {
             AttachmentTextures.Add(Texture);
             auto Brush=MakeShared<FSlateBrush>();Brush->ImageSize=FVector2D(64,64);
-            if(IsMeleeWorkbench())Brush->ImageSize=FVector2D(Texture->GetSizeX(),Texture->GetSizeY());
+            if((IsMeleeWorkbench()||IsBowWorkbench()))Brush->ImageSize=FVector2D(Texture->GetSizeX(),Texture->GetSizeY());
             Brush->DrawAs=ESlateBrushDrawType::Image;Brush->SetResourceObject(Texture);
             AttachmentBrushes.Add(IconKey,Brush);
         }
@@ -303,12 +303,13 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
     const FSlateBrush* Icon=AttachmentBrushes.Contains(IconKey)?AttachmentBrushes.FindChecked(IconKey).Get():
         (CategoryBrushes.Contains(SlotKey)?CategoryBrushes.FindChecked(SlotKey).Get():FCoreStyle::Get().GetBrush("NoBrush"));
     TSharedRef<SWidget> OptionIcon=SNew(SImage).Image(Icon).ToolTipText(FText::FromString(O->Name));
-    if(IsMeleeWorkbench()&&AttachmentBrushes.Contains(IconKey))OptionIcon=SNew(SScaleBox).Stretch(EStretch::ScaleToFit)[OptionIcon];
-    if(IsMeleeWorkbench()&&!AttachmentBrushes.Contains(IconKey))OptionIcon=SNew(SMeleePartIcon).Part(SlotKey);
+    if((IsMeleeWorkbench()||IsBowWorkbench())&&AttachmentBrushes.Contains(IconKey))OptionIcon=SNew(SScaleBox).Stretch(EStretch::ScaleToFit)[OptionIcon];
+    if((IsMeleeWorkbench()||IsBowWorkbench())&&!AttachmentBrushes.Contains(IconKey))OptionIcon=SNew(SMeleePartIcon).Part(SlotKey);
     FString Appearance;
-    if(IsMeleeWorkbench())if(const auto* Item=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->FindItem(Model()->Instance()))
+    if(IsBowWorkbench())Appearance=O->Appearance;
+    else if(IsMeleeWorkbench())if(const auto* Item=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->FindItem(Model()->Instance()))
         Appearance=ColdSteelModularSword::Appearance(*Item,SlotKey,Id);
-    return SNew(SBox).WidthOverride(IsMeleeWorkbench()?288:264).HeightOverride(142)
+    return SNew(SBox).WidthOverride((IsMeleeWorkbench()||IsBowWorkbench())?288:264).HeightOverride(142)
         [SNew(SOverlay)+SOverlay::Slot()
         [SNew(SBorder).Padding(2).BorderImage(&OptionFrameBrush).BorderBackgroundColor_Lambda(Frame)
         [SNew(SButton).ButtonStyle(&NormalButton).ContentPadding(FMargin(10,8)).ToolTipText(FText::FromString(O->Name+TEXT("\n")+O->Description))

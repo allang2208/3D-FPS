@@ -24,14 +24,14 @@ private:
  FVector Velocity;
  float Remaining=0,HitDamage=0,PoisonChance=0;
 };
-/** Player poison: first tick at one second, a layer decays every five seconds. */
+/** Shared poison: first tick at one second, a layer decays every five seconds. */
 UCLASS(ClassGroup=Combat,meta=(BlueprintSpawnableComponent))
 class FPSGAME_API UMaggotPoisonComponent : public UActorComponent
 {
  GENERATED_BODY()
 public:
  UMaggotPoisonComponent();
- void AddStack(APoisonMaggotMonster* Source);
+ void AddStack(AActor* Source);
  /** 复活/净化钩子：清空全部中毒层数与计时（旧 _reviveInPlace 的 _poisonStacks=0）。 */
  void ClearPoison();
  virtual void TickComponent(float Dt,ELevelTick Type,FActorComponentTickFunction* Tick) override;

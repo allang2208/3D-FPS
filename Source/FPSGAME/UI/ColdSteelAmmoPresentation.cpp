@@ -21,6 +21,9 @@ FString UColdSteelStatusModel::AmmoEffectSummary(const FString& Id) const
     const auto* Type=AmmoType(Id);if(!Type)return FString();
     const float Bonus=(Type->DamageMultiplier-1.f)*100;
     const FString Damage=FMath::IsNearlyZero(Bonus)?TEXT("无增伤"):FString::Printf(TEXT("伤害 %+.0f%%"),Bonus);
-    return Damage+(Type->PhysicalArmorPenetration>0?
+    FString Summary=Damage+(Type->PhysicalArmorPenetration>0?
         FString::Printf(TEXT(" · 无视 %.0f%% 物理护甲"),Type->PhysicalArmorPenetration*100):TEXT(" · 无护甲穿透"));
+    if(Type->PoisonStacks>0)Summary+=FString::Printf(TEXT(" · 命中叠加 %d 层中毒"),Type->PoisonStacks);
+    if(Type->BleedStacks>0)Summary+=FString::Printf(TEXT(" · 命中叠加 %d 层流血"),Type->BleedStacks);
+    return Summary;
 }

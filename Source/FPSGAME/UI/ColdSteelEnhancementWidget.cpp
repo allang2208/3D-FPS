@@ -1,3 +1,4 @@
+#include "ColdSteelWeaponText.h"
 #include "ColdSteelEnhancementWidget.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelUIStyle.h"
@@ -7,6 +8,8 @@
 #include "../FPSGAMEPlayerController.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "../Weapons/WeaponStatEvaluation.h"
+#include "../Weapons/MeleeWeaponStats.h"
+#include "../Weapons/Bow/BowStats.h"
 #include "Engine/GameInstance.h"
 #include "Engine/Texture2D.h"
 #include "Widgets/Layout/SBorder.h"
@@ -185,20 +188,24 @@ void UColdSteelEnhancementWidget::Refresh()
             Inspector->AddSlot().AutoHeight().Padding(0,0,0,1)[TableRow(Name,FString::Printf(TEXT("%.*f"),Digits,Before),
                 FString::Printf(TEXT("%.*f"),Digits,Final),Benefit?FString::Printf(TEXT("%+.*f"),Digits,Delta):TEXT("—"),Benefit)];
         };
-        if(G->Weapon(I->Definition)||ColdSteelInventory::IsBow(*I))
+        if(G->Weapon(I->Definition)||ColdSteelInventory::IsTwoHandedSword(*I)||ColdSteelInventory::IsBow(*I))
         {
             const auto Stats=G->Calculate(I->Definition,G->Installed(*I));
-            const double Base=ColdSteelInventory::IsBow(*I)?Number(*I,TEXT("full_damage"),46):Stats.Damage;
+            const double Base=ColdSteelInventory::IsBow(*I)?Number(*I,TEXT("full_damage"),69):Stats.Damage;
             Row(TEXT("强化等级"),bCompareBase?0:Number(*I,TEXT("enhanceLevel")),Number(After,TEXT("enhanceLevel")),0);
             Row(TEXT("附魔伤害加成 %"),bCompareBase?0:E->Effect(*I,TEXT("damagePercent"))*100,E->Effect(After,TEXT("damagePercent"))*100);
             auto Comparison=*I;
             if(bCompareBase){TSharedPtr<FJsonObject> Data;if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Comparison.Data),Data)){Data->SetNumberField(TEXT("enhanceLevel"),0);Data->RemoveField(TEXT("_enchantEffects"));FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Comparison.Data));}}
-            const auto BeforeDamage=ColdSteelWeaponStats::DamageParts(Comparison,P,Base);
-            const auto AfterDamage=ColdSteelWeaponStats::DamageParts(After,P,Base);
-            Row(TEXT("武器总伤害"),BeforeDamage.Total(),AfterDamage.Total(),2);
-            Row(TEXT("基础物理伤害"),BeforeDamage.BasePhysical,AfterDamage.BasePhysical,2);
-            if(BeforeDamage.AddedPhysical>0||AfterDamage.AddedPhysical>0)Row(TEXT("附加物理伤害"),BeforeDamage.AddedPhysical,AfterDamage.AddedPhysical,2);
-            if(BeforeDamage.AddedMagic>0||AfterDamage.AddedMagic>0)Row(TEXT("附加魔法伤害"),BeforeDamage.AddedMagic,AfterDamage.AddedMagic,2);
+            const bool Melee=ColdSteelInventory::IsTwoHandedSword(*I);
+            const bool Bow=ColdSteelInventory::IsBow(*I);
+            const float Charge=Bow?ColdSteelBow::DrawDamageMultiplier(1.f):1.f;
+            const auto BeforeDamage=(Melee?ColdSteelMelee::Evaluate(Comparison,P).DamageParts:ColdSteelWeaponStats::DamageParts(Comparison,P,Base)).Scaled(Charge);
+            const auto AfterDamage=(Melee?ColdSteelMelee::Evaluate(After,P).DamageParts:ColdSteelWeaponStats::DamageParts(After,P,Base)).Scaled(Charge);
+            Row(ColdSteelWeaponText::TotalDamage,BeforeDamage.Total(),AfterDamage.Total(),2);
+            Row(ColdSteelWeaponText::BasePhysical,BeforeDamage.BasePhysical,AfterDamage.BasePhysical,2);
+            if(BeforeDamage.AddedPhysical>0||AfterDamage.AddedPhysical>0)Row(ColdSteelWeaponText::AddedPhysical,BeforeDamage.AddedPhysical,AfterDamage.AddedPhysical,2);
+            if(BeforeDamage.AddedMagic>0||AfterDamage.AddedMagic>0)Row(ColdSteelWeaponText::AddedMagic,BeforeDamage.AddedMagic,AfterDamage.AddedMagic,2);
+            if(Bow)Inspector->AddSlot().AutoHeight().Padding(0,6)[Label(ColdSteelWeaponText::BowScope,12,ColdSteelUI::TextSecondary)];
             Row(TEXT("额外穿透目标"),bCompareBase?0:E->Effect(*I,TEXT("piercingBonus")),E->Effect(After,TEXT("piercingBonus")),0);
             Row(TEXT("命中叠毒层数"),bCompareBase?0:E->Effect(*I,TEXT("poisonStacks")),E->Effect(After,TEXT("poisonStacks")),0);
         }

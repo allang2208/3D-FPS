@@ -2,6 +2,7 @@
 #include "PoisonMaggotMonster.h"
 #include "PoisonMaggotVenomFX.h"
 #include "FPSCombatHealthComponent.h"
+#include "MonsterCombatComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/World.h"
@@ -99,13 +100,15 @@ void APoisonMaggotProjectile::Tick(float Dt)
  SetActorLocation(End);UpdateLiquidVisual(Dt,Start,End);Remaining-=Step;if(Remaining<=0)Destroy();
 }
 UMaggotPoisonComponent::UMaggotPoisonComponent(){PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.bStartWithTickEnabled=false;}
-void UMaggotPoisonComponent::AddStack(APoisonMaggotMonster* Source)
+void UMaggotPoisonComponent::AddStack(AActor* Source)
 {
  if(!GetOwner()->HasAuthority()||!IsValid(Source))return;
- auto* H=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();if(!H||H->IsDead()||H->IsInvulnerable())return;
+ const auto* H=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();
+ const auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>();
+ if(Combat?Combat->IsDead():(!H||H->IsDead()||H->IsInvulnerable()))return;
  if(const auto* S=GetOwner()->FindComponentByClass<UCombatStatusFormula>();S&&S->IsImmune())return; // 旧 applyPoison：statusImmune 直接拒绝上毒
- if(const auto* S=GetOwner()->FindComponentByClass<UCombatStatusFormula>();S&&S->IsImmune())return; // 旧 applyPoison 先过 statusImmune 闸门
- if(Stacks==0)NextTick=1;Stacks=FMath::Min(20,Stacks+1);DecayLeft=5;DamageSource=Source;DamageInstigator=Source->GetController();SetComponentTickEnabled(true);
+ if(Stacks==0)NextTick=1;Stacks=FMath::Min(20,Stacks+1);DecayLeft=5;DamageSource=Source;
+ const auto* Pawn=Cast<APawn>(Source);DamageInstigator=Pawn?Pawn->GetController():Source->GetInstigatorController();SetComponentTickEnabled(true);
  UStatusEffectsComponent::Notify(GetOwner());
 }
 void UMaggotPoisonComponent::ClearPoison()
@@ -116,14 +119,26 @@ void UMaggotPoisonComponent::ClearPoison()
 void UMaggotPoisonComponent::TickComponent(float Dt,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
  Super::TickComponent(Dt,Type,Tick);if(!GetOwner()->HasAuthority())return;
- const int32 Before=Stacks;auto* H=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();if(!H||H->IsDead()){Stacks=0;SetComponentTickEnabled(false);if(Before)UStatusEffectsComponent::Notify(GetOwner());return;}
+ const int32 Before=Stacks;
+ const auto* H=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();
+ auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>();
+ auto Dead=[&](){return Combat?Combat->IsDead():(!H||H->IsDead());};
+ if(Dead()){Stacks=0;SetComponentTickEnabled(false);if(Before)UStatusEffectsComponent::Notify(GetOwner());return;}
  // Process tick/decay events in temporal order even when a frame crosses both.
- while(Dt>0&&Stacks>0&&!H->IsDead())
+ while(Dt>0&&Stacks>0&&!Dead())
  {
   const float Step=FMath::Min(Dt,FMath::Min(NextTick,DecayLeft));Dt-=Step;NextTick-=Step;DecayLeft-=Step;
-  if(NextTick<=UE_KINDA_SMALL_NUMBER){UGameplayStatics::ApplyDamage(GetOwner(),Stacks,DamageInstigator.Get(),DamageSource.Get(),UMaggotPoisonDamage::StaticClass());++TicksApplied;NextTick=1;}
+  if(NextTick<=UE_KINDA_SMALL_NUMBER)
+  {
+   // Existing poison is direct HP loss, one point per layer per second. Use
+   // the generic direct type on monsters and suppress damage-tick staggering.
+   auto Deal=[&](){return UGameplayStatics::ApplyDamage(GetOwner(),Stacks,DamageInstigator.Get(),DamageSource.Get(),
+       Combat?UCombatDirectDamage::StaticClass():UMaggotPoisonDamage::StaticClass());};
+   if(Combat)Combat->ApplyHitWithReactionScale(0.f,Deal);else Deal();
+   ++TicksApplied;NextTick=1;
+  }
   if(DecayLeft<=UE_KINDA_SMALL_NUMBER){--Stacks;DecayLeft=5;}
  }
- if(H->IsDead())Stacks=0;if(Stacks==0)SetComponentTickEnabled(false);
+ if(Dead())Stacks=0;if(Stacks==0)SetComponentTickEnabled(false);
  if(Stacks!=Before)UStatusEffectsComponent::Notify(GetOwner());
 }

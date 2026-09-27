@@ -4,6 +4,8 @@
 #include "../Combat/CoreCombatFormula.h"
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Monsters/MonsterCombatComponent.h"
+#include "../Monsters/PoisonMaggotProjectile.h"
+#include "../Combat/CombatStatusFormula.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "../Weapons/MeleeWeaponStats.h"
 #include "../Weapons/RuneSwordComponent.h"
@@ -164,6 +166,19 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     const MonsterToughness::FScopedForm FormScope(Shot.AttackForm);
     auto ApplyToughness=[&](){return Combat?Combat->ApplyHitWithToughnessScale(Shot.ToughnessDamageMultiplier,ApplyDamage):ApplyDamage();};
     const float Applied=(Combat&&bFirearmWithoutStagger)?Combat->ApplyHitWithReactionScale(0.f,ApplyToughness):ApplyToughness();
+    // One contact, one captured ammo effect. Armor reducing the direct damage
+    // to zero does not cancel a hit; status immunity still rejects the effect.
+    if(Combat&&Victim->HasAuthority()&&!Combat->IsDead())
+    {
+        if(Shot.AmmoBleedStacks>0)
+            UCombatStatusFormula::GetOrAdd(Victim)->AddBleeding(Shooter,Shot.AmmoBleedStacks);
+        if(Shot.AmmoPoisonStacks>0)
+        {
+            auto* Poison=Victim->FindComponentByClass<UMaggotPoisonComponent>();
+            if(!Poison){Poison=NewObject<UMaggotPoisonComponent>(Victim);Victim->AddInstanceComponent(Poison);Poison->RegisterComponent();}
+            for(int32 Stack=0;Stack<Shot.AmmoPoisonStacks;++Stack)Poison->AddStack(Shooter);
+        }
+    }
     if(Result)
     {
         Result->BeforeDefense=WeaponHit.Incoming;Result->AfterDefense=WeaponHit.Mitigated;

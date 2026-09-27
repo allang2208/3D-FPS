@@ -183,6 +183,8 @@
 
 ## 12. 装备浮窗摘要与固定详情
 
+**2026-09-27 字段口径更新：** 枪械、弓、近战、生产工具与长杖普通攻击统一使用“武器总伤害”，不再使用“自卫总伤害”“满拉武器伤害”作为公共属性名。公共字段取 `Source/FPSGAME/UI/ColdSteelWeaponText.h`；攻击间隔／开镜耗时统一 ms，弹速统一 m/s，耐力类消耗统一“体力消耗”。满弓、普通攻击及弹种倍率的范围放在数值条件说明中，伐木伤害仍属独立采集参数。弓与枪械采用六项核心摘要及同一套公式／伤害分项结构。此条优先于下文旧标签示例；完整格式见 [武器浮窗固定格式](../../skills/ue5-ui-umg-slate/references/weapon-tooltip-schema.md)。
+
 2026-09-14 用户授权落实浮窗审计的六项建议。本节替换历史横向三卡、无换行与即时完整悬浮条款。
 
 - 按已确认概念统一为冷白鉴定卡：`ItemTooltipSurface` #EEF0F2、`ItemTooltipHeader` #E2E6E9、`ItemTooltipText` #252A2E、`ItemTooltipSecondary` #697278、`ItemTooltipRule` #CDD2D5；保留 8px 圆角、细边和轻阴影。名称／区域标题 20／16px、核心数字 24px、普通数据与栏目标题 14px、元信息与提示 12px。中文与说明使用 Noto Sans SC，纯数字与单位使用 JetBrains Mono，不因整段文字含数字就切换等宽字体。

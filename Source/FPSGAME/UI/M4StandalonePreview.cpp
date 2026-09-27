@@ -1,5 +1,6 @@
 #include "M4GunsmithWidget.h"
 #include "ColdSteelMeleePreview.h"
+#include "../Weapons/Bow/BowAssembly.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "Engine/GameInstance.h"
@@ -12,6 +13,7 @@
 void UM4GunsmithWidget::SetStandaloneItem(const FColdSteelItem& Item)
 {
     bStandalone=true;auto* G=GetGameInstance()->GetSubsystem<UGunsmithSystem>();
+    if(G->IsBow(Item.Definition)){SetStandaloneBowItem(Item);return;}
     if(ColdSteelMeleePreview::Supports(Item)){SetStandaloneMeleeItem(Item);return;}
     if(!G->Weapon(Item.Definition)){CloseStandalonePreview();return;}
     if(StandaloneMelee)CloseStandalonePreview();
@@ -36,7 +38,7 @@ void UM4GunsmithWidget::SetStandaloneItem(const FColdSteelItem& Item)
 }
 void UM4GunsmithWidget::PoseStandalone()
 {
-    if(StandaloneMelee){SyncStandaloneMeleePreview();return;}
+    if(StandaloneMelee){if(ColdSteelBowAssembly::IsBowRoot(StandaloneMelee))SyncStandaloneBowPreview();else SyncStandaloneMeleePreview();return;}
     if(!StandaloneRig)return;auto* Rig=StandaloneRig.Get();auto* Mesh=Rig->AKMViewmodel.Get();
     Mesh->SetVisibility(true);Mesh->PlayAnimation(bAimPreview?Rig->AimAnimation:Rig->IdleAnimation,false);Mesh->SetPosition(0.f,false);Mesh->TickAnimation(0.f,false);Mesh->RefreshBoneTransforms();
     Rig->FirstPersonCamera->SetFieldOfView(Rig->VerticalToHorizontalFOV(bAimPreview?Rig->EffectiveADSVerticalFOV():Rig->BaseVerticalFieldOfView));

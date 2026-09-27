@@ -1,3 +1,4 @@
+#include "ColdSteelWeaponText.h"
 #include "ColdSteelItemTooltipData.h"
 #include "../Combat/CombatItemFormula.h"
 #include "ColdSteelStatusModel.h"
@@ -6,6 +7,7 @@
 #include "../Weapons/GunsmithSystem.h"
 #include "../Weapons/MeleeWeaponStats.h"
 #include "../Weapons/WeaponStatEvaluation.h"
+#include "../Weapons/Bow/BowStats.h"
 #include "../Weapons/RuneSwordRhythm.h"
 #include "../Weapons/RuneSwordThrustRhythm.h"
 #include "../Weapons/RuneSwordCombatTuning.h"
@@ -28,8 +30,15 @@ float Field(const UObject* O,const TCHAR* Key){const auto* P=FindFProperty<FFloa
 FString Signed(double V,const TCHAR* Unit=TEXT("")){return (V>0?TEXT("+"):TEXT(""))+N(V)+Unit;}
 FString Value(const TSharedPtr<FJsonValue>& V){if(!V)return TEXT("");if(V->Type==EJson::String)return V->AsString();if(V->Type==EJson::Number)return N(V->AsNumber());if(V->Type==EJson::Boolean)return V->AsBool()?TEXT("是"):TEXT("否");return TEXT("");}
 void Row(FColdSteelTooltipCard& C,const FString& Label,const FString& Val,int32 Tone=0){if(!Val.IsEmpty())C.Rows.Add({Label,Val,Tone,false});}
+void DamageRows(FColdSteelTooltipCard& C,const FWeaponDamageParts& D)
+{
+    Row(C,ColdSteelWeaponText::TotalDamage,N(D.Total()));
+    Row(C,ColdSteelWeaponText::BasePhysical,N(D.BasePhysical));
+    if(D.AddedPhysical>0)Row(C,ColdSteelWeaponText::AddedPhysical,N(D.AddedPhysical));
+    if(D.AddedMagic>0)Row(C,ColdSteelWeaponText::AddedMagic,N(D.AddedMagic));
+}
 void Section(FColdSteelTooltipCard& C,const FString& Label){C.Rows.Add({Label,TEXT(""),0,true});}
-FString Category(const FString& K){static const TMap<FString,FString> M={{TEXT("weapon_ranged"),TEXT("远程武器")},{TEXT("weapon_melee"),TEXT("近战武器")},{TEXT("armor"),TEXT("防具")},{TEXT("accessory"),TEXT("饰品")},{TEXT("consumable"),TEXT("消耗品")},{TEXT("material"),TEXT("材料")},{TEXT("enhancement"),TEXT("强化材料")},{TEXT("tribute"),TEXT("贡品")},{TEXT("gold"),TEXT("金币")}};const auto* V=M.Find(K);return V?*V:K;}
+FString Category(const FString& K){static const TMap<FString,FString> M={{TEXT("weapon_ranged"),TEXT("远程武器")},{TEXT("weapon_bow"),TEXT("远程武器")},{TEXT("weapon_melee"),TEXT("近战武器")},{TEXT("armor"),TEXT("防具")},{TEXT("accessory"),TEXT("饰品")},{TEXT("consumable"),TEXT("消耗品")},{TEXT("material"),TEXT("材料")},{TEXT("enhancement"),TEXT("强化材料")},{TEXT("tribute"),TEXT("贡品")},{TEXT("gold"),TEXT("金币")}};const auto* V=M.Find(K);return V?*V:K;}
 void Delta(FColdSteelTooltipCard& C,const FString& Label,double V,const TCHAR* Unit,bool Lower=false){if(FMath::Abs(V)>.00001)Row(C,Label,Signed(V,Unit),(V>0)!=Lower?1:-1);}
 J Reference(){static J Root;static bool Loaded=false;if(!Loaded){Loaded=true;FString Text;if(FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/tooltip-reference.json"))))FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Root);}return Root;}
 }
@@ -39,6 +48,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
     FColdSteelTooltipContent Out;J O;
     O=CombatItemFormula::Read(I);if(!O)return Out;
     Out.Name=String(O,TEXT("name"),I.Definition);Out.Type=String(O,TEXT("type"),Category(String(O,TEXT("category"))));
+    if(ColdSteelInventory::IsBow(I))Out.Type=String(O,TEXT("weaponTypeTag"),TEXT("弓"));
     Out.Rarity=String(O,TEXT("rarity"),TEXT("common"));Out.Level=Number(O,TEXT("level"));Out.Icon=String(O,TEXT("ue_icon"));Out.Description=String(O,TEXT("desc"));
     const int32 Enhance=Number(O,TEXT("enhanceLevel"));if(Enhance>0)Out.Enhancement=FString::Printf(TEXT("已强化 +%d"),Enhance);
     auto Damage=[&](double Base){return ColdSteelWeaponStats::Damage(I,Model,Base);};
@@ -60,7 +70,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         const FString Suffix=String(Object(Enchant,TEXT("suffix")),TEXT("name"));if(!Suffix.IsEmpty()){if(!Name.IsEmpty())Name+=TEXT(" · ");Name+=Suffix;}
         Row(C,TEXT("当前词缀"),Name);
         if(EE){Delta(C,TEXT("攻击力"),Number(EE,TEXT("damagePercent"))*100,TEXT("%"));
-            if(EE->HasField(TEXT("attackIntervalMul")))Row(C,TEXT("攻击间隔"),TEXT("×")+N(Number(EE,TEXT("attackIntervalMul"))),Number(EE,TEXT("attackIntervalMul"))<1?1:-1);
+            if(EE->HasField(TEXT("attackIntervalMul")))Row(C,ColdSteelWeaponText::AttackInterval,TEXT("×")+N(Number(EE,TEXT("attackIntervalMul"))),Number(EE,TEXT("attackIntervalMul"))<1?1:-1);
             Delta(C,TEXT("暴击率"),Number(EE,TEXT("critRate"))*100,TEXT("%"));Delta(C,TEXT("穿透目标"),Number(EE,TEXT("piercingBonus")),TEXT("个"));
             bool Poison=false;if(EE->TryGetBoolField(TEXT("poisonOnHit"),Poison)&&Poison)Row(C,TEXT("特殊效果"),TEXT("攻击叠加中毒"),1);}
     }
@@ -75,9 +85,21 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
                 else for(const auto& E:P->Effects)Row(C,TEXT(""),E.Key,E.Value);
                 C.Rows.Last().bDashedAfter=true;}
             const auto S=G->Calculate(I.Definition,Parts),B=G->Calculate(I.Definition,{});Section(C,TEXT("合计改造数值"));
-            if(G->IsMelee(I.Definition))
+            if(G->IsBow(I.Definition))
             {
-                Delta(C,TEXT("基础伤害"),(S.Melee.Damage-1)*100,TEXT("%"));
+                Delta(C,ColdSteelWeaponText::BaseDamageModifier,(S.Bow.Damage-1)*100,TEXT("%"));
+                Delta(C,ColdSteelWeaponText::DrawTime,(S.Bow.Draw-1)*100,TEXT("%"),true);
+                Delta(C,ColdSteelWeaponText::NockTime,(S.Bow.Nock-1)*100,TEXT("%"),true);
+                Delta(C,ColdSteelWeaponText::ProjectileSpeed,(S.Bow.Speed-1)*100,TEXT("%"));
+                Delta(C,ColdSteelWeaponText::StaminaCost,(S.Bow.Stamina-1)*100,TEXT("%"),true);
+                Delta(C,ColdSteelWeaponText::HoldTime,(S.Bow.Hold-1)*100,TEXT("%"));
+                Delta(C,ColdSteelWeaponText::Sway,(S.Bow.Sway-1)*100,TEXT("%"),true);
+                Delta(C,ColdSteelWeaponText::HipSpreadMultiplier,(S.Bow.Spread-1)*100,TEXT("%"),true);
+                Delta(C,ColdSteelWeaponText::ADS,(S.Bow.ADS-1)*100,TEXT("%"),true);
+            }
+            else if(G->IsMelee(I.Definition))
+            {
+                Delta(C,ColdSteelWeaponText::BaseDamageModifier,(S.Melee.Damage-1)*100,TEXT("%"));
                 Delta(C,TEXT("三连击第二段伤害"),(S.Melee.ComboSecond-1)*100,TEXT("%"));
                 Delta(C,TEXT("三连击第三段伤害"),(S.Melee.ComboThird-1)*100,TEXT("%"));
                 Delta(C,TEXT("魔法技能冷却时间"),(S.Melee.MagicCooldown-1)*100,TEXT("%"),true);
@@ -93,9 +115,9 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
                 Delta(C,TEXT("自带侵蚀附加伤害"),(S.Melee.InnateErosionMultiplier-1)*100,TEXT("%"));
                 Delta(C,TEXT("剑刃攻击魔法易伤"),S.Melee.RuneVulnerability*100,TEXT("%"));
                 Delta(C,TEXT("命中减魔法CD(秒)"),S.Melee.CooldownReduceSecondsPerHit,TEXT("s"));
-                Delta(C,TEXT("攻击速度"),(S.Melee.AttackSpeed-1)*100,TEXT("%"));
+                Delta(C,ColdSteelWeaponText::AttackSpeed,(S.Melee.AttackSpeed-1)*100,TEXT("%"));
                 Delta(C,TEXT("攻击范围"),(S.Melee.Range-1)*100,TEXT("%"));
-                Delta(C,TEXT("耐力消耗"),(S.Melee.Stamina-1)*100,TEXT("%"),true);
+                Delta(C,ColdSteelWeaponText::StaminaCost,(S.Melee.Stamina-1)*100,TEXT("%"),true);
                 Delta(C,TEXT("造成硬直时间"),(S.Melee.HitReaction-1)*100,TEXT("%"));
                 Delta(C,TEXT("韧性伤害"),(S.Melee.ToughnessDamage-1)*100,TEXT("%"));
                 Delta(C,TEXT("物理防御穿透"),S.Melee.PhysicalArmorPenetration*100,TEXT("%"));
@@ -109,20 +131,20 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
                 }
             }
             else {
-            Delta(C,TEXT("伤害"),S.Damage-B.Damage,TEXT(""));Delta(C,TEXT("弹匣容量"),S.Capacity-B.Capacity,TEXT("发"));
-            Delta(C,TEXT("瞄准耗时"),(S.ADS-B.ADS)*1000,TEXT("ms"),true);Delta(C,TEXT("射击间隔"),(S.Interval-B.Interval)*1000,TEXT("ms"),true);
-            Delta(C,TEXT("普通换弹"),(S.Reload-B.Reload)*1000,TEXT("ms"),true);Delta(C,TEXT("空仓换弹"),(S.EmptyReload-B.EmptyReload)*1000,TEXT("ms"),true);
+            Delta(C,ColdSteelWeaponText::BaseDamageModifier,S.Damage-B.Damage,TEXT(""));Delta(C,ColdSteelWeaponText::Capacity,S.Capacity-B.Capacity,TEXT("发"));
+            Delta(C,ColdSteelWeaponText::ADS,(S.ADS-B.ADS)*1000,TEXT("ms"),true);Delta(C,TEXT("射击间隔"),(S.Interval-B.Interval)*1000,TEXT("ms"),true);
+            Delta(C,ColdSteelWeaponText::Reload,(S.Reload-B.Reload)*1000,TEXT("ms"),true);Delta(C,ColdSteelWeaponText::EmptyReload,(S.EmptyReload-B.EmptyReload)*1000,TEXT("ms"),true);
             Delta(C,TEXT("后坐力指数"),S.Recoil-B.Recoil,TEXT(""),true);Delta(C,TEXT("枪械稳定性"),S.Handling.Stability-B.Handling.Stability,TEXT("分"));
             Delta(C,TEXT("枪械稳定性·回稳90%"),S.Handling.ADSRecoveryMilliseconds()-B.Handling.ADSRecoveryMilliseconds(),TEXT("ms"),true);
             if(B.Spread>0)Delta(C,TEXT("腰射散布"),(S.Spread/B.Spread-1)*100,TEXT("%"),true);
-            Delta(C,TEXT("射程"),S.Range-B.Range,TEXT("m"));Delta(C,TEXT("弹速"),S.Speed-B.Speed,TEXT("m/s"));}}
+            Delta(C,TEXT("射程"),S.Range-B.Range,TEXT("m"));Delta(C,ColdSteelWeaponText::ProjectileSpeed,S.Speed-B.Speed,TEXT("m/s"));}}
         if(Craft){const auto Config=Object(Object(Reference(),TEXT("craft")),*I.Definition);const auto Options=Object(Config,TEXT("options"));
             for(const auto& P:Craft->Values){const TArray<TSharedPtr<FJsonValue>>* List=nullptr;if(!Options||!Options->TryGetArrayField(FString(*P.Key),List))continue;
                 for(const auto& V:*List){const auto Option=V->AsObject();if(String(Option,TEXT("id"))==Value(P.Value)){Section(C,String(Option,TEXT("name")));Row(C,TEXT(""),String(Option,TEXT("desc")));C.Rows.Last().bDashedAfter=true;break;}}}}
         if(CE&&!CE->Values.IsEmpty()){
             Section(C,TEXT("合计改造数值"));
             struct FEffect{const TCHAR* Key;const TCHAR* Label;const TCHAR* Unit;double Scale;bool Lower;};
-            const FEffect Effects[]={{TEXT("damagePercent"),TEXT("伤害"),TEXT("%"),100,false},{TEXT("piercingBonus"),TEXT("穿透目标"),TEXT("个"),1,false},{TEXT("critChancePercent"),TEXT("暴击率"),TEXT("%"),100,false},{TEXT("rangeDelta"),TEXT("攻击距离"),TEXT("px"),1,false},{TEXT("projectileSpeedPercent"),TEXT("弹速"),TEXT("%"),100,false},{TEXT("moveSpeedPercent"),TEXT("移速"),TEXT("%"),100,false},{TEXT("attackIntervalDelta"),TEXT("攻击间隔"),TEXT("ms"),1,true},{TEXT("magazineDelta"),TEXT("弹容量"),TEXT("发"),1,false},{TEXT("magazinePercent"),TEXT("弹容量"),TEXT("%"),100,false},{TEXT("reloadTimeDelta"),TEXT("换弹耗时"),TEXT("ms"),1,true},{TEXT("maxSpreadAngleDelta"),TEXT("最大散布"),TEXT("°"),1,true},{TEXT("defensePercent"),TEXT("防御"),TEXT("%"),100,false},{TEXT("staminaCostDelta"),TEXT("体力消耗"),TEXT(""),1,true},{TEXT("knockbackDelta"),TEXT("击退距离"),TEXT("px"),1,false}};
+            const FEffect Effects[]={{TEXT("damagePercent"),TEXT("伤害"),TEXT("%"),100,false},{TEXT("piercingBonus"),TEXT("穿透目标"),TEXT("个"),1,false},{TEXT("critChancePercent"),TEXT("暴击率"),TEXT("%"),100,false},{TEXT("rangeDelta"),TEXT("攻击距离"),TEXT("px"),1,false},{TEXT("projectileSpeedPercent"),ColdSteelWeaponText::ProjectileSpeed,TEXT("%"),100,false},{TEXT("moveSpeedPercent"),TEXT("移速"),TEXT("%"),100,false},{TEXT("attackIntervalDelta"),ColdSteelWeaponText::AttackInterval,TEXT("ms"),1,true},{TEXT("magazineDelta"),ColdSteelWeaponText::Capacity,TEXT("发"),1,false},{TEXT("magazinePercent"),ColdSteelWeaponText::Capacity,TEXT("%"),100,false},{TEXT("reloadTimeDelta"),TEXT("换弹耗时"),TEXT("ms"),1,true},{TEXT("maxSpreadAngleDelta"),TEXT("最大散布"),TEXT("°"),1,true},{TEXT("defensePercent"),TEXT("防御"),TEXT("%"),100,false},{TEXT("staminaCostDelta"),ColdSteelWeaponText::StaminaCost,TEXT(""),1,true},{TEXT("knockbackDelta"),TEXT("击退距离"),TEXT("px"),1,false}};
             for(const auto& E:Effects)Delta(C,E.Label,Number(CE,E.Key)*E.Scale,E.Unit,E.Lower);
         }
     }
@@ -131,22 +153,19 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
     FGunsmithStats S;if(Weapon)S=G->Calculate(I.Definition,Parts);
     if(O->TryGetArrayField(TEXT("stats"),Stats))for(const auto& V:*Stats){const auto St=V->AsObject();const FString Label=String(St,TEXT("name"),String(St,TEXT("label")));FString Val=St->HasField(TEXT("value"))?Value(St->Values[TEXT("value")]):TEXT("");
         if((Weapon||ColdSteelInventory::IsTwoHandedSword(I))&&Label==TEXT("物理攻击"))continue;
-        if(Weapon&&Label==TEXT("弹匣容量"))continue;
+        if(Weapon&&Label==ColdSteelWeaponText::Capacity)continue;
         if(!Weapon&&I.Definition==TEXT("ue_m4a1")&&Label==TEXT("物理攻击"))Val=N(Damage(Field(GetDefault<AFPSGAMECharacter>(),TEXT("DamagePerShot"))));
         bool Positive=false;St->TryGetBoolField(TEXT("pos"),Positive);if(!Label.IsEmpty())Row(Main,Label,Val,Positive?1:0);}
     Section(Main,TEXT("物品信息"));Row(Main,TEXT("分类"),Category(String(O,TEXT("category"))));
     Row(Main,TEXT("武器类型"),String(O,TEXT("weaponTypeTag"),String(O,TEXT("weaponType"))));Row(Main,TEXT("装备槽位"),String(O,TEXT("equipSlot")));
     const FString Cat=String(O,TEXT("category"));const J Attack=Object(O,TEXT("attack")),Defense=Object(O,TEXT("defense"));
     if(ColdSteelInventory::IsTwoHandedSword(I)){
-        Section(Main,TEXT("近战参数"));AppendColdSteelTooltipAttackFormula(I,Model,Number(O,TEXT("melee_damage"),55),Main);
+        Section(Main,ColdSteelWeaponText::CombatParameters);AppendColdSteelTooltipAttackFormula(I,Model,Number(O,TEXT("melee_damage"),55),Main);
         const auto Melee=ColdSteelMelee::Evaluate(I,Model);
-        Row(Main,TEXT("普通攻击总伤害"),N(Melee.Damage));
+        DamageRows(Main,Melee.DamageParts);
         Row(Main,TEXT("快速近战伤害倍率"),N(Melee.QuickCombat.DamageMultiplier)+TEXT("×"));
         Row(Main,TEXT("快速近战伤害"),N(Melee.QuickCombat.Damage));
         Row(Main,TEXT("快速近战击退距离"),N(Melee.QuickCombat.KnockbackCM)+TEXT(" cm"));
-        Row(Main,TEXT("基础物理伤害"),N(Melee.DamageParts.BasePhysical));
-        if(Melee.DamageParts.AddedPhysical>0)Row(Main,TEXT("附加物理伤害"),N(Melee.DamageParts.AddedPhysical));
-        if(Melee.DamageParts.AddedMagic>0)Row(Main,TEXT("附加魔法伤害"),N(Melee.DamageParts.AddedMagic));
         Row(Main,TEXT("结算方式"),TEXT("基础与附加共同乘攻击方式倍率，再按物理/魔法防御分别减免"));
         Row(Main,TEXT("三连击第二段伤害"),N(Melee.ComboSecondDamage));
         Row(Main,TEXT("三连击第三段伤害"),N(Melee.ComboThirdDamage));
@@ -154,11 +173,11 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         if(Melee.Modifiers.MagicDamage!=1)Row(Main,TEXT("魔法伤害倍率"),N(Melee.Modifiers.MagicDamage)+TEXT("×"));
         if(Melee.Modifiers.CooldownReduceSecondsPerHit>0)Row(Main,TEXT("近战命中额外减少魔法冷却"),N(.5f+Melee.Modifiers.CooldownReduceSecondsPerHit)+TEXT(" s / 挥"));
         if(Melee.Modifiers.RuneVulnerability>0)Row(Main,TEXT("剑刃攻击命中魔法易伤"),N(Melee.Modifiers.RuneVulnerability*100)+TEXT("% · ")+N(Melee.Modifiers.RuneVulnerabilitySeconds)+TEXT(" s"));
-        Row(Main,TEXT("攻击间隔"),N(Melee.AttackSeconds)+TEXT(" s"));
+        Row(Main,ColdSteelWeaponText::AttackInterval,N(FMath::RoundToInt(Melee.AttackSeconds*1000))+TEXT(" ms"));
         Row(Main,TEXT("突刺时间"),N(Melee.ThrustSeconds)+TEXT(" s"));
-        Row(Main,TEXT("最大攻击距离"),N(Melee.ThrustReach/100)+TEXT(" m"));
+        Row(Main,ColdSteelWeaponText::AttackDistance,N(Melee.ThrustReach/100)+TEXT(" m"));
         Row(Main,TEXT("普通挥砍距离"),N(Melee.SlashReach/100)+TEXT(" m"));
-        Row(Main,TEXT("攻击耐力消耗（含重击）"),N(Melee.AttackStamina));
+        Row(Main,ColdSteelWeaponText::StaminaCost,N(Melee.AttackStamina));
         Row(Main,TEXT("命中硬直时间倍率"),N(Melee.Modifiers.HitReaction)+TEXT("×"));
         if(!FMath::IsNearlyEqual(Melee.Modifiers.ToughnessDamage,1.))Row(Main,TEXT("韧性伤害倍率"),N(Melee.Modifiers.ToughnessDamage)+TEXT("×"));
         if(Melee.Modifiers.PhysicalArmorPenetration>0)Row(Main,TEXT("改造物理防御穿透"),N(Melee.Modifiers.PhysicalArmorPenetration*100)+TEXT("%"));
@@ -171,22 +190,22 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
             Row(Main,TEXT("承锋重击物理伤害"),TEXT("+")+N((Melee.Modifiers.ClovenPhysical-1)*100)+TEXT("%"));
             Row(Main,TEXT("承锋重击韧性伤害"),TEXT("+")+N((Melee.Modifiers.ClovenToughness-1)*100)+TEXT("%"));
         }
-        Row(Main,TEXT("防御受击耐力消耗"),N(Melee.BlockStamina));
+        Row(Main,ColdSteelWeaponText::BlockStaminaCost,N(Melee.BlockStamina));
         Row(Main,TEXT("握持"),TEXT("双手 · 占用副手槽"));
     }else if(ColdSteelInventory::IsEquippedProductionTool(I)){
         const bool bPickaxe=I.Definition==TEXT("tool_pickaxe");
         // Same 近战参数 layout as the swords: formula, then total/base/added damage, then
         // interval, stamina, reach and grip; tool-only harvest numbers move to their own section.
-        Section(Main,TEXT("近战参数"));
+        Section(Main,ColdSteelWeaponText::CombatParameters);
         const double Base=Number(O,TEXT("melee_damage"),bPickaxe?10:12);
         const auto DamageParts=ColdSteelWeaponStats::DamageParts(I,Model,Base);
         AppendColdSteelTooltipAttackFormula(I,Model,Base,Main);
-        Row(Main,TEXT("普通攻击总伤害"),N(DamageParts.Total()));
-        Row(Main,TEXT("基础物理伤害"),N(DamageParts.BasePhysical));
-        if(DamageParts.AddedPhysical>0)Row(Main,TEXT("附加物理伤害"),N(DamageParts.AddedPhysical));
-        if(DamageParts.AddedMagic>0)Row(Main,TEXT("附加魔法伤害"),N(DamageParts.AddedMagic));
-        Row(Main,TEXT("攻击间隔"),N(Number(O,TEXT("swing_seconds"),1.1))+TEXT(" s"));
-        Row(Main,TEXT("最大攻击距离"),N(Number(O,TEXT("combat_reach_cm"),180)/100)+TEXT(" m"));
+        Row(Main,ColdSteelWeaponText::TotalDamage,N(DamageParts.Total()));
+        Row(Main,ColdSteelWeaponText::BasePhysical,N(DamageParts.BasePhysical));
+        if(DamageParts.AddedPhysical>0)Row(Main,ColdSteelWeaponText::AddedPhysical,N(DamageParts.AddedPhysical));
+        if(DamageParts.AddedMagic>0)Row(Main,ColdSteelWeaponText::AddedMagic,N(DamageParts.AddedMagic));
+        Row(Main,ColdSteelWeaponText::AttackInterval,N(Number(O,TEXT("swing_seconds"),1.1))+TEXT(" s"));
+        Row(Main,ColdSteelWeaponText::AttackDistance,N(Number(O,TEXT("combat_reach_cm"),180)/100)+TEXT(" m"));
         Row(Main,TEXT("攻击耐力消耗"),N(Model?double(Model->StaminaSettings().HarvestCost):10.));
         Row(Main,TEXT("握持"),TEXT("双手 · 占用同组主手与副手槽"));
         Section(Main,TEXT("采集参数"));
@@ -195,33 +214,44 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         if(!bPickaxe)Row(Main,TEXT("伐木命中宽容半径"),N(Number(O,TEXT("harvest_sweep_radius_cm"),32))+TEXT(" cm"));
         Row(Main,TEXT("采集规则"),bPickaxe?TEXT("三次有效命中开采；伤害属性不改变采矿所需次数"):TEXT("三次有效命中砍倒；伤害属性不改变伐木所需次数"));
     }else if(ColdSteelInventory::IsBow(I)){
-        Section(Main,TEXT("弓箭参数"));
-        const auto BowDamage=ColdSteelWeaponStats::DamageParts(I,Model,Number(O,TEXT("full_damage"),46));
-        Row(Main,TEXT("满拉武器伤害"),N(BowDamage.Total()));
-        Row(Main,TEXT("基础物理伤害"),N(BowDamage.BasePhysical));
-        if(BowDamage.AddedPhysical>0)Row(Main,TEXT("附加物理伤害"),N(BowDamage.AddedPhysical));
-        if(BowDamage.AddedMagic>0)Row(Main,TEXT("附加魔法伤害"),N(BowDamage.AddedMagic));
-        Row(Main,TEXT("拉满耗时"),N(FMath::Max(.3,ColdSteelWeaponStats::Interval(&I,Model,Number(O,TEXT("draw_seconds"),1.4))))+TEXT(" s"));
-        Row(Main,TEXT("搭箭耗时"),N(Number(O,TEXT("nock_seconds"),.68))+TEXT(" s"));
-        Row(Main,TEXT("满拉箭速"),N(Number(O,TEXT("full_speed_cm"),9800)/100)+TEXT(" m/s"));
-        Row(Main,TEXT("最大飞行距离"),N(Number(O,TEXT("range_cm"),3200)/100)+TEXT(" m"));
-        Row(Main,TEXT("满拉体力消耗"),N(Number(O,TEXT("stamina_cost"),3)));
-        if(Model){Row(Main,TEXT("箭种"),Model->AmmoLabel(Model->AmmoDefinitionFor(I)));Row(Main,TEXT("箭种效果"),Model->AmmoEffectSummary(Model->AmmoDefinitionFor(I)));}
-        Row(Main,TEXT("操作"),TEXT("左键按住搭箭、拉开，松开出箭；右键稳持；R 搭箭"));
-        Row(Main,TEXT("握持"),TEXT("双手 · 占用副手槽"));
-    }else if(Weapon){Section(Main,TEXT("枪械参数"));AppendColdSteelTooltipAttackFormula(I,Model,S.Damage,Main);
-        const auto DamageParts=ColdSteelWeaponStats::DamageParts(I,Model,S.Damage);
-        Row(Main,TEXT("武器总伤害"),N(DamageParts.Total()));
-        if(DamageParts.Additional()>0)Row(Main,TEXT("基础物理伤害"),N(DamageParts.BasePhysical));
-        if(DamageParts.AddedPhysical>0)Row(Main,TEXT("附加物理伤害"),N(DamageParts.AddedPhysical));
-        if(DamageParts.AddedMagic>0)Row(Main,TEXT("附加魔法伤害"),N(DamageParts.AddedMagic));
-        Row(Main,TEXT("子弹数"),FString::Printf(TEXT("%d / %d 发"),I.Magazine,S.Capacity));Row(Main,TEXT("弹药"),Model?Model->AmmoLabel(Model->AmmoDefinitionFor(I)):ColdSteelWeaponStats::AmmoName(Weapon->Ammo));
+        Section(Main,ColdSteelWeaponText::CombatParameters);
+        const auto Bow=ColdSteelBow::Evaluate(I,Model);const auto& BowDamage=Bow.Damage;
+        const double Base=Number(O,TEXT("full_damage"),69)*(G?G->Calculate(I.Definition,Parts).Bow.Damage:1.);
+        AppendColdSteelTooltipAttackFormula(I,Model,Base,Main);
+        DamageRows(Main,BowDamage);
+        if(const double CritBonus=ColdSteelInventory::Number(I,TEXT("critDamageBonus"));CritBonus>0)
+            Row(Main,ColdSteelWeaponText::CriticalBonus,TEXT("+")+N(CritBonus*100)+TEXT("%"));
+        Row(Main,ColdSteelWeaponText::DrawTime,N(Bow.Draw)+TEXT(" s"));
+        Row(Main,ColdSteelWeaponText::NockTime,N(Bow.Nock)+TEXT(" s"));
+        Row(Main,ColdSteelWeaponText::ProjectileSpeed,N(Bow.Speed)+TEXT(" m/s"));
+        Row(Main,ColdSteelWeaponText::FlightLimit,N(Number(O,TEXT("range_cm"),3200)/100)+TEXT(" m"));
+        Row(Main,ColdSteelWeaponText::StaminaCost,N(Bow.Stamina));
+        Row(Main,ColdSteelWeaponText::HoldTime,N(Bow.Hold)+TEXT(" s"));
+        Row(Main,ColdSteelWeaponText::Sway,N(Bow.Sway));
+        Row(Main,ColdSteelWeaponText::HipSpreadAngle,N(FMath::RadiansToDegrees(FMath::Atan(Bow.Spread)))+TEXT("°"));
+        Row(Main,ColdSteelWeaponText::ADS,N(FMath::RoundToInt(Bow.ADS*1000))+TEXT(" ms"));
         if(Model)
         {
-            Row(Main,TEXT("弹种效果"),Model->AmmoEffectSummary(Model->AmmoDefinitionFor(I)));
-            Row(Main,TEXT("装填后射击伤害"),N(DamageParts.Total()*Model->AmmoDamageMultiplier(I)));
+            Row(Main,ColdSteelWeaponText::Ammo,Model->AmmoLabel(Model->AmmoDefinitionFor(I)));
+            Row(Main,ColdSteelWeaponText::AmmoEffect,Model->AmmoEffectSummary(Model->AmmoDefinitionFor(I)));
+            Row(Main,ColdSteelWeaponText::AmmoAdjustedDamage,N(BowDamage.Total()*Model->AmmoDamageMultiplier(I)));
         }
-        Row(Main,S.BurstCount>1?TEXT("组内射击间隔"):TEXT("攻击间隔"),N(FMath::RoundToInt(ColdSteelWeaponStats::Interval(&I,Model,S.Interval)*1000))+TEXT(" ms"));
+        Section(Main,TEXT("蓄力机制"));
+        Row(Main,TEXT("操作"),TEXT("左键按住搭箭、拉开，至少拉至 50% 后松手出箭；不足时收弓留箭；右键瞄准；短按 R 搭箭／缓收弓，长按 R 切换箭种"));
+        Row(Main,TEXT("箭矢回收"),TEXT("靠近落地或插住的箭自动回收到弹药袋，保留原箭种；也可按 E 拾取"));
+        Row(Main,TEXT("伤害结算"),FString::Printf(TEXT("至少拉至 %.0f%% 才能射出；此时为未蓄力基准伤害的 %.0f%%，线性增加至满弓的 %.0f%%。武器总伤害显示满弓值。"),
+            ColdSteelBow::MinimumFireDrawFraction*100,ColdSteelBow::DrawDamageMultiplier(ColdSteelBow::MinimumFireDrawFraction)*100,ColdSteelBow::DrawDamageMultiplier(1.f)*100));
+        Row(Main,TEXT("握持"),TEXT("双手 · 占用副手槽"));
+    }else if(Weapon){Section(Main,ColdSteelWeaponText::CombatParameters);AppendColdSteelTooltipAttackFormula(I,Model,S.Damage,Main);
+        const auto DamageParts=ColdSteelWeaponStats::DamageParts(I,Model,S.Damage);
+        DamageRows(Main,DamageParts);
+        Row(Main,TEXT("子弹数"),FString::Printf(TEXT("%d / %d 发"),I.Magazine,S.Capacity));Row(Main,ColdSteelWeaponText::Ammo,Model?Model->AmmoLabel(Model->AmmoDefinitionFor(I)):ColdSteelWeaponStats::AmmoName(Weapon->Ammo));
+        if(Model)
+        {
+            Row(Main,ColdSteelWeaponText::AmmoEffect,Model->AmmoEffectSummary(Model->AmmoDefinitionFor(I)));
+            Row(Main,ColdSteelWeaponText::AmmoAdjustedDamage,N(DamageParts.Total()*Model->AmmoDamageMultiplier(I)));
+        }
+        Row(Main,S.BurstCount>1?TEXT("组内射击间隔"):ColdSteelWeaponText::AttackInterval,N(FMath::RoundToInt(ColdSteelWeaponStats::Interval(&I,Model,S.Interval)*1000))+TEXT(" ms"));
         const double FireInterval=ColdSteelWeaponStats::Interval(&I,Model,S.Interval);
         Row(Main,S.BurstCount>1?TEXT("组内理论射速"):TEXT("理论射速"),FireInterval>0?N(60./FireInterval)+TEXT(" 发/分"):TEXT("—"));
         if(S.BurstCount>1)
@@ -232,25 +262,27 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
             Row(Main,TEXT("连发组末发后间隔"),N(FMath::RoundToInt(BurstDelay*1000))+TEXT(" ms"));
             Row(Main,TEXT("含组间隔理论射速"),N(60.*S.BurstCount/Cycle)+TEXT(" 发/分"));
         }
-        Row(Main,TEXT("正常换弹"),N(ColdSteelWeaponStats::Reload(&I,Model,S.Reload))+TEXT(" s"));Row(Main,TEXT("空仓换弹"),N(ColdSteelWeaponStats::Reload(&I,Model,S.EmptyReload))+TEXT(" s"));
-        Row(Main,TEXT("瞄准耗时"),N(FMath::RoundToInt(S.ADS*1000))+TEXT("ms"));Row(Main,TEXT("后坐力（越低越好）"),N(S.Recoil));Row(Main,TEXT("枪械稳定性（越高越好）"),N(S.Handling.Stability)+TEXT(" /100"));
+        Row(Main,ColdSteelWeaponText::Reload,N(ColdSteelWeaponStats::Reload(&I,Model,S.Reload))+TEXT(" s"));Row(Main,ColdSteelWeaponText::EmptyReload,N(ColdSteelWeaponStats::Reload(&I,Model,S.EmptyReload))+TEXT(" s"));
+        Row(Main,ColdSteelWeaponText::ADS,N(FMath::RoundToInt(S.ADS*1000))+TEXT(" ms"));Row(Main,TEXT("后坐力（越低越好）"),N(S.Recoil));Row(Main,TEXT("枪械稳定性（越高越好）"),N(S.Handling.Stability)+TEXT(" /100"));
         Row(Main,TEXT("首发上跳"),FString::Printf(TEXT("%.3f°"),S.Handling.FirstShotDegrees()));
         Row(Main,TEXT("连射上跳/发"),FString::Printf(TEXT("%.3f°"),S.Handling.MaxVerticalDegrees()));
         Row(Main,TEXT("ADS首发水平/发"),FString::Printf(TEXT("%.3f°"),S.Handling.FirstHorizontalDegrees()));
         Row(Main,TEXT("ADS水平上限/发"),FString::Printf(TEXT("%.3f°"),S.Handling.MaxHorizontalDegrees()));
-        Row(Main,TEXT("枪械稳定性·回稳90%"),N(FMath::RoundToInt(S.Handling.ADSRecoveryMilliseconds()))+TEXT("ms"));
-        Row(Main,TEXT("有效射程"),N(S.Range)+TEXT(" m"));
-        Row(Main,TEXT("子弹速度"),S.Speed<=0?TEXT("即时命中"):N(S.Speed)+TEXT("m/s"));
-        Row(Main,TEXT("腰射散布倍率"),N(S.Spread)+TEXT("×"));
+        Row(Main,TEXT("枪械稳定性·回稳90%"),N(FMath::RoundToInt(S.Handling.ADSRecoveryMilliseconds()))+TEXT(" ms"));
+        Row(Main,ColdSteelWeaponText::EffectiveRange,N(S.Range)+TEXT(" m"));
+        Row(Main,ColdSteelWeaponText::ProjectileSpeed,S.Speed<=0?TEXT("即时命中"):N(S.Speed)+TEXT(" m/s"));
+        Row(Main,ColdSteelWeaponText::HipSpreadMultiplier,N(S.Spread)+TEXT("×"));
+        if(const double CritBonus=ColdSteelInventory::Number(I,TEXT("critDamageBonus"));CritBonus>0)
+            Row(Main,ColdSteelWeaponText::CriticalBonus,TEXT("+")+N(CritBonus*100)+TEXT("%"));
     }else if(I.Definition==TEXT("ue_m4a1")){
-        Section(Main,TEXT("枪械参数"));const auto* D=GetDefault<AFPSGAMECharacter>();
-        Row(Main,TEXT("当前伤害"),N(Damage(S.Damage)));Row(Main,TEXT("子弹数"),FString::Printf(TEXT("%d / %d 发"),I.Magazine,D->GetMagazineCapacity()));
-        Row(Main,TEXT("攻击间隔"),N(FMath::RoundToInt(ColdSteelWeaponStats::Interval(&I,Model,S.Interval)*1000))+TEXT(" ms"));
-        Row(Main,TEXT("普通换弹"),N(ColdSteelWeaponStats::Reload(&I,Model,Field(D,TEXT("ReloadDuration"))))+TEXT(" s"));Row(Main,TEXT("空仓换弹"),N(ColdSteelWeaponStats::Reload(&I,Model,Field(D,TEXT("EmptyReloadDuration"))))+TEXT(" s"));Row(Main,TEXT("瞄准耗时"),N(FMath::RoundToInt(Field(D,TEXT("ADSInDuration"))*1000))+TEXT("ms"));
+        Section(Main,ColdSteelWeaponText::CombatParameters);const auto* D=GetDefault<AFPSGAMECharacter>();
+        Row(Main,ColdSteelWeaponText::TotalDamage,N(Damage(S.Damage)));Row(Main,TEXT("子弹数"),FString::Printf(TEXT("%d / %d 发"),I.Magazine,D->GetMagazineCapacity()));
+        Row(Main,ColdSteelWeaponText::AttackInterval,N(FMath::RoundToInt(ColdSteelWeaponStats::Interval(&I,Model,S.Interval)*1000))+TEXT(" ms"));
+        Row(Main,ColdSteelWeaponText::Reload,N(ColdSteelWeaponStats::Reload(&I,Model,Field(D,TEXT("ReloadDuration"))))+TEXT(" s"));Row(Main,ColdSteelWeaponText::EmptyReload,N(ColdSteelWeaponStats::Reload(&I,Model,Field(D,TEXT("EmptyReloadDuration"))))+TEXT(" s"));Row(Main,ColdSteelWeaponText::ADS,N(FMath::RoundToInt(Field(D,TEXT("ADSInDuration"))*1000))+TEXT(" ms"));
     }else if(Attack){Section(Main,TEXT("攻击参数"));
-        const struct{const TCHAR* Key;const TCHAR* Label;const TCHAR* Unit;} Fields[]={{TEXT("range"),TEXT("攻击距离"),TEXT("px")},{TEXT("bulletSpeed"),TEXT("子弹速度"),TEXT("px/s")},{TEXT("projectileSpeed"),TEXT("投射速度"),TEXT("px/s")},{TEXT("attackInterval"),TEXT("攻击间隔"),TEXT("ms")},{TEXT("knockback"),TEXT("击退距离"),TEXT("px")}};
+        const struct{const TCHAR* Key;const TCHAR* Label;const TCHAR* Unit;} Fields[]={{TEXT("range"),TEXT("攻击距离"),TEXT("px")},{TEXT("bulletSpeed"),ColdSteelWeaponText::ProjectileSpeed,TEXT("px/s")},{TEXT("projectileSpeed"),TEXT("投射速度"),TEXT("px/s")},{TEXT("attackInterval"),ColdSteelWeaponText::AttackInterval,TEXT("ms")},{TEXT("knockback"),TEXT("击退距离"),TEXT("px")}};
         for(const auto& F:Fields)if(Attack->HasField(F.Key))Row(Main,F.Label,N(Number(Attack,F.Key))+F.Unit);Row(Main,TEXT("伤害类型"),String(Attack,TEXT("damageType")));Row(Main,TEXT("命中类型"),String(Attack,TEXT("hitType")));
-        const auto Ammo=Object(O,TEXT("ammoConfig"));if(Ammo){Section(Main,TEXT("枪械参数"));if(Ammo->HasField(TEXT("max")))Row(Main,TEXT("子弹数"),Value(Ammo->Values[TEXT("max")])+TEXT("发"));if(Ammo->HasField(TEXT("reloadTime")))Row(Main,TEXT("换弹时间"),N(Number(Ammo,TEXT("reloadTime")))+TEXT("ms"));}}
+        const auto Ammo=Object(O,TEXT("ammoConfig"));if(Ammo){Section(Main,ColdSteelWeaponText::CombatParameters);if(Ammo->HasField(TEXT("max")))Row(Main,TEXT("子弹数"),Value(Ammo->Values[TEXT("max")])+TEXT("发"));if(Ammo->HasField(TEXT("reloadTime")))Row(Main,TEXT("换弹时间"),N(Number(Ammo,TEXT("reloadTime")))+TEXT("ms"));}}
     if(Defense){Section(Main,TEXT("防御参数"));const double Base=Number(Defense,TEXT("base")),Per=Number(Defense,TEXT("perEnhance"));const auto* E=Model?Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;Row(Main,TEXT("防御力"),N(E?E->Defense(I):Base+Enhance*Per));Row(Main,TEXT("防御基础"),N(Base));Row(Main,TEXT("每级强化防御"),N(Per));
         if(Defense->HasField(TEXT("damageReduction")))Row(Main,TEXT("防御减伤"),N(Number(Defense,TEXT("damageReduction"))*100)+TEXT("%"));if(Defense->HasField(TEXT("staminaCost")))Row(Main,TEXT("防御受击体力"),N(Number(Defense,TEXT("staminaCost"))));}
     const J Bonuses=Object(O,TEXT("bonusStats"));if(Bonuses&&!Bonuses->Values.IsEmpty()){

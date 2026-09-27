@@ -1,4 +1,6 @@
 #include "BowPartComponent.h"
+#include "BowFlexMeshComponent.h"
+#include "Engine/SkeletalMesh.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "GameFramework/Actor.h"
@@ -79,6 +81,7 @@ void UBowPartComponent::InitializeAsPart(AActor* Owner, const FName& InSlot, USc
 
 void UBowPartComponent::SetMesh(UStaticMesh* Mesh)
 {
+    if(FlexVisual){FlexVisual->SetVisibility(false);FlexVisual->SetFlexMesh(nullptr);}
     PartMesh = Mesh;
     if (Visual)
     {
@@ -88,6 +91,22 @@ void UBowPartComponent::SetMesh(UStaticMesh* Mesh)
     }
     for (const auto& Rod : Rods) if (Rod) Rod->EmptyOverrideMaterials();
 }
+
+void UBowPartComponent::SetSkeletalMesh(USkeletalMesh* Mesh)
+{
+    PartMesh=nullptr;if(Visual){Visual->SetStaticMesh(nullptr);Visual->SetVisibility(false);}
+    if(!FlexVisual&&Mesh)
+    {
+        FlexVisual=NewObject<UBowFlexMeshComponent>(GetOwner());GetOwner()->AddInstanceComponent(FlexVisual);
+        FlexVisual->SetupAttachment(this);FlexVisual->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+        FlexVisual->SetCanEverAffectNavigation(false);FlexVisual->SetCastShadow(false);FlexVisual->SetOnlyOwnerSee(true);FlexVisual->RegisterComponent();
+    }
+    if(FlexVisual){FlexVisual->EmptyOverrideMaterials();FlexVisual->SetFlexMesh(Mesh);FlexVisual->SetVisibility(bPartVisible&&Mesh);}
+}
+bool UBowPartComponent::HasMesh() const{return PartMesh||(FlexVisual&&FlexVisual->GetSkinnedAsset());}
+void UBowPartComponent::ApplyStringLoad(const FVector& NockCM,const FVector& BraceCM,float Distribution,float RingDegrees)
+{if(FlexVisual)FlexVisual->ApplyStringLoad(NockCM,BraceCM,Distribution,RingDegrees);}
+bool UBowPartComponent::FlexTips(FVector& Upper,FVector& Lower) const{return FlexVisual&&FlexVisual->Tips(Upper,Lower);}
 
 int32 UBowPartComponent::AddRod(const TCHAR* Label)
 {
@@ -123,6 +142,7 @@ void UBowPartComponent::SetPartVisible(bool bInVisible)
     // 子件跟着父挂点走：这里只切部件本身，细杆的可见性由 StretchRod 自己按长度判定。
     SetVisibility(bInVisible);
     if (Visual) Visual->SetVisibility(bInVisible && PartMesh && Rods.IsEmpty());
+    if(FlexVisual)FlexVisual->SetVisibility(bInVisible&&FlexVisual->GetSkinnedAsset());
     if (!bInVisible) for (const auto& Rod : Rods) if (Rod) Rod->SetVisibility(false);
 }
 
@@ -137,6 +157,7 @@ int32 UBowPartComponent::FindMaterialSlot(const FString& InSlotName) const
 {
     UStaticMesh* Mesh = GetMesh();
     if (InSlotName.IsEmpty()) return 0;
+    if(FlexVisual&&FlexVisual->GetSkinnedAsset())return InSlotName.IsNumeric()?FCString::Atoi(*InSlotName):FlexVisual->GetMaterialIndex(FName(*InSlotName));
     if (!Mesh) return INDEX_NONE;
     if (InSlotName.IsNumeric()) return FCString::Atoi(*InSlotName);
     return Mesh->GetMaterialIndex(FName(*InSlotName));
@@ -148,6 +169,7 @@ bool UBowPartComponent::SetMaterialOverride(const FString& InSlotName, UMaterial
     const int32 Index = FindMaterialSlot(InSlotName);
     if (Index == INDEX_NONE) return false;
     Visual->SetMaterial(Index, Material);
+    if(FlexVisual)FlexVisual->SetMaterial(Index,Material);
     for (const auto& Rod : Rods) if (Rod) Rod->SetMaterial(Index, Material);
     return true;
 }

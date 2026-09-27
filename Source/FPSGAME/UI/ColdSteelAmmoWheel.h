@@ -15,6 +15,7 @@ struct FColdSteelAmmoWheelDisc
     FString Instance, Caption, LoadedId;
     int32 Hand=0;          // 0 main, 1 off
     int32 Hover=INDEX_NONE;
+    bool bBow=false;
 };
 
 UCLASS()

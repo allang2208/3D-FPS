@@ -10,6 +10,8 @@
 class UMaterialInterface;
 class UStaticMesh;
 class UStaticMeshComponent;
+class USkeletalMesh;
+class UBowFlexMeshComponent;
 
 /**
  * 部件的挂点就是它自己（`USceneComponent`），实体网格与细杆都是它的子件。
@@ -17,10 +19,10 @@ class UStaticMeshComponent;
  * 换网格、换缩放都不会让锚点跑偏。
  *
  * 三种用法（同一类，靠数据区分，改造系统只认槽名）：
- *   riser      —— 只有实体网格（`SetMesh`），弓体本身；
+ *   riser      —— 静态或骨骼实体网格（`SetMesh` / `SetSkeletalMesh`），弓体本身；
  *   string     —— 两条细杆（上／下弓梢到弦结点），本包的弦是烘进网格的直线，
  *                 运行时得自己张合；换成真正的弦模型时只填 `SetMesh` 即可；
- *   arrow_rest —— 一条细杆当弦上箭，正式箭模同样走 `SetMesh`。
+ *   arrow      —— 一条细杆当弦上箭，正式箭模同样走 `SetMesh`。
  */
 UCLASS(ClassGroup=(Weapons), meta=(BlueprintSpawnableComponent))
 class FPSGAME_API UBowPartComponent : public USceneComponent
@@ -41,6 +43,10 @@ public:
      * 有细杆时它同时是细杆的素材（弦上箭），为空则回落引擎圆柱占位。
      */
     void SetMesh(UStaticMesh* Mesh);
+    void SetSkeletalMesh(USkeletalMesh* Mesh);
+    bool HasMesh() const;
+    void ApplyStringLoad(const FVector& NockCM,const FVector& BraceCM,float Distribution,float RingDegrees=0.f);
+    bool FlexTips(FVector& Upper,FVector& Lower) const;
     UStaticMesh* GetMesh() const { return PartMesh; }
 
     /** 加一条程序化细杆，返回句柄（`StretchRod` 用）。条数由数据表 `bow_part_<槽名>_rods` 决定。 */
@@ -68,4 +74,5 @@ private:
     /** 占位细杆素材（引擎圆柱：高 100 cm、半径 50 cm）。 */
     UPROPERTY(Transient) TObjectPtr<UStaticMesh> RodMesh;
     bool bPartVisible = false;
+    UPROPERTY(Transient) TObjectPtr<UBowFlexMeshComponent> FlexVisual;
 };

@@ -2,6 +2,7 @@
 #include "ColdSteelUIStyle.h"
 #include "ColdSteelWorldInteraction.h"
 #include "../FPSGAMECharacter.h"
+#include "../Weapons/Bow/BowWeaponComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "Rendering/DrawElements.h"
 #include "Styling/CoreStyle.h"
@@ -58,21 +59,34 @@ int32 UColdSteelHUDWidget::NativePaint(const FPaintArgs& Args,const FGeometry& G
         }
     }
     // Delayed projectiles and magic can confirm a hit after the weapon is put away.
-    if(!Character->HasInventoryWeapon()||Character->IsTraversing())return Result+2;
-    if(Character&&Character->HasInventoryWeapon()&&Character->IsAiming()&&Character->GetGunsmithOpticVariant()==TEXT("lpvo_1_6x")&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor){
+    const auto* Bow=Character->FindComponentByClass<UBowWeaponComponent>();
+    const bool bBow=Bow&&Bow->IsEquipped();
+    if(Character->IsTraversing() || (bBow ? !Bow->ShouldShowCrosshair() : !Character->HasInventoryWeapon()))return Result+2;
+    if(!bBow&&Character->HasInventoryWeapon()&&Character->IsAiming()&&Character->GetGunsmithOpticVariant()==TEXT("lpvo_1_6x")&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor){
         const FVector2D Size=Geometry.GetLocalSize();
         FSlateDrawElement::MakeBox(Elements,Result+1,Geometry.ToPaintGeometry(FVector2D(150,24),FSlateLayoutTransform(FVector2D(Size.X*.5f-75,Size.Y*.87f-3))),FCoreStyle::Get().GetBrush(TEXT("WhiteBrush")),ESlateDrawEffect::None,FLinearColor(0,0,0,.65f));
         FSlateDrawElement::MakeText(Elements,Result+2,Geometry.ToPaintGeometry(FVector2D(220,24),FSlateLayoutTransform(FVector2D(Size.X*.5f-65,Size.Y*.87f))),
             FString::Printf(TEXT("%.1f×  |  滚轮调倍率"),Character->GetOpticMagnification()),FCoreStyle::GetDefaultFontStyle("Regular",12),ESlateDrawEffect::None,FLinearColor::White);
         return Result+2;
     }
-    if(Character->IsAiming())return Result+2;
+    if(!bBow&&Character->IsAiming())return Result+2;
+    const float BowAim=bBow?Bow->AimAlpha():0.f;
     const FVector2D Extent=Character->GetCrosshairHalfExtent(Geometry.GetLocalSize());
     const float Length=9.f*Scale,HalfWidth=1.5f*Scale;
     const FSlateBrush* Brush=FCoreStyle::Get().GetBrush("WhiteBrush");
+    // A fitted physical pin takes over in ADS; keep the fallback dot only
+    // for bow recipes without a sight. Hip spread bars retain their fade.
+    if(BowAim>0.f&&!Bow->HasPhysicalSight())
+    {
+        const float DotSize=2.5f*Scale;
+        FSlateDrawElement::MakeBox(Elements,Result+1,
+            Geometry.ToPaintGeometry(FVector2D(DotSize),FSlateLayoutTransform(Center-FVector2D(DotSize*.5f))),
+            Brush,ESlateDrawEffect::None,FLinearColor::White.CopyWithNewOpacity(BowAim));
+    }
+    if(BowAim>=1.f)return Result+2;
     auto Bar=[&](FVector2D Position,FVector2D Size){
         FSlateDrawElement::MakeBox(Elements,Result+1,Geometry.ToPaintGeometry(Size,FSlateLayoutTransform(Center+Position)),
-            Brush,ESlateDrawEffect::None,FLinearColor::White);
+            Brush,ESlateDrawEffect::None,FLinearColor::White.CopyWithNewOpacity(1.f-BowAim));
     };
     Bar(FVector2D(-HalfWidth,-Extent.Y-Length),FVector2D(HalfWidth*2,Length));
     Bar(FVector2D(-HalfWidth,Extent.Y),FVector2D(HalfWidth*2,Length));

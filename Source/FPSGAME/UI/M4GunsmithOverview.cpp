@@ -1,3 +1,4 @@
+#include "ColdSteelWeaponText.h"
 #include "M4GunsmithWidget.h"
 #include "ColdSteelUIStyle.h"
 #include "GunsmithUIStyle.h"
@@ -36,15 +37,16 @@ void UM4GunsmithWidget::RefreshPresentation()
         R.Delta=FMath::Abs(D)<.00001?TEXT("—"):FString(D>0?TEXT("+"):TEXT(""))+Value(D,Digits,Unit);
         R.Benefit=FMath::Abs(D)<.00001?0:((D>0)!=Lower?1:-1);Overview.Add(R);
     };
-    if(IsMeleeWorkbench())AppendMeleeOverview(*I);
+    if(IsBowWorkbench()){AppendBowOverview(*I);SetStandaloneBowItem(*I);}
+    else if(IsMeleeWorkbench())AppendMeleeOverview(*I);
     else
     {
-    Row(TEXT("开镜耗时"),B.ADS*1000,S.ADS*1000,0,TEXT(" ms"),true);
-    Row(TEXT("弹匣容量"),B.Capacity,S.Capacity,0,TEXT(" 发"));
+    Row(ColdSteelWeaponText::ADS,B.ADS*1000,S.ADS*1000,0,TEXT(" ms"),true);
+    Row(ColdSteelWeaponText::Capacity,B.Capacity,S.Capacity,0,TEXT(" 发"));
     // Reload rows go through the shared stack (敏捷 × 快手 × 附魔 × 配件) so the
     // panel shows the time the player actually spends.
-    Row(TEXT("普通换弹"),ColdSteelWeaponStats::Reload(I,P,B.Reload),ColdSteelWeaponStats::Reload(I,P,S.Reload),2,TEXT(" s"),true);
-    Row(TEXT("空仓换弹"),ColdSteelWeaponStats::Reload(I,P,B.EmptyReload),ColdSteelWeaponStats::Reload(I,P,S.EmptyReload),2,TEXT(" s"),true);
+    Row(ColdSteelWeaponText::Reload,ColdSteelWeaponStats::Reload(I,P,B.Reload),ColdSteelWeaponStats::Reload(I,P,S.Reload),2,TEXT(" s"),true);
+    Row(ColdSteelWeaponText::EmptyReload,ColdSteelWeaponStats::Reload(I,P,B.EmptyReload),ColdSteelWeaponStats::Reload(I,P,S.EmptyReload),2,TEXT(" s"),true);
     // Shared item modifiers affect both the shot clock and the burst clock.
     const double BeforeInterval=ColdSteelWeaponStats::Interval(I,P,B.Interval);
     const double AfterInterval=ColdSteelWeaponStats::Interval(I,P,S.Interval);
@@ -59,7 +61,11 @@ void UM4GunsmithWidget::RefreshPresentation()
         Row(TEXT("含组间隔理论射速"),60*B.BurstCount/((B.BurstCount-1)*BeforeInterval+FMath::Max(BeforeInterval,BeforeDelay)),60*S.BurstCount/((S.BurstCount-1)*AfterInterval+FMath::Max(AfterInterval,AfterDelay)),0,TEXT(" /min"));
     }
     auto* Enhancement=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();
-    Row(TEXT("基础命中伤害"),Enhancement->ProcessedDamage(*I,B.Damage,P->Derived(TEXT("atk"))),Enhancement->ProcessedDamage(*I,S.Damage,P->Derived(TEXT("atk"))),1,TEXT(""));
+    const auto BeforeDamage=ColdSteelWeaponStats::DamageParts(*I,P,B.Damage),AfterDamage=ColdSteelWeaponStats::DamageParts(*I,P,S.Damage);
+    Row(ColdSteelWeaponText::TotalDamage,BeforeDamage.Total(),AfterDamage.Total(),2,TEXT(""));
+    Row(ColdSteelWeaponText::BasePhysical,BeforeDamage.BasePhysical,AfterDamage.BasePhysical,2,TEXT(""));
+    if(BeforeDamage.AddedPhysical>0||AfterDamage.AddedPhysical>0)Row(ColdSteelWeaponText::AddedPhysical,BeforeDamage.AddedPhysical,AfterDamage.AddedPhysical,2,TEXT(""));
+    if(BeforeDamage.AddedMagic>0||AfterDamage.AddedMagic>0)Row(ColdSteelWeaponText::AddedMagic,BeforeDamage.AddedMagic,AfterDamage.AddedMagic,2,TEXT(""));
     Row(TEXT("后坐力 ↓"),B.Recoil,S.Recoil,1,TEXT(""),true);
     Row(TEXT("枪械稳定性 ↑"),B.Handling.Stability,S.Handling.Stability,1,TEXT(" 分"));
     Row(TEXT("首发上跳"),B.Handling.FirstShotDegrees(),S.Handling.FirstShotDegrees(),3,TEXT("°"),true);
@@ -68,10 +74,10 @@ void UM4GunsmithWidget::RefreshPresentation()
     Row(TEXT("ADS水平上限/发"),B.Handling.MaxHorizontalDegrees(),S.Handling.MaxHorizontalDegrees(),3,TEXT("°"),true);
     Row(TEXT("枪械稳定性·抖动指数 ↓"),B.Shake,S.Shake,1,TEXT(""),true);
     Row(TEXT("枪械稳定性·回稳90%"),B.Handling.ADSRecoveryMilliseconds(),S.Handling.ADSRecoveryMilliseconds(),0,TEXT(" ms"),true);
-    Row(TEXT("腰射散布系数"),B.Spread,S.Spread,2,TEXT("×"),true);
+    Row(ColdSteelWeaponText::HipSpreadMultiplier,B.Spread,S.Spread,2,TEXT("×"),true);
     Row(TEXT("有效射程（全伤害）"),B.Range,S.Range,0,TEXT(" m"));
-    if(S.Speed<=0)Overview.Add({TEXT("子弹速度"),TEXT("即时命中"),TEXT("即时命中"),TEXT("—"),0});
-    else Row(TEXT("子弹速度"),B.Speed,S.Speed,0,TEXT(" m/s"));
+    if(S.Speed<=0)Overview.Add({ColdSteelWeaponText::ProjectileSpeed,TEXT("即时命中"),TEXT("即时命中"),TEXT("—"),0});
+    else Row(ColdSteelWeaponText::ProjectileSpeed,B.Speed,S.Speed,0,TEXT(" m/s"));
     const auto BeforeParts=bCompareFactory?FGunsmithParts():G->Installed(*I);
     auto MagnificationLabel=[&](const FGunsmithParts& Parts)->FString
     {

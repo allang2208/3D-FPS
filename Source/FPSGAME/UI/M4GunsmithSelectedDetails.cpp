@@ -1,8 +1,10 @@
+#include "ColdSteelWeaponText.h"
 #include "M4GunsmithWidget.h"
 #include "GunsmithUIStyle.h"
 #include "ColdSteelStatusModel.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "../Weapons/WeaponStatEvaluation.h"
+#include "../Weapons/Bow/BowStats.h"
 #include "../Weapons/MeleeWeaponStats.h"
 #include "../Weapons/ModularSwordVisual.h"
 #include "Engine/GameInstance.h"
@@ -17,7 +19,7 @@ bool UM4GunsmithWidget::IsCategoryAvailable(const FString& SlotKey) const
     const auto* Weapon = Model()->ModifiableWeapon(Model()->Definition());
     const auto* Options = Weapon ? Weapon->Options.Find(SlotKey) : nullptr;
     return Weapon && Weapon->Allowed.Contains(SlotKey) && Options &&
-        (IsMeleeWorkbench()?!Options->IsEmpty():Options->ContainsByPredicate([](const FGunsmithOption& Option){return Option.Id != TEXT("false");}));
+        ((IsMeleeWorkbench()||IsBowWorkbench())?!Options->IsEmpty():Options->ContainsByPredicate([](const FGunsmithOption& Option){return Option.Id != TEXT("false");}));
 }
 
 float UM4GunsmithWidget::SelectedDetailsWidth() const
@@ -112,24 +114,46 @@ void UM4GunsmithWidget::RefreshSelectedOption()
                         [SNew(STextBlock).Text(FText::FromString(FString::Printf(TEXT("%+.*f%s"),Digits,Delta,Unit)))
                             .Font(GunsmithUI::NumberFont(12)).ColorAndOpacity(Color).Justification(ETextJustify::Right)]]]];
     };
-    if(!IsMeleeWorkbench())
+    if(IsBowWorkbench()&&Item)
+    {
+        const auto Was=ColdSteelBow::Evaluate(*Item,Profile,&WithoutPart),Now=ColdSteelBow::Evaluate(*Item,Profile,&Gunsmith->Draft());
+        AddValue(ColdSteelWeaponText::TotalDamage,Was.Damage.Total(),Now.Damage.Total(),2,TEXT(""));
+        AddValue(ColdSteelWeaponText::DrawTime,Was.Draw,Now.Draw,2,TEXT(" s"),true);
+        AddValue(ColdSteelWeaponText::NockTime,Was.Nock,Now.Nock,2,TEXT(" s"),true);
+        AddValue(ColdSteelWeaponText::ProjectileSpeed,Was.Speed,Now.Speed,1,TEXT(" m/s"));
+        AddValue(ColdSteelWeaponText::StaminaCost,Was.Stamina,Now.Stamina,2,TEXT(""),true);
+        AddValue(ColdSteelWeaponText::HoldTime,Was.Hold,Now.Hold,2,TEXT(" s"));
+        AddValue(ColdSteelWeaponText::Sway,Was.Sway,Now.Sway,2,TEXT(""),true);
+        AddValue(ColdSteelWeaponText::HipSpreadAngle,FMath::RadiansToDegrees(FMath::Atan(Was.Spread)),FMath::RadiansToDegrees(FMath::Atan(Now.Spread)),2,TEXT("°"),true);
+        AddValue(ColdSteelWeaponText::ADS,Was.ADS*1000,Now.ADS*1000,0,TEXT(" ms"),true);
+        ModificationList->AddSlot().AutoHeight().Padding(0,6,0,0)[Paragraph(ColdSteelWeaponText::BowScope,12,GunsmithUI::Muted)];
+    }
+    else if(!IsMeleeWorkbench())
     {
     // Every row reports its own ratio, so stacked accessories stay truthful; the
     // ADS row reports the catalog's 开镜耗时 percent unchanged.
     auto Ratio=[&](double Was,double Now){return Was>.00001?(Now/Was-1.)*100.:0.;};
-    AddValue(TEXT("开镜耗时"),Before.ADS*1000,After.ADS*1000,0,TEXT(" ms"),true,Option->ADS*100.);
-    AddValue(TEXT("弹匣容量"),Before.Capacity,After.Capacity,0,TEXT(" 发"));
+    AddValue(ColdSteelWeaponText::ADS,Before.ADS*1000,After.ADS*1000,0,TEXT(" ms"),true,Option->ADS*100.);
+    AddValue(ColdSteelWeaponText::Capacity,Before.Capacity,After.Capacity,0,TEXT(" 发"));
     // Shared reload stack (敏捷 × 快手 × 附魔 × 配件); the ratio stays the attachment's own effect.
-    AddValue(TEXT("普通换弹"),ColdSteelWeaponStats::Reload(Item,Profile,Before.Reload),ColdSteelWeaponStats::Reload(Item,Profile,After.Reload),2,TEXT(" s"),true,Ratio(Before.Reload,After.Reload));
-    AddValue(TEXT("空仓换弹"),ColdSteelWeaponStats::Reload(Item,Profile,Before.EmptyReload),ColdSteelWeaponStats::Reload(Item,Profile,After.EmptyReload),2,TEXT(" s"),true,Ratio(Before.EmptyReload,After.EmptyReload));
-    // Catalog interval, undivided by the character's melee attack rate.
-    AddValue(TEXT("射击间隔"),Before.Interval*1000,After.Interval*1000,0,TEXT(" ms"),true,Ratio(Before.Interval,After.Interval));
+    AddValue(ColdSteelWeaponText::Reload,ColdSteelWeaponStats::Reload(Item,Profile,Before.Reload),ColdSteelWeaponStats::Reload(Item,Profile,After.Reload),2,TEXT(" s"),true,Ratio(Before.Reload,After.Reload));
+    AddValue(ColdSteelWeaponText::EmptyReload,ColdSteelWeaponStats::Reload(Item,Profile,Before.EmptyReload),ColdSteelWeaponStats::Reload(Item,Profile,After.EmptyReload),2,TEXT(" s"),true,Ratio(Before.EmptyReload,After.EmptyReload));
+    const double BeforeInterval=ColdSteelWeaponStats::Interval(Item,Profile,Before.Interval);
+    const double AfterInterval=ColdSteelWeaponStats::Interval(Item,Profile,After.Interval);
+    AddValue(After.BurstCount>1?TEXT("组内射击间隔"):TEXT("射击间隔"),BeforeInterval*1000,AfterInterval*1000,0,TEXT(" ms"),true,Ratio(Before.Interval,After.Interval));
+    if(After.BurstCount>1)
+    {
+        const double BeforeDelay=ColdSteelWeaponStats::Interval(Item,Profile,Before.BurstDelay);
+        const double AfterDelay=ColdSteelWeaponStats::Interval(Item,Profile,After.BurstDelay);
+        AddValue(TEXT("连发组末发后间隔"),BeforeDelay*1000,AfterDelay*1000,0,TEXT(" ms"),true,Ratio(Before.BurstDelay,After.BurstDelay));
+        AddValue(TEXT("含组间隔理论射速"),60*Before.BurstCount/((Before.BurstCount-1)*BeforeInterval+FMath::Max(BeforeInterval,BeforeDelay)),60*After.BurstCount/((After.BurstCount-1)*AfterInterval+FMath::Max(AfterInterval,AfterDelay)),0,TEXT(" /min"));
+    }
     AddValue(TEXT("后坐力指数"),Before.Recoil,After.Recoil,1,TEXT(""),true,Ratio(Before.Recoil,After.Recoil));
     AddValue(TEXT("枪械稳定性"),Before.Handling.Stability,After.Handling.Stability,1,TEXT(" 分"),false,Ratio(Before.Handling.Stability,After.Handling.Stability));
     if(!FMath::IsNearlyEqual(Option->Shake,1.0))AddValue(TEXT("开火抖动指数"),Before.Shake,After.Shake,1,TEXT(""),true,Ratio(Before.Shake,After.Shake));
-    AddValue(TEXT("腰射散布系数"),Before.Spread,After.Spread,2,TEXT("×"),true,Ratio(Before.Spread,After.Spread));
-    AddValue(TEXT("有效射程"),Before.Range,After.Range,0,TEXT(" m"),false,Ratio(Before.Range,After.Range));
-    AddValue(TEXT("子弹速度"),Before.Speed,After.Speed,0,TEXT(" m/s"),false,Ratio(Before.Speed,After.Speed));
+    AddValue(ColdSteelWeaponText::HipSpreadMultiplier,Before.Spread,After.Spread,2,TEXT("×"),true,Ratio(Before.Spread,After.Spread));
+    AddValue(ColdSteelWeaponText::EffectiveRange,Before.Range,After.Range,0,TEXT(" m"),false,Ratio(Before.Range,After.Range));
+    AddValue(ColdSteelWeaponText::ProjectileSpeed,Before.Speed,After.Speed,0,TEXT(" m/s"),false,Ratio(Before.Speed,After.Speed));
     }
     else if(Item)
     {
@@ -137,10 +161,10 @@ void UM4GunsmithWidget::RefreshSelectedOption()
         const auto Now=ColdSteelMelee::Evaluate(*Item,Profile,&Gunsmith->Draft());
         const auto& M=Option->Melee;
         auto Percent=[](double Mult){return (Mult-1.)*100.;};
-        AddValue(TEXT("普通攻击总伤害"),Was.Damage,Now.Damage,2,TEXT(""));
-        AddValue(TEXT("基础物理伤害"),Was.DamageParts.BasePhysical,Now.DamageParts.BasePhysical,2,TEXT(""),false,Percent(M.Damage));
-        AddValue(TEXT("附加物理伤害"),Was.DamageParts.AddedPhysical,Now.DamageParts.AddedPhysical,2,TEXT(""));
-        AddValue(TEXT("附加魔法伤害"),Was.DamageParts.AddedMagic,Now.DamageParts.AddedMagic,2,TEXT(""));
+        AddValue(ColdSteelWeaponText::TotalDamage,Was.Damage,Now.Damage,2,TEXT(""));
+        AddValue(ColdSteelWeaponText::BasePhysical,Was.DamageParts.BasePhysical,Now.DamageParts.BasePhysical,2,TEXT(""),false,Percent(M.Damage));
+        AddValue(ColdSteelWeaponText::AddedPhysical,Was.DamageParts.AddedPhysical,Now.DamageParts.AddedPhysical,2,TEXT(""));
+        AddValue(ColdSteelWeaponText::AddedMagic,Was.DamageParts.AddedMagic,Now.DamageParts.AddedMagic,2,TEXT(""));
         AddValue(TEXT("第二段横斩伤害"),Was.ComboSecondDamage,Now.ComboSecondDamage,2,TEXT(""),false,Percent(M.ComboSecond));
         AddValue(TEXT("第三段突刺伤害"),Was.ComboThirdDamage,Now.ComboThirdDamage,2,TEXT(""),false,Percent(M.ComboThird));
         AddValue(TEXT("攻击速度倍率"),Was.AttackRate,Now.AttackRate,2,TEXT("×"),false,Percent(M.AttackSpeed));
@@ -148,8 +172,8 @@ void UM4GunsmithWidget::RefreshSelectedOption()
         AddValue(TEXT("突刺耗时"),Was.ThrustSeconds,Now.ThrustSeconds,2,TEXT(" s"),true);
         AddValue(TEXT("普通挥砍距离"),Was.SlashReach/100,Now.SlashReach/100,2,TEXT(" m"),false,Percent(M.Range));
         AddValue(TEXT("最大攻击距离（含突刺）"),Was.ThrustReach/100,Now.ThrustReach/100,2,TEXT(" m"),false,Percent(M.Range));
-        AddValue(TEXT("攻击耐力消耗（含重击）"),Was.AttackStamina,Now.AttackStamina,2,TEXT(""),true,Percent(M.Stamina));
-        AddValue(TEXT("防御受击耐力消耗"),Was.BlockStamina,Now.BlockStamina,2,TEXT(""),true,Percent(M.BlockStamina));
+        AddValue(ColdSteelWeaponText::StaminaCost,Was.AttackStamina,Now.AttackStamina,2,TEXT(""),true,Percent(M.Stamina));
+        AddValue(ColdSteelWeaponText::BlockStaminaCost,Was.BlockStamina,Now.BlockStamina,2,TEXT(""),true,Percent(M.BlockStamina));
         AddValue(TEXT("格挡伤害减免"),Was.BlockReduction*100,Now.BlockReduction*100,1,TEXT("%"),false,Percent(M.BlockReduction));
         AddValue(TEXT("命中硬直时间倍率"),Was.Modifiers.HitReaction,Now.Modifiers.HitReaction,2,TEXT("×"),false,Percent(M.HitReaction));
         AddValue(TEXT("韧性伤害倍率"),Was.Modifiers.ToughnessDamage,Now.Modifiers.ToughnessDamage,2,TEXT("×"),false,Percent(M.ToughnessDamage));

@@ -1,3 +1,5 @@
+#include "ColdSteelWeaponText.h"
+#include "../Weapons/Bow/BowStats.h"
 #include "ColdSteelItemTooltipData.h"
 #include "ColdSteelEnhancementSystem.h"
 #include "ColdSteelStatusModel.h"
@@ -63,12 +65,28 @@ void AppendColdSteelTooltipAttackFormula(const FColdSteelItem& Item,UColdSteelSt
     }
     else
     {
-        FormulaRow(Card,TEXT("攻击力计算公式"),FormulaNumber(WeaponBase)+TEXT("+角色攻击力"));
-        if(!bProductionAxe)FormulaRow(Card,TEXT("强化后攻击力公式 · L=强化等级"),FormulaNumber(WeaponBase)+TEXT("×(1+")+FormulaNumber(Enhancement->IncreasePerLevel())+TEXT("L)+角色攻击力"));
+        const bool bBow=ColdSteelInventory::IsBow(Item);
+        const double AttackScale=bBow?ColdSteelInventory::Number(Item,TEXT("bow_damage_coefficient_scale"),1.5):1.;
+        const FString AttackTerm=TEXT("+")+(FMath::IsNearlyEqual(AttackScale,1.)?FString():FormulaNumber(AttackScale)+TEXT("×"))+TEXT("角色攻击力");
+        FormulaRow(Card,TEXT("攻击力计算公式"),FormulaNumber(WeaponBase)+AttackTerm);
+        if(!bProductionAxe)FormulaRow(Card,TEXT("强化后攻击力公式 · L=强化等级"),(
+            bBow?FormulaNumber(WeaponBase)+TEXT("+")+FormulaNumber(WeaponBase*Enhancement->IncreasePerLevel())+TEXT("L")+AttackTerm:
+            FormulaNumber(WeaponBase)+TEXT("×(1+")+FormulaNumber(Enhancement->IncreasePerLevel())+TEXT("L)")+AttackTerm));
     }
+    if(ColdSteelInventory::IsBow(Item))
+    {
+        FormulaRow(Card,ColdSteelWeaponText::DamageComposition,TEXT("（基础伤害 + 附加物理伤害 + 附加魔法伤害）×")+
+            FormulaNumber(ColdSteelBow::DrawDamageMultiplier(1.f))+TEXT("；以上攻击力公式为蓄力前基准，伤害分项和武器总伤害已按满弓换算"));
+        FormulaRow(Card,TEXT("命中结算"),TEXT("出箭时按实际蓄力进度与弹种结算，再计算暴击及目标防御；基础与附加伤害共用蓄力倍率"));
+        return;
+    }
+    FormulaRow(Card,ColdSteelWeaponText::DamageComposition,TEXT("基础伤害 + 附加物理伤害 + 附加魔法伤害；附加部分的属性系数已换算为面板实值"));
     if(bProductionAxe)
     {
         FormulaRow(Card,TEXT("命中结算"),TEXT("基础公式四舍五入；沿用角色暴击与敌人物理防御减免。单次攻击，不附加连击、重击或刀剑精通伤害。"));
         return;
     }
+    FormulaRow(Card,TEXT("命中结算"),ColdSteelInventory::IsTwoHandedSword(Item)?
+        TEXT("基础和附加共同乘重击、连击等攻击倍率；物理分项按物防、魔法分项按魔防独立减免，最后合计扣血"):
+        TEXT("命中时计算暴击及目标防御；物理分项按物理防御、魔法分项按魔法防御分别结算"));
 }

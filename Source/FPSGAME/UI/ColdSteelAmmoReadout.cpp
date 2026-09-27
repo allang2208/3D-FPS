@@ -182,7 +182,8 @@ void UColdSteelAmmoReadout::Refresh(const AFPSGAMECharacter* Character,const UCo
         Set(Weapon,ColdSteelInventory::Text(*Item,TEXT("name")));
         Set(Calibre,Model->AmmoLabel(Bow->ArrowDefinition())+(Bow->HasArrowNocked()?TEXT(" · 已搭箭"):TEXT(" · 未搭箭")));
         Set(MagazineLabel,TEXT("拉距"));Set(ReserveLabel,TEXT("箭袋"));
-        Set(Current,FString::Printf(TEXT("%.0f%%"),Bow->DrawFraction()*100.f));
+        // Do not round a sub-threshold draw up to the 50% firing gate.
+        Set(Current,FString::Printf(TEXT("%d%%"),FMath::FloorToInt(Bow->DrawFraction()*100.f)));
         const bool Infinite=Character->HasInfiniteReserveAmmoFor(Bow->ArrowDefinition());
         Set(Spare,Infinite?TEXT("∞"):FString::Printf(TEXT("%lld"),Model->PouchCount(Bow->ArrowDefinition())));
         Current->SetColorAndOpacity(Bow->IsDrawing()?ColdSteelUI::Accent:ColdSteelUI::TextPrimary);

@@ -44,6 +44,7 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
     friend class UM4TacticalSprintComponent;
     friend class UFPSPlayerBodyComponent;
     friend class UWeaponBipodDeploymentComponent;
+    friend class UBowWeaponComponent;
 
 public:
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM4Infima = true;

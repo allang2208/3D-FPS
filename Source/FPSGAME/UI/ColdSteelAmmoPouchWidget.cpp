@@ -95,9 +95,11 @@ void UColdSteelAmmoPouchWidget::Refresh()
     }
     if(Groups.IsEmpty())List->AddSlot()[Label(TEXT("尚未获得弹药，获得后会自动收纳"),14,ColdSteelUI::TextSecondary)];
     List->SetScrollOffset(Offset);
-    Surface->AddSlot().AutoHeight().Padding(16*U,14*U,16*U,6*U)[Label(TEXT("数量仅含备弹，枪内子弹单独计算\n长按 R 打开轮盘 · 移动鼠标选择 · 松开 R 换弹"),12,ColdSteelUI::TextSecondary)];
+    const auto* Equipped=Model->Equipped();
+    const bool bBow=Equipped&&ColdSteelInventory::IsBow(*Equipped);
+    Surface->AddSlot().AutoHeight().Padding(16*U,14*U,16*U,6*U)[Label(bBow?TEXT("搭箭不扣数量，射出时扣除\n短按 R 搭箭 · 长按 R 选箭 · 松开 R 换箭"):TEXT("数量仅含备弹，枪内子弹单独计算\n长按 R 打开轮盘 · 移动鼠标选择 · 松开 R 换弹"),12,ColdSteelUI::TextSecondary)];
     Surface->AddSlot().AutoHeight().Padding(16*U,6*U,16*U,14*U)
     [SNew(SButton).ButtonStyle(&Buttons).ContentPadding(FMargin(12*U,10*U)).IsEnabled(!Selected.IsEmpty())
         .OnClicked_Lambda([this](){if(HUD&&!Selected.IsEmpty()){const FString Id=WeaponInstance,Target=Selected;Selected.Reset();HUD->RequestAmmoChange(Id,Target);}return FReply::Handled();})
-        [Label(TEXT("返回并切换弹种"),14)]];
+        [Label(bBow?TEXT("返回并更换箭种"):TEXT("返回并切换弹种"),14)]];
 }

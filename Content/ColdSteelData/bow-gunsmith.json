@@ -1,0 +1,297 @@
+{
+  "version": 1,
+  "columns": [
+    {
+      "key": "riser",
+      "name": "弓体",
+      "default": "原装木质弓胎",
+      "description": "整根木质弓胎，保留原有弓梢与弦挂点。",
+      "factory_visual": {
+        "bow_part_riser_mesh": "/Game/Weapons/DarkBow20260925/ElasticV15/SK_Bow_Flex_Original.SK_Bow_Flex_Original",
+        "bow_part_riser_material": "",
+        "bow_part_riser_scale": 1.0,
+        "bow_flex_distribution": 1.15,
+        "bow_release_return_seconds": 0.032,
+        "bow_release_ring_seconds": 0.17,
+        "bow_feedback_scale": 1.0
+      },
+      "options": [
+        {
+          "id": "strong_draw",
+          "name": "强拉力弓胎",
+          "description": "以更长拉弓时间和更高耐力消耗，换取满弓伤害与箭速。",
+          "appearance": "沿用原装弓胎形状；本项为拉力调校。",
+          "visual": {},
+          "stats": {
+            "damage_mult": 1.12,
+            "draw_mult": 1.1,
+            "speed_mult": 1.06,
+            "stamina_mult": 1.15
+          }
+        },
+        {
+          "id": "swift_limb",
+          "name": "游隼弓体",
+          "description": "轻薄的木质弓臂回弹利落，便于快速拉放；较轻的拉力降低了单箭威力。",
+          "appearance": "蜜金色窄薄弓臂，红褐薄层和平滑反曲弓梢。",
+          "visual": {
+            "bow_part_riser_mesh": "/Game/Weapons/DarkBow20260925/ElasticV15/SK_Bow_Flex_Swift.SK_Bow_Flex_Swift",
+            "bow_part_riser_material": "",
+            "bow_part_riser_scale": 1.0,
+            "bow_flex_distribution": 0.9,
+            "bow_release_return_seconds": 0.027,
+            "bow_release_ring_seconds": 0.13,
+            "bow_feedback_scale": 0.75
+          },
+          "stats": {
+            "damage_mult": 0.9,
+            "draw_mult": 0.8,
+            "speed_mult": 0.92,
+            "stamina_mult": 0.85,
+            "ads_mult": 0.85,
+            "spread_mult": 1.1
+          }
+        },
+        {
+          "id": "heavy_limb",
+          "name": "磐木弓体",
+          "description": "厚实弓胎与深色背衬提供更强拉力，适合预先蓄力出箭；长时间保持会更快力竭。",
+          "appearance": "深栗木宽厚弓臂，饱满截面和自然嵌合的深色背衬。",
+          "visual": {
+            "bow_part_riser_mesh": "/Game/Weapons/DarkBow20260925/ElasticV15/SK_Bow_Flex_Heavy.SK_Bow_Flex_Heavy",
+            "bow_part_riser_material": "",
+            "bow_part_riser_scale": 1.0,
+            "bow_flex_distribution": 1.45,
+            "bow_release_return_seconds": 0.04,
+            "bow_release_ring_seconds": 0.2,
+            "bow_feedback_scale": 1.25
+          },
+          "stats": {
+            "damage_mult": 1.25,
+            "draw_mult": 1.25,
+            "speed_mult": 1.1,
+            "stamina_mult": 1.3,
+            "hold_mult": 0.8,
+            "sway_mult": 1.15,
+            "spread_mult": 1.05,
+            "ads_mult": 1.15
+          }
+        },
+        {
+          "id": "steady_limb",
+          "name": "静枝弓体",
+          "description": "宽扁层压弓臂便于稳定控弓，适合保持瞄准等待时机；拉弓与举弓节奏略慢。",
+          "appearance": "浅白蜡木宽扁弓臂，深胡桃夹芯与细长层压线。",
+          "visual": {
+            "bow_part_riser_mesh": "/Game/Weapons/DarkBow20260925/ElasticV15/SK_Bow_Flex_Steady.SK_Bow_Flex_Steady",
+            "bow_part_riser_material": "",
+            "bow_part_riser_scale": 1.0,
+            "bow_flex_distribution": 0.7,
+            "bow_release_return_seconds": 0.033,
+            "bow_release_ring_seconds": 0.145,
+            "bow_feedback_scale": 0.8
+          },
+          "stats": {
+            "draw_mult": 1.1,
+            "stamina_mult": 1.05,
+            "hold_mult": 1.4,
+            "sway_mult": 0.7,
+            "spread_mult": 0.85,
+            "ads_mult": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "key": "grip",
+      "name": "握把缠带",
+      "default": "原装绿色缠带",
+      "description": "从原弓分离的中心缠带，保留手掌接触面。",
+      "factory_visual": {
+        "bow_part_grip_mesh": "/Game/Weapons/DarkBow20260925/GripContactV22/SM_Bow_GripWrap_Fitted.SM_Bow_GripWrap_Fitted",
+        "bow_part_grip_material": "",
+        "bow_part_grip_rods": 0,
+        "bow_part_grip_scale": 1
+      },
+      "options": [
+        {
+          "id": "waxed_linen",
+          "name": "棕色蜡麻缠带",
+          "description": "更稳定的握持，降低满弓晃动并延长稳定保持时间。",
+          "appearance": "原有绳圈换为棕色哑光蜡麻。",
+          "visual": {
+            "bow_part_grip_material": "/Game/Weapons/DarkBow20260925/ModularV13/M_Bow_GripLinen.M_Bow_GripLinen"
+          },
+          "stats": {
+            "sway_mult": 0.85,
+            "hold_mult": 1.1
+          }
+        },
+        {
+          "id": "woven_linen_grip",
+          "name": "编织蜡麻握把",
+          "description": "交错编织的蜡麻包面便于控弓，降低晃动和腰射扩散；举弓稍慢。",
+          "appearance": "暖棕编织包面，收束编绳和低凸交错纹。",
+          "visual": {
+            "bow_part_grip_mesh": "/Game/Weapons/DarkBow20260925/GripSeriesV20/SM_Bow_Grip_WovenLinen.SM_Bow_Grip_WovenLinen",
+            "bow_part_grip_material": "",
+            "bow_part_grip_rods": 0,
+            "bow_part_grip_scale": 1.0
+          },
+          "stats": {
+            "sway_mult": 0.82,
+            "spread_mult": 0.94,
+            "hold_mult": 1.08,
+            "ads_mult": 1.05
+          }
+        },
+        {
+          "id": "slim_leather_grip",
+          "name": "薄革速握",
+          "description": "薄革斜绕握面便于迅速举弓；满弓保持较短，稳持晃动稍大。",
+          "appearance": "深栗色薄革斜绕，细窄压边和贴伏的收尾。",
+          "visual": {
+            "bow_part_grip_mesh": "/Game/Weapons/DarkBow20260925/GripSeriesV20/SM_Bow_Grip_SlimLeather.SM_Bow_Grip_SlimLeather",
+            "bow_part_grip_material": "",
+            "bow_part_grip_rods": 0,
+            "bow_part_grip_scale": 1.0
+          },
+          "stats": {
+            "ads_mult": 0.86,
+            "hold_mult": 0.92,
+            "sway_mult": 1.08
+          }
+        },
+        {
+          "id": "padded_leather_grip",
+          "name": "软革稳握",
+          "description": "贴合掌面的软革与内衬便于保持满弓，稳持更安定；举弓较慢。",
+          "appearance": "红褐软革包面、细缝合线、内收的上下收口。",
+          "visual": {
+            "bow_part_grip_mesh": "/Game/Weapons/DarkBow20260925/GripSeriesV20/SM_Bow_Grip_PaddedLeather.SM_Bow_Grip_PaddedLeather",
+            "bow_part_grip_material": "",
+            "bow_part_grip_rods": 0,
+            "bow_part_grip_scale": 1.0
+          },
+          "stats": {
+            "hold_mult": 1.22,
+            "sway_mult": 0.78,
+            "ads_mult": 1.12
+          }
+        }
+      ]
+    },
+    {
+      "key": "string",
+      "name": "弓弦",
+      "default": "原装弓弦",
+      "description": "上下两段动态弓弦，沿用右手拉弦接触点。",
+      "factory_visual": {
+        "bow_part_string_mesh": "",
+        "bow_part_string_rods": 2,
+        "bow_part_string_radius_cm": 0.09,
+        "bow_part_string_material": "/Game/Weapons/DarkBow20260925/ArmsV2/Materials/M_BowString.M_BowString",
+        "bow_part_string_hide_slot": ""
+      },
+      "options": [
+        {
+          "id": "fast_string",
+          "name": "轻量快弦",
+          "description": "缩短拉弓时间并提高箭速，满弓保持时间略短。",
+          "appearance": "更细的浅棕色弦。",
+          "visual": {
+            "bow_part_string_material": "/Game/Weapons/DarkBow20260925/ModularV13/M_Bow_FastString.M_Bow_FastString",
+            "bow_part_string_radius_cm": 0.065
+          },
+          "stats": {
+            "draw_mult": 0.94,
+            "speed_mult": 1.04,
+            "hold_mult": 0.92
+          }
+        }
+      ]
+    },
+    {
+      "key": "arrow_rest",
+      "name": "箭台",
+      "default": "木制箭台",
+      "description": "贴合原弓表面的独立木托，托住箭杆。",
+      "factory_visual": {
+        "bow_part_arrow_rest_mesh": "/Game/Weapons/DarkBow20260925/ModularV13/SM_Bow_ArrowRestWood.SM_Bow_ArrowRestWood",
+        "bow_part_arrow_rest_material": "",
+        "bow_part_arrow_rest_rods": 0,
+        "bow_part_arrow_rest_scale": 1
+      },
+      "options": [
+        {
+          "id": "lined_rest",
+          "name": "皮垫箭台",
+          "description": "软垫稳定搭箭，缩短搭箭时间并降低腰射扩散。",
+          "appearance": "木托上增加一层深棕色皮垫。",
+          "visual": {
+            "bow_part_arrow_rest_mesh": "/Game/Weapons/DarkBow20260925/ModularV13/SM_Bow_ArrowRestLined.SM_Bow_ArrowRestLined"
+          },
+          "stats": {
+            "nock_mult": 0.93,
+            "spread_mult": 0.9
+          }
+        }
+      ]
+    },
+    {
+      "key": "sight",
+      "name": "瞄具",
+      "default": "弧臂圆环木制瞄具",
+      "description": "弧形木臂从贴合弓体的水滴形木座延伸至圆环下缘，绑线嵌入浅槽，环内设竖向准星。",
+      "factory_visual": {
+        "bow_part_sight_mesh": "/Game/Weapons/DarkBow20260925/WoodBracketV19/SM_Bow_WoodBracketSight.SM_Bow_WoodBracketSight",
+        "bow_part_sight_rods": 0,
+        "bow_part_sight_scale": 1.0,
+        "bow_part_sight_location_cm": "0,0,0",
+        "bow_part_sight_rotation_deg": "0,0,0",
+        "bow_ads_sight_cm": "-3.5,-10.1,16.5"
+      },
+      "options": [
+        {
+          "id": "no_sight",
+          "name": "拆除瞄具",
+          "description": "移除木制瞄具，ADS 改为沿箭杆方向瞄准。",
+          "appearance": "移除瞄圈、准星及其底座。",
+          "visual": {
+            "bow_part_sight_mesh": "",
+            "bow_ads_sight_cm": "",
+            "bow_ads_rest_cm": "60,0,0"
+          },
+          "stats": {}
+        }
+      ]
+    }
+  ],
+  "weapons": [
+    {
+      "id": "bow_dark",
+      "traits": [
+        {
+          "icon": "neutral",
+          "text": "腰射扩散 · ADS 精准"
+        },
+        {
+          "icon": "neutral",
+          "text": "整根弓胎、独立缠带与箭矢，支持五槽改造"
+        },
+        {
+          "icon": "special",
+          "text": "暴击伤害加成 +50%，与暴击技能加成相加后单次结算"
+        },
+        {
+          "icon": "mechanic",
+          "text": "无声射击：拉弓、放箭与箭矢命中不会通过声音引起怪物警觉"
+        },
+        {
+          "icon": "special",
+          "text": "一箭直接击杀不会触发周围怪物警报；未击杀仍会引起目标反应，已暴露的目标不会脱战"
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 #include "../UI/ColdSteelStatusModel.h"
 #include "ColdSteelSkillRules.h"
+#include "../Weapons/Bow/BowDamageTuning.h"
 const FColdSteelSkillDefinition& UColdSteelStatusModel::MasteryDefinition(FName Id) const
 {
     if(Id==TEXT("rifleMastery"))return RifleDefinition();if(Id==TEXT("pistolMastery"))return PistolDefinition();
@@ -24,11 +25,12 @@ float UColdSteelStatusModel::AdditionalWeaponDamage(const FColdSteelItem& Item,f
     // Production tools share the formula/defense pipeline, not weapon mastery bonuses.
     if(ColdSteelInventory::Text(Item,TEXT("category"))==TEXT("tool"))return Damage;
     // Source computeWeaponAttack adds sword mastery before category-specific mastery.
-    Damage+=MasteryEffect(TEXT("swordMastery")).FlatDamage;
+    const double FlatScale=ColdSteelBow::DamageCoefficientScale(Item);
+    Damage+=MasteryEffect(TEXT("swordMastery")).FlatDamage*FlatScale;
     const FName Id=WeaponMastery(&Item);
     if(Id==TEXT("rifleMastery"))return RifleWeaponDamage(Item,Damage);
     if(Id==TEXT("pistolMastery"))return PistolWeaponDamage(Item,Damage);
     if(Id==TEXT("machineGunMastery")||Id==TEXT("shotgunMastery")||Id==TEXT("bowMastery"))
-    {const auto E=MasteryEffect(Id);return FMath::RoundToFloat(Damage*(1+E.DamagePercent)+E.FlatDamage);}
+    {const auto E=MasteryEffect(Id);return FMath::RoundToFloat(Damage*(1+E.DamagePercent)+E.FlatDamage*FlatScale);}
     return Damage;
 }

@@ -1,3 +1,4 @@
+#include "../Weapons/Bow/BowArrow.h"
 #include "ColdSteelWorldInteraction.h"
 #include "Engine/World.h"
 #include "Engine/GameInstance.h"
@@ -33,8 +34,17 @@ AActor* ColdSteelWorldInteraction::TraceTarget(const APlayerController* PC,float
 {
     if(!IsValid(PC)||!PC->GetPawn()||PC->bShowMouseCursor||PC->GetNetMode()!=NM_Standalone)return nullptr;
     FVector Eye;FRotator View;GetReachViewPoint(PC,Eye,View);
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(ColdSteelUse),false,PC->GetPawn());FHitResult Hit;
-    return PC->GetWorld()->LineTraceSingleByChannel(Hit,Eye,Eye+View.Vector()*Reach,ECC_Visibility,Query)?Hit.GetActor():nullptr;
+    FCollisionQueryParams Query(SCENE_QUERY_STAT(ColdSteelUse),false,PC->GetPawn());
+    TArray<FHitResult> Hits;
+    // Includes arrow overlap shapes up to the first blocking surface. Arrows
+    // stay nonblocking to combat traces; walls still limit interaction reach.
+    PC->GetWorld()->LineTraceMultiByChannel(Hits,Eye,Eye+View.Vector()*Reach,ECC_Visibility,Query);
+    for (const FHitResult& Hit : Hits)
+    {
+        if (const auto* Arrow = Cast<ABowArrow>(Hit.GetActor()); Arrow && Arrow->CanRecover()) return Hit.GetActor();
+        if (Hit.bBlockingHit) return Hit.GetActor();
+    }
+    return nullptr;
 }
 bool ColdSteelWorldInteraction::IsFocused(const APawn* Pawn,const AActor* Target,float Reach)
 {
@@ -178,6 +188,7 @@ ColdSteelWorldInteraction::FInteractionHint ColdSteelWorldInteraction::ResolveIn
     }
     if(const auto* Chest=Cast<AColdSteelWarehouseChest>(Target)){Hint.Text=Chest->GetPromptLabel();return Hint;}
     if(const auto* Pickup=Cast<AColdSteelPickup>(Target)){Hint.Text=Pickup->GetPromptText();return Hint;}
+    if(const auto* Arrow=Cast<ABowArrow>(Target)){Hint.Text=Arrow->RecoveryPrompt();Hint.bAction=Arrow->CanRecover();return Hint;}
     if(IsSmeltingFurnace(Target)){Hint.Text=SmeltingFurnacePrompt(Target);return Hint;}
     if(IsWorkbench(Target)){Hint.Text=WorkbenchPrompt(Target);return Hint;}
     if(UColdSteelDoorInteraction::IsDoor(Target)){Hint.Text=TEXT("门 · 开／关");return Hint;}

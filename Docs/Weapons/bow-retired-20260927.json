@@ -1,0 +1,24 @@
+{
+  "task": "bow-publication-20260927",
+  "count": 2,
+  "items": [
+    {
+      "trash": "trash/bow-publication-20260927/SourceAssets/BowGripContact20260927/end_play_for_save.py",
+      "moved_sha256": "0F6A5EA657FCEB99C9BD223E5D5604FE4F737ED06E7650811EA2A87ABF656349",
+      "sha256": "0F6A5EA657FCEB99C9BD223E5D5604FE4F737ED06E7650811EA2A87ABF656349",
+      "reason": "Completed one-shot editor handoff; V22 grip is already saved",
+      "replacement": "SourceAssets/BowGripContact20260927/import_assets.py",
+      "source": "SourceAssets/BowGripContact20260927/end_play_for_save.py",
+      "bytes": 263
+    },
+    {
+      "trash": "trash/bow-publication-20260927/SourceAssets/BowGripContact20260927/save_imported.py",
+      "moved_sha256": "29CE4588DE1C884E6F902E974EFC1BE424F5E943A78ED9160D9654EB3F7B4660",
+      "sha256": "29CE4588DE1C884E6F902E974EFC1BE424F5E943A78ED9160D9654EB3F7B4660",
+      "reason": "Completed one-shot editor handoff; V22 grip is already saved",
+      "replacement": "SourceAssets/BowGripContact20260927/import_assets.py",
+      "source": "SourceAssets/BowGripContact20260927/save_imported.py",
+      "bytes": 1190
+    }
+  ]
+}

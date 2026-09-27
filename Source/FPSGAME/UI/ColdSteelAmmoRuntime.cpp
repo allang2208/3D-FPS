@@ -22,12 +22,15 @@ void UColdSteelStatusModel::LoadAmmoCatalog()
             Row->TryGetStringField(TEXT("group_name"),Type.GroupName);Row->TryGetStringField(TEXT("name"),Type.Name);
             Row->TryGetStringField(TEXT("description"),Type.Description);Row->TryGetBoolField(TEXT("enabled"),Type.Enabled);
             Row->TryGetStringField(TEXT("icon"),Type.Icon);
+            Row->TryGetStringField(TEXT("projectile_mesh"),Type.ProjectileMesh);
             FString TierHex;Row->TryGetStringField(TEXT("tier_name"),Type.TierName);
             if(Row->TryGetStringField(TEXT("tier_color"),TierHex)&&!TierHex.IsEmpty())Type.TierColor=FLinearColor::FromSRGBColor(FColor::FromHex(TierHex));
             Row->TryGetBoolField(TEXT("allow_infinite_reserve"),Type.AllowInfiniteReserve);
             if(Row->TryGetNumberField(TEXT("order"),Number))Type.Order=FMath::Clamp(Number,-100000.,100000.);
             if(Row->TryGetNumberField(TEXT("damage_multiplier"),Number)&&FMath::IsFinite(Number))Type.DamageMultiplier=FMath::Clamp(Number,0.,100.);
             if(Row->TryGetNumberField(TEXT("physical_armor_penetration"),Number)&&FMath::IsFinite(Number))Type.PhysicalArmorPenetration=FMath::Clamp(Number,0.,1.);
+            if(Row->TryGetNumberField(TEXT("poison_stacks"),Number)&&FMath::IsFinite(Number))Type.PoisonStacks=FMath::Clamp(int32(Number),0,20);
+            if(Row->TryGetNumberField(TEXT("bleed_stacks"),Number)&&FMath::IsFinite(Number))Type.BleedStacks=FMath::Clamp(int32(Number),0,20);
             if(!Type.Id.IsEmpty()&&!Type.Group.IsEmpty()&&!AmmoType(Type.Id))AmmoTypes.Add(MoveTemp(Type));
         }
     }
@@ -50,7 +53,16 @@ void UColdSteelStatusModel::LoadAmmoCatalog()
 const FColdSteelAmmoType* UColdSteelStatusModel::AmmoType(const FString& Id) const
 {return AmmoTypes.FindByPredicate([&](const auto& T){return T.Id==Id;});}
 FString UColdSteelStatusModel::AmmoGroupFor(const FColdSteelItem& Item) const
-{return WeaponAmmoGroups.FindRef(Item.Definition);}
+{
+    if (ColdSteelInventory::IsBow(Item))
+    {
+        FString Default = ColdSteelInventory::Text(Item, TEXT("arrow_ammo"));
+        if (Default.IsEmpty()) Default = TEXT("arrow_wood");
+        const auto* Type = AmmoType(Default);
+        return Type ? Type->Group : FString();
+    }
+    return WeaponAmmoGroups.FindRef(Item.Definition);
+}
 FString UColdSteelStatusModel::AmmoLabel(const FString& Id) const
 {const auto* T=AmmoType(Id);return T?T->GroupName+TEXT(" · ")+T->Name:Id;}
 int64 UColdSteelStatusModel::PouchCount(const FString& Id) const
@@ -104,6 +116,12 @@ bool UColdSteelStatusModel::NormalizeAmmo(FColdSteelProfile& State,bool& Changed
     }
     for(auto& Item:State.Items)
     {
+        if (ColdSteelInventory::IsBow(Item))
+        {
+            const FString Selected = AmmoDefinitionFor(Item);
+            if (Item.LoadedAmmoType != Selected) { Item.LoadedAmmoType = Selected; Changed = true; }
+            continue;
+        }
         const FString Default=AmmoGroupFor(Item);
         if(!Default.IsEmpty()&&Item.LoadedAmmoType.IsEmpty()){Item.LoadedAmmoType=Default;Changed=true;}
     }

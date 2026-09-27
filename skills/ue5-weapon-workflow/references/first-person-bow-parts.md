@@ -1,5 +1,8 @@
 # 第一人称弓：部件表与相机空间组件
 
+> 2026-09-27 更新：下文 ContactV9 是历史起点。当前已接入 ElasticV15 绑骨弓臂、WoodBracketV19 木圆环瞄具、GripContactV22 缠带、LocomotionV23 移动动作、五槽改造、专用音效和箭回收。`arrow` 表示弦上箭，`arrow_rest` 表示实体箭台；弹种可覆盖箭网格。当前箭种/数值合同见 [弓箭种、数值与回收](bow-arrow-ammunition.md)。最新箭种与浮窗源码尚待原生构建，不能把历史构建记录当作这一版验收。
+
+
 当前暗纹猎弓为 ContactV9 视模和八段动作，表现版本 14；ArmsV4 提供共享骨架／装备，运行弓体为独立候选 `WoodLongbow20260925/SM_DarkBow_WoodLongbow`（Sadra 木质长弓，已拆烘焙弦，源 4K PBR）。`RiserForm20260925`、`RiserDetail20260925` 与 ArmsV2 原拆分弓体留作回退。弦口已按新外形重测。库存迁移会覆盖官方旧弓体，不会覆盖玩家自制换件。已保存，仍待用户游戏确认。
 绑定、握把掌向、指腹接触和掌面修补读 [弓手型与弦接触](../../ue5-fps-arms-animation/references/bow-hand-string-contact.md)。本案例全过程、失败原因及恢复范围见工程 `Docs/Weapons/dark-bow-publication-v9-20260925.md`；历史版本号不作为当前选择依据。
 

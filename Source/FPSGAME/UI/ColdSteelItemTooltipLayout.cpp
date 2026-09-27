@@ -77,7 +77,7 @@ bool TooltipNumeric(const FString& Value)
 FSlateChildSize TooltipFill(float Weight=1.f)
 {FSlateChildSize Result(ESlateSizeRule::Fill);Result.Value=Weight;return Result;}
 FString TooltipLabel(const FString& Label)
-{return Label==TEXT("当前伤害")?TEXT("伤害"):Label;}
+{return Label;}
 /**
  * 「特殊性质」段按类别上色。Icon 是目录里的语义标签，未知标签落到中性色，
  * 这样将来新增武器类型不需要改这里。

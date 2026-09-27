@@ -1,4 +1,5 @@
 #include "ColdSteelWeaponIcons.h"
+#include "../Weapons/Bow/BowAssembly.h"
 #include "FPSPerformanceMetrics.h"
 #include "ProfilingDebugging/CpuProfilerTrace.h"
 #include "ColdSteelMeleePreview.h"
@@ -37,10 +38,15 @@
 #include "Serialization/JsonSerializer.h"
 #endif
 
-bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelMeleePreview::Supports(I)||ProductionHarvestAssets::IsIconSubject(I.Definition)||I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_a762")||I.Definition==TEXT("ue_svd")||I.Definition==TEXT("ue_pkm_lowpoly")||I.Definition==TEXT("ue_qbz191")||I.Definition==TEXT("ue_ash12")||I.Definition==TEXT("ue_m16a2")||(I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_dan_wesson715"));}
+bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelInventory::IsBow(I)||ColdSteelMeleePreview::Supports(I)||ProductionHarvestAssets::IsIconSubject(I.Definition)||I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_a762")||I.Definition==TEXT("ue_svd")||I.Definition==TEXT("ue_pkm_lowpoly")||I.Definition==TEXT("ue_qbz191")||I.Definition==TEXT("ue_ash12")||I.Definition==TEXT("ue_m16a2")||(I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_dan_wesson715"));}
 FString UColdSteelWeaponIcons::Key(const FColdSteelItem& I) const
 {
     if(ColdSteelModularSword::Supports(I))return I.Definition+TEXT("|")+ColdSteelModularSword::Key(I,nullptr,!bCatalogExport);
+    if(ColdSteelInventory::IsBow(I))
+    {
+        const FGunsmithParts Factory;
+        return ColdSteelBowAssembly::Key(GetGameInstance()->GetSubsystem<UGunsmithSystem>()->ResolveBowVisual(I,bCatalogExport?&Factory:nullptr));
+    }
     if(ColdSteelMeleePreview::Supports(I))return I.Definition+TEXT("|")+ColdSteelMeleePreview::MeshPath(I)+TEXT("|")+(bCatalogExport?FString():ColdSteelMeleeRune::Selected(I));
     // 生产材料没有配件也没有装配变体：拾取网格与材质只由定义决定，键就是定义本身。
     if(ProductionHarvestAssets::IsIconSubject(I.Definition))return I.Definition;
@@ -96,6 +102,7 @@ void UColdSteelWeaponIcons::Deinitialize()
     CaptureMeshes.Empty();CaptureMaterials.Empty();CaptureTextures.Empty();
     if(MeleeMesh){ColdSteelModularSword::Clear(MeleeMesh);Studio->RemoveComponent(MeleeMesh);MeleeMesh->DestroyComponent();MeleeMesh=nullptr;}
     if(MaterialMesh){Studio->RemoveComponent(MaterialMesh);MaterialMesh->DestroyComponent();MaterialMesh=nullptr;}
+    if(BowMesh){ColdSteelBowAssembly::Clear(BowMesh);Studio->RemoveComponent(BowMesh);BowMesh->DestroyComponent();BowMesh=nullptr;}
     Capture=nullptr;Rig=nullptr;Studio.Reset();Target=nullptr;Cache.Empty();PreparedBoundsCache.Empty();Textures.Empty();Failed.Empty();RecentFailures.Empty();Super::Deinitialize();
 }
 bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
@@ -116,7 +123,13 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     }
     PrepareStep=1;return true;
     }
+    if(ColdSteelInventory::IsBow(I)){const bool Ready=PrepareBow(I);PrepareStep=7;return Ready;}
     if(ProductionHarvestAssets::IsIconSubject(I.Definition)){const bool Ready=PrepareMaterial(I);PrepareStep=7;return Ready;}
+    if(ColdSteelInventory::IsBow(I))
+    {
+        const FGunsmithParts Factory;
+        return ColdSteelBowAssembly::Key(GetGameInstance()->GetSubsystem<UGunsmithSystem>()->ResolveBowVisual(I,bCatalogExport?&Factory:nullptr));
+    }
     if(ColdSteelMeleePreview::Supports(I)){const bool Ready=PrepareMelee(I);PrepareStep=7;return Ready;}
     if(PrepareStep==1){
     if(!Rig){

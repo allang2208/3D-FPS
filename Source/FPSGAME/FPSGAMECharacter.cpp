@@ -1436,14 +1436,15 @@ void AFPSGAMECharacter::RefreshMovementState()
     const auto* StaminaProfile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     const bool Guarding=RuneSword && RuneSword->IsGuarding();
     SetAimingState(bAimHeld && !IsWeaponBusy());
-    bIsSprinting = !IsMeleeSkillMovementLocked() && !Guarding && bSprintHeld && (!StaminaProfile||StaminaProfile->CanSprint()) && !IsDodging() && GetCharacterMovement()->IsMovingOnGround() && !bIsSliding && !bIsCrouched && !bIsAiming && (!IsWeaponFireHeld() || IsReloading()) && bForwardIntent;
+    const bool bMovementAiming = bIsAiming || (Bow && Bow->IsAimHeld());
+    bIsSprinting = !IsMeleeSkillMovementLocked() && !Guarding && bSprintHeld && (!StaminaProfile||StaminaProfile->CanSprint()) && !IsDodging() && GetCharacterMovement()->IsMovingOnGround() && !bIsSliding && !bIsCrouched && !bMovementAiming && (!IsWeaponFireHeld() || IsReloading()) && bForwardIntent;
     if (!bPreviouslySprinting && bIsSprinting) SprintStartedAt = GetWorld()->GetTimeSeconds();
     if (bPreviouslySprinting && !bIsSprinting) StartSprintToFireLock(GetWorld()->GetTimeSeconds());
     // SprintSpeed already carries the held-weapon movement multiplier, and
     // SlideEntrySpeed() scales the slide gate by that same ratio - changing one
     // without the other silently disables sliding for the affected weapons.
-    GetCharacterMovement()->MaxWalkSpeed = bIsSprinting ? SprintSpeed : (bIsAiming ? ADSWalkSpeed : WalkSpeed);
-    GetCharacterMovement()->MaxWalkSpeedCrouched = bIsAiming ? 220.0f * PistolMoveSpeedMultiplier : CrouchSpeed;
+    GetCharacterMovement()->MaxWalkSpeed = bIsSprinting ? SprintSpeed : (bMovementAiming ? ADSWalkSpeed : WalkSpeed);
+    GetCharacterMovement()->MaxWalkSpeedCrouched = bMovementAiming ? 220.0f * PistolMoveSpeedMultiplier : CrouchSpeed;
     // CrouchSpeed already carries the multiplier; only the aiming crouch above
     // reads the raw ratio, so keep the reason explicit for the next reader.
     if(Guarding)
@@ -1646,6 +1647,9 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     UpdateADSProgress();
     CameraADSFactor = FMath::SmoothStep(0.0f, 1.0f, ADSProgress);
     WeaponADSFactor = CameraADSFactor;
+    // Bow owns its sight pose/clock; keep rifle pose state independent while
+    // sharing the existing camera bob suppression and movement presentation.
+    if (Bow && Bow->IsEquipped()) CameraADSFactor = Bow->AimAlpha();
     UpdateLocomotionPresentation(DeltaSeconds);
     auto* ActionCamera = FindComponentByClass<UWeaponActionCameraComponent>();
     const auto* TacticalSprint = FindComponentByClass<UM4TacticalSprintComponent>();
@@ -1741,7 +1745,9 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     CameraFeedback+=FireMagicRotation*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
     FirstPersonCamera->SetWorldRotation(ControlAim * CameraFeedback.Quaternion());
 
-    float TargetHorizontalFOV = VerticalToHorizontalFOV(FMath::Lerp(BaseVerticalFieldOfView, EffectiveADSVerticalFOV(), CameraADSFactor) + FOVPunch);
+    const float AimVerticalFOV = Bow && Bow->IsEquipped()
+        ? Bow->AimVerticalFOV(BaseVerticalFieldOfView) : EffectiveADSVerticalFOV();
+    float TargetHorizontalFOV = VerticalToHorizontalFOV(FMath::Lerp(BaseVerticalFieldOfView, AimVerticalFOV, CameraADSFactor) + FOVPunch);
     TargetHorizontalFOV = FMath::Lerp(TargetHorizontalFOV, SprintFieldOfView, SprintCameraFactor * (1.0f - CameraADSFactor));
     FirstPersonCamera->SetFieldOfView(TargetHorizontalFOV);
     if (ActionCamera)
@@ -2293,6 +2299,7 @@ void AFPSGAMECharacter::GetDualWieldHandRecoil(int32 HandIndex, FVector& OutOffs
 
 float AFPSGAMECharacter::GetHipSpread() const
 {
+    if (Bow && Bow->IsEquipped()) return Bow->ShotSpread();
     // Dual pistols never aim down sights, so there is no ADS tightening to fall
     // back on: the reticle carries the whole cone, including each hand's own
     // bloom, averaged across both guns. Ballistics stay where they were - the dual
@@ -2868,7 +2875,9 @@ float AFPSGAMECharacter::VerticalToHorizontalFOV(float VerticalFOV) const
 float AFPSGAMECharacter::LookSensitivityScale() const
 {
     // Match screen-space motion across magnification; mouse deltas stay raw (no aim smoothing).
-    const float Ratio = FMath::Tan(FMath::DegreesToRadians(FMath::Lerp(BaseVerticalFieldOfView, EffectiveADSVerticalFOV(), CameraADSFactor)) * 0.5f)
+    const float AimVerticalFOV = Bow && Bow->IsEquipped()
+        ? Bow->AimVerticalFOV(BaseVerticalFieldOfView) : EffectiveADSVerticalFOV();
+    const float Ratio = FMath::Tan(FMath::DegreesToRadians(FMath::Lerp(BaseVerticalFieldOfView, AimVerticalFOV, CameraADSFactor)) * 0.5f)
         / FMath::Tan(FMath::DegreesToRadians(BaseVerticalFieldOfView) * 0.5f);
     float Scale = FMath::Lerp(1.0f, Ratio * ADSMouseSensitivity, CameraADSFactor);
     // Voxel building snaps to 20 cm cells, so full FPS sensitivity overshoots the cell the player is

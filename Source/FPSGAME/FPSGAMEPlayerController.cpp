@@ -13,6 +13,7 @@
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "UI/ColdSteelStatusModel.h"
 #include "UI/ColdSteelPickup.h"
+#include "Weapons/Bow/BowArrow.h"
 #include "UI/ColdSteelWorldInteraction.h"
 #include "UI/ColdSteelWarehouseChest.h"
 #include "UI/ColdSteelCrateChest.h"
@@ -321,6 +322,7 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
             if(ColdSteelWorldInteraction::IsTreasureChest(Target)){ColdSteelWorldInteraction::OpenTreasureChest(this,Target);return true;}
             if(auto* Chest=Cast<AColdSteelWarehouseChest>(Target);Chest&&ColdSteelHUD){ColdSteelHUD->OpenWarehouse(Chest);return true;}
             if(auto* Pickup=Cast<AColdSteelPickup>(Target)){Profile->Pickup(Pickup->ItemId);return true;}
+            if(auto* Arrow=Cast<ABowArrow>(Target)){Arrow->TryRecover(GetPawn());return true;}
             // 冶炼高炉：E 同时打开背包与独立冶炼面板（面板贴抽屉左侧，可被 Esc／× 单独关闭；炉内按真实时间继续冶炼）。
             // 放在门判定之前：高炉不是门，但两者都靠"命中 Actor 是什么"分派，先特异后泛化。
             if(ColdSteelWorldInteraction::IsSmeltingFurnace(Target)&&ColdSteelHUD)

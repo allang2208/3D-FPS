@@ -1,4 +1,5 @@
 #include "DungeonSpawnDirector.h"
+#include "../Monsters/MonsterDamageAlert.h"
 #include "DungeonRoomEncounter.h"
 #include "DungeonRunSubsystem.h"
 #include "AuthoredDungeonGenerator.h"
@@ -478,6 +479,18 @@ void ADungeonSpawnDirector::CheckRoomCleared(int32 RoomIndex)
 }
 
 void ADungeonSpawnDirector::OnMonsterDamaged(AActor* DamagedActor, float /*Damage*/, const UDamageType* /*DamageType*/, AController* /*InstigatedBy*/, AActor* /*DamageCauser*/)
+{
+    if (!bArmed || !IsValid(DamagedActor)) return;
+    const TWeakObjectPtr<ADungeonSpawnDirector> Director(this);
+    const TWeakObjectPtr<AActor> Victim(DamagedActor);
+    if (MonsterDamageAlert::FScopedSilentShot::DeferGroupAlert(DamagedActor, [Director, Victim]()
+        {
+            if (Director.IsValid() && Victim.IsValid()) Director->RaiseDamageAlarm(Victim.Get());
+        })) return;
+    RaiseDamageAlarm(DamagedActor);
+}
+
+void ADungeonSpawnDirector::RaiseDamageAlarm(AActor* DamagedActor)
 {
     if (!bArmed || !IsValid(DamagedActor)) return;
     const int32 RoomIndex = PlanIndexOfMonster(DamagedActor);

@@ -1,3 +1,4 @@
+#include "ColdSteelWeaponText.h"
 #include "M4GunsmithWidget.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelEnhancementSystem.h"
@@ -34,10 +35,10 @@ void UM4GunsmithWidget::AppendMeleeOverview(const FColdSteelItem& Item)
         Overview.Add({Name,FString::Printf(TEXT("%.*f%s"),Digits,Base,Unit),FString::Printf(TEXT("%.*f%s"),Digits,Final,Unit),
             Same?TEXT("—"):FString::Printf(TEXT("%+.*f%s"),Digits,Delta,Unit),Same?0:((Delta>0)!=Lower?1:-1)});
     };
-    Row(TEXT("普通攻击总伤害"),Before.Damage,After.Damage,2,TEXT(""));
-    Row(TEXT("基础物理伤害"),Before.DamageParts.BasePhysical,After.DamageParts.BasePhysical,2,TEXT(""));
-    Row(TEXT("附加物理伤害"),Before.DamageParts.AddedPhysical,After.DamageParts.AddedPhysical,2,TEXT(""));
-    Row(TEXT("附加魔法伤害"),Before.DamageParts.AddedMagic,After.DamageParts.AddedMagic,2,TEXT(""));
+    Row(ColdSteelWeaponText::TotalDamage,Before.Damage,After.Damage,2,TEXT(""));
+    Row(ColdSteelWeaponText::BasePhysical,Before.DamageParts.BasePhysical,After.DamageParts.BasePhysical,2,TEXT(""));
+    Row(ColdSteelWeaponText::AddedPhysical,Before.DamageParts.AddedPhysical,After.DamageParts.AddedPhysical,2,TEXT(""));
+    Row(ColdSteelWeaponText::AddedMagic,Before.DamageParts.AddedMagic,After.DamageParts.AddedMagic,2,TEXT(""));
     if(ColdSteelInventory::Number(Item,TEXT("innate_erosion_intelligence"))>0||ColdSteelInventory::Number(Item,TEXT("innate_erosion_wisdom"))>0)
         Row(TEXT("自带侵蚀伤害倍率"),Before.Modifiers.InnateErosionMultiplier,After.Modifiers.InnateErosionMultiplier,2,TEXT("×"));
     Row(TEXT("第二段横斩伤害"),Before.ComboSecondDamage,After.ComboSecondDamage,2,TEXT(""));
@@ -57,7 +58,7 @@ void UM4GunsmithWidget::AppendMeleeOverview(const FColdSteelItem& Item)
     Row(TEXT("突刺时间"),Before.ThrustSeconds,After.ThrustSeconds,2,TEXT(" s"),true);
     Row(TEXT("普通挥砍距离"),Before.SlashReach/100,After.SlashReach/100,2,TEXT(" m"));
     Row(TEXT("最大攻击距离（含突刺）"),Before.ThrustReach/100,After.ThrustReach/100,2,TEXT(" m"));
-    Row(TEXT("攻击耐力消耗（含重击）"),Before.AttackStamina,After.AttackStamina,2,TEXT(""),true);
+    Row(ColdSteelWeaponText::StaminaCost,Before.AttackStamina,After.AttackStamina,2,TEXT(""),true);
     Row(TEXT("命中硬直时间倍率"),Before.Modifiers.HitReaction,After.Modifiers.HitReaction,2,TEXT("×"));
     Row(TEXT("韧性伤害倍率"),Before.Modifiers.ToughnessDamage,After.Modifiers.ToughnessDamage,2,TEXT("×"));
     Row(TEXT("改造物理防御穿透"),Before.Modifiers.PhysicalArmorPenetration*100,After.Modifiers.PhysicalArmorPenetration*100,0,TEXT("%"));
@@ -72,6 +73,6 @@ void UM4GunsmithWidget::AppendMeleeOverview(const FColdSteelItem& Item)
     }
     Row(TEXT("反击激励攻速倍率"),Before.Modifiers.RiposteSpeed,After.Modifiers.RiposteSpeed,2,TEXT("×"));
     Row(TEXT("反击激励耐力倍率"),Before.Modifiers.RiposteStamina,After.Modifiers.RiposteStamina,2,TEXT("×"),true);
-    Row(TEXT("防御受击耐力消耗"),Before.BlockStamina,After.BlockStamina,2,TEXT(""),true);
+    Row(ColdSteelWeaponText::BlockStaminaCost,Before.BlockStamina,After.BlockStamina,2,TEXT(""),true);
     Overview.Add({TEXT("握持"),TEXT("双手 · 占用副手"),TEXT("双手 · 占用副手"),TEXT("—"),0});
 }

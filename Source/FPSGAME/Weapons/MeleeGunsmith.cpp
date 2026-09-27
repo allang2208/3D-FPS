@@ -10,6 +10,7 @@
 const FGunsmithWeapon* UGunsmithSystem::ModifiableWeapon(const FString& Definition) const
 {
     if(const auto* Firearm=Weapon(Definition))return Firearm;
+    if(const auto* Bow=BowWeapons.Find(Definition))return Bow;
     return MeleeWeapons.Find(Definition);
 }
 

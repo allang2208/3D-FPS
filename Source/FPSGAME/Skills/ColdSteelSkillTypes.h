@@ -118,6 +118,8 @@ struct FColdSteelSkillShot
     bool bMelee = false;
     float WeakpointPercent = 0;
     float CriticalDamageBonus = 0;
+    /** Guaranteed ammo effects captured on release, independent of later selection. */
+    int32 AmmoPoisonStacks = 0, AmmoBleedStacks = 0;
 };
 
 struct FColdSteelProgressNotice

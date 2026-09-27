@@ -32,7 +32,7 @@ public:
     TSharedPtr<class SWidget> GetPreviewSurface() const {return PreviewSurface;}
     const TArray<FGunsmithOverviewRow>& GetOverviewRows() const {return Overview;}
     bool HasWorkbenchCapture() const {return Capture!=nullptr&&PreviewTarget!=nullptr&&(!bStandalone||StandaloneRig!=nullptr||StandaloneMelee!=nullptr);}
-    bool CanAimPreview() const {return HasWorkbenchCapture()&&StandaloneMelee==nullptr&&!IsMeleeWorkbench();}
+    bool CanAimPreview() const {return HasWorkbenchCapture()&&StandaloneMelee==nullptr&&!(IsMeleeWorkbench()||IsBowWorkbench());}
     void SetStandaloneItem(const FColdSteelItem& Item);
     void TickStandalonePreview(float Delta,TSharedPtr<class SWidget> Surface);
     void CloseStandalonePreview();
@@ -48,6 +48,12 @@ private:
     friend class AFPSGAMEPlayerController;
     friend class AFPSGAMECharacter;
     class UGunsmithSystem* Model() const;
+    bool IsBowWorkbench() const;
+    void AppendBowOverview(const FColdSteelItem& Item);
+    void SetStandaloneBowItem(const FColdSteelItem& Item);
+    void SyncStandaloneBowPreview();
+    TSharedPtr<struct FStreamableHandle> BowPreviewLoad;
+    FString BowPreviewInputKey;
     bool IsMeleeWorkbench() const;
     bool HasSelectedPreview() const;
     void AppendMeleeOverview(const FColdSteelItem& Item);

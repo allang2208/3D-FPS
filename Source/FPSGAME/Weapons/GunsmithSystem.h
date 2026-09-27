@@ -32,6 +32,8 @@ struct FMeleeModifiers
 };
 struct FGunsmithStats
 {
+    // Bow factors are independent from firearm handling and magazine rules.
+    struct FBowModifiers { double Damage=1,Draw=1,Speed=1,Stamina=1,Nock=1,Hold=1,Sway=1,Spread=1,ADS=1; } Bow;
     FMeleeModifiers Melee;
     FWeaponHandling Handling;
     double ADS=0.3, ADSPercent=0, ADSSeconds=0, Recoil=100, Shake=100, RecoilMultiplier=1, ShakeMultiplier=1, StabilityMultiplier=1;
@@ -43,9 +45,13 @@ struct FGunsmithStats
 };
 struct FGunsmithOption
 {
+    FGunsmithStats::FBowModifiers Bow;
+    TSharedPtr<FJsonObject> BowVisual;
     FMeleeModifiers Melee;
     TArray<FString> CompatibleWeapons;
     FString Id, Name, Description;
+    /** 数值改造先行时如实说明当前外观归属；空串表示沿用本槽 factory 外形。 */
+    FString Appearance;
     TArray<TPair<FString,int32>> Effects;
     // EmptyReload defaults to Reload, so an option only needs the extra catalog
     // key (empty_reload_mult) when normal and empty reload must differ.
@@ -85,6 +91,8 @@ public:
     const FGunsmithWeapon* Weapon(const FString& Definition) const;
     // Weapon remains the firearm contract used by ammunition and combat callers.
     const FGunsmithWeapon* ModifiableWeapon(const FString& Definition) const;
+    bool IsBow(const FString& Definition) const {return BowWeapons.Contains(Definition);}
+    FColdSteelItem ResolveBowVisual(const FColdSteelItem& Item,const FGunsmithParts* Parts=nullptr) const;
     bool IsMelee(const FString& Definition) const {return MeleeWeapons.Contains(Definition);}
     const FGunsmithOption* Option(const FString& Definition,const FString& Slot,const FString& Id) const;
     FGunsmithParts Installed(const FColdSteelItem&) const;
@@ -105,13 +113,16 @@ public:
     const TArray<FString>& Slots() const{return SlotKeys;}
     const TArray<FString>& Categories()const{return CategoryNames;}
     const TArray<FString>& Defaults()const{return DefaultNames;}
-    const TArray<FString>& Slots(const FString& Definition) const {return IsMelee(Definition)?MeleeSlotKeys:SlotKeys;}
-    const TArray<FString>& Categories(const FString& Definition) const {return IsMelee(Definition)?MeleeCategoryNames:CategoryNames;}
-    const TArray<FString>& Defaults(const FString& Definition) const {return IsMelee(Definition)?MeleeDefaultNames:DefaultNames;}
+    const TArray<FString>& Slots(const FString& Definition) const {return IsBow(Definition)?BowSlotKeys:IsMelee(Definition)?MeleeSlotKeys:SlotKeys;}
+    const TArray<FString>& Categories(const FString& Definition) const {return IsBow(Definition)?BowCategoryNames:IsMelee(Definition)?MeleeCategoryNames:CategoryNames;}
+    const TArray<FString>& Defaults(const FString& Definition) const {return IsBow(Definition)?BowDefaultNames:IsMelee(Definition)?MeleeDefaultNames:DefaultNames;}
     FGunsmithChanged OnChanged;
     TSharedPtr<FJsonObject> Catalog;
 private:
     TMap<FString,FGunsmithWeapon> Weapons;
+    TMap<FString,FGunsmithWeapon> BowWeapons;
+    TArray<FString> BowSlotKeys,BowCategoryNames,BowDefaultNames;
+    void LoadBowCatalog();
     TMap<FString,FGunsmithWeapon> MeleeWeapons;
     TArray<FString> MeleeSlotKeys,MeleeCategoryNames,MeleeDefaultNames;
     void LoadMeleeCatalog();

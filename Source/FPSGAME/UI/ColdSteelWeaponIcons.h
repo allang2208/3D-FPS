@@ -51,6 +51,7 @@ private:
     UPROPERTY(Transient) TMap<FString,TObjectPtr<class UTexture2D>> Textures;
     UPROPERTY(Transient) TObjectPtr<class AFPSGAMECharacter> Rig;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> MeleeMesh;
+    UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> BowMesh;
     // Production materials (ores, ingots, stone) render through their pickup mesh and
     // per-spec material instance, so the bag image is the object the player picks up.
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> MaterialMesh;
@@ -88,6 +89,7 @@ private:
     void BeginResourceLoad(const FColdSteelItem& Item);
     void ResetPreparation();
     bool PrepareMelee(const FColdSteelItem& Item);
+    bool PrepareBow(const FColdSteelItem& Item);
     bool PrepareMaterial(const FColdSteelItem& Item);
     void BeginReadback(const FString& Key);
     void PollReadback();

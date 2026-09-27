@@ -83,6 +83,7 @@ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
         }Weapons.Add(W.Id,W);
     }
     LoadMeleeCatalog();
+    LoadBowCatalog();
 }
 void UGunsmithSystem::Deinitialize(){Close();Super::Deinitialize();}
 const FGunsmithWeapon* UGunsmithSystem::Weapon(const FString& D)const{return Weapons.Find(D);}
@@ -116,6 +117,18 @@ FGunsmithParts UGunsmithSystem::Installed(const FColdSteelItem& I)const
 FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts& P)const
 {
     const auto* W=ModifiableWeapon(D);if(!W)return {};auto R=W->Base;
+    if(IsBow(D))
+    {
+        for(const auto& Pair:Normalize(D,P))
+        {
+            const auto& M=Option(D,Pair.Key,Pair.Value)->Bow;
+            R.Bow.Damage*=M.Damage;R.Bow.Draw*=M.Draw;R.Bow.Speed*=M.Speed;R.Bow.Stamina*=M.Stamina;
+            R.Bow.Nock*=M.Nock;R.Bow.Hold*=M.Hold;R.Bow.Sway*=M.Sway;R.Bow.Spread*=M.Spread;R.Bow.ADS*=M.ADS;
+            ++R.ActiveParts;
+        }
+        R.Damage*=R.Bow.Damage;R.Interval*=R.Bow.Draw;R.Speed*=R.Bow.Speed;R.ADS*=R.Bow.ADS;
+        return R;
+    }
     if(IsMelee(D))
     {
         for(const auto& Pair:Normalize(D,P))
@@ -194,7 +207,7 @@ bool UGunsmithSystem::Apply()
     auto& I=State.Items[Index];TSharedPtr<FJsonObject> Data;if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data))return false;
     auto Parts=MakeShared<FJsonObject>();for(const auto& P:Preview){if(P.Value==TEXT("true"))Parts->SetBoolField(P.Key,true);else Parts->SetStringField(P.Key,P.Value);}
     Data->SetObjectField(TEXT("gunsmith_parts"),Parts);Data->SetNumberField(TEXT("gunsmith_version"),1);I.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&I.Data));
-    const int32 Overflow=IsMelee(DefinitionId)?0:FMath::Max(0,I.Magazine-Calculate(DefinitionId,Preview).Capacity);
+    const int32 Overflow=IsBow(DefinitionId)||IsMelee(DefinitionId)?0:FMath::Max(0,I.Magazine-Calculate(DefinitionId,Preview).Capacity);
     if(Overflow){const int32 Virtual=FMath::Min(Overflow,I.VirtualMagazineAmmo);I.Magazine-=Overflow;I.VirtualMagazineAmmo-=Virtual;if(!Profile->AddAmmoToState(State,Profile->AmmoDefinitionFor(I),Overflow-Virtual)){Status=TEXT("弹药无法退回弹药袋，改造未应用");return false;}}
     if(!Profile->CommitState(State)){Status=Profile->ResultMessage();return false;}
     Original=Preview;Status=TEXT("已应用改造并保存");OnChanged.Broadcast();return true;

@@ -323,7 +323,12 @@ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelIt
         }
         if(const auto* I=Item?Item:M->Equipped())
         {
-            if(bFiredRound)Shot.ArmorPenetration=FMath::Clamp(Shot.ArmorPenetration+M->AmmoArmorPenetration(*I),0.f,1.f);
+            if(bFiredRound)
+            {
+                Shot.ArmorPenetration=FMath::Clamp(Shot.ArmorPenetration+M->AmmoArmorPenetration(*I),0.f,1.f);
+                if(const auto* Ammo=M->AmmoType(M->AmmoDefinitionFor(*I)))
+                {Shot.AmmoPoisonStacks=Ammo->PoisonStacks;Shot.AmmoBleedStacks=Ammo->BleedStacks;}
+            }
             if(Shot.ItemDefinition.IsEmpty())Shot.ItemDefinition=I->Definition;
             Shot.bMelee=ColdSteelInventory::IsMeleeWeapon(*I);
             // 武器自带的暴击伤害加成（items 定义 critDamageBonus，SVD=0.5）与暴击技能倍率相加后，
@@ -339,7 +344,7 @@ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelIt
                 Shot.ToughnessDamageMultiplier=Melee.Modifiers.ToughnessDamage;
             }
             else if(ColdSteelInventory::IsBow(*I))
-                Shot.DamagePanel=ColdSteelWeaponStats::DamageParts(*I,M,ColdSteelInventory::Number(*I,TEXT("full_damage"),46));
+                Shot.DamagePanel=ColdSteelWeaponStats::DamageParts(*I,M,ColdSteelInventory::Number(*I,TEXT("full_damage"),69));
             else if(const auto* G=Shooter->GetGameInstance()->GetSubsystem<UGunsmithSystem>();G&&G->Weapon(I->Definition))
                 Shot.DamagePanel=ColdSteelWeaponStats::DamageParts(*I,M,G->Calculate(I->Definition,G->Installed(*I)).Damage);
         }

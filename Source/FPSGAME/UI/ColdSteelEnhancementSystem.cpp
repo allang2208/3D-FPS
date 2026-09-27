@@ -93,7 +93,9 @@ double UColdSteelEnhancementSystem::ProcessedDamage(const FColdSteelItem& I,doub
         Result=P->AdditionalWeaponDamage(I,Result);
         return CoreCombatFormula::Round(Result*(1+Effect(I,TEXT("damagePercent"))));
     }
-    double Result=Base*(1+L*Increase)+Attack;
+    const double AttackScale=ColdSteelInventory::IsBow(I)?
+        FMath::Max(0.,ColdSteelInventory::Number(I,TEXT("bow_damage_coefficient_scale"),1.5)):1.;
+    double Result=Base*(1+L*Increase)+Attack*AttackScale;
     if(ColdSteelInventory::IsBow(I))
     {
         Result=CoreCombatFormula::Round(Result*(1+CraftEffect(I,TEXT("damagePercent"))));

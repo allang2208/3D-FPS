@@ -28,7 +28,7 @@ void UM4GunsmithWidget::UndoDraft()
 {
     Model()->Undo();
     // Synchronize all current variants, including variable optics and underbarrel options.
-    if(auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();!IsMeleeWorkbench()&&P->Equipped()&&P->Equipped()->InstanceId==Model()->Instance())
+    if(auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();!(IsMeleeWorkbench()||IsBowWorkbench())&&P->Equipped()&&P->Equipped()->InstanceId==Model()->Instance())
         if(auto* C=Cast<AFPSGAMECharacter>(GetOwningPlayerPawn()))
         {
             C->ApplyWeaponAttachmentPresentation(Model()->Draft());
@@ -45,7 +45,7 @@ void UM4GunsmithWidget::ChooseOption(const FString& SlotKey,const FString& Id)
     const auto* Weapon=Model()->ModifiableWeapon(Model()->Definition());
     if(!Weapon||!Weapon->Allowed.Contains(SlotKey)||!Model()->Select(SlotKey,Id))return;
     auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
-    if(!IsMeleeWorkbench()&&P->Equipped()&&P->Equipped()->InstanceId==Model()->Instance())
+    if(!(IsMeleeWorkbench()||IsBowWorkbench())&&P->Equipped()&&P->Equipped()->InstanceId==Model()->Instance())
         if(auto* C=Cast<AFPSGAMECharacter>(GetOwningPlayerPawn()))
         {
             C->ApplyWeaponAttachmentPresentation(Model()->Draft());
@@ -53,7 +53,7 @@ void UM4GunsmithWidget::ChooseOption(const FString& SlotKey,const FString& Id)
 }
 void UM4GunsmithWidget::SetAimPreview(bool bAim)
 {
-    if(IsMeleeWorkbench())return;
+    if(IsMeleeWorkbench()||IsBowWorkbench())return;
     if(bAim&&StandaloneMelee)return;
     if(bStandalone){bAimPreview=bAim;bSidePreview=!bAim;PoseStandalone();PreviewMotion=1.f;CaptureAccumulator=1.f;return;}
     PreviewMotion=1.f;

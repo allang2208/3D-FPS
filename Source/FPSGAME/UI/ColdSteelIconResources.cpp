@@ -1,3 +1,4 @@
+#include "../Weapons/Bow/BowAssembly.h"
 #include "ColdSteelWeaponIcons.h"
 #include "ColdSteelMeleePreview.h"
 #include "../Weapons/ModularSwordVisual.h"
@@ -44,7 +45,14 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
     };
     Add(TEXT("/Game/UI/GunsmithWorkbench/T_StudioEnvironment"),true);
     const FString& D=Item.Definition;
-    if(ProductionHarvestAssets::IsIconSubject(D))
+    if(ColdSteelInventory::IsBow(Item))
+    {
+        const FGunsmithParts Factory;
+        const auto Resolved=GetGameInstance()->GetSubsystem<UGunsmithSystem>()->ResolveBowVisual(Item,bCatalogExport?&Factory:nullptr);
+        ColdSteelBowAssembly::GatherResources(Resolved,RequiredResources);
+        for(const auto& Ref:RequiredResources)Paths.AddUnique(Ref);
+    }
+    else if(ProductionHarvestAssets::IsIconSubject(D))
     {
         // 材料只需要拾取网格与分种材质；不能让它们落到下面的枪械装配分支去拉 SK_AKM。
         Add(ProductionHarvestAssets::PickupMesh(D,0).ToString(),true);

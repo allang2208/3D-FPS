@@ -81,5 +81,33 @@ for i,s in enumerate(arrow.static_materials):
     arrow.set_material(i,material('M_Arrow'+label,*values))
 save(arrow)
 material('M_BowString',(.035,.026,.016),0,.74)
+# Wood finish V2 (2026-09-25): bind structure-stained instances if present.
+# The original Fab Phong slots stay on disk; this only retargets the running riser/arrow.
+wood_root=DEST+'/Materials'
+wood_slots={
+    'SM_DarkBow_Riser':{0:wood_root+'/MI_BowWood_Body',1:wood_root+'/MI_BowWood_Limb',2:wood_root+'/MI_BowWood_Inlay'},
+    'SM_Bow_WoodArrow':{},
+}
+arrow_wood=u.load_asset(wood_root+'/MI_BowWood_Arrow')
+if arrow_wood:
+    for i,s in enumerate(arrow.static_materials):
+        if 'Wood' in str(s.material_slot_name):
+            wood_slots['SM_Bow_WoodArrow'][i]=wood_root+'/MI_BowWood_Arrow'
+riser=u.load_asset(DEST+'/SM_DarkBow_Riser')
+for mesh in (riser,arrow):
+    if not mesh:continue
+    mapping=wood_slots.get(mesh.get_name(),{})
+    slots=list(mesh.static_materials)
+    changed=False
+    for i,path in mapping.items():
+        inst=u.load_asset(path)
+        if not inst:continue
+        mesh.set_material(i,inst)
+        slot=slots[i];slot.set_editor_property('material_interface',inst);slots[i]=slot
+        changed=True
+    if changed:
+        mesh.set_editor_property('static_materials',slots)
+        save(mesh)
+        receipt['wood_finish']= {k:v for k,v in mapping.items()}
 receipt_file.write_text(json.dumps(receipt,indent=2),encoding='utf-8')
 print('BOW_STATIC_PARTS_SAVED',len(receipt['saved']))

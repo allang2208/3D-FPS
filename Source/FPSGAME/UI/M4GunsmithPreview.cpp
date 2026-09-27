@@ -1,5 +1,7 @@
 #include "M4GunsmithWidget.h"
 #include "../Weapons/ModularSwordVisual.h"
+#include "../Weapons/Bow/BowAssembly.h"
+#include "Engine/StreamableManager.h"
 #include "ColdSteelStatusModel.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "../FPSGAMECharacter.h"
@@ -236,7 +238,8 @@ void UM4GunsmithWidget::ReleasePreview()
 {
     if(PreviewSurface&&PreviewSurface->HasMouseCapture()&&FSlateApplication::IsInitialized())FSlateApplication::Get().ReleaseMouseCapture();
     PreviewSurface.Reset();
-    if(StandaloneMelee){ColdSteelModularSword::Clear(StandaloneMelee);Studio->RemoveComponent(StandaloneMelee);StandaloneMelee->DestroyComponent();StandaloneMelee=nullptr;}
+    if(BowPreviewLoad){BowPreviewLoad->CancelHandle();BowPreviewLoad.Reset();}BowPreviewInputKey.Reset();
+    if(StandaloneMelee){ColdSteelBowAssembly::Clear(StandaloneMelee);ColdSteelModularSword::Clear(StandaloneMelee);Studio->RemoveComponent(StandaloneMelee);StandaloneMelee->DestroyComponent();StandaloneMelee=nullptr;}
     if(Capture){Capture->TextureTarget=nullptr;Studio->RemoveComponent(Capture);Capture->DestroyComponent();Capture=nullptr;}
     if(PreviewCoverageCapture){PreviewCoverageCapture->TextureTarget=nullptr;Studio->RemoveComponent(PreviewCoverageCapture);PreviewCoverageCapture->DestroyComponent();PreviewCoverageCapture=nullptr;}
     StudioCopies.Reset();PreviewBoundsCache.Reset();StudioFill=nullptr;Studio.Reset();
@@ -268,7 +271,7 @@ void UM4GunsmithWidget::TickCapture(float Delta)
     }
     if(!Capture||CaptureAccumulator<((PreviewMotion>0||bPreviewStreamingPending)?1.f/30.f:.2f))return;
     CaptureAccumulator=0;
-    if(StandaloneMelee){SyncStandaloneMeleePreview();CapturePreview();return;}
+    if(StandaloneMelee){if(ColdSteelBowAssembly::IsBowRoot(StandaloneMelee))SyncStandaloneBowPreview();else SyncStandaloneMeleePreview();CapturePreview();return;}
     if(bStandalone){if(StandaloneRig){StandaloneRig->UpdateGunsmithCapture(Capture,bAimPreview);SyncStudioPreview();CapturePreview();}return;}
     auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if(!P->Equipped()||P->Equipped()->InstanceId!=Model()->Instance())return;

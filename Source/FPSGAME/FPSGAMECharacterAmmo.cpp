@@ -3,6 +3,7 @@
 #include "UI/ColdSteelAmmoWheel.h"
 #include "UI/ColdSteelStatusModel.h"
 #include "Weapons/PistolDualWieldComponent.h"
+#include "Weapons/Bow/BowWeaponComponent.h"
 #include "Monsters/FPSCombatHealthComponent.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
@@ -36,7 +37,10 @@ void AFPSGAMECharacter::ReloadInputPressed()
     auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     const auto* Gun=Model?Model->Equipped():nullptr;
     const auto* Off=Model&&IsDualWieldingPistols()?Model->Equipped(Gun&&Gun->Cell==6?8:11):nullptr;
-    if(!Gun||!bInventoryWeaponReady)return;
+    const bool bBow = Bow && Bow->IsEquipped() && Model && Model->ActiveBow();
+    // R while drawing deliberately lets the string down; the arrow stays reserved.
+    if(bBow && Bow->IsDrawing()){Bow->CancelAction(false);return;}
+    if(!Gun||(!bInventoryWeaponReady&&!bBow)||(bBow&&Bow->IsBusy()))return;
     if(Model->CompatibleAmmo(*Gun).Num()<=1&&(!Off||Model->CompatibleAmmo(*Off).Num()<=1)){ReloadPressed();return;}
     if(IsWeaponBusy()||IsCastBlockingLeftHandAction()||IsTraversing())return;
     bReloadInputHeld=true;ReloadInputStarted=GetWorld()->GetTimeSeconds();AmmoSelectionWeapon=Gun->InstanceId;
@@ -50,6 +54,7 @@ void AFPSGAMECharacter::UpdateAmmoSelection()
     const bool Focused=!FSlateApplication::IsInitialized()||FSlateApplication::Get().IsActive();
     if(!PC||PC->bShowMouseCursor||AFPSGAMEPlayerController::BlocksOngoingActions(PC)||!Focused||
         (Health&&Health->IsDead())||IsTraversing()||IsWeaponBusy()||IsCastBlockingLeftHandAction()||
+        (Bow&&Bow->IsEquipped()&&Bow->IsBusy())||
         !Model||!Model->Equipped()||Model->Equipped()->InstanceId!=AmmoSelectionWeapon)
     {CancelAmmoSelection();return;}
     if(bReloadInputHeld&&!AmmoWheel&&GetWorld()->GetTimeSeconds()-ReloadInputStarted>=.30)
@@ -94,8 +99,11 @@ bool AFPSGAMECharacter::StartAmmoSwitch(const FString& WeaponId,const FString& T
 {
     auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     const auto* PC=Cast<APlayerController>(Controller);
-    if(!bInventoryWeaponReady||!Model||!Model->CanSwitchAmmo(WeaponId,Target)||!PC||
+    const bool bBow = Bow && Bow->IsEquipped() && Model && Model->ActiveBow();
+    if((!bInventoryWeaponReady&&!bBow)||!Model||!Model->CanSwitchAmmo(WeaponId,Target)||!PC||
         AFPSGAMEPlayerController::BlocksOngoingActions(PC)||IsWeaponBusy()||IsCastBlockingLeftHandAction()||IsTraversing())return false;
+    if(bBow)
+        return Model->ActiveBow()->InstanceId==WeaponId && Bow->SwitchArrow(Target);
     if(IsDualWieldingPistols())return DualPistols->SwitchAmmo(WeaponId,Target);
     if(ActiveInventoryWeapon!=WeaponId)return false;
     PendingAmmoType=Target;PendingAmmoWeapon=WeaponId;

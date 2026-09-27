@@ -307,6 +307,7 @@ public:
     bool SpendAmmo(const FString& Id,int64 Count);
     bool AddAmmoToState(FColdSteelProfile& State,const FString& Id,int64 Count) const;
     bool CanSwitchAmmo(const FString& WeaponId,const FString& Target) const;
+    bool SelectBowAmmo(const FString& WeaponId,const FString& Target);
     bool CommitAmmoSwitch(const FString& WeaponId,const FString& Target,int32 Capacity,
         int32 NeedsCycle=0,int32 LoadLimit=MAX_int32,bool Completed=true);
     bool CompleteWeaponReloadCycle(const FString& WeaponId);

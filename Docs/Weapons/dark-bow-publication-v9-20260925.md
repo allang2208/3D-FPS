@@ -12,7 +12,10 @@ UE 包通过现有编辑器的互斥 Python 桥检查无外部资产引用、无
 | --- | --- |
 | `Content/Weapons/DarkBow20260925/ContactV9` | 当前手模与 Idle、Ready、Equip、Nock、Draw、Hold、Release、Run |
 | `Content/Weapons/DarkBow20260925/ArmsV4` | V9 共用的 Skeleton、参考网格与衣袖／手套；保留绑定复建及对照资产 |
-| `Content/Weapons/DarkBow20260925/ArmsV2/SM_*` 与 `Materials` | 当前弓体、木箭、弓弦及箭材质；版本名较旧，但仍在使用 |
+| `Content/Weapons/DarkBow20260925/ArmsV2/SM_*` 与 `Materials` | 原拆分弓体、木箭、弓弦及木纹实例；留作回退 |
+| `Content/Weapons/DarkBow20260925/RiserDetail20260925` | 细节弓回退 `SM_DarkBow_RiserDetail`，见 [弓体细节](dark-bow-riser-detail-20260925.md) |
+| `Content/Weapons/DarkBow20260925/RiserForm20260925` | 结构重构回退 `SM_DarkBow_RiserForm`，见 [弓体结构](dark-bow-riser-form-20260925.md) |
+| `Content/Weapons/DarkBow20260925/WoodLongbow20260925` | 当前运行弓体 `SM_DarkBow_WoodLongbow`，见 [木质长弓](dark-bow-wood-longbow-20260925.md) |
 | 原 `SK_DarkBow` 与原始来源记录 | 保留原握把、材质和原始几何的来源依据 |
 | `SourceAssets/DarkBow20260925/ContactV9` | 当前完整作者源、FBX、拟合输入、修补表面、接触参数及保存回执 |
 | `SourceAssets/DarkBow20260925/ArmsV4` | 正确原生绑定的可编辑源、导入／装备制作配方及回执 |

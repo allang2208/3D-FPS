@@ -3,6 +3,8 @@ name: ue5-weapon-workflow
 description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻重攻击、连击、突刺、格挡、第一人称弓与可替换部件表（弓体／弓弦／箭台按槽名改造），以及新枪与手模接入、枪匠配件、ADS、机械部件、音效、武器数据与装备存档闭环。用于 FPSGAME 的武器标准工作流；手臂姿态与换弹精修转 ue5-fps-arms-animation。
 ---
 
+- 弓的箭种模型、R 轮盘、弹药袋、1.5 倍系数迁移及命中回收，读取 [弓箭种、数值与回收](references/bow-arrow-ammunition.md)。
+
 ## UE5 默认开发方式（用户确定，2026-09-23）
 
 后台优先：不主动启动 UE 编辑器；不主动检查、测试、启动 PIE、截图或验收渲染；不向其他对话/任务发协调消息。完整规则与「按改动选执行方式」表见仓库根 `AGENTS.md` 和 [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)。
@@ -42,7 +44,7 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 - 准心、散布、后坐力、枪口烟火、曳光、抛壳及表面命中/落血：[Gunplay 与 Niagara 验收](references/gunplay-vfx.md)。
 
 - 新枪、模型/材质、枪匠或瞄具：[接入与装配](references/integration.md)。
-- 配件图标制作、方向统一、单件机瞄或全面图标审计：[改造配件图标标准](references/attachment-icons.md)，采用已接受的实际模型水平左向规则。
+- 配件图标制作、统一无彩色灰阶、方向统一、单件机瞄或全面图标审计：[改造配件图标标准](references/attachment-icons.md)。所有武器的分类、原装、改造与拆除图标默认统一灰白色，符文、宝石及发光也去色；保留真实模型、纹理起伏和透明孔洞，状态由界面边框或标记表达。后续直接沿用该规范，不再逐件选择配色。
 - 制作或修改改造配件：[改造配件标准](references/attachment-standard.md)，覆盖生成修整、装配、展览、真实包握、换弹回握和游戏验收；2026-09-12 用户确认 VRE 成组抓握迁移成功；握把分支优先复用已接受手型并适配整手与腕臂，小阻手器按用户许可整体包握。配件数值口径、说明分工（描述禁写可推导数字、静态规格数字须注明权威来源、行名与措辞各处统一）与 ADS/握把数值快照见该文档「配件数值与说明分工」；改完跑 `Tools/Weapons/check_attachment_consistency.py` 做离线自检。
 - 在原厂件基础上加长/改造的配件（扩容/加长弹匣、延长枪管、导气管等）：[加长件改造规则](references/extmag-lengthening.md)——按原件曲线坐标延续完整纹路，处理截面差异与 UV 对应；避开抓握区，不将旧弧管或直接复制焊接视为定稿。
 - 调整武器基础数值（有效射程、射击间隔、伤害、弹速、弹匣）或比较 DPS：[武器基础与强化系数调参](references/weapon-formula-balancing.md)，改 `base` 即改面板/实战/提示，配件倍率只按目录相乘。
@@ -55,7 +57,7 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 - 原生编译/运行或用户反馈“没有应用”：[UE 验证操作](../ue5-fps-arms-animation/references/validation.md)。纯文档更新只检查内容、链接及技能元数据，不启动游戏。
 - 第一人称**弓**、以及不用 AnimBP 的相机空间武器（弓／采集工具／法杖同族）：部件表拆分（弓体／弓弦／弦上箭按槽名寻址）、
   `bow_part_<槽名>_*` 数据键与表现签名重载、程序化细杆占位口径、参考手／肘轨迹、阶段秒数与实际片段采样合同、
-  5.8 headless 导入字段位置与 C++ 编译陷阱：[第一人称弓与部件表](references/first-person-bow-parts.md)。
+  5.8 headless 导入字段位置、厘米 FBX、官方弓体库存迁移与 C++ 编译陷阱：[第一人称弓与部件表](references/first-person-bow-parts.md)。
   手型／掌面／弦接触另读 [弓手型与弦接触](../ue5-fps-arms-animation/references/bow-hand-string-contact.md)；仅在用户要求检查时运行 `Tools/Bow/check_bow_consistency.py`。
 - 伐木斧、矿镐的双手装备、低伤害自卫、采集范围与旧存档迁移：[采集工具战斗接入](references/harvesting-tools.md)。同文档含 2026-09-24 的四栏数值改造口径（握把／握柄／改件／主部件，采集与自卫分开结算，真实时钟与作者秒换算）；改 `tool-gunsmith.json` 后跑 `Tools/Production/check_tool_modification_consistency.py` 做离线自检，口径与枪械的 `check_attachment_consistency.py` 同源。
 - 砍树木材占 1×2、掉落全程只用短原木 `SM_PoplarLog_Solid_A`、图标按枪械剪影居中离线栅格化：[木材掉落与图标](references/harvest-wood-drop.md)。不要用场景捕获导出当图标交付。

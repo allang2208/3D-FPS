@@ -18,3 +18,5 @@
 `bows.json` 表现版本 14，弓体 `/Game/Weapons/DarkBow20260925/WoodLongbow20260925/SM_DarkBow_WoodLongbow`。旧存档若仍挂 `RiserForm` 等官方弓体，会在加载时换成这把；玩家自制换件不覆盖。回执 `import_receipt.json`。已打开编辑器时走 `mcp_call_codex.ps1 -PythonScript`；未运行时走 `Scripts/run_headless.ps1`。
 
 本次未做游戏测试。
+
+后续玩法续接见 [选箭与箭支拾回（2026-09-26）](dark-bow-arrow-loop-20260926.md)，该批保留本页的弓体和 ContactV9 动作。

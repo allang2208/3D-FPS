@@ -13,6 +13,7 @@ class AFPSGAMECharacter;
 class UBowPartComponent;
 class UCameraComponent;
 class UAnimSequence;
+class UAudioComponent;
 class UColdSteelPickupPrompt;
 class UColdSteelStatusModel;
 class USceneComponent;
@@ -23,7 +24,7 @@ class UStaticMeshComponent;
 struct FColdSteelItem;
 struct FStreamableHandle;
 
-/** 弓的一条时钟上的环节：搭箭 → 拉开 → 保持 → 放弦 → 回收。 */
+/** 弓的一条时钟上的环节：到达拉弓首帧 → 拉开 → 保持 → 放弦 → 回收；R 可单独搭箭。 */
 UENUM()
 enum class EBowStage : uint8
 {
@@ -35,6 +36,8 @@ enum class EBowStage : uint8
     Holding,
     Release,
     Recover,
+    DrawEntry,
+    LetDown,
 };
 
 /**
@@ -70,18 +73,27 @@ public:
     UFUNCTION(BlueprintPure, Category="Bow") int32 ArrowsInPouch() const;
     FString StatusLine() const;
 
-    /** 左键按下：弦上无箭先搭箭，已搭箭开始拉弓；箭支只在成功发射时扣除。 */
+    /** 左键按下：0.2 秒到达拉弓首帧，再开始拉弓；箭支只在成功发射时扣除。 */
     void BeginPrimaryAttack();
     /** 从箭袋取箭上弦（R 键／自动搭箭共用）；弦上已有箭时什么都不做。 */
     void BeginNock();
-    /** 左键松开或满拉力竭：按当前拉距结算并发射；中断另走 CancelAction。 */
+    /** Save the selected arrow type, then nock it; spending still happens only at launch. */
+    bool SwitchArrow(const FString& Target);
+    /** 左键松开：拉距不足 50% 缓收弓；达到门槛按当前拉距结算。满拉力竭仍会发射。 */
     void ReleasePrimaryAttack();
-    /** 右键按住：稳持（呼吸幅度下降），与枪械机瞄共用"稳定"语义。 */
+    /** 右键：连续 ADS 对位与轻度变焦，不重启当前拉弓动作。 */
     void SetSteadyHeld(bool bHeld) { bSteadyHeld = bHeld; }
+    bool IsAimHeld() const { return IsEquipped() && bSteadyHeld; }
+    float AimAlpha() const { return AimProgress; }
+    float AimVerticalFOV(float BaseFOV) const { return BaseFOV * AimFOVScale; }
+    /** Camera-right/up slope, shared by the HUD projection and the release ray. */
+    float ShotSpread() const;
+    bool ShouldShowCrosshair() const;
+    bool HasPhysicalSight() const { return bHasAimSight; }
     /** 左键按住状态：决定"搭箭"完成后是否顺势续上拉弓（与剑的蓄力释放同一口径）。 */
     void SetTriggerHeld(bool bHeld) { bTriggerHeld = bHeld; }
     /** 切枪／翻越／施法等更高优先级打断：收弓，不结算发射。 */
-    void CancelAction();
+    void CancelAction(bool bImmediate = true);
     /** 弓与镜头读同一 age：角色在自己的相机合成之前推进这只时钟。 */
     void AdvanceActionBeforeCamera(float Delta);
     /** 相机局部位移（cm）与旋转（度），由角色叠加到既有镜头反馈上。 */
@@ -91,7 +103,7 @@ public:
     FString ArrowDefinition() const { return ArrowId; }
 
     /**
-     * 部件表查询。弓体（riser）、弓弦（string）、弦上箭（arrow_rest）是三个独立部件，
+     * 部件表查询。弓体（riser）、弓弦（string）、弦上箭（arrow）是三个独立部件，
      * 各自一个挂点组件；改造系统只写数据键（`bow_part_<槽名>_mesh` 等）再调
      * `RefreshEquipment`，不需要动状态机与弹道。槽名清单来自 `bow_part_slots`。
      */
@@ -108,7 +120,7 @@ protected:
     UPROPERTY(Transient) TObjectPtr<USceneComponent> Pivot;
     /** 弓的部件表：键是槽名，值是该部件的挂点组件（实体网格与细杆都是它的子件）。 */
     UPROPERTY(Transient) TMap<FName, TObjectPtr<UBowPartComponent>> Parts;
-    /** 每个部件的程序化细杆句柄：string 两条（上／下弓梢到弦结点），arrow_rest 一条。 */
+    /** 每个部件的程序化细杆句柄：string 两条（上／下弓梢到弦结点），arrow 一条。 */
     TMap<FName, TArray<int32>> PartRods;
     /** V7 裸手 Bow 原生骨架，外观装备使用匹配的 Bow 蒙皮派生。 */
     UPROPERTY(Transient) TObjectPtr<UBowArmsMeshComponent> Viewmodel;
@@ -140,7 +152,7 @@ private:
     float NockSeconds = .68f, DrawSeconds = 1.4f, HoldSeconds = 2.2f, ReleaseSeconds = .3f,
           RecoverSeconds = .34f;
     // 数值。`critical_chance` / `toughness_multiplier` 缺省即不覆盖射击瞬间的修炼快照。
-    float FullDamage = 46.f, MinDamageRatio = .25f, FullSpeedCM = 9800.f, MinSpeedRatio = .35f,
+    float FullDamage = 69.f, FullSpeedCM = 9800.f, MinSpeedRatio = .35f,
           GravityCM = 520.f, RangeCM = 3200.f, StaminaCost = 3.f, CriticalChance = -1.f,
           ToughnessMultiplier = 0.f;
     // 当前暗纹猎弓的几何回落（cm / 度）；新弓体必须提供自己的锚点，不能由包络猜弦侧。
@@ -158,7 +170,7 @@ private:
     /** Bow 动画已按相机 +X 前、+Y 右、+Z 上导出。 */
     FRotator ArmsRotation = FRotator::ZeroRotator;
     bool bUsesArms = false, bArrowNocked = false, bSteadyHeld = false, bTriggerHeld = false,
-         bDrawSoundPlayed = false, bHasRightHandBone = false;
+         bHasRightHandBone = false;
 
     static const TCHAR* ClipIdle;
     static const TCHAR* ClipDraw;
@@ -167,7 +179,7 @@ private:
     static const TCHAR* ClipNock;
 
     bool CanUse() const;
-    void SetStage(EBowStage Next, float Seconds);
+    void SetStage(EBowStage Next, float Seconds, float StartSeconds = 0.f);
     void ApplyNumbers(const FColdSteelItem* Item);
     /** 按 `bow_part_slots` 建／补部件，并读每件的 `_rods`／`_radius_cm`；资源路径见 `CollectPartAssets`。 */
     void ApplyParts(const FColdSteelItem* Item);
@@ -176,7 +188,7 @@ private:
     /** 把各槽要加载的资产路径收进一次异步加载；同时算出"表现签名"用于判断是否需要重载。 */
     FString PresentationSignature(const FColdSteelItem* Item) const;
     void CollectPartAssets(const FColdSteelItem* Item);
-    bool ConsumeArrowFromPouch(FString& Reason);
+    bool ConsumeArrowFromPouch(FString& Reason, bool& bSpentOwnedArrow);
     bool LooseArrow(float Ratio);
     FVector NockPoint() const;
     FVector ArrowTipPoint() const;
@@ -192,16 +204,78 @@ private:
 
     static const TCHAR* SlotRiser;
     static const TCHAR* SlotString;
-    static const TCHAR* SlotArrowRest;
+    static const TCHAR* SlotArrow;
 
     /** 当前正在采样手臂的片段名；换片段时才重新起播。 */
     FName CurrentClip;
     bool bPresentationReady = false, bHasGripMarker = false, bHasNockMarker = false;
     bool bNockSoundPlayed = false;
+    /** Authored nock endpoints match Draw[0], including the loaded ready pose. */
+    bool bNockKeepsDrawPose = false;
     float EquipSeconds = .45f, NockContactFraction = .82f;
     float ReleaseRatio = 0.f;
     FVector ReleasedNockCM = FVector::ZeroVector;
     TArray<float> DrawCurve;
     void SampleArms();
     float ClipLength(const TCHAR* Name) const;
+    /** 与蓄力分开的入场时钟：目标固定为 Draw 首帧，不提前推进拉距。 */
+    float DrawEntrySeconds = .2f;
+    void BeginDrawEntry();
+
+    /** Short, separately authored handling and draw voices; owned by this bow. */
+    UPROPERTY(Transient) TObjectPtr<USoundBase> TakeArrowSound;
+    UPROPERTY(Transient) TObjectPtr<UAudioComponent> DrawAudio;
+    UPROPERTY(Transient) TObjectPtr<UAudioComponent> HandlingAudio;
+    float TakeArrowContactFraction = .28f;
+    bool bTakeArrowSoundPlayed = false;
+    void StopDrawAudio();
+    void StopHandlingAudio();
+    void PlayHandlingSound(USoundBase* Sound, float Volume, float FitSeconds = 0.f);
+
+    // Reusable pose layers share one pivot for hands, bow, string and arrow.
+    // They are independent of the action clock and never restart a clip.
+    float AimProgress = 0.f, CrouchProgress = 0.f;
+    // Shaped ADS weight shared by pose, camera zoom and spread. Reversals
+    // preserve the current velocity through a short bounded braking segment.
+    float AimVelocity = 0.f, AimSegmentStart = 0.f, AimSegmentVelocity = 0.f;
+    float AimSegmentElapsed = 0.f, AimSegmentDuration = 0.f;
+    bool bAimBlendTarget = false, bAimBraking = false;
+    void AdvanceAimWeight(float Delta, bool bTarget);
+    float AimInSeconds = .18f, AimOutSeconds = .16f, AimFOVScale = .9f;
+    float CrouchInSeconds = .18f, CrouchOutSeconds = .22f, CrouchCantDegrees = -55.f;
+    FVector AimRestLocationCM = FVector(78.f, 10.f, -12.f);
+    FRotator AimBowRotation = FRotator::ZeroRotator;
+    FVector CrouchOffsetCM = FVector(-1.5f, -2.f, -.5f);
+    void UpdatePoseLayers();
+    /** Animated riser in the unlayered pivot space, shared by aim and geometry. */
+    FTransform AnimatedRiserMount() const;
+
+    FVector HipOffsetCM = FVector(0.f, 12.f, -6.f);
+    float HipSpread = .035f, MoveSpreadMax = .04f, AirSpreadMax = .05f;
+    float ShotSpreadStep = .012f, SpreadRecovery = .06f, CrouchSpreadScale = .7f;
+    float MoveSpread = 0.f, AirSpread = 0.f, ShotBloom = 0.f;
+    float HipAimProgress = 0.f;
+    bool bOriginalAudioSpeed = false;
+    // Local physical sight pin; optional so other bow recipes retain rest ADS.
+    FVector AimSightPointCM = FVector::ZeroVector;
+    float AimSightDistanceCM = 78.f;
+    bool bHasAimSight = false;
+    float FlexDistribution = 1.15f, StringReturnSeconds = .032f, RingSeconds = .17f, FeedbackScale = 1.f;
+    float LetDownPhase = 0.f, LetDownRatio = 0.f;
+    float ReleasePulse() const;
+    float ReleaseRing() const;
+    // Entry clips carry the new arrow while the string remains unloaded.
+    bool bEntryNeedsArrow = false, bChainEntry = false, bNockHasCarryAxis = false;
+    float ReleaseFeedbackAge = -1.f;
+    const TCHAR* DrawEntryClip() const;
+    // A shared, distance-driven two-step phase; no gameplay timing is delayed.
+    float GaitPhase = 0.f, GaitWeight = 0.f, GaitWeightVelocity = 0.f;
+    float SprintBlend = 0.f, SprintBlendVelocity = 0.f;
+    float TravelSpeed = 0.f, TravelSpeedVelocity = 0.f;
+    FVector TravelDirection = FVector::ZeroVector, TravelDirectionVelocity = FVector::ZeroVector;
+    FVector CarryOffset = FVector::ZeroVector;
+    FRotator CarryRotation = FRotator::ZeroRotator;
+    float TurnFollow = 0.f, TurnFollowVelocity = 0.f, PreviousViewYaw = 0.f;
+    bool bHaveViewYaw = false;
+    void AdvanceLocomotion(float Delta, bool bUsable);
 };

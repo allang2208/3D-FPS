@@ -1,4 +1,7 @@
 #include "WeaponStatEvaluation.h"
+#include "WeaponDamagePanel.h"
+#include "Bow/BowDamageTuning.h"
+#include "GunsmithSystem.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "../FPSGAMECharacter.h"
@@ -11,9 +14,11 @@ double ColdSteelWeaponStats::Damage(const FColdSteelItem& Item,const UColdSteelS
 
 FWeaponDamageParts ColdSteelWeaponStats::DamageParts(const FColdSteelItem& Item,const UColdSteelStatusModel* Model,double Base)
 {
+    if(Model&&ColdSteelInventory::IsBow(Item))
+        if(const auto* G=Model->GetGameInstance()->GetSubsystem<UGunsmithSystem>())Base*=G->Calculate(Item.Definition,G->Installed(Item)).Bow.Damage;
     const float Attack=Model?Model->Derived(TEXT("atk")):0;
     const auto* Enhancement=Model?Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;
-    return ColdSteelWeaponDamage::Evaluate(Item,Model,Enhancement?Enhancement->ProcessedDamage(Item,Base,Attack):Base+Attack);
+    return ColdSteelWeaponDamage::Evaluate(Item,Model,Enhancement?Enhancement->ProcessedDamage(Item,Base,Attack):Base+Attack*ColdSteelBow::DamageCoefficientScale(Item));
 }
 double ColdSteelWeaponStats::Interval(const FColdSteelItem* Item,const UColdSteelStatusModel* Model,double Base)
 {
@@ -22,6 +27,8 @@ double ColdSteelWeaponStats::Interval(const FColdSteelItem* Item,const UColdStee
     // the fire interval (2026-09-17). Melee keeps its own dex-based attack rate.
     // Only item and skill sources still modify the interval here.
     float Result=Base;
+    if(Item&&ColdSteelInventory::IsBow(*Item))
+        if(const auto* G=Model->GetGameInstance()->GetSubsystem<UGunsmithSystem>())Result*=G->Calculate(Item->Definition,G->Installed(*Item)).Bow.Draw;
     if(Item)if(const auto* Enhancement=Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
         Result*=Enhancement->Effect(*Item,TEXT("attackIntervalMul"),1);
     if(Item&&Model->WeaponMastery(Item)==TEXT("bowMastery"))Result*=1-Model->MasteryEffect(TEXT("bowMastery")).CooldownReduction;

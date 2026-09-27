@@ -64,6 +64,7 @@ int32 UColdSteelAmmoWheel::AddDisc(const FString& Id,int32 Hand)
     if(!Gun)return INDEX_NONE;
     FColdSteelAmmoWheelDisc Disc;
     Disc.Instance=Id;Disc.Hand=Hand;Disc.Choices=Model->CompatibleAmmo(*Gun);
+    Disc.bBow=ColdSteelInventory::IsBow(*Gun);
     Disc.LoadedId=Model->AmmoDefinitionFor(*Gun);
     Disc.Caption=ColdSteelInventory::Text(*Gun,TEXT("name"));
     for(const auto& Choice:Disc.Choices)Model->AmmoIcon(Choice.Id);
@@ -311,9 +312,10 @@ int32 UColdSteelAmmoWheel::NativePaint(const FPaintArgs& Args,const FGeometry& G
         // 非活动盘没有待切换目标，盘心显示这只手当前装填什么，提示把鼠标移过来。
         const FColdSteelAmmoChoice* Loaded=nullptr;
         for(const auto& Choice:Disc.Choices)if(Choice.Current){Loaded=&Choice;break;}
-        TextAt(Active?(Selected?Selected->Name:TEXT("切换弹种")):Loaded?Loaded->Name:TEXT("切换弹种"),Center-FVector2f(0,18*Fit/Scale),16*Fit,ColdSteelUI::TextPrimary,false,Active&&Selected!=nullptr);
-        TextAt(Active?(Selected?FString::Printf(TEXT("%lld 发"),Selected->Count):TEXT("移动鼠标选择")):TEXT("移动鼠标至此"),Center+FVector2f(0,5*Fit/Scale),12*Fit,ColdSteelUI::TextSecondary);
-        TextAt(Active?(Selected&&Selected->Count>0&&!Selected->Current?TEXT("松开 R 换弹"):TEXT("松开 R 取消")):FString(),Center+FVector2f(0,26*Fit/Scale),12*Fit,ColdSteelUI::TextSecondary);
+        const TCHAR* SelectionLabel=Disc.bBow?TEXT("选择箭种"):TEXT("切换弹种");
+        TextAt(Active?(Selected?Selected->Name:SelectionLabel):Loaded?Loaded->Name:SelectionLabel,Center-FVector2f(0,18*Fit/Scale),16*Fit,ColdSteelUI::TextPrimary,false,Active&&Selected!=nullptr);
+        TextAt(Active?(Selected?FString::Printf(TEXT("%lld %s"),Selected->Count,Disc.bBow?TEXT("支"):TEXT("发")):TEXT("移动鼠标选择")):TEXT("移动鼠标至此"),Center+FVector2f(0,5*Fit/Scale),12*Fit,ColdSteelUI::TextSecondary);
+        TextAt(Active?(Selected&&Selected->Count>0&&!Selected->Current?(Disc.bBow?TEXT("松开 R 换箭"):TEXT("松开 R 换弹")):TEXT("松开 R 取消")):FString(),Center+FVector2f(0,26*Fit/Scale),12*Fit,ColdSteelUI::TextSecondary);
         TextAt(Disc.Caption,Center-FVector2f(0,R+47/Scale),16*Fit,ColdSteelUI::TextPrimary);
         const FString EffectId=Selected?Selected->Id:Disc.LoadedId;
         TextAt(Model->AmmoEffectSummary(EffectId),Center-FVector2f(0,R+24/Scale),12*Fit,ColdSteelUI::TextSecondary);
@@ -365,7 +367,7 @@ int32 UColdSteelAmmoWheel::NativePaint(const FPaintArgs& Args,const FGeometry& G
     }
     else
     {
-        TextAt(TEXT("移动鼠标选择 · 松开 R 换弹"),Mid+FVector2f(0,R+24/Scale),14,ColdSteelUI::TextPrimary);
+        TextAt(!Discs.IsEmpty()&&Discs[0].bBow?TEXT("移动鼠标选箭 · 松开 R 换箭"):TEXT("移动鼠标选择 · 松开 R 换弹"),Mid+FVector2f(0,R+24/Scale),14,ColdSteelUI::TextPrimary);
         TextAt(TEXT("移回中心取消 · Esc 取消"),Mid+FVector2f(0,R+46/Scale),12,ColdSteelUI::TextSecondary);
     }
     // ⑨ 指针：银白圆点 + 深色描边；悬停在可提交弹种上时加一圈淡淡银白光晕。

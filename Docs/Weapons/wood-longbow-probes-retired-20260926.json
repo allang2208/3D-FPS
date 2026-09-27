@@ -1,0 +1,195 @@
+{
+  "task": "wood-longbow-probes-20260926",
+  "count": 21,
+  "items": [
+    {
+      "source": "SourceAssets\\DarkBow20260925\\WoodLongbow20260925\\probe_imported.py",
+      "trash": "trash\\wood-longbow-probes-20260926\\SourceAssets\\DarkBow20260925\\WoodLongbow20260925\\probe_imported.py",
+      "bytes": 1214,
+      "sha256": "CDECEA5DE4AEA5D1EB83BFDF35033B5C3CB8F818C4C8403A4854E4A2231C28D9",
+      "reason": "one-shot Nanite/LOD probe; not an author entry",
+      "replacement": "WoodLongbow20260925/import_wood_longbow.py",
+      "moved_sha256": "CDECEA5DE4AEA5D1EB83BFDF35033B5C3CB8F818C4C8403A4854E4A2231C28D9"
+    },
+    {
+      "source": "SourceAssets\\DarkBow20260925\\WoodLongbow20260925\\import_glb_test.py",
+      "trash": "trash\\wood-longbow-probes-20260926\\SourceAssets\\DarkBow20260925\\WoodLongbow20260925\\import_glb_test.py",
+      "bytes": 1601,
+      "sha256": "EB4364A9F139DC28A1533C8393F95E9DE6FAFAF39C244AA9E0E626E901D639FA",
+      "reason": "Interchange GLB produced no new mesh",
+      "replacement": "WoodLongbow20260925/import_wood_longbow.py + Export/SM_DarkBow_WoodLongbow_cm.fbx",
+      "moved_sha256": "EB4364A9F139DC28A1533C8393F95E9DE6FAFAF39C244AA9E0E626E901D639FA"
+    },
+    {
+      "source": "SourceAssets\\DarkBow20260925\\WoodLongbow20260925\\import_glb_fresh.py",
+      "trash": "trash\\wood-longbow-probes-20260926\\SourceAssets\\DarkBow20260925\\WoodLongbow20260925\\import_glb_fresh.py",
+      "bytes": 2010,
+      "sha256": "2542DBFA5F39218AA153F2C9C77C90C322FDB7D975D1FB8657B2AF9C649B7D01",
+      "reason": "fresh-path GLB import produced nothing",
+      "replacement": "WoodLongbow20260925/import_wood_longbow.py + Export/SM_DarkBow_WoodLongbow_cm.fbx",
+      "moved_sha256": "2542DBFA5F39218AA153F2C9C77C90C322FDB7D975D1FB8657B2AF9C649B7D01"
+    },
+    {
+      "source": "SourceAssets\\DarkBow20260925\\WoodLongbow20260925\\import_cm_variants.py",
+      "trash": "trash\\wood-longbow-probes-20260926\\SourceAssets\\DarkBow20260925\\WoodLongbow20260925\\import_cm_variants.py",
+      "bytes": 2272,
+      "sha256": "568E3BD64997BE972468A3FC32CEC89BCD85CA691DC17B405D9AE80A135174B0",
+      "reason": "cm-full vs 40k comparison probe",
+      "replacement": "WoodLongbow20260925/import_wood_longbow.py",
+      "moved_sha256": "568E3BD64997BE972468A3FC32CEC89BCD85CA691DC17B405D9AE80A135174B0"
+    },
+    {
+      "source": "SourceAssets\\DarkBow20260925\\WoodLongbow20260925\\export_cm_variants.py",
+      "trash": "trash\\wood-longbow-probes-20260926\\SourceAssets\\DarkBow20260925\\WoodLongbow20260925\\export_cm_variants.py",
+      "bytes": 1087,
+      "sha256": "D75FBBE64E1D49BE7407A654EDBADE4572F9B0767D4895A90DC2A042A6C01B9C",
+      "reason": "one-shot *100+decimate probe; would clobber the editable mesh if rerun",
+      "replacement": "WoodLongbow20260925/export_fbx_mesh.py",
+      "moved_sha256": "D75FBBE64E1D49BE7407A654EDBADE4572F9B0767D4895A90DC2A042A6C01B9C"
+    },
+    {
+      "source": "SourceAssets\\DarkBow20260925\\WoodLongbow20260925\\Export\\SM_DarkBow_WoodLongbow.fbx",
+      "trash": "trash\\wood-longbow-probes-20260926\\SourceAssets\\DarkBow20260925\\WoodLongbow20260925\\Export\\SM_DarkBow_WoodLongbow.fbx",
+      "bytes": 12683196,
+      "sha256": "34559EB487048B1DC29D7A25DB30F6B5213C7489FEF2C83B06B7AC773166D840",
+      "reason": "meter-scale FBX; FbxFactory collapsed it to ~1320 tris",
+      "replacement": "Export/SM_DarkBow_WoodLongbow_cm.fbx",
+      "moved_sha256": "34559EB487048B1DC29D7A25DB30F6B5213C7489FEF2C83B06B7AC773166D840"
+    },
+    {
+      "source": "SourceAssets\\DarkBow20260925\\WoodLongbow20260925\\Export\\SM_DarkBow_WoodLongbow.glb",
+      "trash": "trash\\wood-longbow-probes-20260926\\SourceAssets\\DarkBow20260925\\WoodLongbow20260925\\Export\\SM_DarkBow_WoodLongbow.glb",
+      "bytes": 49281040,
+      "sha256": "CCB329738DA74B9636924D3C05887029A6D00E291290C86BF7C91FFF7E67CD17",
+      "reason": "authored GLB; Interchange import empty",
+      "replacement": "Export/SM_DarkBow_WoodLongbow_cm.fbx",
+      "moved_sha256": "CCB329738DA74B9636924D3C05887029A6D00E291290C86BF7C91FFF7E67CD17"
+    },
+    {
+      "source": "SourceAssets\\DarkBow20260925\\WoodLongbow20260925\\Export\\SM_DarkBow_WoodLongbow_cm40k.fbx",
+      "trash": "trash\\wood-longbow-probes-20260926\\SourceAssets\\DarkBow20260925\\WoodLongbow20260925\\Export\\SM_DarkBow_WoodLongbow_cm40k.fbx",
+      "bytes": 1325196,
+      "sha256": "F885B37CB16F646FD08D2AB1548FABF95D8911FD1FE7DBE351FBAC5B47EC53A3",
+      "reason": "18%% decimate comparison only; not the shipped mesh",
+      "replacement": "Export/SM_DarkBow_WoodLongbow_cm.fbx",
+      "moved_sha256": "F885B37CB16F646FD08D2AB1548FABF95D8911FD1FE7DBE351FBAC5B47EC53A3"
+    },
+    {
+      "source": "SourceAssets\\DarkBow20260925\\WoodLongbow20260925\\Export\\SM_DarkBow_WoodLongbow.fbm\\Image_0.png",
+      "trash": "trash\\wood-longbow-probes-20260926\\SourceAssets\\DarkBow20260925\\WoodLongbow20260925\\Export\\SM_DarkBow_WoodLongbow.fbm\\Image_0.png",
+      "bytes": 4725859,
+      "sha256": "023E57083975984250EA5811FEF40D6DC051013F9E5D515DA8605173830A1D55",
+      "reason": "embedded-texture sidecar from failed meter FBX export",
+      "replacement": "WoodLongbow20260925/Textures/*.png",
+      "moved_sha256": "023E57083975984250EA5811FEF40D6DC051013F9E5D515DA8605173830A1D55"
+    },
+    {
+      "source": "SourceAssets\\DarkBow20260925\\WoodLongbow20260925\\Export\\SM_DarkBow_WoodLongbow.fbm\\Image_2.png",
+      "trash": "trash\\wood-longbow-probes-20260926\\SourceAssets\\DarkBow20260925\\WoodLongbow20260925\\Export\\SM_DarkBow_WoodLongbow.fbm\\Image_2.png",
+      "bytes": 14176803,
+      "sha256": "AC72C2B82DD513A6477F84548A6E2005A9D3D44796402D233A7349CD0995E394",
+      "reason": "embedded-texture sidecar from failed meter FBX export",
+      "replacement": "WoodLongbow20260925/Textures/*.png",
+      "moved_sha256": "AC72C2B82DD513A6477F84548A6E2005A9D3D44796402D233A7349CD0995E394"
+    },
+    {
+      "source": "SourceAssets\\DarkBow20260925\\Logs\\wood_longbow_import.log",
+      "trash": "trash\\wood-longbow-probes-20260926\\SourceAssets\\DarkBow20260925\\Logs\\wood_longbow_import.log",
+      "bytes": 273454,
+      "sha256": "53C7D7F16C83D86776A7783703B46F9FA5D48416FD531BFD82144987CE2E4D1F",
+      "reason": "failed import commandlet log",
+      "replacement": "Docs/Weapons/dark-bow-wood-longbow-20260925.md",
+      "moved_sha256": "53C7D7F16C83D86776A7783703B46F9FA5D48416FD531BFD82144987CE2E4D1F"
+    },
+    {
+      "source": "Content\\\\Weapons\\\\DarkBow20260925\\\\WoodLongbowCmFull\\\\SM_DarkBow_WoodLongbowCmFull.uasset",
+      "trash": "trash\\wood-longbow-probes-20260926\\Content\\Weapons\\DarkBow20260925\\WoodLongbowCmFull\\SM_DarkBow_WoodLongbowCmFull.uasset",
+      "bytes": 5160282,
+      "sha256": "CBA601B04CCBAFA80C99ABB56958CC5AAF9A6B2534F0E0E9D33C5EF29BAEA369",
+      "reason": "cm-full import probe; not the shipped mesh",
+      "replacement": "Content/Weapons/DarkBow20260925/WoodLongbow20260925/SM_DarkBow_WoodLongbow",
+      "moved_sha256": "CBA601B04CCBAFA80C99ABB56958CC5AAF9A6B2534F0E0E9D33C5EF29BAEA369"
+    },
+    {
+      "source": "Content\\\\Weapons\\\\DarkBow20260925\\\\WoodLongbowCm40k\\\\SM_DarkBow_WoodLongbowCm40k.uasset",
+      "trash": "trash\\wood-longbow-probes-20260926\\Content\\Weapons\\DarkBow20260925\\WoodLongbowCm40k\\SM_DarkBow_WoodLongbowCm40k.uasset",
+      "bytes": 1271737,
+      "sha256": "8DB55EAFDD5AF9AA09DF9985A7D265C18CFA941473C76C4E6E80F512D7BB9AE7",
+      "reason": "40k decimate import probe; not the shipped mesh",
+      "replacement": "Content/Weapons/DarkBow20260925/WoodLongbow20260925/SM_DarkBow_WoodLongbow",
+      "moved_sha256": "8DB55EAFDD5AF9AA09DF9985A7D265C18CFA941473C76C4E6E80F512D7BB9AE7"
+    },
+    {
+      "source": "SourceAssets\\\\DarkBow20260925\\\\WoodFinish20260925\\\\probe_wood_library.py",
+      "trash": "trash\\wood-longbow-probes-20260926\\SourceAssets\\DarkBow20260925\\WoodFinish20260925\\probe_wood_library.py",
+      "bytes": 4623,
+      "sha256": "096D0767B154F95F54EDBE3826978C2D9AE37A359EED2DAFF8C7D7F46518D94C",
+      "reason": "one-shot wood-library dump; not an author entry",
+      "replacement": "WoodFinish20260925/recolor_structure_woods.py",
+      "moved_sha256": "096D0767B154F95F54EDBE3826978C2D9AE37A359EED2DAFF8C7D7F46518D94C"
+    },
+    {
+      "source": "SourceAssets\\\\DarkBow20260925\\\\WoodFinish20260925\\\\probe_mcp_out.txt",
+      "trash": "trash\\wood-longbow-probes-20260926\\SourceAssets\\DarkBow20260925\\WoodFinish20260925\\probe_mcp_out.txt",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "empty one-shot MCP log",
+      "replacement": "Docs/Weapons/dark-bow-wood-finish-20260925.md",
+      "moved_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "source": "SourceAssets\\\\DarkBow20260925\\\\WoodFinish20260925\\\\recolor_mcp_out.txt",
+      "trash": "trash\\wood-longbow-probes-20260926\\SourceAssets\\DarkBow20260925\\WoodFinish20260925\\recolor_mcp_out.txt",
+      "bytes": 315,
+      "sha256": "B17F3D0BF486C0E13333DD7DD10F530BB09A61AAE77725FD65BFD5114FDB578F",
+      "reason": "one-shot MCP log",
+      "replacement": "Docs/Weapons/dark-bow-wood-finish-20260925.md",
+      "moved_sha256": "B17F3D0BF486C0E13333DD7DD10F530BB09A61AAE77725FD65BFD5114FDB578F"
+    },
+    {
+      "source": "SourceAssets\\\\DarkBow20260925\\\\WoodFinish20260925\\\\ue-install-01.txt",
+      "trash": "trash\\wood-longbow-probes-20260926\\SourceAssets\\DarkBow20260925\\WoodFinish20260925\\ue-install-01.txt",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "empty one-shot commandlet log",
+      "replacement": "Docs/Weapons/dark-bow-wood-finish-20260925.md",
+      "moved_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "source": "SourceAssets\\\\DarkBow20260925\\\\RiserForm20260925\\\\import_mcp_out.txt",
+      "trash": "trash\\wood-longbow-probes-20260926\\SourceAssets\\DarkBow20260925\\RiserForm20260925\\import_mcp_out.txt",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "empty one-shot MCP log",
+      "replacement": "RiserForm20260925/import_riser_form.py",
+      "moved_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "source": "SourceAssets\\\\DarkBow20260925\\\\RiserDetail20260925\\\\ue-axis-01.txt",
+      "trash": "trash\\wood-longbow-probes-20260926\\SourceAssets\\DarkBow20260925\\RiserDetail20260925\\ue-axis-01.txt",
+      "bytes": 521,
+      "sha256": "E558E6D7AF5E03D273D167DD7C29B2454B3AE6D7D32FEFDFE3191D7A06C8C0B5",
+      "reason": "one-shot axis-fix commandlet log",
+      "replacement": "RiserDetail20260925/fix_riser_axis.py",
+      "moved_sha256": "E558E6D7AF5E03D273D167DD7C29B2454B3AE6D7D32FEFDFE3191D7A06C8C0B5"
+    },
+    {
+      "source": "SourceAssets\\\\DarkBow20260925\\\\RiserDetail20260925\\\\ue-import-01.txt",
+      "trash": "trash\\wood-longbow-probes-20260926\\SourceAssets\\DarkBow20260925\\RiserDetail20260925\\ue-import-01.txt",
+      "bytes": 553,
+      "sha256": "8B1516590C34E69F5CBD7D12705CBF61EF5B31DC13467457B83AD80353080FF0",
+      "reason": "one-shot import commandlet log",
+      "replacement": "RiserDetail20260925/import_riser_detail.py",
+      "moved_sha256": "8B1516590C34E69F5CBD7D12705CBF61EF5B31DC13467457B83AD80353080FF0"
+    },
+    {
+      "source": "SourceAssets\\\\DarkBow20260925\\\\RiserDetail20260925\\\\ue-import-02.txt",
+      "trash": "trash\\wood-longbow-probes-20260926\\SourceAssets\\DarkBow20260925\\RiserDetail20260925\\ue-import-02.txt",
+      "bytes": 982,
+      "sha256": "50FDECA6F5E35D0A22A8220652767E5E483FD62CC970FB20CB7D16C98705D143",
+      "reason": "one-shot import commandlet log",
+      "replacement": "RiserDetail20260925/import_riser_detail.py",
+      "moved_sha256": "50FDECA6F5E35D0A22A8220652767E5E483FD62CC970FB20CB7D16C98705D143"
+    }
+  ]
+}

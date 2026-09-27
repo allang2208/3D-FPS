@@ -190,6 +190,16 @@ void UDevelopmentPanelWidget::PopulateItems()
             ItemOptions.Add(Entry);
             ItemChoice->AddOption(FString::Printf(TEXT("%s · %s"), *Entry.Group, *Entry.Name));
         }
+        // Numeric arrow types live in AmmoCatalog rather than inventory item
+        // definitions. Expose them through the existing developer grant control.
+        for(const auto& Ammo:Model->AmmoCatalog())
+        {
+            if(!Ammo.Enabled||Ammo.Group!=TEXT("arrow")||ItemOptions.ContainsByPredicate(
+                [&](const auto& Entry){return Entry.Definition==Ammo.Id;}))continue;
+            FColdSteelCatalogEntry Entry;Entry.Definition=Ammo.Id;Entry.Name=Ammo.Name;Entry.Group=TEXT("箭矢（弹药袋）");
+            ItemOptions.Add(Entry);
+            ItemChoice->AddOption(FString::Printf(TEXT("%s · %s"),*Entry.Group,*Entry.Name));
+        }
     }
     int32 Index = INDEX_NONE;
     if (!Previous.IsEmpty())
