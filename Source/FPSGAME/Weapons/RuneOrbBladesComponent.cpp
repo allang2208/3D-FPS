@@ -21,7 +21,7 @@ URuneOrbBladesComponent::URuneOrbBladesComponent()
 {
     PrimaryComponentTick.bCanEverTick = true;
     static ConstructorHelpers::FObjectFinder<UStaticMesh> BladeAsset(
-        TEXT("/Game/Weapons/RuneOrbBlade20260921/SM_RuneOrbBlade.SM_RuneOrbBlade"));
+        TEXT("/Game/Weapons/RuneSpectralBlade20260927/SM_SpectralRuneBlade.SM_SpectralRuneBlade"));
     if (BladeAsset.Succeeded()) BladeMesh = BladeAsset.Object;
 }
 

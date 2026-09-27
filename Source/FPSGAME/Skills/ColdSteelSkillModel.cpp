@@ -78,6 +78,9 @@ FQuickCombatCast UColdSteelStatusModel::QuickCombatStats(int32 AtLevel,const FMe
     C.Damage=(T.DamageBase+T.DamagePerLevel*L+Strength*(T.StrengthFactorBase+T.StrengthFactorPerLevel*L))*C.DamageMultiplier;
     C.StunSeconds=T.StunBase+T.StunPerLevel*L;
     C.KnockbackCM=T.KnockbackCM*float(Mods.QuickCombatKnockback);
+    C.ToughnessMultiplier=float(Mods.QuickCombatToughnessMultiplier());
+    C.BleedChance=FMath::Clamp(float(Mods.QuickCombatBleedChance),0.f,1.f);
+    C.bAreaHit=Mods.bQuickCombatAOE;
     C.RangeCM=T.RangeCM;
     C.CooldownSeconds=T.Cooldown;
     return C;

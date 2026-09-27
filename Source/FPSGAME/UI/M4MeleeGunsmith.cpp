@@ -43,12 +43,20 @@ void UM4GunsmithWidget::AppendMeleeOverview(const FColdSteelItem& Item)
         Row(TEXT("自带侵蚀伤害倍率"),Before.Modifiers.InnateErosionMultiplier,After.Modifiers.InnateErosionMultiplier,2,TEXT("×"));
     Row(TEXT("第二段横斩伤害"),Before.ComboSecondDamage,After.ComboSecondDamage,2,TEXT(""));
     Row(TEXT("第三段突刺伤害"),Before.ComboThirdDamage,After.ComboThirdDamage,2,TEXT(""));
+    Row(TEXT("第三段突刺韧性伤害倍率"),Before.Modifiers.ThirdThrustToughnessMultiplier(),After.Modifiers.ThirdThrustToughnessMultiplier(),2,TEXT("×"));
     Row(TEXT("重击伤害倍率"),Before.HeavyMultiplier,After.HeavyMultiplier,2,TEXT("×"));
     Row(TEXT("重击总伤害"),Before.Damage*Before.HeavyMultiplier,After.Damage*After.HeavyMultiplier,2,TEXT(""));
+    Row(TEXT("重击韧性伤害倍率"),Before.Modifiers.HeavyToughnessMultiplier(),After.Modifiers.HeavyToughnessMultiplier(),2,TEXT("×"));
     Row(TEXT("攻击击退距离"),Before.KnockbackCM,After.KnockbackCM,1,TEXT(" cm"));
     Row(TEXT("快速近战伤害倍率"),Before.QuickCombat.DamageMultiplier,After.QuickCombat.DamageMultiplier,2,TEXT("×"));
     Row(TEXT("快速近战伤害"),Before.QuickCombat.Damage,After.QuickCombat.Damage,2,TEXT(""));
     Row(TEXT("快速近战击退距离"),Before.QuickCombat.KnockbackCM,After.QuickCombat.KnockbackCM,1,TEXT(" cm"));
+    Row(TEXT("快速近战韧性伤害倍率"),Before.QuickCombat.ToughnessMultiplier,After.QuickCombat.ToughnessMultiplier,2,TEXT("×"));
+    Row(TEXT("快速近战命中施加1层流血概率"),Before.QuickCombat.BleedChance*100,After.QuickCombat.BleedChance*100,0,TEXT("%"));
+    Overview.Add({TEXT("快速近战命中方式"),Before.QuickCombat.bAreaHit?TEXT("范围多目标"):TEXT("单目标"),
+        After.QuickCombat.bAreaHit?TEXT("范围多目标"):TEXT("单目标"),
+        Before.QuickCombat.bAreaHit==After.QuickCombat.bAreaHit?TEXT("—"):After.QuickCombat.bAreaHit?TEXT("启用范围攻击"):TEXT("恢复单目标"),
+        Before.QuickCombat.bAreaHit==After.QuickCombat.bAreaHit?0:After.QuickCombat.bAreaHit?1:-1});
     Row(TEXT("魔法值消耗倍率"),Before.Modifiers.MagicCost,After.Modifiers.MagicCost,2,TEXT("×"),true);
     Row(TEXT("魔法技能冷却倍率"),Before.Modifiers.MagicCooldown,After.Modifiers.MagicCooldown,2,TEXT("×"),true);
     Row(TEXT("魔法伤害倍率"),Before.Modifiers.MagicDamage,After.Modifiers.MagicDamage,2,TEXT("×"));

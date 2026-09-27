@@ -196,6 +196,36 @@
         ],
         "animation_folder": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations",
         "appearance": "加长握柄 · 柄尾联动"
+      },
+      "iron_spine_power_grip": {
+        "mesh": "/Game/Weapons/SharedSwordGrips20260927/Rune/SM_RuneGrip_iron_spine_power_grip.SM_RuneGrip_iron_spine_power_grip",
+        "location_cm": [
+          0,
+          0,
+          -4.0
+        ],
+        "interface": "azure_hilt_v1",
+        "pommel_offset_cm": [
+          0,
+          0,
+          0
+        ],
+        "appearance": "贴平钢脊 · 三段人字纹皮革"
+      },
+      "lockweave_guard_grip": {
+        "mesh": "/Game/Weapons/SharedSwordGrips20260927/Rune/SM_RuneGrip_lockweave_guard_grip.SM_RuneGrip_lockweave_guard_grip",
+        "location_cm": [
+          0,
+          0,
+          -4.0
+        ],
+        "interface": "azure_hilt_v1",
+        "pommel_offset_cm": [
+          0,
+          0,
+          0
+        ],
+        "appearance": "交错锁纹织带 · 柔韧稳握"
       }
     },
     "pommel": {

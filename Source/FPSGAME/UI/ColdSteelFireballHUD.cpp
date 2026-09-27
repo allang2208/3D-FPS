@@ -1,6 +1,6 @@
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelQuickSlot.h"
-#include "../Weapons/RuneSwordComponent.h"
+#include "../Weapons/RuneOrbBladesComponent.h"
 #include "Components/Border.h"
 #include "Components/Overlay.h"
 #include "Components/OverlaySlot.h"
@@ -19,8 +19,8 @@ void UColdSteelHUDWidget::RefreshQuickBar()
     // G 槽只在装备符文长剑时占位显示；卸下后连同分隔线收起，其余槽位自动补位。
     if(RuneBladesSlotSurface&&RuneBladesDivider)
     {
-        const auto* Sword=GetOwningPlayerPawn()?GetOwningPlayerPawn()->FindComponentByClass<URuneSwordComponent>():nullptr;
-        const bool bShow=Sword&&Sword->IsEquipped();
+        const auto* Blades=GetOwningPlayerPawn()?GetOwningPlayerPawn()->FindComponentByClass<URuneOrbBladesComponent>():nullptr;
+        const bool bShow=Blades&&Blades->SwordEquipped();
         const auto Visible=bShow?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed;
         if(RuneBladesSlotSurface->GetVisibility()!=Visible)
         {RuneBladesSlotSurface->SetVisibility(Visible);RuneBladesDivider->SetVisibility(Visible);}

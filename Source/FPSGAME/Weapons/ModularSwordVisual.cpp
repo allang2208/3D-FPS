@@ -15,6 +15,11 @@ namespace
 {
 const FName PartTag(TEXT("FrostSwordModule"));
 const FString KeyPrefix=TEXT("FrostSwordVisual=");
+TMap<FString,TSharedPtr<FJsonObject>>& ResolvedCatalogs()
+{
+    static TMap<FString,TSharedPtr<FJsonObject>> Cache;
+    return Cache;
+}
 TSharedPtr<FJsonObject> Catalog(const FColdSteelItem& Item)
 {
     FString File=ColdSteelInventory::Text(Item,TEXT("modular_sword_catalog"));
@@ -22,7 +27,7 @@ TSharedPtr<FJsonObject> Catalog(const FColdSteelItem& Item)
         Item.Definition==TEXT("ue_rune_sword")?TEXT("rune-sword-modules.json"):FString();
     if(File.IsEmpty())return nullptr;
     // The resolved catalog combines shared models with each host's fitting profile.
-    static TMap<FString,TSharedPtr<FJsonObject>> SharedSixPartCatalogs;
+    auto& SharedSixPartCatalogs=ResolvedCatalogs();
     if(const auto* Existing=SharedSixPartCatalogs.Find(File))return *Existing;
     FString Text;TSharedPtr<FJsonObject> Root;
     if(!FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/File))||
@@ -81,6 +86,13 @@ TSharedPtr<FJsonObject> Part(const FColdSteelItem& Item,const TCHAR* Slot,const 
     if(!(*Choices)->TryGetObjectField(Selected,Spec)&&!(*Choices)->TryGetObjectField(TEXT("factory"),Spec))return nullptr;
     return *Spec;
 }
+}
+
+void ColdSteelModularSword::ResetCatalogCache()
+{
+    // A new game instance reloads the option catalog; its model catalog must
+    // belong to the same session, including every newly imported grip.
+    ResolvedCatalogs().Reset();
 }
 
 bool ColdSteelModularSword::Supports(const FColdSteelItem& Item)

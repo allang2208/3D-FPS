@@ -353,6 +353,7 @@ void URuneSwordComponent::ReleasePrimaryAttack()
 bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride)
 {
     if(!Animations.FindRef(Clip))return false;
+    bool bRuneSwordCooldownTrait=false;
     bQueuedQuickCombat=false;bQuickCombatStrike=false;bQuickCombatContactDone=false;
     if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
     {
@@ -361,6 +362,7 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
             const auto Stats=ColdSteelMelee::Evaluate(*Item,Profile);
             Damage=Stats.Damage;AttackRate=Stats.AttackRate;Reach=Stats.BaseReach;MeleeModifiers=Stats.Modifiers;
             SwingKnockbackCM=Stats.KnockbackCM;
+            bRuneSwordCooldownTrait=Item->Definition==TEXT("ue_rune_sword");
         }
         if(!Profile->SpendStamina(StaminaOverride>=0.f?StaminaOverride:ColdSteelMelee::AttackStamina(Profile->Equipped(),Profile))){bQueuedAttack=false;return false;}
     }
@@ -389,9 +391,12 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
     SwingPoison=ColdSteelCombat::Snapshot(Character.Get()).Poison;
     SwingSkills=ColdSteelSkills::Snapshot(Character.Get());
     SwingSkills.bRifle=false;SwingSkills.bPistol=false;SwingSkills.WeakpointPercent=0;
-    // 2D 合同：符文长剑每次近战确认命中缩减全部技能冷却（攻击到目标才计，空挥不减）。
+    // Third-stage thrust and heavy releases multiply only their own snapshot.
+    if(bThrustAttack&&!Heavy)SwingSkills.ToughnessDamageMultiplier*=MeleeModifiers.ComboThirdToughness;
+    if(Heavy)SwingSkills.ToughnessDamageMultiplier*=MeleeModifiers.HeavyToughness;
+    // 符文长剑专属；按出手时武器身份固定，高地与其他剑不继承。
     // 基础 0.5 秒；剑身Ⅱ的金色符文强化再追加装备值（合计 1.0 秒），同一挥只结算一次。
-    SwingCooldownReduceSeconds=.5f+static_cast<float>(MeleeModifiers.CooldownReduceSecondsPerHit);bSwingCooldownReduced=false;
+    SwingCooldownReduceSeconds=bRuneSwordCooldownTrait?.5f+static_cast<float>(MeleeModifiers.CooldownReduceSecondsPerHit):0.f;bSwingCooldownReduced=false;
     SetClip(Clip,false);
     if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))
         Arms->LimitLocomotionEntry(ContactStart/FMath::Max(.01f,SwingRate));
@@ -428,6 +433,9 @@ bool URuneSwordComponent::StartQuickCombatStrike()
     SwingKnockbackCM=0.f;
     QuickCombatStunSeconds=Cast.StunSeconds;
     QuickCombatKnockbackCM=Cast.KnockbackCM;
+    SwingSkills.ToughnessDamageMultiplier=Cast.ToughnessMultiplier;
+    QuickCombatBleedChance=Cast.BleedChance;
+    bQuickCombatAOE=Cast.bAreaHit;
     // 判定距离用技能自己的 rangeCM：普通挥击的 SwingReach（刀长×2）与技能范围
     // 是两套口径，此前 Max() 混用让快速进战的 reach 门控跑到了 360cm。
     QuickCombatRangeCM=Cast.RangeCM;
@@ -478,7 +486,7 @@ void URuneSwordComponent::QuickCombatContractHit()
     const bool bKilled=Combat->IsDead();
     if(Applied<=0.f&&!bKilled)return;
     // 金色符文强化：配重锤打击确认命中同样缩减CD（同一次快速近战只算一次）。
-    if(!bSwingCooldownReduced)
+    if(SwingCooldownReduceSeconds>0.f&&!bSwingCooldownReduced)
     {
         bSwingCooldownReduced=true;
         if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->ReduceAllAbilityCooldowns(SwingCooldownReduceSeconds);
@@ -962,7 +970,7 @@ void URuneSwordComponent::ApplySwingHits(const TArray<FHitResult>& Hits,const FV
             if(Applied>0 || (bDashAttack&&bKilled))
             {
                 // 金色符文强化：本挥首次确认命中即缩减全部魔法技能CD，一次挥击只触发一次。
-                if(!bSwingCooldownReduced)
+                if(SwingCooldownReduceSeconds>0.f&&!bSwingCooldownReduced)
                 {
                     bSwingCooldownReduced=true;
                     if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->ReduceAllAbilityCooldowns(SwingCooldownReduceSeconds);

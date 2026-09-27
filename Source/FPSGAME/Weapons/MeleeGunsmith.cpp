@@ -1,4 +1,5 @@
 #include "GunsmithSystem.h"
+#include "ModularSwordVisual.h"
 #include "RuneSwordRhythm.h"
 #include "FrostSwordRunes.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -16,6 +17,9 @@ const FGunsmithWeapon* UGunsmithSystem::ModifiableWeapon(const FString& Definiti
 
 void UGunsmithSystem::LoadMeleeCatalog()
 {
+    // Option data and assembly data share a game-instance lifetime. A process-
+    // lifetime assembly cache otherwise falls back to factory after new imports.
+    ColdSteelModularSword::ResetCatalogCache();
     FString Text;TSharedPtr<FJsonObject> Root;
     if(!FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/melee-gunsmith.json")))
         ||!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Root)||!Root)
@@ -54,15 +58,20 @@ void UGunsmithSystem::LoadMeleeCatalog()
             Stats->TryGetNumberField(TEXT("block_stamina_mult"),Part.Melee.BlockStamina);
             Stats->TryGetNumberField(TEXT("combo_second_damage_mult"),Part.Melee.ComboSecond);
             Stats->TryGetNumberField(TEXT("combo_third_damage_mult"),Part.Melee.ComboThird);
+            Stats->TryGetNumberField(TEXT("combo_third_toughness_mult"),Part.Melee.ComboThirdToughness);
             Stats->TryGetNumberField(TEXT("magic_cooldown_mult"),Part.Melee.MagicCooldown);
             Stats->TryGetNumberField(TEXT("cooldown_reduce_seconds_per_hit"),Part.Melee.CooldownReduceSecondsPerHit);
             Stats->TryGetNumberField(TEXT("magic_damage_mult"),Part.Melee.MagicDamage);
             Stats->TryGetNumberField(TEXT("magic_cost_mult"),Part.Melee.MagicCost);
             Stats->TryGetNumberField(TEXT("heavy_damage_mult"),Part.Melee.HeavyDamage);
+            Stats->TryGetNumberField(TEXT("heavy_toughness_mult"),Part.Melee.HeavyToughness);
             Stats->TryGetNumberField(TEXT("heavy_damage_add"),Part.Melee.HeavyDamageAdd);
             Stats->TryGetNumberField(TEXT("knockback_mult"),Part.Melee.Knockback);
             Stats->TryGetNumberField(TEXT("quick_combat_damage_add"),Part.Melee.QuickCombatDamageAdd);
             Stats->TryGetNumberField(TEXT("quick_combat_knockback_mult"),Part.Melee.QuickCombatKnockback);
+            Stats->TryGetNumberField(TEXT("quick_combat_toughness_mult"),Part.Melee.QuickCombatToughness);
+            Stats->TryGetNumberField(TEXT("quick_combat_bleed_chance"),Part.Melee.QuickCombatBleedChance);
+            Stats->TryGetBoolField(TEXT("quick_combat_aoe"),Part.Melee.bQuickCombatAOE);
             Stats->TryGetNumberField(TEXT("quick_combat_rune_vulnerability"),Part.Melee.QuickCombatRuneVulnerability);
             Stats->TryGetNumberField(TEXT("quick_combat_rune_vulnerability_seconds"),Part.Melee.QuickCombatRuneVulnerabilitySeconds);
             Stats->TryGetNumberField(TEXT("rune_intelligence"),Part.Melee.RuneIntelligence);

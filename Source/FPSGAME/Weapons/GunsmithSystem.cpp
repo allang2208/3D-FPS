@@ -139,13 +139,18 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
             R.Melee.ToughnessDamage*=M.ToughnessDamage;
             R.Melee.PhysicalArmorPenetration=FMath::Clamp(R.Melee.PhysicalArmorPenetration+M.PhysicalArmorPenetration,0.,1.);
             R.Melee.ComboSecond*=M.ComboSecond;R.Melee.ComboThird*=M.ComboThird;
+            R.Melee.ComboThirdToughness*=M.ComboThirdToughness;
             R.Melee.MagicCooldown*=M.MagicCooldown;R.Melee.MagicDamage*=M.MagicDamage;
             R.Melee.MagicCost*=M.MagicCost;
             R.Melee.HeavyDamage*=M.HeavyDamage;R.Melee.Knockback*=M.Knockback;
             R.Melee.HeavyDamageAdd+=M.HeavyDamageAdd;
+            R.Melee.HeavyToughness*=M.HeavyToughness;
             R.Melee.CooldownReduceSecondsPerHit+=M.CooldownReduceSecondsPerHit;
             R.Melee.QuickCombatDamageAdd+=M.QuickCombatDamageAdd;
             R.Melee.QuickCombatKnockback*=M.QuickCombatKnockback;
+            R.Melee.QuickCombatToughness*=M.QuickCombatToughness;
+            R.Melee.QuickCombatBleedChance=FMath::Max(R.Melee.QuickCombatBleedChance,M.QuickCombatBleedChance);
+            R.Melee.bQuickCombatAOE|=M.bQuickCombatAOE;
             R.Melee.RuneIntelligence+=M.RuneIntelligence;R.Melee.RuneWisdom+=M.RuneWisdom;
             R.Melee.InnateErosionMultiplier*=M.InnateErosionMultiplier;
             R.Melee.RuneVulnerability=FMath::Max(R.Melee.RuneVulnerability,M.RuneVulnerability);

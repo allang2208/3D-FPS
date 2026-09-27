@@ -208,4 +208,6 @@ private:
     void GuardFeedback(bool Parried);
     bool GetGuardCameraMotion(FVector& Location,FRotator& Rotation) const;
     void ClearGuard();
+    float QuickCombatBleedChance=0.f;
+    bool bQuickCombatAOE=false;
 };

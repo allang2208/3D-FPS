@@ -46,7 +46,7 @@
           12,
           69
         ],
-        "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Blade_factory.SM_Highland_Blade_factory",
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/SurfaceRepairV4_20260927/SM_Highland_Blade_factory_SurfaceV4.SM_Highland_Blade_factory_SurfaceV4",
         "interface": "highland_hilt_v1"
       },
       "extended_edge": {
@@ -70,7 +70,7 @@
           12,
           79.35
         ],
-        "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Blade_extended_edge.SM_Highland_Blade_extended_edge",
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/SurfaceRepairV4_20260927/SM_Highland_Blade_extended_edge_SurfaceV4.SM_Highland_Blade_extended_edge_SurfaceV4",
         "interface": "highland_hilt_v1"
       },
       "heavy_spine": {
@@ -94,7 +94,7 @@
           12,
           69
         ],
-        "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Blade_heavy_spine.SM_Highland_Blade_heavy_spine",
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/SurfaceRepairV4_20260927/SM_Highland_Blade_heavy_spine_SurfaceV4.SM_Highland_Blade_heavy_spine_SurfaceV4",
         "interface": "highland_hilt_v1"
       },
       "feather_edge": {
@@ -118,7 +118,7 @@
           12,
           69
         ],
-        "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Blade_feather_edge.SM_Highland_Blade_feather_edge",
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/SurfaceRepairV4_20260927/SM_Highland_Blade_feather_edge_SurfaceV4.SM_Highland_Blade_feather_edge_SurfaceV4",
         "interface": "highland_hilt_v1"
       },
       "highland_broadblade": {
@@ -142,9 +142,34 @@
           12,
           69
         ],
-        "mesh": "/Game/Weapons/HighlandClaymore20260922/BroadbladeThicknessV2_20260922/SM_Highland_Blade_Broadblade_ThickV2.SM_Highland_Blade_Broadblade_ThickV2",
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/SurfaceRepairV4_20260927/SM_Highland_Blade_Broadblade_ThickV2_SurfaceV4.SM_Highland_Blade_Broadblade_ThickV2_SurfaceV4",
         "interface": "highland_hilt_v1",
-        "appearance": "高地专属 · 加厚剑脊与立体刃面"
+        "appearance": "高地专属 · 阔锋剑形与统一厚度剑身"
+      },
+      "highland_ridge_piercer": {
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "trace_base_cm": [
+          0,
+          0,
+          3
+        ],
+        "trace_tip_cm": [
+          0,
+          0,
+          88
+        ],
+        "rune_dimensions_cm": [
+          3.8,
+          12,
+          69
+        ],
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/SM_Highland_Blade_RidgePiercer_V1.SM_Highland_Blade_RidgePiercer_V1",
+        "interface": "highland_hilt_v1",
+        "appearance": "高地专属 · 窄直棱脊与长尖穿甲刃"
       }
     },
     "guard": {
@@ -154,7 +179,7 @@
           0.0,
           0.0
         ],
-        "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Guard_factory.SM_Highland_Guard_factory",
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/SurfaceRepairV4_20260927/SM_Highland_Guard_factory_SurfaceV4.SM_Highland_Guard_factory_SurfaceV4",
         "interface": "highland_hilt_v1"
       },
       "bastion_guard": {
@@ -163,7 +188,7 @@
           0.0,
           0.0
         ],
-        "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Guard_bastion_guard.SM_Highland_Guard_bastion_guard",
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/SurfaceRepairV4_20260927/SM_Highland_Guard_bastion_guard_SurfaceV4.SM_Highland_Guard_bastion_guard_SurfaceV4",
         "interface": "highland_hilt_v1"
       },
       "riposte_guard": {
@@ -172,7 +197,7 @@
           0.0,
           0.0
         ],
-        "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Guard_riposte_guard.SM_Highland_Guard_riposte_guard",
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/SurfaceRepairV4_20260927/SM_Highland_Guard_riposte_guard_SurfaceV4.SM_Highland_Guard_riposte_guard_SurfaceV4",
         "interface": "highland_hilt_v1"
       },
       "light_guard": {
@@ -181,7 +206,7 @@
           0.0,
           0.0
         ],
-        "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Guard_light_guard.SM_Highland_Guard_light_guard",
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/SurfaceRepairV4_20260927/SM_Highland_Guard_light_guard_SurfaceV4.SM_Highland_Guard_light_guard_SurfaceV4",
         "interface": "highland_hilt_v1"
       },
       "highland_cloven_guard": {
@@ -191,7 +216,7 @@
           0
         ],
         "interface": "highland_hilt_v1",
-        "mesh": "/Game/Weapons/HighlandClaymore20260922/ClovenGuard/SM_Highland_Guard_Cloven.SM_Highland_Guard_Cloven",
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/SurfaceRepairV4_20260927/SM_Highland_Guard_Cloven_SurfaceV4.SM_Highland_Guard_Cloven_SurfaceV4",
         "appearance": "高地专属 · 厚根裂角与赤红承锋嵌纹"
       }
     },
@@ -252,6 +277,36 @@
         "animation_folder": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations",
         "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Grip_long_twohand.SM_Highland_Grip_long_twohand",
         "interface": "highland_hilt_v1"
+      },
+      "iron_spine_power_grip": {
+        "mesh": "/Game/Weapons/SharedSwordGrips20260927/Highland/SM_HighlandGrip_iron_spine_power_grip.SM_HighlandGrip_iron_spine_power_grip",
+        "location_cm": [
+          0.0,
+          0.0,
+          -5.000000074505806
+        ],
+        "interface": "highland_hilt_v1",
+        "pommel_offset_cm": [
+          0,
+          0,
+          0
+        ],
+        "appearance": "贴平钢脊 · 三段人字纹皮革"
+      },
+      "lockweave_guard_grip": {
+        "mesh": "/Game/Weapons/SharedSwordGrips20260927/Highland/SM_HighlandGrip_lockweave_guard_grip.SM_HighlandGrip_lockweave_guard_grip",
+        "location_cm": [
+          0.0,
+          0.0,
+          -5.000000074505806
+        ],
+        "interface": "highland_hilt_v1",
+        "pommel_offset_cm": [
+          0,
+          0,
+          0
+        ],
+        "appearance": "交错锁纹织带 · 柔韧稳握"
       }
     },
     "pommel": {
@@ -262,6 +317,15 @@
           -22.699999809265137
         ],
         "mesh": "/Game/Weapons/HighlandClaymore20260922/Meshes/SM_Highland_Pommel_factory.SM_Highland_Pommel_factory",
+        "interface": "highland_hilt_v1"
+      },
+      "highland_thorn_crown": {
+        "location_cm": [
+          0.0,
+          0.0,
+          -22.699999809265137
+        ],
+        "mesh": "/Game/Weapons/HighlandClaymore20260922/ThornCrown20260927/Meshes/SM_Highland_Pommel_ThornCrown_V1.SM_Highland_Pommel_ThornCrown_V1",
         "interface": "highland_hilt_v1"
       }
     }

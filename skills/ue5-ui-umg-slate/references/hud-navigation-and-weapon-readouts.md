@@ -15,6 +15,7 @@
 - `ColdSteelPanelNavigation.cpp` 只加载 `Navigation/*_subject.png`。生成图中的棋盘格可能是 RGB 像素；“看似透明”不能当作真实 alpha。此次用户明确指定本地抠图，恢复入口为 `Tools/UI/export_navigation_subjects.py`，输入 RGB、全尺寸抠图和最终运行 PNG 分开保留。
 - 悬停只缩放主体，键位、点击区域和页面选择标记固定。进入、退出和途中反向共用当前动画进度；名称淡入与主体缩放使用同一时间轴。
 - 导航快捷键复用 `ColdSteelQuickSlotFX::KeyOpacity`；中央快捷栏保持图标、键位、冷却黑遮罩和完成闪光的独立绘制层，不将数字或效果烘焙进图标。
+- 快捷槽待发射／悬停／按键高亮只画金色边框，内部透明。直接调用 `FSlateDrawElement::MakeBox` 时，填充色必须含 `Brush.GetTint(Style)`；只传 WidgetStyle 的白色 Tint 会将透明圆角画刷绘成白块，持续遮住火球待发射图标。冷却结束的短暂闪光是独立效果，修复边框时不要删除。案例见 `Docs/UI/fireball-prepared-slot-white-fix-20260927.md`，已构建，未实机测试。
 - 抽屉预留必须包含悬停外伸；矮窗按顶部 HUD 与武器栏的剩余空间先收紧间距。独立物品弹层也要转发入口点击和快捷键，仅处理 HUD 内的外部点击保护并不足够。
 - 关闭沿用控制器的输入消费与焦点恢复，避免鼠标点击穿透为攻击。图标缓存就绪仅替换图片，不重建正在交互的入口或清空滚动位置。
 

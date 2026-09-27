@@ -449,5 +449,9 @@
     "multiKillExperience": 10,
     "requiresStaff": false,
     "source": "game-dev/data/skills.json:skills.flameArmor; flame-armor-system.js; flame-armor-fx.js"
+  },
+  "runeBlades": {
+    "name": "环绕飞剑",
+    "icon": "Skills/rune_orb_blades_cold_steel.png"
   }
 }

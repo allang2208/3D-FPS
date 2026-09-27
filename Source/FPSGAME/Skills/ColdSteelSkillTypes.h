@@ -38,6 +38,8 @@ struct FQuickCombatCast
     float StunSeconds=0.f;
     float RangeCM=200.f;
     float CooldownSeconds=12.f;
+    float ToughnessMultiplier=1.f, BleedChance=0.f;
+    bool bAreaHit=false;
 };
 
 struct FColdSteelSkillDefinition

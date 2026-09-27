@@ -238,16 +238,19 @@ void UColdSteelQuickSlot::Refresh()
     }
     else if(Binding.Skill==TEXT("runeBlades"))
     {
-        // G 专属槽（环绕飞剑）：冷却遮罩读组件自身；未持符文长剑变暗并提示。
+        // 与 G 槽显隐和实际施放共用当前主手判定，不能用所有双手剑共用的 IsEquipped。
         const auto* Player=GetOwningPlayerPawn();
         const auto* Blades=Player?Player->FindComponentByClass<URuneOrbBladesComponent>():nullptr;
-        const auto* Sword=Player?Player->FindComponentByClass<URuneSwordComponent>():nullptr;
-        const bool Ready=Sword&&Sword->IsEquipped();
+        const bool Ready=Blades&&Blades->SwordEquipped();
         Fraction=Blades?Blades->CooldownFraction():0.f;
         Remaining=Blades?Blades->CooldownRemaining():0.f;
         Dim=!Ready||Fraction>0.f;
         if(!Ready)Message=TEXT("需符文长剑");
-        else if(Blades&&Blades->IsOrbitActive())Message=TEXT("已激活");
+        else if(Blades->IsOrbitActive())
+        {
+            Message=TEXT("待发射");
+            Count->SetText(FText::AsNumber(Blades->AvailableBladeCount()));
+        }
     }
     else if(!Binding.ItemDefinition.IsEmpty())
     {

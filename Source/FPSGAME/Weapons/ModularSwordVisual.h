@@ -6,6 +6,7 @@ class UStaticMeshComponent;
 // Shared assembly contract for held, workbench, inventory and dropped swords.
 namespace ColdSteelModularSword
 {
+    void ResetCatalogCache();
     bool Supports(const FColdSteelItem& Item);
     FString ArmsMesh(const FColdSteelItem& Item);
     FString AnimationFolder(const FColdSteelItem& Item);

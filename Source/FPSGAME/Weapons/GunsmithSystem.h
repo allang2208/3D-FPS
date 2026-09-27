@@ -29,6 +29,16 @@ struct FMeleeModifiers
     double ParryWindow=1, RiposteSpeed=1, RiposteStamina=1, RiposteSeconds=0;
     double ClovenSeconds=0, ClovenPhysical=1, ClovenToughness=1;
     double ComboMultiplier(int32 Stage) const {return Stage==2?ComboSecond:Stage==3?ComboThird:1.;}
+    // Applied only to the third-stage thrust snapshot, on top of all-attack poise modifiers.
+    double ComboThirdToughness=1;
+    double ThirdThrustToughnessMultiplier() const {return ToughnessDamage*ComboThirdToughness;}
+    // Pommel-strike modifiers never affect blade attacks or their skill snapshots.
+    double QuickCombatToughness=1, QuickCombatBleedChance=0;
+    bool bQuickCombatAOE=false;
+    double QuickCombatToughnessMultiplier() const {return ToughnessDamage*QuickCombatToughness;}
+    // Heavy releases only, including a guard-converted heavy attack.
+    double HeavyToughness=1;
+    double HeavyToughnessMultiplier() const {return ToughnessDamage*HeavyToughness;}
 };
 struct FGunsmithStats
 {

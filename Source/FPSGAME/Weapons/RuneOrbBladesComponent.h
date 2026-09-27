@@ -37,6 +37,9 @@ public:
     // Per-summon affix snapshot consumed by the flying blades (2D craft-affix bridge).
     float BladeRangeCM() const { return ActiveRangeCM; }
     int32 BladeVulnerabilityStacks() const { return VulnerabilityStacks; }
+    // HUD and trigger share the active main-hand check, including production tools.
+    bool SwordEquipped() const;
+    int32 AvailableBladeCount() const;
 
 private:
     struct FBladeSlot
@@ -51,8 +54,6 @@ private:
     void LaunchOne();
     void FinishOrbit(bool bCancelGesture);
     bool CanUse() const;
-    int32 AvailableBladeCount() const;
-    bool SwordEquipped() const;
     bool NoAbilityCooldown() const;
     bool ViewBasis(FVector& Eye, FVector& Forward, FVector& Right, FVector& Up, float& TanVertical) const;
     // Shared left-hand spell gesture (the fireball's): raise-and-gather on summon,

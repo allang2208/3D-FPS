@@ -1,0 +1,41 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordComponent.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordComponent.cpp
+@@ -10,0 +11 @@
++#include "MeleeSmallTargetQuery.h"
+@@ -466,5 +467,10 @@
+-    const FVector End=Start+Direction*QuickCombatRangeCM;
+-    FHitResult Hit;
+-    FCollisionQueryParams Params(SCENE_QUERY_STAT(QuickCombatPommel),false,Pawn);
+-    const bool bHit=GetWorld()->SweepSingleByChannel(Hit,Start,End,FQuat::Identity,ECC_Pawn,
+-        FCollisionShape::MakeSphere(QuickCombatPistolMotion::QueryRadiusCM),Params);
++    TArray<FHitResult> Hits;
++    if(bQuickCombatAOE)
++        Hits=MeleeSmallTargets::QueryQuickAreaContacts(GetWorld(),Pawn,Aim,Start,QuickCombatRangeCM,
++            QuickCombatPistolMotion::QueryRadiusCM);
++    else
++    {
++        FHitResult Hit;
++        if(MeleeSmallTargets::QueryQuickContact(GetWorld(),Pawn,Aim,Start,QuickCombatRangeCM,
++            QuickCombatPistolMotion::QueryRadiusCM,Hit))Hits.Add(Hit);
++    }
+@@ -475,4 +481,3 @@
+-    AActor* Target=bHit?Hit.GetActor():nullptr;
+-    UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 接触 武器=剑 射线=%s 起点=%s 方向=%s 距离=%.0f 目标=%s"),
+-        bFromPommel?TEXT("配重端"):TEXT("眼位回退"),*Start.ToCompactString(),*Direction.ToCompactString(),
+-        QuickCombatRangeCM,Target?*Target->GetName():TEXT("无"));
++    for(const auto& Hit:Hits)
++    {
++    AActor* Target=Hit.GetActor();
+@@ -480 +485,2 @@
+-    if(!Combat||Combat->IsDead())return;
++    if(!Combat||Combat->IsDead()||HitActors.Contains(Target))continue;
++    HitActors.Add(Target);
+@@ -487 +493 @@
+-    if(Applied<=0.f&&!bKilled)return;
++    if(Applied<=0.f&&!bKilled)continue;
+@@ -496,0 +503,3 @@
++    // One bleed roll per confirmed living target, using the existing stack system.
++    if(!Combat->IsDead()&&QuickCombatBleedChance>0.f&&FMath::FRand()<QuickCombatBleedChance)
++        if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))Status->AddBleeding(Pawn,1);
+@@ -501,0 +511 @@
++    }

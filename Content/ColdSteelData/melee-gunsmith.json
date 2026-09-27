@@ -110,6 +110,38 @@
           "weapons": [
             "ue_highland_claymore"
           ]
+        },
+        {
+          "id": "highland_ridge_piercer",
+          "name": "棱脊穿甲刃",
+          "description": "高地双手剑专属。窄直钢刃以四面棱脊支撑长尖，强化第三段突刺的伤害与削韧，并提高物理穿甲，以整体伤害换取贯穿能力。",
+          "effects": [
+            {
+              "text": "第三段突刺伤害倍率 +40%",
+              "benefit": 1
+            },
+            {
+              "text": "第三段突刺韧性伤害 +40%",
+              "benefit": 1
+            },
+            {
+              "text": "物理防御穿透 +10%",
+              "benefit": 1
+            },
+            {
+              "text": "基础伤害 -10%",
+              "benefit": -1
+            }
+          ],
+          "stats": {
+            "combo_third_damage_mult": 1.4,
+            "combo_third_toughness_mult": 1.4,
+            "physical_armor_penetration": 0.1,
+            "damage_mult": 0.9
+          },
+          "weapons": [
+            "ue_highland_claymore"
+          ]
         }
       ]
     },
@@ -361,7 +393,7 @@
       "key": "grip",
       "name": "握把",
       "default": "原装握把",
-      "description": "双手接触的握柄区域。原装握把保留原握持位置；可替换吸震、速握与长柄配置。长柄同步移动柄尾并适配左手。",
+      "description": "双手接触的握柄区域。原装握把保留原握持位置；可选吸震、速握、长柄、重击破韧与格挡稳握配置。长柄同步移动柄尾并适配左手。",
       "options": [
         {
           "id": "shock_wrap",
@@ -434,6 +466,59 @@
             "damage_mult": 1.05,
             "stamina_mult": 1.1
           }
+        },
+        {
+          "id": "iron_spine_power_grip",
+          "name": "铁脊强攻柄",
+          "weapons": [
+            "ue_rune_sword",
+            "ue_frost_crystal_sword",
+            "ue_highland_claymore"
+          ],
+          "description": "贴平钢脊支撑三段皮革握区，偏重重击破韧，出手稍慢。伤害与削韧增益仅作用于重击，包含护手转换的重击。",
+          "effects": [
+            {
+              "text": "重击伤害 +20%",
+              "benefit": 1
+            },
+            {
+              "text": "重击韧性伤害 +30%",
+              "benefit": 1
+            },
+            {
+              "text": "攻击速度 -8%",
+              "benefit": -1
+            }
+          ],
+          "stats": {
+            "heavy_damage_mult": 1.2,
+            "heavy_toughness_mult": 1.3,
+            "attack_speed_mult": 0.92
+          }
+        },
+        {
+          "id": "lockweave_guard_grip",
+          "name": "锁纹稳握柄",
+          "weapons": [
+            "ue_rune_sword",
+            "ue_frost_crystal_sword",
+            "ue_highland_claymore"
+          ],
+          "description": "交错锁纹织带贴合握区，提升格挡稳定性与受击续航。格挡减伤沿原有上限计算。",
+          "effects": [
+            {
+              "text": "格挡受击耐力消耗 -25%",
+              "benefit": 1
+            },
+            {
+              "text": "格挡减伤倍率 ×1.10",
+              "benefit": 1
+            }
+          ],
+          "stats": {
+            "block_stamina_mult": 0.75,
+            "block_reduction_mult": 1.1
+          }
         }
       ]
     },
@@ -441,7 +526,7 @@
       "key": "pommel",
       "name": "配重锤",
       "default": "原装配重锤",
-      "description": "剑类通用配重锤。六款不同造型和属性可供当前各剑共用，按剑型匹配安装位置、尺寸和材质；原装配重单独保留。",
+      "description": "剑类配重锤。六款通用配重可供各剑共用，高地双手剑另有专属棘冠配重球；原装配重单独保留。",
       "options": [
         {
           "id": "pommel_hardened",
@@ -513,7 +598,7 @@
         {
           "id": "ballast_hardened",
           "name": "陨星锤首",
-          "description": "厚重陨铁锤首，强化独立快速近战的打击与击退。",
+          "description": "厚重陨铁锤首，强化独立快速近战的打击与击退，并可同时打击原判定范围内的多个目标。",
           "effects": [
             {
               "text": "快速近战伤害倍率 +0.25",
@@ -522,11 +607,48 @@
             {
               "text": "快速近战击退距离 +50%",
               "benefit": 1
+            },
+            {
+              "text": "快速近战变为范围攻击，判定范围不变",
+              "benefit": 1
             }
           ],
           "stats": {
             "quick_combat_damage_add": 0.25,
-            "quick_combat_knockback_mult": 1.5
+            "quick_combat_knockback_mult": 1.5,
+            "quick_combat_aoe": true
+          }
+        },
+        {
+          "id": "highland_thorn_crown",
+          "name": "棘冠配重球",
+          "weapons": [
+            "ue_highland_claymore"
+          ],
+          "description": "高地双手剑专属配重球。银钢尖刺与编结纹包覆球体，蓝宝石嵌于两侧；柄尾打击擅长破韧、击退并撕开流血伤口。以下效果仅快速近战生效。",
+          "effects": [
+            {
+              "text": "快速近战伤害倍率 +0.5",
+              "benefit": 1
+            },
+            {
+              "text": "快速近战韧性伤害 +50%",
+              "benefit": 1
+            },
+            {
+              "text": "快速近战击退距离 +50%",
+              "benefit": 1
+            },
+            {
+              "text": "快速近战命中有25%概率施加1层流血",
+              "benefit": 1
+            }
+          ],
+          "stats": {
+            "quick_combat_damage_add": 0.5,
+            "quick_combat_toughness_mult": 1.5,
+            "quick_combat_knockback_mult": 1.5,
+            "quick_combat_bleed_chance": 0.25
           }
         },
         {
@@ -570,27 +692,60 @@
     {
       "id": "ue_rune_sword",
       "traits": [
-        { "icon": "magic", "text": "每次确认命中减少全部技能冷却 0.5 秒；剑身Ⅱ 金色符文再追加 0.5 秒，同一挥只结算一次" },
-        { "icon": "special", "text": "按 G 唤出 4 把环绕身体的飞剑，最长驻留 30 秒；期间再按 G 逐把射向准星，命中造成（武器攻击＋魔法攻击）×1.2 魔法伤害" },
-        { "icon": "drawback", "text": "飞剑全部发射或超时后进入 15 秒冷却；击杀可缩短冷却" },
-        { "icon": "mechanic", "text": "三段连击、蓄力重击、突刺与格挡；剑刃、护手、握把、配重锤与刃面符文可独立改造" }
+        {
+          "icon": "magic",
+          "text": "每次确认命中减少全部技能冷却 0.5 秒；剑身Ⅱ 金色符文再追加 0.5 秒，同一挥只结算一次"
+        },
+        {
+          "icon": "special",
+          "text": "按 G 唤出 4 把环绕身体的飞剑，最长驻留 30 秒；期间再按 G 逐把射向准星，命中造成（武器攻击＋魔法攻击）×1.2 魔法伤害"
+        },
+        {
+          "icon": "drawback",
+          "text": "飞剑全部发射或超时后进入 15 秒冷却；击杀可缩短冷却"
+        },
+        {
+          "icon": "mechanic",
+          "text": "三段连击、蓄力重击、突刺与格挡；剑刃、护手、握把、配重锤与刃面符文可独立改造"
+        }
       ]
     },
     {
       "id": "ue_frost_crystal_sword",
       "traits": [
-        { "icon": "magic", "text": "自带侵蚀：近战附加 智力×10%＋精神×10% 的魔法伤害，随连击与重击倍率放大，再按目标魔法防御结算" },
-        { "icon": "special", "text": "专属精神迸发符文使这段侵蚀伤害翻倍" },
-        { "icon": "drawback", "text": "侵蚀已与晶体融为一体：普通侵蚀符文会被自动转化为精神迸发符文" },
-        { "icon": "mechanic", "text": "三段连击、蓄力重击与格挡；剑刃、护手、握把、配重与刃面符文可独立改造" }
+        {
+          "icon": "magic",
+          "text": "自带侵蚀：近战附加 智力×10%＋精神×10% 的魔法伤害，随连击与重击倍率放大，再按目标魔法防御结算"
+        },
+        {
+          "icon": "special",
+          "text": "专属精神迸发符文使这段侵蚀伤害翻倍"
+        },
+        {
+          "icon": "drawback",
+          "text": "侵蚀已与晶体融为一体：普通侵蚀符文会被自动转化为精神迸发符文"
+        },
+        {
+          "icon": "mechanic",
+          "text": "三段连击、蓄力重击与格挡；剑刃、护手、握把、配重与刃面符文可独立改造"
+        }
       ]
     },
     {
       "id": "ue_highland_claymore",
       "traits": [
-        { "icon": "mechanic", "text": "三段连击、蓄力重击、突刺与格挡" },
-        { "icon": "mechanic", "text": "弧形护手与圆盘配重把重心前移，适合双手发力" },
-        { "icon": "neutral", "text": "剑刃、护手、握把、配重与刃面符文可独立改造" }
+        {
+          "icon": "mechanic",
+          "text": "三段连击、蓄力重击、突刺与格挡"
+        },
+        {
+          "icon": "mechanic",
+          "text": "弧形护手与圆盘配重把重心前移，适合双手发力"
+        },
+        {
+          "icon": "neutral",
+          "text": "剑刃、护手、握把、配重与刃面符文可独立改造"
+        }
       ]
     }
   ]

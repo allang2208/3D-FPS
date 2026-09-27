@@ -1,0 +1,8 @@
+--- a/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp
++++ b/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp
+@@ -296,0 +297,2 @@
++    // MakeBox takes the fill tint explicitly; style tint alone paints a white
++    // box over the icon for the entire prepared / hover / key-held highlight.
+@@ -298 +300 @@
+-        Style.GetColorAndOpacityTint());
++        Brush.GetTint(Style)*Style.GetColorAndOpacityTint());

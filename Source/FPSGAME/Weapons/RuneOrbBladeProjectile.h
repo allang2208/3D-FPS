@@ -6,7 +6,7 @@
 #include "RuneOrbBladeProjectile.generated.h"
 
 class URuneOrbBladesComponent;
-class UNiagaraComponent;
+class UInstancedStaticMeshComponent;
 class UPointLightComponent;
 class USceneComponent;
 class UStaticMesh;
@@ -32,7 +32,8 @@ private:
 
     UPROPERTY(VisibleAnywhere) TObjectPtr<USceneComponent> Root;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> Blade;
-    UPROPERTY(VisibleAnywhere) TObjectPtr<UNiagaraComponent> Aura;
+    UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> Wake;
+    UPROPERTY(VisibleAnywhere) TObjectPtr<UInstancedStaticMeshComponent> ImpactWisps;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UPointLightComponent> Light;
     UPROPERTY() TObjectPtr<UStaticMesh> ShardMesh;
     UPROPERTY() TObjectPtr<UMaterialInterface> ShardMaterial;
@@ -46,6 +47,21 @@ private:
     float FadeAge = -1.f;
     bool bFlying = false;
     bool bFinished = false;
+    float ImpactAge = -1.f;
+    float ImpactLifetime = 1.f;
+    float ImpactDrag = 3.f;
+    float ImpactLightPeak = 4200.f;
+    float ImpactFlashSeconds = .24f;
+    struct FImpactLayerMotion
+    {
+        FVector BaseScale;
+        FRotator SpinPerSecond;
+        float Growth;
+        float ExpansionRate;
+    };
+    TArray<FImpactLayerMotion> ImpactLayers;
+    TArray<FTransform> WispTransforms;
+    TArray<FVector> WispVelocities;
 
     static constexpr float Speed = 2000.f;       // cm/s
     static constexpr float Range = 1600.f;       // cm

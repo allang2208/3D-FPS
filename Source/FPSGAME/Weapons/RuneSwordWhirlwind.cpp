@@ -58,7 +58,7 @@ bool URuneSwordComponent::BeginWhirlwind()
     SwingHitReactionMultiplier=MeleeModifiers.HitReaction;
     // 旋风斩属剑刃攻击：导魔符文易伤通道照常挂载；金色强化按确认命中缩减CD（整个旋风只触发一次）。
     SwingRuneVulnerability=MeleeModifiers.RuneVulnerability;SwingRuneVulnerabilitySeconds=MeleeModifiers.RuneVulnerabilitySeconds;
-    SwingCooldownReduceSeconds=.5f+static_cast<float>(MeleeModifiers.CooldownReduceSecondsPerHit);bSwingCooldownReduced=false;
+    SwingCooldownReduceSeconds=Item->Definition==TEXT("ue_rune_sword")?.5f+static_cast<float>(MeleeModifiers.CooldownReduceSecondsPerHit):0.f;bSwingCooldownReduced=false;
     StopRift();Character->StopMovementForMeleeSkill();
     WhirlwindEntryLocation=Viewmodel->GetRelativeLocation();WhirlwindEntryRotation=Viewmodel->GetRelativeRotation();
     const auto& PP=Camera->PostProcessSettings;
@@ -196,7 +196,7 @@ void URuneSwordComponent::SweepWhirlwind(float FromDegrees,float ToDegrees)
     if(Confirmed)
     {
         // 金色符文强化：旋风斩确认命中同样缩减CD（整个旋风过程只按一次）。
-        if(!bSwingCooldownReduced)
+        if(SwingCooldownReduceSeconds>0.f&&!bSwingCooldownReduced)
         {
             bSwingCooldownReduced=true;
             if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->ReduceAllAbilityCooldowns(SwingCooldownReduceSeconds);
