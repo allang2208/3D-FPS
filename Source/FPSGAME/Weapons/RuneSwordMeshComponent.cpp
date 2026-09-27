@@ -6,13 +6,13 @@ void URuneSwordMeshComponent::CaptureWhirlwindEntry()
 {
     EntryMesh=GetSkeletalMeshAsset();
     EntryPose=GetComponentSpaceTransforms();
-    EntryTime=0.f;
+    EntryTime=0.f;EntryDuration=EntrySeconds;
 }
 
 void URuneSwordMeshComponent::SetWhirlwindEntryTime(float Seconds)
 {
     EntryTime=FMath::Max(0.f,Seconds);
-    if(EntryTime>=EntrySeconds)ClearWhirlwindEntry();
+    if(EntryTime>=EntryDuration)ClearWhirlwindEntry();
 }
 
 void URuneSwordMeshComponent::ClearWhirlwindEntry()
@@ -22,8 +22,16 @@ void URuneSwordMeshComponent::ClearWhirlwindEntry()
 
 void URuneSwordMeshComponent::CaptureLocomotionEntry()
 {
-    // Reuse the grip-constrained entry solver for interrupted sprint poses.
+    // Share the grip-constrained solver across locomotion and action handoffs.
     CaptureWhirlwindEntry();
+}
+
+void URuneSwordMeshComponent::LimitLocomotionEntry(float Seconds)
+{
+    // A resumed windup can have less than 100 ms before contact. Finish the
+    // visual handoff within that time so sweeps use the authored strike pose.
+    EntryDuration=FMath::Min(EntryDuration,FMath::Max(0.f,Seconds));
+    if(EntryTime>=EntryDuration)ClearWhirlwindEntry();
 }
 
 void URuneSwordMeshComponent::AdvanceLocomotionEntry(float Delta)
@@ -46,7 +54,7 @@ void URuneSwordMeshComponent::ApplyWhirlwindEntry()
     // The first sample must keep exactly the pose the player was already seeing.
     if(EntryTime<=0.f){Pose=EntryPose;return;}
     const auto& Ref=Mesh->GetRefSkeleton();
-    const float T=FMath::Clamp(EntryTime/EntrySeconds,0.f,1.f);
+    const float T=FMath::Clamp(EntryTime/EntryDuration,0.f,1.f);
     const float Alpha=T*T*T*(T*(T*6.f-15.f)+10.f);
     const TArray<FTransform> Incoming=Pose;
     // Blend in parent space so the upper arm and forearm do not shorten along

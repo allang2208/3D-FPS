@@ -191,14 +191,33 @@ bool URuneSwordComponent::CanUse() const
 
 void URuneSwordComponent::SetClip(FName Name,bool bLoop)
 {
-    // Capture before PlayAnimation replaces the live pose. Whirlwind owns its
-    // own entry snapshot/clock, so its capture must not be replaced here.
-    if(Name!=TEXT("Whirlwind") && Name!=CurrentClip &&
-        (IsTacticalSprintClip(CurrentClip)||IsTacticalSprintClip(Name)||
-         (CurrentClip==TEXT("Walk")&&Name==TEXT("Idle"))||(CurrentClip==TEXT("Idle")&&Name==TEXT("Walk"))||
-         (CurrentClip==TEXT("Walk")&&Name==TEXT("Inspect"))||(CurrentClip==TEXT("Inspect")&&Name==TEXT("Walk"))||
-         (CurrentClip==TEXT("Idle")&&Name==TEXT("Inspect"))||(CurrentClip==TEXT("Inspect")&&Name==TEXT("Idle"))))
-        if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->CaptureLocomotionEntry();
+    // Keep the displayed supported grip across cancellation as well as normal
+    // endings. Idle/walk can be at any breathing/stride phase when an action starts.
+    const bool bLocomotionTarget=Name==TEXT("Idle")||Name==TEXT("Walk");
+    const bool bReadySource=CurrentClip==TEXT("Idle")||CurrentClip==TEXT("Walk")||CurrentClip==TEXT("Inspect");
+    const bool bWindupTarget=Name==TEXT("Slash1")||Name==TEXT("Slash2")||Name==TEXT("Thrust")||
+        Name==TEXT("PommelStrike")||Name==TEXT("Overhead")||Name==TEXT("HeavyCharge")||Name==TEXT("Guard");
+    const bool bChargeWindup=CurrentClip==TEXT("HeavyCharge")&&
+        (Name==TEXT("Slash1")||Name==TEXT("Slash2")||Name==TEXT("Thrust"));
+    // Whirlwind owns its entry clock. Heavy release starts dealing damage at
+    // time zero, so it must retain its immediate authored contact pose.
+    const bool bGuardReaction=Name==TEXT("GuardHit")||Name==TEXT("GuardBreak");
+    if(Name==TEXT("HeavyRelease"))
+    {
+        if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->ClearWhirlwindEntry();
+    }
+    else if(!CurrentClip.IsNone() && Name!=TEXT("Whirlwind") && Name!=CurrentClip &&
+        (IsTacticalSprintClip(CurrentClip)||IsTacticalSprintClip(Name)||bLocomotionTarget||bGuardReaction||
+         (bReadySource&&(bWindupTarget||Name==TEXT("Inspect")))||bChargeWindup))
+    {
+        if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))
+        {
+            Arms->CaptureLocomotionEntry();
+            // Guard damage/parry is already resolved by gameplay. A short pose
+            // blend also supports hits received before the raise has finished.
+            if(bGuardReaction)Arms->LimitLocomotionEntry(.06f);
+        }
+    }
     CurrentClip=Name;CurrentAnimation=Animations.FindRef(Name);Elapsed=0;
     if(!CurrentAnimation || !Viewmodel)return;
     Viewmodel->PlayAnimation(CurrentAnimation,bLoop);Viewmodel->SetPlayRate(0.f);SamplePose(0.f);
@@ -373,7 +392,10 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
     // 2D 合同：符文长剑每次近战确认命中缩减全部技能冷却（攻击到目标才计，空挥不减）。
     // 基础 0.5 秒；剑身Ⅱ的金色符文强化再追加装备值（合计 1.0 秒），同一挥只结算一次。
     SwingCooldownReduceSeconds=.5f+static_cast<float>(MeleeModifiers.CooldownReduceSecondsPerHit);bSwingCooldownReduced=false;
-    SetClip(Clip,false);return true;
+    SetClip(Clip,false);
+    if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))
+        Arms->LimitLocomotionEntry(ContactStart/FMath::Max(.01f,SwingRate));
+    return true;
 }
 
 bool URuneSwordComponent::BeginQuickCombatStrike()
@@ -545,7 +567,10 @@ void URuneSwordComponent::ReleaseHeavyCharge()
                 const float Mid=(Low+High)*.5f;
                 if(RuneSwordRhythm::SourceTime(Mid)<SourceTime)Low=Mid;else High=Mid;
             }
-            Elapsed=(Low+High)*.5f;SamplePose(Elapsed);
+            Elapsed=(Low+High)*.5f;
+            if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))
+                Arms->LimitLocomotionEntry((ContactStart-Elapsed)/FMath::Max(.01f,SwingRate));
+            SamplePose(Elapsed);
         }
         NextSlash=1;return;
     }

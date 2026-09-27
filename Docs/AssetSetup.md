@@ -346,3 +346,7 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 ## SVD 完成、抓握与接口细化（2026-09-23）
 
 恢复当前 SVD 需要本机 `Content/Weapons/SVDDragunov20260922`、跨枪 `Content/Weapons/PSO1Russian20260923` 及共享 Manny／配件资产。当前换弹为用户认可的 `SVDThumbUp20260923`，模型／材质为 `SVDRefinedFinish20260923`；旧 Blend 制作链仍需保留，退役导出与恢复快照按清单归档。来源、当前入口、公开发布边界及本机恢复见 [SVD 发布说明](Weapons/svd-publication-20260923.md)。视频提取音频未获公开再分发许可，公共仓库仅提供脚本与来源记录，不包含音视频本体。
+
+## 近战检视、格挡与弓快速近战（2026-09-27）
+
+当前本机 Inspect V82、格挡 V23、弓推击 V7 的最终源、合法资源恢复、依赖保留和废案清单，见 [本次整理与发布](Weapons/melee-bow-publication-20260927.md)。本次源码发布不包含授权模型、密集姿态或 UE 资产，也不包含依赖其他任务未发布接口的混合运行改动；具体边界在该记录中逐项列明。

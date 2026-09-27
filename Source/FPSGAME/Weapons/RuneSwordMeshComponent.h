@@ -13,6 +13,7 @@ public:
     void SetWhirlwindEntryTime(float Seconds);
     void ClearWhirlwindEntry();
     void CaptureLocomotionEntry();
+    void LimitLocomotionEntry(float Seconds);
     void AdvanceLocomotionEntry(float Delta);
     virtual void FinalizeBoneTransform() override;
 private:
@@ -21,4 +22,5 @@ private:
     float EntryTime=0.f;
     static constexpr float EntrySeconds=.1f;
     void ApplyWhirlwindEntry();
+    float EntryDuration=EntrySeconds;
 };

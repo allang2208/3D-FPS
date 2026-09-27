@@ -1,0 +1,1162 @@
+"""V82: catch weight, sequential regrip, rolling contact and elbow-led impulse.
+
+The V7 skin is visible in the editable source. Only Inspect is exported.
+"""
+import json
+import math
+import sys
+from pathlib import Path
+
+import bpy
+from mathutils import Matrix, Quaternion, Vector
+
+HERE = Path(__file__).parent
+sys.path.insert(0, str(HERE))
+sys.path.insert(0, str(HERE.parent / "InspectForwardSpinV54"))
+from visible_bare import attach as attach_bare
+sys.path.insert(0, str(HERE.parent / 'InspectGripArcV46'))
+sys.path.insert(0, str(HERE.parents[1] / 'RuneSwordWristLocked20260920'))
+import inspect_arm_roll as arm_roll
+import spin_design as design
+import wrist_locked_solver as wrist
+
+VARIANT = 'LongGrip' if '--long-grip' in sys.argv else 'Standard'
+SOURCE = HERE.parents[1] / 'RuneSwordWristLocked20260920' / VARIANT / 'Sword_Idle_WristLockedV4.blend'
+OUT = HERE / 'ExportV82'
+if VARIANT == 'LongGrip':
+    OUT = OUT / 'LongGrip'
+OUT.mkdir(parents=True, exist_ok=True)
+BLEND = HERE / ('AzureRunesword_InspectFollowThroughV82' + ('_LongGrip' if VARIANT == 'LongGrip' else '') + '.blend')
+PREPARE_RIGHT_M = 0.16
+OLD_SPIN_END = 1.06
+OLD_RECOVER_END = 1.28
+OLD_END = 1.40
+SPIN_SPEED = 1.25 * 1.25
+design.SPIN_START = 0.40
+design.SPIN_END = 0.40 + (OLD_SPIN_END - 0.40) / SPIN_SPEED
+RECOVER_END = design.SPIN_END + (OLD_RECOVER_END - OLD_SPIN_END)
+design.END = RECOVER_END + (OLD_END - OLD_RECOVER_END)
+ELBOW_GIVE = 0.055
+ELBOW_GIVE_R = 0.11
+WRIST_BEND_CAP_R = 18.0
+WRIST_TWIST_LIM_R = 18.0
+WRIST_BEND_LIM_R = 22.0
+CLIP = 'A_RuneSword_Inspect'
+WPN = 'WPN_root'
+FPS = design.FPS
+END = design.END
+MIN_TIP_DEPTH = 0.10
+SPIN_AXIS_RAW = Vector((0.90, 1.00, 0.06))
+VIEW = Vector((0.0, 1.0, 0.0))
+UP = Vector((0.0, 0.0, 1.0))
+STATIONS = {
+    'r': {'lowerarm_twist_02_r': 0.2738741548309727, 'lowerarm_twist_01_r': 0.863392507873546},
+    'l': {'lowerarm_twist_02_l': 0.2738694206012943, 'lowerarm_twist_01_l': 0.8633863706969649},
+}
+
+FINGER_MAP = {
+    'thumb_01_r': 'thumb', 'thumb_02_r': 'thumb', 'thumb_03_r': 'thumb',
+    'index_metacarpal_r': 'index', 'index_01_r': 'index', 'index_02_r': 'index', 'index_03_r': 'index',
+    'middle_metacarpal_r': 'middle', 'middle_01_r': 'middle', 'middle_02_r': 'middle', 'middle_03_r': 'middle',
+    'ring_metacarpal_r': 'ring', 'ring_01_r': 'ring', 'ring_02_r': 'ring', 'ring_03_r': 'ring',
+    'pinky_metacarpal_r': 'pinky', 'pinky_01_r': 'pinky', 'pinky_02_r': 'pinky', 'pinky_03_r': 'pinky',
+    'thumb_01_l': 'thumb', 'thumb_02_l': 'thumb', 'thumb_03_l': 'thumb',
+    'index_metacarpal_l': 'index', 'index_01_l': 'index', 'index_02_l': 'index', 'index_03_l': 'index',
+    'middle_metacarpal_l': 'middle', 'middle_01_l': 'middle', 'middle_02_l': 'middle', 'middle_03_l': 'middle',
+    'ring_metacarpal_l': 'ring', 'ring_01_l': 'ring', 'ring_02_l': 'ring', 'ring_03_l': 'ring',
+    'pinky_metacarpal_l': 'pinky', 'pinky_01_l': 'pinky', 'pinky_02_l': 'pinky', 'pinky_03_l': 'pinky',
+}
+METACARPALS = {n for n in FINGER_MAP if 'metacarpal' in n}
+
+bpy.context.preferences.filepaths.save_version = 0
+bpy.ops.wm.open_mainfile(filepath=str(SOURCE))
+scene = bpy.context.scene
+rig = bpy.data.objects['SK_RuneSword_Rig']
+sword = bpy.data.objects['RuneSword_Blade']
+rest = {b.name: b.matrix_local.copy() for b in rig.data.bones}
+parent = {b.name: (b.parent.name if b.parent else None) for b in rig.data.bones}
+local_rest = {
+    n: (rest[parent[n]].inverted() @ rest[n]) if parent[n] else rest[n]
+    for n in rest
+}
+names = list(rest)
+source = rig.animation_data.action
+rig.animation_data.action_slot = source.slots[0]
+scene.frame_set(int(source.frame_range[0]))
+bpy.context.view_layer.update()
+idle = {b.name: b.matrix.copy() for b in rig.pose.bones}
+idle_scale = {n: idle[n].to_scale() for n in names}
+
+def remap_t(t):
+    if not isinstance(t, (int, float)):
+        return t
+    if t <= 0.40:
+        return t
+    if t <= OLD_SPIN_END:
+        return 0.40 + (t - 0.40) / SPIN_SPEED
+    return design.SPIN_END + (t - OLD_SPIN_END)
+
+
+def remap_keys(keys):
+    return [(remap_t(x), y) for x, y in keys]
+
+
+# Preserve V80's angular progression at 1.25x speed: 0.40-0.8224 s.
+# Preparation and recovery keep their existing duration.
+design.PHI = [
+    (0.00, 0.0), (0.18, 0.0), (0.32, -8.0), (0.38, -16.0), (0.40, -18.0),
+    (0.448, 10.0), (0.504, 75.0), (0.568, 160.0),
+    (0.636, 245.0), (0.700, 310.0), (0.760, 346.0),
+    (design.SPIN_END, 360.0), (END, 360.0),
+]
+design.PHI_CURVE = design.Curve(design.PHI)
+design.OPEN_PHALANX = 0.95
+design.OPEN_METACARPAL = 0.62
+# Same six beats, larger pose change at each station.
+design.PSI = remap_keys([
+    (0.00, 0.0), (0.28, 0.0),
+    (0.36, 8.0), (('phi', 20), 16.0), (('phi', 90), 38.0),
+    (('phi', 150), 78.0), (('phi', 200), 88.0),
+    (('phi', 255), 82.0), (('phi', 300), 58.0),
+    (('phi', 335), 22.0), (('phi', 355), 5.0),
+    (OLD_SPIN_END, 0.0), (OLD_END, 0.0),
+])
+design.THETA = remap_keys([
+    (0.00, 0.0), (0.20, 0.0), (0.40, -6.0),
+    (('phi', 45), 14.0), (('phi', 110), 6.0),
+    (('phi', 165), -4.0), (('phi', 215), -22.0),
+    (('phi', 260), -10.0), (('phi', 310), -4.0),
+    (('phi', 345), 2.0),
+    (OLD_SPIN_END, 0.0), (OLD_END, 0.0),
+])
+design.RHO = remap_keys([
+    (0.00, 0.0), (0.10, 0.0), (0.36, 1.0),
+    (OLD_SPIN_END, 1.0), (OLD_RECOVER_END, 0.0), (OLD_END, 0.0),
+])
+# Transmit the downstroke through a held grip, then clear the spinning hilt.
+design.GRIP = remap_keys([
+    (0.00, 1.0), (0.18, 1.0), (0.30, 1.0),
+    (0.36, 0.98), (0.40, 0.90), (('phi', 20), 0.60),
+    (('phi', 60), 0.16), (('phi', 95), 0.04),
+    (('phi', 145), 0.0), (('phi', 315), 0.0),
+    (('phi', 338), 0.08), (('phi', 350), 0.45),
+    (('phi', 357), 0.90), (OLD_SPIN_END, 1.0), (OLD_END, 1.0),
+])
+design.FINGERS = {
+    name: remap_keys(keys) for name, keys in {
+    'pinky': [
+        (0.00, 0.0), (0.32, 0.0), (0.36, 0.02), (0.40, 0.22),
+        (('phi', 20), 0.70), (('phi', 60), 1.0),
+        (('phi', 295), 1.0), (('phi', 335), 0.84),
+        (('phi', 350), 0.35), (OLD_SPIN_END, 0.0), (OLD_END, 0.0),
+    ],
+    'ring': [
+        (0.00, 0.0), (0.32, 0.0), (0.36, 0.01), (0.40, 0.12),
+        (('phi', 45), 0.72),
+        (('phi', 90), 1.0), (('phi', 290), 1.0),
+        (('phi', 335), 0.72), (('phi', 352), 0.24),
+        (OLD_SPIN_END, 0.0), (OLD_END, 0.0),
+    ],
+    'middle': [
+        (0.00, 0.0), (0.32, 0.0), (0.38, 0.02), (0.40, 0.08),
+        (('phi', 45), 0.50),
+        (('phi', 95), 1.0), (('phi', 280), 1.0),
+        (('phi', 330), 0.65), (('phi', 349), 0.22),
+        (('phi', 358), 0.0), (OLD_END, 0.0),
+    ],
+    'index': [
+        (0.00, 0.0), (0.32, 0.0), (0.40, 0.10),
+        (('phi', 45), 0.44), (('phi', 120), 0.82),
+        (('phi', 170), 0.94), (('phi', 275), 0.94),
+        (('phi', 325), 0.55), (('phi', 345), 0.15),
+        (('phi', 357), 0.0), (OLD_END, 0.0),
+    ],
+    'thumb': [
+        (0.00, 0.0), (0.38, 0.0), (0.42, 0.07),
+        (('phi', 80), 0.18), (('phi', 165), 0.30),
+        (('phi', 275), 0.30), (('phi', 330), 0.18),
+        (('phi', 350), 0.04), (('phi', 358), 0.0), (OLD_END, 0.0),
+    ],
+    }.items()
+}
+curves = design.build()
+CATCH_START = design.time_of_phi(353)
+CATCH_PEAK = design.SPIN_END + 0.028
+CATCH_END = design.SPIN_END + 0.158
+LEFT_APPROACH_START = design.SPIN_END + 0.020
+LEFT_PALM_CONTACT = design.SPIN_END + 0.155
+# These are absolute times after the right-hand catch. The palm seats before
+# full finger closure; the thumb opposes last, within the existing idle tail.
+LEFT_CLOSE_WINDOWS = {
+    'index': (LEFT_PALM_CONTACT - 0.014, LEFT_PALM_CONTACT + 0.044),
+    'middle': (LEFT_PALM_CONTACT - 0.006, LEFT_PALM_CONTACT + 0.060),
+    'ring': (LEFT_PALM_CONTACT + 0.002, LEFT_PALM_CONTACT + 0.077),
+    'pinky': (LEFT_PALM_CONTACT + 0.010, LEFT_PALM_CONTACT + 0.092),
+    'thumb': (LEFT_PALM_CONTACT + 0.038, LEFT_PALM_CONTACT + 0.124),
+}
+
+# Recover clock owns SPIN_END+. Dummy post keys are unused after that.
+curves['out'] = design.Curve(remap_keys([
+    (0.00, 0.0), (0.06, 0.0), (0.16, 0.05), (0.26, 0.145),
+    (0.34, PREPARE_RIGHT_M), (OLD_SPIN_END, PREPARE_RIGHT_M),
+    (OLD_RECOVER_END, 0.0), (OLD_END, 0.0),
+]))
+curves['left_path'] = design.Curve(remap_keys([
+    (0.00, 0.0), (0.14, 0.0), (0.26, 0.75), (0.36, 1.0),
+    (OLD_SPIN_END, 1.0), (OLD_RECOVER_END, 0.0), (OLD_END, 0.0),
+]))
+curves['left_open'] = design.Curve(remap_keys([
+    (0.00, 0.0), (0.14, 0.0), (0.24, 0.85), (0.32, 1.0),
+    (OLD_SPIN_END, 1.0), (OLD_RECOVER_END, 0.0), (OLD_END, 0.0),
+]))
+# Give the low pose time to read while rotation starts to carry the weapon.
+curves['lift'] = design.Curve(remap_keys([
+    (0.00, 0.0), (0.20, 0.0), (0.275, 0.008),
+    (0.36, -0.063), (0.395, -0.070), (0.445, -0.066), (0.54, -0.016),
+    (0.64, 0.010), (0.86, 0.018), (OLD_SPIN_END, 0.008),
+    (OLD_END, 0.0),
+]))
+curves['forward'] = design.Curve(remap_keys([
+    (0.00, 0.0), (0.20, 0.0), (0.32, 0.010),
+    (0.40, 0.055), (0.52, 0.024), (0.80, 0.008),
+    (OLD_SPIN_END, 0.0), (OLD_END, 0.0),
+]))
+transform = idle[WPN] @ rest[WPN].inverted()
+depsgraph = bpy.context.evaluated_depsgraph_get()
+posed = sword.evaluated_get(depsgraph).to_mesh()
+points = [sword.matrix_world @ v.co for v in posed.vertices]
+sword.evaluated_get(depsgraph).to_mesh_clear()
+centre = sum(points, Vector()) / len(points)
+local_pts = [transform.inverted() @ p for p in points]
+spans = []
+for axis in range(3):
+    coords = [p[axis] for p in local_pts]
+    spans.append((max(coords) - min(coords), axis))
+spans.sort(reverse=True)
+basis = [Vector((1, 0, 0)), Vector((0, 1, 0)), Vector((0, 0, 1))]
+blade_axis = (transform.to_3x3() @ basis[spans[0][1]]).normalized()
+tip = max(points, key=lambda p: (p - centre).dot(blade_axis))
+pommel = min(points, key=lambda p: (p - centre).dot(blade_axis))
+if (tip - pommel).dot(blade_axis) < 0.0:
+    blade_axis = -blade_axis
+    tip, pommel = pommel, tip
+tip_bind = transform.inverted() @ tip
+pommel_bind = transform.inverted() @ pommel
+
+# Author with V7 bare arms. The old glove surface must not choose the pivot.
+legacy_arms = bpy.data.objects['SK_Manny_Arms_Export']
+legacy_arms.hide_render = True
+legacy_arms.hide_set(True)
+arms = attach_bare(rig)
+bpy.context.view_layer.update()
+depsgraph = bpy.context.evaluated_depsgraph_get()
+posed_arms = arms.evaluated_get(depsgraph).to_mesh()
+posed_sword = sword.evaluated_get(depsgraph).to_mesh()
+# The thumb base at the upper hilt forms the web support; exclude ring/pinky,
+# guard and pommel. The V79 nearest-any-right-arm rule selected z=-0.0992 m.
+support_group = arms.vertex_groups['thumb_01_r'].index
+support_ids = [v.index for v in arms.data.vertices
+               if any(g.group == support_group and g.weight > 0.35 for g in v.groups)]
+sword_points = [sword.matrix_world @ v.co for v in posed_sword.vertices]
+hilt_points = [p for p in sword_points if -0.060 < (idle[WPN].inverted() @ p).z < -0.032]
+contact = None
+for vertex_id in support_ids:
+    arm_pt = arms.matrix_world @ posed_arms.vertices[vertex_id].co
+    for sword_pt in hilt_points:
+        distance = (arm_pt - sword_pt).length
+        if contact is None or distance < contact[0]:
+            contact = (distance, arm_pt.copy(), sword_pt.copy(), vertex_id)
+if contact is None:
+    raise RuntimeError('V7 upper-hilt thumb support could not be authored')
+contact_distance, contact_arm, contact_sword, contact_vertex_id = contact
+vertex = arms.data.vertices[contact_vertex_id]
+contact_skin = [(arms.vertex_groups[g.group].name, g.weight,
+                 rest[arms.vertex_groups[g.group].name].inverted() @ (arms.matrix_world @ vertex.co))
+                for g in vertex.groups if arms.vertex_groups[g.group].name in rest]
+contact_gap_local = idle['hand_r'].to_quaternion().inverted() @ (contact_sword - contact_arm)
+# A second real skin patch at the proximal index pad lets the hilt roll from
+# the thumb web toward the finger. Pair it with a nearby hilt surface point.
+index_group = arms.vertex_groups['index_01_r'].index
+index_ids = [v.index for v in arms.data.vertices
+             if any(g.group == index_group and g.weight > 0.35 for g in v.groups)]
+near_hilt = sorted(hilt_points, key=lambda p: (p-contact_sword).length)[:96]
+index_contact = min(
+    (((arms.matrix_world @ posed_arms.vertices[i].co - p).length
+       + 0.35 * (p-contact_sword).length, i, p)
+     for i in index_ids for p in near_hilt), key=lambda row: row[0])
+index_vertex_id, index_sword = index_contact[1], index_contact[2].copy()
+index_arm = arms.matrix_world @ posed_arms.vertices[index_vertex_id].co
+index_skin = [(arms.vertex_groups[g.group].name, g.weight,
+               rest[arms.vertex_groups[g.group].name].inverted()
+               @ (arms.matrix_world @ arms.data.vertices[index_vertex_id].co))
+              for g in arms.data.vertices[index_vertex_id].groups
+              if arms.vertex_groups[g.group].name in rest]
+index_gap_local = idle['hand_r'].to_quaternion().inverted() @ (index_sword-index_arm)
+index_bone_local = idle[WPN].inverted() @ index_sword
+arms.evaluated_get(depsgraph).to_mesh_clear()
+sword.evaluated_get(depsgraph).to_mesh_clear()
+contact_hand_local = idle['hand_r'].inverted() @ contact_sword
+contact_mesh_local = transform.inverted() @ contact_sword
+contact_bone_local = rest[WPN].inverted() @ contact_mesh_local
+
+
+def skin_support(pose):
+    total = sum(weight for name, weight, point in contact_skin)
+    point = sum((weight * (pose[name] @ local) for name, weight, local in contact_skin), Vector()) / total
+    return point + pose['hand_r'].to_quaternion() @ contact_gap_local
+
+
+def rolling_contact(pose, angle, grip):
+    primary = skin_support(pose)
+    total = sum(w for n, w, p in index_skin)
+    secondary = sum((w * (pose[n] @ p) for n, w, p in index_skin), Vector()) / total
+    secondary += pose['hand_r'].to_quaternion() @ index_gap_local
+    phase = design.smoothstep((angle-35.0)/75.0) * (1.0-design.smoothstep((angle-250.0)/85.0))
+    # The shared blend moves both sides of the contact. Keep skin travel within
+    # 4 mm and hilt travel within 3 mm; return to the thumb before the catch.
+    blend = min(0.55, 0.004/max((secondary-primary).length, 1e-6),
+                0.003/max((index_bone_local-contact_bone_local).length, 1e-6))
+    blend *= phase * (1.0-grip)
+    return (primary.lerp(secondary, blend),
+            contact_bone_local.lerp(index_bone_local, blend), blend)
+
+
+grip_r = idle[WPN].inverted() @ idle['hand_r']
+grip_l = idle[WPN].inverted() @ idle['hand_l']
+
+forearm = (idle['hand_r'].translation - idle['lowerarm_r'].translation).normalized()
+spin_axis = SPIN_AXIS_RAW.normalized()
+probe = Quaternion(spin_axis, math.radians(8.0)) @ (tip - contact_sword)
+if probe.y < (tip - contact_sword).y:
+    spin_axis = -spin_axis
+blade_flat = blade_axis - spin_axis * blade_axis.dot(spin_axis)
+if blade_flat.length < 1e-5:
+    blade_flat = UP - spin_axis * UP.dot(spin_axis)
+blade_flat.normalize()
+flatten_q = blade_axis.rotation_difference(blade_flat)
+fwd_dir = (VIEW - spin_axis * VIEW.dot(spin_axis))
+if fwd_dir.length < 1e-5:
+    fwd_dir = Vector((1.0, 0.0, 0.0))
+fwd_dir.normalize()
+right_dir = UP.cross(VIEW).normalized()
+if right_dir.dot(Vector((1.0, 0.0, 0.0))) < 0.0:
+    right_dir = -right_dir
+
+
+def recover_weight(seconds):
+    # One ease-in-out return. No catch hold, no ease-out crawl.
+    t = (seconds - design.SPIN_END) / (RECOVER_END - design.SPIN_END)
+    t = max(0.0, min(1.0, t))
+    if t <= 0.0:
+        return 0.0
+    if t >= 1.0:
+        return 1.0
+    # Continuous acceleration through the recovery midpoint.
+    return design.smoothstep(t)
+
+
+def flatten_weight(seconds, recover):
+    # Flatten after the hold group has already moved right of the lens.
+    # Decay with recover so the blade does not stay flat then snap to idle.
+    return design.smoothstep((seconds - 0.30) / 0.10) * (1.0 - recover)
+
+
+def mix_mat(a, b, t):
+    la, qa, sa = a.decompose()
+    lb, qb, sb = b.decompose()
+    if qa.dot(qb) < 0.0:
+        qb.negate()
+    return Matrix.LocRotScale(la.lerp(lb, t), qa.slerp(qb, t), sa.lerp(sb, t))
+
+
+def downstroke_weight(seconds):
+    # Elbow orientation leads the wrist's low point; unload into the spin,
+    # while the hand translation remains low through the initial rotation.
+    load = design.smoothstep((seconds - 0.245) / 0.105)
+    release = design.smoothstep((seconds - 0.398) / (design.time_of_phi(105) - 0.398))
+    return load * (1.0 - release)
+
+
+def catch_weight(seconds):
+    if seconds <= CATCH_START or seconds >= CATCH_END:
+        return 0.0
+    if seconds < CATCH_PEAK:
+        return design.smoothstep((seconds-CATCH_START)/(CATCH_PEAK-CATCH_START))
+    return 1.0-design.smoothstep((seconds-CATCH_PEAK)/(CATCH_END-CATCH_PEAK))
+
+
+def support_right_impulse(pose, degrees, axis, displacement):
+    """Move forearm, hand and blade together after the wrist solve.
+
+    The wrist's relative angle stays unchanged; elbow/shoulder support the
+    force instead of requesting a larger wrist angle that would be clamped.
+    """
+    if abs(degrees) <= 1e-7 and displacement.length <= 1e-7:
+        return
+    U, L, H = 'upperarm_r', 'lowerarm_r', 'hand_r'
+    a, e, h = (pose[n].translation.copy() for n in (U, L, H))
+    upper_length = (e-a).length
+    pitch = Quaternion(axis, math.radians(degrees))
+    elbow = h + pitch @ (e-h) + displacement
+    h += displacement
+    # The shoulder follows the elbow by only the distance needed to preserve
+    # the upper arm. Both source bone lengths remain fixed.
+    shoulder = elbow - (elbow-a).normalized() * upper_length
+    upper_turn = (e-a).normalized().rotation_difference((elbow-shoulder).normalized())
+    pose[U] = Matrix.LocRotScale(shoulder, upper_turn @ pose[U].to_quaternion(), idle_scale[U])
+    pose[L] = Matrix.LocRotScale(elbow, pitch @ pose[L].to_quaternion(), idle_scale[L])
+    pose[H] = Matrix.LocRotScale(h, pitch @ pose[H].to_quaternion(), idle_scale[H])
+    pose[WPN] = weapon_from_rotation(pitch @ pose[WPN].to_quaternion(), pose[H] @ contact_hand_local)
+
+
+def weapon_from_rotation(rotation, contact_world, local_contact=None):
+    if local_contact is None:
+        local_contact = contact_bone_local
+    return Matrix.LocRotScale(
+        contact_world - rotation @ local_contact,
+        rotation,
+        idle_scale[WPN])
+
+
+def lift_tip_rotation(sword_rot, contact_world):
+    mesh = weapon_from_rotation(sword_rot, contact_world) @ rest[WPN].inverted()
+    tip = mesh @ tip_bind
+    if tip.y >= MIN_TIP_DEPTH - 1e-5:
+        return sword_rot
+    blade = tip - contact_world
+    axis = blade.cross(VIEW)
+    if axis.length < 1e-6:
+        return sword_rot
+    axis.normalize()
+    lo_a, hi_a = 0.0, math.radians(40.0)
+    best = sword_rot
+    for _ in range(18):
+        mid = 0.5 * (lo_a + hi_a)
+        trial = Quaternion(axis, mid) @ sword_rot
+        mesh = weapon_from_rotation(trial, contact_world) @ rest[WPN].inverted()
+        if (mesh @ tip_bind).y >= MIN_TIP_DEPTH:
+            best = trial
+            hi_a = mid
+        else:
+            lo_a = mid
+    return best
+
+
+def share_wrist_twist(pose, side, keep_deg):
+    twist = wrist_twist_deg(pose, side)
+    extra = twist - max(-keep_deg, min(keep_deg, twist))
+    if abs(extra) < 0.25:
+        return
+    lo, hand = 'lowerarm_' + side, 'hand_' + side
+    axis = (pose[hand].translation - pose[lo].translation).normalized()
+    pose[lo] = Matrix.LocRotScale(
+        pose[lo].translation,
+        Quaternion(axis, math.radians(extra)) @ pose[lo].to_quaternion(),
+        idle_scale[lo])
+
+
+def limit_wrist(pose, side, twist_cap, bend_cap):
+    hand = 'hand_' + side
+    lo = 'lowerarm_' + side
+    if (abs(wrist_twist_deg(pose, side)) <= twist_cap
+            and wrist_axis_bend_deg(pose, side) <= bend_cap):
+        return
+    keep = pose[hand].translation.copy()
+    current = pose[hand].to_quaternion()
+    locked = (pose[lo] @ idle[lo].inverted() @ idle[hand]).to_quaternion()
+    if current.dot(locked) < 0.0:
+        locked.negate()
+    lo_t, hi_t = 0.0, 1.0
+    best = locked
+    for _ in range(16):
+        mid = 0.5 * (lo_t + hi_t)
+        trial = current.slerp(locked, mid)
+        pose[hand] = Matrix.LocRotScale(keep, trial, idle_scale[hand])
+        if (abs(wrist_twist_deg(pose, side)) <= twist_cap
+                and wrist_axis_bend_deg(pose, side) <= bend_cap):
+            best = trial
+            hi_t = mid
+        else:
+            lo_t = mid
+    pose[hand] = Matrix.LocRotScale(keep, best, idle_scale[hand])
+
+
+def frame_quat(direction, normal):
+    y = direction.normalized()
+    x = normal - y * normal.dot(y)
+    if x.length < 1e-6:
+        return None
+    x.normalize()
+    return Matrix((x, y, x.cross(y))).transposed().to_quaternion()
+
+
+def attach_helpers(pose, parent_name):
+    side = parent_name[-1]
+    prefix = parent_name[:-2]
+    for idx in ('01', '02'):
+        name = '%s_twist_%s_%s' % (prefix, idx, side)
+        if name in rest:
+            pose[name] = pose[parent_name] @ idle[parent_name].inverted() @ idle[name]
+
+
+def lock_wrist_idle(pose, side):
+    lo, hand = 'lowerarm_' + side, 'hand_' + side
+    pose[hand] = pose[lo] @ idle[lo].inverted() @ idle[hand]
+
+
+def solve_arm(hand_world, side, shoulder=None):
+    up, lo, hand = 'upperarm_' + side, 'lowerarm_' + side, 'hand_' + side
+    shoulder = idle[up].translation.copy() if shoulder is None else shoulder.copy()
+    elbow = idle[lo].translation
+    wrist = idle[hand].translation
+    upper_len = (elbow - idle[up].translation).length
+    fore_len = (wrist - elbow).length
+    target = hand_world.translation.copy()
+    delta = target - shoulder
+    reach = delta.length
+    limit = upper_len + fore_len - 1e-4
+    clamped = 0.0
+    if reach > limit:
+        clamped = reach - limit
+        target = shoulder + delta.normalized() * limit
+        delta = target - shoulder
+        reach = limit
+    direction = delta.normalized()
+    pole = (elbow - idle[up].translation) - direction * (elbow - idle[up].translation).dot(direction)
+    if pole.length < 1e-5:
+        pole = Vector((0.0, -1.0, 0.0))
+        pole = pole - direction * pole.dot(direction)
+    pole.normalize()
+    cos_alpha = (upper_len * upper_len + reach * reach - fore_len * fore_len) / (2.0 * upper_len * reach)
+    cos_alpha = max(-1.0, min(1.0, cos_alpha))
+    alpha = math.acos(cos_alpha)
+    elbow_pos = shoulder + (direction * math.cos(alpha) + pole * math.sin(alpha)) * upper_len
+    upper_rot = (elbow - idle[up].translation).normalized().rotation_difference(
+        (elbow_pos - shoulder).normalized()) @ idle[up].to_quaternion()
+    fore_rot = (wrist - elbow).normalized().rotation_difference(
+        (target - elbow_pos).normalized()) @ idle[lo].to_quaternion()
+    return {
+        up: Matrix.LocRotScale(shoulder, upper_rot, idle_scale[up]),
+        lo: Matrix.LocRotScale(elbow_pos, fore_rot, idle_scale[lo]),
+        hand: Matrix.LocRotScale(target, hand_world.to_quaternion(), idle_scale[hand]),
+    }, clamped
+
+
+def fit_elbow(shoulder_pos, target, upper_len, fore_len, hint):
+    axis = (target - shoulder_pos)
+    reach = axis.length
+    limit = upper_len + fore_len - 1e-4
+    if reach < 1e-6:
+        return hint.copy(), 0.0
+    if reach > limit:
+        clamped = reach - limit
+        target = shoulder_pos + axis.normalized() * limit
+        axis = target - shoulder_pos
+        reach = limit
+    else:
+        clamped = 0.0
+    direction = axis.normalized()
+    pole = hint - shoulder_pos
+    pole = pole - direction * pole.dot(direction)
+    if pole.length < 1e-5:
+        pole = Vector((0.0, -1.0, 0.0))
+        pole = pole - direction * pole.dot(direction)
+    pole.normalize()
+    cos_alpha = (upper_len * upper_len + reach * reach - fore_len * fore_len) / (2.0 * upper_len * reach)
+    cos_alpha = max(-1.0, min(1.0, cos_alpha))
+    alpha = math.acos(cos_alpha)
+    elbow = shoulder_pos + (direction * math.cos(alpha) + pole * math.sin(alpha)) * upper_len
+    return elbow, clamped
+
+
+def project_across(vector, axis):
+    out = vector - axis * vector.dot(axis)
+    if out.length < 1e-6:
+        return None
+    return out.normalized()
+
+
+def palm_across(hand_quat, fore):
+    best = None
+    score = -1.0
+    for axis in (Vector((1.0, 0.0, 0.0)), Vector((0.0, 1.0, 0.0)), Vector((0.0, 0.0, 1.0))):
+        candidate = hand_quat @ axis
+        keep = 1.0 - abs(candidate.dot(fore))
+        if keep > score:
+            score = keep
+            best = candidate
+    return project_across(best, fore)
+
+
+def solve_arm_palm(hand_world, side, shoulder=None, roll_weight=1.0, elbow_give=None, bend_cap_deg=None):
+    up, lo, hand = 'upperarm_' + side, 'lowerarm_' + side, 'hand_' + side
+    idle_shoulder = idle[up].translation
+    idle_elbow = idle[lo].translation
+    idle_wrist = idle[hand].translation
+    upper_len = (idle_elbow - idle_shoulder).length
+    fore_len = (idle_wrist - idle_elbow).length
+    target = hand_world.translation.copy()
+    shoulder_pos = idle_shoulder.copy() if shoulder is None else shoulder.copy()
+    old_fore = (idle_wrist - idle_elbow).normalized()
+    planted, clamped = fit_elbow(shoulder_pos, target, upper_len, fore_len, idle_elbow)
+    palm_hint = target - old_fore * fore_len
+    hand_delta = hand_world.to_quaternion() @ idle[hand].to_quaternion().inverted()
+    aimed = hand_delta @ old_fore
+    if aimed.length > 1e-6:
+        palm_hint = target - aimed.normalized() * fore_len
+    ideal_hint = palm_hint.copy()
+    give = ELBOW_GIVE if elbow_give is None else elbow_give
+    toward = palm_hint - planted
+    if toward.length > give:
+        palm_hint = planted + toward.normalized() * give
+    elbow_pos, extra = fit_elbow(shoulder_pos, target, upper_len, fore_len, palm_hint)
+    clamped = max(clamped, extra)
+
+    def assemble(elbow, shoulder):
+        axis = (target - elbow).normalized()
+        old_upper = (idle_elbow - idle_shoulder).normalized()
+        upper_axis = (elbow - shoulder).normalized()
+        idle_across = palm_across(idle[hand].to_quaternion(), old_fore)
+        now_across = palm_across(hand_world.to_quaternion(), axis)
+        transported = project_across(old_fore.rotation_difference(axis) @ idle_across, axis) if idle_across is not None else None
+        roll = 0.0
+        if transported is not None and now_across is not None:
+            rel = transported.rotation_difference(now_across)
+            if rel.w < 0.0:
+                rel.negate()
+            roll = 2.0 * math.atan2(Vector((rel.x, rel.y, rel.z)).dot(axis), rel.w)
+        roll *= max(0.0, min(1.0, roll_weight))
+        share = max(-math.radians(12.0), min(math.radians(12.0), roll * 0.25))
+        fore_rot = Quaternion(axis, roll - share) @ (
+            old_fore.rotation_difference(axis) @ idle[lo].to_quaternion())
+        upper_rot = Quaternion(upper_axis, share) @ (
+            old_upper.rotation_difference(upper_axis) @ idle[up].to_quaternion())
+        return {
+            up: Matrix.LocRotScale(shoulder, upper_rot, idle_scale[up]),
+            lo: Matrix.LocRotScale(elbow, fore_rot, idle_scale[lo]),
+            hand: Matrix.LocRotScale(target, hand_world.to_quaternion(), idle_scale[hand]),
+        }
+
+    to_elbow = elbow_pos - shoulder_pos
+    if to_elbow.length > 1e-5:
+        shoulder_pos = elbow_pos - to_elbow.normalized() * upper_len
+    solved = assemble(elbow_pos, shoulder_pos)
+    if bend_cap_deg is not None and wrist_axis_bend_deg(solved, side) > bend_cap_deg:
+        extra_span = ideal_hint - planted
+        if extra_span.length > give:
+            ideal = planted + extra_span.normalized() * give
+        else:
+            ideal = ideal_hint
+        lo_t, hi_t = 0.0, 1.0
+        chosen = solved
+        for _ in range(14):
+            mid = 0.5 * (lo_t + hi_t)
+            hint = elbow_pos.lerp(ideal, mid)
+            trial_elbow, trial_extra = fit_elbow(shoulder_pos, target, upper_len, fore_len, hint)
+            trial_shoulder = shoulder_pos
+            to_e = trial_elbow - trial_shoulder
+            if to_e.length > 1e-5:
+                trial_shoulder = trial_elbow - to_e.normalized() * upper_len
+            trial = assemble(trial_elbow, trial_shoulder)
+            if wrist_axis_bend_deg(trial, side) <= bend_cap_deg:
+                chosen = trial
+                clamped = max(clamped, trial_extra)
+                hi_t = mid
+            else:
+                lo_t = mid
+                chosen = trial
+                clamped = max(clamped, trial_extra)
+        solved = chosen
+    return solved, clamped
+
+
+def solve_arm_supported(hand_world, side, shoulder_pref=None, pole_tilt=None):
+    up, lo, hand = 'upperarm_' + side, 'lowerarm_' + side, 'hand_' + side
+    idle_elbow = idle[lo].translation
+    idle_wrist = idle[hand].translation
+    idle_shoulder = idle[up].translation
+    upper_len = (idle_elbow - idle_shoulder).length
+    fore_len = (idle_wrist - idle_elbow).length
+    target = hand_world.translation.copy()
+    idle_fore = (idle_wrist - idle_elbow).normalized()
+    desired_fore = (
+        hand_world.to_quaternion() @ idle[hand].to_quaternion().inverted() @ idle_fore
+    ).normalized()
+    if pole_tilt is not None and pole_tilt.length > 1e-6:
+        desired_fore = (desired_fore + 0.22 * pole_tilt).normalized()
+    elbow_pos = target - desired_fore * fore_len
+    preferred = idle_shoulder.copy() if shoulder_pref is None else shoulder_pref.copy()
+    to_elbow = elbow_pos - preferred
+    if to_elbow.length < 1e-5:
+        to_elbow = idle_elbow - idle_shoulder
+    shoulder = elbow_pos - to_elbow.normalized() * upper_len
+    reach = (target - shoulder).length
+    limit = upper_len + fore_len - 1e-4
+    clamped = 0.0
+    if reach > limit:
+        clamped = reach - limit
+        target = shoulder + (target - shoulder).normalized() * limit
+        elbow_pos = target - desired_fore * fore_len
+        to_elbow = elbow_pos - preferred
+        if to_elbow.length < 1e-5:
+            to_elbow = idle_elbow - idle_shoulder
+        shoulder = elbow_pos - to_elbow.normalized() * upper_len
+    upper_rot = (idle_elbow - idle_shoulder).normalized().rotation_difference(
+        (elbow_pos - shoulder).normalized()) @ idle[up].to_quaternion()
+    fore_rot = idle_fore.rotation_difference(desired_fore) @ idle[lo].to_quaternion()
+    return {
+        up: Matrix.LocRotScale(shoulder, upper_rot, idle_scale[up]),
+        lo: Matrix.LocRotScale(elbow_pos, fore_rot, idle_scale[lo]),
+        hand: Matrix.LocRotScale(target, hand_world.to_quaternion(), idle_scale[hand]),
+    }, clamped
+
+
+def elbow_gap(pose, side):
+    up, lo, hand = 'upperarm_' + side, 'lowerarm_' + side, 'hand_' + side
+    axis = (pose[hand].translation - pose[lo].translation).normalized()
+    rest_fore = (rest[hand].translation - rest[lo].translation).normalized()
+    up_delta = pose[up].to_quaternion() @ rest[up].to_quaternion().inverted()
+    fore_delta = pose[lo].to_quaternion() @ rest[lo].to_quaternion().inverted()
+    no_roll = (up_delta @ rest_fore).rotation_difference(axis) @ up_delta
+    relative = fore_delta @ no_roll.inverted()
+    vector = Vector((relative.x, relative.y, relative.z))
+    angle = 2.0 * math.atan2(vector.dot(axis), relative.w)
+    return math.degrees((angle + math.pi) % (2.0 * math.pi) - math.pi)
+
+
+def roll_shoulder(pose, side, previous):
+    up, lo = 'upperarm_' + side, 'lowerarm_' + side
+    axis = (pose[lo].translation - pose[up].translation).normalized()
+
+    def metric(degrees):
+        trial = dict(pose)
+        trial[up] = Matrix.LocRotScale(
+            pose[up].translation,
+            Quaternion(axis, math.radians(degrees)) @ pose[up].to_quaternion(),
+            idle_scale[up])
+        return abs(elbow_gap(trial, side))
+
+    samples = [(metric(deg), deg) for deg in range(-95, 96, 5)]
+    best = min(value for value, _deg in samples)
+    candidates = [deg for value, deg in samples if value <= best + 1.0]
+    chosen = min(candidates, key=lambda deg: abs(deg) if previous is None else abs(deg - previous))
+    pose[up] = Matrix.LocRotScale(
+        pose[up].translation,
+        Quaternion(axis, math.radians(chosen)) @ pose[up].to_quaternion(),
+        idle_scale[up])
+    return chosen
+
+
+def wrist_twist_deg(pose, side):
+    lo, hand = 'lowerarm_' + side, 'hand_' + side
+    axis = (pose[hand].translation - pose[lo].translation).normalized()
+    idle_rel = idle[lo].to_quaternion().inverted() @ idle[hand].to_quaternion()
+    now_rel = pose[lo].to_quaternion().inverted() @ pose[hand].to_quaternion()
+    delta = now_rel @ idle_rel.inverted()
+    if delta.w < 0.0:
+        delta.negate()
+    return math.degrees(2.0 * math.atan2(Vector((delta.x, delta.y, delta.z)).dot(axis), delta.w))
+
+
+def wrist_axis_bend_deg(pose, side):
+    lo, hand = 'lowerarm_' + side, 'hand_' + side
+    forearm_dir = (pose[hand].translation - pose[lo].translation).normalized()
+    rest_dir = (rest[hand].translation - rest[lo].translation).normalized()
+    hand_aligned = pose[hand].to_quaternion() @ rest[hand].to_quaternion().inverted() @ rest_dir
+    if hand_aligned.length < 1e-6:
+        return 0.0
+    return math.degrees(forearm_dir.angle(hand_aligned.normalized()))
+
+
+def elbow_interior_deg(pose, side):
+    up, lo, hand = 'upperarm_' + side, 'lowerarm_' + side, 'hand_' + side
+    a = pose[up].translation - pose[lo].translation
+    b = pose[hand].translation - pose[lo].translation
+    if a.length < 1e-6 or b.length < 1e-6:
+        return 0.0
+    return math.degrees(a.angle(b))
+
+
+def channels(world, parent_world, name):
+    local = parent_world.inverted() @ world
+    return (local_rest[name].inverted() @ local).decompose()
+
+
+idle_local_scale = {}
+for _name in names:
+    _parent = parent[_name]
+    _pw = idle[_parent] if _parent else Matrix.Identity(4)
+    idle_local_scale[_name] = channels(idle[_name], _pw, _name)[2]
+
+
+def rebuild_finger_world(pose, side):
+    order = [n for n in FINGER_MAP if n.endswith('_' + side)]
+    for name in order:
+        rest_local = local_rest[name]
+        idle_parent = idle[parent[name]]
+        idle_local = idle_parent.inverted() @ idle[name]
+        loc_i, quat_i, scale_i = (rest_local.inverted() @ idle_local).decompose()
+        amount = amount_for_current[FINGER_MAP[name]]
+        if side == 'l' and seconds >= LEFT_APPROACH_START:
+            start, finish = LEFT_CLOSE_WINDOWS[FINGER_MAP[name]]
+            joint = name.rsplit('_', 2)[-2]
+            delay = {'metacarpal': -0.008, '01': -0.006, '02': 0.0, '03': 0.006}.get(joint, 0.0)
+            amount = 1.0-design.smoothstep((seconds-start-delay)/(finish-start))
+        weight = amount * (design.OPEN_METACARPAL if name in METACARPALS else design.OPEN_PHALANX)
+        if side == 'r':
+            # Separate the clearance at the knuckle from the curl at the tip.
+            # The thumb/index support the hilt while ring/pinky make room.
+            finger = FINGER_MAP[name]
+            joint = name.rsplit('_', 2)[-2]
+            factors = {
+                'thumb': {'01': 0.55, '02': 0.90, '03': 0.80},
+                'index': {'metacarpal': 0.55, '01': 1.0, '02': 0.86, '03': 0.72},
+                'middle': {'metacarpal': 0.75, '01': 1.0, '02': 0.98, '03': 0.88},
+                'ring': {'metacarpal': 0.90, '01': 1.0, '02': 1.0, '03': 0.94},
+                'pinky': {'metacarpal': 1.0, '01': 1.0, '02': 1.0, '03': 0.94},
+            }
+            weight *= factors[finger].get(joint, 1.0)
+        else:
+            # Proximal joints approach first, distal pads finish wrapping. No
+            # finger translations or scales are changed to chase the surface.
+            finger = FINGER_MAP[name]
+            joint = name.rsplit('_', 2)[-2]
+            weight *= {'metacarpal': 0.45, '01': 0.90, '02': 0.82, '03': 0.70}.get(joint, 1.0)
+            if finger == 'thumb':
+                weight *= 0.74
+        loc_r, quat_r, scale_r = Vector((0, 0, 0)), Quaternion(), Vector((1, 1, 1))
+        if quat_i.dot(quat_r) < 0.0:
+            quat_r.negate()
+        local = rest_local @ Matrix.LocRotScale(
+            loc_i, quat_i.slerp(quat_r, weight), scale_i)
+        pose[name] = pose[parent[name]] @ local
+
+
+source.name = 'RETAINED_V4_Idle'
+source.use_fake_user = True
+action = source.copy()
+action.name = CLIP
+action.use_fake_user = True
+rig.animation_data.action = action
+rig.animation_data.action_slot = action.slots[0]
+for layer in action.layers:
+    for strip in layer.strips:
+        for bag in strip.channelbags:
+            for curve in list(bag.fcurves):
+                bag.fcurves.remove(curve)
+
+order = []
+pending = set(names)
+while pending:
+    for name in list(pending):
+        if parent[name] is None or parent[name] not in pending:
+            order.append(name)
+            pending.remove(name)
+
+end_frame = int(round(END * FPS))
+previous_quat = {}
+shoulder_prev = {'r': None, 'l': None}
+wrist_state = {}
+rows = []
+amount_for_current = {'thumb': 0.0, 'index': 0.0, 'middle': 0.0, 'ring': 0.0, 'pinky': 0.0}
+
+for frame in range(end_frame + 1):
+    seconds = frame / FPS
+    phi = curves['phi'](seconds)
+    psi = curves['psi'](seconds)
+    theta = curves['theta'](seconds)
+    rho = curves['rho'](seconds)
+    lift = curves['lift'](seconds)
+    forward = curves['forward'](seconds)
+    throw = design.smoothstep((seconds - 0.30) / 0.08) * (
+        1.0 - design.smoothstep((seconds - remap_t(0.44)) / (remap_t(0.58) - remap_t(0.44))))
+    theta -= 8.0 * throw
+    recover = recover_weight(seconds)
+    out = curves['out'](seconds)
+    grip = curves['grip'](seconds)
+    left_path = curves['left_path'](seconds)
+    left_open = curves['left_open'](seconds)
+    if seconds + 1e-6 >= design.SPIN_END:
+        out = PREPARE_RIGHT_M * (1.0 - recover)
+        left_path = 1.0-design.smoothstep((seconds-LEFT_APPROACH_START)/(LEFT_PALM_CONTACT-LEFT_APPROACH_START))
+        left_open = 1.0
+        lift *= (1.0 - recover)
+        forward *= (1.0 - recover)
+    fw = flatten_weight(seconds, recover)
+    for finger in amount_for_current:
+        amount_for_current[finger] = curves['finger_' + finger](seconds)
+
+    offset = UP * lift + fwd_dir * forward + right_dir * out
+    flatten_now = Quaternion().slerp(flatten_q, fw)
+    spin_q = Quaternion(spin_axis, math.radians(phi))
+    roll_q = Quaternion(spin_q @ flatten_now @ blade_axis, math.radians(rho))
+    sword_rot = roll_q @ spin_q @ flatten_now @ idle[WPN].to_quaternion()
+
+    psi_q = Quaternion(forearm, math.radians(psi))
+    theta_q = Quaternion(spin_axis, math.radians(theta))
+    hand_rot = theta_q @ psi_q @ flatten_now @ idle['hand_r'].to_quaternion()
+    hand_open = Matrix.LocRotScale(
+        idle['hand_r'].translation + offset, hand_rot, idle_scale['hand_r'])
+
+    contact_idle = contact_sword + offset
+    sword_locked = weapon_from_rotation(sword_rot, contact_idle)
+    hand_locked = sword_locked @ grip_r
+    hand_r = mix_mat(hand_open, hand_locked, grip)
+    contact_world = hand_r @ contact_hand_local
+    sword_rot = lift_tip_rotation(sword_rot, contact_world)
+    sword_world = weapon_from_rotation(sword_rot, contact_world)
+
+    park = Vector(design.LEFT_PARK)
+    bulge = Vector(design.LEFT_BULGE)
+    left_offset = park * left_path + bulge * (4.0 * left_path * (1.0 - left_path)) + right_dir * out
+    hand_l = Matrix.LocRotScale(
+        idle['hand_l'].translation + left_offset,
+        idle['hand_l'].to_quaternion(),
+        idle_scale['hand_l'])
+    shoulder_l = idle['upperarm_l'].translation + Vector(design.LEFT_SHOULDER) * left_path
+
+    if recover > 0.0:
+        # Rotate toward idle in place; translation already follows out/left_path.
+        hand_keep = hand_r.translation.copy()
+        sword_keep = sword_world.translation.copy()
+        hand_r = mix_mat(hand_r, idle['hand_r'], recover)
+        sword_world = mix_mat(sword_world, idle[WPN], recover)
+        hand_r = Matrix.LocRotScale(hand_keep, hand_r.to_quaternion(), idle_scale['hand_r'])
+        contact_world = hand_r @ contact_hand_local
+        sword_rot = sword_world.to_quaternion()
+        sword_world = weapon_from_rotation(sword_rot, contact_world)
+        for finger in amount_for_current:
+            amount_for_current[finger] *= (1.0 - recover)
+
+    pose = {n: idle[n].copy() for n in names}
+    pose[WPN] = sword_world
+    roll_w = fw
+    clamp_r = 0.0
+    clamp_l = 0.0
+    idle_hold = recover >= 1.0 - 1e-4 or (
+        fw < 1e-5 and left_path < 1e-5 and recover < 1e-5
+        and abs(out) < 1e-5 and abs(lift) < 1e-5 and abs(forward) < 1e-5)
+    if idle_hold:
+        pose[WPN] = idle[WPN].copy()
+    else:
+        solved_r, clamp_r = solve_arm_palm(
+            hand_r, 'r', roll_weight=roll_w, elbow_give=ELBOW_GIVE_R, bend_cap_deg=WRIST_BEND_CAP_R)
+        solved_l, clamp_l = solve_arm_palm(hand_l, 'l', shoulder_l, roll_weight=0.0)
+        lock_wrist_idle(solved_l, 'l')
+        pose.update(solved_r)
+        pose.update(solved_l)
+        for side in ('r', 'l'):
+            attach_helpers(pose, 'upperarm_' + side)
+            attach_helpers(pose, 'lowerarm_' + side)
+        if roll_w > 1e-4:
+            shoulder_prev['r'] = roll_shoulder(pose, 'r', shoulder_prev['r'])
+        else:
+            shoulder_prev['r'] = None
+        for side in ('r', 'l'):
+            attach_helpers(pose, 'upperarm_' + side)
+            attach_helpers(pose, 'lowerarm_' + side)
+        share_wrist_twist(pose, 'r', WRIST_TWIST_LIM_R)
+        limit_wrist(pose, 'r', WRIST_TWIST_LIM_R, WRIST_BEND_LIM_R)
+        pose[WPN] = weapon_from_rotation(sword_rot, pose['hand_r'] @ contact_hand_local)
+        support_right_impulse(pose, -22.0*downstroke_weight(seconds),
+                              Vector((1.0, 0.0, 0.0)), Vector())
+        catch = catch_weight(seconds)
+        # A single catch yield, then settle. Sword and hand stay one held group.
+        support_right_impulse(pose, 4.2*catch, spin_axis,
+                              Vector((0.0, -0.0035, -0.009))*catch)
+        attach_helpers(pose, 'upperarm_r')
+        attach_helpers(pose, 'lowerarm_r')
+    rebuild_finger_world(pose, 'r')
+
+    contact_blend = 0.0
+    if not idle_hold:
+        # Both ends of the rolling support come from the V7/hilt surfaces.
+        # Restore the primary web contact before the held transform takes over.
+        contact_world, rolling_local, contact_blend = rolling_contact(pose, phi, grip)
+        free_weapon = weapon_from_rotation(pose[WPN].to_quaternion(), contact_world, rolling_local)
+        # On catch the entire grip relation (rotation AND position) returns.
+        # The old pass updated only position after changing hand rotation.
+        held_weapon = pose['hand_r'] @ grip_r.inverted()
+        pose[WPN] = mix_mat(free_weapon, held_weapon, grip)
+
+    # Guide the palm to the FINAL held weapon, after right-hand catch/contact
+    # resolution. A shared return clock cannot represent this two-hand handoff.
+    left_attach = design.smoothstep((seconds-(design.SPIN_END+0.038))
+                                   / (LEFT_PALM_CONTACT-(design.SPIN_END+0.038)))
+    if left_attach > 0.0 and not idle_hold:
+        palm_target = pose[WPN] @ grip_l
+        target_l = mix_mat(pose['hand_l'], palm_target, left_attach)
+        solved_l, clamp_l = solve_arm_palm(target_l, 'l', shoulder_l, roll_weight=left_attach)
+        pose.update(solved_l)
+    if not idle_hold:
+        shoulder_prev['l'] = roll_shoulder(pose, 'l', shoulder_prev['l'])
+        attach_helpers(pose, 'upperarm_l')
+        attach_helpers(pose, 'lowerarm_l')
+    else:
+        shoulder_prev['l'] = None
+    saved = dict(amount_for_current)
+    for finger in amount_for_current:
+        if seconds >= LEFT_APPROACH_START:
+            start, finish = LEFT_CLOSE_WINDOWS[finger]
+            amount_for_current[finger] = 1.0-design.smoothstep((seconds-start)/(finish-start))
+        else:
+            amount_for_current[finger] = left_open
+    rebuild_finger_world(pose, 'l')
+    amount_for_current.update(saved)
+    support_w = 0.0
+    spread, twist_report = arm_roll.build(pose, local_rest, rest, support_w)
+
+    parent_world = {}
+    for name in order:
+        bone = rig.pose.bones[name]
+        bone.rotation_mode = 'QUATERNION'
+        parent_name = parent[name]
+        parent_matrix = parent_world.get(parent_name, Matrix.Identity(4))
+        loc, quat, scale_value = channels(pose[name], parent_matrix, name)
+        if name in previous_quat and quat.dot(previous_quat[name]) < 0.0:
+            quat.negate()
+        previous_quat[name] = quat.copy()
+        bone.location = loc
+        bone.rotation_quaternion = quat
+        bone.scale = idle_local_scale[name]
+        parent_world[name] = (
+            parent_matrix @ local_rest[name] @ Matrix.LocRotScale(loc, quat, scale_value))
+        if (frame % 2 == 0 or frame >= int(round(design.SPIN_START * FPS))
+                or frame in (0, end_frame)):
+            for channel in ('location', 'rotation_quaternion', 'scale'):
+                bone.keyframe_insert(channel, frame=frame, group=name)
+
+    if frame % 8 == 0 or frame in (0, end_frame):
+        mesh_now = parent_world[WPN] @ rest[WPN].inverted()
+        tip_w = mesh_now @ tip_bind
+        pommel_w = mesh_now @ pommel_bind
+        contact_now = parent_world['hand_r'].inverted() @ (mesh_now @ contact_mesh_local)
+        rows.append({
+            'seconds': round(seconds, 3),
+            'phi_deg': round(phi, 2),
+            'psi_deg': round(psi, 2),
+            'theta_deg': round(theta, 2),
+            'grip': round(grip, 3),
+            'finger_thumb': round(amount_for_current['thumb'], 3),
+            'finger_index': round(amount_for_current['index'], 3),
+            'finger_middle': round(amount_for_current['middle'], 3),
+            'finger_ring': round(amount_for_current['ring'], 3),
+            'finger_pinky': round(amount_for_current['pinky'], 3),
+            'flatten': round(fw, 3),
+            'recover': round(recover, 3),
+            'out_m': round(out, 4),
+            'lift_m': round(lift, 4),
+            'forward_m': round(forward, 4),
+            'left_path': round(left_path, 3),
+            'left_palm_attach': round(left_attach, 3),
+            'catch_yield': round(catch_weight(seconds), 3),
+            'rolling_contact_blend': round(contact_blend, 4),
+            'tip_depth_m': round(tip_w.y, 4),
+            'pommel_depth_m': round(pommel_w.y, 4),
+            'primary_anchor_motion_m': round((contact_now - contact_hand_local).length, 6),
+            'reach_clamp_r_m': round(clamp_r, 4),
+            'reach_clamp_l_m': round(clamp_l, 4),
+            'wrist_twist_r_deg': round(wrist_twist_deg(pose, 'r'), 2),
+            'wrist_twist_l_deg': round(wrist_twist_deg(pose, 'l'), 2),
+            'wrist_axis_bend_r_deg': round(wrist_axis_bend_deg(pose, 'r'), 2),
+            'wrist_axis_bend_l_deg': round(wrist_axis_bend_deg(pose, 'l'), 2),
+            'elbow_interior_r_deg': round(elbow_interior_deg(pose, 'r'), 2),
+            'elbow_interior_l_deg': round(elbow_interior_deg(pose, 'l'), 2),
+            'hand_r': [round(v, 4) for v in parent_world['hand_r'].translation],
+            'hand_l': [round(v, 4) for v in parent_world['hand_l'].translation],
+            'shoulder_r_delta_m': [
+                round(v, 4) for v in (
+                    parent_world['upperarm_r'].translation - idle['upperarm_r'].translation)
+            ],
+            'elbow_r_delta_m': [
+                round(v, 4) for v in (
+                    parent_world['lowerarm_r'].translation - idle['lowerarm_r'].translation)
+            ],
+            'elbow_twist_r': round(twist_report['r']['elbow_twist_after'], 2),
+            'elbow_twist_l': round(twist_report['l']['elbow_twist_after'], 2),
+        })
+
+for layer in action.layers:
+    for strip in layer.strips:
+        for bag in strip.channelbags:
+            for curve in bag.fcurves:
+                for key in curve.keyframe_points:
+                    key.interpolation = 'LINEAR'
+
+scene.render.fps = int(FPS)
+scene.render.fps_base = 1.0
+scene.frame_start, scene.frame_end = 0, end_frame
+scene.frame_set(0)
+bpy.ops.object.select_all(action='DESELECT')
+rig.hide_set(False)
+rig.select_set(True)
+bpy.context.view_layer.objects.active = rig
+bpy.ops.export_scene.fbx(
+    filepath=str(OUT / (CLIP + '.fbx')),
+    use_selection=True, object_types={'ARMATURE'},
+    axis_forward='-Y', axis_up='Z', add_leaf_bones=False,
+    bake_anim=True, bake_anim_use_all_actions=False,
+    bake_anim_use_nla_strips=False, bake_anim_simplify_factor=0)
+
+end_err = max(
+    (parent_world[n].translation - idle[n].translation).length
+    for n in ('hand_r', 'hand_l', WPN))
+report = {
+    'revision': 'InspectFollowThroughV82',
+    'variant': VARIANT,
+    'reference': 'V81 timing and supported downstroke; V82 catch, left regrip and rolling contact',
+    'support_vertex': contact_vertex_id,
+    'support_weapon_local_m': list(contact_bone_local),
+    'contact_mode': 'V7 thumb-web to proximal index support during spin; full hand-to-hilt transform when held',
+    'index_support_vertex': index_vertex_id,
+    'index_support_weapon_local_m': list(index_bone_local),
+    'contact_skin_travel_limit_m': 0.004,
+    'contact_hilt_travel_limit_m': 0.003,
+    'catch_window_s': [CATCH_START, CATCH_PEAK, CATCH_END],
+    'catch_yield_degrees': 4.2,
+    'catch_yield_translation_m': [0.0, -0.0035, -0.009],
+    'left_approach_s': [LEFT_APPROACH_START, LEFT_PALM_CONTACT],
+    'left_close_windows_s': LEFT_CLOSE_WINDOWS,
+    'spin_speed': SPIN_SPEED,
+    'spin_speed_relative_to_v80': 1.25,
+    'downstroke_forearm_pitch_deg': -22.0,
+    'idle_source': str(SOURCE),
+    'seconds': END,
+    'spin_window_s': [design.SPIN_START, design.SPIN_END],
+    'fps': FPS,
+    'contact_distance_m': round(contact_distance, 6),
+    'contact_hand_local': [round(v, 5) for v in contact_hand_local],
+    'blade_axis_idle': [round(v, 4) for v in blade_axis],
+    'spin_axis': [round(v, 4) for v in spin_axis],
+    'flatten_deg': round(math.degrees(flatten_q.angle), 3),
+    'min_tip_depth_m': min(row['tip_depth_m'] for row in rows),
+    'max_primary_anchor_motion_m': max(row['primary_anchor_motion_m'] for row in rows),
+    'max_reach_clamp_m': max(max(row['reach_clamp_r_m'], row['reach_clamp_l_m']) for row in rows),
+    'max_wrist_twist_r_deg': max(abs(row['wrist_twist_r_deg']) for row in rows),
+    'max_wrist_twist_l_deg': max(abs(row['wrist_twist_l_deg']) for row in rows),
+    'max_wrist_axis_bend_r_deg': max(row['wrist_axis_bend_r_deg'] for row in rows),
+    'max_wrist_axis_bend_l_deg': max(row['wrist_axis_bend_l_deg'] for row in rows),
+    'max_hand_r_travel_m': max(
+        (Vector(row['hand_r']) - idle['hand_r'].translation).length for row in rows),
+    'max_hand_l_travel_m': max(
+        (Vector(row['hand_l']) - idle['hand_l'].translation).length for row in rows),
+    'max_shoulder_r_travel_m': max(
+        Vector(row['shoulder_r_delta_m']).length for row in rows),
+    'max_elbow_r_travel_m': max(
+        Vector(row['elbow_r_delta_m']).length for row in rows),
+    'end_translation_error_m': round(end_err, 6),
+    'samples': rows,
+    'prepare_right_m': PREPARE_RIGHT_M,
+    'method': (
+        'V81 spin curve and duration retained (25 percent faster than V80). '
+        'Elbow-led downstroke unloads into the spin; one supported catch impulse settles within recovery. '
+        'A bounded two-surface rolling contact returns to the thumb web before catch. '
+        'Left palm targets the final held sword; separate finger/joint clocks finish the regrip. '
+        'No runtime, shared mesh, combat or source bone-length changes.'
+    ),
+    'testing': 'No post-change checks, renders or gameplay tests requested or run. User tests.',
+}
+(HERE / ('authoring_v82' + ('_long_grip' if VARIANT == 'LongGrip' else '') + '.json')).write_text(json.dumps(report, indent=2), encoding='utf-8')
+bpy.ops.file.pack_all()
+bpy.ops.wm.save_as_mainfile(filepath=str(BLEND))
+print('INSPECT_FOLLOW_THROUGH_V82_AUTHORED', VARIANT, str(OUT / (CLIP + '.fbx')))

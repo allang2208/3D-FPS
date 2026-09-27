@@ -1,0 +1,350 @@
+{
+  "archive_root": "trash/melee-bow-iterations-20260927",
+  "status": "moved-and-sha256-verified",
+  "files": [
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/__pycache__/visible_bare.cpython-313.pyc",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/__pycache__/visible_bare.cpython-313.pyc",
+      "bytes": 2702,
+      "sha256": "bb4a3df865e3088715219d76f40e001f3009959ae8760ab29fefb5e32a88d0e0",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/author_inspect_v83.py",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/author_inspect_v83.py",
+      "bytes": 57091,
+      "sha256": "89c5e44f56dbdc0925a12163b3aa6ddb14ad82ba4e883a10a216553d35d77432",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/author_long_grip.log",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/author_long_grip.log",
+      "bytes": 1454,
+      "sha256": "a5d8582cf20f0e6f0ca6e8b2d1d6d8f53235514c5ef7ab49080cf6d79837b667",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/author_standard.log",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/author_standard.log",
+      "bytes": 1426,
+      "sha256": "0f42151d723bdf40bd104d5b5d5b15b294566c5cb02ab17e5f23cdeeeb6ec72d",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/authoring_v83.json",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/authoring_v83.json",
+      "bytes": 30538,
+      "sha256": "c7310721b9d1ac96de8f54d474570f9621ccdec6ef7d1c8686bfae4a5971ff21",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/authoring_v83_long_grip.json",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/authoring_v83_long_grip.json",
+      "bytes": 30514,
+      "sha256": "7aef2edf1fee9db6f6caebbe3e019b3e5669944fd8270d45d3e4cab8ccd981e5",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/AzureRunesword_InspectHandLeadV83.blend",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/AzureRunesword_InspectHandLeadV83.blend",
+      "bytes": 165244333,
+      "sha256": "6d03134d304be477b500f74a2a014c54865ec8963d871aa3ecf9416c4bb6c430",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/AzureRunesword_InspectHandLeadV83_LongGrip.blend",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/AzureRunesword_InspectHandLeadV83_LongGrip.blend",
+      "bytes": 175389871,
+      "sha256": "545708476a0c910af1fa1cce63d0b0726330ec2e6bcd8a4ab93f74e2b9a2ceb4",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/BeforeV83/LongGrip/A_RuneSword_Inspect.uasset",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/BeforeV83/LongGrip/A_RuneSword_Inspect.uasset",
+      "bytes": 960379,
+      "sha256": "45585b2c0ace83e3e12db23e781b8024a3e55cd7aeed0ab9f359ebe3639886db",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/BeforeV83/Standard/A_RuneSword_Inspect.uasset",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/BeforeV83/Standard/A_RuneSword_Inspect.uasset",
+      "bytes": 964302,
+      "sha256": "60d7470643a448ef78476caa8e03906784bb5bac348550c70acf82f560fe94bd",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/ExportV83/A_RuneSword_Inspect.fbx",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/ExportV83/A_RuneSword_Inspect.fbx",
+      "bytes": 1413676,
+      "sha256": "37eb23f70c93be043dda1d31facfa34285036c106319f61766e558b831140037",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/ExportV83/LongGrip/A_RuneSword_Inspect.fbx",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/ExportV83/LongGrip/A_RuneSword_Inspect.fbx",
+      "bytes": 1413372,
+      "sha256": "72efccd6717bd13cf0d43a7f3a0ac90aa4118b72449643be0a004d799ec78dce",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/Final/LongGrip/A_RuneSword_Inspect.fbx",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/Final/LongGrip/A_RuneSword_Inspect.fbx",
+      "bytes": 1809040,
+      "sha256": "fec7d11f744341ec7712a6f8d1611fec5e637e4a12d7f85ac7d065bf7fa5fdd5",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/Final/LongGrip/Inspect_idle_handoff_keys.json",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/Final/LongGrip/Inspect_idle_handoff_keys.json",
+      "bytes": 515600,
+      "sha256": "0e65051faac592ccba44a92b7e618ac96643429fac8c6fb73a86c45291215cf4",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/Final/Standard/A_RuneSword_Inspect.fbx",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/Final/Standard/A_RuneSword_Inspect.fbx",
+      "bytes": 1809040,
+      "sha256": "ea07f16d68ba63688b8df2021d8822e013dfbfdef729aaf393dc0e7310bb2f27",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/Final/Standard/Inspect_idle_handoff_keys.json",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/Final/Standard/Inspect_idle_handoff_keys.json",
+      "bytes": 510494,
+      "sha256": "ef1281c9f7459158f6b76947980d0ce917b0594c422884b5910ccecae2eb8b07",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/import_background_console.log",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/import_background_console.log",
+      "bytes": 36413,
+      "sha256": "7f8c31d8ae7f21a3ff952d4d106bd09919a7258898eaec135fd5d89bfb74f319",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/import_editor_receipt.txt",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/import_editor_receipt.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/import_inspect_v83.py",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/import_inspect_v83.py",
+      "bytes": 8816,
+      "sha256": "8b009c3a526d90c9d4fd8a3cc45fdd06a7138010b29288a8d246517208f3e7b4",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/import_receipt_v83.json",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/import_receipt_v83.json",
+      "bytes": 2401,
+      "sha256": "8d665d169b20bb6870523a4a84b8faef750405f9debd091224db4afa41ffbdc5",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/import_v83.log",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/import_v83.log",
+      "bytes": 279268,
+      "sha256": "95f7ecf7bfb11163db18e4f803a0cbd90691a3aefc887ed29a1662ee1ed72c40",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/README.md",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/README.md",
+      "bytes": 656,
+      "sha256": "7610058d3956c9f656be73eb8f51bdff652907c2b3921b60c355329a6d5d1b23",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/run_import.ps1",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/run_import.ps1",
+      "bytes": 1425,
+      "sha256": "beed61c392a5a75b6998feb0d0ac29ff9071b5562b69c093ae9aaebe62727c76",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectHandLeadV83/visible_bare.py",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectHandLeadV83/visible_bare.py",
+      "bytes": 1348,
+      "sha256": "9eb5d19c4f00a9d7fc1a76e4fb0addb59adf1e38ae4269bafff20b75715ea5c5",
+      "reason": "User rejected V83 and restored V82; inspection development paused.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/SwordGuardLeftRepair20260926/RejectedV83/LongGrip/A_RuneSword_Inspect.uasset",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/SwordGuardLeftRepair20260926/RejectedV83/LongGrip/A_RuneSword_Inspect.uasset",
+      "bytes": 964849,
+      "sha256": "9ab369b4892293787aa50777986e37bb0f0d7ecdf3acce7631ff075e19323d92",
+      "reason": "Saved rejected V83 packages; keep recoverable under trash.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/SwordGuardLeftRepair20260926/RejectedV83/Standard/A_RuneSword_Inspect.uasset",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/SwordGuardLeftRepair20260926/RejectedV83/Standard/A_RuneSword_Inspect.uasset",
+      "bytes": 964292,
+      "sha256": "1a42507e3f59cb02c661e978ccabd76571ff440a514cc73d5bf076c6bab0061c",
+      "reason": "Saved rejected V83 packages; keep recoverable under trash.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/BowQuickCombat20260926/Export/A_Bow_QuickCombat.fbx",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/BowQuickCombat20260926/Export/A_Bow_QuickCombat.fbx",
+      "bytes": 1225596,
+      "sha256": "1910ea53bfbeb592669680eb1bf9b6b01a4ac64c5ab350ae8875c1ee1878494d",
+      "reason": "Superseded bow quick-combat export; source chain retained.",
+      "retained_replacement": "SourceAssets/BowQuickCombatRecover20260927/Export/A_Bow_QuickCombat.fbx"
+    },
+    {
+      "source": "SourceAssets/BowQuickCombat20260927/Export/A_Bow_QuickCombat.fbx",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/BowQuickCombat20260927/Export/A_Bow_QuickCombat.fbx",
+      "bytes": 1224924,
+      "sha256": "d7833644c4361c38980a2c80374d44cd28fd5f168acb8f21176a8d7e0aaae070",
+      "reason": "Superseded bow quick-combat export; source chain retained.",
+      "retained_replacement": "SourceAssets/BowQuickCombatRecover20260927/Export/A_Bow_QuickCombat.fbx"
+    },
+    {
+      "source": "SourceAssets/BowQuickCombatPush20260927/Export/A_Bow_QuickCombat.fbx",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/BowQuickCombatPush20260927/Export/A_Bow_QuickCombat.fbx",
+      "bytes": 1226556,
+      "sha256": "1b49b94e966734c121c66c032870a1bfdf4dca9bfaf776f0cc7ade66b2a2fed3",
+      "reason": "Superseded bow quick-combat export; source chain retained.",
+      "retained_replacement": "SourceAssets/BowQuickCombatRecover20260927/Export/A_Bow_QuickCombat.fbx"
+    },
+    {
+      "source": "SourceAssets/BowQuickCombatContact20260927/Export/A_Bow_QuickCombat.fbx",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/BowQuickCombatContact20260927/Export/A_Bow_QuickCombat.fbx",
+      "bytes": 1230236,
+      "sha256": "d42dbc6fda770db50600857f232266188ab67ece59a76d7f9e4dea1b4e9ac966",
+      "reason": "Superseded bow quick-combat export; source chain retained.",
+      "retained_replacement": "SourceAssets/BowQuickCombatRecover20260927/Export/A_Bow_QuickCombat.fbx"
+    },
+    {
+      "source": "SourceAssets/BowQuickCombatPalm20260927/Export/A_Bow_QuickCombat.fbx",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/BowQuickCombatPalm20260927/Export/A_Bow_QuickCombat.fbx",
+      "bytes": 1227564,
+      "sha256": "6ef00334193b4418cb844e601f5e625f5249430658be5917969b9be1b700c420",
+      "reason": "Superseded bow quick-combat export; source chain retained.",
+      "retained_replacement": "SourceAssets/BowQuickCombatRecover20260927/Export/A_Bow_QuickCombat.fbx"
+    },
+    {
+      "source": "SourceAssets/BowQuickCombatWrist20260927/Export/A_Bow_QuickCombat.fbx",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/BowQuickCombatWrist20260927/Export/A_Bow_QuickCombat.fbx",
+      "bytes": 1227964,
+      "sha256": "6369d766546d6ecc4b45f55bc6b70b6773867fa8d538e32e994b0974d96615ad",
+      "reason": "Superseded bow quick-combat export; source chain retained.",
+      "retained_replacement": "SourceAssets/BowQuickCombatRecover20260927/Export/A_Bow_QuickCombat.fbx"
+    },
+    {
+      "source": "SourceAssets/BowQuickCombat20260927/pending-save.json",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/BowQuickCombat20260927/pending-save.json",
+      "bytes": 19,
+      "sha256": "005e7bc86c671c0e35cfc6652b2dea6b983b076977450deba5e8bd34ccbc8cd9",
+      "reason": "Completed one-off import/recovery helper; not a rebuild dependency.",
+      "retained_replacement": "SourceAssets/BowQuickCombatRecover20260927/import_recover.py"
+    },
+    {
+      "source": "SourceAssets/BowQuickCombat20260927/finish_save.py",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/BowQuickCombat20260927/finish_save.py",
+      "bytes": 987,
+      "sha256": "f90e2f5d13d9f8cc2e572fd186f8810d2574c79de6e077cd901efae7bf964a9e",
+      "reason": "Completed one-off import/recovery helper; not a rebuild dependency.",
+      "retained_replacement": "SourceAssets/BowQuickCombatRecover20260927/import_recover.py"
+    },
+    {
+      "source": "SourceAssets/BowQuickCombat20260927/save_when_idle.py",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/BowQuickCombat20260927/save_when_idle.py",
+      "bytes": 1301,
+      "sha256": "67b8ea760d5e25fa348a726945b1bfef35bcfa16e4012d23a81b45d7322b3f79",
+      "reason": "Completed one-off import/recovery helper; not a rebuild dependency.",
+      "retained_replacement": "SourceAssets/BowQuickCombatRecover20260927/import_recover.py"
+    },
+    {
+      "source": "SourceAssets/BowQuickCombatWrist20260927/end_play_for_import.py",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/BowQuickCombatWrist20260927/end_play_for_import.py",
+      "bytes": 341,
+      "sha256": "88591811feb88337ba3ed2d662e2c4866d76fd6eab98bea6fc3a0983238d3579",
+      "reason": "Completed one-off import/recovery helper; not a rebuild dependency.",
+      "retained_replacement": "SourceAssets/BowQuickCombatRecover20260927/import_recover.py"
+    },
+    {
+      "source": "SourceAssets/BowQuickCombatWrist20260927/import_state.py",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/BowQuickCombatWrist20260927/import_state.py",
+      "bytes": 334,
+      "sha256": "374f6e56f40ab49af50a3b6015e8d2a10bf6cbb72ffe9d13ebb50d74ddadc958",
+      "reason": "Completed one-off import/recovery helper; not a rebuild dependency.",
+      "retained_replacement": "SourceAssets/BowQuickCombatRecover20260927/import_recover.py"
+    },
+    {
+      "source": "SourceAssets/BowQuickCombatRecover20260927/end_play_for_import.py",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/BowQuickCombatRecover20260927/end_play_for_import.py",
+      "bytes": 354,
+      "sha256": "5cb9104cf691839ee5f24bc85272cff6cb4093ec5557685a91a90c51608f56b2",
+      "reason": "Completed one-off import/recovery helper; not a rebuild dependency.",
+      "retained_replacement": "SourceAssets/BowQuickCombatRecover20260927/import_recover.py"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectDownstrokeV81/finish_pending_standard.py",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectDownstrokeV81/finish_pending_standard.py",
+      "bytes": 2468,
+      "sha256": "0600dba398df5543406860292c06bae4c78520c5ddece279854eb095cbfa8554",
+      "reason": "Superseded Inspect V80/V81 export or completed one-off V81 save helper.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectRhythmContactV80/ExportV80/A_RuneSword_Inspect.fbx",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectRhythmContactV80/ExportV80/A_RuneSword_Inspect.fbx",
+      "bytes": 1487596,
+      "sha256": "f076685f1a6d3b1ec90fefc8aa80eb4894cce7f2429b05a2b386bd44a4ea1a36",
+      "reason": "Superseded Inspect V80/V81 export or completed one-off V81 save helper.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectRhythmContactV80/ExportV80/LongGrip/A_RuneSword_Inspect.fbx",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectRhythmContactV80/ExportV80/LongGrip/A_RuneSword_Inspect.fbx",
+      "bytes": 1487564,
+      "sha256": "7a2e9589082e8f4f26f070149aa48d22fd840057284b0187c95d3c0993d9782c",
+      "reason": "Superseded Inspect V80/V81 export or completed one-off V81 save helper.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectDownstrokeV81/ExportV81/A_RuneSword_Inspect.fbx",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectDownstrokeV81/ExportV81/A_RuneSword_Inspect.fbx",
+      "bytes": 1409356,
+      "sha256": "68586d30ed3fcecc8f7ec3e7c757d6d4b010e3aa78e4284b1e2763e2895c21c2",
+      "reason": "Superseded Inspect V80/V81 export or completed one-off V81 save helper.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    },
+    {
+      "source": "SourceAssets/RuneSword20260913/InspectDownstrokeV81/ExportV81/LongGrip/A_RuneSword_Inspect.fbx",
+      "target": "trash/melee-bow-iterations-20260927/SourceAssets/RuneSword20260913/InspectDownstrokeV81/ExportV81/LongGrip/A_RuneSword_Inspect.fbx",
+      "bytes": 1409132,
+      "sha256": "45249be8ba098f5a28e7c6fd1d68277508249ae6ce00c80eba82426b378514db",
+      "reason": "Superseded Inspect V80/V81 export or completed one-off V81 save helper.",
+      "retained_replacement": "SourceAssets/RuneSword20260913/InspectFollowThroughV82/Final"
+    }
+  ]
+}
