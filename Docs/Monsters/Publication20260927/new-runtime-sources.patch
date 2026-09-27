@@ -1,0 +1,2272 @@
+diff --git a/Source/FPSGAME/Monsters/FleshHandChargeFX.cpp b/Source/FPSGAME/Monsters/FleshHandChargeFX.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Monsters/FleshHandChargeFX.cpp
+@@ -0,0 +1,190 @@
++#include "FleshHandChargeFX.h"
++#include "FleshHandMonster.h"
++#include "../WorldGeneration/FluidPresentationSubsystem.h"
++#include "Components/InstancedStaticMeshComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Components/AudioComponent.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "GameFramework/PlayerController.h"
++#include "Materials/MaterialInstanceDynamic.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/World.h"
++#include "Sound/SoundBase.h"
++#include "Sound/SoundAttenuation.h"
++
++bool UFleshHandChargeFX::DoesSupportWorldType(EWorldType::Type T) const {return T==EWorldType::Game||T==EWorldType::PIE;}
++TStatId UFleshHandChargeFX::GetStatId() const {RETURN_QUICK_DECLARE_CYCLE_STAT(FleshHandChargeFX,STATGROUP_Tickables);}
++float UFleshHandChargeFX::ViewDistance(const FVector& At) const
++{
++ if(auto* PC=GetWorld()->GetFirstPlayerController()){FVector Eye;FRotator R;PC->GetPlayerViewPoint(Eye,R);return FVector::Distance(Eye,At);}
++ return TNumericLimits<float>::Max();
++}
++FVector UFleshHandChargeFX::Ground(AFleshHandMonster* H) const
++{
++ const auto& Floor=H->GetCharacterMovement()->CurrentFloor;
++ return Floor.IsWalkableFloor()?FVector(Floor.HitResult.ImpactPoint):H->GetActorLocation()-FVector(0,0,H->GetSimpleCollisionHalfHeight());
++}
++bool UFleshHandChargeFX::Prepare(AFleshHandMonster* H)
++{
++ if(bReady)return true;
++ if(GetWorld()->GetNetMode()==NM_DedicatedServer||!H->ChargeDustMaterial||!H->ChargeAirMaterial||!H->ChargeSkinMaterial||!H->ChargeChipMaterial||!H->ChargeFXPlane||!H->ChargeFXCube)return false;
++ Plane=H->ChargeFXPlane;Cube=H->ChargeFXCube;
++ for(int32 G=0;G<3;++G)
++ {
++  auto* R=NewObject<UInstancedStaticMeshComponent>(this);R->SetMobility(EComponentMobility::Movable);
++  R->SetStaticMesh(G==2?Cube:Plane);R->SetMaterial(0,G==0?H->ChargeDustMaterial:G==1?H->ChargeAirMaterial:H->ChargeChipMaterial);
++  R->SetCollisionEnabled(ECollisionEnabled::NoCollision);R->SetGenerateOverlapEvents(false);R->SetCanEverAffectNavigation(false);
++  R->SetCastShadow(false);R->bReceivesDecals=false;R->bAffectDistanceFieldLighting=false;
++  R->SetNumCustomDataFloats(4);R->SetCullDistances(2800,3500);
++  const int32 Count=SlotCount*(G==0?DustPerSlot:G==1?AirPerSlot:ChipsPerSlot);
++  Transforms[G].Init(FTransform(FQuat::Identity,FVector::ZeroVector,FVector::ZeroVector),Count);
++  R->PreAllocateInstancesMemory(Count);R->AddInstances(Transforms[G],false,false,false);R->RegisterComponentWithWorld(GetWorld());Renderers.Add(R);
++ }
++ PreviousSkin.SetNum(SlotCount);
++ for(int32 I=0;I<SlotCount;++I)
++ {
++  Skin.Add(UMaterialInstanceDynamic::Create(H->ChargeSkinMaterial,this));
++  auto* A=NewObject<UAudioComponent>(this);A->bAutoActivate=false;A->bAutoDestroy=false;
++  A->bOverrideAttenuation=true;A->AttenuationOverrides.bAttenuate=true;A->AttenuationOverrides.bSpatialize=true;
++  A->AttenuationOverrides.AttenuationShapeExtents=FVector(180);A->AttenuationOverrides.FalloffDistance=2600;
++  A->RegisterComponentWithWorld(GetWorld());Audio.Add(A);
++ }
++ bReady=true;return true;
++}
++int32 UFleshHandChargeFX::Find(AFleshHandMonster* H) const
++{for(int32 I=0;I<SlotCount;++I)if(Slots[I].Used&&!Slots[I].Released&&Slots[I].Hand.Get()==H)return I;return INDEX_NONE;}
++void UFleshHandChargeFX::Hide(int32 G,int32 I)
++{Transforms[G][I].SetScale3D(FVector::ZeroVector);Renderers[G]->SetCustomDataValue(I,0,0,false);}
++void UFleshHandChargeFX::Release(int32 I)
++{
++ auto& S=Slots[I];if(S.Released)return;
++ if(auto* H=S.Hand.Get())if(H->GetMesh()->GetOverlayMaterial()==Skin[I])H->GetMesh()->SetOverlayMaterial(PreviousSkin[I]);
++ PreviousSkin[I]=nullptr;Audio[I]->Stop();S.Released=true;S.ReleaseAge=0;
++ for(int32 N=0;N<2;++N)Hide(1,I*AirPerSlot+N);
++}
++void UFleshHandChargeFX::Cancel(AFleshHandMonster* H){const int32 I=Find(H);if(I!=INDEX_NONE)Release(I);}
++void UFleshHandChargeFX::Dust(int32 I,const FVector& At,const FVector& Direction,int32 Count,float Strength)
++{
++ const float Distance=ViewDistance(At);if(Distance>3500)return;
++ if(Distance>1800)Count=FMath::Min(Count,2);
++ auto* Budget=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>();if(!Budget)return;
++ Count=Budget->AllocateDetail(At,Count,true);
++ const FVector Wind=Count?Budget->WindAt(At)*.12f:FVector::ZeroVector;
++ auto& S=Slots[I];
++ for(int32 N=0;N<Count;++N)
++ {
++  auto& P=S.Dust[S.Cursor++%DustPerSlot];const FVector Side=FVector::CrossProduct(Direction,FVector::UpVector);
++  P.Position=At+Side*Random.FRandRange(-24,24)+FVector(0,0,14);P.FloorZ=At.Z+3;
++  P.Velocity=Direction*Random.FRandRange(45,105)*Strength+Side*Random.FRandRange(-42,42)+FVector(0,0,Random.FRandRange(15,30))+Wind;
++  P.Age=0;P.Life=Random.FRandRange(.38f,.68f);P.Size=Random.FRandRange(42,70)*Strength;P.Seed=Random.FRand();
++ }
++}
++void UFleshHandChargeFX::Arc(int32 I,const FVector& At,const FVector& Normal,float Size,float Life)
++{auto& S=Slots[I];S.ArcPosition=At;S.ArcNormal=Normal.GetSafeNormal();S.ArcSize=Size;S.ArcLife=Life;S.ArcAge=0;}
++void UFleshHandChargeFX::Transition(AFleshHandMonster* H,EFleshHandState Previous)
++{
++ if(!H||H->bMinion||GetWorld()->GetNetMode()==NM_DedicatedServer)return;
++ int32 I=Find(H);
++ if(H->State==EFleshHandState::ChargeWindup)
++ {
++  if(I!=INDEX_NONE||ViewDistance(H->GetActorLocation())>3500||!Prepare(H))return;
++  for(int32 N=0;N<SlotCount;++N)if(!Slots[N].Used){I=N;break;}
++  if(I==INDEX_NONE)return;
++  Slots[I]=FSlot{};auto& S=Slots[I];S.Used=true;S.Hand=H;++ActiveSlots;
++  PreviousSkin[I]=H->GetMesh()->GetOverlayMaterial();Skin[I]->SetScalarParameterValue(TEXT("Tension"),0);
++  H->GetMesh()->SetOverlayMaterial(Skin[I]);Audio[I]->SetWorldLocation(H->GetActorLocation());
++  Audio[I]->SetSound(H->ChargeWindupSound);Audio[I]->SetPitchMultiplier(1.2f/FMath::Max(.1f,H->ChargeWindupSeconds));Audio[I]->SetVolumeMultiplier(.65f);
++  if(H->ChargeWindupSound)Audio[I]->Play();return;
++ }
++ if(I==INDEX_NONE)return;
++ if(H->State==EFleshHandState::ChargeRush)
++ {
++  Dust(I,Ground(H),-H->GetActorForwardVector(),5,1.f);
++  Arc(I,H->GetMesh()->GetSocketLocation(TEXT("middle_01"))+H->GetActorForwardVector()*22,H->GetActorForwardVector(),120,.16f);
++  Audio[I]->Stop();Audio[I]->SetSound(H->ChargeRushSound);Audio[I]->SetPitchMultiplier(1);Audio[I]->SetVolumeMultiplier(.8f);
++  if(H->ChargeRushSound)Audio[I]->Play();return;
++ }
++ if(H->State==EFleshHandState::ChargeRecover)
++ {
++  if(Previous==EFleshHandState::ChargeRush&&!Slots[I].Impacted)Dust(I,Ground(H),H->GetActorForwardVector(),4,.85f);
++  Release(I);return;
++ }
++ Release(I);
++}
++void UFleshHandChargeFX::Impact(AFleshHandMonster* H,const FHitResult& Hit,bool bDamagedPlayer)
++{
++ const int32 I=Find(H);if(I==INDEX_NONE)return;auto& S=Slots[I];if(S.Impacted)return;S.Impacted=true;
++ const bool Body=Cast<APawn>(Hit.GetActor())!=nullptr;
++ if(!Body||bDamagedPlayer)Arc(I,Hit.ImpactPoint+Hit.ImpactNormal*5,Hit.ImpactNormal,Body?85:120,.23f);
++ Dust(I,Ground(H),-H->GetActorForwardVector(),Body?2:5,Body?.65f:1.f);
++ if(!Body&&ViewDistance(Hit.ImpactPoint)<1800)
++ {
++  auto* Budget=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>();const int32 Count=Budget?Budget->AllocateDetail(Hit.ImpactPoint,ChipsPerSlot,true):0;
++  for(int32 N=0;N<Count;++N){auto& P=S.Chips[N];P.Position=Hit.ImpactPoint+Hit.ImpactNormal*6;P.FloorZ=Ground(H).Z+2;
++   P.Velocity=Hit.ImpactNormal*90+Random.VRand()*65+FVector(0,0,110);P.Age=0;P.Life=.42f;P.Size=Random.FRandRange(1.5f,3.5f);P.Seed=Random.FRand();}
++ }
++}
++void UFleshHandChargeFX::Tick(float Delta)
++{
++ auto* PC=GetWorld()->GetFirstPlayerController();FVector Eye=FVector::ZeroVector;FRotator R;if(PC)PC->GetPlayerViewPoint(Eye,R);
++ for(int32 I=0;I<SlotCount;++I)
++ {
++  auto& S=Slots[I];if(!S.Used)continue;auto* H=S.Hand.Get();
++  if(!S.Released&&(!H||H->Dead()||ViewDistance(H->GetActorLocation())>3800))Release(I);
++  if(!S.Released&&H)
++  {
++   const float T=FMath::Clamp(H->StateSeconds/FMath::Max(.1f,H->ChargeWindupSeconds),0.f,1.f);
++   Skin[I]->SetScalarParameterValue(TEXT("Tension"),H->State==EFleshHandState::ChargeWindup?T*.75f:.35f);
++   Audio[I]->SetWorldLocation(H->GetActorLocation());
++   if(H->State==EFleshHandState::ChargeRush)
++   {
++    const FVector V=H->GetVelocity(),F=H->GetActorForwardVector(),Side=H->GetActorRightVector();
++    const float Speed=V.Size2D(),Length=FMath::Clamp(Speed*.16f,40.f,180.f);
++    const FVector Center=FMath::Lerp(H->GetMesh()->GetSocketLocation(TEXT("palm")),H->GetMesh()->GetSocketLocation(TEXT("middle_01")),.6f);
++    for(int32 N=0;N<2;++N)
++    {
++     const int32 J=I*AirPerSlot+N;const FVector At=Center-F*Length*.5f+Side*(N?32.f:-32.f);
++     const FQuat Q=FRotationMatrix::MakeFromXZ(F,Eye-At).ToQuat();
++     Transforms[1][J]=FTransform(Q,At,FVector(Length*.01f,.32f,1));
++     Renderers[1]->SetCustomDataValue(J,0,FMath::Clamp(Speed/1100.f,0.f,1.f)*.28f,false);
++     Renderers[1]->SetCustomDataValue(J,1,H->StateSeconds,false);Renderers[1]->SetCustomDataValue(J,2,0,false);
++    }
++    S.TrailClock+=Delta;if(S.TrailClock>=.12f&&Speed>100){S.TrailClock=0;Dust(I,Ground(H),-F,1,.55f);}
++   }
++  }
++  for(int32 N=0;N<DustPerSlot;++N)
++  {
++   auto& P=S.Dust[N];const int32 J=I*DustPerSlot+N;
++   if(P.Life<=0){Hide(0,J);continue;}P.Age+=Delta;
++   if(P.Age>=P.Life){P.Life=0;Hide(0,J);continue;}
++   P.Position+=P.Velocity*Delta;P.Position.Z=FMath::Max(P.FloorZ,P.Position.Z);P.Velocity*=FMath::Exp(-2.f*Delta);
++   const float T=P.Age/P.Life,Size=P.Size*(.65f+T*.85f);
++   const FQuat Q=FRotationMatrix::MakeFromZ(Eye-P.Position).ToQuat()*FQuat(FVector::UpVector,P.Seed*2*PI);
++   Transforms[0][J]=FTransform(Q,P.Position,FVector(Size*.01f));
++   Renderers[0]->SetCustomDataValue(J,0,FMath::Min(1.f,T*12)*(1-T)*.48f,false);
++   Renderers[0]->SetCustomDataValue(J,1,P.Seed,false);Renderers[0]->SetCustomDataValue(J,2,T,false);
++  }
++  const int32 A=I*AirPerSlot+2;S.ArcAge+=Delta;
++  if(S.ArcLife>0&&S.ArcAge<S.ArcLife)
++  {
++   const float T=S.ArcAge/S.ArcLife;const float Size=S.ArcSize*(.45f+.55f*T);
++   Transforms[1][A]=FTransform(FRotationMatrix::MakeFromZ(S.ArcNormal).ToQuat(),S.ArcPosition,FVector(Size*.01f));
++   Renderers[1]->SetCustomDataValue(A,0,(1-T)*.55f,false);Renderers[1]->SetCustomDataValue(A,1,T,false);Renderers[1]->SetCustomDataValue(A,2,1,false);
++  }else Hide(1,A);
++  for(int32 N=0;N<ChipsPerSlot;++N)
++  {
++   auto& P=S.Chips[N];const int32 J=I*ChipsPerSlot+N;P.Age+=Delta;
++   if(P.Life<=0||P.Age>=P.Life||P.Position.Z<P.FloorZ){P.Life=0;Hide(2,J);continue;}
++   P.Position+=P.Velocity*Delta;P.Velocity.Z-=600*Delta;
++   Transforms[2][J]=FTransform(FRotator(P.Age*370,P.Seed*360,P.Age*240),P.Position,FVector(P.Size*.01f*(1-P.Age/P.Life)));
++  }
++  if(S.Released){S.ReleaseAge+=Delta;if(S.ReleaseAge>.8f){S.Used=false;S.Hand.Reset();--ActiveSlots;}}
++ }
++ for(int32 G=0;G<3;++G)Renderers[G]->BatchUpdateInstancesTransforms(0,Transforms[G],true,true,true);
++}
++void UFleshHandChargeFX::Deinitialize()
++{
++ for(int32 I=0;I<SlotCount;++I)if(Slots[I].Used&&!Slots[I].Released)Release(I);
++ for(const auto& A:Audio)if(A)A->DestroyComponent();for(const auto& R:Renderers)if(R)R->DestroyComponent();
++ Audio.Empty();Renderers.Empty();Skin.Empty();PreviousSkin.Empty();bReady=false;ActiveSlots=0;Super::Deinitialize();
++}
+diff --git a/Source/FPSGAME/Monsters/FleshHandChargeFX.h b/Source/FPSGAME/Monsters/FleshHandChargeFX.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Monsters/FleshHandChargeFX.h
+@@ -0,0 +1,60 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Subsystems/WorldSubsystem.h"
++#include "FleshHandChargeFX.generated.h"
++class AFleshHandMonster; class UInstancedStaticMeshComponent; class UAudioComponent;
++class UMaterialInterface; class UMaterialInstanceDynamic; class UStaticMesh;
++enum class EFleshHandState : uint8;
++
++/** Eight shared cosmetic slots. Combat clocks/collision remain owned by the hand. */
++UCLASS()
++class FPSGAME_API UFleshHandChargeFX : public UTickableWorldSubsystem
++{
++ GENERATED_BODY()
++public:
++ void Transition(AFleshHandMonster* Hand,EFleshHandState Previous);
++ void Impact(AFleshHandMonster* Hand,const FHitResult& Hit,bool bDamagedPlayer);
++ void Cancel(AFleshHandMonster* Hand);
++ virtual void Tick(float Delta) override;
++ virtual bool IsTickable() const override { return bReady&&ActiveSlots>0; }
++ virtual TStatId GetStatId() const override;
++ virtual void Deinitialize() override;
++protected:
++ virtual bool DoesSupportWorldType(EWorldType::Type Type) const override;
++private:
++ static constexpr int32 SlotCount=8;
++ static constexpr int32 DustPerSlot=8;
++ static constexpr int32 AirPerSlot=3;
++ static constexpr int32 ChipsPerSlot=4;
++ struct FPuff
++ {
++  FVector Position=FVector::ZeroVector,Velocity=FVector::ZeroVector;
++  float Age=0,Life=0,Size=0,Seed=0; float FloorZ=0;
++ };
++ struct FSlot
++ {
++  TWeakObjectPtr<AFleshHandMonster> Hand;
++  FPuff Dust[DustPerSlot],Chips[ChipsPerSlot];
++  FVector ArcPosition=FVector::ZeroVector,ArcNormal=FVector::UpVector;
++  float ArcAge=0,ArcLife=0,ArcSize=0,TrailClock=0,ReleaseAge=0;
++  int32 Cursor=0; bool Used=false,Released=false,Impacted=false;
++ };
++ bool Prepare(AFleshHandMonster* Hand);
++ int32 Find(AFleshHandMonster* Hand) const;
++ void Release(int32 Index);
++ void Dust(int32 Index,const FVector& Position,const FVector& Direction,int32 Count,float Strength);
++ void Arc(int32 Index,const FVector& Position,const FVector& Normal,float Size,float Life);
++ float ViewDistance(const FVector& Position) const;
++ FVector Ground(AFleshHandMonster* Hand) const;
++ void Hide(int32 Group,int32 Index);
++ FSlot Slots[SlotCount];
++ TArray<FTransform> Transforms[3];
++ UPROPERTY(Transient) TArray<TObjectPtr<UInstancedStaticMeshComponent>> Renderers;
++ UPROPERTY(Transient) TArray<TObjectPtr<UAudioComponent>> Audio;
++ UPROPERTY(Transient) TArray<TObjectPtr<UMaterialInstanceDynamic>> Skin;
++ UPROPERTY(Transient) TArray<TObjectPtr<UMaterialInterface>> PreviousSkin;
++ UPROPERTY() TObjectPtr<UStaticMesh> Plane;
++ UPROPERTY() TObjectPtr<UStaticMesh> Cube;
++ FRandomStream Random{27092026};
++ int32 ActiveSlots=0; bool bReady=false;
++};
+diff --git a/Source/FPSGAME/Monsters/FleshHandKnockdownComponent.cpp b/Source/FPSGAME/Monsters/FleshHandKnockdownComponent.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Monsters/FleshHandKnockdownComponent.cpp
+@@ -0,0 +1,209 @@
++#include "FleshHandKnockdownComponent.h"
++#include "FleshHandMonster.h"
++#include "FatZombieAnimInstance.h"
++#include "MonsterCombatComponent.h"
++#include "MonsterAIController.h"
++#include "../Combat/CombatStatusFormula.h"
++#include "Animation/AnimSequence.h"
++#include "Components/CapsuleComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Engine/World.h"
++#include "GameFramework/CharacterMovementComponent.h"
++
++UFleshHandKnockdownComponent::UFleshHandKnockdownComponent()
++{
++ PrimaryComponentTick.bCanEverTick=true;
++ PrimaryComponentTick.bStartWithTickEnabled=false;
++ PrimaryComponentTick.TickGroup=TG_PrePhysics;
++}
++AFleshHandMonster* UFleshHandKnockdownComponent::Hand() const {return Cast<AFleshHandMonster>(GetOwner());}
++void UFleshHandKnockdownComponent::BeginPlay()
++{
++ Super::BeginPlay();
++ if(auto* H=Hand())
++ {
++  AddTickPrerequisiteComponent(H->GetCharacterMovement());
++  H->GetMesh()->AddTickPrerequisiteComponent(this);
++ }
++}
++bool UFleshHandKnockdownComponent::CapsuleFits(float Radius,float HalfHeight,const FVector& Center) const
++{
++ const auto* H=Hand();const auto* C=H->GetCapsuleComponent();const float Scale=C->GetShapeScale();
++ FCollisionQueryParams Q(SCENE_QUERY_STAT(FleshHandRecoverySpace),false,H);
++ FCollisionResponseParams Responses(C->GetCollisionResponseToChannels());
++ // The movement capsule owns pawn blocking separately; recovery clearance is world geometry.
++ Responses.CollisionResponse.SetResponse(ECC_Pawn,ECR_Ignore);
++ return !GetWorld()->OverlapBlockingTestByChannel(Center+FVector(0,0,1),H->GetActorQuat(),C->GetCollisionObjectType(),
++  FCollisionShape::MakeCapsule(FMath::Max(1.f,Radius*Scale-.5f),FMath::Max(1.f,HalfHeight*Scale-.5f)),Q,Responses);
++}
++bool UFleshHandKnockdownComponent::Launch(APawn* Attacker,FVector Velocity,float DownSeconds)
++{
++ auto* H=Hand();
++ if(!H||!H->HasAuthority()||H->Dead()||!bEnabled||Velocity.ContainsNaN()||Velocity.Z<=0||
++    H->ActorHasTag(TEXT("KnockdownImmune"))||H->ActorHasTag(TEXT("KnockbackImmune")))return false;
++ if(IsControlling())
++ {
++  ExtendControl(DownSeconds);
++  // A fresh heavy launch can knock an emerging hand back down, but repeated
++  // hits while airborne/down never restart an endless launch animation.
++  if(Phase==EFleshHandKnockdownPhase::GettingUp)
++  {
++   if(!bPalmDown&&PhaseTime>PlayingClip->GetPlayLength()*.5f)bPalmDown=true;
++   DownHold=FMath::Max(GroundHoldSeconds,FMath::Max(0.f,DownSeconds));
++   PlayPhase(EFleshHandKnockdownPhase::Landing,bPalmDown?LandPalmClip:LandBackClip);
++  }
++  return true;
++ }
++ if(!LaunchPalmClip||!LaunchBackClip||!AirPalmClip||!AirBackClip||!LandPalmClip||!LandBackClip||
++    !DownPalmClip||!DownBackClip||!GetUpPalmClip||!GetUpBackClip)return false;
++ auto* C=H->GetCapsuleComponent();auto* M=H->GetCharacterMovement();
++ StandingRadius=C->GetUnscaledCapsuleRadius();StandingHalfHeight=C->GetUnscaledCapsuleHalfHeight();
++ const float Radius=FMath::Max(StandingRadius,FallCollisionRadius);
++ const float HalfHeight=FMath::Max(StandingHalfHeight,Radius);
++ AddedHalfHeight=HalfHeight-StandingHalfHeight;
++ const FVector At=H->GetActorLocation()+FVector(0,0,AddedHalfHeight*C->GetShapeScale());
++ // A wider single capsule contains the flat hand. Tight spaces retain the caller's push fallback.
++ if(!CapsuleFits(Radius,HalfHeight,At))return false;
++ StandingRotation=H->GetMesh()->GetRelativeRotation().Quaternion();GroundRotation=StandingRotation;
++ StandingAirControl=M->AirControl;bAutoOrient=M->bOrientRotationToMovement;
++ StandingPawnResponse=C->GetCollisionResponseToChannel(ECC_Pawn);
++ bUpdateNavAgent=M->ShouldUpdateNavAgentWithOwnersCollision();
++ DownHold=FMath::Max(GroundHoldSeconds,FMath::Max(0.f,DownSeconds));
++ ControlUntil=GetWorld()->GetTimeSeconds()+H->Combat->StunSecondsRemaining();
++ bPalmDown=FVector::DotProduct(Velocity.GetSafeNormal2D(),H->GetActorForwardVector())>=0;
++ bCorpse=false;
++ H->bConsumed=true;H->LockedTarget.Reset();H->SetState(EFleshHandState::KnockedDown);
++ M->SetUpdateNavAgentWithOwnersCollisions(false);M->AirControl=0;M->bOrientRotationToMovement=false;
++ C->SetCollisionResponseToChannel(ECC_Pawn,ECR_Ignore);
++ C->SetCapsuleSize(Radius,HalfHeight,false);
++ H->SetActorLocation(At,false,nullptr,ETeleportType::TeleportPhysics);
++ H->GetMesh()->SetRelativeLocation(H->GetMesh()->GetRelativeLocation()-FVector(0,0,AddedHalfHeight));
++ if(auto* AI=Cast<AMonsterAIController>(H->GetController())){AI->StopMovement();AI->RememberDamage(Attacker);}
++ PlayPhase(EFleshHandKnockdownPhase::Launch,bPalmDown?LaunchPalmClip:LaunchBackClip);
++ Velocity*=FMath::Clamp(LaunchScale,.1f,1.5f);
++ const FVector Horizontal=FVector(Velocity.X,Velocity.Y,0).GetClampedToMaxSize(800);
++ H->LaunchCharacter(Horizontal+FVector(0,0,FMath::Clamp(Velocity.Z,120.,600.)),true,true);
++ SetComponentTickEnabled(true);
++ if(auto* AI=Cast<AMonsterAIController>(H->GetController()))AI->UpdateKnowledge();
++ return true;
++}
++void UFleshHandKnockdownComponent::PlayPhase(EFleshHandKnockdownPhase Next,UAnimSequence* Clip,bool Loop)
++{
++ Phase=Next;PhaseTime=BlendTime=0;PlayingClip=Clip;
++ if(auto* A=Cast<UFatZombieAnimInstance>(Hand()->GetMesh()->GetAnimInstance()))
++ {
++  FMonsterClipTransition Settings;Settings.StartTime=0;
++  A->TransitionTo(Clip,Loop,true,Next==EFleshHandKnockdownPhase::Landing?.08f:.10f,Settings);
++ }
++}
++void UFleshHandKnockdownComponent::ExtendControl(float Seconds)
++{
++ if(IsControlling())ControlUntil=FMath::Max(ControlUntil,double(GetWorld()->GetTimeSeconds())+FMath::Max(0.f,Seconds));
++}
++void UFleshHandKnockdownComponent::Landed(const FHitResult& Hit)
++{
++ if(Phase!=EFleshHandKnockdownPhase::Launch&&Phase!=EFleshHandKnockdownPhase::Airborne)return;
++ auto* H=Hand();H->GetCharacterMovement()->StopMovementImmediately();
++ // The CMC capsule bottom, not its center, is the authored mesh's support origin.
++ const FVector LocalNormal=H->GetActorQuat().UnrotateVector(Hit.ImpactNormal).GetSafeNormal();
++ const FQuat Slope=FQuat::FindBetweenNormals(FVector::UpVector,LocalNormal);
++ GroundRotation=Slope*StandingRotation;
++ PlayPhase(EFleshHandKnockdownPhase::Landing,bPalmDown?LandPalmClip:LandBackClip);
++}
++bool UFleshHandKnockdownComponent::OnDeath()
++{
++ if(!IsControlling())return false;
++ bCorpse=true;ControlUntil=0;
++ if(Phase==EFleshHandKnockdownPhase::GettingUp)
++ {
++  if(!bPalmDown&&PhaseTime>PlayingClip->GetPlayLength()*.5f)bPalmDown=true;
++  PlayPhase(EFleshHandKnockdownPhase::Landing,bPalmDown?LandPalmClip:LandBackClip);
++ }
++ return true; // Airborne corpses finish their physical fall before freezing on the ground.
++}
++void UFleshHandKnockdownComponent::FreezeCorpse()
++{
++ auto* H=Hand();auto* Mesh=H->GetMesh();
++ if(auto* A=Cast<UFatZombieAnimInstance>(Mesh->GetAnimInstance()))
++  A->HoldClipAtTime(Phase==EFleshHandKnockdownPhase::Landing?PlayingClip->GetPlayLength():PhaseTime);
++ Mesh->TickAnimation(0,false);Mesh->RefreshBoneTransforms();
++ Mesh->SetComponentTickEnabled(false);H->GetCharacterMovement()->DisableMovement();
++ H->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++ Phase=EFleshHandKnockdownPhase::Corpse;H->State=EFleshHandState::Corpse;H->SetActorTickEnabled(false);
++ SetComponentTickEnabled(false);
++}
++void UFleshHandKnockdownComponent::FinishRecovery()
++{
++ auto* H=Hand();auto* C=H->GetCapsuleComponent();auto* M=H->GetCharacterMovement();
++ const FVector At=H->GetActorLocation()-FVector(0,0,AddedHalfHeight*C->GetShapeScale());
++ if(!CapsuleFits(StandingRadius,StandingHalfHeight,At)){ProbeTime=.25f;return;}
++ C->SetCapsuleSize(StandingRadius,StandingHalfHeight,false);
++ H->SetActorLocation(At,false,nullptr,ETeleportType::TeleportPhysics);
++ H->GetMesh()->SetRelativeLocation(H->GetMesh()->GetRelativeLocation()+FVector(0,0,AddedHalfHeight));
++ H->GetMesh()->SetRelativeRotation(StandingRotation);
++ C->SetCollisionResponseToChannel(ECC_Pawn,StandingPawnResponse);
++ M->AirControl=StandingAirControl;M->SetUpdateNavAgentWithOwnersCollisions(bUpdateNavAgent);
++ M->bForceNextFloorCheck=true;
++ Phase=EFleshHandKnockdownPhase::None;PlayingClip=nullptr;SetComponentTickEnabled(false);
++ const float Stun=H->Combat->StunSecondsRemaining();
++ H->Combat->FinishReaction();
++ if(Stun>0)H->Combat->ReceiveStun(nullptr,Stun,0);
++ M->bOrientRotationToMovement=bAutoOrient&&!H->Busy();
++}
++void UFleshHandKnockdownComponent::TickComponent(float Dt,ELevelTick Type,FActorComponentTickFunction* Tick)
++{
++ Super::TickComponent(Dt,Type,Tick);
++ auto* H=Hand();if(!H||!H->HasAuthority()||!OwnsPresentation()||Phase==EFleshHandKnockdownPhase::Corpse)return;
++ auto* M=H->GetCharacterMovement();auto* A=Cast<UFatZombieAnimInstance>(H->GetMesh()->GetAnimInstance());
++ const bool Frozen=!bCorpse&&(H->Status->IsFrozen()||H->Status->IsPetrified());
++ // Gravity and collision keep running while the pose/control clock is frozen.
++ if(!Frozen){PhaseTime+=Dt;BlendTime+=Dt;}
++ if(A&&PlayingClip)
++ {
++  const bool Loop=Phase==EFleshHandKnockdownPhase::Airborne||Phase==EFleshHandKnockdownPhase::Downed;
++  A->SetCombatTime(Loop?FMath::Fmod(PhaseTime,PlayingClip->GetPlayLength()):PhaseTime);
++  A->SetControlledBlendTime(BlendTime);
++ }
++ if(Phase==EFleshHandKnockdownPhase::Launch||Phase==EFleshHandKnockdownPhase::Airborne)
++ {
++  // ACharacter::Landed is authoritative. This also covers a movement base landing.
++  if(PhaseTime>.05f&&M->IsMovingOnGround()&&M->CurrentFloor.IsWalkableFloor()){Landed(M->CurrentFloor.HitResult);return;}
++  if(!Frozen&&Phase==EFleshHandKnockdownPhase::Launch&&PhaseTime>=PlayingClip->GetPlayLength())
++   PlayPhase(EFleshHandKnockdownPhase::Airborne,bPalmDown?AirPalmClip:AirBackClip,true);
++  return;
++ }
++ if(M->IsFalling())
++ {
++  // A destroyed/moving support may disappear during the grounded sequence.
++  // Re-enter the physical fall instead of standing up in mid-air.
++  H->GetMesh()->SetRelativeRotation(StandingRotation);GroundRotation=StandingRotation;
++  PlayPhase(EFleshHandKnockdownPhase::Airborne,bPalmDown?AirPalmClip:AirBackClip,true);return;
++ }
++ const float Align=FMath::Clamp(BlendTime/.12f,0.f,1.f);
++ if(Phase==EFleshHandKnockdownPhase::Landing)
++  H->GetMesh()->SetRelativeRotation(FQuat::Slerp(StandingRotation,GroundRotation,Align));
++ if(bCorpse&&Phase==EFleshHandKnockdownPhase::Downed){FreezeCorpse();return;}
++ if(Frozen)return;
++ if(Phase==EFleshHandKnockdownPhase::Landing&&PhaseTime>=PlayingClip->GetPlayLength())
++ {
++  if(bCorpse){FreezeCorpse();return;}
++  PlayPhase(EFleshHandKnockdownPhase::Downed,bPalmDown?DownPalmClip:DownBackClip,true);
++  ControlUntil=FMath::Max(ControlUntil,double(GetWorld()->GetTimeSeconds())+DownHold);ProbeTime=0;
++ }
++ else if(Phase==EFleshHandKnockdownPhase::Downed)
++ {
++  ProbeTime-=Dt;
++  if(GetWorld()->GetTimeSeconds()<ControlUntil||H->Status->IsStunned()||ProbeTime>0)return;
++  ProbeTime=.25f;
++  const auto* C=H->GetCapsuleComponent();
++  const FVector At=H->GetActorLocation()-FVector(0,0,AddedHalfHeight*C->GetShapeScale());
++  if(CapsuleFits(StandingRadius,StandingHalfHeight,At))PlayPhase(EFleshHandKnockdownPhase::GettingUp,bPalmDown?GetUpPalmClip:GetUpBackClip);
++ }
++ else if(Phase==EFleshHandKnockdownPhase::GettingUp)
++ {
++  const float Fraction=FMath::Clamp(PhaseTime/PlayingClip->GetPlayLength(),0.f,1.f);
++  H->GetMesh()->SetRelativeRotation(FQuat::Slerp(GroundRotation,StandingRotation,Fraction*Fraction*(3-2*Fraction)));
++  ProbeTime-=Dt;
++  if(Fraction>=1&&ProbeTime<=0)FinishRecovery();
++ }
++}
+diff --git a/Source/FPSGAME/Monsters/FleshHandKnockdownComponent.h b/Source/FPSGAME/Monsters/FleshHandKnockdownComponent.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Monsters/FleshHandKnockdownComponent.h
+@@ -0,0 +1,56 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Components/ActorComponent.h"
++#include "FleshHandKnockdownComponent.generated.h"
++class AFleshHandMonster;
++class APawn;
++class UAnimSequence;
++
++UENUM(BlueprintType)
++enum class EFleshHandKnockdownPhase : uint8 { None, Launch, Airborne, Landing, Downed, GettingUp, Corpse };
++
++/** One swept character capsule and baked hand poses; no simulated finger bodies. */
++UCLASS(ClassGroup=AI,meta=(BlueprintSpawnableComponent))
++class FPSGAME_API UFleshHandKnockdownComponent : public UActorComponent
++{
++ GENERATED_BODY()
++public:
++ UFleshHandKnockdownComponent();
++ virtual void BeginPlay() override;
++ virtual void TickComponent(float Dt,ELevelTick Type,FActorComponentTickFunction* Tick) override;
++ bool Launch(APawn* Attacker,FVector Velocity,float DownSeconds);
++ void Landed(const FHitResult& Hit);
++ void ExtendControl(float Seconds);
++ bool OnDeath();
++ bool IsControlling() const {return !bCorpse&&OwnsPresentation();}
++ bool OwnsPresentation() const {return Phase!=EFleshHandKnockdownPhase::None;}
++ UPROPERTY(EditAnywhere,Category="Knockdown") bool bEnabled=true;
++ UPROPERTY(EditAnywhere,Category="Knockdown",meta=(ClampMin="0.1",ClampMax="1.5")) float LaunchScale=.7f;
++ UPROPERTY(EditAnywhere,Category="Knockdown",meta=(ClampMin="0",Units="s")) float GroundHoldSeconds=.65f;
++ /** Baked maximum horizontal skin extent, including the side-supported get-up. */
++ UPROPERTY(EditAnywhere,Category="Knockdown",meta=(ClampMin="1",Units="cm")) float FallCollisionRadius=140.f;
++ UPROPERTY(EditDefaultsOnly,Category="Knockdown|Clips") TObjectPtr<UAnimSequence> LaunchPalmClip;
++ UPROPERTY(EditDefaultsOnly,Category="Knockdown|Clips") TObjectPtr<UAnimSequence> LaunchBackClip;
++ UPROPERTY(EditDefaultsOnly,Category="Knockdown|Clips") TObjectPtr<UAnimSequence> AirPalmClip;
++ UPROPERTY(EditDefaultsOnly,Category="Knockdown|Clips") TObjectPtr<UAnimSequence> AirBackClip;
++ UPROPERTY(EditDefaultsOnly,Category="Knockdown|Clips") TObjectPtr<UAnimSequence> LandPalmClip;
++ UPROPERTY(EditDefaultsOnly,Category="Knockdown|Clips") TObjectPtr<UAnimSequence> LandBackClip;
++ UPROPERTY(EditDefaultsOnly,Category="Knockdown|Clips") TObjectPtr<UAnimSequence> DownPalmClip;
++ UPROPERTY(EditDefaultsOnly,Category="Knockdown|Clips") TObjectPtr<UAnimSequence> DownBackClip;
++ UPROPERTY(EditDefaultsOnly,Category="Knockdown|Clips") TObjectPtr<UAnimSequence> GetUpPalmClip;
++ UPROPERTY(EditDefaultsOnly,Category="Knockdown|Clips") TObjectPtr<UAnimSequence> GetUpBackClip;
++ UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Knockdown") EFleshHandKnockdownPhase Phase=EFleshHandKnockdownPhase::None;
++private:
++ AFleshHandMonster* Hand() const;
++ void PlayPhase(EFleshHandKnockdownPhase Next,UAnimSequence* Clip,bool Loop=false);
++ bool CapsuleFits(float Radius,float HalfHeight,const FVector& Center) const;
++ void FinishRecovery();
++ void FreezeCorpse();
++ UPROPERTY(Transient) TObjectPtr<UAnimSequence> PlayingClip;
++ float PhaseTime=0,BlendTime=0,DownHold=0,ProbeTime=0;
++ float StandingRadius=0,StandingHalfHeight=0,AddedHalfHeight=0,StandingAirControl=0;
++ double ControlUntil=0;
++ FQuat StandingRotation=FQuat::Identity,GroundRotation=FQuat::Identity;
++ ECollisionResponse StandingPawnResponse=ECR_Block;
++ bool bPalmDown=true,bCorpse=false,bAutoOrient=true,bUpdateNavAgent=true;
++};
+diff --git a/Source/FPSGAME/Monsters/FleshHandMonster.cpp b/Source/FPSGAME/Monsters/FleshHandMonster.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Monsters/FleshHandMonster.cpp
+@@ -0,0 +1,583 @@
++#include "FleshHandMonster.h"
++#include "FleshHandKnockdownComponent.h"
++#include "FleshHandChargeFX.h"
++#include "MonsterCombatComponent.h"
++#include "MonsterCharacterMovementComponent.h"
++#include "MonsterAIController.h"
++#include "MonsterReactionTiming.h"
++#include "FatZombieAnimInstance.h"
++#include "FPSCombatHealthComponent.h"
++#include "HandBrainFearComponent.h"
++#include "../Combat/CombatFormulaRuntime.h"
++#include "../Combat/CombatStatusFormula.h"
++#include "../Skills/EnemyAttackDamage.h"
++#include "../Development/DevelopmentTuningSubsystem.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "Components/CapsuleComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Components/StaticMeshComponent.h"
++#include "Animation/AnimSequence.h"
++#include "Engine/SkeletalMesh.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/DamageEvents.h"
++#include "Engine/World.h"
++#include "Engine/GameInstance.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "GameFramework/RootMotionSource.h"
++#include "GameFramework/PlayerController.h"
++#include "Kismet/GameplayStatics.h"
++#include "NavigationSystem.h"
++#include "Materials/MaterialInstanceDynamic.h"
++#include "Sound/SoundAttenuation.h"
++#include "UObject/ConstructorHelpers.h"
++#include "PhysicsEngine/PhysicsAsset.h"
++#include "PhysicsEngine/SkeletalBodySetup.h"
++#if WITH_EDITOR
++#include "Rendering/SkeletalMeshModel.h"
++#include "Rendering/SkeletalMeshLODModel.h"
++#endif
++
++namespace
++{
++ TMap<TWeakObjectPtr<UWorld>,TArray<TWeakObjectPtr<AFleshHandMonster>>> SummonedHands;
++ bool Alive(const APawn* P)
++ {
++  if(!IsValid(P))return false;
++  const auto* H=P->FindComponentByClass<UFPSCombatHealthComponent>();return !H||!H->IsDead();
++ }
++ bool Attacking(EFleshHandState S){return S==EFleshHandState::Hammer||S==EFleshHandState::Slam||S==EFleshHandState::GrandSlam;}
++ bool Charging(EFleshHandState S){return S==EFleshHandState::ChargeWindup||S==EFleshHandState::ChargeRush||S==EFleshHandState::ChargeRecover;}
++}
++UFleshHandPushComponent::UFleshHandPushComponent(){PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.bStartWithTickEnabled=false;}
++void UFleshHandPushComponent::Apply(ACharacter* Target,FVector D,float CM)
++{
++ if(!Target||CM<=0)return;
++ auto* C=Target->FindComponentByClass<UFleshHandPushComponent>();
++ if(!C){C=NewObject<UFleshHandPushComponent>(Target);Target->AddInstanceComponent(C);C->RegisterComponent();}
++ C->Direction=D.GetSafeNormal2D();C->Distance=CM;C->Age=0;C->SetComponentTickEnabled(true);
++}
++void UFleshHandPushComponent::TickComponent(float Dt,ELevelTick Type,FActorComponentTickFunction* Tick)
++{
++ Super::TickComponent(Dt,Type,Tick);auto* C=Cast<ACharacter>(GetOwner());
++ if(!C||!Alive(C)){SetComponentTickEnabled(false);return;}
++ auto* M=C->GetCharacterMovement();const float Before=Age/.16f;Age=FMath::Min(.16f,Age+Dt);
++ const float Step=Distance*(FMath::Square(1-Before)-FMath::Square(1-Age/.16f));
++ FHitResult Hit;M->SafeMoveUpdatedComponent(Direction*Step,C->GetActorQuat(),true,Hit);M->bForceNextFloorCheck=true;
++ if(Hit.bBlockingHit||Age>=.16f)SetComponentTickEnabled(false);
++}
++AFleshHandMonster::AFleshHandMonster(const FObjectInitializer& I)
++ :Super(I.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
++{
++ PrimaryActorTick.bCanEverTick=true;
++ Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
++ Status=CreateDefaultSubobject<UCombatStatusFormula>(TEXT("CombatStatus"));
++ Knockdown=CreateDefaultSubobject<UFleshHandKnockdownComponent>(TEXT("HandKnockdown"));
++ Combat->ToughnessThreshold=150;Combat->ToughnessBreakSeconds=.9f;
++ Combat->BladeResistance=.1f;Combat->BluntResistance=.05f;Combat->ImpactResistance=.2f;
++ AIControllerClass=AMonsterAIController::StaticClass();AutoPossessAI=EAutoPossessAI::PlacedInWorldOrSpawned;
++ bUseControllerRotationYaw=false;GetCapsuleComponent()->InitCapsuleSize(62,102);
++ GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Ignore);
++ GetMesh()->SetRelativeLocation(FVector(0,0,-102));GetMesh()->SetRelativeRotation(FRotator(0,-90,0));GetMesh()->SetRelativeScale3D(FVector(2));
++ GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);GetMesh()->SetCollisionResponseToAllChannels(ECR_Ignore);
++ GetMesh()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);
++ GetMesh()->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::OnlyTickPoseWhenRendered;
++ GetMesh()->bEnableUpdateRateOptimizations=true;
++ auto* M=GetCharacterMovement();M->bOrientRotationToMovement=true;M->RotationRate=FRotator(0,240,0);
++ M->bRunPhysicsWithNoController=true;M->MaxStepHeight=40;M->bCanWalkOffLedges=false;
++ PalmFist=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PalmFist"));PalmFist->SetupAttachment(GetRootComponent());
++ PalmFist->SetCollisionEnabled(ECollisionEnabled::NoCollision);PalmFist->SetVisibility(false);
++ PalmFist->SetRelativeLocation(FVector(5,0,-22));PalmFist->SetRelativeRotation(FRotator(0,-90,0));
++ WarningRing=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("AttackWarning"));WarningRing->SetupAttachment(GetRootComponent());
++ WarningRing->SetCollisionEnabled(ECollisionEnabled::NoCollision);WarningRing->SetCastShadow(false);WarningRing->SetVisibility(false);
++ static ConstructorHelpers::FObjectFinder<UStaticMesh> Plane(TEXT("/Engine/BasicShapes/Plane.Plane"));
++ if(Plane.Succeeded())WarningRing->SetStaticMesh(Plane.Object);
++ Tags.Add(TEXT("Enemy"));Tags.Add(TEXT("FleshHand"));
++}
++AFleshHandMinion::AFleshHandMinion(const FObjectInitializer& I):Super(I)
++{
++ bMinion=true;MaxHealth=Health=80;PhysicalAttack=20;MagicDefense=55;Level=1;Rank=EMonsterRank::Normal;ExperienceReward=0;
++ WalkSpeed=324;AnimationWalkSpeed=270;AggroRadius=945;CorpseSeconds=4;
++ Knockdown->LaunchScale=1.f;Knockdown->GroundHoldSeconds=.45f;Knockdown->FallCollisionRadius=47.f;
++ GetCapsuleComponent()->InitCapsuleSize(26,38);GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Pawn,ECR_Ignore);
++ GetMesh()->SetRelativeLocation(FVector(0,0,-38));GetMesh()->SetRelativeScale3D(FVector(.65));
++ auto* M=GetCharacterMovement();M->SetUpdateNavAgentWithOwnersCollisions(false);
++ M->GetNavAgentPropertiesRef().AgentRadius=34;M->GetNavAgentPropertiesRef().AgentHeight=184;
++ Combat->ToughnessThreshold=40;Combat->ToughnessBreakSeconds=.6f;
++ Tags.Add(TEXT("Summoned"));Tags.Add(TEXT("NoSkillTraining"));Tags.Add(TEXT("NoKillRewards"));
++}
++void AFleshHandMonster::OnConstruction(const FTransform& T)
++{
++ Super::OnConstruction(T);if(VisualMesh)GetMesh()->SetSkeletalMeshAsset(VisualMesh);if(PalmFistMesh)PalmFist->SetStaticMesh(PalmFistMesh);
++ PalmFist->SetRelativeRotation(GetMesh()->GetRelativeRotation());
++}
++void AFleshHandMonster::BeginPlay()
++{
++ Super::BeginPlay();MaxHealth*=MonsterCoreStats::HealthMultiplier();Health=MaxHealth;Home=GetActorLocation();
++ if(VisualMesh)GetMesh()->SetSkeletalMeshAsset(VisualMesh);
++ GetMesh()->SetAnimInstanceClass(UFatZombieAnimInstance::StaticClass());
++ GetCharacterMovement()->MaxWalkSpeed=WalkSpeed;
++ if(PalmFistMesh)PalmFist->SetStaticMesh(PalmFistMesh);
++ PalmFist->SetRelativeRotation(GetMesh()->GetRelativeRotation());
++ if(WarningMaterial){RingMID=UMaterialInstanceDynamic::Create(WarningMaterial,this);WarningRing->SetMaterial(0,RingMID);}
++ if(!bMinion&&ChargeWarningMaterial)ChargeRingMID=UMaterialInstanceDynamic::Create(ChargeWarningMaterial,this);
++ if(bMinion){GetMesh()->SetForcedLOD(3);SetLifeSpan(90);}
++ SetState(EFleshHandState::Idle);
++}
++void AFleshHandMonster::EndPlay(const EEndPlayReason::Type Reason)
++{
++ if(auto* FX=GetWorld()->GetSubsystem<UFleshHandChargeFX>())FX->Cancel(this);
++ StopChargeMotion();
++ for(auto& Child:Children)if(Child.IsValid())Child->Destroy();Children.Empty();
++ if(auto* Hands=SummonedHands.Find(GetWorld())){Hands->RemoveAll([this](const auto& P){return !P.IsValid()||P.Get()==this;});if(Hands->IsEmpty())SummonedHands.Remove(GetWorld());}
++ Super::EndPlay(Reason);
++}
++void AFleshHandMonster::Play(UAnimSequence* Clip,bool Loop,bool Clock,float Blend)
++{if(Clip)if(auto* A=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))A->TransitionTo(Clip,Loop,Clock,Blend);}
++bool AFleshHandMonster::Busy() const {return Dead()||State==EFleshHandState::KnockedDown||State==EFleshHandState::Stagger||State==EFleshHandState::Telegraph||Attacking(State)||Charging(State);}
++void AFleshHandMonster::SetState(EFleshHandState Next)
++{
++ const auto Previous=State;
++ if(State==EFleshHandState::ChargeRush&&Next!=State)StopChargeMotion();
++ State=Next;StateSeconds=0;PalmFist->SetVisibility(false);WarningRing->SetVisibility(false);
++ if(RingMID)WarningRing->SetMaterial(0,RingMID);
++ if(auto* FX=GetWorld()->GetSubsystem<UFleshHandChargeFX>())FX->Transition(this,Previous);
++ const bool Moving=Next==EFleshHandState::Walk||Next==EFleshHandState::Returning;
++ const bool WasMoving=Previous==EFleshHandState::Walk||Previous==EFleshHandState::Returning;
++ if(!Moving)GetCharacterMovement()->StopMovementImmediately();
++ GetCharacterMovement()->bOrientRotationToMovement=!Busy();
++ // Chase/home share one gait. Keep the visible cycle and its speed on that switch.
++ if(Moving&&WasMoving)return;
++ if(Next==EFleshHandState::Stagger||Next==EFleshHandState::Corpse||Next==EFleshHandState::KnockedDown)return;
++ if(Charging(Next))
++ {
++  Play(Next==EFleshHandState::ChargeWindup?ChargeWindupClip:Next==EFleshHandState::ChargeRush?ChargeRushClip:ChargeRecoverClip,Next==EFleshHandState::ChargeRush,true,.08f);
++  if(Next==EFleshHandState::ChargeWindup&&RingMID)
++  {
++   // A windup indicator under the hand, not an area-damage decal.
++   WarningRing->SetRelativeLocation(FVector(0,0,-GetCapsuleComponent()->GetScaledCapsuleHalfHeight()+3));
++   WarningRing->SetRelativeScale3D(FVector(1.65f,1.65f,1));
++   RingMID->SetVectorParameterValue(TEXT("Tint"),FLinearColor(1.f,.24f,.015f));
++   RingMID->SetScalarParameterValue(TEXT("Opacity"),.8f);WarningRing->SetVisibility(true);
++   if(ChargeRingMID){WarningRing->SetMaterial(0,ChargeRingMID);ChargeRingMID->SetScalarParameterValue(TEXT("Progress"),0);}
++  }
++  return;
++ }
++ UAnimSequence* Clip=Next==EFleshHandState::Hammer?HammerClip:Next==EFleshHandState::Slam?SlamClip:Next==EFleshHandState::GrandSlam?GrandSlamClip:Next==EFleshHandState::Dying?DeathClip:Moving?MoveClip:IdleClip;
++ if(Moving||Next==EFleshHandState::Idle)
++ {
++  if(auto* A=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))
++  {
++   FMonsterClipTransition Settings;Settings.bContinueOutgoingLoop=WasMoving||Previous==EFleshHandState::Idle;
++   Settings.InitialPlayRate=Moving?FMath::Clamp(GetVelocity().Size2D()/FMath::Max(1.f,AnimationWalkSpeed),.15f,1.8f):1.f;
++   A->TransitionTo(Clip,true,false,Moving?(bMinion?.14f:.20f):(bMinion?.18f:.24f),Settings);
++  }
++  return;
++ }
++ Play(Clip,!Attacking(Next)&&Next!=EFleshHandState::Dying,Attacking(Next)||Next==EFleshHandState::Dying,Attacking(Next)?.04f:.12f);
++ if(Next==EFleshHandState::Telegraph&&RingMID)
++ {
++  const float Radius=Queued==EFleshHandState::Hammer?HammerRange:SlamRadius;
++  WarningRing->SetRelativeLocation(FVector(0,0,-GetCapsuleComponent()->GetScaledCapsuleHalfHeight()+3));
++  WarningRing->SetRelativeScale3D(FVector(Radius*.02f,Radius*.02f,1));
++  RingMID->SetVectorParameterValue(TEXT("Tint"),FLinearColor(1.f,.08f,.025f));RingMID->SetScalarParameterValue(TEXT("Opacity"),.7f);WarningRing->SetVisibility(true);
++ }
++}
++void AFleshHandMonster::SetLocomotion(bool Moving,bool Returning)
++{if(Busy())return;const auto Next=Moving?(Returning?EFleshHandState::Returning:EFleshHandState::Walk):EFleshHandState::Idle;if(State!=Next)SetState(Next);}
++bool AFleshHandMonster::CanReach(const APawn* P,float Range) const
++{
++ if(!Alive(P)||FVector::DistSquared2D(GetActorLocation(),P->GetActorLocation())>FMath::Square(Range))return false;
++ const float Feet=GetActorLocation().Z-GetSimpleCollisionHalfHeight();
++ if(FMath::Abs(P->GetActorLocation().Z-P->GetSimpleCollisionHalfHeight()-Feet)>75)return false;
++ FCollisionQueryParams Q(SCENE_QUERY_STAT(FleshHandSight),false,this);Q.AddIgnoredActor(P);FHitResult Hit;
++ return !GetWorld()->LineTraceSingleByChannel(Hit,FVector(GetActorLocation().X,GetActorLocation().Y,Feet+40),FVector(P->GetActorLocation().X,P->GetActorLocation().Y,Feet+40),ECC_Visibility,Q);
++}
++bool AFleshHandMonster::CanAttack(APawn* P) const
++{
++ if(bMinion||Busy()||Status->IsFrozen()||Status->IsPetrified()||Status->IsStunned())return false;
++ // Palm-extension Hammer is retired. Only slams and the ranged fist rush can start.
++ return ((GrandLeft<=0||SlamLeft<=0)&&CanReach(P,SlamRadius))||CanCharge(P);
++}
++bool AFleshHandMonster::CanCharge(const APawn* P) const
++{
++ return ChargeLeft<=0&&ChargeWindupClip&&ChargeRushClip&&ChargeRecoverClip&&!Status->BlocksMovement()&&GetCharacterMovement()->IsMovingOnGround()
++  &&Alive(P)&&FVector::DistSquared2D(P->GetActorLocation(),GetActorLocation())>=FMath::Square(ChargeMinRange)&&CanReach(P,ChargeMaxRange);
++}
++bool AFleshHandMonster::StartAttack(APawn* P)
++{
++ if(!HasAuthority()||!CanAttack(P))return false;
++ Queued=GrandLeft<=0&&CanReach(P,SlamRadius)?EFleshHandState::GrandSlam:
++  SlamLeft<=0&&CanReach(P,SlamRadius)?EFleshHandState::Slam:EFleshHandState::ChargeWindup;
++ Target=LockedTarget=P;StrikeDirection=(P->GetActorLocation()-GetActorLocation()).GetSafeNormal2D();
++ SetActorRotation(StrikeDirection.Rotation());if(auto* AI=Cast<AMonsterAIController>(GetController()))AI->StopMovement();
++ bConsumed=false;
++ if(Queued==EFleshHandState::ChargeWindup){ChargeLeft=ChargeCooldown;SetState(Queued);}
++ else SetState(EFleshHandState::Telegraph);
++ return true;
++}
++void AFleshHandMonster::StopChargeMotion()
++{
++ if(ChargeMotionID){GetCharacterMovement()->RemoveRootMotionSourceByID(ChargeMotionID);ChargeMotionID=0;GetCharacterMovement()->StopMovementImmediately();}
++}
++bool AFleshHandMonster::BuildChargeDirection(const APawn* Victim,FVector& Direction) const
++{
++ Direction=FVector::ZeroVector;
++ if(!CanReach(Victim,ChargeDistance))return false;
++ const FVector Start=GetActorLocation(),TargetPosition=Victim->GetActorLocation();
++ const auto* Capsule=GetCapsuleComponent();const auto* Move=GetCharacterMovement();
++ const float HalfHeight=Capsule->GetScaledCapsuleHalfHeight();
++ const auto* TargetCharacter=Cast<ACharacter>(Victim);
++ const auto* TargetCapsule=TargetCharacter?TargetCharacter->GetCapsuleComponent():nullptr;
++ const double ContactRadius=Capsule->GetScaledCapsuleRadius()+(TargetCapsule?TargetCapsule->GetScaledCapsuleRadius():0.f);
++ const double Speed=ChargeSpeed*FMath::Clamp(Status->MovementMultiplier(),0.f,1.f);
++ if(Speed<=KINDA_SMALL_NUMBER)return false;
++ const double MaxTime=ChargeDistance/FMath::Max(1.f,ChargeSpeed);
++ FVector Offset=TargetPosition-Start;Offset.Z=0;
++ FVector Velocity=Victim->GetVelocity();Velocity.Z=0;
++ Velocity*=FMath::Clamp(ChargeLeadStrength,0.f,1.5f);
++ // Mutant3 resamples at takeoff, using only the remaining travel time. Here
++ // speed is fixed, so solve |Offset + Velocity*t| = Speed*t + contact radius.
++ // The 1.2 s windup has already elapsed and must not be added a second time.
++ double Time=FMath::Clamp((Offset.Size()-ContactRadius)/Speed,0.,MaxTime);
++ const double A=Velocity.SizeSquared()-Speed*Speed;
++ const double B=2.*(FVector::DotProduct(Offset,Velocity)-Speed*ContactRadius);
++ const double C=FMath::Max(0.,Offset.SizeSquared()-ContactRadius*ContactRadius);
++ if(C>KINDA_SMALL_NUMBER)
++ {
++  if(FMath::Abs(A)>KINDA_SMALL_NUMBER)
++  {
++   const double Discriminant=B*B-4.*A*C;
++   if(Discriminant>=0.)
++   {
++    const double Root=FMath::Sqrt(Discriminant),T0=(-B-Root)/(2.*A),T1=(-B+Root)/(2.*A);
++    if(T0>0.||T1>0.)Time=FMath::Clamp(T0>0.&&T1>0.?FMath::Min(T0,T1):FMath::Max(T0,T1),0.,MaxTime);
++   }
++  }
++  else if(B<-KINDA_SMALL_NUMBER)Time=FMath::Clamp(-C/B,0.,MaxTime);
++ }
++ FVector Lead=(Velocity*Time).GetClampedToMaxSize(FMath::Max(0.f,ChargeMaxLeadDistance));
++ FCollisionQueryParams Params(SCENE_QUERY_STAT(FleshHandChargeLead),false,this);Params.AddIgnoredActor(Victim);
++ // As in Mutant3, stop the player's forecast at a wall their capsule cannot cross.
++ if(TargetCapsule&&!Lead.IsNearlyZero(1.f))
++ {
++  FHitResult Obstacle;
++  const FCollisionShape Shape=FCollisionShape::MakeCapsule(TargetCapsule->GetScaledCapsuleRadius(),FMath::Max(TargetCapsule->GetScaledCapsuleRadius(),TargetCapsule->GetScaledCapsuleHalfHeight()-2.f));
++  if(GetWorld()->SweepSingleByChannel(Obstacle,TargetPosition,TargetPosition+Lead,FQuat::Identity,TargetCapsule->GetCollisionObjectType(),Shape,Params,FCollisionResponseParams(TargetCapsule->GetCollisionResponseToChannels())))
++   Lead*=FMath::Max(0.f,Obstacle.Time-.02f);
++ }
++ const FCollisionShape Shape=FCollisionShape::MakeCapsule(Capsule->GetScaledCapsuleRadius(),FMath::Max(Capsule->GetScaledCapsuleRadius(),HalfHeight-2.f));
++ const FCollisionResponseParams Response(Capsule->GetCollisionResponseToChannels());
++ const int32 Candidates=Lead.IsNearlyZero(1.f)?1:3;
++ for(int32 Candidate=0;Candidate<Candidates;++Candidate)
++ {
++  const FVector Aim=TargetPosition+Lead*(1.f-.5f*Candidate);
++  FVector Planar=Aim-Start;Planar.Z=0;
++  if(Planar.IsNearlyZero(1.f)||Planar.Size()-ContactRadius>Speed*MaxTime)continue;
++  FHitResult Floor;
++  if(!GetWorld()->LineTraceSingleByChannel(Floor,Aim+FVector(0,0,120),Aim-FVector(0,0,350),ECC_Visibility,Params)||!Move->IsWalkable(Floor))continue;
++  if(FMath::Abs(Floor.ImpactPoint.Z-(Start.Z-HalfHeight))>75.f)continue;
++  // This is a ground rush, not the mutant's parabolic flight. Check the hand's
++  // straight capsule corridor once at launch; CharacterMovement owns actual motion.
++  const FVector End=Floor.ImpactPoint+FVector(0,0,HalfHeight+2.f);FHitResult Obstacle;
++  if(GetWorld()->SweepSingleByChannel(Obstacle,Start,End,FQuat::Identity,Capsule->GetCollisionObjectType(),Shape,Params,Response))continue;
++  Direction=Planar.GetSafeNormal();return true;
++ }
++ return false;
++}
++void AFleshHandMonster::BeginChargeRush()
++{
++ FVector Direction;
++ if(!BuildChargeDirection(LockedTarget.Get(),Direction)){bConsumed=true;SetState(EFleshHandState::ChargeRecover);return;}
++ StrikeDirection=Direction;SetActorRotation(StrikeDirection.Rotation());
++ SetState(EFleshHandState::ChargeRush);ChargeStart=ChargePrevious=GetActorLocation();ChargeBlockedSeconds=0;
++ // In-place animation owns the fist pose; CharacterMovement owns swept motion,
++ // floor following, steps and ledges. AI StopMovement cannot erase this source.
++ auto Motion=MakeShared<FRootMotionSource_ConstantForce>();
++ Motion->InstanceName=TEXT("FleshHandCharge");Motion->Priority=500;Motion->AccumulateMode=ERootMotionAccumulateMode::Override;
++ Motion->Duration=ChargeDistance/FMath::Max(1.f,ChargeSpeed);Motion->bInLocalSpace=false;
++ Motion->Force=StrikeDirection*ChargeSpeed*FMath::Min(1.f,Status->MovementMultiplier());
++ Motion->Settings.SetFlag(ERootMotionSourceSettingsFlags::IgnoreZAccumulate);
++ Motion->FinishVelocityParams.Mode=ERootMotionFinishVelocityMode::ClampVelocity;Motion->FinishVelocityParams.ClampVelocity=0;
++ ChargeMotionID=GetCharacterMovement()->ApplyRootMotionSource(Motion);
++ if(!ChargeMotionID)SetState(EFleshHandState::ChargeRecover);
++}
++void AFleshHandMonster::TickCharge(float Dt)
++{
++ auto* Move=GetCharacterMovement();
++ if(State!=EFleshHandState::ChargeRecover&&(!Alive(LockedTarget.Get())||Status->BlocksMovement()||!Move->IsMovingOnGround()))
++ {bConsumed=true;SetState(EFleshHandState::ChargeRecover);return;}
++ if(State==EFleshHandState::ChargeWindup)
++ {
++  const float Progress=FMath::Clamp(StateSeconds/FMath::Max(.1f,ChargeWindupSeconds),0.f,1.f);
++  const float Pulse=.84f+.16f*FMath::Sin(2.f*PI*(2.f*Progress+2.f*Progress*Progress));
++  WarningRing->SetRelativeScale3D(FVector(FMath::Lerp(2.8f,1.8f,Progress),FMath::Lerp(2.8f,1.8f,Progress),1));
++  if(ChargeRingMID)ChargeRingMID->SetScalarParameterValue(TEXT("Progress"),Progress);
++  else if(RingMID)RingMID->SetScalarParameterValue(TEXT("Opacity"),Pulse);
++  // Follow the live target during windup, then commit the predicted intercept
++  // heading once at launch, matching Mutant3's windup/takeoff separation.
++  const FRotator Facing(0,(LockedTarget->GetActorLocation()-GetActorLocation()).Rotation().Yaw,0);
++  SetActorRotation(FMath::RInterpConstantTo(GetActorRotation(),Facing,Dt,540.f));
++  if(auto* A=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))A->SetCombatTime(ChargeWindupClip->GetPlayLength()*FMath::Clamp(StateSeconds/FMath::Max(.1f,ChargeWindupSeconds),0.f,1.f));
++  if(StateSeconds>=ChargeWindupSeconds)BeginChargeRush();
++  return;
++ }
++ if(State==EFleshHandState::ChargeRush)
++ {
++  if(auto* A=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))A->SetCombatTime(FMath::Fmod(StateSeconds,FMath::Max(.01f,ChargeRushClip->GetPlayLength())));
++  if(auto Motion=Move->GetRootMotionSourceByID(ChargeMotionID))
++   StaticCastSharedPtr<FRootMotionSource_ConstantForce>(Motion)->Force=StrikeDirection*ChargeSpeed*FMath::Min(1.f,Status->MovementMultiplier());
++  const float Progress=FVector::DotProduct(GetActorLocation()-ChargePrevious,StrikeDirection);
++  ChargeBlockedSeconds=Progress<FMath::Max(.01f,ChargeSpeed*Dt*.05f)?ChargeBlockedSeconds+Dt:0.f;ChargePrevious=GetActorLocation();
++  if(StateSeconds>=ChargeDistance/FMath::Max(1.f,ChargeSpeed)||FVector::DistSquared2D(ChargeStart,GetActorLocation())>=FMath::Square(ChargeDistance)||ChargeBlockedSeconds>=.15f)
++  {bConsumed=true;SetState(EFleshHandState::ChargeRecover);}
++  return;
++ }
++ if(auto* A=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))A->SetCombatTime(ChargeRecoverClip->GetPlayLength()*FMath::Clamp(StateSeconds/FMath::Max(.1f,ChargeRecoverSeconds),0.f,1.f));
++ if(StateSeconds>=ChargeRecoverSeconds){LockedTarget.Reset();SetState(EFleshHandState::Idle);}
++}
++void AFleshHandMonster::MoveBlockedBy(const FHitResult& Hit)
++{
++ Super::MoveBlockedBy(Hit);
++ if(!HasAuthority()||State!=EFleshHandState::ChargeRush||bConsumed||Dead()||GetCharacterMovement()->IsWalkable(Hit))return;
++ bConsumed=true; // The swept capsule's first blocking contact consumes this rush.
++ bool DamageLanded=false;
++ APawn* Victim=Cast<APawn>(Hit.GetActor());
++ if(Alive(Victim)&&Victim->IsPlayerControlled()&&!Status->BlocksMovement())
++ {
++  const float Applied=UGameplayStatics::ApplyDamage(Victim,PhysicalAttack*ChargeDamageMultiplier,GetController(),this,UEnemyMeleeDamage::StaticClass());
++  // Parry, stun or death may synchronously interrupt us inside ApplyDamage.
++  if(State!=EFleshHandState::ChargeRush||Dead())return;
++  DamageLanded=Applied>0;
++  if(Applied>0&&Alive(Victim))UCombatStatusFormula::GetOrAdd(Victim)->AddStun(ChargeStunSeconds);
++ }
++ if(auto* FX=GetWorld()->GetSubsystem<UFleshHandChargeFX>())FX->Impact(this,Hit,DamageLanded);
++ if(ImpactSound)
++ {
++  auto* Attenuation=NewObject<USoundAttenuation>(this);Attenuation->Attenuation.bAttenuate=true;Attenuation->Attenuation.bSpatialize=true;Attenuation->Attenuation.FalloffDistance=1800;
++  UGameplayStatics::PlaySoundAtLocation(this,ImpactSound,Hit.ImpactPoint,.9f,.85f,0.f,Attenuation);
++ }
++ SetState(EFleshHandState::ChargeRecover);
++}
++void AFleshHandMonster::UpdateFist()
++{
++ const float T=StateSeconds;const float Extension=T<.1875f?FMath::SmoothStep(.085f,.1875f,T):1-FMath::SmoothStep(.92f,1.32f,T);
++ const FVector PalmCenter=FMath::Lerp(GetMesh()->GetSocketLocation(TEXT("palm")),GetMesh()->GetSocketLocation(TEXT("middle_01")),.5f);
++ PalmFist->SetWorldLocation(PalmCenter+GetActorForwardVector()*2.f);
++ PalmFist->SetVisibility(Extension>.015f);PalmFist->SetRelativeScale3D(FVector(.85f,FMath::Max(.01f,Extension)*1.15f,.85f));
++}
++void AFleshHandMonster::Tick(float Dt)
++{
++ Super::Tick(Dt);if(!HasAuthority()||State==EFleshHandState::Corpse)return;
++ StateSeconds+=Dt;
++ if(Knockdown&&Knockdown->OwnsPresentation())
++ {
++  HammerLeft=FMath::Max(0.f,HammerLeft-Dt);SlamLeft=FMath::Max(0.f,SlamLeft-Dt);GrandLeft=FMath::Max(0.f,GrandLeft-Dt);
++  ChargeLeft=FMath::Max(0.f,ChargeLeft-Dt);GetCharacterMovement()->MaxWalkSpeed=0;return;
++ }
++ if(Dead())
++ {
++  if(auto* A=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))A->SetCombatTime(StateSeconds);
++  if(!DeathClip||StateSeconds>=DeathClip->GetPlayLength())
++  {if(auto* A=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))A->HoldClipAtTime(DeathClip?DeathClip->GetPlayLength():0);GetMesh()->TickAnimation(0.f,false);GetMesh()->RefreshBoneTransforms();GetMesh()->SetComponentTickEnabled(false);State=EFleshHandState::Corpse;SetActorTickEnabled(false);}
++  return;
++ }
++ HammerLeft=FMath::Max(0.f,HammerLeft-Dt);SlamLeft=FMath::Max(0.f,SlamLeft-Dt);GrandLeft=FMath::Max(0.f,GrandLeft-Dt);
++ ChargeLeft=FMath::Max(0.f,ChargeLeft-Dt);
++ GetCharacterMovement()->MaxWalkSpeed=Status->BlocksMovement()?0:WalkSpeed*Status->MovementMultiplier();
++ if(State==EFleshHandState::Stagger){if(StateSeconds>=ControlSeconds&&Combat->StunSecondsRemaining()<=0&&!Status->IsFrozen()&&!Status->IsPetrified()&&!Status->IsStunned())Combat->FinishReaction();return;}
++ if(const auto* Fear=FindComponentByClass<UHandBrainFearComponent>();Fear&&Fear->Stacks>0){if(Busy())InterruptAttack(Fear->GetRemainingSeconds());return;}
++ if(Status->IsFrozen()||Status->IsPetrified()||Status->IsStunned()){if(Busy())InterruptAttack(.1f);return;}
++ if(Charging(State)){TickCharge(Dt);return;}
++ if(State==EFleshHandState::Telegraph)
++ {
++  if(!Alive(LockedTarget.Get())){SetState(EFleshHandState::Idle);return;}
++  if(StateSeconds>=.5f)
++  {
++   if(Queued==EFleshHandState::GrandSlam)GrandLeft=20;else if(Queued==EFleshHandState::Slam)SlamLeft=8;else HammerLeft=4;
++   SetState(Queued);
++  }
++  return;
++ }
++ if(Attacking(State))
++ {
++  const auto Attack=State;const float HitTime=Attack==EFleshHandState::Hammer?.1875f:Attack==EFleshHandState::Slam?.25f:2.f*5.f/19.f;
++  if(auto* A=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))A->SetCombatTime(StateSeconds);
++  if(Attack==EFleshHandState::Hammer)UpdateFist();
++  if(!bConsumed&&StateSeconds>=HitTime){bConsumed=true;Impact();}
++  if(State!=Attack)return; // Damage can synchronously parry, stun or kill the attacker.
++  if(bConsumed&&RingMID&&Attack!=EFleshHandState::Hammer)
++  {
++   const float Pulse=FMath::Clamp((StateSeconds-HitTime)/(Attack==EFleshHandState::GrandSlam?.42f:.28f),0.f,1.f);
++   const float Radius=FMath::Lerp(45.f,SlamRadius,Pulse);
++   WarningRing->SetRelativeScale3D(FVector(Radius*.02f,Radius*.02f,1));
++   RingMID->SetVectorParameterValue(TEXT("Tint"),FLinearColor(.36f,.6f,.16f));
++   RingMID->SetScalarParameterValue(TEXT("Opacity"),(1-Pulse)*.65f);WarningRing->SetVisibility(Pulse<1);
++  }
++  if(StateSeconds>=(Attack==EFleshHandState::Hammer?1.5f:2.f))SetState(EFleshHandState::Idle);
++  return;
++ }
++ if(auto* A=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))
++ {
++  // Keep the authored reference speed fixed when gameplay movement is increased.
++  const bool Moving=State==EFleshHandState::Walk||State==EFleshHandState::Returning;
++  A->SetLocomotionRate(Moving?FMath::Clamp(GetVelocity().Size2D()/FMath::Max(1.f,AnimationWalkSpeed),.15f,1.8f):1.f);
++ }
++ if(bMinion){ContactLeft-=Dt;if(ContactLeft<=0){ContactLeft=.5f;ContactDamage();}}
++}
++void AFleshHandMonster::Impact()
++{
++ const auto Attack=State; // Neither slam spawns minions, even when it misses.
++ if(ImpactSound)
++ {
++  auto* Attenuation=NewObject<USoundAttenuation>(this);Attenuation->Attenuation.bAttenuate=true;Attenuation->Attenuation.bSpatialize=true;Attenuation->Attenuation.FalloffDistance=1800;
++  UGameplayStatics::PlaySoundAtLocation(this,ImpactSound,GetActorLocation(),1.f,1.f,0.f,Attenuation);
++ }
++ for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
++ {
++  APawn* P=It->Get()?It->Get()->GetPawn().Get():nullptr;
++  if(Attack==EFleshHandState::Hammer&&P!=LockedTarget.Get())continue;
++  if(!CanReach(P,Attack==EFleshHandState::Hammer?HammerRange:SlamRadius))continue;
++  if(Attack==EFleshHandState::Hammer&&FVector::DotProduct(StrikeDirection,(P->GetActorLocation()-GetActorLocation()).GetSafeNormal2D())<.35f)continue;
++  const float Multiplier=Attack==EFleshHandState::Hammer?1.f:Attack==EFleshHandState::Slam?1.5f:2.f;
++  const float Applied=UGameplayStatics::ApplyDamage(P,PhysicalAttack*Multiplier,GetController(),this,UEnemyMeleeDamage::StaticClass());
++  if(State!=Attack||Dead())return;
++  if(Applied<=0||!Alive(P))continue;
++  if(Attack==EFleshHandState::Hammer)UFleshHandPushComponent::Apply(Cast<ACharacter>(P),StrikeDirection,101.25f);
++  else
++  {
++   UCombatStatusFormula::GetOrAdd(P)->AddStun(1.f);
++   if(Attack==EFleshHandState::Slam)
++   {
++    FVector Away=(P->GetActorLocation()-GetActorLocation()).GetSafeNormal2D();
++    if(Away.IsNearlyZero())Away=StrikeDirection;
++    UFleshHandPushComponent::Apply(Cast<ACharacter>(P),Away,SlamKnockbackDistance);
++   }
++  }
++ }
++}
++void AFleshHandMonster::ContactDamage()
++{
++ for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
++ {
++  APawn* P=It->Get()?It->Get()->GetPawn().Get():nullptr;if(!CanReach(P,150))continue;
++  const FVector D=GetActorTransform().InverseTransformPosition(P->GetActorLocation());bool Touch=false;
++  for(const FVector Zone:{FVector(30,0,40.8),FVector(34.8,-31.2,26.4),FVector(34.8,31.2,26.4)})
++   Touch|=FVector2D(D.X-Zone.X*1.35,D.Y-Zone.Y*1.35).SizeSquared()<=FMath::Square(Zone.Z*1.35);
++  if(Touch)UGameplayStatics::ApplyDamage(P,PhysicalAttack,GetController(),this,UEnemyMeleeDamage::StaticClass());
++  if(Busy())return;
++ }
++}
++void AFleshHandMonster::Summon()
++{
++ if(!MinionClass)return;
++ Children.RemoveAll([](const auto& P){return !P.IsValid()||P->Dead();});
++ auto& Global=SummonedHands.FindOrAdd(GetWorld());Global.RemoveAll([](const auto& P){return !P.IsValid()||P->Dead();});
++ auto* Nav=FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld());if(!Nav)return;
++ const auto* Defaults=MinionClass->GetDefaultObject<AFleshHandMonster>();const auto& Agent=Defaults->GetCharacterMovement()->GetNavAgentPropertiesRef();
++ const auto* NavData=Nav->GetNavDataForProps(Agent,GetActorLocation());if(!NavData)return;
++ for(int32 N=0;N<3&&Children.Num()<9&&Global.Num()<36;++N)
++ {
++  for(int32 Attempt=0;Attempt<12;++Attempt)
++  {
++   const float Angle=FMath::FRand()*2*PI;const float Radius=Attempt<6?FMath::Sqrt(FMath::FRand())*67.5f:90.f+(Attempt-6)*24;
++   FVector Near=GetActorLocation()+FVector(FMath::Cos(Angle)*Radius,FMath::Sin(Angle)*Radius,-GetSimpleCollisionHalfHeight());FNavLocation Floor;
++   if(!Nav->ProjectPointToNavigation(Near,Floor,FVector(35,35,90),NavData))continue;
++   FCollisionQueryParams Q(SCENE_QUERY_STAT(FleshHandSummon),false,this);FHitResult Wall;
++   if(GetWorld()->LineTraceSingleByChannel(Wall,GetActorLocation(),Floor.Location+FVector(0,0,38),ECC_Visibility,Q))continue;
++   const FVector At=Floor.Location+FVector(0,0,41);
++   FCollisionResponseParams Responses;Responses.CollisionResponse.SetResponse(ECC_Pawn,ECR_Ignore);
++   if(GetWorld()->OverlapBlockingTestByChannel(At,FQuat::Identity,ECC_Pawn,FCollisionShape::MakeCapsule(26,38),Q,Responses))continue;
++   FActorSpawnParameters Params;Params.Owner=this;Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
++   if(auto* Child=GetWorld()->SpawnActor<AFleshHandMonster>(MinionClass,At,GetActorRotation(),Params))
++   {Children.Add(Child);Global.Add(Child);Child->SetTarget(Target.Get());if(auto* AI=Cast<AMonsterAIController>(Child->GetController()))AI->RememberDamage(Target.Get());}
++   break;
++  }
++ }
++}
++void AFleshHandMonster::InterruptAttack(float Seconds)
++{
++ if(Dead())return;
++ if(Knockdown&&Knockdown->IsControlling()){Knockdown->ExtendControl(Seconds);return;}
++ ControlSeconds=FMath::Max(Seconds,State==EFleshHandState::Stagger?ControlSeconds-StateSeconds:0.f);
++ bConsumed=true;LockedTarget.Reset();SetState(EFleshHandState::Stagger);Combat->BeginReaction(ControlSeconds);
++}
++void AFleshHandMonster::StartHitPresentation()
++{
++ bDizzyPresentation=Combat->bStunned&&!Combat->IsImmobileReaction();
++ Play(bDizzyPresentation?Combat->DizzyClip:Combat->HitClip,bDizzyPresentation,true,.08f);
++}
++void AFleshHandMonster::SetHitPresentationTime(float Elapsed,float Remaining)
++{
++ const bool Dizzy=Combat->bStunned&&!Combat->IsImmobileReaction();
++ if(Dizzy!=bDizzyPresentation){bDizzyPresentation=Dizzy;Play(Dizzy?Combat->DizzyClip:Combat->HitClip,Dizzy,true,.15f);}
++ if(auto* A=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))
++ {
++  const auto* Clip=Dizzy?Combat->DizzyClip.Get():Combat->HitClip.Get();if(!Clip)return;
++  const float Time=Combat->IsImmobileReaction()?.12f:Dizzy?FMath::Fmod(Elapsed,Clip->GetPlayLength()):MonsterReactionTiming::StaggerSample(Elapsed,Remaining,Clip->GetPlayLength(),.12f,.12f);
++  A->SetCombatTime(Time);A->SetControlledBlendTime(Elapsed);
++ }
++}
++void AFleshHandMonster::FinishHitReaction(){if(!Dead()&&(!Knockdown||!Knockdown->IsControlling()))SetState(EFleshHandState::Idle);}
++void AFleshHandMonster::Landed(const FHitResult& Hit)
++{
++ Super::Landed(Hit);if(Knockdown)Knockdown->Landed(Hit);
++}
++float AFleshHandMonster::TakeDamage(float Damage,const FDamageEvent& Event,AController* DamageInstigator,AActor* Causer)
++{
++ if(!HasAuthority()||Dead()||Damage<=0)return 0;
++ const auto* Type=Event.DamageTypeClass?Event.DamageTypeClass->GetDefaultObject<UDamageType>():GetDefault<UDamageType>();
++ auto* Weapon=CombatFormulaRuntime::ActiveWeaponHit;
++ // Source classification belongs to the attack receipt; gun-butt and sword hits remain melee.
++ const bool Ranged=Weapon&&Weapon->Target==this?!Weapon->bMelee:
++  ((Event.IsOfType(FPointDamageEvent::ClassID)||Event.IsOfType(FRadialDamageEvent::ClassID)||CombatFormulaRuntime::IsMagic(Type))&&!Type->IsA<UStatusMagicDamage>()&&!Type->IsA<UCombatDirectDamage>());
++ const float Mult=bMinion&&Ranged?.5f:1.f;
++ const FWeaponDamageParts Original=Weapon?Weapon->Incoming:FWeaponDamageParts{};
++ if(Weapon&&Weapon->Target==this)Weapon->Incoming=Weapon->Incoming.Scaled(Mult);
++ float Applied=CombatFormulaRuntime::MitigateMonster(this,Damage*Mult,Type,DamageInstigator?DamageInstigator->GetPawn().Get():Causer);
++ if(Weapon)Weapon->Incoming=Original;
++ if(UDevelopmentTuningSubsystem::ShouldOneHitKill(this,DamageInstigator,Causer))Applied=Health;
++ Applied=FMath::Clamp(Applied,0.f,Health);if(Applied<=0)return 0;Health-=Applied;
++ Super::TakeDamage(Applied,Event,DamageInstigator,Causer);
++ if(Health<=0)
++ {
++  bConsumed=true;LockedTarget.Reset();Target.Reset();
++  const bool FallingCorpse=Knockdown&&Knockdown->OnDeath();
++  if(FallingCorpse){State=EFleshHandState::Dying;StateSeconds=0;GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Pawn,ECR_Ignore);}
++  else {SetState(EFleshHandState::Dying);GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);GetCharacterMovement()->DisableMovement();}
++  GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++  Combat->SetComponentTickEnabled(false);Status->SetComponentTickEnabled(false);
++  if(auto* AI=Cast<AMonsterAIController>(GetController())){AI->StopMovement();AI->SetDecisionEnabled(false);AI->UpdateKnowledge();}
++  SetLifeSpan(CorpseSeconds);
++  if(!bMinion)if(auto* PC=Cast<APlayerController>(DamageInstigator);PC&&PC->IsLocalController()&&GetGameInstance())GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);
++ }
++ else Combat->ReceiveHit(Applied,DamageInstigator?DamageInstigator->GetPawn().Get():Cast<APawn>(Causer),MonsterToughness::FormOf(Type));
++ return Applied;
++}
++bool AFleshHandMonster::BuildQueryPhysics(USkeletalMesh* Mesh,UPhysicsAsset* Asset)
++{
++#if WITH_EDITOR
++ if(!Mesh||!Asset)return false;
++ Asset->Modify();Asset->SkeletalBodySetups.Empty();Asset->ConstraintSetup.Empty();Asset->CollisionDisableTable.Empty();
++ const auto& Ref=Mesh->GetRefSkeleton();TArray<FTransform> CS=Ref.GetRefBonePose();
++ for(int32 I=0;I<CS.Num();++I)if(Ref.GetParentIndex(I)>=0)CS[I]=CS[I]*CS[Ref.GetParentIndex(I)];
++ TArray<TArray<FVector>> Points;Points.SetNum(CS.Num());
++ if(auto* Model=Mesh->GetImportedModel();Model&&Model->LODModels.Num())
++ for(const auto& Section:Model->LODModels[0].Sections)for(const auto& Vertex:Section.SoftVertices)
++ {
++  int32 Best=0;for(int32 J=1;J<MAX_TOTAL_INFLUENCES;++J)if(Vertex.InfluenceWeights[J]>Vertex.InfluenceWeights[Best])Best=J;
++  const int32 Bone=Section.BoneMap[Vertex.InfluenceBones[Best]];Points[Bone].Add(CS[Bone].InverseTransformPosition(FVector(Vertex.Position)));
++ }
++ for(int32 I=0;I<Points.Num();++I)if(Points[I].Num()>8)
++ {
++  auto* Body=NewObject<USkeletalBodySetup>(Asset,NAME_None,RF_Transactional);Body->BoneName=Ref.GetBoneName(I);
++  Body->PhysicsType=PhysType_Kinematic;Body->CollisionTraceFlag=CTF_UseSimpleAsComplex;
++  FKConvexElem Hull;Hull.VertexData=Points[I];Hull.UpdateElemBox();Body->AggGeom.ConvexElems.Add(Hull);
++  Body->CreatePhysicsMeshes();Asset->SkeletalBodySetups.Add(Body);
++ }
++ for(int32 I=0;I<Asset->SkeletalBodySetups.Num();++I)for(int32 J=I+1;J<Asset->SkeletalBodySetups.Num();++J)Asset->DisableCollision(I,J);
++ for(int32 L=0;L<Mesh->GetLODNum();++L)if(auto* Info=Mesh->GetLODInfo(L)){Info->ScreenSize.Default=L==0?1.f:L==1?.42f:.16f;Info->LODHysteresis=.025f;}
++ Asset->UpdateBodySetupIndexMap();Asset->UpdateBoundsBodiesArray();Asset->MarkPackageDirty();Mesh->SetPhysicsAsset(Asset);Mesh->MarkPackageDirty();return true;
++#else
++ return false;
++#endif
++}
+diff --git a/Source/FPSGAME/Monsters/FleshHandMonster.h b/Source/FPSGAME/Monsters/FleshHandMonster.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Monsters/FleshHandMonster.h
+@@ -0,0 +1,140 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "GameFramework/Character.h"
++#include "Components/ActorComponent.h"
++#include "MonsterCoreStats.h"
++#include "FleshHandMonster.generated.h"
++class UAnimSequence; class UMonsterCombatComponent; class UStaticMesh; class UStaticMeshComponent; class UFleshHandKnockdownComponent;
++class USkeletalMesh; class UPhysicsAsset; class USoundBase; class UMaterialInterface; class UMaterialInstanceDynamic;
++UENUM(BlueprintType)
++enum class EFleshHandState : uint8 { Idle, Walk, Returning, Telegraph, Hammer, Slam, GrandSlam, Stagger, Dying, Corpse, ChargeWindup, ChargeRush, ChargeRecover, KnockedDown };
++
++/** Collision-swept, finite player displacement; survives the attacking hand's death. */
++UCLASS()
++class FPSGAME_API UFleshHandPushComponent : public UActorComponent
++{
++ GENERATED_BODY()
++public:
++ UFleshHandPushComponent();
++ static void Apply(ACharacter* Target,FVector Direction,float Distance);
++ virtual void TickComponent(float Dt,ELevelTick Type,FActorComponentTickFunction* Tick) override;
++private:
++ FVector Direction=FVector::ZeroVector; float Distance=0,Age=0;
++};
++
++/** Fly Hand's authored combat clock, with continuous skin geometry and local hand rig. */
++UCLASS(Blueprintable)
++class FPSGAME_API AFleshHandMonster : public ACharacter
++{
++ GENERATED_BODY()
++public:
++ AFleshHandMonster(const FObjectInitializer& Initializer=FObjectInitializer::Get());
++ virtual void OnConstruction(const FTransform& Transform) override;
++ virtual void BeginPlay() override;
++ virtual void EndPlay(const EEndPlayReason::Type Reason) override;
++ virtual void Tick(float Dt) override;
++ virtual void MoveBlockedBy(const FHitResult& Impact) override;
++ virtual void Landed(const FHitResult& Hit) override;
++ virtual float TakeDamage(float Damage,const FDamageEvent& Event,AController* Instigator,AActor* Causer) override;
++ UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="FleshHand") TObjectPtr<UMonsterCombatComponent> Combat;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|Assets") TObjectPtr<USkeletalMesh> VisualMesh;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|Assets") TObjectPtr<UStaticMesh> PalmFistMesh;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|Assets") TObjectPtr<UAnimSequence> IdleClip;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|Assets") TObjectPtr<UAnimSequence> MoveClip;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|Assets") TObjectPtr<UAnimSequence> HammerClip;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|Assets") TObjectPtr<UAnimSequence> SlamClip;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|Assets") TObjectPtr<UAnimSequence> GrandSlamClip;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|Assets") TObjectPtr<UAnimSequence> DeathClip;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|Assets") TObjectPtr<UAnimSequence> ChargeWindupClip;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|Assets") TObjectPtr<UAnimSequence> ChargeRushClip;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|Assets") TObjectPtr<UAnimSequence> ChargeRecoverClip;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|Assets") TObjectPtr<USoundBase> ImpactSound;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|Assets") TObjectPtr<UMaterialInterface> WarningMaterial;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|Summons") TSubclassOf<AFleshHandMonster> MinionClass;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|Stats") bool bMinion=false;
++ UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="FleshHand|Stats") float MaxHealth=1500;
++ UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="FleshHand|Stats") float PhysicalAttack=60;
++ UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="FleshHand|Stats") float MagicDefense=30;
++ UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="FleshHand|Stats") int32 Level=12;
++ UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="FleshHand|Stats") EMonsterRank Rank=EMonsterRank::Lord;
++ UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="FleshHand|Stats") int32 ExperienceReward=2892;
++ UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="FleshHand|Stats") float WalkSpeed=259.2f;
++ UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="FleshHand|AI") float AggroRadius=1215;
++ UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="FleshHand|AI") float LeashRadius=2600;
++ UPROPERTY(EditAnywhere,Category="FleshHand|Combat") float HammerRange=162;
++ UPROPERTY(EditAnywhere,Category="FleshHand|Combat") float SlamRadius=405;
++ UPROPERTY(EditAnywhere,Category="FleshHand|Charge",meta=(ClampMin="0")) float ChargeMinRange=450;
++ UPROPERTY(EditAnywhere,Category="FleshHand|Charge",meta=(ClampMin="1")) float ChargeMaxRange=1100;
++ UPROPERTY(EditAnywhere,Category="FleshHand|Charge",meta=(ClampMin="0.1")) float ChargeWindupSeconds=1.2f;
++ UPROPERTY(EditAnywhere,Category="FleshHand|Charge",meta=(ClampMin="0")) float ChargeCooldown=12;
++ UPROPERTY(EditAnywhere,Category="FleshHand|Charge",meta=(ClampMin="1")) float ChargeSpeed=1100;
++ UPROPERTY(EditAnywhere,Category="FleshHand|Charge",meta=(ClampMin="1")) float ChargeDistance=1200;
++ UPROPERTY(EditAnywhere,Category="FleshHand|Charge",meta=(ClampMin="0")) float ChargeDamageMultiplier=3;
++ UPROPERTY(EditAnywhere,Category="FleshHand|Charge",meta=(ClampMin="0")) float ChargeStunSeconds=2;
++ UPROPERTY(EditAnywhere,Category="FleshHand|Charge",meta=(ClampMin="0.1")) float ChargeRecoverSeconds=.7f;
++ UPROPERTY(EditAnywhere,Category="FleshHand|Charge",meta=(ClampMin="0",ClampMax="1.5")) float ChargeLeadStrength=1.f;
++ UPROPERTY(EditAnywhere,Category="FleshHand|Charge",meta=(ClampMin="0",Units="cm")) float ChargeMaxLeadDistance=450.f;
++ UPROPERTY(EditAnywhere,Category="FleshHand|Death") float CorpseSeconds=15;
++ UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="FleshHand|Runtime") float Health=1500;
++ UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="FleshHand|Runtime") EFleshHandState State=EFleshHandState::Idle;
++ UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="FleshHand|Runtime") float StateSeconds=0;
++ UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="FleshHand|Runtime") FVector Home;
++ bool Dead() const {return Health<=0||State==EFleshHandState::Dying||State==EFleshHandState::Corpse;}
++ bool Busy() const;
++ bool CanAttack(APawn* P) const;
++ bool StartAttack(APawn* P);
++ void SetTarget(APawn* P) {Target=P;}
++ void SetLocomotion(bool Moving,bool Returning);
++ void InterruptAttack(float Seconds);
++ void StartHitPresentation();
++ void SetHitPresentationTime(float Elapsed,float Remaining);
++ void FinishHitReaction();
++ UFUNCTION(BlueprintCallable,Category="FleshHand|Authoring") static bool BuildQueryPhysics(USkeletalMesh* InMesh,UPhysicsAsset* Asset);
++private:
++ friend class UFleshHandKnockdownComponent;
++ void SetState(EFleshHandState Next);
++ void Impact(); void Summon(); void ContactDamage();
++ bool CanReach(const APawn* P,float Range) const;
++ void Play(UAnimSequence* Clip,bool Loop,bool Clock,float Blend=.1f);
++ void UpdateFist();
++ bool CanCharge(const APawn* P) const;
++ bool BuildChargeDirection(const APawn* Victim,FVector& Direction) const;
++ void BeginChargeRush();
++ void StopChargeMotion();
++ void TickCharge(float Dt);
++ UPROPERTY() TObjectPtr<UStaticMeshComponent> PalmFist;
++ UPROPERTY() TObjectPtr<UStaticMeshComponent> WarningRing;
++ UPROPERTY() TObjectPtr<UMaterialInstanceDynamic> RingMID;
++ UPROPERTY() TObjectPtr<class UCombatStatusFormula> Status;
++ TWeakObjectPtr<APawn> Target,LockedTarget;
++ TArray<TWeakObjectPtr<AFleshHandMonster>> Children;
++ FVector StrikeDirection=FVector::ForwardVector;
++ FVector ChargeStart=FVector::ZeroVector,ChargePrevious=FVector::ZeroVector;
++ uint16 ChargeMotionID=0;
++ float ChargeLeft=0,ChargeBlockedSeconds=0;
++ EFleshHandState Queued=EFleshHandState::Hammer;
++ float HammerLeft=0,SlamLeft=0,GrandLeft=0,ControlSeconds=0,ContactLeft=.5f;
++ bool bConsumed=false,bDizzyPresentation=false;
++public:
++ /** World speed matched to the original walk cycle at a play rate of one. */
++ UPROPERTY(EditAnywhere,Category="FleshHand|Animation",meta=(ClampMin="1",Units="cm/s")) float AnimationWalkSpeed=216.f;
++ UPROPERTY(EditAnywhere,Category="FleshHand|Combat",meta=(ClampMin="0",Units="cm")) float SlamKnockbackDistance=150.f;
++ UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="FleshHand") TObjectPtr<UFleshHandKnockdownComponent> Knockdown;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|ChargeFX") TObjectPtr<UMaterialInterface> ChargeDustMaterial;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|ChargeFX") TObjectPtr<UMaterialInterface> ChargeAirMaterial;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|ChargeFX") TObjectPtr<UMaterialInterface> ChargeSkinMaterial;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|ChargeFX") TObjectPtr<UMaterialInterface> ChargeChipMaterial;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|ChargeFX") TObjectPtr<UMaterialInterface> ChargeWarningMaterial;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|ChargeFX") TObjectPtr<UStaticMesh> ChargeFXPlane;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|ChargeFX") TObjectPtr<UStaticMesh> ChargeFXCube;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|ChargeFX") TObjectPtr<USoundBase> ChargeWindupSound;
++ UPROPERTY(EditDefaultsOnly,Category="FleshHand|ChargeFX") TObjectPtr<USoundBase> ChargeRushSound;
++ UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> ChargeRingMID;
++};
++UCLASS(Blueprintable)
++class FPSGAME_API AFleshHandMinion : public AFleshHandMonster
++{
++ GENERATED_BODY()
++public:
++ AFleshHandMinion(const FObjectInitializer& Initializer=FObjectInitializer::Get());
++};
+diff --git a/Source/FPSGAME/Monsters/HumanoidKnockdownComponent.cpp b/Source/FPSGAME/Monsters/HumanoidKnockdownComponent.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Monsters/HumanoidKnockdownComponent.cpp
+@@ -0,0 +1,523 @@
++#include "HumanoidKnockdownComponent.h"
++#include "HumanoidRagdollBudget.h"
++#include "NurseZombie.h"
++#include "FatZombieAnimInstance.h"
++#include "MonsterCombatComponent.h"
++#include "MonsterAIController.h"
++#include "Animation/AnimSequence.h"
++#include "Animation/Skeleton.h"
++#include "Components/CapsuleComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Engine/SkeletalMesh.h"
++#include "Engine/World.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "NavigationSystem.h"
++#include "PhysicsEngine/BodyInstance.h"
++#include "PhysicsEngine/PhysicsAsset.h"
++#include "PhysicsEngine/SkeletalBodySetup.h"
++#include "PhysicsEngine/ConstraintInstance.h"
++
++UHumanoidKnockdownComponent::UHumanoidKnockdownComponent()
++{
++    PrimaryComponentTick.bCanEverTick=true;
++    PrimaryComponentTick.bStartWithTickEnabled=false;
++    PrimaryComponentTick.TickGroup=TG_PostPhysics;
++}
++ANurseZombie* UHumanoidKnockdownComponent::Humanoid() const { return Cast<ANurseZombie>(GetOwner()); }
++USkeletalMeshComponent* UHumanoidKnockdownComponent::BodyMesh() const { return Humanoid()?Humanoid()->GetMesh():nullptr; }
++bool UHumanoidKnockdownComponent::IsControlling() const { return !bCorpse && Phase!=EHumanoidKnockdownPhase::None; }
++
++void UHumanoidKnockdownComponent::BeginPlay()
++{
++    Super::BeginPlay();
++    auto* N=Humanoid(); auto* Mesh=BodyMesh();
++    if (!N || !Mesh || !Mesh->GetSkeletalMeshAsset()) return;
++    const FString Role=N->ActorHasTag(TEXT("WitchRebuilt"))?TEXT("Witch"):
++        N->ActorHasTag(TEXT("Mutant3"))?TEXT("Mutant3"):
++        N->ActorHasTag(TEXT("FatZombie"))?TEXT("FatZombie"):TEXT("Nurse");
++    auto Load=[&](const TCHAR* Suffix)
++    {
++        const FString Name=TEXT("A_")+Role+TEXT("_")+Suffix;
++        return LoadObject<UAnimSequence>(nullptr,*(TEXT("/Game/Monsters/HumanoidKnockdown/")+Role+TEXT("/")+Name+TEXT(".")+Name));
++    };
++    if (!FallClip) FallClip=Load(TEXT("Hit_Knockback"));
++    if (!GetUpClip) GetUpClip=Load(TEXT("LayToIdle"));
++    if (!ProneGetUpClip) ProneGetUpClip=Load(TEXT("ProneToIdle"));
++    // The legacy Witch uses a different skeleton. Never apply the rebuilt rig to it.
++    if (GetUpClip && GetUpClip->GetSkeleton()!=Mesh->GetSkeletalMeshAsset()->GetSkeleton())
++    { FallClip=nullptr; GetUpClip=nullptr; ProneGetUpClip=nullptr; }
++    PelvisBone=Mesh->GetBoneIndex(TEXT("Hips"))!=INDEX_NONE?TEXT("Hips"):TEXT("pelvis");
++    HeadBone=Mesh->GetBoneIndex(TEXT("Head"))!=INDEX_NONE?TEXT("Head"):TEXT("head");
++    if (Role==TEXT("FatZombie")) { LaunchScale=.68f; GetUpRate=.65f; }
++    else if (Role==TEXT("Mutant3")) { LaunchScale=.85f; GetUpRate=1.1f; }
++    else if (Role==TEXT("Witch")) GetUpRate=.8f;
++    const auto& Ref=Mesh->GetSkeletalMeshAsset()->GetRefSkeleton();
++    const int32 Index=Ref.FindBoneIndex(PelvisBone);
++    if (Index!=INDEX_NONE)
++    {
++        FTransform Rest=Ref.GetRefBonePose()[Index];
++        for (int32 P=Ref.GetParentIndex(Index);P!=INDEX_NONE;P=Ref.GetParentIndex(P)) Rest*=Ref.GetRefBonePose()[P];
++        const FVector Front=Mesh->GetComponentTransform().InverseTransformVectorNoScale(N->GetActorForwardVector());
++        PelvisLocalFront=Rest.InverseTransformVectorNoScale(Front).GetSafeNormal();
++    }
++}
++
++void UHumanoidKnockdownComponent::EndPlay(const EEndPlayReason::Type Reason)
++{
++    if (auto* Budget=GetWorld()->GetSubsystem<UHumanoidRagdollBudget>()) Budget->Release(this);
++    Super::EndPlay(Reason);
++}
++
++void UHumanoidKnockdownComponent::RememberStandingState()
++{
++    if (bSavedStanding) return;
++    auto* N=Humanoid(); auto* Mesh=BodyMesh();
++    StandingMeshRelative=Mesh->GetRelativeTransform();
++    StandingAnimClass=Mesh->GetAnimClass();
++    StandingResponses=Mesh->GetCollisionResponseToChannels();
++    StandingMeshCollision=Mesh->GetCollisionEnabled();
++    StandingObjectType=Mesh->GetCollisionObjectType();
++    StandingCapsuleCollision=N->GetCapsuleComponent()->GetCollisionEnabled();
++    StandingLOD=Mesh->GetForcedLOD();
++    bSavedStanding=true;
++}
++
++UFatZombieAnimInstance* UHumanoidKnockdownComponent::PosePlayer()
++{
++    auto* Mesh=BodyMesh();
++    if (!Cast<UFatZombieAnimInstance>(Mesh->GetAnimInstance())) Mesh->SetAnimInstanceClass(UFatZombieAnimInstance::StaticClass());
++    return Cast<UFatZombieAnimInstance>(Mesh->GetAnimInstance());
++}
++
++bool UHumanoidKnockdownComponent::Launch(APawn* InstigatorPawn, FVector Velocity, float DownSeconds)
++{
++    auto* N=Humanoid(); auto* Mesh=BodyMesh();
++    if (!N || !N->HasAuthority() || !bEnabled || N->State==ENurseState::Dead || !FallClip || !GetUpClip ||
++        N->ActorHasTag(TEXT("KnockdownImmune")) || N->ActorHasTag(TEXT("KnockbackImmune"))) return false;
++    const bool bAlreadyDown=Phase==EHumanoidKnockdownPhase::Downed;
++    RememberStandingState();
++    // Let the existing interruption hook cancel special attacks before physics takes ownership.
++    if (!IsControlling()) N->InterruptAttack(.1f);
++    N->State=ENurseState::KnockedDown; N->bAttackConsumed=true; N->StateTime=0;
++    N->Cooldown=FMath::Max(N->Cooldown,.6f);
++    if (auto* AI=Cast<AMonsterAIController>(N->GetController()))
++    { AI->StopMovement(); AI->RememberDamage(InstigatorPawn); AI->UpdateKnowledge(); }
++    auto* Move=N->GetCharacterMovement();
++    Move->StopMovementImmediately(); Move->ClearAccumulatedForces(); Move->DisableMovement();
++    bCorpse=false;
++    ControlUntil=FMath::Max(ControlUntil,GetWorld()->GetTimeSeconds()+FMath::Max(GroundHoldSeconds,DownSeconds));
++    FVector Horizontal(Velocity.X,Velocity.Y,0);
++    Horizontal=Horizontal.GetClampedToMaxSize(700.f)*LaunchScale;
++    Velocity=Horizontal+FVector(0,0,FMath::Clamp(Velocity.Z,0.f,500.f)*FMath::Sqrt(LaunchScale));
++    Mesh->SetComponentTickEnabled(true); Mesh->SetForcedLOD(1);
++    if (!StartPhysics(Velocity))
++    {
++        if (bAlreadyDown) { Phase=EHumanoidKnockdownPhase::Downed;return true; }
++        // Same control and recovery contract when the solver budget is exhausted.
++        RestoreCollision(); Move->SetMovementMode(MOVE_Falling); N->LaunchCharacter(Velocity,true,true);
++        StartAnimatedFall(FallClip,0.f);
++    }
++    SetComponentTickEnabled(true); SetComponentTickInterval(0.f);
++    return true;
++}
++
++void UHumanoidKnockdownComponent::ExtendControl(float Seconds)
++{
++    if (!IsControlling()) return;
++    ControlUntil=FMath::Max(ControlUntil,GetWorld()->GetTimeSeconds()+FMath::Max(0.f,Seconds));
++}
++
++bool UHumanoidKnockdownComponent::OnDeath()
++{
++    const bool bWasControlled=IsControlling();
++    bCorpse=true;
++    if (!bWasControlled) return false;
++    if (Phase==EHumanoidKnockdownPhase::Physics)
++    {
++        // The physical body continues from its exact state; do not replay a standing death.
++        PhaseAge=0; StableAge=0; return true;
++    }
++    if (Phase==EHumanoidKnockdownPhase::Downed) { FreezeCorpse(); return true; }
++    if (!StartPhysics(FVector::ZeroVector))
++    {
++        // The capsule still falls under gravity for an airborne animation fallback.
++        Humanoid()->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
++        Humanoid()->GetCharacterMovement()->SetMovementMode(MOVE_Falling);
++        if (Phase==EHumanoidKnockdownPhase::GettingUp) StartAnimatedFall(FallClip,0.f);
++    }
++    return true;
++}
++
++FTransform UHumanoidKnockdownComponent::ClipBone(UAnimSequence* Clip, FName Bone, float Time) const
++{
++    FTransform Out=FTransform::Identity;
++    if (!Clip || !Clip->GetSkeleton()) return Out;
++    const auto& Ref=Clip->GetSkeleton()->GetReferenceSkeleton();
++    for (int32 I=Ref.FindBoneIndex(Bone);I!=INDEX_NONE;I=Ref.GetParentIndex(I))
++    {
++        FTransform Local;
++        Clip->GetBoneTransform(Local,FSkeletonPoseBoneIndex(I),FAnimExtractContext(double(Time),false),false);
++        Out*=Local;
++    }
++    return Out;
++}
++
++void UHumanoidKnockdownComponent::StartDeath(UAnimSequence* DeathClip, float ClipTime)
++{
++    if (!Humanoid() || !Humanoid()->HasAuthority()) return;
++    RememberStandingState(); bCorpse=true;
++    auto* Mesh=BodyMesh();
++    Mesh->SetComponentTickEnabled(true); Mesh->SetForcedLOD(1);
++    Mesh->TickAnimation(0.f,false); Mesh->RefreshBoneTransforms();
++    FVector FallVelocity=FVector::ZeroVector;
++    if (DeathClip && ClipTime>.001f)
++    {
++        // Start the connected body with one fall velocity. Independent sampled
++        // bone velocities fight the locked joints, especially the container root.
++        const float Before=FMath::Max(0.f,ClipTime-1.f/30.f);
++        const FVector Local=(ClipBone(DeathClip,PelvisBone,ClipTime).GetLocation()-
++            ClipBone(DeathClip,PelvisBone,Before).GetLocation())/FMath::Max(.001f,ClipTime-Before);
++        FallVelocity=Mesh->GetComponentTransform().TransformVector(Local).GetClampedToMaxSize(350.f);
++        // A standing death must not inherit an upward animation correction.
++        // Death during an existing physical launch is handled unchanged by OnDeath.
++        FallVelocity.Z=FMath::Min(0.,FallVelocity.Z);
++    }
++    if (!StartPhysics(FallVelocity))
++    {
++        StartAnimatedFall(DeathClip?DeathClip:FallClip.Get(),DeathClip?ClipTime:0.f);
++        if (!DeathClip && FallClip) FallStopTime=FallClip->GetPlayLength()*.5f;
++        Humanoid()->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
++        Humanoid()->GetCharacterMovement()->SetMovementMode(MOVE_Falling);
++    }
++    SetComponentTickEnabled(true); SetComponentTickInterval(0.f);
++}
++
++bool UHumanoidKnockdownComponent::StartPhysics(const FVector& Velocity)
++{
++    auto* N=Humanoid(); auto* Mesh=BodyMesh();
++    const auto* Asset=Mesh->GetPhysicsAsset();
++    if (!Asset || Asset->SkeletalBodySetups.IsEmpty() || Mesh->GetBoneIndex(PelvisBone)==INDEX_NONE) return false;
++    PhysicsBodyCount=Asset->SkeletalBodySetups.Num();
++    if (!bBudgetOwned)
++    {
++        auto* Budget=GetWorld()->GetSubsystem<UHumanoidRagdollBudget>();
++        if (!Budget || !Budget->Acquire(this,PhysicsBodyCount,bCorpse)) return false;
++        bBudgetOwned=true;
++    }
++    const bool bStartingSimulation=!Mesh->IsSimulatingPhysics();
++    Mesh->SetComponentTickEnabled(true); Mesh->SetForcedLOD(1);
++    if (bStartingSimulation)
++    {
++        Mesh->KinematicBonesUpdateType=EKinematicBonesUpdateToPhysics::SkipSimulatingBones;
++        Mesh->TickAnimation(0.f,false); Mesh->RefreshBoneTransforms();
++    }
++    Mesh->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
++    N->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++    Mesh->SetCollisionProfileName(TEXT("Ragdoll"));
++    // Keep Pawn object queries (spells) and Visibility traces (weapons) working while down.
++    Mesh->SetCollisionObjectType(ECC_Pawn);
++    Mesh->SetCollisionResponseToChannel(ECC_Pawn,ECR_Ignore);
++    Mesh->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);
++    if (bStartingSimulation)
++    {
++        // Flush the actual handoff pose before making the bodies dynamic. A
++        // deferred kinematic target can otherwise leave physics on an older pose.
++        Mesh->UpdateKinematicBonesToAnim(Mesh->GetComponentSpaceTransforms(),
++            ETeleportType::TeleportPhysics,false,EAllowKinematicDeferral::DisallowDeferral);
++        AlignContainerRootJoint();
++    }
++    // Configure filters and constraints before their first simulation step.
++    TunePhysics();
++    Mesh->SetEnableGravity(true);
++    Mesh->bPauseAnims=true;
++    Mesh->KinematicBonesUpdateType=EKinematicBonesUpdateToPhysics::SkipAllBones;
++    Mesh->SetAllBodiesSimulatePhysics(true); Mesh->SetSimulatePhysics(true);
++    const FVector AngularVelocity=bCorpse?FVector::ZeroVector:
++        FVector::CrossProduct(FVector::UpVector,Velocity.GetSafeNormal2D())*1.5f;
++    const auto* Pelvis=Mesh->GetBodyInstance(PelvisBone);
++    const FVector Pivot=Pelvis?Pelvis->GetCOMPosition():Mesh->GetSocketLocation(PelvisBone);
++    for (auto* Body:Mesh->Bodies)
++    {
++        if (!Body || !Body->IsInstanceSimulatingPhysics()) continue;
++        Body->ClearForces(); Body->ClearTorques();
++        // Coherent rigid motion at each centre of mass, including the helper root.
++        Body->SetLinearVelocity(Velocity+FVector::CrossProduct(AngularVelocity,Body->GetCOMPosition()-Pivot),false);
++        Body->SetAngularVelocityInRadians(AngularVelocity,false);
++    }
++    Mesh->WakeAllRigidBodies();
++    Phase=EHumanoidKnockdownPhase::Physics; PhaseAge=ProbeAge=StableAge=0; bGrounded=false;
++    return true;
++}
++
++void UHumanoidKnockdownComponent::AlignContainerRootJoint()
++{
++    auto* Mesh=BodyMesh();
++    for (FConstraintInstance* Joint:Mesh->Constraints)
++    {
++        if (!Joint || (Joint->ConstraintBone2!=TEXT("FatZombieRoot") &&
++            Joint->ConstraintBone2!=TEXT("Mutant3Root"))) continue;
++        const auto* Child=Mesh->GetBodyInstance(Joint->ConstraintBone1);
++        const auto* Parent=Mesh->GetBodyInstance(Joint->ConstraintBone2);
++        if (!Child || !Parent) continue;
++        // This invisible helper is not an anatomical joint. Lock it to the current
++        // pelvis pose, not the standing reference offset, when animation hands off.
++        FTransform ChildWorld=Child->GetUnrealWorldTransform(false,true);
++        FTransform ParentWorld=Parent->GetUnrealWorldTransform(false,true);
++        ChildWorld.SetScale3D(FVector::OneVector); ParentWorld.SetScale3D(FVector::OneVector);
++        // Live SetRefFrame writes straight to Chaos. Use rigid-body centimetres;
++        // never pass inverse-scaled reference-skeleton frames to this API.
++        Joint->SetRefFrame(EConstraintFrame::Frame1,FTransform::Identity);
++        Joint->SetRefFrame(EConstraintFrame::Frame2,ChildWorld.GetRelativeTransform(ParentWorld));
++    }
++}
++
++void UHumanoidKnockdownComponent::TunePhysics()
++{
++    auto* Mesh=BodyMesh();
++    auto Weight=[](FName Bone)
++    {
++        const FString S=Bone.ToString().ToLower();
++        if (S.Contains(TEXT("root"))) return 2.f;
++        if (S==TEXT("pelvis") || S==TEXT("hips")) return 16.f;
++        if (S.Contains(TEXT("spine"))) return 10.f;
++        if (S.Contains(TEXT("head"))) return 6.f;
++        if (S.Contains(TEXT("neck"))) return 1.5f;
++        if (S.Contains(TEXT("thigh")) || S.Contains(TEXT("upleg"))) return 9.f;
++        if (S.Contains(TEXT("calf")) || S.EndsWith(TEXT("leg"))) return 4.f;
++        if (S.Contains(TEXT("hand"))) return 1.f;
++        if (S.Contains(TEXT("foot"))) return 2.f;
++        if (S.Contains(TEXT("lowerarm")) || S.Contains(TEXT("forearm"))) return 2.f;
++        return 3.5f;
++    };
++    float Sum=0.f;
++    for (auto* Body:Mesh->Bodies) if (Body && Body->BodySetup.IsValid()) Sum+=Weight(Body->BodySetup->BoneName);
++    const float Mass=Humanoid()->ActorHasTag(TEXT("FatZombie"))?200.f:Humanoid()->ActorHasTag(TEXT("Mutant3"))?100.f:65.f;
++    for (auto* Body:Mesh->Bodies)
++    {
++        if (!Body || !Body->BodySetup.IsValid()) continue;
++        const FName Bone=Body->BodySetup->BoneName;
++        if (Bone==TEXT("FatZombieRoot") || Bone==TEXT("Mutant3Root"))
++            Body->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++        const FString Name=Bone.ToString().ToLower();
++        const bool bTorso=Bone==PelvisBone || Name.Contains(TEXT("spine"));
++        Body->SetMassOverride(Mass*Weight(Bone)/FMath::Max(1.f,Sum),true);
++        Body->LinearDamping=.25f; Body->AngularDamping=bTorso?4.f:2.6f;
++        Body->UpdateDampingProperties();
++        Body->SetMaxAngularVelocityInRadians(10.f,false);
++        Body->SetMaxDepenetrationVelocity(80.f);
++        Body->SetPositionSolverIterationCount(8); Body->SetVelocitySolverIterationCount(2);
++        Body->SetUseCCD(Bone==PelvisBone || Bone==HeadBone || Name.Contains(TEXT("spine")));
++    }
++    for (FConstraintInstance* Joint:Mesh->Constraints)
++    {
++        if (!Joint) continue;
++        // Keep the anatomical frames and limits authored in the Physics Asset.
++        // UE scales their anchor positions during instantiation; rewriting live
++        // frames from the imported ref pose discards that scale and pulls limbs in.
++        // Dissipate joint rotation without pulling a corpse toward a T pose.
++        Joint->SetAngularDriveMode(EAngularDriveMode::TwistAndSwing);
++        Joint->SetOrientationDriveTwistAndSwing(false,false);
++        Joint->SetAngularVelocityDriveTwistAndSwing(true,true);
++        Joint->SetAngularVelocityTarget(FVector::ZeroVector);
++        Joint->SetAngularDriveParams(0.f,12.f,500.f);
++        // Projection teleports can fight ground contacts and inject another kick.
++        Joint->SetProjectionParams(false,0.f,0.f,8.f,30.f);
++        Joint->SetShockPropagationParams(false,0.f);
++    }
++}
++
++void UHumanoidKnockdownComponent::StartAnimatedFall(UAnimSequence* Clip, float StartTime)
++{
++    auto* Mesh=BodyMesh();
++    FPoseSnapshot Pose; Mesh->SnapshotPose(Pose);
++    Mesh->bPauseAnims=false; Mesh->KinematicBonesUpdateType=EKinematicBonesUpdateToPhysics::SkipSimulatingBones;
++    Mesh->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
++    Mesh->SetCollisionObjectType(ECC_Pawn); Mesh->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);
++    PlayingClip=Clip; ClipStartTime=StartTime;
++    FallStopTime=Clip?(bCorpse?Clip->GetPlayLength():Clip->GetPlayLength()*.5f):0.f;
++    if (Clip) { PosePlayer()->RecoverFromSnapshot(Clip,Pose,.12f); PosePlayer()->SetCombatTime(StartTime); }
++    else PosePlayer()->HoldSnapshot(Pose);
++    Phase=EHumanoidKnockdownPhase::AnimatedFall; PhaseAge=ProbeAge=StableAge=0;
++}
++
++bool UHumanoidKnockdownComponent::FindGround(FHitResult& Ground) const
++{
++    auto* Mesh=BodyMesh(); if (!Mesh) return false;
++    const FVector At=Mesh->GetSocketLocation(PelvisBone);
++    FCollisionQueryParams Query(SCENE_QUERY_STAT(HumanoidRecoveryGround),false,GetOwner());
++    FCollisionObjectQueryParams Objects; Objects.AddObjectTypesToQuery(ECC_WorldStatic); Objects.AddObjectTypesToQuery(ECC_WorldDynamic);
++    return GetWorld()->LineTraceSingleByObjectType(Ground,At+FVector(0,0,15),At-FVector(0,0,100),Objects,Query)
++        && Ground.ImpactNormal.Z>.35f && At.Z-Ground.ImpactPoint.Z<65.f;
++}
++
++void UHumanoidKnockdownComponent::StopPhysicsWithPose()
++{
++    auto* Mesh=BodyMesh();
++    Mesh->SnapshotPose(FrozenPose);
++    Mesh->PutAllRigidBodiesToSleep(); Mesh->SetSimulatePhysics(false); Mesh->SetAllBodiesSimulatePhysics(false);
++    if (bBudgetOwned) { GetWorld()->GetSubsystem<UHumanoidRagdollBudget>()->Release(this); bBudgetOwned=false; }
++    Mesh->KinematicBonesUpdateType=EKinematicBonesUpdateToPhysics::SkipSimulatingBones;
++    Mesh->bPauseAnims=false;
++    PosePlayer()->HoldSnapshot(FrozenPose);
++    Mesh->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
++    Mesh->SetCollisionObjectType(ECC_Pawn);
++    Mesh->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);
++    Mesh->TickAnimation(0.f,false); Mesh->RefreshBoneTransforms();
++}
++
++void UHumanoidKnockdownComponent::FreezeCorpse()
++{
++    auto* N=Humanoid(); auto* Mesh=BodyMesh();
++    StopPhysicsWithPose();
++    N->GetCharacterMovement()->DisableMovement();
++    N->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++    Mesh->SuspendClothingSimulation();
++    Mesh->SetComponentTickEnabled(false);
++    Phase=EHumanoidKnockdownPhase::FrozenCorpse;
++    SetComponentTickEnabled(false);
++}
++bool UHumanoidKnockdownComponent::CanReleaseCorpseBudget() const
++{ return bCorpse && bGrounded && StableAge>.1f && Phase==EHumanoidKnockdownPhase::Physics && PhaseAge>.65f; }
++void UHumanoidKnockdownComponent::FreezeForBudget() { if (CanReleaseCorpseBudget()) FreezeCorpse(); }
++
++bool UHumanoidKnockdownComponent::TryGetUp()
++{
++    auto* N=Humanoid(); auto* Mesh=BodyMesh();
++    FHitResult Floor;
++    if (!GetUpClip || !FindGround(Floor) || Floor.ImpactNormal.Z<N->GetCharacterMovement()->GetWalkableFloorZ()) return false;
++    const bool bFaceDown=Mesh->GetSocketTransform(PelvisBone).TransformVectorNoScale(PelvisLocalFront).Z<0;
++    UAnimSequence* RecoveryClip=bFaceDown && ProneGetUpClip?ProneGetUpClip.Get():GetUpClip.Get();
++    const FVector ActualPelvis=Mesh->GetSocketLocation(PelvisBone);
++    const FVector BodyAxis=(Mesh->GetSocketLocation(HeadBone)-ActualPelvis).GetSafeNormal2D();
++    const FVector ClipPelvis=ClipBone(RecoveryClip,PelvisBone,0.f).GetLocation();
++    const FVector ClipAxis=StandingMeshRelative.TransformVectorNoScale(
++        ClipBone(RecoveryClip,HeadBone,0.f).GetLocation()-ClipPelvis).GetSafeNormal2D();
++    const FRotator Facing(0,BodyAxis.IsNearlyZero()?N->GetActorRotation().Yaw:BodyAxis.Rotation().Yaw-ClipAxis.Rotation().Yaw,0);
++    const FVector PelvisOffset=Facing.RotateVector(StandingMeshRelative.TransformPosition(ClipPelvis));
++    FVector Candidate=ActualPelvis-PelvisOffset;
++    auto* Capsule=N->GetCapsuleComponent();
++    Candidate.Z=Floor.ImpactPoint.Z+Capsule->GetScaledCapsuleHalfHeight()+2.f;
++    FCollisionQueryParams Query(SCENE_QUERY_STAT(HumanoidGetUpClearance),false,N);
++    if (GetWorld()->OverlapBlockingTestByChannel(Candidate,FQuat::Identity,ECC_Pawn,
++        FCollisionShape::MakeCapsule(Capsule->GetScaledCapsuleRadius(),Capsule->GetScaledCapsuleHalfHeight()),Query)) return false;
++    // Recover only near an actual navigation surface; do not teleport to another floor.
++    if (auto* Nav=FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld()))
++    {
++        const auto& Agent=N->GetCharacterMovement()->GetNavAgentPropertiesRef();
++        const auto* Data=Nav->GetNavDataForProps(Agent);
++        FNavLocation Location;
++        if (Data && (!Nav->ProjectPointToNavigation(FVector(Candidate.X,Candidate.Y,Floor.ImpactPoint.Z),Location,
++            FVector(15,15,40),Data) || FVector::DistSquared2D(Location.Location,Candidate)>FMath::Square(15.f))) return false;
++    }
++    GetUpBlend=bFaceDown && !ProneGetUpClip?FMath::Max(.65f,RecoveryBlendSeconds):RecoveryBlendSeconds;
++    const FTransform OldWorld=Mesh->GetComponentTransform();
++    Mesh->SnapshotPose(FrozenPose);
++    N->SetActorLocationAndRotation(Candidate,Facing,false,nullptr,ETeleportType::TeleportPhysics);
++    Mesh->AttachToComponent(Capsule,FAttachmentTransformRules::KeepWorldTransform);
++    Mesh->SetRelativeTransform(StandingMeshRelative);
++    // Express the captured physical root in the new capsule/mesh frame before blending.
++    if (FrozenPose.LocalTransforms.Num())
++        FrozenPose.LocalTransforms[0]=FrozenPose.LocalTransforms[0]*OldWorld*Mesh->GetComponentTransform().Inverse();
++    Mesh->SetComponentTickEnabled(true); Mesh->bPauseAnims=false;
++    PlayingClip=RecoveryClip;
++    PosePlayer()->RecoverFromSnapshot(PlayingClip,FrozenPose,GetUpBlend);
++    Mesh->TickAnimation(0.f,false); Mesh->RefreshBoneTransforms();
++    Capsule->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
++    N->State=ENurseState::GettingUp;
++    Phase=EHumanoidKnockdownPhase::GettingUp; PhaseAge=0; FinishBlendAge=-1.f;
++    SetComponentTickInterval(0.f);
++    return true;
++}
++
++void UHumanoidKnockdownComponent::RestoreCollision()
++{
++    auto* Mesh=BodyMesh();
++    Mesh->SetCollisionEnabled(StandingMeshCollision);
++    Mesh->SetCollisionObjectType(StandingObjectType); Mesh->SetCollisionResponseToChannels(StandingResponses);
++    Humanoid()->GetCapsuleComponent()->SetCollisionEnabled(StandingCapsuleCollision);
++}
++
++void UHumanoidKnockdownComponent::FinishGetUp()
++{
++    auto* N=Humanoid(); auto* Mesh=BodyMesh();
++    RestoreCollision();
++    Mesh->SetForcedLOD(StandingLOD);
++    Mesh->bPauseAnims=false;
++    if (StandingAnimClass && StandingAnimClass!=Mesh->GetAnimClass()) Mesh->SetAnimInstanceClass(StandingAnimClass);
++    N->GetCharacterMovement()->ClearAccumulatedForces(); N->GetCharacterMovement()->SetMovementMode(MOVE_Walking);
++    N->GetCharacterMovement()->bForceNextFloorCheck=true;
++    Phase=EHumanoidKnockdownPhase::None;
++    N->SetState(ENurseState::Recovery);
++    N->Combat->FinishReaction();
++    FrozenPose.Reset(); PlayingClip=nullptr; bSavedStanding=false;
++    SetComponentTickEnabled(false);
++}
++
++void UHumanoidKnockdownComponent::TickComponent(float Dt,ELevelTick Type,FActorComponentTickFunction* Tick)
++{
++    Super::TickComponent(Dt,Type,Tick);
++    auto* N=Humanoid(); auto* Mesh=BodyMesh();
++    if (!N || !Mesh || !N->HasAuthority()) return;
++    PhaseAge+=Dt; ProbeAge+=Dt;
++    if (Phase==EHumanoidKnockdownPhase::GettingUp)
++    {
++        if (FinishBlendAge>=0.f)
++        {
++            FinishBlendAge+=Dt;
++            PosePlayer()->SetCombatTime(0.f);
++            if (FinishBlendAge>=.2f && GetWorld()->GetTimeSeconds()>=ControlUntil) FinishGetUp();
++            return;
++        }
++        // Join the matching prone/supine start, then play its grounded roll/rise.
++        const float Time=FMath::Max(0.f,PhaseAge-GetUpBlend)*GetUpRate;
++        PosePlayer()->SetCombatTime(Time);
++        if (PlayingClip && Time>=PlayingClip->GetPlayLength() && GetWorld()->GetTimeSeconds()>=ControlUntil)
++        {
++            if (N->IdleClip)
++            {
++                FPoseSnapshot Pose; Mesh->SnapshotPose(Pose);
++                PlayingClip=N->IdleClip;
++                PosePlayer()->RecoverFromSnapshot(PlayingClip,Pose,.2f);
++                FinishBlendAge=0.f;
++            }
++            else FinishGetUp();
++        }
++        return;
++    }
++    if (Phase==EHumanoidKnockdownPhase::AnimatedFall)
++    {
++        if (PlayingClip) PosePlayer()->SetCombatTime(FMath::Min(FallStopTime,ClipStartTime+PhaseAge));
++        if (ClipStartTime+PhaseAge<FallStopTime || N->GetCharacterMovement()->IsFalling()) return;
++        if (bCorpse) { FreezeCorpse(); return; }
++        N->GetCharacterMovement()->DisableMovement();
++        StopPhysicsWithPose();
++        Mesh->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
++        N->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++        Phase=EHumanoidKnockdownPhase::Downed; PhaseAge=0;
++        ControlUntil=FMath::Max(ControlUntil,GetWorld()->GetTimeSeconds()+GroundHoldSeconds);
++        SetComponentTickInterval(.1f); return;
++    }
++    if (ProbeAge<.1f) return;
++    const float ProbeDt=ProbeAge; ProbeAge=0;
++    if (Phase==EHumanoidKnockdownPhase::Physics)
++    {
++        // Mesh is detached: move only the logical owner so HUD/targeting use the fallen location.
++        N->SetActorLocation(Mesh->GetSocketLocation(PelvisBone),false,nullptr,ETeleportType::TeleportPhysics);
++        FHitResult Ground; bGrounded=FindGround(Ground);
++        bool bSlow=true;
++        for (const auto* Body:Mesh->Bodies)
++            if (Body && Body->IsInstanceSimulatingPhysics() &&
++                (Body->GetUnrealWorldVelocity().SizeSquared()>FMath::Square(20.f) ||
++                 Body->GetUnrealWorldAngularVelocityInRadians().SizeSquared()>FMath::Square(.5f))) { bSlow=false; break; }
++        StableAge=bGrounded && bSlow?StableAge+ProbeDt:0.f;
++        // Never freeze an airborne corpse solely because its wall-clock budget expired.
++        if ((StableAge>.35f && PhaseAge>.55f) || (bGrounded && PhaseAge>CorpseSettleDeadline))
++        {
++            if (bCorpse) { FreezeCorpse(); return; }
++            StopPhysicsWithPose(); Phase=EHumanoidKnockdownPhase::Downed; PhaseAge=0;
++            ControlUntil=FMath::Max(ControlUntil,GetWorld()->GetTimeSeconds()+GroundHoldSeconds);
++            SetComponentTickInterval(.1f);
++        }
++    }
++    if (Phase==EHumanoidKnockdownPhase::Downed && GetWorld()->GetTimeSeconds()>=ControlUntil) TryGetUp();
++}
+diff --git a/Source/FPSGAME/Monsters/HumanoidKnockdownComponent.h b/Source/FPSGAME/Monsters/HumanoidKnockdownComponent.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Monsters/HumanoidKnockdownComponent.h
+@@ -0,0 +1,79 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Components/ActorComponent.h"
++#include "Animation/PoseSnapshot.h"
++#include "HumanoidKnockdownComponent.generated.h"
++class ANurseZombie;
++class APawn;
++class UAnimSequence;
++class USkeletalMeshComponent;
++class UFatZombieAnimInstance;
++
++UENUM(BlueprintType)
++enum class EHumanoidKnockdownPhase : uint8 { None, Physics, AnimatedFall, Downed, GettingUp, FrozenCorpse };
++
++/** Reversible control for the existing humanoid family, plus bounded corpse physics. */
++UCLASS(ClassGroup=AI, meta=(BlueprintSpawnableComponent))
++class FPSGAME_API UHumanoidKnockdownComponent : public UActorComponent
++{
++    GENERATED_BODY()
++public:
++    UHumanoidKnockdownComponent();
++    virtual void BeginPlay() override;
++    virtual void EndPlay(const EEndPlayReason::Type Reason) override;
++    virtual void TickComponent(float Dt, ELevelTick Type, FActorComponentTickFunction* Tick) override;
++    UFUNCTION(BlueprintCallable, Category="Monster|Knockdown")
++    bool Launch(APawn* InstigatorPawn, FVector Velocity, float DownSeconds = .7f);
++    void ExtendControl(float Seconds);
++    bool OnDeath();
++    void StartDeath(UAnimSequence* DeathClip = nullptr, float ClipTime = 0.f);
++    bool IsControlling() const;
++    bool IsCorpse() const { return bCorpse; }
++    bool IsFrozen() const { return Phase == EHumanoidKnockdownPhase::FrozenCorpse; }
++    bool CanReleaseCorpseBudget() const;
++    void FreezeForBudget();
++    int32 SimulatedBodyCount() const { return PhysicsBodyCount; }
++
++    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Knockdown") bool bEnabled = true;
++    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Knockdown", meta=(ClampMin="0.1",ClampMax="1")) float LaunchScale = 1.f;
++    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Knockdown", meta=(ClampMin=".1",Units="s")) float GroundHoldSeconds = .7f;
++    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Knockdown", meta=(ClampMin=".1",Units="s")) float RecoveryBlendSeconds = .3f;
++    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Knockdown", meta=(ClampMin=".5",Units="s")) float CorpseSettleDeadline = 4.f;
++    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Knockdown") TObjectPtr<UAnimSequence> FallClip;
++    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Knockdown") TObjectPtr<UAnimSequence> GetUpClip;
++    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Knockdown") TObjectPtr<UAnimSequence> ProneGetUpClip;
++    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Knockdown") EHumanoidKnockdownPhase Phase = EHumanoidKnockdownPhase::None;
++private:
++    ANurseZombie* Humanoid() const;
++    USkeletalMeshComponent* BodyMesh() const;
++    UFatZombieAnimInstance* PosePlayer();
++    void RememberStandingState();
++    bool StartPhysics(const FVector& Velocity);
++    void AlignContainerRootJoint();
++    void TunePhysics();
++    void StopPhysicsWithPose();
++    void StartAnimatedFall(UAnimSequence* Clip, float StartTime);
++    void FreezeCorpse();
++    bool TryGetUp();
++    void FinishGetUp();
++    bool FindGround(FHitResult& Ground) const;
++    FTransform ClipBone(UAnimSequence* Clip, FName Bone, float Time) const;
++    void RestoreCollision();
++    UPROPERTY(Transient) FPoseSnapshot FrozenPose;
++    UPROPERTY(Transient) TObjectPtr<UClass> StandingAnimClass;
++    UPROPERTY(Transient) TObjectPtr<UAnimSequence> PlayingClip;
++    FTransform StandingMeshRelative;
++    FCollisionResponseContainer StandingResponses;
++    ECollisionEnabled::Type StandingMeshCollision = ECollisionEnabled::QueryOnly;
++    ECollisionChannel StandingObjectType = ECC_Pawn;
++    ECollisionEnabled::Type StandingCapsuleCollision = ECollisionEnabled::QueryAndPhysics;
++    FName PelvisBone, HeadBone;
++    FVector PelvisLocalFront = FVector::ForwardVector;
++    int32 StandingLOD = 0;
++    int32 PhysicsBodyCount = 0;
++    bool bSavedStanding = false, bCorpse = false, bGrounded = false, bBudgetOwned = false;
++    float PhaseAge = 0.f, ProbeAge = 0.f, StableAge = 0.f, ClipStartTime = 0.f, FallStopTime = 0.f;
++    float GetUpBlend = .3f, GetUpRate = 1.f;
++    float FinishBlendAge = -1.f;
++    double ControlUntil = 0;
++};
+diff --git a/Source/FPSGAME/Monsters/HumanoidRagdollBudget.cpp b/Source/FPSGAME/Monsters/HumanoidRagdollBudget.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Monsters/HumanoidRagdollBudget.cpp
+@@ -0,0 +1,37 @@
++#include "HumanoidRagdollBudget.h"
++#include "HumanoidKnockdownComponent.h"
++#include "HAL/IConsoleManager.h"
++
++static TAutoConsoleVariable<int32> CVarHumanoidRagdolls(TEXT("fps.MonsterRagdoll.MaxActive"),8,TEXT("Maximum simultaneously simulated humanoids."));
++static TAutoConsoleVariable<int32> CVarHumanoidBodies(TEXT("fps.MonsterRagdoll.MaxBodies"),128,TEXT("Maximum active humanoid rigid bodies."));
++static TAutoConsoleVariable<int32> CVarHumanoidCorpses(TEXT("fps.MonsterRagdoll.MaxCorpses"),4,TEXT("Admission cap for new corpse simulations. Already airborne living ragdolls retain their slot if killed."));
++
++bool UHumanoidRagdollBudget::Acquire(UHumanoidKnockdownComponent* Candidate, int32 BodyCount, bool bCorpse)
++{
++    Active.RemoveAll([](const auto& Entry){ return !Entry.IsValid(); });
++    if (Active.Contains(Candidate)) return true;
++    auto Fits = [&]()
++    {
++        int32 Bodies=BodyCount, Corpses=bCorpse?1:0;
++        for (const auto& Entry:Active) { Bodies+=Entry->SimulatedBodyCount(); Corpses+=Entry->IsCorpse()?1:0; }
++        return Active.Num()<FMath::Max(0,CVarHumanoidRagdolls.GetValueOnGameThread()) &&
++            Bodies<=FMath::Max(0,CVarHumanoidBodies.GetValueOnGameThread()) &&
++            (!bCorpse || Corpses<=FMath::Max(0,CVarHumanoidCorpses.GetValueOnGameThread()));
++    };
++    if (!Fits() && !bCorpse)
++    {
++        // A live control may retire a grounded corpse, never another airborne/live body.
++        const auto Retire=Active;
++        for (const auto& Entry:Retire)
++            if (Entry.IsValid() && Entry->CanReleaseCorpseBudget())
++            { Entry->FreezeForBudget(); if (Fits()) break; }
++    }
++    if (!Fits()) return false;
++    Active.Add(Candidate);
++    return true;
++}
++
++void UHumanoidRagdollBudget::Release(UHumanoidKnockdownComponent* Candidate)
++{
++    Active.RemoveAll([Candidate](const auto& Entry){return !Entry.IsValid() || Entry.Get()==Candidate;});
++}
+diff --git a/Source/FPSGAME/Monsters/HumanoidRagdollBudget.h b/Source/FPSGAME/Monsters/HumanoidRagdollBudget.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Monsters/HumanoidRagdollBudget.h
+@@ -0,0 +1,17 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Subsystems/WorldSubsystem.h"
++#include "HumanoidRagdollBudget.generated.h"
++class UHumanoidKnockdownComponent;
++
++/** Only active simulations occupy slots; frozen poses keep no solver budget. */
++UCLASS()
++class FPSGAME_API UHumanoidRagdollBudget : public UWorldSubsystem
++{
++    GENERATED_BODY()
++public:
++    bool Acquire(UHumanoidKnockdownComponent* Candidate, int32 BodyCount, bool bCorpse);
++    void Release(UHumanoidKnockdownComponent* Candidate);
++private:
++    TArray<TWeakObjectPtr<UHumanoidKnockdownComponent>> Active;
++};
+diff --git a/Source/FPSGAME/Monsters/MonsterStunPresentation.cpp b/Source/FPSGAME/Monsters/MonsterStunPresentation.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Monsters/MonsterStunPresentation.cpp
+@@ -0,0 +1,131 @@
++#include "MonsterCombatComponent.h"
++#include "NurseZombie.h"
++#include "FatZombieAnimInstance.h"
++#include "../Combat/CombatStatusFormula.h"
++#include "Animation/AnimSequence.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Engine/SkeletalMesh.h"
++#include "Engine/World.h"
++
++float UMonsterCombatComponent::StunSecondsRemaining() const
++{
++    return GetWorld()?float(FMath::Max(0.0,ExplicitStunUntil-GetWorld()->GetTimeSeconds())):0.f;
++}
++
++void UMonsterCombatComponent::RegisterExplicitStun(float Seconds)
++{
++    if(Seconds>0.f && GetWorld())
++        ExplicitStunUntil=FMath::Max(ExplicitStunUntil,double(GetWorld()->GetTimeSeconds())+Seconds);
++    bStunned=StunSecondsRemaining()>0.f;
++}
++
++bool UMonsterCombatComponent::IsImmobileReaction() const
++{
++    const auto* Status=SwayStatus.Get();
++    return Status && (Status->IsFrozen() || Status->IsPetrified());
++}
++
++void UMonsterCombatComponent::LoadHumanoidStun()
++{
++    const auto* N=Cast<ANurseZombie>(GetOwner());
++    if(!N || !N->GetMesh()->GetSkeletalMeshAsset())return;
++    if(N->ActorHasTag(TEXT("Witch")) && !N->ActorHasTag(TEXT("WitchRebuilt")))return;
++    const FString Role=N->ActorHasTag(TEXT("WitchRebuilt"))?TEXT("Witch"):
++        N->ActorHasTag(TEXT("Mutant3"))?TEXT("Mutant3"):N->ActorHasTag(TEXT("FatZombie"))?TEXT("FatZombie"):TEXT("Nurse");
++    if(!DizzyClip)
++    {
++        const FString Name=TEXT("A_")+Role+TEXT("_Dizzy");
++        DizzyClip=LoadObject<UAnimSequence>(nullptr,*(TEXT("/Game/Monsters/HumanoidStun/")+Role+TEXT("/")+Name+TEXT(".")+Name));
++    }
++    if(DizzyClip && DizzyClip->GetSkeleton()!=N->GetMesh()->GetSkeletalMeshAsset()->GetSkeleton())DizzyClip=nullptr;
++}
++
++void UMonsterCombatComponent::ClearHumanoidStun()
++{
++    bSwayArmed=bPlayingSway=bLeavingSway=false;
++    SwayTime=SwayBlendTime=0.f;
++}
++
++bool UMonsterCombatComponent::BeginHumanoidStun(float Duration)
++{
++    SwayEntrySeconds=bParryReaction?.45f:.14f;
++    // Adding stun/freeze/petrify invokes BeginReaction, so refresh here rather
++    // than scanning the actor's component array on every presentation frame.
++    SwayStatus=GetOwner()->FindComponentByClass<UCombatStatusFormula>();
++    const bool bImmobilePose=IsImmobileReaction();
++    const float StunRemaining=StunSecondsRemaining();
++    const bool bEligible=bStunned && DizzyClip && FMath::Min(Duration,StunRemaining)>=SwayEntrySeconds+.3f;
++    if(bPlayingSway && bStunned && !bImmobilePose && !bParryReaction)
++    {
++        // Refresh control without restarting the impact or the loop's phase.
++        if(bLeavingSway && StunRemaining>.22f){PlayHumanoidStunClip(DizzyClip,.12f);bLeavingSway=false;}
++        bSwayArmed=true;
++        return true;
++    }
++    ClearHumanoidStun();
++    bSwayArmed=bEligible;
++    return false;
++}
++
++void UMonsterCombatComponent::PlayHumanoidStunClip(UAnimSequence* Clip,float BlendSeconds)
++{
++    auto* N=Cast<ANurseZombie>(GetOwner());
++    if(!N || !Clip)return;
++    auto* Mesh=N->GetMesh();
++    FPoseSnapshot Pose;Mesh->SnapshotPose(Pose);
++    // Fat/Mutant/Witch already derive from this player; keep their native class.
++    // Nurse's ordinary state presentation restores its single-node player later.
++    auto* Animation=Cast<UFatZombieAnimInstance>(Mesh->GetAnimInstance());
++    if(!Animation)
++    {
++        Mesh->SetAnimInstanceClass(UFatZombieAnimInstance::StaticClass());
++        Animation=Cast<UFatZombieAnimInstance>(Mesh->GetAnimInstance());
++    }
++    if(Animation)
++    {
++        Animation->RecoverFromSnapshot(Clip,Pose,BlendSeconds);
++        Animation->SetControlledBlendTime(0.f);
++    }
++    SwayBlendTime=0.f;
++}
++
++bool UMonsterCombatComponent::UpdateHumanoidStun(float Elapsed,float Remaining)
++{
++    auto* N=Cast<ANurseZombie>(GetOwner());
++    if(!bSwayArmed || !N || N->State!=ENurseState::Stagger || !DizzyClip)return false;
++    if(IsImmobileReaction())
++    {
++        if(bPlayingSway)
++        {
++            bPlayingSway=bLeavingSway=false;
++            SwayTime=SwayBlendTime=0.f;
++            N->StartHitPresentation(HitClip,FMath::Max(.01f,Remaining));
++        }
++        return false;
++    }
++    if(!bPlayingSway)
++    {
++        if(!bStunned){bSwayArmed=false;return false;}
++        if(Elapsed<SwayEntrySeconds)return false;
++        PlayHumanoidStunClip(DizzyClip,.16f);
++        bPlayingSway=true;SwayTime=0.f;
++    }
++    // A later toughness break may outlast the stun. Stop swaying at the actual
++    // stun expiry, then breathe in idle while the remaining physical lock ends.
++    Remaining=FMath::Min(Remaining,StunSecondsRemaining());
++    if(!bLeavingSway && Remaining<=.22f && N->IdleClip)
++    {
++        PlayHumanoidStunClip(N->IdleClip,FMath::Max(.01f,Remaining));
++        bLeavingSway=true;
++    }
++    if(auto* Animation=Cast<UFatZombieAnimInstance>(N->GetMesh()->GetAnimInstance()))
++    {
++        // Sample looping time explicitly: this is presentation, not a second
++        // stun/attack timer, and it never changes the collision capsule.
++        const float Time=bLeavingSway?FMath::Fmod(SwayBlendTime,FMath::Max(.01f,N->IdleClip->GetPlayLength())):
++            FMath::Fmod(SwayTime*FMath::Clamp(DizzyPlayRate,.25f,2.f),FMath::Max(.01f,DizzyClip->GetPlayLength()));
++        Animation->SetCombatTime(Time);
++        Animation->SetControlledBlendTime(SwayBlendTime);
++    }
++    return true;
++}
+diff --git a/Source/FPSGAME/Weapons/MeleeSmallTargetQuery.cpp b/Source/FPSGAME/Weapons/MeleeSmallTargetQuery.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Weapons/MeleeSmallTargetQuery.cpp
+@@ -0,0 +1,153 @@
++#include "MeleeSmallTargetQuery.h"
++#include "../Monsters/FleshHandMonster.h"
++#include "../Monsters/MonsterCombatComponent.h"
++#include "Components/CapsuleComponent.h"
++#include "Engine/OverlapResult.h"
++#include "Engine/World.h"
++#include "ProfilingDebugging/CpuProfilerTrace.h"
++
++namespace
++{
++AFleshHandMonster* LivingSmallHand(AActor* Actor)
++{
++    auto* Hand=Cast<AFleshHandMonster>(Actor);
++    return IsValid(Hand)&&Hand->bMinion&&!Hand->Dead()&&Hand->CanBeDamaged()
++        &&Hand->Combat&&!Hand->Combat->IsDead()?Hand:nullptr;
++}
++
++bool Covered(UWorld* World,const FVector& Start,const FVector& Point,const FCollisionQueryParams& Params)
++{
++    FHitResult Hit;
++    return World->LineTraceSingleByChannel(Hit,Start,Point,ECC_Visibility,Params);
++}
++}
++
++TArray<FHitResult> MeleeSmallTargets::QueryLowSector(UWorld* World,ACharacter* Owner,const FTransform& Aim,
++    float Reach,const TSet<TWeakObjectPtr<AActor>>& AlreadyHit,bool bCleave,float ArcDegrees)
++{
++    TRACE_CPUPROFILER_EVENT_SCOPE(Melee_LowSmallTargets);
++    TArray<FHitResult> Result;
++    if(!World||!Owner||Reach<=0.f||Aim.GetUnitAxis(EAxis::X).Z>0.35f)return Result;
++    const float Range=FMath::Min(Reach,LowReachCM);
++    const float FeetZ=Owner->GetActorLocation().Z-Owner->GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
++    const FVector Origin(Aim.GetLocation().X,Aim.GetLocation().Y,FeetZ+50.f);
++    const FVector Forward=FRotator(0.f,Aim.Rotator().Yaw,0.f).Vector();
++    const float MinDot=FMath::Cos(FMath::DegreesToRadians(FMath::Clamp(ArcDegrees,1.f,LowArcDegrees)*.5f));
++    FCollisionQueryParams Query(SCENE_QUERY_STAT(MeleeLowOverlap),false,Owner);
++    FCollisionObjectQueryParams Objects;Objects.AddObjectTypesToQuery(ECC_Pawn);
++    TArray<FOverlapResult> Overlaps;
++    World->OverlapMultiByObjectType(Overlaps,Origin,FQuat::Identity,Objects,
++        FCollisionShape::MakeBox(FVector(Range,Range,100.f)),Query);
++    TArray<AFleshHandMonster*> Candidates;
++    FCollisionQueryParams Cover(SCENE_QUERY_STAT(MeleeLowCover),false,Owner);
++    for(const auto& Overlap:Overlaps)
++    {
++        // Cleaving ignores nearby bodies once, without per-target retry traces.
++        if(bCleave&&Cast<APawn>(Overlap.GetActor()))Cover.AddIgnoredActor(Overlap.GetActor());
++        auto* Hand=LivingSmallHand(Overlap.GetActor());
++        if(!Hand||AlreadyHit.Contains(Hand)||Overlap.GetComponent()!=Hand->GetCapsuleComponent())continue;
++        const FVector Center=Hand->GetCapsuleComponent()->GetComponentLocation();
++        const float TargetFeet=Center.Z-Hand->GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
++        const FVector Delta=Center-Origin;
++        if(FMath::Abs(TargetFeet-FeetZ)>MaxFloorDifferenceCM||Delta.SizeSquared2D()>FMath::Square(Range))continue;
++        if(FVector::DotProduct(Delta.GetSafeNormal2D(),Forward)<MinDot)continue;
++        Candidates.AddUnique(Hand);
++    }
++    Candidates.Sort([&](const AFleshHandMonster& A,const AFleshHandMonster& B)
++    {
++        return FVector::DistSquared2D(A.GetActorLocation(),Origin)<FVector::DistSquared2D(B.GetActorLocation(),Origin);
++    });
++    // Bounded detailed work even in a crowded spawn: at most two cover rays per
++    // candidate. Already-hit bodies leave the candidate list on the next frame.
++    const int32 Count=FMath::Min(Candidates.Num(),MaxCoverCandidates);
++    for(int32 I=0;I<Count;++I)
++    {
++        auto* Target=Candidates[I];auto* Capsule=Target->GetCapsuleComponent();
++        FVector LowStart=Origin;LowStart.Z=Capsule->GetComponentLocation().Z;
++        FVector Point;
++        if(Capsule->GetClosestPointOnCollision(LowStart,Point)<0.f)Point=Capsule->GetComponentLocation();
++        FCollisionQueryParams TargetCover=Cover;TargetCover.AddIgnoredActor(Target);
++        // Eye visibility alone could look over a low wall. Require a clear path
++        // at hand height too; floors and scenery remain real blockers.
++        if(Covered(World,Aim.GetLocation(),Point,TargetCover)||Covered(World,LowStart,Point,TargetCover))continue;
++        FHitResult Hit(Target,Capsule,Point,(LowStart-Point).GetSafeNormal());
++        Hit.bBlockingHit=true;Hit.ImpactPoint=Hit.Location=Point;
++        Hit.TraceStart=LowStart;Hit.TraceEnd=Point;Hit.Distance=FVector::Distance(LowStart,Point);
++        Result.Add(Hit);
++        if(!bCleave)break;
++    }
++    return Result;
++}
++
++bool MeleeSmallTargets::QueryQuickContact(UWorld* World,ACharacter* Owner,const FTransform& Aim,
++    const FVector& Start,float Reach,float Radius,FHitResult& OutHit)
++{
++    TRACE_CPUPROFILER_EVENT_SCOPE(Melee_QuickContact);
++    if(!World||!Owner||Reach<=0.f)return false;
++    const FVector End=Start+Aim.GetUnitAxis(EAxis::X)*Reach;
++    FCollisionQueryParams Params(SCENE_QUERY_STAT(QuickMeleeContact),false,Owner);
++    const auto Shape=FCollisionShape::MakeSphere(Radius);
++    bool bHit=World->SweepSingleByChannel(OutHit,Start,End,FQuat::Identity,ECC_Pawn,Shape,Params);
++    FCollisionObjectQueryParams Objects;Objects.AddObjectTypesToQuery(ECC_Pawn);
++    TArray<FHitResult> SmallHits;
++    World->SweepMultiByObjectType(SmallHits,Start,End,FQuat::Identity,Objects,Shape,Params);
++    SmallHits.Sort([](const FHitResult& A,const FHitResult& B){return A.Time<B.Time;});
++    int32 CoverCandidates=0;
++    for(const auto& Hit:SmallHits)
++    {
++        if(bHit&&Hit.Time>OutHit.Time)break;
++        auto* Hand=LivingSmallHand(Hit.GetActor());
++        if(!Hand||Hit.GetComponent()!=Hand->GetCapsuleComponent())continue;
++        if(CoverCandidates++>=MaxCoverCandidates)break;
++        FCollisionQueryParams Cover=Params;Cover.AddIgnoredActor(Hand);
++        if(Covered(World,Start,Hit.ImpactPoint,Cover)||Covered(World,Aim.GetLocation(),Hit.ImpactPoint,Cover))continue;
++        OutHit=Hit;bHit=true;break;
++    }
++    // A valid physical contact wins. The low sector supplies a miss, and still
++    // returns at most one hit through the caller's existing damage pipeline.
++    if(bHit)
++        if(const auto* Combat=OutHit.GetActor()?OutHit.GetActor()->FindComponentByClass<UMonsterCombatComponent>():nullptr;
++            Combat&&!Combat->IsDead())return true;
++    const TSet<TWeakObjectPtr<AActor>> AlreadyHit;
++    const auto LowHits=QueryLowSector(World,Owner,Aim,Reach,AlreadyHit,false);
++    if(!LowHits.IsEmpty()){OutHit=LowHits[0];return true;}
++    return bHit;
++}
++
++TArray<FHitResult> MeleeSmallTargets::QueryQuickAreaContacts(UWorld* World,ACharacter* Owner,
++    const FTransform& Aim,const FVector& Start,float Reach,float Radius)
++{
++    TRACE_CPUPROFILER_EVENT_SCOPE(Melee_QuickAreaContact);
++    TArray<FHitResult> Result;
++    if(!World||!Owner||Reach<=0.f)return Result;
++    const FVector End=Start+Aim.GetUnitAxis(EAxis::X)*Reach;
++    const auto Shape=FCollisionShape::MakeSphere(Radius);
++    FCollisionQueryParams Params(SCENE_QUERY_STAT(QuickMeleeAreaContact),false,Owner);
++    FCollisionObjectQueryParams Objects;Objects.AddObjectTypesToQuery(ECC_Pawn);
++    TArray<FHitResult> Contacts;
++    World->SweepMultiByObjectType(Contacts,Start,End,FQuat::Identity,Objects,Shape,Params);
++    Contacts.Sort([](const FHitResult& A,const FHitResult& B){return A.Time<B.Time;});
++
++    // Ignore bodies, not scenery: the original sphere still stops at the first world blocker.
++    FCollisionQueryParams Cover=Params;
++    for(const auto& Hit:Contacts)
++        if(Cast<APawn>(Hit.GetActor()))Cover.AddIgnoredActor(Hit.GetActor());
++    FHitResult Blocker;
++    const bool bBlocked=World->SweepSingleByChannel(Blocker,Start,End,FQuat::Identity,ECC_Pawn,Shape,Cover);
++    TSet<TWeakObjectPtr<AActor>> Seen;
++    for(const auto& Hit:Contacts)
++    {
++        if(bBlocked&&Hit.Time>Blocker.Time)break;
++        auto* Target=Hit.GetActor();
++        auto* Combat=Target?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
++        if(!Combat||Combat->IsDead()||!Target->CanBeDamaged()||Seen.Contains(Target))continue;
++        if(const auto* Hand=LivingSmallHand(Target);Hand&&Hit.GetComponent()!=Hand->GetCapsuleComponent())continue;
++        Seen.Add(Target);
++        FCollisionQueryParams TargetCover=Cover;TargetCover.AddIgnoredActor(Target);
++        if(Covered(World,Start,Hit.ImpactPoint,TargetCover)||Covered(World,Aim.GetLocation(),Hit.ImpactPoint,TargetCover))continue;
++        Result.Add(Hit);
++    }
++    // Preserve the existing fallback condition and its range/arc; no new explosion radius.
++    if(Result.IsEmpty())Result=QueryLowSector(World,Owner,Aim,Reach,{},true);
++    return Result;
++}
+diff --git a/Source/FPSGAME/Weapons/MeleeSmallTargetQuery.h b/Source/FPSGAME/Weapons/MeleeSmallTargetQuery.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Weapons/MeleeSmallTargetQuery.h
+@@ -0,0 +1,29 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Engine/HitResult.h"
++
++class AActor;
++class ACharacter;
++class UWorld;
++
++namespace MeleeSmallTargets
++{
++    // Query assistance only: never changes aim, movement, pose or target selection state.
++    inline constexpr float LowReachCM=120.f;
++    inline constexpr float LowArcDegrees=60.f;
++    inline constexpr float MaxFloorDifferenceCM=45.f;
++    inline constexpr int32 MaxCoverCandidates=16;
++
++    TArray<FHitResult> QueryLowSector(UWorld* World,ACharacter* Owner,const FTransform& Aim,
++        float Reach,const TSet<TWeakObjectPtr<AActor>>& AlreadyHit,
++        bool bCleave=true,float ArcDegrees=LowArcDegrees);
++
++    // Keeps the existing Pawn trace for ordinary targets. Pawn object queries also
++    // see small hands whose movement capsules intentionally ignore the Pawn channel.
++    bool QueryQuickContact(UWorld* World,ACharacter* Owner,const FTransform& Aim,
++        const FVector& Start,float Reach,float Radius,FHitResult& OutHit);
++
++    // Same sweep and low-sector fallback as quick contact, but bodies do not stop a cleave.
++    TArray<FHitResult> QueryQuickAreaContacts(UWorld* World,ACharacter* Owner,const FTransform& Aim,
++        const FVector& Start,float Reach,float Radius);
++}

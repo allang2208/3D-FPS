@@ -775,3 +775,20 @@ __pycache__/
 !/SourceAssets/RuneSword20260913/InspectFollowThroughV82/**/*.ps1
 !/SourceAssets/RuneSword20260913/InspectFollowThroughV82/**/*.md
 /SourceAssets/RuneSword20260913/InspectFollowThroughV82/**/__pycache__/
+
+# Monster hands publication: recipes only; generated assets and receipts stay local.
+/SourceAssets/FleshHand20260926/**
+!/SourceAssets/FleshHand20260926/**/
+!/SourceAssets/FleshHand20260926/**/*.py
+!/SourceAssets/FleshHand20260926/**/*.md
+!/SourceAssets/FleshHand20260926/**/*.hlsl
+!/SourceAssets/FleshHand20260926/meshy_settings.json
+/SourceAssets/FleshHand20260926/**/__pycache__/
+/SourceAssets/HumanoidKnockdown20260926/**
+!/SourceAssets/HumanoidKnockdown20260926/**/
+!/SourceAssets/HumanoidKnockdown20260926/**/*.md
+!/SourceAssets/HumanoidKnockdown20260926/LICENSE-CC0.MD
+/SourceAssets/HumanoidStun20260926/**
+!/SourceAssets/HumanoidStun20260926/**/
+!/SourceAssets/HumanoidStun20260926/**/*.md
+!/SourceAssets/HumanoidStun20260926/LICENSE-CC0.MD

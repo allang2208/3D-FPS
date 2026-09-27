@@ -1,0 +1,728 @@
+{
+  "state": "moved_hashes_match",
+  "archive_root": "trash/monster-hands-20260927",
+  "files": [
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/author_animations.py",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/author_animations.py",
+      "bytes": 7711,
+      "sha256": "89345e7482f25c8168a48187ad87e2398ecea6f62480d02d8f5fec5e478e13e5",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/define_rig.py",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/define_rig.py",
+      "bytes": 1714,
+      "sha256": "f5e331025c3e8c10c93fe56e98cb421bb267bf37beb8d832652bf5d0cbf50663",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/install_ue.py",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/install_ue.py",
+      "bytes": 12475,
+      "sha256": "8ecd1ae17e3c30ed484d4127f46d3bc5811f76186ee4d76f043d403e55f727f9",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/ue_installation.json",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/ue_installation.json",
+      "bytes": 7167,
+      "sha256": "c2d900c83a6698973687ee6e4cfcb3126e746f75045f40276ac77290593b63f8",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Animations/A_FleshHand_Death.fbx",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Animations/A_FleshHand_Death.fbx",
+      "bytes": 293548,
+      "sha256": "e138350938c4876396fcef0a221154439353ba20d9202fe60c1af66d4b63149f",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Animations/A_FleshHand_Dizzy.fbx",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Animations/A_FleshHand_Dizzy.fbx",
+      "bytes": 323436,
+      "sha256": "d5bf7c240806eb31ba95531d13326cd8fc9707df31c0fa09fca53c1c7f6bd5b7",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Animations/A_FleshHand_GrandSlam.fbx",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Animations/A_FleshHand_GrandSlam.fbx",
+      "bytes": 314876,
+      "sha256": "063f579228e1ac8aaab9f9cd7eb16c23dfa55c55d956e51eb1a85d9eb56c5275",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Animations/A_FleshHand_Hammer.fbx",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Animations/A_FleshHand_Hammer.fbx",
+      "bytes": 270988,
+      "sha256": "24ee7fc8df3b241ccd45302907a3745fd7e89ebedbd53029ac7dd9ffaa7009ff",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Animations/A_FleshHand_Hit.fbx",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Animations/A_FleshHand_Hit.fbx",
+      "bytes": 213772,
+      "sha256": "e6c583deeb71e4eedccef2e85697aa5e61ef90310e92bf4863984729055fa682",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Animations/A_FleshHand_Idle.fbx",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Animations/A_FleshHand_Idle.fbx",
+      "bytes": 314316,
+      "sha256": "19f6eac89424ae8592d6f719f1351df2a57ac5767def54728bb41910de424443",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Animations/A_FleshHand_Slam.fbx",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Animations/A_FleshHand_Slam.fbx",
+      "bytes": 306620,
+      "sha256": "d16545ecf18a049d36edfb6451e45183851cf3a0fb9969b2e00104ed07614782",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Animations/A_FleshHand_Walk.fbx",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Animations/A_FleshHand_Walk.fbx",
+      "bytes": 253068,
+      "sha256": "b14a27cc67ccf109b4f56d724f8abbf3cfbe1c592ca0bd0d6583b3bd5e14b542",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Animations/authoring.json",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Animations/authoring.json",
+      "bytes": 1973,
+      "sha256": "23874003b464c8ec12ecc0cd9538500782f3e490806ef577d7d96ec83744f8cb",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Animations/FleshHand_Animated.blend",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Animations/FleshHand_Animated.blend",
+      "bytes": 28133935,
+      "sha256": "69be6189a32e36145c338a7148a26c770edb7acb613779607b588553ab13b0f9",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Animations/FleshHand_Animated.blend1",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Animations/FleshHand_Animated.blend1",
+      "bytes": 28133936,
+      "sha256": "bcdca7dd55b7b59fef40dd65521b089376be0abc9545e1d748eec9b26f5e2c6f",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Animations/SM_FleshHand_PalmFist.fbx",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Animations/SM_FleshHand_PalmFist.fbx",
+      "bytes": 224028,
+      "sha256": "e28f3ba027f36ff686a8edb8ba9f337c74a079876a5b2f6f5058f4dfb9865a82",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Content/Monsters/FleshHand/BP_FleshHand.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Content/Monsters/FleshHand/BP_FleshHand.uasset",
+      "bytes": 41413,
+      "sha256": "41505ad4a279eee003dc99355cc252c20cc6bb05aef09aae460e3ba160f3a0cb",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Content/Monsters/FleshHand/BP_FleshHandMinion.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Content/Monsters/FleshHand/BP_FleshHandMinion.uasset",
+      "bytes": 40005,
+      "sha256": "6799c9a483a2d01ef2c37f87c3c71837c515b0c93cbd221a3ef5de67ebfe7eae",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Content/Monsters/FleshHand/SM_FleshHand_PalmFist.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Content/Monsters/FleshHand/SM_FleshHand_PalmFist.uasset",
+      "bytes": 266151,
+      "sha256": "827fd6d954c93a564e91d3d4fda37ff066d61eaf8fa5da8c8b5dc8e6fe2a7827",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Content/Monsters/FleshHand/Animations/A_FleshHand_Death.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Content/Monsters/FleshHand/Animations/A_FleshHand_Death.uasset",
+      "bytes": 211669,
+      "sha256": "b3106ae2c6e80975ce03f73fd93563820e9de2e15859e4cc1a44787d8f6a0c8e",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Content/Monsters/FleshHand/Animations/A_FleshHand_Dizzy.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Content/Monsters/FleshHand/Animations/A_FleshHand_Dizzy.uasset",
+      "bytes": 231637,
+      "sha256": "9d8ed29b37ce8bf73394e815cdf02fd743b27b03c97c50d2008a094de8ddf252",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Content/Monsters/FleshHand/Animations/A_FleshHand_GrandSlam.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Content/Monsters/FleshHand/Animations/A_FleshHand_GrandSlam.uasset",
+      "bytes": 278125,
+      "sha256": "6bdde1bb3ead84cdd4ca433ad187efd381845ac54224d4a1d5ff4d5927ff9773",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Content/Monsters/FleshHand/Animations/A_FleshHand_Hammer.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Content/Monsters/FleshHand/Animations/A_FleshHand_Hammer.uasset",
+      "bytes": 50680,
+      "sha256": "e69316fd9c69a19cccb77a3e67470fcc9b4745c6910e42a4c8a423dee652eb7d",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Content/Monsters/FleshHand/Animations/A_FleshHand_Hit.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Content/Monsters/FleshHand/Animations/A_FleshHand_Hit.uasset",
+      "bytes": 97702,
+      "sha256": "5a79c48bf6e91b799a88ebcad895c4c7baa846791a615f177ee8f6ec95b5d856",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Content/Monsters/FleshHand/Animations/A_FleshHand_Idle.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Content/Monsters/FleshHand/Animations/A_FleshHand_Idle.uasset",
+      "bytes": 216143,
+      "sha256": "d56fdb131c257a1a120bdc52e5ce3e977d618752616fe8a4ba7226780cdb7521",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Content/Monsters/FleshHand/Animations/A_FleshHand_Slam.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Content/Monsters/FleshHand/Animations/A_FleshHand_Slam.uasset",
+      "bytes": 231631,
+      "sha256": "e5b2f94fc0985c0a07c81f5fd8dd4eddfd076681a5b820deb2ad12f99619d1ae",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/Content/Monsters/FleshHand/Animations/A_FleshHand_Walk.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/Content/Monsters/FleshHand/Animations/A_FleshHand_Walk.uasset",
+      "bytes": 377484,
+      "sha256": "ddd0de5c845a3cbce603502f9890060c8ebc2573405b3dc9f4a8511c0d8084db",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforePalmForward/LocalRig/rig_definition.json",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforePalmForward/LocalRig/rig_definition.json",
+      "bytes": 6551,
+      "sha256": "3077c965a092d5127d6b04d7f7e9575f032757dcc0de68dff373a631d20c16ca",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforeUprightCorrection/BP_FleshHand.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforeUprightCorrection/BP_FleshHand.uasset",
+      "bytes": 29809,
+      "sha256": "144d8fd9f3d51743e71f15791c6871e6dc73c81e9b2fc118d87191cc2f067df2",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/BeforeUprightCorrection/BP_FleshHandMinion.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/BeforeUprightCorrection/BP_FleshHandMinion.uasset",
+      "bytes": 29707,
+      "sha256": "9e2ef13293d89146102ac06c761ea669f530911b58902f24a4ff6c8266538b10",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/AttackSimplification/Before/Monsters/FleshHand/BP_FleshHand.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/AttackSimplification/Before/Monsters/FleshHand/BP_FleshHand.uasset",
+      "bytes": 44887,
+      "sha256": "fbf9ce55075f5899ddd333285cd4caf07a4dc4128ae5bcf64bdc0be99e3b31f9",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/AttackSimplification/Before/Monsters/FleshHand/BP_FleshHandMinion.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/AttackSimplification/Before/Monsters/FleshHand/BP_FleshHandMinion.uasset",
+      "bytes": 42874,
+      "sha256": "a9e73bcd4996b101b24be04dd49827579e29eb1c16ce1264f0c9ee1381765cb6",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/Charge/BeforeCharge/Monsters/FleshHand/BP_FleshHand.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/Charge/BeforeCharge/Monsters/FleshHand/BP_FleshHand.uasset",
+      "bytes": 41475,
+      "sha256": "947fcbef01160a1d7650e5256b8c040e8ffec16805b5b54fd2ca15e31e6528fa",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/Charge/BeforePrediction/BP_FleshHand.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/Charge/BeforePrediction/BP_FleshHand.uasset",
+      "bytes": 42018,
+      "sha256": "60459bd44163e9dfa2e3c2fb09dfd21c69ccc8d1fe92aed6a5a1d97050e3d2fc",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/Charge/BeforeVisualPolish20260927/A_FleshHand_ChargeRecover.fbx",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/Charge/BeforeVisualPolish20260927/A_FleshHand_ChargeRecover.fbx",
+      "bytes": 211148,
+      "sha256": "701f284c1c917b26232afb1543c587e7e3c77008991d6f1cc370a13e95faed2d",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/Charge/BeforeVisualPolish20260927/A_FleshHand_ChargeRush.fbx",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/Charge/BeforeVisualPolish20260927/A_FleshHand_ChargeRush.fbx",
+      "bytes": 197516,
+      "sha256": "e9421f0f5ad11d2f65d9b2b96d6ac48655cbf8e7c8756d52914adac716c03020",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/Charge/BeforeVisualPolish20260927/A_FleshHand_ChargeWindup.fbx",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/Charge/BeforeVisualPolish20260927/A_FleshHand_ChargeWindup.fbx",
+      "bytes": 250124,
+      "sha256": "d6bcb78e7d7b73a04aa9c9ba9c0a4eb3a2423f5e21463fe2372ddf1bea4a1ba9",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/Charge/BeforeVisualPolish20260927/authoring.json",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/Charge/BeforeVisualPolish20260927/authoring.json",
+      "bytes": 2360,
+      "sha256": "51621a610bd3624beb35f87dc5aceab605460d758ff2eaa706e1e71a5755a267",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/Charge/BeforeVisualPolish20260927/FleshHand_Charge.blend",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/Charge/BeforeVisualPolish20260927/FleshHand_Charge.blend",
+      "bytes": 27455002,
+      "sha256": "a8f29cb75b2597e010507f5fa41138518c35c848745ddc8eb79d9354a4516c4a",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/Charge/BeforeVisualPolishAssets/Monsters/FleshHand/BP_FleshHand.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/Charge/BeforeVisualPolishAssets/Monsters/FleshHand/BP_FleshHand.uasset",
+      "bytes": 43285,
+      "sha256": "5b0fd9a779d637aef73b92fc1d0b0ce27081e14b4b4632c4a0c71d6ae6a1ad83",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/Charge/BeforeVisualPolishAssets/Monsters/FleshHand/Animations/A_FleshHand_ChargeRecover.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/Charge/BeforeVisualPolishAssets/Monsters/FleshHand/Animations/A_FleshHand_ChargeRecover.uasset",
+      "bytes": 81304,
+      "sha256": "28c84cdcf8998aecba4f133ae91756971b663f37c441ae5f84fbcad321b7c687",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/Charge/BeforeVisualPolishAssets/Monsters/FleshHand/Animations/A_FleshHand_ChargeRush.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/Charge/BeforeVisualPolishAssets/Monsters/FleshHand/Animations/A_FleshHand_ChargeRush.uasset",
+      "bytes": 39959,
+      "sha256": "882228e3029de8e2a85a56ab15c3dd87aeab8eb1c551d31a925b9137e7fc03b5",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/Charge/BeforeVisualPolishAssets/Monsters/FleshHand/Animations/A_FleshHand_ChargeWindup.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/Charge/BeforeVisualPolishAssets/Monsters/FleshHand/Animations/A_FleshHand_ChargeWindup.uasset",
+      "bytes": 112958,
+      "sha256": "f47f277e20a52243a28cb85e47ca408e7bd901b6134bf15a0f2d5c388117dff9",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/ChargeVisual/Before/Monsters/FleshHand/BP_FleshHand.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/ChargeVisual/Before/Monsters/FleshHand/BP_FleshHand.uasset",
+      "bytes": 43285,
+      "sha256": "5b0fd9a779d637aef73b92fc1d0b0ce27081e14b4b4632c4a0c71d6ae6a1ad83",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/ChargeVisual/Before/Monsters/FleshHand/ChargeVisual20260927/M_HandChargeDust.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/ChargeVisual/Before/Monsters/FleshHand/ChargeVisual20260927/M_HandChargeDust.uasset",
+      "bytes": 13243,
+      "sha256": "8e2305372db16948d4d4ea45397f084d67d56022085f7aebca82316317e136d1",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/GroundingRepair/BeforeAssets/Monsters/FleshHand/Animations/A_FleshHand_Death.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/GroundingRepair/BeforeAssets/Monsters/FleshHand/Animations/A_FleshHand_Death.uasset",
+      "bytes": 211731,
+      "sha256": "41adbf9235e9cd74d694eafc14fda36a42d11c1aed52a93d36c4b903fe3a245d",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/GroundingRepair/BeforeAssets/Monsters/FleshHand/Animations/A_FleshHand_Dizzy.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/GroundingRepair/BeforeAssets/Monsters/FleshHand/Animations/A_FleshHand_Dizzy.uasset",
+      "bytes": 231699,
+      "sha256": "4c2e57b169ead6737b189b67b3f04f53ead1510c1b86bb8ca2861d004092e468",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/GroundingRepair/BeforeAssets/Monsters/FleshHand/Animations/A_FleshHand_GrandSlam.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/GroundingRepair/BeforeAssets/Monsters/FleshHand/Animations/A_FleshHand_GrandSlam.uasset",
+      "bytes": 278187,
+      "sha256": "95d89c422512d01b0fc26512f3bc81a79a05a73f9038f296dc17e1d225039bbc",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/GroundingRepair/BeforeAssets/Monsters/FleshHand/Animations/A_FleshHand_Hit.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/GroundingRepair/BeforeAssets/Monsters/FleshHand/Animations/A_FleshHand_Hit.uasset",
+      "bytes": 97764,
+      "sha256": "951ecbd28bed7473c2181fbc135e4a148321591db171fc031419dd9d0a994a2b",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/GroundingRepair/BeforeAssets/Monsters/FleshHand/Animations/A_FleshHand_Idle.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/GroundingRepair/BeforeAssets/Monsters/FleshHand/Animations/A_FleshHand_Idle.uasset",
+      "bytes": 216205,
+      "sha256": "b92c8e328dfed79ec7bcfd795a9a317b093aa08f5b707cb386be27a36d658de5",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/GroundingRepair/BeforeAssets/Monsters/FleshHand/Animations/A_FleshHand_Slam.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/GroundingRepair/BeforeAssets/Monsters/FleshHand/Animations/A_FleshHand_Slam.uasset",
+      "bytes": 231693,
+      "sha256": "a4d853173b7f068033c08f6319d91cb94a17060a98d83a8a5bcd03e29600349c",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/GroundingRepair/BeforeSource/author_animations.py",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/GroundingRepair/BeforeSource/author_animations.py",
+      "bytes": 8063,
+      "sha256": "71b002aa0014e98d26aaee08e8fc59450a05a27ce8eea98e5e20d98d770f706f",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/GroundingRepair/BeforeSource/Animations/A_FleshHand_Death.fbx",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/GroundingRepair/BeforeSource/Animations/A_FleshHand_Death.fbx",
+      "bytes": 293564,
+      "sha256": "51844043874f84dc8ad35fe0bbfd57e95f5b0840a3401bfc16acac18911f9175",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/GroundingRepair/BeforeSource/Animations/A_FleshHand_Dizzy.fbx",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/GroundingRepair/BeforeSource/Animations/A_FleshHand_Dizzy.fbx",
+      "bytes": 323484,
+      "sha256": "d419f0e35c0ba3db9b3dd7dc37c9c593963ae7b87c2370b557cbf9aea29d6011",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/GroundingRepair/BeforeSource/Animations/A_FleshHand_GrandSlam.fbx",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/GroundingRepair/BeforeSource/Animations/A_FleshHand_GrandSlam.fbx",
+      "bytes": 314812,
+      "sha256": "631ada3968e8394abcf191474b6fe0072679ee48f3125911202bb1817b45a2ed",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/GroundingRepair/BeforeSource/Animations/A_FleshHand_Hit.fbx",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/GroundingRepair/BeforeSource/Animations/A_FleshHand_Hit.fbx",
+      "bytes": 213820,
+      "sha256": "6aaa64a2811581231a121f434ada89e1b181a68dc7b1d9cea88a003fe60e2e32",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/GroundingRepair/BeforeSource/Animations/A_FleshHand_Idle.fbx",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/GroundingRepair/BeforeSource/Animations/A_FleshHand_Idle.fbx",
+      "bytes": 314476,
+      "sha256": "f8d536ca639eedd413c3ae74d7ff674206d5824c5b0dfb1e4c2799aa5ed0b8d5",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/GroundingRepair/BeforeSource/Animations/A_FleshHand_Slam.fbx",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/GroundingRepair/BeforeSource/Animations/A_FleshHand_Slam.fbx",
+      "bytes": 306652,
+      "sha256": "cce8495c1a213aec2af41ee260ac2543201fa427514c43a2c52325f172fc9643",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/GroundingRepair/BeforeSource/Animations/authoring.json",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/GroundingRepair/BeforeSource/Animations/authoring.json",
+      "bytes": 2079,
+      "sha256": "8af956bca4ffe703c670bd1f59d8e524e80e29b95041c1348819ca43feac445a",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/GroundingRepair/BeforeSource/Animations/FleshHand_Animated.blend",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/GroundingRepair/BeforeSource/Animations/FleshHand_Animated.blend",
+      "bytes": 28133862,
+      "sha256": "2618084f2b5a0d68d3d789a38ba5ed20c63ef918ed97a5afb2875925372bed8e",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/Knockdown/BeforeKnockdown/Monsters/FleshHand/BP_FleshHand.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/Knockdown/BeforeKnockdown/Monsters/FleshHand/BP_FleshHand.uasset",
+      "bytes": 42160,
+      "sha256": "8406b3110f9f3fe2828796724995dfd4985a54979bc8828846a08239ee3da102",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/Knockdown/BeforeKnockdown/Monsters/FleshHand/BP_FleshHandMinion.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/Knockdown/BeforeKnockdown/Monsters/FleshHand/BP_FleshHandMinion.uasset",
+      "bytes": 40143,
+      "sha256": "ed9e7f3dd0ffd9388bccf36e599ea55eb3b72c1a45c228ba1b111c541c2bf034",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/Locomotion/BeforeAssets/Monsters/FleshHand/BP_FleshHand.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/Locomotion/BeforeAssets/Monsters/FleshHand/BP_FleshHand.uasset",
+      "bytes": 45366,
+      "sha256": "b458d6ad9f29dec18eb1505d5ab6358518c4c8e543aa56acd090e0697700f5fb",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/Locomotion/BeforeAssets/Monsters/FleshHand/BP_FleshHandMinion.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/Locomotion/BeforeAssets/Monsters/FleshHand/BP_FleshHandMinion.uasset",
+      "bytes": 42487,
+      "sha256": "6a0ee0cacc2c1cb219aa1a9b393574ac91e8acc42c4965cb54d4cd4dd0486b8a",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/Mobility20260927/BeforeMobility/BP_FleshHand.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/Mobility20260927/BeforeMobility/BP_FleshHand.uasset",
+      "bytes": 42084,
+      "sha256": "1b06050f092a36004ab09e5ffca65d118a53d2723e243f5d7fabcfe6bf3d6ffc",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/Mobility20260927/BeforeMobility/BP_FleshHandMinion.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/Mobility20260927/BeforeMobility/BP_FleshHandMinion.uasset",
+      "bytes": 40067,
+      "sha256": "f1432adabc22340a9767ada1bd257b9460be845294da6b6df0baad4d1e184beb",
+      "reason": "Superseded rollback snapshot; retained recoverably in trash",
+      "replacement": "Current saved hand assets and authoring sources; see publication document"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/Animations/FleshHand_Animated.blend1",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/Animations/FleshHand_Animated.blend1",
+      "bytes": 28133862,
+      "sha256": "2618084f2b5a0d68d3d789a38ba5ed20c63ef918ed97a5afb2875925372bed8e",
+      "reason": "Automatic Blender backup; current editable blend retained",
+      "replacement": "SourceAssets/FleshHand20260926/Animations/FleshHand_Animated.blend"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/Charge/FleshHand_Charge.blend1",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/Charge/FleshHand_Charge.blend1",
+      "bytes": 27455002,
+      "sha256": "a8f29cb75b2597e010507f5fa41138518c35c848745ddc8eb79d9354a4516c4a",
+      "reason": "Automatic Blender backup; current editable blend retained",
+      "replacement": "SourceAssets/FleshHand20260926/Charge/FleshHand_Charge.blend"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/Knockdown/FleshHand_Knockdown.blend1",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/Knockdown/FleshHand_Knockdown.blend1",
+      "bytes": 27736740,
+      "sha256": "65148c36c5b8be09209d51959fa7f430e429bc48d613fa32486c54f555eeb6b6",
+      "reason": "Automatic Blender backup; current editable blend retained",
+      "replacement": "SourceAssets/FleshHand20260926/Knockdown/FleshHand_Knockdown.blend"
+    },
+    {
+      "source": "SourceAssets/HumanoidKnockdown20260926/human-addon-animations.blend1",
+      "destination": "trash/monster-hands-20260927/SourceAssets/HumanoidKnockdown20260926/human-addon-animations.blend1",
+      "bytes": 7994391,
+      "sha256": "24736adfc0af161056b0f070bd260630e6f2d6f5c891595feba63826b039195e",
+      "reason": "Automatic Blender backup; current editable blend retained",
+      "replacement": "SourceAssets/HumanoidKnockdown20260926/human-addon-animations.blend"
+    },
+    {
+      "source": "SourceAssets/HumanoidKnockdown20260926/human-base-animations.blend1",
+      "destination": "trash/monster-hands-20260927/SourceAssets/HumanoidKnockdown20260926/human-base-animations.blend1",
+      "bytes": 9392381,
+      "sha256": "12479c91095b274a5a0193b67aa99915ed844bf33417c3d63b9ee56e474bad65",
+      "reason": "Automatic Blender backup; current editable blend retained",
+      "replacement": "SourceAssets/HumanoidKnockdown20260926/human-base-animations.blend"
+    },
+    {
+      "source": "SourceAssets/HumanoidKnockdown20260926/fitted/FatZombie_Recovery.blend1",
+      "destination": "trash/monster-hands-20260927/SourceAssets/HumanoidKnockdown20260926/fitted/FatZombie_Recovery.blend1",
+      "bytes": 28516237,
+      "sha256": "9777afb5c3b243fdaa5ccb1260c250bc1aa70349a321a07f06584f888892b76f",
+      "reason": "Automatic Blender backup; current editable blend retained",
+      "replacement": "SourceAssets/HumanoidKnockdown20260926/fitted/FatZombie_Recovery.blend"
+    },
+    {
+      "source": "SourceAssets/HumanoidKnockdown20260926/fitted/Mutant3_Recovery.blend1",
+      "destination": "trash/monster-hands-20260927/SourceAssets/HumanoidKnockdown20260926/fitted/Mutant3_Recovery.blend1",
+      "bytes": 10408768,
+      "sha256": "6ebbfd22500462b39e16baa6bfcbd660693414c00152808ff555205acbfb4d44",
+      "reason": "Automatic Blender backup; current editable blend retained",
+      "replacement": "SourceAssets/HumanoidKnockdown20260926/fitted/Mutant3_Recovery.blend"
+    },
+    {
+      "source": "SourceAssets/HumanoidKnockdown20260926/fitted/Nurse_Recovery.blend1",
+      "destination": "trash/monster-hands-20260927/SourceAssets/HumanoidKnockdown20260926/fitted/Nurse_Recovery.blend1",
+      "bytes": 3816495,
+      "sha256": "9d5cf71d1926d96a5af882c1fe47809e478fae6a24f61389e0ea58c7312a8066",
+      "reason": "Automatic Blender backup; current editable blend retained",
+      "replacement": "SourceAssets/HumanoidKnockdown20260926/fitted/Nurse_Recovery.blend"
+    },
+    {
+      "source": "SourceAssets/HumanoidKnockdown20260926/fitted/Witch_Recovery.blend1",
+      "destination": "trash/monster-hands-20260927/SourceAssets/HumanoidKnockdown20260926/fitted/Witch_Recovery.blend1",
+      "bytes": 17741769,
+      "sha256": "fe3a8fd35cfceb7a4926eb13c699cbaf4dfff2f905c5ba95719f29585b63ddd9",
+      "reason": "Automatic Blender backup; current editable blend retained",
+      "replacement": "SourceAssets/HumanoidKnockdown20260926/fitted/Witch_Recovery.blend"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/charge_close_clean_editor.py",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/charge_close_clean_editor.py",
+      "bytes": 872,
+      "sha256": "f189184f451f63bcfe02fc84e723c97a56bcb44e9daeda805e840203bc7a2999",
+      "reason": "Completed one-off editor operation or superseded orientation migration",
+      "replacement": "SourceAssets/FleshHand20260926/install_ue.py; install_palm_forward.py; existing saved receipts"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/charge_editor_state.py",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/charge_editor_state.py",
+      "bytes": 668,
+      "sha256": "a318c8d16e4ce24263d66405a567fd493467316ffb330fe43d9bf8e819268b81",
+      "reason": "Completed one-off editor operation or superseded orientation migration",
+      "replacement": "SourceAssets/FleshHand20260926/install_ue.py; install_palm_forward.py; existing saved receipts"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/charge_prepare_live_import.py",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/charge_prepare_live_import.py",
+      "bytes": 383,
+      "sha256": "d608a3263d6e7ade7468abe7200f1c7e2d0dceb63b5e243697b21e0d586a31d1",
+      "reason": "Completed one-off editor operation or superseded orientation migration",
+      "replacement": "SourceAssets/FleshHand20260926/install_ue.py; install_palm_forward.py; existing saved receipts"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/close_for_charge_visual_build.py",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/close_for_charge_visual_build.py",
+      "bytes": 650,
+      "sha256": "d77560e93a8325440838e1b805d2941eb682c0c38ceb477f754efbe2434e1f26",
+      "reason": "Completed one-off editor operation or superseded orientation migration",
+      "replacement": "SourceAssets/FleshHand20260926/install_ue.py; install_palm_forward.py; existing saved receipts"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/compile_retired_attack.py",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/compile_retired_attack.py",
+      "bytes": 668,
+      "sha256": "aa701aaf2f7542977cc719f2a77d1cb2beb2c871d78fb98d8df0640af5d1c666",
+      "reason": "Completed one-off editor operation or superseded orientation migration",
+      "replacement": "SourceAssets/FleshHand20260926/install_ue.py; install_palm_forward.py; existing saved receipts"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/end_play_for_orientation.py",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/end_play_for_orientation.py",
+      "bytes": 129,
+      "sha256": "80db0f126be1069cc15dc4a0d2a74182408051f0736e757b2bd98c479ef6b0ce",
+      "reason": "Completed one-off editor operation or superseded orientation migration",
+      "replacement": "SourceAssets/FleshHand20260926/install_ue.py; install_palm_forward.py; existing saved receipts"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/finish_orientation_after_play.py",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/finish_orientation_after_play.py",
+      "bytes": 1298,
+      "sha256": "19abe4656e33a40035caabbf7347fbd7bb18a8078d0caf3490d22710fe33b034",
+      "reason": "Completed one-off editor operation or superseded orientation migration",
+      "replacement": "SourceAssets/FleshHand20260926/install_ue.py; install_palm_forward.py; existing saved receipts"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/finish_palm_forward_after_play.py",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/finish_palm_forward_after_play.py",
+      "bytes": 1344,
+      "sha256": "1f4ef69eb6872b6e0e21b9e2cd362aa441cb42b0d0077e626791752dc54a12d6",
+      "reason": "Completed one-off editor operation or superseded orientation migration",
+      "replacement": "SourceAssets/FleshHand20260926/install_ue.py; install_palm_forward.py; existing saved receipts"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/fix_upright_orientation.py",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/fix_upright_orientation.py",
+      "bytes": 3674,
+      "sha256": "c944b633929edc8c8bb30b744ff44a81fe4ce749ce47140e5fa971d98ba8452b",
+      "reason": "Completed one-off editor operation or superseded orientation migration",
+      "replacement": "SourceAssets/FleshHand20260926/install_ue.py; install_palm_forward.py; existing saved receipts"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/inspect_orientation.py",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/inspect_orientation.py",
+      "bytes": 1529,
+      "sha256": "c9990934f0ddfef739e78e5b9b10342b9e0c81a7bbd20f020e1d75e95faffdb1",
+      "reason": "Completed one-off editor operation or superseded orientation migration",
+      "replacement": "SourceAssets/FleshHand20260926/install_ue.py; install_palm_forward.py; existing saved receipts"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/resume_retired_attack_save.py",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/resume_retired_attack_save.py",
+      "bytes": 1153,
+      "sha256": "17c2fbfc5042e6d277a0027419bca249560ac6680508cd9ef8c74bd291a49e34",
+      "reason": "Completed one-off editor operation or superseded orientation migration",
+      "replacement": "SourceAssets/FleshHand20260926/install_ue.py; install_palm_forward.py; existing saved receipts"
+    },
+    {
+      "source": "SourceAssets/FleshHand20260926/ChargeVisual/MosaicRepair/M_HandChargeAir.before.uasset",
+      "destination": "trash/monster-hands-20260927/SourceAssets/FleshHand20260926/ChargeVisual/MosaicRepair/M_HandChargeAir.before.uasset",
+      "bytes": 11039,
+      "sha256": "b30cd47f082c1c4a460968c3bb5f1c2ab540d9c7c2866b9ffa9461a4e15e3a16",
+      "reason": "Material snapshot before reserved HLSL identifier repair",
+      "replacement": "SourceAssets/FleshHand20260926/ChargeAir.hlsl; saved M_HandChargeAir"
+    },
+    {
+      "source": "Docs/Monsters/flyhand-migration-plan-20260926.md",
+      "destination": "trash/monster-hands-20260927/Docs/Monsters/flyhand-migration-plan-20260926.md",
+      "bytes": 10448,
+      "sha256": "02610cfcb1eeb2be5a65fea25957a0acd75f97cb668d007b1596af314c71b880",
+      "reason": "Fly-swarm design superseded by user-selected continuous green-skin hand",
+      "replacement": "Docs/Monsters/fleshhand-migration-plan-20260926.md"
+    },
+    {
+      "source": "Tools/HumanoidStun/complete_assets.ps1",
+      "destination": "trash/monster-hands-20260927/Tools/HumanoidStun/complete_assets.ps1",
+      "bytes": 1329,
+      "sha256": "ab3baea04d7216aaf8d60bde87e0fa3d4cfee342014a2a85f48fcb608264e3bf",
+      "reason": "Completed orchestration tied to a past PIE-stop authorization",
+      "replacement": "Tools/HumanoidStun/export_source.py; retarget_source.py; import_fitted.py; Tools/HumanoidKnockdown/fit_recovery.py"
+    },
+    {
+      "source": "Tools/HumanoidStun/end_play_for_import.py",
+      "destination": "trash/monster-hands-20260927/Tools/HumanoidStun/end_play_for_import.py",
+      "bytes": 252,
+      "sha256": "d478c044cede56aa795153daf0392c8451f55fd0edb13c7f20373a605396e932",
+      "reason": "Completed orchestration tied to a past PIE-stop authorization",
+      "replacement": "Tools/HumanoidStun/export_source.py; retarget_source.py; import_fitted.py; Tools/HumanoidKnockdown/fit_recovery.py"
+    }
+  ],
+  "count": 90,
+  "bytes": 282205187.0
+}

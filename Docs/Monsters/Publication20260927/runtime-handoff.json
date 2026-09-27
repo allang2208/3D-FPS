@@ -1,0 +1,75 @@
+{
+  "files": [
+    {
+      "path": "Source/FPSGAME/Monsters/FleshHandChargeFX.cpp",
+      "sha256": "0489b3d195e5e0677b5341cd34966126f2a43773fd55c58b548edd7b58199ccb",
+      "state": "new_source_handoff_only_not_active_public_tree"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FleshHandChargeFX.h",
+      "sha256": "c6c792980b87a02c7d9fffa65dfd5ca295213d4c65a6f0c5b872446cd7c0ec86",
+      "state": "new_source_handoff_only_not_active_public_tree"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FleshHandKnockdownComponent.cpp",
+      "sha256": "66b3b0cf0b4303a28222dc019cdcfef92a34c9e8ba781e98383b9af988155f57",
+      "state": "new_source_handoff_only_not_active_public_tree"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FleshHandKnockdownComponent.h",
+      "sha256": "fce78a3d1589fa0cd4ef0e924fade8aca73049efd413378f7a35ce81f17ff7b5",
+      "state": "new_source_handoff_only_not_active_public_tree"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FleshHandMonster.cpp",
+      "sha256": "bb22fa8e8e3a1dfe462f9bfd9c9be518f0ad2717ef14f5332d0d9ba44740dd94",
+      "state": "new_source_handoff_only_not_active_public_tree"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FleshHandMonster.h",
+      "sha256": "fa2abc178e88059a3876acd1dc3e70a710353ae4178ddeb6f15fd95ee6603e72",
+      "state": "new_source_handoff_only_not_active_public_tree"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HumanoidKnockdownComponent.cpp",
+      "sha256": "32999da38d9f671560078cbf15d46a76e33ab8bf33a7269c0f62fbcb92b079a4",
+      "state": "new_source_handoff_only_not_active_public_tree"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HumanoidKnockdownComponent.h",
+      "sha256": "9ba4433fa1f5feee77b0a035892873fb0ee52f05e1acbaa52e38c96da6695ad9",
+      "state": "new_source_handoff_only_not_active_public_tree"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HumanoidRagdollBudget.cpp",
+      "sha256": "dfe8a1db2128eef5e5b947fde063d09668b28840c91ac2d49957a46d96059957",
+      "state": "new_source_handoff_only_not_active_public_tree"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HumanoidRagdollBudget.h",
+      "sha256": "5efc17a7440a644d31f6c9cfcde770940ace5c922812d43d6279867809e7d9b8",
+      "state": "new_source_handoff_only_not_active_public_tree"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterStunPresentation.cpp",
+      "sha256": "11ac578eb63dfdff13668888de93221d6cec4c545229f09fa84ef47b9d037452",
+      "state": "new_source_handoff_only_not_active_public_tree"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeSmallTargetQuery.cpp",
+      "sha256": "9368b514dd1adeeb6da6a2d5086d354021eaab5a1acf21929b5641ac27895abc",
+      "state": "new_source_handoff_only_not_active_public_tree"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeSmallTargetQuery.h",
+      "sha256": "7a7a8c49020e7a396e8046b508f715c91f70c57af75de80a6aa827941fb9570a",
+      "state": "new_source_handoff_only_not_active_public_tree"
+    }
+  ],
+  "shared_interfaces_pending": [
+    "Monsters/MonsterCombatComponent: toughness and explicit stun/knockdown interfaces",
+    "Monsters/NurseZombie and FatZombieAnimInstance: knockdown and snapshot lifecycle",
+    "Weapons/RuneSwordComponent and Skills/FPSQuickCombatComponent: mixed weapon changes",
+    "Development/DevelopmentSpawnComponent, MonsterCoreStats and shared combat callers: exact integration hunks"
+  ]
+}

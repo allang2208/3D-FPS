@@ -1,0 +1,44 @@
+{
+  "api_base": "https://api.meshy.ai/openapi",
+  "proxy": "http://127.0.0.1:7897",
+  "endpoint": "/v1/multi-image-to-3d",
+  "common": {
+    "ai_model": "meshy-7.1",
+    "geometry_resolution": "2k",
+    "should_texture": true,
+    "enable_pbr": true,
+    "texture_resolution": "4k",
+    "should_remesh": true,
+    "topology": "quad",
+    "target_polycount": 15000,
+    "save_pre_remeshed_model": true,
+    "pose_mode": "",
+    "image_enhancement": false,
+    "remove_lighting": true,
+    "auto_size": false,
+    "target_formats": ["glb", "fbx", "obj"]
+  },
+  "assets": {
+    "candidate01": {
+      "images": [
+        "References/MeshyInputs/01_front_palm.png",
+        "References/MeshyInputs/02_side.png",
+        "References/MeshyInputs/03_back.png"
+      ],
+      "options": {
+        "texture_prompt": "One giant standalone right hand monster with continuous muted moss-green and gray-sage skin, exactly like the reference views. Realistic thick fleshy skin, fine pores and palm creases, tendons, wrinkled knuckles, subtle organic darker green mottling, mostly dry skin with restrained oily highlights. Five digits total, four long fingers and a lateral thumb, short natural dirty gray-olive nails. Closed wrist base. No arm, face, eyes, brain, insects, foliage, scales, claws, blood, open wounds or accessories. Physically based nonmetal skin, no painted lighting."
+      }
+    }
+  },
+  "local_rig": {
+    "kind": "custom_hand",
+    "planned_bones": "root, wrist, palm, thumb/index/middle/ring/little chains",
+    "meshy_auto_rigging": false,
+    "runtime_triangle_budget": [20000, 30000],
+    "quad_target_note": "15000 polygons targets approximately 30000 triangles; not a guaranteed output count."
+  },
+  "sources": [
+    "https://docs.meshy.ai/en/api/multi-image-to-3d",
+    "https://docs.meshy.ai/en/api/pricing"
+  ]
+}
