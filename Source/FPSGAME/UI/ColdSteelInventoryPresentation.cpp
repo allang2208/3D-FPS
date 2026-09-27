@@ -1,4 +1,5 @@
 #include "ColdSteelInventoryWidget.h"
+#include "ColdSteelStaffIcon.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelUIStyle.h"
 #include "GunsmithUIStyle.h"
@@ -74,6 +75,7 @@ void UColdSteelInventoryWidget::RefreshPresentation()
     for(const auto& I:Model->Items()){
         TSharedPtr<FJsonObject> Data;if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data)||!Data)continue;
         auto& P=Presentation.Add(I.InstanceId);Data->TryGetStringField(TEXT("name"),P.Name);Data->TryGetStringField(TEXT("rarity"),P.Rarity);
+        FString WeaponType;Data->TryGetStringField(TEXT("weaponType"),WeaponType);P.StaffArt=WeaponType==TEXT("staff");
         double Level=0;Data->TryGetNumberField(TEXT("enhanceLevel"),Level);P.Enhancement=FMath::Max(0,int32(Level));
         const TSharedPtr<FJsonObject>* Craft=nullptr;const TSharedPtr<FJsonObject>* Enchant=nullptr;
         P.Crafted=(Guns&&!Guns->Installed(I).IsEmpty())||(Data->TryGetObjectField(TEXT("_craftData"),Craft)&&!(*Craft)->Values.IsEmpty());
@@ -128,6 +130,7 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
             const float Fit=Turned?FMath::Min(FMath::Max(1.f,ImageHeight)/FMath::Max(1.f,float(Size.X)),FMath::Max(1.f,ImageWidth)/FMath::Max(1.f,float(Size.Y)))
                                   :FMath::Min(FMath::Max(1.f,ImageWidth)/FMath::Max(1.f,float(Size.X)),FMath::Max(1.f,ImageHeight)/FMath::Max(1.f,float(Size.Y)));
             Size*=Fit;
+            if(Name&&P&&P->StaffArt)Size=ColdSteelStaffIcon::InventorySize(Brush->ImageSize,FVector2D(W,H),Turned);
             // Both orientations centre the box on the card's image area; a turn then keeps the
             // transposed art inside the same card instead of hanging out of the cell.
             const FVector2D ImageCenter(X+ImageX+ImageWidth*.5f,Y+H*.5f+(Name?6:0));

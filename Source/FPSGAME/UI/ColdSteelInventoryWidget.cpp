@@ -5,6 +5,7 @@
 #include "../FPSGAMEPlayerController.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelWeaponIcons.h"
+#include "ColdSteelStaffIcon.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "ColdSteelUIStyle.h"
 #include "Blueprint/WidgetTree.h"
@@ -82,14 +83,16 @@ void UColdSteelInventoryWidget::UpdateDragGhost(UColdSteelItemDrag& Drag,const F
     const FVector2D Rect(Cells.X*L.Cell,Cells.Y*L.Cell),CursorLocal=G.AbsoluteToLocal(CursorPos)*Scale;
     const FVector2D RectOrigin=CursorLocal-FVector2D(Drag.GrabNorm.X*Rect.X,Drag.GrabNorm.Y*Rect.Y);
     const auto* Brush=ItemBrush(*I);FVector2D ImageSize=Rect;
+    const auto* P=Presentation.Find(I->InstanceId);const bool Staff=P&&P->StaffArt;
     if(Brush){
         // A turned ghost is drawn upright and rotated a quarter turn, so its box is transposed.
         const FVector2D Image=Brush->ImageSize;
         const double Fit=Drag.bRotated?FMath::Min((Rect.X-8)/FMath::Max(1.0,Image.Y),(Rect.Y-8)/FMath::Max(1.0,Image.X))
                                       :FMath::Min((Rect.X-8)/FMath::Max(1.0,Image.X),(Rect.Y-8)/FMath::Max(1.0,Image.Y));
         ImageSize=Image*Fit;
+        if(Staff)ImageSize=ColdSteelStaffIcon::InventorySize(Image,Rect,Drag.bRotated);
     }
-    const FVector2D ImageOrigin=RectOrigin+(Rect-ImageSize)*.5+FVector2D(0,(Drag.SourcePlace==0||Drag.SourcePlace==4)?2:0);
+    const FVector2D ImageOrigin=RectOrigin+(Rect-ImageSize)*.5+FVector2D(0,Staff?6:(Drag.SourcePlace==0||Drag.SourcePlace==4)?2:0);
     const FVector2D ScreenOrigin=G.LocalToAbsolute(ImageOrigin/Scale);
     const FVector2D ScreenSize=G.LocalToAbsolute((ImageOrigin+ImageSize)/Scale)-ScreenOrigin;
     Visual->Configure(Brush,ScreenSize,CursorPos-ScreenOrigin,CursorPos,Drag.bRotated);
@@ -151,7 +154,9 @@ void UColdSteelInventoryWidget::LoadIcons()
         // Weapon artwork follows the current catalog even when an older saved item has no icon field.
         const FString File=WeaponIcons&&WeaponIcons->Supports(I)?TEXT("Icons/")+I.Definition+TEXT(".png"):Text(I,TEXT("ue_icon"));if(File.IsEmpty())continue;
         auto* Texture=FImageUtils::ImportFileAsTexture2D(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/File);if(!Texture)continue;
-        Icons.Add(I.Definition,Texture);FSlateBrush Brush;Brush.SetResourceObject(Texture);Brush.ImageSize=FVector2D(Texture->GetSizeX(),Texture->GetSizeY());Brush.DrawAs=ESlateBrushDrawType::Image;IconBrushes.Add(I.Definition,Brush);
+        Icons.Add(I.Definition,Texture);FSlateBrush Brush;Brush.SetResourceObject(Texture);Brush.ImageSize=FVector2D(Texture->GetSizeX(),Texture->GetSizeY());Brush.DrawAs=ESlateBrushDrawType::Image;
+        if(const auto* P=Presentation.Find(I.InstanceId);P&&P->StaffArt)ColdSteelStaffIcon::FrameImportedTexture(Brush,Texture);
+        IconBrushes.Add(I.Definition,Brush);
     }
     for(const auto& B:Model->QuickBindings())
     {

@@ -1,6 +1,9 @@
 #include "../Weapons/Bow/BowAssembly.h"
 #include "ColdSteelWeaponIcons.h"
 #include "ColdSteelMeleePreview.h"
+#include "ColdSteelStaffPreview.h"
+#include "../Weapons/Staff/StaffCatalog.h"
+#include "../Weapons/Staff/StaffAssembly.h"
 #include "../Weapons/ModularSwordVisual.h"
 #include "../Weapons/MeleeRuneVisual.h"
 #include "../Weapons/FrostSwordRunes.h"
@@ -47,7 +50,14 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
     };
     Add(TEXT("/Game/UI/GunsmithWorkbench/T_StudioEnvironment"),true);
     const FString& D=Item.Definition;
-    if(ColdSteelInventory::IsBow(Item))
+    if(ColdSteelStaff::IsStaff(Item))
+    {
+        const FGunsmithParts Factory;
+        ColdSteelStaffAssembly::Gather(ColdSteelStaff::Resolve(Item,bCatalogExport?&Factory:nullptr),RequiredResources);
+        RequiredResources.AddUnique(ColdSteelStaffPreview::QuartzMaterialPath());
+        for(const auto& Ref:RequiredResources)Paths.AddUnique(Ref);
+    }
+    else if(ColdSteelInventory::IsBow(Item))
     {
         const FGunsmithParts Factory;
         const auto Resolved=GetGameInstance()->GetSubsystem<UGunsmithSystem>()->ResolveBowVisual(Item,bCatalogExport?&Factory:nullptr);

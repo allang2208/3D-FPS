@@ -1,0 +1,59 @@
+{
+  "basis": "Source layout calculation using actual catalog alpha bounds; not a game screenshot or runtime test",
+  "png_size": [
+    256,
+    1024
+  ],
+  "visible_bounds": [
+    99,
+    46,
+    155,
+    978
+  ],
+  "framed_brush_size": [
+    60,
+    936
+  ],
+  "samples": [
+    {
+      "cell_px": 30,
+      "old_vertical_visible_length": 80.09,
+      "old_horizontal_visible_length": 36.41,
+      "old_horizontal_over_vertical": 0.4545,
+      "new_visible_length_both_orientations": 99.57,
+      "new_visible_thickness_both_orientations": 5.98
+    },
+    {
+      "cell_px": 36,
+      "old_vertical_visible_length": 101.94,
+      "old_horizontal_visible_length": 58.25,
+      "old_horizontal_over_vertical": 0.5714,
+      "new_visible_length_both_orientations": 123.47,
+      "new_visible_thickness_both_orientations": 7.42
+    },
+    {
+      "cell_px": 40,
+      "old_vertical_visible_length": 116.5,
+      "old_horizontal_visible_length": 72.81,
+      "old_horizontal_over_vertical": 0.625,
+      "new_visible_length_both_orientations": 139.4,
+      "new_visible_thickness_both_orientations": 8.38
+    },
+    {
+      "cell_px": 48,
+      "old_vertical_visible_length": 145.62,
+      "old_horizontal_visible_length": 101.94,
+      "old_horizontal_over_vertical": 0.7,
+      "new_visible_length_both_orientations": 171.26,
+      "new_visible_thickness_both_orientations": 10.29
+    },
+    {
+      "cell_px": 60,
+      "old_vertical_visible_length": 189.31,
+      "old_horizontal_visible_length": 145.62,
+      "old_horizontal_over_vertical": 0.7692,
+      "new_visible_length_both_orientations": 219.06,
+      "new_visible_thickness_both_orientations": 13.16
+    }
+  ]
+}

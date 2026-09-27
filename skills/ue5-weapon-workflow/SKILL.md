@@ -25,6 +25,8 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 
 ## 按任务读取
 
+- 长杖系列、六槽改造、自然木杆重建及水晶预览缺失：[长杖模块化制作](references/staff-modular-production.md)。真实部件配方与握点合同共用，世界透光和 UI 覆盖率分别处理。
+
 - 普通／消音开火声、连射变体和仅改音色的响度处理，以及换弹机械 cue 序列、录制音预卷补偿、录音里风声／背景音的识别与处理：[枪械音效与消音分支](references/weapon-audio.md)。
 
 - 枪托／握把快速近战的跨枪适配、腕臂和 recover 衔接：[快速近战接触与收势](../ue5-fps-arms-animation/references/quick-melee-contact-recovery.md)。保留命中时钟与技能合同，以各枪当前待机为归位目标。

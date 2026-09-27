@@ -5,6 +5,8 @@
 #include "ColdSteelMeleePreview.h"
 #include "../Weapons/MeleeRuneVisual.h"
 #include "../Weapons/ModularSwordVisual.h"
+#include "../Weapons/Staff/StaffCatalog.h"
+#include "../Weapons/Staff/StaffAssembly.h"
 #include "ColdSteelPickupStudio.h"
 #include "../Production/ProductionHarvestAssets.h"
 #include "../FPSGAMECharacter.h"
@@ -41,6 +43,7 @@
 bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelInventory::IsBow(I)||ColdSteelMeleePreview::Supports(I)||ProductionHarvestAssets::IsIconSubject(I.Definition)||I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_a762")||I.Definition==TEXT("ue_svd")||I.Definition==TEXT("ue_pkm_lowpoly")||I.Definition==TEXT("ue_qbz191")||I.Definition==TEXT("ue_ash12")||I.Definition==TEXT("ue_m16a2")||(I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_dan_wesson715"));}
 FString UColdSteelWeaponIcons::Key(const FColdSteelItem& I) const
 {
+    if(ColdSteelStaff::IsStaff(I)){const FGunsmithParts Factory;return I.Definition+TEXT("|")+ColdSteelStaff::Resolve(I,bCatalogExport?&Factory:nullptr).Data;}
     if(ColdSteelModularSword::Supports(I))return I.Definition+TEXT("|")+ColdSteelModularSword::Key(I,nullptr,!bCatalogExport);
     if(ColdSteelInventory::IsBow(I))
     {
@@ -100,7 +103,7 @@ void UColdSteelWeaponIcons::Deinitialize()
     ResetPreparation();
     Queue.Empty();Pending.Empty();OnReady.Clear();if(Capture){Capture->TextureTarget=nullptr;Studio->RemoveComponent(Capture);Capture->DestroyComponent();}
     CaptureMeshes.Empty();CaptureMaterials.Empty();CaptureTextures.Empty();
-    if(MeleeMesh){ColdSteelModularSword::Clear(MeleeMesh);Studio->RemoveComponent(MeleeMesh);MeleeMesh->DestroyComponent();MeleeMesh=nullptr;}
+    if(MeleeMesh){ColdSteelStaffAssembly::Clear(MeleeMesh);ColdSteelModularSword::Clear(MeleeMesh);Studio->RemoveComponent(MeleeMesh);MeleeMesh->DestroyComponent();MeleeMesh=nullptr;}
     if(MaterialMesh){Studio->RemoveComponent(MaterialMesh);MaterialMesh->DestroyComponent();MaterialMesh=nullptr;}
     if(BowMesh){ColdSteelBowAssembly::Clear(BowMesh);Studio->RemoveComponent(BowMesh);BowMesh->DestroyComponent();BowMesh=nullptr;}
     Capture=nullptr;Rig=nullptr;Studio.Reset();Target=nullptr;Cache.Empty();PreparedBoundsCache.Empty();Textures.Empty();Failed.Empty();RecentFailures.Empty();Super::Deinitialize();
@@ -487,10 +490,13 @@ bool UColdSteelWeaponIcons::ExportCatalogIcon(const FString& Definition,const FS
     bCatalogExport=true;
     FColdSteelItem Item;Item.Definition=Definition;Item.Data=TEXT("{}");
     FString CatalogText;TSharedPtr<FJsonObject> Catalog;
-    if(FFileHelper::LoadFileToString(CatalogText,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/items.json")))&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(CatalogText),Catalog)&&Catalog)
+    for(const TCHAR* CatalogFile:{TEXT("items.json"),TEXT("staffs.json")})
     {
+        Catalog.Reset();
+        if(!FFileHelper::LoadFileToString(CatalogText,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/CatalogFile))||
+            !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(CatalogText),Catalog)||!Catalog)continue;
         const TSharedPtr<FJsonObject>* Data=nullptr;
-        if(Catalog->TryGetObjectField(Definition,Data)){Item.Data.Reset();FJsonSerializer::Serialize((*Data).ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));}
+        if(Catalog->TryGetObjectField(Definition,Data)){Item.Data.Reset();FJsonSerializer::Serialize((*Data).ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));break;}
     }
     Request(Item);Tick(0.f);
     FAssetCompilingManager::Get().FinishAllCompilation();

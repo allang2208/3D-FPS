@@ -1,0 +1,193 @@
+{
+  "base_commit": "28f221eb9ac8fa6ebe7f2e4ea9d6042c3adff798",
+  "status": "new source handoff; shared gameplay hooks not transplanted",
+  "new_sources": [
+    "Source/FPSGAME/Skills/FPSStaffCasting.cpp",
+    "Source/FPSGAME/UI/ColdSteelStaffPickup.cpp",
+    "Source/FPSGAME/UI/ColdSteelStaffs.cpp",
+    "Source/FPSGAME/UI/M4StaffGunsmith.cpp",
+    "Source/FPSGAME/Weapons/Staff/StaffArmsMeshComponent.cpp",
+    "Source/FPSGAME/Weapons/Staff/StaffArmsMeshComponent.h",
+    "Source/FPSGAME/Weapons/Staff/StaffCastMotion.h",
+    "Source/FPSGAME/Weapons/Staff/StaffFreeHandPose.cpp",
+    "Source/FPSGAME/Weapons/Staff/StaffFreeHandPose.h",
+    "Source/FPSGAME/Weapons/Staff/StaffGripPose.cpp",
+    "Source/FPSGAME/Weapons/Staff/StaffGripPose.h",
+    "Source/FPSGAME/Weapons/Staff/StaffGunsmith.cpp",
+    "Source/FPSGAME/Weapons/Staff/StaffLocomotion.cpp",
+    "Source/FPSGAME/Weapons/Staff/StaffLocomotion.h",
+    "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp",
+    "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.h"
+  ],
+  "shared_local_dependencies": [
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "sha256": "cdc10fbf52c378ef0ea7bfbc6e0ae91680cad70068cff17a70b53ad7dd7b8f46",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "sha256": "267ad7c21a0ffce5aefdd7f91c35d97aee7c13c4e8c5661a0951e1e98c8204e3",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.h",
+      "sha256": "9ab313505fac6f147056b29aeb1bc25a3dd9accb7c13d4b11f0518ed29387d7f",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+      "sha256": "1551ac7ea673b7a1cd23385966bb48e0407176577ff6c21894fb9ccb4797c273",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelFireballModel.cpp",
+      "sha256": "efc5ccc0dd3f75bdc7c69826aa6b2ada1f439eccedba11e1db25049761d854b8",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballComponent.cpp",
+      "sha256": "a5cb8a8568fd891b0082633e8b2d8d36d1b8455b4813397cff9815d891c058c7",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballComponent.h",
+      "sha256": "a630c65ffcbb7ca63f40bf337e2acd7c6bc97e58d0e3a5cf6d60a6f12f4e65b3",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballProjectile.cpp",
+      "sha256": "026ab2d763fbbb4c18bf2f49808e75c3a531157b1430db84a41fab2a4e2c8fbf",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballProjectile.h",
+      "sha256": "ca6c63421e7d9cb94a1d06eca00597562a9ebe1061882d335b9d685cbc79ecc7",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIceSpikeComponent.cpp",
+      "sha256": "fcf4f7900786aa0a87798c8333ddabe7ac10bdcb32c5740688807d4c4ca37e90",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIceSpikeComponent.h",
+      "sha256": "21ed3dec7abc9d4e2d81d6d3c7e5062e39bee2fe884108c76b15a8e4d8ab4412",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIceSpikeVolley.cpp",
+      "sha256": "84445ced27d3abdbab5696c54cd9aaee9f221ff6bf23a2981a069f32b1a06c19",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIceSpikeVolley.h",
+      "sha256": "34eee82286f1ef88d972a0e6ea57fefeffd8a0da25f3de15778127e7b6bb4b7e",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSLightningComponent.cpp",
+      "sha256": "d9abebc7ccf9eba59574519e2fb02558d52de361279c21758d2f51230b953bff",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSMagicPreview.cpp",
+      "sha256": "0b01c8fe8185a904c672e539fdc6a8d7d42c231b8fe9b2f130cd9cf3aa7e50f5",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSMagicPreview.h",
+      "sha256": "6f378bb4248526ce653fdf6ea04cbc368a8f07b296dd09698e34ed7ed6fb5528",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+      "sha256": "59ac630d5dd8032f16ea55b5c6c148e729a4ce53f157279b872b576984881134",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "sha256": "da75adf27ab54887ee0db6e93130c9fe8515def4c7aa0f0ed6c08a474a63e668",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp",
+      "sha256": "a58c68f0d7b5eeafddd15343472f0ef1c89e44de07619adb42268fa3d1a8bdfa",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickup.h",
+      "sha256": "b89dbdf3eac77e33c71e9064c59fa2b9d6e7e1db704bc662c4320b6c4ed698f5",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp",
+      "sha256": "67417ae07a96777df76989a46637d5ea0bddc7ca13e2cd604b8bf6004ff618c9",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "sha256": "7555db30901891aa01972380c4485a9b6c0c3b5170f32ec4f66d0ae6f75e5000",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "sha256": "a0ee2732e05d8b43527a0986afbd66e58850bb0532d4d9d2f32188600ab56317",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+      "sha256": "bed45f4a75d0aeedc4af604638ca27d57a495da666da19207c31f6a30fa380ba",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithLayout.cpp",
+      "sha256": "1ac3671ac1b339ce510fd5a65924aa0c83f83729fb46aeccb4e67213a5aaac35",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithOverview.cpp",
+      "sha256": "1c2189ade68e83eb1fd0a1375e79d1368819881fea8dbc6136c47bb9cc0a5f73",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithPreviewResources.cpp",
+      "sha256": "38c34698b7569c053254db4cadb5ec13ab1202b58cbc201ba26b601e4f21ca99",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+      "sha256": "d651f9fa285bc5bf130c382561dbf97e0d9474ae7a3c18e20455af5d1b963fcc",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithWidget.h",
+      "sha256": "489bb825a44a211c62ccea479d6d7c7350f455a54bcc5f98566b80a654c2d50e",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4MeleePreview.cpp",
+      "sha256": "7f6d0f832258a2821f6b9a52834151928f613ad6310d38012b801a8b8e9395ea",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "sha256": "c3f73f528481e9fc7735616094fde668fe8a342a2cd5f13aeef673b0356d05db",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithSystem.h",
+      "sha256": "aabcb4113c2399ec1201a3b0a7c612bafde089b8da12c7419c4dd3023093a87d",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeGunsmith.cpp",
+      "sha256": "d02f612fc55b7bd035e96861bacd7a7f94258de4fc47ddfaecb69d1b094a9fde",
+      "reason": "Shared uncommitted gameplay/character interface; retain live file, no wholesale publication"
+    }
+  ],
+  "local_generated_headers": [
+    "Source/FPSGAME/Weapons/Staff/StaffAuthoredPoseV13.h",
+    "Source/FPSGAME/Weapons/Staff/StaffAuthoredLeftGaitV16.h"
+  ]
+}

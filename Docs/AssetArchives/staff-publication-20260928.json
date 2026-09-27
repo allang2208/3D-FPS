@@ -1,0 +1,1406 @@
+[
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/ArmSupportV13/Before/StaffGripPose.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/ArmSupportV13/Before/StaffGripPose.cpp",
+    "bytes": 2486,
+    "sha256": "F433871C36DEC8077B843D5AE813C1820E8F54FE90512BEAF22C828FC131DD95",
+    "sha256_after": "F433871C36DEC8077B843D5AE813C1820E8F54FE90512BEAF22C828FC131DD95",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/BowBasedGripV12/Before/StaffArmsMeshComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/BowBasedGripV12/Before/StaffArmsMeshComponent.cpp",
+    "bytes": 6692,
+    "sha256": "CA65CF3149426ABB319F251F1ACAEC7157DB1BE0639D8D4B23D3922368EF9654",
+    "sha256_after": "CA65CF3149426ABB319F251F1ACAEC7157DB1BE0639D8D4B23D3922368EF9654",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/BowBasedGripV12/Before/StaffCastMotion.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/BowBasedGripV12/Before/StaffCastMotion.h",
+    "bytes": 3708,
+    "sha256": "A0DA78EDD984C2234068DBE2D2CD9D2B4BE8D02776D353B5593002B1449EA140",
+    "sha256_after": "A0DA78EDD984C2234068DBE2D2CD9D2B4BE8D02776D353B5593002B1449EA140",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/BowBasedGripV12/Before/StaffGripPose.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/BowBasedGripV12/Before/StaffGripPose.cpp",
+    "bytes": 2800,
+    "sha256": "50C2B5AD827823FCE5FF69C016E62F1160E5A031FE01639C98C073B4D663FA42",
+    "sha256_after": "50C2B5AD827823FCE5FF69C016E62F1160E5A031FE01639C98C073B4D663FA42",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/BowBasedGripV12/Before/StaffGripPose.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/BowBasedGripV12/Before/StaffGripPose.h",
+    "bytes": 468,
+    "sha256": "877E2D4396184777F6A3F84818C013F756EF32BF15980358BAF572D0F442D3E3",
+    "sha256_after": "877E2D4396184777F6A3F84818C013F756EF32BF15980358BAF572D0F442D3E3",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/BowBasedGripV12/Before/StaffLocomotion.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/BowBasedGripV12/Before/StaffLocomotion.h",
+    "bytes": 814,
+    "sha256": "D8F8BC04994D61879E954C232BA7E1DFC0C5ACCA4404EB4D0CF80E41EDC35401",
+    "sha256_after": "D8F8BC04994D61879E954C232BA7E1DFC0C5ACCA4404EB4D0CF80E41EDC35401",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/BowBasedGripV12/Before/StaffWeaponComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/BowBasedGripV12/Before/StaffWeaponComponent.cpp",
+    "bytes": 10694,
+    "sha256": "F8030CE47BF491E4E523DBEAA7E97DED5224F5F050319972E3241D358186D28D",
+    "sha256_after": "F8030CE47BF491E4E523DBEAA7E97DED5224F5F050319972E3241D358186D28D",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/BowBasedGripV12/Before/StaffWeaponComponent.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/BowBasedGripV12/Before/StaffWeaponComponent.h",
+    "bytes": 2075,
+    "sha256": "A8242D6EA50904A7987B4C4479CA952723B60E1AD2E84E1C98E1CB044DB07A5F",
+    "sha256_after": "A8242D6EA50904A7987B4C4479CA952723B60E1AD2E84E1C98E1CB044DB07A5F",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/BranchCrystalV18/Before/Content/ColdSteelData/Icons/apprentice_staff.png",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/BranchCrystalV18/Before/Content/ColdSteelData/Icons/apprentice_staff.png",
+    "bytes": 89509,
+    "sha256": "ADD74E87576EDCACCD44AB32776DB5B5381E945DD0AB65D99859BDE9EF9CCB55",
+    "sha256_after": "ADD74E87576EDCACCD44AB32776DB5B5381E945DD0AB65D99859BDE9EF9CCB55",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/BranchCrystalV18/Before/Content/ColdSteelData/staff-gunsmith.json",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/BranchCrystalV18/Before/Content/ColdSteelData/staff-gunsmith.json",
+    "bytes": 12913,
+    "sha256": "F210597DACF5DB5425C36B759AA24BCC575465B5C8323E4870A05081CB322EE4",
+    "sha256_after": "F210597DACF5DB5425C36B759AA24BCC575465B5C8323E4870A05081CB322EE4",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/BranchCrystalV18/Before/Content/ColdSteelData/staffs.json",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/BranchCrystalV18/Before/Content/ColdSteelData/staffs.json",
+    "bytes": 3097,
+    "sha256": "FCFAB14DE3427809B8F845177BCE5F9C310CEBBB0F17AC689EA4C4F79D6C4FF3",
+    "sha256_after": "FCFAB14DE3427809B8F845177BCE5F9C310CEBBB0F17AC689EA4C4F79D6C4FF3",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/BranchCrystalV18/Before/SourceAssets/ApprenticeStaff20260927/author_staff.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/BranchCrystalV18/Before/SourceAssets/ApprenticeStaff20260927/author_staff.py",
+    "bytes": 4743,
+    "sha256": "CC133D926C69E0539DA37F4E63BAF36E210E6D399072B3044B9D5AB600050DFE",
+    "sha256_after": "CC133D926C69E0539DA37F4E63BAF36E210E6D399072B3044B9D5AB600050DFE",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/BranchCrystalV18/Before/SourceAssets/ApprenticeStaff20260927/import_staff.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/BranchCrystalV18/Before/SourceAssets/ApprenticeStaff20260927/import_staff.py",
+    "bytes": 5677,
+    "sha256": "05F45BD67F374B93B183F6F20729767B28DFCEA2403F7392557D7AE406DEBF9A",
+    "sha256_after": "05F45BD67F374B93B183F6F20729767B28DFCEA2403F7392557D7AE406DEBF9A",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/CameraGripV10/Before/StaffArmsMeshComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/CameraGripV10/Before/StaffArmsMeshComponent.cpp",
+    "bytes": 6686,
+    "sha256": "807C411431731C7077A6693FD45A19C652C5EE1076C82E4FEF3985CDF303B0B5",
+    "sha256_after": "807C411431731C7077A6693FD45A19C652C5EE1076C82E4FEF3985CDF303B0B5",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/CameraGripV10/Before/StaffGripContact.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/CameraGripV10/Before/StaffGripContact.h",
+    "bytes": 1779,
+    "sha256": "981F82323415405636F6C1229E29ABE0AB2E77B99F466D6762BFEDA67A5436EF",
+    "sha256_after": "981F82323415405636F6C1229E29ABE0AB2E77B99F466D6762BFEDA67A5436EF",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/CameraGripV10/Before/StaffGripPose.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/CameraGripV10/Before/StaffGripPose.cpp",
+    "bytes": 2783,
+    "sha256": "007EEB69B39CC17DEF427F79EA028BE3B073F1BD0D754273816F1AD7514B8B29",
+    "sha256_after": "007EEB69B39CC17DEF427F79EA028BE3B073F1BD0D754273816F1AD7514B8B29",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/CameraGripV10/Before/StaffIdlePose.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/CameraGripV10/Before/StaffIdlePose.h",
+    "bytes": 713,
+    "sha256": "20532D9766677F28A520754A0BF018D264C394BA56453CDBB233CF57DB9AC936",
+    "sha256_after": "20532D9766677F28A520754A0BF018D264C394BA56453CDBB233CF57DB9AC936",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/CameraGripV10/Before/StaffWeaponComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/CameraGripV10/Before/StaffWeaponComponent.cpp",
+    "bytes": 10692,
+    "sha256": "57DFC3E1190B0046C88039E1B93575FEBB4306B6E2FE763917F9706A73FBD415",
+    "sha256_after": "57DFC3E1190B0046C88039E1B93575FEBB4306B6E2FE763917F9706A73FBD415",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/ChargeForwardV17/Before/StaffCastMotion.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/ChargeForwardV17/Before/StaffCastMotion.h",
+    "bytes": 4284,
+    "sha256": "72F47DFD602BFC054D351A27F5BE6843F48056DA7B109B311430DF9EBDBAE605",
+    "sha256_after": "72F47DFD602BFC054D351A27F5BE6843F48056DA7B109B311430DF9EBDBAE605",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/ClosedGripV4/Before/author_grasp.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/ClosedGripV4/Before/author_grasp.py",
+    "bytes": 2253,
+    "sha256": "930F6F5EACFA5BECB09214BFD53A56F7598ACEF8AA37DD673EBB9338DEDAC474",
+    "sha256_after": "930F6F5EACFA5BECB09214BFD53A56F7598ACEF8AA37DD673EBB9338DEDAC474",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/ClosedGripV4/Before/StaffGripDonor.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/ClosedGripV4/Before/StaffGripDonor.h",
+    "bytes": 2007,
+    "sha256": "8531663E9E8D391EED335B5C956EDD158B0594E3F1BC488F158F39F790861CD3",
+    "sha256_after": "8531663E9E8D391EED335B5C956EDD158B0594E3F1BC488F158F39F790861CD3",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/ClosedGripV4/Before/StaffGripPose.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/ClosedGripV4/Before/StaffGripPose.cpp",
+    "bytes": 4171,
+    "sha256": "315DFDA1C09C209A1297541F66650E4AA13DE4B892289BC75F6966E36E3B2372",
+    "sha256_after": "315DFDA1C09C209A1297541F66650E4AA13DE4B892289BC75F6966E36E3B2372",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/EquipmentIntegrationV24/Before/Content/ColdSteelData/Icons/apprentice_staff.png",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/EquipmentIntegrationV24/Before/Content/ColdSteelData/Icons/apprentice_staff.png",
+    "bytes": 392720,
+    "sha256": "B921B290F13D386FFF405E6F355B953D9CF50D7330B1AD68EDFFCA5215D183D5",
+    "sha256_after": "B921B290F13D386FFF405E6F355B953D9CF50D7330B1AD68EDFFCA5215D183D5",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/EquipmentIntegrationV24/Before/Content/ColdSteelData/modular_outfits.json",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/EquipmentIntegrationV24/Before/Content/ColdSteelData/modular_outfits.json",
+    "bytes": 54289,
+    "sha256": "20D385084DD5854739C5BB438CF74B4C66543E7DD9521BCFCB5E4BF3AF0744BB",
+    "sha256_after": "20D385084DD5854739C5BB438CF74B4C66543E7DD9521BCFCB5E4BF3AF0744BB",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/EquipmentIntegrationV24/Before/Content/ColdSteelData/staffs.json",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/EquipmentIntegrationV24/Before/Content/ColdSteelData/staffs.json",
+    "bytes": 3118,
+    "sha256": "A131825541E16578DE9D6E61C4FBFF6DFCF92281C9F153B3E6C9F2988D1C18AE",
+    "sha256_after": "A131825541E16578DE9D6E61C4FBFF6DFCF92281C9F153B3E6C9F2988D1C18AE",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/EquipmentIntegrationV24/Before/Source/FPSGAME/UI/ColdSteelIconResources.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/EquipmentIntegrationV24/Before/Source/FPSGAME/UI/ColdSteelIconResources.cpp",
+    "bytes": 15857,
+    "sha256": "F2353862D998AAE4C7679B378ED5A741D1668B018C1C22C365764D8C2AD9B89D",
+    "sha256_after": "F2353862D998AAE4C7679B378ED5A741D1668B018C1C22C365764D8C2AD9B89D",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/EquipmentIntegrationV24/Before/Source/FPSGAME/UI/ColdSteelMeleeIcon.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/EquipmentIntegrationV24/Before/Source/FPSGAME/UI/ColdSteelMeleeIcon.cpp",
+    "bytes": 3920,
+    "sha256": "68904CE210EEF125DC23C952567474CC33F1E648787F866A58517EE3291E95C6",
+    "sha256_after": "68904CE210EEF125DC23C952567474CC33F1E648787F866A58517EE3291E95C6",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/EquipmentIntegrationV24/Before/Source/FPSGAME/UI/ColdSteelWeaponIconCatalogCommandlet.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/EquipmentIntegrationV24/Before/Source/FPSGAME/UI/ColdSteelWeaponIconCatalogCommandlet.cpp",
+    "bytes": 2224,
+    "sha256": "5F1CB2B296FCDC0AC1A8E4C1C4AD6B9D54D7E5FB10D8E5F2ADE7E8EDF876B08B",
+    "sha256_after": "5F1CB2B296FCDC0AC1A8E4C1C4AD6B9D54D7E5FB10D8E5F2ADE7E8EDF876B08B",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/EquipmentIntegrationV24/Before/Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/EquipmentIntegrationV24/Before/Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp",
+    "bytes": 34142,
+    "sha256": "48B27E607C3798B5BFD67BD1B75BB42196CAD1DCC02949A2372450ADE38E7115",
+    "sha256_after": "48B27E607C3798B5BFD67BD1B75BB42196CAD1DCC02949A2372450ADE38E7115",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/EquipmentIntegrationV24/Before/Source/FPSGAME/UI/M4StaffGunsmith.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/EquipmentIntegrationV24/Before/Source/FPSGAME/UI/M4StaffGunsmith.cpp",
+    "bytes": 6024,
+    "sha256": "C3157F27B4A0CA92412114F7FEE64B3E5B0C720165F81BEF89D323E8C4708AE6",
+    "sha256_after": "C3157F27B4A0CA92412114F7FEE64B3E5B0C720165F81BEF89D323E8C4708AE6",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/ForwardGripV6/Before/StaffGripContact.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/ForwardGripV6/Before/StaffGripContact.h",
+    "bytes": 2190,
+    "sha256": "17317549A45FC0883C0ECA15BC2D294BBED0FD949910B4494595FE78558CAADA",
+    "sha256_after": "17317549A45FC0883C0ECA15BC2D294BBED0FD949910B4494595FE78558CAADA",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/ForwardGripV6/Before/StaffGripPose.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/ForwardGripV6/Before/StaffGripPose.cpp",
+    "bytes": 1319,
+    "sha256": "C4810CD18930EC078FD06D70F33D1692571264502F22791452FEA27BBC9A72C8",
+    "sha256_after": "C4810CD18930EC078FD06D70F33D1692571264502F22791452FEA27BBC9A72C8",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/IconFramingV25/Before/Content/ColdSteelData/Icons/apprentice_staff.png",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/IconFramingV25/Before/Content/ColdSteelData/Icons/apprentice_staff.png",
+    "bytes": 9952,
+    "sha256": "F9A9A38B0ED8EAF0E3BC86683BC52C3AE186187A3398F9DF9788E0ABE7DE0B72",
+    "sha256_after": "F9A9A38B0ED8EAF0E3BC86683BC52C3AE186187A3398F9DF9788E0ABE7DE0B72",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/IconFramingV25/Before/Content/ColdSteelData/Icons/ue_apprentice_staff.png",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/IconFramingV25/Before/Content/ColdSteelData/Icons/ue_apprentice_staff.png",
+    "bytes": 9952,
+    "sha256": "F9A9A38B0ED8EAF0E3BC86683BC52C3AE186187A3398F9DF9788E0ABE7DE0B72",
+    "sha256_after": "F9A9A38B0ED8EAF0E3BC86683BC52C3AE186187A3398F9DF9788E0ABE7DE0B72",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/IconFramingV25/Before/Source/FPSGAME/UI/ColdSteelMeleeIcon.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/IconFramingV25/Before/Source/FPSGAME/UI/ColdSteelMeleeIcon.cpp",
+    "bytes": 4588,
+    "sha256": "2D85D8B9961E53068394B7F678AEAAC0DADA161A0F7EB696F6308F44564ECE2C",
+    "sha256_after": "2D85D8B9961E53068394B7F678AEAAC0DADA161A0F7EB696F6308F44564ECE2C",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/IconOrientationV26/Before/Source/FPSGAME/UI/ColdSteelInventoryPresentation.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/IconOrientationV26/Before/Source/FPSGAME/UI/ColdSteelInventoryPresentation.cpp",
+    "bytes": 22379,
+    "sha256": "04102A7DA4033F880EB8FD82CF574DEFD5A514F61C9B2607BD7052FA3BBBE1A2",
+    "sha256_after": "04102A7DA4033F880EB8FD82CF574DEFD5A514F61C9B2607BD7052FA3BBBE1A2",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/IconOrientationV26/Before/Source/FPSGAME/UI/ColdSteelInventoryWidget.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/IconOrientationV26/Before/Source/FPSGAME/UI/ColdSteelInventoryWidget.cpp",
+    "bytes": 34299,
+    "sha256": "CF5592D799E569E7D9D3EAD7FD1EAABC09D7AAC71B78129587D28534908B5E9B",
+    "sha256_after": "CF5592D799E569E7D9D3EAD7FD1EAABC09D7AAC71B78129587D28534908B5E9B",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/IconOrientationV26/Before/Source/FPSGAME/UI/ColdSteelInventoryWidget.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/IconOrientationV26/Before/Source/FPSGAME/UI/ColdSteelInventoryWidget.h",
+    "bytes": 7491,
+    "sha256": "AFF29391AE6B692EF89D5376FB1D94E6B0CC2CBA623B0237F1F0734439633CF5",
+    "sha256_after": "AFF29391AE6B692EF89D5376FB1D94E6B0CC2CBA623B0237F1F0734439633CF5",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/IconOrientationV26/Before/Source/FPSGAME/UI/ColdSteelWeaponIconReadback.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/IconOrientationV26/Before/Source/FPSGAME/UI/ColdSteelWeaponIconReadback.cpp",
+    "bytes": 8586,
+    "sha256": "78832032D54A914ECE0D60823A5C4538F897DDF645EE5027C509E5265E5C727E",
+    "sha256_after": "78832032D54A914ECE0D60823A5C4538F897DDF645EE5027C509E5265E5C727E",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/LeftGaitV15/Before/StaffArmsMeshComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/LeftGaitV15/Before/StaffArmsMeshComponent.cpp",
+    "bytes": 4323,
+    "sha256": "1C890F4DC411478D07D316A3E378E9F2B54D43F1CBE7A03258E4B7641AD6145B",
+    "sha256_after": "1C890F4DC411478D07D316A3E378E9F2B54D43F1CBE7A03258E4B7641AD6145B",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/LeftGaitV15/Before/StaffLocomotion.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/LeftGaitV15/Before/StaffLocomotion.h",
+    "bytes": 859,
+    "sha256": "2569F4F9BE84819CB66C6B492FCE26EBC5D785275BBF3518CFD51902CAB3812F",
+    "sha256_after": "2569F4F9BE84819CB66C6B492FCE26EBC5D785275BBF3518CFD51902CAB3812F",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/LeftGaitV16/Before/StaffArmsMeshComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/LeftGaitV16/Before/StaffArmsMeshComponent.cpp",
+    "bytes": 4686,
+    "sha256": "7508B176E74B6225DF628EDE7C110ECB8E72D6B1C1F01366CCC1A5F1C9C5C6B6",
+    "sha256_after": "7508B176E74B6225DF628EDE7C110ECB8E72D6B1C1F01366CCC1A5F1C9C5C6B6",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/LeftGaitV16/Before/StaffFreeHandPose.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/LeftGaitV16/Before/StaffFreeHandPose.cpp",
+    "bytes": 2017,
+    "sha256": "5CA0E356BBCD2BBF4134AD6C5034834FF83078AF80E9AA31C8AE8707B4B91A06",
+    "sha256_after": "5CA0E356BBCD2BBF4134AD6C5034834FF83078AF80E9AA31C8AE8707B4B91A06",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/LeftGaitV16/Before/StaffFreeHandPose.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/LeftGaitV16/Before/StaffFreeHandPose.h",
+    "bytes": 418,
+    "sha256": "C3F9F8E65D8FDDA615B4B9C2A5E51B94ADB7B5B23B05D6A3E2DD4BB2496FFCDB",
+    "sha256_after": "C3F9F8E65D8FDDA615B4B9C2A5E51B94ADB7B5B23B05D6A3E2DD4BB2496FFCDB",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/LeftGaitV16/Before/StaffLocomotion.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/LeftGaitV16/Before/StaffLocomotion.h",
+    "bytes": 950,
+    "sha256": "BE00770C50862684A3D8EDB014880CF9DDAA2450BA731EA22F885272555335A7",
+    "sha256_after": "BE00770C50862684A3D8EDB014880CF9DDAA2450BA731EA22F885272555335A7",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/NaturalCarryV5/Before/StaffArmsMeshComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/NaturalCarryV5/Before/StaffArmsMeshComponent.cpp",
+    "bytes": 5436,
+    "sha256": "EEC66A96A13804B38B44CFBCD1E2980473B5EF9A67080EC3D7DC8EE27A9C924E",
+    "sha256_after": "EEC66A96A13804B38B44CFBCD1E2980473B5EF9A67080EC3D7DC8EE27A9C924E",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/NaturalCarryV5/Before/StaffGripPose.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/NaturalCarryV5/Before/StaffGripPose.cpp",
+    "bytes": 3635,
+    "sha256": "14558636B4AC3CC50F58244E66FB7A01414B1E4AE0EACFCFA03299CBAF3B4861",
+    "sha256_after": "14558636B4AC3CC50F58244E66FB7A01414B1E4AE0EACFCFA03299CBAF3B4861",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/NaturalCarryV5/Before/StaffWeaponComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/NaturalCarryV5/Before/StaffWeaponComponent.cpp",
+    "bytes": 9339,
+    "sha256": "D9D862F35D6CC4083381432A3BEE7C93393EF0ACB1036F97E561944238F37660",
+    "sha256_after": "D9D862F35D6CC4083381432A3BEE7C93393EF0ACB1036F97E561944238F37660",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/NaturalCarryV5/Before/StaffWeaponComponent.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/NaturalCarryV5/Before/StaffWeaponComponent.h",
+    "bytes": 1703,
+    "sha256": "ABFD4DD452692AB5B17AD37EFF5B84366CCDF1321B497AD36C74CE4F6811003D",
+    "sha256_after": "ABFD4DD452692AB5B17AD37EFF5B84366CCDF1321B497AD36C74CE4F6811003D",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/NaturalIdleV8/Before/StaffArmsMeshComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/NaturalIdleV8/Before/StaffArmsMeshComponent.cpp",
+    "bytes": 5711,
+    "sha256": "02B72B5FBE8F01838C658D93D20CC68EDFC52D66BBD98593F9569DC4A75CDDEA",
+    "sha256_after": "02B72B5FBE8F01838C658D93D20CC68EDFC52D66BBD98593F9569DC4A75CDDEA",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/NaturalIdleV8/Before/StaffCastMotion.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/NaturalIdleV8/Before/StaffCastMotion.h",
+    "bytes": 3708,
+    "sha256": "A0DA78EDD984C2234068DBE2D2CD9D2B4BE8D02776D353B5593002B1449EA140",
+    "sha256_after": "A0DA78EDD984C2234068DBE2D2CD9D2B4BE8D02776D353B5593002B1449EA140",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/NaturalIdleV8/Before/StaffGripContact.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/NaturalIdleV8/Before/StaffGripContact.h",
+    "bytes": 1692,
+    "sha256": "C5A0F7C2B6C6EB2F5E9CCFA7C1FD14ACAF588553A58327D52490304AC2EC041E",
+    "sha256_after": "C5A0F7C2B6C6EB2F5E9CCFA7C1FD14ACAF588553A58327D52490304AC2EC041E",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/NaturalIdleV8/Before/StaffGripPose.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/NaturalIdleV8/Before/StaffGripPose.cpp",
+    "bytes": 4093,
+    "sha256": "F2B6827EE109763484B2BA4E15C12D680F902A0456FB2857D28CC702F307EF0E",
+    "sha256_after": "F2B6827EE109763484B2BA4E15C12D680F902A0456FB2857D28CC702F307EF0E",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/NaturalIdleV8/Before/StaffWeaponComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/NaturalIdleV8/Before/StaffWeaponComponent.cpp",
+    "bytes": 10454,
+    "sha256": "EAE4E32BDE245C367F20256DB8E05F47480B73AF5DA0E6136B6324FA641B5124",
+    "sha256_after": "EAE4E32BDE245C367F20256DB8E05F47480B73AF5DA0E6136B6324FA641B5124",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/PhotoGripV9/Before/StaffArmsMeshComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/PhotoGripV9/Before/StaffArmsMeshComponent.cpp",
+    "bytes": 6808,
+    "sha256": "6DE338195971E2B8DD8A8D4824E3704F5CFFA773A72BAE30184A7390DF4D010E",
+    "sha256_after": "6DE338195971E2B8DD8A8D4824E3704F5CFFA773A72BAE30184A7390DF4D010E",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/PhotoGripV9/Before/StaffGripContact.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/PhotoGripV9/Before/StaffGripContact.h",
+    "bytes": 1614,
+    "sha256": "DA118B178F197C2CEC0ABB55D8E49B386386BF4DA456D38641125A127BF35F27",
+    "sha256_after": "DA118B178F197C2CEC0ABB55D8E49B386386BF4DA456D38641125A127BF35F27",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/PhotoGripV9/Before/StaffGripPose.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/PhotoGripV9/Before/StaffGripPose.cpp",
+    "bytes": 4093,
+    "sha256": "F2B6827EE109763484B2BA4E15C12D680F902A0456FB2857D28CC702F307EF0E",
+    "sha256_after": "F2B6827EE109763484B2BA4E15C12D680F902A0456FB2857D28CC702F307EF0E",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/PhotoGripV9/Before/StaffIdlePose.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/PhotoGripV9/Before/StaffIdlePose.h",
+    "bytes": 796,
+    "sha256": "6A26755EBD69AB87F15CD5E983EAA41C443DC4883FD45D3E3E59AD387C51B54F",
+    "sha256_after": "6A26755EBD69AB87F15CD5E983EAA41C443DC4883FD45D3E3E59AD387C51B54F",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/PhotoGripV9/Before/StaffWeaponComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/PhotoGripV9/Before/StaffWeaponComponent.cpp",
+    "bytes": 10688,
+    "sha256": "BE1461022C482E0F39ED8A7F7EC465BAFE726EB39190ED8D4AFB218DFE652D82",
+    "sha256_after": "BE1461022C482E0F39ED8A7F7EC465BAFE726EB39190ED8D4AFB218DFE652D82",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/apprentice_staff.png",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/apprentice_staff.png",
+    "bytes": 393591,
+    "sha256": "C6FF3CE0FFE2A064F3341A096D6331835DE52C57091252FAA216849704424DCC",
+    "sha256_after": "C6FF3CE0FFE2A064F3341A096D6331835DE52C57091252FAA216849704424DCC",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Source/FPSGAME/Skills/FPSFireballComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Source/FPSGAME/Skills/FPSFireballComponent.cpp",
+    "bytes": 27175,
+    "sha256": "B5BC5CD7D94FD74D14B95C0E3371F944340C87999EFC24291E84A6061520E8C5",
+    "sha256_after": "B5BC5CD7D94FD74D14B95C0E3371F944340C87999EFC24291E84A6061520E8C5",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Source/FPSGAME/Skills/FPSFireballComponent.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Source/FPSGAME/Skills/FPSFireballComponent.h",
+    "bytes": 7908,
+    "sha256": "B85F6CCEC352314339E873B15DD7E6F8E0E9552AAD5E8701DF09D02983E8F677",
+    "sha256_after": "B85F6CCEC352314339E873B15DD7E6F8E0E9552AAD5E8701DF09D02983E8F677",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Source/FPSGAME/Skills/FPSFireballProjectile.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Source/FPSGAME/Skills/FPSFireballProjectile.cpp",
+    "bytes": 14445,
+    "sha256": "98D5A57B9BE2FAE942BD3276FE06B236903D9B6B78FA8D848BC0AE3323644E76",
+    "sha256_after": "98D5A57B9BE2FAE942BD3276FE06B236903D9B6B78FA8D848BC0AE3323644E76",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Source/FPSGAME/Skills/FPSFireballProjectile.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Source/FPSGAME/Skills/FPSFireballProjectile.h",
+    "bytes": 3100,
+    "sha256": "76F9EC4C40837FFFD957AFDA2BDAEA32245FBACE4E4C0467F3C718216A703DC9",
+    "sha256_after": "76F9EC4C40837FFFD957AFDA2BDAEA32245FBACE4E4C0467F3C718216A703DC9",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Source/FPSGAME/Skills/FPSIceSpikeComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Source/FPSGAME/Skills/FPSIceSpikeComponent.cpp",
+    "bytes": 9236,
+    "sha256": "7B738734485BD266D54B87E2643F0C57AAE60BBD9064DEA1B92B671B9AA5E060",
+    "sha256_after": "7B738734485BD266D54B87E2643F0C57AAE60BBD9064DEA1B92B671B9AA5E060",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Source/FPSGAME/Skills/FPSIceSpikeComponent.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Source/FPSGAME/Skills/FPSIceSpikeComponent.h",
+    "bytes": 2479,
+    "sha256": "844200E04CA8072412035AC7985550F7332AB2C1DA8F72AEBA496101915EC98C",
+    "sha256_after": "844200E04CA8072412035AC7985550F7332AB2C1DA8F72AEBA496101915EC98C",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Source/FPSGAME/Skills/FPSIceSpikeVolley.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Source/FPSGAME/Skills/FPSIceSpikeVolley.cpp",
+    "bytes": 21363,
+    "sha256": "6EC1A0DB4A48CFD8C16D3C196383380CDC9F585B568B6B1E7E032F2523ADBB82",
+    "sha256_after": "6EC1A0DB4A48CFD8C16D3C196383380CDC9F585B568B6B1E7E032F2523ADBB82",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Source/FPSGAME/Skills/FPSIceSpikeVolley.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Source/FPSGAME/Skills/FPSIceSpikeVolley.h",
+    "bytes": 3563,
+    "sha256": "369F5129F5630971240103218C7B2BCE0382E687483C7A1FB9A07BF4968DD6BB",
+    "sha256_after": "369F5129F5630971240103218C7B2BCE0382E687483C7A1FB9A07BF4968DD6BB",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Source/FPSGAME/Skills/FPSMagicPreview.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Source/FPSGAME/Skills/FPSMagicPreview.cpp",
+    "bytes": 6651,
+    "sha256": "F6F259267DEC38BAB8091770FE381770C92A3DB7005408C6F051BEFA3AFFD997",
+    "sha256_after": "F6F259267DEC38BAB8091770FE381770C92A3DB7005408C6F051BEFA3AFFD997",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Source/FPSGAME/Skills/FPSMagicPreview.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Source/FPSGAME/Skills/FPSMagicPreview.h",
+    "bytes": 3134,
+    "sha256": "EEBEA7869A590C76F34404F840D2105EBA199E3816EB9BDF5609FA3149A3EEA9",
+    "sha256_after": "EEBEA7869A590C76F34404F840D2105EBA199E3816EB9BDF5609FA3149A3EEA9",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp",
+    "bytes": 10232,
+    "sha256": "03A3BBDB0D0142A7CB5728BFB3DDE5124B2980B1879AF12EE4495A41FC4FEA79",
+    "sha256_after": "03A3BBDB0D0142A7CB5728BFB3DDE5124B2980B1879AF12EE4495A41FC4FEA79",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/SourceAssets/ApprenticeStaff20260927/BarkRebuildV21/author_model.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/SourceAssets/ApprenticeStaff20260927/BarkRebuildV21/author_model.py",
+    "bytes": 18413,
+    "sha256": "4C5B0965AF2D88E436BC445E2828141A6D3233A292206D7B4FB04F5468B197B6",
+    "sha256_after": "4C5B0965AF2D88E436BC445E2828141A6D3233A292206D7B4FB04F5468B197B6",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/SourceAssets/ApprenticeStaff20260927/BarkRebuildV21/import_model.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/SourceAssets/ApprenticeStaff20260927/BarkRebuildV21/import_model.py",
+    "bytes": 7188,
+    "sha256": "C1F42FEAEFAEC1D6788AA9EBD3220B52052C9841A97B8A5EFB6711CAE7682BC2",
+    "sha256_after": "C1F42FEAEFAEC1D6788AA9EBD3220B52052C9841A97B8A5EFB6711CAE7682BC2",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Staff_NaturalBark_V21.blend",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzAimV22/Before/Staff_NaturalBark_V21.blend",
+    "bytes": 93996473,
+    "sha256": "B71DE46A260AD16BD66B77BEFAF0505E476646780177F29EAE9CAFF3D673910C",
+    "sha256_after": "B71DE46A260AD16BD66B77BEFAF0505E476646780177F29EAE9CAFF3D673910C",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzMilkV20/Before/author_model.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzMilkV20/Before/author_model.py",
+    "bytes": 17838,
+    "sha256": "7679EB45F2640469C629A30BAF988EFC021994203FB5E234683A4A7CA8A673E6",
+    "sha256_after": "7679EB45F2640469C629A30BAF988EFC021994203FB5E234683A4A7CA8A673E6",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzMilkV20/Before/Export/apprentice_staff.png",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzMilkV20/Before/Export/apprentice_staff.png",
+    "bytes": 397473,
+    "sha256": "7A1E612C25D8AA2DF8739A51EC2C4ED4B792618B67057BB1A883CC78F9F41E99",
+    "sha256_after": "7A1E612C25D8AA2DF8739A51EC2C4ED4B792618B67057BB1A883CC78F9F41E99",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzMilkV20/Before/Export/meshes.json",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzMilkV20/Before/Export/meshes.json",
+    "bytes": 7571,
+    "sha256": "BD34E0DA194100C49D15376C4AA93956E4CFB363FB61EB8E9BC26449AC486D80",
+    "sha256_after": "BD34E0DA194100C49D15376C4AA93956E4CFB363FB61EB8E9BC26449AC486D80",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzMilkV20/Before/Export/SM_Staff_Base.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzMilkV20/Before/Export/SM_Staff_Base.fbx",
+    "bytes": 1319980,
+    "sha256": "72951F2C7033C84A5594980DEB24B33A75613B6A398C98B9DEDC2A83B1D99AA2",
+    "sha256_after": "72951F2C7033C84A5594980DEB24B33A75613B6A398C98B9DEDC2A83B1D99AA2",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzMilkV20/Before/Export/SM_Staff_head_crystal_false.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzMilkV20/Before/Export/SM_Staff_head_crystal_false.fbx",
+    "bytes": 35740,
+    "sha256": "24831D1E82BEE0C124CAA6102E546EC95867D9DA74677E3E429DE2CA06A63EE0",
+    "sha256_after": "24831D1E82BEE0C124CAA6102E546EC95867D9DA74677E3E429DE2CA06A63EE0",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzMilkV20/Before/import_model.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzMilkV20/Before/import_model.py",
+    "bytes": 11320,
+    "sha256": "D95E477EF5984766381A2849BBAA24367CA6412D628672CA6D892A9FA51BDAFB",
+    "sha256_after": "D95E477EF5984766381A2849BBAA24367CA6412D628672CA6D892A9FA51BDAFB",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzMilkV20/Before/runtime_apprentice_staff.png",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzMilkV20/Before/runtime_apprentice_staff.png",
+    "bytes": 397473,
+    "sha256": "7A1E612C25D8AA2DF8739A51EC2C4ED4B792618B67057BB1A883CC78F9F41E99",
+    "sha256_after": "7A1E612C25D8AA2DF8739A51EC2C4ED4B792618B67057BB1A883CC78F9F41E99",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzMilkV20/Before/Staff_SolidCrystal_V19.blend",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/QuartzMilkV20/Before/Staff_SolidCrystal_V19.blend",
+    "bytes": 93012633,
+    "sha256": "CAABB2CEC8128F5A03C9B9EC03F969B29CA4A3CC475840330A2B81B6D819EE4F",
+    "sha256_after": "CAABB2CEC8128F5A03C9B9EC03F969B29CA4A3CC475840330A2B81B6D819EE4F",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/apprentice_staff_modular.blend",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/apprentice_staff_modular.blend",
+    "bytes": 22715118,
+    "sha256": "5DB4E240D5CF7F307D4CDB23833590D06D92624CC5B54578C9678B001384E41E",
+    "sha256_after": "5DB4E240D5CF7F307D4CDB23833590D06D92624CC5B54578C9678B001384E41E",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/author_staff.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/author_staff.py",
+    "bytes": 8657,
+    "sha256": "9B848A1A99C5D0E0BFFC09CDAF62D88312F56FA8575822FF81FDC99A54F3EEC1",
+    "sha256_after": "9B848A1A99C5D0E0BFFC09CDAF62D88312F56FA8575822FF81FDC99A54F3EEC1",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/anchors.json",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/anchors.json",
+    "bytes": 374,
+    "sha256": "0F973119A863FF06AD1ED229B380A39A51D118AB915A4DC61512386D3C5B1E3C",
+    "sha256_after": "0F973119A863FF06AD1ED229B380A39A51D118AB915A4DC61512386D3C5B1E3C",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/meshes.json",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/meshes.json",
+    "bytes": 5612,
+    "sha256": "79E02F0139F7FE3C37C45A1221C83A99A93A28124C8571F7875ACBD34C273FBB",
+    "sha256_after": "79E02F0139F7FE3C37C45A1221C83A99A93A28124C8571F7875ACBD34C273FBB",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_Base.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_Base.fbx",
+    "bytes": 749740,
+    "sha256": "7E6E75FD9189118629A55E7CC88D06A4960BD9B15D31FA9296606CB51FB78655",
+    "sha256_after": "7E6E75FD9189118629A55E7CC88D06A4960BD9B15D31FA9296606CB51FB78655",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_Body.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_Body.fbx",
+    "bytes": 355484,
+    "sha256": "8EA71FB7375CE5E3967111764482E4D73D13CE46C211B16A44C002594C0B937B",
+    "sha256_after": "8EA71FB7375CE5E3967111764482E4D73D13CE46C211B16A44C002594C0B937B",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_crown_current_crown.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_crown_current_crown.fbx",
+    "bytes": 31228,
+    "sha256": "0B9966748A24FDDD611C80BF5DEE7B6C0C57A497C17ACE74BCF905CB989C73BA",
+    "sha256_after": "0B9966748A24FDDD611C80BF5DEE7B6C0C57A497C17ACE74BCF905CB989C73BA",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_crown_heat_crown.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_crown_heat_crown.fbx",
+    "bytes": 31212,
+    "sha256": "86A05CA27B2DD6A515EA236B02822E8D48FA74985C9F3DF4EB75926CA073F5B5",
+    "sha256_after": "86A05CA27B2DD6A515EA236B02822E8D48FA74985C9F3DF4EB75926CA073F5B5",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_crown_spike_crown.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_crown_spike_crown.fbx",
+    "bytes": 31212,
+    "sha256": "77BADD8C1A547EF1A1E04EF401F08281652E38365A7B39F636745FCCE9556863",
+    "sha256_after": "77BADD8C1A547EF1A1E04EF401F08281652E38365A7B39F636745FCCE9556863",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_crown_wreath_crown.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_crown_wreath_crown.fbx",
+    "bytes": 42732,
+    "sha256": "8BD3B75400CEA0DB0F84FAC23ADA80AB67D811DDBD3F577108F3D365B3E705B0",
+    "sha256_after": "8BD3B75400CEA0DB0F84FAC23ADA80AB67D811DDBD3F577108F3D365B3E705B0",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_grip_lining_alloy_grip.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_grip_lining_alloy_grip.fbx",
+    "bytes": 99820,
+    "sha256": "F9707AEEC34EF7D51D707BEAD86F17AC7CB61EA1AC2D50365851A5A3603D84BF",
+    "sha256_after": "F9707AEEC34EF7D51D707BEAD86F17AC7CB61EA1AC2D50365851A5A3603D84BF",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_grip_lining_false.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_grip_lining_false.fbx",
+    "bytes": 70764,
+    "sha256": "4C6540FB3C7F5A997B168AE110F152934FAE18BBA083D60AD66FCCECDBB94F72",
+    "sha256_after": "4C6540FB3C7F5A997B168AE110F152934FAE18BBA083D60AD66FCCECDBB94F72",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_grip_lining_pine_grip.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_grip_lining_pine_grip.fbx",
+    "bytes": 35308,
+    "sha256": "A5970BB67F9C40541CCA27FA1C042743CFDB2DB828BD336A26C51B987AF5D970",
+    "sha256_after": "A5970BB67F9C40541CCA27FA1C042743CFDB2DB828BD336A26C51B987AF5D970",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_grip_lining_sandalwood_grip.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_grip_lining_sandalwood_grip.fbx",
+    "bytes": 35324,
+    "sha256": "5116E25684F13EDE39A4CC91FD978B2086E8BC8EF15F24B4AD04DE5A2437456D",
+    "sha256_after": "5116E25684F13EDE39A4CC91FD978B2086E8BC8EF15F24B4AD04DE5A2437456D",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_head_crystal_false.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_head_crystal_false.fbx",
+    "bytes": 382892,
+    "sha256": "75501BFC022DA1A7E452FFCF5BF100FE4BE6D0D22BB3C8B2DD7854B401684DD0",
+    "sha256_after": "75501BFC022DA1A7E452FFCF5BF100FE4BE6D0D22BB3C8B2DD7854B401684DD0",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_head_crystal_frozen_crystal.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_head_crystal_frozen_crystal.fbx",
+    "bytes": 27548,
+    "sha256": "8B340C1AF0131C8C633C26F53D620C1FC9EB8C1E6FC6777CF311113CBC589461",
+    "sha256_after": "8B340C1AF0131C8C633C26F53D620C1FC9EB8C1E6FC6777CF311113CBC589461",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_head_crystal_jade_spirit_crystal.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_head_crystal_jade_spirit_crystal.fbx",
+    "bytes": 29900,
+    "sha256": "849DB3B2C08BD53297308D5979DE3540EA911F005D17881F8D1B1DFBF02FB5CC",
+    "sha256_after": "849DB3B2C08BD53297308D5979DE3540EA911F005D17881F8D1B1DFBF02FB5CC",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_head_crystal_magma_core.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_head_crystal_magma_core.fbx",
+    "bytes": 29868,
+    "sha256": "549529056849867A9A715CC6AB930A34E39B54236E0EE99596582A6A571D2E3A",
+    "sha256_after": "549529056849867A9A715CC6AB930A34E39B54236E0EE99596582A6A571D2E3A",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_head_crystal_storm_core.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_head_crystal_storm_core.fbx",
+    "bytes": 29868,
+    "sha256": "29C6EC8D48E1473A4ABBD80E1290DCC5D740140177F92565783C142A5689CE8D",
+    "sha256_after": "29C6EC8D48E1473A4ABBD80E1290DCC5D740140177F92565783C142A5689CE8D",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_mana_line_chain_mana.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_mana_line_chain_mana.fbx",
+    "bytes": 51996,
+    "sha256": "43807898FBCE2432F5DFE43B23116EA47C84E15D7B16EFAE0B496945D5D955F6",
+    "sha256_after": "43807898FBCE2432F5DFE43B23116EA47C84E15D7B16EFAE0B496945D5D955F6",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_mana_line_direct_mana.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_mana_line_direct_mana.fbx",
+    "bytes": 35020,
+    "sha256": "E9C15A5F18547697B4EF93A21D8569DD4CB37D094BB6A170732EEE410D891588",
+    "sha256_after": "E9C15A5F18547697B4EF93A21D8569DD4CB37D094BB6A170732EEE410D891588",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_shaft_rune_crit_rune.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_shaft_rune_crit_rune.fbx",
+    "bytes": 52620,
+    "sha256": "DFDF5D4E1BB42F5FE4A1E200B69A4DEA9FB707AAAE061F712F190B2A81DF70DF",
+    "sha256_after": "DFDF5D4E1BB42F5FE4A1E200B69A4DEA9FB707AAAE061F712F190B2A81DF70DF",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_shaft_rune_eagle_eye_rune.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_shaft_rune_eagle_eye_rune.fbx",
+    "bytes": 52620,
+    "sha256": "17B89FDBA99820853ADEF9530A967B91D0451FB7A9FB3241970BE925E8BA6099",
+    "sha256_after": "17B89FDBA99820853ADEF9530A967B91D0451FB7A9FB3241970BE925E8BA6099",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_shaft_rune_storm_rune.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_shaft_rune_storm_rune.fbx",
+    "bytes": 43916,
+    "sha256": "95696C030B99D7E71AF2D5B1B15F37DC85BEF5BAEB8AA7ADE401306FDE0894E9",
+    "sha256_after": "95696C030B99D7E71AF2D5B1B15F37DC85BEF5BAEB8AA7ADE401306FDE0894E9",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_tail_charm_flame_pendant.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_tail_charm_flame_pendant.fbx",
+    "bytes": 30444,
+    "sha256": "A4B23C63CCB2DB43B6EF18934011EEA46583071B3A7B7BAE3BF1413D1647328F",
+    "sha256_after": "A4B23C63CCB2DB43B6EF18934011EEA46583071B3A7B7BAE3BF1413D1647328F",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_tail_charm_ice_soul_pendant.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_tail_charm_ice_soul_pendant.fbx",
+    "bytes": 30444,
+    "sha256": "2835045B73BD8A202525B10DC765AF2B35298007846DAA69B118DDBA23F3C342",
+    "sha256_after": "2835045B73BD8A202525B10DC765AF2B35298007846DAA69B118DDBA23F3C342",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_tail_charm_purification_vine.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_tail_charm_purification_vine.fbx",
+    "bytes": 30444,
+    "sha256": "096AF4C8D18E75D0377014C49BAC14CBB5594E155E46E8662ABC50B2D58F05D2",
+    "sha256_after": "096AF4C8D18E75D0377014C49BAC14CBB5594E155E46E8662ABC50B2D58F05D2",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_tail_charm_thunder_bell.fbx",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/Export/SM_Staff_tail_charm_thunder_bell.fbx",
+    "bytes": 28652,
+    "sha256": "16F24ABAD9E45CF66AF5E27F3DCFC2CDB0FE15A66FAD48FAD4951365FD0296E0",
+    "sha256_after": "16F24ABAD9E45CF66AF5E27F3DCFC2CDB0FE15A66FAD48FAD4951365FD0296E0",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/Before/import_staff.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/Before/import_staff.py",
+    "bytes": 5191,
+    "sha256": "0AE0A475A9CC22BAA53E0230B9DD5EC850B3AE908400977322E38DB8D465066A",
+    "sha256_after": "0AE0A475A9CC22BAA53E0230B9DD5EC850B3AE908400977322E38DB8D465066A",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RightCarryV14/Before/StaffCastMotion.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RightCarryV14/Before/StaffCastMotion.h",
+    "bytes": 4006,
+    "sha256": "D60779F78B3520BD0144D205EC05555E8F314CDFAA6B2A07443AB90EE543F69A",
+    "sha256_after": "D60779F78B3520BD0144D205EC05555E8F314CDFAA6B2A07443AB90EE543F69A",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RightCarryV14/Before/StaffWeaponComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RightCarryV14/Before/StaffWeaponComponent.cpp",
+    "bytes": 10834,
+    "sha256": "D59C2477632E577C7B7D8B2491E93C0F0ABAD896CECE04FD8A13CB0B838E4A1D",
+    "sha256_after": "D59C2477632E577C7B7D8B2491E93C0F0ABAD896CECE04FD8A13CB0B838E4A1D",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SolidRepairV19/Before/Content/ColdSteelData/Icons/apprentice_staff.png",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/SolidRepairV19/Before/Content/ColdSteelData/Icons/apprentice_staff.png",
+    "bytes": 431376,
+    "sha256": "AB2160CACD7C39F4033308934AF0474A582479F4C72A495334CCDA1F21AE4BED",
+    "sha256_after": "AB2160CACD7C39F4033308934AF0474A582479F4C72A495334CCDA1F21AE4BED",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SolidRepairV19/Before/SourceAssets/ApprenticeStaff20260927/author_staff.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/SolidRepairV19/Before/SourceAssets/ApprenticeStaff20260927/author_staff.py",
+    "bytes": 4949,
+    "sha256": "534B6E11A5D588A5D2133AA0B7DF0AB6F935DD87DE3436E5EF9FC1812305E0A9",
+    "sha256_after": "534B6E11A5D588A5D2133AA0B7DF0AB6F935DD87DE3436E5EF9FC1812305E0A9",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SolidRepairV19/Before/SourceAssets/ApprenticeStaff20260927/import_staff.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/SolidRepairV19/Before/SourceAssets/ApprenticeStaff20260927/import_staff.py",
+    "bytes": 5956,
+    "sha256": "D817570110E670EFD307952449B2902B73C847BBE213D5FEAE405FF483C3D78D",
+    "sha256_after": "D817570110E670EFD307952449B2902B73C847BBE213D5FEAE405FF483C3D78D",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/StaffCastingV7/Before/FPSFireballComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/StaffCastingV7/Before/FPSFireballComponent.cpp",
+    "bytes": 27610,
+    "sha256": "76F67DB63C1275897E0F31599AB7F614FC28EB98D9FD1669FABBDB1E1CD629C9",
+    "sha256_after": "76F67DB63C1275897E0F31599AB7F614FC28EB98D9FD1669FABBDB1E1CD629C9",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/StaffCastingV7/Before/FPSFireballComponent.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/StaffCastingV7/Before/FPSFireballComponent.h",
+    "bytes": 7069,
+    "sha256": "28DD7F669C006BBB6B0C863BBE3FB5815C1B2A9E92D5643FC5EA933DFAE7C5E7",
+    "sha256_after": "28DD7F669C006BBB6B0C863BBE3FB5815C1B2A9E92D5643FC5EA933DFAE7C5E7",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/StaffCastingV7/Before/FPSFireMagicComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/StaffCastingV7/Before/FPSFireMagicComponent.cpp",
+    "bytes": 17450,
+    "sha256": "BCA4EF8C74AD02C50F30A3A7ECF7F36C4090DB9AA4DD05FD364226275D6296CE",
+    "sha256_after": "BCA4EF8C74AD02C50F30A3A7ECF7F36C4090DB9AA4DD05FD364226275D6296CE",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/StaffCastingV7/Before/FPSGAMECharacter.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/StaffCastingV7/Before/FPSGAMECharacter.cpp",
+    "bytes": 198279,
+    "sha256": "A3D4ECC4838DBDFC59FD92B9BE6E2393797C3F7CFB4D150BADDE52001DA346E5",
+    "sha256_after": "A3D4ECC4838DBDFC59FD92B9BE6E2393797C3F7CFB4D150BADDE52001DA346E5",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/StaffCastingV7/Before/FPSHolyLightComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/StaffCastingV7/Before/FPSHolyLightComponent.cpp",
+    "bytes": 9886,
+    "sha256": "A9238393D254FF6C925E9E7A1E282BECC5C6C394ABD0EF8D1CBB582562DB31FB",
+    "sha256_after": "A9238393D254FF6C925E9E7A1E282BECC5C6C394ABD0EF8D1CBB582562DB31FB",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/StaffCastingV7/Before/FPSIceSpikeComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/StaffCastingV7/Before/FPSIceSpikeComponent.cpp",
+    "bytes": 9236,
+    "sha256": "EDFD58D0A367EE924B81CCCAC0DD2795DB4963D3AD80CD7518F95DC5A201FF3D",
+    "sha256_after": "EDFD58D0A367EE924B81CCCAC0DD2795DB4963D3AD80CD7518F95DC5A201FF3D",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/StaffCastingV7/Before/FPSLightningComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/StaffCastingV7/Before/FPSLightningComponent.cpp",
+    "bytes": 12965,
+    "sha256": "E8FECC5BA530CB7F7EA00B579F2AD632AF9921DF146346C0DC9F908BCB548097",
+    "sha256_after": "E8FECC5BA530CB7F7EA00B579F2AD632AF9921DF146346C0DC9F908BCB548097",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/StaffCastingV7/Before/StaffArmsMeshComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/StaffCastingV7/Before/StaffArmsMeshComponent.cpp",
+    "bytes": 5684,
+    "sha256": "3232C7FC920091C1D9CA5C219AA5BFBFB0D5018BD9392A63C9BFA6575FBFA8CC",
+    "sha256_after": "3232C7FC920091C1D9CA5C219AA5BFBFB0D5018BD9392A63C9BFA6575FBFA8CC",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/StaffCastingV7/Before/StaffArmsMeshComponent.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/StaffCastingV7/Before/StaffArmsMeshComponent.h",
+    "bytes": 473,
+    "sha256": "45914F45BFBED62B5E76EDC6FD837BF6F54F862ECC50D8853AD7BCA7BDEBBB61",
+    "sha256_after": "45914F45BFBED62B5E76EDC6FD837BF6F54F862ECC50D8853AD7BCA7BDEBBB61",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/StaffCastingV7/Before/StaffWeaponComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/StaffCastingV7/Before/StaffWeaponComponent.cpp",
+    "bytes": 9885,
+    "sha256": "7FE9949BEF28CF91CE0E4A8ED1ACA4E21A8D368B05620D1A639487CA7B91E5F0",
+    "sha256_after": "7FE9949BEF28CF91CE0E4A8ED1ACA4E21A8D368B05620D1A639487CA7B91E5F0",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/StaffCastingV7/Before/StaffWeaponComponent.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/StaffCastingV7/Before/StaffWeaponComponent.h",
+    "bytes": 1920,
+    "sha256": "D161FF5EFD35BB506CD345DAF2EEDE2C7732A2EEC294D605C6B7D28CAD697614",
+    "sha256_after": "D161FF5EFD35BB506CD345DAF2EEDE2C7732A2EEC294D605C6B7D28CAD697614",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/UpperGripV3/Before/apprentice_staff_modular.blend",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/UpperGripV3/Before/apprentice_staff_modular.blend",
+    "bytes": 23102260,
+    "sha256": "CEF98444C2EFD27FB425565ED5A60055F67D94BCAF3EC730B49731794DC4B289",
+    "sha256_after": "CEF98444C2EFD27FB425565ED5A60055F67D94BCAF3EC730B49731794DC4B289",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/UpperGripV3/Before/author_staff.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/UpperGripV3/Before/author_staff.py",
+    "bytes": 4641,
+    "sha256": "B3172965C04571DED205569DAF9C2AB70B28EFC7F3168CF1F2941D8BB43907FB",
+    "sha256_after": "B3172965C04571DED205569DAF9C2AB70B28EFC7F3168CF1F2941D8BB43907FB",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/UpperGripV3/Before/staff_modular_parts.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/UpperGripV3/Before/staff_modular_parts.py",
+    "bytes": 15555,
+    "sha256": "3CBAD2C518478350825EE15CB71B8FDC96B483A4A985956635249BE9D9CBE6F3",
+    "sha256_after": "3CBAD2C518478350825EE15CB71B8FDC96B483A4A985956635249BE9D9CBE6F3",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/WorkbenchPreviewV23/Before/M4StaffGunsmith.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/WorkbenchPreviewV23/Before/M4StaffGunsmith.cpp",
+    "bytes": 4729,
+    "sha256": "308081FDD0782F217084DDC2FB2CA17235BAEE010C2C7E6FF2E38D1A10C77CA3",
+    "sha256_after": "308081FDD0782F217084DDC2FB2CA17235BAEE010C2C7E6FF2E38D1A10C77CA3",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/WorkbenchPreviewV23/Before/ue_quartz_material.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/WorkbenchPreviewV23/Before/ue_quartz_material.py",
+    "bytes": 3479,
+    "sha256": "18951EF635A1FDB591808C56A638F6C88422CBA7767DE3C7919A5DB90C32D450",
+    "sha256_after": "18951EF635A1FDB591808C56A638F6C88422CBA7767DE3C7919A5DB90C32D450",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/WristDetailV11/Before/StaffArmsMeshComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/WristDetailV11/Before/StaffArmsMeshComponent.cpp",
+    "bytes": 6692,
+    "sha256": "51FF0251B6B5F4245D3AC7D7B67C6DDC6F5D9DFCFE88E2A5C45A1145528208E6",
+    "sha256_after": "51FF0251B6B5F4245D3AC7D7B67C6DDC6F5D9DFCFE88E2A5C45A1145528208E6",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/WristDetailV11/Before/StaffGripContact.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/WristDetailV11/Before/StaffGripContact.h",
+    "bytes": 1788,
+    "sha256": "903680A9C1EA67A5462777FD43E62F628E3EFF138F285E315C0193850ECFD89B",
+    "sha256_after": "903680A9C1EA67A5462777FD43E62F628E3EFF138F285E315C0193850ECFD89B",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/WristDetailV11/Before/StaffGripPose.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/WristDetailV11/Before/StaffGripPose.cpp",
+    "bytes": 2800,
+    "sha256": "604A780B498E1627684D346D08E6D9451C374AAA16BA9F95C8AD2321678C21AB",
+    "sha256_after": "604A780B498E1627684D346D08E6D9451C374AAA16BA9F95C8AD2321678C21AB",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/WristDetailV11/Before/StaffIdlePose.h",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/WristDetailV11/Before/StaffIdlePose.h",
+    "bytes": 717,
+    "sha256": "5AAB213CDC2370ADDEDD2FA33BE3F0999C200CD21CBC0D59C8EF72D6760AC02D",
+    "sha256_after": "5AAB213CDC2370ADDEDD2FA33BE3F0999C200CD21CBC0D59C8EF72D6760AC02D",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/WristDetailV11/Before/StaffWeaponComponent.cpp",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/WristDetailV11/Before/StaffWeaponComponent.cpp",
+    "bytes": 10694,
+    "sha256": "2CBDDAD564C40B45A4A5BB477B7FFBDF76BF24D241C258DDAE3FD0A704F6BC14",
+    "sha256_after": "2CBDDAD564C40B45A4A5BB477B7FFBDF76BF24D241C258DDAE3FD0A704F6BC14",
+    "reason": "Superseded pre-change backup; current source/assets retained",
+    "replacement": "Current file outside Before; authoring recipes and historical receipts retained"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/apprentice_staff_modular.blend1",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/apprentice_staff_modular.blend1",
+    "bytes": 23102260,
+    "sha256": "CEF98444C2EFD27FB425565ED5A60055F67D94BCAF3EC730B49731794DC4B289",
+    "sha256_after": "CEF98444C2EFD27FB425565ED5A60055F67D94BCAF3EC730B49731794DC4B289",
+    "reason": "Automatic Blender backup superseded by the corresponding .blend",
+    "replacement": "SourceAssets/ApprenticeStaff20260927/apprentice_staff_modular.blend"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/BarkRebuildV21/Staff_NaturalBark_V21.blend1",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/BarkRebuildV21/Staff_NaturalBark_V21.blend1",
+    "bytes": 93996473,
+    "sha256": "B71DE46A260AD16BD66B77BEFAF0505E476646780177F29EAE9CAFF3D673910C",
+    "sha256_after": "B71DE46A260AD16BD66B77BEFAF0505E476646780177F29EAE9CAFF3D673910C",
+    "reason": "Automatic Blender backup superseded by the corresponding .blend",
+    "replacement": "SourceAssets/ApprenticeStaff20260927/BarkRebuildV21/Staff_NaturalBark_V21.blend"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/BranchCrystalV18/Staff_BranchCrystal_V18.blend1",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/BranchCrystalV18/Staff_BranchCrystal_V18.blend1",
+    "bytes": 57132423,
+    "sha256": "89F513EA0DB93C4DF5E21A8201C8C1BC9FCED524495962AF9EDA4E1AF898CA90",
+    "sha256_after": "89F513EA0DB93C4DF5E21A8201C8C1BC9FCED524495962AF9EDA4E1AF898CA90",
+    "reason": "Automatic Blender backup superseded by the corresponding .blend",
+    "replacement": "SourceAssets/ApprenticeStaff20260927/BranchCrystalV18/Staff_BranchCrystal_V18.blend"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SolidRepairV19/Staff_SolidCrystal_V19.blend1",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/SolidRepairV19/Staff_SolidCrystal_V19.blend1",
+    "bytes": 93012633,
+    "sha256": "CAABB2CEC8128F5A03C9B9EC03F969B29CA4A3CC475840330A2B81B6D819EE4F",
+    "sha256_after": "CAABB2CEC8128F5A03C9B9EC03F969B29CA4A3CC475840330A2B81B6D819EE4F",
+    "reason": "Automatic Blender backup superseded by the corresponding .blend",
+    "replacement": "SourceAssets/ApprenticeStaff20260927/SolidRepairV19/Staff_SolidCrystal_V19.blend"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/Staff/StaffAuthoredPose.h",
+    "destination": "trash/staff-publication-20260928/Source/FPSGAME/Weapons/Staff/StaffAuthoredPose.h",
+    "bytes": 177650,
+    "sha256": "157E88B581E630C498EBA0C236E09776369833FDAFCD9A16FC5DB148F96FDD00",
+    "sha256_after": "157E88B581E630C498EBA0C236E09776369833FDAFCD9A16FC5DB148F96FDD00",
+    "reason": "No runtime include remains; obsolete grip/gait prototype",
+    "replacement": "Source/FPSGAME/Weapons/Staff/StaffAuthoredPoseV13.h and StaffAuthoredLeftGaitV16.h"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/Staff/StaffAuthoredLeftGaitV15.h",
+    "destination": "trash/staff-publication-20260928/Source/FPSGAME/Weapons/Staff/StaffAuthoredLeftGaitV15.h",
+    "bytes": 199641,
+    "sha256": "873E354F37914BE079BA5B4EC3230003667669D51B75D1D39D4E599A1C30DAEC",
+    "sha256_after": "873E354F37914BE079BA5B4EC3230003667669D51B75D1D39D4E599A1C30DAEC",
+    "reason": "No runtime include remains; obsolete grip/gait prototype",
+    "replacement": "Source/FPSGAME/Weapons/Staff/StaffAuthoredPoseV13.h and StaffAuthoredLeftGaitV16.h"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/Staff/StaffGripDonor.h",
+    "destination": "trash/staff-publication-20260928/Source/FPSGAME/Weapons/Staff/StaffGripDonor.h",
+    "bytes": 2031,
+    "sha256": "4C9340D2F22DE9A274BAE7CF0004379DE78D41183678D991122E90178D558B65",
+    "sha256_after": "4C9340D2F22DE9A274BAE7CF0004379DE78D41183678D991122E90178D558B65",
+    "reason": "No runtime include remains; obsolete grip/gait prototype",
+    "replacement": "Source/FPSGAME/Weapons/Staff/StaffAuthoredPoseV13.h and StaffAuthoredLeftGaitV16.h"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/Staff/StaffGripContact.h",
+    "destination": "trash/staff-publication-20260928/Source/FPSGAME/Weapons/Staff/StaffGripContact.h",
+    "bytes": 1795,
+    "sha256": "19506E928D2F80722B40955671348E11FDCDDC690CAE78D9CAE39E75555011BC",
+    "sha256_after": "19506E928D2F80722B40955671348E11FDCDDC690CAE78D9CAE39E75555011BC",
+    "reason": "No runtime include remains; obsolete grip/gait prototype",
+    "replacement": "Source/FPSGAME/Weapons/Staff/StaffAuthoredPoseV13.h and StaffAuthoredLeftGaitV16.h"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/Staff/StaffIdlePose.h",
+    "destination": "trash/staff-publication-20260928/Source/FPSGAME/Weapons/Staff/StaffIdlePose.h",
+    "bytes": 718,
+    "sha256": "03B9B153A2BCF802983AA6773C154168D4B3E887062B73CF5EBD74B35303497A",
+    "sha256_after": "03B9B153A2BCF802983AA6773C154168D4B3E887062B73CF5EBD74B35303497A",
+    "reason": "No runtime include remains; obsolete grip/gait prototype",
+    "replacement": "Source/FPSGAME/Weapons/Staff/StaffAuthoredPoseV13.h and StaffAuthoredLeftGaitV16.h"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/wire_staff.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/wire_staff.py",
+    "bytes": 6323,
+    "sha256": "ECF317C7332E3D532A2DA421F8FABF44B47D1AB016CCAC51B65E6390D269DAE7",
+    "sha256_after": "ECF317C7332E3D532A2DA421F8FABF44B47D1AB016CCAC51B65E6390D269DAE7",
+    "reason": "Completed one-shot source wiring/editor-operation script; not a current authoring input",
+    "replacement": "Current Source/FPSGAME implementation and retained authoring/import scripts"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/wire_staff_spells.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/wire_staff_spells.py",
+    "bytes": 5690,
+    "sha256": "97CEC5FD2F6D03B9DD26E6B46508719B534377762C31E5176FAABD2F324E8E62",
+    "sha256_after": "97CEC5FD2F6D03B9DD26E6B46508719B534377762C31E5176FAABD2F324E8E62",
+    "reason": "Completed one-shot source wiring/editor-operation script; not a current authoring input",
+    "replacement": "Current Source/FPSGAME implementation and retained authoring/import scripts"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/wire_staff_presentation.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/wire_staff_presentation.py",
+    "bytes": 7615,
+    "sha256": "A8DB6929A986F3E22CA904F8C314E6BF1E67A02FC10DE9AA077C9993F3490744",
+    "sha256_after": "A8DB6929A986F3E22CA904F8C314E6BF1E67A02FC10DE9AA077C9993F3490744",
+    "reason": "Completed one-shot source wiring/editor-operation script; not a current authoring input",
+    "replacement": "Current Source/FPSGAME implementation and retained authoring/import scripts"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/finish_staff_integration.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/finish_staff_integration.py",
+    "bytes": 5981,
+    "sha256": "0249B4B3A1B704C6EC9279943419D7BCB867F227722A298C9C7C630FB19BFBBF",
+    "sha256_after": "0249B4B3A1B704C6EC9279943419D7BCB867F227722A298C9C7C630FB19BFBBF",
+    "reason": "Completed one-shot source wiring/editor-operation script; not a current authoring input",
+    "replacement": "Current Source/FPSGAME implementation and retained authoring/import scripts"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/update_delivery.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/update_delivery.py",
+    "bytes": 4667,
+    "sha256": "FDAD8DD2E468396D63DCE634247D466E91EF44D8A50C70B11B22F57D35459586",
+    "sha256_after": "FDAD8DD2E468396D63DCE634247D466E91EF44D8A50C70B11B22F57D35459586",
+    "reason": "Completed one-shot source wiring/editor-operation script; not a current authoring input",
+    "replacement": "Current Source/FPSGAME implementation and retained authoring/import scripts"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/ClosedGripV4/close_for_build.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/ClosedGripV4/close_for_build.py",
+    "bytes": 695,
+    "sha256": "07D715530E0A4003EE8D4C6CBCB77CDB56EDC92FB6E7DC156E840CA99C5FF3BD",
+    "sha256_after": "07D715530E0A4003EE8D4C6CBCB77CDB56EDC92FB6E7DC156E840CA99C5FF3BD",
+    "reason": "Completed one-shot source wiring/editor-operation script; not a current authoring input",
+    "replacement": "Current Source/FPSGAME implementation and retained authoring/import scripts"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/RepairV2/end_play_for_import.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/RepairV2/end_play_for_import.py",
+    "bytes": 314,
+    "sha256": "2DCA191B88A270F71DE0643EAA8352EA33391F1A306FEEF82423F01CEB5251CC",
+    "sha256_after": "2DCA191B88A270F71DE0643EAA8352EA33391F1A306FEEF82423F01CEB5251CC",
+    "reason": "Completed one-shot source wiring/editor-operation script; not a current authoring input",
+    "replacement": "Current Source/FPSGAME implementation and retained authoring/import scripts"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/BarkRebuildV21/PreviousFiles/apprentice_staff.png",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/BarkRebuildV21/PreviousFiles/apprentice_staff.png",
+    "bytes": 396728,
+    "sha256": "353867C346F3BEA13D74D0CAD4F9E6836035E82A397FF918F75B755BA9FD528E",
+    "sha256_after": "353867C346F3BEA13D74D0CAD4F9E6836035E82A397FF918F75B755BA9FD528E",
+    "reason": "Superseded PreviousFiles backup; no active script reads this path",
+    "replacement": "BarkRebuildV21/author_model.py, import_model.py and IconFramingV25/build_catalog_icon.ps1"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/BarkRebuildV21/PreviousFiles/author_staff.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/BarkRebuildV21/PreviousFiles/author_staff.py",
+    "bytes": 4947,
+    "sha256": "85451F3F1886BEE49543B396895E6165242418FC5EE70F3B7668C2B3292211C2",
+    "sha256_after": "85451F3F1886BEE49543B396895E6165242418FC5EE70F3B7668C2B3292211C2",
+    "reason": "Superseded PreviousFiles backup; no active script reads this path",
+    "replacement": "BarkRebuildV21/author_model.py, import_model.py and IconFramingV25/build_catalog_icon.ps1"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/BarkRebuildV21/PreviousFiles/import_staff.py",
+    "destination": "trash/staff-publication-20260928/SourceAssets/ApprenticeStaff20260927/BarkRebuildV21/PreviousFiles/import_staff.py",
+    "bytes": 5954,
+    "sha256": "EF187E15C913B2D0FE8DE57F6C03E150DE1C545EEB6F4E0CCD3202283C32B544",
+    "sha256_after": "EF187E15C913B2D0FE8DE57F6C03E150DE1C545EEB6F4E0CCD3202283C32B544",
+    "reason": "Superseded PreviousFiles backup; no active script reads this path",
+    "replacement": "BarkRebuildV21/author_model.py, import_model.py and IconFramingV25/build_catalog_icon.ps1"
+  }
+]

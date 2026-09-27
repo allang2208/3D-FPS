@@ -1,0 +1,28 @@
+{
+  "revision": 20,
+  "material": "M_Staff_QuartzMilkV20",
+  "base_color": [
+    0.78,
+    0.82,
+    0.79
+  ],
+  "transmittance": [
+    0.78,
+    0.84,
+    0.82
+  ],
+  "opacity_min": 0.24,
+  "opacity_max": 0.42,
+  "roughness_min": 0.16,
+  "roughness_max": 0.24,
+  "specular": 0.52,
+  "local_cloud_frequency": [
+    0.42,
+    0.55,
+    0.18
+  ],
+  "noise_levels": 2,
+  "blender_transmission_clear": 0.7,
+  "blender_transmission_cloudy": 0.46,
+  "ior": 1.544
+}

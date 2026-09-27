@@ -1,0 +1,93 @@
+{
+  "ue_apprentice_staff": {
+    "weaponId": "weapon20",
+    "name": "学徒长杖",
+    "type": "长杖",
+    "icon": "🪄",
+    "iconImage": "assets/weapons/学徒法杖.png",
+    "category": "weapon_melee",
+    "rarity": "uncommon",
+    "level": 1,
+    "weaponCategory": "mainhand",
+    "weaponType": "staff",
+    "weaponTypeTag": "长杖",
+    "equipImage": "assets/weapons/学徒法杖.png",
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "3+敏捷×0.25+力量×0.25"
+      },
+      {
+        "name": "魔法攻击",
+        "value": "5+智力×0.5+精神×0.5"
+      }
+    ],
+    "desc": "法术学徒使用的天然木枝长杖，顶部以麻绳固定透明白水晶，杖身保留木纹与枝节。可单手持握、近身挥击，并按修习的元素更换杖头、杖冠与导魔部件。",
+    "equipSlot": "weapon",
+    "attack": {
+      "range": 110,
+      "knockback": 0,
+      "attackInterval": 500,
+      "hitType": "挥砍（扇形判定）",
+      "damageType": "物理"
+    },
+    "matkFormula": {
+      "base": 5,
+      "intMul": 0.5,
+      "wisMul": 0.5,
+      "enhanceBase": 1,
+      "enhanceIntMul": 0.2,
+      "enhanceWisMul": 0.2
+    },
+    "animation": {
+      "type": "swing（挥砍）",
+      "totalMs": "500ms",
+      "windupMs": 120,
+      "swingMs": 200,
+      "recoveryMs": 180,
+      "holdOffset": "(0, 0)",
+      "weaponSize": 84,
+      "timingMul": "1.0x (标准)",
+      "description": "法杖近战挥砍（套用剑类动画），攻击间隔 500ms，无击退；附加智力/精神成长的魔法攻击"
+    },
+    "isTwoHanded": false,
+    "attackKey": "melee",
+    "animConfigKey": "sword",
+    "castAnimKey": "staff_cast",
+    "attackFormula": {
+      "base": 3,
+      "enhanceFlat": 0.25,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.25,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "str",
+          "base": 0.25,
+          "perEnhance": 0.15
+        }
+      ]
+    },
+    "id": "ue_apprentice_staff",
+    "stack_max": 1,
+    "staff_revision": 1,
+    "melee_damage": 3,
+    "melee_reach_cm": 165,
+    "attack_seconds": 0.5,
+    "ue_static_mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_Base.SM_Staff_Base",
+    "ue_icon": "Icons/ue_apprentice_staff.png",
+    "staff_body_mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_Body.SM_Staff_Body",
+    "staff_slots": "head_crystal,crown,shaft_rune,grip_lining,tail_charm,mana_line",
+    "staff_part_head_crystal_mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_head_crystal_false.SM_Staff_head_crystal_false",
+    "staff_part_crown_mesh": "",
+    "staff_part_shaft_rune_mesh": "",
+    "staff_part_grip_lining_mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_grip_lining_false.SM_Staff_grip_lining_false",
+    "staff_part_tail_charm_mesh": "",
+    "staff_part_mana_line_mesh": "",
+    "world_mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_Base.SM_Staff_Base",
+    "grid_w": 1,
+    "grid_h": 4
+  }
+}

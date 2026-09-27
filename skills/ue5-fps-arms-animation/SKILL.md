@@ -28,6 +28,8 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 
 ## 按问题读取
 
+- 单手法杖掌向、握弓参考、腕臂扭曲及空闲左手走跑：[长杖镜头空间抓握](references/staff-grip-camera-space.md)。固定已认可掌向，使用完整局部骨段与实际握柄表面，避免再次单独掰腕。
+
 - 左手取药、饮用、抛瓶、握点下移和旧瓶动作参考，读取 [药水抓握、饮用与抛瓶](references/potion-grip-and-drink.md)。
 
 - 弓的握把掌向、三指勾弦、掌面漏洞和左右手构图：[弓手型与弦接触](references/bow-hand-string-contact.md)。使用实际蒙皮指腹约束，保留原生绑定与共享手模边界。

@@ -19,6 +19,8 @@ description: 开发和迁移 FPSGAME 的主动、被动技能与魔法，贯通�
 
 ## 1. 先确定现有入口和完整规则
 
+持杖举起／前挥、施法位置迁移及火球／冰锥预览不对线，读取 [持杖施法与瞄准](references/staff-cast-and-aim.md)：手势开始时选分支，同帧杖尖，松手确认与接触发射共用状态。
+
 陨星和灼锋焰甲等火场／武器附魔先读 [陨星与灼锋焰甲](references/fire-magic-migration.md)：原版数值、暂不要求法杖、非魔法附伤隔离、整次修炼与火把特效副本。
 
 圣光等敌伤友疗的锁定魔法先读 [圣光与敌伤友疗](references/holy-light-migration.md)：同组阵营、Alt 自愈、僵尸分类、治疗与伤害词条分离、续疗，以及现有 Holy Spline 光粒和原版光柱重建。

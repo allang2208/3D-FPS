@@ -1164,3 +1164,19 @@ __pycache__/
 !/SourceAssets/BowStringVariants20260927/series.json
 !/SourceAssets/BowArrowRestVariants20260927/series.json
 !/SourceAssets/BowSingleLensOptics20260927/series.json
+
+# Apprentice staff: recipes/prose only. Meshy payloads, licensed surfaces, dense
+# native poses, images, authoring outputs and integration receipts stay local.
+/SourceAssets/ApprenticeStaff20260927/**
+!/SourceAssets/ApprenticeStaff20260927/**/
+!/SourceAssets/ApprenticeStaff20260927/**/*.py
+!/SourceAssets/ApprenticeStaff20260927/**/*.ps1
+!/SourceAssets/ApprenticeStaff20260927/**/*.md
+!/SourceAssets/ApprenticeStaff20260927/QuartzAimV22/quartz_parameters.json
+!/SourceAssets/ApprenticeStaff20260927/QuartzMilkV20/quartz_parameters.json
+!/SourceAssets/ApprenticeStaff20260927/Reference/legacy-contract.json
+!/SourceAssets/ApprenticeStaff20260927/IconOrientationV26/layout-diagnosis.json
+/SourceAssets/ApprenticeStaff20260927/**/Before/
+/SourceAssets/ApprenticeStaff20260927/**/__pycache__/
+/Source/FPSGAME/Weapons/Staff/StaffAuthoredPoseV13.h
+/Source/FPSGAME/Weapons/Staff/StaffAuthoredLeftGaitV16.h

@@ -653,6 +653,29 @@
       "shirt": "/Game/Weapons/DarkBow20260925/ArmsV4/Outfits/SK_Bow_Sleeves.SK_Bow_Sleeves",
       "gloves": "/Game/Weapons/DarkBow20260925/ArmsV4/Outfits/SK_Bow_FieldGloves.SK_Bow_FieldGloves",
       "original_gloved_arms": "/Game/Weapons/DarkBow20260925/ArmsV4/Outfits/SK_Bow_OriginalGlovedArms.SK_Bow_OriginalGlovedArms"
+    },
+    "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7": {
+      "base": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7",
+      "shirt": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/M4/SK_M4_FittedSleevesV1.SK_M4_FittedSleevesV1",
+      "gloves": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/M4/SK_M4_FittedFieldGlovesV1.SK_M4_FittedFieldGlovesV1",
+      "hide_source_materials": [
+        0,
+        1,
+        2
+      ],
+      "shirt_covers": [
+        0,
+        1
+      ],
+      "glove_covers": [
+        2
+      ],
+      "rig_profile": "M4",
+      "native_bare_skin": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7",
+      "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7",
+      "native_bare_arms": true,
+      "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_M4_OriginalGlovedArms.SK_M4_OriginalGlovedArms",
+      "original_gloved_source": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_M4_GlovedSource.SK_M4_GlovedSource"
     }
   },
   "native_bare_hands_default": false

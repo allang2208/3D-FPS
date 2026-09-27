@@ -1,0 +1,443 @@
+{
+  "captured_on": "2026-09-27",
+  "legacy_root": "E:\\无尽轮回\\长期备份\\2026-7-13-1\\game-dev",
+  "status": "reference_only_not_installed",
+  "equipment_template": {
+    "weaponId": "weapon20",
+    "name": "学徒长杖",
+    "type": "法杖",
+    "icon": "🪄",
+    "iconImage": "assets/weapons/学徒法杖.png",
+    "category": "weapon_melee",
+    "rarity": "uncommon",
+    "level": 1,
+    "weaponCategory": "mainhand",
+    "weaponType": "staff",
+    "weaponTypeTag": "近战武器",
+    "equipImage": "assets/weapons/学徒法杖.png",
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "3+敏捷×0.25+力量×0.25"
+      },
+      {
+        "name": "魔法攻击",
+        "value": "5+智力×0.5+精神×0.5"
+      }
+    ],
+    "desc": "初学者的练习法杖，杖身刻有简单的导魔纹路，适合魔法初学者使用",
+    "equipSlot": "weapon",
+    "attack": {
+      "range": 110,
+      "knockback": 0,
+      "attackInterval": 500,
+      "hitType": "挥砍（扇形判定）",
+      "damageType": "物理"
+    },
+    "matkFormula": {
+      "base": 5,
+      "intMul": 0.5,
+      "wisMul": 0.5,
+      "enhanceBase": 1,
+      "enhanceIntMul": 0.2,
+      "enhanceWisMul": 0.2
+    },
+    "animation": {
+      "type": "swing（挥砍）",
+      "totalMs": "500ms",
+      "windupMs": 120,
+      "swingMs": 200,
+      "recoveryMs": 180,
+      "holdOffset": "(0, 0)",
+      "weaponSize": 84,
+      "timingMul": "1.0x (标准)",
+      "description": "法杖近战挥砍（套用剑类动画），攻击间隔 500ms，无击退；附加智力/精神成长的魔法攻击"
+    }
+  },
+  "runtime_item_contract": {
+    "weaponId": "weapon20",
+    "name": "学徒长杖",
+    "type": "法杖",
+    "icon": "🪄",
+    "iconImage": "assets/weapons/学徒法杖.png",
+    "category": "weapon_melee",
+    "rarity": "uncommon",
+    "level": 1,
+    "weaponCategory": "mainhand",
+    "weaponType": "staff",
+    "weaponTypeTag": "近战武器",
+    "equipImage": "assets/weapons/学徒法杖.png",
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "3+敏捷×0.25+力量×0.25"
+      },
+      {
+        "name": "魔法攻击",
+        "value": "5+智力×0.5+精神×0.5"
+      }
+    ],
+    "desc": "初学者的练习法杖，杖身刻有简单的导魔纹路，适合魔法初学者使用",
+    "equipSlot": "weapon",
+    "attack": {
+      "range": 110,
+      "knockback": 0,
+      "attackInterval": 500,
+      "hitType": "挥砍（扇形判定）",
+      "damageType": "物理"
+    },
+    "matkFormula": {
+      "base": 5,
+      "intMul": 0.5,
+      "wisMul": 0.5,
+      "enhanceBase": 1,
+      "enhanceIntMul": 0.2,
+      "enhanceWisMul": 0.2
+    },
+    "animation": {
+      "type": "swing（挥砍）",
+      "totalMs": "500ms",
+      "windupMs": 120,
+      "swingMs": 200,
+      "recoveryMs": 180,
+      "holdOffset": "(0, 0)",
+      "weaponSize": 84,
+      "timingMul": "1.0x (标准)",
+      "description": "法杖近战挥砍（套用剑类动画），攻击间隔 500ms，无击退；附加智力/精神成长的魔法攻击"
+    },
+    "isTwoHanded": false,
+    "attackKey": "melee",
+    "animConfigKey": "sword",
+    "castAnimKey": "staff_cast",
+    "attackFormula": {
+      "base": 3,
+      "enhanceFlat": 0.25,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.25,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "str",
+          "base": 0.25,
+          "perEnhance": 0.15
+        }
+      ]
+    }
+  },
+  "craft": {
+    "slots": [
+      {
+        "id": "head_crystal",
+        "name": "杖头",
+        "x": 0.10344827586206892,
+        "y": 0.11116607773851592,
+        "lineTarget": {
+          "x": 0.5,
+          "y": 0.2737102473498238
+        }
+      },
+      {
+        "id": "crown",
+        "name": "杖冠",
+        "x": 0.10344827586206892,
+        "y": 0.27886925795053014,
+        "lineTarget": {
+          "x": 0.5,
+          "y": 0.3159717314487638
+        }
+      },
+      {
+        "id": "shaft_rune",
+        "name": "杖身",
+        "x": 0.10344827586206892,
+        "y": 0.43710247349823345,
+        "lineTarget": {
+          "x": 0.5,
+          "y": 0.4865724381625448
+        }
+      },
+      {
+        "id": "grip_lining",
+        "name": "握柄",
+        "x": 0.9109195402298856,
+        "y": 0.6146996466431095,
+        "lineTarget": {
+          "x": 0.5,
+          "y": 0.5599293286219077
+        }
+      },
+      {
+        "id": "tail_charm",
+        "name": "尾坠",
+        "x": 0.9109195402298856,
+        "y": 0.829399293286219,
+        "lineTarget": {
+          "x": 0.5,
+          "y": 0.7357597173144869
+        }
+      },
+      {
+        "id": "mana_line",
+        "name": "导魔",
+        "x": 0.9109195402298856,
+        "y": 0.43710247349823345,
+        "lineTarget": {
+          "x": 0.5,
+          "y": 0.39399293286219006
+        }
+      }
+    ],
+    "options": {
+      "head_crystal": [
+        {
+          "id": "frozen_crystal",
+          "name": "永冻冰晶",
+          "icon": "assets/icons/craft-cold-steel/frozen_crystal.png",
+          "desc": "杖头嵌入永不融化的冰晶，冰锥技能生成的冰锥+1",
+          "effects": {
+            "staffSpecialty": "ice",
+            "iceSpikeCountDelta": 1
+          }
+        },
+        {
+          "id": "magma_core",
+          "name": "熔岩晶核",
+          "icon": "assets/icons/craft-cold-steel/magma_core.png",
+          "desc": "杖头封存一滴熔岩精华，火球爆炸范围（判定范围）+50%",
+          "effects": {
+            "staffSpecialty": "fire",
+            "fireballExplosionRadiusPercent": 0.5
+          }
+        },
+        {
+          "id": "jade_spirit_crystal",
+          "name": "翠灵水晶",
+          "icon": "assets/icons/craft-cold-steel/jade_spirit_crystal.png",
+          "desc": "杖头镶嵌蕴含生命脉动的翠灵水晶，圣光释放后给目标添加持续3秒的续疗buff，每秒恢复最大生命值1%",
+          "effects": {
+            "staffSpecialty": "light",
+            "holyLightHoTStacks": 1,
+            "holyLightHoTSeconds": 3
+          }
+        },
+        {
+          "id": "storm_core",
+          "name": "风暴核心",
+          "icon": "assets/icons/craft-cold-steel/storm_core.png",
+          "desc": "杖头束缚一团微型雷云，闪电传导目标数+1",
+          "effects": {
+            "staffSpecialty": "electric",
+            "lightningChainTargetsDelta": 1
+          }
+        }
+      ],
+      "crown": [
+        {
+          "id": "spike_crown",
+          "name": "尖刺",
+          "icon": "assets/icons/craft-cold-steel/spike_crown.png",
+          "desc": "杖冠缠绕冰刺，当杖头为冰系专精时冰魔法伤害+25%",
+          "effects": {
+            "iceDamagePercent": 0.25
+          }
+        },
+        {
+          "id": "current_crown",
+          "name": "电流",
+          "icon": "assets/icons/craft-cold-steel/current_crown.png",
+          "desc": "杖冠带电，当杖头为电系专精时电魔法伤害+25%",
+          "effects": {
+            "electricDamagePercent": 0.25
+          }
+        },
+        {
+          "id": "wreath_crown",
+          "name": "花环",
+          "icon": "assets/icons/craft-cold-steel/wreath_crown.png",
+          "desc": "杖冠编织圣光花环，当杖头为光系专精时光魔法的生命恢复量+25%",
+          "effects": {
+            "lightHealPercent": 0.25
+          }
+        },
+        {
+          "id": "heat_crown",
+          "name": "热浪",
+          "icon": "assets/icons/craft-cold-steel/heat_crown.png",
+          "desc": "杖冠散发灼热气息，当杖头为火系专精时火魔法伤害+25%",
+          "effects": {
+            "fireDamagePercent": 0.25
+          }
+        }
+      ],
+      "shaft_rune": [
+        {
+          "id": "eagle_eye_rune",
+          "name": "鹰眼符文",
+          "icon": "assets/icons/craft-cold-steel/eagle_eye_rune.png",
+          "desc": "杖身铭刻鹰眼符文，所有魔法的释放距离+25%，MP消耗+25%",
+          "effects": {
+            "magicRangePercent": 0.25,
+            "magicMpCostPercent": 0.25
+          }
+        },
+        {
+          "id": "crit_rune",
+          "name": "暴击符文",
+          "icon": "assets/icons/craft-cold-steel/crit_rune.png",
+          "desc": "杖身铭刻暴击符文，魔法的暴击率+25%，MP消耗+25%",
+          "effects": {
+            "magicCritPercent": 0.25,
+            "magicMpCostPercent": 0.25
+          }
+        },
+        {
+          "id": "storm_rune",
+          "name": "风暴符文",
+          "icon": "assets/icons/craft-cold-steel/storm_rune.png",
+          "desc": "杖身铭刻风暴符文，魔法的冷却时间-25%，MP消耗+25%",
+          "effects": {
+            "magicCooldownPercent": 0.25,
+            "magicMpCostPercent": 0.25
+          }
+        }
+      ],
+      "grip_lining": [
+        {
+          "id": "alloy_grip",
+          "name": "合金",
+          "icon": "assets/icons/craft-cold-steel/alloy_grip.png",
+          "desc": "合金握柄缩短施法前摇25%，所有魔法的MP消耗+5%",
+          "effects": {
+            "castSpeedPercent": 0.25,
+            "magicMpCostPercent": 0.05
+          }
+        },
+        {
+          "id": "pine_grip",
+          "name": "松木",
+          "icon": "assets/icons/craft-cold-steel/pine_grip.png",
+          "desc": "松木握柄在施法任意魔法后获得持续10秒的链式强化buff，可叠加，下次施法伤害+2%×层数，MP消耗+5%×层数",
+          "effects": {
+            "chainSpellDamagePercent": 0.02,
+            "chainSpellMpCostPercent": 0.05
+          }
+        },
+        {
+          "id": "sandalwood_grip",
+          "name": "檀木",
+          "icon": "assets/icons/craft-cold-steel/sandalwood_grip.png",
+          "desc": "檀木握柄在施法任意魔法后给自身添加5秒1层加速效果，所有魔法的MP消耗+5%",
+          "effects": {
+            "castHasteDuration": 5000,
+            "castHasteStacks": 1,
+            "magicMpCostPercent": 0.05
+          }
+        }
+      ],
+      "tail_charm": [
+        {
+          "id": "ice_soul_pendant",
+          "name": "冰魄吊坠",
+          "icon": "assets/icons/craft-cold-steel/ice_soul_pendant.png",
+          "desc": "冰系魔法造成伤害时给目标添加一层持续3秒的寒冷，每层降低5%移动速度",
+          "effects": {
+            "iceChillSlowPercent": 0.05,
+            "iceChillDuration": 3000
+          }
+        },
+        {
+          "id": "thunder_bell",
+          "name": "爆鸣雷铃",
+          "icon": "assets/icons/craft-cold-steel/thunder_bell.png",
+          "desc": "电系魔法造成伤害时附加0.25秒眩晕，若目标已有眩晕则延长0.25秒",
+          "effects": {
+            "electricStunExtendMs": 250
+          }
+        },
+        {
+          "id": "purification_vine",
+          "name": "净厄藤坠",
+          "icon": "assets/icons/craft-cold-steel/purification_vine.png",
+          "desc": "光系魔法对友方造成治疗时给目标添加持续5秒的2层加速buff",
+          "effects": {
+            "lightHasteStacks": 2,
+            "lightHasteDuration": 5000
+          }
+        },
+        {
+          "id": "flame_pendant",
+          "name": "烈焰吊坠",
+          "icon": "assets/icons/craft-cold-steel/flame_pendant.png",
+          "desc": "火系魔法造成伤害时给目标添加持续3秒的灼伤，每0.5秒造成施法者魔法伤害×0.5的伤害",
+          "effects": {
+            "fireBurnDamageMul": 0.5,
+            "fireBurnTickMs": 500,
+            "fireBurnDuration": 3000
+          }
+        }
+      ],
+      "mana_line": [
+        {
+          "id": "chain_mana",
+          "name": "链式",
+          "icon": "assets/icons/craft-cold-steel/chain_mana.png",
+          "desc": "导魔管线采用链式传导，所有魔法伤害+10%，MP消耗+15%",
+          "effects": {
+            "magicDamagePercent": 0.1,
+            "magicMpCostPercent": 0.15
+          }
+        },
+        {
+          "id": "direct_mana",
+          "name": "直流",
+          "icon": "assets/icons/craft-cold-steel/direct_mana.png",
+          "desc": "导魔管线采用直流通道，所有魔法的MP消耗-30%",
+          "effects": {
+            "magicMpCostPercent": -0.3
+          }
+        }
+      ]
+    }
+  },
+  "effect_keys": [
+    "castHasteDuration",
+    "castHasteStacks",
+    "castSpeedPercent",
+    "chainSpellDamagePercent",
+    "chainSpellMpCostPercent",
+    "electricDamagePercent",
+    "electricStunExtendMs",
+    "fireBurnDamageMul",
+    "fireBurnDuration",
+    "fireBurnTickMs",
+    "fireDamagePercent",
+    "fireballExplosionRadiusPercent",
+    "holyLightHoTSeconds",
+    "holyLightHoTStacks",
+    "iceChillDuration",
+    "iceChillSlowPercent",
+    "iceDamagePercent",
+    "iceSpikeCountDelta",
+    "lightHasteDuration",
+    "lightHasteStacks",
+    "lightHealPercent",
+    "lightningChainTargetsDelta",
+    "magicCooldownPercent",
+    "magicCritPercent",
+    "magicDamagePercent",
+    "magicMpCostPercent",
+    "magicRangePercent",
+    "staffSpecialty"
+  ],
+  "option_count": 20,
+  "semantic_notes": [
+    "EDM provides the physical attack formula and staff_cast key absent from the equipment template.",
+    "isTwoHanded=false makes the existing implicit single-handed contract explicit; this is not a source field.",
+    "Only the active mainhand staff supplies formula and crafting bonuses.",
+    "castSpeedPercent=.25 divides both animation durations by 1.25; the original option prose is inconsistent.",
+    "staffSpecialty is a string override; remaining option effects are numeric sums.",
+    "No model generation, live definition registration, asset import, build or test is represented by this snapshot."
+  ]
+}

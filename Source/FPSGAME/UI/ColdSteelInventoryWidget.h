@@ -121,7 +121,7 @@ private:
     FIntPoint PendingFootprint(const FColdSteelItem& Item,const UColdSteelItemDrag& Drag)const;
     bool PreviewItemDrag(UColdSteelItemDrag& Drag,FVector2D Screen);
     void UpdateDragGhost(UColdSteelItemDrag& Drag,const FGeometry& G,FVector2D CursorPos)const;
-    struct FItemPresentation {FString Name,Rarity;int32 Enhancement=0;bool Crafted=false,Enchanted=false;};
+    struct FItemPresentation {FString Name,Rarity;int32 Enhancement=0;bool Crafted=false,Enchanted=false;bool StaffArt=false;};
     TMap<FString,FItemPresentation> Presentation;
     int32 HoverPlace=-1,PointerCell=-1;
     bool bSortHovered=false;
