@@ -1,4 +1,4 @@
-#include "ColdSteelHUDWidget.h"
+﻿#include "ColdSteelHUDWidget.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelResourceMeter.h"
 #include "ColdSteelUIStyle.h"
@@ -51,30 +51,48 @@ void UColdSteelHUDWidget::UpdateStaminaLayout(const FGeometry& Geometry)
         auto* Pawn=GetOwningPlayerPawn();const auto* Character=Cast<AFPSGAMECharacter>(Pawn);
         const auto* Bipod=Character?Character->BipodDeployment.Get():nullptr;
         const auto State=Bipod?Bipod->GetDeploymentState():EWeaponBipodDeploymentState::Unavailable;
-        FString ActionHint;bool Complete=false;
+        FString ActionHint;bool Complete=false;float PreparationProgress=0.f;
         if(State==EWeaponBipodDeploymentState::Deploying || State==EWeaponBipodDeploymentState::Deployed)
         {
             Complete=State==EWeaponBipodDeploymentState::Deployed;
+            PreparationProgress=Complete?1.f:FMath::Clamp(Bipod->GetDeploymentBlend(),0.f,1.f);
             const int32 Percent=FMath::Clamp(FMath::FloorToInt(Bipod->GetDeploymentBlend()*100.f),0,99);
             ActionHint=Complete?TEXT("已部署脚架"):FString::Printf(TEXT("部署脚架  %d%%"),Percent);
         }
         else
         {
             const auto* Sword=Pawn?Pawn->FindComponentByClass<URuneSwordComponent>():nullptr;
-            const float Ready=Sword?Sword->DashReadyFraction():0.f;
-            Complete=Ready>=1.f;
-            if(Ready>0.f)
-                ActionHint=Complete
-                    ?TEXT("冲刺攻击就绪 · 左键")
-                    :FString::Printf(TEXT("冲刺攻击准备  %.0f%%"),Ready*100.f);
+            const float Charge=Sword?FMath::Clamp(Sword->HeavyChargeFraction(),0.f,1.f):0.f;
+            if(Charge>0.f)
+            {
+                Complete=Charge>=1.f;PreparationProgress=Charge;
+                const int32 Percent=FMath::Clamp(FMath::FloorToInt(Charge*100.f),0,99);
+                ActionHint=Complete?TEXT("重击蓄力完成 · 100%")
+                    :FString::Printf(TEXT("重击蓄力  %d%%"),Percent);
+            }
+            else
+            {
+                const float Ready=Sword?Sword->DashReadyFraction():0.f;
+                Complete=Ready>=1.f;PreparationProgress=FMath::Clamp(Ready,0.f,1.f);
+                if(Ready>0.f)
+                    ActionHint=Complete
+                        ?(Character&&Character->IsSprinting()?TEXT("冲刺攻击就绪 · 左键"):TEXT("冲刺攻击就绪 · 保持 Shift"))
+                        :FString::Printf(TEXT("冲刺攻击准备  %.0f%%"),Ready*100.f);
+            }
         }
         DashAttackReadyText->SetVisibility(ActionHint.IsEmpty()?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
         const FText Hint=FText::FromString(ActionHint);
         if(!DashAttackReadyText->GetText().EqualTo(Hint))DashAttackReadyText->SetText(Hint);
-        DashAttackReadyText->SetColorAndOpacity(Complete?ColdSteelUI::TextPrimary:ColdSteelUI::TextSecondary);
-        DashAttackReadyText->SetFont(ColdSteelUI::TextFont(14*.75f/S));
+        // Shared readiness ramp: red -> yellow -> blue -> green at equal progress intervals.
+        static const FLinearColor ProgressColors[]={ColdSteelUI::Danger,
+            FLinearColor::FromSRGBColor(FColor(240,211,113)),
+            FLinearColor::FromSRGBColor(FColor(112,180,255)),ColdSteelUI::Success};
+        const float ColorPosition=FMath::Clamp(PreparationProgress,0.f,1.f)*3.f;
+        const int32 ColorSegment=FMath::Min(FMath::FloorToInt(ColorPosition),2);
+        DashAttackReadyText->SetColorAndOpacity(FMath::Lerp(ProgressColors[ColorSegment],ProgressColors[ColorSegment+1],ColorPosition-ColorSegment));
+        DashAttackReadyText->SetFont(ColdSteelUI::TextFont(16*.75f/S));
         if(auto* DashCanvasSlot=Cast<UCanvasPanelSlot>(DashAttackReadyText->Slot))
-        {DashCanvasSlot->SetPosition(StaminaSlot->GetPosition()+FVector2D(0,-25/S));DashCanvasSlot->SetSize(FVector2D(FMath::Min(360.f/S,FMath::Max(1.f,View.X-24/S)),22/S));}
+        {DashCanvasSlot->SetPosition(StaminaSlot->GetPosition()+FVector2D(0,-25/S));DashCanvasSlot->SetSize(FVector2D(FMath::Min(400.f/S,FMath::Max(1.f,View.X-24/S)),26/S));}
     }
     if(StaminaLayoutView.Equals(View,.1f)&&FMath::IsNearlyEqual(S,StaminaLayoutScale,.0001f))return;
     StaminaLayoutView=View;StaminaLayoutScale=S;

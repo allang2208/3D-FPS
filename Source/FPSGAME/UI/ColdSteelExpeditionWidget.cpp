@@ -8,6 +8,9 @@
 #include "Widgets/Layout/SBox.h"
 #include "Widgets/Layout/SScrollBox.h"
 #include "Widgets/SBoxPanel.h"
+#include "Widgets/Layout/SBorder.h"
+#include "Widgets/Layout/SGridPanel.h"
+#include "Widgets/Text/STextBlock.h"
 
 UColdSteelStatusModel* UColdSteelExpeditionWidget::Profile() const
 {
@@ -170,12 +173,30 @@ void UColdSteelExpeditionWidget::RefreshDetail()
         DetailRows->AddSlot().AutoHeight().Padding(0, 0, 0, 18)
             [Label(Entry->Description.IsEmpty() ? TEXT("暂无目的地描述") : Entry->Description, 14, ColdSteelUI::TextSecondary)];
         DetailRows->AddSlot().AutoHeight().Padding(0, 0, 0, 10)[Label(TEXT("任务概况"), 16, ColdSteelUI::TextPrimary)];
-        DetailRows->AddSlot().AutoHeight()[Row(TEXT("推荐等级"), Entry->RecommendedLevel.IsEmpty() ? TEXT("待公布") : Entry->RecommendedLevel)];
-        DetailRows->AddSlot().AutoHeight()[Row(TEXT("探索规模"), Entry->Scale.IsEmpty() ? TEXT("暂无情报") : Entry->Scale)];
-        DetailRows->AddSlot().AutoHeight()[Row(TEXT("威胁情报"), Entry->Threat.IsEmpty() ? TEXT("暂无情报") : Entry->Threat)];
-        DetailRows->AddSlot().AutoHeight()[Row(TEXT("进入消耗"), Entry->EntryCost.IsEmpty() ? TEXT("待公布") : Entry->EntryCost)];
-        DetailRows->AddSlot().AutoHeight().Padding(0, 18, 0, 6)[Label(TEXT("行动提示"), 16, ColdSteelUI::TextPrimary)];
-        DetailRows->AddSlot().AutoHeight()[Label(TEXT("出发前确认装备与补给；可在奖励和规则页查看目的地的详细说明。"), 14, ColdSteelUI::TextSecondary)];
+        auto Facts = SNew(SGridPanel);
+        const FString Names[] = { TEXT("推荐等级"), TEXT("探索规模"), TEXT("威胁情报"), TEXT("进入消耗") };
+        const FString Values[] = {
+            Entry->RecommendedLevel.IsEmpty() ? TEXT("待公布") : Entry->RecommendedLevel,
+            Entry->Scale.IsEmpty() ? TEXT("暂无情报") : Entry->Scale,
+            Entry->Threat.IsEmpty() ? TEXT("暂无情报") : Entry->Threat,
+            Entry->EntryCost.IsEmpty() ? TEXT("待公布") : Entry->EntryCost };
+        const int32 Columns = bSingleColumnFacts ? 1 : 2;
+        for (int32 Index = 0; Index < 4; ++Index)
+        {
+            const int32 Column = Index % Columns;
+            Facts->SetColumnFill(Column, 1.f);
+            Facts->AddSlot(Column, Index / Columns).Padding(Column ? 4 : 0, 0, Columns == 2 && Column == 0 ? 4 : 0, 8)
+                [SNew(SBorder).BorderImage(&HeroBrush).Padding(14)
+                    [SNew(SVerticalBox)
+                        +SVerticalBox::Slot().AutoHeight().Padding(0, 0, 0, 8)[Label(Names[Index], 12, ColdSteelUI::TextSecondary)]
+                        +SVerticalBox::Slot().AutoHeight()[Label(Values[Index], 14, ColdSteelUI::TextPrimary)]]];
+        }
+        DetailRows->AddSlot().AutoHeight()[Facts];
+        DetailRows->AddSlot().AutoHeight().Padding(0, 8, 0, 0)
+            [SNew(SBorder).BorderImage(&HeroBrush).Padding(14)
+                [SNew(SVerticalBox)
+                    +SVerticalBox::Slot().AutoHeight().Padding(0, 0, 0, 8)[Label(TEXT("行动提示"), 16, ColdSteelUI::TextPrimary)]
+                    +SVerticalBox::Slot().AutoHeight()[Label(TEXT("出发前确认装备与补给；可在奖励和规则页查看目的地的详细说明。"), 14, ColdSteelUI::TextSecondary)]]];
     }
     else
     {
@@ -206,14 +227,19 @@ void UColdSteelExpeditionWidget::RefreshPreparation()
         const auto* Weapon = Model->Equipped();
         Identity->AddSlot().AutoHeight()[Row(TEXT("当前武器"), Weapon ? ColdSteelInventory::Text(*Weapon, TEXT("name")) : TEXT("未装备"))];
     }
-    PreparationRows->AddSlot().AutoHeight().Padding(0, 0, 0, 16)[Card(Identity)];
-    PreparationRows->AddSlot().AutoHeight().Padding(0, 0, 0, 8)[Label(TEXT("同行成员"), 16, ColdSteelUI::TextPrimary)];
-    PreparationRows->AddSlot().AutoHeight().Padding(0, 0, 0, 18)
-        [Card(Label(TEXT("队伍编成暂未开放"), 12, ColdSteelUI::TextTertiary))];
+    PreparationRows->AddSlot().AutoHeight().Padding(0, 0, 0, 16)
+        [SNew(SBorder).BorderImage(&HeroBrush).Padding(14)[Identity]];
     PreparationRows->AddSlot().AutoHeight().Padding(0, 0, 0, 8)[Label(TEXT("进入条件"), 16, ColdSteelUI::TextPrimary)];
     const auto* Entry = Selection();
-    PreparationRows->AddSlot().AutoHeight()[Row(TEXT("目的地"), Entry ? Entry->Name : TEXT("尚未选择"))];
-    PreparationRows->AddSlot().AutoHeight()[Row(TEXT("消耗"), Entry && !Entry->EntryCost.IsEmpty() ? Entry->EntryCost : TEXT("待公布"))];
-    PreparationRows->AddSlot().AutoHeight().Padding(0, 12, 0, 0)
-        [Label(Entry && !Entry->BlockReason.IsEmpty() ? Entry->BlockReason : TEXT("请在出发前查看任务情报。"), 12, ColdSteelUI::TextSecondary)];
+    PreparationRows->AddSlot().AutoHeight()
+        [SNew(SBorder).BorderImage(&HeroBrush).Padding(14)
+            [SNew(SVerticalBox)
+                +SVerticalBox::Slot().AutoHeight()[Row(TEXT("目的地"), Entry ? Entry->Name : TEXT("尚未选择"))]
+                +SVerticalBox::Slot().AutoHeight()[Row(TEXT("消耗"), Entry && !Entry->EntryCost.IsEmpty() ? Entry->EntryCost : TEXT("待公布"))]
+                +SVerticalBox::Slot().AutoHeight().Padding(0, 10, 0, 0)
+                    [SNew(STextBlock).Text_Lambda([this]() { return BlockMessage(); })
+                        .Font(ColdSteelUI::TextFont(10.5f)).AutoWrapText(true)
+                        .ColorAndOpacity_Lambda([this]() { return CanConfirm() && Feedback.IsEmpty() ? ColdSteelUI::Success : ColdSteelUI::TextSecondary; })]]];
+    PreparationRows->AddSlot().AutoHeight().Padding(0, 16, 0, 0)
+        [Label(TEXT("同行成员 · 队伍编成暂未开放"), 12, ColdSteelUI::TextTertiary)];
 }

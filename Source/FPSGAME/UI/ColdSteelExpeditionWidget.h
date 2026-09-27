@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
@@ -44,7 +44,7 @@ private:
     void Close();
     bool CanConfirm() const;
     FText BlockMessage() const;
-    TSharedRef<class SWidget> Label(const FString& Text, int32 Size = 14, FLinearColor Color = FLinearColor::White, bool Numeric = false) const;
+    TSharedRef<class SWidget> Label(const FString& Text, int32 Size = 14, FLinearColor Color = FLinearColor::White, bool Numeric = false, bool Wrap = true) const;
     TSharedRef<class SWidget> Card(TSharedRef<class SWidget> Content, float Inset = 14);
     TSharedRef<class SWidget> Row(const FString& Name, const FString& Value, bool Numeric = false) const;
     TSharedRef<class SButton> Action(const FString& Text, TFunction<void()> Callback, bool Primary = false);
@@ -57,6 +57,7 @@ private:
     FString Query;
     FText Feedback;
     bool bAvailableOnly = false;
+    bool bSingleColumnFacts = false;
     int32 DetailTab = 0, CompactPage = 0, LayoutMode = -1;
     FDelegateHandle ProfileHandle;
     TSharedPtr<class SBox> BodyHost;
@@ -66,6 +67,8 @@ private:
     TMap<FName, TSharedPtr<class SButton>> CatalogButtons;
     TArray<TSharedPtr<class SButton>> FilterButtons, DetailButtons, CompactButtons;
     FSlateBrush PanelBrush, FallbackBrush, CardBrush, HeroBrush;
+    UPROPERTY(Transient) TObjectPtr<class UTexture2D> DestinationArtwork;
+    FSlateBrush DestinationArtBrush;
     FButtonStyle NormalStyle, SelectedStyle, PrimaryStyle;
     FEditableTextBoxStyle SearchStyle;
 };

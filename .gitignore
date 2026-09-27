@@ -948,3 +948,7 @@ __pycache__/
 !/SourceAssets/FurnaceCasting20260926/**/*.py
 !/SourceAssets/FurnaceCasting20260926/**/*.md
 !/SourceAssets/FurnaceCasting20260926/**/*.hlsl
+
+# Original generated expedition concept art, approved for this UI publication.
+!/Content/ColdSteelUI/Expedition/
+!/Content/ColdSteelUI/Expedition/underground_facility.png

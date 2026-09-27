@@ -1,0 +1,251 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelForgingWidget.cpp b/Source/FPSGAME/UI/ColdSteelForgingWidget.cpp
+--- a/Source/FPSGAME/UI/ColdSteelForgingWidget.cpp
++++ b/Source/FPSGAME/UI/ColdSteelForgingWidget.cpp
+@@ -3,6 +3,8 @@
+ #include "ColdSteelHUDWidget.h"
+ #include "ColdSteelStatusModel.h"
+ #include "ColdSteelUIStyle.h"
++#include "ColdSteelItemTooltipData.h"
++#include "../Weapons/GunsmithSystem.h"
+ #include "GunsmithUIStyle.h"
+ #include "../Building/ForgingSystem.h"
+ #include "../Building/VoxelBuildWorld.h"
+@@ -23,6 +25,7 @@
+ #include "Components/ProgressBar.h"
+ #include "Components/ScrollBox.h"
+ #include "Components/SizeBox.h"
++#include "Components/SizeBoxSlot.h"
+ #include "Components/TextBlock.h"
+ #include "Components/VerticalBox.h"
+ #include "Components/VerticalBoxSlot.h"
+@@ -117,18 +120,14 @@
+     auto* RecipeCard=Card(Content);
+     auto* RecipeCaption=Text(TEXT("配方 · 工件"),12);RecipeCaption->SetColorAndOpacity(ColdSteelUI::TextTertiary);Space(RecipeCard->AddChildToVerticalBox(RecipeCaption),FMargin(0,0,0,4));
+     RecipeTitle=Text(TEXT("—"),16,false,true);Space(RecipeCard->AddChildToVerticalBox(RecipeTitle),FMargin(0,0,0,8));
+-    auto* RecipeChoices=WidgetTree->ConstructWidget<UHorizontalBox>();
+-    Space(RecipeCard->AddChildToVerticalBox(RecipeChoices),FMargin(0,0,0,8));
+-    UTextBlock* PreviousLabel=nullptr;PreviousRecipeButton=Button(TEXT("上一配方"),PreviousLabel);
+-    PreviousRecipeButton->OnClicked.AddDynamic(this,&ThisClass::HandlePreviousRecipe);
+-    auto* PreviousSize=WidgetTree->ConstructWidget<USizeBox>();PreviousSize->SetContent(PreviousRecipeButton);ButtonSizes.Add(PreviousSize);
+-    RecipeChoices->AddChildToHorizontalBox(PreviousSize)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+-    UTextBlock* NextLabel=nullptr;NextRecipeButton=Button(TEXT("下一配方"),NextLabel);
+-    NextRecipeButton->OnClicked.AddDynamic(this,&ThisClass::HandleNextRecipe);
+-    auto* NextSize=WidgetTree->ConstructWidget<USizeBox>();NextSize->SetContent(NextRecipeButton);ButtonSizes.Add(NextSize);
+-    RecipeNextSlot=RecipeChoices->AddChildToHorizontalBox(NextSize);RecipeNextSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+-    const FText ChoiceHelp=FText::FromString(TEXT("先领取或废弃当前成品，才能切换配方。不同剑类共用同一套剑胚与锻打动作。"));
+-    PreviousRecipeButton->SetToolTipText(ChoiceHelp);NextRecipeButton->SetToolTipText(ChoiceHelp);
++    RecipeChoice=WidgetTree->ConstructWidget<UComboBoxString>();
++    RecipeChoice->OnGenerateWidgetEvent.BindDynamic(this,&ThisClass::GenerateRecipeOption);
++    for(const auto& Recipe:System->Catalog())
++        RecipeChoice->AddOption(ColdSteelInventory::Text(Model->CreateItem(Recipe.Output),TEXT("name")));
++    RecipeChoice->OnSelectionChanged.AddDynamic(this,&ThisClass::HandleRecipeSelected);
++    RecipeChoice->SetToolTipText(FText::FromString(TEXT("选择锻造配方；当前工件需领取或废弃后才能更换。")));
++    auto* ChoiceSize=WidgetTree->ConstructWidget<USizeBox>();ChoiceSize->SetContent(RecipeChoice);ButtonSizes.Add(ChoiceSize);
++    Space(RecipeCard->AddChildToVerticalBox(ChoiceSize),FMargin(0,0,0,8));
+     Materials=Text(TEXT("所需材料"),14,false,true);Space(RecipeCard->AddChildToVerticalBox(Materials),FMargin(0,0,0,4));
+     auto* Source=Text(TEXT("材料来源 · 背包 + 主仓库"),12);Source->SetColorAndOpacity(ColdSteelUI::TextTertiary);MaterialSource=Source;
+     Space(RecipeCard->AddChildToVerticalBox(Source),FMargin(0,0,0,4));
+@@ -148,7 +147,23 @@
+     Timer=WidgetTree->ConstructWidget<UProgressBar>();Timer->SetFillColorAndOpacity(ColdSteelUI::Accent);
+     TimerSize=WidgetTree->ConstructWidget<USizeBox>();TimerSize->SetContent(Timer);Space(StateCard->AddChildToVerticalBox(TimerSize),FMargin(0,8,0,0));
+     auto* PreviewCaption=Text(TEXT("成品预览 · 剑类共用剑胚"),14,false,true);Space(Content->AddChildToVerticalBox(PreviewCaption),FMargin(0,4,0,8));
+-    BoardSize=WidgetTree->ConstructWidget<USizeBox>();Board=WidgetTree->ConstructWidget<UColdSteelForgeBoard>();BoardSize->SetContent(Board);Space(Content->AddChildToVerticalBox(BoardSize),FMargin(0,0,0,8));
++    BoardSize=WidgetTree->ConstructWidget<USizeBox>();
++    auto* PreviewColumns=WidgetTree->ConstructWidget<UHorizontalBox>();BoardSize->SetContent(PreviewColumns);
++    Space(Content->AddChildToVerticalBox(BoardSize),FMargin(0,0,0,8));
++    Board=WidgetTree->ConstructWidget<UColdSteelForgeBoard>();
++    PreviewColumns->AddChildToHorizontalBox(Board)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
++    auto* Parameters=WidgetTree->ConstructWidget<UBorder>();Cards.Add(Parameters);
++    PreviewParameterSlot=PreviewColumns->AddChildToHorizontalBox(Parameters);
++    PreviewParameterSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
++    auto* ParameterScroll=WidgetTree->ConstructWidget<UScrollBox>();Parameters->SetContent(ParameterScroll);
++    auto* ParameterContent=WidgetTree->ConstructWidget<UVerticalBox>();ParameterScroll->AddChild(ParameterContent);
++    PreviewName=Text(TEXT("—"),16,false,true);Space(ParameterContent->AddChildToVerticalBox(PreviewName),FMargin(0,0,0,8));
++    PreviewStage=Text(TEXT("配方基础参数 · 未计锻造品质"),12);PreviewStage->SetColorAndOpacity(ColdSteelUI::TextSecondary);
++    Space(ParameterContent->AddChildToVerticalBox(PreviewStage),FMargin(0,0,0,12));
++    PreviewParameterGrid=WidgetTree->ConstructWidget<UGridPanel>();PreviewParameterGrid->SetColumnFill(0,1.f);
++    ParameterContent->AddChildToVerticalBox(PreviewParameterGrid);
++    PreviewScope=Text(TEXT(""),12);PreviewScope->SetColorAndOpacity(ColdSteelUI::TextTertiary);
++    Space(ParameterContent->AddChildToVerticalBox(PreviewScope),FMargin(0,12,0,0));
+     auto* Instructions=Card(Content);Space(Instructions->AddChildToVerticalBox(Text(TEXT("操作说明"),16,false,true)),FMargin(0,0,0,8));
+     auto* Help=Text(TEXT("光圈与命中范围随时间缩小，直到消失。移动鼠标对准后左键落锤，出锤时锁定大小，锤头接触时判定。"),14);Space(Instructions->AddChildToVerticalBox(Help),FMargin(0,0,0,8));
+     auto* Rule=Text(FString::Printf(TEXT("每轮 20 处光圈 · 单处随机停留 %.1f～%.1f 秒，出锤后锁定至接触\n落锤后随机间隔 %.2f～%.2f 秒，且等待回锤完成 · 10 次命中为基础品质\n伤害浮动 −25%% ～ ＋25%%"),System->HitWindowMin,System->HitWindowMax,System->TargetGapMin,System->TargetGapMax),12);Rule->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(Instructions->AddChildToVerticalBox(Rule),FMargin(0,0,0,8));
+@@ -192,6 +207,40 @@
+     LoadedMold=Recipe->Mold;MoldTexture=FImageUtils::ImportFileAsTexture2D(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/Recipe->Mold);
+     if(Board)Board->Configure(nullptr,MoldTexture); // Recipe reference only; world contact owns scoring.
+ }
++void UColdSteelForgingWidget::RefreshProductPreview()
++{
++    using ColdSteelForgePresentation::SetText;
++    const auto* Recipe=System->Find(SelectedRecipe);
++    const auto& Job=System->Job();
++    const bool HasJob=!Job.Id.IsEmpty();
++    const FColdSteelItem Item=HasJob?Job.Item:Recipe?Model->CreateItem(Recipe->Output):FColdSteelItem{};
++    const auto Data=Item.Data.IsEmpty()?FColdSteelTooltipContent{}:
++        BuildColdSteelItemTooltip(Item,Model,GetGameInstance()->GetSubsystem<UGunsmithSystem>());
++    SetText(PreviewName,Data.Name.IsEmpty()?TEXT("暂无成品参数"):Data.Name);
++    SetText(PreviewStage,HasJob&&Job.bFinished?TEXT("成品实际参数 · 已计锻造品质"):TEXT("配方基础参数 · 未计锻造品质"));
++    SetText(PreviewScope,Data.ValueScope);
++    while(PreviewRows.Num()<Data.Summary.Num())
++    {
++        const int32 Index=PreviewRows.Num();
++        auto* Name=Text(TEXT(""),14);Name->SetColorAndOpacity(ColdSteelUI::TextSecondary);
++        auto* Value=Text(TEXT(""),14,true);Value->SetJustification(ETextJustify::Right);
++        const float S=FMath::Max(.1f,Scale);
++        for(int32 Column=0;Column<2;++Column)
++        {
++            auto* ParameterCellSlot=PreviewParameterGrid->AddChildToGrid(Column==0?Name:Value,Index,Column);
++            ParameterCellSlot->SetVerticalAlignment(VAlign_Center);ParameterCellSlot->SetHorizontalAlignment(HAlign_Fill);
++            ParameterCellSlot->SetPadding(FMargin(Column==0?0.f:12.f/S,6.f/S,0,6.f/S));PreviewCellSlots.Add(ParameterCellSlot);
++        }
++        PreviewRows.Add({Name,Value});
++    }
++    for(int32 Index=0;Index<PreviewRows.Num();++Index)
++    {
++        const auto& Row=PreviewRows[Index];const bool Visible=Data.Summary.IsValidIndex(Index);
++        Row.Name->SetVisibility(Visible?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
++        Row.Value->SetVisibility(Visible?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
++        if(Visible){SetText(Row.Name.Get(),Data.Summary[Index].Label);SetText(Row.Value.Get(),Data.Summary[Index].Value);}
++    }
++}
+ void UColdSteelForgingWidget::UpdateScale()
+ {
+     const float NewScale=ColdSteelUI::PixelScale(this);if(FMath::IsNearlyEqual(Scale,NewScale,.001f))return;Scale=FMath::Max(.1f,NewScale);
+@@ -200,7 +249,26 @@
+     for(const auto& W:ButtonSizes)if(auto* S=W.Get())S->SetHeightOverride(ColdSteelUI::ActionHeight/Scale);
+     CloseSize->SetWidthOverride(ColdSteelUI::ActionHeight/Scale);SecondaryActionSlot->SetPadding(FMargin(ColdSteelUI::ActionGap/Scale,0,0,0));
+     DiscardActionSlot->SetPadding(FMargin(ColdSteelUI::ActionGap/Scale,0,0,0));
+-    RecipeNextSlot->SetPadding(FMargin(ColdSteelUI::ActionGap/Scale,0,0,0));
++    auto ComboStyle=RecipeChoice->GetWidgetStyle();auto ComboButton=ComboStyle.ComboButtonStyle;
++    ComboButton.SetButtonStyle(ColdSteelUI::ButtonStyle(Scale));
++    ComboButton.SetMenuBorderBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Gray(25,252),ColdSteelUI::CardRadius/Scale,ColdSteelUI::Border,1/Scale));
++    ComboButton.DownArrowImage.ImageSize=FVector2D(8/Scale,8/Scale);
++    ComboButton.SetDownArrowPadding(FMargin(4/Scale,0,0,0));ComboButton.SetShadowOffset(FVector2D::ZeroVector);
++    ComboStyle.SetComboButtonStyle(ComboButton);RecipeChoice->SetWidgetStyle(ComboStyle);
++    RecipeChoice->SetContentPadding(FMargin(22/Scale,4/Scale,10/Scale,4/Scale));
++    RecipeChoice->SetMaxListHeight(240/Scale);
++    auto ItemStyle=RecipeChoice->GetItemStyle();
++    ItemStyle.SetEvenRowBackgroundBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Content,ColdSteelUI::ButtonRadius/Scale));
++    ItemStyle.SetOddRowBackgroundBrush(ItemStyle.EvenRowBackgroundBrush);
++    ItemStyle.SetEvenRowBackgroundHoveredBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover,ColdSteelUI::ButtonRadius/Scale));
++    ItemStyle.SetOddRowBackgroundHoveredBrush(ItemStyle.EvenRowBackgroundHoveredBrush);
++    ItemStyle.SetActiveBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover,ColdSteelUI::ButtonRadius/Scale,ColdSteelUI::Accent,1/Scale));
++    ItemStyle.SetInactiveBrush(ItemStyle.ActiveBrush);RecipeChoice->SetItemStyle(ItemStyle);
++    // Symmetric padding keeps the two visible halves equally wide.
++    if(auto* LeftSlot=Cast<UHorizontalBoxSlot>(Board->Slot))LeftSlot->SetPadding(FMargin(0,0,4/Scale,0));
++    PreviewParameterSlot->SetPadding(FMargin(4/Scale,0,0,0));
++    for(const auto& PreviewCell:PreviewCellSlots)if(auto* S=PreviewCell.Get())
++        S->SetPadding(FMargin(S->GetColumn()==0?0.f:12.f/Scale,6.f/Scale,0,6.f/Scale));
+     for(const auto& C:Cards)if(auto* Border=C.Get()){Border->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::StatusCard,ColdSteelUI::CardRadius/Scale,ColdSteelUI::Border,1/Scale));Border->SetPadding(12/Scale);}
+     for(const auto& Row:RowSpacings)if(auto* RowSlot=Row.Slot.Get())RowSlot->SetPadding(Row.Padding*(1.f/Scale));
+     for(const auto& MaterialCell:MaterialCellSlots)if(auto* CellSlot=MaterialCell.Get())
+@@ -232,7 +300,9 @@
+     const auto* Recipe=System->Find(SelectedRecipe);
+     if(bMaterialsDirty)
+     {
++        RefreshProductPreview();
+         const int32 Index=System->Catalog().IndexOfByPredicate([this](const auto& R){return R.Id==SelectedRecipe;});
++        if(RecipeChoice->GetSelectedIndex()!=Index)RecipeChoice->SetSelectedIndex(Index);
+         SetText(RecipeTitle,Recipe?FString::Printf(TEXT("%d / %d · %s"),Index+1,System->Catalog().Num(),
+             *ColdSteelInventory::Text(Model->CreateItem(Recipe->Output),TEXT("name"))):TEXT("配方未就绪"));
+         TArray<FColdSteelCraftingInput> DisplayInputs;
+@@ -305,7 +375,7 @@
+     else Reason=TEXT("锤头接触热区时计分；每次命中增加 2.5% 工艺伤害。");
+     ActionButton->SetIsEnabled(bInputReady&&Can);
+     const bool bCanChoose=bInputReady&&!Active&&!Pending&&System->Catalog().Num()>1;
+-    PreviousRecipeButton->SetIsEnabled(bCanChoose);NextRecipeButton->SetIsEnabled(bCanChoose);
++    RecipeChoice->SetIsEnabled(bCanChoose);
+     DiscardButton->SetIsEnabled(bInputReady&&Pending&&Job.bFinished&&!Active&&bCanDiscard);
+     FIntVector Furnace;const bool Linked=World.IsValid()&&World->FindCastingFurnace(Cell,Furnace);
+     SmeltingButton->SetIsEnabled(bInputReady&&Linked&&!Active);
+@@ -327,15 +397,24 @@
+     bMaterialsDirty=true;SetKeyboardFocus();Refresh();
+ }
+ void UColdSteelForgingWidget::HandleSmelting(){if(HUD&&!System->Active())HUD->OpenForgingSmelting();}
+-void UColdSteelForgingWidget::HandlePreviousRecipe(){CycleRecipe(-1);}
+-void UColdSteelForgingWidget::HandleNextRecipe(){CycleRecipe(1);}
+-void UColdSteelForgingWidget::CycleRecipe(int32 Direction)
+-{
+-    if(!bInputReady||!System||System->Active()||!System->Job().Id.IsEmpty())return;
+-    const auto& Catalog=System->Catalog();if(Catalog.Num()<2)return;
+-    const int32 Index=Catalog.IndexOfByPredicate([this](const auto& R){return R.Id==SelectedRecipe;});
+-    const int32 Next=Index==INDEX_NONE?0:(Index+Direction+Catalog.Num())%Catalog.Num();
+-    SelectedRecipe=Catalog[Next].Id;Notice.Reset();bMaterialsDirty=true;
++UWidget* UColdSteelForgingWidget::GenerateRecipeOption(FString Option)
++{
++    auto* Label=Text(Option,14,false,true);Label->SetJustification(ETextJustify::Center);
++    auto* OptionBox=WidgetTree->ConstructWidget<USizeBox>();OptionBox->SetMinDesiredHeight(ColdSteelUI::ActionHeight/FMath::Max(.1f,ColdSteelUI::PixelScale(this)));
++    OptionBox->SetContent(Label);Cast<USizeBoxSlot>(Label->Slot)->SetVerticalAlignment(VAlign_Center);
++    return OptionBox;
++}
++void UColdSteelForgingWidget::HandleRecipeSelected(FString Option,ESelectInfo::Type SelectionType)
++{
++    if(SelectionType==ESelectInfo::Direct||!System)return;
++    const auto& Catalog=System->Catalog();
++    const int32 Index=RecipeChoice->GetSelectedIndex();
++    if(!bInputReady||System->Active()||!System->Job().Id.IsEmpty()||!Catalog.IsValidIndex(Index))
++    {
++        RecipeChoice->SetSelectedIndex(Catalog.IndexOfByPredicate([this](const auto& R){return R.Id==SelectedRecipe;}));return;
++    }
++    if(SelectedRecipe==Catalog[Index].Id)return;
++    SelectedRecipe=Catalog[Index].Id;Notice.Reset();bMaterialsDirty=true;
+     LoadMold();Refresh();SetKeyboardFocus();
+ }
+ FReply UColdSteelForgingWidget::NativeOnMouseButtonDown(const FGeometry&,const FPointerEvent&){return FReply::Handled();}
+diff --git a/Source/FPSGAME/UI/ColdSteelForgingWidget.h b/Source/FPSGAME/UI/ColdSteelForgingWidget.h
+--- a/Source/FPSGAME/UI/ColdSteelForgingWidget.h
++++ b/Source/FPSGAME/UI/ColdSteelForgingWidget.h
+@@ -1,6 +1,7 @@
+ #pragma once
+ #include "CoreMinimal.h"
+ #include "Blueprint/UserWidget.h"
++#include "Components/ComboBoxString.h"
+ #include "ColdSteelForgingWidget.generated.h"
+ class UColdSteelHUDWidget;
+ class UColdSteelStatusModel;
+@@ -41,9 +42,8 @@
+     UFUNCTION() void HandleDiscard();
+     UFUNCTION() void HandleClose();
+     UFUNCTION() void HandleSmelting();
+-    UFUNCTION() void HandlePreviousRecipe();
+-    UFUNCTION() void HandleNextRecipe();
+-    void CycleRecipe(int32 Direction);
++    UFUNCTION() void HandleRecipeSelected(FString Option,ESelectInfo::Type SelectionType);
++    UFUNCTION() UWidget* GenerateRecipeOption(FString Option);
+     UTextBlock* Text(const FString& Caption,float Pixels,bool bNumeric=false,bool bMedium=false);
+     UButton* Button(const FString& Caption,UTextBlock*& Label);
+     UVerticalBox* Card(UVerticalBox* Parent);
+@@ -51,6 +51,7 @@
+     void Refresh();
+     void UpdateScale();
+     void LoadMold();
++    void RefreshProductPreview();
+     void AddMaterialCell(UWidget* Widget,int32 Row,int32 Column);
+     void EnsureMaterialRows(int32 Count);
+     FName SelectedRecipe;
+@@ -78,6 +79,14 @@
+     UPROPERTY(Transient) TObjectPtr<UBorder> Body;
+     UPROPERTY(Transient) TObjectPtr<UBorder> Footer;
+     UPROPERTY(Transient) TObjectPtr<USizeBox> BoardSize;
++    UPROPERTY(Transient) TObjectPtr<UHorizontalBoxSlot> PreviewParameterSlot;
++    UPROPERTY(Transient) TObjectPtr<UGridPanel> PreviewParameterGrid;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> PreviewName;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> PreviewScope;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> PreviewStage;
++    struct FPreviewRow { TWeakObjectPtr<UTextBlock> Name,Value; };
++    TArray<FPreviewRow> PreviewRows;
++    TArray<TWeakObjectPtr<UGridSlot>> PreviewCellSlots;
+     UPROPERTY(Transient) TObjectPtr<USizeBox> CloseSize;
+     UPROPERTY(Transient) TObjectPtr<USizeBox> TimerSize;
+     UPROPERTY(Transient) TObjectPtr<UScrollBox> Scroll;
+@@ -95,9 +104,7 @@
+     UPROPERTY(Transient) TObjectPtr<UButton> DiscardButton;
+     UPROPERTY(Transient) TObjectPtr<UButton> SmeltingButton;
+     UPROPERTY(Transient) TObjectPtr<UProgressBar> Timer;
+-    UPROPERTY(Transient) TObjectPtr<UButton> PreviousRecipeButton;
+-    UPROPERTY(Transient) TObjectPtr<UButton> NextRecipeButton;
+-    UPROPERTY(Transient) TObjectPtr<UHorizontalBoxSlot> RecipeNextSlot;
++    UPROPERTY(Transient) TObjectPtr<UComboBoxString> RecipeChoice;
+     // Reused on data changes; the widget tree owns these children.
+     struct FMaterialRow
+     {

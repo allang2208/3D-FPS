@@ -170,3 +170,7 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 ## 锻造材料与已投入工件
 
 处理制作材料红绿提示、数字分列、已支付材料与领取／废弃状态时，读取 [锻造材料与已投入工件](references/forging-materials.md)。
+
+## 成品参数与准备提示
+
+锻造成品等宽预览、配方下拉选择及体力条上方蓄力／架枪进度，读取 [成品参数与准备提示](references/product-preview-readiness.md)。

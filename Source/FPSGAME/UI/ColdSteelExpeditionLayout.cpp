@@ -1,5 +1,8 @@
-#include "ColdSteelExpeditionWidget.h"
+﻿#include "ColdSteelExpeditionWidget.h"
 #include "ColdSteelUIStyle.h"
+#include "ImageUtils.h"
+#include "Engine/Texture2D.h"
+#include "Misc/Paths.h"
 #include "Rendering/DrawElements.h"
 #include "Widgets/SLeafWidget.h"
 #include "Widgets/SOverlay.h"
@@ -20,13 +23,27 @@ namespace
     class SExpeditionPortal : public SLeafWidget
     {
     public:
-        SLATE_BEGIN_ARGS(SExpeditionPortal) {} SLATE_END_ARGS()
-        void Construct(const FArguments&) { SetVisibility(EVisibility::HitTestInvisible); }
+        SLATE_BEGIN_ARGS(SExpeditionPortal) : _Artwork(nullptr) {}
+            SLATE_ARGUMENT(const FSlateBrush*, Artwork)
+        SLATE_END_ARGS()
+        const FSlateBrush* Artwork=nullptr;
+        void Construct(const FArguments& Args) { Artwork=Args._Artwork;SetVisibility(EVisibility::HitTestInvisible); }
         virtual FVector2D ComputeDesiredSize(float) const override { return FVector2D(280, 130); }
         virtual int32 OnPaint(const FPaintArgs&, const FGeometry& Geometry, const FSlateRect&,
             FSlateWindowElementList& Elements, int32 Layer, const FWidgetStyle&, bool) const override
         {
             const FVector2D Size = Geometry.GetLocalSize();
+            if(Artwork && Artwork->GetResourceObject() && Size.X>0 && Size.Y>0)
+            {
+                FSlateBrush Brush=*Artwork;
+                const float SourceAspect=Brush.ImageSize.X/Brush.ImageSize.Y;
+                const float TargetAspect=Size.X/Size.Y;
+                const FVector2D UVSize=TargetAspect>SourceAspect?FVector2D(1,SourceAspect/TargetAspect):FVector2D(TargetAspect/SourceAspect,1);
+                const FVector2D UVMin=(FVector2D(1,1)-UVSize)*.5;
+                Brush.SetUVRegion(FBox2f(FVector2f(UVMin),FVector2f(UVMin+UVSize)));
+                FSlateDrawElement::MakeBox(Elements,Layer,Geometry.ToPaintGeometry(),&Brush,ESlateDrawEffect::None,FLinearColor::White);
+                return Layer;
+            }
             const float Center = Size.X * .79f, Top = 12.f, Bottom = Size.Y - 12.f;
             const float HalfWidth = FMath::Min(Size.X * .17f, 100.f);
             for (int32 Index = 0; Index < 5; ++Index)
@@ -43,11 +60,11 @@ namespace
     };
 }
 
-TSharedRef<SWidget> UColdSteelExpeditionWidget::Label(const FString& Text, int32 Size, FLinearColor Color, bool Numeric) const
+TSharedRef<SWidget> UColdSteelExpeditionWidget::Label(const FString& Text, int32 Size, FLinearColor Color, bool Numeric, bool Wrap) const
 {
     return SNew(STextBlock).Text(FText::FromString(Text))
         .Font(Numeric ? ColdSteelUI::NumberFont(Size * .75f) : ColdSteelUI::TextFont(Size * .75f, Size >= 16))
-        .ColorAndOpacity(Color).AutoWrapText(true);
+        .ColorAndOpacity(Color).AutoWrapText(Wrap);
 }
 
 TSharedRef<SWidget> UColdSteelExpeditionWidget::Card(TSharedRef<SWidget> Content, float Inset)
@@ -58,8 +75,13 @@ TSharedRef<SWidget> UColdSteelExpeditionWidget::Card(TSharedRef<SWidget> Content
 TSharedRef<SWidget> UColdSteelExpeditionWidget::Row(const FString& Name, const FString& Value, bool Numeric) const
 {
     return SNew(SHorizontalBox)
-        +SHorizontalBox::Slot().FillWidth(.4f).Padding(0, 7, 12, 7)[Label(Name, 12, ColdSteelUI::TextTertiary)]
-        +SHorizontalBox::Slot().FillWidth(.6f).Padding(0, 7)[Label(Value, 14, ColdSteelUI::TextPrimary, Numeric)];
+        +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center).Padding(0, 7, 12, 7)
+            [SNew(SBox).MinDesiredWidth(84)[SNew(STextBlock).Text(FText::FromString(Name))
+                .Font(ColdSteelUI::TextFont(14*.75f)).ColorAndOpacity(ColdSteelUI::TextSecondary).AutoWrapText(false)]]
+        +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center).Padding(0, 7)
+            [SNew(STextBlock).Text(FText::FromString(Value))
+                .Font(Numeric?ColdSteelUI::NumberFont(14*.75f):ColdSteelUI::TextFont(14*.75f))
+                .ColorAndOpacity(ColdSteelUI::TextPrimary).Justification(ETextJustify::Right).AutoWrapText(true)];
 }
 
 TSharedRef<SButton> UColdSteelExpeditionWidget::Action(const FString& Text, TFunction<void()> Callback, bool Primary)
@@ -82,7 +104,7 @@ TSharedRef<SWidget> UColdSteelExpeditionWidget::BuildCatalog()
             [SAssignNew(Button, SButton).ButtonStyle(&NormalStyle)
                 .ContentPadding(FMargin(8, 0)).HAlign(HAlign_Center).VAlign(VAlign_Center)
                 .OnClicked_Lambda([this, Index]() { bAvailableOnly = Index == 1; RefreshList(); return FReply::Handled(); })
-                [SNew(SBox).MinDesiredHeight(36).VAlign(VAlign_Center)[Label(Index ? TEXT("可出征") : TEXT("全部"), 14, ColdSteelUI::TextPrimary)]]];
+                [SNew(SBox).MinDesiredHeight(36).VAlign(VAlign_Center)[Label(Index ? TEXT("可出征") : TEXT("全部"), 14, ColdSteelUI::TextPrimary, false, false)]]];
         FilterButtons.Add(Button);
     }
     return Card(SNew(SVerticalBox)
@@ -98,7 +120,7 @@ TSharedRef<SWidget> UColdSteelExpeditionWidget::BuildCatalog()
                     .OnTextChanged_Lambda([this](const FText& Text) { Query = Text.ToString().TrimStartAndEnd(); RefreshList(); })]]
         +SVerticalBox::Slot().AutoHeight().Padding(0, 0, 0, 12)[Filters]
         +SVerticalBox::Slot().FillHeight(1)
-            [SNew(SScrollBox).ScrollBarThickness(FVector2D(6, 6)).AllowOverscroll(EAllowOverscroll::No)
+            [SNew(SScrollBox).ScrollBarThickness(FVector2D(6, 6)).ScrollBarVisibility(EVisibility::Visible).AllowOverscroll(EAllowOverscroll::No)
                 +SScrollBox::Slot()[SAssignNew(CatalogRows, SVerticalBox)]]
         +SVerticalBox::Slot().AutoHeight().Padding(0, 10, 0, 0)[Label(TEXT("选择目的地以查看详细情报"), 12, ColdSteelUI::TextTertiary)]);
 }
@@ -114,16 +136,16 @@ TSharedRef<SWidget> UColdSteelExpeditionWidget::BuildDetail()
             [SAssignNew(Button, SButton).ButtonStyle(&NormalStyle)
                 .HAlign(HAlign_Center).ContentPadding(FMargin(8, 0)).VAlign(VAlign_Center)
                 .OnClicked_Lambda([this, Index]() { DetailTab = Index; RefreshDetail(); if (DetailScroll) DetailScroll->ScrollToStart(); return FReply::Handled(); })
-                [SNew(SBox).MinDesiredHeight(36).VAlign(VAlign_Center)[Label(Titles[Index], 14, ColdSteelUI::TextPrimary)]]];
+                [SNew(SBox).MinDesiredHeight(36).VAlign(VAlign_Center)[Label(Titles[Index], 14, ColdSteelUI::TextPrimary, false, false)]]];
         DetailButtons.Add(Button);
     }
     return Card(SNew(SVerticalBox)
         +SVerticalBox::Slot().AutoHeight().Padding(0, 0, 0, 12)
             [SNew(SBorder).BorderImage(&HeroBrush).Padding(0)
-                [SNew(SBox).MinDesiredHeight(132)
+                [SNew(SBox).MinDesiredHeight_Lambda([this]() { return LayoutMode == 1 || (BodyHost && BodyHost->GetCachedGeometry().GetLocalSize().Y < 600) ? 100.f : 172.f; })
                     [SNew(SOverlay)
-                        +SOverlay::Slot()[SNew(SExpeditionPortal)]
-                        +SOverlay::Slot().Padding(16).VAlign(VAlign_Center)
+                        +SOverlay::Slot()[SNew(SExpeditionPortal).Artwork(&DestinationArtBrush)]
+                        +SOverlay::Slot().Padding(20).VAlign(VAlign_Bottom)
                             [SNew(SVerticalBox)
                                 +SVerticalBox::Slot().AutoHeight().Padding(0, 0, 0, 8)[Label(TEXT("任务情报"), 12, ColdSteelUI::TextTertiary)]
                                 +SVerticalBox::Slot().AutoHeight()[SNew(STextBlock)
@@ -133,7 +155,7 @@ TSharedRef<SWidget> UColdSteelExpeditionWidget::BuildDetail()
                                     .Text_Lambda([this]() { return FText::FromString(Selection() ? Selection()->Category : TEXT("目的地档案")); })
                                     .Font(ColdSteelUI::TextFont(9)).ColorAndOpacity(ColdSteelUI::TextSecondary).AutoWrapText(true)]]]]]
         +SVerticalBox::Slot().AutoHeight().Padding(0, 0, 0, 16)[Tabs]
-        +SVerticalBox::Slot().FillHeight(1)[SAssignNew(DetailScroll, SScrollBox).ScrollBarThickness(FVector2D(6, 6))
+        +SVerticalBox::Slot().FillHeight(1)[SAssignNew(DetailScroll, SScrollBox).ScrollBarThickness(FVector2D(6, 6)).ScrollBarVisibility(EVisibility::Visible)
             .AllowOverscroll(EAllowOverscroll::No)+SScrollBox::Slot()[SAssignNew(DetailRows, SVerticalBox)]]);
 }
 
@@ -141,7 +163,7 @@ TSharedRef<SWidget> UColdSteelExpeditionWidget::BuildPreparation()
 {
     return Card(SNew(SVerticalBox)
         +SVerticalBox::Slot().AutoHeight().Padding(0, 0, 0, 12)[Label(TEXT("行前准备"), 16, ColdSteelUI::TextPrimary)]
-        +SVerticalBox::Slot().FillHeight(1)[SNew(SScrollBox).ScrollBarThickness(FVector2D(6, 6))
+        +SVerticalBox::Slot().FillHeight(1)[SNew(SScrollBox).ScrollBarThickness(FVector2D(6, 6)).ScrollBarVisibility(EVisibility::Visible)
             .AllowOverscroll(EAllowOverscroll::No)+SScrollBox::Slot()[SAssignNew(PreparationRows, SVerticalBox)]]);
 }
 
@@ -149,6 +171,13 @@ TSharedRef<SWidget> UColdSteelExpeditionWidget::RebuildWidget()
 {
     SetIsFocusable(true);
     LayoutMode = -1;
+    if(!DestinationArtwork)DestinationArtwork=FImageUtils::ImportFileAsTexture2D(FPaths::ProjectContentDir()/TEXT("ColdSteelUI/Expedition/underground_facility.png"));
+    DestinationArtBrush=ColdSteelUI::RoundedBrush(FLinearColor::White,ColdSteelUI::CardRadius,ColdSteelUI::Border,1);
+    if(DestinationArtwork)
+    {
+        DestinationArtBrush.SetResourceObject(DestinationArtwork);
+        DestinationArtBrush.ImageSize=FVector2D(DestinationArtwork->GetSizeX(),DestinationArtwork->GetSizeY());
+    }
     PanelBrush = ColdSteelUI::RoundedBrush(ColdSteelUI::GlassTint, ColdSteelUI::PanelRadius);
     FallbackBrush = ColdSteelUI::RoundedBrush(ColdSteelUI::GlassFallback, ColdSteelUI::PanelRadius);
     CardBrush = ColdSteelUI::RoundedBrush(ColdSteelUI::Content, ColdSteelUI::CardRadius);
@@ -156,7 +185,8 @@ TSharedRef<SWidget> UColdSteelExpeditionWidget::RebuildWidget()
     NormalStyle = ColdSteelUI::ButtonStyle();
     NormalStyle.SetNormalPadding(FMargin(0)).SetPressedPadding(FMargin(0));
     SelectedStyle = NormalStyle;
-    SelectedStyle.SetNormal(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover, 6, ColdSteelUI::Accent));
+    SelectedStyle.SetNormal(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover, ColdSteelUI::ButtonRadius, ColdSteelUI::Accent,2));
+    SelectedStyle.SetHovered(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover, ColdSteelUI::ButtonRadius, ColdSteelUI::Accent,2));
     PrimaryStyle = NormalStyle;
     PrimaryStyle.SetNormal(ColdSteelUI::RoundedBrush(ColdSteelUI::Accent, 6));
     PrimaryStyle.SetHovered(ColdSteelUI::RoundedBrush(ColdSteelUI::TextPrimary, 6));
@@ -180,7 +210,7 @@ TSharedRef<SWidget> UColdSteelExpeditionWidget::RebuildWidget()
             [SAssignNew(Button, SButton).ButtonStyle(&NormalStyle)
                 .HAlign(HAlign_Center).ContentPadding(FMargin(4, 0)).VAlign(VAlign_Center)
                 .OnClicked_Lambda([this, Index]() { CompactPage = Index; LayoutMode = -1; UpdateLayout(); return FReply::Handled(); })
-                [SNew(SBox).MinDesiredHeight(36).VAlign(VAlign_Center)[Label(Pages[Index], 14, ColdSteelUI::TextPrimary)]]];
+                [SNew(SBox).MinDesiredHeight(36).VAlign(VAlign_Center)[Label(Pages[Index], 14, ColdSteelUI::TextPrimary, false, false)]]];
         CompactButtons.Add(Button);
     }
     auto Confirm = Action(TEXT("确认出征"), [this]() { ConfirmDeparture(); }, true);
@@ -203,17 +233,17 @@ TSharedRef<SWidget> UColdSteelExpeditionWidget::RebuildWidget()
                 +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center).Padding(0, 0, 16, 0)
                     [SNew(SVerticalBox)
                         +SVerticalBox::Slot().AutoHeight()[SNew(STextBlock)
-                            .Text_Lambda([this]() { return FText::FromString(Selection() ? Selection()->Name : TEXT("尚未选择目的地")); })
+                            .Text_Lambda([this]() { const auto* Entry = Selection(); return FText::FromString(Entry ? Entry->Name + TEXT(" · ") + (Entry->EntryCost.IsEmpty() ? TEXT("消耗待公布") : Entry->EntryCost) : TEXT("尚未选择目的地")); })
                             .Font(ColdSteelUI::TextFont(10.5f, true)).ColorAndOpacity(ColdSteelUI::TextPrimary).AutoWrapText(true)]
                         +SVerticalBox::Slot().AutoHeight().Padding(0, 4, 0, 0)[SNew(STextBlock)
                             .Text_Lambda([this]() { return BlockMessage(); }).Font(ColdSteelUI::TextFont(9))
-                            .ColorAndOpacity(ColdSteelUI::TextSecondary).AutoWrapText(true)]]
+                            .ColorAndOpacity_Lambda([this]() { return CanConfirm() && Feedback.IsEmpty() ? ColdSteelUI::Success : ColdSteelUI::TextSecondary; }).AutoWrapText(true)]]
                 +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)[SNew(SBox).WidthOverride_Lambda([this]() { return LayoutMode == 2 ? 112.f : 180.f; })[Confirm]], 12)];
     UpdateLayout();
     // Cancel UMG's canvas DPI; thresholds and typography use actual available pixels, as the other workbenches do.
     return SNew(SDPIScaler).DPIScale_Lambda([this]() { return 1.f / ColdSteelUI::PixelScale(this); })
         [SNew(SBorder).BorderBackgroundColor(ColdSteelUI::Gray(10, 225)).Padding(12)
-            [SNew(SBackgroundBlur).BlurStrength(5).BlurRadius(13).CornerRadius(FVector4(10, 10, 10, 10))
+            [SNew(SBackgroundBlur).BlurStrength(ColdSteelUI::GlassBlurStrength).BlurRadius(ColdSteelUI::GlassBlurRadius).CornerRadius(FVector4(ColdSteelUI::PanelRadius))
                 .LowQualityFallbackBrush(&FallbackBrush).Padding(0)
                 [SNew(SBorder).BorderImage(&PanelBrush).Padding(16)[Content]]]];
 }
@@ -222,8 +252,16 @@ void UColdSteelExpeditionWidget::UpdateLayout()
 {
     if (!BodyHost) return;
     const float Width = BodyHost->GetCachedGeometry().GetLocalSize().X;
-    const int32 Mode = Width < 100 ? 0 : Width < 900 ? 2 : Width < 1280 ? 1 : 0;
-    if (LayoutMode == Mode) return;
+    const float Height = BodyHost->GetCachedGeometry().GetLocalSize().Y;
+    const int32 Mode = Width < 100 ? 0 : (Width < 900 || (Height > 0 && Height < 480)) ? 2 : Width < 1280 ? 1 : 0;
+    const float DetailWidth = Width - (Mode == 0 ? 600.f : Mode == 1 ? 280.f : 28.f);
+    const bool SingleColumn = DetailWidth < 560.f;
+    if (LayoutMode == Mode)
+    {
+        if (bSingleColumnFacts != SingleColumn) { bSingleColumnFacts = SingleColumn; RefreshDetail(); }
+        return;
+    }
+    bSingleColumnFacts = SingleColumn;
     LayoutMode = Mode;
     BodyHost->SetContent(SNullWidget::NullWidget);
     CatalogRows.Reset(); DetailRows.Reset(); PreparationRows.Reset(); Search.Reset(); DetailScroll.Reset();
@@ -236,9 +274,9 @@ void UColdSteelExpeditionWidget::UpdateLayout()
     else if (Mode == 1)
         BodyHost->SetContent(SNew(SHorizontalBox)
             +SHorizontalBox::Slot().AutoWidth().Padding(0, 0, 12, 0)[SNew(SBox).WidthOverride(240)[BuildCatalog()]]
-            +SHorizontalBox::Slot().FillWidth(1)[SNew(SScrollBox).ScrollBarThickness(FVector2D(6, 6)).AllowOverscroll(EAllowOverscroll::No)
-                +SScrollBox::Slot().Padding(0, 0, 0, 12)[SNew(SBox).HeightOverride(480)[BuildDetail()]]
-                +SScrollBox::Slot()[SNew(SBox).HeightOverride(430)[BuildPreparation()]]]);
+            +SHorizontalBox::Slot().FillWidth(1)[SNew(SVerticalBox)
+                +SVerticalBox::Slot().FillHeight(.62f).Padding(0, 0, 0, 12)[BuildDetail()]
+                +SVerticalBox::Slot().FillHeight(.38f)[BuildPreparation()]]);
     else
         BodyHost->SetContent(CompactPage == 0 ? BuildCatalog() : CompactPage == 1 ? BuildDetail() : BuildPreparation());
     RefreshList();

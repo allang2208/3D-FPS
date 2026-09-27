@@ -381,9 +381,9 @@ void UBowWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
                 (Viewmodel->GetSkeletalMeshAsset() && Animations.FindRef(ClipIdle) && Animations.FindRef(ClipDraw)
                  && Animations.FindRef(ClipNock) && Animations.FindRef(ClipRelease)));
             bPresentationReady = bReady;
-            Feedback = bReady ? TEXT("弓 · 左键搭箭拉开，松手发射 · 右键瞄准 · 长按 R 选箭")
+            Feedback = bReady ? FString()
                               : TEXT("弓模型未加载完成，重新装备试试");
-            FeedbackSeconds = 3.f;
+            FeedbackSeconds = bReady ? 0.f : 3.f;
             if (bReady) SetStage(EBowStage::Equip, EquipSeconds);
         }));
 }
