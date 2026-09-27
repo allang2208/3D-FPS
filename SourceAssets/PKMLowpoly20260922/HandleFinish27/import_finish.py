@@ -109,3 +109,10 @@ report['saved']=True;report['weather_mapping_preserved']=True
 receipt.write_text(json.dumps(report,indent=2))
 print('PKM27_COMPLETE',json.dumps({'mesh_saved':True,'materials_saved':len(report['materials']),
     'receipt':str(receipt),'game_tested':False}),flush=True)
+
+# The current finish recipe supersedes the historical matte layer. Rebuilding
+# this stage must also restore both olive boxes and the paired wet surfaces.
+import runpy as _pkm_finish_runpy
+_pkm_finish_runpy.run_path(
+    str(Path(__file__).resolve().parents[2] / 'PKMRefinedFinish20260927/install_finish.py'),
+    run_name='__main__')

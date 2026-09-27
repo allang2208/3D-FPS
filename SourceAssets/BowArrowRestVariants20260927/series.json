@@ -1,0 +1,21 @@
+{
+  "asset_directory": "/Game/Weapons/DarkBow20260925/ArrowRestVariants20260927",
+  "variants": [
+    {
+      "id": "open_quick_rest",
+      "display_name": "开口速搭箭台",
+      "mesh": "SM_Bow_ArrowRest_OpenQuick",
+      "description": "敞口短托配磨光滑片，便于箭杆落位和滑出，侧向导向较弱。",
+      "appearance": "贴合弓体的薄木座，配深色磨光角片和圆滑敞口。",
+      "stats": {"nock_mult": 0.20, "draw_mult": 0.90, "speed_mult": 1.05, "spread_mult": 1.10}
+    },
+    {
+      "id": "fork_guide_rest",
+      "display_name": "双叉导向箭台",
+      "mesh": "SM_Bow_ArrowRest_ForkGuide",
+      "description": "双叉托面配窄皮衬，为箭杆提供更明确的侧向导向，滑出阻力略高。",
+      "appearance": "深木色浅 V 形双叉托架，接触面覆窄皮衬，上方与出箭方向开放。",
+      "stats": {"spread_mult": 0.75, "speed_mult": 0.95}
+    }
+  ]
+}

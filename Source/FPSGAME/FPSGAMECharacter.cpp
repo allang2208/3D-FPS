@@ -507,8 +507,9 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
         DrumReloadAnimation=LoadObject<UAnimSequence>(nullptr,*M16Attachments::AnimationPath(TEXT("base"),TEXT("drum_reload")));
         DrumReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,*M16Attachments::AnimationPath(TEXT("base"),TEXT("drum_reload_empty")));
     }
-    // The accepted pistol set has no inspection clip; do not resolve a fictional asset.
-    InspectAnimation = SVDWeaponAssets::Matches(AKMViewmodel) || bUseDanWesson715 || bUseM16 || PKMLowpolyWeaponAssets::Matches(AKMViewmodel) ? LoadAKMAnimation(TEXT("A_AKM_inspect")) : bUsingM4Infima || bUseM1911 ? nullptr : LoadAKMAnimation(TEXT("A_AKM_inspect"));
+    // DW715 retains its original inspect; M1911 uses that clip's native-grip adaptation.
+    InspectAnimation = IsPistolWeapon() || SVDWeaponAssets::Matches(AKMViewmodel) || bUseM16 || PKMLowpolyWeaponAssets::Matches(AKMViewmodel) ? LoadAKMAnimation(TEXT("A_AKM_inspect")) : bUsingM4Infima ? nullptr : LoadAKMAnimation(TEXT("A_AKM_inspect"));
+    if(bUseM1911 && DualPistols)DualPistols->PrepareSingleInspect();
     if (bUsingReplacement) EquipAnimation = LoadAKMAnimation(TEXT("A_AKM_equip"));
     DrumSupportAnimations.Reset();
     if (bUsingM4Infima && !bUseQBZ191 && !bUseM16 && !IsPistolWeapon() && !SVDWeaponAssets::Matches(AKMViewmodel) && !PKMLowpolyWeaponAssets::Matches(AKMViewmodel))
@@ -1230,22 +1231,27 @@ void AFPSGAMECharacter::ReloadPressed()
 
 void AFPSGAMECharacter::InspectPressed()
 {
-    // Dual hands own their own clips. Starting the single-pistol inspect here
-    // leaves WeaponState stuck: UpdateWeaponState does not advance it in dual.
+    // Dual inspect is disabled by user choice. Its clocks do not advance the
+    // single-weapon Inspecting state.
     if(IsDualWieldingPistols())return;
     if(RuneSword && RuneSword->IsEquipped())
     {
         if(IsCastBlockingLeftHandAction() || IsWeaponBusy())return;
         ExitSprintForWeapon();RuneSword->BeginInspect();return;
     }
-    if (IsCastBlockingLeftHandAction() || IsWeaponBusy() || !InspectAnimation) return;
+    if (IsCastBlockingLeftHandAction() || IsWeaponBusy() || IsChoosingAmmo()) return;
+    UAnimSequence* Clip=bUseM1911 && DualPistols && (MagazineAmmo==0 || NeedsReloadCycle())
+        ?DualPistols->SingleEmptyInspect():InspectAnimation.Get();
+    if(!Clip || !bInventoryWeaponReady)return;
     FireReleased();
+    ExitSprintForWeapon();
+    StopMechanicalAudio();
     SetAimingState(false);
     WeaponState = EAKMWeaponState::Inspecting;
     WeaponActionStartedAt = GetWorld()->GetTimeSeconds();
     WeaponStateElapsed = 0.0f;
-    WeaponStateDuration = InspectAnimation->GetPlayLength();
-    PlayWeaponAnimation(InspectAnimation, false);
+    WeaponStateDuration = Clip->GetPlayLength();
+    PlayWeaponAnimation(Clip, false);
 }
 
 // 「快速进战」F 键入口：转交状态模型，由其按当前武器路由（剑 → 配重锤 / 手枪 → 握把砸击 /
@@ -3140,7 +3146,7 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
         const bool bQuickCombatAction = WeaponState == EAKMWeaponState::QuickCombat;
         if ((bUseDanWesson715 || bPKMWeapon) && bFireAction)
             ActionElapsed = static_cast<float>(FMath::Max(0.0, GetWorld()->GetTimeSeconds() - LastShotWorldTime));
-        else if (bQuickCombatAction || IsReloading() || ((bUsingM4Infima || bUseQBZ191 || IsPistolWeapon()) && WeaponState == EAKMWeaponState::Equipping)) ActionElapsed = WeaponStateElapsed;
+        else if (bQuickCombatAction || IsReloading() || WeaponState == EAKMWeaponState::Inspecting || ((bUsingM4Infima || bUseQBZ191 || IsPistolWeapon()) && WeaponState == EAKMWeaponState::Equipping)) ActionElapsed = WeaponStateElapsed;
         else ActionElapsed += DeltaSeconds;
         const float BlendScale = IsReloading() ? 1.f / FMath::Max(0.01f, ActionPlayRate) : 1.f;
         const float BlendOut = (bFireAction ? 0.028f : (IsPistolWeapon() && IsReloading() ? 0.025f : 0.10f)) * BlendScale;

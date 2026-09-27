@@ -1,0 +1,24 @@
+{
+  "asset_directory": "/Game/Weapons/DarkBow20260925/StringVariants20260927",
+  "radius_cm": 0.09,
+  "variants": [
+    {
+      "id": "steady_twist_string",
+      "display_name": "紧捻稳弦",
+      "material": "MI_BowString_SteadyTwist",
+      "description": "紧密绞合的弦身便于稳定控弓，减轻瞄准晃动和腰射扩散并提高伤害；拉至满弓需要更长时间。",
+      "appearance": "炭灰双股紧捻纤维，夹入低对比灰麻细线，表面消光。",
+      "stats": {"sway_mult": 0.85, "spread_mult": 0.9, "damage_mult": 1.05, "draw_mult": 1.1},
+      "surface": {"Dark": [0.021, 0.024, 0.025], "Light": [0.072, 0.077, 0.074], "Tracer": [0.10, 0.097, 0.084], "PitchCM": 0.48, "Weave": 0.0, "Roughness": 0.86}
+    },
+    {
+      "id": "softcore_hold_string",
+      "display_name": "柔芯长持弦",
+      "material": "MI_BowString_SoftcoreHold",
+      "description": "柔芯与编织外层组成的弓弦缩短拉满耗时，并减轻单次射击耐力消耗；子弹速度稍低。",
+      "appearance": "深棕纤维与暗橄榄外层交编，疏织纹理带柔和蜡封光泽。",
+      "stats": {"draw_mult": 0.9, "stamina_mult": 0.9, "speed_mult": 0.95},
+      "surface": {"Dark": [0.048, 0.027, 0.014], "Light": [0.092, 0.099, 0.045], "Tracer": [0.11, 0.091, 0.043], "PitchCM": 0.86, "Weave": 1.0, "Roughness": 0.66}
+    }
+  ]
+}

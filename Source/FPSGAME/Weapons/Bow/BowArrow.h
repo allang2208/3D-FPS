@@ -57,7 +57,7 @@ private:
 
     /** 单步不超过这个长度：9800 cm/s 在 30 fps 下也不会穿过薄墙。 */
     static constexpr float StepCM = 60.f;
-    /** 无限备弹产生的虚拟箭只短暂保留外观，不可回收。 */
+    /** 无限备弹箭短暂保留，靠近可收走，但不返还真实库存。 */
     static constexpr float StickSeconds = 8.f;
     float CollisionRadiusCM = .35f;
     // Overlaps only: the E trace sees this shape, weapon blocking traces do not.

@@ -1,0 +1,25 @@
+{
+  "asset_directory": "/Game/Weapons/DarkBow20260925/SingleLensOptics20260927",
+  "variants": [
+    {
+      "id": "bow_clearfield_2x",
+      "display_name": "清野二倍镜",
+      "mesh": "SM_Bow_Clearfield2x",
+      "magnification": 2,
+      "outer_diameter_cm": 4.5,
+      "description": "薄框单片玻璃配细十字和中心点，提供固定 2 倍放大。",
+      "appearance": "贴合木座、轻巧黑钢弧臂与暗黄铜窄压圈，单片玻璃边缘呈浅青灰反光。",
+      "stats": {"ads_mult": 1.1}
+    },
+    {
+      "id": "bow_farwatch_4x",
+      "display_name": "远望四倍镜",
+      "mesh": "SM_Bow_Farwatch4x",
+      "magnification": 4,
+      "outer_diameter_cm": 4.8,
+      "description": "薄框单片玻璃提供固定 4 倍放大，细十字下方附两道无距离标注的参考刻线。",
+      "appearance": "贴合木座、带浅加强筋的黑钢弧臂与暗黄铜窄压圈，单片微凸玻璃边缘呈弱灰紫反光。",
+      "stats": {"ads_mult": 1.25}
+    }
+  ]
+}

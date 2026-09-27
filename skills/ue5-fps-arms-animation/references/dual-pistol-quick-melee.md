@@ -34,3 +34,7 @@
 当前制作源为 `SourceAssets/DualPistolQuickCombat20260920/SpinRecoveryV5`；0.80 s 总长、0.18 s 单次接触、0.435–0.675 s 转枪，36 条动画。仍依赖 VideoRefV3 的纯函数／手工 motion 与 NaturalAimV3 的四套合法本地源。旧 V1／V2 和取消改造枪转枪的 V4 已退役。
 
 V5 已导入，必要 Live Coding 当时成功，尚未完成新一轮游戏／全部配件视觉验收。DW715 枪身或弹巢“形变”反馈仍未解决：现有只读采样未发现机械骨缩放或相对漂移，不能据此宣称用户观察错误或已修好。具体当前状态见宿主 `Docs/Weapons/dual-melee-overhead-publication-20260920.md`。
+
+## 转枪检视派生已否定（2026-09-27）
+
+`SourceAssets/PistolSpinInspect20260927` 的 1.80 s 转枪检视已被用户否定并撤回，不作为认可基线。用户明确双持恢复改动前、不播放检视；单持左轮恢复 Upgrade20260914 的原版 4.966667 s 检视，M1911 复用原动作并适配自身握点与正常／空仓机械状态。新源在 `SourceAssets/M1911RevolverInspect20260927`，见宿主 `Docs/Weapons/m1911-original-revolver-inspect-20260927.md`。快速近战收尾转枪未改动；新 M1911 适配未做游戏或视觉验收。

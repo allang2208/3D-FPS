@@ -1,0 +1,1630 @@
+{
+  "previous_spin_files": 76,
+  "publication_files": 127,
+  "files": [
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/author_actions.py",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/author_actions.py",
+      "bytes": 13077,
+      "sha256": "1feded58c8092d367defede695a0f3f5e66ebfec2aaf660b0674a0172f8ebd57",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/build-editor-closed.log",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/build-editor-closed.log",
+      "bytes": 10953,
+      "sha256": "d3366a77aa1dd4c8344ee7bb8445986c59911fb420dbf988f2f3dc35b51fc5dd",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/build-editor.log",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/build-editor.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/build-status.json",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/build-status.json",
+      "bytes": 908,
+      "sha256": "0f0910cbe5b9a8d76766d1a5f10c1480ed87c0fc4783d3c1e3bfc19bbe56ad85",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/compile_existing_editor.py",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/compile_existing_editor.py",
+      "bytes": 877,
+      "sha256": "15f167430ecbd3d2853445c8c35788d12d46963d1a7ad84673194d570ba3ad28",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/compile-request.json",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/compile-request.json",
+      "bytes": 228,
+      "sha256": "45997f6c56d1567a859d914c47f62d8993c37a44c16ffa570ba705a2729613ae",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/DW715-author.log",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/DW715-author.log",
+      "bytes": 3761,
+      "sha256": "7bde52c710f10563657ffaa0fecded9173eb1ac12a9f89c98de0b94de9aa7ac6",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/DW715-authoring.json",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/DW715-authoring.json",
+      "bytes": 4604,
+      "sha256": "ce44db5865e21e5fd7a829cc1039b5a040beba9a919d69aa0a6dfcb08f7ce1df",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/import_assets.py",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/import_assets.py",
+      "bytes": 3356,
+      "sha256": "db81e53da092c938c34456fb7693446577b643df0918ddedf1ed21cdceb48f32",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/import-commandlet.log",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/import-commandlet.log",
+      "bytes": 66331,
+      "sha256": "4602c13528d34644fe16542f0b37c1899583637310e1ea850b8098f9bb6590da",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/import.json",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/import.json",
+      "bytes": 3362,
+      "sha256": "a0071e7e305b122a162a786905ad19a5df39892329d6a629ce85dcde7c5325aa",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/live-compile-result-01.json",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/live-compile-result-01.json",
+      "bytes": 206,
+      "sha256": "4557ee62e2ab71cdeed779ebc1261eadf122019356aa7470970420e9c0c4f301",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/live-compile-result-02.json",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/live-compile-result-02.json",
+      "bytes": 206,
+      "sha256": "df20671b4be635e6ee1972add55e465d463710007f1dbea2523c6f354ef16b95",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/live-compile-result-03.json",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/live-compile-result-03.json",
+      "bytes": 206,
+      "sha256": "ae5c788ef820d7d11373e55407a0f10fcf0ff54f2346ef18bd73d6bab22e173b",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911-author.log",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911-author.log",
+      "bytes": 5827,
+      "sha256": "e849f6008440ea7c1f5458e5e56c6a3e1c32b25aa836b2bcd09887d9a6711dbc",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911-authoring.json",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911-authoring.json",
+      "bytes": 7426,
+      "sha256": "6181e86e8a8197d4fbc586fbb8d829ebc44083e580820b3f18b3a9273f910280",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/DW715/l/DW715_l_SpinInspect_Editable.blend",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/DW715/l/DW715_l_SpinInspect_Editable.blend",
+      "bytes": 491312815,
+      "sha256": "275db22fccfa64fa45e8efa13297d567cccfa0e64168e1b493d19a7d59d93b0b",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/DW715/l/Animations/A_Dual_DW715_l_inspect_fitted.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/DW715/l/Animations/A_Dual_DW715_l_inspect_fitted.fbx",
+      "bytes": 2114844,
+      "sha256": "5def40a69c289a39a18b717f267a7b8808cf09d1563dddd59be75ed36921cb84",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/DW715/l/Animations/A_Dual_DW715_l_inspect_long.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/DW715/l/Animations/A_Dual_DW715_l_inspect_long.fbx",
+      "bytes": 2115004,
+      "sha256": "763bceba6382ae2e8188b94903b45b131feba5812a2330bd18470dc01796b274",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/DW715/l/Animations/A_Dual_DW715_l_inspect.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/DW715/l/Animations/A_Dual_DW715_l_inspect.fbx",
+      "bytes": 2115004,
+      "sha256": "c49693d2d55dd8e3c6c8297a8fb8701d0680cefbd120174621dd98329bcc292a",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/DW715/r/DW715_r_SpinInspect_Editable.blend",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/DW715/r/DW715_r_SpinInspect_Editable.blend",
+      "bytes": 394427522,
+      "sha256": "8a01320b1af2e226d9a83fb8aa8dbd187224e6c34a2aa084acdc2f5125fed207",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/DW715/r/Animations/A_Dual_DW715_r_inspect_fitted.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/DW715/r/Animations/A_Dual_DW715_r_inspect_fitted.fbx",
+      "bytes": 2118796,
+      "sha256": "a85eeb9d194d723e47bc06018b3368981524a8d336cae60d791e5fad70e659e6",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/DW715/r/Animations/A_Dual_DW715_r_inspect_long.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/DW715/r/Animations/A_Dual_DW715_r_inspect_long.fbx",
+      "bytes": 2119468,
+      "sha256": "9ae594777fb219821865fd728d5eda86ca058d0303eb8d622a959753e52f4084",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/DW715/r/Animations/A_Dual_DW715_r_inspect.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/DW715/r/Animations/A_Dual_DW715_r_inspect.fbx",
+      "bytes": 2119276,
+      "sha256": "92c5e88029ef98860c24116dbed4a6e57fa81e3587bf1dad3d52a8fd285ed21e",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/DW715/single/DW715_single_SpinInspect_Editable.blend",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/DW715/single/DW715_single_SpinInspect_Editable.blend",
+      "bytes": 348940162,
+      "sha256": "088ede508fb164edc7391f469db3f2ea827e0355b81716140e4e3295e277e991",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/DW715/single/Animations/A_DW715_inspect_fitted.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/DW715/single/Animations/A_DW715_inspect_fitted.fbx",
+      "bytes": 2166972,
+      "sha256": "18ee11be95751e8239e765a682849b08dd9f6c4eabcef86008e10133eb248bb1",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/DW715/single/Animations/A_DW715_inspect_long.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/DW715/single/Animations/A_DW715_inspect_long.fbx",
+      "bytes": 2167100,
+      "sha256": "4cea1fb59568146353c2876407779991a78b85dcb287c2c539cd9fb849a04bf2",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/DW715/single/Animations/A_DW715_inspect.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/DW715/single/Animations/A_DW715_inspect.fbx",
+      "bytes": 2166684,
+      "sha256": "ac14926e1c411491e9497dc5724da4b21d02d3cee31ac010540f4ad5cca18ce0",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911/l/M1911_l_SpinInspect_Editable.blend",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911/l/M1911_l_SpinInspect_Editable.blend",
+      "bytes": 199321599,
+      "sha256": "ca684eae65606b4a136489bf74a41f7da43412b73f37038c86d1a3586ec24038",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect_empty.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect_empty.fbx",
+      "bytes": 1821532,
+      "sha256": "e96d14e4cebd7ac3fb82c00a528f0da3281d12feb0c1a0e56d47a2951a01e32a",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect_fitted_empty.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect_fitted_empty.fbx",
+      "bytes": 1820940,
+      "sha256": "71e9210294a831bef1e9154951e94a5a66076379d2ae5cf0cbf07fb3716e8500",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect_fitted.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect_fitted.fbx",
+      "bytes": 1820972,
+      "sha256": "e9240711d52163e02c773e1b55a2c1f469821bffc46b00b5a1464fefede22e43",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect_long_empty.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect_long_empty.fbx",
+      "bytes": 1820908,
+      "sha256": "43a16069be8f5d7c0a924806bdeb9ae0333ce4621aa23107ec12fdbd976c9947",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect_long.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect_long.fbx",
+      "bytes": 1820956,
+      "sha256": "80748895c634dc997c73351f9a267eed27055a50829491347203940124dfaca8",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect.fbx",
+      "bytes": 1821580,
+      "sha256": "59f428394716e66930b16581a2a1a017cbd6d66d2a911b28ec9a67fd472ba08b",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911/r/M1911_r_SpinInspect_Editable.blend",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911/r/M1911_r_SpinInspect_Editable.blend",
+      "bytes": 191016438,
+      "sha256": "6d9873f927519e12ec1276fee4a08ed0cb41182574b007148d28b2782b1e6b2e",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect_empty.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect_empty.fbx",
+      "bytes": 1822924,
+      "sha256": "12718ac7037de58094179640f70fd2cb78a7ec0024cd55f03a0ac9ef98a112fc",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect_fitted_empty.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect_fitted_empty.fbx",
+      "bytes": 1822668,
+      "sha256": "41923f1580ac4cff3089dc8fefe6b8a84612edcdabdb7802100da5223ca8a813",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect_fitted.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect_fitted.fbx",
+      "bytes": 1822652,
+      "sha256": "59144bbe69b7d75e501d027f1c2dc5a5f25910fccf97e1cf63a4ad78766b5bc6",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect_long_empty.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect_long_empty.fbx",
+      "bytes": 1822668,
+      "sha256": "2c8c09299cae0aa641786ecb3897db30cc5116d55db373171d6f8de8159996c0",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect_long.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect_long.fbx",
+      "bytes": 1822668,
+      "sha256": "9f50ff9e57c7a122d7e5cf1195a709897012cd2c061f6c70592a997c30e8dcac",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect.fbx",
+      "bytes": 1822972,
+      "sha256": "fe03cf4294f8a0024967d4af39b6672cb325150bae990b57a1e27403214a376e",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911/single/M1911_single_SpinInspect_Editable.blend",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911/single/M1911_single_SpinInspect_Editable.blend",
+      "bytes": 192368233,
+      "sha256": "3249379c53ec660f242f436c3f924995a7325187b5fc0262524fd136c0654ca7",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect_empty.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect_empty.fbx",
+      "bytes": 1870076,
+      "sha256": "755068b528f8598526fa43a1152d17c226e602f61a185fa37752d6f8ca18b4f4",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect_fitted_empty.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect_fitted_empty.fbx",
+      "bytes": 1869628,
+      "sha256": "74bdbdd82cf3e322fa0e51c80f31b9d4c718a55df19a9e17f28df445a738e9d5",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect_fitted.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect_fitted.fbx",
+      "bytes": 1869708,
+      "sha256": "2ad3039174bed0df10da3e3a9819d89b973e63b930f4af89dbf6c01a4b08d931",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect_long_empty.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect_long_empty.fbx",
+      "bytes": 1869788,
+      "sha256": "535546f54057252a61d509c2a7b6dd8225afd73dd4b40568916c54ae20a86e78",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect_long.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect_long.fbx",
+      "bytes": 1869804,
+      "sha256": "5c5989d835a4809f8528b4b833e5a722c5f19ae756b9e34118a6fc78c03f25d2",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "SourceAssets/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect.fbx",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/SourceAssets/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect.fbx",
+      "bytes": 1870060,
+      "sha256": "5033426ea840153b54d713f3aecd23063e3ed5d37c4f7f98477fd1099c275d1c",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/DW715/l/Animations/A_Dual_DW715_l_inspect_fitted.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/DW715/l/Animations/A_Dual_DW715_l_inspect_fitted.uasset",
+      "bytes": 633782,
+      "sha256": "5cadf8bd2c09452e6c11dc0f12eaca43512a524f2fd1c436396763404694f731",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/DW715/l/Animations/A_Dual_DW715_l_inspect_long.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/DW715/l/Animations/A_Dual_DW715_l_inspect_long.uasset",
+      "bytes": 633770,
+      "sha256": "1cfe3b617efe69f5ca6b7a42750d0e2c7bfc30ff9fe604104d30389078acb0d7",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/DW715/l/Animations/A_Dual_DW715_l_inspect.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/DW715/l/Animations/A_Dual_DW715_l_inspect.uasset",
+      "bytes": 633740,
+      "sha256": "46519434ccb53ecabfcd2ffed075330391b260031e00295026d9d0cd63473141",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/DW715/r/Animations/A_Dual_DW715_r_inspect_fitted.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/DW715/r/Animations/A_Dual_DW715_r_inspect_fitted.uasset",
+      "bytes": 661558,
+      "sha256": "7fd9ba40f467a1d1c9c94bb6ceef47913d737b3778e3aa7519a0564100f56d98",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/DW715/r/Animations/A_Dual_DW715_r_inspect_long.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/DW715/r/Animations/A_Dual_DW715_r_inspect_long.uasset",
+      "bytes": 619882,
+      "sha256": "c6ba3e3c1aaeef67cb495888b9c4809f5543780335203a516b2d0ab9e6a3d933",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/DW715/r/Animations/A_Dual_DW715_r_inspect.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/DW715/r/Animations/A_Dual_DW715_r_inspect.uasset",
+      "bytes": 626796,
+      "sha256": "61c09c922faa7413da13ead267f9720d959bedd9f647596a7f6d35dba5ef41f8",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/DW715/single/Animations/A_DW715_inspect_fitted.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/DW715/single/Animations/A_DW715_inspect_fitted.uasset",
+      "bytes": 1071232,
+      "sha256": "462ee796f233831fe62068c41bd451b26124b7930b044c7cb74f96e4c08e97d2",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/DW715/single/Animations/A_DW715_inspect_long.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/DW715/single/Animations/A_DW715_inspect_long.uasset",
+      "bytes": 1064276,
+      "sha256": "c915192ca4c44aaf47afd49848e3fb021fa879408a02ad840d43141ac5c1afc8",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/DW715/single/Animations/A_DW715_inspect.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/DW715/single/Animations/A_DW715_inspect.uasset",
+      "bytes": 1064246,
+      "sha256": "3d4b1d320ec4613a4b9963886e8f5e6e1a6a48f4427f63c709cb68eb75ad7470",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect_empty.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect_empty.uasset",
+      "bytes": 591940,
+      "sha256": "e024a015553b9df4680fd5441aa493bd71cda15c9ca1946fc941c3012a37575f",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect_fitted_empty.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect_fitted_empty.uasset",
+      "bytes": 605870,
+      "sha256": "2fad79390d4d0b4534fb38dc2e5c6590fb806eb39371155e9097ae5bad107610",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect_fitted.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect_fitted.uasset",
+      "bytes": 605834,
+      "sha256": "f869ba23543c36235fa108417665bd0828c27f5dbf1aa7c36f5cbeec47c87ee1",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect_long_empty.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect_long_empty.uasset",
+      "bytes": 605858,
+      "sha256": "3a3a22d7b0a36d0bd2eaf1180f4073aa1a2a79d569fa76f13d3bf167039cff5b",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect_long.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect_long.uasset",
+      "bytes": 605822,
+      "sha256": "5008609b117994b8f3e662880b9b4b421b178b8a46c5844685d85c778d1fdcce",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/M1911/l/Animations/A_Dual_M1911_l_inspect.uasset",
+      "bytes": 591904,
+      "sha256": "11ffc44ade88018044295a82493ec3e901a23dee2cd7130bf833507dc872a46e",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect_empty.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect_empty.uasset",
+      "bytes": 626660,
+      "sha256": "d375de8c78294070b5a88d3efd39794720f2463e069af63d19e2193eb7a76fc6",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect_fitted_empty.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect_fitted_empty.uasset",
+      "bytes": 647534,
+      "sha256": "f8f55917199d14613eba1b7854b81f23bf1cb0bcb30aca43d9a293bc4cd47546",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect_fitted.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect_fitted.uasset",
+      "bytes": 647498,
+      "sha256": "4f6c23ac6182d790bea62fc04963008a638c02187e5054b4c6288b8e380bb1b8",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect_long_empty.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect_long_empty.uasset",
+      "bytes": 640578,
+      "sha256": "93fb21f6dc17ea8eb6e8cc2387714fcba9de829b8e64e31585c2d012f4c4ee19",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect_long.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect_long.uasset",
+      "bytes": 640542,
+      "sha256": "39c98a9f1f1ab7515923cb6b1d3246ef7bd577abd46fa49d63b2bcdf4bf92efd",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/M1911/r/Animations/A_Dual_M1911_r_inspect.uasset",
+      "bytes": 626624,
+      "sha256": "7fc3adcfe4107970a12ccaef2b6f86705beb7a65988402fb4bb6b5ffd80218e0",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect_empty.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect_empty.uasset",
+      "bytes": 1050222,
+      "sha256": "92595200ba3d99b24da7b97e3777a65bdd943cad2ed25aca97876f5a56b9207e",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect_fitted_empty.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect_fitted_empty.uasset",
+      "bytes": 1050264,
+      "sha256": "f552ae4aa19ea5ce8dc0486c3c286bda745a8d3a7b28f99c71b7eddca1161c54",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect_fitted.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect_fitted.uasset",
+      "bytes": 1050228,
+      "sha256": "82f5c15e087a0dff2e656e4c26ebec7d4b1b8f0a9f85c1a4e1ee89d7f2028b5d",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect_long_empty.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect_long_empty.uasset",
+      "bytes": 1050252,
+      "sha256": "bf66dd5d4877ac141ba91befebe13b75f64ffcbd63bc577fccd317129b01e852",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect_long.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect_long.uasset",
+      "bytes": 1050216,
+      "sha256": "07f9fbf40f64fa06c65f041baaa7a0329ea682f6151c35d32f990147f8c1921c",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Content/Weapons/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect.uasset",
+      "destination": "trash/pistol-spin-inspect-rejected-20260927/Content/Weapons/PistolSpinInspect20260927/M1911/single/Animations/A_M1911_inspect.uasset",
+      "bytes": 1050186,
+      "sha256": "b9eb571c346358e58bfbb2af849e7a66436bd660a2bf873567ce623d4f2f9074",
+      "reason": "User rejected pistol spin inspect; restored original revolver inspection",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927"
+    },
+    {
+      "original": "Docs/Weapons/pistol-spin-inspect-20260927.md",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/Docs/Weapons/pistol-spin-inspect-20260927.md",
+      "bytes": 3374,
+      "sha256": "b9da3192c60d083c9a8a9e2b61790c699f3485231ead7e7e20c166ce02f6a7c3",
+      "reason": "Rejected spin inspection history",
+      "replacement": "Docs/Weapons/m1911-original-revolver-inspect-20260927.md"
+    },
+    {
+      "original": "Source/FPSGAME/UI/BowScopeDrawing.h",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/Source/FPSGAME/UI/BowScopeDrawing.h",
+      "bytes": 2933,
+      "sha256": "996dfacad884865160a5fd69bd2dbc572c78064f0f85ecf97b70f808586b0d60",
+      "reason": "Rejected fullscreen bow scope drawing",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/AmmoBox30/Materials/M_PKM_AmmoBoxPaint_Dry.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/AmmoBox30/Materials/M_PKM_AmmoBoxPaint_Dry.uasset",
+      "bytes": 22685,
+      "sha256": "654fc5d97f7860f243f0d9b6c9945e5d0ccfb5a0f5efeccbb8f9e6e004fe87a5",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/AmmoBox30/Materials/M_PKM_AmmoBoxPaint_Wet.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/AmmoBox30/Materials/M_PKM_AmmoBoxPaint_Wet.uasset",
+      "bytes": 27489,
+      "sha256": "f5a19ba931a79f7cc8afc11701f23c58b70ef712f065645b147e93da56fe1422",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_angled_0_939559d3.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_angled_0_939559d3.uasset",
+      "bytes": 23197,
+      "sha256": "910c89fc5a924c1f6c1b7b28e0a40ea1f6f40bbf83e88d2169de2ae5dc22951b",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_balanced_reargrip_0_55ab651b.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_balanced_reargrip_0_55ab651b.uasset",
+      "bytes": 23541,
+      "sha256": "445ce46c53cd5e61efe967f88a1f92e0387340524212ff69a98eb9cb45baaaf0",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_balanced_reargrip_1_0f73bcd9.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_balanced_reargrip_1_0f73bcd9.uasset",
+      "bytes": 23587,
+      "sha256": "73fc41a84b5423b7209a7be98337562a320d0d248d710980901110920b738290",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_brake_0_97ce92e2.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_brake_0_97ce92e2.uasset",
+      "bytes": 71480,
+      "sha256": "43d28c5d5379790091a9435488059db17587df01b35908a2138278f35f9a1c4d",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_canted_0_77314426.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_canted_0_77314426.uasset",
+      "bytes": 73827,
+      "sha256": "e65847387bd5fe97bc5663ee7dfa7fb87a03727246397f9b0b183245856c155c",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_canted_1_8fccd4b0.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_canted_1_8fccd4b0.uasset",
+      "bytes": 23567,
+      "sha256": "c546c0f5bfd333b5f6ffe45e09387f3f5b3e4a1d208679486f2e34b2fbcfb0a8",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_core_stock_0_ffddeb71.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_core_stock_0_ffddeb71.uasset",
+      "bytes": 25237,
+      "sha256": "1378bee95a7f7ed6a40b7315d2098bbca616ea55e6cd49fb0dc5ac9bc5639437",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_core_stock_2_4c278259.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_core_stock_2_4c278259.uasset",
+      "bytes": 23991,
+      "sha256": "dded7b84d238345fddd9c18d4c5cce8ddfc6fc176f08551b636e5fb10750f0a3",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_flashlight_0_122b5909.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_flashlight_0_122b5909.uasset",
+      "bytes": 26767,
+      "sha256": "f14408a8abf26f03df91336f43a2f3ba7722a4a4feaddbc191f23854008c85a3",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_flashlight_1_9d90804f.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_flashlight_1_9d90804f.uasset",
+      "bytes": 23538,
+      "sha256": "0bc9a6132454c80fa788ddda74ddfe109e464993bea2541e762c2fc24b8f08ee",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_holographic_0_eca4fe81.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_holographic_0_eca4fe81.uasset",
+      "bytes": 29545,
+      "sha256": "72af06945855728ff1519483abe724ca71727593d656629043e88d565951c692",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_Interface_f1a72335.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_Interface_f1a72335.uasset",
+      "bytes": 18469,
+      "sha256": "c6aa8b0eb174b4b9b85a249871d0fde33d17253ccc75e96d72055adb3562fc30",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_laser_0_2cd8b6af.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_laser_0_2cd8b6af.uasset",
+      "bytes": 33118,
+      "sha256": "74c5fc1793e1254b37b315d6771212884b68ca50a0c9e9be5b50ad862c43c362",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_laser_1_e6194d7d.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_laser_1_e6194d7d.uasset",
+      "bytes": 23503,
+      "sha256": "ea75846deb84e3ea9972c7611004396129f18dab0977d57d540794ce8f4b8642",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_lpvo_1_6x_2_21070e65.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_lpvo_1_6x_2_21070e65.uasset",
+      "bytes": 31059,
+      "sha256": "4a02fefe1ecc11b0b96e1f90041ebabcc1ee18b973713d1431bc2c8201d60719",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_lpvo_ring_0_db50d554.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_lpvo_ring_0_db50d554.uasset",
+      "bytes": 31059,
+      "sha256": "12f0f21fafe4f8cb31052ecd8e86248e57a7df66b4a9f917f5b980573f77aab3",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_panoramic_red_dot_2_b889133d.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_panoramic_red_dot_2_b889133d.uasset",
+      "bytes": 30778,
+      "sha256": "d31efa667f3c67fcac2e1615481b8d94f36549d8c3429852dec81968628a9837",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_phantom_reargrip_0_1fac0e0a.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_phantom_reargrip_0_1fac0e0a.uasset",
+      "bytes": 23117,
+      "sha256": "4985a3369fc52167378292977084ed0a045b06117d75cdbe8cad67886fc8e042",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_phantom_reargrip_1_8ca128d2.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_phantom_reargrip_1_8ca128d2.uasset",
+      "bytes": 23580,
+      "sha256": "6ff809de0bbb703606b2e43e248d3aed4cd0ad92c03efb00f20050dd81222bfa",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_prism_1_03a0a3c1.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_prism_1_03a0a3c1.uasset",
+      "bytes": 25348,
+      "sha256": "5dd905cd890eeaad82a28bb4bb37832c6658b3c010ab5da7b45b7ac0e19da685",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_prism_2_f3d21df4.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_prism_2_f3d21df4.uasset",
+      "bytes": 27865,
+      "sha256": "981573c67c6e72bb5225eb002e034211ef3d91bb0aaa5ae5241743a052a7919a",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_prism_scope_2x_2_0adf7dfe.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_prism_scope_2x_2_0adf7dfe.uasset",
+      "bytes": 30837,
+      "sha256": "313e77cfcf7f61601285cc553230646178cbfa835200cf12573754ff1b398f39",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_qr_performance_0_f07e2b70.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_qr_performance_0_f07e2b70.uasset",
+      "bytes": 23860,
+      "sha256": "fe0ed9faee9d0c0cf753552e2b5d04f9973c934d536233a0285a4230c89c919b",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_qr_performance_3_fadc1ac1.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_qr_performance_3_fadc1ac1.uasset",
+      "bytes": 23253,
+      "sha256": "ebee7ac9c51336df32d6ab9c371f774e9aa97c98871737721bc58f52d779b4fa",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_skeleton_0_df5c9325.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_skeleton_0_df5c9325.uasset",
+      "bytes": 23517,
+      "sha256": "2a6ccffac10416d01da749c63da422e8dd8e4b600db7662e4dc243ec5c8f4e65",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_stable_antislip_reargrip_1_386dd7ba.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_stable_antislip_reargrip_1_386dd7ba.uasset",
+      "bytes": 23323,
+      "sha256": "9de8daab3c86e0708f4ece248a1750807d27d735dd9855eb740740c264d6998c",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_suppressor_0_156f6d24.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_suppressor_0_156f6d24.uasset",
+      "bytes": 71515,
+      "sha256": "6f6456e3e13bb15bf24cb5e28902b99c86bb5d95cd2200eef46b708a88f232e3",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_tactical_suppressor_0_854a1466.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_tactical_suppressor_0_854a1466.uasset",
+      "bytes": 28192,
+      "sha256": "375d9c1ef63a45093d89d103fc32026097dd6da371b5b0be933898702b72a8ba",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_tactical_suppressor_2_d0ba3057.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_tactical_suppressor_2_d0ba3057.uasset",
+      "bytes": 27466,
+      "sha256": "f6606d4c4b04df503ef302d07397e5e88fc0689790f6b955613f6b3e7cd6166b",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_tactical_telescopic_0_63bfa358.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_tactical_telescopic_0_63bfa358.uasset",
+      "bytes": 26042,
+      "sha256": "243bd7cbef71cced7b9fef315a12befe5bfa74af9e2369918bc34f017f94cada",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_tactical_telescopic_3_b77cfafb.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_tactical_telescopic_3_b77cfafb.uasset",
+      "bytes": 25000,
+      "sha256": "2dc76c0fafe1fc2961b319f9199497b530116fda69b1c28ed593ec1c47e2cb1d",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_tactical_vertical_0_b4aed6f5.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_tactical_vertical_0_b4aed6f5.uasset",
+      "bytes": 23411,
+      "sha256": "3b0dcdcad7af5608bca1898e87cbc9423488d19e553bab06a8785dc617651a1e",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_tactical_vertical_2_f9e2f4ad.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_tactical_vertical_2_f9e2f4ad.uasset",
+      "bytes": 23644,
+      "sha256": "e47a62f5e8c79940b2c2c72e5122c2707e5d0fb22a82429b4ffaf889e302f7cc",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_titanium_brake_0_46603c90.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_titanium_brake_0_46603c90.uasset",
+      "bytes": 71543,
+      "sha256": "3a4d6a71804a5a69ea75b1492321229242f0d8ae633d0531e34939299042db1b",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_vertical_0_34c2d011.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_vertical_0_34c2d011.uasset",
+      "bytes": 73859,
+      "sha256": "bfff47cae4afc82a130f1a6a6a3bad9d47c916325a43250a00ff59267515c98b",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_vertical_1_461a737d.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM14_vertical_1_461a737d.uasset",
+      "bytes": 23581,
+      "sha256": "db0fe7c71d63c345928fb3f8d44b9c7e21f5a0628672f2a2b82b9677fe3c65b9",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM_BeltLinkSteel_0d0c64e6.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM_BeltLinkSteel_0d0c64e6.uasset",
+      "bytes": 22602,
+      "sha256": "fd0dfe4d54f11fd386ab8f81f9384f97ba99253cb06ef371ac47ec46d4865fb3",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM_QBZ_Body_84234a96.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM_QBZ_Body_84234a96.uasset",
+      "bytes": 22583,
+      "sha256": "5a437dd1f2567adae4d1837d0648983f968a5956ae353c46716a1b08bf8cd4aa",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM_QBZ_Steel_e467bafd.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Dry_M_PKM_QBZ_Steel_e467bafd.uasset",
+      "bytes": 22596,
+      "sha256": "176caa6d2073306fc8a99e5034b39705ee9a05c18283872ecbec97c31879260e",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_angled_0_939559d3.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_angled_0_939559d3.uasset",
+      "bytes": 28031,
+      "sha256": "c63e3c65826361a819704f7e607774e1f8bdebfe8a748fadfaf93ccccd6c99b0",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_balanced_reargrip_0_55ab651b.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_balanced_reargrip_0_55ab651b.uasset",
+      "bytes": 28375,
+      "sha256": "1d501987b10784819a176c1b428ad1d609b1fd1089e5f4eda09edf250661cf11",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_balanced_reargrip_1_0f73bcd9.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_balanced_reargrip_1_0f73bcd9.uasset",
+      "bytes": 28421,
+      "sha256": "3cecae131b87afa70a6bf58fec105d6de99a44551a3528e2cd355f89ae6ba77b",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_brake_0_97ce92e2.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_brake_0_97ce92e2.uasset",
+      "bytes": 75872,
+      "sha256": "ef80263b6fe672fd444eab0036fb7039e53cb1a155da67617e15ea7e9382fd8b",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_canted_0_77314426.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_canted_0_77314426.uasset",
+      "bytes": 78219,
+      "sha256": "30beeba55fa563ffbf9ac627a7fd2c1f25dcf0bd34d19aa808240715d58080e5",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_canted_1_8fccd4b0.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_canted_1_8fccd4b0.uasset",
+      "bytes": 27957,
+      "sha256": "fc13429235b3bb7f72b94158cedc9aa688259ff7a0494b1d40361ef860cf0cc7",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_core_stock_0_ffddeb71.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_core_stock_0_ffddeb71.uasset",
+      "bytes": 29627,
+      "sha256": "0ee1d6d2f6342c1243872cda02917a32f74f1212776b325f819adfffc64bb4d4",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_core_stock_2_4c278259.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_core_stock_2_4c278259.uasset",
+      "bytes": 28825,
+      "sha256": "6fdb993d21b1b388fbda65a520c05054af50944bd34c6ef6946fd33d453888fe",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_flashlight_0_122b5909.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_flashlight_0_122b5909.uasset",
+      "bytes": 31157,
+      "sha256": "2599e0f4cb978c9899722f254859cba7a354deef708b4975ccc1ef32b5523006",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_flashlight_1_9d90804f.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_flashlight_1_9d90804f.uasset",
+      "bytes": 28372,
+      "sha256": "788c997bebb6c2f660b37ea03c2cb98508927e7200b2942d52ec8ab1ac8dedbe",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_holographic_0_eca4fe81.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_holographic_0_eca4fe81.uasset",
+      "bytes": 34379,
+      "sha256": "61d8ec5b4cddddbbd54627cd3b692a5fcb87e74064af8617cf82c12757ef2d73",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_Interface_f1a72335.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_Interface_f1a72335.uasset",
+      "bytes": 22859,
+      "sha256": "322f63807bb8e6e311e11a5b22469edaf0174381c5317c21fea5eeaa0a74db1b",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_laser_0_2cd8b6af.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_laser_0_2cd8b6af.uasset",
+      "bytes": 37952,
+      "sha256": "abdbc401caa46e65e6619d4e27b27b47ce4f70731110812f05c48b30f2cac70e",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_laser_1_e6194d7d.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_laser_1_e6194d7d.uasset",
+      "bytes": 28337,
+      "sha256": "816afb25cbe42033efbcabfa5caee31763bd2e58cbf456ed72f3349061950c01",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_lpvo_1_6x_2_21070e65.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_lpvo_1_6x_2_21070e65.uasset",
+      "bytes": 35449,
+      "sha256": "80e75ded518b001cd0fa46e94f00cbdfa8e098d336ddc22c019991d97557171c",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_lpvo_ring_0_db50d554.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_lpvo_ring_0_db50d554.uasset",
+      "bytes": 35449,
+      "sha256": "b912391a010b39bca2865ba6bfe616028a7c4e6d2a0098955d9d4acf3c77a404",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_panoramic_red_dot_2_b889133d.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_panoramic_red_dot_2_b889133d.uasset",
+      "bytes": 35168,
+      "sha256": "f812e17f750e927e35fd453db0ae4d9927ebd15df4629c2f81b740722946f245",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_phantom_reargrip_0_1fac0e0a.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_phantom_reargrip_0_1fac0e0a.uasset",
+      "bytes": 27951,
+      "sha256": "480f64bf4345f626b773737ccccc467e3512f20c4dbe4d69c1376b1f23be561a",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_phantom_reargrip_1_8ca128d2.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_phantom_reargrip_1_8ca128d2.uasset",
+      "bytes": 28414,
+      "sha256": "f86de258943ea14316636e66dbf97493b023616ce70e6c49b0e35274168b5ace",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_prism_1_03a0a3c1.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_prism_1_03a0a3c1.uasset",
+      "bytes": 30182,
+      "sha256": "d0fc51d3e9ed35bb971ccf568be10f9457a184ec076a3298453fcb0cc149ba7c",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_prism_2_f3d21df4.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_prism_2_f3d21df4.uasset",
+      "bytes": 32699,
+      "sha256": "7b63b7066631ba1c8a45fefe836f3c0e779259b59f6d0abdc7a270eb1868ca5a",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_prism_scope_2x_2_0adf7dfe.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_prism_scope_2x_2_0adf7dfe.uasset",
+      "bytes": 35227,
+      "sha256": "583a566c5d16741ba6d96a88eac2a97f5a62f600c6755ab90045de7ebc3124a3",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_qr_performance_0_f07e2b70.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_qr_performance_0_f07e2b70.uasset",
+      "bytes": 28250,
+      "sha256": "c84e25fd56795f02250dfa784b38a9ee26adda2a244129079e9c34b4907de65d",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_qr_performance_3_fadc1ac1.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_qr_performance_3_fadc1ac1.uasset",
+      "bytes": 28087,
+      "sha256": "94fd0e7104d83e5a8d27103bafc713ab6610b974af4e2aaa722994e580886154",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_skeleton_0_df5c9325.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_skeleton_0_df5c9325.uasset",
+      "bytes": 27907,
+      "sha256": "d2d8a26f380e56d6723f30511665e6df605a8e42fa8cfed060049e64df6c59c5",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_stable_antislip_reargrip_1_386dd7ba.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_stable_antislip_reargrip_1_386dd7ba.uasset",
+      "bytes": 28157,
+      "sha256": "b9c8990a51b139702f585138da294a7174d55a460e1144852aa3b0f4e361fb04",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_suppressor_0_156f6d24.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_suppressor_0_156f6d24.uasset",
+      "bytes": 75907,
+      "sha256": "62dcbf7267180db54856f06228618da23a6c54620a906c6f3b326591d7781310",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_tactical_suppressor_0_854a1466.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_tactical_suppressor_0_854a1466.uasset",
+      "bytes": 32582,
+      "sha256": "cd9e069f23240cea0329b612ace24bc4534a4d7cdbce516449b04fe4ab7f7ce2",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_tactical_suppressor_2_d0ba3057.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_tactical_suppressor_2_d0ba3057.uasset",
+      "bytes": 32300,
+      "sha256": "1622df26a59bb33bcc7f2bfbfcd1d36970f7855026067c88e54cfa5b48ef6046",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_tactical_telescopic_0_63bfa358.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_tactical_telescopic_0_63bfa358.uasset",
+      "bytes": 30432,
+      "sha256": "384a4f91d253f08f55e633885a501d50c2136865b2cae70b7153237eb54f510f",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_tactical_telescopic_3_b77cfafb.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_tactical_telescopic_3_b77cfafb.uasset",
+      "bytes": 29834,
+      "sha256": "7755e66d170431b50937a4aa981286874b2254c4c607898229eb97db69524edb",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_tactical_vertical_0_b4aed6f5.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_tactical_vertical_0_b4aed6f5.uasset",
+      "bytes": 27801,
+      "sha256": "370da9517132034200c1e70d5769ee099c73fe3619bcf3a0406f0f2f9f36df97",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_tactical_vertical_2_f9e2f4ad.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_tactical_vertical_2_f9e2f4ad.uasset",
+      "bytes": 28034,
+      "sha256": "abbcd6b4eb4f77d311c4bbeec9c927ca0b8740e33df9aa1fc081b51d3ebab567",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_titanium_brake_0_46603c90.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_titanium_brake_0_46603c90.uasset",
+      "bytes": 75935,
+      "sha256": "53310bec2a1fbce7668f2e6bc6e271a8effa7edbdb26f2d6b626bc7f1ecab488",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_vertical_0_34c2d011.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_vertical_0_34c2d011.uasset",
+      "bytes": 78251,
+      "sha256": "6c73da2a8b36cd80d6979f4789f0c8e05d7230fdfd55e295fd797310de1b6f08",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_vertical_1_461a737d.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM14_vertical_1_461a737d.uasset",
+      "bytes": 27971,
+      "sha256": "35d8b5acad4c04cfe5098bc1d5bca68c15cb15b40787682c4c8d46dd80815fa2",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM_BeltLinkSteel_0d0c64e6.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM_BeltLinkSteel_0d0c64e6.uasset",
+      "bytes": 27083,
+      "sha256": "dc431c74a491b98486f8681ae5be5e6d18558cf15058de2b65275928f00b5d7e",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM_QBZ_Body_84234a96.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM_QBZ_Body_84234a96.uasset",
+      "bytes": 27063,
+      "sha256": "bb41adc15a1b67d8f0519bd4a00ed871b85b08bfc0a5aec9f4037626edccebad",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM_QBZ_Steel_e467bafd.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/Finish20/Materials/M_Wet_M_PKM_QBZ_Steel_e467bafd.uasset",
+      "bytes": 27076,
+      "sha256": "75fa6de9be9042645197b514c28fda7ad80c67964530523cc0a02c5d73181ea3",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/OpticMount23/Materials/M_PKM23_Mount_Dry.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/OpticMount23/Materials/M_PKM23_Mount_Dry.uasset",
+      "bytes": 22638,
+      "sha256": "37c7b141ffe7179dba03ebe20db85e64007e1bfd56d6ec1a1d7928ce5a316152",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/OpticMount23/Materials/M_PKM23_Mount_Wet.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/Before/Weapons/PKMLowpoly20260922/OpticMount23/Materials/M_PKM23_Mount_Wet.uasset",
+      "bytes": 27875,
+      "sha256": "0a25da1b4a07c41c08758d257146e27f791eb6ccd930af3342a1aa1f7c404238",
+      "reason": "Superseded matte material snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/BeforeSource/SourceAssets/PKMLowpoly20260922/AmmoBox30/restore_box_paint.py",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/BeforeSource/SourceAssets/PKMLowpoly20260922/AmmoBox30/restore_box_paint.py",
+      "bytes": 5929,
+      "sha256": "182cb0ca3afa2f10a951385852265d1a0c5d91aa76e9b0226a2894329494a957",
+      "reason": "Superseded matte recipe snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/BeforeSource/SourceAssets/PKMLowpoly20260922/Finish20/build_finish.py",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/BeforeSource/SourceAssets/PKMLowpoly20260922/Finish20/build_finish.py",
+      "bytes": 12957,
+      "sha256": "2b2c66c90347546b7d2a9ade102b8458bccc9104b405b397d7a4ce0f6ac404ad",
+      "reason": "Superseded matte recipe snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/PKMRefinedFinish20260927/BeforeSource/SourceAssets/PKMLowpoly20260922/HandleFinish27/import_finish.py",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/PKMRefinedFinish20260927/BeforeSource/SourceAssets/PKMLowpoly20260922/HandleFinish27/import_finish.py",
+      "bytes": 6699,
+      "sha256": "1a5616c25de7cf3a023b7604a8e40e0b1f45c65c06963352bca1cd625d8304d3",
+      "reason": "Superseded matte recipe snapshots",
+      "replacement": "SourceAssets/PKMRefinedFinish20260927/finish_recipe.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/Before/M_BowOptic_Etching.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/Before/M_BowOptic_Etching.uasset",
+      "bytes": 5551,
+      "sha256": "1814b288b3fe9a8f2d52fea4b0347592beecad79b189d529168c5bbd50d8b6fe",
+      "reason": "Superseded dark reticle material snapshots",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/Before/M_BowOptic_Glass2x.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/Before/M_BowOptic_Glass2x.uasset",
+      "bytes": 7981,
+      "sha256": "8d0b96fa4eb8a253ac8bff94353816ccc44f1e780147d96b34f2e78a0baa90c3",
+      "reason": "Superseded dark reticle material snapshots",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/Before/M_BowOptic_Glass4x.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/Before/M_BowOptic_Glass4x.uasset",
+      "bytes": 7981,
+      "sha256": "cf890b27ab32a0e5d3f98cfbd78ddcb8c78a39a289b72a5a5298a3b2469e0701",
+      "reason": "Superseded dark reticle material snapshots",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/M1911RevolverInspect20260927/import-result-01.json",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/M1911RevolverInspect20260927/import-result-01.json",
+      "bytes": 511,
+      "sha256": "7597c3c51a9ac73852b642500ae15a28e4a1426b0dbb44df467718eaa54c249a",
+      "reason": "Failed import attempt superseded by saved assets",
+      "replacement": "SourceAssets/M1911RevolverInspect20260927/import.json"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/FluorescentGreen/apply-receipt.json",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/FluorescentGreen/apply-receipt.json",
+      "bytes": 363,
+      "sha256": "e9fe48e25aff478cf7e34f71faf7b1f91d2ef80fc6fcd31346ba96c699fc0756",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/FluorescentGreen/apply.bridge.txt",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/FluorescentGreen/apply.bridge.txt",
+      "bytes": 360,
+      "sha256": "a41df11395b3ae11e920582030c6880855b46bd2b771d3fbb4b89c407d00f3ef",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/FluorescentGreen/apply_color.py",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/FluorescentGreen/apply_color.py",
+      "bytes": 2120,
+      "sha256": "dd10a96b7b3c9de2bafcb35fcd1ea676b10f84f6091e73b2d36aef885a021f85",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/FluorescentGreen/Before/M_BowOptic_Glass2x.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/FluorescentGreen/Before/M_BowOptic_Glass2x.uasset",
+      "bytes": 20355,
+      "sha256": "e29bae7bdadde78dffe2b5b619636928f240d096202c47e9522452f48bbd5094",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/FluorescentGreen/Before/M_BowOptic_Glass4x.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/FluorescentGreen/Before/M_BowOptic_Glass4x.uasset",
+      "bytes": 22000,
+      "sha256": "146fc47b25645238e48e88f00269c2829fc09e44339749f3c6026c8670fd6b2e",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/FluorescentGreen/end-play.bridge.txt",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/FluorescentGreen/end-play.bridge.txt",
+      "bytes": 134,
+      "sha256": "65d061c40cc20bbab7380d4ead04e0d48cfbf3ad8b01ace94ddebd60482e55f7",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/NaturalGreen/apply-receipt.json",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/NaturalGreen/apply-receipt.json",
+      "bytes": 750,
+      "sha256": "1374dc0d7e7c4484aaf578b7142b379c8ffe55526b827588f1bf2d19760e2b76",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/NaturalGreen/apply.bridge.txt",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/NaturalGreen/apply.bridge.txt",
+      "bytes": 364,
+      "sha256": "94a28cc133b45ab12b6a5e812ae38c7bbb5540ea049ba218fde0e12a2ff948fa",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/NaturalGreen/apply_refinement.py",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/NaturalGreen/apply_refinement.py",
+      "bytes": 2146,
+      "sha256": "9a3bbc36bdeae1baa56871299713521a78008b6b81ddc63f6c415c30a8462204",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/NaturalGreen/Before/M_BowOptic_Glass2x.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/NaturalGreen/Before/M_BowOptic_Glass2x.uasset",
+      "bytes": 22446,
+      "sha256": "ec7dde8fbd6c5d5cec685cd9d3a669dd73c791d4de64eaa8e4bbed0d028dc11a",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/NaturalGreen/Before/M_BowOptic_Glass4x.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/NaturalGreen/Before/M_BowOptic_Glass4x.uasset",
+      "bytes": 22791,
+      "sha256": "ba7ea040743189ac60bea4ec8956bc6b42d8597c5ee6169d31c16ed65b4cd68f",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/NaturalGreen/BeforeSource/materials.py",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/NaturalGreen/BeforeSource/materials.py",
+      "bytes": 3481,
+      "sha256": "ad9d0883584bc24b2bacbbcb755756faaa6092a444a71c5f8903bd847a8bbd2c",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/NaturalGreen/BeforeSource/Reticle.hlsl",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/NaturalGreen/BeforeSource/Reticle.hlsl",
+      "bytes": 1079,
+      "sha256": "af7aa3463cf364dec04c1d0997801289bffdafac56dba924bfe885e2d716f290",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/NaturalGreen/end-play.bridge.txt",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/NaturalGreen/end-play.bridge.txt",
+      "bytes": 134,
+      "sha256": "65d061c40cc20bbab7380d4ead04e0d48cfbf3ad8b01ace94ddebd60482e55f7",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/NaturalGreen/README.md",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/NaturalGreen/README.md",
+      "bytes": 802,
+      "sha256": "9f30e4c3f8ff30e8c097ce9e5ac2c4ac094413533d76525541b59f7ed8859972",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocus/apply-receipt.json",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocus/apply-receipt.json",
+      "bytes": 502,
+      "sha256": "5384cd9a79e470c82af245ada463d6eb7728e4d7516b806bfa4dab4e2ef9cc03",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocus/apply.bridge.txt",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocus/apply.bridge.txt",
+      "bytes": 362,
+      "sha256": "78e23d4053f6ea17ac467e3fe8ff0b6a385e1bb9b94b6d66a9a38ab39727621a",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocus/apply_centre.py",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocus/apply_centre.py",
+      "bytes": 2182,
+      "sha256": "97d0ed380d7e944fbee774898277fdc2e4ced7ce04fd8b7e97207f9d2f95d8ee",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocus/Before/M_BowOptic_Glass2x.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocus/Before/M_BowOptic_Glass2x.uasset",
+      "bytes": 24979,
+      "sha256": "113f1b0b5ea86c428f20dd0869c11c5b1328c504b56b94c6c8efb8cbf90eb4e7",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocus/Before/M_BowOptic_Glass4x.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocus/Before/M_BowOptic_Glass4x.uasset",
+      "bytes": 25228,
+      "sha256": "6803aa84bc9401583a20630203a9d558aa6947c0245439ed35970d3ed854fccf",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocus/BeforeSource/Reticle.hlsl",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocus/BeforeSource/Reticle.hlsl",
+      "bytes": 1328,
+      "sha256": "17a39a152f550a554ed6fc7cfe5dbfb7506e1c2595528c1c00a814a52123e014",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocus/end-play.bridge.txt",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocus/end-play.bridge.txt",
+      "bytes": 140,
+      "sha256": "8010caae55dbb17b68016473da0820d1f2c45d05bfd8c9216a5f9ee9ff049855",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocusV2/apply-receipt.json",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocusV2/apply-receipt.json",
+      "bytes": 548,
+      "sha256": "6d6f21efc30b5b1433c2b1934b8e9757f741b9b905e47e9bc9868b0f5575b539",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocusV2/apply_centre.py",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocusV2/apply_centre.py",
+      "bytes": 2236,
+      "sha256": "81a4b211422ac81bd270e6dfd59eb768a01ea689f7ea5f9ee08bea7e4e52c4fd",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocusV2/Before/M_BowOptic_Glass2x.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocusV2/Before/M_BowOptic_Glass2x.uasset",
+      "bytes": 25167,
+      "sha256": "6a23bff02f836b4ddc885ca3584a37eebfa5db61cbe02aea3081146fa70e243f",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocusV2/Before/M_BowOptic_Glass4x.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocusV2/Before/M_BowOptic_Glass4x.uasset",
+      "bytes": 25429,
+      "sha256": "3f1fbcd01addf8aec3a4e6db9056c8033f81b4a66cade94f15fefdc774e65117",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocusV2/BeforeSource/Reticle.hlsl",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocusV2/BeforeSource/Reticle.hlsl",
+      "bytes": 1512,
+      "sha256": "05f1e57b3e4bd182d0c69787240baaadbe05bdeb68dee18b6e2a25861f7a4564",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocusV2/end-play.bridge.txt",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocusV2/end-play.bridge.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocusV2/README.md",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocusV2/README.md",
+      "bytes": 693,
+      "sha256": "30e343fac9f1e627d16ffbc9fc5076772ab1208dccd5c33202faa4a98179f0cd",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocusV2/save-toolsets.bridge.txt",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/CentreFocusV2/save-toolsets.bridge.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded reticle iteration; final recipe includes retained settings",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/TemporalStability/Before/M_BowOptic_Glass2x.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/TemporalStability/Before/M_BowOptic_Glass2x.uasset",
+      "bytes": 25327,
+      "sha256": "2a172de959ef49e69c5dad8a25e76cc73390c214d63355ef5339f3085927445d",
+      "reason": "Pre-temporal-fix snapshot",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/TemporalStability/Before/M_BowOptic_Glass4x.uasset",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/TemporalStability/Before/M_BowOptic_Glass4x.uasset",
+      "bytes": 25589,
+      "sha256": "a5d1bccfa4c42e98236eedf26cfef9ceaf560486c52a5dbe114c9821795033fe",
+      "reason": "Pre-temporal-fix snapshot",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/TemporalStability/BeforeSource/materials.py",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/TemporalStability/BeforeSource/materials.py",
+      "bytes": 3488,
+      "sha256": "e30dae6f0bd977eb15656a07d35f67337804a695ce5e047285d51b811c85d92f",
+      "reason": "Pre-temporal-fix snapshot",
+      "replacement": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/materials.py"
+    },
+    {
+      "original": "SourceAssets/BowArrowRestVariants20260927/end_play_for_import.py",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowArrowRestVariants20260927/end_play_for_import.py",
+      "bytes": 371,
+      "sha256": "aa618e0d0a2c67717492cf235ff4cfd32ab921a26051cbc0360592e1dbafe410",
+      "reason": "Completed one-off integration helper",
+      "replacement": "Current import_assets.py / materials.py"
+    },
+    {
+      "original": "SourceAssets/BowSingleLensOptics20260927/ReticleReadability/end_play_for_material_save.py",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowSingleLensOptics20260927/ReticleReadability/end_play_for_material_save.py",
+      "bytes": 374,
+      "sha256": "2c93ab1d9407fd73e2261c3d5a961c6f5e8a275ae7d1da712ba029d48893659d",
+      "reason": "Completed one-off integration helper",
+      "replacement": "Current import_assets.py / materials.py"
+    },
+    {
+      "original": "SourceAssets/BowStringVariants20260927/resume_own_material.py",
+      "destination": "trash/weapon-bow-inspect-publication-20260927/SourceAssets/BowStringVariants20260927/resume_own_material.py",
+      "bytes": 227,
+      "sha256": "09b04668fbef10ad9dfd3d3911b3dcb20db625ebc9387b030c09c262e93d531f",
+      "reason": "Completed one-off integration helper",
+      "replacement": "Current import_assets.py / materials.py"
+    }
+  ]
+}

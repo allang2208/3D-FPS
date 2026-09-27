@@ -85,7 +85,9 @@ public:
     void SetSteadyHeld(bool bHeld) { bSteadyHeld = bHeld; }
     bool IsAimHeld() const { return IsEquipped() && bSteadyHeld; }
     float AimAlpha() const { return AimProgress; }
-    float AimVerticalFOV(float BaseFOV) const { return BaseFOV * AimFOVScale; }
+    float AimVerticalFOV(float BaseFOV) const;
+    float ScopeMagnification() const { return IsEquipped() && bHasAimSight ? OpticalMagnification : 1.f; }
+    bool HasOpticalSight() const { return ScopeMagnification() > 1.f; }
     /** Camera-right/up slope, shared by the HUD projection and the release ray. */
     float ShotSpread() const;
     bool ShouldShowCrosshair() const;
@@ -278,4 +280,6 @@ private:
     float TurnFollow = 0.f, TurnFollowVelocity = 0.f, PreviousViewYaw = 0.f;
     bool bHaveViewYaw = false;
     void AdvanceLocomotion(float Delta, bool bUsable);
+    // Resolved once on equipment changes; ordinary sights always reset to 1x.
+    float OpticalMagnification = 1.f;
 };

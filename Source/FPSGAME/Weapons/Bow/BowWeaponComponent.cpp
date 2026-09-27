@@ -435,6 +435,7 @@ void UBowWeaponComponent::ApplyNumbers(const FColdSteelItem* Item)
     AimInSeconds = FMath::Max(.01f, Number(TEXT("bow_ads_in_seconds"), .18f));
     AimOutSeconds = FMath::Max(.01f, Number(TEXT("bow_ads_out_seconds"), .16f));
     AimFOVScale = FMath::Clamp(Number(TEXT("bow_ads_fov_scale"), .9f), .5f, 1.f);
+    OpticalMagnification = FMath::Clamp(Number(TEXT("bow_scope_magnification"), 1.f), 1.f, 4.f);
     CrouchInSeconds = FMath::Max(.01f, Number(TEXT("bow_crouch_in_seconds"), .18f));
     CrouchOutSeconds = FMath::Max(.01f, Number(TEXT("bow_crouch_out_seconds"), .22f));
     CrouchCantDegrees = Number(TEXT("bow_crouch_cant_deg"), -55.f);
@@ -508,6 +509,13 @@ int32 UBowWeaponComponent::RodFor(FName Slot, int32 Index)
     while (Handles.Num() <= Index)
         Handles.Add(Component->AddRod(*FString::Printf(TEXT("%sRod%d"), *Slot.ToString(), Handles.Num())));
     return Handles.IsValidIndex(Index) ? Handles[Index] : INDEX_NONE;
+}
+
+float UBowWeaponComponent::AimVerticalFOV(float BaseFOV) const
+{
+    const float OnePowerFOV = BaseFOV * AimFOVScale;
+    return FMath::RadiansToDegrees(2.f * FMath::Atan(
+        FMath::Tan(FMath::DegreesToRadians(OnePowerFOV) * .5f) / ScopeMagnification()));
 }
 
 FString UBowWeaponComponent::PresentationSignature(const FColdSteelItem* Item) const

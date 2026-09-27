@@ -124,3 +124,10 @@ report['complete'] = True
 record()
 print('PKM30_SAVED', json.dumps({'saved': report['saved'], 'boxes': report['bindings_after'],
                                 'wet_partner': report['wet_partner'], 'game_tested': False}), flush=True)
+
+# The current finish recipe supersedes the historical matte layer. Rebuilding
+# this stage must also restore both olive boxes and the paired wet surfaces.
+import runpy as _pkm_finish_runpy
+_pkm_finish_runpy.run_path(
+    str(Path(__file__).resolve().parents[2] / 'PKMRefinedFinish20260927/install_finish.py'),
+    run_name='__main__')

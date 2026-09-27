@@ -175,7 +175,10 @@ table=u.load_asset(table_path) if E.does_asset_exist(table_path) else None
 if not table:
  factory=u.DataAssetFactory();factory.set_editor_property('data_asset_class',u.WeatherPresentationAssets)
  table=A.create_asset('DA_PKM_WetMaterials',P,u.WeatherPresentationAssets,factory)
-table.set_editor_property('wet_materials',mapping);save(table)
+# Retain later PKM mount/olive-box pairs when rebuilding this earlier stage.
+retained_mapping=dict(table.get_editor_property('wet_materials'))
+retained_mapping.update(mapping)
+table.set_editor_property('wet_materials',retained_mapping);save(table)
 for item in source['meshes']:
  mesh=u.load_asset(item['asset']);is_sk=isinstance(mesh,u.SkeletalMesh)
  slots=mesh.materials if is_sk else mesh.static_materials
@@ -200,3 +203,10 @@ for item in source['meshes']:
 report['wet_library']=table.get_path_name();report['saved']=True
 (O/'finish_import.json').write_text(json.dumps(report,indent=2))
 print('PKM20_FINISH_AND_WET_LIBRARY_SAVED',len(dry_by_source),len(report['meshes']),flush=True)
+
+# The current finish recipe supersedes the historical matte layer. Rebuilding
+# this stage must also restore both olive boxes and the paired wet surfaces.
+import runpy as _pkm_finish_runpy
+_pkm_finish_runpy.run_path(
+    str(Path(__file__).resolve().parents[2] / 'PKMRefinedFinish20260927/install_finish.py'),
+    run_name='__main__')

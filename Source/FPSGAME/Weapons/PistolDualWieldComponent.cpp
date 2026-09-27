@@ -10,6 +10,7 @@
 #include "DanWesson715WeaponAssets.h"
 #include "DanWesson715FittedParts.h"
 #include "M1911MagazineVisual.h"
+#include "M1911WeaponAssets.h"
 #include "TacticalDeviceComponent.h"
 #include "../Skills/FPSCastingMeshComponent.h"
 #include "../Skills/FPSQuickCombatComponent.h"
@@ -276,6 +277,18 @@ void UPistolDualWieldComponent::CancelInputs()
     for(auto& H:Hands)H.Held=H.Pending=false;
     if(Player)Player->bFireHeld=false;
 }
+void UPistolDualWieldComponent::PrepareSingleInspect()
+{
+    // Single-weapon setup runs again after leaving dual wield (LoadHand clears
+    // the old clip map). Keep this small variant alive without loading on L.
+    Hands[0].Clips.Add(TEXT("single_inspect_empty"),LoadObject<UAnimSequence>(nullptr,*M1911WeaponAssets::AnimationPath(TEXT("inspect_empty"))));
+}
+
+UAnimSequence* UPistolDualWieldComponent::SingleEmptyInspect() const
+{
+    return Hands[0].Clips.FindRef(TEXT("single_inspect_empty"));
+}
+
 bool UPistolDualWieldComponent::IsQuickCombatActive() const
 {
     return bActive && Player && Player->QuickCombatPistol

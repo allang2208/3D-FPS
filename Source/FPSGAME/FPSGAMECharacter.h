@@ -114,6 +114,7 @@ public:
     bool HasPSO1Scope() const { return HasSVDFactoryScope() || (bHolographicOptic && OpticVariant==TEXT("pso1_4x")); }
     bool HasHandgunScope() const { return bUseDanWesson715 && bHolographicOptic && OpticVariant==TEXT("dw715_handgun_scope_2x"); }
     float GetOpticMagnification() const;
+    bool HasBowScope() const;
     float GetDisplayedOpticMagnification() const;
     FVector2D GetScopeEyeOffset() const { return ScopeEyeOffset; }
     float EffectiveADSVerticalFOV() const;

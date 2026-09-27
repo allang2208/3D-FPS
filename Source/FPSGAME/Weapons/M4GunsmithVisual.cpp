@@ -1,4 +1,5 @@
 #include "../FPSGAMECharacter.h"
+#include "Bow/BowWeaponComponent.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
 #include "A762Attachments.h"
 #include "SVDAttachments.h"
@@ -244,12 +245,17 @@ void AFPSGAMECharacter::SetLPVOMagnification(float Value)
 }
 bool AFPSGAMECharacter::AdjustOpticMagnification(float Delta)
 {
+    if(Bow && Bow->IsEquipped())return false;
     if(OpticVariant!=TEXT("lpvo_1_6x")||!IsAiming())return false;
     SetLPVOMagnification(LPVOMagnification+Delta);return true;
 }
 
 float AFPSGAMECharacter::GetScopePresentationAlpha() const
 {
+    // Both bow lenses use the prism 2x presentation: camera magnification
+    // through the visible physical sight. No screen mask, HUD or arms hiding.
+    // Bow::AimVerticalFOV still supplies the selected fixed 2x/4x zoom.
+    if(Bow && Bow->IsEquipped())return 0.f;
     if((!HasPSO1Scope()&&!HasHandgunScope()&&OpticVariant!=TEXT("lpvo_1_6x"))||!bInventoryWeaponReady||IsTraversing()||IsWeaponBusy())return 0.f;
     return FMath::SmoothStep(.65f,.98f,CameraADSFactor);
 }

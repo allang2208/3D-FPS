@@ -78,6 +78,10 @@ public:
     bool IsActive() const { return bActive; }
     bool HasHeldTrigger() const { return bActive && (Hands[0].Held || Hands[1].Held); }
     bool IsReloading() const { return bActive && (Hands[0].Reloading || Hands[1].Reloading); }
+    // Reuse the pistol controller's GC-tracked cache for the single M1911
+    // empty-slide variant; dual wield itself has no inspect action.
+    void PrepareSingleInspect();
+    UAnimSequence* SingleEmptyInspect() const;
     bool LeftBusy() const;
     const FDualPistolHand& Hand(int32 Index) const { return Hands[Index]; }
     bool MatchesEquipment(const UColdSteelStatusModel* Model, bool bWeaponReady) const;

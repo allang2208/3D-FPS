@@ -194,7 +194,9 @@ void ABowArrow::FinishStuck(const FHitResult& Hit)
     bStuck = true;
     Velocity = FVector::ZeroVector;
     SetActorTickEnabled(false);
-    SetActorEnableCollision(bRecoverable);
+    // Even an infinite-reserve arrow can be gathered out of the world. Only
+    // an actually spent arrow exposes the manual pickup / ammo refund shape.
+    SetActorEnableCollision(true);
     RecoveryShape->SetCollisionEnabled(bRecoverable ? ECollisionEnabled::QueryOnly : ECollisionEnabled::NoCollision);
     SetLifeSpan(bRecoverable ? RecoverySeconds : StickSeconds);
     // 命中生物：跟着骨骼走，避免目标移动后箭悬在空中。
@@ -203,9 +205,9 @@ void ABowArrow::FinishStuck(const FHitResult& Hit)
         if (Hit.BoneName.IsNone()) AttachToComponent(Component, FAttachmentTransformRules::KeepWorldTransform);
         else AttachToComponent(Component, FAttachmentTransformRules::KeepWorldTransform, Hit.BoneName);
     }
-    // Only a landed, actually spent arrow becomes a pickup. The overlap timer
-    // runs solely while a player is close, including a point-blank impact.
-    if(bRecoverable)AutoRecovery->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+    // Proximity collection and inventory ownership are separate. The overlap
+    // timer still runs only near a player; virtual arrows never grant ammo.
+    AutoRecovery->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 }
 
 void ABowArrow::EndPlay(const EEndPlayReason::Type Reason)
@@ -218,7 +220,7 @@ void ABowArrow::OnRecoveryOverlap(UPrimitiveComponent* OverlappedComponent,AActo
     UPrimitiveComponent* OtherComponent,int32 OtherBodyIndex,bool bFromSweep,const FHitResult& SweepResult)
 {
     const auto* Pawn=Cast<APawn>(OtherActor);
-    if(CanRecover()&&HasAuthority()&&GetNetMode()==NM_Standalone&&Pawn&&Pawn->IsPlayerControlled()&&
+    if(bStuck&&!IsActorBeingDestroyed()&&HasAuthority()&&GetNetMode()==NM_Standalone&&Pawn&&Pawn->IsPlayerControlled()&&
         !GetWorldTimerManager().IsTimerActive(RecoveryTimer))
         GetWorldTimerManager().SetTimer(RecoveryTimer,this,&ABowArrow::RecoverNearby,.2f,true,.15f);
 }
@@ -231,7 +233,8 @@ void ABowArrow::OnRecoveryEndOverlap(UPrimitiveComponent* OverlappedComponent,AA
 
 void ABowArrow::RecoverNearby()
 {
-    if(!CanRecover()){GetWorldTimerManager().ClearTimer(RecoveryTimer);return;}
+    if(!bStuck||IsActorBeingDestroyed()||!HasAuthority()||GetNetMode()!=NM_Standalone)
+    {GetWorldTimerManager().ClearTimer(RecoveryTimer);return;}
     TArray<AActor*> Nearby;AutoRecovery->GetOverlappingActors(Nearby,APawn::StaticClass());
     bool bPlayerNearby=false;
     for(auto* Actor:Nearby)
@@ -245,7 +248,15 @@ void ABowArrow::RecoverNearby()
         FHitResult Obstruction;const FVector End=AutoRecovery->GetComponentLocation();
         if(GetWorld()->LineTraceSingleByChannel(Obstruction,Pawn->GetActorLocation(),End,ECC_Visibility,Query)&&
             FVector::DistSquared(Obstruction.ImpactPoint,End)>FMath::Square(8.f))continue;
-        RecoverIntoPouch(Pawn);
+        if(bRecoverable)RecoverIntoPouch(Pawn);
+        else
+        {
+            // No pouch round was spent for this shot. Collect the visible
+            // arrow without converting unlimited practice ammo into stock.
+            bStuck=false;
+            SetActorEnableCollision(false);
+            Destroy();
+        }
         // On a save failure keep the arrow and retry on the next entry, without
         // retrying disk writes or notices five times per second.
         GetWorldTimerManager().ClearTimer(RecoveryTimer);
@@ -272,9 +283,13 @@ bool ABowArrow::RecoverIntoPouch(APawn* Pawn)
     // Persist the exact fired type before removing the world arrow. Failed
     // saves/capacity leave it available; virtual training arrows never enter here.
     bRecoverable = false;
+    // Overlap callbacks must not mistake an in-progress refund for a virtual
+    // arrow if the inventory commit updates world state synchronously.
+    bStuck = false;
     if (!Profile->GrantAmmo(AmmoId, 1))
     {
         bRecoverable = true;
+        bStuck = true;
         Profile->PostNotice(TEXT("箭支未拾回"), Profile->ResultMessage());
         return false;
     }

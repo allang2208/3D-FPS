@@ -19,7 +19,7 @@
         {
           "id": "strong_draw",
           "name": "强拉力弓胎",
-          "description": "以更长拉弓时间和更高耐力消耗，换取满弓伤害与箭速。",
+          "description": "以更长拉弓时间和更高耐力消耗，换取满弓伤害与子弹速度。",
           "appearance": "沿用原装弓胎形状；本项为拉力调校。",
           "visual": {},
           "stats": {
@@ -197,7 +197,7 @@
         {
           "id": "fast_string",
           "name": "轻量快弦",
-          "description": "缩短拉弓时间并提高箭速，满弓保持时间略短。",
+          "description": "缩短拉弓时间并提高子弹速度，满弓保持时间略短。",
           "appearance": "更细的浅棕色弦。",
           "visual": {
             "bow_part_string_material": "/Game/Weapons/DarkBow20260925/ModularV13/M_Bow_FastString.M_Bow_FastString",
@@ -207,6 +207,37 @@
             "draw_mult": 0.94,
             "speed_mult": 1.04,
             "hold_mult": 0.92
+          }
+        },
+        {
+          "id": "steady_twist_string",
+          "name": "紧捻稳弦",
+          "description": "紧密绞合的弦身便于稳定控弓，减轻瞄准晃动和腰射扩散并提高伤害；拉至满弓需要更长时间。",
+          "appearance": "炭灰双股紧捻纤维，夹入低对比灰麻细线，表面消光。",
+          "visual": {
+            "bow_part_string_material": "/Game/Weapons/DarkBow20260925/StringVariants20260927/MI_BowString_SteadyTwist.MI_BowString_SteadyTwist",
+            "bow_part_string_radius_cm": 0.09
+          },
+          "stats": {
+            "sway_mult": 0.85,
+            "spread_mult": 0.9,
+            "damage_mult": 1.05,
+            "draw_mult": 1.1
+          }
+        },
+        {
+          "id": "softcore_hold_string",
+          "name": "柔芯长持弦",
+          "description": "柔芯与编织外层组成的弓弦缩短拉满耗时，并减轻单次射击耐力消耗；子弹速度稍低。",
+          "appearance": "深棕纤维与暗橄榄外层交编，疏织纹理带柔和蜡封光泽。",
+          "visual": {
+            "bow_part_string_material": "/Game/Weapons/DarkBow20260925/StringVariants20260927/MI_BowString_SoftcoreHold.MI_BowString_SoftcoreHold",
+            "bow_part_string_radius_cm": 0.09
+          },
+          "stats": {
+            "draw_mult": 0.9,
+            "stamina_mult": 0.9,
+            "speed_mult": 0.95
           }
         }
       ]
@@ -235,6 +266,40 @@
             "nock_mult": 0.93,
             "spread_mult": 0.9
           }
+        },
+        {
+          "id": "open_quick_rest",
+          "name": "开口速搭箭台",
+          "description": "敞口短托配磨光滑片，便于箭杆落位和滑出，侧向导向较弱。",
+          "appearance": "贴合弓体的薄木座，配深色磨光角片和圆滑敞口。",
+          "visual": {
+            "bow_part_arrow_rest_mesh": "/Game/Weapons/DarkBow20260925/ArrowRestVariants20260927/SM_Bow_ArrowRest_OpenQuick.SM_Bow_ArrowRest_OpenQuick",
+            "bow_part_arrow_rest_material": "",
+            "bow_part_arrow_rest_rods": 0,
+            "bow_part_arrow_rest_scale": 1
+          },
+          "stats": {
+            "nock_mult": 0.2,
+            "draw_mult": 0.9,
+            "speed_mult": 1.05,
+            "spread_mult": 1.1
+          }
+        },
+        {
+          "id": "fork_guide_rest",
+          "name": "双叉导向箭台",
+          "description": "双叉托面配窄皮衬，为箭杆提供更明确的侧向导向，滑出阻力略高。",
+          "appearance": "深木色浅 V 形双叉托架，接触面覆窄皮衬，上方与出箭方向开放。",
+          "visual": {
+            "bow_part_arrow_rest_mesh": "/Game/Weapons/DarkBow20260925/ArrowRestVariants20260927/SM_Bow_ArrowRest_ForkGuide.SM_Bow_ArrowRest_ForkGuide",
+            "bow_part_arrow_rest_material": "",
+            "bow_part_arrow_rest_rods": 0,
+            "bow_part_arrow_rest_scale": 1
+          },
+          "stats": {
+            "spread_mult": 0.75,
+            "speed_mult": 0.95
+          }
         }
       ]
     },
@@ -249,7 +314,9 @@
         "bow_part_sight_scale": 1.0,
         "bow_part_sight_location_cm": "0,0,0",
         "bow_part_sight_rotation_deg": "0,0,0",
-        "bow_ads_sight_cm": "-3.5,-10.1,16.5"
+        "bow_ads_sight_cm": "-3.5,-10.1,16.5",
+        "bow_scope_magnification": 1,
+        "bow_part_sight_material": ""
       },
       "options": [
         {
@@ -260,9 +327,50 @@
           "visual": {
             "bow_part_sight_mesh": "",
             "bow_ads_sight_cm": "",
-            "bow_ads_rest_cm": "60,0,0"
+            "bow_ads_rest_cm": "60,0,0",
+            "bow_scope_magnification": 1
           },
           "stats": {}
+        },
+        {
+          "id": "bow_clearfield_2x",
+          "name": "清野二倍镜",
+          "description": "薄框单片玻璃配细十字和中心点，提供固定 2 倍放大。",
+          "appearance": "贴合木座、轻巧黑钢弧臂与暗黄铜窄压圈，单片玻璃边缘呈浅青灰反光。",
+          "visual": {
+            "bow_part_sight_mesh": "/Game/Weapons/DarkBow20260925/SingleLensOptics20260927/SM_Bow_Clearfield2x.SM_Bow_Clearfield2x",
+            "bow_part_sight_material": "",
+            "bow_part_sight_rods": 0,
+            "bow_part_sight_scale": 1,
+            "bow_part_sight_location_cm": "0,0,0",
+            "bow_part_sight_rotation_deg": "0,0,0",
+            "bow_ads_sight_cm": "-3.5,-10.1,16.5",
+            "bow_ads_sight_distance_cm": 60,
+            "bow_scope_magnification": 2
+          },
+          "stats": {
+            "ads_mult": 1.1
+          }
+        },
+        {
+          "id": "bow_farwatch_4x",
+          "name": "远望四倍镜",
+          "description": "薄框单片玻璃提供固定 4 倍放大，细十字下方附两道无距离标注的参考刻线。",
+          "appearance": "贴合木座、带浅加强筋的黑钢弧臂与暗黄铜窄压圈，单片微凸玻璃边缘呈弱灰紫反光。",
+          "visual": {
+            "bow_part_sight_mesh": "/Game/Weapons/DarkBow20260925/SingleLensOptics20260927/SM_Bow_Farwatch4x.SM_Bow_Farwatch4x",
+            "bow_part_sight_material": "",
+            "bow_part_sight_rods": 0,
+            "bow_part_sight_scale": 1,
+            "bow_part_sight_location_cm": "0,0,0",
+            "bow_part_sight_rotation_deg": "0,0,0",
+            "bow_ads_sight_cm": "-3.5,-10.1,16.5",
+            "bow_ads_sight_distance_cm": 60,
+            "bow_scope_magnification": 4
+          },
+          "stats": {
+            "ads_mult": 1.25
+          }
         }
       ]
     }

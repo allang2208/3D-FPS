@@ -22,6 +22,8 @@ namespace M1911WeaponAssets
         TEXT("/Game/Weapons/M1911/QuickCombat20260919/Animations/A_M1911_quickcombat.A_M1911_quickcombat");
     inline FString AnimationPath(const TCHAR* Clip)
     {
+        if (FCString::Strcmp(Clip, TEXT("inspect")) == 0 || FCString::Strcmp(Clip, TEXT("inspect_empty")) == 0)
+            return FString::Printf(TEXT("/Game/Weapons/M1911/RevolverInspect20260927/Animations/A_M1911_%s.A_M1911_%s"), Clip, Clip);
         const bool Reload = FCString::Strcmp(Clip, TEXT("reload")) == 0 || FCString::Strcmp(Clip, TEXT("reload_empty")) == 0;
         return FString::Printf(TEXT("%s/Animations/A_M1911_%s.A_M1911_%s"), Reload ? ReloadRoot : ActionRoot, Clip, Clip);
     }
