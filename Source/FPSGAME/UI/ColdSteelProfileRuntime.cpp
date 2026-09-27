@@ -1,5 +1,6 @@
 #include "../Dungeon/DungeonLayout.h"
 #include "ColdSteelStatusModel.h"
+#include "../Items/FPSPotionUseComponent.h"
 #include "../Weapons/WeaponReloadStages.h"
 #include "../Weapons/PistolDualWieldComponent.h"
 #include "../Weapons/RuneOrbBladesComponent.h"
@@ -10,6 +11,7 @@
 #include "../Combat/CombatStatusFormula.h"
 #include "../Monsters/MonsterCoreStats.h"
 #include "Dom/JsonObject.h"
+#include "Dom/JsonValue.h"
 #include "Serialization/JsonSerializer.h"
 #include "Kismet/GameplayStatics.h"
 #include "Misc/FileHelper.h"
@@ -312,6 +314,28 @@ bool UColdSteelStatusModel::ReloadProfile()
                     I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
                 }
             }
+            // Potion balance follows the catalog for existing stacks as well as
+            // newly created bottles. Keep instance identity, quantity and place.
+            if(UFPSPotionUseComponent::IsPotion(I.Definition)&&CatalogData&&
+                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
+            {
+                bool PotionUpdated=false;
+                for(const TCHAR* Key:{TEXT("useEffect"),TEXT("stats")})
+                {
+                    const auto* CatalogValue=CatalogData->Values.Find(Key);
+                    const auto* StoredValue=ItemData->Values.Find(Key);
+                    if(CatalogValue&&CatalogValue->IsValid()&&
+                        (!StoredValue||!StoredValue->IsValid()||!FJsonValue::CompareEqual(**StoredValue,**CatalogValue)))
+                    {
+                        ItemData->SetField(Key,*CatalogValue);
+                        PotionUpdated=true;
+                    }
+                }
+                if(PotionUpdated)
+                {
+                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+                }
+            }
         }
         const bool Material=I.Definition==TEXT("enhancement_stone")||I.Definition==TEXT("magic_dust");
         if(!Material&&I.Definition!=TEXT("enchant_scroll_heavy")&&I.Definition!=TEXT("enchant_scroll_sharp")&&I.Definition!=TEXT("enchant_scroll_skeleton")&&I.Definition!=TEXT("enchant_scroll_tarantula"))continue;
@@ -444,6 +468,10 @@ bool UColdSteelStatusModel::UseHotbar(int32 Index){return Index>=0&&Index<4&&Use
 bool UColdSteelStatusModel::UseItem(const FString& Id)
 {
     if(const auto* Tool=FindItem(Id);Tool&&Text(*Tool,TEXT("category"))==TEXT("tool"))return ToggleProductionTool(Id);
+    return UseConsumableAtContact(Id,false);
+}
+bool UColdSteelStatusModel::UseConsumableAtContact(const FString& Id,bool bPotionContact)
+{
     SyncRuntime();auto P=Snapshot();int32 N=P.Items.IndexOfByPredicate([&](const auto& I){return I.InstanceId==Id;});if(N<0||P.Items[N].Place!=0)return false;
     auto& I=P.Items[N];if(I.Cooldown>0){Message=TEXT("物品冷却中");return false;}
     TSharedPtr<FJsonObject> O;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),O);const TSharedPtr<FJsonObject>* Effect=nullptr;
@@ -453,6 +481,11 @@ bool UColdSteelStatusModel::UseItem(const FString& Id)
     const float HP=Num(TEXT("hp"))+Health->MaxHealth*Num(TEXT("maxHpPercent"))*.01;
     const float MP=Num(TEXT("mp"))+Derived(TEXT("maxMp"))*Num(TEXT("maxMpPercent"))*.01;
     if((HP<=0||P.Health>=Health->MaxHealth)&&(MP<=0||Mana()>=Derived(TEXT("maxMp")))){Message=TEXT("当前资源已满或效果不可用");return false;}
+    if(!bPotionContact&&UFPSPotionUseComponent::IsPotion(I.Definition))
+    {
+        auto* Potion=CurrentPawn->FindComponentByClass<UFPSPotionUseComponent>();
+        return Potion&&Potion->TryBegin(Id,I.Definition);
+    }
     P.Health=FMath::Clamp(P.Health+FMath::Max(0.f,HP),0.f,Health->MaxHealth);P.Mana=FMath::Clamp(P.Mana+FMath::Max(0.f,MP),0.f,Derived(TEXT("maxMp")));
     I.Cooldown=Number(I,TEXT("useCooldown"));if(--I.Count<=0)P.Items.RemoveAt(N);return CommitState(P);
 }

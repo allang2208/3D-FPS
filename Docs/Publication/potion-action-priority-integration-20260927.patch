@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/FPSGAMECharacterActionPriority.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterActionPriority.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSGAMECharacter.h"
++#include "Items/FPSPotionUseComponent.h"
+ #include "FPSGAMEPlayerController.h"
+ #include "UI/ColdSteelStatusModel.h"
+ #include "Skills/FPSFireballComponent.h"
+@@ -46,6 +47,7 @@
+     if(Profile && !bWeaponSwitch)Profile->SyncRuntime();
+     {
+         TGuardValue<bool> Resolving(bResolvingActionInterrupt,true);
++        if(auto* Potion=FindComponentByClass<UFPSPotionUseComponent>())Potion->Cancel();
+         if(auto* Magic=FindComponentByClass<UFPSFireballComponent>())Magic->InterruptForPriority();
+         if(QuickCombatPistol)QuickCombatPistol->Cancel();
+         // Cancel the draw before FireReleased: priority interrupts never loose an arrow.

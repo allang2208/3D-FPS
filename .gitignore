@@ -668,3 +668,9 @@ __pycache__/
 !/SourceAssets/GamedevTreasureChest20260923/**/*.py
 !/SourceAssets/GamedevTreasureChest20260923/**/*.md
 /SourceAssets/HDRSkyBC6H20260924/
+
+# Potion publication: source recipes are public; generated media/receipts stay local.
+/SourceAssets/PotionUse20260926/import_receipt.json
+/SourceAssets/PotionUse20260926/manifest.json
+/SourceAssets/PotionTiersBlender20260926/import_receipt.json
+/SourceAssets/PotionTiersBlender20260926/manifest.json

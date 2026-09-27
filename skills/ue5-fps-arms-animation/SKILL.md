@@ -28,6 +28,8 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 
 ## 按问题读取
 
+- 左手取药、饮用、抛瓶、握点下移和旧瓶动作参考，读取 [药水抓握、饮用与抛瓶](references/potion-grip-and-drink.md)。
+
 - 弓的握把掌向、三指勾弦、掌面漏洞和左右手构图：[弓手型与弦接触](references/bow-hand-string-contact.md)。使用实际蒙皮指腹约束，保留原生绑定与共享手模边界。
 
 - 旋转技能手/肩/武器错帧、蓄势分段顿挫或入场跳姿态：[旋转技能与连续蓄势](references/spin-windup-continuity.md)。先处理相机缓存时序，再用连续曲线与实际姿态衔接；区分背景模糊和前景时域残影。

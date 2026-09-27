@@ -1,4 +1,5 @@
 #include "FPSGAMECharacter.h"
+#include "Items/FPSPotionUseComponent.h"
 #include "Characters/FPSPlayerBodyComponent.h"
 #include "Characters/FPSModularOutfitComponent.h"
 #include "Weapons/PistolDualWieldComponent.h"
@@ -177,6 +178,7 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
     RuneOrbBlades=CreateDefaultSubobject<URuneOrbBladesComponent>(TEXT("RuneOrbBlades"));
     CreateDefaultSubobject<UFPSCombatHealthComponent>(TEXT("CombatHealth"));
     CreateDefaultSubobject<UFPSFireballComponent>(TEXT("FireballSkill"));
+    CreateDefaultSubobject<UFPSPotionUseComponent>(TEXT("PotionUse"));
     CreateDefaultSubobject<UFPSIceSpikeComponent>(TEXT("IceSpikeSkill"));
     CreateDefaultSubobject<UFPSLightningComponent>(TEXT("LightningSkill"));
     CreateDefaultSubobject<UFPSHolyLightComponent>(TEXT("HolyLightSkill"));
@@ -2778,6 +2780,7 @@ bool AFPSGAMECharacter::CanStand() const
 bool AFPSGAMECharacter::IsTraversing() const { return Traversal && Traversal->IsTraversing(); }
 bool AFPSGAMECharacter::IsLeftHandBusyForCast() const
 {
+    if(const auto* Potion=FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())return true;
     if(IsDualWieldingPistols() && DualPistols->LeftBusy())return true;
     if(IsTraversing() || WeaponState!=EAKMWeaponState::Idle || bAimHeld || bIsAiming || ADSProgress>UE_KINDA_SMALL_NUMBER)return true;
     if(RuneSword && RuneSword->IsBusy())return true;
@@ -2786,6 +2789,7 @@ bool AFPSGAMECharacter::IsLeftHandBusyForCast() const
 }
 bool AFPSGAMECharacter::IsCastingWithLeftHand() const
 {
+    if(const auto* Potion=FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())return true;
     const auto* Magic=FindComponentByClass<UFPSFireballComponent>();
     const auto* Bash=FindComponentByClass<UFPSQuickCombatComponent>();
     return (Magic && Magic->IsOccupyingLeftHand())||(Bash&&Bash->IsOccupyingLeftHand());
@@ -2793,6 +2797,7 @@ bool AFPSGAMECharacter::IsCastingWithLeftHand() const
 bool AFPSGAMECharacter::IsLeftHandHeldForCast() const { return IsDualWieldingPistols(); }
 void AFPSGAMECharacter::SuspendWeaponForMenu()
 {
+    if(auto* Potion=FindComponentByClass<UFPSPotionUseComponent>())Potion->Cancel();
     if(BipodDeployment)BipodDeployment->Release(true);
     CancelAmmoSelection();
     InterruptReload();
@@ -2807,6 +2812,7 @@ void AFPSGAMECharacter::SuspendWeaponForMenu()
 }
 bool AFPSGAMECharacter::IsCastBlockingLeftHandAction() const
 {
+    if(const auto* Potion=FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())return true;
     const auto* Magic=FindComponentByClass<UFPSFireballComponent>();
     const auto* Ice=FindComponentByClass<UFPSIceSpikeComponent>();
     const auto* Lightning=FindComponentByClass<UFPSLightningComponent>();

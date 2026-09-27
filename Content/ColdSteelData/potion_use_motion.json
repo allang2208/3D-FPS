@@ -1,0 +1,38 @@
+{
+  "authoring": "AKM PalmGripV3 four-finger support and opposing thumb; AKM reload thumb V4 distal curl; native V7 arms. Camera cm / pitch yaw roll degrees.",
+  "times": {"grab": 0.26, "uncap": 0.64, "drink_start": 1.08, "drink_end": 1.52, "contact": 1.46, "release": 1.76, "recover": 1.8, "duration": 2.1},
+  "shoulder": [-3, -19, -19],
+  "elbow_pole": [3, -39, -39],
+  "keys": [
+    {"time": 0.0, "grip": [23, -23, -35], "rotation": [0, -8, 0]},
+    {"time": 0.26, "grip": [23, -23, -35], "rotation": [0, -8, 0]},
+    {"time": 0.48, "grip": [29, -16, -16], "rotation": [5, -8, 4]},
+    {"time": 0.72, "grip": [28, -14, -14], "rotation": [8, -6, 4]},
+    {"time": 1.08, "grip": [13, -3.5, -6], "rotation": [104, 0, 2]},
+    {"time": 1.30, "grip": [13, -3.5, -6], "rotation": [111, 0, 2]},
+    {"time": 1.52, "grip": [13, -3.5, -6], "rotation": [111, 0, 2]},
+    {"time": 1.64, "grip": [24, -18, -15], "rotation": [25, -15, -8]},
+    {"time": 1.70, "grip": [26, -24, -17], "rotation": [-12, -24, -15]},
+    {"time": 1.80, "grip": [46, -37, -5], "rotation": [-22, -26, -34]}
+  ],
+  "hp_potion": {
+    "grip_in_palm": [5.3, -4.5, 5.1], "grip_height": 13.2,
+    "digits": {
+      "index": {"spread": [-3, -3, -3], "flex": [45, 96, 130]},
+      "middle": {"spread": [-1, -1, -1], "flex": [42, 91, 128]},
+      "ring": {"spread": [-2, -2, -2], "flex": [34, 85, 116]},
+      "pinky": {"spread": [-3, -3, -3], "flex": [25, 68, 95]},
+      "thumb": {"spread": [-68, -77, -80], "flex": [26, 53, 74]}
+    }
+  },
+  "mp_potion": {
+    "grip_in_palm": [5.0, -4.7, 4.9], "grip_height": 14.0,
+    "digits": {
+      "index": {"spread": [-3, -3, -3], "flex": [52, 108, 141]},
+      "middle": {"spread": [-1, -1, -1], "flex": [49, 103, 138]},
+      "ring": {"spread": [-2, -2, -2], "flex": [38, 93, 125]},
+      "pinky": {"spread": [-3, -3, -3], "flex": [28, 76, 104]},
+      "thumb": {"spread": [-68, -77, -80], "flex": [27, 55, 77]}
+    }
+  }
+}

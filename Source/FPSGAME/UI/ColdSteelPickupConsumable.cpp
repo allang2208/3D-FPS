@@ -1,10 +1,12 @@
 #include "ColdSteelPickup.h"
+#include "../Items/PotionVisuals.h"
 #include "../Weapons/MeleeRuneVisual.h"
 #include "../Weapons/MeleeGuardAssets.h"
 #include "../Weapons/ModularSwordVisual.h"
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
+#include "Materials/MaterialInterface.h"
 
 bool AColdSteelPickup::BuildConsumable(const FColdSteelItem& Item)
 {
@@ -29,12 +31,31 @@ bool AColdSteelPickup::BuildConsumable(const FColdSteelItem& Item)
     }
     const bool bMaterial=Id==TEXT("enhancement_stone")||Id==TEXT("magic_dust");
     const bool bScroll=Id==TEXT("enchant_scroll_heavy")||Id==TEXT("enchant_scroll_sharp")||Id==TEXT("enchant_scroll_skeleton")||Id==TEXT("enchant_scroll_tarantula");
-    if(!bMaterial&&!bScroll&&Id!=TEXT("hp_potion")&&Id!=TEXT("mp_potion"))return false;
-    const FString Path=bScroll?TEXT("/Game/Items/MagicScroll/magic_scroll/SM_magic_scroll.SM_magic_scroll"):FString::Printf(TEXT("/Game/Items/%s/%s/SM_%s.SM_%s"),bMaterial?TEXT("EnhancementMaterials"):TEXT("Consumables"),*Id,*Id,*Id);
+    const bool bHealthPotion=Id==TEXT("hp_potion")||Id.StartsWith(TEXT("hp_potion_"));
+    const bool bManaPotion=Id==TEXT("mp_potion")||Id.StartsWith(TEXT("mp_potion_"));
+    if(bHealthPotion||bManaPotion)
+    {
+        const int32 TierIndex=PotionVisuals::FindTier(Id);
+        if(TierIndex==INDEX_NONE)return false;
+        const auto& Visual=PotionVisuals::Tiers()[TierIndex];
+        auto* Asset=LoadObject<UStaticMesh>(nullptr,*Visual.Closed);
+        auto* LiquidMaterial=LoadObject<UMaterialInterface>(nullptr,*PotionVisuals::LiquidMaterial(bManaPotion));
+        if(!Asset||!LiquidMaterial)return false;
+        const auto Bounds=Asset->GetBounds();
+        const float Scale=Visual.HeightCm/FMath::Max(2.f*Bounds.BoxExtent.Z,.01f);
+        Mesh->EmptyOverrideMaterials();Mesh->SetStaticMesh(Asset);
+        const int32 LiquidSlot=Mesh->GetMaterialIndex(TEXT("Liquid"));
+        if(LiquidSlot!=INDEX_NONE)Mesh->SetMaterial(LiquidSlot,LiquidMaterial);
+        Mesh->SetRelativeScale3D(FVector(Scale));Mesh->SetRelativeLocation(-Bounds.Origin*Scale);
+        Body->SetBoxExtent((Bounds.BoxExtent*Scale).ComponentMax(FVector(1.f)));
+        return true;
+    }
+    if(!bMaterial&&!bScroll)return false;
+    const FString Path=bScroll?TEXT("/Game/Items/MagicScroll/magic_scroll/SM_magic_scroll.SM_magic_scroll"):FString::Printf(TEXT("/Game/Items/EnhancementMaterials/%s/SM_%s.SM_%s"),*Id,*Id,*Id);
     auto* Asset=LoadObject<UStaticMesh>(nullptr,*Path);
     if(!Asset){UE_LOG(LogTemp,Error,TEXT("ConsumablePickup: missing %s"),*Path);return false;}
     const FBoxSphereBounds Bounds=Asset->GetBounds();
-    const float Height=bScroll?24.f:Id==TEXT("enhancement_stone")?14.f:Id==TEXT("magic_dust")?16.f:Id==TEXT("hp_potion")?18.f:18.5f;
+    const float Height=bScroll?24.f:Id==TEXT("enhancement_stone")?14.f:16.f;
     const float Scale=Height/FMath::Max(2.f*Bounds.BoxExtent.Z,.01f);
     Mesh->SetStaticMesh(Asset);Mesh->SetRelativeScale3D(FVector(Scale));Mesh->SetRelativeLocation(-Bounds.Origin*Scale);
     Body->SetBoxExtent((Bounds.BoxExtent*Scale).ComponentMax(FVector(1.f)));

@@ -1541,7 +1541,7 @@
   },
   "hp_potion": {
     "category": "consumable",
-    "desc": "一瓶红色的基础药水。饮用后恢复30点生命值。",
+    "desc": "一瓶红色的基础药水。饮用后恢复30点生命值，并额外恢复最大生命值的15%。任何等级均可使用。",
     "dropImage": "assets/items/health_potion.png",
     "equipSlot": "",
     "icon": "res://assets/original_ui/assets/items/health_potion.png",
@@ -1558,18 +1558,19 @@
     "stats": [
       {
         "name": "恢复生命",
-        "value": "+30"
+        "value": "+30 + 最大生命值15%"
       }
     ],
     "type": "消耗品",
     "useEffect": {
-      "hp": 30.0
+      "hp": 30.0,
+      "maxHpPercent": 15.0
     },
     "ue_icon": "Icons/hp_potion.png"
   },
   "hp_potion_high": {
     "category": "consumable",
-    "desc": "由深钢瓶箍保护的高纯生命药剂。饮用后恢复150点生命值。",
+    "desc": "由深钢瓶箍保护的高纯生命药剂。饮用后恢复150点生命值，并额外恢复最大生命值的25%。任何等级均可使用。",
     "dropImage": "assets/items/health_potion_high.png",
     "equipSlot": "",
     "icon": "res://assets/original_ui/assets/items/health_potion_high.png",
@@ -1586,18 +1587,19 @@
     "stats": [
       {
         "name": "恢复生命",
-        "value": "+150"
+        "value": "+150 + 最大生命值25%"
       }
     ],
     "type": "消耗品",
     "useEffect": {
-      "hp": 150.0
+      "hp": 150.0,
+      "maxHpPercent": 25.0
     },
     "ue_icon": "Icons/hp_potion_high.png"
   },
   "hp_potion_medium": {
     "category": "consumable",
-    "desc": "加厚棱面瓶中封存着浓缩生命药剂。饮用后恢复80点生命值。",
+    "desc": "加厚棱面瓶中封存着浓缩生命药剂。饮用后恢复80点生命值，并额外恢复最大生命值的20%。任何等级均可使用。",
     "dropImage": "assets/items/health_potion_medium.png",
     "equipSlot": "",
     "icon": "res://assets/original_ui/assets/items/health_potion_medium.png",
@@ -1614,18 +1616,19 @@
     "stats": [
       {
         "name": "恢复生命",
-        "value": "+80"
+        "value": "+80 + 最大生命值20%"
       }
     ],
     "type": "消耗品",
     "useEffect": {
-      "hp": 80.0
+      "hp": 80.0,
+      "maxHpPercent": 20.0
     },
     "ue_icon": "Icons/hp_potion_medium.png"
   },
   "hp_potion_special": {
     "category": "consumable",
-    "desc": "白金冠架封存的特级生命精华。饮用后恢复180点生命值，并额外恢复最大生命值的20%。",
+    "desc": "白金冠架封存的特级生命精华。饮用后恢复180点生命值，并额外恢复最大生命值的30%。任何等级均可使用。",
     "dropImage": "assets/items/health_potion_special.png",
     "equipSlot": "",
     "icon": "res://assets/original_ui/assets/items/health_potion_special.png",
@@ -1642,13 +1645,13 @@
     "stats": [
       {
         "name": "恢复生命",
-        "value": "+180 + 最大生命值20%"
+        "value": "+180 + 最大生命值30%"
       }
     ],
     "type": "消耗品",
     "useEffect": {
       "hp": 180.0,
-      "maxHpPercent": 20.0
+      "maxHpPercent": 30.0
     },
     "ue_icon": "Icons/hp_potion_special.png"
   },
@@ -1950,7 +1953,7 @@
   },
   "mp_potion": {
     "category": "consumable",
-    "desc": "一瓶蓝色的基础药水。饮用后恢复25点魔法值。",
+    "desc": "一瓶蓝色的基础药水。饮用后恢复25点魔法值，并额外恢复最大魔法值的15%。任何等级均可使用。",
     "dropImage": "assets/items/mana_potion.png",
     "equipSlot": "",
     "icon": "res://assets/original_ui/assets/items/mana_potion.png",
@@ -1967,18 +1970,19 @@
     "stats": [
       {
         "name": "恢复魔法",
-        "value": "+25"
+        "value": "+25 + 最大魔法值15%"
       }
     ],
     "type": "消耗品",
     "useEffect": {
-      "mp": 25.0
+      "mp": 25.0,
+      "maxMpPercent": 15.0
     },
     "ue_icon": "Icons/mp_potion.png"
   },
   "mp_potion_high": {
     "category": "consumable",
-    "desc": "由深钢瓶箍保护的高纯魔力药剂。饮用后恢复120点魔法值。",
+    "desc": "由深钢瓶箍保护的高纯魔力药剂。饮用后恢复120点魔法值，并额外恢复最大魔法值的25%。任何等级均可使用。",
     "dropImage": "assets/items/mana_potion_high.png",
     "equipSlot": "",
     "icon": "res://assets/original_ui/assets/items/mana_potion_high.png",
@@ -1995,18 +1999,19 @@
     "stats": [
       {
         "name": "恢复魔法",
-        "value": "+120"
+        "value": "+120 + 最大魔法值25%"
       }
     ],
     "type": "消耗品",
     "useEffect": {
-      "mp": 120.0
+      "mp": 120.0,
+      "maxMpPercent": 25.0
     },
     "ue_icon": "Icons/mp_potion_high.png"
   },
   "mp_potion_medium": {
     "category": "consumable",
-    "desc": "加厚棱面瓶中流动着浓缩魔力药剂。饮用后恢复60点魔法值。",
+    "desc": "加厚棱面瓶中流动着浓缩魔力药剂。饮用后恢复60点魔法值，并额外恢复最大魔法值的20%。任何等级均可使用。",
     "dropImage": "assets/items/mana_potion_medium.png",
     "equipSlot": "",
     "icon": "res://assets/original_ui/assets/items/mana_potion_medium.png",
@@ -2023,18 +2028,19 @@
     "stats": [
       {
         "name": "恢复魔法",
-        "value": "+60"
+        "value": "+60 + 最大魔法值20%"
       }
     ],
     "type": "消耗品",
     "useEffect": {
-      "mp": 60.0
+      "mp": 60.0,
+      "maxMpPercent": 20.0
     },
     "ue_icon": "Icons/mp_potion_medium.png"
   },
   "mp_potion_special": {
     "category": "consumable",
-    "desc": "白金冠架封存的特级魔力精华。饮用后恢复150点魔法值，并额外恢复最大魔法值的20%。",
+    "desc": "白金冠架封存的特级魔力精华。饮用后恢复150点魔法值，并额外恢复最大魔法值的30%。任何等级均可使用。",
     "dropImage": "assets/items/mana_potion_special.png",
     "equipSlot": "",
     "icon": "res://assets/original_ui/assets/items/mana_potion_special.png",
@@ -2051,12 +2057,12 @@
     "stats": [
       {
         "name": "恢复魔法",
-        "value": "+150 + 最大魔法值20%"
+        "value": "+150 + 最大魔法值30%"
       }
     ],
     "type": "消耗品",
     "useEffect": {
-      "maxMpPercent": 20.0,
+      "maxMpPercent": 30.0,
       "mp": 150.0
     },
     "ue_icon": "Icons/mp_potion_special.png"

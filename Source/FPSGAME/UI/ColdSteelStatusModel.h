@@ -336,6 +336,8 @@ public:
     bool ApplyFireMagicHit(APawn* Shooter,AActor* Target,const FFireMagicCast& Spell,float Damage,FFireMagicRewards& Rewards);
     void FinishFireMagicCast(FName Id,const FFireMagicRewards& Rewards);
 private:
+    friend class UFPSPotionUseComponent;
+    bool UseConsumableAtContact(const FString& Id,bool bPotionContact);
     TArray<FColdSteelAmmoType> AmmoTypes;
     UPROPERTY(Transient) TMap<FString,TObjectPtr<UTexture2D>> AmmoIconTextures;
     TMap<FString,TSharedPtr<FSlateBrush>> AmmoIconBrushes;

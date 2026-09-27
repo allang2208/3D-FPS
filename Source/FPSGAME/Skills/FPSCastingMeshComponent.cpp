@@ -1,4 +1,5 @@
 #include "FPSCastingMeshComponent.h"
+#include "../Items/FPSPotionUseComponent.h"
 #include "FPSFireballComponent.h"
 #include "QuickCombatPistolMotion.h"
 #include "QuickCombatRifleMotion.h"
@@ -44,6 +45,8 @@ void UFPSCastingMeshComponent::FinalizeBoneTransform()
     if(!bCastActive){EntrySerial=0;EntryLocal.Reset();}
     CarryHandleDynamics.Apply(*this, GetEditableComponentSpaceTransforms());
     OutgoingBeltDynamics.Apply(*this, GetEditableComponentSpaceTransforms());
+    if(bApplyLeftHandCast&&IsVisible()&&!bHiddenInGame&&GetOwner())
+        if(auto* Potion=GetOwner()->FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())Potion->ApplyHandPose(*this);
     Super::FinalizeBoneTransform();
 }
 

@@ -1,0 +1,58 @@
+{
+  "health_material": "/Game/Items/Consumables/PotionTiersV1/Materials/MI_Potion_Health.MI_Potion_Health",
+  "mana_material": "/Game/Items/Consumables/PotionTiersV1/Materials/MI_Potion_Mana.MI_Potion_Mana",
+  "tiers": [
+    {
+      "tier": "common",
+      "definitions": [
+        "hp_potion",
+        "mp_potion"
+      ],
+      "height_cm": 17.5,
+      "grip_height_cm": 12.7,
+      "shell": "/Game/Items/Consumables/PotionTiersV1/SM_Potion_Common_Shell.SM_Potion_Common_Shell",
+      "liquid": "/Game/Items/Consumables/PotionTiersV1/SM_Potion_Common_Liquid.SM_Potion_Common_Liquid",
+      "stopper": "/Game/Items/Consumables/PotionTiersV1/SM_Potion_Common_Stopper.SM_Potion_Common_Stopper",
+      "closed": "/Game/Items/Consumables/PotionTiersV1/SM_Potion_Common_Closed.SM_Potion_Common_Closed"
+    },
+    {
+      "tier": "medium",
+      "definitions": [
+        "hp_potion_medium",
+        "mp_potion_medium"
+      ],
+      "height_cm": 18,
+      "grip_height_cm": 13.2,
+      "shell": "/Game/Items/Consumables/PotionTiersV1/SM_Potion_Medium_Shell.SM_Potion_Medium_Shell",
+      "liquid": "/Game/Items/Consumables/PotionTiersV1/SM_Potion_Medium_Liquid.SM_Potion_Medium_Liquid",
+      "stopper": "/Game/Items/Consumables/PotionTiersV1/SM_Potion_Medium_Stopper.SM_Potion_Medium_Stopper",
+      "closed": "/Game/Items/Consumables/PotionTiersV1/SM_Potion_Medium_Closed.SM_Potion_Medium_Closed"
+    },
+    {
+      "tier": "high",
+      "definitions": [
+        "hp_potion_high",
+        "mp_potion_high"
+      ],
+      "height_cm": 18.5,
+      "grip_height_cm": 13.7,
+      "shell": "/Game/Items/Consumables/PotionTiersV1/SM_Potion_High_Shell.SM_Potion_High_Shell",
+      "liquid": "/Game/Items/Consumables/PotionTiersV1/SM_Potion_High_Liquid.SM_Potion_High_Liquid",
+      "stopper": "/Game/Items/Consumables/PotionTiersV1/SM_Potion_High_Stopper.SM_Potion_High_Stopper",
+      "closed": "/Game/Items/Consumables/PotionTiersV1/SM_Potion_High_Closed.SM_Potion_High_Closed"
+    },
+    {
+      "tier": "special",
+      "definitions": [
+        "hp_potion_special",
+        "mp_potion_special"
+      ],
+      "height_cm": 19,
+      "grip_height_cm": 14.2,
+      "shell": "/Game/Items/Consumables/PotionTiersV1/SM_Potion_Special_Shell.SM_Potion_Special_Shell",
+      "liquid": "/Game/Items/Consumables/PotionTiersV1/SM_Potion_Special_Liquid.SM_Potion_Special_Liquid",
+      "stopper": "/Game/Items/Consumables/PotionTiersV1/SM_Potion_Special_Stopper.SM_Potion_Special_Stopper",
+      "closed": "/Game/Items/Consumables/PotionTiersV1/SM_Potion_Special_Closed.SM_Potion_Special_Closed"
+    }
+  ]
+}

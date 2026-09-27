@@ -1,0 +1,18 @@
+{
+  "revision": "V1",
+  "units": "millimeters",
+  "ue_folder": "/Game/Items/Consumables/PotionTiersV1",
+  "reference": "../PotionTierDesign20260926/potion-tiers-overview_candidate_v01.png",
+  "shared": {"mouth_outer_radius": 16.0, "mouth_inner_radius": 12.0, "wall": 2.0, "floor": 4.5, "liquid_gap": 0.6, "neck_below_top": 16.0},
+  "liquids": {"health": [0.48, 0.009, 0.018], "mana": [0.012, 0.21, 0.58]},
+  "tiers": [
+    {"id": "common", "name": "Common", "label": "普通", "suffix": "", "size": [68,68,175], "shape": "round", "metal": null, "fill_z": 111,
+      "body": [[0,27,27],[0.7,29,29],[2.4,32,32],[5,33.5,33.5],[9,34,34],[117,34,34],[124,33,33],[130,30.5,30.5],[136,24,24],[141,17,17],[145,14.4,14.4]]},
+    {"id": "medium", "name": "Medium", "label": "中级", "suffix": "_medium", "size": [76,56,180], "shape": "round", "metal": "Pewter", "fill_z": 115,
+      "body": [[0,25,20],[1.0,28,22],[3,29.5,23],[7,29,22.5],[14,32,24.5],[28,36.5,27],[45,38,28],[64,37,27.5],[82,34.5,26.5],[103,29,23.5],[123,22,19],[140,15,14.5],[150,14.4,14.4]]},
+    {"id": "high", "name": "High", "label": "高级", "suffix": "_high", "size": [74,60,185], "shape": "hex", "metal": "Silver", "fill_z": 119,
+      "body": [[0,27,23],[1.5,30,25],[5,32,26.5],[11,34,28],[115,37,30],[120,36.5,29.8],[126,32.5,27],[145,17.5,16],[151,14.4,14.4],[155,14.4,14.4]]},
+    {"id": "special", "name": "Special", "label": "特级", "suffix": "_special", "size": [78,62,190], "shape": "crystal", "metal": "Brass", "fill_z": 123,
+      "body": [[0,21,18],[1.5,24,20],[5,26,22],[14,28,24],[33,32,26],[60,37,29.5],[85,39,31],[103,37.5,30],[117,32.5,27],[134,23,21],[149,15,14.5],[155,14.4,14.4],[160,14.4,14.4]]}
+  ]
+}
