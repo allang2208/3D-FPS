@@ -24,6 +24,7 @@ namespace ScenePortalMaps
     const TCHAR* Hills = TEXT("/Game/GameMaps/L_TemperateHills_Initial");
     const TCHAR* RandomizedDungeon = TEXT("/Game/GameMaps/L_Dungeon_Randomized");
     const TCHAR* Water = TEXT("/Game/Clearwater/L_ClearwaterWater");
+    const TCHAR* Grass = TEXT("/Game/GameMaps/L_GrassDeformDenseTest");
 
     /** How far behind the player a link door is planted. Shared so the hills door (behind)
      *  and the water door (to the left) cannot drift into each other's space. */
@@ -130,11 +131,12 @@ void ASceneTestPortal::UsePortal()
         PreloadHandle=UAssetManager::GetStreamableManager().RequestAsyncLoad(FSoftObjectPath(ObjectPath),FStreamableDelegate::CreateUObject(this,&ASceneTestPortal::FinishLoading));
         return;
     }
-    if (Destination == ScenePortalMaps::Water)
+    if (Destination == ScenePortalMaps::Water || Destination == ScenePortalMaps::Grass)
     {
         // Stream the water level in before tearing the current map down, so the travel does
         // not stall on a cold level load.
-        Sign->SetText(FText::FromString(TEXT("Preparing water...\n[Esc] Cancel")));
+        Sign->SetText(FText::FromString(Destination == ScenePortalMaps::Grass
+            ? TEXT("Preparing tall grass...\n[Esc] Cancel") : TEXT("Preparing water...\n[Esc] Cancel")));
         const FString ObjectPath=Destination+TEXT(".")+FPackageName::GetShortName(Destination);
         PreloadHandle=UAssetManager::GetStreamableManager().RequestAsyncLoad(FSoftObjectPath(ObjectPath),FStreamableDelegate::CreateUObject(this,&ASceneTestPortal::FinishLoading));
         return;
@@ -159,11 +161,8 @@ void ASceneTestPortal::FinishLoading()
     if (!bTravelling) return;
     if (!PreloadHandle || !PreloadHandle->GetLoadedAsset())
     {
-        const bool bWater = Destination == ScenePortalMaps::Water;
         CancelLoading();
-        Sign->SetText(FText::FromString(bWater
-            ? TEXT("Water level could not load\n[E] Retry")
-            : TEXT("Hills could not load\n[E] Retry")));
+        Sign->SetText(FText::FromString(DestinationLabel + TEXT(" could not load\n[E] Retry")));
         return;
     }
     UGameplayStatics::OpenLevel(this,FName(*Destination),true,DestinationOptions);
@@ -253,6 +252,54 @@ int32 ASceneTestPortal::InstallWaterLink(UWorld* World)
         Portal->Configure(Map, Label, FString(), Color);
     }
     UE_LOG(LogTemp, Display, TEXT("ScenePortal: Installed water link in %s"), *Current);
+    return 1;
+}
+
+int32 ASceneTestPortal::InstallGrassLink(UWorld* World)
+{
+    if (!World || !World->IsGameWorld() || World->GetNetMode() != NM_Standalone) return 2;
+    const FString Current = UGameplayStatics::GetCurrentLevelName(World, true);
+    const bool bInGrass = Current == TEXT("L_GrassDeformDenseTest");
+    const bool bInHills = Current == TEXT("L_TemperateHills_Initial");
+    if (!bInGrass && !bInHills && Current != TEXT("DayNight_Lighting")) return 2;
+    APawn* Pawn = UGameplayStatics::GetPlayerPawn(World, 0);
+    if (!Pawn) return 0;
+    const FName LinkTag(TEXT("ScenePortal.GrassLink"));
+    for (TActorIterator<ASceneTestPortal> It(World); It; ++It)
+        if (It->ActorHasTag(LinkTag)) return 1;
+
+    // Spawn on the left, away from the existing water (+right) and hills (-forward) doors.
+    const FRotator Left(0.f, Pawn->GetActorRotation().Yaw - 90.f, 0.f);
+    FVector Position = bInGrass ? FVector(-3500.f, 0.f, .5f)
+        : Pawn->GetActorLocation() + Left.Vector() * 600.f;
+    if (!bInGrass)
+    {
+        FHitResult Hit;
+        FCollisionQueryParams Params;
+        Params.AddIgnoredActor(Pawn);
+        if (World->LineTraceSingleByChannel(Hit, Position + FVector(0, 0, 200),
+                Position - FVector(0, 0, 1500), ECC_Pawn, Params))
+            Position.Z = Hit.ImpactPoint.Z + .5f;
+        else
+            Position.Z -= Pawn->GetSimpleCollisionHalfHeight();
+    }
+    const bool bReturnToHills = bInGrass && World->URL.HasOption(TEXT("GrassReturnHills"));
+    const FString Map = bInGrass
+        ? (bReturnToHills ? ScenePortalMaps::Hills : ScenePortalMaps::Hub) : ScenePortalMaps::Grass;
+    const FString Label = bInGrass
+        ? (bReturnToHills ? TEXT("RETURN / Temperate Hills") : TEXT("HOME / Main Map"))
+        : TEXT("TALL GRASS / Dense Test");
+    const FString Options = bInGrass
+        ? (bReturnToHills ? TEXT("HillsContinue") : TEXT(""))
+        : (bInHills ? TEXT("GrassReturnHills") : TEXT(""));
+    FActorSpawnParameters SpawnParams;
+    SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+    const FRotator Facing = bInGrass ? FRotator::ZeroRotator : FRotator(0.f, Left.Yaw + 180.f, 0.f);
+    ASceneTestPortal* Portal = World->SpawnActor<ASceneTestPortal>(Position, Facing, SpawnParams);
+    if (!Portal) return 0;
+    Portal->Tags.Add(LinkTag);
+    Portal->Configure(Map, Label, Options, bInGrass ? FColor::Cyan : FColor(160, 255, 80));
+    UE_LOG(LogTemp, Display, TEXT("ScenePortal: Installed grass link in %s -> %s"), *Current, *Map);
     return 1;
 }
 

@@ -249,7 +249,7 @@ private:
     bool IsSurfaceAccepted(EPhysicalSurface Surface) const;
 
     /** Push one trample stamp into the grass deform subsystem. */
-    void StampGround(const FVector& Location);
+    void StampGround(const FVector& Location, const FVector& TravelDir);
     /** Spawn a puff if the live-puff budget allows it. */
     void SpawnPuff(const FVector& Location, const FVector& Normal);
     /** Place (or recycle) one decal from the trail pool. */

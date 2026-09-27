@@ -6,6 +6,7 @@ Does not open a map, run gameplay, render previews or change the source library.
 """
 import json
 import shutil
+import importlib.util
 from datetime import datetime
 from pathlib import Path
 import unreal as u
@@ -153,6 +154,12 @@ def mesh_copy(name,group):
 
 cover=[mesh_copy(name,'cover') for name in COVER]
 accents=[mesh_copy(name,'accent') for name in ACCENTS]
+# Keep deform lever arms tied to the copied geometry when this author is rerun.
+# Renderer bounds include WPO expansion and cannot be used as rest dimensions.
+_bounds_spec=importlib.util.spec_from_file_location('grass_rest_bounds',ROOT/'Tools/GrassDeform/rest_bounds.py')
+_bounds=importlib.util.module_from_spec(_bounds_spec)
+_bounds_spec.loader.exec_module(_bounds)
+REPORT['deform_rest_bounds']=_bounds.author(_bounds.collect((master.get_path_name().split('.')[0],),(DEST,)),save)
 graph=load(BASE+'/PCG_HillsGrass')
 graph.set_editor_property('hi_gen_grid_size',u.PCGHiGenGrid.GRID16)
 for node in graph.get_editor_property('nodes'):

@@ -68,9 +68,11 @@ $arguments = @(
     "-script=`"$script`""
     '-unattended'
     '-nosplash'
-    # Asset authoring needs no rendering context; skipping it keeps this commandlet from
-    # competing with any other engine process for the GPU.
-    '-nullrhi'
+    # Compile the actual SM6 shaders as part of producing the materials. NullRHI can save
+    # malformed graphs without compiling the shaders that foliage will really use.
+    '-AllowCommandletRendering'
+    '-ini:Engine:[/Script/PythonScriptPlugin.PythonScriptPluginSettings]:bRemoteExecution=False'
+    '-ini:EditorPerProjectUserSettings:[/Script/ModelContextProtocolEngine.ModelContextProtocolSettings]:bAutoStartServer=False'
     '-nop4'
     '-stdout'
     '-NoLogTimes'

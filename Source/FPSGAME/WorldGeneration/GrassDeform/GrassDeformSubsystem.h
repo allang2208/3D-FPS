@@ -13,34 +13,15 @@ class UMaterialInterface;
 class UMaterialParameterCollection;
 class UMaterialParameterCollectionInstance;
 class UTextureRenderTarget2D;
+class UGrassDeformSettings;
 
-/**
- * GPU grass interaction state for one world (M1: trample / flatten, plan section 3.1).
- *
- * All interaction state lives in one ping-pong pair of persistent RGBA16F render target ASSETS
- * (RT_GrassDeformA/B) forming a window centred on the player. The grass materials sample them
- * through texture-parameter defaults wired into MF_GrassDeform; MPC_GrassDeform carries the
- * window contract plus the ReadIsB scalar that picks the current read side. Nothing is stored per
- * actor, per foliage instance or per World Partition cell, so the system keeps working with Nanite
- * foliage and streaming levels.
- *
- * Cost contract (plan section 7):
- *   - one DrawMaterial per stamp event,
- *   - one MPC scalar write per frame (WorldTime),
- *   - a throttled, dirty-only fade pass,
- *   - a 10 Hz trample check that uses capsule projection maths only and never traces.
- *
- * The subsystem disables itself gracefully when the three pass materials or the MPC are not in
- * the content yet (they are authored by Tools/GrassDeform/setup_assets_m1.py), logging once.
- *
- * Enable contract (three independent gates, all must agree):
- *   enabled = r.GrassDeform != 0 && sg.FoliageQuality > 0 && assets resolved.
- * The scalability group is consumed through a console variable sink, so a quality change is
- * handled the moment the engine flushes its sinks instead of one tick later; the sink only
- * latches a value and does no work of its own (M4, plan section 9).
- *
- * Single-player presentation only: no replication, no authority checks. A dedicated server skips
- * the whole subsystem.
+/** GPU grass presentation for one Game/PIE world (no replication or dedicated-server work).
+ * Mask peak/direction: RGBA16F A/B; last contact: R32F A/B. Both pairs are persistent
+ * assets bound by the material function; ReadIsB promotes them together after two draws.
+ * Continuous body contact uses two changed-only MPC vectors. Persistent contacts write
+ * at 10 Hz; recovery is evaluated per frame in the material, without a fade render pass.
+ * No per-blade loops, traces, instance transforms or runtime GPU readback.
+ * Enabled only when r.GrassDeform, foliage quality, user gate and all v12 assets agree.
  */
 UCLASS()
 class FPSGAME_API UGrassDeformSubsystem : public UTickableWorldSubsystem
@@ -67,9 +48,12 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Grass Deform")
     void StampTrample(FVector WorldPos, float Radius, float Strength);
 
+    /** Footstep direction is shared with body contact instead of making radial rosettes. */
+    void StampDirectionalTrample(FVector WorldPos, float Radius, float Strength, FVector TravelDirection);
+
     /**
-     * One-shot radial impact: the persistent flatten of StampTrample plus a wavefront stored in
-     * channel A that the shader sweeps outward at WaveSpeed.
+     * One-shot radial impact: persistent flatten plus the most recent wavefront in the MPC.
+     * RT RGB stores flatten and radial bend direction; Alpha is not used.
      */
     UFUNCTION(BlueprintCallable, Category = "Grass Deform")
     void AddImpulse(FVector WorldPos, float Radius, float Strength, float WaveSpeed);
@@ -91,12 +75,19 @@ private:
      *  Fixed size, so no allocation happens on the event path. */
     struct FPendingStamp
     {
+        // Keep world coordinates until the queue is drained, after the window follows the player.
         FVector2D CenterXY = FVector2D::ZeroVector;
+        FVector2D StartXY = FVector2D::ZeroVector;
         float Radius = 0.f;
         float Strength = 0.f;
         float WaveSpeed = 0.f;
         float Timestamp = 0.f;
         bool bImpulse = false;
+        bool bSweep = false;
+        FVector2D Direction = FVector2D(1.f, 0.f);
+        float CoreFraction = 0.f;
+        float PressDistance = 0.f;
+        float DirectionBias = 0.f;
     };
 
     /** Player trample accumulator (10 Hz). */
@@ -122,16 +113,16 @@ private:
     void RecenterWindow(const FVector& GroundPosition);
     /** Flush everything queued since the last tick into the current read RT. */
     void DrainPendingStamps();
-    /** Throttled, dirty-only regrowth pass. */
+    /** CPU-only lifetime bookkeeping; shader evaluates recovery continuously. */
     void UpdateFade(float DeltaTime);
     /** Read / write sides of the ping-pong pair. A pass never samples the target it writes. */
     UTextureRenderTarget2D* GetReadTarget() const;
     UTextureRenderTarget2D* GetWriteTarget() const;
     /** Swap the ping-pong sides and mark the ReadIsB scalar for republication. */
     void FlipReadSide();
-    /** 10 Hz player trample source. Pure projection maths, no traces. */
+    /** Continuous body field and 10 Hz retained contacts. Projection maths only. */
     void UpdateTrampleSource(float DeltaTime);
-    /** Publish the MPC parameters the grass materials read. One scalar per frame from here. */
+    /** Publish time plus changed-only body vectors and configuration/window parameters. */
     void PublishParameters();
     /** True when any pass still needs to run (flatten present or a wavefront is young). */
     bool HasLiveContent() const;
@@ -161,6 +152,32 @@ private:
     void MarkDirty();
 
     UMaterialInstanceDynamic* GetPassMaterial(bool bImpulse) const;
+
+    // ---------------------------------------------------------------------------------------
+    // GrassDeformAudit (development only). Self-driven -game fixture for Backlog G1: it stages
+    // Status / Stamp / DumpRT / screenshots / a simulated walk against a live world and writes
+    // Saved/GrassDeform/audit_report.txt, so "the grass does not react" can be bisected (mask
+    // empty = pass side; mask present but pixels unchanged = material side) without a human at
+    // the keyboard. Launched with: UnrealEditor.exe FPSGAME.uproject <map> -game -GrassDeformAudit.
+    // ---------------------------------------------------------------------------------------
+#if !UE_BUILD_SHIPPING
+    void RunGrassResponseAudit(float DeltaTime);
+    void RunGrassFunctionalAudit(float DeltaTime);
+    void RunGrassDeformAudit(float DeltaTime);
+    /** Blocking readback of one side of the RT pair (8-bit quantised; the mask is 0..1 so this is
+     *  exact enough for presence/extent checks). */
+    static bool AuditReadRenderTarget(UTextureRenderTarget2D* RT, TArray<FColor>& OutPixels);
+    void AuditLogRenderTargetStats(const TCHAR* Side, UTextureRenderTarget2D* RT, int64& OutMaskedTexels);
+
+    int32 AuditStage = -2;        // -2 = flag not evaluated yet, -1 = armed, then 0..N stages
+    double AuditNextAction = 0.0;
+    FVector AuditTarget = FVector::ZeroVector;
+    FVector AuditWalkDir = FVector::ZeroVector;
+    int32 AuditWalkTicks = 0;
+    int32 AuditFindRetries = 0;
+    int32 AuditPngCounter = 0;
+    int64 AuditMaskedTexelsBeforeWalk = 0;
+#endif
 
     // ---------------------------------------------------------------------------------------
     // Assets. Soft paths only: nothing is loaded during module startup, and a missing asset
@@ -204,8 +221,10 @@ private:
 
     /** Seconds until the fade pass may run again. */
     float FadeCooldown = 0.f;
+    /** Actual game time since the previous fade, independent of stamp arrivals and frame rate. */
+    float FadeElapsed = 0.f;
 
-    /** Dirty flag: a stamp landed, so the regrowth pass must run. */
+    /** Conservative flag for unexpired contacts; no fade pass is scheduled. */
     bool bDirty = false;
     /** Conservative regrowth timer: the fade pass idles once this reaches zero. The RT is never
      *  read back, so this is the only way the CPU learns that the mask has fully decayed. */
@@ -244,7 +263,7 @@ private:
     float LastPublishedWindowSize = -1.f;
     float LastPublishedRegrowth = -1.f;
     float LastPublishedWaveSpeed = -1.f;
-    /** Window UV of the last impulse origin handed to the MPC (invalid until the first impulse). */
+    /** World XY of the last impulse origin handed to the MPC (invalid until the first impulse). */
     FLinearColor LastPublishedWaveOrigin = FLinearColor(TNumericLimits<float>::Max(), TNumericLimits<float>::Max(), 0.f, 0.f);
     int32 LastPublishedEnabled = -1;
     /** Read side (0 = RT_GrassDeformA, 1 = RT_GrassDeformB) last published to the MPC. */
@@ -255,4 +274,21 @@ private:
 
     /** The debug console commands (DumpRT / Status) read internal state, so they are friends. */
     friend class FGrassDeformConsoleCommands;
+
+    // v12: mask peak/direction and R32F last-contact time always swap as one pair.
+    UPROPERTY(Transient) TObjectPtr<UTextureRenderTarget2D> ContactTimeTargets[2];
+    UPROPERTY(Transient) TObjectPtr<UMaterialInterface> StampTimeMaterialAsset;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInterface> RecenterTimeMaterialAsset;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> StampTimeMaterial;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> RecenterTimeMaterial;
+    const UGrassDeformSettings* Response = nullptr; // Engine-rooted CDO, stable for the world lifetime.
+    FVector2D BodyDirection = FVector2D(1.f, 0.f);
+    FVector2D PreviousBodyPosition = FVector2D::ZeroVector;
+    FLinearColor BodyContact = FLinearColor::Black;
+    FLinearColor BodyMotion = FLinearColor(1.f, 0.f, 0.f, 0.f);
+    FLinearColor PublishedBodyContact = FLinearColor(-1.f, -1.f, -1.f, -1.f);
+    FLinearColor PublishedBodyMotion = FLinearColor(-1.f, -1.f, -1.f, -1.f);
+    float BodyContactAge = 0.f;
+    bool bBodyGrounded = false;
+    bool bResponsePublished = false;
 };

@@ -1,4 +1,5 @@
 #include "GrassDeformSubsystem.h"
+#include "GrassDeformSettings.h"
 
 #include "Engine/World.h"
 #include "Engine/TextureRenderTarget2D.h"
@@ -21,8 +22,19 @@ namespace GrassDeformAssets
 {
     // Content authored by Tools/GrassDeform/setup_assets_m1.py. Soft paths only: a world that is
     // loaded before the assets exist simply runs with the system disabled (one warning).
-    static const TCHAR* const CollectionPath = TEXT("/Game/WorldGeneration/GrassDeform/MPC_GrassDeform.MPC_GrassDeform");
+    // The deform parameters ride the pack's wind collection, NOT a dedicated MPC: a material may
+    // reference at most 2 collections, and the grass masters' active graphs already use both
+    // (PN_WindParameters + PN_BendingParameters), so a third collection fails the whole material
+    // to compile ("Material references too many MaterialParameterCollections"). The grass samples
+    // the wind collection every frame anyway, so riding it costs no extra uniform buffer. The
+    // parameter names (Center / WindowSize / WorldTime / ... / ReadIsB) do not collide with the
+    // pack's own WindDirection / WindStrength.
+    static const TCHAR* const CollectionPath = TEXT("/Game/PN_GrassLibrary/Materials/PN_WindParameters.PN_WindParameters");
     static const TCHAR* const StampPath = TEXT("/Game/WorldGeneration/GrassDeform/M_GrassDeformStamp.M_GrassDeformStamp");
+    static const TCHAR* const StampTimePath = TEXT("/Game/WorldGeneration/GrassDeform/M_GrassDeformStampTime.M_GrassDeformStampTime");
+    static const TCHAR* const RecenterTimePath = TEXT("/Game/WorldGeneration/GrassDeform/M_GrassDeformRecenterTime.M_GrassDeformRecenterTime");
+    static const TCHAR* const TimeAPath = TEXT("/Game/WorldGeneration/GrassDeform/RT_GrassContactTimeA.RT_GrassContactTimeA");
+    static const TCHAR* const TimeBPath = TEXT("/Game/WorldGeneration/GrassDeform/RT_GrassContactTimeB.RT_GrassContactTimeB");
     static const TCHAR* const FadePath = TEXT("/Game/WorldGeneration/GrassDeform/M_GrassDeformFade.M_GrassDeformFade");
     static const TCHAR* const RecenterPath = TEXT("/Game/WorldGeneration/GrassDeform/M_GrassDeformRecenter.M_GrassDeformRecenter");
 
@@ -40,20 +52,18 @@ namespace GrassDeformParams
     // Material parameters on the three pass materials. Names must match setup_assets_m1.py, which
     // authors those graphs; keep the two files in sync when either side changes.
     static const FName CenterUV(TEXT("CenterUV"));
+    static const FName StartUV(TEXT("StartUV"));
+    static const FName IsSweep(TEXT("IsSweep"));
     static const FName RadiusUV(TEXT("RadiusUV"));
     static const FName Strength(TEXT("Strength"));
-    static const FName BendDir(TEXT("BendDir"));
-    static const FName DirStrength(TEXT("DirStrength"));
-    static const FName Timestamp(TEXT("Timestamp"));
 
     // Fade pass.
     static const FName FadeRate(TEXT("FadeRate"));
-    static const FName ExpirySeconds(TEXT("ExpirySeconds"));
 
     // Recenter pass.
     static const FName ShiftUV(TEXT("ShiftUV"));
 
-    // MPC_GrassDeform parameters.
+    // Deform parameters published on the pack wind collection (see GrassDeformAssets::CollectionPath).
     static const FName MpcCenter(TEXT("Center"));
     static const FName MpcWindowSize(TEXT("WindowSize"));
     static const FName MpcWorldTime(TEXT("WorldTime"));
@@ -65,6 +75,9 @@ namespace GrassDeformParams
     // Origin (window UV) of the most recent impulse. MF_GrassDeform measures the expanding ring
     // from this point, so the wave sweeps out from the impact, not from the window centre.
     static const FName MpcWaveOrigin(TEXT("WaveOrigin"));
+    static const FName MpcWaveStartTime(TEXT("GrassWaveStartTime"));
+    static const FName MpcWaveRadius(TEXT("GrassWaveRadius"));
+    static const FName MpcWaveStrength(TEXT("GrassWaveStrength"));
     // Selects which RT asset is the current read side inside MF_GrassDeform: both assets are wired
     // as texture-parameter defaults, and this scalar (0 = A, 1 = B) picks between them with a
     // uniform branch. Published on every ping-pong flip.
@@ -121,8 +134,7 @@ namespace
 
     TAutoConsoleVariable<float> CVarGrassDeformFadeHz(
         TEXT("r.GrassDeform.FadeHz"), 6.f,
-        TEXT("Rate of the grass deform regrowth pass. Lower is cheaper, higher regrows smoother.\n")
-        TEXT("Clamped to 1..12; default 6."),
+        TEXT("Retired in v12: regrowth is evaluated continuously from contact timestamps. No fade pass."),
         ECVF_Scalability);
 
     TAutoConsoleVariable<int32> CVarGrassDeformRTSize(
@@ -300,11 +312,9 @@ FAutoConsoleCommand FGrassDeformConsoleCommands::StatusCommand(
 
 bool UGrassDeformSubsystem::DoesSupportWorldType(EWorldType::Type Type) const
 {
-    // Presentation-only system: it runs anywhere the deformation is visible (Game, PIE and the
-    // editor's preview worlds) and is skipped on a dedicated server, which has no renderer to
-    // drive. Initialize() re-checks NM_DedicatedServer for the listen-server/standalone cases
-    // where a Game world is not a client.
-    return Type == EWorldType::Game || Type == EWorldType::PIE || Type == EWorldType::Editor;
+    // The RT assets are shared. An idle editor world must not clear the game world's masks.
+    // Dedicated servers are also excluded in Initialize.
+    return Type == EWorldType::Game || Type == EWorldType::PIE;
 }
 
 void UGrassDeformSubsystem::Initialize(FSubsystemCollectionBase& Collection)
@@ -323,7 +333,7 @@ void UGrassDeformSubsystem::Initialize(FSubsystemCollectionBase& Collection)
     }
 
     LastCvarEnabled = CVarGrassDeformEnabled.GetValueOnGameThread();
-    bUserEnabled = LastCvarEnabled != 0;
+    bUserEnabled = true;
 
     // Scalability gate: latch sg.FoliageQuality here and follow it through a console variable sink
     // registered on the first tick. Level 0 (Low) means "no foliage", so the deform is forced off
@@ -337,6 +347,7 @@ void UGrassDeformSubsystem::Initialize(FSubsystemCollectionBase& Collection)
     // (plan section 7: zero per-frame allocation on the tick path).
     Pending.Reserve(MaxPendingStamps);
 
+    Response = GetDefault<UGrassDeformSettings>();
     ResolveAssets();
 
     // Poll the cvars from Tick instead of registering change delegates: the render target pair is
@@ -355,6 +366,9 @@ void UGrassDeformSubsystem::Deinitialize()
         bScalabilitySinkRegistered = false;
     }
 
+    DiscardInteractionState();
+    bTickEnabled = false;
+    PublishParameters();
     ReleaseRenderTargets();
     bAssetsReady = false;
     bTickEnabled = false;
@@ -382,8 +396,7 @@ void UGrassDeformSubsystem::HandleScalabilityChanged()
 {
     // Called from the engine's console variable sinks, on the game thread, after a batch of cvar
     // changes (any cvar change flushes them, so this early-outs on the level comparison below).
-    // It does no rendering work: it only latches the level and releases the interaction state when
-    // the deform has just been forced off. Passes stop on the next Tick through IsEnabled().
+    // A transition to Low clears the interaction state once. No per-frame rendering work.
     const int32 PreviousLevel = FoliageQualityLevel;
     RefreshFoliageQualityLevel();
     if (PreviousLevel == FoliageQualityLevel) return;
@@ -419,7 +432,27 @@ void UGrassDeformSubsystem::DiscardInteractionState()
     Pending.Reset();
     FadeSecondsRemaining = 0.f;
     FadeCooldown = 0.f;
+    FadeElapsed = 0.f;
     bDirty = false;
+    Trample.bHasProjection = false;
+    bBodyGrounded = false;
+    BodyContactAge = 0.f;
+    BodyContact = FLinearColor::Black;
+    if (UWorld* World = GetWorld())
+    {
+        for (UTextureRenderTarget2D* Target : RenderTargets)
+        {
+            if (Target) UKismetRenderingLibrary::ClearRenderTarget2D(World, Target, FLinearColor(0.f, 0.5f, 0.5f, 0.f));
+        }
+        for (UTextureRenderTarget2D* Target : ContactTimeTargets)
+        {
+            if (Target) UKismetRenderingLibrary::ClearRenderTarget2D(World, Target, FLinearColor::Black);
+        }
+        if (CollectionAsset)
+        {
+            World->GetParameterCollectionInstance(CollectionAsset)->SetScalarParameterValue(GrassDeformParams::MpcWaveStrength, 0.f);
+        }
+    }
 }
 
 TStatId UGrassDeformSubsystem::GetStatId() const
@@ -434,13 +467,17 @@ void UGrassDeformSubsystem::ResolveAssets()
     // LoadObject on soft paths at Initialize: these are four small assets resolved once per world,
     // not a hot path refresh. Everything after this point is allocation-free per frame.
     StampMaterialAsset = LoadObject<UMaterialInterface>(nullptr, GrassDeformAssets::StampPath);
-    FadeMaterialAsset = LoadObject<UMaterialInterface>(nullptr, GrassDeformAssets::FadePath);
+    StampTimeMaterialAsset = LoadObject<UMaterialInterface>(nullptr, GrassDeformAssets::StampTimePath);
+    RecenterTimeMaterialAsset = LoadObject<UMaterialInterface>(nullptr, GrassDeformAssets::RecenterTimePath);
+    ContactTimeTargets[0] = LoadObject<UTextureRenderTarget2D>(nullptr, GrassDeformAssets::TimeAPath);
+    ContactTimeTargets[1] = LoadObject<UTextureRenderTarget2D>(nullptr, GrassDeformAssets::TimeBPath);
     RecenterMaterialAsset = LoadObject<UMaterialInterface>(nullptr, GrassDeformAssets::RecenterPath);
     CollectionAsset = LoadObject<UMaterialParameterCollection>(nullptr, GrassDeformAssets::CollectionPath);
     RenderTargetAssets[0] = LoadObject<UTextureRenderTarget2D>(nullptr, GrassDeformAssets::RTAPath);
     RenderTargetAssets[1] = LoadObject<UTextureRenderTarget2D>(nullptr, GrassDeformAssets::RTBPath);
 
-    const bool bComplete = StampMaterialAsset && FadeMaterialAsset && RecenterMaterialAsset
+    const bool bComplete = StampMaterialAsset && StampTimeMaterialAsset && RecenterMaterialAsset
+        && RecenterTimeMaterialAsset && ContactTimeTargets[0] && ContactTimeTargets[1]
         && CollectionAsset && RenderTargetAssets[0] && RenderTargetAssets[1];
     if (!bComplete)
     {
@@ -448,14 +485,7 @@ void UGrassDeformSubsystem::ResolveAssets()
         {
             bMissingAssetsLogged = true;
             UE_LOG(LogGrassDeform, Warning,
-                TEXT("Grass deform disabled: content is incomplete. Missing: %s%s%s%s%s%s")
-                TEXT(" Run Tools/GrassDeform/run_asset_setup_m1.ps1 to create them."),
-                StampMaterialAsset ? TEXT("") : TEXT("M_GrassDeformStamp "),
-                FadeMaterialAsset ? TEXT("") : TEXT("M_GrassDeformFade "),
-                RecenterMaterialAsset ? TEXT("") : TEXT("M_GrassDeformRecenter "),
-                CollectionAsset ? TEXT("") : TEXT("MPC_GrassDeform "),
-                RenderTargetAssets[0] ? TEXT("") : TEXT("RT_GrassDeformA "),
-                RenderTargetAssets[1] ? TEXT("") : TEXT("RT_GrassDeformB"));
+                TEXT("Grass deform v12 assets incomplete: author the mask/time pairs and Stamp/StampTime/Recenter/RecenterTime materials with Tools/GrassDeform/run_asset_setup_m1.ps1."));
         }
         // Drop the partial set so a later reload cannot use half of it.
         StampMaterialAsset = nullptr;
@@ -469,9 +499,10 @@ void UGrassDeformSubsystem::ResolveAssets()
     }
 
     StampMaterial = UMaterialInstanceDynamic::Create(StampMaterialAsset, this);
-    FadeMaterial = UMaterialInstanceDynamic::Create(FadeMaterialAsset, this);
+    StampTimeMaterial = UMaterialInstanceDynamic::Create(StampTimeMaterialAsset, this);
+    RecenterTimeMaterial = UMaterialInstanceDynamic::Create(RecenterTimeMaterialAsset, this);
     RecenterMaterial = UMaterialInstanceDynamic::Create(RecenterMaterialAsset, this);
-    bAssetsReady = StampMaterial && FadeMaterial && RecenterMaterial;
+    bAssetsReady = StampMaterial && StampTimeMaterial && RecenterMaterial && RecenterTimeMaterial;
 
     if (!bAssetsReady)
     {
@@ -515,15 +546,20 @@ void UGrassDeformSubsystem::RecreateRenderTargets()
     bWindowInitialized = false;
     bDirty = false;
     FadeSecondsRemaining = 0.f;
+    FadeElapsed = 0.f;
+    FadeCooldown = 0.f;
     bReadSideDirty = true;
+    bResponsePublished = false;
     Pending.Reset();
 
     // Start from a clean mask on every (re)bind: the assets persist across a SetEnabled toggle or
     // a world reload, and a stale flatten mask must never blend back in.
     if (UWorld* World = GetWorld())
     {
-        UKismetRenderingLibrary::ClearRenderTarget2D(World, RenderTargets[0], FLinearColor::Black);
-        UKismetRenderingLibrary::ClearRenderTarget2D(World, RenderTargets[1], FLinearColor::Black);
+        UKismetRenderingLibrary::ClearRenderTarget2D(World, RenderTargets[0], FLinearColor(0.f, 0.5f, 0.5f, 0.f));
+        UKismetRenderingLibrary::ClearRenderTarget2D(World, RenderTargets[1], FLinearColor(0.f, 0.5f, 0.5f, 0.f));
+        for (UTextureRenderTarget2D* Target : ContactTimeTargets)
+            UKismetRenderingLibrary::ClearRenderTarget2D(World, Target, FLinearColor::Black);
     }
 
     UE_LOG(LogGrassDeform, Display, TEXT("Grass deform render targets bound to the RT assets (%dx%d, %.0f m window)."),
@@ -536,7 +572,11 @@ void UGrassDeformSubsystem::ReleaseRenderTargets()
     // and the pass MIDs survive: they hang off the pass material assets, not off the RT pair, and
     // nothing outside ResolveAssets recreates them - nulling them here used to kill the system
     // permanently after one SetEnabled(false)/SetEnabled(true) round trip.
-    for (int32 Index = 0; Index < 2; ++Index) RenderTargets[Index] = nullptr;
+    for (int32 Index = 0; Index < 2; ++Index)
+    {
+        RenderTargets[Index] = nullptr;
+        ContactTimeTargets[Index] = nullptr;
+    }
     ActiveRTSize = 0;
 }
 
@@ -551,9 +591,10 @@ bool UGrassDeformSubsystem::IsEnabled() const
     // system with the same effect as r.GrassDeform 0.
     return bTickEnabled
         && bUserEnabled
+        && LastCvarEnabled != 0
         && IsFoliageQualityAllowed()
         && bAssetsReady
-        && RenderTargets[0] && RenderTargets[1];
+        && RenderTargets[0] && RenderTargets[1] && ContactTimeTargets[0] && ContactTimeTargets[1];
 }
 
 void UGrassDeformSubsystem::SetEnabled(bool bInEnabled)
@@ -563,14 +604,25 @@ void UGrassDeformSubsystem::SetEnabled(bool bInEnabled)
     {
         // Release the interaction state rather than leaving a stale flatten mask on screen.
         DiscardInteractionState();
-        ReleaseRenderTargets();
-        if (bAssetsReady) RecreateRenderTargets();
     }
+    PublishParameters();
 }
 
 void UGrassDeformSubsystem::StampTrample(FVector WorldPos, float Radius, float Strength)
 {
     EnqueueStamp(WorldPos, Radius, Strength, 0.f, false);
+}
+
+void UGrassDeformSubsystem::StampDirectionalTrample(FVector WorldPos, float Radius, float Strength, FVector TravelDirection)
+{
+    if (EnqueueStamp(WorldPos, Radius, Strength, 0.f, false))
+    {
+        FPendingStamp& Stamp = Pending.Last();
+        const FVector2D Direction(TravelDirection.X, TravelDirection.Y);
+        Stamp.Direction = Direction.IsNearlyZero() ? BodyDirection : Direction.GetSafeNormal();
+        Stamp.DirectionBias = FMath::Clamp(Response->ForwardBias, 0.51f, 1.f);
+        Stamp.CoreFraction = FMath::Clamp(Response->FootstepCoreFraction, 0.f, 0.95f);
+    }
 }
 
 void UGrassDeformSubsystem::AddImpulse(FVector WorldPos, float Radius, float Strength, float WaveSpeed)
@@ -588,25 +640,19 @@ bool UGrassDeformSubsystem::EnqueueStamp(const FVector& WorldPos, float Radius, 
     // Late resolve: the assets may have been authored after the world started.
     if (!bWindowInitialized) RecenterWindow(WorldPos);
 
-    // Convert to window UV. Anything outside the window is dropped instead of being clamped onto
-    // the border, which would leave a permanent flat ring at the RT edge.
-    const float U = (float(WorldPos.X) - WindowCenter.X) / GrassDeformTuning::WindowSizeCm + 0.5f;
-    const float V = (float(WorldPos.Y) - WindowCenter.Y) / GrassDeformTuning::WindowSizeCm + 0.5f;
-    const float Margin = FMath::Clamp(FMath::Max(Radius, 1.f) / GrassDeformTuning::WindowSizeCm, 0.f, 0.5f);
-    if (U < -Margin || U > 1.f + Margin || V < -Margin || V > 1.f + Margin) return false;
-
+    // Bounds rejection is deferred until DrainPendingStamps, after this tick's recenter.
     if (Pending.Num() >= MaxPendingStamps) return false;
 
     FPendingStamp& Stamp = Pending.AddDefaulted_GetRef();
-    Stamp.CenterXY = FVector2D(U, V);
+    Stamp.CenterXY = FVector2D(WorldPos.X, WorldPos.Y);
+    Stamp.StartXY = Stamp.CenterXY;
     Stamp.Radius = FMath::Clamp(Radius, GrassDeformTuning::MinStampRadiusCm, GrassDeformTuning::MaxStampRadiusCm);
     Stamp.Strength = FMath::Clamp(Strength, 0.f, GrassDeformTuning::MaxStampStrength);
     Stamp.WaveSpeed = bImpulse ? FMath::Max(WaveSpeed, 0.f) : 0.f;
     Stamp.Timestamp = bImpulse ? float(World->GetTimeSeconds()) : GrassDeformTuning::NoImpulseTimestamp;
     Stamp.bImpulse = bImpulse;
+    Stamp.CoreFraction = bImpulse ? 0.f : FMath::Clamp(Response->FootstepCoreFraction, 0.f, 0.95f);
 
-    MarkDirty();
-    FadeSecondsRemaining = GrassDeformTuning::RegrowthSeconds;
     return true;
 }
 
@@ -623,6 +669,14 @@ void UGrassDeformSubsystem::Tick(float DeltaTime)
 {
     UWorld* World = GetWorld();
     if (!World) return;
+
+#if !UE_BUILD_SHIPPING
+    // The audit runs before every early-out below on purpose: it must be able to report WHY the
+    // system is inert (assets missing, cvar off, quality gate) instead of silently never ticking.
+    RunGrassDeformAudit(DeltaTime);
+    RunGrassFunctionalAudit(DeltaTime);
+    RunGrassResponseAudit(DeltaTime);
+#endif
 
     // One-time sink registration, so a quality change is handled while the engine flushes its
     // console variable sinks instead of one tick later. Idempotent and allocation-free.
@@ -667,8 +721,8 @@ void UGrassDeformSubsystem::Tick(float DeltaTime)
     }
 
     // --- event-driven passes -----------------------------------------------------------------
-    DrainPendingStamps();
     UpdateFade(DeltaTime);
+    DrainPendingStamps();
     PublishParameters();
 }
 
@@ -715,21 +769,30 @@ void UGrassDeformSubsystem::DrainPendingStamps()
 
     for (const FPendingStamp& Stamp : Pending)
     {
-        // Bind the read side on every pass: the ping-pong pair changes sides after each draw, so
-        // "Old" must be re-pointed at the texture holding the previous contents. This is the
-        // per-event setter the ping-pong contract depends on.
-        Material->SetTextureParameterValue(GrassDeformParams::PassSource, GetReadTarget());
-
-        Material->SetVectorParameterValue(GrassDeformParams::CenterUV, FLinearColor(Stamp.CenterXY.X, Stamp.CenterXY.Y, 0.f, 0.f));
-        Material->SetScalarParameterValue(GrassDeformParams::RadiusUV, Stamp.Radius * InvWindow);
-        Material->SetScalarParameterValue(GrassDeformParams::Strength, Stamp.Strength);
-        // BendDir is written already encoded to 0..1 (the STAMP_CODE contract decodes with
-        // gb * 2 - 1); PassSource GB is the same encoding, so no direction means (0.5, 0.5).
-        Material->SetVectorParameterValue(GrassDeformParams::BendDir, FLinearColor(0.5f, 0.5f, 0.f, 0.f));
-        Material->SetScalarParameterValue(GrassDeformParams::DirStrength, 0.f);
-        Material->SetScalarParameterValue(GrassDeformParams::Timestamp, Stamp.Timestamp);
-
-        UKismetRenderingLibrary::DrawMaterialToRenderTarget(World, WriteTarget, Material);
+        const FVector2D StampUV = (Stamp.CenterXY - WindowCenter) * InvWindow + FVector2D(0.5, 0.5);
+        const float Margin = Stamp.Radius * InvWindow;
+        if (StampUV.X < -Margin || StampUV.X > 1.f + Margin || StampUV.Y < -Margin || StampUV.Y > 1.f + Margin) continue;
+        const FVector2D StartUV = (Stamp.StartXY - WindowCenter) * InvWindow + FVector2D(0.5, 0.5);
+        // Both outputs sample exactly the same old pair. Only promote after BOTH draws.
+        for (UMaterialInstanceDynamic* Pass : {StampMaterial.Get(), StampTimeMaterial.Get()})
+        {
+            Pass->SetTextureParameterValue(GrassDeformParams::PassSource, GetReadTarget());
+            Pass->SetTextureParameterValue(TEXT("OldTime"), ContactTimeTargets[ReadIndex]);
+            Pass->SetVectorParameterValue(GrassDeformParams::CenterUV, FLinearColor(StampUV.X, StampUV.Y, 0.f, 0.f));
+            Pass->SetVectorParameterValue(GrassDeformParams::StartUV, FLinearColor(StartUV.X, StartUV.Y, 0.f, 0.f));
+            Pass->SetVectorParameterValue(TEXT("TravelDirection"), FLinearColor(Stamp.Direction.X, Stamp.Direction.Y, 0.f, 0.f));
+            Pass->SetScalarParameterValue(GrassDeformParams::IsSweep, Stamp.bSweep ? 1.f : 0.f);
+            Pass->SetScalarParameterValue(GrassDeformParams::RadiusUV, Stamp.Radius * InvWindow);
+            Pass->SetScalarParameterValue(GrassDeformParams::Strength, Stamp.Strength);
+            Pass->SetScalarParameterValue(TEXT("CoreFraction"), Stamp.CoreFraction);
+            Pass->SetScalarParameterValue(TEXT("DirectionBias"), Stamp.DirectionBias);
+            Pass->SetScalarParameterValue(TEXT("PressDistanceUV"), Stamp.PressDistance * InvWindow);
+            Pass->SetScalarParameterValue(TEXT("ContactNow"), float(World->GetTimeSeconds()));
+            Pass->SetScalarParameterValue(TEXT("HoldSeconds"), FMath::Max(Response->HoldSeconds, 0.f));
+            Pass->SetScalarParameterValue(TEXT("RecoverSeconds"), FMath::Max(Response->RecoverSeconds, 0.05f));
+        }
+        UKismetRenderingLibrary::DrawMaterialToRenderTarget(World, WriteTarget, StampMaterial);
+        UKismetRenderingLibrary::DrawMaterialToRenderTarget(World, ContactTimeTargets[1 - ReadIndex], StampTimeMaterial);
 
         // The wavefront speed and origin are read by MF_GrassDeform at render time, so they are
         // published to the collection here (once per impulse; each setter is skipped when the value
@@ -739,15 +802,18 @@ void UGrassDeformSubsystem::DrainPendingStamps()
         {
             if (UMaterialParameterCollectionInstance* Instance = World->GetParameterCollectionInstance(CollectionAsset))
             {
+                // Canvas opaque emissive writes RGB, not the fourth component of a Custom node.
+                // Keep the one active wave in the MPC; RT RGB holds flatten and radial direction.
+                Instance->SetScalarParameterValue(GrassDeformParams::MpcWaveStartTime, Stamp.Timestamp);
+                Instance->SetScalarParameterValue(GrassDeformParams::MpcWaveRadius, Stamp.Radius);
+                Instance->SetScalarParameterValue(GrassDeformParams::MpcWaveStrength, Stamp.Strength);
                 if (!FMath::IsNearlyEqual(Stamp.WaveSpeed, LastPublishedWaveSpeed))
                 {
                     LastPublishedWaveSpeed = Stamp.WaveSpeed;
                     Instance->SetScalarParameterValue(GrassDeformParams::MpcWaveSpeed, Stamp.WaveSpeed);
                 }
 
-                // The origin must track every impulse, not just speed changes: two explosions at
-                // different places share the default speed, and a stale origin would sweep the
-                // second ring from the first impact.
+                // World-space origin survives a recenter without an extra parameter update.
                 const FLinearColor Origin(float(Stamp.CenterXY.X), float(Stamp.CenterXY.Y), 0.f, 0.f);
                 if (!Origin.Equals(LastPublishedWaveOrigin, 1e-4f))
                 {
@@ -761,52 +827,28 @@ void UGrassDeformSubsystem::DrainPendingStamps()
         // read side immediately and keep drawing into the other target.
         FlipReadSide();
         WriteTarget = GetWriteTarget();
+        bDirty = true;
+        FadeSecondsRemaining = FMath::Max(Response->HoldSeconds, 0.f) + FMath::Max(Response->RecoverSeconds, 0.05f);
     }
 
-    // A stamp invalidated the fade timer: flatten must not decay on the same frame it was written.
-    FadeCooldown = 1.f / ClampFadeHz(CVarGrassDeformFadeHz.GetValueOnGameThread());
-    bDirty = true;
+    // New footsteps never restart the fade clock for older footprints.
     Pending.Reset();
 }
 
 void UGrassDeformSubsystem::UpdateFade(float DeltaTime)
 {
-    if (!bDirty) return;
-
-    FadeCooldown -= DeltaTime;
-    if (FadeCooldown > 0.f) return;
-
-    UWorld* World = GetWorld();
-    UTextureRenderTarget2D* WriteTarget = GetWriteTarget();
-    UTextureRenderTarget2D* ReadTarget = GetReadTarget();
-    // Both sides must exist: the pass samples the read side and draws into the write side.
-    if (!World || !WriteTarget || !ReadTarget || !FadeMaterial) return;
-
-    const float FadeHz = ClampFadeHz(CVarGrassDeformFadeHz.GetValueOnGameThread());
-    const float Step = 1.f / FadeHz;
-
-    FadeMaterial->SetTextureParameterValue(GrassDeformParams::PassSource, ReadTarget);
-    FadeMaterial->SetScalarParameterValue(GrassDeformParams::FadeRate, Step / GrassDeformTuning::RegrowthSeconds);
-    FadeMaterial->SetScalarParameterValue(GrassDeformParams::ExpirySeconds, GrassDeformTuning::ImpulseExpirySeconds);
-    // The fade pass reads WorldTime from the MPC (written below in PublishParameters), so the
-    // shader and the CPU agree on the impulse age without a second per-pass write.
-
-    UKismetRenderingLibrary::DrawMaterialToRenderTarget(World, WriteTarget, FadeMaterial);
-    FlipReadSide();
-    FadeCooldown = Step;
-
-    // The CPU cannot see the RT, so "still flattened" is a conservative timer: the pass keeps
-    // running for the full regrowth window after the last stamp, then idles completely.
-    FadeSecondsRemaining -= Step;
-    if (FadeSecondsRemaining > 0.f) return;
-
-    FadeSecondsRemaining = 0.f;
-    bDirty = false;
+    // No render pass. The material evaluates age every frame, even between 10 Hz contacts.
+    // Peak/time records can remain in the bounded window: expired records evaluate to zero.
+    FadeSecondsRemaining = FMath::Max(0.f, FadeSecondsRemaining - DeltaTime);
+    bDirty = FadeSecondsRemaining > 0.f;
 }
 
 void UGrassDeformSubsystem::RecenterWindow(const FVector& GroundPosition)
 {
-    const float Snapped = GrassDeformTuning::SnapGridCm;
+    // An integer texel shift is a copy, not another blur of the persistent trail.
+    // 400 cm is 85.333 texels at 1024/48m; repeated fractional shifts smeared directions.
+    const float TexelCm = GrassDeformTuning::WindowSizeCm / FMath::Max(ActiveRTSize, 1);
+    const float Snapped = FMath::Max(1.f, FMath::RoundToFloat(GrassDeformTuning::SnapGridCm / TexelCm)) * TexelCm;
     const FVector2D NewCenter(
         FMath::GridSnap(float(GroundPosition.X), Snapped),
         FMath::GridSnap(float(GroundPosition.Y), Snapped));
@@ -828,98 +870,91 @@ void UGrassDeformSubsystem::RecenterWindow(const FVector& GroundPosition)
     }
 
     // UV offset of the new window centre measured in the old window's UV space. The recenter
-    // material samples the read target at uv - ShiftUV, which is exactly the content move.
+    // material samples the read target at uv + ShiftUV, which is exactly the content move
+    // (a feature's uv shifts by -Shift when the centre moves by +Shift).
     const FVector2D Shift(
         (NewCenter.X - PreviousCenter.X) / GrassDeformTuning::WindowSizeCm,
         (NewCenter.Y - PreviousCenter.Y) / GrassDeformTuning::WindowSizeCm);
 
     RecenterMaterial->SetVectorParameterValue(GrassDeformParams::ShiftUV, FLinearColor(Shift.X, Shift.Y, 0.f, 0.f));
 
-    // Both sides are moved: the first copy relocates the live contents, and the second discards
-    // the stale pre-move contents on the other side so the next pass cannot blend them back in.
-    // The source binding is refreshed before each draw because the flip changes the read side.
-    for (int32 Pass = 0; Pass < 2; ++Pass)
-    {
-        UTextureRenderTarget2D* ReadTarget = GetReadTarget();
-        UTextureRenderTarget2D* WriteTarget = GetWriteTarget();
-        if (!ReadTarget || !WriteTarget) break;
-
-        RecenterMaterial->SetTextureParameterValue(GrassDeformParams::PassSource, ReadTarget);
-        UKismetRenderingLibrary::DrawMaterialToRenderTarget(World, WriteTarget, RecenterMaterial);
-        FlipReadSide();
-    }
-
-    // Plan section 10 risk 2: pause the regrowth pass for one tick after a move so a seam cannot
-    // be amplified by a fade that samples across the shifted edge.
-    FadeCooldown = FMath::Max(FadeCooldown, 1.f / ClampFadeHz(CVarGrassDeformFadeHz.GetValueOnGameThread()));
+    // Only the promoted read side is authoritative. Every next pass fully overwrites the other
+    // target, so mirroring it costs a redundant full-screen draw and is unnecessary.
+    RecenterMaterial->SetTextureParameterValue(GrassDeformParams::PassSource, GetReadTarget());
+    UKismetRenderingLibrary::DrawMaterialToRenderTarget(World, GetWriteTarget(), RecenterMaterial);
+    RecenterTimeMaterial->SetVectorParameterValue(GrassDeformParams::ShiftUV, FLinearColor(Shift.X, Shift.Y, 0.f, 0.f));
+    RecenterTimeMaterial->SetTextureParameterValue(GrassDeformParams::PassSource, ContactTimeTargets[ReadIndex]);
+    UKismetRenderingLibrary::DrawMaterialToRenderTarget(World, ContactTimeTargets[1 - ReadIndex], RecenterTimeMaterial);
+    FlipReadSide();
 }
 
 void UGrassDeformSubsystem::UpdateTrampleSource(float DeltaTime)
 {
-    TrampleClock += DeltaTime;
-    const float Interval = 1.f / GrassDeformTuning::TrampleCheckHz;
-    if (TrampleClock < Interval) return;
-    TrampleClock = 0.f;
-
     UWorld* World = GetWorld();
-    if (!World) return;
-
-    if (!Trample.Character.IsValid())
+    if (!World || !Response) return;
+    APlayerController* Controller = World->GetFirstPlayerController();
+    ACharacter* Character = Controller ? Cast<ACharacter>(Controller->GetPawn()) : nullptr;
+    if (Trample.Character.Get() != Character)
     {
-        if (APlayerController* Controller = World->GetFirstPlayerController())
-        {
-            Trample.Character = Cast<ACharacter>(Controller->GetPawn());
-        }
-        if (!Trample.Character.IsValid()) return;
+        Trample.Character = Character;
+        Trample.bHasProjection = false;
+        bBodyGrounded = false;
+    }
+    const bool bGrounded = Character && Character->GetCharacterMovement()
+        && Character->GetCharacterMovement()->IsMovingOnGround();
+    if (!bGrounded)
+    {
+        BodyContact.A = 0.f;
+        BodyContactAge = 0.f;
+        bBodyGrounded = false;
+        Trample.bHasProjection = false;
+        TrampleClock = 0.f;
+        return;
+    }
+
+    const FVector Location = Character->GetActorLocation();
+    const FVector2D Projection(Location.X, Location.Y);
+    const bool bTeleport = bBodyGrounded && FVector2D::Distance(Projection, PreviousBodyPosition)
+        > GrassDeformTuning::TrampleMaxSegmentCm;
+    if (!bBodyGrounded || bTeleport)
+    {
+        BodyContactAge = 0.f;
         Trample.bHasProjection = false;
     }
+    PreviousBodyPosition = Projection;
+    bBodyGrounded = true;
+    BodyContactAge += DeltaTime;
+    const FVector Velocity = Character->GetVelocity();
+    const FVector2D HorizontalVelocity(Velocity.X, Velocity.Y);
+    const float Speed = HorizontalVelocity.Size();
+    if (Speed > 1.f) BodyDirection = HorizontalVelocity / Speed;
+    const float CapsuleRadius = Character->GetCapsuleComponent()->GetScaledCapsuleRadius();
+    const float Radius = FMath::Max(FMath::Max(Response->BodyRadiusCm, 1.f), CapsuleRadius * GrassDeformTuning::TrampleRadiusScale);
+    const float PressSeconds = FMath::Max(Response->PressSeconds, 0.01f);
+    const float Entry = FMath::SmoothStep(0.f, 1.f, FMath::Clamp(BodyContactAge / PressSeconds, 0.f, 1.f));
+    const float Strength = FMath::Clamp(Response->BodyStrength, 0.f, 1.f) * Entry;
+    BodyContact = FLinearColor(Projection.X, Projection.Y, Radius, Strength);
+    // Leading edge eases down over the distance travelled in PressSeconds.
+    BodyMotion = FLinearColor(BodyDirection.X, BodyDirection.Y, Speed * PressSeconds, 0.f);
 
-    ACharacter* Character = Trample.Character.Get();
-    const FVector Location = Character->GetActorLocation();
-
-    // Capsule-bottom projection: the pawn origin sits at the capsule centre, so the ground contact
-    // point is origin minus (half height - radius). No trace is issued here on purpose (plan
-    // section 7): the footprint only needs to be close enough for a 4.7 cm/texel mask.
-    float HalfHeight = 0.f;
-    float Radius = 0.f;
-    if (const UCapsuleComponent* Capsule = Character->GetCapsuleComponent())
+    TrampleClock += DeltaTime;
+    if (TrampleClock < 1.f / GrassDeformTuning::TrampleCheckHz) return;
+    TrampleClock = 0.f;
+    if (Trample.bHasProjection && FVector2D::Distance(Projection, Trample.LastProjection) > GrassDeformTuning::TrampleMaxSegmentCm)
+        Trample.bHasProjection = false;
+    // Also refresh while stationary. The continuous body field holds between these writes.
+    if (EnqueueStamp(Location, Radius, Strength, 0.f, false))
     {
-        HalfHeight = Capsule->GetScaledCapsuleHalfHeight();
-        Radius = Capsule->GetScaledCapsuleRadius();
-    }
-
-    const FVector GroundPoint = Location - FVector(0.f, 0.f, FMath::Max(HalfHeight - Radius, 0.f) + GrassDeformTuning::TrampleGroundProbeCm);
-    const FVector2D Projection(GroundPoint.X, GroundPoint.Y);
-
-    if (!Trample.bHasProjection)
-    {
+        FPendingStamp& Stamp = Pending.Last();
+        Stamp.StartXY = Trample.bHasProjection ? Trample.LastProjection : Projection;
+        Stamp.bSweep = true;
+        Stamp.Direction = BodyDirection;
+        Stamp.DirectionBias = FMath::Clamp(Response->ForwardBias, 0.51f, 1.f);
+        Stamp.CoreFraction = FMath::Clamp(Response->CoreFraction, 0.f, 0.95f);
+        Stamp.PressDistance = Speed * PressSeconds;
         Trample.LastProjection = Projection;
         Trample.bHasProjection = true;
-        return;
     }
-
-    const FVector2D Movement = Projection - Trample.LastProjection;
-    const float Distance = Movement.Size();
-    if (Distance < GrassDeformTuning::TrampleDeadZoneCm) return;
-
-    // Keep the sub-threshold remainder so a slow shuffle eventually stamps.
-    if (Distance < GrassDeformTuning::TrampleMinTravelCm)
-    {
-        // Advance the reference only by the threshold contribution: the accumulator is implicit
-        // in the distance from LastProjection, so a small step must not reset the clock.
-        return;
-    }
-
-    const FVector Velocity = Character->GetVelocity();
-    const float Speed = FVector(Velocity.X, Velocity.Y, 0.f).Size();
-    if (Speed < GrassDeformTuning::TrampleMinSpeed) return;
-
-    const float Alpha = FMath::Clamp(Speed / GrassDeformTuning::TrampleFullStrengthSpeed, 0.f, 1.f);
-    const float Strength = FMath::Lerp(GrassDeformTuning::TrampleMinStrength, GrassDeformTuning::TrampleMaxStrength, Alpha);
-    const float StampRadius = FMath::Max(Radius, 1.f) * GrassDeformTuning::TrampleRadiusScale;
-
-    Trample.LastProjection = Projection;
-    StampTrample(GroundPoint, StampRadius, Strength);
 }
 
 void UGrassDeformSubsystem::PublishParameters()
@@ -930,8 +965,27 @@ void UGrassDeformSubsystem::PublishParameters()
     UMaterialParameterCollectionInstance* Instance = World->GetParameterCollectionInstance(CollectionAsset);
     if (!Instance) return;
 
-    // One scalar per frame is the documented budget (plan section 7). Everything else is written
-    // only when it actually changes, because each setter marks the uniform buffer dirty.
+    // Time plus changed body vectors; no per-instance writes or per-frame RT passes.
+    if (!BodyContact.Equals(PublishedBodyContact, 0.0001f))
+    {
+        PublishedBodyContact = BodyContact;
+        Instance->SetVectorParameterValue(TEXT("GrassBodyContact"), BodyContact);
+    }
+    if (!BodyMotion.Equals(PublishedBodyMotion, 0.0001f))
+    {
+        PublishedBodyMotion = BodyMotion;
+        Instance->SetVectorParameterValue(TEXT("GrassBodyMotion"), BodyMotion);
+    }
+    if (Response && !bResponsePublished)
+    {
+        Instance->SetScalarParameterValue(TEXT("GrassHoldSeconds"), FMath::Max(Response->HoldSeconds, 0.f));
+        Instance->SetScalarParameterValue(TEXT("GrassRecoverSeconds"), FMath::Max(Response->RecoverSeconds, 0.05f));
+        Instance->SetScalarParameterValue(TEXT("GrassCoreFraction"), FMath::Clamp(Response->CoreFraction, 0.f, 0.95f));
+        Instance->SetScalarParameterValue(TEXT("GrassBendAngle"), FMath::Clamp(Response->BendAngleDegrees, 0.f, 85.f));
+        Instance->SetScalarParameterValue(TEXT("GrassFlatWindScale"), FMath::Clamp(Response->FlatWindScale, 0.f, 1.f));
+        Instance->SetScalarParameterValue(TEXT("GrassForwardBias"), FMath::Clamp(Response->ForwardBias, 0.51f, 1.f));
+        bResponsePublished = true;
+    }
     const double Now = World->GetTimeSeconds();
     if (Now != PublishedWorldTime)
     {
@@ -955,6 +1009,14 @@ void UGrassDeformSubsystem::PublishParameters()
         }
     }
 
+    // Publish the off gate even before the first player/window placement.
+    const int32 Enabled = IsEnabled() && bWindowInitialized ? 1 : 0;
+    if (Enabled != LastPublishedEnabled)
+    {
+        LastPublishedEnabled = Enabled;
+        Instance->SetScalarParameterValue(GrassDeformParams::MpcEnabled, float(Enabled));
+    }
+
     if (!bWindowInitialized) return;
 
     if (!WindowCenter.Equals(LastPublishedCenter, 0.01f))
@@ -970,19 +1032,13 @@ void UGrassDeformSubsystem::PublishParameters()
         Instance->SetScalarParameterValue(GrassDeformParams::MpcWindowSize, WindowSize);
     }
 
-    const float Regrowth = GrassDeformTuning::RegrowthSeconds;
+    const float Regrowth = Response ? FMath::Max(Response->HoldSeconds, 0.f) + FMath::Max(Response->RecoverSeconds, 0.05f) : 2.4f;
     if (!FMath::IsNearlyEqual(Regrowth, LastPublishedRegrowth))
     {
         LastPublishedRegrowth = Regrowth;
         Instance->SetScalarParameterValue(GrassDeformParams::MpcRegrowthSeconds, Regrowth);
     }
 
-    const int32 Enabled = IsEnabled() ? 1 : 0;
-    if (Enabled != LastPublishedEnabled)
-    {
-        LastPublishedEnabled = Enabled;
-        Instance->SetScalarParameterValue(GrassDeformParams::MpcEnabled, float(Enabled));
-    }
 }
 
 bool UGrassDeformSubsystem::HasLiveContent() const

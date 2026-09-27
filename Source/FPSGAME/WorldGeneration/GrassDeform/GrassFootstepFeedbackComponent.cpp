@@ -2,6 +2,7 @@
 
 #include "AutoFootstepEffectContext.h"
 #include "GrassDeformSubsystem.h"
+#include "GrassDeformSettings.h"
 #include "Components/DecalComponent.h"
 #include "Engine/World.h"
 #include "GameFramework/Character.h"
@@ -218,7 +219,7 @@ void UGrassFootstepFeedbackComponent::HandleFootstep(EPhysicalSurface Surface, c
         }
     }
 
-    StampGround(Location);
+    StampGround(Location, TravelDir);
     SpawnPuff(Location, Normal);
     PlaceDecal(Location, Normal, TravelDir);
 
@@ -226,16 +227,17 @@ void UGrassFootstepFeedbackComponent::HandleFootstep(EPhysicalSurface Surface, c
     SetComponentTickEnabled(true);
 }
 
-void UGrassFootstepFeedbackComponent::StampGround(const FVector& Location)
+void UGrassFootstepFeedbackComponent::StampGround(const FVector& Location, const FVector& TravelDir)
 {
     UWorld* World = GetWorld();
     if (!World) return;
 
     if (UGrassDeformSubsystem* Deform = World->GetSubsystem<UGrassDeformSubsystem>())
     {
-        // One DrawMaterial on the RT. The subsystem drops the stamp itself when r.GrassDeform is
+        // Two paired mask/time draws. The subsystem drops the stamp itself when r.GrassDeform is
         // off or the window does not contain the point, so no extra gate is needed here.
-        Deform->StampTrample(Location, StepRadiusCm, StepStrength);
+        const UGrassDeformSettings* Response = GetDefault<UGrassDeformSettings>();
+        Deform->StampDirectionalTrample(Location, Response->FootstepRadiusCm, Response->FootstepStrength, TravelDir);
     }
 }
 

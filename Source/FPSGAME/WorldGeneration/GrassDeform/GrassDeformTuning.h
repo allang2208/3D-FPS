@@ -2,16 +2,10 @@
 
 #include "CoreMinimal.h"
 
-/**
- * Single place for every tunable of the GPU grass interaction system (M1: trample/flatten).
- *
- * The runtime cost contract lives here too: the numbers below are what keeps the system at
- * one DrawMaterial per event, one MPC scalar write per frame and zero per-frame allocation.
- * Design notes: Docs/WorldGeneration/grass-interaction-gpu-20260925.md sections 3 and 4.
- *
- * These are compile-time constants on purpose. Anything a user should be able to change in a
- * packaged build travels through the cvars declared in GrassDeformSubsystem.cpp
- * (r.GrassDeform / .FadeHz / .RTSize); everything else is an authoring decision.
+/** Infrastructure and explosion-source constants. Visual response defaults now live in
+ * GrassDeformSettings (shared by runtime and asset authoring). Each stamp/recenter has two
+ * draws for the mask/time pair; recovery has no periodic draw. Legacy constants below are
+ * retained for old diagnostics only and do not drive v12 hold/recovery or body strength.
  */
 namespace GrassDeformTuning
 {
@@ -22,8 +16,8 @@ namespace GrassDeformTuning
     /** World window covered by one RT edge, in cm. 48 m at 1024 texels is about 4.7 cm/texel. */
     constexpr float WindowSizeCm = 4800.f;
 
-    /** Window centre snap grid in cm. Snapping stops the stamp UVs from jittering every frame;
-     *  a recenter pass (not a per-frame copy) moves the contents when the cell changes. */
+    /** Approximate snap grid; runtime quantizes to whole RT texels (398.4375 cm at 1024)
+     *  so recenter never repeatedly filters and blurs the persistent trail. */
     constexpr float SnapGridCm = 400.f;
 
     /** Supported RT sizes. r.GrassDeform.RTSize outside this set is clamped to the nearest entry. */
@@ -37,10 +31,9 @@ namespace GrassDeformTuning
 
     // ---------------------------------------------------------------------------------------
     // Channel contract (RGBA16F)
-    //   R = persistent flatten 0..1
-    //   G = bend direction X encoded -1..1 -> 0..1
-    //   B = bend direction Y encoded -1..1 -> 0..1
-    //   A = impulse world timestamp (seconds); 0 means "no wavefront, flatten only"
+    //   R = retained peak flatten 0..1 (evaluate using the paired R32F contact time)
+    //   G/B = 0.5 + 0.5 * flatten * bend direction XY (premultiplied for filtering)
+    //   A = unused (opaque emissive writes RGB). The latest impulse travels in the MPC.
     // ---------------------------------------------------------------------------------------
 
     /** Timestamp written for a persistent-only stamp. Any value > 0 would start a wavefront,
@@ -53,7 +46,7 @@ namespace GrassDeformTuning
 
     /** Seconds for a fully flattened texel to return to zero. Exposed to materials through the
      *  MPC RegrowthSeconds parameter so the shader fades the wavefront on the same clock. */
-    constexpr float RegrowthSeconds = 18.f;
+    constexpr float RegrowthSeconds = 2.4f; // Legacy diagnostics only; use GrassDeformSettings at runtime.
 
     /** Age past RegrowthSeconds after which the fade pass zeroes channel A outright. */
     constexpr float ImpulseExpirySeconds = 30.f;
@@ -79,12 +72,13 @@ namespace GrassDeformTuning
     /** Clamp on stamp strength. R is a 0..1 flatten mask; >1 would clip into the bend encoding. */
     constexpr float MaxStampStrength = 1.f;
 
-    /** Trample radius = capsule radius * this (plan section 3.1: ~0.8 of the capsule radius). */
-    constexpr float TrampleRadiusScale = 0.8f;
+    /** Includes the displaced blades beside the capsule, not only the boot soles. */
+    constexpr float TrampleRadiusScale = 1.8f;
+    constexpr float TrampleMinRadiusCm = 80.f; // Legacy; runtime uses GrassDeformSettings.
 
     /** Trample strength range, scaled by how fast the player is actually moving. */
-    constexpr float TrampleMinStrength = 0.3f;
-    constexpr float TrampleMaxStrength = 0.7f;
+    constexpr float TrampleMinStrength = 0.75f;
+    constexpr float TrampleMaxStrength = 1.0f;
 
     /** Reference speed (cm/s) at which a trample stamp reaches TrampleMaxStrength.
      *  450 cm/s is a brisk walk in this project's movement tuning. */
@@ -155,7 +149,10 @@ namespace GrassDeformTuning
     constexpr float TrampleCheckHz = 10.f;
 
     /** Horizontal distance the capsule-bottom projection must accumulate before a stamp. */
-    constexpr float TrampleMinTravelCm = 50.f;
+    constexpr float TrampleMinTravelCm = 20.f;
+
+    /** Discontinuous moves are not swept into the terrain mask. */
+    constexpr float TrampleMaxSegmentCm = 300.f;
 
     /** Below this speed the player is standing still; no stamp, and the accumulator keeps its
      *  value so a slow shuffle still eventually leaves a mark. */

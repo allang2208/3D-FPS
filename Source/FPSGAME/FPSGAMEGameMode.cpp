@@ -90,11 +90,11 @@ void AFPSGAMEGameMode::TryInstallHillsPortal()
     // The water body spawns itself into whichever map it is installed in; it is a no-op in
     // maps that do not link to the Clearwater test level, so this is safe to call always.
     AClearwaterWater::Install(World);
-    // The water link is independent of the hills link: it targets its own map and installs
-    // its own door, so install it first and let the hills chain keep its own retry.
-    ASceneTestPortal::InstallWaterLink(World);
-    const int32 Result = ASceneTestPortal::InstallHillsLink(World);
-    if (Result != 0) return;
+    // Every supported map must retry until its pawn exists, including grass return travel.
+    const int32 WaterResult = ASceneTestPortal::InstallWaterLink(World);
+    const int32 HillsResult = ASceneTestPortal::InstallHillsLink(World);
+    const int32 GrassResult = ASceneTestPortal::InstallGrassLink(World);
+    if (WaterResult != 0 && HillsResult != 0 && GrassResult != 0) return;
     TWeakObjectPtr<AFPSGAMEGameMode> Weak(this);
     FTimerHandle Handle;
     World->GetTimerManager().SetTimer(Handle, FTimerDelegate::CreateLambda([Weak]()

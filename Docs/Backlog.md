@@ -99,14 +99,16 @@
 | A3 | **战术换弹同构** | 未做（`reload` 仍是 M4 支撑手路线） | 两条片段在游戏里分工不一致会很明显 | 同一套机制加 `reload`：cue 帧 29/76/95，无拉栓段（枪机闭合），入匣后右手直接回握把 |
 | A4 | **实机静帧夹具** | 夹具已写好、目标已编，**跑不起来** | `-game -RenderOffscreen` 跑约 15 s 崩溃（`EXCEPTION_ACCESS_VIOLATION`，栈无项目模块；去掉本枪夹具同样崩），疑与并行会话 23:55–00:15 的 C++ 改动有关 | 等那些会话提交后再跑；命令见 `Docs/Weapons/ash12-integration-20260917.md`，Git Bash 下要 `MSYS_NO_PATHCONV=1` |
 
-## GPU 草交互（2026-09-26 代码+资产收敛，实机仍无反应，用户指示暂停记入待办）
+## GPU 草交互（2026-09-27 用户反馈未成功，暂停）
 
-状态：M1–M4 全部完成并合并构建成功（DLL 2026-09-26 12:53:03，4 个新符号验证在内）。"草无任何反应"的三重断点修复已双端落地——mf-v4（WorldPos/UpwardFactor/HeightMask 改为 MF 内部自供；双 RT 纹理参数默认值直指 `RT_GrassDeformA/B`；MPC 新增 `ReadIsB` 选读侧），C++ 改为持久 RT 资产绑定并修复 `SetEnabled(false)` 置空 pass MID 后的永久哑火 bug；资产批次经 MCP 桥在编辑器内执行成功（exit 0、幂等复跑通过）。用户重测**仍无任何反应**，指示"先这样吧"。契约与排障全记录：`Docs/WorldGeneration/grass-interaction-gpu-20260925.md` §10.5（v2）/§10.6（v3）；架构与教训沉淀：`skills/ue5-world-interaction/references/grass-gpu-deform-rt-window.md`。
+**视觉未达标，转待办，不继续调参或资产制作。** v13 仍几乎无变化；v14 是部分接入候选，不能写成“修复完成／只差确认”。细节与保留路径见 [暂停、归档与源码发布](WorldGeneration/grass-paused-publication-20260927.md)。
 
-| 编号 | 事项 | 现状 | 为什么没做完 / 需要什么 | 建议下一步 |
-| --- | --- | --- | --- | --- |
-| G1 | **草在实机无可见形变（未解决，最高优先）** | 代码、资产、构建三端收敛；用户两轮实测零反馈 | 全部修复按仓库规则在后台完成、未经实机验证；剩余嫌疑未在 PIE 内诊断 | 按序诊断：① PIE 控制台 `GrassDeform.Status`——看 RT 绑定、Center 是否跟随玩家、ReadIsB 是否随翻转变化；② 走几步后 `GrassDeform.DumpRT` 导出掩码——应有脚印；③ 掩码有但草不动→材质编辑器查 MA_Grass 的 MF 调用节点在 mf-v4 重建后是否仍正确指向、草 MI（grass_0X_YY_Mat）有无覆盖 WPO/参数，再专项验证 **Nanite foliage（r.Nanite.Foliage=1）是否评估该材质 WPO** 及 Substrate/MDF 是否吞偏移；④ 掩码为空→查 `LogGrassDeform` 的 pass/DrawMaterial 日志；⑤ 倒伏从叶尖开始→MI 标量 `GrassDeformMaskFlip` 改 1 |
-| G2 | **M3 Niagara 粒子预算未验证** | `NS_GrassFootstepPuff` 用 NE_Heat 模板默认值 | Niagara toolset API 拒写 Lifetime/Spawn Count（脚本 manual 条目已记录） | 编辑器内手工确认并发粒子 ≤64，必要时按 `Tools/GrassDeform/setup_assets_m3.py` 的 manual 条目手调 |
-| G3 | **距玩家 >24 m 的爆炸不留草痕（已知边界）** | §10.5 v2 已接受 | 48 m RT 窗口设计边界，非缺陷 | 如需覆盖远距爆炸，评估扩大窗口或按爆炸点第二张 RT |
+| 编号 | 未解决事项 | 当前证据与后续边界 |
+| --- | --- | --- |
+| G1 | 经过草地后明显、连续的低伏通道 | 用户多轮反馈不明显；v12 的 34 项数据／捕获断言不等于最终顶点形变通过。恢复开发时先隔离少量草片、实际材质与最终 WPO，再扩展密集场 |
+| G2 | v14 原始尺寸参数尚未全部保存 | 已定位渲染包围盒含 WPO 扩展量、可能压小转角；约 18° 是公式估算，非实测且未证实唯一根因。12 项基础资产已保存，MI 参数制作中断，保留源码和完整修复前备份 |
+| G3 | 恢复过程是否清楚自然 | 保留 v13 的保持 0.6 秒＋恢复 1.8 秒，站立保压；用户未认可效果，不再仅凭时间值宣称满足目标 |
+| G4 | 高草场与主场景／丘陵完整往返 | 2026-09-26 独立检查曾在返回主场景失败，后续没有同条件完整复核；地图和门保留，另行判断，不混作草材质结果 |
+| G5 | 爆炸范围与脚步反馈的剩余视觉确认 | 48 m 窗口外不保留草痕是现有设计边界；脚步粉尘／贴花修正保留，不能代替倒伏验收 |
 
-仓库边界说明：`.gitignore` 的 `/Content/*` 与 `/Plugins/` 使 GrassDeform 的 10 个 uasset 与 AutoFootstep 插件的 `FAutoFootstepPlayed` 委托改动**不入 git**——资产可由 `Tools/GrassDeform/setup_assets_m1.py`、`setup_assets_m3.py` 重跑重建；插件目录若被重置需按 M3 描述重新加委托。本次提交仅含草交互批次（精确暂存）；`FPSGAMECharacter.h`、Backlog 其余段落、python-material-authoring 其余段落及 Water/Clearwater 等并行会话改动仍保留在工作区未暂存，等各自会话自行提交。
+仅用户重新要求开发时续接；仅明确要求测试／录制时启动夹具。有效源码、当前运行资产、失败对照与原始 GIF 保留；49 份明确废案已归档到 `trash/grass-paused-20260927/`，散列清单见发布记录。Content、插件、密集网格／材质导出和测试媒体只留合法本机，不进入公共 Git。

@@ -1,6 +1,6 @@
 # 草地交互 GPU 升级计划（踩踏 / 脚步反馈 / 爆炸压平）
 
-日期：2026-09-25　状态：计划已批准，M1 派单中
+日期：2026-09-25　最新状态：2026-09-27 用户反馈多轮更新仍未成功，已记入待办并暂停。v14 仅部分接入，不能作为完成版；详见 [暂停与发布记录](grass-paused-publication-20260927.md)。下方早期里程碑保留为历史，不覆盖最新用户结论。
 替代方案背景：评估过 Fab《Dynamic Grass System》（见 `D:\FPS3D\_dgs_demo\` 归档的实测与评论快照），结论为不采购；改用自研 GPU 方案，理由见本文 §1。
 
 ## 1. 目标与约束
@@ -135,79 +135,52 @@ M1 交付：subsystem + RT + 三个 pass 材质 + MPC + `MF_GrassDeform` + MA_Gr
 
 脚本迭代中实证的 headless/桥接 API 事实（均已写入脚本注释）：RT 工厂类名是 `TextureRenderTargetFactoryNew`（**无 "2D"**）；其 `Width/Height/Format` 无 Edit 标记，Python 视为 protected 拒设——创建后直接在资产上设 `size_x/size_y/render_target_format` 即可；`TextureRenderTarget2D` 在 5.8 Python **没有** `update_resource()`（那是 CanvasRenderTarget2D 的 API）；`b_auto_generate_mips` 同样不可设（RT 默认无 mip 链，实测无害）。
 
-## 11. 里程碑派单约定
+## 10.7 G1 排障定案（2026-09-26 晚，GrassDeformAudit 自驱实测；覆盖 §10.6 的"未解决"状态）
+
+`-GrassDeformAudit` 夹具（`Source/FPSGAME/WorldGeneration/GrassDeform/GrassDeformAudit.cpp`）在 `-game` 里自驱跑完 G1 诊断序：ISM 清单（含每个草组件的材质链与 RTA/RTB 运行时解析）→ 停世界时间冻结风摆拍对照前后帧 → stamp → 双 RT ReadPixels + MPC 全参数回读 → 隔离 recenter 测试（冻结态单次搬移前后掩码对比）→ AddMovementInput 模拟行走。实测把 §10.6 之后的"草仍无反应"拆成六个叠加断点，全部修复：
+
+1. **MF 接错主材质（根本断点）**：计划 §2 勘察认定草主材质是 `MA_Grass`（PN 包），但丘陵草实际渲染 `M_TemperateMeadow`——`Tools/WorldGeneration/build_temperate_grass.py`（09-13）从 MA_Grass 复制的独立家族（`MI_Meadow_lowGrass_*` 等），patch 从未触及它。审计 ISM 清单一行日志即定案。修复：`setup_assets_m1.py` 的 patch 目标泛化为 `GRASS_MASTERS` 双主材质列表。
+2. **材质集合超限**：`M_TemperateMeadow` 活跃图已引用 PN_WindParameters + PN_BendingParameters 两个 MPC，插入引用 MPC_GrassDeform 的 MF 后超引擎"每材质最多 2 个集合"硬上限，整材质编译失败回落默认材质（灰草）。修复：变形参数并入 `PN_WindParameters`（8 标量+2 矢量，与包内 WindDirection/WindStrength 无冲突；子系统 `CollectionPath` 同步改指包集合；原 MPC_GrassDeform 资产弃置留盘）。
+3. **recenter 材质 HLSL 非法**：`return UV - float2(ShiftUV);`——UE 的 HLSL 不允许以 3/4 分量矢量构造 float2（"too many elements in vector initialization"），`M_GrassDeformRecenter` 自始编译失败，每次窗口搬移画默认（黑）材质**清零整张掩码**——这就是 v1 以来"行走后掩码消失"的元凶。修复：显式 `ShiftUV.xy`。
+4. **recenter 采样符号反**：目标像素应采样 `uv + ShiftUV`（特征的新 uv 是 u−Shift），原减号让内容每次搬移反向多偏 2×。修复：加法 + 第二趟零偏移纯镜像（原实现两趟同位移=双重搬移）。
+5. **MF 的 Custom 节点无入口调用**：`GrassDeform_Evaluate` 节点代码只有函数定义没有 `return`（Custom 包装函数返回 0），`GrassDeform_WorldToUV` 节点跨节点调用另一个 Custom 里定义的函数（各节点独立作用域，解析不到）——掩码、参数、编译全正常但 WPO 恒 0。修复：Evaluate 体尾补入口调用+return；WorldToUV 内联公式。
+6. **调用节点 GUID 陈旧**：函数重建会重铸 FunctionOutput GUID，主材质里缓存的调用节点输出引用悬空（"Missing function output connection 'WPO'"整材质编译失败）。修复：脚本每轮强制重存双主材质刷新调用节点。
+
+顺带修复（实测未触发但静态可证）：`UpwardFactor=saturate(VertexNormalWS.z)` 在竖直草片上≈0 会把弯倒量乘零——mf-v6 起改常数 1（HeightMask 已按叶高做枢轴）；审计夹具墙钟调度（slomo 冻结时世界钟停走）、`slomo` 是作弊命令在 -game 被拒需走 `WorldSettings->SetTimeDilation`、移动输入需 `bForce` 走世界系（-90° 俯仰控制旋转下会把输入当地面钻）。
+
+实测结论基线（mf-v8 前）：stamp 8300+ texels、MPC 全参数正确、RTA/RTB 在渲染 MI 上正确解析、RECENTER VERDICT 8307→8305（掩码在窗口搬移后存活）。**mf-v8（断点 5 修复）后的最终视觉确认待空机复测**——上次复测被并行编辑器（15 GB）内存抢占触发引擎 RefCount 断言崩溃，非本系统代码问题。复跑：`UnrealEditor.exe FPSGAME.uproject /Game/GameMaps/L_TemperateHills_Initial -game -windowed -ResX=1280 -ResY=720 -GrassDeformAudit -nosplash`，产物在 `Saved/GrassDeform/`（audit_report.txt + Audit/*.png + rt_*.png）。
+
+契约版本现为 **mf-v8 / pass-v3**；资产重建一律重跑 `Tools/GrassDeform/run_asset_setup_m1.ps1`（编辑器占用时走 `Tools/AssetPipeline/mcp_call_codex.ps1 -PythonScript Tools/GrassDeform/setup_assets_m1.py`）。
+
+## 10.8 恢复开发：mf-v10 / pass-v4（2026-09-26）
+
+用户要求继续开发；本轮读取现有源码、SKILL、已保存制作日志与历史进度，没有启动游戏、截图或自驱夹具。§10.7 的“唯一剩余嫌疑是 UV.y”不是已排除其他路径的结论：当前作者代码仍存在以下断点。
+
+- mf-v9 的 Custom Evaluate 内含裸 HLSL 函数定义；Custom 本身已经被引擎包装成函数，再加调用/return 不能解决嵌套函数问题。作者 runner 采用 NullRHI，保存成功也不能证明目标 SM6 着色器已生成。本轮改为直接函数体、显式 SampleLevel 0、D3D12 后台编译，逐个处理材质编译返回的错误列表。
+- mf-v9 把 HeightMask 置为 1 会平移整株。现改为实例空间顶点高度减实例局部包围盒最小 Z，转换为世界高度向量，以此弯曲；根部零高度不动，兼容不同草高和实例缩放/坡向。保留原风 WPO，两个实际主材质同时接入。WPO 位移上限 100 cm，材质 bounds 预算 140 cm。
+- Opaque Emissive 是 RGB，原 float4 第四分量不是 RT 时间戳输出。RT 现明确只消费 RGB（R 压平、GB 径向方向）；最近一次爆炸的世界坐标、时间、半径、强度和速度直接由 PN_WindParameters 传递，不依赖 Alpha，也不因 recenter 改变波源。
+- 原 stamp 的方向强度一直为 0，初次黑底 GB 被解码为 (-1,-1)。现每个被盖章像素计算径向方向；初始、清空和恢复到零均使用 GB=(.5,.5)，范围外不改方向。
+- 队列原来保存入队时的窗口 UV，Tick 随后移动窗口，导致边界帧盖在错误位置。现存世界 XY，在 drain 时按最终窗口换算 UV。recenter 单次复制后提升读侧，下一 pass 完整覆盖另一侧。
+- 原代码每个 stamp 都重启 fade 倒计时，连续移动会让旧草痕不恢复；fade 也按固定步长而非实际经过时间衰减。现独立累积游戏时间、先 fade 后 stamp，新脚印和窗口移动不推迟旧草恢复。
+- 原 cvar 改变只清队列，IsEnabled 未读该值；现三门共同控制，关闭清 RT/波前，开关状态在未建立窗口时也可发布。编辑器世界不再创建子系统，避免它重置游戏使用的 RT；踩踏增加已有移动组件的着地条件。
+
+作者脚本按命名节点原位更新，并保留 FunctionOutput GUID；调用节点显式刷新后实际编译和保存两个主材质。UE 5.8 的 get_material_expressions / get_material_function_expressions / get_material_property_input_node 可在后台使用，旧“读不到所以只能手工接”的说明已从 SKILL 更正。历史断开节点不删除，避免启动加载时 rooted 表达式被 MarkAsGarbage 引发断言。
+
+**本轮制作时进一步定位到的实际资产问题：MF_GrassDeform 存有两个同名 WPO 输出。** 一开始只更新按名字找到的第一个，另一个仍连接历史 Custom；目标 SM6 编译实际报 `function definition is not allowed here` 和 `GrassDeform_Evaluate` 未声明。现保留两个既有输出 GUID、把所有同名 WPO 输出都接至 GrassV10.Bend，避免旧调用引用继续执行旧函数。回执列出 FunctionOutput_1 / FunctionOutput_0 的真实输入，均为 GrassV10.Bend；Flatten 指向 GrassV10.Flatten。先前“加 return 就修好了”的历史结论应以此编译证据更正。
+
+制作入口仍为 Tools/GrassDeform/run_asset_setup_m1.ps1，自动写 SourceAssets/GrassDeform20260926/ 下的备份与逐资产回执。脚步粒子和贴花沿用 09-26 已保存的专门修正（见 footstep-black-blocks-20260926.md），不重跑旧 M3 模板。48 m 窗口与单活动爆炸波前仍是边界。本轮只完成制作和必要构建，视觉与玩法留给用户测试。
+
+### 本轮实际交付
+
+- 普通 DLL 构建成功：`Saved/BuildEditor/build-20260926-195459.log`。首次构建遇到现有药水组件 FStreamableHandle 的 class/struct 前向声明冲突，按引擎定义仅改一行为 struct 后完成构建。
+- D3D12/SM6 后台作者退出 0：`Saved/Logs/grass-v10-author-output-05.txt`。制作期间重设 Custom 输入会产生暂时的 missing UV 警告，最终三个 pass 和两个主材质的显式编译错误列表均为空。
+- 9 个资产已保存：PN_WindParameters、两张 RT、MF_GrassDeform、三个 pass、MA_Grass、M_TemperateMeadow。回执 `SourceAssets/GrassDeform20260926/authoring-20260926-200029.json`；修改前副本在该目录的 BeforeV10-* 下。
+- 未启动 UE 编辑器界面、游戏、PIE、截图或 GrassDeformAudit，不宣称视觉和玩法已验证。现有草实例沿原材质引用使用本轮资产，用户重新运行游戏确认踩踏、恢复与爆炸反馈。
+
+## 11. 里程碑派单约定（历史，不作为当前委派授权）
 
 编码由子代理 **deepseek-v4.1-flash** 执行（派发对：`provider: qwen-token-plan-individual` + `model: deepseek-v4.1-flash`，见 WORKFLOW.md §11 已验证对；用户口语"deepseekflashv4.1"即指它；裸模型名一律启动失败返回 null）。每里程碑一单、顺序依赖（M2/M3 依赖 M1 文件，M4 收尾）。每单返回结构化报告：`{files_created, files_modified, build_status, deferred_runs, notes}`；编排者（本会话）在单间做代码Review 再放下一单。不主动 commit；未提交工作保留供用户审查。
 
-## M1 手工接线（如脚本未连）
+## 早期手工接线已退役
 
-`Tools/GrassDeform/setup_assets_m1.py` 会创建全部 M1 资产，但 **MA_Grass 的 WPO 接线可能无法自动完成**：`unreal.MaterialEditingLibrary.get_material_property_input_node` / `get_material_property_input_node_output_name` 只在**已打开材质编辑器**的会话中可用，headless commandlet（`-run=pythonscript`）里读不到现有 WPO 链。脚本在这种情况下按设计**保持 MF_GrassDeform 未连接、不猜测重连**（盲改共享草主材质会丢掉风场 WPO，影响全部草实例）；它会在 `GRASS_DEFORM_M1_RESULT` 的 `manual` 列表里说明。
-
-先确认是否真的需要手工接线：
-
-1. 跑 `Tools/GrassDeform/run_asset_setup_m1.ps1`（编辑器占用时改走 `Tools/AssetPipeline/mcp_call_codex.ps1 -PythonScript Tools/GrassDeform/setup_assets_m1.py`）。
-2. 看输出的 `GRASS_DEFORM_M1_RESULT`：`patched` 含 `MA_Grass WPO += MF_GrassDeform` 即已自动接好，本节其余步骤可跳过；`manual` 里出现 WPO 相关条目才需要往下做。
-
-手工接线步骤（编辑器内，一次即可）：
-
-1. 打开 `/Game/PN_GrassLibrary/Materials/grassMaterials/MA_Grass`。
-2. 在图表空白处右键，搜索并添加 **GrassDeform**（即 `MF_GrassDeform`，位于 `/Game/WorldGeneration/GrassDeform/`）。
-3. 找到当前连到 **World Position Offset** 的那个节点（现有风场 WPO 输出，通常来自 `PN_WindAnimation` / `PN_WindParameters` 链路），**不要删除它**。
-4. 添加一个 **Add** 节点，把它的 Description 命名为 `GrassDeformWPOAdd`（脚本自动接线时也用这个标记来判断"已接好"，可避免重复叠加）。
-5. 连线：现有风场 WPO 输出 → Add 的 **A**；`MF_GrassDeform` 的 **WPO** 输出 → Add 的 **B**。
-6. 把 Add 的输出 → 主节点的 **World Position Offset**（替换原先直连的那条线）。
-7. `MF_GrassDeform` 的其余输入按需接上：世界坐标（`WorldPos`）、顶点法线近似向上因子（`UpwardFactor`，取顶点法线的 Z）、高度遮罩（`HeightMask`，沿用 MA_Grass 现有的高度遮罩约定，UV0 的 V 或顶点色 A）。这三个是函数输入引脚，未连时会用预览默认值。
-8. 应用/保存 MA_Grass，编译材质，确认草仍然随风摆动（说明风场链未被破坏），再继续。
-
-### M1-A 手工重建 `MF_GrassDeform`（仅当脚本未能创建该资产时）
-
-2026-09-26 起脚本已能在 headless 下完整创建 `MF_GrassDeform`（见 §10.5），正常情况下**不需要**本节。只有脚本报错、或该资产被删除且脚本无法运行时，才按下面手工复现；目标是最小可用版本，节点不多，约 2 分钟。
-
-资产：`/Game/WorldGeneration/GrassDeform/MF_GrassDeform`（描述写 `mf-v2` 以便脚本识别为最新版）。
-
-**函数输入**（`FunctionInput` 节点，三个）：
-
-| 引脚名 | 类型 | 说明 |
-|---|---|---|
-| `WorldPos` | Vector3 | 顶点世界坐标 |
-| `UpwardFactor` | Scalar | 顶点法线 Z（0..1） |
-| `HeightMask` | Scalar | 高度遮罩，沿用 MA_Grass 约定（UV0 的 V 或顶点色 A） |
-
-**函数输出**（`FunctionOutput` 节点，两个）：
-
-| 引脚名 | 类型 | 说明 |
-|---|---|---|
-| `WPO` | Vector3 | 世界位置偏移 |
-| `Flatten` | Scalar | 持久压平量 0..1（供着色器可选使用） |
-
-**节点图**（共 1 个 RT 采样 + 4 个 Custom 节点）：
-
-1. `Custom` `GrassDeform_WorldToUV`，输出 **Float2**，输入引脚依次 `WorldPos`、`Center`、`WindowSize`：
-   ```hlsl
-   return (WorldPos.xy - Center) / WindowSize + 0.5;
-   ```
-2. `TextureSampleParameter2D`，参数名 **`GrassDeformRT`**（必须与 `GrassDeformParams::GrassMaterialRT` 一致），UV 接节点 1 的输出。输出用 **RGBA**（A 通道是 impulse 时间戳，只用 RGB 会静默关掉波前）。
-3. `CollectionParameter` **`bEnabled`**（来自 `MPC_GrassDeform`）。
-4. `Custom` `GrassDeform_Gate`，输出 **Float4**，输入引脚依次 `Enabled`、`Sample`：
-   ```hlsl
-   return Enabled > 0.5 ? Sample : float4(0, 0, 0, 0);
-   ```
-   连线：节点 3 → `Enabled`；节点 2 的 **RGBA** → `Sample`。
-5. `Custom` `GrassDeform_Evaluate`，输出 **Float3**，输入引脚依次 `WorldPos`、`UpwardFactor`、`HeightMask`、`SampleUV`、`WindowSize`、`WaveOrigin`、`WorldTime`、`RegrowthSeconds`、`BendScale`、`WaveSpeed`、`WaveWidth`、`MaxOffset`、`DeformSample`，函数体为脚本 §`FUNCTION_CODE` 中的 `GrassDeform_WorldToUV` + `GrassDeform_Evaluate` 两个函数（整段粘贴即可；入口是 `GrassDeform_Evaluate`，`Flatten` 是它的 `out` 参数）。
-6. `Custom` `GrassDeform_FlattenOut`，输出 **Float**，输入引脚 `Sample`，函数体 `return Sample.r;`。
-
-**其余输入引脚固定接法**：
-
-| Evaluate 引脚 | 来源 |
-|---|---|
-| `SampleUV` | 节点 1 的输出 |
-| `DeformSample` | 节点 4 的输出 |
-| `Center` / `WaveOrigin` | `MPC_GrassDeform` 的 `Center` / `WaveOrigin`（CollectionParameter，vector） |
-| `WindowSize` / `WorldTime` / `RegrowthSeconds` / `WaveSpeed` | `MPC_GrassDeform` 同名 scalar（CollectionParameter） |
-| `BendScale` / `WaveWidth` / `MaxOffset` | ScalarParameter，默认 `28.0` / `90.0` / `34.0`（留在函数上，便于材质实例覆写） |
-
-**输出连线**：节点 5 → FunctionOutput `WPO`；节点 6 → FunctionOutput `Flatten`（节点 6 的输入来自节点 4）。
-
-**注意**：Custom 节点的输入引脚名要与上表**逐字一致**（HLSL 里按名字引用），引脚顺序也要一致（生成代码按声明序传参）。做完后按 MA_Grass 那一节第 3–6 步接入 WPO 链。
-
-验收提示（用户自测）：接好后开 `r.GrassDeform`，走路见草倒伏留痕、停步后按 `RegrowthSeconds` 回弹；`GrassDeform.DumpRT` 导出 RT 应能看到 splat。若走路无反应但 `GrassDeform.Status` 显示 `enabled=1 assets=1`，多半就是本节第 3–6 步没有接上。
+原附录已归档到 trash/grass-paused-20260927/Docs/WorldGeneration/grass-manual-wiring-retired-20260927.md。它使用的第三 MPC、Alpha 时间与旧 Custom 接法已失效，不得用于重建。当前保留源码及未完成状态见 [暂停与发布记录](grass-paused-publication-20260927.md)。

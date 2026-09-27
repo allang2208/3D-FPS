@@ -1,5 +1,9 @@
 # 恢复完整 UE5 内容
 
+## 动态草地：未成功，暂停（2026-09-27）
+
+恢复合法本机 PN_GrassLibrary、丘陵草、WorldGeneration/GrassDeform、高草测试地图及 AutoFootstep 插件／委托。v13 效果被用户否定；v14 主材质已保存但实例尺寸参数未全部落盘，不能作为完成版本。源码、作者、复现工具和 SKILL 保留，49 份废案移入 trash；本轮未继续制作或运行游戏。恢复边界、归档散列和待办见 [草地暂停与发布记录](WorldGeneration/grass-paused-publication-20260927.md)。
+
 ## 裁片露指手套与单只图标（2026-09-27）
 
 当前棕色手套为 `TailoredFingerlessV1`，22 套原生绑定共用现有动作，穿戴用皮肤／皮革组合网格。保留对应 UE 家族、Manny／V7 母版、`FingerlessHuntV2` 配对覆盖源、选定裁片样件及 Quixel 皮革扫描。公开本次源码、精确物品配置、作者脚本、技能和归档索引；模型、贴图、密集 JSON、采样动作、回执和编译产物留本机。126 份废案和旧备份已移至 trash；恢复顺序、保留理由及用户反馈见 [手套整理发布](Characters/tailored-gloves-publication-20260927.md)。

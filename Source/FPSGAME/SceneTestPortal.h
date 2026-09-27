@@ -19,6 +19,8 @@ public:
     static int32 InstallHillsLink(UWorld* World);
     /** Two-way link between the main hub and the Clearwater water test level. */
     static int32 InstallWaterLink(UWorld* World);
+    /** Dense tall grass test; remembers whether the player entered from hub or hills. */
+    static int32 InstallGrassLink(UWorld* World);
 protected:
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;

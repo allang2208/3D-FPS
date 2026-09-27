@@ -1,0 +1,352 @@
+{
+  "date": "2026-09-27",
+  "status": "archived-and-hash-verified",
+  "scope": "Paused grass interaction experiments only",
+  "files": [
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195540/PN_GrassLibrary/Materials/PN_WindParameters.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195540/PN_GrassLibrary/Materials/PN_WindParameters.uasset",
+      "bytes": 3308,
+      "sha256": "c43392e6fbd345ff4ba504d35cbb1de04b139eac04200da909e5993a0e2111d5",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195540/PN_GrassLibrary/Materials/grassMaterials/MA_Grass.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195540/PN_GrassLibrary/Materials/grassMaterials/MA_Grass.uasset",
+      "bytes": 172274,
+      "sha256": "e66dcca7b2dd0c582304631f6ebf426cbdc9084f378274181ca526506f5c2268",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195540/WorldGeneration/GrassDeform/M_GrassDeformFade.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195540/WorldGeneration/GrassDeform/M_GrassDeformFade.uasset",
+      "bytes": 16069,
+      "sha256": "52a51065e899374480d1d5649729b8cfed4db482358a1576f232cdd53edf36f0",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195540/WorldGeneration/GrassDeform/M_GrassDeformRecenter.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195540/WorldGeneration/GrassDeform/M_GrassDeformRecenter.uasset",
+      "bytes": 17004,
+      "sha256": "f3dab186a90d7c342fd9e640d45f0af9c687db791459041eb800b50877bf8334",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195540/WorldGeneration/GrassDeform/M_GrassDeformStamp.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195540/WorldGeneration/GrassDeform/M_GrassDeformStamp.uasset",
+      "bytes": 20760,
+      "sha256": "9614e7390c2cdbdfa2796d09ef9ee29026ae3817674aa2798e21d23ecf0ae660",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195540/WorldGeneration/GrassDeform/MF_GrassDeform.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195540/WorldGeneration/GrassDeform/MF_GrassDeform.uasset",
+      "bytes": 43199,
+      "sha256": "d28ff06c8726b026be22c3a8c7771dd31b23be893e23486398d0f83e964662da",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195540/WorldGeneration/GrassDeform/RT_GrassDeformA.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195540/WorldGeneration/GrassDeform/RT_GrassDeformA.uasset",
+      "bytes": 4956,
+      "sha256": "636409e89a43fc7b39f1ada358eb2a97fc40b8f7f0ca3ffd605a6b7d8caf7ffc",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195540/WorldGeneration/GrassDeform/RT_GrassDeformB.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195540/WorldGeneration/GrassDeform/RT_GrassDeformB.uasset",
+      "bytes": 4956,
+      "sha256": "1a0ce8c6fef8712b4320db5a23e6fa97a1afb0bd63fd2562bedbf9b5332f2e53",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195540/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195540/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+      "bytes": 52263,
+      "sha256": "8a4cf344e7d2bff0643b8d4c3cc4c9ba97078cee0f0ef388460e16b8ff040674",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195617/PN_GrassLibrary/Materials/PN_WindParameters.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195617/PN_GrassLibrary/Materials/PN_WindParameters.uasset",
+      "bytes": 3308,
+      "sha256": "c43392e6fbd345ff4ba504d35cbb1de04b139eac04200da909e5993a0e2111d5",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195617/PN_GrassLibrary/Materials/grassMaterials/MA_Grass.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195617/PN_GrassLibrary/Materials/grassMaterials/MA_Grass.uasset",
+      "bytes": 172274,
+      "sha256": "e66dcca7b2dd0c582304631f6ebf426cbdc9084f378274181ca526506f5c2268",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195617/WorldGeneration/GrassDeform/M_GrassDeformFade.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195617/WorldGeneration/GrassDeform/M_GrassDeformFade.uasset",
+      "bytes": 16069,
+      "sha256": "52a51065e899374480d1d5649729b8cfed4db482358a1576f232cdd53edf36f0",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195617/WorldGeneration/GrassDeform/M_GrassDeformRecenter.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195617/WorldGeneration/GrassDeform/M_GrassDeformRecenter.uasset",
+      "bytes": 17004,
+      "sha256": "f3dab186a90d7c342fd9e640d45f0af9c687db791459041eb800b50877bf8334",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195617/WorldGeneration/GrassDeform/M_GrassDeformStamp.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195617/WorldGeneration/GrassDeform/M_GrassDeformStamp.uasset",
+      "bytes": 20760,
+      "sha256": "9614e7390c2cdbdfa2796d09ef9ee29026ae3817674aa2798e21d23ecf0ae660",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195617/WorldGeneration/GrassDeform/MF_GrassDeform.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195617/WorldGeneration/GrassDeform/MF_GrassDeform.uasset",
+      "bytes": 43199,
+      "sha256": "d28ff06c8726b026be22c3a8c7771dd31b23be893e23486398d0f83e964662da",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195617/WorldGeneration/GrassDeform/RT_GrassDeformA.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195617/WorldGeneration/GrassDeform/RT_GrassDeformA.uasset",
+      "bytes": 4956,
+      "sha256": "636409e89a43fc7b39f1ada358eb2a97fc40b8f7f0ca3ffd605a6b7d8caf7ffc",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195617/WorldGeneration/GrassDeform/RT_GrassDeformB.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195617/WorldGeneration/GrassDeform/RT_GrassDeformB.uasset",
+      "bytes": 4956,
+      "sha256": "1a0ce8c6fef8712b4320db5a23e6fa97a1afb0bd63fd2562bedbf9b5332f2e53",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195617/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195617/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+      "bytes": 52263,
+      "sha256": "8a4cf344e7d2bff0643b8d4c3cc4c9ba97078cee0f0ef388460e16b8ff040674",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195857/PN_GrassLibrary/Materials/PN_WindParameters.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195857/PN_GrassLibrary/Materials/PN_WindParameters.uasset",
+      "bytes": 3716,
+      "sha256": "0debe5ce26acef6e743f3d5bde92e925284f94a0ea189689d0d2bdfe8ef3569e",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195857/PN_GrassLibrary/Materials/grassMaterials/MA_Grass.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195857/PN_GrassLibrary/Materials/grassMaterials/MA_Grass.uasset",
+      "bytes": 172274,
+      "sha256": "e66dcca7b2dd0c582304631f6ebf426cbdc9084f378274181ca526506f5c2268",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195857/WorldGeneration/GrassDeform/M_GrassDeformFade.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195857/WorldGeneration/GrassDeform/M_GrassDeformFade.uasset",
+      "bytes": 18094,
+      "sha256": "d8c616d2da598a69b8a55593ee498ccb7ed71b0703d2ce1b138aa4b1513aa8a9",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195857/WorldGeneration/GrassDeform/M_GrassDeformRecenter.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195857/WorldGeneration/GrassDeform/M_GrassDeformRecenter.uasset",
+      "bytes": 19011,
+      "sha256": "c31907849a47fd1aa3c1abb54572cee9f566932b70605cfaaa98c2e748f13fbc",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195857/WorldGeneration/GrassDeform/M_GrassDeformStamp.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195857/WorldGeneration/GrassDeform/M_GrassDeformStamp.uasset",
+      "bytes": 24250,
+      "sha256": "630514f3a47b5de9e1a55f15bb8ef83cb2842c23343d1c82d93d9588c64b2f3b",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195857/WorldGeneration/GrassDeform/MF_GrassDeform.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195857/WorldGeneration/GrassDeform/MF_GrassDeform.uasset",
+      "bytes": 43199,
+      "sha256": "d28ff06c8726b026be22c3a8c7771dd31b23be893e23486398d0f83e964662da",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195857/WorldGeneration/GrassDeform/RT_GrassDeformA.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195857/WorldGeneration/GrassDeform/RT_GrassDeformA.uasset",
+      "bytes": 4960,
+      "sha256": "d22698d0f43ddcdad0d66a70528d5653c4d501d477957543dec46458f068f3d7",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195857/WorldGeneration/GrassDeform/RT_GrassDeformB.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195857/WorldGeneration/GrassDeform/RT_GrassDeformB.uasset",
+      "bytes": 4960,
+      "sha256": "f682e8596e0c8632efbd28ebe5b441dbf8af9a15f7afd3c9c393f342af844c39",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-195857/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-195857/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+      "bytes": 52263,
+      "sha256": "8a4cf344e7d2bff0643b8d4c3cc4c9ba97078cee0f0ef388460e16b8ff040674",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-200029/PN_GrassLibrary/Materials/PN_WindParameters.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-200029/PN_GrassLibrary/Materials/PN_WindParameters.uasset",
+      "bytes": 3716,
+      "sha256": "0debe5ce26acef6e743f3d5bde92e925284f94a0ea189689d0d2bdfe8ef3569e",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-200029/PN_GrassLibrary/Materials/grassMaterials/MA_Grass.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-200029/PN_GrassLibrary/Materials/grassMaterials/MA_Grass.uasset",
+      "bytes": 172274,
+      "sha256": "e66dcca7b2dd0c582304631f6ebf426cbdc9084f378274181ca526506f5c2268",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-200029/WorldGeneration/GrassDeform/M_GrassDeformFade.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-200029/WorldGeneration/GrassDeform/M_GrassDeformFade.uasset",
+      "bytes": 18094,
+      "sha256": "bcbda2e95fbd76463e8ce8599db8377afeac47a3fcb698b1123dae7ab4c351b5",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-200029/WorldGeneration/GrassDeform/M_GrassDeformRecenter.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-200029/WorldGeneration/GrassDeform/M_GrassDeformRecenter.uasset",
+      "bytes": 19011,
+      "sha256": "8d08d1b3f43637e76ac4f971a91b30993b016fe3157a950fa9beeefb43f2a085",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-200029/WorldGeneration/GrassDeform/M_GrassDeformStamp.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-200029/WorldGeneration/GrassDeform/M_GrassDeformStamp.uasset",
+      "bytes": 24250,
+      "sha256": "9e22aa2dcb132b9e2cfb99e2ceae38cbb3afca73e60909f1ef6819633fde585d",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-200029/WorldGeneration/GrassDeform/MF_GrassDeform.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-200029/WorldGeneration/GrassDeform/MF_GrassDeform.uasset",
+      "bytes": 57905,
+      "sha256": "5b3c51d090866013cb37245678af985d89088380c49382e1e3d29e8250332696",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-200029/WorldGeneration/GrassDeform/RT_GrassDeformA.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-200029/WorldGeneration/GrassDeform/RT_GrassDeformA.uasset",
+      "bytes": 4960,
+      "sha256": "d22698d0f43ddcdad0d66a70528d5653c4d501d477957543dec46458f068f3d7",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-200029/WorldGeneration/GrassDeform/RT_GrassDeformB.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-200029/WorldGeneration/GrassDeform/RT_GrassDeformB.uasset",
+      "bytes": 4960,
+      "sha256": "f682e8596e0c8632efbd28ebe5b441dbf8af9a15f7afd3c9c393f342af844c39",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260926/BeforeV10-20260926-200029/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260926/BeforeV10-20260926-200029/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+      "bytes": 52263,
+      "sha256": "8a4cf344e7d2bff0643b8d4c3cc4c9ba97078cee0f0ef388460e16b8ff040674",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260927/BeforeV11-20260927-102542/PN_GrassLibrary/Materials/PN_WindParameters.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260927/BeforeV11-20260927-102542/PN_GrassLibrary/Materials/PN_WindParameters.uasset",
+      "bytes": 3716,
+      "sha256": "0debe5ce26acef6e743f3d5bde92e925284f94a0ea189689d0d2bdfe8ef3569e",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260927/BeforeV11-20260927-102542/PN_GrassLibrary/Materials/grassMaterials/MA_Grass.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260927/BeforeV11-20260927-102542/PN_GrassLibrary/Materials/grassMaterials/MA_Grass.uasset",
+      "bytes": 173622,
+      "sha256": "dcc56e1f8ff583b9ad312e69d8a8468aa7d34f03d0241aa41be5fa5572359229",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260927/BeforeV11-20260927-102542/WorldGeneration/GrassDeform/M_GrassDeformFade.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260927/BeforeV11-20260927-102542/WorldGeneration/GrassDeform/M_GrassDeformFade.uasset",
+      "bytes": 18094,
+      "sha256": "9230379d2d6e23ad6106cc7d754bd71d6cd3dcc0440f879cce8c2179d0c25fe7",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260927/BeforeV11-20260927-102542/WorldGeneration/GrassDeform/M_GrassDeformRecenter.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260927/BeforeV11-20260927-102542/WorldGeneration/GrassDeform/M_GrassDeformRecenter.uasset",
+      "bytes": 19011,
+      "sha256": "ca08468740a16258e0bd28f265c153dac6655b7f2f5955d79e28a6612f161f2e",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260927/BeforeV11-20260927-102542/WorldGeneration/GrassDeform/M_GrassDeformStamp.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260927/BeforeV11-20260927-102542/WorldGeneration/GrassDeform/M_GrassDeformStamp.uasset",
+      "bytes": 24250,
+      "sha256": "c5654d4affad471a852ad5f8948a04ec4201394cff02ef6bba1c7ff336d16278",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260927/BeforeV11-20260927-102542/WorldGeneration/GrassDeform/MF_GrassDeform.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260927/BeforeV11-20260927-102542/WorldGeneration/GrassDeform/MF_GrassDeform.uasset",
+      "bytes": 58697,
+      "sha256": "5d092ccd90ff999c87c9c26abfd83cb1d9b02aa45db5660a70ea58bf5fbdc9e0",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260927/BeforeV11-20260927-102542/WorldGeneration/GrassDeform/RT_GrassDeformA.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260927/BeforeV11-20260927-102542/WorldGeneration/GrassDeform/RT_GrassDeformA.uasset",
+      "bytes": 4960,
+      "sha256": "d22698d0f43ddcdad0d66a70528d5653c4d501d477957543dec46458f068f3d7",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260927/BeforeV11-20260927-102542/WorldGeneration/GrassDeform/RT_GrassDeformB.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260927/BeforeV11-20260927-102542/WorldGeneration/GrassDeform/RT_GrassDeformB.uasset",
+      "bytes": 4960,
+      "sha256": "f682e8596e0c8632efbd28ebe5b441dbf8af9a15f7afd3c9c393f342af844c39",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassDeform20260927/BeforeV11-20260927-102542/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassDeform20260927/BeforeV11-20260927-102542/WorldGeneration/TemperateHills/Grass/M_TemperateMeadow.uasset",
+      "bytes": 53611,
+      "sha256": "ac7cd5dd3a78600cc1236ed7f63c9b5b1f0be6128c673fa0cddb59e5f93994cb",
+      "reason": "Superseded early grass deformation backup; later rollback sets retained"
+    },
+    {
+      "original": "SourceAssets/GrassFootstepRepair20260926/BeforeRepair/M_GrassTrampleDecal.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassFootstepRepair20260926/BeforeRepair/M_GrassTrampleDecal.uasset",
+      "bytes": 8436,
+      "sha256": "0e990eab3dea46e9d08b21a33dcbe3300e0489f292bbe48d44e06d2a71c3e3f0",
+      "reason": "Superseded heat-template puff or wrong-domain decal backup"
+    },
+    {
+      "original": "SourceAssets/GrassFootstepRepair20260926/BeforeRepair/NS_GrassFootstepPuff.uasset",
+      "archived": "trash/grass-paused-20260927/SourceAssets/GrassFootstepRepair20260926/BeforeRepair/NS_GrassFootstepPuff.uasset",
+      "bytes": 283301,
+      "sha256": "56c5b7f6ba6074cfd0cd25df86ab0c3bfa1a2e4e1c9a5ae361a98a3214cc82f7",
+      "reason": "Superseded heat-template puff or wrong-domain decal backup"
+    },
+    {
+      "original": "Tools/GrassDeform/read_authoring_context.py",
+      "archived": "trash/grass-paused-20260927/Tools/GrassDeform/read_authoring_context.py",
+      "bytes": 270,
+      "sha256": "a8480906f2a6a41ae83ebec8dac51a7b123193b7d7e1552cb6e9e0d467ed7679",
+      "reason": "One-off editor play-world query; no production callers"
+    },
+    {
+      "original": "Docs/WorldGeneration/grass-manual-wiring-retired-20260927.md",
+      "archived": "trash/grass-paused-20260927/Docs/WorldGeneration/grass-manual-wiring-retired-20260927.md",
+      "bytes": 6273,
+      "sha256": "c8c823a070570dff761f4049556a8ea4eee20f22aadda1affede4f7aa167c6e0",
+      "reason": "Retired manual material recipe; contradicts current RGB/time RT and MPC contracts"
+    }
+  ],
+  "total_files": 49,
+  "total_bytes": 2028939.0
+}

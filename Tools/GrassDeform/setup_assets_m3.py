@@ -7,9 +7,10 @@ after a *contract* change is handled by the version tags below, which rebuild a 
 of silently keeping it.
 
 Creates under /Game/WorldGeneration/GrassDeform/:
-  NS_GrassFootstepPuff     one-shot sprite puff: grass bits + a little dust, <=64 live particles,
+  NS_GrassFootstepPuff     one-shot sprite puff: 8 soft dust sprites, lifetime <=0.75 seconds,
                            self-terminating (the C++ component relies on the system finishing so
                            its puff budget is returned).
+  M_GrassFootstepDust      explicitly bound, texture-independent soft coverage and particle tint.
   M_GrassTrampleDecal      deferred decal that darkens the ground where a foot landed. One scalar
                            parameter, "Fade" (1 = fresh, 0 = gone), animated per decal instance by
                            UGrassFootstepFeedbackComponent.
@@ -25,10 +26,8 @@ Design notes:
   - M_GrassTrampleDecal deliberately uses only built-in nodes: it must not depend on a texture that
     the M1 grass library or the ground family could rename. The look is driven by a radial falloff
     and a soft noise break-up authored inline, so the asset stands alone.
-  - The puff is CPU-sim: at <=64 particles the sim cost is negligible and, unlike a GPU sim, it
-    needs no fixed bounds or data-interface plumbing to be correct under the project's bounded-pool
-    rules (skills/ue5-fluid-vfx-workflow/references/runtime-budget.md). The C++ side caps
-    concurrency at PuffMaxActive regardless of the sim target.
+  - The puff is CPU-sim with 8 particles per activation and finite lifetime. The C++ side caps
+    concurrent systems at PuffMaxActive; this is not a global live-particle counter.
 
 Headless notes (the API shapes this script depends on, all verified against the 5.8 engine source):
   * UMaterial has no 'description' property (Material.h declares none; only UMaterialFunction does,
@@ -46,10 +45,10 @@ Headless notes (the API shapes this script depends on, all verified against the 
   * Niagara authoring goes through the UNiagaraToolset_System endpoints (AddEmitter / AddModule /
     RemoveModule / set_*_data). Every one of those calls reports failure through
     UKismetSystemLibrary::RaiseScriptError, i.e. a Python RuntimeError, and every one of them lives
-    in NiagaraToolsets -- an *Experimental* plugin outside the project's control. The whole Niagara
-    section is therefore best-effort: a failure is recorded in REPORT['manual'] with the exact
-    emitter specification and the script carries on, because the decal material and the DataAsset
-    (the two assets the C++ component actually needs to be functional) must still be created.
+    in NiagaraToolsets -- an *Experimental* plugin outside the project's control. The puff author
+    now owns the material and all required particle values, and requires Niagara compilation
+    before saving. Failures remain visible in REPORT['manual']; they are not treated as a
+    successfully authored effect.
 
 Plan: Docs/WorldGeneration/grass-interaction-gpu-20260925.md section 5 (and section 7 for budgets).
 Consumers: Source/FPSGAME/WorldGeneration/GrassDeform/GrassFootstepFeedbackComponent.{h,cpp}
@@ -82,8 +81,8 @@ MEL = u.MaterialEditingLibrary
 # the rebuild-on-contract-change path converge.
 # ---------------------------------------------------------------------------------------------
 
-PUFF_VERSION_TAG = 'puff-v1'
-DECAL_VERSION_TAG = 'decal-v1'
+PUFF_VERSION_TAG = 'puff-v2-soft-dust-20260926'
+DECAL_VERSION_TAG = 'decal-v2-substrate-coverage-20260926'
 CONFIG_VERSION_TAG = 'cfg-v1'
 
 # Asset-registry metadata key carrying a version tag for assets that expose no description field.
@@ -94,16 +93,16 @@ VERSION_TAG_KEY = 'GrassDeformVersion'
 # (GrassFootstepAssets::DecalFadeParameter).
 DECAL_FADE_PARAMETER = 'Fade'
 
-# Live-particle ceiling documented for M3 (plan section 5 / section 7: "particles <= 64").
+# Existing PuffMaxActive configuration ceiling (concurrent systems, not individual particles).
 PUFF_MAX_PARTICLES = 64
 
 # Puff lifetime, seconds. Kept below GrassFootstepFeedbackComponent's PuffFallbackLifeSeconds (2.5s),
 # which is the component-side backstop if this system ever fails to report that it finished.
-PUFF_LIFETIME_SECONDS = 1.4
+PUFF_LIFETIME_SECONDS = 0.75
 
 # Particle count per footstep. One step is a small scuff, not a burst; the concurrency cap in C++
 # (PuffMaxActive) bounds the total, this bounds each individual step.
-PUFF_SPAWN_COUNT = 18
+PUFF_SPAWN_COUNT = 8
 
 # Input pin name of a TextureSample node's UV slot. The graph editor *labels* this pin "UV" and the
 # engine's name for the input is "Coordinates", but ConnectMaterialExpressions() matches the
@@ -284,6 +283,8 @@ return saturate(Density * Fade);
 
 def build_decal_material():
     path = DEST + '/M_GrassTrampleDecal'
+    if path in {str(p.get_path_name()) for p in u.EditorLoadingAndSavingUtils.get_dirty_content_packages()}:
+        raise RuntimeError('Preserving unsaved changes to ' + path)
     existing = load_optional(path)
     if existing is not None and DECAL_VERSION_TAG in version_tag(existing):
         MEL.recompile_material(existing)
@@ -292,22 +293,22 @@ def build_decal_material():
 
     if existing is not None:
         log('M_GrassTrampleDecal exists but is not ' + DECAL_VERSION_TAG + '; rebuilding its graph')
-        MEL.delete_all_material_expressions(existing)
+        # Keep disconnected old nodes: a running editor can retain rooted runtime references.
+        # Replace the output graph without marking those retained expressions as garbage.
         material = existing
-        set_version_tag(material, DECAL_VERSION_TAG)
         REPORT['patched'].append('M_GrassTrampleDecal rebuilt for ' + DECAL_VERSION_TAG)
     else:
         material = create_asset('M_GrassTrampleDecal', u.Material, u.MaterialFactoryNew())
-        set_version_tag(material, DECAL_VERSION_TAG)
 
     # There is deliberately NO set_editor_property('description', ...) here: UMaterial has no such
     # property and the call raises "Failed to find property 'description'". The tag rides on asset
     # metadata instead (set_version_tag above).
 
-    # Deferred decals must be translucent; the darkening is carried in Opacity, and BaseColor is
-    # driven to near-black so the footprint reads as flattened shadowed grass rather than paint.
+    # Both the domain and Substrate coverage are required. Surface-domain MIDs trigger the
+    # runtime "decal material must use Deferred Decal domain" warning and render black cards.
+    material.set_editor_property('material_domain', u.MaterialDomain.MD_DEFERRED_DECAL)
     material.set_editor_property('blend_mode', u.BlendMode.BLEND_TRANSLUCENT)
-    material.set_editor_property('shading_model', u.MaterialShadingModel.MSM_UNLIT)
+    material.set_editor_property('shading_model', u.MaterialShadingModel.MSM_DEFAULT_LIT)
     material.set_editor_property('two_sided', False)
 
     uv = new_expression(material, u.MaterialExpressionTextureCoordinate)
@@ -327,6 +328,23 @@ def build_decal_material():
     dark.set_editor_property('constant', u.LinearColor(0.035, 0.030, 0.022, 1.0))
     connect_property(dark, '', u.MaterialProperty.MP_BASE_COLOR)
 
+    slab = new_expression(material, u.MaterialExpressionSubstrateShadingModels)
+    slab.set_editor_property('shading_model_override', u.MaterialShadingModel.MSM_DEFAULT_LIT)
+    connect(dark, '', slab, 'BaseColor')
+    connect(body, '', slab, 'Opacity')
+    rough = new_expression(material, u.MaterialExpressionConstant)
+    rough.set_editor_property('r', 1.0)
+    zero = new_expression(material, u.MaterialExpressionConstant)
+    zero.set_editor_property('r', 0.0)
+    connect(rough, '', slab, 'Roughness')
+    connect(zero, '', slab, 'Specular')
+    connect(zero, '', slab, 'Metallic')
+    decal = new_expression(material, u.MaterialExpressionSubstrateConvertToDecal)
+    connect(slab, '', decal, str(MEL.get_material_expression_input_names(decal)[0]))
+    # Coverage defaults to 1. Connecting legacy Opacity alone leaves the whole projector visible.
+    connect(body, '', decal, 'Coverage')
+    connect_property(decal, '', u.MaterialProperty.MP_FRONT_MATERIAL)
+    set_version_tag(material, DECAL_VERSION_TAG)
     MEL.recompile_material(material)
     save(material, 'M_GrassTrampleDecal')
     return material
@@ -334,322 +352,25 @@ def build_decal_material():
 
 # ---------------------------------------------------------------------------------------------
 # NS_GrassFootstepPuff
-#
-# One-shot sprite emitter: grass bits kicked up by the sole plus a little dust. Bounded by
-# construction - a single instantaneous burst of PUFF_SPAWN_COUNT particles with a fixed lifetime
-# and no looping emitter - so the only unbounded risk is concurrency, which the C++ component caps
-# at PuffMaxActive (plan section 5; skill runtime-budget.md "define trigger rate, peak concurrency,
-# max life, pool ceiling and reuse policy").
-#
-# AUTHORING POLICY: this whole section is best-effort. The Niagara endpoints live in
-# NiagaraToolsets, an *Experimental* engine plugin whose Blueprint API is version-sensitive, and
-# every endpoint reports failure by raising a Python-level script error. A failure here must not
-# cost the run its decal material and DataAsset, so build_puff_system() converts any failure into a
-# REPORT['manual'] entry carrying the exact emitter specification (see NIAGARA_SPEC below) and
-# returns None; build_config() then leaves PuffSystem empty, which the C++ component treats as
-# "puff unavailable" and falls back to decal+stamp only.
-# ---------------------------------------------------------------------------------------------
-
-# Template emitter, a project-content sprite emitter.
-#
-# NOT /Niagara/DefaultAssets/Templates/Emitters/SimpleSpriteBurst, which was the obvious choice and
-# is wrong on this host: that folder is not served by the runtime mount. Measured headless (probe,
-# 2026-09-26): does_asset_exist() is False for the template path, the asset registry serves exactly
-# ONE asset under the whole of /Niagara/DefaultAssets, and there are ZERO NiagaraEmitter assets
-# anywhere under /Niagara. /Niagara/Modules/... *does* resolve, but the emitter templates do not.
-#
-# All 29 reachable UNiagaraEmitter assets live under /Game, so the template has to come from there.
-# NE_Heat is the project's own soft dust/ember sprite emitter (the Vefects pack) and is already a
-# dependency of this project's fluid scripts (Tools/Fluids/author_river_pilot.py loads the same
-# pack), so using it adds no new content dependency to the project.
-EMITTER_TEMPLATE = '/Game/Vefects/Free_Fire/Shared/Particles/NE_Heat'
-
-# Instantaneous spawn module. Added explicitly so the burst is an *instant* one-shot regardless of
-# what the template happens to carry, which is what "spawn burst instant on footstep" requires.
-# /Niagara/Modules/... IS served by the mount even though the DefaultAssets templates are not
-# (verified headless 2026-09-26).
-SPAWN_BURST_MODULE = '/Niagara/Modules/Emitter/SpawnBurst_Instantaneous'
-# Module name as it appears in the stack, i.e. the last path segment of SPAWN_BURST_MODULE. Used to
-# address its inputs and to avoid adding a second copy.
-SPAWN_BURST_NAME = 'SpawnBurst_Instantaneous'
-
-PUFF_EMITTER_NAME = 'GrassPuff'
-
-# Modules kept from the template: everything else it brings in is removed so the puff does not
-# silently inherit modules from a generic sprite-burst template. The keep-list is the shape the
-# effect needs: "spawn N once, give them a lifetime, then die".
-KEEP_EMITTER_UPDATE = ['EmitterState']
-KEEP_PARTICLE_SPAWN = ['InitializeParticle']
-KEEP_PARTICLE_UPDATE = ['ParticleState']
-
-STACK_SCRIPTS = (
-    ('EmitterUpdateScript', 'EmitterState', KEEP_EMITTER_UPDATE),
-    ('ParticleSpawnScript', 'InitializeParticle', KEEP_PARTICLE_SPAWN),
-    ('ParticleUpdateScript', 'ParticleState', KEEP_PARTICLE_UPDATE),
-)
-
-# Stack-input value structs. SetStackInputData takes an FNiagaraExt_StackInputValue, which is an
-# instanced struct: the *type* selects interpretation and the wire format is UE's own ImportText
-# syntax. The map below is what this script writes and is the part that is version-sensitive.
-NIAGARA_FLOAT = '/Script/Niagara.NiagaraFloat'
-NIAGARA_INT32 = '/Script/Niagara.NiagaraInt32'
-NIAGARA_HLSL = '/Script/NiagaraEditor.NiagaraExt_StackInputData_HlslExpression'
-
-# The exact emitter specification, printed verbatim into REPORT['manual'] when the API path fails.
-# It is written so a human can build NS_GrassFootstepPuff in the editor in a couple of minutes
-# without re-deriving anything from this file: every number matches the constants above and the
-# C++ component's expectations.
-NIAGARA_SPEC = (
-    'NS_GrassFootstepPuff emitter specification (build by hand if this entry is present): '
-    'asset = {dest}/NS_GrassFootstepPuff (Niagara System). '
-    'Emitter: start from a one-shot sprite emitter template, name it "GrassPuff", Sim Target = '
-    'CPUSim, Local Space = OFF (world-space: the component places the system at the contact point). '
-    'Keep exactly EmitterState / InitializeParticle / ParticleState; remove every other module the '
-    'template brings in. '
-    'Emitter Update -> EmitterState: Loop Behavior = Once, Life Cycle Mode = Self (one-shot, '
-    'self-terminating so the component gets its puff budget back). '
-    'Emitter Update -> Spawn Burst Instantaneous: Spawn Count = {count}, Spawn Time = 0. '
-    'Particle Spawn -> Initialize Particle: Lifetime = {life}s (uniform or range), Color/Size small. '
-    'Particle Update -> Particle State: default is fine; drag/damping may be added. '
-    'REQUIRED to satisfy the plan section 5 budget: <= {max} live particles (burst {count} x ~1s '
-    'life), one sprite renderer only, and the system must FINISH (no infinite loop behavior). '
-    'The C++ side sets ENCPoolMethod::AutoRelease on spawn, so nothing else is needed there. '
-    'Visual: grass bits (small green-olive sprites) plus a little dust (2-3 larger, low-alpha, '
-    'grey-brown) kicked up from the contact, biased along the travel direction - a scuff, not a '
-    'confetti explosion. Then re-run Tools/GrassDeform/run_asset_setup_m3.ps1: it only wires the '
-    'DA_GrassFootstepFeedback PuffSystem reference, and re-running it is idempotent.'
-).format(dest=DEST, count=PUFF_SPAWN_COUNT, life='%.1f' % PUFF_LIFETIME_SECONDS,
-         max=PUFF_MAX_PARTICLES)
-
-
-def _niagara_toolset():
-    """The Niagara editor-scripting toolset used by this project's other authoring scripts.
-
-    UNiagaraToolset_System is a UBlueprintFunctionLibrary-style toolset object; get_default_object()
-    returns its CDO, whose static BlueprintCallable functions are what call_method() invokes.
-    """
-    return u.get_default_object(u.NiagaraToolset_System)
-
-
-def _niagara_ref(system, emitter, script='', module=''):
-    """Build FNiagaraExt_StackItemReference via its exported properties.
-
-    The struct's own UPROPERTY names are System / EmitterName / ScriptName / ModuleName (see
-    NiagaraExternalSystemEditorUtilities.h:1000-1015); the script-name *values* are the stack script
-    names 'EmitterUpdateScript' / 'ParticleSpawnScript' / 'ParticleUpdateScript'.
-
-    NOTE: this deliberately does NOT use the 'property_values' JSON string. That is the custom
-    TypeScript/JSON-schema binding path, not the Python property path; the sibling M1 script's
-    proven headless pattern is to set the real reflected properties.
-    """
-    ref = u.NiagaraExt_StackItemReference()
-    ref.set_editor_property('system', system)
-    if emitter:
-        ref.set_editor_property('emitter_name', emitter)
-    if script:
-        ref.set_editor_property('script_name', script)
-    if module:
-        ref.set_editor_property('module_name', module)
-    return ref
-
-
-def _niagara_emitter_data(b_local_space=False, sim_target='CPUSim'):
-    """FNiagaraExt_EmitterData via its exported 'property_values' JSON blob.
-
-    The emitter data struct's only exposed field is the JSON blob (documented on the toolset's
-    GetEmitterData: "a single JSON-string blob in PropertyValues" whose fields use C++ PascalCase).
-    """
-    data = u.NiagaraExt_EmitterData()
-    data.set_editor_property('property_values', json.dumps({
-        'bLocalSpace': b_local_space,
-        'SimTarget': sim_target,
-        'bInterpolatedSpawning': False,
-        'bDeterminism': False,
-    }))
-    return data
-
-
-def _stack_module_names(api, system, script):
-    """Module names currently in one script stack."""
-    topology = api.call_method('GetEmitterTopology', (_niagara_ref(system, PUFF_EMITTER_NAME),))
-    property_name = {'EmitterUpdateScript': 'emitter_update_script',
-                     'ParticleSpawnScript': 'particle_spawn_script',
-                     'ParticleUpdateScript': 'particle_update_script'}[script]
-    return [str(m.get_editor_property('module_name'))
-            for m in topology.get_editor_property(property_name).get_editor_property('modules')]
-
-
-def _stack_input(api, system, script, module, input_name, value, struct_path):
-    """Write one stack input and return True only when the write demonstrably took.
-
-    `value` is already in the struct's ImportText form. The struct path selects how
-    SetStackInputData interprets the payload: a plain number (NiagaraFloat/NiagaraInt32, e.g.
-    '(Value=18)') or an HLSL expression, used for enum-style inputs (e.g. '(HlslExpression="Once")').
-
-    VERIFICATION IS NOT OPTIONAL HERE. SetStackInputData does NOT raise when it cannot apply a
-    write: it logs a LogScript *warning* through the toolset's error channel and returns normally.
-    Measured headless (2026-09-26), with the caller believing it had succeeded:
-      * "在堆栈引用中未找到模块 SpawnBurst_Instantaneous ..."  (module not in the stack at all)
-      * "拒绝设置输入 Lifetime: 该输入被静态开关/条件逻辑隐藏 ..."  (input hidden behind a switch)
-    Both returned without raising, so a try/except around call_method() proves nothing. The value is
-    therefore read back and compared; a mismatch is a real failure and the caller decides whether it
-    is fatal.
-    """
-    data = u.NiagaraExt_StackInputValue()
-    data.import_text('(Value=(StructType="/Script/CoreUObject.ScriptStruct\'%s\'",'
-                     'StructValue="%s"))' % (struct_path, value.replace('"', '\\"')))
-    ref = _niagara_ref(system, PUFF_EMITTER_NAME, script, module)
-    ref.set_editor_property('input_name_stack', [input_name])
-    api.call_method('SetStackInputData', (ref, data))
-
-    # Read back: the stored value's exported text must contain the literal we asked for.
-    read_back = _niagara_ref(system, PUFF_EMITTER_NAME, script, module)
-    read_back.set_editor_property('input_name_stack', [input_name])
-    actual = api.call_method('GetStackInputData', (read_back,))
-    try:
-        text = actual.export_text()
-    except Exception:
-        text = str(actual)
-    # '(Value=18)' -> '18';  '(HlslExpression="Once")' -> 'Once'
-    expected = value.split('=', 1)[-1].strip().rstrip(')').strip('"')
-    return expected in text
+# The standalone author owns its renderer material, particle values and finite lifetime.
+# Do not reuse NE_Heat defaults: the old stripped template produced black footstep cards.
+# Keep this entry point so future M3 setup runs use the repaired production asset.
 
 
 def build_puff_system():
-    """Best-effort authoring of NS_GrassFootstepPuff. Returns the system, or None when the Niagara
-    API path failed (in which case REPORT['manual'] carries NIAGARA_SPEC).
-
-    Nothing raised in here is allowed to escape: see the authoring policy above.
-    """
-    path = DEST + '/NS_GrassFootstepPuff'
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(u.Paths.project_dir()) / 'Tools/GrassDeform'))
+    from author_footstep_puff import build
     try:
-        existing = load_optional(path)
-        if existing is not None:
-            if PUFF_VERSION_TAG in version_tag(existing):
-                REPORT['skipped'].append('NS_GrassFootstepPuff (exists, ' + PUFF_VERSION_TAG + ')')
-                return existing
-            log('NS_GrassFootstepPuff exists but is not ' + PUFF_VERSION_TAG + '; rebuilding it')
-            EAL.delete_asset(path)
-
-        if not EAL.does_asset_exist(EMITTER_TEMPLATE):
-            note_manual('NS_GrassFootstepPuff could not be authored: emitter template %s is '
-                        'missing, so there was nothing to build the emitter from. ' % EMITTER_TEMPLATE
-                        + NIAGARA_SPEC)
-            return None
-
-        api = _niagara_toolset()
-        template = u.load_asset(EMITTER_TEMPLATE)
-
-        system = create_asset('NS_GrassFootstepPuff', u.NiagaraSystem, u.NiagaraSystemFactoryNew())
-        # UNiagaraSystem has NO 'description' property either -- set_editor_property('description')
-        # raises "NiagaraSystem: Failed to find property 'description'" (measured headless on this
-        # build). This is the same bug class as UMaterial above, and it is the reason the version tag
-        # goes through asset metadata for every asset in this script. Do not "restore" a description
-        # write here.
-        set_version_tag(system, PUFF_VERSION_TAG)
-
-        # A one-shot world-space effect: each step should look slightly different, so determinism
-        # stays off. The bounds box is a cull box only; the sim is CPU-side at this particle count.
-        try:
-            system.set_editor_property('determinism', False)
-            system.set_editor_property('fixed_bounds', u.Box(min=u.Vector(-60.0, -60.0, -10.0),
-                                                             max=u.Vector(60.0, 60.0, 90.0)))
-        except Exception as error:
-            log('system-level properties not settable (non-fatal): %s' % error)
-
-        api.call_method('AddEmitter', (system, template, PUFF_EMITTER_NAME))
-        log('added emitter %s from %s' % (PUFF_EMITTER_NAME, EMITTER_TEMPLATE))
-
-        # Trim the template down to a plain burst: spawn module + lifetime + state. Removing the
-        # rest keeps the puff budget honest (one emitter, one renderer, no extra spawn groups).
-        topology = api.call_method('GetEmitterTopology', (_niagara_ref(system, PUFF_EMITTER_NAME),))
-        for script, _module, keep in STACK_SCRIPTS:
-            property_name = {'EmitterUpdateScript': 'emitter_update_script',
-                             'ParticleSpawnScript': 'particle_spawn_script',
-                             'ParticleUpdateScript': 'particle_update_script'}[script]
-            modules = topology.get_editor_property(property_name).get_editor_property('modules')
-            for module in modules:
-                name = str(module.get_editor_property('module_name'))
-                if name in keep:
-                    continue
-                api.call_method('RemoveModule',
-                                (_niagara_ref(system, PUFF_EMITTER_NAME, script, name),))
-                log('  - removed template module %s' % name)
-
-        # The template's own spawn module (SpawnRate) was just removed, so the burst has to be added
-        # explicitly or the emitter would spawn nothing at all. Belt-and-braces: only add it when it
-        # is genuinely absent, so a template that already carries one cannot end up with two.
-        if SPAWN_BURST_NAME not in _stack_module_names(api, system, 'EmitterUpdateScript'):
-            if not EAL.does_asset_exist(SPAWN_BURST_MODULE):
-                note_manual('NS_GrassFootstepPuff: the instantaneous spawn module %s is missing, so '
-                            'the emitter cannot be given a footstep burst. ' % SPAWN_BURST_MODULE
-                            + NIAGARA_SPEC)
-                return None
-            api.call_method('AddModule', (_niagara_ref(system, PUFF_EMITTER_NAME,
-                                                       'EmitterUpdateScript'),
-                                          u.load_asset(SPAWN_BURST_MODULE)))
-            log('added module %s' % SPAWN_BURST_NAME)
-
-        # World space: the component places the system at the contact point. CPUSim: at <=64
-        # particles the sim cost is negligible and it needs no GPU data-interface plumbing.
-        try:
-            api.call_method('SetEmitterData', (_niagara_ref(system, PUFF_EMITTER_NAME),
-                                               _niagara_emitter_data()))
-        except Exception as error:
-            log('emitter data not settable (non-fatal): %s' % error)
-
-        # Pin the two inputs that ARE the documented budget: burst count and lifetime. Both are
-        # verified by read-back, because SetStackInputData reports a rejected write only as a log
-        # warning. A failure here is escalated to REPORT['manual'] rather than being reported as if
-        # it had worked -- claiming "pinned to 18 particles" while the emitter actually spawns
-        # something else is exactly the kind of silent divergence this script must not produce.
-        applied = []
-        rejected = []
-        for script, module, input_name, value, struct_path, label in (
-                ('ParticleSpawnScript', 'InitializeParticle', 'Lifetime',
-                 '(Value=%.2f)' % PUFF_LIFETIME_SECONDS, NIAGARA_FLOAT, 'Lifetime'),
-                ('EmitterUpdateScript', SPAWN_BURST_NAME, 'Spawn Count',
-                 '(Value=%d)' % PUFF_SPAWN_COUNT, NIAGARA_INT32, 'Spawn Count')):
-            try:
-                ok = _stack_input(api, system, script, module, input_name, value, struct_path)
-            except Exception as error:
-                ok = False
-                log('%s write raised: %s' % (label, error))
-            (applied if ok else rejected).append(label)
-
-        # Loop Behavior makes the "one-shot, self-terminating" contract explicit. It is an
-        # enum-style input on EmitterState. If EmitterState hides it behind the Life Cycle Mode
-        # switch, the write is refused; that is not fatal (an emitter with no spawn module that
-        # loops forever is harmless, and the C++ component's fallback timer releases its puff
-        # budget regardless), so it is logged rather than escalated.
-        try:
-            if _stack_input(api, system, 'EmitterUpdateScript', 'EmitterState', 'Loop Behavior',
-                            '(HlslExpression="Once")', NIAGARA_HLSL):
-                applied.append('Loop Behavior=Once')
-            else:
-                log('Loop Behavior not applied (input hidden behind a switch); left at template '
-                    'value. The component releases its puff slot via PuffFallbackLifeSeconds '
-                    'regardless, so this is not fatal.')
-        except Exception as error:
-            log('Loop Behavior not settable (non-fatal): %s' % error)
-
-        save(system, 'NS_GrassFootstepPuff')
-
-        if applied:
-            REPORT['patched'].append('NS_GrassFootstepPuff: applied %s' % ', '.join(applied))
-        if rejected:
-            note_manual(
-                'NS_GrassFootstepPuff was created and wired into the DataAsset, but these stack '
-                'inputs could NOT be written through the Niagara toolset API: %s. The emitter '
-                'therefore still carries its template defaults for them, so VERIFY the live particle '
-                'count against the M3 budget (<= %d particles) in the Niagara editor before '
-                'accepting the effect. %s' % (', '.join(rejected), PUFF_MAX_PARTICLES, NIAGARA_SPEC))
+        system = build()
+        REPORT['patched'].append('NS_GrassFootstepPuff: soft dust material, 8 particles, lifetime <= 0.75s, Self/Once')
         return system
     except Exception as error:
         traceback.print_exc()
         REPORT['errors'].append('NS_GrassFootstepPuff authoring failed: %s' % error)
-        note_manual('NS_GrassFootstepPuff could not be authored headless; the decal material and '
-                    'the DataAsset were still created. ' + NIAGARA_SPEC, error)
+        note_manual('Footstep puff repair incomplete. Resolve the error and rerun '
+                    'Tools/GrassDeform/author_footstep_puff.py; no incomplete puff was saved.', error)
         return None
 
 
