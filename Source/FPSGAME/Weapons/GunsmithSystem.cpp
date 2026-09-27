@@ -1,6 +1,7 @@
 #include "GunsmithSystem.h"
 #include "FrostSwordRunes.h"
 #include "PistolDualWieldComponent.h"
+#include "PistolGripSurface.h"
 #include "M4DrumReloadTiming.h"
 #include "M1911WeaponAssets.h"
 #include "DanWesson715WeaponAssets.h"
@@ -49,6 +50,7 @@ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
                 Options->SetArrayField(Slot.Key,Merged);
             }
         }
+        PistolGripSurface::MergeOptions(Catalog,O,W.Allowed);
         const auto B=O->GetObjectField(TEXT("base"));W.Ammo=B->GetStringField(TEXT("ammo_item_id"));
         W.Base.ADS=FMath::Loge(20.)/Num(B,TEXT("ads_smooth"),9.98577424518);W.Base.Capacity=Num(B,TEXT("mag_size"),30);
         W.Base.Recoil=Num(B,TEXT("recoil"),100);W.Base.Shake=Num(B,TEXT("camera_shake"),100);W.Base.Interval=Num(B,TEXT("fire_interval"),.13);
@@ -87,6 +89,13 @@ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
 }
 void UGunsmithSystem::Deinitialize(){Close();Super::Deinitialize();}
 const FGunsmithWeapon* UGunsmithSystem::Weapon(const FString& D)const{return Weapons.Find(D);}
+FString UGunsmithSystem::CategoryLabel(const FString& Definition,const FString& Slot) const
+{
+    if(Slot==TEXT("reargrip") && PistolGripSurface::Supports(Weapon(Definition)))return TEXT("握把防滑纹");
+    const int32 Index=Slots(Definition).IndexOfByKey(Slot);
+    const auto& Names=Categories(Definition);
+    return Names.IsValidIndex(Index)?Names[Index]:TEXT("配件");
+}
 const FGunsmithOption* UGunsmithSystem::Option(const FString& D,const FString& S,const FString& Id)const{const auto* W=ModifiableWeapon(D);if(!W||!W->Allowed.Contains(S))return nullptr;const auto* A=W->Options.Find(S);return A?A->FindByPredicate([&](const auto& V){return V.Id==Id;}):nullptr;}
 FGunsmithParts UGunsmithSystem::Normalize(const FString& D,const FGunsmithParts& Input)const
 {

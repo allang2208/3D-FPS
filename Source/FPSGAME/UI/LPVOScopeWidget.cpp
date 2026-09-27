@@ -1,4 +1,5 @@
 #include "LPVOScopeWidget.h"
+#include "ScopeOpticDrawing.h"
 #include "../FPSGAMECharacter.h"
 #include "GameFramework/PlayerController.h"
 #include "Rendering/DrawElements.h"
@@ -9,6 +10,10 @@
 
 namespace
 {
+static TAutoConsoleVariable<float> ScopeLPVOIllumination(TEXT("fps.Scope.LPVOIllumination"),.65f,
+    TEXT("LPVO centre illumination, 0..1; etched marks remain visible at 0."));
+static TAutoConsoleVariable<float> ScopePSOIllumination(TEXT("fps.Scope.PSOIllumination"),.24f,
+    TEXT("PSO primary chevron illumination, 0..1; no range calibration is implied."));
 // Optic-layer firing presentation. The owner's weapon model is hidden behind the
 // scope overlay, so the world-space muzzle flash only leaves a sliver inside the
 // narrow magnified frustum. These knobs drive a screen-space flash drawn inside
@@ -312,25 +317,11 @@ void PaintOpticFlash(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G
     FlushLensVerts(Out,Layer,G,Center,ApertureR,Verts,Indices);
 }
 
-void PaintLPVOScope(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,float Alpha,const FScopeFx& Fx,bool bSVD)
+void PaintLPVOScope(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,float Alpha,const FScopeFx& Fx,bool bPSO,bool Handgun,const FVector2f& Eye)
 {
     const FVector2f Size(G.GetLocalSize()),Center=Size*.5f;
-    const float S=FMath::Min(Size.X,Size.Y)/900.f,R=FMath::Min(Size.X,Size.Y)*.425f;
-    // A clear image fills 85% of the short screen axis at every magnification.
-    // Only the outer few pixels carry the optical edge; no long physical bore.
-    const float Radii[]={R,R+3*S,R+5*S,R+7*S,R+10*S,Size.Size()};
-    const FLinearColor Colors[]={FLinearColor(0,0,0,0),FLinearColor(.015f,.018f,.022f,.8f),FLinearColor(.08f,.09f,.10f,1),FLinearColor(.028f,.032f,.038f,1),FLinearColor::Black,FLinearColor::Black};
-    constexpr int32 Segments=256;
-    TArray<FSlateVertex> Verts;TArray<SlateIndex> Indices;
-    for(int32 Band=0;Band<6;++Band)for(int32 I=0;I<=Segments;++I){
-        const float Angle=2*PI*I/Segments;FLinearColor Tint=Colors[Band];Tint.A*=Alpha;
-        const FVector2f P=Center+FVector2f(FMath::Cos(Angle),FMath::Sin(Angle))*Radii[Band];
-        Verts.Add(FSlateVertex::Make<ESlateVertexRounding::Disabled>(G.GetAccumulatedRenderTransform(),P,FVector2f(.5f,.5f),Tint.ToFColor(true)));
-        if(Band<5&&I<Segments){const int32 A=Band*(Segments+1)+I,B=A+Segments+1;
-            Indices.Append({SlateIndex(A),SlateIndex(B),SlateIndex(A+1),SlateIndex(A+1),SlateIndex(B),SlateIndex(B+1)});}
-    }
-    const auto Resource=FSlateApplication::Get().GetRenderer()->GetResourceHandle(*FCoreStyle::Get().GetBrush(TEXT("WhiteBrush")));
-    FSlateDrawElement::MakeCustomVerts(Out,Layer,Resource,Verts,Indices,nullptr,0,0);
+    const float S=FMath::Min(Size.X,Size.Y)/900.f,R=ScopeOpticDrawing::ApertureRadius(Size,Alpha,Handgun);
+    ScopeOpticDrawing::PaintHousing(Out,Layer,G,Center,R,S,Alpha,bPSO,Eye);
     // Lens stack, all above the aperture mask and below the reticle: dust, ambient
     // wash, flash, afterglow, rim bloom, then the post-shot heat wisp. The crosshair
     // is always last.
@@ -340,28 +331,9 @@ void PaintLPVOScope(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,
     PaintEmber(Out,Layer,G,Center,R,Fx.Ember,Fx.Seed);
     PaintEdgeBloom(Out,Layer,G,Center,R,S,Fx);
     PaintHeatWisp(Out,Layer,G,Center,R,Fx);
-    if(bSVD)
-    {
-        const FLinearColor Ink(.035f,.045f,.035f,Alpha);
-        auto Stroke=[&](TArray<FVector2D> Points)
-        {
-            for(auto& P:Points)P=FVector2D(Center)+P*S;
-            FSlateDrawElement::MakeLines(Out,Layer+1,G.ToPaintGeometry(),Points,ESlateDrawEffect::None,Ink,true,1.6f*S);
-        };
-        Stroke({{-18,14},{0,0},{18,14}});
-        for(float Y:{40.f,70.f,100.f})Stroke({{-12,Y+10},{0,Y},{12,Y+10}});
-        Stroke({{-180,0},{-45,0}});Stroke({{45,0},{180,0}});
-        for(float X:{-150.f,-120.f,-90.f,-60.f,60.f,90.f,120.f,150.f})Stroke({{X,-5},{X,5}});
-        Stroke({{-170,150},{-50,150}});
-        Stroke({{-170,85},{-145,101},{-120,115},{-95,126},{-70,134},{-50,139}});
-        return;
-    }
-    const FLinearColor Red(1,.045f,.025f,Alpha);
-    for(const FVector2D Axis:{FVector2D(1,0),FVector2D(-1,0),FVector2D(0,1),FVector2D(0,-1)}){
-        TArray<FVector2D> Points={FVector2D(Center)+Axis*12*S,FVector2D(Center)+Axis*42*S};
-        FSlateDrawElement::MakeLines(Out,Layer+1,G.ToPaintGeometry(),Points,ESlateDrawEffect::None,Red,true,1.2f*S);
-    }
-    FSlateDrawElement::MakeBox(Out,Layer+1,G.ToPaintGeometry(FVector2D(3*S,3*S),FSlateLayoutTransform(FVector2D(Center)-FVector2D(1.5*S,1.5*S))),FCoreStyle::Get().GetBrush(TEXT("WhiteBrush")),ESlateDrawEffect::None,Red);
+    const float Illumination=FMath::Clamp(bPSO?ScopePSOIllumination.GetValueOnGameThread():ScopeLPVOIllumination.GetValueOnGameThread(),0.f,1.f);
+    if(Handgun)ScopeOpticDrawing::PaintHandgunReticle(Out,Layer+1,G,Center,R,Alpha);
+    else ScopeOpticDrawing::PaintReticle(Out,Layer+1,G,Center,S,Alpha,bPSO,Illumination);
 }
 }
 
@@ -379,8 +351,12 @@ int32 ULPVOScopeWidget::NativePaint(const FPaintArgs& Args,const FGeometry& Geom
         FScopeFx Fx;
         if(Character)
         {
+            const bool PSO=Character->HasPSO1Scope();
+            const float Magnification=Character->GetDisplayedOpticMagnification();
             Fx.Seed=Character->GetLastShotSeed();
-            const float Age=Character->GetLastShotAgeSeconds();
+            // PSO has a shorter optical glint. Suppression attenuates the lens
+            // reflection instead of showing the unsuppressed overlay unchanged.
+            const float Age=Character->GetLastShotAgeSeconds()/(PSO?.86f:1.f);
             if(const float Peak=ScopeFlashAlpha.GetValueOnGameThread();Peak>0.f)
             {
                 if(Age<FMath::Max(.01f,ScopeFlashHoldMs.GetValueOnGameThread()*.001f))
@@ -415,8 +391,12 @@ int32 ULPVOScopeWidget::NativePaint(const FPaintArgs& Args,const FGeometry& Geom
                 Fx.Wisp=Smoke*Alpha*FMath::Sin(PI*FMath::Pow(T,1.4f));
                 Fx.WispT=T;
             }
+            const float Gain=(PSO?.72f:FMath::Lerp(.82f,1.f,(Magnification-1.f)/5.f))
+                *(Character->IsMuzzleSuppressed()?.12f:1.f);
+            Fx.Flash*=Gain;Fx.Ember*=Gain;Fx.Ambient*=Gain;
+            Fx.Wisp*=(PSO?.8f:1.f)*(Character->IsMuzzleSuppressed()?.35f:1.f);
         }
-        PaintLPVOScope(Elements,Result,Geometry,Alpha,Fx,Character&&Character->HasPSO1Scope());
+        PaintLPVOScope(Elements,Result,Geometry,Alpha,Fx,Character->HasPSO1Scope(),Character->HasHandgunScope(),FVector2f(Character->GetScopeEyeOffset()));
     }
-    return Result+2;
+    return Result+4;
 }

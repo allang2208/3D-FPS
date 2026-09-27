@@ -1,4 +1,5 @@
 #include "M4GunsmithWidget.h"
+#include "GunsmithPreviewLighting.h"
 #include "../Weapons/ModularSwordVisual.h"
 #include "../Weapons/Bow/BowAssembly.h"
 #include "Engine/StreamableManager.h"
@@ -52,6 +53,7 @@ void UM4GunsmithWidget::InitializePreview()
     Capture->PostProcessSettings.bOverride_AutoExposureApplyPhysicalCameraExposure=true;Capture->PostProcessSettings.AutoExposureApplyPhysicalCameraExposure=false;
     Capture->PostProcessSettings.bOverride_AutoExposureBias=true;Capture->PostProcessSettings.AutoExposureBias=0.f;
     Studio->AddComponent(Capture,FTransform::Identity);
+    GunsmithPreviewLighting::Create(*Studio,*Capture);
     // Final-color alpha depends on a project-wide postprocess setting. A separate
     // unlit coverage pass preserves holes and translucent lenses without changing it.
     PreviewCoverageCapture=NewObject<USceneCaptureComponent2D>(GetTransientPackage(),NAME_None,RF_Transient);

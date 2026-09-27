@@ -3,6 +3,10 @@
 #include "PKMAttachments.h"
 #include "M16Attachments.h"
 #include "AKMSovietCalibration.h"
+#include "DanWesson715FittedParts.h"
+#include "PistolGripSurface.h"
+#include "GunsmithSystem.h"
+#include "Engine/GameInstance.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Rendering/SkeletalMeshRenderData.h"
@@ -16,8 +20,23 @@ bool IsFactoryRearGrip(const FName& Slot)
 }
 }
 
-void AFPSGAMECharacter::SetGunsmithRearGrip(const FString& Variant)
+void AFPSGAMECharacter::SetGunsmithRearGrip(const FString& Variant, const FGunsmithWeapon* Weapon)
 {
+    if (bUseDanWesson715)
+    {
+        RearGripAttachment = DanWesson715FittedParts::Configure(this, AKMViewmodel,
+            RearGripAttachment, Variant, bInventoryWeaponReady, false);
+        return;
+    }
+    if (!Weapon && GetGameInstance())
+        if (auto* Gunsmith = GetGameInstance()->GetSubsystem<UGunsmithSystem>())
+            Weapon = Gunsmith->Weapon(ActiveInventoryWeaponDefinition);
+    if (PistolGripSurface::Supports(Weapon))
+    {
+        RearGripAttachment = PistolGripSurface::Configure(this, AKMViewmodel,
+            RearGripAttachment, Weapon, Variant, bInventoryWeaponReady);
+        return;
+    }
     auto* Rifle=AKMViewmodel.Get();auto* Asset=Rifle?Rifle->GetSkeletalMeshAsset():nullptr;
     if(!Asset)return;
     const bool StableGrip=Variant==TEXT("stable_antislip_reargrip");

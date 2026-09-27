@@ -8,7 +8,7 @@
 void AFPSGAMECharacter::SetDanWesson715Optic(const FString& Variant)
 {
     const bool Enabled = bInventoryWeaponReady &&
-        (Variant == TEXT("holographic") || Variant == TEXT("panoramic_red_dot"));
+        (Variant == TEXT("holographic") || Variant == TEXT("panoramic_red_dot") || Variant == TEXT("dw715_handgun_scope_2x"));
     if (!Enabled)
     {
         if (HolographicOptic) { HolographicOptic->DestroyComponent(); HolographicOptic = nullptr; }
@@ -29,6 +29,8 @@ void AFPSGAMECharacter::SetDanWesson715Optic(const FString& Variant)
             HolographicOptic->SetCollisionEnabled(ECollisionEnabled::NoCollision);
             HolographicOptic->SetCastShadow(false);
             HolographicOptic->bReceivesDecals = false;
+            HolographicOptic->SetFirstPersonPrimitiveType(AKMViewmodel->FirstPersonPrimitiveType);
+            HolographicOptic->SetOnlyOwnerSee(AKMViewmodel->bOnlyOwnerSee);
             HolographicOptic->RegisterComponent();
         }
         const auto& Ref = AKMViewmodel->GetSkeletalMeshAsset()->GetRefSkeleton();

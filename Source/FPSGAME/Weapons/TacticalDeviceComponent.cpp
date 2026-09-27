@@ -8,6 +8,7 @@
 #include "GunsmithSystem.h"
 #include "DanWesson715WeaponAssets.h"
 #include "Engine/GameInstance.h"
+#include "GameFramework/PlayerController.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/SpotLightComponent.h"
@@ -169,8 +170,8 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Va
         C->SetStaticMesh(LoadObject<UStaticMesh>(nullptr,Mesh));C->SetMaterial(0,LoadObject<UMaterialInterface>(nullptr,Material));
         C->SetCollisionEnabled(ECollisionEnabled::NoCollision);C->SetCastShadow(false);C->bReceivesDecals=false;C->SetVisibility(false);C->RegisterComponent();return C;
     };
-    if(!Dot)Dot=MakeEffect(TEXT("TacticalLaserDot"),TEXT("/Engine/BasicShapes/Sphere"),TEXT("/Game/Weapons/TacticalDevices20260913/Effects/M_LaserDot"));
-    if(!Beam)Beam=MakeEffect(TEXT("TacticalLaserBeam"),TEXT("/Engine/BasicShapes/Cylinder"),TEXT("/Game/Weapons/TacticalDevices20260913/Effects/M_LaserBeam"));
+    if(!Dot)Dot=MakeEffect(TEXT("TacticalLaserDot"),TEXT("/Engine/BasicShapes/Sphere"),TEXT("/Game/Weapons/ScopeOptics20260927/M_ScopeAwareLaserDot"));
+    if(!Beam)Beam=MakeEffect(TEXT("TacticalLaserBeam"),TEXT("/Engine/BasicShapes/Cylinder"),TEXT("/Game/Weapons/ScopeOptics20260927/M_ScopeAwareLaserBeam"));
     if(!Light)
     {
         Light=NewObject<USpotLightComponent>(GetOwner());
@@ -219,6 +220,15 @@ void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorC
         Light->SetWorldLocationAndRotation(Origin,Direction.Rotation());Light->SetVisibility(true);return;
     }
     constexpr float Range=8000.f;
+    // The beam and surface spot are independent world primitives, so hiding
+    // the viewmodel for LPVO/PSO does not hide them. Fade the near-eye beam out
+    // with the actual optical overlay and reduce spot emission before bloom.
+    // Primitive data is instance-local; the shared material and hipfire
+    // appearance remain unchanged. No new trace or per-frame material load.
+    const auto* PC=Cast<APlayerController>(C->GetController());
+    const float ScopeAlpha=PC&&!PC->bShowMouseCursor?C->GetScopePresentationAlpha():0.f;
+    Dot->SetCustomPrimitiveDataFloat(0,ScopeAlpha);
+    Beam->SetCustomPrimitiveDataFloat(0,ScopeAlpha);
     // Converge only once ADS has actually settled. bIsAiming is true from the
     // instant the aim input lands, but WeaponADSFactor needs the whole ADS
     // duration (0.45 s for PKM versus 0.24 s for M4), so keying off IsAiming
@@ -262,13 +272,27 @@ void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorC
         if(!Hit.bStartPenetrating&&FVector::DotProduct(Normal,Eye-End)>0.f&&
             !GetWorld()->LineTraceSingleByChannel(Occlusion,Eye,Spot,ECC_Visibility,Params))
         {
+            float Diameter=1.6f;
+            if(ScopeAlpha>0.f)
+            {
+                // Keep the real hit, parallax and depth test. Only cap its
+                // visual diameter (0.3% of view height, about 3.2 px at 1080p)
+                // so a close surface at 6x cannot cover the etched reticle.
+                // Use this frame's camera FOV, including smooth zoom/recoil.
+                const float Depth=FVector::DotProduct(Spot-Eye,C->FirstPersonCamera->GetForwardVector());
+                if(Depth<=0.f){HideEffects();return;}
+                const float TanHalfVFOV=FMath::Tan(FMath::DegreesToRadians(C->FirstPersonCamera->FieldOfView)*.5f)
+                    /FMath::Max(.01f,C->FirstPersonCamera->AspectRatio);
+                const float CappedDiameter=FMath::Min(Diameter,2.f*Depth*TanHalfVFOV*.003f);
+                Diameter=FMath::Lerp(Diameter,CappedDiameter,ScopeAlpha);
+            }
             Dot->SetWorldLocationAndRotation(Spot,FRotationMatrix::MakeFromZ(Normal).ToQuat());
-            Dot->SetWorldScale3D(FVector(.016f,.016f,.0004f));
+            Dot->SetWorldScale3D(FVector(Diameter/100.f,Diameter/100.f,FMath::Min(.0004f,Diameter/100.f)));
             Dot->SetVisibility(true);
         }
     }
     const float Length=FVector::Distance(Origin,End);
-    if(Length>.1f)
+    if(Length>.1f&&ScopeAlpha<1.f)
     {
         Beam->SetWorldLocationAndRotation((Origin+End)*.5f,FRotationMatrix::MakeFromZ(End-Origin).ToQuat());
         Beam->SetWorldScale3D(FVector(.004f,.004f,Length/100.f));Beam->SetVisibility(true);

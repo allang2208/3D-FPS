@@ -8,6 +8,8 @@
 #include "FPSBallisticsComponent.h"
 #include "WeaponStatEvaluation.h"
 #include "DanWesson715WeaponAssets.h"
+#include "DanWesson715FittedParts.h"
+#include "M1911MagazineVisual.h"
 #include "TacticalDeviceComponent.h"
 #include "../Skills/FPSCastingMeshComponent.h"
 #include "../Skills/FPSQuickCombatComponent.h"
@@ -214,7 +216,14 @@ void UPistolDualWieldComponent::CopyLeftAttachments(const FColdSteelItem& Item,c
     if(!Rig)return;
     if(Created){Rig->bUseM4Infima=Rig->bUseQBZ191=false;Rig->bUseM1911=!Hands[1].Revolver;Rig->bUseDanWesson715=Hands[1].Revolver;Rig->InitializeWeaponVisuals();}
     Rig->SetGunsmithOpticVariant(Parts.FindRef(TEXT("optic")));Rig->SetGunsmithMuzzle(Parts.FindRef(TEXT("muzzle")));
-    Rig->SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")));Rig->SetGunsmithTactical(TEXT(""));
+    Rig->SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")),Player->GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(Item.Definition));Rig->SetGunsmithTactical(TEXT(""));
+    Rig->SetGunsmithMagazineAttachment(Parts.FindRef(TEXT("magazine")));
+    if (!Hands[1].Revolver)
+        M1911MagazineVisual::ShowFactoryMagazine(Hands[1].Mesh,
+            !(Rig->LargeDrum && Rig->LargeDrum->IsVisible()));
+    if (Hands[1].Revolver)
+        DanWesson715FittedParts::ShowFactoryGrip(Hands[1].Mesh,
+            !(Rig->RearGripAttachment && Rig->RearGripAttachment->IsVisible()));
     TMap<USceneComponent*,USceneComponent*> Copies;Copies.Add(Rig->AKMViewmodel,Hands[1].Mesh);
     TFunction<USceneComponent*(USceneComponent*)> Copy=[&](USceneComponent* Source)->USceneComponent*
     {

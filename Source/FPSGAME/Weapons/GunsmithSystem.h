@@ -99,6 +99,7 @@ public:
     virtual void Initialize(FSubsystemCollectionBase&) override;
     virtual void Deinitialize() override;
     const FGunsmithWeapon* Weapon(const FString& Definition) const;
+    FString CategoryLabel(const FString& Definition,const FString& Slot) const;
     // Weapon remains the firearm contract used by ammunition and combat callers.
     const FGunsmithWeapon* ModifiableWeapon(const FString& Definition) const;
     bool IsBow(const FString& Definition) const {return BowWeapons.Contains(Definition);}

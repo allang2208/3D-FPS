@@ -7,31 +7,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/SceneCaptureComponent2D.h"
 #include "Components/DirectionalLightComponent.h"
-#include "Components/RectLightComponent.h"
 #include "Engine/TextureRenderTarget2D.h"
-
-namespace
-{
-void LightRuneSwordStudio(FPreviewScene& Scene,USceneCaptureComponent2D& Capture)
-{
-    // Broad camera-side sources give polished metal readable reflections while
-    // preserving the real PBR material and the isolated transparent capture.
-    const FVector Center(500,0,0);
-    auto AddSoftbox=[&](const FVector& Offset,float Lumens,float Width,float Height)
-    {
-        auto* Light=NewObject<URectLightComponent>(GetTransientPackage(),NAME_None,RF_Transient);
-        Light->SetMobility(EComponentMobility::Movable);Light->SetIntensityUnits(ELightUnits::Lumens);
-        Light->SetIntensity(Lumens);Light->SetLightColor(FLinearColor::White);Light->SetCastShadows(false);
-        Light->SetSourceWidth(Width);Light->SetSourceHeight(Height);Light->SetAttenuationRadius(600.f);
-        Scene.AddComponent(Light,FTransform((-Offset).Rotation(),Center+Offset));
-    };
-    AddSoftbox(FVector(-130,-65,85),75.f,100.f,120.f);
-    AddSoftbox(FVector(-100,85,-25),35.f,110.f,110.f);
-    AddSoftbox(FVector(65,35,90),90.f,40.f,100.f);
-    Scene.SetSkyBrightness(1.5f);Scene.UpdateCaptureContents();
-    Capture.PostProcessSettings.AutoExposureBias=.35f;
-}
-}
 
 void UM4GunsmithWidget::SetStandaloneMeleeItem(const FColdSteelItem& Item)
 {
@@ -43,7 +19,12 @@ void UM4GunsmithWidget::SetStandaloneMeleeItem(const FColdSteelItem& Item)
         if(Created)
         {
             CloseStandalonePreview();InitializePreview();if(!Capture)return;
-            if(Item.Definition==TEXT("ue_rune_sword")||Item.Definition==TEXT("ue_highland_claymore"))LightRuneSwordStudio(*Studio,*Capture);
+            if(Item.Definition==TEXT("ue_rune_sword")||Item.Definition==TEXT("ue_highland_claymore"))
+            {
+                // Keep these weapons' existing exposure; softboxes are now shared.
+                Studio->SetSkyBrightness(1.5f);Studio->UpdateCaptureContents();
+                Capture->PostProcessSettings.AutoExposureBias=.35f;
+            }
             StandaloneMelee=NewObject<UStaticMeshComponent>(GetTransientPackage(),NAME_None,RF_Transient);
             StandaloneMelee->SetCollisionEnabled(ECollisionEnabled::NoCollision);StandaloneMelee->SetForcedLodModel(1);
             Studio->AddComponent(StandaloneMelee,FTransform::Identity);

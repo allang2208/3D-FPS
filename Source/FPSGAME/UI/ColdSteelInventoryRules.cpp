@@ -119,6 +119,15 @@ bool Insert(TArray<FColdSteelItem>& Items,FColdSteelItem I,int32 Preferred)
     }
     Items=MoveTemp(Next); return true;
 }
+// Automatic equipment returns may turn to fit; explicit grid drops retain
+// the player's pending orientation. Insert itself remains strict for other callers.
+static bool InsertEquipment(TArray<FColdSteelItem>& Items,FColdSteelItem Item,int32 Preferred=-1)
+{
+    if(Insert(Items,Item,Preferred))return true;
+    if(!CanRotate(Item))return false;
+    ApplyOrientation(Item,Item.bRotated?0:1);
+    return Insert(Items,MoveTemp(Item),Preferred);
+}
 FColdSteelProposal Move(const TArray<FColdSteelItem>& Items,const FString& Id,int32 Place,int32 Cell,int32 Orientation)
 {
     FColdSteelProposal R; R.Items=Items; R.Reason=TEXT("目标位置无法容纳物品");
@@ -139,14 +148,31 @@ FColdSteelProposal Move(const TArray<FColdSteelItem>& Items,const FString& Id,in
             int32 Target=Owner(R.Items,1,Cell);
             if(Target>=0) { if(!CanEquip(R.Items[Target],OldCell)) return R; R.Items[Target].Cell=OldCell; }
         } else {
-            TArray<int32> Displaced={Cell};
-            if(Flag(Moving,TEXT("isTwoHanded"))) Displaced.Add(Cell==6?8:11);
-            for(int32 S:Displaced) { int32 N=Owner(R.Items,1,S); if(N>=0) {auto Old=R.Items[N]; R.Items.RemoveAt(N); if(!Insert(R.Items,Old,OldCell))return R;} }
+            TArray<int32> Slots={Cell};
+            if(Flag(Moving,TEXT("isTwoHanded")))Slots.Add(Cell==6?8:11);
+            TArray<FColdSteelItem> Displaced;
+            for(int32 S:Slots)if(const int32 N=Owner(R.Items,1,S);N>=0){Displaced.Add(R.Items[N]);R.Items.RemoveAt(N);}
+            // Keep the established placement/stacking result when it works.
+            auto Packed=R.Items;bool OriginalFits=true;
+            for(const auto& Old:Displaced)if(!Insert(Packed,Old,OldCell)){OriginalFits=false;break;}
+            if(OriginalFits)R.Items=MoveTemp(Packed);
+            else
+            {
+                // Plan main hand and offhand together: a greedy first placement
+                // must not consume the only rectangle available to the other item.
+                bool Exhausted=false;
+                if(!PlaceDisplaced(R.Items,MoveTemp(Displaced),Items[From],Cell,Exhausted,0,0,4,FString(),true))
+                {
+                    R.Items=Items;
+                    R.Reason=Exhausted?TEXT("自动摆放较复杂，请调整背包空间后重试"):TEXT("尝试两种朝向后仍没有连续空间安置替换下的装备");
+                    return R;
+                }
+            }
         }
         if(OldPlace==0)Moving.BackpackCell=OldCell;
         Moving.Place=1;Moving.Cell=Cell; R.Items.Add(Moving);
     } else {
-        if(Cell==-1 && OldPlace==1) { if(!Insert(R.Items,Moving,Moving.BackpackCell))return R; }
+        if(Cell==-1 && OldPlace==1) { if(!InsertEquipment(R.Items,Moving,Moving.BackpackCell)){R.Items=Items;R.Reason=TEXT("尝试两种朝向后仍没有连续空间卸下装备");return R;} }
         else {
             if(Cell<0||Cell>=72||Cell%18+Moving.Width>18||Cell/18+Moving.Height>4){R.Reason=TEXT("物品超出背包边界，请向内移动");return R;}
             TSet<int32> Blockers;
@@ -186,7 +212,7 @@ FColdSteelProposal Move(const TArray<FColdSteelItem>& Items,const FString& Id,in
     }
     for(int32 S:{8,11}) if(Locked(R.Items,S)&&Owner(R.Items,1,S)>=0){
         if(OldPlace!=1||Place!=0)return R;
-        const int32 N=Owner(R.Items,1,S);auto Offhand=R.Items[N];R.Items.RemoveAt(N);if(!Insert(R.Items,Offhand))return R;
+        const int32 N=Owner(R.Items,1,S);auto Offhand=R.Items[N];R.Items.RemoveAt(N);if(!InsertEquipment(R.Items,Offhand)){R.Items=Items;R.Reason=TEXT("尝试两种朝向后仍没有连续空间安置副手装备");return R;}
     }
     R.bValid=true; R.Reason.Empty();return R;
 }

@@ -3,7 +3,8 @@
 #include "Blueprint/UserWidget.h"
 #include "LPVOScopeWidget.generated.h"
 
-// Separate viewport layer keeps the optical mask behind health/ammo/menu HUD.
+// Owner-only optical layer: housing/engraving over the magnified main camera.
+// The controller independently hides/restores gameplay HUD during scoped ADS.
 UCLASS()
 class FPSGAME_API ULPVOScopeWidget : public UUserWidget
 {

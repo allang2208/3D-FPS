@@ -204,7 +204,7 @@ FVector AFPSGAMECharacter::OpticLocalAimPoint() const
 }
 float AFPSGAMECharacter::EffectiveADSVerticalFOV() const
 {
-    return FMath::RadiansToDegrees(2.f*FMath::Atan(FMath::Tan(FMath::DegreesToRadians(ADSVerticalFieldOfView)*.5f)/GetOpticMagnification()));
+    return FMath::RadiansToDegrees(2.f*FMath::Atan(FMath::Tan(FMath::DegreesToRadians(ADSVerticalFieldOfView)*.5f)/GetDisplayedOpticMagnification()));
 }
 bool AFPSGAMECharacter::ValidateGunsmithSight(float& PixelError) const
 {
@@ -239,7 +239,8 @@ void AFPSGAMECharacter::SetLPVOMagnification(float Value)
 {
     if(OpticVariant!=TEXT("lpvo_1_6x"))return;
     LPVOMagnification=FMath::Clamp(Value,1.f,6.f);
-    if(LPVORing)LPVORing->SetRelativeRotation(FRotator(0,0,(LPVOMagnification-1.f)*24.f));
+    if(!IsAiming())DisplayedLPVOMagnification=LPVOMagnification;
+    if(LPVORing)LPVORing->SetRelativeRotation(FRotator(0,0,(DisplayedLPVOMagnification-1.f)*24.f));
 }
 bool AFPSGAMECharacter::AdjustOpticMagnification(float Delta)
 {
@@ -249,7 +250,7 @@ bool AFPSGAMECharacter::AdjustOpticMagnification(float Delta)
 
 float AFPSGAMECharacter::GetScopePresentationAlpha() const
 {
-    if((!HasPSO1Scope()&&OpticVariant!=TEXT("lpvo_1_6x"))||!bInventoryWeaponReady||IsTraversing()||IsWeaponBusy())return 0.f;
+    if((!HasPSO1Scope()&&!HasHandgunScope()&&OpticVariant!=TEXT("lpvo_1_6x"))||!bInventoryWeaponReady||IsTraversing()||IsWeaponBusy())return 0.f;
     return FMath::SmoothStep(.65f,.98f,CameraADSFactor);
 }
 
@@ -272,6 +273,7 @@ float AFPSGAMECharacter::GetLastShotSeed() const
 
 void AFPSGAMECharacter::UpdateScopePresentation()
 {
+    UpdateScopeLensMaterial();
     const bool bScopeHidesViewmodel=GetScopePresentationAlpha()>.5f;
     if(!bScopeHidesViewmodel&&ScopeHiddenParts.IsEmpty())return;
     const auto* Body=FindComponentByClass<UFPSPlayerBodyComponent>();

@@ -42,3 +42,11 @@
 - 审计与修复入口：`Tools/UI/scan_weapon_material_clamps.py`、`Tools/UI/repair_weapon_roughness_clamps.py`；资产被运行中的编辑器独占时，用编辑器内最小脚本（仅 `get_material_expressions`／`connect_material_expressions`／`recompile_material`／`save_loaded_asset`）恢复接线，并用 Restart Manager 确认持有进程。
 - 不要在交互编辑器的远程执行里调用 `unreal.MaterialEditingLibrary.get_material_property_input_node`：2026-09-16 实测会令 `UnrealEditor-MaterialEditor.dll` 访问违例崩溃编辑器。属性接线查询放到无界面 `UnrealEditor-Cmd -ExecutePythonScript` 进程中。
 - 案例与备份：`Docs/UI/backpack-icon-gunsmith-mods-20260916.md`、`Saved/BackpackIconModFix20260916/`。
+
+## 所有改造预览共用柔光（2026-09-27）
+
+- 715 镜面金属发黑的本次源码排查发现：旧三盏矩形柔光仅在两把剑的独立分支创建，其余武器虽有基础方向光／天光，却缺少大面积反射光源。先区分“无灯”和“未走增强布光”，不要据此重做枪身材质。
+- 统一入口为 `GunsmithPreviewLighting::Create/Update`：在 `InitializePreview` 为每个预览场景创建一次，挂到捕获相机并由 FPreviewScene 持有；不同武器入口共用。移除旧分支重复创建，保留原有剑曝光设定。
+- 灯的位置和尺寸跟随可见装配的相机空间边界；枪侧视使用排除手臂且含附件的 framing bounds，其他模式使用可见组件 bounds。尺度与几何对应，不能随用户滚轮缩放改变亮度；距离／面积线性缩放时光通量按尺度平方调整，避免短手枪过曝或长枪过暗。
+- 仅给颜色捕获提供光照。无光照的覆盖率捕获是透明合成的设计，不要误改；不额外创建 SceneCapture，不改变世界灯或武器 PBR。更新前比较参数，避免每帧无变化重设灯光。
+- 这次读取了当前 18 个目录入口并完成公共路径接入与必要构建；这是代码覆盖证据，不是 18 件武器的画面验收。详见 `Docs/UI/gunsmith-preview-lighting-20260927.md`。

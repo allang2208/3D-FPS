@@ -10,6 +10,7 @@
 #include "M16WeaponAssets.h"
 #include "QBZ191Attachments.h"
 #include "TacticalSuppressorAssets.h"
+#include "DanWesson715FittedParts.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/StaticMesh.h"
@@ -20,7 +21,15 @@
 
 void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
 {
-    if (bUseDanWesson715) return;
+    if (bUseDanWesson715)
+    {
+        MuzzleAttachment = DanWesson715FittedParts::Configure(this, AKMViewmodel,
+            MuzzleAttachment, Variant, bInventoryWeaponReady, true);
+        MuzzleVariant = MuzzleAttachment && MuzzleAttachment->IsVisible() ? Variant : FString();
+        MuzzleLocalAxis = FVector::ForwardVector;
+        MuzzleLocalTip = DanWesson715FittedParts::MuzzleTip(MuzzleVariant);
+        return;
+    }
     if (bUseM1911) { SetM1911Muzzle(Variant); return; }
     const bool bASH12Tactical = bUseASH12 && Variant == TEXT("ash12_tactical_suppressor");
     const bool bASH12Brake = bUseASH12 && Variant == TEXT("ash12_tactical_brake");

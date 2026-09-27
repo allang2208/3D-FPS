@@ -15,6 +15,8 @@ class USoundBase;
 class UAudioComponent;
 class UFPSWeaponFXComponent;
 class UFPSGunplayAnimInstance;
+struct FGunsmithWeapon;
+
 
 UENUM(BlueprintType)
 enum class EAKMWeaponState : uint8
@@ -110,7 +112,10 @@ public:
     const FString& GetGunsmithOpticVariant() const { return OpticVariant; }
     bool HasSVDFactoryScope() const { return ActiveInventoryWeaponDefinition==TEXT("ue_svd") && !bHolographicOptic; }
     bool HasPSO1Scope() const { return HasSVDFactoryScope() || (bHolographicOptic && OpticVariant==TEXT("pso1_4x")); }
-    float GetOpticMagnification() const { return HasPSO1Scope()?4.f:(OpticVariant==TEXT("lpvo_1_6x")?LPVOMagnification:(OpticVariant==TEXT("prism_scope_2x")?2.f:1.f)); }
+    bool HasHandgunScope() const { return bUseDanWesson715 && bHolographicOptic && OpticVariant==TEXT("dw715_handgun_scope_2x"); }
+    float GetOpticMagnification() const;
+    float GetDisplayedOpticMagnification() const;
+    FVector2D GetScopeEyeOffset() const { return ScopeEyeOffset; }
     float EffectiveADSVerticalFOV() const;
     bool AdjustOpticMagnification(float Delta);
     void SetLPVOMagnification(float Value);
@@ -130,7 +135,7 @@ public:
     FString GetBipodDeploymentHint() const;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Weapon|Bipod") TObjectPtr<class UWeaponBipodDeploymentComponent> BipodDeployment;
     void SetGunsmithStock(const FString& Variant);
-    void SetGunsmithRearGrip(const FString& Variant);
+    void SetGunsmithRearGrip(const FString& Variant, const FGunsmithWeapon* Weapon = nullptr);
     void SetGunsmithTactical(const FString& Variant);
     UPROPERTY(Transient) TObjectPtr<class UTacticalDeviceComponent> TacticalDevice;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> RearGripAttachment;
@@ -712,4 +717,14 @@ private:
     int32 AuditBoltReleaseCues = 0;
     float AuditMaxMechanicalLateness = 0.0f;
     float AuditMaxEmptyBoltTravelCM = 0.0f;
+    // Presentation state only. Appended to preserve the order of existing fields;
+    // a normal native build is required before using these members in an editor.
+    float DisplayedLPVOMagnification = 1.f;
+    FString PresentedScopeVariant;
+    FVector2D ScopeEyeOffset = FVector2D::ZeroVector;
+    UPROPERTY(Transient) TObjectPtr<class UMaterialInstanceDynamic> ScopeLensMaterial;
+    bool bScopeLensApplied = false;
+    void InitializeScopeOptics();
+    void AdvanceScopeOptics(float DeltaSeconds);
+    void UpdateScopeLensMaterial();
 };

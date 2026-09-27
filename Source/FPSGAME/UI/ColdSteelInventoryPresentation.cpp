@@ -199,7 +199,7 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
         }
         Box(X+31,L.HotY+28,15,16,GunsmithUI::Gray(15,230),FLinearColor::Transparent,3,0,3);Label(FString::FromInt(N+1),X+35,L.HotY+29,12,GunsmithUI::Text,12,true);}
     }
-    if(PreviewPlace==Container&&bPreviewValid)for(const auto& R:SwapDestinations)Box(12+R.Min.X*L.Cell,L.BagY+R.Min.Y*L.Cell,R.Width()*L.Cell,R.Height()*L.Cell,Fade(ColdSteelUI::Accent,.1f),ColdSteelUI::Accent,2,1,5);
+    if((PreviewPlace==Container||(PreviewPlace==1&&Container==0))&&bPreviewValid)for(const auto& R:SwapDestinations)Box(12+R.Min.X*L.Cell,L.BagY+R.Min.Y*L.Cell,R.Width()*L.Cell,R.Height()*L.Cell,Fade(ColdSteelUI::Accent,.1f),ColdSteelUI::Accent,2,1,5);
     if(PreviewPlace>=0&&PreviewCell>=0){const auto* I=Model->FindItem(HoverPreview);float X=12,Y=0,W=48,H=L.GearHeight;
         if(PreviewPlace==Container){
             // A drag supplies the pending footprint; external preview setters keep the instance shape.

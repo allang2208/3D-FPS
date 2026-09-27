@@ -10,6 +10,7 @@ inline constexpr const TCHAR* Root=TEXT("/Game/Weapons/SVDDragunov20260922/Acces
 inline constexpr const TCHAR* WetMaterialsPath=TEXT("/Game/Weapons/SVDDragunov20260922/Accessories20260923/DA_SVD_AttachmentWetMaterials");
 inline FString MeshPath(const FString& Key)
 {
+    if(Key==TEXT("ext_mag"))return TEXT("/Game/Weapons/SVDDragunov20260922/ExtendedMagazine20260927/SM_SVD_ext_mag");
     const bool Stock=Key==TEXT("skeleton")||Key==TEXT("core_stock")||Key==TEXT("qr_performance")||Key==TEXT("tactical_telescopic");
     const TCHAR* Folder=Stock?TEXT("/Game/Weapons/SVDDragunov20260922/StockAdapter20260923"):Root;
     return FString(Folder)+TEXT("/Meshes/SM_SVD_")+Key;

@@ -16,6 +16,8 @@
 #include "../Weapons/SVDAttachments.h"
 #include "../Weapons/M1911WeaponAssets.h"
 #include "../Weapons/DanWesson715WeaponAssets.h"
+#include "../Weapons/PistolGripSurface.h"
+#include "../Weapons/DanWesson715FittedParts.h"
 #include "../Production/ProductionHarvestAssets.h"
 #include "Engine/AssetManager.h"
 #include "Engine/GameInstance.h"
@@ -118,6 +120,12 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
         {
             FString Key=Part.Value;
             if(Key.IsEmpty()||Key==TEXT("false")||Key==TEXT("factory"))continue;
+            if(Part.Key==TEXT("reargrip")&&PistolGripSurface::IsPart(Key))
+            {
+                Add(PistolGripSurface::MeshPath(GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(D)),true);
+                Add(PistolGripSurface::MaterialPath(Key),true);
+                continue;
+            }
             if(Part.Key==TEXT("optic")&&Key==PSO1AttachmentAssets::Variant)
             {
                 if(PSO1AttachmentAssets::Supports(D))Add(PSO1AttachmentAssets::MeshPath(D));
@@ -147,6 +155,11 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
             else if(D==TEXT("ue_qbz191"))Add(QBZ191Attachments::MeshPath(Key));
             else if(D==TEXT("ue_ash12"))Add(ASH12WeaponAssets::OpticMeshPath(Key));
             else if(D==TEXT("ue_m1911"))Add(M1911WeaponAssets::AttachmentPath(Key));
+            else if(D==TEXT("ue_dan_wesson715"))
+            {
+                if(DanWesson715FittedParts::Supports(Key))Add(DanWesson715FittedParts::MeshPath(Key),true);
+                else if(Part.Key==TEXT("optic")||Part.Key==TEXT("tactical"))Add(DanWesson715WeaponAssets::AttachmentPath(Key));
+            }
             if(D==TEXT("ue_m4a1")||D==TEXT("ue_akm"))
             {
                 if(Part.Key==TEXT("optic"))

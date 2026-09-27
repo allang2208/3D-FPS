@@ -5,6 +5,8 @@
 #include "AKMAttachmentVisual.h"
 #include "QBZ191Attachments.h"
 #include "ASH12WeaponAssets.h"
+#include "SVDAttachments.h"
+#include "M1911MagazineVisual.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/SkeletalMesh.h"
@@ -46,9 +48,20 @@ void AFPSGAMECharacter::SetGunsmithMagazineAttachment(const FString& Id)
 {
     bool bDrum=Id==TEXT("large_drum");
     bool bExtMag=Id==TEXT("ext_mag");
-    if (IsPistolWeapon()) { MagazineAttachmentId.Reset(); return; }
+    if (IsPistolWeapon())
+    {
+        bDrumVisual = false;
+        bDrumReleasedDuringReload = bDrumMagazineHidden = false;
+        LargeDrum = M1911MagazineVisual::Configure(this, AKMViewmodel, LargeDrum,
+            bUseM1911 && bExtMag && bInventoryWeaponReady);
+        MagazineAttachmentId = bUseM1911 && bExtMag && LargeDrum && LargeDrum->IsVisible() ? Id : FString();
+        if (LargeDrum) DrumMount = LargeDrum->GetRelativeTransform();
+        return;
+    }
     const bool A762=A762WeaponAssets::Matches(AKMViewmodel);
-    const bool bRifle=bUsingM4Infima||AKMSoviet::Matches(AKMViewmodel)||bUseQBZ191||A762;
+    const bool bSVD=SVDWeaponAssets::Matches(AKMViewmodel);
+    if(bSVD)bDrum=false;
+    const bool bRifle=bUsingM4Infima||AKMSoviet::Matches(AKMViewmodel)||bUseQBZ191||A762||bSVD;
     MagazineAttachmentId=(bDrum||bExtMag)&&bRifle&&bInventoryWeaponReady?Id:FString();
     // Preserve the historical drum gating exactly; the universal extended
     // magazine uses each rifle's own factory-derived mesh.
@@ -91,7 +104,7 @@ void AFPSGAMECharacter::SetGunsmithMagazineAttachment(const FString& Id)
     {
         // Each rifle takes its own factory magazine shape, so each gets its own
         // asset: QBZ-191 polymer, M4 PMAG, AKM stamped steel.
-        auto* Asset=LoadObject<UStaticMesh>(nullptr,bUseM16?*M16Attachments::MeshPath(TEXT("ext_mag")):bUseASH12
+        auto* Asset=LoadObject<UStaticMesh>(nullptr,bSVD?*SVDAttachments::MeshPath(TEXT("ext_mag")):bUseM16?*M16Attachments::MeshPath(TEXT("ext_mag")):bUseASH12
             ?ASH12WeaponAssets::ExtendedMagazineMeshPath
             :bUseQBZ191
             ?TEXT("/Game/Weapons/ExtMagRemodel20260919/SM_ExtMag_QBZ40_Remodel.SM_ExtMag_QBZ40_Remodel")
@@ -150,7 +163,9 @@ void AFPSGAMECharacter::SetGunsmithMagazineAttachment(const FString& Id)
             for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)
             {
                 const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;
-                if(WeaponMesh->GetMaterials().IsValidIndex(M)&&(bUseM16?WeaponMesh->GetMaterials()[M].MaterialSlotName==TEXT("M_M16_Magazine"):WeaponMesh->GetMaterials()[M].MaterialSlotName.ToString().Contains(TEXT("Magazine"))))
+                // SVD's factory interior and rolled floorplate share this
+                // separately named slot; remove the entire factory assembly.
+                if(WeaponMesh->GetMaterials().IsValidIndex(M)&&(bUseM16?WeaponMesh->GetMaterials()[M].MaterialSlotName==TEXT("M_M16_Magazine"):WeaponMesh->GetMaterials()[M].MaterialSlotName.ToString().Contains(TEXT("Magazine"))||(bSVD&&WeaponMesh->GetMaterials()[M].MaterialSlotName==TEXT("SVD_InterfaceSteel"))))
                     AKMViewmodel->ShowMaterialSection(M,S,!(bDrum||bExtMag),L);
             }
 }

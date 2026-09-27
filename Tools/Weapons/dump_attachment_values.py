@@ -11,14 +11,17 @@ common = d.get('common_options', {})
 
 SHORT = {'ue_m4a1': 'M4A1', 'ue_akm': 'AKM', 'ue_qbz191': 'QBZ-191', 'ue_m1911': 'M1911',
          'ue_dan_wesson715': 'DW715', 'ue_ash12': 'ASH-12', 'ue_m16a2': 'M16A2',
-         'ue_a762': 'A762', 'ue_pkm': 'PKM'}
+         'ue_a762': 'A762', 'ue_svd': 'SVD', 'ue_pkm_lowpoly': 'PKM'}
 weapons = d['weapons']
 wby = {w['id']: w for w in weapons}
 
 # merge common_options the same way UGunsmithSystem::Initialize does
 merged = {}
 for w in weapons:
-    own = w.get('options', {}) or {}
+    own = dict(w.get('options', {}) or {})
+    # Match the runtime's explicit host opt-in; revolver replacement grips are separate.
+    if (w.get('pistol_grip_surface') or {}).get('mesh'):
+        own['reargrip'] = d.get('pistol_grip_surface_options', [])
     m = {}
     for s in slots:
         arr = list(own.get(s, []))
@@ -145,7 +148,7 @@ for w in weapons:
         ', '.join('`%s`' % s for s in w.get('allowed', [])) or '**无（不可改造）**'))
 A('')
 A('额外的每枪基础键：M16A2 `burst_count=3`、`burst_delay=0.18`、`hit_stagger=false`；')
-A('A762 `stability_mult=1.25`（只有它有基础稳定性倍率）；七把长枪 `spread_mult=2`（腰射系数，见 §1.2）。')
+A('各枪基础稳定性倍率与腰射系数以本页表格及对应目录为准；下方带日期的旧修订记录不覆盖当前表格。')
 A('')
 
 A('## 4. 全部改造件数值（按槽位）')
@@ -268,7 +271,7 @@ A('### 7.3 仍有待处理的口径问题（本轮未动）')
 A('')
 A('| 项 | 说明 |')
 A('| --- | --- |')
-A('| `common_options` 枪管文案措辞不同 | `short`/`long` 的 effect 写「ADS瞄准耗时减少/增加20%」，与新口径文案「开镜耗时」不一致；数值本身正确。 |')
+A('| 枪管改造退役（2026-09-27） | 公共目录不再声明 `barrel`，旧短／长枪管选项不再参与当前改造与数值计算。 |')
 A('| `description` 普遍含数字 | 目录中 85 处 `description` 含数字（`1×`、`80米`、`30 发`、型号名等），与「描述不写数值」的规则不符，属既有现状。 |')
 A('')
 A('### 7.4 编译期审计重新对齐（2026-09-21 续）')
@@ -313,7 +316,7 @@ A('')
 A('## 8. 修改位置')
 A('')
 A('- 数值：`FPSGAME/Content/ColdSteelData/gunsmith.json`')
-A('  - `weapons[].options[<slot>][]`：该枪自带条目；`common_options.barrel[]`：所有枪共享的枪管条目。')
+A('  - `weapons[].options[<slot>][]`：该枪自带条目；`common_options[<slot>][]`：目录声明的共享条目；枪管改造已于 2026-09-27 取消。')
 A('  - 同一个 ID 在不同枪里是**多份独立拷贝**：改共享件要逐枪改（或改 `common_options`）。')
 A('- 基础数值：`weapons[].base`（`ads_smooth`、`fire_interval`、`damage`、`bullet_speed`、')
 A('  `effective_range`、`mag_size`、`recoil`、`camera_shake`、`reload_time`、`empty_reload_time`、')

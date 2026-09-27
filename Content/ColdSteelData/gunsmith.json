@@ -3,7 +3,6 @@
     "瞄具",
     "枪口",
     "弹匣",
-    "枪管",
     "后握把",
     "枪托",
     "扳机",
@@ -16,7 +15,6 @@
     "原厂瞄具",
     "标准枪口",
     "标准弹匣",
-    "标准枪管",
     "原厂后握把",
     "原厂枪托",
     "标准扳机",
@@ -30,7 +28,6 @@
     "optic",
     "muzzle",
     "magazine",
-    "barrel",
     "reargrip",
     "stock",
     "trigger",
@@ -69,9 +66,18 @@
         "effective_range": 70
       },
       "traits": [
-        { "icon": "mechanic", "text": "全自动：按住扳机持续射击，射击间隔 80 ms，30 发弹匣" },
-        { "icon": "mechanic", "text": "瞄准耗时 240 ms，抬枪偏快" },
-        { "icon": "neutral", "text": "枪口、瞄具、枪托、后握把、下挂与战术槽全部可改造" }
+        {
+          "icon": "mechanic",
+          "text": "全自动：按住扳机持续射击，射击间隔 80 ms，30 发弹匣"
+        },
+        {
+          "icon": "mechanic",
+          "text": "瞄准耗时 240 ms，抬枪偏快"
+        },
+        {
+          "icon": "neutral",
+          "text": "枪口、瞄具、枪托、后握把、下挂与战术槽全部可改造"
+        }
       ],
       "options": {
         "underbarrel": [
@@ -1306,9 +1312,18 @@
         "effective_range": 85
       },
       "traits": [
-        { "icon": "mechanic", "text": "全自动：按住扳机持续射击，射击间隔 90 ms，30 发弹匣" },
-        { "icon": "mechanic", "text": "后坐平缓、弹道稳定，腰射散布偏小" },
-        { "icon": "neutral", "text": "枪口、瞄具、枪托、后握把、下挂与战术槽全部可改造" }
+        {
+          "icon": "mechanic",
+          "text": "全自动：按住扳机持续射击，射击间隔 90 ms，30 发弹匣"
+        },
+        {
+          "icon": "mechanic",
+          "text": "后坐平缓、弹道稳定，腰射散布偏小"
+        },
+        {
+          "icon": "neutral",
+          "text": "枪口、瞄具、枪托、后握把、下挂与战术槽全部可改造"
+        }
       ],
       "options": {
         "underbarrel": [
@@ -1894,7 +1909,9 @@
         "optic",
         "muzzle",
         "trigger",
-        "tactical"
+        "tactical",
+        "magazine",
+        "reargrip"
       ],
       "options": {
         "tactical": [
@@ -2078,6 +2095,39 @@
               "ads_percent": 0.1
             }
           }
+        ],
+        "magazine": [
+          {
+            "id": "false",
+            "name": "原厂弹匣",
+            "description": "M1911 原厂单排弹匣，保留紧凑外形。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "ext_mag",
+            "name": "扩容弹匣",
+            "description": "沿原厂单排壳体向下延长，保留插接接口、抓握区与独立底板。",
+            "effects": [
+              {
+                "text": "弹匣容量增加3发",
+                "benefit": 1
+              },
+              {
+                "text": "装填耗时更长",
+                "benefit": -1
+              },
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "mag_delta": 3,
+              "reload_mult": 1.1,
+              "ads_percent": 0.05
+            }
+          }
         ]
       },
       "base": {
@@ -2094,10 +2144,23 @@
         "effective_range": 50
       },
       "traits": [
-        { "icon": "mechanic", "text": "半自动：每次扣扳机一发，射击间隔 180 ms，7 发单排弹匣" },
-        { "icon": "mechanic", "text": "弹头初速偏低，伤害随距离衰减很快" },
-        { "icon": "neutral", "text": "枪口、瞄具、下挂与战术槽可改造" }
-      ]
+        {
+          "icon": "mechanic",
+          "text": "半自动：每次扣扳机一发，射击间隔 180 ms，原厂 7 发单排弹匣"
+        },
+        {
+          "icon": "mechanic",
+          "text": "弹头初速偏低，伤害随距离衰减很快"
+        },
+        {
+          "icon": "neutral",
+          "text": "瞄具、枪口、弹匣、扳机、握把防滑纹与战术挂件全部可改造"
+        }
+      ],
+      "pistol_grip_surface": {
+        "mesh": "/Game/Weapons/PistolGripSurface20260927/M1911/SM_M1911_GripSurface",
+        "bone": "WPN_root"
+      }
     },
     {
       "id": "ue_dan_wesson715",
@@ -2105,10 +2168,11 @@
       "name": "Dan-Wesson 715",
       "allowed": [
         "trigger",
-        "barrel",
         "reload_device",
         "optic",
-        "tactical"
+        "tactical",
+        "reargrip",
+        "muzzle"
       ],
       "options": {
         "reload_device": [
@@ -2199,6 +2263,24 @@
               }
             ],
             "stats": {}
+          },
+          {
+            "id": "dw715_handgun_scope_2x",
+            "name": "长出瞳 2× 手枪瞄准镜",
+            "description": "适配左轮持握距离的固定倍率手枪镜，采用细十字与粗边分划、独立镜座；便于辨识远处目标，但开镜更慢、镜内视野更窄。",
+            "effects": [
+              {
+                "text": "瞄具倍率2×",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时增加15%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.15
+            }
           }
         ],
         "tactical": [
@@ -2240,6 +2322,143 @@
             ],
             "stats": {}
           }
+        ],
+        "reargrip": [
+          {
+            "id": "false",
+            "name": "原厂握把",
+            "description": "使用 715 原厂握把。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "dw715_rubber_grip",
+            "name": "防滑橡胶握把",
+            "description": "细颗粒橡胶与侧面防滑纹理，保留原厂握持轮廓，便于控制连续点射。",
+            "effects": [
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "stability_mult": 1.1
+            }
+          },
+          {
+            "id": "dw715_target_wood_grip",
+            "name": "加大型靶射木握把",
+            "description": "纵向木纹、侧面菱形格纹与加大底托，偏重稳定瞄准；较大的握把增加开镜耗时。",
+            "effects": [
+              {
+                "text": "枪械稳定性提高35%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时增加10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "stability_mult": 1.35,
+              "ads_percent": 0.1
+            }
+          },
+          {
+            "id": "dw715_compact_grip",
+            "name": "轻量紧凑握把",
+            "description": "收紧外露后跟的轻量复合握把，保留安装颈部与主要握持轮廓；抬枪更轻快，但稳定瞄准能力有所下降。",
+            "effects": [
+              {
+                "text": "开镜耗时减少10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性降低10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.1,
+              "stability_mult": 0.9
+            }
+          }
+        ],
+        "muzzle": [
+          {
+            "id": "false",
+            "name": "原厂枪口",
+            "description": "保留原厂枪口。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "dw715_muzzle_brake",
+            "name": "左轮专用制退器",
+            "description": "适配 715 枪口轮廓的短型金属制退器，双侧开口结构；减轻后坐，但增加前端重量和开镜耗时。",
+            "effects": [
+              {
+                "text": "后坐力降低20%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.8,
+              "ads_percent": 0.05
+            }
+          },
+          {
+            "id": "dw715_compact_compensator",
+            "name": "轻量紧凑补偿器",
+            "description": "贴合 715 原厂枪口的短型金属补偿器，圆润边角与紧凑轮廓兼顾控枪和稳定瞄准。",
+            "effects": [
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "stability_mult": 1.05
+            }
+          },
+          {
+            "id": "dw715_target_muzzle_weight",
+            "name": "靶射枪口配重套",
+            "description": "包覆 715 枪口附近的短型配重套，下部加厚并避让原厂准星；侧重稳定瞄准与后坐控制，开镜较慢。",
+            "effects": [
+              {
+                "text": "枪械稳定性提高20%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力降低25%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时增加10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "stability_mult": 1.2,
+              "recoil_mult": 0.75,
+              "ads_percent": 0.1
+            }
+          }
         ]
       },
       "base": {
@@ -2256,10 +2475,22 @@
         "effective_range": 65
       },
       "traits": [
-        { "icon": "mechanic", "text": "双动转轮：单发点射，射击间隔 320 ms，六发弹巢" },
-        { "icon": "mechanic", "text": "闭锁式弹巢可承受高膛压，弹头初速高、近距离威力足" },
-        { "icon": "drawback", "text": "换弹逐发退壳再逐发装填，耗时 6.8 秒，射击中途无法补弹" },
-        { "icon": "neutral", "text": "枪口、瞄具、下挂与战术槽可改造" }
+        {
+          "icon": "mechanic",
+          "text": "双动转轮：单发点射，射击间隔 320 ms，六发弹巢"
+        },
+        {
+          "icon": "mechanic",
+          "text": "闭锁式弹巢可承受高膛压，弹头初速高、近距离威力足"
+        },
+        {
+          "icon": "drawback",
+          "text": "逐发装填按缺弹数补弹；六发速装器换弹会丢弃弹巢内全部余弹"
+        },
+        {
+          "icon": "neutral",
+          "text": "瞄具、枪口、握把、扳机、战术挂件与装填装置均可改造"
+        }
       ]
     },
     {
@@ -2289,10 +2520,22 @@
         "effective_range": 80
       },
       "traits": [
-        { "icon": "mechanic", "text": "全自动：射击间隔 130 ms，20 发弹匣" },
-        { "icon": "drawback", "text": "后坐与镜头震动都偏重，需要压枪或点射控制" },
-        { "icon": "drawback", "text": "有效射程偏短，远距离伤害衰减明显" },
-        { "icon": "neutral", "text": "枪口、瞄具、枪托、后握把、下挂与战术槽全部可改造" }
+        {
+          "icon": "mechanic",
+          "text": "全自动：射击间隔 130 ms，20 发弹匣"
+        },
+        {
+          "icon": "drawback",
+          "text": "后坐与镜头震动都偏重，需要压枪或点射控制"
+        },
+        {
+          "icon": "drawback",
+          "text": "有效射程偏短，远距离伤害衰减明显"
+        },
+        {
+          "icon": "neutral",
+          "text": "枪口、瞄具、枪托、后握把、下挂与战术槽全部可改造"
+        }
       ],
       "options": {
         "optic": [
@@ -2710,9 +2953,18 @@
         "effective_range": 110
       },
       "traits": [
-        { "icon": "special", "text": "三连发：一次扣扳机送出 3 发，组内间隔 80 ms，组间隔 180 ms" },
-        { "icon": "mechanic", "text": "单发威力与后坐都偏低，30 发弹匣按点射消耗" },
-        { "icon": "neutral", "text": "枪口、瞄具、枪托、后握把、下挂与战术槽全部可改造" }
+        {
+          "icon": "special",
+          "text": "三连发：一次扣扳机送出 3 发，组内间隔 80 ms，组间隔 180 ms"
+        },
+        {
+          "icon": "mechanic",
+          "text": "单发威力与后坐都偏低，30 发弹匣按点射消耗"
+        },
+        {
+          "icon": "neutral",
+          "text": "枪口、瞄具、枪托、后握把、下挂与战术槽全部可改造"
+        }
       ],
       "options": {
         "optic": [
@@ -3929,7 +4181,8 @@
         "muzzle",
         "underbarrel",
         "tactical",
-        "stock"
+        "stock",
+        "magazine"
       ],
       "base": {
         "spread_mult": 1.6,
@@ -4384,6 +4637,39 @@
               "recoil_mult": 0.85,
               "stability_mult": 1.15,
               "hip_spread_mult": 1.25
+            }
+          }
+        ],
+        "magazine": [
+          {
+            "id": "false",
+            "name": "原厂弹匣",
+            "description": "恢复 SVD 原厂短弹匣及其内壁与底板。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "ext_mag",
+            "name": "扩容弹匣",
+            "description": "沿 SVD 原厂冲压壳体延长，保留入枪接口、口部内腔、抓握区域与独立底板。",
+            "effects": [
+              {
+                "text": "弹匣容量增加10发",
+                "benefit": 1
+              },
+              {
+                "text": "装填耗时更长",
+                "benefit": -1
+              },
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "mag_delta": 10,
+              "reload_mult": 1.25,
+              "ads_percent": 0.05
             }
           }
         ]
@@ -4983,75 +5269,71 @@
       }
     }
   ],
-  "common_options": {
-    "barrel": [
-      {
-        "id": "false",
-        "name": "标准枪管",
-        "description": "使用原厂枪管数值。",
-        "effects": [],
-        "stats": {}
-      },
-      {
-        "id": "short",
-        "name": "轻型短枪管",
-        "description": "通用数值改造件，保持枪械原有外观。有效射程同时决定伤害衰减距离。",
-        "effects": [
-          {
-            "text": "ADS瞄准耗时减少20%",
-            "benefit": 1
-          },
-          {
-            "text": "腰射随机散布减少50%",
-            "benefit": 1
-          },
-          {
-            "text": "后坐力增加15%；枪械稳定性降低15%",
-            "benefit": -1
-          },
-          {
-            "text": "有效射程减少20%",
-            "benefit": -1
-          }
-        ],
-        "stats": {
-          "hip_spread_mult": 0.5,
-          "recoil_mult": 1.15,
-          "stability_mult": 0.85,
-          "range_mult": 0.8,
-          "ads_percent": -0.2
+  "common_options": {},
+  "pistol_grip_surface_options": [
+    {
+      "id": "false",
+      "name": "原厂纹理",
+      "description": "保留原厂握把表面。",
+      "effects": [],
+      "stats": {}
+    },
+    {
+      "id": "pistol_grip_granular",
+      "name": "细颗粒防滑纹",
+      "description": "密集细颗粒贴合握把接触面，强调持续握持的稳定。",
+      "effects": [
+        {
+          "text": "枪械稳定性增加15%",
+          "benefit": 1
         }
-      },
-      {
-        "id": "long",
-        "name": "重型长枪管",
-        "description": "通用数值改造件，保持枪械原有外观。有效射程同时决定伤害衰减距离。",
-        "effects": [
-          {
-            "text": "ADS瞄准耗时增加20%",
-            "benefit": -1
-          },
-          {
-            "text": "腰射随机散布增加50%",
-            "benefit": -1
-          },
-          {
-            "text": "后坐力降低15%；枪械稳定性提高15%",
-            "benefit": 1
-          },
-          {
-            "text": "有效射程增加25%",
-            "benefit": 1
-          }
-        ],
-        "stats": {
-          "hip_spread_mult": 1.5,
-          "recoil_mult": 0.85,
-          "stability_mult": 1.15,
-          "range_mult": 1.25,
-          "ads_percent": 0.2
-        }
+      ],
+      "stats": {
+        "stability_mult": 1.15
       }
-    ]
-  }
+    },
+    {
+      "id": "pistol_grip_diamond",
+      "name": "橡胶菱形防滑纹",
+      "description": "柔性橡胶与浅菱形纹理，兼顾握持稳定和后坐控制。",
+      "effects": [
+        {
+          "text": "后坐力减少5%",
+          "benefit": 1
+        },
+        {
+          "text": "枪械稳定性增加5%",
+          "benefit": 1
+        }
+      ],
+      "stats": {
+        "recoil_mult": 0.95,
+        "stability_mult": 1.05
+      }
+    },
+    {
+      "id": "pistol_grip_quickdot",
+      "name": "细点快握防滑纹",
+      "description": "低凸细点表面便于快速调整握姿，以稳定性和后坐控制换取更快开镜。",
+      "effects": [
+        {
+          "text": "开镜耗时减少10%",
+          "benefit": 1
+        },
+        {
+          "text": "枪械稳定性降低5%",
+          "benefit": -1
+        },
+        {
+          "text": "后坐力增加5%",
+          "benefit": -1
+        }
+      ],
+      "stats": {
+        "ads_percent": -0.1,
+        "stability_mult": 0.95,
+        "recoil_mult": 1.05
+      }
+    }
+  ]
 }

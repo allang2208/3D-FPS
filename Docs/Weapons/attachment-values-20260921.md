@@ -44,6 +44,8 @@ Handling = FWeaponHandling::FromIndices(Recoil × RecoilMultiplier,
 | ASH-12 | 14 | 214 ms | 171 ms |
 | M16A2 | 10.699 | 280 ms | 224 ms |
 | A762 | 9.98577 | 300 ms | 240 ms |
+| SVD | 11.5 | 260 ms | 208 ms |
+| PKM | 6.65718 | 450 ms | 360 ms |
 
 > 2026-09-21 把 `laser` 从 `ads_seconds=-0.2` 改成比例 `ads_percent=-0.2`：
 > 旧写法对 M1911（基础 180 ms）会算到 −20 ms 并被 `.001` 下限截断成 1 ms，等于免费瞬镜；
@@ -74,6 +76,8 @@ GetHipSpread() = 2 × (0.0175 + 连射bloom + 移动 + 腾空) × base.spread_mu
 | ASH-12 | 2 | 70 cm | 150 cm | 170 cm | 250 cm | 322 cm |
 | M16A2 | 2 | 70 cm | 150 cm | 170 cm | 250 cm | 322 cm |
 | A762 | 2 | 70 cm | 150 cm | 170 cm | 250 cm | 322 cm |
+| SVD | 1.6 | 56 cm | 120 cm | 136 cm | 200 cm | 258 cm |
+| PKM | 2.5 | 88 cm | 188 cm | 213 cm | 312 cm | 403 cm |
 
 > 单位是「10 m 处每轴最大偏移」。两个轴独立均匀采样，是方形锥不是圆形高斯。
 
@@ -84,13 +88,13 @@ GetHipSpread() = 2 × (0.0175 + 连射bloom + 移动 + 腾空) × base.spread_mu
 | 0 | `optic` | 瞄具 | 原厂瞄具 | 各枪自带 |
 | 1 | `muzzle` | 枪口 | 标准枪口 | 各枪自带 |
 | 2 | `magazine` | 弹匣 | 标准弹匣 | 各枪自带 |
-| 3 | `barrel` | 枪管 | 标准枪管 | 共享（`common_options`） |
-| 4 | `reargrip` | 后握把 | 原厂后握把 | 各枪自带 |
-| 5 | `stock` | 枪托 | 原厂枪托 | 各枪自带 |
-| 6 | `trigger` | 扳机 | 标准扳机 | 各枪自带 |
-| 7 | `tactical` | 战术挂件 | 无战术挂件 | 各枪自带 |
-| 8 | `underbarrel` | 前握把 | 无前握把 | 各枪自带 |
-| 9 | `reload_device` | 装填装置 | 逐发装填 | 各枪自带 |
+| 3 | `reargrip` | 后握把 | 原厂后握把 | 各枪自带 |
+| 4 | `stock` | 枪托 | 原厂枪托 | 各枪自带 |
+| 5 | `trigger` | 扳机 | 标准扳机 | 各枪自带 |
+| 6 | `tactical` | 战术挂件 | 无战术挂件 | 各枪自带 |
+| 7 | `underbarrel` | 前握把 | 无前握把 | 各枪自带 |
+| 8 | `reload_device` | 装填装置 | 逐发装填 | 各枪自带 |
+| 9 | `bipod` | 脚架 | 无脚架 | 各枪自带 |
 
 ## 3. 各枪基础数值与开放槽位
 
@@ -99,14 +103,16 @@ GetHipSpread() = 2 × (0.0175 + 连射bloom + 移动 + 腾空) × base.spread_mu
 | M4A1 | `ue_m4a1` | `ammo_556` | 30 | 0.08 s | 30 | 350 | 70 | 2.1 / 2.7 s | 100 | 100 | 1 | 2 | `optic`, `magazine`, `muzzle`, `underbarrel`, `stock`, `reargrip`, `tactical` |
 | AKM | `ue_akm` | `ammo_762` | 30 | 0.1 s | 35 | 350 | 100 | 3.33333 / 4.29167 s | 100 | 100 | 1 | 2 | `optic`, `magazine`, `muzzle`, `underbarrel`, `stock`, `reargrip`, `tactical` |
 | QBZ-191 | `ue_qbz191` | `ammo_58` | 30 | 0.09 s | 32 | 350 | 85 | 2.1 / 2.73333 s | 100 | 100 | 1 | 2 | `optic`, `magazine`, `muzzle`, `underbarrel`, `stock`, `reargrip`, `tactical` |
-| M1911 | `ue_m1911` | `ammo_45acp` | 7 | 0.18 s | 36 | 253 | 50 | 1.75 / 2.25 s | 110 | 95 | 1 | 1 | `optic`, `muzzle`, `trigger`, `tactical` |
-| Dan-Wesson 715 | `ue_dan_wesson715` | `ammo_357` | 6 | 0.32 s | 68 | 420 | 65 | 6.8 / 8.8 s | 155 | 125 | 1 | 1 | `trigger`, `barrel`, `reload_device`, `optic`, `tactical` |
+| M1911 | `ue_m1911` | `ammo_45acp` | 7 | 0.18 s | 36 | 253 | 50 | 1.75 / 2.25 s | 110 | 95 | 1 | 1 | `optic`, `muzzle`, `trigger`, `tactical`, `magazine`, `reargrip` |
+| Dan-Wesson 715 | `ue_dan_wesson715` | `ammo_357` | 6 | 0.32 s | 68 | 420 | 65 | 6.8 / 8.8 s | 155 | 125 | 1 | 1 | `trigger`, `reload_device`, `optic`, `tactical`, `reargrip`, `muzzle` |
 | ASH-12 | `ue_ash12` | `ammo_127` | 20 | 0.13 s | 48 | 300 | 80 | 2.4 / 3.3 s | 145 | 135 | 1 | 2 | `optic`, `magazine`, `muzzle`, `underbarrel`, `stock`, `tactical` |
 | M16A2 | `ue_m16a2` | `ammo_556` | 30 | 0.08 s | 34 | 350 | 110 | 2.35 / 2.95 s | 90 | 85 | 1 | 2 | `optic`, `magazine`, `muzzle`, `underbarrel`, `stock`, `reargrip`, `tactical` |
 | A762 | `ue_a762` | `ammo_762` | 30 | 0.0666667 s | 33.25 | 350 | 100 | 3.33333 / 4.29167 s | 75 | 100 | 1.25 | 2 | `optic`, `magazine`, `muzzle`, `underbarrel`, `stock`, `reargrip`, `tactical` |
+| SVD | `ue_svd` | `ammo_pkm_762x54r` | 10 | 0.35 s | 65 | 520 | 150 | 3.6 / 4.6 s | 120 | 105 | 1.15 | 1.6 | `optic`, `muzzle`, `underbarrel`, `tactical`, `stock`, `magazine` |
+| PKM | `ue_pkm_lowpoly` | `ammo_pkm_762x54r` | 100 | 0.092308 s | 30 | 350 | 150 | 6.5 / 6.6 s | 100 | 100 | 1 | 2.5 | `optic`, `muzzle`, `underbarrel`, `stock`, `reargrip`, `tactical`, `bipod` |
 
 额外的每枪基础键：M16A2 `burst_count=3`、`burst_delay=0.18`、`hit_stagger=false`；
-A762 `stability_mult=1.25`（只有它有基础稳定性倍率）；七把长枪 `spread_mult=2`（腰射系数，见 §1.2）。
+各枪基础稳定性倍率与腰射系数以本页表格及对应目录为准；下方带日期的旧修订记录不覆盖当前表格。
 
 ## 4. 全部改造件数值（按槽位）
 
@@ -116,68 +122,76 @@ A762 `stability_mult=1.25`（只有它有基础稳定性倍率）；七把长枪
 
 | id | 名称 | **可选**枪型 | 当前 stats |
 | --- | --- | --- | --- |
-| `false` | 原厂机械瞄具 | M4A1, AKM, QBZ-191, M1911, DW715, ASH-12, A762 | — |
-| `holographic` | 全息瞄准镜 | M4A1, AKM, QBZ-191, M1911, DW715, ASH-12, M16A2, A762 | — |
-| `panoramic_red_dot` | 全景薄框红点瞄具 | M4A1, AKM, QBZ-191, M1911, DW715, ASH-12, M16A2, A762 | — |
-| `prism_scope_2x` | 紧凑型二倍棱镜瞄具 | M4A1, AKM, QBZ-191, ASH-12, M16A2, A762 | `ads_percent=0.05` |
-| `lpvo_1_6x` | 1–6× 低倍可变瞄准镜 | M4A1, AKM, QBZ-191, ASH-12, M16A2, A762 | `ads_percent=0.1` |
+| `false` | 原厂机械瞄具 | M4A1, AKM, QBZ-191, M1911, DW715, ASH-12, A762, PKM | — |
+| `holographic` | 全息瞄准镜 | M4A1, AKM, QBZ-191, M1911, DW715, ASH-12, M16A2, A762, SVD, PKM | — |
+| `panoramic_red_dot` | 全景薄框红点瞄具 | M4A1, AKM, QBZ-191, M1911, DW715, ASH-12, M16A2, A762, SVD, PKM | — |
+| `prism_scope_2x` | 紧凑型二倍棱镜瞄具 | M4A1, AKM, QBZ-191, ASH-12, M16A2, A762, SVD, PKM | `ads_percent=0.05` |
+| `lpvo_1_6x` | 1–6× 低倍可变瞄准镜 | M4A1, AKM, QBZ-191, ASH-12, M16A2, A762, SVD, PKM | `ads_percent=0.1` |
+| `pso1_4x` | PSO-1 四倍瞄准镜 | AKM, A762, PKM | — |
+| `dw715_handgun_scope_2x` | 长出瞳 2× 手枪瞄准镜 | DW715 | `ads_percent=0.15` |
 | `false` | 提把机械瞄具 | M16A2 | — |
+| `false` | 原厂 PSO-1 四倍镜 | SVD | — |
 
 ### 4.2 `muzzle`（枪口）
 
 | id | 名称 | **可选**枪型 | 当前 stats |
 | --- | --- | --- | --- |
-| `false` | 原厂枪口 | M4A1, AKM, QBZ-191, M1911, ASH-12, A762 | — |
-| `true` | 消音器 | M4A1, AKM, QBZ-191, M1911, ASH-12, M16A2, A762 | `recoil_mult=0.9` `stability_mult=1.1` `bullet_speed_mult=0.85` |
-| `tactical_suppressor` | 战术消音器 | M4A1, AKM, QBZ-191, M1911, M16A2, A762 | `ads_percent=0.05` `recoil_mult=0.75` `stability_mult=1.25` `bullet_speed_mult=0.8` |
-| `brake` | 枪口制退器 | M4A1, AKM, QBZ-191, M1911, M16A2, A762 | `ads_percent=0.1` `recoil_mult=0.85` `stability_mult=1.15` |
-| `titanium_brake` | 钛金制退器 | M4A1, AKM, QBZ-191, M16A2, A762 | `ads_percent=0.15` `recoil_mult=0.7` `stability_mult=1.2` |
+| `false` | 原厂枪口 | M4A1, AKM, QBZ-191, M1911, DW715, ASH-12, A762, PKM | — |
+| `true` | 消音器 | M4A1, AKM, QBZ-191, M1911, ASH-12, M16A2, A762, SVD, PKM | `recoil_mult=0.9` `stability_mult=1.1` `bullet_speed_mult=0.85` |
+| `tactical_suppressor` | 战术消音器 | M4A1, AKM, QBZ-191, M1911, M16A2, A762, SVD, PKM | `ads_percent=0.05` `recoil_mult=0.75` `stability_mult=1.25` `bullet_speed_mult=0.8` |
+| `brake` | 枪口制退器 | M4A1, AKM, QBZ-191, M1911, M16A2, A762, SVD, PKM | `ads_percent=0.1` `recoil_mult=0.85` `stability_mult=1.15` |
+| `titanium_brake` | 钛金制退器 | M4A1, AKM, QBZ-191, M16A2, A762, SVD, PKM | `ads_percent=0.15` `recoil_mult=0.7` `stability_mult=1.2` |
+| `dw715_muzzle_brake` | 左轮专用制退器 | DW715 | `ads_percent=0.05` `recoil_mult=0.8` |
+| `dw715_compact_compensator` | 轻量紧凑补偿器 | DW715 | `recoil_mult=0.9` `stability_mult=1.05` |
+| `dw715_target_muzzle_weight` | 靶射枪口配重套 | DW715 | `ads_percent=0.1` `recoil_mult=0.75` `stability_mult=1.2` |
 | `ash12_tactical_suppressor` | ASH 战术消音器 | ASH-12 | `ads_percent=0.1` `recoil_mult=0.7` `stability_mult=1.3` `bullet_speed_mult=0.8` |
 | `ash12_tactical_brake` | ASH战术制退器 | ASH-12 | `ads_percent=0.05` `recoil_mult=0.75` `stability_mult=1.25` `hip_spread_mult=0.8` |
-| `false` | 原厂消焰器 | M16A2 | — |
+| `false` | 原厂消焰器 | M16A2, SVD | — |
 
 ### 4.3 `magazine`（弹匣）
 
 | id | 名称 | **可选**枪型 | 当前 stats |
 | --- | --- | --- | --- |
-| `false` | 原厂弹匣 | M4A1, AKM, QBZ-191, ASH-12, A762 | — |
+| `false` | 原厂弹匣 | M4A1, AKM, QBZ-191, M1911, ASH-12, A762, SVD | — |
 | `large_drum` | 大弹鼓 | M4A1, AKM, QBZ-191, M16A2, A762 | `ads_percent=0.1` `reload_mult=1.75` `mag_delta=30` |
-| `ext_mag` | 扩容弹匣 | M4A1, AKM, QBZ-191, ASH-12, M16A2, A762 | `ads_percent=0.05` `reload_mult=1.25` `mag_delta=10` |
+| `ext_mag` | 扩容弹匣 | M4A1, AKM, QBZ-191, ASH-12, M16A2, A762, SVD | `ads_percent=0.05` `reload_mult=1.25` `mag_delta=10` |
+| `ext_mag` | 扩容弹匣 | M1911 | `ads_percent=0.05` `reload_mult=1.25` `mag_delta=10` |
 | `false` | 30 发原厂弹匣 | M16A2 | — |
 
-### 4.4 `barrel`（枪管）
-
-| id | 名称 | **可选**枪型 | 当前 stats |
-| --- | --- | --- | --- |
-| `false` | 标准枪管 | DW715 | — |
-| `short` | 轻型短枪管 | DW715 | `ads_percent=-0.2` `recoil_mult=1.15` `stability_mult=0.85` `hip_spread_mult=0.5` `range_mult=0.8` |
-| `long` | 重型长枪管 | DW715 | `ads_percent=0.2` `recoil_mult=0.85` `stability_mult=1.15` `hip_spread_mult=1.5` `range_mult=1.25` |
-
-> A762, AKM, ASH-12, M16A2, M1911, M4A1, QBZ-191 的目录里也有 `barrel` 条目，但该槽位不在它们的 `allowed` 中，**实际不可选**。
-
-### 4.5 `reargrip`（后握把）
+### 4.4 `reargrip`（后握把）
 
 | id | 名称 | **可选**枪型 | 当前 stats |
 | --- | --- | --- | --- |
 | `false` | 原厂后握把 | M4A1, AKM, QBZ-191, M16A2, A762 | — |
-| `phantom_reargrip` | 幻影后握把 | M4A1, AKM, QBZ-191, M16A2, A762 | `ads_percent=0.15` `recoil_mult=0.9` `hip_spread_mult=1.1` |
-| `stable_antislip_reargrip` | 稳固防滑后握 | M4A1, AKM, QBZ-191, M16A2, A762 | `ads_percent=0.1` `recoil_mult=0.8` `stability_mult=1.15` |
-| `balanced_reargrip` | 均衡后握把 | M4A1, AKM, QBZ-191, M16A2, A762 | `recoil_mult=0.9` `stability_mult=1.1` |
+| `phantom_reargrip` | 幻影后握把 | M4A1, AKM, QBZ-191, M16A2, A762, PKM | `ads_percent=0.15` `recoil_mult=0.9` `hip_spread_mult=1.1` |
+| `stable_antislip_reargrip` | 稳固防滑后握 | M4A1, AKM, QBZ-191, M16A2, A762, PKM | `ads_percent=0.1` `recoil_mult=0.8` `stability_mult=1.15` |
+| `balanced_reargrip` | 均衡后握把 | M4A1, AKM, QBZ-191, M16A2, A762, PKM | `recoil_mult=0.9` `stability_mult=1.1` |
+| `false` | 原厂纹理 | M1911 | — |
+| `pistol_grip_granular` | 细颗粒防滑纹 | M1911 | `stability_mult=1.15` |
+| `pistol_grip_diamond` | 橡胶菱形防滑纹 | M1911 | `recoil_mult=0.95` `stability_mult=1.05` |
+| `pistol_grip_quickdot` | 细点快握防滑纹 | M1911 | `ads_percent=-0.1` `recoil_mult=1.05` `stability_mult=0.95` |
+| `false` | 原厂握把 | DW715 | — |
+| `dw715_rubber_grip` | 防滑橡胶握把 | DW715 | `recoil_mult=0.9` `stability_mult=1.1` |
+| `dw715_target_wood_grip` | 加大型靶射木握把 | DW715 | `ads_percent=0.1` `stability_mult=1.35` |
+| `dw715_compact_grip` | 轻量紧凑握把 | DW715 | `ads_percent=-0.1` `stability_mult=0.9` |
+| `false` | PKM 原厂后握把 | PKM | — |
 
-### 4.6 `stock`（枪托）
+### 4.5 `stock`（枪托）
 
 | id | 名称 | **可选**枪型 | 当前 stats |
 | --- | --- | --- | --- |
 | `false` | 原厂枪托 | M4A1, AKM, QBZ-191, A762 | — |
-| `skeleton` | 骨架枪托 | M4A1, AKM, QBZ-191, M16A2, A762 | `ads_percent=-0.2` `recoil_mult=1.15` `stability_mult=1.1` |
-| `core_stock` | 镂空轻型枪托 | M4A1, AKM, QBZ-191, M16A2, A762 | `recoil_mult=0.9` `stability_mult=1.05` |
-| `qr_performance` | 高性能后托 | M4A1, AKM, QBZ-191, M16A2, A762 | `recoil_mult=0.8` `stability_mult=1.15` `hip_spread_mult=0.7` |
-| `tactical_telescopic` | 战术伸缩枪托 | M4A1, AKM, QBZ-191, M16A2, A762 | `ads_percent=-0.05` `recoil_mult=0.85` `stability_mult=1.15` `hip_spread_mult=1.25` |
+| `skeleton` | 骨架枪托 | M4A1, AKM, QBZ-191, M16A2, A762, SVD, PKM | `ads_percent=-0.2` `recoil_mult=1.15` `stability_mult=1.1` |
+| `core_stock` | 镂空轻型枪托 | M4A1, AKM, QBZ-191, M16A2, A762, SVD, PKM | `recoil_mult=0.9` `stability_mult=1.05` |
+| `qr_performance` | 高性能后托 | M4A1, AKM, QBZ-191, M16A2, A762, SVD, PKM | `recoil_mult=0.8` `stability_mult=1.15` `hip_spread_mult=0.7` |
+| `tactical_telescopic` | 战术伸缩枪托 | M4A1, AKM, QBZ-191, M16A2, A762, SVD, PKM | `ads_percent=-0.05` `recoil_mult=0.85` `stability_mult=1.15` `hip_spread_mult=1.25` |
 | `false` | 原厂后托 | ASH-12 | — |
 | `ash12_cheek_rest` | ASH-12 贴合式托腮板 | ASH-12 | `ads_percent=0.05` `recoil_mult=0.95` `stability_mult=1.15` |
 | `false` | 原厂固定枪托 | M16A2 | — |
+| `false` | 原厂镂空枪托 | SVD | — |
+| `false` | PKM 原厂枪托 | PKM | — |
 
-### 4.7 `trigger`（扳机）
+### 4.6 `trigger`（扳机）
 
 | id | 名称 | **可选**枪型 | 当前 stats |
 | --- | --- | --- | --- |
@@ -186,32 +200,42 @@ A762 `stability_mult=1.25`（只有它有基础稳定性倍率）；七把长枪
 | `false` | 原厂双动扳机 | DW715 | — |
 | `dw715_lightweight_fast` | 轻型快速扳机 | DW715 | `fire_interval_mult=0.8` |
 
-### 4.8 `tactical`（战术挂件）
+### 4.7 `tactical`（战术挂件）
 
 | id | 名称 | **可选**枪型 | 当前 stats |
 | --- | --- | --- | --- |
-| `false` | 无战术挂件 | M4A1, AKM, QBZ-191, M1911, DW715, ASH-12, M16A2, A762 | — |
-| `laser` | 红色激光镭射 | M4A1, AKM, QBZ-191, M1911, DW715, ASH-12, M16A2, A762 | `ads_percent=-0.2` `hip_spread_mult=0.5` |
-| `flashlight` | 战术手电筒 | M4A1, AKM, QBZ-191, M1911, DW715, ASH-12, M16A2, A762 | — |
+| `false` | 无战术挂件 | M4A1, AKM, QBZ-191, M1911, DW715, ASH-12, M16A2, A762, SVD | — |
+| `laser` | 红色激光镭射 | M4A1, AKM, QBZ-191, M1911, DW715, ASH-12, M16A2, A762, SVD, PKM | `ads_percent=-0.2` `hip_spread_mult=0.5` |
+| `flashlight` | 战术手电筒 | M4A1, AKM, QBZ-191, M1911, DW715, ASH-12, M16A2, A762, SVD, PKM | — |
+| `false` | 无战术设备 | PKM | — |
 
-### 4.9 `underbarrel`（前握把）
+### 4.8 `underbarrel`（前握把）
 
 | id | 名称 | **可选**枪型 | 当前 stats |
 | --- | --- | --- | --- |
 | `false` | 无前握把 | M4A1, AKM, QBZ-191, ASH-12, A762 | — |
-| `canted_foregrip` | 45°侧倾握把 | M4A1, AKM, QBZ-191, ASH-12, M16A2, A762 | `recoil_mult=0.85` `stability_mult=0.85` `hip_spread_mult=0.8` |
-| `tactical_vertical_foregrip` | 战术垂直握把 | M4A1, AKM, QBZ-191, ASH-12, M16A2, A762 | `ads_percent=-0.25` |
-| `vertical_foregrip` | 垂直握把 | M4A1, AKM, QBZ-191, ASH-12, M16A2, A762 | `ads_percent=0.05` `recoil_mult=0.9` `stability_mult=1.1` |
-| `prism_handstop` | 棱镜阻手器 | M4A1, AKM, QBZ-191, ASH-12, M16A2, A762 | `ads_percent=-0.1` `recoil_mult=0.95` `stability_mult=1.25` `hip_spread_mult=0.95` |
-| `angled_foregrip` | 共振二代前握把 | M4A1, AKM, QBZ-191, ASH-12, M16A2, A762 | `ads_percent=0.1` `recoil_mult=0.85` `stability_mult=1.15` |
+| `canted_foregrip` | 45°侧倾握把 | M4A1, AKM, QBZ-191, ASH-12, M16A2, A762, SVD, PKM | `recoil_mult=0.85` `stability_mult=0.85` `hip_spread_mult=0.8` |
+| `tactical_vertical_foregrip` | 战术垂直握把 | M4A1, AKM, QBZ-191, ASH-12, M16A2, A762, SVD, PKM | `ads_percent=-0.25` |
+| `vertical_foregrip` | 垂直握把 | M4A1, AKM, QBZ-191, ASH-12, M16A2, A762, SVD, PKM | `ads_percent=0.05` `recoil_mult=0.9` `stability_mult=1.1` |
+| `prism_handstop` | 棱镜阻手器 | M4A1, AKM, QBZ-191, ASH-12, M16A2, A762, SVD, PKM | `ads_percent=-0.1` `recoil_mult=0.95` `stability_mult=1.25` `hip_spread_mult=0.95` |
+| `angled_foregrip` | 共振二代前握把 | M4A1, AKM, QBZ-191, ASH-12, M16A2, A762, SVD, PKM | `ads_percent=0.1` `recoil_mult=0.85` `stability_mult=1.15` |
 | `false` | 原厂护木 | M16A2 | — |
+| `false` | 原厂护木握持 | SVD | — |
+| `false` | 原厂托握 | PKM | — |
 
-### 4.10 `reload_device`（装填装置）
+### 4.9 `reload_device`（装填装置）
 
 | id | 名称 | **可选**枪型 | 当前 stats |
 | --- | --- | --- | --- |
 | `false` | 逐发装填 | DW715 | — |
 | `dw715_speedloader` | 六发速装器 | DW715 | — |
+
+### 4.10 `bipod`（脚架）
+
+| id | 名称 | **可选**枪型 | 当前 stats |
+| --- | --- | --- | --- |
+| `false` | 无脚架 | PKM | — |
+| `pkm_bipod` | PKM 脚架 | PKM | — |
 
 ## 5. ASH-12 专属改造件
 
@@ -304,7 +328,7 @@ A762 `stability_mult=1.25`（只有它有基础稳定性倍率）；七把长枪
 
 | 项 | 说明 |
 | --- | --- |
-| `common_options` 枪管文案措辞不同 | `short`/`long` 的 effect 写「ADS瞄准耗时减少/增加20%」，与新口径文案「开镜耗时」不一致；数值本身正确。 |
+| 枪管改造退役（2026-09-27） | 公共目录不再声明 `barrel`，旧短／长枪管选项不再参与当前改造与数值计算。 |
 | `description` 普遍含数字 | 目录中 85 处 `description` 含数字（`1×`、`80米`、`30 发`、型号名等），与「描述不写数值」的规则不符，属既有现状。 |
 
 ### 7.4 编译期审计重新对齐（2026-09-21 续）
@@ -349,7 +373,7 @@ A762 `stability_mult=1.25`（只有它有基础稳定性倍率）；七把长枪
 ## 8. 修改位置
 
 - 数值：`FPSGAME/Content/ColdSteelData/gunsmith.json`
-  - `weapons[].options[<slot>][]`：该枪自带条目；`common_options.barrel[]`：所有枪共享的枪管条目。
+  - `weapons[].options[<slot>][]`：该枪自带条目；`common_options[<slot>][]`：目录声明的共享条目；枪管改造已于 2026-09-27 取消。
   - 同一个 ID 在不同枪里是**多份独立拷贝**：改共享件要逐枪改（或改 `common_options`）。
 - 基础数值：`weapons[].base`（`ads_smooth`、`fire_interval`、`damage`、`bullet_speed`、
   `effective_range`、`mag_size`、`recoil`、`camera_shake`、`reload_time`、`empty_reload_time`、
@@ -365,13 +389,15 @@ A762 `stability_mult=1.25`（只有它有基础稳定性倍率）；七把长枪
 | 武器 | 开放槽位数 | 可选条目（合并后，含默认项） |
 | --- | --- | --- |
 | M4A1 | 7 | 31 |
-| AKM | 7 | 31 |
+| AKM | 7 | 32 |
 | QBZ-191 | 7 | 31 |
-| M1911 | 4 | 12 |
-| Dan-Wesson 715 | 5 | 13 |
+| M1911 | 6 | 18 |
+| Dan-Wesson 715 | 6 | 19 |
 | ASH-12 | 6 | 22 |
 | M16A2 | 7 | 31 |
-| A762 | 7 | 31 |
+| A762 | 7 | 32 |
+| SVD | 6 | 26 |
+| PKM | 7 | 31 |
 
 全目录合并后共 226 条（含每枪重复的共享条目）；独占 ID 只有 6 个：
 `ash12_cheek_rest`、`ash12_tactical_brake`、`ash12_tactical_suppressor`、

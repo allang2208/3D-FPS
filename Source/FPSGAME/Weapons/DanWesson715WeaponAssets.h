@@ -9,6 +9,8 @@ namespace DanWesson715WeaponAssets
     inline constexpr float ViewmodelBoundsScale = 5.f;
     inline FString AttachmentPath(const FString& Part)
     {
+        if (Part == TEXT("dw715_handgun_scope_2x"))
+            return TEXT("/Game/Weapons/DanWesson715/CompactScope20260927/Meshes/SM_dw715_handgun_scope_2x");
         const bool bOwnPolymer = Part == TEXT("laser") || Part == TEXT("flashlight") || Part == TEXT("holographic");
         const FString Root = bOwnPolymer
             ? TEXT("/Game/Weapons/DanWesson715/AccessoryPolymer20260914/Attachments/")

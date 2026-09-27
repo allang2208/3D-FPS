@@ -126,7 +126,7 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
     Rail->AddSlot().AutoHeight().Padding(2,0,0,8)[Label(TEXT("可用部件"),12,Muted)];
     for(int32 I=0;I<Model()->Slots(Model()->Definition()).Num();++I)
     {
-            const FString Key=Model()->Slots(Model()->Definition())[I],Name=Model()->Categories(Model()->Definition())[I];
+            const FString Key=Model()->Slots(Model()->Definition())[I],Name=Model()->CategoryLabel(Model()->Definition(),Key);
             if(!IsCategoryAvailable(Key))continue;
             TSharedRef<SWidget> IconContent=SNew(SImage).Image(CategoryBrushes.Contains(Key)?CategoryBrushes.FindChecked(Key).Get():FCoreStyle::Get().GetBrush("NoBrush"))
                 .ColorAndOpacity(FLinearColor::White);

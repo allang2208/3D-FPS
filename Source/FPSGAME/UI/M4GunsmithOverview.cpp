@@ -84,7 +84,7 @@ void UM4GunsmithWidget::RefreshPresentation()
         const FString Optic=Parts.FindRef(TEXT("optic"));
         if(Optic==TEXT("pso1_4x")||(G->Definition()==TEXT("ue_svd")&&(Optic.IsEmpty()||Optic==TEXT("false"))))return TEXT("4×");
         if(Optic==TEXT("lpvo_1_6x"))return TEXT("1–6×");
-        return Optic==TEXT("prism_scope_2x")?TEXT("2×"):TEXT("1×");
+        return (Optic==TEXT("prism_scope_2x")||Optic==TEXT("dw715_handgun_scope_2x"))?TEXT("2×"):TEXT("1×");
     };
     Overview.Add({TEXT("瞄具倍率"),MagnificationLabel(BeforeParts),MagnificationLabel(G->Draft()),TEXT("—"),0});
     if(G->Definition()==TEXT("ue_m16a2"))Overview.Add({TEXT("机械瞄具"),TEXT("固定提把"),TEXT("固定提把"),TEXT("—"),0});

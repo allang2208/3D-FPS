@@ -14,6 +14,9 @@
 #include "Engine/GameInstance.h"
 #include "UI/ColdSteelStatusModel.h"
 #include "Weapons/DanWesson715WeaponAssets.h"
+#include "Weapons/DanWesson715FittedParts.h"
+#include "Weapons/M1911WeaponAssets.h"
+#include "Weapons/PistolGripSurface.h"
 #include "Weapons/ASH12WeaponAssets.h"
 #include "Weapons/PKMLowpolyWeaponAssets.h"
 #include "Weapons/PSO1AttachmentAssets.h"
@@ -60,6 +63,18 @@ void UWeatherViewEffectsComponent::Initialize(UWeatherPresentationAssets* InAsse
     if(Assets)
         if(const auto* PistolMaterials=LoadObject<UWeatherPresentationAssets>(nullptr,DanWesson715WeaponAssets::WetMaterialsPath))
             for(const auto& Entry:PistolMaterials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
+    if(Assets)
+        if(const auto* PistolParts=LoadObject<UWeatherPresentationAssets>(nullptr,DanWesson715FittedParts::WetMaterials))
+            for(const auto& Entry:PistolParts->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
+    if(Assets)
+        if(const auto* CompactParts=LoadObject<UWeatherPresentationAssets>(nullptr,DanWesson715FittedParts::CompactWetMaterials))
+            for(const auto& Entry:CompactParts->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
+    if(Assets)
+        if(const auto* MagazineMaterials=LoadObject<UWeatherPresentationAssets>(nullptr,M1911WeaponAssets::ExtendedMagazineWetMaterials))
+            for(const auto& Entry:MagazineMaterials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
+    if(Assets)
+        if(const auto* GripSurfaces=LoadObject<UWeatherPresentationAssets>(nullptr,PistolGripSurface::WetMaterialsPath))
+            for(const auto& Entry:GripSurfaces->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
     if(Assets)
         if(const auto* ASH12Materials=LoadObject<UWeatherPresentationAssets>(nullptr,ASH12WeaponAssets::WetMaterialsPath))
             for(const auto& Entry:ASH12Materials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);

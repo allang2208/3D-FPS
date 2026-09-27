@@ -181,7 +181,7 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
         case 2:Rig->SetGunsmithMagazineAttachment(Parts.FindRef(TEXT("magazine")));break;
         case 3:Rig->SetGunsmithMuzzle(Parts.FindRef(TEXT("muzzle")));break;
         case 4:Rig->SetGunsmithStock(Parts.FindRef(TEXT("stock")));break;
-        case 5:Rig->SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")));break;
+        case 5:Rig->SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")),bCatalogExport?nullptr:GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition));break;
         case 6:Rig->SetGunsmithTactical(Parts.FindRef(TEXT("tactical")));break;
         case 7:Rig->SetGunsmithBipod(Parts.FindRef(TEXT("bipod")));break;
         default:Rig->UpdateFoldingSights(1.f);break;

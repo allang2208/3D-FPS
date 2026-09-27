@@ -283,6 +283,7 @@ void AFPSGAMECharacter::BeginPlay()
     }
     CameraRestLocation = FirstPersonCamera->GetRelativeLocation();
     FPSComfortLighting::Apply(FirstPersonCamera);
+    InitializeScopeOptics();
     ConfirmedMonsterHitSound = LoadObject<USoundBase>(nullptr, TEXT("/Game/Audio/PlayerHitFeedback20260914/S_Player_MonsterHit.S_Player_MonsterHit"));
     if (FParse::Param(FCommandLine::Get(), TEXT("WeaponVolumeAudit")))
     {
@@ -340,7 +341,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
     // Mounts and meshes belong to a weapon definition; rebuild them on a weapon swap.
     for(auto* Part:{LPVORing.Get(),AKMOpticBridge.Get(),HolographicOptic.Get(),LargeDrum.Get(),MuzzleAttachment.Get(),PrismHandstop.Get(),AngledForegrip.Get(),VerticalForegrip.Get(),CantedForegrip.Get()})if(Part)Part->DestroyComponent();
     AKMOpticBridge=nullptr;
-    LPVORing=nullptr;LPVOMagnification=1.f;HolographicOptic=nullptr;LargeDrum=nullptr;MuzzleAttachment=nullptr;PrismHandstop=nullptr;AngledForegrip=nullptr;VerticalForegrip=nullptr;CantedForegrip=nullptr;
+    LPVORing=nullptr;LPVOMagnification=1.f;DisplayedLPVOMagnification=1.f;PresentedScopeVariant.Reset();ScopeEyeOffset=FVector2D::ZeroVector;HolographicOptic=nullptr;LargeDrum=nullptr;MuzzleAttachment=nullptr;PrismHandstop=nullptr;AngledForegrip=nullptr;VerticalForegrip=nullptr;CantedForegrip=nullptr;
     bHolographicOptic=false;OpticVariant.Reset();bDrumVisual=false;MuzzleVariant.Reset();
     bSightCalibrated = false;
     bUsingM4Infima = false;
@@ -1647,6 +1648,7 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     UpdateADSProgress();
     CameraADSFactor = FMath::SmoothStep(0.0f, 1.0f, ADSProgress);
     WeaponADSFactor = CameraADSFactor;
+    AdvanceScopeOptics(DeltaSeconds);
     // Bow owns its sight pose/clock; keep rifle pose state independent while
     // sharing the existing camera bob suppression and movement presentation.
     if (Bow && Bow->IsEquipped()) CameraADSFactor = Bow->AimAlpha();
@@ -2992,7 +2994,8 @@ void AFPSGAMECharacter::UpdateADSPose()
         SightUp=Root.GetRotation().RotateVector(FVector::UpVector);
     }
     if(bHolographicOptic || IsPistolWeapon() || SVDWeaponAssets::Matches(AKMViewmodel))CalibratedADSRotation=FRotationMatrix::MakeFromXZ(Axis,SightUp).ToQuat().Inverse();
-    const float EyeDistance = bHolographicOptic && !IsPistolWeapon() ? (OpticVariant==TEXT("lpvo_1_6x")?28.f:(GetOpticMagnification()>1.f?20.f:26.f)) : ADSRearEyeDistance;
+    // Keep the revolver at arm's length; its ocular is not a rifle eye box.
+    const float EyeDistance = HasHandgunScope() ? 42.f : bHolographicOptic && !IsPistolWeapon() ? (OpticVariant==TEXT("lpvo_1_6x")?28.f:(GetOpticMagnification()>1.f?20.f:26.f)) : ADSRearEyeDistance;
     CalibratedADSLocation = FVector(EyeDistance, 0.0f, 0.0f) - CalibratedADSRotation.RotateVector(Rear);
     bSightCalibrated = true;
     UE_LOG(LogTemp, Display, TEXT("GUNPLAY_ADS_CALIBRATED rear=%s front=%s offset=%s rotation=%s"), *Rear.ToCompactString(), *Front.ToCompactString(), *CalibratedADSLocation.ToCompactString(), *CalibratedADSRotation.Rotator().ToCompactString());

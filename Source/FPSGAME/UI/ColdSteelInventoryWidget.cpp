@@ -377,7 +377,22 @@ bool UColdSteelInventoryWidget::PreviewItemDrag(UColdSteelItemDrag& D,FVector2D 
         if(D.SourcePlace==1&&TargetPlace==4)for(const auto& Worn:Proposal.Items)if(Worn.Place==1&&Worn.Cell==D.SourceCell&&Worn.InstanceId!=D.ItemId){PreviewReason=TEXT("松开替换装备");break;}
     }
     else if(PreviewPlace==3){bPreviewValid=Source->Place==0&&Text(*Source,TEXT("category"))==TEXT("consumable");PreviewReason=bPreviewValid?TEXT("松开绑定快捷物品"):TEXT("快捷栏仅接受背包中的消耗品");}
-    else {const auto Proposal=Model->ProposeMove(D.ItemId,PreviewPlace,PreviewCell,Orientation);bPreviewValid=Proposal.bValid;PreviewReason=Proposal.bValid?TEXT("松开放置 / 交换物品"):Proposal.Reason;}
+    else
+    {
+        const auto Proposal=Model->ProposeMove(D.ItemId,PreviewPlace,PreviewCell,Orientation);
+        bPreviewValid=Proposal.bValid;PreviewReason=Proposal.bValid?TEXT("松开放置 / 交换物品"):Proposal.Reason;
+        bool Turned=false;
+        if(Proposal.bValid&&PreviewPlace==1&&D.SourcePlace==0)for(const auto& I:Proposal.Items)if(I.Place==0)
+        {
+            const auto* Before=Model->FindItem(I.InstanceId);
+            if(Before&&Before->Place==1)
+            {
+                SwapDestinations.Add(FIntRect(I.Cell%18,I.Cell/18,I.Cell%18+I.Width,I.Cell/18+I.Height));
+                Turned|=Before->bRotated!=I.bRotated;
+            }
+        }
+        if(!SwapDestinations.IsEmpty())PreviewReason=Turned?TEXT("松开替换装备 · 自动转向并放入高亮位置"):TEXT("松开替换装备 · 高亮框为旧装备回填位置");
+    }
     return true;
 }
 bool UColdSteelInventoryWidget::DropAt(const FString& Id,int32 Place,int32 Cell,int32 Orientation){return Place==3?Model->BindHotbar(Cell,Id):Model->MoveItem(Id,Place,Cell,Orientation);}

@@ -1,4 +1,5 @@
 #include "M4GunsmithWidget.h"
+#include "GunsmithPreviewLighting.h"
 #include "../Weapons/ModularSwordVisual.h"
 #include "../Weapons/Bow/BowAssembly.h"
 #include "Components/MeshComponent.h"
@@ -42,6 +43,16 @@ void UM4GunsmithWidget::UpdatePreviewStreaming(float Delta)
 void UM4GunsmithWidget::CapturePreview()
 {
     UpdatePreviewStreaming(0.f);
+    // Gun framing excludes hidden arms and includes every fitted attachment.
+    // Static workbench assemblies and ADS instead use their visible components.
+    FBox LightBounds=(!StandaloneMelee&&!bAimPreview)?PreviewFramingBounds:FBox(ForceInit);
+    if(!LightBounds.IsValid)
+    {
+        const FTransform ToView=Capture->GetComponentTransform().Inverse();
+        for(const auto& Weak:Capture->ShowOnlyComponents)
+            if(auto* Part=Weak.Get();Part&&Part->IsVisible())LightBounds+=Part->Bounds.GetBox().TransformBy(ToView);
+    }
+    GunsmithPreviewLighting::Update(*Capture,LightBounds);
     PreviewCoverageCapture->ShowOnlyComponents=Capture->ShowOnlyComponents;
     PreviewCoverageCapture->SetWorldTransform(Capture->GetComponentTransform());
     PreviewCoverageCapture->ProjectionType=Capture->ProjectionType;

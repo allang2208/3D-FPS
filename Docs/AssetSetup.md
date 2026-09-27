@@ -371,3 +371,7 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 ## 高炉、铸造台与实景锻造（2026-09-27）
 
 恢复 CastingStation20260926、ForgeInteraction20260927、FurnaceCasting20260926、V7 原生手臂与授权供体姿态，以及高炉／Normandy／Clearwater／Mantaflow 依赖。三剑配方公开，forge-grip.json 与音频／二进制保留本机。42 份废案已归档；旧 V3 与初版总装仍是当前作者输入。制作链、SKILL、精确运行交接补丁与公开树未完整接入边界见 [锻造整理与发布](Gameplay/forging-publication-20260927.md)。本轮未运行游戏测试。
+
+## 2026-09-27 配件、镜内表现与改造预览布光
+
+本轮公开 SVD／M1911 扩容弹匣、715 握把／瞄具／枪口、通用手枪防滑覆片、LPVO／PSO 镜内与镭射处理、背包装备自动转向及公共预览布光的源码、目录、制作脚本与技能说明。资产恢复顺序、废案与来源边界见 [发布记录](Weapons/attachments-optics-preview-publication-20260927.md)。`trash`、Blend／FBX／uasset、PBR 和图标、密集几何快照及运行日志不公开；仅克隆本仓库不能获得这些生产资产。
