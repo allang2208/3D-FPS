@@ -363,3 +363,7 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 ## 近战检视、格挡与弓快速近战（2026-09-27）
 
 当前本机 Inspect V82、格挡 V23、弓推击 V7 的最终源、合法资源恢复、依赖保留和废案清单，见 [本次整理与发布](Weapons/melee-bow-publication-20260927.md)。本次源码发布不包含授权模型、密集姿态或 UE 资产，也不包含依赖其他任务未发布接口的混合运行改动；具体边界在该记录中逐项列明。
+
+## 高炉、铸造台与实景锻造（2026-09-27）
+
+恢复 CastingStation20260926、ForgeInteraction20260927、FurnaceCasting20260926、V7 原生手臂与授权供体姿态，以及高炉／Normandy／Clearwater／Mantaflow 依赖。三剑配方公开，forge-grip.json 与音频／二进制保留本机。42 份废案已归档；旧 V3 与初版总装仍是当前作者输入。制作链、SKILL、精确运行交接补丁与公开树未完整接入边界见 [锻造整理与发布](Gameplay/forging-publication-20260927.md)。本轮未运行游戏测试。

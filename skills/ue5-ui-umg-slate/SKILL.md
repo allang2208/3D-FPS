@@ -166,3 +166,7 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 ## 运行时图标与诊断界面开销
 
 处理动态图标首次准备卡顿、图标通知全量刷新或诊断文本反复失效时，读取 [运行时图标准备](references/runtime-icon-pipeline.md)。该文另含**预览资源必须异步加载（禁止游戏线程 `LoadSynchronous`、超时值不得作为正确性的一部分）、延后重试后的作业身份、立绘独占整栏**三条硬口径，以及**三个捕获通道（枪械 rig／近战／材料与拾取道具）共用同一套构图数字**：画幅按 `BaseFootprint` 占格 320 px／格行、主轴填满 91%、轮廓中心对齐画幅中心；`Supports()` 为假的物品目录 PNG 即最终图标；作者 `grid_w/grid_h` 优先于槽位默认，改占格等于改画幅。
+
+## 锻造材料与已投入工件
+
+处理制作材料红绿提示、数字分列、已支付材料与领取／废弃状态时，读取 [锻造材料与已投入工件](references/forging-materials.md)。

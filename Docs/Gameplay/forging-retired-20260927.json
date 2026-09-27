@@ -1,0 +1,338 @@
+[
+  {
+    "source": "SourceAssets/ForgeUIBackgrounds20260927/forge_background_A_aged_steel.png",
+    "destination": "trash/forging-publication-20260927/SourceAssets/ForgeUIBackgrounds20260927/forge_background_A_aged_steel.png",
+    "bytes": 2488438,
+    "sha256": "f6eec08399e05d1bebf06e664ea5ba6b39da6cc78dacbfbc16a61c9c5ae4994c",
+    "reason": "Rejected illustrated forge-panel backgrounds",
+    "retained_replacement": "Source/FPSGAME/UI/ColdSteelForgingWidget.cpp"
+  },
+  {
+    "source": "SourceAssets/ForgeUIBackgrounds20260927/forge_background_B_panel_portrait_v2.png",
+    "destination": "trash/forging-publication-20260927/SourceAssets/ForgeUIBackgrounds20260927/forge_background_B_panel_portrait_v2.png",
+    "bytes": 1849650,
+    "sha256": "7811121a42937fafea475e8331108c509c87f99aad735a94d228938236b44784",
+    "reason": "Rejected illustrated forge-panel backgrounds",
+    "retained_replacement": "Source/FPSGAME/UI/ColdSteelForgingWidget.cpp"
+  },
+  {
+    "source": "SourceAssets/ForgeUIBackgrounds20260927/forge_background_B_workshop.png",
+    "destination": "trash/forging-publication-20260927/SourceAssets/ForgeUIBackgrounds20260927/forge_background_B_workshop.png",
+    "bytes": 1805301,
+    "sha256": "9112413f7d65243db8e6350d12d6c24d68f12786562a038a20e365e310830ab5",
+    "reason": "Rejected illustrated forge-panel backgrounds",
+    "retained_replacement": "Source/FPSGAME/UI/ColdSteelForgingWidget.cpp"
+  },
+  {
+    "source": "SourceAssets/ForgeUIBackgrounds20260927/forge_background_C_workbench.png",
+    "destination": "trash/forging-publication-20260927/SourceAssets/ForgeUIBackgrounds20260927/forge_background_C_workbench.png",
+    "bytes": 2438511,
+    "sha256": "d7e5ceac4129bcb0659c77b85d3e7bef412abc3c761564dbaf3195ce5aa1e0f5",
+    "reason": "Rejected illustrated forge-panel backgrounds",
+    "retained_replacement": "Source/FPSGAME/UI/ColdSteelForgingWidget.cpp"
+  },
+  {
+    "source": "SourceAssets/ForgeUIBackgrounds20260927/portrait-v2-layout.json",
+    "destination": "trash/forging-publication-20260927/SourceAssets/ForgeUIBackgrounds20260927/portrait-v2-layout.json",
+    "bytes": 843,
+    "sha256": "55fc90efae681ebb0c70bb7bb63b8df9febe6563d8d8f68f60d91c2eac5cc4bd",
+    "reason": "Rejected illustrated forge-panel backgrounds",
+    "retained_replacement": "Source/FPSGAME/UI/ColdSteelForgingWidget.cpp"
+  },
+  {
+    "source": "SourceAssets/ForgeUIBackgrounds20260927/portrait-v2-output.json",
+    "destination": "trash/forging-publication-20260927/SourceAssets/ForgeUIBackgrounds20260927/portrait-v2-output.json",
+    "bytes": 456,
+    "sha256": "afb18aac11b4d0647419621de092ea921f2bf11ce6fe1c5e8c81727999849e4f",
+    "reason": "Rejected illustrated forge-panel backgrounds",
+    "retained_replacement": "Source/FPSGAME/UI/ColdSteelForgingWidget.cpp"
+  },
+  {
+    "source": "SourceAssets/ForgeUIBackgrounds20260927/portrait-v2-prompt.txt",
+    "destination": "trash/forging-publication-20260927/SourceAssets/ForgeUIBackgrounds20260927/portrait-v2-prompt.txt",
+    "bytes": 2384,
+    "sha256": "abcbdcd2cff284c0ca384e6cec2cc1b3dc56790969fb4e30aa4324f95659334d",
+    "reason": "Rejected illustrated forge-panel backgrounds",
+    "retained_replacement": "Source/FPSGAME/UI/ColdSteelForgingWidget.cpp"
+  },
+  {
+    "source": "SourceAssets/ForgeUIBackgrounds20260927/provenance.json",
+    "destination": "trash/forging-publication-20260927/SourceAssets/ForgeUIBackgrounds20260927/provenance.json",
+    "bytes": 5321,
+    "sha256": "31133d3b1e6626856d404e485d0f890e6a1bf76ae20429a927feb9971f6befc1",
+    "reason": "Rejected illustrated forge-panel backgrounds",
+    "retained_replacement": "Source/FPSGAME/UI/ColdSteelForgingWidget.cpp"
+  },
+  {
+    "source": "SourceAssets/ForgeUIBackgrounds20260927/selected-background-import.json",
+    "destination": "trash/forging-publication-20260927/SourceAssets/ForgeUIBackgrounds20260927/selected-background-import.json",
+    "bytes": 343,
+    "sha256": "c4431e31052af8f5a02bf5cb21acbf7d17ce67d1bb6e450f0e57c6d01292afdd",
+    "reason": "Rejected illustrated forge-panel backgrounds",
+    "retained_replacement": "Source/FPSGAME/UI/ColdSteelForgingWidget.cpp"
+  },
+  {
+    "source": "Tools/Forging/import_ui_background.py",
+    "destination": "trash/forging-publication-20260927/Tools/Forging/import_ui_background.py",
+    "bytes": 2114,
+    "sha256": "8a1c120302a8d54b80a70410f571ba1a7459e8afda9215ff893f23ec7243a68c",
+    "reason": "Importer only for rejected illustrated background",
+    "retained_replacement": "Source/FPSGAME/UI/ColdSteelForgingWidget.cpp"
+  },
+  {
+    "source": "SourceAssets/CastingStation20260926/AnvilRealismV2/install.py",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStation20260926/AnvilRealismV2/install.py",
+    "bytes": 7777,
+    "sha256": "de278070ba0d9afd3755013f580336446e79996ee95efa237a9a29f937e03ab1",
+    "reason": "Rejected detached anvil construction superseded by accepted V3 source and V7 assembly",
+    "retained_replacement": "SourceAssets/CastingStation20260926/AnvilReferenceV3"
+  },
+  {
+    "source": "SourceAssets/CastingStation20260926/AnvilRealismV2/make_textures.py",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStation20260926/AnvilRealismV2/make_textures.py",
+    "bytes": 3348,
+    "sha256": "bd893b6250aabb2cf5f8300531653573f8e32affda8efab93653d002bc833c31",
+    "reason": "Rejected detached anvil construction superseded by accepted V3 source and V7 assembly",
+    "retained_replacement": "SourceAssets/CastingStation20260926/AnvilReferenceV3"
+  },
+  {
+    "source": "SourceAssets/CastingStation20260926/AnvilRealismV2/README.md",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStation20260926/AnvilRealismV2/README.md",
+    "bytes": 2472,
+    "sha256": "df38def7775a1d0b8d2fe0f6d631b1cdcf89758b1949000d22e1e345f1e8409a",
+    "reason": "Rejected detached anvil construction superseded by accepted V3 source and V7 assembly",
+    "retained_replacement": "SourceAssets/CastingStation20260926/AnvilReferenceV3"
+  },
+  {
+    "source": "SourceAssets/CastingStation20260926/AnvilRealismV2/rebuild_anvil.py",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStation20260926/AnvilRealismV2/rebuild_anvil.py",
+    "bytes": 9509,
+    "sha256": "eddfec98450c0ef6998c226b95eef4d8a9edd642d5520fc82d6d9c03025c8130",
+    "reason": "Rejected detached anvil construction superseded by accepted V3 source and V7 assembly",
+    "retained_replacement": "SourceAssets/CastingStation20260926/AnvilReferenceV3"
+  },
+  {
+    "source": "SourceAssets/CastingStation20260926/AnvilRealismV2/Authored/CastingStation_AnvilRealism_Source.blend",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStation20260926/AnvilRealismV2/Authored/CastingStation_AnvilRealism_Source.blend",
+    "bytes": 612988,
+    "sha256": "78ce160e21d067a1f41a9f021a4cd05c5281a169a9662c7b5c0269d432373099",
+    "reason": "Rejected detached anvil construction superseded by accepted V3 source and V7 assembly",
+    "retained_replacement": "SourceAssets/CastingStation20260926/AnvilReferenceV3"
+  },
+  {
+    "source": "SourceAssets/CastingStation20260926/AnvilRealismV2/Authored/manifest.json",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStation20260926/AnvilRealismV2/Authored/manifest.json",
+    "bytes": 2331,
+    "sha256": "2a8315e3dbc1145cb22e013f25bf265d94707e762fb8d3d35a020982351ff1b8",
+    "reason": "Rejected detached anvil construction superseded by accepted V3 source and V7 assembly",
+    "retained_replacement": "SourceAssets/CastingStation20260926/AnvilReferenceV3"
+  },
+  {
+    "source": "SourceAssets/CastingStation20260926/AnvilRealismV2/Authored/SM_CastingAnvil.fbx",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStation20260926/AnvilRealismV2/Authored/SM_CastingAnvil.fbx",
+    "bytes": 800428,
+    "sha256": "3a9cff68d7c23aff8787890851b8ea12d64aee23b7ec53bc20f35af644f53426",
+    "reason": "Rejected detached anvil construction superseded by accepted V3 source and V7 assembly",
+    "retained_replacement": "SourceAssets/CastingStation20260926/AnvilReferenceV3"
+  },
+  {
+    "source": "SourceAssets/CastingStation20260926/AnvilRealismV2/Authored/SM_CastingStation.fbx",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStation20260926/AnvilRealismV2/Authored/SM_CastingStation.fbx",
+    "bytes": 4395836,
+    "sha256": "1a1b2ac9eb2903a073a07e9d22328e27b573ced6d58fb3918e03c348e25f2621",
+    "reason": "Rejected detached anvil construction superseded by accepted V3 source and V7 assembly",
+    "retained_replacement": "SourceAssets/CastingStation20260926/AnvilReferenceV3"
+  },
+  {
+    "source": "SourceAssets/CastingStation20260926/AnvilRealismV2/Receipts/install-20260926-192948.json",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStation20260926/AnvilRealismV2/Receipts/install-20260926-192948.json",
+    "bytes": 2171,
+    "sha256": "6f12813f0958d57641ac50908c5b1c7daf202c9bcae53cb303966e4da80a8776",
+    "reason": "Rejected detached anvil construction superseded by accepted V3 source and V7 assembly",
+    "retained_replacement": "SourceAssets/CastingStation20260926/AnvilReferenceV3"
+  },
+  {
+    "source": "SourceAssets/CastingStation20260926/AnvilRealismV2/Textures/provenance.json",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStation20260926/AnvilRealismV2/Textures/provenance.json",
+    "bytes": 306,
+    "sha256": "6ec43b76b584ac484f61205ac8bd104fb474b79c88526de8ac7b2c7dbc5c5269",
+    "reason": "Rejected detached anvil construction superseded by accepted V3 source and V7 assembly",
+    "retained_replacement": "SourceAssets/CastingStation20260926/AnvilReferenceV3"
+  },
+  {
+    "source": "SourceAssets/CastingStation20260926/AnvilRealismV2/Textures/T_Anvil_Forged_BaseColor.png",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStation20260926/AnvilRealismV2/Textures/T_Anvil_Forged_BaseColor.png",
+    "bytes": 1182682,
+    "sha256": "3ac95cfd4b6ea4b0697a703f4268067286f6d13eaaf216f227b09601a4d4fce3",
+    "reason": "Rejected detached anvil construction superseded by accepted V3 source and V7 assembly",
+    "retained_replacement": "SourceAssets/CastingStation20260926/AnvilReferenceV3"
+  },
+  {
+    "source": "SourceAssets/CastingStation20260926/AnvilRealismV2/Textures/T_Anvil_Forged_Normal.png",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStation20260926/AnvilRealismV2/Textures/T_Anvil_Forged_Normal.png",
+    "bytes": 2239328,
+    "sha256": "e9afbbd83a8f33e7481607fadab9cb94f64f19815cac9b9b77d6d478a6cdd081",
+    "reason": "Rejected detached anvil construction superseded by accepted V3 source and V7 assembly",
+    "retained_replacement": "SourceAssets/CastingStation20260926/AnvilReferenceV3"
+  },
+  {
+    "source": "SourceAssets/CastingStation20260926/AnvilRealismV2/Textures/T_Anvil_Forged_ORM.png",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStation20260926/AnvilRealismV2/Textures/T_Anvil_Forged_ORM.png",
+    "bytes": 1782623,
+    "sha256": "936983bfe633d1aa2bcd0c405f5a1d2e2fa37087e55a92e65432e8f0248826ce",
+    "reason": "Rejected detached anvil construction superseded by accepted V3 source and V7 assembly",
+    "retained_replacement": "SourceAssets/CastingStation20260926/AnvilReferenceV3"
+  },
+  {
+    "source": "SourceAssets/CastingStation20260926/AnvilRealismV2/Textures/T_Anvil_Worked_BaseColor.png",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStation20260926/AnvilRealismV2/Textures/T_Anvil_Worked_BaseColor.png",
+    "bytes": 1452278,
+    "sha256": "3dc420faa9093e97eeab3ceaaa5c807f05524a1a30bcd67f85c1eb16c9a08523",
+    "reason": "Rejected detached anvil construction superseded by accepted V3 source and V7 assembly",
+    "retained_replacement": "SourceAssets/CastingStation20260926/AnvilReferenceV3"
+  },
+  {
+    "source": "SourceAssets/CastingStation20260926/AnvilRealismV2/Textures/T_Anvil_Worked_Normal.png",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStation20260926/AnvilRealismV2/Textures/T_Anvil_Worked_Normal.png",
+    "bytes": 1160577,
+    "sha256": "a7ebf2e66d64d934a82e84e068bdbfdbdce892477a7aabf38580ea68c1cce22e",
+    "reason": "Rejected detached anvil construction superseded by accepted V3 source and V7 assembly",
+    "retained_replacement": "SourceAssets/CastingStation20260926/AnvilReferenceV3"
+  },
+  {
+    "source": "SourceAssets/CastingStation20260926/AnvilRealismV2/Textures/T_Anvil_Worked_ORM.png",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStation20260926/AnvilRealismV2/Textures/T_Anvil_Worked_ORM.png",
+    "bytes": 1195557,
+    "sha256": "3bb720590ed5f891a75e26d14a18b3bc0867322983088065a47e5cc596f1af90",
+    "reason": "Rejected detached anvil construction superseded by accepted V3 source and V7 assembly",
+    "retained_replacement": "SourceAssets/CastingStation20260926/AnvilReferenceV3"
+  },
+  {
+    "source": "SourceAssets/CastingStationRealism20260927/BeforeRackV6/CastingStation_RealismV5.blend",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStationRealism20260927/BeforeRackV6/CastingStation_RealismV5.blend",
+    "bytes": 914929,
+    "sha256": "603f800d823381b55ec11bd98bc0454644f55010a19412275291c1e8caf68f47",
+    "reason": "Pre-rack authoring snapshot",
+    "retained_replacement": "SourceAssets/CastingStationRealism20260927/Authored"
+  },
+  {
+    "source": "SourceAssets/CastingStationRealism20260927/BeforeRackV6/manifest.json",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStationRealism20260927/BeforeRackV6/manifest.json",
+    "bytes": 2947,
+    "sha256": "9e513520859df5c8406c1127ecf405c47538d38d06aa37189af83e9fa422539e",
+    "reason": "Pre-rack authoring snapshot",
+    "retained_replacement": "SourceAssets/CastingStationRealism20260927/Authored"
+  },
+  {
+    "source": "SourceAssets/CastingStationRealism20260927/BeforeRackV6/SM_CastingStation.fbx",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStationRealism20260927/BeforeRackV6/SM_CastingStation.fbx",
+    "bytes": 6534892,
+    "sha256": "df2e026e6e65d9a40abdb779b73365d3f96b1002eaaba4cc9dc69187fa700d3c",
+    "reason": "Pre-rack authoring snapshot",
+    "retained_replacement": "SourceAssets/CastingStationRealism20260927/Authored"
+  },
+  {
+    "source": "SourceAssets/CastingStationRealism20260927/BeforeWindWeatheringV7/author_geometry.py",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStationRealism20260927/BeforeWindWeatheringV7/author_geometry.py",
+    "bytes": 6160,
+    "sha256": "aeca6d46cd9d4f3c682913dcb16b45ea431c448e8292c2d2e9a9e25d2d13adec",
+    "reason": "Pre-wind and surface authoring snapshot",
+    "retained_replacement": "SourceAssets/CastingStationRealism20260927"
+  },
+  {
+    "source": "SourceAssets/CastingStationRealism20260927/BeforeWindWeatheringV7/CastingStation_RealismV5.blend",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStationRealism20260927/BeforeWindWeatheringV7/CastingStation_RealismV5.blend",
+    "bytes": 1021408,
+    "sha256": "9443c12800e045569355a2e68266a9c7b87b32bf3b27a0aa895bc3c30dd03cea",
+    "reason": "Pre-wind and surface authoring snapshot",
+    "retained_replacement": "SourceAssets/CastingStationRealism20260927"
+  },
+  {
+    "source": "SourceAssets/CastingStationRealism20260927/BeforeWindWeatheringV7/install_tool_rack.py",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStationRealism20260927/BeforeWindWeatheringV7/install_tool_rack.py",
+    "bytes": 5414,
+    "sha256": "35fd86b2d56a31fb2675d1b039fec057af75bd7fbd156e4fe87ba129660a50b5",
+    "reason": "Pre-wind and surface authoring snapshot",
+    "retained_replacement": "SourceAssets/CastingStationRealism20260927"
+  },
+  {
+    "source": "SourceAssets/CastingStationRealism20260927/BeforeWindWeatheringV7/manifest.json",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStationRealism20260927/BeforeWindWeatheringV7/manifest.json",
+    "bytes": 3668,
+    "sha256": "5aa82338c0a75f43e6af03a8128d9a6113d0b4454770cc5ceb63277bd632862b",
+    "reason": "Pre-wind and surface authoring snapshot",
+    "retained_replacement": "SourceAssets/CastingStationRealism20260927"
+  },
+  {
+    "source": "SourceAssets/CastingStationRealism20260927/BeforeWindWeatheringV7/materials.py",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStationRealism20260927/BeforeWindWeatheringV7/materials.py",
+    "bytes": 5837,
+    "sha256": "c09752bdb128f604a9c0de73f3e539f27ea7ae79ee084d1cb8d8f2be04f97221",
+    "reason": "Pre-wind and surface authoring snapshot",
+    "retained_replacement": "SourceAssets/CastingStationRealism20260927"
+  },
+  {
+    "source": "SourceAssets/ForgeInteraction20260927/BeforeFastDownstroke/forge-grip.json",
+    "destination": "trash/forging-publication-20260927/SourceAssets/ForgeInteraction20260927/BeforeFastDownstroke/forge-grip.json",
+    "bytes": 8000,
+    "sha256": "6306f9bd8a35d37d6fe48a5f5097eb69bcb8c6d05be58759333e521fe46cad03",
+    "reason": "Superseded slower downstroke snapshot",
+    "retained_replacement": "Content/ColdSteelData/forge-grip.json"
+  },
+  {
+    "source": "SourceAssets/ForgeInteraction20260927/BeforeFastDownstroke/ForgeTools_V7_Grasp.blend",
+    "destination": "trash/forging-publication-20260927/SourceAssets/ForgeInteraction20260927/BeforeFastDownstroke/ForgeTools_V7_Grasp.blend",
+    "bytes": 1731690,
+    "sha256": "dcd72407862b9b54485757d38876229aa0723cf82a7087041f2193f5b97b46ce",
+    "reason": "Superseded slower downstroke snapshot",
+    "retained_replacement": "Content/ColdSteelData/forge-grip.json"
+  },
+  {
+    "source": "SourceAssets/FurnaceCasting20260926/BeforeRepair/author_furnace_tap_metal.py",
+    "destination": "trash/forging-publication-20260927/SourceAssets/FurnaceCasting20260926/BeforeRepair/author_furnace_tap_metal.py",
+    "bytes": 35685,
+    "sha256": "6bf71df831d7eaf1a8a04f2433eaaf56407b67f64bac8ed8dd5cbb82931ac256",
+    "reason": "Broken old tap-metal author snapshot",
+    "retained_replacement": "Tools/Fluids/author_furnace_casting.py"
+  },
+  {
+    "source": "SourceAssets/FurnaceCasting20260926/BeforeRepair/FluidPresentationSubsystem.cpp",
+    "destination": "trash/forging-publication-20260927/SourceAssets/FurnaceCasting20260926/BeforeRepair/FluidPresentationSubsystem.cpp",
+    "bytes": 40066,
+    "sha256": "a1b67e8217905bd11a7fd59abfa38f7eac73cb7ac75e1a4f10b238c5f9884af3",
+    "reason": "Broken old tap-metal author snapshot",
+    "retained_replacement": "Tools/Fluids/author_furnace_casting.py"
+  },
+  {
+    "source": "SourceAssets/CastingStation20260926/Authored/CastingStation_Source.blend1",
+    "destination": "trash/forging-publication-20260927/SourceAssets/CastingStation20260926/Authored/CastingStation_Source.blend1",
+    "bytes": 449140,
+    "sha256": "185bef8e84dbb8ec5ddf56eed0b1e47f2da5bf4d48da70e20ecae511b8baf832",
+    "reason": "Automatic Blender backup; live author source retained",
+    "retained_replacement": "SourceAssets/CastingStation20260926/Authored/CastingStation_Source.blend"
+  },
+  {
+    "source": "SourceAssets/ForgeInteraction20260927/ForgeTools_V7_Grasp.blend1",
+    "destination": "trash/forging-publication-20260927/SourceAssets/ForgeInteraction20260927/ForgeTools_V7_Grasp.blend1",
+    "bytes": 1731690,
+    "sha256": "dcd72407862b9b54485757d38876229aa0723cf82a7087041f2193f5b97b46ce",
+    "reason": "Automatic Blender backup; live author source retained",
+    "retained_replacement": "SourceAssets/ForgeInteraction20260927/ForgeTools_V7_Grasp.blend"
+  },
+  {
+    "source": "SourceAssets/ForgeInteraction20260927/AudioSource/ForgeHammerImpact-synthetic-before-user.wav",
+    "destination": "trash/forging-publication-20260927/SourceAssets/ForgeInteraction20260927/AudioSource/ForgeHammerImpact-synthetic-before-user.wav",
+    "bytes": 81644,
+    "sha256": "cdeefbd4dacd3c47aa423135d0bd3805e8faf31f73ac6eebeceaef59b3daf0bd",
+    "reason": "Synthetic audio superseded by user-supplied recording",
+    "retained_replacement": "SourceAssets/ForgeInteraction20260927/ForgeHammerImpact.wav"
+  },
+  {
+    "source": "Content/UI/Forging/T_ForgeWorkshopBackground.uasset",
+    "destination": "trash/forging-publication-20260927/Content/UI/Forging/T_ForgeWorkshopBackground.uasset",
+    "bytes": 2061480,
+    "sha256": "b685c46546297d0e3ac1e863222c50ee8bc31f273fc7f1c58ba67c5573986bdf",
+    "reason": "Rejected illustrated panel texture; no remaining runtime or cook reference",
+    "retained_replacement": "Source/FPSGAME/UI/ColdSteelForgingWidget.cpp"
+  }
+]

@@ -1,5 +1,7 @@
 # 高炉出铁口熔融金属流与凝固锭（2026-09-25 设计，SKILL 任务记录）
 
+> 2026-09-26 后续：本文所述粒子主体方案已被[连续液柱与锭模液面修复](furnace-casting-repair-20260926.md)替换；保留以下失败记录作为历史，不再据此宣称当前效果通过。新的实际入口为 `author_furnace_casting.py`。
+
 > 任务：完成冶炼后，从高炉下方出铁口流出金色熔融金属，一小段时间后凝固为对应金属锭。
 > 设计依据 skills/ue5-fluid-vfx-workflow/SKILL.md（任务记录/路线选择/分层/预算/交付）；
 > 派发目标按 [WORKFLOW.md §11](../../WORKFLOW.md)：`qwen-token-plan-individual / deepseek-v4.1-flash`。

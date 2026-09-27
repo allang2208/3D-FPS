@@ -1,0 +1,37 @@
+{
+  "_comment": "剑类共用当前 SM_ForgeBlank0/1/2 剑胚及 sword_blank.points；mold 只显示所选成品。新增剑配方无需复制剑胚或打击点。",
+  "sword_blank": {
+    "points": [[0.496,0.13],[0.499,0.20],[0.496,0.27],[0.500,0.34],[0.497,0.41],[0.501,0.48],[0.496,0.55],[0.500,0.62]]
+  },
+  "recipes": [
+    {
+      "id": "forge_highland_claymore",
+      "output": "ue_highland_claymore",
+      "inputs": [{"item": "ironIngot", "count": 8}, {"item": "wood", "count": 2}],
+      "mold": "Icons/ue_highland_claymore.png"
+    },
+    {
+      "id": "forge_rune_sword",
+      "output": "ue_rune_sword",
+      "inputs": [
+        {"item": "ironIngot", "count": 8},
+        {"item": "silverIngot", "count": 4},
+        {"item": "wood", "count": 2},
+        {"item": "magic_dust", "count": 6}
+      ],
+      "mold": "Icons/ue_rune_sword.png"
+    },
+    {
+      "id": "forge_frost_crystal_sword",
+      "output": "ue_frost_crystal_sword",
+      "inputs": [
+        {"item": "ironIngot", "count": 6},
+        {"item": "silverIngot", "count": 4},
+        {"item": "wood", "count": 2},
+        {"item": "quartz", "count": 8},
+        {"item": "magic_dust", "count": 8}
+      ],
+      "mold": "Icons/ue_frost_crystal_sword.png"
+    }
+  ]
+}

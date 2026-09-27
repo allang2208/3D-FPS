@@ -1,0 +1,332 @@
+{
+  "base_commit": "d0ee8875d74547d8dc8bf36bc69f574cf87ad6ea",
+  "new_runtime_files": 21,
+  "shared_runtime_files": 27,
+  "files": [
+    {
+      "path": "Source/FPSGAME/Building/CastingToolRackComponent.cpp",
+      "kind": "new-runtime-source",
+      "sha256": "c7cc02d1ee9341e9f170723fc705110811dfb4c7282ade25e0ca556636523fa8",
+      "bytes": 7949
+    },
+    {
+      "path": "Source/FPSGAME/Building/CastingToolRackComponent.h",
+      "kind": "new-runtime-source",
+      "sha256": "f2010d6a54cb8ff761403fc0b90f825b6ad767bd64342ba0a936fff99a5db086",
+      "bytes": 1196
+    },
+    {
+      "path": "Source/FPSGAME/Building/ForgeArmsMeshComponent.cpp",
+      "kind": "new-runtime-source",
+      "sha256": "afbfdfb20ebe12df005614afee43eb27765c98f82ea10fe1702dfc2ee17e1d87",
+      "bytes": 1380
+    },
+    {
+      "path": "Source/FPSGAME/Building/ForgeArmsMeshComponent.h",
+      "kind": "new-runtime-source",
+      "sha256": "08e7ca42c8ba9709f253a344c0c0c9cdd3c55e3b220eb842884d1b965f164abf",
+      "bytes": 572
+    },
+    {
+      "path": "Source/FPSGAME/Building/ForgeHeatPresentation.cpp",
+      "kind": "new-runtime-source",
+      "sha256": "ce7017e95e438d6ff44e633771690b48d881d869f795e1281d0d3472fbb19048",
+      "bytes": 7129
+    },
+    {
+      "path": "Source/FPSGAME/Building/ForgeInteraction.cpp",
+      "kind": "new-runtime-source",
+      "sha256": "74401478bda90e2b6fa20dc3384c4fef59ff0d2d05396344bbf233f1f6604029",
+      "bytes": 29966
+    },
+    {
+      "path": "Source/FPSGAME/Building/ForgeInteraction.h",
+      "kind": "new-runtime-source",
+      "sha256": "0df9f9f5bcd62905217d00a7bedba40133151a8a4473613966e78f209a7b2c03",
+      "bytes": 5662
+    },
+    {
+      "path": "Source/FPSGAME/Building/ForgeQuenchPresentation.cpp",
+      "kind": "new-runtime-source",
+      "sha256": "08518ab1a47fe5d092ea3f9b58768d3b8577414cb850ea42356f91e327fc359a",
+      "bytes": 3265
+    },
+    {
+      "path": "Source/FPSGAME/Building/ForgingSystem.cpp",
+      "kind": "new-runtime-source",
+      "sha256": "700aaaaaf17549558c13f76b9414f23ab917a9c70463677a9539dba037252899",
+      "bytes": 13767
+    },
+    {
+      "path": "Source/FPSGAME/Building/ForgingSystem.h",
+      "kind": "new-runtime-source",
+      "sha256": "6cff159e358ec4eb456fe1e1897ac7f82fc01206a5426fd8453e4224417082ab",
+      "bytes": 3202
+    },
+    {
+      "path": "Source/FPSGAME/Building/SmeltingCasting.cpp",
+      "kind": "new-runtime-source",
+      "sha256": "1113efca587031d17a1175689935ecace2e56c38aa5628f8181709aa31cb3685",
+      "bytes": 4050
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildWorldCasting.cpp",
+      "kind": "new-runtime-source",
+      "sha256": "1d2768f70c303b9937a70b3013837ae4647b726a4a452bfb07eaa17600108ff4",
+      "bytes": 1266
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelForgeActionWidget.cpp",
+      "kind": "new-runtime-source",
+      "sha256": "97dba6ec0a48cc589f8aa5a8d31d782d18aeb21fb09e1d370503d98a48e46edb",
+      "bytes": 7559
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelForgeActionWidget.h",
+      "kind": "new-runtime-source",
+      "sha256": "271536b75ca2b2ef6a72252c2d966480b862bc41ccf26f6414fe24d6f0cd17aa",
+      "bytes": 1792
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelForgeBoard.cpp",
+      "kind": "new-runtime-source",
+      "sha256": "5f0de278289f306001adca15b7ccd48b8231ac251c05625b5d39f9ab5f2236c0",
+      "bytes": 7623
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelForgeBoard.h",
+      "kind": "new-runtime-source",
+      "sha256": "a132cbe10b31a8aff8da48fb800cf9de6b738ceea775a611f775b6d1bf4bf9a9",
+      "bytes": 711
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelForgingHUD.cpp",
+      "kind": "new-runtime-source",
+      "sha256": "008bde5a2a8de4be74b88d9ddd9af9d987c184c960698fac518ae7cd8cb0f609",
+      "bytes": 5892
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelForgingWidget.cpp",
+      "kind": "new-runtime-source",
+      "sha256": "4f77f586e6e9ab1026a407279c6535a4f895c0fef53887776dd4dadf767adfc5",
+      "bytes": 26662
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelForgingWidget.h",
+      "kind": "new-runtime-source",
+      "sha256": "7a6f499cae2ca65d9dc45a07d9383e77c6d3cdab790ad83eb7f8930efa4af7fc",
+      "bytes": 4836
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/CastingRack.cpp",
+      "kind": "new-runtime-source",
+      "sha256": "d4f4a592ebb88dd877ac8558915143e264f9d0e297d699a45d42ad42b57f46aa",
+      "bytes": 4483
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/FurnaceCasting.cpp",
+      "kind": "new-runtime-source",
+      "sha256": "926856fadab8e4c81c3a6e678bfd75d4f67dbb6bd1029258b4279e862f3cf5e5",
+      "bytes": 10832
+    },
+    {
+      "path": "Source/FPSGAME/Building/SmeltingSystem.cpp",
+      "kind": "owned-diff",
+      "workspace_sha256": "4caa1deb5de117fd4edac0b2dcfd4b58b5751956ab73bca73f09da9938e66eba",
+      "publication_result_sha256": "4caa1deb5de117fd4edac0b2dcfd4b58b5751956ab73bca73f09da9938e66eba",
+      "bytes": 32367
+    },
+    {
+      "path": "Source/FPSGAME/Building/SmeltingSystem.h",
+      "kind": "owned-diff",
+      "workspace_sha256": "7c774d37cf26234f4c5b698400b8f33184af2e4352e48036f23299c1638f956b",
+      "publication_result_sha256": "7c774d37cf26234f4c5b698400b8f33184af2e4352e48036f23299c1638f956b",
+      "bytes": 6765
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildTypes.h",
+      "kind": "owned-diff",
+      "workspace_sha256": "d7130986ccb788feba7532d0f66a6720ae8a395af69a16918cd11ab3ac14e6b0",
+      "publication_result_sha256": "d7130986ccb788feba7532d0f66a6720ae8a395af69a16918cd11ab3ac14e6b0",
+      "bytes": 6335
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildPrefabActor.cpp",
+      "kind": "owned-diff",
+      "workspace_sha256": "2b230ed3b5ecb63afc6668267c7428193ccd032b2d6144b4b255e5913fde52a3",
+      "publication_result_sha256": "29d27d0b2d63c0736e29a9ee7836af25d2146c9847308ffe35178c6e9b4553fa",
+      "bytes": 4294
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildPersistence.cpp",
+      "kind": "owned-diff",
+      "workspace_sha256": "9e3e04c09a5d0940d2dd51d4221f93027098996ab8ec239152acf5656671c527",
+      "publication_result_sha256": "9e3e04c09a5d0940d2dd51d4221f93027098996ab8ec239152acf5656671c527",
+      "bytes": 14090
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildPersistence.h",
+      "kind": "owned-diff",
+      "workspace_sha256": "aed332eba038dbecab1529d31cff143f11f60f08d6f05134aba43c4e72bbed78",
+      "publication_result_sha256": "aed332eba038dbecab1529d31cff143f11f60f08d6f05134aba43c4e72bbed78",
+      "bytes": 3231
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryTheme.cpp",
+      "kind": "owned-diff",
+      "workspace_sha256": "ed9207528a922fc76e28ad9b10a9896aa8a9ede77b8cc398b687707bf5fc6c86",
+      "publication_result_sha256": "ed9207528a922fc76e28ad9b10a9896aa8a9ede77b8cc398b687707bf5fc6c86",
+      "bytes": 6919
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWorkbenchHUD.cpp",
+      "kind": "owned-diff",
+      "workspace_sha256": "861a3c3723b077d86b9dd5a7cafd36e656cdae6a551dc57614feb67a725d33a2",
+      "publication_result_sha256": "861a3c3723b077d86b9dd5a7cafd36e656cdae6a551dc57614feb67a725d33a2",
+      "bytes": 3246
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSmeltingHUD.cpp",
+      "kind": "owned-diff",
+      "workspace_sha256": "94cd2aed3b1fdef36b088b86b632d774d0538b464e6255048d553aac528131c3",
+      "publication_result_sha256": "94cd2aed3b1fdef36b088b86b632d774d0538b464e6255048d553aac528131c3",
+      "bytes": 3535
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWorldInteraction.h",
+      "kind": "owned-diff",
+      "workspace_sha256": "16274a8a26dbd743b497dde13745cd388dd1cf7eb6f475649bde7726d562caa4",
+      "publication_result_sha256": "16274a8a26dbd743b497dde13745cd388dd1cf7eb6f475649bde7726d562caa4",
+      "bytes": 2192
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.cpp",
+      "kind": "owned-diff",
+      "workspace_sha256": "106dbda1cb10b58f39d86ef90929d9eaa263bb7bb846b0b14499df2cd52a0555",
+      "publication_result_sha256": "efb99ba6b03dcd1a48f218ec3e5e54d897fa17dab1d6c6645c24d1fde65860d6",
+      "bytes": 31269
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.h",
+      "kind": "owned-diff",
+      "workspace_sha256": "da33b4850a0cb00ea3f626e64d056d9f6a33ca6feab46ed5e7e9371d99f87259",
+      "publication_result_sha256": "da33b4850a0cb00ea3f626e64d056d9f6a33ca6feab46ed5e7e9371d99f87259",
+      "bytes": 8742
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildWorld.h",
+      "kind": "selected-hunks",
+      "workspace_sha256": "fce1fceb782599a20d90ad8cdcc081f8fb65b460de35c52c267979b1470dc19a",
+      "publication_result_sha256": "ad22b9b44a600818edc820eb920c939d9331f4154586698b30fdfd0f89908dab",
+      "bytes": 17768
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildWorld.cpp",
+      "kind": "selected-hunks",
+      "workspace_sha256": "421c861bdd5de44c96b30b188087420a03b8e0077cb63d6b9f2504be331db198",
+      "publication_result_sha256": "e3a6ee3e4fcefa0fddbcd7bf0dc8ca285833d2f065ed3af67df04f50987e76c3",
+      "bytes": 44825
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp",
+      "kind": "selected-hunks",
+      "workspace_sha256": "ecb548d21fe43a3ac8d061e8e9880f6483fa1b3e88a508befa6a8d59a4e9ba07",
+      "publication_result_sha256": "515a17a827ba6c38dbc095e760f4d2f5272090bd8ababf6838287c57ebf52c28",
+      "bytes": 30969
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "kind": "selected-hunks",
+      "workspace_sha256": "360101bdc21d5ac12052b050e4cfbce5f99400070ca090d4773950f98cc801d9",
+      "publication_result_sha256": "fa46a82c39a49fa8275b2bfaf06b52b580bb2574fcae43ef1b8ac39db9144ca7",
+      "bytes": 12181
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "kind": "selected-hunks",
+      "workspace_sha256": "078a17cbfe1299d948273a0c6be4b6f355fe8599d4a0e10f3e601139ef5d772b",
+      "publication_result_sha256": "6a90c03cca7827534994d7dfa8c98011e1bf58c6ce8a200abb7c64578dee71de",
+      "bytes": 28625
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+      "kind": "selected-hunks",
+      "workspace_sha256": "65f520a1ececd9e114febd780bc7f4f1c4df8f3892266a02937933e94e866164",
+      "publication_result_sha256": "c9f9aaad597c5b104d1786f3999470ba153619203f27f75fdf9a30d657fb6368",
+      "bytes": 91049
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "kind": "selected-hunks",
+      "workspace_sha256": "345e7be87c41cc1f1640f299b08d35f8e7bdfbb014506ac4f95c2aa20e0df130",
+      "publication_result_sha256": "017a5b1667fd2db834b84b9037b10fcf25557a7dff13229d697193cbee4cc7d1",
+      "bytes": 28316
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp",
+      "kind": "selected-hunks",
+      "workspace_sha256": "3ab89c153373e9a6448bfd72b70159398314792d626ace30c67254a16a7da25f",
+      "publication_result_sha256": "2d20902cbb93e1055a1effdd020f151a378c0a4e9d850d741fe2dd20fd6a6201",
+      "bytes": 8200
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSmeltingWidget.cpp",
+      "kind": "selected-hunks",
+      "workspace_sha256": "221c1435f6f53d5f2be3de2103ddb4ff59c86e612ba5128c09cec6eabf5a9d45",
+      "publication_result_sha256": "3606006039d3c9a7b1524855d01b90cde15a1125e98a22f4de9e054546ad0c5b",
+      "bytes": 84895
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp",
+      "kind": "selected-hunks",
+      "workspace_sha256": "db1354d2e05363443dede952a544d1fe519e01d8d1f87bdfce0ff85ef147e89c",
+      "publication_result_sha256": "50a44da4ea2eb5384f8f2b9bb9e0c683c87fdfc05422ae7874c9ba93d36694bf",
+      "bytes": 11008
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+      "kind": "selected-hunks",
+      "workspace_sha256": "59ac630d5dd8032f16ea55b5c6c148e729a4ce53f157279b872b576984881134",
+      "publication_result_sha256": "30370187d6c11f19f9738f25041dc363a85e1ae6300fb2cc6e27f8a0597f1c0e",
+      "bytes": 12767
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "kind": "selected-hunks",
+      "workspace_sha256": "9231a388d8670876a9e4406a7e7fb7ef1be67ebfdc4e63d29dca46487d51d2c8",
+      "publication_result_sha256": "2605baff8b120b500af330b4b69861361e384a84c6f3ceee837c22691092a94c",
+      "bytes": 39043
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipFormula.cpp",
+      "kind": "selected-hunks",
+      "workspace_sha256": "6730f5689facbb259e13bf4b9243e0e6c210962163627a16ea015d756a87f42e",
+      "publication_result_sha256": "d2dda3ea9ad0bdbf9043d5d177322154b339828ef6384cb6da64ac4374b17eb7",
+      "bytes": 7240
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+      "kind": "selected-hunks",
+      "workspace_sha256": "e97403277434589ab2cf5417020541dc6db4b64382f160951c6a6abecc4f5832",
+      "publication_result_sha256": "8bfbf27e60da3727627c6b4801ccac5ed1543e0fe66477bf78774dc8773d480c",
+      "bytes": 27864
+    }
+  ],
+  "excluded_parallel_changes": [
+    "CraftingSystem workbench implementation and CraftEffect catalog",
+    "DungeonRun profile and input recovery changes",
+    "Melee part damage overrides and tool damage formula changes",
+    "building audit optimizations",
+    "HUD/weather/expedition/bow/staff changes"
+  ],
+  "merge_notes": [
+    "Patches are reference handoffs, not applied to public Source. Local workspace already contains the complete implementation; do not reapply there.",
+    "ForgingSystem includes the unpublished CraftingSystem.h for FColdSteelCraftingInput; restore that shared interface without publishing unrelated workbench changes.",
+    "ProcessedDamage and tooltip formula hunks isolate Forge multiplication against the public baseline. Merge with current melee/tool multipliers without applying Forge twice; local full source uses the combined formula.",
+    "Local dungeon input-release PlayerTick additionally gates !ColdSteelHUD->IsWorldForging(). That mixed dungeon block is excluded; preserve the guard when integrating the existing dungeon handoff.",
+    "forge-grip.json contains licensed donor/native pose data and stays local. Restore together with accepted V7 arms and editable Blender donors.",
+    "Casting station prefab palette and all uasset dependencies remain local. Use the documented author/install chain and source manifests.",
+    "After this snapshot, ColdSteelForgingWidget.h/.cpp gained a parallel product-preview split. Those later changes and forging-product-split-plan-20260927.md are intentionally excluded; workspace versions are preserved. This handoff keeps the completed material-column snapshot."
+  ],
+  "runtime_tests_this_publication": false
+}

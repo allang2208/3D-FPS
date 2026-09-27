@@ -1,0 +1,2725 @@
+diff --git a/Source/FPSGAME/Building/CastingToolRackComponent.cpp b/Source/FPSGAME/Building/CastingToolRackComponent.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Building/CastingToolRackComponent.cpp
+@@ -0,0 +1,175 @@
++#include "CastingToolRackComponent.h"
++#include "../WorldGeneration/FluidPresentationSubsystem.h"
++#include "Components/StaticMeshComponent.h"
++#include "Engine/AssetManager.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/StreamableManager.h"
++#include "Engine/World.h"
++#include "GameFramework/PlayerController.h"
++
++namespace
++{
++    constexpr float HookX[4]={8.f,27.f,43.f,57.f};
++    constexpr float Frequency[4]={.86f,1.02f,.95f,.79f};
++    constexpr float Damping[4]={.46f,.67f,.39f,.42f};
++    constexpr float Response[4]={.72f,.34f,1.f,.80f};
++    constexpr float SideLimit[4]={3.8f,2.4f,4.5f,3.2f};
++
++    void SwapMeshKeepingMaterials(UStaticMeshComponent* Component,UStaticMesh* Mesh)
++    {
++        // FBX reimports may compact unused slots; transfer overrides by slot name, not index.
++        TArray<TPair<FName,UMaterialInterface*>> Materials;
++        if(const UStaticMesh* Previous=Component->GetStaticMesh())
++            for(int32 Index=0;Index<Previous->GetStaticMaterials().Num();++Index)
++                Materials.Emplace(Previous->GetStaticMaterials()[Index].MaterialSlotName,Component->GetMaterial(Index));
++        Component->SetStaticMesh(Mesh);
++        Component->EmptyOverrideMaterials();
++        for(const auto& Material:Materials)
++        {
++            const int32 Index=Mesh->GetMaterialIndex(Material.Key);
++            if(Index!=INDEX_NONE)Component->SetMaterial(Index,Material.Value);
++        }
++    }
++
++    // Like the PKM carry handle: spring, damping, soft stop and a low-restitution hard stop.
++    void Advance(double& Angle,double& Speed,double Target,double Omega,double Zeta,double Limit,double Dt)
++    {
++        const double Soft=Limit*.8;
++        const double Stop=FMath::Max(0.,Angle-Soft)-FMath::Max(0.,-Angle-Soft);
++        Speed+=(Omega*Omega*(Target-Angle)-2.*Zeta*Omega*Speed-160.*Stop)*Dt;
++        Angle+=Speed*Dt;
++        if(FMath::Abs(Angle)>Limit)
++        {
++            Angle=FMath::Clamp(Angle,-Limit,Limit);
++            if(Angle*Speed>0.)Speed*=-.08;
++        }
++    }
++}
++
++UCastingToolRackComponent::UCastingToolRackComponent()
++{
++    PrimaryComponentTick.bCanEverTick=true;
++    PrimaryComponentTick.bStartWithTickEnabled=false;
++    PrimaryComponentTick.TickInterval=1.f/60.f;
++    PrimaryComponentTick.TickGroup=TG_PostPhysics;
++    for(const TCHAR* Name:{TEXT("SM_CastingStationBareRack"),TEXT("SM_RackTongs"),
++        TEXT("SM_RackHammer"),TEXT("SM_RackFile"),TEXT("SM_RackPoker")})
++        RackAssets.Add(TSoftObjectPtr<UStaticMesh>(FSoftObjectPath(FString::Printf(
++            TEXT("/Game/Props/CastingStation20260926/%s.%s"),Name,Name))));
++}
++
++void UCastingToolRackComponent::Configure(UStaticMeshComponent* Station)
++{
++    if(!Station||AssetLoad||!GetWorld()||!GetWorld()->IsGameWorld())return;
++    Body=Station;OriginalMesh=Station->GetStaticMesh();
++    TArray<FSoftObjectPath> Paths;
++    for(const auto& Asset:RackAssets)Paths.Add(Asset.ToSoftObjectPath());
++    AssetLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,
++        FStreamableDelegate::CreateUObject(this,&UCastingToolRackComponent::AssetsReady));
++}
++
++void UCastingToolRackComponent::AssetsReady()
++{
++    auto* Station=Body.Get();
++    if(!Station||Station->IsSimulatingPhysics()||Station->GetStaticMesh()!=OriginalMesh)return;
++    for(const auto& Asset:RackAssets)if(!Asset.Get())return;
++    // Retain water MIDs and other overrides when replacing the merged preview mesh.
++    SwapMeshKeepingMaterials(Station,RackAssets[0].Get());
++    for(int32 Index=0;Index<4;++Index)
++    {
++        auto* Tool=NewObject<UStaticMeshComponent>(GetOwner(),NAME_None,RF_Transient);
++        GetOwner()->AddInstanceComponent(Tool);
++        Tool->SetMobility(EComponentMobility::Movable);
++        Tool->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++        Tool->SetGenerateOverlapEvents(false);
++        Tool->SetCanEverAffectNavigation(false);
++        Tool->SetStaticMesh(RackAssets[Index+1].Get());
++        Tool->SetupAttachment(Station);
++        // Authored origin = eye inner rim against the underside of the fixed hook.
++        Tool->SetRelativeLocation(FVector(HookX[Index],44.f,94.30f));
++        Tool->RegisterComponent();
++        HangingTools.Add(Tool);
++    }
++    ResetMotion();
++    SetComponentTickEnabled(true);
++}
++
++void UCastingToolRackComponent::ResetMotion()
++{
++    for(int32 Index=0;Index<4;++Index)
++    {
++        Angles[Index]=Speeds[Index]=FVector2D::ZeroVector;
++        if(HangingTools.IsValidIndex(Index)&&HangingTools[Index])
++            HangingTools[Index]->SetRelativeRotation(FQuat::Identity);
++    }
++    LocalWind=FVector::ZeroVector;WindClock=.2f;
++    if(Body.IsValid())LastMount=Body->GetComponentTransform();
++    bMotionReady=false;
++}
++
++void UCastingToolRackComponent::TickComponent(float Delta,ELevelTick TickType,FActorComponentTickFunction* ThisTick)
++{
++    Super::TickComponent(Delta,TickType,ThisTick);
++    auto* Station=Body.Get();
++    if(!Station||Station->IsSimulatingPhysics())
++    {
++        // Detached building pieces keep their rigid tool attachments, without cosmetic forces.
++        SetComponentTickEnabled(false);return;
++    }
++    const FTransform Mount=Station->GetComponentTransform();
++    auto* Controller=GetWorld()->GetFirstPlayerController();
++    FVector Eye;FRotator View;
++    if(Controller)Controller->GetPlayerViewPoint(Eye,View);
++    const bool bNear=Controller&&FVector::DistSquared(Eye,Mount.GetLocation())<FMath::Square(3000.);
++    SetComponentTickInterval(bNear?1.f/60.f:.5f);
++    if(!bNear||!Station->IsVisible())
++    {
++        if(bMotionReady)ResetMotion();
++        return;
++    }
++    if(Delta>.25f||FVector::DistSquared(Mount.GetLocation(),LastMount.GetLocation())>FMath::Square(80.)
++        ||Mount.GetRotation().AngularDistance(LastMount.GetRotation())>.5)
++        ResetMotion();
++    LastMount=Mount;bMotionReady=true;
++    WindClock+=Delta;
++    if(WindClock>=.2f)
++    {
++        WindClock=0;
++        if(auto* Fluid=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>())
++            LocalWind=Mount.InverseTransformVectorNoScale(
++                Fluid->WindWithGustAt(Mount.TransformPosition(FVector(32,44,94.3))));
++    }
++    // Small pressure fluctuations scale the shared wind, never create a different direction.
++    const double Time=GetWorld()->GetTimeSeconds();
++    const double Buffeting=1.+.14*FMath::Sin(Time*1.73)+.08*FMath::Sin(Time*2.79);
++    const double Side=FMath::Clamp(LocalWind.X*FMath::Abs(LocalWind.X)*.00035,-4.,4.)*Buffeting;
++    const double Depth=FMath::Clamp(LocalWind.Y*FMath::Abs(LocalWind.Y)*.00019,-2.,2.)*Buffeting;
++    const double Duration=FMath::Clamp(double(Delta),0.,.06);
++    const int32 Steps=FMath::Max(1,FMath::CeilToInt(Duration*240.));
++    const double Dt=Duration/Steps;
++    for(int32 Index=0;Index<4;++Index)
++    {
++        const double Omega=2.*PI*Frequency[Index];
++        for(int32 Step=0;Step<Steps;++Step)
++        {
++            Advance(Angles[Index].X,Speeds[Index].X,Side*Response[Index],Omega,Damping[Index],SideLimit[Index],Dt);
++            Advance(Angles[Index].Y,Speeds[Index].Y,Depth*Response[Index],Omega,Damping[Index]+.1,2.4,Dt);
++        }
++        // For a hanging -Z lever, positive X rotation moves its tip toward +Y.
++        const FQuat AlongRail(FVector::YAxisVector,FMath::DegreesToRadians(-Angles[Index].X));
++        const FQuat AcrossRail(FVector::XAxisVector,FMath::DegreesToRadians(Angles[Index].Y));
++        HangingTools[Index]->SetRelativeRotation(AlongRail*AcrossRail);
++    }
++}
++
++void UCastingToolRackComponent::OnComponentDestroyed(bool bDestroyingHierarchy)
++{
++    SetComponentTickEnabled(false);
++    if(AssetLoad)AssetLoad->CancelHandle();
++    for(UStaticMeshComponent* Tool:HangingTools)if(IsValid(Tool))Tool->DestroyComponent();
++    HangingTools.Empty();
++    if(auto* Station=Body.Get();Station&&OriginalMesh&&Station->GetStaticMesh()==RackAssets[0].Get())
++        SwapMeshKeepingMaterials(Station,OriginalMesh);
++    AssetLoad.Reset();Body.Reset();OriginalMesh=nullptr;
++    Super::OnComponentDestroyed(bDestroyingHierarchy);
++}
+diff --git a/Source/FPSGAME/Building/CastingToolRackComponent.h b/Source/FPSGAME/Building/CastingToolRackComponent.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Building/CastingToolRackComponent.h
+@@ -0,0 +1,33 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Components/ActorComponent.h"
++#include "CastingToolRackComponent.generated.h"
++
++class UStaticMesh;
++class UStaticMeshComponent;
++struct FStreamableHandle;
++
++/** Four cosmetic pendulums, registered by the placed casting station. */
++UCLASS()
++class FPSGAME_API UCastingToolRackComponent : public UActorComponent
++{
++    GENERATED_BODY()
++public:
++    UCastingToolRackComponent();
++    void Configure(UStaticMeshComponent* Station);
++    virtual void TickComponent(float Delta,ELevelTick TickType,FActorComponentTickFunction* ThisTick) override;
++    virtual void OnComponentDestroyed(bool bDestroyingHierarchy) override;
++private:
++    void AssetsReady();
++    void ResetMotion();
++    UPROPERTY() TArray<TSoftObjectPtr<UStaticMesh>> RackAssets;
++    UPROPERTY(Transient) TArray<TObjectPtr<UStaticMeshComponent>> HangingTools;
++    UPROPERTY(Transient) TObjectPtr<UStaticMesh> OriginalMesh;
++    TWeakObjectPtr<UStaticMeshComponent> Body;
++    TSharedPtr<FStreamableHandle> AssetLoad;
++    FVector2D Angles[4]={},Speeds[4]={};
++    FVector LocalWind=FVector::ZeroVector;
++    FTransform LastMount=FTransform::Identity;
++    float WindClock=0;
++    bool bMotionReady=false;
++};
+diff --git a/Source/FPSGAME/Building/ForgeArmsMeshComponent.cpp b/Source/FPSGAME/Building/ForgeArmsMeshComponent.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Building/ForgeArmsMeshComponent.cpp
+@@ -0,0 +1,25 @@
++#include "ForgeArmsMeshComponent.h"
++#include "Engine/SkinnedAsset.h"
++
++void UForgeArmsMeshComponent::CommitStationPose(const TArray<FTransform>& StationPose,const TArray<int32>& ArmBones)
++{
++    const auto* Asset=GetSkinnedAsset();if(!Asset||StationPose.Num()!=BoneSpaceTransforms.Num())return;
++    const auto& Ref=Asset->GetRefSkeleton();const FTransform ComponentFrame=GetRelativeTransform();
++    // Keep the native mesh and inverse binds. The component, not the root bone,
++    // carries the body position and facing. All children retain native scale.
++    for(int32 I=0;I<StationPose.Num();++I)
++    {
++        const int32 P=Ref.GetParentIndex(I);
++        BoneSpaceTransforms[I]=StationPose[I].GetRelativeTransform(P>=0?StationPose[P]:ComponentFrame);
++        BoneSpaceTransforms[I].NormalizeRotation();
++    }
++    PosedLocalBounds=FBox(ForceInit);
++    for(int32 I:ArmBones)PosedLocalBounds+=ComponentFrame.InverseTransformPosition(StationPose[I].GetLocation());
++    // Includes the palm surface, upper-arm volume and native shoulder openings.
++    PosedLocalBounds=PosedLocalBounds.ExpandBy(10.0);
++    MarkRefreshTransformDirty();RefreshBoneTransforms();
++}
++FBoxSphereBounds UForgeArmsMeshComponent::CalcBounds(const FTransform& LocalToWorld) const
++{
++    return PosedLocalBounds.IsValid?FBoxSphereBounds(PosedLocalBounds).TransformBy(LocalToWorld):Super::CalcBounds(LocalToWorld);
++}
+diff --git a/Source/FPSGAME/Building/ForgeArmsMeshComponent.h b/Source/FPSGAME/Building/ForgeArmsMeshComponent.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Building/ForgeArmsMeshComponent.h
+@@ -0,0 +1,16 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Components/PoseableMeshComponent.h"
++#include "ForgeArmsMeshComponent.generated.h"
++
++/** The forge pose moves away from the native bind pose. Cull using the posed arms. */
++UCLASS()
++class FPSGAME_API UForgeArmsMeshComponent : public UPoseableMeshComponent
++{
++    GENERATED_BODY()
++public:
++    void CommitStationPose(const TArray<FTransform>& StationPose,const TArray<int32>& ArmBones);
++    virtual FBoxSphereBounds CalcBounds(const FTransform& LocalToWorld) const override;
++private:
++    FBox PosedLocalBounds=FBox(ForceInit);
++};
+diff --git a/Source/FPSGAME/Building/ForgeHeatPresentation.cpp b/Source/FPSGAME/Building/ForgeHeatPresentation.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Building/ForgeHeatPresentation.cpp
+@@ -0,0 +1,117 @@
++#include "ForgeInteraction.h"
++#include "Camera/CameraComponent.h"
++#include "Components/InstancedStaticMeshComponent.h"
++#include "Components/StaticMeshComponent.h"
++#include "Components/PointLightComponent.h"
++#include "Materials/MaterialInstanceDynamic.h"
++
++void AForgeInteraction::EmitHotImpact(const FVector& Surface)
++{
++    LastHotImpact=FPlatformTime::Seconds();SparkOrigin=Surface;
++    const FVector LocalHit=Blank->GetRelativeTransform().InverseTransformPosition(Surface);
++    BlankMaterial->SetVectorParameterValue(TEXT("ImpactPoint"),FLinearColor(LocalHit.X,LocalHit.Y,LocalHit.Z));
++    for(int32 I=0;I<SparkPool.Num();++I)
++    {
++        // Three bounded layers: quick bright chips, longer streaks and cooler oxide scale.
++        auto& P=SparkPool[I];P.bScale=I%6==0;P.bBounced=false;P.Age=0;
++        const bool bLongStreak=I%3==1;
++        P.Lifetime=VisualRandom.FRandRange(P.bScale?.5f:(bLongStreak?.6f:.28f),P.bScale?.85f:(bLongStreak?.95f:.55f));
++        const float Angle=VisualRandom.FRandRange(0.f,2.f*PI);
++        const float Speed=VisualRandom.FRandRange(P.bScale?50.f:(bLongStreak?135.f:75.f),P.bScale?100.f:(bLongStreak?205.f:155.f));
++        P.Position=Surface+FVector(VisualRandom.FRandRange(-.5f,.5f),VisualRandom.FRandRange(-.4f,.4f),.2);
++        P.Velocity=FVector(FMath::Cos(Angle)*Speed,FMath::Sin(Angle)*Speed,VisualRandom.FRandRange(P.bScale?45.f:75.f,P.bScale?100.f:155.f));
++        P.Size=VisualRandom.FRandRange(P.bScale?.7f:1.f,P.bScale?1.2f:1.5f);P.Roll=VisualRandom.FRandRange(-PI,PI);P.Spin=VisualRandom.FRandRange(-12.f,12.f);
++        ScaleSparks->SetCustomDataValue(I,1,P.bScale?1.f:0.f,false);
++    }
++}
++
++void AForgeInteraction::Sparks(float DeltaTime)
++{
++    bool bChanged=false;
++    for(int32 I=0;I<SparkPool.Num();++I)
++    {
++        auto& P=SparkPool[I];if(P.Age>=P.Lifetime)continue;
++        bChanged=true;P.Age+=DeltaTime;
++        P.Velocity.Z-=440*DeltaTime;P.Velocity*=FMath::Exp(-1.1f*DeltaTime);P.Position+=P.Velocity*DeltaTime;
++        // One damped bounce on the actual anvil footprint; never an infinite plane.
++        if(P.Position.Z<91.1&&P.Velocity.Z<0&&FMath::Abs(P.Position.X-29)<31&&FMath::Abs(P.Position.Y-22)<12)
++        {
++            if(P.bBounced)P.Age=P.Lifetime;
++            else {P.Position.Z=91.12;P.Velocity*=.5;P.Velocity.Z=FMath::Abs(P.Velocity.Z)*.45;P.bBounced=true;}
++        }
++        const float Life=FMath::Clamp(1-P.Age/P.Lifetime,0.f,1.f);
++        const float End=FMath::Clamp(Life*5,0.f,1.f);
++        P.Roll+=P.Spin*DeltaTime;
++        const FQuat Facing=P.Velocity.Rotation().Quaternion()*FQuat(FVector::XAxisVector,P.Roll);
++        const float Length=P.bScale?.45f:FMath::Clamp(float(P.Velocity.Size())*.022f,.5f,4.5f);
++        const FVector Scale=P.bScale?FVector(Length/.6,.20/.075,.035/.075):FVector(Length/.6,1.05,1.05);
++        ScaleSparks->UpdateInstanceTransform(I,FTransform(Facing,P.Position,Scale*P.Size*End),false,false,true);
++        ScaleSparks->SetCustomDataValue(I,0,P.bScale?Life*Life:Life,false);
++    }
++    if(bChanged)ScaleSparks->MarkRenderStateDirty();
++}
++
++void AForgeInteraction::UpdateThermalEffects(float DeltaTime,float Heat,const FTransform& Work,double Now)
++{
++    const float HitAge=float(Now-LastHotImpact),Pulse=FMath::Exp(-HitAge*9.f);
++    BlankMaterial->SetScalarParameterValue(TEXT("ImpactAge"),HitAge);
++    VeilMaterial->SetScalarParameterValue(TEXT("Heat"),Heat);
++    VeilMaterial->SetScalarParameterValue(TEXT("ImpactPulse"),Pulse);
++    const FVector Center=Work.TransformPosition(FVector(0,0,8));
++    FVector Along=Work.GetRotation().RotateVector(FVector::XAxisVector);
++    if(((Along^FVector::UpVector)|(Camera->GetRelativeLocation()-Center))<0)Along*=-1;
++    const FQuat VeilFacing=FRotationMatrix::MakeFromXY(Along,FVector::UpVector).ToQuat();
++    HeatVeil->SetRelativeTransform(FTransform(VeilFacing,Center,FVector(.65,.22,1)));
++    HeatVeil->SetVisibility(Heat>.05f&&QuenchImmersion<=0);
++    HotLight->SetRelativeLocation(Work.TransformPosition(FVector(0,0,4)));
++    HotLight->SetIntensity(Heat*25.f+Pulse*95.f);
++
++    const float FinishAge=FinishAt>=0?float(Now-FinishAt):-1.f;
++    const float SteamAge=QuenchContactAt>=0?float(Now-QuenchContactAt):-1.f;
++    const bool bSteam=SteamAge>=0&&SteamAge<2.65f&&QuenchImmersion>0;
++    const float SteamStrength=FMath::SmoothStep(0.f,.15f,QuenchImmersion)*FMath::Exp(-FMath::Max(0.f,SteamAge)*.42f);
++    FumeMaterial->SetScalarParameterValue(TEXT("Steam"),QuenchContactAt>=0?1.f:0.f);
++    FumeSpawnClock+=DeltaTime;
++    const float Interval=bSteam?.035f:.16f;
++    if(FumeSpawnClock>=Interval&&((Heat>.25f&&QuenchContactAt<0)||bSteam))
++    {
++        FumeSpawnClock=0; // Cosmetic: do not catch up a burst after a hitch.
++        int32 Remaining=bSteam?(SteamAge<.28f?5:2):1;
++        const int32 Limit=bSteam?FumePool.Num():FMath::Min(18,FumePool.Num());
++        for(int32 I=0;I<Limit&&Remaining>0;++I)
++        {
++            auto& P=FumePool[I];if(P.Age<P.Lifetime)continue;
++            --Remaining;P.bSteam=bSteam;
++            P.Age=0;P.Lifetime=VisualRandom.FRandRange(bSteam?1.6f:1.15f,bSteam?2.4f:1.7f);P.Seed=VisualRandom.FRand();
++            P.Opacity=bSteam?.72f*SteamStrength:.085f;P.Size=bSteam?VisualRandom.FRandRange(13.f,19.f):9.f;
++            const float Angle=VisualRandom.FRandRange(0.f,2*PI),Radius=VisualRandom.FRandRange(0.f,4.f);
++            P.Position=bSteam?SteamOrigin+FVector(FMath::Cos(Angle)*Radius,FMath::Sin(Angle)*Radius,1):Work.TransformPosition(FVector(VisualRandom.FRandRange(-19.f,25.f),0,2));
++            if(!bSteam&&HitAge<.2f){P.Position=SparkOrigin+FVector(0,0,1);P.Opacity=.16f;}
++            P.Velocity=FVector(VisualRandom.FRandRange(-5.f,5.f),VisualRandom.FRandRange(-4.f,4.f),bSteam?VisualRandom.FRandRange(24.f,39.f):9.f);
++        }
++    }
++    bool bChanged=false;
++    for(int32 I=0;I<FumePool.Num();++I)
++    {
++        auto& P=FumePool[I];if(P.Age>=P.Lifetime)continue;
++        bChanged=true;P.Age+=DeltaTime;
++        if(P.bSteam)
++        {
++            P.Velocity.Z+=6.f*DeltaTime;
++            P.Position+=FVector(FMath::Sin(P.Seed*21+P.Age*3)*3,FMath::Cos(P.Seed*17+P.Age*2.6f)*3,0)*DeltaTime;
++        }
++        P.Position+=P.Velocity*DeltaTime;
++        const float Age=FMath::Clamp(P.Age/P.Lifetime,0.f,1.f);
++        const float EndFade=P.bSteam?1-FMath::SmoothStep(4.8f,5.65f,FinishAge):1;
++        const float CameraFade=FMath::SmoothStep(8.f,25.f,float(FVector::Distance(Camera->GetRelativeLocation(),P.Position)));
++        const float Alpha=FMath::SmoothStep(0.f,P.bSteam?.07f:.15f,Age)*(1-FMath::SmoothStep(.5f,1.f,Age))*P.Opacity*EndFade*CameraFade;
++        const FVector Face=(Camera->GetRelativeLocation()-P.Position).GetSafeNormal();
++        const FQuat Facing=FRotationMatrix::MakeFromZY(Face,FVector::UpVector).ToQuat();
++        const float Size=P.Size*(1+Age*(P.bSteam?1.4f:.8f))/100.f;
++        HeatFumes->UpdateInstanceTransform(I,FTransform(Facing,P.Position,FVector(Size,Size,1)),false,false,true);
++        HeatFumes->SetCustomDataValue(I,0,Alpha,false);
++        HeatFumes->SetCustomDataValue(I,1,P.Seed,false);
++        HeatFumes->SetCustomDataValue(I,2,Age,false);
++    }
++    if(bChanged)HeatFumes->MarkRenderStateDirty();
++}
+diff --git a/Source/FPSGAME/Building/ForgeInteraction.cpp b/Source/FPSGAME/Building/ForgeInteraction.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Building/ForgeInteraction.cpp
+@@ -0,0 +1,455 @@
++#include "ForgeInteraction.h"
++#include "ForgeArmsMeshComponent.h"
++#include "ForgingSystem.h"
++#include "VoxelBuildPrefabActor.h"
++#include "VoxelBuildWorld.h"
++#include "../FPSGAMECharacter.h"
++#include "../UI/ColdSteelHUDWidget.h"
++#include "../UI/ColdSteelForgeActionWidget.h"
++#include "Camera/CameraComponent.h"
++#include "Components/PoseableMeshComponent.h"
++#include "Components/StaticMeshComponent.h"
++#include "Components/InstancedStaticMeshComponent.h"
++#include "Components/PointLightComponent.h"
++#include "Engine/AssetManager.h"
++#include "Engine/StreamableManager.h"
++#include "Engine/SkeletalMesh.h"
++#include "Engine/StaticMesh.h"
++#include "GameFramework/PlayerController.h"
++#include "GameFramework/PlayerInput.h"
++#include "GameFramework/InputSettings.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "Materials/MaterialInstanceDynamic.h"
++#include "Kismet/GameplayStatics.h"
++#include "Sound/SoundBase.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Paths.h"
++#include "Serialization/JsonReader.h"
++#include "Serialization/JsonSerializer.h"
++#include "Dom/JsonObject.h"
++#include "InputKeyEventArgs.h"
++
++namespace
++{
++const FString AssetRoot=TEXT("/Game/Props/ForgeInteraction20260927/");
++const FString ArmsPath=TEXT("/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7");
++FSoftObjectPath Asset(const FString& Name)
++{const FString Path=Name.StartsWith(TEXT("/"))?Name:AssetRoot+Name;return FSoftObjectPath(Path+TEXT(".")+FPaths::GetCleanFilename(Path));}
++template<class T> T* Loaded(const FString& Name){return Cast<T>(Asset(Name).ResolveObject());}
++FVector Vector(const TArray<TSharedPtr<FJsonValue>>& A){return FVector(A[0]->AsNumber(),A[1]->AsNumber(),A[2]->AsNumber());}
++FQuat Quat(const TArray<TSharedPtr<FJsonValue>>& A){return FQuat(A[0]->AsNumber(),A[1]->AsNumber(),A[2]->AsNumber(),A[3]->AsNumber()).GetNormalized();}
++float Ease(float X){return FMath::SmoothStep(0.f,1.f,X);}
++}
++
++AForgeInteraction::AForgeInteraction()
++{
++    PrimaryActorTick.bCanEverTick=true;PrimaryActorTick.bStartWithTickEnabled=false;
++    RootComponent=CreateDefaultSubobject<USceneComponent>(TEXT("StationFrame"));
++    Camera=CreateDefaultSubobject<UCameraComponent>(TEXT("ForgeCamera"));Camera->SetupAttachment(RootComponent);Camera->FieldOfView=67;
++    Camera->SetRelativeLocation(FVector(29,-43,148));Camera->SetRelativeRotation((FVector(29,22,92)-Camera->GetRelativeLocation()).Rotation());
++    Arms=CreateDefaultSubobject<UForgeArmsMeshComponent>(TEXT("NativeV7ForgeArms"));Arms->SetupAttachment(RootComponent);
++    Arms->SetCollisionEnabled(ECollisionEnabled::NoCollision);Arms->SetCastShadow(false);Arms->SetComponentTickEnabled(false);
++    Arms->bReceivesDecals=false;Arms->SetOwnerNoSee(false);Arms->SetVisibility(true);
++    auto Make=[this](const TCHAR* Name){auto* C=CreateDefaultSubobject<UStaticMeshComponent>(Name);C->SetupAttachment(RootComponent);C->SetCollisionEnabled(ECollisionEnabled::NoCollision);return C;};
++    Hammer=Make(TEXT("ForgingHammer"));Tongs=Make(TEXT("HandheldTongs"));Blank=Make(TEXT("SwordBlank"));
++    HeatRing=Make(TEXT("HeatSpot"));AimRing=Make(TEXT("HammerAim"));HeatRing->SetCastShadow(false);AimRing->SetCastShadow(false);
++    ScaleSparks=CreateDefaultSubobject<UInstancedStaticMeshComponent>(TEXT("HotScale"));ScaleSparks->SetupAttachment(RootComponent);
++    ScaleSparks->SetCollisionEnabled(ECollisionEnabled::NoCollision);ScaleSparks->SetCastShadow(false);
++    ScaleSparks->NumCustomDataFloats=2;ScaleSparks->bReceivesDecals=false;
++    HeatVeil=Make(TEXT("LocalHeatVeil"));HeatVeil->SetCastShadow(false);HeatVeil->bReceivesDecals=false;
++    HeatFumes=CreateDefaultSubobject<UInstancedStaticMeshComponent>(TEXT("ForgeFumes"));HeatFumes->SetupAttachment(RootComponent);
++    HeatFumes->SetCollisionEnabled(ECollisionEnabled::NoCollision);HeatFumes->SetCastShadow(false);
++    HeatFumes->NumCustomDataFloats=3;HeatFumes->bReceivesDecals=false;
++    HotLight=CreateDefaultSubobject<UPointLightComponent>(TEXT("HotSteelBounce"));HotLight->SetupAttachment(RootComponent);
++    HotLight->SetCastShadows(false);HotLight->SetIntensityUnits(ELightUnits::Lumens);
++    HotLight->SetIntensity(0);HotLight->SetAttenuationRadius(85);HotLight->SetSourceRadius(3);
++    HotLight->SetLightColor(FLinearColor(1.f,.24f,.035f));
++    SetActorHiddenInGame(true);
++}
++void AForgeInteraction::Prepare(APlayerController* Player,AVoxelBuildPrefabActor* InStation,UColdSteelHUDWidget* InHUD)
++{
++    PC=Player;Station=InStation;HUD=InHUD;SetOwner(Player);
++    System=GetGameInstance()->GetSubsystem<UColdSteelForgingSystem>();
++    SetActorTransform(InStation->Body()->GetComponentTransform());
++    TArray<FSoftObjectPath> Paths={Asset(ArmsPath)};
++    for(const TCHAR* N:{TEXT("SM_ForgeHammer"),TEXT("SM_ForgeTongs"),TEXT("SM_ForgeBlank0"),TEXT("SM_ForgeBlank1"),TEXT("SM_ForgeBlank2"),TEXT("SM_ForgeRing"),TEXT("SM_ForgeSpark"),TEXT("SW_ForgeHammerImpact")})Paths.Add(Asset(N));
++    for(const TCHAR* N:{TEXT("M_ForgeScaleSpark"),TEXT("M_ForgeFume"),TEXT("M_ForgeHeatVeil"),TEXT("/Engine/BasicShapes/Plane")})Paths.Add(Asset(N));
++    Load=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,FStreamableDelegate::CreateUObject(this,&ThisClass::AssetsLoaded));
++}
++void AForgeInteraction::AssetsLoaded()
++{
++    auto* Mesh=Loaded<USkeletalMesh>(ArmsPath);if(!Mesh){LoadError=TEXT("锻造手臂未就绪");return;}
++    Arms->SetSkinnedAssetAndUpdate(Mesh,true);
++    Hammer->SetStaticMesh(Loaded<UStaticMesh>(TEXT("SM_ForgeHammer")));Tongs->SetStaticMesh(Loaded<UStaticMesh>(TEXT("SM_ForgeTongs")));
++    for(int32 I=0;I<3;++I)Blanks.Add(Loaded<UStaticMesh>(FString::Printf(TEXT("SM_ForgeBlank%d"),I)));
++    HeatRing->SetStaticMesh(Loaded<UStaticMesh>(TEXT("SM_ForgeRing")));AimRing->SetStaticMesh(HeatRing->GetStaticMesh());
++    ScaleSparks->SetStaticMesh(Loaded<UStaticMesh>(TEXT("SM_ForgeSpark")));ImpactSound=Loaded<USoundBase>(TEXT("SW_ForgeHammerImpact"));
++    auto* EffectPlane=Loaded<UStaticMesh>(TEXT("/Engine/BasicShapes/Plane"));
++    auto* SparkSurface=Loaded<UMaterialInterface>(TEXT("M_ForgeScaleSpark"));
++    auto* FumeSurface=Loaded<UMaterialInterface>(TEXT("M_ForgeFume"));
++    auto* VeilSurface=Loaded<UMaterialInterface>(TEXT("M_ForgeHeatVeil"));
++    if(!Hammer->GetStaticMesh()||!Tongs->GetStaticMesh()||Blanks.Contains(nullptr)||!HeatRing->GetStaticMesh()||!ScaleSparks->GetStaticMesh()||!ImpactSound)
++    {LoadError=TEXT("锻造工具资源未就绪");return;}
++    if(!EffectPlane||!SparkSurface||!FumeSurface||!VeilSurface){LoadError=TEXT("锻造热效资源未就绪");return;}
++    Blank->SetStaticMesh(Blanks[0]);BlankMaterial=Blank->CreateDynamicMaterialInstance(0);
++    BlankMaterial->SetVectorParameterValue(TEXT("Tint"),FLinearColor(1.f,.045f,.004f));
++    HeatMaterial=HeatRing->CreateDynamicMaterialInstance(0);AimMaterial=AimRing->CreateDynamicMaterialInstance(0);
++    HeatMaterial->SetVectorParameterValue(TEXT("Tint"),FLinearColor(.015f,.65f,1.f));HeatMaterial->SetScalarParameterValue(TEXT("Heat"),1.4f);
++    ScaleSparks->SetMaterial(0,SparkSurface);
++    HeatVeil->SetStaticMesh(EffectPlane);HeatFumes->SetStaticMesh(EffectPlane);
++    VeilMaterial=HeatVeil->CreateDynamicMaterialInstance(0,VeilSurface);
++    FumeMaterial=HeatFumes->CreateDynamicMaterialInstance(0,FumeSurface);
++    AimMaterial->SetVectorParameterValue(TEXT("Tint"),FLinearColor(.68f,.76f,.78f));AimMaterial->SetScalarParameterValue(TEXT("Heat"),.12f);
++    AimRing->SetRelativeScale3D(FVector(.35f));
++    VisualRandom.Initialize(int32(GetUniqueID()));
++    SparkPool.SetNum(72);for(int32 I=0;I<SparkPool.Num();++I)ScaleSparks->AddInstance(FTransform(FQuat::Identity,FVector::ZeroVector,FVector::ZeroVector));
++    FumePool.SetNum(56);for(int32 I=0;I<FumePool.Num();++I)HeatFumes->AddInstance(FTransform(FQuat::Identity,FVector::ZeroVector,FVector::ZeroVector));
++    const auto& Ref=Mesh->GetRefSkeleton();LocalReference=Ref.GetRefBonePose();Reference=LocalReference;
++    for(int32 I=0;I<Reference.Num();++I)if(Ref.GetParentIndex(I)>=0)Reference[I]*=Reference[Ref.GetParentIndex(I)];
++    Pose=Reference;bReady=LoadGrip();
++    if(!bReady)LoadError=TEXT("锻造抓握数据未就绪");
++}
++bool AForgeInteraction::LoadGrip()
++{
++    FString Raw;TSharedPtr<FJsonObject> Data;
++    if(!FFileHelper::LoadFileToString(Raw,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/forge-grip.json")))||!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Raw),Data)||!Data)return false;
++    const TSharedPtr<FJsonObject>* HandData=nullptr,*DigitData=nullptr;
++    if(!Data->TryGetObjectField(TEXT("hands"),HandData)||!Data->TryGetObjectField(TEXT("finger_rotations"),DigitData))return false;
++    for(int32 Side=0;Side<2;++Side)
++    {
++        auto& H=Hands[Side];const FString S=Side?TEXT("r"):TEXT("l");
++        H.Clavicle=Arms->GetBoneIndex(*(TEXT("clavicle_")+S));H.Upper=Arms->GetBoneIndex(*(TEXT("upperarm_")+S));H.Lower=Arms->GetBoneIndex(*(TEXT("lowerarm_")+S));H.Hand=Arms->GetBoneIndex(*(TEXT("hand_")+S));
++        if(H.Clavicle<0||H.Upper<0||H.Lower<0||H.Hand<0)return false;
++        const auto& Ref=Arms->GetSkinnedAsset()->GetRefSkeleton();
++        for(int32 I=0;I<Reference.Num();++I)if(I==H.Clavicle||Ref.BoneIsChildOf(I,H.Clavicle))
++        {
++            H.Bones.Add(I);ArmBoundsBones.Add(I);
++        }
++        const auto& J=(*HandData)->GetObjectField(S);H.Grip=FTransform(Quat(J->GetArrayField(TEXT("q"))),Vector(J->GetArrayField(TEXT("p"))));
++    }
++    for(const auto& Pair:(*DigitData)->Values)
++    {const int32 I=Arms->GetBoneIndex(*Pair.Key);if(I>=0)Fingers.Add(I,Quat(Pair.Value->AsArray()));}
++    HammerContact=Vector(Data->GetArrayField(TEXT("hammer_contact_cm")));
++    ContactSeconds=Data->GetNumberField(TEXT("contact_seconds"));StrokeSeconds=Data->GetNumberField(TEXT("stroke_seconds"));
++    const TSharedPtr<FJsonObject>* Layout=nullptr;
++    if(Data->TryGetObjectField(TEXT("station_layout"),Layout))
++    {
++        BodyOrigin=Vector((*Layout)->GetArrayField(TEXT("body_origin_cm")));ImpactAxis=Vector((*Layout)->GetArrayField(TEXT("hammer_axis")));
++        TongAxis=Vector((*Layout)->GetArrayField(TEXT("tong_axis")));ElbowPole=Vector((*Layout)->GetArrayField(TEXT("elbow_pole_cm")));
++        QuenchOrigin=Vector((*Layout)->GetArrayField(TEXT("quench_origin_cm")));
++        WorkYaw=(*Layout)->GetNumberField(TEXT("work_yaw"));QuenchPitch=(*Layout)->GetNumberField(TEXT("quench_pitch"));
++    }
++    const TArray<TSharedPtr<FJsonValue>>* Keys=nullptr;if(!Data->TryGetArrayField(TEXT("stroke"),Keys))return false;
++    for(const auto& Key:*Keys){const auto& K=Key->AsObject();Stroke.Add({float(K->GetNumberField(TEXT("t"))),float(K->GetNumberField(TEXT("angle"))),Vector(K->GetArrayField(TEXT("offset")))});}
++    return Stroke.Num()>=2;
++}
++bool AForgeInteraction::Ready(FString& Reason) const
++{if(!LoadError.IsEmpty()){Reason=LoadError;return false;}if(!bReady){Reason=TEXT("正在准备锻造工具…");return false;}return true;}
++bool AForgeInteraction::Start(FName Recipe,FString& Reason)
++{
++    if(!Ready(Reason)||!PC.IsValid()||!Station.IsValid()||Station->IsFalling())return false;
++    if(!System->Start(Recipe,Reason))return false;
++    // Inventory drawer is retracted by the caller before Enter takes its own input lock.
++    return true;
++}
++void AForgeInteraction::Enter()
++{
++    auto* Player=PC.Get();if(!Player)return;
++    bRunning=true;WorkingPawn=Player->GetPawn();PreviousView=Player->GetViewTarget();
++    if(Station.IsValid())
++    {
++        auto* Body=Station->Body();
++        if(Body->DoesSocketExist(TEXT("QuenchSurface")))QuenchSurface=Body->GetSocketTransform(TEXT("QuenchSurface"),RTS_Component).GetLocation();
++        QuenchWaterSlot=Body->GetMaterialIndex(TEXT("Water"));
++        if(QuenchWaterSlot!=INDEX_NONE)
++        {
++            PreviousWaterMaterial=Body->GetMaterial(QuenchWaterSlot);
++            QuenchWaterMaterial=Body->CreateDynamicMaterialInstance(QuenchWaterSlot);
++            if(QuenchWaterMaterial){QuenchWaterMaterial->SetScalarParameterValue(TEXT("QuenchTime"),-10000);QuenchWaterMaterial->SetScalarParameterValue(TEXT("Immersion"),0);}
++        }
++    }
++    if(auto* Pawn=Cast<AFPSGAMECharacter>(WorkingPawn.Get())){Pawn->SuspendWeaponForMenu();Pawn->GetCharacterMovement()->StopMovementImmediately();}
++    Player->FlushPressedKeys();Player->SetIgnoreMoveInput(true);Player->SetIgnoreLookInput(true);bHeldInput=true;
++    Player->bShowMouseCursor=false;Player->SetInputMode(FInputModeGameOnly());
++    if(WorkingPawn.IsValid()&&!Player->HiddenActors.Contains(WorkingPawn.Get())){Player->HiddenActors.Add(WorkingPawn.Get());bHidPawn=true;}
++    SetActorHiddenInGame(false);SetActorTickEnabled(true);Present(0);
++    Player->SetViewTargetWithBlend(this,.35f,VTBlend_Cubic);
++    Prompt=CreateWidget<UColdSteelForgeActionWidget>(Player);Prompt->AddToViewport(80);
++}
++bool AForgeInteraction::HandleInput(const FInputKeyEventArgs& Event)
++{
++    if(!bRunning)return false;
++    if(Event.Key==EKeys::MouseX||Event.Key==EKeys::MouseY)
++    {
++        if(StrikeAt<0&&FinishAt<0)
++        {
++            MoveAim(Event);
++        }
++        return true;
++    }
++    if(Event.Event==IE_Pressed)
++    {
++        if(Event.Key==EKeys::Escape||Event.Key==EKeys::Tab){Stop(true);return true;}
++        if(Event.Key==EKeys::LeftMouseButton&&FinishAt<0&&StrikeAt<0&&System->Active())
++        {
++            const int32 Target=System->TargetIndex();
++            if(System->BeginStrike(Target,ContactSeconds,StrokeSeconds-ContactSeconds+.25))
++            {StrikeAt=FPlatformTime::Seconds();StrikeAim=Aim;StrikeIndex=Target;bContact=false;}
++        }
++    }
++    return true;
++}
++void AForgeInteraction::MoveAim(const FInputKeyEventArgs& Event)
++{
++    auto* Player=PC.Get();if(!Player||!Player->PlayerInput)return;
++    FInputAxisProperties Properties;if(!Player->PlayerInput->GetAxisProperties(Event.Key,Properties))return;
++    float Amount=Event.AmountDepressed;
++    if(Properties.DeadZone>0)
++        Amount=FMath::Sign(Amount)*FMath::Max(0.f,FMath::Abs(Amount)-Properties.DeadZone)/FMath::Max(.001f,1-Properties.DeadZone);
++    Amount=FMath::Sign(Amount)*FMath::Pow(FMath::Abs(Amount),Properties.Exponent)*Properties.Sensitivity;
++    if(Properties.bInvert)Amount=-Amount;
++    const bool Horizontal=Event.Key==EKeys::MouseX;
++    for(const auto& Mapping:Player->PlayerInput->GetKeysForAxis(Horizontal?TEXT("Turn"):TEXT("LookUp")))
++        if(Mapping.Key==Event.Key){Amount*=FMath::Abs(Mapping.Scale);break;}
++    const auto* Settings=GetDefault<UInputSettings>();
++    if(Settings->bEnableLegacyInputScales)
++    {
++        PRAGMA_DISABLE_DEPRECATION_WARNINGS
++        Amount*=FMath::Abs(Horizontal?Player->GetDeprecatedInputYawScale():Player->GetDeprecatedInputPitchScale());
++        PRAGMA_ENABLE_DEPRECATION_WARNINGS
++    }
++    const auto* Pawn=Cast<AFPSGAMECharacter>(WorkingPawn.Get());
++    const float GameplayFOV=Pawn?Pawn->BaseLookHorizontalFOV():90.f;
++    if(Settings->bEnableFOVScaling)Amount*=Settings->FOVScale*GameplayFOV;
++    // Preserve normal hip-look screen travel at the forge camera's narrower FOV.
++    // Intersect the moved view ray with the face; no axis-dependent cm multiplier.
++    const double FOVRatio=FMath::Tan(FMath::DegreesToRadians(Camera->FieldOfView)*.5)/FMath::Tan(FMath::DegreesToRadians(GameplayFOV)*.5);
++    const FQuat View=Camera->GetRelativeRotation().Quaternion();const FVector Origin=Camera->GetRelativeLocation();
++    const FVector Local=View.UnrotateVector(Point(Aim)-Origin);if(Local.X<=0)return;
++    FVector Ray(1,Local.Y/Local.X,Local.Z/Local.X);
++    const double Delta=FMath::DegreesToRadians(Amount)*FOVRatio;
++    if(Horizontal)Ray.Y+=Delta;else Ray.Z+=Delta;
++    Ray=View.RotateVector(Ray);if(Ray.Z>=-KINDA_SMALL_NUMBER)return;
++    const FVector Hit=Origin+Ray*((Point(Aim).Z-Origin.Z)/Ray.Z);
++    Aim.Y=FMath::Clamp(.375+(Hit.X-29)/60.,.1,.65);
++    Aim.X=FMath::Clamp(.5+(Hit.Y-22)/24.,.37,.63);
++}
++FVector AForgeInteraction::Point(const FVector2D& UV) const
++{const double Across=(UV.X-.5)*24;return FVector(29+(UV.Y-.375)*60,22+Across,FMath::Abs(Across)<=2.5?91.95:91.0);}
++FTransform AForgeInteraction::HammerFrame(const FVector& Hit,double Age) const
++{
++    const float T=Age<0?0:float(Age);FStrokeKey K=Stroke.Last();
++    for(int32 I=1;I<Stroke.Num();++I)if(T<=Stroke[I].Time)
++    {const float A=Ease((T-Stroke[I-1].Time)/(Stroke[I].Time-Stroke[I-1].Time));K.Angle=FMath::Lerp(Stroke[I-1].Angle,Stroke[I].Angle,A);K.Offset=FMath::Lerp(Stroke[I-1].Offset,Stroke[I].Offset,A);break;}
++    const FQuat ContactRotation=FRotationMatrix::MakeFromXZ(FVector(0,0,-1),ImpactAxis).ToQuat();
++    return FTransform(ContactRotation*FQuat(FVector::YAxisVector,FMath::DegreesToRadians(K.Angle)),Hit-ContactRotation.RotateVector(HammerContact)+K.Offset);
++}
++FTransform AForgeInteraction::TongFrame(const FTransform& Work) const
++{
++    const FQuat Q=FRotationMatrix::MakeFromXZ(FVector(0,0,-1),TongAxis).ToQuat();
++    const FQuat Tilt=Work.GetRotation()*FQuat(FVector::UpVector,FMath::DegreesToRadians(WorkYaw)).Inverse();
++    // Flat jaws enclose the tang; the paired reins remain inside the accepted cylindrical grasp.
++    const FVector Jaw=Work.TransformPosition(FVector(-24,0,.475));
++    return FTransform(Tilt*Q,Jaw-Tilt.RotateVector(Q.RotateVector(FVector(0,0,25.4))));
++}
++void AForgeInteraction::Tick(float DeltaTime)
++{
++    Super::Tick(DeltaTime);if(!bRunning)return;
++    auto* World=Station.IsValid()?Cast<AVoxelBuildWorld>(Station->GetOwner()):nullptr;
++    if(!PC.IsValid()||PC->GetPawn()!=WorkingPawn.Get()||!Station.IsValid()||Station->IsFalling()||!World||!World->HasPrefabAt(Station->AnchorCell())){Stop(false);return;}
++    const double Now=FPlatformTime::Seconds();
++    if(!System->Active()&&FinishAt<0)FinishAt=Now;
++    if(StrikeAt>=0&&Now-StrikeAt>=ContactSeconds&&!bContact){bContact=true;Contact();}
++    if(StrikeAt>=0&&Now-StrikeAt>=StrokeSeconds)StrikeAt=-100;
++    Present(DeltaTime);Sparks(DeltaTime);
++    DisplayClock+=DeltaTime;
++    if(Prompt&&DisplayClock>=.05f)
++    {
++        DisplayClock=0;Prompt->Refresh(System,FinishAt>=0,Now-LastFeedback<.5,bLastHit);
++    }
++    if(FinishAt>=0&&Now-FinishAt>=5.8)Stop(true);
++}
++void AForgeInteraction::Present(float DeltaTime)
++{
++    const double Now=FPlatformTime::Seconds();
++    const int32 Stage=FMath::Clamp(System->Job().Hits/7,0,2);
++    if(Stage!=BlankStage){BlankStage=Stage;Blank->SetStaticMesh(Blanks[Stage]);Blank->SetMaterial(0,BlankMaterial);}
++    const FQuat WorkRotation(FVector::UpVector,FMath::DegreesToRadians(WorkYaw));
++    FTransform Work(WorkRotation,FVector(29,22,91));
++    FTransform Tool=HammerFrame(Point(StrikeAt>=0?StrikeAim:Aim),StrikeAt>=0?Now-StrikeAt:-1);
++    float Heat=.95f+.25f*(1.f-float(System->ResolvedTargets())/System->TargetCount);
++    if(FinishAt>=0)
++    {
++        PresentQuench(float(Now-FinishAt),Work,Tool);
++        UpdateQuenchContact(Work,Now);
++        if(QuenchContactAt>=0)Heat*=FMath::Exp(-1.7f*float(Now-QuenchContactAt));
++    }
++    Blank->SetRelativeTransform(Work);BlankMaterial->SetScalarParameterValue(TEXT("Heat"),Heat);
++    UpdateThermalEffects(DeltaTime,Heat,Work,Now);
++    const FTransform Tong=TongFrame(Work);Hammer->SetRelativeTransform(Tool);Tongs->SetRelativeTransform(Tong);PoseArms(Tool,Tong);
++    FVector2D UV;float Life=0;const bool bTarget=FinishAt<0&&System->Target(UV,Life);
++    HeatRing->SetVisibility(bTarget);if(bTarget){HeatRing->SetRelativeLocation(Point(UV)+FVector(0,0,.10));HeatRing->SetRelativeScale3D(FVector(Life));}
++    AimRing->SetVisibility(FinishAt<0);AimRing->SetRelativeLocation(Point(Aim)+FVector(0,0,.16));
++}
++void AForgeInteraction::Contact()
++{
++    const FVector Hit=Point(StrikeAim);bLastHit=System->Strike(StrikeIndex,StrikeAim,FVector2D(1.85/24.,1.85/60.));LastFeedback=FPlatformTime::Seconds();
++    // A failed timed strike can still physically touch the blank/anvil and make a quieter knock.
++    const bool OnBlade=FMath::Abs(Hit.Y-22)<=2.5;
++    const FVector Surface(Hit.X,Hit.Y,OnBlade?91.95:91.0);
++    if(ImpactSound)UGameplayStatics::PlaySoundAtLocation(this,ImpactSound,GetActorTransform().TransformPosition(Surface),bLastHit?.6f:.3f,bLastHit?1.f:.86f);
++    if(OnBlade)
++    {
++        EmitHotImpact(Surface);
++    }
++}
++void AForgeInteraction::PoseArms(const FTransform& RightTool,const FTransform& LeftTool)
++{
++    // Native +X is anatomical right. The camera looks along station +Y, so its
++    // screen-right is -X. Rotate the BODY, keeping both hands' native handedness.
++    const FTransform Torso(FQuat(FVector::UpVector,PI),BodyOrigin);
++    Arms->SetRelativeTransform(Torso);
++    for(int32 I=0;I<Reference.Num();++I)Pose[I]=Reference[I]*Torso;
++    SolveArm(true,Hands[1].Grip*RightTool);SolveArm(false,Hands[0].Grip*LeftTool);
++    Arms->CommitStationPose(Pose,ArmBoundsBones);
++}
++void AForgeInteraction::SolveArm(bool Right,const FTransform& Hand)
++{
++    auto& H=Hands[Right?1:0];const auto& Ref=Arms->GetSkinnedAsset()->GetRefSkeleton();
++    const FVector Target=Hand.GetLocation();FVector Shoulder=Pose[H.Upper].GetLocation();
++    const float L1=FVector::Distance(Reference[H.Upper].GetLocation(),Reference[H.Lower].GetLocation());
++    const float L2=FVector::Distance(Reference[H.Lower].GetLocation(),Reference[H.Hand].GetLocation());
++    const FQuat HandDeform=Hand.GetRotation()*Reference[H.Hand].GetRotation().Inverse();
++    const FVector RefUpper=Reference[H.Lower].GetLocation()-Reference[H.Upper].GetLocation();
++    const FVector RefLower=Reference[H.Hand].GetLocation()-Reference[H.Lower].GetLocation();
++    // The native shoulder openings extend 9.32 cm from their joints. Keep their
++    // complete surfaces outside the corresponding camera side plane, with margin.
++    const FQuat View=Camera->GetRelativeRotation().Quaternion();
++    const FVector CameraOrigin=Camera->GetRelativeLocation();
++    const FVector Outward=View.RotateVector(FVector::YAxisVector)*(Right?1.0:-1.0);
++    const FVector Forward=View.RotateVector(FVector::XAxisVector);
++    const FVector Clearance=(Outward-Forward*FMath::Tan(FMath::DegreesToRadians(Camera->FieldOfView)*.5)).GetSafeNormal();
++    constexpr double ShoulderMargin=10.5,ElbowReserve=1.0;
++    FVector Elbow,LowerDirection;
++    FQuat LowerDeform,UpperDeform;
++    constexpr double HammerPronation=PI*.5;
++    if(Right)
++    {
++        const FVector NativeLower=RefLower.GetSafeNormal();
++        const FVector NativeHinge=(RefUpper^RefLower).GetSafeNormal();
++        const FVector WristBendAxis=HandDeform.RotateVector(FQuat(NativeLower,FMath::DegreesToRadians(15.0)).RotateVector(NativeHinge));
++        const FQuat WristAligned=FQuat(WristBendAxis,FMath::DegreesToRadians(30.0))*HandDeform;
++        LowerDirection=WristAligned.RotateVector(NativeLower);
++        // Separate forearm pronation from elbow flexion. The old shortest swing
++        // could put the humerus on the hyperextended side of the native hinge.
++        LowerDeform=FQuat(LowerDirection,HammerPronation)*WristAligned;
++        const FVector Hinge=LowerDeform.RotateVector(NativeHinge);
++        Elbow=Target-LowerDirection*L2;
++        const FVector WantedUpper=(Elbow-Shoulder).GetSafeNormal();
++        const FVector FlexTangent=LowerDirection^Hinge;
++        const double WantedFlex=FMath::Atan2(WantedUpper|FlexTangent,WantedUpper|LowerDirection);
++        // Reserve enough shoulder-to-wrist reach for the camera clearance before
++        // flexing. This changes flexion, never bone length or the hinge's side.
++        const double RequiredReach=FMath::Max(0.0,ShoulderMargin-((Target-CameraOrigin)|Clearance))+ElbowReserve;
++        const double ReachFlex=FMath::Acos(FMath::Clamp((RequiredReach*RequiredReach-L1*L1-L2*L2)/(2.0*L1*L2),-1.0,1.0));
++        const double MaxFlex=FMath::Min(FMath::DegreesToRadians(110.0),ReachFlex);
++        const double Flex=FMath::Clamp(WantedFlex,FMath::Min(FMath::DegreesToRadians(45.0),MaxFlex),MaxFlex);
++        const double NativeFlex=FMath::Acos(FMath::Clamp(RefUpper.GetSafeNormal()|NativeLower,-1.0,1.0));
++        UpperDeform=FQuat(Hinge,NativeFlex-Flex)*LowerDeform;
++        Shoulder=Elbow-UpperDeform.RotateVector(RefUpper);
++
++        // If the open shoulder reaches the view, swing the WHOLE bent chain
++        // around the fixed wrist. Moving its shoulder independently would break
++        // the shared hinge frame again and twist the elbow blend weights.
++        const FVector Support=Shoulder-Target;
++        const FVector SupportDirection=Support.GetSafeNormal();
++        const double SideLimit=FMath::Clamp((ShoulderMargin-((Target-CameraOrigin)|Clearance))/Support.Size(),-1.0,1.0);
++        if((SupportDirection|Clearance)<SideLimit)
++        {
++            const FVector Tangent=(SupportDirection-Clearance*(SupportDirection|Clearance)).GetSafeNormal();
++            const FVector SafeDirection=Clearance*SideLimit+Tangent*FMath::Sqrt(FMath::Max(0.0,1.0-SideLimit*SideLimit));
++            const FQuat ChainSwing=FQuat::FindBetweenNormals(SupportDirection,SafeDirection);
++            Shoulder=Target+ChainSwing.RotateVector(Support);
++            Elbow=Target+ChainSwing.RotateVector(Elbow-Target);
++            LowerDirection=ChainSwing.RotateVector(LowerDirection);
++            LowerDeform=ChainSwing*LowerDeform;UpperDeform=ChainSwing*UpperDeform;
++        }
++    }
++    else
++    {
++        // Preserve the existing tong-arm solve.
++        const FVector NeutralForearm=HandDeform.RotateVector(RefLower.GetSafeNormal());
++        const FVector ReachAxis=(Target-Shoulder).GetSafeNormal();
++        const float Bend=FMath::Acos(FMath::Clamp(float(NeutralForearm|ReachAxis),-1.f,1.f));
++        const float BendShare=Bend>KINDA_SMALL_NUMBER?FMath::Min(1.f,FMath::DegreesToRadians(12.f)/Bend):0;
++        LowerDirection=FQuat::Slerp(FQuat::Identity,FQuat::FindBetweenNormals(NeutralForearm,ReachAxis),BendShare).RotateVector(NeutralForearm);
++        const double ReachLimit=FMath::Clamp((((Target-CameraOrigin)|Clearance)+L1-ShoulderMargin-ElbowReserve)/L2,-1.0,1.0);
++        if((LowerDirection|Clearance)>ReachLimit)
++        {
++            const FVector Tangent=(LowerDirection-Clearance*(LowerDirection|Clearance)).GetSafeNormal();
++            LowerDirection=Clearance*ReachLimit+Tangent*FMath::Sqrt(FMath::Max(0.0,1.0-ReachLimit*ReachLimit));
++        }
++        Elbow=Target-LowerDirection*L2;
++        FVector Support=(Shoulder-Elbow).GetSafeNormal();
++        const double SideLimit=FMath::Clamp((ShoulderMargin-((Elbow-CameraOrigin)|Clearance))/L1,-1.0,1.0);
++        if((Support|Clearance)<SideLimit)
++        {
++            const FVector Tangent=(Support-Clearance*(Support|Clearance)).GetSafeNormal();
++            Support=Clearance*SideLimit+Tangent*FMath::Sqrt(FMath::Max(0.0,1.0-SideLimit*SideLimit));
++        }
++        Shoulder=Elbow+Support*L1;
++        LowerDeform=FQuat::FindBetweenNormals(NeutralForearm,LowerDirection)*HandDeform;
++        UpperDeform=FQuat::FindBetweenNormals(LowerDeform.RotateVector(RefUpper.GetSafeNormal()),(Elbow-Shoulder).GetSafeNormal())*LowerDeform;
++    }
++    // Shoulder skin also blends clavicle and upper-arm helpers. Translating the
++    // clavicle while leaving its old rotation tears this blend around the opening.
++    const FVector ClavicleOffset=Reference[H.Clavicle].GetLocation()-Reference[H.Upper].GetLocation();
++    Pose[H.Clavicle]=FTransform((UpperDeform*Reference[H.Clavicle].GetRotation()).GetNormalized(),Shoulder+UpperDeform.RotateVector(ClavicleOffset),Reference[H.Clavicle].GetScale3D());
++    Pose[H.Upper]=FTransform((UpperDeform*Reference[H.Upper].GetRotation()).GetNormalized(),Shoulder,Reference[H.Upper].GetScale3D());
++    Pose[H.Lower]=FTransform((LowerDeform*Reference[H.Lower].GetRotation()).GetNormalized(),Elbow,Reference[H.Lower].GetScale3D());
++    Pose[H.Hand]=FTransform(Hand.GetRotation(),Target,Reference[H.Hand].GetScale3D());
++    static const FName RightLowerTwist01(TEXT("lowerarm_twist_01_r")),RightLowerTwist02(TEXT("lowerarm_twist_02_r"));
++    for(int32 I:H.Bones)
++    {
++        if(I==H.Clavicle||I==H.Upper||I==H.Lower||I==H.Hand)continue;
++        const int32 Parent=Ref.GetParentIndex(I);FTransform Local=LocalReference[I];
++        if(Right&&Parent==H.Lower&&(Ref.GetBoneName(I)==RightLowerTwist01||Ref.GetBoneName(I)==RightLowerTwist02))
++        {
++            // Only the axial pronation is distributed, in component space.
++            // Never fractionally blend the wrist bend or multiply cumulative
++            // twist by an already twisted parent (these helpers are siblings).
++            const FVector Offset=Reference[I].GetLocation()-Reference[H.Lower].GetLocation();
++            const double Along=FMath::Clamp((Offset|RefLower)/RefLower.SizeSquared(),0.0,1.0);
++            const FQuat Deform=FQuat(LowerDirection,-HammerPronation*Along)*LowerDeform;
++            Pose[I]=FTransform((Deform*Reference[I].GetRotation()).GetNormalized(),Elbow+Deform.RotateVector(Offset),Reference[I].GetScale3D());
++            continue;
++        }
++        if(const FQuat* Finger=Fingers.Find(I))Local.SetRotation(*Finger);
++        Pose[I]=Local*Pose[Parent];
++    }
++}
++void AForgeInteraction::RestorePlayer()
++{
++    RestoreQuenchWater();
++    if(auto* Player=PC.Get())
++    {
++        if(bHeldInput){Player->SetIgnoreMoveInput(false);Player->SetIgnoreLookInput(false);bHeldInput=false;Player->FlushPressedKeys();}
++        if(bHidPawn){Player->HiddenActors.Remove(WorkingPawn.Get());bHidPawn=false;}
++        if(Player->GetViewTarget()==this)Player->SetViewTargetWithBlend(PreviousView.IsValid()?PreviousView.Get():Player->GetPawn(),.25f,VTBlend_Cubic);
++    }
++    if(Prompt){Prompt->RemoveFromParent();Prompt=nullptr;}
++}
++void AForgeInteraction::Stop(bool bReturnPanel)
++{
++    if(!bRunning)return;bRunning=false;bReturning=true;
++    if(System&&System->Active()){FString Reason;System->Finish(Reason);}
++    SetActorTickEnabled(false);RestorePlayer();
++    if(auto* OwnerHUD=HUD.Get())OwnerHUD->CompleteWorldForging(this,bReturnPanel&&Station.IsValid()&&!Station->IsFalling());
++    SetLifeSpan(.3f);
++}
++void AForgeInteraction::EndPlay(const EEndPlayReason::Type Reason)
++{
++    RestoreQuenchWater();
++    if(bRunning){bRunning=false;if(System&&System->Active()){FString Why;System->Finish(Why);}RestorePlayer();}
++    if(Load.IsValid())Load->CancelHandle();Super::EndPlay(Reason);
++}
+diff --git a/Source/FPSGAME/Building/ForgeInteraction.h b/Source/FPSGAME/Building/ForgeInteraction.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Building/ForgeInteraction.h
+@@ -0,0 +1,131 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "GameFramework/Actor.h"
++#include "ForgeInteraction.generated.h"
++
++class UColdSteelHUDWidget;
++class UColdSteelForgingSystem;
++class UCameraComponent;
++class UForgeArmsMeshComponent;
++class UStaticMeshComponent;
++class UInstancedStaticMeshComponent;
++class UMaterialInstanceDynamic;
++class UMaterialInterface;
++class UColdSteelForgeActionWidget;
++class UPointLightComponent;
++class AVoxelBuildPrefabActor;
++class UStaticMesh;
++class USoundBase;
++struct FStreamableHandle;
++struct FInputKeyEventArgs;
++
++/** Local, station-anchored presentation. ForgingSystem remains the inventory/quality authority. */
++UCLASS()
++class FPSGAME_API AForgeInteraction : public AActor
++{
++    GENERATED_BODY()
++public:
++    AForgeInteraction();
++    void Prepare(APlayerController* Player,AVoxelBuildPrefabActor* Station,UColdSteelHUDWidget* InHUD);
++    bool Ready(FString& Reason) const;
++    bool Start(FName Recipe,FString& Reason);
++    void Enter();
++    bool IsRunning() const {return bRunning;}
++    bool HandleInput(const FInputKeyEventArgs& Event);
++    void Stop(bool bReturnPanel);
++    virtual void Tick(float DeltaTime) override;
++protected:
++    virtual void EndPlay(const EEndPlayReason::Type Reason) override;
++private:
++    void AssetsLoaded();
++    bool LoadGrip();
++    void PoseArms(const FTransform& RightTool,const FTransform& LeftTool);
++    void SolveArm(bool Right,const FTransform& Hand);
++    void Present(float DeltaTime);
++    void Contact();
++    void Sparks(float DeltaTime);
++    void EmitHotImpact(const FVector& Surface);
++    void UpdateThermalEffects(float DeltaTime,float Heat,const FTransform& Work,double Now);
++    void PresentQuench(float Age,FTransform& Work,FTransform& Tool);
++    void UpdateQuenchContact(const FTransform& Work,double Now);
++    void RestoreQuenchWater();
++    FVector Point(const FVector2D& UV) const;
++    FTransform HammerFrame(const FVector& Hit,double Age) const;
++    FTransform TongFrame(const FTransform& BlankTransform) const;
++    void RestorePlayer();
++    void MoveAim(const FInputKeyEventArgs& Event);
++    struct FHand
++    {
++        int32 Clavicle=INDEX_NONE,Upper=INDEX_NONE,Lower=INDEX_NONE,Hand=INDEX_NONE;
++        FTransform Grip;
++        TArray<int32> Bones;
++    };
++    struct FStrokeKey {float Time,Angle;FVector Offset;};
++    struct FSpark
++    {
++        FVector Position,Velocity;
++        float Age=1,Lifetime=.7f,Size=1,Roll=0,Spin=0;
++        bool bScale=false,bBounced=false;
++    };
++    struct FFume
++    {
++        FVector Position,Velocity;
++        float Age=2,Lifetime=1.5f,Seed=0,Opacity=0,Size=12;
++        bool bSteam=false;
++    };
++    FHand Hands[2];
++    TArray<FTransform> Reference,LocalReference,Pose;
++    TArray<int32> ArmBoundsBones;
++    TMap<int32,FQuat> Fingers;
++    TArray<FStrokeKey> Stroke;
++    TArray<FSpark> SparkPool;
++    TSharedPtr<FStreamableHandle> Load;
++    TWeakObjectPtr<APlayerController> PC;
++    TWeakObjectPtr<AVoxelBuildPrefabActor> Station;
++    TWeakObjectPtr<AActor> PreviousView;
++    TWeakObjectPtr<APawn> WorkingPawn;
++    TWeakObjectPtr<UColdSteelHUDWidget> HUD;
++    FVector2D Aim=FVector2D(.5,.375),StrikeAim;
++    FVector SparkOrigin;
++    FString LoadError;
++    double StrikeAt=-100,FinishAt=-1,LastFeedback=-100;
++    float DisplayClock=0,ContactSeconds=.34f,StrokeSeconds=.82f;
++    FVector HammerContact=FVector(6.8,0,21);
++    FVector ImpactAxis=FVector(.45,.893,0),TongAxis=FVector(-.30,.954,0);
++    FVector BodyOrigin=FVector(29,-34,146);
++    FVector QuenchOrigin=FVector(56,-30,73);
++    FVector ElbowPole=FVector(32,-10,-29);
++    float WorkYaw=180,QuenchPitch=-62;
++    int32 StrikeIndex=INDEX_NONE,BlankStage=INDEX_NONE;
++    bool bReady=false,bRunning=false,bContact=false,bHeldInput=false,bHidPawn=false,bLastHit=false,bReturning=false;
++    UPROPERTY(Transient) TObjectPtr<UColdSteelForgingSystem> System;
++    UPROPERTY(VisibleAnywhere) TObjectPtr<UCameraComponent> Camera;
++    UPROPERTY(VisibleAnywhere) TObjectPtr<UForgeArmsMeshComponent> Arms;
++    UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> Hammer;
++    UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> Tongs;
++    UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> Blank;
++    UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> HeatRing;
++    UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> AimRing;
++    UPROPERTY(VisibleAnywhere) TObjectPtr<UInstancedStaticMeshComponent> ScaleSparks;
++    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> BlankMaterial;
++    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> HeatMaterial;
++    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> AimMaterial;
++    UPROPERTY(Transient) TArray<TObjectPtr<UStaticMesh>> Blanks;
++    UPROPERTY(Transient) TObjectPtr<USoundBase> ImpactSound;
++    UPROPERTY(Transient) TObjectPtr<UColdSteelForgeActionWidget> Prompt;
++    UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> HeatVeil;
++    UPROPERTY(VisibleAnywhere) TObjectPtr<UInstancedStaticMeshComponent> HeatFumes;
++    UPROPERTY(VisibleAnywhere) TObjectPtr<UPointLightComponent> HotLight;
++    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> VeilMaterial;
++    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> FumeMaterial;
++    TArray<FFume> FumePool;
++    FRandomStream VisualRandom;
++    double LastHotImpact=-100;
++    float FumeSpawnClock=0;
++    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> QuenchWaterMaterial;
++    UPROPERTY(Transient) TObjectPtr<UMaterialInterface> PreviousWaterMaterial;
++    FVector QuenchSurface=FVector(42,-30,46),SteamOrigin=FVector(42,-30,46);
++    double QuenchContactAt=-1;
++    float QuenchImmersion=0;
++    int32 QuenchWaterSlot=INDEX_NONE;
++};
+diff --git a/Source/FPSGAME/Building/ForgeQuenchPresentation.cpp b/Source/FPSGAME/Building/ForgeQuenchPresentation.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Building/ForgeQuenchPresentation.cpp
+@@ -0,0 +1,66 @@
++#include "ForgeInteraction.h"
++#include "VoxelBuildPrefabActor.h"
++#include "Camera/CameraComponent.h"
++#include "Components/StaticMeshComponent.h"
++#include "Materials/MaterialInstanceDynamic.h"
++#include "Engine/World.h"
++
++void AForgeInteraction::PresentQuench(float Age,FTransform& Work,FTransform& Tool)
++{
++    auto Ease=[](float T){return FMath::SmoothStep(0.f,1.f,T);};
++    const float Lift=Ease(Age/.55f),Transfer=Ease((Age-.5f)/1.0f);
++    const float Dip=Ease((Age-1.5f)/.65f),Raise=Ease((Age-3.95f)/.7f);
++    const FQuat Flat(FVector::UpVector,FMath::DegreesToRadians(WorkYaw));
++    // Near-vertical immersion: the 30 cm blade tip clears the bottom and stays inside the tub.
++    const FVector Above=QuenchSurface+FVector(7.3,0,42);
++    Work.SetLocation(FMath::Lerp(FVector(29,22,91)+FVector(0,0,14)*Lift,Above,Transfer)
++        +FVector(0,0,-30*Dip+27*Raise));
++    Work.SetRotation(FQuat(FVector::YAxisVector,FMath::DegreesToRadians(-76.f*Transfer))*Flat);
++    Tool=HammerFrame(Point(Aim),-1);Tool.AddToTranslation(FVector(-12,-6,-12)*Lift);
++
++    // Camera motion precedes contact. Solve arms afterwards against this camera,
++    // retaining both authored tool grips and the existing elbow constraints.
++    const float Look=Ease((Age-.35f)/1.25f);
++    const FVector CameraAt=FMath::Lerp(FVector(29,-43,148),QuenchSurface+FVector(-8,-42,70),Look);
++    const FVector Target=FMath::Lerp(FVector(29,22,92),QuenchSurface+FVector(4,5,12),Look);
++    Camera->SetRelativeLocation(CameraAt);Camera->SetRelativeRotation((Target-CameraAt).Rotation());
++    Camera->SetFieldOfView(FMath::Lerp(67.f,63.f,Look));
++}
++
++void AForgeInteraction::UpdateQuenchContact(const FTransform& Work,double Now)
++{
++    const FVector Tip=Work.TransformPosition(FVector(30,0,.475));
++    const FVector Heel=Work.TransformPosition(FVector(-21,0,.475));
++    QuenchImmersion=0;
++    if(Tip.Z<QuenchSurface.Z&&Heel.Z>QuenchSurface.Z)
++    {
++        const float T=(QuenchSurface.Z-Tip.Z)/(Heel.Z-Tip.Z);
++        const FVector Crossing=FMath::Lerp(Tip,Heel,T);
++        if(FVector::DistSquared2D(Crossing,QuenchSurface)<19.5*19.5)
++        {
++            QuenchImmersion=FMath::Clamp(float((QuenchSurface.Z-Tip.Z)/18.),0.f,1.f);
++            SteamOrigin=FVector(Crossing.X,Crossing.Y,QuenchSurface.Z+.8);
++            if(QuenchContactAt<0)
++            {
++                QuenchContactAt=Now;FumeSpawnClock=.1f;
++                if(QuenchWaterMaterial)
++                {
++                    QuenchWaterMaterial->SetScalarParameterValue(TEXT("QuenchTime"),GetWorld()->GetTimeSeconds());
++                    const FVector Local=Crossing-QuenchSurface;
++                    QuenchWaterMaterial->SetVectorParameterValue(TEXT("QuenchPoint"),FLinearColor(Local.X,Local.Y,0));
++                }
++            }
++        }
++    }
++    if(QuenchWaterMaterial)QuenchWaterMaterial->SetScalarParameterValue(TEXT("Immersion"),QuenchImmersion);
++}
++
++void AForgeInteraction::RestoreQuenchWater()
++{
++    if(Station.IsValid()&&QuenchWaterMaterial&&QuenchWaterSlot!=INDEX_NONE)
++    {
++        auto* Body=Station->Body();
++        if(Body->GetMaterial(QuenchWaterSlot)==QuenchWaterMaterial)Body->SetMaterial(QuenchWaterSlot,PreviousWaterMaterial);
++    }
++    QuenchWaterMaterial=nullptr;PreviousWaterMaterial=nullptr;QuenchWaterSlot=INDEX_NONE;
++}
+diff --git a/Source/FPSGAME/Building/ForgingSystem.cpp b/Source/FPSGAME/Building/ForgingSystem.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Building/ForgingSystem.cpp
+@@ -0,0 +1,251 @@
++#include "ForgingSystem.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "Engine/GameInstance.h"
++#include "Engine/World.h"
++#include "Dom/JsonObject.h"
++#include "Serialization/JsonSerializer.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Paths.h"
++
++void UColdSteelStatusModel::StageForgeHit(const FString& JobId,int32 Hits)
++{
++    if(Current.ForgeJob.Id!=JobId||Current.ForgeJob.bFinished)return;
++    Current.ForgeJob.Hits=FMath::Clamp(Hits,Current.ForgeJob.Hits,UColdSteelForgingSystem::TargetCount);
++    bTrainingDirty=true;
++}
++
++UColdSteelStatusModel* UColdSteelForgingSystem::Model() const
++{return GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;}
++const FColdSteelForgeJob& UColdSteelForgingSystem::Job() const
++{static const FColdSteelForgeJob Empty;const auto* M=Model();return M?M->ForgeJob():Empty;}
++const FColdSteelForgeRecipe* UColdSteelForgingSystem::Find(FName Id) const
++{return Recipes.FindByPredicate([Id](const auto& R){return R.Id==Id;});}
++
++void UColdSteelForgingSystem::Initialize(FSubsystemCollectionBase& Collection)
++{
++    Super::Initialize(Collection);Collection.InitializeDependency<UColdSteelStatusModel>();
++    FString Text;TSharedPtr<FJsonObject> Root;
++    if(!FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/forging-recipes.json")))
++        ||!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Root)||!Root)return;
++    const TArray<TSharedPtr<FJsonValue>>* Rows=nullptr;if(!Root->TryGetArrayField(TEXT("recipes"),Rows))return;
++    // Sword recipes share the accepted blank's strike regions. Per-recipe points remain readable.
++    const TSharedPtr<FJsonObject>* SwordBlank=nullptr;
++    const TArray<TSharedPtr<FJsonValue>>* SwordPoints=nullptr;
++    if(Root->TryGetObjectField(TEXT("sword_blank"),SwordBlank)&&*SwordBlank)
++        (*SwordBlank)->TryGetArrayField(TEXT("points"),SwordPoints);
++    for(const auto& V:*Rows)
++    {
++        const auto O=V->AsObject();if(!O)continue;
++        FColdSteelForgeRecipe R;FString Id;
++        if(!O->TryGetStringField(TEXT("id"),Id)||Id.IsEmpty()||!O->TryGetStringField(TEXT("output"),R.Output)
++            ||!O->TryGetStringField(TEXT("mold"),R.Mold))continue;
++        R.Id=FName(*Id);if(Find(R.Id))continue;
++        const TArray<TSharedPtr<FJsonValue>>* Inputs=nullptr;const TArray<TSharedPtr<FJsonValue>>* Points=nullptr;
++        if(!O->TryGetArrayField(TEXT("inputs"),Inputs))continue;
++        if(!O->TryGetArrayField(TEXT("points"),Points))Points=SwordPoints;
++        if(!Points)continue;
++        bool Valid=true;TSet<FString> Seen;
++        for(const auto& I:*Inputs)
++        {
++            const auto In=I->AsObject();FColdSteelCraftingInput Cost;double Count=0;
++            if(!In||!In->TryGetStringField(TEXT("item"),Cost.Item)||!In->TryGetNumberField(TEXT("count"),Count)
++                ||Count<1||Count>9999||Count!=FMath::FloorToDouble(Count)||Seen.Contains(Cost.Item)){Valid=false;break;}
++            Cost.Count=int64(Count);Seen.Add(Cost.Item);R.Inputs.Add(Cost);
++        }
++        for(const auto& P:*Points)
++        {
++            const auto& A=P->AsArray();if(A.Num()!=2){Valid=false;break;}
++            FVector2D Point(A[0]->AsNumber(),A[1]->AsNumber());
++            if(Point.X<0||Point.X>1||Point.Y<0||Point.Y>1){Valid=false;break;}R.Points.Add(Point);
++        }
++        if(Valid&&!R.Inputs.IsEmpty()&&R.Points.Num()>1)Recipes.Add(MoveTemp(R));
++    }
++}
++void UColdSteelForgingSystem::Deinitialize()
++{if(bActive){FString Reason;Finish(Reason);}Super::Deinitialize();}
++FString UColdSteelForgingSystem::Quality(int32 Hits)
++{
++    if(Hits>=20)return TEXT("完美");if(Hits>=18)return TEXT("精工");if(Hits>=14)return TEXT("精良");
++    if(Hits>=10)return TEXT("合格");if(Hits>=5)return TEXT("普通");return TEXT("粗制");
++}
++bool UColdSteelForgingSystem::CanStart(FName Id,FString& Reason) const
++{
++    const auto* M=Model();const auto* R=Find(Id);
++    if(!M||!R){Reason=TEXT("配方未就绪");return false;}
++    if(!GetWorld()||GetWorld()->GetNetMode()!=NM_Standalone){Reason=TEXT("锻造仅支持单人模式");return false;}
++    if(bActive||!Job().Id.IsEmpty()){Reason=TEXT("先领取或废弃上一把成品");return false;}
++    if(M->CreateItem(R->Output).Data.IsEmpty()){Reason=TEXT("成品未加入物品目录");return false;}
++    for(const auto& In:R->Inputs)if(M->CountMaterial(In.Item)<In.Count)
++    {
++        Reason=FString::Printf(TEXT("缺少 %lld 个%s"),In.Count-M->CountMaterial(In.Item),
++            *ColdSteelInventory::Text(M->CreateItem(In.Item),TEXT("name")));return false;
++    }
++    Reason=TEXT("材料充足 · 每轮制作一把");return true;
++}
++bool UColdSteelForgingSystem::Start(FName Id,FString& Reason)
++{
++    if(!CanStart(Id,Reason))return false;
++    auto* M=Model();const auto* R=Find(Id);M->SyncRuntime();auto P=M->Snapshot();
++    for(const auto& In:R->Inputs)
++    {
++        int64 Left=In.Count;
++        for(int32 Place:{0,4})for(int32 I=P.Items.Num()-1;I>=0&&Left>0;--I)
++        {
++            auto& Item=P.Items[I];if(Item.Place!=Place||!Item.Container.IsEmpty()||Item.Definition!=In.Item)continue;
++            const int64 Take=FMath::Min(Item.Count,Left);Item.Count-=Take;Left-=Take;if(Item.Count==0)P.Items.RemoveAt(I);
++        }
++        if(Left>0){Reason=TEXT("材料已变化，请重新开始");return false;}
++    }
++    P.ForgeJob={};P.ForgeJob.Id=FGuid::NewGuid().ToString(EGuidFormats::Digits);P.ForgeJob.Recipe=Id;
++    P.ForgeJob.Item=M->CreateItem(R->Output);const FString NewId=P.ForgeJob.Id;
++    for(const auto& In:R->Inputs)P.ForgeJob.PaidMaterials.Add(In.Item,In.Count);
++    if(!M->CommitState(MoveTemp(P))){Reason=M->ResultMessage();return false;}
++    Sequence.Reset();FRandomStream Random(FMath::Rand());int32 Last=INDEX_NONE;
++    for(int32 I=0;I<TargetCount;++I)
++    {
++        TArray<int32> Candidates;
++        for(int32 N=0;N<R->Points.Num();++N)
++            if(Last==INDEX_NONE||FVector2D::Distance(R->Points[N],R->Points[Last])>=.18)Candidates.Add(N);
++        if(Candidates.IsEmpty())for(int32 N=0;N<R->Points.Num();++N)if(N!=Last)Candidates.Add(N);
++        Last=Candidates[Random.RandRange(0,Candidates.Num()-1)];Sequence.Add(R->Points[Last]);
++    }
++    ActiveId=NewId;StartedAt=FPlatformTime::Seconds();CompletedTargets=0;
++    bTargetOpen=false;bStrikePending=false;TargetOpenedAt=0;PhaseEndsAt=StartedAt+Preparation;
++    RecoveryAfterContact=0;StrikeContactAt=0;StrikeTargetLife=0;
++    LastError.Reset();RetryAt=0;bActive=true;Reason=TEXT("准备锻打");return true;
++}
++double UColdSteelForgingSystem::Elapsed() const
++{return StartedAt>0?FPlatformTime::Seconds()-StartedAt-Preparation:0;}
++double UColdSteelForgingSystem::PhaseRemaining() const
++{
++    if(!bActive)return 0;
++    const double Now=FPlatformTime::Seconds();
++    if(bStrikePending)return FMath::Max(0.,StrikeContactAt-Now);
++    return FMath::Max(0.,PhaseEndsAt-Now);
++}
++int32 UColdSteelForgingSystem::TargetIndex() const
++{
++    return bActive&&bTargetOpen&&(bStrikePending||FPlatformTime::Seconds()<PhaseEndsAt)
++        ?CompletedTargets:INDEX_NONE;
++}
++bool UColdSteelForgingSystem::Target(FVector2D& UV,float& Life) const
++{
++    const int32 I=TargetIndex();if(!Sequence.IsValidIndex(I))return false;
++    UV=Sequence[I];
++    Life=bStrikePending?StrikeTargetLife:float(FMath::Clamp((PhaseEndsAt-FPlatformTime::Seconds())/FMath::Max(PhaseEndsAt-TargetOpenedAt,.001),0.,1.));
++    return Life>0;
++}
++bool UColdSteelForgingSystem::BeginStrike(int32 ShownIndex,double ContactDelay,double RecoveryDelay)
++{
++    if(!bActive||bStrikePending||ShownIndex==INDEX_NONE||ShownIndex!=TargetIndex())return false;
++    FVector2D Point;float Life=0;if(!Target(Point,Life))return false;
++    // Judge the player's reaction at input time, without charging the hammer's travel time.
++    StrikeTargetLife=Life;
++    bStrikePending=true;StrikeContactAt=FPlatformTime::Seconds()+FMath::Max(0.,ContactDelay);
++    RecoveryAfterContact=FMath::Max(0.,RecoveryDelay);return true;
++}
++void UColdSteelForgingSystem::ResolveTarget(bool bHit,double Now)
++{
++    if(bHit)Model()->StageForgeHit(ActiveId,Job().Hits+1);
++    ++CompletedTargets;bTargetOpen=false;bStrikePending=false;StrikeTargetLife=0;
++    // Sample once per resolved point, never during HUD refresh. A random gap
++    // cannot end before the hammer's recovery and interaction buffer have elapsed.
++    const double Gap=FMath::FRandRange(float(TargetGapMin),float(TargetGapMax));
++    PhaseEndsAt=Now+FMath::Max(Gap,RecoveryAfterContact);RecoveryAfterContact=0;
++}
++void UColdSteelForgingSystem::AdvanceTargets(double Now)
++{
++    if(bTargetOpen&&!bStrikePending&&Now>=PhaseEndsAt)ResolveTarget(false,Now);
++    if(!bTargetOpen&&CompletedTargets<TargetCount&&Now>=PhaseEndsAt)
++    {bTargetOpen=true;TargetOpenedAt=Now;PhaseEndsAt=Now+FMath::FRandRange(float(HitWindowMin),float(HitWindowMax));}
++}
++bool UColdSteelForgingSystem::Strike(int32 ShownIndex,const FVector2D& UV,const FVector2D& RadiusUV)
++{
++    const double Now=FPlatformTime::Seconds();FVector2D Point;float Life=0;
++    if(ShownIndex==INDEX_NONE||ShownIndex!=TargetIndex()||!Target(Point,Life)
++        ||RadiusUV.X<=0||RadiusUV.Y<=0||Job().Id!=ActiveId||(bStrikePending&&Now<StrikeContactAt))return false;
++    const FVector2D Delta((UV.X-Point.X)/RadiusUV.X,(UV.Y-Point.Y)/RadiusUV.Y);
++    const bool bHit=Delta.SizeSquared()<=Life*Life;ResolveTarget(bHit,Now);return bHit;
++}
++void UColdSteelForgingSystem::Tick(float DeltaTime)
++{
++    if(Job().Id!=ActiveId){bActive=false;return;}
++    const double Now=FPlatformTime::Seconds();AdvanceTargets(Now);
++    if(CompletedTargets>=TargetCount&&Now>=PhaseEndsAt&&Now>=RetryAt)
++    {FString Reason;if(!Finish(Reason)){LastError=Reason;RetryAt=FPlatformTime::Seconds()+2.;}}
++}
++bool UColdSteelForgingSystem::Finish(FString& Reason)
++{
++    auto* M=Model();if(!M)return false;
++    if(Job().Id.IsEmpty()||Job().bFinished){bActive=false;return true;}
++    M->SyncRuntime();auto P=M->Snapshot();auto& J=P.ForgeJob;
++    TSharedPtr<FJsonObject> Data;
++    if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(J.Item.Data),Data)||!Data)
++    {Reason=TEXT("工件数据不可读，保留待处理记录");return false;}
++    auto Q=MakeShared<FJsonObject>();Q->SetNumberField(TEXT("hits"),J.Hits);Q->SetNumberField(TEXT("total"),TargetCount);
++    Q->SetNumberField(TEXT("multiplier"),Multiplier(J.Hits));Q->SetStringField(TEXT("label"),Quality(J.Hits));
++    Data->SetObjectField(TEXT("_forgeQuality"),Q);
++    FString Serialized;FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&Serialized));
++    J.Item.Data=MoveTemp(Serialized);J.bFinished=true;
++    if(!M->CommitState(MoveTemp(P))){Reason=M->ResultMessage();LastError=Reason;return false;}
++    bActive=false;ActiveId.Reset();LastError.Reset();Reason=TEXT("锻造完成 · 领取或废弃后可开始下一轮");return true;
++}
++bool UColdSteelForgingSystem::Claim(FString& Reason)
++{
++    auto* M=Model();if(!M||bActive||Job().Id.IsEmpty()||!Job().bFinished){Reason=TEXT("还没有可领取的成品");return false;}
++    M->SyncRuntime();auto P=M->Snapshot();
++    if(!ColdSteelInventory::Insert(P.Items,P.ForgeJob.Item)){Reason=TEXT("背包空间不足，成品保留待领");return false;}
++    P.ForgeJob={};if(!M->CommitState(MoveTemp(P))){Reason=M->ResultMessage();return false;}
++    LastError.Reset();Reason=TEXT("成品已放入背包");return true;
++}
++bool UColdSteelForgingSystem::GetPaidMaterials(TMap<FString,int64>& Paid) const
++{
++    Paid.Reset();
++    if(Job().Id.IsEmpty())return false;
++    Paid=Job().PaidMaterials;
++    if(!Paid.IsEmpty())return true;
++    // Keep old-save fallback identical for the materials display and discard quote.
++    const auto* Recipe=Find(Job().Recipe);
++    if(!Recipe)return false;
++    for(const auto& In:Recipe->Inputs)Paid.Add(In.Item,In.Count);
++    return true;
++}
++bool UColdSteelForgingSystem::GetDiscardRefund(TArray<FColdSteelCraftingInput>& Refund,FString& Reason) const
++{
++    Refund.Reset();Reason.Reset();
++    if(!Model()||bActive||Job().Id.IsEmpty()||!Job().bFinished)
++    {Reason=TEXT("只有已完成、尚未领取的成品可以废弃");return false;}
++    if(!GetWorld()||GetWorld()->GetNetMode()!=NM_Standalone)
++    {Reason=TEXT("锻造仅支持单人模式");return false;}
++    TMap<FString,int64> Paid;
++    if(!GetPaidMaterials(Paid)){Reason=TEXT("无法读取返还材料，成品保留待领");return false;}
++    TArray<FString> Definitions;Paid.GetKeys(Definitions);Definitions.Sort();
++    for(const auto& Definition:Definitions)
++    {
++        const int64 Count=Paid[Definition]/2;
++        if(Count>0)Refund.Add({Definition,Count});
++    }
++    return true;
++}
++bool UColdSteelForgingSystem::Discard(FString& Reason)
++{
++    TArray<FColdSteelCraftingInput> Refund;
++    if(!GetDiscardRefund(Refund,Reason))return false;
++    auto* M=Model();M->SyncRuntime();auto P=M->Snapshot();
++    TArray<FString> Returned;
++    for(const auto& In:Refund)
++    {
++        const auto Material=M->CreateItem(In.Item,In.Count);
++        if(Material.Data.IsEmpty()){Reason=TEXT("返还材料尚未就绪，成品保留待领");return false;}
++        if(!ColdSteelInventory::Insert(P.Items,Material))
++        {Reason=TEXT("背包空间不足，无法容纳全部返还材料；成品保留待领");return false;}
++        Returned.Add(FString::Printf(TEXT("%s × %lld"),*ColdSteelInventory::Text(Material,TEXT("name")),In.Count));
++    }
++    // Refund and consumption of the pending result share one saved transaction.
++    P.ForgeJob={};
++    if(!M->CommitState(MoveTemp(P))){Reason=M->ResultMessage();return false;}
++    LastError.Reset();
++    Reason=Returned.IsEmpty()?TEXT("成品已废弃，各项材料折半不足 1 个，无可返还材料")
++        :TEXT("成品已废弃，已返还背包：")+FString::Join(Returned,TEXT("、"));
++    return true;
++}
+diff --git a/Source/FPSGAME/Building/ForgingSystem.h b/Source/FPSGAME/Building/ForgingSystem.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Building/ForgingSystem.h
+@@ -0,0 +1,73 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Subsystems/GameInstanceSubsystem.h"
++#include "Tickable.h"
++#include "CraftingSystem.h"
++#include "../UI/ColdSteelInventoryTypes.h"
++#include "ForgingSystem.generated.h"
++
++class UColdSteelStatusModel;
++struct FColdSteelForgeRecipe
++{
++    FName Id;
++    FString Output, Mold;
++    TArray<FColdSteelCraftingInput> Inputs;
++    TArray<FVector2D> Points;
++};
++
++/** Single-player crafting authority. UI never grants items or calculates accepted hits. */
++UCLASS()
++class FPSGAME_API UColdSteelForgingSystem : public UGameInstanceSubsystem, public FTickableGameObject
++{
++    GENERATED_BODY()
++public:
++    static constexpr int32 TargetCount=20;
++    static constexpr double Preparation=3.0;
++    static constexpr double HitWindowMin=2.2;
++    static constexpr double HitWindowMax=3.2;
++    static constexpr double TargetGapMin=.85;
++    static constexpr double TargetGapMax=1.35;
++    virtual void Initialize(FSubsystemCollectionBase& Collection) override;
++    virtual void Deinitialize() override;
++    virtual void Tick(float DeltaTime) override;
++    virtual bool IsTickable() const override {return !IsTemplate()&&bActive;}
++    virtual UWorld* GetTickableGameObjectWorld() const override {return GetWorld();}
++    virtual TStatId GetStatId() const override {RETURN_QUICK_DECLARE_CYCLE_STAT(UColdSteelForgingSystem,STATGROUP_Tickables);}
++    const TArray<FColdSteelForgeRecipe>& Catalog() const {return Recipes;}
++    const FColdSteelForgeRecipe* Find(FName Id) const;
++    const FColdSteelForgeJob& Job() const;
++    bool CanStart(FName Id,FString& Reason) const;
++    bool Start(FName Id,FString& Reason);
++    bool Finish(FString& Reason);
++    bool Claim(FString& Reason);
++    bool GetPaidMaterials(TMap<FString,int64>& Paid) const;
++    bool GetDiscardRefund(TArray<FColdSteelCraftingInput>& Refund,FString& Reason) const;
++    bool Discard(FString& Reason);
++    bool Active() const {return bActive;}
++    double Elapsed() const;
++    double PhaseRemaining() const;
++    int32 ResolvedTargets() const {return CompletedTargets;}
++    bool StrikeInProgress() const {return bStrikePending;}
++    int32 TargetIndex() const;
++    // Life is also the visible and accepted radius scale, frozen when the swing starts.
++    bool Target(FVector2D& UV,float& Life) const;
++    bool BeginStrike(int32 ShownIndex,double ContactDelay,double RecoveryDelay);
++    bool Strike(int32 ShownIndex,const FVector2D& UV,const FVector2D& RadiusUV);
++    static double Multiplier(int32 Hits) {return .75+.5*FMath::Clamp(Hits,0,TargetCount)/TargetCount;}
++    static FString Quality(int32 Hits);
++    const FString& Error() const {return LastError;}
++private:
++    UColdSteelStatusModel* Model() const;
++    void AdvanceTargets(double Now);
++    void ResolveTarget(bool bHit,double Now);
++    TArray<FColdSteelForgeRecipe> Recipes;
++    TArray<FVector2D> Sequence;
++    FString ActiveId,LastError;
++    double StartedAt=0,RetryAt=0;
++    // One deadline belongs to the current preparation, visible point, or gap.
++    double TargetOpenedAt=0,PhaseEndsAt=0,StrikeContactAt=0,RecoveryAfterContact=0;
++    int32 CompletedTargets=0;
++    bool bTargetOpen=false,bStrikePending=false;
++    bool bActive=false;
++    float StrikeTargetLife=0;
++};
+diff --git a/Source/FPSGAME/Building/SmeltingCasting.cpp b/Source/FPSGAME/Building/SmeltingCasting.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Building/SmeltingCasting.cpp
+@@ -0,0 +1,84 @@
++#include "SmeltingSystem.h"
++#include "VoxelBuildWorld.h"
++#include "VoxelBuildPrefabActor.h"
++
++int64 UColdSteelSmeltingSystem::CastingStored(const FVoxelSmeltingJob& Job)
++{
++    int64 Count=0;for(const auto& P:Job.Products)Count+=FMath::Max<int64>(0,P.Count);
++    return Count;
++}
++
++bool UColdSteelSmeltingSystem::HasCastingStation(const AVoxelBuildWorld* World,FIntVector Cell) const
++{
++    if(!World)return false;
++    if(const auto* Job=World->FindSmelting(Cell);Job&&Job->bCasting)return true;
++    FIntVector Station;return World->FindAvailableCastingStation(Cell,Station);
++}
++
++bool UColdSteelSmeltingSystem::CastingBlocked(const AVoxelBuildWorld* World,const FVoxelSmeltingJob& Job) const
++{
++    if(!Job.bCasting)return false;
++    auto* Station=World?World->PrefabActorAt(Job.StationCell):nullptr;
++    if(!Station||Station->IsFalling()||Station->PrefabId()!=VoxelCastingStationId)return true;
++    const auto* Recipe=Find(Job.Recipe);
++    return Recipe&&CastingStored(Job)+Recipe->OutputCount>CastingCapacity;
++}
++
++bool UColdSteelSmeltingSystem::SettleCasting(AVoxelBuildWorld* World,FIntVector Cell)
++{
++    auto* Job=World?World->FindSmeltingMutable(Cell):nullptr;
++    if(!Job||!Job->bCasting)return false;
++    auto* Station=World->PrefabActorAt(Job->StationCell);
++    if(!Station||Station->IsFalling()||Station->PrefabId()!=VoxelCastingStationId)
++    {
++        FIntVector Replacement;
++        if(World->FindAvailableCastingStation(Cell,Replacement))
++        {Job->StationCell=Replacement;World->MarkSmeltingDirty();}
++    }
++    const int64 Now=FDateTime::UtcNow().GetTicks();
++    const double TickSeconds=1./double(ETimespan::TicksPerSecond);
++    const int64 Fire=World->FurnaceFireTicks(Cell);
++    const double FuelSeconds=FMath::Max(0.,World->FuelAt(Cell));
++    const double Elapsed=Fire>0&&Fire<=Now?double(Now-Fire)*TickSeconds:0.;
++    const double Burn=FMath::Min(Elapsed,FuelSeconds);
++    double Work=Burn;
++    bool Changed=false;
++    // Fuel still burns while the rack is full, matching the existing user-approved furnace rule.
++    // Only actual work before the fuel runs out advances the queue; offline catch-up uses this same loop.
++    for(int32 Iter=0;Iter<CastingCapacity+CastingQueueCapacity+2;++Iter)
++    {
++        if(Job->Recipe.IsNone())
++        {
++            if(Job->Queue.IsEmpty())break;
++            const auto Next=Job->Queue[0];Job->Queue.RemoveAt(0);
++            Job->Recipe=Next.Recipe;Job->BatchCount=Next.Batch;
++            Job->ProducedBatches=0;Job->ProgressSeconds=0;Changed=true;
++        }
++        const auto* Recipe=Find(Job->Recipe);
++        if(!Recipe||CastingBlocked(World,*Job))break;
++        const double Unit=FMath::Max(.001,Recipe->Seconds/SpeedMultiplier(World->FurnaceLevel(Cell)));
++        const double Need=FMath::Max(0.,Unit*double(Job->ProducedBatches+1)-Job->ProgressSeconds);
++        const double Advance=FMath::Min(Need,Work);
++        if(Advance>0){Job->ProgressSeconds+=Advance;Work-=Advance;Changed=true;}
++        if(Advance+1e-6<Need)break;
++        auto* Product=Job->Products.FindByPredicate([&](const auto& P){return P.Item==Recipe->Output;});
++        if(!Product){auto& New=Job->Products.AddDefaulted_GetRef();New.Item=Recipe->Output;Product=&New;}
++        Product->Count+=Recipe->OutputCount;
++        ++Job->ProducedBatches;++Job->CastSerial;
++        Job->LastCastRecipe=Job->Recipe;
++        Job->LastCastTicks=Fire>0?FMath::Min(Now,Fire+int64((Burn-Work)*ETimespan::TicksPerSecond)):Now;
++        Changed=true;
++        if(Job->ProducedBatches>=Job->BatchCount)
++        {
++            Job->Recipe=NAME_None;Job->BatchCount=0;
++            Job->ProducedBatches=0;Job->ProgressSeconds=0;
++        }
++        if(Work<=1e-6&&Job->ProgressSeconds<=0)break;
++    }
++    const int64 Start=FuelSeconds>Burn&&!Job->Recipe.IsNone()&&!CastingBlocked(World,*Job)?Now:0;
++    if(Job->BurnStartTicks!=Start){Job->BurnStartTicks=Start;Changed=true;}
++    World->SetFuel(Cell,FuelSeconds-Burn);
++    World->SetFurnaceFireTicks(Cell,FuelSeconds>Burn?Now:0);
++    if(Changed)World->MarkSmeltingDirty();
++    return Changed||Burn>0;
++}
+diff --git a/Source/FPSGAME/Building/VoxelBuildWorldCasting.cpp b/Source/FPSGAME/Building/VoxelBuildWorldCasting.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Building/VoxelBuildWorldCasting.cpp
+@@ -0,0 +1,33 @@
++#include "VoxelBuildWorld.h"
++#include "VoxelBuildPrefabActor.h"
++
++AVoxelBuildPrefabActor* AVoxelBuildWorld::PrefabActorAt(FIntVector Cell) const
++{
++    return Cast<AVoxelBuildPrefabActor>(PrefabActors.FindRef(Cell).Get());
++}
++
++bool AVoxelBuildWorld::FindCastingFurnace(FIntVector Station,FIntVector& OutFurnace) const
++{
++    for(const auto& Job:SmeltingJobs)
++        if(Job.bCasting&&Job.StationCell==Station)
++        {OutFurnace=Job.Cell;return true;}
++    return false;
++}
++
++bool AVoxelBuildWorld::FindAvailableCastingStation(FIntVector Furnace,FIntVector& OutStation) const
++{
++    const auto* Source=PrefabActorAt(Furnace);
++    if(!Source)return false;
++    double Best=350.*350.;bool Found=false;
++    for(const auto& Entry:Prefabs)
++    {
++        if(Entry.Id!=VoxelCastingStationId)continue;
++        auto* Station=PrefabActorAt(Entry.Cell);
++        if(!Station||Station->IsFalling()||FMath::Abs(Entry.Cell.Z-Furnace.Z)>1)continue;
++        FIntVector AssignedFurnace;
++        if(FindCastingFurnace(Entry.Cell,AssignedFurnace)&&AssignedFurnace!=Furnace)continue;
++        const double Distance=FVector::DistSquared2D(Source->GetActorLocation(),Station->GetActorLocation());
++        if(Distance<Best){Best=Distance;OutStation=Entry.Cell;Found=true;}
++    }
++    return Found;
++}
+diff --git a/Source/FPSGAME/UI/ColdSteelForgeActionWidget.cpp b/Source/FPSGAME/UI/ColdSteelForgeActionWidget.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/UI/ColdSteelForgeActionWidget.cpp
+@@ -0,0 +1,104 @@
++#include "ColdSteelForgeActionWidget.h"
++#include "ColdSteelUIStyle.h"
++#include "GunsmithUIStyle.h"
++#include "../Building/ForgingSystem.h"
++#include "Blueprint/WidgetTree.h"
++#include "Blueprint/WidgetLayoutLibrary.h"
++#include "Components/BackgroundBlur.h"
++#include "Components/CanvasPanel.h"
++#include "Components/CanvasPanelSlot.h"
++#include "Components/Border.h"
++#include "Components/HorizontalBox.h"
++#include "Components/HorizontalBoxSlot.h"
++#include "Components/Overlay.h"
++#include "Components/OverlaySlot.h"
++#include "Components/ProgressBar.h"
++#include "Components/SizeBox.h"
++#include "Components/VerticalBox.h"
++#include "Components/VerticalBoxSlot.h"
++#include "Components/TextBlock.h"
++
++UTextBlock* UColdSteelForgeActionWidget::Text(const FString& Caption,float Pixels,bool bNumeric)
++{
++    auto* Label=WidgetTree->ConstructWidget<UTextBlock>();
++    Label->SetText(FText::FromString(Caption));Label->SetAutoWrapText(true);
++    Label->SetColorAndOpacity(ColdSteelUI::TextPrimary);
++    Labels.Add({Label,Pixels,bNumeric});return Label;
++}
++
++void UColdSteelForgeActionWidget::NativeOnInitialized()
++{
++    Super::NativeOnInitialized();SetVisibility(ESlateVisibility::HitTestInvisible);
++    auto* Root=WidgetTree->ConstructWidget<UCanvasPanel>();WidgetTree->RootWidget=Root;
++    PanelSize=WidgetTree->ConstructWidget<USizeBox>();
++    auto* PanelSlot=Root->AddChildToCanvas(PanelSize);
++    PanelSlot->SetAnchors(FAnchors(.5f,1.f));PanelSlot->SetAlignment(FVector2D(.5f,1.f));PanelSlot->SetAutoSize(true);
++    Panel=WidgetTree->ConstructWidget<UBorder>();PanelSize->SetContent(Panel);
++    auto* Layers=WidgetTree->ConstructWidget<UOverlay>();Panel->SetContent(Layers);
++    Blur=WidgetTree->ConstructWidget<UBackgroundBlur>();
++    auto* BlurSlot=Layers->AddChildToOverlay(Blur);BlurSlot->SetHorizontalAlignment(HAlign_Fill);BlurSlot->SetVerticalAlignment(VAlign_Fill);
++    Content=WidgetTree->ConstructWidget<UBorder>();
++    auto* ContentSlot=Layers->AddChildToOverlay(Content);ContentSlot->SetHorizontalAlignment(HAlign_Fill);ContentSlot->SetVerticalAlignment(VAlign_Fill);
++    auto* Stack=WidgetTree->ConstructWidget<UVerticalBox>();Content->SetContent(Stack);
++    Heading=Text(TEXT("锻造 · 准备落锤"),16);HeadingSlot=Stack->AddChildToVerticalBox(Heading);
++    auto* Metrics=WidgetTree->ConstructWidget<UHorizontalBox>();Stack->AddChildToVerticalBox(Metrics);
++    auto Metric=[&](const FString& Caption,UTextBlock*& Label)
++    {
++        auto* Card=WidgetTree->ConstructWidget<UBorder>();Cards.Add(Card);
++        auto* CardSlot=Metrics->AddChildToHorizontalBox(Card);CardSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));CardSlots.Add(CardSlot);
++        auto* Column=WidgetTree->ConstructWidget<UVerticalBox>();Card->SetContent(Column);
++        Label=Text(Caption,12);Label->SetColorAndOpacity(ColdSteelUI::TextTertiary);Column->AddChildToVerticalBox(Label);
++        auto* Value=Text(TEXT("—"),16,true);Column->AddChildToVerticalBox(Value);return Value;
++    };
++    UTextBlock* Label=nullptr;TimeValue=Metric(TEXT("当前光圈"),Label);TimeLabel=Label;
++    HitsValue=Metric(TEXT("有效命中"),Label);QualityValue=Metric(TEXT("工艺伤害"),Label);
++    TimerSize=WidgetTree->ConstructWidget<USizeBox>();Timer=WidgetTree->ConstructWidget<UProgressBar>();TimerSize->SetContent(Timer);
++    Timer->SetFillColorAndOpacity(ColdSteelUI::Accent);TimerSlot=Stack->AddChildToVerticalBox(TimerSize);
++    Hint=Text(TEXT("光圈逐渐缩小 · 对准后左键落锤 · 回锤后等待下一处 · Esc 结算返回"),12);
++    Hint->SetColorAndOpacity(ColdSteelUI::TextSecondary);HintSlot=Stack->AddChildToVerticalBox(Hint);
++    UpdateLayout();
++}
++
++void UColdSteelForgeActionWidget::UpdateLayout()
++{
++    const float NewScale=FMath::Max(.1f,ColdSteelUI::PixelScale(this));
++    const float NewWidth=FMath::Min(600.f,FMath::Max(1.f,float(UWidgetLayoutLibrary::GetViewportSize(this).X)-24.f));
++    if(FMath::IsNearlyEqual(Scale,NewScale,.001f)&&FMath::IsNearlyEqual(Width,NewWidth,.5f))return;
++    Scale=NewScale;Width=NewWidth;PanelSize->SetWidthOverride(Width/Scale);
++    if(auto* Position=Cast<UCanvasPanelSlot>(PanelSize->Slot))Position->SetPosition(FVector2D(0,-124/Scale));
++    for(const auto& L:Labels)if(auto* Label=L.Widget.Get())Label->SetFont(L.Numeric?GunsmithUI::NumberFont(L.Pixels/Scale):GunsmithUI::TextFont(L.Pixels/Scale));
++    Panel->SetBrush(ColdSteelUI::RoundedBrush(FLinearColor::Transparent,ColdSteelUI::PanelRadius/Scale,ColdSteelUI::Border,1/Scale));Panel->SetPadding(1/Scale);
++    Content->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassTint,ColdSteelUI::PanelRadius/Scale,FLinearColor::Transparent,0));Content->SetPadding(12/Scale);
++    Blur->SetBlurStrength(ColdSteelUI::GlassBlurStrength);Blur->SetBlurRadius(ColdSteelUI::GlassBlurRadius);
++    Blur->SetCornerRadius(FVector4(10,10,10,10)/Scale);Blur->SetLowQualityFallbackBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassFallback,10/Scale));
++    for(const auto& C:Cards)if(auto* Card=C.Get())
++    {
++        Card->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::StatusCard,ColdSteelUI::CardRadius/Scale,ColdSteelUI::Border,1/Scale));
++        Card->SetPadding(FMargin(10/Scale,6/Scale));
++    }
++    for(int32 I=0;I<CardSlots.Num();++I)if(auto* CardSlot=CardSlots[I].Get())CardSlot->SetPadding(FMargin(I?4/Scale:0,0,0,0));
++    HeadingSlot->SetPadding(FMargin(0,0,0,8/Scale));TimerSlot->SetPadding(FMargin(0,8/Scale,0,0));HintSlot->SetPadding(FMargin(0,8/Scale,0,0));
++    TimerSize->SetHeightOverride(3/Scale);
++    FProgressBarStyle Progress;
++    Progress.SetBackgroundImage(ColdSteelUI::RoundedBrush(ColdSteelUI::Gray(45),1.5f/Scale,FLinearColor::Transparent,0));
++    Progress.SetFillImage(ColdSteelUI::RoundedBrush(FLinearColor::White,1.5f/Scale,FLinearColor::Transparent,0));Timer->SetWidgetStyle(Progress);
++}
++
++void UColdSteelForgeActionWidget::Refresh(const UColdSteelForgingSystem* System,bool Finishing,bool Feedback,bool Hit)
++{
++    if(!Heading||!System)return;UpdateLayout();
++    const double Time=System->Elapsed();const int32 Hits=System->Job().Hits;
++    const bool Swing=System->StrikeInProgress(),Waiting=System->TargetIndex()==INDEX_NONE;
++    auto Set=[](UTextBlock* T,const FString& S){if(T->GetText().ToString()!=S)T->SetText(FText::FromString(S));};
++    Set(Heading,Finishing?TEXT("淬火 · 冷却剑坯"):Time<0?TEXT("准备 · 等待落锤"):Swing?TEXT("落锤 · 当前热区已锁定")
++        :Feedback?(Hit?TEXT("落点准确 · 回锤中"):TEXT("未命中 · 回锤中")):Waiting?TEXT("间歇 · 等待下一处热区")
++        :FString::Printf(TEXT("锻打 · 第 %d / %d 处热区"),System->ResolvedTargets()+1,System->TargetCount));
++    Set(TimeLabel,Finishing?TEXT("正在冷却"):Time<0?TEXT("准备倒计时"):Swing?TEXT("落锤接触"):Waiting?TEXT("间歇倒计时"):TEXT("光圈剩余"));
++    Set(TimeValue,Finishing?TEXT("—"):FString::Printf(TEXT("%.1f s"),System->PhaseRemaining()));
++    Set(HitsValue,FString::Printf(TEXT("%02d / 20"),Hits));
++    const double Percent=-25.+2.5*Hits;Set(QualityValue,FString::Printf(TEXT("%+.1f%%"),Percent));
++    QualityValue->SetColorAndOpacity(Percent>0?ColdSteelUI::Success:Percent<0?ColdSteelUI::Danger:ColdSteelUI::TextPrimary);
++    Heading->SetColorAndOpacity(Feedback&&!Finishing?(Hit?ColdSteelUI::Success:ColdSteelUI::Warning):ColdSteelUI::TextPrimary);
++    Timer->SetPercent(float(System->ResolvedTargets())/System->TargetCount);
++    Set(Hint,Finishing?TEXT("正在冷却工件，完成后返回铸造台。"):TEXT("光圈逐渐缩小 · 对准后左键落锤 · 回锤后等待下一处 · Esc 结算返回"));
++}
+diff --git a/Source/FPSGAME/UI/ColdSteelForgeActionWidget.h b/Source/FPSGAME/UI/ColdSteelForgeActionWidget.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/UI/ColdSteelForgeActionWidget.h
+@@ -0,0 +1,44 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Blueprint/UserWidget.h"
++#include "ColdSteelForgeActionWidget.generated.h"
++class UTextBlock;
++class UBorder;
++class UBackgroundBlur;
++class USizeBox;
++class UProgressBar;
++class UHorizontalBoxSlot;
++class UVerticalBoxSlot;
++class UColdSteelForgingSystem;
++UCLASS()
++class FPSGAME_API UColdSteelForgeActionWidget : public UUserWidget
++{
++    GENERATED_BODY()
++public:
++    void Refresh(const UColdSteelForgingSystem* System,bool Finishing,bool Feedback,bool Hit);
++protected:
++    virtual void NativeOnInitialized() override;
++private:
++    UTextBlock* Text(const FString& Caption,float Pixels,bool bNumeric=false);
++    void UpdateLayout();
++    struct FLabel {TWeakObjectPtr<UTextBlock> Widget;float Pixels;bool Numeric;};
++    TArray<FLabel> Labels;
++    TArray<TWeakObjectPtr<UBorder>> Cards;
++    TArray<TWeakObjectPtr<UHorizontalBoxSlot>> CardSlots;
++    float Scale=0,Width=0;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> Heading;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> TimeLabel;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> TimeValue;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> HitsValue;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> QualityValue;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> Hint;
++    UPROPERTY(Transient) TObjectPtr<UBorder> Panel;
++    UPROPERTY(Transient) TObjectPtr<UBorder> Content;
++    UPROPERTY(Transient) TObjectPtr<UBackgroundBlur> Blur;
++    UPROPERTY(Transient) TObjectPtr<USizeBox> PanelSize;
++    UPROPERTY(Transient) TObjectPtr<USizeBox> TimerSize;
++    UPROPERTY(Transient) TObjectPtr<UProgressBar> Timer;
++    UPROPERTY(Transient) TObjectPtr<UVerticalBoxSlot> HeadingSlot;
++    UPROPERTY(Transient) TObjectPtr<UVerticalBoxSlot> TimerSlot;
++    UPROPERTY(Transient) TObjectPtr<UVerticalBoxSlot> HintSlot;
++};
+diff --git a/Source/FPSGAME/UI/ColdSteelForgeBoard.cpp b/Source/FPSGAME/UI/ColdSteelForgeBoard.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/UI/ColdSteelForgeBoard.cpp
+@@ -0,0 +1,126 @@
++#include "ColdSteelForgeBoard.h"
++#include "ColdSteelUIStyle.h"
++#include "GunsmithUIStyle.h"
++#include "../Building/ForgingSystem.h"
++#include "Engine/Texture2D.h"
++#include "Widgets/SLeafWidget.h"
++#include "Widgets/Layout/SBackgroundBlur.h"
++#include "Rendering/DrawElements.h"
++#include "Input/Reply.h"
++
++class SColdSteelForgeBoard : public SLeafWidget
++{
++public:
++    SLATE_BEGIN_ARGS(SColdSteelForgeBoard) {} SLATE_END_ARGS()
++    void Construct(const FArguments&) {SetCanTick(false);}
++    void Configure(UColdSteelForgingSystem* InSystem,UTexture2D* Texture)
++    {
++        System=InSystem;Mold.SetResourceObject(Texture);Mold.DrawAs=ESlateBrushDrawType::Image;
++        Mold.ImageSize=Texture?FVector2D(Texture->GetSizeX(),Texture->GetSizeY()):FVector2D(384,768);
++        Invalidate(EInvalidateWidgetReason::Paint);
++    }
++    virtual FVector2D ComputeDesiredSize(float) const override {return FVector2D(320,360);}
++    FSlateRect MoldRect(const FGeometry& G) const
++    {
++        const FVector2D Size=G.GetLocalSize(),Space=Size-FVector2D(48,48);
++        const double Fit=FMath::Max(.001,FMath::Min(Space.X/Mold.ImageSize.X,Space.Y/Mold.ImageSize.Y));
++        const FVector2D Extent=Mold.ImageSize*Fit,Origin=(Size-Extent)*.5;
++        return FSlateRect(Origin.X,Origin.Y,Origin.X+Extent.X,Origin.Y+Extent.Y);
++    }
++    virtual int32 OnPaint(const FPaintArgs& Args,const FGeometry& G,const FSlateRect& Clip,FSlateWindowElementList& Out,int32 Layer,const FWidgetStyle& Style,bool ParentEnabled) const override
++    {
++        const float Scale=FMath::Max(.1f,G.GetAccumulatedLayoutTransform().GetScale());
++        const FLinearColor Tint=Style.GetColorAndOpacityTint();
++        const FVector2D Size=G.GetLocalSize();
++        const float Radius=ColdSteelUI::CardRadius/Scale;
++        TArray<FSlateGradientStop> Stops;
++        Stops.Reserve(3);
++        Stops.Emplace(FVector2f(0,0),ColdSteelUI::Gray(42,238)*Tint);
++        Stops.Emplace(FVector2f(0,Size.Y*.55f),ColdSteelUI::Gray(26,242)*Tint);
++        Stops.Emplace(FVector2f(0,Size.Y),ColdSteelUI::Gray(12,248)*Tint);
++        // Slate's orientation names describe the stop lines: horizontal lines vary along Y.
++        FSlateDrawElement::MakeGradient(Out,Layer,G.ToPaintGeometry(),MoveTemp(Stops),Orient_Horizontal,ESlateDrawEffect::None,FVector4f(Radius));
++        const FSlateBrush Edge=ColdSteelUI::RoundedBrush(FLinearColor::Transparent,Radius,ColdSteelUI::Border*Tint,1/Scale);
++        // MakeBox does not apply Brush.TintColor; omitting InTint paints an opaque white fill.
++        FSlateDrawElement::MakeBox(Out,Layer+1,G.ToPaintGeometry(),&Edge,ESlateDrawEffect::None,FLinearColor::Transparent);
++        const FSlateRect Rect=MoldRect(G);const FVector2D Origin(Rect.Left,Rect.Top),Extent(Rect.Right-Rect.Left,Rect.Bottom-Rect.Top);
++        if(Mold.GetResourceObject())
++        {
++            FSlateDrawElement::MakeBox(Out,Layer+2,G.ToPaintGeometry(Extent+FVector2D(6/Scale,6/Scale),FSlateLayoutTransform(Origin-FVector2D(3/Scale,1/Scale))),&Mold,ESlateDrawEffect::None,FLinearColor(.04,.04,.04,1)*Tint);
++            FSlateDrawElement::MakeBox(Out,Layer+3,G.ToPaintGeometry(Extent,FSlateLayoutTransform(Origin)),&Mold,ESlateDrawEffect::None,Tint);
++        }
++        auto Ring=[&](FVector2D P,float Radius,FLinearColor Color,float Width)
++        {
++            TArray<FVector2D> Points;for(int32 N=0;N<=40;++N){const float A=N*2*PI/40;Points.Add(P+FVector2D(FMath::Cos(A),FMath::Sin(A))*Radius);}
++            FSlateDrawElement::MakeLines(Out,Layer+4,G.ToPaintGeometry(),Points,ESlateDrawEffect::None,Color*Tint,true,Width/Scale);
++        };
++        const auto* S=System.Get();FVector2D UV;float Life=0;ShownIndex=INDEX_NONE;
++        if(S&&IsEnabled()&&S->Target(UV,Life))
++        {
++            ShownIndex=S->TargetIndex();const FVector2D P=Origin+UV*Extent;const float R=20*Life/Scale;
++            Ring(P,R,ColdSteelUI::Warning,2*Life);
++            const float DotRadius=4*Life/Scale;
++            const FSlateBrush Dot=ColdSteelUI::RoundedBrush(ColdSteelUI::Warning,DotRadius,FLinearColor::Transparent,0);
++            FSlateDrawElement::MakeBox(Out,Layer+5,G.ToPaintGeometry(FVector2D(2*DotRadius),FSlateLayoutTransform(P-FVector2D(DotRadius))),&Dot,ESlateDrawEffect::None,ColdSteelUI::Warning*Tint);
++        }
++        const double Age=FPlatformTime::Seconds()-FeedbackAt;
++        if(Age<.28)
++        {
++            const FVector2D P=Origin+FeedbackUV*Extent;FLinearColor Color=bHit?ColdSteelUI::Success:ColdSteelUI::Danger;Color.A*=1-Age/.28;
++            Ring(P,(20+Age*80)/Scale,Color,2);
++            if(bHit)for(int32 N=0;N<8;++N)
++            {
++                const float A=N*PI/4;const FVector2D D(FMath::Cos(A),FMath::Sin(A));
++                FSlateDrawElement::MakeLines(Out,Layer+5,G.ToPaintGeometry(),TArray<FVector2D>{P+D*(24+Age*100)/Scale,P+D*(30+Age*120)/Scale},ESlateDrawEffect::None,Color*Tint,true,1.5/Scale);
++            }
++        }
++        return Layer+6;
++    }
++    FReply StrikeAt(const FGeometry& G,const FPointerEvent& Event)
++    {
++        if(Event.GetEffectingButton()==EKeys::LeftMouseButton)
++        {
++            if(auto* S=System.Get();S&&S->Active()&&ShownIndex!=INDEX_NONE)
++            {
++                const FSlateRect R=MoldRect(G);const FVector2D Extent(R.Right-R.Left,R.Bottom-R.Top);
++                const FVector2D P=G.AbsoluteToLocal(Event.GetScreenSpacePosition())-FVector2D(R.Left,R.Top);
++                const float Radius=20/FMath::Max(.1f,G.GetAccumulatedLayoutTransform().GetScale());
++                FeedbackUV=FVector2D(P.X/Extent.X,P.Y/Extent.Y);
++                bHit=S->Strike(ShownIndex,FeedbackUV,FVector2D(Radius/Extent.X,Radius/Extent.Y));FeedbackAt=FPlatformTime::Seconds();
++                Invalidate(EInvalidateWidgetReason::Paint);
++            }
++        }
++        return FReply::Handled();
++    }
++    virtual FReply OnMouseButtonDown(const FGeometry& G,const FPointerEvent& Event) override {return StrikeAt(G,Event);}
++    virtual FReply OnMouseButtonDoubleClick(const FGeometry& G,const FPointerEvent& Event) override {return StrikeAt(G,Event);}
++    virtual FReply OnMouseButtonUp(const FGeometry&,const FPointerEvent&) override {return FReply::Handled();}
++private:
++    TWeakObjectPtr<UColdSteelForgingSystem> System;
++    FSlateBrush Mold;
++    mutable int32 ShownIndex=INDEX_NONE;
++    FVector2D FeedbackUV;
++    double FeedbackAt=-100;
++    bool bHit=false;
++};
++void UColdSteelForgeBoard::Configure(UColdSteelForgingSystem* InSystem,UTexture2D* InTexture)
++{System=InSystem;Texture=InTexture;if(Board)Board->Configure(System,Texture);}
++TSharedRef<SWidget> UColdSteelForgeBoard::RebuildWidget()
++{
++    SAssignNew(Board,SColdSteelForgeBoard);Board->Configure(System,Texture);
++    const TWeakPtr<SColdSteelForgeBoard> WeakBoard=Board;
++    // Blur only the scenery behind the preview; the weapon and any feedback stay sharp.
++    // If blur is disabled, the same near-opaque gradient still supplies the dark surface.
++    return SNew(SBackgroundBlur).Padding(0)
++        .BlurStrength(ColdSteelUI::GlassBlurStrength).BlurRadius(ColdSteelUI::GlassBlurRadius)
++        .CornerRadius_Lambda([WeakBoard]
++        {
++            const auto Preview=WeakBoard.Pin();
++            const float Scale=Preview.IsValid()?FMath::Max(.1f,Preview->GetCachedGeometry().GetAccumulatedLayoutTransform().GetScale()):1.f;
++            return FVector4(ColdSteelUI::CardRadius/Scale);
++        })
++        [Board.ToSharedRef()];
++}
++void UColdSteelForgeBoard::RefreshPaint(){if(Board)Board->Invalidate(EInvalidateWidgetReason::Paint);}
++void UColdSteelForgeBoard::ReleaseSlateResources(bool bReleaseChildren)
++{Super::ReleaseSlateResources(bReleaseChildren);Board.Reset();}
+diff --git a/Source/FPSGAME/UI/ColdSteelForgeBoard.h b/Source/FPSGAME/UI/ColdSteelForgeBoard.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/UI/ColdSteelForgeBoard.h
+@@ -0,0 +1,23 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Components/Widget.h"
++#include "ColdSteelForgeBoard.generated.h"
++class UColdSteelForgingSystem;
++class UTexture2D;
++class SColdSteelForgeBoard;
++
++UCLASS()
++class FPSGAME_API UColdSteelForgeBoard : public UWidget
++{
++    GENERATED_BODY()
++public:
++    void Configure(UColdSteelForgingSystem* InSystem,UTexture2D* InTexture);
++    void RefreshPaint();
++    virtual void ReleaseSlateResources(bool bReleaseChildren) override;
++protected:
++    virtual TSharedRef<SWidget> RebuildWidget() override;
++private:
++    UPROPERTY(Transient) TObjectPtr<UColdSteelForgingSystem> System;
++    UPROPERTY(Transient) TObjectPtr<UTexture2D> Texture;
++    TSharedPtr<SColdSteelForgeBoard> Board;
++};
+diff --git a/Source/FPSGAME/UI/ColdSteelForgingHUD.cpp b/Source/FPSGAME/UI/ColdSteelForgingHUD.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/UI/ColdSteelForgingHUD.cpp
+@@ -0,0 +1,102 @@
++#include "ColdSteelHUDWidget.h"
++#include "ColdSteelForgingWidget.h"
++#include "ColdSteelUIStyle.h"
++#include "../Building/ForgingSystem.h"
++#include "../Building/ForgeInteraction.h"
++#include "../Building/VoxelBuildPrefabActor.h"
++#include "../Building/VoxelBuildWorld.h"
++#include "Engine/GameInstance.h"
++#include "Components/CanvasPanel.h"
++#include "Components/CanvasPanelSlot.h"
++
++void UColdSteelHUDWidget::BuildForging(UCanvasPanel* Root)
++{
++    ForgingWidget=CreateWidget<UColdSteelForgingWidget>(GetOwningPlayer());ForgingWidget->Configure(this);
++    ForgingSlot=Root->AddChildToCanvas(ForgingWidget);ForgingSlot->SetAnchors(FAnchors(1,0,1,1));ForgingSlot->SetAlignment(FVector2D(1,0));
++    ForgingSlot->SetOffsets(FMargin(0,ReferenceUnits(12),ReferenceUnits(720),ReferenceUnits(12)));ForgingSlot->SetZOrder(42);
++    ForgingWidget->SetVisibility(ESlateVisibility::Collapsed);
++}
++void UColdSteelHUDWidget::OpenForging(AActor* Station)
++{
++    auto* Piece=Cast<AVoxelBuildPrefabActor>(Station);auto* World=Piece?Cast<AVoxelBuildWorld>(Piece->GetOwner()):nullptr;
++    if(!Piece||Piece->PrefabId()!=VoxelCastingStationId||Piece->IsFalling()||!World||!World->HasPrefabAt(Piece->AnchorCell()))return;
++    if(bForgingOpen&&ForgingStation.Get()==Station)return;
++    HideForgingInstantly();HideSmeltingInstantly();HideWorkbenchInstantly();CloseWarehouse();
++    if(!bInventoryOpen){SetInventoryTab(false);SetInventoryOpen(true);}
++    ForgingWorld=World;ForgingCell=Piece->AnchorCell();ForgingStation=Station;bForgingOpen=true;bForgeRiding=false;
++    ForgingWidget->SetStation(World,ForgingCell);ForgingWidget->SetKeyboardFocus();
++    ForgeInteraction=GetWorld()->SpawnActor<AForgeInteraction>();
++    if(ForgeInteraction)ForgeInteraction->Prepare(GetOwningPlayer(),Piece,this);
++}
++void UColdSteelHUDWidget::OpenForgingSmelting()
++{
++    AActor* Station=ForgingStation.Get();if(Station)OpenSmelting(Station);
++}
++void UColdSteelHUDWidget::CloseForging()
++{
++    if(!bForgingOpen)return;bForgingOpen=false;
++    if(auto* S=GetGameInstance()->GetSubsystem<UColdSteelForgingSystem>();S&&S->Active()){FString Reason;S->Finish(Reason);}
++    ForgingWorld.Reset();ForgingStation.Reset();if(ForgingWidget)ForgingWidget->SetInputReady(false);
++    if(ForgeInteraction&&!ForgeInteraction->IsRunning()){ForgeInteraction->Destroy();ForgeInteraction=nullptr;}
++    if(bInventoryOpen){bForgeRiding=true;SetInventoryOpen(false);}
++}
++void UColdSteelHUDWidget::HideForgingInstantly()
++{
++    if(ForgeInteraction)
++    {
++        if(ForgeInteraction->IsRunning())ForgeInteraction->Stop(false);
++        if(ForgeInteraction){ForgeInteraction->Destroy();ForgeInteraction=nullptr;}
++    }
++    if(bForgingOpen)if(auto* S=GetGameInstance()->GetSubsystem<UColdSteelForgingSystem>();S&&S->Active()){FString Reason;S->Finish(Reason);}
++    bForgingOpen=false;bForgeRiding=false;ForgeMotion=0;ForgingWorld.Reset();ForgingStation.Reset();
++    if(ForgingWidget){ForgingWidget->SetInputReady(false);ForgingWidget->SetVisibility(ESlateVisibility::Collapsed);ForgingWidget->SetRenderTranslation(FVector2D::ZeroVector);}
++    if(ForgingSlot)ForgingSlot->SetZOrder(42);
++}
++void UColdSteelHUDWidget::TickForging(float DeltaTime,float DrawerEase)
++{
++    if(!ForgingWidget)return;
++    if(bForgingOpen&&(!ForgingStation.IsValid()||!ForgingWorld.IsValid()||!ForgingWorld->HasPrefabAt(ForgingCell)))CloseForging();
++    const float S=ColdSteelUI::PixelScale(this);
++    if(bForgeRiding)
++    {
++        ForgeMotion=FMath::FInterpConstantTo(ForgeMotion,0.f,DeltaTime,4.f);
++        ForgingWidget->SetVisibility(DrawerProgress>KINDA_SMALL_NUMBER?ESlateVisibility::SelfHitTestInvisible:ESlateVisibility::Collapsed);
++        ForgingSlot->SetZOrder(40);
++        ForgingWidget->SetRenderTranslation(FVector2D((1.f-DrawerEase)*(InventoryWidth+ColdSteelUI::NavigationDrawerInset+ForgeSlidePx)/S,0));
++        if(DrawerProgress<=KINDA_SMALL_NUMBER){bForgeRiding=false;ForgingWidget->SetRenderTranslation(FVector2D::ZeroVector);}
++    }
++    else
++    {
++        if(bForgingOpen&&ForgeWidth>1)ForgeSlidePx=ForgeWidth+24;
++        const float Target=bForgingOpen&&DrawerProgress>1.f-KINDA_SMALL_NUMBER&&ForgeWidth>1?1.f:0.f;
++        ForgeMotion=FMath::FInterpConstantTo(ForgeMotion,Target,DeltaTime,4.f);
++        ForgingWidget->SetVisibility(ForgeMotion>KINDA_SMALL_NUMBER?ESlateVisibility::SelfHitTestInvisible:ESlateVisibility::Collapsed);
++        ForgingSlot->SetZOrder(ForgeMotion>1.f-KINDA_SMALL_NUMBER?42:40);
++        ForgingWidget->SetRenderTranslation(FVector2D((1.f-ColdSteelUI::EaseSmooth(ForgeMotion))*FMath::Max(ForgeSlidePx,24.f)/S,0));
++    }
++    ForgingWidget->SetInputReady(bForgingOpen&&!bForgeRiding&&ForgeMotion>1.f-KINDA_SMALL_NUMBER);
++}
++bool UColdSteelHUDWidget::CanStartWorldForging(FString& Reason) const
++{
++    if(!ForgeInteraction){Reason=TEXT("铸造台未就绪");return false;}
++    return ForgeInteraction->Ready(Reason);
++}
++bool UColdSteelHUDWidget::IsWorldForging() const
++{return ForgeInteraction&&ForgeInteraction->IsRunning();}
++bool UColdSteelHUDWidget::HandleWorldForgeInput(const FInputKeyEventArgs& Event)
++{return ForgeInteraction&&ForgeInteraction->HandleInput(Event);}
++bool UColdSteelHUDWidget::StartWorldForging(FName Recipe,FString& Reason)
++{
++    if(!bForgingOpen||!ForgeInteraction||!ForgeInteraction->Start(Recipe,Reason))return false;
++    // Retain the station/job while the same paired drawer slides out. CloseForging must
++    // not finalize the just-started job when SetInventoryOpen closes the inventory.
++    bForgingOpen=false;bForgeRiding=true;ForgingWidget->SetInputReady(false);
++    SetInventoryOpen(false);ForgeInteraction->Enter();return true;
++}
++void UColdSteelHUDWidget::CompleteWorldForging(AForgeInteraction* Interaction,bool bReturnPanel)
++{
++    if(ForgeInteraction!=Interaction)return;
++    AActor* Station=ForgingStation.Get();ForgeInteraction=nullptr;
++    if(bReturnPanel&&Station)OpenForging(Station);
++    else HideForgingInstantly();
++}
+diff --git a/Source/FPSGAME/UI/ColdSteelForgingWidget.cpp b/Source/FPSGAME/UI/ColdSteelForgingWidget.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/UI/ColdSteelForgingWidget.cpp
+@@ -0,0 +1,341 @@
++#include "ColdSteelForgingWidget.h"
++#include "ColdSteelForgeBoard.h"
++#include "ColdSteelHUDWidget.h"
++#include "ColdSteelStatusModel.h"
++#include "ColdSteelUIStyle.h"
++#include "GunsmithUIStyle.h"
++#include "../Building/ForgingSystem.h"
++#include "../Building/VoxelBuildWorld.h"
++#include "Engine/GameInstance.h"
++#include "Engine/Texture2D.h"
++#include "Blueprint/WidgetTree.h"
++#include "Components/BackgroundBlur.h"
++#include "Components/Border.h"
++#include "Components/BorderSlot.h"
++#include "Components/Button.h"
++#include "Components/ButtonSlot.h"
++#include "Components/GridPanel.h"
++#include "Components/GridSlot.h"
++#include "Components/HorizontalBox.h"
++#include "Components/HorizontalBoxSlot.h"
++#include "Components/Overlay.h"
++#include "Components/OverlaySlot.h"
++#include "Components/ProgressBar.h"
++#include "Components/ScrollBox.h"
++#include "Components/SizeBox.h"
++#include "Components/TextBlock.h"
++#include "Components/VerticalBox.h"
++#include "Components/VerticalBoxSlot.h"
++#include "ImageUtils.h"
++#include "Misc/Paths.h"
++#include "Styling/SlateTypes.h"
++
++namespace ColdSteelForgePresentation
++{
++void SetText(UTextBlock* Widget,const FString& Value)
++{if(Widget&&Widget->GetText().ToString()!=Value)Widget->SetText(FText::FromString(Value));}
++}
++void UColdSteelForgingWidget::Configure(UColdSteelHUDWidget* Owner){HUD=Owner;}
++UTextBlock* UColdSteelForgingWidget::Text(const FString& Caption,float Pixels,bool bNumeric,bool bMedium)
++{
++    auto* T=WidgetTree->ConstructWidget<UTextBlock>();T->SetText(FText::FromString(Caption));T->SetAutoWrapText(true);
++    const float FontScale=Scale>0?Scale:1.f;
++    T->SetFont(bNumeric?GunsmithUI::NumberFont(Pixels/FontScale,bMedium):GunsmithUI::TextFont(Pixels/FontScale,bMedium));
++    T->SetColorAndOpacity(ColdSteelUI::TextPrimary);Labels.Add({T,Pixels,bNumeric,bMedium});return T;
++}
++UButton* UColdSteelForgingWidget::Button(const FString& Caption,UTextBlock*& Label)
++{
++    auto* B=WidgetTree->ConstructWidget<UButton>();Label=Text(Caption,14,false,true);Label->SetJustification(ETextJustify::Center);
++    Label->SetAutoWrapText(false);Label->SetWrapTextAt(0);
++    B->SetContent(Label);
++    auto* LabelSlot=Cast<UButtonSlot>(Label->Slot);LabelSlot->SetHorizontalAlignment(HAlign_Fill);LabelSlot->SetVerticalAlignment(VAlign_Center);
++    Buttons.Add(B);return B;
++}
++void UColdSteelForgingWidget::Space(UVerticalBoxSlot* RowSlot,FMargin RowPadding)
++{RowSpacings.Add({RowSlot,RowPadding});}
++UVerticalBox* UColdSteelForgingWidget::Card(UVerticalBox* Parent)
++{
++    auto* Border=WidgetTree->ConstructWidget<UBorder>();Cards.Add(Border);
++    Space(Parent->AddChildToVerticalBox(Border),FMargin(0,0,0,8));
++    auto* Column=WidgetTree->ConstructWidget<UVerticalBox>();Border->SetContent(Column);return Column;
++}
++void UColdSteelForgingWidget::AddMaterialCell(UWidget* Widget,int32 Row,int32 Column)
++{
++    auto* CellSlot=MaterialGrid->AddChildToGrid(Widget,Row,Column);
++    CellSlot->SetHorizontalAlignment(Column==0?HAlign_Fill:HAlign_Right);
++    CellSlot->SetVerticalAlignment(VAlign_Center);
++    const float CellScale=Scale>0?Scale:1.f;
++    CellSlot->SetPadding(FMargin(Column==0?0.f:12.f/CellScale,4.f/CellScale,0,4.f/CellScale));
++    MaterialCellSlots.Add(CellSlot);
++}
++void UColdSteelForgingWidget::EnsureMaterialRows(int32 Count)
++{
++    while(MaterialRows.Num()<Count)
++    {
++        FMaterialRow Row;
++        auto* Name=Text(TEXT(""),14);Row.Name=Name;
++        auto* Amount=WidgetTree->ConstructWidget<UHorizontalBox>();Row.Amount=Amount;
++        auto* Owned=Text(TEXT(""),14,true);Row.Owned=Owned;
++        auto* Separator=Text(TEXT(" / "),14,true);Row.Separator=Separator;
++        auto* Required=Text(TEXT(""),14,true);Row.Required=Required;
++        Separator->SetColorAndOpacity(ColdSteelUI::TextSecondary);
++        Required->SetColorAndOpacity(ColdSteelUI::TextSecondary);
++        for(auto* Number:{Owned,Separator,Required})
++        {
++            Number->SetAutoWrapText(false);Number->SetJustification(ETextJustify::Right);
++            Amount->AddChildToHorizontalBox(Number)->SetVerticalAlignment(VAlign_Center);
++        }
++        auto* State=Text(TEXT(""),14);Row.State=State;
++        State->SetAutoWrapText(false);State->SetJustification(ETextJustify::Right);
++        const int32 GridRow=MaterialRows.Num()+1;
++        AddMaterialCell(Name,GridRow,0);AddMaterialCell(Amount,GridRow,1);AddMaterialCell(State,GridRow,2);
++        Name->SetVisibility(ESlateVisibility::Collapsed);Amount->SetVisibility(ESlateVisibility::Collapsed);State->SetVisibility(ESlateVisibility::Collapsed);
++        MaterialRows.Add(Row);
++    }
++}
++void UColdSteelForgingWidget::NativeOnInitialized()
++{
++    Super::NativeOnInitialized();SetIsFocusable(true);
++    Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();System=GetGameInstance()->GetSubsystem<UColdSteelForgingSystem>();
++    if(!System->Catalog().IsEmpty())SelectedRecipe=System->Catalog()[0].Id;
++    Shell=WidgetTree->ConstructWidget<UBorder>();Shell->SetHorizontalAlignment(HAlign_Fill);Shell->SetVerticalAlignment(VAlign_Fill);WidgetTree->RootWidget=Shell;
++    auto* Layers=WidgetTree->ConstructWidget<UOverlay>();Shell->SetContent(Layers);
++    Blur=WidgetTree->ConstructWidget<UBackgroundBlur>();auto* BlurSlot=Layers->AddChildToOverlay(Blur);BlurSlot->SetHorizontalAlignment(HAlign_Fill);BlurSlot->SetVerticalAlignment(VAlign_Fill);
++    Blur->SetVisibility(ESlateVisibility::HitTestInvisible);
++    auto* Tint=WidgetTree->ConstructWidget<UBorder>();Tint->SetBrushColor(ColdSteelUI::GlassTint);Tint->SetPadding(0);
++    Tint->SetHorizontalAlignment(HAlign_Fill);Tint->SetVerticalAlignment(VAlign_Fill);
++    auto* TintSlot=Layers->AddChildToOverlay(Tint);TintSlot->SetHorizontalAlignment(HAlign_Fill);TintSlot->SetVerticalAlignment(VAlign_Fill);
++    auto* Stack=WidgetTree->ConstructWidget<UVerticalBox>();Tint->SetContent(Stack);
++    Header=WidgetTree->ConstructWidget<UBorder>();Header->SetBrushColor(ColdSteelUI::HeaderTint);Stack->AddChildToVerticalBox(Header);
++    auto* Head=WidgetTree->ConstructWidget<UHorizontalBox>();Header->SetContent(Head);
++    auto* Title=Text(TEXT("锻造 · 铸造台"),20,false,true);auto* TitleSlot=Head->AddChildToHorizontalBox(Title);TitleSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));TitleSlot->SetVerticalAlignment(VAlign_Center);
++    UTextBlock* CloseLabel=nullptr;auto* Close=Button(TEXT("×"),CloseLabel);Close->OnClicked.AddDynamic(this,&ThisClass::HandleClose);
++    CloseSize=WidgetTree->ConstructWidget<USizeBox>();CloseSize->SetContent(Close);ButtonSizes.Add(CloseSize);Head->AddChildToHorizontalBox(CloseSize)->SetVerticalAlignment(VAlign_Center);
++    Scroll=WidgetTree->ConstructWidget<UScrollBox>();Scroll->SetConsumeMouseWheel(EConsumeMouseWheel::Always);Stack->AddChildToVerticalBox(Scroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
++    Body=WidgetTree->ConstructWidget<UBorder>();Body->SetBrushColor(FLinearColor::Transparent);Scroll->AddChild(Body);
++    auto* Content=WidgetTree->ConstructWidget<UVerticalBox>();Body->SetContent(Content);
++    auto* RecipeCard=Card(Content);
++    auto* RecipeCaption=Text(TEXT("配方 · 工件"),12);RecipeCaption->SetColorAndOpacity(ColdSteelUI::TextTertiary);Space(RecipeCard->AddChildToVerticalBox(RecipeCaption),FMargin(0,0,0,4));
++    RecipeTitle=Text(TEXT("—"),16,false,true);Space(RecipeCard->AddChildToVerticalBox(RecipeTitle),FMargin(0,0,0,8));
++    auto* RecipeChoices=WidgetTree->ConstructWidget<UHorizontalBox>();
++    Space(RecipeCard->AddChildToVerticalBox(RecipeChoices),FMargin(0,0,0,8));
++    UTextBlock* PreviousLabel=nullptr;PreviousRecipeButton=Button(TEXT("上一配方"),PreviousLabel);
++    PreviousRecipeButton->OnClicked.AddDynamic(this,&ThisClass::HandlePreviousRecipe);
++    auto* PreviousSize=WidgetTree->ConstructWidget<USizeBox>();PreviousSize->SetContent(PreviousRecipeButton);ButtonSizes.Add(PreviousSize);
++    RecipeChoices->AddChildToHorizontalBox(PreviousSize)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
++    UTextBlock* NextLabel=nullptr;NextRecipeButton=Button(TEXT("下一配方"),NextLabel);
++    NextRecipeButton->OnClicked.AddDynamic(this,&ThisClass::HandleNextRecipe);
++    auto* NextSize=WidgetTree->ConstructWidget<USizeBox>();NextSize->SetContent(NextRecipeButton);ButtonSizes.Add(NextSize);
++    RecipeNextSlot=RecipeChoices->AddChildToHorizontalBox(NextSize);RecipeNextSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
++    const FText ChoiceHelp=FText::FromString(TEXT("先领取或废弃当前成品，才能切换配方。不同剑类共用同一套剑胚与锻打动作。"));
++    PreviousRecipeButton->SetToolTipText(ChoiceHelp);NextRecipeButton->SetToolTipText(ChoiceHelp);
++    Materials=Text(TEXT("所需材料"),14,false,true);Space(RecipeCard->AddChildToVerticalBox(Materials),FMargin(0,0,0,4));
++    auto* Source=Text(TEXT("材料来源 · 背包 + 主仓库"),12);Source->SetColorAndOpacity(ColdSteelUI::TextTertiary);MaterialSource=Source;
++    Space(RecipeCard->AddChildToVerticalBox(Source),FMargin(0,0,0,4));
++    auto* Grid=WidgetTree->ConstructWidget<UGridPanel>();MaterialGrid=Grid;Grid->SetColumnFill(0,1.f);RecipeCard->AddChildToVerticalBox(Grid);
++    auto* NameHeader=Text(TEXT("材料"),12);auto* QuantityHeader=Text(TEXT("持有 / 需要"),12);auto* StateHeader=Text(TEXT("状态"),12);
++    MaterialQuantityHeader=QuantityHeader;
++    for(auto* Label:{NameHeader,QuantityHeader,StateHeader}){Label->SetColorAndOpacity(ColdSteelUI::TextSecondary);Label->SetAutoWrapText(false);}
++    AddMaterialCell(NameHeader,0,0);AddMaterialCell(QuantityHeader,0,1);AddMaterialCell(StateHeader,0,2);
++    int32 MaterialRowCount=0;
++    for(const auto& Recipe:System->Catalog())MaterialRowCount=FMath::Max(MaterialRowCount,Recipe.Inputs.Num());
++    EnsureMaterialRows(MaterialRowCount);
++    auto* StateCard=Card(Content);
++    Stage=Text(TEXT("准备锻造"),16,false,true);Space(StateCard->AddChildToVerticalBox(Stage),FMargin(0,0,0,8));
++    Stats=Text(TEXT(""),16,true);Space(StateCard->AddChildToVerticalBox(Stats),FMargin(0,0,0,4));
++    StatLegend=Text(TEXT("剩余时间   /   有效命中   /   工艺伤害"),12);StatLegend->SetColorAndOpacity(ColdSteelUI::TextTertiary);StateCard->AddChildToVerticalBox(StatLegend);
++    RefundPreview=Text(TEXT(""),12);RefundPreview->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(StateCard->AddChildToVerticalBox(RefundPreview),FMargin(0,8,0,0));
++    Timer=WidgetTree->ConstructWidget<UProgressBar>();Timer->SetFillColorAndOpacity(ColdSteelUI::Accent);
++    TimerSize=WidgetTree->ConstructWidget<USizeBox>();TimerSize->SetContent(Timer);Space(StateCard->AddChildToVerticalBox(TimerSize),FMargin(0,8,0,0));
++    auto* PreviewCaption=Text(TEXT("成品预览 · 剑类共用剑胚"),14,false,true);Space(Content->AddChildToVerticalBox(PreviewCaption),FMargin(0,4,0,8));
++    BoardSize=WidgetTree->ConstructWidget<USizeBox>();Board=WidgetTree->ConstructWidget<UColdSteelForgeBoard>();BoardSize->SetContent(Board);Space(Content->AddChildToVerticalBox(BoardSize),FMargin(0,0,0,8));
++    auto* Instructions=Card(Content);Space(Instructions->AddChildToVerticalBox(Text(TEXT("操作说明"),16,false,true)),FMargin(0,0,0,8));
++    auto* Help=Text(TEXT("光圈与命中范围随时间缩小，直到消失。移动鼠标对准后左键落锤，出锤时锁定大小，锤头接触时判定。"),14);Space(Instructions->AddChildToVerticalBox(Help),FMargin(0,0,0,8));
++    auto* Rule=Text(FString::Printf(TEXT("每轮 20 处光圈 · 单处随机停留 %.1f～%.1f 秒，出锤后锁定至接触\n落锤后随机间隔 %.2f～%.2f 秒，且等待回锤完成 · 10 次命中为基础品质\n伤害浮动 −25%% ～ ＋25%%"),System->HitWindowMin,System->HitWindowMax,System->TargetGapMin,System->TargetGapMax),12);Rule->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(Instructions->AddChildToVerticalBox(Rule),FMargin(0,0,0,8));
++    auto* Exit=Text(TEXT("开始时扣除材料。中途返回按当前命中数结算；成品可领取或直接废弃。废弃返还一半材料至背包，每种材料的零头向下取整。"),12);Exit->SetColorAndOpacity(ColdSteelUI::TextTertiary);Instructions->AddChildToVerticalBox(Exit);
++    Footer=WidgetTree->ConstructWidget<UBorder>();Footer->SetBrushColor(ColdSteelUI::HeaderTint);Stack->AddChildToVerticalBox(Footer);
++    auto* Foot=WidgetTree->ConstructWidget<UVerticalBox>();Footer->SetContent(Foot);
++    Status=Text(TEXT(""),14);Status->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(Foot->AddChildToVerticalBox(Status),FMargin(0,0,0,8));
++    auto* Actions=WidgetTree->ConstructWidget<UHorizontalBox>();Foot->AddChildToVerticalBox(Actions);
++    UTextBlock* NewActionLabel=nullptr;ActionButton=Button(TEXT("开始锻造"),NewActionLabel);ActionLabel=NewActionLabel;ActionButton->OnClicked.AddDynamic(this,&ThisClass::HandleAction);
++    auto* ActionSize=WidgetTree->ConstructWidget<USizeBox>();ActionSize->SetContent(ActionButton);ButtonSizes.Add(ActionSize);Actions->AddChildToHorizontalBox(ActionSize)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
++    UTextBlock* DiscardLabel=nullptr;DiscardButton=Button(TEXT("废弃 · 返还一半"),DiscardLabel);DiscardButton->OnClicked.AddDynamic(this,&ThisClass::HandleDiscard);
++    DiscardButton->SetToolTipText(FText::FromString(TEXT("直接废弃未领取的成品，返还一半投入材料至背包（逐项向下取整）。背包空间不足时保留成品。")));
++    auto* DiscardSize=WidgetTree->ConstructWidget<USizeBox>();DiscardSize->SetContent(DiscardButton);ButtonSizes.Add(DiscardSize);DiscardActionSlot=Actions->AddChildToHorizontalBox(DiscardSize);DiscardActionSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
++    UTextBlock* SmeltLabel=nullptr;SmeltingButton=Button(TEXT("冶炼队列 / 领锭"),SmeltLabel);SmeltingButton->OnClicked.AddDynamic(this,&ThisClass::HandleSmelting);
++    auto* SmeltSize=WidgetTree->ConstructWidget<USizeBox>();SmeltSize->SetContent(SmeltingButton);ButtonSizes.Add(SmeltSize);SecondaryActionSlot=Actions->AddChildToHorizontalBox(SmeltSize);SecondaryActionSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
++    UpdateScale();LoadMold();Refresh();
++}
++void UColdSteelForgingWidget::NativeConstruct()
++{
++    Super::NativeConstruct();if(Model&&!ChangedHandle.IsValid())ChangedHandle=Model->OnChanged.AddWeakLambda(this,[this]{bMaterialsDirty=true;});
++}
++void UColdSteelForgingWidget::NativeDestruct()
++{
++    if(Model&&ChangedHandle.IsValid()){Model->OnChanged.Remove(ChangedHandle);ChangedHandle.Reset();}
++    Super::NativeDestruct();
++}
++void UColdSteelForgingWidget::SetStation(AVoxelBuildWorld* InWorld,FIntVector InCell)
++{
++    World=InWorld;Cell=InCell;Notice.Reset();bMaterialsDirty=true;
++    if(System&&!System->Active()&&!System->Job().Id.IsEmpty()&&!System->Job().bFinished)System->Finish(Notice);
++    if(System&&!System->Job().Id.IsEmpty())SelectedRecipe=System->Job().Recipe;
++    LoadMold();Refresh();
++}
++void UColdSteelForgingWidget::SetInputReady(bool bReady)
++{
++    if(bInputReady==bReady)return;bInputReady=bReady;if(Board)Board->SetIsEnabled(bReady);Refresh();
++}
++void UColdSteelForgingWidget::LoadMold()
++{
++    const auto* Recipe=System?System->Find(SelectedRecipe):nullptr;if(!Recipe||LoadedMold==Recipe->Mold)return;
++    LoadedMold=Recipe->Mold;MoldTexture=FImageUtils::ImportFileAsTexture2D(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/Recipe->Mold);
++    if(Board)Board->Configure(nullptr,MoldTexture); // Recipe reference only; world contact owns scoring.
++}
++void UColdSteelForgingWidget::UpdateScale()
++{
++    const float NewScale=ColdSteelUI::PixelScale(this);if(FMath::IsNearlyEqual(Scale,NewScale,.001f))return;Scale=FMath::Max(.1f,NewScale);
++    for(const auto& L:Labels)if(auto* T=L.Widget.Get())T->SetFont(L.Numeric?GunsmithUI::NumberFont(L.Pixels/Scale,L.Medium):GunsmithUI::TextFont(L.Pixels/Scale,L.Medium));
++    for(const auto& W:Buttons)if(auto* B=W.Get()){B->SetStyle(ColdSteelUI::ButtonStyle(Scale));if(auto* ButtonSlot=Cast<UButtonSlot>(B->GetContent()->Slot))ButtonSlot->SetPadding(FMargin(12/Scale,4/Scale));}
++    for(const auto& W:ButtonSizes)if(auto* S=W.Get())S->SetHeightOverride(ColdSteelUI::ActionHeight/Scale);
++    CloseSize->SetWidthOverride(ColdSteelUI::ActionHeight/Scale);SecondaryActionSlot->SetPadding(FMargin(ColdSteelUI::ActionGap/Scale,0,0,0));
++    DiscardActionSlot->SetPadding(FMargin(ColdSteelUI::ActionGap/Scale,0,0,0));
++    RecipeNextSlot->SetPadding(FMargin(ColdSteelUI::ActionGap/Scale,0,0,0));
++    for(const auto& C:Cards)if(auto* Border=C.Get()){Border->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::StatusCard,ColdSteelUI::CardRadius/Scale,ColdSteelUI::Border,1/Scale));Border->SetPadding(12/Scale);}
++    for(const auto& Row:RowSpacings)if(auto* RowSlot=Row.Slot.Get())RowSlot->SetPadding(Row.Padding*(1.f/Scale));
++    for(const auto& MaterialCell:MaterialCellSlots)if(auto* CellSlot=MaterialCell.Get())
++        CellSlot->SetPadding(FMargin(CellSlot->GetColumn()==0?0.f:12.f/Scale,4.f/Scale,0,4.f/Scale));
++    Scroll->SetScrollbarThickness(FVector2D(6/Scale,6/Scale));Scroll->SetScrollbarPadding(FMargin(4/Scale,0,0,0));
++    TimerSize->SetHeightOverride(3/Scale);
++    FProgressBarStyle Progress;Progress.SetBackgroundImage(ColdSteelUI::RoundedBrush(ColdSteelUI::Gray(45),1.5f/Scale,FLinearColor::Transparent,0));
++    Progress.SetFillImage(ColdSteelUI::RoundedBrush(FLinearColor::White,1.5f/Scale,FLinearColor::Transparent,0));Timer->SetWidgetStyle(Progress);
++    Shell->SetBrush(ColdSteelUI::RoundedBrush(FLinearColor::Transparent,ColdSteelUI::PanelRadius/Scale,ColdSteelUI::Border,1/Scale));Shell->SetPadding(1/Scale);
++    Blur->SetBlurStrength(ColdSteelUI::GlassBlurStrength);Blur->SetBlurRadius(ColdSteelUI::GlassBlurRadius);Blur->SetCornerRadius(FVector4(10,10,10,10)/Scale);
++    Blur->SetLowQualityFallbackBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassFallback,10/Scale));
++    Header->SetPadding(FMargin(18/Scale,12/Scale));Body->SetPadding(12/Scale);Footer->SetPadding(12/Scale);
++}
++void UColdSteelForgingWidget::NativeTick(const FGeometry& Geometry,float DeltaTime)
++{
++    Super::NativeTick(Geometry,DeltaTime);UpdateScale();
++    const float Height=FMath::Clamp(float(Geometry.GetLocalSize().Y)*Scale-520.f,200.f,420.f)/Scale;
++    if(!FMath::IsNearlyEqual(Height,BoardHeight,.5f)){BoardHeight=Height;BoardSize->SetHeightOverride(Height);}
++    RefreshClock+=DeltaTime;
++    if(RefreshClock>=.05f){RefreshClock=0;Refresh();}
++}
++void UColdSteelForgingWidget::Refresh()
++{
++    using ColdSteelForgePresentation::SetText;
++    if(!System||!Model||!ActionButton)return;
++    const auto& Job=System->Job();const bool Pending=!Job.Id.IsEmpty(),Active=System->Active();
++    if(Pending&&SelectedRecipe!=Job.Recipe)
++    {SelectedRecipe=Job.Recipe;bMaterialsDirty=true;LoadMold();}
++    const auto* Recipe=System->Find(SelectedRecipe);
++    if(bMaterialsDirty)
++    {
++        const int32 Index=System->Catalog().IndexOfByPredicate([this](const auto& R){return R.Id==SelectedRecipe;});
++        SetText(RecipeTitle,Recipe?FString::Printf(TEXT("%d / %d · %s"),Index+1,System->Catalog().Num(),
++            *ColdSteelInventory::Text(Model->CreateItem(Recipe->Output),TEXT("name"))):TEXT("配方未就绪"));
++        TArray<FColdSteelCraftingInput> DisplayInputs;
++        bool bPaidAvailable=true;
++        if(Pending)
++        {
++            TMap<FString,int64> Paid;bPaidAvailable=System->GetPaidMaterials(Paid);
++            // Preserve recipe order, then show any paid materials from an older recipe.
++            if(Recipe)for(const auto& Input:Recipe->Inputs)if(const auto* Count=Paid.Find(Input.Item))
++            {DisplayInputs.Add({Input.Item,*Count});Paid.Remove(Input.Item);}
++            TArray<FString> Definitions;Paid.GetKeys(Definitions);Definitions.Sort();
++            for(const auto& Definition:Definitions)DisplayInputs.Add({Definition,Paid[Definition]});
++        }
++        else if(Recipe)DisplayInputs=Recipe->Inputs;
++        SetText(Materials,Pending?TEXT("本轮已投入材料"):TEXT("所需材料"));
++        SetText(MaterialSource.Get(),Pending?(bPaidAvailable?TEXT("本轮材料已扣除"):TEXT("投入材料记录不可用"))
++            :Recipe?TEXT("材料来源 · 背包 + 主仓库"):TEXT("暂无可用配方"));
++        SetText(MaterialQuantityHeader.Get(),Pending?TEXT("已投入数量"):TEXT("持有 / 需要"));
++        EnsureMaterialRows(DisplayInputs.Num());
++        for(int32 MaterialIndex=0;MaterialIndex<MaterialRows.Num();++MaterialIndex)
++        {
++            const auto& Row=MaterialRows[MaterialIndex];
++            const bool bHasInput=DisplayInputs.IsValidIndex(MaterialIndex);
++            const auto RowVisibility=bHasInput?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed;
++            Row.Name->SetVisibility(RowVisibility);Row.Amount->SetVisibility(RowVisibility);Row.State->SetVisibility(RowVisibility);
++            if(!bHasInput)continue;
++            const auto& Input=DisplayInputs[MaterialIndex];const int64 Owned=Pending?Input.Count:Model->CountMaterial(Input.Item);
++            SetText(Row.Name.Get(),ColdSteelInventory::Text(Model->CreateItem(Input.Item),TEXT("name")));
++            SetText(Row.Owned.Get(),FString::Printf(TEXT("%lld"),Owned));
++            SetText(Row.Required.Get(),FString::Printf(TEXT("%lld"),Input.Count));
++            Row.Separator->SetVisibility(Pending?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
++            Row.Required->SetVisibility(Pending?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
++            const bool bEnough=Owned>=Input.Count;
++            const FLinearColor QuantityColor=Pending?ColdSteelUI::TextPrimary:bEnough?ColdSteelUI::Success:ColdSteelUI::Danger;
++            Row.Owned->SetColorAndOpacity(QuantityColor);
++            SetText(Row.State.Get(),Pending?TEXT("已投入"):bEnough?TEXT("已满足"):FString::Printf(TEXT("缺 %lld"),Input.Count-Owned));
++            Row.State->SetColorAndOpacity(Pending?ColdSteelUI::TextSecondary:QuantityColor);
++        }
++        bCanStart=System->CanStart(SelectedRecipe,StartReason);
++        TArray<FColdSteelCraftingInput> Refund;FString RefundReason;
++        bCanDiscard=System->GetDiscardRefund(Refund,RefundReason);
++        if(bCanDiscard)
++        {
++            TArray<FString> Returned;
++            for(const auto& In:Refund)Returned.Add(FString::Printf(TEXT("%s × %lld"),*ColdSteelInventory::Text(Model->CreateItem(In.Item),TEXT("name")),In.Count));
++            RefundReason=Returned.IsEmpty()?TEXT("废弃返还：无（各项材料折半不足 1 个）")
++                :TEXT("废弃返还至背包：")+FString::Join(Returned,TEXT("、"));
++        }
++        SetText(RefundPreview,RefundReason);bMaterialsDirty=false;
++    }
++    RefundPreview->SetVisibility(Pending&&Job.bFinished&&!Active?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
++    const int32 Hits=Pending?Job.Hits:0;const double Percent=(System->Multiplier(Hits)-1)*100;
++    if(Active)
++    {
++        const double T=System->Elapsed();SetText(Stage,T<0?FString::Printf(TEXT("准备 · %d"),FMath::CeilToInt(-T)):TEXT("锻打中"));
++        SetText(Stats,FString::Printf(TEXT("%02d / 20   |   %02d / 20   |   %+.1f%%"),System->ResolvedTargets(),Hits,Percent));
++        Timer->SetPercent(float(System->ResolvedTargets())/System->TargetCount);
++    }
++    else
++    {
++        SetText(Stage,Pending?(Job.bFinished?TEXT("锻造完成 · ")+System->Quality(Hits):TEXT("工件待结算")):TEXT("选择工件 · 准备锻造"));
++        SetText(Stats,Pending?FString::Printf(TEXT("%02d / 20   |   %+.1f%%"),Hits,Percent):TEXT("2.5 s   |   20 处   |   −25% ～ ＋25%"));Timer->SetPercent(Pending?float(Hits)/20.f:0.f);
++    }
++    SetText(StatLegend,Active?TEXT("已处理光圈   /   有效命中   /   工艺伤害"):Pending?TEXT("有效命中   /   工艺伤害"):TEXT("单点停留   /   光圈总数   /   伤害范围"));
++    Stats->SetColorAndOpacity(!Pending?ColdSteelUI::TextSecondary:Percent>0?ColdSteelUI::Success:Percent<0?ColdSteelUI::Danger:ColdSteelUI::TextPrimary);
++    SetText(ActionLabel,Active?TEXT("锻打进行中"):Pending?(Job.bFinished?TEXT("领取成品"):TEXT("重试结算")):TEXT("开始锻造"));
++    FString Reason;bool Can=false;
++    if(!Active&&!Pending){Can=bCanStart;Reason=StartReason;FString ReadyReason;if(!HUD||!HUD->CanStartWorldForging(ReadyReason)){Can=false;Reason=ReadyReason;}}
++    else if(Pending&&!Active){Can=true;Reason=Job.bFinished?TEXT("领取成品，或废弃返还一半材料；背包需有足够空间。"):TEXT("工件尚未结算，请重试结算。");}
++    else Reason=TEXT("锤头接触热区时计分；每次命中增加 2.5% 工艺伤害。");
++    ActionButton->SetIsEnabled(bInputReady&&Can);
++    const bool bCanChoose=bInputReady&&!Active&&!Pending&&System->Catalog().Num()>1;
++    PreviousRecipeButton->SetIsEnabled(bCanChoose);NextRecipeButton->SetIsEnabled(bCanChoose);
++    DiscardButton->SetIsEnabled(bInputReady&&Pending&&Job.bFinished&&!Active&&bCanDiscard);
++    FIntVector Furnace;const bool Linked=World.IsValid()&&World->FindCastingFurnace(Cell,Furnace);
++    SmeltingButton->SetIsEnabled(bInputReady&&Linked&&!Active);
++    SetText(Status,!System->Error().IsEmpty()?System->Error():!Notice.IsEmpty()?Notice:Reason);
++}
++void UColdSteelForgingWidget::HandleAction()
++{
++    if(!bInputReady||!System||System->Active())return;
++    Notice.Reset();
++    if(!System->Job().Id.IsEmpty()){if(System->Job().bFinished)System->Claim(Notice);else System->Finish(Notice);}
++    else if(HUD&&HUD->StartWorldForging(SelectedRecipe,Notice)){Notice.Reset();bMaterialsDirty=true;Refresh();return;}
++    bMaterialsDirty=true;SetKeyboardFocus();Refresh();
++}
++void UColdSteelForgingWidget::HandleClose(){if(HUD)HUD->CloseForging();}
++void UColdSteelForgingWidget::HandleDiscard()
++{
++    if(!bInputReady||!System||System->Active())return;
++    Notice.Reset();System->Discard(Notice);
++    bMaterialsDirty=true;SetKeyboardFocus();Refresh();
++}
++void UColdSteelForgingWidget::HandleSmelting(){if(HUD&&!System->Active())HUD->OpenForgingSmelting();}
++void UColdSteelForgingWidget::HandlePreviousRecipe(){CycleRecipe(-1);}
++void UColdSteelForgingWidget::HandleNextRecipe(){CycleRecipe(1);}
++void UColdSteelForgingWidget::CycleRecipe(int32 Direction)
++{
++    if(!bInputReady||!System||System->Active()||!System->Job().Id.IsEmpty())return;
++    const auto& Catalog=System->Catalog();if(Catalog.Num()<2)return;
++    const int32 Index=Catalog.IndexOfByPredicate([this](const auto& R){return R.Id==SelectedRecipe;});
++    const int32 Next=Index==INDEX_NONE?0:(Index+Direction+Catalog.Num())%Catalog.Num();
++    SelectedRecipe=Catalog[Next].Id;Notice.Reset();bMaterialsDirty=true;
++    LoadMold();Refresh();SetKeyboardFocus();
++}
++FReply UColdSteelForgingWidget::NativeOnMouseButtonDown(const FGeometry&,const FPointerEvent&){return FReply::Handled();}
+diff --git a/Source/FPSGAME/UI/ColdSteelForgingWidget.h b/Source/FPSGAME/UI/ColdSteelForgingWidget.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/UI/ColdSteelForgingWidget.h
+@@ -0,0 +1,111 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Blueprint/UserWidget.h"
++#include "ColdSteelForgingWidget.generated.h"
++class UColdSteelHUDWidget;
++class UColdSteelStatusModel;
++class UColdSteelForgingSystem;
++class UColdSteelForgeBoard;
++class UBackgroundBlur;
++class UBorder;
++class UButton;
++class UTextBlock;
++class USizeBox;
++class UProgressBar;
++class UTexture2D;
++class AVoxelBuildWorld;
++class UVerticalBox;
++class UVerticalBoxSlot;
++class UHorizontalBoxSlot;
++class UHorizontalBox;
++class UGridPanel;
++class UGridSlot;
++class UScrollBox;
++
++UCLASS()
++class FPSGAME_API UColdSteelForgingWidget : public UUserWidget
++{
++    GENERATED_BODY()
++public:
++    void Configure(UColdSteelHUDWidget* Owner);
++    void SetStation(AVoxelBuildWorld* InWorld,FIntVector InCell);
++    void SetInputReady(bool bReady);
++protected:
++    virtual void NativeOnInitialized() override;
++    virtual void NativeConstruct() override;
++    virtual void NativeDestruct() override;
++    virtual void NativeTick(const FGeometry& Geometry,float DeltaTime) override;
++    virtual FReply NativeOnMouseButtonDown(const FGeometry&,const FPointerEvent&) override;
++private:
++    UFUNCTION() void HandleAction();
++    UFUNCTION() void HandleDiscard();
++    UFUNCTION() void HandleClose();
++    UFUNCTION() void HandleSmelting();
++    UFUNCTION() void HandlePreviousRecipe();
++    UFUNCTION() void HandleNextRecipe();
++    void CycleRecipe(int32 Direction);
++    UTextBlock* Text(const FString& Caption,float Pixels,bool bNumeric=false,bool bMedium=false);
++    UButton* Button(const FString& Caption,UTextBlock*& Label);
++    UVerticalBox* Card(UVerticalBox* Parent);
++    void Space(UVerticalBoxSlot* Slot,FMargin Padding);
++    void Refresh();
++    void UpdateScale();
++    void LoadMold();
++    void AddMaterialCell(UWidget* Widget,int32 Row,int32 Column);
++    void EnsureMaterialRows(int32 Count);
++    FName SelectedRecipe;
++    TWeakObjectPtr<AVoxelBuildWorld> World;
++    FIntVector Cell=FIntVector::ZeroValue;
++    FDelegateHandle ChangedHandle;
++    float Scale=0,RefreshClock=0,BoardHeight=0;
++    bool bInputReady=false,bMaterialsDirty=true,bCanStart=false,bCanDiscard=false;
++    FString Notice,LoadedMold,StartReason;
++    struct FLabel {TWeakObjectPtr<UTextBlock> Widget;float Pixels;bool Numeric,Medium;};
++    TArray<FLabel> Labels;
++    TArray<TWeakObjectPtr<UButton>> Buttons;
++    TArray<TWeakObjectPtr<USizeBox>> ButtonSizes;
++    TArray<TWeakObjectPtr<UBorder>> Cards;
++    struct FRowSpacing {TWeakObjectPtr<UVerticalBoxSlot> Slot;FMargin Padding;};
++    TArray<FRowSpacing> RowSpacings;
++    UPROPERTY(Transient) TObjectPtr<UColdSteelHUDWidget> HUD;
++    UPROPERTY(Transient) TObjectPtr<UColdSteelStatusModel> Model;
++    UPROPERTY(Transient) TObjectPtr<UColdSteelForgingSystem> System;
++    UPROPERTY(Transient) TObjectPtr<UColdSteelForgeBoard> Board;
++    UPROPERTY(Transient) TObjectPtr<UTexture2D> MoldTexture;
++    UPROPERTY(Transient) TObjectPtr<UBackgroundBlur> Blur;
++    UPROPERTY(Transient) TObjectPtr<UBorder> Shell;
++    UPROPERTY(Transient) TObjectPtr<UBorder> Header;
++    UPROPERTY(Transient) TObjectPtr<UBorder> Body;
++    UPROPERTY(Transient) TObjectPtr<UBorder> Footer;
++    UPROPERTY(Transient) TObjectPtr<USizeBox> BoardSize;
++    UPROPERTY(Transient) TObjectPtr<USizeBox> CloseSize;
++    UPROPERTY(Transient) TObjectPtr<USizeBox> TimerSize;
++    UPROPERTY(Transient) TObjectPtr<UScrollBox> Scroll;
++    UPROPERTY(Transient) TObjectPtr<UHorizontalBoxSlot> SecondaryActionSlot;
++    UPROPERTY(Transient) TObjectPtr<UHorizontalBoxSlot> DiscardActionSlot;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> RecipeTitle;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> Materials;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> Stage;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> Stats;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> StatLegend;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> RefundPreview;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> Status;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> ActionLabel;
++    UPROPERTY(Transient) TObjectPtr<UButton> ActionButton;
++    UPROPERTY(Transient) TObjectPtr<UButton> DiscardButton;
++    UPROPERTY(Transient) TObjectPtr<UButton> SmeltingButton;
++    UPROPERTY(Transient) TObjectPtr<UProgressBar> Timer;
++    UPROPERTY(Transient) TObjectPtr<UButton> PreviousRecipeButton;
++    UPROPERTY(Transient) TObjectPtr<UButton> NextRecipeButton;
++    UPROPERTY(Transient) TObjectPtr<UHorizontalBoxSlot> RecipeNextSlot;
++    // Reused on data changes; the widget tree owns these children.
++    struct FMaterialRow
++    {
++        TWeakObjectPtr<UTextBlock> Name,Owned,Separator,Required,State;
++        TWeakObjectPtr<UHorizontalBox> Amount;
++    };
++    TArray<FMaterialRow> MaterialRows;
++    TWeakObjectPtr<UGridPanel> MaterialGrid;
++    TArray<TWeakObjectPtr<UGridSlot>> MaterialCellSlots;
++    TWeakObjectPtr<UTextBlock> MaterialQuantityHeader,MaterialSource;
++};
+diff --git a/Source/FPSGAME/WorldGeneration/CastingRack.cpp b/Source/FPSGAME/WorldGeneration/CastingRack.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/WorldGeneration/CastingRack.cpp
+@@ -0,0 +1,88 @@
++#include "FluidPresentationSubsystem.h"
++#include "../Building/VoxelBuildWorld.h"
++#include "../Building/VoxelBuildPrefabActor.h"
++#include "../Production/ProductionHarvestAssets.h"
++#include "Components/InstancedStaticMeshComponent.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/World.h"
++#include "GameFramework/WorldSettings.h"
++#include "Materials/MaterialInterface.h"
++
++void UFluidPresentationSubsystem::ReleaseCastingRack(FFurnaceSmoke& Entry)
++{
++    for(int32 Lane=0;Lane<4;++Lane)
++    {
++        if(auto* Rack=Entry.Rack[Lane].Get())
++        {
++            Rack->ClearInstances();Rack->SetVisibility(false);
++            Rack->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
++        }
++        Entry.Rack[Lane].Reset();Entry.RackCounts[Lane]=-1;
++    }
++    Entry.RackParent.Reset();
++}
++
++void UFluidPresentationSubsystem::UpdateCastingRack(FFurnaceSmoke& Entry,AVoxelBuildWorld* Build,const FVoxelSmeltingJob* Job)
++{
++    auto* Station=Build&&Job&&Job->bCasting?Build->PrefabActorAt(Job->StationCell):nullptr;
++    auto* Body=Station?Station->Body():nullptr;
++    if(!Body||!Body->IsRegistered()||Station->IsFalling()||Station->PrefabId()!=VoxelCastingStationId
++        ||!bHasView||FVector::DistSquared(Body->GetComponentLocation(),Eye)>FMath::Square(8500.f))
++    {ReleaseCastingRack(Entry);return;}
++    if(Entry.RackParent.Get()!=Body){ReleaseCastingRack(Entry);Entry.RackParent=Body;}
++    auto* Mesh=Cast<UStaticMesh>(FSoftObjectPath(TEXT("/Game/Items/Smelting/Ingot/SM_Ingot.SM_Ingot")).ResolveObject());
++    if(!Mesh)return;
++    static const FString Metals[]={TEXT("ironIngot"),TEXT("copperIngot"),TEXT("silverIngot"),TEXT("goldIngot")};
++    for(int32 Lane=0;Lane<4;++Lane)
++    {
++        const auto* Product=Job->Products.FindByPredicate([&](const auto& P){return P.Item==Metals[Lane];});
++        // Three physical examples per lane; the saved/UI count owns all 60 storage positions.
++        const int32 Count=Product?int32(FMath::Clamp<int64>(Product->Count,0,3)):0;
++        if(Entry.RackCounts[Lane]==Count)continue;
++        auto* Rack=Entry.Rack[Lane].Get();
++        if(!Rack&&Count>0)
++        {
++            auto* Material=Cast<UMaterialInterface>(ProductionHarvestAssets::PickupMaterial(Metals[Lane]).ResolveObject());
++            if(!Material)continue;
++            for(auto& Candidate:CastingRackPool)
++            {
++                if(!IsValid(Candidate))continue;
++                bool Taken=false;
++                for(const auto& Other:Furnaces)
++                    for(const auto& Borrowed:Other.Rack)if(Borrowed.Get()==Candidate.Get())Taken=true;
++                if(!Taken){Rack=Candidate.Get();break;}
++            }
++            if(!Rack&&CastingRackPool.Num()<32*4)
++            {
++                auto* RackOwner=GetWorld()->GetWorldSettings();
++                Rack=NewObject<UInstancedStaticMeshComponent>(RackOwner,NAME_None,RF_Transient);
++                RackOwner->AddInstanceComponent(Rack);
++                Rack->SetMobility(EComponentMobility::Movable);
++                Rack->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++                Rack->SetGenerateOverlapEvents(false);Rack->SetCanEverAffectNavigation(false);
++                Rack->SetCastShadow(false);Rack->SetCullDistances(7500,8500);
++                Rack->RegisterComponent();CastingRackPool.Add(Rack);
++            }
++            if(!Rack)continue;
++            Rack->SetStaticMesh(Mesh);Rack->SetMaterial(0,Material);
++            Rack->AttachToComponent(Body,FAttachmentTransformRules::SnapToTargetIncludingScale);
++            Rack->SetRelativeTransform(FTransform::Identity);Entry.Rack[Lane]=Rack;
++        }
++        if(Rack)
++        {
++            Rack->ClearInstances();
++            const auto Bounds=Mesh->GetBounds();
++            const float Scale=20.f/FMath::Max(1.f,2.f*float(FMath::Max(Bounds.BoxExtent.X,Bounds.BoxExtent.Y)));
++            // Long axis across the lane; all positions are authored station mesh space in cm.
++            const FRotator Rotation(0,Bounds.BoxExtent.Y>Bounds.BoxExtent.X?0.f:90.f,0);
++            const FVector CentreOffset=Rotation.RotateVector(Bounds.Origin*Scale);
++            for(int32 Index=0;Index<Count;++Index)
++            {
++                const FVector Centre(-72.f+15.f*Index,-36.75f+24.5f*Lane,34.2f+Bounds.BoxExtent.Z*Scale);
++                Rack->AddInstance(FTransform(Rotation,Centre-CentreOffset,FVector(Scale)),false);
++            }
++            Rack->SetVisibility(Count>0);
++        }
++        Entry.RackCounts[Lane]=Count;
++    }
++}
+diff --git a/Source/FPSGAME/WorldGeneration/FurnaceCasting.cpp b/Source/FPSGAME/WorldGeneration/FurnaceCasting.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/WorldGeneration/FurnaceCasting.cpp
+@@ -0,0 +1,222 @@
++#include "FluidPresentationSubsystem.h"
++#include "../Building/VoxelBuildPrefabActor.h"
++#include "../Building/VoxelBuildWorld.h"
++#include "../Building/SmeltingSystem.h"
++#include "../Production/ProductionHarvestAssets.h"
++#include "Components/StaticMeshComponent.h"
++#include "Engine/GameInstance.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/World.h"
++#include "GameFramework/WorldSettings.h"
++#include "Materials/MaterialInterface.h"
++#include "NiagaraComponent.h"
++#include "NiagaraSystem.h"
++#include "Scalability.h"
++
++namespace FurnaceCasting
++{
++    constexpr double PourSeconds=3.2;
++    constexpr double ArrivalSeconds=.4776727;
++    constexpr double SolidSeconds=5.4;
++    constexpr int32 MaxCasting=4;
++    constexpr int32 MaxIngots=32;
++
++    UStaticMeshComponent* NewSurface(UWorld* World)
++    {
++        auto* Owner=World->GetWorldSettings();
++        auto* Comp=NewObject<UStaticMeshComponent>(Owner,NAME_None,RF_Transient);
++        Owner->AddInstanceComponent(Comp);
++        Comp->SetMobility(EComponentMobility::Movable);
++        Comp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++        Comp->SetGenerateOverlapEvents(false);
++        Comp->SetCanEverAffectNavigation(false);
++        Comp->SetCastShadow(false);
++        Comp->SetVisibility(false);
++        Comp->SetCullDistance(8500.f);
++        Comp->RegisterComponent();
++        return Comp;
++    }
++}
++
++void UFluidPresentationSubsystem::ReleaseFurnaceTap(FFurnaceSmoke& Entry)
++{
++    if(auto* FX=Entry.TapFX.Get())
++    {
++        FX->SetVariableFloat(TEXT("User.Flow"),0.f);
++        FX->DeactivateImmediate();
++        FX->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
++    }
++    // Return the borrower's pointer as well: stale entries must not control another furnace.
++    Entry.TapFX.Reset();
++    if(auto* Comp=Entry.CastingMesh.Get())
++    {
++        Comp->SetVisibility(false);
++        Comp->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
++    }
++    Entry.CastingMesh.Reset();
++}
++
++void UFluidPresentationSubsystem::ReleaseFurnaceIngot(FFurnaceSmoke& Entry)
++{
++    if(auto* Comp=Entry.Ingot.Get())
++    {
++        Comp->SetVisibility(false);
++        Comp->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
++    }
++    Entry.Ingot.Reset();Entry.IngotDef.Empty();
++}
++
++void UFluidPresentationSubsystem::UpdateFurnaceTap(FFurnaceSmoke& Entry,AVoxelBuildWorld* Build,
++    const FVoxelSmeltingJob* Job,const UStaticMeshComponent* Body,const FVector& Mouth,bool bDone,double Now)
++{
++    // Cosmetic only. SmeltingSystem continues to own completion, inventory, fuel and saves.
++    auto* Piece=Entry.Piece.Get();
++    UpdateCastingRack(Entry,Build,Job);
++    const bool bBuffered=Job&&Job->bCasting;
++    double BufferedAge=0,TimeRate=1;
++    if(bBuffered)
++    {
++        auto* Smelt=GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelSmeltingSystem>():nullptr;
++        const auto* Recipe=Smelt?Smelt->Find(Job->Recipe):nullptr;
++        if(Recipe&&Build)
++        {
++            const double Unit=Smelt->JobTotalSeconds(Build,*Job,*Recipe)/FMath::Max<int64>(1,Job->BatchCount);
++            const double Progress=Smelt->Progress(Build,Job->Cell)*Smelt->JobTotalSeconds(Build,*Job,*Recipe);
++            BufferedAge=FMath::Clamp((Progress-Job->ProducedBatches*Unit)/Unit,0.,1.)*FurnaceCasting::SolidSeconds;
++            TimeRate=Smelt->IsBurning(Build,Job->Cell)&&!Smelt->CastingBlocked(Build,*Job)?FurnaceCasting::SolidSeconds/Unit:0;
++            bDone=BufferedAge>0||TimeRate>0;
++        }
++        else bDone=false;
++        ReleaseFurnaceIngot(Entry);
++    }
++    if(!Piece||!Body||!Body->IsRegistered()||Piece->IsFalling())bDone=false;
++    if(!bDone)
++    {
++        ReleaseFurnaceTap(Entry);ReleaseFurnaceIngot(Entry);
++        Entry.bWasDone=false;Entry.TapAt=-1;
++        return;
++    }
++    if(!Entry.bWasDone){Entry.TapAt=Now;Entry.bWasDone=true;}
++    const double Elapsed=bBuffered?BufferedAge:FMath::Max(0.,Now-Entry.TapAt);
++    const float Distance=bHasView?float(FVector::Distance(Mouth,Eye)):TNumericLimits<float>::Max();
++    if(Distance>8500.f)
++    {
++        ReleaseFurnaceTap(Entry);ReleaseFurnaceIngot(Entry);
++        return; // Retain the clock: returning does not replay a completed pour.
++    }
++    auto* Parent=const_cast<UStaticMeshComponent*>(Body);
++    if(Elapsed<FurnaceCasting::SolidSeconds&&!Entry.CastingMesh.IsValid())
++    {
++        auto* Mesh=CastingTemplate.Get();
++        if(Mesh)
++        {
++            UStaticMeshComponent* Free=nullptr;
++            for(auto& Candidate:CastingPool)
++            {
++                if(!IsValid(Candidate))continue;
++                bool Taken=false;
++                for(const auto& Other:Furnaces)if(Other.CastingMesh.Get()==Candidate.Get()){Taken=true;break;}
++                if(!Taken){Free=Candidate.Get();break;}
++            }
++            if(!Free&&CastingPool.Num()<FurnaceCasting::MaxCasting)
++            {Free=FurnaceCasting::NewSurface(GetWorld());CastingPool.Add(Free);}
++            if(Free)
++            {
++                Free->SetStaticMesh(Mesh);
++                Free->EmptyOverrideMaterials();
++                Free->AttachToComponent(Parent,FAttachmentTransformRules::SnapToTargetIncludingScale);
++                Free->SetRelativeTransform(FTransform::Identity);
++                Free->SetCustomPrimitiveDataFloat(0,float(Entry.TapAt));
++                Free->SetCustomPrimitiveDataFloat(1,float(GetTypeHash(Piece->AnchorCell())%4096)/4096.f);
++                Free->SetCustomPrimitiveDataFloat(2,1.f);
++                Free->SetCustomPrimitiveDataFloat(3,0.f);
++                Free->SetVisibility(true);Entry.CastingMesh=Free;
++            }
++        } // Retry asynchronous readiness within the original time window.
++    }
++    if(bBuffered)if(auto* Surface=Entry.CastingMesh.Get())
++    {
++        static const FSoftObjectPath Stream(TEXT("/Game/Fluids/FurnaceCasting20260926/M_CastingStreamBuffered.M_CastingStreamBuffered"));
++        static const FSoftObjectPath Pool(TEXT("/Game/Fluids/FurnaceCasting20260926/M_CastingPoolBuffered.M_CastingPoolBuffered"));
++        if(auto* Mat=Cast<UMaterialInterface>(Stream.ResolveObject()))Surface->SetMaterialByName(TEXT("CastingStream"),Mat);
++        if(auto* Mat=Cast<UMaterialInterface>(Pool.ResolveObject()))Surface->SetMaterialByName(TEXT("CastingPool"),Mat);
++        Surface->SetCustomPrimitiveDataFloat(0,float(Now));
++        Surface->SetCustomPrimitiveDataFloat(2,float(TimeRate));
++        Surface->SetCustomPrimitiveDataFloat(3,float(Elapsed));
++    }
++    // Decorative droplets start at actual impact; their budget cannot erase the liquid.
++    const bool bDroplets=Entry.CastingMesh.IsValid()&&Elapsed>=FurnaceCasting::ArrivalSeconds
++        &&Elapsed<FurnaceCasting::PourSeconds+FurnaceCasting::ArrivalSeconds
++        &&(!bBuffered||TimeRate>0)&&Distance<=3500.f&&Scalability::GetQualityLevels().EffectsQuality>=1;
++    const float Fill=FMath::Clamp(float((Elapsed-FurnaceCasting::ArrivalSeconds)/(FurnaceCasting::PourSeconds-FurnaceCasting::ArrivalSeconds)),0.f,1.f);
++    const float ImpactHeight=22.4f+3.8f*Fill*Fill*(3.f-2.f*Fill);
++    if(bDroplets&&!Entry.TapFX.IsValid()&&TapAsset)
++    {
++        UNiagaraComponent* Free=nullptr;
++        for(auto& Candidate:TapPool)
++        {
++            if(!IsValid(Candidate))continue;
++            bool Taken=false;
++            for(const auto& Other:Furnaces)if(Other.TapFX.Get()==Candidate.Get()){Taken=true;break;}
++            if(!Taken){Free=Candidate.Get();break;}
++        }
++        if(!Free&&TapPool.Num()<FurnaceCasting::MaxCasting)
++        {
++            auto* Owner=GetWorld()->GetWorldSettings();
++            Free=NewObject<UNiagaraComponent>(Owner,NAME_None,RF_Transient);
++            Owner->AddInstanceComponent(Free);
++            Free->SetAutoActivate(false);Free->SetAutoDestroy(false);Free->SetAsset(TapAsset);
++            Free->SetCastShadow(false);Free->SetCanEverAffectNavigation(false);Free->RegisterComponent();
++            TapPool.Add(Free);
++        }
++        if(Free)
++        {
++            Free->AttachToComponent(Parent,FAttachmentTransformRules::SnapToTargetIncludingScale);
++            Free->SetRelativeTransform(FTransform::Identity);
++            Free->SetVariableFloat(TEXT("User.Flow"),1.f);
++            Free->SetVariableFloat(TEXT("User.SparkGate"),1.f);
++            Free->SetVariableFloat(TEXT("User.ImpactHeight"),ImpactHeight);
++            Free->SetVariableFloat(TEXT("User.DetailReduction"),1.f-float(AllocateDetail(Mouth,12,false))/12.f);
++            Free->Activate(true);Entry.TapFX=Free;
++        }
++    }
++    if(auto* FX=Entry.TapFX.Get())
++    {
++        FX->SetVariableFloat(TEXT("User.Flow"),bDroplets?1.f:0.f);
++        FX->SetVariableFloat(TEXT("User.ImpactHeight"),ImpactHeight);
++    }
++    if(Elapsed>=FurnaceCasting::SolidSeconds)ReleaseFurnaceTap(Entry);
++    if(!bBuffered&&Elapsed>=FurnaceCasting::SolidSeconds&&!Entry.Ingot.IsValid())
++    {
++        auto* Smelt=GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelSmeltingSystem>():nullptr;
++        const FColdSteelSmeltingRecipe* Recipe=(Job&&Smelt)?Smelt->Find(Job->Recipe):nullptr;
++        auto* Mesh=Cast<UStaticMesh>(FSoftObjectPath(TEXT("/Game/Items/Smelting/Ingot/SM_Ingot.SM_Ingot")).ResolveObject());
++        auto* Material=Recipe?Cast<UMaterialInterface>(ProductionHarvestAssets::PickupMaterial(Recipe->Output).ResolveObject()):nullptr;
++        if(Mesh&&Material)
++        {
++            UStaticMeshComponent* Free=nullptr;
++            for(auto& Candidate:IngotPool)
++            {
++                if(!IsValid(Candidate))continue;
++                bool Taken=false;
++                for(const auto& Other:Furnaces)if(Other.Ingot.Get()==Candidate.Get()){Taken=true;break;}
++                if(!Taken){Free=Candidate.Get();break;}
++            }
++            if(!Free&&IngotPool.Num()<FurnaceCasting::MaxIngots)
++            {Free=FurnaceCasting::NewSurface(GetWorld());IngotPool.Add(Free);}
++            if(Free)
++            {
++                Free->AttachToComponent(Parent,FAttachmentTransformRules::SnapToTargetIncludingScale);
++                Free->SetStaticMesh(Mesh);Free->SetMaterial(0,Material);
++                const auto Bounds=Mesh->GetBounds();
++                const float Scale=14.8f/FMath::Max(1.f,2.f*float(FMath::Max(Bounds.BoxExtent.X,Bounds.BoxExtent.Y)));
++                const FRotator Rotation(0,Bounds.BoxExtent.Y>Bounds.BoxExtent.X?90.f:0.f,0);
++                const FVector CentreOffset=Rotation.RotateVector(Bounds.Origin*Scale);
++                // Fit the 14.8 cm ingot inside the mould; use its true bottom and pivot.
++                const FVector Centre(45,0,21.85+Bounds.BoxExtent.Z*Scale);
++                Free->SetRelativeTransform(FTransform(Rotation,Centre-CentreOffset,FVector(Scale)));
++                Free->SetVisibility(true);Entry.Ingot=Free;Entry.IngotDef=Recipe->Output;
++            }
++        }
++    }
++}

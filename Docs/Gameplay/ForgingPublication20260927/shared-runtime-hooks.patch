@@ -1,0 +1,1344 @@
+diff --git a/Source/FPSGAME/Building/SmeltingSystem.cpp b/Source/FPSGAME/Building/SmeltingSystem.cpp
+--- a/Source/FPSGAME/Building/SmeltingSystem.cpp
++++ b/Source/FPSGAME/Building/SmeltingSystem.cpp
+@@ -1,5 +1,6 @@
+ #include "SmeltingSystem.h"
+ #include "VoxelBuildWorld.h"
++#include "VoxelBuildPrefabActor.h"
+ #include "VoxelBuildTypes.h"
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "../UI/ColdSteelInventoryTypes.h"
+@@ -15,7 +16,8 @@
+     constexpr double TicksToSeconds=1.0/static_cast<double>(ETimespan::TicksPerSecond);
+ 
+     int64 NowTicks(){return FDateTime::UtcNow().GetTicks();}
+-    enum { SmeltBegin=1, SmeltCollect=2, SmeltFuel=3, SmeltUpgrade=4, SmeltTeardown=5 };
++    enum { SmeltBegin=1, SmeltCollect=2, SmeltFuel=3, SmeltUpgrade=4, SmeltTeardown=5,
++           CastingEnqueue=6,CastingCollect=7 };
+ 
+     FColdSteelSmeltIntent MakeIntent(AVoxelBuildWorld* World,FIntVector Cell,int32 Kind)
+     {
+@@ -170,6 +172,7 @@
+ {
+     if(!IsValid(World))return false;
+     FVoxelSmeltingJob* Job=World->FindSmeltingMutable(Cell);
++    if(Job&&Job->bCasting)return SettleCasting(World,Cell);
+     const FColdSteelSmeltingRecipe* R=Job?Find(Job->Recipe):nullptr;
+     bool bDirty=false;
+     double FuelSeconds=World->FuelAt(Cell);   // 局部名避开成员 Fuel（FColdSteelSmeltingFuel）
+@@ -232,7 +235,7 @@
+     OutRecipe=R;
+     const double Total=JobTotalSeconds(World,*Job,*R);
+     double P=FMath::Clamp(Job->ProgressSeconds,0.0,Total);
+-    if(Job->BurnStartTicks>0)
++    if(Job->BurnStartTicks>0&&(!Job->bCasting||!CastingBlocked(World,*Job)))
+     {
+         const int64 Now=NowTicks();
+         if(Now>Job->BurnStartTicks)
+@@ -256,6 +259,8 @@
+ 
+ bool UColdSteelSmeltingSystem::IsDone(const AVoxelBuildWorld* World,FIntVector Cell) const
+ {
++    if(World)if(const auto* Job=World->FindSmelting(Cell);Job&&Job->bCasting)
++        return Job->Recipe.IsNone()&&Job->Queue.IsEmpty();
+     const FColdSteelSmeltingRecipe* R=nullptr;
+     const double P=LiveProgress(World,Cell,R);
+     if(P<0.0||!R)return false;
+@@ -284,7 +289,22 @@
+     if(!IsValid(World)){Reason=TEXT("建筑世界未就绪");return false;}
+     const FColdSteelSmeltingRecipe* R=Find(Recipe);
+     if(!R){Reason=TEXT("该配方不存在");return false;}
+-    if(World->FindSmelting(Cell)){Reason=TEXT("这座高炉正在冶炼");return false;}
++    if(!World->IsFurnaceAt(Cell)){Reason=TEXT("目标不是已放置的冶炼高炉");return false;}
++    SettleFurnace(World,Cell);
++    FIntVector Station;
++    const auto* Existing=World->FindSmelting(Cell);
++    const bool bCasting=(Existing&&Existing->bCasting)||World->FindAvailableCastingStation(Cell,Station);
++    if(Existing&&Existing->bCasting)
++    {
++        Station=Existing->StationCell;
++        const auto* Table=World->PrefabActorAt(Station);
++        if((!Table||Table->IsFalling()||Table->PrefabId()!=VoxelCastingStationId)
++            &&!World->FindAvailableCastingStation(Cell,Station))
++        {Reason=TEXT("铸造台已移除，请在高炉旁重新放置；已有成品仍可领取");return false;}
++    }
++    if(Existing&&!bCasting){Reason=TEXT("这座高炉正在冶炼；在旁边放置铸造台可开启连续队列");return false;}
++    if(bCasting&&Existing&&Existing->Queue.Num()>=CastingQueueCapacity)
++    {Reason=TEXT("待冶炼队列已满（最多 8 项）");return false;}
+     if(World->FuelAt(Cell)<=0.0){Reason=TEXT("炉内没有燃料，先添加燃料");return false;}
+     Batch=FMath::Clamp(Batch,1LL,FMath::Min<int64>(99,BatchCapFor(World->FurnaceUpgradeLevel(Cell,VoxelFurnaceAxisBatch))));   // 面板按持有量夹，这里按批量轴封顶兜底
+     auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+@@ -294,6 +314,36 @@
+     if(Model->CreateItem(R->Input).Data.IsEmpty()){Reason=TEXT("物品目录缺少该材料");return false;}
+     Model->SyncRuntime();auto P=Model->Snapshot();
+     if(!Deduct(P,R->Input,Ore)){Reason=FString::Printf(TEXT("缺少 %lld 块（背包+仓库）"),Ore);return false;}
++    if(bCasting)
++    {
++        const bool bHadJob=Existing!=nullptr;
++        const FVoxelSmeltingJob Before=Existing?*Existing:FVoxelSmeltingJob();
++        auto Intent=MakeIntent(World,Cell,CastingEnqueue);
++        Intent.Item=R->Input;Intent.Count=Ore;Intent.Recipe=Recipe.ToString();Intent.Batch=Batch;
++        Intent.Level=Before.ActionSerial+1;
++        P.SmeltIntents.Add(Intent);
++        if(!Model->CommitState(MoveTemp(P))){Reason=TEXT("保存失败，材料未扣除");return false;}
++        FString StartReason;
++        if(!bHadJob&&!World->BeginSmelting(Cell,Recipe,StartReason,Batch))
++        {RefundIntent(Model,Intent);Reason=StartReason;return false;}
++        auto* Casting=World->FindSmeltingMutable(Cell);
++        Casting->bCasting=true;Casting->StationCell=Station;Casting->ActionSerial=Intent.Level;
++        if(bHadJob)
++        {
++            if(Casting->Recipe.IsNone()&&Casting->Queue.IsEmpty())
++            {Casting->Recipe=Recipe;Casting->BatchCount=Batch;Casting->ProducedBatches=0;Casting->ProgressSeconds=0;}
++            else {auto& Order=Casting->Queue.AddDefaulted_GetRef();Order.Recipe=Recipe;Order.Batch=Batch;}
++        }
++        World->MarkSmeltingDirty();
++        if(!World->FlushPersistenceNow())
++        {
++            if(bHadJob)*World->FindSmeltingMutable(Cell)=Before;else World->ClearSmelting(Cell);
++            World->MarkSmeltingDirty();RefundIntent(Model,Intent);
++            Reason=TEXT("队列保存失败，本次投料已退回");return false;
++        }
++        DropIntent(Model,Intent);SettleCasting(World,Cell);
++        return true;
++    }
+     FColdSteelSmeltIntent Intent=MakeIntent(World,Cell,SmeltBegin);
+     Intent.Item=R->Input;Intent.Count=Ore;Intent.Recipe=Recipe.ToString();Intent.Batch=Batch;
+     P.SmeltIntents.Add(Intent);
+@@ -359,6 +409,41 @@
+     SettleFurnace(World,Cell);   // 取出前结算：挂钟能兑现的最后几秒不落空
+     const FVoxelSmeltingJob* Job=World->FindSmelting(Cell);
+     if(!Job){Reason=TEXT("炉内没有矿料");return false;}
++    if(Job->bCasting)
++    {
++        auto* Status=Model();
++        if(!Status){Reason=TEXT("角色数据未就绪");return false;}
++        Status->SyncRuntime();auto P=Status->Snapshot();
++        TArray<FColdSteelSmeltIntent> Intents;
++        int64 Total=0;int32 Serial=Job->ActionSerial;
++        for(const auto& Product:Job->Products)
++        {
++            int64 Taken=0;
++            for(int64 I=0;I<Product.Count&&I<CastingCapacity;++I)
++            {
++                auto Trial=P;
++                if(!Grant(Status,Trial,Product.Item,1))break;
++                P=MoveTemp(Trial);++Taken;
++            }
++            if(Taken>0)
++            {
++                auto Intent=MakeIntent(World,Cell,CastingCollect);
++                Intent.Item=Product.Item;Intent.Count=Taken;Intent.Level=++Serial;
++                Intents.Add(Intent);P.SmeltIntents.Add(Intent);Total+=Taken;
++            }
++        }
++        if(Total<=0){Reason=CastingStored(*Job)>0?TEXT("背包放不下，成品保留在架上"):TEXT("成品架暂无可领取金属锭");return false;}
++        if(!Status->CommitState(MoveTemp(P))){Reason=TEXT("保存失败，成品保留在架上");return false;}
++        auto* Mutable=World->FindSmeltingMutable(Cell);
++        for(const auto& Intent:Intents)
++            if(auto* Product=Mutable->Products.FindByPredicate([&](const auto& E){return E.Item==Intent.Item;}))Product->Count-=Intent.Count;
++        Mutable->Products.RemoveAll([](const auto& E){return E.Count<=0;});
++        Mutable->ActionSerial=Serial;World->MarkSmeltingDirty();
++        if(World->FlushPersistenceNow())for(const auto& Intent:Intents)DropIntent(Status,Intent);
++        SettleCasting(World,Cell);
++        Reason=FString::Printf(TEXT("已领取 %lld 块金属锭；剩余成品保留在架上"),Total);
++        return true;
++    }
+     const FColdSteelSmeltingRecipe* R=Find(Job->Recipe);
+     if(!R){Reason=TEXT("配方已下架，炉内矿料无法结算");return false;}
+     if(!IsDone(World,Cell)){Reason=TEXT("冶炼尚未完成");return false;}
+@@ -391,7 +476,15 @@
+     const int64 WoodUnits=FMath::FloorToInt(Stored/Fuel.SecondsPerUnit);
+     const int64 Batch=Job?FMath::Max<int64>(1,Job->BatchCount):1;
+     TArray<TPair<FString,int64>> Gives;
+-    if(Job&&R)
++    if(Job&&Job->bCasting)
++    {
++        for(const auto& Product:Job->Products)if(Product.Count>0)Gives.Add({Product.Item,Product.Count});
++        if(R&&Job->BatchCount>Job->ProducedBatches)
++            Gives.Add({R->Input,R->InputCount*(Job->BatchCount-Job->ProducedBatches)});
++        for(const auto& Order:Job->Queue)
++            if(const auto* Queued=Find(Order.Recipe))Gives.Add({Queued->Input,Queued->InputCount*Order.Batch});
++    }
++    else if(Job&&R)
+     {
+         const bool bDone=IsDone(World,Cell);
+         Gives.Add({bDone?R->Output:R->Input,(bDone?R->OutputCount:R->InputCount)*Batch});
+@@ -460,7 +553,26 @@
+     for(const FColdSteelSmeltIntent& Intent:Pending)
+     {
+         const FIntVector Cell=IntentCell(Intent);
+-        if(Intent.Kind==SmeltBegin)
++        if(Intent.Kind==CastingEnqueue)
++        {
++            const auto* Job=World->FindSmelting(Cell);
++            if(Job&&Job->bCasting&&Job->ActionSerial>=Intent.Level)DropIntent(Model,Intent);
++            else RefundIntent(Model,Intent);
++        }
++        else if(Intent.Kind==CastingCollect)
++        {
++            auto* Job=World->FindSmeltingMutable(Cell);
++            if(Job&&Job->bCasting&&Job->ActionSerial<Intent.Level)
++            {
++                if(auto* Product=Job->Products.FindByPredicate([&](const auto& E){return E.Item==Intent.Item;}))
++                    Product->Count=FMath::Max<int64>(0,Product->Count-Intent.Count);
++                Job->Products.RemoveAll([](const auto& E){return E.Count<=0;});
++                Job->ActionSerial=Intent.Level;World->MarkSmeltingDirty();
++                if(!World->FlushPersistenceNow())continue;
++            }
++            DropIntent(Model,Intent);
++        }
++        else if(Intent.Kind==SmeltBegin)
+         {
+             if(World->FindSmelting(Cell))DropIntent(Model,Intent);
+             else if(!RefundIntent(Model,Intent))UE_LOG(LogTemp,Error,TEXT("Smelting reconcile could not refund ore @格(%d,%d,%d)"),Cell.X,Cell.Y,Cell.Z);
+diff --git a/Source/FPSGAME/Building/SmeltingSystem.h b/Source/FPSGAME/Building/SmeltingSystem.h
+--- a/Source/FPSGAME/Building/SmeltingSystem.h
++++ b/Source/FPSGAME/Building/SmeltingSystem.h
+@@ -86,6 +86,13 @@
+     void ReconcileIntents(AVoxelBuildWorld* World);
+     /** 任务总秒数＝配方秒×批量÷等级速度（进度分母与结算封顶同源）。 */
+     double JobTotalSeconds(const AVoxelBuildWorld* World,const FVoxelSmeltingJob& Job,const FColdSteelSmeltingRecipe& R) const;
++    static constexpr int64 CastingCapacity=60;
++    static constexpr int32 CastingQueueCapacity=8;
++    static int64 CastingStored(const FVoxelSmeltingJob& Job);
++    bool CastingBlocked(const AVoxelBuildWorld* World,const FVoxelSmeltingJob& Job) const;
++    bool SettleCasting(AVoxelBuildWorld* World,FIntVector Cell);
++    /** True when an existing casting session or a nearby unclaimed station can accept a queue. */
++    bool HasCastingStation(const AVoxelBuildWorld* World,FIntVector Cell) const;
+ private:
+     /** 实时进度秒数（不写档）：已积累 + 当前段 min(挂钟,配方剩余,存料)。无任务/无配方返回 -1。 */
+     double LiveProgress(const AVoxelBuildWorld* World,FIntVector Cell,const FColdSteelSmeltingRecipe*& OutRecipe) const;
+diff --git a/Source/FPSGAME/Building/VoxelBuildTypes.h b/Source/FPSGAME/Building/VoxelBuildTypes.h
+--- a/Source/FPSGAME/Building/VoxelBuildTypes.h
++++ b/Source/FPSGAME/Building/VoxelBuildTypes.h
+@@ -84,6 +84,18 @@
+ /** 可冶炼构件的调色板稳定 ID（Docs/Gameplay/blast-furnace-model-20260923.md）。
+  *  归属放数据而不是散落的字符串比较：交互白名单、拆除退回与面板都引用这一个键。 */
+ inline const FName VoxelSmeltingFurnaceId(TEXT("blast_furnace"));
++inline const FName VoxelCastingStationId(TEXT("casting_station"));
++
++struct FVoxelCastingOrder
++{
++    FName Recipe;
++    int64 Batch=1;
++};
++struct FVoxelCastingProduct
++{
++    FString Item;
++    int64 Count=0;
++};
+ 
+ /** 工作台构件的调色板稳定 ID（SourceAssets/WorkbenchBuildable20260924，面板规划
+  *  Docs/UI/workbench-panel-plan-20260924.md）：E 交互与制作面板引用这一个键。 */
+@@ -112,6 +124,16 @@
+     double ProgressSeconds=0;
+     int64 BurnStartTicks=0;
+     int64 BatchCount=1;
++    // VBX v10: one furnace owns one nearby casting station; the receiver is a bounded buffer.
++    bool bCasting=false;
++    FIntVector StationCell=FIntVector::ZeroValue;
++    int64 ProducedBatches=0;
++    TArray<FVoxelCastingOrder> Queue;
++    TArray<FVoxelCastingProduct> Products;
++    int32 ActionSerial=0;
++    int64 CastSerial=0;
++    FName LastCastRecipe;
++    int64 LastCastTicks=0;
+ };
+ 
+ // Per-furnace stored fuel (seconds), independent of the job: it survives collect and can be
+diff --git a/Source/FPSGAME/Building/VoxelBuildPrefabActor.cpp b/Source/FPSGAME/Building/VoxelBuildPrefabActor.cpp
+--- a/Source/FPSGAME/Building/VoxelBuildPrefabActor.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildPrefabActor.cpp
+@@ -1,4 +1,5 @@
+ #include "VoxelBuildPrefabActor.h"
++#include "CastingToolRackComponent.h"
+ #include "Engine/World.h"
+ #include "../WorldGeneration/FluidPresentationSubsystem.h"
+ #include "Components/StaticMeshComponent.h"
+@@ -36,10 +37,16 @@
+ {
+     Id=InId;Cell=InCell;QuarterTurns=InYaw;
+     if(!MeshComponent)return;
++    if(auto* PreviousRack=FindComponentByClass<UCastingToolRackComponent>())PreviousRack->DestroyComponent();
+     MeshComponent->SetStaticMesh(Mesh);
+     if(Surface)MeshComponent->SetMaterial(0,Surface);
+     if(Contact)MeshComponent->SetPhysMaterialOverride(Contact);
+     Tags.AddUnique(TEXT("VoxelBuildPrefab"));
++    if(Id==VoxelCastingStationId&&GetWorld()->IsGameWorld())
++    {
++        auto* Rack=NewObject<UCastingToolRackComponent>(this,NAME_None,RF_Transient);
++        AddInstanceComponent(Rack);Rack->RegisterComponent();Rack->Configure(MeshComponent);
++    }
+ }
+ 
+ bool AVoxelBuildPrefabActor::BeginFall(UStaticMesh* FallbackMesh,float LifeSeconds)
+diff --git a/Source/FPSGAME/Building/VoxelBuildPersistence.cpp b/Source/FPSGAME/Building/VoxelBuildPersistence.cpp
+--- a/Source/FPSGAME/Building/VoxelBuildPersistence.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildPersistence.cpp
+@@ -21,7 +21,14 @@
+ {return Ar<<F.Id<<F.Transform<<F.Cells<<F.BrokenBonds<<F.Velocity<<F.AngularVelocity<<F.bSleeping;}
+ static FArchive& operator<<(FArchive& Ar,FVoxelBuildPrefabInstance& P){return Ar<<P.Id<<P.Cell<<P.Yaw<<P.Footprint;}
+ static FArchive& operator<<(FArchive& Ar,FVoxelSmeltingJobV5& J){return Ar<<J.Cell<<J.Recipe<<J.StartTicks;}
+-static FArchive& operator<<(FArchive& Ar,FVoxelSmeltingJob& J){return Ar<<J.Cell<<J.Recipe<<J.ProgressSeconds<<J.BurnStartTicks<<J.BatchCount;}
++static FArchive& operator<<(FArchive& Ar,FVoxelCastingOrder& O){return Ar<<O.Recipe<<O.Batch;}
++static FArchive& operator<<(FArchive& Ar,FVoxelCastingProduct& P){return Ar<<P.Item<<P.Count;}
++static FArchive& operator<<(FArchive& Ar,FVoxelSmeltingJob& J)
++{return Ar<<J.Cell<<J.Recipe<<J.ProgressSeconds<<J.BurnStartTicks<<J.BatchCount
++    <<J.bCasting<<J.StationCell<<J.ProducedBatches<<J.Queue<<J.Products<<J.ActionSerial
++    <<J.CastSerial<<J.LastCastRecipe<<J.LastCastTicks;}
++static void ReadSmeltingJobV9(FArchive& Ar,FVoxelSmeltingJob& J)
++{Ar<<J.Cell<<J.Recipe<<J.ProgressSeconds<<J.BurnStartTicks<<J.BatchCount;}
+ static FArchive& operator<<(FArchive& Ar,FVoxelFurnaceFuel& F){return Ar<<F.Cell<<F.FuelSeconds<<F.Level<<F.FireStartTicks<<F.FuelLevel<<F.BatchLevel;}
+ // v6 老布局（无批量数/等级/火种戳）：逐条按旧字段读，新字段取结构默认值（Batch=1、Level=1＝行为与 v6 一致）。
+ static void ReadSmeltingJobV6(FArchive& Ar,FVoxelSmeltingJob& J){Ar<<J.Cell<<J.Recipe<<J.ProgressSeconds<<J.BurnStartTicks;J.BatchCount=1;}
+@@ -46,16 +53,18 @@
+     // adds batch count to jobs and upgrade level to fuel records; version 8 adds the idle-fire
+     // clock to fuel records (2026-09-24 用户定稿：存料随挂钟持续燃烧); version 9 adds the fuel
+     // capacity and per-smelt batch axes to fuel records (三轴升级). Older files stop before
+-    // the field their version does not reach; v5-v8 read through the migration-only paths.
++    // the field their version does not reach; v5-v9 read through migration-only paths.
++    // Version 10 appends the casting station, FIFO orders, products and transaction serial to each job.
+     void Serialize(FArchive& Ar,FVoxelDiskSnapshot& S)
+     {
+         Ar<<S.Version<<S.CellSizeCm<<S.WorldKey<<S.Cells<<S.FreeVolumes<<S.Damage<<S.BrokenBonds<<S.Fragments<<S.LegacyProtected;
+         if(S.Version>=4)Ar<<S.Prefabs;
+         if(S.Version==5)Ar<<S.LegacySmelting;
+         else if(S.Version==6){ReadListV6(Ar,S.Smelting,ReadSmeltingJobV6);ReadListV6(Ar,S.Fuel,ReadFurnaceFuelV6);}
+-        else if(S.Version==7){Ar<<S.Smelting;ReadListV6(Ar,S.Fuel,ReadFurnaceFuelV7);}
+-        else if(S.Version==8){Ar<<S.Smelting;ReadListV6(Ar,S.Fuel,ReadFurnaceFuelV8);}
+-        else if(S.Version>=9){Ar<<S.Smelting;Ar<<S.Fuel;}
++        else if(S.Version==7){ReadListV6(Ar,S.Smelting,ReadSmeltingJobV9);ReadListV6(Ar,S.Fuel,ReadFurnaceFuelV7);}
++        else if(S.Version==8){ReadListV6(Ar,S.Smelting,ReadSmeltingJobV9);ReadListV6(Ar,S.Fuel,ReadFurnaceFuelV8);}
++        else if(S.Version==9){ReadListV6(Ar,S.Smelting,ReadSmeltingJobV9);Ar<<S.Fuel;}
++        else if(S.Version>=10){Ar<<S.Smelting;Ar<<S.Fuel;}
+     }
+     FString Path(const FString& Slot){return FPaths::ProjectSavedDir()/TEXT("SaveGames")/(Slot+TEXT(".sav"));}
+     // 审计 C6：Write 在首次覆盖前保留的备份路径（原来只在 Write 内部拼一次字符串）。
+diff --git a/Source/FPSGAME/Building/VoxelBuildPersistence.h b/Source/FPSGAME/Building/VoxelBuildPersistence.h
+--- a/Source/FPSGAME/Building/VoxelBuildPersistence.h
++++ b/Source/FPSGAME/Building/VoxelBuildPersistence.h
+@@ -6,7 +6,7 @@
+ /** 建筑存档格式版本单一源（2026-09-24 修）：写侧默认值与世界层读取闸门的上界共用它。
+  *  历史教训：v8/v9 加字段时只动了序列化器，VoxelBuildWorld 闸门还写死 `>7`，
+  *  结果新档读回一律被误判“版本不兼容”。升版本必须只改这里＋序列化分支。 */
+-inline constexpr int32 GVoxelBuildSaveVersion=9;
++inline constexpr int32 GVoxelBuildSaveVersion=10;
+ 
+ /** Plain payload, safe to encode and write on a worker. */
+ struct FVoxelDiskSnapshot
+diff --git a/Source/FPSGAME/UI/ColdSteelInventoryTheme.cpp b/Source/FPSGAME/UI/ColdSteelInventoryTheme.cpp
+--- a/Source/FPSGAME/UI/ColdSteelInventoryTheme.cpp
++++ b/Source/FPSGAME/UI/ColdSteelInventoryTheme.cpp
+@@ -32,6 +32,9 @@
+     float Width=FMath::Min(float(Pixels.X)-RightInset-12.f,FMath::Clamp(float(Pixels.X)*.48f,720.f,1040.f));
+     // Both drawers share their actual size; keep that layout until the left drawer finishes closing.
+     if(bWarehouseOpen||WarehouseMotion>.001f)Width=FMath::Min(Width,(float(Pixels.X)-RightInset-24.f)*.5f);
++    const bool bForgeOut=bForgingOpen||bForgeRiding||ForgeMotion>.001f;
++    if(bForgeOut)Width=FMath::Min(Width,(float(Pixels.X)-RightInset-12.f)*.5f);
++    const float Forge=bForgeOut?Width:0.f;
+     // 冶炼面板（2026-09-23 起独立于背包）：背包开着时**零缝拼接**贴抽屉左缘（2026-09-24 用户要求），
+     // 背包关着时贴视口右缘（12px 边距）。宽＝背包实际宽的一半；仓库同开时再按剩余空间夹一次，
+     // 低于最小可用宽就整块收起，不挤破视口。
+@@ -60,9 +63,12 @@
+     if(!Pixels.Equals(InventoryLayoutSize,.5f)||!FMath::IsNearlyEqual(Scale,InventoryLayoutScale,.001f)
+         ||!FMath::IsNearlyEqual(Width,InventoryWidth,.5f)||!FMath::IsNearlyEqual(Smelt,SmeltWidth,.5f)
+         ||!FMath::IsNearlyEqual(Dock,SmeltDock,.5f)
+-        ||!FMath::IsNearlyEqual(WB,WorkbenchWidth,.5f)||!FMath::IsNearlyEqual(WBDock,WorkbenchDock,.5f))
++        ||!FMath::IsNearlyEqual(WB,WorkbenchWidth,.5f)||!FMath::IsNearlyEqual(WBDock,WorkbenchDock,.5f)
++        ||!FMath::IsNearlyEqual(Forge,ForgeWidth,.5f))
+     {
+         InventoryPanelSlot->SetOffsets(FMargin(-RightInset/Scale,12/Scale,Width/Scale,12/Scale));
++        if(ForgingSlot&&Forge>1)ForgingSlot->SetOffsets(FMargin(-(Width+RightInset)/Scale,12/Scale,Forge/Scale,12/Scale));
++        ForgeWidth=Forge;
+         InventoryHeaderSurface->SetPadding(FMargin(18/Scale,12/Scale));InventoryHeaderSize->SetHeightOverride(36/Scale);
+         for(auto& WeakSize:InventoryTabSizes)if(auto* Size=WeakSize.Get())Size->SetHeightOverride(40/Scale);
+         InventoryFooterSlot->SetPadding(FMargin(18/Scale,8/Scale,18/Scale,10/Scale));
+diff --git a/Source/FPSGAME/UI/ColdSteelWorkbenchHUD.cpp b/Source/FPSGAME/UI/ColdSteelWorkbenchHUD.cpp
+--- a/Source/FPSGAME/UI/ColdSteelWorkbenchHUD.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWorkbenchHUD.cpp
+@@ -30,6 +30,7 @@
+     if(!Piece||Piece->PrefabId()!=VoxelWorkbenchId||!World||!World->HasPrefabAt(Piece->AnchorCell()))return;
+     // 工作台 E＝背包＋制作面板一起开（高炉同款生命周期）；打开背包本身永远不带出面板。
+     if(bSmeltingOpen)HideSmeltingInstantly();   // 同贴位互斥：瞬收冶炼面板，避免两层叠画
++    if(bForgingOpen||bForgeRiding)HideForgingInstantly();
+     if(!bInventoryOpen){SetInventoryTab(false);SetInventoryOpen(true);}
+     WorkbenchWorld=World;WorkbenchCell=Piece->AnchorCell();
+     bWorkbenchOpen=true;bWorkbenchRiding=false;   // 弹出相位：抽屉到位后面板从其左缘滑出
+diff --git a/Source/FPSGAME/UI/ColdSteelSmeltingHUD.cpp b/Source/FPSGAME/UI/ColdSteelSmeltingHUD.cpp
+--- a/Source/FPSGAME/UI/ColdSteelSmeltingHUD.cpp
++++ b/Source/FPSGAME/UI/ColdSteelSmeltingHUD.cpp
+@@ -26,11 +26,14 @@
+     auto* Piece=Cast<AVoxelBuildPrefabActor>(Furnace);
+     auto* World=Piece?Cast<AVoxelBuildWorld>(Piece->GetOwner()):nullptr;
+     if(!Piece||!World||!World->HasPrefabAt(Piece->AnchorCell()))return;
++    FIntVector FurnaceCell=Piece->AnchorCell();
++    if(Piece->PrefabId()==VoxelCastingStationId&&!World->FindCastingFurnace(FurnaceCell,FurnaceCell))return;
+     // 高炉 E＝背包＋面板一起开（2026-09-23 用户澄清）；但打开背包本身永远不带出面板——
+     // 面板只在 bSmeltingOpen 时显示，而它只能由这里的 E 交互置真。
+     if(bWorkbenchOpen)HideWorkbenchInstantly();   // 与工作台制作面板同贴位互斥：瞬收，避免两层叠画
++    if(bForgingOpen||bForgeRiding)HideForgingInstantly();
+     if(!bInventoryOpen){SetInventoryTab(false);SetInventoryOpen(true);}
+-    SmeltingWorld=World;SmeltingCell=Piece->AnchorCell();
++    SmeltingWorld=World;SmeltingCell=FurnaceCell;
+     bSmeltingOpen=true;bSmeltRiding=false;   // 弹出相位：抽屉到位后面板从其左缘滑出
+     if(SmeltingWidget)
+     {
+diff --git a/Source/FPSGAME/UI/ColdSteelWorldInteraction.h b/Source/FPSGAME/UI/ColdSteelWorldInteraction.h
+--- a/Source/FPSGAME/UI/ColdSteelWorldInteraction.h
++++ b/Source/FPSGAME/UI/ColdSteelWorldInteraction.h
+@@ -19,6 +19,7 @@
+     /** Placed blast furnace (palette id `blast_furnace`, not a falling piece); drives the
+      *  smelting prompt and the E action that opens the backpack plus the smelting panel. */
+     bool IsSmeltingFurnace(const AActor* Target);
++    bool IsForgingStation(const AActor* Target);
+     /** Prompt text that also reports the furnace's live state (idle / burning / ready to collect). */
+     FString SmeltingFurnacePrompt(const AActor* Target);
+     /** Placed workbench (palette id `workbench_table`, not a falling piece); drives the
+diff --git a/Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.cpp b/Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.cpp
+--- a/Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.cpp
++++ b/Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.cpp
+@@ -17,6 +17,7 @@
+ #include "Components/PrimitiveComponent.h"
+ #include "Components/SkeletalMeshComponent.h"
+ #include "Components/StaticMeshComponent.h"
++#include "Components/InstancedStaticMeshComponent.h"
+ #include "Engine/StaticMesh.h"
+ #include "Materials/MaterialInterface.h"
+ #include "GameFramework/WorldSettings.h"
+@@ -45,11 +46,14 @@
+     {
+         TArray<FSoftObjectPath> Wants;
+         Wants.Add(TapTemplate.ToSoftObjectPath());
++        Wants.Add(CastingTemplate.ToSoftObjectPath());
++        Wants.Add(FSoftObjectPath(TEXT("/Game/Fluids/FurnaceCasting20260926/M_CastingStreamBuffered.M_CastingStreamBuffered")));
++        Wants.Add(FSoftObjectPath(TEXT("/Game/Fluids/FurnaceCasting20260926/M_CastingPoolBuffered.M_CastingPoolBuffered")));
+         Wants.Add(FSoftObjectPath(TEXT("/Game/Items/Smelting/Ingot/SM_Ingot.SM_Ingot")));
+         for(const TCHAR* Def:{TEXT("ironIngot"),TEXT("copperIngot"),TEXT("silverIngot"),TEXT("goldIngot")})
+             Wants.Add(FSoftObjectPath(FString::Printf(TEXT("/Game/Items/Smelting/Ingot/MI_%s.MI_%s"),Def,Def)));
+         TapMeshLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Wants,
+-            FStreamableDelegate::CreateWeakLambda(this,[this](){TapAsset=TapTemplate.Get();TapMeshLoad.Reset();}));
++            FStreamableDelegate::CreateWeakLambda(this,[this](){TapAsset=TapTemplate.Get();}));
+     }
+ }
+ 
+@@ -227,6 +231,17 @@
+         if(auto* Owner=Ingot->GetOwner())Owner->RemoveInstanceComponent(Ingot);Ingot->DestroyComponent();
+     }
+     IngotPool.Reset();TapAsset=nullptr;
++    for(auto& Casting:CastingPool)if(Casting)
++    {
++        if(auto* Owner=Casting->GetOwner())Owner->RemoveInstanceComponent(Casting);Casting->DestroyComponent();
++    }
++    CastingPool.Reset();
++    for(auto& Rack:CastingRackPool)if(Rack)
++    {
++        if(auto* RackOwner=Rack->GetOwner())RackOwner->RemoveInstanceComponent(Rack);
++        Rack->DestroyComponent();
++    }
++    CastingRackPool.Reset();
+     for(auto& E:Furnaces)if(auto* FX=E.FX.Get())FX->DestroyComponent();
+     Furnaces.Reset();
+     for(auto& FX:ColdPool)if(FX)
+@@ -314,12 +329,30 @@
+     return FVector(FMath::Cos(Ang),FMath::Sin(Ang),0.12f*sin(t*0.9f))*Mag*R;
+ }
+ 
++FVector UFluidPresentationSubsystem::WindWithGustAt(const FVector& Position)
++{
++    if(GustFrame!=GFrameCounter)
++    {
++        GustFrame=GFrameCounter;
++        const float Rain=Weather.IsValid()?FMath::Clamp(Weather->GetEffectiveRainIntensity(),0.f,1.f):0.f;
++        SharedRainGust=Rain>.01f?RainGust(GetWorld()->GetTimeSeconds(),Rain):FVector::ZeroVector;
++    }
++    float ShelterFactor=1.f;
++    const FVector BaseWind=WindAt(Position,&ShelterFactor);
++    return (BaseWind+SharedRainGust*ShelterFactor).GetClampedToMaxSize(260.f);
++}
++
+ void UFluidPresentationSubsystem::UpdateFurnaceSmoke()
+ {
+     // 高炉工作黑烟（2026-09-24）：构件登记驱动、5Hz 限流轮询；工作＝有在炼任务或炉内存料
+     // （同 VoxelBuildWorld 护炉谓词）。起步匀加速补烟、停燃限流断供、末团散尽才停用
+     //（与 FPSWeaponFXComponent 持续烟同一语义）；风/接触平面/细节预算全部走共享 ConfigureSmoke。
+-    Furnaces.RemoveAll([](const FFurnaceSmoke& E){return !E.Piece.IsValid();});
++    Furnaces.RemoveAll([this](FFurnaceSmoke& E)
++    {
++        if(E.Piece.IsValid())return false;
++        ReleaseFurnaceTap(E);ReleaseFurnaceIngot(E);ReleaseCastingRack(E);
++        return true;
++    });
+     const double Now=GetWorld()->GetTimeSeconds();
+     if(Now>=FurnaceScanAt)
+     {   // 1Hz 对账登记：构件的 Id/Cell 由 Configure() 在 SpawnActor 返回之后写入，生成事件触发时
+@@ -337,8 +370,6 @@
+     constexpr double Dissipate=3.9;        // 最大粒子寿命 3.6s + 补发余量（v2）
+     // 雨量 0..1（AFPSWeatherManager 有效雨量），驱动炉烟 v3 的"被随机方向阵风快速吹散/加速消散"。
+     const float Rain=Weather.IsValid()?FMath::Clamp(Weather->GetEffectiveRainIntensity(),0.f,1.f):0.f;
+-    // 阵风每 tick 只算一次全炉共用（同拍同向量＝各炉烟主飘向恒一致，无"各吹各的"）。
+-    const FVector Gust=Rain>.01f?RainGust(Now,Rain):FVector::ZeroVector;
+     int32 Alive=0;for(const auto& E:Furnaces)if(E.FX.IsValid())++Alive;
+     for(auto& E:Furnaces)
+     {
+@@ -353,7 +384,7 @@
+         const FVector Mouth=Body?Body->GetComponentTransform().TransformPosition(FVector(-18.f,0.f,208.f))
+             :Piece->GetActorLocation()+FVector(0,0,208.f);
+         bool bWorking=Build&&Body&&Body->IsRegistered()&&!Piece->IsFalling()
+-            &&(Build->FindSmelting(Cell)!=nullptr||Build->FuelAt(Cell)>0.);
++            &&((Build->FindSmelting(Cell)&&!Build->FindSmelting(Cell)->Recipe.IsNone())||Build->FuelAt(Cell)>0.);
+         if(bWorking)bWorking=FVector::DistSquared(Mouth,Eye)<=FMath::Square(8500.f);
+         const float dt=FMath::Clamp(float(Now-E.LastSeen),0.f,.5f);E.LastSeen=Now;
+         // —— v5 状态驱动（Docs/Fluids/furnace-smoke-optimization-plan-20260925.md §2）——
+@@ -362,12 +393,15 @@
+         // 恒等锚点（零回归）：在炼任务∧燃料燃烧中 ⇒ Heat=1；此时 L0 的 SpawnRate/色/α 与 v4 逐式恒等。
+         const FVoxelSmeltingJob* Job=Build?Build->FindSmelting(Cell):nullptr;
+         const auto* Smelt=GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelSmeltingSystem>():nullptr;   // UWorldSubsystem 无裸 GetGameInstance()（C3861 修复）
++        // Casting must run even when the six smoke slots are full or smoke is not loaded.
++        const bool bTapDone=Build&&Smelt&&Smelt->IsDone(Build,Cell);
++        UpdateFurnaceTap(E,Build,Job,Body,Mouth,bTapDone,Now);
+         const bool bJobBurning=Job&&Job->BurnStartTicks>0&&Build->FuelAt(Cell)>0.;
+         // Heat：在炼任务∧燃料燃烧中=1（恒等锚点）；仅燃料火种=.25；有任务但燃料耗尽段＝批量档与燃烧状态合成。
+         float Heat=0.f;
+         if(bJobBurning)Heat=1.f;
+         else if(Build&&Build->FuelAt(Cell)>0.)Heat=.25f;
+-        if(Job&&!bJobBurning)
++        if(Job&&!Job->Recipe.IsNone()&&!bJobBurning)
+         {   // 燃料耗尽段：批量越大余热越足（.55..1.0），再按燃烧状态降档合成
+             const int64 Batch=FMath::Clamp(Job->BatchCount,(int64)1,(int64)5);
+             const float Fade=.55f+.15f*float(Batch)/5.f;
+@@ -452,172 +486,20 @@
+         FX->SetVariableFloat(TEXT("User.SpawnRate"),E.Rate);
+         // v3 接管风场：基风（含屋檐遮蔽衰减）＋雨天随机方向低频阵风；User.Rainfall 同拍 5Hz 写，
+         // 资产端用它在雨来时撕散摆动、压浮力、提前淡出、加速摊薄（Docs/Fluids/furnace-black-smoke-20260924.md）。
+-        float ShelterFactor=1.f; // 原名 Shelter 遮蔽类成员（TMap<FIntVector,FShelter> Shelter）触发 C4458，仅改名
+-        FVector Wind=WindAt(Mouth,&ShelterFactor);
+-        if(Rain>.01f)Wind+=Gust*ShelterFactor;   // 阵风与基风同一屋檐遮蔽系数：炉口在屋檐下时二者一起衰减，全场景主风向恒一致
+-        FX->SetVariableVec3(TEXT("User.Wind"),FX->GetComponentTransform().InverseTransformVector(Wind.GetClampedToMaxSize(260.f)));
++        const FVector Wind=WindWithGustAt(Mouth);
++        FX->SetVariableVec3(TEXT("User.Wind"),FX->GetComponentTransform().InverseTransformVector(Wind));
+         FX->SetVariableFloat(TEXT("User.Rainfall"),Rain);
+         // v5 状态驱动：连续火力／点火年龄／整批脉冲／内芯层距离画质门（参数名均为编译期常量，热路径无字符串拼接）。
+         FX->SetVariableFloat(TEXT("User.Heat"),Heat);
+         if(bHaveIgnition)FX->SetVariableFloat(TEXT("User.Ignition"),Ignition);   // 熄火段不写＝资产端沿用断供曲线
+         FX->SetVariableFloat(TEXT("User.Puff"),Puff);
+         FX->SetVariableFloat(TEXT("User.L1Gate"),L1Gate);
+-        // —— 出铁口熔融金属流与凝固锭（2026-09-25，Docs/Fluids/furnace-tap-metal-20260925.md）——
+-        // 完成判定＝IsDone 口径（任务在炉且 LiveProgress≥JobTotalSeconds），全部复用上面已取的
+-        // Job/Smelt/JobTotalSeconds，只多一次只读进度调用；零玩法写入（不碰 SettleFurnace/Collect/存档）。
+-        const bool bTapDone=Smelt&&Smelt->IsDone(Build,Cell);
+-        UpdateFurnaceTap(E,Build,Job,Body,Mouth,bTapDone,Now);
+         if(E.Rate>0.f)
+         {
+             if(!FX->IsActive())FX->Activate(true);
+             E.LastFeed=Now;
+         }
+         else if(FX->IsActive()&&Now-E.LastFeed>Dissipate)FX->Deactivate();
+-    }
+-}
+-
+-void UFluidPresentationSubsystem::UpdateFurnaceTap(FFurnaceSmoke& Entry,AVoxelBuildWorld* Build,
+-    const FVoxelSmeltingJob* Job,const UStaticMeshComponent* Body,const FVector& Mouth,bool bDone,double Now)
+-{
+-    // 出铁口熔融金属流与凝固锭（2026-09-25）。全部在既有 5Hz 拍内跑完：无新 tick、无新遍历、
+-    // 无容器分配、无字符串拼接（参数名/资产路径都是编译期常量）。玩法侧只读——
+-    // 完成谓词＝IsDone 口径，锭由 CollectSmelting 发放（本函数不入包、不改数值、不写存档）。
+-    // 构件网格局部锚点（SM_BlastFurnace 局部 cm，实测见 SourceAssets/BlastFurnace20260923）：
+-    //   出铁口拱口 (17.5,0,69.4) → 腔道 (17.5,0,63.5) → 炉壁出口 (24.7,0,63.5)
+-    //   → 落点浇铸床面 (32.9,0,20)；锭模弧中心 (45,0,20)。
+-    // 所有位置都经 Body->GetComponentTransform() 换算，炉子 Yaw 自动跟随。
+-    auto* Piece=Entry.Piece.Get();
+-    if(!Piece)return;
+-    // 已展示＝锭组件在位或已记录 Def（2026-09-26 修复：原判式把 IsEmpty 写反，
+-    // 全新 Entry 恒被判成"已展示"，锭永远不出）。
+-    const bool bShownBefore=Entry.Ingot.IsValid()||!Entry.IngotDef.IsEmpty();
+-    const float Distance=bHasView?float(FVector::Distance(Mouth,Eye)):TNumericLimits<float>::Max();
+-    const bool bNear=Distance<=8500.f;
+-    if(bDone&&!Entry.bWasDone)
+-    {   // 2026-09-26 修复：上升沿不再被 bNear 锁死——远处完成也记 TapAt（走近时锭照常展示），
+-        // 组件只在 bNear 时创建；且资产未载不得 early-return（原写法会连带跳过锭展示与状态复位）。
+-        Entry.TapAt=Now;
+-        UNiagaraSystem* Asset=bNear?(TapAsset?TapAsset.Get():TapTemplate.Get()):nullptr;
+-        if(Asset&&bNear)
+-        {
+-            if(!Entry.TapFX.IsValid())
+-            {
+-                if(TapPool.IsEmpty())
+-                {
+-                    auto* Owner=GetWorld()->GetWorldSettings();
+-                    for(int32 I=0;I<4;++I)
+-                    {
+-                        auto* FX=NewObject<UNiagaraComponent>(Owner,NAME_None,RF_Transient);Owner->AddInstanceComponent(FX);
+-                        FX->SetAutoActivate(false);FX->SetAutoDestroy(false);FX->SetAsset(Asset);
+-                        FX->SetCastShadow(false);FX->SetCanEverAffectNavigation(false);FX->RegisterComponent();
+-                        TapPool.Add(FX);
+-                    }
+-                }
+-                for(auto& FX:TapPool)if(FX&&!FX->IsActive()){Entry.TapFX=FX;break;}
+-            }
+-            auto* FX=Entry.TapFX.Get();
+-            if(FX)
+-            {
+-                if(Body)
+-                {
+-                    FX->AttachToComponent(const_cast<UStaticMeshComponent*>(Body),FAttachmentTransformRules::KeepRelativeTransform);
+-                    // 2026-09-26 修复：NS 是局部空间，粒子坐标本身就用 SM_BlastFurnace 网格局部系
+-                    // （拱口 17.5/腔道 63.5/浇铸床 32.9/锭模 45…见 assets.json anchor_cm），组件必须
+-                    // 恒等变换挂 Body；此前再叠 (17.5,0,63.5) 相对偏移＝全线双重错位（流悬在半空）。
+-                    FX->SetRelativeLocation(FVector::ZeroVector);
+-                    FX->SetRelativeRotation(FRotator::ZeroRotator);
+-                    FX->SetRelativeScale3D(FVector(1.f));
+-                }
+-                else FX->SetWorldLocation(Mouth);
+-                FX->SetVariableFloat(TEXT("User.Flow"),1.f);
+-                // 细节分级与 ConfigureSmoke 同一口径（AllocateDetail 令牌桶）：事件型、非重要级。
+-                const int32 Detail=AllocateDetail(Mouth,16,false);
+-                FX->SetVariableFloat(TEXT("User.DetailReduction"),1.f-float(Detail)/16.f);
+-                // 火花门：<35m 且画质≥中（与 AllocateDetail/L1Gate 同一画质来源）。
+-                FX->SetVariableFloat(TEXT("User.SparkGate"),
+-                    (Scalability::GetQualityLevels().EffectsQuality>=1&&Distance<=3500.f)?1.f:0.f);
+-                FX->Activate(true);
+-            }
+-        }
+-    }
+-    // 凝固锭：上升沿后 1.6s、任务仍在炉且已完成、玩家在 85m 内才展示（锭池每炉一个桶位）。
+-    const bool bWantIngot=bDone&&bNear&&Entry.TapAt>0.&&Now-Entry.TapAt>=1.6;
+-    if(bWantIngot&&!bShownBefore)
+-    {
+-        UStaticMesh* Mesh=Cast<UStaticMesh>(FSoftObjectPath(TEXT("/Game/Items/Smelting/Ingot/SM_Ingot.SM_Ingot")).ResolveObject());
+-        // 锭色按任务配方取：R->Output 就是 ironIngot/copperIngot/silverIngot/goldIngot 之一。
+-        auto* Smelt=GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelSmeltingSystem>():nullptr;
+-        const FColdSteelSmeltingRecipe* Recipe=(Job&&Smelt)?Smelt->Find(Job->Recipe):nullptr;
+-        const FString Def=Recipe?Recipe->Output:FString();
+-        if(Mesh&&!Def.IsEmpty())
+-        {
+-            if(IngotPool.IsEmpty())
+-            {
+-                auto* Owner=GetWorld()->GetWorldSettings();
+-                for(int32 I=0;I<3;++I)
+-                {
+-                    auto* Comp=NewObject<UStaticMeshComponent>(Owner,NAME_None,RF_Transient);Owner->AddInstanceComponent(Comp);
+-                    Comp->SetMobility(EComponentMobility::Movable);Comp->SetupAttachment(Owner->GetRootComponent());
+-                    Comp->SetCollisionEnabled(ECollisionEnabled::NoCollision);Comp->SetCanEverAffectNavigation(false);
+-                    Comp->SetCastShadow(false);Comp->RegisterComponent();
+-                    IngotPool.Add(Comp);
+-                }
+-            }
+-            if(Entry.IngotSlot<0)
+-            {
+-                Entry.IngotSlot=0;
+-                // 桶位全被其它炉占了＝这座炉这次不出锭（与 TapPool 用满即跳过同一策略，
+-                // 不临时追加组件）；0..2 个桶位与三只锭模一一对应。
+-                for(int32 I=0;I<IngotPool.Num();++I)
+-                {
+-                    bool Taken=false;for(int32 S=0;S<3;++S)if(IngotSlots[S]==I){Taken=true;break;}
+-                    if(!Taken){Entry.IngotSlot=I;IngotSlots[I]=I;break;}
+-                }
+-            }
+-            auto* Comp=IngotPool.IsValidIndex(Entry.IngotSlot)?IngotPool[Entry.IngotSlot].Get():nullptr;
+-            if(Comp)
+-            {
+-                // 缩放口径同 AColdSteelPickup::InstallProductionMaterial：长轴 24cm，底面落回原点。
+-                const auto Bounds=Mesh->GetBounds();
+-                const float Scale=24.f/FMath::Max(1.f,2.f*float(Bounds.BoxExtent.GetMax()));
+-                Comp->SetStaticMesh(Mesh);
+-                if(auto* Mat=Cast<UMaterialInterface>(ProductionHarvestAssets::PickupMaterial(Def).ResolveObject()))
+-                    Comp->SetMaterial(0,Mat);
+-                Comp->SetRelativeScale3D(FVector(Scale));
+-                // 2026-09-26 修复：池组件初建时父级是 WorldSettings 根＝世界原点，不重挂 Body
+-                // 锭会落在世界 (58,0,~30) 而不是炉前。落点用网格局部系锭模弧 (45,0,20)＋锭半高，
+-                // 与 NS 的 L2 余晖卡（INGOT_X=45）同轴对齐。
+-                if(Body)Comp->AttachToComponent(const_cast<UStaticMeshComponent*>(Body),FAttachmentTransformRules::KeepRelativeTransform);
+-                Comp->SetRelativeLocation(FVector(45.f,0.f,20.f+Scale*float(Bounds.BoxExtent.Z)));
+-                Comp->SetVisibility(true);
+-                Entry.Ingot=Comp;Entry.IngotDef=Def;
+-            }
+-        }
+-    }
+-    else if(bShownBefore&&(Entry.Ingot.IsValid()||!Entry.IngotDef.IsEmpty())&&!(bDone&&bNear))
+-    {   // 取出/拆炉（bDone=false）或超出 85m：隐藏锭；回到 85m 内且仍 bDone 会重新展示（不重放流）。
+-        if(auto* Comp=Entry.Ingot.Get())Comp->SetVisibility(false);
+-        Entry.IngotDef.Empty();
+-    }
+-    if(!bDone&&Entry.bWasDone)
+-    {   // 任务被取出／拆炉：金流门归零（NS 自然衰减），组件停用归还池位，锭隐藏，状态复位，下一批从头再起。
+-        if(auto* FX=Entry.TapFX.Get()){FX->SetVariableFloat(TEXT("User.Flow"),0.f);FX->Deactivate();}
+-        if(auto* Comp=Entry.Ingot.Get())Comp->SetVisibility(false);
+-        Entry.IngotDef.Empty();Entry.bWasDone=false;Entry.TapAt=0.;
+-    }
+-    Entry.bWasDone=bDone;
+-    // 2026-09-26 修复：金流按 3.6s 窗口每拍写门（与 NS GLOW_SECONDS 同底）——到点断流＝
+-    // 「一小段时间后凝固」；原实现只在任务取出时归零，金流会一直浇到玩家来收。
+-    // 余晖卡门 4.0s：NS 在组件激活时起一张 3s 衰减卡；85m 外、取出后、超窗一律归零。
+-    // 窗口+最大粒子寿命（流 2.4s／池卡 2.8s）走完即 Deactivate，池位可被其它炉复用
+-    // （AutoActivate=false 的池组件不 Deactivate 会永远 IsActive，4 次后池枯竭）。
+-    if(auto* FX=Entry.TapFX.Get())
+-    {
+-        const bool bInWindow=bDone&&bNear&&Entry.TapAt>0.;
+-        const double Elapsed=Now-Entry.TapAt;
+-        FX->SetVariableFloat(TEXT("User.Flow"),(bInWindow&&Elapsed<=3.6)?1.f:0.f);
+-        FX->SetVariableFloat(TEXT("User.IngotGlow"),(bInWindow&&Elapsed<=4.)?1.f:0.f);
+-        if(FX->IsActive()&&Entry.TapAt>0.&&(!bInWindow||Elapsed>7.))FX->Deactivate();
+     }
+ }
+ 
+diff --git a/Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.h b/Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.h
+--- a/Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.h
++++ b/Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.h
+@@ -10,6 +10,8 @@
+ class UNiagaraSystem;
+ class UPrimitiveComponent;
+ class UStaticMeshComponent;
++class UInstancedStaticMeshComponent;
++class UStaticMesh;
+ class AVoxelBuildPrefabActor;
+ class AVoxelBuildWorld;
+ struct FVoxelSmeltingJob;
+@@ -28,6 +30,8 @@
+     virtual TStatId GetStatId() const override;
+     int32 AllocateDetail(const FVector& Position,int32 Requested,bool bImportant=false);
+     FVector WindAt(const FVector& Position,float* OutShelter=nullptr);   // OutShelter＝屋檐遮蔽系数（阵风同系数缩放，防雨天下风向不一致）
++    /** Furnace smoke and hanging tools share the same weather gust and roof attenuation. */
++    FVector WindWithGustAt(const FVector& Position);
+     void ConfigureSmoke(UNiagaraComponent* FX,int32 Requested,bool bWet=false);
+     bool ReserveGeometryQueries(int32 Count,bool bHazard=false);
+     bool MoveMist(FVector& Position,FVector& Velocity,const FVector& Previous,float Radius);
+@@ -66,16 +70,19 @@
+         // —— 出铁口熔融金属流与凝固锭（2026-09-25，同上案）——
+         /** 上一拍「任务在炉且已完成」（UColdSteelSmeltingSystem::IsDone 口径）；上升沿才放出铁。 */
+         bool bWasDone=false;
+-        /** 本次出铁的起始时刻（GetTimeSeconds）；0＝未出铁。t≥1.6s 才展示凝固锭。 */
+-        double TapAt=0;
++        /** World/material start time; -1 is idle. Show the solid ingot after 5.4 s. */
++        double TapAt=-1;
+         /** 金流 NS 组件（池位，最多 4 座炉同时出铁）；随 Body 变换，注入即衰减，不被动销毁。 */
+         TWeakObjectPtr<UNiagaraComponent> TapFX;
+         /** 凝固锭展示组件（池位，默认隐藏；展示到任务被取出）。 */
+         TWeakObjectPtr<UStaticMeshComponent> Ingot;
+-        /** 借用的锭池桶位：每炉一个固定桶，避免三个炉子抢同一个池。 */
+-        int32 IngotSlot=-1;
++        /** Continuous tube and horizontal mould surface, attached in furnace mesh space. */
++        TWeakObjectPtr<UStaticMeshComponent> CastingMesh;
+         /** 上一拍展示的锭定义（MI_<def> 用；bDone 变 false 即清空）。 */
+         FString IngotDef;
++        TWeakObjectPtr<UInstancedStaticMeshComponent> Rack[4];
++        int32 RackCounts[4]={-1,-1,-1,-1};
++        TWeakObjectPtr<UStaticMeshComponent> RackParent;
+     };
+     TArray<FWalker> Walkers;
+     TArray<FSmoke> Smoke;
+@@ -98,25 +105,20 @@
+     TArray<FFurnaceSmoke> Furnaces;
+     float FurnaceClock=0;
+     double FurnaceScanAt=0;   // 1Hz 构件对账（SpawnActor 生成事件早于 Configure 写 Id，不可靠）
+-    /** 出铁锭池展示桶位：每炉一个固定桶（0..2，与产出锭模一一对应），-1＝未占用。 */
+-    int32 IngotSlots[3]={-1,-1,-1};
+     UPROPERTY() TSoftObjectPtr<UNiagaraSystem> FurnaceTemplate=TSoftObjectPtr<UNiagaraSystem>(
+         FSoftObjectPath(TEXT("/Game/Fluids/FurnaceSmoke20260924/NS_FurnaceBlackSmoke.NS_FurnaceBlackSmoke")));
+     UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> FurnaceAsset;
+     TSharedPtr<FStreamableHandle> FurnaceLoad;
+-    /** 出铁口熔融金属流（2026-09-25）：软引用异步预载，未就绪时静默跳过（无同步 Load）。
+-     *  定名 NS_FurnaceMoltenTap（弃 NS_FurnaceTapMetal）：资产名是发射器名 FurnaceTapMetalFlow
+-     *  的前缀时，Niagara 编译可复现地出现幻影 SystemUpdateScript Custom Hlsl 报错（valid=0），
+-     *  逐字节相同内容换名即过；复现探针 Tools/Fluids/probe_tap_name_cache.py。 */
++    /** Decorative casting droplets. The primary liquid surface has its own bounded pool. */
+     UPROPERTY() TSoftObjectPtr<UNiagaraSystem> TapTemplate=TSoftObjectPtr<UNiagaraSystem>(
+-        FSoftObjectPath(TEXT("/Game/Fluids/FurnaceTapMetal20260925/NS_FurnaceMoltenTap.NS_FurnaceMoltenTap")));
++        FSoftObjectPath(TEXT("/Game/Fluids/FurnaceCasting20260926/NS_CastingDroplets.NS_CastingDroplets")));
+     UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> TapAsset;
+     TSharedPtr<FStreamableHandle> TapLoad;
+     /** 有界池：≤4 座炉同时出铁（设计定稿并发上限），池位不够时本炉这次不出铁。 */
+     UPROPERTY(Transient) TArray<TObjectPtr<UNiagaraComponent>> TapPool;
+-    /** 凝固锭展示组件池：三炉各一个固定桶位（SM_Ingot＋MI_<def>），默认隐藏、无碰撞无物理。 */
++    /** Lazy ingot pool, at most one per registered furnace (32); no collision or physics. */
+     UPROPERTY(Transient) TArray<TObjectPtr<UStaticMeshComponent>> IngotPool;
+-    /** 四个 MI_<def>Ingot 与 SM_Ingot 的异步批量预载句柄（与 NS 同一次请求）。 */
++    /** Retained async handle owns the casting mesh, ingot and all four metal materials. */
+     TSharedPtr<FStreamableHandle> TapMeshLoad;
+     bool bReady=false,bHasView=false;
+     void RegisterActor(AActor* Actor);
+@@ -129,4 +131,16 @@
+     /** 出铁口熔融金属流与凝固锭（2026-09-25）：完成上升沿触发，全部在既有 5Hz 拍内，只读玩法数据。 */
+     void UpdateFurnaceTap(FFurnaceSmoke& Entry,AVoxelBuildWorld* Build,const FVoxelSmeltingJob* Job,
+         const UStaticMeshComponent* Body,const FVector& Mouth,bool bDone,double Now);
++    void ReleaseFurnaceTap(FFurnaceSmoke& Entry);
++    void ReleaseFurnaceIngot(FFurnaceSmoke& Entry);
++    void UpdateCastingRack(FFurnaceSmoke& Entry,AVoxelBuildWorld* Build,const FVoxelSmeltingJob* Job);
++    void ReleaseCastingRack(FFurnaceSmoke& Entry);
++    // Appended reflected field: four continuous liquid surfaces; ordinary build required.
++    UPROPERTY(Transient) TArray<TObjectPtr<UStaticMeshComponent>> CastingPool;
++    UPROPERTY() TSoftObjectPtr<UStaticMesh> CastingTemplate=TSoftObjectPtr<UStaticMesh>(
++        FSoftObjectPath(TEXT("/Game/Fluids/FurnaceCasting20260926/SM_FurnaceCastingSurface.SM_FurnaceCastingSurface")));
++    /** Four instanced metal lanes per registered furnace, each with at most three representative ingots. */
++    UPROPERTY(Transient) TArray<TObjectPtr<UInstancedStaticMeshComponent>> CastingRackPool;
++    uint64 GustFrame=MAX_uint64;
++    FVector SharedRainGust=FVector::ZeroVector;
+ };
+diff --git a/Source/FPSGAME/Building/VoxelBuildWorld.h b/Source/FPSGAME/Building/VoxelBuildWorld.h
+--- a/Source/FPSGAME/Building/VoxelBuildWorld.h
++++ b/Source/FPSGAME/Building/VoxelBuildWorld.h
+@@ -24,9 +24,9 @@
+     // Version 5 appended furnace smelting jobs (pure wall-clock); version 6 replaces that chunk
+     // with the fuel model (accumulated progress + per-furnace stored fuel); version 7 adds batch
+     // count to jobs and furnace upgrade level to fuel records; version 8 adds the idle-fire clock;
+-    // version 9 splits upgrades into three axes (fuel capacity + per-run input cap).
++    // version 9 splits upgrades into three axes; version 10 adds casting queues and output racks.
+     // 该默认值是 UHT 字面量，升版本时必须与 VoxelBuildPersistence.h 的 GVoxelBuildSaveVersion 同步。
+-    UPROPERTY() int32 Version=9;
++    UPROPERTY() int32 Version=10;
+     UPROPERTY() int32 CellSizeCm=20;
+     UPROPERTY() FString WorldKey;
+     UPROPERTY() TArray<FVoxelSavedCell> Cells;
+@@ -147,6 +147,10 @@
+     /** 结算改写任务字段后标脏存档（FindSmeltingMutable 的写回配套；SetFuel 自带标脏）。 */
+     void MarkSmeltingDirty(){MarkSaveDirty();}
+     bool BeginSmelting(FIntVector Cell,FName Recipe,FString& Reason,int64 Batch=1);
++    /** User-action lookup only: nearest free receiver within 3.5 m, same floor. */
++    bool FindAvailableCastingStation(FIntVector Furnace,FIntVector& OutStation) const;
++    bool FindCastingFurnace(FIntVector Station,FIntVector& OutFurnace) const;
++    AVoxelBuildPrefabActor* PrefabActorAt(FIntVector Cell) const;
+     /** 高炉升级等级（VBX v7，存在燃料记录里）：无记录＝1 级。速度轴的旧名（大量既有调用）。 */
+     int32 FurnaceLevel(FIntVector Cell) const;
+     /** 写等级（封顶 VoxelFurnaceMaxLevel）；没有记录时创建一条 0 燃料记录承载等级。 */
+diff --git a/Source/FPSGAME/Building/VoxelBuildWorld.cpp b/Source/FPSGAME/Building/VoxelBuildWorld.cpp
+--- a/Source/FPSGAME/Building/VoxelBuildWorld.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildWorld.cpp
+@@ -233,7 +233,7 @@
+         };
+         for(const FVoxelSmeltingJob& Job:LoadedData->Smelting)
+         {
+-            if(!IsFurnaceCell(Job.Cell)||Job.Recipe.IsNone()||Job.ProgressSeconds<0||Job.BurnStartTicks<0)
++            if(!IsFurnaceCell(Job.Cell)||(!Job.bCasting&&Job.Recipe.IsNone())||Job.ProgressSeconds<0||Job.BurnStartTicks<0)
+             {UE_LOG(LogTemp,Warning,TEXT("Voxel structure skipped an orphan smelting job @格(%d,%d,%d)"),
+                 Job.Cell.X,Job.Cell.Y,Job.Cell.Z);continue;}
+             SmeltingJobs.Add(Job);
+diff --git a/Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp b/Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp
+--- a/Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp
+@@ -375,6 +375,13 @@
+         return true;
+     }
+     const FIntVector Cell=Target->AnchorCell();
++    if(Target->PrefabId()==VoxelCastingStationId)
++    {
++        FIntVector Furnace;
++        if(FindCastingFurnace(Cell,Furnace))
++            if(const auto* Job=FindSmelting(Furnace);Job&&(!Job->Recipe.IsNone()||!Job->Queue.IsEmpty()||!Job->Products.IsEmpty()))
++            {Message=TEXT("铸造台仍有任务或成品，请先取出并处理炉内物料");return false;}
++    }
+     // 高炉拆除特判（2026-09-23 冶炼）：炉内有矿料或存料先退料（完成退产物、未完退原料、燃料折木材）；
+     // 背包放不下就拒绝拆除——与放置"先扣料再提交"同一口径，不静默吞料也不凭空产锭。
+     if(FindSmelting(Cell)||FuelAt(Cell)>0)
+@@ -418,13 +425,13 @@
+ const FVoxelSmeltingJob* AVoxelBuildWorld::FindSmelting(FIntVector Cell) const
+ {
+     const FVoxelSmeltingJob* Job=SmeltingJobs.FindByPredicate([Cell](const FVoxelSmeltingJob& E){return E.Cell==Cell;});
+-    return Job&&!Job->Recipe.IsNone()?Job:nullptr;
++    return Job&&(!Job->Recipe.IsNone()||Job->bCasting)?Job:nullptr;
+ }
+ 
+ FVoxelSmeltingJob* AVoxelBuildWorld::FindSmeltingMutable(FIntVector Cell)
+ {
+     FVoxelSmeltingJob* Job=SmeltingJobs.FindByPredicate([Cell](const FVoxelSmeltingJob& E){return E.Cell==Cell;});
+-    return Job&&!Job->Recipe.IsNone()?Job:nullptr;
++    return Job&&(!Job->Recipe.IsNone()||Job->bCasting)?Job:nullptr;
+ }
+ 
+ bool AVoxelBuildWorld::BeginSmelting(FIntVector Cell,FName Recipe,FString& Reason,int64 Batch)
+@@ -458,6 +465,10 @@
+ 
+ void AVoxelBuildWorld::SetFurnaceUpgradeLevel(FIntVector Cell,int32 Axis,int32 Level)
+ {
++    if(Axis==VoxelFurnaceAxisSpeed)
++        if(const auto* Job=FindSmelting(Cell);Job&&Job->bCasting)
++            if(auto* Game=GetGameInstance())
++                if(auto* System=Game->GetSubsystem<UColdSteelSmeltingSystem>())System->SettleFurnace(this,Cell);
+     Level=FMath::Clamp(Level,1,VoxelFurnaceAxisMax(Axis));   // 燃料仓 6 档、其余 5 档（2026-09-24 数值调参）
+     FVoxelFurnaceFuel* Fuel=Fuels.FindByPredicate([Cell](const FVoxelFurnaceFuel& E){return E.Cell==Cell;});
+     if(!Fuel)
+@@ -466,6 +477,10 @@
+     }
+     int32 FVoxelFurnaceFuel::* Field=FurnaceLevelField(Axis);
+     if(Fuel->*Field==Level)return;
++    if(Axis==VoxelFurnaceAxisSpeed)
++        if(auto* Job=FindSmeltingMutable(Cell);Job&&Job->bCasting)
++            Job->ProgressSeconds*=UColdSteelSmeltingSystem::SpeedMultiplier(Fuel->*Field)
++                /UColdSteelSmeltingSystem::SpeedMultiplier(Level);
+     Fuel->*Field=Level;MarkSaveDirty();
+ }
+ 
+diff --git a/Source/FPSGAME/UI/ColdSteelInventoryTypes.h b/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
+--- a/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
++++ b/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
+@@ -76,7 +76,7 @@
+     // 运行时一次性标记（与旧 _worldPeachReviveUsed 同寿命：重新献祭才刷新）：
+     bool bPeachUsed=false,bMoonshadowUsed=false;
+ };
+-/** 冶炼点击已写入角色档、建筑档可能还没落盘时的对账条。Kind：1投料 2收取 3添燃料 4升级 5拆炉。 */
++/** 冶炼点击已写入角色档、建筑档可能还没落盘时的对账条。Kind：1投料 2收取 3添燃料 4升级 5拆炉 6队列投料 7部分收取。 */
+ USTRUCT()
+ struct FColdSteelSmeltIntent
+ {
+@@ -93,6 +93,20 @@
+     UPROPERTY() double FuelBefore=0;
+     UPROPERTY() double FuelAfter=0;
+ };
++/** Paid workpiece kept outside the inventory until the player claims or discards it. */
++USTRUCT()
++struct FColdSteelForgeJob
++{
++    GENERATED_BODY()
++    UPROPERTY() FString Id;
++    UPROPERTY() FName Recipe;
++    UPROPERTY() FColdSteelItem Item;
++    UPROPERTY() int32 Hits=0;
++    UPROPERTY() bool bFinished=false;
++    /** Actual inputs paid at start; empty for legacy jobs that use the recipe fallback. */
++    UPROPERTY() TMap<FString,int64> PaidMaterials;
++};
++
+ USTRUCT()
+ struct FColdSteelProfile
+ {
+@@ -161,6 +175,7 @@
+     UPROPERTY() float FlameArmorCooldown = 0;
+     UPROPERTY() float FlameArmorCooldownDuration = 0;
+     UPROPERTY() FInfectionState Infection;
++    UPROPERTY() FColdSteelForgeJob ForgeJob;
+ };
+ 
+ UCLASS()
+diff --git a/Source/FPSGAME/UI/ColdSteelStatusModel.h b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.h
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+@@ -324,6 +324,9 @@
+     FString AmmoDefinition() const;
+     const FString& ResultMessage() const { return Message; }
+     FColdSteelProfile Snapshot() const;
++    const FColdSteelForgeJob& ForgeJob() const {return Current.ForgeJob;}
++    // Hit feedback cannot run the synchronous checked-save transaction every click.
++    void StageForgeHit(const FString& JobId,int32 Hits);
+     bool CommitState(FColdSteelProfile State);
+     bool IsAudit() const { return bAudit; }
+     bool AuditFailNextSave = false;
+diff --git a/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp b/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp
+@@ -206,7 +206,7 @@
+     {
+         // 整体骑乘收回时抽屉行程加长面板宽（多出的行程本就在屏幕外不可见），
+         // 让面板与抽屉共用同一条位移曲线＝一个刚体向右缩回（2026-09-24 用户定稿口径）。
+-        const float DrawerWidth = FMath::Max(1.0f, (InventoryWidth+ColdSteelUI::NavigationDrawerInset+(bSmeltRiding?SmeltSlidePx:0.f)+(bWorkbenchRiding?WorkbenchSlidePx:0.f)) / ColdSteelUI::PixelScale(this));
++        const float DrawerWidth = FMath::Max(1.0f, (InventoryWidth+ColdSteelUI::NavigationDrawerInset+(bSmeltRiding?SmeltSlidePx:0.f)+(bWorkbenchRiding?WorkbenchSlidePx:0.f)+(bForgeRiding?ForgeSlidePx:0.f)) / ColdSteelUI::PixelScale(this));
+         InventoryPanel->SetRenderTranslation(FVector2D((1.0f - DrawerEase) * DrawerWidth, 0.0f));
+     }
+     if (InventoryBackdrop)
+@@ -273,6 +273,7 @@
+             else WorkbenchWidget->SetRenderTranslation(FVector2D::ZeroVector);
+         }
+     }
++    TickForging(InDeltaTime,DrawerEase);
+     if (EquipmentTooltip && EquipmentTooltip->IsVisible() && !bEquipmentTooltipPinned)
+     {
+         UpdateEquipmentTooltipPlacement();
+@@ -291,6 +292,7 @@
+ 
+ FReply UColdSteelHUDWidget::NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent)
+ {
++    if(InKeyEvent.GetKey()==EKeys::Escape&&!InKeyEvent.IsRepeat()&&bForgingOpen){CloseForging();return FReply::Handled();}
+     if (HandlePanelShortcut(InKeyEvent.GetKey(), InKeyEvent.IsRepeat())) return FReply::Handled();
+     // A drag in flight keeps its own keys: the drawer is hidden while the pointer is outside the panel,
+     // so the board that started the drag may not be the widget receiving this event.
+@@ -404,7 +406,7 @@
+     const auto* Character=PC?Cast<AFPSGAMECharacter>(PC->GetPawn()):nullptr;
+     // 与旧准星提示同一出现条件：任一面板打开／光标显示／弹药轮／命中反馈 期间都不出浮窗。
+     FString Text;bool bAction=true;
+-    if(Character&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor&&!Character->IsAmmoWheelOpen())
++    if(Character&&!IsWorldForging()&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor&&!Character->IsAmmoWheelOpen())
+     {
+         FMonsterHitFeedback Feedback;
+         if(!Character->GetMonsterHitFeedback(Feedback))
+@@ -432,6 +434,7 @@
+     BuildWarehouse(Root);
+     BuildSmelting(Root);
+     BuildWorkbench(Root);
++    BuildForging(Root);
+     BuildPanelNavigation(Root);
+     BuildInteractHint(Root); // 统一 E 交互小浮窗（在面板 Z 之下：面板打开时本就不显示）
+     ProgressNotification=CreateWidget<UColdSteelProgressNotification>(GetOwningPlayer());
+@@ -1228,6 +1231,7 @@
+     if(!bOpen)HideItemTooltip(true);
+     if(!bOpen)CloseWarehouse();
+     if(!bOpen)CloseSmelting();   // 收背包连带收面板：保证"再打开背包"永远不会带出上次的面板
++    if(!bOpen)CloseForging();
+     if(!bOpen)CloseWorkbench();  // 工作台制作面板同一连带口径（同文件同规则）
+     if (bInventoryOpen == bOpen) return;
+     bInventoryOpen = bOpen;
+diff --git a/Source/FPSGAME/UI/ColdSteelHUDWidget.h b/Source/FPSGAME/UI/ColdSteelHUDWidget.h
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.h
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.h
+@@ -528,4 +528,27 @@
+ 
+     UPROPERTY(Transient)
+     TMap<FString, TObjectPtr<UTexture2D>> LoadedTextureCache;
++
++public:
++    void OpenForging(AActor* Station);
++    void CloseForging();
++    void OpenForgingSmelting();
++    bool IsForgingOpen() const {return bForgingOpen;}
++    bool CanStartWorldForging(FString& Reason) const;
++    bool StartWorldForging(FName Recipe,FString& Reason);
++    bool IsWorldForging() const;
++    bool HandleWorldForgeInput(const struct FInputKeyEventArgs& Event);
++    void CompleteWorldForging(class AForgeInteraction* Interaction,bool bReturnPanel);
++private:
++    void BuildForging(UCanvasPanel* Root);
++    void HideForgingInstantly();
++    void TickForging(float DeltaTime,float DrawerEase);
++    UPROPERTY(Transient) TObjectPtr<class UColdSteelForgingWidget> ForgingWidget;
++    UPROPERTY(Transient) TObjectPtr<class AForgeInteraction> ForgeInteraction;
++    UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> ForgingSlot;
++    TWeakObjectPtr<class AVoxelBuildWorld> ForgingWorld;
++    TWeakObjectPtr<AActor> ForgingStation;
++    FIntVector ForgingCell=FIntVector::ZeroValue;
++    bool bForgingOpen=false,bForgeRiding=false;
++    float ForgeMotion=0,ForgeSlidePx=0,ForgeWidth=0;
+ };
+diff --git a/Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp b/Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp
+--- a/Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp
+@@ -1,4 +1,5 @@
+ #include "ColdSteelHUDWidget.h"
++#include "ColdSteelForgingWidget.h"
+ #include "ColdSteelSmeltingWidget.h"
+ #include "ColdSteelItemTooltip.h"
+ #include "ColdSteelWarehouseWidget.h"
+@@ -28,6 +29,7 @@
+ {
+     if(!Chest||!Chest->CanInteract(GetOwningPlayerPawn()))return;
+     if(bWarehouseOpen)return;
++    if(bForgingOpen||bForgeRiding)HideForgingInstantly();
+     WarehouseChest=Chest;SetInventoryTab(false);SetInventoryOpen(true);
+     auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();M->GrantStartingArmory();if(!M->IsAudit())M->GrantEnhancementMaterials();M->bWarehouseOpen=true;
+     // 储物会话：由被交互的 Actor 决定面板绑定的容器（默认主仓库；储物箱传独立键+容量+档位标题）。
+@@ -83,10 +85,11 @@
+         const bool InWarehouse=bWarehouseOpen&&WarehouseWidget&&WarehouseWidget->GetCachedGeometry().IsUnderLocation(Position);
+         // 冶炼面板与背包同生命周期：点在它上面不算"屏外点击"，不能把两块一起关掉。
+         const bool InSmelting=bSmeltingOpen&&SmeltingWidget&&SmeltingWidget->GetCachedGeometry().IsUnderLocation(Position);
++        const bool InForging=bForgingOpen&&ForgingWidget&&ForgingWidget->GetCachedGeometry().IsUnderLocation(Position);
+         const bool InDetails=WarehouseDetails&&WarehouseDetails->GetCachedGeometry().IsUnderLocation(Position);
+         const auto Inside=[&](UWidget* W){return W&&W->IsVisible()&&W->GetCachedGeometry().IsUnderLocation(Position);};
+         const bool InTooltip=Inside(ItemTooltip)||Inside(StatusTooltip)||Inside(EquipmentTooltip);
+-        if(!InBag&&!InWarehouse&&!InSmelting&&!InDetails&&!InTooltip){SetInventoryOpen(false);return true;}
++        if(!InBag&&!InWarehouse&&!InSmelting&&!InForging&&!InDetails&&!InTooltip){SetInventoryOpen(false);return true;}
+     }
+     return false;
+ }
+diff --git a/Source/FPSGAME/UI/ColdSteelSmeltingWidget.cpp b/Source/FPSGAME/UI/ColdSteelSmeltingWidget.cpp
+--- a/Source/FPSGAME/UI/ColdSteelSmeltingWidget.cpp
++++ b/Source/FPSGAME/UI/ColdSteelSmeltingWidget.cpp
+@@ -759,12 +759,13 @@
+     const FVoxelSmeltingJob* Job=W?W->FindSmelting(Cell):nullptr;
+     const FColdSteelSmeltingRecipe* Recipe=Job?System->Find(Job->Recipe):nullptr;
+     const bool bFurnace=W&&W->IsFurnaceAt(Cell);
++    const bool bCasting=bFurnace&&System->HasCastingStation(W,Cell);
+     // 列表区只在炉内空闲时开放（规划文档第 6 节：空闲=选料，冶炼中=进度，完成=取出）；
+     // 任务中同一区域交给炉况视觉区（A），分区标题随列表一起收起，不留空标题。
+-    const bool bShowRows=!Job&&bFurnace&&GetVisibility()!=ESlateVisibility::Collapsed;
++    const bool bShowRows=(!Job||bCasting)&&bFurnace&&GetVisibility()!=ESlateVisibility::Collapsed;
+     RowsScroll->SetVisibility(bShowRows?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
+     SectionTitle->SetVisibility(bShowRows?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
+-    Showcase->SetVisibility(Job&&bFurnace?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
++    Showcase->SetVisibility(Job&&bFurnace&&!bCasting?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
+     if(!Job||!bFurnace)bWasDone=false;   // 出炉/拆炉复位完成沿，下次转完成仍会闪光
+ 
+     // —— 批量步进行（2026-09-24 批量冶炼；v9 起上限受"每次投料"升级轴约束）：
+@@ -856,7 +857,7 @@
+     // 存料不够烧完就转 Warning 橙（要不要添柴一眼可判）；空闲/完成态维持"存料 · 上限"。
+     // 2026-09-24 实时化整改：这里只校准锚点，文案由 PaintFuelLine 每帧外推＋变化门控写一次。
+     const bool bJobRunning=Job&&bFurnace&&!System->IsDone(W,Cell);
+-    bCdRunning=bJobRunning;
++    bCdRunning=bJobRunning&&(!bCasting||!System->CastingBlocked(W,*Job));
+     // v8 语义（2026-09-24 用户定稿）：炉内有存料就在烧——外推门按"有料"开，
+     // 空闲态"存料 X"同样逐秒走；任务中"还需烧"仍只在有任务时参与。
+     bCdBurning=bFurnace&&Fuel>0;
+@@ -937,6 +938,45 @@
+         if(bDone&&!bWasDone)FlashT=0.f;
+         bWasDone=bDone;
+     }
++    if(bCasting)
++    {
++        const bool bBuffered=Job&&Job->bCasting;
++        const int64 Stored=bBuffered?System->CastingStored(*Job):0;
++        const int32 Queued=bBuffered?Job->Queue.Num():0;
++        const bool bBlocked=bBuffered&&System->CastingBlocked(W,*Job);
++        const bool bActive=Recipe!=nullptr;
++        const FString State=bBlocked?(Stored>=System->CastingCapacity?TEXT("成品架已满 · 等待领取"):TEXT("铸造台缺失 · 已暂停"))
++            :!bActive?TEXT("连续冶炼 · 待投料"):Fuel<=0?TEXT("燃料耗尽 · 队列暂停"):TEXT("连续冶炼中");
++        JobTitle->SetText(FText::FromString(State));
++        JobTitle->SetColorAndOpacity(bBlocked||(bActive&&Fuel<=0)?ColdSteelUI::Warning:ColdSteelUI::TextPrimary);
++        FString Detail=FString::Printf(TEXT("成品架 %lld / 60 · 待冶炼 %d / 8"),Stored,Queued);
++        if(bBuffered)
++        {
++            FString Products;
++            for(const auto& Product:Job->Products)
++                Products+=(Products.IsEmpty()?TEXT(""):TEXT(" · "))+DefinitionName(Model,Product.Item)+FString::Printf(TEXT(" ×%lld"),Product.Count);
++            if(!Products.IsEmpty())Detail+=TEXT("\n")+Products;
++            if(bActive)Detail+=FString::Printf(TEXT("\n当前：%s %lld / %lld"),*DefinitionName(Model,Recipe->Output),Job->ProducedBatches,Job->BatchCount);
++            FString QueueLine;
++            for(const auto& Order:Job->Queue)
++                if(const auto* QueuedRecipe=System->Find(Order.Recipe))
++                    QueueLine+=(QueueLine.IsEmpty()?TEXT(""):TEXT(" → "))+DefinitionName(Model,QueuedRecipe->Output)+FString::Printf(TEXT(" ×%lld"),Order.Batch);
++            if(!QueueLine.IsEmpty())Detail+=TEXT("\n队列：")+QueueLine;
++        }
++        if(Stored==0&&!bActive&&Queued==0)Detail+=TEXT("\n按轮出料，领取后可手动存入储物箱");
++        JobDetail->SetText(FText::FromString(Detail));
++        JobDetail->SetColorAndOpacity(ColdSteelUI::TextSecondary);
++        JobTime->SetText(FText::FromString(bActive?FString::Printf(TEXT("本项剩余 %.1f 秒%s"),System->RemainingSeconds(W,Cell),bBlocked?TEXT(" · 已暂停"):TEXT("")):TEXT("等待下一项投料")));
++        bBurning=bActive&&!bBlocked&&Fuel>0;
++        CollectButton->SetVisibility(Stored>0?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
++        CollectGlow->SetVisibility(Stored>0?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
++        if(auto* Caption=Cast<UTextBlock>(CollectButton->GetContent()))Caption->SetText(FText::FromString(TEXT("领取成品（按背包空间）")));
++        StartButton->SetVisibility(ESlateVisibility::Visible);
++        StartButton->SetIsEnabled(!SelectedRecipe.IsNone()&&Queued<System->CastingQueueCapacity&&Fuel>0);
++        if(auto* Caption=Cast<UTextBlock>(StartButton->GetContent()))Caption->SetText(FText::FromString(
++            Queued>=System->CastingQueueCapacity?TEXT("待冶炼队列已满"):FString::Printf(TEXT("加入队列 ×%lld"),Batch)));
++    }
++    else if(auto* Caption=Cast<UTextBlock>(CollectButton->GetContent()))Caption->SetText(FText::FromString(TEXT("取出矿锭")));
+     // 两条都是通栏 UProgressBar：percent 驱动，轨道与填充同几何（无黑边、不溢出）。
+     SmeltBar->SetPercent(FMath::Clamp(AnimSmeltT,0.f,1.f));
+     FuelBar->SetPercent(FMath::Clamp(bFuelAlive?AnimFuelRatio:0.f,0.f,1.f));
+@@ -1001,12 +1041,15 @@
+     const FString InputName=DefinitionName(Model,R->Input);
+     const double Mul=UColdSteelSmeltingSystem::SpeedMultiplier(World->FurnaceLevel(Cell));
+     const double Seconds=R->Seconds*Batch/Mul;   // 与结算同一口径：批量÷等级速度
++    const int64 SubmittedBatch=Batch;
+     FString Reason;
+     if(System->BeginSmelting(World.Get(),Cell,SelectedRecipe,Reason,Batch))
+     {
+         SelectedRecipe=NAME_None;
+         RefreshRows();RefreshJob();
+-        SetStatus(FString::Printf(TEXT("已投料 %s ×%lld · 约 %g 秒后出炉"),*InputName,R->InputCount*Batch,Seconds));
++        SetStatus(System->HasCastingStation(World.Get(),Cell)
++            ?FString::Printf(TEXT("已入队 %s ×%lld · 按顺序冶炼，满架时暂停"),*InputName,R->InputCount*SubmittedBatch)
++            :FString::Printf(TEXT("已投料 %s ×%lld · 约 %g 秒后出炉"),*InputName,R->InputCount*SubmittedBatch,Seconds));
+     }
+     else SetStatus(Reason,true);
+ }
+@@ -1074,12 +1117,13 @@
+     const FVoxelSmeltingJob* Job=World->FindSmelting(Cell);
+     const FColdSteelSmeltingRecipe* R=Job?System->Find(Job->Recipe):nullptr;
+     const FString OutputName=R?DefinitionName(Model,R->Output):FString();
+-    const int64 OutputCount=R?R->OutputCount:0;
++    const int64 OutputCount=R&&Job?R->OutputCount*FMath::Max<int64>(1,Job->BatchCount):0;
++    const bool bCasting=Job&&Job->bCasting;
+     FString Reason;
+     if(System->CollectSmelting(World.Get(),Cell,Reason))
+     {
+         RefreshRows();RefreshJob();
+-        SetStatus(FString::Printf(TEXT("已取出 %s ×%lld"),*OutputName,OutputCount));
++        SetStatus(bCasting?Reason:FString::Printf(TEXT("已取出 %s ×%lld"),*OutputName,OutputCount));
+     }
+     else SetStatus(Reason,true);
+ }
+diff --git a/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp b/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
+--- a/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
+@@ -86,7 +86,13 @@
+     // 高炉是普通静态构件（调色板 `blast_furnace`，无逻辑件）：命中 Actor 就是占位记录本身。
+     // 落体件（BeginFall 后）已不在构件记录里，不再可交互——与门对 `VoxelDetached` 的免疫同一口径。
+     const auto* Piece=Cast<AVoxelBuildPrefabActor>(Target);
+-    return Piece&&Piece->PrefabId()==VoxelSmeltingFurnaceId&&!Piece->IsFalling();
++    return Piece&&(Piece->PrefabId()==VoxelSmeltingFurnaceId||Piece->PrefabId()==VoxelCastingStationId)&&!Piece->IsFalling();
++}
++
++bool ColdSteelWorldInteraction::IsForgingStation(const AActor* Target)
++{
++    const auto* Piece=Cast<AVoxelBuildPrefabActor>(Target);
++    return Piece&&Piece->PrefabId()==VoxelCastingStationId&&!Piece->IsFalling();
+ }
+ 
+ FString ColdSteelWorldInteraction::SmeltingFurnacePrompt(const AActor* Target)
+@@ -94,12 +100,21 @@
+     const auto* Piece=Cast<AVoxelBuildPrefabActor>(Target);
+     if(!IsSmeltingFurnace(Target))return FString();
+     const auto* World=Piece?Cast<AVoxelBuildWorld>(Piece->GetOwner()):nullptr;
+-    if(World)if(const FVoxelSmeltingJob* Job=World->FindSmelting(Piece->AnchorCell()))
++    FIntVector Cell=Piece->AnchorCell();
++    const bool bTable=Piece->PrefabId()==VoxelCastingStationId;
++    if(bTable&&(!World||!World->FindCastingFurnace(Cell,Cell)))
++        return TEXT("铸造台 · 在附近高炉投料后使用");
++    if(World)if(const FVoxelSmeltingJob* Job=World->FindSmelting(Cell))
+     {
+         (void)Job;   // 任务存在性判定；状态读取走系统的 (World,Cell) 口径
+         auto* Game=World->GetWorld()?World->GetWorld()->GetGameInstance():nullptr;
+         auto* System=Game?Game->GetSubsystem<UColdSteelSmeltingSystem>():nullptr;
+-        const FIntVector Cell=Piece->AnchorCell();
++        if(Job->bCasting)
++        {
++            const int64 Stored=UColdSteelSmeltingSystem::CastingStored(*Job);
++            if(Stored>=UColdSteelSmeltingSystem::CastingCapacity)return TEXT("成品架已满 · 领取后继续冶炼");
++            return FString::Printf(TEXT("%s · 成品 %lld / 60 · 打开队列"),bTable?TEXT("铸造台"):TEXT("冶炼高炉"),Stored);
++        }
+         if(System&&System->IsDone(World,Cell))return TEXT("冶炼高炉 · 取出矿锭");
+         if(System&&System->IsBurning(World,Cell))return TEXT("冶炼高炉 · 冶炼中");
+         return TEXT("冶炼高炉 · 等待燃料");   // 停炉：有任务、未烧完、火已熄
+@@ -189,6 +204,7 @@
+     if(const auto* Chest=Cast<AColdSteelWarehouseChest>(Target)){Hint.Text=Chest->GetPromptLabel();return Hint;}
+     if(const auto* Pickup=Cast<AColdSteelPickup>(Target)){Hint.Text=Pickup->GetPromptText();return Hint;}
+     if(const auto* Arrow=Cast<ABowArrow>(Target)){Hint.Text=Arrow->RecoveryPrompt();Hint.bAction=Arrow->CanRecover();return Hint;}
++    if(IsForgingStation(Target)){Hint.Text=TEXT("铸造台 · 锻造 / 冶炼领锭");return Hint;}
+     if(IsSmeltingFurnace(Target)){Hint.Text=SmeltingFurnacePrompt(Target);return Hint;}
+     if(IsWorkbench(Target)){Hint.Text=WorkbenchPrompt(Target);return Hint;}
+     if(UColdSteelDoorInteraction::IsDoor(Target)){Hint.Text=TEXT("门 · 开／关");return Hint;}
+diff --git a/Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp b/Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp
+--- a/Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp
++++ b/Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp
+@@ -75,6 +75,7 @@
+ }
+ double UColdSteelEnhancementSystem::ProcessedDamage(const FColdSteelItem& I,double Base,double Attack)const
+ {
++    const double Forge=FMath::Clamp(Num(ReadObj(ColdSteelItemData::Read(I.Data),TEXT("_forgeQuality")),TEXT("multiplier"),1),.75,1.25);
+     const double L=FMath::Clamp(ColdSteelInventory::Number(I,TEXT("enhanceLevel")),0.,double(WeaponMax));
+     if(const auto Formula=AttackFormula(I))
+     {
+@@ -89,13 +90,14 @@
+         // Keep current gunsmith part ratios while replacing the obsolete native damage baseline.
+         if(const auto* W=GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))
+             Result=CoreCombatFormula::Round(Result*Base/W->Base.Damage);
++        Result=CoreCombatFormula::Round(Result*Forge);
+         Result=CoreCombatFormula::Round(Result*(1+CraftEffect(I,TEXT("damagePercent"))));
+         Result=P->AdditionalWeaponDamage(I,Result);
+         return CoreCombatFormula::Round(Result*(1+Effect(I,TEXT("damagePercent"))));
+     }
+     const double AttackScale=ColdSteelInventory::IsBow(I)?
+         FMath::Max(0.,ColdSteelInventory::Number(I,TEXT("bow_damage_coefficient_scale"),1.5)):1.;
+-    double Result=Base*(1+L*Increase)+Attack*AttackScale;
++    double Result=(Base*(1+L*Increase)+Attack*AttackScale)*Forge;
+     if(ColdSteelInventory::IsBow(I))
+     {
+         Result=CoreCombatFormula::Round(Result*(1+CraftEffect(I,TEXT("damagePercent"))));
+diff --git a/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp b/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
+@@ -45,7 +45,7 @@
+ 
+ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UColdSteelStatusModel* Model,UGunsmithSystem* G)
+ {
+-    FColdSteelTooltipContent Out;J O;
++    FColdSteelTooltipContent Out;TArray<FColdSteelTooltipRow> ForgeSummary;J O;
+     O=CombatItemFormula::Read(I);if(!O)return Out;
+     Out.Name=String(O,TEXT("name"),I.Definition);Out.Type=String(O,TEXT("type"),Category(String(O,TEXT("category"))));
+     if(ColdSteelInventory::IsBow(I))Out.Type=String(O,TEXT("weaponTypeTag"),TEXT("弓"));
+@@ -63,6 +63,19 @@
+         Row(C,TEXT("结算"),TEXT("随连击、重击等攻击倍率放大，按魔法防御减免；更换其他符文仍保留自带侵蚀。"));
+     }
+ 
++    if(const J Forge=Object(O,TEXT("_forgeQuality")))
++    {
++        auto& C=Out.Cards.AddDefaulted_GetRef();C.Title=TEXT("锻造工艺");C.MinimumWidth=300;
++        Row(C,ColdSteelWeaponText::ForgeQuality,String(Forge,TEXT("label"),TEXT("—")));
++        const double Multiplier=FMath::Clamp(Number(Forge,TEXT("multiplier"),1),.75,1.25);
++        const double Percent=(Multiplier-1)*100;
++        Row(C,ColdSteelWeaponText::ForgeDamageModifier,Signed(Percent,TEXT("%")),Percent>0?1:Percent<0?-1:0);
++        ForgeSummary=C.Rows;
++        Row(C,TEXT("有效命中"),N(Number(Forge,TEXT("hits")))+TEXT(" / ")+N(Number(Forge,TEXT("total"),20)));
++        Row(C,TEXT("工艺倍率"),FString::Printf(TEXT("×%.3f"),Multiplier));
++        Row(C,TEXT("作用范围"),TEXT("作用于基础伤害计算，已计入武器总伤害；附加伤害按各自公式结算，不统一乘此倍率。"));
++        Row(C,TEXT("品质说明"),TEXT("锻造品质由本次锻打表现决定，与物品稀有度、强化等级分别记录。"));
++    }
+     const J Enchant=Object(O,TEXT("_enchantData"));const J EE=Object(O,TEXT("_enchantEffects"));
+     if(Enchant&&(Object(Enchant,TEXT("prefix"))||Object(Enchant,TEXT("suffix")))){
+         auto& C=Out.Cards.AddDefaulted_GetRef();C.Title=TEXT("附魔效果");C.MinimumWidth=300;
+@@ -319,5 +332,10 @@
+         }
+     }
+     CompleteColdSteelTooltipSummary(I,Model,G,Out);
++    if(!ForgeSummary.IsEmpty())
++    {
++        Out.Summary.Append(MoveTemp(ForgeSummary));
++        Out.ValueScope+=TEXT(" 锻造伤害修正已计入当前伤害，无需再次相乘。");
++    }
+     return Out;
+ }
+diff --git a/Source/FPSGAME/UI/ColdSteelItemTooltipFormula.cpp b/Source/FPSGAME/UI/ColdSteelItemTooltipFormula.cpp
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipFormula.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipFormula.cpp
+@@ -3,6 +3,7 @@
+ #include "ColdSteelItemTooltipData.h"
+ #include "ColdSteelEnhancementSystem.h"
+ #include "ColdSteelStatusModel.h"
++#include "ColdSteelItemReadCache.h"
+ #include "Engine/GameInstance.h"
+ 
+ namespace
+@@ -37,6 +38,17 @@
+     const bool bProductionAxe=ColdSteelInventory::IsEquippedProductionTool(Item);
+     const auto* Enhancement=Model?Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;
+     if(!Enhancement){FormulaRow(Card,TEXT("攻击力计算公式"),TEXT("—"));return;}
++    double ForgeMultiplier=1;
++    if(const auto Data=ColdSteelItemData::Read(Item.Data))
++    {
++        const TSharedPtr<FJsonObject>* Forge=nullptr;
++        if(Data->TryGetObjectField(TEXT("_forgeQuality"),Forge)&&*Forge)
++            (*Forge)->TryGetNumberField(TEXT("multiplier"),ForgeMultiplier);
++    }
++    ForgeMultiplier=FMath::Clamp(ForgeMultiplier,.75,1.25);
++    // Match ProcessedDamage: forging scales the base formula, not every added damage term.
++    auto WithForging=[&](const FString& Expression)
++    {return FMath::IsNearlyEqual(ForgeMultiplier,1.)?Expression:TEXT("(")+Expression+TEXT(")×")+FormulaNumber(ForgeMultiplier);};
+     if(const auto Formula=Enhancement->AttackFormula(Item))
+     {
+         const double Base=FormulaValue(Formula,TEXT("base")),Flat=FormulaValue(Formula,TEXT("enhanceFlat"));
+@@ -60,8 +72,8 @@
+             const FString Factor=Group.PerLevel==0?FormulaNumber(Group.Base):TEXT("(")+FormulaNumber(Group.Base)+TEXT("+")+FormulaNumber(Group.PerLevel)+TEXT("L)");
+             EnhancedExpression+=TEXT("+")+Factor+TEXT("×")+Names;
+         }
+-        FormulaRow(Card,TEXT("攻击力计算公式"),BaseExpression);
+-        if(!bProductionAxe)FormulaRow(Card,TEXT("强化后攻击力公式 · L=强化等级"),EnhancedExpression);
++        FormulaRow(Card,TEXT("攻击力计算公式"),WithForging(BaseExpression));
++        if(!bProductionAxe)FormulaRow(Card,TEXT("强化后攻击力公式 · L=强化等级"),WithForging(EnhancedExpression));
+     }
+     else
+     {
+diff --git a/Source/FPSGAME/FPSGAMEPlayerController.cpp b/Source/FPSGAME/FPSGAMEPlayerController.cpp
+--- a/Source/FPSGAME/FPSGAMEPlayerController.cpp
++++ b/Source/FPSGAME/FPSGAMEPlayerController.cpp
+@@ -250,6 +250,7 @@
+ 
+ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
+ {
++    if(ColdSteelHUD&&ColdSteelHUD->HandleWorldForgeInput(Params))return true;
+     if (ExpeditionPanel)
+     {
+         if (Params.Event == IE_Pressed && Params.Key == EKeys::Escape) CloseExpedition();
+@@ -325,6 +326,8 @@
+             if(auto* Arrow=Cast<ABowArrow>(Target)){Arrow->TryRecover(GetPawn());return true;}
+             // 冶炼高炉：E 同时打开背包与独立冶炼面板（面板贴抽屉左侧，可被 Esc／× 单独关闭；炉内按真实时间继续冶炼）。
+             // 放在门判定之前：高炉不是门，但两者都靠"命中 Actor 是什么"分派，先特异后泛化。
++            if(ColdSteelWorldInteraction::IsForgingStation(Target)&&ColdSteelHUD)
++            {ColdSteelHUD->OpenForging(Target);return true;}
+             if(ColdSteelWorldInteraction::IsSmeltingFurnace(Target)&&ColdSteelHUD)
+             {ColdSteelHUD->OpenSmelting(Target);return true;}
+             // 工作台：E 同时打开背包与制作面板（格式复刻冶炼面板，制作内容后续设计；
+@@ -406,6 +409,7 @@
+ 
+ void AFPSGAMEPlayerController::ToggleTimelineInteraction()
+ {
++    if(ColdSteelHUD&&ColdSteelHUD->IsWorldForging())return;
+     if (GunsmithPanel || EnhancementPanel || ExpeditionPanel) return;
+     if (WeatherPanel && WeatherPanel->IsPanelOpen()) return;
+     if (!ColdSteelHUD || ColdSteelHUD->IsInventoryOpen()) return;
+diff --git a/Config/DefaultGame.ini b/Config/DefaultGame.ini
+--- a/Config/DefaultGame.ini
++++ b/Config/DefaultGame.ini
+@@ -12,6 +12,7 @@
+ ProjectID=87128631443E575C00DFA7A699D451BC
+ 
+ [/Script/UnrealEd.ProjectPackagingSettings]
+++DirectoriesToAlwaysCook=(Path="/Game/Props/ForgeInteraction20260927")
+ +DirectoriesToAlwaysCook=(Path="/Game/Weapons/DarkBow20260925/ArrowVariants20260927")
+ +DirectoriesToAlwaysCook=(Path="/Game/Weapons/DarkBow20260925/LocomotionV23")
+ +DirectoriesToAlwaysCook=(Path="/Game/Weapons/DarkBow20260925/GripContactV22")

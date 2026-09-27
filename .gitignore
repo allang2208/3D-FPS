@@ -925,3 +925,26 @@ __pycache__/
 !/SourceAssets/WeaponTooltipTerms20260927/**/*.py
 !/SourceAssets/WeaponTooltipTerms20260927/**/*.ps1
 !/SourceAssets/WeaponTooltipTerms20260927/**/*.md
+
+# Forge publication: scripts/prose only; licensed poses, geometry, assets and receipts stay local.
+/Content/ColdSteelData/forge-grip.json
+/SourceAssets/CastingStation20260926/**
+!/SourceAssets/CastingStation20260926/**/
+!/SourceAssets/CastingStation20260926/**/*.py
+!/SourceAssets/CastingStation20260926/**/*.md
+!/SourceAssets/CastingStation20260926/**/*.hlsl
+/SourceAssets/CastingStationRealism20260927/**
+!/SourceAssets/CastingStationRealism20260927/**/
+!/SourceAssets/CastingStationRealism20260927/**/*.py
+!/SourceAssets/CastingStationRealism20260927/**/*.md
+!/SourceAssets/CastingStationRealism20260927/**/*.hlsl
+/SourceAssets/ForgeInteraction20260927/**
+!/SourceAssets/ForgeInteraction20260927/**/
+!/SourceAssets/ForgeInteraction20260927/**/*.py
+!/SourceAssets/ForgeInteraction20260927/**/*.md
+!/SourceAssets/ForgeInteraction20260927/**/*.hlsl
+/SourceAssets/FurnaceCasting20260926/**
+!/SourceAssets/FurnaceCasting20260926/**/
+!/SourceAssets/FurnaceCasting20260926/**/*.py
+!/SourceAssets/FurnaceCasting20260926/**/*.md
+!/SourceAssets/FurnaceCasting20260926/**/*.hlsl

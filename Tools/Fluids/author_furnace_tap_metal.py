@@ -596,4 +596,6 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # Superseded continuous-surface production entry; do not rebuild the failed sprites.
+    from author_furnace_casting import main as repaired_main
+    repaired_main()

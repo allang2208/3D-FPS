@@ -53,3 +53,7 @@ description: 为 FPSGAME 制作和优化 UE5 流体特效，包括枪口烟、�
 ## 标准的维护
 
 个人目录 `C:/Users/allan/.codex/skills/ue5-fluid-vfx-workflow/` 与工程 `skills/ue5-fluid-vfx-workflow/` 同步维护。通用规则保留在本文件，项目参数与有日期的案例放在引用文档；新用户规则优先。用户已确认水花方块修复和枪口烟基本效果，不能据此推断 2026-09-24 第二轮五项效果已通过实机验收。
+
+## 高炉、锻造热感与挂件风
+
+处理连续金流、锻打火星、淬火蒸汽或工具架共用风场时，读取 [高炉、锻造热感与挂件风](references/furnace-forge-presentation.md)。
