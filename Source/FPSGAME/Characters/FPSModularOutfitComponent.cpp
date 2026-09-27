@@ -249,7 +249,10 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
         return;
     }
     const FString NativeBase=String(Profile,TEXT("native_bare_skin"));
-    TArray<FString> MeshPaths{NativeBase.IsEmpty()?String(Profile,TEXT("base")):NativeBase};
+    // Open gloves can keep the exposed fingers while omitting skin hidden
+    // beneath the leather. The shared naked-hand mesh remains untouched.
+    const FString GloveSkin=String(Object(Gloves,TEXT("skin_meshes")),*String(Profile,TEXT("rig_profile")));
+    TArray<FString> MeshPaths{!GloveSkin.IsEmpty()?GloveSkin:NativeBase.IsEmpty()?String(Profile,TEXT("base")):NativeBase};
     TArray<FString> MaterialPaths{TEXT("")};
     const auto PartMesh=[&Profile](const TSharedPtr<FJsonObject>& Recipe,const TCHAR* Part)
     {
@@ -258,8 +261,13 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
         const FString Override=String(RigMeshes,*String(Profile,TEXT("rig_profile")));
         return RigMeshes?Override:String(Profile,Part);
     };
-    if(Shirt){MeshPaths.Add(PartMesh(Shirt,TEXT("shirt")));MaterialPaths.Add(String(Shirt,TEXT("material")));}
-    if(Gloves){MeshPaths.Add(PartMesh(Gloves,TEXT("gloves")));MaterialPaths.Add(String(Gloves,TEXT("material")));}
+    if(Shirt)
+    {
+        MeshPaths.Add(PartMesh(Shirt,TEXT("shirt")));
+        MaterialPaths.Add(String(Shirt,TEXT("material")));
+    }
+    bool bGloveInBase=false;if(Gloves)Gloves->TryGetBoolField(TEXT("glove_in_base"),bGloveInBase);
+    if(Gloves&&!bGloveInBase){MeshPaths.Add(PartMesh(Gloves,TEXT("gloves")));MaterialPaths.Add(String(Gloves,TEXT("material")));}
     TArray<FSoftObjectPath> Paths;
     bool bLoaded=true;
     for(const FString& Path:MeshPaths)
@@ -309,7 +317,9 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
     auto* Base=NewParts[0].Get();const auto* BaseData=Base->GetSkeletalMeshAsset()->GetResourceForRendering();
     TArray<int32> Covered;
     if(Shirt)Covered.Append(Numbers(Profile,TEXT("shirt_covers")));
-    if(Gloves)Covered.Append(Numbers(Profile,TEXT("glove_covers")));
+    // Open-finger gloves keep the exposed skin sections in the assembled base.
+    // Missing per-item coverage preserves the existing full-glove recipe.
+    if(Gloves)Covered.Append(Gloves->HasField(TEXT("covers"))?Numbers(Gloves,TEXT("covers")):Numbers(Profile,TEXT("glove_covers")));
     if(BaseData)for(int32 L=0;L<BaseData->LODRenderData.Num();++L)for(const int32 M:Covered)Section(Base,M,L,false);
     if(Existing)ReleasePresentation(*Existing);
     else Existing=&Presentations.AddDefaulted_GetRef();
@@ -337,6 +347,12 @@ bool UFPSModularOutfitComponent::ConfigureDistanceLODs(USkeletalMesh* Mesh)
     const FSkeletalMeshLODInfo* Base=Mesh->GetLODInfo(0);
     if(!Base||Base->bHasBeenSimplified)return false;
     const FSkeletalMeshBuildSettings Build=Base->BuildSettings;
+    // Keep enough geometry around the shared bare-finger/leather boundary.
+    // Aggressive 20% reduction folds the narrow opening lip into the skin.
+    const bool bFingerlessAssembly=Mesh->GetMaterials().ContainsByPredicate([](const FSkeletalMaterial& Material)
+    {
+        return Material.MaterialSlotName==TEXT("FingerlessGloveLeather");
+    });
     Mesh->Modify();
     while(Mesh->GetLODNum()<3)Mesh->AddLODInfo();
     for(int32 L=1;L<3;++L)
@@ -344,7 +360,7 @@ bool UFPSModularOutfitComponent::ConfigureDistanceLODs(USkeletalMesh* Mesh)
         auto& Info=*Mesh->GetLODInfo(L);Info.BuildSettings=Build;
         Info.ScreenSize.Default=L==1?.18f:.075f;Info.LODHysteresis=.015f;
         auto& R=Info.ReductionSettings;R.BaseLOD=0;R.TerminationCriterion=SMTC_NumOfTriangles;
-        R.NumOfTrianglesPercentage=L==1?.5f:.2f;R.MaxBonesPerVertex=8;
+        R.NumOfTrianglesPercentage=L==1?.5f:(bFingerlessAssembly?.35f:.2f);R.MaxBonesPerVertex=8;
         R.bRecalcNormals=false;R.bEnforceBoneBoundaries=true;R.bLockEdges=true;R.bLockColorBounaries=true;
         Info.bHasBeenSimplified=true;
     }

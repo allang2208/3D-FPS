@@ -3256,7 +3256,7 @@
   },
   "ue_field_gloves": {
     "id": "ue_field_gloves",
-    "name": "棕色猎装手套",
+    "name": "棕色露指皮革手套",
     "category": "equipment",
     "type": "手套",
     "equipSlot": "gloves",
@@ -3266,11 +3266,11 @@
     "price": 20,
     "grid_w": 2,
     "grid_h": 2,
-    "desc": "棕色猎装短手套，手背加厚并做出指节衬垫，腕口加宽卷边并带束带；掌心仍贴合，便于持械发力和装填，可与长袖上衣分开穿戴。",
-    "ue_icon": "Icons/ModularOutfit20260924/ue_field_gloves.png",
+    "desc": "皮革完整覆盖掌心、手背与虎口，边缘延伸到手掌与手指交界，五指露出。保留短腕口、薄卷边与缝线，可与衣袖独立搭配。",
+    "ue_icon": "Icons/ModularOutfit20260924/ue_field_gloves_fingerless.png",
     "icon_fallback": "手",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/Pickups/SM_HuntFieldGloves_Pickup.SM_HuntFieldGloves_Pickup",
-    "world_material": "/Game/Characters/ModularOutfit20260924/Materials/M_FieldGloves_Brown.M_FieldGloves_Brown"
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/Pickups/SM_TailoredFingerless_Pickup.SM_TailoredFingerless_Pickup",
+    "world_material": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/Materials/Shared/M_TailoredFingerless.M_TailoredFingerless"
   },
   "ue_field_gloves_black": {
     "id": "ue_field_gloves_black",

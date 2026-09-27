@@ -18,6 +18,8 @@ description: 为 FPSGAME 制作非枪械物品：写实图标、按形态分流�
 
 ## 非枪械物品完整流程
 
+手套背包图标使用 [手套专用图标规则](references/glove-inventory-icons.md)：单只空手套、当前原生手型、正交坐标架、自然分指；露指款斜看真实开口，不出现皮肤，不叠放第二只。此规则替代旧手套双只平铺案例。
+
 分品阶药水瓶、同瓶改色、拾取映射和恢复数值／旧档同步，读取 [分品阶药水瓶与恢复数值](references/potion-tiers-and-recovery.md)。
 
 地面原木空心、树皮碎裂、树桩断面贴图或封面制作，读取 [实心原木与断面](references/solid-timber-and-cut-surfaces.md)。树木倾倒逻辑转 `ue5-world-interaction`，不重复生成已认可的母版。

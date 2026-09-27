@@ -301,7 +301,7 @@ bool UColdSteelStatusModel::ReloadProfile()
             // （实测：旧文案在 ColdSteelPlayer_A.sav 里各命中 1-2 处，新文案 0 处）。
             // 只同步纯展示文本，不碰数值、改造件或附魔数据。
             // 实例里没有该字段时也要补上：否则战斗目录的补全逻辑会继续留着旧值。
-            FString CatalogDesc;
+            FString CatalogDesc,CatalogName;
             if(CatalogData->TryGetStringField(TEXT("desc"),CatalogDesc)&&!CatalogDesc.IsEmpty())
             {
                 FString StoredDesc;
@@ -311,6 +311,40 @@ bool UColdSteelStatusModel::ReloadProfile()
                 {
                     if(!ItemData)ItemData=MakeShared<FJsonObject>();
                     ItemData->SetStringField(TEXT("desc"),CatalogDesc);
+                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+                }
+            }
+            if(CatalogData->TryGetStringField(TEXT("name"),CatalogName)&&!CatalogName.IsEmpty())
+            {
+                FString StoredName;
+                const bool bHasStored=FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)
+                    &&ItemData&&ItemData->TryGetStringField(TEXT("name"),StoredName);
+                if(!bHasStored||StoredName!=CatalogName)
+                {
+                    if(!ItemData)ItemData=MakeShared<FJsonObject>();
+                    ItemData->SetStringField(TEXT("name"),CatalogName);
+                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+                }
+            }
+            // Existing brown gloves retain their original catalog snapshot.
+            // Refresh appearance when loading, including gloves left on the
+            // ground, while keeping instance stats and equipment state intact.
+            if(I.Definition==TEXT("ue_field_gloves")&&CatalogData&&
+                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
+            {
+                bool AppearanceUpdated=false;
+                for(const TCHAR* Key:{TEXT("ue_icon"),TEXT("world_mesh"),TEXT("world_material")})
+                {
+                    FString CurrentValue,CatalogValue;
+                    ItemData->TryGetStringField(Key,CurrentValue);
+                    if(CatalogData->TryGetStringField(Key,CatalogValue)&&!CatalogValue.IsEmpty()&&CurrentValue!=CatalogValue)
+                    {
+                        ItemData->SetStringField(Key,CatalogValue);
+                        AppearanceUpdated=true;
+                    }
+                }
+                if(AppearanceUpdated)
+                {
                     I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
                 }
             }

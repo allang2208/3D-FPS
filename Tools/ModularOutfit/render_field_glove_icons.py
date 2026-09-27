@@ -1,37 +1,77 @@
-"""Re-render the two field-glove catalog icons with the licensed leather scan."""
+"""Render current glove pickup meshes to the vertical, transparent backpack icon rules.
+
+Only catalog PNGs and separate icon-authoring scenes are written. Pickup FBX,
+UE meshes, first-person materials and animation assets are not re-exported.
+"""
 import bpy
+import ast
+import json
 import math
 import os
+import sys
+import shutil
+import numpy as np
 from pathlib import Path
 from mathutils import Vector
 
 ROOT = Path("D:/FPS3D/FPSGAME")
-BLEND = ROOT / "SourceAssets/ModularOutfit20260924/ItemPresentation.blend"
 ICON = ROOT / "Content/ColdSteelData/Icons/ModularOutfit20260924"
 SRC = ROOT / "SourceAssets/HandEquipmentAppearance/Source"
+AUTHOR = ROOT / "SourceAssets/ModularOutfit20260927/GloveIconDisplayV2"
+AUTHOR.mkdir(parents=True, exist_ok=True)
+sys.path.insert(0,str(ROOT/'Tools/ModularOutfit'))
+import glove_icon_display
 FILL = 0.91
 PX_PER_ROW = 320
 SUPERSAMPLE = 2
+# Use the same black tint source as the UE material author, without executing
+# its Unreal import/save operations inside Blender.
+tree = ast.parse((ROOT / 'Tools/ModularOutfit/build_field_glove_leather.py').read_text())
+variants = next(ast.literal_eval(n.value) for n in tree.body
+                if isinstance(n, ast.Assign) and any(isinstance(t, ast.Name) and t.id == 'variants' for t in n.targets))
+black = variants['M_FieldGloves_Black']
 ITEMS = [
-    ("ue_field_gloves", "SM_FieldGloves_Pickup", (1.0, 1.0, 1.0), 0.0),
-    ("ue_field_gloves_black", "SM_FieldGloves_Pickup", (0.016, 0.018, 0.022), 1.0),
+    ("ue_field_gloves", ROOT / 'SourceAssets/ModularOutfit20260926/FingerlessHuntV2/Editable/FingerlessHunt_Pickup.blend',
+     "SM_FingerlessHunt_Pickup", None, None),
+    ("ue_field_gloves_black", ROOT / 'SourceAssets/ModularOutfit20260924/ItemPresentation.blend',
+     "SM_FieldGloves_Pickup", black['ColorTint'], black['TintAmount']),
 ]
+if globals().get('ONLY_ITEMS'):
+    ITEMS = [row for row in ITEMS if row[0] in ONLY_ITEMS]
+# The selected tailored family owns its author mesh and baked PBR. Do not
+# restore the earlier smooth shell when a later icon batch includes brown.
+outfits = json.loads((ROOT / 'Content/ColdSteelData/modular_outfits.json').read_text(encoding='utf-8-sig'))
+if (outfits['items']['ue_field_gloves'].get('appearance_family') == 'TailoredFingerlessV1'
+        and any(row[0] == 'ue_field_gloves' for row in ITEMS)):
+    import build_tailored_fingerless_candidate as tailored
+    tailored.R = ROOT / 'SourceAssets/ModularOutfit20260927/TailoredFingerlessV1'
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    maps = {name: tailored.image(tailored.R / 'Textures' / ('T_TailoredFingerless_'+name+'.png'),
+                                'sRGB' if name == 'BaseColor' else 'Non-Color')
+            for name in ('BaseColor', 'Roughness', 'Normal')}
+    data = json.loads((tailored.R / 'Authored/M4_baked_fullshell.json').read_text())
+    tailored.icon(data, tailored.baked_material(maps))
+    shutil.copy2(tailored.R / 'TailoredFingerless_Icon.png', ICON / 'ue_field_gloves_fingerless.png')
+    ITEMS = [row for row in ITEMS if row[0] != 'ue_field_gloves']
+catalog = json.loads((ROOT / 'Content/ColdSteelData/items.json').read_text(encoding='utf-8-sig'))
 BC = SRC / "Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_BaseColor.jpg"
 RG = SRC / "Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_Roughness.jpg"
 NM = SRC / "Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_Normal.jpg"
 AO = SRC / "Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_AO.jpg"
 CAV = SRC / "Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_Cavity.jpg"
 
-assert BLEND.exists(), BLEND
 assert all(p.is_file() for p in (BC, RG, NM, AO, CAV))
-bpy.ops.wm.open_mainfile(filepath=str(BLEND))
+bpy.ops.wm.read_factory_settings(use_empty=True)
 ICON.mkdir(parents=True, exist_ok=True)
 scene = bpy.context.scene
 subjects = {}
-for _, name, _, _ in ITEMS:
-    obj = bpy.data.objects.get(name)
+for definition, blend, name, _, _ in ITEMS:
+    with bpy.data.libraries.load(str(blend), link=False) as (available, selected):
+        selected.objects = [name]
+    obj = selected.objects[0]
     assert obj and obj.type == "MESH", name
-    subjects[name] = obj
+    scene.collection.objects.link(obj)
+    subjects[definition] = obj
 
 for o in list(bpy.data.objects):
     if o.type == "CAMERA":
@@ -169,35 +209,51 @@ def silhouette(obj):
 def measure(path):
     img = bpy.data.images.load(path, check_existing=False)
     img.colorspace_settings.name = "Non-Color"
-    px = list(img.pixels)
-    ch = img.channels
-    acc = [0.0, 0.0, 0.0]
-    n = 0
-    for i in range(0, len(px), ch * 7):
-        if px[i + 3] > 0.15:
-            acc[0] += px[i]
-            acc[1] += px[i + 1]
-            acc[2] += px[i + 2]
-            n += 1
+    width, height = img.size[:]
+    pixels = np.empty(len(img.pixels), dtype=np.float32)
+    img.pixels.foreach_get(pixels)
+    pixels = pixels.reshape(height, width, img.channels)
     bpy.data.images.remove(img)
-    if not n:
-        return None
+    opaque = pixels[:, :, 3] > .95
+    encoded = pixels[:, :, :3][opaque]
+    linear = np.where(encoded <= .04045, encoded / 12.92, ((encoded + .055) / 1.055) ** 2.4)
+    yy, xx = np.where(pixels[:, :, 3] > .05)
+    return dict(mean_linear=linear.mean(0).tolist(), mean_srgb=encoded.mean(0).tolist(),
+                opaque_pixels=int(opaque.sum()), size=[width, height],
+                silhouette_fill=max((xx.max()-xx.min()+1)/width, (yy.max()-yy.min()+1)/height),
+                silhouette_center=[float((xx.min()+xx.max()+1)/2/width), float((yy.min()+yy.max()+1)/2/height)])
 
-    def to_linear(e):
-        return e / 12.92 if e <= 0.04045 else ((e + 0.055) / 1.055) ** 2.4
 
-    return [to_linear(acc[k] / n) for k in range(3)], n
+def scan_color():
+    """The brown UE material uses the scan itself, not the retired solid tint."""
+    img = bpy.data.images.load(str(BC), check_existing=False)
+    img.colorspace_settings.name = 'Non-Color'
+    width, height = img.size[:]
+    pixels = np.empty(len(img.pixels), dtype=np.float32)
+    img.pixels.foreach_get(pixels)
+    encoded = pixels.reshape(height, width, img.channels)[::32, ::32, :3]
+    mean = np.where(encoded <= .04045, encoded / 12.92, ((encoded + .055) / 1.055) ** 2.4).mean((0, 1))
+    bpy.data.images.remove(img)
+    return mean.tolist()
 
 
 report = []
-for definition, obj_name, tint, amount in ITEMS:
-    obj = subjects[obj_name]
-    canvas_w = canvas_h = PX_PER_ROW
-    aspect = 1.0
+for definition, blend, obj_name, tint, amount in ITEMS:
+    source_obj = subjects[definition]
+    material = glove_icon_display.black_seams(surface(tint,amount)) if tint is not None else glove_icon_display.brown_seams(source_obj.data.materials[0].copy())
+    obj = glove_icon_display.build(definition,material)
+    bpy.data.objects.remove(source_obj,do_unlink=True)
+    subjects[definition] = obj
+    item = catalog[definition]
+    canvas_w = max(256, round(PX_PER_ROW * item['grid_w'] / max(1, item['grid_h'])))
+    canvas_h = PX_PER_ROW
+    aspect = canvas_w / canvas_h
     for other in subjects.values():
         other.hide_render = other is not obj
-    obj.data.materials.clear()
-    obj.data.materials.append(surface(tint, amount))
+        other.hide_set(other is not obj)
+    # The fingerless source already contains the production scan/metric UV
+    # material. Preserve that material rather than coloring the full glove.
+    target_color = list(tint) if tint is not None else scan_color()
     x0, x1, y0, y1 = silhouette(obj)
     span_x, span_y = x1 - x0, y1 - y0
     ortho = max(span_x, span_y * aspect) / FILL
@@ -207,18 +263,15 @@ for definition, obj_name, tint, amount in ITEMS:
     scene.render.resolution_x = canvas_w * SUPERSAMPLE
     scene.render.resolution_y = canvas_h * SUPERSAMPLE
     scene.render.resolution_percentage = 100 // SUPERSAMPLE
-    target = 0.069 if amount < 0.5 else 0.022
+    target = sum(target_color) / 3.0
     scene.view_settings.exposure = 0.0
     actual, n = 0.0, 0
-    out_path = ICON / (definition + ".png")
+    out_path = ROOT / 'Content/ColdSteelData' / item['ue_icon']
     for attempt in range(3):
         scene.render.filepath = str(out_path)
         bpy.ops.render.render(write_still=True)
         got = measure(str(out_path))
-        if not got:
-            report.append(definition + ": empty")
-            break
-        mean, n = got
+        mean, n = got['mean_linear'], got['opaque_pixels']
         actual = sum(mean) / 3.0
         if attempt < 2 and actual > 1e-5:
             delta = math.log2(max(target / actual, 1e-3))
@@ -227,11 +280,16 @@ for definition, obj_name, tint, amount in ITEMS:
             scene.view_settings.exposure += delta
             continue
         break
-    report.append(
-        f"{definition}: canvas={canvas_w}x{canvas_h} ortho={ortho:.4f} "
-        f"target={target:.4f} rendered={actual:.4f} exposure={scene.view_settings.exposure:+.2f}EV px={n}"
-    )
+    scene_path = AUTHOR / (definition + '_Icon.blend')
+    bpy.ops.wm.save_as_mainfile(filepath=str(scene_path))
+    row = dict(item=definition, material_source_blend=str(blend), source_mesh=obj['SourceMesh'],
+               display_contract=obj['Contract'], pose=json.loads(obj['IconPose']),
+               world_mesh=item['world_mesh'], world_material=item['world_material'],
+               icon=str(out_path), scene=str(scene_path), target_color_linear=target_color,
+               exposure=scene.view_settings.exposure, ortho=ortho, **got)
+    report.append(row)
+    (AUTHOR / (definition + '-icon.json')).write_text(json.dumps(row, indent=2)+'\n')
 
 print("FIELD_GLOVE_ICONS_DONE")
 for line in report:
-    print("  " + line)
+    print(json.dumps(line), flush=True)

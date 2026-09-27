@@ -3226,12 +3226,12 @@
   },
   "ue_field_gloves": {
     "defense": {
-      "base": 4,
-      "perEnhance": 1
+      "base": 2,
+      "perEnhance": 0.5
     },
     "bonusStats": {
-      "meleeAttackSpeed": 0.05,
-      "reloadSpeed": 0.05
+      "meleeAttackSpeed": 0.1,
+      "reloadSpeed": 0.1
     }
   },
   "ue_field_gloves_black": {

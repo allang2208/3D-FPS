@@ -14,6 +14,14 @@
 /SourceAssets/ModularOutfit20260925/**
 !/SourceAssets/ModularOutfit20260925/**/
 !/SourceAssets/ModularOutfit20260925/**/*.md
+# Fingerless glove recipes live in Tools; fitted surfaces, scan bakes,
+# animation samples and import receipts are local recovery dependencies.
+/SourceAssets/ModularOutfit20260926/**
+!/SourceAssets/ModularOutfit20260926/**/
+!/SourceAssets/ModularOutfit20260926/**/*.md
+/SourceAssets/ModularOutfit20260927/**
+!/SourceAssets/ModularOutfit20260927/**/
+!/SourceAssets/ModularOutfit20260927/**/*.md
 # Witch pause/publication: recipes and prose only; Meshy/Epic payloads and sampled poses remain local.
 /SourceAssets/WitchMeshy20260919/**
 !/SourceAssets/WitchMeshy20260919/**/
