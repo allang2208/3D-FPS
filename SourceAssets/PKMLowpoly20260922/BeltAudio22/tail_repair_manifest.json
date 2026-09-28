@@ -4,25 +4,29 @@
   "source": "BV1jHeA6sEmj user-selected reference video; derivatives local only, redistribution rights not established.",
   "regenerate": "BeltAudio22/apply_tail_repair.py -- then import_audio.py (or the round's _import_*_ue.py) to install the results.",
   "active_recipe": {
-    "script": "ReloadTailRepair20260928/_author_debgm3.py",
-    "findings": "ReloadTailRepair20260928/TAIL_REPAIR_FINDINGS.md",
-    "what": "Whole-cue look-ahead downward expander. Attenuates every frame where the contact does not mask the bed, at any position in the cue; keeps owned frames at exactly unity gain so impacts stay bit-identical.",
-    "why_v3": "v1 and v2 both only ever rewrote the trailing region. Spectrograms of the installed assets showed the bed is a continuous bright band below ~500 Hz running the WHOLE length of every cue, so the head and every gap still carried it. That is what the user kept hearing.",
-    "why_not_donor": "A donor rebuild is capped by the donor margin (12.5 dB measured, 20 dB at best over ~100 ms). The gate has no such ceiling and needs no donor.",
-    "superseded": {
-      "20260925": {
-        "script": "_author_rebuild.py",
-        "note": "colour-matched the replacement to the bed spectrum and matched it to the bed level"
-      },
-      "20260928_v1": {
-        "script": "ReloadTailRepair20260928/_author_debgm.py"
-      },
-      "20260928_v2": {
-        "script": "ReloadTailRepair20260928/_author_debgm2.py",
-        "note": "fixed the bed-coloured tail, but still touched only the trailing region"
-      }
+    "status": "RESTORED 2026-09-28 -- v1/v2/v3 reverted at the user request",
+    "installed": {
+      "S_PKM_CoverOpen": "BeltAudio22/rebuild/S_PKM_CoverOpen_rebuilt_delivered.wav (09-25 recipe)",
+      "S_PKM_CoverClose": "BeltAudio22/rebuild/S_PKM_CoverClose_rebuilt_delivered.wav (09-25 recipe)",
+      "S_PKM_BeltLift|BoxOut|BoxInsert|BeltSeat": "BeltAudio22/S_PKM_*.wav (raw cut)",
+      "S_PKM_ChargePullMove|ChargeRearStop|ChargeFrontStop": "ChargeAudio35/S_PKM_*.wav (raw cut)",
+      "S_PKM_ChargePushMove": "untouched (already the raw cut)"
     },
-    "measured_suppression_note": "bed_suppression_db is the 250-1000 Hz band, measured only over frames the classifier calls music-exposed (where the bed actually is). mean_gain_db is the gain actually applied over those frames."
+    "script": "ReloadTailRepair20260928/_import_restore_20260928.py",
+    "receipt": "ReloadTailRepair20260928/out_restore/import_receipt.json",
+    "rollback_point": "ReloadTailRepair20260928/BeforeRestore20260928/ (the v3 state, 12 uassets)",
+    "record": "ReloadTailRepair20260928/RESTORE_20260928.md",
+    "caveat": "NOT a clean state: the 09-25 recipe used the bed itself as its timbre reference (9.05-10.0 s), and the other six contacts are unprocessed raw cuts that still carry the BGM.",
+    "superseded": [
+      "ReloadTailRepair20260928/_author_debgm3.py",
+      "ReloadTailRepair20260928/_author_debgm2.py",
+      "ReloadTailRepair20260928/_author_debgm.py",
+      "_author_rebuild.py (its covers are restored, its method is superseded)"
+    ],
+    "not_a_repair_candidate": [
+      "S_PKM_ChargePull",
+      "S_PKM_ChargeRelease"
+    ]
   },
   "repairs": [
     {
