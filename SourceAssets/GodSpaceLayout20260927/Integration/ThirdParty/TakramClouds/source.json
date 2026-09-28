@@ -1,0 +1,8 @@
+{
+  "repository": "https://github.com/takram-design-engineering/three-geospatial",
+  "commit": "ce69b0997845b125f3b0b59134b493d9813ae4a6",
+  "source": "packages/clouds/src/shaders/clouds.glsl",
+  "license": "packages/clouds/LICENSE",
+  "retrieved": "2026-09-28",
+  "use": "Height shaping and bounded density erosion adapted to one UE native cloud layer; no renderer or textures imported"
+}

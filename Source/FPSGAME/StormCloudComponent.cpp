@@ -88,6 +88,7 @@ void UStormCloudComponent::Discover()
     if(Cloud.IsValid()&&!CloudMaterial)
     {
         auto* C=Cloud.Get();OriginalMaterial=C->GetMaterial();
+        bCloudSea=C->GetOwner()->ActorHasTag(TEXT("GodSpace.CloudSea"));
         if(!OriginalMaterial)return;
         bOriginalVisible=C->IsVisible();OriginalBottom=C->LayerBottomAltitude;OriginalHeight=C->LayerHeight;OriginalOcclusion=C->SkyLightCloudBottomOcclusion;
         // Existing DayNight_Lighting actors already have an engine cloud layer.
@@ -200,12 +201,12 @@ void UStormCloudComponent::UpdateCloudLayer()
     // The HDR supplies distant color, not guaranteed cloud coverage. Keep the
     // original clear-weather cloud field visible beneath every sky phase.
     C->SetMaterial(CloudMaterial);C->SetVisibility(true);
-    C->SetLayerBottomAltitude(FMath::Lerp(OriginalBottom,1.55f,Blend));
-    C->SetLayerHeight(FMath::Lerp(OriginalHeight,FPSStormCloudLook::LayerHeightKm,Blend));
+    C->SetLayerBottomAltitude(bCloudSea?OriginalBottom:FMath::Lerp(OriginalBottom,1.55f,Blend));
+    C->SetLayerHeight(bCloudSea?OriginalHeight:FMath::Lerp(OriginalHeight,FPSStormCloudLook::LayerHeightKm,Blend));
     C->SetSkyLightCloudBottomOcclusion(FMath::Lerp(OriginalOcclusion,FPSStormCloudLook::BottomOcclusion,Blend));
     const float HillsCoverage=Blend<=.3f?FMath::Lerp(ClearCloudCoverage,CloudyCloudCoverage,Blend/.3f):
         FMath::Lerp(CloudyCloudCoverage,FPSStormCloudLook::Coverage,(Blend-.3f)/.7f);
-    CloudMaterial->SetScalarParameterValue(TEXT("Cloud_GlobalCoverage"),bHillsClouds?HillsCoverage:FMath::Lerp(bOriginalVisible?Coverage:-.35f,FPSStormCloudLook::Coverage,Blend));
+    CloudMaterial->SetScalarParameterValue(TEXT("Cloud_GlobalCoverage"),(bHillsClouds||bCloudSea)?HillsCoverage:FMath::Lerp(bOriginalVisible?Coverage:-.35f,FPSStormCloudLook::Coverage,Blend));
     // This is an extinction multiplier, not the cloud coverage/density bias.
     // The former zero write erased the entire clear-weather density field.
     const float BaseDensity=FMath::Max(.0001f,bHillsClouds||!bOriginalVisible||Density<=0?CloudDensity:Density);

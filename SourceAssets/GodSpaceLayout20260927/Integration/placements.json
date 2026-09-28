@@ -1,0 +1,6391 @@
+{
+  "world_offset_cm": [
+    -2400,
+    -1300,
+    0
+  ],
+  "placements": [
+    {
+      "label": "Paving_0_1",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        -27.0,
+        -32.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_0_2",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        -27.0,
+        -24.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_0_3",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        -27.0,
+        -16.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_0_4",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        -27.0,
+        -8.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_0_5",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        -27.0,
+        0.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_0_6",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        -27.0,
+        8.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_0_7",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        -27.0,
+        16.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_0_8",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        -27.0,
+        24.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_0_9",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        -27.0,
+        32.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_1_0",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        -9.0,
+        -40.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_1_1",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        -9.0,
+        -32.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_1_2",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        -9.0,
+        -24.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_1_3",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        -9.0,
+        -16.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_1_4",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        -9.0,
+        -8.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_1_5",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        -9.0,
+        0.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_1_6",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        -9.0,
+        8.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_1_7",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        -9.0,
+        16.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_1_8",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        -9.0,
+        24.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_1_9",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        -9.0,
+        32.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_1_10",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        -9.0,
+        40.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_2_0",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        9.0,
+        -40.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_2_1",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        9.0,
+        -32.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_2_2",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        9.0,
+        -24.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_2_3",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        9.0,
+        -16.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_2_4",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        9.0,
+        -8.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_2_5",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        9.0,
+        0.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_2_6",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        9.0,
+        8.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_2_7",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        9.0,
+        16.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_2_8",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        9.0,
+        24.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_2_9",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        9.0,
+        32.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_2_10",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        9.0,
+        40.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_3_1",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        27.0,
+        -32.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_3_2",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        27.0,
+        -24.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_3_3",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        27.0,
+        -16.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_3_4",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        27.0,
+        -8.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_3_5",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        27.0,
+        0.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_3_6",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        27.0,
+        8.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_3_7",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        27.0,
+        16.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_3_8",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        27.0,
+        24.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Paving_3_9",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "location_m": [
+        27.0,
+        32.0,
+        0.15000000596046448
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "label": "Existing V9 fountain",
+      "mesh": "/Game/Props/RomanFountain20260917/PolishV9/SM_FountainPolishedV9.SM_FountainPolishedV9",
+      "location_m": [
+        0.0,
+        -6.0,
+        0.3799999952316284
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing expedition altar",
+      "mesh": "/Game/Props/SquareAltar20260922/SM_SquareAltar.SM_SquareAltar",
+      "location_m": [
+        0.0,
+        24.5,
+        1.1299999952316284
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing pavilion base",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanPavilionBase_20.SM_RomanPavilionBase_20",
+      "location_m": [
+        -24.0,
+        13.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing pavilion arch",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanPavilionArch_20.SM_RomanPavilionArch_20",
+      "location_m": [
+        -24.0,
+        13.0,
+        3.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing celestial dome",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanPavilionDome_20.SM_RomanPavilionDome_20",
+      "location_m": [
+        -24.0,
+        13.0,
+        3.799999952316284
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Pavilion column",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20",
+      "location_m": [
+        -20.399999618530273,
+        13.0,
+        0.4000000059604645
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Pavilion column.001",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20",
+      "location_m": [
+        -21.087539672851562,
+        15.116026878356934,
+        0.4000000059604645
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Pavilion column.002",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20",
+      "location_m": [
+        -22.88753890991211,
+        16.423803329467773,
+        0.4000000059604645
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Pavilion column.003",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20",
+      "location_m": [
+        -25.11246109008789,
+        16.423803329467773,
+        0.4000000059604645
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Pavilion column.004",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20",
+      "location_m": [
+        -26.912460327148438,
+        15.116026878356934,
+        0.4000000059604645
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Pavilion column.005",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20",
+      "location_m": [
+        -27.600000381469727,
+        13.0,
+        0.4000000059604645
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Pavilion column.006",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20",
+      "location_m": [
+        -26.912460327148438,
+        10.883973121643066,
+        0.4000000059604645
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Pavilion column.007",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20",
+      "location_m": [
+        -25.11246109008789,
+        9.576196670532227,
+        0.4000000059604645
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Pavilion column.008",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20",
+      "location_m": [
+        -22.88753890991211,
+        9.576196670532227,
+        0.4000000059604645
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Pavilion column.009",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20",
+      "location_m": [
+        -21.087539672851562,
+        10.883973121643066,
+        0.4000000059604645
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade column",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        -35.0,
+        -32.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade column.001",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        -35.0,
+        -28.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade column.002",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        -35.0,
+        -24.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade column.003",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        -35.0,
+        -20.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade column.004",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        -35.0,
+        -16.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade column.005",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        -35.0,
+        -12.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade beam",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_Colonnade_Entablature.SM_Colonnade_Entablature",
+      "location_m": [
+        -35.0,
+        -22.0,
+        2.6500000953674316
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        1.2254902124404907,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade column.006",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        -35.0,
+        22.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade column.007",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        -35.0,
+        26.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade column.008",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        -35.0,
+        30.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade column.009",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        -35.0,
+        34.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade column.010",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        -35.0,
+        38.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade beam.001",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_Colonnade_Entablature.SM_Colonnade_Entablature",
+      "location_m": [
+        -35.0,
+        30.0,
+        2.6500000953674316
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9803921580314636,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade column.011",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        35.0,
+        -32.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade column.012",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        35.0,
+        -28.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade column.013",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        35.0,
+        -24.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade column.014",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        35.0,
+        -20.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade column.015",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        35.0,
+        -16.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade column.016",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        35.0,
+        -12.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade beam.002",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_Colonnade_Entablature.SM_Colonnade_Entablature",
+      "location_m": [
+        35.0,
+        -22.0,
+        2.6500000953674316
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        1.2254902124404907,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade column.017",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        35.0,
+        22.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade column.018",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        35.0,
+        26.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade column.019",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        35.0,
+        30.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade column.020",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        35.0,
+        34.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade column.021",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        35.0,
+        38.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Existing colonnade beam.003",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_Colonnade_Entablature.SM_Colonnade_Entablature",
+      "location_m": [
+        35.0,
+        30.0,
+        2.6500000953674316
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9803921580314636,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Rear colonnade",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        -28.0,
+        39.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Rear colonnade.001",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        -24.0,
+        39.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Rear colonnade.002",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        -20.0,
+        39.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Rear colonnade.003",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        -16.0,
+        39.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Rear colonnade.004",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        -12.0,
+        39.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Rear entablature",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_Colonnade_Entablature.SM_Colonnade_Entablature",
+      "location_m": [
+        -20.0,
+        39.0,
+        2.6500000953674316
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Rear colonnade.005",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        12.0,
+        39.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Rear colonnade.006",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        16.0,
+        39.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Rear colonnade.007",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        20.0,
+        39.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Rear colonnade.008",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        24.0,
+        39.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Rear colonnade.009",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "location_m": [
+        28.0,
+        39.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Rear entablature.001",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_Colonnade_Entablature.SM_Colonnade_Entablature",
+      "location_m": [
+        20.0,
+        39.0,
+        2.6500000953674316
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -29.399999618530273,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -28.420000076293945,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.001",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -27.440000534057617,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.001",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -26.459999084472656,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.002",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -25.479999542236328,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.002",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -24.5,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.003",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -23.520000457763672,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.003",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -22.540000915527344,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.004",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -21.559999465942383,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.004",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -20.579999923706055,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.005",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -19.600000381469727,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.005",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -18.6200008392334,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.006",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -17.639999389648438,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.006",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -16.65999984741211,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.007",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -15.680000305175781,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.007",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -14.699999809265137,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.008",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -13.720000267028809,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.008",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -12.739999771118164,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.009",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -11.760000228881836,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.009",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -10.779999732971191,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.010",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -9.800000190734863,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.010",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -8.819999694824219,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.011",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -7.840000152587891,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.011",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -6.860000133514404,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.012",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -5.880000114440918,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.012",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -4.900000095367432,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.013",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -3.9200000762939453,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.013",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -2.940000057220459,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.014",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -1.9600000381469727,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.014",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -0.9800000190734863,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.015",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        0.0,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.015",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        0.9800000190734863,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.016",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        1.9600000381469727,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.016",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        2.940000057220459,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.017",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        3.9200000762939453,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.017",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        4.900000095367432,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.018",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        5.880000114440918,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.018",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        6.860000133514404,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.019",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        7.840000152587891,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.019",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        8.819999694824219,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.020",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        9.800000190734863,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.020",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        10.779999732971191,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.021",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        11.760000228881836,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.021",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        12.739999771118164,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.022",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        13.720000267028809,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.022",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        14.699999809265137,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.023",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        15.680000305175781,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.023",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        16.65999984741211,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.024",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        17.639999389648438,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.024",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        18.6200008392334,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.025",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        19.600000381469727,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.025",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        20.579999923706055,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.026",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        21.559999465942383,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.026",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        22.540000915527344,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.027",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        23.520000457763672,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.027",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        24.5,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.028",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        25.479999542236328,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.028",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        26.459999084472656,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.029",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        27.440000534057617,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.029",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        28.420000076293945,
+        -47.0,
+        1.2000000476837158
+      ],
+      "yaw": 0.0,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.030",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        29.399999618530273,
+        -47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.030",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        30.08571434020996,
+        -46.31428527832031,
+        1.2000000476837158
+      ],
+      "yaw": 45.00000125223908,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.031",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        30.77142906188965,
+        -45.628570556640625,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.031",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        31.457143783569336,
+        -44.94285583496094,
+        1.2000000476837158
+      ],
+      "yaw": 45.00000125223908,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.032",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        32.14285659790039,
+        -44.25714111328125,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.032",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        32.82857131958008,
+        -43.57143020629883,
+        1.2000000476837158
+      ],
+      "yaw": 45.00000125223908,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.033",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        33.514286041259766,
+        -42.88571548461914,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.033",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        34.20000076293945,
+        -42.20000076293945,
+        1.2000000476837158
+      ],
+      "yaw": 45.00000125223908,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.034",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        34.88571548461914,
+        -41.514286041259766,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.034",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        35.57143020629883,
+        -40.82857131958008,
+        1.2000000476837158
+      ],
+      "yaw": 45.00000125223908,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.035",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        36.25714111328125,
+        -40.14285659790039,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.035",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        36.94285583496094,
+        -39.4571418762207,
+        1.2000000476837158
+      ],
+      "yaw": 45.00000125223908,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.036",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        37.628570556640625,
+        -38.771427154541016,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.036",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        38.31428527832031,
+        -38.08571243286133,
+        1.2000000476837158
+      ],
+      "yaw": 45.00000125223908,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.037",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        -37.400001525878906,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.037",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        -36.41579055786133,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.038",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        -35.43157958984375,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.038",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        -34.44736862182617,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.039",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        -33.463157653808594,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.039",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        -32.478946685791016,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.040",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        -31.49473762512207,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.040",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        -30.510526657104492,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.041",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        -29.526315689086914,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.041",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        -28.542104721069336,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.042",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        -27.55789566040039,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.042",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        -26.573684692382812,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.043",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        -25.589473724365234,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.043",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        -24.605262756347656,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.044",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        -23.621051788330078,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.044",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        -22.636842727661133,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.045",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        -21.652631759643555,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.045",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        -20.668420791625977,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.046",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        -19.6842098236084,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.046",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        -18.700000762939453,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.047",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        -17.715789794921875,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.047",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        -16.731578826904297,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.048",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        -15.747368812561035,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.048",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        -14.763157844543457,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.049",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        -13.778947830200195,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.049",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        -12.794736862182617,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.050",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        -11.810525894165039,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.050",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        -10.826315879821777,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.051",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        -9.8421049118042,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.051",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        -8.857894897460938,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.052",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        -7.873684406280518,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.052",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        -6.889473915100098,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.053",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        -5.9052629470825195,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.053",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        -4.9210524559021,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.054",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        -3.936842203140259,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.054",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        -2.9526314735412598,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.055",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        -1.9684211015701294,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.055",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        -0.9842105507850647,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.056",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        0.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.056",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        0.9842105507850647,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.057",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        1.9684211015701294,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.057",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        2.9526314735412598,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.058",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        3.936842203140259,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.058",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        4.9210524559021,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.059",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        5.9052629470825195,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.059",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        6.889473915100098,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.060",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        7.873684406280518,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.060",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        8.857894897460938,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.061",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        9.8421049118042,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.061",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        10.826315879821777,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.062",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        11.810525894165039,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.062",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        12.794736862182617,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.063",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        13.778947830200195,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.063",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        14.763157844543457,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.064",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        15.747368812561035,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.064",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        16.731578826904297,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.065",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        17.715789794921875,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.065",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        18.700000762939453,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.066",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        19.6842098236084,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.066",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        20.668420791625977,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.067",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        21.652631759643555,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.067",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        22.636842727661133,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.068",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        23.621051788330078,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.068",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        24.605262756347656,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.069",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        25.589473724365234,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.069",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        26.573684692382812,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.070",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        27.55789566040039,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.070",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        28.542104721069336,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.071",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        29.526315689086914,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.071",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        30.510526657104492,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.072",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        31.49473762512207,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.072",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        32.478946685791016,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.073",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        33.463157653808594,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.073",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        34.44736862182617,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.074",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        35.43157958984375,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.074",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        39.0,
+        36.41579055786133,
+        1.2000000476837158
+      ],
+      "yaw": 90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.075",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        39.0,
+        37.400001525878906,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.075",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        38.31428527832031,
+        38.08571243286133,
+        1.2000000476837158
+      ],
+      "yaw": 135.00000034162267,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.076",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        37.628570556640625,
+        38.771427154541016,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.076",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        36.94285583496094,
+        39.4571418762207,
+        1.2000000476837158
+      ],
+      "yaw": 135.00000034162267,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.077",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        36.25714111328125,
+        40.14285659790039,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.077",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        35.57143020629883,
+        40.82857131958008,
+        1.2000000476837158
+      ],
+      "yaw": 135.00000034162267,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.078",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        34.88571548461914,
+        41.514286041259766,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.078",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        34.20000076293945,
+        42.20000076293945,
+        1.2000000476837158
+      ],
+      "yaw": 135.00000034162267,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.079",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        33.514286041259766,
+        42.88571548461914,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.079",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        32.82857131958008,
+        43.57143020629883,
+        1.2000000476837158
+      ],
+      "yaw": 135.00000034162267,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.080",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        32.14285659790039,
+        44.25714111328125,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.080",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        31.457143783569336,
+        44.94285583496094,
+        1.2000000476837158
+      ],
+      "yaw": 135.00000034162267,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.081",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        30.77142906188965,
+        45.628570556640625,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.081",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        30.08571434020996,
+        46.31428527832031,
+        1.2000000476837158
+      ],
+      "yaw": 135.00000034162267,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.082",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        29.399999618530273,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.082",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        28.420000076293945,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.083",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        27.440000534057617,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.083",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        26.459999084472656,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.084",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        25.479999542236328,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.084",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        24.5,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.085",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        23.520000457763672,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.085",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        22.540000915527344,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.086",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        21.559999465942383,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.086",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        20.579999923706055,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.087",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        19.600000381469727,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.087",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        18.6200008392334,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.088",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        17.639999389648438,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.088",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        16.65999984741211,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.089",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        15.680000305175781,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.089",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        14.699999809265137,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.090",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        13.720000267028809,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.090",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        12.739999771118164,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.091",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        11.760000228881836,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.091",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        10.779999732971191,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.092",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        9.800000190734863,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.092",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        8.819999694824219,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.093",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        7.840000152587891,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.093",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        6.860000133514404,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.094",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        5.880000114440918,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.094",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        4.900000095367432,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.095",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        3.9200000762939453,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.095",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        2.940000057220459,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.096",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        1.9600000381469727,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.096",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        0.9800000190734863,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.097",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        0.0,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.097",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -0.9800000190734863,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.098",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -1.9600000381469727,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.098",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -2.940000057220459,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.099",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -3.9200000762939453,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.099",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -4.900000095367432,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.100",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -5.880000114440918,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.100",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -6.860000133514404,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.101",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -7.840000152587891,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.101",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -8.819999694824219,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.102",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -9.800000190734863,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.102",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -10.779999732971191,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.103",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -11.760000228881836,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.103",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -12.739999771118164,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.104",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -13.720000267028809,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.104",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -14.699999809265137,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.105",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -15.680000305175781,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.105",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -16.65999984741211,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.106",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -17.639999389648438,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.106",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -18.6200008392334,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.107",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -19.600000381469727,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.107",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -20.579999923706055,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.108",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -21.559999465942383,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.108",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -22.540000915527344,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.109",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -23.520000457763672,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.109",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -24.5,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.110",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -25.479999542236328,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.110",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -26.459999084472656,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.111",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -27.440000534057617,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.111",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -28.420000076293945,
+        47.0,
+        1.2000000476837158
+      ],
+      "yaw": 180.00000500895632,
+      "scale": [
+        0.9800000190734863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.112",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -29.399999618530273,
+        47.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.112",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -30.08571434020996,
+        46.31428527832031,
+        1.2000000476837158
+      ],
+      "yaw": -135.00000034162267,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.113",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -30.77142906188965,
+        45.628570556640625,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.113",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -31.457143783569336,
+        44.94285583496094,
+        1.2000000476837158
+      ],
+      "yaw": -135.00000034162267,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.114",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -32.14285659790039,
+        44.25714111328125,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.114",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -32.82857131958008,
+        43.57143020629883,
+        1.2000000476837158
+      ],
+      "yaw": -135.00000034162267,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.115",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -33.514286041259766,
+        42.88571548461914,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.115",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -34.20000076293945,
+        42.20000076293945,
+        1.2000000476837158
+      ],
+      "yaw": -135.00000034162267,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.116",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -34.88571548461914,
+        41.514286041259766,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.116",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -35.57143020629883,
+        40.82857131958008,
+        1.2000000476837158
+      ],
+      "yaw": -135.00000034162267,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.117",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -36.25714111328125,
+        40.14285659790039,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.117",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -36.94285583496094,
+        39.4571418762207,
+        1.2000000476837158
+      ],
+      "yaw": -135.00000034162267,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.118",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -37.628570556640625,
+        38.771427154541016,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.118",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -38.31428527832031,
+        38.08571243286133,
+        1.2000000476837158
+      ],
+      "yaw": -135.00000034162267,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.119",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        37.400001525878906,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.119",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        36.41579055786133,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.120",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        35.43157958984375,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.120",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        34.44736862182617,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.121",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        33.463157653808594,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.121",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        32.478946685791016,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.122",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        31.49473762512207,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.122",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        30.510526657104492,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.123",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        29.526315689086914,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.123",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        28.542104721069336,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.124",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        27.55789566040039,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.124",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        26.573684692382812,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.125",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        25.589473724365234,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.125",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        24.605262756347656,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.126",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        23.621051788330078,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.126",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        22.636842727661133,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.127",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        21.652631759643555,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.127",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        20.668420791625977,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.128",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        19.6842098236084,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.128",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        18.700000762939453,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.129",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        17.715789794921875,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.129",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        16.731578826904297,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.130",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        15.747368812561035,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.130",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        14.763157844543457,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.131",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        13.778947830200195,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.131",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        12.794736862182617,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.132",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        11.810525894165039,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.132",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        10.826315879821777,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.133",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        9.8421049118042,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.133",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        8.857894897460938,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.134",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        7.873684406280518,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.134",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        6.889473915100098,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.135",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        5.9052629470825195,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.135",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        4.9210524559021,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.136",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        3.936842203140259,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.136",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        2.9526314735412598,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.137",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        1.9684211015701294,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.137",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        0.9842105507850647,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.138",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        0.0,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.138",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        -0.9842105507850647,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.139",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        -1.9684211015701294,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.139",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        -2.9526314735412598,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.140",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        -3.936842203140259,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.140",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        -4.9210524559021,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.141",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        -5.9052629470825195,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.141",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        -6.889473915100098,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.142",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        -7.873684406280518,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.142",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        -8.857894897460938,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.143",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        -9.8421049118042,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.143",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        -10.826315879821777,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.144",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        -11.810525894165039,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.144",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        -12.794736862182617,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.145",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        -13.778947830200195,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.145",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        -14.763157844543457,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.146",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        -15.747368812561035,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.146",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        -16.731578826904297,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.147",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        -17.715789794921875,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.147",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        -18.700000762939453,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.148",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        -19.6842098236084,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.148",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        -20.668420791625977,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.149",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        -21.652631759643555,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.149",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        -22.636842727661133,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.150",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        -23.621051788330078,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.150",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        -24.605262756347656,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.151",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        -25.589473724365234,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.151",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        -26.573684692382812,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.152",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        -27.55789566040039,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.152",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        -28.542104721069336,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.153",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        -29.526315689086914,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.153",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        -30.510526657104492,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.154",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        -31.49473762512207,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.154",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        -32.478946685791016,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.155",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        -33.463157653808594,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.155",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        -34.44736862182617,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.156",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        -35.43157958984375,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.156",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -39.0,
+        -36.41579055786133,
+        1.2000000476837158
+      ],
+      "yaw": -90.00000250447816,
+      "scale": [
+        0.9842105507850647,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.157",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -39.0,
+        -37.400001525878906,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.157",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -38.31428527832031,
+        -38.08571243286133,
+        1.2000000476837158
+      ],
+      "yaw": -45.00000125223908,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.158",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -37.628570556640625,
+        -38.771427154541016,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.158",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -36.94285583496094,
+        -39.4571418762207,
+        1.2000000476837158
+      ],
+      "yaw": -45.00000125223908,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.159",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -36.25714111328125,
+        -40.14285659790039,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.159",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -35.57143020629883,
+        -40.82857131958008,
+        1.2000000476837158
+      ],
+      "yaw": -45.00000125223908,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.160",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -34.88571548461914,
+        -41.514286041259766,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.160",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -34.20000076293945,
+        -42.20000076293945,
+        1.2000000476837158
+      ],
+      "yaw": -45.00000125223908,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.161",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -33.514286041259766,
+        -42.88571548461914,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.161",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -32.82857131958008,
+        -43.57143020629883,
+        1.2000000476837158
+      ],
+      "yaw": -45.00000125223908,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.162",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -32.14285659790039,
+        -44.25714111328125,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.162",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -31.457143783569336,
+        -44.94285583496094,
+        1.2000000476837158
+      ],
+      "yaw": -45.00000125223908,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter baluster.163",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "location_m": [
+        -30.77142906188965,
+        -45.628570556640625,
+        0.20000000298023224
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "label": "Perimeter rail.163",
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "location_m": [
+        -30.08571434020996,
+        -46.31428527832031,
+        1.2000000476837158
+      ],
+      "yaw": -45.00000125223908,
+      "scale": [
+        0.969746470451355,
+        1.0,
+        1.0
+      ]
+    }
+  ],
+  "new_meshes": [
+    {
+      "name": "SM_GodSpaceStructure",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GodSpaceLayout20260927\\Integration\\FloorTrim\\SM_GodSpaceStructure_TrimV2.fbx",
+      "materials": [
+        "Preview white marble - simplified UE material",
+        "Aged champagne brass",
+        "Blue grey stone inlay",
+        "Floor satin brass"
+      ],
+      "triangles": 8404,
+      "floor_trim_revision": "continuous-20260928"
+    },
+    {
+      "name": "SM_GodSpaceCore",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GodSpaceLayout20260927\\Integration\\Exported\\SM_GodSpaceCore.fbx",
+      "materials": [
+        "Proposed main deity core - blockout",
+        "Aged champagne brass"
+      ],
+      "vertices": 2642,
+      "triangles": 5280
+    },
+    {
+      "name": "SM_GodSpaceDistantOcean",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GodSpaceLayout20260927\\Integration\\Exported\\SM_GodSpaceDistantOcean.fbx",
+      "materials": [
+        "OceanNear",
+        "OceanFar"
+      ],
+      "vertices": 84481,
+      "triangles": 167936,
+      "outer_radius_m": 220000,
+      "near_radius_m": 12000,
+      "transition_m": [
+        1800,
+        12000
+      ],
+      "regular_grid_cell_m": 31.25,
+      "displacement_fade_m": [
+        2200,
+        3800
+      ],
+      "sea_level_m": -1500.0,
+      "planet_radius_m": 6360000.0,
+      "collision": false,
+      "tick": false,
+      "rendered": false
+    }
+  ],
+  "portal_local_m": [
+    22,
+    -29,
+    0.5
+  ],
+  "warehouse_world_cm": [
+    500,
+    -500,
+    20
+  ],
+  "cloud_bottom_km": 0.62,
+  "cloud_height_km": 0.7,
+  "atmosphere_ground_z_cm": -150000,
+  "retired_maps": [
+    "/Game/Clearwater/L_ClearwaterWater",
+    "/Game/GameMaps/L_GrassDeformDenseTest"
+  ]
+}

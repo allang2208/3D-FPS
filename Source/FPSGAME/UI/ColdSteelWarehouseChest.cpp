@@ -107,6 +107,15 @@ bool AColdSteelWarehouseChest::ResolveFixedSpawn(UWorld* World,const APawn* Fall
         }
     }
 
+    bool bSceneAnchor=false;
+    for(TActorIterator<AActor> It(World);It;++It)
+        if(It->ActorHasTag(TEXT("GodSpace.WarehouseAnchor")))
+        {
+            Pivot=It->GetActorLocation();BaseYaw=It->GetActorRotation().Yaw;
+            Offset=FVector::ZeroVector;Angles={0.f};bPinned=true;bHasAnchor=true;bSceneAnchor=true;
+            break;
+        }
+
     // 3) 候选落点：固定锚点 + 局部偏移，按候选偏航逐个校验地面与阻挡。
     FCollisionQueryParams Query(SCENE_QUERY_STAT(ColdSteelChestSpot),false);
     if(IsValid(FallbackPawn))Query.AddIgnoredActor(FallbackPawn);
@@ -122,7 +131,7 @@ bool AColdSteelWarehouseChest::ResolveFixedSpawn(UWorld* World,const APawn* Fall
         if(World->OverlapBlockingTestByChannel(Spot+FVector(0,0,68),Facing.Quaternion(),ECC_Pawn,FCollisionShape::MakeBox(FVector(58,76,65)),Query))continue;
         OutLocation=Spot;
         OutRotation=Facing;
-        OutSource=FString::Printf(TEXT("%s%s"),bHasAnchor?TEXT("playerStart"):TEXT("player"),bPinned?TEXT("+jsonLocation"):TEXT("+offset"));
+        OutSource=bSceneAnchor?TEXT("GodSpace.WarehouseAnchor"):FString::Printf(TEXT("%s%s"),bHasAnchor?TEXT("playerStart"):TEXT("player"),bPinned?TEXT("+jsonLocation"):TEXT("+offset"));
         return true;
     }
     UE_LOG(LogTemp,Warning,TEXT("WarehouseChest: no valid fixed spawn near %s (anchor=%s)"),*Pivot.ToString(),bHasAnchor?TEXT("playerStart"):TEXT("player"));

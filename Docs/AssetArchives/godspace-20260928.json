@@ -1,0 +1,394 @@
+{
+  "runtime_tested": false,
+  "file_count": 48,
+  "files": [
+    {
+      "replacement": "Integration/author_distant_ocean.py",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/author_distant_earth.py",
+      "sha256": "16c2042252710a1c3f1c4e8eac6690d0c7998f4879b62b6e7d23973e7ef2b79e",
+      "reason": "Distant earth replaced by the continuous ocean",
+      "bytes": 9913,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/author_distant_earth.py"
+    },
+    {
+      "replacement": "Integration/author_distant_ocean.py",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/import_distant_earth.py",
+      "sha256": "ff9c7da74f001ba86f9446146327545501eb1e6c3e3f6c4a30673266224bbb1f",
+      "reason": "Distant earth replaced by the continuous ocean",
+      "bytes": 6375,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/import_distant_earth.py"
+    },
+    {
+      "replacement": "Integration/author_distant_ocean.py",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/resume_earth_custom_inputs.py",
+      "sha256": "fe2cbe68a1829e6b4483b2f5035ef3a1b50eb2c67fcc74a084d57a8d7984729d",
+      "reason": "Distant earth replaced by the continuous ocean",
+      "bytes": 203,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/resume_earth_custom_inputs.py"
+    },
+    {
+      "replacement": "Integration/author_distant_ocean.py",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/export_library_ground.py",
+      "sha256": "e4632e16f9128b7e7756aa02cc64780ee4a3eb66c69eb0d06f181c691d43b580",
+      "reason": "Distant earth replaced by the continuous ocean",
+      "bytes": 1195,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/export_library_ground.py"
+    },
+    {
+      "replacement": "Integration/author_distant_ocean.py",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/read_earth_context.py",
+      "sha256": "6123a943ddcaecf3c184d6d7f4ca91cd3c4cc177435c61717985f68abb23c827",
+      "reason": "Distant earth replaced by the continuous ocean",
+      "bytes": 1321,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/read_earth_context.py"
+    },
+    {
+      "replacement": "Integration/author_distant_ocean.py",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/read_earth_colour_boundary.py",
+      "sha256": "1b4861b4b22ea1d8e6df92d47d0aba8509fbf94a6eedb75f31382df214afd6d0",
+      "reason": "Distant earth replaced by the continuous ocean",
+      "bytes": 2554,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/read_earth_colour_boundary.py"
+    },
+    {
+      "replacement": "Integration/author_distant_ocean.py",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/EarthLibrary/dry.png",
+      "sha256": "2268a205fc3c3976350a7793306aad12dfe799adc3947132269688ba1bc994fa",
+      "reason": "Distant earth replaced by the continuous ocean",
+      "bytes": 36285241,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/EarthLibrary/dry.png"
+    },
+    {
+      "replacement": "Integration/author_distant_ocean.py",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/EarthLibrary/grass.png",
+      "sha256": "5e3ce50e982f36f0719a8fe85a473591ccd08c26f6beadf221b3c583f80d3e56",
+      "reason": "Distant earth replaced by the continuous ocean",
+      "bytes": 50571072,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/EarthLibrary/grass.png"
+    },
+    {
+      "replacement": "Integration/author_distant_ocean.py",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/EarthLibrary/gravel.png",
+      "sha256": "eb2a83dfd48b609a72334ea112a32242e7b4655dc418b25de33dadeb65c47a3a",
+      "reason": "Distant earth replaced by the continuous ocean",
+      "bytes": 39091660,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/EarthLibrary/gravel.png"
+    },
+    {
+      "replacement": "Integration/author_distant_ocean.py",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/EarthLibrary/soil.png",
+      "sha256": "843b02aa28686aec5e7c3e9e51623da19fbb972aa0ffd94d7d1d754b6e05c9c7",
+      "reason": "Distant earth replaced by the continuous ocean",
+      "bytes": 34460107,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/EarthLibrary/soil.png"
+    },
+    {
+      "replacement": "Integration/author_distant_ocean.py",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/EarthLibrary/sources.json",
+      "sha256": "4c022b44f76351c0330091d21177e0d547bea7e4552f0afb1024266fcbeda101",
+      "reason": "Distant earth replaced by the continuous ocean",
+      "bytes": 1252,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/EarthLibrary/sources.json"
+    },
+    {
+      "replacement": "Integration/author_distant_ocean.py",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/EarthRepair/colour-boundary.json",
+      "sha256": "dec3fb984ed6872c704c946e7f2356ae661906b6e417135cfd65543cba81f567",
+      "reason": "Distant earth replaced by the continuous ocean",
+      "bytes": 3856,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/EarthRepair/colour-boundary.json"
+    },
+    {
+      "replacement": "Integration/author_distant_ocean.py",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/EarthRepair/T_GodSpaceEarth_BaseColor-from-ue.png",
+      "sha256": "ddbd7f4ff3dfa2da0c92c5a19fbdeb2166b2401f725b5ff885c08c5672d56466",
+      "reason": "Distant earth replaced by the continuous ocean",
+      "bytes": 43280108,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/EarthRepair/T_GodSpaceEarth_BaseColor-from-ue.png"
+    },
+    {
+      "replacement": "Integration/author_distant_ocean.py",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/Exported/SM_GodSpaceDistantEarth.fbx",
+      "sha256": "ea3bf70dee3c61d51685a8da8a0ed0877d819ba178de034deedd1735d1a6fad7",
+      "reason": "Distant earth replaced by the continuous ocean",
+      "bytes": 1833548,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/Exported/SM_GodSpaceDistantEarth.fbx"
+    },
+    {
+      "replacement": "Integration/author_distant_ocean.py",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/Exported/T_GodSpaceEarth_BaseColor.png",
+      "sha256": "94cf3b60833ad675df0d0ccc8a79b137b563465b7f433c1ff62a345d6ff49e8c",
+      "reason": "Distant earth replaced by the continuous ocean",
+      "bytes": 36809862,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/Exported/T_GodSpaceEarth_BaseColor.png"
+    },
+    {
+      "replacement": "Integration/author_distant_ocean.py",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/Exported/T_GodSpaceEarth_Normal.png",
+      "sha256": "06c87ad4f0d539e9257786299d7762f9fb0168b39f92ed373b0af59ea4407a8c",
+      "reason": "Distant earth replaced by the continuous ocean",
+      "bytes": 5064136,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/Exported/T_GodSpaceEarth_Normal.png"
+    },
+    {
+      "replacement": "Integration/build_cloud_sea.py (retained but hidden)",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/CloudSeaCoverage.hlsl",
+      "sha256": "70664eda5641ce25965aa574865203d0cf587fc4bc7add433328d1b466158185",
+      "reason": "Superseded cloud field and rejected fixed lighting compensation",
+      "bytes": 882,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/CloudSeaCoverage.hlsl"
+    },
+    {
+      "replacement": "Integration/build_cloud_sea.py (retained but hidden)",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/CloudSeaDensity.hlsl",
+      "sha256": "824ce8e36aab9fa71e2bc9194e45b5417b1f1577eba400f08994942361af7a9b",
+      "reason": "Superseded cloud field and rejected fixed lighting compensation",
+      "bytes": 1772,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/CloudSeaDensity.hlsl"
+    },
+    {
+      "replacement": "Integration/build_cloud_sea.py (retained but hidden)",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/CloudSeaAmbientFill.hlsl",
+      "sha256": "10e0ddbb02aaa5c6f537a9401f1bff113beae1d6923d7ff0246d9b8eabc6ce49",
+      "reason": "Superseded cloud field and rejected fixed lighting compensation",
+      "bytes": 522,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/CloudSeaAmbientFill.hlsl"
+    },
+    {
+      "replacement": "Integration/build_cloud_sea.py (retained but hidden)",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/CloudSeaLightBalance.hlsl",
+      "sha256": "15c75c5724d3d49d8b4e7c3fedc063f0d53815d1ebe7f34abdf46ff523823df5",
+      "reason": "Superseded cloud field and rejected fixed lighting compensation",
+      "bytes": 1448,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/CloudSeaLightBalance.hlsl"
+    },
+    {
+      "replacement": "Integration/build_cloud_sea.py (retained but hidden)",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/cloud_sea_lighting.py",
+      "sha256": "094b719b8d9cf7a018296a2c9d5302cc27029ff75d20a39ebffbebc2662bdb0c",
+      "reason": "Superseded cloud field and rejected fixed lighting compensation",
+      "bytes": 4732,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/cloud_sea_lighting.py"
+    },
+    {
+      "replacement": "Integration/build_cloud_sea.py (retained but hidden)",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/produce_cloud_lighting.py",
+      "sha256": "64162704017c05d79fd58eb00efb64ac6d2773e294b79fea76a11f9ba05449b7",
+      "reason": "Superseded cloud field and rejected fixed lighting compensation",
+      "bytes": 1688,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/produce_cloud_lighting.py"
+    },
+    {
+      "replacement": "Integration/build_cloud_sea.py (retained but hidden)",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/fix_cloud_sea_position.py",
+      "sha256": "bef5b352a92868b032aed8759dc76a92648f058e1b7e06ac0a3e7f769fbe61cc",
+      "reason": "Superseded cloud field and rejected fixed lighting compensation",
+      "bytes": 2091,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/fix_cloud_sea_position.py"
+    },
+    {
+      "replacement": "Integration/build_cloud_sea.py (retained but hidden)",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/increase_cloud_sea.py",
+      "sha256": "63cd03a6f0ce802e6983d8620c67e7be7aeb016c94152eb2c5f8bd5596b95458",
+      "reason": "Superseded cloud field and rejected fixed lighting compensation",
+      "bytes": 1973,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/increase_cloud_sea.py"
+    },
+    {
+      "replacement": "Integration/build_cloud_sea.py (retained but hidden)",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/Receipts/resume-cloud-double.py",
+      "sha256": "d459be680f420395c1ae1541257bafb2997e074d468de287b2bae93f30dfddc2",
+      "reason": "Superseded cloud field and rejected fixed lighting compensation",
+      "bytes": 253,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/Receipts/resume-cloud-double.py"
+    },
+    {
+      "replacement": "Integration/CarpetSources/T_Carpet_01_N.tga",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/CarpetSources/T_Carpet_02_BC.png",
+      "sha256": "b81f6a947fff623718b22b54df7ab9aee9d6a4f12de95f64d9f9a058c5c7a728",
+      "reason": "Unselected local textile candidate; approved Carpet 01 remains",
+      "bytes": 766254,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/CarpetSources/T_Carpet_02_BC.png"
+    },
+    {
+      "replacement": "Integration/CarpetSources/T_Carpet_01_N.tga",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/CarpetSources/T_Carpet_02_BC.tga",
+      "sha256": "bf007befa07947a1f08c81a76cd7b819dc9be6556d36931155488671291ecd26",
+      "reason": "Unselected local textile candidate; approved Carpet 01 remains",
+      "bytes": 50331666,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/CarpetSources/T_Carpet_02_BC.tga"
+    },
+    {
+      "replacement": "Integration/CarpetSources/T_Carpet_01_N.tga",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/CarpetSources/T_Carpet_02_N.png",
+      "sha256": "e5542bcbab60648db4af4fa1947839be14347fbf598fc7d3ef138a5f8033204c",
+      "reason": "Unselected local textile candidate; approved Carpet 01 remains",
+      "bytes": 1343270,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/CarpetSources/T_Carpet_02_N.png"
+    },
+    {
+      "replacement": "Integration/CarpetSources/T_Carpet_01_N.tga",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/CarpetSources/T_Carpet_02_N.tga",
+      "sha256": "77a8e4dc24c4d7d2ede03173be1b1714ebecaddaa683c1b4078ecc82cc2c33b8",
+      "reason": "Unselected local textile candidate; approved Carpet 01 remains",
+      "bytes": 50331666,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/CarpetSources/T_Carpet_02_N.tga"
+    },
+    {
+      "replacement": "Integration/CarpetSources/T_Carpet_01_N.tga",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/CarpetSources/T_Carpet_02_R.tga",
+      "sha256": "c1835560f58d6d7bcfcb378db999ac43c8f5ad739e7602b21aad79b99ffd9bfb",
+      "reason": "Unselected local textile candidate; approved Carpet 01 remains",
+      "bytes": 50331666,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/CarpetSources/T_Carpet_02_R.tga"
+    },
+    {
+      "replacement": "Integration/build_reused_ocean_spectrum.py",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/OceanChop.hlsl",
+      "sha256": "5ee99515a789c80ce01efa3ff95ae807b48239415319ff6c0600527b3fcc5258",
+      "reason": "Superseded regular-wave source and unused exported normal candidates",
+      "bytes": 823,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/OceanChop.hlsl"
+    },
+    {
+      "replacement": "Integration/build_reused_ocean_spectrum.py",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/OceanWaveSources/T_Ocean_Waves01_Normals.png",
+      "sha256": "c9eef621c98c14cbc0c1a9db479ff1f23e28a87dc6b838e501911c5c7ad16f65",
+      "reason": "Superseded regular-wave source and unused exported normal candidates",
+      "bytes": 125830,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/OceanWaveSources/T_Ocean_Waves01_Normals.png"
+    },
+    {
+      "replacement": "Integration/build_reused_ocean_spectrum.py",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/OceanWaveSources/T_Ocean_Waves02_Normals.png",
+      "sha256": "2da741b99d69367240254b93320e50e8d712212a0e6c9a53c720e8dfce7885bf",
+      "reason": "Superseded regular-wave source and unused exported normal candidates",
+      "bytes": 137347,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/OceanWaveSources/T_Ocean_Waves02_Normals.png"
+    },
+    {
+      "replacement": "Integration/build_reused_ocean_spectrum.py",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/OceanWaveSources/T_Water_Normal.png",
+      "sha256": "8fb86d459f1fd7a4380f9f0a0a4779f4237af28981c892519e68c0498b290fc7",
+      "reason": "Superseded regular-wave source and unused exported normal candidates",
+      "bytes": 4625450,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/OceanWaveSources/T_Water_Normal.png"
+    },
+    {
+      "replacement": "Integration/FloorTrim/SM_GodSpaceStructure_TrimV2.fbx",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/Exported/SM_GodSpaceStructure.fbx",
+      "sha256": "1fb5010efa806983272b5641620e947aef072d5fbd81a29b6d8aad9058e1cf1e",
+      "reason": "Old structure export replaced by connected trim; original rebuild inputs retained",
+      "bytes": 140732,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/Exported/SM_GodSpaceStructure.fbx"
+    },
+    {
+      "replacement": "Integration/FloorTrim/SM_GodSpaceStructure_TrimV2.fbx",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/FloorTrim/placements-before.json",
+      "sha256": "113ddfe93742ad454ae23b8f939bb902229d2e309c91d06a77d4df6af0702bdc",
+      "reason": "Old structure export replaced by connected trim; original rebuild inputs retained",
+      "bytes": 148462,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/FloorTrim/placements-before.json"
+    },
+    {
+      "replacement": "Same path without final 1",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/GodSpace_Layout_V1.blend1",
+      "sha256": "65d751bd508293ad4bf8d579c17b5c86349f77c1da45e98a9441b821443a8171",
+      "reason": "Automatic backup superseded by retained editable source",
+      "bytes": 15000327,
+      "original": "SourceAssets/GodSpaceLayout20260927/GodSpace_Layout_V1.blend1"
+    },
+    {
+      "replacement": "Same path without final 1",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/FloorTrim/Structure_TrimV2.blend1",
+      "sha256": "52c632b2a1c0a0eb1ec7ecdee96236d7374e2be79d5868faeec6708671351fb8",
+      "reason": "Automatic backup superseded by retained editable source",
+      "bytes": 327950,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/FloorTrim/Structure_TrimV2.blend1"
+    },
+    {
+      "replacement": "Source/FPSGAME and current authoring scripts",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/BeforeSource/Config/DefaultGame.ini",
+      "sha256": "4f413b42f272d0830020c91a76a3ceb9346a99fc3ba4ee340c3f4c4ad9797ef6",
+      "reason": "Completed one-off source patcher and pre-edit source copies; actual source is published",
+      "bytes": 15451,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/BeforeSource/Config/DefaultGame.ini"
+    },
+    {
+      "replacement": "Source/FPSGAME and current authoring scripts",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/BeforeSource/Source/FPSGAME/FPSGAMEGameMode.cpp",
+      "sha256": "d0ea9472aef52c9183d228fe2211e1e841f5456b437686af4545332e7db7163f",
+      "reason": "Completed one-off source patcher and pre-edit source copies; actual source is published",
+      "bytes": 4180,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/BeforeSource/Source/FPSGAME/FPSGAMEGameMode.cpp"
+    },
+    {
+      "replacement": "Source/FPSGAME and current authoring scripts",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/BeforeSource/Source/FPSGAME/SceneTestPortal.cpp",
+      "sha256": "0970ec947747cf1ddd7e9bb82242a4a4c6b4888c055be9a8a901c8a9737114d5",
+      "reason": "Completed one-off source patcher and pre-edit source copies; actual source is published",
+      "bytes": 16947,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/BeforeSource/Source/FPSGAME/SceneTestPortal.cpp"
+    },
+    {
+      "replacement": "Source/FPSGAME and current authoring scripts",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/BeforeSource/Source/FPSGAME/SceneTestPortal.h",
+      "sha256": "a2c0af5a408e52b4844ef7c4335a44a774e41f6891661c81a2a942f883e9726a",
+      "reason": "Completed one-off source patcher and pre-edit source copies; actual source is published",
+      "bytes": 1471,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/BeforeSource/Source/FPSGAME/SceneTestPortal.h"
+    },
+    {
+      "replacement": "Source/FPSGAME and current authoring scripts",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/BeforeSource/Source/FPSGAME/StormCloudComponent.cpp",
+      "sha256": "4dd512e9918e3db8566ebbc3382b65def4f0f40b3003a3d9ca368033fde6c4e7",
+      "reason": "Completed one-off source patcher and pre-edit source copies; actual source is published",
+      "bytes": 14346,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/BeforeSource/Source/FPSGAME/StormCloudComponent.cpp"
+    },
+    {
+      "replacement": "Source/FPSGAME and current authoring scripts",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/BeforeSource/Source/FPSGAME/StormCloudComponent.h",
+      "sha256": "bf4795e39dda99d183a476cda133f253cc7e3c114dd332d8288f259422254ecd",
+      "reason": "Completed one-off source patcher and pre-edit source copies; actual source is published",
+      "bytes": 3198,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/BeforeSource/Source/FPSGAME/StormCloudComponent.h"
+    },
+    {
+      "replacement": "Source/FPSGAME and current authoring scripts",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/BeforeSource/Source/FPSGAME/UI/ColdSteelWarehouseChest.cpp",
+      "sha256": "de51c4a075e08ab1b776e97ef371644aba0150ed8fec5c56105fe3456d1e2ef9",
+      "reason": "Completed one-off source patcher and pre-edit source copies; actual source is published",
+      "bytes": 9820,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/BeforeSource/Source/FPSGAME/UI/ColdSteelWarehouseChest.cpp"
+    },
+    {
+      "replacement": "Source/FPSGAME and current authoring scripts",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/Integration/update_runtime_routes.py",
+      "sha256": "c56ec00979c15ab405c76ba1cfc8d16e84c5f55a62c0a52e14f3c716dc540608",
+      "reason": "Completed one-off source patcher and pre-edit source copies; actual source is published",
+      "bytes": 5715,
+      "original": "SourceAssets/GodSpaceLayout20260927/Integration/update_runtime_routes.py"
+    },
+    {
+      "replacement": "Source/FPSGAME and current authoring scripts",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/finalize_manifest.py",
+      "sha256": "8c9e8a3ede0a58daf7d4fa8586472e20254a58243ec1c24ba821d1c8043881fa",
+      "reason": "Completed one-off source patcher and pre-edit source copies; actual source is published",
+      "bytes": 955,
+      "original": "SourceAssets/GodSpaceLayout20260927/finalize_manifest.py"
+    },
+    {
+      "replacement": "Source/FPSGAME and current authoring scripts",
+      "destination": "trash/godspace-publication-20260928/SourceAssets/GodSpaceLayout20260927/update_delivery_notes.py",
+      "sha256": "61138e581f9663c339c37acf528c92d27ed09703625bcb5e5beeaa10364a5ec5",
+      "reason": "Completed one-off source patcher and pre-edit source copies; actual source is published",
+      "bytes": 1007,
+      "original": "SourceAssets/GodSpaceLayout20260927/update_delivery_notes.py"
+    }
+  ],
+  "scope": "God Space authoring retirement",
+  "ue_packages_moved": false,
+  "bytes": 421122297.0,
+  "date": "2026-09-28"
+}

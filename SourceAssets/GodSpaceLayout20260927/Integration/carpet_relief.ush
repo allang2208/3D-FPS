@@ -1,0 +1,58 @@
+// Shared offset and gradients for every pile channel. Adapted from the
+// existing dungeon shallow-POM implementation, scaled to millimetre pile.
+float3 n=normalize(VertexNormal);
+float mask=smoothstep(8,16,Position.z)*smoothstep(.75,.95,n.z);
+float2 uv=(Position.xy-float2(-2400,-1300))/max(TileCm,5);
+float2 gx=ddx(uv),gy=ddy(uv);
+float2 fineUV=uv*2.41+float2(.317,.683);
+float2 fx=gx*2.41,fy=gy*2.41;
+float distanceCm=length(Position-Camera);
+float3 view=normalize(Camera-Position);
+float mip=log2(max(max(length(gx),length(gy))*2048,1));
+float fineMip=log2(max(max(length(fx),length(fy))*2048,1));
+float distanceFade=1-smoothstep(220,650,distanceCm);
+float reliefFade=distanceFade*smoothstep(.12,.3,view.z)*(1-smoothstep(2,4,mip))*mask;
+float detailFade=(1-smoothstep(180,550,distanceCm))*(1-smoothstep(1.2,3.2,fineMip))*mask;
+NormalWorld=n;AO=1;Fuzz=0;Metallic=.06;Specular=.2;
+[branch] if(mask<=.001)return float4(.055,.085,.11,.52);
+float2 ray=view.xy/max(view.z,.18)*clamp(DepthCm,0,.65)/max(TileCm,5)*reliefFade;
+// The branch precedes the height reads. Far pixels do not march.
+[branch] if(DepthCm>.0001 && reliefFade>.001){
+    float lo=0,hi=1;
+    [loop] for(int i=1;i<=8;++i){
+        hi=i/8.0;
+        float h=Texture2DSampleGrad(HeightTex,HeightTexSampler,uv-ray*hi,gx,gy).r;
+        if(hi>=1-h)break;
+        lo=hi;
+    }
+    [unroll] for(int j=0;j<2;++j){
+        float mid=(lo+hi)*.5;
+        float h=Texture2DSampleGrad(HeightTex,HeightTexSampler,uv-ray*mid,gx,gy).r;
+        if(mid>=1-h)hi=mid;else lo=mid;
+    }
+    uv-=ray*(lo+hi)*.5;
+}
+float3 har=Texture2DSampleGrad(HeightTex,HeightTexSampler,uv,gx,gy).rgb;
+float3 sourceColor=Texture2DSampleGrad(ColorTex,ColorTexSampler,uv,gx,gy).rgb;
+float2 xy=Texture2DSampleGrad(ReliefNormal,ReliefNormalSampler,uv,gx,gy).rg*2-1;
+float3 pileN=normalize(float3(xy*NormalStrength,sqrt(max(1-dot(xy,xy),.01))));
+// RNM is shared with the ground/wall approach. Fine strands use the same
+// physical shift as the main pile instead of sliding independently.
+[branch] if(detailFade>.001){
+    float2 dxy=Texture2DSampleGrad(FineNormal,FineNormalSampler,uv*2.41+float2(.317,.683),fx,fy).rg*2-1;
+    float3 dn=normalize(float3(dxy*FineStrength*detailFade,sqrt(max(1-dot(dxy,dxy),.01))));
+    float3 t=pileN+float3(0,0,1),r=dn*float3(-1,-1,1);
+    pileN=normalize(t*dot(t,r)/max(t.z,.001)-r);
+}
+float luma=dot(sourceColor,float3(.2126,.7152,.0722));
+float grain=clamp(pow(max(luma/.007128125,.03),.42),.64,1.42);
+float3 color=Tint.rgb*grain;
+color*=lerp(.80,1.06,har.g);
+color=lerp(color,Tint.rgb*.61,Edge.x);
+color=lerp(color,float3(.19,.145,.080),Edge.y*.65);
+pileN=normalize(lerp(pileN,float3(0,0,1),Edge.x*.25));
+NormalWorld=normalize(lerp(n,pileN,mask));
+AO=lerp(1,har.g,mask*.7);
+Fuzz=FuzzAmount*mask*lerp(1,.65,Edge.x);
+Metallic=.06*(1-mask);Specular=lerp(.2,.28,mask);
+return float4(lerp(float3(.055,.085,.11),color,mask),lerp(.52,clamp(har.b+Edge.x*.025,.74,.94),mask));

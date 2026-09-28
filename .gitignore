@@ -1183,3 +1183,19 @@ __pycache__/
 /SourceAssets/ApprenticeStaff20260927/**/__pycache__/
 /Source/FPSGAME/Weapons/Staff/StaffAuthoredPoseV13.h
 /Source/FPSGAME/Weapons/Staff/StaffAuthoredLeftGaitV16.h
+
+# God Space: publish recipes and authored layout parameters, not licensed
+# exports, dense snapshots, textures, local receipts, previews or rollback copies.
+/SourceAssets/GodSpaceLayout20260927/**
+!/SourceAssets/GodSpaceLayout20260927/**/
+!/SourceAssets/GodSpaceLayout20260927/**/*.py
+!/SourceAssets/GodSpaceLayout20260927/**/*.ps1
+!/SourceAssets/GodSpaceLayout20260927/**/*.md
+!/SourceAssets/GodSpaceLayout20260927/**/*.hlsl
+!/SourceAssets/GodSpaceLayout20260927/**/*.ush
+!/SourceAssets/GodSpaceLayout20260927/layout_manifest.json
+!/SourceAssets/GodSpaceLayout20260927/Integration/placements.json
+!/SourceAssets/GodSpaceLayout20260927/Integration/ThirdParty/TakramClouds/LICENSE
+!/SourceAssets/GodSpaceLayout20260927/Integration/ThirdParty/TakramClouds/source.json
+/SourceAssets/GodSpaceLayout20260927/**/Receipts/
+/SourceAssets/GodSpaceLayout20260927/**/__pycache__/

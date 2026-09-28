@@ -33,6 +33,8 @@ old Godot implementation.
 
 ## Effects integration
 
+下方云海粗糙、染色、黑屏或隐藏后又出现时，读取 [云海失败边界与持久配置](references/cloud-sea-failure-boundaries.md)。主神空间云海当前按用户要求隐藏，不能作为已认可方案自动恢复。
+
 For cloud/solar conflicts, coarse rain particles, pooled wet surfaces or transition
 acceptance, read [storm and rain integration](references/storm-rain-integration.md).
 For missing cloud textures, weak lightning, delayed thunder onset or inaudible mixes,

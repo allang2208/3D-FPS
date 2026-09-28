@@ -1,0 +1,248 @@
+{
+  "name": "主神空间",
+  "status": "Approved and saved to UE DayNight_Lighting; pool/grass test maps retired; not runtime-tested",
+  "units": "meters",
+  "platform": [
+    80,
+    96
+  ],
+  "altar": [
+    0,
+    24.5,
+    1.13
+  ],
+  "core_placeholder": [
+    0,
+    28.6,
+    5
+  ],
+  "fountain": [
+    0,
+    -6,
+    0.38
+  ],
+  "pavilion": [
+    -24,
+    13,
+    0.2
+  ],
+  "workshop": [
+    24,
+    13,
+    0.2
+  ],
+  "player_start": [
+    13,
+    -38,
+    1.02
+  ],
+  "portals": [
+    [
+      -22,
+      -29,
+      0
+    ],
+    [
+      22,
+      -29,
+      180
+    ],
+    [
+      -22,
+      -19,
+      0
+    ]
+  ],
+  "cloud_decks": [
+    -280,
+    -560
+  ],
+  "cloud_policy": {
+    "material": "/Game/Weather/Materials/MI_FPSLayeredClouds",
+    "controller": "FPSWeatherManager / StormCloudComponent",
+    "new_cloud_assets": false,
+    "external_references_scope": "distant_ground_only",
+    "cloud_decks_meaning": "Blender composition placeholders only; not UE layer count or altitude parameters",
+    "integration_status": "Saved with existing shared cloud material; authored cloud-sea altitude preserved by weather controller"
+  },
+  "earth": {
+    "base_m": -1500,
+    "maximum_relief_m": 520,
+    "render_mesh_triangles": 32768
+  },
+  "source_meshes": [
+    {
+      "mesh": "/Game/Props/BlastFurnace20260923/SM_BlastFurnace.SM_BlastFurnace",
+      "dimensions_m": [
+        1.2000001525878907,
+        1.0000000762939454,
+        2.2
+      ],
+      "vertices": 2329
+    },
+    {
+      "mesh": "/Game/Props/CastingStation20260926/SM_CastingStation.SM_CastingStation",
+      "dimensions_m": [
+        1.8,
+        1.2000000762939453,
+        1.0
+      ],
+      "vertices": 25559
+    },
+    {
+      "mesh": "/Game/Props/GamedevPortal20260922/SM_GamedevPortal_Frame.SM_GamedevPortal_Frame",
+      "dimensions_m": [
+        3.600000305175781,
+        4.400000305175781,
+        3.87
+      ],
+      "vertices": 492
+    },
+    {
+      "mesh": "/Game/Props/RomanColumn20260915/SM_Colonnade_Entablature.SM_Colonnade_Entablature",
+      "dimensions_m": [
+        16.32,
+        0.76,
+        0.39
+      ],
+      "vertices": 24
+    },
+    {
+      "mesh": "/Game/Props/RomanColumn20260915/SM_MarbleFloorTiles.SM_MarbleFloorTiles",
+      "dimensions_m": [
+        18.000029296875,
+        8.000035400390626,
+        0.20001129150390626
+      ],
+      "vertices": 59631
+    },
+    {
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small",
+      "dimensions_m": [
+        0.4020685195922852,
+        0.4001282501220703,
+        1.0004203033447265
+      ],
+      "vertices": 5882
+    },
+    {
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed",
+      "dimensions_m": [
+        0.8003472709655762,
+        0.8008085632324219,
+        2.600074462890625
+      ],
+      "vertices": 16282
+    },
+    {
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20",
+      "dimensions_m": [
+        0.9017096710205078,
+        0.9014933776855469,
+        2.60013916015625
+      ],
+      "vertices": 16382
+    },
+    {
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanPavilionArch_20.SM_RomanPavilionArch_20",
+      "dimensions_m": [
+        8.8,
+        8.8,
+        0.8
+      ],
+      "vertices": 2016
+    },
+    {
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanPavilionBase_20.SM_RomanPavilionBase_20",
+      "dimensions_m": [
+        9.6,
+        9.6,
+        0.2
+      ],
+      "vertices": 386
+    },
+    {
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanPavilionDome_20.SM_RomanPavilionDome_20",
+      "dimensions_m": [
+        8.117568969726562,
+        8.117568969726562,
+        5.8
+      ],
+      "vertices": 66093
+    },
+    {
+      "mesh": "/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200",
+      "dimensions_m": [
+        2.0,
+        0.4,
+        0.4
+      ],
+      "vertices": 51
+    },
+    {
+      "mesh": "/Game/Props/RomanFountain20260917/PolishV9/SM_FountainPolishedV9.SM_FountainPolishedV9",
+      "dimensions_m": [
+        9.6,
+        9.6,
+        7.2
+      ],
+      "vertices": 12313
+    },
+    {
+      "mesh": "/Game/Props/SquareAltar20260922/SM_SquareAltar.SM_SquareAltar",
+      "dimensions_m": [
+        2.2000001525878905,
+        2.0000001525878908,
+        1.4101472473144532
+      ],
+      "vertices": 1216
+    },
+    {
+      "mesh": "/Game/Props/WarehouseCrateTiers20260924/SM_WarehouseCrate_T1_Wood_v2.SM_WarehouseCrate_T1_Wood_v2",
+      "dimensions_m": [
+        1.5120001220703125,
+        1.1956000137329101,
+        1.2334074401855468
+      ],
+      "vertices": 1909
+    }
+  ],
+  "preview_cameras": {
+    "arrival": [
+      13,
+      -38,
+      2.0
+    ],
+    "overlook": [
+      8,
+      46.5,
+      2.4
+    ]
+  },
+  "rebuild_order": [
+    "author_layout_preview.py",
+    "refine_layout_preview.py",
+    "finish_preview_views.py",
+    "shape_distant_terrain.py"
+  ],
+  "implementation": {
+    "map": "/Game/GameMaps/DayNight_Lighting",
+    "world_offset_cm": [
+      -2400,
+      -1300,
+      0
+    ],
+    "retained_portal_world_cm": [
+      -200,
+      -4200,
+      50
+    ],
+    "retired_maps": [
+      "/Game/Clearwater/L_ClearwaterWater",
+      "/Game/GameMaps/L_GrassDeformDenseTest"
+    ],
+    "preview_images": "Historical V1 only; not refreshed after integration",
+    "receipts": "Integration/Receipts",
+    "tested": false
+  }
+}

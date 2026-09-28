@@ -70,6 +70,7 @@ private:
     bool bLayeredClouds=false;
     bool bOriginalVisible=false, bCreatedCloud=false, bOverride=false;
     bool bHillsClouds=false;
+    bool bCloudSea=false;
     void Discover();
     void UpdateCloudLayer();
     void Restore();

@@ -23,11 +23,8 @@ namespace ScenePortalMaps
     const TCHAR* Hub = TEXT("/Game/GameMaps/DayNight_Lighting");
     const TCHAR* Hills = TEXT("/Game/GameMaps/L_TemperateHills_Initial");
     const TCHAR* RandomizedDungeon = TEXT("/Game/GameMaps/L_Dungeon_Randomized");
-    const TCHAR* Water = TEXT("/Game/Clearwater/L_ClearwaterWater");
-    const TCHAR* Grass = TEXT("/Game/GameMaps/L_GrassDeformDenseTest");
 
-    /** How far behind the player a link door is planted. Shared so the hills door (behind)
-     *  and the water door (to the left) cannot drift into each other's space. */
+    /** Return-door spacing in the hills; the hub uses its saved layout anchor. */
     constexpr float PortalSpacing = 350.f;
 }
 
@@ -131,16 +128,6 @@ void ASceneTestPortal::UsePortal()
         PreloadHandle=UAssetManager::GetStreamableManager().RequestAsyncLoad(FSoftObjectPath(ObjectPath),FStreamableDelegate::CreateUObject(this,&ASceneTestPortal::FinishLoading));
         return;
     }
-    if (Destination == ScenePortalMaps::Water || Destination == ScenePortalMaps::Grass)
-    {
-        // Stream the water level in before tearing the current map down, so the travel does
-        // not stall on a cold level load.
-        Sign->SetText(FText::FromString(Destination == ScenePortalMaps::Grass
-            ? TEXT("Preparing tall grass...\n[Esc] Cancel") : TEXT("Preparing water...\n[Esc] Cancel")));
-        const FString ObjectPath=Destination+TEXT(".")+FPackageName::GetShortName(Destination);
-        PreloadHandle=UAssetManager::GetStreamableManager().RequestAsyncLoad(FSoftObjectPath(ObjectPath),FStreamableDelegate::CreateUObject(this,&ASceneTestPortal::FinishLoading));
-        return;
-    }
     if(Destination==ScenePortalMaps::RandomizedDungeon||Destination==ScenePortalMaps::Hub)
     {
         GetWorldTimerManager().SetTimer(DungeonTravelTimer,this,&ASceneTestPortal::OpenDestination,.1f,false);
@@ -185,124 +172,6 @@ void ASceneTestPortal::EndPlay(const EEndPlayReason::Type Reason)
     Super::EndPlay(Reason);
 }
 
-int32 ASceneTestPortal::InstallWaterLink(UWorld* World)
-{
-    if (!World || !World->IsGameWorld() || World->GetNetMode() != NM_Standalone) return 2;
-    const FString Current = UGameplayStatics::GetCurrentLevelName(World, true);
-    if (Current != TEXT("DayNight_Lighting") && Current != TEXT("L_ClearwaterWater")) return 2;
-    APawn* Pawn = UGameplayStatics::GetPlayerPawn(World, 0);
-    if (!Pawn) return 0;
-    const FName LinkTag(TEXT("ScenePortal.WaterLink"));
-    for (TActorIterator<ASceneTestPortal> It(World); It; ++It)
-        if (It->ActorHasTag(LinkTag)) return 1;
-
-    const bool bInWater = Current == TEXT("L_ClearwaterWater");
-    const FString Map = bInWater ? ScenePortalMaps::Hub : ScenePortalMaps::Water;
-    const FString Label = bInWater ? TEXT("HOME / Main Map") : TEXT("CLEARWATER / Water Test");
-    const FColor Color = bInWater ? FColor::Cyan : FColor(120, 220, 255);
-    FVector Position = Pawn->GetActorLocation();
-    FRotator Facing = Pawn->GetActorRotation();
-    if (bInWater)
-    {
-        // On the basin's shore, behind the level's PlayerStart. The player spawns at
-        // (+9660, 0, 200) and faces -X across the water, so the return door sits the other
-        // way at +9660 and faces back at them. Setting it to the middle of the water would
-        // put it below the surface, where an unbound door is invisible.
-        //
-        // Keep in step with VIEW_DISTANCE_CM / SHORE_STAND_X in
-        // Tools/Fluids/author_clearwater_water.py.
-        Position = FVector(9660.f, 0.f, 200.f);
-        Facing = FRotator(0.f, 180.f, 0.f);
-    }
-    else
-    {
-        // Off the player's LEFT, not behind them. InstallHillsLink already puts its door
-        // directly behind (Facing.Vector() * -Spacing), and sharing that spot stacked the
-        // two portals and their signs on top of each other. A right angle gives them
-        // Spacing * sqrt(2) = 495 cm of separation, so neither can occlude the other and
-        // both stay a short walk from the spawn.
-        //
-        // Left is yaw - 90, the direction the player faces after turning left:
-        // Left.Vector() = (cos(yaw-90), sin(yaw-90), 0) = (sin yaw, -cos yaw, 0).
-        const float LeftYaw = Pawn->GetActorRotation().Yaw - 90.f;
-        const FRotator Left(0.f, LeftYaw, 0.f);
-        Position = Pawn->GetActorLocation() + Left.Vector() * -ScenePortalMaps::PortalSpacing;
-        // LeftYaw + 180, which is the SAME rule the hills door uses. The door reads from its
-        // -X face (check the hills door: at rotation PawnYaw+180 its -X points back at the
-        // pawn), so for any placement the readable rotation is "bearing to the pawn + 180".
-        // The hills door happens to sit behind, giving PawnYaw+180; the water door sits to
-        // the side, giving PawnYaw+90. Deriving it from the known-good door rather than
-        // assuming +X faces the viewer is what makes this correct.
-        Facing = FRotator(0.f, LeftYaw + 180.f, 0.f);
-    }
-    FHitResult Hit;
-    FCollisionQueryParams Params;
-    Params.AddIgnoredActor(Pawn);
-    if (!bInWater && World->LineTraceSingleByChannel(
-            Hit, Position + FVector(0, 0, 200), Position - FVector(0, 0, 1500), ECC_Pawn, Params))
-        Position.Z = Hit.ImpactPoint.Z + .5f;
-
-    FActorSpawnParameters SpawnParams;
-    SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-    ASceneTestPortal* Portal = World->SpawnActor<ASceneTestPortal>(
-        Position, Facing, SpawnParams);
-    if (Portal)
-    {
-        Portal->Tags.Add(LinkTag);
-        Portal->Configure(Map, Label, FString(), Color);
-    }
-    UE_LOG(LogTemp, Display, TEXT("ScenePortal: Installed water link in %s"), *Current);
-    return 1;
-}
-
-int32 ASceneTestPortal::InstallGrassLink(UWorld* World)
-{
-    if (!World || !World->IsGameWorld() || World->GetNetMode() != NM_Standalone) return 2;
-    const FString Current = UGameplayStatics::GetCurrentLevelName(World, true);
-    const bool bInGrass = Current == TEXT("L_GrassDeformDenseTest");
-    const bool bInHills = Current == TEXT("L_TemperateHills_Initial");
-    if (!bInGrass && !bInHills && Current != TEXT("DayNight_Lighting")) return 2;
-    APawn* Pawn = UGameplayStatics::GetPlayerPawn(World, 0);
-    if (!Pawn) return 0;
-    const FName LinkTag(TEXT("ScenePortal.GrassLink"));
-    for (TActorIterator<ASceneTestPortal> It(World); It; ++It)
-        if (It->ActorHasTag(LinkTag)) return 1;
-
-    // Spawn on the left, away from the existing water (+right) and hills (-forward) doors.
-    const FRotator Left(0.f, Pawn->GetActorRotation().Yaw - 90.f, 0.f);
-    FVector Position = bInGrass ? FVector(-3500.f, 0.f, .5f)
-        : Pawn->GetActorLocation() + Left.Vector() * 600.f;
-    if (!bInGrass)
-    {
-        FHitResult Hit;
-        FCollisionQueryParams Params;
-        Params.AddIgnoredActor(Pawn);
-        if (World->LineTraceSingleByChannel(Hit, Position + FVector(0, 0, 200),
-                Position - FVector(0, 0, 1500), ECC_Pawn, Params))
-            Position.Z = Hit.ImpactPoint.Z + .5f;
-        else
-            Position.Z -= Pawn->GetSimpleCollisionHalfHeight();
-    }
-    const bool bReturnToHills = bInGrass && World->URL.HasOption(TEXT("GrassReturnHills"));
-    const FString Map = bInGrass
-        ? (bReturnToHills ? ScenePortalMaps::Hills : ScenePortalMaps::Hub) : ScenePortalMaps::Grass;
-    const FString Label = bInGrass
-        ? (bReturnToHills ? TEXT("RETURN / Temperate Hills") : TEXT("HOME / Main Map"))
-        : TEXT("TALL GRASS / Dense Test");
-    const FString Options = bInGrass
-        ? (bReturnToHills ? TEXT("HillsContinue") : TEXT(""))
-        : (bInHills ? TEXT("GrassReturnHills") : TEXT(""));
-    FActorSpawnParameters SpawnParams;
-    SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-    const FRotator Facing = bInGrass ? FRotator::ZeroRotator : FRotator(0.f, Left.Yaw + 180.f, 0.f);
-    ASceneTestPortal* Portal = World->SpawnActor<ASceneTestPortal>(Position, Facing, SpawnParams);
-    if (!Portal) return 0;
-    Portal->Tags.Add(LinkTag);
-    Portal->Configure(Map, Label, Options, bInGrass ? FColor::Cyan : FColor(160, 255, 80));
-    UE_LOG(LogTemp, Display, TEXT("ScenePortal: Installed grass link in %s -> %s"), *Current, *Map);
-    return 1;
-}
-
 int32 ASceneTestPortal::InstallHillsLink(UWorld* World)
 {
     if (!World || !World->IsGameWorld() || World->GetNetMode() != NM_Standalone) return 2;
@@ -316,21 +185,34 @@ int32 ASceneTestPortal::InstallHillsLink(UWorld* World)
 
     const bool bHills = Current == TEXT("L_TemperateHills_Initial");
     const FString Map = bHills ? ScenePortalMaps::Hub : ScenePortalMaps::Hills;
-    const FString Label = bHills ? TEXT("HOME / Main Map") : TEXT("TEMPERATE HILLS\nBlack Poplar");
+    const FString Label = bHills ? TEXT("HOME / God Space") : TEXT("TEMPERATE HILLS\nBlack Poplar");
     const FString Options = bHills ? FString() : TEXT("HillsContinue");
     const FColor Color = bHills ? FColor::Cyan : FColor(100, 255, 145);
-    const FRotator Facing(0, Pawn->GetActorRotation().Yaw, 0);
-    FVector Position = Pawn->GetActorLocation() + Facing.Vector() * -ScenePortalMaps::PortalSpacing;
-    FHitResult Hit;
-    FCollisionQueryParams Params;
-    Params.AddIgnoredActor(Pawn);
-    if (World->LineTraceSingleByChannel(Hit, Position + FVector(0, 0, 200), Position - FVector(0, 0, 1500), ECC_Pawn, Params))
-        Position.Z = Hit.ImpactPoint.Z + .5f;
-    else
-        Position.Z -= 90.f;
+    FRotator Facing(0, Pawn->GetActorRotation().Yaw + 180.f, 0);
+    FVector Position = Pawn->GetActorLocation() - Pawn->GetActorForwardVector() * ScenePortalMaps::PortalSpacing;
+    bool bFixedHubAnchor = false;
+    if (!bHills)
+        for (TActorIterator<AActor> It(World); It; ++It)
+            if (It->ActorHasTag(TEXT("GodSpace.HillsPortalAnchor")))
+            {
+                Position = It->GetActorLocation();
+                Facing = It->GetActorRotation();
+                bFixedHubAnchor = true;
+                break;
+            }
+    if (!bFixedHubAnchor)
+    {
+        FHitResult Hit;
+        FCollisionQueryParams Params;
+        Params.AddIgnoredActor(Pawn);
+        if (World->LineTraceSingleByChannel(Hit, Position + FVector(0, 0, 200), Position - FVector(0, 0, 1500), ECC_Pawn, Params))
+            Position.Z = Hit.ImpactPoint.Z + .5f;
+        else
+            Position.Z -= 90.f;
+    }
     FActorSpawnParameters SpawnParams;
     SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-    ASceneTestPortal* Portal = World->SpawnActor<ASceneTestPortal>(Position, FRotator(0, Facing.Yaw + 180.f, 0), SpawnParams);
+    ASceneTestPortal* Portal = World->SpawnActor<ASceneTestPortal>(Position, Facing, SpawnParams);
     if (Portal)
     {
         Portal->Tags.Add(LinkTag);
