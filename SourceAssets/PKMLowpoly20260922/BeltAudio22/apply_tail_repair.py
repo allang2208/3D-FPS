@@ -1,16 +1,22 @@
 """Regenerate every PKM reload tail repair from the reference decode.
 
-One entry point for both repair rounds, so the repaired WAVs that
+One entry point for the active recipe, so the repaired WAVs that
 `import_audio.py` and `tail_repair_manifest.json` point at can always be rebuilt
 from scratch:
 
-  1. `_author_rebuild.py`                     -> rebuild/  (2026-09-25: CoverOpen, CoverClose)
-  2. `ReloadTailRepair20260928/_author_debgm.py` -> .../out/ (2026-09-28: the other five)
+  `ReloadTailRepair20260928/_author_debgm2.py` -> `ReloadTailRepair20260928/out2/`
 
-Both need `reference_audio.wav`, which `prepare_reference_audio.py` regenerates
+It needs `reference_audio.wav`, which `prepare_reference_audio.py` regenerates
 from the local reference video.  Nothing here touches Content or the editor: run
-`import_audio.py` (or the round's `_import_*_ue.py` inside a running editor)
-afterwards to install the results.
+`import_audio.py` (or the round's `_import_debgm2_ue.py`) afterwards to install
+the results -- through the MCP bridge if the editor is running, otherwise as an
+`UnrealEditor-Cmd -run=pythonscript` commandlet.
+
+The two earlier recipes (`_author_rebuild.py` from 2026-09-25 and
+`_author_debgm.py` from the first 2026-09-28 attempt) are **superseded**: both
+colour-matched the replacement to the bed's own spectrum and then envelope-matched
+it to the bed's level, so the rebuilt tail was a resynthesis of the music.  They
+are kept only for the record and are no longer run.
 
     python apply_tail_repair.py
 """
@@ -23,8 +29,7 @@ HERE = Path(__file__).resolve().parent
 ROUND = HERE / 'ReloadTailRepair20260928'
 
 STEPS = [
-    ('2026-09-25 cover tails', HERE / '_author_rebuild.py'),
-    ('2026-09-28 remaining contacts', ROUND / '_author_debgm.py'),
+    ('active recipe: de-BGM v2 (all nine repaired contacts)', ROUND / '_author_debgm2.py'),
 ]
 
 

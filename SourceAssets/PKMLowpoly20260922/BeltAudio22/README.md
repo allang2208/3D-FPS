@@ -43,13 +43,21 @@
 
 | 轮次 | 范围 | 配方 | 记录 |
 | --- | --- | --- | --- |
-| 2026-09-25 | 开盖、合盖 | `_author_rebuild.py` | `BGM_FINDINGS.md` |
-| 2026-09-28 | 拨链、拆弹箱、铺链、拉栓、放栓 | `ReloadTailRepair20260928/_author_debgm.py` | `ReloadTailRepair20260928/TAIL_REPAIR_FINDINGS.md` |
+| **2026-09-28 v2（现行）** | **全部 9 条** | **`ReloadTailRepair20260928/_author_debgm2.py`** | `ReloadTailRepair20260928/TAIL_REPAIR_FINDINGS.md` §〇 |
+| 2026-09-28 v1（已作废） | 5 条 | `ReloadTailRepair20260928/_author_debgm.py` | 同上 |
+| 2026-09-25（已作废） | 开盖、合盖 | `_author_rebuild.py` | `BGM_FINDINGS.md` |
+
+**v1 与 9-25 两版都已作废**：它们把替换材料做色彩传递到**背景床**的频谱、再用包络匹配拉到
+**背景床的电平**，等于用干净素材把音乐床重新合成了一遍，所以用户实测仍然听得到 BGM。
+v2 保留供体自身的机械音色、给合成衰减（落到比床低 30 dB），并把高通**只加在供体上**。
+床频带（250–1000 Hz）抑制度从 12.5 dB 上限提高到 **22.5–44.8 dB**。
 
 - **唯一事实源**：`tail_repair_manifest.json`（资产名 → 修复 WAV → 配方 → 记录）。
-- **重建配方**：`python apply_tail_repair.py`，一条命令重跑两轮，输出逐字节可复现。
-- **导入**：`import_audio.py` 现在**优先导入清单里的修复 WAV**；未列出的资产才回退原始裁切并打印警告。
-  曾经的坑是它无条件导入原始裁切，重跑一次就会把 09-25 的修复覆盖回带 BGM 的版本。
+- **重建配方**：`python apply_tail_repair.py`，输出逐字节可复现。
+- **导入**：`import_audio.py` **优先导入清单里的修复 WAV**；未列出的资产才回退原始裁切并打印警告。
+- **编辑器开着** → 走 `Tools/AssetPipeline/mcp_call_codex.ps1 -PythonScript`（批次互斥）；
+  **编辑器关着** → 走后台 commandlet：
+  `UnrealEditor-Cmd.exe D:/FPS3D/FPSGAME/FPSGAME.uproject -run=pythonscript -script=<...> -unattended -nosplash -nullrhi`。
 - **不要把原始 `S_PKM_*.wav` 直接导入这些 SoundWave** —— 那正是"修复看起来没落盘"的成因。
 
 ## 交付范围
