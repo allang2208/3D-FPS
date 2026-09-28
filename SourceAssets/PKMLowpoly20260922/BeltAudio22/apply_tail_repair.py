@@ -1,66 +1,94 @@
-"""Regenerate every PKM reload tail repair from the reference decode.
+"""Entry point for the PKM reload audio.
 
-One entry point for the active recipe, so the repaired WAVs that
-`import_audio.py` and `tail_repair_manifest.json` point at can always be rebuilt
-from scratch:
+HISTORY, because it is the whole point of this file.  Five rounds tried to take the
+BGM out of these cuts and all five were rejected or unverified:
 
-  `ReloadTailRepair20260928/_author_debgm2.py` -> `ReloadTailRepair20260928/out2/`
+    2026-09-25  tail rebuild on CoverOpen/CoverClose      -- its output is INSTALLED now
+    2026-09-28  v1  tail rebuild, 5 contacts              -- rejected, retired to trash
+    2026-09-28  v2  tail rebuild, 9 contacts              -- rejected, retired to trash
+    2026-09-28  v3  whole-cue look-ahead gate, 9 contacts -- rejected, retired to trash
 
-It needs `reference_audio.wav`, which `prepare_reference_audio.py` regenerates
-from the local reference video.  Nothing here touches Content or the editor: run
-`import_audio.py` (or the round's `_import_debgm2_ue.py`) afterwards to install
-the results -- through the MCP bridge if the editor is running, otherwise as an
-`UnrealEditor-Cmd -run=pythonscript` commandlet.
+On 2026-09-28 the user asked to revert to the 09-25 state, so the installed set is now:
 
-The two earlier recipes (`_author_rebuild.py` from 2026-09-25 and
-`_author_debgm.py` from the first 2026-09-28 attempt) are **superseded**: both
-colour-matched the replacement to the bed's own spectrum and then envelope-matched
-it to the bed's level, so the rebuilt tail was a resynthesis of the music.  They
-are kept only for the record and are no longer run.
+    CoverOpen, CoverClose                 09-25 rebuilt tails   (rebuild/*_rebuilt_delivered.wav)
+    BeltLift, BoxOut, BoxInsert, BeltSeat raw cuts              (BeltAudio22/S_PKM_*.wav)
+    ChargePullMove, ChargeRearStop,
+    ChargeFrontStop                       raw cuts              (ChargeAudio35/S_PKM_*.wav)
+    ChargePushMove                        untouched (already the raw cut)
 
-    python apply_tail_repair.py
+This is NOT a clean state and the record says so: the 09-25 recipe used the bed itself
+as its timbre reference (rebuild_report.json: `timbre_reference: 9.05-10.0 s`), and the
+other six contacts are unprocessed cuts that still carry the BGM.
+
+What that implies, and why another tail/gate/filter round is not the next step: the
+reference video is a finished mixed soundtrack.  The BGM and the mechanical sound are
+recorded into the same file, overlapping in both time and frequency, with no stems.
+Five rounds of masking, donor-splicing, high-passing and gating all hit the same wall.
+The remaining honest option is to stop cutting from that video and author the contacts
+from clean material.
+
+Usage:  python apply_tail_repair.py          (verify only; it does not import)
+Import: run ReloadTailRepair20260928/_import_restore_20260928.py through a background
+        commandlet -- never underneath an open editor, which holds the assets in memory.
 """
 import json
-import subprocess
 import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-ROUND = HERE / 'ReloadTailRepair20260928'
-
-STEPS = [
-    ('active recipe: de-BGM v3, whole-cue gate (all nine repaired contacts)',
-     ROUND / '_author_debgm3.py'),
-]
+MANIFEST = HERE / 'tail_repair_manifest.json'
+RECIPE = HERE / 'ReloadTailRepair20260928' / '_import_restore_20260928.py'
 
 
 def main():
-    if not (HERE / 'reference_audio.wav').is_file():
-        raise SystemExit('reference_audio.wav missing; run prepare_reference_audio.py first')
+    manifest = json.loads(MANIFEST.read_text(encoding='utf-8'))
+    active = manifest.get('active_recipe', {})
+    print('state      : %s' % active.get('status', 'unknown'))
+    print('record     : %s' % active.get('record', '-'))
+    print('recipe     : %s' % active.get('script', '-'))
+    print('receipt    : %s' % active.get('receipt', '-'))
+    retired = manifest.get('retired_attempts', {})
+    if retired:
+        print('retired    : %s' % retired.get('location', '-'))
+    print()
 
-    for label, script in STEPS:
-        if not script.is_file():
-            raise SystemExit('missing recipe %s (%s)' % (script, label))
-        print('=== %s -> %s' % (label, script.name), flush=True)
-        subprocess.run([sys.executable, str(script)], check=True)
+    repairs = manifest.get('repairs', [])
+    print('installed contacts : %d' % len(repairs))
+    missing, bad = [], []
+    for r in repairs:
+        wav = HERE.parent.parent.parent / r['wav']
+        if not wav.is_file():
+            missing.append(r['wav'])
+            mark = 'MISSING'
+        else:
+            size = wav.stat().st_size
+            if size < 1000:
+                bad.append(r['wav'])
+            mark = 'OK  %7d B' % size
+        print('  %-5s %-22s %-16s %s' % (mark.split()[0], r['asset_name'],
+                                         r.get('origin', '-'), r['wav']))
 
-    # verify against the manifest before handing off to the importer
-    manifest = json.loads((HERE / 'tail_repair_manifest.json').read_text(encoding='utf-8'))
-    missing, present = [], []
-    for row in manifest['repairs']:
-        wav = HERE / row['wav']
-        (present if wav.is_file() else missing).append(
-            '%s (%s)' % (row['asset_name'], row['wav']))
-    print('\nrepaired WAVs present : %d' % len(present))
-    for line in present:
-        print('  OK   ' + line)
+    problems = []
+    if not RECIPE.is_file():
+        problems.append('recipe missing: %s' % RECIPE)
+    for name in ('S_PKM_ChargePull', 'S_PKM_ChargeRelease'):
+        if any(r['asset_name'] == name for r in repairs):
+            problems.append('%s is a dead asset and must not be listed' % name)
     if missing:
-        print('repaired WAVs MISSING : %d' % len(missing))
-        for line in missing:
-            print('  FAIL ' + line)
-        raise SystemExit(1)
-    print('\nnext: run import_audio.py (or a round _import_*_ue.py) to install them')
+        problems.append('missing source WAVs: %s' % ', '.join(missing))
+    if bad:
+        problems.append('suspiciously small source WAVs: %s' % ', '.join(bad))
+
+    print()
+    if problems:
+        for p in problems:
+            print('PROBLEM: %s' % p)
+        return 1
+    print('nothing dangling. The installed state matches the manifest.')
+    print('To re-import: background commandlet running %s' % RECIPE.name)
+    print('Do NOT import while the UE editor is open.')
+    return 0
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())

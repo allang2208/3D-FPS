@@ -32,110 +32,74 @@
     {
       "asset_name": "S_PKM_CoverOpen",
       "asset_path": "/Game/Weapons/PKMLowpoly20260922/ReloadAudio22/S_PKM_CoverOpen",
-      "wav": "ReloadTailRepair20260928/out3/S_PKM_CoverOpen_debgm3.wav",
-      "duration_ms": 692.2,
-      "suppression_db": 36.4,
-      "recipe": "debgm3 (whole-cue gate)",
-      "bed_suppression_db": 2.3,
-      "mean_gain_on_exposed_frames_db": -8.5,
-      "unity_gain_pct": 76.9,
-      "rms_delta_db": -0.02
+      "wav": "SourceAssets/PKMLowpoly20260922/BeltAudio22/rebuild/S_PKM_CoverOpen_rebuilt_delivered.wav",
+      "origin": "20260925 rebuild",
+      "status": "installed",
+      "note": "restored 2026-09-28; the 09-28 v1/v2/v3 rebuilds were rejected and are retired to trash/pkm-reload-debgm-attempts-20260928"
     },
     {
       "asset_name": "S_PKM_BeltLift",
       "asset_path": "/Game/Weapons/PKMLowpoly20260922/ReloadAudio22/S_PKM_BeltLift",
-      "wav": "ReloadTailRepair20260928/out3/S_PKM_BeltLift_debgm3.wav",
-      "duration_ms": 571.6,
-      "suppression_db": 38.1,
-      "recipe": "debgm3 (whole-cue gate)",
-      "bed_suppression_db": 6.0,
-      "mean_gain_on_exposed_frames_db": -12.1,
-      "unity_gain_pct": 45.2,
-      "rms_delta_db": -0.39
+      "wav": "SourceAssets/PKMLowpoly20260922/BeltAudio22/S_PKM_BeltLift.wav",
+      "origin": "raw cut",
+      "status": "installed",
+      "note": "restored 2026-09-28; the 09-28 v1/v2/v3 rebuilds were rejected and are retired to trash/pkm-reload-debgm-attempts-20260928"
     },
     {
       "asset_name": "S_PKM_BoxOut",
       "asset_path": "/Game/Weapons/PKMLowpoly20260922/ReloadAudio22/S_PKM_BoxOut",
-      "wav": "ReloadTailRepair20260928/out3/S_PKM_BoxOut_debgm3.wav",
-      "duration_ms": 480.0,
-      "suppression_db": 22.5,
-      "recipe": "debgm3 (whole-cue gate)",
-      "bed_suppression_db": 10.2,
-      "mean_gain_on_exposed_frames_db": -19.7,
-      "unity_gain_pct": 56.4,
-      "rms_delta_db": -0.03
+      "wav": "SourceAssets/PKMLowpoly20260922/BeltAudio22/S_PKM_BoxOut.wav",
+      "origin": "raw cut",
+      "status": "installed",
+      "note": "restored 2026-09-28; the 09-28 v1/v2/v3 rebuilds were rejected and are retired to trash/pkm-reload-debgm-attempts-20260928"
     },
     {
       "asset_name": "S_PKM_BoxInsert",
       "asset_path": "/Game/Weapons/PKMLowpoly20260922/ReloadAudio22/S_PKM_BoxInsert",
-      "wav": "ReloadTailRepair20260928/out3/S_PKM_BoxInsert_debgm3.wav",
-      "duration_ms": 225.0,
-      "suppression_db": 37.2,
-      "recipe": "debgm3 (whole-cue gate)",
-      "bed_suppression_db": 1.5,
-      "mean_gain_on_exposed_frames_db": -10.7,
-      "unity_gain_pct": 77.6,
-      "rms_delta_db": 0.0
+      "wav": "SourceAssets/PKMLowpoly20260922/BeltAudio22/S_PKM_BoxInsert.wav",
+      "origin": "raw cut",
+      "status": "installed",
+      "note": "restored 2026-09-28; the 09-28 v1/v2/v3 rebuilds were rejected and are retired to trash/pkm-reload-debgm-attempts-20260928"
     },
     {
       "asset_name": "S_PKM_BeltSeat",
       "asset_path": "/Game/Weapons/PKMLowpoly20260922/ReloadAudio22/S_PKM_BeltSeat",
-      "wav": "ReloadTailRepair20260928/out3/S_PKM_BeltSeat_debgm3.wav",
-      "duration_ms": 205.0,
-      "suppression_db": 38.5,
-      "recipe": "debgm3 (whole-cue gate)",
-      "bed_suppression_db": 6.5,
-      "mean_gain_on_exposed_frames_db": -13.7,
-      "unity_gain_pct": 19.5,
-      "rms_delta_db": -0.47
+      "wav": "SourceAssets/PKMLowpoly20260922/BeltAudio22/S_PKM_BeltSeat.wav",
+      "origin": "raw cut",
+      "status": "installed",
+      "note": "restored 2026-09-28; the 09-28 v1/v2/v3 rebuilds were rejected and are retired to trash/pkm-reload-debgm-attempts-20260928"
     },
     {
       "asset_name": "S_PKM_CoverClose",
       "asset_path": "/Game/Weapons/PKMLowpoly20260922/ReloadAudio22/S_PKM_CoverClose",
-      "wav": "ReloadTailRepair20260928/out3/S_PKM_CoverClose_debgm3.wav",
-      "duration_ms": 235.0,
-      "suppression_db": 39.2,
-      "recipe": "debgm3 (whole-cue gate)",
-      "bed_suppression_db": 25.9,
-      "mean_gain_on_exposed_frames_db": -26.0,
-      "unity_gain_pct": 49.4,
-      "rms_delta_db": -0.06
+      "wav": "SourceAssets/PKMLowpoly20260922/BeltAudio22/rebuild/S_PKM_CoverClose_rebuilt_delivered.wav",
+      "origin": "20260925 rebuild",
+      "status": "installed",
+      "note": "restored 2026-09-28; the 09-28 v1/v2/v3 rebuilds were rejected and are retired to trash/pkm-reload-debgm-attempts-20260928"
     },
     {
       "asset_name": "S_PKM_ChargePullMove",
       "asset_path": "/Game/Weapons/PKMLowpoly20260922/ChargeAudio35/S_PKM_ChargePullMove",
-      "wav": "ReloadTailRepair20260928/out3/S_PKM_ChargePullMove_debgm3.wav",
-      "duration_ms": 230.0,
-      "suppression_db": 33.7,
-      "recipe": "debgm3 (whole-cue gate)",
-      "bed_suppression_db": 4.1,
-      "mean_gain_on_exposed_frames_db": -14.5,
-      "unity_gain_pct": 35.9,
-      "rms_delta_db": -0.83
+      "wav": "SourceAssets/PKMLowpoly20260922/ChargeAudio35/S_PKM_ChargePullMove.wav",
+      "origin": "raw cut",
+      "status": "installed",
+      "note": "restored 2026-09-28; the 09-28 v1/v2/v3 rebuilds were rejected and are retired to trash/pkm-reload-debgm-attempts-20260928"
     },
     {
       "asset_name": "S_PKM_ChargeRearStop",
       "asset_path": "/Game/Weapons/PKMLowpoly20260922/ChargeAudio35/S_PKM_ChargeRearStop",
-      "wav": "ReloadTailRepair20260928/out3/S_PKM_ChargeRearStop_debgm3.wav",
-      "duration_ms": 192.0,
-      "suppression_db": 24.5,
-      "recipe": "debgm3 (whole-cue gate)",
-      "bed_suppression_db": 13.0,
-      "mean_gain_on_exposed_frames_db": -20.7,
-      "unity_gain_pct": 39.6,
-      "rms_delta_db": -0.13
+      "wav": "SourceAssets/PKMLowpoly20260922/ChargeAudio35/S_PKM_ChargeRearStop.wav",
+      "origin": "raw cut",
+      "status": "installed",
+      "note": "restored 2026-09-28; the 09-28 v1/v2/v3 rebuilds were rejected and are retired to trash/pkm-reload-debgm-attempts-20260928"
     },
     {
       "asset_name": "S_PKM_ChargeFrontStop",
       "asset_path": "/Game/Weapons/PKMLowpoly20260922/ChargeAudio35/S_PKM_ChargeFrontStop",
-      "wav": "ReloadTailRepair20260928/out3/S_PKM_ChargeFrontStop_debgm3.wav",
-      "duration_ms": 212.0,
-      "suppression_db": 44.8,
-      "recipe": "debgm3 (whole-cue gate)",
-      "bed_suppression_db": 14.4,
-      "mean_gain_on_exposed_frames_db": -22.0,
-      "unity_gain_pct": 34.6,
-      "rms_delta_db": -0.13
+      "wav": "SourceAssets/PKMLowpoly20260922/ChargeAudio35/S_PKM_ChargeFrontStop.wav",
+      "origin": "raw cut",
+      "status": "installed",
+      "note": "restored 2026-09-28; the 09-28 v1/v2/v3 rebuilds were rejected and are retired to trash/pkm-reload-debgm-attempts-20260928"
     }
   ],
   "measured_and_left_alone": [
@@ -168,5 +132,11 @@
     "measured_with": "80 Hz highpass applied, matching the authoring chain",
     "donor_highpass_hz": 1000,
     "why_not_the_20260925_donor": "25.010-25.215 s was chosen from a margin measured WITHOUT the authoring highpass. With the highpass its minimum falls to -2.3 dB and 96-139 ms sits at 2.5-5.1 dB, so a 130-224 ms tail rebuilt from it copies the music back in."
+  },
+  "retired_attempts": {
+    "location": "trash/pkm-reload-debgm-attempts-20260928",
+    "manifest": "trash/pkm-reload-debgm-attempts-20260928/RETIRED.json",
+    "what": "09-28 v1/v2/v3 authoring, verification, import, render and diagnostic scripts, all their WAV/report/image outputs, and the v3 pre-restore snapshot",
+    "why": "all three rounds were rejected by the user; nothing installed derives from them"
   }
 }
