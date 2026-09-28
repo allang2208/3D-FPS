@@ -29,7 +29,8 @@ HERE = Path(__file__).resolve().parent
 ROUND = HERE / 'ReloadTailRepair20260928'
 
 STEPS = [
-    ('active recipe: de-BGM v2 (all nine repaired contacts)', ROUND / '_author_debgm2.py'),
+    ('active recipe: de-BGM v3, whole-cue gate (all nine repaired contacts)',
+     ROUND / '_author_debgm3.py'),
 ]
 
 
