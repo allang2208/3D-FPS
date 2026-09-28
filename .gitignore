@@ -537,6 +537,9 @@ __pycache__/
 !/SourceAssets/PKMLowpoly20260922/**/*.hlsl
 !/SourceAssets/PKMLowpoly20260922/finish_settings.json
 !/SourceAssets/PKMLowpoly20260922/BeltAudio22/audio_manifest.json
+# The reload tail repairs are recipe-only; this manifest is the single source of
+# truth that keeps the committed restore entry from reverting them.
+!/SourceAssets/PKMLowpoly20260922/BeltAudio22/tail_repair_manifest.json
 !/SourceAssets/PKMLowpoly20260922/ChargeAudio35/audio_manifest.json
 /SourceAssets/PKMLowpoly20260922/Original/
 /SourceAssets/PKMLowpoly20260922/**/Before/

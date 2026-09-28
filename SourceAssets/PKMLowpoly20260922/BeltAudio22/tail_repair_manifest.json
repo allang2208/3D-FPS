@@ -1,0 +1,117 @@
+{
+  "purpose": "Single source of truth for PKM reload tail repairs. import_audio.py reads this and imports the repaired WAV for any asset listed here, so re-running the committed restore entry can no longer silently revert a repaired SoundWave to the raw video cut.",
+  "warning": "The base cuts in audio_manifest.json still contain the reference video's background music bed. They are inputs to the repair recipes, not deliverables. Do not import them over the assets listed below.",
+  "source": "DVV1jHeA6sEmj user-selected reference video; derivatives local only, redistribution rights not established.",
+  "regenerate": "BeltAudio22/apply_tail_repair.py -- then import_audio.py (or the per-round _import_*_ue.py inside the running editor).",
+  "repairs": [
+    {
+      "asset_name": "S_PKM_CoverOpen",
+      "asset_path": "/Game/Weapons/PKMLowpoly20260922/ReloadAudio22/S_PKM_CoverOpen",
+      "round": "20260925",
+      "wav": "rebuild/S_PKM_CoverOpen_rebuilt_delivered.wav",
+      "recipe": "_author_rebuild.py",
+      "findings": "BGM_FINDINGS.md",
+      "asset_samples": 33228,
+      "handover_asset_ms": 587.8,
+      "crossfade_ms": 15.0,
+      "differs_from_asset_ms": 569.3,
+      "replaced_ms": 104.5,
+      "note": "BGM_FINDINGS.md quoted 314.9 ms for this handover; that figure multiplied by the atempo factor instead of dividing, and the delivered chain lengthens 0.515 s of source to 0.692 s. The source-side handover (437.3 ms) and the shipped audio are correct; only the document was wrong. Confirmed by sample-exact diff: the delivered WAV first differs at 569.3 ms."
+    },
+    {
+      "asset_name": "S_PKM_CoverClose",
+      "asset_path": "/Game/Weapons/PKMLowpoly20260922/ReloadAudio22/S_PKM_CoverClose",
+      "round": "20260925",
+      "wav": "rebuild/S_PKM_CoverClose_rebuilt_delivered.wav",
+      "recipe": "_author_rebuild.py",
+      "findings": "BGM_FINDINGS.md",
+      "asset_samples": 11280,
+      "handover_asset_ms": 192.0,
+      "crossfade_ms": 15.0,
+      "differs_from_asset_ms": 177.0,
+      "replaced_ms": 43.0
+    },
+    {
+      "asset_name": "S_PKM_BeltSeat",
+      "asset_path": "/Game/Weapons/PKMLowpoly20260922/ReloadAudio22/S_PKM_BeltSeat",
+      "round": "20260928",
+      "wav": "ReloadTailRepair20260928/out/S_PKM_BeltSeat_debgm_delivered.wav",
+      "recipe": "ReloadTailRepair20260928/_author_debgm.py",
+      "findings": "ReloadTailRepair20260928/TAIL_REPAIR_FINDINGS.md",
+      "asset_samples": 9840,
+      "handover_asset_ms": 74.7,
+      "rebuilt_ms": 130.3
+    },
+    {
+      "asset_name": "S_PKM_BoxOut",
+      "asset_path": "/Game/Weapons/PKMLowpoly20260922/ReloadAudio22/S_PKM_BoxOut",
+      "round": "20260928",
+      "wav": "ReloadTailRepair20260928/out/S_PKM_BoxOut_debgm_delivered.wav",
+      "recipe": "ReloadTailRepair20260928/_author_debgm.py",
+      "findings": "ReloadTailRepair20260928/TAIL_REPAIR_FINDINGS.md",
+      "asset_samples": 23040,
+      "handover_asset_ms": 256.0,
+      "rebuilt_ms": 224.0,
+      "note": "Also covers the mid-clip music hole at 267-341 ms that the old last-keepable-frame rule kept."
+    },
+    {
+      "asset_name": "S_PKM_BeltLift",
+      "asset_path": "/Game/Weapons/PKMLowpoly20260922/ReloadAudio22/S_PKM_BeltLift",
+      "round": "20260928",
+      "wav": "ReloadTailRepair20260928/out/S_PKM_BeltLift_debgm_delivered.wav",
+      "recipe": "ReloadTailRepair20260928/_author_debgm.py",
+      "findings": "ReloadTailRepair20260928/TAIL_REPAIR_FINDINGS.md",
+      "asset_samples": 27435,
+      "handover_asset_ms": 512.0,
+      "rebuilt_ms": 59.6
+    },
+    {
+      "asset_name": "S_PKM_ChargeRearStop",
+      "asset_path": "/Game/Weapons/PKMLowpoly20260922/ChargeAudio35/S_PKM_ChargeRearStop",
+      "round": "20260928",
+      "wav": "ReloadTailRepair20260928/out/S_PKM_ChargeRearStop_debgm_delivered.wav",
+      "recipe": "ReloadTailRepair20260928/_author_debgm.py",
+      "findings": "ReloadTailRepair20260928/TAIL_REPAIR_FINDINGS.md",
+      "asset_samples": 9216,
+      "handover_asset_ms": 149.3,
+      "rebuilt_ms": 42.7
+    },
+    {
+      "asset_name": "S_PKM_ChargePullMove",
+      "asset_path": "/Game/Weapons/PKMLowpoly20260922/ChargeAudio35/S_PKM_ChargePullMove",
+      "round": "20260928",
+      "wav": "ReloadTailRepair20260928/out/S_PKM_ChargePullMove_debgm_delivered.wav",
+      "recipe": "ReloadTailRepair20260928/_author_debgm.py",
+      "findings": "ReloadTailRepair20260928/TAIL_REPAIR_FINDINGS.md",
+      "asset_samples": 11040,
+      "handover_asset_ms": 202.7,
+      "rebuilt_ms": 27.3,
+      "note": "Same asset also plays as the PKM equip sound (EquipAudio37)."
+    }
+  ],
+  "measured_and_left_alone": [
+    {
+      "asset_name": "S_PKM_BoxInsert",
+      "exposed_tail_ms": 11.7,
+      "reason": "Tail sits at -54 dBFS; far too short and quiet to read as music."
+    },
+    {
+      "asset_name": "S_PKM_ChargeFrontStop",
+      "exposed_tail_ms": 9.3,
+      "reason": "Below 20 ms the 25 ms envelope smoother is longer than the tail and the level ratio degenerates (first attempt came out 6.5 dB louder). Also -47 dBFS."
+    },
+    {
+      "asset_name": "S_PKM_ChargePushMove",
+      "exposed_tail_ms": 94.7,
+      "reason": "The delivered asset is padded with digital silence after 230 ms (apad/atrim), so the trailing region carries no music."
+    }
+  ],
+  "donor": {
+    "window_s": [20.843, 21.077],
+    "length_ms": 234.7,
+    "min_margin_db": 12.5,
+    "mean_margin_db": 19.7,
+    "measured_with": "80 Hz highpass applied, matching the authoring chain",
+    "why_not_the_20260925_donor": "25.010-25.215 s was chosen from a margin measured WITHOUT the authoring highpass. With the highpass its minimum falls to -2.3 dB and 96-139 ms sits at 2.5-5.1 dB, so a 130-224 ms tail rebuilt from it copies the music back in. A donor's margin is the rebuild's music suppression."
+  }
+}

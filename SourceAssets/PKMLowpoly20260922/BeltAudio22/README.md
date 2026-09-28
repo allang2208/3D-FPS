@@ -36,6 +36,22 @@
 
 动作时间通过现有 `ReloadSourceTime` / `ReloadRuntimeTime` 映射，保留当前换弹速度与补弹结算。音频资产目录为 `/Game/Weapons/PKMLowpoly20260922/ReloadAudio22`，`import_audio.py` 已执行后台导入并逐项保存，结果在 `import_receipt.json`。音频引用仅替换 PKM 分支。
 
+### 尾音修复（必读）
+
+参考视频是混合成品音轨，所以**原始裁切的每一段都带背景音乐床**。裁切结果属于中间产物，
+不是交付物；交付的是修掉音乐尾音后的版本：
+
+| 轮次 | 范围 | 配方 | 记录 |
+| --- | --- | --- | --- |
+| 2026-09-25 | 开盖、合盖 | `_author_rebuild.py` | `BGM_FINDINGS.md` |
+| 2026-09-28 | 拨链、拆弹箱、铺链、拉栓、放栓 | `ReloadTailRepair20260928/_author_debgm.py` | `ReloadTailRepair20260928/TAIL_REPAIR_FINDINGS.md` |
+
+- **唯一事实源**：`tail_repair_manifest.json`（资产名 → 修复 WAV → 配方 → 记录）。
+- **重建配方**：`python apply_tail_repair.py`，一条命令重跑两轮，输出逐字节可复现。
+- **导入**：`import_audio.py` 现在**优先导入清单里的修复 WAV**；未列出的资产才回退原始裁切并打印警告。
+  曾经的坑是它无条件导入原始裁切，重跑一次就会把 09-25 的修复覆盖回带 BGM 的版本。
+- **不要把原始 `S_PKM_*.wav` 直接导入这些 SoundWave** —— 那正是"修复看起来没落盘"的成因。
+
 ## 交付范围
 
 - 源码：`PKMOutgoingBeltDynamics.*`、`PKMSoftBeltDynamics.*`、`PKMLowpolyWeaponAssets.h`、`FPSGAMECharacter.cpp` 的 PKM 音效分支。
