@@ -22,6 +22,12 @@ namespace ColdSteelUI
     inline const FLinearColor Warning = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("F0BE71FF")));
     inline const FLinearColor Stamina = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("A1A44FFF")));
     inline const FLinearColor StaminaDeep = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("666B35FF")));
+    // 生命/魔法语义色（2026-09-28 统一）：HUD 资源条与人物状态页同源，
+    // 原 ResourceMeter 与 CharacterSheet 的字面量（763B43/BD626D/36566E/7194AC/55799D）收敛于此。
+    inline const FLinearColor Health = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("BD626DFF")));
+    inline const FLinearColor HealthDeep = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("763B43FF")));
+    inline const FLinearColor Mana = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("7194ACFF")));
+    inline const FLinearColor ManaDeep = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("36566EFF")));
     inline const FLinearColor Danger = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("FF8193FF")));
     inline const FLinearColor Success = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("68D5ADFF")));
     inline const FLinearColor ButtonNormal = Gray(43,190);
@@ -58,6 +64,12 @@ inline constexpr float NavigationDrawerInset=0.f;
     inline const FLinearColor ItemTooltipBorder = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("00000033")));
     inline const FLinearColor ItemTooltipPositive = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("247124FF")));
     inline const FLinearColor ItemTooltipNegative = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("B82020FF")));
+    // 浮窗暗金融合（2026-09-28）：金只上身份层——区块/卡片标题、元信息行、分隔线；
+    // 正文与数值保持中性灰阶，正负语义色不变。756447 即 HUDGoldDim（HUD 淡金加深档；
+    // 本文件当前未引入 HUDGold 家族，先落字面值，HUDGold 入库后可改回别名）。
+    // C7AA70 为 HUDGold 原值：浅底文字对比仅 1.95:1，只作分隔线基底降透明使用，不作文字。
+    inline const FLinearColor ItemTooltipGold = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("756447FF")));
+    inline const FLinearColor ItemTooltipGoldRule = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("C7AA7059")));
     inline const FLinearColor ItemTooltipDisclosure = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("176C86FF")));
     inline const FLinearColor ItemTooltipDisclosureFlash = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("57BCD5FF")));
     inline const FLinearColor ItemTooltipDisclosureOutline = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("123D4BFF")));

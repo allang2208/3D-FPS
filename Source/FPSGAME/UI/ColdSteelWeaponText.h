@@ -37,6 +37,21 @@ inline constexpr const TCHAR* FlightLimit=TEXT("最大飞行距离");
 inline constexpr const TCHAR* Reload=TEXT("普通换弹");
 inline constexpr const TCHAR* EmptyReload=TEXT("空仓换弹");
 inline constexpr const TCHAR* CriticalBonus=TEXT("暴击伤害加成");
+// 同一数值在主卡、改造合计卡和核心属性摘要三处共用一个名字；改措辞只改这里。
+inline constexpr const TCHAR* RecoilIndex=TEXT("后坐力指数");
+inline constexpr const TCHAR* Stability=TEXT("枪械稳定性");
+inline constexpr const TCHAR* ToughnessMultiplier=TEXT("韧性伤害倍率");
+inline constexpr const TCHAR* MagicCostMultiplier=TEXT("魔法值消耗倍率");
+inline constexpr const TCHAR* RuneVulnerability=TEXT("剑刃攻击命中魔法易伤");
+inline constexpr const TCHAR* CooldownReducePerHit=TEXT("近战命中额外减少魔法冷却");
+inline constexpr const TCHAR* QuickCombatHitMode=TEXT("快速近战命中方式");
+inline constexpr const TCHAR* QuickCombatBleed=TEXT("快速近战流血");
+inline constexpr const TCHAR* ClovenPhysicalDamage=TEXT("承锋重击物理伤害");
+inline constexpr const TCHAR* ClovenToughnessDamage=TEXT("承锋重击韧性伤害");
+inline constexpr const TCHAR* ParryClovenKeep=TEXT("成功弹反保留时间");
+inline constexpr const TCHAR* HarvestYieldMultiplier=TEXT("采集产出倍率");
+inline constexpr const TCHAR* HarvestDistance=TEXT("采集距离");
+inline constexpr const TCHAR* HarvestRadius=TEXT("命中宽容半径");
 inline constexpr const TCHAR* DamageComposition=TEXT("伤害组成");
 inline constexpr const TCHAR* BowScope=TEXT("按当前角色、强化和改造计算；弓以满弓单箭为准，武器总伤害已计满弓蓄力倍率，拉弓耗时、子弹速度和体力消耗也以满弓为准。未计弹种倍率、暴击和目标防御；腰射散布取站立静止值。");
 }

@@ -66,8 +66,8 @@ void UM4GunsmithWidget::RefreshPresentation()
     Row(ColdSteelWeaponText::BasePhysical,BeforeDamage.BasePhysical,AfterDamage.BasePhysical,2,TEXT(""));
     if(BeforeDamage.AddedPhysical>0||AfterDamage.AddedPhysical>0)Row(ColdSteelWeaponText::AddedPhysical,BeforeDamage.AddedPhysical,AfterDamage.AddedPhysical,2,TEXT(""));
     if(BeforeDamage.AddedMagic>0||AfterDamage.AddedMagic>0)Row(ColdSteelWeaponText::AddedMagic,BeforeDamage.AddedMagic,AfterDamage.AddedMagic,2,TEXT(""));
-    Row(TEXT("后坐力 ↓"),B.Recoil,S.Recoil,1,TEXT(""),true);
-    Row(TEXT("枪械稳定性 ↑"),B.Handling.Stability,S.Handling.Stability,1,TEXT(" 分"));
+    Row(ColdSteelWeaponText::RecoilIndex,B.Recoil,S.Recoil,1,TEXT(""),true);
+    Row(ColdSteelWeaponText::Stability,B.Handling.Stability,S.Handling.Stability,1,TEXT(" /100"));
     Row(TEXT("首发上跳"),B.Handling.FirstShotDegrees(),S.Handling.FirstShotDegrees(),3,TEXT("°"),true);
     Row(TEXT("连射上跳/发"),B.Handling.MaxVerticalDegrees(),S.Handling.MaxVerticalDegrees(),3,TEXT("°"),true);
     Row(TEXT("ADS首发水平/发"),B.Handling.FirstHorizontalDegrees(),S.Handling.FirstHorizontalDegrees(),3,TEXT("°"),true);

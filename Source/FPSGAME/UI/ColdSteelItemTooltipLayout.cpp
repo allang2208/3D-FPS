@@ -53,7 +53,7 @@ public:
     virtual int32 OnPaint(const FPaintArgs&,const FGeometry& Geometry,const FSlateRect&,FSlateWindowElementList& Out,int32 Layer,const FWidgetStyle& Style,bool)const override
     {
         const float Width=Geometry.GetLocalSize().X,Dash=5/RuleScale,Pitch=9/RuleScale;
-        const auto Color=ColdSteelUI::ItemTooltipRule*Style.GetColorAndOpacityTint();
+        const auto Color=ColdSteelUI::ItemTooltipGoldRule*Style.GetColorAndOpacityTint();
         for(float X=0;X<Width;X+=Pitch)
             FSlateDrawElement::MakeBox(Out,Layer,Geometry.ToPaintGeometry(FVector2D(FMath::Min(Dash,Width-X),1/RuleScale),FSlateLayoutTransform(FVector2D(X,0))),FCoreStyle::Get().GetBrush(TEXT("WhiteBrush")),ESlateDrawEffect::None,Color);
         return Layer;
@@ -116,7 +116,7 @@ void UColdSteelItemTooltip::AddRule(UVerticalBox* Column,float Top,float Bottom,
     }
     else
     {
-        auto* Rule=WidgetTree->ConstructWidget<UBorder>();Rule->SetPadding(FMargin(0));Rule->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::ItemTooltipRule,0,FLinearColor::Transparent,0));Height->SetContent(Rule);
+        auto* Rule=WidgetTree->ConstructWidget<UBorder>();Rule->SetPadding(FMargin(0));Rule->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::ItemTooltipGoldRule,0,FLinearColor::Transparent,0));Height->SetContent(Rule);
     }
     Column->AddChildToVerticalBox(Height)->SetPadding(FMargin(0,Top/Scale,0,Bottom/Scale));
 }
@@ -124,7 +124,7 @@ void UColdSteelItemTooltip::AddRow(UVerticalBox* Column,const FColdSteelTooltipR
 {
     if(Row.bSection)
     {
-        auto* Heading=Text(Row.Label,14,ColdSteelUI::ItemTooltipText);Heading->SetFont(ColdSteelUI::TextFont(14*.75f/Scale,true));
+        auto* Heading=Text(Row.Label,14,ColdSteelUI::ItemTooltipGold);Heading->SetFont(ColdSteelUI::TextFont(14*.75f/Scale,true));
         Column->AddChildToVerticalBox(Heading)->SetPadding(FMargin(0,12/Scale,0,4/Scale));
         if(Row.bDashedAfter)AddRule(Column,9,5,true);return;
     }
@@ -154,7 +154,7 @@ void UColdSteelItemTooltip::AddRow(UVerticalBox* Column,const FColdSteelTooltipR
 }
 void UColdSteelItemTooltip::AddCoreGrid(UVerticalBox* Body)
 {
-    Body->AddChildToVerticalBox(Text(TEXT("核心属性"),16,ColdSteelUI::ItemTooltipText))->SetPadding(FMargin(0,0,0,6/Scale));
+    Body->AddChildToVerticalBox(Text(TEXT("核心属性"),16,ColdSteelUI::ItemTooltipGold))->SetPadding(FMargin(0,0,0,6/Scale));
     const int32 Columns=WidthPixels>=340?2:1;
     const float CellWidth=(InnerWidth()-(Columns-1)*16/Scale)/Columns;
     auto* Grid=WidgetTree->ConstructWidget<UUniformGridPanel>();Body->AddChildToVerticalBox(Grid);
@@ -184,7 +184,7 @@ UExpandableArea* UColdSteelItemTooltip::AddSection(UVerticalBox* Column,const FS
     auto* HeadingRow=WidgetTree->ConstructWidget<UHorizontalBox>();
     auto* Arrow=WidgetTree->ConstructWidget<UColdSteelDisclosureIndicator>();Arrow->Configure(Scale,IsOpen,Area,Intro);Disclosures.Add(Key,Arrow);
     auto* ArrowSlot=HeadingRow->AddChildToHorizontalBox(Arrow);ArrowSlot->SetPadding(FMargin(0,0,6/Scale,0));ArrowSlot->SetVerticalAlignment(VAlign_Center);
-    auto* Heading=Text(Title,14,ColdSteelUI::ItemTooltipText);Heading->SetWrapTextAt(FMath::Max(1.f,InnerWidth()-40/Scale));
+    auto* Heading=Text(Title,14,ColdSteelUI::ItemTooltipGold);Heading->SetWrapTextAt(FMath::Max(1.f,InnerWidth()-40/Scale));
     auto* HeadingSlot=HeadingRow->AddChildToHorizontalBox(Heading);HeadingSlot->SetSize(TooltipFill());HeadingSlot->SetVerticalAlignment(VAlign_Center);
     Area->SetContentForSlot(TEXT("Header"),HeadingRow);
     Area->SetContentForSlot(TEXT("Body"),WidgetTree->ConstructWidget<UVerticalBox>());
@@ -196,12 +196,12 @@ void UColdSteelItemTooltip::AddDetails(UVerticalBox* Body)
 {
     if(!Presentation.ComparisonTitle.IsEmpty())
     {
-        AddRule(Body,12,12);Body->AddChildToVerticalBox(Text(TEXT("装备对比"),16,ColdSteelUI::ItemTooltipText));
+        AddRule(Body,12,12);Body->AddChildToVerticalBox(Text(TEXT("装备对比"),16,ColdSteelUI::ItemTooltipGold));
         ComparisonText=Text(Presentation.ComparisonTitle,12,ColdSteelUI::ItemTooltipSecondary);Body->AddChildToVerticalBox(ComparisonText)->SetPadding(FMargin(0,4/Scale,0,6/Scale));
         for(int32 Index=0;Index<FMath::Min(3,Presentation.Comparison.Num());++Index)
         {AddRow(Body,Presentation.Comparison[Index],-2,Index,true);AddRule(Body,2,2);}
     }
-    AddRule(Body,12,10);Body->AddChildToVerticalBox(Text(TEXT("进阶详情"),16,ColdSteelUI::ItemTooltipText))->SetPadding(FMargin(0,0,0,6/Scale));
+    AddRule(Body,12,10);Body->AddChildToVerticalBox(Text(TEXT("进阶详情"),16,ColdSteelUI::ItemTooltipGold))->SetPadding(FMargin(0,0,0,6/Scale));
     if(Presentation.Cards.Num()>1)
     {
         auto* Area=AddSection(Body,TEXT("extra:processing"),TEXT("改造与附魔"),false);auto* Rows=Cast<UVerticalBox>(Area->GetContentForSlot(TEXT("Body")));
@@ -209,7 +209,7 @@ void UColdSteelItemTooltip::AddDetails(UVerticalBox* Body)
         {
             const auto& Card=Presentation.Cards[Index];
             if(Index>0)AddRule(Rows,12,10);
-            Rows->AddChildToVerticalBox(Text(Card.Title,16,ColdSteelUI::ItemTooltipText))->SetPadding(FMargin(0,10/Scale,0,4/Scale));
+            Rows->AddChildToVerticalBox(Text(Card.Title,16,ColdSteelUI::ItemTooltipGold))->SetPadding(FMargin(0,10/Scale,0,4/Scale));
             for(int32 Row=0;Row<Card.Rows.Num();++Row)AddRow(Rows,Card.Rows[Row],Index,Row);
         }
     }
@@ -236,7 +236,7 @@ void UColdSteelItemTooltip::AddDetails(UVerticalBox* Body)
         }
         if(!Presentation.Comparison.IsEmpty())
         {
-            AddRule(Rows,12,8);Rows->AddChildToVerticalBox(Text(TEXT("完整装备对比"),14,ColdSteelUI::ItemTooltipText));
+            AddRule(Rows,12,8);Rows->AddChildToVerticalBox(Text(TEXT("完整装备对比"),14,ColdSteelUI::ItemTooltipGold));
             Rows->AddChildToVerticalBox(Text(TEXT("差值（已装备 → 当前查看）"),12,ColdSteelUI::ItemTooltipSecondary));
             for(int32 Index=0;Index<Presentation.Comparison.Num();++Index)AddRow(Rows,Presentation.Comparison[Index],-2,Index);
         }
@@ -284,11 +284,11 @@ void UColdSteelItemTooltip::BuildCards()
     auto* Identity=WidgetTree->ConstructWidget<UVerticalBox>();auto* IdentitySlot=Heading->AddChildToHorizontalBox(Identity);IdentitySlot->SetSize(TooltipFill());IdentitySlot->SetVerticalAlignment(VAlign_Center);
     const float IdentityWidth=FMath::Max(1.f,(WidthPixels-32-IconWidth-16-(bPinned?32:0))/Scale);
     TitleText=Text(TEXT(""),20,ColdSteelUI::ItemTooltipText);TitleText->SetWrapTextAt(IdentityWidth);Identity->AddChildToVerticalBox(TitleText);
-    MetaText=Text(TEXT(""),12,ColdSteelUI::ItemTooltipSecondary);MetaText->SetWrapTextAt(IdentityWidth);Identity->AddChildToVerticalBox(MetaText)->SetPadding(FMargin(0,5/Scale,0,0));
+    MetaText=Text(TEXT(""),12,ColdSteelUI::ItemTooltipGold);MetaText->SetWrapTextAt(IdentityWidth);Identity->AddChildToVerticalBox(MetaText)->SetPadding(FMargin(0,5/Scale,0,0));
     LocationText=Text(TEXT(""),12,ColdSteelUI::ItemTooltipSecondary);LocationText->SetWrapTextAt(IdentityWidth);Identity->AddChildToVerticalBox(LocationText)->SetPadding(FMargin(0,5/Scale,0,0));
     Close=WidgetTree->ConstructWidget<UButton>();FButtonStyle CloseStyle=ColdSteelUI::ButtonStyle(Scale);
     CloseStyle.SetNormal(ColdSteelUI::RoundedBrush(FLinearColor::Transparent,4/Scale,FLinearColor::Transparent,0));
-    CloseStyle.SetHovered(ColdSteelUI::RoundedBrush(ColdSteelUI::ItemTooltipRule,4/Scale,FLinearColor::Transparent,0));
+    CloseStyle.SetHovered(ColdSteelUI::RoundedBrush(ColdSteelUI::Gray(204),4/Scale,FLinearColor::Transparent,0));
     CloseStyle.SetPressed(ColdSteelUI::RoundedBrush(ColdSteelUI::Gray(204),4/Scale,FLinearColor::Transparent,0));
     CloseStyle.SetNormalPadding(FMargin(0));CloseStyle.SetPressedPadding(FMargin(0));Close->SetStyle(CloseStyle);
     auto* CloseIcon=WidgetTree->ConstructWidget<UNativeWidgetHost>();CloseIcon->SetVisibility(ESlateVisibility::HitTestInvisible);CloseIcon->SetContent(SNew(SItemTooltipCloseIcon).PixelScale(Scale));Close->SetContent(CloseIcon);

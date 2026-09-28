@@ -46,3 +46,32 @@
 弓 `bow_dark` 的显示名为“猎手长弓”，目录源为 `Content/ColdSteelData/bows.json`。沿用 `ReloadProfile` 的目录名称同步，保留定义 ID、实例 ID、强化、改造和放置位置；不要为改名换物品 ID 或清存档。
 
 仅完成必要的源码、配置与构建；不主动开编辑器或运行游戏测试。文档中的固定格式不是自动验收授权。当前实施记录：`Docs/UI/weapon-tooltip-terms-20260927.md`。
+
+## 2026-09-28 扩展（全家族统一批）
+
+在弓/枪统一之上完成了整轮审计修复，标准全文见 `Docs/ItemTooltipStandard20260928.md`。要点：
+
+- `ColdSteelWeaponText.h` 新增 14 个共享常量（后坐力指数、枪械稳定性、韧性伤害倍率、魔法值消耗倍率、
+  剑刃攻击命中魔法易伤、近战命中额外减少魔法冷却、快速近战命中方式/流血、承锋重击两行、成功弹反保留时间、
+  采集距离/命中宽容半径/采集产出倍率）；浮窗主卡、改造合计卡、摘要、M4 工作台四件、图鉴全部改引常量。
+- 枪械稳定性统一为 `N /100`（原摘要"分"、总览"↑/分"、主卡"（越高越好）/100"三种并存）。
+  "越低/越高越好"类方向提示只写在枪械 ValueScope，不进标签。
+- 物品信息三行禁英文键：`Category()` 补 `weapon→武器`；新增 `EquipSlotLabel()`（weapon/armor/gloves→武器槽/防具槽/手套槽）。
+- 静态 stats 抑制扩到：staff 的 物理攻击/魔法攻击（装备魔攻改由目录 `matkFormula` 拼写，与
+  `EquipmentMagicAttack()` 同源）、枪械的 弹巢容量（Dan Wesson 重复行）。
+- 铁铲进标准：production_tools.json 补 `weaponTypeTag`+`dig` 块（footprint/layer/soil_per_layer/rise/drop），
+  浮窗新增「采集参数」段；`category=tool` 一律宽图标。
+- items.json 8 件枪械补 `weaponTypeTag`（突击步枪×6、通用机枪、轻机枪）；
+  `ReloadProfile` 迁移白名单新增 `weaponTypeTag` 与 `dig`（深拷贝防与静态目录共享对象）。
+- 死分支已清除：`ColdSteelItemTooltipData.cpp` 的 `ue_m4a1` 旧分支、「攻击参数」（px）/`ammoConfig` 分支
+  连同孤儿辅助 `Field()`/`Damage` lambda/`FPSGAMECharacter.h` include/stats 循环 DamagePerShot 特例一并删除。
+  删除前核验全部 6 个调用方均传真实 GunsmithSystem、全目录无 `attack`/`ammoConfig` 字段（长杖的 `attack`
+  被 staff 分支先接住）。浮窗数值只走目录与评估入口，不要再加 C++ 默认值兜底分支。
+
+## 2026-09-28 文字暗金融合
+
+浮窗文字色按"金管身份、灰管内容、绿红管语义"四层取色（对齐冶炼台分层与改造台专属金卡的"标题金"口径）：
+新增 `ItemTooltipGold`（=HUDGoldDim，浅底文字金唯一合法档；HUDGold 原值在浅底 1.95:1 禁作文字，
+实测数据见 `Docs/UI/item-tooltip-gold-fusion-20260928.md`）与 `ItemTooltipGoldRule`（#C7AA7059）；
+区块/卡片/折叠区/分区标题、头部元信息行、全部实虚分隔线上金，`ItemTooltipRule` 退役。
+物品名、正文、数值、正负语义色、特殊性质五色不动。新增浮窗文字一律引用这组常量，不许新造金灰色值。

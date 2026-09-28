@@ -36,3 +36,9 @@
 面板可能依赖尚未提交的双持、体力、强化与技能代码。发布前依据实际 include、声明、实现和配置列出必要依赖，不只提交面板文件，也不把整个脏目录加入提交。用户已明确授权的依赖可一并发布；范围不清且涉及其他系统时先明确边界。保留他人已有暂存，二进制、字体、模型和 trash 按仓库资源规则处理。
 
 2026-09-15 案例的必要构建已完成，未进行实机测试。后续修改仍遵守用户默认不主动测试的规则；历史构建不能作为新的提交或视觉效果已通过的证明。
+
+## 生命/魔法语义色统一与 buff 栏复核（2026-09-28）
+
+- 生命/魔法条取色统一到新共享 token：`ColdSteelUI::Health #BD626D`／`HealthDeep #763B43`／`Mana #7194AC`／`ManaDeep #36566E`（`ColdSteelResourceMeter` 与人物状态页 `ColdSteelCharacterSheet` 同源；状态页原 Success 绿生命条/#55799D 魔法条已替换）。低血 ≤25% Danger、≤50% Warning 的渐变保留；新增同类资源条一律取这组 token，不再写字面量。
+- 左上状态效果 HUD（`StatusEffectsHUD.cpp`）复核修复：文字全部改 `ColdSteelUI::TextFont/NumberFont`（SimHei 已移除），字号入档（tile 层数/时间 11px、提示框 16/14/14/12），卡面 StatusCard/ButtonHover、悬停边 Accent、提示框深色 `Tooltip #191919FC`+1px Border，效果语义色 `V.Color` 仅作边框/进度标记。**该面板包在 SDPIScaler(1/ViewportScale) 里保持 CSS 像素版面，字体点数只乘 0.75、不再除 PixelScale**——子树内再除会双重缩小。
+- 例外：buff 图标是目录 emoji 字段，工程字体无 emoji 字形，`EmojiIcon()` 暂用系统 Segoe UI Emoji 作图标字形回退（不含 UI 文字）；补打包 emoji 字体后仅改该函数。别把它当 UI 文字字体的先例。

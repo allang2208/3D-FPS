@@ -125,8 +125,8 @@ UWidget* UColdSteelHUDWidget::BuildStatusPage()
 
     auto* State = AddCharacterCard(Content, TEXT("状态"));
     const float Scale = ColdSteelUI::PixelScale(this);
-    HealthBar = AddCharacterRow(State, TEXT("生命"), TEXT("hp"), TEXT("当前生命 / 当前生命上限。受伤与恢复直接读取角色生命组件。"))->AddMeter(ColdSteelUI::Success, Scale);
-    ManaBar = AddCharacterRow(State, TEXT("魔法"), TEXT("mp"), TEXT("当前魔法 / 魔法上限。药水可恢复，随角色保存。"))->AddMeter(FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("55799D"))), Scale);
+    HealthBar = AddCharacterRow(State, TEXT("生命"), TEXT("hp"), TEXT("当前生命 / 当前生命上限。受伤与恢复直接读取角色生命组件。"))->AddMeter(ColdSteelUI::Health, Scale);
+    ManaBar = AddCharacterRow(State, TEXT("魔法"), TEXT("mp"), TEXT("当前魔法 / 魔法上限。药水可恢复，随角色保存。"))->AddMeter(ColdSteelUI::Mana, Scale);
     StaminaSheetBar=AddCharacterRow(State, TEXT("体力"), TEXT("stamina"), TEXT("奔跑、近战攻击、采集与闪避消耗体力；不足时无法开始对应动作。体力上限为 100 + 装备加成，基础敏捷与装备敏捷提高恢复速度。"))->AddMeter(ColdSteelUI::Stamina, Scale);
     ExperienceBar = AddCharacterRow(State, TEXT("经验"), TEXT("exp"), TEXT("升级经验 = (20 + 等级×20 + 等级²×12)×8；每级 3 点，余下经验保留。"))->AddMeter(ColdSteelUI::Warning, Scale);
 
@@ -247,7 +247,7 @@ void UColdSteelHUDWidget::RefreshCharacterSheet()
     if (Health && Health->MaxHealth > 0)
     {
         const float Ratio = FMath::Clamp(Health->Health / Health->MaxHealth, 0.f, 1.f);
-        if (HealthBar) { HealthBar->SetPercent(Ratio); HealthBar->SetFillColorAndOpacity(Ratio <= .25f ? ColdSteelUI::Danger : Ratio <= .5f ? ColdSteelUI::Warning : ColdSteelUI::Success); }
+        if (HealthBar) { HealthBar->SetPercent(Ratio); HealthBar->SetFillColorAndOpacity(Ratio <= .25f ? ColdSteelUI::Danger : Ratio <= .5f ? ColdSteelUI::Warning : ColdSteelUI::Health); }
         SetCharacterValue(TEXT("hp"), FString::Printf(TEXT("%.0f/%.0f"), FMath::Max(0.f, Health->Health), Health->MaxHealth));
     }
     SetCharacterValue(TEXT("moveSpeed"), FString::Printf(TEXT("%.1f m/s"), ReadFloat(Character, TEXT("WalkSpeed")) / 100));

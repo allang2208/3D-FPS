@@ -1,4 +1,5 @@
 #include "ColdSteelCodexPage.h"
+#include "ColdSteelWeaponText.h"
 #include "ColdSteelHUDWidget.h"
 #include "../FPSGAMEPlayerController.h"
 #include "ColdSteelStatusModel.h"
@@ -793,9 +794,9 @@ TArray<TSharedRef<SWidget>> UColdSteelCodexPage::WeaponDetailRows(const FString&
         const FProductionToolStats Tool = ColdSteelTool::Evaluate(Probe, Model);
         TArray<TSharedRef<SWidget>> Rows;
         Rows.Add(DetailRow(TEXT("自卫总伤害"), FormatNumber(Tool.Damage.Total(), 1), ColdSteelUI::TextPrimary));
-        Rows.Add(DetailRow(TEXT("挥砍间隔"), FormatNumber(Tool.SwingSeconds, 2) + TEXT(" s"), ColdSteelUI::TextPrimary));
+        Rows.Add(DetailRow(ColdSteelWeaponText::AttackInterval,, FormatNumber(Tool.SwingSeconds, 2) + TEXT(" s"), ColdSteelUI::TextPrimary));
         Rows.Add(DetailRow(TEXT("体力消耗"), FormatNumber(Tool.StaminaCost, 1), ColdSteelUI::TextPrimary));
-        Rows.Add(DetailRow(TEXT("攻击范围"), FormatNumber(Tool.CombatReachCM / 100., 2) + TEXT(" m"), ColdSteelUI::TextPrimary));
+        Rows.Add(DetailRow(ColdSteelWeaponText::AttackDistance,, FormatNumber(Tool.CombatReachCM / 100., 2) + TEXT(" m"), ColdSteelUI::TextPrimary));
         Rows.Add(DetailRow(TEXT("采集距离"), FormatNumber(Tool.HarvestReachCM / 100., 2) + TEXT(" m"), ColdSteelUI::TextSecondary));
         Rows.Add(DetailRow(TEXT("所需有效命中"), FString::Printf(TEXT("%d 次"),
             ColdSteelTool::HitsNeeded(FProductionResource::RequiredHits, Tool)), ColdSteelUI::TextSecondary));

@@ -326,6 +326,44 @@ bool UColdSteelStatusModel::ReloadProfile()
                     I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
                 }
             }
+            // 武器类型标签与铁铲 dig 块同为纯展示字段：目录补齐后旧实例也要跟上，
+            // 否则浮窗的「武器类型」「采集参数」对老存档仍是旧口径。
+            FString CatalogTag;
+            if(CatalogData->TryGetStringField(TEXT("weaponTypeTag"),CatalogTag)&&!CatalogTag.IsEmpty())
+            {
+                FString StoredTag;
+                const bool bHasStored=FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)
+                    &&ItemData&&ItemData->TryGetStringField(TEXT("weaponTypeTag"),StoredTag);
+                if(!bHasStored||StoredTag!=CatalogTag)
+                {
+                    if(!ItemData)ItemData=MakeShared<FJsonObject>();
+                    ItemData->SetStringField(TEXT("weaponTypeTag"),CatalogTag);
+                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+                }
+            }
+            const TSharedPtr<FJsonObject>* CatalogDig=nullptr;
+            if(CatalogData->TryGetObjectField(TEXT("dig"),CatalogDig)&&*CatalogDig)
+            {
+                const TSharedPtr<FJsonObject>* StoredDig=nullptr;
+                const bool bHasStored=FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)
+                    &&ItemData&&ItemData->TryGetObjectField(TEXT("dig"),StoredDig)&&*StoredDig;
+                FString CatalogDigText;
+                FJsonSerializer::Serialize(CatalogDig->ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&CatalogDigText));
+                FString StoredDigText;
+                if(bHasStored)FJsonSerializer::Serialize(StoredDig->ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&StoredDigText));
+                if(!bHasStored||StoredDigText!=CatalogDigText)
+                {
+                    // 深拷贝后再挂到实例上：目录 JSON 是全实例共享的静态对象，
+                    // 直接 SetObjectField 会把实例和目录绑到同一个对象上。
+                    TSharedPtr<FJsonObject> DigCopy;
+                    if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(CatalogDigText),DigCopy)&&DigCopy)
+                    {
+                        if(!ItemData)ItemData=MakeShared<FJsonObject>();
+                        ItemData->SetObjectField(TEXT("dig"),DigCopy);
+                        I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+                    }
+                }
+            }
             // Existing brown gloves retain their original catalog snapshot.
             // Refresh appearance when loading, including gloves left on the
             // ground, while keeping instance stats and equipment state intact.

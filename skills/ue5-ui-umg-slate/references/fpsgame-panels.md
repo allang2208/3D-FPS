@@ -288,3 +288,23 @@
 口径：**短标签、页签、标题、数值一律 `AutoWrapText(false)`**，只给成段正文和可换行长标题开自动换行。落地时把换行与否做成标签辅助函数的参数（图鉴里 `Label()` 默认换行，`TabLabel`／`LeftLabel`／`ValueLabel` 默认单行），而不是逐个调用点手写设置——漏一处就是一处竖排。
 
 FPSGAME 源码与实施记录：[图鉴栏系统规划](../../../Docs/UI/codex-panel-plan-20260924.md)、`ColdSteelCodexPage.cpp`。
+
+## 工作台制造栏对齐打铁/装配卡式规格（2026-09-28）
+
+工作台制造面板从"冶炼式半宽窄列＋行卡列表"升级为打铁栏/枪械装配栏同规格：**全宽抽屉（与背包等宽零缝、
+上下 12px）＋ Scroll→StatusCard 卡列（配方 ComboBox＋材料三列表｜状态卡｜成品预览双列｜操作说明卡）
+＋ HeaderTint 页脚带（状态行＋居中批量＋整宽 36px 主操作）**。要点：
+
+- 复制规格以 `ColdSteelForgingWidget.cpp` 为唯一母本：字号四档 20/16/14/12、36px ActionHeight、
+  卡片 12px 内沿 8px 卡距、材料三列表（数字 Mono 右对齐、不足标红报差额）、预览双列高度
+  `Clamp(面板高−520, 200, 420)`。构件助手（Button/Card/Space/AddMaterialCell/EnsureMaterialRows）
+  与缓存数组（Cards/Buttons/ButtonSizes/RowSpacings/CellSlots）逐参数照搬，`UpdateScale` 统一 ÷Scale 重排。
+- 全宽入题的两处配套：挂载基准 360→720（BuildWorkbench）；`UpdateInventoryLayout` 里非枪械工作台
+  `WB=min(Width,Leftover)` 并入抽屉对半夹取（`bWBOut`）——面板全宽＋左缘升级弹层＝2×宽，不夹取会溢出窄屏。
+- 参数表数据走 `BuildColdSteelItemTooltip` 摘要＝与物品浮窗同一评估口径，不要另写一套参数读数。
+- 即时结算面板**不放假进度条**（无对应机制不造字段）；进度条是打铁/装配的锻打/校准语义。
+- 枪械工作台的旧 WorkbenchWidget 分支（ColdSteelGunWorkbench.cpp）已删：枪械台由
+  `UColdSteelGunAssemblyWidget` 接管，别再往 WorkbenchWidget 加第二台机分支。
+
+FPSGAME 源码与实施记录：[制造栏复制升级](../../../Docs/UI/workbench-crafting-forging-format-20260928.md)、
+`ColdSteelWorkbenchWidget.cpp`、`ColdSteelInventoryTheme.cpp`。

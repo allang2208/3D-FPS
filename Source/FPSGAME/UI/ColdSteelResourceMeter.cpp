@@ -23,8 +23,8 @@ public:
         FSlateDrawElement::MakeBox(Out,Layer+1,G.ToPaintGeometry(InnerSize,FSlateLayoutTransform(FVector2D(Unit))),&Inner,ESlateDrawEffect::None,ColdSteelUI::Content*Tint);
         const FVector2D Size(FMath::Max(0.f,float(G.GetLocalSize().X-2*Unit))*Ratio,FMath::Max(0.f,float(G.GetLocalSize().Y-2*Unit)));
         if(Size.X>0&&Size.Y>0){
-            const auto Deep=bStamina?ColdSteelUI::StaminaDeep:FLinearColor::FromSRGBColor(FColor::FromHex(bMana?TEXT("36566E"):TEXT("763B43")));
-            const auto Light=bStamina?(Ratio<=.25f?ColdSteelUI::Warning:ColdSteelUI::Stamina):FLinearColor::FromSRGBColor(FColor::FromHex(bMana?TEXT("7194AC"):TEXT("BD626D")));
+            const auto Deep=bStamina?ColdSteelUI::StaminaDeep:bMana?ColdSteelUI::ManaDeep:ColdSteelUI::HealthDeep;
+            const auto Light=bStamina?(Ratio<=.25f?ColdSteelUI::Warning:ColdSteelUI::Stamina):bMana?ColdSteelUI::Mana:ColdSteelUI::Health;
             TArray<FSlateGradientStop> Stops;Stops.Emplace(FVector2f(0,0),Deep*Tint);Stops.Emplace(FVector2f(Size.X,0),Light*Tint);
             FSlateDrawElement::MakeGradient(Out,Layer+2,G.ToPaintGeometry(Size,FSlateLayoutTransform(FVector2D(Unit))),Stops,Orient_Vertical,ESlateDrawEffect::None,FVector4f(2*Unit));
         }

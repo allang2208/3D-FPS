@@ -2839,6 +2839,7 @@
     ],
     "type": "武器",
     "weaponType": "rifle",
+    "weaponTypeTag": "突击步枪",
     "ue_icon": "Icons/ue_m4a1.png"
   },
   "ue_akm": {
@@ -2863,6 +2864,7 @@
     ],
     "type": "武器",
     "weaponType": "rifle",
+    "weaponTypeTag": "突击步枪",
     "ue_icon": "Icons/ue_akm.png"
   },
   "ue_qbz191": {
@@ -2887,6 +2889,7 @@
     ],
     "type": "武器",
     "weaponType": "rifle",
+    "weaponTypeTag": "突击步枪",
     "ue_icon": "Icons/ue_qbz191.png"
   },
   "ue_m1911": {
@@ -3056,7 +3059,8 @@
       }
     ],
     "type": "武器",
-    "weaponType": "rifle"
+    "weaponType": "rifle",
+    "weaponTypeTag": "突击步枪"
   },
   "ammo_127": {
     "category": "material",
@@ -3093,6 +3097,7 @@
     ],
     "type": "武器",
     "weaponType": "rifle",
+    "weaponTypeTag": "突击步枪",
     "ue_icon": "Icons/ue_m16a2.png",
     "grid_w": 5,
     "grid_h": 2
@@ -3119,6 +3124,7 @@
     ],
     "type": "武器",
     "weaponType": "rifle",
+    "weaponTypeTag": "突击步枪",
     "ue_icon": "Icons/ue_a762.png"
   },
   "ue_svd": {
@@ -3171,6 +3177,7 @@
     ],
     "type": "武器",
     "weaponType": "machineGun",
+    "weaponTypeTag": "通用机枪",
     "grid_w": 5,
     "grid_h": 2
   },

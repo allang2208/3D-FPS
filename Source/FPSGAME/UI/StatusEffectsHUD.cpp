@@ -20,10 +20,14 @@
 
 namespace
 {
-FLinearColor Hex(const TCHAR* Color){return FLinearColor::FromSRGBColor(FColor::FromHex(Color));}
-FSlateFontInfo Chinese(float Pixels)
-{static auto Font=MakeShared<FCompositeFont>(TEXT("Regular"),TEXT("C:/Windows/Fonts/simhei.ttf"),EFontHinting::Auto,EFontLoadingPolicy::LazyLoad);return FSlateFontInfo(Font,Pixels*.75f);}
-FSlateFontInfo Emoji(float Pixels)
+// 正式规则 §4（2026-09-28 复核修复）：UI 文字一律走共享字体入口（Noto Sans SC / JetBrains Mono），
+// 不再直载 C:/Windows 的 SimHei。本面板包在 SDPIScaler(1/ViewportScale) 里保持 CSS 像素版面，
+// 字体点数只乘 0.75、不再除 PixelScale——子树内视口缩放已被中和，再除会双重缩小。
+FSlateFontInfo UiText(float Pixels){return ColdSteelUI::TextFont(Pixels*.75f);}
+FSlateFontInfo UiNumber(float Pixels,bool Medium=false){return ColdSteelUI::NumberFont(Pixels*.75f,Medium);}
+// buff 图标是目录 emoji 字段（status_effects.json 的 icon，如 💫🛡️），Noto 无 emoji 字形；
+// 工程尚无打包 emoji 字体，暂以系统 Segoe UI Emoji 作图标字形回退——待补充打包字体后仅改此处。
+FSlateFontInfo EmojiIcon(float Pixels)
 {static auto Font=MakeShared<FCompositeFont>(TEXT("Regular"),TEXT("C:/Windows/Fonts/seguiemj.ttf"),EFontHinting::Auto,EFontLoadingPolicy::LazyLoad);return FSlateFontInfo(Font,Pixels*.75f);}
 UCanvasPanelSlot* At(UCanvasPanel* Canvas,UWidget* Widget,FVector2D Position,FVector2D Size)
 {auto* Slot=Canvas->AddChildToCanvas(Widget);Slot->SetPosition(Position);Slot->SetSize(Size);return Slot;}
@@ -33,15 +37,15 @@ void UStatusEffectTile::NativeOnInitialized()
  Super::NativeOnInitialized();SetIsFocusable(false);SetVisibility(ESlateVisibility::Visible);
  Surface=WidgetTree->ConstructWidget<UBorder>();WidgetTree->RootWidget=Surface;Surface->SetPadding(FMargin(0));Surface->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
  auto* Canvas=WidgetTree->ConstructWidget<UCanvasPanel>();Surface->SetContent(Canvas);
- Icon=WidgetTree->ConstructWidget<UTextBlock>();Icon->SetFont(Emoji(22));Icon->SetJustification(ETextJustify::Center);Icon->SetColorAndOpacity(FLinearColor::White);At(Canvas,Icon,{0,2},{54,28});
- StackText=WidgetTree->ConstructWidget<UTextBlock>();StackText->SetFont(ColdSteelUI::NumberFont(6.75,true));StackText->SetColorAndOpacity(Hex(TEXT("F0F4F6FF")));At(Canvas,StackText,{4,30},{26,11});
- TimeText=WidgetTree->ConstructWidget<UTextBlock>();TimeText->SetFont(ColdSteelUI::NumberFont(6.75));TimeText->SetColorAndOpacity(Hex(TEXT("C3CDD2FF")));TimeText->SetJustification(ETextJustify::Right);At(Canvas,TimeText,{20,30},{30,11});
+ Icon=WidgetTree->ConstructWidget<UTextBlock>();Icon->SetFont(EmojiIcon(22));Icon->SetJustification(ETextJustify::Center);Icon->SetColorAndOpacity(FLinearColor::White);At(Canvas,Icon,{0,2},{54,28});
+ StackText=WidgetTree->ConstructWidget<UTextBlock>();StackText->SetFont(UiNumber(11,true));StackText->SetColorAndOpacity(ColdSteelUI::TextPrimary);At(Canvas,StackText,{4,30},{26,11});
+ TimeText=WidgetTree->ConstructWidget<UTextBlock>();TimeText->SetFont(UiNumber(11));TimeText->SetColorAndOpacity(ColdSteelUI::TextSecondary);TimeText->SetJustification(ETextJustify::Right);At(Canvas,TimeText,{20,30},{30,11});
  Progress=WidgetTree->ConstructWidget<UImage>();At(Canvas,Progress,{2,40},{50,2});
  for(auto* W:{static_cast<UWidget*>(Icon),static_cast<UWidget*>(StackText),static_cast<UWidget*>(TimeText),static_cast<UWidget*>(Progress)})W->SetVisibility(ESlateVisibility::HitTestInvisible);
 }
 void UStatusEffectTile::Update(const FStatusEffectView& V)
 {
- View=V;Surface->SetBrush(ColdSteelUI::RoundedBrush(Hover?Hex(TEXT("232A30F5")):Hex(TEXT("2A2520D9")),7,Hover?Hex(TEXT("C4D3DAFF")):V.Color,2));
+ View=V;Surface->SetBrush(ColdSteelUI::RoundedBrush(Hover?ColdSteelUI::ButtonHover:ColdSteelUI::StatusCard,7,Hover?ColdSteelUI::Accent:V.Color,2));
  Icon->SetText(FText::FromString(V.Icon));StackText->SetText(FText::FromString(V.Stacks>=0?FString::Printf(TEXT("×%d"),V.Stacks):TEXT("")));TimeText->SetText(FText::FromString(V.TimeText()));
  const float Ratio=V.Persistent?1.f:V.Battles>=0?0.f:V.Duration>0?FMath::Clamp(V.Remaining/V.Duration,0.f,1.f):0.f;
  CastChecked<UCanvasPanelSlot>(Progress->Slot)->SetSize({50*Ratio,2});Progress->SetColorAndOpacity(V.Color.CopyWithNewOpacity(.7f));
@@ -54,10 +58,11 @@ void UStatusEffectsHUD::NativeOnInitialized()
  Root=WidgetTree->ConstructWidget<UCanvasPanel>();Root->SetVisibility(ESlateVisibility::SelfHitTestInvisible);WidgetTree->RootWidget=Root;
  Scroll=WidgetTree->ConstructWidget<UScrollBox>();Scroll->SetScrollbarThickness({3,3});Scroll->SetScrollbarPadding(FMargin(0));Scroll->SetAllowOverscroll(false);At(Root,Scroll,{104,12},{252,44});
  Wrap=WidgetTree->ConstructWidget<UWrapBox>();Wrap->SetExplicitWrapSize(true);Wrap->SetWrapSize(252);Wrap->SetInnerSlotPadding({12,6});Scroll->AddChild(Wrap);
- Tooltip=WidgetTree->ConstructWidget<UBorder>();Tooltip->SetBrush(ColdSteelUI::RoundedBrush(Hex(TEXT("F8F8F8F2")),8,Hex(TEXT("00000033")),2));Tooltip->SetPadding(FMargin(16,12));
+ // 状态详情浮窗走 §2 的深色 Tooltip 底（原浅色 F8F8F8 与 HUD 玻璃语言冲突），8px 圆角 1px 细边。
+ Tooltip=WidgetTree->ConstructWidget<UBorder>();Tooltip->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Tooltip,8,ColdSteelUI::Border,1));Tooltip->SetPadding(FMargin(16,12));
  auto* Column=WidgetTree->ConstructWidget<UVerticalBox>();Tooltip->SetContent(Column);
- auto Text=[&](float Size,FLinearColor Color){auto* W=WidgetTree->ConstructWidget<UTextBlock>();W->SetFont(Chinese(Size));W->SetColorAndOpacity(Color);W->SetAutoWrapText(true);Column->AddChildToVerticalBox(W)->SetPadding(FMargin(0,0,0,6));return W;};
- TipTitle=Text(15,Hex(TEXT("2A2520FF")));TipDescription=Text(13,Hex(TEXT("2A2520FF")));TipStacks=Text(13,Hex(TEXT("8A6A3AFF")));TipTime=Text(12,Hex(TEXT("6A5A4AFF")));
+ auto Text=[&](float Size,const FLinearColor& Color){auto* W=WidgetTree->ConstructWidget<UTextBlock>();W->SetFont(UiText(Size));W->SetColorAndOpacity(Color);W->SetAutoWrapText(true);Column->AddChildToVerticalBox(W)->SetPadding(FMargin(0,0,0,6));return W;};
+ TipTitle=Text(16,ColdSteelUI::TextPrimary);TipDescription=Text(14,ColdSteelUI::TextSecondary);TipStacks=Text(14,ColdSteelUI::Accent);TipTime=Text(12,ColdSteelUI::TextTertiary);
  auto* TipSlot=At(Root,Tooltip,{168,12},{260,160});TipSlot->SetZOrder(2);Tooltip->SetVisibility(ESlateVisibility::Collapsed);Scroll->SetVisibility(ESlateVisibility::Collapsed);
 }
 TSharedRef<SWidget> UStatusEffectsHUD::RebuildWidget()

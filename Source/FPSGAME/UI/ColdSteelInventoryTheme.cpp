@@ -32,6 +32,9 @@ void UColdSteelHUDWidget::UpdateInventoryLayout(const FGeometry& Geometry)
     float Width=FMath::Min(float(Pixels.X)-RightInset-12.f,FMath::Clamp(float(Pixels.X)*.48f,720.f,1040.f));
     // Both drawers share their actual size; keep that layout until the left drawer finishes closing.
     if(bWarehouseOpen||WarehouseMotion>.001f)Width=FMath::Min(Width,(float(Pixels.X)-RightInset-24.f)*.5f);
+    // 制造栏 2026-09-28 起全宽（打铁/装配同规格）：工作台打开时连同抽屉对半夹取。
+    const bool bWBOut=bWorkbenchOpen||bWorkbenchRiding||WorkbenchMotion>.001f;
+    if(bWBOut)Width=FMath::Min(Width,(float(Pixels.X)-RightInset-12.f)*.5f);
     // 冶炼面板（2026-09-23 起独立于背包）：背包开着时**零缝拼接**贴抽屉左缘（2026-09-24 用户要求），
     // 背包关着时贴视口右缘（12px 边距）。宽＝背包实际宽的一半；仓库同开时再按剩余空间夹一次，
     // 低于最小可用宽就整块收起，不挤破视口。
@@ -45,13 +48,14 @@ void UColdSteelHUDWidget::UpdateInventoryLayout(const FGeometry& Geometry)
         // 低于最小可用宽（12 内边距×2＋一列正文）就整块收起：细条面板里任何 12px 正文都会溢出方框。
         if(Smelt<240.f)Smelt=0.f;
     }
-    // 工作台制作面板：与冶炼面板同贴位、同公式、互斥（HUD 开一瞬收另一，同一时刻至多一块占位）。
+    // 工作台制作面板：2026-09-28 复制升级后＝打铁/装配同规格全宽，零缝拼接贴抽屉左缘；
+    // 与冶炼互斥（HUD 开一瞬收另一，同一时刻至多一块占位）。
     float WB=0.f,WBDock=12.f;
     if(bWorkbenchOpen)
     {
         WBDock=bDrawerOut?Width:12.f;
         const float Leftover=float(Pixels.X)-RightInset-WBDock-(bDrawerOut&&(bWarehouseOpen||WarehouseMotion>.001f)?Width+12.f:0.f)-24.f;
-        WB=FMath::Max(0.f,FMath::Min(Width*.5f,Leftover));
+        WB=FMath::Max(0.f,FMath::Min(Width,Leftover));
         if(WB<240.f)WB=0.f;
     }
     if(SkillPage)SkillPage->SetLayoutWidth(FMath::Max(1.f,Width-2.f));
