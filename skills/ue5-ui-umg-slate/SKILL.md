@@ -176,3 +176,7 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 ## 成品参数与准备提示
 
 锻造成品等宽预览、配方下拉选择及体力条上方蓄力／架枪进度，读取 [成品参数与准备提示](references/product-preview-readiness.md)。
+
+## 常规工作台与枪械组装
+
+处理制作栏规格、直接制作、分件配方、下拉行 GC 崩溃或完成后返料时，读取 [工作台面板与结算](references/crafting-workbenches.md)。

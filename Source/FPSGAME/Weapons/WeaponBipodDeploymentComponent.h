@@ -72,7 +72,7 @@ private:
     UPKMBipodComponent* EquippedBipod() const;
     // Coarse HUD hint only. ADS entry always performs FindSupport in full.
     bool HasSupportHint(UPKMBipodComponent& Part) const;
-    bool FindSupport(UPKMBipodComponent& Part,FSupport& Out) const;
+    bool FindSupport(UPKMBipodComponent& Part,FSupport& Out,bool bHintOnly=false) const;
     bool SupportStillValid(bool bProbeSurface) const;
     bool ClearPlacement(const FVector& Eye,const FVector& Delta,const FVector& Hinge,const FVector& Forward,
         bool bCheckWeapon=true) const;

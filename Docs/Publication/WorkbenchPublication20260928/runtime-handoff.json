@@ -1,0 +1,189 @@
+{
+  "base_commit": "eaff66a751a378012a844d1d46e684c68b0b0c9a",
+  "new_runtime_files": 10,
+  "shared_runtime_files": 19,
+  "dependency": "Docs/Gameplay/ForgingPublication20260927",
+  "merge_notes": [
+    "Not applied to public Source; the host already contains these changes.",
+    "Shared hooks are relative to the direct Source updates in this publication. They overlap forging HUD hooks; merge the combined version, do not apply both blindly.",
+    "Preserve IsGunAssembly beside IsWorldForging in the host dungeon input-recovery guard; dungeon recovery itself belongs to a separate task.",
+    "CalculateItem is assembly-quality only here; retain other current tool/melee modifiers when merging.",
+    "Palette and cook configuration are local asset recovery steps documented in the publication."
+  ],
+  "files": [
+    {
+      "path": "Source/FPSGAME/Building/GunAssemblySystem.h",
+      "kind": "new-runtime-source",
+      "bytes": 2057,
+      "sha256": "b38cfe4b5b93987d34a5879a32a361e67f5b6061826554b3b355d117d136c845"
+    },
+    {
+      "path": "Source/FPSGAME/Building/GunAssemblySystem.cpp",
+      "kind": "new-runtime-source",
+      "bytes": 13423,
+      "sha256": "ad1ab8412d36f360c6e356293a8ef51facd92f9425ce0d1afc570847389f14d7"
+    },
+    {
+      "path": "Source/FPSGAME/Building/GunAssemblyInteraction.h",
+      "kind": "new-runtime-source",
+      "bytes": 3074,
+      "sha256": "f23726bf657e24573eb3ae3bd7c8e72d0b925d66468d123965ed7fdea3d1d567"
+    },
+    {
+      "path": "Source/FPSGAME/Building/GunAssemblyInteraction.cpp",
+      "kind": "new-runtime-source",
+      "bytes": 20044,
+      "sha256": "85ac894d32dc31c482951f3b548c66590ffbc2656f71718476a8c994d432ec86"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelGunAssemblyWidget.h",
+      "kind": "new-runtime-source",
+      "bytes": 6484,
+      "sha256": "2efe0ddedc3ad7cddac753318cb3e1533fb1e3d2a760f40be33431fbb30b3971"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelGunAssemblyWidget.cpp",
+      "kind": "new-runtime-source",
+      "bytes": 30342,
+      "sha256": "2ffc32b35b895f28c7f639f285604ef56b65cf1976ad6c97d4843a13f8bc997b"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelGunAmmoCraft.cpp",
+      "kind": "new-runtime-source",
+      "bytes": 7523,
+      "sha256": "6b2dc04b08472d5ea5aa072ca68c3d74c58824dcd0d822a75b62029ac1ad592f"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelGunManufacturing.cpp",
+      "kind": "new-runtime-source",
+      "bytes": 4423,
+      "sha256": "8c909b5f6002da6d84c97ddaae698ab8a293a402bb9873696c7897f060f197f6"
+    },
+    {
+      "path": "Source/FPSGAME/UI/GunAssemblyActionWidget.h",
+      "kind": "new-runtime-source",
+      "bytes": 2300,
+      "sha256": "6578680b3eca23a7b36088af9a5df496092b9e9ae4cd9e1995c1870b8c9921d7"
+    },
+    {
+      "path": "Source/FPSGAME/UI/GunAssemblyActionWidget.cpp",
+      "kind": "new-runtime-source",
+      "bytes": 9573,
+      "sha256": "e6e2d2e7c1d293bc609e67f7942e77634da4ae5bcdef59b4531c76150f52d963"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWorkbenchHUD.cpp",
+      "kind": "shared-projection",
+      "bytes": 7265,
+      "sha256": "6b721934130b95b89538b5992828e88214ff0e43ad4dd30054b4c11bead28615"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryTheme.cpp",
+      "kind": "shared-projection",
+      "bytes": 7298,
+      "sha256": "df07a744e61df976bf0d4b2cc4d56ecd93717dc45be02393c5a951300787f8d9"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp",
+      "kind": "shared-projection",
+      "bytes": 8322,
+      "sha256": "f1ff280e78c2878aa0770decb085586eab0b2d3b37bd335a0266e930b2189f0d"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "kind": "shared-projection",
+      "bytes": 21711,
+      "sha256": "cc690565fc6227cd69882b2186716225d2d71b7c76d363edb23b08625064f7fa"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+      "kind": "shared-projection",
+      "bytes": 89412,
+      "sha256": "6c7fb25ec768d57daa6ff6127437ecd8198a784e168db478dd59b414df8d1902"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "kind": "shared-projection",
+      "bytes": 28035,
+      "sha256": "535ede63d11cc07c8c95035e947515449cdd2efe0ebac1984d1ebf44d991b53e"
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildTypes.h",
+      "kind": "shared-projection",
+      "bytes": 5815,
+      "sha256": "5a2347699053bb049821c3ab0eeb5580035e1f4abeefdd8e3b81a280bfc9c4dd"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp",
+      "kind": "shared-projection",
+      "bytes": 9812,
+      "sha256": "11144010ee0763e7a5fa9c5f25761c815c1f5a610bba4054fea16a7c4dede1f4"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "kind": "shared-projection",
+      "bytes": 26863,
+      "sha256": "731d4a20475ab61df64b6e0fbc67199a931c15a3de2f017072ae7d104d6d4fd5"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "kind": "shared-projection",
+      "bytes": 11556,
+      "sha256": "2cb452339f026d2c97a50c1c833ac725f881f0b9d7da384a125ee182d1bff637"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+      "kind": "shared-projection",
+      "bytes": 25327,
+      "sha256": "a398d818a778387c747fee122194f93b575fc5379903720cd536863ea7f2033b"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "kind": "shared-projection",
+      "bytes": 17374,
+      "sha256": "d8713cec1fa842810e074d6b57f7626142b8835dfc08f957a24fc21298edefd5"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithSystem.h",
+      "kind": "shared-projection",
+      "bytes": 7849,
+      "sha256": "ec2f8ea0aeed47e9e92dcc0704488626799de3978d59ef6576dc10273740fdd8"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "kind": "shared-projection",
+      "bytes": 34013,
+      "sha256": "37b13a2c5146302d47e5d9feb49c60a5716042f05f9e4eb919bd27d16dccef71"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+      "kind": "shared-projection",
+      "bytes": 11387,
+      "sha256": "ad7e0f4294d1b83e973c22124d4258bcb0b4045d4d852e8c1fa7039d62cfc5e5"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+      "kind": "shared-projection",
+      "bytes": 20325,
+      "sha256": "ab97bda131ed46de376c61fafddd383f33d1e68a17089cb75854b6e556910e92"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp",
+      "kind": "shared-projection",
+      "bytes": 14765,
+      "sha256": "59bba5b9c62f2a8a5e486e41370deb48cb528e4ffa2162d1deb7e586f4674393"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithOverview.cpp",
+      "kind": "shared-projection",
+      "bytes": 10512,
+      "sha256": "e6820d1ee3b0b6114f1a0bfb966c4aa56882ba8aa4009c46be8e983624187f02"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+      "kind": "shared-projection",
+      "bytes": 17201,
+      "sha256": "2ad36e9e5b0629088efc51459e1a083c2e8bf99d33ae5a8a9a7bdf6f3413a3aa"
+    }
+  ]
+}

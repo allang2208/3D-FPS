@@ -1,0 +1,96 @@
+{
+  "date": "2026-09-28",
+  "files": [
+    {
+      "original": "SourceAssets/GunWorkbench20260927/Authored/GunWorkbench.blend",
+      "archive": "trash/gun-workbench-retired-20260928/SourceAssets/GunWorkbench20260927/Authored/GunWorkbench.blend",
+      "bytes": 591883937,
+      "sha256": "906e4eecf6ecf8154322968f2a172bb10fdaa5e2ed6a8eb33ea9d9f5dd19f741",
+      "reason": "Retired initial/V2 desktop assembly and its exclusive author/import scripts",
+      "replacement": "Preserve Polish/Cleared/LibraryTools/Ammo author chain; current independent medieval workbench is outside this task"
+    },
+    {
+      "original": "SourceAssets/GunWorkbench20260927/Authored/manifest.json",
+      "archive": "trash/gun-workbench-retired-20260928/SourceAssets/GunWorkbench20260927/Authored/manifest.json",
+      "bytes": 1180,
+      "sha256": "08736f00de4910b7d3173aedf87c15eaa76cfdad45a6a0e02033db2343ca1d81",
+      "reason": "Retired initial/V2 desktop assembly and its exclusive author/import scripts",
+      "replacement": "Preserve Polish/Cleared/LibraryTools/Ammo author chain; current independent medieval workbench is outside this task"
+    },
+    {
+      "original": "SourceAssets/GunWorkbench20260927/Authored/SM_GunWorkbench.fbx",
+      "archive": "trash/gun-workbench-retired-20260928/SourceAssets/GunWorkbench20260927/Authored/SM_GunWorkbench.fbx",
+      "bytes": 16752060,
+      "sha256": "e86a81f86fa99dc0e33bcea9a1774ace6a657de9612fded0955610ef8665bc98",
+      "reason": "Retired initial/V2 desktop assembly and its exclusive author/import scripts",
+      "replacement": "Preserve Polish/Cleared/LibraryTools/Ammo author chain; current independent medieval workbench is outside this task"
+    },
+    {
+      "original": "SourceAssets/GunWorkbench20260928/Authored/GunWorkbench_Editable.blend",
+      "archive": "trash/gun-workbench-retired-20260928/SourceAssets/GunWorkbench20260928/Authored/GunWorkbench_Editable.blend",
+      "bytes": 600602701,
+      "sha256": "52032420cee6c6a518ff2a91d2dfb297834b84dde7e1c753ba1288f50389f125",
+      "reason": "Retired initial/V2 desktop assembly and its exclusive author/import scripts",
+      "replacement": "Preserve Polish/Cleared/LibraryTools/Ammo author chain; current independent medieval workbench is outside this task"
+    },
+    {
+      "original": "SourceAssets/GunWorkbench20260928/Authored/GunWorkbench_Editable.blend1",
+      "archive": "trash/gun-workbench-retired-20260928/SourceAssets/GunWorkbench20260928/Authored/GunWorkbench_Editable.blend1",
+      "bytes": 600602661,
+      "sha256": "8db7085430f08c3df1f099affed3564577e35659c1ca35fd6801029eaa712e30",
+      "reason": "Retired initial/V2 desktop assembly and its exclusive author/import scripts",
+      "replacement": "Preserve Polish/Cleared/LibraryTools/Ammo author chain; current independent medieval workbench is outside this task"
+    },
+    {
+      "original": "SourceAssets/GunWorkbench20260928/Authored/manifest.json",
+      "archive": "trash/gun-workbench-retired-20260928/SourceAssets/GunWorkbench20260928/Authored/manifest.json",
+      "bytes": 2380,
+      "sha256": "7cd3d19a94032df9f3b878f972008596da97cb24f5075c63702d8b56c6d11e6e",
+      "reason": "Retired initial/V2 desktop assembly and its exclusive author/import scripts",
+      "replacement": "Preserve Polish/Cleared/LibraryTools/Ammo author chain; current independent medieval workbench is outside this task"
+    },
+    {
+      "original": "SourceAssets/GunWorkbench20260928/Authored/SM_GunWorkbench.fbx",
+      "archive": "trash/gun-workbench-retired-20260928/SourceAssets/GunWorkbench20260928/Authored/SM_GunWorkbench.fbx",
+      "bytes": 11723596,
+      "sha256": "73a53d2bade13ee164f1988ce809c1de20caf871a18f770496b3a064e0aa1c94",
+      "reason": "Retired initial/V2 desktop assembly and its exclusive author/import scripts",
+      "replacement": "Preserve Polish/Cleared/LibraryTools/Ammo author chain; current independent medieval workbench is outside this task"
+    },
+    {
+      "original": "Tools/GunWorkbench/author_station.py",
+      "archive": "trash/gun-workbench-retired-20260928/Tools/GunWorkbench/author_station.py",
+      "bytes": 7574,
+      "sha256": "7be4d761bb958b1d4424b1cfa8f5813c214c76b630330c9668ccd0e50287bc45",
+      "reason": "Retired initial/V2 desktop assembly and its exclusive author/import scripts",
+      "replacement": "Preserve Polish/Cleared/LibraryTools/Ammo author chain; current independent medieval workbench is outside this task"
+    },
+    {
+      "original": "Tools/GunWorkbench/import_station.py",
+      "archive": "trash/gun-workbench-retired-20260928/Tools/GunWorkbench/import_station.py",
+      "bytes": 6576,
+      "sha256": "a336435879175fad914088061ce1ff896f4a4b865711d99c4c4fa6c73b3bc03e",
+      "reason": "Retired initial/V2 desktop assembly and its exclusive author/import scripts",
+      "replacement": "Preserve Polish/Cleared/LibraryTools/Ammo author chain; current independent medieval workbench is outside this task"
+    },
+    {
+      "original": "Tools/GunWorkbench/author_station_v2.py",
+      "archive": "trash/gun-workbench-retired-20260928/Tools/GunWorkbench/author_station_v2.py",
+      "bytes": 12399,
+      "sha256": "667f0168fb3b9f91bb0b7874277ceb8d91ae3f71261b65432e99970b7335d448",
+      "reason": "Retired initial/V2 desktop assembly and its exclusive author/import scripts",
+      "replacement": "Preserve Polish/Cleared/LibraryTools/Ammo author chain; current independent medieval workbench is outside this task"
+    },
+    {
+      "original": "Tools/GunWorkbench/import_station_v2.py",
+      "archive": "trash/gun-workbench-retired-20260928/Tools/GunWorkbench/import_station_v2.py",
+      "bytes": 6980,
+      "sha256": "d716e263df6e992e45f790e1adb9da1de806bfca6b795b06d9f24a28722cd893",
+      "reason": "Retired initial/V2 desktop assembly and its exclusive author/import scripts",
+      "replacement": "Preserve Polish/Cleared/LibraryTools/Ammo author chain; current independent medieval workbench is outside this task"
+    }
+  ],
+  "count": 11,
+  "total_bytes": 1821602044,
+  "scope": "Only explicitly superseded task files; no UE asset packages or unrelated work moved"
+}

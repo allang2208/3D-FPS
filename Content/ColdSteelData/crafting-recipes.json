@@ -1,0 +1,21 @@
+{
+  "_comment": "工作台制造配方（Docs/UI/workbench-crafting-system-plan-20260925.md）。inputs/output 都是 items.json 与 production_tools.json 合并目录的稳定定义 id；制造为即时结算（一次事务全有或全无扣料并发产物），不计时、不写建筑存档。2026-09-25 用户定档：木材+石头=伐木斧；木材+2石头=十字镐（工程定义 tool_pickaxe，现名矿镐）。",
+  "recipes": [
+    {
+      "id": "craft_axe",
+      "inputs": [
+        { "item": "wood", "count": 1 },
+        { "item": "stone", "count": 1 }
+      ],
+      "output": { "item": "tool_axe", "count": 1 }
+    },
+    {
+      "id": "craft_pickaxe",
+      "inputs": [
+        { "item": "wood", "count": 1 },
+        { "item": "stone", "count": 2 }
+      ],
+      "output": { "item": "tool_pickaxe", "count": 1 }
+    }
+  ]
+}

@@ -18,7 +18,7 @@ void UColdSteelHUDWidget::BuildWorkbench(UCanvasPanel* Root)
     WorkbenchSlot=Root->AddChildToCanvas(WorkbenchWidget);
     WorkbenchSlot->SetAnchors(FAnchors(1,0,1,1));
     WorkbenchSlot->SetAlignment(FVector2D(1,0));
-    WorkbenchSlot->SetOffsets(FMargin(0,ReferenceUnits(12),ReferenceUnits(360),ReferenceUnits(12)));
+    WorkbenchSlot->SetOffsets(FMargin(0,ReferenceUnits(12),ReferenceUnits(720),ReferenceUnits(12)));
     WorkbenchSlot->SetZOrder(42);
     WorkbenchWidget->SetVisibility(ESlateVisibility::Collapsed);
 }
@@ -45,6 +45,7 @@ void UColdSteelHUDWidget::CloseWorkbench()
 {
     if(!bWorkbenchOpen)return;
     bWorkbenchOpen=false;
+    if(WorkbenchWidget)WorkbenchWidget->SetInputReady(false);
     WorkbenchWorld.Reset();
     // 关闭＝制作栏＋背包一个整体向右缩回（冶炼定稿口径）：立即关抽屉，
     // 面板在 Tick 里与抽屉同一位移曲线刚体骑乘；背包本就开着时面板单独滑出。
@@ -61,6 +62,7 @@ void UColdSteelHUDWidget::HideWorkbenchInstantly()
     WorkbenchWorld.Reset();
     if(WorkbenchWidget)
     {
+        WorkbenchWidget->SetInputReady(false);
         WorkbenchWidget->SetVisibility(ESlateVisibility::Collapsed);
         WorkbenchWidget->SetRenderTranslation(FVector2D::ZeroVector);
     }

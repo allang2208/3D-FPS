@@ -1,0 +1,423 @@
+{
+  "_comment": "枪械工作台弹药卡片专用游戏配方；即时扣除背包/主仓库材料并存入弹药袋。数量为可调整的游戏平衡参数。",
+  "recipes": [
+    {
+      "id": "craft_ammo_762",
+      "inputs": [
+        {
+          "item": "copperIngot",
+          "count": 1
+        },
+        {
+          "item": "leadOre",
+          "count": 1
+        },
+        {
+          "item": "sulfurOre",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "ammo_762",
+        "count": 30
+      }
+    },
+    {
+      "id": "craft_ammo_762_ps",
+      "inputs": [
+        {
+          "item": "copperIngot",
+          "count": 1
+        },
+        {
+          "item": "leadOre",
+          "count": 1
+        },
+        {
+          "item": "sulfurOre",
+          "count": 1
+        },
+        {
+          "item": "ironIngot",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "ammo_762_ps",
+        "count": 20
+      }
+    },
+    {
+      "id": "craft_ammo_762_ap",
+      "inputs": [
+        {
+          "item": "copperIngot",
+          "count": 1
+        },
+        {
+          "item": "leadOre",
+          "count": 1
+        },
+        {
+          "item": "sulfurOre",
+          "count": 1
+        },
+        {
+          "item": "tungstenOre",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "ammo_762_ap",
+        "count": 10
+      }
+    },
+    {
+      "id": "craft_ammo_556",
+      "inputs": [
+        {
+          "item": "copperIngot",
+          "count": 1
+        },
+        {
+          "item": "leadOre",
+          "count": 1
+        },
+        {
+          "item": "sulfurOre",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "ammo_556",
+        "count": 30
+      }
+    },
+    {
+      "id": "craft_ammo_556_m855a1",
+      "inputs": [
+        {
+          "item": "copperIngot",
+          "count": 1
+        },
+        {
+          "item": "leadOre",
+          "count": 1
+        },
+        {
+          "item": "sulfurOre",
+          "count": 1
+        },
+        {
+          "item": "ironIngot",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "ammo_556_m855a1",
+        "count": 20
+      }
+    },
+    {
+      "id": "craft_ammo_556_m995",
+      "inputs": [
+        {
+          "item": "copperIngot",
+          "count": 1
+        },
+        {
+          "item": "leadOre",
+          "count": 1
+        },
+        {
+          "item": "sulfurOre",
+          "count": 1
+        },
+        {
+          "item": "tungstenOre",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "ammo_556_m995",
+        "count": 10
+      }
+    },
+    {
+      "id": "craft_ammo_58",
+      "inputs": [
+        {
+          "item": "copperIngot",
+          "count": 1
+        },
+        {
+          "item": "leadOre",
+          "count": 1
+        },
+        {
+          "item": "sulfurOre",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "ammo_58",
+        "count": 30
+      }
+    },
+    {
+      "id": "craft_ammo_58_dbp10",
+      "inputs": [
+        {
+          "item": "copperIngot",
+          "count": 1
+        },
+        {
+          "item": "leadOre",
+          "count": 1
+        },
+        {
+          "item": "sulfurOre",
+          "count": 1
+        },
+        {
+          "item": "ironIngot",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "ammo_58_dbp10",
+        "count": 20
+      }
+    },
+    {
+      "id": "craft_ammo_58_dbp191",
+      "inputs": [
+        {
+          "item": "copperIngot",
+          "count": 1
+        },
+        {
+          "item": "leadOre",
+          "count": 1
+        },
+        {
+          "item": "sulfurOre",
+          "count": 1
+        },
+        {
+          "item": "tungstenOre",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "ammo_58_dbp191",
+        "count": 10
+      }
+    },
+    {
+      "id": "craft_ammo_45acp",
+      "inputs": [
+        {
+          "item": "copperIngot",
+          "count": 1
+        },
+        {
+          "item": "leadOre",
+          "count": 1
+        },
+        {
+          "item": "sulfurOre",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "ammo_45acp",
+        "count": 40
+      }
+    },
+    {
+      "id": "craft_ammo_45acp_p",
+      "inputs": [
+        {
+          "item": "copperIngot",
+          "count": 1
+        },
+        {
+          "item": "leadOre",
+          "count": 1
+        },
+        {
+          "item": "sulfurOre",
+          "count": 1
+        },
+        {
+          "item": "ironIngot",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "ammo_45acp_p",
+        "count": 20
+      }
+    },
+    {
+      "id": "craft_ammo_45acp_ap",
+      "inputs": [
+        {
+          "item": "copperIngot",
+          "count": 1
+        },
+        {
+          "item": "leadOre",
+          "count": 1
+        },
+        {
+          "item": "sulfurOre",
+          "count": 1
+        },
+        {
+          "item": "tungstenOre",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "ammo_45acp_ap",
+        "count": 10
+      }
+    },
+    {
+      "id": "craft_ammo_357",
+      "inputs": [
+        {
+          "item": "copperIngot",
+          "count": 1
+        },
+        {
+          "item": "leadOre",
+          "count": 1
+        },
+        {
+          "item": "sulfurOre",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "ammo_357",
+        "count": 30
+      }
+    },
+    {
+      "id": "craft_ammo_357_jhp",
+      "inputs": [
+        {
+          "item": "copperIngot",
+          "count": 1
+        },
+        {
+          "item": "leadOre",
+          "count": 1
+        },
+        {
+          "item": "sulfurOre",
+          "count": 1
+        },
+        {
+          "item": "ironIngot",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "ammo_357_jhp",
+        "count": 20
+      }
+    },
+    {
+      "id": "craft_ammo_357_ap",
+      "inputs": [
+        {
+          "item": "copperIngot",
+          "count": 1
+        },
+        {
+          "item": "leadOre",
+          "count": 1
+        },
+        {
+          "item": "sulfurOre",
+          "count": 1
+        },
+        {
+          "item": "tungstenOre",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "ammo_357_ap",
+        "count": 10
+      }
+    },
+    {
+      "id": "craft_ammo_127",
+      "inputs": [
+        {
+          "item": "copperIngot",
+          "count": 1
+        },
+        {
+          "item": "leadOre",
+          "count": 1
+        },
+        {
+          "item": "sulfurOre",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "ammo_127",
+        "count": 10
+      }
+    },
+    {
+      "id": "craft_ammo_9",
+      "inputs": [
+        {
+          "item": "copperIngot",
+          "count": 1
+        },
+        {
+          "item": "leadOre",
+          "count": 1
+        },
+        {
+          "item": "sulfurOre",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "ammo_9",
+        "count": 40
+      }
+    },
+    {
+      "id": "craft_ammo_pkm_762x54r",
+      "inputs": [
+        {
+          "item": "copperIngot",
+          "count": 1
+        },
+        {
+          "item": "leadOre",
+          "count": 1
+        },
+        {
+          "item": "sulfurOre",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "ammo_pkm_762x54r",
+        "count": 30
+      }
+    }
+  ]
+}

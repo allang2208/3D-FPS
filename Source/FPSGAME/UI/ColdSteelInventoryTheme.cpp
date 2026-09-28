@@ -51,13 +51,8 @@ void UColdSteelHUDWidget::UpdateInventoryLayout(const FGeometry& Geometry)
     // 工作台制作面板：2026-09-28 复制升级后＝打铁/装配同规格全宽，零缝拼接贴抽屉左缘；
     // 与冶炼互斥（HUD 开一瞬收另一，同一时刻至多一块占位）。
     float WB=0.f,WBDock=12.f;
-    if(bWorkbenchOpen)
-    {
-        WBDock=bDrawerOut?Width:12.f;
-        const float Leftover=float(Pixels.X)-RightInset-WBDock-(bDrawerOut&&(bWarehouseOpen||WarehouseMotion>.001f)?Width+12.f:0.f)-24.f;
-        WB=FMath::Max(0.f,FMath::Min(Width,Leftover));
-        if(WB<240.f)WB=0.f;
-    }
+    // Keep the full panel width and dock through the closing animation.
+    if(bWBOut){WB=Width;WBDock=Width+RightInset;}
     if(SkillPage)SkillPage->SetLayoutWidth(FMath::Max(1.f,Width-2.f));
     // 图鉴页用同一宽度决定网格／详情并排还是纵排。
     if(CodexPage)CodexPage->SetLayoutWidth(FMath::Max(1.f,Width-2.f));

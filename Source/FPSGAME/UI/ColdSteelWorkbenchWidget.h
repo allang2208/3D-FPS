@@ -28,6 +28,7 @@ class UColdSteelHUDWidget;
 class UColdSteelStatusModel;
 class UColdSteelCraftingSystem;
 class UColdSteelWorkbenchRowProxy;
+class UColdSteelGunRecipeOptionWidget;
 struct FColdSteelCraftingRecipe;
 class AVoxelBuildWorld;
 
@@ -56,6 +57,7 @@ public:
     /** 主题层推送面板左缘的屏幕像素 X（页签/弹层贴缝钳制的唯一可信坐标源，
      *  继承冶炼 §7.7：Slate 缓存几何在本层级带固定偏移，不可反推）。 */
     void SetPanelScreenX(float Px);
+    void SetInputReady(bool bReady);
     /** 升级页签选择：同样走点击代理（UButton::OnClicked 动态委托带不了参数——工程先例）。
      *  公开供代理回调，与冶炼 SelectUpgradeAxis 同构。 */
     void SelectUpgradeAxis(int32 Axis);
@@ -74,6 +76,7 @@ protected:
     virtual void NativeConstruct() override;
     virtual void NativeDestruct() override;
     virtual void NativeTick(const FGeometry& MyGeometry,float InDeltaTime) override;
+    virtual FReply NativeOnMouseButtonDown(const FGeometry& Geometry,const FPointerEvent& Event) override;
 
 private:
     UFUNCTION() void HandleClose();
@@ -109,7 +112,10 @@ private:
     void AddMaterialCell(UWidget* Widget,int32 Row,int32 Column);
     void EnsureMaterialRows(int32 Count);
     UFUNCTION() void HandleRecipeSelected(FString Option,ESelectInfo::Type SelectionType);
-    UWidget* GenerateRecipeOption(FString Option);
+    UFUNCTION() UWidget* GenerateRecipeOption(FString Option);
+    void UpdatePreviewLayout();
+    void RefreshActions();
+    void RefreshDataChanged();
 
     UPROPERTY(Transient) TObjectPtr<UColdSteelHUDWidget> HUD;
     UPROPERTY(Transient) TObjectPtr<UColdSteelStatusModel> Model;
@@ -226,6 +232,21 @@ private:
     TSet<FString> FailedIcons;
     friend class UColdSteelWorkbenchRowProxy;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> PanelTitle;
+    // Append layout members: other HUD translation units retain the existing field offsets.
+    UPROPERTY(Transient) TObjectPtr<UBorder> ShellOutline;
+    UPROPERTY(Transient) TObjectPtr<UGridPanel> PreviewLayout;
+    UPROPERTY(Transient) TObjectPtr<UGridSlot> PreviewIconSlot;
+    UPROPERTY(Transient) TObjectPtr<UGridSlot> PreviewDetailsSlot;
+    UPROPERTY(Transient) TObjectPtr<UScrollBox> PreviewScroll;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> PreviewEmpty;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> BatchStat;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> OutputStat;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> CraftHint;
+    TArray<TWeakObjectPtr<UColdSteelGunRecipeOptionWidget>> RecipeOptionWidgets;
+    bool bInputReady=false,bDataDirty=true,bPreviewDirty=true,bCanCraft=false;
+    bool bPreviewStacked=false;
+    int64 MaxBatch=0;
+    FString CraftReason;
 };
 
 /** 页签点击代理（冶炼 UColdSteelSmeltingRowProxy 同款小 UObject）：OnClicked 是动态无参委托，

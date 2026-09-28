@@ -7,6 +7,7 @@
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
 #include "Camera/CameraComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "Components/PrimitiveComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -19,6 +20,14 @@ namespace
 {
 constexpr double BipodHintInterval=.25;
 constexpr double BipodSupportInterval=.12;
+
+bool IsBipodSupport(const FHitResult& Hit)
+{
+    const auto* Component=Hit.GetComponent();
+    return Hit.bBlockingHit && !Hit.bStartPenetrating && Component
+        && !Cast<APawn>(Hit.GetActor()) && !Component->IsSimulatingPhysics()
+        && Component->GetComponentVelocity().SizeSquared()<=4.;
+}
 }
 
 UWeaponBipodDeploymentComponent::UWeaponBipodDeploymentComponent()
@@ -76,7 +85,9 @@ bool UWeaponBipodDeploymentComponent::Eligible() const
     if(!EquippedBipod() || !C->GetCharacterMovement()->IsMovingOnGround() || C->GetVelocity().SizeSquared()>100.f)return false;
     if(C->GetWeaponState()!=EAKMWeaponState::Idle || C->IsChoosingAmmo() || C->bSprintHeld || C->IsSprinting()
         || C->IsSliding() || C->IsDodging() || C->IsTraversing() || C->IsCastBlockingLeftHandAction()
-        || C->bGunsmithInspection || !C->MoveInput.IsNearlyZero(.05f))return false;
+        || C->bGunsmithInspection)return false;
+    // Actual velocity above determines whether the player is stationary. Holding
+    // forward against a solid obstacle must not veto an otherwise valid mount.
     if(const auto* Health=C->FindComponentByClass<UFPSCombatHealthComponent>();Health && Health->IsDead())return false;
     if(const auto* Body=C->FindComponentByClass<UFPSPlayerBodyComponent>();Body && Body->IsThirdPersonViewEnabled())return false;
     return true;
@@ -99,35 +110,11 @@ bool UWeaponBipodDeploymentComponent::ClearPlacement(const FVector& Eye,const FV
 
 bool UWeaponBipodDeploymentComponent::HasSupportHint(UPKMBipodComponent& Part) const
 {
-    const auto* C=Character.Get();if(!C)return false;
-    const FRotator Aim=C->GetControlRotation();
-    if(FMath::Abs(FRotator::NormalizeAxis(Aim.Pitch))>40.f)return false;
-    const FVector Forward=FRotator(0.,Aim.Yaw,0.).Vector();
-    const FVector Feet[]={Part.GetRestFootWorld(0),Part.GetRestFootWorld(1)};
-    const float Offsets[]={0.f,ForwardSearch*.5f,-ForwardSearch*.5f,ForwardSearch,-ForwardSearch};
-    const float MinNormal=FMath::Cos(FMath::DegreesToRadians(MaximumSlopeDegrees));
-    // Simple collision and foot centers only: at most ten short rays, often two.
-    // No edge, reach or clearance checks until the player actually enters ADS.
-    FCollisionQueryParams Params(SCENE_QUERY_STAT(BipodSupportHint),false,C);
-    for(const float Offset:Offsets)
-    {
-        bool Valid=true;
-        for(const FVector& Foot:Feet)
-        {
-            const FVector Probe=Foot+Forward*Offset;
-            FHitResult Hit;
-            if(!GetWorld()->LineTraceSingleByChannel(Hit,Probe+FVector::UpVector*MaximumHeightSnap,
-                Probe-FVector::UpVector*MaximumHeightSnap,SupportChannel,Params)
-                || Hit.bStartPenetrating || Hit.ImpactNormal.Z<MinNormal || !Hit.GetComponent()
-                || Cast<APawn>(Hit.GetActor()) || Hit.GetComponent()->IsSimulatingPhysics()
-                || Hit.GetComponent()->GetComponentVelocity().SizeSquared()>4.){Valid=false;break;}
-        }
-        if(Valid)return true;
-    }
-    return false;
+    FSupport Hint;
+    return FindSupport(Part,Hint,true);
 }
 
-bool UWeaponBipodDeploymentComponent::FindSupport(UPKMBipodComponent& Part,FSupport& Out) const
+bool UWeaponBipodDeploymentComponent::FindSupport(UPKMBipodComponent& Part,FSupport& Out,bool bHintOnly) const
 {
     const auto* C=Character.Get();if(!C)return false;
     const FRotator Aim=C->GetControlRotation();
@@ -138,59 +125,127 @@ bool UWeaponBipodDeploymentComponent::FindSupport(UPKMBipodComponent& Part,FSupp
     const FVector RestFeet[]={Part.GetRestFootWorld(0),Part.GetRestFootWorld(1)};
     const float Offsets[]={0.f,ForwardSearch*.5f,-ForwardSearch*.5f,ForwardSearch,-ForwardSearch};
     const float MinNormal=FMath::Cos(FMath::DegreesToRadians(MaximumSlopeDegrees));
-    FCollisionQueryParams Params(SCENE_QUERY_STAT(BipodTopSurface),true,C);
-    struct FCandidate
+    // Use the collision that blocks the character for both acquisition and
+    // retention. A simple hull and the visible mesh need not share the same top.
+    FCollisionQueryParams Params(SCENE_QUERY_STAT(BipodTopSurface),false,C);
+    bool bFound=false;
+    double BestCost=TNumericLimits<double>::Max();
+    const auto TryFeet=[&](const FVector& First,const FVector& Second,float HeightRange)
     {
-        FSupport Contact;
-        FVector Delta;
-        float Cost;
-    };
-    TArray<FCandidate,TInlineAllocator<5>> Candidates;
-    for(const float Offset:Offsets)
-    {
-        FSupport Candidate;bool Valid=true;
-        for(int32 Leg=0;Leg<2 && Valid;++Leg)
+        const FVector Probes[]={First,Second};
+        FSupport Candidate;
+        for(int32 Leg=0;Leg<2;++Leg)
         {
-            const FVector Probe=RestFeet[Leg]+Forward*Offset;
+            const FVector Probe=Probes[Leg];
             FHitResult Hit;
-            if(!GetWorld()->LineTraceSingleByChannel(Hit,Probe+FVector::UpVector*MaximumHeightSnap,
-                Probe-FVector::UpVector*MaximumHeightSnap,SupportChannel,Params)
-                || Hit.bStartPenetrating || Hit.ImpactNormal.Z<MinNormal || !Hit.GetComponent()
-                || Cast<APawn>(Hit.GetActor()) || Hit.GetComponent()->IsSimulatingPhysics()
-                || Hit.GetComponent()->GetComponentVelocity().SizeSquared()>4.){Valid=false;break;}
+            // Start above the accepted height window so a top exactly on the
+            // upper limit does not count as an initial overlap.
+            if(!GetWorld()->LineTraceSingleByChannel(Hit,Probe+FVector::UpVector*(HeightRange+5.f),
+                Probe-FVector::UpVector*HeightRange,SupportChannel,Params)
+                || !IsBipodSupport(Hit) || Hit.ImpactNormal.Z<MinNormal
+                || FMath::Abs(Hit.ImpactPoint.Z-RestFeet[Leg].Z)>HeightRange)return false;
             Candidate.Feet[Leg]=Hit.ImpactPoint+FVector::UpVector*.12;
             Candidate.Components[Leg]=Hit.GetComponent();
             Candidate.Transforms[Leg]=Hit.GetComponent()->GetComponentTransform();
-            // Confirm finite sole area so an edge or thin rail cannot support
-            // a foot that would otherwise hang mostly in empty space.
-            for(const FVector& Side:{Right*1.6,-Right*1.6,Forward*1.6,-Forward*1.6})
+            if(bHintOnly)continue;
+            // Keep real support under both foot centers, but tolerate an edge
+            // or a seam: two of four nearby samples are enough, and an adjacent
+            // stationary component can carry part of the same sole.
+            int32 SupportedEdges=0;
+            for(const FVector& Side:{Right*1.2,-Right*1.2,Forward*1.2,-Forward*1.2})
             {
                 FHitResult Edge;const FVector Center=Hit.ImpactPoint+Side;
-                if(!GetWorld()->LineTraceSingleByChannel(Edge,Center+FVector::UpVector*2.,Center-FVector::UpVector*2.,SupportChannel,Params)
-                    || Edge.GetComponent()!=Hit.GetComponent() || Edge.ImpactNormal.Z<MinNormal){Valid=false;break;}
+                if(GetWorld()->LineTraceSingleByChannel(Edge,Center+FVector::UpVector*3.,Center-FVector::UpVector*3.,SupportChannel,Params)
+                    && IsBipodSupport(Edge) && Edge.ImpactNormal.Z>=MinNormal)
+                    if(++SupportedEdges>=2)break;
+            }
+            if(SupportedEdges<2)return false;
+        }
+        const FVector Delta=(Candidate.Feet[0]+Candidate.Feet[1]-RestFeet[0]-RestFeet[1])*.5;
+        if(Delta.SizeSquared()>FMath::Square(MaximumCameraReach))return false;
+        Candidate.Anchor=Hinge+Delta;
+        const double Cost=Delta.SizeSquared();
+        if(Cost<BestCost){BestCost=Cost;Out=Candidate;}
+        bFound=true;return true;
+    };
+    for(const float Offset:Offsets)
+    {
+        if(TryFeet(RestFeet[0]+Forward*Offset,RestFeet[1]+Forward*Offset,MaximumHeightSnap) && bHintOnly)return true;
+    }
+    if(bFound)return true;
+
+    // Search around the pawn, not only along the barrel: when aiming along a
+    // wall, a forward ray is parallel to its face and cannot find close cover.
+    const FVector FeetCenter=(RestFeet[0]+RestFeet[1])*.5;
+    const FVector PawnLocation=C->GetActorLocation();
+    const float CloseReach=C->GetCapsuleComponent()->GetScaledCapsuleRadius()+ForwardSearch;
+    const float CloseHeightRange=MaximumHeightSnap*1.5f;
+    const FVector Directions[]={Forward,Right,-Right,(Forward+Right).GetSafeNormal(),
+        (Forward-Right).GetSafeNormal(),(-Forward+Right).GetSafeNormal(),
+        (-Forward-Right).GetSafeNormal(),-Forward};
+    TArray<FHitResult,TInlineAllocator<24>> NearFaces;
+    for(const float HeightOffset:{-CloseHeightRange-2.f,0.f,CloseHeightRange*.5f})
+    {
+        FVector Start=PawnLocation;Start.Z=FeetCenter.Z+HeightOffset;
+        for(const FVector& SearchDirection:Directions)
+        {
+            FHitResult Face;
+            if(!GetWorld()->LineTraceSingleByChannel(Face,Start,Start+SearchDirection*CloseReach,SupportChannel,Params)
+                || !IsBipodSupport(Face) || FMath::Abs(Face.ImpactNormal.Z)>.7f)continue;
+            // Several directions/heights can hit the same wall plane. Keep
+            // its nearest witness so those hits do not multiply top queries.
+            FHitResult* Existing=NearFaces.FindByPredicate([&](const FHitResult& Other)
+            {
+                return Other.GetComponent()==Face.GetComponent()
+                    && FVector::DotProduct(Other.ImpactNormal,Face.ImpactNormal)>.995
+                    && FMath::Abs(FVector::DotProduct(Face.ImpactPoint-Other.ImpactPoint,Other.ImpactNormal))<1.;
+            });
+            if(!Existing)NearFaces.Add(Face);
+            else if(FVector::DistSquared2D(Face.ImpactPoint,FeetCenter)<FVector::DistSquared2D(Existing->ImpactPoint,FeetCenter))
+                *Existing=Face;
+        }
+    }
+    NearFaces.StableSort([&](const FHitResult& A,const FHitResult& B)
+    {
+        return FVector::DistSquared2D(A.ImpactPoint,FeetCenter)<FVector::DistSquared2D(B.ImpactPoint,FeetCenter);
+    });
+    FVector HalfFeet=(RestFeet[0]-RestFeet[1])*.5;HalfFeet.Z=0.;
+    for(const FHitResult& Face:NearFaces)
+    {
+        // Move into the obstacle along its normal, never along a grazing view
+        // direction. First retain the actual foot span; if a narrow ledge
+        // cannot carry that orientation, fit the same span along its edge.
+        const FVector Inward=-FVector(Face.ImpactNormal.X,Face.ImpactNormal.Y,0.).GetSafeNormal();
+        FVector AlongEdge=FVector::CrossProduct(FVector::UpVector,Inward);
+        if(FVector::DotProduct(AlongEdge,HalfFeet)<0.)AlongEdge=-AlongEdge;
+        const double PreferredAlong=FVector::DotProduct(FeetCenter-Face.ImpactPoint,AlongEdge);
+        const double NearAlong=FMath::Clamp(PreferredAlong,-ForwardSearch*.5,ForwardSearch*.5);
+        const FVector Spans[]={HalfFeet,AlongEdge*HalfFeet.Size()};
+        for(const FVector& HalfSpan:Spans)
+        {
+            const double InnerMargin=FMath::Abs(FVector::DotProduct(HalfSpan,Inward));
+            for(const double Along:{PreferredAlong,NearAlong,0.})
+            {
+                for(const float Inset:{2.f,6.f,12.f})
+                {
+                    const FVector Center=Face.ImpactPoint+AlongEdge*Along+Inward*(InnerMargin+Inset);
+                    FVector First=Center+HalfSpan;First.Z=RestFeet[0].Z;
+                    FVector Second=Center-HalfSpan;Second.Z=RestFeet[1].Z;
+                    if(TryFeet(First,Second,CloseHeightRange))return true;
+                }
             }
         }
-        if(!Valid)continue;
-        const FVector Delta=(Candidate.Feet[0]+Candidate.Feet[1]-RestFeet[0]-RestFeet[1])*.5;
-        Candidate.Anchor=Hinge+Delta;
-        // 两腿已固定默认下垂、允许穿模，不再以腿长可达性拒绝候选落点。
-        const float Cost=static_cast<float>(Delta.SizeSquared())+FMath::Abs(Offset)*2.f;
-        Candidates.Add(FCandidate{Candidate,Delta,Cost});
     }
-    // Preserve the minimum-correction choice, but sweep the cheapest candidate
-    // first and stop on success. Do not sweep all five clear placements.
-    Candidates.StableSort([](const FCandidate& A,const FCandidate& B){return A.Cost<B.Cost;});
-    for(const FCandidate& Candidate:Candidates)
-        if(ClearPlacement(C->FirstPersonCamera->GetComponentLocation(),Candidate.Delta,
-            Candidate.Contact.Anchor,C->GetEffectiveMuzzleForward()))
-        {Out=Candidate.Contact;return true;}
-    return false;
+    // Support decides deployment. Camera/weapon clearance only limits the
+    // presentation correction, using the same safe backoff as an existing mount.
+    // A blocked correction must not make touching valid cover fail to deploy.
+    return bFound;
 }
 
 bool UWeaponBipodDeploymentComponent::SupportStillValid(bool bProbeSurface) const
 {
     const float MinNormal=FMath::Cos(FMath::DegreesToRadians(MaximumSlopeDegrees));
-    FCollisionQueryParams Params(SCENE_QUERY_STAT(BipodRetainSupport),true,GetOwner());
+    FCollisionQueryParams Params(SCENE_QUERY_STAT(BipodRetainSupport),false,GetOwner());
     for(int32 Leg=0;Leg<2;++Leg)
     {
         const auto* Comp=Support.Components[Leg].Get();
@@ -205,7 +260,7 @@ bool UWeaponBipodDeploymentComponent::SupportStillValid(bool bProbeSurface) cons
             FHitResult Hit;
             if(!GetWorld()->LineTraceSingleByChannel(Hit,Support.Feet[Leg]+FVector::UpVector*2.,
                 Support.Feet[Leg]-FVector::UpVector*2.,SupportChannel,Params)
-                || Hit.GetComponent()!=Comp || Hit.ImpactNormal.Z<MinNormal
+                || !IsBipodSupport(Hit) || Hit.GetComponent()!=Comp || Hit.ImpactNormal.Z<MinNormal
                 || FVector::DistSquared(Hit.ImpactPoint,Support.Feet[Leg])>1.)return false;
         }
     }
@@ -234,6 +289,10 @@ bool UWeaponBipodDeploymentComponent::TryDeployFromADS()
     Bipod=Part;Support=Candidate;InitialAim=C->GetControlRotation();InitialAim.Pitch=FRotator::NormalizeAxis(InitialAim.Pitch);
     PawnAnchor=C->GetActorLocation();bRequested=true;bCandidate=false;bSeatFired=false;
     NextSupportProbe=GetWorld()->GetTimeSeconds()+BipodSupportInterval;
+    // Consume the input accumulated before the ADS event. Otherwise a held W
+    // can move the pawn once more before the new movement lock takes effect.
+    C->MoveInput=FVector2D::ZeroVector;
+    C->ConsumeMovementInputVector();
     C->GetCharacterMovement()->StopMovementImmediately();
     FireDeployCue(false); // 抬弹链：架起动作的起手机械声
     SetComponentTickEnabled(true);return true;

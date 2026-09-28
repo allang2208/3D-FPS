@@ -167,7 +167,10 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Va
     auto MakeEffect=[&](const TCHAR* Name,const TCHAR* Mesh,const TCHAR* Material)
     {
         auto* C=NewObject<UStaticMeshComponent>(GetOwner());
+        C->SetMobility(EComponentMobility::Movable);
         C->SetStaticMesh(LoadObject<UStaticMesh>(nullptr,Mesh));C->SetMaterial(0,LoadObject<UMaterialInterface>(nullptr,Material));
+        // These tiny projected effects should not seed cached indirect lighting.
+        C->SetAffectDynamicIndirectLighting(false);C->SetAffectDistanceFieldLighting(false);
         C->SetCollisionEnabled(ECollisionEnabled::NoCollision);C->SetCastShadow(false);C->bReceivesDecals=false;C->SetVisibility(false);C->RegisterComponent();return C;
     };
     if(!Dot)Dot=MakeEffect(TEXT("TacticalLaserDot"),TEXT("/Engine/BasicShapes/Sphere"),TEXT("/Game/Weapons/ScopeOptics20260927/M_ScopeAwareLaserDot"));
@@ -183,13 +186,16 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Va
 }
 void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Function)
 {
-    Super::TickComponent(Delta,Type,Function);HideEffects();
-    if(bPresentationHidden)return;
+    Super::TickComponent(Delta,Type,Function);
+    // Keep visible primitives registered between frames so their previous
+    // transforms survive for velocity/temporal reconstruction. Visibility is
+    // resolved once below, or cleared immediately by an inactive/occluded path.
+    if(bPresentationHidden){HideEffects();return;}
     const auto* C=Cast<AFPSGAMECharacter>(GetOwner());
     // Preview and dropped-weapon rigs keep geometry, never illuminate the live world.
-    if(!C||!C->GetController()||!C->IsLocallyControlled()||C->IsHidden()||!C->HasInventoryWeapon()||C->IsTraversing()||!Host||!Host->IsVisible()||!Body||!Body->IsVisible()||!Body->GetStaticMesh())return;
-    if(auto* G=C->GetGameInstance()->GetSubsystem<UGunsmithSystem>();G&&G->IsOpen())return;
-    if(!Body->DoesSocketExist(TEXT("Emitter")))return;
+    if(!C||!C->GetController()||!C->FirstPersonCamera||!C->IsLocallyControlled()||C->IsHidden()||(!C->HasInventoryWeapon()&&!C->HasOffhandPistol())||C->IsTraversing()||!Host||!Host->IsVisible()||!Body||!Body->IsVisible()||!Body->GetStaticMesh()){HideEffects();return;}
+    if(auto* G=C->GetGameInstance()->GetSubsystem<UGunsmithSystem>();G&&G->IsOpen()){HideEffects();return;}
+    if(!Body->DoesSocketExist(TEXT("Emitter"))){HideEffects();return;}
     const FVector Origin=Body->GetSocketLocation(TEXT("Emitter"));
     // Direction comes from the weapon's own sight axis; the mesh sockets only
     // supply the emitter position the player sees. See WeaponForwardAxis above.
@@ -200,25 +206,27 @@ void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     else if(Body->DoesSocketExist(TEXT("AimGuide")))
         Direction=(Body->GetSocketLocation(TEXT("AimGuide"))-Origin).GetSafeNormal();
     else
-        return;
+        {HideEffects();return;}
     FCollisionQueryParams Params(SCENE_QUERY_STAT(TacticalDevice),true,C);FHitResult Hit;
     const FVector Eye=C->FirstPersonCamera->GetComponentLocation();
     // An emitter clipping through a wall must not light or lase the far side.
-    if(GetWorld()->LineTraceSingleByChannel(Hit,Eye,Origin,ECC_Visibility,Params))return;
+    if(GetWorld()->LineTraceSingleByChannel(Hit,Eye,Origin,ECC_Visibility,Params)){HideEffects();return;}
     if(Kind==TEXT("flashlight"))
     {
+        Dot->SetVisibility(false);Beam->SetVisibility(false);
         // Soften the near-wall hotspot while preserving full output at range.
         FHitResult NearHit;
         float Brightness=850.f;
         if(GetWorld()->LineTraceSingleByChannel(NearHit,Origin,Origin+Direction*150.f,ECC_Visibility,Params))
         {
-            if(NearHit.bStartPenetrating)return;
+            if(NearHit.bStartPenetrating){HideEffects();return;}
             const float Blend=FMath::SmoothStep(15.f,150.f,NearHit.Distance);
             Brightness=FMath::Lerp(85.f,850.f,Blend);
         }
         Light->SetIntensity(FMath::FInterpTo(Light->Intensity,Brightness,Delta,10.f));
         Light->SetWorldLocationAndRotation(Origin,Direction.Rotation());Light->SetVisibility(true);return;
     }
+    Light->SetVisibility(false);
     constexpr float Range=8000.f;
     // The beam and surface spot are independent world primitives, so hiding
     // the viewmodel for LPVO/PSO does not hide them. Fade the near-eye beam out
@@ -260,6 +268,7 @@ void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorC
             ? FMath::Clamp(LaserSettleElapsed/LaserConvergeSeconds,0.f,1.f) : 1.f;
         Direction=FMath::Lerp(Direction,AimDirection,Blend).GetSafeNormal();
     }
+    bool bShowDot=false;
     FVector End=Origin+Direction*Range;
     if(GetWorld()->LineTraceSingleByChannel(Hit,Origin,End,ECC_Visibility,Params))
     {
@@ -286,17 +295,20 @@ void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorC
                 const float CappedDiameter=FMath::Min(Diameter,2.f*Depth*TanHalfVFOV*.003f);
                 Diameter=FMath::Lerp(Diameter,CappedDiameter,ScopeAlpha);
             }
-            Dot->SetWorldLocationAndRotation(Spot,FRotationMatrix::MakeFromZ(Normal).ToQuat());
-            Dot->SetWorldScale3D(FVector(Diameter/100.f,Diameter/100.f,FMath::Min(.0004f,Diameter/100.f)));
-            Dot->SetVisibility(true);
+            Dot->SetWorldTransform(FTransform(FRotationMatrix::MakeFromZ(Normal).ToQuat(),Spot,
+                FVector(Diameter/100.f,Diameter/100.f,FMath::Min(.0004f,Diameter/100.f))));
+            bShowDot=true;
         }
     }
+    Dot->SetVisibility(bShowDot);
     const float Length=FVector::Distance(Origin,End);
-    if(Length>.1f&&ScopeAlpha<1.f)
+    const bool bShowBeam=Length>.1f&&ScopeAlpha<1.f;
+    if(bShowBeam)
     {
-        Beam->SetWorldLocationAndRotation((Origin+End)*.5f,FRotationMatrix::MakeFromZ(End-Origin).ToQuat());
-        Beam->SetWorldScale3D(FVector(.004f,.004f,Length/100.f));Beam->SetVisibility(true);
+        Beam->SetWorldTransform(FTransform(FRotationMatrix::MakeFromZ(End-Origin).ToQuat(),(Origin+End)*.5f,
+            FVector(.004f,.004f,Length/100.f)));
     }
+    Beam->SetVisibility(bShowBeam);
 }
 void UTacticalDeviceComponent::EndPlay(const EEndPlayReason::Type Reason)
 {

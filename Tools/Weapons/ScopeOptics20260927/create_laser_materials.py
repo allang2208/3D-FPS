@@ -14,6 +14,9 @@ L = u.MaterialEditingLibrary
 E = u.EditorAssetLibrary
 VERSION = 'scope-laser-v1'
 TEMPORAL_VERSION = 'laser-temporal-v1'
+DOT_TEMPORAL_VERSION = 'laser-dot-post-temporal-v2'
+KINDS = globals().get('LASER_KINDS', ['Dot', 'Beam'])
+RECEIPTS = PROJECT / globals().get('LASER_RECEIPT_FOLDER', 'Saved/LaserTemporal20260927')
 packages = []
 assets = []
 
@@ -36,11 +39,56 @@ def attenuate(mat, alpha, prop, scoped_gain):
     if not L.connect_material_property(multiply, '', prop):
         raise RuntimeError('Material property connection failed')
 
+def configure_dot_composite(mat):
+    # The hit spot moves independently of the receiving surface. Even full
+    # temporal responsiveness leaves its old opaque pixels in the receiver's
+    # history. Composite this small effect after TSR/TAA instead.
+    mat.set_editor_property('blend_mode', u.BlendMode.BLEND_TRANSLUCENT)
+    mat.set_editor_property('translucency_pass', u.MaterialTranslucencyPass.MTP_AFTER_MOTION_BLUR)
+    mat.set_editor_property('disable_depth_test', False)
+    mat.set_editor_property('output_translucent_velocity', False)
+    mat.set_editor_property('enable_responsive_aa', False)
+    for node in L.get_material_expressions(mat):
+        if (isinstance(node, u.MaterialExpressionTemporalResponsivenessOutput)
+                or node.get_editor_property('desc') == 'Laser: reject stale temporal history'):
+            L.delete_material_expression(mat, node)
+
+    if E.get_metadata_tag(mat, 'LaserTemporalVersion') == DOT_TEMPORAL_VERSION:
+        return
+    # UE deliberately disables hardware depth testing in AfterMotionBlur.
+    # Read scene depth explicitly; the existing CPU visibility ray only
+    # protects the centre, so it cannot replace per-pixel edge occlusion.
+    scene_depth = L.create_material_expression(mat, u.MaterialExpressionSceneDepth)
+    pixel_depth = L.create_material_expression(mat, u.MaterialExpressionPixelDepth)
+    world = L.create_material_expression(mat, u.MaterialExpressionWorldPosition)
+    local = L.create_material_expression(mat, u.MaterialExpressionTransformPosition)
+    local.set_editor_property('transform_source_type', u.MaterialPositionTransformSource.TRANSFORMPOSSOURCE_WORLD)
+    local.set_editor_property('transform_type', u.MaterialPositionTransformSource.TRANSFORMPOSSOURCE_LOCAL)
+    connect(world, '', local, '')
+    coverage = L.create_material_expression(mat, u.MaterialExpressionCustom)
+    coverage.set_editor_property('desc', 'Laser dot: current-frame coverage and depth occlusion')
+    coverage.set_editor_property('code', (Path(__file__).parent / 'laser_dot_coverage.hlsl').read_text(encoding='utf-8'))
+    coverage.set_editor_property('output_type', u.CustomMaterialOutputType.CMOT_FLOAT1)
+    sources = {'SceneDepth': scene_depth, 'PixelDepth': pixel_depth, 'LocalPosition': local}
+    inputs = []
+    for name in sources:
+        pin = u.CustomInput()
+        pin.set_editor_property('input_name', name)
+        inputs.append(pin)
+    coverage.set_editor_property('inputs', inputs)
+    for name, node in sources.items():
+        connect(node, '', coverage, name)
+    if not L.connect_material_property(coverage, '', u.MaterialProperty.MP_OPACITY):
+        raise RuntimeError('Laser dot opacity connection failed')
+    E.set_metadata_tag(mat, 'LaserTemporalVersion', DOT_TEMPORAL_VERSION)
+
 def configure_temporal_response(mat, kind):
+    if kind == 'Dot':
+        configure_dot_composite(mat)
+        return
     # A projected laser spot can jump between surfaces; a beam also changes
     # length at occluders. Rigid-object velocity alone cannot describe either.
-    # Keep depth testing and the pre-lens pass; AfterMotionBlur disables depth
-    # testing in UE 5.8 and is therefore unsuitable for a world-space laser.
+    # The beam keeps its depth-tested pass and explicit temporal response.
     if E.get_metadata_tag(mat, 'LaserTemporalVersion') != TEMPORAL_VERSION:
         responsiveness = next((node for node in L.get_material_expressions(mat)
                                if isinstance(node, u.MaterialExpressionTemporalResponsivenessOutput)), None)
@@ -61,12 +109,12 @@ def configure_temporal_response(mat, kind):
         mat.set_editor_property('is_translucency_velocity_from_depth', False)
         mat.set_editor_property('opacity_mask_clip_value', 0.01)
 
-for kind in ['Dot', 'Beam']:
+for kind in KINDS:
     name = 'M_ScopeAwareLaser' + kind
     path = DEST + '/' + name
     source_path = SOURCE + '/M_Laser' + kind
     disk = PROJECT / 'Content' / (path.removeprefix('/Game/') + '.uasset')
-    before = PROJECT / 'Saved/LaserTemporal20260927/Before' / disk.name
+    before = RECEIPTS / 'Before' / disk.name
     if disk.exists() and not before.exists():
         before.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(disk, before)
@@ -102,12 +150,15 @@ saved = u.EditorLoadingAndSavingUtils.save_packages(packages, False)
 if not saved:
     raise RuntimeError('Laser material packages did not save')
 receipt = {'assets': assets, 'saved': bool(saved), 'source_assets_modified': False,
-           'material_recompile_requested': True, 'temporal_version': TEMPORAL_VERSION,
-           'temporal_responsiveness': 1.0, 'beam_depth_and_velocity': True,
+           'material_recompile_requested': True,
+           'temporal_versions': {kind: DOT_TEMPORAL_VERSION if kind == 'Dot' else TEMPORAL_VERSION for kind in KINDS},
+           'dot_post_temporal_with_material_depth': 'Dot' in KINDS,
+           'beam_modified': 'Beam' in KINDS,
            'game_tested': False, 'rendered': False}
 out = PROJECT / 'Saved/ScopeOptics20260927'
 out.mkdir(parents=True, exist_ok=True)
 (out / 'laser-material-save.json').write_text(json.dumps(receipt, ensure_ascii=False, indent=2), encoding='utf-8')
-(PROJECT / 'Saved/LaserTemporal20260927/material-save.json').write_text(
+RECEIPTS.mkdir(parents=True, exist_ok=True)
+(RECEIPTS / 'material-save.json').write_text(
     json.dumps(receipt, ensure_ascii=False, indent=2), encoding='utf-8')
 print('SCOPE_LASER_MATERIALS_SAVED ' + json.dumps(receipt, ensure_ascii=False))

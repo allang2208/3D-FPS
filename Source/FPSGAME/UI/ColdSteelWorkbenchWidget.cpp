@@ -1,4 +1,5 @@
 #include "ColdSteelWorkbenchWidget.h"
+#include "ColdSteelGunRecipeOptionWidget.h"
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelInventoryTypes.h"
@@ -131,6 +132,7 @@ void UColdSteelWorkbenchWidget::NativeOnInitialized()
     RootCanvas->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
     // 外壳三段式（与仓库/背包/冶炼同源）：描边 Border → 真实 UBackgroundBlur → 玻璃 Tint → 内容。
     auto* ShellOuter=WidgetTree->ConstructWidget<UBorder>();
+    ShellOutline=ShellOuter;
     ShellOuter->SetBrush(ColdSteelUI::RoundedBrush(FLinearColor::Transparent,ColdSteelUI::PanelRadius/Scale,GunsmithUI::Edge,1/Scale));
     ShellOuter->SetPadding(FMargin(1/Scale));
     ShellSlot=RootCanvas->AddChildToCanvas(ShellOuter);
@@ -195,29 +197,49 @@ void UColdSteelWorkbenchWidget::NativeOnInitialized()
         EnsureMaterialRows(MaterialRowCount);
     }
 
-    // 状态卡：阶段 16 Medium＋读数 16 Mono＋图例 12。制作即时结算，无进度条（无对应机制不造字段）。
+    // The same status card hierarchy as forging, with values appropriate to instant crafting.
     auto* StateCard=Card(CardColumn);
     Stage=Text(TEXT("工作台空闲"),16,ColdSteelUI::TextTertiary,false,true);Space(StateCard->AddChildToVerticalBox(Stage),FMargin(0,0,0,8));
-    Stats=Text(TEXT(""),16,ColdSteelUI::TextSecondary,true);Space(StateCard->AddChildToVerticalBox(Stats),FMargin(0,0,0,4));
-    StatLegend=Text(TEXT("可作份数   /   批量   /   单次产出"),12,ColdSteelUI::TextTertiary);StateCard->AddChildToVerticalBox(StatLegend);
+    auto* Summary=WidgetTree->ConstructWidget<UHorizontalBox>();
+    Space(StateCard->AddChildToVerticalBox(Summary),FMargin(0,0,0,8));
+    auto SummaryValue=[&](const TCHAR* Caption)
+    {
+        auto* Column=WidgetTree->ConstructWidget<UVerticalBox>();
+        Summary->AddChildToHorizontalBox(Column)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+        auto* Value=Text(TEXT("0"),16,ColdSteelUI::TextPrimary,true);
+        Space(Column->AddChildToVerticalBox(Value),FMargin(0,0,0,4));
+        Column->AddChildToVerticalBox(Text(Caption,12,ColdSteelUI::TextSecondary,false,false,true));
+        return Value;
+    };
+    Stats=SummaryValue(TEXT("材料可制作 / 份"));BatchStat=SummaryValue(TEXT("本次制作 / 份"));OutputStat=SummaryValue(TEXT("本次产出 / 件"));
+    StatLegend=Text(TEXT("材料可制作份数不含背包容量限制，单批最多 99 份。"),12,ColdSteelUI::TextTertiary,false,false,true);
+    StateCard->AddChildToVerticalBox(StatLegend);
 
     // 成品预览：左产物图标（ScaleToFit 等比居中，不拉伸）｜右参数卡（浮窗摘要同口径两列表）。
     auto* PreviewCaption=Text(TEXT("成品预览 · 参数"),14,ColdSteelUI::TextPrimary,false,true);
     Space(CardColumn->AddChildToVerticalBox(PreviewCaption),FMargin(0,4,0,8));
     BoardSize=WidgetTree->ConstructWidget<USizeBox>();
-    auto* PreviewColumns=WidgetTree->ConstructWidget<UHorizontalBox>();BoardSize->SetContent(PreviewColumns);
+    PreviewLayout=WidgetTree->ConstructWidget<UGridPanel>();BoardSize->SetContent(PreviewLayout);
+    PreviewLayout->SetColumnFill(0,1.f);PreviewLayout->SetColumnFill(1,1.f);PreviewLayout->SetRowFill(0,1.f);
     Space(CardColumn->AddChildToVerticalBox(BoardSize),FMargin(0,0,0,8));
-    auto* IconFrame=WidgetTree->ConstructWidget<UBorder>();IconFrame->SetBrushColor(FLinearColor::Transparent);IconFrameBorder=IconFrame;
-    if(auto* IconSlot=PreviewColumns->AddChildToHorizontalBox(IconFrame))IconSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+    auto* IconFrame=WidgetTree->ConstructWidget<UBorder>();IconFrameBorder=IconFrame;Cards.Add(IconFrame);
+    PreviewIconSlot=PreviewLayout->AddChildToGrid(IconFrame,0,0);
+    PreviewIconSlot->SetHorizontalAlignment(HAlign_Fill);PreviewIconSlot->SetVerticalAlignment(VAlign_Fill);
     IconFrameSize=WidgetTree->ConstructWidget<USizeBox>();IconFrame->SetContent(IconFrameSize);
-    IconScale=WidgetTree->ConstructWidget<UScaleBox>();IconScale->SetStretch(EStretch::ScaleToFit);IconFrameSize->SetContent(IconScale);
+    auto* IconContent=WidgetTree->ConstructWidget<UVerticalBox>();IconFrameSize->SetContent(IconContent);
+    IconScale=WidgetTree->ConstructWidget<UScaleBox>();IconScale->SetStretch(EStretch::ScaleToFit);
+    IconContent->AddChildToVerticalBox(IconScale)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     PreviewIcon=WidgetTree->ConstructWidget<UImage>();PreviewIcon->SetVisibility(ESlateVisibility::Collapsed);IconScale->SetContent(PreviewIcon);
+    PreviewEmpty=Text(TEXT("暂无物品图像"),12,ColdSteelUI::TextTertiary,false,false,true);
+    PreviewEmpty->SetJustification(ETextJustify::Center);IconContent->AddChildToVerticalBox(PreviewEmpty);
     PreviewParameterCard=WidgetTree->ConstructWidget<UBorder>();Cards.Add(PreviewParameterCard);
-    PreviewParameterSlot=PreviewColumns->AddChildToHorizontalBox(PreviewParameterCard);
-    PreviewParameterSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
-    auto* ParameterContent=WidgetTree->ConstructWidget<UVerticalBox>();PreviewParameterCard->SetContent(ParameterContent);
-    PreviewName=Text(TEXT("—"),16,ColdSteelUI::TextPrimary,false,true);Space(ParameterContent->AddChildToVerticalBox(PreviewName),FMargin(0,0,0,8));
-    PreviewStage=Text(TEXT("配方基础参数 · 未计强化与锻造品质"),12,ColdSteelUI::TextSecondary);
+    PreviewDetailsSlot=PreviewLayout->AddChildToGrid(PreviewParameterCard,0,1);
+    PreviewDetailsSlot->SetHorizontalAlignment(HAlign_Fill);PreviewDetailsSlot->SetVerticalAlignment(VAlign_Fill);
+    PreviewScroll=WidgetTree->ConstructWidget<UScrollBox>();PreviewParameterCard->SetContent(PreviewScroll);
+    PreviewScroll->SetConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible);
+    auto* ParameterContent=WidgetTree->ConstructWidget<UVerticalBox>();PreviewScroll->AddChild(ParameterContent);
+    PreviewName=Text(TEXT("—"),16,ColdSteelUI::TextPrimary,false,true,true);Space(ParameterContent->AddChildToVerticalBox(PreviewName),FMargin(0,0,0,8));
+    PreviewStage=Text(TEXT("全新成品 · 基础品质"),12,ColdSteelUI::TextSecondary,false,false,true);
     Space(ParameterContent->AddChildToVerticalBox(PreviewStage),FMargin(0,0,0,12));
     PreviewParameterGrid=WidgetTree->ConstructWidget<UGridPanel>();PreviewParameterGrid->SetColumnFill(0,1.f);
     ParameterContent->AddChildToVerticalBox(PreviewParameterGrid);
@@ -226,9 +248,9 @@ void UColdSteelWorkbenchWidget::NativeOnInitialized()
     // 操作说明卡：说明 14＋规则 12＋附注 12（打铁"操作说明"卡同构）。
     auto* Instructions=Card(CardColumn);
     Space(Instructions->AddChildToVerticalBox(Text(TEXT("操作说明"),16,ColdSteelUI::TextPrimary,false,true)),FMargin(0,0,0,8));
-    Space(Instructions->AddChildToVerticalBox(Text(TEXT("在上方选择配方与批量，点击「开始制作」即可；材料背包优先、其次主仓库，制作即时结算，产物直接进背包。"),14,ColdSteelUI::TextPrimary,false,false,true)),FMargin(0,0,0,8));
-    Space(Instructions->AddChildToVerticalBox(Text(TEXT("批量上限＝材料可制作份数（≤99）· 材料不足时状态列标红并报差额 · 产物为全新物品，强化与锻造品质从零开始"),12,ColdSteelUI::TextSecondary,false,false,true)),FMargin(0,0,0,8));
-    Instructions->AddChildToVerticalBox(Text(TEXT("Esc 或 × 关闭 · 升级页签在面板左缘，升级只对这台工作台生效"),12,ColdSteelUI::TextTertiary,false,false,true));
+    Space(Instructions->AddChildToVerticalBox(Text(TEXT("选择配方和制作份数，点击「直接制作」，成品立即放入背包。"),14,ColdSteelUI::TextPrimary,false,false,true)),FMargin(0,0,0,8));
+    Space(Instructions->AddChildToVerticalBox(Text(TEXT("优先消耗背包材料，再使用主仓库。材料不足或背包放不下时不扣除材料。"),12,ColdSteelUI::TextSecondary,false,false,true)),FMargin(0,0,0,8));
+    Instructions->AddChildToVerticalBox(Text(TEXT("Esc 或 × 关闭 · 工作台升级尚未开放"),12,ColdSteelUI::TextTertiary,false,false,true));
 
     // 页脚带（HeaderTint，打铁同款）：状态行＋居中批量步进＋整宽主操作，固定底部不随内容滚动。
     FooterBand=WidgetTree->ConstructWidget<UBorder>();FooterBand->SetBrushColor(ColdSteelUI::HeaderTint);
@@ -236,22 +258,23 @@ void UColdSteelWorkbenchWidget::NativeOnInitialized()
     auto* Foot=WidgetTree->ConstructWidget<UVerticalBox>();FooterBand->SetContent(Foot);
     StatusLine=Text(TEXT(""),14,ColdSteelUI::TextSecondary,false,false,true);
     Space(Foot->AddChildToVerticalBox(StatusLine),FMargin(0,0,0,8));
+    StatusLine->SetVisibility(ESlateVisibility::Collapsed);
+    CraftHint=Text(TEXT("选择配方后直接制作"),12,ColdSteelUI::TextSecondary,false,false,true);
+    Space(Foot->AddChildToVerticalBox(CraftHint),FMargin(0,0,0,8));
     BatchRow=WidgetTree->ConstructWidget<UHorizontalBox>();
     BatchRowSlot=Foot->AddChildToVerticalBox(BatchRow);
     BatchRowSlot->SetPadding(FMargin(0,0,0,8/Scale));
     BatchRowSlot->SetHorizontalAlignment(HAlign_Center);
     auto Small=[&](const FString& Caption)->UButton*
     {
-        auto* B=WidgetTree->ConstructWidget<UButton>();
-        B->SetContent(Text(Caption,14,ColdSteelUI::TextPrimary,false,true));
-        StyledButtons.Add(B);
-        auto* SZ=WidgetTree->ConstructWidget<USizeBox>();SZ->SetWidthOverride(30/Scale);SZ->SetHeightOverride(30/Scale);
+        UTextBlock* Label=nullptr;auto* B=Button(Caption,Label);
+        auto* SZ=WidgetTree->ConstructWidget<USizeBox>();SZ->SetWidthOverride(ColdSteelUI::ActionHeight/Scale);ButtonSizes.Add(SZ);
         SZ->SetContent(B);
         BatchRow->AddChildToHorizontalBox(SZ)->SetVerticalAlignment(VAlign_Center);
         return B;
     };
     BatchMinus=Small(TEXT("−"));BatchMinus->OnClicked.AddDynamic(this,&ThisClass::HandleBatchMinus);
-    BatchText=Text(TEXT("批量 ×1"),12,ColdSteelUI::TextSecondary);
+    BatchText=Text(TEXT("1 份"),14,ColdSteelUI::TextPrimary,true);
     auto* BatchTextSlot=BatchRow->AddChildToHorizontalBox(BatchText);
     BatchTextSlot->SetPadding(FMargin(8/Scale,0,8/Scale,0));
     BatchTextSlot->SetHorizontalAlignment(HAlign_Center);BatchTextSlot->SetVerticalAlignment(VAlign_Center);
@@ -259,7 +282,7 @@ void UColdSteelWorkbenchWidget::NativeOnInitialized()
     BatchRow->SetVisibility(ESlateVisibility::Collapsed);   // 有工作台上下文且目录非空时由 RefreshJob 打开
     StartSize=WidgetTree->ConstructWidget<USizeBox>();StartSize->SetHeightOverride(ColdSteelUI::ActionHeight/Scale);
     Foot->AddChildToVerticalBox(StartSize);
-    UTextBlock* StartLabel=nullptr;StartButton=Button(TEXT("开始制作"),StartLabel);StartSize->SetContent(StartButton);
+    UTextBlock* StartLabel=nullptr;StartButton=Button(TEXT("直接制作"),StartLabel);StartSize->SetContent(StartButton);
     StartButton->SetIsEnabled(false);
     StartButton->OnClicked.AddDynamic(this,&ThisClass::HandleCraft);
 
@@ -390,6 +413,12 @@ void UColdSteelWorkbenchWidget::NativeOnInitialized()
 void UColdSteelWorkbenchWidget::UpdateScale()
 {
     Scale=ColdSteelUI::PixelScale(this);
+    ShellOutline->SetBrush(ColdSteelUI::RoundedBrush(FLinearColor::Transparent,ColdSteelUI::PanelRadius/Scale,ColdSteelUI::Border,1/Scale));
+    ShellOutline->SetPadding(1/Scale);
+    Shell->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassTint,ColdSteelUI::PanelRadius/Scale));
+    HeaderSurface->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::HeaderTint,ColdSteelUI::PanelRadius/Scale));
+    Blur->SetCornerRadius(FVector4(10,10,10,10)/Scale);
+    Blur->SetLowQualityFallbackBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassFallback,ColdSteelUI::PanelRadius/Scale));
     HeaderSurface->SetPadding(FMargin(18/Scale,12/Scale));HeaderSize->SetHeightOverride(36/Scale);
     CloseSize->SetWidthOverride(ColdSteelUI::ActionHeight/Scale);
     StartSize->SetHeightOverride(ColdSteelUI::ActionHeight/Scale);
@@ -397,7 +426,7 @@ void UColdSteelWorkbenchWidget::UpdateScale()
     if(BatchRowSlot){BatchRowSlot->SetPadding(FMargin(0,0,0,8/Scale));BatchRowSlot->SetHorizontalAlignment(HAlign_Center);}
     if(auto* TS=Cast<UHorizontalBoxSlot>(BatchText->Slot))TS->SetPadding(FMargin(8/Scale,0,8/Scale,0));
     for(auto* B:{BatchMinus.Get(),BatchPlus.Get()})if(B)if(auto* SZ=Cast<USizeBox>(B->GetParent()))
-        {SZ->SetWidthOverride(30/Scale);SZ->SetHeightOverride(30/Scale);}
+        {SZ->SetWidthOverride(ColdSteelUI::ActionHeight/Scale);SZ->SetHeightOverride(ColdSteelUI::ActionHeight/Scale);}
     if(auto* TS=Cast<UCanvasPanelSlot>(UpgradeTabSlot))TS->SetSize(FVector2D(36/Scale,60/Scale));
     ApplyScreenLayout();   // Shell/页签/弹层按新 Scale 重排（坐标源＝主题层推送的屏幕像素）
     ApplyUpgradeTabVisual();   // v12：hover/pressed 圆角随 Scale 重建
@@ -421,6 +450,7 @@ void UColdSteelWorkbenchWidget::UpdateScale()
     if(FlyBtnSize)FlyBtnSize->SetHeightOverride(ColdSteelUI::ActionHeight/Scale);
     // —— 打铁/装配同款重排：滚动条、卡面 12px 内沿、行距、双列缝、三列/参数表内距。——
     Scroll->SetScrollbarThickness(FVector2D(6/Scale,6/Scale));Scroll->SetScrollbarPadding(FMargin(4/Scale,0,0,0));
+    PreviewScroll->SetScrollbarThickness(FVector2D(6/Scale,6/Scale));PreviewScroll->SetScrollbarPadding(FMargin(4/Scale,0,0,0));
     Body->SetPadding(12/Scale);
     FooterBand->SetPadding(12/Scale);
     for(const auto& Weak:Buttons)if(auto* B=Weak.Get())
@@ -431,14 +461,28 @@ void UColdSteelWorkbenchWidget::UpdateScale()
     {   Border->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::StatusCard,ColdSteelUI::CardRadius/Scale,ColdSteelUI::Border,1/Scale));
         Border->SetPadding(12/Scale);   }
     for(const auto& Row:RowSpacings)if(auto* RowSlot=Row.Slot.Get())RowSlot->SetPadding(Row.Padding*(1.f/Scale));
-    if(IconFrameBorder)IconFrameBorder->SetPadding(FMargin(0,0,4/Scale,0));
-    if(PreviewParameterSlot)PreviewParameterSlot->SetPadding(FMargin(4/Scale,0,0,0));
+    UpdatePreviewLayout();
     for(const auto& MaterialCell:MaterialCellSlots)if(auto* CellSlot=MaterialCell.Get())
         CellSlot->SetPadding(FMargin(CellSlot->GetColumn()==0?0.f:12.f/Scale,4.f/Scale,0,4.f/Scale));
     for(const auto& PreviewCell:PreviewCellSlots)if(auto* S=PreviewCell.Get())
         S->SetPadding(FMargin(S->GetColumn()==0?0.f:12.f/Scale,6.f/Scale,0,6.f/Scale));
     for(const auto& L:Labels)if(auto* Label=L.Widget.Get())
         Label->SetFont(L.Numeric?GunsmithUI::NumberFont(L.Pixels/Scale,L.Medium):GunsmithUI::TextFont(L.Pixels/Scale,L.Medium));
+    for(const auto& Option:RecipeOptionWidgets)if(auto* Widget=Option.Get())Widget->SetPixelScale(Scale);
+    auto ComboStyle=RecipeChoice->GetWidgetStyle();auto ComboButton=ComboStyle.ComboButtonStyle;
+    ComboButton.SetButtonStyle(ColdSteelUI::ButtonStyle(Scale));
+    ComboButton.SetMenuBorderBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Gray(25,252),ColdSteelUI::CardRadius/Scale,ColdSteelUI::Border,1/Scale));
+    ComboButton.DownArrowImage.ImageSize=FVector2D(8/Scale,8/Scale);
+    ComboButton.SetDownArrowPadding(FMargin(4/Scale,0,0,0));ComboButton.SetShadowOffset(FVector2D::ZeroVector);
+    ComboStyle.SetComboButtonStyle(ComboButton);RecipeChoice->SetWidgetStyle(ComboStyle);
+    RecipeChoice->SetContentPadding(FMargin(22/Scale,4/Scale,10/Scale,4/Scale));RecipeChoice->SetMaxListHeight(240/Scale);
+    auto ItemStyle=RecipeChoice->GetItemStyle();
+    ItemStyle.SetEvenRowBackgroundBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Content,ColdSteelUI::ButtonRadius/Scale));
+    ItemStyle.SetOddRowBackgroundBrush(ItemStyle.EvenRowBackgroundBrush);
+    ItemStyle.SetEvenRowBackgroundHoveredBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover,ColdSteelUI::ButtonRadius/Scale));
+    ItemStyle.SetOddRowBackgroundHoveredBrush(ItemStyle.EvenRowBackgroundHoveredBrush);
+    ItemStyle.SetActiveBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover,ColdSteelUI::ButtonRadius/Scale,ColdSteelUI::Accent,1/Scale));
+    ItemStyle.SetInactiveBrush(ItemStyle.ActiveBrush);RecipeChoice->SetItemStyle(ItemStyle);
     const FButtonStyle Style=ColdSteelUI::ButtonStyle(Scale);
     for(const auto& Weak:StyledButtons)if(auto* B=Weak.Get())
     {
@@ -500,7 +544,7 @@ void UColdSteelWorkbenchWidget::LayoutUpgradeTab()
 void UColdSteelWorkbenchWidget::SetWorkbench(AVoxelBuildWorld* InWorld,FIntVector InCell)
 {
     World=InWorld;Cell=InCell;
-    PreviewRecipe.Reset();
+    bInputReady=false;bDataDirty=true;bPreviewDirty=true;PreviewRecipe.Reset();
     SelectedRecipe=NAME_None;Batch=1;   // 换台清选择与批量（逐台上下文，别把上一台的选中带过来）
     SetStatus(FString());
     bUpgradeOpen=false;   // 换台上下文时收起升级弹层（升级数据是逐台的，别把上一台的弹层带过来）
@@ -514,7 +558,7 @@ void UColdSteelWorkbenchWidget::SetWorkbench(AVoxelBuildWorld* InWorld,FIntVecto
 void UColdSteelWorkbenchWidget::SetLayoutWidth(float PixelsX)
 {
     if(FMath::IsNearlyEqual(LayoutWidth,PixelsX,.5f))return;
-    LayoutWidth=PixelsX;ApplyScreenLayout();   // 弹层与面板同宽，宽度推送要同步重排
+    LayoutWidth=PixelsX;ApplyScreenLayout();UpdatePreviewLayout();
 }
 
 void UColdSteelWorkbenchWidget::SetPanelScreenX(float Px)
@@ -526,7 +570,8 @@ void UColdSteelWorkbenchWidget::SetPanelScreenX(float Px)
 void UColdSteelWorkbenchWidget::NativeConstruct()
 {
     Super::NativeConstruct();
-    if(Model&&!ChangedHandle.IsValid())ChangedHandle=Model->OnChanged.AddUObject(this,&ThisClass::RefreshJob);
+    if(Model&&!ChangedHandle.IsValid())ChangedHandle=Model->OnChanged.AddUObject(this,&ThisClass::RefreshDataChanged);
+    RefreshDataChanged();
     RefreshJob();
 }
 
@@ -541,8 +586,9 @@ void UColdSteelWorkbenchWidget::NativeTick(const FGeometry& MyGeometry,float InD
     Super::NativeTick(MyGeometry,InDeltaTime);
     if(!FMath::IsNearlyEqual(Scale,ColdSteelUI::PixelScale(this),.001f)){UpdateScale();return;}
     if(GetVisibility()==ESlateVisibility::Collapsed)return;
-    // 成品预览双列高度＝面板高−固定区，夹在 200–420px（打铁 NativeTick 同款公式）。
-    const float Height=FMath::Clamp(float(MyGeometry.GetLocalSize().Y)*Scale-520.f,200.f,420.f)/Scale;
+    const float Height=bPreviewStacked
+        ?FMath::Clamp(float(MyGeometry.GetLocalSize().Y)*Scale-430.f,360.f,480.f)/Scale
+        :FMath::Clamp(float(MyGeometry.GetLocalSize().Y)*Scale-520.f,220.f,420.f)/Scale;
     if(!FMath::IsNearlyEqual(Height,BoardHeight,.5f)){BoardHeight=Height;BoardSize->SetHeightOverride(Height);}
     // 升级弹层动画（冶炼 §7.12 同款）：右缘钉死在面板左缘那条缝上（枢纽右中），
     // 横向缩放 0→1 向左展开/1→0 向右收回，4.0/s＋EaseSmooth。
@@ -557,27 +603,58 @@ void UColdSteelWorkbenchWidget::NativeTick(const FGeometry& MyGeometry,float InD
     if(RefreshAccum<.1f)return;   // 数据侧 0.1s 节流、动画每帧——与冶炼"刷新与动画解耦"同一构建（§7.13）。
     RefreshAccum=0.f;
     RefreshJob();
-    RefreshUpgrade();
+}
+
+void UColdSteelWorkbenchWidget::RefreshDataChanged()
+{bDataDirty=true;bPreviewDirty=true;}
+
+void UColdSteelWorkbenchWidget::SetInputReady(bool bReady)
+{
+    if(bInputReady==bReady)return;
+    bInputReady=bReady;
+    if(bReady){bDataDirty=true;RefreshJob();}else RefreshActions();
+}
+
+FReply UColdSteelWorkbenchWidget::NativeOnMouseButtonDown(const FGeometry& Geometry,const FPointerEvent& Event)
+{
+    // The root canvas includes the empty area to the left of the panel for the upgrade flyout.
+    const FVector2D Position=Event.GetScreenSpacePosition();
+    for(UWidget* Widget:{static_cast<UWidget*>(Shell.Get()),static_cast<UWidget*>(UpgradeTab.Get()),static_cast<UWidget*>(UpgradeFlyout.Get())})
+        if(Widget&&Widget->IsVisible()&&Widget->GetCachedGeometry().IsUnderLocation(Position))return FReply::Handled();
+    return Super::NativeOnMouseButtonDown(Geometry,Event);
+}
+
+void UColdSteelWorkbenchWidget::UpdatePreviewLayout()
+{
+    if(!PreviewLayout)return;
+    bPreviewStacked=LayoutWidth>0&&LayoutWidth<560.f;
+    PreviewLayout->SetColumnFill(1,bPreviewStacked?0.f:1.f);
+    PreviewLayout->SetRowFill(0,bPreviewStacked?0.f:1.f);PreviewLayout->SetRowFill(1,bPreviewStacked?1.f:0.f);
+    PreviewDetailsSlot->SetRow(bPreviewStacked?1:0);PreviewDetailsSlot->SetColumn(bPreviewStacked?0:1);
+    PreviewIconSlot->SetPadding(bPreviewStacked?FMargin(0,0,0,8/Scale):FMargin(0,0,4/Scale,0));
+    PreviewDetailsSlot->SetPadding(bPreviewStacked?FMargin(0):FMargin(4/Scale,0,0,0));
+    if(bPreviewStacked)IconFrameSize->SetHeightOverride(140/Scale);else IconFrameSize->ClearHeightOverride();
 }
 
 void UColdSteelWorkbenchWidget::RefreshJob()
 {
-    if(!Crafting||!Model||!RecipeChoice)return;
+    if(!bDataDirty||!Crafting||!Model||!RecipeChoice)return;
+    bDataDirty=false;
     const TArray<FColdSteelCraftingRecipe>& Catalog=Crafting->Catalog();
     // 选中同步：换台/无选择时默认第一项（打铁同款"选中即可点"手感）。
     int32 Index=INDEX_NONE;
     for(int32 I=0;I<Catalog.Num();++I)if(Catalog[I].Id==SelectedRecipe){Index=I;break;}
     if(Index==INDEX_NONE&&!Catalog.IsEmpty()){SelectedRecipe=Catalog[0].Id;Index=0;}
     if(RecipeChoice->GetSelectedIndex()!=Index)RecipeChoice->SetSelectedIndex(Index);
-    const bool bCtx=World.IsValid();
+    const bool bCtx=World.IsValid()&&World->HasPrefabAt(Cell);
     const FColdSteelCraftingRecipe* Sel=Index!=INDEX_NONE?&Catalog[Index]:nullptr;
-    RecipeChoice->SetIsEnabled(bCtx&&Catalog.Num()>1);
+    // Clamp first: the material rows, summary, quote and eventual submission share this batch.
+    MaxBatch=Sel?Crafting->MaxCraftable(Model,*Sel):0;
+    Batch=FMath::Clamp<int64>(Batch,1,FMath::Max<int64>(1,MaxBatch));
+    RecipeTitle->SetText(FText::FromString(Sel?FString::Printf(TEXT("%d / %d · %s"),Index+1,Catalog.Num(),*DefinitionName(Sel->Output)):TEXT("暂无制作配方")));
+    RecipeTitle->SetAutoWrapText(true);
     // —— 材料三列表（打铁同款）：需求＝单份×批量；持有不足标红并报差额。——
-    {
-        int32 RowCount=0;
-        for(const FColdSteelCraftingRecipe& R:Catalog)RowCount=FMath::Max(RowCount,R.Inputs.Num());
-        EnsureMaterialRows(RowCount);
-    }
+    EnsureMaterialRows(Sel?Sel->Inputs.Num():0);
     for(int32 I=0;I<MaterialRows.Num();++I)
     {
         FMaterialRow& Row=MaterialRows[I];
@@ -602,52 +679,62 @@ void UColdSteelWorkbenchWidget::RefreshJob()
         if(Materials->GetText().ToString()!=Want)Materials->SetText(FText::FromString(Want));
     }
     // —— 批量步进与主操作（提交走 UColdSteelCraftingSystem 单事务）。——
-    const bool bShowRows=bCtx&&Catalog.Num()>0;
-    BatchRow->SetVisibility(bShowRows&&Sel?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
-    const int64 Makeable=Sel?Crafting->MaxCraftable(Model,*Sel):0;
-    int64 MaxBatch=1;
-    if(Sel)MaxBatch=FMath::Clamp<int64>(Makeable,1,99);
-    Batch=FMath::Clamp<int64>(Batch,1,FMath::Max<int64>(1,MaxBatch));
+    BatchRow->SetVisibility(Sel?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
     if(BatchText)
     {
-        const FString Want=FString::Printf(TEXT("批量 ×%lld（最多 %lld）"),Batch,MaxBatch);
+        const FString Want=FString::Printf(TEXT("%lld 份"),Batch);
         if(BatchText->GetText().ToString()!=Want)BatchText->SetText(FText::FromString(Want));
     }
-    BatchMinus->SetIsEnabled(Batch>1);BatchPlus->SetIsEnabled(Batch<MaxBatch);
     if(auto* Cap=Cast<UTextBlock>(StartButton->GetContent()))
-        Cap->SetText(FText::FromString(Batch>1?FString::Printf(TEXT("开始制作 ×%lld"),Batch):TEXT("开始制作")));
-    StartButton->SetIsEnabled(bShowRows&&Sel);
+        Cap->SetText(FText::FromString(Batch>1?FString::Printf(TEXT("直接制作 · %lld 份"),Batch):TEXT("直接制作")));
+    bCanCraft=false;CraftReason.Reset();
+    if(!bCtx)CraftReason=TEXT("工作台不可用，请重新交互");
+    else if(!Sel)CraftReason=TEXT("暂无制作配方");
+    else bCanCraft=Crafting->CanCraft(*Sel,Batch,CraftReason);
+    StartButton->SetToolTipText(FText::FromString(bCanCraft?FString::Printf(TEXT("消耗当前材料，制作 %s ×%lld 并放入背包"),*DefinitionName(Sel->Output),Sel->OutputCount*Batch):CraftReason));
+    CraftHint->SetText(FText::FromString(bCanCraft?TEXT("材料与背包空间充足 · 点击后立即制作"):CraftReason));
+    CraftHint->SetColorAndOpacity(bCanCraft?ColdSteelUI::TextSecondary:ColdSteelUI::Warning);
     // —— 状态卡：选中＝就绪/材料不足＋三段读数；未选＝空闲态。制作即时结算，无进度条。——
     if(Sel)
     {
-        Stage->SetText(FText::FromString(Makeable>0?TEXT("就绪 · 即时结算"):TEXT("材料不足")));
-        Stage->SetColorAndOpacity(Makeable>0?ColdSteelUI::TextPrimary:ColdSteelUI::Warning);
-        if(Stats)
-        {
-            const FString Want=FString::Printf(TEXT("%lld 份   |   ×%lld   |   %lld"),Makeable,Batch,Sel->OutputCount*Batch);
-            if(Stats->GetText().ToString()!=Want)Stats->SetText(FText::FromString(Want));
-        }
-        Stats->SetColorAndOpacity(Makeable>0?ColdSteelUI::TextPrimary:ColdSteelUI::Danger);
+        Stage->SetText(FText::FromString(bCanCraft?TEXT("准备就绪 · 直接制作"):MaxBatch==0?TEXT("材料不足"):TEXT("暂不可制作")));
+        Stage->SetColorAndOpacity(bCanCraft?ColdSteelUI::TextPrimary:ColdSteelUI::Warning);
+        Stats->SetText(FText::AsNumber(MaxBatch));BatchStat->SetText(FText::AsNumber(Batch));OutputStat->SetText(FText::AsNumber(Sel->OutputCount*Batch));
+        Stats->SetColorAndOpacity(MaxBatch>0?ColdSteelUI::TextPrimary:ColdSteelUI::Danger);
     }
     else
     {
         Stage->SetText(FText::FromString(TEXT("工作台空闲")));
         Stage->SetColorAndOpacity(ColdSteelUI::TextTertiary);
-        Stats->SetText(FText::GetEmpty());
+        Stats->SetText(FText::FromString(TEXT("0")));BatchStat->SetText(FText::FromString(TEXT("—")));OutputStat->SetText(FText::FromString(TEXT("—")));
     }
-    RefreshPreview(Sel);
+    RefreshPreview(Sel);RefreshActions();
+}
+
+void UColdSteelWorkbenchWidget::RefreshActions()
+{
+    const bool Ready=bInputReady&&World.IsValid()&&HUD&&HUD->IsWorkbenchOpen();
+    if(RecipeChoice)RecipeChoice->SetIsEnabled(Ready&&Crafting&&Crafting->Catalog().Num()>1);
+    if(StartButton)StartButton->SetIsEnabled(Ready&&bCanCraft);
+    if(BatchMinus)BatchMinus->SetIsEnabled(Ready&&Batch>1);
+    if(BatchPlus)BatchPlus->SetIsEnabled(Ready&&Batch<MaxBatch);
+    if(UpgradeTabBtn)UpgradeTabBtn->SetIsEnabled(Ready);
 }
 
 void UColdSteelWorkbenchWidget::RefreshPreview(const FColdSteelCraftingRecipe* Recipe)
 {
     const FString Key=Recipe?Recipe->Id.ToString():FString();
-    if(Key==PreviewRecipe)return;
-    PreviewRecipe=Key;
+    if(Key==PreviewRecipe&&!bPreviewDirty)return;
+    const bool bRecipeChanged=Key!=PreviewRecipe;
+    PreviewRecipe=Key;bPreviewDirty=false;
+    if(bRecipeChanged)PreviewScroll->ScrollToStart();
     auto Set=[](UTextBlock* Widget,const FString& Value){if(Widget&&Widget->GetText().ToString()!=Value)Widget->SetText(FText::FromString(Value));};
     if(!Recipe)
     {
         Set(PreviewName,TEXT("—"));Set(PreviewScope,FString());
         PreviewIcon->SetVisibility(ESlateVisibility::Collapsed);
+        PreviewEmpty->SetText(FText::FromString(TEXT("暂无成品预览")));PreviewEmpty->SetVisibility(ESlateVisibility::HitTestInvisible);
+        Set(PreviewStage,FString());
         for(const auto& Row:PreviewRows)
         {Row.Name->SetVisibility(ESlateVisibility::Collapsed);Row.Value->SetVisibility(ESlateVisibility::Collapsed);}
         return;
@@ -656,6 +743,7 @@ void UColdSteelWorkbenchWidget::RefreshPreview(const FColdSteelCraftingRecipe* R
     const FColdSteelItem Item=Model->CreateItem(Recipe->Output);
     const auto Data=BuildColdSteelItemTooltip(Item,Model,GetGameInstance()->GetSubsystem<UGunsmithSystem>());
     Set(PreviewName,Data.Name.IsEmpty()?DefinitionName(Recipe->Output):Data.Name);
+    Set(PreviewStage,TEXT("全新成品 · 基础品质"));
     Set(PreviewScope,Data.ValueScope);
     while(PreviewRows.Num()<Data.Summary.Num())
     {
@@ -679,8 +767,10 @@ void UColdSteelWorkbenchWidget::RefreshPreview(const FColdSteelCraftingRecipe* R
         Row.Value->SetVisibility(Visible?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
         if(Visible){Set(Row.Name.Get(),Data.Summary[I].Label);Set(Row.Value.Get(),Data.Summary[I].Value);}
     }
-    if(const FSlateBrush* Brush=IconFor(Recipe->Output)){PreviewIcon->SetBrush(*Brush);PreviewIcon->SetVisibility(ESlateVisibility::HitTestInvisible);}
-    else PreviewIcon->SetVisibility(ESlateVisibility::Collapsed);
+    if(const FSlateBrush* Brush=IconFor(Recipe->Output))
+    {PreviewIcon->SetBrush(*Brush);PreviewIcon->SetVisibility(ESlateVisibility::HitTestInvisible);PreviewEmpty->SetVisibility(ESlateVisibility::Collapsed);}
+    else
+    {PreviewIcon->SetVisibility(ESlateVisibility::Collapsed);PreviewEmpty->SetText(FText::FromString(TEXT("暂无物品图像")));PreviewEmpty->SetVisibility(ESlateVisibility::HitTestInvisible);}
 }
 
 void UColdSteelWorkbenchWidget::HandleRecipeSelected(FString Option,ESelectInfo::Type SelectionType)
@@ -688,24 +778,23 @@ void UColdSteelWorkbenchWidget::HandleRecipeSelected(FString Option,ESelectInfo:
     if(SelectionType==ESelectInfo::Direct||!Crafting||!Model)return;
     const TArray<FColdSteelCraftingRecipe>& Catalog=Crafting->Catalog();
     const int32 Index=RecipeChoice->GetSelectedIndex();
-    if(!World.IsValid()||!Catalog.IsValidIndex(Index))
+    if(!bInputReady||!World.IsValid()||!Catalog.IsValidIndex(Index))
     {   // 无效切换（无台上下文/越界）回滚到当前选中（打铁 HandleRecipeSelected 同款守卫）。
         RecipeChoice->SetSelectedIndex(Catalog.IndexOfByPredicate([this](const FColdSteelCraftingRecipe& R){return R.Id==SelectedRecipe;}));
         return;
     }
     if(SelectedRecipe==Catalog[Index].Id)return;
     SelectedRecipe=Catalog[Index].Id;Batch=1;   // 换配方清批量（可作份数变了）
-    SetStatus(FString());RefreshJob();SetKeyboardFocus();
+    SetStatus(FString());RefreshDataChanged();RefreshJob();SetKeyboardFocus();
 }
 
 UWidget* UColdSteelWorkbenchWidget::GenerateRecipeOption(FString Option)
 {
-    auto* Label=Text(Option,14,ColdSteelUI::TextPrimary,false,true);
-    Label->SetJustification(ETextJustify::Center);Label->SetAutoWrapText(false);Label->SetWrapTextAt(0);
-    auto* OptionBox=WidgetTree->ConstructWidget<USizeBox>();
-    OptionBox->SetMinDesiredHeight(ColdSteelUI::ActionHeight/FMath::Max(.1f,Scale));
-    OptionBox->SetContent(Label);Cast<USizeBoxSlot>(Label->Slot)->SetVerticalAlignment(VAlign_Center);
-    return OptionBox;
+    auto* Widget=CreateWidget<UColdSteelGunRecipeOptionWidget>(this);
+    if(!Widget)return nullptr;
+    Widget->Configure(Option,ColdSteelUI::PixelScale(this));
+    RecipeOptionWidgets.RemoveAll([](const auto& Entry){return !Entry.IsValid();});RecipeOptionWidgets.Add(Widget);
+    return Widget;
 }
 
 FString UColdSteelWorkbenchWidget::InputsText(const FColdSteelCraftingRecipe& R,int64 InBatch) const
@@ -722,35 +811,36 @@ FString UColdSteelWorkbenchWidget::InputsText(const FColdSteelCraftingRecipe& R,
 
 void UColdSteelWorkbenchWidget::HandleCraft()
 {
-    if(SelectedRecipe.IsNone()||!Crafting)return;
+    if(!bInputReady||!HUD||!HUD->IsWorkbenchOpen()||!World.IsValid()||!World->HasPrefabAt(Cell)||SelectedRecipe.IsNone()||!Crafting)return;
     const FColdSteelCraftingRecipe* R=Crafting->Find(SelectedRecipe);
     if(!R){SetStatus(TEXT("该配方不存在"),true);return;}
     const FString OutName=DefinitionName(R->Output);
     const FString Cost=InputsText(*R,Batch);
     const int64 N=Batch;
     FString Reason;
-    if(Crafting->Craft(*R,Batch,Reason))
+    if(Crafting->Craft(SelectedRecipe,N,Reason))
     {
         SetStatus(FString::Printf(TEXT("已制作 %s ×%lld · 消耗 %s"),*OutName,R->OutputCount*N,*Cost));
-        RefreshJob();
     }
     else SetStatus(Reason,true);
+    RefreshDataChanged();RefreshJob();SetKeyboardFocus();
 }
 
 void UColdSteelWorkbenchWidget::HandleBatchMinus()
 {
-    if(Batch>1){--Batch;RefreshJob();}
+    if(bInputReady&&Batch>1){--Batch;SetStatus(FString());bDataDirty=true;RefreshJob();SetKeyboardFocus();}
 }
 
 void UColdSteelWorkbenchWidget::HandleBatchPlus()
 {
-    if(Batch<99){++Batch;RefreshJob();}   // RefreshJob 再按可制作份数夹一次，超了自动回弹
+    if(bInputReady&&Batch<MaxBatch){++Batch;SetStatus(FString());bDataDirty=true;RefreshJob();SetKeyboardFocus();}
 }
 
 void UColdSteelWorkbenchWidget::SetStatus(const FString& Line,bool bError)
 {
     if(!StatusLine)return;
     StatusLine->SetText(FText::FromString(Line));
+    StatusLine->SetVisibility(Line.IsEmpty()?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
     StatusLine->SetColorAndOpacity(Line.IsEmpty()?ColdSteelUI::TextTertiary:bError?ColdSteelUI::Warning:ColdSteelUI::TextSecondary);
 }
 
@@ -765,7 +855,7 @@ const FSlateBrush* UColdSteelWorkbenchWidget::IconFor(const FString& Definition)
     if(!Texture){FailedIcons.Add(Definition);return nullptr;}   // 失败要记住：源文件缺失，别每次刷新都重试。
     IconTextures.Add(Texture);
     FSlateBrush Brush;Brush.SetResourceObject(Texture);
-    Brush.ImageSize=FVector2D(256,256);Brush.DrawAs=ESlateBrushDrawType::Image;
+    Brush.ImageSize=FVector2D(Texture->GetSizeX(),Texture->GetSizeY());Brush.DrawAs=ESlateBrushDrawType::Image;
     return &IconBrushes.Add(Definition,Brush);
 }
 
@@ -811,6 +901,7 @@ void UColdSteelWorkbenchWidget::DebugClickUpgradeTab(int32 Axis)
 
 void UColdSteelWorkbenchWidget::HandleUpgradeToggled()
 {
+    if(!bInputReady)return;
     bUpgradeOpen=!bUpgradeOpen;RefreshUpgrade();   // 展开/收回动画由 NativeTick 的 FlyMotion 驱动
 }
 

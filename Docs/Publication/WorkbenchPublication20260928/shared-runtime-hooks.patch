@@ -1,0 +1,630 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelWorkbenchHUD.cpp b/Source/FPSGAME/UI/ColdSteelWorkbenchHUD.cpp
+--- a/Source/FPSGAME/UI/ColdSteelWorkbenchHUD.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWorkbenchHUD.cpp
+@@ -1,9 +1,13 @@
+ #include "ColdSteelHUDWidget.h"
+ #include "ColdSteelWorkbenchWidget.h"
++#include "ColdSteelGunAssemblyWidget.h"
++#include "../Building/GunAssemblySystem.h"
++#include "Engine/GameInstance.h"
+ #include "ColdSteelUIStyle.h"
+ #include "../Building/VoxelBuildPrefabActor.h"
+ #include "../Building/VoxelBuildTypes.h"
+ #include "../Building/VoxelBuildWorld.h"
++#include "../Building/GunAssemblyInteraction.h"
+ #include "Blueprint/WidgetTree.h"
+ #include "Components/CanvasPanel.h"
+ #include "Components/CanvasPanelSlot.h"
+@@ -11,7 +15,7 @@
+ 
+ void UColdSteelHUDWidget::BuildWorkbench(UCanvasPanel* Root)
+ {
+-    // 与冶炼面板同一挂载（BuildSmelting）：锚右缘、上下 12px，位置与宽度在 UpdateInventoryLayout 里算；
++    // 与打铁/枪械装配面板同一挂载（BuildForging）：锚右缘、上下 12px、全宽 720 基准（2026-09-28 制造栏复制升级）；
+     // 槽位＝屏幕左缘→面板右缘的全宽命中区，面板本体在内部按推送坐标重排。
+     WorkbenchWidget=CreateWidget<UColdSteelWorkbenchWidget>(GetOwningPlayer());
+     WorkbenchWidget->Configure(this);
+@@ -21,19 +25,38 @@
+     WorkbenchSlot->SetOffsets(FMargin(0,ReferenceUnits(12),ReferenceUnits(720),ReferenceUnits(12)));
+     WorkbenchSlot->SetZOrder(42);
+     WorkbenchWidget->SetVisibility(ESlateVisibility::Collapsed);
++    GunAssemblyWidget=CreateWidget<UColdSteelGunAssemblyWidget>(GetOwningPlayer());GunAssemblyWidget->Configure(this);
++    GunAssemblySlot=Root->AddChildToCanvas(GunAssemblyWidget);
++    GunAssemblySlot->SetAnchors(FAnchors(1,0,1,1));GunAssemblySlot->SetAlignment(FVector2D(1,0));
++    GunAssemblySlot->SetOffsets(FMargin(0,ReferenceUnits(12),ReferenceUnits(720),ReferenceUnits(12)));
++    GunAssemblySlot->SetZOrder(42);GunAssemblyWidget->SetVisibility(ESlateVisibility::Collapsed);
+ }
+ 
+ void UColdSteelHUDWidget::OpenWorkbench(AActor* Workbench)
+ {
+     auto* Piece=Cast<AVoxelBuildPrefabActor>(Workbench);
+     auto* World=Piece?Cast<AVoxelBuildWorld>(Piece->GetOwner()):nullptr;
+-    if(!Piece||Piece->PrefabId()!=VoxelWorkbenchId||!World||!World->HasPrefabAt(Piece->AnchorCell()))return;
++    if(!Piece||(Piece->PrefabId()!=VoxelWorkbenchId&&Piece->PrefabId()!=VoxelGunWorkbenchId)
++        ||Piece->IsFalling()||!World||!World->HasPrefabAt(Piece->AnchorCell()))return;
++    if(GunAssemblyInteraction){auto* Previous=GunAssemblyInteraction.Get();GunAssemblyInteraction=nullptr;if(Previous->IsRunning())Previous->Stop(false);Previous->Destroy();}
++    GunWorkbenchStation.Reset();
+     // 工作台 E＝背包＋制作面板一起开（高炉同款生命周期）；打开背包本身永远不带出面板。
+     if(bSmeltingOpen)HideSmeltingInstantly();   // 同贴位互斥：瞬收冶炼面板，避免两层叠画
++    if(bForgingOpen||bForgeRiding)HideForgingInstantly();
+     if(!bInventoryOpen){SetInventoryTab(false);SetInventoryOpen(true);}
+     WorkbenchWorld=World;WorkbenchCell=Piece->AnchorCell();
+     bWorkbenchOpen=true;bWorkbenchRiding=false;   // 弹出相位：抽屉到位后面板从其左缘滑出
+-    if(WorkbenchWidget)
++    bGunWorkbenchPanel=Piece->PrefabId()==VoxelGunWorkbenchId;
++    WorkbenchWidget->SetVisibility(ESlateVisibility::Collapsed);GunAssemblyWidget->SetVisibility(ESlateVisibility::Collapsed);
++    WorkbenchWidget->SetInputReady(false);
++    if(Piece->PrefabId()==VoxelGunWorkbenchId)
++    {
++        GunWorkbenchStation=Piece;GunAssemblyInteraction=GetWorld()->SpawnActor<AGunAssemblyInteraction>();
++        if(GunAssemblyInteraction)GunAssemblyInteraction->Prepare(GetOwningPlayer(),Piece,this);
++    }
++    if(bGunWorkbenchPanel&&GunAssemblyWidget)
++    {GunAssemblyWidget->OpenStation();GunAssemblyWidget->SetKeyboardFocus();}
++    else if(WorkbenchWidget)
+     {
+         WorkbenchWidget->SetWorkbench(World,WorkbenchCell);
+         // 可见性与滑动进度统一由 NativeTick 的 WorkbenchMotion 驱动（与背包抽屉同动画）。
+@@ -47,6 +70,7 @@
+     bWorkbenchOpen=false;
+     if(WorkbenchWidget)WorkbenchWidget->SetInputReady(false);
+     WorkbenchWorld.Reset();
++    if(GunAssemblyInteraction&&!GunAssemblyInteraction->IsRunning()){GunAssemblyInteraction->Destroy();GunAssemblyInteraction=nullptr;GunWorkbenchStation.Reset();}
+     // 关闭＝制作栏＋背包一个整体向右缩回（冶炼定稿口径）：立即关抽屉，
+     // 面板在 Tick 里与抽屉同一位移曲线刚体骑乘；背包本就开着时面板单独滑出。
+     if(bInventoryOpen){bWorkbenchRiding=true;SetInventoryOpen(false);}
+@@ -55,6 +79,8 @@
+ 
+ void UColdSteelHUDWidget::HideWorkbenchInstantly()
+ {
++    if(GunAssemblyInteraction){auto* Previous=GunAssemblyInteraction.Get();GunAssemblyInteraction=nullptr;if(Previous->IsRunning())Previous->Stop(false);Previous->Destroy();}
++    GunWorkbenchStation.Reset();
+     // 互斥瞬收：不播骑乘动画，直接归位收起（两面板共用同一贴位，开另一个前清场）。
+     bWorkbenchOpen=false;
+     bWorkbenchRiding=false;
+@@ -62,9 +88,41 @@
+     WorkbenchWorld.Reset();
+     if(WorkbenchWidget)
+     {
++        WorkbenchWidget->SetVisibility(ESlateVisibility::Collapsed);
+         WorkbenchWidget->SetInputReady(false);
+-        WorkbenchWidget->SetVisibility(ESlateVisibility::Collapsed);
+         WorkbenchWidget->SetRenderTranslation(FVector2D::ZeroVector);
+     }
+     if(WorkbenchSlot)WorkbenchSlot->SetZOrder(42);
++    if(GunAssemblyWidget){GunAssemblyWidget->SetVisibility(ESlateVisibility::Collapsed);GunAssemblyWidget->SetRenderTranslation(FVector2D::ZeroVector);GunAssemblyWidget->SetInputReady(false);}
++    if(GunAssemblySlot)GunAssemblySlot->SetZOrder(42);
+ }
++
++bool UColdSteelHUDWidget::SelectGunAssemblyRecipe(FName Recipe)
++{
++    if(!bWorkbenchOpen||!bGunWorkbenchPanel||IsGunAssembly())return false;
++    auto* System=GetGameInstance()->GetSubsystem<UGunAssemblySystem>();
++    auto* Station=Cast<AVoxelBuildPrefabActor>(GunWorkbenchStation.Get());
++    if(!System||!Station||!System->SelectRecipe(Recipe))return false;
++    if(GunAssemblyInteraction)GunAssemblyInteraction->Destroy();
++    GunAssemblyInteraction=GetWorld()->SpawnActor<AGunAssemblyInteraction>();
++    if(GunAssemblyInteraction)GunAssemblyInteraction->Prepare(GetOwningPlayer(),Station,this);
++    return GunAssemblyInteraction!=nullptr;
++}
++
++bool UColdSteelHUDWidget::CanStartGunAssembly(FString& Reason) const
++{if(!GunAssemblyInteraction){Reason=TEXT("枪械工作台未就绪");return false;}return GunAssemblyInteraction->Ready(Reason);}
++bool UColdSteelHUDWidget::StartGunAssembly(FString& Reason)
++{
++    if(!bWorkbenchOpen||!GunAssemblyInteraction||!GunAssemblyInteraction->Start(Reason))return false;
++    bWorkbenchOpen=false;bWorkbenchRiding=true;SetInventoryOpen(false);GunAssemblyInteraction->Enter();return true;
++}
++bool UColdSteelHUDWidget::IsGunAssembly() const
++{return GunAssemblyInteraction&&GunAssemblyInteraction->IsRunning();}
++bool UColdSteelHUDWidget::HandleGunAssemblyInput(const FInputKeyEventArgs& Event)
++{return GunAssemblyInteraction&&GunAssemblyInteraction->HandleInput(Event);}
++void UColdSteelHUDWidget::CompleteGunAssembly(AGunAssemblyInteraction* Interaction,bool bReturnPanel)
++{
++    if(GunAssemblyInteraction!=Interaction)return;
++    AActor* Station=GunWorkbenchStation.Get();GunAssemblyInteraction=nullptr;
++    if(bReturnPanel&&Station)OpenWorkbench(Station);else HideWorkbenchInstantly();
++}
+diff --git a/Source/FPSGAME/UI/ColdSteelInventoryTheme.cpp b/Source/FPSGAME/UI/ColdSteelInventoryTheme.cpp
+--- a/Source/FPSGAME/UI/ColdSteelInventoryTheme.cpp
++++ b/Source/FPSGAME/UI/ColdSteelInventoryTheme.cpp
+@@ -32,9 +32,12 @@
+     float Width=FMath::Min(float(Pixels.X)-RightInset-12.f,FMath::Clamp(float(Pixels.X)*.48f,720.f,1040.f));
+     // Both drawers share their actual size; keep that layout until the left drawer finishes closing.
+     if(bWarehouseOpen||WarehouseMotion>.001f)Width=FMath::Min(Width,(float(Pixels.X)-RightInset-24.f)*.5f);
+-    // 制造栏 2026-09-28 起全宽（打铁/装配同规格）：工作台打开时连同抽屉对半夹取。
+-    const bool bWBOut=bWorkbenchOpen||bWorkbenchRiding||WorkbenchMotion>.001f;
+-    if(bWBOut)Width=FMath::Min(Width,(float(Pixels.X)-RightInset-12.f)*.5f);
++    const bool bForgeOut=bForgingOpen||bForgeRiding||ForgeMotion>.001f;
++    const bool bGunOut=bGunWorkbenchPanel&&(bWorkbenchOpen||bWorkbenchRiding||WorkbenchMotion>.001f);
++    // 制造栏 2026-09-28 起全宽（打铁/装配同规格）：非枪械工作台打开时连同抽屉对半夹取。
++    const bool bWBOut=!bGunWorkbenchPanel&&(bWorkbenchOpen||bWorkbenchRiding||WorkbenchMotion>.001f);
++    if(bForgeOut||bGunOut||bWBOut)Width=FMath::Min(Width,(float(Pixels.X)-RightInset-12.f)*.5f);
++    const float Forge=bForgeOut?Width:0.f;
+     // 冶炼面板（2026-09-23 起独立于背包）：背包开着时**零缝拼接**贴抽屉左缘（2026-09-24 用户要求），
+     // 背包关着时贴视口右缘（12px 边距）。宽＝背包实际宽的一半；仓库同开时再按剩余空间夹一次，
+     // 低于最小可用宽就整块收起，不挤破视口。
+@@ -51,17 +54,21 @@
+     // 工作台制作面板：2026-09-28 复制升级后＝打铁/装配同规格全宽，零缝拼接贴抽屉左缘；
+     // 与冶炼互斥（HUD 开一瞬收另一，同一时刻至多一块占位）。
+     float WB=0.f,WBDock=12.f;
+-    // Keep the full panel width and dock through the closing animation.
+-    if(bWBOut){WB=Width;WBDock=Width+RightInset;}
++    // All crafting panels keep the same width and docking through the closing animation.
++    if(bGunOut||bWBOut){WB=Width;WBDock=Width+RightInset;}
+     if(SkillPage)SkillPage->SetLayoutWidth(FMath::Max(1.f,Width-2.f));
+     // 图鉴页用同一宽度决定网格／详情并排还是纵排。
+     if(CodexPage)CodexPage->SetLayoutWidth(FMath::Max(1.f,Width-2.f));
+     if(!Pixels.Equals(InventoryLayoutSize,.5f)||!FMath::IsNearlyEqual(Scale,InventoryLayoutScale,.001f)
+         ||!FMath::IsNearlyEqual(Width,InventoryWidth,.5f)||!FMath::IsNearlyEqual(Smelt,SmeltWidth,.5f)
+         ||!FMath::IsNearlyEqual(Dock,SmeltDock,.5f)
+-        ||!FMath::IsNearlyEqual(WB,WorkbenchWidth,.5f)||!FMath::IsNearlyEqual(WBDock,WorkbenchDock,.5f))
++        ||!FMath::IsNearlyEqual(WB,WorkbenchWidth,.5f)||!FMath::IsNearlyEqual(WBDock,WorkbenchDock,.5f)
++        ||!FMath::IsNearlyEqual(Forge,ForgeWidth,.5f))
+     {
+         InventoryPanelSlot->SetOffsets(FMargin(-RightInset/Scale,12/Scale,Width/Scale,12/Scale));
++        if(ForgingSlot&&Forge>1)ForgingSlot->SetOffsets(FMargin(-(Width+RightInset)/Scale,12/Scale,Forge/Scale,12/Scale));
++        ForgeWidth=Forge;
++        if(GunAssemblySlot&&bGunOut)GunAssemblySlot->SetOffsets(FMargin(-WBDock/Scale,12/Scale,WB/Scale,12/Scale));
+         InventoryHeaderSurface->SetPadding(FMargin(18/Scale,12/Scale));InventoryHeaderSize->SetHeightOverride(36/Scale);
+         for(auto& WeakSize:InventoryTabSizes)if(auto* Size=WeakSize.Get())Size->SetHeightOverride(40/Scale);
+         InventoryFooterSlot->SetPadding(FMargin(18/Scale,8/Scale,18/Scale,10/Scale));
+diff --git a/Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp b/Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp
+--- a/Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp
+@@ -1,6 +1,8 @@
+ #include "ColdSteelHUDWidget.h"
+-#include "ColdSteelWorkbenchWidget.h"
++#include "ColdSteelForgingWidget.h"
+ #include "ColdSteelSmeltingWidget.h"
++#include "ColdSteelWorkbenchWidget.h"   // 屏外点击排除项要完整类型（GetCachedGeometry）
++#include "ColdSteelGunAssemblyWidget.h"
+ #include "ColdSteelItemTooltip.h"
+ #include "ColdSteelWarehouseWidget.h"
+ #include "ColdSteelWarehouseChest.h"
+@@ -29,6 +31,7 @@
+ {
+     if(!Chest||!Chest->CanInteract(GetOwningPlayerPawn()))return;
+     if(bWarehouseOpen)return;
++    if(bForgingOpen||bForgeRiding)HideForgingInstantly();
+     WarehouseChest=Chest;SetInventoryTab(false);SetInventoryOpen(true);
+     auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();M->GrantStartingArmory();if(!M->IsAudit())M->GrantEnhancementMaterials();M->bWarehouseOpen=true;
+     // 储物会话：由被交互的 Actor 决定面板绑定的容器（默认主仓库；储物箱传独立键+容量+档位标题）。
+@@ -84,11 +87,15 @@
+         const bool InWarehouse=bWarehouseOpen&&WarehouseWidget&&WarehouseWidget->GetCachedGeometry().IsUnderLocation(Position);
+         // 冶炼面板与背包同生命周期：点在它上面不算"屏外点击"，不能把两块一起关掉。
+         const bool InSmelting=bSmeltingOpen&&SmeltingWidget&&SmeltingWidget->GetCachedGeometry().IsUnderLocation(Position);
+-        const bool InWorkbench=bWorkbenchOpen&&WorkbenchWidget&&WorkbenchWidget->IsVisible()&&WorkbenchWidget->GetCachedGeometry().IsUnderLocation(Position);
++        // 工作台制作面板与冶炼面板同贴位同生命周期（2026-09-25 修复）：点在它上面不算"屏外点击"——
++        // 否则预览拦截＋连带收背包会把制作面板任何按钮的点击变成"直接关闭"。
++        const UWidget* ActiveWorkbench=bGunWorkbenchPanel?static_cast<UWidget*>(GunAssemblyWidget.Get()):static_cast<UWidget*>(WorkbenchWidget.Get());
++        const bool InWorkbench=bWorkbenchOpen&&ActiveWorkbench&&ActiveWorkbench->IsVisible()&&ActiveWorkbench->GetCachedGeometry().IsUnderLocation(Position);
++        const bool InForging=bForgingOpen&&ForgingWidget&&ForgingWidget->GetCachedGeometry().IsUnderLocation(Position);
+         const bool InDetails=WarehouseDetails&&WarehouseDetails->GetCachedGeometry().IsUnderLocation(Position);
+         const auto Inside=[&](UWidget* W){return W&&W->IsVisible()&&W->GetCachedGeometry().IsUnderLocation(Position);};
+         const bool InTooltip=Inside(ItemTooltip)||Inside(StatusTooltip)||Inside(EquipmentTooltip);
+-        if(!InBag&&!InWarehouse&&!InSmelting&&!InWorkbench&&!InDetails&&!InTooltip){SetInventoryOpen(false);return true;}
++        if(!InBag&&!InWarehouse&&!InSmelting&&!InWorkbench&&!InForging&&!InDetails&&!InTooltip){SetInventoryOpen(false);return true;}
+     }
+     return false;
+ }
+diff --git a/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp b/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
+--- a/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
++++ b/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
+@@ -222,6 +222,23 @@
+     for(const auto& Pair:P.AmmoPouch)if(Pair.Key.IsEmpty()||Pair.Value<0||Pair.Value>9007199254740991ll){Reason=TEXT("弹药袋数量无效");return false;}
+     if(!ColdSteelSkills::Validate(P,Reason))return false;
+     if(!ColdSteelQuickBar::Validate(P,Reason))return false;
++    if(!P.GunAssemblyJob.Id.IsEmpty())
++    {
++        const auto& J=P.GunAssemblyJob;
++        if(J.Recipe.IsNone()||J.Item.InstanceId.IsEmpty()||J.Item.Definition.IsEmpty()||!Object(J.Item)
++            ||J.PartCount<1||J.PartCount>30||J.Scores.Num()!=J.PartCount||J.Misses.Num()!=J.PartCount
++            ||J.InstalledMask<0||uint32(J.InstalledMask)>((1u<<FMath::Clamp(J.PartCount,1,30))-1u)
++            ||!FMath::IsFinite(J.CalibrationDuration)||J.CalibrationDuration<=0
++            ||!FMath::IsFinite(J.CalibrationSeconds)||J.CalibrationSeconds<0||J.CalibrationSeconds>J.CalibrationDuration+.01f
++            ||!FMath::IsFinite(J.CalibrationTime)||J.CalibrationTime<0||!FMath::IsFinite(J.CalibrationError)||J.CalibrationError<0
++            ||!FMath::IsFinite(J.Quality)||J.Quality<0||J.Quality>100
++            ||(J.bFinished&&(uint32(J.InstalledMask)!=((1u<<FMath::Clamp(J.PartCount,1,30))-1u)||J.CalibrationSeconds<J.CalibrationDuration)))
++        {Reason=TEXT("枪械拼装工件数据无效，保留原存档");return false;}
++        for(float Score:J.Scores)if(!FMath::IsFinite(Score)||Score<0||Score>100)return false;
++        for(int32 Misses:J.Misses)if(Misses<0||Misses>10)return false;
++        if(P.Items.ContainsByPredicate([&J](const auto& I){return I.InstanceId==J.Item.InstanceId;}))
++        {Reason=TEXT("拼装成品已在背包中，不能重复领取");return false;}
++    }
+     if(P.StaminaVersion<0||P.StaminaVersion>1||!FMath::IsFinite(P.Stamina)||P.Stamina<0||!FMath::IsFinite(P.StaminaRecoveryDelay)||P.StaminaRecoveryDelay<0||P.StaminaRecoveryDelay>60){Reason=TEXT("体力数据无效");return false;}
+     Reason=TEXT("存档数据未通过校验，保留原文件");
+     if((P.Version!=1&&P.Version!=2)||P.WarehouseLayoutVersion<0||P.WarehouseLayoutVersion>1||P.WarehousePages<1||P.WarehousePages>(P.WarehouseLayoutVersion?ColdSteelWarehouse::MaxPages:500)||P.Level<1||P.Level>10000||P.Experience<0||P.Points<0||P.Kills<0||P.Generation<0||P.Items.Num()>10000||P.Hotbar.Num()!=4||P.HotbarDefinitions.Num()!=4||!FMath::IsFinite(P.Health)||!FMath::IsFinite(P.Mana)||P.Health<0||P.Mana<0)return false;
+diff --git a/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp b/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp
+@@ -1,4 +1,5 @@
+ #include "ColdSteelHUDWidget.h"
++#include "ColdSteelGunAssemblyWidget.h"
+ #include "ColdSteelSmeltingWidget.h"
+ #include "ColdSteelWorkbenchWidget.h"
+ #include "../Building/VoxelBuildWorld.h"
+@@ -206,7 +207,7 @@
+     {
+         // 整体骑乘收回时抽屉行程加长面板宽（多出的行程本就在屏幕外不可见），
+         // 让面板与抽屉共用同一条位移曲线＝一个刚体向右缩回（2026-09-24 用户定稿口径）。
+-        const float DrawerWidth = FMath::Max(1.0f, (InventoryWidth+ColdSteelUI::NavigationDrawerInset+(bSmeltRiding?SmeltSlidePx:0.f)+(bWorkbenchRiding?WorkbenchSlidePx:0.f)) / ColdSteelUI::PixelScale(this));
++        const float DrawerWidth = FMath::Max(1.0f, (InventoryWidth+ColdSteelUI::NavigationDrawerInset+(bSmeltRiding?SmeltSlidePx:0.f)+(bWorkbenchRiding?WorkbenchSlidePx:0.f)+(bForgeRiding?ForgeSlidePx:0.f)) / ColdSteelUI::PixelScale(this));
+         InventoryPanel->SetRenderTranslation(FVector2D((1.0f - DrawerEase) * DrawerWidth, 0.0f));
+     }
+     if (InventoryBackdrop)
+@@ -249,17 +250,21 @@
+     }
+     // 工作台制作面板动画：与冶炼面板逐行同构（同贴位互斥，同一时刻至多一块在骑乘，
+     // 抽屉行程加长项两旗标互斥相加即可；Docs/UI/workbench-panel-plan-20260924.md）。
+-    if(WorkbenchWidget)
+-    {
+-        WorkbenchWidget->SetInputReady(bWorkbenchOpen&&!bWorkbenchRiding&&WorkbenchMotion>.999f);
++    if(WorkbenchWidget&&GunAssemblyWidget)
++    {
++        UUserWidget* Panel=bGunWorkbenchPanel?static_cast<UUserWidget*>(GunAssemblyWidget.Get()):static_cast<UUserWidget*>(WorkbenchWidget.Get());
++        UCanvasPanelSlot* PanelSlot=bGunWorkbenchPanel?GunAssemblySlot.Get():WorkbenchSlot.Get();
++        GunAssemblyWidget->SetInputReady(bGunWorkbenchPanel&&bWorkbenchOpen&&!bWorkbenchRiding&&WorkbenchMotion>.999f);
++        WorkbenchWidget->SetInputReady(!bGunWorkbenchPanel&&bWorkbenchOpen&&!bWorkbenchRiding&&WorkbenchMotion>.999f);
++
+         if(bWorkbenchOpen&&(!WorkbenchWorld.IsValid()||!WorkbenchWorld->HasPrefabAt(WorkbenchCell)))CloseWorkbench();
+         const float S=ColdSteelUI::PixelScale(this);
+         if(bWorkbenchRiding)
+         {   WorkbenchMotion=FMath::FInterpConstantTo(WorkbenchMotion,0.f,InDeltaTime,4.0f);   // 复位进度，下次弹出重新起步
+-            WorkbenchWidget->SetVisibility(DrawerProgress>KINDA_SMALL_NUMBER?ESlateVisibility::SelfHitTestInvisible:ESlateVisibility::Collapsed);
+-            if(WorkbenchSlot)WorkbenchSlot->SetZOrder(40);
+-            WorkbenchWidget->SetRenderTranslation(FVector2D((1.f-DrawerEase)*(InventoryWidth+ColdSteelUI::NavigationDrawerInset+WorkbenchSlidePx)/S,0.f));
+-            if(DrawerProgress<=KINDA_SMALL_NUMBER){bWorkbenchRiding=false;WorkbenchWidget->SetRenderTranslation(FVector2D::ZeroVector);}
++            Panel->SetVisibility(DrawerProgress>KINDA_SMALL_NUMBER?ESlateVisibility::SelfHitTestInvisible:ESlateVisibility::Collapsed);
++            if(PanelSlot)PanelSlot->SetZOrder(40);
++            Panel->SetRenderTranslation(FVector2D((1.f-DrawerEase)*(InventoryWidth+ColdSteelUI::NavigationDrawerInset+WorkbenchSlidePx)/S,0.f));
++            if(DrawerProgress<=KINDA_SMALL_NUMBER){bWorkbenchRiding=false;Panel->SetRenderTranslation(FVector2D::ZeroVector);}
+         }
+         else
+         {
+@@ -267,13 +272,14 @@
+             const float WorkbenchTarget=bWorkbenchOpen&&DrawerProgress>1.f-KINDA_SMALL_NUMBER&&WorkbenchWidth>1.f?1.f:0.f;
+             WorkbenchMotion=FMath::FInterpConstantTo(WorkbenchMotion,WorkbenchTarget,InDeltaTime,4.0f);
+             const float WorkbenchEase=ColdSteelUI::EaseSmooth(WorkbenchMotion);
+-            WorkbenchWidget->SetVisibility(WorkbenchMotion>KINDA_SMALL_NUMBER?ESlateVisibility::SelfHitTestInvisible:ESlateVisibility::Collapsed);
+-            if(WorkbenchSlot)WorkbenchSlot->SetZOrder(WorkbenchMotion>1.f-KINDA_SMALL_NUMBER?42:40);
++            Panel->SetVisibility(WorkbenchMotion>KINDA_SMALL_NUMBER?ESlateVisibility::SelfHitTestInvisible:ESlateVisibility::Collapsed);
++            if(PanelSlot)PanelSlot->SetZOrder(WorkbenchMotion>1.f-KINDA_SMALL_NUMBER?42:40);
+             if(WorkbenchMotion>KINDA_SMALL_NUMBER)
+-                WorkbenchWidget->SetRenderTranslation(FVector2D((1.f-WorkbenchEase)*FMath::Max(WorkbenchSlidePx,24.f)/S,0.f));
+-            else WorkbenchWidget->SetRenderTranslation(FVector2D::ZeroVector);
+-        }
+-    }
++                Panel->SetRenderTranslation(FVector2D((1.f-WorkbenchEase)*FMath::Max(WorkbenchSlidePx,24.f)/S,0.f));
++            else Panel->SetRenderTranslation(FVector2D::ZeroVector);
++        }
++    }
++    TickForging(InDeltaTime,DrawerEase);
+     if (EquipmentTooltip && EquipmentTooltip->IsVisible() && !bEquipmentTooltipPinned)
+     {
+         UpdateEquipmentTooltipPlacement();
+@@ -292,6 +298,7 @@
+ 
+ FReply UColdSteelHUDWidget::NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent)
+ {
++    if(InKeyEvent.GetKey()==EKeys::Escape&&!InKeyEvent.IsRepeat()&&bForgingOpen){CloseForging();return FReply::Handled();}
+     if (HandlePanelShortcut(InKeyEvent.GetKey(), InKeyEvent.IsRepeat())) return FReply::Handled();
+     // A drag in flight keeps its own keys: the drawer is hidden while the pointer is outside the panel,
+     // so the board that started the drag may not be the widget receiving this event.
+@@ -405,7 +412,7 @@
+     const auto* Character=PC?Cast<AFPSGAMECharacter>(PC->GetPawn()):nullptr;
+     // 与旧准星提示同一出现条件：任一面板打开／光标显示／弹药轮／命中反馈 期间都不出浮窗。
+     FString Text;bool bAction=true;
+-    if(Character&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor&&!Character->IsAmmoWheelOpen())
++    if(Character&&!IsWorldForging()&&!IsGunAssembly()&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor&&!Character->IsAmmoWheelOpen())
+     {
+         FMonsterHitFeedback Feedback;
+         if(!Character->GetMonsterHitFeedback(Feedback))
+@@ -433,6 +440,7 @@
+     BuildWarehouse(Root);
+     BuildSmelting(Root);
+     BuildWorkbench(Root);
++    BuildForging(Root);
+     BuildPanelNavigation(Root);
+     BuildInteractHint(Root); // 统一 E 交互小浮窗（在面板 Z 之下：面板打开时本就不显示）
+     ProgressNotification=CreateWidget<UColdSteelProgressNotification>(GetOwningPlayer());
+@@ -1229,6 +1237,7 @@
+     if(!bOpen)HideItemTooltip(true);
+     if(!bOpen)CloseWarehouse();
+     if(!bOpen)CloseSmelting();   // 收背包连带收面板：保证"再打开背包"永远不会带出上次的面板
++    if(!bOpen)CloseForging();
+     if(!bOpen)CloseWorkbench();  // 工作台制作面板同一连带口径（同文件同规则）
+     if (bInventoryOpen == bOpen) return;
+     bInventoryOpen = bOpen;
+diff --git a/Source/FPSGAME/UI/ColdSteelHUDWidget.h b/Source/FPSGAME/UI/ColdSteelHUDWidget.h
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.h
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.h
+@@ -89,6 +89,7 @@
+     void OpenWorkbench(AActor* Workbench);
+     void CloseWorkbench();
+     bool IsWorkbenchOpen() const { return bWorkbenchOpen; }
++    bool SelectGunAssemblyRecipe(FName Recipe);
+     void RunWarehouseAudit();
+     void RunWarehouseGlassAudit();
+     void ShowWarehouseDetails(UWidget* Details);
+@@ -159,6 +160,9 @@
+     void BuildWorkbench(UCanvasPanel* Root);
+     UPROPERTY() TObjectPtr<class UColdSteelWorkbenchWidget> WorkbenchWidget;
+     UPROPERTY() TObjectPtr<UCanvasPanelSlot> WorkbenchSlot;
++    UPROPERTY() TObjectPtr<class UColdSteelGunAssemblyWidget> GunAssemblyWidget;
++    UPROPERTY() TObjectPtr<UCanvasPanelSlot> GunAssemblySlot;
++    bool bGunWorkbenchPanel=false;
+     TWeakObjectPtr<class AVoxelBuildWorld> WorkbenchWorld;
+     FIntVector WorkbenchCell=FIntVector::ZeroValue;
+     bool bWorkbenchOpen=false;
+@@ -528,4 +532,34 @@
+ 
+     UPROPERTY(Transient)
+     TMap<FString, TObjectPtr<UTexture2D>> LoadedTextureCache;
++
++public:
++    void OpenForging(AActor* Station);
++    void CloseForging();
++    void OpenForgingSmelting();
++    bool IsForgingOpen() const {return bForgingOpen;}
++    bool CanStartWorldForging(FString& Reason) const;
++    bool StartWorldForging(FName Recipe,FString& Reason);
++    bool IsWorldForging() const;
++    bool HandleWorldForgeInput(const struct FInputKeyEventArgs& Event);
++    void CompleteWorldForging(class AForgeInteraction* Interaction,bool bReturnPanel);
++    bool CanStartGunAssembly(FString& Reason) const;
++    bool StartGunAssembly(FString& Reason);
++    bool IsGunAssembly() const;
++    bool HandleGunAssemblyInput(const struct FInputKeyEventArgs& Event);
++    void CompleteGunAssembly(class AGunAssemblyInteraction* Interaction,bool bReturnPanel);
++private:
++    void BuildForging(UCanvasPanel* Root);
++    void HideForgingInstantly();
++    void TickForging(float DeltaTime,float DrawerEase);
++    UPROPERTY(Transient) TObjectPtr<class UColdSteelForgingWidget> ForgingWidget;
++    UPROPERTY(Transient) TObjectPtr<class AForgeInteraction> ForgeInteraction;
++    UPROPERTY(Transient) TObjectPtr<class AGunAssemblyInteraction> GunAssemblyInteraction;
++    TWeakObjectPtr<AActor> GunWorkbenchStation;
++    UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> ForgingSlot;
++    TWeakObjectPtr<class AVoxelBuildWorld> ForgingWorld;
++    TWeakObjectPtr<AActor> ForgingStation;
++    FIntVector ForgingCell=FIntVector::ZeroValue;
++    bool bForgingOpen=false,bForgeRiding=false;
++    float ForgeMotion=0,ForgeSlidePx=0,ForgeWidth=0;
+ };
+diff --git a/Source/FPSGAME/Building/VoxelBuildTypes.h b/Source/FPSGAME/Building/VoxelBuildTypes.h
+--- a/Source/FPSGAME/Building/VoxelBuildTypes.h
++++ b/Source/FPSGAME/Building/VoxelBuildTypes.h
+@@ -88,6 +88,7 @@
+ /** 工作台构件的调色板稳定 ID（SourceAssets/WorkbenchBuildable20260924，面板规划
+  *  Docs/UI/workbench-panel-plan-20260924.md）：E 交互与制作面板引用这一个键。 */
+ inline const FName VoxelWorkbenchId(TEXT("workbench_table"));
++inline const FName VoxelGunWorkbenchId(TEXT("gun_workbench_table"));
+ 
+ // VBX v5（只读兼容）：纯挂钟冶炼任务——今天引入 v5 后当天就升级成燃料模型，
+ // 老档按"挂钟全额补进度"迁移进 v6（见 AVoxelBuildWorld::Initialize）。
+diff --git a/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp b/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
+--- a/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
+@@ -112,13 +112,14 @@
+     // 工作台与高炉同一口径：普通静态构件（调色板 `workbench_table`，无逻辑件），
+     // 命中 Actor 就是占位记录本身；落体件不再可交互。
+     const auto* Piece=Cast<AVoxelBuildPrefabActor>(Target);
+-    return Piece&&Piece->PrefabId()==VoxelWorkbenchId&&!Piece->IsFalling();
++    return Piece&&(Piece->PrefabId()==VoxelWorkbenchId||Piece->PrefabId()==VoxelGunWorkbenchId)&&!Piece->IsFalling();
+ }
+ 
+ FString ColdSteelWorldInteraction::WorkbenchPrompt(const AActor* Target)
+ {
+-    // 制作内容后续设计（Docs/UI/workbench-panel-plan-20260924.md）：暂无炉况类实时状态可报。
+-    return IsWorkbench(Target)?FString(TEXT("工作台 · 打开制作面板")):FString();
++    if(!IsWorkbench(Target))return FString();
++    const auto* Piece=Cast<AVoxelBuildPrefabActor>(Target);
++    return Piece->PrefabId()==VoxelGunWorkbenchId?TEXT("枪械工作台 · 打开拼装界面"):TEXT("工作台 · 打开制作面板");
+ }
+ 
+ bool ColdSteelWorldInteraction::OpenTreasureChest(const APlayerController* PC,AActor* Target)
+diff --git a/Source/FPSGAME/UI/ColdSteelStatusModel.h b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.h
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+@@ -324,6 +324,8 @@
+     FString AmmoDefinition() const;
+     const FString& ResultMessage() const { return Message; }
+     FColdSteelProfile Snapshot() const;
++    const FColdSteelGunAssemblyJob& GunAssemblyJob() const {return Current.GunAssemblyJob;}
++    void StageGunCalibration(const FString& JobId,float Held,float Time,float Error);
+     bool CommitState(FColdSteelProfile State);
+     bool IsAudit() const { return bAudit; }
+     bool AuditFailNextSave = false;
+diff --git a/Source/FPSGAME/UI/ColdSteelInventoryTypes.h b/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
+--- a/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
++++ b/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
+@@ -93,6 +93,28 @@
+     UPROPERTY() double FuelBefore=0;
+     UPROPERTY() double FuelAfter=0;
+ };
++/** One paid firearm workpiece. Tagged fields keep older profiles compatible. */
++USTRUCT()
++struct FColdSteelGunAssemblyJob
++{
++    GENERATED_BODY()
++    UPROPERTY() FString Id;
++    UPROPERTY() FName Recipe;
++    UPROPERTY() FColdSteelItem Item;
++    UPROPERTY() TMap<FString,int64> PaidMaterials;
++    UPROPERTY() int32 InstalledMask=0;
++    // Defaults preserve jobs saved by the original five-part recipe.
++    UPROPERTY() int32 PartCount=5;
++    UPROPERTY() float CalibrationDuration=5;
++    UPROPERTY() TArray<float> Scores;
++    UPROPERTY() TArray<int32> Misses;
++    UPROPERTY() float CalibrationSeconds=0;
++    UPROPERTY() float CalibrationTime=0;
++    UPROPERTY() float CalibrationError=0;
++    UPROPERTY() float Quality=0;
++    UPROPERTY() bool bFinished=false;
++};
++
+ USTRUCT()
+ struct FColdSteelProfile
+ {
+@@ -112,6 +134,7 @@
+      *  之后只增不减，避免调低档位后箱内物品越界。 */
+     UPROPERTY() TMap<FString,int32> StoragePages;
+     UPROPERTY() TArray<FColdSteelSmeltIntent> SmeltIntents;
++    UPROPERTY() FColdSteelGunAssemblyJob GunAssemblyJob;
+     UPROPERTY() int32 AmmoPouchVersion = 0;
+     UPROPERTY() TMap<FString,int64> AmmoPouch;
+     UPROPERTY() TArray<FString> Hotbar;
+diff --git a/Source/FPSGAME/FPSGAMEPlayerController.cpp b/Source/FPSGAME/FPSGAMEPlayerController.cpp
+--- a/Source/FPSGAME/FPSGAMEPlayerController.cpp
++++ b/Source/FPSGAME/FPSGAMEPlayerController.cpp
+@@ -250,6 +250,7 @@
+ 
+ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
+ {
++    if(ColdSteelHUD&&ColdSteelHUD->HandleGunAssemblyInput(Params))return true;
+     if (ExpeditionPanel)
+     {
+         if (Params.Event == IE_Pressed && Params.Key == EKeys::Escape) CloseExpedition();
+@@ -406,6 +407,7 @@
+ 
+ void AFPSGAMEPlayerController::ToggleTimelineInteraction()
+ {
++    if(ColdSteelHUD&&ColdSteelHUD->IsGunAssembly())return;
+     if (GunsmithPanel || EnhancementPanel || ExpeditionPanel) return;
+     if (WeatherPanel && WeatherPanel->IsPanelOpen()) return;
+     if (!ColdSteelHUD || ColdSteelHUD->IsInventoryOpen()) return;
+diff --git a/Source/FPSGAME/Weapons/GunsmithSystem.cpp b/Source/FPSGAME/Weapons/GunsmithSystem.cpp
+--- a/Source/FPSGAME/Weapons/GunsmithSystem.cpp
++++ b/Source/FPSGAME/Weapons/GunsmithSystem.cpp
+@@ -7,6 +7,7 @@
+ #include "DanWesson715WeaponAssets.h"
+ #include "Animation/AnimSequence.h"
+ #include "../UI/ColdSteelStatusModel.h"
++#include "../UI/ColdSteelItemReadCache.h"
+ #include "../FPSGAMECharacter.h"
+ #include "Engine/GameInstance.h"
+ #include "Kismet/GameplayStatics.h"
+@@ -19,6 +20,18 @@
+ TArray<FString> Strings(const TSharedPtr<FJsonObject>& O,const TCHAR* K){TArray<FString> R;for(const auto& V:O->GetArrayField(K))R.Add(V->AsString());return R;}
+ FString Part(const FGunsmithParts& P,const FString& S){const FString* V=P.Find(S);return V?*V:TEXT("false");}
+ }
++FGunsmithStats UGunsmithSystem::CalculateItem(const FColdSteelItem& Item,const FGunsmithParts& Parts) const
++{
++    auto S=Calculate(Item.Definition,Parts);
++    const auto O=ColdSteelItemData::Read(Item.Data);const TSharedPtr<FJsonObject>* Q=nullptr;
++    if(!Weapon(Item.Definition)||!O||!O->TryGetObjectField(TEXT("_assemblyQuality"),Q)||!Q||!*Q)return S;
++    const double Recoil=FMath::Clamp(Num(*Q,TEXT("recoil"),1),.88,1.);
++    const double Spread=FMath::Clamp(Num(*Q,TEXT("spread"),1),.85,1.);
++    S.Recoil*=Recoil;S.RecoilMultiplier*=Recoil;
++    S.Handling.RecoilIndex=S.Recoil;S.Handling.RecoilScale*=Recoil;S.Spread*=Spread;
++    return S;
++}
++
+ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
+ {
+     Super::Initialize(Collection);Collection.InitializeDependency<UColdSteelStatusModel>();
+diff --git a/Source/FPSGAME/Weapons/GunsmithSystem.h b/Source/FPSGAME/Weapons/GunsmithSystem.h
+--- a/Source/FPSGAME/Weapons/GunsmithSystem.h
++++ b/Source/FPSGAME/Weapons/GunsmithSystem.h
+@@ -109,6 +109,7 @@
+     FGunsmithParts Installed(const FColdSteelItem&) const;
+     FGunsmithParts Normalize(const FString& Definition,const FGunsmithParts&) const;
+     FGunsmithStats Calculate(const FString& Definition,const FGunsmithParts&) const;
++    FGunsmithStats CalculateItem(const FColdSteelItem& Item,const FGunsmithParts&) const;
+     bool Begin(const FString& Instance);
+     bool Select(const FString& Slot,const FString& OptionId);
+     bool Apply();
+diff --git a/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp b/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
+@@ -63,6 +63,15 @@
+         Row(C,TEXT("结算"),TEXT("随连击、重击等攻击倍率放大，按魔法防御减免；更换其他符文仍保留自带侵蚀。"));
+     }
+ 
++    if(const J Assembly=Object(O,TEXT("_assemblyQuality")))
++    {
++        auto& C=Out.Cards.AddDefaulted_GetRef();C.Title=TEXT("枪械装配工艺");C.MinimumWidth=300;
++        Row(C,TEXT("装配品质"),String(Assembly,TEXT("label"),TEXT("—")));
++        Row(C,TEXT("工艺评分"),N(Number(Assembly,TEXT("score")))+TEXT(" / 100"));
++        Row(C,TEXT("后坐力降低"),N((1-FMath::Clamp(Number(Assembly,TEXT("recoil"),1),.88,1.))*100)+TEXT("%"),1);
++        Row(C,TEXT("腰射散布降低"),N((1-FMath::Clamp(Number(Assembly,TEXT("spread"),1),.85,1.))*100)+TEXT("%"),1);
++        Row(C,TEXT("作用范围"),TEXT("已计入实战和合计参数，随本枪保存；更换配件保留装配工艺。"));
++    }
+     const J Enchant=Object(O,TEXT("_enchantData"));const J EE=Object(O,TEXT("_enchantEffects"));
+     if(Enchant&&(Object(Enchant,TEXT("prefix"))||Object(Enchant,TEXT("suffix")))){
+         auto& C=Out.Cards.AddDefaulted_GetRef();C.Title=TEXT("附魔效果");C.MinimumWidth=300;
+@@ -84,7 +93,7 @@
+                 if(P->Effects.IsEmpty())Row(C,TEXT(""),P->Description);
+                 else for(const auto& E:P->Effects)Row(C,TEXT(""),E.Key,E.Value);
+                 C.Rows.Last().bDashedAfter=true;}
+-            const auto S=G->Calculate(I.Definition,Parts),B=G->Calculate(I.Definition,{});Section(C,TEXT("合计改造数值"));
++            const auto S=G->CalculateItem(I,Parts),B=G->CalculateItem(I,{});Section(C,TEXT("合计改造数值"));
+             if(G->IsBow(I.Definition))
+             {
+                 Delta(C,ColdSteelWeaponText::BaseDamageModifier,(S.Bow.Damage-1)*100,TEXT("%"));
+diff --git a/Source/FPSGAME/FPSGAMECharacterProfile.cpp b/Source/FPSGAME/FPSGAMECharacterProfile.cpp
+--- a/Source/FPSGAME/FPSGAMECharacterProfile.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterProfile.cpp
+@@ -119,7 +119,7 @@
+         ADSInDuration=Defaults->ADSInDuration;
+         MagazineCapacity=Defaults->MagazineCapacity;ReloadDuration=Defaults->ReloadDuration;EmptyReloadDuration=Defaults->EmptyReloadDuration;
+         if(I&&Gunsmith->Weapon(I->Definition))
+-        {const auto Stats=Gunsmith->Calculate(I->Definition,Parts);ADSInDuration=Stats.ADS;MagazineCapacity=Stats.Capacity;ReloadDuration=Stats.Reload;EmptyReloadDuration=Stats.EmptyReload;
++        {const auto Stats=Gunsmith->CalculateItem(*I,Parts);ADSInDuration=Stats.ADS;MagazineCapacity=Stats.Capacity;ReloadDuration=Stats.Reload;EmptyReloadDuration=Stats.EmptyReload;
+             WeaponHandling=Stats.Handling;BallisticRecoilScale=FWeaponHandling::ReferenceBallisticScale*WeaponHandling.RecoilScale;ProjectileSpeedCM=Stats.Speed*100.f;
+             HipSpreadMultiplier=FMath::Max(0.f,static_cast<float>(Stats.Spread));
+             EffectiveWeaponRangeCM=FMath::Max(1.f,static_cast<float>(Stats.Range*100.));
+diff --git a/Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp b/Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp
+--- a/Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp
++++ b/Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp
+@@ -190,7 +190,7 @@
+         };
+         if(G->Weapon(I->Definition)||ColdSteelInventory::IsTwoHandedSword(*I)||ColdSteelInventory::IsBow(*I))
+         {
+-            const auto Stats=G->Calculate(I->Definition,G->Installed(*I));
++            const auto Stats=G->CalculateItem(*I,G->Installed(*I));
+             const double Base=ColdSteelInventory::IsBow(*I)?Number(*I,TEXT("full_damage"),69):Stats.Damage;
+             Row(TEXT("强化等级"),bCompareBase?0:Number(*I,TEXT("enhanceLevel")),Number(After,TEXT("enhanceLevel")),0);
+             Row(TEXT("附魔伤害加成 %"),bCompareBase?0:E->Effect(*I,TEXT("damagePercent"))*100,E->Effect(After,TEXT("damagePercent"))*100);
+diff --git a/Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp b/Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp
+@@ -30,7 +30,7 @@
+         {Result.Add({FName(Key),Label,Unit,Value,Digits,Lower,Core});};
+     if(G&&G->Weapon(Item.Definition))
+     {
+-        auto S=G->Calculate(Item.Definition,G->Installed(Item));
++        auto S=G->CalculateItem(Item,G->Installed(Item));
+         const auto Damage=ColdSteelWeaponStats::DamageParts(Item,Model,S.Damage);
+         Add(TEXT("damage"),ColdSteelWeaponText::TotalDamage,Damage.Total(),TEXT(""),2);
+         Add(TEXT("base_physical_damage"),ColdSteelWeaponText::BasePhysical,Damage.BasePhysical,TEXT(""),2,false,false);
+diff --git a/Source/FPSGAME/UI/M4GunsmithOverview.cpp b/Source/FPSGAME/UI/M4GunsmithOverview.cpp
+--- a/Source/FPSGAME/UI/M4GunsmithOverview.cpp
++++ b/Source/FPSGAME/UI/M4GunsmithOverview.cpp
+@@ -28,8 +28,8 @@
+         SelectedCategory.Reset();
+         for(const auto& Key:G->Slots(G->Definition()))if(IsCategoryAvailable(Key)){SelectedCategory=Key;break;}
+     }
+-    const auto S=G->Calculate(G->Definition(),G->Draft());
+-    const auto B=G->Calculate(G->Definition(),bCompareFactory?FGunsmithParts():G->Installed(*I));
++    const auto S=G->CalculateItem(*I,G->Draft());
++    const auto B=G->CalculateItem(*I,bCompareFactory?FGunsmithParts():G->Installed(*I));
+     Overview.Reset();
+     auto Row=[this](const TCHAR* Name,double Before,double After,int32 Digits,const TCHAR* Unit,bool Lower=false)
+     {
+diff --git a/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp b/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
+--- a/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
++++ b/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
+@@ -79,8 +79,8 @@
+ 
+     auto WithoutPart = Gunsmith->Draft();
+     WithoutPart.Remove(SelectedCategory);
+-    const auto Before = Gunsmith->Calculate(Gunsmith->Definition(),WithoutPart);
+-    const auto After = Gunsmith->Calculate(Gunsmith->Definition(),Gunsmith->Draft());
++    const auto Before = Item?Gunsmith->CalculateItem(*Item,WithoutPart):Gunsmith->Calculate(Gunsmith->Definition(),WithoutPart);
++    const auto After = Item?Gunsmith->CalculateItem(*Item,Gunsmith->Draft()):Gunsmith->Calculate(Gunsmith->Definition(),Gunsmith->Draft());
+     int32 RowCount = 0;
+     // The card keeps only the basic description, so every numeric change belongs
+     // here and is derived from the catalog multipliers - never hand written.

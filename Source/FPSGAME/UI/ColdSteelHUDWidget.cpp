@@ -251,6 +251,7 @@ void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaT
     // 抽屉行程加长项两旗标互斥相加即可；Docs/UI/workbench-panel-plan-20260924.md）。
     if(WorkbenchWidget)
     {
+        WorkbenchWidget->SetInputReady(bWorkbenchOpen&&!bWorkbenchRiding&&WorkbenchMotion>.999f);
         if(bWorkbenchOpen&&(!WorkbenchWorld.IsValid()||!WorkbenchWorld->HasPrefabAt(WorkbenchCell)))CloseWorkbench();
         const float S=ColdSteelUI::PixelScale(this);
         if(bWorkbenchRiding)
