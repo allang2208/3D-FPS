@@ -2,21 +2,52 @@
 
 适用于可采集树木的模型预处理和倒树接入。资料来自 FPSGAME 2026-09-13 的实现；原生构建与资源制作完成，切口倾倒没有进行游戏或性能验收。按用户当前授权执行测试，不因读取本文件自动启动 PIE 或渲染。
 
-## 当前状态（2026-09-26，用户已拍板的取舍）
+## 当前状态（2026-09-29，用户第五轮反馈后的最终取舍）
 
-- **倒树默认不做截断**：用户明确原设计是"整棵原树模型倒下"。在树桩高度做平面截断，切口以上仍会留着
-  向外张开的根部树皮（板根）悬空，而按树干横截面做的封盖盖不住更宽的板根。当前默认＝站立树原网格
-  （零额外加载）＋`MI_FallingPoplar_*`（只保留 `HarvestFade` 抖动淡出，切口遮罩高度压到模型最低点以下
-  ＝`step` 恒为 1 即不裁），地面留同一次操作生成的树桩。截断＋封盖的旧表现留在
-  `fps.Harvest.TreeFallCutAtStump 1` 后面备查，不需重新构建。
-- 重制 `SK_CutUpper_*` 的组合摆位缺陷（倒树变三角碎片）**没有修**，只在
-  `fps.Harvest.TreeFallUseSourceMesh 0` 后面保留；因此本文件前面"离线切开主干再复制骨骼树"的路线
-  **尚未得到可接受结果**，重做时先按上面的 Nanite 组合节点诊断，别直接复用那批资产。
-- 截断方案整体判定为废案，归档登记见 `trash/treefall-cut-approach-20260926/README.md`
-  （含仍需保留的上段/封盖资产散列与原因）。
-- 树桩切面（`M_TreeCutSurface`）与断面（`M_FallingCutEnd`）的材质使用标志修复是**已接受的修复**，保留。
-- 本文件的切口/封盖制作方法仍然有效（从 `SOURCE_MODEL` 提取切口面做封盖、材质使用标志、按槽位映射），
-  只是在 FPSGAME 当前默认表现里不再启用。验收状态按用户规则由用户拍板，本文件不记为已验收。
+- **默认倒树＝几何真切断**：`fps.Harvest.TreeFallUseSourceMesh` 默认 0——倒下的是重制网格
+  `SK_CutUpper_*`（42 cm 以上的上半段，自带年轮断面封盖），树桩原地保留；"倒下的就是被锯下的
+  那一段"。2026-09-29 的 `FALLDIAG_ASM` 实测推翻了 09-25"重制网格组合数据丢失"的假设
+  （SK_CutUpper 与源树 parts/nodes/bones/平移量逐项一致），09-26 技能旧文里"重制资产不可用"的
+  结论作废；若 09-25 的树冠塌三角复现（成因未明），CVar=1 一键退回"原树网格+材质遮罩"路径。
+- **板根裙边（切口上方外张树皮）**：几何路径由 `M_CutUpperMotion` 淡出遮罩的径向裁剪裁掉
+  （`O*saturate(step(T,P.z)+step(length(P.xy),R))*step(噪声,F)`，参数 `HarvestCutRadius` 默认 1e5/
+  `HarvestFlareTop` 默认 0＝不裁；C++ 按变体传表 `CutClampRadiusCm={40.0,39.8,26.3,13.9}`、
+  `FlareBandTopCm={90,90,62,90}`，C 丛生形只裁到 62）。`M_FallingPoplar`（对照路径用）已恢复
+  出厂原状、不含裁剪参数——设参为无害空操作。
+- **材质图编辑铁律（09-28 事故教训）**：commandlet 里 `set_editor_property('inputs',...)` 原始
+  数组写入 + 后续活编辑器 reconcile 会把材质图**清空**（EXPR_COUNT 0）。材质图编辑只允许在
+  活编辑器短批次内完成，且 connect 必须查返回值（返回 bool 不抛异常）、recompile 看返回的
+  错误数组（空＝成功，bool(空数组) 是 False 别误读）、保存前后做表达式计数守卫。回退备份在
+  `trash/treefall-restore-20260928/`（M_FallingPoplar SHA c4880864…、M_CutUpperMotion SHA c2f06285…）。
+- 树桩切面 `M_TreeCutSurface` 与断面 `M_FallingCutEnd` 均接年轮贴图 `T_PoplarEndReference`；
+  使用标志修复（2026-09-26）保留。`fps.Harvest.TreeFallCutAtStump 0` 保留整树倒伏对照。
+- **活编辑器自检截图（2026-09-29，三项全过）**：`Tools/Production/selfcheck_geocut_visual.py`
+  在 500 m 高空 spawn 倒树段+自配光照，SceneCapture2D 逐帧采集三相位读图判定——A=断面年轮封口
+  （浅木色切面+同心环）✓、B=板根裁剪对照（关裁剪可见裙边外扩、开裁剪轮廓干净）✓、C=树冠密集
+  小叶片无塌三角✓。详见 `Docs/TreeCutNaturalSever-20260928.md` §5.4。
+- **截图工具链坑**：Python `Rotator` 顺序是 (roll, pitch, yaw)；编辑器 spawn 的 SceneCapture2D
+  根组件要设 MOVABLE，且 `set_actor_location/rotation` Python 无默认参必抛 TypeError、异常被
+  Slate 回调吞掉（症状：相机停在出生位、每相位导出同构图）——传全参 + 全体回调 try/except 落日志。
+- **瞬态 actor 泄漏会进地图文件**（2026-09-29 事故）：崩溃于 cleanup 之前的工具运行留下的
+  transient actor 被后续地图保存烤进 `DayNight_Lighting.umap`（28 个，含 9 个方向光）。spawn
+  瞬态 actor 的脚本必须开头先清扫残留、结束 destroy；多会话环境下"我不保存就没事"不成立。
+- **第六轮"倒木一根突出物"＝内壁舌头**（2026-09-29 已修）：SK_CutUpper 树干是双层壳（外皮
+  r30-46 + 内壁 r15-30），内壁层在个别方位扇区下垂到切口附近、该扇区外皮又稀疏——内壁从缺口
+  露出＝倒木上"光滑发黑细杆"。定位法＝commandlet 只读按"方位角扇区×半径带"统计顶点簇
+  （`probe_stub_sectors.py`）；分带最大半径看不见它（细簇不抬最大值）。修法＝M_CutUpperMotion
+  Custom 加 `(60<z<ZMax)∧(yaw 窗 Y±W 环形回绕)∧(r<31)` 掩码，C++ 按变体传表
+  `StubYawDeg/TolDeg/ZMaxCm`（C 丛生形禁用）。60 以下不碰＝年轮断面无损；r<31＝不伤外皮。
+- **Custom 节点脚位名必须等于代码里的标识符（短名）**：脚位写参数全名（HarvestStubZMax）而
+  代码引用 `Z` → recompile 报 undeclared identifier ×24。脚位/参数分两套名字管理；改完脚位
+  后 `connect_material_expressions` 按**脚位名**连。
+- **编辑器自动化三坑（2026-09-29）**：① `-unattended` 编辑器里 actor 变换疑似不生效（截图
+  相机永远停在出生位、导出同构图），要 spawn/截图的自动化编辑器**去掉该参数**；② uasset 保存
+  被并行编辑器的内存映射挡住（`save_loaded_asset`/`save_dirty_packages` 返回 False 且文件
+  mtime 不动），关掉多余编辑器即好；③ 隐藏编辑器会被外部守护清场，编辑器内作业要走
+  "拉起→等就绪→干活→自杀"一条龙（`Tools/Production/auto_orbit.ps1` 模板，就绪探针
+  `probe_asset_ready.py`）。MCP 会话被并发桥调用搞坏后用 `-NewSession` 重握手。
+- **DLL 里找 TEXT() 字面量要用 UTF-16 搜索**：ASCII grep 判"没编进去"是误判。
+- 完整方案与实测数据见 `Docs/TreeCutNaturalSever-20260928.md`。验收状态按用户规则由用户拍板。
 
 ## 先区分主干几何与组合树冠
 
@@ -44,6 +75,18 @@
 - 存档只存**剩余生命比例**（`FColdSteelProfile::TreeHealth`，键同资源 ID）：调生命上限不改旧档含义，
   旧档仅有累计命中时按 `1 − 命中/3` 读一次即等价，不做迁移遍历。采尽仍补写命中数并登记 `TreeGrowth`，
   世界的采尽判定、树桩重建与 PCG 补生继续按命中数口径工作。
+- **树桩可劈（2026-09-28 用户要求）**：桩是独立采集目标——生命＝树立满生命×0.5
+  （`ProductionTreeHealth::StumpMaxHealth`），比例存 `FColdSteelTreeGrowth::StumpHealthRatio`；
+  采集子系统给 64 m 内每个未劈的桩挂隐形矮碰撞盒（组件打 `HarvestStump` 标签，与树桩渲染同表
+  同节拍重建），`ResolveProductionResource` 按 ≤5 cm 位置反查解析成 `bStump` 资源；`CommitStumpStrike`
+  扣血，劈尽掉 1 块木材（绕桩散落）、`bStumpCleared=true`、桩与碰撞随脏标记消失。桩不受"幼树
+  生长中"门禁限制。**桩不再随幼树长大自动缩没**（`TreeStumpScale`＝未劈 1/已劈 0）。
+- **幼树偏移再生（2026-09-28 用户要求）**：砍倒时 `RegisterTreeGrowth` 把桩留在被砍树当时的位置
+  （旧 `SaplingOffset`→新 `StumpOffset`），下一棵幼树在候选点基点附近随机偏移（半径 2.8–6.5 m，
+  `FRandomStream(CandidateId+Generation)` 播种，最多重掷 5 次避河岸/陡坡/世界边缘）；扎根高度按
+  偏移处地形取。`GetHarvestedStumps/GetRegrowingTrees` 枚举各扩一格、入盒与扎根都用偏移后位置。
+  每个候选点同一时间只有一个桩：上一代没劈的桩在新一代被砍倒时被替换。方案与改动清单见
+  `Docs/StumpHarvestOffsetRegrow-20260928.md`。
 - 树不吃暴击与浮动，提示栏「还需 N 挥」即真实挥砍数；不给树加 Actor、Tick、血条控件或每帧查询，
   瞄准提示仍走原有 0.15 s 刷新。
 - 最后一击成功提交采集消耗和奖励后，在同一次游戏线程操作中先显示固定树桩，再移除站立树、生成上半段。不能等倒树完成，或只设置脏标记等待流送定时器，才显示树桩。

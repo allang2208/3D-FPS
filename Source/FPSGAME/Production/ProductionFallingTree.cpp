@@ -29,6 +29,7 @@ static void LogNaniteAssemblyDiag(const TCHAR* Label,const USkeletalMesh* Mesh)
         UE_LOG(LogTemp,Display,TEXT("FALLDIAG_ASM %s <no mesh>"),Label);
         return;
     }
+#if WITH_EDITORONLY_DATA
     const FNaniteAssemblyData& Data=Mesh->GetNaniteSettings().NaniteAssemblyData;
     float MaxTranslation=0.f;
     int32 BoneRelative=0,NoInfluence=0,NegativeBone=0,OutOfRangeBone=0;
@@ -48,6 +49,10 @@ static void LogNaniteAssemblyDiag(const TCHAR* Label,const USkeletalMesh* Mesh)
         TEXT("FALLDIAG_ASM %s mesh=%s parts=%d nodes=%d valid=%d bones=%d bone_relative=%d no_influence=%d bad_bone=%d max_node_translation=%.1f"),
         Label,*GetNameSafe(Mesh),Data.Parts.Num(),Data.Nodes.Num(),Data.IsValid()?1:0,BoneCount,
         BoneRelative,NoInfluence,NegativeBone+OutOfRangeBone,MaxTranslation);
+#else
+    // Nanite assembly authoring settings are stripped from standalone builds.
+    UE_LOG(LogTemp,Display,TEXT("FALLDIAG_ASM %s mesh=%s editor_assembly_data=unavailable"),Label,*GetNameSafe(Mesh));
+#endif
 }
 
 AProductionFallingTree::AProductionFallingTree()
@@ -70,35 +75,58 @@ AProductionFallingTree::AProductionFallingTree()
     CutCap->SetVisibility(false);
 }
 static TAutoConsoleVariable<int32> CVarTreeFallUseSourceMesh(
-    TEXT("fps.Harvest.TreeFallUseSourceMesh"),1,
-    TEXT("1 (default)=fell the source tree mesh with the material-space cut: proven crown rendering, ")
-    TEXT("no re-authored Nanite assembly. 0=use the re-authored SK_CutUpper_* mesh for comparison."),
-    ECVF_Default);
-// 2026-09-26 用户第三次反馈：倒树**不该做截断**（原设计就是整棵原树模型倒下）。默认 0＝不截断，
-// 材质遮罩的 HarvestCutHeight 压到模型最低点以下（step 恒为 1），封盖也不挂。设 1 可切回
-// "42 cm 截断 + 断口封盖"的旧表现做对照，不需要重新构建。
+    TEXT("fps.Harvest.TreeFallUseSourceMesh"),0,
+    TEXT("0 (default)=fell the re-authored SK_CutUpper_* severed section: true geometric cut, baked ")
+    TEXT("ring-grain cap (2026-09-29 用户要求从树干中截断，非整树遮罩). 1=source mesh + material mask.")
+    ,ECVF_Default);
+// 2026-09-28 用户第四轮反馈（"整棵模型倒伏非常不自然，应该截断"）推翻 09-26 的第三次取舍：
+// 默认恢复"42 cm 截断 + 断口封盖"。当时弃用截断的原因——切口以上外张的板根树皮（A/B 超出
+// 封盖 ~6cm、C ~3.5cm、D ~1cm，实测剖面见 Tools/Production/probe_tree_flare_profile.py）
+// 悬空支棱——已由 M_FallingPoplar 遮罩的径向裁剪（HarvestCutRadius/HarvestFlareTop，
+// Tools/Production/patch_falling_poplar_flare_clamp.py 落盘）解决：板根带内裁到封盖半径，
+// 封盖重新盖满断口。设 0 可回 09-26 的整树倒伏表现对照，不需重新构建。
 static TAutoConsoleVariable<int32> CVarTreeFallCutAtStump(
-    TEXT("fps.Harvest.TreeFallCutAtStump"),0,
-    TEXT("1=cut the falling tree at the stump height (42cm material mask + cut-face cap), ")
-    TEXT("0 (default)=fell the whole original tree with no cut."),ECVF_Default);
+    TEXT("fps.Harvest.TreeFallCutAtStump"),1,
+    TEXT("1 (default)=cut the falling tree at the stump height (42cm material mask + cut-face cap ")
+    TEXT("+ radial flare clamp), 0=fell the whole original tree with no cut."),ECVF_Default);
+
+// 径向裁剪表（树本地 cm，2026-09-28 实测）：ClampRadius=SM_CutCap_* 包围盒最大半宽+0.2
+// （A:39.74 B:39.60 C:26.05 D:13.74），保证可见断口圆盘不超过封盖；FlareBandTop=板根
+// 剖面回落到干身半径的高度（A/B/D ~85cm，C 只到 62——C 是丛生形，z≥70cm 起半径增大是
+// 真实分干，裁到 90 会砍掉树干）。带内 [CutHeight,FlareBandTop) 超半径的板根树皮被遮罩裁掉。
+static constexpr float CutClampRadiusCm[4]={40.f,39.8f,26.3f,13.9f};
+static constexpr float FlareBandTopCm[4]={90.f,90.f,62.f,90.f};
+
+// 内壁舌头方位角掩码表（2026-09-29 用户第六轮反馈"倒木还有一根突出物"，probe_stub_sectors 实测）：
+// SK_CutUpper_* 树干内壁层（r 15-30）在个别扇区下垂到 z≈80（其余扇区 ~200 才开始），且该扇区
+// 外皮稀疏——倒伏后内壁从缺口露出=切口端上方"光滑发黑细杆"。M_CutUpperMotion 的 Custom 节点按
+// (yaw 窗 Y±W)∧(60<z<ZMax)∧(r<31) 掩掉内壁舌头（60 以下不碰=年轮断面封盖；r<31=保留外皮）。
+// Y/W 单位度（环形回绕），ZMax 树本地 cm；W=0 或 ZMax=0 ⇒ 掩码全关（材质默认 0，安全）。
+// C 丛生形内壁即真实干身，禁用（Y 任意、W=0）。
+static constexpr float StubYawDeg[4]={337.5f,347.5f,0.f,30.f};
+static constexpr float StubYawTolDeg[4]={25.f,22.f,0.f,18.f};
+static constexpr float StubZMaxCm[4]={210.f,210.f,0.f,210.f};
 
 void AProductionFallingTree::InitializeFall(const FProductionResource& Resource,const FVector& Direction)
 {
     FProductionResource Target=Resource;Target.Direction=Direction;
     Plan=FProductionTreeFallPlan::Make(Target);
     const int32 Variant=ProductionHarvestAssets::TreeVariant(Resource.Mesh);
-    // 2026-09-26 三角碎片修复：重制的 SK_CutUpper_* 只有 LOD0 树干几何，树冠完全靠 Nanite 组合的
-    // Nodes（变换空间/局部变换/骨骼绑定）摆位；那份数据在重制流程里没能保住，整个树冠塌成一堆
-    // 几米大的平板。这里默认改用**站立树正在用的同一份原树网格**（画面里已加载，零额外加载，
-    // 骨架/蒙皮/组合都是已验证可渲染的）。想把重制版调回来对照时把 CVar 设 0 即可，不需要重新构建。
-    //
-    // 2026-09-26 用户第三次反馈（"原来设计应该是树木原模型倒下，没有做截断处理"）：整棵树直接倒，
-    // 不在 42 cm 处截断——否则切口以上还会留着向外张开的根部树皮（板根）悬在空中。所以默认把
-    // 材质遮罩的 HarvestCutHeight 压到模型最低点以下（遮罩恒为 1＝等于不裁），断口封盖也只在
-    // 需要截断时才挂。旧表现可用控制台 fps.Harvest.TreeFallCutAtStump 1 对照。
+    // 2026-09-29 用户第五轮反馈（"要从树干中截断倒下，不是整树倒下再放树桩"）：默认改回重制的
+    // SK_CutUpper_* 真切断网格——它就是 42 cm 以上的上半段（自带年轮断面封盖），树桩留在原地，
+    // 倒下的是被锯下来的那一段，不是"整树＋材质遮罩"。2026-09-29 实测其 Nanite 组合数据与源树
+    // 逐项一致（FALLDIAG_ASM parts=12 nodes=1250 bones=1687），使用标志齐全；当年 09-25 的
+    // "树冠塌三角"成因未明但资产无恙，若复现可 fps.Harvest.TreeFallUseSourceMesh 1 一键退回
+    // "原树网格 + 材质遮罩"路径（那套材质已从备份恢复原状，不含径向裁剪）。
+    // 板根裙边：几何路径由 M_CutUpperMotion 的径向裁剪（同式 saturate(step(T,P.z)+step(len,R))）
+    // 裁掉；原树路径的 M_FallingPoplar 保持出厂原样（无裁剪参数，设参为无害空操作）。
     const bool bUseSourceMesh=CVarTreeFallUseSourceMesh.GetValueOnGameThread()!=0;
     const bool bCutAtStump=CVarTreeFallCutAtStump.GetValueOnGameThread()!=0;
     const float MaskHeight=bCutAtStump?Plan.CutHeight:-1000.f;
+    // 截断时启用板根径向裁剪；不截断时半径放到 1e5、带顶 0（遮罩 saturate(1+..) 恒 1，等于不裁）。
+    const int32 ClampVariant=FMath::Clamp(Variant,0,3);
+    const float ClampRadius=bCutAtStump?CutClampRadiusCm[ClampVariant]:100000.f;
+    const float FlareBandTop=bCutAtStump?FlareBandTopCm[ClampVariant]:0.f;
     USkeletalMesh* SourceTreeMesh=bUseSourceMesh?Cast<USkeletalMesh>(Resource.Mesh.ResolveObject()):nullptr;
     if(!SourceTreeMesh)
         SourceTreeMesh=Cast<USkeletalMesh>(ProductionHarvestAssets::FallingMesh(Variant).ResolveObject());
@@ -125,13 +153,20 @@ void AProductionFallingTree::InitializeFall(const FProductionResource& Resource,
         {
             MID->SetScalarParameterValue(TEXT("HarvestCutHeight"),MaskHeight);
             MID->SetScalarParameterValue(TEXT("HarvestTreeHeight"),Plan.LocalHeight);
+            MID->SetScalarParameterValue(TEXT("HarvestCutRadius"),ClampRadius);
+            MID->SetScalarParameterValue(TEXT("HarvestFlareTop"),FlareBandTop);
+            // 内壁舌头方位角掩码（材质无这些参数时为无害空操作；C 变体 W=0 关闭）
+            MID->SetScalarParameterValue(TEXT("HarvestStubYaw"),StubYawDeg[ClampVariant]);
+            MID->SetScalarParameterValue(TEXT("HarvestStubYawTol"),StubYawTolDeg[ClampVariant]);
+            MID->SetScalarParameterValue(TEXT("HarvestStubZMax"),StubZMaxCm[ClampVariant]);
             Tree->SetMaterial(Index,MID);Materials.Add(MID);
         }
     }
-    // 断口封盖：只在"材质遮罩在 42 cm 处截断"时才需要（fps.Harvest.TreeFallCutAtStump 1）；
-    // 默认整棵树倒下、不截断，所以不挂封盖。重制网格 `SK_CutUpper_*` 自带真实封盖，也不需要。
-    // 挂上时：封盖顶点就在树本地坐标里，直接挂在 Tree 下、不加偏移；材质 M_FallingCutEnd 带切面 UV
-    // 与 HarvestFade，加入 Materials 后与树干一起抖动淡出（Tree 隐藏时随 bPropagateToChildren 一起隐藏）。
+    // 断口封盖：默认路径（原树网格 + 42 cm 材质遮罩 + 径向裁剪）挂上 SM_CutCap_*，断面就是
+    // M_FallingCutEnd 的年轮切面（T_PoplarEndReference），倒树底部不再露出空心筒口。
+    // 封盖顶点就在树本地坐标里（切面 Z=42），直接挂在 Tree 下、不加偏移；加入 Materials 后
+    // 与树干一起抖动淡出（Tree 隐藏时随 bPropagateToChildren 一起隐藏）。
+    // 整树倒伏（TreeFallCutAtStump 0）与重制网格（UseSourceMesh 0，自带封盖）时不挂。
     CutCap->SetStaticMesh(nullptr);CutCap->SetVisibility(false);
     if(bUseSourceMesh&&bCutAtStump)
         if(UStaticMesh* CapMesh=Cast<UStaticMesh>(ProductionHarvestAssets::CutCap(Variant).ResolveObject()))
@@ -158,10 +193,12 @@ void AProductionFallingTree::InitializeFall(const FProductionResource& Resource,
             const FString Slot=SlotNames.IsValidIndex(Index)?SlotNames[Index].ToString():FString::Printf(TEXT("#%d"),Index);
             SlotInfo+=FString::Printf(TEXT("%s=%s "),*Slot,*GetNameSafe(Tree->GetMaterial(Index)));
         }
-        UE_LOG(LogTemp,Display,TEXT("FALLDIAG mesh=%s nanite_data=%d force_disable_nanite=%d disallow_nanite=%d skinned_nanite_allowed=%d lods=%d predicted_lod=%d cut_at_stump=%d cap=%s slots=[%s]"),
+        UE_LOG(LogTemp,Display,TEXT("FALLDIAG mesh=%s nanite_data=%d force_disable_nanite=%d disallow_nanite=%d skinned_nanite_allowed=%d lods=%d predicted_lod=%d cut_at_stump=%d clamp_r=%.1f flare_top=%.0f stub_yaw=%.1f+-%.0f stub_zmax=%.0f cap=%s slots=[%s]"),
             *GetNameSafe(Tree->GetSkeletalMeshAsset()),Tree->HasValidNaniteData()?1:0,Tree->IsForceDisableNanite()?1:0,
             Tree->IsDisallowNanite()?1:0,USkinnedMeshComponent::ShouldRenderNaniteSkinnedMeshes()?1:0,
-            Tree->GetNumLODs(),Tree->GetPredictedLODLevel(),bCutAtStump?1:0,*GetNameSafe(CutCap->GetStaticMesh()),*SlotInfo);
+            Tree->GetNumLODs(),Tree->GetPredictedLODLevel(),bCutAtStump?1:0,ClampRadius,FlareBandTop,
+            StubYawDeg[ClampVariant],StubYawTolDeg[ClampVariant],StubZMaxCm[ClampVariant],
+            *GetNameSafe(CutCap->GetStaticMesh()),*SlotInfo);
         // 与源树对比：源树此刻已在场景里加载，用 FindObject 取，不触发同步加载。
         // 走原树网格时 falling 与 source 会相同，此时另行报告重制版网格（仅当它已被加载）。
         const TCHAR Letter=static_cast<TCHAR>(TEXT('A')+FMath::Clamp(Variant,0,3));
