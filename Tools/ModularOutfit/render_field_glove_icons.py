@@ -41,6 +41,15 @@ if globals().get('ONLY_ITEMS'):
 # The selected tailored family owns its author mesh and baked PBR. Do not
 # restore the earlier smooth shell when a later icon batch includes brown.
 outfits = json.loads((ROOT / 'Content/ColdSteelData/modular_outfits.json').read_text(encoding='utf-8-sig'))
+if (outfits['items']['ue_field_gloves'].get('appearance_family') == 'FingerlessDetail20260928'
+        and any(row[0] == 'ue_field_gloves' for row in ITEMS)):
+    from build_glove_family_detail import icon as companion_icon
+    companion_icon('Fingerless', export_pickup=False)
+    current_catalog = json.loads((ROOT / 'Content/ColdSteelData/items.json').read_text(encoding='utf-8-sig'))
+    target = ROOT / 'Content/ColdSteelData' / current_catalog['ue_field_gloves']['ue_icon']
+    target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(ROOT / 'SourceAssets/GloveCompanionDetail20260928/Fingerless/ue_field_gloves.png', target)
+    ITEMS = [row for row in ITEMS if row[0] != 'ue_field_gloves']
 if (outfits['items']['ue_field_gloves'].get('appearance_family') == 'TailoredFingerlessV1'
         and any(row[0] == 'ue_field_gloves' for row in ITEMS)):
     import build_tailored_fingerless_candidate as tailored

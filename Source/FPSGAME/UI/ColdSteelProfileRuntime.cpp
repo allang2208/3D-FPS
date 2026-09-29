@@ -364,10 +364,10 @@ bool UColdSteelStatusModel::ReloadProfile()
                     }
                 }
             }
-            // Existing brown gloves retain their original catalog snapshot.
+            // Existing modular gloves retain their original catalog snapshot.
             // Refresh appearance when loading, including gloves left on the
             // ground, while keeping instance stats and equipment state intact.
-            if(I.Definition==TEXT("ue_field_gloves")&&CatalogData&&
+            if((I.Definition==TEXT("ue_field_gloves")||I.Definition==TEXT("ue_original_gloves"))&&CatalogData&&
                 FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
             {
                 bool AppearanceUpdated=false;

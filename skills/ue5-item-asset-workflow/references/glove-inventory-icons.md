@@ -5,7 +5,7 @@
 ## 固定展示合同
 
 1. **一张图只显示一只空手套。** 不叠放第二只，不显示皮肤、手臂或人台。指头、虎口、腕口不能被另一个展示对象遮挡；编辑场景也只显示当前物品。
-2. **使用当前穿戴网格的真实形状。** 黑色来源为 `FittedFieldGlovesV1/Authored/M4.json`。棕色按 `modular_outfits.json` 的 `appearance_family` 选择：`TailoredFingerlessV1` 使用 `SourceAssets/ModularOutfit20260927/TailoredFingerlessV1/Authored/M4_baked_fullshell.json` 及该家族的共用烘焙 PBR；`FingerlessHuntV2/FullShell/M4.json` 是此前光滑外壳版本。旧 Body 拾取姿态不再充当手型母版。颜色、材质和款式沿用同一装备。
+2. **使用当前穿戴网格的真实形状。** 按 `modular_outfits.json` 的 `appearance_family` 和资源引用选母版及生产 PBR。2026-09-28 黑色为 `BlackLeatherStitchWearV4`，棕色／战术／钢甲为 `FingerlessDetail20260928`／`TacticalDetail20260928`／`SteelDetail20260928`；实际源和入口见 [手套制作配方](../../ue5-fps-arms-animation/references/glove-clothing-production-recipes.md)。`FittedFieldGlovesV1`、`TailoredFingerlessV1` 和 `FingerlessHuntV2` 是对应历史形状／依赖，不因旧出图脚本硬编码而回退。旧 Body 拾取姿态不充当新的手型母版，颜色、材质与款式沿用同一当前装备。
 3. **图标姿态独立制作。** 以骨骼旋转形成轻微弯曲、自然分指的松弛手型，保持掌宽、指长、骨段长度和拇指位置；不得把手压平、拉长或五指排齐。出图入口不回写穿戴网格、动画或世界掉落模型。若任务同时要求一致的掉落外观，可由独立模型导出步骤复用选定空壳；本款由 `save_tailored_fingerless_family.py` 导出，出图时不隐式重导。
 4. **坐标变换保持形状。** 掌长方向、横向与手背法线必须正交归一；统一处理 UE 到 Blender 的轴系与面序。不能把非垂直的 across/forward 直接当成矩形投影轴，否则会斜切掌形。
 5. **全指与露指采用不同视角。** 黑色突出完整五指、虎口和空腕口；棕色从指根与拇指一侧斜看，让真实指口、拇指孔、卷边和暗内衬可辨。主轴朝上，允许小幅倾斜。禁止为了“像手套”画皮肤、添半截手指筒，或伪造实际不存在的指口。
@@ -13,6 +13,8 @@
 7. **画幅仍与背包一致。** 2×2 占格输出 320×320 RGBA，透明背景、正交镜头；按旋转后的实际轮廓居中，主轴约占 91%，不裁指尖、拇指或腕口。曝光从生产材质色出发做有限修正，不能靠整体提亮掩盖形体错误。
 
 ## 当前制作链
+
+以下 9 月 27 日链路保留作历史来源；继续出图优先按活动家族分流。黑色 V4 与三款伴随家族的正式图标和作者源 PNG 要同步，外观升级同时维护后续出图入口，避免下一次批量渲染恢复旧腕口、旧光滑壳或皮革衬底。当前参数与入口见 [手套制作配方](../../ue5-fps-arms-animation/references/glove-clothing-production-recipes.md)，表面一致性见 [手套衣物标准](../../ue5-fps-arms-animation/references/glove-clothing-surface-production.md)。
 
 - 棕色裁片款：`author_tailored_fingerless_family.py` → `save_tailored_fingerless_family.py` → `import_tailored_fingerless_family.py`。先继承代表样件的裁片和烘焙 UV，再适配原生骨架；拓扑不同的身体和单手局部分别烘焙，不强套 UV。`render_field_glove_icons.py` 按活动 `appearance_family` 分流，避免后续批量出图恢复旧光滑壳。共用贴图保证材质输入一致，不宣称 Blender 与 UE 光照完全相同。
 

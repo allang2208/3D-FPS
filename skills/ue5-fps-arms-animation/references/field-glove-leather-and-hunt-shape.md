@@ -1,5 +1,7 @@
 # 野外手套皮革与猎装外形
 
+**2026-09-29 补充：** 黑色现为 `BlackLeatherStitchWearV4`，棕色为 `FingerlessDetail20260928`；活动表面方法读 [手套衣物表面制作](glove-clothing-surface-production.md)，路径读 [制作配方](glove-clothing-production-recipes.md)。下文 9 月 25 日 rest-pose 三平面与旧数值只用于历史作者依赖，不要求把现用专用图集退回三平面，也不将“旧 UV0 拉伸”推广为所有新图集都不可烘焙。当前非空单材质覆盖才会覆盖各槽，空配方保留网格逐槽材质。
+
 **当前棕色款已更新（2026-09-27）**：使用 [裁片露指手套](tailored-fingerless-gloves.md) 的结构、烘焙和接入规则。下文为 9 月 25 日全指猎装版本的历史参数与来源；厚垫、三平面材质和 5% 棕色加成不作为当前默认。黑色薄皮款保持独立，旧作者源仍提供恢复依赖。
 
 2026-09-25 两件手套物品：黑色 `ue_field_gloves_black` 保持贴合薄皮，棕色 `ue_field_gloves` 独立成猎装短手套。未做运行验收。

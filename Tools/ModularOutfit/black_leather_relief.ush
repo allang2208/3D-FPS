@@ -1,0 +1,41 @@
+// Atlas POM using the deformed triangle's world-to-UV derivative basis.
+// It follows skinning, including mirrored UVs; no world-space texture drift.
+float2 uv=UV,gx=ddx(UV),gy=ddy(UV);
+float3 px=ddx(Position),py=ddy(Position);
+float3 n=normalize(VertexNormal),view=normalize(Camera-Position);
+float ndv=dot(n,view);
+float mip=log2(max(max(length(gx),length(gy))*TextureSize,1));
+float3 relief=Texture2DSampleGrad(ReliefTex,ReliefTexSampler,uv,gx,gy).rgb;
+float fade=(1-smoothstep(80,240,length(Camera-Position)))*smoothstep(.18,.40,ndv);
+fade*=1-smoothstep(.75,3,mip);
+fade*=relief.b;
+float determinant=dot(px,cross(py,n));
+// Screen derivatives retain the UV-island orientation and physical cm scale.
+float inv=abs(determinant)>1.e-12?1/determinant:0;
+float3 gu=(gx.x*cross(py,n)+gy.x*cross(n,px))*inv;
+float3 gv=(gx.y*cross(py,n)+gy.y*cross(n,px))*inv;
+float2 ray=float2(dot(view,gu),dot(view,gv))*clamp(DepthCm,0,.08)/max(ndv,.25);
+ray*=min(1,(8/max(TextureSize,1))/max(length(ray),1.e-8))*fade;
+[branch] if(fade>.001 && DepthCm>.0001 && abs(determinant)>1.e-12){
+    float lo=0,hi=1;
+    [loop] for(int i=1;i<=6;++i){
+        hi=i/6.0;
+        float h=Texture2DSampleGrad(ReliefTex,ReliefTexSampler,uv-ray*hi,gx,gy).r;
+        if(hi>=1-h)break;
+        lo=hi;
+    }
+    [unroll] for(int j=0;j<2;++j){
+        float mid=(lo+hi)*.5;
+        float h=Texture2DSampleGrad(ReliefTex,ReliefTexSampler,uv-ray*mid,gx,gy).r;
+        if(mid>=1-h)hi=mid;else lo=mid;
+    }
+    uv-=ray*(lo+hi)*.5;
+    relief=Texture2DSampleGrad(ReliefTex,ReliefTexSampler,uv,gx,gy).rgb;
+}
+float3 bc=Texture2DSampleGrad(ColorTex,ColorTexSampler,uv,gx,gy).rgb;
+float3 orm=Texture2DSampleGrad(ORMTex,ORMTexSampler,uv,gx,gy).rgb;
+float2 xy=Texture2DSampleGrad(NormalTex,NormalTexSampler,uv,gx,gy).rg*2-1;
+NormalTangent=normalize(float3(xy,sqrt(max(1-dot(xy,xy),.001))));
+AO=orm.r;
+Fuzz=clamp(FuzzAmount,0,.6)*relief.g*(1-smoothstep(1.5,4,mip));
+return float4(bc,clamp(orm.g,.48,.96));

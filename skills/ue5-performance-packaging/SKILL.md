@@ -9,6 +9,10 @@ description: UE5.6-UE5.8 performance budgeting, regression diagnosis, and packag
 
 ## FPSGAME 性能开发约束（2026-09-23）
 
+贴身袖口模拟、内衬穿模及换装卡顿，参考 [锁子甲同步摆动案例](../ue5-fps-arms-animation/references/chainmail-surface-and-secondary-motion.md#4-巫婆布料哪些可复用哪些不应照搬)。代理粒子数不代表完整开销；区分骨骼映射错误、初始化、求解和材质成本，小幅衣缘可用共享有界位移场。没有同场景实测，不把结构简化换算成帧率收益。
+
+新增模型预算、第一人称装备面数及减面必要性，读 [按用途分配面数](../asset-model-workflow/references/geometry-budgets-by-use.md)：高模、游戏 LOD0、可见组合和帧时间分别统计；复杂近景物体允许超出初始区间。当前钢甲 14.4 万面不要求强制减到 6–8 万；材质采样、蒙皮、纹理和同屏数量共同决定成本，没有实测不把候选减面写成必要优化或帧率收益。
+
 功能开发涉及高频刷新、属性查询、场景生成、资源加载或图标时，先按改动范围读取 [FPSGAME 性能开发约束](references/fpsgame-performance-development.md)。把更新触发、重复工作和资源预算纳入实现，不等出现掉帧后再补；此入口不自动启动采样、测试或打包检查。
 
 天空 HDR 常驻显存、BC6H 压缩或间歇性持枪低清，读取 [HDR 与纹理驻留](references/hdr-texture-residency.md)，注意诊断命令可能推进流送。

@@ -1,17 +1,19 @@
-"""Register an equippable restoration of the original first-person arm mesh."""
+"""Register the saved V7 original leather gloves without restoring old sleeves."""
 import json
 from pathlib import Path
 
 ITEM_ID='ue_original_gloves'
 
 def add_original_gloves(items,config):
-    # Reuse the existing leather-glove inventory icon and dropped-item prop.
-    # Equipped appearance comes from the original weapon, not this prop mesh.
-    definition=dict(items['ue_field_gloves'])
-    definition.update(id=ITEM_ID,name='原版战术手套',price=20,
-        desc='穿戴后恢复原版手套与整套手臂、衣袖外观；卸下后回到当前默认手部外观。')
+    from original_leather_gloves import ROOT, read
+    detail=ROOT.parents[1]/'GloveCompanionDetail20260928/Tactical/published.json'
+    current=detail if detail.exists() else ROOT.parent/'OriginalLeatherV2/published.json'
+    receipt=read(current if current.exists() else ROOT/'published.json')
+    definition=dict(items.get(ITEM_ID,items['ue_field_gloves']))
+    definition.update(id=ITEM_ID,name='原版战术手套',price=20)
+    definition.update(receipt['appearance'])
     items[ITEM_ID]=definition
-    config['items'][ITEM_ID]={'slot':3,'part':'gloves','first_person_mode':'source_arms'}
+    config['items'][ITEM_ID]=receipt['recipe']
 
 if __name__=='__main__':
     root=Path('D:/FPS3D/FPSGAME')

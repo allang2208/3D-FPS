@@ -28,6 +28,8 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 
 ## 按问题读取
 
+- 锁子甲环纹、实体袖口、内衬穿模或小幅衣缘摆动，读 [锁子甲表面与同步运动](references/chainmail-surface-and-secondary-motion.md)：周期高模烘焙＋局部实体环；贴身内外层共享运动场，当前轻量方案替代已退役的 Chaos 袖口，不把巫婆参数直接用于第一人称。
+
 - 单手法杖掌向、握弓参考、腕臂扭曲及空闲左手走跑：[长杖镜头空间抓握](references/staff-grip-camera-space.md)。固定已认可掌向，使用完整局部骨段与实际握柄表面，避免再次单独掰腕。
 
 - 左手取药、饮用、抛瓶、握点下移和旧瓶动作参考，读取 [药水抓握、饮用与抛瓶](references/potion-grip-and-drink.md)。
@@ -63,7 +65,8 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 
 - 手枪动作、M1911/P9 迁移、空仓机械与回握缩尾：[手枪动作适配](references/pistol-adaptation.md)。M4 的拍击/装备拉栓合同不直接套到手枪。
 
-- 制作或调整第一人称手套、衣物、袖口及独立换装：[第一人称手套与衣物标准工作流](references/first-person-equipment-workflow.md)。以认可的 V7 裸手拟合装备，沿用各原生骨架并复用动画，完成覆盖、材质、保存与配置接入；布料物理按宽松区域单独处理。旧材质分区与贴图细节按需读 [手部装备材质参考](references/hand-equipment-appearance.md)。
+- 制作或调整第一人称手套、衣物、袖口及独立换装：[第一人称手套与衣物标准工作流](references/first-person-equipment-workflow.md)。以认可的 V7 裸手拟合装备，沿用各原生骨架并复用动画，完成覆盖、材质、保存与配置接入；布料物理按宽松区域单独处理。
+- 手套／衣物高模细节、毛躁、针脚、使用磨损、浅层视差、厚度和金属材质，读 [手套衣物表面制作标准](references/glove-clothing-surface-production.md)；需要实际脚本／参数／家族路径再读 [制作配方与案例](references/glove-clothing-production-recipes.md)。按 [用途分配面数](../asset-model-workflow/references/geometry-budgets-by-use.md)，保留近景轮廓和关键关节，不强制减面。旧 [手部材质](references/hand-equipment-appearance.md) 与 [野外手套](references/field-glove-leather-and-hunt-shape.md) 仅按其版本范围参考，不能覆盖当前 V4／伴随家族；棕色、黑色、战术与钢甲保持各自身份。
 
 - 直立握把与棱镜阻手器共用动作、新增“垂直握把类”成员：[垂直握把类母版](references/vertical-grip-family.md)。复用已接受的 VRE 手型与原动作时序，按尺寸校准整手方向和握点；小阻手器用自然拳形包住。
 

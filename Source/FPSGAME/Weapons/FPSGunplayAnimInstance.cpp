@@ -6,6 +6,7 @@
 #include "Animation/BoneReference.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "PistolDualAimNode.h"
+#include "SteelGauntletPoseNode.h"
 
 // Apply cartridge visibility after blending so a partially loaded cylinder
 // never gains live rounds from the idle pose. Baked extraction stays intact.
@@ -64,6 +65,7 @@ struct FFPSGunplayAnimProxy : FAnimInstanceProxy
     FDW715CartridgePose CartridgePose;
     FAnimNode_SequenceEvaluator_Standalone DualAimReference;
     FPistolDualAimNode DualAim;
+    FSteelGauntletPoseNode SteelGauntletPose;
 
     explicit FFPSGunplayAnimProxy(UAnimInstance* Instance) : FAnimInstanceProxy(Instance)
     {
@@ -78,12 +80,13 @@ struct FFPSGunplayAnimProxy : FAnimInstanceProxy
         CartridgePose.Source.SetLinkNode(&ActionBlend);
         DualAim.Source.SetLinkNode(&CartridgePose);
         DualAim.Reference.SetLinkNode(&DualAimReference);
+        SteelGauntletPose.Source.SetLinkNode(&DualAim);
     }
 
-    virtual FAnimNode_Base* GetCustomRootNode() override { return &DualAim; }
+    virtual FAnimNode_Base* GetCustomRootNode() override { return &SteelGauntletPose; }
     virtual void GetCustomNodes(TArray<FAnimNode_Base*>& Nodes) override
     {
-        Nodes.Append({&Idle, &Sprint, &SprintLoop, &SprintMotionBlend, &SprintBlend, &Aim, &Action, &AimBlend, &ActionBlend, &CartridgePose, &DualAimReference, &DualAim});
+        Nodes.Append({&Idle, &Sprint, &SprintLoop, &SprintMotionBlend, &SprintBlend, &Aim, &Action, &AimBlend, &ActionBlend, &CartridgePose, &DualAimReference, &DualAim, &SteelGauntletPose});
     }
     virtual void PreUpdate(UAnimInstance* Instance, float DeltaSeconds) override
     {
@@ -119,6 +122,7 @@ struct FFPSGunplayAnimProxy : FAnimInstanceProxy
         Action.SetExplicitTime(Data->ActionTime);
         AimBlend.Alpha = Data->AimAlpha;
         ActionBlend.Alpha = Data->ActionClip ? Data->ActionAlpha : 0.0f;
+        SteelGauntletPose.Configure(*Data);
     }
 };
 

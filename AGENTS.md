@@ -32,6 +32,8 @@
 
 ## 通用模型生成入口（2026-09-13）
 
+**面数与装备表面标准（用户确定，2026-09-29）：** 模型面数与 LOD 按 [用途预算](skills/asset-model-workflow/references/geometry-budgets-by-use.md) 分配：复杂近景物体允许高面数，区间不是强制上限；不为凑数损伤轮廓、厚度和关键变形，也不由面数推算帧率。手套／衣物表面制作读 [高模烘焙、材质与实体厚度标准](skills/ue5-fps-arms-animation/references/glove-clothing-surface-production.md)，按活动家族保留原生绑定和动作，并同步装备图标；案例参数与脚本见其配方参考。默认不主动减面、测试或打开 UE。
+
 用户指定新的配件、枪械、怪物、道具和建材模型生成采用 [asset-model-workflow](skills/asset-model-workflow/SKILL.md)。先按形态与精度分流：5080 优先用于冰锥、矿石、树干等不规则粗糙主体；精细小件、工具、灯具和规则构件优先 Blender／Vibe3D 精确建模，再转对应领域技能。保留明确指定的模型路线与已认可资产；不得将后握把参数直接套到所有类别。继续遵守默认不主动测试、预览或验收的用户规则。
 
 ## Vibe3D 建模入口（2026-09-19）

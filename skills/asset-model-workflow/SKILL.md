@@ -62,6 +62,8 @@ description: 使用参考图、三视图和 5080 管线生成游戏模型，完�
 
 ## 3. 几何、材质与装配
 
+面数预算、重拓扑、LOD 或高模是否应进入游戏，先读 [按用途分配面数](references/geometry-budgets-by-use.md)：复杂近景物体允许高面数，按屏幕占比、同屏数量、变形和渲染路线分配；区间不是强制上限，不为凑数损伤已认可的轮廓与关节。手套／衣袖的高模烘焙、毛躁、浅层视差和实体厚度，转 [手套衣物表面制作标准](../ue5-fps-arms-animation/references/glove-clothing-surface-production.md)。
+
 地面金属条、侧轨、转角拼缝或织物缺少凹凸时，读取 [地面收边与织物细节](references/floor-trim-and-textile-relief.md)：按真实连接面生成连续轮廓，近景浅层视差与法线共享物理尺度，保留用户认可部分。
 
 工作台、货架、维修工具墙等成组布景，先读 [可复用室内组合件](../ue5-pcg-building/references/reusable-interior-assemblies.md)：按实际支撑面和锚点装配；线缆连续路由，标签贴合载体，容器内物件用固定种子的受约束随机与离线落定。配置、组件及材质依赖一起维护，避免每次在关卡中逐个小件修正。

@@ -9,6 +9,7 @@ class USkeletalMeshComponent;
 class USkeletalMesh;
 struct FStreamableHandle;
 class FJsonObject;
+struct FFPSOutfitSecondaryMotion;
 
 /** One complete presentation transaction for a weapon rig or the world body. */
 USTRUCT()
@@ -23,6 +24,7 @@ struct FFPSOutfitPresentation
     TArray<int32> HiddenMaterials;
     FString Key;
     bool bWorld = false;
+    TSharedPtr<FFPSOutfitSecondaryMotion> SecondaryMotion;
 };
 
 /** Geometry-only clothing. Follows accepted weapon poses; owns neither inventory nor animations. */
@@ -38,9 +40,14 @@ public:
     /** Existing server-authoritative world-body equipment replication supplies remote appearances. */
     void SetWorldOutfit(const TArray<FFPSBodyOutfitSlot>& Outfit);
     void RefreshInventory();
+    /** Local visual pose layers use the current equipment, never inventory copies. */
+    bool IsSteelGauntletEquipped() const;
     /** Offline authoring only; never changes the imported close-range mesh. */
     UFUNCTION(BlueprintCallable, Category="Outfit|Authoring", meta=(ScriptName="configure_outfit_lods"))
     static bool ConfigureDistanceLODs(USkeletalMesh* Mesh);
+    /** Retired authoring entry retained for compatibility; always returns false. */
+    UFUNCTION(BlueprintCallable, Category="Outfit|Authoring", meta=(ScriptName="build_chainmail_cloth"))
+    static bool BuildChainmailCloth(USkeletalMesh* Mesh,USkeletalMesh* Proxy);
 
 private:
     UPROPERTY(Transient) TArray<FFPSOutfitPresentation> Presentations;

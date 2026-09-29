@@ -28,7 +28,12 @@ double ColdSteelWeaponStats::Interval(const FColdSteelItem* Item,const UColdStee
     // Only item and skill sources still modify the interval here.
     float Result=Base;
     if(Item&&ColdSteelInventory::IsBow(*Item))
+    {
         if(const auto* G=Model->GetGameInstance()->GetSubsystem<UGunsmithSystem>())Result*=G->Calculate(Item->Definition,G->Installed(*Item)).Bow.Draw;
+        // Equipment changes draw speed only; nocking, arrow velocity and other
+        // weapon intervals keep their existing clocks. A -10% speed is /0.9.
+        Result/=FMath::Max(0.05,1.+Model->EquipmentBonus(TEXT("bowDrawSpeed")));
+    }
     if(Item)if(const auto* Enhancement=Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
         Result*=Enhancement->Effect(*Item,TEXT("attackIntervalMul"),1);
     if(Item&&Model->WeaponMastery(Item)==TEXT("bowMastery"))Result*=1-Model->MasteryEffect(TEXT("bowMastery")).CooldownReduction;
@@ -42,6 +47,7 @@ double ColdSteelWeaponStats::Reload(const FColdSteelItem* Item,const UColdSteelS
     const double Dex=Model->Attribute(TEXT("dex"))+Model->EquipmentBonus(TEXT("dex"))*Model->InfectionAttributeMultiplier();
     double Speed=1.+FMath::Max(0.,Dex)*DexReloadSpeedPerPoint;
     Speed*=FMath::Max(0.05,Model->ReloadSpeedMultiplier());
+    Speed*=FMath::Max(0.05,1.+Model->EquipmentBonus(TEXT("reloadSpeed")));
     if(Item)if(const auto* Enhancement=Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
     {
         Speed*=FMath::Max(0.05,Enhancement->Effect(*Item,TEXT("reloadSpeedPercent"),1));

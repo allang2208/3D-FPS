@@ -3274,10 +3274,10 @@
     "grid_w": 2,
     "grid_h": 2,
     "desc": "皮革完整覆盖掌心、手背与虎口，边缘延伸到手掌与手指交界，五指露出。保留短腕口、薄卷边与缝线，可与衣袖独立搭配。",
-    "ue_icon": "Icons/ModularOutfit20260924/ue_field_gloves_fingerless.png",
+    "ue_icon": "Icons/GloveCompanionDetail20260928/ue_field_gloves.png",
     "icon_fallback": "手",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/Pickups/SM_TailoredFingerless_Pickup.SM_TailoredFingerless_Pickup",
-    "world_material": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/Materials/Shared/M_TailoredFingerless.M_TailoredFingerless"
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/Pickups/SM_Fingerless_Detail_Pickup.SM_Fingerless_Detail_Pickup",
+    "world_material": ""
   },
   "ue_field_gloves_black": {
     "id": "ue_field_gloves_black",
@@ -3291,11 +3291,11 @@
     "price": 20,
     "grid_w": 2,
     "grid_h": 2,
-    "desc": "野外制式黑色皮革手套，贴合掌指，便于持械发力和装填，可与长袖上衣分开穿戴。",
-    "ue_icon": "Icons/ModularOutfit20260924/ue_field_gloves_black.png",
+    "desc": "黑色全指皮革手套，细粒皮革拼接短绒织物，裁片采用带压痕的细密嵌线，接缝与抓握处留有轻微摩擦痕迹；腕口为背厚内薄的柔软回折包边。",
+    "ue_icon": "Icons/BlackLeatherStitchWearV4/ue_field_gloves_black.png",
     "icon_fallback": "手",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/Pickups/SM_FieldGloves_Pickup.SM_FieldGloves_Pickup",
-    "world_material": "/Game/Characters/ModularOutfit20260924/Materials/M_FieldGloves_Black.M_FieldGloves_Black"
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/Pickups/SM_BlackLeatherDetail_Pickup.SM_BlackLeatherDetail_Pickup",
+    "world_material": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/Materials/M4/M_BlackLeatherReliefCuff_M4.M_BlackLeatherReliefCuff_M4"
   },
   "ue_original_gloves": {
     "id": "ue_original_gloves",
@@ -3309,10 +3309,46 @@
     "price": 20,
     "grid_w": 2,
     "grid_h": 2,
-    "desc": "穿戴后恢复原版手套与整套手臂、衣袖外观；卸下后回到当前默认手部外观。",
-    "ue_icon": "Icons/ModularOutfit20260924/ue_field_gloves.png",
+    "desc": "沿用旧式战术手套的棕皮革，贴合掌指，掌面防滑，腕口以卷边和缝线收束。可单独穿戴，也可搭配上衣；脱下后露出双手。",
+    "ue_icon": "Icons/GloveCompanionDetail20260928/ue_original_gloves.png",
     "icon_fallback": "手",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/Pickups/SM_FieldGloves_Pickup.SM_FieldGloves_Pickup",
-    "world_material": "/Game/Characters/ModularOutfit20260924/Materials/M_FieldGloves_Brown.M_FieldGloves_Brown"
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/Pickups/SM_Tactical_Detail_Pickup.SM_Tactical_Detail_Pickup",
+    "world_material": ""
+  },
+  "ue_steel_gauntlets": {
+    "id": "ue_steel_gauntlets",
+    "name": "钢甲护手",
+    "category": "equipment",
+    "type": "手套",
+    "equipSlot": "gloves",
+    "rarity": "common",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 20,
+    "grid_w": 2,
+    "grid_h": 2,
+    "desc": "手背、腕部与拇指采用平滑相连的钢质护面，其余四指配独立指节甲，整只手套覆以细密灰色金属护层。可单独穿戴并搭配上衣。",
+    "ue_icon": "Icons/GloveCompanionDetail20260928/ue_steel_gauntlets.png",
+    "icon_fallback": "甲",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/Pickups/SM_Steel_Detail_Pickup.SM_Steel_Detail_Pickup",
+    "world_material": ""
+  },
+  "ue_chainmail_shirt": {
+    "id": "ue_chainmail_shirt",
+    "name": "灰钢锁子甲",
+    "category": "equipment",
+    "type": "上衣",
+    "equipSlot": "armor",
+    "rarity": "common",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 35,
+    "grid_w": 3,
+    "grid_h": 3,
+    "desc": "灰钢锁环交错覆盖衣身与双臂，磨亮环面与暗色衬底形成层次，袖口采用实体金属环和暗色包边，可与手套独立搭配。",
+    "ue_icon": "Icons/ChainmailInterlace20260929/ue_chainmail_shirt.png",
+    "icon_fallback": "甲",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ChainmailShirt20260928/Pickups/SM_ChainmailShirt_Pickup.SM_ChainmailShirt_Pickup",
+    "world_material": "/Game/Characters/ModularOutfit20260924/ChainmailInterlace20260929/Materials/MI_Chainmail_Rings_Standard.MI_Chainmail_Rings_Standard"
   }
 }

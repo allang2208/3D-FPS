@@ -392,3 +392,7 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 ## 2026-09-27 配件、镜内表现与改造预览布光
 
 本轮公开 SVD／M1911 扩容弹匣、715 握把／瞄具／枪口、通用手枪防滑覆片、LPVO／PSO 镜内与镭射处理、背包装备自动转向及公共预览布光的源码、目录、制作脚本与技能说明。资产恢复顺序、废案与来源边界见 [发布记录](Weapons/attachments-optics-preview-publication-20260927.md)。`trash`、Blend／FBX／uasset、PBR 和图标、密集几何快照及运行日志不公开；仅克隆本仓库不能获得这些生产资产。
+
+## 手套与锁子甲生产依赖（2026-09-29）
+
+当前四款手套、锁子甲 V2 环纹与 SharedSway 第一人称袖口的作者源、原生曲线和材质恢复见 [本次发布说明](Publication/gloves-chainmail-publication-20260929.md)。`SteelGauntletPoseCurves.inl` 是本地授权数据生成的必要构建输入，不随公开源码分发。旧 Chaos 袖口与单只钢甲样件已归档；不要移动仍被最终版调用的 V2/V3、Interlace/Relief 或钢甲辅助脚本。

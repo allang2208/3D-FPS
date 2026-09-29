@@ -1,5 +1,6 @@
 #include "FPSModularOutfitComponent.h"
 #include "FPSPlayerBodyComponent.h"
+#include "FPSOutfitSecondaryMotion.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/AssetManager.h"
@@ -83,6 +84,11 @@ void UFPSModularOutfitComponent::RefreshInventory()
     if(Next.OrderIndependentCompareEqual(Equipped))return;
     Equipped=MoveTemp(Next);bDirty=true;DiscoverCountdown=0.f;
 }
+bool UFPSModularOutfitComponent::IsSteelGauntletEquipped() const
+{
+    static const FName SteelGauntlets(TEXT("ue_steel_gauntlets"));
+    return Equipped.FindRef(3)==SteelGauntlets;
+}
 void UFPSModularOutfitComponent::SetWorldOutfit(const TArray<FFPSBodyOutfitSlot>& Outfit)
 {
     const auto* Pawn=Cast<APawn>(GetOwner());
@@ -93,6 +99,11 @@ void UFPSModularOutfitComponent::SetWorldOutfit(const TArray<FFPSBodyOutfitSlot>
 }
 void UFPSModularOutfitComponent::ReleasePresentation(FFPSOutfitPresentation& P)
 {
+    if(P.SecondaryMotion)
+    {
+        if(auto* Source=P.Source.Get())RemoveTickPrerequisiteComponent(Source);
+        P.SecondaryMotion.Reset();
+    }
     if(auto* Source=P.Source.Get();Source&&Source->GetSkeletalMeshAsset()==P.SourceAsset)
         for(int32 L=0;L<P.PreviouslyVisible.Num();++L)
             for(const int32 Material:P.PreviouslyVisible[L])FPSModularOutfit::Section(Source,Material,L,true);
@@ -131,7 +142,11 @@ void UFPSModularOutfitComponent::TickComponent(float Delta,ELevelTick Type,FActo
     if(bDirty||DiscoverCountdown<=0.f){bDirty=false;DiscoverCountdown=.1f;DiscoverSources();}
     // Visibility changes (scope, casting, dual hand and third-person camera) are
     // followed every frame, without rebuilding meshes or parsing inventory JSON.
-    for(auto& P:Presentations)FollowVisibility(P);
+    for(auto& P:Presentations)
+    {
+        FollowVisibility(P);
+        if(P.SecondaryMotion)P.SecondaryMotion->Tick(Delta);
+    }
 }
 void UFPSModularOutfitComponent::DiscoverSources()
 {
@@ -325,6 +340,12 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
     else Existing=&Presentations.AddDefaulted_GetRef();
     Existing->Source=Source;Existing->SourceAsset=Source->GetSkeletalMeshAsset();Existing->Key=Key;Existing->bWorld=bWorld;
     Existing->Parts=MoveTemp(NewParts);Existing->HiddenMaterials=Numbers(Profile,TEXT("hide_source_materials"));
+    if(!bWorld&&Shirt&&String(Shirt,TEXT("secondary_motion"))==TEXT("chainmail_shared_sway_v1")&&Existing->Parts.IsValidIndex(1))
+    {
+        Existing->SecondaryMotion=MakeShared<FFPSOutfitSecondaryMotion>();
+        Existing->SecondaryMotion->Initialize(Source,Existing->Parts[1]);
+        AddTickPrerequisiteComponent(Source);
+    }
     Existing->PreviouslyVisible.Reset();
     if(const auto* Data=Source->GetSkeletalMeshAsset()->GetResourceForRendering())
         for(int32 L=0;L<Data->LODRenderData.Num();++L)

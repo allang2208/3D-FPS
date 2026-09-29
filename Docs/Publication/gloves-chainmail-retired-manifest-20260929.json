@@ -1,0 +1,872 @@
+{
+  "date": "2026-09-29",
+  "files": [
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/before.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/before.json",
+      "size": 3020,
+      "sha256": "85c964076665258120c76752737bf82f0b540d2dd4f1a17ac00309473131d699",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/M4_CuffSimulationProxy.blend",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/M4_CuffSimulationProxy.blend",
+      "size": 134476,
+      "sha256": "e2130201d109971e721d4b788fd829b29c3cd77029d8ffbdd415b7a2b66f068d",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/manifest.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/manifest.json",
+      "size": 3110,
+      "sha256": "4f554caa6388da10987fbfc753bcdf552fd73d7f53501788da87fedf63f6b75a",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/materials-saved.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/materials-saved.json",
+      "size": 267,
+      "sha256": "1b6cc2847dd06c9e0e95d3dc83afcd8e3de60851dd266c46a635f384db21638d",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/production.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/production.json",
+      "size": 342,
+      "sha256": "5ce89f5b06711f87fa74ec33ec2a2de6d374a2ee4d2b358c442ceec98538a236",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/published.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/published.json",
+      "size": 16376,
+      "sha256": "e6005dc0d88f2c7c63572d7505e8f49c363d3d73b6c38247f24630d5f401e00a",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Integration/batch0.py",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Integration/batch0.py",
+      "size": 171,
+      "sha256": "b81fc00b7f84a551cbc7bf87cdf752cdb2a75189720d6e0b25338ad056e63cbc",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Integration/batch1.py",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Integration/batch1.py",
+      "size": 173,
+      "sha256": "7b06ba793bfeaeaf3fab1c55c202b148b94fd9753dab337f05969476b72fcdf8",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Integration/batch2.py",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Integration/batch2.py",
+      "size": 185,
+      "sha256": "0ab94ff5abda6a710265b0cb15e86d6b5a3586e991308d0180c41d2c2b762a88",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Integration/batch3.py",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Integration/batch3.py",
+      "size": 182,
+      "sha256": "ee8f7328df44b7bec93835c3425da80b0bd2c2f584dc4f73a5a6aca1221af539",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Integration/m4.py",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Integration/m4.py",
+      "size": 136,
+      "sha256": "581e9bd32a819087a2bf9a736431a0d6911fd250cd1ca9fc74e20df149aa36d6",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Proxy/A762.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Proxy/A762.json",
+      "size": 498034,
+      "sha256": "44d29bf4493da57c2174e508b9b3df1dd54f516c9cab9b22b60ed0e98dd0170e",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Proxy/AKM.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Proxy/AKM.json",
+      "size": 498235,
+      "sha256": "1006faa55eae0b2987b4994699b9430ad9bc827a88be4788257ac1f399650dd5",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Proxy/ASH12.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Proxy/ASH12.json",
+      "size": 499325,
+      "sha256": "108a3cdbe5c992f7eb506b3eefec588c99add614809b3b696adde151af77fb24",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Proxy/Axe.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Proxy/Axe.json",
+      "size": 498057,
+      "sha256": "5cca5d79c7fee842e4b8d81a9b0ecdbe06872a399d24a7ac019487de6fd0573f",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Proxy/Bow.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Proxy/Bow.json",
+      "size": 487279,
+      "sha256": "26badabc6f750f8e7e50c3abc5428c8fe69609a4f416e80e5b6705acdfd35ccc",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Proxy/DW715_l.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Proxy/DW715_l.json",
+      "size": 272008,
+      "sha256": "2333e4155338ad23160bd5a0e362dd7836fafea24889dfcba5bcccb2453c73cb",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Proxy/DW715_r.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Proxy/DW715_r.json",
+      "size": 271408,
+      "sha256": "5de069ebcfe970875c7917803324c43ca13e03e6a9a84679e17c55638e68cf45",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Proxy/DW715.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Proxy/DW715.json",
+      "size": 505821,
+      "sha256": "8c8664010c68e8dd5f6b54dc3d00dd663fe6dc2639806fd3175890190280164e",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Proxy/FrostArms.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Proxy/FrostArms.json",
+      "size": 498744,
+      "sha256": "30ba6960952e74132cc6904e4977bec4326d2c43bd46f10f10fbdee57c3d8bd4",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Proxy/FrostSword.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Proxy/FrostSword.json",
+      "size": 498751,
+      "sha256": "55c143c8f5aea9f80bc1f98c6deece7913e33e3e26dc98f280dc1e8648e7999a",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Proxy/M16.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Proxy/M16.json",
+      "size": 501205,
+      "sha256": "cf052c0d4bd7275036900690f77155e4a7f4237a42f135ceb03a9b006eee83e4",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Proxy/M1911_l.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Proxy/M1911_l.json",
+      "size": 267061,
+      "sha256": "1e495de05cb91f63f6c0cb30fee5105319600a0cd86b07e0b0959d9f3279e23a",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Proxy/M1911_r.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Proxy/M1911_r.json",
+      "size": 266461,
+      "sha256": "6fdb4f732575a6d6e7d50cb087b7e8ae0c65cc8bc6c07586fd0bdf23373b5adc",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Proxy/M1911.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Proxy/M1911.json",
+      "size": 500874,
+      "sha256": "f5130d1bc3fe222b17e321e87d22ad4af5744f97cca940522880c4ce2cfde026",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Proxy/M4.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Proxy/M4.json",
+      "size": 498080,
+      "sha256": "019ff7cf6360dae9120db3e42ac0c73db5baa81f8bb42c12739057e62c3e3c95",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Proxy/Pickaxe.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Proxy/Pickaxe.json",
+      "size": 498094,
+      "sha256": "34a6807f6ebb4b55e60859143c37f7d78917106819c2c532b893cc886d7c1656",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Proxy/PKM.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Proxy/PKM.json",
+      "size": 545384,
+      "sha256": "b8318674d3de0e3b5e61dba8335d0f5517097783fcc5549697fca13552aa0e8d",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Proxy/QBZ191.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Proxy/QBZ191.json",
+      "size": 498266,
+      "sha256": "e0d8cd3437e665c3e9ce9e8b507205f59fb71a69f821ce4d5e22d951db91bb6a",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Proxy/RuneSword.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Proxy/RuneSword.json",
+      "size": 498744,
+      "sha256": "42d260d731ed481e389a0316a4aaadab03b2125f07190f79f37d34b51292675e",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Proxy/SVD.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Proxy/SVD.json",
+      "size": 498393,
+      "sha256": "83f8cf8ad6e222fc485abf5ae7be7c0b0945996eed5d9202137a7f960574d9fa",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Proxy/Traversal.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Proxy/Traversal.json",
+      "size": 498277,
+      "sha256": "ba1af84fe98b6282834d73ce7c9fdfd6f5e563f0e6dcf4ef9e09a3c2008dde31",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Saved/A762.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Saved/A762.json",
+      "size": 545,
+      "sha256": "ee1acafe637d7908aafcf2e1f1fe0b91b99295c48f94add8f70b2b75c15da982",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Saved/AKM.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Saved/AKM.json",
+      "size": 539,
+      "sha256": "c262cec4292586308ee6162df48fb7688e9519a91b45bbe21e25a9a3b23b449e",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Saved/ASH12.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Saved/ASH12.json",
+      "size": 551,
+      "sha256": "8653481085ce6b462b0bd52fb8ad77e79558e64adb5ac178ba2d430d2ffebea3",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Saved/Axe.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Saved/Axe.json",
+      "size": 539,
+      "sha256": "47936f1e7eea378fbabfd038514a01f576772693d707aee8622735db898fcd28",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Saved/Bow.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Saved/Bow.json",
+      "size": 539,
+      "sha256": "86e74e33795bfeda3ab84849e8e55fe67cbb6415c59c3991b612e75bd84017d8",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Saved/DW715_l.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Saved/DW715_l.json",
+      "size": 563,
+      "sha256": "d26c2e808565b9e5cd8c98bbb53d1c3b1430d366031fe613ffcb46c6d57fd5a7",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Saved/DW715_r.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Saved/DW715_r.json",
+      "size": 563,
+      "sha256": "21a4858f850379665fe7375bafa300bde1354b5371f7d0de83d4f65f6359a1ee",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Saved/DW715.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Saved/DW715.json",
+      "size": 551,
+      "sha256": "f8dfdbc7e759725d796886db363b9ca8b907862805b6b4d24a251c4926c7a356",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Saved/FrostArms.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Saved/FrostArms.json",
+      "size": 575,
+      "sha256": "34004b3b93c7b9e7db09ee2c710969b9cbf8ea2053897d789135fab9891d0af8",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Saved/FrostSword.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Saved/FrostSword.json",
+      "size": 581,
+      "sha256": "2e419f86c851c8b9563105e247cd1e85588bf1e2df854d0790a6066e9388145e",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Saved/M16.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Saved/M16.json",
+      "size": 539,
+      "sha256": "e14c635e5437ceb56f04230998c8d2d507fca77141487d3e41cbe81041322818",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Saved/M1911_l.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Saved/M1911_l.json",
+      "size": 563,
+      "sha256": "cee08220db71746b2a2569bc908914fa0972202304a89a977a7523b5a560a1a6",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Saved/M1911_r.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Saved/M1911_r.json",
+      "size": 563,
+      "sha256": "0f8b1e832c683a36f168c691b76613b9e7ad818791272671a4100c4449869d43",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Saved/M1911.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Saved/M1911.json",
+      "size": 551,
+      "sha256": "f97736568220f5a9f552df2b53578c69aa573fe9e9d49e32084c20586cd08347",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Saved/M4.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Saved/M4.json",
+      "size": 533,
+      "sha256": "cecb328c85bf3bf20775333ba955ef40d9ccaa134ee6795605ed357177968c48",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Saved/Pickaxe.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Saved/Pickaxe.json",
+      "size": 563,
+      "sha256": "e8544062479aa705a88e85fe98138ef080c6b38beeed70b4ff732cd907dc47b4",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Saved/PKM.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Saved/PKM.json",
+      "size": 539,
+      "sha256": "2cfd0eb5df82753702aac01e2461f8813bcd3f5bc847d9fb4f90b4e00369a9f5",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Saved/QBZ191.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Saved/QBZ191.json",
+      "size": 557,
+      "sha256": "7418c7dc1bc4cbd5dfb014a4b7fa3eea09edf9e6e85b9793e66f007049094e98",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Saved/RuneSword.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Saved/RuneSword.json",
+      "size": 575,
+      "sha256": "f632184eb6a18214a045b6983b644b3de45e1319da4384807279189b54075e37",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Saved/SVD.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Saved/SVD.json",
+      "size": 539,
+      "sha256": "a705d4c579348be162031cf6e4faf09f29ebda301b35fb40af70d3e9dc8b1d1d",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/ChainmailCloth20260929/Saved/Traversal.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/ChainmailCloth20260929/Saved/Traversal.json",
+      "size": 575,
+      "sha256": "0a7ae5ccca2b1a6a1261c2c0a3f69c99e275c587b766b1fba1e909301e0ed103",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/A762/SK_A762_ChainmailShirt.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/A762/SK_A762_ChainmailShirt.uasset",
+      "size": 10542864,
+      "sha256": "2e9f20d33c5a46dfd2d350ce8d00040ac996ffed5cc51b73e6a1df2b434e4f70",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/A762/SK_A762_CuffSimulationProxy.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/A762/SK_A762_CuffSimulationProxy.uasset",
+      "size": 376233,
+      "sha256": "b8604cfa8feda044d7399adde29100d09059f8065112a9c00b5ba45f1c34dfa0",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/AKM/SK_AKM_ChainmailShirt.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/AKM/SK_AKM_ChainmailShirt.uasset",
+      "size": 10601251,
+      "sha256": "dbf55f95c6b6e8f42b4b991dc4200687da306a727f19ec89773397f9694d2b23",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/AKM/SK_AKM_CuffSimulationProxy.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/AKM/SK_AKM_CuffSimulationProxy.uasset",
+      "size": 436184,
+      "sha256": "577ddf77bd5e58f4115352c86465583a6e0c3d94cbe3e0e8ccd19bc7c8b5a1ec",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/ASH12/SK_ASH12_ChainmailShirt.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/ASH12/SK_ASH12_ChainmailShirt.uasset",
+      "size": 10617014,
+      "sha256": "8ec8040c4918517025d71a11c5d9b17954bdea31fd505e894e3fcb92eda26772",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/ASH12/SK_ASH12_CuffSimulationProxy.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/ASH12/SK_ASH12_CuffSimulationProxy.uasset",
+      "size": 438885,
+      "sha256": "c90461e314ea90da773c6406758d24f29fc1002297d3fd2633d99187fb5f8f8e",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/Axe/SK_Axe_ChainmailShirt.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/Axe/SK_Axe_ChainmailShirt.uasset",
+      "size": 10540417,
+      "sha256": "43f2000428d4dea6444e11fc8f7d51c150dfd581dcfdffd3f04e7898ee2a7284",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/Axe/SK_Axe_CuffSimulationProxy.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/Axe/SK_Axe_CuffSimulationProxy.uasset",
+      "size": 374584,
+      "sha256": "0d4fc66d2ed36bf3e7bb2fecab690681a2cf57527e6463f28dabb996830d3a8a",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/Bow/SK_Bow_ChainmailShirt.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/Bow/SK_Bow_ChainmailShirt.uasset",
+      "size": 10536010,
+      "sha256": "68d8a93ea091575d20217b95390f857ce8c8c1ca3842d6b52be5d699fdace92d",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/Bow/SK_Bow_CuffSimulationProxy.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/Bow/SK_Bow_CuffSimulationProxy.uasset",
+      "size": 181063,
+      "sha256": "e258dfd44bd149459e05cd4bf75bc2d6112567857710f11a8abbbd2516032e84",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/DW715/SK_DW715_ChainmailShirt.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/DW715/SK_DW715_ChainmailShirt.uasset",
+      "size": 10606697,
+      "sha256": "c70d95737cdd5f92a052b327ab6cd2314f69a2bee1573a1c7f03e00b3eecf10f",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/DW715/SK_DW715_CuffSimulationProxy.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/DW715/SK_DW715_CuffSimulationProxy.uasset",
+      "size": 441392,
+      "sha256": "7c5ae2dc92d6dee128d379897af8da8b77862c46c3c3d7f355b775bd7c602819",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/DW715_l/SK_DW715_l_ChainmailShirt.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/DW715_l/SK_DW715_l_ChainmailShirt.uasset",
+      "size": 5370391,
+      "sha256": "e544bfc4283ea52f2b57e987873c0587123aa27353a46bc30e80ab8d8ca96c0a",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/DW715_l/SK_DW715_l_CuffSimulationProxy.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/DW715_l/SK_DW715_l_CuffSimulationProxy.uasset",
+      "size": 282667,
+      "sha256": "e9dab6d00492c9367dacf672f6300caab93b67f6bd0c4069280a6170e9c7d87a",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/DW715_r/SK_DW715_r_ChainmailShirt.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/DW715_r/SK_DW715_r_ChainmailShirt.uasset",
+      "size": 5360136,
+      "sha256": "a191b0cfaf68ea9f2c7ad687631d6fb3330fd8e2fbb27a4a9b0516e9e91d5fcb",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/DW715_r/SK_DW715_r_CuffSimulationProxy.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/DW715_r/SK_DW715_r_CuffSimulationProxy.uasset",
+      "size": 281810,
+      "sha256": "ed682e7d222ae85dbf09111955a5825270fd10d5dffc02242253f0f094ebb45a",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/FrostArms/SK_FrostArms_ChainmailShirt.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/FrostArms/SK_FrostArms_ChainmailShirt.uasset",
+      "size": 10641715,
+      "sha256": "d4e05253c64bda55d986710479f235ab8a3149b3acd3f51eec825220d3e6a5a2",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/FrostArms/SK_FrostArms_CuffSimulationProxy.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/FrostArms/SK_FrostArms_CuffSimulationProxy.uasset",
+      "size": 375378,
+      "sha256": "de0750f31ef33bb3f0e0e65c55d28ab1ae23d8747a7f9f6c1aa61ac69c1f1360",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/FrostSword/SK_FrostSword_ChainmailShirt.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/FrostSword/SK_FrostSword_ChainmailShirt.uasset",
+      "size": 10541078,
+      "sha256": "5b9b0d648e19bdabda6bd7e08ad8f7e2f759b9172f65ae2e12b4d9d215344257",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/FrostSword/SK_FrostSword_CuffSimulationProxy.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/FrostSword/SK_FrostSword_CuffSimulationProxy.uasset",
+      "size": 375336,
+      "sha256": "c36e8a5b778184176cac209ea8bcb266abee5eaa793160c4bb4aee48f04b7c35",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/M16/SK_M16_ChainmailShirt.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/M16/SK_M16_ChainmailShirt.uasset",
+      "size": 10608359,
+      "sha256": "2b5a00163f9822c25967a7f3098c25d2ee042220f4a03f587a46af7dd319a33f",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/M16/SK_M16_CuffSimulationProxy.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/M16/SK_M16_CuffSimulationProxy.uasset",
+      "size": 448729,
+      "sha256": "ae668f1b6575994f756a4065cee78ff17bf8c9605cb1ad91ff9fa2225350ba67",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/M1911/SK_M1911_ChainmailShirt.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/M1911/SK_M1911_ChainmailShirt.uasset",
+      "size": 10603688,
+      "sha256": "59eca879ef678a4ccbd5c493f2f8d5357d901726392ddefd104edd3cd8698bd9",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/M1911/SK_M1911_CuffSimulationProxy.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/M1911/SK_M1911_CuffSimulationProxy.uasset",
+      "size": 438656,
+      "sha256": "3e896957cd8faa23ae20396abd67f95b2f05981dce1d8645b9a3e6bcea44d919",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/M1911_l/SK_M1911_l_ChainmailShirt.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/M1911_l/SK_M1911_l_ChainmailShirt.uasset",
+      "size": 5366062,
+      "sha256": "e08e18a1becbcb2f700835f6d9786b5131ba05455ac98fba8678437b8dd8a736",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/M1911_l/SK_M1911_l_CuffSimulationProxy.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/M1911_l/SK_M1911_l_CuffSimulationProxy.uasset",
+      "size": 278379,
+      "sha256": "0f0484e054ecac345e68bfb50acd19a8eeeb4d72b589ad6f125ad6e888d72ee2",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/M1911_r/SK_M1911_r_ChainmailShirt.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/M1911_r/SK_M1911_r_ChainmailShirt.uasset",
+      "size": 5355796,
+      "sha256": "0411b97f83719199719c76357c85309e6a501e6dbf2ce37c7bc0b64fe1dd06e1",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/M1911_r/SK_M1911_r_CuffSimulationProxy.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/M1911_r/SK_M1911_r_CuffSimulationProxy.uasset",
+      "size": 277500,
+      "sha256": "9ab7b26cb5881d8d2c465fe120c6b7cc57104ed5ea447eed37e3ae4eeeacbe2c",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/M4/SK_M4_ChainmailShirt.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/M4/SK_M4_ChainmailShirt.uasset",
+      "size": 10607600,
+      "sha256": "5fcbf84853ef57e92e1504c68f2790d33e8ba618f4f246695926fba1fbe23011",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/M4/SK_M4_CuffSimulationProxy.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/M4/SK_M4_CuffSimulationProxy.uasset",
+      "size": 442538,
+      "sha256": "055c11c1453c5b4221bcf63cdd5394bd58c76522dd638681c671b2fe37511b88",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/Materials/M_Chainmail_CuffCloth.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/Materials/M_Chainmail_CuffCloth.uasset",
+      "size": 35381,
+      "sha256": "ebb2226a495d66b350ce404894d066a046f61435aee9990f5b503d0ba2346872",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/Pickaxe/SK_Pickaxe_ChainmailShirt.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/Pickaxe/SK_Pickaxe_ChainmailShirt.uasset",
+      "size": 10540892,
+      "sha256": "c0bf91e6d9727f448bad3e61b8133ede4dd2b1f2eb0d16ff8b94f1448be0e6ae",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/Pickaxe/SK_Pickaxe_CuffSimulationProxy.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/Pickaxe/SK_Pickaxe_CuffSimulationProxy.uasset",
+      "size": 375055,
+      "sha256": "83da65864980f8a11b623380c392bc1c5e162690aa204e8c39db9ac6bc6eb70b",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/PKM/SK_PKM_ChainmailShirt.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/PKM/SK_PKM_ChainmailShirt.uasset",
+      "size": 10566324,
+      "sha256": "28432cf64f60049cde1e4c0570d5375ed404035bc5b487db1b39a4be53d5f943",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/PKM/SK_PKM_CuffSimulationProxy.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/PKM/SK_PKM_CuffSimulationProxy.uasset",
+      "size": 399617,
+      "sha256": "bf5886b6e5bb662f89e4450814f8f87d9d3886922c2b0cfdf469d53668b59d11",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/QBZ191/SK_QBZ191_ChainmailShirt.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/QBZ191/SK_QBZ191_ChainmailShirt.uasset",
+      "size": 10603125,
+      "sha256": "4251077c0ff666f31be598d85f1c9cda12d5e8cf6a3196885d2cd1abd64a29d0",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/QBZ191/SK_QBZ191_CuffSimulationProxy.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/QBZ191/SK_QBZ191_CuffSimulationProxy.uasset",
+      "size": 438064,
+      "sha256": "d4b1554804a4841a39f0ee20f7f90d498a55ef0fa106cf6346eed80842eedeca",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/RuneSword/SK_RuneSword_ChainmailShirt.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/RuneSword/SK_RuneSword_ChainmailShirt.uasset",
+      "size": 10540620,
+      "sha256": "0a1e8312e8c21e6779e956293fe66856f60ba7eba7214f28c1cdd04ff33f99cb",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/RuneSword/SK_RuneSword_CuffSimulationProxy.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/RuneSword/SK_RuneSword_CuffSimulationProxy.uasset",
+      "size": 374878,
+      "sha256": "68c96afaaefaf864ca03b8c42f46de25b6b7a6c357ecd22b3b7c4b34c05e82ea",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/SVD/SK_SVD_ChainmailShirt.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/SVD/SK_SVD_ChainmailShirt.uasset",
+      "size": 10545581,
+      "sha256": "1360bbb054ebf9b956f52b833b323d0555f43464e3e2f700128dc3b025a9b7c7",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/SVD/SK_SVD_CuffSimulationProxy.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/SVD/SK_SVD_CuffSimulationProxy.uasset",
+      "size": 375724,
+      "sha256": "e06a04c57ef74d74c2821566c2b58b37c6f84ef73b7071922edeee8827a0f7d2",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/Traversal/SK_Traversal_ChainmailShirt.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/Traversal/SK_Traversal_ChainmailShirt.uasset",
+      "size": 10598604,
+      "sha256": "a26383bcc054f8fd6fc4a4b894fdaf5021f9049ffad434f132fbfd0edc83b860",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/Traversal/SK_Traversal_CuffSimulationProxy.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/ChainmailCloth20260929/Traversal/SK_Traversal_CuffSimulationProxy.uasset",
+      "size": 434433,
+      "sha256": "47a11849765d6325a1acbec9dc1a592cc539bc8d3e8de3ddff92c27137379496",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Tools/ModularOutfit/build_chainmail_cloth.py",
+      "archived": "trash/gloves-chainmail-20260929/Tools/ModularOutfit/build_chainmail_cloth.py",
+      "size": 6497,
+      "sha256": "c55e2d690d0ebef1c395387c2febcdc5d0e08a7fbea4a8e3c7bc2e8dc82d71ec",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Tools/ModularOutfit/import_chainmail_cloth.py",
+      "archived": "trash/gloves-chainmail-20260929/Tools/ModularOutfit/import_chainmail_cloth.py",
+      "size": 7608,
+      "sha256": "91ca959977e27e7e4ba01e315a46ee9b5936d7df4f4eaf5a4b32d429cba786df",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Tools/ModularOutfit/publish_chainmail_cloth.py",
+      "archived": "trash/gloves-chainmail-20260929/Tools/ModularOutfit/publish_chainmail_cloth.py",
+      "size": 1407,
+      "sha256": "22db33ca08368038984ac659ed49e59fb348ba9897616a61ae3278d2d8162bc6",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "Source/FPSGAME/Characters/FPSOutfitClothAuthoring.cpp",
+      "archived": "trash/gloves-chainmail-20260929/Source/FPSGAME/Characters/FPSOutfitClothAuthoring.cpp",
+      "size": 5915,
+      "sha256": "c73aa105e221e0a3e7de3b317ae39632f6af5fd77b7f7d989ccec16f1b3270f8",
+      "reason": "Rejected separate Chaos outer-sleeve motion: lining penetration and reported stutter",
+      "replacement": "ChainmailSharedSway20260929; ChainmailInterlace20260929 geometry"
+    },
+    {
+      "original": "SourceAssets/MetalGauntlet20260927/RightSampleV1/M4_RightGauntletSample.blend",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/MetalGauntlet20260927/RightSampleV1/M4_RightGauntletSample.blend",
+      "size": 17513729,
+      "sha256": "705c5d497a7a8854ed2783d3bf8d2f2d8c4a93f254c316c8ea5030babb74d868",
+      "reason": "Right-only prototype superseded by complete steel gauntlets",
+      "replacement": "SteelDetail20260928; SteelGauntletV1 continuous-shell authoring"
+    },
+    {
+      "original": "SourceAssets/MetalGauntlet20260927/RightSampleV1/M4_RightGauntletSample.fbx",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/MetalGauntlet20260927/RightSampleV1/M4_RightGauntletSample.fbx",
+      "size": 4152524,
+      "sha256": "b7008987ab5c46409977c84ee942f321be4fe9d509743ebcd51af670d9260805",
+      "reason": "Right-only prototype superseded by complete steel gauntlets",
+      "replacement": "SteelDetail20260928; SteelGauntletV1 continuous-shell authoring"
+    },
+    {
+      "original": "SourceAssets/MetalGauntlet20260927/RightSampleV1/M4_RightGauntletSample.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/MetalGauntlet20260927/RightSampleV1/M4_RightGauntletSample.json",
+      "size": 22986817,
+      "sha256": "64219c36e3724becd2c77cc9b89299ac08d72441a3dcf7b1eaaad1b4426fc3a2",
+      "reason": "Right-only prototype superseded by complete steel gauntlets",
+      "replacement": "SteelDetail20260928; SteelGauntletV1 continuous-shell authoring"
+    },
+    {
+      "original": "SourceAssets/MetalGauntlet20260927/RightSampleV1/parts.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/MetalGauntlet20260927/RightSampleV1/parts.json",
+      "size": 7421,
+      "sha256": "40aa9d26638073971f0a5058c3be185254968d5dcc9379eb43a9494166d968a4",
+      "reason": "Right-only prototype superseded by complete steel gauntlets",
+      "replacement": "SteelDetail20260928; SteelGauntletV1 continuous-shell authoring"
+    },
+    {
+      "original": "SourceAssets/MetalGauntlet20260927/RightSampleV1/saved-assets.json",
+      "archived": "trash/gloves-chainmail-20260929/SourceAssets/MetalGauntlet20260927/RightSampleV1/saved-assets.json",
+      "size": 1073,
+      "sha256": "78a31ba50658e3bff24f71bbafebd901bf7879c4d52e00b55d01585c4891e494",
+      "reason": "Right-only prototype superseded by complete steel gauntlets",
+      "replacement": "SteelDetail20260928; SteelGauntletV1 continuous-shell authoring"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/MetalGauntletRightSample20260927/M4/SK_M4_RightGauntletSample.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/MetalGauntletRightSample20260927/M4/SK_M4_RightGauntletSample.uasset",
+      "size": 7369479,
+      "sha256": "959c5922736f20110859dc77df438e6f976cd7891ac944eb7815b7a5de499e8a",
+      "reason": "Right-only prototype superseded by complete steel gauntlets",
+      "replacement": "SteelDetail20260928; SteelGauntletV1 continuous-shell authoring"
+    },
+    {
+      "original": "Content/Characters/ModularOutfit20260924/MetalGauntletRightSample20260927/Materials/M_SteelGauntlet_StructuralSample.uasset",
+      "archived": "trash/gloves-chainmail-20260929/Content/Characters/ModularOutfit20260924/MetalGauntletRightSample20260927/Materials/M_SteelGauntlet_StructuralSample.uasset",
+      "size": 11143,
+      "sha256": "21773fc11febe4246089bbe4136c9033b4774c84a42d4a42163af9b9072e64ab",
+      "reason": "Right-only prototype superseded by complete steel gauntlets",
+      "replacement": "SteelDetail20260928; SteelGauntletV1 continuous-shell authoring"
+    },
+    {
+      "original": "Tools/ModularOutfit/import_metal_gauntlet_sample.py",
+      "archived": "trash/gloves-chainmail-20260929/Tools/ModularOutfit/import_metal_gauntlet_sample.py",
+      "size": 4128,
+      "sha256": "fcc9fb45e2bbebb5b4645911cfc64b5ec3cf9372c61e21b9b37818c5205c2ab5",
+      "reason": "Right-only prototype superseded by complete steel gauntlets",
+      "replacement": "SteelDetail20260928; SteelGauntletV1 continuous-shell authoring"
+    }
+  ],
+  "count": 108,
+  "bytes": 271013033,
+  "verification": "All archived file sizes and SHA256 hashes matched their sources."
+}

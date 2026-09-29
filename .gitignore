@@ -1251,3 +1251,17 @@ __pycache__/
 !/SourceAssets/GunWorkbenchLayoutDiagnosis20260928/**/*.py
 !/SourceAssets/GunWorkbenchLayoutDiagnosis20260928/**/*.md
 /SourceAssets/GunWorkbenchLayoutDiagnosis20260928/**/__pycache__/
+
+# Glove/chainmail publication: licensed geometry, weights, pose samples and
+# baked textures remain local, including generated text data and archives.
+/SourceAssets/ModularOutfit20260927/OriginalLeatherV1/
+/SourceAssets/ModularOutfit20260927/OriginalLeatherV2/
+/SourceAssets/MetalGauntlet20260927/
+/SourceAssets/BlackLeatherDetail20260928/
+/SourceAssets/GloveCompanionDetail20260928/
+/SourceAssets/ChainmailShirt20260928/
+/SourceAssets/ChainmailRelief20260929/
+/SourceAssets/ChainmailInterlace20260929/
+/SourceAssets/ChainmailCloth20260929/
+/SourceAssets/ChainmailSharedSway20260929/
+/Source/FPSGAME/Weapons/SteelGauntletPoseCurves.inl
