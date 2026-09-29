@@ -400,3 +400,7 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 ## 手套与锁子甲生产依赖（2026-09-29）
 
 当前四款手套、锁子甲 V2 环纹与 SharedSway 第一人称袖口的作者源、原生曲线和材质恢复见 [本次发布说明](Publication/gloves-chainmail-publication-20260929.md)。`SteelGauntletPoseCurves.inl` 是本地授权数据生成的必要构建输入，不随公开源码分发。旧 Chaos 袖口与单只钢甲样件已归档；不要移动仍被最终版调用的 V2/V3、Interlace/Relief 或钢甲辅助脚本。
+
+## 201 原模型废案与新模型恢复（2026-09-29）
+
+首轮 201 Meshy 模型已列为废案；962 个文件（含 116 个无外部引用的旧 UE 包）移入本机 trash，现用新模型及 50 个有引用的旧包保留。当前恢复入口为 Repair36、ClothFeed33、Magazine24 与 Accessories22，主体仍沿用 Cover10 包名。发布仅含选定修复脚本、记录和 SKILL；模型、贴图、动作、参考视频及密集数据需本机合法来源。归档散列、保留依赖和共享源码发布边界见 [201 发布与恢复说明](Weapons/lmg201-publication-20260929.md)。

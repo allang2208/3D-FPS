@@ -1,0 +1,607 @@
+{
+  "packages": [
+    "/Game/Weapons/LMG201/ArmSprint06/Before/Animations/A_LMG201_aim",
+    "/Game/Weapons/LMG201/ArmSprint06/Before/Animations/A_LMG201_aim_fire",
+    "/Game/Weapons/LMG201/ArmSprint06/Before/Animations/A_LMG201_equip",
+    "/Game/Weapons/LMG201/ArmSprint06/Before/Animations/A_LMG201_fire",
+    "/Game/Weapons/LMG201/ArmSprint06/Before/Animations/A_LMG201_idle",
+    "/Game/Weapons/LMG201/ArmSprint06/Before/Animations/A_LMG201_inspect",
+    "/Game/Weapons/LMG201/ArmSprint06/Before/Animations/A_LMG201_quick_melee",
+    "/Game/Weapons/LMG201/ArmSprint06/Before/Animations/A_LMG201_reload",
+    "/Game/Weapons/LMG201/ArmSprint06/Before/Animations/A_LMG201_reload_empty",
+    "/Game/Weapons/LMG201/ArmSprint06/Before/Animations/A_LMG201_sprint_enter",
+    "/Game/Weapons/LMG201/ArmSprint06/Before/Animations/A_LMG201_sprint_exit",
+    "/Game/Weapons/LMG201/ArmSprint06/Before/Animations/A_LMG201_sprint_loop",
+    "/Game/Weapons/LMG201/Charging04/Before/Animations/A_LMG201_aim",
+    "/Game/Weapons/LMG201/Charging04/Before/Animations/A_LMG201_aim_fire",
+    "/Game/Weapons/LMG201/Charging04/Before/Animations/A_LMG201_equip",
+    "/Game/Weapons/LMG201/Charging04/Before/Animations/A_LMG201_fire",
+    "/Game/Weapons/LMG201/Charging04/Before/Animations/A_LMG201_idle",
+    "/Game/Weapons/LMG201/Charging04/Before/Animations/A_LMG201_inspect",
+    "/Game/Weapons/LMG201/Charging04/Before/Animations/A_LMG201_quick_melee",
+    "/Game/Weapons/LMG201/Charging04/Before/Animations/A_LMG201_reload",
+    "/Game/Weapons/LMG201/Charging04/Before/Animations/A_LMG201_reload_empty",
+    "/Game/Weapons/LMG201/Charging04/Before/Animations/A_LMG201_sprint_enter",
+    "/Game/Weapons/LMG201/Charging04/Before/Animations/A_LMG201_sprint_exit",
+    "/Game/Weapons/LMG201/Charging04/Before/Animations/A_LMG201_sprint_loop",
+    "/Game/Weapons/LMG201/Charging04/Before/SK_LMG201_Manny",
+    "/Game/Weapons/LMG201/Charging04/SK_LMG201_WeaponSurface",
+    "/Game/Weapons/LMG201/ClothFeed33/Previous/SK_LMG201_Cover10_PreCloth33",
+    "/Game/Weapons/LMG201/Detail35/Previous/DA_LMG201_AttachmentWetMaterials_PreD35",
+    "/Game/Weapons/LMG201/Detail35/Previous/SK_LMG201_Cover10_PreD35",
+    "/Game/Weapons/LMG201/Detail35/Previous/SM_LMG201_FrontSight_PreD35",
+    "/Game/Weapons/LMG201/Detail35/Previous/SM_LMG201_RearSight_PreD35",
+    "/Game/Weapons/LMG201/Hands03/Before/Animations/A_LMG201_aim",
+    "/Game/Weapons/LMG201/Hands03/Before/Animations/A_LMG201_aim_fire",
+    "/Game/Weapons/LMG201/Hands03/Before/Animations/A_LMG201_equip",
+    "/Game/Weapons/LMG201/Hands03/Before/Animations/A_LMG201_fire",
+    "/Game/Weapons/LMG201/Hands03/Before/Animations/A_LMG201_idle",
+    "/Game/Weapons/LMG201/Hands03/Before/Animations/A_LMG201_inspect",
+    "/Game/Weapons/LMG201/Hands03/Before/Animations/A_LMG201_quick_melee",
+    "/Game/Weapons/LMG201/Hands03/Before/Animations/A_LMG201_reload",
+    "/Game/Weapons/LMG201/Hands03/Before/Animations/A_LMG201_reload_empty",
+    "/Game/Weapons/LMG201/Hands03/Before/Animations/A_LMG201_sprint_enter",
+    "/Game/Weapons/LMG201/Hands03/Before/Animations/A_LMG201_sprint_exit",
+    "/Game/Weapons/LMG201/Hands03/Before/Animations/A_LMG201_sprint_loop",
+    "/Game/Weapons/LMG201/Hands03/Before/SK_LMG201_Manny",
+    "/Game/Weapons/LMG201/Install30/Previous/DA_LMG201_AttachmentWetMaterials_PreR30",
+    "/Game/Weapons/LMG201/Install30/Previous/SK_LMG201_Cover10_PreR30",
+    "/Game/Weapons/LMG201/Install30/Previous/SM_LMG201_FrontSight_PreR30",
+    "/Game/Weapons/LMG201/Install30/Previous/SM_LMG201_RearSight_PreR30",
+    "/Game/Weapons/LMG201/PKMDirect09/A_LMG201_reload_belt",
+    "/Game/Weapons/LMG201/PKMDirect09/A_LMG201_reload_belt_empty",
+    "/Game/Weapons/LMG201/Refinement01/Before/Animations/A_LMG201_aim",
+    "/Game/Weapons/LMG201/Refinement01/Before/Animations/A_LMG201_aim_fire",
+    "/Game/Weapons/LMG201/Refinement01/Before/Animations/A_LMG201_equip",
+    "/Game/Weapons/LMG201/Refinement01/Before/Animations/A_LMG201_fire",
+    "/Game/Weapons/LMG201/Refinement01/Before/Animations/A_LMG201_idle",
+    "/Game/Weapons/LMG201/Refinement01/Before/Animations/A_LMG201_inspect",
+    "/Game/Weapons/LMG201/Refinement01/Before/Animations/A_LMG201_quick_melee",
+    "/Game/Weapons/LMG201/Refinement01/Before/Animations/A_LMG201_reload",
+    "/Game/Weapons/LMG201/Refinement01/Before/Animations/A_LMG201_reload_empty",
+    "/Game/Weapons/LMG201/Refinement01/Before/Animations/A_LMG201_sprint_enter",
+    "/Game/Weapons/LMG201/Refinement01/Before/Animations/A_LMG201_sprint_exit",
+    "/Game/Weapons/LMG201/Refinement01/Before/Animations/A_LMG201_sprint_loop",
+    "/Game/Weapons/LMG201/Refinement01/Before/SK_LMG201_Manny",
+    "/Game/Weapons/LMG201/Refinement01/Before/SM_LMG201_BipodBase",
+    "/Game/Weapons/LMG201/Refinement01/Before/SM_LMG201_BipodLegA",
+    "/Game/Weapons/LMG201/Refinement01/Before/SM_LMG201_BipodLegB",
+    "/Game/Weapons/LMG201/Refinement01/Before/SM_LMG201_FrontSight",
+    "/Game/Weapons/LMG201/Refinement01/Before/SM_LMG201_RearSight",
+    "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_FrontSight",
+    "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_RearSight",
+    "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_Receiver_Machined",
+    "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_SightInner",
+    "/Game/Weapons/LMG201/Refinement02/Before/Icons/ue_lmg201",
+    "/Game/Weapons/LMG201/Refinement02/Before/Icons/ue_lmg201_category_optic",
+    "/Game/Weapons/LMG201/Refinement02/Before/Icons/ue_lmg201_optic_false",
+    "/Game/Weapons/LMG201/Refinement02/Before/SK_LMG201_Manny",
+    "/Game/Weapons/LMG201/Refinement02/Before/SM_LMG201_FrontSight",
+    "/Game/Weapons/LMG201/Refinement02/Before/SM_LMG201_RearSight",
+    "/Game/Weapons/LMG201/Reload11/A_LMG201_reload_belt",
+    "/Game/Weapons/LMG201/Reload11/A_LMG201_reload_belt_empty",
+    "/Game/Weapons/LMG201/Repair36/Previous/DA_LMG201_AttachmentWetMaterials_PreR36",
+    "/Game/Weapons/LMG201/Repair36/Previous/SK_LMG201_Cloth33_Props_PreR36",
+    "/Game/Weapons/LMG201/Repair36/Previous/SK_LMG201_Cover10_PreR36",
+    "/Game/Weapons/LMG201/Repair36/Previous/SM_LMG201_FrontSight_PreR36",
+    "/Game/Weapons/LMG201/Repair36/Previous/SM_LMG201_RearSight_PreR36",
+    "/Game/Weapons/LMG201/Skin07/Before/Animations/A_LMG201_aim",
+    "/Game/Weapons/LMG201/Skin07/Before/Animations/A_LMG201_aim_fire",
+    "/Game/Weapons/LMG201/Skin07/Before/Animations/A_LMG201_equip",
+    "/Game/Weapons/LMG201/Skin07/Before/Animations/A_LMG201_fire",
+    "/Game/Weapons/LMG201/Skin07/Before/Animations/A_LMG201_idle",
+    "/Game/Weapons/LMG201/Skin07/Before/Animations/A_LMG201_inspect",
+    "/Game/Weapons/LMG201/Skin07/Before/Animations/A_LMG201_quick_melee",
+    "/Game/Weapons/LMG201/Skin07/Before/Animations/A_LMG201_reload",
+    "/Game/Weapons/LMG201/Skin07/Before/Animations/A_LMG201_reload_empty",
+    "/Game/Weapons/LMG201/Skin07/Before/Animations/A_LMG201_sprint_enter",
+    "/Game/Weapons/LMG201/Skin07/Before/Animations/A_LMG201_sprint_exit",
+    "/Game/Weapons/LMG201/Skin07/Before/Animations/A_LMG201_sprint_loop",
+    "/Game/Weapons/LMG201/Support05/Before/Animations/A_LMG201_aim",
+    "/Game/Weapons/LMG201/Support05/Before/Animations/A_LMG201_aim_fire",
+    "/Game/Weapons/LMG201/Support05/Before/Animations/A_LMG201_equip",
+    "/Game/Weapons/LMG201/Support05/Before/Animations/A_LMG201_fire",
+    "/Game/Weapons/LMG201/Support05/Before/Animations/A_LMG201_idle",
+    "/Game/Weapons/LMG201/Support05/Before/Animations/A_LMG201_inspect",
+    "/Game/Weapons/LMG201/Support05/Before/Animations/A_LMG201_quick_melee",
+    "/Game/Weapons/LMG201/Support05/Before/Animations/A_LMG201_reload",
+    "/Game/Weapons/LMG201/Support05/Before/Animations/A_LMG201_reload_empty",
+    "/Game/Weapons/LMG201/Support05/Before/Animations/A_LMG201_sprint_enter",
+    "/Game/Weapons/LMG201/Support05/Before/Animations/A_LMG201_sprint_exit",
+    "/Game/Weapons/LMG201/Support05/Before/Animations/A_LMG201_sprint_loop",
+    "/Game/Weapons/LMG201/Surface32/Previous/DA_LMG201_AttachmentWetMaterials_PreS32",
+    "/Game/Weapons/LMG201/Surface32/Previous/SK_LMG201_Cover10_PreS32",
+    "/Game/Weapons/LMG201/Surface32/Previous/SM_LMG201_FrontSight_PreS32",
+    "/Game/Weapons/LMG201/Surface32/Previous/SM_LMG201_RearSight_PreS32",
+    "/Game/Weapons/LMG201/Video26/Parts/SK_LMG201_Video26_Parts",
+    "/Game/Weapons/LMG201/Video26/Parts/SM_LMG201_FrontSight",
+    "/Game/Weapons/LMG201/Video26/Parts/SM_LMG201_RearSight"
+  ],
+  "retained": [
+    {
+      "package": "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_BipodBase",
+      "referencers": [
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_bipod"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_BipodLegA",
+      "referencers": [
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_bipod"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_BipodLegB",
+      "referencers": [
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_bipod"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_CarryHandle",
+      "referencers": [
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_body",
+        "/Game/Weapons/LMG201/BeltFeed08/SK_LMG201_BeltFeed",
+        "/Game/Weapons/LMG201/Production20260927/SK_LMG201_Manny"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_CarryHandle_Polymer",
+      "referencers": [
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_body",
+        "/Game/Weapons/LMG201/BeltFeed08/SK_LMG201_BeltFeed",
+        "/Game/Weapons/LMG201/Production20260927/SK_LMG201_Manny"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_ChargingHandle",
+      "referencers": [
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_body",
+        "/Game/Weapons/LMG201/BeltFeed08/SK_LMG201_BeltFeed",
+        "/Game/Weapons/LMG201/Production20260927/SK_LMG201_Manny"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_FactoryMuzzle",
+      "referencers": [
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_body",
+        "/Game/Weapons/LMG201/BeltFeed08/SK_LMG201_BeltFeed",
+        "/Game/Weapons/LMG201/Production20260927/SK_LMG201_Manny"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_FactoryRearGrip",
+      "referencers": [
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_grip",
+        "/Game/Weapons/LMG201/BeltFeed08/SK_LMG201_BeltFeed",
+        "/Game/Weapons/LMG201/Production20260927/SK_LMG201_Manny"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_FactoryStock",
+      "referencers": [
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_stock",
+        "/Game/Weapons/LMG201/BeltFeed08/SK_LMG201_BeltFeed",
+        "/Game/Weapons/LMG201/Production20260927/SK_LMG201_Manny"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_FactoryStock_Polymer",
+      "referencers": [
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_stock",
+        "/Game/Weapons/LMG201/BeltFeed08/SK_LMG201_BeltFeed",
+        "/Game/Weapons/LMG201/Production20260927/SK_LMG201_Manny"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_Handguard",
+      "referencers": [
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_handguard",
+        "/Game/Weapons/LMG201/BeltFeed08/SK_LMG201_BeltFeed",
+        "/Game/Weapons/LMG201/Production20260927/SK_LMG201_Manny"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_Handguard_UpperSteel",
+      "referencers": [
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_handguard",
+        "/Game/Weapons/LMG201/BeltFeed08/SK_LMG201_BeltFeed",
+        "/Game/Weapons/LMG201/Production20260927/SK_LMG201_Manny"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_Inside",
+      "referencers": [
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_bipod",
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_body",
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_cover",
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_magazine",
+        "/Game/Weapons/LMG201/BeltFeed08/SK_LMG201_BeltFeed",
+        "/Game/Weapons/LMG201/ClothFeed33/SK_LMG201_Cloth33_Installed",
+        "/Game/Weapons/LMG201/Cover10/SK_LMG201_Cover10",
+        "/Game/Weapons/LMG201/Detail35/SK_LMG201_D35_Installed",
+        "/Game/Weapons/LMG201/Install30/SK_LMG201_R30_Installed",
+        "/Game/Weapons/LMG201/Production20260927/SK_LMG201_Manny",
+        "/Game/Weapons/LMG201/Production20260927/SM_LMG201_BipodBase",
+        "/Game/Weapons/LMG201/Production20260927/SM_LMG201_BipodLegA",
+        "/Game/Weapons/LMG201/Production20260927/SM_LMG201_BipodLegB",
+        "/Game/Weapons/LMG201/Repair36/SK_LMG201_R36_Installed",
+        "/Game/Weapons/LMG201/Surface32/SK_LMG201_S32_Installed"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_Magazine",
+      "referencers": [
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_magazine",
+        "/Game/Weapons/LMG201/BeltFeed08/SK_LMG201_BeltFeed",
+        "/Game/Weapons/LMG201/Production20260927/SK_LMG201_Manny"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_Receiver",
+      "referencers": [
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_body",
+        "/Game/Weapons/LMG201/BeltFeed08/SK_LMG201_BeltFeed",
+        "/Game/Weapons/LMG201/Production20260927/SK_LMG201_Manny"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_Trigger",
+      "referencers": [
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_body",
+        "/Game/Weapons/LMG201/BeltFeed08/SK_LMG201_BeltFeed",
+        "/Game/Weapons/LMG201/Production20260927/SK_LMG201_Manny"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement01/Textures/T_LMG201_base_color",
+      "referencers": [
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_BipodBase",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_BipodLegA",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_BipodLegB",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_CarryHandle",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_CarryHandle_Polymer",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_ChargingHandle",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_FactoryMuzzle",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_FactoryRearGrip",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_FactoryStock",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_FactoryStock_Polymer",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_Handguard",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_Handguard_UpperSteel",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_Magazine",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_Receiver",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_Trigger",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_BipodBase",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_BipodLegA",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_BipodLegB",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_CarryHandle",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_CarryHandle_Polymer",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_ChargingHandle",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_FactoryMuzzle",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_FactoryRearGrip",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_FactoryStock",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_FactoryStock_Polymer",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_Handguard",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_Handguard_UpperSteel",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_Magazine",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_Receiver",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_Trigger",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_BipodBase_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_BipodLegA_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_BipodLegB_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_CarryHandle_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_ChargingHandle_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_FactoryMuzzle_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_FactoryStock_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Handguard_UpperSteel_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Magazine_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Receiver_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Trigger_V26"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement01/Textures/T_LMG201_normal",
+      "referencers": [
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_BipodBase",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_BipodLegA",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_BipodLegB",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_CarryHandle",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_CarryHandle_Polymer",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_ChargingHandle",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_FactoryMuzzle",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_FactoryRearGrip",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_FactoryStock",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_FactoryStock_Polymer",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_Handguard",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_Handguard_UpperSteel",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_Magazine",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_Receiver",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_Trigger",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_BipodBase",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_BipodLegA",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_BipodLegB",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_CarryHandle",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_CarryHandle_Polymer",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_ChargingHandle",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_FactoryMuzzle",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_FactoryRearGrip",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_FactoryStock",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_FactoryStock_Polymer",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_Handguard",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_Handguard_UpperSteel",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_Magazine",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_Receiver",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_Trigger",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_BipodBase_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_BipodLegA_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_BipodLegB_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_CarryHandle_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_ChargingHandle_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_FactoryMuzzle_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_FactoryStock_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Handguard_UpperSteel_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Magazine_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Receiver_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Trigger_V26"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement01/Textures/T_LMG201_roughness",
+      "referencers": [
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_BipodBase",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_BipodLegA",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_BipodLegB",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_CarryHandle",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_CarryHandle_Polymer",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_ChargingHandle",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_FactoryMuzzle",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_FactoryRearGrip",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_FactoryStock",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_FactoryStock_Polymer",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_Handguard",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_Handguard_UpperSteel",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_Magazine",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_Receiver",
+        "/Game/Weapons/LMG201/Material21/Materials/M_LMG201_Trigger",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_BipodBase",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_BipodLegA",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_BipodLegB",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_CarryHandle",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_CarryHandle_Polymer",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_ChargingHandle",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_FactoryMuzzle",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_FactoryRearGrip",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_FactoryStock",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_FactoryStock_Polymer",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_Handguard",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_Handguard_UpperSteel",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_Magazine",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_Receiver",
+        "/Game/Weapons/LMG201/Refinement01/Materials/M_LMG201_Trigger",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_BipodBase_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_BipodLegA_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_BipodLegB_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_CarryHandle_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_ChargingHandle_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_FactoryMuzzle_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_FactoryStock_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Handguard_UpperSteel_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Magazine_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Receiver_V26",
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Trigger_V26"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement02/Materials/M_LMG201_ReceiverReferenceCover",
+      "referencers": [
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_body",
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_cover",
+        "/Game/Weapons/LMG201/BeltFeed08/Materials/M_LMG201_Feed__NewBox_Paint",
+        "/Game/Weapons/LMG201/BeltFeed08/Materials/M_LMG201_Feed__OldBox_Paint",
+        "/Game/Weapons/LMG201/BeltFeed08/SK_LMG201_BeltFeed",
+        "/Game/Weapons/LMG201/Production20260927/SK_LMG201_Manny"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement02/Materials/M_LMG201_ReceiverReferenceHardware",
+      "referencers": [
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_body",
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_cover",
+        "/Game/Weapons/LMG201/BeltFeed08/Materials/M_LMG201_Feed__NewBelt_Case",
+        "/Game/Weapons/LMG201/BeltFeed08/Materials/M_LMG201_Feed__NewBelt_Copper",
+        "/Game/Weapons/LMG201/BeltFeed08/Materials/M_LMG201_Feed__NewBelt_Link",
+        "/Game/Weapons/LMG201/BeltFeed08/Materials/M_LMG201_Feed__OldBelt_Case",
+        "/Game/Weapons/LMG201/BeltFeed08/Materials/M_LMG201_Feed__OldBelt_Copper",
+        "/Game/Weapons/LMG201/BeltFeed08/Materials/M_LMG201_Feed__OldBelt_Link",
+        "/Game/Weapons/LMG201/BeltFeed08/SK_LMG201_BeltFeed",
+        "/Game/Weapons/LMG201/Production20260927/SK_LMG201_Manny"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement02/Materials/M_LMG201_ReceiverReferenceRail",
+      "referencers": [
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_body",
+        "/Game/Weapons/LMG201/BeltFeed08/SK_LMG201_BeltFeed",
+        "/Game/Weapons/LMG201/Production20260927/SK_LMG201_Manny"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement02/Materials/M_LMG201_ReferenceFrontSight",
+      "referencers": [
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_body"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement02/Materials/M_LMG201_ReferenceRearSight",
+      "referencers": [
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_body"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Refinement02/Materials/M_LMG201_ReferenceSightInner",
+      "referencers": [
+        "/Game/Building/GunAssemblyCatalog20260928/lmg201/SM_GA_lmg201_body"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_BipodBase_V26",
+      "referencers": [
+        "/Game/Weapons/LMG201/Accessories22/DA_LMG201_AttachmentWetMaterials",
+        "/Game/Weapons/LMG201/Production20260927/SM_LMG201_BipodBase"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_BipodLegA_V26",
+      "referencers": [
+        "/Game/Weapons/LMG201/Accessories22/DA_LMG201_AttachmentWetMaterials",
+        "/Game/Weapons/LMG201/Production20260927/SM_LMG201_BipodLegA"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_BipodLegB_V26",
+      "referencers": [
+        "/Game/Weapons/LMG201/Accessories22/DA_LMG201_AttachmentWetMaterials",
+        "/Game/Weapons/LMG201/Production20260927/SM_LMG201_BipodLegB"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_CarryHandle_V26",
+      "referencers": [
+        "/Game/Weapons/LMG201/Accessories22/DA_LMG201_AttachmentWetMaterials"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_ChargingHandle_V26",
+      "referencers": [
+        "/Game/Weapons/LMG201/Accessories22/DA_LMG201_AttachmentWetMaterials"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_FactoryMuzzle_V26",
+      "referencers": [
+        "/Game/Weapons/LMG201/Accessories22/DA_LMG201_AttachmentWetMaterials"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_FactoryStock_V26",
+      "referencers": [
+        "/Game/Weapons/LMG201/Accessories22/DA_LMG201_AttachmentWetMaterials"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Handguard_UpperSteel_V26",
+      "referencers": [
+        "/Game/Weapons/LMG201/Accessories22/DA_LMG201_AttachmentWetMaterials"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Magazine_V26",
+      "referencers": [
+        "/Game/Weapons/LMG201/Accessories22/DA_LMG201_AttachmentWetMaterials"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_ReceiverReferenceHardware_V26",
+      "referencers": [
+        "/Game/Weapons/LMG201/Accessories22/DA_LMG201_AttachmentWetMaterials"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_ReceiverReferenceRail_V26",
+      "referencers": [
+        "/Game/Weapons/LMG201/Accessories22/DA_LMG201_AttachmentWetMaterials"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Receiver_V26",
+      "referencers": [
+        "/Game/Weapons/LMG201/Accessories22/DA_LMG201_AttachmentWetMaterials"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Trigger_V26",
+      "referencers": [
+        "/Game/Weapons/LMG201/Accessories22/DA_LMG201_AttachmentWetMaterials"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Video26_Body",
+      "referencers": [
+        "/Game/Weapons/LMG201/Accessories22/DA_LMG201_AttachmentWetMaterials",
+        "/Game/Weapons/LMG201/ClothFeed33/SK_LMG201_Cloth33_Installed",
+        "/Game/Weapons/LMG201/Cover10/SK_LMG201_Cover10",
+        "/Game/Weapons/LMG201/Detail35/SK_LMG201_D35_Installed",
+        "/Game/Weapons/LMG201/Install30/SK_LMG201_R30_Installed",
+        "/Game/Weapons/LMG201/Repair36/SK_LMG201_R36_Installed",
+        "/Game/Weapons/LMG201/Surface32/SK_LMG201_S32_Installed"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Video26_FrontSight",
+      "referencers": [
+        "/Game/Weapons/LMG201/Accessories22/DA_LMG201_AttachmentWetMaterials"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Video26_RearSight",
+      "referencers": [
+        "/Game/Weapons/LMG201/Accessories22/DA_LMG201_AttachmentWetMaterials"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Textures/T_LMG201_V26_Body_BaseColor",
+      "referencers": [
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Video26_Body"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Textures/T_LMG201_V26_Body_Normal",
+      "referencers": [
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Video26_Body"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Textures/T_LMG201_V26_Body_ORM",
+      "referencers": [
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Video26_Body"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Textures/T_LMG201_V26_FrontSight_BaseColor",
+      "referencers": [
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Video26_FrontSight"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Textures/T_LMG201_V26_FrontSight_Normal",
+      "referencers": [
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Video26_FrontSight"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Textures/T_LMG201_V26_FrontSight_ORM",
+      "referencers": [
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Video26_FrontSight"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Textures/T_LMG201_V26_RearSight_BaseColor",
+      "referencers": [
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Video26_RearSight"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Textures/T_LMG201_V26_RearSight_Normal",
+      "referencers": [
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Video26_RearSight"
+      ]
+    },
+    {
+      "package": "/Game/Weapons/LMG201/Video26/Textures/T_LMG201_V26_RearSight_ORM",
+      "referencers": [
+        "/Game/Weapons/LMG201/Video26/Materials/M_LMG201_Video26_RearSight"
+      ]
+    }
+  ],
+  "external_referencers": [],
+  "scope": "User-requested archive dependency check only"
+}

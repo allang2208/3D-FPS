@@ -1272,3 +1272,18 @@ __pycache__/
 !/SourceAssets/StaffOffhand20260928/
 !/SourceAssets/StaffOffhand20260928/staff_light_cold_steel.png
 !/Content/ColdSteelData/Skills/staff_light_cold_steel.png
+
+# 201 publication 2026-09-29: only selected repair recipes; all source media stays local.
+/SourceAssets/LMG20120260927/**
+!/SourceAssets/LMG20120260927/**/
+!/SourceAssets/LMG20120260927/README.md
+!/SourceAssets/LMG20120260927/Repair36/README.md
+!/SourceAssets/LMG20120260927/Repair36/capture.py
+!/SourceAssets/LMG20120260927/Repair36/check_saved_materials.py
+!/SourceAssets/LMG20120260927/Repair36/coating_sample.py
+!/SourceAssets/LMG20120260927/Repair36/install.py
+!/SourceAssets/LMG20120260927/Repair36/integrate.py
+!/SourceAssets/LMG20120260927/Repair36/materials.py
+!/SourceAssets/LMG20120260927/Repair36/rebuild_lid.py
+!/SourceAssets/LMG20120260927/Repair36/run_headless.ps1
+!/SourceAssets/LMG20120260927/Detail35/model.py
