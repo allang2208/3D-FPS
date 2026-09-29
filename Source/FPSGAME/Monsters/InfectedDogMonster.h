@@ -12,14 +12,8 @@ class FPSGAME_API AInfectedDogMonster : public AWolfMonster
     GENERATED_BODY()
 public:
     AInfectedDogMonster(const FObjectInitializer& ObjectInitializer=FObjectInitializer::Get());
-    virtual void BeginPlay() override;
-    CoreCombatFormula::Attributes BaseAttributes() const;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Infected Dog|Attributes", meta=(ClampMin="0")) float Strength=24.f;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Infected Dog|Attributes", meta=(ClampMin="0")) float Dexterity=32.f;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Infected Dog|Attributes", meta=(ClampMin="0")) float Intelligence=4.f;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Infected Dog|Attributes", meta=(ClampMin="0")) float Constitution=18.f;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Infected Dog|Attributes", meta=(ClampMin="0")) float Wisdom=10.f;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Infected Dog|Attributes", meta=(ClampMin="0")) float Luck=6.f;
+    // 2026-09-28 随怪物端六维剔除常量化：数值为原六维 {24,32,4,18,10,6} 的派生烤入值
+    // （HP=100+5体、咬=atk、扑=round(atk×1.65)、防/抗=公式），CDO 已核验无 BP 覆盖。
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Infected Dog|Infection") FInfectionTuning Infection;
 protected:
     virtual void OnAttackLanded(APawn* Victim) override;

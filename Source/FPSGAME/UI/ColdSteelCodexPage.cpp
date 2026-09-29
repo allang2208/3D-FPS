@@ -7,12 +7,15 @@
 #include "ColdSteelUIStyle.h"
 #include "ColdSteelWeaponIcons.h"
 #include "ColdSteelMonsterPortraits.h"
+#include "StatusEffectsComponent.h"
 #include "../Monsters/MonsterCoreStats.h"
 #include "../Development/DevelopmentSpawnComponent.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "../Weapons/WeaponStatEvaluation.h"
 #include "../Production/ProductionToolStats.h"
+#include "../Production/ProductionToolEnhance.h"
 #include "../Production/ProductionResource.h"
+#include "../Production/ProductionTreeHealth.h"
 #include "Engine/GameInstance.h"
 // GetDefaultObject<AActor>() 需要 AActor 完整定义；角色头文件在怪物类之外也提供它。
 #include "GameFramework/Character.h"
@@ -23,14 +26,15 @@
 #include "Widgets/Layout/SScrollBox.h"
 #include "Widgets/SBoxPanel.h"
 #include "Widgets/Input/SButton.h"
+#include "Widgets/Input/SEditableTextBox.h"
 #include "Widgets/Images/SImage.h"
 #include "Widgets/Text/STextBlock.h"
 
 namespace
 {
     /** 武器分类索引：与原项目 codex-manager 的 equipCategories 同序（去掉本工程没有的防具／饰品）。 */
-    const TCHAR* WeaponCategoryKeys[] = {TEXT("all"), TEXT("weapon_ranged"), TEXT("weapon_melee"), TEXT("tool")};
-    const TCHAR* WeaponCategoryLabels[] = {TEXT("全部"), TEXT("枪械"), TEXT("近战武器"), TEXT("生产工具")};
+    const TCHAR* WeaponCategoryKeys[] = {TEXT("all"), TEXT("weapon_ranged"), TEXT("weapon_melee"), TEXT("tool"), TEXT("equipment")};
+    const TCHAR* WeaponCategoryLabels[] = {TEXT("全部"), TEXT("枪械"), TEXT("近战武器"), TEXT("生产工具"), TEXT("装备")};
     const int32 WeaponCategoryCount = UE_ARRAY_COUNT(WeaponCategoryKeys);
 
     /** 怪物分类按品阶。页签刻意不列 Minor（本工程九只身份没有一只用它），
@@ -45,6 +49,36 @@ namespace
     const int32 MonsterCategoryCount = UE_ARRAY_COUNT(MonsterCategoryLabels);
     static_assert(UE_ARRAY_COUNT(MonsterCategoryRanks) == UE_ARRAY_COUNT(MonsterCategoryLabels),
         "怪物页签与品阶映射表长度必须一致");
+
+    /** 状态分区分类：页签 0=全部不过滤，1=增益(buff)，2=减益(debuff)。
+     *  与怪物侧同一纪律：页签下标与目录 kind 字符串必须显式映射，不做下标算术。 */
+    const TCHAR* StatusCategoryKinds[] = {TEXT("all"), TEXT("buff"), TEXT("debuff")};
+    const TCHAR* StatusCategoryLabels[] = {TEXT("全部"), TEXT("增益"), TEXT("减益")};
+    const int32 StatusCategoryCount = UE_ARRAY_COUNT(StatusCategoryLabels);
+    static_assert(UE_ARRAY_COUNT(StatusCategoryKinds) == UE_ARRAY_COUNT(StatusCategoryLabels),
+        "状态页签与 kind 映射表长度必须一致");
+
+    /** 状态来源分组（2026-09-30 用户需求）：显示顺序即表序。分组语义写在注释与组头副标题，
+     *  条目归属由目录 group 字段驱动（status_effects.json 单一事实源）。 */
+    struct FStatusGroupDef { const TCHAR* Key; const TCHAR* Label; const TCHAR* Note; };
+    const FStatusGroupDef StatusGroups[] = {
+        { TEXT("combat"),       TEXT("战斗状态"), TEXT("战斗中由攻击、法术与环境直接施加的状态") },
+        { TEXT("triggered"),    TEXT("触发效果"), TEXT("满足特定条件时触发：击杀、命中、弹反、施法") },
+        { TEXT("persistent"),   TEXT("常态效果"), TEXT("生效期间持续起效，无触发条件") },
+        { TEXT("tribute"),      TEXT("祭品与赐福"), TEXT("地牢祭坛祭品与神殿赐福，本次地牢有效") },
+        { TEXT("dungeon_event"), TEXT("地牢事件"), TEXT("地牢路线事件获得，按战斗场次消耗") },
+    };
+    const int32 StatusGroupCount = UE_ARRAY_COUNT(StatusGroups);
+
+    /** 祭品稀有度分组（2026-09-30）：组序高→低，与祭品分类页签同序同长。
+     *  标签走 ColdSteelUI::RarityLabel（稀有度文案单一来源），此处只定序。 */
+    const TCHAR* TributeRarityKeys[] = {
+        TEXT("legendary"), TEXT("mythic"), TEXT("epic"), TEXT("rare"), TEXT("uncommon"), TEXT("common") };
+    const TCHAR* TributeRarityLabels[] = {
+        TEXT("传说"), TEXT("神话"), TEXT("史诗"), TEXT("稀有"), TEXT("罕见"), TEXT("普通") };
+    const int32 TributeRarityCount = UE_ARRAY_COUNT(TributeRarityKeys);
+    static_assert(UE_ARRAY_COUNT(TributeRarityKeys) == UE_ARRAY_COUNT(TributeRarityLabels),
+        "祭品稀有度键与标签表长度必须一致");
 
     FString Dash() { return TEXT("—"); }
 
@@ -125,6 +159,10 @@ void UColdSteelCodexPage::ReleaseSlateResources(bool bReleaseChildren)
         if (auto* Icons = GI->GetSubsystem<UColdSteelWeaponIcons>()) Icons->OnReady.RemoveAll(this);
         if (auto* Portraits = GI->GetSubsystem<UColdSteelMonsterPortraits>()) Portraits->OnReady.RemoveAll(this);
     }
+    // 搜索框与状态卡片区是跨重建缓存的 Slate 控件，页面销毁时一并放掉。
+    SearchEdit.Reset();
+    StatusCardsHost.Reset();
+    TributeCardsHost.Reset();
     Root.Reset();
     GridScroll.Reset();
     DetailScroll.Reset();
@@ -191,13 +229,13 @@ TSharedRef<SWidget> UColdSteelCodexPage::Label(const FString& Value, float Pixel
         .AutoWrapText(true);
 }
 
-TSharedRef<SWidget> UColdSteelCodexPage::TabLabel(const FString& Value, bool bActive) const
+TSharedRef<SWidget> UColdSteelCodexPage::TabLabel(const FString& Value, bool bIsActive) const
 {
     // 页签文字必须单行横向显示：AutoWrapText(true) 会在等宽窄列里把中文逐字换行成竖排。
     const float Units = 14.f * .75f / FMath::Max(Scale, .01f);
     return SNew(STextBlock)
-        .Font(ColdSteelUI::TextFont(Units, bActive))
-        .ColorAndOpacity(FSlateColor(bActive ? ColdSteelUI::TextPrimary : ColdSteelUI::TextSecondary))
+        .Font(ColdSteelUI::TextFont(Units, bIsActive))
+        .ColorAndOpacity(FSlateColor(bIsActive ? ColdSteelUI::TextPrimary : ColdSteelUI::TextSecondary))
         .Text(FText::FromString(Value))
         .AutoWrapText(false)
         .WrapTextAt(0.f);
@@ -319,10 +357,21 @@ TSharedRef<SWidget> UColdSteelCodexPage::BuildPage()
     TSharedRef<SVerticalBox> Content = SNew(SVerticalBox);
     Content->AddSlot().AutoHeight().Padding(Pad, Pad * .5f, Pad, Pad * .5f)[ BuildTabs() ];
 
+    // 状态分区独占整页：一张「状态栏卡片」平铺全部条目与说明，不与列表/详情分栏共用布局
+    // （2026-09-29 用户要求：进入状态栏后整个页面都留给状态栏显示）。
+    if (Section == 2)
+    {
+        Content->AddSlot().FillHeight(1.f).Padding(Pad, 0.f, Pad, Pad * .5f)[ BuildStatusPage() ];
+    }
+    // 祭品分区同样整页独占（与状态分区同规则）：搜索栏 + 按稀有度分组的「祭品卡片」。
+    else if (Section == 3)
+    {
+        Content->AddSlot().FillHeight(1.f).Padding(Pad, 0.f, Pad, Pad * .5f)[ BuildTributePage() ];
+    }
     // 内容宽低于 StackedBelowWidth 时网格与详情纵排；否则左列表右详情。
     // 抽屉宽度本身下限就是 720px（视口 48%、夹在 720–1040px），SetLayoutWidth 收到的是 Width−2，
     // 所以正常显示器上实际宽度约 718–1038px。阈值若取 720 将几乎永远走纵排——两列版式永远不出现。
-    if (PageWidth < StackedBelowWidth)
+    else if (PageWidth < StackedBelowWidth)
     {
         Content->AddSlot().FillHeight(1.f).Padding(Pad, 0.f, Pad, Gap)[ BuildGrid() ];
         Content->AddSlot().AutoHeight().Padding(Pad, 0.f, Pad, Pad * .5f)[ BuildDetail() ];
@@ -361,8 +410,8 @@ TSharedRef<SWidget> UColdSteelCodexPage::BuildTabs()
     // 文本走 TabLabel（AutoWrapText(false)），与技能页 FilterButtons 的单行标签同规格。
     SectionButtons.Reset();
     TSharedRef<SHorizontalBox> Sections = SNew(SHorizontalBox);
-    const TCHAR* SectionLabels[] = {TEXT("武器"), TEXT("怪物")};
-    for (int32 Index = 0; Index < 2; ++Index)
+    const TCHAR* SectionLabels[] = {TEXT("武器"), TEXT("怪物"), TEXT("状态"), TEXT("祭品")};
+    for (int32 Index = 0; Index < 4; ++Index)
     {
         const bool bActive = Index == Section;
         TSharedPtr<SButton> Button;
@@ -428,7 +477,8 @@ TSharedRef<SWidget> UColdSteelCodexPage::BuildGrid()
     if (List.IsEmpty())
     {
         Rows->AddSlot().AutoHeight().Padding(Pad, Pad * 1.5f)
-            [ Label(Section == 0 ? TEXT("此分类暂无武器档案") : TEXT("此分类暂无怪物档案"), 14, ColdSteelUI::TextTertiary) ];
+            [ Label(Section == 0 ? TEXT("此分类暂无武器档案") : Section == 2 ? TEXT("此分类暂无状态档案")
+                : Section == 3 ? TEXT("此分类暂无祭品档案") : TEXT("此分类暂无怪物档案"), 14, ColdSteelUI::TextTertiary) ];
     }
     else
     {
@@ -496,8 +546,12 @@ TSharedRef<SWidget> UColdSteelCodexPage::BuildDetail()
         // 先前把立绘放在 AutoWidth 槽里与文字并排，槽宽只等于图片自身宽度，
         // 于是图片始终被限制在窄条内——这就是「还是压缩在小范围」的原因。
         // 现在立绘是整宽横栏，缩放上限由详情列实际宽度决定（见 PortraitFrame）。
-        Detail->AddSlot().AutoHeight().Padding(Pad, Pad, Pad, CardGap * .6f)
-            [ PortraitFrame(Section == 0, SelectedId) ];
+        // 状态分区无立绘（图标为字体字形，直接进入卡片行），不画占位横栏。
+        if (Section != 2)
+        {
+            Detail->AddSlot().AutoHeight().Padding(Pad, Pad, Pad, CardGap * .6f)
+                [ PortraitFrame(Section == 0, SelectedId) ];
+        }
 
         Detail->AddSlot().AutoHeight().Padding(Pad, 0.f, Pad, CardGap)
         [
@@ -552,6 +606,15 @@ TArray<FString> UColdSteelCodexPage::Categories() const
     {
         for (int32 Index = 0; Index < WeaponCategoryCount; ++Index) Names.Add(WeaponCategoryLabels[Index]);
     }
+    else if (Section == 2)
+    {
+        for (int32 Index = 0; Index < StatusCategoryCount; ++Index) Names.Add(StatusCategoryLabels[Index]);
+    }
+    else if (Section == 3)
+    {
+        Names.Add(TEXT("全部"));
+        for (int32 Index = 0; Index < TributeRarityCount; ++Index) Names.Add(TributeRarityLabels[Index]);
+    }
     else
     {
         for (int32 Index = 0; Index < MonsterCategoryCount; ++Index) Names.Add(MonsterCategoryLabels[Index]);
@@ -561,7 +624,8 @@ TArray<FString> UColdSteelCodexPage::Categories() const
 
 FString UColdSteelCodexPage::SectionLabel() const
 {
-    return Section == 0 ? TEXT("武器档案") : TEXT("怪物档案");
+    return Section == 0 ? TEXT("武器档案") : Section == 2 ? TEXT("状态栏")
+        : Section == 3 ? TEXT("祭品") : TEXT("怪物档案");
 }
 
 FString UColdSteelCodexPage::CatalogName(const FString& Definition) const
@@ -578,6 +642,7 @@ FString UColdSteelCodexPage::WeaponCategoryOf(const FColdSteelItem& Item) const
     // category 取值对齐 ClassifyItem 已承认的武器类别：weapon／weapon_ranged／weapon_magic 都是枪械，
     // weapon_melee 是近战武器，tool 是生产工具；其余（材料／消耗品／祭品等）不进图鉴。
     const FString CategoryField = ColdSteelInventory::Text(Item, TEXT("category"));
+    if (CategoryField == TEXT("equipment")) return TEXT("equipment");
     if (CategoryField == TEXT("tool")) return TEXT("tool");
     if (CategoryField == TEXT("weapon_melee")) return TEXT("weapon_melee");
     if (CategoryField == TEXT("weapon") || CategoryField == TEXT("weapon_ranged") || CategoryField == TEXT("weapon_magic")) return TEXT("weapon_ranged");
@@ -701,6 +766,30 @@ TArray<UColdSteelCodexPage::FCodexEntry> UColdSteelCodexPage::Entries() const
             Result.Add(MoveTemp(Row));
         }
     }
+    else if (Section == 2)
+    {
+        // 状态目录（AllDefinitions 已按名称排序）：Category=kind（buff/debuff）。
+        // 注意必须在怪物分支之前：怪物分支的条件是“登记表存在”（恒真），放后面永远轮不到。
+        TArray<FStatusEffectView> Catalog;
+        UStatusEffectsComponent::AllDefinitions(Catalog);
+        const FString Key = StatusCategoryKinds[FMath::Clamp(Category, 0, StatusCategoryCount - 1)];
+        for (const FStatusEffectView& V : Catalog)
+        {
+            if (Key != TEXT("all") && V.Kind.ToString() != Key) continue;
+            FCodexEntry Row;
+            Row.Id = V.Type.ToString();
+            Row.Name = V.Name.IsEmpty() ? Row.Id : V.Name;
+            Row.Category = V.Kind.ToString();
+            Row.Subtitle = V.Kind == TEXT("debuff") ? TEXT("减益") : TEXT("增益");
+            Row.SortKey = V.Kind == TEXT("debuff") ? 1 : 0;
+            Result.Add(MoveTemp(Row));
+        }
+    }
+    else if (Section == 3)
+    {
+        // 祭品分区走整页卡片（TributePageCards），不使用网格列表条目；
+        // 此分支必须在恒真的怪物登记表分支之前，否则会被误吞。
+    }
     else if (const UDevelopmentSpawnComponent* Spawner = ResolveSpawner())
     {
         for (const FDevelopmentMonsterEntry& Entry : Spawner->GetMonsters())
@@ -712,7 +801,7 @@ TArray<UColdSteelCodexPage::FCodexEntry> UColdSteelCodexPage::Entries() const
             // 蓝图类未加载或身份未登记时不丢弃条目：仍列出，数值显示为不可用。
             if (!MonsterStatsOf(Entry, Stats))
             {
-                Row.Subtitle = TEXT("未登记六维");
+                Row.Subtitle = TEXT("未登记属性");
                 Row.SortKey = 99;
                 if (Category > 1) continue;
                 Result.Add(MoveTemp(Row));
@@ -732,6 +821,7 @@ TArray<UColdSteelCodexPage::FCodexEntry> UColdSteelCodexPage::Entries() const
             return A.Name < B.Name;
         });
     }
+
     return Result;
 }
 
@@ -787,22 +877,79 @@ TArray<TSharedRef<SWidget>> UColdSteelCodexPage::WeaponDetailRows(const FString&
     // 再由 ColdSteelWeaponStats 施加敏捷／附魔／加工等后处理。不读物品 Data 里不存在的字段。
     const UGunsmithSystem* Gunsmith = GetGameInstance() ? GetGameInstance()->GetSubsystem<UGunsmithSystem>() : nullptr;
     const FGunsmithWeapon* Weapon = Gunsmith ? Gunsmith->Weapon(Definition) : nullptr;
-    if (Gunsmith && Gunsmith->IsTool(Definition))
+    if (ColdSteelInventory::Text(Probe, TEXT("category")) == TEXT("equipment"))
+    {
+        // 装备（2026-09-30 方案 A 进图鉴）：防具/手套走物品 Data 的 stats 数组与说明——
+        // 与背包浮窗同一字段；装备无枪械/近战/工具数值，不伪造，也不显示"无参数"占位卡。
+        TArray<TSharedRef<SWidget>> Rows;
+        TSharedPtr<FJsonObject> Data;
+        const TArray<TSharedPtr<FJsonValue>>* Stats = nullptr;
+        if (!Probe.Data.IsEmpty() && FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Probe.Data), Data) &&
+            Data->TryGetArrayField(TEXT("stats"), Stats) && Stats)
+            for (const TSharedPtr<FJsonValue>& S : *Stats)
+                if (const TSharedPtr<FJsonObject> O = S.IsValid() ? S->AsObject() : nullptr)
+                {
+                    const FString Sn = O->GetStringField(TEXT("name"));
+                    const FString Sv = O->GetStringField(TEXT("value"));
+                    if (!Sn.IsEmpty() || !Sv.IsEmpty())
+                        Rows.Add(DetailRow(Sn, Sv, ColdSteelUI::TextPrimary));
+                }
+        if (Rows.IsEmpty()) Rows.Add(Label(TEXT("目录未提供装备属性。"), 12, ColdSteelUI::TextTertiary));
+        Cards.Add(SectionCard(TEXT("装备属性"), Rows));
+        const FString Desc = ColdSteelInventory::Text(Probe, TEXT("desc"));
+        if (!Desc.IsEmpty())
+        {
+            TArray<TSharedRef<SWidget>> DescRows;
+            DescRows.Add(Label(Desc, 14, ColdSteelUI::TextSecondary));
+            Cards.Add(SectionCard(TEXT("物品说明"), DescRows));
+        }
+    }
+    else if (Gunsmith && Gunsmith->IsTool(Definition))
     {
         // 采集工具：图鉴给出厂口径的采集与自卫实值，与物品浮窗、工作台走同一评估入口。
         // 玩家实例上的改造不进图鉴（图鉴不读物品 Data）。
         const FProductionToolStats Tool = ColdSteelTool::Evaluate(Probe, Model);
         TArray<TSharedRef<SWidget>> Rows;
         Rows.Add(DetailRow(TEXT("自卫总伤害"), FormatNumber(Tool.Damage.Total(), 1), ColdSteelUI::TextPrimary));
-        Rows.Add(DetailRow(ColdSteelWeaponText::AttackInterval,, FormatNumber(Tool.SwingSeconds, 2) + TEXT(" s"), ColdSteelUI::TextPrimary));
+        Rows.Add(DetailRow(ColdSteelWeaponText::AttackInterval, FormatNumber(Tool.SwingSeconds, 2) + TEXT(" s"), ColdSteelUI::TextPrimary));
         Rows.Add(DetailRow(TEXT("体力消耗"), FormatNumber(Tool.StaminaCost, 1), ColdSteelUI::TextPrimary));
-        Rows.Add(DetailRow(ColdSteelWeaponText::AttackDistance,, FormatNumber(Tool.CombatReachCM / 100., 2) + TEXT(" m"), ColdSteelUI::TextPrimary));
+        Rows.Add(DetailRow(ColdSteelWeaponText::AttackDistance, FormatNumber(Tool.CombatReachCM / 100., 2) + TEXT(" m"), ColdSteelUI::TextPrimary));
         Rows.Add(DetailRow(TEXT("采集距离"), FormatNumber(Tool.HarvestReachCM / 100., 2) + TEXT(" m"), ColdSteelUI::TextSecondary));
-        Rows.Add(DetailRow(TEXT("所需有效命中"), FString::Printf(TEXT("%d 次"),
-            ColdSteelTool::HitsNeeded(FProductionResource::RequiredHits, Tool)), ColdSteelUI::TextSecondary));
+        // 伐木斧按树木生命值结算：图鉴列一次挥砍的伐木伤害与标准树所需挥砍。
+        // 矿镐仍是命中数口径，保留原来的「所需有效命中」。
+        if (ColdSteelInventory::Text(Probe, TEXT("tool_kind")) == TEXT("pickaxe"))
+            Rows.Add(DetailRow(TEXT("所需有效命中"), FString::Printf(TEXT("%d 次"),
+                ColdSteelTool::HitsNeeded(FProductionResource::RequiredHits, Tool)), ColdSteelUI::TextSecondary));
+        else
+        {
+            Rows.Add(DetailRow(TEXT("伐木伤害"), FormatNumber(ProductionTreeHealth::StrikeDamage(Tool), 1) + TEXT(" / 挥"), ColdSteelUI::TextSecondary));
+            Rows.Add(DetailRow(TEXT("标准树所需挥砍"), FString::Printf(TEXT("%d 次"),
+                ColdSteelTool::HitsNeeded(FProductionResource::RequiredHits, Tool)), ColdSteelUI::TextSecondary));
+        }
         Rows.Add(DetailRow(TEXT("采集产出倍率"), FormatNumber(Tool.HarvestYield, 2) + TEXT("×"), ColdSteelUI::TextSecondary));
         Rows.Add(DetailRow(TEXT("改造栏目"), TEXT("握把 · 握柄 · 改件 · 主部件"), ColdSteelUI::TextSecondary));
         Cards.Add(SectionCard(TEXT("采集工具数值"), Rows));
+
+        // 强化阶梯表：图鉴读出厂 Probe，没有实例等级，因此只列全 5 档材质阶梯，
+        // 不显示「某件工具现在是几级」。等级与材质名来自 `ColdSteelToolEnhance`，
+        // 与工作台第五栏、浮窗读同一份目录；cost／stats 本次恒空，这里如实写「待定」。
+        const TArray<FToolEnhanceLevel>& Levels = ColdSteelToolEnhance::Levels();
+        if (!Levels.IsEmpty())
+        {
+            TArray<TSharedRef<SWidget>> EnhanceRows;
+            for (const FToolEnhanceLevel& Entry : Levels)
+            {
+                // 一行一档：等级 → 材质名，右侧说明用目录 description（不改写、不补数字）。
+                EnhanceRows.Add(DetailRow(FString::Printf(TEXT("Lv.%d"), Entry.Level), Entry.Name,
+                    Entry.Level == 1 ? ColdSteelUI::TextSecondary : ColdSteelUI::TextPrimary));
+                if (!Entry.Description.IsEmpty())
+                    EnhanceRows.Add(DetailRow(TEXT(""), Entry.Description, ColdSteelUI::TextSecondary));
+            }
+            EnhanceRows.Add(DetailRow(TEXT("等级规则"), TEXT("逐级 +1 提升，不可降级、不可跳级；出厂为 Lv.1"), ColdSteelUI::TextSecondary));
+            EnhanceRows.Add(DetailRow(TEXT("强化消耗"), TEXT("待定"), ColdSteelUI::TextSecondary));
+            EnhanceRows.Add(DetailRow(TEXT("强化数值"), TEXT("待定 · 强化只更换金属部位材质，不影响采集与自卫数值"), ColdSteelUI::TextSecondary));
+            Cards.Add(SectionCard(TEXT("工具强化材质阶梯"), EnhanceRows));
+        }
     }
     else if (Weapon)
     {
@@ -881,7 +1028,7 @@ TArray<TSharedRef<SWidget>> UColdSteelCodexPage::MonsterDetailRows(const FString
     if (!MonsterStatsOf(*Entry, Stats))
     {
         TArray<TSharedRef<SWidget>> Rows;
-        Rows.Add(Label(TEXT("该身份尚未登记六维与品阶，档案数值不可用。"), 14, ColdSteelUI::TextTertiary));
+        Rows.Add(Label(TEXT("该身份尚未登记防御属性与品阶，档案数值不可用。"), 14, ColdSteelUI::TextTertiary));
         Cards.Add(SectionCard(TEXT("档案状态"), Rows));
         return Cards;
     }
@@ -897,14 +1044,13 @@ TArray<TSharedRef<SWidget>> UColdSteelCodexPage::MonsterDetailRows(const FString
     }
 
     {
+        // 2026-09-28 六维剔除：改为展示常量表的防御三项（战斗管线实际消费的数值）。
+        // 怪物暴击率无消费方，不展示；数值走 JetBrains Mono（DetailRow 既有合同）。
         TArray<TSharedRef<SWidget>> Rows;
-        Rows.Add(DetailRow(TEXT("力量"), FormatNumber(Stats.A.Str, 0), ColdSteelUI::TextPrimary));
-        Rows.Add(DetailRow(TEXT("敏捷"), FormatNumber(Stats.A.Dex, 0), ColdSteelUI::TextPrimary));
-        Rows.Add(DetailRow(TEXT("智力"), FormatNumber(Stats.A.Int, 0), ColdSteelUI::TextPrimary));
-        Rows.Add(DetailRow(TEXT("体质"), FormatNumber(Stats.A.Con, 0), ColdSteelUI::TextPrimary));
-        Rows.Add(DetailRow(TEXT("精神"), FormatNumber(Stats.A.Wis, 0), ColdSteelUI::TextPrimary));
-        Rows.Add(DetailRow(TEXT("幸运"), FormatNumber(Stats.A.Luck, 0), ColdSteelUI::TextPrimary));
-        Cards.Add(SectionCard(TEXT("六维属性"), Rows));
+        Rows.Add(DetailRow(TEXT("物理防御"), FormatNumber((double)Stats.Def, 0), ColdSteelUI::TextPrimary));
+        Rows.Add(DetailRow(TEXT("魔法防御"), FormatNumber((double)Stats.Mdef, 0), ColdSteelUI::TextPrimary));
+        Rows.Add(DetailRow(TEXT("暴击抗性"), FormatNumber((double)Stats.CritRes, 0), ColdSteelUI::TextPrimary));
+        Cards.Add(SectionCard(TEXT("防御与抗性"), Rows));
     }
 
     {
@@ -917,8 +1063,302 @@ TArray<TSharedRef<SWidget>> UColdSteelCodexPage::MonsterDetailRows(const FString
 
     {
         TArray<TSharedRef<SWidget>> Rows;
-        Rows.Add(Label(TEXT("综合战力为不含生命与移速补充的基础量级；全部怪物生命值统一乘以全局成长系数，六维与奖励不受影响。实战结算以运行时为准。"), 12, ColdSteelUI::TextTertiary));
+        Rows.Add(Label(TEXT("综合战力为不含生命与移速补充的基础量级；防御与抗性取自档案常量表，感染减益时按系数整体缩放。生命为类基础值乘全局成长系数（现 1.0），实战结算以运行时为准。"), 12, ColdSteelUI::TextTertiary));
         Cards.Add(SectionCard(TEXT("口径说明"), Rows));
+    }
+    return Cards;
+}
+
+TSharedRef<SWidget> UColdSteelCodexPage::BuildSearchRow(const FString& Hint)
+{
+    // 搜索栏（状态/祭品两页共用同一缓存输入框）：控件规格 §4/§9——ActionHeight 36px、
+    // 正文 14px Noto；深底圆角 6px + 1px Border 边。输入只重填当前分区卡片（焦点不丢）。
+    if (!SearchEdit.IsValid())
+    {
+        SearchEditStyle = FEditableTextBoxStyle()
+            .SetBackgroundImageNormal(FSlateColorBrush(FLinearColor::Transparent))
+            .SetBackgroundImageHovered(FSlateColorBrush(FLinearColor::Transparent))
+            .SetBackgroundImageFocused(FSlateColorBrush(FLinearColor::Transparent))
+            .SetForegroundColor(FSlateColor(ColdSteelUI::TextPrimary));
+        SAssignNew(SearchEdit, SEditableTextBox)
+            .Style(&SearchEditStyle)
+            .HintText(FText::FromString(Hint))
+            .Font(ColdSteelUI::TextFont(14.f * .75f / FMath::Max(Scale, .01f)))
+            .OnTextChanged(FOnTextChanged::CreateLambda([this](const FText& NewText)
+            {
+                SearchText = NewText.ToString();
+                RebuildFilterCards();
+            }));
+    }
+    // 提示词按所在分区刷新（输入框本体只建一次，文本与焦点跨分区保留）。
+    SearchEdit->SetHintText(FText::FromString(Hint));
+    SearchSurfaceBrush = ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonNormal,
+        ColdSteelUI::ButtonRadius / FMath::Max(Scale, .01f), ColdSteelUI::Border, 1.f / FMath::Max(Scale, .01f));
+    return SNew(SBorder)
+        .BorderImage(&SearchSurfaceBrush)
+        .Padding(FMargin(12.f / FMath::Max(Scale, .01f) * .8f, 0.f))
+        [
+            SNew(SBox).HeightOverride(ColdSteelUI::ActionHeight / FMath::Max(Scale, .01f))
+            .VAlign(VAlign_Center)
+            [ SearchEdit.ToSharedRef() ]
+        ];
+}
+
+void UColdSteelCodexPage::RebuildFilterCards()
+{
+    // 搜索输入只重建当前活动分区的卡片区，另一分区的缓存容器不动。
+    if (Section == 2) RebuildStatusCards();
+    else if (Section == 3) RebuildTributeCards();
+}
+
+TSharedRef<SWidget> UColdSteelCodexPage::BuildStatusPage()
+{
+    // 状态分区整页内容（2026-09-29 二次重排）：顶部搜索栏 +「状态栏卡片」平铺。
+    const float Pad = 12.f / FMath::Max(Scale, .01f);
+    TSharedRef<SVerticalBox> Column = SNew(SVerticalBox);
+    Column->AddSlot().AutoHeight().Padding(0.f, 0.f, 0.f, Pad)[ BuildSearchRow(TEXT("搜索状态：名称 / 说明 / 效果标识")) ];
+
+    TSharedPtr<SScrollBox> Scroll;
+    SAssignNew(Scroll, SScrollBox);
+    Scroll->SetScrollBarThickness(FVector2D(6.f / FMath::Max(Scale, .01f)));
+    Scroll->SetAllowOverscroll(EAllowOverscroll::No);
+    SAssignNew(StatusCardsHost, SVerticalBox);
+    Scroll->AddSlot()[ StatusCardsHost.ToSharedRef() ];
+    RebuildStatusCards();
+    Column->AddSlot().FillHeight(1.f)[ Scroll.ToSharedRef() ];
+    return Column;
+}
+
+void UColdSteelCodexPage::RebuildStatusCards()
+{
+    if (!StatusCardsHost.IsValid()) return;
+    // 条目弱行底：全条目共用一枚缓存画刷（SBorder 取指针，且 115 条不能各建临时值）；
+    // 每次重建按当前 Scale 重算圆角，DPI 变化后随 RefreshLayout 自然刷新。
+    StatusEntryBrush = ColdSteelUI::RoundedBrush(ColdSteelUI::AttributeRow,
+        ColdSteelUI::CardRadius / FMath::Max(Scale, .01f), FLinearColor::Transparent, 0.f);
+    StatusCardsHost->ClearChildren();
+    const float Gap = 10.f / FMath::Max(Scale, .01f);
+    const TArray<TSharedRef<SWidget>> List = StatusPageCards();
+    for (int32 Index = 0; Index < List.Num(); ++Index)
+        StatusCardsHost->AddSlot().AutoHeight().Padding(0.f, Index == 0 ? 0.f : Gap, 0.f, 0.f)[ List[Index] ];
+}
+
+TArray<TSharedRef<SWidget>> UColdSteelCodexPage::StatusPageCards() const
+{
+    // 「状态栏卡片」（2026-09-30 三改：按来源分组）：数据走 AllDefinitions（单一事实源）。
+    // 过滤 = 分类页签（增益/减益）∧ 搜索关键词；分组为展示维度不过滤——空组直接跳过。
+    TArray<TSharedRef<SWidget>> Cards;
+    TArray<FStatusEffectView> Catalog;
+    UStatusEffectsComponent::AllDefinitions(Catalog);
+    const FString Key = StatusCategoryKinds[FMath::Clamp(Category, 0, StatusCategoryCount - 1)];
+    const FString Needle = SearchText.TrimStartAndEnd();
+    auto MatchesSearch = [&Needle](const FStatusEffectView& V)
+    {
+        if (Needle.IsEmpty()) return true;
+        const FString Hay = (V.Name + TEXT(" ") + V.Description + TEXT(" ") + V.Type.ToString()).ToLower();
+        return Hay.Contains(Needle.ToLower());
+    };
+
+    for (int32 GroupIndex = 0; GroupIndex < StatusGroupCount; ++GroupIndex)
+    {
+        const FString GroupKey = StatusGroups[GroupIndex].Key;
+        TArray<TSharedRef<SWidget>> Rows;
+        int32 Count = 0, Buffs = 0, Debuffs = 0;
+        const float Pad = 10.f / FMath::Max(Scale, .01f);
+        const float IconColumn = 24.f / FMath::Max(Scale, .01f);
+        for (const FStatusEffectView& V : Catalog)
+        {
+            if (V.Group.ToString() != GroupKey) continue;
+            const bool bDebuff = V.Kind == TEXT("debuff");
+            if (Key != TEXT("all") && (bDebuff ? TEXT("debuff") : TEXT("buff")) != Key) continue;
+            if (!MatchesSearch(V)) continue;
+            ++Count; bDebuff ? ++Debuffs : ++Buffs;
+            // 名称行：图标用目录语义色着色（效果身份色），右侧固定 增益/减益 标记。
+            Rows.Add(SNew(SHorizontalBox)
+                + SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)
+                  [ Label(V.Icon.IsEmpty() ? TEXT("?") : V.Icon, 16, V.Color) ]
+                + SHorizontalBox::Slot().FillWidth(1.f).VAlign(VAlign_Center)
+                  .Padding(6.f / FMath::Max(Scale, .01f), 0.f, 0.f, 0.f)
+                  [ LeftLabel(V.Name.IsEmpty() ? V.Type.ToString() : V.Name, 14, ColdSteelUI::TextPrimary, true) ]
+                + SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)
+                  [ ValueLabel(bDebuff ? TEXT("减益") : TEXT("增益"), 12,
+                       bDebuff ? ColdSteelUI::Danger : ColdSteelUI::Success) ]);
+            // 说明行：与名称列对齐缩进。
+            Rows.Add(SNew(SBox)
+                .Padding(FMargin(IconColumn, 0.f, 0.f, 0.f))
+                [ Label(V.Description.IsEmpty() ? TEXT("目录未提供说明。") : V.Description, 12, ColdSteelUI::TextTertiary) ]);
+        }
+        if (Count == 0) continue;
+        // 组头：组名 16px Medium + 组语义说明 + 命中计数（增益/减益分开计）。
+        TArray<TSharedRef<SWidget>> GroupRows;
+        GroupRows.Add(SNew(SHorizontalBox)
+            + SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)
+              [ Label(StatusGroups[GroupIndex].Label, 16, ColdSteelUI::TextPrimary, false, true) ]
+            + SHorizontalBox::Slot().FillWidth(1.f).VAlign(VAlign_Bottom)
+              .Padding(8.f / FMath::Max(Scale, .01f), 0.f, 0.f, 2.f / FMath::Max(Scale, .01f))
+              [ Label(StatusGroups[GroupIndex].Note, 12, ColdSteelUI::TextTertiary) ]
+            + SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Bottom)
+              [ ValueLabel(Needle.IsEmpty()
+                   ? FString::Printf(TEXT("%d 条 · 增%d 减%d"), Count, Buffs, Debuffs)
+                   : FString::Printf(TEXT("%d 命中 · 增%d 减%d"), Count, Buffs, Debuffs), 12, ColdSteelUI::TextSecondary) ]);
+        // 条目弱行底小块（共享缓存画刷），间隔 6px。
+        const float RowGap = 6.f / FMath::Max(Scale, .01f);
+        for (int32 Index = 0; Index < Rows.Num(); Index += 2)
+        {
+            TSharedRef<SVerticalBox> Entry = SNew(SVerticalBox)
+                + SVerticalBox::Slot().AutoHeight()[ Rows[Index] ]
+                + SVerticalBox::Slot().AutoHeight().Padding(0.f, Pad * .3f, 0.f, 0.f)[ Rows[Index + 1] ];
+            GroupRows.Add(SNew(SBorder)
+                .BorderImage(&StatusEntryBrush)
+                .Padding(FMargin(Pad, Pad * .7f))[ Entry ]);
+            if (Index + 2 < Rows.Num())
+                GroupRows.Add(SNew(SBox).HeightOverride(RowGap));
+        }
+        Cards.Add(SectionCard(FString::Printf(TEXT("状态栏卡片 · %s"), StatusGroups[GroupIndex].Label), GroupRows));
+    }
+    if (Cards.IsEmpty())
+    {
+        TArray<TSharedRef<SWidget>> Rows;
+        Rows.Add(Label(Needle.IsEmpty() ? TEXT("此分类暂无状态档案") : TEXT("没有匹配的状态：换个关键词或清空搜索。"), 14, ColdSteelUI::TextTertiary));
+        Cards.Add(SectionCard(TEXT("状态栏卡片"), Rows));
+    }
+    return Cards;
+}
+
+TSharedRef<SWidget> UColdSteelCodexPage::BuildTributePage()
+{
+    // 祭品分区整页内容（2026-09-30）：搜索栏 + 按稀有度分组的「祭品卡片」。
+    const float Pad = 12.f / FMath::Max(Scale, .01f);
+    TSharedRef<SVerticalBox> Column = SNew(SVerticalBox);
+    Column->AddSlot().AutoHeight().Padding(0.f, 0.f, 0.f, Pad)[ BuildSearchRow(TEXT("搜索祭品：名称 / 说明 / 效果")) ];
+
+    TSharedPtr<SScrollBox> Scroll;
+    SAssignNew(Scroll, SScrollBox);
+    Scroll->SetScrollBarThickness(FVector2D(6.f / FMath::Max(Scale, .01f)));
+    Scroll->SetAllowOverscroll(EAllowOverscroll::No);
+    SAssignNew(TributeCardsHost, SVerticalBox);
+    Scroll->AddSlot()[ TributeCardsHost.ToSharedRef() ];
+    RebuildTributeCards();
+    Column->AddSlot().FillHeight(1.f)[ Scroll.ToSharedRef() ];
+    return Column;
+}
+
+void UColdSteelCodexPage::RebuildTributeCards()
+{
+    if (!TributeCardsHost.IsValid()) return;
+    StatusEntryBrush = ColdSteelUI::RoundedBrush(ColdSteelUI::AttributeRow,
+        ColdSteelUI::CardRadius / FMath::Max(Scale, .01f), FLinearColor::Transparent, 0.f);
+    TributeCardsHost->ClearChildren();
+    const float Gap = 10.f / FMath::Max(Scale, .01f);
+    const TArray<TSharedRef<SWidget>> List = TributePageCards();
+    for (int32 Index = 0; Index < List.Num(); ++Index)
+        TributeCardsHost->AddSlot().AutoHeight().Padding(0.f, Index == 0 ? 0.f : Gap, 0.f, 0.f)[ List[Index] ];
+}
+
+TArray<TSharedRef<SWidget>> UColdSteelCodexPage::TributePageCards() const
+{
+    // 「祭品卡片」（2026-09-30）：物品目录 category=tribute 全量条目（items.json 单一
+    // 事实源，与背包/浮窗同一物品 Data）。按稀有度六档分组（高→低），组内名称行右侧
+    // 显示类型，效果摘要取 Data 的 stats 数组（物品浮窗同一展示字段）。
+    TArray<TSharedRef<SWidget>> Cards;
+    if (!Model) return Cards;
+    const FString Needle = SearchText.TrimStartAndEnd();
+
+    struct FTributeRow { FString Id, Name, Type, Desc, Glyph, Rarity, StatsLine; };
+    TArray<FTributeRow> Rows;
+    for (const FColdSteelCatalogEntry& Entry : Model->ItemCatalog())
+    {
+        const FColdSteelItem Item = Model->CreateItem(Entry.Definition);
+        if (ColdSteelInventory::Text(Item, TEXT("category")) != TEXT("tribute")) continue;
+        FTributeRow R;
+        R.Id = Entry.Definition;
+        R.Name = ColdSteelInventory::Text(Item, TEXT("name"));
+        if (R.Name.IsEmpty()) R.Name = Entry.Name;
+        R.Type = ColdSteelInventory::Text(Item, TEXT("type"));
+        R.Desc = ColdSteelInventory::Text(Item, TEXT("desc"));
+        R.Glyph = ColdSteelInventory::Text(Item, TEXT("icon_fallback"));
+        R.Rarity = ColdSteelInventory::Text(Item, TEXT("rarity"));
+        TSharedPtr<FJsonObject> Data;
+        if (!Item.Data.IsEmpty() && FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data), Data))
+        {
+            const TArray<TSharedPtr<FJsonValue>>* Stats = nullptr;
+            if (Data->TryGetArrayField(TEXT("stats"), Stats) && Stats)
+                for (const TSharedPtr<FJsonValue>& S : *Stats)
+                    if (const TSharedPtr<FJsonObject> O = S.IsValid() ? S->AsObject() : nullptr)
+                    {
+                        const FString Sn = O->GetStringField(TEXT("name"));
+                        const FString Sv = O->GetStringField(TEXT("value"));
+                        if (!Sn.IsEmpty() || !Sv.IsEmpty())
+                            R.StatsLine += (R.StatsLine.IsEmpty() ? TEXT("") : TEXT(" · ")) + Sn + TEXT(" ") + Sv;
+                    }
+        }
+        if (!Needle.IsEmpty())
+        {
+            const FString Hay = (R.Name + TEXT(" ") + R.Desc + TEXT(" ") + R.Id + TEXT(" ") + R.StatsLine).ToLower();
+            if (!Hay.Contains(Needle.ToLower())) continue;
+        }
+        Rows.Add(MoveTemp(R));
+    }
+
+    const float Pad = 10.f / FMath::Max(Scale, .01f);
+    const float IconColumn = 24.f / FMath::Max(Scale, .01f);
+    const float RowGap = 6.f / FMath::Max(Scale, .01f);
+    const int32 RarityTab = Category - 1;   // 页签 0=全部，1..6=稀有度（与 TributeRarityKeys 同序）
+    for (int32 RarityIndex = 0; RarityIndex < TributeRarityCount; ++RarityIndex)
+    {
+        if (RarityTab >= 0 && RarityTab < TributeRarityCount && RarityTab != RarityIndex) continue;
+        TArray<TSharedRef<SWidget>> CardRows;
+        int32 Count = 0;
+        for (const FTributeRow& R : Rows)
+        {
+            if (R.Rarity != TributeRarityKeys[RarityIndex]) continue;
+            ++Count;
+            const FLinearColor RarityColor = ColdSteelUI::RarityColor(R.Rarity);
+            TSharedRef<SHorizontalBox> Head = SNew(SHorizontalBox)
+                + SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)
+                  [ Label(R.Glyph.IsEmpty() ? TEXT("?") : R.Glyph, 16, RarityColor) ]
+                + SHorizontalBox::Slot().FillWidth(1.f).VAlign(VAlign_Center)
+                  .Padding(6.f / FMath::Max(Scale, .01f), 0.f, 0.f, 0.f)
+                  [ LeftLabel(R.Name, 14, ColdSteelUI::TextPrimary, true) ]
+                + SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)
+                  [ ValueLabel(R.Type.IsEmpty() ? ColdSteelUI::RarityLabel(R.Rarity) : R.Type, 12, ColdSteelUI::TextSecondary) ];
+            TSharedPtr<SWidget> StatsLine, DescLine;
+            if (!R.StatsLine.IsEmpty())
+                StatsLine = SNew(SBox).Padding(FMargin(IconColumn, 0.f, 0.f, 0.f))
+                    [ ValueLabel(R.StatsLine, 12, ColdSteelUI::TextSecondary) ];
+            if (!R.Desc.IsEmpty())
+                DescLine = SNew(SBox)
+                    .Padding(FMargin(IconColumn, R.StatsLine.IsEmpty() ? 0.f : Pad * .3f, 0.f, 0.f))
+                    [ Label(R.Desc, 12, ColdSteelUI::TextTertiary) ];
+            TSharedRef<SVerticalBox> EntryCard = SNew(SVerticalBox)
+                + SVerticalBox::Slot().AutoHeight()[ Head ];
+            if (StatsLine.IsValid())
+                EntryCard->AddSlot().AutoHeight().Padding(0.f, Pad * .3f, 0.f, 0.f)[ StatsLine.ToSharedRef() ];
+            if (DescLine.IsValid())
+                EntryCard->AddSlot().AutoHeight().Padding(0.f, Pad * .25f, 0.f, 0.f)[ DescLine.ToSharedRef() ];
+            CardRows.Add(SNew(SBorder).BorderImage(&StatusEntryBrush).Padding(FMargin(Pad, Pad * .7f))[ EntryCard ]);
+            if (Count > 0) CardRows.Add(SNew(SBox).HeightOverride(RowGap));
+        }
+        if (Count == 0) continue;
+        CardRows.Pop();   // 末条目后的间隔不必保留
+        // 组头：稀有度标签（稀有度色）+ 计数，插到卡内容最前。
+        TArray<TSharedRef<SWidget>> Out;
+        Out.Add(SNew(SHorizontalBox)
+            + SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)
+              [ Label(TributeRarityLabels[RarityIndex], 16, ColdSteelUI::RarityColor(TributeRarityKeys[RarityIndex]), false, true) ]
+            + SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Bottom)
+              .Padding(8.f / FMath::Max(Scale, .01f), 0.f, 0.f, 2.f / FMath::Max(Scale, .01f))
+              [ ValueLabel(Needle.IsEmpty()
+                   ? FString::Printf(TEXT("%d 件"), Count)
+                   : FString::Printf(TEXT("%d 命中"), Count), 12, ColdSteelUI::TextSecondary) ]);
+        Out.Append(CardRows);
+        Cards.Add(SectionCard(FString::Printf(TEXT("祭品卡片 · %s"), TributeRarityLabels[RarityIndex]), Out));
+    }
+    if (Cards.IsEmpty())
+    {
+        TArray<TSharedRef<SWidget>> Empty;
+        Empty.Add(Label(Needle.IsEmpty() ? TEXT("此分类暂无祭品档案") : TEXT("没有匹配的祭品：换个关键词或清空搜索。"), 14, ColdSteelUI::TextTertiary));
+        Cards.Add(SectionCard(TEXT("祭品卡片"), Empty));
     }
     return Cards;
 }

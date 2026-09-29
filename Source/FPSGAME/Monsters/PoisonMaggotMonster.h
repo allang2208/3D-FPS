@@ -31,7 +31,7 @@ public:
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Assets") TObjectPtr<UAnimSequence> DeathClip;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Assets") TObjectPtr<UMaterialInterface> VenomMaterial;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Assets") TObjectPtr<USoundBase> SpitSound;
- UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Stats") float MaxHealth=800;
+ UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Stats") float MaxHealth=1500;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Stats") float MagicAttack=24;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Stats") float WalkSpeed=120;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Stats") int32 Level=4;

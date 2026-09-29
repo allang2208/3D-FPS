@@ -2,6 +2,7 @@
 #include "FatZombieAnimInstance.h"
 #include "Mutant3GaitPhases.inl"
 #include "MonsterCombatComponent.h"
+#include "HumanoidKnockdownComponent.h"
 #include "MonsterCombatTuning.h"
 #include "AIController.h"
 #include "Animation/AnimSequence.h"
@@ -20,9 +21,11 @@ AMutant3::AMutant3(const FObjectInitializer& ObjectInitializer) : Super(ObjectIn
     GetCapsuleComponent()->InitCapsuleSize(34.f, 85.f);
     ConfigureFeralNavigation();
     Tags.Remove(TEXT("NurseZombie")); Tags.Add(TEXT("Mutant3"));
-    MaxHealth = 750.f; AttackDamage = 40.f; WalkSpeed = 560.f;
+    MaxHealth = 2000.f; AttackDamage = 40.f; WalkSpeed = 560.f;
     AttackRange = 150.f; ContactTime = .13f; ContactEnd = .25f;
-    RecoveryTime = .65f; ExperienceReward = 482;
+    RecoveryTime = .65f; ExperienceReward = 482; Level = 9; Rank = EMonsterRank::Elite;
+    // 韧性走类别×阶级基准表（MonsterCoreStats）；此处只保留表现参数。
+    Combat->DizzyPlayRate = 1.05f;
     GetCharacterMovement()->MaxAcceleration = 1800.f;
     GetCharacterMovement()->BrakingDecelerationWalking = 1800.f;
     GetCharacterMovement()->RotationRate = FRotator(0, 540, 0);
@@ -251,6 +254,12 @@ void AMutant3::StartDeathRagdoll()
             BodyMesh->TickAnimation(0.f, false);
         }
     BodyMesh->RefreshBoneTransforms();
+    if (Knockdown)
+    {
+        Knockdown->StartDeath(DeathClip,DeathClip?DeathClip->GetPlayLength()*MonsterCombatTuning::DeathAnimationFraction:0.f);
+        bRagdollActive=BodyMesh->IsSimulatingPhysics();
+        return;
+    }
     BodyMesh->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
     BodyMesh->SetCollisionProfileName(TEXT("Ragdoll"));
     BodyMesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);

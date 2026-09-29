@@ -89,6 +89,7 @@ public:
     void OpenWorkbench(AActor* Workbench);
     void CloseWorkbench();
     bool IsWorkbenchOpen() const { return bWorkbenchOpen; }
+    bool SelectGunAssemblyRecipe(FName Recipe);
     void RunWarehouseAudit();
     void RunWarehouseGlassAudit();
     void ShowWarehouseDetails(UWidget* Details);
@@ -159,6 +160,9 @@ private:
     void BuildWorkbench(UCanvasPanel* Root);
     UPROPERTY() TObjectPtr<class UColdSteelWorkbenchWidget> WorkbenchWidget;
     UPROPERTY() TObjectPtr<UCanvasPanelSlot> WorkbenchSlot;
+    UPROPERTY() TObjectPtr<class UColdSteelGunAssemblyWidget> GunAssemblyWidget;
+    UPROPERTY() TObjectPtr<UCanvasPanelSlot> GunAssemblySlot;
+    bool bGunWorkbenchPanel=false;
     TWeakObjectPtr<class AVoxelBuildWorld> WorkbenchWorld;
     FIntVector WorkbenchCell=FIntVector::ZeroValue;
     bool bWorkbenchOpen=false;
@@ -187,6 +191,8 @@ private:
     void BuildStamina(UCanvasPanel* Root);
     void RefreshStamina();
     void UpdateStaminaLayout(const FGeometry& Geometry);
+    void BuildExpBar(UCanvasPanel* Root);   // 底部全宽金色经验条（原 game-dev 形式，冷钢化）
+    void RefreshExpBar();
     FDelegateHandle StaminaHandle;
     UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> StaminaSlot;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> StaminaValue;
@@ -239,6 +245,12 @@ private:
     TArray<FInventoryLabel> TopHUDLabels;
     FVector2D TopHUDViewport=FVector2D::ZeroVector;
     float TopHUDScale=0,TopHUDBottom=0;
+    int32 PaintHUDNavigation(const FGeometry&,FSlateWindowElementList&,int32,const FWidgetStyle&) const;
+    void RefreshHUDTargetDisplay();
+    TWeakObjectPtr<AActor> HUDDisplayTarget;
+    FString HUDTargetLevel;
+    struct FHUDTargetEffect { FString Text; FLinearColor Color; };
+    TArray<FHUDTargetEffect> HUDTargetEffects;
     TWeakObjectPtr<class AFPSWeatherManager> HUDWeatherSource;
     UPROPERTY(Transient) TObjectPtr<class UColdSteelWorldClock> WorldClock;
     UPROPERTY(Transient) TObjectPtr<UBackgroundBlur> TopVitalsBlur;
@@ -271,6 +283,7 @@ private:
     void SetTimelineDetailsOpen(bool Open);
     UTextBlock* MakeTimelineText(const FString& Text,float Pixels,const FLinearColor& Color,bool Numeric=false,bool Medium=false);
     TArray<FInventoryLabel> TimelineLabels;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> TimelineCompactTitle;
     void UpdateEventTimelineFilterButtons();
     void RebuildEventDetails();
     void SetEventTimelineCompact(bool bCompact);
@@ -528,4 +541,34 @@ private:
 
     UPROPERTY(Transient)
     TMap<FString, TObjectPtr<UTexture2D>> LoadedTextureCache;
+
+public:
+    void OpenForging(AActor* Station);
+    void CloseForging();
+    void OpenForgingSmelting();
+    bool IsForgingOpen() const {return bForgingOpen;}
+    bool CanStartWorldForging(FString& Reason) const;
+    bool StartWorldForging(FName Recipe,FString& Reason);
+    bool IsWorldForging() const;
+    bool HandleWorldForgeInput(const struct FInputKeyEventArgs& Event);
+    void CompleteWorldForging(class AForgeInteraction* Interaction,bool bReturnPanel);
+    bool CanStartGunAssembly(FString& Reason) const;
+    bool StartGunAssembly(FString& Reason);
+    bool IsGunAssembly() const;
+    bool HandleGunAssemblyInput(const struct FInputKeyEventArgs& Event);
+    void CompleteGunAssembly(class AGunAssemblyInteraction* Interaction,bool bReturnPanel);
+private:
+    void BuildForging(UCanvasPanel* Root);
+    void HideForgingInstantly();
+    void TickForging(float DeltaTime,float DrawerEase);
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelForgingWidget> ForgingWidget;
+    UPROPERTY(Transient) TObjectPtr<class AForgeInteraction> ForgeInteraction;
+    UPROPERTY(Transient) TObjectPtr<class AGunAssemblyInteraction> GunAssemblyInteraction;
+    TWeakObjectPtr<AActor> GunWorkbenchStation;
+    UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> ForgingSlot;
+    TWeakObjectPtr<class AVoxelBuildWorld> ForgingWorld;
+    TWeakObjectPtr<AActor> ForgingStation;
+    FIntVector ForgingCell=FIntVector::ZeroValue;
+    bool bForgingOpen=false,bForgeRiding=false;
+    float ForgeMotion=0,ForgeSlidePx=0,ForgeWidth=0;
 };

@@ -1,4 +1,6 @@
 #include "ColdSteelHUDWidget.h"
+#include "Framework/Application/SlateApplication.h"
+#include "ColdSteelGunAssemblyWidget.h"
 #include "ColdSteelSmeltingWidget.h"
 #include "ColdSteelWorkbenchWidget.h"
 #include "../Building/VoxelBuildWorld.h"
@@ -172,6 +174,7 @@ void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaT
         // RefreshAmmo already refreshes the quick bar for all of its callers.
         { TRACE_CPUPROFILER_EVENT_SCOPE(ColdSteelHUD_RefreshAmmo); RefreshAmmo(); }
         { TRACE_CPUPROFILER_EVENT_SCOPE(ColdSteelHUD_RefreshTopVitals); RefreshTopVitals(); }
+        RefreshHUDTargetDisplay();
         { TRACE_CPUPROFILER_EVENT_SCOPE(ColdSteelHUD_RefreshWorldClock); RefreshWorldClock(); }
     }
     StatusRefreshAccumulator += InDeltaTime;
@@ -179,6 +182,13 @@ void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaT
     {
         StatusRefreshAccumulator = 0.0f;
         RefreshStatus();
+    }
+    // 底部经验条独立低频刷新：RefreshStatus 只在背包开启时定期跑，平时游玩也要看到
+    // 杀怪到账（2026-09-29 实测条停在 0% 的根因）。RefreshExpBar 内部值不变不写。
+    if (StatusRefreshAccumulator >= 0.25f)
+    {
+        StatusRefreshAccumulator = 0.0f;
+        RefreshExpBar();
     }
     if (StatusTooltip && StatusTooltip->IsVisible()) UpdateStatusTooltipPlacement();
 
@@ -206,7 +216,7 @@ void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaT
     {
         // 整体骑乘收回时抽屉行程加长面板宽（多出的行程本就在屏幕外不可见），
         // 让面板与抽屉共用同一条位移曲线＝一个刚体向右缩回（2026-09-24 用户定稿口径）。
-        const float DrawerWidth = FMath::Max(1.0f, (InventoryWidth+ColdSteelUI::NavigationDrawerInset+(bSmeltRiding?SmeltSlidePx:0.f)+(bWorkbenchRiding?WorkbenchSlidePx:0.f)) / ColdSteelUI::PixelScale(this));
+        const float DrawerWidth = FMath::Max(1.0f, (InventoryWidth+ColdSteelUI::NavigationDrawerInset+(bSmeltRiding?SmeltSlidePx:0.f)+(bWorkbenchRiding?WorkbenchSlidePx:0.f)+(bForgeRiding?ForgeSlidePx:0.f)) / ColdSteelUI::PixelScale(this));
         InventoryPanel->SetRenderTranslation(FVector2D((1.0f - DrawerEase) * DrawerWidth, 0.0f));
     }
     if (InventoryBackdrop)
@@ -249,17 +259,21 @@ void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaT
     }
     // 工作台制作面板动画：与冶炼面板逐行同构（同贴位互斥，同一时刻至多一块在骑乘，
     // 抽屉行程加长项两旗标互斥相加即可；Docs/UI/workbench-panel-plan-20260924.md）。
-    if(WorkbenchWidget)
+    if(WorkbenchWidget&&GunAssemblyWidget)
     {
-        WorkbenchWidget->SetInputReady(bWorkbenchOpen&&!bWorkbenchRiding&&WorkbenchMotion>.999f);
+        UUserWidget* Panel=bGunWorkbenchPanel?static_cast<UUserWidget*>(GunAssemblyWidget.Get()):static_cast<UUserWidget*>(WorkbenchWidget.Get());
+        UCanvasPanelSlot* PanelSlot=bGunWorkbenchPanel?GunAssemblySlot.Get():WorkbenchSlot.Get();
+        GunAssemblyWidget->SetInputReady(bGunWorkbenchPanel&&bWorkbenchOpen&&!bWorkbenchRiding&&WorkbenchMotion>.999f);
+        WorkbenchWidget->SetInputReady(!bGunWorkbenchPanel&&bWorkbenchOpen&&!bWorkbenchRiding&&WorkbenchMotion>.999f);
+
         if(bWorkbenchOpen&&(!WorkbenchWorld.IsValid()||!WorkbenchWorld->HasPrefabAt(WorkbenchCell)))CloseWorkbench();
         const float S=ColdSteelUI::PixelScale(this);
         if(bWorkbenchRiding)
         {   WorkbenchMotion=FMath::FInterpConstantTo(WorkbenchMotion,0.f,InDeltaTime,4.0f);   // 复位进度，下次弹出重新起步
-            WorkbenchWidget->SetVisibility(DrawerProgress>KINDA_SMALL_NUMBER?ESlateVisibility::SelfHitTestInvisible:ESlateVisibility::Collapsed);
-            if(WorkbenchSlot)WorkbenchSlot->SetZOrder(40);
-            WorkbenchWidget->SetRenderTranslation(FVector2D((1.f-DrawerEase)*(InventoryWidth+ColdSteelUI::NavigationDrawerInset+WorkbenchSlidePx)/S,0.f));
-            if(DrawerProgress<=KINDA_SMALL_NUMBER){bWorkbenchRiding=false;WorkbenchWidget->SetRenderTranslation(FVector2D::ZeroVector);}
+            Panel->SetVisibility(DrawerProgress>KINDA_SMALL_NUMBER?ESlateVisibility::SelfHitTestInvisible:ESlateVisibility::Collapsed);
+            if(PanelSlot)PanelSlot->SetZOrder(40);
+            Panel->SetRenderTranslation(FVector2D((1.f-DrawerEase)*(InventoryWidth+ColdSteelUI::NavigationDrawerInset+WorkbenchSlidePx)/S,0.f));
+            if(DrawerProgress<=KINDA_SMALL_NUMBER){bWorkbenchRiding=false;Panel->SetRenderTranslation(FVector2D::ZeroVector);}
         }
         else
         {
@@ -267,13 +281,14 @@ void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaT
             const float WorkbenchTarget=bWorkbenchOpen&&DrawerProgress>1.f-KINDA_SMALL_NUMBER&&WorkbenchWidth>1.f?1.f:0.f;
             WorkbenchMotion=FMath::FInterpConstantTo(WorkbenchMotion,WorkbenchTarget,InDeltaTime,4.0f);
             const float WorkbenchEase=ColdSteelUI::EaseSmooth(WorkbenchMotion);
-            WorkbenchWidget->SetVisibility(WorkbenchMotion>KINDA_SMALL_NUMBER?ESlateVisibility::SelfHitTestInvisible:ESlateVisibility::Collapsed);
-            if(WorkbenchSlot)WorkbenchSlot->SetZOrder(WorkbenchMotion>1.f-KINDA_SMALL_NUMBER?42:40);
+            Panel->SetVisibility(WorkbenchMotion>KINDA_SMALL_NUMBER?ESlateVisibility::SelfHitTestInvisible:ESlateVisibility::Collapsed);
+            if(PanelSlot)PanelSlot->SetZOrder(WorkbenchMotion>1.f-KINDA_SMALL_NUMBER?42:40);
             if(WorkbenchMotion>KINDA_SMALL_NUMBER)
-                WorkbenchWidget->SetRenderTranslation(FVector2D((1.f-WorkbenchEase)*FMath::Max(WorkbenchSlidePx,24.f)/S,0.f));
-            else WorkbenchWidget->SetRenderTranslation(FVector2D::ZeroVector);
+                Panel->SetRenderTranslation(FVector2D((1.f-WorkbenchEase)*FMath::Max(WorkbenchSlidePx,24.f)/S,0.f));
+            else Panel->SetRenderTranslation(FVector2D::ZeroVector);
         }
     }
+    TickForging(InDeltaTime,DrawerEase);
     if (EquipmentTooltip && EquipmentTooltip->IsVisible() && !bEquipmentTooltipPinned)
     {
         UpdateEquipmentTooltipPlacement();
@@ -288,10 +303,12 @@ void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaT
     }
     // The drawer hugs the right edge, so the world clock yields the corner while it is out.
     if (WorldClock) WorldClock->SetVisibility(bDrawerOut ? ESlateVisibility::Collapsed : ESlateVisibility::HitTestInvisible);
+    if (TopVitalsSurface) TopVitalsSurface->SetVisibility(bWarehouseOpen||WarehouseMotion>KINDA_SMALL_NUMBER ? ESlateVisibility::Collapsed : ESlateVisibility::HitTestInvisible);
 }
 
 FReply UColdSteelHUDWidget::NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent)
 {
+    if(InKeyEvent.GetKey()==EKeys::Escape&&!InKeyEvent.IsRepeat()&&bForgingOpen){CloseForging();return FReply::Handled();}
     if (HandlePanelShortcut(InKeyEvent.GetKey(), InKeyEvent.IsRepeat())) return FReply::Handled();
     // A drag in flight keeps its own keys: the drawer is hidden while the pointer is outside the panel,
     // so the board that started the drag may not be the widget receiving this event.
@@ -342,6 +359,14 @@ void UColdSteelHUDWidget::ToggleInventory()
 
 bool UColdSteelHUDWidget::HandlePanelShortcut(const FKey& Key, bool bRepeat)
 {
+    // 文本输入焦点守卫（2026-09-29，图鉴状态栏搜索栏引入）：PlayerController 的输入层
+    // 调用本函数时不经过 Slate 焦点，在搜索框打字时按到 P/N/Tab/Caps 会误切抽屉。
+    // 焦点落在 SEditableText（SEditableTextBox 的内部焦点控件）时一律放行给输入框。
+    if (const TSharedPtr<SWidget> Focused = FSlateApplication::Get().GetKeyboardFocusedWidget())
+    {
+        const FString FocusedType = Focused->GetTypeAsString();
+        if (FocusedType == TEXT("SEditableText") || FocusedType == TEXT("SEditableTextBox")) return false;
+    }
     // 注意：K／J 属强化台与改造台（FPSGAMEPlayerController 先消费），C 是滑铲，图鉴用 N。
     if (Key != EKeys::Tab && Key != EKeys::CapsLock && Key != EKeys::P && Key != EKeys::N) return false;
     if (bRepeat) return true;
@@ -405,7 +430,7 @@ void UColdSteelHUDWidget::UpdateInteractHint()
     const auto* Character=PC?Cast<AFPSGAMECharacter>(PC->GetPawn()):nullptr;
     // 与旧准星提示同一出现条件：任一面板打开／光标显示／弹药轮／命中反馈 期间都不出浮窗。
     FString Text;bool bAction=true;
-    if(Character&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor&&!Character->IsAmmoWheelOpen())
+    if(Character&&!IsWorldForging()&&!IsGunAssembly()&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor&&!Character->IsAmmoWheelOpen())
     {
         FMonsterHitFeedback Feedback;
         if(!Character->GetMonsterHitFeedback(Feedback))
@@ -427,12 +452,14 @@ void UColdSteelHUDWidget::BuildInterface()
     BuildAmmoReadout(Root);
     BuildHotbar(Root);
     BuildStamina(Root);
+    BuildExpBar(Root);
     BuildEventTimeline(Root);
     BuildInventory(Root);
     BuildCharacterSummary(Root);
     BuildWarehouse(Root);
     BuildSmelting(Root);
     BuildWorkbench(Root);
+    BuildForging(Root);
     BuildPanelNavigation(Root);
     BuildInteractHint(Root); // 统一 E 交互小浮窗（在面板 Z 之下：面板打开时本就不显示）
     ProgressNotification=CreateWidget<UColdSteelProgressNotification>(GetOwningPlayer());
@@ -1097,7 +1124,9 @@ void UColdSteelHUDWidget::RebuildEventDetails()
     auto* IconSize=WidgetTree->ConstructWidget<USizeBox>();IconSize->SetWidthOverride(36/S);IconSize->SetHeightOverride(36/S);IconSize->SetContent(Icon);
     Summary->AddChildToHorizontalBox(IconSize)->SetPadding(FMargin(0,0,10/S,0));
     auto* Name=MakeTimelineText(TimelineEventLabel,16,ColdSteelUI::TextPrimary,false,true);Name->SetAutoWrapText(true);
+    Name->SetJustification(ETextJustify::Center);
     auto* NameSlot=Summary->AddChildToHorizontalBox(Name);NameSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));NameSlot->SetVerticalAlignment(VAlign_Center);
+    auto* SummaryBalance=WidgetTree->ConstructWidget<USizeBox>();SummaryBalance->SetWidthOverride(46/S);Summary->AddChildToHorizontalBox(SummaryBalance);
     const TArray<TPair<FString,FString>> Pairs={
         {TEXT("位面"),WeatherRegionName(GetWorld())},{TEXT("强度"),TimelineIntensityLabel},
         {TEXT("开始"),TimelineStartLabel},{TEXT("结束"),TimelineEndLabel},
@@ -1211,7 +1240,8 @@ void UColdSteelHUDWidget::HandleTimelineFilterWeatherClicked()
 {
     bTimelineWeatherFilter = true;
     RefreshEventTimeline(true);
-    SetTimelineDetailsOpen(false);
+    // Refresh builds the current forecast; selecting weather should reveal it.
+    SetTimelineDetailsOpen(bTimelineHasEvent);
 }
 
 void UColdSteelHUDWidget::SetExternalDrawerOpen(bool bOpen)
@@ -1229,6 +1259,7 @@ void UColdSteelHUDWidget::SetInventoryOpen(bool bOpen)
     if(!bOpen)HideItemTooltip(true);
     if(!bOpen)CloseWarehouse();
     if(!bOpen)CloseSmelting();   // 收背包连带收面板：保证"再打开背包"永远不会带出上次的面板
+    if(!bOpen)CloseForging();
     if(!bOpen)CloseWorkbench();  // 工作台制作面板同一连带口径（同文件同规则）
     if (bInventoryOpen == bOpen) return;
     bInventoryOpen = bOpen;
@@ -1351,6 +1382,7 @@ void UColdSteelHUDWidget::RefreshAmmo()
 void UColdSteelHUDWidget::RefreshStatus()
 {
     RefreshCharacterSheet();
+    RefreshExpBar();
     const AFPSGAMECharacter* Character = GetOwningPlayerPawn<AFPSGAMECharacter>();
     if (!Character) return;
     const UFPSCombatHealthComponent* Health = Character->FindComponentByClass<UFPSCombatHealthComponent>();

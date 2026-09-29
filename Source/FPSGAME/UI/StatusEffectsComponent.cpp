@@ -5,6 +5,8 @@
 #include "../Combat/ProgressiveInfectionComponent.h"
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
+#include "GameFramework/Pawn.h"
+#include "../Dungeons/DungeonRunSubsystem.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
 #include "Serialization/JsonSerializer.h"
@@ -18,9 +20,23 @@ FStatusEffectView UStatusEffectsComponent::Definition(FName Type)
  {
   FString Text;TSharedPtr<FJsonObject> Json;
   if(FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/status_effects.json")))&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Json))
-   for(const auto& Value:Json->GetArrayField(TEXT("effects"))){const auto O=Value->AsObject();FStatusEffectView V;V.Type=FName(O->GetStringField(TEXT("type")));V.Icon=O->GetStringField(TEXT("icon"));V.Name=O->GetStringField(TEXT("name"));V.Description=O->GetStringField(TEXT("description"));V.Color=FLinearColor::FromSRGBColor(FColor::FromHex(O->GetStringField(TEXT("color"))));Catalog.Add(V.Type,V);}
+   for(const auto& Value:Json->GetArrayField(TEXT("effects"))){const auto O=Value->AsObject();FStatusEffectView V;V.Type=FName(O->GetStringField(TEXT("type")));V.Icon=O->GetStringField(TEXT("icon"));V.Name=O->GetStringField(TEXT("name"));V.Description=O->GetStringField(TEXT("description"));V.Kind=FName(O->GetStringField(TEXT("kind")));V.Group=FName(O->GetStringField(TEXT("group")));V.Color=FLinearColor::FromSRGBColor(FColor::FromHex(O->GetStringField(TEXT("color"))));Catalog.Add(V.Type,V);}
  }
  if(const auto* Found=Catalog.Find(Type))return *Found;FStatusEffectView V;V.Type=Type;V.Name=Type.ToString();V.Icon=TEXT("?");return V;
+}
+void UStatusEffectsComponent::AllDefinitions(TArray<FStatusEffectView>& Out)
+{
+ // 全量目录（单一事实源）：与 Definition 相同的解析口径，进程内只读一次文件，
+ // 按显示名稳定排序，供图鉴状态栏列表使用；HUD 不消费本接口。
+ static TArray<FStatusEffectView> Sorted;
+ if(Sorted.IsEmpty())
+ {
+  FString Text;TSharedPtr<FJsonObject> Json;
+  if(FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/status_effects.json")))&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Json))
+   for(const auto& Value:Json->GetArrayField(TEXT("effects"))){const auto O=Value->AsObject();FStatusEffectView V;V.Type=FName(O->GetStringField(TEXT("type")));V.Icon=O->GetStringField(TEXT("icon"));V.Name=O->GetStringField(TEXT("name"));V.Description=O->GetStringField(TEXT("description"));V.Kind=FName(O->GetStringField(TEXT("kind")));V.Group=FName(O->GetStringField(TEXT("group")));V.Color=FLinearColor::FromSRGBColor(FColor::FromHex(O->GetStringField(TEXT("color"))));Sorted.Add(V);}
+  Sorted.Sort([](const FStatusEffectView& A,const FStatusEffectView& B){return A.Name<B.Name;});
+ }
+ Out=Sorted;
 }
 bool UStatusEffectsComponent::HasType(FName Type)
 {if(Type.IsNone())return false;const FStatusEffectView V=Definition(Type);return !(V.Icon==TEXT("?")&&V.Type==Type&&V.Description.IsEmpty());}
@@ -30,6 +46,9 @@ void UStatusEffectsComponent::Notify(AActor* Owner){if(auto* C=GetOrCreate(Owner
 TArray<FStatusEffectView> UStatusEffectsComponent::Snapshot() const
 {
  TArray<FStatusEffectView> Result;if(auto* H=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>())if(H->IsDead())return Result;
+ if(const auto* Pawn=Cast<APawn>(GetOwner());Pawn&&Pawn->IsPlayerControlled())
+  if(const auto* Run=UDungeonRunSubsystem::Get(GetWorld());Run&&!Run->ActiveShrineBlessing().IsNone())
+  {auto V=Definition(Run->ActiveShrineBlessing());V.Persistent=true;V.DurationText=TEXT("本次地牢");Result.Add(V);}
  if(auto* P=GetOwner()->FindComponentByClass<UMaggotPoisonComponent>())if(P->Stacks>0){auto V=Definition(TEXT("poison"));V.Stacks=P->Stacks;V.Duration=5;V.Remaining=P->GetDecayRemaining();V.Description+=TEXT(" 每 5 秒消退 1 层；倒计时为下一次减层时间。");Result.Add(V);}
  if(auto* F=GetOwner()->FindComponentByClass<UHandBrainFearComponent>())if(F->Stacks>0){auto V=Definition(TEXT("fear"));V.Stacks=F->Stacks;V.Duration=3;V.Remaining=F->GetRemainingSeconds();Result.Add(V);}
  if(const auto* Infection=GetOwner()->FindComponentByClass<UProgressiveInfectionComponent>();Infection&&Infection->GetState().bActive)

@@ -34,7 +34,7 @@ APoisonMaggotMonster::APoisonMaggotMonster(const FObjectInitializer& ObjectIniti
  : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
  PrimaryActorTick.bCanEverTick=true;Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
- Combat->PoiseThreshold=80;Combat->StaggerDuration=.45f;Combat->StunDuration=1;
+ Combat->StaggerDuration=.45f;
  AIControllerClass=AMonsterAIController::StaticClass();AutoPossessAI=EAutoPossessAI::PlacedInWorldOrSpawned;
  GetCapsuleComponent()->InitCapsuleSize(70,70);GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Ignore);
  GetMesh()->SetRelativeLocation(FVector(0,0,-70));GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
@@ -117,7 +117,8 @@ float APoisonMaggotMonster::TakeDamage(float Damage,const FDamageEvent& Event,AC
   if(auto* AI=Cast<AMonsterAIController>(GetController()))AI->UpdateKnowledge();
   if(auto* PC=Cast<APlayerController>(EventInstigator))if(PC->IsLocalController()&&GetGameInstance()){GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);++RewardCount;}
  }
- else Combat->ReceiveHit(Applied,EventInstigator?EventInstigator->GetPawn().Get():Cast<APawn>(Causer));return Applied;
+ else Combat->ReceiveHit(Applied,EventInstigator?EventInstigator->GetPawn().Get():Cast<APawn>(Causer),
+  MonsterToughness::FormOf(Event.DamageTypeClass));return Applied;
 }
 void APoisonMaggotMonster::ClearProjectiles(){for(auto& P:Projectiles)if(P.IsValid())P->Destroy();Projectiles.Reset();}
 void APoisonMaggotMonster::EndPlay(const EEndPlayReason::Type Reason){ClearProjectiles();Super::EndPlay(Reason);}

@@ -30,7 +30,7 @@ AWolfMonster::AWolfMonster(const FObjectInitializer& ObjectInitializer)
     PrimaryActorTick.bCanEverTick = true;
     Combat = CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
     WoundAppearance = CreateDefaultSubobject<UZombieDogAppearanceComponent>(TEXT("WoundAppearance"));
-    Combat->PoiseThreshold = 40.f; Combat->StaggerDuration = .45f; Combat->StunDuration = 1.1f;
+    Combat->StaggerDuration = .45f;
     DeathAnimationFraction = MonsterCombatTuning::DeathAnimationFraction;
     GetCapsuleComponent()->InitCapsuleSize(34.f, 60.f);
     GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Ignore);
@@ -442,8 +442,10 @@ float AWolfMonster::TakeDamage(float Damage, const FDamageEvent& Event, AControl
     Health -= Applied;
     Super::TakeDamage(Applied, Event, EventInstigator, Causer);
     if (Health <= 0.f) Die(EventInstigator);
-    else Combat->ReceiveHit(Applied, EventInstigator ? EventInstigator->GetPawn().Get() : Cast<APawn>(Causer));
-    UE_LOG(LogTemp, Display, TEXT("WOLF_DAMAGE target=%s requested=%.2f applied=%.2f health=%.2f/%.2f"), *GetName(), Requested, Applied, Health, MaxHealth);
+    else Combat->ReceiveHit(Applied, EventInstigator ? EventInstigator->GetPawn().Get() : Cast<APawn>(Causer),
+        MonsterToughness::FormOf(Event.DamageTypeClass));
+    // Per-hit reporting: Verbose keeps automatic fire from flooding the log.
+    UE_LOG(LogTemp, Verbose, TEXT("WOLF_DAMAGE target=%s requested=%.2f applied=%.2f health=%.2f/%.2f"), *GetName(), Requested, Applied, Health, MaxHealth);
     return Applied;
 }
 void AWolfMonster::Die(AController* Killer)

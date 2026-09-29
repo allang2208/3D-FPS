@@ -6,6 +6,10 @@
 struct FStatusEffectView
 {
  FName Type;FString Icon,Name,Description,DurationText;
+ /** 增益/减益分类（目录 kind 字段：buff/debuff）；图鉴状态栏用，HUD 不消费。 */
+ FName Kind;
+ /** 来源分组（目录 group 字段：combat/triggered/persistent/tribute/dungeon_event）。 */
+ FName Group;
  FLinearColor Color=FLinearColor(.5f,.5f,.4f);
  float Remaining=0,Duration=0;int32 Stacks=-1,Battles=-1;bool Persistent=false;
  FString TimeText() const;
@@ -21,6 +25,8 @@ public:
  static UStatusEffectsComponent* GetOrCreate(AActor* Owner);
  /** 目录探测：该 type 在 status_effects.json 中有正式条目（区别于 Definition 的 "?" 回退）。 */
  static bool HasType(FName Type);
+ /** 全量目录（status_effects.json 逐条，含 kind 分类）：图鉴状态栏的唯一数据源，与 HUD 同源。 */
+ static void AllDefinitions(TArray<FStatusEffectView>& Out);
  static void Notify(AActor* Owner);
  TArray<FStatusEffectView> Snapshot() const;
  FStatusEffectsChanged OnChanged;

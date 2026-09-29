@@ -1,5 +1,12 @@
 #include "NurseZombie.h"
+#include "MonsterReactionTiming.h"
+#include "../Combat/CombatFormulaRuntime.h"
+#include "../Development/DevelopmentTuningSubsystem.h"
+#include "../Skills/EnemyAttackDamage.h"
+#include "MonsterCharacterMovementComponent.h"
 #include "MonsterCombatComponent.h"
+#include "HumanoidKnockdownComponent.h"
+#include "MonsterCombatTuning.h"
 #include "MonsterAIController.h"
 #include "FPSCombatHealthComponent.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -22,10 +29,11 @@
 #include "Kismet/GameplayStatics.h"
 
 ANurseZombie::ANurseZombie(const FObjectInitializer& ObjectInitializer)
-    : Super(ObjectInitializer)
+    : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
     PrimaryActorTick.bCanEverTick = true;
     Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
+    Knockdown=CreateDefaultSubobject<UHumanoidKnockdownComponent>(TEXT("HumanoidKnockdown"));
     AIControllerClass=AMonsterAIController::StaticClass();AutoPossessAI=EAutoPossessAI::PlacedInWorldOrSpawned;
     GetCapsuleComponent()->InitCapsuleSize(34.f, 92.f);
     GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Ignore);
@@ -40,7 +48,7 @@ ANurseZombie::ANurseZombie(const FObjectInitializer& ObjectInitializer)
     GetCharacterMovement()->bRunPhysicsWithNoController = true;
     GetCharacterMovement()->bOrientRotationToMovement = true;
     GetCharacterMovement()->RotationRate = FRotator(0,180,0);
-    GetCharacterMovement()->MaxStepHeight = 35.f;
+    GetCharacterMovement()->MaxStepHeight = 40.f;
     GetCharacterMovement()->bCanWalkOffLedges = false;
     Tags.Add(TEXT("Enemy"));
     Tags.Add(TEXT("NurseZombie"));
@@ -87,6 +95,7 @@ void ANurseZombie::SetState(ENurseState NewState)
 void ANurseZombie::StartStateAnimation(UAnimSequence* Clip,bool bLoop)
 {
     GetMesh()->PlayAnimation(Clip,bLoop);
+    PresentedClip = Clip;
     GetMesh()->SetPlayRate(bLoop?1.f:0.f);
 }
 void ANurseZombie::SetAttackAnimationTime(float Seconds) { GetMesh()->SetPosition(Seconds,false); }
@@ -94,9 +103,19 @@ void ANurseZombie::SetWalkAnimationRate(float Rate) { GetMesh()->SetPlayRate(Rat
 
 void ANurseZombie::StartHitPresentation(UAnimSequence* Clip, float Duration)
 {
+    // Automatic fire re-issues the same reaction every bullet. PlayAnimation
+    // rebuilds the single-node player on each call; restarting the sample time
+    // produces the identical pose without that per-bullet animation churn.
+    if (Clip && Clip == PresentedClip && GetMesh()->GetAnimationMode()==EAnimationMode::AnimationSingleNode)
+    {
+        GetMesh()->SetPlayRate(0);
+        GetMesh()->SetPosition(0, false);
+        return;
+    }
     if (Clip)
     {
         GetMesh()->PlayAnimation(Clip, false);
+        PresentedClip = Clip;
         GetMesh()->SetPlayRate(0);
         GetMesh()->SetPosition(0, false);
     }
@@ -110,7 +129,10 @@ void ANurseZombie::StartHitPresentation(UAnimSequence* Clip, float Duration)
 void ANurseZombie::SetHitPresentationTime(UAnimSequence* Clip, float Elapsed, float Remaining)
 {
     if (!Clip) return;
-    const float Time = Elapsed < .15f ? Elapsed : (Remaining > .4f ? .15f : Clip->GetPlayLength() - FMath::Max(0.f, Remaining));
+    const float Length=Clip->GetPlayLength();
+    const float Time = Combat->IsImmobileReaction() ? FMath::Min(Elapsed,.15f) : !Combat->bStunned ?
+        MonsterReactionTiming::StaggerSample(Elapsed,Remaining,Length,.15f,.15f) :
+        (Elapsed < .15f ? Elapsed : (Remaining > .4f ? .15f : Length - FMath::Max(0.f, Remaining)));
     GetMesh()->SetPosition(FMath::Clamp(Time, 0.f, Clip->GetPlayLength()), false);
 }
 
@@ -127,18 +149,23 @@ void ANurseZombie::TryMelee()
 {
     if (bAttackConsumed || !Target.IsValid()) return;
     const FVector Offset = Target->GetActorLocation() - GetActorLocation();
-    if (Offset.Size2D() > AttackRange || FMath::Abs(Offset.Z) > 90.f ||
+    if (Offset.Size2D() > MonsterCombatTuning::AttackDistance(AttackRange) || FMath::Abs(Offset.Z) > 90.f ||
         FVector::DotProduct(GetActorForwardVector(),Offset.GetSafeNormal2D()) < .55f || !CanSee(Target.Get())) return;
     bAttackConsumed = true;
-    UGameplayStatics::ApplyDamage(Target.Get(),AttackDamage,GetController(),this,nullptr);
+    ApplyMeleeDamage(Target.Get());
     ++SuccessfulHits;
     UE_LOG(LogTemp, Display, TEXT("NURSE_MELEE time=%.3f hit=%d"),StateTime,SuccessfulHits);
+}
+
+float ANurseZombie::ApplyMeleeDamage(APawn* Victim)
+{
+    return UGameplayStatics::ApplyDamage(Victim,AttackDamage,GetController(),this,UEnemyMeleeDamage::StaticClass());
 }
 
 void ANurseZombie::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
-    if (!HasAuthority() || State == ENurseState::Dead) return;
+    if (!HasAuthority() || State == ENurseState::Dead || (Knockdown && Knockdown->IsControlling())) return;
     const float Previous = StateTime;
     StateTime += DeltaSeconds;
     Cooldown = FMath::Max(0.f,Cooldown-DeltaSeconds);
@@ -151,6 +178,9 @@ void ANurseZombie::Tick(float DeltaSeconds)
     {
         SetAttackAnimationTime(FMath::Min(StateTime,AttackClip->GetPlayLength()));
         if (Previous <= ContactEnd && StateTime >= ContactTime) TryMelee();
+        // ApplyDamage can synchronously parry/kill us. The interrupted attack
+        // must not write recovery state after that callback returns.
+        if (State != ENurseState::Attack) return;
         if (StateTime >= AttackClip->GetPlayLength())
         {
             Cooldown = RecoveryTime;
@@ -164,6 +194,8 @@ void ANurseZombie::Tick(float DeltaSeconds)
 void ANurseZombie::InterruptAttack(float Seconds)
 {
     if (!HasAuthority() || State == ENurseState::Dead) return;
+    if (Knockdown && Knockdown->IsControlling()) { Knockdown->ExtendControl(Seconds); return; }
+    if (State==ENurseState::Stagger) Seconds=FMath::Max(Seconds,StaggerSeconds-StateTime);
     bAttackConsumed = true;
     StaggerSeconds = FMath::Max(.01f,Seconds);
     Cooldown = FMath::Max(Cooldown,.6f);
@@ -174,11 +206,15 @@ void ANurseZombie::InterruptAttack(float Seconds)
 float ANurseZombie::TakeDamage(float Damage, const FDamageEvent& Event, AController* EventInstigator, AActor* Causer)
 {
     if (!HasAuthority() || State == ENurseState::Dead || Damage <= 0.f) return 0.f;
+    if (UDevelopmentTuningSubsystem::ShouldOneHitKill(this, EventInstigator, Causer)) Damage = Health;
+    else Damage=CombatFormulaRuntime::MitigateMonster(this,Damage,Event.DamageTypeClass?Event.DamageTypeClass->GetDefaultObject<UDamageType>():nullptr,Causer);
+    if(Damage<=0)return 0.f;
     const float Before = Health;
     Health = FMath::Max(0.f, Health - Damage);
     const float Applied = Before - Health;
     Super::TakeDamage(Applied,Event,EventInstigator,Causer);
-    if (Health > 0.f) Combat->ReceiveHit(Applied,EventInstigator?EventInstigator->GetPawn().Get():Cast<APawn>(Causer));
+    if (Health > 0.f) Combat->ReceiveHit(Applied,EventInstigator?EventInstigator->GetPawn().Get():Cast<APawn>(Causer),
+        MonsterToughness::FormOf(Event.DamageTypeClass));
     else
     {
         SetState(ENurseState::Dead);
@@ -187,7 +223,7 @@ float ANurseZombie::TakeDamage(float Damage, const FDamageEvent& Event, AControl
         Target.Reset();
         GetCharacterMovement()->DisableMovement();
         GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-        StartDeathPresentation();
+        if (!Knockdown || !Knockdown->OnDeath()) StartDeathPresentation();
         SetLifeSpan(CorpseSeconds);
         UE_LOG(LogTemp, Display, TEXT("NURSE_KILLED %s"),*GetName());
         if(auto* PlayerController=Cast<APlayerController>(EventInstigator))
@@ -196,13 +232,16 @@ float ANurseZombie::TakeDamage(float Damage, const FDamageEvent& Event, AControl
     }
     const FName Bone = Event.IsOfType(FPointDamageEvent::ClassID)
         ? static_cast<const FPointDamageEvent&>(Event).HitInfo.BoneName : NAME_None;
-    UE_LOG(LogTemp, Display, TEXT("MONSTER_DAMAGE target=%s requested=%.2f applied=%.2f health=%.2f->%.2f/%.2f dead=%d bone=%s causer=%s"),
+    // Per-bullet damage reporting belongs to Verbose; the default stream stays
+    // readable while an automatic rifle is firing.
+    UE_LOG(LogTemp, Verbose, TEXT("MONSTER_DAMAGE target=%s requested=%.2f applied=%.2f health=%.2f->%.2f/%.2f dead=%d bone=%s causer=%s"),
         *GetName(), Damage, Applied, Before, Health, MaxHealth, State == ENurseState::Dead, *Bone.ToString(), *GetNameSafe(Causer));
     return Applied;
 }
 
 void ANurseZombie::StartDeathPresentation()
 {
+    if (Knockdown) { Knockdown->StartDeath(); return; }
     GetMesh()->SetCollisionProfileName(TEXT("Ragdoll"));
     GetMesh()->SetCollisionResponseToChannel(ECC_Pawn,ECR_Ignore);
     GetMesh()->SetSimulatePhysics(true);

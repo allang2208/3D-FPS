@@ -5,763 +5,1035 @@
       "icon": "💫",
       "name": "眩晕",
       "color": "#9a7a5a",
-      "description": "无法移动、攻击、使用技能与物品。"
+      "description": "无法移动、攻击、使用技能与物品。",
+      "kind": "debuff",
+      "group": "combat"
     },
     {
       "type": "poison",
       "icon": "☠️",
       "name": "中毒",
       "color": "#7a9a5a",
-      "description": "每秒受到层数点毒素伤害。"
+      "description": "每秒受到层数点毒素伤害。",
+      "kind": "debuff",
+      "group": "combat"
     },
     {
       "type": "minePoison",
       "icon": "☣",
       "name": "矿毒",
       "color": "#a1b052",
-      "description": "矿洞毒气：每秒以最大生命0.5%为基准结算魔法伤害；离开毒区后最多残留3秒，可净化。"
+      "description": "矿洞毒气：每秒以最大生命0.5%为基准结算魔法伤害；离开毒区后最多残留3秒，可净化。",
+      "kind": "debuff",
+      "group": "combat"
     },
     {
       "type": "slow",
       "icon": "🐌",
       "name": "减速",
       "color": "#5a7a9a",
-      "description": "移动速度降低 50%。"
+      "description": "移动速度降低 50%。",
+      "kind": "debuff",
+      "group": "combat"
     },
     {
       "type": "waxSealSlow",
       "icon": "🕯️",
       "name": "封蜡减速",
       "color": "#ba9272",
-      "description": "封蜡诅咒使移动速度降低20%，持续2秒；再次命中只刷新时间，不叠层。"
+      "description": "封蜡诅咒使移动速度降低20%，持续2秒；再次命中只刷新时间，不叠层。",
+      "kind": "debuff",
+      "group": "combat"
     },
     {
       "type": "buff",
       "icon": "✨",
       "name": "增益",
       "color": "#9a9a5a",
-      "description": "获得临时增益效果。"
+      "description": "获得临时增益效果。",
+      "kind": "buff",
+      "group": "combat"
     },
     {
       "type": "shield",
       "icon": "🛡️",
       "name": "护盾",
       "color": "#5a8a9a",
-      "description": "获得护盾，减免受到的伤害。"
+      "description": "获得护盾，减免受到的伤害。",
+      "kind": "buff",
+      "group": "combat"
     },
     {
       "type": "bleed",
       "icon": "🩸",
       "name": "流血",
       "color": "#9a3a3a",
-      "description": "持续流失生命值。"
+      "description": "持续流失生命值。",
+      "kind": "debuff",
+      "group": "combat"
     },
     {
       "type": "corrosion",
       "icon": "🧪",
       "name": "腐蚀",
       "color": "#9ab84f",
-      "description": "每层使物理防御降低 5%；每次倒计时结束只消退 1 层。"
+      "description": "每层使物理防御降低 5%；每次倒计时结束只消退 1 层。",
+      "kind": "debuff",
+      "group": "combat"
     },
     {
       "type": "magicVulnerability",
       "icon": "🔮",
       "name": "魔力易伤",
       "color": "#8a5a9a",
-      "description": "每层使受到的魔法伤害提高 5%。"
+      "description": "每层使受到的魔法伤害提高 5%。",
+      "kind": "debuff",
+      "group": "combat"
     },
     {
       "type": "droneVulnerability",
       "icon": "🛸",
       "name": "无人机易伤",
       "color": "#5a7a9a",
-      "description": "每层使受到的所有伤害提高 10%。"
+      "description": "每层使受到的所有伤害提高 10%。",
+      "kind": "debuff",
+      "group": "combat"
     },
     {
       "type": "marbleHeal",
       "icon": "🗿",
       "name": "大理石守护",
       "color": "#8a9a8a",
-      "description": "击杀目标后 1 秒内回复生命值。"
+      "description": "击杀目标后 1 秒内回复生命值。",
+      "kind": "buff",
+      "group": "triggered"
     },
     {
       "type": "goddessBless",
       "icon": "✨",
       "name": "女神祝福",
       "color": "#e8c878",
-      "description": "本场战斗攻击/防御/移速提升，按场消耗。"
+      "description": "本场战斗攻击/防御/移速提升，按场消耗。",
+      "kind": "buff",
+      "group": "triggered"
     },
     {
       "type": "demonPrayer",
       "icon": "🔥",
       "name": "恶魔祈祷",
       "color": "#9a3a3a",
-      "description": "攻击力大幅提升的恶魔交易，伴随代价。"
+      "description": "攻击力大幅提升的恶魔交易，伴随代价。",
+      "kind": "buff",
+      "group": "triggered"
     },
     {
       "type": "fear",
       "icon": "😨",
       "name": "恐惧",
       "color": "#6a5a8a",
-      "description": "失控地远离恐惧源，每层移速再降 33%（上限 99%）。"
+      "description": "失控地远离恐惧源，每层移速再降 33%（上限 99%）。",
+      "kind": "debuff",
+      "group": "combat"
     },
     {
       "type": "tributeSnowLotus",
       "icon": "🪷",
       "name": "雪莲祝福",
       "color": "#9ad0ff",
-      "description": "本次地牢获得经验 +25%。"
+      "description": "本次地牢获得经验 +25%。",
+      "kind": "buff",
+      "group": "tribute"
     },
     {
       "type": "tributeGinseng",
       "icon": "🌿",
       "name": "人参回气",
       "color": "#6a9a5a",
-      "description": "本次地牢击杀目标后 1 秒内回复最大魔法值 5%。"
+      "description": "本次地牢击杀目标后 1 秒内回复最大魔法值 5%。",
+      "kind": "buff",
+      "group": "tribute"
     },
     {
       "type": "tributePeach",
       "icon": "🍑",
       "name": "蟠桃续命",
       "color": "#e8a06a",
-      "description": "本次地牢死亡后 3 秒以 30% 最大生命原地复活一次。"
+      "description": "本次地牢死亡后 3 秒以 30% 最大生命原地复活一次。",
+      "kind": "buff",
+      "group": "tribute"
     },
     {
       "type": "tributeDiamond",
       "icon": "💎",
       "name": "金刚不坏",
       "color": "#7ab0e0",
-      "description": "单次受到的伤害不超过最大生命值的 15%。"
+      "description": "单次受到的伤害不超过最大生命值的 15%。",
+      "kind": "buff",
+      "group": "tribute"
     },
     {
       "type": "tributeMoonstone",
       "icon": "🌙",
       "name": "月影庇护",
       "color": "#b0a0e0",
-      "description": "进入战斗获得无敌；Boss/精英战斗中物理魔法伤害 +5%。"
+      "description": "进入战斗获得无敌；Boss/精英战斗中物理魔法伤害 +5%。",
+      "kind": "buff",
+      "group": "tribute"
     },
     {
       "type": "tributePhilosopher",
       "icon": "🪨",
       "name": "点石成金",
       "color": "#e0c060",
-      "description": "获得随机传说祭品（若为传说祭品则额外再得一份）。"
+      "description": "获得随机传说祭品（若为传说祭品则额外再得一份）。",
+      "kind": "buff",
+      "group": "tribute"
     },
     {
       "type": "tributeBloodVine",
       "icon": "🩸",
       "name": "血藤寄生",
       "color": "#d06060",
-      "description": "友方单位造成伤害的百分比转化为自身生命。"
+      "description": "友方单位造成伤害的百分比转化为自身生命。",
+      "kind": "buff",
+      "group": "tribute"
     },
     {
       "type": "tributeWolfBanner",
       "icon": "🚩",
       "name": "狼烟结界",
       "color": "#c0a060",
-      "description": "旗帜光环内友方单位移动速度提高。"
+      "description": "旗帜光环内友方单位移动速度提高。",
+      "kind": "buff",
+      "group": "tribute"
     },
     {
       "type": "tributeJadeTwins",
       "icon": "🗿",
       "name": "双身募兵",
       "color": "#7ad0a0",
-      "description": "出兵建筑每次招募数量倍率提升。"
+      "description": "出兵建筑每次招募数量倍率提升。",
+      "kind": "buff",
+      "group": "tribute"
     },
     {
       "type": "tributeAstrolabe",
       "icon": "🌟",
       "name": "风调雨顺",
       "color": "#e8d060",
-      "description": "生产建筑资源产出倍率提升。"
+      "description": "生产建筑资源产出倍率提升。",
+      "kind": "buff",
+      "group": "tribute"
     },
     {
       "type": "holyRenewal",
       "icon": "💚",
       "name": "圣光续疗",
       "color": "#7aff9a",
-      "description": "每秒恢复最大生命值 1%×层数 的生命值。"
+      "description": "每秒恢复最大生命值 1%×层数 的生命值。",
+      "kind": "buff",
+      "group": "persistent"
     },
     {
       "type": "holyWard",
       "icon": "🛡️",
       "name": "圣佑",
       "color": "#ffe7a3",
-      "description": "持续期间降低受到的最终伤害。"
+      "description": "持续期间降低受到的最终伤害。",
+      "kind": "buff",
+      "group": "persistent"
     },
     {
       "type": "chainSpell",
       "icon": "🔗",
       "name": "链式强化",
       "color": "#8a7a6a",
-      "description": "下次施法的魔法伤害与 MP 消耗按层数提高。"
+      "description": "下次施法的魔法伤害与 MP 消耗按层数提高。",
+      "kind": "buff",
+      "group": "triggered"
     },
     {
       "type": "weaponHaste",
       "icon": "➤",
       "name": "命中动能",
       "color": "#69e7e3",
-      "description": "P4040命中后移动速度提高10%；再次命中刷新持续时间。"
+      "description": "P4040命中后移动速度提高10%；再次命中刷新持续时间。",
+      "kind": "buff",
+      "group": "triggered"
     },
     {
       "type": "chill",
       "icon": "❄️",
       "name": "寒冷",
       "color": "#7ab8e0",
-      "description": "每层降低 5% 移动速度；层数加法叠加，最终乘算。"
+      "description": "每层降低 5% 移动速度；层数加法叠加，最终乘算。",
+      "kind": "debuff",
+      "group": "combat"
     },
     {
       "type": "burn",
       "icon": "🔥",
       "name": "灼伤",
       "color": "#ff6b35",
-      "description": "每 0.5 秒受到施法者魔法攻击×0.5 的魔法伤害。"
+      "description": "每 0.5 秒受到施法者魔法攻击×0.5 的魔法伤害。",
+      "kind": "debuff",
+      "group": "combat"
     },
     {
       "type": "frozen",
       "icon": "🧊",
       "name": "冻结",
       "color": "#a0d8ff",
-      "description": "无法移动、攻击、使用技能与物品；受到的非魔法伤害提高 50%。"
+      "description": "无法移动、攻击、使用技能与物品；受到的非魔法伤害提高 50%。",
+      "kind": "debuff",
+      "group": "combat"
     },
     {
       "type": "petrified",
       "icon": "🗿",
       "name": "石化",
       "color": "#929292",
-      "description": "持续期间停在当前动画帧，无法移动或执行任何动作；受到的魔法伤害提高 50%。"
+      "description": "持续期间停在当前动画帧，无法移动或执行任何动作；受到的魔法伤害提高 50%。",
+      "kind": "debuff",
+      "group": "combat"
     },
     {
       "type": "flameArmor",
       "icon": "🔥",
       "name": "灼锋焰甲",
       "color": "#ff7a3a",
-      "description": "攻击附带魔法伤害并迸发火花；每 0.5 秒灼烧周围敌人；武器持续上浮火焰粒子。"
+      "description": "攻击附带魔法伤害并迸发火花；每 0.5 秒灼烧周围敌人；武器持续上浮火焰粒子。",
+      "kind": "buff",
+      "group": "persistent"
     },
     {
       "type": "riposteInspiration",
       "icon": "⚔",
       "name": "反击激励",
       "color": "#d8b882",
-      "description": "成功弹反获得：近战攻击速度提高20%，攻击（包括重击）和防御受击的耐力消耗降低20%，持续6秒；再次成功弹反刷新时间。"
+      "description": "成功弹反获得：近战攻击速度提高20%，攻击（包括重击）和防御受击的耐力消耗降低20%，持续6秒；再次成功弹反刷新时间。",
+      "kind": "buff",
+      "group": "triggered"
     },
     {
       "type": "runeMagicVulnerability",
       "icon": "◇",
       "name": "导魔易伤",
       "color": "#e7e9ed",
-      "description": "受到的魔法伤害提高10%，持续10秒；导魔符文再次命中刷新时间，不叠加层数。"
+      "description": "受到的魔法伤害提高10%，持续10秒；导魔符文再次命中刷新时间，不叠加层数。",
+      "kind": "debuff",
+      "group": "combat"
     },
     {
       "type": "electrified",
       "icon": "⚡",
       "name": "感电",
       "color": "#b98cff",
-      "description": "每层使受到的电系伤害提高 3%；叠满 5 层触发过载：眩晕并释放电弧传导。"
+      "description": "每层使受到的电系伤害提高 3%；叠满 5 层触发过载：眩晕并释放电弧传导。",
+      "kind": "debuff",
+      "group": "combat"
     },
     {
       "type": "haste",
       "icon": "💨",
       "name": "加速",
       "color": "#5ac85a",
-      "description": "每层移动速度提高 10%，层数加法叠加；新层持续时间累加，全部时长到期后一次清空。"
+      "description": "每层移动速度提高 10%，层数加法叠加；新层持续时间累加，全部时长到期后一次清空。",
+      "kind": "buff",
+      "group": "triggered"
     },
     {
       "type": "inspire",
       "icon": "📣",
       "name": "激励",
       "color": "#ffb347",
-      "description": "移动速度 ×1.33、物理攻击 ×1.5；重复激励只刷新时长，不重复乘算，到期还原。"
+      "description": "移动速度 ×1.33、物理攻击 ×1.5；重复激励只刷新时长，不重复乘算，到期还原。",
+      "kind": "buff",
+      "group": "triggered"
     },
     {
       "type": "statusImmune",
       "icon": "🔰",
       "name": "状态免疫",
       "color": "#5ac8c8",
-      "description": "持续期间免疫一切其他增益与减益状态。"
+      "description": "持续期间免疫一切其他增益与减益状态。",
+      "kind": "buff",
+      "group": "persistent"
     },
     {
       "type": "bind",
       "icon": "⛓️",
       "name": "束缚",
       "color": "#7a5a8a",
-      "description": "移动速度归零，无法闪避；施法与攻击不受影响。"
+      "description": "移动速度归零，无法闪避；施法与攻击不受影响。",
+      "kind": "debuff",
+      "group": "combat"
     },
     {
       "type": "marked",
       "icon": "🎯",
       "name": "标记",
       "color": "#ffd700",
-      "description": "受到的所有伤害提高；重复标记取更高数值并刷新时间。"
+      "description": "受到的所有伤害提高；重复标记取更高数值并刷新时间。",
+      "kind": "debuff",
+      "group": "combat"
     },
     {
       "type": "camelFright",
       "icon": "🐪",
       "name": "骆驼惊吓",
       "color": "#c99b5d",
-      "description": "骆驼骑兵光环：受到的伤害降低 10%；同类刷新取更强减伤，不叠加。"
+      "description": "骆驼骑兵光环：受到的伤害降低 10%；同类刷新取更强减伤，不叠加。",
+      "kind": "buff",
+      "group": "combat"
     },
     {
       "type": "magicResistanceShred",
       "icon": "✦",
       "name": "魔抗蚀刻",
       "color": "#9f7cff",
-      "description": "魔法抗性按比例削减；重复来源取更高比例并刷新较长时限。"
+      "description": "魔法抗性按比例削减；重复来源取更高比例并刷新较长时限。",
+      "kind": "debuff",
+      "group": "combat"
     },
     {
       "type": "ginsengHeal",
       "icon": "🌿",
       "name": "人参回气",
       "color": "#6a9a5a",
-      "description": "击杀目标后 1 秒内回复最大魔法值 5%。"
+      "description": "击杀目标后 1 秒内回复最大魔法值 5%。",
+      "kind": "buff",
+      "group": "triggered"
     },
     {
       "type": "foremanDebtMark",
       "icon": "📒",
       "name": "工头债印",
       "color": "#7a5a3a",
-      "description": "地牢事件减益：matk-15%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：matk-15%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "minersGratitude",
       "icon": "⛏",
       "name": "矿工谢意",
       "color": "#c6a56b",
-      "description": "地牢事件增益：def+10%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：def+10%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "minersCadence",
       "icon": "⚙️",
       "name": "掘进节拍",
       "color": "#b48a5a",
-      "description": "地牢事件增益：atk+10%、移速+10%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：atk+10%、移速+10%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "deepShaftEcho",
       "icon": "🕳️",
       "name": "深井回声",
       "color": "#52515f",
-      "description": "地牢事件减益：def-15%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：def-15%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "reedLament",
       "icon": "🌾",
       "name": "芦苇哀鸣",
       "color": "#8b9670",
-      "description": "地牢事件减益：移速-15%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：移速-15%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "bogHunterInstinct",
       "icon": "🏹",
       "name": "沼猎直觉",
       "color": "#a59a62",
-      "description": "地牢事件增益：atk+10%、移速+10%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：atk+10%、移速+10%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "hunterBurden",
       "icon": "🦴",
       "name": "猎手重负",
       "color": "#786b55",
-      "description": "地牢事件减益：def-10%、移速-10%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：def-10%、移速-10%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "druidShelter",
       "icon": "🌿",
       "name": "林神庇护",
       "color": "#65a86f",
-      "description": "地牢事件增益：def+10%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：def+10%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "swampWhisper",
       "icon": "🌀",
       "name": "沼语侵扰",
       "color": "#63745b",
-      "description": "地牢事件减益：matk-10%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：matk-10%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "wildSap",
       "icon": "🍂",
       "name": "野性树液",
       "color": "#91a34f",
-      "description": "地牢事件增益：atk+10%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：atk+10%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "marshGasNumbness",
       "icon": "☁️",
       "name": "沼气麻痹",
       "color": "#9a9b45",
-      "description": "地牢事件减益：移速-20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：移速-20%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "livingRootWard",
       "icon": "🌱",
       "name": "活根护符",
       "color": "#6f9550",
-      "description": "地牢事件增益：def+15%、matk+10%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：def+15%、matk+10%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "blackwaterChill",
       "icon": "🕯️",
       "name": "黑水寒意",
       "color": "#55777c",
-      "description": "地牢事件减益：atk-10%、matk-10%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：atk-10%、matk-10%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "waterloggedArmor",
       "icon": "💧",
       "name": "浸水护甲",
       "color": "#4c6f78",
-      "description": "地牢事件减益：def-15%、移速-10%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：def-15%、移速-10%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "graveMurmur",
       "icon": "🪦",
       "name": "墓洲低语",
       "color": "#7d8862",
-      "description": "地牢事件减益：matk-10%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：matk-10%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "frogBoneCurse",
       "icon": "🦴",
       "name": "蛙骨诅咒",
       "color": "#7f8b56",
-      "description": "地牢事件减益：def-10%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：def-10%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "witchDistillate",
       "icon": "⚗️",
       "name": "女巫馏液",
       "color": "#8d75a6",
-      "description": "地牢事件增益：matk+15%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：matk+15%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "bogWitchTonic",
       "icon": "🥄",
       "name": "沼巫强壮剂",
       "color": "#778f5a",
-      "description": "地牢事件增益：atk+10%、def+10%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：atk+10%、def+10%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "failedWitchBrew",
       "icon": "🧪",
       "name": "失败药剂",
       "color": "#66576f",
-      "description": "地牢事件减益：def-15%、移速-15%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：def-15%、移速-15%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "crocodileHideWard",
       "icon": "🐊",
       "name": "鳄神厚皮",
       "color": "#536d4f",
-      "description": "地牢事件增益：def+15%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：def+15%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "ancientSpell",
       "icon": "🔮",
       "name": "古代咒语",
       "color": "#8a7aff",
-      "description": "地牢事件增益：matk+25%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：matk+25%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "bloodFury",
       "icon": "🩸",
       "name": "血怒",
       "color": "#aa3333",
-      "description": "地牢事件增益：atk+20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：atk+20%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "cursedArmorShell",
       "icon": "🛡️",
       "name": "诅咒板甲",
       "color": "#7a7a7a",
-      "description": "地牢事件增益：def+20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：def+20%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "armorCurse",
       "icon": "💀",
       "name": "板甲诅咒",
       "color": "#5a5a5a",
-      "description": "地牢事件减益：def-20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：def-20%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "steadyMind",
       "icon": "🍃",
       "name": "稳定心神",
       "color": "#7abaff",
-      "description": "地牢事件增益：移速+15%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：移速+15%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "madVision",
       "icon": "👁️",
       "name": "疯狂幻象",
       "color": "#8a5a9a",
-      "description": "地牢事件减益：移速-25%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：移速-25%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "corpseWaxSeal",
       "icon": "🕯️",
       "name": "尸蜡封层",
       "color": "#c8b997",
-      "description": "地牢事件增益：def+15%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：def+15%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "waxStiffness",
       "icon": "🕯️",
       "name": "尸蜡僵结",
       "color": "#81745f",
-      "description": "地牢事件减益：移速-20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：移速-20%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "funeralTempo",
       "icon": "🎼",
       "name": "送葬节拍",
       "color": "#9aa7b5",
-      "description": "地牢事件增益：atk+20%、matk+20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：atk+20%、matk+20%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "discordantEcho",
       "icon": "🎵",
       "name": "失谐回声",
       "color": "#746879",
-      "description": "地牢事件减益：matk-20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：matk-20%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "plagueAntiserum",
       "icon": "🧬",
       "name": "净化血清",
       "color": "#78a995",
-      "description": "地牢事件增益：def+20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：def+20%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "plagueExposure",
       "icon": "☣️",
       "name": "瘟疫暴露",
       "color": "#76834f",
-      "description": "地牢事件减益：atk-20%、def-20%、移速-15%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：atk-20%、def-20%、移速-15%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "frostDisorientation",
       "icon": "🧭",
       "name": "霜途迷向",
       "color": "#8aa8ba",
-      "description": "地牢事件减益：移速-15%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：移速-15%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "iceBridgePoise",
       "icon": "🧊",
       "name": "冰桥定势",
       "color": "#83b4ca",
-      "description": "地牢事件增益：def+15%、移速+15%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：def+15%、移速+15%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "iceBridgeNumbness",
       "icon": "🥶",
       "name": "寒桥麻木",
       "color": "#6d91a8",
-      "description": "地牢事件减益：移速-15%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：移速-15%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "iceBridgeDetourChill",
       "icon": "🥶",
       "name": "绕路失温",
       "color": "#6d91a8",
-      "description": "地牢事件减益：移速-10%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：移速-10%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "frostberryVigor",
       "icon": "🫐",
       "name": "霜莓活力",
       "color": "#668bb5",
-      "description": "地牢事件增益：def+15%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：def+15%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "frostberryChill",
       "icon": "🫐",
       "name": "霜莓寒毒",
       "color": "#526b92",
-      "description": "地牢事件减益：移速-15%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：移速-15%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "whiteStagStride",
       "icon": "🦌",
       "name": "白鹿轻步",
       "color": "#b7d7e4",
-      "description": "地牢事件增益：移速+20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：移速+20%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "whiteStagMercy",
       "icon": "🦌",
       "name": "白鹿善意",
       "color": "#b7d7e4",
-      "description": "地牢事件增益：def+10%、移速+10%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：def+10%、移速+10%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "auroraCadence",
       "icon": "🌌",
       "name": "极光律动",
       "color": "#77c6d7",
-      "description": "地牢事件增益：matk+15%、移速+15%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：matk+15%、移速+15%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "auroraFrostbite",
       "icon": "💠",
       "name": "极光冻伤",
       "color": "#7199b8",
-      "description": "地牢事件减益：移速-15%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：移速-15%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "shroudedAurora",
       "icon": "🌌",
       "name": "极光残扰",
       "color": "#718da9",
-      "description": "地牢事件减益：matk-10%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：matk-10%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "avalancheBrace",
       "icon": "🏔️",
       "name": "抗崩架势",
       "color": "#879ba7",
-      "description": "地牢事件增益：def+20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：def+20%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "crevasseWhispers",
       "icon": "🗣️",
       "name": "冰隙低语",
       "color": "#7796aa",
-      "description": "地牢事件减益：matk-15%、移速-15%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：matk-15%、移速-15%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "glacierLungs",
       "icon": "🌬️",
       "name": "冰川吐息",
       "color": "#6fa0bd",
-      "description": "地牢事件增益：def+20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：def+20%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "crevasseNumbness",
       "icon": "🥶",
       "name": "冰隙失温",
       "color": "#63869c",
-      "description": "地牢事件减益：移速-20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：移速-20%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "crevasseDetourNumbness",
       "icon": "🌬️",
       "name": "冰隙寒侵",
       "color": "#63869c",
-      "description": "地牢事件减益：移速-15%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：移速-15%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "frozenSanctuary",
       "icon": "❄️",
       "name": "寒堂圣佑",
       "color": "#b7dce8",
-      "description": "地牢事件增益：def+20%、matk+20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：def+20%、matk+20%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "rejectedPrayer",
       "icon": "🕯️",
       "name": "冰堂拒斥",
       "color": "#778ca0",
-      "description": "地牢事件减益：matk-20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：matk-20%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "reliquaryBurden",
       "icon": "⛓️",
       "name": "圣匣重压",
       "color": "#70889a",
-      "description": "地牢事件减益：移速-20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：移速-20%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "drenchedInIcewater",
       "icon": "💧",
       "name": "冰水浸身",
       "color": "#557f9a",
-      "description": "地牢事件减益：移速-20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：移速-20%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "signalFlamePace",
       "icon": "🔥",
       "name": "烽火引路",
       "color": "#d7a76b",
-      "description": "地牢事件增益：移速+20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：移速+20%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "blizzardFireguard",
       "icon": "🔥",
       "name": "暴雪火卫",
       "color": "#cb8e64",
-      "description": "地牢事件增益：def+20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：def+20%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "shutterBruise",
       "icon": "🌀",
       "name": "风板挫伤",
       "color": "#6e8798",
-      "description": "地牢事件减益：atk-15%、移速-15%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：atk-15%、移速-15%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "frostSpiritMark",
       "icon": "👻",
       "name": "寒灵印记",
       "color": "#75b9d2",
-      "description": "地牢事件增益：matk+20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：matk+20%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "frostSpiritRage",
       "icon": "👻",
       "name": "寒灵震慑",
       "color": "#637e9b",
-      "description": "地牢事件减益：matk-20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：matk-20%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "crystalBackflow",
       "icon": "💎",
       "name": "寒晶逆流",
       "color": "#658da7",
-      "description": "地牢事件减益：atk-20%、def-20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：atk-20%、def-20%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "frostSpiritRejection",
       "icon": "👻",
       "name": "寒灵拒斥",
       "color": "#637e9b",
-      "description": "地牢事件减益：matk-15%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：matk-15%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "auroraOmen",
       "icon": "🌠",
       "name": "极光战兆",
       "color": "#8cc8d8",
-      "description": "地牢事件增益：atk+20%、matk+20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件增益：atk+20%、matk+20%；按战斗场次消耗（默认3场）。",
+      "kind": "buff",
+      "group": "dungeon_event"
     },
     {
       "type": "falseOmen",
       "icon": "🌑",
       "name": "伪星兆",
       "color": "#686f91",
-      "description": "地牢事件减益：atk-20%、matk-20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：atk-20%、matk-20%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "starfallFracture",
       "icon": "☄️",
       "name": "坠星震裂",
       "color": "#747fa0",
-      "description": "地牢事件减益：def-20%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：def-20%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
     },
     {
       "type": "infection",
       "icon": "☣",
       "name": "感染",
       "color": "#80b34e",
-      "description": "逐步恶化为初期、中期、后期；六维降低5%、30%、50%，每秒损失最大生命值的0.2%、0.5%、1%。60秒进入中期，180秒进入后期；持续至治愈，净化可移除。"
+      "description": "逐步恶化为初期、中期、后期；六维降低5%、30%、50%，每秒损失最大生命值的0.2%、0.5%、1%。60秒进入中期，180秒进入后期；持续至治愈，净化可移除。",
+      "kind": "debuff",
+      "group": "combat"
     },
     {
       "type": "observatoryFrostFracture",
       "icon": "☄️",
       "name": "星镜霜裂",
       "color": "#747fa0",
-      "description": "地牢事件减益：def-15%；按战斗场次消耗（默认3场）。"
+      "description": "地牢事件减益：def-15%；按战斗场次消耗（默认3场）。",
+      "kind": "debuff",
+      "group": "dungeon_event"
+    },
+    {
+      "type": "shrineDiana",
+      "name": "狩猎赐福",
+      "icon": "🏹",
+      "color": "#b0c994",
+      "description": "物理攻击提高12%，移动速度提高8%；本次地牢有效。",
+      "kind": "buff",
+      "group": "tribute"
+    },
+    {
+      "type": "shrineVenus",
+      "name": "和悦赐福",
+      "icon": "♡",
+      "color": "#d5a5ba",
+      "description": "每秒额外恢复2点生命，法力恢复速度提高10%；本次地牢有效。",
+      "kind": "buff",
+      "group": "tribute"
+    },
+    {
+      "type": "shrineFlora",
+      "name": "繁花赐福",
+      "icon": "✿",
+      "color": "#b3c57b",
+      "description": "每秒额外恢复1点生命，耐力恢复速度提高25%；本次地牢有效。",
+      "kind": "buff",
+      "group": "tribute"
+    },
+    {
+      "type": "shrineMuse",
+      "name": "灵感赐福",
+      "icon": "♫",
+      "color": "#a6b5dd",
+      "description": "魔法攻击提高15%，法力恢复速度提高20%；本次地牢有效。",
+      "kind": "buff",
+      "group": "tribute"
+    },
+    {
+      "type": "shrineMagnaMater",
+      "name": "慈佑赐福",
+      "icon": "✚",
+      "color": "#d8c49d",
+      "description": "领取时恢复最大生命的30%，物理防御提高15%；本次地牢有效。",
+      "kind": "buff",
+      "group": "tribute"
+    },
+    {
+      "type": "shrineBaroque",
+      "name": "守望赐福",
+      "icon": "⛨",
+      "color": "#b8bdc8",
+      "description": "物理防御提高10%，魔法防御提高20%；本次地牢有效。",
+      "kind": "buff",
+      "group": "tribute"
     }
   ]
 }

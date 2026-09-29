@@ -294,3 +294,12 @@ FPSGAME 源码与实施记录：[图鉴栏系统规划](../../../Docs/UI/codex-p
 采用与背包等宽贴边的制造抽屉、配方/材料/状态/成品卡片与 36px 操作区；字号、语义色和 DPI 使用共享冷钢规则。主抽屉先按双栏夹宽，制造栏 `WB=Width`、`WBDock=Width+RightInset`；关闭动画完成前保持该布局。不能用 `min(Width,Leftover)` 再缩一次，也不能只按打开布尔值布局。
 
 常规工作台直接制作，枪械工作台由独立 `UColdSteelGunAssemblyWidget` 承接。参数预览读取 `BuildColdSteelItemTooltip`；动态配方标题、窄屏参数滚动、实际可用容量、下拉行生命周期与外部点击判断都属于对齐范围。具体规则见 [工作台面板与结算](crafting-workbenches.md)。
+2026-09-29 图鉴新增「状态」主分区（状态栏卡片，整页独占不分栏）：数据=UStatusEffectsComponent::AllDefinitions（status_effects.json 同源，kind=buff/debuff）；分类页签 全部/增益/减益 显式映射表；「状态栏卡片·增益/减益」两张卡平铺（图标+名称 14px+说明 12px 换行）；Entries 路由状态分支必须在怪物分支（条件恒真）之前。正式规则见设计系统 §17。
+
+## UMG 构造与交互五坑（2026-09-29/30 经验条与图鉴状态页实测）
+
+- **画布槽 offsets 语义**：锚点同侧（如底部条 (0,1)-(1,1)）该轴不拉伸，**尺寸=Offset.Right/Bottom**（SConstraintCanvas 的 SlotSize），Top/Left 只定位。底部 6px 条写 `SetOffsets(FMargin(0,-6,0,+6))`；写 `(0,-6,0,0)` 得 0×0 且无报错。诊断控件几何须在布局若干帧后读，构建期 GetCachedGeometry 恒 0。
+- **SBorder::BorderImage 收 `TAttribute<const FSlateBrush*>`**：传构造临时 FSlateBrush 编不过或悬垂；一律缓存成员画刷（循环里 115 条也不能各建临时值——全条目共享一枚，随 DPI 在重建处重算）。
+- **SEditableTextBox**：`HintText` 收 FText 要 `FText::FromString`；`FEditableTextBoxStyle` 无 SetBorderBrush，背景透明化走 SetBackgroundImageNormal/Hovered/Focused 三件套；样式按指针取须成员缓存。搜索框跨分区共用一个缓存实例（文本/焦点保留），提示词用 `SetHintText` 按分区刷新；输入回调只重填卡片区（缓存 SVerticalBox），不重建整页。
+- **FString::Printf** 的格式串必须编译期字面量，三目选格式串会报 C7732——拆成两个分支各写字面量。
+- **游戏输入层不感知 Slate 文本焦点**：面板快捷键（走 PlayerController 输入绑定的 Tab/Caps/P/N）要在入口加守卫——`FSlateApplication::Get().GetKeyboardFocusedWidget()->GetTypeAsString()` 为 SEditableText/SEditableTextBox 时放行按键，否则搜索框打字会误切抽屉。

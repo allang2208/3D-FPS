@@ -41,7 +41,8 @@
 AHandBrainMonster::AHandBrainMonster(const FObjectInitializer& ObjectInitializer)
  : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
- Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));Combat->PoiseThreshold=150;Combat->StaggerDuration=.6f;Combat->StunDuration=.9f;
+ Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
+ Combat->StaggerDuration=.6f;
  AIControllerClass=AMonsterAIController::StaticClass();AutoPossessAI=EAutoPossessAI::PlacedInWorldOrSpawned;
  GetCharacterMovement()->bOrientRotationToMovement=true;GetCharacterMovement()->RotationRate=FRotator(0,180,0);
  PrimaryActorTick.bCanEverTick=true;GetCapsuleComponent()->InitCapsuleSize(62,102);
@@ -89,6 +90,29 @@ bool AHandBrainMonster::CanSee(const AActor* A,FVector From) const
 {
  if(!IsValid(A))return false;FHitResult H;FCollisionQueryParams Q(SCENE_QUERY_STAT(HandBrainSight),false,this);Q.AddIgnoredActor(A);
  return !GetWorld()->LineTraceSingleByChannel(H,From,A->GetActorLocation(),ECC_Visibility,Q);
+}
+bool AHandBrainMonster::CanSlamTarget(const APawn* P) const
+{
+ if(!IsValid(P)||SlamLeft>0||FVector::Dist2D(P->GetActorLocation(),GetActorLocation())>SlamTriggerRange)return false;
+ const FVector Direction=(P->GetActorLocation()-GetActorLocation()).GetSafeNormal2D();
+ const FVector Center=GroundPoint(GetActorLocation()+Direction*SlamReach);
+ // Match DealSlam's height/occlusion gate before spending an attack on a
+ // player standing above or below the floor the impact will actually hit.
+ return FMath::Abs(P->GetActorLocation().Z-Center.Z)<=170&&CanSee(P,Center+FVector(0,0,60));
+}
+bool AHandBrainMonster::CanHowlTarget(const APawn* P) const
+{
+ return IsValid(P)&&HowlLeft<=0&&FVector::Dist2D(P->GetActorLocation(),GetActorLocation())<=HowlRadius
+  &&FMath::Abs(P->GetActorLocation().Z-GetActorLocation().Z)<=170&&CanSee(P,GetActorLocation()+FVector(0,0,30));
+}
+bool AHandBrainMonster::IsWeakpointHit(const FHitResult& Hit) const
+{
+ // 弱点只在释放吼叫（Howl，3 秒吟唱）时存在：张开的是口部；其余时间全身无要害，
+ // 头部命中不再必暴，只保留各武器/近战共用的随机暴击概率判定。
+ if(State!=EHandBrainState::Howl||Dead())return false;
+ const FString Bone=Hit.BoneName.ToString();
+ for(const auto& Token:WeakpointBones)if(!Token.IsEmpty()&&Bone.Contains(Token,ESearchCase::IgnoreCase))return true;
+ return false;
 }
 void AHandBrainMonster::ShowRing(UStaticMeshComponent* Ring,FVector P,float Radius,FLinearColor Color,float Opacity)
 {
@@ -165,16 +189,6 @@ void AHandBrainMonster::Tick(float Dt)
 
 }
 void AHandBrainMonster::InterruptAttack(float Seconds){if(!HasAuthority()||Dead())return;bSlamConsumed=true;StaggerSeconds=FMath::Max(.1f,Seconds);SetState(EHandBrainState::Stagger);Combat->BeginReaction(StaggerSeconds);}
-bool AHandBrainMonster::IsWeakpointHit(const FHitResult& Hit) const
-{
- // 弱点只在释放吼叫（Howl，3 秒吟唱）时存在：张开的是口部；其余时间全身无要害，
- // 头部命中不再必暴，只保留各武器/近战共用的随机暴击概率判定。
- if(State!=EHandBrainState::Howl||Dead())return false;
- const FString Bone=Hit.BoneName.ToString();
- for(const auto& Token:WeakpointBones)if(!Token.IsEmpty()&&Bone.Contains(Token,ESearchCase::IgnoreCase))return true;
- return false;
-}
-
 float AHandBrainMonster::TakeDamage(float Damage,const FDamageEvent& Event,AController* DamageInstigator,AActor* Causer)
 {
  if(!HasAuthority()||Dead()||Damage<=0)return 0;
@@ -186,7 +200,8 @@ float AHandBrainMonster::TakeDamage(float Damage,const FDamageEvent& Event,ACont
   if(auto* PC=Cast<APlayerController>(DamageInstigator))if(PC->IsLocalController()&&GetGameInstance())GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);
   UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_KILLED %s"),*GetName());
  }
- else Combat->ReceiveHit(Applied,DamageInstigator?DamageInstigator->GetPawn().Get():Cast<APawn>(Causer));
+ else Combat->ReceiveHit(Applied,DamageInstigator?DamageInstigator->GetPawn().Get():Cast<APawn>(Causer),
+  MonsterToughness::FormOf(Event.DamageTypeClass));
  return Applied;
 }
 void AHandBrainMonster::EnterRagdoll()
@@ -280,20 +295,4 @@ bool AHandBrainMonster::FindVillageSpawn(UObject* Context,FVector Origin,FRotato
   if(W->LineTraceSingleByChannel(H,Origin+FVector(0,0,45),P+FVector(0,0,45),ECC_Visibility,Q))continue;
   Location=P;return true;
  }return false;
-}
-
-bool AHandBrainMonster::CanSlamTarget(const APawn* P) const
-{
- if(!IsValid(P)||SlamLeft>0||FVector::Dist2D(P->GetActorLocation(),GetActorLocation())>SlamTriggerRange)return false;
- const FVector Direction=(P->GetActorLocation()-GetActorLocation()).GetSafeNormal2D();
- const FVector Center=GroundPoint(GetActorLocation()+Direction*SlamReach);
- // Match DealSlam's height/occlusion gate before spending an attack on a
- // player standing above or below the floor the impact will actually hit.
- return FMath::Abs(P->GetActorLocation().Z-Center.Z)<=170&&CanSee(P,Center+FVector(0,0,60));
-}
-
-bool AHandBrainMonster::CanHowlTarget(const APawn* P) const
-{
- return IsValid(P)&&HowlLeft<=0&&FVector::Dist2D(P->GetActorLocation(),GetActorLocation())<=HowlRadius
-  &&FMath::Abs(P->GetActorLocation().Z-GetActorLocation().Z)<=170&&CanSee(P,GetActorLocation()+FVector(0,0,30));
 }

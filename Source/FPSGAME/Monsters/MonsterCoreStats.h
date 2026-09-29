@@ -8,16 +8,33 @@ class AActor;
 UENUM(BlueprintType)
 enum class EMonsterRank : uint8 { Normal, Minor, Elite, Lord, Boss };
 
-// 怪物六维核心：六维 + 配置等级 + 品阶。六维来自原项目
-// E:/无尽轮回/长期备份/2026-7-13-1/game-dev data/enemy-config.json；
-// 狼、护士为 UE 新增身份，六维按其现行表面值（物防/魔防/抗暴）反解，
-// 保证接入前后伤害与暴击行为逐位不变。表面字段（MaxHealth/AttackDamage/
-// BiteDamage/狼防具等）保持原版 maxHp/atk/matk/mdef 直接配置的覆盖语义。
+// 韧性类别（2026-09-29 用户拍板"按类别×阶级定韧性基准"）：决定阈值基线、
+// 三抗性与脱战恢复；阶级只缩放阈值与破韧时长。类别按怪物韧性身份归类，
+// 不严格等于继承家族（小手按轻装杂鱼处理）。
+enum class EMonsterToughnessClass : uint8
+{
+    Light,      // 轻装：护士/毒液僵尸/小手——脆，频繁破韧
+    Heavy,      // 重装：胖子/突变体-3——高阈值，钝抗明显
+    Caster,     // 施法：巫婆/毒蛆——中阈值，冲击抗性
+    Canine,     // 犬科：野狼/僵尸犬/感染犬——低阈值，破韧频繁
+    Colossal    // 巨物：大手/手脑——最高阈值，破韧后控制短
+};
+
+// 怪物档案核心：防御常量 + 配置等级 + 品阶。2026-09-28 用户拍板剔除怪物端六维
+// （六维是静态中间量：怪不升级不穿装，公式输出终生不变，且攻击/生命本就走字面量覆盖）。
+// Def/Mdef/CritRes 为原六维公式的**逐位烤入值**（def=⌊1.5体+.3力⌋、mdef=⌊1.2精+.3智⌋、
+// critRes=⌊体⌋），并已并入运行时字段覆盖（手脑 mdef65/大手 mdef30/小手 mdef55/巫婆 mdef55）；
+// AttrWeight 为战斗等级的属性权重和（.08力+.08敏+.10体+.08智+.08精+.04运）。
+// 怪物暴击率（2+运）无任何消费方，未保留。渐进感染减益在 Get() 内对数值整体乘系数。
 struct FMonsterCoreStats
 {
-    CoreCombatFormula::Attributes A;
+    int32 Def = 0;
+    int32 Mdef = 0;
+    int32 CritRes = 0;
+    double AttrWeight = 0.;
     int32 Level = 1;
     EMonsterRank Rank = EMonsterRank::Normal;
+    EMonsterToughnessClass ToughnessClass = EMonsterToughnessClass::Light;
 };
 
 namespace MonsterCoreStats
@@ -47,4 +64,11 @@ namespace MonsterCoreStats
     // 全局生命成长层（原 monsterGrowth 的同一层语义）：各怪 BeginPlay 把 MaxHealth
     // 乘上此系数后再初始化。2026-09-23 用户拍板全员翻倍=2.0；BP 实例覆盖值同样生效。
     FPSGAME_API double HealthMultiplier();
+
+    // 韧性基准（2026-09-29）：按类别基线 × 阶级缩放，写入目标的 UMonsterCombatComponent
+    // （阈值/破韧时长/三抗性/脱战恢复五项）。由组件 BeginPlay 统一调用，晚于地牢导演
+    // 写入实例 Rank，因此阶级缩放对地牢精英/领主实例同样生效。未注册目标不改（保留组件默认）。
+    FPSGAME_API void ApplyToughnessProfile(AActor* Monster);
+    FPSGAME_API float ToughnessRankThresholdScale(EMonsterRank Rank);
+    FPSGAME_API float ToughnessRankBreakScale(EMonsterRank Rank);
 }

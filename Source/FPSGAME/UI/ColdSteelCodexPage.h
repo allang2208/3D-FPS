@@ -14,11 +14,15 @@ class UTexture2D;
 class SBox;
 class SScrollBox;
 class SButton;
+class SEditableTextBox;
+struct FEditableTextBoxStyle;
 
-/** 图鉴（武器／怪物）档案页：只读展示，挂在既有右侧抽屉的第 4 页。
+/** 图鉴（武器／怪物／状态）档案页：只读展示，挂在既有右侧抽屉的第 4 页。
  *  数据来源与运行时同一入口——武器走 UColdSteelStatusModel 的物品目录与物品 Data，
- *  怪物走 UDevelopmentSpawnComponent::GetMonsters() 与 MonsterCoreStats。本页不写存档、
- *  不改战斗公式，也不复制第二套数值口径。参考原项目 src/ui/codex-manager.js 的分类与详情结构。 */
+ *  怪物走 UDevelopmentSpawnComponent::GetMonsters() 与 MonsterCoreStats，
+ *  状态走 UStatusEffectsComponent::AllDefinitions（status_effects.json 同源目录）。
+ *  本页不写存档、不改战斗公式，也不复制第二套数值口径。
+ *  参考原项目 src/ui/codex-manager.js 的分类与详情结构。 */
 UCLASS()
 class FPSGAME_API UColdSteelCodexPage : public UUserWidget
 {
@@ -70,7 +74,7 @@ private:
     /** SBorder 的 BorderImage 取指针，故缓存分区卡画刷而不是每次构造临时值。 */
     FSlateBrush SectionBrush;
 
-    /** 0 武器，1 怪物。 */
+    /** 0 武器，1 怪物，2 状态（buff/debuff 目录），3 祭品（tribute 物品目录）。 */
     int32 Section = 0;
     int32 Category = 0;
     FString SelectedId;
@@ -130,4 +134,28 @@ private:
     TArray<TSharedRef<SWidget>> WeaponDetailRows(const FString& Definition) const;
     /** 怪物详情：六维／战力／品阶奖励与运行时同一入口求值。 */
     TArray<TSharedRef<SWidget>> MonsterDetailRows(const FString& MonsterId) const;
+    /** 状态分区整页内容：「状态栏卡片」+ 搜索栏——全部增益/减益条目与说明平铺（无列表/详情分栏）。 */
+    TSharedRef<SWidget> BuildStatusPage();
+    /** 只重填状态卡片区（搜索输入时不重建整页，保住输入框焦点）。 */
+    void RebuildStatusCards();
+    TArray<TSharedRef<SWidget>> StatusPageCards() const;
+    /** 祭品分区整页内容（2026-09-30，与状态分区同规则）：搜索栏 + 按稀有度分组的「祭品卡片」。 */
+    TSharedRef<SWidget> BuildTributePage();
+    void RebuildTributeCards();
+    TArray<TSharedRef<SWidget>> TributePageCards() const;
+    /** 搜索行（状态/祭品两页共用同一个缓存输入框，切换分区时重挂载、文本保留）。 */
+    TSharedRef<SWidget> BuildSearchRow(const FString& Hint);
+    /** 当前整页分区的卡片重填派发：搜索输入只重建活动分区，不动输入框。 */
+    void RebuildFilterCards();
+    /** 搜索关键词（名称/说明/标识包含匹配，大小写不敏感）；与分类页签叠加过滤。 */
+    FString SearchText;
+    TSharedPtr<SVerticalBox> StatusCardsHost;
+    TSharedPtr<SVerticalBox> TributeCardsHost;
+    TSharedPtr<SEditableTextBox> SearchEdit;
+    /** 搜索框样式缓存：SEditableTextBox 按指针取样式，须与控件同寿命。 */
+    FEditableTextBoxStyle SearchEditStyle;
+    /** 搜索栏外框画刷缓存：SBorder::BorderImage 取指针，不能传构造临时值。 */
+    FSlateBrush SearchSurfaceBrush;
+    /** 状态条目弱行底画刷（全条目共用一枚，随 DPI 在 RebuildStatusCards 重算）。 */
+    FSlateBrush StatusEntryBrush;
 };

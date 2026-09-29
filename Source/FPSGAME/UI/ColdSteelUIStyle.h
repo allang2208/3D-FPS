@@ -19,17 +19,32 @@ namespace ColdSteelUI
     inline const FLinearColor TextTertiary = Gray(145);
     inline const FLinearColor Accent = Gray(214);
     inline const FLinearColor Border = Gray(222,46);
+    // HUD decoration and focus only; gameplay rarity/resource colours keep their meaning.
+    inline const FLinearColor HUDGold = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("C7AA70FF")));
+    inline const FLinearColor HUDGoldLight = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("E8D39AFF")));
+    inline const FLinearColor HUDGoldDim = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("756447FF")));
+    // Exclusive attachment identity; selected-state feedback remains Success green.
+    inline const FLinearColor ExclusiveCard = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("393226E8")));
+    inline const FLinearColor ExclusiveCardHover = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("514532EE")));
+    inline const FLinearColor ExclusiveCardPressed = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("29241DF0")));
+    inline const FLinearColor ExclusiveBorder = HUDGold;
+    inline const FLinearColor ExclusiveText = HUDGoldLight;
+    inline constexpr float HUDCornerWidth=286.f,HUDCornerHeight=72.f,HUDGap=12.f;
     inline const FLinearColor Warning = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("F0BE71FF")));
-    inline const FLinearColor Stamina = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("A1A44FFF")));
-    inline const FLinearColor StaminaDeep = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("666B35FF")));
     // 生命/魔法语义色（2026-09-28 统一）：HUD 资源条与人物状态页同源，
-    // 原 ResourceMeter 与 CharacterSheet 的字面量（763B43/BD626D/36566E/7194AC/55799D）收敛于此。
+    // 原 ResourceMeter 与 CharacterSheet 的五处字面量（763B43/BD626D/36566E/7194AC/55799D）收敛于此。
     inline const FLinearColor Health = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("BD626DFF")));
     inline const FLinearColor HealthDeep = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("763B43FF")));
     inline const FLinearColor Mana = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("7194ACFF")));
     inline const FLinearColor ManaDeep = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("36566EFF")));
+    inline const FLinearColor Stamina = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("A1A44FFF")));
+    inline const FLinearColor StaminaDeep = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("666B35FF")));
     inline const FLinearColor Danger = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("FF8193FF")));
     inline const FLinearColor Success = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("68D5ADFF")));
+    // 韧性语义色（2026-09-29）：受击目标面板的韧性栏专用（破韧控制资源，紫罗兰系，
+    // 与生命红/魔法蓝/体力橄榄/Gold 装饰互斥）；登记于设计系统 §2。
+    inline const FLinearColor Toughness = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("9A8BC7FF")));
+    inline const FLinearColor ToughnessDeep = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("5F5484FF")));
     inline const FLinearColor ButtonNormal = Gray(43,190);
     inline const FLinearColor ButtonHover = Gray(65,230);
     inline const FLinearColor ButtonPressed = Gray(24,240);
@@ -52,23 +67,22 @@ namespace ColdSteelUI
 // The drawer hugs the right screen edge; the navigation strip steps aside while it is out, so it
 // reserves no width. Keep this at zero when changing NavigationRight/Size/Overflow.
 inline constexpr float NavigationDrawerInset=0.f;
-    inline const FLinearColor NavigationSelected = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("176C86FF")));
-    inline const FLinearColor NavigationKey = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("54D9DCFF")));
+    inline const FLinearColor NavigationSelected = HUDGold;
+    inline const FLinearColor NavigationKey = HUDGoldLight;
     inline constexpr float InventoryItemRadius=5.f,ProcessingCornerUnderlap=.5f;
     // Item inspection cards: source white tooltip, explicitly requested 2026-09-09.
     inline const FLinearColor ItemTooltipSurface = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("EEF0F2FF")));
     inline const FLinearColor ItemTooltipHeader = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("E2E6E9FF")));
     inline const FLinearColor ItemTooltipText = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("252A2EFF")));
     inline const FLinearColor ItemTooltipSecondary = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("697278FF")));
-    inline const FLinearColor ItemTooltipRule = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("CDD2D5FF")));
     inline const FLinearColor ItemTooltipBorder = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("00000033")));
     inline const FLinearColor ItemTooltipPositive = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("247124FF")));
     inline const FLinearColor ItemTooltipNegative = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("B82020FF")));
     // 浮窗暗金融合（2026-09-28）：金只上身份层——区块/卡片标题、元信息行、分隔线；
-    // 正文与数值保持中性灰阶，正负语义色不变。756447 即 HUDGoldDim（HUD 淡金加深档；
-    // 本文件当前未引入 HUDGold 家族，先落字面值，HUDGold 入库后可改回别名）。
-    // C7AA70 为 HUDGold 原值：浅底文字对比仅 1.95:1，只作分隔线基底降透明使用，不作文字。
-    inline const FLinearColor ItemTooltipGold = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("756447FF")));
+    // 正文与数值保持中性灰阶，正负语义色不变。浅底文字金取 HUDGoldDim（对卡面 5.0:1、
+    // 对头带 4.6:1；HUDGold 原值在浅底仅 1.95:1，只作分隔线基底降透明使用，不作文字）。
+    // 旧 ItemTooltipRule（CDD2D5 灰线）由 GoldRule 取代后退役。
+    inline const FLinearColor ItemTooltipGold = HUDGoldDim;
     inline const FLinearColor ItemTooltipGoldRule = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("C7AA7059")));
     inline const FLinearColor ItemTooltipDisclosure = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("176C86FF")));
     inline const FLinearColor ItemTooltipDisclosureFlash = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("57BCD5FF")));

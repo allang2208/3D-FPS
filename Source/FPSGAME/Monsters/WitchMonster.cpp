@@ -1,4 +1,6 @@
 #include "WitchMonster.h"
+#include "MonsterReactionTiming.h"
+#include "HumanoidKnockdownComponent.h"
 #include "WitchSpellAnimInstance.h"
 #include "WitchProjectile.h"
 #include "MonsterCombatComponent.h"
@@ -21,7 +23,7 @@ AWitchMonster::AWitchMonster(const FObjectInitializer& Initializer) : Super(Init
     GetCapsuleComponent()->InitCapsuleSize(34.f, 94.f);
     // Health/magic/cooldowns come from the original witch config. World units
     // are authored centimetres, not an automatic conversion of source pixels.
-    MaxHealth = 1300.f; Level = 8; Rank = EMonsterRank::Lord; Health = MaxHealth; WalkSpeed = 82.5f; AggroRadius = 1600.f;
+    MaxHealth = 1300.f; Level = 8; Rank = EMonsterRank::Lord; Health = MaxHealth; WalkSpeed = 82.5f; AggroRadius = 1600.f; ExperienceReward = 800;
     AttackRange = SpellRange; AttackDamage = 0.f; RecoveryTime = 0.f;
     // The inherited attack clock drives our overridden presentation hook.
     // Its melee contact branch is disabled: only ReleaseSpell deals attacks.
@@ -181,7 +183,10 @@ void AWitchMonster::StartHitPresentation(UAnimSequence* Clip, float Duration)
 void AWitchMonster::SetHitPresentationTime(UAnimSequence* Clip, float Elapsed, float Remaining)
 {
     if (!Clip) return;
-    const float Time = Elapsed < .15f ? Elapsed : Remaining > .4f ? .15f : Clip->GetPlayLength() - FMath::Max(0.f, Remaining);
+    const float Length=Clip->GetPlayLength();
+    const float Time = Combat->IsImmobileReaction() ? FMath::Min(Elapsed,.15f) : !Combat->bStunned ?
+        MonsterReactionTiming::StaggerSample(Elapsed,Remaining,Length,.15f,Length-.4f) :
+        (Elapsed < .15f ? Elapsed : Remaining > .4f ? .15f : Length - FMath::Max(0.f, Remaining));
     if (auto* Animation = GetSpellAnimation()) Animation->SetCombatTime(FMath::Clamp(Time, 0.f, Clip->GetPlayLength()));
 }
 
@@ -203,6 +208,7 @@ void AWitchMonster::StartRagdoll()
         GetMesh()->SetPosition(DeathClip->GetPlayLength() * MonsterCombatTuning::DeathAnimationFraction, false);
         GetMesh()->TickAnimation(0.f, false); GetMesh()->RefreshBoneTransforms();
     }
+    if (Knockdown) { Knockdown->StartDeath(DeathClip,DeathClip?DeathClip->GetPlayLength()*MonsterCombatTuning::DeathAnimationFraction:0.f);return; }
     GetMesh()->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
     GetMesh()->SetCollisionProfileName(TEXT("Ragdoll"));
     GetMesh()->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);

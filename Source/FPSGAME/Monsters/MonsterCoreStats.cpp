@@ -1,5 +1,6 @@
 #include "MonsterCoreStats.h"
 #include "HandBrainMonster.h"
+#include "FleshHandMonster.h"
 #include "PoisonMaggotMonster.h"
 #include "WolfMonster.h"
 #include "InfectedDogMonster.h"
@@ -8,6 +9,9 @@
 #include "Mutant3.h"
 #include "WitchMonster.h"
 #include "NurseZombie.h"
+#include "SpitterZombie.h"
+#include "MonsterCombatComponent.h"
+#include "Components/ActorComponent.h"
 
 namespace MonsterCoreStats
 {
@@ -19,43 +23,55 @@ double RankCombatBonus(EMonsterRank R)
 { switch(R){case EMonsterRank::Minor:return 1.;case EMonsterRank::Elite:return 3.;case EMonsterRank::Lord:return 5.;case EMonsterRank::Boss:return 7.;default:return 0.;} }
 double HealthMultiplier()
 {
-    // 2026-09-23 用户拍板：全部怪物生命值翻倍。调参只改这一个数（对应原版
-    // monsterGrowth 的全局成长层语义；六维/防具/奖励不受影响）。
-    return 2.;
+    // 2026-09-28 用户要求移除翻倍，恢复 1.0（2026-09-23 曾拍板翻倍）。
+    // 调参只改这一个数（对应原版 monsterGrowth 的全局成长层语义；六维/防具/奖励不受影响）。
+    return 1.;
 }
 
-// 六维与 rank/level 逐字对照原 data/enemy-config.json（手脑12lord/胖子4/突变体3为9elite/
-// 巫婆8lord/毒蛆4elite）；狼、护士为 UE 新增身份：参照 blackWolf/zombie 量级，用现行
-// 表面值反解（狼 def12=⌊1.5×5+0.3×16⌋、mdef8=⌊1.2×6+0.3×3⌋、critres5=⌊5⌋、bite22=
-// round(0.5×16+0.5×28)；护士防具全 0、atk15=round(0.5×3+0.5×27)），接入前后行为逐位不变。
+// 防御常量表（2026-09-28 用户拍板剔除怪物端六维）：Def/Mdef/CritRes 为原六维公式
+// （def=⌊1.5体+.3力⌋/mdef=⌊1.2精+.3智⌋/critRes=⌊体⌋）的逐位烤入值，并已并入此前的
+// 运行时字段覆盖：大手 mdef30、小手 mdef55、手脑 mdef65、巫婆 mdef55（狼系字段 12/8/5
+// 与公式一致）。AttrWeight=战斗等级属性权重和（.08力+.08敏+.10体+.08智+.08精+.04运）。
+// 行尾注释为烤入时的原六维 {力,敏,智,体,精,运}，仅供追溯，运行时不再参与任何计算。
+// 感染减益改为对四值整体乘系数：与狼系字段语义一致，floor 位置差异 <1 点（原为缩放
+// 六维后再 floor）。
 bool Get(const AActor* Target,FMonsterCoreStats& Out)
 {
     if(!Target)return false;
-    CoreCombatFormula::Attributes A;int32 Level=1;EMonsterRank Rank=EMonsterRank::Normal;bool bKnown=false;
-    if(const auto* H=Cast<AHandBrainMonster>(Target)){A={50,25,30,40,20,10};Level=H->Level>0?H->Level:12;Rank=H->Rank;bKnown=true;}
-    else if(const auto* M=Cast<APoisonMaggotMonster>(Target)){A={7,13,24,22,24,13};Level=M->Level>0?M->Level:4;Rank=M->Rank;bKnown=true;}
-    else if(const auto* D=Cast<AInfectedDogMonster>(Target)){A=D->BaseAttributes();Level=D->Level;Rank=D->Rank;bKnown=true;}
-    else if(const auto* W=Cast<AWolfMonster>(Target)){A={16,28,3,5,6,8};Level=W->Level>0?W->Level:5;Rank=W->Rank;bKnown=true;}
-    else if(const auto* F=Cast<AFatZombie>(Target)){A={18,6,3,20,3,5};Level=F->Level>0?F->Level:4;Rank=F->Rank;bKnown=true;}
-    else if(const auto* U=Cast<AMutant3>(Target)){A={50,30,5,40,10,6};Level=U->Level>0?U->Level:9;Rank=U->Rank;bKnown=true;}
-    else if(const auto* C=Cast<AWitchMonster>(Target)){A={20,15,30,33,25,13};Level=C->Level>0?C->Level:8;Rank=C->Rank;bKnown=true;}
-    else if(const auto* N=Cast<ANurseZombie>(Target)){A={3,27,3,0,0,3};Level=N->Level>0?N->Level:3;Rank=N->Rank;bKnown=true;}
-    else if(Target->ActorHasTag(TEXT("FatZombie"))){A={18,6,3,20,3,5};Level=4;Rank=EMonsterRank::Normal;bKnown=true;}
-    else if(Target->ActorHasTag(TEXT("Mutant3"))){A={50,30,5,40,10,6};Level=9;Rank=EMonsterRank::Elite;bKnown=true;}
-    else if(Target->ActorHasTag(TEXT("Witch"))){A={20,15,30,33,25,13};Level=8;Rank=EMonsterRank::Lord;bKnown=true;}
+    FMonsterCoreStats S;bool bKnown=false;
+    auto Fill=[&](int32 Def,int32 Mdef,int32 CritRes,double Weight,int32 Level,EMonsterRank Rank,EMonsterToughnessClass TClass)
+    {S.Def=Def;S.Mdef=Mdef;S.CritRes=CritRes;S.AttrWeight=Weight;S.Level=Level;S.Rank=Rank;S.ToughnessClass=TClass;bKnown=true;};
+    if(const auto* Hand=Cast<AFleshHandMonster>(Target))
+    {
+        if(Hand->bMinion)Fill(21,55,10,6.6,Hand->Level,Hand->Rank,EMonsterToughnessClass::Light);   // 小手 {20,30,5,10,10,10}
+        else Fill(84,30,45,13.3,Hand->Level,Hand->Rank,EMonsterToughnessClass::Colossal);           // 大手 {55,25,10,45,15,10}
+    }
+    else if(const auto* H=Cast<AHandBrainMonster>(Target)){Fill(75,65,40,14.4,H->Level>0?H->Level:12,H->Rank,EMonsterToughnessClass::Colossal);} // {50,25,30,40,20,10}
+    else if(const auto* Mg=Cast<APoisonMaggotMonster>(Target)){Fill(35,36,22,8.16,Mg->Level>0?Mg->Level:4,Mg->Rank,EMonsterToughnessClass::Caster);} // {7,13,24,22,24,13}
+    else if(const auto* D=Cast<AInfectedDogMonster>(Target)){Fill(34,13,18,7.64,D->Level,D->Rank,EMonsterToughnessClass::Canine);} // {24,32,4,18,10,6}
+    else if(const auto* W=Cast<AWolfMonster>(Target)){Fill(12,8,5,5.06,W->Level>0?W->Level:5,W->Rank,EMonsterToughnessClass::Canine);} // {16,28,3,5,6,8}
+    else if(const auto* F=Cast<AFatZombie>(Target)){Fill(35,4,20,4.6,F->Level>0?F->Level:4,F->Rank,EMonsterToughnessClass::Heavy);} // {18,6,3,20,3,5}
+    else if(const auto* U=Cast<AMutant3>(Target)){Fill(75,13,40,11.84,U->Level>0?U->Level:9,U->Rank,EMonsterToughnessClass::Heavy);} // {50,30,5,40,10,6}
+    else if(const auto* C=Cast<AWitchMonster>(Target)){Fill(55,55,33,11.02,C->Level>0?C->Level:8,C->Rank,EMonsterToughnessClass::Caster);} // {20,15,30,33,25,13} mdef 字段覆盖 55
+    else if(const auto* Sp=Cast<ASpitterZombie>(Target)){Fill(36,10,20,8.28,Sp->Level,Sp->Rank,EMonsterToughnessClass::Light);} // {22,38,10,20,6,5}
+    else if(const auto* N=Cast<ANurseZombie>(Target)){Fill(0,0,0,2.76,N->Level>0?N->Level:3,N->Rank,EMonsterToughnessClass::Light);} // {3,27,3,0,0,3}
+    else if(Target->ActorHasTag(TEXT("FatZombie")))Fill(35,4,20,4.6,4,EMonsterRank::Normal,EMonsterToughnessClass::Heavy);
+    else if(Target->ActorHasTag(TEXT("Mutant3")))Fill(75,13,40,11.84,9,EMonsterRank::Elite,EMonsterToughnessClass::Heavy);
+    else if(Target->ActorHasTag(TEXT("Witch")))Fill(55,55,33,11.02,8,EMonsterRank::Lord,EMonsterToughnessClass::Caster);
     if(!bKnown)return false;
     const double Infection=UProgressiveInfectionComponent::AttributeMultiplier(Target);
-    A.Str*=Infection; A.Dex*=Infection; A.Int*=Infection;
-    A.Con*=Infection; A.Wis*=Infection; A.Luck*=Infection;
-    Out={A,Level,Rank};
+    S.Def=(int32)(S.Def*Infection);S.Mdef=(int32)(S.Mdef*Infection);
+    S.CritRes=(int32)(S.CritRes*Infection);S.AttrWeight*=Infection;
+    Out=S;
     return true;
 }
 
 int32 CombatLevel(const FMonsterCoreStats& S,double MaxHp,double SpeedPx)
 {
-    // 原版 deriveEnemyCombatLevel（enemy-base-stats.js）：六维为主体，HP 与移速提供
-    // 封顶的非线性补充（HP≤+8、移速≤+4），rank 加成后四舍五入，下限 1。
-    double Raw=1.+S.A.Str*.08+S.A.Dex*.08+S.A.Con*.10+S.A.Int*.08+S.A.Wis*.08+S.A.Luck*.04;
+    // 原版 deriveEnemyCombatLevel（enemy-base-stats.js）：属性权重和为主体（已常量化进
+    // AttrWeight），HP 与移速提供封顶的非线性补充（HP≤+8、移速≤+4），rank 加成后
+    // 四舍五入，下限 1。
+    double Raw=1.+S.AttrWeight;
     Raw+=FMath::Clamp(std::sqrt(FMath::Max(0.,MaxHp)/100.)*1.5,0.,8.);
     Raw+=FMath::Clamp((FMath::Max(0.,SpeedPx)-80.)/40.,0.,4.);
     return FMath::Max(1,(int32)CoreCombatFormula::Round(Raw+RankCombatBonus(S.Rank)));
@@ -81,7 +97,10 @@ double LevelDifferenceMultiplier(const AActor* Victim,int32 PlayerLevel)
 int64 ScaleKillExperience(const AActor* Victim,int32 PlayerLevel,int64 BaseReward)
 {
     FMonsterCoreStats S;if(!Get(Victim,S))return BaseReward;
-    return FMath::Max<int64>(1,FMath::FloorToInt64((double)BaseReward*LevelDifferenceMultiplier(Victim,PlayerLevel)));
+    // 2026-09-29 修复：阶级经验乘区（elite×2/lord×4/boss×20）此前只在图鉴显示、
+    // 未进结算——AwardKill 与火球延迟击杀两条路径都经由本函数，在此一处乘上即成对生效。
+    // 未注册目标恒为 1，行为不变。
+    return FMath::Max<int64>(1,FMath::FloorToInt64((double)BaseReward*LevelDifferenceMultiplier(Victim,PlayerLevel)*RankExperienceMultiplier(S.Rank)));
 }
 
 int64 RollKillGold(const AActor* Victim,double GoldTribute)
@@ -93,5 +112,66 @@ int64 RollKillGold(const AActor* Victim,double GoldTribute)
     const double Raw=S.Level*4.+FMath::RandRange(1,10);
     const int64 BaseAmount=FMath::FloorToInt64(Raw*.5);
     return FMath::Max<int64>(0,FMath::FloorToInt64((double)BaseAmount*RankGoldMultiplier(S.Rank)*GoldTribute));
+}
+
+// ── 韧性基准（2026-09-29 用户拍板：按类别×阶级）──────────────────────────
+// 类别基线（normal 档）：阈值 / 破韧秒 / 锐·钝·冲三抗 / 脱战恢复秒。
+// 数值承接 2026-09-20 各怪手调值的类别化归并（护士=轻装 60、胖子=重装 110、
+// 巫婆=施法 80、狼=犬科 50（45/55 取整）、大手·手脑=巨物 150 原值保留）。
+struct FToughnessBaseline
+{
+    float Threshold; float BreakSeconds;
+    float Blade, Blunt, Impact; float RecoverySeconds;
+};
+static const FToughnessBaseline& ToughnessBaselineOf(EMonsterToughnessClass Class)
+{
+    static const TMap<EMonsterToughnessClass,FToughnessBaseline> Table =
+    {
+        {EMonsterToughnessClass::Light,    {60.f, 1.2f, .15f, 0.f,  .10f, 2.f}},
+        {EMonsterToughnessClass::Heavy,    {110.f,1.4f, 0.f,  .20f, .25f, 2.5f}},
+        {EMonsterToughnessClass::Caster,   {80.f, 1.2f, .10f, 0.f,  .25f, 2.f}},
+        {EMonsterToughnessClass::Canine,   {50.f, 1.1f, 0.f,  .10f, .05f, 1.5f}},
+        {EMonsterToughnessClass::Colossal, {150.f,0.9f, .10f, .05f, .20f, 2.f}},
+    };
+    const FToughnessBaseline* Found = Table.Find(Class);
+    if(!Found) Found = Table.Find(EMonsterToughnessClass::Light);
+    return *Found;
+}
+float ToughnessRankThresholdScale(EMonsterRank Rank)
+{
+    // 阶级只缩放"破韧难度"与"破韧收益窗口"；杂鱼更脆、领主近乎不可打断。
+    switch(Rank)
+    {
+    case EMonsterRank::Minor: return .7f;
+    case EMonsterRank::Elite: return 1.3f;
+    case EMonsterRank::Lord:  return 1.6f;
+    case EMonsterRank::Boss:  return 2.f;
+    default: return 1.f;
+    }
+}
+float ToughnessRankBreakScale(EMonsterRank Rank)
+{
+    switch(Rank)
+    {
+    case EMonsterRank::Minor: return .85f;
+    case EMonsterRank::Elite: return 1.15f;
+    case EMonsterRank::Lord:  return 1.3f;
+    case EMonsterRank::Boss:  return 1.5f;
+    default: return 1.f;
+    }
+}
+void ApplyToughnessProfile(AActor* Monster)
+{
+    FMonsterCoreStats S;
+    if(!Monster || !Get(Monster,S)) return;
+    auto* Combat = Monster->FindComponentByClass<UMonsterCombatComponent>();
+    if(!Combat) return;
+    const FToughnessBaseline& Base = ToughnessBaselineOf(S.ToughnessClass);
+    Combat->ToughnessThreshold = Base.Threshold * ToughnessRankThresholdScale(S.Rank);
+    Combat->ToughnessBreakSeconds = Base.BreakSeconds * ToughnessRankBreakScale(S.Rank);
+    Combat->BladeResistance = Base.Blade;
+    Combat->BluntResistance = Base.Blunt;
+    Combat->ImpactResistance = Base.Impact;
+    Combat->ToughnessRecoverySeconds = Base.RecoverySeconds;
 }
 }

@@ -16,12 +16,14 @@ catalog.modules[].spawn（唯一数据源，覆盖批次注入实时 Actor）
   → ADungeonRoomEncounter（封门精英房：Boss 遭遇的泛化兄弟，多怪、无奖励门）
 ```
 
-`spawn` 段 schema（冻结）：`{source, theme, count:[min,max], anchor_roles:["encounter"], pool:[{id,class,weight}]}`。
+`spawn` 段 schema（冻结）：`{source, theme, count:[min,max], anchor_roles:["encounter"], pool:[{id,class,weight,level,rank}]}`。
 `anchor_roles` 按**前缀**匹配锚点 role tag（`encounter_west`/`encounter_lower` 等变体自动命中）。
 历史首批池：Mutant3、NurseZombie、PoisonMaggot、Wolf、InfectedDog、FatZombie；
 排除 ZombieDog（纯 BP 未验证）、HandBrain（Boss 身份）、Witch（规划决策）。
 
 2026-09-27 用户调整废弃地牢池：移除 NurseZombie，增加 FleshHand、FleshHandMinion，并将 InfectedDog 扩展到全部现有战斗房家族；其余种类与数量区间保留。配置真源仍为 DungeonSpawn20260925，按模块 ID / family_id 同步基础房、共享配方和内部库，不能只改磁盘目录快照。制作及实际保存状态见工程 `Docs/Gameplay/dungeon-spawn-pool-20260927.md`。
+
+2026-09-28 阶级入池：每条池条目显式携带 `level`+`rank`（小手 minor，感染犬/野狼/胖子 normal，毒蛆/突变体 elite，大手 **lord**——用户拍板大手、手脑同归 Lord 档；手脑不入池，Boss 遭遇不覆盖属性、全程类默认 Lord/12）。`level>0` 替换实例等级、条目带 `rank` 即覆盖品阶，深度/精英加成恒叠加；封门精英房仍整组强制 Elite+2 级（精英房内大手也是 Elite）。只落导演刷出的实例，类默认（村庄/F6）不动。方案与数值影响见工程 `Docs/Gameplay/dungeon-spawn-rank-tiering-20260928.md`；`install.py` 回执 revision 自配置读取。
 
 小手自然刷新的区别使用导演在 FinishSpawning 前设置的 `DungeonSpawned` 标签：取消 90 秒自动消失，允许技能训练及击杀登记，零奖励默认替换为 20 基础经验；召唤小手仍保留寿命和无奖励/无训练合同。不要通过全局修改小手 CDO 取消召唤物限制。该数值未做平衡或实机测试。
 

@@ -1,5 +1,8 @@
 #include "FatZombie.h"
 #include "FatZombieAnimInstance.h"
+#include "MonsterCombatComponent.h"
+#include "HumanoidKnockdownComponent.h"
+#include "MonsterCombatTuning.h"
 #include "AIController.h"
 #include "Animation/AnimSequence.h"
 #include "Components/CapsuleComponent.h"
@@ -19,8 +22,12 @@ AFatZombie::AFatZombie(const FObjectInitializer& ObjectInitializer) : Super(Obje
     Tags.Remove(TEXT("NurseZombie")); Tags.Add(TEXT("FatZombie"));
     // Development defaults; independently editable without changing the nurse.
     MaxHealth = 600.f; AttackDamage = 25.f; WalkSpeed = 65.f;
-    AttackRange = 155.f; ContactTime = 1.f; ContactEnd = 1.18f;
+    // The fitted scratch crosses the defender at .65-.78 s; at 1 s its
+    // striking hand is already down in follow-through.
+    AttackRange = 155.f; ContactTime = .65f; ContactEnd = .78f;
     RecoveryTime = 1.f; CorpseSeconds = 15.f; ExperienceReward = 241; Level = 4;
+    // 韧性走类别×阶级基准表（MonsterCoreStats）；此处只保留表现参数。
+    Combat->DizzyPlayRate = .8f;
     static ConstructorHelpers::FObjectFinder<USkeletalMesh> Model(TEXT("/Game/Monsters/FatZombieMeshy/SK_FatZombie_Meshy.SK_FatZombie_Meshy"));
     static ConstructorHelpers::FObjectFinder<UAnimSequence> Idle(TEXT("/Game/Monsters/FatZombieMeshy/Animations/A_FatZombie_Idle.A_FatZombie_Idle"));
     static ConstructorHelpers::FObjectFinder<UAnimSequence> Walk(TEXT("/Game/Monsters/FatZombieMeshy/Animations/A_FatZombie_Walk.A_FatZombie_Walk"));
@@ -30,6 +37,15 @@ AFatZombie::AFatZombie(const FObjectInitializer& ObjectInitializer) : Super(Obje
     VisualMesh = Model.Object; IdleClip = Idle.Object; WalkClip = Walk.Object; AttackClip = Attack.Object; DeathClip = Death.Object;
     if (AI.Succeeded()) AIControllerClass = AI.Class;
     AlignVisual();
+}
+
+void AFatZombie::BeginPlay()
+{
+    // Resolve the reaction before combat, not from the first parry callback.
+    if (!Combat->HitClip)
+        Combat->HitClip = LoadObject<UAnimSequence>(nullptr, TEXT("/Game/Monsters/FatZombieMeshy/Animations/A_FatZombie_Stagger.A_FatZombie_Stagger"));
+    Super::BeginPlay();
+    UE_LOG(LogTemp, Display, TEXT("FAT_REACTION_READY clip=%s contact=%.3f..%.3f"), *GetNameSafe(Combat->HitClip.Get()), ContactTime, ContactEnd);
 }
 
 void AFatZombie::AlignVisual()
@@ -126,12 +142,15 @@ void AFatZombie::EndPlay(const EEndPlayReason::Type Reason)
 void AFatZombie::StartHitPresentation(UAnimSequence* Clip, float Duration)
 {
     if (auto* Animation = GetBlendedAnimation())
-        Animation->BeginHitReaction(IncomingHitDirection);
+        Animation->BeginHitReaction(Clip, Combat->IsParryReaction()?Combat->GetParryDirection():IncomingHitDirection, Combat->IsParryReaction());
 }
 
 void AFatZombie::SetHitPresentationTime(UAnimSequence* Clip, float Elapsed, float Remaining)
 {
-    if (auto* Animation = GetBlendedAnimation()) Animation->SetHitReactionTime(Elapsed, Remaining);
+    // The shared parry presentation skips .1 s of hit lead-in. The rewind must
+    // start at the exact interruption frame, using unshifted reaction time.
+    const float ReactionElapsed = Combat->IsParryReaction() ? FMath::Max(0.f, Elapsed - .1f) : Elapsed;
+    if (auto* Animation = GetBlendedAnimation()) Animation->SetHitReactionTime(ReactionElapsed, Remaining);
 }
 
 void AFatZombie::StartDeathPresentation()
@@ -142,8 +161,8 @@ void AFatZombie::StartDeathPresentation()
         if (auto* Animation = GetBlendedAnimation())
             Animation->TransitionTo(DeathClip, false, false, AnimationBlendSeconds);
     if (!bDeathRagdoll) return;
-    // Play the complete authored fall before physics takes over the lying pose.
-    const float Delay = FMath::Max(DeathClip ? DeathClip->GetPlayLength() : 0.f, RagdollDelay);
+    // Physics takes over mid-fall, at 60% of the authored death animation.
+    const float Delay = DeathClip ? DeathClip->GetPlayLength() * MonsterCombatTuning::DeathAnimationFraction : FMath::Max(0.f, RagdollDelay);
     if (Delay > 0.f) GetWorldTimerManager().SetTimer(DeathRagdollTimer, this, &ThisClass::StartDeathRagdoll, Delay, false);
     else StartDeathRagdoll();
 }
@@ -158,15 +177,21 @@ void AFatZombie::StartDeathRagdoll()
         UE_LOG(LogTemp, Error, TEXT("FAT_RAGDOLL_ASSET_MISSING %s: install the prepared combat physics asset"), *GetName());
         return;
     }
-    // Timers run independently of animation evaluation. Sample the exact last
-    // frame before constructing physics bodies, even if the pose tick trails it.
+    // Timers run independently of animation evaluation. Sample the handoff pose
+    // before constructing physics bodies; never jump to the completed fall.
     if (DeathClip)
         if (auto* Animation = GetBlendedAnimation())
         {
-            Animation->FinishClip();
+            Animation->HoldClipAtTime(DeathClip->GetPlayLength() * MonsterCombatTuning::DeathAnimationFraction);
             BodyMesh->TickAnimation(0.f, false);
         }
     BodyMesh->RefreshBoneTransforms();
+    if (Knockdown)
+    {
+        Knockdown->StartDeath(DeathClip,DeathClip?DeathClip->GetPlayLength()*MonsterCombatTuning::DeathAnimationFraction:0.f);
+        bRagdollActive=BodyMesh->IsSimulatingPhysics();
+        return;
+    }
     BodyMesh->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
     BodyMesh->SetCollisionProfileName(TEXT("Ragdoll"));
     BodyMesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
@@ -182,8 +207,8 @@ void AFatZombie::StartDeathRagdoll()
     if (auto* Root = BodyMesh->GetBodyInstance(TEXT("FatZombieRoot")))
         Root->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     BodyMesh->WakeAllRigidBodies();
-    // The completed death animation already owns the fall. Do not kick the
-    // settled corpse again; directional impulse is only a missing-clip fallback.
+    // Gravity continues the authored fall. A directional kick remains only a
+    // missing-clip fallback, so an animated handoff does not add a second hit.
     if (!DeathClip)
         BodyMesh->AddImpulse(IncomingHitDirection.GetSafeNormal2D() * FMath::Clamp(RagdollImpulseSpeed, 0.f, 300.f), TEXT("Hips"), true);
     bRagdollActive = true;

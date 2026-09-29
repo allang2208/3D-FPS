@@ -1,6 +1,6 @@
 # 冷钢 UI 正式规则 · UE5
 
-版本：2.18 · 更新日期：2026-09-19。适用于当前 `D:/FPS3D/FPSGAME` 的 UI 开发。
+版本：2.19 · 更新日期：2026-09-21。适用于当前 `D:/FPS3D/FPSGAME` 的 UI 开发。
 
 本版收录用户已确定的改造台、装备背包、仓库和状态栏风格，替换旧规则中冲突的配色、透明度、字体和尺寸条款。旧网页与 Godot 文档是历史来源；当前 UE 实现以本文与 `Source/FPSGAME/UI/ColdSteelUIStyle.h/.cpp` 为准。
 
@@ -12,7 +12,18 @@
 
 2.18 将建筑面板的分类、真实装配缩略图、字体角色、详情浮窗和缓存预算统一纳入第 15 节；修正旧示例中12px构件名称、ID缓存键和世界最长边取景的用法。
 
+2.19 明确下拉选项条与数值输入框同属 14px 正文／数值档并使用 36px 标准操作高度；F6 开发面板「怪物生成」页原 10.5px 表外字号按此修正，与「基本调参」页同级控件统一。
+
+2.21 图鉴详情新增武器／怪物统一立绘（固定正交相机、统一朝向），怪物立绘由新增的 `UColdSteelMonsterPortraits` 运行时渲染；武器复用背包图标工作室。同日按反馈两轮修订：立绘改为**独占整条横栏**（须单独一行，不能与文字并排）并等比显示，左右分栏改为**列表 1/3、详情 2/3**，并修正怪物登记表读取入口（挂 PlayerController，非 Pawn）。同轮系统审计修复品阶页签错位（页签→枚举须显式映射）与立绘延后重试的作业身份错位。
+
+2.22 物品浮窗文字暗金融合（沿用白色鉴定卡专用底色）：新增 `ItemTooltipGold`（=HUDGoldDim #756447，浅底文字金，对卡面 5.0:1；HUDGold 原值浅底仅 1.95:1 禁作文字）与 `ItemTooltipGoldRule`（#C7AA7059），金只上身份层——区块/卡片/折叠区/分区标题、头部元信息行、分隔线；`ItemTooltipRule` 灰线退役（关闭按钮悬停底改 Gray(204)）。正文与数值保持中性灰阶，正负语义色与特殊性质五色不变，物品名标题不上金。实施与对比度实测见 [浮窗暗金融合](item-tooltip-gold-fusion-20260928.md)。
+2.20 新增第 17 节图鉴栏系统（武器／怪物档案），右侧栏目入口由三项增至四项，快捷键 **N**（K／J 属强化台与改造台，C 是滑铲）；同日修订页签与文字的横向排列规则，并补充「覆盖按钮画刷时圆角／描边必须除以 Scale」的通用条款。
+
 ## 1. 视觉方向与单一来源
+
+2026-09-27 主 HUD 定稿：生命/魔法/等级移至左下，移除常驻 F6 按钮（键盘入口保留）；顶部中央增加朝向罗盘，命中怪物反馈移到罗盘下方；事件轨道与右上时钟同为 286×72px，间隔 12px、顶边对齐，展开按钮在轨道下方。窄窗重排、真实数据与文件范围见 [主 HUD 淡金方案](hud-gold-compass-plan-20260927.md)。此条替换旧顶部生命布局；以下面板/抽屉规范继续有效。
+
+主 HUD 允许克制的淡金装饰：`HUDGold` #C7AA70、`HUDGoldLight` #E8D39A、`HUDGoldDim` #756447，用于短角线、等级框、罗盘和入口/快捷槽交互。`Accent` / `Border` 保持银灰，不将全局面板批量染金；游戏语义色不变。
 
 - 大背景使用中性黑灰，银白用于主要文字和选中强调；不使用蓝色染底、彩色装饰边框或整屏高亮。
 - 改造台中央保留原枪械库背景和真实枪械预览，右侧完整详细信息汇总保留。
@@ -42,10 +53,15 @@
 | 按钮按下 | `ButtonPressed` | `#181818F0` |
 | 按钮禁用 | `ButtonDisabled` | `#16161678` |
 | 状态详情浮窗 | `Tooltip` | `#191919FC` |
+| 韧性栏（受击目标面板，2026-09-29） | `Toughness`／`ToughnessDeep` | `#9A8BC7FF`／`#5F5484FF` |
 
 “降低透明度”统一解释为提高背景遮挡：主底不透明度 **248/255，约 97.3%**。不通过降低整个控件的 RenderOpacity 调整底色，文字和图标应保持清晰。
 
+**RenderOpacity 淡出陷阱（2026-09-23）**：Slate 圆角画刷的描边走独立顶点通道（SecondaryColor），不随控件 RenderOpacity 衰减（`SBorder.cpp` 只把累积透明度乘进填充色；`ElementBatcher.cpp` 原样打包 `OutlineColor`）。因此常驻可见、仅靠 RenderOpacity=0 隐藏的描边面板（如进度通知卡片）会在原位留下一条 1px 白边。此类控件在 Alpha 归零时必须同时 `SetVisibility(Collapsed)`，不得只压透明度。
+
 生命、魔法、经验、危险、成功、稀有度、强化／附魔仍使用已有游戏语义色；颜色只服务对应数据与反馈。白色物品鉴定详情卡保留已有专用语义，不将其误作为深灰状态详情浮窗。
+
+2026-09-29 屏幕最底部新增全宽 6px 经验条（原 game-dev `.exp-bar-container` 形式冷钢化）：轨道半透明黑 rgba(0,0,0,.5)，填充 `HUDGold`，`RefreshStatus` 同步，数据与人物状态页同源（`Experience()/MaxExperience()`），不叠加文字。
 
 底部体力条使用共享 `Stamina`（#A1A44F）与 `StaminaDeep`（#666B35）语义色，低于 25% 使用警示强调。按用户后续要求仅横排显示细条和当前/上限数值，无外壳背景、模糊、标题或文字说明；位置为快捷栏上方，不接管操作输入。
 
@@ -88,6 +104,8 @@
 | 11 | 极次要微型说明，不替代正文 |
 
 状态页使用 **20 / 16 / 14 / 12px**。正文行高以 1.55 为排版参考，标题约 1.25；紧凑属性行通过垂直居中与留白保证可读，不缩字号。
+
+下拉选项条与数值输入框同属控件而不是辅助说明：条目文字用 **14px**（Noto Sans SC），数值用 **14px**（JetBrains Mono），控件高度取共享 `ActionHeight` **36px**，宽度服从所在内容区。不使用 10.5px、13px 等表外字号，也不靠缩小控件字号解决排版；同一面板内同类选项条共用同一档位与同一高度，项目已有实现见 [F6 开发面板怪物生成页字号统一](development-spawn-typography-plan-20260921.md)。
 
 `ColdSteelUI::TextFont/NumberFont` 接收 Slate 点数，保留既有调用合同：`Points = Pixels × 0.75 / PixelScale`。`GunsmithUI` 兼容入口接收经过 DPI 换算的像素值，在内部乘 0.75，不能重复转换。窗口布局变化时更新相关字体与控件尺寸。
 
@@ -218,7 +236,7 @@
 - 当前页面以主体左侧的 3×24px 深青蓝短线表示，不画包围图标的选中框；颜色继续复用 NavigationSelected #176C86。
 - 2026-09-16 用户要求抽屉贴近屏幕右缘：右抽屉直接贴视口右缘（`ColdSteelUI::NavigationDrawerInset` 为 0），外壳上下与左侧保留 12px；宽度仍为视口 48%、通常限制在 720–1040px，并且不超过视口宽 − 12px。弹出／收回的 4.0/s 匀速进度与 Tab／Caps／P 键位不变。抽屉出现期间（`bInventoryOpen || DrawerProgress > 0 || bExternalDrawerOpen`）右侧栏目入口列、世界时钟与右下角武器详情一并收起，动画播完才恢复；F6 开发面板通过同一标志复用该让位规则。仓库打开时两抽屉等宽，各取 (视口宽−24px)/2，左抽屉左缘 12px、两抽屉间至少 12px。高度与纵向滚动规则不变。实施记录见 [抽屉贴右边缘与 HUD 让步](drawer-right-edge-and-hud-hide-20260916.md) 与 [F6 开发面板抽屉规格与开发功能](development-panel-tools-plan-20260916.md)。
 - 普通战斗时仅显示；现有 LeftAlt 鼠标模式或面板打开后可点击。点击新入口切换原页面，点击当前入口收起，键盘 Tab 关闭任意已打开抽屉的合同不变。入口纳入外部点击保护；独立物品弹层转发入口点击和 Caps／Tab／P，关闭不穿透世界攻击。
-- 原横排状态／装备／技能页签及未启用图鉴占位隐藏，由持久侧栏承担导航。面板标题、返回按钮、内容、底部说明继续使用原控件。
+- 原横排状态／装备／技能页签隐藏，由持久侧栏承担导航；未启用图鉴占位已由第 17 节的正式图鉴栏替换。面板标题、返回按钮、内容、底部说明继续使用原控件。
 - 当前资源与实施记录见 [去底与放大规划](panel-navigation-subjects-plan-20260915.md)，首次接入历史见 [栏目入口规划](panel-navigation-plan-20260915.md)。默认不启动游戏或执行测试，交由用户测试。
 
 ## 14. 武器面板与命中伤害分项
@@ -259,13 +277,43 @@
 - 字号沿用第 4 节六档：扇区名称 14、扇区数量 20（数字字体）、盘心标题 16、说明与提示 12～14；选中项用 `TextFont(..., bMedium=true)`。非活动盘只压暗盘面顶点色（约 55%），**不调 RenderOpacity**，文字与图标保持清晰。
 - 实施记录与参数见 [双持手枪：左右两盘弹种轮盘](ammo-wheel-dual-pistols-20260922.md)。
 
+## 17. 图鉴栏系统（武器 · 怪物）
 
-## 2.22 物品浮窗文字暗金融合（沿用白色鉴定卡专用底色）
+2026-09-24 接入。参考原项目 `game-dev` 的 `src/ui/codex-manager.js`（装备／怪物分区 + 卡片网格 + 详情面板）与 `codex-formula-helper.js`（战斗数值派生）。规划见 [图鉴栏系统规划](codex-panel-plan-20260924.md)。本节替换第 13 节中「未启用图鉴占位隐藏」的现状，右侧栏目入口由三项增至四项。
 
-新增 `ItemTooltipGold`（#756447，即 HUDGoldDim 同值；浅底文字金唯一合法档，对卡面 5.0:1，HUDGold 原值浅底仅 1.95:1 禁作文字）与 `ItemTooltipGoldRule`（#C7AA7059）：金只上身份层——区块/卡片/折叠区/分区标题、头部元信息行、分隔线；正文与数值保持中性灰阶，正负语义色与特殊性质五色不变，物品名标题不上金。实施与对比度实测见 [浮窗暗金融合](item-tooltip-gold-fusion-20260928.md)。
+- **入口与宿主**：右侧持久栏目第 4 项「图鉴」，与人物状态／背包／技能同规格——88×88px 主体、间距 25px、悬停 1.25 倍；键位 `N`。落在背包装备同一右侧抽屉的**第 4 页**（`SetInventoryPage(4)`），复用既有滑出动画、让位规则、玻璃与关闭路径，不另建窗口。`K`／`J` 已属强化台与改造台（`FPSGAMEPlayerController` 先消费），`C` 是滑铲，图鉴不占用这些键。当前图标文件 `Navigation/codex_subject.png` 尚未提供，入口按既有回退规则显示 12px 文字「图鉴」，不使用占位图。
+- **面板结构**：标题「图鉴」→ 主分区页签（武器／怪物／状态，等宽等高，`ActionHeight` 36px）→ 分类页签（武器：全部／枪械／近战武器／生产工具／装备（2026-09-30 方案A：category=equipment 的防具/手套进图鉴，详情=基本信息+装备属性卡（Data.stats 逐行）+物品说明，无枪械/工具数值卡）；怪物：全部／普通／精英／领主／首领；状态：全部／增益／减益，页签→kind 映射表显式比对）→ 左侧档案列表 + 右侧详情分组卡片 → 底部快捷键页脚。字体沿用第 4 节：标题 20、分区标题 16、正文与数值 14、辅助 12px；名称用 Noto Sans SC，数值用 JetBrains Mono。分区卡片 `StatusCard`、圆角 `CardRadius`、1px `Border`，共用抽屉自身的 `UBackgroundBlur`，内部卡片不再叠加模糊。
+- **响应布局（2026-09-24 修订阈值）**：抽屉内容宽 < **560px** 时列表与详情纵排（列表在上、详情在下并保留至少 420px 高），否则并排（58%／42%，中缝 12px）。**阈值必须按抽屉实际宽度分布选取**：抽屉宽度下限即 720px（视口 48%、夹在 720–1040px），而 `SetLayoutWidth` 收到的是 `Width−2`，故正常显示器上内容宽实际为 **718–1038px**；若阈值取 720 会让并排版式永不出现（1080p／1440p 全部落回纵排）。560px 使常规显示器走两列、仓库同开（约 626px）仍走两列，仅更窄视口才纵排。该阈值在 `BuildPage` 与 `BuildDetail` 共用同一常量 `StackedBelowWidth`，避免两处漂移产生「按并排排版却要求 420px 最小高」的矛盾约束。列表与详情各自独立滚动，滚动条 6px 中性灰且**两列行为一致（按需出现，均不常驻）**；标题、页签与页脚固定。
+- **文字排列（2026-09-24 修订）**：两行页签一律**横向单行排列**，禁止竖直／逐字换行。主分区页签按 `FillWidth(1)` 等分；分类页签改用 `AutoWidth` + `ContentPadding` 贴合文字自身宽度，整行 `HAlign_Center` 居中——原先等分挤压会把「近战武器」「生产工具」压成竖排单字。页签文本必须 `AutoWrapText(false)`。**同一条款适用于所有按钮标签**：按钮内的文字（如「返回列表」）也必须单行，否则窄列里会逐字竖排成「返／回」。列表卡片刻意保持两行纵向结构（首行「名称 …… 战力」横向两端对齐，次行类别），名称与类别单行不换行，保证卡片行高一致。详情明细行为左右横向结构：说明左侧固定最小宽 84px 且单行不换行，数值右侧 `HAlign_Right` 且单行。底部快捷键页脚同样单行居中，不与页签争行。**只有正文说明**（物品说明、空态提示、口径说明等成段文字）保留自动换行。
+- **画刷必须除以 Scale（2026-09-24 补充）**：调用 `ColdSteelUI::RoundedBrush` 覆盖按钮样式时，圆角与描边宽度**必须除以 `PixelScale`**，与 `ColdSteelUI::ButtonStyle(Scale)` 内部的除法一致。传原始像素值会在高 DPI 下使圆角偏小、描边偏粗，卡片／选中页签看起来是「方角加粗边」。正确写法见 `DevelopmentPanelWidget.cpp`／`WeatherControlWidget.cpp`：`RoundedBrush(..., ColdSteelUI::CardRadius / Scale, ..., 1.f / Scale)`。
+2026-09-30 新增「祭品」主分区（祭品卡片，与状态分区同规则：整页独占+搜索栏）：数据=物品目录 category=tribute（items.json 单一事实源，与背包/浮窗同一物品 Data）；分类页签 全部/传说/神话/史诗/稀有/罕见/普通（与稀有度分组表同序派生，组序高→低）；「祭品卡片 · <稀有度>」按组出卡，组头=稀有度标签（RarityColor 稀有度色）+计数；条目=图标字形（稀有度色着色）+名称 14px Medium+右侧类型 12px+效果摘要（Data.stats 数组拼行，JetBrains Mono 12px）+说明 12px 换行；搜索与状态页共用同一缓存输入框（提示词按分区刷新，文本与焦点跨分区保留）。
+
+2026-09-29 新增「状态」主分区（状态栏卡片，用户要求整页独占）：数据走 `UStatusEffectsComponent::AllDefinitions`（`Content/ColdSteelData/status_effects.json` 与左上状态 HUD 同一目录，kind 字段区分增益/减益）；**不与武器/怪物的左列表右详情分栏共用布局**——进入状态分区后整页交给「状态栏卡片 · 增益」「状态栏卡片 · 减益」两张卡平铺（分类页签 全部/增益/减益 过滤），每条目=弱行底圆角小块（AttributeRow 底、条目间 6px 间隔）：首行图标 16px+名称 14px Medium，次行说明 12px Tertiary 换行并与名称列对齐（缩进 24px 图标列）；组标题 16px Medium 带条目计数。**2026-09-30 来源分组**：目录新增 group 字段（combat 战斗状态23／triggered 触发效果9／persistent 常态效果4／tribute 祭品与赐福16／dungeon_event 地牢事件63），页面按固定组序出卡「状态栏卡片 · <组名>」，组头=组名+组语义说明一行+计数（增/减分开）；组内混合增益减益，条目名称行右侧固定 12px 增益（Success）／减益（Danger）标记，图标用目录效果语义色着色。分组为展示维度不参与过滤，空组跳过。**顶部搜索栏**（36px 控件档、14px Noto、深底圆角 6px+1px Border 边）：输入即过滤，命中 名称/说明/效果标识（不区分大小写），与分类页签叠加；搜索输入只重填卡片区不重建整页（输入框焦点不丢）。无立绘、无选择态。路由注意：怪物分支条件是登记表存在（恒真），状态分支必须排在其前。目录条目增改只需改 JSON，图鉴自动收录。
+
+- **数据合同（单一来源，不新建第二套口径）**：武器目录读 `UColdSteelStatusModel::ItemCatalog()`（`bItemCatalogBuilt` 缓存），基本资料（名称、类型、稀有度、持握、装备槽、说明）读物品 `Data` JSON 的既有字段（`ColdSteelInventory::Text/Number/Flag`，与背包、浮窗同一入口）；**战斗数值不读物品 `Data`**（其中没有伤害／射程／弹匣等字段），而是与物品浮窗、运行时同一口径：改造目录 `UGunsmithSystem::Calculate()` 的 `FGunsmithStats` 为基础，再由 `ColdSteelWeaponStats::Damage/DamageParts/Interval/Reload` 施加敏捷／附魔等后处理；未登记改造目录的物品如实显示「无枪械／近战参数」，不伪造数值。栏目归属只按物品自身 `category`／`weaponType` 判定（`tool`／`weapon_melee`／`weapon`／`weapon_ranged`／`weapon_magic`），不从名称、图标或开发面板分组猜测。怪物读 `UDevelopmentSpawnComponent::GetMonsters()`，防御常量与品阶走 `MonsterCoreStats::Get`（按身份 Id 缓存，避免重建时重复加载；2026-09-28 六维剔除后详情卡为「防御与抗性」三项：物理防御/魔法防御/暴击抗性，数值 JetBrains Mono 14px，行结构与既有 DetailRow 合同一致），战力走 `MonsterCoreStats::CombatLevel`，奖励倍率走 `RankExperienceMultiplier`／`RankGoldMultiplier`／`RankCombatBonus`。**本面板为只读档案**：不写存档、不扣材料、不改容量与战斗公式。
+- **缺失口径**：任何数值缺失显示「—」，未登记六维的身份仍列出条目并标注「未登记六维」，不伪造数值、不用别的品类充数。战力在无实际生命／移速上下文时以 0 代入，页面注明其为不含生命与移速补充的基础量级，实战以运行时为准。
+- **分类页签与枚举的编号必须显式映射（2026-09-24 审计补充）**：当页签刻意省略枚举中的某些取值时（如图鉴怪物页签不列 `Minor`），**禁止用 `枚举值 + 偏移` 反推页签下标**——两套编号不重合会让每一阶都错位一格。必须用「页签 → 枚举值」映射表比对，并以 `static_assert` 保证表长与标签表一致。武器侧页签与 `WeaponCategoryKeys` 同序同长，按下标取用是安全的。
+- **状态与输入**：未选择时详情显示「从左侧选择条目查看档案」；选择后卡片显示 2px 银白选中边；分类或分区切换清除已失效的选择；空列表显示「此分类暂无武器／怪物档案」。复用宿主既有输入模式、`CloseButton` 焦点归还与 `Tab` 关闭合同，关闭不穿透世界攻击。
+- **详情立绘（2026-09-24 新增，同日两轮修订）**：详情头部立绘**独占一整条横栏**（单独一行、整宽居中等比），名称与类别在下一行。
+  - **必须独占一行，不能与文字并排**：把立绘放进 `AutoWidth` 槽与文字并排时，槽宽只等于图片自身宽度，图片永远无法横跨整列——这是「改了缩放仍显示在很小范围」的原因。横栏宽度由**详情列实际宽度**推出，不硬编码小上限。
+  - **左右分栏比例**：并排时左名称列表 **1/3**、右详情 **2/3**（`CodexGridShare`／`CodexDetailShare`）。详情占大头才能容下整栏立绘与「说明 + 数值」两列。
+  - **等比不拉伸（硬约束）**：按笔刷真实 `ImageSize` 求 `Fit = min(可用宽/图宽, 可用高/图高)`，用 `SImage::DesiredSizeOverride` 给等比目标尺寸并居中。**禁止**把画刷塞进固定宽高比的框里让 `SImage` 拉满——武器图标不是 2:3（枪械画布宽按「320px/格行」推出，如 768×320 是 12:5 横幅；近战是 384×768 竖幅），拉满会把横幅枪械压成竖条。算法与背包 `ColdSteelInventoryPresentation.cpp:127-134` 同一口径，保证图鉴与背包同图同比例。
+  - **横栏高度上限**：武器 200px、怪物 240px，防止竖幅近战把详情内容顶出屏幕。
+  - **统一朝向与视角**：两类立绘都用**固定正交相机**拍摄，相机朝向恒为 `FRotator::ZeroRotator`、不随被摄体尺寸摆动，被摄体朝向恒为 `FRotator(0,0,0)`。武器按 `AActor` 的 +X 前向、怪物按 `ACharacter` 前向取正面；体型差异只影响取景半高，不影响朝向。
+  - **来源**：武器**复用背包武器图标工作室**（`UColdSteelWeaponIcons::Find/Request`），不另拍一套；怪物走图鉴专用立绘工作室 `UColdSteelMonsterPortraits`（新），把 `UDevelopmentSpawnComponent` 登记的 `TSoftClassPtr<ACharacter>` 生成在独立 `FPreviewScene` 中拍摄。
+  - **数据来源必须挂在 PlayerController**：怪物生成登记表由 `AFPSGAMEPlayerController` 持有（构造里 `CreateDefaultSubobject(TEXT("DevelopmentSpawner"))`），读取一律走 `GetOwningPlayer<AFPSGAMEPlayerController>()->GetDevelopmentSpawner()`；**不要**从 Pawn 上 `FindComponentByClass`，那样恒为空。
+  - **怪物立绘为纯展示**：生成时用 `FActorSpawnParameters::Template` 传临时模板把 `AutoPossessAI` 置为 `Disabled`，**不改写共享 CDO**（怪物类构造里是 `PlacedInWorldOrSpawned`，直接生成会起 AI 控制器跑行为树）；预览体 `SetActorTickEnabled(false)`、无碰撞，用第 0 帧姿势取静息姿态以避免各怪物起始动作相位不同导致朝向不一致。
+  - **运行时渲染 + 有界缓存**：首次选中时异步渲染，完成后经 `OnReady` 回填重建详情；未出图时显示同高整条横栏占位框，不画灰色假图、不留塌陷空洞。缓存上限 32（怪物）／64（武器），超出按 LRU 淘汰；不往仓库新增 PNG。
+  - **预览资源一律异步加载（硬约束）**：预览用类与贴图必须走 `UAssetManager::GetStreamableManager().RequestAsyncLoad(...)`，阶段机每帧只查 `HasLoadCompleted()`，**禁止在游戏线程 `LoadSynchronous`**——首次打开面板时会硬等包加载与类构造，造成卡帧，且等待时长不可预测（调超时值解决不了）。句柄须保留到捕获结束防 GC 卸资源，并在作业结束／延后／析构三处 `CancelHandle()`。参考实现：`ColdSteelIconResources.cpp`（武器图标）与 `UColdSteelMonsterPortraits::BeginAsyncLoad`（怪物立绘）。**
+  - **失败口径**：该类无骨骼网格、材质未编译或回读超时（10s）时记为失败并**不再重试**，立绘位保持占位，不影响文字档案显示。加载阶段的等待不设人为超时、不消耗重试次数；重试仅作失败兜底（最多 3 次）。
+
+实施记录见 [图鉴栏系统规划](codex-panel-plan-20260924.md)。本次未运行游戏或 UI 测试，由用户测试。
+
+## 专属改造卡片（2026-09-27）
+用户指定九项专属改造使用共享 ExclusiveCard/ExclusiveBorder/ExclusiveText 暗金身份样式，详见 [专属金卡规划](gunsmith-exclusive-gold-20260927.md)。保留黑灰玻璃层级、灰白图标及绿色流动选中反馈；专属文字与已安装/待应用状态并存。不按单武器兼容或名称自动扩展专属范围。
 
 ## 2.22a 生命/魔法语义色与状态效果 HUD 复核（2026-09-28）
 
-- 新增共享语义色 `Health #BD626D`／`HealthDeep #763B43`／`Mana #7194AC`／`ManaDeep #36566E`：HUD 资源条（`ColdSteelResourceMeter`）与人物状态页生命/魔法条统一取色，替换原两处互不一致的字面量（状态页原为 Success 绿/#55799D）。低血 ≤25% Danger、≤50% Warning 渐变保留。
-- 状态效果 HUD（左上 buff 角标+悬停提示）按 §4/§2 复核：文字改走共享字体入口（原 SimHei 移除），tile 层数/时间 11px、提示框 16/14/14/12；卡面 StatusCard/ButtonHover、悬停边 Accent、提示框用深色 `Tooltip #191919FC` + 1px Border；全套字面量色移除，tile 边框保留效果语义色 2px 作标记。
-- 例外登记：buff 图标是目录 emoji 字段，工程四款正式字体无 emoji 字形，暂以系统 Segoe UI Emoji 作图标字形回退（仅图标、不含 UI 文字）；补充打包 emoji 字体后仅改该函数。
+- 新增共享语义色 `Health #BD626D`／`HealthDeep #763B43`／`Mana #7194AC`／`ManaDeep #36566E`：HUD 资源条（`ColdSteelResourceMeter`）与人物状态页生命/魔法条统一从这组 token 取色，替换原来两处互不一致的字面量（状态页原为 Success 绿/#55799D）。低血 ≤25% Danger、≤50% Warning 的渐变保留。
+- 状态效果 HUD（左上 buff 角标+悬停提示）按 §4/§2 复核：文字改走共享字体入口（原 SimHei 移除），tile 层数/时间 11px、提示框 16/14/14/12；卡面 StatusCard/ButtonHover、悬停边 Accent、提示框用深色 `Tooltip #191919FC` + 1px Border；全套字面量色移除。tile 边框保留效果语义色 `V.Color` 2px 作标记。
+- 例外登记：buff 图标是目录 emoji 字段，工程四款正式字体无 emoji 字形，暂以系统 Segoe UI Emoji 作**图标字形回退**（`StatusEffectsHUD.cpp` 的 `EmojiIcon`，仅图标、不含任何 UI 文字）；补充打包 emoji 字体后仅改该函数。

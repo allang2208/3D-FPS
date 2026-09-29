@@ -1,13 +1,16 @@
 #include "CombatFormulaRuntime.h"
 #include "CoreCombatFormula.h"
+#include "../Weapons/MeleeWeaponStats.h"
 #include "CombatStatusFormula.h"
 #include "ProgressiveInfectionComponent.h"
 #include "../Monsters/InfectedDogMonster.h"
 #include "../Monsters/NurseZombie.h"
 #include "../Monsters/HandBrainMonster.h"
+#include "../Monsters/FleshHandMonster.h"
 #include "../Monsters/PoisonMaggotMonster.h"
 #include "../Monsters/WolfMonster.h"
 #include "../Monsters/MonsterCoreStats.h"
+#include "../Monsters/WitchProjectile.h"
 #include "../Skills/FireballDamage.h"
 #include "../Skills/IceSpikeDamage.h"
 #include "../Skills/LightningDamage.h"
@@ -19,30 +22,24 @@
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "Engine/GameInstance.h"
 
-namespace
-{
-CoreCombatFormula::Attributes MonsterAttributes(const AActor* Target)
-{
-    // 2026-09-23：六维统一走 MonsterCoreStats 注册表（含狼/护士反解项与巫婆/突变体3）。
-    FMonsterCoreStats S;
-    return MonsterCoreStats::Get(Target,S)?S.A:CoreCombatFormula::Attributes{0,0,0,0,0,0};
-}
-}
 thread_local const CombatFormulaRuntime::MagicHit* CombatFormulaRuntime::ActiveMagicHit=nullptr;
 thread_local CombatFormulaRuntime::WeaponHit* CombatFormulaRuntime::ActiveWeaponHit=nullptr;
 thread_local const double* CombatFormulaRuntime::ActivePhysicalPenetration=nullptr;
 bool CombatFormulaRuntime::IsMagic(const UDamageType* Type)
-{return Type&&(Type->IsA<UHandBrainMagicDamage>()||Type->IsA<UFireballDamage>()||Type->IsA<UIceSpikeDamage>()||Type->IsA<ULightningDamage>()||Type->IsA<UHolyLightDamage>()||Type->IsA<UFireMagicDamage>()||Type->IsA<UCorrosivePusDamage>()||Type->IsA<URuneOrbBladeDamage>()||Type->IsA<UStatusMagicDamage>());}
+{return Type&&(Type->IsA<UHandBrainMagicDamage>()||Type->IsA<UWitchMagicDamage>()||Type->IsA<UFireballDamage>()||Type->IsA<UIceSpikeDamage>()||Type->IsA<ULightningDamage>()||Type->IsA<UHolyLightDamage>()||Type->IsA<UFireMagicDamage>()||Type->IsA<UCorrosivePusDamage>()||Type->IsA<URuneOrbBladeDamage>()||Type->IsA<UStatusMagicDamage>());}
 float CombatFormulaRuntime::MonsterDefense(const AActor* Target,bool Magic)
 {
-    if(Target->IsA<AInfectedDogMonster>()){const auto S=CoreCombatFormula::Enemy(MonsterAttributes(Target));return Magic?S.Mdef:S.Def;}
-    const float Infection=UProgressiveInfectionComponent::AttributeMultiplier(Target);
-    if(const auto* W=Cast<AWolfMonster>(Target))return (Magic?W->MagicDefense:W->PhysicalDefense)*Infection;
-    if(Magic)if(const auto* H=Cast<AHandBrainMonster>(Target))return H->MagicDefense*Infection; // Original permitted direct override: 65.
-    const auto S=CoreCombatFormula::Enemy(MonsterAttributes(Target));return Magic?S.Mdef:S.Def;
+    // 2026-09-28 六维剔除：防御直接读常量表（旧狼系字段、大手/小手/手脑/巫婆魔防覆盖
+    // 已烤入表值；感染减益在 Get 内整体缩放）。未注册目标（训练假人等）返回 0。
+    FMonsterCoreStats S;
+    return MonsterCoreStats::Get(Target,S)?(Magic?S.Mdef:S.Def):0.f;
 }
 float CombatFormulaRuntime::MonsterCriticalResistance(const AActor* Target)
-{if(const auto* W=Cast<AWolfMonster>(Target))return W->CriticalResistance*UProgressiveInfectionComponent::AttributeMultiplier(Target);return CoreCombatFormula::Enemy(MonsterAttributes(Target)).CritRes;}
+{
+    // 2026-09-28 六维剔除：抗暴直接读常量表（狼系字段值已烤入，感染减益在 Get 内缩放）。
+    FMonsterCoreStats S;
+    return MonsterCoreStats::Get(Target,S)?S.CritRes:0.f;
+}
 float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UDamageType* Type,AActor* Source)
 {
     if(Type&&Type->IsA<UCombatDirectDamage>())return Damage;
@@ -81,7 +78,7 @@ float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UD
     const auto* Status=Target->FindComponentByClass<UCombatStatusFormula>();
     double Result=CoreCombatFormula::Defense(Damage,MonsterDefense(Target,Magic),Magic,Penetration,Status?Status->MagicShred():0,Status?Status->CorrosionMultiplier():1);
     if(Magic&&ActiveMagicHit)Result=std::floor(Result*(1+ActiveMagicHit->DamageBonus));
-    else if(Magic&&Player&&Player->IsPlayerControlled()&&Source->GetGameInstance())if(const auto* P=Source->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Result=std::floor(Result*(1+P->SetEffect(TEXT("magicDamage"))));
+    else if(Magic&&Player&&Player->IsPlayerControlled()&&Source->GetGameInstance())if(const auto* P=Source->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Result=std::floor(Result*(1+P->SetEffect(TEXT("magicDamage")))*ColdSteelMelee::EquippedModifiers(P).MagicDamage);
     if(Magic&&Status)Result=std::floor(Result*Status->MagicVulnerabilityMultiplier());
     if(Magic&&Status)Result=std::floor(Result*Status->PetrifiedMagicMultiplier());
     if(Type&&Type->IsA<ULightningDamage>()&&Status)Result=std::floor(Result*Status->ElectricMultiplier());

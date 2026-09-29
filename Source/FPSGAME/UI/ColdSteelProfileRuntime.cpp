@@ -98,11 +98,12 @@ void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
     DexterousHandsSkill=ColdSteelSkills::LoadDefinition(TEXT("dexterousHands"));
     QuickCombatSkill=ColdSteelSkills::LoadDefinition(TEXT("quickCombat"));
     RuneBladesSkill=ColdSteelSkills::LoadDefinition(TEXT("runeBlades"));
+    StaffLightSkill=ColdSteelSkills::LoadDefinition(TEXT("staffLight"));
     ColdSteelSkills::Migrate(Current);
     FString Json; TSharedPtr<FJsonObject> Root;
     if(FFileHelper::LoadFileToString(Json,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/items.json")))&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json),Root))
         for(const auto& Pair:Root->Values){FString Data;FJsonSerializer::Serialize(Pair.Value->AsObject().ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&Data));Definitions.Add(FString(*Pair.Key),Data);}
-    LoadProductionDefinitions();LoadBowDefinitions();LoadAmmoCatalog();
+    LoadProductionDefinitions();LoadBowDefinitions();LoadStaffDefinitions();LoadAmmoCatalog();
     SaveSlot=TEXT("ColdSteelPlayer"); FString Requested;
     bAudit=FString(FCommandLine::Get()).Contains(TEXT("Audit"));
     if(FParse::Value(FCommandLine::Get(),TEXT("ColdSteelProfile="),Requested)) {
@@ -135,6 +136,7 @@ bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn
     bool AmmoChanged=false;
     if(!NormalizeAmmo(State,AmmoChanged)){Message=TEXT("弹药数据迁移失败，原存档保留");return false;}
     NormalizeProductionState(State);
+    NormalizeStaffState(State);
     // Equipment has the highest action priority. Only a successfully published
     // equipment change interrupts the outgoing action in ApplyColdSteelProfile.
     ColdSteelSkills::Migrate(State);
@@ -226,7 +228,8 @@ bool UColdSteelStatusModel::ReloadProfile()
     const bool StaminaMigrated=NormalizeStamina(Clean);
     const bool AbandonedFireball=Clean.bFireballReserved;Clean.bFireballReserved=false;
     const bool AbandonedIce=Clean.bIceSpikeReserved;Clean.bIceSpikeReserved=false;
-    const bool AbandonedQuick=Clean.bQuickCombatReserved;Clean.bQuickCombatReserved=false;
+    const bool AbandonedQuick=Clean.bQuickCombatReserved||Clean.QuickCombatCooldown>0.f||Clean.QuickCombatCooldownDuration>0.f;
+    Clean.bQuickCombatReserved=false;Clean.QuickCombatCooldown=Clean.QuickCombatCooldownDuration=0.f;
     bool Removed=RemoveRetiredWeapons(Clean)||Migrated||SkillsMigrated||QuickBarMigrated||StaminaMigrated||AbandonedFireball||AbandonedIce||AbandonedQuick||AmmoMigrated||BestFootprintMigrated;
     // Refresh authorized material rarity and scroll presentation on existing instances.
     for(auto& I:Clean.Items)
@@ -364,6 +367,31 @@ bool UColdSteelStatusModel::ReloadProfile()
                     }
                 }
             }
+            // defense/bonusStats 与 weaponTypeTag 同类：目录权威数值，实例自身
+            // 从不演化（强化走实例的 enhanceLevel，两者只存基础值），所以老存档
+            // 里先于数值上表的装备实例也照目录补齐。
+            for(const TCHAR* NumericKey:{TEXT("defense"),TEXT("bonusStats")})
+            {
+                const TSharedPtr<FJsonObject>* CatalogNumeric=nullptr;
+                if(!CatalogData->TryGetObjectField(NumericKey,CatalogNumeric)||!*CatalogNumeric)continue;
+                const TSharedPtr<FJsonObject>* StoredNumeric=nullptr;
+                const bool bHasStored=FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)
+                    &&ItemData&&ItemData->TryGetObjectField(NumericKey,StoredNumeric)&&*StoredNumeric;
+                FString CatalogText;
+                FJsonSerializer::Serialize((*CatalogNumeric).ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&CatalogText));
+                FString StoredText;
+                if(bHasStored)FJsonSerializer::Serialize((*StoredNumeric).ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&StoredText));
+                if(!bHasStored||StoredText!=CatalogText)
+                {
+                    TSharedPtr<FJsonObject> NumericCopy;
+                    if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(CatalogText),NumericCopy)&&NumericCopy)
+                    {
+                        if(!ItemData)ItemData=MakeShared<FJsonObject>();
+                        ItemData->SetObjectField(NumericKey,NumericCopy);
+                        I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+                    }
+                }
+            }
             // Existing modular gloves retain their original catalog snapshot.
             // Refresh appearance when loading, including gloves left on the
             // ground, while keeping instance stats and equipment state intact.
@@ -426,6 +454,7 @@ bool UColdSteelStatusModel::ReloadProfile()
     }
     Removed = NormalizeBowState(Clean) || Removed;
     NormalizeProductionState(Clean);
+    NormalizeStaffState(Clean);
     const auto Previous=Snapshot();bPersistenceBlocked=false;
     // Commit through the checked A/B transaction; never reset the player's save.
     if(Removed){Publish(Best->Profile);if(!CommitState(Clean)){Publish(Previous);bPersistenceBlocked=true;return false;}}
@@ -457,8 +486,13 @@ bool UColdSteelStatusModel::AwardKill(AActor* Victim,int64 Reward)
     if(ActiveFireballRewards && ActiveFireballRewards->Victim==Victim){ActiveFireballRewards->Kills.FindOrAdd(Victim)=Reward;return true;}
     SyncRuntime();auto P=Snapshot();if(!DungeonLayout::RecordKill(P.DungeonRun,Victim))return false;P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);
     // 2026-09-23 迁移原 exp-system.js/goldDrop：经验按玩家与怪物配置等级的压级/越级倍率
-    // （未注册目标恒 1，行为不变），金币按 等级×4+随机1..10、全局×.5、rank elite2/lord3。
-    P.Experience+=FMath::FloorToInt64(MonsterCoreStats::ScaleKillExperience(Victim,Level,Reward)*TributeEffect(TEXT("expPercent")));
+    // ×阶级经验乘区（elite2/lord4/boss20，2026-09-29 起接入结算，未注册目标恒 1），
+    // 金币按 等级×4+随机1..10、全局×.5、rank elite2/lord3。
+    const int64 Granted=FMath::FloorToInt64(MonsterCoreStats::ScaleKillExperience(Victim,Level,Reward)*TributeEffect(TEXT("expPercent")));
+    // 诊断（2026-09-29"杀怪零经验"排查）：逐杀打印基础/到账/等级差/当前进度，
+    // 下次实测若仍见零经验，本行可直接定位是压级、满级钳制还是提交被拒。
+    UE_LOG(LogTemp,Display,TEXT("EXP_KILL victim=%s base=%lld granted=%lld playerLv=%d tribute=%.2f exp=%lld/need=%lld"),*Victim->GetName(),Reward,Granted,Level,TributeEffect(TEXT("expPercent")),P.Experience,MaxExperience());
+    P.Experience+=Granted;
     if(const int64 Gold=MonsterCoreStats::RollKillGold(Victim))
     {
         auto Item=CreateItem(TEXT("gold"),Gold);
@@ -518,7 +552,7 @@ bool UColdSteelStatusModel::Split(const FString& Id,int64 Count)
     SyncRuntime();auto P=Snapshot();auto* I=P.Items.FindByPredicate([&](const auto& V){return V.InstanceId==Id;});
     if(!I||(I->Place!=0&&I->Place!=4)||Count<=0||Count>=I->Count||Text(*I,TEXT("category"))==TEXT("gold"))return false;
     auto Part=*I;Part.InstanceId=FGuid::NewGuid().ToString(EGuidFormats::Digits);Part.Count=Count;int32 Cell=-1;
-    const int32 Capacity=I->Place==4?WarehouseCapacity():72; // 储物箱按自身会话容量找空位
+    const int32 Capacity=I->Place==4?OpenStorageCapacity():72; // 储物箱按自身会话容量找空位
     const int32 Start=I->Place==4?(I->Cell/ColdSteelWarehouse::CellsPerPage)*ColdSteelWarehouse::CellsPerPage:0;
     for(int32 N=0;N<Capacity;++N){const int32 C=(Start+N)%Capacity;if(I->Place==4?ColdSteelWarehouse::Fits(P.Items,Part,C,Capacity):Fits(P.Items,Part,C)){Cell=C;break;}}
     if(Cell<0){Message=TEXT("没有连续空间拆分，原数量保留");return false;}
@@ -613,7 +647,7 @@ void UColdSteelStatusModel::ReduceAllAbilityCooldowns(float Seconds)
     Current.HolyLightCooldown=FMath::Max(0.f,Current.HolyLightCooldown-Seconds);
     Current.MeteorCooldown=FMath::Max(0.f,Current.MeteorCooldown-Seconds);
     Current.FlameArmorCooldown=FMath::Max(0.f,Current.FlameArmorCooldown-Seconds);
-    if(!Current.bQuickCombatReserved)Current.QuickCombatCooldown=FMath::Max(0.f,Current.QuickCombatCooldown-Seconds);
+    // Quick combat is an animation cycle; cooldown reduction never skips recovery.
     Current.WhirlwindCooldown=FMath::Max(0.f,Current.WhirlwindCooldown-Seconds);
     if(CurrentPawn.IsValid())
         if(auto* Blades=CurrentPawn->FindComponentByClass<URuneOrbBladesComponent>())Blades->ReduceCooldown(Seconds);
@@ -630,8 +664,8 @@ void UColdSteelStatusModel::TickRuntime(float Delta,AFPSGAMECharacter* Pawn)
     Current.HolyLightCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.HolyLightCooldown-Delta);
     Current.MeteorCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.MeteorCooldown-Delta);
     Current.FlameArmorCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.FlameArmorCooldown-Delta);
-    if(HasNoAbilityCooldown())Current.QuickCombatCooldown=0.f;
-    else if(!Current.bQuickCombatReserved)Current.QuickCombatCooldown=FMath::Max(0.f,Current.QuickCombatCooldown-Delta);
+    // Quick-combat HUD timing is published by the actual weapon action clock,
+    // including attack-speed retiming and hit stops, independently of CD cheats.
     if(HasNoAbilityCooldown())Current.WhirlwindCooldown=0.f;
     else Current.WhirlwindCooldown=FMath::Max(0.f,Current.WhirlwindCooldown-Delta);
     TickFormulaBuffs(Delta);
