@@ -1281,6 +1281,20 @@
     "type": "祭品",
     "ue_icon": "Icons/dragonFruit.png"
   },
+  "enchant_scroll_convergence": {
+    "rarity": "rare",
+    "category": "consumable",
+    "desc": "可以给狙击步枪附魔后缀「汇聚」。",
+    "grade": "rare",
+    "icon": "Icons/magic_scroll_realistic_v1.png",
+    "ue_icon": "Icons/magic_scroll_realistic_v1.png",
+    "icon_fallback": "🎯",
+    "name": "附魔卷轴：汇聚",
+    "price": 2000,
+    "scroll_id": "convergence",
+    "stack_max": 99,
+    "type": "附魔卷轴"
+  },
   "enchant_scroll_heavy": {
     "rarity": "common",
     "category": "consumable",
@@ -1334,6 +1348,20 @@
     "name": "附魔卷轴：狼蛛",
     "price": 1000,
     "scroll_id": "tarantula",
+    "stack_max": 99,
+    "type": "附魔卷轴"
+  },
+  "enchant_scroll_turbocharger": {
+    "rarity": "rare",
+    "category": "consumable",
+    "desc": "可以给轻机枪类武器附魔前缀「涡轮增压」。",
+    "grade": "rare",
+    "icon": "Icons/magic_scroll_realistic_v1.png",
+    "ue_icon": "Icons/magic_scroll_realistic_v1.png",
+    "icon_fallback": "🌀",
+    "name": "附魔卷轴：涡轮增压",
+    "price": 2000,
+    "scroll_id": "turbocharger",
     "stack_max": 99,
     "type": "附魔卷轴"
   },

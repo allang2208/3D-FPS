@@ -97,6 +97,10 @@ static TAutoConsoleVariable<float> ClipRecoilScale(TEXT("fps.Weapon.ClipRecoil")
 namespace AKMSource
 {
     constexpr float FireVolume = 0.562341f;
+// 排查用：每次汇聚射击打一行（未附魔的枪不打）。它回答"附魔到底有没有生效"这个问题：
+// 有这行说明 ConvergenceParams 是活的，没有就说明那枪没带汇聚附魔。
+static TAutoConsoleVariable<int32> ConvergenceDiag(TEXT("fps.Weapon.ConvergenceDiag"),1,
+    TEXT("Log one line per convergence shot (rounds aggregated, damage) to verify the enchant is live."));
     constexpr float ActionVolume = 0.630957f;
     // Retrigger fades. Long enough to remove the click from cutting a live voice,
     // short enough that fast fire still reads as a fresh transient per shot.
@@ -735,6 +739,7 @@ void AFPSGAMECharacter::MoveForward(float Value)
 }
 
 void AFPSGAMECharacter::MoveRight(float Value)
+    UpdateTurboRamp(DeltaSeconds);
 {
     if(BipodDeployment&&BipodDeployment->BlocksMovement())return; // 架枪锁定：移动输入被忽略，退出后恢复
     if (IsMeleeSkillMovementLocked()) { MoveInput.X = 0.f; return; }
@@ -2028,7 +2033,7 @@ void AFPSGAMECharacter::ServiceHeldFire()
     {
         // A custom world limit may allow a much longer hitch. Discard excess
         // beyond the bounded batch, preserving cadence without future debt.
-        const double Interval = FMath::Max(0.001, static_cast<double>(FireInterval));
+        const double Interval = EffectiveFireInterval();
         const double Remainder = FMath::Fmod(FMath::Max(0.0, Now - NextAllowedShotTime), Interval);
         NextAllowedShotTime = Now + Interval - Remainder;
     }
@@ -2050,14 +2055,21 @@ void AFPSGAMECharacter::FireShot()
         else { FireReleased(); PlaySound2D(DryClickSound, 0.501187f * WeaponAudioGain); }
         return;
     }
-    --MagazineAmmo;
+    // 汇聚（附魔）：一次射击打空弹匣，本发按消耗发数聚合结算；未附魔固定消耗 1 发。
+    const int32 ConvergenceRounds = ConvergenceParams.Enabled ? MagazineAmmo : 1;
+    const float ConvergenceScale = static_cast<float>(ColdSteelCombat::ConvergenceShotScale(ConvergenceParams, ConvergenceRounds));
+    MagazineAmmo -= ConvergenceRounds;
+    if(ConvergenceParams.Enabled&&ConvergenceDiag.GetValueOnGameThread()!=0)
+        UE_LOG(LogTemp,Display,TEXT("CONVERGENCE_SHOT rounds=%d scale=%.3f damage=%.1f mag_left=%d"),
+            ConvergenceRounds,ConvergenceScale,DamagePerShot*ConvergenceScale,MagazineAmmo);
     if(MagazineAmmo==0 && IsCastBlockingLeftHandAction())bReloadAfterCasting=true;
     if (UsesSingleShotTrigger()) bPistolShotPending = false;
     ++ShotsFired;
     UAISense_Hearing::ReportNoiseEvent(this,GetActorLocation(),1.f,this,IsMuzzleSuppressed()?500.f:1800.f,TEXT("Gunshot"));
     LastShotWorldTime = Now; // Actual execution time, not a backdated cadence deadline.
     if (TriggerFirstShotWorldTime < 0.0) TriggerFirstShotWorldTime = Now;
-    NextAllowedShotTime += FMath::Max(0.001, static_cast<double>(FireInterval));
+    const double ShotInterval = EffectiveFireInterval();
+    NextAllowedShotTime += ShotInterval;
     if (bUseM16 && (--BurstShotsRemaining == 0 || MagazineAmmo == 0))
     {
         BurstShotsRemaining=0;
@@ -2075,7 +2087,7 @@ void AFPSGAMECharacter::FireShot()
     // the next shot even when the effective fire interval is shortened.
     float ShotAnimationRate = 1.0f;
     if (Animation && ActiveInventoryWeaponDefinition == PKMLowpolyWeaponAssets::Definition)
-        ShotAnimationRate = FMath::Max(1.0f, Animation->GetPlayLength() / FMath::Max(0.01f, FireInterval));
+        ShotAnimationRate = FMath::Max(1.0f, Animation->GetPlayLength() / FMath::Max(0.01f, static_cast<float>(ShotInterval)));
     PlayWeaponAnimation(Animation, false, ShotAnimationRate);
     GetWorldTimerManager().ClearTimer(WeaponPoseTimerHandle);
     USoundBase* ShotSound=IsMuzzleSuppressed()&&SuppressedFireSound?SuppressedFireSound.Get():FireSound.Get();
@@ -2104,10 +2116,27 @@ void AFPSGAMECharacter::FireShot()
         M4FireVoice->SetVolumeMultiplier(AKMSource::FireVolume * (IsPistolWeapon() ? 1.5f : 1.0f) * WeaponAudioGain);
         M4FireVoice->SetPitchMultiplier(1.0f);
         M4FireVoice->Play();
+double AFPSGAMECharacter::EffectiveFireInterval() const
+{
+    const double Base = FMath::Max(0.001, static_cast<double>(FireInterval));
+    return Base * ColdSteelCombat::TurboIntervalMultiplier(TurboRampParams, TurboRampSeconds);
+}
+
+void AFPSGAMECharacter::UpdateTurboRamp(float DeltaSeconds)
+{
+    // 与原版能量轻机枪同口径：只有真正在持续开火时才累积，停火立即回落到初始射速。
+    const bool bSustained = TurboRampParams.Enabled && bFireHeld && bInventoryWeaponReady
+        && !IsWeaponBusy() && !bIsSprinting && MagazineAmmo > 0
+        && GetWorld()->GetTimeSeconds() + 1.e-6 >= SprintFireUnlockTime;
+    if (!bSustained) { TurboRampSeconds = 0.0; return; }
+    TurboRampSeconds = FMath::Min(TurboRampParams.Seconds, TurboRampSeconds + DeltaSeconds);
+}
+
     }
     else PlayFireVoice(ShotSound, AKMSource::FireVolume * (IsPistolWeapon() ? 1.5f : 1.0f) * WeaponAudioGain);
 
-    const float ShotDamage=DamagePerShot;
+    // 汇聚把整匣伤害聚合到这一发；伤害类型仍由 Shot.DamagePanel 的比例决定，不因缩放改变。
+    const float ShotDamage=DamagePerShot*ConvergenceScale;
     const auto Training=ColdSteelSkills::Snapshot(this,nullptr,true);
     const auto Effects=ColdSteelCombat::Snapshot(this);
     FHitResult Hit;
@@ -2122,11 +2151,11 @@ void AFPSGAMECharacter::FireShot()
     bLastShotMuzzleBlocked = bHit;
     if (!bHit)
     {
-        if(ProjectileSpeedCM>0)Ballistics->Launch(Muzzle,(AimTarget-Muzzle).GetSafeNormal(),ProjectileSpeedCM,TraceDistance,DamagePerShot,WeaponFX,CriticalHitSound,EffectiveWeaponRangeCM);
+        if(ProjectileSpeedCM>0)Ballistics->Launch(Muzzle,(AimTarget-Muzzle).GetSafeNormal(),ProjectileSpeedCM,TraceDistance,ShotDamage,WeaponFX,CriticalHitSound,EffectiveWeaponRangeCM,nullptr,ConvergenceParams.Enabled);
         else
         {
             bHit=GetWorld()->LineTraceSingleByChannel(Hit,Muzzle,AimTarget+TraceDirection*2.f,ECC_Visibility,Params);
-            WeaponFX->OnTracerSegment(Muzzle,bHit?Hit.ImpactPoint:AimTarget);
+            WeaponFX->OnTracerSegment(Muzzle,bHit?Hit.ImpactPoint:AimTarget,ConvergenceParams.Enabled);
         }
     }
     if (bHit && Hit.GetActor())

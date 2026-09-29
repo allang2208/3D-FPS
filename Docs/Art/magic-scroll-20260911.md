@@ -1,6 +1,6 @@
 # 捆扎魔法卷轴接入 — 2026-09-11
 
-已制作写实羊皮纸卷轴的正、右侧、背面三视图，从同一正面图提取透明背包图标，并将三个独立视角送入 RTX 5080 TRELLIS.2 管线。四种现有附魔卷轴共用外观：`enchant_scroll_heavy`、`enchant_scroll_sharp`、`enchant_scroll_skeleton`、`enchant_scroll_tarantula`。名称、附魔效果、稀有度和 99 堆叠上限保持原定义。
+已制作写实羊皮纸卷轴的正、右侧、背面三视图，从同一正面图提取透明背包图标，并将三个独立视角送入 RTX 5080 TRELLIS.2 管线。四种现有附魔卷轴共用外观：`enchant_scroll_heavy`、`enchant_scroll_sharp`、`enchant_scroll_skeleton`、`enchant_scroll_tarantula`（2026-09-29 新增的 `enchant_scroll_turbocharger`、`enchant_scroll_convergence` 沿用同一套外观与图标）。名称、附魔效果、稀有度和 99 堆叠上限保持原定义。
 
 ## 交付文件
 

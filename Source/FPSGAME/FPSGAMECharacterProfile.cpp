@@ -13,6 +13,7 @@
 #include "Weapons/WeaponStatEvaluation.h"
 #include "Movement/FPSTraversalComponent.h"
 
+#include "Weapons/ColdSteelEnchantmentCombat.h"
 void AFPSGAMECharacter::ApplyWeaponAttachmentPresentation(const TMap<FString,FString>& Parts)
 {
     if(bWeaponVisualPartsApplied && AppliedWeaponVisualParts.OrderIndependentCompareEqual(Parts))return;
@@ -140,6 +141,11 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     if(I)DamagePerShot=ColdSteelWeaponStats::Damage(*I,Profile,DamagePerShot-Profile->Derived(TEXT("atk")))*Profile->AmmoDamageMultiplier(*I);
     MagazineAmmo=I&&!ColdSteelInventory::IsMeleeWeapon(*I)?FMath::Clamp(I->Magazine,0,MagazineCapacity):0;ReserveAmmo=I&&ColdSteelInventory::IsMeleeWeapon(*I)?0:Profile->AmmoCount();
     if(RuneSword && RuneSword->IsEquipped())
+    // 涡轮增压（附魔）参数随档案缓存，开火循环只做插值；换枪或失去附魔即清空累计秒数。
+    TurboRampParams=ColdSteelCombat::TurboRamp(I?GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr,I);
+    if(ChangedWeapon||!TurboRampParams.Enabled)TurboRampSeconds=0.0;
+    // 汇聚（附魔）同样随档案缓存：开火时只按弹匣余弹算一次倍率。
+    ConvergenceParams=ColdSteelCombat::Convergence(I?GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr,I);
     {DamagePerShot=RuneSword->EquippedDamage();FireInterval=RuneSword->AttackSeconds();MagazineCapacity=0;ReloadDuration=EmptyReloadDuration=0;}
     if (bUseDanWesson715 && I)
         RevolverCaseCount = FMath::Clamp(static_cast<int32>(ColdSteelInventory::Number(*I, TEXT("revolver_case_count"), I->Magazine)), MagazineAmmo, 6);

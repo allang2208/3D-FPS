@@ -21,7 +21,7 @@ static TAutoConsoleVariable<int32> CVarTracerEvery(TEXT("fps.Tracer.Every"),1,
 
 UFPSBallisticsComponent::UFPSBallisticsComponent()
 {PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.bStartWithTickEnabled=false;}
-void UFPSBallisticsComponent::Launch(FVector Start,FVector Direction,float SpeedCM,float RangeCM,float Damage,UFPSWeaponFXComponent* FX,USoundBase* Headshot,float EffectiveRangeCM,const FColdSteelItem* ShotItem)
+void UFPSBallisticsComponent::Launch(FVector Start,FVector Direction,float SpeedCM,float RangeCM,float Damage,UFPSWeaponFXComponent* FX,USoundBase* Headshot,float EffectiveRangeCM,const FColdSteelItem* ShotItem,bool bConverged)
 {
     if(!GetWorld()||!FMath::IsFinite(SpeedCM)||SpeedCM<=0||RangeCM<=0||Direction.IsNearlyZero())return;
     LastLaunchStart=Start;
@@ -34,6 +34,8 @@ void UFPSBallisticsComponent::Launch(FVector Start,FVector Direction,float Speed
     // Counter starts at zero, so the first round of a magazine always carries a tracer and
     // then every Nth one does — a burst reads as spaced streaks instead of a solid tube.
     Rounds.Last().bShowTracer=(TracerRoundCounter++%TracerInterval)==0;
+    // 表现分支随弹丸一起走：命中或到射程回收前，这条段一直认这个标记。
+    Rounds.Last().bConverged=bConverged;
     SetComponentTickEnabled(true);
 }
 void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Fn)
@@ -71,7 +73,7 @@ void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
         }
         const FVector Reached=Stopped?Hit.ImpactPoint:End;
         if(!R.bRiverEntryPlayed&&RiverFX&&RiverFX->TryBulletCrossing(Start,Reached,R.Speed))R.bRiverEntryPlayed=true;
-        if(WeaponFX&&R.bShowTracer)WeaponFX->OnTracerSegment(R.Id,Start,Reached);
+        if(WeaponFX&&R.bShowTracer)WeaponFX->OnTracerSegment(R.Id,Start,Reached,R.bConverged);
         if(Stopped){Rounds.RemoveAtSwap(I);continue;}
         R.Position=End;R.Remaining-=Distance;R.TraveledCM+=Distance;
         if(R.Remaining<=KINDA_SMALL_NUMBER)Rounds.RemoveAtSwap(I);

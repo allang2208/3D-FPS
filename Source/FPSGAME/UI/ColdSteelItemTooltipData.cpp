@@ -43,6 +43,8 @@ void Delta(FColdSteelTooltipCard& C,const FString& Label,double V,const TCHAR* U
 J Reference(){static J Root;static bool Loaded=false;if(!Loaded){Loaded=true;FString Text;if(FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/tooltip-reference.json"))))FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Root);}return Root;}
 }
 
+// 附魔只存攻击间隔倍率；玩家口径用射速倍率表达，1/3 与 2 倍都读得懂。
+FString RateMultiplier(double IntervalMultiplier){return IntervalMultiplier>1.?FString::Printf(TEXT("1/%s"),*N(IntervalMultiplier)):N(1./IntervalMultiplier);}
 FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UColdSteelStatusModel* Model,UGunsmithSystem* G)
 {
     FColdSteelTooltipContent Out;J O;
@@ -72,7 +74,16 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         if(EE){Delta(C,TEXT("攻击力"),Number(EE,TEXT("damagePercent"))*100,TEXT("%"));
             if(EE->HasField(TEXT("attackIntervalMul")))Row(C,ColdSteelWeaponText::AttackInterval,TEXT("×")+N(Number(EE,TEXT("attackIntervalMul"))),Number(EE,TEXT("attackIntervalMul"))<1?1:-1);
             Delta(C,TEXT("暴击率"),Number(EE,TEXT("critRate"))*100,TEXT("%"));Delta(C,TEXT("穿透目标"),Number(EE,TEXT("piercingBonus")),TEXT("个"));
-            bool Poison=false;if(EE->TryGetBoolField(TEXT("poisonOnHit"),Poison)&&Poison)Row(C,TEXT("特殊效果"),TEXT("攻击叠加中毒"),1);}
+            bool Poison=false;if(EE->TryGetBoolField(TEXT("poisonOnHit"),Poison)&&Poison)Row(C,TEXT("特殊效果"),TEXT("攻击叠加中毒"),1);
+            const double TurboStart=Number(EE,TEXT("turboRampStartMul")),TurboPeak=Number(EE,TEXT("turboRampPeakMul")),TurboSeconds=Number(EE,TEXT("turboRampSeconds"));
+            if(TurboStart>0.&&TurboPeak>0.&&TurboSeconds>0.)
+            {Row(C,TEXT("射速倍率"),RateMultiplier(TurboStart)+TEXT(" → ")+RateMultiplier(TurboPeak)+TEXT(" 倍"),1);
+                Row(C,TEXT("加速时间"),N(TurboSeconds)+TEXT(" 秒，停火立即复位"),1);}
+            bool ConvergenceShot=false;EE->TryGetBoolField(TEXT("convergenceShot"),ConvergenceShot);
+            const double ConvergenceScale=Number(EE,TEXT("convergenceDamageScale"));
+            if(ConvergenceShot&&ConvergenceScale>0.)
+            {Row(C,TEXT("射击模式"),TEXT("一次射击打空弹匣"),1);
+                Row(C,TEXT("聚合伤害"),TEXT("消耗发数合计的 ")+N(ConvergenceScale*100.)+TEXT("%，类型沿用原枪械"),1);}}
     }
     const auto* Weapon=G?G->Weapon(I.Definition):nullptr;const FGunsmithParts Parts=G&&G->ModifiableWeapon(I.Definition)?G->Installed(I):FGunsmithParts();
     bool Installed=false;for(const auto& P:Parts)if(G->Option(I.Definition,P.Key,P.Value))Installed=true;
@@ -330,3 +341,20 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
     CompleteColdSteelTooltipSummary(I,Model,G,Out);
     return Out;
 }
+        // 涡轮增压：理论射速是不开火的静态值，实战读数是起步与峰值两档。
+        const double TurboStart=Number(EE,TEXT("turboRampStartMul")),TurboPeak=Number(EE,TEXT("turboRampPeakMul")),TurboSeconds=Number(EE,TEXT("turboRampSeconds"));
+        if(FireInterval>0.&&TurboStart>0.&&TurboPeak>0.&&TurboSeconds>0.)
+        {
+            Row(Main,TEXT("起步射速"),N(60./(FireInterval*TurboStart))+TEXT(" 发/分"));
+            Row(Main,TEXT("峰值射速"),N(60./(FireInterval*TurboPeak))+TEXT(" 发/分"));
+        }
+        // 汇聚：单发按满匣口径聚合，面板给出可直接对照的整匣数字。
+        // 无附魔物品（如改造台的产品预览）没有 _enchantEffects，EE 为空，必须先判空再读布尔键。
+        bool ConvergenceShot=false;if(EE)EE->TryGetBoolField(TEXT("convergenceShot"),ConvergenceShot);
+        const double ConvergenceScale=Number(EE,TEXT("convergenceDamageScale"));
+        if(ConvergenceShot&&ConvergenceScale>0.&&S.Capacity>0&&DamageParts.Total()>0.)
+        {
+            const double MagazineTotal=DamageParts.Total()*S.Capacity;
+            Row(Main,TEXT("满匣聚合伤害"),N(MagazineTotal*ConvergenceScale)+TEXT("（")+FString::FromInt(S.Capacity)+TEXT(" 发合计 ")+N(MagazineTotal)+TEXT("）"));
+            Row(Main,TEXT("射击模式"),TEXT("一次射击打空弹匣，伤害类型沿用原枪械"));
+        }

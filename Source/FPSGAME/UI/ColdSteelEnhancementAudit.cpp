@@ -105,6 +105,14 @@ void AFPSGAMEPlayerController::RunEnhancementAudit()
     auto Max=P->Snapshot();for(auto& I:Max.Items)if(I.InstanceId==Id)Level(I,15);Check(P->CommitState(Max)&&!E->Quote(Id).Valid,TEXT("level cap rejects without charging"));P->CommitState(Before);
     auto Poor=P->Snapshot();Poor.Items.RemoveAll([](const auto& I){return I.Definition==TEXT("magic_dust");});P->CommitState(Poor);Check(!E->Quote(Id,TEXT("skeletonArcher")).Valid,TEXT("insufficient dust rejects before mutation"));P->CommitState(Before);
     Check(!E->Quote(Id,TEXT("heavy")).Valid&&!E->Quote(Id,TEXT("unknown")).Valid,TEXT("incompatible or unknown scroll rejects"));
+    // 涡轮增压按类别键限定机枪：数据必须加载，且步枪用例必须被拒绝。
+    if(const auto* Turbo=E->Scroll(TEXT("turbocharger")))
+        Check(E->CanEnchant(P->CreateItem(TEXT("ue_pkm_lowpoly")),*Turbo)&&!E->CanEnchant(*P->FindItem(Id),*Turbo),TEXT("turbocharger binds to machine guns and rejects rifles"));
+    else Check(false,TEXT("turbocharger scroll definition loads"));
+    // 汇聚按类别键限定狙击步枪：SVD 用例为真，突击步枪用例必须被拒绝。
+    if(const auto* Convergence=E->Scroll(TEXT("convergence")))
+        Check(E->CanEnchant(P->CreateItem(TEXT("ue_svd")),*Convergence)&&!E->CanEnchant(*P->FindItem(Id),*Convergence),TEXT("convergence binds to sniper rifles and rejects assault rifles"));
+    else Check(false,TEXT("convergence scroll definition loads"));
     Check(E->Apply(E->Quote(Id,TEXT("skeletonArcher")),R->Message)&&E->Effect(*P->FindItem(Id),TEXT("piercingBonus"))==2,TEXT("real skeleton suffix costs and effects persist"));
     Check(P->CountMaterial(TEXT("magic_dust"))==600&&P->CountMaterial(TEXT("enchant_scroll_skeleton"))==1&&!E->Quote(Id,TEXT("skeletonArcher")).Valid,TEXT("exact scroll consumption and duplicate suffix rejection"));
     const auto Stats=G->Calculate(Gun.Definition,G->Installed(*P->FindItem(Id)));

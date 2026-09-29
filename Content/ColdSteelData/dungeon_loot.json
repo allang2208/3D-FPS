@@ -51,6 +51,8 @@
         { "id": "reforge_ticket", "weight": 5, "count": [1, 2] },
         { "id": "enchant_scroll_tarantula", "weight": 3, "count": [1, 1] },
         { "id": "enchant_scroll_skeleton", "weight": 2, "count": [1, 1] },
+        { "id": "enchant_scroll_turbocharger", "weight": 2, "count": [1, 1] },
+        { "id": "enchant_scroll_convergence", "weight": 2, "count": [1, 1] },
         { "id": "enchant_scroll_heavy", "weight": 2, "count": [1, 1] },
         { "id": "enchant_scroll_sharp", "weight": 2, "count": [1, 1] }
       ]

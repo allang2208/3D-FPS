@@ -16,6 +16,35 @@ FColdSteelShotEffects ColdSteelCombat::Snapshot(AActor* Source,const FColdSteelI
     auto* P=Pawn->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();auto* E=Pawn->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();
     if(P&&E)if(const auto* I=Item?Item:P->Equipped()){R.Piercing=FMath::Clamp(int32(E->Effect(*I,TEXT("piercingBonus"))),0,8);R.Poison=E->Effect(*I,TEXT("poisonOnHit"))?FMath::Max(1,int32(E->Effect(*I,TEXT("poisonStacks"),1))):0;}return R;
 }
+FColdSteelTurboRamp ColdSteelCombat::TurboRamp(const UColdSteelEnhancementSystem* Enhancement,const FColdSteelItem* Item)
+{
+    FColdSteelTurboRamp R;if(!Enhancement||!Item)return R;
+    const double Start=Enhancement->Effect(*Item,TEXT("turboRampStartMul"));
+    const double Peak=Enhancement->Effect(*Item,TEXT("turboRampPeakMul"));
+    const double Seconds=Enhancement->Effect(*Item,TEXT("turboRampSeconds"));
+    // 三个数值同属一次附魔；缺一项就不成立，避免半套数据把射速改成未定义状态。
+    if(Start<=0.||Peak<=0.||Seconds<=0.)return R;
+    R.Enabled=true;R.StartMultiplier=Start;R.PeakMultiplier=Peak;R.Seconds=Seconds;return R;
+}
+double ColdSteelCombat::TurboIntervalMultiplier(const FColdSteelTurboRamp& Ramp,double HeldSeconds)
+{
+    if(!Ramp.Enabled)return 1.;
+    const double Progress=FMath::Clamp(HeldSeconds/FMath::Max(.01,Ramp.Seconds),0.,1.);
+    return Ramp.StartMultiplier+(Ramp.PeakMultiplier-Ramp.StartMultiplier)*Progress;
+}
+FColdSteelConvergence ColdSteelCombat::Convergence(const UColdSteelEnhancementSystem* Enhancement,const FColdSteelItem* Item)
+{
+    FColdSteelConvergence R;if(!Enhancement||!Item)return R;
+    const double Scale=Enhancement->Effect(*Item,TEXT("convergenceDamageScale"));
+    // 开关与倍率同属一次附魔；缺一项就不成立，避免半套数据把射击模式改成未定义状态。
+    if(Enhancement->Effect(*Item,TEXT("convergenceShot"))<=0.||Scale<=0.)return R;
+    R.Enabled=true;R.DamageScale=Scale;return R;
+}
+double ColdSteelCombat::ConvergenceShotScale(const FColdSteelConvergence& Convergence,int32 Rounds)
+{
+    if(!Convergence.Enabled)return 1.;
+    return Convergence.DamageScale*FMath::Max(0,Rounds);
+}
 void ColdSteelCombat::OnHit(AActor* Target,AActor* Shooter,int32 Poison)
 {
     if(!IsValid(Target)||Target==Shooter||Target->ActorHasTag(TEXT("Friendly"))||Target->ActorHasTag(TEXT("Companion"))||!Target->HasAuthority()||!Cast<APawn>(Target)||Poison<=0)return;

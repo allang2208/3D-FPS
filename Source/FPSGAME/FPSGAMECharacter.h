@@ -5,6 +5,7 @@
 #include "Weapons/WeaponHandling.h"
 #include "Weapons/WeaponReloadStages.h"
 #include "Weapons/M4TacticalSprintComponent.h"
+#include "Weapons/ColdSteelEnchantmentCombat.h"
 #include "Monsters/MonsterHitFeedback.h"
 #include "FPSGAMECharacter.generated.h"
 
@@ -481,6 +482,10 @@ private:
     bool bReloadAmmoCommitted = false;
     bool bReloadCycleOnly = false;
     float ReloadResumeElapsed = 0.f;
+    /** 当前攻击间隔＝基础间隔×涡轮增压爬升倍率；未附魔时等于基础间隔。 */
+    double EffectiveFireInterval() const;
+    /** 推进持续开火秒数；松开扳机、换弹、切枪或弹匣空时立即回到初始档。 */
+    void UpdateTurboRamp(float DeltaSeconds);
     void ApplyShotFeedback();
     FVector ComputeShotDirection() const;
     void RunWeaponAudit(float DeltaSeconds);
@@ -627,6 +632,12 @@ private:
     float SprintCameraFactor = 0.0f;
 
     FVector GunKickPosition = FVector::ZeroVector;
+    // 涡轮增压（附魔）：持续开火累计秒数与当前装备解析出的爬升参数，
+    // 随档案刷新一起更新，开火循环不再读 JSON。
+    double TurboRampSeconds = 0.0;
+    FColdSteelTurboRamp TurboRampParams;
+    // 汇聚（附魔）：一次射击打空弹匣的开关与倍率，同样随档案缓存。
+    FColdSteelConvergence ConvergenceParams;
     FVector GunKickPositionVelocity = FVector::ZeroVector;
     FVector GunKickRotation = FVector::ZeroVector;
     FVector GunKickRotationVelocity = FVector::ZeroVector;

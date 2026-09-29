@@ -19,6 +19,8 @@ struct FFPSFlyingRound
     // reads as spaced tracers instead of one solid tube of light (real belts load one
     // tracer every fifth round). Presentation only — damage and the trace are untouched.
     bool bShowTracer=true;
+    // 汇聚附魔：本发是整匣聚合弹，曳光走加粗纯白 + 螺旋环绕的表现分支。
+    bool bConverged=false;
     bool bRiverEntryPlayed=false;
     int32 Piercing=0,Poison=0;
     FColdSteelSkillShot Training;
@@ -31,7 +33,7 @@ class FPSGAME_API UFPSBallisticsComponent : public UActorComponent
     GENERATED_BODY()
 public:
     UFPSBallisticsComponent();
-    void Launch(FVector Start,FVector Direction,float SpeedCM,float RangeCM,float Damage,UFPSWeaponFXComponent* FX,USoundBase* Headshot,float EffectiveRangeCM=0,const FColdSteelItem* ShotItem=nullptr);
+    void Launch(FVector Start,FVector Direction,float SpeedCM,float RangeCM,float Damage,UFPSWeaponFXComponent* FX,USoundBase* Headshot,float EffectiveRangeCM=0,const FColdSteelItem* ShotItem=nullptr,bool bConverged=false);
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Fn) override;
     int32 ActiveCount()const{return Rounds.Num();}
     int32 ImpactCount=0;

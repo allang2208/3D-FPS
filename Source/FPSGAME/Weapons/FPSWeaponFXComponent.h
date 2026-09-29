@@ -13,6 +13,7 @@ class UStaticMesh;
 class UMaterialInterface;
 class UMaterialInstanceDynamic;
 class UPointLightComponent;
+class UDynamicMeshComponent;
 
 USTRUCT()
 struct FFPSWeaponFXParticle
@@ -50,6 +51,18 @@ struct FFPSWeaponFXTracer
         with a soft halo instead of a solid rod. Hidden when fps.Tracer.HaloWidth <= 1. */
     UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> HaloMesh;
     UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> HaloMaterial;
+    /** 汇聚附魔的螺旋环绕层：一次生成、逐帧只改变换与自转的螺旋管。
+        复用曳光材质，落在同一局部口径（半径 50 / z ∈ [-50,50]）内，因此材质沿轴的头尾与侧面衰减照旧成立。 */
+    UPROPERTY(Transient) TObjectPtr<UDynamicMeshComponent> SpiralMesh;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> SpiralMaterial;
+    /** 生成当前螺旋管时用的几何参数；控制台改了参数就按这三项判断重建，不在逐帧路径上重建。 */
+    float SpiralBuiltTurns=-1.f,SpiralBuiltRadiusCM=0.f,SpiralBuiltThicknessCM=0.f;
+    /** 汇聚弹的白色光柱拖尾：出膛点→弹头的整条路径，命中后原地停住再逐步淡出。
+        比曳光段本身活得久，所以它有自己的一条淡出时间线（fps.Tracer.Trail.LingerSeconds）。 */
+    UPROPERTY(Transient) TObjectPtr<UDynamicMeshComponent> TrailMesh;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> TrailMaterial;
+    /** 本段是否为整匣聚合弹：加粗、纯白、带螺旋。 */
+    bool bConverged=false;
     /** INDEX_NONE: instantaneous (hitscan) flash that only fades, no flight path. */
     int32 RoundId = INDEX_NONE;
     FVector Head = FVector::ZeroVector;
@@ -81,10 +94,13 @@ public:
     bool bUseCharacterMuzzle=true;
     UFUNCTION(BlueprintCallable, Category="Weapon FX") void OnShot(bool bADS);
     UFUNCTION(BlueprintCallable, Category="Weapon FX") void OnImpact(const FHitResult& Hit);
-    void OnTracerSegment(const FVector& Start,const FVector& End);
+    void OnTracerSegment(const FVector& Start,const FVector& End,bool bConverged=false);
     /** Flying round: refreshes (or opens) the streak owned by RoundId. */
-    void OnTracerSegment(int32 RoundId,const FVector& Start,const FVector& End);
+    void OnTracerSegment(int32 RoundId,const FVector& Start,const FVector& End,bool bConverged=false);
     int32 TracerSegments=0;
+    /** 汇聚段的诊断计数：开了几条段、重建过几次螺旋管几何（逐帧重建会让后者暴涨）。 */
+    int32 ConvergedTracerSegments=0;
+    int32 SpiralMeshBuilds=0;
     int32 GetActiveTracerCount() const;
     int32 ExpiredTracerSegments=0;
     int32 EpicMuzzleBursts=0, EpicSmokeBursts=0;
@@ -131,6 +147,10 @@ private:
     FFPSWeaponFXTracer* AcquireTracer(int32 RoundId);
     void ReleaseTracer(FFPSWeaponFXTracer& Tracer);
     void ApplyTracerTransform(FFPSWeaponFXTracer& Tracer);
+    /** 汇聚段第一次用到时创建螺旋管组件，并在几何参数变化时重建（几何只生成，不在逐帧里重建）。 */
+    void EnsureSpiral(FFPSWeaponFXTracer& Tracer,float Turns,float CoilRadiusCM,float ThicknessCM);
+    /** 汇聚段第一次用到光柱拖尾时创建它的组件；普通曳光从不创建。 */
+    void EnsureTrail(FFPSWeaponFXTracer& Tracer);
     float TracerBaseLengthCM() const;
     float TracerMaxLengthCM() const;
     UPROPERTY(Transient) TObjectPtr<USkeletalMeshComponent> WeaponMesh;
