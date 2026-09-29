@@ -14,3 +14,7 @@ Reusable assemblies and compatible room-local recipes for Drainage, VentilationL
 Current production status: nine meshes saved; generator catalog saved; Editor base DLL compiled by the regular project build recorded in `Saved/BuildEditor/build-20260927-181044.log`. No gameplay, visual or performance tests were run. Re-enter the dungeon to generate a new layout using the recipes.
 
 All geometry in this batch is authored by the included script. Material references reuse the project's existing materials; their original licensing and redistribution restrictions continue to apply.
+
+2026-09-28：移除随机维修桌台 RepairBench 及其四处布置与避让占位；后续仅导出八种组合件。原模型保留在本机，生成器已解除其硬引用。未运行游戏测试。
+
+2026-09-28：货箱与配电柜改用 `../DungeonFacilityPropPolish20260928` 的精修作者函数和共用 PBR 图集；本目录的两件 FBX、清单项及合集 Blender 同步更新，其余组合件保持。两件原始简模函数已移除，避免重建恢复旧效果。先由精修批安装共享贴图/材质及网格，实际保存记录见该批 `Receipts/install.json`。未运行游戏或视觉验收。

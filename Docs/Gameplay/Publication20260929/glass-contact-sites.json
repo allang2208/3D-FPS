@@ -1,0 +1,329 @@
+{
+  "purpose": "Manual integration reference only; not an apply-ready patch or a copy of unrelated shared implementations",
+  "sites": [
+    {
+      "path": "Source/FPSGAME/Building/ColdSteelDoor.cpp",
+      "snippets": [
+        {
+          "line": 72,
+          "context": "}\n\nvoid AColdSteelDoor::ConfigureStandaloneLeaf(UStaticMesh* Mesh,bool bPositiveHinge,float OpeningSeconds,float ClosingDelay)\n{\n    Frame->SetStaticMesh(nullptr);Frame->SetCollisionProfileName(TEXT(\"NoCollision\"));Frame->SetVisibility(false);\n    Leaf->SetStaticMesh(Mesh);Leaf->SetRelativeRotation(FRotator(0,bPositiveHinge?180:0,0));"
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/ColdSteelDoor.h",
+      "snippets": [
+        {
+          "line": 43,
+          "context": "    void PrepareBuildPreview() {AlignGeometry();}\n    /** Reuse the production hinge/interaction with a separately owned shared frame. */\n    void ConfigureStandaloneLeaf(UStaticMesh* Mesh,bool bPositiveHinge,float OpeningSeconds,float ClosingDelay);\n\nprotected:\n    virtual void BeginPlay() override;"
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionAxeContact.cpp",
+      "snippets": [
+        {
+          "line": 2,
+          "context": "#include \"ProductionToolComponent.h\"\n#include \"../Dungeons/WardBreakableGlass.h\"\n#include \"../FPSGAMECharacter.h\"\n#include \"../Monsters/MonsterCombatComponent.h\"\n#include \"../Skills/ColdSteelSkillRules.h\""
+        },
+        {
+          "line": 52,
+          "context": "        // Swept volume adds width only; its front cap does not extend reach.\n        if(FVector::DotProduct(Delta,Forward)<0 || Delta.SizeSquared()>FMath::Square(Limit))return false;\n        if(bEnemy || Cast<UWardBreakableGlass>(Candidate.GetComponent()))return true;\n        FString TreeReason;\n        for(TActorIterator<ATemperateHillsWorld> It(World);It;++It)\n            if(It->ResolveProductionResource(Candidate,Tree,TreeReason))return Tree.RequiredTool==Kind;"
+        },
+        {
+          "line": 62,
+          "context": "    {\n        Hit=Selected;Hit.TraceStart=Start;Hit.TraceEnd=End;Resource=Tree;\n        if(Cast<UWardBreakableGlass>(Selected.GetComponent()))Reason=TEXT(\"玻璃 · 左键击碎\");\n        else if(bEnemy)Reason=TEXT(\"敌人 · 左键攻击（单目标物理伤害）\");\n    };\n"
+        },
+        {
+          "line": 124,
+          "context": "        }\n    }\n    if(bFound && Resource.Id.IsEmpty() && !Cast<UWardBreakableGlass>(Hit.GetComponent()))Reason=TEXT(\"敌人 · 左键攻击（单目标物理伤害）\");\n    return bFound;\n}\n"
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "snippets": [
+        {
+          "line": 2,
+          "context": "#include \"ProductionToolComponent.h\"\n#include \"../Dungeons/WardBreakableGlass.h\"\n#include \"ProductionToolAppearance.h\"\n#include \"ProductionPickaxeImpactMotion.h\"\n#include \"../Skills/FPSCastingMeshComponent.h\""
+        },
+        {
+          "line": 274,
+          "context": "    const bool Found=bCombatTool?TraceAxeContact(Target,Hit,Reason):TraceResource(Target,Hit,Reason);\n    // The shovel's trace still returns its blocking hit even when it is not soil.\n    if(UWardBreakableGlass::BreakHit(Hit,(Hit.TraceEnd-Hit.TraceStart).GetSafeNormal()))\n    {Feedback=TEXT(\"玻璃已击碎\");FeedbackSeconds=1.2f;return true;}\n    if (!Found) { Feedback=Reason; FeedbackSeconds=2; return false; }\n    if(bCombatTool && Target.Id.IsEmpty())return ResolveAxeEnemyContact(Hit);"
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelFireballModel.cpp",
+      "snippets": [
+        {
+          "line": 3,
+          "context": "#include \"../Dungeon/DungeonLayout.h\"\n#include \"../UI/ColdSteelStatusModel.h\"\n#include \"../Dungeons/WardBreakableGlass.h\"\n#include \"../Combat/CombatFormulaRuntime.h\"\n#include \"../Weapons/MeleeWeaponStats.h\"\n#include \"../UI/ColdSteelEnhancementSystem.h\""
+        },
+        {
+          "line": 161,
+          "context": "    if(Cast.Damage>0)\n    {\n        UWardBreakableGlass::BreakInRadius(GetWorld(),Center,Cast.Radius,Shooter);\n        if(DirectHit)UWardBreakableGlass::BreakHit(*DirectHit,-DirectHit->ImpactNormal);\n    }\n    AActor* DirectTarget=DirectHit?DirectHit->GetActor():nullptr;"
+        },
+        {
+          "line": 162,
+          "context": "    {\n        UWardBreakableGlass::BreakInRadius(GetWorld(),Center,Cast.Radius,Shooter);\n        if(DirectHit)UWardBreakableGlass::BreakHit(*DirectHit,-DirectHit->ImpactNormal);\n    }\n    AActor* DirectTarget=DirectHit?DirectHit->GetActor():nullptr;\n    const bool DirectWeakpoint=DirectHit&&DirectHit->bBlockingHit&&ColdSteelSkills::IsCriticalHit(*DirectHit);"
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelHolyLightModel.cpp",
+      "snippets": [
+        {
+          "line": 3,
+          "context": "#include \"../Dungeon/DungeonLayout.h\"\n#include \"../UI/ColdSteelStatusModel.h\"\n#include \"../Dungeons/WardBreakableGlass.h\"\n#include \"../UI/ColdSteelEnhancementSystem.h\"\n#include \"../Combat/CombatFormulaRuntime.h\"\n#include \"../Combat/CombatItemFormula.h\""
+        },
+        {
+          "line": 81,
+          "context": "{\n    if(Shooter && Shooter->HasAuthority() && Damage>0)\n        if(auto* Pane=UWardBreakableGlass::IntactPane(Target))\n        {Pane->BreakAt(Pane->GetComponentLocation(),Pane->GetComponentLocation()-Origin);return false;}\n    auto* Combat=IsValid(Target)?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;\n    if(!Shooter||!Shooter->IsPlayerControlled()||!Shooter->HasAuthority()||Target==Shooter||!Combat||Combat->IsDead()||HolyLightTargets::IsFriendly(Target))return false;"
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelLightningModel.cpp",
+      "snippets": [
+        {
+          "line": 3,
+          "context": "#include \"../Dungeon/DungeonLayout.h\"\n#include \"../UI/ColdSteelStatusModel.h\"\n#include \"../Dungeons/WardBreakableGlass.h\"\n#include \"../UI/ColdSteelEnhancementSystem.h\"\n#include \"../Combat/CombatFormulaRuntime.h\"\n#include \"../Combat/CombatItemFormula.h\""
+        },
+        {
+          "line": 81,
+          "context": "{\n    if(Shooter && Shooter->HasAuthority() && Damage>0)\n        if(auto* Pane=UWardBreakableGlass::IntactPane(Target))\n        {Pane->BreakAt(Pane->GetComponentLocation(),Pane->GetComponentLocation()-Origin);return false;}\n    auto* Combat=IsValid(Target)?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;\n    if(!Shooter||!Shooter->IsPlayerControlled()||!Shooter->HasAuthority()||Target==Shooter||!Combat||Combat->IsDead()||Target->ActorHasTag(TEXT(\"Friendly\")))return false;"
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireMagicComponent.cpp",
+      "snippets": [
+        {
+          "line": 2,
+          "context": "#include \"FPSFireMagicComponent.h\"\n#include \"../Dungeons/WardBreakableGlass.h\"\n#include \"FPSMeteorStrike.h\"\n#include \"FPSFireballComponent.h\"\n#include \"FireMagicArea.h\""
+        },
+        {
+          "line": 180,
+          "context": "    {\n        AuraTimer-=ArmorSnapshot.TickSeconds;int32 Hits=0;\n        if(ArmorSnapshot.AuraDamage>0)UWardBreakableGlass::BreakInRadius(GetWorld(),Feet,ArmorSnapshot.AuraRadius,Player);\n        for(AActor* Target:FireMagic::GroundTargets(Player,Feet,FVector::UpVector,ArmorSnapshot.AuraRadius))\n        {\n            const int32 Before=ArmorRewards.Hits;"
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSHolyLightComponent.cpp",
+      "snippets": [
+        {
+          "line": 2,
+          "context": "#include \"FPSHolyLightComponent.h\"\n#include \"../Dungeons/WardBreakableGlass.h\"\n#include \"FPSHolyLightEffect.h\"\n#include \"HolyLightTargets.h\"\n#include \"FPSFireballComponent.h\""
+        },
+        {
+          "line": 34,
+          "context": "bool UFPSHolyLightComponent::IsTarget(AActor* Target) const\n{\n    if(UWardBreakableGlass::IntactPane(Target))return true;\n    return HolyLightTargets::IsAlive(Target)&&(HolyLightTargets::IsFriendly(Target)||Target->FindComponentByClass<UMonsterCombatComponent>());\n}\nbool UFPSHolyLightComponent::VisibleFrom(AActor* Origin,AActor* Target,const FVector& Start) const"
+        },
+        {
+          "line": 40,
+          "context": "{\n    FCollisionQueryParams Query(SCENE_QUERY_STAT(HolyLightSight),true,Origin);Query.AddIgnoredActor(GetOwner());\n    const auto* Pane=UWardBreakableGlass::IntactPane(Target);if(!Pane)Query.AddIgnoredActor(Target);\n    FHitResult Hit;return !GetWorld()->LineTraceSingleByChannel(Hit,Start,UWardBreakableGlass::TargetPoint(Target),ECC_Visibility,Query) || (Pane && Hit.GetComponent()==Pane);\n}\nAActor* UFPSHolyLightComponent::SelectTarget(const FHolyLightCast& Spell,FString& Failure) const"
+        },
+        {
+          "line": 41,
+          "context": "    FCollisionQueryParams Query(SCENE_QUERY_STAT(HolyLightSight),true,Origin);Query.AddIgnoredActor(GetOwner());\n    const auto* Pane=UWardBreakableGlass::IntactPane(Target);if(!Pane)Query.AddIgnoredActor(Target);\n    FHitResult Hit;return !GetWorld()->LineTraceSingleByChannel(Hit,Start,UWardBreakableGlass::TargetPoint(Target),ECC_Visibility,Query) || (Pane && Hit.GetComponent()==Pane);\n}\nAActor* UFPSHolyLightComponent::SelectTarget(const FHolyLightCast& Spell,FString& Failure) const\n{"
+        },
+        {
+          "line": 49,
+          "context": "    FHitResult AimHit;FCollisionQueryParams AimQuery(SCENE_QUERY_STAT(HolyLightGlassAim),false,GetOwner());\n    if(GetWorld()->LineTraceSingleByChannel(AimHit,Eye,Eye+Forward*Spell.Range,ECC_Visibility,AimQuery)\n        && Cast<UWardBreakableGlass>(AimHit.GetComponent())){Failure.Empty();return AimHit.GetActor();}\n    AActor* Best=nullptr;double Score=DBL_MAX;bool NearAim=false,InRange=false;\n    for(TActorIterator<AActor> It(GetWorld());It;++It)\n    {"
+        },
+        {
+          "line": 53,
+          "context": "    for(TActorIterator<AActor> It(GetWorld());It;++It)\n    {\n        AActor* Target=*It;if(Target==GetOwner()||!IsTarget(Target)||UWardBreakableGlass::IntactPane(Target))continue;\n        const FVector Offset=Target->GetActorLocation()-Eye;const double Along=FVector::DotProduct(Offset,Forward);\n        if(Along<=0)continue;\n        const double Perpendicular=(Offset-Forward*Along).Size();if(Perpendicular>Spell.AimRadius)continue;"
+        },
+        {
+          "line": 123,
+          "context": "    auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();const auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();\n    AActor* Target=LockedTarget.Get();LockedTarget.Reset();\n    if(!Player||!M||!Camera||!IsTarget(Target)||(Target!=Player&&(FVector::Dist(Player->GetActorLocation(),UWardBreakableGlass::TargetPoint(Target))>CastSnapshot.Range||!VisibleFrom(Player,Target,Camera->GetComponentLocation()))))\n    {if(M)M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT(\"holyLight\"));Feedback(TEXT(\"目标已失效或被遮挡\"));return;}\n    for(const auto& Sound:CastSounds)if(Sound)UGameplayStatics::PlaySoundAtLocation(this,Sound.Get(),Target->GetActorLocation());\n    FHolyLightRewards Rewards;"
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIceSpikeVolley.cpp",
+      "snippets": [
+        {
+          "line": 2,
+          "context": "#include \"FPSIceSpikeVolley.h\"\n#include \"../Dungeons/WardBreakableGlass.h\"\n#include \"../WorldGeneration/FluidPresentationSubsystem.h\"\n#include \"FPSIceSpikeComponent.h\"\n#include \"FPSFireballComponent.h\""
+        },
+        {
+          "line": 283,
+          "context": "        {\n            const FHitResult First=Hit;\n            UWardBreakableGlass::BreakHit(First,F.Direction);\n            // Source hit loop settles overlapping contacts before destroying a spike.\n            // Limit that cluster to one diameter, independent of frame time; never pierce a wall.\n            TSet<AActor*> Settled;"
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSLightningComponent.cpp",
+      "snippets": [
+        {
+          "line": 2,
+          "context": "#include \"FPSLightningComponent.h\"\n#include \"../Dungeons/WardBreakableGlass.h\"\n#include \"FPSLightningArc.h\"\n#include \"FPSFireballComponent.h\"\n#include \"../FPSGAMECharacter.h\""
+        },
+        {
+          "line": 33,
+          "context": "bool UFPSLightningComponent::IsTarget(AActor* Target) const\n{\n    if(UWardBreakableGlass::IntactPane(Target))return true;\n    const auto* C=IsValid(Target)?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;\n    return Target!=GetOwner()&&C&&!C->IsDead()&&!Target->ActorHasTag(TEXT(\"Friendly\"));\n}"
+        },
+        {
+          "line": 40,
+          "context": "{\n    FCollisionQueryParams Query(SCENE_QUERY_STAT(LightningSight),true,Origin);Query.AddIgnoredActor(GetOwner());\n    const auto* Pane=UWardBreakableGlass::IntactPane(Target);if(!Pane)Query.AddIgnoredActor(Target);\n    FHitResult Hit;return !GetWorld()->LineTraceSingleByChannel(Hit,Start,UWardBreakableGlass::TargetPoint(Target),ECC_Visibility,Query) || (Pane && Hit.GetComponent()==Pane);\n}\nAActor* UFPSLightningComponent::SelectTarget(const FLightningCast& Spell,FString& Failure) const"
+        },
+        {
+          "line": 41,
+          "context": "    FCollisionQueryParams Query(SCENE_QUERY_STAT(LightningSight),true,Origin);Query.AddIgnoredActor(GetOwner());\n    const auto* Pane=UWardBreakableGlass::IntactPane(Target);if(!Pane)Query.AddIgnoredActor(Target);\n    FHitResult Hit;return !GetWorld()->LineTraceSingleByChannel(Hit,Start,UWardBreakableGlass::TargetPoint(Target),ECC_Visibility,Query) || (Pane && Hit.GetComponent()==Pane);\n}\nAActor* UFPSLightningComponent::SelectTarget(const FLightningCast& Spell,FString& Failure) const\n{"
+        },
+        {
+          "line": 49,
+          "context": "    FHitResult AimHit;FCollisionQueryParams AimQuery(SCENE_QUERY_STAT(LightningGlassAim),false,GetOwner());\n    if(GetWorld()->LineTraceSingleByChannel(AimHit,Eye,Eye+Forward*Spell.Range,ECC_Visibility,AimQuery)\n        && Cast<UWardBreakableGlass>(AimHit.GetComponent())){Failure.Empty();return AimHit.GetActor();}\n    AActor* Best=nullptr;double Score=DBL_MAX;bool NearAim=false,InRange=false;\n    for(TActorIterator<AActor> It(GetWorld());It;++It)\n    {"
+        },
+        {
+          "line": 53,
+          "context": "    for(TActorIterator<AActor> It(GetWorld());It;++It)\n    {\n        AActor* Target=*It;if(!IsTarget(Target)||UWardBreakableGlass::IntactPane(Target))continue;\n        const FVector Offset=Target->GetActorLocation()-Eye;const double Along=FVector::DotProduct(Offset,Forward);\n        if(Along<=0)continue;\n        const double Perpendicular=(Offset-Forward*Along).Size();if(Perpendicular>Spell.AimRadius)continue;"
+        },
+        {
+          "line": 131,
+          "context": "    if(auto* S=UCombatStatusFormula::GetOrAdd(Origin))S->AddStun(CastSnapshot.OverloadStun); // 过载眩晕 1.2s：旧 applyStun 口径\n    const FVector Start=Origin->GetActorLocation();\n    if(CastSnapshot.OverloadDamage>0)UWardBreakableGlass::BreakInRadius(GetWorld(),Start,CastSnapshot.OverloadRange,Player);\n    // Source intent is hostile-to-caster. The old target-faction comparison could shock the player.\n    for(TActorIterator<AActor> It(GetWorld());It;++It)\n    {"
+        },
+        {
+          "line": 136,
+          "context": "    {\n        AActor* Target=*It;\n        if(Target==Origin||!IsTarget(Target)||UWardBreakableGlass::IntactPane(Target)||FVector::Dist(Start,Target->GetActorLocation())>CastSnapshot.OverloadRange||!VisibleFrom(Origin,Target,Start))continue;\n        SpawnArc(Start,Target->GetActorLocation(),.45f,true);\n        M->ApplyLightningHit(Player,Target,Start,CastSnapshot,CastSnapshot.OverloadDamage,Rewards,false);\n        // 旧 _triggerElectrifiedOverload：传导电击给每个被链到的敌人 +1 感电层（其自身满层可再过载，级联同旧行为）。"
+        },
+        {
+          "line": 149,
+          "context": "    auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();const auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();\n    AActor* First=LockedTarget.Get();LockedTarget.Reset();\n    if(!Player||!M||!Camera||!IsTarget(First)||FVector::Dist(Player->GetActorLocation(),UWardBreakableGlass::TargetPoint(First))>CastSnapshot.Range||!VisibleFrom(Player,First,Camera->GetComponentLocation()))\n    {if(M)M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT(\"lightning\"));Feedback(TEXT(\"目标已失效或被遮挡\"));return;}\n    TArray<TWeakObjectPtr<AActor>> Chain;Chain.Add(First);AActor* Cursor=First;\n    while(!UWardBreakableGlass::IntactPane(First) && Chain.Num()<CastSnapshot.Count)"
+        },
+        {
+          "line": 152,
+          "context": "    {if(M)M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT(\"lightning\"));Feedback(TEXT(\"目标已失效或被遮挡\"));return;}\n    TArray<TWeakObjectPtr<AActor>> Chain;Chain.Add(First);AActor* Cursor=First;\n    while(!UWardBreakableGlass::IntactPane(First) && Chain.Num()<CastSnapshot.Count)\n    {\n        AActor* Best=nullptr;float Distance=CastSnapshot.ChainRange;\n        for(TActorIterator<AActor> It(GetWorld());It;++It)"
+        },
+        {
+          "line": 157,
+          "context": "        for(TActorIterator<AActor> It(GetWorld());It;++It)\n        {\n            AActor* Target=*It;if(!IsTarget(Target)||UWardBreakableGlass::IntactPane(Target)||Chain.Contains(Target))continue;\n            const float D=FVector::Dist(Cursor->GetActorLocation(),Target->GetActorLocation());\n            if(D<=Distance&&VisibleFrom(Cursor,Target,Cursor->GetActorLocation())){Distance=D;Best=Target;}\n        }"
+        },
+        {
+          "line": 176,
+          "context": "    {\n        AActor* Target=Chain[I].Get();if(!IsTarget(Target))continue;\n        const FVector End=UWardBreakableGlass::TargetPoint(Target);const float Decay=FMath::Pow(1-CastSnapshot.ChainDecay,I);\n        SpawnArc(Start,End,.75f+.25f*Decay);\n        if(M->ApplyLightningHit(Player,Target,Start,CastSnapshot,FMath::FloorToFloat(CastSnapshot.Damage*Decay),Rewards))\n            if(auto* C=Target->FindComponentByClass<UMonsterCombatComponent>();C&&!C->IsDead())"
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSMeteorStrike.cpp",
+      "snippets": [
+        {
+          "line": 2,
+          "context": "#include \"FPSMeteorStrike.h\"\n#include \"../Dungeons/WardBreakableGlass.h\"\n#include \"../WorldGeneration/RiverPilotFXSubsystem.h\"\n#include \"../WorldGeneration/FluidPresentationSubsystem.h\"\n#include \"../WorldGeneration/GrassDeform/GrassDeformSubsystem.h\""
+        },
+        {
+          "line": 76,
+          "context": "    const float Radius=bExplosion?CastSnapshot.Radius:CastSnapshot.AuraRadius;\n    if((bExplosion?CastSnapshot.Damage:CastSnapshot.AuraDamage)>0)\n        UWardBreakableGlass::BreakInRadius(GetWorld(),Destination+Normal*5.f,Radius,Caster);\n    // Only the impact flattens grass. The burning field re-enters this function every\n    // CastSnapshot.TickSeconds while it lives, so hooking the aura branch would stamp a fresh\n    // flatten and a fresh wavefront into the render target several times a second for the whole"
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+      "snippets": [
+        {
+          "line": 2,
+          "context": "#include \"FPSQuickCombatComponent.h\"\n#include \"../Dungeons/WardBreakableGlass.h\"\n#include \"QuickCombatImpactShake.h\"\n#include \"ColdSteelSkillRules.h\"\n#include \"../UI/ColdSteelStatusModel.h\""
+        },
+        {
+          "line": 462,
+          "context": "        bProbe?(bBow?TEXT(\"弓身下段\"):bRifle?(Style==EQuickCombatStyle::M4ReferenceRifle?TEXT(\"M4枪托\"):TEXT(\"枪身前段\")):TEXT(\"握把底\")):TEXT(\"眼位回退\"),\n        *Start.ToCompactString(),*Direction.ToCompactString(),Stats.RangeCM,*TargetName);\n    if(bHit && UWardBreakableGlass::BreakHit(Hit,Direction))\n    {ImpactAge=0.f;ImpactStrength=1.f;return;}\n    auto* Combat=Target?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;\n    if(!Combat||Combat->IsDead())return;"
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSImpactFXSubsystem.cpp",
+      "snippets": [
+        {
+          "line": 250,
+          "context": "    // Whole-pane break owns its burst/audio. Do not leave a floating bullet decal\n    // on glass whose collision and visible surface were just removed by damage.\n    if(Hit.GetComponent() && Hit.GetComponent()->ComponentHasTag(TEXT(\"Glass.Broken\")))return;\n    const FVector ToHit=Hit.ImpactPoint-ViewCamera->GetComponentLocation();\n    const float Distance=ToHit.Size();\n    const double Now=GetWorld()->GetTimeSeconds();"
+        },
+        {
+          "line": 507,
+          "context": "    // merged destructible buildings: a removed cell would leave a floating mark.\n    if(Surface==EFPSImpactSurface::Flesh || Surface==EFPSImpactSurface::Dirt || Cast<AVoxelBuildWorld>(Hit.GetActor()) || !Hit.GetComponent())return;\n    if(Hit.GetComponent()->ComponentHasTag(TEXT(\"Glass.Broken\")))return;\n    UMaterialInterface* Material=DecalMaterials[static_cast<uint8>(Surface)];\n    if(!Material)return;\n    for(int32 I=0;I<DecalSlots;++I)"
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeSmallTargetQuery.cpp",
+      "snippets": [
+        {
+          "line": 2,
+          "context": "#include \"MeleeSmallTargetQuery.h\"\n#include \"../Dungeons/WardBreakableGlass.h\"\n#include \"../Monsters/FleshHandMonster.h\"\n#include \"../Monsters/MonsterCombatComponent.h\"\n#include \"Components/CapsuleComponent.h\""
+        },
+        {
+          "line": 96,
+          "context": "    FHitResult GlassHit;\n    if(World->SweepSingleByChannel(GlassHit,Start,End,FQuat::Identity,ECC_Visibility,Shape,Params)\n        && Cast<UWardBreakableGlass>(GlassHit.GetComponent()) && (!bHit || GlassHit.Time<=OutHit.Time))\n    {OutHit=GlassHit;bHit=true;}\n    FCollisionObjectQueryParams Objects;Objects.AddObjectTypesToQuery(ECC_Pawn);\n    TArray<FHitResult> SmallHits;"
+        },
+        {
+          "line": 115,
+          "context": "    // A valid physical contact wins. The low sector supplies a miss, and still\n    // returns at most one hit through the caller's existing damage pipeline.\n    if(bHit && Cast<UWardBreakableGlass>(OutHit.GetComponent()))return true;\n    if(bHit)\n        if(const auto* Combat=OutHit.GetActor()?OutHit.GetActor()->FindComponentByClass<UMonsterCombatComponent>():nullptr;\n            Combat&&!Combat->IsDead())return true;"
+        },
+        {
+          "line": 145,
+          "context": "    FHitResult Blocker;\n    const bool bBlocked=World->SweepSingleByChannel(Blocker,Start,End,FQuat::Identity,ECC_Pawn,Shape,Cover);\n    if(bBlocked && Cast<UWardBreakableGlass>(Blocker.GetComponent()))Result.Add(Blocker);\n    TSet<TWeakObjectPtr<AActor>> Seen;\n    for(const auto& Hit:Contacts)\n    {"
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneOrbBladeProjectile.cpp",
+      "snippets": [
+        {
+          "line": 2,
+          "context": "#include \"RuneOrbBladeProjectile.h\"\n#include \"../Dungeons/WardBreakableGlass.h\"\n#include \"RuneOrbBladesComponent.h\"\n#include \"RuneOrbBladeDamage.h\"\n#include \"../FPSGAMECharacter.h\""
+        },
+        {
+          "line": 108,
+          "context": "{\n    bFinished = true;\n    UWardBreakableGlass::BreakHit(Hit,Velocity.GetSafeNormal());\n    if (auto* Target = Hit.GetActor())\n    {\n        auto* Combat = Target->FindComponentByClass<UMonsterCombatComponent>();"
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowArrow.cpp",
+      "snippets": [
+        {
+          "line": 2,
+          "context": "#include \"BowArrow.h\"\n#include \"../../Dungeons/WardBreakableGlass.h\"\n#include \"../../FPSGAMECharacter.h\"\n#include \"../../Skills/ColdSteelSkillRules.h\"\n#include \"../../Monsters/MonsterDamageAlert.h\""
+        },
+        {
+          "line": 171,
+          "context": "    SetActorLocation(Hit.ImpactPoint + Velocity.GetSafeNormal() * 2.f);\n    // Continue flight through the removed pane instead of pinning an arrow in empty air.\n    if(UWardBreakableGlass::BreakHit(Hit,Velocity.GetSafeNormal()))return;\n    if (!bResolved)\n    {\n        bResolved = true;"
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp",
+      "snippets": [
+        {
+          "line": 2,
+          "context": "#include \"StaffWeaponComponent.h\"\n#include \"../../Dungeons/WardBreakableGlass.h\"\n#include \"StaffArmsMeshComponent.h\"\n#include \"StaffAssembly.h\"\n#include \"StaffCatalog.h\""
+        },
+        {
+          "line": 248,
+          "context": "        if(!Combat)\n        {\n            UWardBreakableGlass::BreakHit(Hit,(Hit.TraceEnd-Hit.TraceStart).GetSafeNormal());\n            ConfirmImpact(Hit,true);return;\n        }\n        HitActors.Add(Actor);"
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSImpactFXSubsystem.h",
+      "snippets": [
+        {
+          "line": 26,
+          "context": "    void SpawnImpact(const FHitResult& Hit, UCameraComponent* ViewCamera);\n    void ClearImpactDecalsForComponent(const UPrimitiveComponent* Component);\n    void SpawnPounceLanding(const FHitResult& Ground, const FVector& Forward, float Radius, float Angle, UCameraComponent* ViewCamera, const AActor* Source);\n    virtual void OnWorldBeginPlay(UWorld& InWorld) override;"
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSImpactFXSubsystem.cpp",
+      "snippets": [
+        {
+          "line": 491,
+          "context": "\nvoid UFPSImpactFXSubsystem::ClearImpactDecalsForComponent(const UPrimitiveComponent* Component)\n{\n    for(int32 I=0;I<Decals.Num();++I)"
+        }
+      ]
+    }
+  ]
+}

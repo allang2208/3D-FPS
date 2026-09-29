@@ -18,19 +18,14 @@ def extend(catalog):
     catalog=copy.deepcopy(catalog)
     groups=spawn_groups()
     by_id={m['id']:m for m in catalog['modules']}
-    interiors=catalog.get('room_recipe_library',{}).get('interiors',{})
     for module in catalog['modules']:
         group=groups.get(module['id']) or groups.get(module.get('family_id'))
         if group is None:continue
-        # Update retained source rooms as well as current recipes, so rebuilding
-        # their shared interiors cannot restore an earlier monster pool.
         module['spawn']=copy.deepcopy(group)
-        interior=interiors.get(module.get('interior_recipe_id'))
-        if interior is not None:interior['spawn']=copy.deepcopy(group)
     for rid in catalog['room_ids']:
         if rid not in by_id:raise RuntimeError('room_ids references a missing module: '+rid)
         module=by_id[rid]
-        if module['id'] not in groups and module.get('family_id') not in groups:
+        if module['id'] not in groups and module.get('family_id') not in groups and not module.get('spawn',{}).get('pool'):
             raise RuntimeError('Combat room without a spawn group: '+rid)
     unmatched=sorted(set(groups)-set(by_id))
     if unmatched:raise RuntimeError('Spawn groups absent from catalog modules: '+', '.join(unmatched))

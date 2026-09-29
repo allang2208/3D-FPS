@@ -5,7 +5,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 BASE='/Game/Dungeons/FacilityScenes20260927/Meshes/'
 SIZE={'PumpSkid':(220,95,130),'FilterRack':(180,65,180),'PowerCabinet':(160,68,192),
-      'RepairBench':(180,75,150),'CargoStack':(190,112,149),'DuctCradle':(180,94,94),
+      'CargoStack':(190,112,149),'DuctCradle':(180,94,94),
       'ServiceSpares':(80,50,30),'AbandonedPanels':(90,65,22),'IsolationStand':(78,52,85)}
 SMALL={'ServiceSpares','AbandonedPanels','IsolationStand'}
 
@@ -30,16 +30,16 @@ BAYS={
 }
 LAYOUTS={
  'Drainage':[
-  ('pump_service','排水泵组检修',[('PumpSkid','A'),('RepairBench','B')]),
+  ('pump_service','排水泵组检修',[('PumpSkid','A')]),
   ('filter_exchange','过滤回收作业',[('FilterRack','B'),('PumpSkid','C')]),
   ('emergency_power','排水应急供电',[('PowerCabinet','C'),('CargoStack','B')])],
  'VentilationLoop':[
-  ('filter_service','风道滤芯更换',[('FilterRack','A'),('RepairBench','B')]),
-  ('duct_overhaul','风道拆换工位',[('DuctCradle','B'),('RepairBench','C')]),
+  ('filter_service','风道滤芯更换',[('FilterRack','A')]),
+  ('duct_overhaul','风道拆换工位',[('DuctCradle','B')]),
   ('fan_power','风机供电维护',[('PowerCabinet','C'),('FilterRack','A')])],
  'FreightTransfer':[
   ('cargo_staging','待运货物堆场',[('CargoStack','C'),('PowerCabinet','B')]),
-  ('dock_repair','装卸维修工位',[('RepairBench','A'),('DuctCradle','C')]),
+  ('dock_repair','装卸维修工位',[('DuctCradle','C')]),
   ('spare_dispatch','设备备件周转',[('PumpSkid','C'),('FilterRack','B')])],
 }
 STATES=[('maintenance','中断的检修','ServiceSpares',1.0),
@@ -59,7 +59,7 @@ for family,layouts in LAYOUTS.items():
                                scene_keep_clear=[reservation(key,at,yaw)],light_intensity_scale=intensity))
         recipes.append(dict(id=rid,label=label,parts=parts,scene_keep_clear=clear,states=states))
     library[family]=recipes
-config=dict(version=1,families=library,bays=BAYS,policy=dict(selection='after_route_plan_independent_seed_streams',
+config=dict(version=2,families=library,bays=BAYS,policy=dict(selection='after_route_plan_independent_seed_streams',
     large_equipment='authored_UCX_boxes',small_clutter='no_collision_no_tick',maximum_added_mesh_parts_per_room=3,
     added_lights_per_room=0,loose_floor_prop_limit=8,loose_cluster_limit=2))
 (ROOT/'Config').mkdir(exist_ok=True)

@@ -1,4 +1,4 @@
-"""Import this batch's nine assemblies, preserving authored simple collision and existing PBR materials."""
+"""Import this batch's eight assemblies, preserving authored simple collision and existing PBR materials."""
 import hashlib,json,re,sys
 from pathlib import Path
 import unreal as u

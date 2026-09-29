@@ -1,0 +1,15 @@
+{
+  "role": "special_combat",
+  "selection": {"chance_per_run": 0.3, "max_per_run": 1, "route": "Approach"},
+  "spawn_pool_from": "FreightTransfer",
+  "spawn_count": [4, 6],
+  "spawn_anchors_m": [
+    [-11, -9, 0.02], [-11, 9, 0.02], [2, -8, 0.02], [2, 8, 0.02],
+    [10, -9, 0.02], [10, 9, 0.02], [18, -8, 0.02], [18, 8, 0.02],
+    [25, -10, 0.02], [25, 10, 0.02], [29, -8, 0.02], [29, 8, 0.02]
+  ],
+  "walk_polyline_m": [[-19, 0, 0], [-10, 0, 0], [-10, 8, 0], [4.25, 8, 0], [4.25, 19.5, 0]],
+  "sample_map_retired": true,
+  "return_portal": false,
+  "sample_port_caps": false
+}

@@ -1345,3 +1345,9 @@ __pycache__/
 !/SourceAssets/WristCoverage20260929/**/*.md
 /SourceAssets/SVDRuntimeDiagnosis20260929/pause_publication.py
 /SourceAssets/SVDRuntimeDiagnosis20260929/stage_publication.py
+
+# Dungeon room closeout: original shaders/provenance only; source payloads stay local.
+!/SourceAssets/DungeonIsolationWard20260929/Scripts/GlassFragmentsV5.hlsl
+/SourceAssets/NiagaraDestructionDriver20260929/*
+!/SourceAssets/NiagaraDestructionDriver20260929/README.md
+!/SourceAssets/NiagaraDestructionDriver20260929/provenance.json

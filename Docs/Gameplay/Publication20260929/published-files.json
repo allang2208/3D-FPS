@@ -1,0 +1,773 @@
+{
+  "scope": "Explicit staged content only; manifest excludes itself",
+  "files": [
+    {
+      "path": ".gitignore",
+      "action": "write",
+      "bytes": 66765,
+      "sha256": "0510b40378b2927e7a9152a622018ba80baa5555c881fe8ed236ce646bf6e5e8"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "action": "write",
+      "bytes": 63335,
+      "sha256": "7e39a52f95489993c0ecc66181c6b79993c0a9b71c72dcd0d7290d1b5f8021c0"
+    },
+    {
+      "path": "Docs/Backlog.md",
+      "action": "write",
+      "bytes": 19264,
+      "sha256": "a5dd56cf572a30ac155302b7d0f7564a291343c547dc5fed7ee77e971195dd51"
+    },
+    {
+      "path": "Docs/Gameplay/Publication20260929/archive-manifest.json",
+      "action": "write",
+      "bytes": 306931,
+      "sha256": "4b15aa351c43d5e062573307aa60e8663daa670298839fb163d655c8d838382f"
+    },
+    {
+      "path": "Docs/Gameplay/Publication20260929/dungeon-runtime-handoff.patch",
+      "action": "write",
+      "bytes": 192880,
+      "sha256": "3f731ad5e8aa9c85116e9eecc39fa3eeca1797c6d82dffe79629af975e18f3d1"
+    },
+    {
+      "path": "Docs/Gameplay/Publication20260929/glass-contact-sites.json",
+      "action": "write",
+      "bytes": 26316,
+      "sha256": "bc2e08a4682e8979a91ba786faba00ad6ce6bafb5c308a86b66c9e944ebb8233"
+    },
+    {
+      "path": "Docs/Gameplay/Publication20260929/prior-archives.json",
+      "action": "write",
+      "bytes": 561,
+      "sha256": "3d0fc64fc6de9fe649494e57167d84729535cc4c514c689e0d572ba6be88d366"
+    },
+    {
+      "path": "Docs/Gameplay/Publication20260929/runtime-handoff.json",
+      "action": "write",
+      "bytes": 7043,
+      "sha256": "9c7a99f8d32424b383b7b4de10f7129348d33d22fd957e34dcb134c49b96f13d"
+    },
+    {
+      "path": "Docs/Gameplay/Publication20260929/shared-glass-functions.json",
+      "action": "write",
+      "bytes": 1213,
+      "sha256": "16c8796ccbdde9c9c12b5a9219f212bb50715061ef6e95724b7a88482a7114f0"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-branch-search-fix-20260928.md",
+      "action": "write",
+      "bytes": 3178,
+      "sha256": "18d451fc98634f61ec6449a94b2323353b53c25cd2fa0a786d2e8217c2d66b5f"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-cargo-cabinet-polish-20260928.md",
+      "action": "write",
+      "bytes": 3088,
+      "sha256": "0f76fddea3fe96f4c6c3529cb2df5366e5ca76f59b47c5378b32ade3d01150a4"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-five-new-templates-proposal-20260928.md",
+      "action": "write",
+      "bytes": 6759,
+      "sha256": "c0d4bd3d6aade0a12d741c3b6aa2c03a1e0f66ce773973ae6b1f84b0196e898a"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-isolation-ward-pool-20260929.md",
+      "action": "write",
+      "bytes": 3493,
+      "sha256": "7d9bdb2b729175c955c492d6446773bfc0af78859129272e2a318ee3a18b4010"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-isolation-ward-subject-20260929.md",
+      "action": "write",
+      "bytes": 11889,
+      "sha256": "59539e4519f53f7c7fe96b8d7164e19b058118af70a79492d865f333310ea22a"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-original-five-restoration-20260928.md",
+      "action": "write",
+      "bytes": 4012,
+      "sha256": "07a370f2391462fa9a38225afedc76087381d09d273663b85699383ba77b937a"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-review-20260928.md",
+      "action": "write",
+      "bytes": 5738,
+      "sha256": "46b0c5631bb99094c590d481336dc246629db198ba137fc02ed47a351f5d4b74"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-room-size-fix-20260928.md",
+      "action": "write",
+      "bytes": 6716,
+      "sha256": "d886a4aa3c6bfb59b73a5dfb5edf91e6029713dd8a10f62d1119a6e24dcb05e0"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-rooms-publication-20260929.md",
+      "action": "write",
+      "bytes": 4877,
+      "sha256": "6e3c09703f5438dc6ed7603084afb19f08a1ba8ad5b6a04df67df896dd534d88"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-seed1848515936-20260928.md",
+      "action": "write",
+      "bytes": 4876,
+      "sha256": "df6f82d7c344a4e75abeaa54faf4584d49785c7bcf91beec2bfd4cd2771f68c3"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-spawn-rank-tiering-20260928.md",
+      "action": "write",
+      "bytes": 4049,
+      "sha256": "4a0dcbff253cfa731baabd7d1dce55fad75373e5ea7478122fa19db5285696b4"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-transit-station-pool-20260929.md",
+      "action": "write",
+      "bytes": 4222,
+      "sha256": "349897593161a44c5753d0286f5b974b7d49b344704af1a7b5214e830bae2d75"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-transit-station-subject-20260928.md",
+      "action": "write",
+      "bytes": 10200,
+      "sha256": "d8c831b35a099a655e79c1eb7004ac1852353f0138fa4ed0d0d596356facce6b"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-ward-bed-scatter-20260929.md",
+      "action": "write",
+      "bytes": 3052,
+      "sha256": "093a116f5bf313f69ccff52efc82955a2e87c65696d2eb7dcc6cd6dd96491c47"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-ward-breakable-glass-20260929.md",
+      "action": "write",
+      "bytes": 5674,
+      "sha256": "8d81bd58c4a623f395d00c1eb66c834df58bb3747bcf6b9c27ac209b348c21d2"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-ward-furnishing-refinement-20260929.md",
+      "action": "write",
+      "bytes": 1920,
+      "sha256": "9979c4f3ae291aaffcb653871fc6bfc2330366bd220303211e5972aece73e539"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-ward-glass-destruction-options-20260929.md",
+      "action": "write",
+      "bytes": 7107,
+      "sha256": "7b2da71b5a5824296db5c4724aa610e0e1999275c24b5afc58bcc1c3f6318298"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-ward-glass-frames-fix-v6-20260929.md",
+      "action": "write",
+      "bytes": 4256,
+      "sha256": "69c233cc0973364cdaf6135046a218390f7e9176a181b014cc64c044735f9ba2"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-ward-medical-props-20260929.md",
+      "action": "write",
+      "bytes": 3485,
+      "sha256": "831af8e91c3227e75de9aeb3d60c8bb85cde7d3339f07114ac929916369b07b7"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-ward-quixel-blood-20260929.md",
+      "action": "write",
+      "bytes": 2651,
+      "sha256": "e7f4f49df81dccd23c5730daf5726bf519d7746a2ea10638fffcb837454f5cb4"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-ward-rear-door-v7-20260929.md",
+      "action": "write",
+      "bytes": 1704,
+      "sha256": "ded36006266330450262b44ea913cd5b1acb1f9ff9f927409d0f62da21c6b331"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-ward-temporary-test-20260929.md",
+      "action": "write",
+      "bytes": 2811,
+      "sha256": "1c701940e10560f11804943a9e63bd59d9dbfb0cfbb6d486ee64d53294d36df3"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-ward-waiting-benches-20260929.md",
+      "action": "write",
+      "bytes": 1952,
+      "sha256": "557c3a4c2e0f31e3e3b88784e893d31e6f9226c36ab2ac8cd414e08e9b38e287"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-ward-wall-art-20260929.md",
+      "action": "write",
+      "bytes": 3298,
+      "sha256": "3886419ef1e6ba4e956c3f91943a24999d4ca44c0a324cf52e806be686fac9b3"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-ward-window-reveals-v8-20260929.md",
+      "action": "write",
+      "bytes": 3409,
+      "sha256": "96af4151c9185d5e9008d193936a33d392ccf4448684cc403c8b4ca3b2a51a27"
+    },
+    {
+      "path": "SourceAssets/DungeonComposition20260926/Config/modules.json",
+      "action": "write",
+      "bytes": 13437,
+      "sha256": "91bf8cbfa37e8ab3c790b04e3329b763360161b44cd8b6f499245efffec0476e"
+    },
+    {
+      "path": "SourceAssets/DungeonComposition20260926/Config/recipes.json",
+      "action": "delete",
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "SourceAssets/DungeonComposition20260926/README.md",
+      "action": "write",
+      "bytes": 1464,
+      "sha256": "f96ccad4146bc068eb60ec91cfb2eb2950610fb8743d70ab9cc03ef8d492d5ca"
+    },
+    {
+      "path": "SourceAssets/DungeonComposition20260926/Scripts/extend_catalog.py",
+      "action": "write",
+      "bytes": 2467,
+      "sha256": "e2d08cb83e4aa650742cb504446c52bad9dc4aeb65070932e1829c25a4d6cecd"
+    },
+    {
+      "path": "SourceAssets/DungeonComposition20260926/Scripts/install.py",
+      "action": "write",
+      "bytes": 3629,
+      "sha256": "e057d144b8693f63e6fc01bc437cba64435fb384886a24344df3db651f57e8df"
+    },
+    {
+      "path": "SourceAssets/DungeonFacilityPropPolish20260928/README.md",
+      "action": "write",
+      "bytes": 2409,
+      "sha256": "765e8c394179afe207200c210c9771d4504db371f9ae1fd3fffdac0ee1f3e453"
+    },
+    {
+      "path": "SourceAssets/DungeonFacilityPropPolish20260928/Scripts/author_props.py",
+      "action": "write",
+      "bytes": 18961,
+      "sha256": "4d421189c24fb96fd227947810f8c9f4ed463a30ff4d408df851d7b53feabc52"
+    },
+    {
+      "path": "SourceAssets/DungeonFacilityPropPolish20260928/Scripts/author_textures.py",
+      "action": "write",
+      "bytes": 9664,
+      "sha256": "6aba9c1daa9888154b7223ba6f937c86cbb58ca8d223bd10be993c424517c580"
+    },
+    {
+      "path": "SourceAssets/DungeonFacilityPropPolish20260928/Scripts/import_props.py",
+      "action": "write",
+      "bytes": 7921,
+      "sha256": "7185c592b7bf8f1916843edb7fe322b0d0be62e0282318845e18a53a7b9e33bc"
+    },
+    {
+      "path": "SourceAssets/DungeonFacilityPropPolish20260928/Scripts/publish_source.py",
+      "action": "write",
+      "bytes": 1348,
+      "sha256": "041cd5992ad0e0aa81d246290866113e1f7be406f6fbc47571a5837e81077e28"
+    },
+    {
+      "path": "SourceAssets/DungeonFacilityPropPolish20260928/Scripts/read_inputs.py",
+      "action": "write",
+      "bytes": 1093,
+      "sha256": "a420bfa452030fa5158d95a40d136fd9b1139e76e0b24ffcf10dfa74904d7634"
+    },
+    {
+      "path": "SourceAssets/DungeonFacilityPropPolish20260928/Scripts/sync_combined_source.py",
+      "action": "write",
+      "bytes": 1636,
+      "sha256": "ccffab0802012ac6e0e3825ebf4c501c744decbb969d29b188f6e5f84dc06e74"
+    },
+    {
+      "path": "SourceAssets/DungeonFacilityScenes20260927/Config/scene-recipes.json",
+      "action": "write",
+      "bytes": 43762,
+      "sha256": "14e34bfdbf2c361648613bc00c7011b5aa4a56a7e76aa3812bf1f2274ed8c802"
+    },
+    {
+      "path": "SourceAssets/DungeonFacilityScenes20260927/README.md",
+      "action": "write",
+      "bytes": 2668,
+      "sha256": "3909cf95171469d4c2067e689a516379a5933e8cc8f7924046275abc9c148ae3"
+    },
+    {
+      "path": "SourceAssets/DungeonFacilityScenes20260927/Scripts/author_assemblies.py",
+      "action": "write",
+      "bytes": 9868,
+      "sha256": "97b83af2b68ca36ddc03875ef5c723f20170ceca49aa010fdb1084ea2c2e9634"
+    },
+    {
+      "path": "SourceAssets/DungeonFacilityScenes20260927/Scripts/import_assets.py",
+      "action": "write",
+      "bytes": 6146,
+      "sha256": "4a9804d2ab23dc9de2b9b524be36ebcccf63f4a218ca49a5b604aa71f94b7cf4"
+    },
+    {
+      "path": "SourceAssets/DungeonFacilityScenes20260927/Scripts/install.py",
+      "action": "write",
+      "bytes": 3383,
+      "sha256": "2f15772d276865c83637a6a770139813e446e740f52b2559fcbd08c063827030"
+    },
+    {
+      "path": "SourceAssets/DungeonFacilityScenes20260927/Scripts/prepare_recipes.py",
+      "action": "write",
+      "bytes": 3843,
+      "sha256": "0af12a6a8df59c7f8315d4dc39bbabf414afe683d6eb26e7730a35d8562d4348"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/BedScatter/Scripts/author_bed_collision.py",
+      "action": "write",
+      "bytes": 6305,
+      "sha256": "d33a52d9f5f6e8b0625e0c3fd60164cffbb01e3d83f85047fd662c4c479345e3"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/BedScatter/Scripts/import_bed.py",
+      "action": "write",
+      "bytes": 4185,
+      "sha256": "f6d06459875555268bb067471a4333637c6d777f5c959dd9d09cf2d11bd67774"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/BedScatter/Scripts/read_bed_shape.py",
+      "action": "write",
+      "bytes": 1423,
+      "sha256": "2e3c31b707a945b71628b37bcdbc7d6afaf2493a13559caac475c9c23e193085"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/BenchLayout20260929/Scripts/bench_design.py",
+      "action": "write",
+      "bytes": 1027,
+      "sha256": "7538b2945db5473d8c8973974aea7debf856fba38630a0fd992e93a337e97073"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/BenchLayout20260929/Scripts/read_bench_source.py",
+      "action": "write",
+      "bytes": 1046,
+      "sha256": "084862e7b6a3e912832eceda803ad3ecb5bb92c5722e2fec492e15d367de97dc"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/BenchLayout20260929/Scripts/read_placement_inputs.py",
+      "action": "write",
+      "bytes": 1446,
+      "sha256": "c31d19b8f0f4920a9d60d9fd273ff8382b6ea0b1b8737996667a3f4e8f1a7a9f"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/BloodScan20260929/README.md",
+      "action": "write",
+      "bytes": 1312,
+      "sha256": "ab5a62f8df513fd59d59c9efd20d7681968f6e0ecf91d1074182c808837f320d"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Config/asset-schedule.json",
+      "action": "write",
+      "bytes": 1887,
+      "sha256": "c9b0acdf7f0e3a4510afe9b31dd929cd58811e561b001a7bc90284b7099d6811"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Config/module-draft.json",
+      "action": "write",
+      "bytes": 49842,
+      "sha256": "966245dd6dd414b14445ae0bae72db5df2256d0dd92f648d1d5a02fb5b9b48bf"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Config/module.json",
+      "action": "write",
+      "bytes": 109909,
+      "sha256": "a621dee81509ff11916e74dc383efc43d4e26de8ec9becaa49078f02ddcb16c2"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Config/room.json",
+      "action": "write",
+      "bytes": 51836,
+      "sha256": "9b43afd17bd1d40553e57bed507b9efd448e0ed567bf9749d9298a9368acce38"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/MedicalProps20260929/author_props.py",
+      "action": "write",
+      "bytes": 4114,
+      "sha256": "31c65f3007fa65f1a8c45fd7caaf0a860c5746d52f0583baba61856e3cf0609c"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/MedicalProps20260929/import_assets.py",
+      "action": "write",
+      "bytes": 4218,
+      "sha256": "df2d457c8d8690dc785aa931b3b1e47560cdced741fb6ee62efca31ceccaa12b"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/MedicalProps20260929/prop_design.py",
+      "action": "write",
+      "bytes": 414,
+      "sha256": "b0e91b8159059ad3ad4426b22a8541262c583c369871eb0ed92f7547d7e10f67"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/MedicalProps20260929/read_shapes.py",
+      "action": "write",
+      "bytes": 1583,
+      "sha256": "83c381669c55cc5a3a7ed58c9c15e8f703e0eb6085500b85031c7f1fb5efc6d7"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/MedicalProps20260929/update_config.py",
+      "action": "write",
+      "bytes": 437,
+      "sha256": "7da585bd512477338ff033f9f8db64cc6ee087036bd2d2cc55d1af92a8cb56af"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/README.md",
+      "action": "write",
+      "bytes": 4631,
+      "sha256": "a779b34edb8c757f97951d50292d94c00a34acd227bfb6151cd2e1cf35a0fd85"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Scripts/GlassFragmentsV5.hlsl",
+      "action": "write",
+      "bytes": 2136,
+      "sha256": "1a31cdfd4dab5b1dfee292a7b83d88be071b213f604a03e516b79d8c6e88fe55"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Scripts/apply_rear_door_v7.py",
+      "action": "write",
+      "bytes": 938,
+      "sha256": "19a4a0ed35a94e2ef4b40c30a40135ac425ba860a13881da597e97814f40a9cb"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Scripts/apply_window_reveals_v8.py",
+      "action": "write",
+      "bytes": 1061,
+      "sha256": "7ad7434c0b82f043aae9305b86ea2526d5132edc1cd2a5cccce7acf1e030e6d8"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Scripts/author_atmosphere_materials.py",
+      "action": "write",
+      "bytes": 7770,
+      "sha256": "4cf1c33c075125db93dc060795994f11f4f3323a38ccd3e9b6b177bb8291cdb4"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Scripts/author_breakable_glass.py",
+      "action": "write",
+      "bytes": 6384,
+      "sha256": "8c3ea17993d13b87ff8c879d60592af8b6354c059000bc6229a3e183e4ac862d"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Scripts/author_glass_doors.py",
+      "action": "write",
+      "bytes": 6784,
+      "sha256": "370637e5f6d9e70ce69e6cfb9dc25809f516d33cb8e95305409776c2bd8540b7"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Scripts/author_glass_fracture_material.py",
+      "action": "write",
+      "bytes": 4305,
+      "sha256": "a9b3c451ccd2791142d6ddd556ffcb29101f8d0904a531217bc0fd78f6c88c3c"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Scripts/author_scanned_blood.py",
+      "action": "write",
+      "bytes": 6605,
+      "sha256": "1c03a9581664fb1325dd52f9a9ec286669e0e9c5b10e466f99511dd581b0aee1"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Scripts/author_ward.py",
+      "action": "write",
+      "bytes": 16796,
+      "sha256": "cd214809e59a9b0263d4e662be001789a1d1331f8f9ee8c855cc582b52a44a07"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Scripts/build_pool_module.py",
+      "action": "write",
+      "bytes": 7603,
+      "sha256": "3ab6d239fb49972da63b481c1cd46a5d0b9bb4969a49d1472d83f2a1ed26f361"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Scripts/extend_catalog.py",
+      "action": "write",
+      "bytes": 838,
+      "sha256": "b8ba0f0dbddafed634dcdda3e63b7c2803df901dcf8351cb4e8a28a74c71db10"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Scripts/import_assets.py",
+      "action": "write",
+      "bytes": 6133,
+      "sha256": "b0101ef57b3f50fb961bb82400afad32058aff603c408ec0c074e1210dedbaa0"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Scripts/install_pool.py",
+      "action": "write",
+      "bytes": 4544,
+      "sha256": "7d0384e2163a154576771fe194d2dfa13582bc4617036501a73700ea1eafec0c"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Scripts/pool_design.py",
+      "action": "write",
+      "bytes": 1652,
+      "sha256": "73dcd9201fc5c35b8f2996ecb712aca8d69df3cba8f5b46377e1625c978b7d95"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Scripts/prepare_design.py",
+      "action": "write",
+      "bytes": 10034,
+      "sha256": "a637486323888f5199a8a14905df6f4442af7833c9a04a1618078396c7b5b423"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Scripts/read_glass_context.py",
+      "action": "write",
+      "bytes": 1189,
+      "sha256": "c374695352834fdf6182f44be5ccf12de5e067ee4f717b8ce02a267dcd7b2cae"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Scripts/readback_window_reveals_v8.py",
+      "action": "write",
+      "bytes": 2640,
+      "sha256": "93bae83d32e927e90db058168d8d972a5c599666b9b2e5e3bd87492e1ba2ce12"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Scripts/review_window_junctions_v6.py",
+      "action": "write",
+      "bytes": 3014,
+      "sha256": "4238f8558c5b2b498961a0b3ac012e9696b85202162db1da794695498d411d9a"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Scripts/review_window_reveals_v8.py",
+      "action": "write",
+      "bytes": 7064,
+      "sha256": "c6eda54b35835c6e0a67996fee746089940a2360435fa09a082e005c7a713914"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/Scripts/room_blood_design.py",
+      "action": "write",
+      "bytes": 2014,
+      "sha256": "c5db2fcf45f9987d2de9e3d8bfd2ea281939c8314d915fe5901c078fdf948755"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/WallArt/Scripts/author_layout.py",
+      "action": "write",
+      "bytes": 5131,
+      "sha256": "b2c3176f5206baf460ebd936ed697de34c6245563a6700323e67d0db017956c4"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/WallArt/Scripts/install.py",
+      "action": "write",
+      "bytes": 3553,
+      "sha256": "9276a9e248a42ff5cb2e244069cf10d8282c2aea23b5e17bfba82948e19102be"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/WallArt/Scripts/read_mesh_layout.py",
+      "action": "write",
+      "bytes": 1224,
+      "sha256": "cdc8625d94348effdc1f107b74bddf2ab9ab18578476f9ca5ef130a67842f992"
+    },
+    {
+      "path": "SourceAssets/DungeonIsolationWard20260929/WallArt/Scripts/read_sources.py",
+      "action": "write",
+      "bytes": 1483,
+      "sha256": "71ab5a5d6388475599f2e460b980fe52e97ba7fce930b26b4347093dde3fbb58"
+    },
+    {
+      "path": "SourceAssets/DungeonRoomShells20260922/Scripts/corridor_surfaces.py",
+      "action": "write",
+      "bytes": 7693,
+      "sha256": "23cda1bc3387df22d13b55b7b66917d873b892cef428378799de4747ad092747"
+    },
+    {
+      "path": "SourceAssets/DungeonRoomVariants20260924/Config/main-rooms.json",
+      "action": "delete",
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "SourceAssets/DungeonRoomVariants20260924/Config/modules.json",
+      "action": "delete",
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "SourceAssets/DungeonRoomVariants20260924/Config/rooms.json",
+      "action": "delete",
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "SourceAssets/DungeonRoomVariants20260924/Scripts/author.py",
+      "action": "delete",
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "SourceAssets/DungeonRoomVariants20260924/Scripts/editor_state.py",
+      "action": "delete",
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "SourceAssets/DungeonRoomVariants20260924/Scripts/extend_catalog.py",
+      "action": "delete",
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "SourceAssets/DungeonRoomVariants20260924/Scripts/finish_catalog_registration.py",
+      "action": "delete",
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "SourceAssets/DungeonRoomVariants20260924/Scripts/import_assets.py",
+      "action": "delete",
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "SourceAssets/DungeonRoomVariants20260924/Scripts/install.py",
+      "action": "delete",
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "SourceAssets/DungeonRoomVariants20260924/Scripts/prepare.py",
+      "action": "delete",
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "SourceAssets/DungeonRouteRepairs20260922/Scripts/extend_catalog.py",
+      "action": "write",
+      "bytes": 6430,
+      "sha256": "e14988e7d987daf6146919603988a64571d4bbb9fa60ae6541fdbbe16a028e10"
+    },
+    {
+      "path": "SourceAssets/DungeonRoutes20260922/Config/catalog.json",
+      "action": "write",
+      "bytes": 352104,
+      "sha256": "aaed0f761206865a02e73b60a0dfa3a3af726dfbe277ae8a7769d5875a7ba8dc"
+    },
+    {
+      "path": "SourceAssets/DungeonSpawn20260925/Config/spawn-groups.json",
+      "action": "write",
+      "bytes": 5831,
+      "sha256": "e193222a68c81db903cbcc398b0aff7c8b1476300851884e8254f65bec446188"
+    },
+    {
+      "path": "SourceAssets/DungeonSpawn20260925/README.md",
+      "action": "write",
+      "bytes": 5514,
+      "sha256": "4c27a9a0297e8d491789282d6ab208afae582a1e5219a96b9744ae56df38261c"
+    },
+    {
+      "path": "SourceAssets/DungeonSpawn20260925/Scripts/extend_catalog.py",
+      "action": "write",
+      "bytes": 2460,
+      "sha256": "d143f137bb5bb8971ec9904af3e0d371dd7d183a34cecab597925cec91b9fa35"
+    },
+    {
+      "path": "SourceAssets/DungeonSpawn20260925/Scripts/install.py",
+      "action": "write",
+      "bytes": 4246,
+      "sha256": "fac8be074de7558e5ba79afb05d7ced45dc7ee5a808325b1ca93f86068fb2bc6"
+    },
+    {
+      "path": "SourceAssets/DungeonTransitStation20260928/Config/asset-schedule.json",
+      "action": "write",
+      "bytes": 1733,
+      "sha256": "5749f1edcb76e29e7b92a2985ffe34b1be915fda9f784a4c1ca1dd8563d758ed"
+    },
+    {
+      "path": "SourceAssets/DungeonTransitStation20260928/Config/module.json",
+      "action": "write",
+      "bytes": 19548,
+      "sha256": "ff7a0660b0d3321b21b96cf8030ccfef7bffb55b1efea9417347f91dc0266f51"
+    },
+    {
+      "path": "SourceAssets/DungeonTransitStation20260928/Config/pool.json",
+      "action": "write",
+      "bytes": 580,
+      "sha256": "be0c445a95e622e836f545e7412509027041885e7ea99749fbadffcc19cb1a29"
+    },
+    {
+      "path": "SourceAssets/DungeonTransitStation20260928/Config/room.json",
+      "action": "write",
+      "bytes": 7177,
+      "sha256": "9923a5b4e24dec7a96ca38464ccee57c7111162d00a0e1d1ab193121ca2ba89c"
+    },
+    {
+      "path": "SourceAssets/DungeonTransitStation20260928/README.md",
+      "action": "write",
+      "bytes": 3300,
+      "sha256": "7d859f25486295765e6dd2883e66de3ee1bd37693dc5c3c02ae9b611ae726e22"
+    },
+    {
+      "path": "SourceAssets/DungeonTransitStation20260928/Scripts/author_station.py",
+      "action": "write",
+      "bytes": 16755,
+      "sha256": "32f5acd94f0bb5da58e3d426b6aff13975fdb4b6bbe449264e6f10532a75a937"
+    },
+    {
+      "path": "SourceAssets/DungeonTransitStation20260928/Scripts/extend_catalog.py",
+      "action": "write",
+      "bytes": 4080,
+      "sha256": "c89d8921326aecbb648caedc4f7215fe7ad13dc1625c85a5cd9d78d4ca7279a7"
+    },
+    {
+      "path": "SourceAssets/DungeonTransitStation20260928/Scripts/import_assets.py",
+      "action": "write",
+      "bytes": 4609,
+      "sha256": "cd1161d8fc90d032a71eca38c74d9ba97fe21790d79dfbe389dbeabb8542c689"
+    },
+    {
+      "path": "SourceAssets/DungeonTransitStation20260928/Scripts/install_pool.py",
+      "action": "write",
+      "bytes": 3720,
+      "sha256": "836d8d55d8cdf759540af5d799235c1aaa4c52dc2a51e6216f07fda1b803eb33"
+    },
+    {
+      "path": "SourceAssets/DungeonTransitStation20260928/Scripts/prepare_design.py",
+      "action": "write",
+      "bytes": 5484,
+      "sha256": "89c4dae0271789c0fbf2235348e6d8b567f18dca391617d86f3fa16f3d173d9f"
+    },
+    {
+      "path": "SourceAssets/NiagaraDestructionDriver20260929/README.md",
+      "action": "write",
+      "bytes": 971,
+      "sha256": "2e0cc28ebda68c14b7e27461f371dadabba7808e88aa240085abbe433f1d0178"
+    },
+    {
+      "path": "SourceAssets/NiagaraDestructionDriver20260929/provenance.json",
+      "action": "write",
+      "bytes": 423,
+      "sha256": "cff777f82ed3512f573071f9f46382b967b7f8334da73f118362622203f9652e"
+    },
+    {
+      "path": "ThirdPartyNotices/ISOLATION_WARD_ASSETS.md",
+      "action": "write",
+      "bytes": 2457,
+      "sha256": "09d4b3e578917c6b2d11e0873ee140049633315f1b25a4c89111bee46eba5625"
+    },
+    {
+      "path": "Tools/Dungeons/restore_original_five_20260928.py",
+      "action": "write",
+      "bytes": 4790,
+      "sha256": "caff9163d11ce60e9461980513eced9d020dd165ecee3948d2e0a8a29674e56c"
+    },
+    {
+      "path": "skills/ue5-pcg-building/SKILL.md",
+      "action": "write",
+      "bytes": 12748,
+      "sha256": "7344fbfcdf324ebabf310e1ac04c6d0424c7eff536a99eb3ff68ef024e35ef7a"
+    },
+    {
+      "path": "skills/ue5-pcg-building/references/authored-dungeon-generation.md",
+      "action": "write",
+      "bytes": 23038,
+      "sha256": "374f5538b6911453433c9d14fc4d41b0762efcc4854987ed702502d2bdb673f3"
+    },
+    {
+      "path": "skills/ue5-pcg-building/references/reusable-interior-assemblies.md",
+      "action": "write",
+      "bytes": 12590,
+      "sha256": "8f9e7c28196cbf8c17d97c05c607784e96dd7a71bcd136e51b23776232da6b3c"
+    },
+    {
+      "path": "skills/ue5-pcg-building/references/special-dungeon-interiors.md",
+      "action": "write",
+      "bytes": 5910,
+      "sha256": "0bc45529851097c5d9f4e525f42d862410126b3d7a6af9f107b03f55c2f4c9ba"
+    }
+  ]
+}

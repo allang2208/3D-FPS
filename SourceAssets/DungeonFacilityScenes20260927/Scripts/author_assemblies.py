@@ -1,7 +1,7 @@
-"""Nine reusable facility assemblies. Metres in Blender; foot pivots and authored UCX boxes.
+"""Eight reusable facility assemblies. Metres in Blender; foot pivots and authored UCX boxes.
 No scene rebuild, asset downloads, render or runtime simulation.
 """
-import json, math
+import json, math, runpy
 from pathlib import Path
 import bpy
 from mathutils import Vector
@@ -90,42 +90,6 @@ def rack():
             for j in range(7):box((x-.18+j*.06,-.277,z),(.016,.018,.29),'Paint')
     box((0,.293,.9),(1.74,.02,.035),'Steel')
 
-def cabinet():
-    box((0,0,.10),(1.6,.68,.2),'Steel')
-    box((0,.04,1.04),(1.6,.6,1.7),'Paint')
-    for x in (-.4,.4):
-        box((x,-.272,1.05),(.765,.025,1.57),'Paint')
-        box((x+.25,-.305,1.0),(.028,.045,.20),'Steel')
-        for z in (.41,.48,.55,.62):box((x,-.29,z),(.51,.015,.02),'Rubber')
-        gauge(x,-.305,1.51)
-        for xx in (x-.14,x+.14):cylinder((xx,-.299,1.28),(xx,-.319,1.28),.022,'Yellow',16)
-        box((x,-.298,1.7),(.30,.007,.075),'Yellow')
-
-def bench():
-    for x in (-.81,.81):
-        for y in (-.28,.28):box((x,y,.44),(.06,.06,.88),'Steel')
-    box((0,0,.91),(1.8,.75,.07),'Timber')
-    box((.48,0,.55),(.60,.60,.64),'Paint')
-    for z in (.34,.55,.76):
-        box((.48,-.314,z),(.53,.025,.17),'Paint')
-        box((.48,-.340,z),(.21,.03,.02),'Steel')
-    box((-.54,-.12,1.01),(.24,.22,.13),'Steel')
-    box((-.54,-.12,1.12),(.31,.09,.09),'Steel')
-    cylinder((-.73,-.12,1.1),(-.36,-.12,1.1),.013)
-    for x in (-.20,.08):cylinder((x,0,.986),(x,.24,.986),.035,'Paint',20)
-    box((0,.30,1.21),(1.76,.035,.55),'Paint')
-    for i in range(5):cylinder((-.65+i*.21,.273,1.16),(-.65+i*.21,.273,1.40),.014,'Steel',12)
-
-def cargo():
-    for x in (-.75,0,.75):box((x,0,.10),(.15,1.12,.2),'Timber')
-    for y in (-.49,-.245,0,.245,.49):box((0,y,.225),(1.9,.18,.05),'Timber')
-    for x,y,z,sx,sy,sz in [(-.48,0,.70,.85,.99,.90),(.48,0,.61,.83,.99,.72),(-.40,.03,1.32,.70,.79,.34)]:
-        box((x,y,z),(sx,sy,sz),'Timber')
-        for xx in (x-sx*.36,x+sx*.36):
-            box((xx,y,z+sz*.5+.003),(.055,sy+.012,.012),'Steel')
-            for yy in (y-sy*.5-.005,y+sy*.5+.005):box((xx,yy,z),(.055,.012,sz),'Steel')
-        box((x,y-sy*.5-.012,z),(.28,.012,.14),'Yellow')
-
 def ducts():
     for y in (-.30,.30):box((0,y,.09),(1.8,.10,.18),'Steel')
     for x in (-.48,.48):
@@ -161,9 +125,6 @@ def isolation():
 SPECS = [
     ('PumpSkid',pump,[((0,0,.65),(2.2,.95,1.30))]),
     ('FilterRack',rack,[((0,0,.90),(1.8,.65,1.80))]),
-    ('PowerCabinet',cabinet,[((0,0,.96),(1.6,.68,1.92))]),
-    ('RepairBench',bench,[((.48,0,.55),(.64,.64,.75)),((0,0,.91),(1.8,.75,.10))]),
-    ('CargoStack',cargo,[((0,0,.64),(1.9,1.12,1.28)),((-.4,.03,1.32),(.7,.79,.34))]),
     ('DuctCradle',ducts,[((0,0,.46),(1.8,.94,.92))]),
     ('ServiceSpares',spares,[]),('AbandonedPanels',panels,[]),('IsolationStand',isolation,[]),
 ]
@@ -209,7 +170,11 @@ for index,(key,build,colliders) in enumerate(SPECS):
                         collision_boxes=len(colliders),triangles=len(mesh.polygons),collision=bool(colliders)))
     obj.location=(index%3*3.2,index//3*3.2,0)
     for collision in collision_objects:collision.location+=obj.location;collision.hide_viewport=True;collision.hide_render=True
+# These two assemblies share their precise author source with the focused polish batch.
+# Do not restore the former primitive cabinet/cargo builders here.
+refined = runpy.run_path(str(ROOT.parent/'DungeonFacilityPropPolish20260928/Scripts/author_props.py'))
+records.extend(refined['build_all'](output_dir=OUT, reset=False, save=False, layout_start=len(records)))
 bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'FacilityAssemblies.blend'))
 (OUT/'manifest.json').write_text(json.dumps(dict(objects=records,units='metres; imported as UE centimetres',
-    source='Project-authored geometry; reuse existing facility material assets',tests_run=False),indent=2),encoding='utf-8')
+    source='Project-authored geometry; cabinet/cargo use DungeonFacilityPropPolish20260928 atlas',tests_run=False),indent=2),encoding='utf-8')
 print('FACILITY_ASSEMBLIES_AUTHORED',len(records),flush=True)

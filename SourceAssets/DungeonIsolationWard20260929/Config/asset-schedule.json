@@ -1,0 +1,47 @@
+{
+  "reuse": [
+    "Approved fractured ceramic walls and UVs",
+    "Existing concrete, exposed mortar, steel and paint PBR materials",
+    "IndustrialV1 warm/cool ceiling fixtures",
+    "ColdSteelDoor independent leaf interaction and collision",
+    "Authored pipe/flange/hanger geometry",
+    "Hospital Bed by loxfear (CC-BY-4.0); fitted collision derivative for runtime scatter",
+    "Hospital Waiting Bench - AshenCut (CC-BY-4.0); 13 fixed waiting benches beside ward doors and hall walls",
+    "Rusty medical cart by CarlosTorresVFX and Crutch and IV Drip by Matt LeMoine (CC-BY-4.0)",
+    "Imported Soviet Hospital poster meshes/materials; original pack license remains required"
+  ],
+  "authored_now": [
+    "Stepped asymmetric shell",
+    "Five isolation suites",
+    "Observation windows and recessed frames",
+    "Decontamination vestibule",
+    "Rear service loop",
+    "Ceiling beams and vent grilles",
+    "Wall protection rails and fixed medical service trunks",
+    "Embossed room identifiers",
+    "Six glazed double doors, fitted frames and convex collision",
+    "Ward-local aged clear glass",
+    "Bounded scan blood placement and independent floor/wall scale",
+    "Bounded per-room hospital bed scatter with four resting poses and traversal collision",
+    "Waiting bench layout with doorway, window and central-aisle clearance"
+  ],
+  "missing": [
+    {
+      "asset": "Bedside monitor / medical wall terminal",
+      "count": 5,
+      "priority": "next furnishing phase"
+    },
+    {
+      "asset": "Nurse station furniture",
+      "count": 1,
+      "priority": "after structure approval"
+    }
+  ],
+  "excluded": [
+    "Random low-detail repair tables",
+    "New monsters",
+    "New damage systems"
+  ],
+  "provenance": "Original precision Blender architecture; existing local project materials/fixtures reused. No new external downloads.",
+  "tests_run": false
+}

@@ -1,6 +1,6 @@
 {
   "batch": "DungeonSpawn20260925",
-  "description": "Per-room spawn pools, inherited by shared-shell recipes. 2026-09-27: remove NurseZombie; add FleshHand and FleshHandMinion; expand InfectedDog. Preserve room counts and other existing species.",
+  "description": "Per-room spawn pools for independent room modules. 2026-09-27: remove NurseZombie; add FleshHand and FleshHandMinion; expand InfectedDog. Preserve room counts and other existing species. 2026-09-28: retire four removed room variants; retain original-room monster pools. 2026-09-28 rank tiering: every pool entry now pins level+rank (minion=minor, chaff=normal, maggot/mutant/fleshhand=elite); user ruling 2026-09-28: FleshHand and HandBrain both pinned to Lord tier (no demotion).",
   "spawn_groups": {
     "Distribution": {
       "source": "DungeonSpawn20260925",
@@ -16,22 +16,30 @@
         {
           "id": "FatZombie",
           "class": "/Script/FPSGAME.FatZombie",
-          "weight": 2
+          "weight": 2,
+          "level": 4,
+          "rank": "normal"
         },
         {
           "id": "InfectedDog",
           "class": "/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C",
-          "weight": 2
+          "weight": 2,
+          "level": 7,
+          "rank": "normal"
         },
         {
           "id": "FleshHandMinion",
           "class": "/Game/Monsters/FleshHand/BP_FleshHandMinion.BP_FleshHandMinion_C",
-          "weight": 2
+          "weight": 2,
+          "level": 1,
+          "rank": "minor"
         },
         {
           "id": "FleshHand",
           "class": "/Game/Monsters/FleshHand/BP_FleshHand.BP_FleshHand_C",
-          "weight": 1
+          "weight": 1,
+          "level": 12,
+          "rank": "lord"
         }
       ]
     },
@@ -49,88 +57,30 @@
         {
           "id": "PoisonMaggot",
           "class": "/Game/Monsters/PoisonMaggot/BP_PoisonMaggot.BP_PoisonMaggot_C",
-          "weight": 3
+          "weight": 3,
+          "level": 4,
+          "rank": "elite"
         },
         {
           "id": "InfectedDog",
           "class": "/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C",
-          "weight": 1
+          "weight": 1,
+          "level": 7,
+          "rank": "normal"
         },
         {
           "id": "FleshHandMinion",
           "class": "/Game/Monsters/FleshHand/BP_FleshHandMinion.BP_FleshHandMinion_C",
-          "weight": 2
+          "weight": 2,
+          "level": 1,
+          "rank": "minor"
         },
         {
           "id": "FleshHand",
           "class": "/Game/Monsters/FleshHand/BP_FleshHand.BP_FleshHand_C",
-          "weight": 1
-        }
-      ]
-    },
-    "Drainage_NearBridge": {
-      "source": "DungeonSpawn20260925",
-      "theme": "wet",
-      "count": [
-        2,
-        4
-      ],
-      "anchor_roles": [
-        "encounter"
-      ],
-      "pool": [
-        {
-          "id": "PoisonMaggot",
-          "class": "/Game/Monsters/PoisonMaggot/BP_PoisonMaggot.BP_PoisonMaggot_C",
-          "weight": 3
-        },
-        {
-          "id": "InfectedDog",
-          "class": "/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C",
-          "weight": 1
-        },
-        {
-          "id": "FleshHandMinion",
-          "class": "/Game/Monsters/FleshHand/BP_FleshHandMinion.BP_FleshHandMinion_C",
-          "weight": 2
-        },
-        {
-          "id": "FleshHand",
-          "class": "/Game/Monsters/FleshHand/BP_FleshHand.BP_FleshHand_C",
-          "weight": 1
-        }
-      ]
-    },
-    "Drainage_FarBridge": {
-      "source": "DungeonSpawn20260925",
-      "theme": "wet",
-      "count": [
-        2,
-        4
-      ],
-      "anchor_roles": [
-        "encounter"
-      ],
-      "pool": [
-        {
-          "id": "PoisonMaggot",
-          "class": "/Game/Monsters/PoisonMaggot/BP_PoisonMaggot.BP_PoisonMaggot_C",
-          "weight": 3
-        },
-        {
-          "id": "InfectedDog",
-          "class": "/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C",
-          "weight": 1
-        },
-        {
-          "id": "FleshHandMinion",
-          "class": "/Game/Monsters/FleshHand/BP_FleshHandMinion.BP_FleshHandMinion_C",
-          "weight": 2
-        },
-        {
-          "id": "FleshHand",
-          "class": "/Game/Monsters/FleshHand/BP_FleshHand.BP_FleshHand_C",
-          "weight": 1
+          "weight": 1,
+          "level": 12,
+          "rank": "lord"
         }
       ]
     },
@@ -148,22 +98,30 @@
         {
           "id": "Wolf",
           "class": "/Game/Monsters/Wolf/BP_WolfMonster.BP_WolfMonster_C",
-          "weight": 2
+          "weight": 2,
+          "level": 5,
+          "rank": "normal"
         },
         {
           "id": "InfectedDog",
           "class": "/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C",
-          "weight": 3
+          "weight": 3,
+          "level": 7,
+          "rank": "normal"
         },
         {
           "id": "FleshHandMinion",
           "class": "/Game/Monsters/FleshHand/BP_FleshHandMinion.BP_FleshHandMinion_C",
-          "weight": 1
+          "weight": 1,
+          "level": 1,
+          "rank": "minor"
         },
         {
           "id": "FleshHand",
           "class": "/Game/Monsters/FleshHand/BP_FleshHand.BP_FleshHand_C",
-          "weight": 1
+          "weight": 1,
+          "level": 12,
+          "rank": "lord"
         }
       ]
     },
@@ -181,88 +139,30 @@
         {
           "id": "Mutant3",
           "class": "/Script/FPSGAME.Mutant3",
-          "weight": 2
+          "weight": 2,
+          "level": 9,
+          "rank": "elite"
         },
         {
           "id": "InfectedDog",
           "class": "/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C",
-          "weight": 2
+          "weight": 2,
+          "level": 7,
+          "rank": "normal"
         },
         {
           "id": "FleshHandMinion",
           "class": "/Game/Monsters/FleshHand/BP_FleshHandMinion.BP_FleshHandMinion_C",
-          "weight": 2
+          "weight": 2,
+          "level": 1,
+          "rank": "minor"
         },
         {
           "id": "FleshHand",
           "class": "/Game/Monsters/FleshHand/BP_FleshHand.BP_FleshHand_C",
-          "weight": 1
-        }
-      ]
-    },
-    "VentilationLoop_WestCore": {
-      "source": "DungeonSpawn20260925",
-      "theme": "industrial",
-      "count": [
-        2,
-        4
-      ],
-      "anchor_roles": [
-        "encounter"
-      ],
-      "pool": [
-        {
-          "id": "Mutant3",
-          "class": "/Script/FPSGAME.Mutant3",
-          "weight": 2
-        },
-        {
-          "id": "InfectedDog",
-          "class": "/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C",
-          "weight": 2
-        },
-        {
-          "id": "FleshHandMinion",
-          "class": "/Game/Monsters/FleshHand/BP_FleshHandMinion.BP_FleshHandMinion_C",
-          "weight": 2
-        },
-        {
-          "id": "FleshHand",
-          "class": "/Game/Monsters/FleshHand/BP_FleshHand.BP_FleshHand_C",
-          "weight": 1
-        }
-      ]
-    },
-    "VentilationLoop_EastCore": {
-      "source": "DungeonSpawn20260925",
-      "theme": "industrial",
-      "count": [
-        2,
-        4
-      ],
-      "anchor_roles": [
-        "encounter"
-      ],
-      "pool": [
-        {
-          "id": "Mutant3",
-          "class": "/Script/FPSGAME.Mutant3",
-          "weight": 2
-        },
-        {
-          "id": "InfectedDog",
-          "class": "/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C",
-          "weight": 2
-        },
-        {
-          "id": "FleshHandMinion",
-          "class": "/Game/Monsters/FleshHand/BP_FleshHandMinion.BP_FleshHandMinion_C",
-          "weight": 2
-        },
-        {
-          "id": "FleshHand",
-          "class": "/Game/Monsters/FleshHand/BP_FleshHand.BP_FleshHand_C",
-          "weight": 1
+          "weight": 1,
+          "level": 12,
+          "rank": "lord"
         }
       ]
     },
@@ -280,30 +180,40 @@
         {
           "id": "FatZombie",
           "class": "/Script/FPSGAME.FatZombie",
-          "weight": 3
+          "weight": 3,
+          "level": 4,
+          "rank": "normal"
         },
         {
           "id": "Mutant3",
           "class": "/Script/FPSGAME.Mutant3",
-          "weight": 1
+          "weight": 1,
+          "level": 9,
+          "rank": "elite"
         },
         {
           "id": "InfectedDog",
           "class": "/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C",
-          "weight": 2
+          "weight": 2,
+          "level": 7,
+          "rank": "normal"
         },
         {
           "id": "FleshHandMinion",
           "class": "/Game/Monsters/FleshHand/BP_FleshHandMinion.BP_FleshHandMinion_C",
-          "weight": 1
+          "weight": 1,
+          "level": 1,
+          "rank": "minor"
         },
         {
           "id": "FleshHand",
           "class": "/Game/Monsters/FleshHand/BP_FleshHand.BP_FleshHand_C",
-          "weight": 2
+          "weight": 2,
+          "level": 12,
+          "rank": "lord"
         }
       ]
     }
   },
-  "revision": "20260927-hands-infected-dog"
+  "revision": "20260928-rank-tiering"
 }

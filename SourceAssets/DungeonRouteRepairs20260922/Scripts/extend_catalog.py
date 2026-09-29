@@ -63,11 +63,6 @@ def extend(catalog):
     if wall_receipt.exists() and read(wall_receipt).get('stage')=='map_saved':
         import runpy
         catalog=runpy.run_path(str(wall_damage/'Scripts/extend_catalog.py'))['extend'](catalog)
-    room_variants=ROOT.parent/'DungeonRoomVariants20260924'
-    variants_receipt=room_variants/'Receipts/install.json'
-    if variants_receipt.exists() and read(variants_receipt).get('stage')=='map_saved':
-        import runpy
-        catalog=runpy.run_path(str(room_variants/'Scripts/extend_catalog.py'))['extend'](catalog)
     spawn=ROOT.parent/'DungeonSpawn20260925'
     spawn_receipt=spawn/'Receipts/install.json'
     if spawn_receipt.exists() and read(spawn_receipt).get('stage')=='map_saved':
@@ -83,4 +78,14 @@ def extend(catalog):
     if facility_receipt.exists() and read(facility_receipt).get('stage')=='map_saved':
         import runpy
         catalog=runpy.run_path(str(facility/'Scripts/extend_catalog.py'))['extend'](catalog)
+    station=ROOT.parent/'DungeonTransitStation20260928'
+    station_receipt=station/'Receipts/pool-install.json'
+    if station_receipt.exists() and read(station_receipt).get('stage')=='map_saved':
+        import runpy
+        catalog=runpy.run_path(str(station/'Scripts/extend_catalog.py'))['extend'](catalog)
+    ward=ROOT.parent/'DungeonIsolationWard20260929'
+    ward_receipt=ward/'Receipts/pool-install.json'
+    if ward_receipt.exists() and read(ward_receipt).get('stage')=='map_saved':
+        import runpy
+        catalog=runpy.run_path(str(ward/'Scripts/extend_catalog.py'))['extend'](catalog)
     return catalog

@@ -35,10 +35,9 @@ if owned and not u.EditorLoadingAndSavingUtils.save_packages(owned,False):raise 
 # owns both properties; resaving the root .umap is unnecessary and may conflict
 # with another process holding a read handle to that unchanged map.
 (ROOT.parent/'DungeonRoutes20260922/Config/catalog.json').write_text(json.dumps(catalog,ensure_ascii=False,indent=2),encoding='utf-8')
-(ROOT/'Config/modules.json').write_text(json.dumps(dict(modules=[m for m in catalog['modules'] if m['id']!=m.get('family_id',m['id'])]),ensure_ascii=False,indent=2),encoding='utf-8')
-(ROOT/'Config/recipes.json').write_text(json.dumps(catalog['room_recipe_library'],ensure_ascii=False,indent=2),encoding='utf-8')
+(ROOT/'Config/modules.json').write_text(json.dumps(dict(modules=[m for m in catalog['modules'] if m['id'] in ('ForkLeft','ForkRight')]),ensure_ascii=False,indent=2),encoding='utf-8')
 (ROOT/'Config/mission-rules.json').write_text(json.dumps(catalog['mission_rules'],ensure_ascii=False,indent=2),encoding='utf-8')
 (ROOT/'Receipts/install.json').write_text(json.dumps(dict(stage='map_saved',map=TARGET,room_ids=catalog['room_ids'],new_meshes=len(paths),
-    generator_version=5,shared_shells=len(catalog['room_recipe_library']['shells']),interior_recipes=len(catalog['room_recipe_library']['interiors']),
+    generator_version=catalog['generator_version'],junction_modules=2,
     saved_actor_packages=[p.get_name() for p in owned],root_map_modified=False,tests_run=False),ensure_ascii=False,indent=2),encoding='utf-8')
 print('DUNGEON_COMPOSITION_CATALOG_SAVED',catalog['room_ids'],flush=True)

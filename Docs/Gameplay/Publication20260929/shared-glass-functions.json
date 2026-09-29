@@ -1,0 +1,13 @@
+{
+  "purpose": "Exact definitions to integrate with declarations/contact sites; not compiled source",
+  "functions": [
+    {
+      "path": "Source/FPSGAME/Building/ColdSteelDoor.cpp",
+      "definition": "void AColdSteelDoor::ConfigureStandaloneLeaf(UStaticMesh* Mesh,bool bPositiveHinge,float OpeningSeconds,float ClosingDelay)\n{\n    Frame->SetStaticMesh(nullptr);Frame->SetCollisionProfileName(TEXT(\"NoCollision\"));Frame->SetVisibility(false);\n    Leaf->SetStaticMesh(Mesh);Leaf->SetRelativeRotation(FRotator(0,bPositiveHinge?180:0,0));\n    bHingeOnPositiveY=bPositiveHinge;OpenAngleDegrees=85.f;\n    OpenSeconds=OpeningSeconds;AutoCloseSeconds=ClosingDelay;\n    AlignGeometry();\n}"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSImpactFXSubsystem.cpp",
+      "definition": "void UFPSImpactFXSubsystem::ClearImpactDecalsForComponent(const UPrimitiveComponent* Component)\n{\n    for(int32 I=0;I<Decals.Num();++I)\n        if(IsValid(Decals[I]) && Decals[I]->GetAttachParent()==Component)\n        {\n            Decals[I]->SetVisibility(false);\n            Decals[I]->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);\n            DecalUntil[I]=0.;\n        }\n}"
+    }
+  ]
+}

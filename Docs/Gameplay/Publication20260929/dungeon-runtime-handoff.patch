@@ -1,0 +1,3516 @@
+diff --git a/Source/FPSGAME/Dungeons/AuthoredDungeonCatalog.cpp b/Source/FPSGAME/Dungeons/AuthoredDungeonCatalog.cpp
+deleted file mode 100644
+--- a/Source/FPSGAME/Dungeons/AuthoredDungeonCatalog.cpp
++++ /dev/null
+@@ -1,39 +0,0 @@
+-#include "AuthoredDungeonCatalog.h"
+-#include "Dom/JsonValue.h"
+-
+-bool DungeonCatalog::ResolveRecipes(const TSharedPtr<FJsonObject>& Catalog,FString& Error)
+-{
+-    const TSharedPtr<FJsonObject>* Library=nullptr;
+-    if(!Catalog->TryGetObjectField(TEXT("room_recipe_library"),Library))return true;
+-    const TSharedPtr<FJsonObject>* Shells=nullptr;const TSharedPtr<FJsonObject>* Interiors=nullptr;
+-    if(!(*Library)->TryGetObjectField(TEXT("shells"),Shells)||!(*Library)->TryGetObjectField(TEXT("interiors"),Interiors))
+-    {Error=TEXT("房间共享配方缺少外壳或内部组合表");return false;}
+-    TArray<TSharedPtr<FJsonValue>> Resolved;
+-    for(const auto& V:Catalog->GetArrayField(TEXT("modules")))
+-    {
+-        const auto Module=V->AsObject();FString ShellId,InteriorId;
+-        if(!Module->TryGetStringField(TEXT("shell_id"),ShellId)){Resolved.Add(V);continue;}
+-        Module->TryGetStringField(TEXT("interior_recipe_id"),InteriorId);
+-        const TSharedPtr<FJsonObject>* Shell=nullptr;const TSharedPtr<FJsonObject>* Interior=nullptr;
+-        if(!(*Shells)->TryGetObjectField(ShellId,Shell)||!(*Interiors)->TryGetObjectField(InteriorId,Interior))
+-        {Error=TEXT("房间引用了不存在的外壳/内部配方：")+Module->GetStringField(TEXT("id"));return false;}
+-        const TArray<TSharedPtr<FJsonValue>>* Compatible=nullptr;
+-        if((*Interior)->TryGetArrayField(TEXT("compatibility_shells"),Compatible)&&
+-           !Compatible->ContainsByPredicate([&](const auto& Value){return Value->AsString()==ShellId;}))
+-        {Error=TEXT("房壳与内部配方不兼容：")+ShellId+TEXT(" / ")+InteriorId;return false;}
+-        const auto Out=MakeShared<FJsonObject>(**Shell);
+-        for(const auto& Field:(*Interior)->Values)Out->SetField(Field.Key,Field.Value);
+-        for(const auto& Field:Module->Values)Out->SetField(Field.Key,Field.Value);
+-        TArray<TSharedPtr<FJsonValue>> Parts=(*Shell)->GetArrayField(TEXT("parts"));
+-        Parts.Append((*Interior)->GetArrayField(TEXT("parts")));
+-        const TArray<TSharedPtr<FJsonValue>>* Extra=nullptr;
+-        if(Module->TryGetArrayField(TEXT("parts"),Extra))Parts.Append(*Extra);
+-        Out->SetArrayField(TEXT("parts"),Parts);
+-        const TArray<TSharedPtr<FJsonValue>>* Anchors=nullptr;
+-        if(Out->TryGetArrayField(TEXT("encounter_anchors"),Anchors))Out->SetArrayField(TEXT("anchors"),*Anchors);
+-        // Resolved modules no longer need a second expansion in this transient copy.
+-        Out->SetStringField(TEXT("resolved_shell_id"),ShellId);Out->RemoveField(TEXT("shell_id"));
+-        Resolved.Add(MakeShared<FJsonValueObject>(Out));
+-    }
+-    Catalog->SetArrayField(TEXT("modules"),Resolved);return true;
+-}
+diff --git a/Source/FPSGAME/Dungeons/AuthoredDungeonCatalog.h b/Source/FPSGAME/Dungeons/AuthoredDungeonCatalog.h
+deleted file mode 100644
+--- a/Source/FPSGAME/Dungeons/AuthoredDungeonCatalog.h
++++ /dev/null
+@@ -1,10 +0,0 @@
+-#pragma once
+-#include "CoreMinimal.h"
+-#include "Dom/JsonObject.h"
+-
+-namespace DungeonCatalog
+-{
+-    // Expand immutable shell/interior references into a transient catalog, once
+-    // at generation/bind time. The saved authoring catalog keeps shared recipes.
+-    bool ResolveRecipes(const TSharedPtr<FJsonObject>& Catalog,FString& Error);
+-}
+diff --git a/Source/FPSGAME/Dungeons/AuthoredDungeonCompactRouting.inl b/Source/FPSGAME/Dungeons/AuthoredDungeonCompactRouting.inl
+--- a/Source/FPSGAME/Dungeons/AuthoredDungeonCompactRouting.inl
++++ b/Source/FPSGAME/Dungeons/AuthoredDungeonCompactRouting.inl
+@@ -5,0 +6,3 @@
++double SpineLinkLimit=ShortLinkLimit;
++bool bCompactLaneHint=true,bForwardTerminalHint=true;
++bool bExtendedSpineHint=false;
+@@ -6,0 +10 @@
++TArray<FSocket> CompactLeads;
+@@ -9,0 +14,5 @@
++bool bLayoutProbe=false;
++int32 ProbeDepth=-1;
++TArray<FPlaced> ProbePieces;
++FSocket ProbeLead,ProbeTop;
++FString ProbeRoute;
+@@ -12,0 +22 @@
++    if(!bCompactLaneHint)return true;
+@@ -18 +28 @@
+-        if(FVector::DotProduct(D,LaneForward)<=1200)continue;
++        if(FVector::DotProduct(D,LaneForward)<=400)continue;
+@@ -20 +30,3 @@
+-        if(Lane==0?FMath::Abs(Side)>1600:Lane<0?Side>-1600:Side<1600)return false;
++        if(Lane==0){if(FMath::Abs(Side)>2400)return false;}
++        else if(Lane<0){if(Side>400)return false;}
++        else if(Side<-400)return false;
+@@ -25 +37 @@
+-bool JoinedWallSeam(int32 Module,const FTransform& Transform,int32 Other,const FBox& Intersection)const
++bool JoinedWallSeam(int32 Module,const FTransform& Transform,int32 Other,const FBox& Intersection,const TArray<int32>& ActivePorts)const
+@@ -28,2 +40,3 @@
+-    for(const FPort& P:Modules[Module].Ports)for(int32 J=0;J<PortCount(Other);++J)
+-    {
++    for(int32 Port=0;Port<Modules[Module].Ports.Num();++Port)if(ActivePorts.IsEmpty()||ActivePorts.Contains(Port))for(int32 J:OpenPorts(Other))
++    {
++        const FPort& P=Modules[Module].Ports[Port];
+@@ -95 +108 @@
+-                      TArray<FCompactBeam>& Beam,bool AnchorTerminal=false)
++                      TArray<FCompactBeam>& Beam,bool AnchorTerminal=false,TFunction<bool()> Complete={})
+@@ -99,0 +113,6 @@
++    double MaxRoomSpan=0.,MinRoomSpan=DBL_MAX;
++    for(int32 M:Combat)if(RoomAllowed(M,Route))for(const auto& Pair:Modules[M].PortPairs)
++    {
++        MaxRoomSpan=FMath::Max(MaxRoomSpan,(Modules[M].Ports[Pair.X].P-Modules[M].Ports[Pair.Y].P).Size());
++        MinRoomSpan=FMath::Min(MinRoomSpan,(Modules[M].Ports[Pair.X].P-Modules[M].Ports[Pair.Y].P).Size());
++    }
+@@ -101,0 +121 @@
++        if(!CanSearch()){Pieces=Base;return false;}
+@@ -102,0 +123,6 @@
++        // A beam layer must not spend the entire branch budget before the next
++        // room is considered. Allocate work across states AND remaining depths.
++        // Interior/port variants made the former exhaustive 24-state expansion
++        // exhaust every attempt at depth 2, discarding already valid successors.
++        const int32 StateLimit=FMath::Max(1,FMath::Min(AnchorTerminal?128:256,
++            CompactBudget/FMath::Max(1,(Count-Depth)*Beam.Num())));
+@@ -104,0 +131 @@
++            const int32 StateStartBudget=CompactBudget;
+@@ -108 +135 @@
+-            for(int32 M:Combat)if(!FamilyJitter.Contains(Modules[M].Family))FamilyJitter.Add(Modules[M].Family,Random.FRand()*180.);
++            for(int32 M:Combat)if(RoomAllowed(M,Route)&&!FamilyJitter.Contains(Modules[M].Family))FamilyJitter.Add(Modules[M].Family,Random.FRand()*180.);
+@@ -110 +137,2 @@
+-            const auto Links=RoomLinks(State.End);
++            auto Links=RoomLinks(State.End);
++            if(AnchorTerminal)Links.RemoveAll([&](const FShortLink& Link){return Link.Length+State.End.ReservedLead>SpineLinkLimit+.1;});
+@@ -113,0 +142,2 @@
++                if(StateStartBudget-CompactBudget>=StateLimit)break;
++                Pieces=State.Layout;
+@@ -114,0 +145,5 @@
++                // Reserve trials for every room/door choice. A blocked first
++                // choice must not consume the whole state's placement budget.
++                const int32 ChoiceStartBudget=CompactBudget;
++                const int32 ChoiceLimit=FMath::Max(1,
++                    (StateLimit-(StateStartBudget-CompactBudget))/FMath::Max(1,Choices.Num()-ChoiceRank+1));
+@@ -116 +151,14 @@
+-                if(Remaining==0&&!AnchorTerminal)AddTargetRoomLinks(Ranked,Choice.Key,Choice.Value,State.End,Goal);
++                if(Remaining==0&&!AnchorTerminal)
++                {
++                    AddTargetRoomLinks(Ranked,Choice.Key,Choice.Value,State.End,Goal,Choice.Exit);
++                    // Reject impossible last-room closures before they consume
++                    // placement budget or displace a joinable beam candidate.
++                    Ranked.RemoveAll([&](const FShortLink& Link)
++                    {
++                        const FTransform T=Fit(Choice.Key,Choice.Value,Link.End);
++                        const auto& P=Modules[Choice.Key].Ports[Choice.Exit];
++                        const FVector N=T.TransformVectorNoScale(P.N);
++                        const FSocket Out{T.TransformPosition(P.P)+N*ExitLeadLength,N,-2,P.Width,P.Height,ExitLeadLength};
++                        return !(Out.P.Equals(Goal.P,.1)&&FVector::DotProduct(Out.N,Goal.N)<-.999)&&LinksBetween(Out,Goal).IsEmpty();
++                    });
++                }
+@@ -119,2 +167,3 @@
+-                    if(AnchorTerminal)return LinkCost(A,State.End.ReservedLead)<LinkCost(B,State.End.ReservedLead);
+-                    return LinkGoalCost(A,Choice.Key,Choice.Value,Goal,Remaining)<LinkGoalCost(B,Choice.Key,Choice.Value,Goal,Remaining);
++                    if(AnchorTerminal)return LinkChoiceCost(A,State.End,Route)<LinkChoiceCost(B,State.End,Route);
++                    return LinkGoalCost(A,Choice.Key,Choice.Value,Goal,Remaining,Choice.Exit)-LinkCost(A)+LinkChoiceCost(A,State.End,Route)*.25<
++                           LinkGoalCost(B,Choice.Key,Choice.Value,Goal,Remaining,Choice.Exit)-LinkCost(B)+LinkChoiceCost(B,State.End,Route)*.25;
+@@ -125 +174,18 @@
+-                    if(--CompactBudget<0){Pieces=Base;return false;}
++                    if(StateStartBudget-CompactBudget>=StateLimit||ChoiceStartBudget-CompactBudget>=ChoiceLimit)break;
++                    if(--CompactBudget<0||!CanSearch()){Pieces=Base;return false;}
++                    const FTransform Candidate=Fit(Choice.Key,Choice.Value,Link.End);
++                    const auto& ExitPort=Modules[Choice.Key].Ports[Choice.Exit];
++                    const FVector ExitNormal=Candidate.TransformVectorNoScale(ExitPort.N);
++                    const double SpineFacing=FVector::DotProduct(ExitNormal,LaneForward);
++                    // Intermediate rooms may fold the spine back within its
++                    // collision-checked lane. Forbidding a backwards exit made
++                    // the terminal too distant for legitimate short side routes.
++                    // Early attempts keep a forward terminal; later attempts
++                    // may rotate the same rigid terminal with the final exit.
++                    if(AnchorTerminal&&Remaining==0&&bForwardTerminalHint&&SpineFacing<.999)continue;
++                    if(!AnchorTerminal)
++                    {
++                        const FVector ExitPosition=Candidate.TransformPosition(ExitPort.P)+ExitNormal*ExitLeadLength;
++                        // Optimistic upper reach, never a relaxed collision/length rule.
++                        if((ExitPosition-Goal.P).Size()>Remaining*(MaxRoomSpan+ShortLinkLimit)+ShortLinkLimit+.1)continue;
++                    }
+@@ -128,2 +194,2 @@
+-                    if(!AttachRoom(Choice.Key,Choice.Value,State.End,Link,Route,S))continue;
+-                    if(AnchorTerminal&&Remaining==0&&FVector::DotProduct(S.N,LaneForward)<.999)continue;
++                    const double CandidateJoinCost=LinkChoiceCost(Link,State.End,Route);
++                    if(!AttachRoom(Choice.Key,Choice.Value,State.End,Link,Route,S,{},{},Choice.Exit))continue;
+@@ -134,3 +200,8 @@
+-                    const double JoinCost=State.JoinCost+LinkCost(Link,State.End.ReservedLead);
+-                    // The middle branch is constructed in full before placing
+-                    // the terminal. It has no estimated endpoint to squeeze into.
++                    const double JoinCost=State.JoinCost+CandidateJoinCost;
++                    // The middle branch anchors all three stairs. Prefer a
++                    // compact forward span: the outer branches must also pay
++                    // for the lateral approach and the confluence's offset.
++                    const double Forward=FVector::DotProduct(S.P-LaneCenter,LaneForward);
++                    const double SpinePosition=bExtendedSpineHint?
++                        FMath::Abs(Forward-(Depth+1)*(MinRoomSpan+PreferredLinkLength*.5)):
++                        FMath::Max(0.,Forward)*2.;
+@@ -138,3 +209,5 @@
+-                        FMath::Abs(FVector::DotProduct(S.P-LaneCenter,LaneRight))*.35:
+-                        Distance/(1.+Remaining*.6)+Facing;
+-                    const double Score=PositionCost+Repetition+FamilyJitter[Modules[Choice.Key].Family]+ChoiceRank*.25+JoinCost;
++                        FMath::Abs(FVector::DotProduct(S.P-LaneCenter,LaneRight))*(bCompactLaneHint?1.2:.1)+
++                            SpinePosition:
++                        Distance+Facing;
++                    const double VarietyWeight=AnchorTerminal?1.:.15;
++                    double Score=PositionCost+(Repetition+FamilyJitter[Modules[Choice.Key].Family])*VarietyWeight+ChoiceRank*.25+JoinCost*(AnchorTerminal?1.:.25);
+@@ -145,0 +219,3 @@
++                        // A sibling route can reject this complete chain too,
++                        // not only its reserved end room or solve direction.
++                        if(Complete&&!Complete())continue;
+@@ -147,0 +224,16 @@
++                    }
++                    if(AnchorTerminal&&Remaining==0)
++                    {
++                        // The stairs and boss hub must fit before the beam drops
++                        // alternatives. A short spine can overlap its own terminal.
++                        const int32 BeforeTerminal=Pieces.Num();TArray<FSocket> Tops;
++                        const bool TerminalFits=AnchorCompactTerminal(S,Tops);
++                        Pieces.SetNum(BeforeTerminal);TerminalWalkLengths.Reset();
++                        if(!TerminalFits)continue;
++                        // Rank the whole terminal by its hardest remaining
++                        // branch, not just the middle exit's forward distance.
++                        // A compact sideways spine can strand the opposite side.
++                        double Reach=0;
++                        for(int32 I=1;I<3;++I)Reach=FMath::Max(Reach,(Tops[I].P-CompactLeads[I].P).Size()/Counts[I+1]);
++                        const double ReachCost=bExtendedSpineHint?FMath::Abs(Reach-(MinRoomSpan+PreferredLinkLength)):Reach;
++                        Score=ReachCost*4.+JoinCost*.15+(Repetition+FamilyJitter[Modules[Choice.Key].Family])*.15;
+@@ -166 +258,4 @@
+-            Buckets.Add(Key);Beam.Add(MoveTemp(Candidate));if(Beam.Num()==24)break;
++            // The last room has an exact two-sided solve. Preserve more of its
++            // potential starting sockets instead of pruning them by distance.
++            const int32 BeamLimit=!AnchorTerminal&&Depth+2==Count?128:24;
++            Buckets.Add(Key);Beam.Add(MoveTemp(Candidate));if(Beam.Num()==BeamLimit)break;
+@@ -172,3 +267,3 @@
+-bool BridgeRooms(int32 Count,const FSocket& Start,const FSocket& Goal,const FString& Route)
+-{
+-    if(Count==0)return ShortRouteTo(Start,Goal,Route+TEXT("_Closure"));
++bool BridgeRooms(int32 Count,const FSocket& Start,const FSocket& Goal,const FString& Route,TFunction<bool()> Complete={})
++{
++    if(Count==0)return ShortRouteTo(Start,Goal,Route+TEXT("_Closure"))&&(!Complete||Complete());
+@@ -176 +271 @@
+-    if(!GrowCompactRooms(Count,Start,Goal,Route,Beam))return false;
++    if(!GrowCompactRooms(Count,Start,Goal,Route,Beam,false,Complete))return false;
+@@ -185 +280 @@
+-    for(int32 M:Combat)if(!FamilyJitter.Contains(Modules[M].Family))FamilyJitter.Add(Modules[M].Family,Random.FRand()*900.);
++    for(int32 M:Combat)if(RoomAllowed(M,Route)&&!FamilyJitter.Contains(Modules[M].Family))FamilyJitter.Add(Modules[M].Family,Random.FRand()*900.);
+@@ -188 +283 @@
+-    for(int32 M:Combat)RoomSpan=FMath::Min(RoomSpan,(Modules[M].Ports[0].P-Modules[M].Ports[1].P).Size());
++    for(int32 M:Combat)if(RoomAllowed(M,Route))RoomSpan=FMath::Min(RoomSpan,(Modules[M].Ports[0].P-Modules[M].Ports[1].P).Size());
+@@ -198 +293 @@
+-        {return LinkGoalCost(A,Tail.Key,Tail.Value,Lead,1)<LinkGoalCost(B,Tail.Key,Tail.Value,Lead,1);});
++        {return LinkGoalCost(A,Tail.Key,Tail.Value,Lead,1,Tail.Exit)<LinkGoalCost(B,Tail.Key,Tail.Value,Lead,1,Tail.Exit);});
+@@ -202 +297 @@
+-            if(--CompactBudget<0)break;
++            if(--CompactBudget<0||!CanSearch())break;
+@@ -205 +300 @@
+-            if(!AttachRoom(Tail.Key,Tail.Value,Top,Link,Route,Back))continue;
++            if(!AttachRoom(Tail.Key,Tail.Value,Top,Link,Route,Back,{},{},Tail.Exit))continue;
+@@ -217 +312,2 @@
+-bool ConnectCompactBranch(int32 Count,const FSocket& Lead,const FSocket& Top,const FString& Route)
++bool ConnectCompactBranch(int32 Count,const FSocket& Lead,const FSocket& Top,const FString& Route,
++                          TFunction<bool()> Complete={})
+@@ -227,6 +323,28 @@
+-        Pieces=MoveTemp(EndRoom.Layout);
+-        const int32 Available=CompactBudget,TrialBudget=FMath::Min(Available,16000);
+-        CompactBudget=TrialBudget;
+-        const bool Connected=BridgeRooms(Count-1,Lead,EndRoom.End,Route);
+-        CompactBudget=Available-(TrialBudget-FMath::Max(0,CompactBudget));
+-        if(Connected)return true;
++        // Either end can be the constrained one. Give both directions a
++        // bounded opportunity before moving to another endpoint reservation.
++        for(int32 Direction=0;Direction<2;++Direction)
++        {
++            if(CompactBudget<=0)break;
++            Pieces=EndRoom.Layout;
++            const int32 Available=CompactBudget,TrialBudget=FMath::Min(Available,5000);
++            CompactBudget=TrialBudget;
++            int32 ContinuationSpent=0;
++            auto Finish=[&]()
++            {
++                if(!Complete)return true;
++                // Sibling search is charged to the shared budget, not the
++                // current chain's reserved placement quota. It cannot silently
++                // consume every alternative in this beam on the first failure.
++                const int32 Left=CompactBudget,Spent=TrialBudget-Left;
++                const int32 ContinuationBudget=FMath::Min(Available-Spent-ContinuationSpent,5000);
++                if(ContinuationBudget<=0){CompactBudget=0;return false;}
++                CompactBudget=ContinuationBudget;
++                const bool Done=Complete();
++                ContinuationSpent+=ContinuationBudget-FMath::Max(0,CompactBudget);
++                CompactBudget=FMath::Min(Left,FMath::Max(0,Available-Spent-ContinuationSpent));
++                return Done;
++            };
++            const bool Connected=Direction==0?BridgeRooms(Count-1,Lead,EndRoom.End,Route,Finish):BridgeRooms(Count-1,EndRoom.End,Lead,Route,Finish);
++            CompactBudget=FMath::Max(0,Available-(TrialBudget-FMath::Max(0,CompactBudget))-ContinuationSpent);
++            if(Connected)return true;
++        }
+@@ -239 +357 @@
+-    if(FVector::DotProduct(Exit.N,LaneForward)<.999)return false;
++    if(bForwardTerminalHint&&FVector::DotProduct(Exit.N,LaneForward)<.999)return false;
+@@ -254 +372 @@
+-bool BuildCompact(int32 Seed,const FSocket& Start)
++bool BuildCompact(int32 Seed,const FSocket& Start,double Deadline)
+@@ -257,2 +375,8 @@
+-    for(int32 Attempt=0;Attempt<80;++Attempt)
+-    {
++    FString FinalReject;
++    // Explore authored prefixes within the same bounded planning window.
++    constexpr int32 CompactTries=64;
++    NoteSearch(0,CompactTries);
++    for(int32 Attempt=0;Attempt<CompactTries;++Attempt)
++    {
++        if(FPlatformTime::Seconds()>Deadline||!CanSearch())break;
++        NoteSearch(Attempt+1,CompactTries);
+@@ -261,3 +385,9 @@
+-        Random.Initialize(Seed+Attempt*7919);SearchBudget=2500;CompactBudget=50000;
+-        Counts.Add(Random.RandRange(MinRooms,MaxRooms));
+-        for(int32 I=0;I<3;++I)Counts.Add(Random.RandRange(MinRooms,MaxRooms));
++        Random.Initialize(int32(uint32(Seed)+uint32(Attempt)*7919u));SearchBudget=2500;CompactBudget=40000;
++        // Lanes and forward facing are search hints, not geometry contracts.
++        // Retain the quick aligned attempt, then permit rigid folded layouts.
++        bCompactLaneHint=Attempt==0;bForwardTerminalHint=Attempt<16;
++        // Alternate a compact risk spine with the general short-link recipe.
++        // A middle route that spends 12 m at each join can place the shared
++        // terminal beyond what the shorter outside branches can actually span.
++        SpineLinkLimit=Attempt%2==0?PreferredLinkLength:ShortLinkLimit;
++        Counts=TopologyCounts;
+@@ -270,7 +400,15 @@
+-        FSocket S=Start;
+-        if(!Chain(Counts[0],S,TEXT("Approach"))||!Corridor(1,S,TEXT("Approach")))continue;
+-        if(!Place(Junction,Fit(Junction,0,S),TEXT("Junction"),-2,S.Owner))continue;
+-        const int32 Hub=Pieces.Num()-1;
+-        const FVector Center=Pieces[Hub].Bounds.GetCenter();
+-        const FVector Forward=Socket(Hub,1).N,Right(-Forward.Y,Forward.X,0);
+-        LaneCenter=Center;LaneForward=Forward;LaneRight=Right;
++        // Long branches need room to fit their drawn room count. Always scoring
++        // a terminal by the smallest distance folds a four/five-room spine into
++        // the space needed by both side routes. Keep the compact fast attempts,
++        // then also seek an extended, collision-checked spine for long routes.
++        bExtendedSpineHint=Attempt>=8&&Counts[1]>=4;
++        // Authored L-shaped rooms may rotate but cannot mirror. Give both side
++        // count assignments the compact/long connector pair without redrawing
++        // any count or changing the middle risk route.
++        if(bExtendedSpineHint&&(Attempt/2)%2==1)Counts.Swap(2,3);
++        // If the fixed assignment keeps failing, let a short outside branch
++        // use the longer approach draw. Preserve the exact drawn multiset and
++        // total room count; all segments retain their authored min/max limits.
++        // The mission graph is rebuilt below, before any rooms are spawned.
++        if(Attempt>=16&&Counts[0]>FMath::Max(Counts[2],Counts[3]))
++            Counts.Swap(0,2+(Attempt/8)%2);
+@@ -278,3 +416,2 @@
+-        for(int32 Port=1;Port<4;++Port)
+-        {FSocket Lead=Socket(Hub,Port);if(!Corridor(1,Lead,FString::Printf(TEXT("Route%d"),Port))){Good=false;break;}Leads.Add(Lead);}
+-        if(!Good)continue;
++        if(!BuildMissionPrefix(Start,Leads,Attempt))continue;
++        CompactLeads=Leads;
+@@ -296,2 +433,2 @@
+-            // Left and right keep their own lanes. Both room count and endpoint
+-            // are solved together; there is no separately frozen first room.
++            // Solve the two side routes as one transaction. If the second
++            // route fails, release the first and try its other endpoint choices.
+@@ -301,5 +438,7 @@
+-                Pieces=Terminal;Good=true;
+-                for(int32 Step=0;Step<2;++Step)
+-                {
+-                    const int32 I=1+(Step+Order)%2;
+-                    if(!ConnectCompactBranch(Counts[I+1],Leads[I],Tops[I],FString::Printf(TEXT("Route%d"),I+1)))
++                Pieces=Terminal;
++                const int32 First=1+Order,Second=1+(1+Order)%2;
++                auto RecordFailure=[&](int32 I)
++                {
++                    if(bLayoutProbe&&LastBridgeDepth>ProbeDepth)
++                    {ProbeDepth=LastBridgeDepth;ProbePieces=Pieces;ProbeLead=Leads[I];ProbeTop=Tops[I];ProbeRoute=FString::Printf(TEXT("Route%d"),I+1);}
++                    if(!LoggedFailure)
+@@ -307,8 +446,4 @@
+-                        if(!LoggedFailure)
+-                        {
+-                            UE_LOG(LogTemp,Display,TEXT("Compact anchored branch: attempt=%d route=%d rooms=%d depth=%d nearest=%.0f budget=%d start=%s top=%s"),
+-                                Attempt,I+1,Counts[I+1],LastBridgeDepth,LastBridgeDistance,CompactBudget,
+-                                *Leads[I].P.ToCompactString(),*Tops[I].P.ToCompactString());
+-                            LoggedFailure=true;
+-                        }
+-                        Good=false;break;
++                        UE_LOG(LogTemp,Display,TEXT("Compact anchored branch: attempt=%d route=%d rooms=%d depth=%d nearest=%.0f budget=%d start=%s top=%s"),
++                            Attempt,I+1,Counts[I+1],LastBridgeDepth,LastBridgeDistance,CompactBudget,
++                            *Leads[I].P.ToCompactString(),*Tops[I].P.ToCompactString());
++                        LoggedFailure=true;
+@@ -316 +451,13 @@
+-                    MostBranches=FMath::Max(MostBranches,Step+2);
++                };
++                Good=ConnectCompactBranch(Counts[First+1],Leads[First],Tops[First],FString::Printf(TEXT("Route%d"),First+1),[&]()
++                {
++                    MostBranches=FMath::Max(MostBranches,2);
++                    if(!ConnectCompactBranch(Counts[Second+1],Leads[Second],Tops[Second],FString::Printf(TEXT("Route%d"),Second+1)))
++                    {RecordFailure(Second);return false;}
++                    MostBranches=3;return true;
++                });
++                if(!Good)RecordFailure(First);
++                if(Good)
++                {
++                    if(CompleteSocketGraph(Start)&&FinalizeMissionLayout(Start)){CompactFailure.Empty();return true;}
++                    FinalReject=CompactFailure;
+@@ -318 +464,0 @@
+-                if(Good&&CompleteSocketGraph(Start)){CompactFailure.Empty();return true;}
+@@ -323,2 +469,3 @@
+-    CompactFailure=FString::Printf(TEXT("地下终点短连接未完成；前段=%d，按中路出口定位终点=%d，最多连接支路=%d；保留原场景"),Prefixes,Terminals,MostBranches);return false;
+-}
++    CompactFailure=FString::Printf(TEXT("地下终点短连接未完成；前段=%d，按中路出口定位终点=%d，最多连接支路=%d；%s保留原场景"),
++        Prefixes,Terminals,MostBranches,FinalReject.IsEmpty()?TEXT(""):*(FinalReject+TEXT("；")));return false;
++}
+diff --git a/Source/FPSGAME/Dungeons/AuthoredDungeonDressing.inl b/Source/FPSGAME/Dungeons/AuthoredDungeonDressing.inl
+--- a/Source/FPSGAME/Dungeons/AuthoredDungeonDressing.inl
++++ b/Source/FPSGAME/Dungeons/AuthoredDungeonDressing.inl
+@@ -148,16 +148,8 @@
+-    const TSharedPtr<FJsonObject>* Parameters=nullptr;
+-    if(Module->TryGetObjectField(TEXT("dressing_parameters"),Parameters))
+-    {
+-        double Rear=0,Bridge=0,Core=0;
+-        (*Parameters)->TryGetNumberField(TEXT("rear_delta_cm"),Rear);
+-        (*Parameters)->TryGetNumberField(TEXT("bridge_delta_cm"),Bridge);
+-        (*Parameters)->TryGetNumberField(TEXT("core_offset_cm"),Core);
+-        if(Family==TEXT("Drainage"))
+-        {
+-            for(auto& S:P.Floor)if(S.Position.Y<-1630)S.Position.Y-=Rear;
+-            for(auto& S:P.Web)if(S.Position.Y<-1630)S.Position.Y-=Rear;
+-            if(P.KeepClear.IsValidIndex(1))P.KeepClear[1]=P.KeepClear[1].ShiftBy(FVector(0,-Bridge,0));
+-        }
+-        else if(Family==TEXT("VentilationLoop")&&!P.KeepClear.IsEmpty())
+-            P.KeepClear[0]=P.KeepClear[0].ShiftBy(FVector(Core,0,0));
+-    }
++    const TArray<TSharedPtr<FJsonValue>>* SceneClear=nullptr;
++    if(Module->TryGetArrayField(TEXT("scene_keep_clear"),SceneClear))
++        for(const auto& Value:*SceneClear)
++            P.KeepClear.Add(FBox(Vector(Value->AsObject(),TEXT("min")),Vector(Value->AsObject(),TEXT("max"))));
++    double Limit=0;
++    if(Module->TryGetNumberField(TEXT("scene_max_floor_props"),Limit))P.MaxFloorProps=FMath::Clamp(int32(Limit),0,P.MaxFloorProps);
++    if(Module->TryGetNumberField(TEXT("scene_max_clusters"),Limit))P.MaxClusters=FMath::Clamp(int32(Limit),0,P.MaxClusters);
++    P.MinClusters=FMath::Min(P.MinClusters,P.MaxClusters);
+diff --git a/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp b/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
+--- a/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
++++ b/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
+@@ -1,0 +2 @@
++#include "Templates/Atomic.h"
+@@ -28,0 +30 @@
++#include "CollisionQueryParams.h"
+@@ -38,0 +41,5 @@
++#include "WardRoomAssembly.h"
++#include "DungeonWallArt.h"
++#include "DungeonRunSubsystem.h"
++#include "DungeonSpawnDirector.h"
++#include "AuthoredDungeonRoomScenes.h"
+@@ -68,3 +75,3 @@
+-struct FSideSocket { FPort Port; JObject Data; };
+-struct FModule { FString Id,Family; FBox Bounds; TArray<FPort> Ports; JObject Data; TArray<FBox> Cells; TArray<FSideSocket> SideSockets; };
+-struct FPlaced { int32 Module; FTransform Transform; FBox Bounds; FString Route; TArray<FBox> Cells; int32 Side=-1; };
++struct FSideSocket { FPort Port; JObject Data; int32 SourcePort=INDEX_NONE; };
++struct FModule { FString Id,Family; FBox Bounds; TArray<FPort> Ports; JObject Data; TArray<FBox> Cells; TArray<FSideSocket> SideSockets; TArray<FIntPoint> PortPairs; FString SelectionRoute; int32 MaxPerRun=MAX_int32; bool bRunEligible=true; };
++struct FPlaced { int32 Module; FTransform Transform; FBox Bounds; FString Route; TArray<FBox> Cells; int32 Side=-1; int32 LinkTurns=-1; double LinkLength=0; TArray<int32> ActivePorts; FString MissionId,EncounterRole; int32 ThreatBonus=0; double RewardMultiplier=1.; int32 MissionDepth=INDEX_NONE; };
+@@ -84,0 +92,11 @@
++    uint32 ConnectionSeed=0;
++    double PlanningDeadline=DBL_MAX;
++    bool bSearchExpired=false;
++    TAtomic<bool>* CancelRequested=nullptr;
++    bool CanSearch()
++    {
++        if(CancelRequested&&CancelRequested->Load())return false;
++        if(bSearchExpired)return false;
++        if(FPlatformTime::Seconds()>PlanningDeadline){bSearchExpired=true;return false;}
++        return true;
++    }
+@@ -114 +132,19 @@
+-    int32 PortCount(int32 Owner)const{return Modules[Pieces[Owner].Module].Ports.Num()+(Pieces[Owner].Side>=0?1:0);}
++    int32 OptionalPort(int32 Owner,int32 Side)const
++    {
++        const auto& M=Modules[Pieces[Owner].Module];
++        return M.SideSockets[Side].SourcePort>=0?M.SideSockets[Side].SourcePort:M.Ports.Num();
++    }
++    TArray<int32> OpenPorts(int32 Owner)const
++    {
++        const auto& P=Pieces[Owner];TArray<int32> Result=P.ActivePorts;
++        if(Result.IsEmpty())for(int32 I=0;I<Modules[P.Module].Ports.Num();++I)Result.Add(I);
++        if(P.Side>=0)Result.AddUnique(OptionalPort(Owner,P.Side));return Result;
++    }
++    bool SideAvailable(int32 Owner,int32 Side)const
++    {return Pieces[Owner].Side<0&&!OpenPorts(Owner).Contains(OptionalPort(Owner,Side));}
++    int32 PairedExit(int32 Module,int32 Entry)const
++    {
++        for(const FIntPoint& Pair:Modules[Module].PortPairs)
++        {if(Pair.X==Entry)return Pair.Y;if(Pair.Y==Entry)return Pair.X;}
++        return INDEX_NONE;
++    }
+@@ -117 +153,2 @@
+-               FVector SectorOrigin=FVector::ZeroVector,FVector SectorDir=FVector::ZeroVector,int32 SecondOwner=-2)
++               FVector SectorOrigin=FVector::ZeroVector,FVector SectorDir=FVector::ZeroVector,int32 SecondOwner=-2,
++               const TArray<int32>& ActivePorts={})
+@@ -119,0 +157 @@
++        if(Combat.Contains(Module)&&!RoomAllowed(Module,Route))return false;
+@@ -131 +169 @@
+-                    if(!JoinedWallSeam(Module,T,I,Cell.Overlap(Other)))return false;
++                    if(!JoinedWallSeam(Module,T,I,Cell.Overlap(Other),ActivePorts))return false;
+@@ -143 +181 @@
+-        Pieces.Add({Module,T,B,Route,Cells});return true;
++        const int32 Added=Pieces.Add({Module,T,B,Route,Cells});Pieces[Added].ActivePorts=ActivePorts;return true;
+@@ -160 +198 @@
+-        if(SearchBudget<=0)return false;
++        if(SearchBudget<=0||!CanSearch())return false;
+@@ -163 +201,2 @@
+-        const auto Links=RoomLinks(Initial);
++        auto Links=RoomLinks(Initial);
++        RankRoomLinks(Links,Initial,Route);
+@@ -167,2 +206,2 @@
+-            if(--SearchBudget<0)return false;
+-            if(!AttachRoom(Choice.Key,Choice.Value,Initial,Link,Route,S,SectorOrigin,SectorDir))continue;
++            if(--SearchBudget<0||!CanSearch()){Pieces.SetNum(Before);S=Initial;return false;}
++            if(!AttachRoom(Choice.Key,Choice.Value,Initial,Link,Route,S,SectorOrigin,SectorDir,Choice.Exit))continue;
+@@ -173,0 +213,7 @@
++    TAtomic<int32>* SearchProgress=nullptr;
++    TAtomic<int32>* SearchProgressLimit=nullptr;
++    void NoteSearch(int32 Attempt,int32 Limit)
++    {
++        if(SearchProgress)SearchProgress->Store(Attempt);
++        if(SearchProgressLimit)SearchProgressLimit->Store(Limit);
++    }
+@@ -175,7 +221,11 @@
+-    bool Build(int32 Seed,const FSocket& Start)
+-    {
+-        if(bBossTerminal&&bCompactBoss)return BuildCompact(Seed,Start);
+-        for(int32 Attempt=0;Attempt<80;++Attempt)
+-        {
+-            Pieces.Reset();Counts.Reset();Random.Initialize(Seed+Attempt*7919);SearchBudget=2500;
+-            FSocket S=Start;const int32 MainCount=Random.RandRange(MinRooms,MaxRooms);Counts.Add(MainCount);
++    #include "AuthoredDungeonTopology.inl"
++    #include "AuthoredDungeonMission.inl"
++    bool BuildOpen(int32 Seed,const FSocket& Start,double Deadline)
++    {
++        constexpr int32 OpenTries=48;
++        for(int32 Attempt=0;Attempt<OpenTries;++Attempt)
++        {
++            if(FPlatformTime::Seconds()>Deadline||!CanSearch())break;
++            NoteSearch(Attempt+1,OpenTries);
++            Pieces.Reset();Counts.Reset();Random.Initialize(int32(uint32(Seed)+uint32(Attempt)*7919u));SearchBudget=2500;CompactBudget=20000;
++            FSocket S=Start;const int32 MainCount=TopologyCounts[0];Counts.Add(MainCount);
+@@ -199 +249 @@
+-                const FString Route=FString::Printf(TEXT("Route%d"),I+1);const int32 Count=Random.RandRange(MinRooms,MaxRooms);Counts.Add(Count);
++                const FString Route=FString::Printf(TEXT("Route%d"),I+1);const int32 Count=TopologyCounts[I+1];Counts.Add(Count);
+@@ -209,0 +260,10 @@
++    bool Build(int32 Seed,const FSocket& Start)
++    {
++        if(bBossTerminal&&bCompactBoss)
++        {
++            // A failed underground plan must never become the old same-floor,
++            // 220 m terminal while still reporting an underground manifest.
++            return BuildCompact(Seed,Start,PlanningDeadline);
++        }
++        return BuildOpen(Seed,Start,PlanningDeadline);
++    }
+@@ -218,2 +278,4 @@
+-            if(!Combat.Contains(ParentModule)||Modules[ParentModule].SideSockets.IsEmpty()||SideRandom.FRand()>=TreasureChance)continue;
+-            TArray<int32> Choices;for(int32 I=0;I<Modules[ParentModule].SideSockets.Num();++I)Choices.Add(I);
++            if(!Combat.Contains(ParentModule)||Modules[ParentModule].SideSockets.IsEmpty())continue;
++            const bool bTryTreasure=SideRandom.FRand()<TreasureChance;
++            if(Pieces[Owner].Side>=0||!bTryTreasure)continue;
++            TArray<int32> Choices;for(int32 I=0;I<Modules[ParentModule].SideSockets.Num();++I)if(SideAvailable(Owner,I))Choices.Add(I);
+@@ -231,0 +294 @@
++                if(!MeasureMissionBudget()){Pieces.SetNum(Before);Pieces[Owner].Side=-1;continue;}
+@@ -271,0 +335,3 @@
++    TAtomic<int32> SearchAttempt{0};
++    TAtomic<int32> SearchAttemptLimit{1};
++    TAtomic<bool> CancelRequested{false};
+@@ -358,0 +425 @@
++    Plan.bLayoutProbe=IsRunningCommandlet()&&FParse::Param(FCommandLine::Get(),TEXT("DungeonLayoutProbe"));
+@@ -368,0 +436,10 @@
++        const JObject* Selection=nullptr;
++        if(D->TryGetObjectField(TEXT("selection"),Selection))
++        {
++            double Chance=1.;(*Selection)->TryGetNumberField(TEXT("chance_per_run"),Chance);
++            (*Selection)->TryGetNumberField(TEXT("max_per_run"),M.MaxPerRun);
++            (*Selection)->TryGetStringField(TEXT("route"),M.SelectionRoute);
++            // One draw per seed/module, outside backtracking and decoration streams.
++            FRandomStream Eligibility(int32(HashCombineFast(uint32(Seed)^0x53504543u,GetTypeHash(M.Id))));
++            M.bRunEligible=Eligibility.FRand()<FMath::Clamp(Chance,0.,1.);
++        }
+@@ -373 +450,5 @@
+-        {JObject S=V->AsObject();M.SideSockets.Add({ReadPort(S),S});}
++        {JObject S=V->AsObject();int32 Port=INDEX_NONE;S->TryGetNumberField(TEXT("port_index"),Port);M.SideSockets.Add({ReadPort(S),S,Port});}
++        const TArray<TSharedPtr<FJsonValue>>* Pairs=nullptr;
++        if(D->TryGetArrayField(TEXT("port_pairs"),Pairs))for(const auto& V:*Pairs)
++        {const auto& Pair=V->AsArray();if(Pair.Num()==2)M.PortPairs.Add(FIntPoint(int32(Pair[0]->AsNumber()),int32(Pair[1]->AsNumber())));}
++        else if(M.Ports.Num()==2)M.PortPairs.Add(FIntPoint(0,1));
+@@ -407,2 +488,11 @@
+-        if(Room.Ports.Num()!=2||RoomRole==TEXT("boss_terminal")||RoomRole==TEXT("terminal_confluence"))
+-        {State->Error=TEXT("普通房池必须使用双门战斗房：")+Room.Id;State->bPlanning=false;PumpAssembly(true);return;}
++        if(Room.PortPairs.IsEmpty()||RoomRole==TEXT("boss_terminal")||RoomRole==TEXT("terminal_confluence"))
++        {State->Error=TEXT("普通房池缺少合法门位配对：")+Room.Id;State->bPlanning=false;PumpAssembly(true);return;}
++        for(const auto& Pair:Room.PortPairs)if(Pair.X==Pair.Y||!Room.Ports.IsValidIndex(Pair.X)||!Room.Ports.IsValidIndex(Pair.Y))
++        {State->Error=TEXT("房间门位配对越界：")+Room.Id;State->bPlanning=false;PumpAssembly(true);return;}
++        if(Room.Ports.Num()>2)for(int32 Port=0;Port<Room.Ports.Num();++Port)
++        {
++            const TArray<TSharedPtr<FJsonValue>>* Closures=nullptr;bool HasClosure=false;
++            if(Room.Data->TryGetArrayField(TEXT("closed_port_parts"),Closures))for(const auto& V:*Closures)
++                if(int32(V->AsObject()->GetNumberField(TEXT("port_index")))==Port&&!V->AsObject()->GetArrayField(TEXT("parts")).IsEmpty())HasClosure=true;
++            if(!HasClosure){State->Error=TEXT("多门房缺少实体封门构件：")+Room.Id;State->bPlanning=false;PumpAssembly(true);return;}
++        }
+@@ -412,0 +503,3 @@
++    Plan.SearchProgress=&State->SearchAttempt;
++    Plan.SearchProgressLimit=&State->SearchAttemptLimit;
++    Plan.CancelRequested=&State->CancelRequested;
+@@ -416,0 +510,3 @@
++        State->Plan.PlanningDeadline=Begin+12.;
++        State->Plan.ConfigureTopology(State->Seed);
++        State->Plan.ConfigureMission(State->Seed,State->Catalog);
+@@ -418,8 +513,0 @@
+-        if(!State->bPlanSucceeded)
+-        {
+-            const auto Pool=State->Plan.Combat;
+-            State->Plan.Combat.RemoveAll([&](int32 M){return State->Plan.Modules[M].Id!=State->Plan.Modules[M].Family;});
+-            if(!State->Plan.Combat.IsEmpty()&&State->Plan.Combat.Num()<Pool.Num())
+-                State->bPlanSucceeded=State->Plan.Build(State->Seed,Start);
+-            State->Plan.Combat=Pool;
+-        }
+@@ -427,0 +516 @@
++            if(!State->Plan.bMissionEnabled)State->Plan.AddRouteLoops(Start);
+@@ -428,0 +518 @@
++            State->Plan.BindRewardMissions(Start);
+@@ -449 +539,93 @@
+-    else {PlanWork();State->bPlanning=false;PrepareAssembly();PumpAssembly(true);}
++    else
++    {
++        PlanWork();State->bPlanning=false;
++#if WITH_EDITOR
++        // Explicit commandlet-only repro: exercise the production planner and
++        // catalog without spawning geometry, touching saves, or trusting headless physics.
++        if(IsRunningCommandlet()&&FParse::Param(FCommandLine::Get(),TEXT("DungeonLayoutProbe")))
++        {
++            auto Report=MakeShared<FJsonObject>();
++            Report->SetNumberField(TEXT("seed"),Seed);
++            Report->SetBoolField(TEXT("success"),State->bPlanSucceeded);
++            Report->SetStringField(TEXT("failure"),Plan.CompactFailure);
++            Report->SetNumberField(TEXT("plan_ms"),State->PlanMs);
++            Report->SetBoolField(TEXT("expired"),Plan.bSearchExpired);
++            Report->SetNumberField(TEXT("grammar_requested"),Plan.RequestedGrammar);
++            Report->SetNumberField(TEXT("grammar"),Plan.ActualGrammar);
++            Report->SetNumberField(TEXT("split_after"),Plan.SplitAfter);
++            Report->SetNumberField(TEXT("attempt"),State->SearchAttempt.Load());
++            Report->SetNumberField(TEXT("corridor_cm"),Plan.CorridorTotal);
++            Report->SetNumberField(TEXT("corridor_budget_cm"),Plan.CorridorBudget);
++            Report->SetNumberField(TEXT("route_estimate_cm"),Plan.LongestRouteEstimate);
++            Report->SetNumberField(TEXT("route_budget_cm"),Plan.RouteBudget);
++            auto JsonVector=[](FVector V){return TArray<TSharedPtr<FJsonValue>>{MakeShared<FJsonValueNumber>(V.X),MakeShared<FJsonValueNumber>(V.Y),MakeShared<FJsonValueNumber>(V.Z)};};
++            auto JsonSocket=[&](const AuthoredDungeon::FSocket& S)
++            {
++                auto Value=MakeShared<FJsonObject>();Value->SetArrayField(TEXT("position"),JsonVector(S.P));
++                Value->SetArrayField(TEXT("normal"),JsonVector(S.N));Value->SetNumberField(TEXT("width"),S.Width);Value->SetNumberField(TEXT("height"),S.Height);
++                return Value;
++            };
++            Report->SetObjectField(TEXT("start"),JsonSocket(Start));
++            TArray<TSharedPtr<FJsonValue>> Routes,MissionEdgesJson,Loops;
++            for(double Length:Plan.RouteEstimates)Routes.Add(MakeShared<FJsonValueNumber>(Length));
++            Report->SetArrayField(TEXT("route_estimates_cm"),Routes);
++            for(const auto& E:Plan.MissionEdges)
++            {
++                auto Edge=MakeShared<FJsonObject>();Edge->SetStringField(TEXT("from"),E.From);Edge->SetStringField(TEXT("to"),E.To);
++                Edge->SetBoolField(TEXT("optional"),E.bOptional);Edge->SetBoolField(TEXT("realized"),E.bRealized);MissionEdgesJson.Add(MakeShared<FJsonValueObject>(Edge));
++            }
++            Report->SetArrayField(TEXT("mission_edges"),MissionEdgesJson);
++            for(const auto& L:Plan.LoopConnections)
++            {
++                auto Loop=MakeShared<FJsonObject>();Loop->SetNumberField(TEXT("from"),L.From);Loop->SetNumberField(TEXT("to"),L.To);
++                Loop->SetNumberField(TEXT("length"),L.Length);Loops.Add(MakeShared<FJsonValueObject>(Loop));
++            }
++            Report->SetArrayField(TEXT("loops"),Loops);
++            TArray<TSharedPtr<FJsonValue>> CountsJson,PiecesJson;
++            for(int32 Count:Plan.Counts)CountsJson.Add(MakeShared<FJsonValueNumber>(Count));
++            Report->SetArrayField(TEXT("counts"),CountsJson);
++            for(int32 I=0;I<Plan.Pieces.Num();++I)
++            {
++                const auto& P=Plan.Pieces[I];
++                auto Item=MakeShared<FJsonObject>();Item->SetStringField(TEXT("module"),Plan.Modules[P.Module].Id);
++                Item->SetStringField(TEXT("route"),P.Route);Item->SetStringField(TEXT("transform"),P.Transform.ToString());
++                Item->SetStringField(TEXT("mission_id"),P.MissionId);Item->SetNumberField(TEXT("mission_depth"),P.MissionDepth);
++                Item->SetNumberField(TEXT("side"),P.Side);Item->SetNumberField(TEXT("link_cm"),P.LinkLength);Item->SetNumberField(TEXT("link_turns"),P.LinkTurns);
++                Item->SetBoolField(TEXT("combat"),Plan.Combat.Contains(P.Module));
++                Item->SetArrayField(TEXT("origin"),JsonVector(P.Transform.GetLocation()));
++                Item->SetNumberField(TEXT("yaw"),P.Transform.Rotator().Yaw);Item->SetArrayField(TEXT("scale"),JsonVector(P.Transform.GetScale3D()));
++                TArray<TSharedPtr<FJsonValue>> Ports,Cells,Active;
++                for(int32 Port:Plan.OpenPorts(I)){auto S=JsonSocket(Plan.Socket(I,Port));S->SetNumberField(TEXT("index"),Port);Ports.Add(MakeShared<FJsonValueObject>(S));}
++                for(int32 Port:P.ActivePorts)Active.Add(MakeShared<FJsonValueNumber>(Port));
++                for(const auto& C:P.Cells)
++                {
++                    auto Cell=MakeShared<FJsonObject>();Cell->SetArrayField(TEXT("min"),JsonVector(C.Min));Cell->SetArrayField(TEXT("max"),JsonVector(C.Max));
++                    Cells.Add(MakeShared<FJsonValueObject>(Cell));
++                }
++                Item->SetArrayField(TEXT("ports"),Ports);Item->SetArrayField(TEXT("active_ports"),Active);Item->SetArrayField(TEXT("cells"),Cells);
++                PiecesJson.Add(MakeShared<FJsonValueObject>(Item));
++            }
++            Report->SetArrayField(TEXT("pieces"),PiecesJson);
++            TArray<TSharedPtr<FJsonValue>> ProbeJson;
++            for(const auto& P:Plan.ProbePieces)
++            {
++                auto Item=MakeShared<FJsonObject>();Item->SetStringField(TEXT("module"),Plan.Modules[P.Module].Id);
++                Item->SetStringField(TEXT("route"),P.Route);
++                TArray<TSharedPtr<FJsonValue>> Cells;
++                for(const auto& C:P.Cells)
++                {
++                    auto Cell=MakeShared<FJsonObject>();Cell->SetStringField(TEXT("min"),C.Min.ToString());Cell->SetStringField(TEXT("max"),C.Max.ToString());
++                    Cells.Add(MakeShared<FJsonValueObject>(Cell));
++                }
++                Item->SetArrayField(TEXT("cells"),Cells);ProbeJson.Add(MakeShared<FJsonValueObject>(Item));
++            }
++            Report->SetArrayField(TEXT("probe_pieces"),ProbeJson);
++            Report->SetStringField(TEXT("probe_lead"),Plan.ProbeLead.P.ToString());Report->SetStringField(TEXT("probe_top"),Plan.ProbeTop.P.ToString());
++            Report->SetStringField(TEXT("probe_route"),Plan.ProbeRoute);
++            FJsonSerializer::Serialize(Report,TJsonWriterFactory<>::Create(&LastGenerationMetricsJson));
++            LayoutDescription=LastGenerationMetricsJson; // Reflected, in-memory commandlet result; never saved.
++            BuildState.Reset();return;
++        }
++#endif
++        PrepareAssembly();PumpAssembly(true);
++    }
+@@ -483 +665,11 @@
+-    ConnectLights(Plan.Pieces.Num(),0,Vec(Catalog,TEXT("start_position")));
++    const AuthoredDungeon::FSocket EntrySocket{Vec(Catalog,TEXT("start_position")),Vec(Catalog,TEXT("start_normal")),-1};
++    const int32 EntryNode=Plan.EntryPiece(EntrySocket);
++    if(EntryNode==INDEX_NONE){State->Error=TEXT("地牢入口没有匹配的实体接口");return;}
++    ConnectLights(Plan.Pieces.Num(),EntryNode,EntrySocket.P);
++    const auto ProgressionDepths=Plan.PieceDepths(EntryNode,Plan.PieceGraph(false));
++    // Choose bounded visual recipes only after the socket plan is complete. The route RNG
++    // and shared module data remain untouched; manifest and assembly use the same choices.
++    TArray<JObject> SceneModules;
++    TMap<FString,FString> PreviousSceneRecipes,PreviousSceneStates;
++    for(int32 I=0;I<Plan.Pieces.Num();++I)
++        SceneModules.Add(DungeonRoomScenes::Compose(Plan.Modules[Plan.Pieces[I].Module].Data,Seed,I,PreviousSceneRecipes,PreviousSceneStates));
+@@ -485,2 +677,34 @@
+-    Graph->SetNumberField(TEXT("generator_version"),Plan.bCompactBoss?2:1);
+-    Graph->SetNumberField(TEXT("room_connection_version"),3);
++    Graph->SetNumberField(TEXT("generator_version"),5);
++    Graph->SetNumberField(TEXT("room_scene_version"),1);
++    Graph->SetNumberField(TEXT("room_connection_version"),4);
++    Graph->SetNumberField(TEXT("entry_node"),EntryNode);
++    Graph->SetStringField(TEXT("topology_recipe"),Plan.TopologyRecipe);
++    Graph->SetNumberField(TEXT("loop_goal"),Plan.LoopGoal);
++    Graph->SetNumberField(TEXT("loop_count"),Plan.LoopConnections.Num());
++    Graph->SetNumberField(TEXT("mission_grammar_requested"),Plan.RequestedGrammar);
++    Graph->SetNumberField(TEXT("mission_grammar_realized"),Plan.ActualGrammar);
++    Graph->SetNumberField(TEXT("corridor_total_cm"),Plan.CorridorTotal);
++    Graph->SetNumberField(TEXT("corridor_budget_cm"),Plan.CorridorBudget);
++    Graph->SetNumberField(TEXT("route_span_estimate_cm"),Plan.LongestRouteEstimate);
++    Graph->SetNumberField(TEXT("route_span_budget_cm"),Plan.RouteBudget);
++    TArray<TSharedPtr<FJsonValue>> MissionEdges;
++    for(const auto& Edge:Plan.MissionEdges)
++    {
++        JObject E=MakeShared<FJsonObject>();E->SetStringField(TEXT("from"),Edge.From);E->SetStringField(TEXT("to"),Edge.To);
++        E->SetStringField(TEXT("purpose"),Edge.Purpose);E->SetBoolField(TEXT("optional"),Edge.bOptional);E->SetBoolField(TEXT("realized"),Edge.bRealized);
++        MissionEdges.Add(MakeShared<FJsonValueObject>(E));
++    }
++    Graph->SetArrayField(TEXT("mission_edges"),MissionEdges);
++    TArray<TSharedPtr<FJsonValue>> MissionNodes;TSet<FString> MissionIds;
++    for(const auto& E:Plan.MissionEdges){MissionIds.Add(E.From);MissionIds.Add(E.To);}
++    TArray<FString> OrderedMissionIds=MissionIds.Array();OrderedMissionIds.Sort();
++    for(const FString& Id:OrderedMissionIds)
++    {
++        JObject Node=MakeShared<FJsonObject>();Node->SetStringField(TEXT("id"),Id);int32 PieceIndex=INDEX_NONE;
++        for(int32 I=0;I<Plan.Pieces.Num();++I)if(Plan.Pieces[I].MissionId==Id){PieceIndex=I;break;}
++        if(Id==TEXT("reward.final"))for(int32 I=0;I<Plan.Pieces.Num();++I)if(Plan.Pieces[I].Module==Plan.BossRoom){PieceIndex=I;break;}
++        Node->SetNumberField(TEXT("piece"),PieceIndex);
++        Node->SetStringField(TEXT("binding"),Id==TEXT("entry")?TEXT("start_room"):Id==TEXT("reward.final")?TEXT("boss_authored_reward_room"):TEXT("module"));
++        MissionNodes.Add(MakeShared<FJsonValueObject>(Node));
++    }
++    Graph->SetArrayField(TEXT("mission_nodes"),MissionNodes);
+@@ -498,0 +723,9 @@
++        N->SetArrayField(TEXT("scale"),JsonVector(P.Transform.GetScale3D()));
++        N->SetStringField(TEXT("mission_id"),P.MissionId);N->SetStringField(TEXT("encounter_role"),P.EncounterRole);
++        N->SetNumberField(TEXT("threat_bonus"),P.ThreatBonus);N->SetNumberField(TEXT("reward_multiplier"),P.RewardMultiplier);
++        FString Recipe;Plan.Modules[P.Module].Data->TryGetStringField(TEXT("interior_recipe_id"),Recipe);N->SetStringField(TEXT("interior_recipe_id"),Recipe);
++        FString SceneRecipe,SceneState;
++        SceneModules[I]->TryGetStringField(TEXT("scene_recipe_id"),SceneRecipe);
++        SceneModules[I]->TryGetStringField(TEXT("scene_state_id"),SceneState);
++        N->SetStringField(TEXT("scene_recipe_id"),SceneRecipe);N->SetStringField(TEXT("scene_state_id"),SceneState);
++        TArray<TSharedPtr<FJsonValue>> Open;for(int32 Port:Plan.OpenPorts(I))Open.Add(MakeShared<FJsonValueNumber>(Port));N->SetArrayField(TEXT("open_ports"),Open);
+@@ -500,0 +734,19 @@
++        N->SetNumberField(TEXT("progression_depth"),P.MissionDepth>=0?P.MissionDepth:ProgressionDepths[I]==MAX_int32?0:ProgressionDepths[I]);
++        TArray<TSharedPtr<FJsonValue>> CellValues;
++        for(const FBox& Cell:P.Cells)
++        {
++            JObject C=MakeShared<FJsonObject>();C->SetArrayField(TEXT("min"),JsonVector(Cell.Min));C->SetArrayField(TEXT("max"),JsonVector(Cell.Max));
++            CellValues.Add(MakeShared<FJsonValueObject>(C));
++        }
++        N->SetArrayField(TEXT("cells"),CellValues);
++        TArray<TSharedPtr<FJsonValue>> WalkCells;const TArray<TSharedPtr<FJsonValue>>* Mask=nullptr;
++        if(Plan.Modules[P.Module].Data->TryGetArrayField(TEXT("walk_mask"),Mask))for(const auto& V:*Mask)
++        {
++            const auto Box=V->AsObject();FBox LocalBox(Vec(Box,TEXT("min")),Vec(Box,TEXT("max")));
++            LocalBox.Max.Z=Plan.Modules[P.Module].Bounds.Max.Z;
++            const FBox WorldBox=LocalBox.TransformBy(P.Transform);JObject Cell=MakeShared<FJsonObject>();
++            Cell->SetArrayField(TEXT("min"),JsonVector(WorldBox.Min));Cell->SetArrayField(TEXT("max"),JsonVector(WorldBox.Max));
++            WalkCells.Add(MakeShared<FJsonValueObject>(Cell));
++        }
++        N->SetArrayField(TEXT("walk_cells"),WalkCells);
++        if(P.LinkTurns>=0){N->SetNumberField(TEXT("entry_link_turns"),P.LinkTurns);N->SetNumberField(TEXT("entry_link_cm"),P.LinkLength);}
+@@ -502 +754 @@
+-        for(int32 J=0;J<I;++J)for(int32 A=0;A<Plan.PortCount(I);++A)for(int32 B=0;B<Plan.PortCount(J);++B)
++        for(int32 J=0;J<I;++J)for(int32 A:Plan.OpenPorts(I))for(int32 B:Plan.OpenPorts(J))
+@@ -507,0 +760,4 @@
++                E->SetArrayField(TEXT("position"),JsonVector(SA.P));
++                E->SetArrayField(TEXT("from_normal"),JsonVector(SB.N));E->SetArrayField(TEXT("to_normal"),JsonVector(SA.N));
++                E->SetNumberField(TEXT("width"),SA.Width);E->SetNumberField(TEXT("height"),SA.Height);
++                E->SetStringField(TEXT("kind"),P.Route.StartsWith(TEXT("Loop."))||Plan.Pieces[J].Route.StartsWith(TEXT("Loop."))?TEXT("loop"):TEXT("main"));
+@@ -523,0 +780,6 @@
++    // The fixed shrine uses a separate gameplay stream after the layout commits.
++    // Preload its pool in the normal budgeted resource stage, never on interaction.
++    const TSharedPtr<FJsonObject>* Shrine=nullptr;
++    const TArray<TSharedPtr<FJsonValue>>* Statues=nullptr;
++    if(Catalog->TryGetObjectField(TEXT("start_shrine"),Shrine)&&(*Shrine)->TryGetArrayField(TEXT("statues"),Statues))
++        for(const auto& Statue:*Statues)QueueAsset(Statue->AsObject()->GetStringField(TEXT("mesh")));
+@@ -536 +798 @@
+-        const FPlaced& Piece=Plan.Pieces[Index];const JObject D=Plan.Modules[Piece.Module].Data;
++        const FPlaced& Piece=Plan.Pieces[Index];const JObject D=SceneModules[Index];
+@@ -544,0 +807,3 @@
++        const TArray<TSharedPtr<FJsonValue>>* Closures=nullptr;
++        if(D->TryGetArrayField(TEXT("closed_port_parts"),Closures))for(const auto& V:*Closures)
++        {const auto C=V->AsObject();if(!Plan.OpenPorts(Index).Contains(int32(C->GetNumberField(TEXT("port_index")))))Parts.Append(C->GetArrayField(TEXT("parts")));}
+@@ -545,0 +811 @@
++        Parts.Append(DungeonWallArt::Build(D,Seed,Index));
+@@ -570 +836 @@
+-            State->Jobs.Add({Stage,[this,State,Part,Piece,Index,Params,bOptimizeLights,Key,Dressing,bDressRooms]()
++            State->Jobs.Add({Stage,[this,State,Part,Piece,Index,Params,bOptimizeLights,Key,Dressing,bDressRooms,D]()
+@@ -579 +845 @@
+-                if(!State->DressingScene.Place(Mesh,Part,State->Plan.Modules[Piece.Module].Data,Piece.Transform,Index,T,Reason))
++                if(!State->DressingScene.Place(Mesh,Part,D,Piece.Transform,Index,T,Reason))
+@@ -587 +853 @@
+-            const bool bInstance=!Dressing&&!Fluid&&!Hazard&&DungeonInstancing.GetValueOnGameThread()!=0&&Mesh->HasValidNaniteData()
++            const bool bInstance=!Dressing&&!Fluid&&!Hazard&&!Part->HasField(TEXT("ward_frame"))&&!Part->HasField(TEXT("blood_receiver"))&&DungeonInstancing.GetValueOnGameThread()!=0&&Mesh->HasValidNaniteData()
+@@ -620,0 +887,7 @@
++            FString WardFrame;
++            if(Part->TryGetStringField(TEXT("ward_frame"),WardFrame))
++                A->Tags.Add(FName(*FString::Printf(TEXT("WardFrame.%d.%s"),Index,*WardFrame)));
++            if(Part->HasField(TEXT("blood_receiver")))
++                A->Tags.Add(FName(*FString::Printf(TEXT("WardBlood.%d"),Index)));
++            if(Part->HasField(TEXT("wall_art")))
++            {A->Tags.Add(TEXT("DungeonWallArt"));C->SetReceivesDecals(false);}
+@@ -639,0 +913 @@
++            if(Part->HasField(TEXT("wall_art")))CastShadow=false;
+@@ -655,0 +930,31 @@
++        const TArray<TSharedPtr<FJsonValue>>* WardAssets=nullptr;
++        if(D->TryGetArrayField(TEXT("runtime_assets"),WardAssets))
++            for(const auto& V:*WardAssets)QueueAsset(V->AsString());
++        const TArray<TSharedPtr<FJsonValue>>* WardActors=nullptr;
++        if(D->TryGetArrayField(TEXT("runtime_actors"),WardActors))for(int32 WI=0;WI<WardActors->Num();++WI)
++        {
++            const JObject Spec=(*WardActors)[WI]->AsObject();
++            auto Spawned=MakeShared<TWeakObjectPtr<AActor>>();
++            State->Jobs.Add({TEXT("Dungeon.WardActors"),[this,State,Spec,Piece,Index,Spawned]()
++            {
++                AActor* Frame=nullptr;FString FrameId;
++                if(Spec->TryGetStringField(TEXT("frame_id"),FrameId))
++                {
++                    const FName Tag(*FString::Printf(TEXT("WardFrame.%d.%s"),Index,*FrameId));
++                    for(const auto& Candidate:GeneratedActors)if(IsValid(Candidate)&&Candidate->ActorHasTag(Tag)){Frame=Candidate;break;}
++                    if(!Frame){State->Error=TEXT("病区玻璃门缺少共用门框");return;}
++                }
++                AActor* Actor=WardRoomAssembly::Spawn(GetWorld(),this,Spec,Piece.Transform,Frame,
++                    FName(*FString::Printf(TEXT("WardBlood.%d"),Index)),
++                    [this](const FString& Path){return ResolveGenerationAsset(Path);});
++                if(!Actor){State->Error=TEXT("病区交互组件创建失败");return;}
++                OwnGenerated(Actor,Index);*Spawned=Actor;
++            }});
++            const FString Type=Spec->GetStringField(TEXT("type"));
++            if(Type==TEXT("beds")||Type==TEXT("blood"))
++            {
++                const int32 ScatterSeed=int32(HashCombineFast(uint32(Seed)^0x57415244u,HashCombineFast(uint32(Index),uint32(WI))));
++                State->Jobs.Add({Type==TEXT("beds")?FName(TEXT("Dungeon.WardFurniture")):FName(TEXT("Dungeon.WardBlood")),
++                    [Spawned,ScatterSeed](){if(AActor* Actor=Spawned->Get())WardRoomAssembly::Populate(Actor,ScatterSeed);}});
++            }
++        }
+@@ -667,0 +973,5 @@
++            const FVector ChestLocal=Vec(Prop,TEXT("position"));
++            FString ChestRole=TEXT("chest");Prop->TryGetStringField(TEXT("role"),ChestRole);
++            const FString ChestRoom=Piece.MissionId.IsEmpty()?FString::Printf(TEXT("Node%d"),Index):Piece.MissionId;
++            A->Tags.Add(FName(*FString::Printf(TEXT("DungeonChestClaim.%s.%s.%d.%d.%d"),*ChestRoom,
++                *ChestRole,FMath::RoundToInt(ChestLocal.X),FMath::RoundToInt(ChestLocal.Y),FMath::RoundToInt(ChestLocal.Z))));
+@@ -740,0 +1051 @@
++            FString FunctionPath;if(L->TryGetStringField(TEXT("light_function"),FunctionPath))QueueAsset(FunctionPath);
+@@ -794,0 +1106,6 @@
++            FString FunctionPath;
++            if(L->TryGetStringField(TEXT("light_function"),FunctionPath))
++            {
++                C->SetLightFunctionMaterial(Cast<UMaterialInterface>(ResolveGenerationAsset(FunctionPath)));
++                C->LightFunctionFadeDistance=2700.f;C->DisabledBrightness=1.f;
++            }
+@@ -812 +1129,14 @@
+-    State->PendingDescription=FString::Printf(TEXT("Seed %d | approach %d rooms | branches %d / %d / %d rooms | %d modules | treasure %d"),Seed,Plan.Counts[0],Plan.Counts[1],Plan.Counts[2],Plan.Counts[3],Plan.Pieces.Num(),Plan.TreasureCount);
++    State->PendingDescription=FString::Printf(TEXT("Seed %d | V5 grammar %d | %s | approach %d rooms | branches %d / %d / %d rooms | loops %d/%d | %d modules | treasure %d"),Seed,Plan.ActualGrammar,*Plan.TopologyRecipe,Plan.Counts[0],Plan.Counts[1],Plan.Counts[2],Plan.Counts[3],Plan.LoopConnections.Num(),Plan.LoopGoal,Plan.Pieces.Num(),Plan.TreasureCount);
++    if(State->bRuntime)
++    {
++        // Keep the start corridor clear. Return travel belongs to the final reward exit.
++        // 刷怪导演：随布局装配一次（job 队列天然单次），Configure 只缓存指针；
++        // 武装（Activate）在导航构建完成的收尾批执行。编辑器预览路径零怪物。
++        State->Jobs.Add({TEXT("Dungeon.SpawnDirector"),[this,State]()
++        {
++            FActorSpawnParameters Spawn;Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
++            auto* Director=GetWorld()->SpawnActor<ADungeonSpawnDirector>(ADungeonSpawnDirector::StaticClass(),GetActorTransform(),Spawn);
++            if(!Director){State->Error=TEXT("地牢刷怪导演创建失败");return;}
++            OwnGenerated(Director,-1);Director->Configure(this);
++        }});
++    }
+@@ -829,0 +1160,2 @@
++            if(Stage==TEXT("Dungeon.WardFurniture"))return 7;
++            if(Stage==TEXT("Dungeon.WardBlood"))return 8;
+@@ -838,0 +1171,11 @@
++    Actor->SetActorHiddenInGame(true);Actor->SetActorEnableCollision(false);
++    GeneratedActors.Add(Actor);Actor->Tags.Add(TEXT("DungeonRouteGenerated"));
++    if(!BuildState->Plan.Pieces.IsValidIndex(ModuleIndex))
++    {
++        Actor->Tags.Add(TEXT("Start"));
++#if WITH_EDITOR
++        Actor->SetActorLabel(FString::Printf(TEXT("DGN_G_Start_%s"),*Actor->GetClass()->GetName()));
++        Actor->SetFolderPath(TEXT("DungeonRoutes/Start"));
++#endif
++        return;
++    }
+@@ -840,2 +1183,2 @@
+-    Actor->SetActorHiddenInGame(true);Actor->SetActorEnableCollision(false);
+-    GeneratedActors.Add(Actor);Actor->Tags.Add(TEXT("DungeonRouteGenerated"));Actor->Tags.Add(FName(*Piece.Route));
++    Actor->Tags.Add(FName(*Piece.Route));
++    if(!Piece.MissionId.IsEmpty())Actor->Tags.Add(FName(*(TEXT("DungeonMission.")+Piece.MissionId)));
+@@ -885 +1228,13 @@
+-    if(!BuildState->bPlanning)PumpAssembly(false);
++    if(BuildState->bPlanning)
++    {
++        if(auto* Loading=DungeonLoading(this))
++        {
++            const int32 Attempt=FMath::Max(0,BuildState->SearchAttempt.Load());
++            const int32 Limit=FMath::Max(1,BuildState->SearchAttemptLimit.Load());
++            Loading->UpdatePreparation(
++                FText::FromString(FString::Printf(TEXT("正在规划房间与通路（%d/%d）…"),Attempt,Limit)),
++                .02f+.08f*float(Attempt)/float(Limit));
++        }
++        return;
++    }
++    PumpAssembly(false);
+@@ -1050,0 +1406,3 @@
++    // 运行状态服务：绑定新布局（解析清单/目录、建图、重置档案运行态）。必须先于导演武装。
++    if(State->bRuntime)
++        if(auto* Runs=UDungeonRunSubsystem::Get(GetWorld()))Runs->BindCompletedDungeon(this);
+@@ -1061,0 +1420 @@
++    for(AActor* Actor:GeneratedActors)if(auto* Director=Cast<ADungeonSpawnDirector>(Actor))Director->Activate();
+@@ -1063 +1422,5 @@
+-    if(auto* Loading=DungeonLoading(this))Loading->CompletePreparation();
++    if(auto* Loading=DungeonLoading(this))
++    {
++        Loading->CompletePreparation();
++        Loading->ReleaseToGameplay();
++    }
+@@ -1075,0 +1439 @@
++    if(BuildState)BuildState->CancelRequested.Store(true);
+diff --git a/Source/FPSGAME/Dungeons/AuthoredDungeonMission.inl b/Source/FPSGAME/Dungeons/AuthoredDungeonMission.inl
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/AuthoredDungeonMission.inl
+@@ -0,0 +1,312 @@
++// Mission rules are selected before embedding. Optional edges have a finite
++// candidate set; failed embeddings remain explicitly unrealized in the manifest.
++bool bMissionEnabled=false;
++int32 ForkLeft=-1,ForkRight=-1,RequestedGrammar=0,ActualGrammar=0,SplitAfter=0;
++double CorridorBudget=0,RouteBudget=0,CorridorTotal=0,LongestRouteEstimate=0;
++TArray<double> RouteEstimates;
++struct FMissionEdge {FString From,To,Purpose;bool bOptional=false,bRealized=false;};
++TArray<FMissionEdge> MissionEdges;
++TMap<FString,int32> MissionRouteStarts;
++
++FString MissionRoom(const FString& Route,int32 Ordinal)const
++{return FString::Printf(TEXT("%s.%d"),*Route,Ordinal);}
++
++void ConfigureMission(int32 Seed,const JObject& Catalog)
++{
++    const JObject* Rules=nullptr;
++    bMissionEnabled=Catalog->TryGetObjectField(TEXT("mission_rules"),Rules)&&Rules->IsValid();
++    ForkLeft=Find(TEXT("ForkLeft"));ForkRight=Find(TEXT("ForkRight"));
++    if(!bMissionEnabled)return;
++    FRandomStream Stream(int32(HashCombineFast(uint32(Seed),0x4D495353u)));
++    RequestedGrammar=Stream.RandRange(0,2);
++    if(ForkLeft<0||ForkRight<0)RequestedGrammar=0;
++    SplitAfter=Stream.RandRange(1,FMath::Max(1,TopologyCounts[0]-1));
++    double PerRoom=900,Fixed=4000;
++    (*Rules)->TryGetNumberField(TEXT("corridor_cm_per_room"),PerRoom);
++    (*Rules)->TryGetNumberField(TEXT("fixed_corridor_cm"),Fixed);
++    RouteBudget=36000;(*Rules)->TryGetNumberField(TEXT("route_estimate_max_cm"),RouteBudget);
++    int32 RoomCount=0;for(int32 Count:TopologyCounts)RoomCount+=Count;
++    CorridorBudget=FMath::Max(0.,Fixed+PerRoom*RoomCount);
++}
++
++void MakeMissionGraph(int32 Grammar)
++{
++    ActualGrammar=Grammar;MissionEdges.Reset();
++    auto Add=[&](FString From,FString To,FString Purpose,bool Optional=false)
++    {MissionEdges.Add({From,To,Purpose,Optional,false});};
++    FString Previous=TEXT("entry");
++    for(int32 I=0;I<Counts[0];++I)
++    {
++        const FString Id=MissionRoom(TEXT("Approach"),I);Add(Previous,Id,TEXT("approach"));Previous=Id;
++        if(Grammar&&I+1==SplitAfter){Add(Previous,TEXT("fork.early"),TEXT("split"));Previous=TEXT("fork.early");}
++    }
++    Add(Previous,TEXT("fork.late"),TEXT("split"));
++    const int32 EarlyRoute=Grammar==1?2:3;
++    for(int32 R=1;R<=3;++R)
++    {
++        const FString Route=FString::Printf(TEXT("Route%d"),R);
++        Previous=Grammar&&R==EarlyRoute?TEXT("fork.early"):TEXT("fork.late");
++        for(int32 I=0;I<Counts[R];++I)
++        {const FString Id=MissionRoom(Route,I);Add(Previous,Id,R==1?TEXT("risk_shortcut"):TEXT("exploration"));Previous=Id;}
++        Add(Previous,TEXT("confluence"),TEXT("descent"));
++    }
++    Add(TEXT("confluence"),TEXT("boss"),TEXT("boss_approach"));
++    Add(TEXT("boss"),TEXT("reward.final"),TEXT("boss_locked_reward"));
++    // Only optional edges between ordinary branch rooms: neither entry nor the
++    // boss/reward gate can acquire a bypass through a return link.
++    for(int32 R=1;R<=3;++R)for(int32 I=0;I<Counts[R];++I)
++        for(int32 S=R;S<=3;++S)for(int32 J=0;J<Counts[S];++J)
++        {
++            if(R==S&&(J-I<2||J-I>4))continue;
++            if(R!=S&&FMath::Abs(I-J)>1)continue;
++            Add(MissionRoom(FString::Printf(TEXT("Route%d"),R),I),
++                MissionRoom(FString::Printf(TEXT("Route%d"),S),J),R==S?TEXT("return"):TEXT("cross_route"),true);
++        }
++}
++
++bool BuildMissionPrefix(const FSocket& Start,TArray<FSocket>& Leads,int32 Attempt)
++{
++    // Fixed fallback order is part of the recipe. Never retain a partially
++    // embedded graph or silently change the underground terminal contract.
++    const int32 Grammar=bMissionEnabled&&Attempt<8?RequestedGrammar:0;
++    if(bMissionEnabled)MakeMissionGraph(Grammar);else MissionEdges.Reset();
++    MissionRouteStarts.Reset();
++    FSocket S=Start,Early;int32 Hub=INDEX_NONE;
++    if(Grammar)
++    {
++        if(!Chain(SplitAfter,S,TEXT("Approach"))||!Corridor(1,S,TEXT("Approach")))return false;
++        const int32 First=Grammar==1?ForkLeft:ForkRight,Last=Grammar==1?ForkRight:ForkLeft;
++        if(!Place(First,Fit(First,0,S),TEXT("JunctionEarly"),-2,S.Owner))return false;
++        const int32 EarlyHub=Pieces.Num()-1;Pieces[EarlyHub].MissionId=TEXT("fork.early");
++        Early=Socket(EarlyHub,2);S=Socket(EarlyHub,1);const FVector Heading=S.N;
++        if(!Chain(Counts[0]-SplitAfter,S,TEXT("Approach"))||FVector::DotProduct(S.N,Heading)<.999||
++           !Corridor(1,S,TEXT("Approach")))return false;
++        if(!Place(Last,Fit(Last,0,S),TEXT("Junction"),-2,S.Owner))return false;
++        Hub=Pieces.Num()-1;
++        Leads={Socket(Hub,1),Grammar==1?Early:Socket(Hub,2),Grammar==1?Socket(Hub,2):Early};
++    }
++    else
++    {
++        if(!Chain(Counts[0],S,TEXT("Approach"))||!Corridor(1,S,TEXT("Approach")))return false;
++        if(!Place(Junction,Fit(Junction,0,S),TEXT("Junction"),-2,S.Owner))return false;
++        Hub=Pieces.Num()-1;Leads={Socket(Hub,1),Socket(Hub,2),Socket(Hub,3)};
++    }
++    Pieces[Hub].MissionId=TEXT("fork.late");
++    LaneCenter=Pieces[Hub].Bounds.GetCenter();LaneForward=Socket(Hub,1).N;LaneRight=FVector(-LaneForward.Y,LaneForward.X,0);
++    for(int32 I=0;I<Leads.Num();++I)
++    {
++        const FString Route=FString::Printf(TEXT("Route%d"),I+1);
++        const FVector Door=Leads[I].P;
++        // Reserve the authored 80 cm door collar on every compact branch.
++        // A forced 4 m side lead spends one third of the short-link allowance
++        // before the solver can turn, starving legitimate three-room routes.
++        if(!Corridor(1,Leads[I],Route,bCompactBoss?Threshold:Transit))return false;
++        // The reserved junction lead belongs to the same doorway-to-room link.
++        // Without carrying it into either direction's closure solve, a 4 m lead
++        // plus a nominally legal 12 m link silently becomes a 16 m corridor.
++        Leads[I].ReservedLead=(Leads[I].P-Door).Size();
++        MissionRouteStarts.Add(Route,Leads[I].Owner);
++    }
++    return true;
++}
++
++void BindMainMissions(const FSocket& Start)
++{
++    const auto Graph=PieceGraph(false);
++    for(const FString Route:{FString(TEXT("Approach")),FString(TEXT("Route1")),FString(TEXT("Route2")),FString(TEXT("Route3"))})
++    {
++        // Do not discover a long branch backwards through the shorter branch's
++        // confluence. Identity follows the authored entrance of each mission chain.
++        const int32 Root=Route==TEXT("Approach")?EntryPiece(Start):MissionRouteStarts.FindRef(Route);
++        TArray<int32> Depth;Depth.Init(MAX_int32,Pieces.Num());TArray<int32> Queue;
++        if(Pieces.IsValidIndex(Root)){Depth[Root]=0;Queue.Add(Root);}
++        for(int32 Head=0;Head<Queue.Num();++Head)for(int32 Next:Graph[Queue[Head]])
++            if((Pieces[Next].Route==Route||Pieces[Next].Route==Route+TEXT("_Closure")||
++                (Route==TEXT("Approach")&&Pieces[Next].MissionId==TEXT("fork.early")))&&Depth[Next]==MAX_int32)
++            {Depth[Next]=Depth[Queue[Head]]+1;Queue.Add(Next);}
++        TArray<int32> Rooms;
++        for(int32 I=0;I<Pieces.Num();++I)if(Pieces[I].Route==Route&&Combat.Contains(Pieces[I].Module))Rooms.Add(I);
++        Rooms.StableSort([&](int32 A,int32 B){return Depth[A]!=Depth[B]?Depth[A]<Depth[B]:A<B;});
++        for(int32 I=0;I<Rooms.Num();++I)
++        {
++            auto& P=Pieces[Rooms[I]];P.MissionId=MissionRoom(Route,I);
++            const bool EarlyBranch=ActualGrammar&&(Route==(ActualGrammar==1?TEXT("Route2"):TEXT("Route3")));
++            // Crossing the early fork advances the approach stage as well.
++            // Otherwise its following room shares the fork's depth and lags the
++            // branch stages by one despite being physically farther from entry.
++            P.MissionDepth=I+1+(Route==TEXT("Approach")?(ActualGrammar&&I>=SplitAfter?1:0):EarlyBranch?SplitAfter+1:Counts[0]+(ActualGrammar?2:1));
++            P.EncounterRole=Route==TEXT("Route1")?TEXT("risk"):Route==TEXT("Approach")?TEXT("approach"):TEXT("exploration");
++            P.ThreatBonus=Route==TEXT("Route1")?2:0;P.RewardMultiplier=Route==TEXT("Route1")?1.5:1.;
++            if(Route==TEXT("Route1")&&I==Rooms.Num()-1)P.EncounterRole=TEXT("risk_elite");
++            Modules[P.Module].Data->TryGetStringField(TEXT("encounter_role"),P.EncounterRole);
++        }
++    }
++    int32 MaxStage=0;for(const auto& P:Pieces)MaxStage=FMath::Max(MaxStage,P.MissionDepth);
++    for(auto& P:Pieces)
++    {
++        if(P.MissionId==TEXT("fork.early"))P.MissionDepth=SplitAfter+1;
++        if(P.MissionId==TEXT("fork.late"))P.MissionDepth=Counts[0]+(ActualGrammar?2:1);
++        if(P.Module==BossConfluence){P.MissionId=TEXT("confluence");P.MissionDepth=MaxStage+1;}
++        if(P.Module==BossRoom){P.MissionId=TEXT("boss");P.MissionDepth=MaxStage+2;}
++        if(P.Module==Treasure&&P.Route.StartsWith(TEXT("Boss")))P.MissionId=TEXT("reward.final");
++    }
++}
++
++bool MissionAllowsLoop(int32 A,int32 B)const
++{
++    if(!bMissionEnabled)return true;
++    for(const auto& E:MissionEdges)if(E.bOptional&&
++        ((E.From==Pieces[A].MissionId&&E.To==Pieces[B].MissionId)||(E.From==Pieces[B].MissionId&&E.To==Pieces[A].MissionId)))return true;
++    return false;
++}
++
++bool MeasureMissionBudget()
++{
++    CorridorTotal=0;LongestRouteEstimate=0;RouteEstimates.Reset();TMap<FString,double> Lengths;
++    TArray<double> PieceLengths;
++    for(int32 I=0;I<Pieces.Num();++I)
++    {
++        const auto& P=Pieces[I];const auto& M=Modules[P.Module];double Length=AuthoredWalk(P.Module);
++        const bool Connector=P.Module==Transit||P.Module==Threshold||P.Module==TreasureLink||P.Module==Elbow||P.Module==StairDrop||P.Module==BossApproach;
++        if(Length<0)
++        {
++            if(Connector&&M.Ports.Num()==2)Length=P.Module==Elbow?400.:(M.Ports[0].P-M.Ports[1].P).Size();
++            else if(Combat.Contains(P.Module)&&P.ActivePorts.Num()==2)
++            {
++                // Estimate the selected through-route, not the entire shell's
++                // width + length (which includes unused wings/closed doorways).
++                // This remains a rectilinear estimate, not a navigation distance.
++                const FVector Delta=M.Ports[P.ActivePorts[0]].P-M.Ports[P.ActivePorts[1]].P;
++                Length=FMath::Abs(Delta.X)+FMath::Abs(Delta.Y)+FMath::Abs(Delta.Z);
++            }
++            else Length=M.Bounds.GetSize().X+M.Bounds.GetSize().Y;
++        }
++        Length*=P.Transform.GetScale3D().Y;
++        PieceLengths.Add(Length);
++        if(Connector)CorridorTotal+=Length;
++        Lengths.FindOrAdd(P.Route)+=Length;
++    }
++    if(bCompactBoss)
++    {
++        // Trace each mandatory branch through its real sockets. Summing route
++        // labels charged the early fork for the later approach rooms and charged
++        // the upper stair sleeve twice (once in RouteN, once in terminal_walk).
++        // Optional loops/treasures cannot shorten this design progression path.
++        const auto Graph=PieceGraph(false);
++        int32 Entry=INDEX_NONE,Boss=INDEX_NONE;
++        for(int32 I=0;I<Pieces.Num();++I)
++        {
++            if(Pieces[I].Route==TEXT("Approach")&&Entry==INDEX_NONE)Entry=I;
++            if(Pieces[I].Module==BossRoom)Boss=I;
++        }
++        if(Entry==INDEX_NONE||Boss==INDEX_NONE)return false;
++        auto SharedDoor=[&](int32 A,int32 B,FVector& Position)
++        {
++            for(int32 AP:OpenPorts(A))for(int32 BP:OpenPorts(B))
++            {
++                const auto AS=Socket(A,AP),BS=Socket(B,BP);
++                if(AS.P.Equals(BS.P,1.)&&FVector::DotProduct(AS.N,BS.N)<-.999&&
++                   FMath::Abs(AS.Width-BS.Width)<1.&&FMath::Abs(AS.Height-BS.Height)<1.)
++                {Position=AS.P;return true;}
++            }
++            return false;
++        };
++        for(int32 R=1;R<=3;++R)
++        {
++            const FString Route=FString::Printf(TEXT("Route%d"),R);
++            auto Allowed=[&](int32 I)
++            {
++                const auto& Tag=Pieces[I].Route;
++                return Tag==TEXT("Approach")||Tag==TEXT("Junction")||Tag==TEXT("JunctionEarly")||
++                    Tag==Route||Tag==Route+TEXT("_Closure")||Tag==Route+TEXT("_Confluence")||
++                    Tag==TEXT("BossDescent")||Tag==TEXT("BossLowerLink")||Tag==TEXT("BossConfluence")||
++                    Tag==TEXT("BossApproach")||Tag==TEXT("BossTerminal");
++            };
++            TArray<int32> Parent;Parent.Init(INDEX_NONE,Pieces.Num());Parent[Entry]=Entry;
++            TArray<int32> Queue{Entry};
++            for(int32 Head=0;Head<Queue.Num()&&Parent[Boss]==INDEX_NONE;++Head)
++                for(int32 Next:Graph[Queue[Head]])if(Parent[Next]==INDEX_NONE&&Allowed(Next))
++                {Parent[Next]=Queue[Head];Queue.Add(Next);}
++            if(Parent[Boss]==INDEX_NONE)return false;
++            TArray<int32> Path;
++            for(int32 At=Boss;;At=Parent[At]){Path.Add(At);if(At==Entry)break;}
++            double Walk=0;
++            for(int32 I=0;I<Path.Num();++I)
++            {
++                const int32 At=Path[I],Module=Pieces[At].Module;
++                double Length=PieceLengths[At];
++                if((Module==Junction||Module==ForkLeft||Module==ForkRight||Module==BossConfluence)&&
++                   I>0&&I+1<Path.Num())
++                {
++                    FVector In,Out;
++                    if(!SharedDoor(At,Path[I-1],In)||!SharedDoor(At,Path[I+1],Out))return false;
++                    const FVector Delta=In-Out;
++                    Length=FMath::Abs(Delta.X)+FMath::Abs(Delta.Y)+FMath::Abs(Delta.Z);
++                }
++                Walk+=Length;
++            }
++            RouteEstimates.Add(Walk);LongestRouteEstimate=FMath::Max(LongestRouteEstimate,Walk);
++        }
++        return !bMissionEnabled||(CorridorTotal<=CorridorBudget&&LongestRouteEstimate<=RouteBudget);
++    }
++    for(int32 R=1;R<=3;++R)
++    {
++        double Path=Lengths.FindRef(TEXT("Approach"))+Lengths.FindRef(TEXT("Junction"))+Lengths.FindRef(TEXT("JunctionEarly"));
++        const FString Prefix=FString::Printf(TEXT("Route%d"),R);
++        for(const auto& Pair:Lengths)if(Pair.Key==Prefix||Pair.Key==Prefix+TEXT("_Confluence")||Pair.Key==Prefix+TEXT("_Closure"))Path+=Pair.Value;
++        double Terminal=0;for(double Walk:TerminalWalkLengths)Terminal=FMath::Max(Terminal,Walk);
++        Path+=Terminal+Lengths.FindRef(TEXT("BossTerminal"));
++        RouteEstimates.Add(Path);
++        LongestRouteEstimate=FMath::Max(LongestRouteEstimate,Path);
++    }
++    return !bMissionEnabled||(CorridorTotal<=CorridorBudget&&LongestRouteEstimate<=RouteBudget);
++}
++
++bool FinalizeMissionLayout(const FSocket& Start)
++{
++    if(!bMissionEnabled)return true;
++    BindMainMissions(Start);
++    const auto PhysicalGraph=PieceGraph(false);
++    for(const auto& Edge:MissionEdges)if(!Edge.bOptional)
++    {
++        if(Edge.To==TEXT("reward.final"))
++        {if(!Modules[BossRoom].Data->HasField(TEXT("reward_exit")))return false;continue;}
++        int32 From=Edge.From==TEXT("entry")?EntryPiece(Start):INDEX_NONE,To=INDEX_NONE;
++        for(int32 I=0;I<Pieces.Num();++I)
++        {if(Pieces[I].MissionId==Edge.From)From=I;if(Pieces[I].MissionId==Edge.To)To=I;}
++        if(From<0||To<0)return false;
++        TSet<int32> Seen{From};TArray<int32> Queue{From};
++        for(int32 Head=0;Head<Queue.Num()&&!Seen.Contains(To);++Head)for(int32 Next:PhysicalGraph[Queue[Head]])
++            if(!Seen.Contains(Next)&&(Next==To||Pieces[Next].MissionId.IsEmpty())){Seen.Add(Next);Queue.Add(Next);}
++        if(!Seen.Contains(To))return false;
++    }
++    if(!MeasureMissionBudget())
++    {
++        CompactFailure=FString::Printf(TEXT("完整布局超出路线预算：通道 %.0f/%.0f cm，路线估算 %.0f/%.0f cm"),
++            CorridorTotal,CorridorBudget,LongestRouteEstimate,RouteBudget);return false;
++    }
++    const auto Base=Pieces;
++    AddRouteLoops(Start);
++    if(!MeasureMissionBudget()){Pieces=Base;LoopConnections.Reset();MeasureMissionBudget();}
++    for(auto& Edge:MissionEdges)
++    {
++        Edge.bRealized=!Edge.bOptional;
++        if(Edge.bOptional)for(const auto& Loop:LoopConnections)
++            if((Edge.From==Pieces[Loop.From].MissionId&&Edge.To==Pieces[Loop.To].MissionId)||
++               (Edge.To==Pieces[Loop.From].MissionId&&Edge.From==Pieces[Loop.To].MissionId))Edge.bRealized=true;
++    }
++    return CompleteSocketGraph(Start);
++}
++
++void BindRewardMissions(const FSocket& Start)
++{
++    if(!bMissionEnabled){MeasureMissionBudget();return;}
++    for(int32 I=0;I<Pieces.Num();++I)
++    {
++        auto& P=Pieces[I];if(P.Module!=Treasure||!P.MissionId.IsEmpty())continue;
++        for(int32 Parent=0;Parent<I;++Parent)if(!Pieces[Parent].MissionId.IsEmpty()&&
++            P.Route==Pieces[Parent].Route+FString::Printf(TEXT("_Treasure%d"),Parent))
++        {P.MissionId=Pieces[Parent].MissionId+TEXT(".treasure");P.RewardMultiplier=Pieces[Parent].RewardMultiplier;P.MissionDepth=Pieces[Parent].MissionDepth+1;break;}
++    }
++    MeasureMissionBudget();
++}
+diff --git a/Source/FPSGAME/Dungeons/AuthoredDungeonRoomChoices.inl b/Source/FPSGAME/Dungeons/AuthoredDungeonRoomChoices.inl
+--- a/Source/FPSGAME/Dungeons/AuthoredDungeonRoomChoices.inl
++++ b/Source/FPSGAME/Dungeons/AuthoredDungeonRoomChoices.inl
+@@ -7,0 +8,5 @@
++}
++bool RoomAllowed(int32 Module,const FString& Route)const
++{
++    const auto& M=Modules[Module];
++    return M.bRunEligible&&(M.SelectionRoute.IsEmpty()||M.SelectionRoute==Route)&&FamilyUses(Module)<M.MaxPerRun;
+@@ -17 +22,2 @@
+-TArray<TPair<int32,int32>> RoomChoices(const FString& Route)
++struct FRoomChoice {int32 Key,Value,Exit;};
++TArray<FRoomChoice> RoomChoices(const FString& Route)
+@@ -21,0 +28 @@
++        if(!RoomAllowed(M,Route))continue;
+@@ -27 +33,0 @@
+-    int32 MaxVariants=0;
+@@ -30 +36 @@
+-        auto& V=Variants[F];MaxVariants=FMath::Max(MaxVariants,V.Num());
++        auto& V=Variants[F];
+@@ -35,4 +41,2 @@
+-    TArray<TPair<int32,int32>> Result;
+-    // Each family gets a first candidate before another receives a second variant.
+-    for(int32 Round=0;Round<MaxVariants;++Round)for(const auto& F:Order)
+-        if(Variants[F.Index].IsValidIndex(Round))
++    TArray<TArray<FRoomChoice>> FamilyChoices;FamilyChoices.SetNum(Families.Num());int32 MaxChoices=0;
++    for(const auto& F:Order)for(int32 Round=0;Round<Variants[F.Index].Num();++Round)
+@@ -40,2 +44,5 @@
+-            const int32 M=Variants[F.Index][Round],First=Random.RandRange(0,1);
+-            Result.Emplace(M,First);Result.Emplace(M,1-First);
++            const int32 M=Variants[F.Index][Round];auto Pairs=Modules[M].PortPairs;
++            for(int32 I=Pairs.Num()-1;I>0;--I)Pairs.Swap(I,Random.RandRange(0,I));
++            for(const auto& Pair:Pairs)
++            {const bool Reverse=Random.RandRange(0,1)!=0;FamilyChoices[F.Index].Add({M,Reverse?Pair.Y:Pair.X,Reverse?Pair.X:Pair.Y});FamilyChoices[F.Index].Add({M,Reverse?Pair.X:Pair.Y,Reverse?Pair.Y:Pair.X});}
++            MaxChoices=FMath::Max(MaxChoices,FamilyChoices[F.Index].Num());
+@@ -42,0 +50,4 @@
++    TArray<FRoomChoice> Result;
++    // Adding more ports must not give one family six attempts before another gets one.
++    for(int32 Round=0;Round<MaxChoices;++Round)for(const auto& F:Order)
++        if(FamilyChoices[F.Index].IsValidIndex(Round))Result.Add(FamilyChoices[F.Index][Round]);
+@@ -48 +59 @@
+-    for(int32 I=0;I<Pieces.Num();++I)for(int32 J=0;J<PortCount(I);++J)Sockets.Add(Socket(I,J));
++    for(int32 I=0;I<Pieces.Num();++I)for(int32 J:OpenPorts(I))Sockets.Add(Socket(I,J));
+diff --git a/Source/FPSGAME/Dungeons/AuthoredDungeonRouting.inl b/Source/FPSGAME/Dungeons/AuthoredDungeonRouting.inl
+--- a/Source/FPSGAME/Dungeons/AuthoredDungeonRouting.inl
++++ b/Source/FPSGAME/Dungeons/AuthoredDungeonRouting.inl
+@@ -14,0 +15 @@
++        if(!CanSearch())return false;
+@@ -131,0 +133 @@
++        if(!CanSearch())return false;
+diff --git a/Source/FPSGAME/Dungeons/AuthoredDungeonShortLinks.inl b/Source/FPSGAME/Dungeons/AuthoredDungeonShortLinks.inl
+--- a/Source/FPSGAME/Dungeons/AuthoredDungeonShortLinks.inl
++++ b/Source/FPSGAME/Dungeons/AuthoredDungeonShortLinks.inl
+@@ -14,0 +15,22 @@
++}
++
++double LinkChoiceCost(const FShortLink& Link,const FSocket& Start,const FString& Route)const
++{
++    const uint32 AtHash=HashCombineFast(GetTypeHash(FMath::RoundToInt(Start.P.X)),
++        HashCombineFast(GetTypeHash(FMath::RoundToInt(Start.P.Y)),GetTypeHash(FMath::RoundToInt(Start.P.Z))));
++    const uint32 Salt=HashCombineFast(ConnectionSeed,HashCombineFast(AtHash,GetTypeHash(Route)));
++    const bool RiskShortcut=bMissionEnabled&&Route==TEXT("Route1");
++    const int32 DesiredTurns=RiskShortcut?(Salt%10u<8u?0:1):(Salt%10u<4u?0:Salt%10u<8u?1:2);
++    double Repeat=0;
++    for(int32 I=Pieces.Num()-1;I>=0;--I)if(Pieces[I].Route==Route&&Pieces[I].LinkTurns>=0)
++    {if(Pieces[I].LinkTurns==Link.Turns)Repeat=220.;break;}
++    const uint32 Shape=HashCombineFast(GetTypeHash(FMath::RoundToInt(Link.End.P.X)),
++        HashCombineFast(GetTypeHash(FMath::RoundToInt(Link.End.P.Y)),uint32(Link.Turns)));
++    const double Jitter=double(HashCombineFast(Salt,Shape)%1000u)*.16;
++    return LinkCost(Link,Start.ReservedLead)+(Link.Turns==DesiredTurns?0.:360.)+Repeat+Jitter;
++}
++
++void RankRoomLinks(TArray<FShortLink>& Links,const FSocket& Start,const FString& Route)const
++{
++    Links.StableSort([&](const FShortLink& A,const FShortLink& B)
++    {return LinkChoiceCost(A,Start,Route)<LinkChoiceCost(B,Start,Route);});
+@@ -51 +73 @@
+-    for(double Length:{80.,240.,400.,560.})AddShortLink(Links,Start,{P,P+F*Length});
++    for(double Length:{80.,240.,400.,560.,800.,1120.})AddShortLink(Links,Start,{P,P+F*Length});
+@@ -55 +77 @@
+-        for(double Lead:{80.,240.})
++        for(double Lead:{80.,240.,400.,640.})for(double Tail:{280.,440.,600.,840.})
+@@ -58 +80 @@
+-            AddShortLink(Links,Start,{P,Corner,Corner+Side*280.});
++            AddShortLink(Links,Start,{P,Corner,Corner+Side*Tail});
+@@ -67 +89 @@
+-double LinkGoalCost(const FShortLink& Link,int32 Module,int32 Entry,const FSocket& Goal,int32 Remaining)const
++double LinkGoalCost(const FShortLink& Link,int32 Module,int32 Entry,const FSocket& Goal,int32 Remaining,int32 ExitPort)const
+@@ -70 +92 @@
+-    const auto& Exit=Modules[Module].Ports[1-Entry];
++    const auto& Exit=Modules[Module].Ports[ExitPort];
+@@ -72 +94 @@
+-    return (P-Goal.P).Size()/(1.+Remaining*.6)+(Remaining==0?300.*(1.+FVector::DotProduct(N,Goal.N)):0.)+LinkCost(Link);
++    return (P-Goal.P).Size()+(Remaining==0?300.*(1.+FVector::DotProduct(N,Goal.N)):0.)+LinkCost(Link);
+@@ -76 +98 @@
+-                FSocket& Exit,FVector SectorOrigin={},FVector SectorDir={})
++                FSocket& Exit,FVector SectorOrigin={},FVector SectorDir={},int32 ExitPort=INDEX_NONE)
+@@ -78 +100,2 @@
+-    if(!Compatible(Link.End,Module,Entry)||Link.Length+Start.ReservedLead>ShortLinkLimit+.1)return false;
++    if(ExitPort==INDEX_NONE)ExitPort=PairedExit(Module,Entry);
++    if(!Modules[Module].Ports.IsValidIndex(ExitPort)||!Compatible(Link.End,Module,Entry)||Link.Length+Start.ReservedLead>ShortLinkLimit+.1)return false;
+@@ -82 +105 @@
+-    if(!Place(Module,Fit(Module,Entry,Link.End),Route,-2,-2,SectorOrigin,SectorDir))return false;
++    if(!Place(Module,Fit(Module,Entry,Link.End),Route,-2,-2,SectorOrigin,SectorDir,-2,{Entry,ExitPort}))return false;
+@@ -88 +111,2 @@
+-    FPlaced Room=MoveTemp(Pieces[Before]);Pieces.RemoveAt(Before);
++    FPlaced Room=MoveTemp(Pieces[Before]);Room.LinkTurns=Link.Turns;Room.LinkLength=Link.Length+Start.ReservedLead;
++    Pieces.RemoveAt(Before);
+@@ -90 +114 @@
+-    FSocket Out=Socket(RoomIndex,1-Entry);
++    FSocket Out=Socket(RoomIndex,ExitPort);
+@@ -119 +143 @@
+-void AddTargetRoomLinks(TArray<FShortLink>& Links,int32 Module,int32 Entry,const FSocket& Start,const FSocket& Goal)const
++void AddTargetRoomLinks(TArray<FShortLink>& Links,int32 Module,int32 Entry,const FSocket& Start,const FSocket& Goal,int32 ExitPort)const
+@@ -121 +145 @@
+-    if(!Compatible(Goal,Module,1-Entry))return;
++    if(!Compatible(Goal,Module,ExitPort))return;
+@@ -126 +150 @@
+-        const FTransform T=Fit(Module,1-Entry,ExitTarget);
++        const FTransform T=Fit(Module,ExitPort,ExitTarget);
+@@ -146 +170 @@
+-        if(--CompactBudget<0)break;
++        if(--CompactBudget<0||!CanSearch())break;
+diff --git a/Source/FPSGAME/Dungeons/AuthoredDungeonTopology.inl b/Source/FPSGAME/Dungeons/AuthoredDungeonTopology.inl
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/AuthoredDungeonTopology.inl
+@@ -0,0 +1,138 @@
++// FPlan extension. Route intent is chosen before placement; optional loop edges
++// are embedded using complete authored side-wall variants and real connectors.
++TArray<int32> TopologyCounts;
++FString TopologyRecipe;
++int32 LoopGoal=0;
++struct FLoopConnection {int32 From,To;double Length;};
++TArray<FLoopConnection> LoopConnections;
++
++void ConfigureTopology(int32 Seed)
++{
++    ConnectionSeed=HashCombineFast(uint32(Seed),0x4C494E4Bu);
++    FRandomStream GraphRandom(int32(HashCombineFast(uint32(Seed),0x47524150u)));
++    TopologyCounts.Reset();LoopConnections.Reset();
++    for(int32 I=0;I<4;++I)TopologyCounts.Add(GraphRandom.RandRange(MinRooms,MaxRooms));
++    // Keep the drawn total, but give symmetric draws different branch lengths.
++    if(MaxRooms-MinRooms>=2&&TopologyCounts[1]==TopologyCounts[2]&&TopologyCounts[2]==TopologyCounts[3]&&
++       TopologyCounts[1]>MinRooms&&TopologyCounts[1]<MaxRooms)
++    {--TopologyCounts[1];++TopologyCounts[2+GraphRandom.RandRange(0,1)];}
++    int32 Shortest=1;
++    for(int32 I=2;I<4;++I)if(TopologyCounts[I]<TopologyCounts[Shortest])Shortest=I;
++    TopologyCounts.Swap(1,Shortest);
++    const int32 Recipe=GraphRandom.RandRange(0,2);
++    TopologyRecipe=Recipe==0?TEXT("cross_route"):Recipe==1?TEXT("local_return"):TEXT("mixed_loops");
++    LoopGoal=Recipe==2?2:1;
++}
++
++TArray<TArray<int32>> PieceGraph(bool bIncludeLoops=true)const
++{
++    TArray<TArray<int32>> Graph;Graph.SetNum(Pieces.Num());
++    for(int32 I=0;I<Pieces.Num();++I)
++    {
++        if(!bIncludeLoops&&Pieces[I].Route.StartsWith(TEXT("Loop.")))continue;
++        for(int32 J=0;J<I;++J)
++        {
++            if(!bIncludeLoops&&Pieces[J].Route.StartsWith(TEXT("Loop.")))continue;
++            for(int32 A:OpenPorts(I))for(int32 B:OpenPorts(J))
++            {
++                const FSocket SA=Socket(I,A),SB=Socket(J,B);
++                if(SA.P.Equals(SB.P,1.)&&FVector::DotProduct(SA.N,SB.N)<-.999&&
++                   FMath::Abs(SA.Width-SB.Width)<1.&&FMath::Abs(SA.Height-SB.Height)<1.)
++                {Graph[I].AddUnique(J);Graph[J].AddUnique(I);}
++            }
++        }
++    }
++    return Graph;
++}
++
++int32 EntryPiece(const FSocket& Start)const
++{
++    for(int32 I=0;I<Pieces.Num();++I)for(int32 P:OpenPorts(I))
++    {
++        const FSocket S=Socket(I,P);
++        if(S.P.Equals(Start.P,1.)&&FVector::DotProduct(S.N,Start.N)<-.999)return I;
++    }
++    return INDEX_NONE;
++}
++
++TArray<int32> PieceDepths(int32 Root,const TArray<TArray<int32>>& Graph)const
++{
++    TArray<int32> Depth;Depth.Init(MAX_int32,Pieces.Num());
++    if(!Pieces.IsValidIndex(Root))return Depth;
++    TArray<int32> Queue{Root};Depth[Root]=Combat.Contains(Pieces[Root].Module)?1:0;
++    for(int32 Head=0;Head<Queue.Num();++Head)for(int32 Next:Graph[Queue[Head]])
++    {
++        const int32 Module=Pieces[Next].Module;
++        const bool Room=Combat.Contains(Module)||Module==Junction||Module==ForkLeft||Module==ForkRight||Module==Treasure||Module==BossConfluence||Module==BossRoom;
++        const int32 Candidate=Depth[Queue[Head]]+(Room?1:0);
++        // Relax distances: connectors have zero weight, so first-visit BFS is wrong.
++        if(Candidate<Depth[Next]){Depth[Next]=Candidate;Queue.Add(Next);}
++    }
++    return Depth;
++}
++
++void AddRouteLoops(const FSocket& Start)
++{
++    LoopConnections.Reset();
++    if(LoopGoal<=0||(CancelRequested&&CancelRequested->Load()))return;
++    // Optional work has a fixed 512-candidate budget. A nearly exhausted main
++    // search deadline must not change the same seed's successfully placed loops.
++    TGuardValue<double> DeadlineGuard(PlanningDeadline,DBL_MAX);
++    TGuardValue<bool> DeadlineStateGuard(bSearchExpired,false);
++    const int32 BaseCount=Pieces.Num();
++    const auto Graph=PieceGraph();
++    struct FCandidate {int32 A,ASide,B,BSide;double Score;};
++    TArray<FCandidate> Candidates;
++    FRandomStream LoopRandom(int32(HashCombineFast(ConnectionSeed,0x4C4F4F50u)));
++    for(int32 A=0;A<BaseCount;++A)
++    {
++        if(!Combat.Contains(Pieces[A].Module)||Pieces[A].Side>=0)continue;
++        const auto Distance=PieceDepths(A,Graph);
++        const auto& AM=Modules[Pieces[A].Module];
++        for(int32 B=A+1;B<BaseCount;++B)
++        {
++            if(!Combat.Contains(Pieces[B].Module)||Pieces[B].Side>=0||Distance[B]<3||Distance[B]==MAX_int32)continue;
++            const bool SameRoute=Pieces[A].Route==Pieces[B].Route;
++            const double IntentCost=(TopologyRecipe==TEXT("cross_route")?SameRoute:
++                                    TopologyRecipe==TEXT("local_return")?!SameRoute:false)?500.:0.;
++            const auto& BM=Modules[Pieces[B].Module];
++            for(int32 AS=0;AS<AM.SideSockets.Num();++AS)for(int32 BS=0;BS<BM.SideSockets.Num();++BS)
++            {
++                if(!SideAvailable(A,AS)||!SideAvailable(B,BS)||!MissionAllowsLoop(A,B))continue;
++                const FPort& AP=AM.SideSockets[AS].Port;const FPort& BP=BM.SideSockets[BS].Port;
++                // Side doors become legal optional route ports only with their complete
++                // replacement wall meshes; they never replace a primary room exit.
++                if(!AM.SideSockets[AS].Data->HasField(TEXT("parts"))||!BM.SideSockets[BS].Data->HasField(TEXT("parts")))continue;
++                const FVector PA=Pieces[A].Transform.TransformPosition(AP.P),PB=Pieces[B].Transform.TransformPosition(BP.P);
++                const double Gap=(PA-PB).Size();
++                if(Gap<ExitLeadLength||Gap>ShortLinkLimit||FMath::Abs(PA.Z-PB.Z)>.1)continue;
++                if(FMath::Abs(AP.Width-BP.Width)>=1.||FMath::Abs(AP.Height-BP.Height)>=1.)continue;
++                Candidates.Add({A,AS,B,BS,IntentCost+Gap*.25-FMath::Min(Distance[B],8)*40.+LoopRandom.FRand()*180.});
++            }
++        }
++    }
++    Candidates.StableSort([](const FCandidate& A,const FCandidate& B){return A.Score<B.Score;});
++    const int32 PreviousBudget=CompactBudget;CompactBudget=512;
++    for(const auto& C:Candidates)
++    {
++        if(LoopConnections.Num()>=LoopGoal||CompactBudget<=0||(CancelRequested&&CancelRequested->Load()))break;
++        if(Pieces[C.A].Side>=0||Pieces[C.B].Side>=0)continue;
++        const int32 Before=Pieces.Num();
++        Pieces[C.A].Side=C.ASide;Pieces[C.B].Side=C.BSide;
++        const FSocket A=Socket(C.A,OptionalPort(C.A,C.ASide));
++        const FSocket B=Socket(C.B,OptionalPort(C.B,C.BSide));
++        const FString Route=FString::Printf(TEXT("Loop.%d"),LoopConnections.Num());
++        const auto Links=LinksBetween(A,B);
++        bool Connected=false;
++        for(const auto& Link:Links)
++        {
++            if(--CompactBudget<0||(CancelRequested&&CancelRequested->Load()))break;
++            Pieces.SetNum(Before);
++            if(PlaceRoutePolyline(A,B,Route,Link.Points,ShortLinkLimit,ShortLinkLimit)&&CompleteSocketGraph(Start))
++            {LoopConnections.Add({C.A,C.B,Link.Length});Connected=true;break;}
++        }
++        if(!Connected){Pieces.SetNum(Before);Pieces[C.A].Side=-1;Pieces[C.B].Side=-1;}
++    }
++    CompactBudget=PreviousBudget;
++    CompactFailure.Empty();
++}
+diff --git a/Source/FPSGAME/Dungeons/DungeonBloodScatter.cpp b/Source/FPSGAME/Dungeons/DungeonBloodScatter.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/DungeonBloodScatter.cpp
+@@ -0,0 +1,115 @@
++#include "DungeonBloodScatter.h"
++
++#include "Components/DecalComponent.h"
++#include "Components/SceneComponent.h"
++#include "Engine/World.h"
++#include "Materials/MaterialInterface.h"
++
++ADungeonBloodScatter::ADungeonBloodScatter()
++{
++    PrimaryActorTick.bCanEverTick=false;
++    SetRootComponent(CreateDefaultSubobject<USceneComponent>(TEXT("BloodScatterRoot")));
++}
++
++void ADungeonBloodScatter::BeginPlay()
++{
++    Super::BeginPlay();
++    if(!bGenerateOnBeginPlay)return;
++    const int32 ChosenSeed=bRandomizeOnBeginPlay ? static_cast<int32>(FGuid::NewGuid().A) : Seed;
++    GenerateFromSeed(ChosenSeed);
++}
++
++void ADungeonBloodScatter::GenerateFromSeed(int32 InSeed)
++{
++    UWorld* World=GetWorld();
++    if(!World || !World->IsGameWorld() || World->GetNetMode()==NM_DedicatedServer)return;
++    for(UDecalComponent* Decal:GeneratedDecals)if(Decal)Decal->DestroyComponent();
++    GeneratedDecals.Reset();
++    if(!BloodMaterial || Surfaces.IsEmpty())return;
++    ActiveSeed=InSeed;
++    FRandomStream Random(InSeed);
++    TArray<FVector> PlacedCenters;
++    GeneratedDecals.Reserve(FMath::Clamp(FloorCount,0,128)+FMath::Clamp(WallCount,0,64));
++    ScatterGroup(Random,false,FMath::Clamp(FloorCount,0,128),PlacedCenters);
++    PlacedCenters.Reset();
++    ScatterGroup(Random,true,FMath::Clamp(WallCount,0,64),PlacedCenters);
++}
++
++void ADungeonBloodScatter::ScatterGroup(FRandomStream& Random,bool bOnWall,int32 DesiredCount,
++                                        TArray<FVector>& PlacedCenters)
++{
++    TArray<int32> Candidates;
++    TArray<float> CumulativeArea;
++    float TotalArea=0.f;
++    for(int32 Index=0;Index<Surfaces.Num();++Index)
++    {
++        const FDungeonBloodSurface& Surface=Surfaces[Index];
++        if(Surface.bWall!=bOnWall || Surface.HalfSize.X<20.f || Surface.HalfSize.Y<20.f)continue;
++        TotalArea+=Surface.HalfSize.X*Surface.HalfSize.Y;
++        Candidates.Add(Index);CumulativeArea.Add(TotalArea);
++    }
++    if(Candidates.IsEmpty())return;
++    UWorld* World=GetWorld();
++    const FTransform RoomTransform=GetActorTransform();
++    FCollisionQueryParams Query(SCENE_QUERY_STAT(DungeonBloodPlacement),true,this);
++    int32 Made=0;
++    // Bounded placement work at room initialization only, never a retrying Tick.
++    for(int32 Attempt=0;Attempt<DesiredCount*20 && Made<DesiredCount;++Attempt)
++    {
++        const float Pick=Random.FRandRange(0.f,TotalArea);
++        int32 Selected=0;
++        while(Selected<Candidates.Num()-1 && Pick>CumulativeArea[Selected])++Selected;
++        const FDungeonBloodSurface& Surface=Surfaces[Candidates[Selected]];
++        const FVector Normal=RoomTransform.TransformVectorNoScale(Surface.Normal).GetSafeNormal();
++        const FVector U=RoomTransform.TransformVectorNoScale(Surface.AxisU).GetSafeNormal();
++        const FVector V=FVector::CrossProduct(Normal,U).GetSafeNormal();
++        const int32 Family=Random.RandRange(0,2); // smear, scattered droplets, pooled blot
++        const float Angle=Random.FRandRange(-PI,PI);
++        const float Cos=FMath::Cos(Angle),Sin=FMath::Sin(Angle);
++        float LongHalf,ShortHalf;
++        if(Family==0){LongHalf=Random.FRandRange(75.f,155.f);ShortHalf=Random.FRandRange(18.f,40.f);}
++        else if(Family==1){LongHalf=Random.FRandRange(48.f,112.f);ShortHalf=Random.FRandRange(38.f,90.f);}
++        else{LongHalf=Random.FRandRange(35.f,88.f);ShortHalf=Random.FRandRange(28.f,76.f);}
++        if(bOnWall){LongHalf*=.65f;ShortHalf*=.7f;}
++        const bool bScanned=ScannedSizeRangeCm.X>0.f;
++        if(bScanned)
++        {
++            // Preserve the scan's square footprint instead of stretching it into
++            // a several-metre procedural smear. Placement and yaw remain seeded.
++            LongHalf=.5f*Random.FRandRange(ScannedSizeRangeCm.X,
++                FMath::Max(ScannedSizeRangeCm.X,ScannedSizeRangeCm.Y));
++            ShortHalf=LongHalf;
++        }
++        if(!bOnWall){LongHalf*=FloorSizeScale;ShortHalf*=FloorSizeScale;}
++        const float MarginU=FMath::Abs(Cos)*LongHalf+FMath::Abs(Sin)*ShortHalf+8.f;
++        const float MarginV=FMath::Abs(Sin)*LongHalf+FMath::Abs(Cos)*ShortHalf+8.f;
++        if(MarginU>=Surface.HalfSize.X || MarginV>=Surface.HalfSize.Y)continue;
++        const FVector Center=RoomTransform.TransformPosition(Surface.Center)
++            +U*Random.FRandRange(-Surface.HalfSize.X+MarginU,Surface.HalfSize.X-MarginU)
++            +V*Random.FRandRange(-Surface.HalfSize.Y+MarginV,Surface.HalfSize.Y-MarginV);
++        bool bCrowded=false;
++        for(const FVector& Existing:PlacedCenters)
++            if(FVector::DistSquared(Existing,Center)<FMath::Square(FMath::Max(45.f,ShortHalf*.9f)))
++            {bCrowded=true;break;}
++        if(bCrowded)continue;
++        FHitResult Hit;
++        if(!World->LineTraceSingleByChannel(Hit,Center+Normal*35.f,Center-Normal*50.f,ECC_Visibility,Query))continue;
++        AActor* Receiver=Hit.GetActor();
++        if(!Receiver || (!ReceiverTag.IsNone() && !Receiver->ActorHasTag(ReceiverTag))
++           || FVector::DotProduct(Hit.ImpactNormal,Normal)<.9f)continue;
++        UDecalComponent* Decal=NewObject<UDecalComponent>(this);
++        Decal->SetupAttachment(GetRootComponent());
++        Decal->SetMobility(EComponentMobility::Movable);
++        Decal->SetDecalMaterial(BloodMaterial);
++        Decal->DecalSize=FVector(bScanned?4.f:10.f,ShortHalf,LongHalf);
++        Decal->SetFadeScreenSize(.004f);
++        // R: shape seed. G: family. B: zero for floor, 1 + aspect for wall.
++        // A: rotation. Aspect keeps drips vertical on stretched, rotated decals.
++        Decal->SetDecalColor(FLinearColor(Random.FRand(),(Family+.5f)/3.f,
++            bOnWall?1.f+LongHalf/ShortHalf:0.f,(Angle+PI)/(2.f*PI)));
++        Decal->RegisterComponent();
++        Decal->SetWorldLocationAndRotation(Hit.ImpactPoint+Normal*2.f,
++            FRotationMatrix::MakeFromXZ(-Normal,U*Cos+V*Sin).Rotator());
++        GeneratedDecals.Add(Decal);PlacedCenters.Add(Center);++Made;
++    }
++}
+diff --git a/Source/FPSGAME/Dungeons/DungeonBloodScatter.h b/Source/FPSGAME/Dungeons/DungeonBloodScatter.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/DungeonBloodScatter.h
+@@ -0,0 +1,61 @@
++#pragma once
++
++#include "CoreMinimal.h"
++#include "GameFramework/Actor.h"
++#include "DungeonBloodScatter.generated.h"
++
++class UDecalComponent;
++class UMaterialInterface;
++
++/** A bounded receiver rectangle in the scatter actor's local centimetre space. */
++USTRUCT(BlueprintType)
++struct FDungeonBloodSurface
++{
++    GENERATED_BODY()
++
++    UPROPERTY(EditAnywhere, BlueprintReadWrite) FVector Center=FVector::ZeroVector;
++    UPROPERTY(EditAnywhere, BlueprintReadWrite) FVector Normal=FVector::UpVector;
++    /** Primary tangent; the second tangent is Normal cross AxisU. */
++    UPROPERTY(EditAnywhere, BlueprintReadWrite) FVector AxisU=FVector::ForwardVector;
++    UPROPERTY(EditAnywhere, BlueprintReadWrite) FVector2D HalfSize=FVector2D(100.f,100.f);
++    UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bWall=false;
++};
++
++/** Seeded, one-shot room dressing. No Tick, per-decal MID, or gameplay damage. */
++UCLASS()
++class FPSGAME_API ADungeonBloodScatter : public AActor
++{
++    GENERATED_BODY()
++public:
++    ADungeonBloodScatter();
++    bool bGenerateOnBeginPlay=true;
++
++    UPROPERTY(EditAnywhere, Category="Blood") TArray<FDungeonBloodSurface> Surfaces;
++    UPROPERTY(EditAnywhere, Category="Blood") TObjectPtr<UMaterialInterface> BloodMaterial;
++    UPROPERTY(EditAnywhere, Category="Blood", meta=(ClampMin="0",ClampMax="128")) int32 FloorCount=44;
++    UPROPERTY(EditAnywhere, Category="Blood", meta=(ClampMin="0",ClampMax="64")) int32 WallCount=16;
++    UPROPERTY(EditAnywhere, Category="Blood") bool bRandomizeOnBeginPlay=true;
++    UPROPERTY(EditAnywhere, Category="Blood") int32 Seed=19429;
++    /** Only this room's explicitly marked structural meshes receive blood. */
++    UPROPERTY(EditAnywhere, Category="Blood") FName ReceiverTag=TEXT("BloodScatter.Surface");
++    UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category="Blood") int32 ActiveSeed=0;
++
++    /** Future generated rooms can supply their own seed after placement. */
++    UFUNCTION(BlueprintCallable, Category="Blood") void GenerateFromSeed(int32 InSeed);
++
++protected:
++    virtual void BeginPlay() override;
++
++private:
++    void ScatterGroup(FRandomStream& Random, bool bOnWall, int32 DesiredCount,
++                      TArray<FVector>& PlacedCenters);
++    UPROPERTY(Transient) TArray<TObjectPtr<UDecalComponent>> GeneratedDecals;
++
++public:
++    /** Full square scan width in centimetres, randomized between X and Y.
++     *  Zero retains the legacy procedural families for other authored rooms. */
++    UPROPERTY(EditAnywhere, Category="Blood", meta=(ClampMin="0"))
++    FVector2D ScannedSizeRangeCm=FVector2D::ZeroVector;
++    /** Enlarge floor marks without stretching the approved wall blood. */
++    UPROPERTY(EditAnywhere, Category="Blood", meta=(ClampMin="0.1")) float FloorSizeScale=1.f;
++};
+diff --git a/Source/FPSGAME/Dungeons/DungeonRoomEncounter.cpp b/Source/FPSGAME/Dungeons/DungeonRoomEncounter.cpp
+--- a/Source/FPSGAME/Dungeons/DungeonRoomEncounter.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonRoomEncounter.cpp
+@@ -2,0 +3,2 @@
++#include "DungeonRoomGate.h"
++#include "DungeonRoomGateDimensions.h"
+@@ -6,2 +7,0 @@
+-#include "Components/StaticMeshComponent.h"
+-#include "Engine/StaticMesh.h"
+@@ -11,2 +10,0 @@
+-#include "Materials/MaterialInterface.h"
+-#include "UObject/ConstructorHelpers.h"
+@@ -17,5 +14,0 @@
+-    constexpr float GateOpenRate = 1.6f;         // 门板升降速率（GateOpen 单位/秒）
+-    constexpr double GateWidth = 340.0;          // 门宽
+-    constexpr double GateHeight = 300.0;         // 门高
+-    constexpr double GateThickness = 36.0;       // 门厚
+-    constexpr double GateOffset = 10.0;          // 门板中心沿法线往房内让出的距离
+@@ -29,2 +21,0 @@
+-    // Boss GateMesh 同款资源（catalog boss_encounter.gate_material 指向同一材质实例）。
+-    const TCHAR* GateMaterialPath = TEXT("/Game/Dungeons/SeamMetal20260923/Materials/MI_BossStructuralSteel.MI_BossStructuralSteel");
+@@ -36,14 +26,0 @@
+-    // 门板：/Engine 单位立方体 + 结构钢材质实例，运行时按门口尺寸缩放（Boss Gate 同款资源）。
+-    Gate = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("RoomGate"));
+-    Gate->SetupAttachment(RootComponent);
+-    Gate->SetMobility(EComponentMobility::Movable);
+-    static ConstructorHelpers::FObjectFinder<UStaticMesh> Cube(TEXT("/Engine/BasicShapes/Cube.Cube"));
+-    if (Cube.Succeeded()) Gate->SetStaticMesh(Cube.Object);
+-    static ConstructorHelpers::FObjectFinder<UMaterialInterface> Steel(GateMaterialPath);
+-    if (Steel.Succeeded()) GateMaterial = Steel.Object;
+-    Gate->SetCollisionProfileName(TEXT("BlockAll"));
+-    Gate->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+-    Gate->SetGenerateOverlapEvents(false);
+-    // 临时门板绝不参与导航重建（Boss Gate 同款）。
+-    Gate->SetCanEverAffectNavigation(false);
+-    Gate->SetHiddenInGame(true);
+@@ -100 +77 @@
+-    bDoorValid = !DoorNormal.IsNearlyZero() && !DoorCenter.IsNearlyZero();
++    bDoorValid = !DoorNormal.IsNearlyZero() && !DoorCenter.ContainsNaN();
+@@ -104 +81,2 @@
+-    // 门口几何全部按世界坐标摆放，因此与本体 Actor 的旋转/缩放无关。
++    // Every real connected port gets the same kit, fitted in its own door frame.
++    // The authored room frame remains intact; rails mount on the room-facing side.
+@@ -106,6 +84,24 @@
+-    GateBase = bDoorValid ? DoorCenter - DoorNormal * GateOffset : FVector::ZeroVector;
+-    Gate->SetWorldLocationAndRotation(GateBase, Facing);
+-    // 单位立方体 100cm：局部 X=厚、Y=宽、Z=高（局部 X 已随法线定向）。
+-    Gate->SetRelativeScale3D(FVector(GateThickness, GateWidth, GateHeight) / 100.0);
+-    Gate->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+-    if (GateMaterial) Gate->SetMaterial(0, GateMaterial);
++    for (ADungeonRoomGate* Previous : Gates) if (IsValid(Previous)) Previous->Destroy();
++    Gates.Reset();
++    if(bDoorValid)if(const auto* Node=InSubsystem?InSubsystem->NodeById(InRoomNodeId):nullptr)
++        for(const FDungeonRunDoor& Door:Node->Doors)
++        {
++            FActorSpawnParameters Params;
++            Params.Owner = this;
++            Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
++            auto* Assembly = GetWorld()->SpawnActor<ADungeonRoomGate>(ADungeonRoomGate::StaticClass(), FTransform::Identity, Params);
++            if (!Assembly || !Assembly->Configure(Door))
++            {
++                if (Assembly) Assembly->Destroy();
++                bDoorValid = false;
++                break;
++            }
++            Gates.Add(Assembly);
++        }
++    if (Gates.IsEmpty()) bDoorValid = false;
++    if (!bDoorValid)
++    {
++        for (ADungeonRoomGate* Assembly : Gates) if (IsValid(Assembly)) Assembly->Destroy();
++        Gates.Reset();
++        UE_LOG(LogTemp, Warning, TEXT("[RoomEncounter] 房 %d 闸门资源或门洞不完整：保留开放战斗。"), RoomNodeId);
++    }
+@@ -115,0 +112 @@
++    bEncounterStarted=false;
+@@ -131,2 +128 @@
+-    // 封门失败保护：门口参数无效时不封门，武装即尝试生成精英组（校验闸门照旧生效）。
+-    if (!bDoorValid && !bEncounterComplete) AttemptSpawns();
++    // Even encounters without a usable doorway wait for the player to enter.
+@@ -143,11 +139,13 @@
+-        if (bSealed)
+-        {
+-            // 玩家死亡或离开房间 → 放行开门（怪保留），回到触发线可重新封门，绝不把进度锁死。
+-            if (!CombatantInside()) OpenGate();
+-        }
+-        else if (bDoorValid && TriggerContains(LivePlayer())) SealGate();
+-        AttemptSpawns();
+-        // 全员 IsDead（或全部落点放弃）即完成；HasPending 保证首轮生成前不会误判。
+-        if ((bSealed || !bDoorValid) && AliveCount() == 0 && !HasPending()) Complete();
+-    }
+-    GateOpen = FMath::FInterpConstantTo(GateOpen, (bSealed && !bEncounterComplete) ? 0.f : 1.f, DeltaSeconds, GateOpenRate);
++        const bool Inside=CombatantInside();
++        if (bSealed && (!Inside || (GateOpen > 0.f && IsGateSweepOccupied()))) OpenGate();
++        if(Inside)
++        {
++            bEncounterStarted=true;
++            AttemptSpawns();
++            // Complete the spawn wave before sealing; cap/nav failures leave an exit.
++            if(bDoorValid&&!HasPending()&&AliveCount()>0)SealGate();
++        }
++        if(bEncounterStarted&&AliveCount()==0&&!HasPending())Complete();
++    }
++    const float TargetOpen = (bSealed && !bEncounterComplete) ? 0.f : 1.f;
++    GateOpen = FMath::FInterpConstantTo(GateOpen, TargetOpen, DeltaSeconds, float(1. / DungeonRoomGateDimensions::TravelSeconds));
+@@ -154,0 +153,2 @@
++    // Smooth door motion uses frame ticks only while travelling; encounter polling stays at 20 Hz.
++    SetActorTickInterval(GateOpen == TargetOpen ? GateTickSeconds : 0.f);
+@@ -160,0 +161,2 @@
++    // Use the actual four-track sweep on the room side, including the whole capsule.
++    if (IsGateSweepOccupied()) return;
+@@ -162 +164 @@
+-    Gate->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
++    SetActorTickInterval(0.f);
+@@ -164,3 +166 @@
+-    NextAttemptAt = 0.0;   // 封门当帧就开始落怪，不等重试窗口
+-    UE_LOG(LogTemp, Display, TEXT("[RoomEncounter] 房 %d 封门，精英组 %d 只开始落地。"), RoomNodeId, Slots.Num());
+-    AttemptSpawns();
++    UE_LOG(LogTemp, Display, TEXT("[RoomEncounter] 房 %d 精英组落地完成，封闭全部连接门。"), RoomNodeId);
+@@ -173 +173 @@
+-    Gate->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++    SetActorTickInterval(0.f);
+@@ -193,4 +193,9 @@
+-    // Boss 同款升降过渡：GateOpen=0 落下封门，1 完全升到门洞上方后隐藏。
+-    Gate->SetWorldLocation(GateBase + FVector(0, 0, GateOpen * (GateHeight + 16.0)));
+-    Gate->SetHiddenInGame(GateOpen >= 1.f);
+-    Gate->SetVisibility(GateOpen < 1.f);
++    for (ADungeonRoomGate* Assembly : Gates) if (IsValid(Assembly)) Assembly->SetOpenFraction(GateOpen);
++}
++
++bool ADungeonRoomEncounter::IsGateSweepOccupied() const
++{
++    const APawn* Player = LivePlayer();
++    for (const ADungeonRoomGate* Assembly : Gates)
++        if (IsValid(Assembly) && Assembly->IsSweepOccupied(Player)) return true;
++    return false;
+@@ -202 +207 @@
+-    if (!World || !bArmed || !HasPending()) return;
++    if (!World || !bArmed || !bEncounterStarted || !CombatantInside() || !HasPending()) return;
+@@ -217,0 +223,2 @@
++        if(const auto* Director=Cast<ADungeonSpawnDirector>(GetOwner());Director&&!Director->CanSpawnMember())
++        {NextAttemptAt=Now+.25;return;}
+@@ -226 +233 @@
+-                Sub ? Sub->EnemySlotTag(RoomNodeId, Index) : NAME_None);
++                Sub ? Sub->EnemySlotTag(RoomNodeId, Index) : NAME_None,Sub?Sub->NodeById(RoomNodeId):nullptr);
+@@ -270,0 +278,2 @@
++    if(const auto* Sub=Run.Get())if(const auto* Node=Sub->NodeById(RoomNodeId))
++        return Node->DistanceSquared(Pawn->GetActorLocation())<=FMath::Square(40.);
+@@ -309,0 +319,5 @@
++int32 ADungeonRoomEncounter::PendingCount()const
++{
++    int32 Count=0;for(const auto& Slot:Slots)if(!Slot.bFilled&&!Slot.bGivenUp)++Count;return Count;
++}
++
+@@ -313,0 +328,2 @@
++    for (ADungeonRoomGate* Assembly : Gates) if (IsValid(Assembly)) Assembly->Destroy();
++    Gates.Reset();
+diff --git a/Source/FPSGAME/Dungeons/DungeonRoomEncounter.h b/Source/FPSGAME/Dungeons/DungeonRoomEncounter.h
+--- a/Source/FPSGAME/Dungeons/DungeonRoomEncounter.h
++++ b/Source/FPSGAME/Dungeons/DungeonRoomEncounter.h
+@@ -11,2 +11 @@
+-class UMaterialInterface;
+-class UStaticMeshComponent;
++class ADungeonRoomGate;
+@@ -27 +26 @@
+- * 不改动 Boss 类本身。由 ADungeonSpawnDirector 在开局规划里为每条支线抽中的精英房创建：
++ * 不改动 Boss 类本身。由 ADungeonSpawnDirector 在开局规划里为任务图标记的精英房创建：
+@@ -30,2 +29,2 @@
+- * 玩家越过门内侧触发线 → 落下门板封门 → 用导演同款校验闸门在房内落点生成精英组（生成即唤醒态，
+- * 不休眠）→ 全员 IsDead 即开门并 MarkRoomCleared。门口参数无效时不封门，只生成精英组。
++ * 玩家进房 → 用导演同款校验闸门和全局存活预算生成精英组（生成即唤醒态，不休眠）→
++ * 全组落地后封闭所有连接门 → 全员 IsDead 即开门并 MarkRoomCleared。门口参数无效时不封门。
+@@ -41,2 +39,0 @@
+-    /** 门板材质与网格沿用 Boss GateMesh 同款资源；生成器/导演可覆盖。 */
+-    UPROPERTY(EditAnywhere, Category="Dungeon|RoomEncounter") TObjectPtr<UMaterialInterface> GateMaterial;
+@@ -55,0 +53,2 @@
++    int32 AliveCount()const;
++    int32 PendingCount()const;
+@@ -74,0 +74 @@
++    bool IsGateSweepOccupied() const;
+@@ -76 +75,0 @@
+-    int32 AliveCount() const;
+@@ -79 +77,0 @@
+-    UPROPERTY() TObjectPtr<UStaticMeshComponent> Gate;
+@@ -89 +86,0 @@
+-    FVector GateBase = FVector::ZeroVector;
+@@ -94,0 +92,2 @@
++    bool bEncounterStarted=false;
++    UPROPERTY(Transient) TArray<TObjectPtr<ADungeonRoomGate>> Gates;
+diff --git a/Source/FPSGAME/Dungeons/DungeonRoomGate.cpp b/Source/FPSGAME/Dungeons/DungeonRoomGate.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/DungeonRoomGate.cpp
+@@ -0,0 +1,147 @@
++#include "DungeonRoomGate.h"
++#include "DungeonRoomGateDimensions.h"
++#include "DungeonRunSubsystem.h"
++#include "Components/BoxComponent.h"
++#include "Components/CapsuleComponent.h"
++#include "Components/InstancedStaticMeshComponent.h"
++#include "Components/SceneComponent.h"
++#include "Components/StaticMeshComponent.h"
++#include "Engine/StaticMesh.h"
++#include "GameFramework/Character.h"
++#include "UObject/ConstructorHelpers.h"
++
++ADungeonRoomGate::ADungeonRoomGate()
++{
++    RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("GrilleRoot"));
++    PrimaryActorTick.bCanEverTick = false;
++    Panels = CreateDefaultSubobject<UInstancedStaticMeshComponent>(TEXT("TelescopicPanels"));
++    GuideLeft = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("GuideLeft"));
++    GuideRight = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("GuideRight"));
++    Head = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StorageHead"));
++    for (UStaticMeshComponent* Part : {static_cast<UStaticMeshComponent*>(Panels.Get()), GuideLeft.Get(), GuideRight.Get(), Head.Get()})
++    {
++        Part->SetupAttachment(RootComponent);
++        Part->SetMobility(EComponentMobility::Movable);
++        Part->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++        Part->SetGenerateOverlapEvents(false);
++        Part->SetCanEverAffectNavigation(false);
++    }
++    // Hard references keep this runtime-spawned kit and its source finishes in cooks.
++    static ConstructorHelpers::FObjectFinder<UStaticMesh> PanelAsset(TEXT("/Game/Dungeons/EliteGate20260926/Meshes/SM_EliteGrillePanel.SM_EliteGrillePanel"));
++    static ConstructorHelpers::FObjectFinder<UStaticMesh> LeftAsset(TEXT("/Game/Dungeons/EliteGate20260926/Meshes/SM_EliteGrilleGuideLeft.SM_EliteGrilleGuideLeft"));
++    static ConstructorHelpers::FObjectFinder<UStaticMesh> RightAsset(TEXT("/Game/Dungeons/EliteGate20260926/Meshes/SM_EliteGrilleGuideRight.SM_EliteGrilleGuideRight"));
++    static ConstructorHelpers::FObjectFinder<UStaticMesh> HeadAsset(TEXT("/Game/Dungeons/EliteGate20260926/Meshes/SM_EliteGrilleHead.SM_EliteGrilleHead"));
++    if (PanelAsset.Succeeded()) Panels->SetStaticMesh(PanelAsset.Object);
++    if (LeftAsset.Succeeded()) GuideLeft->SetStaticMesh(LeftAsset.Object);
++    if (RightAsset.Succeeded()) GuideRight->SetStaticMesh(RightAsset.Object);
++    if (HeadAsset.Succeeded()) Head->SetStaticMesh(HeadAsset.Object);
++    for (int32 Index = 0; Index < DungeonRoomGateDimensions::PanelCount; ++Index)
++    {
++        auto* Box = CreateDefaultSubobject<UBoxComponent>(*FString::Printf(TEXT("PanelBlocker%d"), Index));
++        Box->SetupAttachment(RootComponent);
++        Box->SetMobility(EComponentMobility::Movable);
++        Box->SetCollisionProfileName(TEXT("BlockAll"));
++        Box->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++        Box->SetGenerateOverlapEvents(false);
++        Box->SetCanEverAffectNavigation(false);
++        Blockers.Add(Box);
++    }
++    for (int32 Index = 0; Index < 3; ++Index)
++    {
++        auto* Box = CreateDefaultSubobject<UBoxComponent>(*FString::Printf(TEXT("FrameBlocker%d"), Index));
++        Box->SetupAttachment(RootComponent);
++        Box->SetMobility(EComponentMobility::Movable);
++        Box->SetCollisionProfileName(TEXT("BlockAll"));
++        Box->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++        Box->SetGenerateOverlapEvents(false);
++        Box->SetCanEverAffectNavigation(false);
++        FrameBlockers.Add(Box);
++    }
++    Tags.Add(TEXT("DungeonRoom.Grille"));
++}
++
++bool ADungeonRoomGate::Configure(const FDungeonRunDoor& Door)
++{
++    using namespace DungeonRoomGateDimensions;
++    const FVector Inward = -Door.OutwardNormal.GetSafeNormal2D();
++    if (Inward.IsNearlyZero() || Door.FloorCenter.ContainsNaN() ||
++        !FMath::IsFinite(Door.Width) || !FMath::IsFinite(Door.Height) || Door.Width <= 0. || Door.Height <= 0. ||
++        !Panels->GetStaticMesh() || !GuideLeft->GetStaticMesh() || !GuideRight->GetStaticMesh() || !Head->GetStaticMesh())
++        return false;
++    ClearWidth = Door.Width;
++    ClearHeight = Door.Height;
++    PanelHeight = ClearHeight / PanelCount + PanelOverlap;
++    const double NominalPanelHeight = NominalHeight / PanelCount + PanelOverlap;
++    const double GuideHeight = ClearHeight + OpenClearance + PanelHeight + HoodMargin;
++    const double NominalGuideHeight = NominalHeight + OpenClearance + NominalPanelHeight + HoodMargin;
++    SetActorTransform(FTransform(FRotator(0., Inward.Rotation().Yaw - 90., 0.), Door.FloorCenter));
++    GuideLeft->SetRelativeLocation(FVector(-ClearWidth * .5, 0., 0.));
++    GuideRight->SetRelativeLocation(FVector(ClearWidth * .5, 0., 0.));
++    for (UStaticMeshComponent* Guide : {GuideLeft.Get(), GuideRight.Get()})
++        Guide->SetRelativeScale3D(FVector(1., 1., GuideHeight / NominalGuideHeight));
++    Head->SetRelativeLocation(FVector(0., 0., ClearHeight));
++    Head->SetRelativeScale3D(FVector((ClearWidth + 22.) / (NominalWidth + 22.), 1.,
++        (GuideHeight - ClearHeight) / (NominalGuideHeight - NominalHeight)));
++    const double LastTrack = FirstTrack + (PanelCount - 1) * TrackPitch;
++    for (int32 Index = 0; Index < 2; ++Index)
++    {
++        // Side volumes begin at the clear edge, never across the doorway.
++        FrameBlockers[Index]->SetRelativeLocation(FVector((Index == 0 ? -1. : 1.) * (ClearWidth * .5 + 6.1),
++            (15.2 + LastTrack + 3.6) * .5, GuideHeight * .5));
++        FrameBlockers[Index]->SetBoxExtent(FVector(6.1, (LastTrack + 3.6 - 15.2) * .5, GuideHeight * .5));
++    }
++    FrameBlockers[2]->SetRelativeLocation(FVector(0., (FirstTrack - 5. + LastTrack + 5.5) * .5,
++        (ClearHeight + GuideHeight) * .5));
++    FrameBlockers[2]->SetBoxExtent(FVector(ClearWidth * .5 + 11.,
++        (LastTrack + 5.5 - FirstTrack + 5.) * .5, (GuideHeight - ClearHeight) * .5));
++    for (UBoxComponent* Box : FrameBlockers) Box->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
++    Panels->ClearInstances();
++    for (int32 Index = 0; Index < PanelCount; ++Index)
++    {
++        Panels->AddInstance(FTransform::Identity);
++        Blockers[Index]->SetBoxExtent(FVector(ClearWidth * .5 + SideOverlap, PanelThickness * .5, PanelHeight * .5));
++    }
++    LastOpenFraction = -1.f;
++    SetOpenFraction(1.f);
++    return true;
++}
++
++void ADungeonRoomGate::SetOpenFraction(float Fraction)
++{
++    using namespace DungeonRoomGateDimensions;
++    Fraction = FMath::Clamp(Fraction, 0.f, 1.f);
++    if (ClearHeight <= 0. || Fraction == LastOpenFraction) return;
++    LastOpenFraction = Fraction;
++    const double Lift = FMath::SmoothStep(0.f, 1.f, Fraction);
++    const double NominalPanelHeight = NominalHeight / PanelCount + PanelOverlap;
++    const FVector Scale((ClearWidth + SideOverlap * 2.) / (NominalWidth + SideOverlap * 2.), 1., PanelHeight / NominalPanelHeight);
++    for (int32 Index = 0; Index < PanelCount; ++Index)
++    {
++        const double ClosedBottom = -PanelOverlap * .5 + Index * ClearHeight / PanelCount;
++        const double Bottom = FMath::Lerp(ClosedBottom, ClearHeight + OpenClearance, Lift);
++        const FVector Position(0., FirstTrack + Index * TrackPitch, Bottom);
++        Panels->UpdateInstanceTransform(Index, FTransform(FQuat::Identity, Position, Scale), false, Index == PanelCount - 1, true);
++        Blockers[Index]->SetRelativeLocation(Position + FVector(0., 0., PanelHeight * .5));
++        // Keep collision on the moving grille until it has actually cleared the opening.
++        const auto Collision = Bottom >= ClearHeight ? ECollisionEnabled::NoCollision : ECollisionEnabled::QueryAndPhysics;
++        if (Blockers[Index]->GetCollisionEnabled() != Collision) Blockers[Index]->SetCollisionEnabled(Collision);
++    }
++    // Fully stowed panels are inside the opaque folded-steel housing.
++    Panels->SetHiddenInGame(Fraction >= 1.f);
++}
++
++bool ADungeonRoomGate::IsSweepOccupied(const APawn* Pawn) const
++{
++    using namespace DungeonRoomGateDimensions;
++    if (!IsValid(Pawn)) return false;
++    const auto* Character = Cast<ACharacter>(Pawn);
++    const auto* Capsule = Character ? Character->GetCapsuleComponent() : nullptr;
++    const double Radius = Capsule ? Capsule->GetScaledCapsuleRadius() : 60.;
++    const double HalfHeight = Capsule ? Capsule->GetScaledCapsuleHalfHeight() : 100.;
++    const FVector Local = GetActorTransform().InverseTransformPosition(Pawn->GetActorLocation());
++    const double LastTrack = FirstTrack + (PanelCount - 1) * TrackPitch;
++    return FMath::Abs(Local.X) < ClearWidth * .5 + SideOverlap + Radius &&
++        Local.Y > FirstTrack - PanelThickness * .5 - Radius - 2. &&
++        Local.Y < LastTrack + PanelThickness * .5 + Radius + 2. &&
++        Local.Z + HalfHeight > -PanelOverlap * .5 && Local.Z - HalfHeight < ClearHeight + OpenClearance + PanelHeight;
++}
+diff --git a/Source/FPSGAME/Dungeons/DungeonRoomGate.h b/Source/FPSGAME/Dungeons/DungeonRoomGate.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/DungeonRoomGate.h
+@@ -0,0 +1,36 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "GameFramework/Actor.h"
++#include "DungeonRoomGate.generated.h"
++
++class UBoxComponent;
++class UInstancedStaticMeshComponent;
++class UStaticMeshComponent;
++struct FDungeonRunDoor;
++
++/** Door-local, four-track grille derived from the accepted corridor gate.
++ * The encounter owns its lifetime and animation clock; this actor never ticks.
++ * Local X crosses the opening, Y points into the room, Z starts on its floor.
++ */
++UCLASS(NotBlueprintable)
++class FPSGAME_API ADungeonRoomGate : public AActor
++{
++    GENERATED_BODY()
++public:
++    ADungeonRoomGate();
++    bool Configure(const FDungeonRunDoor& Door);
++    void SetOpenFraction(float Fraction);
++    bool IsSweepOccupied(const APawn* Pawn) const;
++
++private:
++    UPROPERTY() TObjectPtr<UInstancedStaticMeshComponent> Panels;
++    UPROPERTY() TObjectPtr<UStaticMeshComponent> GuideLeft;
++    UPROPERTY() TObjectPtr<UStaticMeshComponent> GuideRight;
++    UPROPERTY() TObjectPtr<UStaticMeshComponent> Head;
++    UPROPERTY() TArray<TObjectPtr<UBoxComponent>> Blockers;
++    double ClearWidth = 0.;
++    double ClearHeight = 0.;
++    double PanelHeight = 0.;
++    float LastOpenFraction = -1.f;
++    UPROPERTY() TArray<TObjectPtr<UBoxComponent>> FrameBlockers;
++};
+diff --git a/Source/FPSGAME/Dungeons/DungeonRoomGateDimensions.h b/Source/FPSGAME/Dungeons/DungeonRoomGateDimensions.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/DungeonRoomGateDimensions.h
+@@ -0,0 +1,16 @@
++#pragma once
++// Generated by DungeonEliteGate20260926/Scripts/author.py; edit Config/design.json.
++namespace DungeonRoomGateDimensions
++{
++    inline constexpr double NominalWidth = 300;
++    inline constexpr double NominalHeight = 280;
++    inline constexpr int32 PanelCount = 4;
++    inline constexpr double PanelOverlap = 4;
++    inline constexpr double SideOverlap = 2;
++    inline constexpr double FirstTrack = 25;
++    inline constexpr double TrackPitch = 7.2;
++    inline constexpr double PanelThickness = 6.2;
++    inline constexpr double OpenClearance = 2;
++    inline constexpr double HoodMargin = 2;
++    inline constexpr double TravelSeconds = 1.4;
++}
+diff --git a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
+--- a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
+@@ -3,0 +4,2 @@
++#include "../UI/StatusEffectsComponent.h"
++#include "GameFramework/Pawn.h"
+@@ -71,0 +74 @@
++    InitializeShrine();
+@@ -81,0 +85,5 @@
++    bShrineClaimed=false;
++    ShrineConfig.Reset();ShrineActor.Reset();ShrineEffects.Reset();ShrineBlessing=NAME_None;
++    ShrineName.Reset();ShrineDescription.Reset();ShrineHealFraction=0;
++    if(ShrineRecipient.IsValid())UStatusEffectsComponent::Notify(ShrineRecipient.Get());
++    ShrineRecipient.Reset();
+@@ -110 +118 @@
+-        const double D = N.Volume.ComputeSquaredDistanceToPoint(Position);
++        const double D = N.DistanceSquared(Position);
+@@ -120,8 +127,0 @@
+-
+-    // Same contract as the room-lighting scheduler: rooms containing the player seed the search,
+-    // connector chains are traversed at most two hops, ordinary rooms never propagate further.
+-    TArray<TPair<int32, int32>> Queue;
+-    TArray<bool> Visited;
+-    TArray<bool> RoomActive;
+-    Visited.Init(false, Nodes.Num());
+-    RoomActive.Init(false, Nodes.Num());
+@@ -131,22 +131,21 @@
+-        if (N.Volume.ComputeSquaredDistanceToPoint(PlayerPosition) > FMath::Square(100.0)) continue;
+-        if (Visited[N.Id]) continue;
+-        Visited[N.Id] = true;
+-        Queue.Emplace(N.Id, 0);
+-        if (!N.bConnector) RoomActive[N.Id] = true;
+-    }
+-    for (int32 Head = 0; Head < Queue.Num(); ++Head)
+-    {
+-        const int32 Depth = Queue[Head].Value;
+-        const FDungeonRunNode& At = Nodes[Queue[Head].Key];
+-        for (int32 Next : At.Neighbors)
+-        {
+-            if (!Nodes.IsValidIndex(Next) || Nodes[Next].Id != Next || Visited[Next]) continue;
+-            const bool bNextConnector = Nodes[Next].bConnector;
+-            if (bNextConnector && Depth >= 2) continue;
+-            Visited[Next] = true;
+-            Queue.Emplace(Next, Depth + 1);
+-            if (!bNextConnector) RoomActive[Next] = true;
+-        }
+-    }
+-    for (const FDungeonRunNode& N : Nodes)
+-        if (N.Id != INDEX_NONE && RoomActive[N.Id]) OutNodeIds.Add(N.Id);
++        if (N.DistanceSquared(PlayerPosition) > FMath::Square(100.0)) continue;
++        if(!N.bConnector)OutNodeIds.AddUnique(N.Id);
++        TArray<int32> Adjacent;CollectNeighborRooms(N.Id,Adjacent);
++        for(int32 Next:Adjacent)OutNodeIds.AddUnique(Next);
++    }
++}
++
++void UDungeonRunSubsystem::CollectNeighborRooms(int32 NodeId,TArray<int32>& OutNodeIds)const
++{
++    OutNodeIds.Reset();
++    if(!NodeById(NodeId))return;
++    TArray<int32> Queue{NodeId};TSet<int32> Seen{NodeId};
++    for(int32 Head=0;Head<Queue.Num();++Head)
++    {
++        for(int32 Next:Nodes[Queue[Head]].Neighbors)
++        {
++            const auto* N=NodeById(Next);if(!N||Seen.Contains(Next))continue;
++            Seen.Add(Next);
++            if(N->bConnector)Queue.Add(Next);else OutNodeIds.Add(Next);
++        }
++    }
+@@ -184 +183 @@
+-    // Entrance side = connector neighbour whose BFS depth is one below the room
++    // Entrance side = connector neighbour whose shortest room depth is one below the room
+@@ -210,28 +209,9 @@
+-    if (!Room->Volume.IsValid || !Conn->Volume.IsValid) return false;
+-
+-    // The corridor sleeve (slightly expanded) intersected with the room box is the doorway patch.
+-    const FBox Reach(Conn->Volume.Min - FVector(60, 60, 60), Conn->Volume.Max + FVector(60, 60, 60));
+-    const FVector PMin = FVector::Max(Room->Volume.Min, Reach.Min);
+-    const FVector PMax = FVector::Min(Room->Volume.Max, Reach.Max);
+-    if (PMin.X >= PMax.X || PMin.Y >= PMax.Y || PMin.Z >= PMax.Z) return false;
+-
+-    // Dominant horizontal axis from the corridor toward the room gives the face normal.
+-    const FVector Delta = Room->Origin - Conn->Origin;
+-    FVector Normal = FVector::ZeroVector;
+-    if (FMath::Abs(Delta.X) >= FMath::Abs(Delta.Y)) Normal = FVector(Delta.X >= 0 ? 1.0 : -1.0, 0, 0);
+-    else Normal = FVector(0, Delta.Y >= 0 ? 1.0 : -1.0, 0);
+-
+-    // A 300 cm interface must leave a plausible lateral patch; reject degenerate touches.
+-    const double Lateral = Normal.X != 0 ? (PMax.Y - PMin.Y) : (PMax.X - PMin.X);
+-    if (Lateral < 150.0) return false;
+-
+-    FVector Center = (PMin + PMax) * 0.5;
+-    // Snap to the room face and stand the door on the room floor (standard 280 cm opening).
+-    if (Normal.X > 0) Center.X = Room->Volume.Min.X;
+-    else if (Normal.X < 0) Center.X = Room->Volume.Max.X;
+-    if (Normal.Y > 0) Center.Y = Room->Volume.Min.Y;
+-    else if (Normal.Y < 0) Center.Y = Room->Volume.Max.Y;
+-    Center.Z = Room->Volume.Min.Z + 140.0;
+-    OutCenter = Center;
+-    OutNormal = Normal;
+-    return true;
++    for(const FDungeonRunDoor& Door:Room->Doors)if(Door.Neighbor==ConnectorNodeId)
++    {
++        OutCenter=Door.FloorCenter+FVector(0,0,Door.Height*.5);
++        OutNormal=-Door.OutwardNormal;
++        return true;
++    }
++    // Older manifests without doorway coordinates cannot safely seal an authored
++    // irregular room. Leave the encounter open instead of guessing from its AABB.
++    return false;
+@@ -275,5 +255,6 @@
+-    return FName(*FString::Printf(TEXT("DungeonEnemy.%s.%d.%d"), *CurrentRunId, NodeId, SlotIndex));
+-}
+-
+-FName UDungeonRunSubsystem::RoomKey(int32 NodeId)
+-{
++    return FName(*FString::Printf(TEXT("DungeonEnemy.%s.%s.%d"), *CurrentRunId, *RoomKey(NodeId).ToString(), SlotIndex));
++}
++
++FName UDungeonRunSubsystem::RoomKey(int32 NodeId)const
++{
++    if(const auto* Node=NodeById(NodeId);Node&&!Node->MissionId.IsEmpty())return FName(*Node->MissionId);
+@@ -285,0 +267 @@
++    EntryNodeId=INDEX_NONE;
+@@ -288,0 +271 @@
++    Root->TryGetNumberField(TEXT("entry_node"),EntryNodeId);
+@@ -302,0 +286,2 @@
++        N->TryGetStringField(TEXT("mission_id"),Node.MissionId);N->TryGetStringField(TEXT("encounter_role"),Node.EncounterRole);
++        N->TryGetNumberField(TEXT("threat_bonus"),Node.ThreatBonus);N->TryGetNumberField(TEXT("reward_multiplier"),Node.RewardMultiplier);
+@@ -308,0 +294,6 @@
++        N->TryGetNumberField(TEXT("progression_depth"),Node.ProgressionDepth);
++        const TArray<TSharedPtr<FJsonValue>>* Cells=nullptr;
++        if(N->TryGetArrayField(TEXT("cells"),Cells))for(const auto& Cell:*Cells)
++        {
++            const auto C=Cell->AsObject();if(C.IsValid())Node.Cells.Add(FBox(ReadVec3(C,TEXT("min")),ReadVec3(C,TEXT("max"))));
++        }
+@@ -311 +302,3 @@
+-        Node.bJunction = Node.Module == TEXT("Junction");
++        if(N->TryGetArrayField(TEXT("walk_cells"),Cells))for(const auto& Cell:*Cells)
++        {const auto C=Cell->AsObject();if(C.IsValid())Node.WalkCells.Add(FBox(ReadVec3(C,TEXT("min")),ReadVec3(C,TEXT("max"))));}
++        Node.bJunction = Node.Module == TEXT("Junction")||Node.Module.StartsWith(TEXT("Fork"));
+@@ -329,0 +323,7 @@
++            if(E->HasField(TEXT("position"))&&E->HasField(TEXT("from_normal"))&&E->HasField(TEXT("to_normal")))
++            {
++                double Width=300,Height=280;E->TryGetNumberField(TEXT("width"),Width);E->TryGetNumberField(TEXT("height"),Height);
++                const FVector Position=ReadVec3(E,TEXT("position"));
++                Nodes[From].Doors.Add({To,Position,ReadVec3(E,TEXT("from_normal")),Width,Height});
++                Nodes[To].Doors.Add({From,Position,ReadVec3(E,TEXT("to_normal")),Width,Height});
++            }
+@@ -355,0 +356,2 @@
++    const TSharedPtr<FJsonObject>* Shrine=nullptr;
++    if(Root->TryGetObjectField(TEXT("start_shrine"),Shrine))ShrineConfig=*Shrine;
+@@ -379 +381 @@
+-    int32 Root = INDEX_NONE;
++    int32 Root = EntryNodeId;
+@@ -381 +383 @@
+-    for (const FDungeonRunNode& N : Nodes)
++    if(!NodeById(Root))for (const FDungeonRunNode& N : Nodes)
+@@ -390,2 +392 @@
+-    TArray<bool> Visited;
+-    Visited.Init(false, Nodes.Num());
++    for(auto& Node:Nodes)Node.Depth=MAX_int32;
+@@ -393,2 +394 @@
+-    Visited[Root] = true;
+-    Nodes[Root].Depth = 0;
++    Nodes[Root].Depth = Nodes[Root].bConnector?0:1;
+@@ -400,6 +400,9 @@
+-            if (!NodeById(Next) || Visited[Next]) continue;
+-            Visited[Next] = true;
+-            // Connectors add no depth; rooms increment (same contract as RoomDistance in lighting).
+-            Nodes[Next].Depth = At.Depth + (Nodes[Next].bConnector ? 0 : 1);
+-            Queue.Add(Next);
+-        }
++            if (!NodeById(Next)) continue;
++            const int32 Candidate=At.Depth+(Nodes[Next].bConnector?0:1);
++            if(Candidate<Nodes[Next].Depth){Nodes[Next].Depth=Candidate;Queue.Add(Next);}
++        }
++    }
++    for(auto& Node:Nodes)
++    {
++        if(Node.Depth==MAX_int32)Node.Depth=0;
++        if(Node.ProgressionDepth<0)Node.ProgressionDepth=Node.Depth;
+@@ -417,0 +421 @@
++    if(Generator.IsValid()){Run.GeneratorVersion=5;Run.LayoutManifestJson=Generator->LayoutManifestJson;}
+@@ -439,0 +444,8 @@
++    for(const auto& Node:Nodes)if(Node.EncounterRole.StartsWith(TEXT("risk"))&&Cleared.Contains(RoomKey(Node.Id)))
++    {
++        const FString Key=RoomKey(Node.Id).ToString();bool HadKill=false;
++        for(FName Enemy:P.DungeonRun.DefeatedEnemies)if(Enemy.ToString().StartsWith(Key+TEXT("."))){HadKill=true;break;}
++        if(!HadKill)continue; // Failed spawn placement must never mint a risk reward.
++        const int64 Gold=FMath::Max<int64>(1,FMath::RoundToInt64((8+Node.ProgressionDepth*2)*(Node.RewardMultiplier-1.)));
++        if(!Model->AppendDungeonReward(P,FName(*(Key+TEXT(".clear_reward"))),{{TEXT("gold"),Gold}},Node.Origin))return;
++    }
+diff --git a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h
+--- a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h
++++ b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h
+@@ -19,0 +20 @@
++    constexpr uint32 ShrineSelection  = 0x5D0E1A06u;
+@@ -20,0 +22,8 @@
++
++struct FDungeonRunDoor
++{
++    int32 Neighbor=INDEX_NONE;
++    FVector FloorCenter=FVector::ZeroVector;
++    FVector OutwardNormal=FVector::ZeroVector;
++    double Width=300,Height=280;
++};
+@@ -27,0 +37,3 @@
++    FString MissionId,EncounterRole;
++    int32 ThreatBonus=0;
++    double RewardMultiplier=1.;
+@@ -31 +43 @@
+-    /** Room hops from the start (BFS through the manifest graph; connectors add 0). */
++    /** Shortest room depth from the entry; connectors add 0, rooms add 1. */
+@@ -38,0 +51,17 @@
++    TArray<FBox> Cells;
++    TArray<FBox> WalkCells;
++    TArray<FDungeonRunDoor> Doors;
++    int32 ProgressionDepth=-1;
++    double DistanceSquared(const FVector& Position)const
++    {
++        double Best=TNumericLimits<double>::Max();
++        for(const FBox& Cell:Cells)Best=FMath::Min(Best,Cell.ComputeSquaredDistanceToPoint(Position));
++        return Cells.IsEmpty()&&Volume.IsValid?Volume.ComputeSquaredDistanceToPoint(Position):Best;
++    }
++    bool AllowsSpawn(const FVector& Position)const
++    {
++        if(DistanceSquared(Position)>FMath::Square(20.))return false;
++        if(WalkCells.IsEmpty())return true;
++        for(const FBox& Cell:WalkCells)if(Cell.ComputeSquaredDistanceToPoint(Position)<=FMath::Square(20.))return true;
++        return false;
++    }
+@@ -71,0 +101 @@
++    uint32 NodeRandomSalt(int32 Id)const {const auto* N=NodeById(Id);return N&&!N->MissionId.IsEmpty()?GetTypeHash(N->MissionId):uint32(Id)*0x9E3779B9u;}
+@@ -78,4 +108 @@
+-    /**
+-     * Rooms the player occupies or touches through at most two connector hops.
+-     * Mirrors the room-lighting scheduler BFS so gameplay activation and lighting agree.
+-     */
++    /** Occupied rooms and their neighbours, across any length of connector chain. */
+@@ -85 +112 @@
+-    /** Connector neighbour on the entrance side of a room (BFS depth - 1). INDEX_NONE when absent. */
++    /** Connector neighbour on the entrance side (shortest depth - 1). INDEX_NONE when absent. */
+@@ -87,5 +114 @@
+-    /**
+-     * Estimated doorway patch where a room volume meets an adjacent connector volume:
+-     * the corridor sleeve (expanded) intersected with the room box, snapped to the room face.
+-     * Approximation for gates/triggers only; authored geometry stays authoritative for collision.
+-     */
++    /** Exact authored socket center and inward normal. False for legacy manifests without sockets. */
+@@ -92,0 +116,2 @@
++    /** Follow any finite connector chain, stopping at the next room. */
++    void CollectNeighborRooms(int32 NodeId,TArray<int32>& OutNodeIds)const;
+@@ -104,0 +130,7 @@
++    bool IsShrine(const AActor* Actor) const;
++    bool CanClaimShrine() const { return bActive && !bShrineClaimed && ShrineActor.IsValid(); }
++    FString ShrinePrompt() const;
++    bool ClaimShrine(class APlayerController* Controller,AActor* Target);
++    double ShrineEffect(FName Key) const;
++    FName ActiveShrineBlessing() const { return bActive && bShrineClaimed ? ShrineBlessing : NAME_None; }
++
+@@ -106 +138 @@
+-    static FName RoomKey(int32 NodeId);
++    FName RoomKey(int32 NodeId)const;
+@@ -125,0 +158,10 @@
++    int32 EntryNodeId=INDEX_NONE;
++    void InitializeShrine();
++    TSharedPtr<FJsonObject> ShrineConfig;
++    TWeakObjectPtr<AActor> ShrineActor;
++    TWeakObjectPtr<class APawn> ShrineRecipient;
++    FName ShrineBlessing;
++    FString ShrineName,ShrineDescription;
++    TMap<FName,double> ShrineEffects;
++    double ShrineHealFraction=0;
++    bool bShrineClaimed=false;
+diff --git a/Source/FPSGAME/Dungeons/DungeonShrine.cpp b/Source/FPSGAME/Dungeons/DungeonShrine.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/DungeonShrine.cpp
+@@ -0,0 +1,85 @@
++#include "DungeonRunSubsystem.h"
++#include "AuthoredDungeonGenerator.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../UI/ColdSteelWorldInteraction.h"
++#include "../UI/StatusEffectsComponent.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
++#include "Components/StaticMeshComponent.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/World.h"
++#include "EngineUtils.h"
++#include "GameFramework/PlayerController.h"
++#include "GameFramework/Pawn.h"
++
++void UDungeonRunSubsystem::InitializeShrine()
++{
++    const TArray<TSharedPtr<FJsonValue>>* Statues=nullptr;
++    if(!ShrineConfig||!ShrineConfig->TryGetArrayField(TEXT("statues"),Statues)||Statues->IsEmpty())return;
++    const FName Tag(*ShrineConfig->GetStringField(TEXT("actor_tag")));
++    for(TActorIterator<AActor> It(GetWorld());It;++It)
++        if(It->ActorHasTag(Tag)){ShrineActor=*It;break;}
++    if(!ShrineActor.IsValid())return;
++    FRandomStream Random=GameplayStream(DungeonRunDomains::ShrineSelection);
++    const auto Choice=(*Statues)[Random.RandRange(0,Statues->Num()-1)]->AsObject();
++    const FString Path=Choice->GetStringField(TEXT("mesh"));
++    // The generator's resource stage already loaded all choices and retains them.
++    UStaticMesh* Mesh=FindObject<UStaticMesh>(nullptr,*Path);
++    auto* Component=ShrineActor->FindComponentByClass<UStaticMeshComponent>();
++    if(!Mesh||!Component){ShrineActor.Reset();return;}
++    Component->UnregisterComponent();
++    Component->SetStaticMesh(Mesh);
++    Component->EmptyOverrideMaterials();
++    // Imported FBX axes are per-asset data; the original +X assumption turned
++    // the six -Y Blender fronts sideways after UE's Y reflection.
++    double MeshFrontYaw=90.;
++    Choice->TryGetNumberField(TEXT("front_local_yaw_deg"),MeshFrontYaw);
++    const TArray<TSharedPtr<FJsonValue>>* Exit=nullptr;
++    if(ShrineConfig->TryGetArrayField(TEXT("exit_target_cm"),Exit)&&Exit->Num()==3)
++    {
++        const FVector Target((*Exit)[0]->AsNumber(),(*Exit)[1]->AsNumber(),(*Exit)[2]->AsNumber());
++        const FVector Outward=Target-ShrineActor->GetActorLocation();
++        if(!Outward.IsNearlyZero())
++            ShrineActor->SetActorRotation(FRotator(0.,Outward.Rotation().Yaw-MeshFrontYaw,0.));
++    }
++    Component->SetCanEverAffectNavigation(false); // The permanent pedestal owns the floor obstruction.
++    Component->RegisterComponent();
++    ShrineName=Choice->GetStringField(TEXT("name"));
++    ShrineDescription=Choice->GetStringField(TEXT("description"));
++    ShrineBlessing=FName(*Choice->GetStringField(TEXT("buff_id")));
++    Choice->TryGetNumberField(TEXT("heal_fraction"),ShrineHealFraction);
++    const TSharedPtr<FJsonObject>* Effects=nullptr;
++    if(Choice->TryGetObjectField(TEXT("effects"),Effects))
++        for(const auto& Pair:(*Effects)->Values)if(Pair.Value->Type==EJson::Number)
++            ShrineEffects.Add(FName(*Pair.Key),Pair.Value->AsNumber());
++}
++
++bool UDungeonRunSubsystem::IsShrine(const AActor* Actor) const
++{return bActive&&IsValid(Actor)&&Actor==ShrineActor.Get()&&!ShrineBlessing.IsNone();}
++
++FString UDungeonRunSubsystem::ShrinePrompt() const
++{
++    return ShrineName+(bShrineClaimed?TEXT(" · 已获赐福（本次地牢）"):TEXT(" · 祈求赐福\n")+ShrineDescription);
++}
++
++double UDungeonRunSubsystem::ShrineEffect(FName Key) const
++{return bActive&&bShrineClaimed?ShrineEffects.FindRef(Key):0.;}
++
++bool UDungeonRunSubsystem::ClaimShrine(APlayerController* Controller,AActor* Target)
++{
++    if(!IsShrine(Target)||!CanClaimShrine()||!Controller||Controller->GetNetMode()!=NM_Standalone
++        ||ColdSteelWorldInteraction::TraceTarget(Controller)!=Target)return false;
++    APawn* Pawn=Controller->GetPawn();
++    auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
++    UColdSteelStatusModel* Model=StatusModel();
++    if(!Model||!Health||Health->IsDead())return false;
++    Model->SyncRuntime();auto Profile=Model->Snapshot();
++    static const FName Receipt(TEXT("start_shrine"));
++    if(Profile.DungeonRun.RunId!=CurrentRunId||Profile.DungeonRun.Claimed.Contains(Receipt))return false;
++    Profile.DungeonRun.Claimed.Add(Receipt);
++    Profile.Health=FMath::Min(Health->MaxHealth,float(Profile.Health+Health->MaxHealth*FMath::Clamp(ShrineHealFraction,0.,1.)));
++    // The receipt and instant heal are committed together. A failed save never consumes the shrine.
++    if(!Model->CommitState(MoveTemp(Profile)))return false;
++    bShrineClaimed=true;ShrineRecipient=Pawn;
++    UStatusEffectsComponent::Notify(Pawn);Model->NotifyChanged();
++    return true;
++}
+diff --git a/Source/FPSGAME/Dungeons/DungeonSpawnDirector.cpp b/Source/FPSGAME/Dungeons/DungeonSpawnDirector.cpp
+--- a/Source/FPSGAME/Dungeons/DungeonSpawnDirector.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonSpawnDirector.cpp
+@@ -2 +1,0 @@
+-#include "../Monsters/MonsterDamageAlert.h"
+@@ -6,0 +6 @@
++#include "../Monsters/FleshHandMonster.h"
+@@ -8,0 +9 @@
++#include "../Monsters/MonsterDamageAlert.h"
+@@ -33 +33,0 @@
+-    constexpr uint32 NodeMix = 0x9E3779B9u;
+@@ -36 +36 @@
+-    constexpr int32 MaxSlotAttempts = 3;          // 同槽最多 3 次，仍失败则放弃该槽
++    constexpr int32 SpawnDirectorMaxSlotAttempts = 3; // 同槽最多 3 次，仍失败则放弃该槽
+@@ -82,0 +83 @@
++        if (const auto* F = Cast<AFleshHandMonster>(Actor)) return F->Combat != nullptr;
+@@ -138 +139 @@
+-    struct FRoomRecipe { int32 PlanIndex = INDEX_NONE; int32 NodeId = INDEX_NONE; int32 MinCount = 2; int32 MaxCount = 4; TArray<FPoolEntry> Pool; double TotalWeight = 0.0; };
++    struct FRoomRecipe { int32 PlanIndex = INDEX_NONE; int32 NodeId = INDEX_NONE; int32 MinCount = 2; int32 MaxCount = 4; TArray<FPoolEntry> Pool; double TotalWeight = 0.0; bool bSealedEncounter = false; };
+@@ -153,0 +155 @@
++        Config->TryGetBoolField(TEXT("sealed_encounter"),Recipe.bSealedEncounter);
+@@ -199 +201 @@
+-        Plan.Depth = Node.Depth;
++        Plan.Depth = Node.ProgressionDepth;
+@@ -225,2 +227,2 @@
+-        FRandomStream Composition = Sub->GameplayStream(DungeonRunDomains::SpawnComposition ^ ((uint32)Recipe.NodeId * NodeMix));
+-        const int32 Count = Composition.RandRange(Recipe.MinCount, Recipe.MaxCount) + (Plan.bElite ? 1 : 0);
++        FRandomStream Composition = Sub->GameplayStream(DungeonRunDomains::SpawnComposition ^ Sub->NodeRandomSalt(Recipe.NodeId));
++        const int32 Count = FMath::Min(MaxCountPerRoom,Composition.RandRange(Recipe.MinCount, Recipe.MaxCount) + (Plan.bElite ? 1 : 0));
+@@ -233 +235 @@
+-        const int32 DepthBonus = FMath::Clamp(Node->Depth / 4, 0, MaxDepthLevelBonus);
++        const int32 DepthBonus = FMath::Clamp(Node->ProgressionDepth / 4, 0, MaxDepthLevelBonus);
+@@ -248 +250 @@
+-            Slot.Member.LevelBonus = DepthBonus + (Plan.bElite ? EliteLevelBonus : 0);
++            Slot.Member.LevelBonus = DepthBonus + Node->ThreatBonus + (Plan.bElite ? EliteLevelBonus : 0);
+@@ -255 +257 @@
+-        if (!Plan.bElite) continue;
++        if (!Plan.bElite && !Recipe.bSealedEncounter) continue;
+@@ -260 +262 @@
+-            UE_LOG(LogTemp, Warning, TEXT("[DungeonSpawn] 精英房 %d 门口估算失败：不封门，只生成精英组。"), Recipe.NodeId);
++            UE_LOG(LogTemp, Warning, TEXT("[DungeonSpawn] 遭遇房 %d 门口估算失败：保留开放战斗。"), Recipe.NodeId);
+@@ -269 +271 @@
+-            UE_LOG(LogTemp, Error, TEXT("[DungeonSpawn] 精英房 %d 的封门遭遇创建失败，退化为普通房刷怪。"), Recipe.NodeId);
++            UE_LOG(LogTemp, Error, TEXT("[DungeonSpawn] 遭遇房 %d 的封门遭遇创建失败，退化为普通房刷怪。"), Recipe.NodeId);
+@@ -280 +282 @@
+-        UE_LOG(LogTemp, Display, TEXT("[DungeonSpawn] 精英房 %d（%s，深度 %d）：精英组 %d 只，封门%s"),
++        UE_LOG(LogTemp, Display, TEXT("[DungeonSpawn] 遭遇房 %d（%s，深度 %d）：编成 %d 只，封门%s"),
+@@ -290 +292,5 @@
+-    // 精英房选择走独立玩法流；按 Route 前缀固定顺序消费，保证可复现。
++    // Mission roles own elite intent; route names are only a legacy fallback.
++    bool HasMission=false;
++    for(int32 Id:Eligible)if(const auto* Node=Sub->NodeById(Id);Node&&!Node->EncounterRole.IsEmpty())
++    {HasMission=true;if(Node->EncounterRole==TEXT("risk_elite"))OutEliteNodes.Add(Id);}
++    if(HasMission)return;
+@@ -292 +298,4 @@
+-    for (const TCHAR* Prefix : { TEXT("Route1"), TEXT("Route2"), TEXT("Route3") })
++    TArray<FString> Routes;
++    for(int32 Id:Eligible)if(const auto* Node=Sub->NodeById(Id);Node&&Node->Route!=TEXT("Approach"))Routes.AddUnique(Node->Route);
++    Routes.Sort();
++    for (const FString& Prefix : Routes)
+@@ -298 +307 @@
+-            if (Node && Node->Route.StartsWith(Prefix)) Group.Add(NodeId);
++            if (Node && Node->Route==Prefix) Group.Add(NodeId);
+@@ -306,2 +315,2 @@
+-            const int32 DA = NA ? NA->Depth : 0;
+-            const int32 DB = NB ? NB->Depth : 0;
++            const int32 DA = NA ? NA->ProgressionDepth : 0;
++            const int32 DB = NB ? NB->ProgressionDepth : 0;
+@@ -332 +341,2 @@
+-        if (Active.Contains(Plan.NodeId) && !Plan.bExplored)
++        const auto* RoomNode=Sub->NodeById(Plan.NodeId);
++        if (Player&&RoomNode&&RoomNode->DistanceSquared(PlayerAt)<=FMath::Square(100.) && !Plan.bExplored)
+@@ -356 +366 @@
+-    if (AliveCount() >= FMath::Max(0, DungeonSpawnGlobalCap.GetValueOnGameThread())) return;
++    if (AliveCount() >= OrdinarySpawnLimit()) return;
+@@ -380 +390 @@
+-    const int32 Cap = FMath::Max(0, DungeonSpawnGlobalCap.GetValueOnGameThread());
++    const int32 Cap = OrdinarySpawnLimit();
+@@ -401,0 +412 @@
++        bool bSlotPlayerBlocked=false,bSlotPlacementFailed=false;
+@@ -406 +417 @@
+-            if (!PlayerGateAllows(World, Ground, MinPlayerDistance)) { bPlayerBlocked = true; break; }
++            if (!PlayerGateAllows(World, Ground, MinPlayerDistance)) { bSlotPlayerBlocked = true; continue; }
+@@ -408 +419 @@
+-                Sub->EnemySlotTag(Plan.NodeId, Index));
++                Sub->EnemySlotTag(Plan.NodeId, Index),Sub->NodeById(Plan.NodeId));
+@@ -410 +421 @@
+-            bPlacementFailed = true;   // 该候选不合格，换下一个（锚点用尽即散点）
++            bSlotPlacementFailed = true;
+@@ -424 +435 @@
+-        else if (bPlacementFailed && !bPlayerBlocked && !bCapBlocked)
++        else if (bSlotPlacementFailed && !bSlotPlayerBlocked && !bCapBlocked)
+@@ -427 +438 @@
+-            if (Slot.Attempts >= MaxSlotAttempts)
++            if (Slot.Attempts >= SpawnDirectorMaxSlotAttempts)
+@@ -433,0 +445,2 @@
++        bPlacementFailed|=!Monster&&bSlotPlacementFailed;
++        bPlayerBlocked|=!Monster&&bSlotPlayerBlocked;
+@@ -510 +523 @@
+-    // 相邻房 = 与该房共享 connector 邻居的房间（1 跳）。只唤醒两步，不注入目标：
++    // 沿连续通道找到相邻房，到房即停；不向相邻怪注入玩家目标：
+@@ -513,12 +526,6 @@
+-    for (int32 ConnectorId : Node->Neighbors)
+-    {
+-        const FDungeonRunNode* Connector = Sub->NodeById(ConnectorId);
+-        if (!Connector || !Connector->bConnector) continue;
+-        for (int32 NextId : Connector->Neighbors)
+-        {
+-            const FDungeonRunNode* Next = Sub->NodeById(NextId);
+-            if (!Next || Next->bConnector || NextId == Plan.NodeId) continue;
+-            AlertUntil.FindOrAdd(NextId) = Until;
+-            const int32 Other = PlanIndexOfRoom(NextId);
+-            if (Other != INDEX_NONE) WakeRoom(Other);
+-        }
++    TArray<int32> Neighbors;Sub->CollectNeighborRooms(Plan.NodeId,Neighbors);
++    for (int32 NextId : Neighbors)
++    {
++        AlertUntil.FindOrAdd(NextId) = Until;
++        const int32 Other = PlanIndexOfRoom(NextId);
++        if (Other != INDEX_NONE) WakeRoom(Other);
+@@ -569,0 +577,3 @@
++    {
++        if(Plan.bHandledByEncounter)
++        {if(const auto* Encounter=Plan.Encounter.Get())Count+=Encounter->AliveCount();continue;}
+@@ -571,0 +582 @@
++    }
+@@ -572,0 +584,15 @@
++}
++
++bool ADungeonSpawnDirector::CanSpawnMember()const
++{
++    return bArmed&&AliveCount()<FMath::Max(0,DungeonSpawnGlobalCap.GetValueOnGameThread());
++}
++
++int32 ADungeonSpawnDirector::OrdinarySpawnLimit()const
++{
++    const int32 Cap=FMath::Max(0,DungeonSpawnGlobalCap.GetValueOnGameThread());
++    int32 Reserve=0;
++    for(const auto& Plan:Plans)if(const auto* Encounter=Plan.Encounter.Get())
++        Reserve=FMath::Max(Reserve,Encounter->PendingCount());
++    // Reserve one encounter wave without removing any already spawned monster.
++    return FMath::Max(0,Cap-FMath::Min(Reserve,FMath::Max(0,Cap-1)));
+@@ -608 +634 @@
+-    const FVector& Ground, const FRotator& Facing, bool bAwake, FName SlotTag)
++    const FVector& Ground, const FRotator& Facing, bool bAwake, FName SlotTag, const FDungeonRunNode* Room)
+@@ -630,0 +657 @@
++    if(Room&&!Room->AllowsSpawn(Location.Location))return nullptr;
+@@ -689 +716 @@
+-    FRandomStream Placement = Subsystem->GameplayStream(DungeonRunDomains::SpawnPlacement ^ ((uint32)NodeId * NodeMix));
++    FRandomStream Placement = Subsystem->GameplayStream(DungeonRunDomains::SpawnPlacement ^ Subsystem->NodeRandomSalt(NodeId));
+@@ -695,0 +723,8 @@
++    // Actor iteration order changes across staged assemblies; order by authored position first.
++    Anchors.StableSort([](const ATargetPoint& A,const ATargetPoint& B)
++    {
++        const FVector P=A.GetActorLocation(),Q=B.GetActorLocation();
++        if(P.X!=Q.X)return P.X<Q.X;
++        if(P.Y!=Q.Y)return P.Y<Q.Y;
++        return P.Z<Q.Z;
++    });
+@@ -701 +736,2 @@
+-    for (const ATargetPoint* Anchor : Anchors) OutCandidates.Add(Anchor->GetActorLocation());
++    for (const ATargetPoint* Anchor : Anchors)
++        if(Node->AllowsSpawn(Anchor->GetActorLocation()))OutCandidates.Add(Anchor->GetActorLocation());
+@@ -719,0 +756 @@
++            if(!Node->AllowsSpawn(Hit.ImpactPoint))continue;
+@@ -740,0 +778,6 @@
++    }
++    else if (auto* F = Cast<AFleshHandMonster>(Monster))
++    {
++        if (Member.Level > 0) F->Level = Member.Level;
++        F->Level = FMath::Max(1, F->Level + Member.LevelBonus);
++        if (Member.bOverrideRank) F->Rank = Member.Rank;
+diff --git a/Source/FPSGAME/Dungeons/DungeonSpawnDirector.h b/Source/FPSGAME/Dungeons/DungeonSpawnDirector.h
+--- a/Source/FPSGAME/Dungeons/DungeonSpawnDirector.h
++++ b/Source/FPSGAME/Dungeons/DungeonSpawnDirector.h
+@@ -13,0 +14 @@
++struct FDungeonRunNode;
+@@ -80,0 +82 @@
++    bool CanSpawnMember()const;
+@@ -91 +93 @@
+-        const FVector& Ground, const FRotator& Facing, bool bAwake, FName SlotTag);
++        const FVector& Ground, const FRotator& Facing, bool bAwake, FName SlotTag, const FDungeonRunNode* Room);
+@@ -111 +113 @@
+-    /** 任一族受击 → 该房进入警报集（本 run 不再休眠）+ 相邻房（共享 connector 邻居，1 跳）临时唤醒。 */
++    /** 任一族受击 → 该房进入警报集（本 run 不再休眠）+ 连续通道尽头的相邻房临时唤醒。 */
+@@ -125,0 +128 @@
++    int32 OrdinarySpawnLimit()const;
+diff --git a/Source/FPSGAME/Dungeons/DungeonWallArt.cpp b/Source/FPSGAME/Dungeons/DungeonWallArt.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/DungeonWallArt.cpp
+@@ -0,0 +1,82 @@
++#include "DungeonWallArt.h"
++
++namespace
++{
++    using J=TSharedPtr<FJsonObject>;
++    FVector Vec(const J& O,const TCHAR* Key)
++    {
++        const auto& V=O->GetArrayField(Key);
++        return FVector(V[0]->AsNumber(),V[1]->AsNumber(),V[2]->AsNumber());
++    }
++    void VectorField(const J& O,const TCHAR* Key,const FVector& V)
++    {
++        O->SetArrayField(Key,{MakeShared<FJsonValueNumber>(V.X),MakeShared<FJsonValueNumber>(V.Y),MakeShared<FJsonValueNumber>(V.Z)});
++    }
++    template<typename T> void Shuffle(TArray<T>& Values,FRandomStream& Random)
++    {
++        for(int32 I=Values.Num()-1;I>0;--I)Values.Swap(I,Random.RandRange(0,I));
++    }
++}
++
++TArray<TSharedPtr<FJsonValue>> DungeonWallArt::Build(const J& Module,int32 Seed,int32 ModuleIndex)
++{
++    TArray<TSharedPtr<FJsonValue>> Parts;
++    const TSharedPtr<FJsonObject>* Recipe=nullptr;
++    if(!Module->TryGetObjectField(TEXT("wall_art"),Recipe))return Parts;
++    const J Pools=(*Recipe)->GetObjectField(TEXT("pools"));
++    TSet<FString> Used;TArray<FBox> Occupied;
++    for(const auto& Value:(*Recipe)->GetArrayField(TEXT("groups")))
++    {
++        const J Group=Value->AsObject();
++        FRandomStream Random(int32(HashCombineFast(uint32(Seed)^0x41525457u,
++            HashCombineFast(uint32(ModuleIndex),GetTypeHash(Group->GetStringField(TEXT("id")))))));
++        TArray<TSharedPtr<FJsonValue>> Slots=Group->GetArrayField(TEXT("slots"));
++        TArray<TSharedPtr<FJsonValue>> Choices=Pools->GetArrayField(Group->GetStringField(TEXT("pool")));
++        Shuffle(Slots,Random);Shuffle(Choices,Random);
++        const int32 Wanted=Random.RandRange(Group->GetIntegerField(TEXT("min_count")),Group->GetIntegerField(TEXT("max_count")));
++        int32 Made=0;
++        FString Fallback;Group->TryGetStringField(TEXT("fallback_pool"),Fallback);
++        for(const auto& SlotValue:Slots)
++        {
++            const J Slot=SlotValue->AsObject();
++            TArray<TSharedPtr<FJsonValue>> Candidates=Choices;
++            if(Made>=Wanted)
++            {
++                if(Fallback.IsEmpty())break;
++                Candidates=Pools->GetArrayField(Fallback);
++            }
++            for(const auto& Candidate:Candidates)
++            {
++                const J Art=Candidate->AsObject();const FString Id=Art->GetStringField(TEXT("id"));
++                bool Repeat=false;Group->TryGetBoolField(TEXT("allow_repeat"),Repeat);
++                if(!Repeat&&Used.Contains(Id))continue;
++                const FVector Extent=Vec(Art,TEXT("extent"));
++                const double Scale=Art->GetNumberField(TEXT("scale"));
++                const double HalfWidth=Extent.X*Scale,HalfHeight=Extent.Z*Scale;
++                const double AvailableX=Slot->GetNumberField(TEXT("half_width"))-HalfWidth;
++                const double AvailableZ=Slot->GetNumberField(TEXT("half_height"))-HalfHeight;
++                if(AvailableX<0||AvailableZ<0)continue;
++                const FRotator Rotation(0,Slot->GetNumberField(TEXT("yaw")),0);
++                FVector Center=Vec(Slot,TEXT("center"));
++                const double Jitter=Slot->GetNumberField(TEXT("jitter"));
++                Center+=Rotation.RotateVector(FVector(Random.FRandRange(-1,1)*FMath::Min(Jitter,AvailableX),0,
++                    Random.FRandRange(-1,1)*FMath::Min(Jitter*.5,AvailableZ)));
++                // A separate placement envelope prevents art from stacking even if
++                // author slots are later edited to intersect. Actual geometry stays flat.
++                const FVector LocalHalf(HalfWidth+12,2,HalfHeight+12);
++                const FBox Bounds=FBox(-LocalHalf,LocalHalf).TransformBy(FTransform(Rotation,Center));
++                bool Overlap=false;for(const FBox& Other:Occupied)if(Bounds.Intersect(Other)){Overlap=true;break;}
++                if(Overlap)continue;
++                J Part=MakeShared<FJsonObject>();Part->SetStringField(TEXT("mesh"),Art->GetStringField(TEXT("mesh")));
++                VectorField(Part,TEXT("position"),Center-Rotation.RotateVector(Vec(Art,TEXT("origin"))*Scale));
++                VectorField(Part,TEXT("scale"),FVector(Scale));Part->SetNumberField(TEXT("yaw"),Rotation.Yaw);
++                Part->SetBoolField(TEXT("collision"),false);Part->SetBoolField(TEXT("affects_navigation"),false);
++                Part->SetBoolField(TEXT("fluid"),false);Part->SetBoolField(TEXT("cast_shadow"),false);
++                Part->SetBoolField(TEXT("wall_art"),true);
++                Part->SetArrayField(TEXT("materials"),Art->GetArrayField(TEXT("materials")));
++                Parts.Add(MakeShared<FJsonValueObject>(Part));Occupied.Add(Bounds);Used.Add(Id);++Made;break;
++            }
++        }
++    }
++    return Parts;
++}
+diff --git a/Source/FPSGAME/Dungeons/DungeonWallArt.h b/Source/FPSGAME/Dungeons/DungeonWallArt.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/DungeonWallArt.h
+@@ -0,0 +1,9 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Dom/JsonObject.h"
++
++/** Seeded selection in authored solid-wall slots; no world scan or tick. */
++namespace DungeonWallArt
++{
++    TArray<TSharedPtr<FJsonValue>> Build(const TSharedPtr<FJsonObject>& Module,int32 Seed,int32 ModuleIndex);
++}
+diff --git a/Source/FPSGAME/Dungeons/WardBedScatter.cpp b/Source/FPSGAME/Dungeons/WardBedScatter.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/WardBedScatter.cpp
+@@ -0,0 +1,148 @@
++#include "WardBedScatter.h"
++
++#include "Components/InstancedStaticMeshComponent.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/World.h"
++#include "TimerManager.h"
++
++AWardBedScatter::AWardBedScatter()
++{
++    PrimaryActorTick.bCanEverTick=false;
++    Beds=CreateDefaultSubobject<UInstancedStaticMeshComponent>(TEXT("Beds"));
++    SetRootComponent(Beds);
++    Beds->SetMobility(EComponentMobility::Movable);
++    Beds->SetCollisionProfileName(TEXT("BlockAll"));
++    Beds->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
++    Beds->CanCharacterStepUpOn=ECB_Yes;
++    Beds->SetGenerateOverlapEvents(false);
++    Beds->SetCanEverAffectNavigation(true);
++}
++
++void AWardBedScatter::BeginPlay()
++{
++    Super::BeginPlay();
++    // Wait for authored architecture and individual door leaves to register.
++    if(bGenerateOnBeginPlay)GetWorldTimerManager().SetTimerForNextTick(this,&AWardBedScatter::GenerateInitial);
++}
++
++void AWardBedScatter::GenerateInitial()
++{
++    GenerateFromSeed(bRandomizeOnBeginPlay?static_cast<int32>(FGuid::NewGuid().A):Seed);
++}
++
++void AWardBedScatter::GenerateFromSeed(int32 InSeed)
++{
++    UWorld* World=GetWorld();
++    if(!World || !World->IsGameWorld())return; // Never populate an editor preview implicitly.
++    for(UInstancedStaticMeshComponent* Component:PropInstances)
++        if(Component)Component->DestroyComponent();
++    PropInstances.Reset();
++    Beds->ClearInstances();
++    PlacedBeds=0;
++    if(!BedMesh || Rooms.IsEmpty() || Poses.IsEmpty())return;
++    Beds->SetStaticMesh(BedMesh);
++    ActiveSeed=InSeed;
++    FRandomStream Random(InSeed);
++    float TotalWeight=0.f;
++    for(const FWardBedPose& Pose:Poses)if(Pose.Bounds.IsValid)TotalWeight+=FMath::Max(0.f,Pose.Weight);
++    if(TotalWeight<=0.f)return;
++    const int32 MinCount=FMath::Clamp(MinBedsPerRoom,0,8);
++    const int32 MaxCount=FMath::Clamp(MaxBedsPerRoom,MinCount,8);
++    const float WallMargin=FMath::Max(0.f,WallClearance);
++    const float Separation=FMath::Max(0.f,BedClearance);
++    const FTransform RoomToWorld=GetActorTransform();
++    TArray<FBox> Occupied;
++    FCollisionQueryParams Query(SCENE_QUERY_STAT(WardBedPlacement),true,this);
++    const auto SpaceAvailable=[&](const FBox& Candidate,float Clearance)
++    {
++        for(const FBox& Reserved:KeepClear)
++            if(Reserved.IsValid && Candidate.Intersect(Reserved))return false;
++        for(const FBox& Existing:Occupied)
++            if(Candidate.ExpandBy(FVector(Clearance,Clearance,0.f)).Intersect(Existing))return false;
++        const FBox WorldBounds=Candidate.TransformBy(RoomToWorld);
++        return !World->OverlapBlockingTestByChannel(WorldBounds.GetCenter(),FQuat::Identity,ECC_Pawn,
++            FCollisionShape::MakeBox(WorldBounds.GetExtent()),Query);
++    };
++
++    for(const FWardBedRoom& Room:Rooms)
++    {
++        if(!Room.Bounds.IsValid)continue;
++        const int32 Wanted=Random.RandRange(MinCount,MaxCount);
++        int32 Made=0;
++        // Finite rejection sampling: crowded rooms receive fewer beds, never a forced overlap.
++        for(int32 Attempt=0;Attempt<Wanted*48 && Made<Wanted;++Attempt)
++        {
++            float Pick=Random.FRandRange(0.f,TotalWeight);
++            const FWardBedPose* Selected=nullptr;
++            for(const FWardBedPose& Pose:Poses)
++            {
++                if(!Pose.Bounds.IsValid || Pose.Weight<=0.f)continue;
++                Selected=&Pose;
++                Pick-=Pose.Weight;
++                if(Pick<=0.f)break;
++            }
++            if(!Selected)continue;
++            const FQuat Yaw=FRotator(0.f,Random.FRandRange(-180.f,180.f),0.f).Quaternion();
++            const FBox RotatedBounds=Selected->Bounds.TransformBy(FTransform(Yaw));
++            const FVector Minimum=Room.Bounds.Min+FVector(WallMargin,WallMargin,0.f)-RotatedBounds.Min;
++            const FVector Maximum=Room.Bounds.Max-FVector(WallMargin,WallMargin,0.f)-RotatedBounds.Max;
++            if(Minimum.X>Maximum.X || Minimum.Y>Maximum.Y)continue;
++            const FVector Position(Random.FRandRange(Minimum.X,Maximum.X),
++                                   Random.FRandRange(Minimum.Y,Maximum.Y),Minimum.Z+.2f);
++            const FBox Candidate(RotatedBounds.Min+Position,RotatedBounds.Max+Position);
++            if(Candidate.Max.Z>Room.Bounds.Max.Z)continue;
++            if(!SpaceAvailable(Candidate,Separation))continue;
++
++            const FTransform Placement(Yaw*Selected->Rotation.Quaternion(),Position);
++            if(Beds->AddInstance(Placement)==INDEX_NONE)continue;
++            Occupied.Add(Candidate);
++            ++Made;
++            ++PlacedBeds;
++        }
++    }
++    // These execute after every bed, sharing occupancy regardless of collision.
++    // Upright props receive random yaw only; thin IV stands never block the player.
++    int32 PlacedProps=0;
++    for(const FWardRoomProp& Prop:RoomProps)
++    {
++        if(!Prop.Mesh)continue;
++        const FBox MeshBounds=Prop.Mesh->GetBoundingBox();
++        if(!MeshBounds.IsValid)continue;
++        auto* Instances=NewObject<UInstancedStaticMeshComponent>(this);
++        Instances->SetupAttachment(GetRootComponent());
++        Instances->SetMobility(EComponentMobility::Movable);
++        Instances->SetStaticMesh(Prop.Mesh);
++        Instances->SetCollisionProfileName(Prop.bBlocking?TEXT("BlockAll"):TEXT("NoCollision"));
++        Instances->SetCollisionEnabled(Prop.bBlocking?ECollisionEnabled::QueryAndPhysics:ECollisionEnabled::NoCollision);
++        Instances->CanCharacterStepUpOn=Prop.bBlocking?ECB_Yes:ECB_No;
++        Instances->SetGenerateOverlapEvents(false);
++        Instances->SetCanEverAffectNavigation(Prop.bBlocking);
++        Instances->ComponentTags.Add(Prop.TypeId);
++        Instances->RegisterComponent();
++        PropInstances.Add(Instances);
++        const int32 MinimumCount=FMath::Clamp(Prop.MinPerRoom,0,2);
++        const int32 MaximumCount=FMath::Clamp(Prop.MaxPerRoom,MinimumCount,2);
++        const float Clearance=FMath::Max(0.f,Prop.Clearance);
++        for(const FWardBedRoom& Room:Rooms)
++        {
++            if(!Room.Bounds.IsValid)continue;
++            const int32 Wanted=Random.RandRange(MinimumCount,MaximumCount);
++            int32 Made=0;
++            for(int32 Attempt=0;Attempt<Wanted*48 && Made<Wanted;++Attempt)
++            {
++                const FQuat Yaw=FRotator(0.f,Random.FRandRange(-180.f,180.f),0.f).Quaternion();
++                const FBox Rotated=MeshBounds.TransformBy(FTransform(Yaw));
++                const FVector Minimum=Room.Bounds.Min+FVector(WallMargin,WallMargin,0.f)-Rotated.Min;
++                const FVector Maximum=Room.Bounds.Max-FVector(WallMargin,WallMargin,0.f)-Rotated.Max;
++                if(Minimum.X>Maximum.X || Minimum.Y>Maximum.Y)continue;
++                const FVector Position(Random.FRandRange(Minimum.X,Maximum.X),
++                    Random.FRandRange(Minimum.Y,Maximum.Y),Minimum.Z+.2f);
++                const FBox Candidate(Rotated.Min+Position,Rotated.Max+Position);
++                if(Candidate.Max.Z>Room.Bounds.Max.Z || !SpaceAvailable(Candidate,Clearance))continue;
++                if(Instances->AddInstance(FTransform(Yaw,Position))==INDEX_NONE)continue;
++                Occupied.Add(Candidate);++Made;++PlacedProps;
++            }
++        }
++    }
++    UE_LOG(LogTemp,Log,TEXT("Ward furnishings generated: seed=%d beds=%d props=%d rooms=%d"),ActiveSeed,PlacedBeds,PlacedProps,Rooms.Num());
++}
+diff --git a/Source/FPSGAME/Dungeons/WardBedScatter.h b/Source/FPSGAME/Dungeons/WardBedScatter.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/WardBedScatter.h
+@@ -0,0 +1,77 @@
++#pragma once
++
++#include "CoreMinimal.h"
++#include "GameFramework/Actor.h"
++#include "WardBedScatter.generated.h"
++
++class UInstancedStaticMeshComponent;
++class UStaticMesh;
++
++USTRUCT(BlueprintType)
++struct FWardBedRoom
++{
++    GENERATED_BODY()
++    UPROPERTY(EditAnywhere) FName RoomId;
++    /** Local centimetres; Min.Z is the visible finished floor. */
++    UPROPERTY(EditAnywhere) FBox Bounds=FBox(ForceInit);
++};
++
++USTRUCT(BlueprintType)
++struct FWardBedPose
++{
++    GENERATED_BODY()
++    UPROPERTY(EditAnywhere) FName PoseId;
++    UPROPERTY(EditAnywhere) FRotator Rotation=FRotator::ZeroRotator;
++    /** Offline bounds of the rotated mesh AND collision, not its unrotated box. */
++    UPROPERTY(EditAnywhere) FBox Bounds=FBox(ForceInit);
++    UPROPERTY(EditAnywhere, meta=(ClampMin="0")) float Weight=1.f;
++};
++
++USTRUCT(BlueprintType)
++struct FWardRoomProp
++{
++    GENERATED_BODY()
++    UPROPERTY(EditAnywhere) FName TypeId;
++    UPROPERTY(EditAnywhere) TObjectPtr<UStaticMesh> Mesh;
++    UPROPERTY(EditAnywhere, meta=(ClampMin="0",ClampMax="2")) int32 MinPerRoom=0;
++    UPROPERTY(EditAnywhere, meta=(ClampMin="0",ClampMax="2")) int32 MaxPerRoom=1;
++    /** Visual occupancy applies even when gameplay collision is disabled. */
++    UPROPERTY(EditAnywhere) float Clearance=80.f;
++    UPROPERTY(EditAnywhere) bool bBlocking=true;
++};
++
++/** One-shot dressing; beds and small props share a single occupancy ledger. */
++UCLASS()
++class FPSGAME_API AWardBedScatter : public AActor
++{
++    GENERATED_BODY()
++public:
++    AWardBedScatter();
++    // The dungeon assembler populates only after all room collision is registered.
++    bool bGenerateOnBeginPlay=true;
++    UPROPERTY(VisibleAnywhere, BlueprintReadOnly) TObjectPtr<UInstancedStaticMeshComponent> Beds;
++    UPROPERTY(EditAnywhere, Category="Beds") TObjectPtr<UStaticMesh> BedMesh;
++    UPROPERTY(EditAnywhere, Category="Beds") TArray<FWardBedRoom> Rooms;
++    UPROPERTY(EditAnywhere, Category="Beds") TArray<FWardBedPose> Poses;
++    UPROPERTY(EditAnywhere, Category="Beds") TArray<FBox> KeepClear;
++    UPROPERTY(EditAnywhere, Category="Beds", meta=(ClampMin="0",ClampMax="8")) int32 MinBedsPerRoom=3;
++    UPROPERTY(EditAnywhere, Category="Beds", meta=(ClampMin="0",ClampMax="8")) int32 MaxBedsPerRoom=5;
++    UPROPERTY(EditAnywhere, Category="Beds") float WallClearance=65.f;
++    UPROPERTY(EditAnywhere, Category="Beds") float BedClearance=110.f;
++    UPROPERTY(EditAnywhere, Category="Beds") bool bRandomizeOnBeginPlay=true;
++    UPROPERTY(EditAnywhere, Category="Beds") int32 Seed=29481;
++    UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category="Beds") int32 ActiveSeed=0;
++    UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category="Beds") int32 PlacedBeds=0;
++    UFUNCTION(BlueprintCallable, Category="Beds") void GenerateFromSeed(int32 InSeed);
++
++protected:
++    virtual void BeginPlay() override;
++
++private:
++    void GenerateInitial();
++
++public:
++    UPROPERTY(EditAnywhere, Category="Furnishings") TArray<FWardRoomProp> RoomProps;
++private:
++    UPROPERTY(Transient) TArray<TObjectPtr<UInstancedStaticMeshComponent>> PropInstances;
++};
+diff --git a/Source/FPSGAME/Dungeons/WardBreakableGlass.cpp b/Source/FPSGAME/Dungeons/WardBreakableGlass.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/WardBreakableGlass.cpp
+@@ -0,0 +1,264 @@
++#include "WardBreakableGlass.h"
++
++#include "Components/AudioComponent.h"
++#include "../Weapons/FPSImpactFXSubsystem.h"
++#include "Engine/DamageEvents.h"
++#include "Engine/OverlapResult.h"
++#include "Engine/World.h"
++#include "Materials/MaterialInstanceDynamic.h"
++#include "NiagaraComponent.h"
++#include "NiagaraSystem.h"
++#include "Sound/SoundAttenuation.h"
++#include "TimerManager.h"
++
++UWardBreakableGlass::UWardBreakableGlass()
++{
++    PrimaryComponentTick.bCanEverTick=false;
++    SetMobility(EComponentMobility::Movable);
++    SetCollisionProfileName(TEXT("BlockAllDynamic"));
++    SetCanEverAffectNavigation(false);
++    SetCastShadow(false);
++    bReceivesDecals=false;
++    ComponentTags.Add(TEXT("Impact.Glass"));
++}
++
++void UWardBreakableGlass::ReceiveComponentDamage(float DamageAmount,const FDamageEvent& DamageEvent,
++    AController* EventInstigator,AActor* DamageCauser)
++{
++    Super::ReceiveComponentDamage(DamageAmount,DamageEvent,EventInstigator,DamageCauser);
++    HandleDamage(DamageAmount,DamageEvent,DamageCauser);
++}
++
++void UWardBreakableGlass::HandleDamage(float DamageAmount,const FDamageEvent& Event,AActor* Causer)
++{
++    if(DamageAmount<=0.f || bBroken)return;
++    if(Event.IsOfType(FPointDamageEvent::ClassID))
++    {
++        const auto& Point=static_cast<const FPointDamageEvent&>(Event);
++        // A hit on the surviving metal leaf must not break an untouched pane.
++        if(Point.HitInfo.GetComponent()==this)BreakAt(Point.HitInfo.ImpactPoint,Point.ShotDirection);
++    }
++    else if(Event.IsOfType(FRadialDamageEvent::ClassID))
++    {
++        const auto& Radial=static_cast<const FRadialDamageEvent&>(Event);
++        for(const auto& Hit:Radial.ComponentHits)
++            if(Hit.GetComponent()==this){BreakAt(Hit.ImpactPoint,Hit.ImpactPoint-Radial.Origin);break;}
++    }
++    else BreakAt(GetComponentLocation(),Causer?GetComponentLocation()-Causer->GetActorLocation():GetForwardVector());
++}
++
++bool UWardBreakableGlass::BreakAt(const FVector& HitPoint,const FVector& Direction)
++{
++    if(bBroken || !GetOwner() || !GetOwner()->HasAuthority())return false;
++    bBroken=true;
++    ComponentTags.AddUnique(TEXT("Glass.Broken"));
++    if(auto* Impacts=GetWorld()->GetSubsystem<UFPSImpactFXSubsystem>())Impacts->ClearImpactDecalsForComponent(this);
++    SetCollisionEnabled(ECollisionEnabled::NoCollision);
++    SetGenerateOverlapEvents(false);
++    SetVisibility(false,true);
++    if(UWorld* World=GetWorld())
++        if(auto* FX=World->GetSubsystem<UWardGlassFXSubsystem>())
++            FX->BreakPane(this,HitPoint,Direction.GetSafeNormal(SMALL_NUMBER,GetForwardVector()));
++    return true;
++}
++
++bool UWardBreakableGlass::BreakHit(const FHitResult& Hit,const FVector& Direction)
++{
++    auto* Pane=Cast<UWardBreakableGlass>(Hit.GetComponent());
++    return Pane && Pane->BreakAt(Hit.ImpactPoint,Direction);
++}
++
++UWardBreakableGlass* UWardBreakableGlass::IntactPane(AActor* Actor)
++{
++    auto* Pane=IsValid(Actor)?Actor->FindComponentByClass<UWardBreakableGlass>():nullptr;
++    return Pane && !Pane->bBroken?Pane:nullptr;
++}
++
++FVector UWardBreakableGlass::TargetPoint(AActor* Actor)
++{
++    if(auto* Pane=IntactPane(Actor))return Pane->GetComponentLocation();
++    return Actor->GetActorLocation();
++}
++
++void UWardBreakableGlass::BreakInRadius(UWorld* World,const FVector& Center,float Radius,AActor* Causer)
++{
++    if(!World || Radius<=0 || (Causer && !Causer->HasAuthority()))return;
++    FCollisionObjectQueryParams Objects;Objects.AddObjectTypesToQuery(ECC_WorldStatic);Objects.AddObjectTypesToQuery(ECC_WorldDynamic);
++    FCollisionQueryParams Query(SCENE_QUERY_STAT(WardGlassBlast),false,Causer);
++    TArray<FOverlapResult> Overlaps;
++    World->OverlapMultiByObjectType(Overlaps,Center,FQuat::Identity,Objects,FCollisionShape::MakeSphere(Radius),Query);
++    // Capture exposure before breaking any pane; the same blast cannot leak through
++    // the obstacle it is just removing to shatter another pane behind it.
++    TArray<TPair<UWardBreakableGlass*,FVector>> Exposed;
++    for(const auto& Overlap:Overlaps)
++    {
++        auto* Pane=Cast<UWardBreakableGlass>(Overlap.GetComponent());
++        if(!Pane || Pane->bBroken)continue;
++        FVector Point;
++        const float Distance=Pane->GetClosestPointOnCollision(Center,Point);
++        if(Distance<0 || Distance>Radius)continue;
++        if(Distance==0)Point=Center;
++        FHitResult Cover;
++        if(World->LineTraceSingleByChannel(Cover,Center,Point+(Point-Center).GetSafeNormal()*2.f,ECC_Visibility,Query)
++            && Cover.GetComponent()!=Pane)continue;
++        Exposed.Emplace(Pane,Point);
++    }
++    for(const auto& Entry:Exposed)Entry.Key->BreakAt(Entry.Value,Entry.Value-Center);
++}
++
++AWardGlassDoor::AWardGlassDoor()
++{
++    SetCanBeDamaged(true);
++    MetalLeaf=Cast<UStaticMeshComponent>(GetDefaultSubobjectByName(TEXT("DoorLeaf")));
++    if(MetalLeaf)MetalLeaf->ComponentTags.AddUnique(TEXT("Impact.Metal"));
++    GlassPane=CreateDefaultSubobject<UWardBreakableGlass>(TEXT("BreakableGlass"));
++    GlassPane->SetupAttachment(MetalLeaf);
++    GlassPane->SetRelativeLocation(FVector(0.f,0.f,13.3f));
++}
++
++float AWardGlassDoor::TakeDamage(float Amount,const FDamageEvent& Event,AController* EventInstigator,AActor* Causer)
++{
++    const float Applied=Super::TakeDamage(Amount,Event,EventInstigator,Causer);
++    if(GlassPane)GlassPane->HandleDamage(Applied,Event,Causer);
++    return Applied;
++}
++
++void AWardGlassDoor::Tick(float DeltaSeconds)
++{
++    Super::Tick(DeltaSeconds);
++    // Follow the existing door's anti-crush policy without restoring broken glass.
++    if(GlassPane && !GlassPane->bBroken && MetalLeaf)
++    {
++        const auto Response=MetalLeaf->GetCollisionResponseToChannel(ECC_Pawn);
++        if(GlassPane->GetCollisionResponseToChannel(ECC_Pawn)!=Response)
++            GlassPane->SetCollisionResponseToChannel(ECC_Pawn,Response);
++    }
++}
++
++AWardGlassWindow::AWardGlassWindow()
++{
++    PrimaryActorTick.bCanEverTick=false;
++    SetCanBeDamaged(true);
++    GlassPane=CreateDefaultSubobject<UWardBreakableGlass>(TEXT("BreakableGlass"));
++    SetRootComponent(GlassPane);
++}
++
++float AWardGlassWindow::TakeDamage(float Amount,const FDamageEvent& Event,AController* EventInstigator,AActor* Causer)
++{
++    const float Applied=Super::TakeDamage(Amount,Event,EventInstigator,Causer);
++    if(GlassPane)GlassPane->HandleDamage(Applied,Event,Causer);
++    return Applied;
++}
++
++AWardGlassBurst::AWardGlassBurst()
++{
++    PrimaryActorTick.bCanEverTick=false;
++    Fragments=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Fragments"));
++    SetRootComponent(Fragments);
++    Fragments->SetMobility(EComponentMobility::Movable);
++    Fragments->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++    Fragments->SetCanEverAffectNavigation(false);
++    Fragments->SetCastShadow(false);
++    Fragments->bReceivesDecals=false;
++    Fragments->SetCullDistance(10000.f);
++    // WPO travels roughly two metres, including gravity, from the original pane.
++    Fragments->SetBoundsScale(6.f);
++    Glints=CreateDefaultSubobject<UNiagaraComponent>(TEXT("GlassGlints"));
++    Glints->SetupAttachment(Fragments);
++    Glints->SetAutoActivate(false);
++    Glints->SetCanEverAffectNavigation(false);
++    Audio=CreateDefaultSubobject<UAudioComponent>(TEXT("ShatterAudio"));
++    Audio->SetupAttachment(Fragments);
++    Audio->bAutoActivate=false;
++    Audio->bOverrideAttenuation=true;
++    Audio->AttenuationOverrides.bAttenuate=true;
++    Audio->AttenuationOverrides.bSpatialize=true;
++    Audio->AttenuationOverrides.AttenuationShape=EAttenuationShape::Sphere;
++    Audio->AttenuationOverrides.AttenuationShapeExtents=FVector(180.f,0.f,0.f);
++    Audio->AttenuationOverrides.FalloffDistance=2500.f;
++}
++
++void AWardGlassBurst::Play(const UWardBreakableGlass* Pane,const FVector& HitPoint,const FVector& ShotDirection)
++{
++    GetWorldTimerManager().ClearTimer(ReleaseTimer);
++    Glints->DeactivateImmediate();Audio->Stop();
++    SetActorTransform(Pane->GetComponentTransform()); // Never attach this snapshot to the moving door.
++    Fragments->SetStaticMesh(Pane->FractureMesh);
++    if(!Material || MaterialSource!=Pane->FractureMaterial)
++    {
++        MaterialSource=Pane->FractureMaterial;
++        Material=UMaterialInstanceDynamic::Create(MaterialSource,this);
++    }
++    Fragments->SetMaterial(0,Material);
++    FHitResult Ground;
++    FCollisionQueryParams Query(SCENE_QUERY_STAT(WardGlassFloor),false,Pane->GetOwner());
++    if(const AActor* Parent=Pane->GetOwner()->GetAttachParentActor())Query.AddIgnoredActor(Parent);
++    Query.AddIgnoredActor(this);
++    const FVector Origin=Pane->GetComponentLocation();
++    // Probe off the pane plane so an observation-window sill is not mistaken for the floor.
++    const FVector PaneNormal=Pane->GetForwardVector();
++    const FVector FloorSample=Origin+PaneNormal*(FVector::DotProduct(ShotDirection,PaneNormal)>=0.f?55.f:-55.f);
++    const float FloorZ=GetWorld()->LineTraceSingleByChannel(Ground,FloorSample,FloorSample-FVector(0,0,700),ECC_Visibility,Query)
++        ? Ground.ImpactPoint.Z : Origin.Z-Pane->PaneDimensions.Y*.5f;
++    Material->SetScalarParameterValue(TEXT("Born"),GetWorld()->GetTimeSeconds());
++    Material->SetScalarParameterValue(TEXT("FloorZ"),FloorZ);
++    Material->SetVectorParameterValue(TEXT("PaneSize"),FLinearColor(Pane->PaneDimensions));
++    Material->SetVectorParameterValue(TEXT("PaneOrigin"),FLinearColor(Origin));
++    Material->SetVectorParameterValue(TEXT("PaneY"),FLinearColor(Pane->GetRightVector()));
++    Material->SetVectorParameterValue(TEXT("PaneZ"),FLinearColor(Pane->GetUpVector()));
++    Material->SetVectorParameterValue(TEXT("HitPoint"),FLinearColor(HitPoint));
++    Material->SetVectorParameterValue(TEXT("ShotDirection"),FLinearColor(ShotDirection.GetSafeNormal()));
++    SetActorHiddenInGame(false);
++    if(Pane->ImpactParticles)
++    {
++        Glints->SetAsset(Pane->ImpactParticles);
++        // This shared impact asset also contains bullet-hole emitters. Disable
++        // them only on the shatter component, before activation, on every reuse.
++        for(const auto& Emitter:Pane->ImpactParticles->GetEmitterHandles())
++            if(Emitter.GetName().ToString().Contains(TEXT("Decal")))Glints->SetEmitterEnable(Emitter.GetName(),false);
++        Glints->SetWorldLocationAndRotation(HitPoint,FRotationMatrix::MakeFromZ(ShotDirection).Rotator());
++        Glints->Activate(true);
++    }
++    if(Pane->BreakSound)
++    {
++        Audio->SetSound(Pane->BreakSound);Audio->SetWorldLocation(HitPoint);
++        Audio->SetVolumeMultiplier(.85f);Audio->SetPitchMultiplier(FMath::FRandRange(.87f,1.02f));Audio->Play();
++    }
++    GetWorldTimerManager().SetTimer(ReleaseTimer,this,&AWardGlassBurst::Park,4.1f,false);
++}
++
++void AWardGlassBurst::Park()
++{
++    SetActorHiddenInGame(true);Glints->DeactivateImmediate();Audio->Stop();
++}
++
++bool UWardGlassFXSubsystem::DoesSupportWorldType(EWorldType::Type Type) const
++{
++    return Type==EWorldType::Game || Type==EWorldType::PIE;
++}
++
++void UWardGlassFXSubsystem::BreakPane(const UWardBreakableGlass* Pane,const FVector& HitPoint,const FVector& ShotDirection)
++{
++    if(GetWorld()->GetNetMode()==NM_DedicatedServer || !Pane->FractureMesh || !Pane->FractureMaterial)return;
++    if(Bursts.Num()<6)
++    {
++        FActorSpawnParameters Params;
++        Params.ObjectFlags|=RF_Transient;
++        Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
++        auto* Burst=GetWorld()->SpawnActor<AWardGlassBurst>(Params);
++        if(!Burst)return;
++        Bursts.Add(Burst);
++        Burst->Play(Pane,HitPoint,ShotDirection);
++    }
++    else
++    {
++        Bursts[Cursor]->Play(Pane,HitPoint,ShotDirection);
++        Cursor=(Cursor+1)%Bursts.Num();
++    }
++}
++
++void UWardGlassFXSubsystem::Deinitialize()
++{
++    for(AWardGlassBurst* Burst:Bursts)if(IsValid(Burst))Burst->Destroy();
++    Bursts.Empty();Super::Deinitialize();
++}
+diff --git a/Source/FPSGAME/Dungeons/WardBreakableGlass.h b/Source/FPSGAME/Dungeons/WardBreakableGlass.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/WardBreakableGlass.h
+@@ -0,0 +1,93 @@
++#pragma once
++
++#include "CoreMinimal.h"
++#include "Components/StaticMeshComponent.h"
++#include "Subsystems/WorldSubsystem.h"
++#include "../Building/ColdSteelDoor.h"
++#include "WardBreakableGlass.generated.h"
++
++class UNiagaraSystem;
++class UNiagaraComponent;
++class UAudioComponent;
++class USoundBase;
++class UMaterialInstanceDynamic;
++
++/** One pane owns the obstacle. Cosmetic fragments never own query collision. */
++UCLASS(ClassGroup=(Dungeon), meta=(BlueprintSpawnableComponent))
++class FPSGAME_API UWardBreakableGlass : public UStaticMeshComponent
++{
++    GENERATED_BODY()
++public:
++    UWardBreakableGlass();
++    virtual void ReceiveComponentDamage(float DamageAmount, const FDamageEvent& DamageEvent,
++        AController* EventInstigator, AActor* DamageCauser) override;
++    void HandleDamage(float DamageAmount,const FDamageEvent& DamageEvent,AActor* DamageCauser);
++    bool BreakAt(const FVector& HitPoint,const FVector& Direction);
++    static bool BreakHit(const FHitResult& Hit,const FVector& Direction);
++    static void BreakInRadius(UWorld* World,const FVector& Center,float Radius,AActor* DamageCauser);
++    static UWardBreakableGlass* IntactPane(AActor* Actor);
++    static FVector TargetPoint(AActor* Actor);
++    UPROPERTY(EditAnywhere, Category="Glass") TObjectPtr<UStaticMesh> FractureMesh;
++    UPROPERTY(EditAnywhere, Category="Glass") TObjectPtr<UMaterialInterface> FractureMaterial;
++    UPROPERTY(EditAnywhere, Category="Glass") TObjectPtr<UNiagaraSystem> ImpactParticles;
++    UPROPERTY(EditAnywhere, Category="Glass") TObjectPtr<USoundBase> BreakSound;
++    /** Width, height, thickness in centimetres. The pane normal is local X. */
++    UPROPERTY(EditAnywhere, Category="Glass") FVector PaneDimensions=FVector(142.f,250.f,1.2f);
++    UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category="Glass") bool bBroken=false;
++};
++
++UCLASS()
++class FPSGAME_API AWardGlassDoor : public AColdSteelDoor
++{
++    GENERATED_BODY()
++public:
++    AWardGlassDoor();
++    virtual float TakeDamage(float DamageAmount,const FDamageEvent& DamageEvent,AController* EventInstigator,AActor* DamageCauser) override;
++    virtual void Tick(float DeltaSeconds) override;
++    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Glass") TObjectPtr<UWardBreakableGlass> GlassPane;
++private:
++    UPROPERTY() TObjectPtr<UStaticMeshComponent> MetalLeaf;
++};
++
++UCLASS()
++class FPSGAME_API AWardGlassWindow : public AActor
++{
++    GENERATED_BODY()
++public:
++    AWardGlassWindow();
++    virtual float TakeDamage(float DamageAmount,const FDamageEvent& DamageEvent,AController* EventInstigator,AActor* DamageCauser) override;
++    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Glass") TObjectPtr<UWardBreakableGlass> GlassPane;
++};
++
++/** A reusable four-second world-space visual snapshot. No per-frame CPU work. */
++UCLASS(NotPlaceable, Transient)
++class FPSGAME_API AWardGlassBurst : public AActor
++{
++    GENERATED_BODY()
++public:
++    AWardGlassBurst();
++    void Play(const UWardBreakableGlass* Pane,const FVector& HitPoint,const FVector& ShotDirection);
++private:
++    void Park();
++    UPROPERTY() TObjectPtr<UStaticMeshComponent> Fragments;
++    UPROPERTY() TObjectPtr<UNiagaraComponent> Glints;
++    UPROPERTY() TObjectPtr<UAudioComponent> Audio;
++    UPROPERTY() TObjectPtr<UMaterialInstanceDynamic> Material;
++    UPROPERTY() TObjectPtr<UMaterialInterface> MaterialSource;
++    FTimerHandle ReleaseTimer;
++};
++
++/** At most six simultaneous whole-pane bursts; complete panes allocate no FX. */
++UCLASS()
++class FPSGAME_API UWardGlassFXSubsystem : public UWorldSubsystem
++{
++    GENERATED_BODY()
++public:
++    void BreakPane(const UWardBreakableGlass* Pane,const FVector& HitPoint,const FVector& ShotDirection);
++    virtual void Deinitialize() override;
++protected:
++    virtual bool DoesSupportWorldType(EWorldType::Type Type) const override;
++private:
++    UPROPERTY(Transient) TArray<TObjectPtr<AWardGlassBurst>> Bursts;
++    int32 Cursor=0;
++};
+diff --git a/Source/FPSGAME/Dungeons/WardRoomAssembly.cpp b/Source/FPSGAME/Dungeons/WardRoomAssembly.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/WardRoomAssembly.cpp
+@@ -0,0 +1,115 @@
++#include "WardRoomAssembly.h"
++#include "WardBedScatter.h"
++#include "WardBreakableGlass.h"
++#include "DungeonBloodScatter.h"
++#include "Engine/World.h"
++#include "Engine/StaticMesh.h"
++#include "Materials/MaterialInterface.h"
++#include "NiagaraSystem.h"
++#include "Sound/SoundBase.h"
++
++namespace
++{
++    using J = TSharedPtr<FJsonObject>;
++    FVector Vec(const J& O, const TCHAR* Key)
++    {
++        const auto& V=O->GetArrayField(Key);
++        return FVector(V[0]->AsNumber(),V[1]->AsNumber(),V[2]->AsNumber());
++    }
++    FBox Box(const J& O) {return FBox(Vec(O,TEXT("min")),Vec(O,TEXT("max")));}
++}
++
++AActor* WardRoomAssembly::Spawn(UWorld* World,AActor* Owner,const J& S,
++    const FTransform& Room,AActor* Frame,FName ReceiverTag,TFunctionRef<UObject*(const FString&)> Resolve)
++{
++    const FString Type=S->GetStringField(TEXT("type"));
++    const FTransform At=FTransform(FRotator(0,S->GetNumberField(TEXT("yaw")),0),Vec(S,TEXT("position")))*Room;
++    AActor* Result=nullptr;
++    UWardBreakableGlass* Pane=nullptr;
++    if(Type==TEXT("glass_door"))
++    {
++        auto* Door=World->SpawnActorDeferred<AWardGlassDoor>(AWardGlassDoor::StaticClass(),At,Owner,nullptr,ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
++        if(!Door)return nullptr;
++        Door->ConfigureStandaloneLeaf(Cast<UStaticMesh>(Resolve(S->GetStringField(TEXT("leaf")))),
++            S->GetBoolField(TEXT("positive_hinge")),S->GetNumberField(TEXT("open_seconds")),S->GetNumberField(TEXT("auto_close_seconds")));
++        Result=Door;Pane=Door->GlassPane;
++    }
++    else if(Type==TEXT("glass_window"))
++    {
++        auto* Window=World->SpawnActorDeferred<AWardGlassWindow>(AWardGlassWindow::StaticClass(),At,Owner,nullptr,ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
++        if(!Window)return nullptr;
++        Result=Window;Pane=Window->GlassPane;
++    }
++    else if(Type==TEXT("beds"))
++    {
++        auto* Beds=World->SpawnActorDeferred<AWardBedScatter>(AWardBedScatter::StaticClass(),At,Owner,nullptr,ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
++        if(!Beds)return nullptr;
++        Beds->bGenerateOnBeginPlay=false;
++        Beds->BedMesh=Cast<UStaticMesh>(Resolve(S->GetStringField(TEXT("mesh"))));
++        Beds->MinBedsPerRoom=S->GetIntegerField(TEXT("min_beds_per_room"));
++        Beds->MaxBedsPerRoom=S->GetIntegerField(TEXT("max_beds_per_room"));
++        Beds->WallClearance=S->GetNumberField(TEXT("wall_clearance"));
++        Beds->BedClearance=S->GetNumberField(TEXT("bed_clearance"));
++        for(const auto& V:S->GetArrayField(TEXT("rooms")))
++        {
++            auto O=V->AsObject();FWardBedRoom R;
++            R.RoomId=FName(*O->GetStringField(TEXT("id")));R.Bounds=Box(O);Beds->Rooms.Add(R);
++        }
++        for(const auto& V:S->GetArrayField(TEXT("poses")))
++        {
++            auto O=V->AsObject();FWardBedPose P;
++            P.PoseId=FName(*O->GetStringField(TEXT("id")));
++            P.Rotation=FRotator(O->GetNumberField(TEXT("pitch")),0,O->GetNumberField(TEXT("roll")));
++            P.Bounds=Box(O);P.Weight=O->GetNumberField(TEXT("weight"));Beds->Poses.Add(P);
++        }
++        for(const auto& V:S->GetArrayField(TEXT("keep_clear")))Beds->KeepClear.Add(Box(V->AsObject()));
++        for(const auto& V:S->GetArrayField(TEXT("room_props")))
++        {
++            auto O=V->AsObject();FWardRoomProp P;
++            P.TypeId=FName(*O->GetStringField(TEXT("id")));P.Mesh=Cast<UStaticMesh>(Resolve(O->GetStringField(TEXT("mesh"))));
++            P.MinPerRoom=O->GetIntegerField(TEXT("min_per_room"));P.MaxPerRoom=O->GetIntegerField(TEXT("max_per_room"));
++            P.Clearance=O->GetNumberField(TEXT("clearance"));P.bBlocking=O->GetBoolField(TEXT("blocking"));Beds->RoomProps.Add(P);
++        }
++        Result=Beds;
++    }
++    else if(Type==TEXT("blood"))
++    {
++        auto* Blood=World->SpawnActorDeferred<ADungeonBloodScatter>(ADungeonBloodScatter::StaticClass(),At,Owner,nullptr,ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
++        if(!Blood)return nullptr;
++        Blood->bGenerateOnBeginPlay=false;Blood->ReceiverTag=ReceiverTag;
++        Blood->BloodMaterial=Cast<UMaterialInterface>(Resolve(S->GetStringField(TEXT("material"))));
++        Blood->FloorCount=S->GetIntegerField(TEXT("floor_count"));Blood->WallCount=S->GetIntegerField(TEXT("wall_count"));
++        const auto& Range=S->GetArrayField(TEXT("scanned_size_range_cm"));
++        Blood->ScannedSizeRangeCm=FVector2D(Range[0]->AsNumber(),Range[1]->AsNumber());
++        Blood->FloorSizeScale=S->GetNumberField(TEXT("floor_size_scale"));
++        for(const auto& V:S->GetArrayField(TEXT("surfaces")))
++        {
++            auto O=V->AsObject();FDungeonBloodSurface Surface;
++            Surface.Center=Vec(O,TEXT("center"));Surface.Normal=Vec(O,TEXT("normal"));Surface.AxisU=Vec(O,TEXT("axis_u"));
++            const auto& Half=O->GetArrayField(TEXT("half_size"));Surface.HalfSize=FVector2D(Half[0]->AsNumber(),Half[1]->AsNumber());
++            Surface.bWall=O->GetBoolField(TEXT("wall"));Blood->Surfaces.Add(Surface);
++        }
++        Result=Blood;
++    }
++    if(Pane)
++    {
++        Pane->SetStaticMesh(Cast<UStaticMesh>(Resolve(S->GetStringField(TEXT("pane")))));
++        Pane->FractureMesh=Cast<UStaticMesh>(Resolve(S->GetStringField(TEXT("fracture"))));
++        Pane->FractureMaterial=Cast<UMaterialInterface>(Resolve(S->GetStringField(TEXT("fracture_material"))));
++        Pane->ImpactParticles=Cast<UNiagaraSystem>(Resolve(S->GetStringField(TEXT("impact_particles"))));
++        Pane->BreakSound=Cast<USoundBase>(Resolve(S->GetStringField(TEXT("sound"))));
++        Pane->PaneDimensions=Vec(S,TEXT("dimensions_cm"));
++    }
++    if(Result)
++    {
++        Result->FinishSpawning(At);
++        if(Frame)Result->AttachToActor(Frame,FAttachmentTransformRules::KeepWorldTransform);
++    }
++    return Result;
++}
++
++void WardRoomAssembly::Populate(AActor* Actor,int32 Seed)
++{
++    if(auto* Beds=Cast<AWardBedScatter>(Actor))Beds->GenerateFromSeed(Seed);
++    else if(auto* Blood=Cast<ADungeonBloodScatter>(Actor))Blood->GenerateFromSeed(Seed);
++}
+diff --git a/Source/FPSGAME/Dungeons/WardRoomAssembly.h b/Source/FPSGAME/Dungeons/WardRoomAssembly.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/WardRoomAssembly.h
+@@ -0,0 +1,16 @@
++#pragma once
++
++#include "CoreMinimal.h"
++#include "Dom/JsonObject.h"
++
++class AActor;
++class UWorld;
++
++/** Ward components share the generator's lifetime, transform and seed. */
++namespace WardRoomAssembly
++{
++    AActor* Spawn(UWorld* World, AActor* Owner, const TSharedPtr<FJsonObject>& Spec,
++        const FTransform& Room, AActor* Frame, FName ReceiverTag,
++        TFunctionRef<UObject*(const FString&)> Resolve);
++    void Populate(AActor* Actor, int32 Seed);
++}

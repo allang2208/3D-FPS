@@ -1,0 +1,1122 @@
+{
+  "id": "AbandonedTransitStation",
+  "family_id": "AbandonedTransitStation",
+  "role": "room",
+  "encounter_role": "special_combat",
+  "revision": "station_expansion_20260929",
+  "min": [
+    -1915.0,
+    -1965.0,
+    -208.0
+  ],
+  "max": [
+    3828.0,
+    1678.0,
+    1208.0
+  ],
+  "cells": [
+    {
+      "min": [
+        -1628.0,
+        -1678.0,
+        -208.0
+      ],
+      "max": [
+        3228.0,
+        1678.0,
+        1208.0
+      ]
+    },
+    {
+      "min": [
+        -1915.0,
+        -244.0,
+        -30.0
+      ],
+      "max": [
+        -1600,
+        244.0,
+        370.0
+      ]
+    },
+    {
+      "min": [
+        181.0,
+        -1965.0,
+        -30.0
+      ],
+      "max": [
+        669.0,
+        -1650.0,
+        370.0
+      ]
+    },
+    {
+      "min": [
+        3200,
+        -533.0,
+        -208.0
+      ],
+      "max": [
+        3828.0,
+        533.0,
+        465.0
+      ]
+    }
+  ],
+  "ports": [
+    {
+      "id": "concourse",
+      "position": [
+        -1900,
+        0,
+        0
+      ],
+      "normal": [
+        -1,
+        0,
+        0
+      ],
+      "width": 300,
+      "height": 280.0
+    },
+    {
+      "id": "side_access",
+      "position": [
+        425.0,
+        -1950.0,
+        0
+      ],
+      "normal": [
+        0,
+        -1,
+        0
+      ],
+      "width": 300,
+      "height": 280.0
+    }
+  ],
+  "port_pairs": [
+    [
+      0,
+      1
+    ]
+  ],
+  "parts": [
+    {
+      "mesh": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_Floors",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_Paving",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_TrackBed",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_RecoverySteps",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_Railings",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_Walls",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_Tiles",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_Frames",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_Vault",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_Ribs",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_TunnelShell",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_TunnelSeals",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_Coping",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_Rails",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_Sleepers",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_BufferStops",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_Bridge",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_BridgeHangers",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_Stairs",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_Services",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_PowerCabinet",
+      "position": [
+        -1270.0,
+        -1575.0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "position": [
+        -1000,
+        855.0,
+        705.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "position": [
+        50.0,
+        855.0,
+        705.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "position": [
+        1100,
+        855.0,
+        705.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "position": [
+        2000,
+        855.0,
+        705.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "position": [
+        3020.0,
+        855.0,
+        705.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        -1000,
+        -855.0,
+        705.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        50.0,
+        -855.0,
+        705.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        1100,
+        -855.0,
+        705.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        2000,
+        -855.0,
+        705.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        3020.0,
+        -855.0,
+        705.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "position": [
+        -1075.0,
+        0,
+        750.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    }
+  ],
+  "lights": [
+    {
+      "position": [
+        -1000,
+        855.0,
+        692.5
+      ],
+      "intensity": 4050,
+      "radius": 1035,
+      "optimized_radius_cm": 1035,
+      "color": [
+        1,
+        0.75,
+        0.48
+      ],
+      "role": "key",
+      "type": "point",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 4200,
+      "fade_range_cm": 900
+    },
+    {
+      "position": [
+        50.0,
+        855.0,
+        692.5
+      ],
+      "intensity": 4050,
+      "radius": 1035,
+      "optimized_radius_cm": 1035,
+      "color": [
+        1,
+        0.75,
+        0.48
+      ],
+      "role": "fill",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 4200,
+      "fade_range_cm": 900
+    },
+    {
+      "position": [
+        1100,
+        855.0,
+        692.5
+      ],
+      "intensity": 4050,
+      "radius": 1035,
+      "optimized_radius_cm": 1035,
+      "color": [
+        1,
+        0.75,
+        0.48
+      ],
+      "role": "key",
+      "type": "point",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 4200,
+      "fade_range_cm": 900
+    },
+    {
+      "position": [
+        2000,
+        855.0,
+        692.5
+      ],
+      "intensity": 4050,
+      "radius": 1035,
+      "optimized_radius_cm": 1035,
+      "color": [
+        1,
+        0.75,
+        0.48
+      ],
+      "role": "fill",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 4200,
+      "fade_range_cm": 900
+    },
+    {
+      "position": [
+        3020.0,
+        855.0,
+        692.5
+      ],
+      "intensity": 4050,
+      "radius": 1035,
+      "optimized_radius_cm": 1035,
+      "color": [
+        1,
+        0.75,
+        0.48
+      ],
+      "role": "key",
+      "type": "point",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 4200,
+      "fade_range_cm": 900
+    },
+    {
+      "position": [
+        -1000,
+        -855.0,
+        692.5
+      ],
+      "intensity": 4050,
+      "radius": 1035,
+      "optimized_radius_cm": 1035,
+      "color": [
+        0.66,
+        0.8,
+        1
+      ],
+      "role": "key",
+      "type": "point",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 4200,
+      "fade_range_cm": 900
+    },
+    {
+      "position": [
+        50.0,
+        -855.0,
+        692.5
+      ],
+      "intensity": 4050,
+      "radius": 1035,
+      "optimized_radius_cm": 1035,
+      "color": [
+        0.66,
+        0.8,
+        1
+      ],
+      "role": "fill",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 4200,
+      "fade_range_cm": 900
+    },
+    {
+      "position": [
+        1100,
+        -855.0,
+        692.5
+      ],
+      "intensity": 4050,
+      "radius": 1035,
+      "optimized_radius_cm": 1035,
+      "color": [
+        0.66,
+        0.8,
+        1
+      ],
+      "role": "key",
+      "type": "point",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 4200,
+      "fade_range_cm": 900
+    },
+    {
+      "position": [
+        2000,
+        -855.0,
+        692.5
+      ],
+      "intensity": 4050,
+      "radius": 1035,
+      "optimized_radius_cm": 1035,
+      "color": [
+        0.66,
+        0.8,
+        1
+      ],
+      "role": "fill",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 4200,
+      "fade_range_cm": 900
+    },
+    {
+      "position": [
+        3020.0,
+        -855.0,
+        692.5
+      ],
+      "intensity": 4050,
+      "radius": 1035,
+      "optimized_radius_cm": 1035,
+      "color": [
+        0.66,
+        0.8,
+        1
+      ],
+      "role": "key",
+      "type": "point",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 4200,
+      "fade_range_cm": 900
+    },
+    {
+      "position": [
+        -1075.0,
+        0,
+        737.5
+      ],
+      "intensity": 3375,
+      "radius": 1005,
+      "optimized_radius_cm": 1005,
+      "color": [
+        1,
+        0.75,
+        0.48
+      ],
+      "role": "fill",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 4200,
+      "fade_range_cm": 900
+    }
+  ],
+  "anchors": [
+    {
+      "position": [
+        -1100,
+        900,
+        2.0
+      ],
+      "role": "encounter_platform"
+    },
+    {
+      "position": [
+        -1100,
+        -900,
+        2.0
+      ],
+      "role": "encounter_platform"
+    },
+    {
+      "position": [
+        200,
+        800,
+        2.0
+      ],
+      "role": "encounter_platform"
+    },
+    {
+      "position": [
+        200,
+        -800,
+        2.0
+      ],
+      "role": "encounter_platform"
+    },
+    {
+      "position": [
+        1000,
+        900,
+        2.0
+      ],
+      "role": "encounter_platform"
+    },
+    {
+      "position": [
+        1000,
+        -900,
+        2.0
+      ],
+      "role": "encounter_platform"
+    },
+    {
+      "position": [
+        1800,
+        800,
+        2.0
+      ],
+      "role": "encounter_platform"
+    },
+    {
+      "position": [
+        1800,
+        -800,
+        2.0
+      ],
+      "role": "encounter_platform"
+    },
+    {
+      "position": [
+        2500,
+        1000,
+        2.0
+      ],
+      "role": "encounter_platform"
+    },
+    {
+      "position": [
+        2500,
+        -1000,
+        2.0
+      ],
+      "role": "encounter_platform"
+    },
+    {
+      "position": [
+        2900,
+        800,
+        2.0
+      ],
+      "role": "encounter_platform"
+    },
+    {
+      "position": [
+        2900,
+        -800,
+        2.0
+      ],
+      "role": "encounter_platform"
+    }
+  ],
+  "walk_mask": [
+    {
+      "min": [
+        -1560.0,
+        -1200,
+        -5.0
+      ],
+      "max": [
+        -570.0,
+        1200,
+        280.0
+      ]
+    },
+    {
+      "min": [
+        -520.0,
+        560.0,
+        -5.0
+      ],
+      "max": [
+        3160.0,
+        1080.0,
+        280.0
+      ]
+    },
+    {
+      "min": [
+        -520.0,
+        -1080.0,
+        -5.0
+      ],
+      "max": [
+        3160.0,
+        -560.0,
+        280.0
+      ]
+    }
+  ],
+  "walk_polyline": [
+    [
+      -1900,
+      0,
+      0
+    ],
+    [
+      -1000,
+      0,
+      0
+    ],
+    [
+      -1000,
+      -800,
+      0
+    ],
+    [
+      425.0,
+      -800,
+      0
+    ],
+    [
+      425.0,
+      -1950.0,
+      0
+    ]
+  ],
+  "spawn": {
+    "source": "DungeonTransitStation20260928",
+    "theme": "abandoned_transit",
+    "count": [
+      4,
+      6
+    ],
+    "anchor_roles": [
+      "encounter_platform"
+    ],
+    "pool": [
+      {
+        "id": "FatZombie",
+        "class": "/Script/FPSGAME.FatZombie",
+        "weight": 3,
+        "level": 4,
+        "rank": "normal"
+      },
+      {
+        "id": "Mutant3",
+        "class": "/Script/FPSGAME.Mutant3",
+        "weight": 1,
+        "level": 9,
+        "rank": "elite"
+      },
+      {
+        "id": "InfectedDog",
+        "class": "/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C",
+        "weight": 2,
+        "level": 7,
+        "rank": "normal"
+      },
+      {
+        "id": "FleshHandMinion",
+        "class": "/Game/Monsters/FleshHand/BP_FleshHandMinion.BP_FleshHandMinion_C",
+        "weight": 1,
+        "level": 1,
+        "rank": "minor"
+      },
+      {
+        "id": "FleshHand",
+        "class": "/Game/Monsters/FleshHand/BP_FleshHand.BP_FleshHand_C",
+        "weight": 2,
+        "level": 12,
+        "rank": "lord"
+      }
+    ],
+    "sealed_encounter": true
+  },
+  "selection": {
+    "chance_per_run": 0.3,
+    "max_per_run": 1,
+    "route": "Approach"
+  }
+}

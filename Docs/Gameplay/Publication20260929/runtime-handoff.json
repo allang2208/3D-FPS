@@ -1,0 +1,196 @@
+{
+  "base_commit": "7382ff0bef668f46eb7d06aa3c7969e1e29c49c0",
+  "runtime_handoff": [
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonCatalog.cpp",
+      "bytes": 0,
+      "sha256": null,
+      "kind": "deleted"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonCatalog.h",
+      "bytes": 0,
+      "sha256": null,
+      "kind": "deleted"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonCompactRouting.inl",
+      "bytes": 27829,
+      "sha256": "117faf4880c662fadba004752304b1fd7f2421671d27adf54624dd74dadacdfc",
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonDressing.inl",
+      "bytes": 18062,
+      "sha256": "1908776ce228a19156f0e09459f809e78b5cedbd11139f09299c8dc551319f77",
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp",
+      "bytes": 95220,
+      "sha256": "c9f821f5431b4af2e4c00b4ec0155906324382000b3871b4a9faa5b912976120",
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonMission.inl",
+      "bytes": 16717,
+      "sha256": "77ce50d6d1efd4d7829146078504afd8e339465a5200a3e79b62eaf723ed4721",
+      "kind": "new"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonRoomChoices.inl",
+      "bytes": 4104,
+      "sha256": "1294803226438d87422c04dffd6219b36579e83a8a67a333db9cd949a8c1c808",
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonRouting.inl",
+      "bytes": 9651,
+      "sha256": "c03f855118056fc5b41e767fea28046e70a0847bb0dbcb5129bc04fcd4b52e04",
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonShortLinks.inl",
+      "bytes": 9386,
+      "sha256": "4afb22f05dc9c89c284e46eebce59000e18850cb613ccdab5ba693bfafa09bb2",
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonTopology.inl",
+      "bytes": 6968,
+      "sha256": "2aa4e78a1e6c8fe22665f9421b1d4904eb544b2a88ce2b0225c25fca9432c08f",
+      "kind": "new"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonBloodScatter.cpp",
+      "bytes": 5896,
+      "sha256": "0437c6a8fc8689eb2be0a71982f55790696df596942478c50ed09889aed56a81",
+      "kind": "new"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonBloodScatter.h",
+      "bytes": 2739,
+      "sha256": "1b1932c4dc10ecc23656286c1753b884b59874ba47e57489a607a33a044dc706",
+      "kind": "new"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRoomEncounter.cpp",
+      "bytes": 14415,
+      "sha256": "2a34ec7667045406a55fd53b9d9b21079a3040eef3ef94292cd813c63e08e91e",
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRoomEncounter.h",
+      "bytes": 3819,
+      "sha256": "92fbcde647af034fa9d48e7cd2d6ce7adac675ed89489ba6d2ce1728ab38f2ff",
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRoomGate.cpp",
+      "bytes": 8698,
+      "sha256": "ee93502fd08cb31daf41429b4a964ebb1bfe408ab8994158e115f1e585939166",
+      "kind": "new"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRoomGate.h",
+      "bytes": 1234,
+      "sha256": "7235b884bdc501d35a05059bca665df14adb1a3f3ae58afc818ac429babc5007",
+      "kind": "new"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRoomGateDimensions.h",
+      "bytes": 666,
+      "sha256": "18a981afc6ae55197843f7a4b7df19bbed3cf9a6664a2b95d4632879709910c2",
+      "kind": "new"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp",
+      "bytes": 18815,
+      "sha256": "d7318926d8aab02ca9c0bb5f4df91a094234dd2b6d371f189b07b4454e30afbc",
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.h",
+      "bytes": 7346,
+      "sha256": "0c6ddd115a3cd816dbf553d34b38ab9b946cf9c811790bb1007748bc3f1126ae",
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonShrine.cpp",
+      "bytes": 4513,
+      "sha256": "3a99bc8949f76e4f169691a13b144747b5bcfb209f0bc8e0ec1342e0c2cb0e1c",
+      "kind": "new"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonSpawnDirector.cpp",
+      "bytes": 42854,
+      "sha256": "5effbf51c32d6a1a3bf57319e9bcfb834686617b8d94edcc4e8f1611b4818b72",
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonSpawnDirector.h",
+      "bytes": 6626,
+      "sha256": "522d7302a6daaaed05312557645d8e6c67bcbf1f95484910c2d69823582608b7",
+      "kind": "modified"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonWallArt.cpp",
+      "bytes": 4649,
+      "sha256": "045147afb7bc730e5a8390a0ac20a2c3fac80409b1fa332e4762e81160ada993",
+      "kind": "new"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonWallArt.h",
+      "bytes": 283,
+      "sha256": "580755cdd62e80fa03a1d2e2126a516cefefb3af94c7f8c997c122a5e9921c62",
+      "kind": "new"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/WardBedScatter.cpp",
+      "bytes": 7297,
+      "sha256": "23991c5f4d5981bd4eddfbc7aeb8b43e4dcd10ff0a3cdf1ac1ee4f8f400c0aae",
+      "kind": "new"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/WardBedScatter.h",
+      "bytes": 3052,
+      "sha256": "87baca12b5779e6982a360aedd11e488dac5c18e7ed9dcaa91115ddf27366730",
+      "kind": "new"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/WardBreakableGlass.cpp",
+      "bytes": 11731,
+      "sha256": "d839856db09ed50180c3f0ba5e591e478dfae31fcfb5d5be453d24681beb8329",
+      "kind": "new"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/WardBreakableGlass.h",
+      "bytes": 3890,
+      "sha256": "6ac0fec4f881c7a7f7fde226ba18836ac77e43913ed40e784a545e3985a26a64",
+      "kind": "new"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/WardRoomAssembly.cpp",
+      "bytes": 5986,
+      "sha256": "b6e3539f4b10c2a5eff7fde8780e389690461c4ab0f0b8f7a3af25160cd49649",
+      "kind": "new"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/WardRoomAssembly.h",
+      "bytes": 457,
+      "sha256": "bfea4d2532e513995e85c49a71ce8d973c750db0763b4820a95cdaa96d4cba84",
+      "kind": "new"
+    }
+  ],
+  "dependencies": [
+    "Prior dungeon mission/shrine/gate/spawn handoff and unpublished monster/state interfaces",
+    "ColdSteelDoor independent-leaf configuration API and existing door collision semantics",
+    "FPSImpactFXSubsystem per-component decal cleanup and broken-pane impact suppression",
+    "Shared melee/tool/bow/projectile/area/target attack contact sites; see glass-contact-sites.json",
+    "Ward mesh, texture, sound, Niagara and imported poster assets with original licenses"
+  ],
+  "public_runtime_complete": false,
+  "tests_run": false,
+  "warning": "Do not apply this snapshot on the complete local host. Shared contacts require manual integration; restoring source does not restore Content.",
+  "patch_format": "Unified diff, zero context; use git apply --unidiff-zero --ignore-space-change only in a prepared integration checkout. Line endings and trailing source whitespace normalized in snapshot."
+}

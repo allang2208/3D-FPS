@@ -1,0 +1,45 @@
+{
+  "reuse": [
+    "Existing corridor ceramic fracture geometry and material UVs",
+    "Existing concrete / exposed mortar / steel / rail metal / paint materials",
+    "Existing IndustrialV1 ceiling lamp meshes",
+    "Existing authored pipe/flange/hanger geometry functions",
+    "Polished FacilityScenes power cabinet"
+  ],
+  "new_architecture_this_stage": [
+    "Barrel-vault station envelope and portal collars",
+    "Platforms and coping / tactile strip",
+    "Twin recessed track beds, profiled rails, sleepers and fixed buffer stops",
+    "Suspended cross-track bridge and two stair flights",
+    "Blocked railway tunnel stubs and two compatible 3 x 2.8 m access portals"
+  ],
+  "missing_furnishings": [
+    {
+      "item": "Abandoned train carriage",
+      "priority": "optional later",
+      "action": "report only; no placeholder train"
+    },
+    {
+      "item": "Ticket gates and ticket vending machines",
+      "priority": "later furnishings",
+      "action": "reserve ticket zone"
+    },
+    {
+      "item": "Station-specific seating",
+      "priority": "later furnishings",
+      "action": "reserve two seating bays; military benches not used"
+    },
+    {
+      "item": "Station name signs / line map / timetable / directional graphics",
+      "priority": "next visual identity pass",
+      "action": "report only; avoid blank yellow plates"
+    },
+    {
+      "item": "Platform PA / CCTV / emergency intercom",
+      "priority": "optional later",
+      "action": "report only"
+    }
+  ],
+  "discovery_scope": "Local Content package names and existing dungeon author sources; no external downloads or purchases",
+  "stage": "architecture authored separately; missing furnishing assets have been reported to the user"
+}

@@ -35,7 +35,7 @@ packages=[p for p in dirty() if p.get_name() not in initial and '/gamemaps/l_dun
 if not packages or not u.EditorLoadingAndSavingUtils.save_packages(packages,False):raise RuntimeError('Generator catalog save failed')
 (ROOT.parent/'DungeonRoutes20260922/Config/catalog.json').write_text(json.dumps(catalog,ensure_ascii=False,indent=2),encoding='utf-8')
 result=dict(stage='map_saved',map=TARGET,saved_packages=[p.get_name() for p in packages],previous_map=previous,
-    room_ids=catalog['room_ids'],room_scene_version=1,assemblies=len(receipt['meshes']),functional_recipes=9,
+    room_ids=catalog['room_ids'],room_scene_version=catalog['room_scene_version'],assemblies=len(receipt['meshes']),functional_recipes=9,
     states_per_recipe=3,maximum_added_parts_per_room=3,new_lights=0,loose_props_per_room_cap=8,tests_run=False)
 (ROOT/'Receipts/install.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
 if ue and previous and previous!=TARGET:u.EditorLoadingAndSavingUtils.load_map(previous)

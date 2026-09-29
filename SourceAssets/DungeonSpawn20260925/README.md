@@ -91,3 +91,11 @@ RouteRepairs 钩子只认 `stage == 'map_saved'`。未安装（无回执）时�
 `encounter`；VentilationLoop 及其两个变体为 `encounter_west`/`encounter_east`；
 FreightTransfer 为 `encounter_lower`/`encounter_dock`）。RoomVariants 重建变体房
 anchors 时沿用 `main-rooms.json` 的同名 role，前缀匹配不受影响。
+
+
+2026-09-28（阶级入池）：`spawn-groups.json` 全部 21 条池条目显式携带 `level`+`rank`
+（小手 minor / 感染犬·野狼·胖子 normal / 毒蛆·突变体 elite / 大手 lord——用户拍板大手、手脑同归 Lord 档）；
+revision 升至 `20260928-rank-tiering`，`install.py` 回执 revision 改为从配置读取。
+方案见 `Docs/Gameplay/dungeon-spawn-rank-tiering-20260928.md`。首跑安装被运行中编辑器的
+文件锁阻断（Error 32），已挂守护等编辑器退出后自动重跑；以 `Receipts/install.json`
+的 `stage=map_saved` + `spawn_pool_revision=20260928-rank-tiering` 为准。

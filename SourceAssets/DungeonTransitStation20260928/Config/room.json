@@ -1,0 +1,430 @@
+{
+  "id": "AbandonedTransitStation",
+  "revision": "station_expansion_20260929",
+  "phase": "random_room_module",
+  "ue_base": "/Game/Dungeons/TransitStation20260928",
+  "production_map": "/Game/GameMaps/L_Dungeon_Randomized",
+  "coordinate_system": "Blender metres, +X along tracks, +Z up; UE = (100x,-100y,100z)",
+  "enlargement": {
+    "linear_scale": 1.5,
+    "baseline_hall_m": [
+      32,
+      22,
+      7.8
+    ],
+    "anchor": "west entry remains fixed; architectural dimensions grow, human-scale details stay unchanged"
+  },
+  "hall": {
+    "x": [
+      -16,
+      32
+    ],
+    "y": [
+      -16.5,
+      16.5
+    ],
+    "spring": 7.35,
+    "rise": 4.35,
+    "vault_rx": 16.62,
+    "wall": 0.28
+  },
+  "track": {
+    "x": [
+      -5.5,
+      38
+    ],
+    "y": [
+      -5.25,
+      5.25
+    ],
+    "floor": -1.8,
+    "rail_start": -0.25,
+    "centres_y": [
+      -2.65,
+      2.65
+    ],
+    "gauge": 1.435,
+    "recovery_steps": 12,
+    "recovery_going": 0.3,
+    "recovery_width": 5.0,
+    "tunnel_radius": 2.42,
+    "tunnel_rise": 2.07,
+    "tunnel_spring": 2.175
+  },
+  "bridge": {
+    "x": [
+      22.25,
+      27.65
+    ],
+    "y": [
+      -16.2,
+      16.2
+    ],
+    "top": 4.8,
+    "thickness": 0.24
+  },
+  "stairs": {
+    "x": [
+      13.25,
+      22.25
+    ],
+    "centres_y": [
+      -13.65,
+      13.65
+    ],
+    "width": 5.1,
+    "steps": 30,
+    "rise": 0.16,
+    "going": 0.3
+  },
+  "structure": {
+    "rib_candidates_x": [
+      -15.4,
+      -5.5,
+      3.5,
+      12.5,
+      30.2
+    ],
+    "pier_width": 0.6,
+    "pier_base_width": 0.9,
+    "door_frame_width": 0.07,
+    "door_clearance": 0.6,
+    "rib_positions_x": [
+      -15.4,
+      -5.5,
+      1.63,
+      12.5,
+      30.2
+    ]
+  },
+  "pool_policy": "Config/pool.json",
+  "ports": [
+    {
+      "id": "concourse",
+      "position": [
+        -19,
+        0,
+        0
+      ],
+      "normal": [
+        -1,
+        0,
+        0
+      ],
+      "width": 3,
+      "height": 2.8
+    },
+    {
+      "id": "side_access",
+      "position": [
+        4.25,
+        19.5,
+        0
+      ],
+      "normal": [
+        0,
+        1,
+        0
+      ],
+      "width": 3,
+      "height": 2.8
+    }
+  ],
+  "cells_m": [
+    {
+      "min": [
+        -16.28,
+        -16.78,
+        -2.08
+      ],
+      "max": [
+        32.28,
+        16.78,
+        12.08
+      ]
+    },
+    {
+      "min": [
+        -19.15,
+        -2.44,
+        -0.3
+      ],
+      "max": [
+        -16,
+        2.44,
+        3.7
+      ]
+    },
+    {
+      "min": [
+        1.81,
+        16.5,
+        -0.3
+      ],
+      "max": [
+        6.69,
+        19.65,
+        3.7
+      ]
+    },
+    {
+      "min": [
+        32,
+        -5.33,
+        -2.08
+      ],
+      "max": [
+        38.28,
+        5.33,
+        4.65
+      ]
+    }
+  ],
+  "clear_areas_m": [
+    {
+      "role": "concourse",
+      "rect": [
+        -15.6,
+        -12,
+        -5.7,
+        12
+      ]
+    },
+    {
+      "role": "south_platform",
+      "rect": [
+        -5.2,
+        -10.8,
+        31.6,
+        -5.6
+      ]
+    },
+    {
+      "role": "north_platform",
+      "rect": [
+        -5.2,
+        5.6,
+        31.6,
+        10.8
+      ]
+    }
+  ],
+  "furniture_reservations": [
+    {
+      "type": "seating",
+      "rect": [
+        -3.25,
+        13.2,
+        1.0,
+        15.9
+      ]
+    },
+    {
+      "type": "seating",
+      "rect": [
+        -3.25,
+        -15.9,
+        1.0,
+        -13.2
+      ]
+    },
+    {
+      "type": "ticket_machines",
+      "rect": [
+        -15.1,
+        -14.9,
+        -12.3,
+        -11.9
+      ]
+    },
+    {
+      "type": "station_map",
+      "at": [
+        -7.75,
+        16.34,
+        2.1
+      ]
+    }
+  ],
+  "reused_parts": [
+    {
+      "id": "power_cabinet",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_PowerCabinet",
+      "position": [
+        -12.7,
+        15.75,
+        0
+      ],
+      "yaw": 0,
+      "collision": true
+    }
+  ],
+  "lights": [
+    {
+      "id": "platform_-1_0",
+      "position": [
+        -10,
+        -8.55,
+        7.05
+      ],
+      "warm": true,
+      "lumens": 4050,
+      "radius_cm": 1035,
+      "role": "key",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 4200,
+      "fade_range_cm": 900
+    },
+    {
+      "id": "platform_-1_1",
+      "position": [
+        0.5,
+        -8.55,
+        7.05
+      ],
+      "warm": true,
+      "lumens": 4050,
+      "radius_cm": 1035,
+      "role": "fill",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 4200,
+      "fade_range_cm": 900
+    },
+    {
+      "id": "platform_-1_2",
+      "position": [
+        11,
+        -8.55,
+        7.05
+      ],
+      "warm": true,
+      "lumens": 4050,
+      "radius_cm": 1035,
+      "role": "key",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 4200,
+      "fade_range_cm": 900
+    },
+    {
+      "id": "platform_-1_3",
+      "position": [
+        20,
+        -8.55,
+        7.05
+      ],
+      "warm": true,
+      "lumens": 4050,
+      "radius_cm": 1035,
+      "role": "fill",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 4200,
+      "fade_range_cm": 900
+    },
+    {
+      "id": "platform_-1_4",
+      "position": [
+        30.2,
+        -8.55,
+        7.05
+      ],
+      "warm": true,
+      "lumens": 4050,
+      "radius_cm": 1035,
+      "role": "key",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 4200,
+      "fade_range_cm": 900
+    },
+    {
+      "id": "platform_1_0",
+      "position": [
+        -10,
+        8.55,
+        7.05
+      ],
+      "warm": false,
+      "lumens": 4050,
+      "radius_cm": 1035,
+      "role": "key",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 4200,
+      "fade_range_cm": 900
+    },
+    {
+      "id": "platform_1_1",
+      "position": [
+        0.5,
+        8.55,
+        7.05
+      ],
+      "warm": false,
+      "lumens": 4050,
+      "radius_cm": 1035,
+      "role": "fill",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 4200,
+      "fade_range_cm": 900
+    },
+    {
+      "id": "platform_1_2",
+      "position": [
+        11,
+        8.55,
+        7.05
+      ],
+      "warm": false,
+      "lumens": 4050,
+      "radius_cm": 1035,
+      "role": "key",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 4200,
+      "fade_range_cm": 900
+    },
+    {
+      "id": "platform_1_3",
+      "position": [
+        20,
+        8.55,
+        7.05
+      ],
+      "warm": false,
+      "lumens": 4050,
+      "radius_cm": 1035,
+      "role": "fill",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 4200,
+      "fade_range_cm": 900
+    },
+    {
+      "id": "platform_1_4",
+      "position": [
+        30.2,
+        8.55,
+        7.05
+      ],
+      "warm": false,
+      "lumens": 4050,
+      "radius_cm": 1035,
+      "role": "key",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 4200,
+      "fade_range_cm": 900
+    },
+    {
+      "id": "concourse_centre",
+      "position": [
+        -10.75,
+        0,
+        7.5
+      ],
+      "warm": true,
+      "lumens": 3375,
+      "radius_cm": 1005,
+      "role": "fill",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 4200,
+      "fade_range_cm": 900
+    }
+  ],
+  "tests_run": false
+}

@@ -48,7 +48,7 @@ if not owned or not u.EditorLoadingAndSavingUtils.save_packages(owned,False):rai
 (ROOT/'Receipts').mkdir(parents=True,exist_ok=True)
 (ROOT/'Receipts/install.json').write_text(json.dumps(dict(stage='map_saved',map=TARGET,room_ids=catalog['room_ids'],
     spawn_modules=sum(1 for m in catalog['modules'] if m.get('spawn',{}).get('source')=='DungeonSpawn20260925'),
-    spawn_assets=len(paths),spawn_pool_revision='20260927-hands-infected-dog',
+    spawn_assets=len(paths),spawn_pool_revision=scripts['read'](ROOT/'Config/spawn-groups.json')['revision'],
     pool_ids=sorted({entry['id'] for m in catalog['modules'] for entry in m.get('spawn',{}).get('pool',[])}),
     saved_actor_packages=[p.get_name() for p in owned],root_map_modified=False,tests_run=False),ensure_ascii=False,indent=2),encoding='utf-8')
 if ue and previous_map and previous_map!=TARGET:u.EditorLoadingAndSavingUtils.load_map(previous_map)

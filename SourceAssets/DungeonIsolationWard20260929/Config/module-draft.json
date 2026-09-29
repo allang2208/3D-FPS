@@ -1,0 +1,2646 @@
+{
+  "id": "AbandonedIsolationWard",
+  "ports": [
+    {
+      "id": "MainHallWest",
+      "position": [
+        -3300,
+        0,
+        0
+      ],
+      "normal": [
+        -1,
+        0,
+        0
+      ],
+      "width": 300.0,
+      "height": 280.0
+    },
+    {
+      "id": "MainHallEast",
+      "position": [
+        3300,
+        0,
+        0
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "width": 300.0,
+      "height": 280.0
+    }
+  ],
+  "cells_m": [
+    {
+      "min": [
+        -30.18,
+        -4.68,
+        -0.28
+      ],
+      "max": [
+        30.18,
+        4.68,
+        6.1
+      ]
+    },
+    {
+      "min": [
+        -30.18,
+        4.32,
+        -0.28
+      ],
+      "max": [
+        30.18,
+        17.18,
+        4.8
+      ]
+    },
+    {
+      "min": [
+        -30.18,
+        -12.68,
+        -0.28
+      ],
+      "max": [
+        10.18,
+        -4.32,
+        4.8
+      ]
+    },
+    {
+      "min": [
+        16.82,
+        -10.68,
+        -0.28
+      ],
+      "max": [
+        30.18,
+        -4.32,
+        4.8
+      ]
+    },
+    {
+      "min": [
+        21.02,
+        -13.68,
+        -0.28
+      ],
+      "max": [
+        25.98,
+        -10.32,
+        4.8
+      ]
+    },
+    {
+      "min": [
+        29.82,
+        -1.48,
+        -0.28
+      ],
+      "max": [
+        33.18,
+        3.48,
+        4.8
+      ]
+    }
+  ],
+  "clear_areas_m": [
+    {
+      "name": "Main nursing hall",
+      "min": [
+        -29.7,
+        -3.35,
+        0
+      ],
+      "max": [
+        29.7,
+        3.35,
+        5.8
+      ]
+    },
+    {
+      "name": "Rear service gallery",
+      "min": [
+        -29.7,
+        12.7,
+        0
+      ],
+      "max": [
+        29.7,
+        16.7,
+        4.5
+      ]
+    },
+    {
+      "name": "West loop",
+      "min": [
+        -29.7,
+        4.5,
+        0
+      ],
+      "max": [
+        -20.3,
+        12.5,
+        4.5
+      ]
+    }
+  ],
+  "furniture_reservations": [
+    {
+      "room": "N01",
+      "items": [
+        "hospital bed",
+        "IV stand",
+        "monitor"
+      ],
+      "center": [
+        -12.0,
+        9.8,
+        0
+      ],
+      "footprint_m": [
+        3.2,
+        2.4
+      ]
+    },
+    {
+      "room": "N02",
+      "items": [
+        "hospital bed",
+        "IV stand",
+        "monitor"
+      ],
+      "center": [
+        4.0,
+        9.8,
+        0
+      ],
+      "footprint_m": [
+        3.2,
+        2.4
+      ]
+    },
+    {
+      "room": "N03",
+      "items": [
+        "hospital bed",
+        "IV stand",
+        "monitor"
+      ],
+      "center": [
+        21.0,
+        9.8,
+        0
+      ],
+      "footprint_m": [
+        3.2,
+        2.4
+      ]
+    },
+    {
+      "room": "S01",
+      "items": [
+        "hospital bed",
+        "IV stand",
+        "monitor"
+      ],
+      "center": [
+        -20.0,
+        -10,
+        0
+      ],
+      "footprint_m": [
+        3.2,
+        2.4
+      ]
+    },
+    {
+      "room": "S02",
+      "items": [
+        "hospital bed",
+        "IV stand",
+        "monitor"
+      ],
+      "center": [
+        0.0,
+        -10,
+        0
+      ],
+      "footprint_m": [
+        3.2,
+        2.4
+      ]
+    }
+  ],
+  "future_pool": {
+    "status": "not_registered_pending_user_structure_approval",
+    "family_id": "AbandonedIsolationWard",
+    "remove_sample_parts": [
+      "SamplePortCaps"
+    ],
+    "remove_tags": [
+      "ScenePortal.IsolationWardReturn"
+    ],
+    "main_route_width_m": 8.4,
+    "rear_route_width_m": 4.0,
+    "interior_door_width_m": 3.2
+  },
+  "lights": [
+    {
+      "id": "Hall0",
+      "position": [
+        -26,
+        0,
+        5.32
+      ],
+      "role": "main",
+      "warm": true,
+      "cast_shadows": true,
+      "radius_cm": 670,
+      "lumens": 1050,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    },
+    {
+      "id": "Hall1",
+      "position": [
+        -19.5,
+        0,
+        5.32
+      ],
+      "role": "main",
+      "warm": false,
+      "cast_shadows": false,
+      "radius_cm": 670,
+      "lumens": 1050,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    },
+    {
+      "id": "Hall2",
+      "position": [
+        -13,
+        0,
+        5.32
+      ],
+      "role": "main",
+      "warm": false,
+      "cast_shadows": true,
+      "radius_cm": 670,
+      "lumens": 1050,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "flicker",
+      "phase": 0.0
+    },
+    {
+      "id": "Hall3",
+      "position": [
+        -6.5,
+        0,
+        5.32
+      ],
+      "role": "main",
+      "warm": false,
+      "cast_shadows": false,
+      "radius_cm": 670,
+      "lumens": 1050,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    },
+    {
+      "id": "Hall4",
+      "position": [
+        0,
+        0,
+        5.32
+      ],
+      "role": "main",
+      "warm": false,
+      "cast_shadows": true,
+      "radius_cm": 670,
+      "lumens": 1050,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    },
+    {
+      "id": "Hall5",
+      "position": [
+        6.5,
+        0,
+        5.32
+      ],
+      "role": "main",
+      "warm": true,
+      "cast_shadows": false,
+      "radius_cm": 670,
+      "lumens": 1050,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    },
+    {
+      "id": "Hall6",
+      "position": [
+        13,
+        0,
+        5.32
+      ],
+      "role": "main",
+      "warm": false,
+      "cast_shadows": true,
+      "radius_cm": 670,
+      "lumens": 1050,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "flicker",
+      "phase": 4.3
+    },
+    {
+      "id": "Hall7",
+      "position": [
+        19.5,
+        0,
+        5.32
+      ],
+      "role": "main",
+      "warm": false,
+      "cast_shadows": false,
+      "radius_cm": 670,
+      "lumens": 0,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "dead",
+      "phase": 0.0
+    },
+    {
+      "id": "Hall8",
+      "position": [
+        26,
+        0,
+        5.32
+      ],
+      "role": "main",
+      "warm": false,
+      "cast_shadows": true,
+      "radius_cm": 670,
+      "lumens": 1050,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    },
+    {
+      "id": "N01A",
+      "position": [
+        -15.2,
+        8.5,
+        4.16
+      ],
+      "role": "fill",
+      "warm": false,
+      "cast_shadows": false,
+      "radius_cm": 490,
+      "lumens": 480,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    },
+    {
+      "id": "N01B",
+      "position": [
+        -8.8,
+        8.5,
+        4.16
+      ],
+      "role": "fill",
+      "warm": false,
+      "cast_shadows": false,
+      "radius_cm": 490,
+      "lumens": 480,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    },
+    {
+      "id": "N02A",
+      "position": [
+        0.7999999999999998,
+        8.5,
+        4.16
+      ],
+      "role": "fill",
+      "warm": false,
+      "cast_shadows": false,
+      "radius_cm": 490,
+      "lumens": 480,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    },
+    {
+      "id": "N02B",
+      "position": [
+        7.2,
+        8.5,
+        4.16
+      ],
+      "role": "fill",
+      "warm": false,
+      "cast_shadows": false,
+      "radius_cm": 490,
+      "lumens": 0,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "dead",
+      "phase": 0.0
+    },
+    {
+      "id": "N03A",
+      "position": [
+        17.8,
+        8.5,
+        4.16
+      ],
+      "role": "fill",
+      "warm": false,
+      "cast_shadows": false,
+      "radius_cm": 490,
+      "lumens": 480,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    },
+    {
+      "id": "N03B",
+      "position": [
+        24.2,
+        8.5,
+        4.16
+      ],
+      "role": "fill",
+      "warm": false,
+      "cast_shadows": false,
+      "radius_cm": 490,
+      "lumens": 480,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    },
+    {
+      "id": "S01A",
+      "position": [
+        -23.2,
+        -8.5,
+        4.16
+      ],
+      "role": "fill",
+      "warm": false,
+      "cast_shadows": false,
+      "radius_cm": 490,
+      "lumens": 480,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    },
+    {
+      "id": "S01B",
+      "position": [
+        -16.8,
+        -8.5,
+        4.16
+      ],
+      "role": "fill",
+      "warm": false,
+      "cast_shadows": false,
+      "radius_cm": 490,
+      "lumens": 480,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    },
+    {
+      "id": "S02A",
+      "position": [
+        -3.2,
+        -8.5,
+        4.16
+      ],
+      "role": "fill",
+      "warm": false,
+      "cast_shadows": false,
+      "radius_cm": 490,
+      "lumens": 480,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    },
+    {
+      "id": "S02B",
+      "position": [
+        3.2,
+        -8.5,
+        4.16
+      ],
+      "role": "fill",
+      "warm": false,
+      "cast_shadows": false,
+      "radius_cm": 490,
+      "lumens": 480,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    },
+    {
+      "id": "Service0",
+      "position": [
+        -25,
+        14.75,
+        4.16
+      ],
+      "role": "path",
+      "warm": true,
+      "cast_shadows": false,
+      "radius_cm": 520,
+      "lumens": 620,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    },
+    {
+      "id": "Service1",
+      "position": [
+        -12.5,
+        14.75,
+        4.16
+      ],
+      "role": "path",
+      "warm": true,
+      "cast_shadows": false,
+      "radius_cm": 520,
+      "lumens": 620,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    },
+    {
+      "id": "Service2",
+      "position": [
+        0,
+        14.75,
+        4.16
+      ],
+      "role": "path",
+      "warm": true,
+      "cast_shadows": false,
+      "radius_cm": 520,
+      "lumens": 620,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    },
+    {
+      "id": "Service3",
+      "position": [
+        12.5,
+        14.75,
+        4.16
+      ],
+      "role": "path",
+      "warm": true,
+      "cast_shadows": true,
+      "radius_cm": 520,
+      "lumens": 620,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "flicker",
+      "phase": 9.1
+    },
+    {
+      "id": "Service4",
+      "position": [
+        25,
+        14.75,
+        4.16
+      ],
+      "role": "path",
+      "warm": true,
+      "cast_shadows": false,
+      "radius_cm": 520,
+      "lumens": 620,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    },
+    {
+      "id": "WestLoop",
+      "position": [
+        -25,
+        8.5,
+        4.16
+      ],
+      "role": "path",
+      "warm": false,
+      "cast_shadows": false,
+      "radius_cm": 600,
+      "lumens": 780,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    },
+    {
+      "id": "Decon",
+      "position": [
+        23.5,
+        -7.5,
+        4.16
+      ],
+      "role": "path",
+      "warm": false,
+      "cast_shadows": true,
+      "radius_cm": 550,
+      "lumens": 700,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    },
+    {
+      "id": "Entry",
+      "position": [
+        23.5,
+        -12,
+        3.13
+      ],
+      "role": "path",
+      "warm": true,
+      "cast_shadows": false,
+      "radius_cm": 330,
+      "lumens": 450,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    },
+    {
+      "id": "Exit",
+      "position": [
+        31.5,
+        1,
+        3.13
+      ],
+      "role": "path",
+      "warm": true,
+      "cast_shadows": false,
+      "radius_cm": 330,
+      "lumens": 450,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "fault": "steady",
+      "phase": 0.0
+    }
+  ],
+  "atmosphere": {
+    "exposure_min_ev": 1.0,
+    "exposure_max_ev": 1.0,
+    "exposure_bias": -0.25,
+    "broken_lights": [
+      "Hall2",
+      "Hall6",
+      "Service3"
+    ],
+    "dead_lights": [
+      "Hall7",
+      "N02B"
+    ],
+    "glass_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassV2"
+  },
+  "blood_scatter": {
+    "actor_class": "/Script/FPSGAME.DungeonBloodScatter",
+    "material": "/Game/Dungeons/IsolationWard20260929/BloodScan/M_WardBlood_Quixel",
+    "floor_count": 36,
+    "wall_count": 12,
+    "randomize_on_begin_play": true,
+    "seed": 19429,
+    "receiver_tag": "BloodScatter.Surface",
+    "surfaces": [
+      {
+        "center_m": [
+          0.0,
+          0.0,
+          0.042
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "axis_u": [
+          1,
+          0,
+          0
+        ],
+        "half_size_m": [
+          29.6,
+          4.1
+        ],
+        "wall": false
+      },
+      {
+        "center_m": [
+          0.0,
+          14.75,
+          0.042
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "axis_u": [
+          1,
+          0,
+          0
+        ],
+        "half_size_m": [
+          29.6,
+          1.8500000000000005
+        ],
+        "wall": false
+      },
+      {
+        "center_m": [
+          -25.0,
+          8.5,
+          0.042
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "axis_u": [
+          1,
+          0,
+          0
+        ],
+        "half_size_m": [
+          4.600000000000001,
+          3.5999999999999996
+        ],
+        "wall": false
+      },
+      {
+        "center_m": [
+          23.5,
+          -7.5,
+          0.042
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "axis_u": [
+          1,
+          0,
+          0
+        ],
+        "half_size_m": [
+          6.100000000000001,
+          2.5999999999999996
+        ],
+        "wall": false
+      },
+      {
+        "center_m": [
+          -12.0,
+          8.5,
+          0.042
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "axis_u": [
+          1,
+          0,
+          0
+        ],
+        "half_size_m": [
+          7.6000000000000005,
+          3.5999999999999996
+        ],
+        "wall": false
+      },
+      {
+        "center_m": [
+          4.0,
+          8.5,
+          0.042
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "axis_u": [
+          1,
+          0,
+          0
+        ],
+        "half_size_m": [
+          7.6,
+          3.5999999999999996
+        ],
+        "wall": false
+      },
+      {
+        "center_m": [
+          21.0,
+          8.5,
+          0.042
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "axis_u": [
+          1,
+          0,
+          0
+        ],
+        "half_size_m": [
+          8.600000000000001,
+          3.5999999999999996
+        ],
+        "wall": false
+      },
+      {
+        "center_m": [
+          -20.0,
+          -8.5,
+          0.042
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "axis_u": [
+          1,
+          0,
+          0
+        ],
+        "half_size_m": [
+          9.600000000000001,
+          3.5999999999999996
+        ],
+        "wall": false
+      },
+      {
+        "center_m": [
+          0.0,
+          -8.5,
+          0.042
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "axis_u": [
+          1,
+          0,
+          0
+        ],
+        "half_size_m": [
+          9.6,
+          3.5999999999999996
+        ],
+        "wall": false
+      },
+      {
+        "center_m": [
+          -17.650000000000002,
+          4.29,
+          1.4
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "axis_u": [
+          0,
+          0,
+          1
+        ],
+        "half_size_m": [
+          1.1,
+          1.9500000000000002
+        ],
+        "wall": true
+      },
+      {
+        "center_m": [
+          -10.350000000000001,
+          4.29,
+          1.4
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "axis_u": [
+          0,
+          0,
+          1
+        ],
+        "half_size_m": [
+          1.1,
+          1.5499999999999998
+        ],
+        "wall": true
+      },
+      {
+        "center_m": [
+          -1.65,
+          4.29,
+          1.4
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "axis_u": [
+          0,
+          0,
+          1
+        ],
+        "half_size_m": [
+          1.1,
+          1.9500000000000002
+        ],
+        "wall": true
+      },
+      {
+        "center_m": [
+          5.65,
+          4.29,
+          1.4
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "axis_u": [
+          0,
+          0,
+          1
+        ],
+        "half_size_m": [
+          1.1,
+          1.5499999999999994
+        ],
+        "wall": true
+      },
+      {
+        "center_m": [
+          14.75,
+          4.29,
+          1.4
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "axis_u": [
+          0,
+          0,
+          1
+        ],
+        "half_size_m": [
+          1.1,
+          2.3499999999999988
+        ],
+        "wall": true
+      },
+      {
+        "center_m": [
+          22.450000000000003,
+          4.29,
+          1.4
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "axis_u": [
+          0,
+          0,
+          1
+        ],
+        "half_size_m": [
+          1.1,
+          1.549999999999999
+        ],
+        "wall": true
+      },
+      {
+        "center_m": [
+          28.8,
+          4.29,
+          1.4
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "axis_u": [
+          0,
+          0,
+          1
+        ],
+        "half_size_m": [
+          1.1,
+          0.8000000000000007
+        ],
+        "wall": true
+      },
+      {
+        "center_m": [
+          -27.450000000000003,
+          -4.29,
+          1.4
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "axis_u": [
+          0,
+          0,
+          1
+        ],
+        "half_size_m": [
+          1.1,
+          2.1500000000000004
+        ],
+        "wall": true
+      },
+      {
+        "center_m": [
+          -19.049999999999997,
+          -4.29,
+          1.4
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "axis_u": [
+          0,
+          0,
+          1
+        ],
+        "half_size_m": [
+          1.1,
+          2.4499999999999975
+        ],
+        "wall": true
+      },
+      {
+        "center_m": [
+          -11.5,
+          -4.29,
+          1.4
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "axis_u": [
+          0,
+          0,
+          1
+        ],
+        "half_size_m": [
+          1.1,
+          1.0999999999999996
+        ],
+        "wall": true
+      },
+      {
+        "center_m": [
+          -20.0,
+          -12.29,
+          1.4
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "axis_u": [
+          0,
+          0,
+          1
+        ],
+        "half_size_m": [
+          1.1,
+          9.600000000000001
+        ],
+        "wall": true
+      },
+      {
+        "center_m": [
+          -7.449999999999999,
+          -4.29,
+          1.4
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "axis_u": [
+          0,
+          0,
+          1
+        ],
+        "half_size_m": [
+          1.1,
+          2.15
+        ],
+        "wall": true
+      },
+      {
+        "center_m": [
+          0.9500000000000003,
+          -4.29,
+          1.4
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "axis_u": [
+          0,
+          0,
+          1
+        ],
+        "half_size_m": [
+          1.1,
+          2.45
+        ],
+        "wall": true
+      },
+      {
+        "center_m": [
+          8.5,
+          -4.29,
+          1.4
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "axis_u": [
+          0,
+          0,
+          1
+        ],
+        "half_size_m": [
+          1.1,
+          1.0999999999999996
+        ],
+        "wall": true
+      },
+      {
+        "center_m": [
+          0.0,
+          -12.29,
+          1.4
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "axis_u": [
+          0,
+          0,
+          1
+        ],
+        "half_size_m": [
+          1.1,
+          9.6
+        ],
+        "wall": true
+      },
+      {
+        "center_m": [
+          0.0,
+          16.79,
+          1.4
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "axis_u": [
+          0,
+          0,
+          1
+        ],
+        "half_size_m": [
+          1.1,
+          29.5
+        ],
+        "wall": true
+      }
+    ],
+    "shape_families": [
+      "quixel_blood_stain_sgfjdepc"
+    ],
+    "source_kind": "quixel_scan",
+    "scanned_size_range_cm": [
+      35.0,
+      85.0
+    ],
+    "source_url": "https://www.fab.com/listings/765d43e1-45ef-42f2-80a5-43d6214aa1d3",
+    "material_author": "Scripts/author_scanned_blood.py",
+    "groups": [
+      {
+        "id": "Shared",
+        "floor_count": 36,
+        "wall_count": 12,
+        "surfaces": [
+          {
+            "center_m": [
+              0.0,
+              0.0,
+              0.042
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "axis_u": [
+              1,
+              0,
+              0
+            ],
+            "half_size_m": [
+              29.6,
+              4.1
+            ],
+            "wall": false
+          },
+          {
+            "center_m": [
+              0.0,
+              14.75,
+              0.042
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "axis_u": [
+              1,
+              0,
+              0
+            ],
+            "half_size_m": [
+              29.6,
+              1.8500000000000005
+            ],
+            "wall": false
+          },
+          {
+            "center_m": [
+              -25.0,
+              8.5,
+              0.042
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "axis_u": [
+              1,
+              0,
+              0
+            ],
+            "half_size_m": [
+              4.600000000000001,
+              3.5999999999999996
+            ],
+            "wall": false
+          },
+          {
+            "center_m": [
+              23.5,
+              -7.5,
+              0.042
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "axis_u": [
+              1,
+              0,
+              0
+            ],
+            "half_size_m": [
+              6.100000000000001,
+              2.5999999999999996
+            ],
+            "wall": false
+          },
+          {
+            "center_m": [
+              -17.650000000000002,
+              4.29,
+              1.4
+            ],
+            "normal": [
+              0,
+              -1,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              1.9500000000000002
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              -10.350000000000001,
+              4.29,
+              1.4
+            ],
+            "normal": [
+              0,
+              -1,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              1.5499999999999998
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              -1.65,
+              4.29,
+              1.4
+            ],
+            "normal": [
+              0,
+              -1,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              1.9500000000000002
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              5.65,
+              4.29,
+              1.4
+            ],
+            "normal": [
+              0,
+              -1,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              1.5499999999999994
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              14.75,
+              4.29,
+              1.4
+            ],
+            "normal": [
+              0,
+              -1,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              2.3499999999999988
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              22.450000000000003,
+              4.29,
+              1.4
+            ],
+            "normal": [
+              0,
+              -1,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              1.549999999999999
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              28.8,
+              4.29,
+              1.4
+            ],
+            "normal": [
+              0,
+              -1,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              0.8000000000000007
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              -27.450000000000003,
+              -4.29,
+              1.4
+            ],
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              2.1500000000000004
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              -19.049999999999997,
+              -4.29,
+              1.4
+            ],
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              2.4499999999999975
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              -11.5,
+              -4.29,
+              1.4
+            ],
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              1.0999999999999996
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              -7.449999999999999,
+              -4.29,
+              1.4
+            ],
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              2.15
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              0.9500000000000003,
+              -4.29,
+              1.4
+            ],
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              2.45
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              8.5,
+              -4.29,
+              1.4
+            ],
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              1.0999999999999996
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              0.0,
+              16.79,
+              1.4
+            ],
+            "normal": [
+              0,
+              -1,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              29.5
+            ],
+            "wall": true
+          }
+        ]
+      },
+      {
+        "id": "N01",
+        "floor_count": 20,
+        "wall_count": 6,
+        "surfaces": [
+          {
+            "center_m": [
+              -12.0,
+              8.5,
+              0.042
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "axis_u": [
+              1,
+              0,
+              0
+            ],
+            "half_size_m": [
+              7.6,
+              3.6
+            ],
+            "wall": false
+          },
+          {
+            "center_m": [
+              -19.79,
+              8.5,
+              1.4
+            ],
+            "normal": [
+              1,
+              0,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              3.6
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              -4.21,
+              8.5,
+              1.4
+            ],
+            "normal": [
+              -1,
+              0,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              3.6
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              -16.8,
+              12.29,
+              1.4
+            ],
+            "normal": [
+              0,
+              -1,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              2.8000000000000007
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              -7.2,
+              12.29,
+              1.4
+            ],
+            "normal": [
+              0,
+              -1,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              2.8
+            ],
+            "wall": true
+          }
+        ]
+      },
+      {
+        "id": "N02",
+        "floor_count": 20,
+        "wall_count": 6,
+        "surfaces": [
+          {
+            "center_m": [
+              4.0,
+              8.5,
+              0.042
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "axis_u": [
+              1,
+              0,
+              0
+            ],
+            "half_size_m": [
+              7.6,
+              3.6
+            ],
+            "wall": false
+          },
+          {
+            "center_m": [
+              -3.79,
+              8.5,
+              1.4
+            ],
+            "normal": [
+              1,
+              0,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              3.6
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              11.79,
+              8.5,
+              1.4
+            ],
+            "normal": [
+              -1,
+              0,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              3.6
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              4.0,
+              12.29,
+              1.4
+            ],
+            "normal": [
+              0,
+              -1,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              7.6
+            ],
+            "wall": true
+          }
+        ]
+      },
+      {
+        "id": "N03",
+        "floor_count": 20,
+        "wall_count": 6,
+        "surfaces": [
+          {
+            "center_m": [
+              21.0,
+              8.5,
+              0.042
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "axis_u": [
+              1,
+              0,
+              0
+            ],
+            "half_size_m": [
+              8.6,
+              3.6
+            ],
+            "wall": false
+          },
+          {
+            "center_m": [
+              12.21,
+              8.5,
+              1.4
+            ],
+            "normal": [
+              1,
+              0,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              3.6
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              29.79,
+              8.5,
+              1.4
+            ],
+            "normal": [
+              -1,
+              0,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              3.6
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              15.7,
+              12.29,
+              1.4
+            ],
+            "normal": [
+              0,
+              -1,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              3.3
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              26.3,
+              12.29,
+              1.4
+            ],
+            "normal": [
+              0,
+              -1,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              3.3000000000000007
+            ],
+            "wall": true
+          }
+        ]
+      },
+      {
+        "id": "S01",
+        "floor_count": 20,
+        "wall_count": 6,
+        "surfaces": [
+          {
+            "center_m": [
+              -20.0,
+              -8.5,
+              0.042
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "axis_u": [
+              1,
+              0,
+              0
+            ],
+            "half_size_m": [
+              9.6,
+              3.6
+            ],
+            "wall": false
+          },
+          {
+            "center_m": [
+              -29.79,
+              -8.5,
+              1.4
+            ],
+            "normal": [
+              1,
+              0,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              3.6
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              -10.21,
+              -8.5,
+              1.4
+            ],
+            "normal": [
+              -1,
+              0,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              3.6
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              -20.0,
+              -12.29,
+              1.4
+            ],
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              9.600000000000001
+            ],
+            "wall": true
+          }
+        ]
+      },
+      {
+        "id": "S02",
+        "floor_count": 20,
+        "wall_count": 6,
+        "surfaces": [
+          {
+            "center_m": [
+              0.0,
+              -8.5,
+              0.042
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "axis_u": [
+              1,
+              0,
+              0
+            ],
+            "half_size_m": [
+              9.6,
+              3.6
+            ],
+            "wall": false
+          },
+          {
+            "center_m": [
+              -9.79,
+              -8.5,
+              1.4
+            ],
+            "normal": [
+              1,
+              0,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              3.6
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              9.79,
+              -8.5,
+              1.4
+            ],
+            "normal": [
+              -1,
+              0,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              3.6
+            ],
+            "wall": true
+          },
+          {
+            "center_m": [
+              0.0,
+              -12.29,
+              1.4
+            ],
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "axis_u": [
+              0,
+              0,
+              1
+            ],
+            "half_size_m": [
+              1.1,
+              9.6
+            ],
+            "wall": true
+          }
+        ]
+      }
+    ],
+    "total_floor_target": 136,
+    "total_wall_target": 42
+  },
+  "glass_doors": [
+    {
+      "id": "N01",
+      "position": [
+        -13.8,
+        4.5,
+        -0.038
+      ],
+      "yaw": -90,
+      "actor_class": "/Script/FPSGAME.WardGlassDoor",
+      "independent_leaves": true,
+      "open_seconds": 0.6,
+      "auto_close_seconds": 6.0,
+      "frame": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorFrame",
+      "leaf": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorMetalV5"
+    },
+    {
+      "id": "N02",
+      "position": [
+        2.2,
+        4.5,
+        -0.038
+      ],
+      "yaw": -90,
+      "actor_class": "/Script/FPSGAME.WardGlassDoor",
+      "independent_leaves": true,
+      "open_seconds": 0.6,
+      "auto_close_seconds": 6.0,
+      "frame": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorFrame",
+      "leaf": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorMetalV5"
+    },
+    {
+      "id": "N03",
+      "position": [
+        19.0,
+        4.5,
+        -0.038
+      ],
+      "yaw": -90,
+      "actor_class": "/Script/FPSGAME.WardGlassDoor",
+      "independent_leaves": true,
+      "open_seconds": 0.6,
+      "auto_close_seconds": 6.0,
+      "frame": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorFrame",
+      "leaf": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorMetalV5"
+    },
+    {
+      "id": "S01",
+      "position": [
+        -23.4,
+        -4.5,
+        -0.038
+      ],
+      "yaw": 90,
+      "actor_class": "/Script/FPSGAME.WardGlassDoor",
+      "independent_leaves": true,
+      "open_seconds": 0.6,
+      "auto_close_seconds": 6.0,
+      "frame": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorFrame",
+      "leaf": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorMetalV5"
+    },
+    {
+      "id": "S02",
+      "position": [
+        -3.4,
+        -4.5,
+        -0.038
+      ],
+      "yaw": 90,
+      "actor_class": "/Script/FPSGAME.WardGlassDoor",
+      "independent_leaves": true,
+      "open_seconds": 0.6,
+      "auto_close_seconds": 6.0,
+      "frame": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorFrame",
+      "leaf": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorMetalV5"
+    },
+    {
+      "id": "Decon",
+      "position": [
+        23.5,
+        -4.5,
+        -0.038
+      ],
+      "yaw": 90,
+      "actor_class": "/Script/FPSGAME.WardGlassDoor",
+      "independent_leaves": true,
+      "open_seconds": 0.6,
+      "auto_close_seconds": 6.0,
+      "frame": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorFrame",
+      "leaf": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorMetalV5"
+    }
+  ],
+  "glass_breakage": {
+    "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+    "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+    "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+    "door": {
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorFractureV5",
+      "dimensions_cm": [
+        142,
+        250,
+        1.2
+      ]
+    },
+    "window": {
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowFractureV5",
+      "dimensions_cm": [
+        165.5,
+        128,
+        1.6
+      ]
+    },
+    "windows": [
+      {
+        "id": "N01L",
+        "position": [
+          -7.6475,
+          4.5,
+          2.215
+        ],
+        "yaw": 90
+      },
+      {
+        "id": "N01R",
+        "position": [
+          -5.9525,
+          4.5,
+          2.215
+        ],
+        "yaw": 90
+      },
+      {
+        "id": "N02L",
+        "position": [
+          8.3525,
+          4.5,
+          2.215
+        ],
+        "yaw": 90
+      },
+      {
+        "id": "N02R",
+        "position": [
+          10.0475,
+          4.5,
+          2.215
+        ],
+        "yaw": 90
+      },
+      {
+        "id": "N03L",
+        "position": [
+          25.1525,
+          4.5,
+          2.215
+        ],
+        "yaw": 90
+      },
+      {
+        "id": "N03R",
+        "position": [
+          26.8475,
+          4.5,
+          2.215
+        ],
+        "yaw": 90
+      },
+      {
+        "id": "S01L",
+        "position": [
+          -15.4475,
+          -4.5,
+          2.215
+        ],
+        "yaw": 90
+      },
+      {
+        "id": "S01R",
+        "position": [
+          -13.7525,
+          -4.5,
+          2.215
+        ],
+        "yaw": 90
+      },
+      {
+        "id": "S02L",
+        "position": [
+          4.5525,
+          -4.5,
+          2.215
+        ],
+        "yaw": 90
+      },
+      {
+        "id": "S02R",
+        "position": [
+          6.2475000000000005,
+          -4.5,
+          2.215
+        ],
+        "yaw": 90
+      }
+    ],
+    "max_active_bursts": 6,
+    "lifetime_seconds": 4.1,
+    "fragment_query_collision": false
+  },
+  "status": "registered_in_random_pool",
+  "coordinate_system": "Blender metres; UE centimetres (x,-y,z)",
+  "parts": [
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_FloorSlabs",
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_FloorFinish",
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_RoofSlabs",
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_Walls",
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_Tiles",
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WallRails",
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_Frames",
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowGaskets",
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_Lintels",
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_Structure",
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_CeilingPanels",
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_CeilingFrames",
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_VentGrilles",
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_HeadwallServices",
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_VentDucts",
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_Services",
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_Wayfinding",
+      "collision": false
+    }
+  ],
+  "bed_scatter": {
+    "mesh": "/Game/Dungeons/IsolationWard20260929/Props/SM_Ward_HospitalBed",
+    "min_beds_per_room": 3,
+    "max_beds_per_room": 5,
+    "wall_clearance": 65.0,
+    "bed_clearance": 110.0,
+    "randomize_on_begin_play": true,
+    "seed": 29481,
+    "recipe": "BedScatter/bed-manifest.json",
+    "asset_scale": 1.5
+  },
+  "bench_layout": {
+    "mesh": "/Game/Props/HospitalWaitingBench20260929/SM_Hospital_Waiting_Bench",
+    "recipe": "Scripts/build_pool_module.py",
+    "center_abs_y_m": 3.8,
+    "floor_top_cm": 4.2,
+    "floor_gap_cm": 0.2,
+    "center_aisle_half_width_m": 3.35,
+    "door_half_keep_clear_m": 2.45,
+    "window_side_clearance_m": 0.2,
+    "entries": [
+      {
+        "id": "N01_L",
+        "door": "N01",
+        "side": "N",
+        "center_x_m": -17.5
+      },
+      {
+        "id": "N01_R",
+        "door": "N01",
+        "side": "N",
+        "center_x_m": -10.1
+      },
+      {
+        "id": "N02_L",
+        "door": "N02",
+        "side": "N",
+        "center_x_m": -1.5
+      },
+      {
+        "id": "N02_R",
+        "door": "N02",
+        "side": "N",
+        "center_x_m": 5.9
+      },
+      {
+        "id": "N03_L",
+        "door": "N03",
+        "side": "N",
+        "center_x_m": 15.3
+      },
+      {
+        "id": "N03_R",
+        "door": "N03",
+        "side": "N",
+        "center_x_m": 22.7
+      },
+      {
+        "id": "S01_L",
+        "door": "S01",
+        "side": "S",
+        "center_x_m": -27.1
+      },
+      {
+        "id": "S01_R",
+        "door": "S01",
+        "side": "S",
+        "center_x_m": -19.7
+      },
+      {
+        "id": "S02_L",
+        "door": "S02",
+        "side": "S",
+        "center_x_m": -7.1
+      },
+      {
+        "id": "S02_R",
+        "door": "S02",
+        "side": "S",
+        "center_x_m": 0.3
+      },
+      {
+        "id": "Decon_L",
+        "door": "Decon",
+        "side": "S",
+        "center_x_m": 19.8
+      },
+      {
+        "id": "Decon_R",
+        "door": "Decon",
+        "side": "S",
+        "center_x_m": 27.2
+      },
+      {
+        "id": "South_Service",
+        "side": "S",
+        "center_x_m": 13.5
+      }
+    ],
+    "source_credit": "Hospital Waiting Bench - AshenCut (fab.com), CC-BY-4.0",
+    "source_url": "https://www.fab.com/listings/05f7dccc-ecee-4bd4-9cc1-189ab2f42cc5"
+  },
+  "room_props": [
+    {
+      "id": "MedicalCart",
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Props/SM_Ward_MedicalCart",
+      "min_per_room": 0,
+      "max_per_room": 1,
+      "clearance": 100.0,
+      "blocking": true
+    },
+    {
+      "id": "IVDripCrutch",
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Props/SM_Ward_IVDripCrutch",
+      "min_per_room": 0,
+      "max_per_room": 1,
+      "clearance": 80.0,
+      "blocking": false
+    }
+  ],
+  "revision": "isolation_ward_axial_combat_pool_v9_20260929",
+  "pool_coordinate_system": "UE centimetres",
+  "production_module": "Config/module.json",
+  "sample_portal_included": false
+}

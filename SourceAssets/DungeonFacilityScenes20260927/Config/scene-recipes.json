@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "families": {
     "Drainage": [
       {
@@ -11,26 +11,6 @@
             "position": [
               430,
               -190,
-              0
-            ],
-            "yaw": 0,
-            "scale": [
-              1,
-              1,
-              1
-            ],
-            "materials": [],
-            "collision": true,
-            "fluid": false,
-            "affects_navigation": true,
-            "cast_shadow": true,
-            "assembly_role": "FacilityScene"
-          },
-          {
-            "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_RepairBench",
-            "position": [
-              -260,
-              -1770,
               0
             ],
             "yaw": 0,
@@ -58,18 +38,6 @@
               558.0,
               -124.5,
               145
-            ]
-          },
-          {
-            "min": [
-              -368.0,
-              -1825.5,
-              -5
-            ],
-            "max": [
-              -152.0,
-              -1714.5,
-              165
             ]
           }
         ],
@@ -618,26 +586,6 @@
             "affects_navigation": true,
             "cast_shadow": true,
             "assembly_role": "FacilityScene"
-          },
-          {
-            "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_RepairBench",
-            "position": [
-              1600,
-              -270,
-              0
-            ],
-            "yaw": 0,
-            "scale": [
-              1,
-              1,
-              1
-            ],
-            "materials": [],
-            "collision": true,
-            "fluid": false,
-            "affects_navigation": true,
-            "cast_shadow": true,
-            "assembly_role": "FacilityScene"
           }
         ],
         "scene_keep_clear": [
@@ -651,18 +599,6 @@
               230.5,
               -1262.0,
               195
-            ]
-          },
-          {
-            "min": [
-              1492.0,
-              -325.5,
-              -5
-            ],
-            "max": [
-              1708.0,
-              -214.5,
-              165
             ]
           }
         ],
@@ -815,26 +751,6 @@
             "affects_navigation": true,
             "cast_shadow": true,
             "assembly_role": "FacilityScene"
-          },
-          {
-            "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_RepairBench",
-            "position": [
-              1630,
-              -750,
-              0
-            ],
-            "yaw": 90,
-            "scale": [
-              1,
-              1,
-              1
-            ],
-            "materials": [],
-            "collision": true,
-            "fluid": false,
-            "affects_navigation": true,
-            "cast_shadow": true,
-            "assembly_role": "FacilityScene"
           }
         ],
         "scene_keep_clear": [
@@ -848,18 +764,6 @@
               1708.0,
               -205.0,
               109
-            ]
-          },
-          {
-            "min": [
-              1574.5,
-              -858.0,
-              -5
-            ],
-            "max": [
-              1685.5,
-              -642.0,
-              165
             ]
           }
         ],
@@ -1390,26 +1294,6 @@
         "label": "装卸维修工位",
         "parts": [
           {
-            "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_RepairBench",
-            "position": [
-              490,
-              -360,
-              0
-            ],
-            "yaw": 90,
-            "scale": [
-              1,
-              1,
-              1
-            ],
-            "materials": [],
-            "collision": true,
-            "fluid": false,
-            "affects_navigation": true,
-            "cast_shadow": true,
-            "assembly_role": "FacilityScene"
-          },
-          {
             "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_DuctCradle",
             "position": [
               400,
@@ -1431,18 +1315,6 @@
           }
         ],
         "scene_keep_clear": [
-          {
-            "min": [
-              434.5,
-              -468.0,
-              -5
-            ],
-            "max": [
-              545.5,
-              -252.0,
-              165
-            ]
-          },
           {
             "min": [
               292.0,

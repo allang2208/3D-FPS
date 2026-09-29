@@ -102,12 +102,14 @@ class CorridorSurfaces:
                 pieces=[q]
                 for opening in cuts:
                     left=opening['center']-opening['width']/2;right=opening['center']+opening['width']/2
+                    bottom=opening.get('bottom',0)
                     next_pieces=[]
                     for piece in pieces:
-                        if max(p[0] for p in piece)<=left or min(p[0] for p in piece)>=right or min(p[2] for p in piece)>=opening['height']:
+                        if max(p[0] for p in piece)<=left or min(p[0] for p in piece)>=right or min(p[2] for p in piece)>=opening['height'] or max(p[2] for p in piece)<=bottom:
                             next_pieces.append(piece);continue
+                        middle=clip(clip(piece,0,left,True),0,right,False)
                         next_pieces.extend([clip(piece,0,left,False),clip(piece,0,right,True),
-                            clip(clip(clip(piece,0,left,True),0,right,False),2,opening['height'],True)])
+                            clip(middle,2,opening['height'],True),clip(middle,2,bottom,False)])
                     pieces=[p for p in next_pieces if len(p)>=3]
                 for piece in pieces:emit(piece,material,smooth)
             self.placements.append(dict(room=rid,source=name,source_start=source_start,length=span,wall_start=list(start),offset=cursor,variant=variant,distribution=summary))
