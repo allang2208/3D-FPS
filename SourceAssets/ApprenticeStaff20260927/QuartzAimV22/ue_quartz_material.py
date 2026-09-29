@@ -1,5 +1,6 @@
 """Material-only cloudy quartz recipe; no geometry or gameplay edits."""
 import json
+import runpy
 from pathlib import Path
 import unreal as u
 ROOT=Path(__file__).resolve().parent
@@ -16,7 +17,11 @@ def build_quartz_material(rebuild=False, preview=False):
     if m and not rebuild:return m
     if not m:m=u.AssetToolsHelpers.get_asset_tools().create_asset(name,destination,u.Material,u.MaterialFactoryNew())
     if not m:raise RuntimeError('Cannot create quartz material')
-    L.delete_all_material_expressions(m)
+    # UE 5.8 DeleteAllMaterialExpressions removes from the array it iterates,
+    # leaving alternating old nodes behind (including Thin Translucent outputs).
+    # Delete a snapshot so each rebuild replaces the entire previous graph.
+    for expression in list(L.get_material_expressions(m)):
+        L.delete_material_expression(m, expression)
     def node(cls,**props):
         n=L.create_material_expression(m,cls)
         for k,v in props.items():n.set_editor_property(k,v)
@@ -53,6 +58,8 @@ def build_quartz_material(rebuild=False, preview=False):
     output(ramp(noise,P['roughness_min'],P['roughness_max']),u.MaterialProperty.MP_ROUGHNESS)
     output(scalar(P['specular']),u.MaterialProperty.MP_SPECULAR)
     output(scalar(0),u.MaterialProperty.MP_METALLIC)
+    if not preview:
+        runpy.run_path(str(ROOT.parent/'CrystalLightV31/material_emission.py'))['add_light_control'](m)
     errors=L.recompile_material(m)
     if errors:raise RuntimeError('Quartz material compilation failed: '+str(errors))
     if not u.EditorAssetLibrary.save_loaded_asset(m,False):raise RuntimeError('Cannot save quartz material')

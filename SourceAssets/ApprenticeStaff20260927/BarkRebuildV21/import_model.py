@@ -14,6 +14,13 @@ DEST = BASE + '/BarkRebuildV21'
 E = u.EditorAssetLibrary
 A = u.AssetToolsHelpers.get_asset_tools()
 entries = json.loads((ROOT / 'Export/meshes.json').read_text(encoding='utf-8'))
+# Once V33 is installed, subsequent full staff imports must retain its four
+# authored crystal heads rather than restore the old flat-colour V21 pieces.
+craft_root = ROOT.parent / 'CrystalCraftV33'
+craft_receipt = craft_root / 'install-receipt.json'
+if craft_receipt.exists() and json.loads(craft_receipt.read_text(encoding='utf-8')).get('complete'):
+    crafted = {e['name']: e for e in json.loads((craft_root / 'Export/meshes.json').read_text(encoding='utf-8'))}
+    entries = [crafted.get(e['name'], e) for e in entries]
 receipt_path = ROOT / 'import-receipt.json'
 receipt = {
     'revision': 21, 'complete': False, 'tested': False, 'preview_rendered': False,
@@ -61,6 +68,10 @@ materials['M_Staff_QuartzDenseV22'] = u.load_asset(BASE + '/QuartzAimV22/Materia
 materials['M_Staff_QuartzMilkV20'] = materials['M_Staff_QuartzDenseV22']
 for name in ('M_Staff_ice', 'M_Staff_fire', 'M_Staff_light', 'M_Staff_electric', 'M_Staff_metal', 'M_Staff_RuneV2'):
     materials[name] = u.load_asset(BASE + '/Materials/' + name)
+for entry in entries:
+    for name in entry['materials']:
+        if name.startswith('M_StaffCraft_'):
+            materials[name] = u.load_asset(BASE + '/CrystalCraftV33/Materials/' + name)
 for name, material in materials.items():
     if not material:
         raise RuntimeError('Missing existing staff material ' + name)

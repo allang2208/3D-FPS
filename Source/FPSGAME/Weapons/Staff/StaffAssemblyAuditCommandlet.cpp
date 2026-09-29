@@ -38,11 +38,11 @@ int32 UStaffAssemblyAuditCommandlet::Main(const FString& Params)
     FColdSteelItem Base;Base.Definition=TEXT("ue_apprentice_staff");Base.InstanceId=TEXT("isolated_staff_audit");
     FJsonSerializer::Serialize(Definition.ToSharedRef(),TJsonWriterFactory<>::Create(&Base.Data));
     const auto Catalog=ColdSteelStaff::Catalog();if(!Catalog)return 3;
-    TArray<FString> Slots;TArray<TArray<FString>> Options;TArray<TArray<FString>> MeshPaths;
+    TArray<FString> AssemblySlotNames;TArray<TArray<FString>> Options;TArray<TArray<FString>> MeshPaths;
     TSet<FString> AllMeshes;AllMeshes.Add(Definition->GetStringField(TEXT("staff_body_mesh")));AllMeshes.Add(Definition->GetStringField(TEXT("world_mesh")));
     for(const auto& Value:Catalog->GetArrayField(TEXT("columns")))
     {
-        const auto Column=Value->AsObject();Slots.Add(Column->GetStringField(TEXT("key")));
+        const auto Column=Value->AsObject();AssemblySlotNames.Add(Column->GetStringField(TEXT("key")));
         Options.Add({TEXT("")});MeshPaths.Add({Column->GetStringField(TEXT("factory_mesh"))});
         for(const auto& Option:Column->GetArrayField(TEXT("options")))
         {Options.Last().Add(Option->AsObject()->GetStringField(TEXT("id")));MeshPaths.Last().Add(Option->AsObject()->GetStringField(TEXT("mesh")));}
@@ -83,10 +83,10 @@ int32 UStaffAssemblyAuditCommandlet::Main(const FString& Params)
         const FColdSteelItem Item=ColdSteelStaff::Resolve(Base,&Draft);const FString Prefix=FString::Printf(TEXT("case %d: "),Id);
         const auto Parts=ColdSteelStaff::Installed(Item);Check(Parts.Num()==Draft.Num(),Prefix+TEXT("normalized selection count"));
         TArray<FString> Expected;Expected.Add(Definition->GetStringField(TEXT("staff_body_mesh")));
-        for(int32 S=0;S<Slots.Num();++S)
+        for(int32 S=0;S<AssemblySlotNames.Num();++S)
         {
-            const FString P=ColdSteelInventory::Text(Item,*(TEXT("staff_part_")+Slots[S]+TEXT("_mesh")));
-            Check(P==MeshPaths[S][Choice[S]],Prefix+TEXT("wrong mesh for ")+Slots[S]);if(!P.IsEmpty())Expected.Add(P);
+            const FString P=ColdSteelInventory::Text(Item,*(TEXT("staff_part_")+AssemblySlotNames[S]+TEXT("_mesh")));
+            Check(P==MeshPaths[S][Choice[S]],Prefix+TEXT("wrong mesh for ")+AssemblySlotNames[S]);if(!P.IsEmpty())Expected.Add(P);
         }
         Check(ColdSteelStaffAssembly::Apply(Root,Item),Prefix+TEXT("Apply failed"));const auto Components=ColdSteelStaffAssembly::Components(Root);
         Check(Components.Num()==Expected.Num(),Prefix+TEXT("stale or missing components"));
@@ -100,7 +100,7 @@ int32 UStaffAssemblyAuditCommandlet::Main(const FString& Params)
     for(int32 Id=0;Id<Count;++Id)
     {
         int32 N=Id;ColdSteelStaff::FParts Draft;TArray<int32> Choice;
-        for(int32 S=0;S<Slots.Num();++S){const int32 I=N%Options[S].Num();N/=Options[S].Num();Choice.Add(I);if(I)Draft.Add(Slots[S],Options[S][I]);}
+        for(int32 S=0;S<AssemblySlotNames.Num();++S){const int32 I=N%Options[S].Num();N/=Options[S].Num();Choice.Add(I);if(I)Draft.Add(AssemblySlotNames[S],Options[S][I]);}
         Case(Id,Draft,Choice);
     }
     Case(Count,ColdSteelStaff::FParts(),TArray<int32>{0,0,0,0,0,0});

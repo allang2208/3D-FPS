@@ -57,16 +57,4 @@ FColdSteelItem Resolve(const FColdSteelItem& Item,const FParts* Draft)
     FJsonSerializer::Serialize(D.ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&R.Data));
     R.Magazine=R.Reserve=R.VirtualMagazineAmmo=0;return R;
 }
-int32 TicketCount(const FColdSteelProfile& State)
-{
-    int64 Count=0;for(const auto& I:State.Items)if(I.Definition==TEXT("reforge_ticket")&&(I.Place==0||(I.Place==4&&I.Container.IsEmpty())))Count+=I.Count;
-    return int32(FMath::Min<int64>(Count,MAX_int32));
-}
-bool DebitTickets(FColdSteelProfile& State,int32 Cost)
-{
-    if(Cost<0||TicketCount(State)<Cost)return false;
-    for(auto& I:State.Items)if(Cost&&I.Definition==TEXT("reforge_ticket")&&(I.Place==0||(I.Place==4&&I.Container.IsEmpty())))
-    {const int32 N=int32(FMath::Min<int64>(I.Count,Cost));I.Count-=N;Cost-=N;}
-    State.Items.RemoveAll([](const auto& I){return I.Count<=0;});return true;
-}
 }

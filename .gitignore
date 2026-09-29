@@ -1265,3 +1265,10 @@ __pycache__/
 /SourceAssets/ChainmailCloth20260929/
 /SourceAssets/ChainmailSharedSway20260929/
 /Source/FPSGAME/Weapons/SteelGauntletPoseCurves.inl
+
+# Staff follow-up: licensed dense motion stays local; original generated G icon is public.
+/Source/FPSGAME/Weapons/Staff/StaffAuthoredPrimaryV27.h
+/Source/FPSGAME/Weapons/Staff/StaffAuthoredPrimaryV28.h
+!/SourceAssets/StaffOffhand20260928/
+!/SourceAssets/StaffOffhand20260928/staff_light_cold_steel.png
+!/Content/ColdSteelData/Skills/staff_light_cold_steel.png

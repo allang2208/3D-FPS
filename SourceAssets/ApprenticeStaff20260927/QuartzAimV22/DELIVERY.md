@@ -4,6 +4,8 @@
 
 使用新材质 `M_Staff_QuartzDenseV22`。Opacity 由 0.24～0.42 调整为 0.84～0.96，薄透光颜色由约 0.8 调低为 (0.12, 0.17, 0.15)，保留 0.18～0.27 的粗糙度变化与切面高光。Blender 作者材质的透射权重同步为 0.025～0.12。
 
+后续修正（2026-09-28）：用户反馈过白，上述透明相关改动已恢复为 V20 参数，现用材质与预览材质已保存。当前参数以 `quartz_parameters.json` 为准，记录见 `../QuartzTransparencyRestoreV29/DELIVERY.md`；本页其余内容保留 V22 历史制作说明。
+
 实际安装范围是当前 Base／原厂晶头，以及 BarkRebuildV21 修订目录下的同两个网格。详细落盘结果见 `install-receipt.json`。BarkRebuildV21 的可编辑 Blender、两个 FBX、库存图标、作者入口及导入配方同步更新；木杆几何与握持不变。V20 和本次 Before 目录保留此前版本。
 
 ## 弹道排查结果

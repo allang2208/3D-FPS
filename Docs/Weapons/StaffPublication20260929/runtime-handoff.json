@@ -1,0 +1,534 @@
+{
+  "date": "2026-09-29",
+  "base_commit": "403f13dc469ff25aa5f209cf832deaeb7eb84c2e",
+  "status": "Source handoff only; not applied to public Source; no standalone build claim",
+  "replaces": "StaffPublication20260928/new-runtime-sources.patch (do not apply both)",
+  "new_sources": [
+    {
+      "path": "Source/FPSGAME/Skills/FPSStaffCasting.cpp",
+      "sha256": "7266564533016106865114b1a5d88e099517013f75b23c9beb1c366226c060c5",
+      "bytes": 4028
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStaffPickup.cpp",
+      "sha256": "133cdf9342f07ec55df80f9d859230327adbf8a9a5d45caa2da4b7252658b295",
+      "bytes": 1255
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStaffs.cpp",
+      "sha256": "1a27e84ad2868b3b3d0a09b569ad1ffac64fab98537d9ed78fb66c2dcc5c4d88",
+      "bytes": 1963
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4StaffGunsmith.cpp",
+      "sha256": "12926405d5c587a933a6cfb3cd96053485402048ffd6f6ac420b1292d254f13b",
+      "bytes": 4963
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffArmsMeshComponent.cpp",
+      "sha256": "f19ce4d77eae87ddc256711fb9d15850c9a090b4245e2a076cfc06e0221272a7",
+      "bytes": 5949
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffArmsMeshComponent.h",
+      "sha256": "3980760f6cbe80ffc77fef6b6f33e5cc2c7492f1acc5a11b9ac59bf2517a876a",
+      "bytes": 610
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffCastMotion.h",
+      "sha256": "6a9dac0aed3d383d6cb5fe9659bf3cfb805e553d98fd88650797f1a5f0a3053d",
+      "bytes": 4818
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffFreeHandPose.cpp",
+      "sha256": "d1e559077493be60db84ad0092375e027bf2b93b47b8dc240a0d0354271ddffa",
+      "bytes": 2576
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffFreeHandPose.h",
+      "sha256": "46ae6f871a6b0e34655f4b29106d3b0e1a40593ab6e5c0430dfbc68cf042dcb6",
+      "bytes": 435
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffGripPose.cpp",
+      "sha256": "551199af61c34653cb5ef986774ab6da1e3678c9243fde26652a0a038a3db7af",
+      "bytes": 4774
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffGripPose.h",
+      "sha256": "7eab33f235d24d75ce869c01fec1490eb4144f9daeba5444ffb104b8b9eb1a5c",
+      "bytes": 967
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffGunsmith.cpp",
+      "sha256": "403d4754fc794e273a74eb7726f0c17f327d756db4950ca7d7c48e6c89ea69bf",
+      "bytes": 1887
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffGunsmithAuditCommandlet.cpp",
+      "sha256": "2693cee07632c136cfef4bb57fc9cec5442db18cd220901ecafd513b43facb6a",
+      "bytes": 6968
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffGunsmithAuditCommandlet.h",
+      "sha256": "02c87783e09d46f5144a72877671fd4443f1fb13c7062ef6b4299cbe63a969df",
+      "bytes": 347
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffIllumination.cpp",
+      "sha256": "deedeb00a927da3de0c5bda52f69650f81f48da3789dc0ceade2f246e26a27d6",
+      "bytes": 7010
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffLocomotion.cpp",
+      "sha256": "fd35417f07495ccf30e8984e6fade8e6187f6cb9de44d5f0092c17241fd7cc60",
+      "bytes": 4139
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffLocomotion.h",
+      "sha256": "c5f003dada0e4972d5fa0ad02d008af55deced75cdc6ee58597154eb8a42e942",
+      "bytes": 996
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffPrimaryAttackMotion.h",
+      "sha256": "55984622089c302063b160e78a2f476640d51f2dfcdf3676ddd453fc191efbb7",
+      "bytes": 3558
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffPrimaryKeys.h",
+      "sha256": "2149642f2b931a35f6791fdb848a1fc238c31519c186edf5910230d4c5054a82",
+      "bytes": 926
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp",
+      "sha256": "d1bff713fbfad801f8a78c248d2ee34c384e9c45405d9f8d5f227548c803a2f2",
+      "bytes": 18839
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.h",
+      "sha256": "6b92fd5f107e3be830aaeceab1171840f7811f868049d5f543c2a6145bb4ac30",
+      "bytes": 3856
+    }
+  ],
+  "shared_staff_hooks": [
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "live_sha256": "dc85e6c87e8dbf793b92973d24a4e485e074175981e05274a30ee57c66c736b9",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "live_sha256": "6134a0b9b4db4ec5f8924be008b321f9277be9a01790fc824f1e3d528e3efde1",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "live_sha256": "166ce341489398a5c547879cc1d70d5718e71631e87eee5e2af7d9c082db36ae",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.h",
+      "live_sha256": "3f2363b58a320308b5d3cb8e0a953955aef5b221ff914ab35a3cab544705b286",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterAmmo.cpp",
+      "live_sha256": "7bd1f23fff51d8a8c2c2c41ef38a7bb003af13d83018626478e254a47622f402",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+      "live_sha256": "7f922e7de2a3c913d9ef47b1f5716cf6f2272915cc14f577e0b0f82da1893265",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "live_sha256": "0f0d07c7aec6a3f968c16a898255a546b13fa1fa0dbf7d14afe48af4230fc84a",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireMagicComponent.cpp",
+      "live_sha256": "51414ab0e66056717c8c447134466ae13449603b549f289148df628c1f9c66a1",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballComponent.cpp",
+      "live_sha256": "8bb61d16ca2fa3a3107c043dad5f4d0936f1dacf853dd25fbabcf4a709ef772a",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballComponent.h",
+      "live_sha256": "a630c65ffcbb7ca63f40bf337e2acd7c6bc97e58d0e3a5cf6d60a6f12f4e65b3",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballProjectile.cpp",
+      "live_sha256": "083ac3d939b10b7419578084b2be96c1ab71aeca5d610553a7b36b7ae7bdf6b2",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballProjectile.h",
+      "live_sha256": "3b14e34b24e635956d7b8d6d74bf8bac5889967e7849be10791b86ba57f8b760",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSHolyLightComponent.cpp",
+      "live_sha256": "5ea14ff0efaf1a714dcae89889d01c7414d8e1f9b9cde1a3c79c52917f1c8456",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIceSpikeComponent.cpp",
+      "live_sha256": "caee1fb411d694efb98ef67f57e4445b38c8b815fb1f84d8589cff663686389c",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIceSpikeComponent.h",
+      "live_sha256": "21ed3dec7abc9d4e2d81d6d3c7e5062e39bee2fe884108c76b15a8e4d8ab4412",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIceSpikeVolley.cpp",
+      "live_sha256": "3168e912001595a6d0a81af780ef5ec536c81d7f1b2db2e6094cd37e36581b19",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIceSpikeVolley.h",
+      "live_sha256": "7fe22da3f54bffb2f7f2910380822f9e752c79bdeab1f337367e7400aac512c9",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSLightningComponent.cpp",
+      "live_sha256": "167b329917c4a5adaabc9e2043a9a4c75b9c26914205b0cdb8439ef20d7dcc07",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSMagicPreview.cpp",
+      "live_sha256": "0b01c8fe8185a904c672e539fdc6a8d7d42c231b8fe9b2f130cd9cf3aa7e50f5",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSMagicPreview.h",
+      "live_sha256": "6f378bb4248526ce653fdf6ea04cbc368a8f07b296dd09698e34ed7ed6fb5528",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAmmoReadout.cpp",
+      "live_sha256": "d669ad9834e1521113a445b20f475629fe284b9d7d370380be29ac899fe4a8f1",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+      "live_sha256": "9e107c01c50f9cec246b98a2ec8da837a119b7cf60ebce8c8782920a07cec778",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+      "live_sha256": "59ac630d5dd8032f16ea55b5c6c148e729a4ce53f157279b872b576984881134",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelFireballHUD.cpp",
+      "live_sha256": "df4a6a6e48446e1a2684ef0d440c50d317c2556cbc2671b98458fc6b36ba52a7",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "live_sha256": "bd6150163e81483fc5b2e1aa76eba73693583e3dbeeb2c0d63b5056b143d41f0",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "live_sha256": "648b39de6e5b7c528e9d7e6e612048bb68b4e5985b9a90f19fa844811ca35e0e",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickup.h",
+      "live_sha256": "b89dbdf3eac77e33c71e9064c59fa2b9d6e7e1db704bc662c4320b6c4ed698f5",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp",
+      "live_sha256": "67417ae07a96777df76989a46637d5ea0bddc7ca13e2cd604b8bf6004ff618c9",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "live_sha256": "7be9653d92e6326ba54c07bcd5313295523412955ce1bc6b180c837f3fdae779",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp",
+      "live_sha256": "9bffa9c30c7add226ebd0ebea22154d05817ee198143b9413dbfccb288324b8e",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickSlot.cpp",
+      "live_sha256": "2c1a5066c1ea09ca6f2998c469784914bf8a82de2b9618a209df71555341ae1a",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "live_sha256": "76e872cf59e60911397a218ca82821b06f6f497b095cf7423e552ffdfb96c1c2",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+      "live_sha256": "bed45f4a75d0aeedc4af604638ca27d57a495da666da19207c31f6a30fa380ba",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithLayout.cpp",
+      "live_sha256": "8db483a8e095abfec0dc20e6a9a562d073556c4854a0f1512ab97cea53b2c409",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithOverview.cpp",
+      "live_sha256": "662c37710c3770ab37458db944d83499c6b2b8a6abc4d3bb33e7151930c4e1c1",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithPreviewResources.cpp",
+      "live_sha256": "38c34698b7569c053254db4cadb5ec13ab1202b58cbc201ba26b601e4f21ca99",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+      "live_sha256": "20eb2ae468dbed146237679d1a34e3084a75b981af1608a75d891153a9d70f26",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithWidget.h",
+      "live_sha256": "489bb825a44a211c62ccea479d6d7c7350f455a54bcc5f98566b80a654c2d50e",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4MeleePreview.cpp",
+      "live_sha256": "7f6d0f832258a2821f6b9a52834151928f613ad6310d38012b801a8b8e9395ea",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "live_sha256": "abc3d7529b1f23481aa688e81075f28ca0309d2c999be89b7a02ce7e54ff500a",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithSystem.h",
+      "live_sha256": "5da32fb2c7c029bdb07cc81e356908e022a9d012cd1332411a37bfddc98dfb08",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeGunsmith.cpp",
+      "live_sha256": "d02f612fc55b7bd035e96861bacd7a7f94258de4fc47ddfaecb69d1b094a9fde",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldCombat.cpp",
+      "live_sha256": "d27b63ffa2e71bcac6c87a7358cb48f69c3679724663131dc0849596548b0333",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp",
+      "live_sha256": "140cbd5a8eab91d93703450b6a2acee77886d54f2c97f936847c7c2450a67f2f",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.h",
+      "live_sha256": "e5025ced202758db8c676a26603cd8789f1f95ae87ea2602c24c7d1b8a813864",
+      "note": "Staff-only extraction; unrelated worktree changes excluded; not applied to public Source"
+    }
+  ],
+  "selected_hunks": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    48,
+    49,
+    50,
+    51,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    81,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    100,
+    101,
+    102,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114,
+    116,
+    117,
+    118,
+    119,
+    120,
+    121,
+    122,
+    123,
+    124,
+    125,
+    126,
+    127,
+    128,
+    129,
+    130,
+    131,
+    132,
+    133,
+    134,
+    135,
+    136,
+    137,
+    138,
+    139,
+    145,
+    147,
+    148,
+    149,
+    150,
+    151,
+    152,
+    153,
+    154,
+    155,
+    156,
+    157,
+    158,
+    159,
+    160,
+    161,
+    163,
+    164,
+    165,
+    166,
+    167,
+    168,
+    169,
+    170,
+    172,
+    173,
+    174,
+    175,
+    176,
+    177,
+    178,
+    179,
+    180,
+    181,
+    182,
+    183,
+    184,
+    185,
+    186,
+    187,
+    188,
+    189,
+    190,
+    191,
+    192,
+    194,
+    195,
+    196,
+    197,
+    198,
+    199,
+    200,
+    201,
+    202,
+    203
+  ],
+  "remaining_dependencies": [
+    "Native V7 skin and licensed source pose inputs; regenerate StaffAuthoredPoseV13, StaffAuthoredLeftGaitV16, StaffAuthoredPrimaryV28 locally",
+    "Existing unpublished priority/power-fist gesture interfaces used by FPSStaffCasting; shared hook extraction intentionally omits their implementation",
+    "Shared item evaluation, third-person offhand fields and gunsmith preview/layout interfaces must be integrated with their owning features; this is not a complete integration patch set",
+    "UE meshes, Niagara/audio, V33 materials and V22/V29/V30/V32 default quartz packages remain local"
+  ],
+  "last_native_build": "Saved/BuildEditor/build-20260929-130342.log: Succeeded (full local project, before publication; not a build of the public patch set)",
+  "gameplay_tests": "Not run; user tests gameplay and visuals"
+}

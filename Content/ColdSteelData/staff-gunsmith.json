@@ -5,19 +5,20 @@
       "id": "ue_apprentice_staff",
       "traits": [
         {
+          "icon": "special",
+          "text": "晶辉照明：按 G 开关杖头光源，播放一次抬杖蓄光与收势动作后恢复待机；照明无冷却、无消耗、持续时间不限，收起长杖后熄灭。"
+        },
+        {
           "icon": "magic",
           "text": "当前主手增加魔法攻击；六槽改造随武器实例保存。"
         },
         {
           "icon": "mechanic",
-          "text": "单手持握，物理挥击；杖冠须匹配杖头专精才能激活。"
+          "text": "主手限定的单手武器，副手可装备手枪或魔法书；右键发射副手手枪，无副手时不触发交互。杖冠须匹配杖头专精才能激活。"
         }
       ]
     }
   ],
-  "ticket": "reforge_ticket",
-  "first_cost": 1,
-  "replace_cost": 4,
   "columns": [
     {
       "key": "head_crystal",

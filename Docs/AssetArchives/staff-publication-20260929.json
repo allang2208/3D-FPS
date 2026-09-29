@@ -1,0 +1,358 @@
+{
+  "date": "2026-09-29",
+  "status": "moved; SHA-256 and size readback matched",
+  "entries": [
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/PrimarySmashV27/author_motion.py",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/PrimarySmashV27/author_motion.py",
+      "bytes": 7807,
+      "sha256": "536f565fd5b9f490f3bedd3353de89cf1a8d8c20b13ca10bb32b8c21b83d263e",
+      "reason": "V27 wrist-led smash replaced by V28 whole-arm motion",
+      "replacement": "PrimaryWholeArmV28 / StaffAuthoredPrimaryV28.h"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/PrimarySmashV27/build-receipt.json",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/PrimarySmashV27/build-receipt.json",
+      "bytes": 244,
+      "sha256": "0cb99fb0464a2f90d8a4d7c024fb4a16410d03d6e4f97e84e8657ff6ec27243a",
+      "reason": "V27 wrist-led smash replaced by V28 whole-arm motion",
+      "replacement": "PrimaryWholeArmV28 / StaffAuthoredPrimaryV28.h"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/PrimarySmashV27/DELIVERY.md",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/PrimarySmashV27/DELIVERY.md",
+      "bytes": 995,
+      "sha256": "ae3ead11a5980c7918644eb27a91b68bb1fb735b3f261893baac8d61fd511010",
+      "reason": "V27 wrist-led smash replaced by V28 whole-arm motion",
+      "replacement": "PrimaryWholeArmV28 / StaffAuthoredPrimaryV28.h"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/PrimarySmashV27/editable-source.json",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/PrimarySmashV27/editable-source.json",
+      "bytes": 557,
+      "sha256": "511ff5abc26052287b79d297a6df9d339c1082059ab50bde850eec43c59e4144",
+      "reason": "V27 wrist-led smash replaced by V28 whole-arm motion",
+      "replacement": "PrimaryWholeArmV28 / StaffAuthoredPrimaryV28.h"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/PrimarySmashV27/full-pose.json",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/PrimarySmashV27/full-pose.json",
+      "bytes": 1583005,
+      "sha256": "66d56092d005de11af2345986eca077c22466a4674aaf19863b2e25d46aeca31",
+      "reason": "V27 wrist-led smash replaced by V28 whole-arm motion",
+      "replacement": "PrimaryWholeArmV28 / StaffAuthoredPrimaryV28.h"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/PrimarySmashV27/save_editable.py",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/PrimarySmashV27/save_editable.py",
+      "bytes": 5309,
+      "sha256": "93deae7a3e42b897958f507509f95816a959e9b1446e593004c112e28ccdaaa3",
+      "reason": "V27 wrist-led smash replaced by V28 whole-arm motion",
+      "replacement": "PrimaryWholeArmV28 / StaffAuthoredPrimaryV28.h"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/PrimarySmashV27/Staff_PrimarySmash_V27.blend",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/PrimarySmashV27/Staff_PrimarySmash_V27.blend",
+      "bytes": 66095752,
+      "sha256": "fcd47a651e7006fa960e9e9b21284fa972c3b72ba4d0401a7b0758c06baac971",
+      "reason": "V27 wrist-led smash replaced by V28 whole-arm motion",
+      "replacement": "PrimaryWholeArmV28 / StaffAuthoredPrimaryV28.h"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/author_blender.py",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/author_blender.py",
+      "bytes": 11531,
+      "sha256": "079be5f4ed117e3c405cc06520c942c921cbe8c47a3a8e1523b1b93b3322f69f",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/author-receipt.json",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/author-receipt.json",
+      "bytes": 1678,
+      "sha256": "184e2bcbc068ebcf589076e426a4db7578efc41f7763717868b917daa5eca6c0",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/author.log",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/author.log",
+      "bytes": 1468,
+      "sha256": "ec8f5ce7bcfa77a425fe17e908b19a64804a1218e3bc25b5ebf8e9d5ab0dcfcb",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/editable-receipt.json",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/editable-receipt.json",
+      "bytes": 357,
+      "sha256": "4f09bccaecc0700f7c5d54ebd86985313d4f9d81198e86d8ed4aaeba0f12b7e6",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/install_background.ps1",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/install_background.ps1",
+      "bytes": 914,
+      "sha256": "10628915d94b22f3b5c3332c1b8e416a7e4522cbeab42e07607942b99c1c97b4",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/install_ue.py",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/install_ue.py",
+      "bytes": 7488,
+      "sha256": "1c63015dcf57396dabf1addcb87d57f0fae34aaf077678979574eefafb572589",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/install-bridge-01.txt",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/install-bridge-01.txt",
+      "bytes": 760,
+      "sha256": "16e97d79cfe2f08c3396d98debe5afcb7590361c644c9841c02050edefc7b70c",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/install-receipt.json",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/install-receipt.json",
+      "bytes": 3987,
+      "sha256": "41abb921a2850c6f4245530304073f3c0eda86c54467b0249f8d785227d4de57",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/material-input-bridge.txt",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/material-input-bridge.txt",
+      "bytes": 1065,
+      "sha256": "bef38235127fbb327170bc46b2d18a08915a27e0b92979a3f98ef396e3a14fc4",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/material-inputs.json",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/material-inputs.json",
+      "bytes": 1124,
+      "sha256": "6ee027f940cf5070aabcb5a068c9cb52e3f1a3d03a213c2a53fcd9e10acdc1a0",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/read_material_input.py",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/read_material_input.py",
+      "bytes": 953,
+      "sha256": "5d09385d85aaefa50ff9281bbda8f734fc1c08ad61005d6c83b22da10a0161ce",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/read_sources.py",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/read_sources.py",
+      "bytes": 852,
+      "sha256": "7f4adad56091074e252a6150228fe10d310e004e25dda2d51e5a70c0cc43f375",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/README.md",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/README.md",
+      "bytes": 3670,
+      "sha256": "559ce57256831350b09ecd28e78601aa409d42d1ce3fde48ae2215cbf6ff4845",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/rollback_editable.py",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/rollback_editable.py",
+      "bytes": 1645,
+      "sha256": "da3e5c64e5a52d3faea263bc706a021b23fd329e242d6db7056edb9f5253b134",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/rollback_ue.py",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/rollback_ue.py",
+      "bytes": 4148,
+      "sha256": "f51e2279b373b472ee7d980237f66fd0f648cdaf89591ce93302846516413e6b",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/rollback-bridge-20260928-224934.txt",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/rollback-bridge-20260928-224934.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/rollback-bridge-20260928-225127.txt",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/rollback-bridge-20260928-225127.txt",
+      "bytes": 620,
+      "sha256": "d9f5a9347cd48da8172fc99fe4f0d363b480cecf5e8d2dd92701313c96471cb9",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/rollback-bridge-20260928-225238.txt",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/rollback-bridge-20260928-225238.txt",
+      "bytes": 808,
+      "sha256": "4e1f2a3d90efaafb5f2ac3e4bd01a22ad628b8a2cb55ee8cad5b3300bc0f76e5",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/rollback-editable-receipt.json",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/rollback-editable-receipt.json",
+      "bytes": 251,
+      "sha256": "77da824a7f3c8372407037c70e0e259f33fd4a7dfd26d81a0847124b979ec8b8",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/rollback-editable.log",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/rollback-editable.log",
+      "bytes": 392,
+      "sha256": "b469eac8dab14071f21fe3d59006cd75e5c835cd040aab20657891d4179502c8",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/rollback-end-pie.txt",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/rollback-end-pie.txt",
+      "bytes": 163,
+      "sha256": "b255ef866ba99e108c9d5e1c2e7551280a2d2228815b34bd8bad5f006cc8c4cf",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/rollback-receipt.json",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/rollback-receipt.json",
+      "bytes": 751,
+      "sha256": "166b8e73b3ae89ccdf254fbb0deca7bc871b51091a64c06def6f389d5bf192d2",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/rollback.ps1",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/rollback.ps1",
+      "bytes": 1126,
+      "sha256": "91f789a2898c6b3ae7454f77fbf475ea9873443bcfa671df6f45b98269234cc4",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/source-inputs.json",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/source-inputs.json",
+      "bytes": 1125,
+      "sha256": "1991b75cccd571c3f89d6627ef4ead346cb9f52d56714c6995c1ef98175ba2a0",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/Staff_WhiteQuartz_V34.blend",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/Staff_WhiteQuartz_V34.blend",
+      "bytes": 39321153,
+      "sha256": "d7eddb424a89b29a534eec702ba7580845f414b71905cffc26d6f7893924df58",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/sync_editable.py",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/sync_editable.py",
+      "bytes": 1665,
+      "sha256": "a73fa7242c0975e3662cc8f320b6c7c1f5828070068f5da372d7434cef11fafb",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/sync-editable.log",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/sync-editable.log",
+      "bytes": 387,
+      "sha256": "9884b19ff89b2205f697499b40b0eb4d3ef0505fe20a0c5a6fdcae8d12f2e5dc",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/ue_material.py",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/ue_material.py",
+      "bytes": 6721,
+      "sha256": "5b3f33cd8020a796d68f5cc9d71191fe9bda1604595cf3335c280467de5fd024",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/Before/Staff_NaturalBark_V21.blend",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/Before/Staff_NaturalBark_V21.blend",
+      "bytes": 42744819,
+      "sha256": "d400fd1d5c753011a80e6bae920e5c3694d09d30564da458418a8d0cdab5e1a8",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/Export/meshes.json",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/Export/meshes.json",
+      "bytes": 1157,
+      "sha256": "edbdd5e515a1b5690cf5eb4daec6369588bb41483ddb928c4e4ca80e6a03d17d",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/Export/SM_Staff_Base.fbx",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/Export/SM_Staff_Base.fbx",
+      "bytes": 1770428,
+      "sha256": "c7a36d66132d4624cdb1d4a0eda0032e9aa3451f977262b1ada271c2f432b650",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/Export/SM_Staff_head_crystal_false.fbx",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/Export/SM_Staff_head_crystal_false.fbx",
+      "bytes": 66444,
+      "sha256": "e45ab54e1b1c19954987b478fbd01245b08cdaac087acb5a61c7b2871a1c1bfd",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/Export/textures.json",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/Export/textures.json",
+      "bytes": 134,
+      "sha256": "1e4276e5ca136fd7691c2b522736afd65c32af36bedbb247f06f522614ab92ac",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/Export/Textures/T_QuartzCraft_Normal_V34.png",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/Export/Textures/T_QuartzCraft_Normal_V34.png",
+      "bytes": 128070,
+      "sha256": "67a06b6ed21c9af1066be15cea73e2441fa6399d0a238c81ae7e69ad0db0d5d1",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/Export/Textures/T_QuartzCraft_Surface_V34.png",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/Export/Textures/T_QuartzCraft_Surface_V34.png",
+      "bytes": 618469,
+      "sha256": "56890c0a4fdf8610e7fb8fcee87300e0857909cd9591f6d1d0b3bb2efe7b4f3b",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/Export/Textures/T_QuartzCraft_Thickness_V34.png",
+      "archived": "trash/staff-publication-20260929/SourceAssets/ApprenticeStaff20260927/QuartzCraftV34/Export/Textures/T_QuartzCraft_Thickness_V34.png",
+      "bytes": 198614,
+      "sha256": "6d6dd3cd43093af9bacaa7d6b616442ba8ea699db59207cd635ba41177b7941b",
+      "reason": "User rejected V34; rollback already saved",
+      "replacement": "QuartzAimV22 + V29 transparency + V32 emission; V33 elemental heads retained"
+    },
+    {
+      "original": "Source/FPSGAME/Weapons/Staff/StaffAuthoredPrimaryV27.h",
+      "archived": "trash/staff-publication-20260929/Source/FPSGAME/Weapons/Staff/StaffAuthoredPrimaryV27.h",
+      "bytes": 147657,
+      "sha256": "9e9b541f6bbf9d81a295b7b7b3b8d69ad765831677793434e01a0b68098b96e8",
+      "reason": "V27 wrist-led smash replaced by V28 whole-arm motion",
+      "replacement": "PrimaryWholeArmV28 / StaffAuthoredPrimaryV28.h"
+    }
+  ]
+}

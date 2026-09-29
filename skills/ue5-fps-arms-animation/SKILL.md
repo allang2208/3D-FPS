@@ -30,7 +30,7 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 
 - 锁子甲环纹、实体袖口、内衬穿模或小幅衣缘摆动，读 [锁子甲表面与同步运动](references/chainmail-surface-and-secondary-motion.md)：周期高模烘焙＋局部实体环；贴身内外层共享运动场，当前轻量方案替代已退役的 Chaos 袖口，不把巫婆参数直接用于第一人称。
 
-- 单手法杖掌向、握弓参考、腕臂扭曲及空闲左手走跑：[长杖镜头空间抓握](references/staff-grip-camera-space.md)。固定已认可掌向，使用完整局部骨段与实际握柄表面，避免再次单独掰腕。
+- 单手法杖掌向、整臂后举下砸、腕臂扭曲、空闲左手走跑及副手枪左臂替换：[长杖镜头空间抓握](references/staff-grip-camera-space.md)。固定已认可掌向，使用完整局部骨段与实际握柄表面，避免再次单独掰腕。
 
 - 左手取药、饮用、抛瓶、握点下移和旧瓶动作参考，读取 [药水抓握、饮用与抛瓶](references/potion-grip-and-drink.md)。
 

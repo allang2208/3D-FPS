@@ -1,0 +1,1148 @@
+diff --git a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -32,0 +33 @@
++    State.bOffhandPistol=Pawn->HasOffhandPistol();
+diff --git a/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp b/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
+@@ -6,0 +7,3 @@
++#include "../Weapons/Staff/StaffWeaponComponent.h"
++#include "../Weapons/Staff/StaffAssembly.h"
++#include "../Weapons/Staff/StaffGripPose.h"
+@@ -113,0 +117,22 @@
++    else if(const auto* Staff=Pawn->FindComponentByClass<UStaffWeaponComponent>();Staff&&Staff->IsEquipped()&&Staff->AssemblyRoot()&&Staff->AssemblyRoot()->GetStaticMesh())
++    {
++        FFPSBodyWeapon Entry;const auto* Root=Staff->AssemblyRoot();Entry.StaticMesh=Root->GetStaticMesh();
++        FQuat HandBasis=FQuat::Identity;
++        if(const auto* Body=GetBodyMesh();Body&&Body->GetSkeletalMeshAsset())
++        {const auto& Ref=Body->GetSkeletalMeshAsset()->GetRefSkeleton();FTransform Hand=FTransform::Identity;
++            for(int32 B=Ref.FindBoneIndex(TEXT("hand_r"));B!=INDEX_NONE;B=Ref.GetParentIndex(B))Hand=Hand*Ref.GetRefBonePose()[B];HandBasis=Hand.GetRotation();}
++        const FQuat StaffRotation=HandBasis.Inverse()*FRotator(0,90,0).Quaternion();
++        Entry.StaticGrip=FTransform(StaffRotation,-StaffRotation.RotateVector(StaffGripPose::HoldPoint()));
++        for(auto* C:ColdSteelStaffAssembly::Components(Staff->AssemblyRoot()))
++        {
++            if(C==Root){for(auto* M:C->GetMaterials())Entry.Materials.Add(FPSBodyEquipment::PersistentMaterial(M));continue;}
++            FFPSBodyAttachment Part;Part.Mesh=C->GetStaticMesh();Part.RelativeTransform=C->GetRelativeTransform();
++            for(auto* M:C->GetMaterials())Part.Materials.Add(FPSBodyEquipment::PersistentMaterial(M));Entry.Parts.Add(MoveTemp(Part));
++        }
++        Weapons.Add(MoveTemp(Entry));
++        if(Pawn->HasOffhandPistol())
++        {
++            const auto& Hand=Pawn->DualPistols->Hand(1);
++            Weapons.Add(CaptureWeapon(Hand.Mesh,Hand.Clips.FindRef(TEXT("idle")),TEXT("hand_r")));
++        }
++    }
+diff --git a/Source/FPSGAME/FPSGAMECharacter.cpp b/Source/FPSGAME/FPSGAMECharacter.cpp
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -8,0 +9 @@
++#include "Weapons/RuneOrbBladesComponent.h"
+@@ -10 +11 @@
+-#include "Weapons/RuneOrbBladesComponent.h"
++#include "Weapons/Staff/StaffWeaponComponent.h"
+@@ -176,0 +178 @@
++    RuneOrbBlades=CreateDefaultSubobject<URuneOrbBladesComponent>(TEXT("RuneOrbBlades"));
+@@ -178 +180 @@
+-    RuneOrbBlades=CreateDefaultSubobject<URuneOrbBladesComponent>(TEXT("RuneOrbBlades"));
++    Staff=CreateDefaultSubobject<UStaffWeaponComponent>(TEXT("Staff"));
+@@ -829,0 +832 @@
++    if(Staff&&Staff->IsEquipped()){ExitSprintForWeapon();Staff->BeginPrimaryAttack();return;}
+@@ -854,0 +858 @@
++    if(Staff&&Staff->IsEquipped())return;
+@@ -856,0 +861 @@
++    if(RuneSword && RuneSword->IsEquipped()){RuneSword->ReleasePrimaryAttack();return;}
+@@ -859 +863,0 @@
+-    if(RuneSword && RuneSword->IsEquipped()){RuneSword->ReleasePrimaryAttack();return;}
+@@ -865,0 +870 @@
++    if(Staff)Staff->CancelAction();
+@@ -881 +886,2 @@
+-    if(IsDualWieldingPistols()){DualPistols->Trigger(1,true);return;}
++    if(HasOffhandPistol()){DualPistols->Trigger(1,true);return;}
++    if(Staff&&Staff->IsEquipped())return;
+@@ -882,0 +889 @@
++    if(RuneSword && RuneSword->IsEquipped()){ExitSprintForWeapon();RuneSword->BeginGuard();return;}
+@@ -885 +891,0 @@
+-    if(RuneSword && RuneSword->IsEquipped()){ExitSprintForWeapon();RuneSword->BeginGuard();return;}
+@@ -895 +901,2 @@
+-    if(IsDualWieldingPistols()){DualPistols->Trigger(1,false);bAimHeld=false;return;}
++    if(HasOffhandPistol()){DualPistols->Trigger(1,false);bAimHeld=false;return;}
++    if(Staff&&Staff->IsEquipped()){bAimHeld=false;return;}
+@@ -896,0 +904 @@
++    if(RuneSword && RuneSword->IsEquipped()){RuneSword->ReleaseGuard();return;}
+@@ -898 +905,0 @@
+-    if(RuneSword && RuneSword->IsEquipped()){RuneSword->ReleaseGuard();return;}
+@@ -903,0 +911,3 @@
++    if(IsChoosingAmmo())return;
++    if(HasOffhandPistol()){DualPistols->Reload();return;}
++    if(Staff&&Staff->IsEquipped())return;
+@@ -906,2 +915,0 @@
+-    if(IsChoosingAmmo())return;
+-    if(IsDualWieldingPistols()){DualPistols->Reload();return;}
+@@ -1268,0 +1277,2 @@
++    // G is the equipped weapon's fixed special-function key.
++    if(Staff&&Staff->IsEquipped()){Staff->ToggleIllumination();return;}
+@@ -1526,5 +1536,7 @@
+-    if(IsDualWieldingPistols())
+-    {
+-        // Recover instances which entered the old, invisible single-hand
+-        // inspect before this fix was applied to the running editor.
+-        if(WeaponState==EAKMWeaponState::Inspecting)
++    if(HasOffhandPistol())
++    {
++        // BeginPlay used to start a single-gun equip after AttachPawn had
++        // already restored the dual/offhand controller. This branch never
++        // advances that single-gun clock, so it blocked both mouse buttons
++        // forever through IsSwitchingWeapon. Recover existing instances too.
++        if(WeaponState==EAKMWeaponState::Equipping || WeaponState==EAKMWeaponState::Inspecting)
+@@ -1531,0 +1544 @@
++            StopMechanicalAudio();
+@@ -1614 +1627 @@
+-    if(IsDualWieldingPistols())bNewAiming=false;
++    if(HasOffhandPistol() || (Staff&&Staff->IsEquipped()))bNewAiming=false;
+@@ -1650,0 +1664 @@
++    if(ProductionTools)ProductionTools->AdvanceActionBeforeCamera(DeltaSeconds);
+@@ -1653 +1667 @@
+-    if(ProductionTools)ProductionTools->AdvanceActionBeforeCamera(DeltaSeconds);
++    if(Staff)Staff->AdvanceActionBeforeCamera(DeltaSeconds);
+@@ -1728,0 +1743,2 @@
++    FVector StaffCameraLocation=FVector::ZeroVector;FRotator StaffCameraRotation=FRotator::ZeroRotator;
++    if(Staff)Staff->GetCameraMotion(StaffCameraLocation,StaffCameraRotation);
+@@ -1733,0 +1750 @@
++    TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(ToolCameraLocation))*CameraMotionScale;
+@@ -1735 +1752 @@
+-    TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(ToolCameraLocation))*CameraMotionScale;
++    TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(StaffCameraLocation))*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
+@@ -1750,0 +1768 @@
++    CameraFeedback+=ToolCameraRotation*CameraMotionScale;
+@@ -1752 +1770 @@
+-    CameraFeedback+=ToolCameraRotation*CameraMotionScale;
++    CameraFeedback+=StaffCameraRotation*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
+@@ -1817 +1835 @@
+-    if(IsDualWieldingPistols()){DualPistols->Advance(DeltaSeconds);return;}
++    if(HasOffhandPistol()){DualPistols->Advance(DeltaSeconds);return;}
+@@ -2315 +2333 @@
+-    if(IsDualWieldingPistols()&&DualPistols)return DualPistols->SharedConeSpread();
++    if(HasOffhandPistol())return DualPistols->SharedConeSpread();
+@@ -2424,0 +2443,3 @@
++    // The restored loadout owns its equip action. In particular, a staff with
++    // an offhand pistol must not enter the inactive main-gun state machine.
++    if(!bInventoryWeaponReady || HasOffhandPistol())return;
+@@ -2795,0 +2817,9 @@
++bool AFPSGAMECharacter::IsSpellHandHeld() const
++{
++    return !(Staff&&Staff->IsEquipped()) && IsLeftHandHeldForCast();
++}
++bool AFPSGAMECharacter::IsSpellHandBusy() const
++{
++    if(Staff&&Staff->IsEquipped())return IsTraversing()||!Staff->CanBeginCast();
++    return IsLeftHandBusyForCast();
++}
+@@ -2797,0 +2828 @@
++    if(Staff&&Staff->IsEquipped()&&!Staff->CanBeginCast())return true;
+@@ -2799 +2830 @@
+-    if(IsDualWieldingPistols() && DualPistols->LeftBusy())return true;
++    if(HasOffhandPistol() && DualPistols->LeftBusy())return true;
+@@ -2812 +2843 @@
+-bool AFPSGAMECharacter::IsLeftHandHeldForCast() const { return IsDualWieldingPistols(); }
++bool AFPSGAMECharacter::IsLeftHandHeldForCast() const { return HasOffhandPistol(); }
+@@ -2819 +2850 @@
+-    if(IsDualWieldingPistols())DualPistols->InterruptReloads();
++    if(HasOffhandPistol())DualPistols->InterruptReloads();
+@@ -2830,0 +2862,11 @@
++    // Staff gestures and their queued requests reserve the right hand. Keep
++    // the left pistol's trigger/reload free while that staff is casting.
++    if(Staff&&Staff->IsEquipped())
++    {
++        const auto* Magic=FindComponentByClass<UFPSFireballComponent>();
++        return Magic&&Magic->IsOccupyingLeftHand();
++    }
++    return IsSpellGestureBlocking();
++}
++bool AFPSGAMECharacter::IsSpellGestureBlocking() const
++{
+@@ -2872,4 +2914,5 @@
+-bool AFPSGAMECharacter::IsDualWieldingPistols() const { return DualPistols && DualPistols->IsActive(); }
+-bool AFPSGAMECharacter::IsWeaponFireHeld() const { return IsDualWieldingPistols()?DualPistols->HasHeldTrigger():bFireHeld; }
+-bool AFPSGAMECharacter::IsReloading() const { return IsDualWieldingPistols()?DualPistols->IsReloading():WeaponState == EAKMWeaponState::Reloading || WeaponState == EAKMWeaponState::ReloadingEmpty; }
+-bool AFPSGAMECharacter::IsWeaponBusy() const { return IsTraversing() || (RuneSword && RuneSword->IsBusy()) || (IsDualWieldingPistols()?DualPistols->IsReloading():WeaponState != EAKMWeaponState::Idle) || (QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand()); }
++bool AFPSGAMECharacter::IsDualWieldingPistols() const { return DualPistols && DualPistols->IsPair(); }
++bool AFPSGAMECharacter::HasOffhandPistol() const { return DualPistols && DualPistols->IsActive(); }
++bool AFPSGAMECharacter::IsWeaponFireHeld() const { return HasOffhandPistol()?DualPistols->HasHeldTrigger():bFireHeld; }
++bool AFPSGAMECharacter::IsReloading() const { return HasOffhandPistol()?DualPistols->IsReloading():WeaponState == EAKMWeaponState::Reloading || WeaponState == EAKMWeaponState::ReloadingEmpty; }
++bool AFPSGAMECharacter::IsWeaponBusy() const { return IsTraversing() || (RuneSword && RuneSword->IsBusy()) || (Staff && Staff->IsEquipped() && Staff->IsBusy()) || (HasOffhandPistol()?DualPistols->IsReloading():WeaponState != EAKMWeaponState::Idle) || (QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand()); }
+diff --git a/Source/FPSGAME/FPSGAMECharacter.h b/Source/FPSGAME/FPSGAMECharacter.h
+--- a/Source/FPSGAME/FPSGAMECharacter.h
++++ b/Source/FPSGAME/FPSGAMECharacter.h
+@@ -49,0 +50,2 @@
++    friend class UStaffWeaponComponent;
++    friend struct FStaffLocomotion;
+@@ -65,0 +68 @@
++    bool HasOffhandPistol() const;
+@@ -76 +79,5 @@
+-    // Casting owns the left hand independently from movement and firearm hip fire.
++    // Spells select the held staff/right hand, otherwise the original left hand.
++    bool IsSpellHandHeld() const;
++    bool IsSpellHandBusy() const;
++    bool IsSpellGestureBlocking() const;
++    // Physical left-hand users (including potions) keep their own occupancy.
+@@ -204,0 +212 @@
++    UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class URuneOrbBladesComponent> RuneOrbBlades;
+@@ -207 +215 @@
+-    UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class URuneOrbBladesComponent> RuneOrbBlades;
++    UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class UStaffWeaponComponent> Staff;
+diff --git a/Source/FPSGAME/FPSGAMECharacterAmmo.cpp b/Source/FPSGAME/FPSGAMECharacterAmmo.cpp
+--- a/Source/FPSGAME/FPSGAMECharacterAmmo.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterAmmo.cpp
+@@ -38,0 +39 @@
++    if(Model&&DualPistols&&DualPistols->IsOffhandOnly())Gun=Model->FindItem(DualPistols->Hand(1).Item.InstanceId);
+@@ -43 +44 @@
+-    if(!Gun||(!bInventoryWeaponReady&&!bBow)||(bBow&&Bow->IsBusy()))return;
++    if(!Gun||(!bInventoryWeaponReady&&!HasOffhandPistol()&&!bBow)||(bBow&&Bow->IsBusy()))return;
+@@ -58 +59,2 @@
+-        !Model||!Model->Equipped()||Model->Equipped()->InstanceId!=AmmoSelectionWeapon)
++        !Model||!Model->Equipped()||(Model->Equipped()->InstanceId!=AmmoSelectionWeapon
++            && !(HasOffhandPistol()&&DualPistols->Hand(1).Item.InstanceId==AmmoSelectionWeapon)))
+@@ -103 +105 @@
+-    if((!bInventoryWeaponReady&&!bBow)||!Model||!Model->CanSwitchAmmo(WeaponId,Target)||!PC||
++    if((!bInventoryWeaponReady&&!HasOffhandPistol()&&!bBow)||!Model||!Model->CanSwitchAmmo(WeaponId,Target)||!PC||
+@@ -107 +109 @@
+-    if(IsDualWieldingPistols())return DualPistols->SwitchAmmo(WeaponId,Target);
++    if(HasOffhandPistol())return DualPistols->SwitchAmmo(WeaponId,Target);
+diff --git a/Source/FPSGAME/FPSGAMECharacterProfile.cpp b/Source/FPSGAME/FPSGAMECharacterProfile.cpp
+--- a/Source/FPSGAME/FPSGAMECharacterProfile.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterProfile.cpp
+@@ -3,0 +4 @@
++#include "Weapons/RuneSwordComponent.h"
+@@ -5 +6 @@
+-#include "Weapons/RuneSwordComponent.h"
++#include "Weapons/Staff/StaffWeaponComponent.h"
+@@ -43 +44 @@
+-    const bool WasDual=IsDualWieldingPistols();
++    const bool WasDual=HasOffhandPistol();
+@@ -87,0 +89 @@
++    if(RuneSword)RuneSword->RefreshEquipment(Profile);
+@@ -90 +92 @@
+-    if(RuneSword)RuneSword->RefreshEquipment(Profile);
++    if(Staff)Staff->RefreshEquipment(Profile);
+@@ -152 +154 @@
+-    if(!IsDualWieldingPistols())
++    if(!HasOffhandPistol())
+diff --git a/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp b/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
+--- a/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
+@@ -17,0 +18,2 @@
++    if(Id==TEXT("staffLight"))
++    {D.Name=TEXT("水晶照明");D.Description=TEXT("学徒长杖的特殊功能：按 G 切换水晶照明，无冷却、无消耗。抬杖动作只播放一次，照明持续至再次按 G 或卸下法杖。");D.Icon=TEXT("Skills/staff_light_cold_steel.png");return D;}
+diff --git a/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp b/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp
+--- a/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp
+@@ -44 +44,5 @@
+-bool UFPSFireMagicComponent::IsHandOccupiedNotice(FName Skill) const{return Skill==NoticeSkill&&GetWorld()&&HandNotice.Active(GetWorld()->GetTimeSeconds());}
++bool UFPSFireMagicComponent::IsHandOccupiedNotice(FName Skill) const
++{
++    const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
++    return Skill==NoticeSkill&&Player&&Player->IsSpellHandHeld()&&GetWorld()&&HandNotice.Active(GetWorld()->GetTimeSeconds());
++}
+@@ -53 +57 @@
+-    if(Skill==QueuedSkill)return TEXT("等待左手");if(Skill==CommittedSkill)return TEXT("施法");
++    if(Skill==QueuedSkill)return TEXT("等待施法");if(Skill==CommittedSkill)return TEXT("施法");
+@@ -94 +98 @@
+-    if(Player->IsLeftHandHeldForCast()){RejectHeldHand(Skill);return;}
++    if(Player->IsSpellHandHeld()){RejectHeldHand(Skill);return;}
+@@ -105 +109 @@
+-    if(Player->IsLeftHandHeldForCast()){RejectHeldHand(QueuedSkill);return;}
++    if(Player->IsSpellHandHeld()){RejectHeldHand(QueuedSkill);return;}
+@@ -108 +112 @@
+-    if(H->BlocksNewLeftHandAction()||Player->IsLeftHandBusyForCast())return;
++    if(H->BlocksNewLeftHandAction()||Player->IsSpellHandBusy())return;
+diff --git a/Source/FPSGAME/Skills/FPSFireballComponent.cpp b/Source/FPSGAME/Skills/FPSFireballComponent.cpp
+--- a/Source/FPSGAME/Skills/FPSFireballComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSFireballComponent.cpp
+@@ -2,0 +3 @@
++#include "../Weapons/Staff/StaffWeaponComponent.h"
+@@ -54,0 +56 @@
++        CaptureStaffRecovery();
+@@ -60,2 +62,3 @@
+-            PhaseAge/(FMath::Max(.01f,ReleaseDuration)/FireballCastMotion::ReleasePushSpeed):HandPhaseFraction();
+-    }
++            PhaseAge/GesturePhaseDuration(EFireballHandPhase::Releasing):HandPhaseFraction();
++    }
++    if(Phase==EFireballHandPhase::Raising||Phase==EFireballHandPhase::ReadyingRelease)BeginStaffGesture();
+@@ -62,0 +66 @@
++    if(Phase==EFireballHandPhase::None){bStaffGesture=false;CastingStaff.Reset();}
+@@ -67 +71 @@
+-        ReleaseImpactAges.Add(FMath::Clamp(LaunchContactTime,0.f,FMath::Max(.01f,ReleaseDuration))/FireballCastMotion::ReleasePushSpeed);
++        ReleaseImpactAges.Add(ReleaseContactAge());
+@@ -79,0 +84 @@
++    if(bStaffGesture)return HandPhase==EFireballHandPhase::Releasing?FMath::Clamp(PhaseAge/ReleaseContactAge(),0.f,1.f):0.f;
+@@ -113,0 +119,11 @@
++    if(bStaffOrb)
++    {
++        FVector Focus=StaffOrbHover;
++        if(!GestureOwner.IsValid()&&HandPhase==EFireballHandPhase::Raising&&IsStaffCasting()&&CastingStaff.IsValid())
++            Focus=StaffCastMotion::Focus(SampleStaffMotion(CastingStaff->CarryPoseInCamera()));
++        return Camera->GetComponentTransform().TransformPosition(Focus);
++    }
++    // Initial collision/space query uses the same staff focus as the new gather.
++    if(!Active.IsValid())
++        if(const auto* Staff=GetOwner()->FindComponentByClass<UStaffWeaponComponent>();Staff&&Staff->CanBeginCast())
++            return Camera->GetComponentTransform().TransformPosition(StaffCastMotion::Focus(Staff->CarryPoseInCamera()));
+@@ -137,3 +152,0 @@
+-    const float Duration=HandPhase==EFireballHandPhase::Raising?RaiseDuration:
+-        HandPhase==EFireballHandPhase::Releasing?ReleaseDuration/FireballCastMotion::ReleasePushSpeed:
+-        HandPhase==EFireballHandPhase::ReadyingRelease?ReleaseEntryDuration/FireballCastMotion::ReleaseEntrySpeed:RecoveryDuration;
+@@ -142 +155 @@
+-    return FMath::Clamp(PhaseAge/FMath::Max(.01f,Duration),0.f,1.f);
++    return FMath::Clamp(PhaseAge/GesturePhaseDuration(HandPhase),0.f,1.f);
+@@ -156 +169,4 @@
+-{ return GetWorld()&&HandNotice.Active(float(GetWorld()->GetTimeSeconds())); }
++{
++    const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
++    return Player&&Player->IsSpellHandHeld()&&GetWorld()&&HandNotice.Active(float(GetWorld()->GetTimeSeconds()));
++}
+@@ -164 +180 @@
+-    if(bQueuedCast || (bQueuedLaunch && HandPhase==EFireballHandPhase::None))return TEXT("等待左手");
++    if(bQueuedCast || (bQueuedLaunch && HandPhase==EFireballHandPhase::None))return TEXT("等待施法");
+@@ -190,3 +206,3 @@
+-    // An akimbo off-hand pistol owns the left hand until the loadout changes.
+-    // Waiting would fire the spell minutes later, so the request is refused.
+-    if(Player->IsLeftHandHeldForCast()){RejectHeldLeftHand();return;}
++    // Only palm casting is blocked by held left-hand equipment; a held staff
++    // selects its own right-hand availability for both gather and release.
++    if(Player->IsSpellHandHeld()){RejectHeldLeftHand();return;}
+@@ -201 +217 @@
+-    if(IsOccupyingLeftHand())return;
++    if(IsGestureActive())return;
+@@ -213,2 +229,2 @@
+-    if(Player->IsLeftHandHeldForCast()){RejectHeldLeftHand();return;}
+-    if(Player->IsLeftHandBusyForCast())return;
++    if(Player->IsSpellHandHeld()){RejectHeldLeftHand();return;}
++    if(Player->IsSpellHandBusy())return;
+@@ -233 +249,3 @@
+-    Active=Ball;Ball->Prepare(this,Player,Snapshot,Core,Trail,Explosion,Shockwave,ImpactSound);
++    GestureSpeed=Snapshot.CastSpeed;
++    if(auto* Status=Player->FindComponentByClass<UCombatStatusFormula>())Status->ConsumeChainSpell();
++    Active=Ball;
+@@ -234,0 +253,2 @@
++    bStaffOrb=IsStaffCasting();StaffOrbHover=StaffCastMotion::Focus(StaffCastMotion::Raised());
++    Ball->Prepare(this,Player,Snapshot,Core,Trail,Explosion,Shockwave,ImpactSound);
+@@ -243,2 +263,2 @@
+-    if(Player->IsLeftHandHeldForCast()){RejectHeldLeftHand();return;}
+-    if(Player->IsLeftHandBusyForCast())return;
++    if(Player->IsSpellHandHeld()){RejectHeldLeftHand();return;}
++    if(Player->IsSpellHandBusy())return;
+@@ -249,0 +270 @@
++    GestureSpeed=Active->Snapshot().CastSpeed;
+@@ -261,4 +282 @@
+-    const FVector Eye=Camera->GetComponentLocation(),End=Eye+Camera->GetForwardVector()*20000;
+-    FCollisionQueryParams Query(SCENE_QUERY_STAT(FireballAim),true,Player);Query.AddIgnoredActor(Active.Get());
+-    FHitResult Aim;GetWorld()->LineTraceSingleByChannel(Aim,Eye,End,ECC_Visibility,Query);
+-    Active->Launch(Aim.bBlockingHit?Aim.ImpactPoint:End);
++    Active->Launch();
+@@ -290,2 +308,3 @@
+-            if(PhaseAge<RaiseDuration)return;
+-            const float Remainder=PhaseAge-FMath::Max(.01f,RaiseDuration);
++            const float Raise=GesturePhaseDuration(EFireballHandPhase::Raising);
++            if(PhaseAge<Raise)return;
++            const float Remainder=PhaseAge-Raise;
+@@ -300 +319 @@
+-            const float EntryDuration=FMath::Max(.01f,ReleaseEntryDuration)/FireballCastMotion::ReleaseEntrySpeed;
++            const float EntryDuration=GesturePhaseDuration(EFireballHandPhase::ReadyingRelease);
+@@ -307,8 +326,5 @@
+-            if(PhaseAge>=FMath::Clamp(LaunchContactTime,0.f,FMath::Max(.01f,ReleaseDuration))/FireballCastMotion::ReleasePushSpeed)LaunchAtContact();
+-            // Keep the fast entry/push and smooth recovery, shorten the hold to
+-            // fit the requested 1-second default total. The derived hold keeps
+-            // its real duration; only the moving stages use casting haste.
+-            const float PushDuration=FMath::Max(.01f,ReleaseDuration)/FireballCastMotion::ReleasePushSpeed;
+-            const float EntryDuration=FMath::Max(.01f,ReleaseEntryDuration)/FireballCastMotion::ReleaseEntrySpeed;
+-            const float HoldDuration=FMath::Max(0.f,FireballCastMotion::ReleaseTotalSeconds-EntryDuration-PushDuration-FMath::Max(.01f,RecoveryDuration));
+-            const float ReleaseEnd=FMath::Max(PushDuration+HoldDuration*GestureSpeed,ReleaseHoldEndAge);
++            const float ContactAge=ReleaseContactAge();
++            if(PhaseAge>=ContactAge)LaunchAtContact();
++            // Each gesture uses its own movement/contact clock; endpoint holds
++            // retain real duration while the moving stages use casting haste.
++            const float ReleaseEnd=ReleaseEndAge();
+@@ -321 +337 @@
+-            if(PhaseAge>=FMath::Max(.01f,RecoveryDuration))
++            if(PhaseAge>=GesturePhaseDuration(EFireballHandPhase::Recovering))
+@@ -331 +347,8 @@
+-    Active.Reset();bQueuedLaunch=false;bAimPreview=false;
++    if(Projectile&&Projectile->IsFlying())
++    {
++        const auto& Spell=Projectile->Snapshot();
++        const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();
++        if(!Health||!Health->IsDead())
++        {auto* Status=UCombatStatusFormula::GetOrAdd(GetOwner());if(Spell.bGrantChain)Status->AddChainSpell();if(Spell.CastHasteStacks>0)Status->AddHaste(Spell.CastHasteStacks,Spell.CastHasteDuration);}
++    }
++    Active.Reset();bQueuedLaunch=false;bAimPreview=false;bStaffOrb=false;
+@@ -341 +364 @@
+-    bAimPreview=false;
++    bAimPreview=false;bStaffOrb=false;
+@@ -351 +374 @@
+-    if(!Spell||!Player||BlocksNewLeftHandAction()||Player->IsLeftHandBusyForCast())return false;
++    if(!Spell||!Player||BlocksNewLeftHandAction()||Player->IsSpellHandBusy())return false;
+@@ -385 +408,3 @@
+-    bAimPreview=bActive&&IsPrepared()&&HandPhase!=EFireballHandPhase::Raising;
++    if(bActive&&(!IsPrepared()||bQueuedLaunch||HandPhase==EFireballHandPhase::Raising
++        ||HandPhase==EFireballHandPhase::ReadyingRelease||HandPhase==EFireballHandPhase::Releasing))return;
++    bAimPreview=bActive;
+@@ -387,0 +413,10 @@
++void UFPSFireballComponent::ReleaseAimPreview()
++{
++    if(!bAimPreview||!IsPrepared())return;
++    Active->CommitAimPreview();bAimPreview=false;
++    Trigger();
++    // A rejected request releases the snapshot; menus/cancellation use
++    // SetAimPreview(false), which must never commit a cast by itself.
++    if(!bQueuedLaunch&&HandPhase!=EFireballHandPhase::ReadyingRelease)
++        if(auto* Ball=Active.Get())Ball->SetAimPreviewActive(false);
++}
+diff --git a/Source/FPSGAME/Skills/FPSFireballComponent.h b/Source/FPSGAME/Skills/FPSFireballComponent.h
+--- a/Source/FPSGAME/Skills/FPSFireballComponent.h
++++ b/Source/FPSGAME/Skills/FPSFireballComponent.h
+@@ -6,0 +7 @@
++#include "../Weapons/Staff/StaffCastMotion.h"
+@@ -13,0 +15 @@
++class UStaffWeaponComponent;
+@@ -36 +38,3 @@
+-    UFUNCTION(BlueprintPure,Category="Skills|Fireball") bool IsOccupyingLeftHand() const { return HandPhase!=EFireballHandPhase::None; }
++    bool IsGestureActive() const { return HandPhase!=EFireballHandPhase::None; }
++    bool IsStaffCasting() const { return bStaffGesture&&IsGestureActive(); }
++    UFUNCTION(BlueprintPure,Category="Skills|Fireball") bool IsOccupyingLeftHand() const { return IsGestureActive()&&!bStaffGesture; }
+@@ -38 +42,2 @@
+-    bool BlocksNewLeftHandAction() const { return bQueuedCast || bQueuedLaunch || IsOccupyingLeftHand(); }
++    // Preserve action arbitration even when the staff, rather than the left palm, casts.
++    bool BlocksNewLeftHandAction() const { return bQueuedCast || bQueuedLaunch || IsGestureActive(); }
+@@ -43,0 +49,2 @@
++    FStaffCastPose SampleStaffMotion(const FStaffCastPose& Current) const;
++    bool TryStaffCastOrigin(FVector& OutOrigin) const;
+@@ -55,0 +63 @@
++    void ReleaseAimPreview();
+@@ -91,0 +100,9 @@
++    TWeakObjectPtr<UStaffWeaponComponent> CastingStaff;
++    FStaffCastPose StaffEntry,StaffRecoveryEntry;
++    bool bStaffGesture=false,bStaffOrb=false;
++    FVector StaffOrbHover=FVector::ZeroVector;
++    void BeginStaffGesture();
++    void CaptureStaffRecovery();
++    float GesturePhaseDuration(EFireballHandPhase Phase) const;
++    float ReleaseContactAge() const;
++    float ReleaseEndAge() const;
+diff --git a/Source/FPSGAME/Skills/FPSFireballProjectile.cpp b/Source/FPSGAME/Skills/FPSFireballProjectile.cpp
+--- a/Source/FPSGAME/Skills/FPSFireballProjectile.cpp
++++ b/Source/FPSGAME/Skills/FPSFireballProjectile.cpp
+@@ -64,3 +64,8 @@
+-void AFPSFireballProjectile::Launch(const FVector& AimPoint)
+-{
+-    if(bFlying||bFinished)return;
++void AFPSFireballProjectile::Launch()
++{
++    if(bFlying||bFinished||!Shooter.IsValid())return;
++    // Contact is evaluated before this projectile's tick. Catch up to the
++    // player's current pose before detaching, including wall clearance.
++    UpdateHover();
++    const bool bUsePreview=bPreviewLaunchLocked;
++    const FVector AimPoint=bUsePreview?PreviewAimPoint:FPSMagicPreview::AimPoint(Shooter.Get(),this);
+@@ -72,2 +77 @@
+-    LaunchVelocity=(AimPoint-LaunchPosition).GetSafeNormal()*Cast.Speed;
+-    if(LaunchVelocity.IsNearlyZero())LaunchVelocity=Shooter->GetActorForwardVector()*Cast.Speed;
++    LaunchVelocity=FPSMagicPreview::LaunchVelocity(LaunchPosition,AimPoint,Cast.Speed,Shooter->GetActorForwardVector());
+@@ -80,0 +85,2 @@
++    bPreviewLaunchLocked=false;
++    if(bActive)PreviewPoints.Reset();
+@@ -82,0 +89,9 @@
++}
++void AFPSFireballProjectile::CommitAimPreview()
++{
++    if(!bAimPreview||bFlying||bFinished||!Shooter.IsValid())return;
++    // Quick taps can precede the first preview tick. Otherwise preserve the
++    // last displayed aim target while the launch origin keeps following.
++    if(PreviewPoints.IsEmpty())RefreshAimPreview();
++    SetAimPreviewActive(false);
++    bPreviewLaunchLocked=true;
+@@ -92,0 +108 @@
++    PreviewAimPoint=AimPoint;
+@@ -94,3 +110,4 @@
+-    const FVector Direction=(AimPoint-Start).GetSafeNormal(UE_SMALL_NUMBER,Shooter->GetActorForwardVector());
+-    FPSMagicPreview::SamplePath(Shooter.Get(),this,Start,Direction*Cast.Speed,Cast.Gravity,
+-        Cast.Range,14.f,PreviewPoints);
++    LaunchPosition=Start;
++    LaunchVelocity=FPSMagicPreview::LaunchVelocity(Start,AimPoint,Cast.Speed,Shooter->GetActorForwardVector());
++    FPSMagicPreview::SamplePath(Shooter.Get(),this,Start,LaunchVelocity,Cast.Gravity,
++        Cast.Range,14.f,PreviewPoints,false);
+@@ -97,0 +115,12 @@
++}
++void AFPSFireballProjectile::UpdateHover()
++{
++    if(!Shooter.IsValid())return;
++    const FVector Desired=HoverPosition(Shooter.Get());
++    // The authored trajectory already eases. Continue following through the
++    // windup, without a second interpolator or freezing at input release.
++    FCollisionQueryParams Query(SCENE_QUERY_STAT(FireballMove),false,Shooter.Get());Query.AddIgnoredActor(this);
++    FHitResult Hit;
++    const bool Blocked=GetWorld()->SweepSingleByChannel(Hit,GetActorLocation(),Desired,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(14),Query);
++    SetActorLocation(Blocked?Hit.Location:Desired);
++    if(const auto* Camera=Shooter->FindComponentByClass<UCameraComponent>())Core->SetVisibility(FVector::Distance(Camera->GetComponentLocation(),GetActorLocation())>30);
+@@ -128,0 +158,8 @@
++    if(!bFlying)
++    {
++        if(Age>=Cast.HoverDuration){Destroy();return;}
++        UpdateHover();
++        if(bAimPreview)RefreshAimPreview();
++        return;
++    }
++    Core->SetVisibility(true);FlightAge+=Delta;
+@@ -131,15 +167,0 @@
+-    if(!bFlying)
+-    {
+-        if(Age>=Cast.HoverDuration){Destroy();return;}
+-        const FVector Desired=HoverPosition(Shooter.Get());
+-        // The authored hand trajectory already eases; a second interpolator would
+-        // leave the ball behind the fast release gesture.
+-        const FVector End=Desired;
+-        const bool Blocked=GetWorld()->SweepSingleByChannel(Hit,GetActorLocation(),End,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(14),Query);
+-        SetActorLocation(Blocked?Hit.Location:End);
+-        // World geometry remains in front of the effect; near-camera retreat fades it out.
+-        if(const auto* Camera=Shooter->FindComponentByClass<UCameraComponent>())Core->SetVisibility(FVector::Distance(Camera->GetComponentLocation(),GetActorLocation())>30);
+-        if(bAimPreview)RefreshAimPreview();
+-        return;
+-    }
+-    Core->SetVisibility(true);FlightAge+=Delta;
+@@ -150 +172,2 @@
+-    const FVector NextPosition=LaunchPosition+LaunchVelocity*FlightAge+.5f*Gravity*FlightAge*FlightAge;
++    const FVector NextPosition=FPSMagicPreview::LimitStep(PreviousPosition,
++        LaunchPosition+LaunchVelocity*FlightAge+.5f*Gravity*FlightAge*FlightAge,Cast.Range-Distance);
+diff --git a/Source/FPSGAME/Skills/FPSFireballProjectile.h b/Source/FPSGAME/Skills/FPSFireballProjectile.h
+--- a/Source/FPSGAME/Skills/FPSFireballProjectile.h
++++ b/Source/FPSGAME/Skills/FPSFireballProjectile.h
+@@ -24 +24 @@
+-    void Launch(const FVector& AimPoint);
++    void Launch();
+@@ -25,0 +26 @@
++    const FFireballCast& Snapshot() const {return Cast;}
+@@ -27,0 +29,2 @@
++    /** Key release commits the aim target; the orb follows until gesture contact. */
++    void CommitAimPreview();
+@@ -47,0 +51 @@
++    UPROPERTY(Transient) FVector PreviewAimPoint=FVector::ZeroVector;
+@@ -51,0 +56 @@
++    bool bPreviewLaunchLocked=false;
+@@ -52,0 +58 @@
++    void UpdateHover();
+diff --git a/Source/FPSGAME/Skills/FPSHolyLightComponent.cpp b/Source/FPSGAME/Skills/FPSHolyLightComponent.cpp
+--- a/Source/FPSGAME/Skills/FPSHolyLightComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSHolyLightComponent.cpp
+@@ -60 +60,5 @@
+-bool UFPSHolyLightComponent::IsHandOccupiedNotice() const{return GetWorld()&&HandNotice.Active(GetWorld()->GetTimeSeconds());}
++bool UFPSHolyLightComponent::IsHandOccupiedNotice() const
++{
++    const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
++    return Player&&Player->IsSpellHandHeld()&&GetWorld()&&HandNotice.Active(GetWorld()->GetTimeSeconds());
++}
+@@ -67 +71 @@
+-    if(bQueued)return TEXT("等待左手");if(bCommitted)return TEXT("施法");
++    if(bQueued)return TEXT("等待施法");if(bCommitted)return TEXT("施法");
+@@ -78 +82 @@
+-    if(Player->IsLeftHandHeldForCast()){RejectHeldHand();return;}
++    if(Player->IsSpellHandHeld()){RejectHeldHand();return;}
+@@ -91 +95 @@
+-    if(Player->IsLeftHandHeldForCast()){RejectHeldHand();return;}
++    if(Player->IsSpellHandHeld()){RejectHeldHand();return;}
+@@ -94 +98 @@
+-    if(H->BlocksNewLeftHandAction()||Player->IsLeftHandBusyForCast())return;
++    if(H->BlocksNewLeftHandAction()||Player->IsSpellHandBusy())return;
+diff --git a/Source/FPSGAME/Skills/FPSIceSpikeComponent.cpp b/Source/FPSGAME/Skills/FPSIceSpikeComponent.cpp
+--- a/Source/FPSGAME/Skills/FPSIceSpikeComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSIceSpikeComponent.cpp
+@@ -49 +49,4 @@
+-{ return GetWorld()&&HandNotice.Active(float(GetWorld()->GetTimeSeconds())); }
++{
++    const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
++    return Player&&Player->IsSpellHandHeld()&&GetWorld()&&HandNotice.Active(float(GetWorld()->GetTimeSeconds()));
++}
+@@ -58 +61 @@
+-    if(bQueuedGather||bQueuedRelease)return TEXT("等待左手");
++    if(bQueuedGather||bQueuedRelease)return TEXT("等待施法");
+@@ -75,3 +78,2 @@
+-    // The left-hand gesture is shared with the fireball, so an akimbo off-hand
+-    // pistol refuses the request instead of making the spell wait for the hand.
+-    if(Player->IsLeftHandHeldForCast()){RejectHeldLeftHand();return;}
++    // Share the fireball's selected casting hand, including right-hand staff.
++    if(Player->IsSpellHandHeld()){RejectHeldLeftHand();return;}
+@@ -95 +97 @@
+-    if((bQueuedGather||bQueuedRelease)&&Cast<AFPSGAMECharacter>(Player)&&Cast<AFPSGAMECharacter>(Player)->IsLeftHandHeldForCast())
++    if((bQueuedGather||bQueuedRelease)&&Cast<AFPSGAMECharacter>(Player)&&Cast<AFPSGAMECharacter>(Player)->IsSpellHandHeld())
+@@ -122,4 +124 @@
+-    const FVector Eye=Camera->GetComponentLocation(),End=Eye+Camera->GetForwardVector()*20000;
+-    FCollisionQueryParams Query(SCENE_QUERY_STAT(IceSpikeAim),true,GetOwner());Query.AddIgnoredActor(Active.Get());FHitResult Hit;
+-    GetWorld()->LineTraceSingleByChannel(Hit,Eye,End,ECC_Visibility,Query);
+-    Active->Launch(Hit.bBlockingHit?Hit.ImpactPoint:End);
++    Active->Launch();
+@@ -133,2 +132,5 @@
+-    const bool bRaising=Hands()&&Hands()->IsSpellGesture(this)&&Hands()->GetHandPhase()==EFireballHandPhase::Raising;
+-    bAimPreview=bActive&&IsPrepared()&&!bRaising;
++    const auto* H=Hands();
++    const bool bCastInProgress=H&&H->IsSpellGesture(this)&&(H->GetHandPhase()==EFireballHandPhase::Raising
++        ||H->GetHandPhase()==EFireballHandPhase::ReadyingRelease||H->GetHandPhase()==EFireballHandPhase::Releasing);
++    if(bActive&&(!IsPrepared()||bQueuedRelease||bCastInProgress))return;
++    bAimPreview=bActive;
+@@ -135,0 +138,10 @@
++}
++void UFPSIceSpikeComponent::ReleaseAimPreview()
++{
++    if(!bAimPreview||!IsPrepared())return;
++    Active->CommitAimPreview();bAimPreview=false;
++    Trigger();
++    const auto* H=Hands();
++    const bool bReleasing=H&&H->IsSpellGesture(this)&&H->GetHandPhase()==EFireballHandPhase::ReadyingRelease;
++    if(!bQueuedRelease&&!bReleasing)
++        if(auto* V=Active.Get())V->SetAimPreviewActive(false);
+diff --git a/Source/FPSGAME/Skills/FPSIceSpikeComponent.h b/Source/FPSGAME/Skills/FPSIceSpikeComponent.h
+--- a/Source/FPSGAME/Skills/FPSIceSpikeComponent.h
++++ b/Source/FPSGAME/Skills/FPSIceSpikeComponent.h
+@@ -33,0 +34 @@
++    void ReleaseAimPreview();
+diff --git a/Source/FPSGAME/Skills/FPSIceSpikeVolley.cpp b/Source/FPSGAME/Skills/FPSIceSpikeVolley.cpp
+--- a/Source/FPSGAME/Skills/FPSIceSpikeVolley.cpp
++++ b/Source/FPSGAME/Skills/FPSIceSpikeVolley.cpp
+@@ -45 +45,3 @@
+-    AddTickPrerequisiteActor(InShooter);Flights.SetNum(Cast.Count);
++    AddTickPrerequisiteActor(InShooter);AddTickPrerequisiteComponent(InSource);
++    if(auto* Hands=InShooter->FindComponentByClass<UFPSFireballComponent>())AddTickPrerequisiteComponent(Hands);
++    Flights.SetNum(Cast.Count);
+@@ -170,0 +173,2 @@
++    bPreviewLaunchLocked=false;
++    if(bActive)PreviewPoints.Reset();
+@@ -172,0 +177,8 @@
++}
++
++void AFPSIceSpikeVolley::CommitAimPreview()
++{
++    if(!bAimPreview||bFlying||bFinished||!Shooter.IsValid())return;
++    if(PreviewPoints.IsEmpty())RefreshAimPreview();
++    SetAimPreviewActive(false);
++    bPreviewLaunchLocked=true;
+@@ -182 +194,2 @@
+-    for(const FFlight& F:Flights)
++    PreviewAimPoint=AimPoint;
++    for(FFlight& F:Flights)
+@@ -188 +201,4 @@
+-        const FVector Direction=ToAim.GetSafeNormal(UE_SMALL_NUMBER,FVector::ForwardVector);
++        F.LaunchPosition=F.Position;
++        F.LaunchVelocity=FPSMagicPreview::LaunchVelocity(F.Position,AimPoint,Cast.Speed,Shooter->GetActorForwardVector());
++        F.Remaining=FMath::Min(float(ToAim.Size()),Cast.Range);
++        F.bAimEndpoint=ToAim.Size()<Cast.Range;
+@@ -190,2 +206,2 @@
+-        FPSMagicPreview::SamplePath(Shooter.Get(),this,F.Position,Direction*Cast.Speed,Cast.Gravity,
+-            FMath::Min(float(ToAim.Size()),Cast.Range),18.f,PreviewPoints);
++        FPSMagicPreview::SamplePath(Shooter.Get(),this,F.LaunchPosition,F.LaunchVelocity,Cast.Gravity,
++            F.Remaining,18.f,PreviewPoints);
+@@ -196,3 +212,10 @@
+-void AFPSIceSpikeVolley::Launch(const FVector& AimPoint)
+-{
+-    if(bFinished||bFlying)return;bFlying=true;FlightAge=0;
++void AFPSIceSpikeVolley::Launch()
++{
++    if(bFinished||bFlying||!Shooter.IsValid())return;
++    // The contact callback runs ahead of the volley tick: use this frame's
++    // followed positions, not the previous frame or the key-release origins.
++    UpdateHover();
++    const bool bUsePreview=bPreviewLaunchLocked;
++    const FVector AimPoint=bUsePreview?PreviewAimPoint:FPSMagicPreview::AimPoint(Shooter.Get(),this);
++    SetAimPreviewActive(false);
++    bFlying=true;FlightAge=0;
+@@ -203,4 +226,6 @@
+-        auto& F=Flights[I];const FVector ToAim=AimPoint-F.Position;
+-        const float ToAimDistance=float(ToAim.Size());
+-        F.Direction=ToAim.GetSafeNormal(UE_SMALL_NUMBER,FVector::ForwardVector);F.Remaining=FMath::Min(ToAimDistance,Cast.Range);F.bAimEndpoint=ToAimDistance<Cast.Range;
+-        F.LaunchPosition=F.Position;F.LaunchVelocity=F.Direction*Cast.Speed;
++        auto& F=Flights[I];
++        const float ToAimDistance=FVector::Distance(AimPoint,F.Position);
++        F.Remaining=FMath::Min(ToAimDistance,Cast.Range);F.bAimEndpoint=ToAimDistance<Cast.Range;
++        F.LaunchPosition=F.Position;
++        F.LaunchVelocity=FPSMagicPreview::LaunchVelocity(F.Position,AimPoint,Cast.Speed,Shooter->GetActorForwardVector());
++        F.Direction=F.LaunchVelocity.GetSafeNormal();
+@@ -236 +261,2 @@
+-        const FVector Next=F.LaunchPosition+F.LaunchVelocity*FlightAge+.5f*Gravity*FlightAge*FlightAge;
++        const FVector Next=FPSMagicPreview::LimitStep(Previous,
++            F.LaunchPosition+F.LaunchVelocity*FlightAge+.5f*Gravity*FlightAge*FlightAge,F.Remaining);
+diff --git a/Source/FPSGAME/Skills/FPSIceSpikeVolley.h b/Source/FPSGAME/Skills/FPSIceSpikeVolley.h
+--- a/Source/FPSGAME/Skills/FPSIceSpikeVolley.h
++++ b/Source/FPSGAME/Skills/FPSIceSpikeVolley.h
+@@ -23 +23 @@
+-    void Launch(const FVector& AimPoint);
++    void Launch();
+@@ -26,0 +27,2 @@
++    /** Lock the target, keep following until the gesture launches the volley. */
++    void CommitAimPreview();
+@@ -44,0 +47 @@
++    UPROPERTY(Transient) FVector PreviewAimPoint=FVector::ZeroVector;
+@@ -59,0 +63 @@
++    bool bPreviewLaunchLocked=false;
+diff --git a/Source/FPSGAME/Skills/FPSLightningComponent.cpp b/Source/FPSGAME/Skills/FPSLightningComponent.cpp
+--- a/Source/FPSGAME/Skills/FPSLightningComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSLightningComponent.cpp
+@@ -60 +60,5 @@
+-bool UFPSLightningComponent::IsHandOccupiedNotice() const{return GetWorld()&&HandNotice.Active(GetWorld()->GetTimeSeconds());}
++bool UFPSLightningComponent::IsHandOccupiedNotice() const
++{
++    const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
++    return Player&&Player->IsSpellHandHeld()&&GetWorld()&&HandNotice.Active(GetWorld()->GetTimeSeconds());
++}
+@@ -67 +71 @@
+-    if(bQueued)return TEXT("等待左手");if(bCommitted)return TEXT("施法");
++    if(bQueued)return TEXT("等待施法");if(bCommitted)return TEXT("施法");
+@@ -78 +82 @@
+-    if(Player->IsLeftHandHeldForCast()){RejectHeldHand();return;}
++    if(Player->IsSpellHandHeld()){RejectHeldHand();return;}
+@@ -91 +95 @@
+-    if(Player->IsLeftHandHeldForCast()){RejectHeldHand();return;}
++    if(Player->IsSpellHandHeld()){RejectHeldHand();return;}
+@@ -94 +98 @@
+-    if(H->BlocksNewLeftHandAction()||Player->IsLeftHandBusyForCast())return;
++    if(H->BlocksNewLeftHandAction()||Player->IsSpellHandBusy())return;
+@@ -154,4 +158,7 @@
+-    TArray<USkeletalMeshComponent*> Meshes;Player->GetComponents(Meshes);
+-    for(auto* Skel:Meshes)
+-        if(Skel&&Skel->IsVisible()&&Skel->DoesSocketExist(TEXT("hand_l")))
+-        {Start=Skel->GetSocketLocation(TEXT("hand_l"));break;}
++    if(!Hands()||!Hands()->TryStaffCastOrigin(Start))
++    {
++        TArray<USkeletalMeshComponent*> Meshes;Player->GetComponents(Meshes);
++        for(auto* Skel:Meshes)
++            if(Skel&&Skel->IsVisible()&&Skel->DoesSocketExist(TEXT("hand_l")))
++            {Start=Skel->GetSocketLocation(TEXT("hand_l"));break;}
++    }
+diff --git a/Source/FPSGAME/Skills/FPSMagicPreview.cpp b/Source/FPSGAME/Skills/FPSMagicPreview.cpp
+--- a/Source/FPSGAME/Skills/FPSMagicPreview.cpp
++++ b/Source/FPSGAME/Skills/FPSMagicPreview.cpp
+@@ -38,0 +39,10 @@
++FVector FPSMagicPreview::LaunchVelocity(const FVector& Start,const FVector& Aim,float Speed,const FVector& Fallback)
++{return (Aim-Start).GetSafeNormal(UE_SMALL_NUMBER,Fallback)*Speed;}
++
++FVector FPSMagicPreview::LimitStep(const FVector& Start,const FVector& End,float Remaining)
++{
++    const FVector Delta=End-Start;
++    const double Length=Delta.Size();
++    return Length>FMath::Max(0.f,Remaining)?Start+Delta*(FMath::Max(0.f,Remaining)/Length):End;
++}
++
+@@ -40 +50 @@
+-    const FVector& End,float SweepRadius,FVector& OutEnd)
++    const FVector& End,float SweepRadius,FVector& OutEnd,bool bIgnoreDead)
+@@ -53 +63,3 @@
+-        if(!Blocking||!Blocking->IsDead()){OutEnd=Hit.ImpactPoint;return true;}
++        // The arc follows the projectile centre; ImpactPoint is a surface point
++        // up to one collision radius away from the centre used by actual flight.
++        if(!bIgnoreDead||!Blocking||!Blocking->IsDead()){OutEnd=Hit.Location;return true;}
+@@ -60 +72 @@
+-    const FVector& LaunchVelocity,float Gravity,float MaxDistance,float SweepRadius,TArray<FVector>& OutPoints)
++    const FVector& LaunchVelocity,float Gravity,float MaxDistance,float SweepRadius,TArray<FVector>& OutPoints,bool bIgnoreDead)
+@@ -71 +83 @@
+-        const FVector Next=Start+LaunchVelocity*T+.5f*Acceleration*T*T;
++        const FVector Next=LimitStep(Previous,Start+LaunchVelocity*T+.5f*Acceleration*T*T,MaxDistance-Travelled);
+@@ -73 +85 @@
+-        if(SweepSegment(Shooter,Ignore,Previous,Next,SweepRadius,End)){OutPoints.Add(End);return;}
++        if(SweepSegment(Shooter,Ignore,Previous,Next,SweepRadius,End,bIgnoreDead)){OutPoints.Add(End);return;}
+diff --git a/Source/FPSGAME/Skills/FPSMagicPreview.h b/Source/FPSGAME/Skills/FPSMagicPreview.h
+--- a/Source/FPSGAME/Skills/FPSMagicPreview.h
++++ b/Source/FPSGAME/Skills/FPSMagicPreview.h
+@@ -36,0 +37,3 @@
++    FVector LaunchVelocity(const FVector& Start,const FVector& Aim,float Speed,const FVector& Fallback);
++    /** Clip the last segment at the same travelled-distance budget in preview and flight. */
++    FVector LimitStep(const FVector& Start,const FVector& End,float Remaining);
+@@ -39 +42 @@
+-        float SweepRadius,FVector& OutEnd);
++        float SweepRadius,FVector& OutEnd,bool bIgnoreDead=true);
+@@ -46 +49 @@
+-        float Gravity,float MaxDistance,float SweepRadius,TArray<FVector>& OutPoints);
++        float Gravity,float MaxDistance,float SweepRadius,TArray<FVector>& OutPoints,bool bIgnoreDead=true);
+diff --git a/Source/FPSGAME/UI/ColdSteelAmmoReadout.cpp b/Source/FPSGAME/UI/ColdSteelAmmoReadout.cpp
+--- a/Source/FPSGAME/UI/ColdSteelAmmoReadout.cpp
++++ b/Source/FPSGAME/UI/ColdSteelAmmoReadout.cpp
+@@ -198 +198,15 @@
+-    const bool Akimbo=Dual&&Dual->IsActive()&&Model;
++    if(Dual&&Dual->IsOffhandOnly()&&Model)
++    {
++        SetDualVisible(false);
++        const auto& Hand=Dual->Hand(1);
++        FString AmmoName=Model->AmmoLabel(Model->AmmoDefinitionFor(Hand.Item));
++        if(!Hand.PendingAmmoType.IsEmpty())AmmoName+=TEXT(" → ")+Model->AmmoLabel(Hand.PendingAmmoType)+TEXT(" · 换弹中");
++        Present(TEXT("副手 · ")+ColdSteelInventory::Text(Hand.Item,TEXT("name")),AmmoName,
++            Hand.Rounds,Dual->Reserve(1),Hand.Stats.Capacity,Hand.Reloading,true);
++        MagazineLabel->SetText(FText::FromString(TEXT("弹匣")));
++        Spare->SetText(FText::FromString(Dual->InfiniteReserve(1)?TEXT("∞"):
++            FString::Printf(TEXT("%lld"),Model->PouchCount(Model->AmmoDefinitionFor(Hand.Item)))));
++        if(Dual->InfiniteReserve(1))Spare->SetColorAndOpacity(ColdSteelUI::TextSecondary);
++        return;
++    }
++    const bool Akimbo=Dual&&Dual->IsPair()&&Model;
+diff --git a/Source/FPSGAME/UI/ColdSteelCrosshair.cpp b/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
+--- a/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
++++ b/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
+@@ -64 +64 @@
+-    if(Character->IsTraversing() || (bBow ? !Bow->ShouldShowCrosshair() : !Character->HasInventoryWeapon()))return Result+2;
++    if(Character->IsTraversing() || (bBow ? !Bow->ShouldShowCrosshair() : !Character->HasInventoryWeapon()&&!Character->HasOffhandPistol()))return Result+2;
+diff --git a/Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp b/Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp
+--- a/Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp
++++ b/Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp
+@@ -39 +39 @@
+-    if(ColdSteelInventory::IsBow(I)||GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))return true;
++    if(ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("staff")||ColdSteelInventory::IsBow(I)||GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))return true;
+@@ -43,0 +44 @@
++    if(ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("staff"))return Supports(I)&&O.Restriction==TEXT("weapon");
+@@ -48 +49 @@
+-int32 UColdSteelEnhancementSystem::MaxLevel(const FColdSteelItem& I)const{return (ColdSteelInventory::IsBow(I)||GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))?WeaponMax:ArmorMax;}
++int32 UColdSteelEnhancementSystem::MaxLevel(const FColdSteelItem& I)const{return (ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("staff")||ColdSteelInventory::IsBow(I)||GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))?WeaponMax:ArmorMax;}
+diff --git a/Source/FPSGAME/UI/ColdSteelFireballHUD.cpp b/Source/FPSGAME/UI/ColdSteelFireballHUD.cpp
+--- a/Source/FPSGAME/UI/ColdSteelFireballHUD.cpp
++++ b/Source/FPSGAME/UI/ColdSteelFireballHUD.cpp
+@@ -3,0 +4 @@
++#include "../Weapons/Staff/StaffWeaponComponent.h"
+@@ -23 +24,2 @@
+-        const bool bShow=Blades&&Blades->SwordEquipped();
++        const auto* Staff=GetOwningPlayerPawn()?GetOwningPlayerPawn()->FindComponentByClass<UStaffWeaponComponent>():nullptr;
++        const bool bShow=(Blades&&Blades->SwordEquipped())||(Staff&&Staff->HasIlluminationSpecial());
+diff --git a/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp b/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
+--- a/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
++++ b/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
+@@ -29 +29 @@
+-bool Flag(const FColdSteelItem& Item, const TCHAR* Key) { if(IsDualPistol(Item) && FCString::Strcmp(Key,TEXT("isTwoHanded"))==0)return false; auto O=ReadOnlyObject(Item); bool V=false; if(O) O->TryGetBoolField(Key,V); return V; }
++bool Flag(const FColdSteelItem& Item, const TCHAR* Key) { if((IsDualPistol(Item)||Text(Item,TEXT("weaponType"))==TEXT("staff")) && FCString::Strcmp(Key,TEXT("isTwoHanded"))==0)return false; auto O=ReadOnlyObject(Item); bool V=false; if(O) O->TryGetBoolField(Key,V); return V; }
+@@ -73,0 +74 @@
++    if(Type==TEXT("staff"))return Slot==6||Slot==9;
+diff --git a/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp b/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
+@@ -253,0 +254,15 @@
++    }else if(ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("staff")){
++        Section(Main,ColdSteelWeaponText::CombatParameters);AppendColdSteelTooltipAttackFormula(I,Model,3,Main);
++        DamageRows(Main,ColdSteelWeaponStats::DamageParts(I,Model,3));
++        Row(Main,ColdSteelWeaponText::AttackInterval,N(FMath::RoundToInt(ColdSteelWeaponStats::Interval(&I,Model,.5)*1000))+TEXT(" ms"));
++        // 装备魔攻按目录 matkFormula 拼写，与 EquipmentMagicAttack 的结算式同源：
++        // base + enhanceBase×强化等级 + 智力×(intMul+enhanceIntMul×强化) + 精神×(wisMul+enhanceWisMul×强化)。
++        if(const auto MF=Object(O,TEXT("matkFormula")))
++        {
++            const auto Coef=[&](double M,double E)->FString{FString R=N(M);if(!FMath::IsNearlyEqual(E,0.))R+=TEXT("+")+N(E)+TEXT("×强化");return R;};
++            const double EnhanceBase=Number(MF,TEXT("enhanceBase"));
++            Row(Main,TEXT("装备魔攻"),N(Number(MF,TEXT("base")))+(EnhanceBase>0?TEXT(" + ")+N(EnhanceBase)+TEXT("×强化等级"):FString())
++                +TEXT(" + 智力×(")+Coef(Number(MF,TEXT("intMul")),Number(MF,TEXT("enhanceIntMul")))+TEXT(")")
++                +TEXT(" + 精神×(")+Coef(Number(MF,TEXT("wisMul")),Number(MF,TEXT("enhanceWisMul")))+TEXT(")"));
++        }
++        Row(Main,TEXT("握持"),TEXT("单手主手；左键挥杖，技能快捷键施法"));
+diff --git a/Source/FPSGAME/UI/ColdSteelPickup.h b/Source/FPSGAME/UI/ColdSteelPickup.h
+--- a/Source/FPSGAME/UI/ColdSteelPickup.h
++++ b/Source/FPSGAME/UI/ColdSteelPickup.h
+@@ -35,0 +36,2 @@
++    bool BuildStaff(const FColdSteelItem& Item);
++    TSharedPtr<struct FStreamableHandle> StaffLoad;
+diff --git a/Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp b/Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp
+--- a/Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp
++++ b/Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp
+@@ -5,0 +6,2 @@
++#include "../Weapons/Staff/StaffCatalog.h"
++#include "../Weapons/Staff/StaffAssembly.h"
+@@ -13,0 +16 @@
++    if(ColdSteelStaff::IsStaff(Item))return BuildStaff(Item);
+diff --git a/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp b/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
+--- a/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
+@@ -100,0 +101 @@
++    StaffLightSkill=ColdSteelSkills::LoadDefinition(TEXT("staffLight"));
+@@ -105 +106 @@
+-    LoadProductionDefinitions();LoadBowDefinitions();LoadAmmoCatalog();
++    LoadProductionDefinitions();LoadBowDefinitions();LoadStaffDefinitions();LoadAmmoCatalog();
+@@ -137,0 +139 @@
++    NormalizeStaffState(State);
+@@ -428,0 +431 @@
++    NormalizeStaffState(Clean);
+diff --git a/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp b/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp
+--- a/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp
++++ b/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp
+@@ -72 +72 @@
+-{ if(FireMagic::IsSkill(Id))return &FireMagicDefinition(Id);if(Id==TEXT("holyLight"))return &HolyLightSkill;if(Id==TEXT("lightningStrike"))return &LightningSkill;if(Id==TEXT("iceSpike"))return &IceSpikeSkill;if(Id==TEXT("heavyStrike")||Id==TEXT("whirlwind"))return &MasteryDefinition(Id);if(Id==TEXT("quickCombat"))return &QuickCombatSkill;if(Id==TEXT("runeBlades"))return &RuneBladesSkill;return Id==TEXT("fireball")?&FireballSkill:Id==TEXT("dodge")?&DodgeSkill:nullptr; }
++{ if(Id==TEXT("staffLight"))return &StaffLightSkill;if(FireMagic::IsSkill(Id))return &FireMagicDefinition(Id);if(Id==TEXT("holyLight"))return &HolyLightSkill;if(Id==TEXT("lightningStrike"))return &LightningSkill;if(Id==TEXT("iceSpike"))return &IceSpikeSkill;if(Id==TEXT("heavyStrike")||Id==TEXT("whirlwind"))return &MasteryDefinition(Id);if(Id==TEXT("quickCombat"))return &QuickCombatSkill;if(Id==TEXT("runeBlades"))return &RuneBladesSkill;return Id==TEXT("fireball")?&FireballSkill:Id==TEXT("dodge")?&DodgeSkill:nullptr; }
+diff --git a/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp b/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp
+--- a/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp
++++ b/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp
+@@ -4,0 +5 @@
++#include "../Weapons/Staff/StaffWeaponComponent.h"
+@@ -136 +137,3 @@
+-    const auto Binding=FixedSkill.IsNone()?Model->QuickBinding(Index):[&]{FColdSteelQuickBinding B;B.Skill=FixedSkill;return B;}();
++    const auto* Staff=GetOwningPlayerPawn()?GetOwningPlayerPawn()->FindComponentByClass<UStaffWeaponComponent>():nullptr;
++    const auto Binding=FixedSkill.IsNone()?Model->QuickBinding(Index):[&]
++    {FColdSteelQuickBinding B;B.Skill=FixedSkill==TEXT("runeBlades")&&Staff&&Staff->HasIlluminationSpecial()?FName(TEXT("staffLight")):FixedSkill;return B;}();
+@@ -157,0 +161 @@
++            Binding.Skill==TEXT("staffLight")?FString::Printf(TEXT("%s · %s\n按 G 开启／关闭照明；无冷却、无消耗"),*KeyText,*Name):
+@@ -238,0 +243,5 @@
++    else if(Binding.Skill==TEXT("staffLight"))
++    {
++        Dim=!Staff||!Staff->HasIlluminationSpecial();
++        if(Staff&&Staff->IsIlluminationOn()){Message=TEXT("已点亮");bGoldPrepared=true;}
++    }
+diff --git a/Source/FPSGAME/UI/ColdSteelStatusModel.h b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.h
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+@@ -364,0 +365 @@
++    FColdSteelSkillDefinition StaffLightSkill;
+@@ -400,0 +402,2 @@
++    void LoadStaffDefinitions();
++    void NormalizeStaffState(FColdSteelProfile& State) const;
+diff --git a/Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp b/Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp
+--- a/Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp
+@@ -24 +24 @@
+-    for (const TCHAR* Definition : {TEXT("ue_svd"), TEXT("ue_pkm_lowpoly"), TEXT("ue_a762"), TEXT("ue_akm"), TEXT("ue_qbz191"), TEXT("ue_ash12"), TEXT("ue_m1911"), TEXT("ue_dan_wesson715"), TEXT("ue_rune_sword"), TEXT("ue_frost_crystal_sword"), TEXT("ue_highland_claymore")})
++    for (const TCHAR* Definition : {TEXT("ue_svd"), TEXT("ue_pkm_lowpoly"), TEXT("ue_a762"), TEXT("ue_akm"), TEXT("ue_qbz191"), TEXT("ue_ash12"), TEXT("ue_m1911"), TEXT("ue_dan_wesson715"), TEXT("ue_rune_sword"), TEXT("ue_frost_crystal_sword"), TEXT("ue_highland_claymore"), TEXT("ue_apprentice_staff")})
+diff --git a/Source/FPSGAME/UI/M4GunsmithLayout.cpp b/Source/FPSGAME/UI/M4GunsmithLayout.cpp
+--- a/Source/FPSGAME/UI/M4GunsmithLayout.cpp
++++ b/Source/FPSGAME/UI/M4GunsmithLayout.cpp
+@@ -111,2 +111,3 @@
+-    if((IsMeleeWorkbench()||IsBowWorkbench()))
+-        if(const auto* Item=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->FindItem(Model()->Instance())){if(IsBowWorkbench())SetStandaloneBowItem(*Item);else SetStandaloneMeleeItem(*Item);}
++    if((IsMeleeWorkbench()||IsBowWorkbench()||IsStaffWorkbench()))
++        if(const auto* Item=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->FindItem(Model()->Instance()))
++        {if(IsStaffWorkbench())SetStandaloneStaffItem(*Item);else if(IsBowWorkbench())SetStandaloneBowItem(*Item);else SetStandaloneMeleeItem(*Item);}
+@@ -122 +123 @@
+-    const FString WeaponSubtitle=IsBowWorkbench()?TEXT("   /   双手弓 · 五槽改造"):(IsMeleeWorkbench()||IsBowWorkbench())?TEXT("   /   双手近战武器"):
++    const FString WeaponSubtitle=IsStaffWorkbench()?TEXT("   /   长杖 · 六槽改造"):IsBowWorkbench()?TEXT("   /   双手弓 · 五槽改造"):IsMeleeWorkbench()?TEXT("   /   双手近战武器"):
+@@ -202 +203 @@
+-        +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)[Label((IsMeleeWorkbench()||IsBowWorkbench())?TEXT("近战数值总览"):TEXT("整枪数值总览"),20,GunsmithUI::Text,true)]
++        +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)[Label(IsStaffWorkbench()?TEXT("长杖数值总览"):IsMeleeWorkbench()?TEXT("近战数值总览"):TEXT("整枪数值总览"),20,GunsmithUI::Text,true)]
+diff --git a/Source/FPSGAME/UI/M4GunsmithOverview.cpp b/Source/FPSGAME/UI/M4GunsmithOverview.cpp
+--- a/Source/FPSGAME/UI/M4GunsmithOverview.cpp
++++ b/Source/FPSGAME/UI/M4GunsmithOverview.cpp
+@@ -40 +40,2 @@
+-    if(IsBowWorkbench()){AppendBowOverview(*I);SetStandaloneBowItem(*I);}
++    if(IsStaffWorkbench()){AppendStaffOverview(*I);SetStandaloneStaffItem(*I);}
++    else if(IsBowWorkbench()){AppendBowOverview(*I);SetStandaloneBowItem(*I);}
+diff --git a/Source/FPSGAME/UI/M4GunsmithPreviewResources.cpp b/Source/FPSGAME/UI/M4GunsmithPreviewResources.cpp
+--- a/Source/FPSGAME/UI/M4GunsmithPreviewResources.cpp
++++ b/Source/FPSGAME/UI/M4GunsmithPreviewResources.cpp
+@@ -4,0 +5 @@
++#include "../Weapons/Staff/StaffAssembly.h"
+@@ -21,0 +23 @@
++            else if(IsStaffWorkbench()){for(auto* Part:ColdSteelStaffAssembly::Components(StandaloneMelee))Parts.Add(Part);}
+diff --git a/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp b/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
+--- a/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
++++ b/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
+@@ -2,0 +3,2 @@
++#include "../Weapons/Staff/StaffCatalog.h"
++#include "ColdSteelEnhancementSystem.h"
+@@ -116,0 +119,9 @@
++    if(IsStaffWorkbench()&&Item)
++    {
++        const auto Was=ColdSteelStaff::Resolve(*Item,&WithoutPart),Now=ColdSteelStaff::Resolve(*Item,&Gunsmith->Draft());
++        auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();
++        const TPair<const TCHAR*,const TCHAR*> Keys[]={{TEXT("magicDamagePercent"),TEXT("法术伤害加成")},{TEXT("magicMpCostPercent"),TEXT("法术耗蓝增减")},{TEXT("magicCooldownPercent"),TEXT("法术冷却缩减")},{TEXT("castSpeedPercent"),TEXT("施法速度加成")},{TEXT("magicRangePercent"),TEXT("法术距离加成")},{TEXT("magicCritPercent"),TEXT("法术暴击加成")},{TEXT("fireDamagePercent"),TEXT("火系伤害加成")},{TEXT("iceDamagePercent"),TEXT("冰系伤害加成")},{TEXT("electricDamagePercent"),TEXT("电系伤害加成")},{TEXT("lightHealPercent"),TEXT("光系治疗加成")}};
++        for(const auto& K:Keys)if(E->CraftEffect(Was,K.Key)!=E->CraftEffect(Now,K.Key))AddValue(K.Value,E->CraftEffect(Was,K.Key)*100,E->CraftEffect(Now,K.Key)*100,0,TEXT("%"));
++        ModificationList->AddSlot().AutoHeight()[Paragraph(TEXT("改造免费；点击“应用并保存”后写入这把法杖。替换部件或恢复原厂均无消耗。杖冠只在匹配杖头专精时激活。"),12,GunsmithUI::Secondary)];
++        return;
++    }
+diff --git a/Source/FPSGAME/UI/M4GunsmithWidget.h b/Source/FPSGAME/UI/M4GunsmithWidget.h
+--- a/Source/FPSGAME/UI/M4GunsmithWidget.h
++++ b/Source/FPSGAME/UI/M4GunsmithWidget.h
+@@ -51,0 +52,4 @@
++    bool IsStaffWorkbench() const;
++    void AppendStaffOverview(const FColdSteelItem& Item);
++    void SetStandaloneStaffItem(const FColdSteelItem& Item);
++    void SyncStandaloneStaffPreview();
+diff --git a/Source/FPSGAME/UI/M4MeleePreview.cpp b/Source/FPSGAME/UI/M4MeleePreview.cpp
+--- a/Source/FPSGAME/UI/M4MeleePreview.cpp
++++ b/Source/FPSGAME/UI/M4MeleePreview.cpp
+@@ -62,0 +63 @@
++    if(IsStaffWorkbench()){SyncStandaloneStaffPreview();return;}
+diff --git a/Source/FPSGAME/Weapons/GunsmithSystem.cpp b/Source/FPSGAME/Weapons/GunsmithSystem.cpp
+--- a/Source/FPSGAME/Weapons/GunsmithSystem.cpp
++++ b/Source/FPSGAME/Weapons/GunsmithSystem.cpp
+@@ -1,0 +2 @@
++#include "Staff/StaffCatalog.h"
+@@ -88,0 +90 @@
++    LoadStaffCatalog();
+@@ -121,0 +124 @@
++    if(IsStaff(I.Definition))return Normalize(I.Definition,ColdSteelStaff::Installed(I));
+@@ -128,0 +132 @@
++    if(IsStaff(D)){R.ActiveParts=Normalize(D,P).Num();return R;}
+@@ -209 +213 @@
+-        const bool ActiveOffhand=Pawn->IsDualWieldingPistols() && Pawn->DualPistols->Hand(1).Item.InstanceId==I->InstanceId;
++        const bool ActiveOffhand=Pawn->HasOffhandPistol() && Pawn->DualPistols->Hand(1).Item.InstanceId==I->InstanceId;
+@@ -224 +228 @@
+-    const int32 Overflow=IsBow(DefinitionId)||IsMelee(DefinitionId)?0:FMath::Max(0,I.Magazine-Calculate(DefinitionId,Preview).Capacity);
++    const int32 Overflow=IsStaff(DefinitionId)||IsBow(DefinitionId)||IsMelee(DefinitionId)?0:FMath::Max(0,I.Magazine-Calculate(DefinitionId,Preview).Capacity);
+@@ -225,0 +230,2 @@
++    // Free staff modification is resolved before the existing save transaction.
++    if(IsStaff(DefinitionId))I=ColdSteelStaff::Resolve(I);
+diff --git a/Source/FPSGAME/Weapons/GunsmithSystem.h b/Source/FPSGAME/Weapons/GunsmithSystem.h
+--- a/Source/FPSGAME/Weapons/GunsmithSystem.h
++++ b/Source/FPSGAME/Weapons/GunsmithSystem.h
+@@ -104,0 +105 @@
++    bool IsStaff(const FString& Definition) const {return StaffWeapons.Contains(Definition);}
+@@ -127,3 +128,3 @@
+-    const TArray<FString>& Slots(const FString& Definition) const {return IsBow(Definition)?BowSlotKeys:IsMelee(Definition)?MeleeSlotKeys:SlotKeys;}
+-    const TArray<FString>& Categories(const FString& Definition) const {return IsBow(Definition)?BowCategoryNames:IsMelee(Definition)?MeleeCategoryNames:CategoryNames;}
+-    const TArray<FString>& Defaults(const FString& Definition) const {return IsBow(Definition)?BowDefaultNames:IsMelee(Definition)?MeleeDefaultNames:DefaultNames;}
++    const TArray<FString>& Slots(const FString& Definition) const {return IsStaff(Definition)?StaffSlotKeys:IsBow(Definition)?BowSlotKeys:IsMelee(Definition)?MeleeSlotKeys:SlotKeys;}
++    const TArray<FString>& Categories(const FString& Definition) const {return IsStaff(Definition)?StaffCategoryNames:IsBow(Definition)?BowCategoryNames:IsMelee(Definition)?MeleeCategoryNames:CategoryNames;}
++    const TArray<FString>& Defaults(const FString& Definition) const {return IsStaff(Definition)?StaffDefaultNames:IsBow(Definition)?BowDefaultNames:IsMelee(Definition)?MeleeDefaultNames:DefaultNames;}
+@@ -136,0 +138,3 @@
++    void LoadStaffCatalog();
++    TMap<FString,FGunsmithWeapon> StaffWeapons;
++    TArray<FString> StaffSlotKeys,StaffCategoryNames,StaffDefaultNames;
+diff --git a/Source/FPSGAME/Weapons/MeleeGunsmith.cpp b/Source/FPSGAME/Weapons/MeleeGunsmith.cpp
+--- a/Source/FPSGAME/Weapons/MeleeGunsmith.cpp
++++ b/Source/FPSGAME/Weapons/MeleeGunsmith.cpp
+@@ -14,0 +15 @@
++    if(const auto* Staff=StaffWeapons.Find(Definition))return Staff;
+diff --git a/Source/FPSGAME/Weapons/PistolDualWieldCombat.cpp b/Source/FPSGAME/Weapons/PistolDualWieldCombat.cpp
+--- a/Source/FPSGAME/Weapons/PistolDualWieldCombat.cpp
++++ b/Source/FPSGAME/Weapons/PistolDualWieldCombat.cpp
+@@ -29,0 +30 @@
++    if(bOffhandOnly)return HandConeSpread(1);
+@@ -60,0 +62,5 @@
++    if(!bOffhandOnly){Player->MagazineAmmo=Hands[0].Rounds;Player->RevolverCaseCount=Hands[0].Cases;}
++    // A blocked-muzzle hit may award XP and commit the profile synchronously.
++    // Publish the consumed round before entering that callback, from the hand
++    // counters, without saving or resetting either hand's action clock.
++    Profile->SyncRuntime();
+@@ -99 +105 @@
+-    for(int32 Index=0;Index<2;++Index)BeginReload(Index);
++    for(int32 Index=FirstHand();Index<2;++Index)BeginReload(Index);
+@@ -104 +110 @@
+-    for(int32 Index=0;Index<Hands.Num();++Index)if(Hands[Index].Item.InstanceId==WeaponId)
++    for(int32 Index=FirstHand();Index<Hands.Num();++Index)if(Hands[Index].Item.InstanceId==WeaponId)
+diff --git a/Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp b/Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp
+--- a/Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp
++++ b/Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp
+@@ -1,0 +2 @@
++#include "Staff/StaffCatalog.h"
+@@ -140,0 +142,32 @@
++bool UPistolDualWieldComponent::MatchesEquipment(const UColdSteelStatusModel* Model,bool bWeaponReady) const
++{
++    const auto* Main=Model?Model->Equipped():nullptr;
++    const auto* Off=Main?Model->Equipped(Main->Cell==6?8:11):nullptr;
++    const bool Staff=Main && ColdSteelStaff::IsStaff(*Main) && !Model->ActiveProductionTool();
++    const bool Want=Main && Off && ColdSteelInventory::IsDualPistol(*Off)
++        && (Staff || (bWeaponReady && ColdSteelInventory::IsDualPistol(*Main)));
++    if(!Want)return !bActive;
++    return bActive && bOffhandOnly==Staff && MainHandInstance==Main->InstanceId
++        && (Staff || Hands[0].Item.Definition==Main->Definition)
++        && Hands[1].Item.InstanceId==Off->InstanceId && Hands[1].Item.Definition==Off->Definition;
++}
++
++void UPistolDualWieldComponent::Deactivate()
++{
++    if(!bActive)return;
++    if(IsQuickCombatActive())Player->QuickCombatPistol->Cancel();
++    CancelInputs();
++    for(int32 Side=FirstHand();Side<2;++Side)
++    {
++        auto& H=Hands[Side];
++        StopAction(Side);
++        if(H.FX)H.FX->StopEmission();
++        if(H.Anim){H.Anim->bDualPistolAim=false;H.Anim->DualPistolAimAlpha=0.f;}
++    }
++    bActive=false;
++    MainHandInstance.Reset();
++    if(Hands[1].Mesh)Hands[1].Mesh->SetVisibility(false,true);
++    if(Hands[1].Tactical)Hands[1].Tactical->Configure(TEXT(""),TEXT(""),Hands[1].Mesh,false);
++    if(auto* CastMesh=Cast<UFPSCastingMeshComponent>(Player->AKMViewmodel))CastMesh->bApplyLeftHandCast=true;
++}
++
+@@ -147,25 +180,8 @@
+-    const bool Want=Player->HasInventoryWeapon() && Main && Off
+-        && ColdSteelInventory::IsDualPistol(*Main) && ColdSteelInventory::IsDualPistol(*Off);
+-    // Autosaves and progression republish the same equipment. An inactive
+-    // dual-wield controller must not clear the rifle's held trigger or stop
+-    // the shared main-hand presentation on an unchanged non-dual loadout.
+-    if(!bActive && !Want)return;
+-    const bool Changed=Want && (!bActive || Hands[0].Item.InstanceId!=Main->InstanceId || Hands[1].Item.InstanceId!=Off->InstanceId);
+-    if(!Want || Changed)
+-    {
+-        CancelInputs();
+-        for(int32 Side=0;Side<2;++Side){StopAction(Side);if(Hands[Side].FX)Hands[Side].FX->StopEmission();}
+-    }
+-    if(!Want)
+-    {
+-        const bool WasActive=bActive;bActive=false;
+-        for(auto& H:Hands)if(H.Anim){H.Anim->bDualPistolAim=false;H.Anim->DualPistolAimAlpha=0.f;}
+-        if(Hands[1].Mesh)Hands[1].Mesh->SetVisibility(false,true);
+-        if(Hands[1].Tactical)Hands[1].Tactical->Configure(TEXT(""),TEXT(""),Hands[1].Mesh,false);
+-        if(auto* CastMesh=Cast<UFPSCastingMeshComponent>(Player->AKMViewmodel))CastMesh->bApplyLeftHandCast=true;
+-        if(WasActive && Player->HasInventoryWeapon() && Main && Main->InstanceId==Hands[0].Item.InstanceId)
+-        {
+-            Player->InitializeWeaponVisuals();Player->ApplyColdSteelProfile(Profile);Player->StartEquipCharge();
+-        }
+-        return;
+-    }
++    const bool Staff=Main && ColdSteelStaff::IsStaff(*Main) && !Profile->ActiveProductionTool();
++    const bool Want=Main && Off && ColdSteelInventory::IsDualPistol(*Off)
++        && (Staff || (Player->HasInventoryWeapon() && ColdSteelInventory::IsDualPistol(*Main)));
++    // Leaving/replacing a loadout is owned by the character, before it rebuilds
++    // the shared main-hand mesh. Repeated data application never cancels actions.
++    if(!Want)return;
++    const bool Changed=!bActive;
++    bOffhandOnly=Staff;MainHandInstance=Main->InstanceId;
+@@ -181 +197,2 @@
+-        LoadHand(0,*Main);LoadHand(1,*Off);
++        if(!bOffhandOnly)LoadHand(0,*Main);
++        LoadHand(1,*Off);
+@@ -184 +201 @@
+-    for(int32 Side=0;Side<2;++Side)
++    for(int32 Side=FirstHand();Side<2;++Side)
+@@ -207 +224 @@
+-    Player->MagazineAmmo=Hands[0].Rounds;Player->RevolverCaseCount=Hands[0].Cases;
++    if(!bOffhandOnly){Player->MagazineAmmo=Hands[0].Rounds;Player->RevolverCaseCount=Hands[0].Cases;}
+@@ -209 +226,2 @@
+-    Pose(0,0);Pose(1,0);
++    if(!bOffhandOnly)Pose(0,0);
++    Pose(1,0);
+@@ -294 +312 @@
+-    return bActive && Player && Player->QuickCombatPistol
++    return IsPair() && Player && Player->QuickCombatPistol
+@@ -330 +348 @@
+-    if(!bActive || !Player || !Player->QuickCombatPistol)return TEXT("双持控制器未就绪");
++    if(!IsPair() || !Player || !Player->QuickCombatPistol)return TEXT("双持控制器未就绪");
+@@ -420 +438 @@
+-    if(!bActive)return;
++    if(!bActive || Index<FirstHand() || Index>=2)return;
+@@ -422 +440 @@
+-    if(!Pressed){H.Held=H.Pending=false;Player->bFireHeld=Hands[0].Held || Hands[1].Held;return;}
++    if(!Pressed){H.Held=H.Pending=false;return;}
+@@ -424 +442 @@
+-    if(!H.Held)H.Pending=true;H.Held=true;Player->bFireHeld=true;
++    if(!H.Held)H.Pending=true;H.Held=true;
+@@ -438,2 +456,3 @@
+-    for(const auto& H:Hands)for(auto& I:Items)if(I.InstanceId==H.Item.InstanceId)
+-    {
++    for(int32 Side=FirstHand();Side<2;++Side)for(auto& I:Items)if(I.InstanceId==Hands[Side].Item.InstanceId)
++    {
++        const auto& H=Hands[Side];
+@@ -473 +492 @@
+-    if(Bash && Bash->GetStyle()==EQuickCombatStyle::DualPistol)
++    if(IsPair() && Bash && Bash->GetStyle()==EQuickCombatStyle::DualPistol)
+@@ -480 +499 @@
+-    for(int32 Side=0;Side<2;++Side)
++    for(int32 Side=FirstHand();Side<2;++Side)
+@@ -518,2 +537,2 @@
+-    Player->MagazineAmmo=Hands[0].Rounds;Player->RevolverCaseCount=Hands[0].Cases;
+-    Player->ReserveAmmo=Reserve(0);
++    if(!bOffhandOnly)
++    {Player->MagazineAmmo=Hands[0].Rounds;Player->RevolverCaseCount=Hands[0].Cases;Player->ReserveAmmo=Reserve(0);}
+diff --git a/Source/FPSGAME/Weapons/PistolDualWieldComponent.h b/Source/FPSGAME/Weapons/PistolDualWieldComponent.h
+--- a/Source/FPSGAME/Weapons/PistolDualWieldComponent.h
++++ b/Source/FPSGAME/Weapons/PistolDualWieldComponent.h
+@@ -70 +70 @@
+-/** Two inventory instances, two trigger edges and reload clocks; one player camera. */
++/** Pistol pair or staff/offhand pistol; each active hand owns its trigger, ammo and action clock. */
+@@ -79,2 +79,4 @@
+-    bool HasHeldTrigger() const { return bActive && (Hands[0].Held || Hands[1].Held); }
+-    bool IsReloading() const { return bActive && (Hands[0].Reloading || Hands[1].Reloading); }
++    bool IsPair() const { return bActive && !bOffhandOnly; }
++    bool IsOffhandOnly() const { return bActive && bOffhandOnly; }
++    bool HasHeldTrigger() const { return bActive && ((!bOffhandOnly && Hands[0].Held) || Hands[1].Held); }
++    bool IsReloading() const { return bActive && ((!bOffhandOnly && Hands[0].Reloading) || Hands[1].Reloading); }
+@@ -115,0 +118,3 @@
++    bool bOffhandOnly=false;
++    FString MainHandInstance;
++    int32 FirstHand() const { return bOffhandOnly ? 1 : 0; }
