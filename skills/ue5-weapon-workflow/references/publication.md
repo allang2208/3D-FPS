@@ -45,6 +45,32 @@ git -c http.curloptResolve="github.com:443:140.82.112.3" ls-remote origin
 
 `-c` 只对本次命令生效，不落进仓库或全局配置。fetch、push、`ls-remote` 回读三步都要带同一个覆盖值，否则验证步骤自己会失败。可达 IP 会随时间变化，下次失败先重测，不把某个 IP 当固定值写进脚本。
 
+### 推送网络故障二：TCP 通但 HTTPS 被重置，改走本机代理（2026-09-29）
+
+上一条的适用边界要修正。本轮 `20.205.243.166:443` 的 `Test-NetConnection` 返回 **True**，可 `curl.exe https://github.com` 21 秒后 `http_code=000`，`git push` 仍是 `Recv failure: Connection was reset`；换 `140.82.112.3` 后 fetch 依旧被重置、push 变成 `Failed to connect ... after 21042 ms`。**TCP 探测会被中间设备假阳性放行，`Test-NetConnection` 通不等于 HTTPS 能过**；这种情况下 `curloptResolve` 覆盖无效，不要逐个 IP 试下去。
+
+判据与出路都用 `curl` 量代理：`curl.exe -s -o NUL -w "%{http_code}" --proxy http://127.0.0.1:<port> --max-time 20 https://github.com`，本机 7890/7897 在听且返回 `200`，于是
+
+```
+git -c http.proxy=http://127.0.0.1:7890 fetch origin
+git -c http.proxy=http://127.0.0.1:7890 push origin HEAD:main
+git -c http.proxy=http://127.0.0.1:7890 ls-remote origin
+```
+
+同样是一次性 `-c`，不写 `http.proxy` 配置、不改 hosts；三步带同一个代理，否则验证步骤自己会失败。
+
+### 共享工作区：他人暂存条目与"基线在工作期间前进"（2026-09-29）
+
+- **索引里出现别人的暂存条目**（本轮 `.gitignore`、`modular_outfits.json`、`FPSModularOutfitComponent.cpp`）：既不能替对方取消暂存，也不能顺手提交。用**临时索引**自建提交树，全程不碰共享索引：`$env:GIT_INDEX_FILE=Saved/tmp-index` → `git read-tree <base>` → 逐个 `git apply --cached --unidiff-zero --whitespace=nowarn --recount <补丁>` → `git add -- <纯属本次的文件>` → `git diff --cached` 复核 → `git write-tree` + `git commit-tree <tree> -p <base> -F <说明>` → `git update-ref refs/heads/<分支> <新提交>` → 清 `GIT_INDEX_FILE`。提交后把共享索引里本次文件的条目对齐到新提交（`git update-index --cacheinfo 100644,<blob>,<路径>`），免留"假暂存"。同一路径的脏工作区与暂存条目都不要重写。
+- **提交前远端 main 前进了**：非强制推送会被 `! [rejected] (non-fast-forward)` 正确拒绝（本轮 `155174d1` → `7382ff0b`）。先 `git log --oneline <旧base>..<新base>` 与 `git diff --stat <旧base> <新base>` 审这次推送，再看自己的补丁能否沿用：没被动过的文件直接重放，被动过的**针对新基线重新生成切片**（本轮只有 `items.json`，对方服装改动已发布，重生成后 6 个 hunk 只剩自己的 2 个）。在新 base 上用临时索引重放出线性提交再推；旧提交从未推送，留 reflog 即可，不做 force。
+- **一个补丁只应用一次**：`Get-ChildItem Saved\u0-*.patch` 批处理时，新生成的文件名也在通配范围内（本轮 `u0-items-new.patch` 被循环与显式调用各应用一次，`items.json` 出现 56 行重复、JSON 里同一键两次）。落地前用 `git diff --cached --numstat` 逐个核对增删行数。
+
+### 自己的行与并行改动相邻：改用 -U0 原子 hunk（2026-09-29）
+
+`Tools/Weapons/stage_weapon_hunks.py` 用 `git diff -U3`，自己的新增行与对方改动**相距 3 行以内就会被并进同一个 hunk**（本轮 `FPSGAMECharacter.cpp` 的 `UpdateWeaponJumpPose`、`FPSGAMECharacterProfile.cpp` 的 `LMG201WeaponAssets.h`、`ColdSteelEnhancementSystem.cpp` 的 staff 行、`ColdSteelItemTooltipData.cpp` 的附魔卡片行都中过）。连块不能靠标记救：丢这块会丢自己的行，留这块会带上对方的行。
+
+这时按 `-U0` 重新切片，每个 hunk 只含一段连续改动，标记永不误带。`Saved/stage_u0.py` 是这轮的一次性脚本（`--keep-contains` / `--drop-contains`，逻辑同工具版，只把 `-U3` 换成 `-U0`），补丁仍用 `git apply --cached --unidiff-zero --whitespace=nowarn --recount` 落地。`-U0` 没有上下文可模糊匹配，只能用于"索引 = 补丁基线"；基线变了要重新生成，不要挪用旧补丁。
+
 ### 按标记丢弃 hunk 的通用做法（2026-09-21）
 
 - `Tools/AssetPipeline/stage_session_hunks.py` 的标记是写死的；本轮新增通用版 `Tools/Weapons/stage_weapon_hunks.py`：`--file`（可多次）加 `--drop-contains <子串>`（可多次），保留除命中标记外的全部 hunk，**先打印 KEEP/DROP 报告再写补丁**，然后 `git apply --cached <补丁>`。丢掉前面的 hunk 会让后面的行号偏移，靠上下文匹配即可（本轮 35 保留 / 7 丢弃全部干净落位，`--check` 无告警）。
