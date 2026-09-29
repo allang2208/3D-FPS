@@ -1,0 +1,20 @@
+{
+  "model": {
+    "ai_model": "meshy-7.1",
+    "geometry_resolution": "2k",
+    "should_texture": true,
+    "enable_pbr": true,
+    "texture_resolution": "4k",
+    "should_remesh": true,
+    "topology": "triangle",
+    "target_polycount": 40000,
+    "pose_mode": "a-pose",
+    "image_enhancement": false,
+    "target_formats": ["glb", "fbx"],
+    "texture_prompt": "Realistic emaciated spitter zombie matching the image. Exposed skin is muted gray olive GREEN like an infected mutant, fine pores and mottled leathery skin, dark small lesions, mostly dry roughness, slightly wet purple mouth. Cloth remains tattered dark brown gray fabric, never green skin. Preserve exposed ribcage, skull face, thin elongated arms and legs, separate fingers and barefoot anatomy. No muscular enlargement, no armor, no weapons, no glowing surface, no hanging solid saliva strand. Physically based organic skin, zero metallic."
+  },
+  "reference": "Inputs/spitter_green_reference.png",
+  "skin_material_parent": "/Game/Monsters/Shared/InfectedSurfaceV1/M_InfectedSurface_V1",
+  "skin_style_source": "/Game/Monsters/Mutant3Meshy/SurfacePolish/MI_Mutant3_SurfacePolish",
+  "credentials": "MESHY_API_KEY process environment or private stdin; never stored"
+}

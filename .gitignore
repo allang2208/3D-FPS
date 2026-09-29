@@ -1287,3 +1287,17 @@ __pycache__/
 !/SourceAssets/LMG20120260927/Repair36/rebuild_lid.py
 !/SourceAssets/LMG20120260927/Repair36/run_headless.ps1
 !/SourceAssets/LMG20120260927/Detail35/model.py
+
+# Spitter: recipes and compact contracts only; licensed assets, dense data,
+# service/download receipts, previews and binary production remain local.
+/SourceAssets/SpitterZombieMeshy20260927/**
+!/SourceAssets/SpitterZombieMeshy20260927/**/
+!/SourceAssets/SpitterZombieMeshy20260927/**/*.py
+!/SourceAssets/SpitterZombieMeshy20260927/**/*.ps1
+!/SourceAssets/SpitterZombieMeshy20260927/**/*.md
+!/SourceAssets/SpitterZombieMeshy20260927/Sources/LICENSE-CC0.MD
+!/SourceAssets/SpitterZombieMeshy20260927/meshy_settings.json
+!/SourceAssets/SpitterZombieMeshy20260927/animation_contract.json
+!/SourceAssets/SpitterZombieMeshy20260927/CombatDeathV14/settings.json
+/SourceAssets/SpitterZombieMeshy20260927/Meshy/
+/SourceAssets/SpitterZombieMeshy20260927/**/__pycache__/

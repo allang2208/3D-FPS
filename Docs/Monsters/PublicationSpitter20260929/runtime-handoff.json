@@ -1,0 +1,71 @@
+{
+  "date": "2026-09-29",
+  "public_head_at_preparation": "6d2dd8ddba0df6e9b36526fa9f68d02e3182a9b4",
+  "integrated_into_public_Source": false,
+  "local_native_build": "MeleePoisonV15 build-result.json exit_code 0; before cleanup of unused projectile source",
+  "runtime_tested": false,
+  "files": [
+    {
+      "path": "Source/FPSGAME/Monsters/SpitterZombie.h",
+      "kind": "new_source",
+      "local_file_sha256": "7bea18209ff911a32be9744ddbeaee1fce446828caade82efc82a84eecf4036a",
+      "patch_base": "empty"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/SpitterZombie.cpp",
+      "kind": "new_source",
+      "local_file_sha256": "1f117dbdcc2db3b1f589859e54a2e029b54b27b6c4babe3e4f59a616068dcaff",
+      "patch_base": "empty"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/SpitterPhysics.cpp",
+      "kind": "new_source",
+      "local_file_sha256": "3567e4f254d93737fe7dbc448172b58e29897c40c27a515d8736ff303a83adaf",
+      "patch_base": "empty"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NurseZombie.h",
+      "kind": "task_only_shared_hunks",
+      "local_file_sha256": "c4979acac88463b8bc7159828b5109fea3d0d2b417bf28d293d231ff45d5c332",
+      "patch_base": "current local dependency implementation minus Spitter-specific changes"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NurseZombie.cpp",
+      "kind": "task_only_shared_hunks",
+      "local_file_sha256": "f5aa79cadd807b3b1ef4a75f7d0f2d0bbbb0c7e7d81d2e68c9b9b17b54676f38",
+      "patch_base": "current local dependency implementation minus Spitter-specific changes"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCombatComponent.cpp",
+      "kind": "task_only_shared_hunks",
+      "local_file_sha256": "97dca532c5a739c8d8ccbf0ead7e0f3a7371a48412ac4304643ab0805a1ea369",
+      "patch_base": "current local dependency implementation minus Spitter-specific changes"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCoreStats.cpp",
+      "kind": "task_only_shared_hunks",
+      "local_file_sha256": "5fa1ec937dfbf795860aab2dc39db23df04979ef461886d941f651d87c32519c",
+      "patch_base": "current local dependency implementation minus Spitter-specific changes"
+    },
+    {
+      "path": "Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp",
+      "kind": "task_only_shared_hunks",
+      "local_file_sha256": "08d2160c0d1e1f35ee3e81bbdb21be4416b42cfdccf5929532c3d4ce51556411",
+      "patch_base": "current local dependency implementation minus Spitter-specific changes"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HumanoidKnockdownComponent.cpp",
+      "kind": "task_only_shared_hunks",
+      "local_file_sha256": "1ec2a9134eb4be0560be91326401d1e3958c7e8554b3f6b1744d683210336ea9",
+      "patch_base": "current local dependency implementation minus Spitter-specific changes"
+    }
+  ],
+  "required_unpublished_dependencies": [
+    "Current ANurseZombie Knockdown component and lifecycle integration",
+    "HumanoidKnockdownComponent / HumanoidRagdollBudget and snapshot animation interfaces: see Docs/Monsters/Publication20260927",
+    "Current MonsterCombatComponent and MonsterCoreStats light-toughness / Fill contract",
+    "Current player damage mitigation, dodge/parry and poison immunity implementation"
+  ],
+  "application": "Do not apply to the complete local host. Complete upstream interface publications first, then apply or adapt these task-only hunks. This is a handoff, not a standalone buildable feature.",
+  "patch_format": "Unified diff with zero context. Review matching dependency snapshots before git apply --unidiff-zero. Do not apply blindly to public main."
+}

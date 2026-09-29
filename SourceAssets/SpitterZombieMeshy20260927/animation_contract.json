@@ -1,0 +1,383 @@
+{
+  "Death": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpitterZombieMeshy20260927\\final\\A_Spitter_Death.fbx",
+    "seconds": 2.0,
+    "fps": 60,
+    "source": "Mesh2Motion CC0, native UE IK, original Meshy bind lengths and skin grounding",
+    "loop": false
+  },
+  "Dizzy": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpitterZombieMeshy20260927\\final\\A_Spitter_Dizzy.fbx",
+    "seconds": 2.3666666666666667,
+    "fps": 60,
+    "source": "Mesh2Motion CC0, native UE IK, original Meshy bind lengths and skin grounding",
+    "loop": true
+  },
+  "Hit_Knockback": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpitterZombieMeshy20260927\\final\\A_Spitter_Hit_Knockback.fbx",
+    "seconds": 0.8333333333333334,
+    "fps": 60,
+    "source": "Mesh2Motion CC0, native UE IK, original Meshy bind lengths and skin grounding",
+    "loop": false
+  },
+  "Idle": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpitterZombieMeshy20260927\\final\\A_Spitter_Idle.fbx",
+    "seconds": 4.0,
+    "fps": 60,
+    "source": "Mesh2Motion CC0, native UE IK, original Meshy bind lengths and skin grounding",
+    "loop": true
+  },
+  "LayToIdle": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpitterZombieMeshy20260927\\final\\A_Spitter_LayToIdle.fbx",
+    "seconds": 1.5,
+    "fps": 60,
+    "source": "Mesh2Motion CC0, native UE IK, original Meshy bind lengths and skin grounding",
+    "loop": false
+  },
+  "Stagger": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpitterZombieMeshy20260927\\final\\A_Spitter_Stagger.fbx",
+    "seconds": 0.4,
+    "fps": 60,
+    "source": "Mesh2Motion CC0, native UE IK, original Meshy bind lengths and skin grounding",
+    "loop": false
+  },
+  "Walk": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpitterZombieMeshy20260927\\LocomotionV10\\Final\\A_Spitter_LocomotionV10_Walk_A.fbx",
+    "asset_name": "A_Spitter_LocomotionV10_Walk_A",
+    "fps": 60,
+    "seconds": 3.966666666666667,
+    "loop": true,
+    "source": "/Game/ZombieAnimationPack/Animations/Mannequin_UE5/anim_Walk_A; original Meshy skin; LocomotionV10 contact and body fitting",
+    "reference_speed_cm_s": 56.774,
+    "actor_walk_speed_cm_s": 56.774,
+    "body_height_offset_cm": 4.281,
+    "settings": {
+      "pelvis_yaw": 3.8,
+      "pelvis_roll": 2.4,
+      "shift": 0.012,
+      "elbow": 5.0,
+      "lag": 1.0
+    },
+    "support_intervals": {
+      "Left": [
+        [
+          0.0333,
+          0.5167
+        ],
+        [
+          0.7833,
+          1.0167
+        ],
+        [
+          2.0,
+          2.5167
+        ],
+        [
+          2.7833,
+          3.0167
+        ]
+      ],
+      "Right": [
+        [
+          1.0,
+          2.0167
+        ],
+        [
+          3.0,
+          3.9667
+        ]
+      ]
+    }
+  },
+  "Attack": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpitterZombieMeshy20260927\\AttackD_V12\\Final\\A_Spitter_AttackD_V12.fbx",
+    "asset_name": "A_Spitter_AttackD_V12",
+    "fps": 60,
+    "seconds": 2.0,
+    "loop": false,
+    "source": "/Game/ZombieAnimationPack/Animations/Mannequin_UE5/anim_Attack_D; native UE retarget; original Meshy bind lengths and skin; per-foot support fitting, elbow softness, recovery follow-through and partial forward gaze",
+    "revision": "AttackD_V12-20260929",
+    "contact_seconds": 0.47,
+    "contact_end_seconds": 0.67,
+    "recovery_seconds": 0.35,
+    "attack_range_base_cm": 145.0,
+    "attack_damage": 30.0,
+    "damage_type": "physical_melee",
+    "attack_mode": "physical_melee_attack_d",
+    "projectiles": false,
+    "poison": true,
+    "poison_stacks_per_hit": 1
+  },
+  "ProneToIdle": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpitterZombieMeshy20260927\\final\\A_Spitter_ProneToIdle.fbx",
+    "seconds": 2.3,
+    "fps": 60,
+    "source": "Fitted LayToIdle plus authored 0.8 second grounded roll",
+    "loop": false
+  },
+  "MovementVariants": {
+    "selection": "shuffled_world_class_round_once_per_spawn_lifetime_fixed",
+    "speed_policy": "selected_reference_speed_sets_actor_walk_speed_before_super_beginplay",
+    "variants": {
+      "Walk_A": {
+        "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpitterZombieMeshy20260927\\LocomotionV10\\Final\\A_Spitter_LocomotionV10_Walk_A.fbx",
+        "asset_name": "A_Spitter_LocomotionV10_Walk_A",
+        "fps": 60,
+        "seconds": 3.966666666666667,
+        "loop": true,
+        "source": "/Game/ZombieAnimationPack/Animations/Mannequin_UE5/anim_Walk_A; original Meshy skin; LocomotionV10 contact and body fitting",
+        "reference_speed_cm_s": 56.774,
+        "actor_walk_speed_cm_s": 56.774,
+        "body_height_offset_cm": 4.281,
+        "settings": {
+          "pelvis_yaw": 3.8,
+          "pelvis_roll": 2.4,
+          "shift": 0.012,
+          "elbow": 5.0,
+          "lag": 1.0
+        },
+        "support_intervals": {
+          "Left": [
+            [
+              0.0333,
+              0.5167
+            ],
+            [
+              0.7833,
+              1.0167
+            ],
+            [
+              2.0,
+              2.5167
+            ],
+            [
+              2.7833,
+              3.0167
+            ]
+          ],
+          "Right": [
+            [
+              1.0,
+              2.0167
+            ],
+            [
+              3.0,
+              3.9667
+            ]
+          ]
+        }
+      },
+      "Walk_B": {
+        "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpitterZombieMeshy20260927\\LocomotionV11\\Final\\A_Spitter_LocomotionV11_Walk_B.fbx",
+        "asset_name": "A_Spitter_LocomotionV11_Walk_B",
+        "fps": 60,
+        "seconds": 3.966666666666667,
+        "loop": true,
+        "source": "/Game/ZombieAnimationPack/Animations/Mannequin_UE5/anim_Walk_B; original Meshy skin; LocomotionV11 per-style contact, bend-plane and cycle fitting",
+        "reference_speed_cm_s": 55.877,
+        "actor_walk_speed_cm_s": 55.877,
+        "body_height_offset_cm": 5.449,
+        "settings": {
+          "pelvis_yaw": 3.2,
+          "pelvis_roll": 2.2,
+          "shift": 0.012,
+          "elbow": 4.0,
+          "lag": 1.15,
+          "head_weight": 0.8,
+          "head_filter": 3,
+          "body_filter": 2,
+          "contact_ramp": 8
+        },
+        "support_intervals": {
+          "Left": [
+            [
+              0.0,
+              1.0333
+            ],
+            [
+              2.0,
+              3.0333
+            ]
+          ],
+          "Right": [
+            [
+              1.0,
+              2.0333
+            ],
+            [
+              3.0,
+              4.0
+            ]
+          ]
+        }
+      },
+      "Walk_C": {
+        "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpitterZombieMeshy20260927\\LocomotionV11\\Final\\A_Spitter_LocomotionV11_Walk_C.fbx",
+        "asset_name": "A_Spitter_LocomotionV11_Walk_C",
+        "fps": 60,
+        "seconds": 3.966666666666667,
+        "loop": true,
+        "source": "/Game/ZombieAnimationPack/Animations/Mannequin_UE5/anim_Walk_C; original Meshy skin; LocomotionV11 per-style contact, bend-plane and cycle fitting",
+        "reference_speed_cm_s": 55.54,
+        "actor_walk_speed_cm_s": 55.54,
+        "body_height_offset_cm": 5.174,
+        "settings": {
+          "pelvis_yaw": 4.0,
+          "pelvis_roll": 2.0,
+          "shift": 0.012,
+          "elbow": 5.0,
+          "lag": 0.9,
+          "head_weight": 0.7,
+          "head_filter": 4,
+          "body_filter": 2,
+          "contact_ramp": 8
+        },
+        "support_intervals": {
+          "Left": [
+            [
+              0.0,
+              1.0333
+            ],
+            [
+              2.0,
+              3.0333
+            ]
+          ],
+          "Right": [
+            [
+              1.0,
+              2.0333
+            ],
+            [
+              3.0,
+              4.0
+            ]
+          ]
+        }
+      },
+      "Run_A": {
+        "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpitterZombieMeshy20260927\\LocomotionV11\\Final\\A_Spitter_LocomotionV11_Run_A.fbx",
+        "asset_name": "A_Spitter_LocomotionV11_Run_A",
+        "fps": 60,
+        "seconds": 2.6666666666666665,
+        "loop": true,
+        "source": "/Game/ZombieAnimationPack/Animations/Mannequin_UE5/anim_Run_A; original Meshy skin; LocomotionV11 per-style contact, bend-plane and cycle fitting",
+        "reference_speed_cm_s": 199.085,
+        "actor_walk_speed_cm_s": 199.085,
+        "body_height_offset_cm": 5.153,
+        "settings": {
+          "pelvis_yaw": 2.2,
+          "pelvis_roll": 1.2,
+          "shift": 0.008,
+          "elbow": 3.0,
+          "lag": 0.5,
+          "head_weight": 0.55,
+          "head_filter": 5,
+          "body_filter": 3,
+          "contact_ramp": 6
+        },
+        "support_intervals": {
+          "Left": [
+            [
+              0.6833,
+              1.0667
+            ],
+            [
+              2.0167,
+              2.4
+            ]
+          ],
+          "Right": [
+            [
+              1.3333,
+              1.7333
+            ],
+            [
+              2.65,
+              3.0667
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "AttackVariants": {
+    "revision": "AttackVariantsV13-20260929",
+    "selection": "random_per_attack_no_immediate_repeat",
+    "variants": {
+      "AttackD": {
+        "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpitterZombieMeshy20260927\\AttackD_V12\\Final\\A_Spitter_AttackD_V12.fbx",
+        "asset_name": "A_Spitter_AttackD_V12",
+        "fps": 60,
+        "seconds": 2.0,
+        "loop": false,
+        "source": "/Game/ZombieAnimationPack/Animations/Mannequin_UE5/anim_Attack_D; native UE retarget; original Meshy bind lengths and skin; per-foot support fitting, elbow softness, recovery follow-through and partial forward gaze",
+        "revision": "AttackD_V12-20260929",
+        "contact_seconds": 0.47,
+        "contact_end_seconds": 0.67,
+        "recovery_seconds": 0.35,
+        "attack_range_base_cm": 145.0,
+        "attack_damage": 30.0,
+        "damage_type": "physical_melee",
+        "attack_mode": "physical_melee_attack_d",
+        "projectiles": false,
+        "poison": true,
+        "poison_stacks_per_hit": 1
+      },
+      "FatScratch": {
+        "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpitterZombieMeshy20260927\\AttackVariantsV13\\Final\\A_Spitter_AttackV13_FatScratch.fbx",
+        "asset_name": "A_Spitter_AttackV13_FatScratch",
+        "fps": 60,
+        "seconds": 2.0833333333333335,
+        "loop": false,
+        "source": "/Game/Monsters/FatZombieMeshy/Animations/A_FatZombie_Attack.A_FatZombie_Attack; native UE retarget; original Meshy bind lengths and skin; per-foot support fitting, elbow softness, recovery follow-through and partial forward gaze",
+        "revision": "AttackVariantsV13-20260929",
+        "contact_seconds": 0.65,
+        "contact_end_seconds": 0.78,
+        "recovery_seconds": 0.35,
+        "attack_range_base_cm": 145.0,
+        "attack_damage": 30.0,
+        "damage_type": "physical_melee",
+        "attack_mode": "physical_melee_random_variants",
+        "projectiles": false,
+        "poison": true,
+        "source_role": "FatScratch",
+        "provenance": "Existing project FatZombie Mesh2Motion CC0 attack",
+        "poison_stacks_per_hit": 1
+      },
+      "NurseDownSwing": {
+        "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpitterZombieMeshy20260927\\AttackVariantsV13\\Final\\A_Spitter_AttackV13_NurseDownSwing.fbx",
+        "asset_name": "A_Spitter_AttackV13_NurseDownSwing",
+        "fps": 60,
+        "seconds": 3.3333333333333335,
+        "loop": false,
+        "source": "/Game/Monsters/NurseZombie/A_Nurse_attack.A_Nurse_attack; native UE retarget; original Meshy bind lengths and skin; per-foot support fitting, elbow softness, recovery follow-through and partial forward gaze",
+        "revision": "AttackVariantsV13-20260929",
+        "contact_seconds": 1.4,
+        "contact_end_seconds": 1.7,
+        "recovery_seconds": 0.35,
+        "attack_range_base_cm": 145.0,
+        "attack_damage": 30.0,
+        "damage_type": "physical_melee",
+        "attack_mode": "physical_melee_random_variants",
+        "projectiles": false,
+        "poison": true,
+        "source_role": "NurseDownSwing",
+        "provenance": "User-provided ZombieFemale asset pack; local reuse only",
+        "poison_stacks_per_hit": 1
+      }
+    }
+  },
+  "MeleePoison": {
+    "revision": "MeleePoisonV15-20260929",
+    "implementation": "ASpitterZombie::ApplyMeleeDamage",
+    "component": "UMaggotPoisonComponent",
+    "trigger": "once_per_attack_actual_hp_loss_surviving_target",
+    "stacks_per_hit": 1,
+    "max_stacks": 20,
+    "damage_per_stack_per_second": 1,
+    "decay_seconds_per_stack": 5,
+    "refresh_decay_on_hit": true,
+    "runtime_tested": false
+  }
+}

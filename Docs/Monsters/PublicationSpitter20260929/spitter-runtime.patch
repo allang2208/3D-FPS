@@ -1,0 +1,523 @@
+diff --git a/Source/FPSGAME/Monsters/SpitterZombie.h b/Source/FPSGAME/Monsters/SpitterZombie.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Monsters/SpitterZombie.h
+@@ -0,0 +1,66 @@
++#pragma once
++
++#include "NurseZombie.h"
++#include "SpitterZombie.generated.h"
++
++class UFatZombieAnimInstance;
++class UPhysicsAsset;
++
++/** One complete melee animation and its contact window on the same combat clock. */
++USTRUCT(BlueprintType)
++struct FSpitterAttackVariant
++{
++    GENERATED_BODY()
++
++    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Attack") TObjectPtr<UAnimSequence> Clip;
++    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Attack", meta=(ClampMin="0")) float ContactTime = .47f;
++    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Attack", meta=(ClampMin="0")) float ContactEnd = .67f;
++    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Attack", meta=(ClampMin="0")) float RecoveryTime = .35f;
++};
++
++/** Green Meshy zombie with a lifetime locomotion choice and library melee attack. */
++UCLASS(Blueprintable)
++class FPSGAME_API ASpitterZombie : public ANurseZombie
++{
++    GENERATED_BODY()
++public:
++    ASpitterZombie(const FObjectInitializer& Initializer = FObjectInitializer::Get());
++    virtual void OnConstruction(const FTransform& Transform) override;
++    virtual void BeginPlay() override;
++    virtual void EndPlay(const EEndPlayReason::Type Reason) override;
++    virtual float TakeDamage(float Damage, const FDamageEvent& Event, AController* EventInstigator, AActor* Causer) override;
++
++    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Spitter|Animation") TObjectPtr<UAnimSequence> DeathClip;
++    /** Draw once in BeginPlay; the selected clip stays with this actor for life. */
++    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Spitter|Animation") TArray<TObjectPtr<UAnimSequence>> MovementClips;
++    /** Authored stride speeds in cm/s; the chosen entry also sets this actor's WalkSpeed at spawn. */
++    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Spitter|Animation") TArray<float> MovementReferenceSpeeds;
++    UPROPERTY(Transient, VisibleAnywhere, BlueprintReadOnly, Category="Spitter|Runtime") int32 SelectedMovementIndex = INDEX_NONE;
++    UFUNCTION(BlueprintCallable, Category="Spitter|Authoring") static bool PreparePhysics(USkeletalMesh* InMesh);
++protected:
++    virtual void StartStateAnimation(UAnimSequence* Clip, bool bLoop) override;
++    virtual void SetAttackAnimationTime(float Seconds) override;
++    virtual void SetWalkAnimationRate(float Rate) override;
++    virtual void StartHitPresentation(UAnimSequence* Clip, float Duration) override;
++    virtual void SetHitPresentationTime(UAnimSequence* Clip, float Elapsed, float Remaining) override;
++    virtual void StartDeathPresentation() override;
++    virtual float ApplyMeleeDamage(APawn* Victim) override;
++private:
++    UFatZombieAnimInstance* PosePlayer();
++    void AlignVisual();
++    void StartRagdoll();
++    UPROPERTY(Transient) TObjectPtr<UAnimSequence> SelectedMovementClip;
++    float MovementReferenceSpeed = 130.f;
++    FTimerHandle RagdollTimer;
++
++public:
++    /** Choose on attack entry; keep that clip and its timing until interrupted or finished. */
++    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Spitter|Animation") TArray<FSpitterAttackVariant> AttackVariants;
++    UPROPERTY(Transient, VisibleAnywhere, BlueprintReadOnly, Category="Spitter|Runtime") int32 SelectedAttackIndex = INDEX_NONE;
++private:
++    void SelectAttackVariant();
++    UPROPERTY(Transient) TObjectPtr<UAnimSequence> PreviousAttackClip;
++    FVector DeathTravelVelocity = FVector::ZeroVector;
++    FVector DeathHitDirection = FVector::ZeroVector;
++    FVector DeathHitLocation = FVector::ZeroVector;
++};
+diff --git a/Source/FPSGAME/Monsters/SpitterZombie.cpp b/Source/FPSGAME/Monsters/SpitterZombie.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Monsters/SpitterZombie.cpp
+@@ -0,0 +1,323 @@
++#include "SpitterZombie.h"
++#include "FatZombieAnimInstance.h"
++#include "HumanoidKnockdownComponent.h"
++#include "MonsterCombatComponent.h"
++#include "MonsterCombatTuning.h"
++#include "FPSCombatHealthComponent.h"
++#include "PoisonMaggotProjectile.h"
++#include "Animation/AnimSequence.h"
++#include "Components/CapsuleComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Engine/SkeletalMesh.h"
++#include "Engine/DamageEvents.h"
++#include "Engine/World.h"
++#include "GameFramework/Controller.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "PhysicsEngine/BodyInstance.h"
++#include "TimerManager.h"
++
++namespace
++{
++    // Share a shuffled round across spawns, so a group gets varied walking styles.
++    // Each actor draws only in BeginPlay and keeps that style through state changes.
++    // Weak keys keep PIE worlds/classes/assets out of the process lifetime.
++    struct FSpitterMovementBag
++    {
++        TWeakObjectPtr<UWorld> World;
++        TWeakObjectPtr<UClass> Class;
++        TArray<TWeakObjectPtr<UAnimSequence>> Bindings;
++        TArray<int32> Remaining;
++        TWeakObjectPtr<UAnimSequence> PreviousClip;
++    };
++
++    int32 DrawMovement(ASpitterZombie& Zombie)
++    {
++        static TArray<FSpitterMovementBag> Bags;
++        Bags.RemoveAll([](const FSpitterMovementBag& Bag) { return !Bag.World.IsValid() || !Bag.Class.IsValid(); });
++        FSpitterMovementBag* Bag = Bags.FindByPredicate([&Zombie](const FSpitterMovementBag& Item)
++        {
++            return Item.World.Get() == Zombie.GetWorld() && Item.Class.Get() == Zombie.GetClass();
++        });
++        if (!Bag)
++        {
++            Bag = &Bags.AddDefaulted_GetRef();
++            Bag->World = Zombie.GetWorld();
++            Bag->Class = Zombie.GetClass();
++        }
++        TArray<TWeakObjectPtr<UAnimSequence>> Bindings;
++        for (UAnimSequence* Clip : Zombie.MovementClips) Bindings.Add(Clip);
++        if (Bindings != Bag->Bindings)
++        {
++            Bag->Bindings = MoveTemp(Bindings);
++            Bag->Remaining.Reset();
++            Bag->PreviousClip.Reset();
++        }
++        if (Bag->Remaining.IsEmpty())
++        {
++            TArray<UAnimSequence*, TInlineAllocator<4>> Distinct;
++            for (int32 Index = 0; Index < Zombie.MovementClips.Num(); ++Index)
++            {
++                UAnimSequence* Clip = Zombie.MovementClips[Index];
++                if (Clip && !Distinct.Contains(Clip))
++                {
++                    Distinct.Add(Clip);
++                    Bag->Remaining.Add(Index);
++                }
++            }
++            for (int32 Index = Bag->Remaining.Num() - 1; Index > 0; --Index)
++                Bag->Remaining.Swap(Index, FMath::RandRange(0, Index));
++            // Do not repeat the last round's final clip at the next round's start.
++            if (Bag->Remaining.Num() > 1 && Zombie.MovementClips[Bag->Remaining.Last()] == Bag->PreviousClip.Get())
++                Bag->Remaining.Swap(0, Bag->Remaining.Num() - 1);
++        }
++        if (Bag->Remaining.IsEmpty()) return INDEX_NONE;
++        const int32 Index = Bag->Remaining.Pop(EAllowShrinking::No);
++        Bag->PreviousClip = Zombie.MovementClips[Index];
++        return Index;
++    }
++}
++
++ASpitterZombie::ASpitterZombie(const FObjectInitializer& Initializer) : Super(Initializer)
++{
++    Tags.Remove(TEXT("NurseZombie"));
++    Tags.Add(TEXT("SpitterZombie"));
++    // Source config: normal rank, level 5, 120 HP; global UE health growth is inherited.
++    MaxHealth = Health = 120.f; Level = 5; Rank = EMonsterRank::Normal;
++    // Match the similarly sized nurse: 217.5 cm contact, 202.5 cm attack entry,
++    // and 187.5 cm path stop after the shared 1.5 distance multiplier.
++    WalkSpeed = 130.f; AttackRange = 145.f; AggroRadius = 1600.f;
++    AttackDamage = 30.f; RecoveryTime = .35f; CorpseSeconds = 15.f;
++    ContactTime = .47f; ContactEnd = .67f; // Default Attack_D: one hit during the forward claw swing.
++    GetCapsuleComponent()->InitCapsuleSize(34.f, 92.f); // Shares the existing Nurse nav agent.
++    // Mesh and clips are supplied by the saved BP, never by placeholder character assets.
++}
++
++void ASpitterZombie::AlignVisual()
++{
++    if (!VisualMesh) return;
++    GetMesh()->SetSkeletalMeshAsset(VisualMesh);
++    const auto& Ref = VisualMesh->GetRefSkeleton();
++    auto Position = [&Ref](int32 Bone)
++    {
++        FTransform T = Ref.GetRefBonePose()[Bone];
++        for (int32 P = Ref.GetParentIndex(Bone); P != INDEX_NONE; P = Ref.GetParentIndex(P)) T *= Ref.GetRefBonePose()[P];
++        return T.GetLocation();
++    };
++    const int32 Head = Ref.FindBoneIndex(TEXT("Head")), Front = Ref.FindBoneIndex(TEXT("headfront"));
++    if (Head != INDEX_NONE && Front != INDEX_NONE)
++    {
++        const FVector Forward = (Position(Front) - Position(Head)).GetSafeNormal2D();
++        if (!Forward.IsNearlyZero()) GetMesh()->SetRelativeRotation(FRotator(0, -Forward.Rotation().Yaw, 0));
++    }
++    const auto Bounds = VisualMesh->GetBounds();
++    GetMesh()->SetRelativeLocation(FVector(0, 0, -92.f - Bounds.Origin.Z + Bounds.BoxExtent.Z));
++}
++
++void ASpitterZombie::OnConstruction(const FTransform& Transform)
++{
++    Super::OnConstruction(Transform); AlignVisual();
++}
++
++void ASpitterZombie::BeginPlay()
++{
++    SelectedMovementIndex = DrawMovement(*this);
++    SelectedMovementClip = WalkClip;
++    MovementReferenceSpeed = FMath::Max(1.f, WalkSpeed);
++    if (SelectedMovementIndex != INDEX_NONE)
++    {
++        SelectedMovementClip = MovementClips[SelectedMovementIndex];
++        if (MovementReferenceSpeeds.IsValidIndex(SelectedMovementIndex))
++            MovementReferenceSpeed = FMath::Max(1.f, MovementReferenceSpeeds[SelectedMovementIndex]);
++    }
++    // The chosen gait and its stride speed belong to this actor for life.
++    // Set this before Nurse BeginPlay initializes CharacterMovement, so a slow
++    // shuffle is not forced to play at 2.35x to follow a shared chase speed.
++    WalkSpeed = MovementReferenceSpeed;
++    AlignVisual(); Super::BeginPlay();
++    UE_LOG(LogTemp, Display, TEXT("SPITTER_MOVE_ASSIGNED actor=%s index=%d clip=%s reference_speed=%.3f walk_speed=%.3f"),
++        *GetName(), SelectedMovementIndex, *GetNameSafe(SelectedMovementClip.Get()), MovementReferenceSpeed, WalkSpeed);
++}
++
++UFatZombieAnimInstance* ASpitterZombie::PosePlayer()
++{
++    if (!Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))
++        GetMesh()->SetAnimInstanceClass(UFatZombieAnimInstance::StaticClass());
++    return Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance());
++}
++
++void ASpitterZombie::SelectAttackVariant()
++{
++    if (!HasAuthority()) return;
++    TArray<int32, TInlineAllocator<8>> Candidates;
++    for (int32 Index = 0; Index < AttackVariants.Num(); ++Index)
++    {
++        const FSpitterAttackVariant& Variant = AttackVariants[Index];
++        if (Variant.Clip && Variant.Clip->GetSkeleton() == AttackClip->GetSkeleton() &&
++            FMath::IsFinite(Variant.ContactTime) && FMath::IsFinite(Variant.ContactEnd) &&
++            FMath::IsFinite(Variant.RecoveryTime) && Variant.ContactTime >= 0.f &&
++            Variant.ContactEnd >= Variant.ContactTime && Variant.ContactEnd <= Variant.Clip->GetPlayLength() &&
++            Variant.RecoveryTime >= 0.f)
++        {
++            Candidates.Add(Index);
++        }
++    }
++    const bool bHasAlternative = Candidates.ContainsByPredicate([this](int32 Index)
++    {
++        return AttackVariants[Index].Clip != PreviousAttackClip;
++    });
++    if (bHasAlternative)
++        Candidates.RemoveAll([this](int32 Index) { return AttackVariants[Index].Clip == PreviousAttackClip; });
++    if (Candidates.IsEmpty())
++    {
++        SelectedAttackIndex = INDEX_NONE;
++        return;
++    }
++    SelectedAttackIndex = Candidates[FMath::RandRange(0, Candidates.Num()-1)];
++    const FSpitterAttackVariant& Selected = AttackVariants[SelectedAttackIndex];
++    // Nurse Tick and the parry presentation read these same inherited fields.
++    // Changing them together keeps animation, hit window and recovery in sync.
++    AttackClip = Selected.Clip;
++    ContactTime = Selected.ContactTime;
++    ContactEnd = Selected.ContactEnd;
++    RecoveryTime = Selected.RecoveryTime;
++    PreviousAttackClip = Selected.Clip;
++}
++
++void ASpitterZombie::StartStateAnimation(UAnimSequence* Clip, bool bLoop)
++{
++    if (State == ENurseState::Attack && !bLoop)
++    {
++        SelectAttackVariant();
++        Clip = AttackClip;
++    }
++    FMonsterClipTransition Transition;
++    if (State == ENurseState::Chase)
++    {
++        if (SelectedMovementClip) Clip = SelectedMovementClip;
++        Transition.InitialPlayRate = FMath::Clamp(GetVelocity().Size2D() / MovementReferenceSpeed, 0.f, 3.5f);
++        Transition.bContinueOutgoingLoop = true;
++    }
++    if (auto* Animation = PosePlayer())
++    {
++        Animation->TransitionTo(Clip, bLoop, !bLoop, .15f, Transition);
++        if (State == ENurseState::Chase)
++            UE_LOG(LogTemp, Display, TEXT("SPITTER_MOVE_SELECTED actor=%s index=%d clip=%s active=%s reference_speed=%.3f"),
++                *GetName(), SelectedMovementIndex, *GetNameSafe(Clip), *GetNameSafe(Animation->ActiveClip.Get()), MovementReferenceSpeed);
++    }
++}
++
++float ASpitterZombie::ApplyMeleeDamage(APawn* Victim)
++{
++    // Keep the victim passed by the contact check: a parry can synchronously
++    // interrupt this attack and clear the parent's target during damage handling.
++    const auto* VictimHealth = Victim->FindComponentByClass<UFPSCombatHealthComponent>();
++    const float HealthBefore = VictimHealth ? VictimHealth->Health : 0.f;
++    const float Applied = Super::ApplyMeleeDamage(Victim);
++    // Health can reject damage (for example Moonshadow) even if TakeDamage
++    // returns a positive amount. Poison requires actual surviving HP loss.
++    if (Applied > 0.f && IsValid(Victim) && VictimHealth &&
++        !VictimHealth->IsDead() && VictimHealth->Health < HealthBefore)
++    {
++        auto* Poison = Victim->FindComponentByClass<UMaggotPoisonComponent>();
++        if (!Poison)
++        {
++            Poison = NewObject<UMaggotPoisonComponent>(Victim);
++            Victim->AddInstanceComponent(Poison);
++            Poison->RegisterComponent();
++        }
++        Poison->AddStack(this);
++    }
++    return Applied;
++}
++
++void ASpitterZombie::SetAttackAnimationTime(float Seconds)
++{
++    if (auto* Animation = PosePlayer()) Animation->SetCombatTime(Seconds);
++}
++
++void ASpitterZombie::SetWalkAnimationRate(float)
++{
++    if (auto* Animation = PosePlayer()) Animation->SetLocomotionRate(FMath::Clamp(GetVelocity().Size2D()/MovementReferenceSpeed,0.f,3.5f));
++}
++
++void ASpitterZombie::StartHitPresentation(UAnimSequence* Clip, float)
++{
++    if (auto* Animation = PosePlayer()) Animation->BeginHitReaction(Clip, -GetActorForwardVector(), Combat->IsParryReaction());
++}
++
++void ASpitterZombie::SetHitPresentationTime(UAnimSequence*, float Elapsed, float Remaining)
++{
++    if (auto* Animation = PosePlayer()) Animation->SetHitReactionTime(Combat->IsParryReaction()?FMath::Max(0.f,Elapsed-.1f):Elapsed,Remaining);
++}
++
++float ASpitterZombie::TakeDamage(float Damage, const FDamageEvent& Event, AController* EventInstigator, AActor* Causer)
++{
++    if (HasAuthority() && State != ENurseState::Dead && Damage > 0.f)
++    {
++        // The parent stops movement and enters death synchronously. Capture the
++        // actual incoming hit and travel before that transition changes them.
++        DeathTravelVelocity = GetVelocity();
++        DeathHitDirection = FVector::ZeroVector;
++        DeathHitLocation = GetMesh()->GetSocketLocation(TEXT("Spine"));
++        if (Event.IsOfType(FPointDamageEvent::ClassID))
++        {
++            const auto& Point = static_cast<const FPointDamageEvent&>(Event);
++            DeathHitDirection = Point.ShotDirection.GetSafeNormal2D();
++            DeathHitLocation = Point.HitInfo.ImpactPoint;
++        }
++        else if (Event.IsOfType(FRadialDamageEvent::ClassID))
++        {
++            DeathHitDirection = (GetActorLocation()-static_cast<const FRadialDamageEvent&>(Event).Origin).GetSafeNormal2D();
++        }
++        if (DeathHitDirection.IsNearlyZero())
++        {
++            const AActor* Attacker = EventInstigator ? EventInstigator->GetPawn() : nullptr;
++            if (!Attacker && Causer != this) Attacker = Causer;
++            if (Attacker) DeathHitDirection = (GetActorLocation()-Attacker->GetActorLocation()).GetSafeNormal2D();
++        }
++    }
++    // Health, attack cancellation, existing knockdown continuity and kill rewards
++    // remain owned by the inherited damage entry.
++    return Super::TakeDamage(Damage, Event, EventInstigator, Causer);
++}
++
++void ASpitterZombie::StartDeathPresentation()
++{
++    GetWorldTimerManager().ClearTimer(RagdollTimer);
++    // Preserve the walking/attacking/hit pose at death. Playing the same death
++    // clip to 60% first was giving every corpse essentially the same starting pose.
++    StartRagdoll();
++}
++
++void ASpitterZombie::StartRagdoll()
++{
++    if (State!=ENurseState::Dead || !Knockdown) return;
++    auto* BodyMesh = GetMesh();
++    // StartDeath samples the current mesh pose before acquiring the existing
++    // world budget. DeathClip is only its no-budget/no-physics animation fallback.
++    Knockdown->StartDeath(DeathClip,0.f);
++    if (!BodyMesh->IsSimulatingPhysics()) return;
++
++    const auto* Pelvis = BodyMesh->GetBodyInstance(TEXT("Hips"));
++    const FVector Pivot = Pelvis ? Pelvis->GetCOMPosition() : BodyMesh->GetSocketLocation(TEXT("Hips"));
++    FVector Velocity = DeathTravelVelocity*.35f;
++    Velocity.Z = FMath::Min(0.,Velocity.Z);
++    Velocity = (Velocity+DeathHitDirection*FMath::FRandRange(85.f,110.f)).GetClampedToMaxSize(240.f);
++    const FVector Lever = (DeathHitLocation-Pivot).GetClampedToMaxSize(90.f)*.01f;
++    const FVector Angular = (FVector::CrossProduct(FVector::UpVector,DeathHitDirection)*.45f+
++        FVector::CrossProduct(Lever,DeathHitDirection)*.8f).GetClampedToMaxSize(1.3f);
++    for (FBodyInstance* Body : BodyMesh->Bodies)
++    {
++        if (!Body || !Body->IsInstanceSimulatingPhysics()) continue;
++        // Give the connected body coherent motion, including the non-colliding
++        // container root. Independent random limb impulses fight the joints.
++        Body->SetLinearVelocity(Velocity+FVector::CrossProduct(Angular,Body->GetCOMPosition()-Pivot),false);
++        Body->SetAngularVelocityInRadians(Angular,false);
++    }
++    BodyMesh->WakeAllRigidBodies();
++}
++
++void ASpitterZombie::EndPlay(const EEndPlayReason::Type Reason)
++{
++    GetWorldTimerManager().ClearTimer(RagdollTimer); Super::EndPlay(Reason);
++}
+diff --git a/Source/FPSGAME/Monsters/SpitterPhysics.cpp b/Source/FPSGAME/Monsters/SpitterPhysics.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Monsters/SpitterPhysics.cpp
+@@ -0,0 +1,71 @@
++#include "SpitterZombie.h"
++#include "Engine/SkeletalMesh.h"
++#include "PhysicsEngine/PhysicsAsset.h"
++#include "PhysicsEngine/SkeletalBodySetup.h"
++#include "PhysicsEngine/PhysicsConstraintTemplate.h"
++
++bool ASpitterZombie::PreparePhysics(USkeletalMesh* InMesh)
++{
++#if WITH_EDITOR
++    if(!InMesh || !InMesh->GetPhysicsAsset() || !InMesh->GetPathName().StartsWith(TEXT("/Game/Monsters/SpitterZombie/")))return false;
++    auto* Asset=InMesh->GetPhysicsAsset(); const auto& Ref=InMesh->GetRefSkeleton();
++    TArray<FTransform> Frames=Ref.GetRefBonePose();
++    for(int32 I=0;I<Frames.Num();++I)if(Ref.GetParentIndex(I)>=0)Frames[I]*=Frames[Ref.GetParentIndex(I)];
++    const int32 RootIndex=Ref.FindBoneIndex(TEXT("SpitterRoot"));
++    if(RootIndex==INDEX_NONE || Ref.FindBoneIndex(TEXT("Hips"))==INDEX_NONE)return false;
++    const TMap<FName,float> Masses={
++        {TEXT("SpitterRoot"),1.f},{TEXT("Hips"),9.f},{TEXT("Spine02"),8.f},{TEXT("Spine01"),7.f},{TEXT("Spine"),7.f},
++        {TEXT("neck"),1.f},{TEXT("Head"),4.f},{TEXT("LeftArm"),2.f},{TEXT("RightArm"),2.f},
++        {TEXT("LeftForeArm"),1.5f},{TEXT("RightForeArm"),1.5f},{TEXT("LeftHand"),.5f},{TEXT("RightHand"),.5f},
++        {TEXT("LeftUpLeg"),5.f},{TEXT("RightUpLeg"),5.f},{TEXT("LeftLeg"),3.f},{TEXT("RightLeg"),3.f},
++        {TEXT("LeftFoot"),1.f},{TEXT("RightFoot"),1.f}};
++    Asset->Modify(); Asset->ConstraintSetup.Reset(); Asset->CollisionDisableTable.Reset();
++    Asset->SkeletalBodySetups.RemoveAll([&](const auto& Body){return !Body || !Masses.Contains(Body->BoneName);});
++    Asset->UpdateBodySetupIndexMap();
++    if(Asset->FindBodyIndex(TEXT("SpitterRoot"))==INDEX_NONE)
++    {
++        auto* Root=NewObject<USkeletalBodySetup>(Asset,NAME_None,RF_Transactional);
++        Root->BoneName=TEXT("SpitterRoot"); FKSphereElem Sphere;
++        Sphere.Radius=1.f/Frames[RootIndex].GetScale3D().GetAbsMax(); Root->AggGeom.SphereElems.Add(Sphere);
++        Asset->SkeletalBodySetups.Insert(Root,0);
++    }
++    for(USkeletalBodySetup* Body:Asset->SkeletalBodySetups)
++    {
++        Body->Modify(); Body->CollisionTraceFlag=CTF_UseSimpleAsComplex; Body->PhysicsType=PhysType_Default;
++        Body->DefaultInstance.SetCollisionProfileName(TEXT("Ragdoll"));
++        Body->DefaultInstance.LinearDamping=.8f; Body->DefaultInstance.AngularDamping=2.5f;
++        Body->DefaultInstance.SetMassOverride(Masses.FindRef(Body->BoneName));
++        Body->DefaultInstance.bUseCCD=true;
++        Body->DefaultInstance.PositionSolverIterationCount=12; Body->DefaultInstance.VelocitySolverIterationCount=6;
++        if(Body->BoneName==TEXT("SpitterRoot"))
++        {Body->bConsiderForBounds=false;Body->DefaultInstance.SetCollisionEnabled(ECollisionEnabled::NoCollision);}
++        Body->InvalidatePhysicsData(); Body->CreatePhysicsMeshes();
++    }
++    Asset->UpdateBodySetupIndexMap();
++    for(int32 I=0;I<Asset->SkeletalBodySetups.Num();++I)
++    {
++        const FName Name=Asset->SkeletalBodySetups[I]->BoneName;
++        const int32 Bone=Ref.FindBoneIndex(Name); int32 Parent=Ref.GetParentIndex(Bone);
++        while(Parent>=0 && Asset->FindBodyIndex(Ref.GetBoneName(Parent))==INDEX_NONE)Parent=Ref.GetParentIndex(Parent);
++        if(Parent<0)continue;
++        auto* Joint=NewObject<UPhysicsConstraintTemplate>(Asset,NAME_None,RF_Transactional);
++        auto& C=Joint->DefaultInstance;
++        C.JointName=Name;C.ConstraintBone1=Name;C.ConstraintBone2=Ref.GetBoneName(Parent);
++        const FTransform Anchor(Frames[Bone].GetRotation(),Frames[Bone].GetLocation());
++        C.SetRefFrame(EConstraintFrame::Frame1,Anchor.GetRelativeTransform(Frames[Bone]));
++        C.SetRefFrame(EConstraintFrame::Frame2,Anchor.GetRelativeTransform(Frames[Parent]));
++        C.SetLinearXLimit(LCM_Locked,0);C.SetLinearYLimit(LCM_Locked,0);C.SetLinearZLimit(LCM_Locked,0);
++        const bool bRoot=C.ConstraintBone2==TEXT("SpitterRoot");
++        C.SetAngularSwing1Limit(bRoot?ACM_Locked:ACM_Limited,35.f);
++        C.SetAngularSwing2Limit(bRoot?ACM_Locked:ACM_Limited,30.f);
++        C.SetAngularTwistLimit(bRoot?ACM_Locked:ACM_Limited,25.f);
++        C.SetDisableCollision(true);
++        Asset->ConstraintSetup.Add(Joint);
++        Asset->DisableCollision(I,Asset->FindBodyIndex(C.ConstraintBone2));
++    }
++    Asset->UpdateBoundsBodiesArray();Asset->MarkPackageDirty();InMesh->MarkPackageDirty();
++    return true;
++#else
++    return false;
++#endif
++}
+diff --git a/Source/FPSGAME/Monsters/NurseZombie.h b/Source/FPSGAME/Monsters/NurseZombie.h
+--- a/Source/FPSGAME/Monsters/NurseZombie.h
++++ b/Source/FPSGAME/Monsters/NurseZombie.h
+@@ -59,0 +60,2 @@
++    // Called once after the shared contact checks consume this attack.
++    virtual float ApplyMeleeDamage(APawn* Victim);
+diff --git a/Source/FPSGAME/Monsters/NurseZombie.cpp b/Source/FPSGAME/Monsters/NurseZombie.cpp
+--- a/Source/FPSGAME/Monsters/NurseZombie.cpp
++++ b/Source/FPSGAME/Monsters/NurseZombie.cpp
+@@ -155 +155 @@
+-    UGameplayStatics::ApplyDamage(Target.Get(),AttackDamage,GetController(),this,UEnemyMeleeDamage::StaticClass());
++    ApplyMeleeDamage(Target.Get());
+@@ -157,0 +158,5 @@
++}
++
++float ANurseZombie::ApplyMeleeDamage(APawn* Victim)
++{
++    return UGameplayStatics::ApplyDamage(Victim,AttackDamage,GetController(),this,UEnemyMeleeDamage::StaticClass());
+diff --git a/Source/FPSGAME/Monsters/MonsterCombatComponent.cpp b/Source/FPSGAME/Monsters/MonsterCombatComponent.cpp
+--- a/Source/FPSGAME/Monsters/MonsterCombatComponent.cpp
++++ b/Source/FPSGAME/Monsters/MonsterCombatComponent.cpp
+@@ -38 +38 @@
+- {Health=N->Health;MaxHealth=N->MaxHealth;Name=FText::FromString(N->ActorHasTag(TEXT("Witch"))?TEXT("巫婆"):N->ActorHasTag(TEXT("Mutant3"))?TEXT("突变体-3"):N->ActorHasTag(TEXT("FatZombie"))?TEXT("胖子僵尸"):TEXT("护士僵尸"));return true;}
++ {Health=N->Health;MaxHealth=N->MaxHealth;Name=FText::FromString(N->ActorHasTag(TEXT("SpitterZombie"))?TEXT("毒液僵尸"):N->ActorHasTag(TEXT("Witch"))?TEXT("巫婆"):N->ActorHasTag(TEXT("Mutant3"))?TEXT("突变体-3"):N->ActorHasTag(TEXT("FatZombie"))?TEXT("胖子僵尸"):TEXT("护士僵尸"));return true;}
+diff --git a/Source/FPSGAME/Monsters/MonsterCoreStats.cpp b/Source/FPSGAME/Monsters/MonsterCoreStats.cpp
+--- a/Source/FPSGAME/Monsters/MonsterCoreStats.cpp
++++ b/Source/FPSGAME/Monsters/MonsterCoreStats.cpp
+@@ -11,0 +12 @@
++#include "SpitterZombie.h"
+@@ -54,0 +56 @@
++    else if(const auto* Sp=Cast<ASpitterZombie>(Target)){Fill(36,10,20,8.28,Sp->Level,Sp->Rank,EMonsterToughnessClass::Light);} // {22,38,10,20,6,5}
+diff --git a/Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp b/Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp
+--- a/Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp
++++ b/Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp
+@@ -24,0 +25 @@
++    Add(TEXT("SpitterZombie"), TEXT("毒液僵尸"), TEXT("/Game/Monsters/SpitterZombie/BP_SpitterZombie.BP_SpitterZombie_C"), 44.f);
+diff --git a/Source/FPSGAME/Monsters/HumanoidKnockdownComponent.cpp b/Source/FPSGAME/Monsters/HumanoidKnockdownComponent.cpp
+--- a/Source/FPSGAME/Monsters/HumanoidKnockdownComponent.cpp
++++ b/Source/FPSGAME/Monsters/HumanoidKnockdownComponent.cpp
+@@ -284 +284 @@
+-            Joint->ConstraintBone2!=TEXT("Mutant3Root"))) continue;
++            Joint->ConstraintBone2!=TEXT("Mutant3Root") && Joint->ConstraintBone2!=TEXT("SpitterRoot"))) continue;
+@@ -325 +325 @@
+-        if (Bone==TEXT("FatZombieRoot") || Bone==TEXT("Mutant3Root"))
++        if (Bone==TEXT("FatZombieRoot") || Bone==TEXT("Mutant3Root") || Bone==TEXT("SpitterRoot"))
+@@ -337 +337 @@
+-        Body->SetUseCCD(Bone!=TEXT("FatZombieRoot") && Bone!=TEXT("Mutant3Root"));
++        Body->SetUseCCD(Bone!=TEXT("FatZombieRoot") && Bone!=TEXT("Mutant3Root") && Bone!=TEXT("SpitterRoot"));

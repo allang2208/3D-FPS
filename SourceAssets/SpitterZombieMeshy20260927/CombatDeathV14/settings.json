@@ -1,0 +1,16 @@
+{
+  "revision": "CombatDeathV14-20260929",
+  "attack_range_base_cm": 145.0,
+  "distance_scale": 1.5,
+  "contact_limit_cm": 217.5,
+  "attack_entry_limit_cm": 202.5,
+  "navigation_stop_range_cm": 187.5,
+  "death_policy": "current_pose_budgeted_ragdoll_with_hit_direction_and_travel",
+  "movement_velocity_fraction": 0.35,
+  "hit_velocity_min_cm_s": 85.0,
+  "hit_velocity_max_cm_s": 110.0,
+  "maximum_initial_linear_speed_cm_s": 240.0,
+  "maximum_initial_angular_speed_rad_s": 1.3,
+  "death_clip_policy": "physics_budget_unavailable_fallback_only",
+  "runtime_tested": false
+}
