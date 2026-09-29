@@ -3,6 +3,10 @@
 No Unreal process or mesh mutation is required. Current PIE reads the new recipe
 on the next session; this does not end or restart the user's active game.
 """
+
+if __name__ == "__main__":
+    raise RuntimeError("Historical garment publication retired. Use garment_pipeline.py candidates and gate; do not overwrite current rig-specific repairs.")
+
 import json
 import shutil
 from pathlib import Path

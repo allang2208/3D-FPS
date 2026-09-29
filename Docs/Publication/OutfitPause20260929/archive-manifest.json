@@ -1,0 +1,79 @@
+[
+  {
+    "source": "SourceAssets/SVDRuntimeDiagnosis20260929/camera_probe.py",
+    "destination": "trash/svd-outfit-pause-20260929/SourceAssets/SVDRuntimeDiagnosis20260929/camera_probe.py",
+    "bytes": 883,
+    "sha256": "723033be4ecc2a861ed3841736f9b646699ac5764147dda794d7438a0cdf99f8",
+    "reason": "Superseded or failed diagnostic/LOD authoring attempt; retained final V3 recipe and current diagnostic evidence"
+  },
+  {
+    "source": "SourceAssets/SVDRuntimeDiagnosis20260929/capture_status.py",
+    "destination": "trash/svd-outfit-pause-20260929/SourceAssets/SVDRuntimeDiagnosis20260929/capture_status.py",
+    "bytes": 133,
+    "sha256": "b647973124ef10529108f9c769d166aee49d0868f1cf8dcbc880a88b3cd286fe",
+    "reason": "Superseded or failed diagnostic/LOD authoring attempt; retained final V3 recipe and current diagnostic evidence"
+  },
+  {
+    "source": "SourceAssets/SVDRuntimeDiagnosis20260929/collect-console.txt",
+    "destination": "trash/svd-outfit-pause-20260929/SourceAssets/SVDRuntimeDiagnosis20260929/collect-console.txt",
+    "bytes": 37620,
+    "sha256": "42fb3b6ba6a75c46e20c9667406adfc10f05d3a786b525412cedfaef66befce3",
+    "reason": "Superseded or failed diagnostic/LOD authoring attempt; retained final V3 recipe and current diagnostic evidence"
+  },
+  {
+    "source": "SourceAssets/SVDRuntimeDiagnosis20260929/collect2-console.txt",
+    "destination": "trash/svd-outfit-pause-20260929/SourceAssets/SVDRuntimeDiagnosis20260929/collect2-console.txt",
+    "bytes": 37326,
+    "sha256": "77582973a516a60ab6b189c78a925db839dc5de2ab7f2b27ec58f45abdbf9c9e",
+    "reason": "Superseded or failed diagnostic/LOD authoring attempt; retained final V3 recipe and current diagnostic evidence"
+  },
+  {
+    "source": "SourceAssets/SVDRuntimeDiagnosis20260929/collect2.log",
+    "destination": "trash/svd-outfit-pause-20260929/SourceAssets/SVDRuntimeDiagnosis20260929/collect2.log",
+    "bytes": 291680,
+    "sha256": "b5da7ad6581ffee436c71bf37c97ca848526a3f097e874c7f1fbff480a439ac2",
+    "reason": "Superseded or failed diagnostic/LOD authoring attempt; retained final V3 recipe and current diagnostic evidence"
+  },
+  {
+    "source": "SourceAssets/SVDRuntimeDiagnosis20260929/status-response.txt",
+    "destination": "trash/svd-outfit-pause-20260929/SourceAssets/SVDRuntimeDiagnosis20260929/status-response.txt",
+    "bytes": 653,
+    "sha256": "c0a43a373383868ad97dfa9d5679ec8789b3f5777e75c532a12be268734d2161",
+    "reason": "Superseded or failed diagnostic/LOD authoring attempt; retained final V3 recipe and current diagnostic evidence"
+  },
+  {
+    "source": "SourceAssets/GarmentFoundation20260929/install_edge_locked.py",
+    "destination": "trash/svd-outfit-pause-20260929/SourceAssets/GarmentFoundation20260929/install_edge_locked.py",
+    "bytes": 1008,
+    "sha256": "622e4354c08d78e344425452a820bb2b2ac59122f556de4eb0bf0be4c2358976",
+    "reason": "Superseded or failed diagnostic/LOD authoring attempt; retained final V3 recipe and current diagnostic evidence"
+  },
+  {
+    "source": "SourceAssets/GarmentFoundation20260929/install_edge_locked_v2.py",
+    "destination": "trash/svd-outfit-pause-20260929/SourceAssets/GarmentFoundation20260929/install_edge_locked_v2.py",
+    "bytes": 1012,
+    "sha256": "533d8334f7d73ecec0e440b8d630fb2c4e8c0899d4368787e9f07b26e3ff634d",
+    "reason": "Superseded or failed diagnostic/LOD authoring attempt; retained final V3 recipe and current diagnostic evidence"
+  },
+  {
+    "source": "SourceAssets/SVDRuntimeDiagnosis20260929/pause_publication.py",
+    "destination": "trash/svd-outfit-pause-20260929/SourceAssets/SVDRuntimeDiagnosis20260929/pause_publication.py",
+    "bytes": 7570,
+    "sha256": "55fb0685694019d88627799f44dcbb5482111a164fd4dffec1b301dc7eb27cb1",
+    "reason": "One-off publication setup completed; not a reusable production entry"
+  },
+  {
+    "source": "SourceAssets/SVDRuntimeDiagnosis20260929/stage_publication.py",
+    "destination": "trash/svd-outfit-pause-20260929/SourceAssets/SVDRuntimeDiagnosis20260929/stage_publication.py",
+    "bytes": 5272,
+    "sha256": "463ae6bc853d02b1ceecdefd1136e8a962f5a41a9f443b7204e98737838c013d",
+    "reason": "One-off publication setup completed; not a reusable production entry"
+  },
+  {
+    "source": "SourceAssets/SVDRuntimeDiagnosis20260929/stage_isolated.py",
+    "destination": "trash/svd-outfit-pause-20260929/SourceAssets/SVDRuntimeDiagnosis20260929/stage_isolated.py",
+    "bytes": 1744,
+    "sha256": "b715e114e0db6a38275db48f93fce8269506350395727c4c675bc99a9c99c334",
+    "reason": "One-off publication setup completed; not a reusable production entry"
+  }
+]

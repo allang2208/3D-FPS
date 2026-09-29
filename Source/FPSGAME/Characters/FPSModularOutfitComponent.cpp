@@ -331,7 +331,13 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
     // Cover the body only once the entire mesh/material recipe is resident.
     auto* Base=NewParts[0].Get();const auto* BaseData=Base->GetSkeletalMeshAsset()->GetResourceForRendering();
     TArray<int32> Covered;
-    if(Shirt)Covered.Append(Numbers(Profile,TEXT("shirt_covers")));
+    if(Shirt)
+    {
+        // Short sleeves retain the native arms. Body coverage is independent
+        // because its torso section does not exist on first-person profiles.
+        const TCHAR* CoverageKey=bWorld&&Shirt->HasField(TEXT("world_covers"))?TEXT("world_covers"):TEXT("covers");
+        Covered.Append(Shirt->HasField(CoverageKey)?Numbers(Shirt,CoverageKey):Numbers(Profile,TEXT("shirt_covers")));
+    }
     // Open-finger gloves keep the exposed skin sections in the assembled base.
     // Missing per-item coverage preserves the existing full-glove recipe.
     if(Gloves)Covered.Append(Gloves->HasField(TEXT("covers"))?Numbers(Gloves,TEXT("covers")):Numbers(Profile,TEXT("glove_covers")));

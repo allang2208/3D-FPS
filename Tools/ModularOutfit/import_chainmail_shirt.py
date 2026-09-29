@@ -1,4 +1,8 @@
 """Save the new mail-shirt assets, then publish only its equipment recipe."""
+
+if __name__ == "__main__":
+    raise RuntimeError("Historical garment publication retired. Use garment_pipeline.py candidates and gate; do not overwrite current rig-specific repairs.")
+
 import hashlib
 import json
 import shutil

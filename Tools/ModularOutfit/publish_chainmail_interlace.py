@@ -1,4 +1,8 @@
 """Publish only the completed chainmail family, retaining current gameplay data."""
+
+if __name__ == "__main__":
+    raise RuntimeError("Historical garment publication retired. Use garment_pipeline.py candidates and gate; do not overwrite current rig-specific repairs.")
+
 import json
 import shutil
 from pathlib import Path

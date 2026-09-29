@@ -170,7 +170,9 @@ for key,entry in INPUTS.items():
         [master_uv[i] for i in chosen],materials=['Fabric'])
     if not world:
         bm=bmesh.new();bm.from_mesh(garment.data)
-        bmesh.ops.holes_fill(bm,edges=[e for e in bm.edges if e.is_boundary],sides=0)
+        # A sleeve opens towards the torso. Filling every boundary generated the
+        # SVD shoulder sheets. Wrist thickness/rims belong to the sleeve tailor,
+        # which must explicitly select that contour; never cap unknown openings.
         bmesh.ops.recalc_face_normals(bm,faces=list(bm.faces));bm.to_mesh(garment.data);bm.free()
     bind(garment,rig)
 

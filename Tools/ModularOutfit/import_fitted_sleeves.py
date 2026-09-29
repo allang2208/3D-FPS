@@ -1,4 +1,8 @@
 """Save native-bound fitted sleeves, then publish the two field-sweater recipes."""
+
+if __name__ == "__main__":
+    raise RuntimeError("Historical garment publication retired. Use garment_pipeline.py candidates and gate; do not overwrite current rig-specific repairs.")
+
 import hashlib
 import json
 from pathlib import Path

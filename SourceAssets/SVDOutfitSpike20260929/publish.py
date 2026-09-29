@@ -1,0 +1,28 @@
+import json
+from pathlib import Path
+P=Path('D:/FPS3D/FPSGAME');R=P/'SourceAssets/SVDOutfitSpike20260929';cfg=P/'Content/ColdSteelData/modular_outfits.json'
+def read(p):return json.loads(p.read_text(encoding='utf-8-sig'))
+saved=read(R/'saved.json');before=read(R/'spikes.json');after=read(R/'fixed-spikes.json');poses=read(R/'poses.json');c=read(cfg)
+if len(saved)!=3 or len(after)!=3:raise RuntimeError('Incomplete assets')
+for name,v in saved.items():
+ if c['items'][name]['rig_meshes']['SVD']!=v['source']:raise RuntimeError('Concurrent SVD outfit change '+name)
+ if after[name+'_fixed']['reload']['max_cm']>=before[name+'_rig_meshes']['reload']['max_cm']:raise RuntimeError('No improvement')
+(R/'config-before-publication.json').write_text(json.dumps(c,ensure_ascii=False,indent=2),encoding='utf-8')
+for name,v in saved.items():c['items'][name]['rig_meshes']['SVD']=v['asset']
+cfg.write_text(json.dumps(c,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');(R/'published.json').write_text(json.dumps(saved,indent=2))
+lines=['# SVD 肩部异常面修复 — 2026-09-29','',
+'用户反馈：换弹和 ADS 时，上方出现疑似右臂拉伸条带。','',
+'## 定位','',
+'逐层读取当前 SVD 原生骨架、裸臂、伴随皮肤、四类手套和三款衣袖。装备与原生骨架的参考变换一致；裸臂和手套未出现同等级异常长边。衣袖继承了早期 author_equipment.py 中 holes_fill 自动封洞产生的肩部跨接面：208 个封面及 32 个重叠副本。原始参考网格中已有约 18.17 cm 的跨度，上轮只改蒙皮权重没有移除这些面。','',
+'## 已完成','',
+'为 SVD 单独保存锁子甲、橄榄长袖、炭灰 T 恤三套新网格，分别移除 240 个错误肩部封面；肩部朝躯干保持自然开口，保留实际衣袖表面、内外层和手腕/短袖袖口。锁子甲保留前次权重，另外两款衣物重新匹配同侧 V7 手臂权重。重建三档 LOD，仅替换三条 SVD rig_meshes 引用。武器动作、ADS 参数、裸臂、手套和其他枪型未修改。','',
+'## 针对性离线排查','',
+'读取保存后的真实顶点、三角形和权重，按 UE 压缩姿态计算 LOD0 蒙皮。包含 10 条普通/空仓及握把换弹，以及 15 条 idle/aim/aim_fire 动画，共 25 条、560 个采样姿态。换弹沿用 10 Hz 加端点；idle/aim/aim_fire 各取 11 帧。','',
+'下表为所有三角形边的最大绝对长度（cm），用于定位跨接面；不代表皮肤穿模面积或镜头可见面积。','',
+'| 衣物 | 换弹修复前 → 后 | ADS/待机修复前 → 后 |','|---|---:|---:|']
+for name,label in [('ue_chainmail_shirt','锁子甲'),('ue_field_sweater','橄榄长袖'),('ue_field_sweater_charcoal','炭灰 T 恤')]:
+ a=before[name+'_rig_meshes'];b=after[name+'_fixed'];lines.append(f"| {label} | {a['reload']['max_cm']:.2f} → {b['reload']['max_cm']:.2f} | {a['ADS_idle']['max_cm']:.2f} → {b['ADS_idle']['max_cm']:.2f} |")
+lines+=['','未打开或重启编辑器，未启动游戏。运行时镜头、动态 IK 与实际遮挡仍需用户实机复测，离线结果不等同于最终画面验收。','',
+'资产：`/Game/Characters/ModularOutfit20260924/SVDShoulderOpening20260929/`。制作脚本、源层诊断、保存后对比及发布前配置快照：`SourceAssets/SVDOutfitSpike20260929/`。']
+(P/'Docs/Characters/svd-shoulder-spike-20260929.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+print('SVD_SHOULDER_PUBLISHED',list(saved))

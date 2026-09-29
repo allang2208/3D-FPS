@@ -1,4 +1,8 @@
 """Publish the complete shared-layer family after its native module is built."""
+
+if __name__ == "__main__":
+    raise RuntimeError("Historical garment publication retired. Use garment_pipeline.py candidates and gate; do not overwrite current rig-specific repairs.")
+
 import json
 from pathlib import Path
 P=Path('D:/FPS3D/FPSGAME');R=P/'SourceAssets/ChainmailSharedSway20260929'

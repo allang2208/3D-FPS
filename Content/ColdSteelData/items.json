@@ -3238,14 +3238,14 @@
     "grid_w": 3,
     "grid_h": 3,
     "desc": "厚实针织长袖，配有收口袖缘，可与短手套独立搭配。",
-    "ue_icon": "Icons/ModularOutfit20260924/ue_field_sweater.png",
+    "ue_icon": "Icons/FieldSweaterKnit20260929/ue_field_sweater.png",
     "icon_fallback": "衣",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/Pickups/SM_FieldSweater_Pickup.SM_FieldSweater_Pickup",
-    "world_material": "/Game/Characters/ModularOutfit20260924/Materials/M_FieldSweater_Olive.M_FieldSweater_Olive"
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Pickups/SM_Olive_Garment.SM_Olive_Garment",
+    "world_material": ""
   },
   "ue_field_sweater_charcoal": {
     "id": "ue_field_sweater_charcoal",
-    "name": "炭灰长袖上衣",
+    "name": "炭灰短袖 T恤",
     "category": "equipment",
     "type": "上衣",
     "equipSlot": "armor",
@@ -3255,11 +3255,11 @@
     "price": 35,
     "grid_w": 3,
     "grid_h": 3,
-    "desc": "厚实针织长袖，配有收口袖缘，可与短手套独立搭配。",
-    "ue_icon": "Icons/ModularOutfit20260924/ue_field_sweater_charcoal.png",
+    "desc": "炭灰色细密棉布短袖 T恤，上臂袖口向内卷边，露出下段上臂和前臂，可与手套独立搭配。",
+    "ue_icon": "Icons/FieldSweaterKnit20260929/ue_field_sweater_charcoal.png",
     "icon_fallback": "衣",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/Pickups/SM_FieldSweater_Pickup.SM_FieldSweater_Pickup",
-    "world_material": "/Game/Characters/ModularOutfit20260924/Materials/M_FieldSweater_Charcoal.M_FieldSweater_Charcoal"
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Pickups/SM_Charcoal_Garment.SM_Charcoal_Garment",
+    "world_material": ""
   },
   "ue_field_gloves": {
     "id": "ue_field_gloves",
