@@ -1,0 +1,665 @@
+{
+ "A762": {
+  "path": "/Game/Weapons/A762/Integrated20260920/SK_A762_Manny.SK_A762_Manny",
+  "slots": {
+   "M_A762_Bolt": {
+    "index": 0,
+    "material": "/Game/Weapons/A762/Refinement01/Materials/M_A762_Bolt.M_A762_Bolt",
+    "triangles": 3283,
+    "area_cm2": 18.03,
+    "uv_area": 0.00302,
+    "uv_bounds": [
+     0.0022,
+     0.003,
+     0.9998,
+     0.9994
+    ],
+    "uv_union": 0.00365,
+    "overlap_ratio": 0.827,
+    "uv_per_cm": 0.01294,
+    "bbox_cm": [
+     5.77,
+     -29.44,
+     -9.32,
+     7.04,
+     -10.45,
+     -6.61
+    ]
+   },
+   "M_A762_Inside": {
+    "index": 1,
+    "material": "/Game/Weapons/A762/Refinement01/Materials/M_A762_Inside.M_A762_Inside",
+    "triangles": 3,
+    "area_cm2": 0.0,
+    "uv_area": 1.5,
+    "uv_bounds": [
+     0.0,
+     0.0,
+     1.0,
+     1.0
+    ],
+    "uv_union": 0.00049,
+    "overlap_ratio": 3066.012,
+    "uv_per_cm": 29.11858,
+    "bbox_cm": [
+     4.55,
+     -18.88,
+     -7.69,
+     4.61,
+     -18.86,
+     -7.62
+    ]
+   },
+   "M_A762_FactoryRearGrip": {
+    "index": 2,
+    "material": "/Game/Weapons/A762/Refinement01/Materials/M_A762_FactoryRearGrip.M_A762_FactoryRearGrip",
+    "triangles": 10465,
+    "area_cm2": 160.45,
+    "uv_area": 0.01369,
+    "uv_bounds": [
+     0.0169,
+     0.1344,
+     0.9849,
+     0.9997
+    ],
+    "uv_union": 0.01468,
+    "overlap_ratio": 0.933,
+    "uv_per_cm": 0.00924,
+    "bbox_cm": [
+     4.38,
+     -14.14,
+     -19.81,
+     8.19,
+     -4.05,
+     -8.48
+    ]
+   },
+   "M_A762_FactoryStock_Seam04": {
+    "index": 3,
+    "material": "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Seam04.M_A762_FactoryStock_Seam04",
+    "triangles": 10396,
+    "area_cm2": 63.48,
+    "uv_area": 8.13617,
+    "uv_bounds": [
+     -0.4919,
+     -10.3796,
+     11.3888,
+     2.656
+    ],
+    "uv_union": 0.84177,
+    "overlap_ratio": 9.666,
+    "uv_per_cm": 0.35802,
+    "bbox_cm": [
+     3.74,
+     14.0,
+     -14.43,
+     7.08,
+     17.27,
+     -1.66
+    ]
+   },
+   "M_A762_FrontAssembly_Rebuilt": {
+    "index": 4,
+    "material": "/Game/Weapons/A762/Refinement02/Materials/M_A762_FrontAssembly_Rebuilt.M_A762_FrontAssembly_Rebuilt",
+    "triangles": 13564,
+    "area_cm2": 370.78,
+    "uv_area": 44.44115,
+    "uv_bounds": [
+     -18.738,
+     -2.276,
+     0.5602,
+     19.738
+    ],
+    "uv_union": 0.97546,
+    "overlap_ratio": 45.559,
+    "uv_per_cm": 0.34621,
+    "bbox_cm": [
+     3.9,
+     -66.42,
+     -6.84,
+     6.93,
+     -20.27,
+     -0.77
+    ]
+   },
+   "M_A762_UpperReceiver03": {
+    "index": 5,
+    "material": "/Game/Weapons/A762/Refinement03/Materials/M_A762_UpperReceiver03.M_A762_UpperReceiver03",
+    "triangles": 5764,
+    "area_cm2": 714.2,
+    "uv_area": 90.41511,
+    "uv_bounds": [
+     -13.3563,
+     -3.2481,
+     4.2481,
+     14.3562
+    ],
+    "uv_union": 0.74496,
+    "overlap_ratio": 121.369,
+    "uv_per_cm": 0.3558,
+    "bbox_cm": [
+     3.03,
+     -51.47,
+     -7.13,
+     7.31,
+     -2.57,
+     0.14
+    ]
+   },
+   "M_A762_Flash_Hider": {
+    "index": 6,
+    "material": "/Game/Weapons/A762/Refinement01/Materials/M_A762_Flash_Hider.M_A762_Flash_Hider",
+    "triangles": 5696,
+    "area_cm2": 98.33,
+    "uv_area": 11.53913,
+    "uv_bounds": [
+     -21.1133,
+     -1.4426,
+     0.5044,
+     22.1133
+    ],
+    "uv_union": 0.97047,
+    "overlap_ratio": 11.89,
+    "uv_per_cm": 0.34257,
+    "bbox_cm": [
+     3.87,
+     -73.02,
+     -5.79,
+     6.61,
+     -66.07,
+     -3.05
+    ]
+   },
+   "M_A762_Rail": {
+    "index": 7,
+    "material": "/Game/Weapons/A762/Refinement01/Materials/M_A762_Rail.M_A762_Rail",
+    "triangles": 11076,
+    "area_cm2": 372.46,
+    "uv_area": 92.14389,
+    "uv_bounds": [
+     -16.45,
+     -3.975,
+     1.75,
+     17.45
+    ],
+    "uv_union": 0.26958,
+    "overlap_ratio": 341.807,
+    "uv_per_cm": 0.49739,
+    "bbox_cm": [
+     3.77,
+     -47.27,
+     -1.0,
+     5.97,
+     -10.87,
+     0.15
+    ]
+   },
+   "M_A762_RearSight03": {
+    "index": 8,
+    "material": "/Game/Weapons/A762/Refinement03/Materials/M_A762_RearSight03.M_A762_RearSight03",
+    "triangles": 1660,
+    "area_cm2": 33.67,
+    "uv_area": 0.68918,
+    "uv_bounds": [
+     0.0051,
+     0.0664,
+     0.9949,
+     0.9949
+    ],
+    "uv_union": 0.7005,
+    "overlap_ratio": 0.984,
+    "uv_per_cm": 0.14307,
+    "bbox_cm": [
+     3.7,
+     -11.7,
+     -0.49,
+     6.04,
+     -7.8,
+     0.75
+    ]
+   },
+   "M_A762_Receiver": {
+    "index": 9,
+    "material": "/Game/Weapons/A762/Refinement01/Materials/M_A762_Receiver.M_A762_Receiver",
+    "triangles": 99809,
+    "area_cm2": 846.31,
+    "uv_area": 0.1585,
+    "uv_bounds": [
+     0.0,
+     0.0001,
+     1.0,
+     1.0
+    ],
+    "uv_union": 0.18073,
+    "overlap_ratio": 0.877,
+    "uv_per_cm": 0.01369,
+    "bbox_cm": [
+     2.73,
+     -33.72,
+     -11.98,
+     7.59,
+     -5.57,
+     -1.95
+    ]
+   },
+   "M_A762_Trigger": {
+    "index": 10,
+    "material": "/Game/Weapons/A762/Refinement01/Materials/M_A762_Trigger.M_A762_Trigger",
+    "triangles": 2197,
+    "area_cm2": 13.62,
+    "uv_area": 0.00639,
+    "uv_bounds": [
+     0.0076,
+     0.0825,
+     0.98,
+     0.9728
+    ],
+    "uv_union": 0.00726,
+    "overlap_ratio": 0.88,
+    "uv_per_cm": 0.02166,
+    "bbox_cm": [
+     4.42,
+     -22.07,
+     -9.59,
+     6.71,
+     -18.51,
+     -6.46
+    ]
+   },
+   "M_A762_FactoryStock_Rubber04": {
+    "index": 11,
+    "material": "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Rubber04.M_A762_FactoryStock_Rubber04",
+    "triangles": 28860,
+    "area_cm2": 83.06,
+    "uv_area": 10.33326,
+    "uv_bounds": [
+     -0.4901,
+     -10.6626,
+     11.7017,
+     2.656
+    ],
+    "uv_union": 0.88504,
+    "overlap_ratio": 11.675,
+    "uv_per_cm": 0.35271,
+    "bbox_cm": [
+     3.7,
+     16.78,
+     -14.44,
+     7.11,
+     18.21,
+     -1.66
+    ]
+   },
+   "M_A762_FrontSight_Rebuilt": {
+    "index": 12,
+    "material": "/Game/Weapons/A762/Refinement02/Materials/M_A762_FrontSight_Rebuilt.M_A762_FrontSight_Rebuilt",
+    "triangles": 1922,
+    "area_cm2": 19.35,
+    "uv_area": 0.59876,
+    "uv_bounds": [
+     0.0056,
+     0.0355,
+     0.9944,
+     0.9944
+    ],
+    "uv_union": 0.60637,
+    "overlap_ratio": 0.987,
+    "uv_per_cm": 0.17589,
+    "bbox_cm": [
+     4.11,
+     -64.42,
+     -2.54,
+     5.97,
+     -62.62,
+     -0.49
+    ]
+   },
+   "M_A762_FactoryStock_Socket03": {
+    "index": 13,
+    "material": "/Game/Weapons/A762/Refinement03/Materials/M_A762_FactoryStock_Socket03.M_A762_FactoryStock_Socket03",
+    "triangles": 2304,
+    "area_cm2": 19.51,
+    "uv_area": 2.27616,
+    "uv_bounds": [
+     -0.2219,
+     -3.608,
+     4.608,
+     -0.2843
+    ],
+    "uv_union": 0.60577,
+    "overlap_ratio": 3.757,
+    "uv_per_cm": 0.34158,
+    "bbox_cm": [
+     4.39,
+     -3.47,
+     -6.29,
+     5.98,
+     -1.57,
+     -1.79
+    ]
+   },
+   "M_A762_FactoryStock_Metal04": {
+    "index": 14,
+    "material": "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04",
+    "triangles": 15568,
+    "area_cm2": 328.08,
+    "uv_area": 40.42577,
+    "uv_bounds": [
+     -0.4578,
+     -10.3775,
+     11.3904,
+     2.656
+    ],
+    "uv_union": 0.98125,
+    "overlap_ratio": 41.198,
+    "uv_per_cm": 0.35103,
+    "bbox_cm": [
+     3.8,
+     -3.07,
+     -14.43,
+     7.05,
+     17.31,
+     -1.66
+    ]
+   },
+   "M_A762_Magazine_Rebuilt": {
+    "index": 15,
+    "material": "/Game/Weapons/A762/Refinement02/Materials/M_A762_Magazine_Rebuilt.M_A762_Magazine_Rebuilt",
+    "triangles": 3950,
+    "area_cm2": 530.54,
+    "uv_area": 66.76096,
+    "uv_bounds": [
+     -7.5132,
+     -0.08,
+     0.427,
+     8.524
+    ],
+    "uv_union": 0.93969,
+    "overlap_ratio": 71.046,
+    "uv_per_cm": 0.35473,
+    "bbox_cm": [
+     4.56,
+     -29.13,
+     -26.01,
+     8.23,
+     -14.63,
+     -9.3
+    ]
+   },
+   "M_A762_MagazineInside_Rebuilt": {
+    "index": 16,
+    "material": "/Game/Weapons/A762/Refinement02/Materials/M_A762_MagazineInside_Rebuilt.M_A762_MagazineInside_Rebuilt",
+    "triangles": 450,
+    "area_cm2": 48.05,
+    "uv_area": 6.31353,
+    "uv_bounds": [
+     -4.7121,
+     -0.08,
+     0.337,
+     5.7304
+    ],
+    "uv_union": 0.32206,
+    "overlap_ratio": 19.603,
+    "uv_per_cm": 0.3625,
+    "bbox_cm": [
+     4.8,
+     -21.37,
+     -10.64,
+     6.65,
+     -14.93,
+     -9.32
+    ]
+   },
+   "M_A762_SightInner": {
+    "index": 17,
+    "material": "/Game/Weapons/A762/Refinement01/Materials/M_A762_SightInner.M_A762_SightInner",
+    "triangles": 10854,
+    "area_cm2": 237.5,
+    "uv_area": 27.97021,
+    "uv_bounds": [
+     -18.738,
+     -3.608,
+     4.608,
+     19.738
+    ],
+    "uv_union": 0.98543,
+    "overlap_ratio": 28.384,
+    "uv_per_cm": 0.34318,
+    "bbox_cm": [
+     3.25,
+     -66.42,
+     -6.81,
+     7.13,
+     -1.57,
+     -0.23
+    ]
+   },
+   "M_A762_MagazineEdge_Rebuilt": {
+    "index": 18,
+    "material": "/Game/Weapons/A762/Refinement02/Materials/M_A762_MagazineEdge_Rebuilt.M_A762_MagazineEdge_Rebuilt",
+    "triangles": 4420,
+    "area_cm2": 127.54,
+    "uv_area": 15.25295,
+    "uv_bounds": [
+     -7.6019,
+     -0.1484,
+     0.4809,
+     8.6124
+    ],
+    "uv_union": 0.93246,
+    "overlap_ratio": 16.358,
+    "uv_per_cm": 0.34582,
+    "bbox_cm": [
+     4.56,
+     -29.37,
+     -26.28,
+     8.41,
+     -14.14,
+     -9.12
+    ]
+   },
+   "M_A762_Handguard03": {
+    "index": 19,
+    "material": "/Game/Weapons/A762/Refinement03/Materials/M_A762_Handguard03.M_A762_Handguard03",
+    "triangles": 15348,
+    "area_cm2": 354.81,
+    "uv_area": 44.41347,
+    "uv_bounds": [
+     -13.248,
+     -1.9607,
+     0.7849,
+     14.248
+    ],
+    "uv_union": 0.95784,
+    "overlap_ratio": 46.368,
+    "uv_per_cm": 0.3538,
+    "bbox_cm": [
+     2.74,
+     -51.17,
+     -7.0,
+     7.69,
+     -33.57,
+     -1.32
+    ]
+   },
+   "MI_Manny_01": {
+    "index": 20,
+    "material": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Materials/MI_BareNative_Default.MI_BareNative_Default",
+    "triangles": 5946,
+    "area_cm2": 1498.89,
+    "uv_area": 0.14414,
+    "uv_bounds": [
+     0.6121,
+     0.624,
+     0.9784,
+     0.9556
+    ],
+    "uv_union": 0.07251,
+    "overlap_ratio": 1.988,
+    "uv_per_cm": 0.00981,
+    "bbox_cm": [
+     -32.32,
+     -3.66,
+     -41.78,
+     32.33,
+     11.22,
+     -10.91
+    ]
+   },
+   "MI_Manny_02": {
+    "index": 21,
+    "material": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Materials/MI_BareNative_Default.MI_BareNative_Default",
+    "triangles": 31176,
+    "area_cm2": 2848.88,
+    "uv_area": 0.41325,
+    "uv_bounds": [
+     0.0075,
+     0.04,
+     0.98,
+     0.992
+    ],
+    "uv_union": 0.28326,
+    "overlap_ratio": 1.459,
+    "uv_per_cm": 0.01204,
+    "bbox_cm": [
+     -55.44,
+     -27.44,
+     -73.31,
+     55.44,
+     8.54,
+     -30.69
+    ]
+   }
+  },
+  "bbox_cm": [
+   -55.44,
+   -73.02,
+   -73.31,
+   55.44,
+   18.21,
+   0.75
+  ]
+ },
+ "A762_RearSight": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_RearSight.SM_A762_RearSight",
+  "slots": {
+   "M_A762_RearSight03": {
+    "index": 0,
+    "material": "/Game/Weapons/A762/Refinement03/Materials/M_A762_RearSight03.M_A762_RearSight03",
+    "triangles": 4660,
+    "area_cm2": 17.08,
+    "uv_area": 0.5412,
+    "uv_bounds": [
+     0.0065,
+     0.0088,
+     0.9935,
+     0.9935
+    ],
+    "uv_union": 0.55084,
+    "overlap_ratio": 0.982,
+    "uv_per_cm": 0.17803,
+    "bbox_cm": [
+     -1.17,
+     -0.8,
+     -0.85,
+     1.16,
+     0.69,
+     1.1
+    ]
+   },
+   "M_A762_SightInner": {
+    "index": 1,
+    "material": "/Game/Weapons/A762/Refinement01/Materials/M_A762_SightInner.M_A762_SightInner",
+    "triangles": 1440,
+    "area_cm2": 1.71,
+    "uv_area": 0.05394,
+    "uv_bounds": [
+     0.012,
+     0.016,
+     0.9773,
+     0.9911
+    ],
+    "uv_union": 0.05563,
+    "overlap_ratio": 0.97,
+    "uv_per_cm": 0.17758,
+    "bbox_cm": [
+     -1.17,
+     -0.37,
+     -0.82,
+     1.16,
+     0.55,
+     0.84
+    ]
+   }
+  },
+  "bbox_cm": [
+   -1.17,
+   -0.8,
+   -0.85,
+   1.16,
+   0.69,
+   1.1
+  ]
+ },
+ "A762_FrontSight": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_FrontSight.SM_A762_FrontSight",
+  "slots": {
+   "M_A762_FrontSight_Rebuilt": {
+    "index": 0,
+    "material": "/Game/Weapons/A762/Refinement02/Materials/M_A762_FrontSight_Rebuilt.M_A762_FrontSight_Rebuilt",
+    "triangles": 2146,
+    "area_cm2": 17.42,
+    "uv_area": 0.4113,
+    "uv_bounds": [
+     0.0056,
+     0.0191,
+     0.9944,
+     0.9944
+    ],
+    "uv_union": 0.41817,
+    "overlap_ratio": 0.984,
+    "uv_per_cm": 0.15366,
+    "bbox_cm": [
+     -1.02,
+     -0.79,
+     0.0,
+     1.01,
+     0.64,
+     2.95
+    ]
+   },
+   "M_A762_SightInner": {
+    "index": 1,
+    "material": "/Game/Weapons/A762/Refinement01/Materials/M_A762_SightInner.M_A762_SightInner",
+    "triangles": 1266,
+    "area_cm2": 7.71,
+    "uv_area": 0.18252,
+    "uv_bounds": [
+     0.0133,
+     0.0349,
+     0.9944,
+     0.949
+    ],
+    "uv_union": 0.18606,
+    "overlap_ratio": 0.981,
+    "uv_per_cm": 0.15381,
+    "bbox_cm": [
+     -1.02,
+     -0.58,
+     0.0,
+     1.01,
+     0.38,
+     2.68
+    ]
+   }
+  },
+  "bbox_cm": [
+   -1.02,
+   -0.79,
+   0.0,
+   1.01,
+   0.64,
+   2.95
+  ]
+ }
+}

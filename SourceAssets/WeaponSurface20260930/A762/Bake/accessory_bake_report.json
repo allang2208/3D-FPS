@@ -1,0 +1,392 @@
+{
+ "SM_A762_balanced_reargrip": {
+  "texture": "T_A762_balanced_reargrip_WS_Mask",
+  "resolution": 1024,
+  "densified": {
+   "faces": 201272,
+   "vertices": 146732
+  },
+  "vertex_pass": {
+   "vertices": 146732,
+   "manifold_edges": 277582,
+   "convex_vertex_share": 0.0916,
+   "ao_mean": 0.399,
+   "cavity_mean": 0.508
+  },
+  "mask": {
+   "file": "T_A762_balanced_reargrip_WS_Mask.png",
+   "size": [
+    1024,
+    1024
+   ],
+   "mean": [
+    0.0274,
+    0.5078,
+    0.3945,
+    0.568
+   ],
+   "edge_p99": 0.5171,
+   "covered": 0.7022
+  }
+ },
+ "SM_A762_core_stock": {
+  "texture": "T_A762_core_stock_WS_Mask",
+  "resolution": 2048,
+  "densified": {
+   "faces": 301787,
+   "vertices": 145511
+  },
+  "vertex_pass": {
+   "vertices": 145511,
+   "manifold_edges": 469738,
+   "convex_vertex_share": 0.1147,
+   "ao_mean": 0.545,
+   "cavity_mean": 0.192
+  },
+  "mask": {
+   "file": "T_A762_core_stock_WS_Mask.png",
+   "size": [
+    2048,
+    2048
+   ],
+   "mean": [
+    0.0079,
+    0.1628,
+    0.4645,
+    0.8499
+   ],
+   "edge_p99": 0.1892,
+   "covered": 0.7224
+  }
+ },
+ "SM_A762_laser": {
+  "texture": "T_A762_laser_WS_Mask",
+  "resolution": 1024,
+  "densified": {
+   "faces": 250943,
+   "vertices": 175933
+  },
+  "vertex_pass": {
+   "vertices": 175933,
+   "manifold_edges": 365890,
+   "convex_vertex_share": 0.09,
+   "ao_mean": 0.353,
+   "cavity_mean": 0.564
+  },
+  "mask": {
+   "file": "T_A762_laser_WS_Mask.png",
+   "size": [
+    1024,
+    1024
+   ],
+   "mean": [
+    0.0462,
+    0.5237,
+    0.4047,
+    0.5596
+   ],
+   "edge_p99": 0.6014,
+   "covered": 0.6932
+  }
+ },
+ "SM_A762_lpvo_1_6x": {
+  "texture": "T_A762_lpvo_1_6x_WS_Mask",
+  "resolution": 1024,
+  "densified": {
+   "faces": 610634,
+   "vertices": 307428
+  },
+  "vertex_pass": {
+   "vertices": 307428,
+   "manifold_edges": 915146,
+   "convex_vertex_share": 0.0406,
+   "ao_mean": 0.58,
+   "cavity_mean": 0.274
+  },
+  "mask": {
+   "file": "T_A762_lpvo_1_6x_WS_Mask.png",
+   "size": [
+    1024,
+    1024
+   ],
+   "mean": [
+    0.1083,
+    0.2067,
+    0.4511,
+    0.8083
+   ],
+   "edge_p99": 0.8394,
+   "covered": 0.7638
+  }
+ },
+ "SM_A762_lpvo_ring": {
+  "texture": "T_A762_lpvo_ring_WS_Mask",
+  "resolution": 1024,
+  "densified": {
+   "faces": 20732,
+   "vertices": 10368
+  },
+  "vertex_pass": {
+   "vertices": 10368,
+   "manifold_edges": 31098,
+   "convex_vertex_share": 0.1335,
+   "ao_mean": 0.901,
+   "cavity_mean": 0.013
+  },
+  "mask": {
+   "file": "T_A762_lpvo_ring_WS_Mask.png",
+   "size": [
+    1024,
+    1024
+   ],
+   "mean": [
+    0.0049,
+    0.0007,
+    0.0465,
+    0.9993
+   ],
+   "edge_p99": 0.1734,
+   "covered": 0.0559
+  }
+ },
+ "SM_A762_panoramic_red_dot": {
+  "texture": "T_A762_panoramic_red_dot_WS_Mask",
+  "resolution": 1024,
+  "densified": {
+   "faces": 74139,
+   "vertices": 38198
+  },
+  "vertex_pass": {
+   "vertices": 38198,
+   "manifold_edges": 110941,
+   "convex_vertex_share": 0.1141,
+   "ao_mean": 0.612,
+   "cavity_mean": 0.246
+  },
+  "mask": {
+   "file": "T_A762_panoramic_red_dot_WS_Mask.png",
+   "size": [
+    1024,
+    1024
+   ],
+   "mean": [
+    0.0232,
+    0.1726,
+    0.5326,
+    0.8405
+   ],
+   "edge_p99": 0.6235,
+   "covered": 0.7439
+  }
+ },
+ "SM_A762_phantom_reargrip": {
+  "texture": "T_A762_phantom_reargrip_WS_Mask",
+  "resolution": 2048,
+  "densified": {
+   "faces": 280782,
+   "vertices": 229949
+  },
+  "vertex_pass": {
+   "vertices": 229949,
+   "manifold_edges": 387675,
+   "convex_vertex_share": 0.0971,
+   "ao_mean": 0.365,
+   "cavity_mean": 0.524
+  },
+  "mask": {
+   "file": "T_A762_phantom_reargrip_WS_Mask.png",
+   "size": [
+    2048,
+    2048
+   ],
+   "mean": [
+    0.0364,
+    0.5802,
+    0.295,
+    0.5138
+   ],
+   "edge_p99": 0.5883,
+   "covered": 0.4947
+  }
+ },
+ "SM_A762_prism_scope_2x": {
+  "texture": "T_A762_prism_scope_2x_WS_Mask",
+  "resolution": 1024,
+  "densified": {
+   "faces": 266160,
+   "vertices": 135171
+  },
+  "vertex_pass": {
+   "vertices": 135171,
+   "manifold_edges": 398425,
+   "convex_vertex_share": 0.0575,
+   "ao_mean": 0.6,
+   "cavity_mean": 0.167
+  },
+  "mask": {
+   "file": "T_A762_prism_scope_2x_WS_Mask.png",
+   "size": [
+    1024,
+    1024
+   ],
+   "mean": [
+    0.109,
+    0.2017,
+    0.4868,
+    0.8115
+   ],
+   "edge_p99": 0.8654,
+   "covered": 0.8306
+  }
+ },
+ "SM_A762_qr_performance": {
+  "texture": "T_A762_qr_performance_WS_Mask",
+  "resolution": 2048,
+  "densified": {
+   "faces": 624821,
+   "vertices": 313886
+  },
+  "vertex_pass": {
+   "vertices": 313886,
+   "manifold_edges": 934175,
+   "convex_vertex_share": 0.179,
+   "ao_mean": 0.621,
+   "cavity_mean": 0.252
+  },
+  "mask": {
+   "file": "T_A762_qr_performance_WS_Mask.png",
+   "size": [
+    2048,
+    2048
+   ],
+   "mean": [
+    0.0045,
+    0.1958,
+    0.5485,
+    0.8229
+   ],
+   "edge_p99": 0.1073,
+   "covered": 0.8299
+  }
+ },
+ "SM_A762_stable_antislip_reargrip": {
+  "texture": "T_A762_stable_antislip_reargrip_WS_Mask",
+  "resolution": 1024,
+  "densified": {
+   "faces": 178132,
+   "vertices": 129592
+  },
+  "vertex_pass": {
+   "vertices": 129592,
+   "manifold_edges": 248234,
+   "convex_vertex_share": 0.0774,
+   "ao_mean": 0.396,
+   "cavity_mean": 0.471
+  },
+  "mask": {
+   "file": "T_A762_stable_antislip_reargrip_WS_Mask.png",
+   "size": [
+    1024,
+    1024
+   ],
+   "mean": [
+    0.028,
+    0.4884,
+    0.3418,
+    0.5855
+   ],
+   "edge_p99": 0.4988,
+   "covered": 0.65
+  }
+ },
+ "SM_A762_tactical_suppressor": {
+  "texture": "T_A762_tactical_suppressor_WS_Mask",
+  "resolution": 1024,
+  "densified": {
+   "faces": 348156,
+   "vertices": 210363
+  },
+  "vertex_pass": {
+   "vertices": 210363,
+   "manifold_edges": 504305,
+   "convex_vertex_share": 0.0693,
+   "ao_mean": 0.455,
+   "cavity_mean": 0.413
+  },
+  "mask": {
+   "file": "T_A762_tactical_suppressor_WS_Mask.png",
+   "size": [
+    1024,
+    1024
+   ],
+   "mean": [
+    0.0169,
+    0.1813,
+    0.1241,
+    0.8303
+   ],
+   "edge_p99": 0.4558,
+   "covered": 0.3882
+  }
+ },
+ "SM_A762_tactical_telescopic": {
+  "texture": "T_A762_tactical_telescopic_WS_Mask",
+  "resolution": 1024,
+  "densified": {
+   "faces": 237009,
+   "vertices": 113408
+  },
+  "vertex_pass": {
+   "vertices": 113408,
+   "manifold_edges": 371825,
+   "convex_vertex_share": 0.1696,
+   "ao_mean": 0.61,
+   "cavity_mean": 0.243
+  },
+  "mask": {
+   "file": "T_A762_tactical_telescopic_WS_Mask.png",
+   "size": [
+    1024,
+    1024
+   ],
+   "mean": [
+    0.0178,
+    0.1703,
+    0.4277,
+    0.8436
+   ],
+   "edge_p99": 0.409,
+   "covered": 0.5921
+  }
+ },
+ "SM_A762_tactical_vertical": {
+  "texture": "T_A762_tactical_vertical_WS_Mask",
+  "resolution": 1024,
+  "densified": {
+   "faces": 159702,
+   "vertices": 79029
+  },
+  "vertex_pass": {
+   "vertices": 79029,
+   "manifold_edges": 242423,
+   "convex_vertex_share": 0.0882,
+   "ao_mean": 0.624,
+   "cavity_mean": 0.319
+  },
+  "mask": {
+   "file": "T_A762_tactical_vertical_WS_Mask.png",
+   "size": [
+    1024,
+    1024
+   ],
+   "mean": [
+    0.0224,
+    0.2323,
+    0.5927,
+    0.7968
+   ],
+   "edge_p99": 0.7211,
+   "covered": 0.8131
+  }
+ }
+}

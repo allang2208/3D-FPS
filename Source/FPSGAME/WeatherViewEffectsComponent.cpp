@@ -24,6 +24,7 @@
 #include "Weapons/PKMLowpolyWeaponAssets.h"
 #include "Weapons/PSO1AttachmentAssets.h"
 #include "Weapons/SVDAttachments.h"
+#include "Weapons/WeaponSurfaceStandard.h"
 #include "HAL/IConsoleManager.h"
 
 static TAutoConsoleVariable<float> CVarScreenRain(TEXT("fps.ScreenRain"),.75f,TEXT("Screen edge water strength, 0 disables."),ECVF_Scalability);
@@ -192,8 +193,9 @@ void UWeatherViewEffectsComponent::BindWeapon(AFPSGAMECharacter* Pawn,bool bScan
             // A gunsmith may already have a MID. Preserve its texture/color values.
             if(!Replacement)if(auto* MID=Cast<UMaterialInstanceDynamic>(Source))
                 if(MID->Parent)Replacement=WetByPath.Find(FName(*MID->Parent->GetPathName()));
-            if(!Replacement||!*Replacement)continue;
-            auto* Wet=AcquireWet(Original,*Replacement);
+            UMaterialInterface* Target=Replacement&&*Replacement?*Replacement:WeaponSurfaceStandard::SelfWetSource(Source);
+            if(!Target)continue;
+            auto* Wet=AcquireWet(Original,Target);
             if(!Wet)continue;
             FWeatherViewMaterial B;B.Mesh=Mesh;B.MeshAsset=SourceMesh(Mesh);B.Original=Original;B.Wet=Wet;B.Slot=Slot;B.LastPushed=-1.f;
             Bindings.Add(B);Mesh->SetMaterial(Slot,Wet);

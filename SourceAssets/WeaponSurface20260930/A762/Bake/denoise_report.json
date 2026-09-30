@@ -1,0 +1,39 @@
+{
+ "key": "A762_AfterRepair",
+ "slots": [
+  "M_A762_Receiver",
+  "M_A762_FactoryRearGrip",
+  "M_A762_Bolt"
+ ],
+ "triangles": 104713,
+ "frozen_vertices": 4516,
+ "moved_vertices": 24319,
+ "max_move_mm": 0.3,
+ "mean_move_mm": 0.082,
+ "before": {
+  "normal_spread_deg_median": 17.62,
+  "plane_residual_mm_median": 0.2785,
+  "sharp_edge_share": 0.0514
+ },
+ "after_geometry": {
+  "normal_spread_deg_median": 15.35,
+  "plane_residual_mm_median": 0.2537,
+  "sharp_edge_share": 0.0489
+ },
+ "filtered_normals": {
+  "normal_spread_deg_median": 11.83,
+  "plane_residual_mm_median": 0.3376
+ },
+ "face_share_filtered": 0.253,
+ "params": {
+  "radius_cm": 0.45,
+  "sigma_s_cm": 0.2,
+  "sigma_r": 0.6,
+  "normal_iters": 8,
+  "vertex_iters": 12,
+  "max_move_cm": 0.03,
+  "crease_deg": 40.0,
+  "feature_deg": 24.0,
+  "border_fade_cm": 0.4
+ }
+}

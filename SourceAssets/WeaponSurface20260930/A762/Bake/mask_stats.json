@@ -1,0 +1,272 @@
+{
+ "A762": {
+  "M_A762_Bolt": {
+   "edge_mean": 0.001,
+   "edge_share_gt_half": 0.0,
+   "cavity_mean": 0.244,
+   "ao_p10_50_90": [
+    0.0,
+    0.251,
+    0.976
+   ],
+   "ao_below_0.15": 0.417
+  },
+  "M_A762_Inside": {
+   "edge_mean": 0.005,
+   "edge_share_gt_half": 0.0,
+   "cavity_mean": 0.587,
+   "ao_p10_50_90": [
+    0.0,
+    0.141,
+    0.18
+   ],
+   "ao_below_0.15": 0.508
+  },
+  "M_A762_FactoryRearGrip": {
+   "edge_mean": 0.0,
+   "edge_share_gt_half": 0.0,
+   "cavity_mean": 0.005,
+   "ao_p10_50_90": [
+    0.922,
+    1.0,
+    1.0
+   ],
+   "ao_below_0.15": 0.0
+  },
+  "M_A762_FactoryStock_Seam04": {
+   "edge_mean": 0.005,
+   "edge_share_gt_half": 0.002,
+   "cavity_mean": 0.514,
+   "ao_p10_50_90": [
+    0.0,
+    0.024,
+    0.498
+   ],
+   "ao_below_0.15": 0.739
+  },
+  "M_A762_FrontAssembly_Rebuilt": {
+   "edge_mean": 0.042,
+   "edge_share_gt_half": 0.031,
+   "cavity_mean": 0.556,
+   "ao_p10_50_90": [
+    0.0,
+    0.18,
+    0.969
+   ],
+   "ao_below_0.15": 0.483
+  },
+  "M_A762_UpperReceiver03": {
+   "edge_mean": 0.004,
+   "edge_share_gt_half": 0.0,
+   "cavity_mean": 0.326,
+   "ao_p10_50_90": [
+    0.0,
+    0.502,
+    1.0
+   ],
+   "ao_below_0.15": 0.254
+  },
+  "M_A762_Flash_Hider": {
+   "edge_mean": 0.066,
+   "edge_share_gt_half": 0.049,
+   "cavity_mean": 0.099,
+   "ao_p10_50_90": [
+    0.063,
+    0.984,
+    1.0
+   ],
+   "ao_below_0.15": 0.171
+  },
+  "M_A762_Rail": {
+   "edge_mean": 0.013,
+   "edge_share_gt_half": 0.0,
+   "cavity_mean": 0.49,
+   "ao_p10_50_90": [
+    0.0,
+    0.318,
+    1.0
+   ],
+   "ao_below_0.15": 0.323
+  },
+  "M_A762_RearSight03": {
+   "edge_mean": 0.006,
+   "edge_share_gt_half": 0.0,
+   "cavity_mean": 0.362,
+   "ao_p10_50_90": [
+    0.129,
+    0.565,
+    1.0
+   ],
+   "ao_below_0.15": 0.106
+  },
+  "M_A762_Receiver": {
+   "edge_mean": 0.004,
+   "edge_share_gt_half": 0.001,
+   "cavity_mean": 0.307,
+   "ao_p10_50_90": [
+    0.0,
+    0.251,
+    0.973
+   ],
+   "ao_below_0.15": 0.41
+  },
+  "M_A762_Trigger": {
+   "edge_mean": 0.003,
+   "edge_share_gt_half": 0.001,
+   "cavity_mean": 0.292,
+   "ao_p10_50_90": [
+    0.114,
+    0.329,
+    0.827
+   ],
+   "ao_below_0.15": 0.123
+  },
+  "M_A762_FactoryStock_Rubber04": {
+   "edge_mean": 0.001,
+   "edge_share_gt_half": 0.0,
+   "cavity_mean": 0.356,
+   "ao_p10_50_90": [
+    0.0,
+    0.976,
+    1.0
+   ],
+   "ao_below_0.15": 0.337
+  },
+  "M_A762_FrontSight_Rebuilt": {
+   "edge_mean": 0.054,
+   "edge_share_gt_half": 0.032,
+   "cavity_mean": 0.54,
+   "ao_p10_50_90": [
+    0.0,
+    0.349,
+    0.976
+   ],
+   "ao_below_0.15": 0.336
+  },
+  "M_A762_FactoryStock_Socket03": {
+   "edge_mean": 0.071,
+   "edge_share_gt_half": 0.041,
+   "cavity_mean": 0.451,
+   "ao_p10_50_90": [
+    0.0,
+    0.059,
+    0.871
+   ],
+   "ao_below_0.15": 0.641
+  },
+  "M_A762_FactoryStock_Metal04": {
+   "edge_mean": 0.009,
+   "edge_share_gt_half": 0.005,
+   "cavity_mean": 0.408,
+   "ao_p10_50_90": [
+    0.0,
+    0.38,
+    0.965
+   ],
+   "ao_below_0.15": 0.338
+  },
+  "M_A762_Magazine_Rebuilt": {
+   "edge_mean": 0.21,
+   "edge_share_gt_half": 0.205,
+   "cavity_mean": 0.048,
+   "ao_p10_50_90": [
+    0.294,
+    0.973,
+    1.0
+   ],
+   "ao_below_0.15": 0.027
+  },
+  "M_A762_MagazineInside_Rebuilt": {
+   "edge_mean": 0.003,
+   "edge_share_gt_half": 0.0,
+   "cavity_mean": 0.739,
+   "ao_p10_50_90": [
+    0.004,
+    0.063,
+    0.188
+   ],
+   "ao_below_0.15": 0.876
+  },
+  "M_A762_SightInner": {
+   "edge_mean": 0.074,
+   "edge_share_gt_half": 0.065,
+   "cavity_mean": 0.799,
+   "ao_p10_50_90": [
+    0.0,
+    0.027,
+    0.22
+   ],
+   "ao_below_0.15": 0.794
+  },
+  "M_A762_MagazineEdge_Rebuilt": {
+   "edge_mean": 0.19,
+   "edge_share_gt_half": 0.161,
+   "cavity_mean": 0.209,
+   "ao_p10_50_90": [
+    0.118,
+    0.706,
+    1.0
+   ],
+   "ao_below_0.15": 0.124
+  },
+  "M_A762_Handguard03": {
+   "edge_mean": 0.008,
+   "edge_share_gt_half": 0.007,
+   "cavity_mean": 0.084,
+   "ao_p10_50_90": [
+    0.0,
+    0.992,
+    1.0
+   ],
+   "ao_below_0.15": 0.194
+  }
+ },
+ "A762_RearSight": {
+  "M_A762_RearSight03": {
+   "edge_mean": 0.02,
+   "edge_share_gt_half": 0.012,
+   "cavity_mean": 0.196,
+   "ao_p10_50_90": [
+    0.278,
+    0.78,
+    1.0
+   ],
+   "ao_below_0.15": 0.068
+  },
+  "M_A762_SightInner": {
+   "edge_mean": 0.018,
+   "edge_share_gt_half": 0.012,
+   "cavity_mean": 0.361,
+   "ao_p10_50_90": [
+    0.0,
+    0.631,
+    1.0
+   ],
+   "ao_below_0.15": 0.292
+  }
+ },
+ "A762_FrontSight": {
+  "M_A762_FrontSight_Rebuilt": {
+   "edge_mean": 0.041,
+   "edge_share_gt_half": 0.022,
+   "cavity_mean": 0.186,
+   "ao_p10_50_90": [
+    0.0,
+    0.992,
+    1.0
+   ],
+   "ao_below_0.15": 0.139
+  },
+  "M_A762_SightInner": {
+   "edge_mean": 0.011,
+   "edge_share_gt_half": 0.003,
+   "cavity_mean": 0.185,
+   "ao_p10_50_90": [
+    0.11,
+    0.62,
+    0.878
+   ],
+   "ao_below_0.15": 0.105
+  }
+ }
+}

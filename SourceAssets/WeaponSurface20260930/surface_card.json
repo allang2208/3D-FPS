@@ -1,0 +1,505 @@
+{
+  "version": "WS1-20260930",
+  "style": "clean (HK416 wear level, user choice 2026-09-30)",
+  "measurement": "inspect/reference_measurements.json (area-weighted, runtime LOD0 UV0, linear base colour)",
+  "master_defaults": {
+    "graph": "WS1-g1",
+    "scalars": {
+      "SourceColorWeight": 0.0,
+      "Roughness": 0.5,
+      "SourceRoughnessWeight": 0.0,
+      "SourceRoughnessPivot": 0.5,
+      "Metallic": 0.0,
+      "Specular": 0.5,
+      "GrainTileCm": 8.0,
+      "GrainRoughness": 0.08,
+      "MottleRoughness": 0.1,
+      "MottleColor": 0.08,
+      "Stipple": 0.0,
+      "EdgeWear": 0.0,
+      "EdgeBreakup": 0.6,
+      "EdgeContrast": 6.0,
+      "EdgeRoughness": 0.3,
+      "EdgeMetallic": 1.0,
+      "EdgeHighlight": 0.04,
+      "CavityDarken": 0.25,
+      "CavityRoughness": 0.05,
+      "HandlingPolish": 0.0,
+      "ScratchAmount": 0.0,
+      "AOStrength": 1.0,
+      "MaskUVChannel": 0.0,
+      "WeaponWetness": 0.0,
+      "BeadScale": 78.0
+    },
+    "vectors": {
+      "FinishColor": [
+        0.04,
+        0.04,
+        0.04
+      ],
+      "EdgeColor": [
+        0.2,
+        0.2,
+        0.2
+      ]
+    },
+    "groups": {
+      "SourceColorWeight": "Source",
+      "SourceRoughnessWeight": "Source",
+      "SourceRoughnessPivot": "Source",
+      "MaskUVChannel": "Source",
+      "GrainTileCm": "Micro",
+      "GrainRoughness": "Micro",
+      "MottleRoughness": "Micro",
+      "MottleColor": "Micro",
+      "Stipple": "Micro",
+      "ScratchAmount": "Wear",
+      "EdgeWear": "Wear",
+      "EdgeBreakup": "Wear",
+      "EdgeContrast": "Wear",
+      "EdgeRoughness": "Wear",
+      "EdgeMetallic": "Wear",
+      "EdgeHighlight": "Wear",
+      "EdgeColor": "Wear",
+      "CavityDarken": "Wear",
+      "CavityRoughness": "Wear",
+      "HandlingPolish": "Wear",
+      "AOStrength": "Wear",
+      "WeaponWetness": "Weather",
+      "BeadScale": "Weather"
+    }
+  },
+  "presets": {
+    "AnodizedAluminum": {
+      "source": "HK416 Upper_body dominant cluster (40% area): base .017/.020/.018, metallic .95, roughness P10/50/90 .27/.32/.39; HK416 edge wear 2-4% area at base ~.12, roughness ~.30-.37",
+      "scalars": {
+        "Metallic": 1.0,
+        "Roughness": 0.34,
+        "GrainRoughness": 0.1,
+        "MottleRoughness": 0.12,
+        "MottleColor": 0.1,
+        "EdgeWear": 0.12,
+        "EdgeMetallic": 1.0,
+        "EdgeRoughness": 0.3,
+        "EdgeHighlight": 0.05,
+        "ScratchAmount": 0.06,
+        "CavityDarken": 0.2,
+        "CavityRoughness": 0.06,
+        "AOStrength": 0.7
+      },
+      "vectors": {
+        "FinishColor": [
+          0.018,
+          0.02,
+          0.019
+        ],
+        "EdgeColor": [
+          0.12,
+          0.12,
+          0.115
+        ]
+      }
+    },
+    "BluedSteel": {
+      "source": "AKM steel cluster (42% area): base .058 neutral, metallic 1.0, roughness P10/50/90 .29/.34/.47; worn steel .22 at roughness .29; wear amount reduced to the HK416 level",
+      "scalars": {
+        "Metallic": 1.0,
+        "Roughness": 0.36,
+        "GrainRoughness": 0.1,
+        "MottleRoughness": 0.12,
+        "MottleColor": 0.08,
+        "EdgeWear": 0.12,
+        "EdgeMetallic": 1.0,
+        "EdgeRoughness": 0.29,
+        "EdgeHighlight": 0.05,
+        "ScratchAmount": 0.06,
+        "CavityDarken": 0.2,
+        "CavityRoughness": 0.06,
+        "AOStrength": 0.7
+      },
+      "vectors": {
+        "FinishColor": [
+          0.058,
+          0.058,
+          0.056
+        ],
+        "EdgeColor": [
+          0.22,
+          0.22,
+          0.215
+        ]
+      }
+    },
+    "PolishedSteel": {
+      "source": "AKM worn-steel response (.22, roughness .29) used as a full bare-steel surface for bolt carriers and similar moving parts",
+      "scalars": {
+        "Metallic": 1.0,
+        "Roughness": 0.3,
+        "GrainRoughness": 0.08,
+        "MottleRoughness": 0.1,
+        "MottleColor": 0.06,
+        "EdgeWear": 0.15,
+        "EdgeMetallic": 1.0,
+        "EdgeRoughness": 0.24,
+        "EdgeHighlight": 0.05,
+        "ScratchAmount": 0.08,
+        "CavityDarken": 0.2,
+        "CavityRoughness": 0.08,
+        "AOStrength": 0.7
+      },
+      "vectors": {
+        "FinishColor": [
+          0.2,
+          0.2,
+          0.195
+        ],
+        "EdgeColor": [
+          0.34,
+          0.34,
+          0.33
+        ]
+      }
+    },
+    "Polymer": {
+      "source": "Surface response from HK416 polymer (dielectric, roughness spread .23-.47, stippled normal); black colour from M4 grip (.019); centre roughness between HK416 (.29) and M4 (.44-.49) for a matte black polymer",
+      "scalars": {
+        "Metallic": 0.0,
+        "Roughness": 0.44,
+        "GrainRoughness": 0.08,
+        "MottleRoughness": 0.1,
+        "MottleColor": 0.08,
+        "Stipple": 0.1,
+        "EdgeWear": 0.1,
+        "EdgeMetallic": 0.0,
+        "EdgeRoughness": 0.34,
+        "EdgeHighlight": 0.06,
+        "HandlingPolish": 0.06,
+        "ScratchAmount": 0.03,
+        "CavityDarken": 0.2,
+        "CavityRoughness": 0.05,
+        "AOStrength": 0.7
+      },
+      "vectors": {
+        "FinishColor": [
+          0.019,
+          0.019,
+          0.018
+        ],
+        "EdgeColor": [
+          0.03,
+          0.03,
+          0.029
+        ]
+      }
+    },
+    "Rubber": {
+      "source": "M4 Classic_Stock butt-pad cluster: base .0103, roughness .64-.71, dielectric",
+      "scalars": {
+        "Metallic": 0.0,
+        "Roughness": 0.7,
+        "GrainRoughness": 0.05,
+        "MottleRoughness": 0.06,
+        "MottleColor": 0.05,
+        "Stipple": 0.05,
+        "EdgeWear": 0.0,
+        "EdgeMetallic": 0.0,
+        "EdgeRoughness": 0.6,
+        "EdgeHighlight": 0.02,
+        "HandlingPolish": 0.03,
+        "ScratchAmount": 0.0,
+        "CavityDarken": 0.2,
+        "CavityRoughness": 0.04,
+        "AOStrength": 0.7
+      },
+      "vectors": {
+        "FinishColor": [
+          0.0103,
+          0.0103,
+          0.0103
+        ],
+        "EdgeColor": [
+          0.015,
+          0.015,
+          0.015
+        ]
+      }
+    },
+    "Interior": {
+      "source": "AKM occluded internal cluster: base ~.001-.004, roughness ~.8, no wear",
+      "scalars": {
+        "Metallic": 0.0,
+        "Roughness": 0.75,
+        "GrainRoughness": 0.03,
+        "MottleRoughness": 0.04,
+        "MottleColor": 0.0,
+        "EdgeWear": 0.0,
+        "EdgeHighlight": 0.0,
+        "ScratchAmount": 0.0,
+        "CavityDarken": 0.4,
+        "CavityRoughness": 0.0
+      },
+      "vectors": {
+        "FinishColor": [
+          0.004,
+          0.004,
+          0.004
+        ],
+        "EdgeColor": [
+          0.004,
+          0.004,
+          0.004
+        ]
+      }
+    },
+    "Bakelite": {
+      "source": "AKM plum bakelite/wood cluster (24% area): base .038/.0052/.0018, metallic 0, roughness P10/50/90 .33/.36/.45",
+      "scalars": {
+        "Metallic": 0.0,
+        "Roughness": 0.36,
+        "GrainRoughness": 0.06,
+        "MottleRoughness": 0.1,
+        "MottleColor": 0.1,
+        "EdgeWear": 0.1,
+        "EdgeMetallic": 0.0,
+        "EdgeRoughness": 0.28,
+        "EdgeHighlight": 0.05,
+        "ScratchAmount": 0.04,
+        "CavityDarken": 0.2,
+        "CavityRoughness": 0.05,
+        "AOStrength": 0.7
+      },
+      "vectors": {
+        "FinishColor": [
+          0.038,
+          0.0052,
+          0.0018
+        ],
+        "EdgeColor": [
+          0.06,
+          0.012,
+          0.006
+        ]
+      }
+    },
+    "MattePolymer": {
+      "source": "M4 runtime (user choice 2026-09-30): MF_PhongToMetalRoughness clamps Shininess to >=2, so every M4 slot renders roughness (2/4)^0.25=.841, Specular .2, Metallic 0, base = diffuse map; grip/stock diffuse ~.019 linear. Uniform roughness, no procedural wear.",
+      "scalars": {
+        "Metallic": 0.0,
+        "Specular": 0.2,
+        "Roughness": 0.84,
+        "GrainRoughness": 0.03,
+        "MottleRoughness": 0.02,
+        "MottleColor": 0.02,
+        "EdgeWear": 0.0,
+        "EdgeMetallic": 0.0,
+        "EdgeRoughness": 0.8,
+        "EdgeHighlight": 0.03,
+        "ScratchAmount": 0.0,
+        "CavityDarken": 0.1,
+        "CavityRoughness": 0.0,
+        "AOStrength": 0.5,
+        "HandlingPolish": 0.0,
+        "SourceColorWeight": 0.0,
+        "SourceRoughnessWeight": 0.0,
+        "Stipple": 0.04
+      },
+      "vectors": {
+        "FinishColor": [
+          0.019,
+          0.019,
+          0.018
+        ],
+        "EdgeColor": [
+          0.024,
+          0.024,
+          0.023
+        ]
+      }
+    },
+    "MatteCoated": {
+      "source": "M4 runtime receiver (Body_001): same conversion (.841/.2/0), diffuse ~.052 neutral linear; used for coated metal parts under the M4 matte look.",
+      "scalars": {
+        "Metallic": 0.0,
+        "Specular": 0.2,
+        "Roughness": 0.84,
+        "GrainRoughness": 0.03,
+        "MottleRoughness": 0.02,
+        "MottleColor": 0.02,
+        "EdgeWear": 0.0,
+        "EdgeMetallic": 0.0,
+        "EdgeRoughness": 0.8,
+        "EdgeHighlight": 0.03,
+        "ScratchAmount": 0.0,
+        "CavityDarken": 0.1,
+        "CavityRoughness": 0.0,
+        "AOStrength": 0.5,
+        "HandlingPolish": 0.0,
+        "SourceColorWeight": 0.0,
+        "SourceRoughnessWeight": 0.0
+      },
+      "vectors": {
+        "FinishColor": [
+          0.052,
+          0.051,
+          0.05
+        ],
+        "EdgeColor": [
+          0.062,
+          0.061,
+          0.06
+        ]
+      }
+    },
+    "CleanSatinSteel": {
+      "source": "Revision 3 (user 2026-09-30: back to metal, more detail, not dirty). Metal identity kept (metallic 1) but base darkened toward HK416 so bright sky/floor reflections stop washing the gun blue-grey; low-frequency roughness/colour mottling, edge exposure, scratches and cavity dirt removed; only sub-millimetre grain and a sharper roughness drop on convex edges remain as detail. Base between HK416 receiver (.018) and AKM steel (.058); roughness a touch above AKM (.34) for satin. Edges: continuous (no noise breakup) thin lines only slightly brighter than the base, read as machined edge definition rather than wear.",
+      "scalars": {
+        "Metallic": 1.0,
+        "Specular": 0.5,
+        "GrainRoughness": 0.03,
+        "MottleRoughness": 0.02,
+        "MottleColor": 0.0,
+        "Stipple": 0.0,
+        "EdgeWear": 0.06,
+        "EdgeMetallic": 1.0,
+        "EdgeHighlight": 0.1,
+        "ScratchAmount": 0.0,
+        "CavityDarken": 0.06,
+        "CavityRoughness": 0.04,
+        "AOStrength": 0.5,
+        "HandlingPolish": 0.0,
+        "SourceColorWeight": 0.0,
+        "SourceRoughnessWeight": 0.0,
+        "Roughness": 0.42,
+        "EdgeBreakup": 0.0,
+        "EdgeContrast": 8.0,
+        "EdgeRoughness": 0.3
+      },
+      "vectors": {
+        "FinishColor": [
+          0.034,
+          0.035,
+          0.037
+        ],
+        "EdgeColor": [
+          0.075,
+          0.076,
+          0.078
+        ]
+      }
+    },
+    "CleanAnodized": {
+      "source": "Revision 3 (user 2026-09-30: back to metal, more detail, not dirty). Metal identity kept (metallic 1) but base darkened toward HK416 so bright sky/floor reflections stop washing the gun blue-grey; low-frequency roughness/colour mottling, edge exposure, scratches and cavity dirt removed; only sub-millimetre grain and a sharper roughness drop on convex edges remain as detail. HK416 receiver base (.018-.020), hard-anodize satin roughness. Edges: continuous (no noise breakup) thin lines only slightly brighter than the base, read as machined edge definition rather than wear.",
+      "scalars": {
+        "Metallic": 1.0,
+        "Specular": 0.5,
+        "GrainRoughness": 0.03,
+        "MottleRoughness": 0.02,
+        "MottleColor": 0.0,
+        "Stipple": 0.0,
+        "EdgeWear": 0.06,
+        "EdgeMetallic": 1.0,
+        "EdgeHighlight": 0.12,
+        "ScratchAmount": 0.0,
+        "CavityDarken": 0.06,
+        "CavityRoughness": 0.04,
+        "AOStrength": 0.5,
+        "HandlingPolish": 0.0,
+        "SourceColorWeight": 0.0,
+        "SourceRoughnessWeight": 0.0,
+        "Roughness": 0.46,
+        "EdgeBreakup": 0.0,
+        "EdgeContrast": 8.0,
+        "EdgeRoughness": 0.3
+      },
+      "vectors": {
+        "FinishColor": [
+          0.02,
+          0.021,
+          0.022
+        ],
+        "EdgeColor": [
+          0.06,
+          0.061,
+          0.063
+        ]
+      }
+    },
+    "CleanPolishedSteel": {
+      "source": "Revision 3 (user 2026-09-30: back to metal, more detail, not dirty). Metal identity kept (metallic 1) but base darkened toward HK416 so bright sky/floor reflections stop washing the gun blue-grey; low-frequency roughness/colour mottling, edge exposure, scratches and cavity dirt removed; only sub-millimetre grain and a sharper roughness drop on convex edges remain as detail. Bare bolt steel from the AKM worn-steel response, without wear. Edges: continuous (no noise breakup) thin lines only slightly brighter than the base, read as machined edge definition rather than wear.",
+      "scalars": {
+        "Metallic": 1.0,
+        "Specular": 0.5,
+        "GrainRoughness": 0.03,
+        "MottleRoughness": 0.02,
+        "MottleColor": 0.0,
+        "Stipple": 0.0,
+        "EdgeWear": 0.06,
+        "EdgeMetallic": 1.0,
+        "EdgeHighlight": 0.06,
+        "ScratchAmount": 0.0,
+        "CavityDarken": 0.06,
+        "CavityRoughness": 0.04,
+        "AOStrength": 0.5,
+        "HandlingPolish": 0.0,
+        "SourceColorWeight": 0.0,
+        "SourceRoughnessWeight": 0.0,
+        "Roughness": 0.3,
+        "EdgeBreakup": 0.0,
+        "EdgeContrast": 8.0,
+        "EdgeRoughness": 0.3
+      },
+      "vectors": {
+        "FinishColor": [
+          0.16,
+          0.16,
+          0.155
+        ],
+        "EdgeColor": [
+          0.3,
+          0.3,
+          0.3
+        ]
+      }
+    },
+    "CleanPolymer": {
+      "source": "Revision 3 (user 2026-09-30: back to metal, more detail, not dirty). Metal identity kept (metallic 1) but base darkened toward HK416 so bright sky/floor reflections stop washing the gun blue-grey; low-frequency roughness/colour mottling, edge exposure, scratches and cavity dirt removed; only sub-millimetre grain and a sharper roughness drop on convex edges remain as detail. Black polymer next to the metal: dielectric, M4 grip colour (.019), satin-matte roughness with fine stipple, no wear.",
+      "scalars": {
+        "Metallic": 0.0,
+        "Specular": 0.4,
+        "GrainRoughness": 0.03,
+        "MottleRoughness": 0.02,
+        "MottleColor": 0.0,
+        "Stipple": 0.06,
+        "EdgeWear": 0.0,
+        "EdgeMetallic": 0.0,
+        "EdgeHighlight": 0.05,
+        "ScratchAmount": 0.0,
+        "CavityDarken": 0.06,
+        "CavityRoughness": 0.04,
+        "AOStrength": 0.5,
+        "HandlingPolish": 0.0,
+        "SourceColorWeight": 0.0,
+        "SourceRoughnessWeight": 0.0,
+        "Roughness": 0.55
+      },
+      "vectors": {
+        "FinishColor": [
+          0.019,
+          0.019,
+          0.018
+        ],
+        "EdgeColor": [
+          0.024,
+          0.024,
+          0.023
+        ]
+      }
+    }
+  },
+  "wet": {
+    "source": "HK416 rain response and WeatherNatural20260912 bead cells",
+    "bead_cells_per_cm": 2.42
+  },
+  "mask_note": "A762 pilot masks: cavity/AO are per-vertex (rays start 0.5 mm off the surface to ignore coincident duplicate shells) and smear across large low-poly faces, so presets cap CavityDarken at 0.2 and AOStrength at 0.7.",
+  "m4_runtime_note": "M4 renders through FBXLegacyPhongSurfaceMaterial: roughness constant .841 (roughness map clamped away), Specular .2, Metallic 0, BaseColor = diffuse map."
+}

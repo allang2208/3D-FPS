@@ -1,0 +1,32 @@
+{
+ "seated": {
+  "vertices": 126756,
+  "moved": 8030,
+  "match_error_cm": 0.0
+ },
+ "lifted_vertices": 27,
+ "deleted_faces": 11035,
+ "planned_deletions": 11041,
+ "vertex_pass": {
+  "vertices": 120754,
+  "manifold_edges": 352556,
+  "convex_vertex_share": 0.2105,
+  "ao_mean": 0.518,
+  "cavity_mean": 0.338
+ },
+ "mask": {
+  "file": "T_A762_WS_Mask.png",
+  "size": [
+   4096,
+   4096
+  ],
+  "mean": [
+   0.0351,
+   0.1835,
+   0.2343,
+   0.8328
+  ],
+  "edge_p99": 1.0,
+  "covered": 0.4814
+ }
+}

@@ -1,0 +1,80 @@
+{
+ "T_A762_balanced_reargrip_WS_Mask": {
+  "island_share": 0.999,
+  "occluded_share": 0.395,
+  "ao_mean": 0.395,
+  "use": false
+ },
+ "T_A762_core_stock_WS_Mask": {
+  "island_share": 0.786,
+  "occluded_share": 0.08,
+  "ao_mean": 0.591,
+  "use": true
+ },
+ "T_A762_laser_WS_Mask": {
+  "island_share": 0.999,
+  "occluded_share": 0.44,
+  "ao_mean": 0.405,
+  "use": false
+ },
+ "T_A762_lpvo_1_6x_WS_Mask": {
+  "island_share": 0.832,
+  "occluded_share": 0.084,
+  "ao_mean": 0.542,
+  "use": true
+ },
+ "T_A762_lpvo_ring_WS_Mask": {
+  "island_share": 0.056,
+  "occluded_share": 0.0,
+  "ao_mean": 0.832,
+  "use": true
+ },
+ "T_A762_panoramic_red_dot_WS_Mask": {
+  "island_share": 0.842,
+  "occluded_share": 0.084,
+  "ao_mean": 0.633,
+  "use": true
+ },
+ "T_A762_phantom_reargrip_WS_Mask": {
+  "island_share": 0.973,
+  "occluded_share": 0.498,
+  "ao_mean": 0.303,
+  "use": false
+ },
+ "T_A762_prism_scope_2x_WS_Mask": {
+  "island_share": 0.878,
+  "occluded_share": 0.07,
+  "ao_mean": 0.555,
+  "use": true
+ },
+ "T_A762_qr_performance_WS_Mask": {
+  "island_share": 0.92,
+  "occluded_share": 0.106,
+  "ao_mean": 0.596,
+  "use": true
+ },
+ "T_A762_stable_antislip_reargrip_WS_Mask": {
+  "island_share": 0.989,
+  "occluded_share": 0.395,
+  "ao_mean": 0.346,
+  "use": false
+ },
+ "T_A762_tactical_suppressor_WS_Mask": {
+  "island_share": 0.456,
+  "occluded_share": 0.148,
+  "ao_mean": 0.272,
+  "use": false
+ },
+ "T_A762_tactical_telescopic_WS_Mask": {
+  "island_share": 0.683,
+  "occluded_share": 0.113,
+  "ao_mean": 0.626,
+  "use": true
+ },
+ "T_A762_tactical_vertical_WS_Mask": {
+  "island_share": 0.903,
+  "occluded_share": 0.16,
+  "ao_mean": 0.657,
+  "use": true
+ }
+}

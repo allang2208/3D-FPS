@@ -1,0 +1,10 @@
+# Local run output: UE/Blender logs, compiled shader probes, pre-change asset backups.
+# Regenerated offline dumps and QA output stay on this host too (.bin/.png/.blend/.uasset
+# are already excluded at repo root).
+logs/
+inspect/
+A762/Before/
+A762/BeforeRepair/
+A762/BeforeGeometry/
+A762/BeforeAccessories/
+__pycache__/

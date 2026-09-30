@@ -1,0 +1,223 @@
+{
+ "key": "A762_AfterRepair",
+ "parts": {
+  "M_A762_Magazine_Rebuilt": {
+   "op": "subdivide",
+   "triangles_in": 3950,
+   "duplicate_faces_skipped": 0,
+   "edges": 218,
+   "triangles_out": 23700,
+   "vertices_out": 11879
+  },
+  "M_A762_MagazineEdge_Rebuilt": {
+   "op": "subdivide",
+   "triangles_in": 4420,
+   "duplicate_faces_skipped": 0,
+   "edges": 1720,
+   "triangles_out": 26520,
+   "vertices_out": 13322
+  },
+  "M_A762_UpperReceiver03": {
+   "op": "bevel",
+   "triangles_in": 5764,
+   "duplicate_faces_skipped": 0,
+   "edges": 222,
+   "triangles_out": 6708,
+   "vertices_out": 3558
+  },
+  "M_A762_FrontAssembly_Rebuilt": {
+   "op": "bevel",
+   "triangles_in": 13716,
+   "duplicate_faces_skipped": 0,
+   "edges": 4110,
+   "triangles_out": 30236,
+   "vertices_out": 16724
+  },
+  "M_A762_Flash_Hider": {
+   "op": "bevel",
+   "triangles_in": 5696,
+   "duplicate_faces_skipped": 0,
+   "edges": 2176,
+   "triangles_out": 14400,
+   "vertices_out": 7200
+  },
+  "M_A762_Rail": {
+   "op": "bevel",
+   "triangles_in": 11076,
+   "duplicate_faces_skipped": 0,
+   "edges": 12,
+   "triangles_out": 11180,
+   "vertices_out": 5668
+  },
+  "M_A762_RearSight03": {
+   "op": "bevel",
+   "triangles_in": 1660,
+   "duplicate_faces_skipped": 0,
+   "edges": 12,
+   "triangles_out": 1764,
+   "vertices_out": 900
+  },
+  "M_A762_FrontSight_Rebuilt": {
+   "op": "bevel",
+   "triangles_in": 1922,
+   "duplicate_faces_skipped": 0,
+   "edges": 416,
+   "triangles_out": 3676,
+   "vertices_out": 2050
+  },
+  "M_A762_FactoryStock_Socket03": {
+   "op": "bevel",
+   "triangles_in": 2304,
+   "duplicate_faces_skipped": 0,
+   "edges": 864,
+   "triangles_out": 5760,
+   "vertices_out": 3168
+  },
+  "M_A762_FactoryStock_Metal04": {
+   "op": "bevel",
+   "triangles_in": 15568,
+   "duplicate_faces_skipped": 0,
+   "edges": 983,
+   "triangles_out": 19570,
+   "vertices_out": 10081
+  },
+  "M_A762_FactoryStock_Rubber04": {
+   "op": "bevel",
+   "triangles_in": 28860,
+   "duplicate_faces_skipped": 0,
+   "edges": 542,
+   "triangles_out": 31816,
+   "vertices_out": 16582
+  },
+  "M_A762_FactoryStock_Seam04": {
+   "op": "bevel",
+   "triangles_in": 10396,
+   "duplicate_faces_skipped": 0,
+   "edges": 896,
+   "triangles_out": 14068,
+   "vertices_out": 7324
+  },
+  "M_A762_Handguard03": {
+   "op": "bevel",
+   "triangles_in": 15348,
+   "duplicate_faces_skipped": 0,
+   "edges": 152,
+   "triangles_out": 15956,
+   "vertices_out": 7980
+  }
+ },
+ "rivets": [
+  {
+   "side": "left",
+   "y": -31.7,
+   "z": -4.1,
+   "placed": true,
+   "surface": "M_A762_Receiver",
+   "normal_x": -0.996
+  },
+  {
+   "side": "left",
+   "y": -30.3,
+   "z": -4.1,
+   "placed": true,
+   "surface": "M_A762_Receiver",
+   "normal_x": -0.986
+  },
+  {
+   "side": "left",
+   "y": -31.0,
+   "z": -5.55,
+   "placed": true,
+   "surface": "M_A762_Receiver",
+   "normal_x": -0.995
+  },
+  {
+   "side": "left",
+   "y": -19.6,
+   "z": -5.9,
+   "placed": true,
+   "surface": "M_A762_Receiver",
+   "normal_x": -0.996
+  },
+  {
+   "side": "left",
+   "y": -18.3,
+   "z": -5.9,
+   "placed": true,
+   "surface": "M_A762_Receiver",
+   "normal_x": -0.96
+  },
+  {
+   "side": "left",
+   "y": -5.4,
+   "z": -4.0,
+   "placed": true,
+   "surface": "M_A762_UpperReceiver03",
+   "normal_x": -0.915
+  },
+  {
+   "side": "left",
+   "y": -5.4,
+   "z": -5.4,
+   "placed": true,
+   "surface": "M_A762_UpperReceiver03",
+   "normal_x": -0.915
+  },
+  {
+   "side": "right",
+   "y": -31.7,
+   "z": -4.1,
+   "placed": true,
+   "surface": "M_A762_Receiver",
+   "normal_x": 0.994
+  },
+  {
+   "side": "right",
+   "y": -30.3,
+   "z": -4.1,
+   "placed": true,
+   "surface": "M_A762_Receiver",
+   "normal_x": 1.0
+  },
+  {
+   "side": "right",
+   "y": -31.0,
+   "z": -5.55,
+   "placed": true,
+   "surface": "M_A762_Receiver",
+   "normal_x": 0.513
+  },
+  {
+   "side": "right",
+   "y": -19.6,
+   "z": -5.9,
+   "placed": true,
+   "surface": "M_A762_Receiver",
+   "normal_x": 0.996
+  },
+  {
+   "side": "right",
+   "y": -18.3,
+   "z": -5.9,
+   "placed": true,
+   "surface": "M_A762_Receiver",
+   "normal_x": 0.993
+  },
+  {
+   "side": "right",
+   "y": -5.4,
+   "z": -4.0,
+   "placed": true,
+   "surface": "M_A762_UpperReceiver03",
+   "normal_x": 0.915
+  },
+  {
+   "side": "right",
+   "y": -5.4,
+   "z": -5.4,
+   "placed": true,
+   "surface": "M_A762_UpperReceiver03",
+   "normal_x": 0.915
+  }
+ ]
+}

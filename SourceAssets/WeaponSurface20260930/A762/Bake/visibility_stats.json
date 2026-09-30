@@ -1,0 +1,427 @@
+{
+ "visible_area_share": 0.6375,
+ "slots": {
+  "M_A762_Bolt": {
+   "area_cm2": 18.0,
+   "visible_share": 0.435,
+   "edge_p10_50_90": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "cavity_p10_50_90": [
+    0.0,
+    0.0,
+    0.286
+   ],
+   "ao_p10_50_90": [
+    0.435,
+    0.941,
+    0.984
+   ],
+   "ao_below_0.3_visible": 0.083,
+   "cavity_above_0.5_visible": 0.058,
+   "edge_above_0.5_visible": 0.0
+  },
+  "M_A762_Inside": {
+   "area_cm2": 0.0,
+   "visible_share": 0.0
+  },
+  "M_A762_FactoryRearGrip": {
+   "area_cm2": 160.5,
+   "visible_share": 0.874,
+   "edge_p10_50_90": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "cavity_p10_50_90": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "ao_p10_50_90": [
+    0.957,
+    1.0,
+    1.0
+   ],
+   "ao_below_0.3_visible": 0.003,
+   "cavity_above_0.5_visible": 0.0,
+   "edge_above_0.5_visible": 0.0
+  },
+  "M_A762_FactoryStock_Seam04": {
+   "area_cm2": 63.5,
+   "visible_share": 0.054,
+   "edge_p10_50_90": [
+    0.0,
+    0.0,
+    0.012
+   ],
+   "cavity_p10_50_90": [
+    0.0,
+    0.745,
+    0.824
+   ],
+   "ao_p10_50_90": [
+    0.212,
+    0.369,
+    1.0
+   ],
+   "ao_below_0.3_visible": 0.146,
+   "cavity_above_0.5_visible": 0.736,
+   "edge_above_0.5_visible": 0.0
+  },
+  "M_A762_FrontAssembly_Rebuilt": {
+   "area_cm2": 370.8,
+   "visible_share": 0.793,
+   "edge_p10_50_90": [
+    0.0,
+    0.0,
+    0.004
+   ],
+   "cavity_p10_50_90": [
+    0.0,
+    0.651,
+    0.875
+   ],
+   "ao_p10_50_90": [
+    0.012,
+    0.325,
+    0.976
+   ],
+   "ao_below_0.3_visible": 0.457,
+   "cavity_above_0.5_visible": 0.557,
+   "edge_above_0.5_visible": 0.0
+  },
+  "M_A762_UpperReceiver03": {
+   "area_cm2": 714.2,
+   "visible_share": 0.821,
+   "edge_p10_50_90": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "cavity_p10_50_90": [
+    0.0,
+    0.106,
+    1.0
+   ],
+   "ao_p10_50_90": [
+    0.0,
+    0.584,
+    1.0
+   ],
+   "ao_below_0.3_visible": 0.233,
+   "cavity_above_0.5_visible": 0.273,
+   "edge_above_0.5_visible": 0.0
+  },
+  "M_A762_Flash_Hider": {
+   "area_cm2": 98.3,
+   "visible_share": 0.67,
+   "edge_p10_50_90": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "cavity_p10_50_90": [
+    0.0,
+    0.0,
+    0.047
+   ],
+   "ao_p10_50_90": [
+    0.267,
+    0.992,
+    1.0
+   ],
+   "ao_below_0.3_visible": 0.102,
+   "cavity_above_0.5_visible": 0.007,
+   "edge_above_0.5_visible": 0.005
+  },
+  "M_A762_Rail": {
+   "area_cm2": 372.5,
+   "visible_share": 0.704,
+   "edge_p10_50_90": [
+    0.0,
+    0.0,
+    0.102
+   ],
+   "cavity_p10_50_90": [
+    0.0,
+    0.596,
+    0.765
+   ],
+   "ao_p10_50_90": [
+    0.2,
+    0.475,
+    1.0
+   ],
+   "ao_below_0.3_visible": 0.393,
+   "cavity_above_0.5_visible": 0.594,
+   "edge_above_0.5_visible": 0.0
+  },
+  "M_A762_RearSight03": {
+   "area_cm2": 33.7,
+   "visible_share": 0.77,
+   "edge_p10_50_90": [
+    0.0,
+    0.0,
+    0.012
+   ],
+   "cavity_p10_50_90": [
+    0.0,
+    0.247,
+    0.675
+   ],
+   "ao_p10_50_90": [
+    0.302,
+    0.588,
+    1.0
+   ],
+   "ao_below_0.3_visible": 0.095,
+   "cavity_above_0.5_visible": 0.341,
+   "edge_above_0.5_visible": 0.0
+  },
+  "M_A762_Receiver": {
+   "area_cm2": 846.3,
+   "visible_share": 0.452,
+   "edge_p10_50_90": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "cavity_p10_50_90": [
+    0.0,
+    0.031,
+    0.643
+   ],
+   "ao_p10_50_90": [
+    0.082,
+    0.82,
+    0.992
+   ],
+   "ao_below_0.3_visible": 0.294,
+   "cavity_above_0.5_visible": 0.122,
+   "edge_above_0.5_visible": 0.0
+  },
+  "M_A762_Trigger": {
+   "area_cm2": 13.6,
+   "visible_share": 0.597,
+   "edge_p10_50_90": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "cavity_p10_50_90": [
+    0.02,
+    0.09,
+    0.6
+   ],
+   "ao_p10_50_90": [
+    0.247,
+    0.333,
+    0.875
+   ],
+   "ao_below_0.3_visible": 0.318,
+   "cavity_above_0.5_visible": 0.161,
+   "edge_above_0.5_visible": 0.0
+  },
+  "M_A762_FactoryStock_Rubber04": {
+   "area_cm2": 83.1,
+   "visible_share": 0.339,
+   "edge_p10_50_90": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "cavity_p10_50_90": [
+    0.0,
+    0.008,
+    0.024
+   ],
+   "ao_p10_50_90": [
+    0.961,
+    0.984,
+    1.0
+   ],
+   "ao_below_0.3_visible": 0.002,
+   "cavity_above_0.5_visible": 0.003,
+   "edge_above_0.5_visible": 0.0
+  },
+  "M_A762_FrontSight_Rebuilt": {
+   "area_cm2": 19.4,
+   "visible_share": 0.697,
+   "edge_p10_50_90": [
+    0.0,
+    0.0,
+    0.063
+   ],
+   "cavity_p10_50_90": [
+    0.0,
+    0.439,
+    0.757
+   ],
+   "ao_p10_50_90": [
+    0.259,
+    0.557,
+    0.976
+   ],
+   "ao_below_0.3_visible": 0.342,
+   "cavity_above_0.5_visible": 0.46,
+   "edge_above_0.5_visible": 0.002
+  },
+  "M_A762_FactoryStock_Socket03": {
+   "area_cm2": 19.5,
+   "visible_share": 0.67,
+   "edge_p10_50_90": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "cavity_p10_50_90": [
+    0.0,
+    0.663,
+    0.898
+   ],
+   "ao_p10_50_90": [
+    0.0,
+    0.035,
+    0.906
+   ],
+   "ao_below_0.3_visible": 0.816,
+   "cavity_above_0.5_visible": 0.536,
+   "edge_above_0.5_visible": 0.0
+  },
+  "M_A762_FactoryStock_Metal04": {
+   "area_cm2": 328.1,
+   "visible_share": 0.635,
+   "edge_p10_50_90": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "cavity_p10_50_90": [
+    0.0,
+    0.333,
+    0.667
+   ],
+   "ao_p10_50_90": [
+    0.298,
+    0.635,
+    0.976
+   ],
+   "ao_below_0.3_visible": 0.102,
+   "cavity_above_0.5_visible": 0.348,
+   "edge_above_0.5_visible": 0.0
+  },
+  "M_A762_Magazine_Rebuilt": {
+   "area_cm2": 530.5,
+   "visible_share": 0.756,
+   "edge_p10_50_90": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "cavity_p10_50_90": [
+    0.0,
+    0.008,
+    0.051
+   ],
+   "ao_p10_50_90": [
+    0.753,
+    0.984,
+    1.0
+   ],
+   "ao_below_0.3_visible": 0.002,
+   "cavity_above_0.5_visible": 0.008,
+   "edge_above_0.5_visible": 0.0
+  },
+  "M_A762_MagazineInside_Rebuilt": {
+   "area_cm2": 48.0,
+   "visible_share": 0.456,
+   "edge_p10_50_90": [
+    0.0,
+    0.0,
+    0.004
+   ],
+   "cavity_p10_50_90": [
+    0.459,
+    1.0,
+    1.0
+   ],
+   "ao_p10_50_90": [
+    0.008,
+    0.016,
+    0.11
+   ],
+   "ao_below_0.3_visible": 1.0,
+   "cavity_above_0.5_visible": 0.642,
+   "edge_above_0.5_visible": 0.0
+  },
+  "M_A762_SightInner": {
+   "area_cm2": 237.5,
+   "visible_share": 0.078,
+   "edge_p10_50_90": [
+    0.0,
+    0.0,
+    0.094
+   ],
+   "cavity_p10_50_90": [
+    0.282,
+    0.667,
+    1.0
+   ],
+   "ao_p10_50_90": [
+    0.031,
+    0.192,
+    0.318
+   ],
+   "ao_below_0.3_visible": 0.898,
+   "cavity_above_0.5_visible": 0.687,
+   "edge_above_0.5_visible": 0.036
+  },
+  "M_A762_MagazineEdge_Rebuilt": {
+   "area_cm2": 127.5,
+   "visible_share": 0.656,
+   "edge_p10_50_90": [
+    0.0,
+    0.0,
+    0.106
+   ],
+   "cavity_p10_50_90": [
+    0.0,
+    0.016,
+    0.404
+   ],
+   "ao_p10_50_90": [
+    0.392,
+    0.773,
+    1.0
+   ],
+   "ao_below_0.3_visible": 0.068,
+   "cavity_above_0.5_visible": 0.077,
+   "edge_above_0.5_visible": 0.006
+  },
+  "M_A762_Handguard03": {
+   "area_cm2": 354.8,
+   "visible_share": 0.747,
+   "edge_p10_50_90": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "cavity_p10_50_90": [
+    0.0,
+    0.0,
+    0.082
+   ],
+   "ao_p10_50_90": [
+    0.82,
+    1.0,
+    1.0
+   ],
+   "ao_below_0.3_visible": 0.037,
+   "cavity_above_0.5_visible": 0.016,
+   "edge_above_0.5_visible": 0.003
+  }
+ }
+}

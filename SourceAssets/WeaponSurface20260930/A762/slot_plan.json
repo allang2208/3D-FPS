@@ -1,0 +1,139 @@
+{
+  "note": "Slot -> surface-card preset for A762. Revision 3 (user feedback 2026-09-30): rev1 metal read as dirty metal, rev2 M4 matte looked no different from the original; return to metal with clean detail. Metal parts use CleanSatinSteel / CleanAnodized / CleanPolishedSteel, polymer parts CleanPolymer. Atlas slots keep only the Meshy UV0 normal. BeadScale = 2.42 bead cells per cm / slot UV0 units per cm (uv_layout.json).",
+  "revision": 4,
+  "revision_note": "Rev 4: bolt from polished to satin steel (white glare), receiver and bolt two-sided; the trigger slot is empty after the magwell repair (repair_a762_mesh.py).",
+  "bead_cells_per_cm": 2.42,
+  "atlas": {
+    "SourceBaseColor": "/Game/Weapons/A762/Refinement01/Textures/T_A762_base_color",
+    "SurfaceNormal": "/Game/Weapons/A762/Refinement01/Textures/T_A762_normal",
+    "SourceRoughness": "/Game/Weapons/A762/Refinement01/Textures/T_A762_roughness",
+    "scalars": {
+      "SourceColorWeight": 0.0,
+      "SourceRoughnessWeight": 0.0,
+      "SourceRoughnessPivot": 0.64
+    }
+  },
+  "main": {
+    "M_A762_Receiver": {
+      "preset": "CleanSatinSteel",
+      "atlas": true,
+      "two_sided": true,
+      "note": "Meshy shell has inward-facing patches seen from outside; two-sided keeps them from reading as holes"
+    },
+    "M_A762_Bolt": {
+      "preset": "CleanSatinSteel",
+      "atlas": true,
+      "two_sided": true,
+      "scalars": {
+        "Roughness": 0.34
+      },
+      "note": "rev3 polished steel (.16) mirrored the bright sky and read as untextured white; satin steel, a little glossier than the receiver"
+    },
+    "M_A762_Trigger": {
+      "preset": "CleanSatinSteel",
+      "atlas": true,
+      "scalars": {
+        "Roughness": 0.36
+      }
+    },
+    "M_A762_FactoryRearGrip": {
+      "preset": "CleanPolymer",
+      "atlas": true
+    },
+    "M_A762_UpperReceiver03": {
+      "preset": "CleanSatinSteel"
+    },
+    "M_A762_FrontAssembly_Rebuilt": {
+      "preset": "CleanSatinSteel"
+    },
+    "M_A762_Flash_Hider": {
+      "preset": "CleanSatinSteel",
+      "scalars": {
+        "Roughness": 0.46
+      }
+    },
+    "M_A762_Rail": {
+      "preset": "CleanAnodized"
+    },
+    "M_A762_RearSight03": {
+      "preset": "CleanSatinSteel"
+    },
+    "M_A762_FrontSight_Rebuilt": {
+      "preset": "CleanSatinSteel"
+    },
+    "M_A762_FactoryStock_Metal04": {
+      "preset": "CleanSatinSteel"
+    },
+    "M_A762_FactoryStock_Socket03": {
+      "preset": "CleanSatinSteel"
+    },
+    "M_A762_FactoryStock_Rubber04": {
+      "preset": "Rubber"
+    },
+    "M_A762_FactoryStock_Seam04": {
+      "preset": "CleanPolymer",
+      "vectors": {
+        "FinishColor": [
+          0.012,
+          0.012,
+          0.012
+        ]
+      }
+    },
+    "M_A762_Handguard03": {
+      "preset": "CleanPolymer"
+    },
+    "M_A762_Magazine_Rebuilt": {
+      "preset": "CleanSatinSteel",
+      "scalars": {
+        "Roughness": 0.48,
+        "EdgeHighlight": 0.0,
+        "EdgeWear": 0.0
+      },
+      "note": "faceted curved body reads as edge in the bake; no edge sheen"
+    },
+    "M_A762_MagazineEdge_Rebuilt": {
+      "preset": "CleanSatinSteel",
+      "scalars": {
+        "Roughness": 0.44,
+        "EdgeHighlight": 0.04,
+        "EdgeWear": 0.03
+      }
+    },
+    "M_A762_MagazineInside_Rebuilt": {
+      "preset": "Interior"
+    },
+    "M_A762_Inside": {
+      "preset": "Interior"
+    },
+    "M_A762_SightInner": {
+      "preset": "Interior"
+    }
+  },
+  "static": {
+    "A762_RearSight": {
+      "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_RearSight",
+      "mask": "T_A762_RearSight_WS_Mask",
+      "slots": {
+        "M_A762_RearSight03": {
+          "preset": "CleanSatinSteel"
+        },
+        "M_A762_SightInner": {
+          "preset": "Interior"
+        }
+      }
+    },
+    "A762_FrontSight": {
+      "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_FrontSight",
+      "mask": "T_A762_FrontSight_WS_Mask",
+      "slots": {
+        "M_A762_FrontSight_Rebuilt": {
+          "preset": "CleanSatinSteel"
+        },
+        "M_A762_SightInner": {
+          "preset": "Interior"
+        }
+      }
+    }
+  }
+}

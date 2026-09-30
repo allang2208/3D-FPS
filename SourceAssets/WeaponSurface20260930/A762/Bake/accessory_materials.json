@@ -1,0 +1,2285 @@
+{
+ "SM_A762_angled": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_angled.SM_A762_angled",
+  "slots": [
+   {
+    "slot": "A762_angled_Interface",
+    "material": {
+     "path": "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "Metallic": 0.8600000143051147,
+      "RoughnessCenter": 0.33000001311302185
+     },
+     "vectors": {
+      "FinishColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_angled_0",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_angled_0.M_A762_angled_0",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_angled_0.M_A762_angled_0"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "SM_A762_balanced_reargrip": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_balanced_reargrip.SM_A762_balanced_reargrip",
+  "slots": [
+   {
+    "slot": "A762_balanced_reargrip_Interface",
+    "material": {
+     "path": "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "Metallic": 0.8600000143051147,
+      "RoughnessCenter": 0.33000001311302185
+     },
+     "vectors": {
+      "FinishColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_balanced_reargrip_0",
+    "material": {
+     "path": "/Game/Weapons/RearGripFinish20260913/AKM/balanced/M_AKM_balanced_Body.M_AKM_balanced_Body",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/RearGripFinish20260913/AKM/balanced/M_AKM_balanced_Body.M_AKM_balanced_Body"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {},
+     "vectors": {}
+    }
+   },
+   {
+    "slot": "A762_balanced_reargrip_1",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_balanced_reargrip_1.M_A762_balanced_reargrip_1",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_balanced_reargrip_1.M_A762_balanced_reargrip_1"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "SM_A762_brake": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_brake.SM_A762_brake",
+  "slots": [
+   {
+    "slot": "A762_brake_0",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_brake_0.M_A762_brake_0",
+     "class": "MaterialInstanceConstant",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_brake_0.M_A762_brake_0",
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_brake_0_Graph.M_A762_brake_0_Graph"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Flash_Hider_BaseColor.Flash_Hider_BaseColor",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      },
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Flash_Hider_Normal.Flash_Hider_Normal",
+       "srgb": false,
+       "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>"
+      },
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Flash_Hider_Roughness.Flash_Hider_Roughness",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      },
+      {
+       "path": "/Engine/EngineResources/DefaultTexture.DefaultTexture",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      },
+      {
+       "path": "/Engine/EngineMaterials/BaseFlattenLinearColor.BaseFlattenLinearColor",
+       "srgb": false,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      }
+     ],
+     "scalars": {
+      "DiffuseColorMapWeight": 1.0,
+      "NormalMapWeight": 1.0,
+      "ShininessMapWeight": 1.0,
+      "one": 1.0,
+      "SpecularColorMapWeight": 0.0,
+      "Shininess": 20.0,
+      "AmbientColorMapWeight": 0.0,
+      "EmissiveColorMapWeight": 0.0,
+      "AmbientOcclusionMapWeight": 0.0,
+      "AmbientOcclusion": 1.0,
+      "OpacityMaskMapWeight": 0.0,
+      "Opacity": 1.0,
+      "OpacityMapWeight": 0.0,
+      "OpacitySourceChannel": 0.0,
+      "AmbientColorMapTilingU": 1.0,
+      "AmbientColorMapTilingV": 1.0,
+      "DiffuseColorMapTilingU": 1.0,
+      "DiffuseColorMapTilingV": 1.0,
+      "SpecularColorMapTilingU": 1.0,
+      "SpecularColorMapTilingV": 1.0,
+      "ShininessMapTilingU": 1.0,
+      "ShininessMapTilingV": 1.0,
+      "OpacityMapTilingU": 1.0,
+      "OpacityMapTilingV": 1.0,
+      "OpacityMaskMapTilingU": 1.0,
+      "OpacityMaskMapTilingV": 1.0,
+      "AmbientOcclusionMapTilingU": 1.0,
+      "AmbientOcclusionMapTilingV": 1.0,
+      "NormalMapTilingU": 1.0,
+      "NormalMapTilingV": 1.0,
+      "EmissiveColorMapTilingU": 1.0,
+      "EmissiveColorMapTilingV": 1.0
+     },
+     "vectors": {
+      "AmbientColor": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "EmissiveColor": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "SpecularColor": [
+       0.20000000298023224,
+       0.20000000298023224,
+       0.20000000298023224
+      ],
+      "DiffuseColor": [
+       1.0,
+       1.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_brake_1",
+    "material": {
+     "path": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess",
+     "class": "MaterialInstanceConstant",
+     "chain": [
+      "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess",
+      "/Game/Weapons/M4MuzzlesV1/M_MuzzleRecess.M_MuzzleRecess"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Flash_Hider_BaseColor.Flash_Hider_BaseColor",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      },
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Flash_Hider_Normal.Flash_Hider_Normal",
+       "srgb": false,
+       "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>"
+      },
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Flash_Hider_Roughness.Flash_Hider_Roughness",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      }
+     ],
+     "scalars": {
+      "DiffuseColorMapWeight": 1.0,
+      "NormalMapWeight": 1.0,
+      "ShininessMapWeight": 1.0
+     },
+     "vectors": {
+      "AmbientColor": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "EmissiveColor": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "SpecularColor": [
+       0.20000000298023224,
+       0.20000000298023224,
+       0.20000000298023224
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "SM_A762_canted": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_canted.SM_A762_canted",
+  "slots": [
+   {
+    "slot": "A762_canted_Interface",
+    "material": {
+     "path": "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "Metallic": 0.8600000143051147,
+      "RoughnessCenter": 0.33000001311302185
+     },
+     "vectors": {
+      "FinishColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_canted_0",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_canted_0.M_A762_canted_0",
+     "class": "MaterialInstanceConstant",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_canted_0.M_A762_canted_0",
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_canted_0_Graph.M_A762_canted_0_Graph"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Body_BaseColor.Body_BaseColor",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      },
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Body_Normal.Body_Normal",
+       "srgb": false,
+       "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>"
+      },
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Body_Roughness.Body_Roughness",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      },
+      {
+       "path": "/Engine/EngineResources/DefaultTexture.DefaultTexture",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      },
+      {
+       "path": "/Engine/EngineMaterials/BaseFlattenLinearColor.BaseFlattenLinearColor",
+       "srgb": false,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      }
+     ],
+     "scalars": {
+      "DiffuseColorMapWeight": 1.0,
+      "NormalMapWeight": 1.0,
+      "ShininessMapWeight": 1.0,
+      "one": 1.0,
+      "SpecularColorMapWeight": 0.0,
+      "Shininess": 20.0,
+      "AmbientColorMapWeight": 0.0,
+      "EmissiveColorMapWeight": 0.0,
+      "AmbientOcclusionMapWeight": 0.0,
+      "AmbientOcclusion": 1.0,
+      "OpacityMaskMapWeight": 0.0,
+      "Opacity": 1.0,
+      "OpacityMapWeight": 0.0,
+      "OpacitySourceChannel": 0.0,
+      "AmbientColorMapTilingU": 1.0,
+      "AmbientColorMapTilingV": 1.0,
+      "DiffuseColorMapTilingU": 1.0,
+      "DiffuseColorMapTilingV": 1.0,
+      "SpecularColorMapTilingU": 1.0,
+      "SpecularColorMapTilingV": 1.0,
+      "ShininessMapTilingU": 1.0,
+      "ShininessMapTilingV": 1.0,
+      "OpacityMapTilingU": 1.0,
+      "OpacityMapTilingV": 1.0,
+      "OpacityMaskMapTilingU": 1.0,
+      "OpacityMaskMapTilingV": 1.0,
+      "AmbientOcclusionMapTilingU": 1.0,
+      "AmbientOcclusionMapTilingV": 1.0,
+      "NormalMapTilingU": 1.0,
+      "NormalMapTilingV": 1.0,
+      "EmissiveColorMapTilingU": 1.0,
+      "EmissiveColorMapTilingV": 1.0
+     },
+     "vectors": {
+      "AmbientColor": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "EmissiveColor": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "SpecularColor": [
+       0.20000000298023224,
+       0.20000000298023224,
+       0.20000000298023224
+      ],
+      "DiffuseColor": [
+       1.0,
+       1.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_canted_1",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_canted_1.M_A762_canted_1",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_canted_1.M_A762_canted_1"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "SM_A762_core_stock": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_core_stock.SM_A762_core_stock",
+  "slots": [
+   {
+    "slot": "A762_core_stock_Interface",
+    "material": {
+     "path": "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "Metallic": 0.8600000143051147,
+      "RoughnessCenter": 0.33000001311302185
+     },
+     "vectors": {
+      "FinishColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_core_stock_0",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_core_stock_0.M_A762_core_stock_0",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_core_stock_0.M_A762_core_stock_0"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_core_stock_1",
+    "material": {
+     "path": "/Game/Weapons/CoreStock20260914/Meshy0914005605/M_CoreStock_Rubber.M_CoreStock_Rubber",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/CoreStock20260914/Meshy0914005605/M_CoreStock_Rubber.M_CoreStock_Rubber"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {},
+     "vectors": {}
+    }
+   },
+   {
+    "slot": "A762_core_stock_2",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_core_stock_2.M_A762_core_stock_2",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_core_stock_2.M_A762_core_stock_2"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "SM_A762_drum": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_drum.SM_A762_drum",
+  "slots": [
+   {
+    "slot": "A762_drum_0",
+    "material": {
+     "path": "/Game/Weapons/LargeDrumUpgrade20260920/AKM/M_AKM_DrumSurface.M_AKM_DrumSurface",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/LargeDrumUpgrade20260920/AKM/M_AKM_DrumSurface.M_AKM_DrumSurface"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {},
+     "vectors": {}
+    }
+   },
+   {
+    "slot": "A762_drum_1",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_drum_1.M_A762_drum_1",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_drum_1.M_A762_drum_1"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_drum_2",
+    "material": {
+     "path": "/Game/Weapons/LargeDrumUpgrade20260920/AKM/M_AKM_DrumSurface.M_AKM_DrumSurface",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/LargeDrumUpgrade20260920/AKM/M_AKM_DrumSurface.M_AKM_DrumSurface"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {},
+     "vectors": {}
+    }
+   },
+   {
+    "slot": "A762_drum_Neck",
+    "material": {
+     "path": "/Game/Weapons/A762/Refinement02/Materials/M_A762_Magazine_Rebuilt.M_A762_Magazine_Rebuilt",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Refinement02/Materials/M_A762_Magazine_Rebuilt.M_A762_Magazine_Rebuilt"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "Metallic": 0.8199999928474426,
+      "RoughnessCenter": 0.36500000953674316
+     },
+     "vectors": {
+      "FinishColor": [
+       0.02500000037252903,
+       0.03099999949336052,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_drum_Inside",
+    "material": {
+     "path": "/Game/Weapons/A762/Refinement02/Materials/M_A762_MagazineInside_Rebuilt.M_A762_MagazineInside_Rebuilt",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Refinement02/Materials/M_A762_MagazineInside_Rebuilt.M_A762_MagazineInside_Rebuilt"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "Metallic": 0.3499999940395355,
+      "RoughnessCenter": 0.6600000262260437
+     },
+     "vectors": {
+      "FinishColor": [
+       0.00800000037997961,
+       0.010999999940395355,
+       0.014999999664723873
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "SM_A762_ext_mag": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_ext_mag.SM_A762_ext_mag",
+  "slots": [
+   {
+    "slot": "M_A762_Magazine_Rebuilt",
+    "material": {
+     "path": "/Game/Weapons/A762/Refinement02/Materials/M_A762_Magazine_Rebuilt.M_A762_Magazine_Rebuilt",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Refinement02/Materials/M_A762_Magazine_Rebuilt.M_A762_Magazine_Rebuilt"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "Metallic": 0.8199999928474426,
+      "RoughnessCenter": 0.36500000953674316
+     },
+     "vectors": {
+      "FinishColor": [
+       0.02500000037252903,
+       0.03099999949336052,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "M_A762_MagazineInside_Rebuilt",
+    "material": {
+     "path": "/Game/Weapons/A762/Refinement02/Materials/M_A762_MagazineInside_Rebuilt.M_A762_MagazineInside_Rebuilt",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Refinement02/Materials/M_A762_MagazineInside_Rebuilt.M_A762_MagazineInside_Rebuilt"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "Metallic": 0.3499999940395355,
+      "RoughnessCenter": 0.6600000262260437
+     },
+     "vectors": {
+      "FinishColor": [
+       0.00800000037997961,
+       0.010999999940395355,
+       0.014999999664723873
+      ]
+     }
+    }
+   },
+   {
+    "slot": "M_A762_MagazineEdge_Rebuilt",
+    "material": {
+     "path": "/Game/Weapons/A762/Refinement02/Materials/M_A762_MagazineEdge_Rebuilt.M_A762_MagazineEdge_Rebuilt",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Refinement02/Materials/M_A762_MagazineEdge_Rebuilt.M_A762_MagazineEdge_Rebuilt"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "Metallic": 0.8600000143051147,
+      "RoughnessCenter": 0.3149999976158142
+     },
+     "vectors": {
+      "FinishColor": [
+       0.029999999329447746,
+       0.035999998450279236,
+       0.04399999976158142
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "SM_A762_flashlight": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_flashlight.SM_A762_flashlight",
+  "slots": [
+   {
+    "slot": "A762_flashlight_Interface",
+    "material": {
+     "path": "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "Metallic": 0.8600000143051147,
+      "RoughnessCenter": 0.33000001311302185
+     },
+     "vectors": {
+      "FinishColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_flashlight_0",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_flashlight_0.M_A762_flashlight_0",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_flashlight_0.M_A762_flashlight_0"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_flashlight_1",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_flashlight_1.M_A762_flashlight_1",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_flashlight_1.M_A762_flashlight_1"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "SM_A762_holographic": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_holographic.SM_A762_holographic",
+  "slots": [
+   {
+    "slot": "A762_holographic_0",
+    "material": {
+     "path": "/Game/Weapons/A762/OpticFinish06/Materials/M_A762_holographic.M_A762_holographic",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/OpticFinish06/Materials/M_A762_holographic.M_A762_holographic"
+     ],
+     "blend": "<BlendMode.BLEND_MASKED: 1>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingMetallic": 0.8299999833106995,
+      "A762CoatingRoughness": 0.3400000035762787,
+      "A762CoatingSpecular": 0.5
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.03999999910593033
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_holographic_1",
+    "material": {
+     "path": "/Game/Weapons/M4Holographic/M_HoloReticle.M_HoloReticle",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/M4Holographic/M_HoloReticle.M_HoloReticle"
+     ],
+     "blend": "<BlendMode.BLEND_MASKED: 1>",
+     "two_sided": true,
+     "textures": [],
+     "scalars": {},
+     "vectors": {}
+    }
+   }
+  ]
+ },
+ "SM_A762_laser": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_laser.SM_A762_laser",
+  "slots": [
+   {
+    "slot": "A762_laser_Interface",
+    "material": {
+     "path": "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "Metallic": 0.8600000143051147,
+      "RoughnessCenter": 0.33000001311302185
+     },
+     "vectors": {
+      "FinishColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_laser_0",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_laser_0.M_A762_laser_0",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_laser_0.M_A762_laser_0"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_laser_1",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_laser_1.M_A762_laser_1",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_laser_1.M_A762_laser_1"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "SM_A762_lpvo_1_6x": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_lpvo_1_6x.SM_A762_lpvo_1_6x",
+  "slots": [
+   {
+    "slot": "A762_lpvo_1_6x_0",
+    "material": {
+     "path": "/Game/Weapons/LPVO1to6X/M_LPVO_Reticle.M_LPVO_Reticle",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/LPVO1to6X/M_LPVO_Reticle.M_LPVO_Reticle"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": true,
+     "textures": [],
+     "scalars": {},
+     "vectors": {}
+    }
+   },
+   {
+    "slot": "A762_lpvo_1_6x_1",
+    "material": {
+     "path": "/Game/Weapons/LPVO1to6X/M_LPVO_Glass.M_LPVO_Glass",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/LPVO1to6X/M_LPVO_Glass.M_LPVO_Glass"
+     ],
+     "blend": "<BlendMode.BLEND_TRANSLUCENT: 2>",
+     "two_sided": true,
+     "textures": [],
+     "scalars": {},
+     "vectors": {}
+    }
+   },
+   {
+    "slot": "A762_lpvo_1_6x_2",
+    "material": {
+     "path": "/Game/Weapons/A762/OpticFinish06/Materials/M_A762_lpvo_1_6x.M_A762_lpvo_1_6x",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/OpticFinish06/Materials/M_A762_lpvo_1_6x.M_A762_lpvo_1_6x"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingMetallic": 0.8299999833106995,
+      "A762CoatingRoughness": 0.3400000035762787,
+      "A762CoatingSpecular": 0.5
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.03999999910593033
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "SM_A762_lpvo_ring": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_lpvo_ring.SM_A762_lpvo_ring",
+  "slots": [
+   {
+    "slot": "A762_lpvo_ring_0",
+    "material": {
+     "path": "/Game/Weapons/A762/OpticFinish06/Materials/M_A762_lpvo_ring.M_A762_lpvo_ring",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/OpticFinish06/Materials/M_A762_lpvo_ring.M_A762_lpvo_ring"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingMetallic": 0.8299999833106995,
+      "A762CoatingRoughness": 0.3400000035762787,
+      "A762CoatingSpecular": 0.5
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.03999999910593033
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "SM_A762_panoramic_red_dot": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_panoramic_red_dot.SM_A762_panoramic_red_dot",
+  "slots": [
+   {
+    "slot": "A762_panoramic_red_dot_0",
+    "material": {
+     "path": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Glass.M_Panoramic_Glass",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/PanoramicRedDot/M_Panoramic_Glass.M_Panoramic_Glass"
+     ],
+     "blend": "<BlendMode.BLEND_TRANSLUCENT: 2>",
+     "two_sided": true,
+     "textures": [],
+     "scalars": {},
+     "vectors": {}
+    }
+   },
+   {
+    "slot": "A762_panoramic_red_dot_1",
+    "material": {
+     "path": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Reticle.M_Panoramic_Reticle",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/PanoramicRedDot/M_Panoramic_Reticle.M_Panoramic_Reticle"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": true,
+     "textures": [],
+     "scalars": {},
+     "vectors": {}
+    }
+   },
+   {
+    "slot": "A762_panoramic_red_dot_2",
+    "material": {
+     "path": "/Game/Weapons/A762/OpticFinish06/Materials/M_A762_panoramic_red_dot.M_A762_panoramic_red_dot",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/OpticFinish06/Materials/M_A762_panoramic_red_dot.M_A762_panoramic_red_dot"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingMetallic": 0.8299999833106995,
+      "A762CoatingRoughness": 0.3400000035762787,
+      "A762CoatingSpecular": 0.5
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.03999999910593033
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "SM_A762_phantom_reargrip": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_phantom_reargrip.SM_A762_phantom_reargrip",
+  "slots": [
+   {
+    "slot": "A762_phantom_reargrip_Interface",
+    "material": {
+     "path": "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "Metallic": 0.8600000143051147,
+      "RoughnessCenter": 0.33000001311302185
+     },
+     "vectors": {
+      "FinishColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_phantom_reargrip_0",
+    "material": {
+     "path": "/Game/Weapons/RearGripFinish20260913/AKM/phantom/M_AKM_phantom_Body.M_AKM_phantom_Body",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/RearGripFinish20260913/AKM/phantom/M_AKM_phantom_Body.M_AKM_phantom_Body"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {},
+     "vectors": {}
+    }
+   },
+   {
+    "slot": "A762_phantom_reargrip_1",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_phantom_reargrip_1.M_A762_phantom_reargrip_1",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_phantom_reargrip_1.M_A762_phantom_reargrip_1"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "SM_A762_prism": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_prism.SM_A762_prism",
+  "slots": [
+   {
+    "slot": "A762_prism_Interface",
+    "material": {
+     "path": "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "Metallic": 0.8600000143051147,
+      "RoughnessCenter": 0.33000001311302185
+     },
+     "vectors": {
+      "FinishColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_prism_0",
+    "material": {
+     "path": "/Game/Weapons/PrismHandstopV1/M_Prism_Polymer.M_Prism_Polymer",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/PrismHandstopV1/M_Prism_Polymer.M_Prism_Polymer"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {},
+     "vectors": {}
+    }
+   },
+   {
+    "slot": "A762_prism_1",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_prism_1.M_A762_prism_1",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_prism_1.M_A762_prism_1"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_prism_2",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_prism_2.M_A762_prism_2",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_prism_2.M_A762_prism_2"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "GunsteelTint": [
+       0.07500000298023224,
+       0.08500000089406967,
+       0.10000000149011612
+      ],
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "SM_A762_prism_scope_2x": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_prism_scope_2x.SM_A762_prism_scope_2x",
+  "slots": [
+   {
+    "slot": "A762_prism_scope_2x_0",
+    "material": {
+     "path": "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Reticle.M_Scope2X_Reticle",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Reticle.M_Scope2X_Reticle"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": true,
+     "textures": [],
+     "scalars": {},
+     "vectors": {}
+    }
+   },
+   {
+    "slot": "A762_prism_scope_2x_1",
+    "material": {
+     "path": "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Glass.M_Scope2X_Glass",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Glass.M_Scope2X_Glass"
+     ],
+     "blend": "<BlendMode.BLEND_TRANSLUCENT: 2>",
+     "two_sided": true,
+     "textures": [],
+     "scalars": {},
+     "vectors": {}
+    }
+   },
+   {
+    "slot": "A762_prism_scope_2x_2",
+    "material": {
+     "path": "/Game/Weapons/A762/OpticFinish06/Materials/M_A762_prism_scope_2x.M_A762_prism_scope_2x",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/OpticFinish06/Materials/M_A762_prism_scope_2x.M_A762_prism_scope_2x"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingMetallic": 0.8299999833106995,
+      "A762CoatingRoughness": 0.3400000035762787,
+      "A762CoatingSpecular": 0.5
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.03999999910593033
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "SM_A762_qr_performance": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_qr_performance.SM_A762_qr_performance",
+  "slots": [
+   {
+    "slot": "A762_qr_performance_Interface",
+    "material": {
+     "path": "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "Metallic": 0.8600000143051147,
+      "RoughnessCenter": 0.33000001311302185
+     },
+     "vectors": {
+      "FinishColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_qr_performance_0",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_qr_performance_0.M_A762_qr_performance_0",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_qr_performance_0.M_A762_qr_performance_0"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_qr_performance_1",
+    "material": {
+     "path": "/Game/Weapons/QRPerformanceStock/Meshy20260913/M_Stock_Polymer.M_Stock_Polymer",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/QRPerformanceStock/Meshy20260913/M_Stock_Polymer.M_Stock_Polymer"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {},
+     "vectors": {}
+    }
+   },
+   {
+    "slot": "A762_qr_performance_2",
+    "material": {
+     "path": "/Game/Weapons/QRPerformanceStock/Meshy20260913/M_Stock_Rubber.M_Stock_Rubber",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/QRPerformanceStock/Meshy20260913/M_Stock_Rubber.M_Stock_Rubber"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {},
+     "vectors": {}
+    }
+   },
+   {
+    "slot": "A762_qr_performance_3",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_qr_performance_3.M_A762_qr_performance_3",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_qr_performance_3.M_A762_qr_performance_3"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "SM_A762_skeleton": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_skeleton.SM_A762_skeleton",
+  "slots": [
+   {
+    "slot": "A762_skeleton_Interface",
+    "material": {
+     "path": "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "Metallic": 0.8600000143051147,
+      "RoughnessCenter": 0.33000001311302185
+     },
+     "vectors": {
+      "FinishColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_skeleton_0",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_skeleton_0.M_A762_skeleton_0",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_skeleton_0.M_A762_skeleton_0"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_skeleton_1",
+    "material": {
+     "path": "/Game/Weapons/ReferenceStock5080/Refined/M_StockPolymer.M_StockPolymer",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/ReferenceStock5080/Refined/M_StockPolymer.M_StockPolymer"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {},
+     "vectors": {}
+    }
+   },
+   {
+    "slot": "A762_skeleton_2",
+    "material": {
+     "path": "/Game/Weapons/ReferenceStock5080/Refined/M_StockRubber.M_StockRubber",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/ReferenceStock5080/Refined/M_StockRubber.M_StockRubber"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {},
+     "vectors": {}
+    }
+   }
+  ]
+ },
+ "SM_A762_stable_antislip_reargrip": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_stable_antislip_reargrip.SM_A762_stable_antislip_reargrip",
+  "slots": [
+   {
+    "slot": "A762_stable_antislip_reargrip_Interface",
+    "material": {
+     "path": "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "Metallic": 0.8600000143051147,
+      "RoughnessCenter": 0.33000001311302185
+     },
+     "vectors": {
+      "FinishColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_stable_antislip_reargrip_0",
+    "material": {
+     "path": "/Game/Weapons/StableAntiSlipRearGrip/Selected91727/M_StableAntiSlipRearGrip.M_StableAntiSlipRearGrip",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/StableAntiSlipRearGrip/Selected91727/M_StableAntiSlipRearGrip.M_StableAntiSlipRearGrip"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {},
+     "vectors": {}
+    }
+   },
+   {
+    "slot": "A762_stable_antislip_reargrip_1",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_stable_antislip_reargrip_1.M_A762_stable_antislip_reargrip_1",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_stable_antislip_reargrip_1.M_A762_stable_antislip_reargrip_1"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "SM_A762_suppressor": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_suppressor.SM_A762_suppressor",
+  "slots": [
+   {
+    "slot": "A762_suppressor_0",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_suppressor_0.M_A762_suppressor_0",
+     "class": "MaterialInstanceConstant",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_suppressor_0.M_A762_suppressor_0",
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_suppressor_0_Graph.M_A762_suppressor_0_Graph"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Flash_Hider_BaseColor.Flash_Hider_BaseColor",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      },
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Flash_Hider_Normal.Flash_Hider_Normal",
+       "srgb": false,
+       "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>"
+      },
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Flash_Hider_Roughness.Flash_Hider_Roughness",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      },
+      {
+       "path": "/Engine/EngineResources/DefaultTexture.DefaultTexture",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      },
+      {
+       "path": "/Engine/EngineMaterials/BaseFlattenLinearColor.BaseFlattenLinearColor",
+       "srgb": false,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      }
+     ],
+     "scalars": {
+      "DiffuseColorMapWeight": 1.0,
+      "NormalMapWeight": 1.0,
+      "ShininessMapWeight": 1.0,
+      "one": 1.0,
+      "SpecularColorMapWeight": 0.0,
+      "Shininess": 20.0,
+      "AmbientColorMapWeight": 0.0,
+      "EmissiveColorMapWeight": 0.0,
+      "AmbientOcclusionMapWeight": 0.0,
+      "AmbientOcclusion": 1.0,
+      "OpacityMaskMapWeight": 0.0,
+      "Opacity": 1.0,
+      "OpacityMapWeight": 0.0,
+      "OpacitySourceChannel": 0.0,
+      "AmbientColorMapTilingU": 1.0,
+      "AmbientColorMapTilingV": 1.0,
+      "DiffuseColorMapTilingU": 1.0,
+      "DiffuseColorMapTilingV": 1.0,
+      "SpecularColorMapTilingU": 1.0,
+      "SpecularColorMapTilingV": 1.0,
+      "ShininessMapTilingU": 1.0,
+      "ShininessMapTilingV": 1.0,
+      "OpacityMapTilingU": 1.0,
+      "OpacityMapTilingV": 1.0,
+      "OpacityMaskMapTilingU": 1.0,
+      "OpacityMaskMapTilingV": 1.0,
+      "AmbientOcclusionMapTilingU": 1.0,
+      "AmbientOcclusionMapTilingV": 1.0,
+      "NormalMapTilingU": 1.0,
+      "NormalMapTilingV": 1.0,
+      "EmissiveColorMapTilingU": 1.0,
+      "EmissiveColorMapTilingV": 1.0
+     },
+     "vectors": {
+      "AmbientColor": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "EmissiveColor": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "SpecularColor": [
+       0.20000000298023224,
+       0.20000000298023224,
+       0.20000000298023224
+      ],
+      "DiffuseColor": [
+       1.0,
+       1.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_suppressor_1",
+    "material": {
+     "path": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess",
+     "class": "MaterialInstanceConstant",
+     "chain": [
+      "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess",
+      "/Game/Weapons/M4MuzzlesV1/M_MuzzleRecess.M_MuzzleRecess"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Flash_Hider_BaseColor.Flash_Hider_BaseColor",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      },
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Flash_Hider_Normal.Flash_Hider_Normal",
+       "srgb": false,
+       "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>"
+      },
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Flash_Hider_Roughness.Flash_Hider_Roughness",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      }
+     ],
+     "scalars": {
+      "DiffuseColorMapWeight": 1.0,
+      "NormalMapWeight": 1.0,
+      "ShininessMapWeight": 1.0
+     },
+     "vectors": {
+      "AmbientColor": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "EmissiveColor": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "SpecularColor": [
+       0.20000000298023224,
+       0.20000000298023224,
+       0.20000000298023224
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "SM_A762_tactical_suppressor": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_tactical_suppressor.SM_A762_tactical_suppressor",
+  "slots": [
+   {
+    "slot": "A762_tactical_suppressor_0",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_tactical_suppressor_0.M_A762_tactical_suppressor_0",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_tactical_suppressor_0.M_A762_tactical_suppressor_0"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "one": 1.0,
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_tactical_suppressor_1",
+    "material": {
+     "path": "/Game/Weapons/TacticalSuppressor20260913/M4/M_TacticalSuppressor_Recess.M_TacticalSuppressor_Recess",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/TacticalSuppressor20260913/M4/M_TacticalSuppressor_Recess.M_TacticalSuppressor_Recess"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {},
+     "vectors": {}
+    }
+   },
+   {
+    "slot": "A762_tactical_suppressor_2",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_tactical_suppressor_2.M_A762_tactical_suppressor_2",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_tactical_suppressor_2.M_A762_tactical_suppressor_2"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "one": 1.0,
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "SM_A762_tactical_telescopic": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_tactical_telescopic.SM_A762_tactical_telescopic",
+  "slots": [
+   {
+    "slot": "A762_tactical_telescopic_Interface",
+    "material": {
+     "path": "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "Metallic": 0.8600000143051147,
+      "RoughnessCenter": 0.33000001311302185
+     },
+     "vectors": {
+      "FinishColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_tactical_telescopic_0",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_tactical_telescopic_0.M_A762_tactical_telescopic_0",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_tactical_telescopic_0.M_A762_tactical_telescopic_0"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_tactical_telescopic_1",
+    "material": {
+     "path": "/Game/Weapons/TacticalTelescopicStock20260914/M_TacticalStock_Polymer.M_TacticalStock_Polymer",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/TacticalTelescopicStock20260914/M_TacticalStock_Polymer.M_TacticalStock_Polymer"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {},
+     "vectors": {}
+    }
+   },
+   {
+    "slot": "A762_tactical_telescopic_2",
+    "material": {
+     "path": "/Game/Weapons/TacticalTelescopicStock20260914/M_TacticalStock_Rubber.M_TacticalStock_Rubber",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/TacticalTelescopicStock20260914/M_TacticalStock_Rubber.M_TacticalStock_Rubber"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {},
+     "vectors": {}
+    }
+   },
+   {
+    "slot": "A762_tactical_telescopic_3",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_tactical_telescopic_3.M_A762_tactical_telescopic_3",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_tactical_telescopic_3.M_A762_tactical_telescopic_3"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "SM_A762_tactical_vertical": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_tactical_vertical.SM_A762_tactical_vertical",
+  "slots": [
+   {
+    "slot": "A762_tactical_vertical_Interface",
+    "material": {
+     "path": "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "Metallic": 0.8600000143051147,
+      "RoughnessCenter": 0.33000001311302185
+     },
+     "vectors": {
+      "FinishColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_tactical_vertical_0",
+    "material": {
+     "path": "/Game/Weapons/TacticalVerticalForegrip20260919/AKM/M_TacticalVerticalForegrip.M_TacticalVerticalForegrip",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/TacticalVerticalForegrip20260919/AKM/M_TacticalVerticalForegrip.M_TacticalVerticalForegrip"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {},
+     "vectors": {}
+    }
+   },
+   {
+    "slot": "A762_tactical_vertical_2",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_tactical_vertical_2.M_A762_tactical_vertical_2",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_tactical_vertical_2.M_A762_tactical_vertical_2"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "SM_A762_titanium_brake": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_titanium_brake.SM_A762_titanium_brake",
+  "slots": [
+   {
+    "slot": "A762_titanium_brake_0",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_titanium_brake_0.M_A762_titanium_brake_0",
+     "class": "MaterialInstanceConstant",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_titanium_brake_0.M_A762_titanium_brake_0",
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_titanium_brake_0_Graph.M_A762_titanium_brake_0_Graph"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Flash_Hider_BaseColor.Flash_Hider_BaseColor",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      },
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Flash_Hider_Normal.Flash_Hider_Normal",
+       "srgb": false,
+       "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>"
+      },
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Flash_Hider_Roughness.Flash_Hider_Roughness",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      },
+      {
+       "path": "/Engine/EngineResources/DefaultTexture.DefaultTexture",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      },
+      {
+       "path": "/Engine/EngineMaterials/BaseFlattenLinearColor.BaseFlattenLinearColor",
+       "srgb": false,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      }
+     ],
+     "scalars": {
+      "DiffuseColorMapWeight": 1.0,
+      "NormalMapWeight": 1.0,
+      "ShininessMapWeight": 1.0,
+      "one": 1.0,
+      "SpecularColorMapWeight": 0.0,
+      "Shininess": 20.0,
+      "AmbientColorMapWeight": 0.0,
+      "EmissiveColorMapWeight": 0.0,
+      "AmbientOcclusionMapWeight": 0.0,
+      "AmbientOcclusion": 1.0,
+      "OpacityMaskMapWeight": 0.0,
+      "Opacity": 1.0,
+      "OpacityMapWeight": 0.0,
+      "OpacitySourceChannel": 0.0,
+      "AmbientColorMapTilingU": 1.0,
+      "AmbientColorMapTilingV": 1.0,
+      "DiffuseColorMapTilingU": 1.0,
+      "DiffuseColorMapTilingV": 1.0,
+      "SpecularColorMapTilingU": 1.0,
+      "SpecularColorMapTilingV": 1.0,
+      "ShininessMapTilingU": 1.0,
+      "ShininessMapTilingV": 1.0,
+      "OpacityMapTilingU": 1.0,
+      "OpacityMapTilingV": 1.0,
+      "OpacityMaskMapTilingU": 1.0,
+      "OpacityMaskMapTilingV": 1.0,
+      "AmbientOcclusionMapTilingU": 1.0,
+      "AmbientOcclusionMapTilingV": 1.0,
+      "NormalMapTilingU": 1.0,
+      "NormalMapTilingV": 1.0,
+      "EmissiveColorMapTilingU": 1.0,
+      "EmissiveColorMapTilingV": 1.0
+     },
+     "vectors": {
+      "AmbientColor": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "EmissiveColor": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "SpecularColor": [
+       0.20000000298023224,
+       0.20000000298023224,
+       0.20000000298023224
+      ],
+      "DiffuseColor": [
+       1.0,
+       1.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_titanium_brake_1",
+    "material": {
+     "path": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess",
+     "class": "MaterialInstanceConstant",
+     "chain": [
+      "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess",
+      "/Game/Weapons/M4MuzzlesV1/M_MuzzleRecess.M_MuzzleRecess"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Flash_Hider_BaseColor.Flash_Hider_BaseColor",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      },
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Flash_Hider_Normal.Flash_Hider_Normal",
+       "srgb": false,
+       "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>"
+      },
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Flash_Hider_Roughness.Flash_Hider_Roughness",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      }
+     ],
+     "scalars": {
+      "DiffuseColorMapWeight": 1.0,
+      "NormalMapWeight": 1.0,
+      "ShininessMapWeight": 1.0
+     },
+     "vectors": {
+      "AmbientColor": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "EmissiveColor": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "SpecularColor": [
+       0.20000000298023224,
+       0.20000000298023224,
+       0.20000000298023224
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_titanium_brake_2",
+    "material": {
+     "path": "/Game/Weapons/M4MuzzlesV1/MI_TitaniumTrim.MI_TitaniumTrim",
+     "class": "MaterialInstanceConstant",
+     "chain": [
+      "/Game/Weapons/M4MuzzlesV1/MI_TitaniumTrim.MI_TitaniumTrim",
+      "/Game/Weapons/M4MuzzlesV1/M_TitaniumTrim.M_TitaniumTrim"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Flash_Hider_BaseColor.Flash_Hider_BaseColor",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      },
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Flash_Hider_Normal.Flash_Hider_Normal",
+       "srgb": false,
+       "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>"
+      },
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Flash_Hider_Roughness.Flash_Hider_Roughness",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      }
+     ],
+     "scalars": {
+      "DiffuseColorMapWeight": 1.0,
+      "NormalMapWeight": 1.0,
+      "ShininessMapWeight": 1.0
+     },
+     "vectors": {
+      "AmbientColor": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "EmissiveColor": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "SpecularColor": [
+       0.20000000298023224,
+       0.20000000298023224,
+       0.20000000298023224
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "SM_A762_vertical": {
+  "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_vertical.SM_A762_vertical",
+  "slots": [
+   {
+    "slot": "A762_vertical_Interface",
+    "material": {
+     "path": "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Refinement04/Materials/M_A762_FactoryStock_Metal04.M_A762_FactoryStock_Metal04"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "Metallic": 0.8600000143051147,
+      "RoughnessCenter": 0.33000001311302185
+     },
+     "vectors": {
+      "FinishColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_vertical_0",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_vertical_0.M_A762_vertical_0",
+     "class": "MaterialInstanceConstant",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_vertical_0.M_A762_vertical_0",
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_vertical_0_Graph.M_A762_vertical_0_Graph"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Body_BaseColor.Body_BaseColor",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      },
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Body_Normal.Body_Normal",
+       "srgb": false,
+       "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>"
+      },
+      {
+       "path": "/Game/Weapons/M4InfimaV3/Body_Roughness.Body_Roughness",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      },
+      {
+       "path": "/Engine/EngineResources/DefaultTexture.DefaultTexture",
+       "srgb": true,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      },
+      {
+       "path": "/Engine/EngineMaterials/BaseFlattenLinearColor.BaseFlattenLinearColor",
+       "srgb": false,
+       "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+      }
+     ],
+     "scalars": {
+      "DiffuseColorMapWeight": 1.0,
+      "NormalMapWeight": 1.0,
+      "ShininessMapWeight": 1.0,
+      "one": 1.0,
+      "SpecularColorMapWeight": 0.0,
+      "Shininess": 20.0,
+      "AmbientColorMapWeight": 0.0,
+      "EmissiveColorMapWeight": 0.0,
+      "AmbientOcclusionMapWeight": 0.0,
+      "AmbientOcclusion": 1.0,
+      "OpacityMaskMapWeight": 0.0,
+      "Opacity": 1.0,
+      "OpacityMapWeight": 0.0,
+      "OpacitySourceChannel": 0.0,
+      "AmbientColorMapTilingU": 1.0,
+      "AmbientColorMapTilingV": 1.0,
+      "DiffuseColorMapTilingU": 1.0,
+      "DiffuseColorMapTilingV": 1.0,
+      "SpecularColorMapTilingU": 1.0,
+      "SpecularColorMapTilingV": 1.0,
+      "ShininessMapTilingU": 1.0,
+      "ShininessMapTilingV": 1.0,
+      "OpacityMapTilingU": 1.0,
+      "OpacityMapTilingV": 1.0,
+      "OpacityMaskMapTilingU": 1.0,
+      "OpacityMaskMapTilingV": 1.0,
+      "AmbientOcclusionMapTilingU": 1.0,
+      "AmbientOcclusionMapTilingV": 1.0,
+      "NormalMapTilingU": 1.0,
+      "NormalMapTilingV": 1.0,
+      "EmissiveColorMapTilingU": 1.0,
+      "EmissiveColorMapTilingV": 1.0
+     },
+     "vectors": {
+      "AmbientColor": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "EmissiveColor": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "SpecularColor": [
+       0.20000000298023224,
+       0.20000000298023224,
+       0.20000000298023224
+      ],
+      "DiffuseColor": [
+       1.0,
+       1.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "slot": "A762_vertical_1",
+    "material": {
+     "path": "/Game/Weapons/A762/Accessories05/Materials/M_A762_vertical_1.M_A762_vertical_1",
+     "class": "Material",
+     "chain": [
+      "/Game/Weapons/A762/Accessories05/Materials/M_A762_vertical_1.M_A762_vertical_1"
+     ],
+     "blend": "<BlendMode.BLEND_OPAQUE: 0>",
+     "two_sided": false,
+     "textures": [],
+     "scalars": {
+      "A762CoatingRoughness": 0.36000001430511475,
+      "A762CoatingMetallic": 0.8600000143051147
+     },
+     "vectors": {
+      "A762CoatingColor": [
+       0.020999999716877937,
+       0.02800000086426735,
+       0.039000000804662704
+      ]
+     }
+    }
+   }
+  ]
+ }
+}

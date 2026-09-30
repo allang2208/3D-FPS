@@ -57,6 +57,10 @@ Meshy 候选生成成功，任务 `01a0bec4-76e1-71d2-bf1e-9397b1b1785b`，实�
 已按用户要求逐槽读取并补齐四种瞄具与倍率环的材质统一，直接使用 A762 上机匣的涂层参数，保留原始分区和光学通道。实际网格入口不变，材料与记录见 OpticFinish06/README.md。未运行游戏或渲染。
 
 
+## 表面标准试点（SurfaceStandard08，2026-09-30）
+
+枪体 20 个槽和两块折叠机瞄改用共享母材质 `M_WeaponSurface` 的实例（HK416 干净档；钢件取 AKM 的材质身份），实例位于 `/Game/Weapons/A762/SurfaceStandard08`。枪体三角形新增唯一的 UV1 用于磨损遮罩，手臂 UV 不变。制作入口在 `SourceAssets/WeaponSurface20260930/A762`，记录见 `Docs/Weapons/a762-surface-standard-20260930.md`。**以后从本目录的旧 FBX 重新导入 `SK_A762_Manny` 会丢失 UV1**，要重跑该目录下的烘焙与接入脚本。未运行游戏测试。
+
 ## 装备栏图标修复（InventoryIcon07）
 
 补齐缺失的 A762 基础 PNG 与 ue_icon 引用，修正动态图／掉落展示把 Handguard 当作手臂隐藏的问题。已确认 UE 图片解码；未运行游戏测试。记录见 InventoryIcon07/README.md。

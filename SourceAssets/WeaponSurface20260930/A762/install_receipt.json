@@ -1,0 +1,655 @@
+{
+ "version": "WS1-20260930",
+ "backups": {
+  "/Game/Weapons/A762/Integrated20260920/SK_A762_Manny": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponSurface20260930\\A762\\Before\\Weapons\\A762\\Integrated20260920\\SK_A762_Manny.uasset",
+  "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_RearSight": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponSurface20260930\\A762\\Before\\Weapons\\A762\\Accessories05\\Meshes\\SM_A762_RearSight.uasset",
+  "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_FrontSight": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponSurface20260930\\A762\\Before\\Weapons\\A762\\Accessories05\\Meshes\\SM_A762_FrontSight.uasset"
+ },
+ "uv1": {
+  "bake_position_checksum": 9185857.0,
+  "triangles": 360512,
+  "uv_sets": 4,
+  "gun_triangles_written": 323390,
+  "arm_triangles_preserved": 37122,
+  "degenerate_repaired": 0,
+  "fingerprint_before": {
+   "triangles": 360512,
+   "uv_sets": 4,
+   "uv": [
+    1102816.456884332,
+    856701.5636365721,
+    -6049639.993323662,
+    -1542.6943507629294
+   ],
+   "uv1_arms": -1385606.5313556092,
+   "normals": 2768140.475744898,
+   "bone_weight_sums": {
+    "0": 0.0,
+    "12": 137.094,
+    "14": 252.697,
+    "15": 988.85,
+    "16": 752.901,
+    "17": 783.315,
+    "18": 372.294,
+    "19": 342.098,
+    "20": 174.922,
+    "21": 260.992,
+    "22": 283.806,
+    "23": 278.847,
+    "24": 176.659,
+    "25": 258.337,
+    "26": 488.205,
+    "27": 274.226,
+    "28": 267.431,
+    "29": 384.757,
+    "30": 329.749,
+    "31": 169.855,
+    "32": 278.588,
+    "33": 274.956,
+    "34": 294.169,
+    "35": 151.843,
+    "36": 261.6,
+    "37": 1034.496,
+    "38": 908.314,
+    "39": 137.094,
+    "41": 252.697,
+    "42": 988.856,
+    "43": 752.901,
+    "44": 783.318,
+    "45": 384.748,
+    "46": 329.749,
+    "47": 169.855,
+    "48": 278.588,
+    "49": 274.953,
+    "50": 294.169,
+    "51": 151.843,
+    "52": 261.6,
+    "53": 283.802,
+    "54": 278.847,
+    "55": 176.659,
+    "56": 258.337,
+    "57": 372.294,
+    "58": 342.098,
+    "59": 174.922,
+    "60": 260.992,
+    "61": 488.212,
+    "62": 274.226,
+    "63": 267.431,
+    "64": 1034.496,
+    "65": 908.314,
+    "89": 142615.0,
+    "90": 25441.0,
+    "91": 4.0,
+    "92": 1878.0
+   }
+  },
+  "fingerprint_after": {
+   "triangles": 360512,
+   "uv_sets": 4,
+   "uv": [
+    1102816.456884332,
+    961116.4922778541,
+    -6049639.993323662,
+    -1542.6943507629294
+   ],
+   "uv1_arms": -1385606.5313556092,
+   "normals": 2768140.475744898,
+   "bone_weight_sums": {
+    "0": 0.0,
+    "12": 137.094,
+    "14": 252.697,
+    "15": 988.85,
+    "16": 752.901,
+    "17": 783.315,
+    "18": 372.294,
+    "19": 342.098,
+    "20": 174.922,
+    "21": 260.992,
+    "22": 283.806,
+    "23": 278.847,
+    "24": 176.659,
+    "25": 258.337,
+    "26": 488.205,
+    "27": 274.226,
+    "28": 267.431,
+    "29": 384.757,
+    "30": 329.749,
+    "31": 169.855,
+    "32": 278.588,
+    "33": 274.956,
+    "34": 294.169,
+    "35": 151.843,
+    "36": 261.6,
+    "37": 1034.496,
+    "38": 908.314,
+    "39": 137.094,
+    "41": 252.697,
+    "42": 988.856,
+    "43": 752.901,
+    "44": 783.318,
+    "45": 384.748,
+    "46": 329.749,
+    "47": 169.855,
+    "48": 278.588,
+    "49": 274.953,
+    "50": 294.169,
+    "51": 151.843,
+    "52": 261.6,
+    "53": 283.802,
+    "54": 278.847,
+    "55": 176.659,
+    "56": 258.337,
+    "57": 372.294,
+    "58": 342.098,
+    "59": 174.922,
+    "60": 260.992,
+    "61": 488.212,
+    "62": 274.226,
+    "63": 267.431,
+    "64": 1034.496,
+    "65": 908.314,
+    "89": 142615.0,
+    "90": 25441.0,
+    "91": 4.0,
+    "92": 1878.0
+   }
+  },
+  "slots_unchanged": true
+ },
+ "textures": {
+  "T_A762_WS_Mask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_WS_Mask.T_A762_WS_Mask",
+  "T_A762_RearSight_WS_Mask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_RearSight_WS_Mask.T_A762_RearSight_WS_Mask",
+  "T_A762_FrontSight_WS_Mask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_FrontSight_WS_Mask.T_A762_FrontSight_WS_Mask"
+ },
+ "materials": {
+  "MI_A762_WS_Bolt": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Bolt.MI_A762_WS_Bolt",
+   "preset": "CleanSatinSteel",
+   "scalars": {
+    "MaskUVChannel": 1.0,
+    "BeadScale": 187.017,
+    "SourceColorWeight": 0.0,
+    "SourceRoughnessWeight": 0.0,
+    "SourceRoughnessPivot": 0.64,
+    "Roughness": 0.34
+   },
+   "two_sided": true,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_WS_Mask.T_A762_WS_Mask",
+    "SourceBaseColor": "/Game/Weapons/A762/Refinement01/Textures/T_A762_base_color.T_A762_base_color",
+    "SurfaceNormal": "/Game/Weapons/A762/Refinement01/Textures/T_A762_normal.T_A762_normal",
+    "SourceRoughness": "/Game/Weapons/A762/Refinement01/Textures/T_A762_roughness.T_A762_roughness"
+   }
+  },
+  "MI_A762_WS_Inside": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Inside.MI_A762_WS_Inside",
+   "preset": "Interior",
+   "scalars": {
+    "MaskUVChannel": 1.0,
+    "BeadScale": 0.083
+   },
+   "two_sided": false,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_WS_Mask.T_A762_WS_Mask"
+   }
+  },
+  "MI_A762_WS_FactoryRearGrip": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FactoryRearGrip.MI_A762_WS_FactoryRearGrip",
+   "preset": "CleanPolymer",
+   "scalars": {
+    "MaskUVChannel": 1.0,
+    "BeadScale": 261.905,
+    "SourceColorWeight": 0.0,
+    "SourceRoughnessWeight": 0.0,
+    "SourceRoughnessPivot": 0.64
+   },
+   "two_sided": false,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_WS_Mask.T_A762_WS_Mask",
+    "SourceBaseColor": "/Game/Weapons/A762/Refinement01/Textures/T_A762_base_color.T_A762_base_color",
+    "SurfaceNormal": "/Game/Weapons/A762/Refinement01/Textures/T_A762_normal.T_A762_normal",
+    "SourceRoughness": "/Game/Weapons/A762/Refinement01/Textures/T_A762_roughness.T_A762_roughness"
+   }
+  },
+  "MI_A762_WS_FactoryStock_Seam04": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FactoryStock_Seam04.MI_A762_WS_FactoryStock_Seam04",
+   "preset": "CleanPolymer",
+   "scalars": {
+    "MaskUVChannel": 1.0,
+    "BeadScale": 6.759
+   },
+   "two_sided": false,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_WS_Mask.T_A762_WS_Mask"
+   }
+  },
+  "MI_A762_WS_FrontAssembly_Rebuilt": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FrontAssembly_Rebuilt.MI_A762_WS_FrontAssembly_Rebuilt",
+   "preset": "CleanSatinSteel",
+   "scalars": {
+    "MaskUVChannel": 1.0,
+    "BeadScale": 6.99
+   },
+   "two_sided": false,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_WS_Mask.T_A762_WS_Mask"
+   }
+  },
+  "MI_A762_WS_UpperReceiver03": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_UpperReceiver03.MI_A762_WS_UpperReceiver03",
+   "preset": "CleanSatinSteel",
+   "scalars": {
+    "MaskUVChannel": 1.0,
+    "BeadScale": 6.802
+   },
+   "two_sided": false,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_WS_Mask.T_A762_WS_Mask"
+   }
+  },
+  "MI_A762_WS_Flash_Hider": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Flash_Hider.MI_A762_WS_Flash_Hider",
+   "preset": "CleanSatinSteel",
+   "scalars": {
+    "MaskUVChannel": 1.0,
+    "BeadScale": 7.064,
+    "Roughness": 0.46
+   },
+   "two_sided": false,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_WS_Mask.T_A762_WS_Mask"
+   }
+  },
+  "MI_A762_WS_Rail": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Rail.MI_A762_WS_Rail",
+   "preset": "CleanAnodized",
+   "scalars": {
+    "MaskUVChannel": 1.0,
+    "BeadScale": 4.865
+   },
+   "two_sided": false,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_WS_Mask.T_A762_WS_Mask"
+   }
+  },
+  "MI_A762_WS_RearSight03": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_RearSight03.MI_A762_WS_RearSight03",
+   "preset": "CleanSatinSteel",
+   "scalars": {
+    "MaskUVChannel": 1.0,
+    "BeadScale": 16.915
+   },
+   "two_sided": false,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_WS_Mask.T_A762_WS_Mask"
+   }
+  },
+  "MI_A762_WS_Receiver": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Receiver.MI_A762_WS_Receiver",
+   "preset": "CleanSatinSteel",
+   "scalars": {
+    "MaskUVChannel": 1.0,
+    "BeadScale": 176.771,
+    "SourceColorWeight": 0.0,
+    "SourceRoughnessWeight": 0.0,
+    "SourceRoughnessPivot": 0.64
+   },
+   "two_sided": true,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_WS_Mask.T_A762_WS_Mask",
+    "SourceBaseColor": "/Game/Weapons/A762/Refinement01/Textures/T_A762_base_color.T_A762_base_color",
+    "SurfaceNormal": "/Game/Weapons/A762/Refinement01/Textures/T_A762_normal.T_A762_normal",
+    "SourceRoughness": "/Game/Weapons/A762/Refinement01/Textures/T_A762_roughness.T_A762_roughness"
+   }
+  },
+  "MI_A762_WS_Trigger": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Trigger.MI_A762_WS_Trigger",
+   "preset": "CleanSatinSteel",
+   "scalars": {
+    "MaskUVChannel": 1.0,
+    "BeadScale": 111.727,
+    "SourceColorWeight": 0.0,
+    "SourceRoughnessWeight": 0.0,
+    "SourceRoughnessPivot": 0.64,
+    "Roughness": 0.36
+   },
+   "two_sided": false,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_WS_Mask.T_A762_WS_Mask",
+    "SourceBaseColor": "/Game/Weapons/A762/Refinement01/Textures/T_A762_base_color.T_A762_base_color",
+    "SurfaceNormal": "/Game/Weapons/A762/Refinement01/Textures/T_A762_normal.T_A762_normal",
+    "SourceRoughness": "/Game/Weapons/A762/Refinement01/Textures/T_A762_roughness.T_A762_roughness"
+   }
+  },
+  "MI_A762_WS_FactoryStock_Rubber04": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FactoryStock_Rubber04.MI_A762_WS_FactoryStock_Rubber04",
+   "preset": "Rubber",
+   "scalars": {
+    "MaskUVChannel": 1.0,
+    "BeadScale": 6.861
+   },
+   "two_sided": false,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_WS_Mask.T_A762_WS_Mask"
+   }
+  },
+  "MI_A762_WS_FrontSight_Rebuilt": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FrontSight_Rebuilt.MI_A762_WS_FrontSight_Rebuilt",
+   "preset": "CleanSatinSteel",
+   "scalars": {
+    "MaskUVChannel": 1.0,
+    "BeadScale": 13.759
+   },
+   "two_sided": false,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_WS_Mask.T_A762_WS_Mask"
+   }
+  },
+  "MI_A762_WS_FactoryStock_Socket03": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FactoryStock_Socket03.MI_A762_WS_FactoryStock_Socket03",
+   "preset": "CleanSatinSteel",
+   "scalars": {
+    "MaskUVChannel": 1.0,
+    "BeadScale": 7.085
+   },
+   "two_sided": false,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_WS_Mask.T_A762_WS_Mask"
+   }
+  },
+  "MI_A762_WS_FactoryStock_Metal04": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FactoryStock_Metal04.MI_A762_WS_FactoryStock_Metal04",
+   "preset": "CleanSatinSteel",
+   "scalars": {
+    "MaskUVChannel": 1.0,
+    "BeadScale": 6.894
+   },
+   "two_sided": false,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_WS_Mask.T_A762_WS_Mask"
+   }
+  },
+  "MI_A762_WS_Magazine_Rebuilt": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Magazine_Rebuilt.MI_A762_WS_Magazine_Rebuilt",
+   "preset": "CleanSatinSteel",
+   "scalars": {
+    "MaskUVChannel": 1.0,
+    "BeadScale": 6.822,
+    "Roughness": 0.48,
+    "EdgeHighlight": 0.0,
+    "EdgeWear": 0.0
+   },
+   "two_sided": false,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_WS_Mask.T_A762_WS_Mask"
+   }
+  },
+  "MI_A762_WS_MagazineInside_Rebuilt": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_MagazineInside_Rebuilt.MI_A762_WS_MagazineInside_Rebuilt",
+   "preset": "Interior",
+   "scalars": {
+    "MaskUVChannel": 1.0,
+    "BeadScale": 6.676
+   },
+   "two_sided": false,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_WS_Mask.T_A762_WS_Mask"
+   }
+  },
+  "MI_A762_WS_SightInner": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_SightInner.MI_A762_WS_SightInner",
+   "preset": "Interior",
+   "scalars": {
+    "MaskUVChannel": 1.0,
+    "BeadScale": 7.052
+   },
+   "two_sided": false,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_WS_Mask.T_A762_WS_Mask"
+   }
+  },
+  "MI_A762_WS_MagazineEdge_Rebuilt": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_MagazineEdge_Rebuilt.MI_A762_WS_MagazineEdge_Rebuilt",
+   "preset": "CleanSatinSteel",
+   "scalars": {
+    "MaskUVChannel": 1.0,
+    "BeadScale": 6.998,
+    "Roughness": 0.44,
+    "EdgeHighlight": 0.04,
+    "EdgeWear": 0.03
+   },
+   "two_sided": false,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_WS_Mask.T_A762_WS_Mask"
+   }
+  },
+  "MI_A762_WS_Handguard03": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Handguard03.MI_A762_WS_Handguard03",
+   "preset": "CleanPolymer",
+   "scalars": {
+    "MaskUVChannel": 1.0,
+    "BeadScale": 6.84
+   },
+   "two_sided": false,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_WS_Mask.T_A762_WS_Mask"
+   }
+  },
+  "MI_A762_WS_RearSight_RearSight03": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_RearSight_RearSight03.MI_A762_WS_RearSight_RearSight03",
+   "preset": "CleanSatinSteel",
+   "scalars": {
+    "MaskUVChannel": 0.0,
+    "BeadScale": 13.593
+   },
+   "two_sided": false,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_RearSight_WS_Mask.T_A762_RearSight_WS_Mask"
+   }
+  },
+  "MI_A762_WS_RearSight_SightInner": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_RearSight_SightInner.MI_A762_WS_RearSight_SightInner",
+   "preset": "Interior",
+   "scalars": {
+    "MaskUVChannel": 0.0,
+    "BeadScale": 13.628
+   },
+   "two_sided": false,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_RearSight_WS_Mask.T_A762_RearSight_WS_Mask"
+   }
+  },
+  "MI_A762_WS_FrontSight_FrontSight_Rebuilt": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FrontSight_FrontSight_Rebuilt.MI_A762_WS_FrontSight_FrontSight_Rebuilt",
+   "preset": "CleanSatinSteel",
+   "scalars": {
+    "MaskUVChannel": 0.0,
+    "BeadScale": 15.749
+   },
+   "two_sided": false,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_FrontSight_WS_Mask.T_A762_FrontSight_WS_Mask"
+   }
+  },
+  "MI_A762_WS_FrontSight_SightInner": {
+   "path": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FrontSight_SightInner.MI_A762_WS_FrontSight_SightInner",
+   "preset": "Interior",
+   "scalars": {
+    "MaskUVChannel": 0.0,
+    "BeadScale": 15.734
+   },
+   "two_sided": false,
+   "textures": {
+    "SurfaceMask": "/Game/Weapons/A762/SurfaceStandard08/Textures/T_A762_FrontSight_WS_Mask.T_A762_FrontSight_WS_Mask"
+   }
+  }
+ },
+ "bindings": {
+  "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_RearSight.SM_A762_RearSight": [
+   {
+    "slot": "M_A762_RearSight03",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_RearSight_RearSight03.MI_A762_WS_RearSight_RearSight03",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_RearSight_RearSight03.MI_A762_WS_RearSight_RearSight03"
+   },
+   {
+    "slot": "M_A762_SightInner",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_RearSight_SightInner.MI_A762_WS_RearSight_SightInner",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_RearSight_SightInner.MI_A762_WS_RearSight_SightInner"
+   }
+  ],
+  "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_FrontSight.SM_A762_FrontSight": [
+   {
+    "slot": "M_A762_FrontSight_Rebuilt",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FrontSight_FrontSight_Rebuilt.MI_A762_WS_FrontSight_FrontSight_Rebuilt",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FrontSight_FrontSight_Rebuilt.MI_A762_WS_FrontSight_FrontSight_Rebuilt"
+   },
+   {
+    "slot": "M_A762_SightInner",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FrontSight_SightInner.MI_A762_WS_FrontSight_SightInner",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FrontSight_SightInner.MI_A762_WS_FrontSight_SightInner"
+   }
+  ],
+  "/Game/Weapons/A762/Integrated20260920/SK_A762_Manny.SK_A762_Manny": [
+   {
+    "slot": "M_A762_Bolt",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Bolt.MI_A762_WS_Bolt",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Bolt.MI_A762_WS_Bolt"
+   },
+   {
+    "slot": "M_A762_Inside",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Inside.MI_A762_WS_Inside",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Inside.MI_A762_WS_Inside"
+   },
+   {
+    "slot": "M_A762_FactoryRearGrip",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FactoryRearGrip.MI_A762_WS_FactoryRearGrip",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FactoryRearGrip.MI_A762_WS_FactoryRearGrip"
+   },
+   {
+    "slot": "M_A762_FactoryStock_Seam04",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FactoryStock_Seam04.MI_A762_WS_FactoryStock_Seam04",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FactoryStock_Seam04.MI_A762_WS_FactoryStock_Seam04"
+   },
+   {
+    "slot": "M_A762_FrontAssembly_Rebuilt",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FrontAssembly_Rebuilt.MI_A762_WS_FrontAssembly_Rebuilt",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FrontAssembly_Rebuilt.MI_A762_WS_FrontAssembly_Rebuilt"
+   },
+   {
+    "slot": "M_A762_UpperReceiver03",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_UpperReceiver03.MI_A762_WS_UpperReceiver03",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_UpperReceiver03.MI_A762_WS_UpperReceiver03"
+   },
+   {
+    "slot": "M_A762_Flash_Hider",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Flash_Hider.MI_A762_WS_Flash_Hider",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Flash_Hider.MI_A762_WS_Flash_Hider"
+   },
+   {
+    "slot": "M_A762_Rail",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Rail.MI_A762_WS_Rail",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Rail.MI_A762_WS_Rail"
+   },
+   {
+    "slot": "M_A762_RearSight03",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_RearSight03.MI_A762_WS_RearSight03",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_RearSight03.MI_A762_WS_RearSight03"
+   },
+   {
+    "slot": "M_A762_Receiver",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Receiver.MI_A762_WS_Receiver",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Receiver.MI_A762_WS_Receiver"
+   },
+   {
+    "slot": "M_A762_Trigger",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Trigger.MI_A762_WS_Trigger",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Trigger.MI_A762_WS_Trigger"
+   },
+   {
+    "slot": "M_A762_FactoryStock_Rubber04",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FactoryStock_Rubber04.MI_A762_WS_FactoryStock_Rubber04",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FactoryStock_Rubber04.MI_A762_WS_FactoryStock_Rubber04"
+   },
+   {
+    "slot": "M_A762_FrontSight_Rebuilt",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FrontSight_Rebuilt.MI_A762_WS_FrontSight_Rebuilt",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FrontSight_Rebuilt.MI_A762_WS_FrontSight_Rebuilt"
+   },
+   {
+    "slot": "M_A762_FactoryStock_Socket03",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FactoryStock_Socket03.MI_A762_WS_FactoryStock_Socket03",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FactoryStock_Socket03.MI_A762_WS_FactoryStock_Socket03"
+   },
+   {
+    "slot": "M_A762_FactoryStock_Metal04",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FactoryStock_Metal04.MI_A762_WS_FactoryStock_Metal04",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FactoryStock_Metal04.MI_A762_WS_FactoryStock_Metal04"
+   },
+   {
+    "slot": "M_A762_Magazine_Rebuilt",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Magazine_Rebuilt.MI_A762_WS_Magazine_Rebuilt",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Magazine_Rebuilt.MI_A762_WS_Magazine_Rebuilt"
+   },
+   {
+    "slot": "M_A762_MagazineInside_Rebuilt",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_MagazineInside_Rebuilt.MI_A762_WS_MagazineInside_Rebuilt",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_MagazineInside_Rebuilt.MI_A762_WS_MagazineInside_Rebuilt"
+   },
+   {
+    "slot": "M_A762_SightInner",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_SightInner.MI_A762_WS_SightInner",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_SightInner.MI_A762_WS_SightInner"
+   },
+   {
+    "slot": "M_A762_MagazineEdge_Rebuilt",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_MagazineEdge_Rebuilt.MI_A762_WS_MagazineEdge_Rebuilt",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_MagazineEdge_Rebuilt.MI_A762_WS_MagazineEdge_Rebuilt"
+   },
+   {
+    "slot": "M_A762_Handguard03",
+    "before": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Handguard03.MI_A762_WS_Handguard03",
+    "after": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Handguard03.MI_A762_WS_Handguard03"
+   }
+  ]
+ },
+ "complete": true,
+ "game_tested": false,
+ "rendered": false,
+ "history": [
+  {
+   "event": "2026-09-30 first UV1 write overwrote the V7 arm UV1 and 1631 degenerate triangles; SK_A762_Manny restored from Before/ (SHA-256 89A571B0...216B); rerun preserves arm UV1",
+   "previous_uv1": {
+    "triangles": 284711,
+    "uv_sets_before": 4,
+    "uv_sets_after": 4,
+    "uv_sum_relative_error": NaN,
+    "position_checksum": 6998172.790144685,
+    "slots_unchanged": true
+   }
+  },
+  {
+   "event": "2026-09-30 second UV1 write used a UV1 export read through a stale Blender RNA layer reference (163830 garbage triangles, 157462 of them replaced by a fallback corner); arm UV1 was preserved; rewriting gun UV1 from export_uv1_from_blend.py (0 invalid)",
+   "previous_uv1": {
+    "triangles": 284711,
+    "uv_sets": 4,
+    "gun_triangles_written": 247589,
+    "arm_triangles_preserved": 37122,
+    "degenerate_repaired": 157462,
+    "slots_unchanged": true
+   }
+  },
+  {
+   "triangles": 284711,
+   "uv_sets": 4,
+   "gun_triangles_written": 247589,
+   "arm_triangles_preserved": 37122,
+   "degenerate_repaired": 0,
+   "slots_unchanged": true
+  }
+ ],
+ "texture_sources": {
+  "T_A762_WS_Mask": "180287a9d625924a4b390846b8acf9bfaff2dd602b2d8d789f081722bbcc9e2e",
+  "T_A762_RearSight_WS_Mask": "f0f15a9516e749d98e09901090f5ebf65e7064d42e40e670d9be822377db28f4",
+  "T_A762_FrontSight_WS_Mask": "eb79ec747990bb50e03bcd6db55dfd5880b47b82977d2626a03758953a1d98eb"
+ }
+}

@@ -55,6 +55,7 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 - 调整武器基础数值（有效射程、射击间隔、伤害、弹速、弹匣）或比较 DPS：[武器基础与强化系数调参](references/weapon-formula-balancing.md)，改 `base` 即改面板/实战/提示，配件倍率只按目录相乘。
 - 写或改武器的**详细介绍**（`items.json` 的 `desc`）与**特殊性质**（枪匠目录的 `traits`）：[武器说明文字与「特殊性质」段](references/weapon-copy-and-traits.md)。用户 2026-09-22/23 已定格式：`desc` ≤200 字、写来历/特征/用法、现实武器参考百科、虚构武器编背景、**不用"最/第几档"等排行词、不引用别的武器型号**；`traits` 放枪匠目录因此免迁移，`icon` 决定提示里的颜色。
 - 跨枪型复用瞄具、枪口、安装座或统一枪钢：[跨枪型瞄具与材质](references/cross-weapon-optics.md)。
+- 自研枪的写实金属／聚合物表面（共享母材质 `M_WeaponSurface`、HK416 干净档预设、UV1 磨损遮罩、自带淋湿）：[枪身与配件材质统一](references/weapon-finish.md) 的「自研枪表面标准 WS1」一节，详见工程 `Docs/Weapons/weapon-surface-standard-20260930.md`。写 UV 前先确认手臂材质占用的 UV 通道。
 - 新枪、新改造件或跨枪复用的材质制作：[枪身与配件材质统一](references/weapon-finish.md)，每枪以自身当前主体为基准，覆盖配件金属区域并保留非金属与光学区域。
 - 瞄具、倍率、镜内视野和开镜面板：[瞄具成像与验收](references/optic-presentation.md)，先定成像与可用视野，再制作模型。
 - 手臂、抓握、甩弹匣、普通/空仓换弹、拉栓、装备、奔跑及拍击：[手臂动画技能](../ue5-fps-arms-animation/SKILL.md)。

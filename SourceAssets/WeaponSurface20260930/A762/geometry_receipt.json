@@ -1,0 +1,30 @@
+{
+ "version": "WS-Geometry-20260930",
+ "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponSurface20260930\\A762\\BeforeGeometry\\Weapons\\A762\\Integrated20260920\\SK_A762_Manny.uasset",
+ "saved": true,
+ "moved_vertices": 24319,
+ "renormalled_triangles": 104713,
+ "replaced_triangles": 120680,
+ "added_triangles": {
+  "M_A762_Magazine_Rebuilt": 23700,
+  "M_A762_MagazineEdge_Rebuilt": 26520,
+  "M_A762_UpperReceiver03": 6708,
+  "M_A762_FrontAssembly_Rebuilt": 32252,
+  "M_A762_Flash_Hider": 14400,
+  "M_A762_Rail": 11180,
+  "M_A762_RearSight03": 1764,
+  "M_A762_FrontSight_Rebuilt": 3676,
+  "M_A762_FactoryStock_Socket03": 5760,
+  "M_A762_FactoryStock_Metal04": 19570,
+  "M_A762_FactoryStock_Rubber04": 31816,
+  "M_A762_FactoryStock_Seam04": 14068,
+  "M_A762_Handguard03": 15956
+ },
+ "triangles_before": 273822,
+ "triangles_after": 360512,
+ "arm_triangles": 37122,
+ "uv1_pending_rebake": false,
+ "game_tested": false,
+ "rendered": false,
+ "uv1_rebaked": "bake_a762.py (A762_Geometry, seated, densified) + install_a762.py 2026-09-30 23:21"
+}

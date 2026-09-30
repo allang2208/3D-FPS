@@ -1,0 +1,166 @@
+{
+ "inputs": {
+  "A762_Geometry": {
+   "path": "/Game/Weapons/A762/Integrated20260920/SK_A762_Manny.SK_A762_Manny",
+   "vertices": 190300,
+   "triangles": 360512,
+   "position_checksum": 9185857.0
+  },
+  "A762_RearSight": {
+   "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_RearSight.SM_A762_RearSight",
+   "vertices": 3408,
+   "triangles": 6100,
+   "position_checksum": 4545.615234375
+  },
+  "A762_FrontSight": {
+   "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_FrontSight.SM_A762_FrontSight",
+   "vertices": 1984,
+   "triangles": 3412,
+   "position_checksum": 5552.62255859375
+  }
+ },
+ "objects": {
+  "A762_Geometry": {
+   "winding_agreement": 0.9989820033729806,
+   "flipped_winding": false,
+   "slots": [
+    "M_A762_Bolt",
+    "M_A762_Inside",
+    "M_A762_FactoryRearGrip",
+    "M_A762_FactoryStock_Seam04",
+    "M_A762_FrontAssembly_Rebuilt",
+    "M_A762_UpperReceiver03",
+    "M_A762_Flash_Hider",
+    "M_A762_Rail",
+    "M_A762_RearSight03",
+    "M_A762_Receiver",
+    "M_A762_Trigger",
+    "M_A762_FactoryStock_Rubber04",
+    "M_A762_FrontSight_Rebuilt",
+    "M_A762_FactoryStock_Socket03",
+    "M_A762_FactoryStock_Metal04",
+    "M_A762_Magazine_Rebuilt",
+    "M_A762_MagazineInside_Rebuilt",
+    "M_A762_SightInner",
+    "M_A762_MagazineEdge_Rebuilt",
+    "M_A762_Handguard03",
+    "MI_Manny_01",
+    "MI_Manny_02"
+   ],
+   "order": [
+    0,
+    1,
+    2
+   ],
+   "seated": {
+    "vertices": 169938,
+    "moved": 27323,
+    "match_error_cm": 0.0
+   },
+   "densified": {
+    "faces": 2991396,
+    "vertices": 1497931
+   },
+   "vertex_pass": {
+    "vertices": 1497931,
+    "manifold_edges": 4511408,
+    "convex_vertex_share": 0.0493,
+    "ao_mean": 0.48,
+    "cavity_mean": 0.31
+   },
+   "mask": {
+    "file": "T_A762_WS_Mask.png",
+    "size": [
+     4096,
+     4096
+    ],
+    "mean": [
+     0.0194,
+     0.1813,
+     0.2555,
+     0.8396
+    ],
+    "edge_p99": 0.5571,
+    "covered": 0.4673
+   }
+  },
+  "A762_RearSight": {
+   "winding_agreement": 1.0,
+   "flipped_winding": false,
+   "slots": [
+    "M_A762_RearSight03",
+    "M_A762_SightInner"
+   ],
+   "order": [
+    0,
+    1,
+    2
+   ],
+   "vertex_pass": {
+    "vertices": 3408,
+    "manifold_edges": 8879,
+    "convex_vertex_share": 0.5505,
+    "ao_mean": 0.6,
+    "cavity_mean": 0.34
+   },
+   "mask": {
+    "file": "T_A762_RearSight_WS_Mask.png",
+    "size": [
+     1024,
+     1024
+    ],
+    "mean": [
+     0.05,
+     0.1768,
+     0.5472,
+     0.8399
+    ],
+    "edge_p99": 0.9642,
+    "covered": 0.7272
+   }
+  },
+  "A762_FrontSight": {
+   "winding_agreement": 1.0,
+   "flipped_winding": false,
+   "slots": [
+    "M_A762_FrontSight_Rebuilt",
+    "M_A762_SightInner"
+   ],
+   "order": [
+    0,
+    1,
+    2
+   ],
+   "vertex_pass": {
+    "vertices": 1984,
+    "manifold_edges": 4899,
+    "convex_vertex_share": 0.6925,
+    "ao_mean": 0.66,
+    "cavity_mean": 0.285
+   },
+   "mask": {
+    "file": "T_A762_FrontSight_WS_Mask.png",
+    "size": [
+     1024,
+     1024
+    ],
+    "mean": [
+     0.0552,
+     0.1488,
+     0.5331,
+     0.8688
+    ],
+    "edge_p99": 0.8216,
+    "covered": 0.6645
+   }
+  }
+ },
+ "tested": false,
+ "device": "GPU",
+ "uv1": {
+  "gun_area_cm2": 4462.4,
+  "uv_area": 0.3155,
+  "uv_per_cm": 0.008408,
+  "texels_per_cm_at_4096": 34.44
+ }
+}
