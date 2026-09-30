@@ -26,7 +26,8 @@
   - 游戏模块 6 处改动（见 §3.7，均为分支工作区改动、未提交——与主仓 WIP 混合）；
   - 插件新增 `UColdSteelNetChannelComponent`（档案桥：客户端 0.8s 心跳全量快照上行→服务端影子档案→应用到服务端 pawn→20s 节流落盘主机 `ColdSteelMP_<名>_<crc>` 槽；重连载回；`MirrorBlob` 回程预留 M3）；
   - 关键工程决策：**FColdSteelProfile 含 TMap 不能进 RPC/复制属性** → 传输用 `TArray<uint8>` 字节块（`FObjectAndNameAsStringProxyArchive+ArNoDelta`，与 SaveGameToSlot 同口径——传输即存档格式）。
-- **运行验证：被用户暂停**（"先暂停验证"）。轮 1 中断前已达成 `NumPlayers=2`（加入成功），影子创建/应用/落盘证据未及产生（客户端心跳未及处理即被杀）。
+- **双目标编译均 Succeeded**（Editor + Game，2026-10-01；Game 目标验证了 WITH_EDITOR=0 路径）。
+- **运行验证：用户自行安排中**。轮 1 中断前已达成 `NumPlayers=2`（加入成功），影子创建/应用/落盘证据未及产生（客户端心跳未及处理即被杀）。
 - **恢复验证的最短路径**：重跑 §4 冒烟（任意一轮），然后 grep 主机日志 `MPTEST shadow profile created` / `MPTEST shadow applied` / `guest profile saved to host disk`，并确认 `Saved/SaveGames/ColdSteelMP_*.sav` 存在；第二轮重连看 `guest slot found on host disk`。手动验收项：客人开背包/拖装备/喝药（UI 路径全走既有代码，理论零改动）。
 - **下一步**：恢复验证 → M2 收口 → M3 战斗权威化。
 
