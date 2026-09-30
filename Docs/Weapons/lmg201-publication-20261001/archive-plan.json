@@ -1,0 +1,694 @@
+{
+  "archive_root": "trash/lmg201-publication-20261001",
+  "scope": "201 authoring and one corrupt 201 document only; no Content assets, animations or gameplay files moved",
+  "files": [
+    {
+      "source": "SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch1.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch1.py",
+      "size": 2264,
+      "sha256": "19e1f89e47aefe563911d870dde9f13ee2cc475c14f4971672e613c5fa162ff3",
+      "reason": "One-shot text patch for an obsolete temporary author script; changes already incorporated in retained final recipes.",
+      "retained_replacement": "ClothReload44/author_motion.py; install.py; apply_b53_belt.py"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch10.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch10.py",
+      "size": 1419,
+      "sha256": "0d4da0d3f4047c9df5477d1081c6fa243830865928a0032a02cdd8c1c2223364",
+      "reason": "One-shot text patch for an obsolete temporary author script; changes already incorporated in retained final recipes.",
+      "retained_replacement": "ClothReload44/author_motion.py; install.py; apply_b53_belt.py"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch11.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch11.py",
+      "size": 3802,
+      "sha256": "3808cfefe3721b55947adcd2da38a1c65e25015e51dbfa36687ac8b5df06fc3c",
+      "reason": "One-shot text patch for an obsolete temporary author script; changes already incorporated in retained final recipes.",
+      "retained_replacement": "ClothReload44/author_motion.py; install.py; apply_b53_belt.py"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch12.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch12.py",
+      "size": 2350,
+      "sha256": "e7dd00291fa8048c24e88b1bf91ef40a7549c7f6c51c925fe8bfad077e0250d7",
+      "reason": "One-shot text patch for an obsolete temporary author script; changes already incorporated in retained final recipes.",
+      "retained_replacement": "ClothReload44/author_motion.py; install.py; apply_b53_belt.py"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch13.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch13.py",
+      "size": 6761,
+      "sha256": "fc877b3322febef1fab0b09c72f072ad88edd5294f03be23fd16486be3903d6a",
+      "reason": "One-shot text patch for an obsolete temporary author script; changes already incorporated in retained final recipes.",
+      "retained_replacement": "ClothReload44/author_motion.py; install.py; apply_b53_belt.py"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch14.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch14.py",
+      "size": 3245,
+      "sha256": "eabdb2abdef7751500b31d4ef4274fb2f99406d07cf122e46ae715f472a71b1b",
+      "reason": "One-shot text patch for an obsolete temporary author script; changes already incorporated in retained final recipes.",
+      "retained_replacement": "ClothReload44/author_motion.py; install.py; apply_b53_belt.py"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch15.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch15.py",
+      "size": 6142,
+      "sha256": "470b6286d29843b839adabb5434cfa83c89a01021f9e72c9ea4ed41ca22233bd",
+      "reason": "One-shot text patch for an obsolete temporary author script; changes already incorporated in retained final recipes.",
+      "retained_replacement": "ClothReload44/author_motion.py; install.py; apply_b53_belt.py"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch2.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch2.py",
+      "size": 1692,
+      "sha256": "c0444fcd0a6c91bafb095f841dde424aba62aa8532cefa5a5f70cfa7d960ddd9",
+      "reason": "One-shot text patch for an obsolete temporary author script; changes already incorporated in retained final recipes.",
+      "retained_replacement": "ClothReload44/author_motion.py; install.py; apply_b53_belt.py"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch3.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch3.py",
+      "size": 342,
+      "sha256": "20c71cff285f6029441264a2febd27ab61fe5cd544157d9ffc794444406fed85",
+      "reason": "One-shot text patch for an obsolete temporary author script; changes already incorporated in retained final recipes.",
+      "retained_replacement": "ClothReload44/author_motion.py; install.py; apply_b53_belt.py"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch4.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch4.py",
+      "size": 1089,
+      "sha256": "16c1afa49cc316c190dcc82540556010ff7126f25ec7d553b6b7fb07a1979563",
+      "reason": "One-shot text patch for an obsolete temporary author script; changes already incorporated in retained final recipes.",
+      "retained_replacement": "ClothReload44/author_motion.py; install.py; apply_b53_belt.py"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch5.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch5.py",
+      "size": 1866,
+      "sha256": "b27a85be32c4eaecad27300900d1e914cb34d962e118c766dff1d6708312f92e",
+      "reason": "One-shot text patch for an obsolete temporary author script; changes already incorporated in retained final recipes.",
+      "retained_replacement": "ClothReload44/author_motion.py; install.py; apply_b53_belt.py"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch6.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch6.py",
+      "size": 1463,
+      "sha256": "02601380dc3946bbd18285c19ec648864f6be81f907679b0faeceeddfdcedeba",
+      "reason": "One-shot text patch for an obsolete temporary author script; changes already incorporated in retained final recipes.",
+      "retained_replacement": "ClothReload44/author_motion.py; install.py; apply_b53_belt.py"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch7.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch7.py",
+      "size": 4480,
+      "sha256": "424bd965a68e952502e86c0afb56e99b32293eacd704f89b0612f72ca5b2fa14",
+      "reason": "One-shot text patch for an obsolete temporary author script; changes already incorporated in retained final recipes.",
+      "retained_replacement": "ClothReload44/author_motion.py; install.py; apply_b53_belt.py"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch8.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch8.py",
+      "size": 1351,
+      "sha256": "9797bf86428bb67cb3146042588092b68b1b7da82062ddea1b2da244d69e72c4",
+      "reason": "One-shot text patch for an obsolete temporary author script; changes already incorporated in retained final recipes.",
+      "retained_replacement": "ClothReload44/author_motion.py; install.py; apply_b53_belt.py"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch9.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch9.py",
+      "size": 1379,
+      "sha256": "571b6a2cee658e9e0f15493bb90957d07ba637a5087c2328663622cbb7c3c820",
+      "reason": "One-shot text patch for an obsolete temporary author script; changes already incorporated in retained final recipes.",
+      "retained_replacement": "ClothReload44/author_motion.py; install.py; apply_b53_belt.py"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch_install.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch_install.py",
+      "size": 3921,
+      "sha256": "b9a4dabe123cc0a9b61722ef00632537a3131ac555beb2ea4f945e7fd2adc7cb",
+      "reason": "One-shot text patch for an obsolete temporary author script; changes already incorporated in retained final recipes.",
+      "retained_replacement": "ClothReload44/author_motion.py; install.py; apply_b53_belt.py"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch_install2.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch_install2.py",
+      "size": 1529,
+      "sha256": "7ec0b7aa5866781f9ad761e31a1350669ac0b55edd1f7726dba061246d2b782e",
+      "reason": "One-shot text patch for an obsolete temporary author script; changes already incorporated in retained final recipes.",
+      "retained_replacement": "ClothReload44/author_motion.py; install.py; apply_b53_belt.py"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch_install3.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch_install3.py",
+      "size": 1134,
+      "sha256": "e60908421223cc4c550552a171c22d44fd7d422031b4ce362751e09bd1ca95fc",
+      "reason": "One-shot text patch for an obsolete temporary author script; changes already incorporated in retained final recipes.",
+      "retained_replacement": "ClothReload44/author_motion.py; install.py; apply_b53_belt.py"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch_readme.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch_readme.py",
+      "size": 592,
+      "sha256": "a0ed6bc3e9ef51b531a854819ac7f3a6507dc60a7c065f0dc9bad86686dea39f",
+      "reason": "One-shot text patch for an obsolete temporary author script; changes already incorporated in retained final recipes.",
+      "retained_replacement": "ClothReload44/author_motion.py; install.py; apply_b53_belt.py"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch_skill.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch_skill.py",
+      "size": 1332,
+      "sha256": "398437fb72aa8b04e3601b76fd01c2ad622933258f7cc754a32ef84468528dbc",
+      "reason": "One-shot text patch for an obsolete temporary author script; changes already incorporated in retained final recipes.",
+      "retained_replacement": "ClothReload44/author_motion.py; install.py; apply_b53_belt.py"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/Drum46/LMG201_Drum46.blend1",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/Drum46/LMG201_Drum46.blend1",
+      "size": 875907,
+      "sha256": "de9f4e5ba543c019de9c989355b8b0ce22ad37c0b2bdbf7d10f8f763ca142e69",
+      "reason": "Automatic Blender backup; named editable source retained.",
+      "retained_replacement": "SourceAssets/LMG20120260927/Drum46/LMG201_Drum46.blend"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/author.log",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/author.log",
+      "size": 2063,
+      "sha256": "6caa021081e50f30bef8759bf1f665049f6980ea1a840d5d690bef0d8f472c6f",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/author.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/author.py",
+      "size": 8064,
+      "sha256": "c87d701f59675c4a04ac5bb828abea5a7a3c1276287323bf82e544778e652a7d",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/authoring.json",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/authoring.json",
+      "size": 1857,
+      "sha256": "73eab1dff714c469209a5673d510d745ffba4cfccccde5a288de3facbf628bf0",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/Before/Weapons/LMG201/Cover10/SK_LMG201_Cover10.uasset",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/Before/Weapons/LMG201/Cover10/SK_LMG201_Cover10.uasset",
+      "size": 105824979,
+      "sha256": "1f1fc4740508f884ec917c4accc0bd01bd6b40333c1aad05a67419dbe3f9491b",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/belt_side.png",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/belt_side.png",
+      "size": 746153,
+      "sha256": "2e2379200378be78c3eb4591f053f40f79103a4c7920003ae11cde0e893aeebd",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/bindings.json",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/bindings.json",
+      "size": 12101,
+      "sha256": "72dd5b25a13280c77cc7e9e0381c52fbb1ad09093213a5605bd2efe67c723097",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/collect.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/collect.py",
+      "size": 2398,
+      "sha256": "edc31419a5791fd41361feea674ab780bb2889095a10e7b39579bd40aaea4042",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/collect_response.txt",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/collect_response.txt",
+      "size": 205,
+      "sha256": "927b2d38be1846fb3c8610fefebaad4d8ece5f5ad3091a46a68afe31f2b9dbdf",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/components.json",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/components.json",
+      "size": 3482,
+      "sha256": "d705afb3aa6c0f67cef5a37ecbdef013e63d80500dcf2e6423b517ad85afd7bc",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/delivery.json",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/delivery.json",
+      "size": 1273,
+      "sha256": "173f62140b4ba057d9df0463a77a7386e750993d6fb86c4c38a10ff3be47bb91",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/donor_coordinates.png",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/donor_coordinates.png",
+      "size": 437780,
+      "sha256": "119153e7f54530a9a524d2ace24e94ef09c7c92bbf829348ad8b3edb015ae6ea",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/editor_state.json",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/editor_state.json",
+      "size": 129,
+      "sha256": "10001184b084142507d23980e5e43aa14d32d67e8ba218a9e5bb78b28dde6e69",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/editor_state_response.txt",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/editor_state_response.txt",
+      "size": 226,
+      "sha256": "fcb7fdb5b33f3c9a0a869daadbbe99a552da4f1751a723013eccc0d2d335545a",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/extracted_handle.png",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/extracted_handle.png",
+      "size": 556414,
+      "sha256": "cba706dd7134e3c5fe593c55221236f89b063efd87534753ce8e6f52146c9584",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/handle_side.png",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/handle_side.png",
+      "size": 752841,
+      "sha256": "b463f6233725d029070202ec49497c6e64e1eb5fd66eedd34bc68e81d2002bdc",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/identify_removals.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/identify_removals.py",
+      "size": 2524,
+      "sha256": "1f9e32ebe2f7f9a542af1a59c21c60d00cff2983cc716b102dc646f271670036",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/install.log",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/install.log",
+      "size": 298052,
+      "sha256": "ba4b2b8f254463d8f2bfd77041e6b42ff7875fff7eefe21d4143fb5f81c694d8",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/install.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/install.py",
+      "size": 6130,
+      "sha256": "76d7343ca26ceb6ea07e6420796ec40309b353474cc46fd1b2252ed3880da1b0",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/install_console.log",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/install_console.log",
+      "size": 299050,
+      "sha256": "4e0eee12e7d4b227b20ce5cc094cbba992a60fe6cde0d0fefb6d6e4e80be1a24",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/LMG201_HandleRestore54.blend",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/LMG201_HandleRestore54.blend",
+      "size": 275228,
+      "sha256": "79d6286ccff1789de2ca3c74a415473822c6c5af374f3900c4275b0c65178c28",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/LMG201_HandleRestore54.blend1",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/LMG201_HandleRestore54.blend1",
+      "size": 508960,
+      "sha256": "78f781dd09130370d878a91e15a5280415f3700489dda055d3b6b4f0076285b1",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/locate.json.gz",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/locate.json.gz",
+      "size": 5689112,
+      "sha256": "bcc7fdeb347e08ee9b8961ccd249df0146ecdd22b7c22e58968b4e79db1c9f2f",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/locate.log",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/locate.log",
+      "size": 3484,
+      "sha256": "f4c9da0dc5f77aac74e2217618a926ac4f9edf98f211648b2f38ffcaab1b719f",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/locate.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/locate.py",
+      "size": 1627,
+      "sha256": "a1b45789f408a1fc2cc5f92d0ce62df376763d4bc7eb084d624f4e89fa042e11",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/mesh_buffers.json.gz",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/mesh_buffers.json.gz",
+      "size": 349942,
+      "sha256": "97e2f2d85ef02b04b662bc1f5d5e66e179eb25b467e5692704bcb023cdfcab4c",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/native.json.gz",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/native.json.gz",
+      "size": 1047495,
+      "sha256": "c62b3c8955ee79d81c874cf5563a5f040481f765beea4745de622ab634399d33",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/raw_handle_region.png",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/raw_handle_region.png",
+      "size": 822781,
+      "sha256": "83e85988bca89a5584d5806d248748def2b1e2edd5d328e54ae9c3092e698768",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/README.md",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/README.md",
+      "size": 2599,
+      "sha256": "68eabe28ee315a16f8cfd2786adc5bc5ce22d59774298fc39e5b85120e4083f1",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/recovered_source.npz",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/recovered_source.npz",
+      "size": 321533,
+      "sha256": "1fb5fb90312a13d6b2827b7a82688751c041c7d383189cd954a5cb5d91b83373",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/removals.json",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/removals.json",
+      "size": 169281,
+      "sha256": "dd56bfe7357824c0d85b255121b7251029678ad65ef47062e2e48b7bb3884764",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/run_install.ps1",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/run_install.ps1",
+      "size": 910,
+      "sha256": "f7ad543c2ab22c68016ecd42a6038c842f4bc5daf601ab4b7c3a3c758d603d28",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/source.json",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/source.json",
+      "size": 146844,
+      "sha256": "4e7960f49496f5a4f401501de848d0b4658e22a79a5c910319ac193e1affd12f",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/state.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/state.py",
+      "size": 556,
+      "sha256": "3faadccee858f5e77bdb74a4e3f520973295723c82aa2fffbf251cc4dda7ae45",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/underside.png",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/underside.png",
+      "size": 810224,
+      "sha256": "5275da9a864927e9290afa3bd809f75c341fe6c8a3e810aae6ca7d0d7bcbc3b1",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/view_extraction.log",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/view_extraction.log",
+      "size": 600,
+      "sha256": "381ffe831eefe07a552266d052d9c5aaf89bab580d4956c1a5af24c1999906e6",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/view_extraction.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/view_extraction.py",
+      "size": 965,
+      "sha256": "3de9bec2c139194d6c300cb37130c3c8832b729cf5835aa3e7b164987c5ae404",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/view_raw.log",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/view_raw.log",
+      "size": 518,
+      "sha256": "79e06e03115f5195fd76dc8d75e6147f73bea1868edda304951c7c96c4cc6963",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/view_raw.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/view_raw.py",
+      "size": 1546,
+      "sha256": "2bac95e06a8de929bda81c0c214f984f2a2f1544d6b89b8fa0df4bce95977709",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/view_source.log",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/view_source.log",
+      "size": 808,
+      "sha256": "10a6bf44774fe5cf02dc8c949cbdcc5377d66c0941d5555603f9d1a7f1635b40",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/HandleRestore54/view_source.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/HandleRestore54/view_source.py",
+      "size": 1653,
+      "sha256": "e08cf666e18b45d2ae278841e4d8a0980b38e34dff0267ea59ed5f2dd547d81a",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/Motion55/author_handle.log",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/Motion55/author_handle.log",
+      "size": 560,
+      "sha256": "1a4e1bfc4fd5d19d6b4b4032e3aa53340f2361bd260719df98ad03ddbeba383a",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/Motion55/author_handle.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/Motion55/author_handle.py",
+      "size": 2013,
+      "sha256": "1f6a24d46963f45a1400393686c04616a9758fb776f990e4e2a74842fc75a903",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/Motion55/authoring.json",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/Motion55/authoring.json",
+      "size": 641,
+      "sha256": "40063f49ac663d99cf1ae9009eaca30c9b7d956d2061b5214a91e74ae9e919a2",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/Motion55/Before/Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/Motion55/Before/Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp",
+      "size": 11515,
+      "sha256": "388eb44e3634e7410f84bcbff90888770414873c0e599da67b34df65f1d847de",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/Motion55/Before/Source/FPSGAME/Weapons/LMG201BeltDynamics.h",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/Motion55/Before/Source/FPSGAME/Weapons/LMG201BeltDynamics.h",
+      "size": 1101,
+      "sha256": "de7a9d50215549111839e9c76194af4560a318cd3eae22955e6a5e42d6238369",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/Motion55/Before/Source/FPSGAME/Weapons/PKMCarryHandleDynamics.cpp",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/Motion55/Before/Source/FPSGAME/Weapons/PKMCarryHandleDynamics.cpp",
+      "size": 6967,
+      "sha256": "aa0d739f5794fa9b483479acbe24676ed4a50f80d3e22ed274c813233263d733",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/Motion55/Before/Source/FPSGAME/Weapons/PKMSoftBeltDynamics.cpp",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/Motion55/Before/Source/FPSGAME/Weapons/PKMSoftBeltDynamics.cpp",
+      "size": 6668,
+      "sha256": "281e0a3c3740b854b13c39913532436282bc7528f5e62808bea017f5f5253845",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/Motion55/Before/Source/FPSGAME/Weapons/PKMSoftBeltDynamics.h",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/Motion55/Before/Source/FPSGAME/Weapons/PKMSoftBeltDynamics.h",
+      "size": 901,
+      "sha256": "e3f45944f496d4eb5411a4c64c8c8caea2f8791e55a075ebdc60d366e355f1ce",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/Motion55/Before/Weapons/LMG201/BeltFeed08/SK_LMG201_FeedSkeleton.uasset",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/Motion55/Before/Weapons/LMG201/BeltFeed08/SK_LMG201_FeedSkeleton.uasset",
+      "size": 41958,
+      "sha256": "4ab94a6dd7187f817ea9608f0a81c5525c38b6ad345ac722f06ccdb4359e9a10",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/Motion55/Before/Weapons/LMG201/Cover10/SK_LMG201_Cover10.uasset",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/Motion55/Before/Weapons/LMG201/Cover10/SK_LMG201_Cover10.uasset",
+      "size": 103724669,
+      "sha256": "54b93a7256234e0d534af432ae08a7566029ba7738719efc6cd861fb69a34137",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/Motion55/build-result.json",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/Motion55/build-result.json",
+      "size": 916,
+      "sha256": "b952305259b83c2531369f0cde744c8c5f1cfbd74b97128f12fdb5380d0fd042",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/Motion55/build_console.log",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/Motion55/build_console.log",
+      "size": 1255,
+      "sha256": "fb815aa752da22c0ce8038fea1739497e8d28a6dabab3992ab96b6149834de97",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/Motion55/delivery.json",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/Motion55/delivery.json",
+      "size": 2445,
+      "sha256": "df9bb21683056f73ca37f023693c3ddf701d7b80ed4b3d9e417dc4afad0288a0",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/Motion55/install.log",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/Motion55/install.log",
+      "size": 301302,
+      "sha256": "52d150d81eefadf8353b0196681b33fc9658e1e33821da04e51705f654fd9dba",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/Motion55/install_console.log",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/Motion55/install_console.log",
+      "size": 302259,
+      "sha256": "e13d92fee4c45f569cad24e71f43461427b9d6c2fa1d1188bcff615fe0da17a0",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/Motion55/install_handle.py",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/Motion55/install_handle.py",
+      "size": 6369,
+      "sha256": "d15085f4e6bb0d532669a09e1ddd83bd2db7d864349c575eb4e3b3f5b6e1b901",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/Motion55/LMG201_Motion55_Handle.blend",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/Motion55/LMG201_Motion55_Handle.blend",
+      "size": 293051,
+      "sha256": "1d852eb69a32e5585ec2828e4261db87dd637b03409879b7972dd43a028bf7c1",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/Motion55/README.md",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/Motion55/README.md",
+      "size": 4189,
+      "sha256": "da0b16d32607714887ba770e0ed9f0e98582a9147e3a77dce89aacca9ca18cde",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/Motion55/run_build.ps1",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/Motion55/run_build.ps1",
+      "size": 694,
+      "sha256": "e98c6f9f25ad48585180bcb341fc02819f154afa69d3a4da6977fc8bd5e1e12b",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/Motion55/run_install.ps1",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/Motion55/run_install.ps1",
+      "size": 917,
+      "sha256": "bd30ea029531c2208bd0cbefc46096ee156d629f52ebe649c8a5f46d90861847",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/Motion55/source_files.json",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/Motion55/source_files.json",
+      "size": 605,
+      "sha256": "af37c6394a2030d7dfe2d1db26e710e6ac26790efada16bdd19082b18f9ec19d",
+      "reason": "User rejected H54/M55 carry handle; H56 removed it. M55 belt coefficients remain in runtime source.",
+      "retained_replacement": "HandleRemoval56/README.md; Source/FPSGAME/Weapons/LMG201BeltDynamics.cpp"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/RearGripRestore58/Original_balanced.blend1",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/RearGripRestore58/Original_balanced.blend1",
+      "size": 4514672,
+      "sha256": "a2332bc03ce66e57d7fcde73e9c38a01b9df33d46fed84d6185e06eb873d343f",
+      "reason": "Automatic Blender backup; named editable source retained.",
+      "retained_replacement": "SourceAssets/LMG20120260927/RearGripRestore58/Original_balanced.blend"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/RearGripRestore58/Original_phantom.blend1",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/RearGripRestore58/Original_phantom.blend1",
+      "size": 5025694,
+      "sha256": "02b282003a0e1bc58b74a829f47779fdce79a26d8c744fd29b94e7e12a64d253",
+      "reason": "Automatic Blender backup; named editable source retained.",
+      "retained_replacement": "SourceAssets/LMG20120260927/RearGripRestore58/Original_phantom.blend"
+    },
+    {
+      "source": "SourceAssets/LMG20120260927/RearGripRestore58/Original_stable.blend1",
+      "destination": "trash/lmg201-publication-20261001/SourceAssets/LMG20120260927/RearGripRestore58/Original_stable.blend1",
+      "size": 2862488,
+      "sha256": "3de26b5032718561e3abb8f5e5bfccbb980fed2415ed404c417c84556fc15398",
+      "reason": "Automatic Blender backup; named editable source retained.",
+      "retained_replacement": "SourceAssets/LMG20120260927/RearGripRestore58/Original_stable.blend"
+    },
+    {
+      "source": "Docs/Weapons/lmg201-reference-repair-20260929.md",
+      "destination": "trash/lmg201-publication-20261001/Docs/Weapons/lmg201-reference-repair-20260929.md",
+      "size": 4805,
+      "sha256": "6b233ef9ed6f32a37720e415018ac91583348f417041b5cee55b12b4a59b87b0",
+      "reason": "Corrupt NUL-only unpublished document; preserve original bytes and replace with an evidence-based recovery pointer.",
+      "retained_replacement": "SourceAssets/LMG20120260927/ReferenceRepair38/README.md; Docs/Weapons/lmg201-publication-20261001.md"
+    }
+  ]
+}

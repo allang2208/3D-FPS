@@ -421,3 +421,7 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 ## 新版改造图标（2026-09-30）
 
 金属框母图、PNG 与 UE 贴图留在本机；公开规则、加载代码、部署/导入脚本与映射。资源恢复、307 份旧图归档及强化入口构建限制见 [改造图标发布记录](Publication/ModificationIcons20260930/README.md)。
+
+## 201 弹箱换弹与后续局部修订（2026-10-01）
+
+当前是 ClothReload44.4b+BeltFit53+ArmHinge55 的十条布箱换弹，枪面 F50、提把撤除 H56、固定供弹入口 F57、三款后握把母版恢复 R58。运行时代码已在 main，本轮补充此前遗漏的作者配方与依赖；旧提把及一次性补丁等 86 份文件已归档。当前恢复顺序、公开源码/本机合法资产边界及未实机验收事项见 [201 补充发布](Weapons/lmg201-publication-20261001.md)。不要按目录编号执行旧全量导入器覆盖当前资产。
