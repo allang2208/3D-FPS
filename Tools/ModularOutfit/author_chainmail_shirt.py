@@ -219,7 +219,7 @@ def presentation():
 
 def main():
     config = json.loads((P/'Content/ColdSteelData/modular_outfits.json').read_text(encoding='utf-8-sig'))
-    if config['items'].get(ITEM, {}).get('appearance_family') in ('ChainmailInterlace20260929','ChainmailCloth20260929','ChainmailSharedSway20260929'):
+    if config['items'].get(ITEM, {}).get('appearance_family') in ('ChainmailInterlace20260929','ChainmailCloth20260929','ChainmailSharedSway20260929','ChainmailInsetBinding20260929','ChainmailCameraClearance20260929'):
         if '--presentation-only' in sys.argv:
             import build_chainmail_interlace as current
             import shutil

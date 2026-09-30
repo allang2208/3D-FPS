@@ -1,0 +1,2230 @@
+{
+  "items": [
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/author.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/author.py",
+      "bytes": 10663,
+      "sha256": "5f1bc78232db6c21e4dbc79dc5fe9e736cefc137065d8d8b5101441a8da9f709",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "5f1bc78232db6c21e4dbc79dc5fe9e736cefc137065d8d8b5101441a8da9f709"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/authoring.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/authoring.json",
+      "bytes": 2137,
+      "sha256": "dde96c2ff8435dbed4db7b098400d73a8ce5aa2b6cacc0a26685a3b56d4123b7",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "dde96c2ff8435dbed4db7b098400d73a8ce5aa2b6cacc0a26685a3b56d4123b7"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/before.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/before.json",
+      "bytes": 5884,
+      "sha256": "424e91567558727dd8bdde48d5af65414fa410e57895a4d5726d26fd1aa0a675",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "424e91567558727dd8bdde48d5af65414fa410e57895a4d5726d26fd1aa0a675"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/capture.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/capture.py",
+      "bytes": 1497,
+      "sha256": "302b5b707547b2ddaa39a1833963075c8b19d2ae1d71fb3b6c63b1dd55dfdc70",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "302b5b707547b2ddaa39a1833963075c8b19d2ae1d71fb3b6c63b1dd55dfdc70"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/install.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/install.py",
+      "bytes": 5381,
+      "sha256": "f4f0c58db536904ba66ba31474a86620a6430ea734c082130db2946f6a40cd68",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "f4f0c58db536904ba66ba31474a86620a6430ea734c082130db2946f6a40cd68"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/install_01.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/install_01.py",
+      "bytes": 121,
+      "sha256": "66d5c2238fa1c34828abefa26317bef394ca02f9cfb6f15b15aff26d7f9460b1",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "66d5c2238fa1c34828abefa26317bef394ca02f9cfb6f15b15aff26d7f9460b1"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/install_02.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/install_02.py",
+      "bytes": 122,
+      "sha256": "13833517e4917c899128eba2f4f5bab6038d12ec62370104a2e2d257d9d80133",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "13833517e4917c899128eba2f4f5bab6038d12ec62370104a2e2d257d9d80133"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/install_03.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/install_03.py",
+      "bytes": 123,
+      "sha256": "f488a5b151e4260ecf69b1d1637c5ffb5dd2453637d48d0bad614e05fe21b964",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "f488a5b151e4260ecf69b1d1637c5ffb5dd2453637d48d0bad614e05fe21b964"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/install_04.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/install_04.py",
+      "bytes": 123,
+      "sha256": "cfd00b38ad25062efb462ad06a3c880fe4b4206dbf834e0a4457145aaf115c5e",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "cfd00b38ad25062efb462ad06a3c880fe4b4206dbf834e0a4457145aaf115c5e"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/publication-before.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/publication-before.json",
+      "bytes": 70039,
+      "sha256": "2e5922805c99193540db4ce67deb13975bc87b8e9f84f413c47669f128f13b1b",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "2e5922805c99193540db4ce67deb13975bc87b8e9f84f413c47669f128f13b1b"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/publish.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/publish.py",
+      "bytes": 2047,
+      "sha256": "fed779be51c283b392acc39545f0730482602bffa6117ac38fce97086d488cfe",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "fed779be51c283b392acc39545f0730482602bffa6117ac38fce97086d488cfe"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/published.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/published.json",
+      "bytes": 3438,
+      "sha256": "4fb4365fc7964729b7625df3305d15be7240ecfcd15b9b475f25bf0109e4fe4b",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "4fb4365fc7964729b7625df3305d15be7240ecfcd15b9b475f25bf0109e4fe4b"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/saved.json",
+      "bytes": 36419,
+      "sha256": "8880f4061fd8b60cf745d381a5f272c5adc68c86ff77125fc007d5a89f28c43a",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "8880f4061fd8b60cf745d381a5f272c5adc68c86ff77125fc007d5a89f28c43a"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Authored/A762.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Authored/A762.json",
+      "bytes": 12183553,
+      "sha256": "7982d4c0b6af6e4bf2c21b54f58f0d23b63a61041c30cf91777a8021126a72d0",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "7982d4c0b6af6e4bf2c21b54f58f0d23b63a61041c30cf91777a8021126a72d0"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Authored/AKM.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Authored/AKM.json",
+      "bytes": 12184086,
+      "sha256": "ef5dc65d489142e685c2db8ad532853fe288435815491d3af5ec2c0c51b2c422",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "ef5dc65d489142e685c2db8ad532853fe288435815491d3af5ec2c0c51b2c422"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Authored/ASH12.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Authored/ASH12.json",
+      "bytes": 12192782,
+      "sha256": "c27dd03886325f5bf5e6b37dd27c0a8517589dcf1ff9c46da00cbd0e4e761159",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "c27dd03886325f5bf5e6b37dd27c0a8517589dcf1ff9c46da00cbd0e4e761159"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Authored/Axe.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Authored/Axe.json",
+      "bytes": 12183573,
+      "sha256": "453d6a09f84d6e0e0619e46e597afeadf03abc80e0085a95c911a64d5b48cf7a",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "453d6a09f84d6e0e0619e46e597afeadf03abc80e0085a95c911a64d5b48cf7a"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Authored/Bow.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Authored/Bow.json",
+      "bytes": 12159070,
+      "sha256": "3c5a2aa22814bd46ea498ca6b6d6232f57328c879bde877f4c0561ac9c4095a2",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "3c5a2aa22814bd46ea498ca6b6d6232f57328c879bde877f4c0561ac9c4095a2"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Authored/DW715.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Authored/DW715.json",
+      "bytes": 12197976,
+      "sha256": "4e1959a43b2fc6f2f57e25b076799b56cc723239cd080bfe4943cd92a2ed4f64",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "4e1959a43b2fc6f2f57e25b076799b56cc723239cd080bfe4943cd92a2ed4f64"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Authored/DW715_l.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Authored/DW715_l.json",
+      "bytes": 6128361,
+      "sha256": "0437b7cec0dd57a0898e48cad4834319bb5a7f1bb5cf9fc0841d3613355a3d7c",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "0437b7cec0dd57a0898e48cad4834319bb5a7f1bb5cf9fc0841d3613355a3d7c"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Authored/DW715_r.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Authored/DW715_r.json",
+      "bytes": 6134814,
+      "sha256": "e355cebf9e6964a86b1a0b39b7989d019520f480df8745d05b5ba9bd6d386ae8",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "e355cebf9e6964a86b1a0b39b7989d019520f480df8745d05b5ba9bd6d386ae8"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Authored/FrostArms.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Authored/FrostArms.json",
+      "bytes": 12184799,
+      "sha256": "34d5c74770a7deac0a7621181538b2f64729fb381787802d68e837802e625066",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "34d5c74770a7deac0a7621181538b2f64729fb381787802d68e837802e625066"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Authored/FrostSword.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Authored/FrostSword.json",
+      "bytes": 12184809,
+      "sha256": "5774799bb47a76690b58ccc00ae76bbfd2773d3bfba3b14d57e8da55785f8745",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "5774799bb47a76690b58ccc00ae76bbfd2773d3bfba3b14d57e8da55785f8745"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Authored/LMG201.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Authored/LMG201.json",
+      "bytes": 12270331,
+      "sha256": "73e87759d8993d4dbd38e1a2c56a4ac39916df51eb552b9265c84ede77131a70",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "73e87759d8993d4dbd38e1a2c56a4ac39916df51eb552b9265c84ede77131a70"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Authored/M16.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Authored/M16.json",
+      "bytes": 12196324,
+      "sha256": "34bce20cda507556c5261525d78b215a1549676b5c7ae1a24ba66e948680eaf5",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "34bce20cda507556c5261525d78b215a1549676b5c7ae1a24ba66e948680eaf5"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Authored/M1911.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Authored/M1911.json",
+      "bytes": 12188778,
+      "sha256": "766fa1eabd81c9365f5cee6cf437692ac14781293eb46d2fc89b0b2b918aa011",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "766fa1eabd81c9365f5cee6cf437692ac14781293eb46d2fc89b0b2b918aa011"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Authored/M1911_l.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Authored/M1911_l.json",
+      "bytes": 6119163,
+      "sha256": "da0f52056e5c62be70f569708513ac813ebfcb0d31109d138f04b1c627a85387",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "da0f52056e5c62be70f569708513ac813ebfcb0d31109d138f04b1c627a85387"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Authored/M1911_r.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Authored/M1911_r.json",
+      "bytes": 6125616,
+      "sha256": "3596cde9ca385b4c718787cf11cc929f337f4c6a0dc0e3286739cd6f00ea208d",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "3596cde9ca385b4c718787cf11cc929f337f4c6a0dc0e3286739cd6f00ea208d"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Authored/M4.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Authored/M4.json",
+      "bytes": 12183897,
+      "sha256": "01baf9b4886adf10dd9804bd7c98135e1f965cd5bc769d5af35dd590d45b6fb4",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "01baf9b4886adf10dd9804bd7c98135e1f965cd5bc769d5af35dd590d45b6fb4"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Authored/Pickaxe.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Authored/Pickaxe.json",
+      "bytes": 12183622,
+      "sha256": "475e34d571ea7c6c71404a9e5fd8df4d5d53dfbcc07b572831c7fa88b1a5e3c4",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "475e34d571ea7c6c71404a9e5fd8df4d5d53dfbcc07b572831c7fa88b1a5e3c4"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Authored/PKM.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Authored/PKM.json",
+      "bytes": 12270319,
+      "sha256": "f5216d5160d922e28ac7ec00edb1476d003f53b713a066e55a41cbd4254e10be",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "f5216d5160d922e28ac7ec00edb1476d003f53b713a066e55a41cbd4254e10be"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Authored/QBZ191.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Authored/QBZ191.json",
+      "bytes": 12184127,
+      "sha256": "4587f85e435e09afd05a050576267546175fd6198e268d9f17950fd8c78811fa",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "4587f85e435e09afd05a050576267546175fd6198e268d9f17950fd8c78811fa"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Authored/RuneSword.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Authored/RuneSword.json",
+      "bytes": 12184799,
+      "sha256": "f1a94800a356b3bc2f502a181e8ef664add2f0772d57ec749a0f8c21aa348e8f",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "f1a94800a356b3bc2f502a181e8ef664add2f0772d57ec749a0f8c21aa348e8f"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Before/A762/shirt.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Before/A762/shirt.json",
+      "bytes": 3431748,
+      "sha256": "bdc27d30307fd7dc65b7932e49329a44217853020ca9d1b40f9babd542a9d0ae",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "bdc27d30307fd7dc65b7932e49329a44217853020ca9d1b40f9babd542a9d0ae"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Before/AKM/shirt.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Before/AKM/shirt.json",
+      "bytes": 3431744,
+      "sha256": "34900bb8e5ae1c5a16921e7cae0fcff92961b51a707426e73fd24e1ecf79ea70",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "34900bb8e5ae1c5a16921e7cae0fcff92961b51a707426e73fd24e1ecf79ea70"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Before/ASH12/shirt.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Before/ASH12/shirt.json",
+      "bytes": 3432254,
+      "sha256": "1f08242a9db3184c631990ac5123fed8c3aa00886fe9644ca632277443d2753e",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "1f08242a9db3184c631990ac5123fed8c3aa00886fe9644ca632277443d2753e"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Before/Axe/shirt.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Before/Axe/shirt.json",
+      "bytes": 3431751,
+      "sha256": "15340039a8cd0118b06db4fcc3097818709f05e68ddf9a3f77960fa24fdf83b4",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "15340039a8cd0118b06db4fcc3097818709f05e68ddf9a3f77960fa24fdf83b4"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Before/Bow/shirt.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Before/Bow/shirt.json",
+      "bytes": 3414485,
+      "sha256": "e06ba73c74a8eff3a382fab4cf5faccbd8fafb405a741b9fd3bb485e1047efa7",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "e06ba73c74a8eff3a382fab4cf5faccbd8fafb405a741b9fd3bb485e1047efa7"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Before/DW715/shirt.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Before/DW715/shirt.json",
+      "bytes": 3441093,
+      "sha256": "f755b57fdc15e189d99546a5f301b5666cf9178084640c09ef26e97bdc7aec18",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "f755b57fdc15e189d99546a5f301b5666cf9178084640c09ef26e97bdc7aec18"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Before/DW715_l/shirt.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Before/DW715_l/shirt.json",
+      "bytes": 1743089,
+      "sha256": "9cc9fa876d100d0952c7a9b35bc3521ed8d9348a903c1d04026c4588ba565ea6",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "9cc9fa876d100d0952c7a9b35bc3521ed8d9348a903c1d04026c4588ba565ea6"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Before/DW715_r/shirt.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Before/DW715_r/shirt.json",
+      "bytes": 1740690,
+      "sha256": "e0f7fcbc156ae00f73b226fc7bb8a1b948d15a731709c41d9fdbee7b482a0c9b",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "e0f7fcbc156ae00f73b226fc7bb8a1b948d15a731709c41d9fdbee7b482a0c9b"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Before/FrostArms/shirt.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Before/FrostArms/shirt.json",
+      "bytes": 3432560,
+      "sha256": "58f8e6959d428a4f42c575a98e7d47771cda25b8bb3fcde5b3a03ef6493f4ef5",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "58f8e6959d428a4f42c575a98e7d47771cda25b8bb3fcde5b3a03ef6493f4ef5"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Before/FrostSword/shirt.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Before/FrostSword/shirt.json",
+      "bytes": 3432563,
+      "sha256": "c992c7c59125d91e67a02501777449b100a02a6a2743710e3c11e20b836e2536",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "c992c7c59125d91e67a02501777449b100a02a6a2743710e3c11e20b836e2536"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Before/LMG201/shirt.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Before/LMG201/shirt.json",
+      "bytes": 3491479,
+      "sha256": "25742782a41f7cc6237044e6aab37c15c9a5f0b18b1141ef006b39c2145d119b",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "25742782a41f7cc6237044e6aab37c15c9a5f0b18b1141ef006b39c2145d119b"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Before/M16/shirt.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Before/M16/shirt.json",
+      "bytes": 3435103,
+      "sha256": "5cd0d74a121b09702c524da3d43101b82337a5eeabf69b97f77259ab1b2e358f",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "5cd0d74a121b09702c524da3d43101b82337a5eeabf69b97f77259ab1b2e358f"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Before/M1911/shirt.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Before/M1911/shirt.json",
+      "bytes": 3434799,
+      "sha256": "07f764aeaf7ab6edf77e1a1551c54ef7958f6ed34a3a5d1265ca2c92a49d7975",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "07f764aeaf7ab6edf77e1a1551c54ef7958f6ed34a3a5d1265ca2c92a49d7975"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Before/M1911_l/shirt.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Before/M1911_l/shirt.json",
+      "bytes": 1736795,
+      "sha256": "91de0d1c438ab554e7fb7353cb597ff4016b02364c893f3e4f91cdae8bb3c67f",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "91de0d1c438ab554e7fb7353cb597ff4016b02364c893f3e4f91cdae8bb3c67f"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Before/M1911_r/shirt.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Before/M1911_r/shirt.json",
+      "bytes": 1734396,
+      "sha256": "8adaf322f578e7bd26cbe03a927a1694e26ab1aa5bd7cb03991434108dfecf24",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "8adaf322f578e7bd26cbe03a927a1694e26ab1aa5bd7cb03991434108dfecf24"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Before/M4/shirt.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Before/M4/shirt.json",
+      "bytes": 3431712,
+      "sha256": "c2e979bd93aa8aec12f81a84114ef3c4d7abfe9845b8ef4019f84079b291e217",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "c2e979bd93aa8aec12f81a84114ef3c4d7abfe9845b8ef4019f84079b291e217"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Before/Pickaxe/shirt.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Before/Pickaxe/shirt.json",
+      "bytes": 3431765,
+      "sha256": "b782837b14f16bbf5031b35526a89211e5f33ea60702390d0cb902dccafe900f",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "b782837b14f16bbf5031b35526a89211e5f33ea60702390d0cb902dccafe900f"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Before/PKM/shirt.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Before/PKM/shirt.json",
+      "bytes": 3491470,
+      "sha256": "13ce216744f057d251987f0df7aa4b234fe7af7875f6dc99e34f68317c2cdb38",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "13ce216744f057d251987f0df7aa4b234fe7af7875f6dc99e34f68317c2cdb38"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Before/QBZ191/shirt.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Before/QBZ191/shirt.json",
+      "bytes": 3431744,
+      "sha256": "0202d214da81afa5e00082b65e7ceac911711e7479b336329780085379b9bcfb",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "0202d214da81afa5e00082b65e7ceac911711e7479b336329780085379b9bcfb"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Before/RuneSword/shirt.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Before/RuneSword/shirt.json",
+      "bytes": 3432560,
+      "sha256": "7be05d3f1e78f42a8ec806a20b7cfe6fa841a10285105beb21cd7c61886cd67f",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "7be05d3f1e78f42a8ec806a20b7cfe6fa841a10285105beb21cd7c61886cd67f"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Before/SVD/shirt.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Before/SVD/shirt.json",
+      "bytes": 3228903,
+      "sha256": "1eed88b542b40b43084c9aa45cfd0a9c1adeb02f79f5f5c7123bbb1a2bc55c2e",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "1eed88b542b40b43084c9aa45cfd0a9c1adeb02f79f5f5c7123bbb1a2bc55c2e"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Before/Traversal/shirt.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Before/Traversal/shirt.json",
+      "bytes": 3431762,
+      "sha256": "09750c4f1d60351510bde72b689116110a2894451a39f48600cdd020e0a96b87",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "09750c4f1d60351510bde72b689116110a2894451a39f48600cdd020e0a96b87"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/A762/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/A762/LOD0.json",
+      "bytes": 3350999,
+      "sha256": "65e28af7c07b3877c2bd2f3e052bebb0e452cf8c49674c7f2e59ca3aababc769",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "65e28af7c07b3877c2bd2f3e052bebb0e452cf8c49674c7f2e59ca3aababc769"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/A762/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/A762/LOD1.json",
+      "bytes": 3015612,
+      "sha256": "7c4b93dc57eae390d685f13712712c026b2c607fb5739946544e0435007f726f",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "7c4b93dc57eae390d685f13712712c026b2c607fb5739946544e0435007f726f"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/A762/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/A762/LOD2.json",
+      "bytes": 2725543,
+      "sha256": "36d20bbe92b0acdf5bd096e2bab09588d5b657779b2a0224b038b82f9dfefcee",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "36d20bbe92b0acdf5bd096e2bab09588d5b657779b2a0224b038b82f9dfefcee"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/A762/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/A762/saved.json",
+      "bytes": 1579,
+      "sha256": "390644bbdf852756b20bd161043d1a48edda9d8ea5e032b92c9f8ef7d5854ad9",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "390644bbdf852756b20bd161043d1a48edda9d8ea5e032b92c9f8ef7d5854ad9"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/A762/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/A762/source.json",
+      "bytes": 3363264,
+      "sha256": "707101cba44e19b4e8f0d211e971ea220ea205ad42f507f4fdf87b27d9e6ebc2",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "707101cba44e19b4e8f0d211e971ea220ea205ad42f507f4fdf87b27d9e6ebc2"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/AKM/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/AKM/LOD0.json",
+      "bytes": 3350859,
+      "sha256": "06cc86a7152ab26b1d4272dc18e4b1c5a1b0256a5361c039f12febc443dad286",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "06cc86a7152ab26b1d4272dc18e4b1c5a1b0256a5361c039f12febc443dad286"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/AKM/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/AKM/LOD1.json",
+      "bytes": 3015565,
+      "sha256": "6d4c2c2bd54723900de9ff22ed59f01fc65662cc7da20efdf5dd15136ab66154",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "6d4c2c2bd54723900de9ff22ed59f01fc65662cc7da20efdf5dd15136ab66154"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/AKM/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/AKM/LOD2.json",
+      "bytes": 2725513,
+      "sha256": "7bb08d7d43f1e3a920c49c8a7852e12e100e860860eefa6e06556390c6baf1d2",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "7bb08d7d43f1e3a920c49c8a7852e12e100e860860eefa6e06556390c6baf1d2"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/AKM/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/AKM/saved.json",
+      "bytes": 1567,
+      "sha256": "0266f9e4a24a3141f114c81b35be21af700e11714fa696d56f2b4cedd7147d60",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "0266f9e4a24a3141f114c81b35be21af700e11714fa696d56f2b4cedd7147d60"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/AKM/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/AKM/source.json",
+      "bytes": 3363145,
+      "sha256": "be78adfcf712108573be905f9c88071193e30a8ea908c947f894019054b2e371",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "be78adfcf712108573be905f9c88071193e30a8ea908c947f894019054b2e371"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/ASH12/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/ASH12/LOD0.json",
+      "bytes": 3351680,
+      "sha256": "99dec1dbc07d6af5dfd3ef8f293951c3373eb8f8a183e4de383cc2cf1bd282a3",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "99dec1dbc07d6af5dfd3ef8f293951c3373eb8f8a183e4de383cc2cf1bd282a3"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/ASH12/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/ASH12/LOD1.json",
+      "bytes": 3014838,
+      "sha256": "75add186fad2534ce8ded1a5ec557b59c704d3a0d81f2f9b927260e837d4e4f5",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "75add186fad2534ce8ded1a5ec557b59c704d3a0d81f2f9b927260e837d4e4f5"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/ASH12/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/ASH12/LOD2.json",
+      "bytes": 2722498,
+      "sha256": "753ad4cf735c7d2224ef22bc81e9169508626717c37e3dac5f987f608cfed7df",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "753ad4cf735c7d2224ef22bc81e9169508626717c37e3dac5f987f608cfed7df"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/ASH12/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/ASH12/saved.json",
+      "bytes": 1591,
+      "sha256": "c851050da03dd19971213dc9f1f97a43b9d5379b6f411a06e6f025a197246bbb",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "c851050da03dd19971213dc9f1f97a43b9d5379b6f411a06e6f025a197246bbb"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/ASH12/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/ASH12/source.json",
+      "bytes": 3363868,
+      "sha256": "f6c5d60bab85d1fe4ffd94046ca24aae7cc252a026ecc5be28bd42cdd2bc0f48",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "f6c5d60bab85d1fe4ffd94046ca24aae7cc252a026ecc5be28bd42cdd2bc0f48"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/Axe/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/Axe/LOD0.json",
+      "bytes": 3351002,
+      "sha256": "bdecf2e90ca431cc3569a5c6b3d98745d9fd37c22408888573c94253558969d4",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "bdecf2e90ca431cc3569a5c6b3d98745d9fd37c22408888573c94253558969d4"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/Axe/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/Axe/LOD1.json",
+      "bytes": 3015615,
+      "sha256": "ed80a0a9df2fb824a6b7417fac2b4ab2820cedbdb96739080a6ffb6639cc25ce",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "ed80a0a9df2fb824a6b7417fac2b4ab2820cedbdb96739080a6ffb6639cc25ce"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/Axe/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/Axe/LOD2.json",
+      "bytes": 2725546,
+      "sha256": "2402503cc5c08c6b5c2606bc06ee8bfd5d5c78454ff8e04ed5292b80246c5c8f",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "2402503cc5c08c6b5c2606bc06ee8bfd5d5c78454ff8e04ed5292b80246c5c8f"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/Axe/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/Axe/saved.json",
+      "bytes": 1567,
+      "sha256": "2b520856c96bc2303da129c64f569cede51a1671634655773e28f36e21f926dd",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "2b520856c96bc2303da129c64f569cede51a1671634655773e28f36e21f926dd"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/Axe/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/Axe/source.json",
+      "bytes": 3363267,
+      "sha256": "ae94a03293278df41f64efa5d1882e8300653dc16d587a94bc9b34f07f22453a",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "ae94a03293278df41f64efa5d1882e8300653dc16d587a94bc9b34f07f22453a"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/Bow/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/Bow/LOD0.json",
+      "bytes": 3333403,
+      "sha256": "920374398be9753cbc041aaa3fa664a5be8120a79c29ff74cc9706b4073ec7f5",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "920374398be9753cbc041aaa3fa664a5be8120a79c29ff74cc9706b4073ec7f5"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/Bow/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/Bow/LOD1.json",
+      "bytes": 2998917,
+      "sha256": "9d43c266449d20f5be1e58ee776949a988d7714a3f3482784c105444f03b831b",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "9d43c266449d20f5be1e58ee776949a988d7714a3f3482784c105444f03b831b"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/Bow/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/Bow/LOD2.json",
+      "bytes": 2709349,
+      "sha256": "fb622eecd1c0f1b20f5ab19c554ec9a82a591eb5c3916ee94cdbd218172eecd1",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "fb622eecd1c0f1b20f5ab19c554ec9a82a591eb5c3916ee94cdbd218172eecd1"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/Bow/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/Bow/saved.json",
+      "bytes": 1567,
+      "sha256": "f2d91a6e7af50bddf4ecdffdc642cc63e496b431b349d23858c59ae065da4795",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "f2d91a6e7af50bddf4ecdffdc642cc63e496b431b349d23858c59ae065da4795"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/Bow/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/Bow/source.json",
+      "bytes": 3345889,
+      "sha256": "ab6efa32f71bbaf7b311276aaa51678b3828af3c2ea46313a6fea1ed1179899a",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "ab6efa32f71bbaf7b311276aaa51678b3828af3c2ea46313a6fea1ed1179899a"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715/LOD0.json",
+      "bytes": 3360208,
+      "sha256": "da3acacfe17ec78c825e3ad382e943326c2b9d6b74cfc1b95697d59cd444ee6a",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "da3acacfe17ec78c825e3ad382e943326c2b9d6b74cfc1b95697d59cd444ee6a"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715/LOD1.json",
+      "bytes": 3024914,
+      "sha256": "43bd74ec714f32affb2df1ccd6bf5e7d73d6ea790002c4391674d32c9c416136",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "43bd74ec714f32affb2df1ccd6bf5e7d73d6ea790002c4391674d32c9c416136"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715/LOD2.json",
+      "bytes": 2734862,
+      "sha256": "103339e0d1ab3c1992cdd611277247b987d279297aed63322aef77bd47f141d2",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "103339e0d1ab3c1992cdd611277247b987d279297aed63322aef77bd47f141d2"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715/saved.json",
+      "bytes": 1591,
+      "sha256": "ee7ba7934111957f1056177896af42a5abf0f37704363056718672d5d8d4c873",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "ee7ba7934111957f1056177896af42a5abf0f37704363056718672d5d8d4c873"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715/source.json",
+      "bytes": 3372494,
+      "sha256": "608fcd33ff100c91a5af6a2e6da5f4fbead260f554db55b475a08e50f1177e38",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "608fcd33ff100c91a5af6a2e6da5f4fbead260f554db55b475a08e50f1177e38"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715_l/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715_l/LOD0.json",
+      "bytes": 1705327,
+      "sha256": "01d7e1b12bb60a72a99b7cf0bad6b1c54afa735c72a27fecbd70226767476331",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "01d7e1b12bb60a72a99b7cf0bad6b1c54afa735c72a27fecbd70226767476331"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715_l/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715_l/LOD1.json",
+      "bytes": 1537686,
+      "sha256": "1a1b6a488e5357b20d230466a8824af1ed787a9dddffea9edebbffbbfc063f51",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "1a1b6a488e5357b20d230466a8824af1ed787a9dddffea9edebbffbbfc063f51"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715_l/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715_l/LOD2.json",
+      "bytes": 1390366,
+      "sha256": "04eeed92d81c74eadc743f8c4fae9cc7c8b888b80b4070b99a48ff3bb7bd467e",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "04eeed92d81c74eadc743f8c4fae9cc7c8b888b80b4070b99a48ff3bb7bd467e"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715_l/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715_l/saved.json",
+      "bytes": 1615,
+      "sha256": "6c921cfe5ce9e3b76add09140f989df1951f914739374b5d08fcbd3a01f9396a",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "6c921cfe5ce9e3b76add09140f989df1951f914739374b5d08fcbd3a01f9396a"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715_l/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715_l/source.json",
+      "bytes": 1709577,
+      "sha256": "45258dd4b047de2e258223ad14520d4043cf2c637fe8966158bc6ee6585ce1de",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "45258dd4b047de2e258223ad14520d4043cf2c637fe8966158bc6ee6585ce1de"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715_r/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715_r/LOD0.json",
+      "bytes": 1698675,
+      "sha256": "64402581d7a0e93887e82e2934d507136b83687a3a7683dd2ac9709f6868a905",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "64402581d7a0e93887e82e2934d507136b83687a3a7683dd2ac9709f6868a905"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715_r/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715_r/LOD1.json",
+      "bytes": 1531013,
+      "sha256": "66df4b3af23176bf61f168a42bd926ac2cb2f2a861934411d0cdd13b134cbe02",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "66df4b3af23176bf61f168a42bd926ac2cb2f2a861934411d0cdd13b134cbe02"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715_r/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715_r/LOD2.json",
+      "bytes": 1387472,
+      "sha256": "9976f1961b288ba1c702c49505f5b174de9da0a5cec7473ec1e240bdca3671ba",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "9976f1961b288ba1c702c49505f5b174de9da0a5cec7473ec1e240bdca3671ba"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715_r/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715_r/saved.json",
+      "bytes": 1615,
+      "sha256": "e10a8ee160490d1b846fc7d6cf564e4d1904c4b732fd5e7fd5e836975b2266cc",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "e10a8ee160490d1b846fc7d6cf564e4d1904c4b732fd5e7fd5e836975b2266cc"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715_r/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/DW715_r/source.json",
+      "bytes": 1705743,
+      "sha256": "1213b097410a8456101bf5c2d8e6ab8530fee5b1623a63f359e12662acb405be",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "1213b097410a8456101bf5c2d8e6ab8530fee5b1623a63f359e12662acb405be"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/FrostArms/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/FrostArms/LOD0.json",
+      "bytes": 3374051,
+      "sha256": "b6f4554f18ea7ba18fd3d9b55993c72feede7f734512ccbbd075f8dd684c2355",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "b6f4554f18ea7ba18fd3d9b55993c72feede7f734512ccbbd075f8dd684c2355"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/FrostArms/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/FrostArms/LOD1.json",
+      "bytes": 3035545,
+      "sha256": "1b5efbb4b82c91c09861e5d6c0b3d7de476f6b0a5f9b354cd5d45b63db2884db",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "1b5efbb4b82c91c09861e5d6c0b3d7de476f6b0a5f9b354cd5d45b63db2884db"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/FrostArms/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/FrostArms/LOD2.json",
+      "bytes": 2738319,
+      "sha256": "1444487335c77d1ee4ade7fb3a8a38eb97c011b124f6630f9ea3f6efd8cc05ea",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "1444487335c77d1ee4ade7fb3a8a38eb97c011b124f6630f9ea3f6efd8cc05ea"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/FrostArms/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/FrostArms/saved.json",
+      "bytes": 1639,
+      "sha256": "b360c7095e22af0a0a9b25038b1c626d6bf29f428820cb096abee0d95ecaa09d",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "b360c7095e22af0a0a9b25038b1c626d6bf29f428820cb096abee0d95ecaa09d"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/FrostArms/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/FrostArms/source.json",
+      "bytes": 3364076,
+      "sha256": "49096e9aaf646f445f24f3b471c896d2be9d5264ceee8ef9d978818b4d0d6641",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "49096e9aaf646f445f24f3b471c896d2be9d5264ceee8ef9d978818b4d0d6641"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/FrostSword/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/FrostSword/LOD0.json",
+      "bytes": 3351817,
+      "sha256": "b977810bdfb8987f72dfad0928946f9d31d46f1e071854186b53ac03ef88ae2c",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "b977810bdfb8987f72dfad0928946f9d31d46f1e071854186b53ac03ef88ae2c"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/FrostSword/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/FrostSword/LOD1.json",
+      "bytes": 3016430,
+      "sha256": "87b746c4e1b7a41d0e1d166156dcf0d9a427bff1013c501fa0efb7749684fad9",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "87b746c4e1b7a41d0e1d166156dcf0d9a427bff1013c501fa0efb7749684fad9"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/FrostSword/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/FrostSword/LOD2.json",
+      "bytes": 2726361,
+      "sha256": "eb9de42f36bad3713560ad6a566fe77f7103e5bfe7a61d15066299216b9a9313",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "eb9de42f36bad3713560ad6a566fe77f7103e5bfe7a61d15066299216b9a9313"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/FrostSword/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/FrostSword/saved.json",
+      "bytes": 1651,
+      "sha256": "7b7d266cb47180f829e4c3564dcb2a8353d05b760d7b9b73fa55ecbd2f363298",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "7b7d266cb47180f829e4c3564dcb2a8353d05b760d7b9b73fa55ecbd2f363298"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/FrostSword/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/FrostSword/source.json",
+      "bytes": 3364079,
+      "sha256": "858a4b4c95b3e7c2fc1a99a71845a497479baf4d22fe116139d11c67d14024b1",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "858a4b4c95b3e7c2fc1a99a71845a497479baf4d22fe116139d11c67d14024b1"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/LMG201/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/LMG201/LOD0.json",
+      "bytes": 3410553,
+      "sha256": "0f7f3bdd481d384f60333c4c397deaf8f9fefe1ab478e4d2e0d753175e3f789a",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "0f7f3bdd481d384f60333c4c397deaf8f9fefe1ab478e4d2e0d753175e3f789a"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/LMG201/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/LMG201/LOD1.json",
+      "bytes": 3075166,
+      "sha256": "6aa8cd7079084db235d52065198b23267f17be1347dfdebbdda593f56f348d26",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "6aa8cd7079084db235d52065198b23267f17be1347dfdebbdda593f56f348d26"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/LMG201/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/LMG201/LOD2.json",
+      "bytes": 2785097,
+      "sha256": "1a0b40a3197b13b1732fb7c074abef3d326f48ab604e9bfb2049bde7b81c9ba0",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "1a0b40a3197b13b1732fb7c074abef3d326f48ab604e9bfb2049bde7b81c9ba0"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/LMG201/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/LMG201/saved.json",
+      "bytes": 1594,
+      "sha256": "a99ec8a48d1c0aabbd992982f116c640f189b02e3f64c1ef5b4293ba50e07309",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "a99ec8a48d1c0aabbd992982f116c640f189b02e3f64c1ef5b4293ba50e07309"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/LMG201/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/LMG201/source.json",
+      "bytes": 3422995,
+      "sha256": "98a1fb8789a6b810283db9e0959757cabc5c18337c2dc8a3622f80aaa9db7fe8",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "98a1fb8789a6b810283db9e0959757cabc5c18337c2dc8a3622f80aaa9db7fe8"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M16/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M16/LOD0.json",
+      "bytes": 3354576,
+      "sha256": "148b859dff9df6b2ea6b36c0d4ff4ea9960dd3987cf2a09f487f1d884f131c7c",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "148b859dff9df6b2ea6b36c0d4ff4ea9960dd3987cf2a09f487f1d884f131c7c"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M16/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M16/LOD1.json",
+      "bytes": 3016894,
+      "sha256": "2e7f5c52085ea69137c012b66a65b69d5ab63a6758aa7d9f13350fdddad2a6f1",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "2e7f5c52085ea69137c012b66a65b69d5ab63a6758aa7d9f13350fdddad2a6f1"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M16/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M16/LOD2.json",
+      "bytes": 2726603,
+      "sha256": "94891982d101279174354b0acd43d66faa547181b3f85d1a2fe5beab8621197a",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "94891982d101279174354b0acd43d66faa547181b3f85d1a2fe5beab8621197a"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M16/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M16/saved.json",
+      "bytes": 1567,
+      "sha256": "f9331e5e5f7aa0e1ce6c486d6b4707f76d85c2558aaadec308e3d3f2301193be",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "f9331e5e5f7aa0e1ce6c486d6b4707f76d85c2558aaadec308e3d3f2301193be"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M16/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M16/source.json",
+      "bytes": 3366680,
+      "sha256": "ac847cf380049472464a28b3125010e9847b4b3b38d02d5c43384f55fb2fbf73",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "ac847cf380049472464a28b3125010e9847b4b3b38d02d5c43384f55fb2fbf73"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911/LOD0.json",
+      "bytes": 3353914,
+      "sha256": "0e2ee3b1c304206d0966509e1d07a9f6e2981c9c1a492d720e3d57d77660a5f0",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "0e2ee3b1c304206d0966509e1d07a9f6e2981c9c1a492d720e3d57d77660a5f0"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911/LOD1.json",
+      "bytes": 3018620,
+      "sha256": "76b58be7ae595327ee054e089336d491850b762f1f160d03b79b2e70ed751869",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "76b58be7ae595327ee054e089336d491850b762f1f160d03b79b2e70ed751869"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911/LOD2.json",
+      "bytes": 2728568,
+      "sha256": "41b3f160e1c7e5f521ae12c6ae97f9753a2640886dfcab884ff32eebad36f04f",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "41b3f160e1c7e5f521ae12c6ae97f9753a2640886dfcab884ff32eebad36f04f"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911/saved.json",
+      "bytes": 1591,
+      "sha256": "e94fc071dd28934e542761ce6405458c19febb346746ec720522a58e78a01dbb",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "e94fc071dd28934e542761ce6405458c19febb346746ec720522a58e78a01dbb"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911/source.json",
+      "bytes": 3366200,
+      "sha256": "7c178109c913ca5629f1366df360411af229ec55ece15e06cef79dd902943622",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "7c178109c913ca5629f1366df360411af229ec55ece15e06cef79dd902943622"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911_l/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911_l/LOD0.json",
+      "bytes": 1699033,
+      "sha256": "8ba0cd1eabe864baeb4c7b07a2581e1f1b74c1c2d57104bc0d984ca88efa6f5c",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "8ba0cd1eabe864baeb4c7b07a2581e1f1b74c1c2d57104bc0d984ca88efa6f5c"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911_l/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911_l/LOD1.json",
+      "bytes": 1531392,
+      "sha256": "e300c08db7f9667ff6c8da36932dbd38e74456aa02775925fac7e2d5d0a8dbb7",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "e300c08db7f9667ff6c8da36932dbd38e74456aa02775925fac7e2d5d0a8dbb7"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911_l/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911_l/LOD2.json",
+      "bytes": 1384072,
+      "sha256": "f30a51eadf45ee15467e39a4dd68865631c6be40b995162b2a49b3741e684485",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "f30a51eadf45ee15467e39a4dd68865631c6be40b995162b2a49b3741e684485"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911_l/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911_l/saved.json",
+      "bytes": 1615,
+      "sha256": "677dd49b6bcb92b72f1bbad823c80b74f75188f169af5bfaa449a34fee40ad45",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "677dd49b6bcb92b72f1bbad823c80b74f75188f169af5bfaa449a34fee40ad45"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911_l/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911_l/source.json",
+      "bytes": 1703283,
+      "sha256": "ca28a21034056b5a81b0c385b39e297ce21d35a3237d8e1ab596dbcc50176a35",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "ca28a21034056b5a81b0c385b39e297ce21d35a3237d8e1ab596dbcc50176a35"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911_r/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911_r/LOD0.json",
+      "bytes": 1692381,
+      "sha256": "5880a2ffc9388cb6cc22e64c3e174f22e9a40768df36db25c904722c7d7dd3e7",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "5880a2ffc9388cb6cc22e64c3e174f22e9a40768df36db25c904722c7d7dd3e7"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911_r/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911_r/LOD1.json",
+      "bytes": 1524719,
+      "sha256": "e0ceddfd25d009e5127446f634024cdc6d73ee3b96a5e74b400fe46ef1ecc465",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "e0ceddfd25d009e5127446f634024cdc6d73ee3b96a5e74b400fe46ef1ecc465"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911_r/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911_r/LOD2.json",
+      "bytes": 1381178,
+      "sha256": "4c6a5d86f7a5bb699f5e99cb871aa5b99ebf0001aeb876e8d7c241a1354608bd",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "4c6a5d86f7a5bb699f5e99cb871aa5b99ebf0001aeb876e8d7c241a1354608bd"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911_r/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911_r/saved.json",
+      "bytes": 1615,
+      "sha256": "2d2547ef93d68531c54f8bf96ab3f659e40a7ad7c53dade3c1b641740461627d",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "2d2547ef93d68531c54f8bf96ab3f659e40a7ad7c53dade3c1b641740461627d"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911_r/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M1911_r/source.json",
+      "bytes": 1699449,
+      "sha256": "cca1a2bb7bc9a03b8d480bda170d302473923d2f2e3807b097ecdf1e8dc16213",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "cca1a2bb7bc9a03b8d480bda170d302473923d2f2e3807b097ecdf1e8dc16213"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M4/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M4/LOD0.json",
+      "bytes": 3350851,
+      "sha256": "6a1495bf178e12a2a49fa8827728b47b809ae31c26369888c861ed13e23f2e84",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "6a1495bf178e12a2a49fa8827728b47b809ae31c26369888c861ed13e23f2e84"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M4/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M4/LOD1.json",
+      "bytes": 3015613,
+      "sha256": "7c017aa4692cd4dfb00c1548f7e6be0c0b36c0985fc8334e09569695e221b213",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "7c017aa4692cd4dfb00c1548f7e6be0c0b36c0985fc8334e09569695e221b213"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M4/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M4/LOD2.json",
+      "bytes": 2725555,
+      "sha256": "bf4f5ba3f69ef7ea835b96fa19d225306909797ac1fffbd23151784863b733ad",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "bf4f5ba3f69ef7ea835b96fa19d225306909797ac1fffbd23151784863b733ad"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M4/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M4/saved.json",
+      "bytes": 1555,
+      "sha256": "c1586193828c95e6873d87c11ee813e750b17639dab690729433f6c5851100ff",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "c1586193828c95e6873d87c11ee813e750b17639dab690729433f6c5851100ff"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/M4/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/M4/source.json",
+      "bytes": 3363138,
+      "sha256": "311513b67d32ac991c4dc569751444f9978ee934a5adec6e2be3b154939cdebf",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "311513b67d32ac991c4dc569751444f9978ee934a5adec6e2be3b154939cdebf"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/Pickaxe/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/Pickaxe/LOD0.json",
+      "bytes": 3351016,
+      "sha256": "ce27e092f628447616ef53958a02612717ee878db77020fa69f092f6be8a461f",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "ce27e092f628447616ef53958a02612717ee878db77020fa69f092f6be8a461f"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/Pickaxe/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/Pickaxe/LOD1.json",
+      "bytes": 3015629,
+      "sha256": "9d38753babb6984a01d8e6abbf03da29745f48c0e63edd27e07640ce156bcaf6",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "9d38753babb6984a01d8e6abbf03da29745f48c0e63edd27e07640ce156bcaf6"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/Pickaxe/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/Pickaxe/LOD2.json",
+      "bytes": 2725560,
+      "sha256": "526512e6eec4fd331d843148ad048cef42cb181ad5cc5ea7c24084ac9b341be0",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "526512e6eec4fd331d843148ad048cef42cb181ad5cc5ea7c24084ac9b341be0"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/Pickaxe/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/Pickaxe/saved.json",
+      "bytes": 1615,
+      "sha256": "5fc596c74881d8e1cddb5790639be61f7237ae0e0a8ee7af71550f9f1d5aae11",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "5fc596c74881d8e1cddb5790639be61f7237ae0e0a8ee7af71550f9f1d5aae11"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/Pickaxe/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/Pickaxe/source.json",
+      "bytes": 3363281,
+      "sha256": "0ded1095500d8a4e909e95bbe83d3d960edfdec2c43f8da2879e943512fa36b6",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "0ded1095500d8a4e909e95bbe83d3d960edfdec2c43f8da2879e943512fa36b6"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/PKM/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/PKM/LOD0.json",
+      "bytes": 3410544,
+      "sha256": "8207ba090faa9a7d25e03b2536abad2ef57de2dd6b3bc6dd0bf244083125efa4",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "8207ba090faa9a7d25e03b2536abad2ef57de2dd6b3bc6dd0bf244083125efa4"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/PKM/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/PKM/LOD1.json",
+      "bytes": 3075157,
+      "sha256": "61e85e48cdc70f197aaaa59dcd0823ecd2b63f32ed0a7072a0ef41248c6fa147",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "61e85e48cdc70f197aaaa59dcd0823ecd2b63f32ed0a7072a0ef41248c6fa147"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/PKM/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/PKM/LOD2.json",
+      "bytes": 2785088,
+      "sha256": "f1dd966344741b461089ff2691e37ac7f91942f877020dc1467507b8466def6c",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "f1dd966344741b461089ff2691e37ac7f91942f877020dc1467507b8466def6c"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/PKM/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/PKM/saved.json",
+      "bytes": 1567,
+      "sha256": "f650b07db13dbda85e97cd49cd68b88e32c0518e9d556cb561ed51a1b6e50119",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "f650b07db13dbda85e97cd49cd68b88e32c0518e9d556cb561ed51a1b6e50119"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/PKM/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/PKM/source.json",
+      "bytes": 3422986,
+      "sha256": "c6b2bec92a244d6a73aafc0c4d3ed7b172aa931e102cb9b2ad64e224a2bc8706",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "c6b2bec92a244d6a73aafc0c4d3ed7b172aa931e102cb9b2ad64e224a2bc8706"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/QBZ191/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/QBZ191/LOD0.json",
+      "bytes": 3350859,
+      "sha256": "9981375075fee26b140b8026da372b93d568da667377bb89932ee9852789a138",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "9981375075fee26b140b8026da372b93d568da667377bb89932ee9852789a138"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/QBZ191/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/QBZ191/LOD1.json",
+      "bytes": 3015565,
+      "sha256": "8989510a8559e24e989b34c1e2182415b31b1a30565c0e4fc57503f223ea8ef0",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "8989510a8559e24e989b34c1e2182415b31b1a30565c0e4fc57503f223ea8ef0"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/QBZ191/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/QBZ191/LOD2.json",
+      "bytes": 2725513,
+      "sha256": "f144f7e03280307768554af4fcad695660a23268f89b3b9e30c770b3a2afe734",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "f144f7e03280307768554af4fcad695660a23268f89b3b9e30c770b3a2afe734"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/QBZ191/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/QBZ191/saved.json",
+      "bytes": 1603,
+      "sha256": "03d4f0428babadc32e9eea170b0f0392d6f9e47df77b98cfed998dbbc09fbc7a",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "03d4f0428babadc32e9eea170b0f0392d6f9e47df77b98cfed998dbbc09fbc7a"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/QBZ191/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/QBZ191/source.json",
+      "bytes": 3363145,
+      "sha256": "93254b1139d85583d585caa65f127dccde09a627721555d5e1c2d4c4f22bfd24",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "93254b1139d85583d585caa65f127dccde09a627721555d5e1c2d4c4f22bfd24"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/RuneSword/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/RuneSword/LOD0.json",
+      "bytes": 3351814,
+      "sha256": "2a02b5b1bfd0455971324495032e516f5d7f9c9076249cfef73b65445645de0c",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "2a02b5b1bfd0455971324495032e516f5d7f9c9076249cfef73b65445645de0c"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/RuneSword/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/RuneSword/LOD1.json",
+      "bytes": 3016427,
+      "sha256": "42e4a537f8017605463370c95473039961194f3d1934fa517bbcd8e71bfe2b54",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "42e4a537f8017605463370c95473039961194f3d1934fa517bbcd8e71bfe2b54"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/RuneSword/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/RuneSword/LOD2.json",
+      "bytes": 2726358,
+      "sha256": "16b6d5cf793513f7c67491430c7aab3c8715d6340638762ea187645ab5779e87",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "16b6d5cf793513f7c67491430c7aab3c8715d6340638762ea187645ab5779e87"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/RuneSword/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/RuneSword/saved.json",
+      "bytes": 1639,
+      "sha256": "58c97f6bfa58ee1187439269ed5a17c9eb3a0c20aa4e24213b0ee13a93b9aeba",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "58c97f6bfa58ee1187439269ed5a17c9eb3a0c20aa4e24213b0ee13a93b9aeba"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/RuneSword/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/RuneSword/source.json",
+      "bytes": 3364076,
+      "sha256": "9d73c639f21101667e720d46d78c5e0e32f8f8303d4b4bc7d87efbfb4ac7c8fa",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "9d73c639f21101667e720d46d78c5e0e32f8f8303d4b4bc7d87efbfb4ac7c8fa"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/SVD/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/SVD/LOD0.json",
+      "bytes": 3216786,
+      "sha256": "9b55fc1e7b330c8160663f611fa3d18b463cb3f90e4a742b48f2c11bf792e7da",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "9b55fc1e7b330c8160663f611fa3d18b463cb3f90e4a742b48f2c11bf792e7da"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/SVD/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/SVD/LOD1.json",
+      "bytes": 2884694,
+      "sha256": "49c2223c1d7edad88dbb28be60a8d2b484be2af4c794999312b86e35b4b5bfae",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "49c2223c1d7edad88dbb28be60a8d2b484be2af4c794999312b86e35b4b5bfae"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/SVD/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/SVD/LOD2.json",
+      "bytes": 2597944,
+      "sha256": "82cbe48a50753beb644aabaed4212e7715f594c22ee5e1ef86abc88371db62b7",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "82cbe48a50753beb644aabaed4212e7715f594c22ee5e1ef86abc88371db62b7"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/SVD/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/SVD/saved.json",
+      "bytes": 1457,
+      "sha256": "a196a1826bcd9bdf5b19a487e28f99d0a332829c7f146b917e0a6484b1969cb9",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "a196a1826bcd9bdf5b19a487e28f99d0a332829c7f146b917e0a6484b1969cb9"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/SVD/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/SVD/source.json",
+      "bytes": 3228911,
+      "sha256": "cd8c4f460ead0a06f12c4e25d28f78a2cff73382f1fd59723c51444fc287f947",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "cd8c4f460ead0a06f12c4e25d28f78a2cff73382f1fd59723c51444fc287f947"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/Traversal/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/Traversal/LOD0.json",
+      "bytes": 3350877,
+      "sha256": "5128baa7e7064c93f0a319d5ed69f69fd406b7dd99533a416ed778b68804a37b",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "5128baa7e7064c93f0a319d5ed69f69fd406b7dd99533a416ed778b68804a37b"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/Traversal/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/Traversal/LOD1.json",
+      "bytes": 3015583,
+      "sha256": "93828d26204da70f901849b3ff597c6fb2d0cb79f31044776aa1c29ad3656c7b",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "93828d26204da70f901849b3ff597c6fb2d0cb79f31044776aa1c29ad3656c7b"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/Traversal/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/Traversal/LOD2.json",
+      "bytes": 2725531,
+      "sha256": "ea7da9d658786a4d972f993aeaf66e767807abc23fa3cb48bb1f24460c6ec88c",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "ea7da9d658786a4d972f993aeaf66e767807abc23fa3cb48bb1f24460c6ec88c"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/Traversal/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/Traversal/saved.json",
+      "bytes": 1639,
+      "sha256": "f575042d2760bf35d4542aaa3e3e4dd40bb6dab2882f0bb78c0a314b0d636fcd",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "f575042d2760bf35d4542aaa3e3e4dd40bb6dab2882f0bb78c0a314b0d636fcd"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterCameraRepair20260930/Saved/Traversal/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterCameraRepair20260930/Saved/Traversal/source.json",
+      "bytes": 3363163,
+      "sha256": "77855e981f4d924e0df1d9a92b13f6b7203e3713cf113b03b826ce59fa4bfb09",
+      "reason": "Superseded field-sweater generic-sleeve output and retired entry point",
+      "replacement": "SourceAssets/FieldSweaterNativeFamily20260930",
+      "archived_sha256": "77855e981f4d924e0df1d9a92b13f6b7203e3713cf113b03b826ce59fa4bfb09"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/Saved/Body/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/Saved/Body/LOD0.json",
+      "bytes": 4788852,
+      "sha256": "bf34e20d9e7deb4caaaeeb2a93101d13b1ae8083fabbdffab01e057d81212b18",
+      "reason": "Superseded charcoal candidate snapshot",
+      "replacement": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV4",
+      "archived_sha256": "bf34e20d9e7deb4caaaeeb2a93101d13b1ae8083fabbdffab01e057d81212b18"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/Saved/Body/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/Saved/Body/LOD1.json",
+      "bytes": 4273379,
+      "sha256": "20aee7afb16b88d1aa1e537a4483cd3de0954c192d09461a35b3aeaff9c7b848",
+      "reason": "Superseded charcoal candidate snapshot",
+      "replacement": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV4",
+      "archived_sha256": "20aee7afb16b88d1aa1e537a4483cd3de0954c192d09461a35b3aeaff9c7b848"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/Saved/Body/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/Saved/Body/LOD2.json",
+      "bytes": 3826562,
+      "sha256": "8647efe4f08bea1156fe313bb3673dd228866d8df4fca6fd84a524c30b33283d",
+      "reason": "Superseded charcoal candidate snapshot",
+      "replacement": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV4",
+      "archived_sha256": "8647efe4f08bea1156fe313bb3673dd228866d8df4fca6fd84a524c30b33283d"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/Saved/Body/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/Saved/Body/saved.json",
+      "bytes": 896,
+      "sha256": "501712e2626903f3af5140dcda3cd7fa5986337375ca6a2de2b7d45180debeb6",
+      "reason": "Superseded charcoal candidate snapshot",
+      "replacement": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV4",
+      "archived_sha256": "501712e2626903f3af5140dcda3cd7fa5986337375ca6a2de2b7d45180debeb6"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/Saved/Body/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/Saved/Body/source.json",
+      "bytes": 5023418,
+      "sha256": "491230eeff241c4eb34f37e239091d7753b34cd4f7d3de7ca646f5917929728b",
+      "reason": "Superseded charcoal candidate snapshot",
+      "replacement": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV4",
+      "archived_sha256": "491230eeff241c4eb34f37e239091d7753b34cd4f7d3de7ca646f5917929728b"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV2/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV2/LOD0.json",
+      "bytes": 8048278,
+      "sha256": "cae1b1d99e974a630693ce40b70dd89ff589de5bb8e3df83b8f58c6c94bdbc42",
+      "reason": "Superseded charcoal candidate snapshot",
+      "replacement": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV4",
+      "archived_sha256": "cae1b1d99e974a630693ce40b70dd89ff589de5bb8e3df83b8f58c6c94bdbc42"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV2/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV2/LOD1.json",
+      "bytes": 7220805,
+      "sha256": "2c6fb486ee9208e3505d87192988549e7f09a0bd04dde008743c5e5b308ec697",
+      "reason": "Superseded charcoal candidate snapshot",
+      "replacement": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV4",
+      "archived_sha256": "2c6fb486ee9208e3505d87192988549e7f09a0bd04dde008743c5e5b308ec697"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV2/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV2/LOD2.json",
+      "bytes": 6459967,
+      "sha256": "15e48982339315b874d88875b4c6b5db8b2da6f8fc291e001f0a74fed8e133db",
+      "reason": "Superseded charcoal candidate snapshot",
+      "replacement": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV4",
+      "archived_sha256": "15e48982339315b874d88875b4c6b5db8b2da6f8fc291e001f0a74fed8e133db"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV2/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV2/saved.json",
+      "bytes": 992,
+      "sha256": "d365400ad41cb8489563b72992690709973668646d3a86ed1f8f3a7e7ba7cb5d",
+      "reason": "Superseded charcoal candidate snapshot",
+      "replacement": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV4",
+      "archived_sha256": "d365400ad41cb8489563b72992690709973668646d3a86ed1f8f3a7e7ba7cb5d"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV2/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV2/source.json",
+      "bytes": 8293094,
+      "sha256": "0607d92c561d804837b7afda3d2f9f0e90c04c9c70555d64efbbe0c95877c6fa",
+      "reason": "Superseded charcoal candidate snapshot",
+      "replacement": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV4",
+      "archived_sha256": "0607d92c561d804837b7afda3d2f9f0e90c04c9c70555d64efbbe0c95877c6fa"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV3/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV3/LOD0.json",
+      "bytes": 12534284,
+      "sha256": "9a354be502d318a52013038c863b1c0e1505503b8c95576b8040cc3ee7a72a84",
+      "reason": "Superseded charcoal candidate snapshot",
+      "replacement": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV4",
+      "archived_sha256": "9a354be502d318a52013038c863b1c0e1505503b8c95576b8040cc3ee7a72a84"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV3/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV3/LOD1.json",
+      "bytes": 11251663,
+      "sha256": "c712da8555278cdf282cee9e6b2b06ebb1d51981a78db7c92fc8b2e05cbcb5cc",
+      "reason": "Superseded charcoal candidate snapshot",
+      "replacement": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV4",
+      "archived_sha256": "c712da8555278cdf282cee9e6b2b06ebb1d51981a78db7c92fc8b2e05cbcb5cc"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV3/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV3/LOD2.json",
+      "bytes": 10062041,
+      "sha256": "166733c602eaa41b85fef8e11d5a18c1baadbc7aee8a5b7bc2b28518b9256401",
+      "reason": "Superseded charcoal candidate snapshot",
+      "replacement": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV4",
+      "archived_sha256": "166733c602eaa41b85fef8e11d5a18c1baadbc7aee8a5b7bc2b28518b9256401"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV3/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV3/saved.json",
+      "bytes": 992,
+      "sha256": "542fc37adc88a34a000664d3b22622cf3d6ec06680a904148ba18dece0a9f2e9",
+      "reason": "Superseded charcoal candidate snapshot",
+      "replacement": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV4",
+      "archived_sha256": "542fc37adc88a34a000664d3b22622cf3d6ec06680a904148ba18dece0a9f2e9"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV3/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV3/source.json",
+      "bytes": 12809670,
+      "sha256": "e94b794667edac85b101cd78c733789da384fc437a44a2b12dd1d6572c90ddf1",
+      "reason": "Superseded charcoal candidate snapshot",
+      "replacement": "SourceAssets/CharcoalGarmentRepair20260930/Saved/BodyV4",
+      "archived_sha256": "e94b794667edac85b101cd78c733789da384fc437a44a2b12dd1d6572c90ddf1"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/Saved/Traversal/LOD0.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/Saved/Traversal/LOD0.json",
+      "bytes": 1078807,
+      "sha256": "09cbe8000b4e1b77a282b3a5993afa03a36353a22f90818be60072ae8f0c4cbd",
+      "reason": "Superseded charcoal candidate snapshot",
+      "replacement": "SourceAssets/CharcoalGarmentRepair20260930/Saved/TraversalV2",
+      "archived_sha256": "09cbe8000b4e1b77a282b3a5993afa03a36353a22f90818be60072ae8f0c4cbd"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/Saved/Traversal/LOD1.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/Saved/Traversal/LOD1.json",
+      "bytes": 990526,
+      "sha256": "ac8224df78a2716dcec48d759e706dfc82b8ac28a3d3cc998b8808c0e055bd3e",
+      "reason": "Superseded charcoal candidate snapshot",
+      "replacement": "SourceAssets/CharcoalGarmentRepair20260930/Saved/TraversalV2",
+      "archived_sha256": "ac8224df78a2716dcec48d759e706dfc82b8ac28a3d3cc998b8808c0e055bd3e"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/Saved/Traversal/LOD2.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/Saved/Traversal/LOD2.json",
+      "bytes": 901695,
+      "sha256": "cd02114da3521b1fea586a61e2ccc87655bc0c3efd788a5d6fa2dd484ae27fa3",
+      "reason": "Superseded charcoal candidate snapshot",
+      "replacement": "SourceAssets/CharcoalGarmentRepair20260930/Saved/TraversalV2",
+      "archived_sha256": "cd02114da3521b1fea586a61e2ccc87655bc0c3efd788a5d6fa2dd484ae27fa3"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/Saved/Traversal/saved.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/Saved/Traversal/saved.json",
+      "bytes": 926,
+      "sha256": "3732353fe59dfdb48597ae31acb114aed47056b2737a1e79651b3a2a086729de",
+      "reason": "Superseded charcoal candidate snapshot",
+      "replacement": "SourceAssets/CharcoalGarmentRepair20260930/Saved/TraversalV2",
+      "archived_sha256": "3732353fe59dfdb48597ae31acb114aed47056b2737a1e79651b3a2a086729de"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/Saved/Traversal/source.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/Saved/Traversal/source.json",
+      "bytes": 1085572,
+      "sha256": "5d80fea190bfd351a109546495b26872253779defdfe9ba994cdfcbd48fc67b6",
+      "reason": "Superseded charcoal candidate snapshot",
+      "replacement": "SourceAssets/CharcoalGarmentRepair20260930/Saved/TraversalV2",
+      "archived_sha256": "5d80fea190bfd351a109546495b26872253779defdfe9ba994cdfcbd48fc67b6"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/Body/SK_Body_Charcoal.uasset",
+      "target": "trash/outfit-closeout-20260930/Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/Body/SK_Body_Charcoal.uasset",
+      "bytes": 6984840,
+      "sha256": "0be89f9f1c539eb71fe14dec119c90de1daf1d7d18ac5cc0ea47736620564e38",
+      "reason": "Superseded charcoal candidate; no external asset-registry or active catalog references",
+      "replacement": "Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/BodyV4, TraversalV2, PickupsV3",
+      "archived_sha256": "0be89f9f1c539eb71fe14dec119c90de1daf1d7d18ac5cc0ea47736620564e38"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/Body/SK_Body_Charcoal_LODPolicy.uasset",
+      "target": "trash/outfit-closeout-20260930/Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/Body/SK_Body_Charcoal_LODPolicy.uasset",
+      "bytes": 6874,
+      "sha256": "d6bc48b9cdbce3c80254f77e0b6d869297dd9ba1540b4c20c80f65c8003ff915",
+      "reason": "Superseded charcoal candidate; no external asset-registry or active catalog references",
+      "replacement": "Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/BodyV4, TraversalV2, PickupsV3",
+      "archived_sha256": "d6bc48b9cdbce3c80254f77e0b6d869297dd9ba1540b4c20c80f65c8003ff915"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/BodyV2/SK_Body_Charcoal.uasset",
+      "target": "trash/outfit-closeout-20260930/Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/BodyV2/SK_Body_Charcoal.uasset",
+      "bytes": 11727878,
+      "sha256": "31d652961dedf80bbc76cc4333279372d31d7a267bb1dea136b14fcff36b8262",
+      "reason": "Superseded charcoal candidate; no external asset-registry or active catalog references",
+      "replacement": "Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/BodyV4, TraversalV2, PickupsV3",
+      "archived_sha256": "31d652961dedf80bbc76cc4333279372d31d7a267bb1dea136b14fcff36b8262"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/BodyV2/SK_Body_Charcoal_LODPolicy.uasset",
+      "target": "trash/outfit-closeout-20260930/Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/BodyV2/SK_Body_Charcoal_LODPolicy.uasset",
+      "bytes": 6878,
+      "sha256": "9a4d927a4b8ae2b3e63a9d1f35975270f3ff5b569234a06a1b4791d100c3c3a9",
+      "reason": "Superseded charcoal candidate; no external asset-registry or active catalog references",
+      "replacement": "Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/BodyV4, TraversalV2, PickupsV3",
+      "archived_sha256": "9a4d927a4b8ae2b3e63a9d1f35975270f3ff5b569234a06a1b4791d100c3c3a9"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/BodyV3/SK_Body_Charcoal.uasset",
+      "target": "trash/outfit-closeout-20260930/Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/BodyV3/SK_Body_Charcoal.uasset",
+      "bytes": 19235587,
+      "sha256": "24a078e48e2c0269433d7dfbdb657919a020d1b7fd4cd9bb35bb378a584dcf93",
+      "reason": "Superseded charcoal candidate; no external asset-registry or active catalog references",
+      "replacement": "Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/BodyV4, TraversalV2, PickupsV3",
+      "archived_sha256": "24a078e48e2c0269433d7dfbdb657919a020d1b7fd4cd9bb35bb378a584dcf93"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/BodyV3/SK_Body_Charcoal_LODPolicy.uasset",
+      "target": "trash/outfit-closeout-20260930/Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/BodyV3/SK_Body_Charcoal_LODPolicy.uasset",
+      "bytes": 6878,
+      "sha256": "f7343853c16b797cb766c946b8a1483e0bc52760c7e94ee5cbbe37cc3fb7d20c",
+      "reason": "Superseded charcoal candidate; no external asset-registry or active catalog references",
+      "replacement": "Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/BodyV4, TraversalV2, PickupsV3",
+      "archived_sha256": "f7343853c16b797cb766c946b8a1483e0bc52760c7e94ee5cbbe37cc3fb7d20c"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/Pickups/SM_Charcoal_Garment.uasset",
+      "target": "trash/outfit-closeout-20260930/Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/Pickups/SM_Charcoal_Garment.uasset",
+      "bytes": 983010,
+      "sha256": "38617f0cbce2dd9d3689f53df7e5d048f3b83da274b0db6cd004e1d32f3769c6",
+      "reason": "Superseded charcoal candidate; no external asset-registry or active catalog references",
+      "replacement": "Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/BodyV4, TraversalV2, PickupsV3",
+      "archived_sha256": "38617f0cbce2dd9d3689f53df7e5d048f3b83da274b0db6cd004e1d32f3769c6"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/PickupsV2/SM_Charcoal_Garment.uasset",
+      "target": "trash/outfit-closeout-20260930/Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/PickupsV2/SM_Charcoal_Garment.uasset",
+      "bytes": 983149,
+      "sha256": "54d619590cbb10cf2ae3b6d0af02d61c1cd91969933ef9a731f5390d5d8bf600",
+      "reason": "Superseded charcoal candidate; no external asset-registry or active catalog references",
+      "replacement": "Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/BodyV4, TraversalV2, PickupsV3",
+      "archived_sha256": "54d619590cbb10cf2ae3b6d0af02d61c1cd91969933ef9a731f5390d5d8bf600"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/Traversal/SK_Traversal_Charcoal.uasset",
+      "target": "trash/outfit-closeout-20260930/Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/Traversal/SK_Traversal_Charcoal.uasset",
+      "bytes": 1827529,
+      "sha256": "58bc66db8bb8e32ff56fb8bec90cad72f6f7ccf9a5baa461fb2f6931d4345695",
+      "reason": "Superseded charcoal candidate; no external asset-registry or active catalog references",
+      "replacement": "Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/BodyV4, TraversalV2, PickupsV3",
+      "archived_sha256": "58bc66db8bb8e32ff56fb8bec90cad72f6f7ccf9a5baa461fb2f6931d4345695"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/Traversal/SK_Traversal_Charcoal_LODPolicy.uasset",
+      "target": "trash/outfit-closeout-20260930/Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/Traversal/SK_Traversal_Charcoal_LODPolicy.uasset",
+      "bytes": 6904,
+      "sha256": "c48cba610059c678800797acec6dc481918b493e8823a247c9d0a402163a204d",
+      "reason": "Superseded charcoal candidate; no external asset-registry or active catalog references",
+      "replacement": "Content/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/BodyV4, TraversalV2, PickupsV3",
+      "archived_sha256": "c48cba610059c678800797acec6dc481918b493e8823a247c9d0a402163a204d"
+    },
+    {
+      "source": "SourceAssets/ChainmailInventoryIcon20260930/Before/Content_ColdSteelData_Icons_ChainmailInterlace20260929_ue_chainmail_shirt.png",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailInventoryIcon20260930/Before/Content_ColdSteelData_Icons_ChainmailInterlace20260929_ue_chainmail_shirt.png",
+      "bytes": 78278,
+      "sha256": "fe9315e2eed7cc504e78c325fd2b56c8e7757d70dc92f04fe102fe347fcd4a74",
+      "reason": "Superseded inventory icon backup",
+      "replacement": "Content/ColdSteelData/Icons",
+      "archived_sha256": "fe9315e2eed7cc504e78c325fd2b56c8e7757d70dc92f04fe102fe347fcd4a74"
+    },
+    {
+      "source": "SourceAssets/ChainmailInventoryIcon20260930/Before/Content_ColdSteelData_Icons_ChainmailRelief20260929_ue_chainmail_shirt.png",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailInventoryIcon20260930/Before/Content_ColdSteelData_Icons_ChainmailRelief20260929_ue_chainmail_shirt.png",
+      "bytes": 82619,
+      "sha256": "f3db44b7c637ade7df9cf75e03bf481eeab6db9b2cd0db9f114ad2b3696c6e15",
+      "reason": "Superseded inventory icon backup",
+      "replacement": "Content/ColdSteelData/Icons",
+      "archived_sha256": "f3db44b7c637ade7df9cf75e03bf481eeab6db9b2cd0db9f114ad2b3696c6e15"
+    },
+    {
+      "source": "SourceAssets/ChainmailInventoryIcon20260930/Before/Content_ColdSteelData_Icons_ChainmailShirt20260928_ue_chainmail_shirt.png",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailInventoryIcon20260930/Before/Content_ColdSteelData_Icons_ChainmailShirt20260928_ue_chainmail_shirt.png",
+      "bytes": 66540,
+      "sha256": "2a0cae4be73a0e5e256d0bc77cf5f1bcb10aa503490f321902ce3129fa0f862d",
+      "reason": "Superseded inventory icon backup",
+      "replacement": "Content/ColdSteelData/Icons",
+      "archived_sha256": "2a0cae4be73a0e5e256d0bc77cf5f1bcb10aa503490f321902ce3129fa0f862d"
+    },
+    {
+      "source": "SourceAssets/ChainmailInventoryIcon20260930/Before/SourceAssets_ChainmailInterlace20260929_ue_chainmail_shirt.png",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailInventoryIcon20260930/Before/SourceAssets_ChainmailInterlace20260929_ue_chainmail_shirt.png",
+      "bytes": 78278,
+      "sha256": "fe9315e2eed7cc504e78c325fd2b56c8e7757d70dc92f04fe102fe347fcd4a74",
+      "reason": "Superseded inventory icon backup",
+      "replacement": "Content/ColdSteelData/Icons",
+      "archived_sha256": "fe9315e2eed7cc504e78c325fd2b56c8e7757d70dc92f04fe102fe347fcd4a74"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterInventoryIcons20260930/Before/Content_ColdSteelData_Icons_FieldSweaterKnit20260929_ue_field_sweater.png",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterInventoryIcons20260930/Before/Content_ColdSteelData_Icons_FieldSweaterKnit20260929_ue_field_sweater.png",
+      "bytes": 73193,
+      "sha256": "011321e0583c53a3117ab38dd876b8699303f2ff65f4d97513ebdb2474a5af7e",
+      "reason": "Superseded inventory icon backup",
+      "replacement": "Content/ColdSteelData/Icons",
+      "archived_sha256": "011321e0583c53a3117ab38dd876b8699303f2ff65f4d97513ebdb2474a5af7e"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterInventoryIcons20260930/Before/Content_ColdSteelData_Icons_FieldSweaterKnit20260929_ue_field_sweater_charcoal.png",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterInventoryIcons20260930/Before/Content_ColdSteelData_Icons_FieldSweaterKnit20260929_ue_field_sweater_charcoal.png",
+      "bytes": 88612,
+      "sha256": "b4c5ce3abcc7cb1a25b6facdf299b84139b0eab98dfb4c538e3e62ba7c6a0e41",
+      "reason": "Superseded inventory icon backup",
+      "replacement": "Content/ColdSteelData/Icons",
+      "archived_sha256": "b4c5ce3abcc7cb1a25b6facdf299b84139b0eab98dfb4c538e3e62ba7c6a0e41"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterInventoryIcons20260930/Before/Content_ColdSteelData_Icons_ModularOutfit20260924_ue_field_sweater.png",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterInventoryIcons20260930/Before/Content_ColdSteelData_Icons_ModularOutfit20260924_ue_field_sweater.png",
+      "bytes": 64779,
+      "sha256": "b9ffd133ec7ae9c87505abf72b7b8b41077ac32b77b26a87121a09b5e043fbb4",
+      "reason": "Superseded inventory icon backup",
+      "replacement": "Content/ColdSteelData/Icons",
+      "archived_sha256": "b9ffd133ec7ae9c87505abf72b7b8b41077ac32b77b26a87121a09b5e043fbb4"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterInventoryIcons20260930/Before/Content_ColdSteelData_Icons_ModularOutfit20260924_ue_field_sweater_charcoal.png",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterInventoryIcons20260930/Before/Content_ColdSteelData_Icons_ModularOutfit20260924_ue_field_sweater_charcoal.png",
+      "bytes": 63794,
+      "sha256": "40c369f075392ff51ddcec31fbef1db24fb0431c75ead60af6e3987b625d89dd",
+      "reason": "Superseded inventory icon backup",
+      "replacement": "Content/ColdSteelData/Icons",
+      "archived_sha256": "40c369f075392ff51ddcec31fbef1db24fb0431c75ead60af6e3987b625d89dd"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterInventoryIcons20260930/Before/SourceAssets_FieldSweaterKnit20260929_ue_field_sweater.png",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterInventoryIcons20260930/Before/SourceAssets_FieldSweaterKnit20260929_ue_field_sweater.png",
+      "bytes": 73193,
+      "sha256": "011321e0583c53a3117ab38dd876b8699303f2ff65f4d97513ebdb2474a5af7e",
+      "reason": "Superseded inventory icon backup",
+      "replacement": "Content/ColdSteelData/Icons",
+      "archived_sha256": "011321e0583c53a3117ab38dd876b8699303f2ff65f4d97513ebdb2474a5af7e"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterInventoryIcons20260930/Before/SourceAssets_FieldSweaterKnit20260929_ue_field_sweater_charcoal.png",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterInventoryIcons20260930/Before/SourceAssets_FieldSweaterKnit20260929_ue_field_sweater_charcoal.png",
+      "bytes": 88612,
+      "sha256": "b4c5ce3abcc7cb1a25b6facdf299b84139b0eab98dfb4c538e3e62ba7c6a0e41",
+      "reason": "Superseded inventory icon backup",
+      "replacement": "Content/ColdSteelData/Icons",
+      "archived_sha256": "b4c5ce3abcc7cb1a25b6facdf299b84139b0eab98dfb4c538e3e62ba7c6a0e41"
+    },
+    {
+      "source": "SourceAssets/ChainmailCameraClearance20260929/collect-svd-result.txt",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailCameraClearance20260929/collect-svd-result.txt",
+      "bytes": 141,
+      "sha256": "35faaf98a8bf092a53efdfe28159a9ba4edfd257cb3a557b2dcc4e87ffb9e9e9",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "35faaf98a8bf092a53efdfe28159a9ba4edfd257cb3a557b2dcc4e87ffb9e9e9"
+    },
+    {
+      "source": "SourceAssets/ChainmailCameraClearance20260929/end-play-result.txt",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailCameraClearance20260929/end-play-result.txt",
+      "bytes": 142,
+      "sha256": "c7562e9bd402bbf5477d5979cb4aab116a329e08896c408e395c814b8d55d6e9",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "c7562e9bd402bbf5477d5979cb4aab116a329e08896c408e395c814b8d55d6e9"
+    },
+    {
+      "source": "SourceAssets/ChainmailCameraClearance20260929/end_play.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailCameraClearance20260929/end_play.py",
+      "bytes": 157,
+      "sha256": "a067abdffb465012044721267b5d0f1792af30793b1ece3ea9451bec6b854aa0",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "a067abdffb465012044721267b5d0f1792af30793b1ece3ea9451bec6b854aa0"
+    },
+    {
+      "source": "SourceAssets/ChainmailCameraClearance20260929/save-batch-0-result.txt",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailCameraClearance20260929/save-batch-0-result.txt",
+      "bytes": 1151,
+      "sha256": "2b7fd288bcfa7c20f7bbdef9fd396cc1ac5d7d6615f020865f71ac2c67319c1f",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "2b7fd288bcfa7c20f7bbdef9fd396cc1ac5d7d6615f020865f71ac2c67319c1f"
+    },
+    {
+      "source": "SourceAssets/ChainmailCameraClearance20260929/save-batch-0-resumed.txt",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailCameraClearance20260929/save-batch-0-resumed.txt",
+      "bytes": 404,
+      "sha256": "5dfab889ce4aa7a9850224be49d310f47a3190501e0a3d0489717c9aafbd4c58",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "5dfab889ce4aa7a9850224be49d310f47a3190501e0a3d0489717c9aafbd4c58"
+    },
+    {
+      "source": "SourceAssets/ChainmailCameraClearance20260929/save-batch-1-resumed.txt",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailCameraClearance20260929/save-batch-1-resumed.txt",
+      "bytes": 428,
+      "sha256": "deb08f8a85889f83f0e8e510076ece7e48c0a13b139b279040e7d2056c06a873",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "deb08f8a85889f83f0e8e510076ece7e48c0a13b139b279040e7d2056c06a873"
+    },
+    {
+      "source": "SourceAssets/ChainmailCameraClearance20260929/save-batch-2-resumed.txt",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailCameraClearance20260929/save-batch-2-resumed.txt",
+      "bytes": 416,
+      "sha256": "359f4eedca8183f57d371d56f03861a0f3181dc1484a9601b487946033b66768",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "359f4eedca8183f57d371d56f03861a0f3181dc1484a9601b487946033b66768"
+    },
+    {
+      "source": "SourceAssets/ChainmailCameraClearance20260929/save-batch-3-resumed.txt",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailCameraClearance20260929/save-batch-3-resumed.txt",
+      "bytes": 420,
+      "sha256": "39983c1722007874fb06224ed6607570dd8d943ad67e7401b9e38cc0c740f41c",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "39983c1722007874fb06224ed6607570dd8d943ad67e7401b9e38cc0c740f41c"
+    },
+    {
+      "source": "SourceAssets/ChainmailCameraClearance20260929/save-batch-4-resumed.txt",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailCameraClearance20260929/save-batch-4-resumed.txt",
+      "bytes": 420,
+      "sha256": "e1110acf8f0602535cb06738864ddcff962c8a9ac3dda37e2599a7f79df86b47",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "e1110acf8f0602535cb06738864ddcff962c8a9ac3dda37e2599a7f79df86b47"
+    },
+    {
+      "source": "SourceAssets/ChainmailCameraClearance20260929/save-batch-5-resumed.txt",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailCameraClearance20260929/save-batch-5-resumed.txt",
+      "bytes": 440,
+      "sha256": "024d6ab3a972ad8a18925c98a8f05a15ee9c0bb267aa24cacff4e8b215b9ecb6",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "024d6ab3a972ad8a18925c98a8f05a15ee9c0bb267aa24cacff4e8b215b9ecb6"
+    },
+    {
+      "source": "SourceAssets/ChainmailCameraClearance20260929/save-batch-6-resumed.txt",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailCameraClearance20260929/save-batch-6-resumed.txt",
+      "bytes": 440,
+      "sha256": "51aedf7b340c89b70a7369465ef5c59adbfc8382f724740e8a2c3b294996217c",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "51aedf7b340c89b70a7369465ef5c59adbfc8382f724740e8a2c3b294996217c"
+    },
+    {
+      "source": "SourceAssets/ChainmailCameraClearance20260929/save-svd-result.txt",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailCameraClearance20260929/save-svd-result.txt",
+      "bytes": 230,
+      "sha256": "5924768548b4db37598dbf01f15e450e7a52c3a74eb4b5552f9d851c4f6102f2",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "5924768548b4db37598dbf01f15e450e7a52c3a74eb4b5552f9d851c4f6102f2"
+    },
+    {
+      "source": "SourceAssets/ChainmailCameraClearance20260929/save_batch_0.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailCameraClearance20260929/save_batch_0.py",
+      "bytes": 167,
+      "sha256": "0e030ef810faab179a94de917bab44bd841d4de6390a6f44b7064c0a59a3b009",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "0e030ef810faab179a94de917bab44bd841d4de6390a6f44b7064c0a59a3b009"
+    },
+    {
+      "source": "SourceAssets/ChainmailCameraClearance20260929/save_batch_1.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailCameraClearance20260929/save_batch_1.py",
+      "bytes": 173,
+      "sha256": "52132843d5cc93cb9d8a6df8ccbd776b5fd2a2866d47eb8c991a783f418f1315",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "52132843d5cc93cb9d8a6df8ccbd776b5fd2a2866d47eb8c991a783f418f1315"
+    },
+    {
+      "source": "SourceAssets/ChainmailCameraClearance20260929/save_batch_2.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailCameraClearance20260929/save_batch_2.py",
+      "bytes": 170,
+      "sha256": "ac68f00572d794ab0a323710e1e9de7710221cc2d345d4d48aa5cc928e5a17ec",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "ac68f00572d794ab0a323710e1e9de7710221cc2d345d4d48aa5cc928e5a17ec"
+    },
+    {
+      "source": "SourceAssets/ChainmailCameraClearance20260929/save_batch_3.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailCameraClearance20260929/save_batch_3.py",
+      "bytes": 171,
+      "sha256": "bfc52c2999a63e419e5c996c7b7fdbc9b27daffa74627ef71acac572c2b474b9",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "bfc52c2999a63e419e5c996c7b7fdbc9b27daffa74627ef71acac572c2b474b9"
+    },
+    {
+      "source": "SourceAssets/ChainmailCameraClearance20260929/save_batch_4.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailCameraClearance20260929/save_batch_4.py",
+      "bytes": 171,
+      "sha256": "cf5abdeea76d8afae6b4e7812191ab61fe43c3abaa6779848562511290c2fc83",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "cf5abdeea76d8afae6b4e7812191ab61fe43c3abaa6779848562511290c2fc83"
+    },
+    {
+      "source": "SourceAssets/ChainmailCameraClearance20260929/save_batch_5.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailCameraClearance20260929/save_batch_5.py",
+      "bytes": 176,
+      "sha256": "b59f2c49d191a5875c29c12daf9db876f183d6a6b0834513a1c0f780e984c573",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "b59f2c49d191a5875c29c12daf9db876f183d6a6b0834513a1c0f780e984c573"
+    },
+    {
+      "source": "SourceAssets/ChainmailCameraClearance20260929/save_batch_6.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailCameraClearance20260929/save_batch_6.py",
+      "bytes": 176,
+      "sha256": "897568c1e637359cacc561eda78f70147d4694a765a06746278fc9ea164cf963",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "897568c1e637359cacc561eda78f70147d4694a765a06746278fc9ea164cf963"
+    },
+    {
+      "source": "SourceAssets/ChainmailCameraClearance20260929/save_svd.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ChainmailCameraClearance20260929/save_svd.py",
+      "bytes": 158,
+      "sha256": "0bf91a96d69fd435d866dd2f86ab511e26fe777deeb135d9ed6e4c8d533660f4",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "0bf91a96d69fd435d866dd2f86ab511e26fe777deeb135d9ed6e4c8d533660f4"
+    },
+    {
+      "source": "SourceAssets/CharcoalCameraRepair20260930/end_play_for_save.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalCameraRepair20260930/end_play_for_save.py",
+      "bytes": 221,
+      "sha256": "253ec2b3722b3b0034965b2863aabb9ecafe13fed6008b0fa000b49f99f523bf",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "253ec2b3722b3b0034965b2863aabb9ecafe13fed6008b0fa000b49f99f523bf"
+    },
+    {
+      "source": "SourceAssets/CharcoalCameraRepair20260930/install_01.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalCameraRepair20260930/install_01.py",
+      "bytes": 115,
+      "sha256": "7352f83e419b40ed94378435372d347f861a56da9164729bde47d14a5ce70332",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "7352f83e419b40ed94378435372d347f861a56da9164729bde47d14a5ce70332"
+    },
+    {
+      "source": "SourceAssets/CharcoalCameraRepair20260930/install_02.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalCameraRepair20260930/install_02.py",
+      "bytes": 116,
+      "sha256": "27af6a1a10ce86dc893c5224363ae0bb507592d95a2c35e9326dee525a67cca0",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "27af6a1a10ce86dc893c5224363ae0bb507592d95a2c35e9326dee525a67cca0"
+    },
+    {
+      "source": "SourceAssets/CharcoalCameraRepair20260930/install_03.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalCameraRepair20260930/install_03.py",
+      "bytes": 117,
+      "sha256": "72688a5a5645a21d262326a26105d1d614bf79723c759eabde15d26d96e3ade4",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "72688a5a5645a21d262326a26105d1d614bf79723c759eabde15d26d96e3ade4"
+    },
+    {
+      "source": "SourceAssets/CharcoalCameraRepair20260930/install_04.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalCameraRepair20260930/install_04.py",
+      "bytes": 117,
+      "sha256": "11f5217083d54bca0a79a465fc8bbd5540c651792b128ad4cc9d659721783e2d",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "11f5217083d54bca0a79a465fc8bbd5540c651792b128ad4cc9d659721783e2d"
+    },
+    {
+      "source": "SourceAssets/CharcoalCameraRepair20260930/__pycache__/install.cpython-311.pyc",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalCameraRepair20260930/__pycache__/install.cpython-311.pyc",
+      "bytes": 9305,
+      "sha256": "f8de9e7387d5c714d56d474181788626688305531b74fd5ef93e26fe24225481",
+      "reason": "Generated Python bytecode cache",
+      "replacement": "Retained Python sources",
+      "archived_sha256": "f8de9e7387d5c714d56d474181788626688305531b74fd5ef93e26fe24225481"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/__pycache__/author.cpython-313.pyc",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/__pycache__/author.cpython-313.pyc",
+      "bytes": 18734,
+      "sha256": "2dae663eceaddaed21ed29b599afab1b0d306ea5bcc283ee9ad52880f9086ed8",
+      "reason": "Generated Python bytecode cache",
+      "replacement": "Retained Python sources",
+      "archived_sha256": "2dae663eceaddaed21ed29b599afab1b0d306ea5bcc283ee9ad52880f9086ed8"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/__pycache__/author_traversal_loft.cpython-313.pyc",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/__pycache__/author_traversal_loft.cpython-313.pyc",
+      "bytes": 10186,
+      "sha256": "3a1ec3f4e6a99e22acad600654c594afc6c7399bc0ac1fbdd57dd31883d69873",
+      "reason": "Generated Python bytecode cache",
+      "replacement": "Retained Python sources",
+      "archived_sha256": "3a1ec3f4e6a99e22acad600654c594afc6c7399bc0ac1fbdd57dd31883d69873"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/__pycache__/body_exposed_skin.cpython-313.pyc",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/__pycache__/body_exposed_skin.cpython-313.pyc",
+      "bytes": 12793,
+      "sha256": "ce1b85c617fea7d2861cc918229103d54b469c55f634b97184bed9f5bae8677a",
+      "reason": "Generated Python bytecode cache",
+      "replacement": "Retained Python sources",
+      "archived_sha256": "ce1b85c617fea7d2861cc918229103d54b469c55f634b97184bed9f5bae8677a"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/__pycache__/finish.cpython-313.pyc",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/__pycache__/finish.cpython-313.pyc",
+      "bytes": 19605,
+      "sha256": "bb66303b2729e717c7321b0ba514af72422eb3799cf6c166900457dc0b2e0b7f",
+      "reason": "Generated Python bytecode cache",
+      "replacement": "Retained Python sources",
+      "archived_sha256": "bb66303b2729e717c7321b0ba514af72422eb3799cf6c166900457dc0b2e0b7f"
+    },
+    {
+      "source": "SourceAssets/CharcoalGarmentRepair20260930/__pycache__/trim_edges.cpython-313.pyc",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/CharcoalGarmentRepair20260930/__pycache__/trim_edges.cpython-313.pyc",
+      "bytes": 4152,
+      "sha256": "823821047076a7d35bae0ef707ee3dd98edba638ec6e43e3ed66d1dc6a916ade",
+      "reason": "Generated Python bytecode cache",
+      "replacement": "Retained Python sources",
+      "archived_sha256": "823821047076a7d35bae0ef707ee3dd98edba638ec6e43e3ed66d1dc6a916ade"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterNativeFamily20260930/install_01.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterNativeFamily20260930/install_01.py",
+      "bytes": 141,
+      "sha256": "f13b85b4aa3f247e6ecf471f2a51afb157f39c2377457e9a8cdd93c0109cb3c1",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "f13b85b4aa3f247e6ecf471f2a51afb157f39c2377457e9a8cdd93c0109cb3c1"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterNativeFamily20260930/install_02.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterNativeFamily20260930/install_02.py",
+      "bytes": 142,
+      "sha256": "5af62bd542ce28d7e6fb4ae56e90a550d748afa23d93c160c4e07ffcfa618997",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "5af62bd542ce28d7e6fb4ae56e90a550d748afa23d93c160c4e07ffcfa618997"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterNativeFamily20260930/install_03.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterNativeFamily20260930/install_03.py",
+      "bytes": 143,
+      "sha256": "80ce3af9e0423ebe2e19f96be85ee941bf8b8151f2709b0155e031797a22a399",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "80ce3af9e0423ebe2e19f96be85ee941bf8b8151f2709b0155e031797a22a399"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterNativeFamily20260930/install_04.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterNativeFamily20260930/install_04.py",
+      "bytes": 143,
+      "sha256": "eecf31699ce784ce04b701a45c9f61bfab2cf3246ebab015b5555111f1bf8c4f",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "eecf31699ce784ce04b701a45c9f61bfab2cf3246ebab015b5555111f1bf8c4f"
+    },
+    {
+      "source": "SourceAssets/FieldSweaterSurfaceRepair20260930/end_play_for_save.py",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FieldSweaterSurfaceRepair20260930/end_play_for_save.py",
+      "bytes": 230,
+      "sha256": "76f357d5eb59a35955ad7e6f540493d97e55374d22fc0bd95dbf16739f21c58f",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "76f357d5eb59a35955ad7e6f540493d97e55374d22fc0bd95dbf16739f21c58f"
+    },
+    {
+      "source": "SourceAssets/FirearmChainmailReview20260930/collect-remaining-console.txt",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FirearmChainmailReview20260930/collect-remaining-console.txt",
+      "bytes": 36370,
+      "sha256": "da5c279776a55812e11837742c867be699c2fc7f6e5d4e827add12b344a3e4d8",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "da5c279776a55812e11837742c867be699c2fc7f6e5d4e827add12b344a3e4d8"
+    },
+    {
+      "source": "SourceAssets/FirearmChainmailReview20260930/review-console.txt",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FirearmChainmailReview20260930/review-console.txt",
+      "bytes": 4827,
+      "sha256": "88b4e4b7c2b466a95db5d61b64a55167f3e4561d1e7b9100093e50c5327a00ca",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "88b4e4b7c2b466a95db5d61b64a55167f3e4561d1e7b9100093e50c5327a00ca"
+    },
+    {
+      "source": "SourceAssets/FirearmChainmailReview20260930/review-remaining-console.txt",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FirearmChainmailReview20260930/review-remaining-console.txt",
+      "bytes": 1481,
+      "sha256": "0240bdf4caf46832be69412c2df719d77815027d264e6fd43caaec7c0e0f793c",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "0240bdf4caf46832be69412c2df719d77815027d264e6fd43caaec7c0e0f793c"
+    },
+    {
+      "source": "SourceAssets/FirearmChainmailReview20260930/review-remaining-final-console.txt",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/FirearmChainmailReview20260930/review-remaining-final-console.txt",
+      "bytes": 1646,
+      "sha256": "5a4b58ccafcfc4eb3425fbb1a95eb27eb1d36964f15681ce419bdc554f1aab29",
+      "reason": "Completed transport log or one-time batch wrapper",
+      "replacement": "Current install.py / Tools/ModularOutfit production entry points",
+      "archived_sha256": "5a4b58ccafcfc4eb3425fbb1a95eb27eb1d36964f15681ce419bdc554f1aab29"
+    },
+    {
+      "source": "Tools/ModularOutfit/sweater-production-console.txt",
+      "target": "trash/outfit-closeout-20260930/Tools/ModularOutfit/sweater-production-console.txt",
+      "bytes": 56,
+      "sha256": "ee07ca41d61bfef42f2d1013b285412465e52f5cb5b667fcf27cb8eb51167dd7",
+      "reason": "Completed production console output",
+      "replacement": "Docs/Characters/field-sweater-knit-short-sleeve-20260929.md",
+      "archived_sha256": "ee07ca41d61bfef42f2d1013b285412465e52f5cb5b667fcf27cb8eb51167dd7"
+    },
+    {
+      "source": "SourceAssets/ApprenticeStaff20260927/CastElbowRepair20260930/compile-livecoding.json",
+      "target": "trash/outfit-closeout-20260930/SourceAssets/ApprenticeStaff20260927/CastElbowRepair20260930/compile-livecoding.json",
+      "bytes": 115,
+      "sha256": "1160665acc7c2ecceba809940629033999b474e6e69162add6c77782c59b3db4",
+      "reason": "Completed one-time build trigger",
+      "replacement": "SourceAssets/ApprenticeStaff20260927/CastElbowRepair20260930/build-receipt.json",
+      "archived_sha256": "1160665acc7c2ecceba809940629033999b474e6e69162add6c77782c59b3db4"
+    }
+  ],
+  "bytes": 679243471.0,
+  "task": "outfit-closeout-20260930",
+  "files": 247
+}

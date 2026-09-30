@@ -1,0 +1,27 @@
+// Evaluated on vertices in this garment's own reference pose. The same
+// anatomical rule covers mail, lining and binding without changing skinning.
+struct FChainmailCameraRegion
+{
+    float2 AlongSegment(float3 P, float3 A, float3 B)
+    {
+        float3 Axis = B - A;
+        float T = saturate(dot(P - A, Axis) / max(dot(Axis, Axis), 0.0001));
+        float3 D = P - lerp(A, B, T);
+        return float2(dot(D, D), T);
+    }
+
+    float2 Arm(float3 P, float4 Shoulder, float4 Elbow, float4 Wrist)
+    {
+        if (Shoulder.w < 0.5) return float2(1.e20, 0.0);
+        float2 Upper = AlongSegment(P, Shoulder.xyz, Elbow.xyz);
+        float2 Lower = AlongSegment(P, Elbow.xyz, Wrist.xyz);
+        // Shoulder and upper arm participate. Fade the anatomical mask out
+        // across the proximal forearm; wrist, cuff links and fingers stay solid.
+        float Weight = Upper.x < Lower.x ? 1.0 : 1.0 - smoothstep(0.05, 0.50, Lower.y);
+        return float2(min(Upper.x, Lower.x), Weight);
+    }
+};
+FChainmailCameraRegion Region;
+float2 Left = Region.Arm(RestPosition, ShoulderLeft, ElbowLeft, WristLeft);
+float2 Right = Region.Arm(RestPosition, ShoulderRight, ElbowRight, WristRight);
+return saturate(Left.x <= Right.x ? Left.y : Right.y);

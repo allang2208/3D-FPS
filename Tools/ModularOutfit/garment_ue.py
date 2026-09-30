@@ -43,7 +43,7 @@ def source_snapshot(asset):
     for i in range(len(ts)):d['materials'].append(u.GeometryScript_Materials.get_triangle_material_id(dm,i)[0])
     return dm,d
 
-def save_candidate(dm,source,destination,folder,local_corrections=None,binding=None,recompute_normals=False):
+def save_candidate(dm,source,destination,folder,local_corrections=None,binding=None,recompute_normals=False,lod_triangle_ratios=(1.,.9,.8)):
     if u.EditorAssetLibrary.does_asset_exist(destination):raise RuntimeError('Use a new candidate path: '+destination)
     asset=u.EditorAssetLibrary.duplicate_asset((binding or source).get_path_name(),destination)
     if not asset:raise RuntimeError('Cannot duplicate candidate')
@@ -59,7 +59,8 @@ def save_candidate(dm,source,destination,folder,local_corrections=None,binding=N
     lods=[]
     for index in range(3):
         info=u.SkeletalMeshLODGroupSettings();settings=info.get_editor_property('reduction_settings')
-        settings.set_editor_property('num_of_triangles_percentage',[1.,.9,.8][index])
+        settings.set_editor_property('num_of_triangles_percentage',lod_triangle_ratios[index])
+        settings.set_editor_property('max_bones_per_vertex',8)
         settings.set_editor_property('lock_edges',True)
         settings.set_editor_property('enforce_bone_boundaries',True)
         settings.set_editor_property('merge_coincident_vert_bones',False)

@@ -1,13 +1,19 @@
 """Save editable knit highs, garment masters and production inventory icons."""
-import json,math
+import json,math,sys
 from pathlib import Path
 import bpy,numpy as np
 from mathutils import Vector
 P=Path('D:/FPS3D/FPSGAME');R=P/'SourceAssets/FieldSweaterKnit20260929'
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+if '--icons-only' in sys.argv:
+ from render_field_sweater_inventory_icons import inventory
+ inventory()
+ raise SystemExit(0)
 bpy.ops.wm.read_factory_settings(use_empty=True)
 def read(p):return json.loads(p.read_text(encoding='utf-8-sig'))
 def material(name,color,pattern='Knit',cotton=False):
- m=bpy.data.materials.new(name);m.use_nodes=True;n=m.node_tree.nodes;l=m.node_tree.links;bs=n.get('Principled BSDF')
+ m=bpy.data.materials.new(name);m.use_nodes=True;n=m.node_tree.nodes;l=m.node_tree.links;n.clear()
+ bs=n.new('ShaderNodeBsdfPrincipled');out=n.new('ShaderNodeOutputMaterial');l.new(bs.outputs['BSDF'],out.inputs['Surface'])
  uv=n.new('ShaderNodeTexCoord');scale=n.new('ShaderNodeVectorMath');scale.operation='SCALE';scale.inputs[3].default_value=25/1.92*(8 if cotton else 1);l.new(uv.outputs['UV'],scale.inputs[0])
  maps={}
  for ch in ['BaseColor','Normal','ORM']:
@@ -29,9 +35,13 @@ def mesh_object(name,data):
 objects=[]
 for label,folder,mats in [('Olive','Authored',olive),('Charcoal','ShortSleeve',charcoal)]:
  for profile in ['M4','Body']:
-  data=read(R/folder/(profile+'.json'));obj=mesh_object(label+'_'+profile+'_GAME',data)
+  source=R/folder/(profile+'.json')
+  if label=='Charcoal' and profile=='Body':
+   current=read(P/'Content/ColdSteelData/modular_outfits.json')['items']['ue_field_sweater_charcoal']['rig_meshes']['Body']
+   if '/CharcoalGarmentRepair20260930/BodyV4/' in current:source=P/'SourceAssets/CharcoalGarmentRepair20260930/Authored/Body.json'
+  data=read(source);obj=mesh_object(label+'_'+profile+'_GAME',data)
   for mat in mats:obj.data.materials.append(mat)
-  obj['native_binding_source']=data['binding_source'];obj['native_author_json']=str(R/folder/(profile+'.json'));objects.append(obj)
+  obj['native_binding_source']=data['binding_source'];obj['native_author_json']=str(source);objects.append(obj)
   if profile=='Body':
    bpy.ops.object.select_all(action='DESELECT');obj.select_set(True);bpy.context.view_layer.objects.active=obj
    bpy.ops.export_scene.fbx(filepath=str(R/('SM_'+label+'_Garment.fbx')),use_selection=True,object_types={'MESH'},add_leaf_bones=False,apply_unit_scale=True,bake_anim=False)
@@ -48,21 +58,11 @@ for family in ['Knit','Rib']:
    for j in range(cross):faces.append([base+i*cross+j,base+((i+1)%segments)*cross+j,base+((i+1)%segments)*cross+(j+1)%cross,base+i*cross+(j+1)%cross])
  mesh=bpy.data.meshes.new(family+'_Yarn_HIGH');mesh.from_pydata(vertices,[],faces);obj=bpy.data.objects.new(mesh.name,mesh);bpy.context.collection.objects.link(obj)
  obj['bake_only']=True;obj['surface_field']=str(R/(family+'_high_surface.npz'));obj.hide_render=True;obj.hide_set(True)
-# Product icons only, no game or acceptance render.
-scene=bpy.context.scene;scene.render.engine='CYCLES';scene.cycles.samples=32;scene.cycles.device='CPU';scene.render.film_transparent=True
-scene.render.resolution_x=320;scene.render.resolution_y=320;scene.render.resolution_percentage=100;scene.render.image_settings.file_format='PNG';scene.render.image_settings.color_mode='RGBA'
-scene.view_settings.view_transform='Standard';scene.world=bpy.data.worlds.new('GarmentStudio');scene.world.color=(.18,.18,.18)
-camdata=bpy.data.cameras.new('InventoryCamera');camdata.type='ORTHO';cam=bpy.data.objects.new('InventoryCamera',camdata);scene.collection.objects.link(cam);scene.camera=cam
-for label,folder in [('Olive','Authored'),('Charcoal','ShortSleeve')]:
- obj=next(o for o in objects if o.name==label+'_Body_GAME')
- for o in objects:o.hide_render=o!=obj
- points=[obj.matrix_world@v.co for v in obj.data.vertices];low=Vector([min(p[i] for p in points) for i in range(3)]);high=Vector([max(p[i] for p in points) for i in range(3)]);center=(low+high)*.5
- cam.location=center+Vector((0,-2.5,.06));cam.rotation_euler=(center-cam.location).to_track_quat('-Z','Y').to_euler();camdata.ortho_scale=max(high.x-low.x,high.z-low.z)/.91
- for o in list(bpy.data.objects):
-  if o.type=='LIGHT':bpy.data.objects.remove(o,do_unlink=True)
- for name,delta,power,size in [('Key',(-.7,-1.,.8),75,1.3),('Fill',(.7,-.5,.2),35,1.2)]:
-  light=bpy.data.lights.new(name,'AREA');light.energy=power;light.shape='DISK';light.size=size;o=bpy.data.objects.new(name,light);scene.collection.objects.link(o);o.location=center+Vector(delta);o.rotation_euler=(center-o.location).to_track_quat('-Z','Y').to_euler()
- scene.render.filepath=str(R/('ue_field_sweater'+('_charcoal' if label=='Charcoal' else '')+'.png'));bpy.ops.render.render(write_still=True)
 for o in objects:o.hide_render=False
 bpy.ops.wm.save_as_mainfile(filepath=str(R/'FieldSweaterKnit_HIGH_and_GAME.blend'))
+# Icons have an independent display rig, framing and exposure calibration. This
+# production entry and --icons-only share it, so a rebuild cannot restore the old
+# overexposed icons or the long-sleeve silhouette of the charcoal T-shirt.
+from render_field_sweater_inventory_icons import inventory
+inventory()
 print('SWEATER_EDITABLE_AND_ICONS_SAVED',flush=True)

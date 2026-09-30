@@ -37,3 +37,9 @@ V7 包装器复用 `author_bare_arms_family.py`、`save_bare_family_blends.py`�
 后台 UE 导入使用 `Run-Authoring.ps1 -Script <脚本路径> -Log <专用日志>`，它使用已有批次互斥并拒绝与已运行的 FPSGAME 编辑器并行写资产；存在编辑器时使用现有 MCP 桥，不强制关闭进程。几何制作／Blend 保存需脚本对应的 Blender、NumPy／SciPy 环境；不要把 Unreal Python 脚本当普通 Python 执行。
 
 仅有脚本不等于已经导入。资产成功保存后才接入配置；公开仓库不含 UE 包、网格或材质贴图。默认不启动游戏、不自动测试。
+
+## 当前衣袖修复入口（2026-09-30）
+
+野行长袖第一人称用 `SourceAssets/FieldSweaterNativeFamily20260930/{capture,author,install,publish}.py`，先从各原生臂制作/保存再发布引用。Body 用 FieldSweaterSurfaceRepair；炭灰用 CharcoalGarmentRepair 和 CharcoalCameraRepair。图标分别走 `render_chainmail_inventory_icon.py`、`render_field_sweater_inventory_icons.py`，旧展示入口已转到对应出图方法。
+
+`FieldSweaterCameraRepair20260930` 的废弃制作/发布脚本已归档；残留采样和 Traversal 模板仍是输入。恢复和已认可状态见 [2026-09-30 整理记录](../../Docs/Publication/outfit-closeout-20260930.md)。不要将旧脚本的批量 profile 列表当作当前重新发布入口。

@@ -70,7 +70,9 @@ V2 示例：环中心线约 5 × 5.6 mm、钢丝直径 0.68 mm；同行间距 6 
 
 1. `ChainmailShirt20260928`：基础衣身、原绑定与掉落形状依赖。
 2. `ChainmailInterlace20260929`：当前环纹、实体袖口、`Authored/*.json`、材质、Body、图标与标准掉落材质。
-3. `ChainmailSharedSway20260929`：当前第一人称 mask、新材质与网格；装备配方标记 `secondary_motion=chainmail_shared_sway_v1`。
+3. `ChainmailSharedSway20260929`：第一人称摆动 mask、材质与网格的生产基础；装备配方标记 `secondary_motion=chainmail_shared_sway_v1`。
+4. `ChainmailInsetBinding20260929` / `ChainmailCameraClearance20260929`：当前配置使用的袖口拟合与枪械避让网格；以活动 `rig_meshes` 为准，不重跑旧发布脚本回退。
+5. `ChainmailCameraFade20260930`：仅第一人称的三槽材质覆盖，配置字段 `first_person_materials`；保留全部活动网格引用和 `appearance_family`。
 
 依次定位 `build_chainmail_interlace.py` / `chainmail_interlace_native.py`、`build_chainmail_shared_sway.py`、相应 `import_*` 与 `publish_*`。V2 的 build/import 仍复用 Relief 版的辅助函数；旧日期不表示可删除。SharedSway 重制作读取 V2 `published.json`，不能再依赖废案的 `before.json`。
 
@@ -79,3 +81,17 @@ V2 示例：环中心线约 5 × 5.6 mm、钢丝直径 0.68 mm；同行间距 6 
 2026-09-29 整理把被否定的 Chaos 源、资产与脚本移入本机 `trash/gloves-chainmail-20260929`，哈希清单保留恢复路径。反射作者函数保留兼容签名，当前源码返回 false，旧实现归档；不要重新挂回该模拟方案。现有巫婆衣物保持不变。
 
 公开仓库保留制作算法、配置和文档；不公开未核准再分发的几何、权重、动画采样、纹理或生成的姿态曲线。详见项目 `Docs/Publication/gloves-chainmail-publication-20260929.md`。
+
+## 7. 多动作衣袖贴镜头的公共保护
+
+2026-09-30 已接入 `ChainmailCameraFade20260930`。肩点在相机后方时，上臂衣袖表面仍可能进入镜头，单靠肩点避让不能覆盖这类情况。保留既有动画与骨链修复，服装材质另按实际相机距离处理近处遮挡，避免继续为每个动作增加同类补丁。
+
+三个第一人称材质槽共用区域和距离规则。初始化 MID 时，由衣袖自身参考骨架提供肩／肘／腕位置；顶点阶段按 PreSkinnedPosition 计算肩、上臂及前臂近肘端区域，腕部与袖口排除。完整权重区域在 10 cm 内隐藏、10–22 cm 平滑恢复；使用 Masked 和 `DitherTemporalAA`。这组距离是当前初始配方，实机观感未测。
+
+`FPSModularOutfitComponent` 把 `first_person_materials` 并入已有异步加载批次，仅非 Body 衣袖应用；`FPSOutfitSecondaryMotion::Initialize` 设置参考区域与启用参数，没有新增 Tick，也不依赖摆动强度开关。外层锁环、钢包边、内衬必须一起采用该规则，不能仅隐藏外层。保留原生蒙皮、袖口位移、PBR 与 POM，不修改腕部、手指和武器接触。
+
+制作入口为 `Tools/ModularOutfit/import_chainmail_camera_fade.py`，实际保存三份材质后用 `publish_chainmail_camera_fade.py` 接入。当前覆盖配置内 22 个非 Body rig，法杖经 M4 手臂使用；这是接入范围，不能写成全部动作验收通过。第三人称、掉落与图标保持原材质。此方法不修复裸臂肘部扭曲、错误权重或远离镜头的相交，也不代表零 GPU 成本。记录见项目 `Docs/Characters/chainmail-camera-fade-20260930.md`。
+
+### 首次空仓换弹的复现边界（SVD，2026-09-30）
+
+用户授权实机排查后，要区分默认枪/改装握把、首次/第二次空仓、待机/ADS 退出/装备动作衔接，并确认第一帧衣袖已加载。只跑了裸臂开头、第二次实际满弹未进入换弹、或进程正常退出，都不能算有效对照。当前 SVD 上方色块仍未捕获，记录见项目 `Docs/Characters/svd-first-empty-reload-20260930.md`。首次默认棋盘材质过渡是独立观察，不得直接称为该色块根因；本轮 `IsGameThreadShaderMapComplete()` 对正常显示的枪/皮肤/衣袖也持续为 false，勿直接以此为衣袖可见门槛。未定位异常时不继续加肩肘偏移或扩大裁切参数。

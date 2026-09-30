@@ -206,22 +206,8 @@ def high_sleeves():
 
 
 def inventory():
-    bpy.ops.wm.open_mainfile(filepath=str(OLD/'ChainmailShirt_Presentation.blend'))
-    for obj in bpy.context.scene.objects:
-        if obj.type=='MESH':obj.data.materials.clear();obj.data.materials.append(baked_material())
-    # A narrower side key gives a readable metal reflection while keeping the
-    # accepted shirt silhouette, camera, transparent background and 320 px size.
-    for lamp in bpy.context.scene.objects:
-        if lamp.type!='LIGHT':continue
-        if 'Key' in lamp.name:lamp.data.energy=65.;lamp.data.size=.75
-        elif 'Fill' in lamp.name:lamp.data.energy=16.;lamp.data.size=1.5
-        elif 'Rim' in lamp.name:lamp.data.energy=55.;lamp.data.size=.65
-    scene=bpy.context.scene;scene.cycles.samples=64;scene.cycles.use_denoising=True
-    scene.render.resolution_x=scene.render.resolution_y=320;scene.render.resolution_percentage=100
-    scene.render.film_transparent=True;scene.render.image_settings.color_mode='RGBA';scene.view_settings.exposure=0
-    scene.render.filepath=str(R/(ITEM+'.png'));bpy.ops.render.render(write_still=True)
-    bpy.ops.file.pack_all();bpy.ops.wm.save_as_mainfile(filepath=str(R/'ChainmailShirt_Presentation.blend'))
-    return dict(icon=scene.render.filepath,size=320,preview=False)
+    from render_chainmail_inventory_icon import inventory as render_current_icon
+    return render_current_icon()
 
 
 def main():

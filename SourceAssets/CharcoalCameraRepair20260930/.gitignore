@@ -1,0 +1,6 @@
+# Publish recipes and prose; native geometry, poses, media and receipts stay local.
+*
+!.gitignore
+!*.py
+!*.ps1
+!*.md

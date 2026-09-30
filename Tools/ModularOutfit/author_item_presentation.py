@@ -1,9 +1,12 @@
 """Produce inventory icon PNGs and rigid dropped-item models from the authored equipment."""
-import bpy, math
+import bpy, math, json, sys
 from pathlib import Path
 from mathutils import Vector, Matrix
 ROOT=Path('D:/FPS3D/FPSGAME/SourceAssets/ModularOutfit20260924')
 ICON=Path('D:/FPS3D/FPSGAME/Content/ColdSteelData/Icons/ModularOutfit20260924');ICON.mkdir(parents=True,exist_ok=True)
+recipes=json.loads((ROOT.parents[1]/'Content/ColdSteelData/modular_outfits.json').read_text(encoding='utf-8-sig'))['items']
+current_shirts=[name for name,family in [('ue_field_sweater','FieldSweaterKnit20260929'),('ue_field_sweater_charcoal','CharcoalCottonTShirt20260929')]
+                if recipes.get(name,{}).get('appearance_family')==family]
 bpy.ops.wm.open_mainfile(filepath=str(ROOT/'Body_Equipment.blend'))
 rig=next(o for o in bpy.data.objects if o.type=='ARMATURE')
 shirt=bpy.data.objects['Shirt_Body'];glove=bpy.data.objects['Gloves_Body']
@@ -57,10 +60,15 @@ def material(color,rough):
     tree.links.new(noise.outputs['Fac'],bump.inputs['Height']);tree.links.new(bump.outputs['Normal'],p.inputs['Normal'])
     return m
 for name,obj,color,rough in [('ue_field_sweater',s,(.115,.135,.08),.91),('ue_field_sweater_charcoal',s,(.045,.053,.065),.91),('ue_field_gloves',g,(.18,.085,.035),.72),('ue_field_gloves_black',g,(.026,.03,.034),.72)]:
+    if name in current_shirts:continue
     s.hide_render=obj!=s;g.hide_render=obj!=g
     obj.data.materials.clear();obj.data.materials.append(material(color,rough))
     span=max(max(v.co[i] for v in obj.data.vertices)-min(v.co[i] for v in obj.data.vertices) for i in (0,1))
     cam.location=(span*.12,-span*.20,span*2);cam.rotation_euler=(-cam.location).to_track_quat('-Z','Y').to_euler();camdata.ortho_scale=span*1.22
     scene.render.filepath=str(ICON/(name+'.png'));bpy.ops.render.render(write_still=True)
 bpy.ops.wm.save_as_mainfile(filepath=str(ROOT/'ItemPresentation.blend'))
+if current_shirts:
+    sys.path.insert(0,str(Path(__file__).resolve().parent))
+    from render_field_sweater_inventory_icons import inventory
+    inventory(current_shirts)
 print('OUTFIT_ITEM_PRESENTATION_SAVED')

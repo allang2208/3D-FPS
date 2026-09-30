@@ -20,7 +20,13 @@ def tailor(data):
  # Only join coincident points near the new cut, never shoulder caps.
  for side in ['l','r']:
   shoulder=Vector(data['bones']['upperarm_'+side]['position']);elbow=Vector(data['bones']['lowerarm_'+side]['position']);axis=(elbow-shoulder).normalized();cut=(elbow-shoulder).length*.55
-  def belongs(v):return sum(w for i,w in v[deform].items() if names[i].endswith('_'+side))>.5
+  def belongs(v):
+   # Body also contains thigh/pelvis influences at the hem. A suffix-only
+   # selection used to cut two holes in the lower torso with the sleeve plane.
+   # Its old cuff has finger influences too, so a bone-name subset alone leaves
+   # loose wrist fragments. Select the lateral sleeve, outside the torso, there.
+   if data['profile']=='Body':return v.co.x*(1 if shoulder.x>0 else -1)>abs(shoulder.x)+1
+   return sum(w for i,w in v[deform].items() if names[i].endswith('_'+side) and names[i].startswith(('upperarm','lowerarm','hand','clavicle')))>.5
   selected=[v for v in bm.verts if belongs(v)]
   bmesh.ops.remove_doubles(bm,verts=[v for v in selected if abs((v.co-shoulder).dot(axis)-cut)<3],dist=.00001)
   selected={v for v in bm.verts if belongs(v)}
@@ -70,11 +76,13 @@ def tailor(data):
  if np.sum(cross*np.asarray(data['normals']).mean(1))<0:out['normals']=(-np.asarray(out['normals'])).tolist()
  bm.free();return out
 
-master=tailor(read(R/'Authored/M4.json'));write(R/'ShortSleeve/M4.json',master)
-for row in read(R/'manifest.json'):
- name=row['profile'];target=read(R/'Authored'/(name+'.json'))
- if name=='M4':result=master
- elif name=='Body':result=tailor(target)
- else:result,_=retarget(master,target)
- result['profile']=name;write(R/'ShortSleeve'/(name+'.json'),result)
-print('SHORT_SLEEVES_AUTHORED',flush=True)
+def main():
+ master=tailor(read(R/'Authored/M4.json'));write(R/'ShortSleeve/M4.json',master)
+ for row in read(R/'manifest.json'):
+  name=row['profile'];target=read(R/'Authored'/(name+'.json'))
+  if name=='M4':result=master
+  elif name=='Body':result=tailor(target)
+  else:result,_=retarget(master,target)
+  result['profile']=name;write(R/'ShortSleeve'/(name+'.json'),result)
+ print('SHORT_SLEEVES_AUTHORED',flush=True)
+if __name__=='__main__':main()
