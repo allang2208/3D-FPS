@@ -7,9 +7,42 @@
 #include "GameFramework/GameSession.h"
 #include "GameFramework/PlayerStart.h"
 #include "GameFramework/PlayerState.h"
+#include "Kismet/GameplayStatics.h"
+#include "Misc/Crc.h"
+
+#include "ColdSteelNetChannelComponent.h"
 
 #include "FPSGAMECharacter.h"
 #include "FPSGAMEPlayerController.h"
+
+namespace
+{
+    FString BuildGuestSlotName(const APlayerController* PC)
+    {
+        FString Key;
+        if (const APlayerState* State = PC ? PC->PlayerState : nullptr)
+        {
+            Key = State->GetPlayerName();
+        }
+        if (Key.IsEmpty())
+        {
+            Key = TEXT("Guest");
+        }
+        FString Safe;
+        for (const TCHAR C : Key)
+        {
+            if (FChar::IsAlnum(C))
+            {
+                Safe.AppendChar(C);
+            }
+        }
+        if (Safe.IsEmpty())
+        {
+            Safe = TEXT("Guest");
+        }
+        return FString::Printf(TEXT("ColdSteelMP_%s_%08x"), *Safe, FCrc::StrCrc32(*Key));
+    }
+}
 
 AFPSNetGameMode::AFPSNetGameMode()
 {
@@ -185,6 +218,15 @@ void AFPSNetGameMode::RestartPlayer(AController* NewPlayer)
 void AFPSNetGameMode::PostLogin(APlayerController* NewPlayer)
 {
     Super::PostLogin(NewPlayer);
+
+    // M2：为每个联网玩家装配档案通道（主机自己的也装——上行心跳在服务端侧自然空转）。
+    if (GetNetMode() != NM_Standalone && NewPlayer)
+    {
+        UColdSteelNetChannelComponent* Channel = NewObject<UColdSteelNetChannelComponent>(NewPlayer);
+        NewPlayer->AddInstanceComponent(Channel);
+        Channel->RegisterComponent();
+        Channel->InitializeGuest(BuildGuestSlotName(NewPlayer));
+    }
 
     UE_LOG(LogColdSteelNet, Warning, TEXT("MPTEST PostLogin: PC=%s PlayerState=%s NumPlayers=%d NetMode=%d"),
         *GetNameSafe(NewPlayer),

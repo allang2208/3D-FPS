@@ -19,16 +19,16 @@
 | Git Bash 坑 | URL 里 `/Game/...` 要 `MSYS_NO_PATHCONV=1` 前缀，否则前导斜杠被转义 |
 | worktree 拆除坑 | 先 `rmdir` 断 junction（DDC 等）再 `git worktree remove`（既有教训） |
 
-## 1. 当前状态（最后更新：2026-09-30 20:05，**M1 基线冒烟验收达成**）
+## 1. 当前状态（最后更新：2026-09-30 21:20，M2 代码完成+编译通过，运行验证被用户暂停）
 
-- M0 完成；M1 地基提交 `138b17e1`+`1be4d8a1`（插件/工具/文档）。
-- **M1 基线冒烟 GREEN（2026-09-30 12:01 轮，MPHost/MPClient.log）**：
-  - 主机：本地玩家链路毫秒级；**远端玩家完整登录**——PreLogin→Login（PlayerStart 轮转兜底生效）→**pawn=FPSGAMECharacter_1 生成**→**PostLogin NumPlayers=2**，全程 2 秒、无武器风暴（门禁生效旁证）；
-  - 客户端：`Welcomed by server` → **LoadMap 1.9s 完成**（此前在 DayNight 上永久失败的环节）。
-- 末跳根因（闭环）：客户端加载停顿期间错过服务器质询，恢复后反复回发**过期的无状态握手响应（时间戳 Cookie 失效）**被主机静默丢弃；只有"敲门→质询→应答"整段落在无停顿窗口才能成功。收敛三件套=①轻量 GameDefaultMap（占位世界减重+DDC 热缓存后停顿<10s）②180s 连接超时③门禁消除登录风暴。
-- **3.1/3.2 代码已写已编（90s 增量），随本轮验证**：`FPSGAMECharacter` AttachPawn 改 PossessedBy/OnRep_Controller 幂等挂载（`TryAttachLocalProfile`）；`FPSPlayerBodyComponent::TickComponent` 服务端权威采样分支。
-- ⚠️ **3.1/3.2 的 4 个文件未提交分支**（FPSGAMECharacter.h/.cpp、FPSGAMECharacterProfile.cpp、FPSPlayerBodyComponent.cpp）——它们是"主仓 WIP 覆盖层+我的改动"混合体，直接提交会把主仓未提交改动带进分支。改动以 §3.6 代码段为准（重放即可），等主仓 WIP 落盘后 rebase 再正式入库。
-- **单机回归烟测已跑**（12:26 轮 MPStandalone.log：DayNight 直开+原版 FPSGAMEGameMode，世界 220s 起来、零 Fatal、进程存活）。**视觉验收已过（13:16-13:18 轮，用户确认"可以看到，会动"）**：单窗口主机(960×540)+离屏客户端+`-MPAutoWalk` 服务端驱动客人往返（27 次方向翻转），用户在主机窗口看见客人第三人称身体并移动。**M1 全部验收项达成，2026-09-30 收口。下一步：M2（三闸门拆除+档案权威化，计划文档 §3）。**
+- **M1 已全部验收收口**（详见 git 历史与 §3.5 战况：日志两轮复现 + 单机回归 + 用户视觉确认）。
+- **M2 档案权威化代码全部完成并编译 Succeeded（Editor 目标）**：
+  - 游戏模块 6 处改动（见 §3.7，均为分支工作区改动、未提交——与主仓 WIP 混合）；
+  - 插件新增 `UColdSteelNetChannelComponent`（档案桥：客户端 0.8s 心跳全量快照上行→服务端影子档案→应用到服务端 pawn→20s 节流落盘主机 `ColdSteelMP_<名>_<crc>` 槽；重连载回；`MirrorBlob` 回程预留 M3）；
+  - 关键工程决策：**FColdSteelProfile 含 TMap 不能进 RPC/复制属性** → 传输用 `TArray<uint8>` 字节块（`FObjectAndNameAsStringProxyArchive+ArNoDelta`，与 SaveGameToSlot 同口径——传输即存档格式）。
+- **运行验证：被用户暂停**（"先暂停验证"）。轮 1 中断前已达成 `NumPlayers=2`（加入成功），影子创建/应用/落盘证据未及产生（客户端心跳未及处理即被杀）。
+- **恢复验证的最短路径**：重跑 §4 冒烟（任意一轮），然后 grep 主机日志 `MPTEST shadow profile created` / `MPTEST shadow applied` / `guest profile saved to host disk`，并确认 `Saved/SaveGames/ColdSteelMP_*.sav` 存在；第二轮重连看 `guest slot found on host disk`。手动验收项：客人开背包/拖装备/喝药（UI 路径全走既有代码，理论零改动）。
+- **下一步**：恢复验证 → M2 收口 → M3 战斗权威化。
 
 ### ⚠️ worktree 特殊构造（接手必读）
 
@@ -65,6 +65,38 @@
   - 客人侧 hub 图无天气（FPSWeatherManager 服务端 spawn 不复制）；
   - 若客人进程崩在角色 BeginPlay（`FPSGAMECharacter.cpp:349-360` 对 Controller 直写输入模式、`:339` AttachPawn 抢档案）→ 属已知坑，本地门禁修复项。
 - 日志锚点：`grep -E "MPTEST|Join succeeded|Possess" Saved/Logs/MPHost.log MPClient.log`。
+
+## 3.7 M2 档案权威化改动清单（2026-09-30，游戏模块 6 处，未入分支提交，重放即生效）
+
+> 与 §3.6 同规则：文件=主仓 WIP 覆盖层+以下改动；插件侧（通道组件+GameMode 装配）已提交分支。
+
+**① `Source/FPSGAME/FPSGAMECharacter.h`**（RearGripAttachment 声明后加）：
+```cpp
+    /** M2 联机：远端玩家在服务端的影子档案（ColdSteelNet 通道组件注入；主机自己的 pawn 不用，走单例）。 */
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelStatusModel> NetShadowProfile;
+    class UColdSteelStatusModel* GetNetShadowProfile() const { return NetShadowProfile; }
+```
+
+**② `Source/FPSGAME/UI/ColdSteelStatusModel.h`**（`Snapshot()` 声明后加）：
+```cpp
+    UColdSteelStatusModel* CreateShadowModel(const FColdSteelProfile& GuestProfile);
+    void AdoptNetMirror(const FColdSteelProfile& External);
+```
+
+**③ `Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp`**：
+- `Publish` 定义后新增 `CreateShadowModel`（NewObject 影子；复制 Definitions/WeaponAmmoGroups/AmmoTypes/StaminaTuning/全部技能定义成员；`Publish(GuestProfile)`；`bPersistenceBlocked=true`）与 `AdoptNetMirror`（=Publish）；
+- `PersistState` 闸门改判：`bPersistenceBlocked||NetMode==NM_DedicatedServer` 才拒（放开监听服/客户端写各自磁盘副本）。
+
+**④ `Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp`**（DamageAfterArmor 模型查找）：
+```cpp
+    else if(auto* NetCharacter=Cast<AFPSGAMECharacter>(GetOwner()))Model=NetCharacter->GetNetShadowProfile(); // M2: 远端玩家防御走影子档案
+```
+
+**⑤ `Source/FPSGAME/Items/FPSPotionUseComponent.cpp`**：TryBegin 判据去掉 `||GetNetMode()!=NM_Standalone`。
+
+**⑥ `Source/FPSGAME/Skills/FPSLightningComponent.cpp`**：Trigger 判据去掉 `||GetWorld()->GetNetMode()!=NM_Standalone`。
+
+**架构注记**：防循环依赖（插件依赖 FPSGAME，游戏模块不能反过来依赖插件）的关键=角色上的 `NetShadowProfile` 指针作为两侧交接面；上行心跳固定 0.8s 全量快照（LAN 无压力，WAN 增量化记入 perf 台账）；建造存档闸（VoxelBuildWorldSave）按计划留 M5（其初始化闸本就阻止联机形态启用，M2 拆了也无功能面）。
 
 ## 3.6 M1 门禁/喂料改动清单（未入分支提交，重放即生效）
 
