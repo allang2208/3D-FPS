@@ -36,6 +36,7 @@ public:
     virtual void RestartPlayer(AController* NewPlayer) override;
     virtual void PostLogin(APlayerController* NewPlayer) override;
     virtual void Logout(AController* Exiting) override;
+    virtual void Tick(float DeltaSeconds) override;
     //~
 
 protected:
@@ -47,4 +48,10 @@ private:
 
     /** 出生点轮转游标：无空位回退时用于错开。 */
     int32 NextStartIndex = 0;
+
+    /** 视觉验收演示：MPAutoWalk 启动参数开启后，服务端驱动远端玩家 pawn 来回走动。 */
+    bool bAutoWalkDemo = false;
+    float AutoWalkTime = 0.f;
+    /** 各远端 pawn 的往返基准 X（首次纳入时取出生点 +150cm 错开主机玩家）。 */
+    TMap<TWeakObjectPtr<APawn>, float> AutoWalkBaseX;
 };

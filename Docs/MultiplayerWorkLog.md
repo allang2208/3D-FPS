@@ -28,7 +28,7 @@
 - 末跳根因（闭环）：客户端加载停顿期间错过服务器质询，恢复后反复回发**过期的无状态握手响应（时间戳 Cookie 失效）**被主机静默丢弃；只有"敲门→质询→应答"整段落在无停顿窗口才能成功。收敛三件套=①轻量 GameDefaultMap（占位世界减重+DDC 热缓存后停顿<10s）②180s 连接超时③门禁消除登录风暴。
 - **3.1/3.2 代码已写已编（90s 增量），随本轮验证**：`FPSGAMECharacter` AttachPawn 改 PossessedBy/OnRep_Controller 幂等挂载（`TryAttachLocalProfile`）；`FPSPlayerBodyComponent::TickComponent` 服务端权威采样分支。
 - ⚠️ **3.1/3.2 的 4 个文件未提交分支**（FPSGAMECharacter.h/.cpp、FPSGAMECharacterProfile.cpp、FPSPlayerBodyComponent.cpp）——它们是"主仓 WIP 覆盖层+我的改动"混合体，直接提交会把主仓未提交改动带进分支。改动以 §3.6 代码段为准（重放即可），等主仓 WIP 落盘后 rebase 再正式入库。
-- **单机回归烟测已跑**（12:26 轮 MPStandalone.log：DayNight 直开+原版 FPSGAMEGameMode，世界 220s 起来、零 Fatal、进程存活；PlayerBodySkin 缺包警告为软引用级，与门禁改动无关，主线侧同样存在则属并行 WIP）。**下一个动作**：视觉验收（真窗口双开互见移动/身体）→ 通过后 M1 收口，进 M2。
+- **单机回归烟测已跑**（12:26 轮 MPStandalone.log：DayNight 直开+原版 FPSGAMEGameMode，世界 220s 起来、零 Fatal、进程存活）。**视觉验收已过（13:16-13:18 轮，用户确认"可以看到，会动"）**：单窗口主机(960×540)+离屏客户端+`-MPAutoWalk` 服务端驱动客人往返（27 次方向翻转），用户在主机窗口看见客人第三人称身体并移动。**M1 全部验收项达成，2026-09-30 收口。下一步：M2（三闸门拆除+档案权威化，计划文档 §3）。**
 
 ### ⚠️ worktree 特殊构造（接手必读）
 

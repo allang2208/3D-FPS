@@ -2,6 +2,8 @@
 #include "ColdSteelNetLog.h"
 
 #include "EngineUtils.h"
+#include "Engine/World.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/GameSession.h"
 #include "GameFramework/PlayerStart.h"
 #include "GameFramework/PlayerState.h"
@@ -15,6 +17,61 @@ AFPSNetGameMode::AFPSNetGameMode()
     PlayerControllerClass = AFPSGAMEPlayerController::StaticClass();
     // M4 传送门换 seamless travel 的前置开关；当前硬旅行路径不受影响。
     bUseSeamlessTravel = true;
+    PrimaryActorTick.bCanEverTick = true;
+    // 视觉验收演示开关：-MPAutoWalk 启动参数。
+    bAutoWalkDemo = FParse::Param(FCommandLine::Get(), TEXT("MPAutoWalk"));
+}
+
+void AFPSNetGameMode::Tick(float DeltaSeconds)
+{
+    Super::Tick(DeltaSeconds);
+    if (!bAutoWalkDemo || GetNetMode() == NM_Standalone)
+    {
+        return;
+    }
+
+    AutoWalkTime += DeltaSeconds;
+    const float Phase = AutoWalkTime * 0.55f;
+    const float Offset = FMath::Sin(Phase) * 300.f;
+    const float Speed = FMath::Cos(Phase) * 165.f; // Offset 的导数×0.55，保证速度连续
+
+    for (FConstControllerIterator It = GetWorld()->GetControllerIterator(); It; ++It)
+    {
+        AController* Controller = It->Get();
+        APawn* Pawn = Controller ? Controller->GetPawn() : nullptr;
+        if (!Controller || !Pawn || Controller->IsLocalController())
+        {
+            continue; // 主机自己的角色由用户操作；只驱动远端玩家的 pawn。
+        }
+
+        float* BaseX = AutoWalkBaseX.Find(Pawn);
+        if (!BaseX)
+        {
+            AutoWalkBaseX.Add(Pawn, Pawn->GetActorLocation().X + 150.f);
+            BaseX = AutoWalkBaseX.Find(Pawn);
+            UE_LOG(LogColdSteelNet, Warning, TEXT("MPTEST AutoWalk engaged: %s"), *GetNameSafe(Pawn));
+        }
+
+        // 服务端权威位移：直接设置位置与速度（远端客户端无输入时接受服务端状态），
+        // 速度交给 CharacterMovement 复制以驱动动画。朝向随移动方向翻转。
+        FVector Location = Pawn->GetActorLocation();
+        const float PrevX = Location.X;
+        Location.X = *BaseX + Offset;
+        Pawn->SetActorLocation(Location);
+        if (UCharacterMovementComponent* Movement = Cast<UCharacterMovementComponent>(Pawn->GetMovementComponent()))
+        {
+            Movement->Velocity = FVector(Speed, 0.f, 0.f);
+        }
+        if (FMath::Sign(PrevX - *BaseX) != FMath::Sign(Location.X - *BaseX) && !FMath::IsNearlyZero(Offset))
+        {
+            UE_LOG(LogColdSteelNet, Warning, TEXT("MPTEST AutoWalk flip: %s -> %s"),
+                *GetNameSafe(Pawn), Location.X > *BaseX ? TEXT("+X") : TEXT("-X"));
+        }
+        if (!FMath::IsNearlyZero(Speed, 5.f))
+        {
+            Pawn->SetActorRotation(FRotator(0.f, Speed > 0.f ? 0.f : 180.f, 0.f));
+        }
+    }
 }
 
 void AFPSNetGameMode::BeginPlay()
