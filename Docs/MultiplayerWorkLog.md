@@ -19,12 +19,16 @@
 | Git Bash 坑 | URL 里 `/Game/...` 要 `MSYS_NO_PATHCONV=1` 前缀，否则前导斜杠被转义 |
 | worktree 拆除坑 | 先 `rmdir` 断 junction（DDC 等）再 `git worktree remove`（既有教训） |
 
-## 1. 当前状态（最后更新：2026-09-30 17:15，M1 进行中）
+## 1. 当前状态（最后更新：2026-09-30 19:50，M1 主体完成，末跳待空闲机窗）
 
-- M0 完成：计划文档定稿。
-- M1 已完成：worktree 隔离环境、ColdSteelNet 插件骨架、**Game 目标编译 Succeeded**（16:41 产出 FPSGAME.exe 352MB）。
-- M1 进行中：**FPSGAMEEditor 目标编译中**（双进程冒烟必须用 UnrealEditor.exe -game 形态，见 §5 坑#7）。
-- **下一个动作**：Editor 编完后跑双进程基线冒烟（§4 命令已改用 UnrealEditor.exe 形态）→ 证据落日志 → 玩家本地门禁（§3.1）。
+- M0 完成；**M1 地基全部落地并提交**：分支首个提交 `138b17e1`（ColdSteelNet 插件源码 + mp_overlay_sync.py + 两份文档，13 文件 613 行，无构建产物）。
+- **已验证（有日志证据）**：
+  1. 双目标编译 Succeeded（Game 352MB + UnrealEditor-FPSGAME.dll）；
+  2. 监听服务器正常启动：`IpNetDriver listening on port 7777`、`MPTEST NetGameMode active NetMode=2(NM_ListenServer)`；
+  3. 本地玩家全链路毫秒级走通：Login→ChoosePlayerStart(会话分配)→PostLogin→RestartPlayer→pawn 生成（插桩全绿）；
+  4. **远端客户端完整握手成功过一次**：客户端 `Welcomed by server (Game: /Script/ColdSteelNet.FPSNetGameMode)` + 主机收到 `Login request`（10:57 那轮，MPHost/MPClient.log）。
+- **末跳未闭合**：远端玩家 Login→PostLogin#2→pawn 这一跳没跑完过。两个干扰源都在客户端首载侧：(a) 启动期资产扫描/武器目录加载的 30-90s 停顿与握手超时赛跑；(b) 双编辑器进程内存压力（32GB 机，用户同时在使用）。最后一轮主机 240s 没起完（机器被用户重度占用），冒烟在抢资源必输。
+- **下一个动作**：§3.0（空闲机窗重跑一轮带插桩的冒烟即可定位/闭合末跳）。
 
 ### ⚠️ worktree 特殊构造（接手必读）
 
@@ -64,30 +68,53 @@
 
 ## 3. 下一步队列（按序执行，改动前先读计划文档对应节）
 
-1. **M1 续：玩家本地门禁**——`FPSGAMECharacter::BeginPlay` 的 `Profile->AttachPawn`（`FPSGAMECharacter.cpp:339`）与输入模式直写（`:349-360`）按本地拥有者分叉；远端 pawn 在客户端 BeginPlay 时 Controller 为空，注意 `Cast` 后判空防崩。
-2. **M1 续：身体组件服务端喂料**——服务端 `ApplyColdSteelProfile` 后调用 `SetAuthoritativeState/SetAuthoritativeEquipment`（`FPSPlayerBodyComponent.h:23-24`，目前全库零调用），让主机能看到客人的身体/装备（当前只有"客人看主机"方向是通的，原因：复制字段只在 `IsLocallyControlled||Standalone` 时本地采样写入）。
-3. **M1 验收**：双进程互见位置+身体+开火表现；单机模式零回归冒烟。
-4. 之后进 M2（三闸门拆除+档案权威化，计划文档 §3）。
+### 3.0 闭合 M1 末跳（最近的动作，前置=机器空闲窗口）
+直接用 §4 的现成命令重跑一轮（带登录插桩的 NetGameMode 已在分支里）。判读法：
+- 主机 `MPTEST Login enter` 之后 5 秒内没有 `Login exit` → Login 内部卡（SpawnPlayerController 链），看卡前最后一条日志定位；
+- `Login exit` 有 PC 但没有 `PostLogin`（远端玩家）→ 连接在 PostLogin 前被关，查客户端 LoadMap 是否又失败；
+- 客户端 `Welcomed by server` 后 `Failed to load package` → 客户端 travel 地图加载中止（疑与连接被关互为因果，轻量图 GameDefaultMap 已改，观察是否复现）。
+- **机器负载是当前最大变量**：用户在用机器时主机 240s 起不完；挑空闲窗口跑，或把客户端轮询拉到 15 分钟。
+- 备选消歧实验：客户端先直开轻量图（probe 命令见坑#7 姿态），进世界后从进程内控制台 `open 127.0.0.1:7777`（绕开占位图路径）。
 
-## 4. 冒烟测试标准姿势（复制即用，2026-09-30 修订为 UnrealEditor 形态）
+### 3.1 M1 续：玩家本地门禁
+`FPSGAMECharacter::BeginPlay` 的 `Profile->AttachPawn`（`FPSGAMECharacter.cpp:339`）按本地拥有者分叉（监听服上远端玩家 pawn 会抢主机档案）。`FPSGAMECharacter.cpp:349-360` 的输入模式直写已有 Cast 判空保护（实证：客户端进程没崩在那）。
+### 3.2 M1 续：身体组件服务端喂料
+服务端 `ApplyColdSteelProfile` 后调 `SetAuthoritativeState/SetAuthoritativeEquipment`（`FPSPlayerBodyComponent.h:23-24`，全库零调用）。当前只有"客人看主机"方向通（复制字段仅 locally-controlled 时本地采样写入）。
+### 3.3 M1 验收
+双进程互见位置+身体；单机零回归冒烟。之后进 M2（三闸门+档案权威化，计划文档 §3）。
+
+## 3.5 冒烟战况记录（2026-09-30 下午，按轮次）
+
+| 轮次 | 形态 | 结果 | 关键发现/修复 |
+|---|---|---|---|
+| 1 | 裸 FPSGAME.exe 双进程 | 双双启动暴毙 | 引擎 `BaseGame.ini:116 bShareMaterialShaderCode=True`（09-08 遗留）+ 全机无 GlobalShaderCache-*.bin ⇒ **裸 exe 未打包形态在本机根本跑不起来**（=主线"-game 15秒崩"悬案解剖）；已加项目级 False 覆盖 |
+| 2 | UnrealEditor.exe -game 窗口 ×2 | 主机 55s 后崩 | 崩在 PythonScriptPlugin（StateTreeToolset 的 init_unreal.py 在 -game 态空指针）；已禁 Python 插件 |
+| 3 | 窗口 ×2 | 主机被关窗退出 | 测试窗口弹在用户桌面被手动关闭（ViewportClosed→Logout PC_0）；改离屏 |
+| 4 | RenderOffscreen ×2 | 客户端 92s 扫描饿死握手+DDC 编译 OOM | 首轮必扫 81GB 资产注册表；握手 20s 超时被打死；后续主机 D3D12 GPU 崩溃（750 Ti 双进程） |
+| 5 | nullrhi ×2 | 主机"近植物人" | nullrhi 监听服不泵网络包（零 accept），弃用 |
+| 6 | offscreen+超时 180s | **客户端 Welcomed by server ✅** | 超时修复让握手熬过启动停顿；主机收到 Login request；末跳（Login→PostLogin#2）仍未闭合，客户端 travel 地图加载失败（"Failed to load package"，直开同图秒成功——网络 travel 上下文特有） |
+| 7 | 轻量图 L_PoisonMaggot | 客户端仍 OOM | 发现客户端连 IP 时引擎先载 **GameDefaultMap=DayNight 当占位世界**（拖全武器目录）；已把 worktree GameDefaultMap 改指轻量测试图 |
+| 8 | 同上+机器被用户重度占用 | 主机 240s 未起完 | 判定：抢资源必输，停止磨测试，落提交+文档收尾 |
+
+## 4. 冒烟测试标准姿势（复制即用，2026-09-30 19:50 修订）
 
 ```bash
-# 主机（worktree 根目录下执行；UnrealEditor 形态见 §5 坑#7）
+# 主机（worktree 根目录下执行；轻量图 + 离屏 + 免 Python；形态原因见 §5 坑#7）
 MSYS_NO_PATHCONV=1 "E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe" \
   D:/FPS3D/FPSGAME-mp/FPSGAME.uproject \
-  /Game/GameMaps/DayNight_Lighting?listen?game=/Script/ColdSteelNet.FPSNetGameMode \
-  -game -log=MPHost.log -Windowed -ResX=1024 -ResY=576 &
-# 客人（等主机进图后启动，编辑器形态启动约 1-2 分钟要有耐心）
+  "/Game/Tests/PoisonMaggot/L_PoisonMaggot?listen?game=/Script/ColdSteelNet.FPSNetGameMode" \
+  -game -log=MPHost.log -RenderOffscreen -ResX=640 -ResY=360 -nosound "-LogCmds=r.RayTracing 0" &
+# 客人（主机 MPTEST NetGameMode active 出现后再启动；断言词是 Welcomed 不是 Join succeeded）
 MSYS_NO_PATHCONV=1 "E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe" \
-  D:/FPS3D/FPSGAME-mp/FPSGAME.uproject \
-  127.0.0.1:7777 -game -log=MPClient.log -Windowed -ResX=1024 -ResY=576 &
-# 收尾与断言（taskkill 后 sleep 5 再 grep，坑#11）
+  D:/FPS3D/FPSGAME-mp/FPSGAME.uproject 127.0.0.1:7777 \
+  -game -log=MPClient.log -RenderOffscreen -ResX=640 -ResY=360 -nosound "-LogCmds=r.RayTracing 0" &
+# 断言（UE 日志时间戳是 HH.MM:SS 点分隔，grep 时别写冒号；taskkill 后 sleep 6 再读）
+grep -a "MPTEST\|Login request" Saved/Logs/MPHost.log        # 期望出现第2个 PostLogin/NumPlayers=2
+grep -a "Welcomed by server\|MPTEST\|Possess" Saved/Logs/MPClient.log
 taskkill //IM UnrealEditor.exe //F
-grep -aE "MPTEST|Join succeeded|Possess|SendJoin|Login request" Saved/Logs/MPHost.log
-grep -aE "MPTEST|Join succeeded|Possess|SendJoin" Saved/Logs/MPClient.log
 ```
 
-注意：双进程共用 Saved 目录；玩家档案 slot 用 `?ColdSteelProfile=MPClient` 隔离（命令行换槽，`ColdSteelProfileRuntime.cpp:108-113`）；监听服形态下 PersistState 本来就被 standalone 闸门拒写（M2 拆），不会写坏主机档案。
+注意：双进程共用 Saved；档案槽 `?ColdSteelProfile=` 隔离；监听服形态下 PersistState 被 standalone 闸门拒写（M2 拆），不会写坏档案。
 
 ## 5. 已知坑与事实（踩过的都记这里，接手前通读一遍省半天）
 
@@ -102,4 +129,12 @@ grep -aE "MPTEST|Join succeeded|Possess|SendJoin" Saved/Logs/MPClient.log
 9. 平铺布局模块（无 Public/Private 分层，如 FPSGAME 主模块）的头文件默认对外不可 include：外部插件 Build.cs 要 `PublicIncludePaths.Add("$(ProjectDir)/Source/FPSGAME")`。
 10. 双进程共用 Saved：日志用 `-log=MPHost.log`/`-log=MPClient.log` 分名；玩家档案槽用 `?ColdSteelProfile=` 隔离；监听服形态下档案写入本来就被 standalone 闸门拒绝（M2 拆），不会写坏。
 11. `taskkill //F` 强杀后日志缓冲可能未落盘，grep 前先 `sleep 5`。
-12. （持续追加……）
+12. **UE 日志时间戳是 `HH.MM:SS` 点分隔**（`[2026.09.30-10.57.13:255]`）——grep/awk 窗口匹配别写成冒号，连续踩了两次。
+13. **`Plugins/` 整个被 .gitignore 忽略**（和 Content 同款）——提交新插件要 `git add -f Plugins/ColdSteelNet`，且插件内自建 `.gitignore`（Intermediate/Binaries/），否则构建产物进库。
+14. **裸 `Binaries/Win64/FPSGAME.exe` 未打包跑不起来是机器现状**（引擎缺 GlobalShaderCache-*.bin + BaseGame.ini 的 bShareMaterialShaderCode=True）——这解释了主线"-game 15 秒崩"悬案。**-game 唯一可靠形态=UnrealEditor.exe**（坑#7）。
+15. **客户端连 `IP:7777` 时引擎先加载 GameDefaultMap 当占位世界**——客户端的重量由 GameDefaultMap 决定，与主机地图无关。冒烟已把 worktree 的 GameDefaultMap 改指轻量测试图（`Config/DefaultEngine.ini:5`，主线无关）。
+16. **握手超时与启动停顿的赛跑**：客户端首载 30-90s 停顿会打死默认 20s 初始连接超时。worktree 已配 `[/Script/Engine.GameNetworkManager] InitialConnectTimeout=180 ConnectionTimeout=180`（`Config/DefaultEngine.ini:174`）。正式玩家用裸 exe 无此问题，接入主线时回调。
+17. **双 D3D12 离屏进程在 750 Ti 上会 GPU 崩溃**（D3D12Util.TerminateOnGPUCrash，约 4 分钟窗口）；nullrhi 的监听服不泵网络包（零 accept）。当前冒烟姿态=offscreen+`r.RayTracing 0`+轻量图，加入完成后尽快收尾。
+18. **`?game=` URL 覆盖、地图直开、+覆盖直开** 三种形态都验证可用（probe A/B），排除该嫌疑。
+19. 机器被用户重度占用时主机 240s 起不完——冒烟要挑空闲窗口，或接受失败重试。
+20. （持续追加……）
