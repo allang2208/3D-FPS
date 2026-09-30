@@ -230,6 +230,10 @@ protected:
     void SetVerticalForegrip(bool bEnabled);
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> VerticalForegrip;
     UPROPERTY(Transient) TMap<TObjectPtr<UAnimSequence>,TObjectPtr<UAnimSequence>> VerticalGripAnimations;
+    // GripLayer56 (Weapons/GripPoseLayer.cpp): PKM / 201 grip families play the base clips and the
+    // gunplay graph moves the left arm onto the selected grip. 0 = off, 1 = idle/aim/fire, 2 = all.
+    int32 GripLayerMode() const;
+    UAnimSequence* GripFamilyClip(UAnimSequence* Base) const;
     void RunForegripAudit();
     int32 ForegripAuditStage=0, ForegripAuditFailures=0, ForegripAuditCapture=0;
     float ForegripAuditNextTime=0.f, ForegripAuditLastCapture=-1.f;

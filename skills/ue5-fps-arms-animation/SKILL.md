@@ -45,6 +45,7 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 - 第三段突刺肘部拧细、伸展露出袖口，或修肘后再露口：[突刺肘部与开口保护](references/thrust-elbow-clearance.md)。分开骨骼轴向差、相机缓存顺序和开口权重，锁住握点并按真实蒙皮分配旋转。
 
 - 双手过顶下砍中段屈肘、保留原腕部观感：[过顶下砍伸展](references/overhead-reach-wrist.md)。约束全段肩腕距离，整体前送剑与双手，保留握点和骨长。
+- 开盖、换箱、铺链、合盖这类左手连续操作多个活动部件的换弹，或整链镜像/平移后肘部拧塌、衣物顶到近裁面：[弹箱换弹与肘部不拧](references/belt-box-reload.md)。接触挂在部件上，锁骨固定两骨解算加 Skin07 分站，手部朝向用前臂相对的 swing/twist 插值；写上臂时同时更新上臂 twist 子骨；薄壳部件用绕数判穿透。
 - 换弹结束瞬移、展示偏移滞后或复用已认可的插匣/拉柄动作：[换弹收尾与待机衔接](references/reload-handoff.md)。先区分动画末帧与运行时锚点，保持机械接触时钟。
 - 换弹收尾时支撑臂挡住镜头、前臂涨成巨块而手掌正常：[支撑臂贴镜头](references/reload-handoff.md#收势时支撑臂贴住穿过镜头svd-2026-09-25)。先用蒙皮表面的画框内最小深度与屏幕占比定量，再分层排除网格/权重/烘焙与运行时；只旋转锁骨修不动，按 [臂根平移](references/grip-arm-refinement.md#45-支撑臂贴镜头旋转锁骨不够要平移臂根svd-2026-09-25) 处理，腕点、抓握与机械时钟不动。
 - 拉栓/近战时手臂冲进画面右上角或整枪后扫带走扶木手：[拉栓与近战近场修复](references/reload-handoff.md#拉栓段右臂冲进右上角以及整枪后扫带走扶木手ash-12-2026-09-25)。先核对该状态的相机锚点（动作锚点≠瞄准/腰射锚点，差 10 cm 会得出相反结论），再用主导骨点名探针区分"肘/上臂、肩、扶木手或武器本身"，分别用肘极搜索、臂根前移或整枪+双手前移；整枪方案会把打击点一起前移。
@@ -79,6 +80,7 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 - 异形／宽长弹匣撑开虎口、拇指内收，或只需修一根手指：[异形弹匣自然抓握](references/irregular-magazine-grip.md)。优先选局部抓握区域，参考用户认可的 SVD 前半段包握与拇指向上延展，冻结已合适的其他关节；抓握"位置对了但手翻了"要先量每根指骨绕自身轴的扭转（AKM/A762 拇指根部 67° 的案例见该页）。
 - 左手"没有精准抓握弹匣"、把一条已认可的换弹抓握搬到另一把枪、或换弹移植后手指陷进/浮离弹匣：[弹匣抓握跨枪配准](references/magazine-grip-registration.md)。抓握存成弹匣自身壳坐标系的关系再搬运，不要在武器空间加常量偏移；跨长度弹匣的高度约定按对已认可剖面的误差选；有界刚体校正必须同时把机匣净空写进目标。
 - 配件缩放后改手指数，或握姿已正确但腕肘衔接僵硬：[配件手部与整臂优化](references/grip-arm-refinement.md)。先保留已接受接触，诊断腕部折弯与扭转，再联动肩肘支撑；具体案例数值不跨枪型照搬。
+- 多种握把共用基础动作、由运行时层迁移左臂（肩、肘摆角、掌心滚转分配、按通道挂载）：[运行时握把层](references/grip-arm-refinement.md#运行时握把层griplayer56pkm--2012026-09-30)。只移手会让上臂扭到 180°。
 - 握把、阻手器及改造后握姿：[改造配件标准](../ue5-weapon-workflow/references/attachment-standard.md)。先复用已接受的成组手型，适配整手方向、握点与腕臂；必须用实际游戏掌侧、玩家视点及换弹回握验证，距离近或零相交不作为独立成功依据。
 - 现成抓握源的镜像/重定向：[GitHub 抓握迁移](references/github-grasp-donor.md)；45° 握把、阻手器及前臂扭转误判：[已接受适配案例](references/grasp-canted-handstop.md)。
 - MAT 编辑器、FK Control Rig、关键帧、烘焙及保存：[MAT 实操与边界](references/mat-editing.md)。
@@ -100,6 +102,7 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 ## PKM 失败案例（2026-09-22）
 
 早期 Meshy `PKM20260921` 分支的手部与换弹开发已退役，后续用户提供的 `PKMLowpoly20260922` 不在此退役范围。跨枪手型、整臂支撑、左右手交接和视频遮挡边界见 [手部与整臂优化](references/grip-arm-refinement.md#失败案例pkm-持握与弹链换弹2026-09-22)；不要将早期废案的源脚本、接触参数或导入回执作为成功动作模板。低模分支的后拉／主动前推及声音时钟经验见 [换弹收尾与待机衔接](references/reload-handoff.md#拉柄后拉停顿主动前推pkm-低模分支2026-09-23)。
+- 托握手悬空、手指只在空中握拳，或穿孔握把上手指只能折起避让：见[失败案例 SupportFingers59](references/grip-arm-refinement.md#失败案例托握与穿孔握把的手指supportfingers59201--pkm2026-09-30用户否定并已回撤)。诊断可以参考，改法已被否定；先和用户确认目标握姿。
 
 For independent third-person animation alongside the accepted first-person arms, see [player world body](../ue5-cpp-gameplay/references/player-world-body.md). Preserve shared gameplay contact timing.
 

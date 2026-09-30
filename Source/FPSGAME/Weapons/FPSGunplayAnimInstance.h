@@ -32,6 +32,12 @@ public:
     int32 DualPistolSide=0;
     float DualPistolAimAlpha=0.f;
     FVector DualPistolAimTargetWorld=FVector::ZeroVector;
+    // GripLayer56 (GripPoseLayer.h): per-channel grip layer and its reference pairs.
+    UPROPERTY(Transient) TObjectPtr<UAnimSequence> GripIdleBase;
+    UPROPERTY(Transient) TObjectPtr<UAnimSequence> GripIdleFamily;
+    UPROPERTY(Transient) TObjectPtr<UAnimSequence> GripAimBase;
+    UPROPERTY(Transient) TObjectPtr<UAnimSequence> GripAimFamily;
+    bool bGripIdle=false,bGripAim=false,bGripSprint=false,bGripAction=false,bGripActionAim=false;
 protected:
     virtual FAnimInstanceProxy* CreateAnimInstanceProxy() override;
     virtual void DestroyAnimInstanceProxy(FAnimInstanceProxy* Proxy) override;

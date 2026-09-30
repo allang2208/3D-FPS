@@ -2037,7 +2037,9 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     if (TacticalSprint)
     {
         // 与枪托砸击共用同一解析口径，避免两处各写一份判定。
-        const EM4SprintGrip Grip = ResolveRifleGripProfile();
+        // GripLayer56 模式 2：PKM / 201 冲刺播放基础 clip，握把由动画图层处理（砸击仍用各握把 clip）。
+        const EM4SprintGrip Grip = GripLayerMode() >= 2 ? (bDrumInstalled ? EM4SprintGrip::Drum : EM4SprintGrip::Base)
+            : ResolveRifleGripProfile();
         const bool bReady = bInventoryWeaponReady && !bPistol;
         const bool bRequest = bIsSprinting && !bWeaponJumpAirborne && !IsWeaponBusy() && !bAimHeld && !bFireHeld
             && !IsTraversing() && !IsDodging() && !bIsSliding && !IsCastBlockingLeftHandAction()
@@ -3401,12 +3403,25 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
             IsReloading()?ReloadSourceTime(WeaponStateElapsed):0.f,MagazineAmmo,
             b201FeedAction,Feed201SourceTime,LastShotWorldTime,bGunsmithInspection);
     }
-    const auto DrumPose=[this](UAnimSequence* Clip)->UAnimSequence*
+    // GripLayer56: clips routed through the grip layer play their base version; the gunplay graph
+    // layers each channel with its reference pair (ADS: aim, otherwise idle).
+    const int32 GripMode=GripLayerMode();
+    // Mode 1: idle / aim / fire / aim_fire (offline identical to the family clips). Mode 2 preview
+    // adds equip and reloads (sprint in UpdateMovement); inspect and quick melee stay per grip.
+    const auto GripRouted=[this,GripMode](UAnimSequence* Clip)
     {
-        if(HasAngledForegrip())if(const auto* Support=ForegripAnimations.Find(Clip))return Support->Get();
-        if(HasCantedForegrip())if(const auto* Support=CantedGripAnimations.Find(Clip))return Support->Get();
-        if(HasVerticalForegrip())if(const auto* Support=VerticalGripAnimations.Find(Clip))return Support->Get();
-        if(HasPrismHandstop())if(const auto* Support=PrismGripAnimations.Find(Clip))return Support->Get();
+        return Clip&&GripFamilyClip(Clip)&&((GripMode>=2&&Clip!=InspectAnimation)||(GripMode>=1&&(Clip==IdleAnimation
+            ||Clip==AimAnimation||Clip==FireAnimation||Clip==AimFireAnimation)));
+    };
+    const auto DrumPose=[this,&GripRouted](UAnimSequence* Clip)->UAnimSequence*
+    {
+        if(!GripRouted(Clip))
+        {
+            if(HasAngledForegrip())if(const auto* Support=ForegripAnimations.Find(Clip))return Support->Get();
+            if(HasCantedForegrip())if(const auto* Support=CantedGripAnimations.Find(Clip))return Support->Get();
+            if(HasVerticalForegrip())if(const auto* Support=VerticalGripAnimations.Find(Clip))return Support->Get();
+            if(HasPrismHandstop())if(const auto* Support=PrismGripAnimations.Find(Clip))return Support->Get();
+        }
         if(bDrumInstalled)if(const auto* Support=DrumSupportAnimations.Find(Clip))return Support->Get();
         return Clip;
     };
@@ -3489,6 +3504,20 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
     }
     else GunplayAnimation->ActionAlpha = 0.0f;
     if (bPistolWorkbench) GunplayAnimation->ActionAlpha = 0.0f;
+    // GripLayer56 channels: each routed base channel is layered with its reference pair before
+    // blending, so per-grip clips still in use (quick melee, mode-1 reloads) blend correctly.
+    {
+        UAnimSequence* ActionBase = GunplayAnimation->ActionAlpha > 0.f ? ActiveActionAnimation.Get() : nullptr;
+        GunplayAnimation->GripIdleBase = IdleAnimation;
+        GunplayAnimation->GripIdleFamily = GripMode ? GripFamilyClip(IdleAnimation) : nullptr;
+        GunplayAnimation->GripAimBase = AimAnimation;
+        GunplayAnimation->GripAimFamily = GripMode ? GripFamilyClip(AimAnimation) : nullptr;
+        GunplayAnimation->bGripIdle = GripRouted(IdleAnimation) && !PistolEmpty;
+        GunplayAnimation->bGripAim = GripRouted(AimAnimation) && !PistolEmpty;
+        GunplayAnimation->bGripSprint = GripMode >= 2;
+        GunplayAnimation->bGripAction = ActionBase && GunplayAnimation->ActionClip == ActionBase && GripRouted(ActionBase);
+        GunplayAnimation->bGripActionAim = ActionBase && (ActionBase == AimAnimation || ActionBase == AimFireAnimation);
+    }
     GunplayAnimation->bRevolver = bUseDanWesson715;
     GunplayAnimation->RevolverLiveRounds = bPistolWorkbench ? 6 : MagazineAmmo;
     GunplayAnimation->RevolverCartridges = bPistolWorkbench ? 6 : RevolverCaseCount;
