@@ -19,16 +19,16 @@
 | Git Bash 坑 | URL 里 `/Game/...` 要 `MSYS_NO_PATHCONV=1` 前缀，否则前导斜杠被转义 |
 | worktree 拆除坑 | 先 `rmdir` 断 junction（DDC 等）再 `git worktree remove`（既有教训） |
 
-## 1. 当前状态（最后更新：2026-09-30 19:50，M1 主体完成，末跳待空闲机窗）
+## 1. 当前状态（最后更新：2026-09-30 20:05，**M1 基线冒烟验收达成**）
 
-- M0 完成；**M1 地基全部落地并提交**：分支首个提交 `138b17e1`（ColdSteelNet 插件源码 + mp_overlay_sync.py + 两份文档，13 文件 613 行，无构建产物）。
-- **已验证（有日志证据）**：
-  1. 双目标编译 Succeeded（Game 352MB + UnrealEditor-FPSGAME.dll）；
-  2. 监听服务器正常启动：`IpNetDriver listening on port 7777`、`MPTEST NetGameMode active NetMode=2(NM_ListenServer)`；
-  3. 本地玩家全链路毫秒级走通：Login→ChoosePlayerStart(会话分配)→PostLogin→RestartPlayer→pawn 生成（插桩全绿）；
-  4. **远端客户端完整握手成功过一次**：客户端 `Welcomed by server (Game: /Script/ColdSteelNet.FPSNetGameMode)` + 主机收到 `Login request`（10:57 那轮，MPHost/MPClient.log）。
-- **末跳未闭合**：远端玩家 Login→PostLogin#2→pawn 这一跳没跑完过。两个干扰源都在客户端首载侧：(a) 启动期资产扫描/武器目录加载的 30-90s 停顿与握手超时赛跑；(b) 双编辑器进程内存压力（32GB 机，用户同时在使用）。最后一轮主机 240s 没起完（机器被用户重度占用），冒烟在抢资源必输。
-- **下一个动作**：§3.0（空闲机窗重跑一轮带插桩的冒烟即可定位/闭合末跳）。
+- M0 完成；M1 地基提交 `138b17e1`+`1be4d8a1`（插件/工具/文档）。
+- **M1 基线冒烟 GREEN（2026-09-30 12:01 轮，MPHost/MPClient.log）**：
+  - 主机：本地玩家链路毫秒级；**远端玩家完整登录**——PreLogin→Login（PlayerStart 轮转兜底生效）→**pawn=FPSGAMECharacter_1 生成**→**PostLogin NumPlayers=2**，全程 2 秒、无武器风暴（门禁生效旁证）；
+  - 客户端：`Welcomed by server` → **LoadMap 1.9s 完成**（此前在 DayNight 上永久失败的环节）。
+- 末跳根因（闭环）：客户端加载停顿期间错过服务器质询，恢复后反复回发**过期的无状态握手响应（时间戳 Cookie 失效）**被主机静默丢弃；只有"敲门→质询→应答"整段落在无停顿窗口才能成功。收敛三件套=①轻量 GameDefaultMap（占位世界减重+DDC 热缓存后停顿<10s）②180s 连接超时③门禁消除登录风暴。
+- **3.1/3.2 代码已写已编（90s 增量），随本轮验证**：`FPSGAMECharacter` AttachPawn 改 PossessedBy/OnRep_Controller 幂等挂载（`TryAttachLocalProfile`）；`FPSPlayerBodyComponent::TickComponent` 服务端权威采样分支。
+- ⚠️ **3.1/3.2 的 4 个文件未提交分支**（FPSGAMECharacter.h/.cpp、FPSGAMECharacterProfile.cpp、FPSPlayerBodyComponent.cpp）——它们是"主仓 WIP 覆盖层+我的改动"混合体，直接提交会把主仓未提交改动带进分支。改动以 §3.6 代码段为准（重放即可），等主仓 WIP 落盘后 rebase 再正式入库。
+- **下一个动作**：视觉验收（真窗口双开互见移动/身体，身体喂料分支已编进去但日志层不可见）→ 通过后 M1 收口，进 M2。
 
 ### ⚠️ worktree 特殊构造（接手必读）
 
@@ -65,6 +65,61 @@
   - 客人侧 hub 图无天气（FPSWeatherManager 服务端 spawn 不复制）；
   - 若客人进程崩在角色 BeginPlay（`FPSGAMECharacter.cpp:349-360` 对 Controller 直写输入模式、`:339` AttachPawn 抢档案）→ 属已知坑，本地门禁修复项。
 - 日志锚点：`grep -E "MPTEST|Join succeeded|Possess" Saved/Logs/MPHost.log MPClient.log`。
+
+## 3.6 M1 门禁/喂料改动清单（未入分支提交，重放即生效）
+
+> 基线=主仓 WIP 覆盖层同步后的 worktree 文件；以下为叠加在其上的全部改动，逐处可粘。
+
+**① `Source/FPSGAME/FPSGAMECharacter.h`**（EndPlay 声明后加）：
+```cpp
+    /** M1 联机分叉：档案（GameInstance 单例）只允许挂到本机玩家的 pawn 上。 */
+    virtual void PossessedBy(AController* NewController) override;
+    virtual void OnRep_Controller() override;
+private:
+    /** 幂等的本地档案挂载：非本机控制的 pawn 一律不挂（防止监听服上远端 pawn 抢走主机档案）。 */
+    void TryAttachLocalProfile();
+    bool bLocalProfileAttached = false;
+public:
+```
+
+**② `Source/FPSGAME/FPSGAMECharacter.cpp` BeginPlay（原 `Profile->AttachPawn(this)` 行替换）**：
+```cpp
+    // M1 联机分叉：单机维持原时序；联网形态下 BeginPlay 时 Controller 常未就绪，
+    // 真正挂载点挪到 PossessedBy（服务端）与 OnRep_Controller（客户端自主 pawn）。
+    if (GetNetMode() != NM_ListenServer && GetNetMode() != NM_DedicatedServer) TryAttachLocalProfile();
+```
+
+**③ `Source/FPSGAME/FPSGAMECharacterProfile.cpp`（EndPlay 实现后追加三个函数）**：
+```cpp
+void AFPSGAMECharacter::PossessedBy(AController* NewController)
+{
+    Super::PossessedBy(NewController);
+    TryAttachLocalProfile();
+}
+void AFPSGAMECharacter::OnRep_Controller()
+{
+    Super::OnRep_Controller();
+    TryAttachLocalProfile();
+}
+void AFPSGAMECharacter::TryAttachLocalProfile()
+{
+    if(bLocalProfileAttached)return;
+    if(!IsLocallyControlled())return;
+    bLocalProfileAttached=true;
+    if(GetGameInstance())if(auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->AttachPawn(this);
+}
+```
+
+**④ `Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp` TickComponent（`else DisplayState=ReplicatedState;` 前插服务端分支）**：
+```cpp
+    else if(GetOwner()->HasAuthority())
+    {
+        // M1 联机：监听服上的远端玩家 pawn——服务端按权威运动状态采样并发布，
+        // 客户端 OnRep 消费。装备数据源要等 M2 档案权威化，这里只发布身体状态。
+        DisplayState=SampleLocalState();
+        ReplicatedState=DisplayState;
+    }
+```
 
 ## 3. 下一步队列（按序执行，改动前先读计划文档对应节）
 
