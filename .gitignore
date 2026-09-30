@@ -1351,3 +1351,17 @@ __pycache__/
 /SourceAssets/NiagaraDestructionDriver20260929/*
 !/SourceAssets/NiagaraDestructionDriver20260929/README.md
 !/SourceAssets/NiagaraDestructionDriver20260929/provenance.json
+
+# Framed modification icons: publish recipes/manifests only; image payloads remain local.
+/SourceAssets/FirearmFramedIcons20260930/**
+!/SourceAssets/FirearmFramedIcons20260930/*.md
+!/SourceAssets/FirearmFramedIcons20260930/*manifest.json
+!/SourceAssets/FirearmFramedIcons20260930/generation-prompt.txt
+/SourceAssets/BowFramedIcons20260930/**
+!/SourceAssets/BowFramedIcons20260930/*.md
+!/SourceAssets/BowFramedIcons20260930/*manifest.json
+!/SourceAssets/BowFramedIcons20260930/generation-prompt.txt
+/SourceAssets/RemainingFramedIcons20260930/**
+!/SourceAssets/RemainingFramedIcons20260930/*.md
+!/SourceAssets/RemainingFramedIcons20260930/*manifest.json
+!/SourceAssets/RemainingFramedIcons20260930/generation-prompt.txt

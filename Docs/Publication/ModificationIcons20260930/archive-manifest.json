@@ -1,0 +1,2458 @@
+[
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_arrow_rest_false.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_arrow_rest_false.png",
+    "bytes": 466225,
+    "sha256": "2464BE0DF2B1A01B1AED1F130ECD35562D63A6F24A33808261F9898BAB97031E",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_arrow_rest_false.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_arrow_rest_fork_guide_rest.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_arrow_rest_fork_guide_rest.png",
+    "bytes": 184130,
+    "sha256": "3F3BA4583A30C7E9F82CC33B48FF7E9DF02CB13A636C0D09F9EE7601F59FD94F",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_arrow_rest_fork_guide_rest.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_arrow_rest_lined_rest.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_arrow_rest_lined_rest.png",
+    "bytes": 475556,
+    "sha256": "AEB49C25DCCAF1754F024E8226C1F5DC79FB69841E84376FFF56FCBE3FED0897",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_arrow_rest_lined_rest.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_arrow_rest_open_quick_rest.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_arrow_rest_open_quick_rest.png",
+    "bytes": 183329,
+    "sha256": "F25300F05D6C0C5C6EB0C1ED48F10221900749E286C409F6ECEA1719EF128C61",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_arrow_rest_open_quick_rest.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_category_arrow_rest.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_category_arrow_rest.png",
+    "bytes": 466225,
+    "sha256": "2464BE0DF2B1A01B1AED1F130ECD35562D63A6F24A33808261F9898BAB97031E",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_category_arrow_rest.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_category_grip.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_category_grip.png",
+    "bytes": 592051,
+    "sha256": "A2703A3A38B81B35499BB227AAB76856461725DA4E6E0C43D2EC28DF44FA3D4B",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_category_grip.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_category_riser.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_category_riser.png",
+    "bytes": 384702,
+    "sha256": "7375508F105E0FCA9383B3BF379D34542C472CF4B28F3CC2DD68A9AF18B419E5",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_category_riser.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_category_sight.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_category_sight.png",
+    "bytes": 430219,
+    "sha256": "0DE705EBCAACED95A0AA6A20DB75A1F1025042D80BD071950F817BA9FE521605",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_category_sight.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_category_string.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_category_string.png",
+    "bytes": 369272,
+    "sha256": "2DCCF93B518B731F74F10DD790D66A0AFB812DD7076BD93ECB9BC1A2D5CD7652",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_category_string.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_grip_false.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_grip_false.png",
+    "bytes": 592051,
+    "sha256": "A2703A3A38B81B35499BB227AAB76856461725DA4E6E0C43D2EC28DF44FA3D4B",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_grip_false.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_grip_padded_leather_grip.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_grip_padded_leather_grip.png",
+    "bytes": 519889,
+    "sha256": "29AD361547B70F7C518E48481977C6D95C6E31F4BE270C12D446F4C4211AE77F",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_grip_padded_leather_grip.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_grip_slim_leather_grip.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_grip_slim_leather_grip.png",
+    "bytes": 514260,
+    "sha256": "E2059C91FA1B3FC6774E32B252D45EFACA42C1A373206DC5FB413C7A4360DADB",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_grip_slim_leather_grip.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_grip_waxed_linen.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_grip_waxed_linen.png",
+    "bytes": 590375,
+    "sha256": "C2C265C8F745B9EBDDDBAAA8D1C660B465E35A50E9639D57E4058572695B3896",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_grip_waxed_linen.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_grip_woven_linen_grip.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_grip_woven_linen_grip.png",
+    "bytes": 558576,
+    "sha256": "CCA068216204C3BB41B9F97879556B6A3863AB105CFBB9CBCE0CB32311D4123D",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_grip_woven_linen_grip.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_riser_false.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_riser_false.png",
+    "bytes": 384702,
+    "sha256": "7375508F105E0FCA9383B3BF379D34542C472CF4B28F3CC2DD68A9AF18B419E5",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_riser_false.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_riser_heavy_limb.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_riser_heavy_limb.png",
+    "bytes": 378791,
+    "sha256": "064058D3F91A5E59A7A33F8A05B5154CFA5FD9AFD47DF66481A882EFD1258667",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_riser_heavy_limb.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_riser_steady_limb.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_riser_steady_limb.png",
+    "bytes": 373085,
+    "sha256": "3F1C1F5FA20B5603100B3F8BF966321569FF5F676784FF87FBF5F9E58B4DB9AE",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_riser_steady_limb.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_riser_strong_draw.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_riser_strong_draw.png",
+    "bytes": 384702,
+    "sha256": "7375508F105E0FCA9383B3BF379D34542C472CF4B28F3CC2DD68A9AF18B419E5",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_riser_strong_draw.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_riser_swift_limb.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_riser_swift_limb.png",
+    "bytes": 363355,
+    "sha256": "8AF6817A19825F8859C77D817F5F3F8FBC22F9C3FC349ECAD1E08D20E6FDF59A",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_riser_swift_limb.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_sight_bow_clearfield_2x.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_sight_bow_clearfield_2x.png",
+    "bytes": 229136,
+    "sha256": "844BB50E9EB8E9D55E061EE76D82C58382B99923BC71A7CC7C97CFAB485645F9",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_sight_bow_clearfield_2x.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_sight_bow_farwatch_4x.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_sight_bow_farwatch_4x.png",
+    "bytes": 240901,
+    "sha256": "9C4DEA33103608C34DC140B00795FCFB8D92DD4DE8E8B75FB46B9D314E2B1BE9",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_sight_bow_farwatch_4x.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_sight_false.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_sight_false.png",
+    "bytes": 430219,
+    "sha256": "0DE705EBCAACED95A0AA6A20DB75A1F1025042D80BD071950F817BA9FE521605",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_sight_false.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_sight_no_sight.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_sight_no_sight.png",
+    "bytes": 438030,
+    "sha256": "CE6C32E29C31BCE1FFB471FF829E5185479C402F39432ED75D0A1E8BC674F53A",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_sight_no_sight.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_string_false.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_string_false.png",
+    "bytes": 369272,
+    "sha256": "2DCCF93B518B731F74F10DD790D66A0AFB812DD7076BD93ECB9BC1A2D5CD7652",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_string_false.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_string_fast_string.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_string_fast_string.png",
+    "bytes": 365311,
+    "sha256": "3D1C2184A99761B6227E8FC73446D28ABB7CA9CE2C7F35CA30B79358B4EA7825",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_string_fast_string.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_string_softcore_hold_string.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_string_softcore_hold_string.png",
+    "bytes": 63515,
+    "sha256": "DF7EFDD7E4ECF43EAA00B1AE120D035F573D72370681E116562F7462235E733E",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_string_softcore_hold_string.png"
+  },
+  {
+    "source": "SourceAssets\\BowFramedIcons20260930\\Original\\bow_dark_string_steady_twist_string.png",
+    "destination": "trash\\modification-icons-20260930\\BowFramedIcons20260930\\Original\\bow_dark_string_steady_twist_string.png",
+    "bytes": 66138,
+    "sha256": "BF68065510A49E61EFC71DD74D0869559F687DE3F15FE789056D2E34C3DBE3A9",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\bow_dark_string_steady_twist_string.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_category_fitting.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_category_fitting.png",
+    "bytes": 319556,
+    "sha256": "F7C76B0BD54BD929AB737915CA7B090DBDD2013F154CA3B134BDAE1E62E2A255",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_category_fitting.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_category_fitting.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_category_fitting.uasset",
+    "bytes": 240754,
+    "sha256": "5CB71212273FC538ACF2B647A04C35DC30FA2AED72FFFA5D4C7A25A6FFC48F6D",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_category_fitting.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_category_grip.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_category_grip.png",
+    "bytes": 229910,
+    "sha256": "D0CDF814145B703C9447DE21C89B21520F7416E5BBAC42023D0A2BA4CD19B6F7",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_category_grip.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_category_grip.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_category_grip.uasset",
+    "bytes": 181191,
+    "sha256": "E476A49E695CC88F6048A1254DAD7030364004DB63771BDF4EC7927CD0469C94",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_category_grip.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_category_head.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_category_head.png",
+    "bytes": 319604,
+    "sha256": "EEDDD05EFE81E08140B1B68CC039552D961A75AA81FCDDD682189A5BDF678486",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_category_head.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_category_head.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_category_head.uasset",
+    "bytes": 240544,
+    "sha256": "558638A03B4FA35E22BAB607AFE2D51E4081DAEE1065D6A49BA2D72C58148F77",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_category_head.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_category_shaft.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_category_shaft.png",
+    "bytes": 93848,
+    "sha256": "D49A6D989E6B069B53AA0929FB83203E177610E630FA25C4D986BC362C188E87",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_category_shaft.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_category_shaft.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_category_shaft.uasset",
+    "bytes": 77441,
+    "sha256": "D9BFF067D97615BCA2CD28F7A59600D1BFE9021E6F516C2DB497C1BD746BDD81",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_category_shaft.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_fitting_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_fitting_false.png",
+    "bytes": 319556,
+    "sha256": "F7C76B0BD54BD929AB737915CA7B090DBDD2013F154CA3B134BDAE1E62E2A255",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_fitting_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_fitting_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_fitting_false.uasset",
+    "bytes": 240688,
+    "sha256": "1FC6201F61A79AE4155B54535EBC953DB9F26D13CC75D8874B29CAE67871F418",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_fitting_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_fitting_lucky_charm.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_fitting_lucky_charm.png",
+    "bytes": 319556,
+    "sha256": "F7C76B0BD54BD929AB737915CA7B090DBDD2013F154CA3B134BDAE1E62E2A255",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_fitting_lucky_charm.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_fitting_lucky_charm.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_fitting_lucky_charm.uasset",
+    "bytes": 240820,
+    "sha256": "1F9453CD81ED80B8CD86AA2757E8E43D7CC5E88800874626EA57173E74F3FCBC",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_fitting_lucky_charm.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_fitting_wedge_kit.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_fitting_wedge_kit.png",
+    "bytes": 319556,
+    "sha256": "F7C76B0BD54BD929AB737915CA7B090DBDD2013F154CA3B134BDAE1E62E2A255",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_fitting_wedge_kit.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_fitting_wedge_kit.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_fitting_wedge_kit.uasset",
+    "bytes": 240776,
+    "sha256": "DF46A7368E481741260434C0BDE304CD6A95CBB32F1170EC0DE302B8A2E1F493",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_fitting_wedge_kit.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_fitting_whetstone_kit.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_fitting_whetstone_kit.png",
+    "bytes": 319556,
+    "sha256": "F7C76B0BD54BD929AB737915CA7B090DBDD2013F154CA3B134BDAE1E62E2A255",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_fitting_whetstone_kit.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_fitting_whetstone_kit.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_fitting_whetstone_kit.uasset",
+    "bytes": 240864,
+    "sha256": "954101703808B0D7A328A752146D9330D887429EB9B9761448A98E4A9BCB6B30",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_fitting_whetstone_kit.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_grip_cushion_wrap.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_grip_cushion_wrap.png",
+    "bytes": 229910,
+    "sha256": "D0CDF814145B703C9447DE21C89B21520F7416E5BBAC42023D0A2BA4CD19B6F7",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_grip_cushion_wrap.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_grip_cushion_wrap.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_grip_cushion_wrap.uasset",
+    "bytes": 181279,
+    "sha256": "190CEF629518CAAF9CF734AFBE132F0962677BABA23859B724E5508E10CC7257",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_grip_cushion_wrap.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_grip_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_grip_false.png",
+    "bytes": 229910,
+    "sha256": "D0CDF814145B703C9447DE21C89B21520F7416E5BBAC42023D0A2BA4CD19B6F7",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_grip_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_grip_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_grip_false.uasset",
+    "bytes": 181125,
+    "sha256": "507D897A92B358B5404AC399D9961DAE5EEBC058A1D7949BD2B7A5BA7AB542A8",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_grip_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_grip_firm_hands.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_grip_firm_hands.png",
+    "bytes": 229910,
+    "sha256": "D0CDF814145B703C9447DE21C89B21520F7416E5BBAC42023D0A2BA4CD19B6F7",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_grip_firm_hands.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_grip_firm_hands.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_grip_firm_hands.uasset",
+    "bytes": 181235,
+    "sha256": "A3D7014C68A090BD55989FEBA0F954F95820156C829789CE7F86DACBF754C8F7",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_grip_firm_hands.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_grip_quick_hands.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_grip_quick_hands.png",
+    "bytes": 229910,
+    "sha256": "D0CDF814145B703C9447DE21C89B21520F7416E5BBAC42023D0A2BA4CD19B6F7",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_grip_quick_hands.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_grip_quick_hands.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_grip_quick_hands.uasset",
+    "bytes": 181257,
+    "sha256": "68F14262AEED580C782306C030B56D132BEDD2F08E5AAA2BC88AF896AA3AC00F",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_grip_quick_hands.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_head_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_head_false.png",
+    "bytes": 319604,
+    "sha256": "EEDDD05EFE81E08140B1B68CC039552D961A75AA81FCDDD682189A5BDF678486",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_head_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_head_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_head_false.uasset",
+    "bytes": 240478,
+    "sha256": "960203942A2E1FC9BF36805CE2D4CBC44F9E37CDDBE71979CAE9ECD85A0B3985",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_head_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_head_felling_head.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_head_felling_head.png",
+    "bytes": 319604,
+    "sha256": "EEDDD05EFE81E08140B1B68CC039552D961A75AA81FCDDD682189A5BDF678486",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_head_felling_head.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_head_felling_head.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_head_felling_head.uasset",
+    "bytes": 240632,
+    "sha256": "95321BA2647E39576CFCE58361B83AAC8F2449A09C46640EBAE1F06751DD535A",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_head_felling_head.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_head_hardened_head.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_head_hardened_head.png",
+    "bytes": 319604,
+    "sha256": "EEDDD05EFE81E08140B1B68CC039552D961A75AA81FCDDD682189A5BDF678486",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_head_hardened_head.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_head_hardened_head.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_head_hardened_head.uasset",
+    "bytes": 240654,
+    "sha256": "02BEADD8267C6517901E03F79AB146F9FA8D78CE9EF5E604273DDD01AF89640C",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_head_hardened_head.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_head_splitting_head.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_head_splitting_head.png",
+    "bytes": 319604,
+    "sha256": "EEDDD05EFE81E08140B1B68CC039552D961A75AA81FCDDD682189A5BDF678486",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_head_splitting_head.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_head_splitting_head.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_head_splitting_head.uasset",
+    "bytes": 240676,
+    "sha256": "7DBF6D4694C1E016875CB6B89D15689D0463DA3F24A4E178E997B80FA86EDE87",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_head_splitting_head.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_shaft_ash_haft.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_shaft_ash_haft.png",
+    "bytes": 93848,
+    "sha256": "D49A6D989E6B069B53AA0929FB83203E177610E630FA25C4D986BC362C188E87",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_shaft_ash_haft.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_shaft_ash_haft.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_shaft_ash_haft.uasset",
+    "bytes": 77441,
+    "sha256": "B5F1B2C091DD2C2A0F478127333536E2A0410C34BF1DE2A702417512C6E6B20D",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_shaft_ash_haft.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_shaft_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_shaft_false.png",
+    "bytes": 93848,
+    "sha256": "D49A6D989E6B069B53AA0929FB83203E177610E630FA25C4D986BC362C188E87",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_shaft_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_shaft_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_shaft_false.uasset",
+    "bytes": 77375,
+    "sha256": "B0833841145C8ED7C05F41391B7CE1BA25231763A06A35E730B8C2B07B487CBB",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_shaft_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_shaft_ironbound_haft.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_shaft_ironbound_haft.png",
+    "bytes": 93848,
+    "sha256": "D49A6D989E6B069B53AA0929FB83203E177610E630FA25C4D986BC362C188E87",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_shaft_ironbound_haft.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_shaft_ironbound_haft.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_shaft_ironbound_haft.uasset",
+    "bytes": 77573,
+    "sha256": "2BC8C1941702A7C544B82FBDD500531EBB78A5B2CAC152396E99F5E97A6C78D9",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_shaft_ironbound_haft.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_shaft_long_haft.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_shaft_long_haft.png",
+    "bytes": 93848,
+    "sha256": "D49A6D989E6B069B53AA0929FB83203E177610E630FA25C4D986BC362C188E87",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_shaft_long_haft.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_axe_shaft_long_haft.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_axe_shaft_long_haft.uasset",
+    "bytes": 77463,
+    "sha256": "303A802417D2EF73677B0AABBF4A42FDC18C2DAE1F299AD406BA60FDA5BD094E",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_shaft_long_haft.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_category_fitting.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_category_fitting.png",
+    "bytes": 109667,
+    "sha256": "5762D513FBBBD188FD361325037AF9DAC0C591764E9CB4A52C4C5F9D5CFAB30E",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_category_fitting.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_category_fitting.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_category_fitting.uasset",
+    "bytes": 85266,
+    "sha256": "5EB54A4E2B2BE9F913BC9B7369F6885D571A752EA24EEEA505B205BFAB2C97BA",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_category_fitting.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_category_grip.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_category_grip.png",
+    "bytes": 107941,
+    "sha256": "838682838A98C730B8378B930DCD65FEC2CF62D3BCFDD994AF662D960502391F",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_category_grip.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_category_grip.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_category_grip.uasset",
+    "bytes": 86252,
+    "sha256": "D2DB359B09F7F10C21D549CCA99FE61C85EB7CFCB019AC4A7614BE2B076B02FD",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_category_grip.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_category_head.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_category_head.png",
+    "bytes": 109684,
+    "sha256": "AB9AF2B506525889873D9F397A6A4CE370CD3833618381FB2B44465FCFFE3018",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_category_head.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_category_head.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_category_head.uasset",
+    "bytes": 85182,
+    "sha256": "85197BFC415BA219570EBB7E5D24E52B5367B24288E409A103A816C922DDA376",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_category_head.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_category_shaft.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_category_shaft.png",
+    "bytes": 54145,
+    "sha256": "E6FECD8A410A1506D8AEC689F403DDDFED2A408E6507318DDFF754CA77523D3B",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_category_shaft.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_category_shaft.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_category_shaft.uasset",
+    "bytes": 45247,
+    "sha256": "6C6B420988FB44BC9D58ADB26A7273AEE65C3A2B8FBA87085EAE06AC1A4B241E",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_category_shaft.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_fitting_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_fitting_false.png",
+    "bytes": 109667,
+    "sha256": "5762D513FBBBD188FD361325037AF9DAC0C591764E9CB4A52C4C5F9D5CFAB30E",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_fitting_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_fitting_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_fitting_false.uasset",
+    "bytes": 85200,
+    "sha256": "3D3D93DF19FCE75A4BFD0A2CA638FE7FA7B4A6B96147AEC0514BE90AB0BF7ADC",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_fitting_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_fitting_lucky_charm.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_fitting_lucky_charm.png",
+    "bytes": 109667,
+    "sha256": "5762D513FBBBD188FD361325037AF9DAC0C591764E9CB4A52C4C5F9D5CFAB30E",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_fitting_lucky_charm.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_fitting_lucky_charm.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_fitting_lucky_charm.uasset",
+    "bytes": 85332,
+    "sha256": "287FF410F4A58CD466B5BAC657B2796207A208B0918AF61AE684CA6635CAE128",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_fitting_lucky_charm.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_fitting_wedge_kit.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_fitting_wedge_kit.png",
+    "bytes": 109667,
+    "sha256": "5762D513FBBBD188FD361325037AF9DAC0C591764E9CB4A52C4C5F9D5CFAB30E",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_fitting_wedge_kit.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_fitting_wedge_kit.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_fitting_wedge_kit.uasset",
+    "bytes": 85288,
+    "sha256": "458E485F7A3244C79D22E61CD04AE8640D77253A56B2B93A22F24A81DDE05729",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_fitting_wedge_kit.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_fitting_whetstone_kit.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_fitting_whetstone_kit.png",
+    "bytes": 109667,
+    "sha256": "5762D513FBBBD188FD361325037AF9DAC0C591764E9CB4A52C4C5F9D5CFAB30E",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_fitting_whetstone_kit.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_fitting_whetstone_kit.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_fitting_whetstone_kit.uasset",
+    "bytes": 85376,
+    "sha256": "9B13568DC8849F0C32B88F967E8079D1B63481D9FC56BC1585C09096B652F398",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_fitting_whetstone_kit.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_grip_cushion_wrap.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_grip_cushion_wrap.png",
+    "bytes": 107941,
+    "sha256": "838682838A98C730B8378B930DCD65FEC2CF62D3BCFDD994AF662D960502391F",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_grip_cushion_wrap.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_grip_cushion_wrap.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_grip_cushion_wrap.uasset",
+    "bytes": 86340,
+    "sha256": "5BD301ECB53DEF61535A013798FFD9FB27ED7B86A80C4DDAC576696A4BAED90C",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_grip_cushion_wrap.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_grip_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_grip_false.png",
+    "bytes": 107941,
+    "sha256": "838682838A98C730B8378B930DCD65FEC2CF62D3BCFDD994AF662D960502391F",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_grip_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_grip_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_grip_false.uasset",
+    "bytes": 86186,
+    "sha256": "3A3EF93EB70E40E654F5B1FBA7BF2DD7E14D0E1782FC2444AA88B433A94E51AE",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_grip_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_grip_firm_hands.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_grip_firm_hands.png",
+    "bytes": 107941,
+    "sha256": "838682838A98C730B8378B930DCD65FEC2CF62D3BCFDD994AF662D960502391F",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_grip_firm_hands.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_grip_firm_hands.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_grip_firm_hands.uasset",
+    "bytes": 86296,
+    "sha256": "B369A3583613BA7D9A1F8CB8E21B7C96528CCA4B366D30A19040AB2813A19254",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_grip_firm_hands.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_grip_quick_hands.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_grip_quick_hands.png",
+    "bytes": 107941,
+    "sha256": "838682838A98C730B8378B930DCD65FEC2CF62D3BCFDD994AF662D960502391F",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_grip_quick_hands.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_grip_quick_hands.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_grip_quick_hands.uasset",
+    "bytes": 86318,
+    "sha256": "DA298B13370598A48A4DA414772B45E947DF3E6F27CD007AE0A973B2BB95C929",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_grip_quick_hands.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_head_crushing_head.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_head_crushing_head.png",
+    "bytes": 109684,
+    "sha256": "AB9AF2B506525889873D9F397A6A4CE370CD3833618381FB2B44465FCFFE3018",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_head_crushing_head.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_head_crushing_head.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_head_crushing_head.uasset",
+    "bytes": 85292,
+    "sha256": "99A4CC240E4CBBDFA55FC56BEFAE9A84B219A37839F689BEF1700C2C147E619C",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_head_crushing_head.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_head_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_head_false.png",
+    "bytes": 109684,
+    "sha256": "AB9AF2B506525889873D9F397A6A4CE370CD3833618381FB2B44465FCFFE3018",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_head_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_head_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_head_false.uasset",
+    "bytes": 85116,
+    "sha256": "DEE2EE372E3C19D0E1F08A312D0AC20DB71845DE6984800AB5542F3DBE4A5397",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_head_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_head_flanged_head.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_head_flanged_head.png",
+    "bytes": 109684,
+    "sha256": "AB9AF2B506525889873D9F397A6A4CE370CD3833618381FB2B44465FCFFE3018",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_head_flanged_head.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_head_flanged_head.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_head_flanged_head.uasset",
+    "bytes": 85270,
+    "sha256": "B72EE34BA207D27312760CA1EFACFDB5FBF68A1BA2F9F5E36AB3765D0376E06C",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_head_flanged_head.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_head_ore_head.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_head_ore_head.png",
+    "bytes": 109684,
+    "sha256": "AB9AF2B506525889873D9F397A6A4CE370CD3833618381FB2B44465FCFFE3018",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_head_ore_head.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_head_ore_head.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_head_ore_head.uasset",
+    "bytes": 85182,
+    "sha256": "974F4CBC03F05F30C313116DC244350CBDDD639545B06AD5E9BE65DE8C358A95",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_head_ore_head.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_shaft_ash_haft.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_shaft_ash_haft.png",
+    "bytes": 54145,
+    "sha256": "E6FECD8A410A1506D8AEC689F403DDDFED2A408E6507318DDFF754CA77523D3B",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_shaft_ash_haft.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_shaft_ash_haft.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_shaft_ash_haft.uasset",
+    "bytes": 45247,
+    "sha256": "A1240E825CA310CF92077A86181406840A63A13A721C14B387CE7D71FC76B823",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_shaft_ash_haft.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_shaft_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_shaft_false.png",
+    "bytes": 54145,
+    "sha256": "E6FECD8A410A1506D8AEC689F403DDDFED2A408E6507318DDFF754CA77523D3B",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_shaft_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_shaft_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_shaft_false.uasset",
+    "bytes": 45181,
+    "sha256": "58B67ECB053E4CFBF664926DD5BF7A1F788E8D673D75034D355D50A2DF45147A",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_shaft_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_shaft_ironbound_haft.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_shaft_ironbound_haft.png",
+    "bytes": 54145,
+    "sha256": "E6FECD8A410A1506D8AEC689F403DDDFED2A408E6507318DDFF754CA77523D3B",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_shaft_ironbound_haft.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_shaft_ironbound_haft.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_shaft_ironbound_haft.uasset",
+    "bytes": 45379,
+    "sha256": "B0D68B249B05790F788C3A853EB89E2B88356F4882DD7BABAE1B9D48FF16DC5F",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_shaft_ironbound_haft.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_shaft_long_haft.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_shaft_long_haft.png",
+    "bytes": 54145,
+    "sha256": "E6FECD8A410A1506D8AEC689F403DDDFED2A408E6507318DDFF754CA77523D3B",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_shaft_long_haft.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_shaft_long_haft.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\tool_pickaxe_shaft_long_haft.uasset",
+    "bytes": 45269,
+    "sha256": "09E7E36F8B860889F3FE2810944417EA84FB564D0FD8008131579705A07F84B5",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_shaft_long_haft.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_1_extended_edge.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_1_extended_edge.png",
+    "bytes": 77315,
+    "sha256": "01BEB291A7E1DBD091A0E62E63B310E9462D2FC4D7F9068F8AE1BE5B2FC6980B",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_blade_1_extended_edge.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_1_extended_edge.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_1_extended_edge.uasset",
+    "bytes": 70476,
+    "sha256": "BE3144AF7746568792ABD10C8D70B34E339F9B57652ACDA00C8572B471B45568",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_blade_1_extended_edge.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_1_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_1_false.png",
+    "bytes": 84126,
+    "sha256": "27CF0F6C1A6C4EC46764C92AF7D81C87C6605F78F4D73000290F8E7E7457C440",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_blade_1_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_1_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_1_false.uasset",
+    "bytes": 75452,
+    "sha256": "D60419EBB942EA054779F973443C473F4DA35DD1B4B8934C55E6C7D98D85F1CB",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_blade_1_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_1_feather_edge.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_1_feather_edge.png",
+    "bytes": 79011,
+    "sha256": "A54B4883A812DFB92697B964C7FFAD7AB4E797B3DEC43AF6CE6008F33CDA9EED",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_blade_1_feather_edge.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_1_feather_edge.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_1_feather_edge.uasset",
+    "bytes": 71457,
+    "sha256": "49E13890990E566634AC245919524CD2AEB78BCDA38F3063732301A438DB61AA",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_blade_1_feather_edge.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_1_heavy_spine.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_1_heavy_spine.png",
+    "bytes": 89651,
+    "sha256": "F3E2B7C75195E5297B0CB755F034005F52DE398F01D4B0BACF880442F89ADEB3",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_blade_1_heavy_spine.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_1_heavy_spine.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_1_heavy_spine.uasset",
+    "bytes": 80677,
+    "sha256": "27852D155EB34A768E621397F23493207CCC3B33B788CF3307B31CEEB05F7E07",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_blade_1_heavy_spine.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_2_conduction_rune.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_2_conduction_rune.png",
+    "bytes": 84624,
+    "sha256": "19129AC803B31C40C34FE8CD94CB6EBE8177C1A3D93F27824C743D3CA47D030E",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_blade_2_conduction_rune.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_2_conduction_rune.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_2_conduction_rune.uasset",
+    "bytes": 77090,
+    "sha256": "416125EAEDA0372E7CA344385E6EBF2DEBFAFAF9A497661C8F5C5CE9513B9B5D",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_blade_2_conduction_rune.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_2_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_2_false.png",
+    "bytes": 84138,
+    "sha256": "ACF7C0585493184939FEB7A6BE1F9C62F4556398AE398561CB37BE7E093429CE",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_blade_2_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_2_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_2_false.uasset",
+    "bytes": 75525,
+    "sha256": "25687F79528C0CEBBA856954049568C9D2DD50317B4FF46ED2CD360E42FE4661",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_blade_2_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_2_resonance_rune.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_2_resonance_rune.png",
+    "bytes": 83608,
+    "sha256": "3B21EE3A777412B28EDA821F888898D500FAC70232ECD7226636E983430C1C33",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_blade_2_resonance_rune.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_2_resonance_rune.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_2_resonance_rune.uasset",
+    "bytes": 73212,
+    "sha256": "14EBC61314A060A84849809A47F4DEE8569AD24B3C582C6D5EC6366902D19041",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_blade_2_resonance_rune.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_2_spirit_burst_rune.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_2_spirit_burst_rune.png",
+    "bytes": 73871,
+    "sha256": "B0836BCEA0770582E604BAEFA0D8002E947FA37A1D702ED7B5734CB8AC640F31",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_blade_2_spirit_burst_rune.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_2_spirit_burst_rune.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_blade_2_spirit_burst_rune.uasset",
+    "bytes": 64316,
+    "sha256": "C6C75E57913C7DB4045151B10A293970EA008330692AE4A19C3E5C843EB200A9",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_blade_2_spirit_burst_rune.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_category_blade_1.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_category_blade_1.png",
+    "bytes": 84126,
+    "sha256": "27CF0F6C1A6C4EC46764C92AF7D81C87C6605F78F4D73000290F8E7E7457C440",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_category_blade_1.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_category_blade_1.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_category_blade_1.uasset",
+    "bytes": 75514,
+    "sha256": "6B237A7DD6574278C9E8C231D6E745589BDB36E565FF30423EC9488CF8BE2A6F",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_category_blade_1.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_category_blade_2.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_category_blade_2.png",
+    "bytes": 84138,
+    "sha256": "ACF7C0585493184939FEB7A6BE1F9C62F4556398AE398561CB37BE7E093429CE",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_category_blade_2.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_category_blade_2.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_category_blade_2.uasset",
+    "bytes": 75587,
+    "sha256": "D9A7CCE69EA45FBE649FE9229EBDC40E34C800EDF56EF3CC61099D2A36846433",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_category_blade_2.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_category_grip.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_category_grip.png",
+    "bytes": 112778,
+    "sha256": "6B7D8710FED746ED4A3BB813A408528E9BA71A05028F0974862D3798B72F8066",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_category_grip.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_category_grip.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_category_grip.uasset",
+    "bytes": 89858,
+    "sha256": "784879EECDFA784BE855CC37C888DA14DA85BC22724E1F57EDBD02CD73B3F88A",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_category_grip.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_category_guard.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_category_guard.png",
+    "bytes": 193914,
+    "sha256": "8741469F300CF4ED227EF8643494001D0BAC4E53C7C2FD8FF6B4EB91E60E8FC0",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_category_guard.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_category_guard.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_category_guard.uasset",
+    "bytes": 164070,
+    "sha256": "FA6984E8AC4495633A6D2C12BDD4409A7330501BBFCB080A477088E3783F1D24",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_category_guard.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_category_pommel.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_category_pommel.png",
+    "bytes": 315272,
+    "sha256": "E2E06F09673FCE7FA8BC2F99029D3E6CAC85FED8A10354DED8030C91E4099E14",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_category_pommel.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_category_pommel.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_category_pommel.uasset",
+    "bytes": 245250,
+    "sha256": "E9EC13AFEB0A12061563B1B395BF12147177482BF8D446730D385370F3869703",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_category_pommel.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_false.png",
+    "bytes": 112778,
+    "sha256": "6B7D8710FED746ED4A3BB813A408528E9BA71A05028F0974862D3798B72F8066",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_grip_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_false.uasset",
+    "bytes": 89792,
+    "sha256": "B4639C0E1E4682999DE5B19397F1DD6E11B57F2DA1D36348735CACEB81A54BF2",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_grip_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_iron_spine_power_grip.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_iron_spine_power_grip.png",
+    "bytes": 111064,
+    "sha256": "8F8F186C4FD845F47EF3C9DE63B62F5A70176DC6D9C31E8EAE808A2D71D46777",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_grip_iron_spine_power_grip.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_iron_spine_power_grip.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_iron_spine_power_grip.uasset",
+    "bytes": 85580,
+    "sha256": "826331AC82A75777758233A1E4CF5B2E45C30873E0C4E7E0B0E35681598865F0",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_grip_iron_spine_power_grip.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_lockweave_guard_grip.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_lockweave_guard_grip.png",
+    "bytes": 109536,
+    "sha256": "C810880402A3F4CB2FE93EDECD735D4B7EC9072AC716B3FF609F654B87C94D2B",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_grip_lockweave_guard_grip.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_lockweave_guard_grip.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_lockweave_guard_grip.uasset",
+    "bytes": 87725,
+    "sha256": "9A8CECFCC9F0D6E6ED5A6C003F681189A1780BCAC762E971CFE93D389B4709FC",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_grip_lockweave_guard_grip.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_long_twohand.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_long_twohand.png",
+    "bytes": 102525,
+    "sha256": "0733DC9769BFEFF9D81B1765275CAD451067446C49A378365DA11D00F8ADEF29",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_grip_long_twohand.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_long_twohand.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_long_twohand.uasset",
+    "bytes": 78533,
+    "sha256": "B39B979F7CC133820ACE345E632BEB4EDAE9518CCE6B6222EB46D9D78EE3E996",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_grip_long_twohand.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_shock_wrap.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_shock_wrap.png",
+    "bytes": 113860,
+    "sha256": "739C89600F88CFD7B2A0E24B915D79752F2D2F9FA0253250324B83F01C68E1EA",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_grip_shock_wrap.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_shock_wrap.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_shock_wrap.uasset",
+    "bytes": 88935,
+    "sha256": "BA869A7AB87EFFBFD73CD99CBC68328A634AF25EB63E1AD580B608A92AB1308B",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_grip_shock_wrap.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_swift_grip.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_swift_grip.png",
+    "bytes": 111937,
+    "sha256": "1F40530BAEDBEAEB054B24C2887D6D82E8326236929560A6A0A9749132DC4255",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_grip_swift_grip.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_swift_grip.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_grip_swift_grip.uasset",
+    "bytes": 90476,
+    "sha256": "611BA8C6C7FFE4F93B5A76CD0FA77756998C9C42C56EDAE41CC40F0F66BFD6CF",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_grip_swift_grip.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_guard_bastion_guard.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_guard_bastion_guard.png",
+    "bytes": 137418,
+    "sha256": "73E28235DFB1484616B1C4BB8B9788AC9A038C831D13F9B337A986041A70EFC4",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_guard_bastion_guard.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_guard_bastion_guard.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_guard_bastion_guard.uasset",
+    "bytes": 112321,
+    "sha256": "595A6AF1CF11F71F02BAB54FAA142C47D6BBF1C604A1BF41B0BBD2E2DF329425",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_guard_bastion_guard.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_guard_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_guard_false.png",
+    "bytes": 193914,
+    "sha256": "8741469F300CF4ED227EF8643494001D0BAC4E53C7C2FD8FF6B4EB91E60E8FC0",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_guard_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_guard_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_guard_false.uasset",
+    "bytes": 164004,
+    "sha256": "7DE1F6EBB3CC961D7A01E21AC839E2704D7747474D3BA365550BF1C6E2B74629",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_guard_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_guard_light_guard.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_guard_light_guard.png",
+    "bytes": 147832,
+    "sha256": "3CAC4145F1DD3DAAD103AFB9B457912EA55BAD6D916EEB5AA4E6CFB2C6107907",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_guard_light_guard.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_guard_light_guard.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_guard_light_guard.uasset",
+    "bytes": 122479,
+    "sha256": "669AE6FE6FA06C6BAEC0BFAC41A17ECAEB62FDE7EF7E94D31F49448F61AB912E",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_guard_light_guard.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_guard_riposte_guard.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_guard_riposte_guard.png",
+    "bytes": 145268,
+    "sha256": "556CB2772ADC62934233D46D5E3D51B4ABBE46C94CB6A3C4F6346304FF50964B",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_guard_riposte_guard.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_guard_riposte_guard.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_guard_riposte_guard.uasset",
+    "bytes": 119859,
+    "sha256": "B29552EEDFB4AE96218C079C4516116E8851251C2704E93D4AA1FFBE787914DC",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_guard_riposte_guard.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_ballast_hardened.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_ballast_hardened.png",
+    "bytes": 349347,
+    "sha256": "E7C10D87D0EFA3509D0C81D97E260E7C40DE40AB7238BFF51D4EE5CAEB8FD478",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_pommel_ballast_hardened.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_ballast_hardened.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_ballast_hardened.uasset",
+    "bytes": 298651,
+    "sha256": "527C2F05250090B83C0CE44C04F4881F1585206448C8763D1A3C6F979C9D7F8A",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_pommel_ballast_hardened.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_ballast_magic_orb.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_ballast_magic_orb.png",
+    "bytes": 179965,
+    "sha256": "88FD877603422ED54D1B665A7F6B4B6B9CC479CE2A886A49EE8D3839FADF180C",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_pommel_ballast_magic_orb.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_ballast_magic_orb.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_ballast_magic_orb.uasset",
+    "bytes": 174554,
+    "sha256": "BF462B1A159CEB92600001900834166067C27786794A6EB771DFAEE2FEBC9C88",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_pommel_ballast_magic_orb.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_ballast_rune.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_ballast_rune.png",
+    "bytes": 218201,
+    "sha256": "B12DFB7A7F598BBAC9996835841BE59D03AE5F0DA6F46222FE8AC7D19E9B9566",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_pommel_ballast_rune.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_ballast_rune.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_ballast_rune.uasset",
+    "bytes": 188293,
+    "sha256": "56CCC1B1F05E12D0A2CEC720B011CB0338908A528A3094486545BCF5EF2A5F85",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_pommel_ballast_rune.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_false.png",
+    "bytes": 315272,
+    "sha256": "E2E06F09673FCE7FA8BC2F99029D3E6CAC85FED8A10354DED8030C91E4099E14",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_pommel_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_false.uasset",
+    "bytes": 245184,
+    "sha256": "6F515C452E29B0AD8DB8C52E535EF526080AB2CD1F1AB74D83E9D6DF7009893D",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_pommel_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_pommel_hardened.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_pommel_hardened.png",
+    "bytes": 375316,
+    "sha256": "4DB831C6090316FD3366FE20EB6E9B1A045FAAE6B3AE5B487CCEF52B49459D0B",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_pommel_pommel_hardened.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_pommel_hardened.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_pommel_hardened.uasset",
+    "bytes": 289813,
+    "sha256": "615F90FF5131593B0A000E59371BABE2D8729C9E02DD93EE51CF2C28D1542994",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_pommel_pommel_hardened.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_pommel_mana_orb.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_pommel_mana_orb.png",
+    "bytes": 316580,
+    "sha256": "1AB93ECF163F3D519AA155B533063366F4817D036E6FE3ECD1EE708F44627E8C",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_pommel_pommel_mana_orb.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_pommel_mana_orb.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_pommel_mana_orb.uasset",
+    "bytes": 265961,
+    "sha256": "F7F1F29021194656D27CF7B73563B86524BC2BC67210CE761B0B08EDA1AAC4F9",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_pommel_pommel_mana_orb.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_pommel_runic.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_pommel_runic.png",
+    "bytes": 366188,
+    "sha256": "F6860E36525DFFE675256B26228D6E0883A1303AA54192BB36082FA0B48F7719",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_pommel_pommel_runic.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_pommel_runic.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_frost_crystal_sword_pommel_pommel_runic.uasset",
+    "bytes": 289883,
+    "sha256": "E5D5303D6DFBD4FE52A4F6A1F3FA62F3FD0D3E0736FB113FC65AB0DA7FC7BEB2",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_pommel_pommel_runic.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_g18_reargrip_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_g18_reargrip_false.png",
+    "bytes": 398784,
+    "sha256": "CF821FD8D49854B209367E5E910F56EA16CE7F57CC65498C5C4FE680A98AC268",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_g18_reargrip_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_g18_reargrip_pistol_grip_diamond.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_g18_reargrip_pistol_grip_diamond.png",
+    "bytes": 262676,
+    "sha256": "F40766394D514201C11573A192ECEC5C85C1CC17D3FB52A6C316869B33AFD6A2",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_g18_reargrip_pistol_grip_diamond.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_g18_reargrip_pistol_grip_granular.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_g18_reargrip_pistol_grip_granular.png",
+    "bytes": 279739,
+    "sha256": "44C6222C09B5D1D4A25A9F258B2C16A3A15802340574AF771DBA0E3E7D71A6F7",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_g18_reargrip_pistol_grip_granular.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_g18_reargrip_pistol_grip_quickdot.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_g18_reargrip_pistol_grip_quickdot.png",
+    "bytes": 243497,
+    "sha256": "94C66681DBC8AE86D80BEDC3D4A3643F68714A1B0CBBB6F6DFB4AA9FCDE95057",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_g18_reargrip_pistol_grip_quickdot.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_extended_edge.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_extended_edge.png",
+    "bytes": 54924,
+    "sha256": "A54A7D9D817646E101CE4CFD5FFF74A8BAB3C89224DBD66F3A671F24B0DFB66A",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_1_extended_edge.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_extended_edge.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_extended_edge.uasset",
+    "bytes": 48737,
+    "sha256": "2905E3ECF1A446A9885CE45A74DEBF6107961A5DB49BEC26AD475950E5E04369",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_1_extended_edge.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_false.png",
+    "bytes": 58630,
+    "sha256": "A70B943ACD38677F5B9CD50CA2C405191DBAAE8BF9E93FE20E4A6B08072796D5",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_1_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_false.uasset",
+    "bytes": 53176,
+    "sha256": "6CC0441EB12CD0F6AAF493974DC91D0D6C318D9D3BB727D587F3DD772DB6E0D2",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_1_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_feather_edge.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_feather_edge.png",
+    "bytes": 56259,
+    "sha256": "4C9D3FDEC0EDBF149D6810E08658220915EBDB6AE27B2BB0BA6F4E692AF19BCC",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_1_feather_edge.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_feather_edge.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_feather_edge.uasset",
+    "bytes": 50683,
+    "sha256": "9EEE2CDC6015FCA07EEB396C6645E4279BFD771C7CC62371953E0726FC24F187",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_1_feather_edge.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_heavy_spine.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_heavy_spine.png",
+    "bytes": 63512,
+    "sha256": "4A6C844FC9329E02AE75265A41054AB9EBDCBD52A40F468EEC94D012CEE52750",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_1_heavy_spine.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_heavy_spine.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_heavy_spine.uasset",
+    "bytes": 56332,
+    "sha256": "496DC1D0A49516658CC6CA15256597A4A6A3200232006B0B45D82E3C4FEE9BB1",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_1_heavy_spine.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_highland_broadblade.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_highland_broadblade.png",
+    "bytes": 100508,
+    "sha256": "0216AFC528F2014BCEEA67A4A96065AD82E72AA5B591CC90CC99008EBE13B43D",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_1_highland_broadblade.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_highland_broadblade.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_highland_broadblade.uasset",
+    "bytes": 85844,
+    "sha256": "7586C17E7E8A96BF9AACE94803479341B0C0527CB74AC58B34C13953283D93A9",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_1_highland_broadblade.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_highland_ridge_piercer.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_highland_ridge_piercer.png",
+    "bytes": 45611,
+    "sha256": "FE68C6629F8C46CF5274D625E0F4AC5383A1F1C0DFBB701C64217C8C6CCAFE3B",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_1_highland_ridge_piercer.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_highland_ridge_piercer.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_1_highland_ridge_piercer.uasset",
+    "bytes": 40238,
+    "sha256": "4BAD60F0A6387870247042D44D3B5B04029E83989E7A166B6BCC2F99B6004503",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_1_highland_ridge_piercer.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_2_conduction_rune.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_2_conduction_rune.png",
+    "bytes": 61449,
+    "sha256": "31D42BBB1DFCBA01B625CA7058EC571D8BD77D0341DE8F26EA784D65430D3464",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_2_conduction_rune.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_2_conduction_rune.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_2_conduction_rune.uasset",
+    "bytes": 59129,
+    "sha256": "CE3C259F7049F6C4053FE6C008C96CDD6E197B287C6D503B3D0BCCCD9EDC28E0",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_2_conduction_rune.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_2_erosion_rune.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_2_erosion_rune.png",
+    "bytes": 60310,
+    "sha256": "9097E5442BDE196F39A19A1D11CBEC7F10D79B6FC177F75B1D739E4FE1AFBCF4",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_2_erosion_rune.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_2_erosion_rune.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_2_erosion_rune.uasset",
+    "bytes": 57147,
+    "sha256": "010369FC78B0E63DE10A2382A21C094EB33C59B5352B70BE3629132C6D82EFC4",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_2_erosion_rune.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_2_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_2_false.png",
+    "bytes": 58654,
+    "sha256": "063B0FB3B66DE0317620A85D18D4D27FEDCECD15C6F7FBF9D1EB65026211EB55",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_2_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_2_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_2_false.uasset",
+    "bytes": 53083,
+    "sha256": "F2BFDA5D9C02C6F07AB5CD33D514ADB919B8424B79765C75DAE63D3ACD905E2F",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_2_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_2_resonance_rune.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_2_resonance_rune.png",
+    "bytes": 61432,
+    "sha256": "A2A7BA070253C60A686660DBC0E6F0C4CB402C44A4C1C2F8DEB931E360889E8E",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_2_resonance_rune.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_2_resonance_rune.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_2_resonance_rune.uasset",
+    "bytes": 56502,
+    "sha256": "9931A8BE487043F21AFA396E25B7109ACB9255D6D87B7C36B1B41E09660403DB",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_2_resonance_rune.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_2_wild_rune.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_2_wild_rune.png",
+    "bytes": 64296,
+    "sha256": "399AB3C0FEAB9D50F2D580569980797BAE9F1FB1AE724F7FD60A0C2ACD1FB290",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_2_wild_rune.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_2_wild_rune.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_blade_2_wild_rune.uasset",
+    "bytes": 58751,
+    "sha256": "8B239C96ECC23713AA29C97ADD49807D06B4E0A3701DDCC4E54DA506A4EEB8E9",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_2_wild_rune.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_category_blade_1.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_category_blade_1.png",
+    "bytes": 58630,
+    "sha256": "A70B943ACD38677F5B9CD50CA2C405191DBAAE8BF9E93FE20E4A6B08072796D5",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_category_blade_1.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_category_blade_1.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_category_blade_1.uasset",
+    "bytes": 53238,
+    "sha256": "AC270D9CE9F4D216D33BD7911EAF7AA2BB9A487346EF7B88F3CE1022BAAFC64D",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_category_blade_1.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_category_blade_2.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_category_blade_2.png",
+    "bytes": 58654,
+    "sha256": "063B0FB3B66DE0317620A85D18D4D27FEDCECD15C6F7FBF9D1EB65026211EB55",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_category_blade_2.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_category_blade_2.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_category_blade_2.uasset",
+    "bytes": 53145,
+    "sha256": "CE6179883398EA07E057FB398493FA2A554649F776A61E955747A3C16E464550",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_category_blade_2.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_category_grip.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_category_grip.png",
+    "bytes": 98031,
+    "sha256": "BB4A5C7ED3523F7B8F3C6DE1D446E69B96FD727462CA03DB242EEA12EC08E65D",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_category_grip.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_category_grip.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_category_grip.uasset",
+    "bytes": 73305,
+    "sha256": "2D87F371BBE4C6C074B4C391CBA2008CCDE74C2FCDAE0D95AA8E0A8409CD355F",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_category_grip.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_category_guard.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_category_guard.png",
+    "bytes": 143330,
+    "sha256": "0DE1D54921231AB8CFA20847564DF09B1C3EF459E672D05FAC1158A0CCEC7BDD",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_category_guard.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_category_guard.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_category_guard.uasset",
+    "bytes": 120929,
+    "sha256": "4C47F046113498977D8C32EB218E1BAC921B13F8E64E99C756147E64266CA540",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_category_guard.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_category_pommel.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_category_pommel.png",
+    "bytes": 470850,
+    "sha256": "52D00B1AF50E74426D130056410F6E738665D62CAEF2CBE35E53D562D4831D0C",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_category_pommel.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_category_pommel.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_category_pommel.uasset",
+    "bytes": 377707,
+    "sha256": "56E3215252ED593A9B8E138CEF0A7ADE54438E56BAF1D522532544B09542A47B",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_category_pommel.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_false.png",
+    "bytes": 98031,
+    "sha256": "BB4A5C7ED3523F7B8F3C6DE1D446E69B96FD727462CA03DB242EEA12EC08E65D",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_grip_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_false.uasset",
+    "bytes": 73239,
+    "sha256": "DAC8956458C432899BABB709599A5E69A64220C2F70367F653FD337401AF2ED4",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_grip_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_iron_spine_power_grip.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_iron_spine_power_grip.png",
+    "bytes": 117208,
+    "sha256": "8CC70C4C59C0C602882A698BBB3721DF521C382EBB3DE76804BEEAC67D940E8C",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_grip_iron_spine_power_grip.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_iron_spine_power_grip.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_iron_spine_power_grip.uasset",
+    "bytes": 88693,
+    "sha256": "BD07B315DEA624E8B68C796EA6128CAD703D679342D8EBE41F51AB57B1DC912B",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_grip_iron_spine_power_grip.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_lockweave_guard_grip.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_lockweave_guard_grip.png",
+    "bytes": 114903,
+    "sha256": "BB0F7B84EF9FF5F9BF8394810489623EED2913497D1CC7726894F2FD2E181431",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_grip_lockweave_guard_grip.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_lockweave_guard_grip.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_lockweave_guard_grip.uasset",
+    "bytes": 89439,
+    "sha256": "709EE88EAEE21B0E4D89D76B85FCC625EFA88B5123673AA41DBE9FC7A23A61CA",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_grip_lockweave_guard_grip.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_long_twohand.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_long_twohand.png",
+    "bytes": 86295,
+    "sha256": "4571B2FA0914239F28BBF548E2E2ACF853C3A2F062D8B1A3027FD370B07A5EAE",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_grip_long_twohand.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_long_twohand.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_long_twohand.uasset",
+    "bytes": 66892,
+    "sha256": "CFDD21913669D44DE106B36AA403D7AC1496B8EFAC79752A1EF459576621A9FF",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_grip_long_twohand.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_shock_wrap.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_shock_wrap.png",
+    "bytes": 98599,
+    "sha256": "EEA67EA565FED118F2E7DF79BA47FCE726DA0F4CC8D44AB9AE22957D66505505",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_grip_shock_wrap.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_shock_wrap.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_shock_wrap.uasset",
+    "bytes": 74402,
+    "sha256": "AA5F58E84BEBA5CCFEBD8985A56C05D8E02BFDAB162C7AFF25BD4D2029164E49",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_grip_shock_wrap.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_swift_grip.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_swift_grip.png",
+    "bytes": 98129,
+    "sha256": "222369E1D17F4DA99476A2FF02FE6B714BA3484A765207E5E4166691772A2DA3",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_grip_swift_grip.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_swift_grip.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_grip_swift_grip.uasset",
+    "bytes": 73667,
+    "sha256": "7FC95C924B370E8B88BB14F2CE3552A74B77A0C792317D0DA087869C53C9159E",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_grip_swift_grip.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_guard_bastion_guard.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_guard_bastion_guard.png",
+    "bytes": 130294,
+    "sha256": "0696EA23C86CC79478A40D596C48453E6F7EDAD92A306C2A6CA051CA3AB16BF7",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_guard_bastion_guard.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_guard_bastion_guard.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_guard_bastion_guard.uasset",
+    "bytes": 109950,
+    "sha256": "230791929EBE9F335A154C9D00EA9867A2DD222888EB9F21F33D2CD0A00BF611",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_guard_bastion_guard.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_guard_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_guard_false.png",
+    "bytes": 143330,
+    "sha256": "0DE1D54921231AB8CFA20847564DF09B1C3EF459E672D05FAC1158A0CCEC7BDD",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_guard_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_guard_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_guard_false.uasset",
+    "bytes": 120863,
+    "sha256": "E9E4C6D3B92D0A23C82E4ACC1E30A122351A6284CD9A771330AE84F21361D63E",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_guard_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_guard_highland_cloven_guard.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_guard_highland_cloven_guard.png",
+    "bytes": 154339,
+    "sha256": "804784BFFF3BAFBFC7F64C1AC32233D85D15144FABCDC1B12EF65F86B28BAB71",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_guard_highland_cloven_guard.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_guard_highland_cloven_guard.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_guard_highland_cloven_guard.uasset",
+    "bytes": 132262,
+    "sha256": "903AE4FA9997F9A5B329ECD36B6C95F69F3F623CAB6A52F3CD1EE8FE2E407911",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_guard_highland_cloven_guard.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_guard_light_guard.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_guard_light_guard.png",
+    "bytes": 167600,
+    "sha256": "3DE590B8695C18470E24C17A123193322F3BC72AA85BD21FA6C961AB26699CD9",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_guard_light_guard.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_guard_light_guard.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_guard_light_guard.uasset",
+    "bytes": 141054,
+    "sha256": "71CE29715834BDF2DEBCC327E784497788B97BCC83701DD328997215987C5AED",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_guard_light_guard.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_guard_riposte_guard.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_guard_riposte_guard.png",
+    "bytes": 160283,
+    "sha256": "57D5AFD5F2C7B39BAE6E58C3A6F53A4835AE47B1CB77F417DA4A797BE1535163",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_guard_riposte_guard.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_guard_riposte_guard.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_guard_riposte_guard.uasset",
+    "bytes": 137912,
+    "sha256": "CF44467EEA131E873AC32665E950B054DECED0D5F586E0E0DFC5FB1BD8188D9A",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_guard_riposte_guard.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_ballast_hardened.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_ballast_hardened.png",
+    "bytes": 341278,
+    "sha256": "FE9BBA97F7E4EFB41956921323A13169BB934F0744E042133D7B8A15A05F35BC",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_ballast_hardened.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_ballast_hardened.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_ballast_hardened.uasset",
+    "bytes": 291605,
+    "sha256": "329A8737AAF87AA45D4D8B6990AFE7273ADAD34902245E0740BF6953C3B93330",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_ballast_hardened.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_ballast_magic_orb.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_ballast_magic_orb.png",
+    "bytes": 178618,
+    "sha256": "642E664DDC2DB822E5A7C5C89EB65CB3CBE629E8A35C969D90FD2F7798FA1B78",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_ballast_magic_orb.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_ballast_magic_orb.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_ballast_magic_orb.uasset",
+    "bytes": 172354,
+    "sha256": "E4E785B50E1499CA46F518875ED65FC2752186BD1EDA39CA77549F7FECAD5BAE",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_ballast_magic_orb.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_ballast_rune.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_ballast_rune.png",
+    "bytes": 215877,
+    "sha256": "49521CE4510A34FCA2C1364F4B62587F7E97F3935EFF1C9EF85B37E72ED288C8",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_ballast_rune.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_ballast_rune.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_ballast_rune.uasset",
+    "bytes": 186975,
+    "sha256": "BA328827265E5F97CBBD9C18641EAF5481F38B5B091866CE8C7581399F308E5C",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_ballast_rune.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_false.png",
+    "bytes": 470850,
+    "sha256": "52D00B1AF50E74426D130056410F6E738665D62CAEF2CBE35E53D562D4831D0C",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_false.uasset",
+    "bytes": 377641,
+    "sha256": "8927789CCB8BD192BF139AA0916E80665BBA839D8C09B1927131051E8466E37D",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_highland_thorn_crown.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_highland_thorn_crown.png",
+    "bytes": 313456,
+    "sha256": "817E6828C3E68C0631312E9FF146D9A092830AC953AF801F28D1B42BE1CC66DC",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_highland_thorn_crown.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_highland_thorn_crown.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_highland_thorn_crown.uasset",
+    "bytes": 265152,
+    "sha256": "23D5F7572FB81DF332E66634074FCA53C7EA69765ADBAB63F94D12FC994F196F",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_highland_thorn_crown.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_pommel_hardened.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_pommel_hardened.png",
+    "bytes": 398382,
+    "sha256": "F31A20E743E3894747BC46EF3F821225B80CCEBD78FEC625C6F6887316426413",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_pommel_hardened.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_pommel_hardened.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_pommel_hardened.uasset",
+    "bytes": 311207,
+    "sha256": "BA1E4879F27970C77D16877C834F5B190774ECCA8EA6AD2CABD235EE5713EA8C",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_pommel_hardened.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_pommel_mana_orb.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_pommel_mana_orb.png",
+    "bytes": 289333,
+    "sha256": "4D81A3AECCACE9851DDC3A2702A49E941F9BC57BC17DCA031167B1FC45DBE147",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_pommel_mana_orb.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_pommel_mana_orb.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_pommel_mana_orb.uasset",
+    "bytes": 243567,
+    "sha256": "E85AD6B53E84451DBCDE00050FDBDD2D6DB0C220BB7E90A2CAC9D26107C69534",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_pommel_mana_orb.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_pommel_runic.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_pommel_runic.png",
+    "bytes": 327898,
+    "sha256": "5C591B4516CDE7B0693D7BDCF5BAC8D1C66DF0F72B3A09EA949C96DA807CC002",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_pommel_runic.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_pommel_runic.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_highland_claymore_pommel_pommel_runic.uasset",
+    "bytes": 262247,
+    "sha256": "6C88B37D0C3B545C0BD9C2BFF155A9E9AB617A9701A6D9BDD6DF7DC40A79CC80",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_pommel_runic.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_m1911_reargrip_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_m1911_reargrip_false.png",
+    "bytes": 165812,
+    "sha256": "C26E3F9411A4DD57AB92878A6151F8D96E3A6513788AFCB2219DD63BF37FBB5F",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_reargrip_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_m1911_reargrip_pistol_grip_diamond.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_m1911_reargrip_pistol_grip_diamond.png",
+    "bytes": 193651,
+    "sha256": "2B0B01599792DB52BF01A64FED2B2523B1F413C9A9CA6E24546DE21108BCA479",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_reargrip_pistol_grip_diamond.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_m1911_reargrip_pistol_grip_granular.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_m1911_reargrip_pistol_grip_granular.png",
+    "bytes": 206296,
+    "sha256": "7A7E21415E7D2F826D43D432A44C6EB7F7C8313F9157F87C88B82024B63F1F4E",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_reargrip_pistol_grip_granular.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_m1911_reargrip_pistol_grip_quickdot.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_m1911_reargrip_pistol_grip_quickdot.png",
+    "bytes": 176704,
+    "sha256": "3BC3F4811F3811568A404CF8BC4731D7B3A420CE2418C4C51131C1588AE79BCD",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_reargrip_pistol_grip_quickdot.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_1_extended_edge.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_1_extended_edge.png",
+    "bytes": 101511,
+    "sha256": "90B4DF4C7EC4506E8B89F052EB8E542A928A92F0E168FDD118A680C51F476E2D",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_1_extended_edge.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_1_extended_edge.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_1_extended_edge.uasset",
+    "bytes": 92966,
+    "sha256": "60224F40134F7C200CE0B5A8E8A59E798690B27C948E59768313D77B49768CFA",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_1_extended_edge.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_1_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_1_false.png",
+    "bytes": 112010,
+    "sha256": "4E7A9CF2B66E676BDD4FD4BF1AE59895BC099728C4CE7D8DC15FD739B7E6E7A6",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_1_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_1_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_1_false.uasset",
+    "bytes": 103263,
+    "sha256": "5780D859745C001AD8799DE84774C7B34D6FCCC027F83FC8C45EEF5B8A8FDBC3",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_1_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_1_feather_edge.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_1_feather_edge.png",
+    "bytes": 105012,
+    "sha256": "93539A9FB0A804D8B2AD72F42168C83FF51E2EE545BBACD4E639629A5512C490",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_1_feather_edge.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_1_feather_edge.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_1_feather_edge.uasset",
+    "bytes": 96035,
+    "sha256": "E462AF8E52947ADE1B18CB01390F28C294D9682B3158BBA6AAFB77D754049C06",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_1_feather_edge.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_1_heavy_spine.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_1_heavy_spine.png",
+    "bytes": 115693,
+    "sha256": "8B8F6604BF833EC6CEAE019C125947118391A5569F0D9566D43D25FE09973CEF",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_1_heavy_spine.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_1_heavy_spine.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_1_heavy_spine.uasset",
+    "bytes": 105987,
+    "sha256": "45CCFFE8204854D62DEA7A73939D41EC930CC783E9BA02688D99D9B61DE08783",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_1_heavy_spine.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_2_conduction_rune.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_2_conduction_rune.png",
+    "bytes": 113676,
+    "sha256": "4CBA0202283261F71FBA53A85B62F0139FB6517018B321CB6044884EEF2FDD63",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_2_conduction_rune.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_2_conduction_rune.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_2_conduction_rune.uasset",
+    "bytes": 104817,
+    "sha256": "CC7A5F03C46368E91AE0A4EC70CDF065BEFA7303C1BE299F8160EC9CF0755A66",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_2_conduction_rune.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_2_erosion_rune.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_2_erosion_rune.png",
+    "bytes": 112781,
+    "sha256": "9297F480388029C92CADC9F6226BD28E90376BB092B783D2D2F45A7A84AC6699",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_2_erosion_rune.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_2_erosion_rune.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_2_erosion_rune.uasset",
+    "bytes": 104057,
+    "sha256": "3D17D45119FAE6B4BA0DE32789E4FB49EF1229769AF271F71A84A8992E76E2E1",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_2_erosion_rune.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_2_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_2_false.png",
+    "bytes": 112011,
+    "sha256": "BC71F9EE80F78D553242DCA004440C6367CEA861F31BAE8ACCC589ABF45AD3E6",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_2_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_2_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_2_false.uasset",
+    "bytes": 103221,
+    "sha256": "F6B3A024BA5B7E2FC5763B9E09EC8C08E2B4273D1C0D96A5ED41B7ECB78D18C8",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_2_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_2_golden_glow_rune.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_2_golden_glow_rune.png",
+    "bytes": 111104,
+    "sha256": "6B74FEC29389827CF677B2EF9BA17C7897D834438D7DE404BDF4109078CD549B",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_2_golden_glow_rune.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_2_golden_glow_rune.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_2_golden_glow_rune.uasset",
+    "bytes": 102682,
+    "sha256": "0F45688B258E1C35976665E278B231869678A9DA3687EFF935E1CFF8FCB88B4A",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_2_golden_glow_rune.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_2_resonance_rune.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_2_resonance_rune.png",
+    "bytes": 120288,
+    "sha256": "32A64134AF83D01E37EB51C6C77E5B7B257D8F88B235E32A90FB5AEC96568894",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_2_resonance_rune.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_2_resonance_rune.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_blade_2_resonance_rune.uasset",
+    "bytes": 109409,
+    "sha256": "03940DF6BEEBC693A59C4658F13E395452D2CA46717AD23FB7DBD4FC7D2E7118",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_2_resonance_rune.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_category_blade_1.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_category_blade_1.png",
+    "bytes": 112010,
+    "sha256": "4E7A9CF2B66E676BDD4FD4BF1AE59895BC099728C4CE7D8DC15FD739B7E6E7A6",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_category_blade_1.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_category_blade_1.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_category_blade_1.uasset",
+    "bytes": 103325,
+    "sha256": "A8EB6818CCBB3FDB2AB35125656D9506DC27B04F838A9EB0F68FCC84D73DBD41",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_category_blade_1.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_category_blade_2.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_category_blade_2.png",
+    "bytes": 112011,
+    "sha256": "BC71F9EE80F78D553242DCA004440C6367CEA861F31BAE8ACCC589ABF45AD3E6",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_category_blade_2.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_category_blade_2.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_category_blade_2.uasset",
+    "bytes": 103283,
+    "sha256": "B1A19B521664FAC9EAE92E5518D34DDF715DC4E32B4E80BE76910B1B6976F269",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_category_blade_2.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_category_grip.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_category_grip.png",
+    "bytes": 127272,
+    "sha256": "FE84D6A054CE7D85D80ADCEBD46AFCDBFBAFD32541846269AFF307CABF46619A",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_category_grip.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_category_grip.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_category_grip.uasset",
+    "bytes": 106165,
+    "sha256": "CB43CCE45876E90BF751F40AD4B9B6D3BD34C79AD8A147DA2B1CCB3C5CB9B7FC",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_category_grip.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_category_guard.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_category_guard.png",
+    "bytes": 239809,
+    "sha256": "0956518C26A6B739AE4DAA3AD63D8C0E83C8685E70E9130B51E7A3D3A4535372",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_category_guard.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_category_guard.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_category_guard.uasset",
+    "bytes": 208720,
+    "sha256": "D8D6AE9EFB9F8AA90A900F9280A242B1216F969E2FB327782783E1288EF367F2",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_category_guard.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_category_pommel.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_category_pommel.png",
+    "bytes": 507890,
+    "sha256": "0CB46E55D98A465735254847AC26CB40759421AAA8C4A5BC6CBC39FF33E4B6EC",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_category_pommel.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_category_pommel.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_category_pommel.uasset",
+    "bytes": 428514,
+    "sha256": "14D3430302A37EA1EE3CF33980F0BEB8B1CF38F961393FD5AC8FBEF094E87585",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_category_pommel.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_false.png",
+    "bytes": 127272,
+    "sha256": "FE84D6A054CE7D85D80ADCEBD46AFCDBFBAFD32541846269AFF307CABF46619A",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_grip_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_false.uasset",
+    "bytes": 106099,
+    "sha256": "4203B22C53E0CCB229173E7D324AE7DF4909AC952892C6E8C4534EEE95C7263F",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_grip_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_iron_spine_power_grip.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_iron_spine_power_grip.png",
+    "bytes": 115843,
+    "sha256": "9BBD416B054968060468569C991D2C2F969CCF7655A2145D1E4934FB0276A2D0",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_grip_iron_spine_power_grip.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_iron_spine_power_grip.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_iron_spine_power_grip.uasset",
+    "bytes": 90887,
+    "sha256": "580FF907496A3FFB7389EADE9E931FD203E4AABB312FFFEC11342890B42E194E",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_grip_iron_spine_power_grip.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_lockweave_guard_grip.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_lockweave_guard_grip.png",
+    "bytes": 111167,
+    "sha256": "1792C920751BAF8397796ACFBEEA6AFD914DEA0FF7AA52EDD06E85A6F28EC7A7",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_grip_lockweave_guard_grip.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_lockweave_guard_grip.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_lockweave_guard_grip.uasset",
+    "bytes": 89168,
+    "sha256": "31E13ED7D8E5A7F15FF18E6B23D68D3FFAAAB897938E050B71AC8EE953159730",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_grip_lockweave_guard_grip.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_long_twohand.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_long_twohand.png",
+    "bytes": 112745,
+    "sha256": "26E165F3BD7552521A258D1C7C091EB7A26ACDF42243297A6EC4C6ECFD09B54A",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_grip_long_twohand.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_long_twohand.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_long_twohand.uasset",
+    "bytes": 93581,
+    "sha256": "6F12A55A272E57A5701683F1E9A91B214E455E57B5B6E0307B9D7E00E095F13F",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_grip_long_twohand.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_shock_wrap.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_shock_wrap.png",
+    "bytes": 126728,
+    "sha256": "3959FD2E5292DB925E6B43F58FD23638CD426D6C2A95500AD5DEE0DCA2C66C84",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_grip_shock_wrap.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_shock_wrap.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_shock_wrap.uasset",
+    "bytes": 105627,
+    "sha256": "0BF03CC8BF57156ABCE014E743F44F22E4F694E92B928481FAAA5C3E8A9F3DD5",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_grip_shock_wrap.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_swift_grip.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_swift_grip.png",
+    "bytes": 127362,
+    "sha256": "77CBEA03295E30062AB2C79741A82C2796DE760EDA06EDDF00BA85248E290555",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_grip_swift_grip.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_swift_grip.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_grip_swift_grip.uasset",
+    "bytes": 106504,
+    "sha256": "77FB1CF0F8B2EC7F48E71DC97605DF35F66F0246E08E7840DC466E240A0C5E29",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_grip_swift_grip.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_guard_bastion_guard.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_guard_bastion_guard.png",
+    "bytes": 221391,
+    "sha256": "A66208E45615FC83B6E2F8335D7ADA5039EB8FA81A51E40571881AC37353BE1A",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_guard_bastion_guard.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_guard_bastion_guard.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_guard_bastion_guard.uasset",
+    "bytes": 192337,
+    "sha256": "6255CA1BD2B6BC94EC5317EFAB2D3A610AA138CE597B23DB50A60288E7C6AAAE",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_guard_bastion_guard.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_guard_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_guard_false.png",
+    "bytes": 239809,
+    "sha256": "0956518C26A6B739AE4DAA3AD63D8C0E83C8685E70E9130B51E7A3D3A4535372",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_guard_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_guard_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_guard_false.uasset",
+    "bytes": 208654,
+    "sha256": "C8B376452D93101E774B99CD03C99357F446B13FCC06C34C6E9004740F232A92",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_guard_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_guard_light_guard.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_guard_light_guard.png",
+    "bytes": 317250,
+    "sha256": "D00CE239899251ECAECDA035242A55143E95972649EA5155170FF8603F4EEEBB",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_guard_light_guard.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_guard_light_guard.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_guard_light_guard.uasset",
+    "bytes": 276482,
+    "sha256": "7DED3821743D02915F270455873B8E066134B5711ECD3676DFA2AD86F18BD00F",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_guard_light_guard.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_guard_riposte_guard.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_guard_riposte_guard.png",
+    "bytes": 281512,
+    "sha256": "AF0460C3EA168C476635BA2DAAE53B0009C9FE3DF55054015307C92BF9F1EBAF",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_guard_riposte_guard.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_guard_riposte_guard.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_guard_riposte_guard.uasset",
+    "bytes": 249530,
+    "sha256": "03B308FE5F640A78EFF2FABD05CEFA4D3BFF85835D578F60C5E24B8D44394831",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_guard_riposte_guard.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_ballast_hardened.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_ballast_hardened.png",
+    "bytes": 375864,
+    "sha256": "9411C7A91D99056413F62BE94208D7D0C754D0C060CDAE9EF71EBEBC9119E020",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_pommel_ballast_hardened.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_ballast_hardened.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_ballast_hardened.uasset",
+    "bytes": 319646,
+    "sha256": "8C014A5648D3F19655FC0D12C689FA2D0F221A1ACB1ACC03EBC59B37BE77FD6D",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_pommel_ballast_hardened.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_ballast_magic_orb.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_ballast_magic_orb.png",
+    "bytes": 186529,
+    "sha256": "FE4B144D90134D4E2FD47BC844FDF65DD29F4DC47874F9D201F145AEF535DC4A",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_pommel_ballast_magic_orb.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_ballast_magic_orb.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_ballast_magic_orb.uasset",
+    "bytes": 180542,
+    "sha256": "11BA693577E25260DB50CB4F1ACBB805F1DE73BA2DD3D310AA9212EC7C6F77CC",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_pommel_ballast_magic_orb.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_ballast_rune.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_ballast_rune.png",
+    "bytes": 223018,
+    "sha256": "C6DFBF2052B751E025EED61AA576B2D537ECD7CDDA381A0599ED4D4737AF109C",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_pommel_ballast_rune.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_ballast_rune.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_ballast_rune.uasset",
+    "bytes": 194111,
+    "sha256": "8FD7987DF4EFDC1580DBCF62BAD1564E11BEFE33469668CD0CB9DED0573F3963",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_pommel_ballast_rune.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_false.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_false.png",
+    "bytes": 507890,
+    "sha256": "0CB46E55D98A465735254847AC26CB40759421AAA8C4A5BC6CBC39FF33E4B6EC",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_pommel_false.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_false.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_false.uasset",
+    "bytes": 428448,
+    "sha256": "28B0D7A37D1BE6ED674B99CFE6BDD0AE53B1FF5EF547EFAC35119ACCCDE0E5D2",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_pommel_false.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_pommel_hardened.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_pommel_hardened.png",
+    "bytes": 388492,
+    "sha256": "930CBAF720C2328A425FD1EDEDE6AC03440F83D9118707C4F96C19C48A7B1073",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_pommel_pommel_hardened.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_pommel_hardened.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_pommel_hardened.uasset",
+    "bytes": 301829,
+    "sha256": "38AE96A0390748A351083B851814DCD0EC2FEC966336100721977ADEFA1F65C1",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_pommel_pommel_hardened.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_pommel_mana_orb.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_pommel_mana_orb.png",
+    "bytes": 297079,
+    "sha256": "5F2160F3339FA8F2C5938D26D3771854BA05D77EE33DBF8348E3D2F7A92254C0",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_pommel_pommel_mana_orb.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_pommel_mana_orb.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_pommel_mana_orb.uasset",
+    "bytes": 249314,
+    "sha256": "B540579FE1A014BCF5A08D4881F7FEAB262B0DC7B71FCFD5BD1BEC01937CE437",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_pommel_pommel_mana_orb.uasset"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_pommel_runic.png",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_pommel_runic.png",
+    "bytes": 340324,
+    "sha256": "4790E86326EA1CCE29C8955DAA3DF5081956A117CABA38D45DEA154806DC5A8E",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_pommel_pommel_runic.png"
+  },
+  {
+    "source": "SourceAssets\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_pommel_runic.uasset",
+    "destination": "trash\\modification-icons-20260930\\RemainingFramedIcons20260930\\Original\\ue_rune_sword_pommel_pommel_runic.uasset",
+    "bytes": 269017,
+    "sha256": "73F05510BBD2E906551A3DD3FF9621D5DECD483A27504DE641C614284165B929",
+    "reason": "Superseded pre-frame icon backup",
+    "replacement": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_pommel_pommel_runic.uasset"
+  }
+]

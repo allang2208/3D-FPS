@@ -51,9 +51,11 @@ void UM4GunsmithWidget::LoadCategoryIcons()
 {
     CategoryBrushes.Reset();CategoryTextures.Reset();CategoryMaterials.Reset();
     auto* IconMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/UI/GunsmithWorkbench/ColdGlass/M_CategoryIcon.M_CategoryIcon"));
-    for(const auto& Key:Model()->Slots(Model()->Definition()))
+    auto IconKeys=Model()->Slots(Model()->Definition());
+    if(IsToolWorkbench())IconKeys.AddUnique(TEXT("enhance"));
+    for(const auto& Key:IconKeys)
     {
-        if(!IsCategoryAvailable(Key))continue;
+        if(Key!=TEXT("enhance")&&!IsCategoryAvailable(Key))continue;
         FString IconDirectory=FPaths::ProjectContentDir()/TEXT("ColdSteelData/AttachmentIcons20260913");
         const FString FramedDirectory=IconDirectory/(IsBowWorkbench()?TEXT("FramedBows"):TEXT("FramedFirearms"));
         if((!IsStandaloneWorkbench()||IsBowWorkbench())&&(FPaths::FileExists(FramedDirectory/(Model()->Definition()+TEXT("_category_")+Key+TEXT(".png")))
@@ -178,7 +180,9 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
             .ToolTipText(FText::FromString(TEXT("强化 · 金属材质档位")))
             .OnClicked_Lambda([this,Enhance](){SelectCategory(Enhance);return FReply::Handled();})
             [SNew(SHorizontalBox)+SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)
-                [SNew(SBox).WidthOverride(48).HeightOverride(48)[SNew(SMeleePartIcon).Part(Enhance).bTool(true).Definition(Model()->Definition())]]
+                [SNew(SBox).WidthOverride(48).HeightOverride(48)
+                    [SNew(SScaleBox).Stretch(EStretch::ScaleToFit)
+                        [SNew(SImage).Image(CategoryBrushes.Contains(Enhance)?CategoryBrushes.FindChecked(Enhance).Get():FCoreStyle::Get().GetBrush("NoBrush"))]]]
                 +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center).Padding(8,0,0,0)
                 [SNew(SVerticalBox)+SVerticalBox::Slot().AutoHeight()[Label(TEXT("强化"),16,GunsmithUI::Text,true)]
                     +SVerticalBox::Slot().AutoHeight().Padding(0,4,0,0)

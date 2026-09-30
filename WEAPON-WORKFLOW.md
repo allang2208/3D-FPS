@@ -1,5 +1,7 @@
 # UE5 武器与手臂标准
 
+**改造图标标准（2026-09-30）**：枪械、弓、法杖、近战与工具统一使用精致金属方框、四角铆钉、银色内环和部件主体。原厂件不加禁止标识；无配件使用中性减号。成图包含边框，UI 不重复套框。详见 [制作与接入规范](skills/ue5-weapon-workflow/references/attachment-icons.md)。
+
 **默认手模（用户于 2026-09-25 更新）**：新增动画和新武器统一以已认可的 V7 裸手、裸臂开发，基础视模默认也是这套。手套、衣袖适配裸手并复用动作。作者源与接入规则见 [认可的裸手基准](skills/ue5-fps-arms-animation/references/accepted-bare-hands.md)。
 
 当前工程入口为根目录 `FPSGAME.uproject`，完整本机宿主及 Git 工作目录都是 `D:/FPS3D/FPSGAME`，直接在该目录提交和推送。

@@ -1,0 +1,5 @@
+undefined
+
+Reference 1: muzzle_brake_framed_v2.png (user approved)
+Reference 2: original Content/ColdSteelData/AttachmentIcons20260913/<primary key>.png
+Each group in manifest.json shares the same original file bytes. Generate one icon for the first key and copy it to all listed aliases. Generated images are kept in Generated; runtime replacements are in Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms.

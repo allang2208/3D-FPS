@@ -1,0 +1,911 @@
+{
+  "template": "SourceAssets/FirearmFramedIcons20260930/muzzle_brake_framed_v2.png",
+  "prompt": "Create ONE finished square weapon modification icon. Reference1 is the approved exact template: preserve thick chamfered gunmetal square frame, four beveled corner plates with one rivet each, concentric silver inner ring, scratched charcoal opaque backing and upper-left lighting. Replace ONLY center muzzle brake with the object in reference2. Preserve silhouette, orientation, material regions and distinctive surface patterns. Improve dimensional grayscale shading and detail, without inventing new geometry. Single component only, no extra parts or duplicate views; for grip panels use only the broad visible panel, omit detached thin side sliver. Whole object comfortably within ring. No added text, badges, red marks, prohibition symbol or colored glow. Factory parts are normal usable objects. Tiny transparent exterior margin, opaque interior. One square icon, not a grid.",
+  "groups": [
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_reargrip_false.png",
+      "keys": [
+        "ue_m1911_reargrip_false"
+      ],
+      "family": "firearm",
+      "key": "ue_m1911_reargrip_false"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_reargrip_pistol_grip_granular.png",
+      "keys": [
+        "ue_m1911_reargrip_pistol_grip_granular"
+      ],
+      "family": "firearm",
+      "key": "ue_m1911_reargrip_pistol_grip_granular"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_reargrip_pistol_grip_diamond.png",
+      "keys": [
+        "ue_m1911_reargrip_pistol_grip_diamond"
+      ],
+      "family": "firearm",
+      "key": "ue_m1911_reargrip_pistol_grip_diamond"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_reargrip_pistol_grip_quickdot.png",
+      "keys": [
+        "ue_m1911_reargrip_pistol_grip_quickdot"
+      ],
+      "family": "firearm",
+      "key": "ue_m1911_reargrip_pistol_grip_quickdot"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_g18_reargrip_false.png",
+      "keys": [
+        "ue_g18_reargrip_false"
+      ],
+      "family": "firearm",
+      "key": "ue_g18_reargrip_false"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_g18_reargrip_pistol_grip_granular.png",
+      "keys": [
+        "ue_g18_reargrip_pistol_grip_granular"
+      ],
+      "family": "firearm",
+      "key": "ue_g18_reargrip_pistol_grip_granular"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_g18_reargrip_pistol_grip_diamond.png",
+      "keys": [
+        "ue_g18_reargrip_pistol_grip_diamond"
+      ],
+      "family": "firearm",
+      "key": "ue_g18_reargrip_pistol_grip_diamond"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_g18_reargrip_pistol_grip_quickdot.png",
+      "keys": [
+        "ue_g18_reargrip_pistol_grip_quickdot"
+      ],
+      "family": "firearm",
+      "key": "ue_g18_reargrip_pistol_grip_quickdot"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_category_blade_1.png",
+      "keys": [
+        "ue_rune_sword_category_blade_1",
+        "ue_rune_sword_blade_1_false"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_category_blade_1"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_1_extended_edge.png",
+      "keys": [
+        "ue_rune_sword_blade_1_extended_edge"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_blade_1_extended_edge"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_1_heavy_spine.png",
+      "keys": [
+        "ue_rune_sword_blade_1_heavy_spine"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_blade_1_heavy_spine"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_1_feather_edge.png",
+      "keys": [
+        "ue_rune_sword_blade_1_feather_edge"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_blade_1_feather_edge"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_category_blade_2.png",
+      "keys": [
+        "ue_rune_sword_category_blade_2",
+        "ue_rune_sword_blade_2_false"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_category_blade_2"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_2_resonance_rune.png",
+      "keys": [
+        "ue_rune_sword_blade_2_resonance_rune"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_blade_2_resonance_rune"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_2_erosion_rune.png",
+      "keys": [
+        "ue_rune_sword_blade_2_erosion_rune"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_blade_2_erosion_rune"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_2_conduction_rune.png",
+      "keys": [
+        "ue_rune_sword_blade_2_conduction_rune"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_blade_2_conduction_rune"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_blade_2_golden_glow_rune.png",
+      "keys": [
+        "ue_rune_sword_blade_2_golden_glow_rune"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_blade_2_golden_glow_rune"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_category_guard.png",
+      "keys": [
+        "ue_rune_sword_category_guard",
+        "ue_rune_sword_guard_false"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_category_guard"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_guard_bastion_guard.png",
+      "keys": [
+        "ue_rune_sword_guard_bastion_guard"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_guard_bastion_guard"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_guard_riposte_guard.png",
+      "keys": [
+        "ue_rune_sword_guard_riposte_guard"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_guard_riposte_guard"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_guard_light_guard.png",
+      "keys": [
+        "ue_rune_sword_guard_light_guard"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_guard_light_guard"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_category_grip.png",
+      "keys": [
+        "ue_rune_sword_category_grip",
+        "ue_rune_sword_grip_false"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_category_grip"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_grip_shock_wrap.png",
+      "keys": [
+        "ue_rune_sword_grip_shock_wrap"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_grip_shock_wrap"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_grip_swift_grip.png",
+      "keys": [
+        "ue_rune_sword_grip_swift_grip"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_grip_swift_grip"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_grip_long_twohand.png",
+      "keys": [
+        "ue_rune_sword_grip_long_twohand"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_grip_long_twohand"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_grip_iron_spine_power_grip.png",
+      "keys": [
+        "ue_rune_sword_grip_iron_spine_power_grip"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_grip_iron_spine_power_grip"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_grip_lockweave_guard_grip.png",
+      "keys": [
+        "ue_rune_sword_grip_lockweave_guard_grip"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_grip_lockweave_guard_grip"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_category_pommel.png",
+      "keys": [
+        "ue_rune_sword_category_pommel",
+        "ue_rune_sword_pommel_false"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_category_pommel"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_pommel_pommel_hardened.png",
+      "keys": [
+        "ue_rune_sword_pommel_pommel_hardened"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_pommel_pommel_hardened"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_pommel_pommel_runic.png",
+      "keys": [
+        "ue_rune_sword_pommel_pommel_runic"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_pommel_pommel_runic"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_pommel_pommel_mana_orb.png",
+      "keys": [
+        "ue_rune_sword_pommel_pommel_mana_orb"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_pommel_pommel_mana_orb"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_pommel_ballast_hardened.png",
+      "keys": [
+        "ue_rune_sword_pommel_ballast_hardened"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_pommel_ballast_hardened"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_pommel_ballast_rune.png",
+      "keys": [
+        "ue_rune_sword_pommel_ballast_rune"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_pommel_ballast_rune"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_rune_sword_pommel_ballast_magic_orb.png",
+      "keys": [
+        "ue_rune_sword_pommel_ballast_magic_orb"
+      ],
+      "family": "melee",
+      "key": "ue_rune_sword_pommel_ballast_magic_orb"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_category_blade_1.png",
+      "keys": [
+        "ue_frost_crystal_sword_category_blade_1",
+        "ue_frost_crystal_sword_blade_1_false"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_category_blade_1"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_blade_1_extended_edge.png",
+      "keys": [
+        "ue_frost_crystal_sword_blade_1_extended_edge"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_blade_1_extended_edge"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_blade_1_heavy_spine.png",
+      "keys": [
+        "ue_frost_crystal_sword_blade_1_heavy_spine"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_blade_1_heavy_spine"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_blade_1_feather_edge.png",
+      "keys": [
+        "ue_frost_crystal_sword_blade_1_feather_edge"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_blade_1_feather_edge"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_category_blade_2.png",
+      "keys": [
+        "ue_frost_crystal_sword_category_blade_2",
+        "ue_frost_crystal_sword_blade_2_false"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_category_blade_2"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_blade_2_resonance_rune.png",
+      "keys": [
+        "ue_frost_crystal_sword_blade_2_resonance_rune"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_blade_2_resonance_rune"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_blade_2_spirit_burst_rune.png",
+      "keys": [
+        "ue_frost_crystal_sword_blade_2_spirit_burst_rune"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_blade_2_spirit_burst_rune"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_blade_2_conduction_rune.png",
+      "keys": [
+        "ue_frost_crystal_sword_blade_2_conduction_rune"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_blade_2_conduction_rune"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_category_guard.png",
+      "keys": [
+        "ue_frost_crystal_sword_category_guard",
+        "ue_frost_crystal_sword_guard_false"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_category_guard"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_guard_bastion_guard.png",
+      "keys": [
+        "ue_frost_crystal_sword_guard_bastion_guard"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_guard_bastion_guard"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_guard_riposte_guard.png",
+      "keys": [
+        "ue_frost_crystal_sword_guard_riposte_guard"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_guard_riposte_guard"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_guard_light_guard.png",
+      "keys": [
+        "ue_frost_crystal_sword_guard_light_guard"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_guard_light_guard"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_category_grip.png",
+      "keys": [
+        "ue_frost_crystal_sword_category_grip",
+        "ue_frost_crystal_sword_grip_false"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_category_grip"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_grip_shock_wrap.png",
+      "keys": [
+        "ue_frost_crystal_sword_grip_shock_wrap"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_grip_shock_wrap"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_grip_swift_grip.png",
+      "keys": [
+        "ue_frost_crystal_sword_grip_swift_grip"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_grip_swift_grip"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_grip_long_twohand.png",
+      "keys": [
+        "ue_frost_crystal_sword_grip_long_twohand"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_grip_long_twohand"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_grip_iron_spine_power_grip.png",
+      "keys": [
+        "ue_frost_crystal_sword_grip_iron_spine_power_grip"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_grip_iron_spine_power_grip"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_grip_lockweave_guard_grip.png",
+      "keys": [
+        "ue_frost_crystal_sword_grip_lockweave_guard_grip"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_grip_lockweave_guard_grip"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_category_pommel.png",
+      "keys": [
+        "ue_frost_crystal_sword_category_pommel",
+        "ue_frost_crystal_sword_pommel_false"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_category_pommel"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_pommel_pommel_hardened.png",
+      "keys": [
+        "ue_frost_crystal_sword_pommel_pommel_hardened"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_pommel_pommel_hardened"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_pommel_pommel_runic.png",
+      "keys": [
+        "ue_frost_crystal_sword_pommel_pommel_runic"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_pommel_pommel_runic"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_pommel_pommel_mana_orb.png",
+      "keys": [
+        "ue_frost_crystal_sword_pommel_pommel_mana_orb"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_pommel_pommel_mana_orb"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_pommel_ballast_hardened.png",
+      "keys": [
+        "ue_frost_crystal_sword_pommel_ballast_hardened"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_pommel_ballast_hardened"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_pommel_ballast_rune.png",
+      "keys": [
+        "ue_frost_crystal_sword_pommel_ballast_rune"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_pommel_ballast_rune"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_frost_crystal_sword_pommel_ballast_magic_orb.png",
+      "keys": [
+        "ue_frost_crystal_sword_pommel_ballast_magic_orb"
+      ],
+      "family": "melee",
+      "key": "ue_frost_crystal_sword_pommel_ballast_magic_orb"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_category_blade_1.png",
+      "keys": [
+        "ue_highland_claymore_category_blade_1",
+        "ue_highland_claymore_blade_1_false"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_category_blade_1"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_1_extended_edge.png",
+      "keys": [
+        "ue_highland_claymore_blade_1_extended_edge"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_blade_1_extended_edge"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_1_heavy_spine.png",
+      "keys": [
+        "ue_highland_claymore_blade_1_heavy_spine"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_blade_1_heavy_spine"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_1_feather_edge.png",
+      "keys": [
+        "ue_highland_claymore_blade_1_feather_edge"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_blade_1_feather_edge"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_1_highland_broadblade.png",
+      "keys": [
+        "ue_highland_claymore_blade_1_highland_broadblade"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_blade_1_highland_broadblade"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_1_highland_ridge_piercer.png",
+      "keys": [
+        "ue_highland_claymore_blade_1_highland_ridge_piercer"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_blade_1_highland_ridge_piercer"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_category_blade_2.png",
+      "keys": [
+        "ue_highland_claymore_category_blade_2",
+        "ue_highland_claymore_blade_2_false"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_category_blade_2"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_2_resonance_rune.png",
+      "keys": [
+        "ue_highland_claymore_blade_2_resonance_rune"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_blade_2_resonance_rune"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_2_erosion_rune.png",
+      "keys": [
+        "ue_highland_claymore_blade_2_erosion_rune"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_blade_2_erosion_rune"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_2_conduction_rune.png",
+      "keys": [
+        "ue_highland_claymore_blade_2_conduction_rune"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_blade_2_conduction_rune"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_blade_2_wild_rune.png",
+      "keys": [
+        "ue_highland_claymore_blade_2_wild_rune"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_blade_2_wild_rune"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_category_guard.png",
+      "keys": [
+        "ue_highland_claymore_category_guard",
+        "ue_highland_claymore_guard_false"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_category_guard"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_guard_bastion_guard.png",
+      "keys": [
+        "ue_highland_claymore_guard_bastion_guard"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_guard_bastion_guard"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_guard_riposte_guard.png",
+      "keys": [
+        "ue_highland_claymore_guard_riposte_guard"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_guard_riposte_guard"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_guard_light_guard.png",
+      "keys": [
+        "ue_highland_claymore_guard_light_guard"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_guard_light_guard"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_guard_highland_cloven_guard.png",
+      "keys": [
+        "ue_highland_claymore_guard_highland_cloven_guard"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_guard_highland_cloven_guard"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_category_grip.png",
+      "keys": [
+        "ue_highland_claymore_category_grip",
+        "ue_highland_claymore_grip_false"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_category_grip"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_grip_shock_wrap.png",
+      "keys": [
+        "ue_highland_claymore_grip_shock_wrap"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_grip_shock_wrap"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_grip_swift_grip.png",
+      "keys": [
+        "ue_highland_claymore_grip_swift_grip"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_grip_swift_grip"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_grip_long_twohand.png",
+      "keys": [
+        "ue_highland_claymore_grip_long_twohand"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_grip_long_twohand"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_grip_iron_spine_power_grip.png",
+      "keys": [
+        "ue_highland_claymore_grip_iron_spine_power_grip"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_grip_iron_spine_power_grip"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_grip_lockweave_guard_grip.png",
+      "keys": [
+        "ue_highland_claymore_grip_lockweave_guard_grip"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_grip_lockweave_guard_grip"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_category_pommel.png",
+      "keys": [
+        "ue_highland_claymore_category_pommel",
+        "ue_highland_claymore_pommel_false"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_category_pommel"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_pommel_hardened.png",
+      "keys": [
+        "ue_highland_claymore_pommel_pommel_hardened"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_pommel_pommel_hardened"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_pommel_runic.png",
+      "keys": [
+        "ue_highland_claymore_pommel_pommel_runic"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_pommel_pommel_runic"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_pommel_mana_orb.png",
+      "keys": [
+        "ue_highland_claymore_pommel_pommel_mana_orb"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_pommel_pommel_mana_orb"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_ballast_hardened.png",
+      "keys": [
+        "ue_highland_claymore_pommel_ballast_hardened"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_pommel_ballast_hardened"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_highland_thorn_crown.png",
+      "keys": [
+        "ue_highland_claymore_pommel_highland_thorn_crown"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_pommel_highland_thorn_crown"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_ballast_rune.png",
+      "keys": [
+        "ue_highland_claymore_pommel_ballast_rune"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_pommel_ballast_rune"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\ue_highland_claymore_pommel_ballast_magic_orb.png",
+      "keys": [
+        "ue_highland_claymore_pommel_ballast_magic_orb"
+      ],
+      "family": "melee",
+      "key": "ue_highland_claymore_pommel_ballast_magic_orb"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_category_grip.png",
+      "keys": [
+        "tool_axe_category_grip",
+        "tool_axe_grip_false",
+        "tool_axe_grip_cushion_wrap",
+        "tool_axe_grip_quick_hands",
+        "tool_axe_grip_firm_hands"
+      ],
+      "family": "tool",
+      "key": "tool_axe_category_grip"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_category_shaft.png",
+      "keys": [
+        "tool_axe_category_shaft",
+        "tool_axe_shaft_false",
+        "tool_axe_shaft_long_haft",
+        "tool_axe_shaft_ash_haft",
+        "tool_axe_shaft_ironbound_haft"
+      ],
+      "family": "tool",
+      "key": "tool_axe_category_shaft"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_category_fitting.png",
+      "keys": [
+        "tool_axe_category_fitting",
+        "tool_axe_fitting_false",
+        "tool_axe_fitting_wedge_kit",
+        "tool_axe_fitting_whetstone_kit",
+        "tool_axe_fitting_lucky_charm"
+      ],
+      "family": "tool",
+      "key": "tool_axe_category_fitting"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_axe_category_head.png",
+      "keys": [
+        "tool_axe_category_head",
+        "tool_axe_head_false",
+        "tool_axe_head_felling_head",
+        "tool_axe_head_hardened_head",
+        "tool_axe_head_splitting_head"
+      ],
+      "family": "tool",
+      "key": "tool_axe_category_head"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_category_grip.png",
+      "keys": [
+        "tool_pickaxe_category_grip",
+        "tool_pickaxe_grip_false",
+        "tool_pickaxe_grip_cushion_wrap",
+        "tool_pickaxe_grip_quick_hands",
+        "tool_pickaxe_grip_firm_hands"
+      ],
+      "family": "tool",
+      "key": "tool_pickaxe_category_grip"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_category_shaft.png",
+      "keys": [
+        "tool_pickaxe_category_shaft",
+        "tool_pickaxe_shaft_false",
+        "tool_pickaxe_shaft_long_haft",
+        "tool_pickaxe_shaft_ash_haft",
+        "tool_pickaxe_shaft_ironbound_haft"
+      ],
+      "family": "tool",
+      "key": "tool_pickaxe_category_shaft"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_category_fitting.png",
+      "keys": [
+        "tool_pickaxe_category_fitting",
+        "tool_pickaxe_fitting_false",
+        "tool_pickaxe_fitting_wedge_kit",
+        "tool_pickaxe_fitting_whetstone_kit",
+        "tool_pickaxe_fitting_lucky_charm"
+      ],
+      "family": "tool",
+      "key": "tool_pickaxe_category_fitting"
+    },
+    {
+      "source": "Content\\ColdSteelData\\AttachmentIcons20260913\\tool_pickaxe_category_head.png",
+      "keys": [
+        "tool_pickaxe_category_head",
+        "tool_pickaxe_head_false",
+        "tool_pickaxe_head_ore_head",
+        "tool_pickaxe_head_crushing_head",
+        "tool_pickaxe_head_flanged_head"
+      ],
+      "family": "tool",
+      "key": "tool_pickaxe_category_head"
+    },
+    {
+      "key": "ue_apprentice_staff_category_head_crystal",
+      "keys": [
+        "ue_apprentice_staff_category_head_crystal",
+        "ue_apprentice_staff_head_crystal_false"
+      ],
+      "family": "staff",
+      "source": "SourceAssets/ApprenticeStaff20260927/BarkRebuildV21/Export/apprentice_staff.png",
+      "desc": "Center subject ONLY the small opaque milky-white pointed quartz staff head visible at top of reference2, its short wood mounting neck and small rope collar. Crop mentally to this head part, do not show full staff. Keep simple irregular hexagonal crystal facets, no orb, no colored glow."
+    },
+    {
+      "key": "ue_apprentice_staff_category_grip_lining",
+      "keys": [
+        "ue_apprentice_staff_category_grip_lining",
+        "ue_apprentice_staff_grip_lining_false"
+      ],
+      "family": "staff",
+      "source": "SourceAssets/ApprenticeStaff20260927/BarkRebuildV21/Export/apprentice_staff.png",
+      "desc": "Center subject ONLY a plain wooden handle segment from middle of reference2 staff. Show natural rough wood grain and slight curved irregular profile, both ends visible. No crystal head, no rope, no bands, no wrapping; this is the factory bare wood grip."
+    },
+    {
+      "key": "staff_empty",
+      "keys": [
+        "ue_apprentice_staff_crown_false",
+        "ue_apprentice_staff_shaft_rune_false",
+        "ue_apprentice_staff_tail_charm_false",
+        "ue_apprentice_staff_mana_line_false"
+      ],
+      "family": "staff",
+      "desc": "Replace center with ONE small polished silver horizontal minus bar. Means no accessory installed. Preserve circular ring. Absolutely no red or diagonal slash, no prohibition symbol, no text or other parts."
+    },
+    {
+      "key": "category_enhance",
+      "keys": [
+        "category_enhance"
+      ],
+      "family": "tool",
+      "desc": "Replace center with a compact forged steel anvil with five short horizontal silver metal bars ascending in a stepped stack above its flat surface. Clear readable symbol for tool material tier enhancement. Sculptural realistic brushed metal, all grayscale, no digits, text, glow, hammer, stars or color."
+    },
+    {
+      "key": "ue_apprentice_staff_category_crown",
+      "keys": [
+        "ue_apprentice_staff_category_crown"
+      ],
+      "family": "staff",
+      "source": "Content/ColdSteelData/AttachmentIcons20260913/ue_apprentice_staff_crown_wreath_crown.png"
+    },
+    {
+      "key": "ue_apprentice_staff_category_shaft_rune",
+      "keys": [
+        "ue_apprentice_staff_category_shaft_rune"
+      ],
+      "family": "staff",
+      "source": "Content/ColdSteelData/AttachmentIcons20260913/ue_apprentice_staff_shaft_rune_crit_rune.png"
+    },
+    {
+      "key": "ue_apprentice_staff_category_tail_charm",
+      "keys": [
+        "ue_apprentice_staff_category_tail_charm"
+      ],
+      "family": "staff",
+      "source": "Content/ColdSteelData/AttachmentIcons20260913/ue_apprentice_staff_tail_charm_ice_soul_pendant.png"
+    },
+    {
+      "key": "ue_apprentice_staff_category_mana_line",
+      "keys": [
+        "ue_apprentice_staff_category_mana_line"
+      ],
+      "family": "staff",
+      "source": "Content/ColdSteelData/AttachmentIcons20260913/ue_apprentice_staff_mana_line_direct_mana.png"
+    },
+    {
+      "key": "tactical_vertical_shared",
+      "keys": [
+        "ue_m16a2_underbarrel_tactical_vertical_foregrip",
+        "ue_a762_underbarrel_tactical_vertical_foregrip",
+        "ue_pkm_lowpoly_underbarrel_tactical_vertical_foregrip",
+        "ue_lmg201_underbarrel_tactical_vertical_foregrip"
+      ],
+      "family": "firearm",
+      "source": "Content/ColdSteelData/AttachmentIcons20260913/ue_akm_underbarrel_tactical_vertical_foregrip.png"
+    }
+  ]
+}

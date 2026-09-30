@@ -8,6 +8,7 @@
 #include "Engine/GameInstance.h"
 #include "Widgets/Layout/SBorder.h"
 #include "Widgets/Layout/SBox.h"
+#include "Widgets/Layout/SScaleBox.h"
 #include "Widgets/Layout/SScrollBox.h"
 #include "Widgets/SBoxPanel.h"
 #include "Widgets/Text/STextBlock.h"
@@ -123,8 +124,9 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildEnhanceCard(int32 Level)
                         [SNew(SHorizontalBox)
                             +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center).Padding(0,0,10,0)
                             [SNew(SBox).WidthOverride(64).HeightOverride(64)
-                                [SNew(SMeleePartIcon).Part(TEXT("enhance")).bTool(true).Definition(Model()->Definition())
-                                    .ColorAndOpacity(bSelectable?FLinearColor::White:GunsmithUI::Muted)]]
+                                [SNew(SScaleBox).Stretch(EStretch::ScaleToFit)
+                                    [SNew(SImage).Image(CategoryBrushes.Contains(TEXT("enhance"))?CategoryBrushes.FindChecked(TEXT("enhance")).Get():FCoreStyle::Get().GetBrush("NoBrush"))
+                                        .ColorAndOpacity(bSelectable?FLinearColor::White:GunsmithUI::Muted)]]]
                             +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center)
                             [SNew(SBox).Clipping(EWidgetClipping::ClipToBounds)
                                 [SNew(STextBlock).Text(FText::FromString(Description)).Font(GunsmithUI::TextFont(12))

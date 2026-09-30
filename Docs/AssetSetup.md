@@ -417,3 +417,7 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 ## 特殊地牢房间收尾（2026-09-29）
 
 七房当前状态、后三房待办、废案归档和源码/许可边界见 [本轮发布](Gameplay/dungeon-rooms-publication-20260929.md)。当前病区与车站从各自 `Scripts/install_pool.py` 恢复，原独立/临时测试路线退役；完整本机 Content、作者几何和原素材许可仍必需。原生接入依赖与共享攻击摘录以发布文档为准，公开源码不等于可直接运行的完整场景。
+
+## 新版改造图标（2026-09-30）
+
+金属框母图、PNG 与 UE 贴图留在本机；公开规则、加载代码、部署/导入脚本与映射。资源恢复、307 份旧图归档及强化入口构建限制见 [改造图标发布记录](Publication/ModificationIcons20260930/README.md)。

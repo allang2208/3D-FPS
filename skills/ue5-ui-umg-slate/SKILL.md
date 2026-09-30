@@ -14,6 +14,8 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 
 # Quick Start
 
+- 改造栏图标采用用户认可的金属方框图片，PNG 已含边框时不重复绘制或内缩；分类、原厂、选项与强化入口共用 [改造图标标准](../ue5-weapon-workflow/references/attachment-icons.md)。
+
 - 背包 F 转向后图标缩小、透明留白与拖动尺寸跳变，读取 [运行时图标的横竖比例](references/runtime-icon-pipeline.md)，同步目录图和动态图的可见轮廓规则。
 
 - 枪械、弓、近战与生产工具浮窗的字段命名、伤害口径、核心摘要及改造／强化一致性，读取 [武器浮窗固定格式](references/weapon-tooltip-schema.md)；共用 `ColdSteelWeaponText.h`，计算条件与字段名称分开表达。
