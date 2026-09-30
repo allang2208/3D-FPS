@@ -16,7 +16,7 @@ void AFPSGAMECharacter::UpdateLocomotionPresentation(float DeltaSeconds)
     const FVector Velocity = GetVelocity();
     const float Speed = Velocity.Size2D();
     const bool bGroundStride = GetCharacterMovement()->IsMovingOnGround()
-        && !bIsSliding && !IsDodging() && !IsTraversing();
+        && !bWeaponJumpAirborne && !bIsSliding && !IsDodging() && !IsTraversing();
     const float MoveTarget = bGroundStride
         ? FMath::Clamp((Speed - 15.f) / FMath::Max(WalkSpeed - 15.f, 1.f), 0.f, 1.f) : 0.f;
     GroundLocomotionWeight = FMath::Lerp(GroundLocomotionWeight, MoveTarget,

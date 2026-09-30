@@ -5,6 +5,7 @@
 #include "GameFramework/Pawn.h"
 #include "../Monsters/NurseZombie.h"
 #include "../Monsters/HandBrainMonster.h"
+#include "../Monsters/FleshHandMonster.h"
 #include "../Monsters/PoisonMaggotMonster.h"
 #include "../Monsters/WolfMonster.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
@@ -81,6 +82,7 @@ void UCombatStatusFormula::InterruptOwnerActions(float Seconds)
     if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))M->InterruptAttack(Seconds);
     if(auto* N=Cast<ANurseZombie>(GetOwner()))N->InterruptAttack(Seconds);
     if(auto* H=Cast<AHandBrainMonster>(GetOwner()))H->InterruptAttack(Seconds);
+    if(auto* F=Cast<AFleshHandMonster>(GetOwner()))F->InterruptAttack(Seconds);
 }
 void UCombatStatusFormula::AddStun(float Seconds)
 {
@@ -90,6 +92,13 @@ void UCombatStatusFormula::AddStun(float Seconds)
     if(auto* Character=Cast<ACharacter>(GetOwner()))
         if(const auto* Pawn=Cast<APawn>(Character);Pawn&&Pawn->IsPlayerControlled())
             if(auto* Lock=Character->FindComponentByClass<UPlayerGuardBreakComponent>()){Lock->Apply(Seconds);return;}
+    if(auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>())
+    {
+        // All monster classes use the explicit stun clock. Freeze/petrify keep
+        // their separate interruption path and never acquire a stun marker.
+        Combat->ReceiveStun(nullptr,StunTime,0.f);
+        return;
+    }
     InterruptOwnerActions(Seconds);
 }
 void UCombatStatusFormula::AddBind(float Seconds)
@@ -269,6 +278,7 @@ void UCombatStatusFormula::TickComponent(float Delta,ELevelTick Type,FActorCompo
     {Health=0;MaxHealth=0;
         if(const auto* N=Cast<ANurseZombie>(GetOwner())){Health=N->Health;MaxHealth=N->MaxHealth;}
         else if(const auto* H=Cast<AHandBrainMonster>(GetOwner())){Health=H->Health;MaxHealth=H->MaxHealth;}
+        else if(const auto* F=Cast<AFleshHandMonster>(GetOwner())){Health=F->Health;MaxHealth=F->MaxHealth;}
         else if(const auto* M=Cast<APoisonMaggotMonster>(GetOwner())){Health=M->Health;MaxHealth=M->MaxHealth;}
         else if(const auto* W=Cast<AWolfMonster>(GetOwner())){Health=W->Health;MaxHealth=W->MaxHealth;}
         else if(const auto* C=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>()){Health=C->Health;MaxHealth=C->MaxHealth;}

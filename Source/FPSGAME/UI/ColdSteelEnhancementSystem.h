@@ -27,7 +27,8 @@ public:
     int32 MaxLevel(const FColdSteelItem&) const;
     FColdSteelEnhanceQuote Quote(const FString& ItemId,const FString& ScrollId=TEXT("")) const;
     bool Apply(const FColdSteelEnhanceQuote& Quote,FString& Message);
-    double ProcessedDamage(const FColdSteelItem&,double WeaponBase,double CharacterAttack) const;
+    // Negative override uses the instance's installed melee parts; previews pass their draft multiplier.
+    double ProcessedDamage(const FColdSteelItem&,double WeaponBase,double CharacterAttack,double MeleeDamageMultiplier=-1) const;
     TSharedPtr<const FJsonObject> AttackFormula(const FColdSteelItem&) const;
     double AttackFormulaAttribute(const FColdSteelItem&,FName Key) const;
     double Defense(const FColdSteelItem&) const;

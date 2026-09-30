@@ -14,6 +14,28 @@ double LinkCost(const FShortLink& Link,double ReservedLead=0)const
     return Length*.35+FMath::Max(0.,200.-Length)*1.5+FMath::Max(0.,Length-PreferredLinkLength)*.75+Link.Turns*160.;
 }
 
+double LinkChoiceCost(const FShortLink& Link,const FSocket& Start,const FString& Route)const
+{
+    const uint32 AtHash=HashCombineFast(GetTypeHash(FMath::RoundToInt(Start.P.X)),
+        HashCombineFast(GetTypeHash(FMath::RoundToInt(Start.P.Y)),GetTypeHash(FMath::RoundToInt(Start.P.Z))));
+    const uint32 Salt=HashCombineFast(ConnectionSeed,HashCombineFast(AtHash,GetTypeHash(Route)));
+    const bool RiskShortcut=bMissionEnabled&&Route==TEXT("Route1");
+    const int32 DesiredTurns=RiskShortcut?(Salt%10u<8u?0:1):(Salt%10u<4u?0:Salt%10u<8u?1:2);
+    double Repeat=0;
+    for(int32 I=Pieces.Num()-1;I>=0;--I)if(Pieces[I].Route==Route&&Pieces[I].LinkTurns>=0)
+    {if(Pieces[I].LinkTurns==Link.Turns)Repeat=220.;break;}
+    const uint32 Shape=HashCombineFast(GetTypeHash(FMath::RoundToInt(Link.End.P.X)),
+        HashCombineFast(GetTypeHash(FMath::RoundToInt(Link.End.P.Y)),uint32(Link.Turns)));
+    const double Jitter=double(HashCombineFast(Salt,Shape)%1000u)*.16;
+    return LinkCost(Link,Start.ReservedLead)+(Link.Turns==DesiredTurns?0.:360.)+Repeat+Jitter;
+}
+
+void RankRoomLinks(TArray<FShortLink>& Links,const FSocket& Start,const FString& Route)const
+{
+    Links.StableSort([&](const FShortLink& A,const FShortLink& B)
+    {return LinkChoiceCost(A,Start,Route)<LinkChoiceCost(B,Start,Route);});
+}
+
 void AddShortLink(TArray<FShortLink>& Links,const FSocket& Start,TArray<FVector> Points,double OtherLead=0)const
 {
     for(int32 I=Points.Num()-1;I>0;--I)if(Points[I].Equals(Points[I-1],.1))Points.RemoveAt(I);
@@ -48,14 +70,14 @@ TArray<FShortLink> RoomLinks(const FSocket& Start)const
 {
     TArray<FShortLink> Links;
     const FVector F=Start.N,R(-F.Y,F.X,0),P=Start.P;
-    for(double Length:{80.,240.,400.,560.})AddShortLink(Links,Start,{P,P+F*Length});
+    for(double Length:{80.,240.,400.,560.,800.,1120.})AddShortLink(Links,Start,{P,P+F*Length});
     if(Modules.IsValidIndex(Elbow))for(double Sign:{-1.,1.})
     {
         const FVector Side=R*Sign;
-        for(double Lead:{80.,240.})
+        for(double Lead:{80.,240.,400.,640.})for(double Tail:{280.,440.,600.,840.})
         {
             const FVector Corner=P+F*(Lead+200.);
-            AddShortLink(Links,Start,{P,Corner,Corner+Side*280.});
+            AddShortLink(Links,Start,{P,Corner,Corner+Side*Tail});
         }
         const FVector A=P+F*280.,B=A+Side*480.;
         AddShortLink(Links,Start,{P,A,B,B+F*280.});
@@ -64,30 +86,32 @@ TArray<FShortLink> RoomLinks(const FSocket& Start)const
     return Links;
 }
 
-double LinkGoalCost(const FShortLink& Link,int32 Module,int32 Entry,const FSocket& Goal,int32 Remaining)const
+double LinkGoalCost(const FShortLink& Link,int32 Module,int32 Entry,const FSocket& Goal,int32 Remaining,int32 ExitPort)const
 {
     const FTransform T=Fit(Module,Entry,Link.End);
-    const auto& Exit=Modules[Module].Ports[1-Entry];
+    const auto& Exit=Modules[Module].Ports[ExitPort];
     const FVector N=T.TransformVectorNoScale(Exit.N),P=T.TransformPosition(Exit.P)+N*ExitLeadLength;
-    return (P-Goal.P).Size()/(1.+Remaining*.6)+(Remaining==0?300.*(1.+FVector::DotProduct(N,Goal.N)):0.)+LinkCost(Link);
+    return (P-Goal.P).Size()+(Remaining==0?300.*(1.+FVector::DotProduct(N,Goal.N)):0.)+LinkCost(Link);
 }
 
 bool AttachRoom(int32 Module,int32 Entry,const FSocket& Start,const FShortLink& Link,const FString& Route,
-                FSocket& Exit,FVector SectorOrigin={},FVector SectorDir={})
+                FSocket& Exit,FVector SectorOrigin={},FVector SectorDir={},int32 ExitPort=INDEX_NONE)
 {
-    if(!Compatible(Link.End,Module,Entry)||Link.Length+Start.ReservedLead>ShortLinkLimit+.1)return false;
+    if(ExitPort==INDEX_NONE)ExitPort=PairedExit(Module,Entry);
+    if(!Modules[Module].Ports.IsValidIndex(ExitPort)||!Compatible(Link.End,Module,Entry)||Link.Length+Start.ReservedLead>ShortLinkLimit+.1)return false;
     const int32 Before=Pieces.Num();
     // Reserve the whole room first. Corridors must avoid its other walls too;
     // only the exact matching doorway permits an architectural seam overlap.
-    if(!Place(Module,Fit(Module,Entry,Link.End),Route,-2,-2,SectorOrigin,SectorDir))return false;
+    if(!Place(Module,Fit(Module,Entry,Link.End),Route,-2,-2,SectorOrigin,SectorDir,-2,{Entry,ExitPort}))return false;
     const FSocket Goal=Socket(Before,Entry);
     if(!PlaceRoutePolyline(Start,Goal,Route,Link.Points,ShortLinkLimit-Start.ReservedLead,ShortLinkLimit))
     {Pieces.SetNum(Before);return false;}
     // Preserve connector-before-room ordering used by staged assembly. FPlaced
     // stores no owner indices; only the two local socket indices need refreshing.
-    FPlaced Room=MoveTemp(Pieces[Before]);Pieces.RemoveAt(Before);
+    FPlaced Room=MoveTemp(Pieces[Before]);Room.LinkTurns=Link.Turns;Room.LinkLength=Link.Length+Start.ReservedLead;
+    Pieces.RemoveAt(Before);
     const int32 RoomIndex=Pieces.Add(MoveTemp(Room));
-    FSocket Out=Socket(RoomIndex,1-Entry);
+    FSocket Out=Socket(RoomIndex,ExitPort);
     if(!Corridor(1,Out,Route,Threshold)){Pieces.SetNum(Before);return false;}
     Out.ReservedLead=ExitLeadLength;Exit=Out;return true;
 }
@@ -116,14 +140,14 @@ TArray<FShortLink> LinksBetween(const FSocket& Start,const FSocket& Goal)const
     return Links;
 }
 
-void AddTargetRoomLinks(TArray<FShortLink>& Links,int32 Module,int32 Entry,const FSocket& Start,const FSocket& Goal)const
+void AddTargetRoomLinks(TArray<FShortLink>& Links,int32 Module,int32 Entry,const FSocket& Start,const FSocket& Goal,int32 ExitPort)const
 {
-    if(!Compatible(Goal,Module,1-Entry))return;
+    if(!Compatible(Goal,Module,ExitPort))return;
     auto AddExit=[&](FSocket ExitTarget)
     {
         // The backwards link ends at the outer end of the room's exit sleeve.
         ExitTarget.P+=ExitTarget.N*ExitLeadLength;
-        const FTransform T=Fit(Module,1-Entry,ExitTarget);
+        const FTransform T=Fit(Module,ExitPort,ExitTarget);
         const FPort& Port=Modules[Module].Ports[Entry];
         const FSocket Door{T.TransformPosition(Port.P),T.TransformVectorNoScale(Port.N),-2,Port.Width,Port.Height};
         for(const auto& Link:LinksBetween(Start,Door))AddShortLink(Links,Start,Link.Points);
@@ -143,7 +167,7 @@ bool ShortRouteTo(const FSocket& Start,const FSocket& Goal,const FString& Route)
     const int32 Before=Pieces.Num();
     for(const auto& Link:Links)
     {
-        if(--CompactBudget<0)break;
+        if(--CompactBudget<0||!CanSearch())break;
         Pieces.SetNum(Before);
         if(PlaceRoutePolyline(Start,Goal,Route,Link.Points,ShortLinkLimit-Start.ReservedLead-Goal.ReservedLead,ShortLinkLimit))return true;
     }

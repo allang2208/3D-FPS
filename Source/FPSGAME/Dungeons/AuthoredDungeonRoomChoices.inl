@@ -6,6 +6,11 @@ int32 FamilyUses(int32 Module,const FString* Route=nullptr)const
         if(Combat.Contains(P.Module)&&Modules[P.Module].Family==Modules[Module].Family&&(!Route||P.Route==*Route))++Count;
     return Count;
 }
+bool RoomAllowed(int32 Module,const FString& Route)const
+{
+    const auto& M=Modules[Module];
+    return M.bRunEligible&&(M.SelectionRoute.IsEmpty()||M.SelectionRoute==Route)&&FamilyUses(Module)<M.MaxPerRun;
+}
 double RoomRepetitionCost(int32 Module,const FString& Route)const
 {
     double Cost=100.*FamilyUses(Module)+220.*FamilyUses(Module,&Route);
@@ -14,38 +19,44 @@ double RoomRepetitionCost(int32 Module,const FString& Route)const
         {if(Modules[Pieces[I].Module].Family==Modules[Module].Family)Cost+=450.;break;}
     return Cost;
 }
-TArray<TPair<int32,int32>> RoomChoices(const FString& Route)
+struct FRoomChoice {int32 Key,Value,Exit;};
+TArray<FRoomChoice> RoomChoices(const FString& Route)
 {
     TArray<FString> Families;TArray<TArray<int32>> Variants;
     for(int32 M:Combat)
     {
+        if(!RoomAllowed(M,Route))continue;
         int32 F=Families.IndexOfByKey(Modules[M].Family);
         if(F==INDEX_NONE){F=Families.Add(Modules[M].Family);Variants.AddDefaulted();}
         Variants[F].Add(M);
     }
     struct FFamilyOrder {int32 Index;double Score;};TArray<FFamilyOrder> Order;
-    int32 MaxVariants=0;
     for(int32 F=0;F<Families.Num();++F)
     {
-        auto& V=Variants[F];MaxVariants=FMath::Max(MaxVariants,V.Num());
+        auto& V=Variants[F];
         for(int32 I=V.Num()-1;I>0;--I)V.Swap(I,Random.RandRange(0,I));
         Order.Add({F,RoomRepetitionCost(V[0],Route)+Random.FRand()*700.});
     }
     Order.StableSort([](const FFamilyOrder& A,const FFamilyOrder& B){return A.Score<B.Score;});
-    TArray<TPair<int32,int32>> Result;
-    // Each family gets a first candidate before another receives a second variant.
-    for(int32 Round=0;Round<MaxVariants;++Round)for(const auto& F:Order)
-        if(Variants[F.Index].IsValidIndex(Round))
+    TArray<TArray<FRoomChoice>> FamilyChoices;FamilyChoices.SetNum(Families.Num());int32 MaxChoices=0;
+    for(const auto& F:Order)for(int32 Round=0;Round<Variants[F.Index].Num();++Round)
         {
-            const int32 M=Variants[F.Index][Round],First=Random.RandRange(0,1);
-            Result.Emplace(M,First);Result.Emplace(M,1-First);
+            const int32 M=Variants[F.Index][Round];auto Pairs=Modules[M].PortPairs;
+            for(int32 I=Pairs.Num()-1;I>0;--I)Pairs.Swap(I,Random.RandRange(0,I));
+            for(const auto& Pair:Pairs)
+            {const bool Reverse=Random.RandRange(0,1)!=0;FamilyChoices[F.Index].Add({M,Reverse?Pair.Y:Pair.X,Reverse?Pair.X:Pair.Y});FamilyChoices[F.Index].Add({M,Reverse?Pair.X:Pair.Y,Reverse?Pair.Y:Pair.X});}
+            MaxChoices=FMath::Max(MaxChoices,FamilyChoices[F.Index].Num());
         }
+    TArray<FRoomChoice> Result;
+    // Adding more ports must not give one family six attempts before another gets one.
+    for(int32 Round=0;Round<MaxChoices;++Round)for(const auto& F:Order)
+        if(FamilyChoices[F.Index].IsValidIndex(Round))Result.Add(FamilyChoices[F.Index][Round]);
     return Result;
 }
 bool CompleteSocketGraph(const FSocket& Start)
 {
     TArray<FSocket> Sockets;Sockets.Add(Start);
-    for(int32 I=0;I<Pieces.Num();++I)for(int32 J=0;J<PortCount(I);++J)Sockets.Add(Socket(I,J));
+    for(int32 I=0;I<Pieces.Num();++I)for(int32 J:OpenPorts(I))Sockets.Add(Socket(I,J));
     TArray<TArray<int32>> Links;Links.SetNum(Pieces.Num()+1);
     for(int32 I=0;I<Sockets.Num();++I)
     {

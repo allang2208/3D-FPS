@@ -32,9 +32,12 @@ void UColdSteelHUDWidget::UpdateInventoryLayout(const FGeometry& Geometry)
     float Width=FMath::Min(float(Pixels.X)-RightInset-12.f,FMath::Clamp(float(Pixels.X)*.48f,720.f,1040.f));
     // Both drawers share their actual size; keep that layout until the left drawer finishes closing.
     if(bWarehouseOpen||WarehouseMotion>.001f)Width=FMath::Min(Width,(float(Pixels.X)-RightInset-24.f)*.5f);
-    // 制造栏 2026-09-28 起全宽（打铁/装配同规格）：工作台打开时连同抽屉对半夹取。
-    const bool bWBOut=bWorkbenchOpen||bWorkbenchRiding||WorkbenchMotion>.001f;
-    if(bWBOut)Width=FMath::Min(Width,(float(Pixels.X)-RightInset-12.f)*.5f);
+    const bool bForgeOut=bForgingOpen||bForgeRiding||ForgeMotion>.001f;
+    const bool bGunOut=bGunWorkbenchPanel&&(bWorkbenchOpen||bWorkbenchRiding||WorkbenchMotion>.001f);
+    // 制造栏 2026-09-28 起全宽（打铁/装配同规格）：非枪械工作台打开时连同抽屉对半夹取。
+    const bool bWBOut=!bGunWorkbenchPanel&&(bWorkbenchOpen||bWorkbenchRiding||WorkbenchMotion>.001f);
+    if(bForgeOut||bGunOut||bWBOut)Width=FMath::Min(Width,(float(Pixels.X)-RightInset-12.f)*.5f);
+    const float Forge=bForgeOut?Width:0.f;
     // 冶炼面板（2026-09-23 起独立于背包）：背包开着时**零缝拼接**贴抽屉左缘（2026-09-24 用户要求），
     // 背包关着时贴视口右缘（12px 边距）。宽＝背包实际宽的一半；仓库同开时再按剩余空间夹一次，
     // 低于最小可用宽就整块收起，不挤破视口。
@@ -51,17 +54,21 @@ void UColdSteelHUDWidget::UpdateInventoryLayout(const FGeometry& Geometry)
     // 工作台制作面板：2026-09-28 复制升级后＝打铁/装配同规格全宽，零缝拼接贴抽屉左缘；
     // 与冶炼互斥（HUD 开一瞬收另一，同一时刻至多一块占位）。
     float WB=0.f,WBDock=12.f;
-    // Keep the full panel width and dock through the closing animation.
-    if(bWBOut){WB=Width;WBDock=Width+RightInset;}
+    // All crafting panels keep the same width and docking through the closing animation.
+    if(bGunOut||bWBOut){WB=Width;WBDock=Width+RightInset;}
     if(SkillPage)SkillPage->SetLayoutWidth(FMath::Max(1.f,Width-2.f));
     // 图鉴页用同一宽度决定网格／详情并排还是纵排。
     if(CodexPage)CodexPage->SetLayoutWidth(FMath::Max(1.f,Width-2.f));
     if(!Pixels.Equals(InventoryLayoutSize,.5f)||!FMath::IsNearlyEqual(Scale,InventoryLayoutScale,.001f)
         ||!FMath::IsNearlyEqual(Width,InventoryWidth,.5f)||!FMath::IsNearlyEqual(Smelt,SmeltWidth,.5f)
         ||!FMath::IsNearlyEqual(Dock,SmeltDock,.5f)
-        ||!FMath::IsNearlyEqual(WB,WorkbenchWidth,.5f)||!FMath::IsNearlyEqual(WBDock,WorkbenchDock,.5f))
+        ||!FMath::IsNearlyEqual(WB,WorkbenchWidth,.5f)||!FMath::IsNearlyEqual(WBDock,WorkbenchDock,.5f)
+        ||!FMath::IsNearlyEqual(Forge,ForgeWidth,.5f))
     {
         InventoryPanelSlot->SetOffsets(FMargin(-RightInset/Scale,12/Scale,Width/Scale,12/Scale));
+        if(ForgingSlot&&Forge>1)ForgingSlot->SetOffsets(FMargin(-(Width+RightInset)/Scale,12/Scale,Forge/Scale,12/Scale));
+        ForgeWidth=Forge;
+        if(GunAssemblySlot&&bGunOut)GunAssemblySlot->SetOffsets(FMargin(-WBDock/Scale,12/Scale,WB/Scale,12/Scale));
         InventoryHeaderSurface->SetPadding(FMargin(18/Scale,12/Scale));InventoryHeaderSize->SetHeightOverride(36/Scale);
         for(auto& WeakSize:InventoryTabSizes)if(auto* Size=WeakSize.Get())Size->SetHeightOverride(40/Scale);
         InventoryFooterSlot->SetPadding(FMargin(18/Scale,8/Scale,18/Scale,10/Scale));

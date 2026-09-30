@@ -2,6 +2,7 @@
 #include "HandBrainMonster.h"
 #include "FleshHandMonster.h"
 #include "PoisonMaggotMonster.h"
+#include "HundredEyedSlagMonster.h"
 #include "WolfMonster.h"
 #include "InfectedDogMonster.h"
 #include "../Combat/ProgressiveInfectionComponent.h"
@@ -41,7 +42,8 @@ bool Get(const AActor* Target,FMonsterCoreStats& Out)
     FMonsterCoreStats S;bool bKnown=false;
     auto Fill=[&](int32 Def,int32 Mdef,int32 CritRes,double Weight,int32 Level,EMonsterRank Rank,EMonsterToughnessClass TClass)
     {S.Def=Def;S.Mdef=Mdef;S.CritRes=CritRes;S.AttrWeight=Weight;S.Level=Level;S.Rank=Rank;S.ToughnessClass=TClass;bKnown=true;};
-    if(const auto* Hand=Cast<AFleshHandMonster>(Target))
+    if(const auto* Slag=Cast<AHundredEyedSlagMonster>(Target))Fill(55,40,30,10.5,Slag->Level,Slag->Rank,EMonsterToughnessClass::Heavy);
+    else if(const auto* Hand=Cast<AFleshHandMonster>(Target))
     {
         if(Hand->bMinion)Fill(21,55,10,6.6,Hand->Level,Hand->Rank,EMonsterToughnessClass::Light);   // 小手 {20,30,5,10,10,10}
         else Fill(84,30,45,13.3,Hand->Level,Hand->Rank,EMonsterToughnessClass::Colossal);           // 大手 {55,25,10,45,15,10}

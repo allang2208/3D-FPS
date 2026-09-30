@@ -199,6 +199,7 @@ private:
     float FlyMotion=0.f;                                  // 升级弹层滑入进度（同款 4.0/s，NativeTick 驱动）
     float PanelScreenPx=-1.f;                             // 面板左缘屏幕像素（主题层推送）
     UPROPERTY(Transient) TObjectPtr<UHorizontalBox> BatchRow;
+    UPROPERTY(Transient) TObjectPtr<UVerticalBoxSlot> BatchRowSlot;   // 2026-09-25 居中修复：步进群整体 HAlign_Center
     UPROPERTY(Transient) TObjectPtr<UTextBlock> BatchText;
     UPROPERTY(Transient) TObjectPtr<UButton> BatchMinus;
     UPROPERTY(Transient) TObjectPtr<UButton> BatchPlus;

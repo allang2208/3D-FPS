@@ -2,8 +2,13 @@
 #include "GunsmithPreviewLighting.h"
 #include "../Weapons/ModularSwordVisual.h"
 #include "../Weapons/Bow/BowAssembly.h"
+#include "../Weapons/Staff/StaffAssembly.h"
 #include "Components/MeshComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/SkeletalMeshComponent.h"
+#include "Components/DirectionalLightComponent.h"
+#include "Components/SkyLightComponent.h"
+#include "../Weapons/LMG201WeaponAssets.h"
 #include "Components/SceneCaptureComponent2D.h"
 #include "Engine/Texture2D.h"
 #include "Materials/MaterialInterface.h"
@@ -19,6 +24,7 @@ void UM4GunsmithWidget::UpdatePreviewStreaming(float Delta)
         {
             TArray<UMeshComponent*> Parts;
             if(ColdSteelBowAssembly::IsBowRoot(StandaloneMelee))Parts=ColdSteelBowAssembly::Components(StandaloneMelee);
+            else if(IsStaffWorkbench()){for(auto* Part:ColdSteelStaffAssembly::Components(StandaloneMelee))Parts.Add(Part);}
             else for(auto* Part:ColdSteelModularSword::Components(StandaloneMelee))Parts.Add(Part);
             for(auto* Part:Parts)
             {
@@ -52,7 +58,20 @@ void UM4GunsmithWidget::CapturePreview()
         for(const auto& Weak:Capture->ShowOnlyComponents)
             if(auto* Part=Weak.Get();Part&&Part->IsVisible())LightBounds+=Part->Bounds.GetBox().TransformBy(ToView);
     }
-    GunsmithPreviewLighting::Update(*Capture,LightBounds);
+    bool bGraphite201=false;
+    for(const auto& Pair:StudioCopies)
+        if(Pair.Key.IsValid()&&Pair.Value&&Pair.Value->IsVisible())
+            if(auto* Skinned=Cast<USkeletalMeshComponent>(Pair.Value))
+                bGraphite201|=LMG201WeaponAssets::Matches(Skinned);
+    // This profile belongs to the 201 assembly. Restore the original studio
+    // levels when another weapon replaces it in the same preview widget.
+    const float KeyLevel=bGraphite201?2.5f:6.f;
+    const float FillLevel=bGraphite201?.65f:3.f;
+    const float SkyLevel=bGraphite201?.28f:1.f;
+    if(!FMath::IsNearlyEqual(Studio->DirectionalLight->Intensity,KeyLevel))Studio->SetLightBrightness(KeyLevel);
+    if(StudioFill&&!FMath::IsNearlyEqual(StudioFill->Intensity,FillLevel))StudioFill->SetIntensity(FillLevel);
+    if(!FMath::IsNearlyEqual(Studio->SkyLight->Intensity,SkyLevel))Studio->SetSkyBrightness(SkyLevel);
+    GunsmithPreviewLighting::Update(*Capture,LightBounds,bGraphite201);
     PreviewCoverageCapture->ShowOnlyComponents=Capture->ShowOnlyComponents;
     PreviewCoverageCapture->SetWorldTransform(Capture->GetComponentTransform());
     PreviewCoverageCapture->ProjectionType=Capture->ProjectionType;

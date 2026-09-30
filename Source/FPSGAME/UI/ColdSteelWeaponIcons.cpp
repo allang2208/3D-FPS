@@ -1,5 +1,4 @@
 #include "ColdSteelWeaponIcons.h"
-#include "../Weapons/Bow/BowAssembly.h"
 #include "FPSPerformanceMetrics.h"
 #include "ProfilingDebugging/CpuProfilerTrace.h"
 #include "ColdSteelMeleePreview.h"
@@ -7,6 +6,7 @@
 #include "../Weapons/ModularSwordVisual.h"
 #include "../Weapons/Staff/StaffCatalog.h"
 #include "../Weapons/Staff/StaffAssembly.h"
+#include "../Weapons/Bow/BowAssembly.h"
 #include "ColdSteelPickupStudio.h"
 #include "../Production/ProductionHarvestAssets.h"
 #include "../FPSGAMECharacter.h"
@@ -40,16 +40,16 @@
 #include "Serialization/JsonSerializer.h"
 #endif
 
-bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelInventory::IsBow(I)||ColdSteelMeleePreview::Supports(I)||ProductionHarvestAssets::IsIconSubject(I.Definition)||I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_a762")||I.Definition==TEXT("ue_svd")||I.Definition==TEXT("ue_pkm_lowpoly")||I.Definition==TEXT("ue_qbz191")||I.Definition==TEXT("ue_ash12")||I.Definition==TEXT("ue_m16a2")||(I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_dan_wesson715"));}
+bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelInventory::IsBow(I)||ColdSteelMeleePreview::Supports(I)||ProductionHarvestAssets::IsIconSubject(I.Definition)||(I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_hk416"))||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_a762")||I.Definition==TEXT("ue_lmg201")||I.Definition==TEXT("ue_svd")||I.Definition==TEXT("ue_pkm_lowpoly")||I.Definition==TEXT("ue_qbz191")||I.Definition==TEXT("ue_ash12")||I.Definition==TEXT("ue_m16a2")||((I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_g18"))||I.Definition==TEXT("ue_dan_wesson715"));}
 FString UColdSteelWeaponIcons::Key(const FColdSteelItem& I) const
 {
     if(ColdSteelStaff::IsStaff(I)){const FGunsmithParts Factory;return I.Definition+TEXT("|")+ColdSteelStaff::Resolve(I,bCatalogExport?&Factory:nullptr).Data;}
-    if(ColdSteelModularSword::Supports(I))return I.Definition+TEXT("|")+ColdSteelModularSword::Key(I,nullptr,!bCatalogExport);
     if(ColdSteelInventory::IsBow(I))
     {
         const FGunsmithParts Factory;
         return ColdSteelBowAssembly::Key(GetGameInstance()->GetSubsystem<UGunsmithSystem>()->ResolveBowVisual(I,bCatalogExport?&Factory:nullptr));
     }
+    if(ColdSteelModularSword::Supports(I))return I.Definition+TEXT("|")+ColdSteelModularSword::Key(I,nullptr,!bCatalogExport);
     if(ColdSteelMeleePreview::Supports(I))return I.Definition+TEXT("|")+ColdSteelMeleePreview::MeshPath(I)+TEXT("|")+(bCatalogExport?FString():ColdSteelMeleeRune::Selected(I));
     // 生产材料没有配件也没有装配变体：拾取网格与材质只由定义决定，键就是定义本身。
     if(ProductionHarvestAssets::IsIconSubject(I.Definition))return I.Definition;
@@ -118,6 +118,7 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
         Studio=MakeUnique<FPreviewScene>(FPreviewScene::ConstructionValues().SetEditor(false).SetCreatePhysicsScene(false).SetTransactional(false).SetForceMipsResident(false).SetLightBrightness(6.f).SetSkyBrightness(1.f));
         Studio->SetSkyCubemap(LoadObject<UTextureCube>(nullptr,TEXT("/Game/UI/GunsmithWorkbench/T_StudioEnvironment.T_StudioEnvironment")));
         Studio->DirectionalLight->SetWorldRotation(FRotator(-35,-35,0));
+        Studio->DirectionalLight->SetForwardShadingPriority(1);
         auto* Fill=NewObject<UDirectionalLightComponent>(GetTransientPackage(),NAME_None,RF_Transient);Fill->SetIntensity(3.f);Fill->SetCastShadows(false);Fill->SetLightColor(FLinearColor(.82f,.91f,1.f));Studio->AddComponent(Fill,FTransform(FRotator(-15,150,0)));Studio->UpdateCaptureContents();
         Target=NewObject<UTextureRenderTarget2D>(this);Target->RenderTargetFormat=RTF_RGBA16f;Target->ClearColor=FLinearColor(0,0,0,1);Target->InitAutoFormat(768,320);Target->UpdateResourceImmediate(true);
         Capture=NewObject<USceneCaptureComponent2D>(GetTransientPackage(),NAME_None,RF_Transient);Capture->TextureTarget=Target;Capture->CaptureSource=SCS_SceneColorHDR;Capture->ProjectionType=ECameraProjectionMode::Orthographic;Capture->PrimitiveRenderMode=ESceneCapturePrimitiveRenderMode::PRM_UseShowOnlyList;
@@ -128,11 +129,6 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     }
     if(ColdSteelInventory::IsBow(I)){const bool Ready=PrepareBow(I);PrepareStep=7;return Ready;}
     if(ProductionHarvestAssets::IsIconSubject(I.Definition)){const bool Ready=PrepareMaterial(I);PrepareStep=7;return Ready;}
-    if(ColdSteelInventory::IsBow(I))
-    {
-        const FGunsmithParts Factory;
-        return ColdSteelBowAssembly::Key(GetGameInstance()->GetSubsystem<UGunsmithSystem>()->ResolveBowVisual(I,bCatalogExport?&Factory:nullptr));
-    }
     if(ColdSteelMeleePreview::Supports(I)){const bool Ready=PrepareMelee(I);PrepareStep=7;return Ready;}
     if(PrepareStep==1){
     if(!Rig){
@@ -154,7 +150,7 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     if(RigDefinition!=I.Definition){
         TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Icon_InitializeVisuals);
         FFPSPerformanceScope VisualScope(bCatalogExport?nullptr:GetGameInstance(),TEXT("Icon.InitializeVisuals"));
-        Rig->ActiveInventoryWeaponDefinition=I.Definition;Rig->bUseM4Infima=I.Definition==TEXT("ue_m4a1");Rig->bUseQBZ191=I.Definition==TEXT("ue_qbz191");Rig->bUseASH12=I.Definition==TEXT("ue_ash12");Rig->bUseM16=I.Definition==TEXT("ue_m16a2");Rig->bUseM1911=I.Definition==TEXT("ue_m1911");Rig->bUseDanWesson715=I.Definition==TEXT("ue_dan_wesson715");Rig->InitializeWeaponVisuals(true);RigDefinition=I.Definition;
+        Rig->ActiveInventoryWeaponDefinition=I.Definition;Rig->bUseM4Infima=(I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_hk416"));Rig->bUseQBZ191=I.Definition==TEXT("ue_qbz191");Rig->bUseASH12=I.Definition==TEXT("ue_ash12");Rig->bUseM16=I.Definition==TEXT("ue_m16a2");Rig->bUseM1911=(I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_g18"));Rig->bUseDanWesson715=I.Definition==TEXT("ue_dan_wesson715");Rig->InitializeWeaponVisuals(true);RigDefinition=I.Definition;
         // Canvas follows the authored footprint: a fixed table keyed on definition names silently
         // shrinks any weapon whose slot aspect differs (QBZ-191 and ASH-12 rendered ~25% narrow).
         const FIntPoint Grid=ColdSteelInventory::BaseFootprint(I);IconCanvasWidth=FMath::Max(256,FMath::RoundToInt(320.f*float(Grid.X)/FMath::Max(1,Grid.Y)));
@@ -194,7 +190,7 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     for(int32 L=0;L<Render->LODRenderData.Num();++L)for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S){
         const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;const FString Name=Asset->GetMaterials()[M].MaterialSlotName.ToString().ToLower();
         // Handguard is a gun surface, not part of the first-person hands.
-        const bool HandMaterial=Name.Contains(TEXT("hand"))&&!Name.Contains(TEXT("handguard"))&&!Name.Contains(TEXT("charginghandle"));
+        const bool HandMaterial=Name.Contains(TEXT("hand"))&&!Name.Contains(TEXT("handguard"))&&!Name.Contains(TEXT("charginghandle"))&&!Name.Contains(TEXT("carryhandle"));
         if(Name.Contains(TEXT("manny"))||HandMaterial||Name.Contains(TEXT("glove"))||Name.Contains(TEXT("sleeve"))||Name==TEXT("skin"))Mesh->ShowMaterialSection(M,S,false,L);
     }
     const FVector Pivot=Mesh->GetSocketLocation(TEXT("WPN_SOCKET_Magazine"));

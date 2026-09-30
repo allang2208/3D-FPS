@@ -1,4 +1,5 @@
 #include "ColdSteelStatusModel.h"
+#include "../Weapons/WeaponReloadStages.h"
 #include "../FPSGAMECharacter.h"
 #include "../Skills/ColdSteelSkillRules.h"
 #include "Dom/JsonObject.h"
@@ -124,6 +125,31 @@ bool UColdSteelStatusModel::NormalizeAmmo(FColdSteelProfile& State,bool& Changed
         }
         const FString Default=AmmoGroupFor(Item);
         if(!Default.IsEmpty()&&Item.LoadedAmmoType.IsEmpty()){Item.LoadedAmmoType=Default;Changed=true;}
+        // 201's retired box must not silently discard its excess owned rounds
+        // when the character clamps the now-standard 30-round magazine.
+        if(Item.Definition==TEXT("ue_lmg201"))
+        {
+            TSharedPtr<FJsonObject> Data;const TSharedPtr<FJsonObject>* Parts=nullptr;FString MagazinePart;
+            if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data)&&Data&&
+                Data->TryGetObjectField(TEXT("gunsmith_parts"),Parts)&&
+                (*Parts)->TryGetStringField(TEXT("magazine"),MagazinePart)&&MagazinePart==TEXT("lmg201_ammo_box"))
+            {
+                const int32 Excess=FMath::Max(0,Item.Magazine-30);
+                const int32 Virtual=FMath::Min(Excess,Item.VirtualMagazineAmmo);
+                if(Excess>Virtual&&!AddAmmoToState(State,AmmoDefinitionFor(Item),Excess-Virtual))return false;
+                Item.Magazine-=Excess;Item.VirtualMagazineAmmo-=Virtual;
+                (*Parts)->RemoveField(TEXT("magazine"));
+                bool EmptyCycle=true;
+                if(Data->TryGetBoolField(TEXT("reload_cycle_empty"),EmptyCycle)&&!EmptyCycle)
+                {
+                    Data->RemoveField(TEXT("reload_pending_cycle"));
+                    Data->RemoveField(TEXT("reload_cycle_empty"));
+                }
+                Item.Data.Reset();
+                FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&Item.Data));
+                Changed=true;
+            }
+        }
     }
     if(State.AmmoPouchVersion!=1){State.AmmoPouchVersion=1;Changed=true;}
     return true;
@@ -134,7 +160,7 @@ bool UColdSteelStatusModel::CanSwitchAmmo(const FString& WeaponId,const FString&
     return Gun&&Gun->Place==1&&Type&&Type->Enabled&&Type->Group==AmmoGroupFor(*Gun)&&
         AmmoDefinitionFor(*Gun)!=Target&&PouchCount(Target)>0;
 }
-bool UColdSteelStatusModel::CommitAmmoSwitch(const FString& WeaponId,const FString& Target,int32 Capacity)
+bool UColdSteelStatusModel::CommitAmmoSwitch(const FString& WeaponId,const FString& Target,int32 Capacity,int32 NeedsCycle,int32 LoadLimit,bool Completed)
 {
     if(Capacity<=0||!CurrentPawn.IsValid()||!CanSwitchAmmo(WeaponId,Target))return false;
     SyncRuntime();auto State=Snapshot();
@@ -144,16 +170,28 @@ bool UColdSteelStatusModel::CommitAmmoSwitch(const FString& WeaponId,const FStri
     if(!AddAmmoToState(State,AmmoDefinitionFor(*Gun),Refund))return false;
     // A type change always spends owned rounds, including on the range. Infinite
     // normal reloads remain available, but never unlock unowned ammo types.
-    const int32 Loaded=int32(FMath::Min<int64>(Capacity,State.AmmoPouch.FindRef(Target)));
+    const int32 Loaded=int32(FMath::Min<int64>(FMath::Min(Capacity,LoadLimit),State.AmmoPouch.FindRef(Target)));
     if(Loaded<=0)return false;
     State.AmmoPouch.FindOrAdd(Target)-=Loaded;
     Gun->Magazine=Loaded;Gun->VirtualMagazineAmmo=0;Gun->LoadedAmmoType=Target;
+    if(!WeaponReloadStages::SetNeedsCycle(*Gun,NeedsCycle))return false;
     if(Gun->Definition==TEXT("ue_dan_wesson715"))
     {
         TSharedPtr<FJsonObject> Data;
         if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Gun->Data),Data))
         {Data->SetNumberField(TEXT("revolver_case_count"),Loaded);Gun->Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Gun->Data));}
     }
-    ColdSteelSkills::AddExperience(State,DexterousHandsSkill,DexterousHandsSkill.ReloadExperience);
+    if(Completed)ColdSteelSkills::AddExperience(State,DexterousHandsSkill,DexterousHandsSkill.ReloadExperience);
+    return CommitState(MoveTemp(State));
+}
+
+bool UColdSteelStatusModel::CompleteWeaponReloadCycle(const FString& WeaponId)
+{
+    const auto* Item=FindItem(WeaponId);
+    if(!Item)return false;
+    if(!WeaponReloadStages::NeedsCycle(*Item))return true;
+    SyncRuntime();auto State=Snapshot();
+    auto* Gun=State.Items.FindByPredicate([&](const auto& I){return I.InstanceId==WeaponId;});
+    if(!Gun || !WeaponReloadStages::SetNeedsCycle(*Gun,false))return false;
     return CommitState(MoveTemp(State));
 }

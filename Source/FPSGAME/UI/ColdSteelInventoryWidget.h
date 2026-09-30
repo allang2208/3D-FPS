@@ -79,6 +79,7 @@ private:
     friend class UColdSteelHUDWidget;
     friend class UColdSteelInventoryPopup;
     friend class UColdSteelWarehouseWidget;
+    friend class UColdSteelInventoryVisualAudit;
     bool bWarehouse=false;
     TWeakObjectPtr<class UColdSteelHUDWidget> StorageHUD;
     int32 StoragePlace()const{return bWarehouse?4:0;}
@@ -91,6 +92,9 @@ private:
     const FSlateBrush* ItemBrush(const struct FColdSteelItem& Item) const;
     UPROPERTY() TMap<FString,TObjectPtr<class UTexture2D>> Icons;
     TMap<FString,FSlateBrush> IconBrushes;
+    /** Parts whose icon file is absent on disk; remembered so a refresh does not
+     *  repeat the failed import, its warning and a throwaway texture allocation. */
+    TSet<FString> FailedIcons;
     FString Selected;
     FString KeyboardCarry;
     FString HoverPreview;
@@ -121,7 +125,13 @@ private:
     FIntPoint PendingFootprint(const FColdSteelItem& Item,const UColdSteelItemDrag& Drag)const;
     bool PreviewItemDrag(UColdSteelItemDrag& Drag,FVector2D Screen);
     void UpdateDragGhost(UColdSteelItemDrag& Drag,const FGeometry& G,FVector2D CursorPos)const;
-    struct FItemPresentation {FString Name,Rarity;int32 Enhancement=0;bool Crafted=false,Enchanted=false;bool StaffArt=false;};
+    // Enhancement 是武器／防具强化等级（enhanceLevel），ToolEnhanceLevel 是采集工具的
+    // 金属材质档位（tool_enhance_level，1…5，出厂 1）；两者语义不同，不共用字段，
+    // 否则工具等级会污染「已强化 +N」口径。只有斧／镐读 ToolEnhanceLevel，其余恒 0。
+    // MeleeArt 标记近战武器与采集工具：它们的立绘是竖直的，装备栏图区是横长条，
+    // 绘制时按枪的口径横放。在 RefreshPresentation 里从已解析的 JSON 算一次，
+    // 避免每帧 NativePaint 再读一遍 Item.Data。
+    struct FItemPresentation {FString Name,Rarity;int32 Enhancement=0;int32 ToolEnhanceLevel=0;bool Crafted=false,Enchanted=false;bool MeleeArt=false,StaffArt=false;};
     TMap<FString,FItemPresentation> Presentation;
     int32 HoverPlace=-1,PointerCell=-1;
     bool bSortHovered=false;

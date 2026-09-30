@@ -61,16 +61,20 @@ FVector AFPSFireballProjectile::HoverPosition(APawn* Caster)
     if(!Camera)return Caster->GetActorLocation()+Caster->GetActorForwardVector()*100;
     return Camera->GetComponentLocation()+Camera->GetForwardVector()*95-Camera->GetRightVector()*40-Camera->GetUpVector()*22;
 }
-void AFPSFireballProjectile::Launch(const FVector& AimPoint)
+void AFPSFireballProjectile::Launch()
 {
-    if(bFlying||bFinished)return;
+    if(bFlying||bFinished||!Shooter.IsValid())return;
+    // Contact is evaluated before this projectile's tick. Catch up to the
+    // player's current pose before detaching, including wall clearance.
+    UpdateHover();
+    const bool bUsePreview=bPreviewLaunchLocked;
+    const FVector AimPoint=bUsePreview?PreviewAimPoint:FPSMagicPreview::AimPoint(Shooter.Get(),this);
     SetAimPreviewActive(false);
     // Launch from the actual hovering position, including any wall clearance;
     // the remote hand gesture does not pull or teleport the orb toward the hand.
     bFlying=true;FlightAge=0.f;
     LaunchPosition=GetActorLocation();
-    LaunchVelocity=(AimPoint-LaunchPosition).GetSafeNormal()*Cast.Speed;
-    if(LaunchVelocity.IsNearlyZero())LaunchVelocity=Shooter->GetActorForwardVector()*Cast.Speed;
+    LaunchVelocity=FPSMagicPreview::LaunchVelocity(LaunchPosition,AimPoint,Cast.Speed,Shooter->GetActorForwardVector());
     Velocity=LaunchVelocity;
     Core->SetVariableFloat(TEXT("User.Flight"),1.f);
     UpdateFlightFX(GetActorLocation());Trail->Activate(true);
@@ -78,8 +82,19 @@ void AFPSFireballProjectile::Launch(const FVector& AimPoint)
 void AFPSFireballProjectile::SetAimPreviewActive(bool bActive)
 {
     bAimPreview=bActive;
+    bPreviewLaunchLocked=false;
+    if(bActive)PreviewPoints.Reset();
     // Segments carry a short lifetime, so stopping the refresh is enough to clear them.
     if(!bActive)FPSMagicPreview::Clear(AimPreviewLines);
+}
+void AFPSFireballProjectile::CommitAimPreview()
+{
+    if(!bAimPreview||bFlying||bFinished||!Shooter.IsValid())return;
+    // Quick taps can precede the first preview tick. Otherwise preserve the
+    // last displayed aim target while the launch origin keeps following.
+    if(PreviewPoints.IsEmpty())RefreshAimPreview();
+    SetAimPreviewActive(false);
+    bPreviewLaunchLocked=true;
 }
 void AFPSFireballProjectile::RefreshAimPreview()
 {
@@ -90,11 +105,25 @@ void AFPSFireballProjectile::RefreshAimPreview()
     // Same arc Launch() builds: from the hovering orb toward the camera ray's first hit, then
     // dropping under the cast's gravity, so the preview shows where the orb will really land.
     const FVector AimPoint=FPSMagicPreview::AimPoint(Shooter.Get(),this);
+    PreviewAimPoint=AimPoint;
     const FVector Start=GetActorLocation();
-    const FVector Direction=(AimPoint-Start).GetSafeNormal(UE_SMALL_NUMBER,Shooter->GetActorForwardVector());
-    FPSMagicPreview::SamplePath(Shooter.Get(),this,Start,Direction*Cast.Speed,Cast.Gravity,
-        Cast.Range,14.f,PreviewPoints);
+    LaunchPosition=Start;
+    LaunchVelocity=FPSMagicPreview::LaunchVelocity(Start,AimPoint,Cast.Speed,Shooter->GetActorForwardVector());
+    FPSMagicPreview::SamplePath(Shooter.Get(),this,Start,LaunchVelocity,Cast.Gravity,
+        Cast.Range,14.f,PreviewPoints,false);
     FPSMagicPreview::DrawPath(AimPreviewLines,PreviewPoints);
+}
+void AFPSFireballProjectile::UpdateHover()
+{
+    if(!Shooter.IsValid())return;
+    const FVector Desired=HoverPosition(Shooter.Get());
+    // The authored trajectory already eases. Continue following through the
+    // windup, without a second interpolator or freezing at input release.
+    FCollisionQueryParams Query(SCENE_QUERY_STAT(FireballMove),false,Shooter.Get());Query.AddIgnoredActor(this);
+    FHitResult Hit;
+    const bool Blocked=GetWorld()->SweepSingleByChannel(Hit,GetActorLocation(),Desired,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(14),Query);
+    SetActorLocation(Blocked?Hit.Location:Desired);
+    if(const auto* Camera=Shooter->FindComponentByClass<UCameraComponent>())Core->SetVisibility(FVector::Distance(Camera->GetComponentLocation(),GetActorLocation())>30);
 }
 void AFPSFireballProjectile::UpdateFlightFX(const FVector& PreviousPosition)
 {
@@ -126,28 +155,22 @@ void AFPSFireballProjectile::Tick(float Delta)
     // Small, slow variations support the roiling flame instead of rapid flicker.
     const float Glow=.97f+.02f*FMath::Sin(Age*2.3f)+.01f*FMath::Sin(Age*3.7f+1.1f);
     Light->SetIntensity(1250*Grow*Glow);
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(FireballMove),false,Shooter.Get());Query.AddIgnoredActor(this);
-    FHitResult Hit;
     if(!bFlying)
     {
         if(Age>=Cast.HoverDuration){Destroy();return;}
-        const FVector Desired=HoverPosition(Shooter.Get());
-        // The authored hand trajectory already eases; a second interpolator would
-        // leave the ball behind the fast release gesture.
-        const FVector End=Desired;
-        const bool Blocked=GetWorld()->SweepSingleByChannel(Hit,GetActorLocation(),End,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(14),Query);
-        SetActorLocation(Blocked?Hit.Location:End);
-        // World geometry remains in front of the effect; near-camera retreat fades it out.
-        if(const auto* Camera=Shooter->FindComponentByClass<UCameraComponent>())Core->SetVisibility(FVector::Distance(Camera->GetComponentLocation(),GetActorLocation())>30);
+        UpdateHover();
         if(bAimPreview)RefreshAimPreview();
         return;
     }
     Core->SetVisibility(true);FlightAge+=Delta;
+    FCollisionQueryParams Query(SCENE_QUERY_STAT(FireballMove),false,Shooter.Get());Query.AddIgnoredActor(this);
+    FHitResult Hit;
     const FVector PreviousPosition=GetActorLocation();
     // Ballistic flight: the analytic position keeps the drop frame-rate independent, so the
     // preview line can reproduce the same arc with the same integration.
     const FVector Gravity(0,0,-Cast.Gravity);
-    const FVector NextPosition=LaunchPosition+LaunchVelocity*FlightAge+.5f*Gravity*FlightAge*FlightAge;
+    const FVector NextPosition=FPSMagicPreview::LimitStep(PreviousPosition,
+        LaunchPosition+LaunchVelocity*FlightAge+.5f*Gravity*FlightAge*FlightAge,Cast.Range-Distance);
     Velocity=LaunchVelocity+Gravity*FlightAge;
     const bool Blocked=GetWorld()->SweepSingleByChannel(Hit,PreviousPosition,NextPosition,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(14),Query);
     SetActorLocation(Blocked?Hit.Location:NextPosition);

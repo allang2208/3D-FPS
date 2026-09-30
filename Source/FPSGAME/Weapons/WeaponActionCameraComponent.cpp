@@ -161,9 +161,11 @@ void Reload(float Time, float End, TConstArrayView<float> Contacts,
 }
 
 void ReloadPKM(float Time, float End, TConstArrayView<float> Contacts,
-    bool bEmpty, FPose& Follow, FPose& Impacts)
+    bool bEmpty, FPose& Follow, FPose& Impacts, bool bChargeTail = true)
 {
-    if (Contacts.Num() < (bEmpty ? 9 : 6)) return;
+    // The 201 cloth box shares this belt-box profile without a charging tail:
+    // {open, [belt lift,] box out, box insert, belt seat, cover close}.
+    if (Contacts.Num() < (bEmpty ? (bChargeTail ? 9 : 5) : 6)) return;
     // PKM's audio queue omits the old-belt lift when empty. Consume its source
     // seconds directly so Reload16's cut and gameplay reload speed stay shared.
     const int32 BoxIndex = bEmpty ? 1 : 2;
@@ -179,7 +181,7 @@ void ReloadPKM(float Time, float End, TConstArrayView<float> Contacts,
     if (!bEmpty)
         Impact(Impacts, Time, Contacts[1], .26f, {.35f, -.08f, 0.f}, {0.f, -.10f, .08f});
     Impact(Impacts, Time, BeltSeat, .20f, {-.35f, .08f, 0.f}, {.10f, .04f, -.16f});
-    if (bEmpty)
+    if (bEmpty && bChargeTail)
     {
         const float Pull = Contacts[5], Rear = Contacts[6];
         const float Push = Contacts[7], Front = Contacts[8];
@@ -295,6 +297,9 @@ void UWeaponActionCameraComponent::Apply(UCameraComponent& Camera, EM4CameraActi
         else if (Action == EM4CameraAction::PKMReload || Action == EM4CameraAction::PKMReloadEmpty)
             WeaponActionCamera::ReloadPKM(Time, SourceDuration, ContactSeconds,
                 Action == EM4CameraAction::PKMReloadEmpty, Follow, Impacts);
+        else if (Action == EM4CameraAction::LMG201ClothReload || Action == EM4CameraAction::LMG201ClothReloadEmpty)
+            WeaponActionCamera::ReloadPKM(Time, SourceDuration, ContactSeconds,
+                Action == EM4CameraAction::LMG201ClothReloadEmpty, Follow, Impacts, false);
         else if (Action == EM4CameraAction::EquipCharge)
             WeaponActionCamera::Equip(Time, SourceDuration, Follow, Impacts);
         else

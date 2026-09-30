@@ -73,6 +73,10 @@ private:
     bool LastAimWasAssisted=false;
     bool GrowUpPlan=false;
     double LastSnapTime=-10.,GroundSampleAt=-10.,LastAimLog=-10.;
+    /** 审计 U3（2026-09-23）：抽屉持焦时消费键的帧戳。原为文件级 static，PIE 双开互相吞键；收进成员。 */
+    uint64 DrawerKeyFrame=0;
+    /** 审计 U1（2026-09-23）：UpdateWidget 生产端签名——廉价分量键 + 结构 Revision，都没变就整段跳过字符串构造。 */
+    uint64 LastWidgetCheapKey=MAX_uint64,LastWidgetRevision=MAX_uint64;
     /** 幽灵框只在光标/计划框真的移动时重建。 */
     FVector LastCursorPoint=FVector(TNumericLimits<double>::Max());
     FVector LastCursorNormal=FVector::ZeroVector,LastPlanMin=FVector::ZeroVector,LastPlanMax=FVector::ZeroVector;

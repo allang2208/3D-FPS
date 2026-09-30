@@ -28,8 +28,11 @@ bool URuneSwordComponent::TickTacticalSprintPose(float Delta)
 {
     if(!HasTacticalSprintAnimations())return false;
     const auto* Pawn=Character.Get();
-    const bool bRequested=Pawn&&Pawn->IsSprinting()&&Pawn->GetVelocity().SizeSquared2D()>2500.f&&
-        Pawn->GetCharacterMovement()->IsMovingOnGround()&&!Pawn->IsDodging()&&!Pawn->IsSliding()&&
+    const bool bGroundSprint=Pawn&&Pawn->IsSprinting()&&!Pawn->bWeaponJumpAirborne&&
+        Pawn->GetCharacterMovement()->IsMovingOnGround()&&!Pawn->IsSliding();
+    // The readiness model already retains an earned charge through slides and
+    // jumps, including the pending launch frame. Keep its carry pose as well.
+    const bool bRequested=Pawn&&!Pawn->IsDodging()&&
         !Pawn->IsCastBlockingLeftHandAction()&&DashReadyFraction()>=1.f-UE_SMALL_NUMBER;
     if(bRequested)
     {
@@ -45,13 +48,15 @@ bool URuneSwordComponent::TickTacticalSprintPose(float Delta)
             Elapsed=FMath::Min(Elapsed+Delta,CurrentAnimation->GetPlayLength());
             if(Elapsed>=CurrentAnimation->GetPlayLength())SetClip(TEXT("SprintLoop"),true);
         }
-        if(CurrentClip==TEXT("SprintLoop"))
+        if(CurrentClip==TEXT("SprintLoop")&&bGroundSprint)
         {
             // The character caches the audio stride phase before this component
             // ticks. Camera, feet and blade therefore sample the same cycle.
             const float Phase=FMath::Fmod(Pawn->M4SprintPhase,2.f*PI)/(2.f*PI);
             Elapsed=Phase*CurrentAnimation->GetPlayLength();
         }
+        // Sliding/airborne movement holds the last carry sample instead of
+        // playing running strides. The shared jump root still adds inertia.
         SamplePose(Elapsed);
         return true;
     }
@@ -63,9 +68,16 @@ bool URuneSwordComponent::TickTacticalSprintPose(float Delta)
         SetClip(TEXT("SprintExit"),false);
         Elapsed=(1.f-Raised)*CurrentAnimation->GetPlayLength();
     }
-    Elapsed=FMath::Min(Elapsed+Delta,CurrentAnimation->GetPlayLength());
+    // The authored exit is shorter than the entry (0.20 s vs 0.50 s).
+    // Keep its supported two-hand path, but return over the same real-time
+    // duration as entering. Elapsed stays in source time so interrupted
+    // enter/exit progress and the shared camera weight remain aligned.
+    const float ExitLength=CurrentAnimation->GetPlayLength();
+    const float ReturnSeconds=FMath::Max(.01f,Animations.FindRef(TEXT("SprintEnter"))->GetPlayLength());
+    Elapsed=FMath::Min(Elapsed+Delta*ExitLength/ReturnSeconds,ExitLength);
     SamplePose(Elapsed);
-    if(Elapsed>=CurrentAnimation->GetPlayLength())
-        SetClip(Pawn->GetVelocity().SizeSquared2D()>400.f?TEXT("Walk"):TEXT("Idle"),true);
+    if(Elapsed>=ExitLength)
+        SetClip(Pawn->GetCharacterMovement()->IsMovingOnGround()&&!Pawn->bWeaponJumpAirborne&&!Pawn->IsSliding()
+            &&Pawn->GetVelocity().SizeSquared2D()>400.f?TEXT("Walk"):TEXT("Idle"),true);
     return true;
 }

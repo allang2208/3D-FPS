@@ -20,6 +20,7 @@ namespace
         if(Category==TEXT("tribute")){OutGroup=TEXT("祭品");OutOrder=6;return;}
         if(Category==TEXT("gold")){OutGroup=TEXT("货币");OutOrder=7;return;}
         if(Category==TEXT("material")){OutGroup=TEXT("材料");OutOrder=3;return;}
+        if(Category==TEXT("equipment")){OutGroup=TEXT("服装与手套");OutOrder=8;return;}
         OutGroup=TEXT("其他");OutOrder=8;
     }
 }
@@ -31,7 +32,7 @@ const TArray<FName>& UColdSteelStatusModel::SkillCatalog() const
         TEXT("rifleMastery"),TEXT("pistolMastery"),TEXT("swordMastery"),
         TEXT("machineGunMastery"),TEXT("shotgunMastery"),TEXT("bowMastery"),
         TEXT("heavyStrike"),TEXT("whirlwind"),TEXT("dashAttack"),TEXT("criticalStrike"),TEXT("dodge"),
-        TEXT("dexterousHands"),TEXT("fireball"),TEXT("iceSpike"),TEXT("quickCombat")};
+        TEXT("dexterousHands"),TEXT("fireball"),TEXT("iceSpike"),TEXT("lightningStrike"),TEXT("holyLight"),TEXT("quickCombat")};
     return Ids;
 }
 
@@ -44,6 +45,8 @@ const FColdSteelSkillDefinition& UColdSteelStatusModel::DevelopmentSkillDefiniti
     if(Id==TEXT("criticalStrike"))return CriticalStrikeDefinition();
     if(Id==TEXT("fireball"))return FireballDefinition();
     if(Id==TEXT("iceSpike"))return IceSpikeDefinition();
+    if(Id==TEXT("lightningStrike"))return LightningDefinition();
+    if(Id==TEXT("holyLight"))return HolyLightDefinition();
     if(Id==TEXT("quickCombat"))return QuickCombatDefinition();
     return MasteryDefinition(Id);
 }

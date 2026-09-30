@@ -7,11 +7,14 @@
   "stones": 1,
   "weaponIncreasePerLevel": 0.05,
   "scrolls": [
+    {"id":"riftSlash","item":"enchant_scroll_rift_slash","name":"裂空","slot":"suffix","restriction":"sword","dust":800,"description":"剑类武器蓄满重击挥出时，向前发射一道蓝白弧形剑气。射程 12 米，造成本次重击 100% 的伤害，继承伤害类型与穿透属性；穿透敌人，每个敌人仅命中一次，遇墙消散。未蓄满不触发，剑气不再触发附魔连锁，不额外消耗法力。","effects":{"riftSlash":true,"riftSlashRangeM":12.0,"riftSlashDamageScale":1.0,"riftSlashSpeedM":18.0}},
     {"id":"skeletonArcher","item":"enchant_scroll_skeleton","name":"骷髅射手","slot":"suffix","restriction":"firearm","dust":400,"description":"穿透目标 +2","effects":{"piercingBonus":2}},
     {"id":"tarantula","item":"enchant_scroll_tarantula","name":"狼蛛","slot":"suffix","restriction":"weapon","dust":200,"description":"命中叠加 1 层中毒，每秒每层造成 1 点伤害，持续 5 秒","effects":{"poisonOnHit":true,"poisonStacks":1}},
     {"id":"heavy","item":"enchant_scroll_heavy","name":"沉重","slot":"prefix","restriction":"sword","dust":100,"description":"攻击力 +60%，攻击间隔 ×1.35","effects":{"damagePercent":0.6,"attackIntervalMul":1.35}},
     {"id":"sharp","item":"enchant_scroll_sharp","name":"锋利的","slot":"prefix","restriction":"sword","dust":100,"description":"暴击率 +50%","effects":{"critRate":0.5}},
     {"id":"turbocharger","item":"enchant_scroll_turbocharger","name":"涡轮增压","slot":"prefix","restriction":"machineGun","dust":400,"description":"持续开火时射速由 1/3 线性提升至 2 倍，2.5 秒达到峰值；停火、换弹或切枪立即复位。","effects":{"turboRampStartMul":3.0,"turboRampPeakMul":0.5,"turboRampSeconds":2.5}},
-    {"id":"convergence","item":"enchant_scroll_convergence","name":"汇聚","slot":"suffix","restriction":"sniper","dust":400,"description":"更改射击模式：一次射击消耗弹匣内全部子弹，单发造成这些子弹合计伤害的 75%，伤害类型沿用原枪械。","effects":{"convergenceShot":true,"convergenceDamageScale":0.75}}
+    {"id":"convergence","item":"enchant_scroll_convergence","name":"汇聚","slot":"suffix","restriction":"sniper","dust":400,"description":"更改射击模式：一次射击消耗弹匣内全部子弹，单发造成这些子弹合计伤害的 75%，伤害类型沿用原枪械。","effects":{"convergenceShot":true,"convergenceDamageScale":0.75}},
+    {"id":"shatterBullet","item":"enchant_scroll_shatter_bullet","name":"碎裂子弹","slot":"suffix","restriction":"firearm","dust":800,"description":"子弹命中敌人后，向命中处 5 米内随机一名其他敌人弹射；若本发子弹击杀敌人，则向范围内所有其他敌人各弹射一颗。弹射继承本次命中 100% 的伤害与伤害类型，受墙体遮挡，且不会再次弹射。","effects":{"shatterBullet":true,"shatterRadiusM":5.0,"shatterDamageScale":1.0}},
+    {"id":"electrifiedMelee","item":"enchant_scroll_electrified","name":"感电的","slot":"prefix","restriction":"melee","dust":800,"description":"近战命中敌人后，有 25% 概率向其周围 5 米内随机一名其他敌人释放闪电；本次近战击杀敌人时，放电概率为 100%。闪电击杀后，以被击杀者为中心向 5 米内所有其他敌人放电，击杀可继续连锁。同一轮不重复命中且受墙体遮挡。闪电参数取 10 级与玩家当前闪电等级中的较高值，逐跳沿用技能伤害衰减；自动触发不消耗法力、不占用主动技能冷却。武器刃部环绕闪电。","effects":{"electrifiedMelee":true,"electrifiedRadiusM":5.0,"electrifiedMinLevel":10}}
   ]
 }

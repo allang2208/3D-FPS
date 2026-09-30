@@ -20,6 +20,21 @@
 #include "Rendering/SkeletalMeshRenderData.h"
 #include "Framework/Application/SlateApplication.h"
 
+namespace GunsmithStudioVisibility
+{
+bool IsArmMaterial(FName Slot)
+{
+    const FString Name=Slot.ToString().ToLower();
+    // Native V7 meshes preserve their original arm slots. Standalone bare-arm
+    // meshes use BareUpperArms / BareLowerArms / BareHandsOriginalGrip instead.
+    // Match hands explicitly so the weapon's Handguard remains visible.
+    return Name.Contains(TEXT("manny"))||Name.Contains(TEXT("glove"))||Name.Contains(TEXT("sleeve"))
+        ||Name==TEXT("skin")||Name==TEXT("hand")||Name==TEXT("hands")
+        ||Name.EndsWith(TEXT("_hand"))||Name.EndsWith(TEXT("_hands"))
+        ||(Name.StartsWith(TEXT("bare"))&&(Name.Contains(TEXT("arms"))||Name.Contains(TEXT("hands"))));
+}
+}
+
 void UM4GunsmithWidget::InitializePreview()
 {
     if(Capture||!GetOwningPlayerPawn())return;
@@ -36,6 +51,7 @@ void UM4GunsmithWidget::InitializePreview()
     PreviewBrush.SetResourceObject(PreviewMaterial);PreviewBrush.ImageSize=FVector2D(1200,800);PreviewBrush.DrawAs=ESlateBrushDrawType::Image;
     Studio=MakeUnique<FPreviewScene>(FPreviewScene::ConstructionValues().SetEditor(false).SetCreatePhysicsScene(false).SetTransactional(false).SetForceMipsResident(false).SetLightBrightness(6.f).SetSkyBrightness(1.f));
     Studio->SetSkyCubemap(LoadObject<UTextureCube>(nullptr,TEXT("/Game/UI/GunsmithWorkbench/T_StudioEnvironment.T_StudioEnvironment")));
+    Studio->DirectionalLight->SetForwardShadingPriority(1);
     StudioFill=NewObject<UDirectionalLightComponent>(GetTransientPackage(),NAME_None,RF_Transient);
     StudioFill->SetIntensity(3.f);StudioFill->SetLightColor(FLinearColor(.82f,.91f,1.f));StudioFill->SetCastShadows(false);
     Studio->AddComponent(StudioFill,FTransform(FRotator(-15,150,0)));
@@ -67,7 +83,8 @@ void UM4GunsmithWidget::InitializePreview()
 }
 void UM4GunsmithWidget::SyncStudioPreview()
 {
-    // Copy only presentation geometry. Original mesh assets, materials, pose and section visibility remain authoritative.
+    // Preserve the source pose, materials and attachment masks; apply arm
+    // exclusion only to studio copies, independently of the held weapon type.
     const auto Sources=Capture->ShowOnlyComponents;Capture->ShowOnlyComponents.Reset();
     const FTransform ViewTransform=Capture->GetComponentTransform();
     Capture->ProjectionType=bAimPreview?ECameraProjectionMode::Perspective:ECameraProjectionMode::Orthographic;
@@ -119,6 +136,21 @@ void UM4GunsmithWidget::SyncStudioPreview()
         if(auto* SourceSkinned=Cast<USkeletalMeshComponent>(Source))
             if(auto* CopySkinned=Cast<USkeletalMeshComponent>(Copy);CopySkinned&&CopySkinned->GetSkeletalMeshAsset()!=SourceSkinned->GetSkeletalMeshAsset())
             {CopySkinned->EmptyOverrideMaterials();CopySkinned->SetSkeletalMeshAsset(SourceSkinned->GetSkeletalMeshAsset());CopySkinned->SetLeaderPoseComponent(SourceSkinned);bPreviewStreamingDirty=true;}
+        if(auto* Skinned=Cast<USkeletalMeshComponent>(Source))
+            if(const auto* Asset=Skinned->GetSkeletalMeshAsset())if(const auto* Render=Asset->GetResourceForRendering())
+            {
+                auto* SkinnedCopy=Cast<USkeletalMeshComponent>(Copy);
+                TArray<bool,TInlineAllocator<32>> ArmMaterials;
+                for(const auto& Material:Asset->GetMaterials())
+                    ArmMaterials.Add(!bAimPreview&&GunsmithStudioVisibility::IsArmMaterial(Material.MaterialSlotName));
+                for(int32 L=0;L<Render->LODRenderData.Num();++L)
+                    for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)
+                    {
+                        const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;
+                        const bool bShow=Skinned->IsMaterialSectionShown(M,L)&&!(ArmMaterials.IsValidIndex(M)&&ArmMaterials[M]);
+                        if(SkinnedCopy->IsMaterialSectionShown(M,L)!=bShow)SkinnedCopy->ShowMaterialSection(M,S,bShow,L);
+                    }
+            }
         FTransform Pose=Source->GetComponentTransform();
         if(!bAimPreview){Pose.SetLocation(Target+AssemblyRotation.RotateVector(Pose.GetLocation()-Pivot));Pose.SetRotation(AssemblyRotation*Pose.GetRotation());}
         if(!Copy->IsVisible())bPreviewStreamingDirty=true;
@@ -133,7 +165,8 @@ void UM4GunsmithWidget::SyncStudioPreview()
                 if(Render&&!Render->LODRenderData.IsEmpty())
                 {
                     const auto& LOD=Render->LODRenderData[0];uint32 Signature=HashCombine(GetTypeHash(Asset),GetTypeHash(bAimPreview));
-                    for(const auto& Section:LOD.RenderSections)Signature=HashCombine(Signature,GetTypeHash(Skinned->IsMaterialSectionShown(Section.MaterialIndex,0)));
+                    auto* SkinnedCopy=Cast<USkeletalMeshComponent>(Copy);
+                    for(const auto& Section:LOD.RenderSections)Signature=HashCombine(Signature,GetTypeHash(SkinnedCopy->IsMaterialSectionShown(Section.MaterialIndex,0)));
                     for(const auto& Part:bStandalone?StandaloneParts:Model()->Draft())Signature=HashCombine(Signature,HashCombine(GetTypeHash(Part.Key),GetTypeHash(Part.Value)));
                     BoundsFrame=Skinned->DoesSocketExist(TEXT("WPN_root"))?Skinned->GetSocketTransform(TEXT("WPN_root")):Skinned->GetComponentTransform();
                     auto& Cached=PreviewBoundsCache.FindOrAdd(Source);
@@ -143,7 +176,7 @@ void UM4GunsmithWidget::SyncStudioPreview()
                         if(auto* Weights=Skinned->GetSkinWeightBuffer(0))
                         {
                             TArray<FMatrix44f> Matrices;Skinned->GetCurrentRefToLocalMatrices(Matrices,0);
-                            for(const auto& Section:LOD.RenderSections)if(Skinned->IsMaterialSectionShown(Section.MaterialIndex,0))
+                            for(const auto& Section:LOD.RenderSections)if(SkinnedCopy->IsMaterialSectionShown(Section.MaterialIndex,0))
                                 for(uint32 V=Section.BaseVertexIndex;V<Section.BaseVertexIndex+Section.NumVertices;++V)
                                 {
                                     const FVector Position(USkinnedMeshComponent::GetSkinnedVertexPosition(Skinned,V,LOD,*Weights,Matrices));
@@ -184,14 +217,6 @@ void UM4GunsmithWidget::SyncStudioPreview()
         }
         for(int32 M=0;M<Source->GetNumMaterials();++M)if(Copy->GetMaterial(M)!=Source->GetMaterial(M))
         {Copy->SetMaterial(M,Source->GetMaterial(M));bPreviewStreamingDirty=true;}
-        if(auto* Skinned=Cast<USkeletalMeshComponent>(Source))
-            if(const auto* Asset=Skinned->GetSkeletalMeshAsset())if(const auto* Render=Asset->GetResourceForRendering())
-                for(int32 L=0;L<Render->LODRenderData.Num();++L)
-                    for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)
-                    {
-                        const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;
-                        Cast<USkeletalMeshComponent>(Copy)->ShowMaterialSection(M,S,Skinned->IsMaterialSectionShown(M,L),L);
-                    }
         Capture->ShowOnlyComponent(Copy);
     }
     for(auto It=StudioCopies.CreateIterator();It;++It)

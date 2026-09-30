@@ -1,5 +1,6 @@
 #include "RuneSwordComponent.h"
 #include "RuneSwordGuardTuning.h"
+#include "../Combat/CombatStatusFormula.h"
 #include "../FPSGAMECharacter.h"
 #include "../FPSGAMEPlayerController.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -87,7 +88,7 @@ bool URuneSwordComponent::TickGuardBreak(float Delta)
     auto* Pawn=Character.Get();auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
     const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
     if(AFPSGAMEPlayerController::BlocksOngoingActions(PC) || (Health && Health->IsDead())){CancelAction();return false;}
-    Viewmodel->SetVisibility(true);
+    Viewmodel->SetVisibility(true,true);
     if(CurrentAnimation){Elapsed=FMath::Min(CurrentAnimation->GetPlayLength(),Elapsed+Delta);SamplePose(Elapsed);}
     const auto* Broken=Pawn->FindComponentByClass<UPlayerGuardBreakComponent>();
     if(!Broken || !Broken->IsActive()){bGuardBreakPose=false;SetClip(TEXT("Idle"),true);}
@@ -96,7 +97,8 @@ bool URuneSwordComponent::TickGuardBreak(float Delta)
 void URuneSwordComponent::GuardFeedback(bool Parried)
 {
     GuardFeedbackAt=GetWorld()->GetTimeSeconds();GuardFeedbackStrength=Parried?1.45f:1.f;
-    if(auto* Sound=Parried?ParrySound.Get():BlockSound.Get())UGameplayStatics::PlaySound2D(this,Sound,.85f,Parried?1.15f:1.f);
+    USoundBase* ImpactSound=Parried?ParrySound.Get():(FMath::RandBool()?BlockSound.Get():BlockSoundAlternate.Get());
+    if(ImpactSound)UGameplayStatics::PlaySound2D(this,ImpactSound,.85f,Parried?1.15f:1.f);
     // Early-window parries can happen during the lift. Keep that entry continuous.
     if(GuardPoseTime>=RuneSwordGuardTuning::RaiseSeconds && !bGuardReacting && Animations.FindRef(TEXT("GuardHit")))
     {
@@ -117,7 +119,7 @@ float URuneSwordComponent::ResolveGuardDamage(float IncomingDamage,const UDamage
         if(auto* SourcePawn=Causer->GetInstigator())Source=SourcePawn;
         else if(auto* SourceOwner=Causer->GetOwner();SourceOwner && SourceOwner!=Pawn)Source=SourceOwner;
     }
-    if(IsValid(Source) && Source!=Pawn && GetWorld()->GetTimeSeconds()-GuardStartedAt<=RuneSwordGuardTuning::ParrySeconds)
+    if(IsValid(Source) && Source!=Pawn && GetWorld()->GetTimeSeconds()-GuardStartedAt<=RuneSwordGuardTuning::ParrySeconds*MeleeModifiers.ParryWindow)
     {
         const FVector Toward=(Source->GetActorLocation()-Pawn->GetActorLocation()).GetSafeNormal2D();
         const FVector Facing=FRotationMatrix(FRotator(0,Pawn->GetControlRotation().Yaw,0)).GetUnitAxis(EAxis::X);
@@ -125,6 +127,8 @@ float URuneSwordComponent::ResolveGuardDamage(float IncomingDamage,const UDamage
         {
             GuardFeedback(true);
             GrantClovenCounter();
+            if(MeleeModifiers.RiposteSeconds>0)
+                UCombatStatusFormula::GetOrAdd(Pawn)->GrantRiposteGuard(MeleeModifiers.RiposteSeconds,MeleeModifiers.RiposteSpeed,MeleeModifiers.RiposteStamina);
             if(Type && Type->IsA<UEnemyMeleeDamage>() && !Source->ActorHasTag(TEXT("ParryImmune")))
                 if(auto* Combat=Source->FindComponentByClass<UMonsterCombatComponent>())
                     Combat->ReceiveParry(Pawn,RuneSwordGuardTuning::ParryStunSeconds,RuneSwordGuardTuning::ParryKnockbackCM);
@@ -144,7 +148,8 @@ float URuneSwordComponent::ResolveGuardDamage(float IncomingDamage,const UDamage
         bGuardBreakPose=true;GuardFeedbackAt=GetWorld()->GetTimeSeconds();GuardFeedbackStrength=1.8f;
         SetClip(Animations.FindRef(TEXT("GuardBreak"))?TEXT("GuardBreak"):TEXT("Idle"),false);
     }
-    return IncomingDamage*RuneSwordGuardTuning::DamageTakenRatio;
+    const double Reduction=FMath::Clamp((1.-RuneSwordGuardTuning::DamageTakenRatio)*MeleeModifiers.BlockReduction,0.,1.);
+    return IncomingDamage*(1.-Reduction);
 }
 bool URuneSwordComponent::GetGuardCameraMotion(FVector& Location,FRotator& Rotation) const
 {

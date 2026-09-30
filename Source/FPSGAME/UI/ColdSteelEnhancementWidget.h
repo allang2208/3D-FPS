@@ -42,9 +42,15 @@ private:
     void RefreshIcons();
     void OnWeaponIconReady(const FString& Recipe);
     const FSlateBrush* MaterialIcon(const FString& Definition);
+    void ImportMaterialIcon(const FString& Definition);
     TMap<FString,TSharedPtr<FSlateBrush>> MaterialBrushes;
     TMap<FString,TSharedPtr<class SImage>> ItemImages;
     UPROPERTY(Transient) TMap<FString,TObjectPtr<class UTexture2D>> MaterialTextures;
+    // 目录小图按限时泵逐帧导入：MaterialIcon 只入队并返回空画刷（调用方亮字牌回退），
+    // 导入完成后按 Definition 回填登记过的图标位，首帧不再被成批 PNG 解码卡住。
+    TArray<FString> PendingIcons;
+    TMap<FString,TArray<TWeakPtr<class SImage>>> PendingIconImages;
+    TMap<FString,TArray<TWeakPtr<class SBorder>>> PendingIconTiles;
     FString ItemId,ScrollId,Message;
     bool bEnchant=false,bCompareBase=false,bLastApplySucceeded=false;
     double LastConfirm=-1;

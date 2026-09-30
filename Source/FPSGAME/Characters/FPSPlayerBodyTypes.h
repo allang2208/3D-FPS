@@ -53,6 +53,7 @@ struct FFPSBodyState
     UPROPERTY(BlueprintReadOnly) bool bCrouched = false;
     UPROPERTY(BlueprintReadOnly) bool bSliding = false;
     UPROPERTY(BlueprintReadOnly) bool bDual = false;
+    UPROPERTY(BlueprintReadOnly) bool bOffhandPistol = false;
     UPROPERTY(BlueprintReadOnly) FName ActionVariant;
     // Source-normalized progress preserves hit pauses and nonuniform playback.
     UPROPERTY(BlueprintReadOnly) bool bHasActionProgress = false;

@@ -7,6 +7,7 @@
 #include "ASH12WeaponAssets.h"
 #include "SVDAttachments.h"
 #include "M1911MagazineVisual.h"
+#include "LMG201WeaponAssets.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/SkeletalMesh.h"
@@ -20,7 +21,15 @@ void AFPSGAMECharacter::UpdateGunsmithCapture(USceneCaptureComponent2D* Capture,
     if(!Capture)return;
     Capture->ShowOnlyComponents.Reset();Capture->ShowOnlyComponent(AKMViewmodel);
     TArray<USceneComponent*> CapturedChildren;AKMViewmodel->GetChildrenComponents(true,CapturedChildren);
-    for(auto* Child:CapturedChildren)if(auto* Primitive=Cast<UPrimitiveComponent>(Child))Capture->ShowOnlyComponent(Primitive);
+    for(auto* Child:CapturedChildren)if(auto* Primitive=Cast<UPrimitiveComponent>(Child))
+    {
+        // Outfit followers share the weapon hierarchy, but are not gun parts.
+        // Keep them for the held ADS view only, including any nested children.
+        bool bOutfit=false;
+        for(auto* Branch=Child;Branch&&Branch!=AKMViewmodel;Branch=Branch->GetAttachParent())
+            if(Branch->ComponentHasTag(TEXT("ModularOutfit"))){bOutfit=true;break;}
+        if(bAim||!bOutfit)Capture->ShowOnlyComponent(Primitive);
+    }
     const auto CameraTransform=FirstPersonCamera->GetComponentTransform();
     Capture->SetWorldTransform(CameraTransform);
     if(!bAim)Capture->SetWorldLocation(CameraTransform.TransformPosition(FVector(-10,-20,-2)));
@@ -32,20 +41,56 @@ void AFPSGAMECharacter::UpdateGunsmithCapture(USceneCaptureComponent2D* Capture,
 
 void AFPSGAMECharacter::SetGunsmithInspection(bool bInspect)
 {
-    bGunsmithInspection=bInspect&&(bUsingM4Infima||AKMSoviet::Matches(AKMViewmodel)||A762WeaponAssets::Matches(AKMViewmodel));
-    const auto* WeaponMesh=AKMViewmodel->GetSkeletalMeshAsset();if(!WeaponMesh)return;
-    if(const auto* Render=WeaponMesh->GetResourceForRendering())
-        for(int32 L=0;L<Render->LODRenderData.Num();++L)
-            for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)
-            {
-                const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;
-                if(WeaponMesh->GetMaterials().IsValidIndex(M)&&WeaponMesh->GetMaterials()[M].MaterialSlotName.ToString().Contains(TEXT("Manny")))
-                    AKMViewmodel->ShowMaterialSection(M,S,!bGunsmithInspection,L);
-            }
+    bGunsmithInspection=bInspect&&(bUsingM4Infima||AKMSoviet::Matches(AKMViewmodel)||A762WeaponAssets::Matches(AKMViewmodel)||LMG201WeaponAssets::Matches(AKMViewmodel));
+    // Arm masking belongs to the studio copy. Changing the live sections here
+    // also overrides the outfit component's ownership when leaving inspection.
+}
+
+bool AFPSGAMECharacter::HasLMG201ClothBox() const
+{
+    return LMG201WeaponAssets::Matches(AKMViewmodel)&&MagazineAttachmentId==LMG201WeaponAssets::ClothBoxId;
 }
 
 void AFPSGAMECharacter::SetGunsmithMagazineAttachment(const FString& Id)
 {
+    if(LMG201WeaponAssets::Matches(AKMViewmodel))
+    {
+        const bool Drum=Id==TEXT("large_drum")&&bInventoryWeaponReady;
+        const FString NextId=Id==LMG201WeaponAssets::ClothBoxId||Drum?Id:FString();
+        const bool Changed=MagazineAttachmentId!=NextId || (Drum&&(!LargeDrum||!LargeDrum->GetStaticMesh()
+            ||!LargeDrum->GetStaticMesh()->GetPathName().StartsWith(LMG201WeaponAssets::DrumMeshPath)));
+        // Ammo/profile refreshes may reapply the same option during a reload.
+        // Retain the release latch so committing ammo cannot drop a second drum.
+        if(Changed||!Drum)bDrumReleasedDuringReload=bDrumMagazineHidden=false;
+        bDrumVisual=false;
+        MagazineAttachmentId=NextId;
+        if(Drum)
+        {
+            auto* Asset=LoadObject<UStaticMesh>(nullptr,LMG201WeaponAssets::DrumMeshPath);
+            if(Asset)
+            {
+                if(!LargeDrum)
+                {
+                    LargeDrum=NewObject<UStaticMeshComponent>(this,TEXT("LMG201LargeDrum"));
+                    LargeDrum->SetupAttachment(AKMViewmodel,TEXT("WPN_SOCKET_Magazine"));
+                    LargeDrum->SetCollisionEnabled(ECollisionEnabled::NoCollision);LargeDrum->SetCastShadow(false);
+                    LargeDrum->bReceivesDecals=false;LargeDrum->RegisterComponent();
+                }
+                else LargeDrum->AttachToComponent(AKMViewmodel,FAttachmentTransformRules::KeepRelativeTransform,TEXT("WPN_SOCKET_Magazine"));
+                if(LargeDrum->GetStaticMesh()!=Asset)LargeDrum->EmptyOverrideMaterials();
+                LargeDrum->SetStaticMesh(Asset);
+                // The authoring source already contains the factory neck's
+                // exact position in this magazine bone's reference frame.
+                DrumMount=FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f));
+                LargeDrum->SetRelativeTransform(DrumMount);bDrumVisual=true;
+            }
+            else UE_LOG(LogTemp,Error,TEXT("LMG201_DRUM: missing mesh"));
+        }
+        if(LargeDrum)LargeDrum->SetVisibility(bDrumVisual&&!bDrumMagazineHidden);
+        LMG201FeedVisibility=INDEX_NONE;
+        LMG201WeaponAssets::SetMagazineSections(AKMViewmodel,LMG201FeedVisibility,HasLMG201ClothBox(),false,false,0.f,1,bDrumVisual);
+        return;
+    }
     bool bDrum=Id==TEXT("large_drum");
     bool bExtMag=Id==TEXT("ext_mag");
     if (IsPistolWeapon())
@@ -200,8 +245,9 @@ void AFPSGAMECharacter::UpdateDrumDropVisual()
     const float Frame=ReloadSourceTime(WeaponStateElapsed)*60.0f;
     // AKM skips the hand-pull: release from the seated socket at source frame
     // 36 / 120 Hz, while the left hand travels outside the drum to its pickup.
-    const float Release=bUseQBZ191?36.f:(AKMSoviet::Matches(AKMViewmodel)||A762WeaponAssets::Matches(AKMViewmodel))?18.f:(bPendingEmptyReload?14.0f:18.0f);
-    const float Pickup=bUseQBZ191?49.f:(AKMSoviet::Matches(AKMViewmodel)||A762WeaponAssets::Matches(AKMViewmodel))?56.f:(bPendingEmptyReload?31.0f:36.0f);
+    const bool NativeFreeDrop=AKMSoviet::Matches(AKMViewmodel)||A762WeaponAssets::Matches(AKMViewmodel)||LMG201WeaponAssets::Matches(AKMViewmodel);
+    const float Release=bUseQBZ191?36.f:NativeFreeDrop?18.f:(bPendingEmptyReload?14.0f:18.0f);
+    const float Pickup=bUseQBZ191?49.f:NativeFreeDrop?56.f:(bPendingEmptyReload?31.0f:36.0f);
     if(Frame>=Release&&!bDrumReleasedDuringReload)
     {
         bDrumReleasedDuringReload=true;
@@ -213,7 +259,7 @@ void AFPSGAMECharacter::UpdateDrumDropVisual()
             Body->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);Body->SetCollisionObjectType(ECC_PhysicsBody);Body->SetCollisionResponseToAllChannels(ECR_Ignore);Body->SetCollisionResponseToChannel(ECC_WorldStatic,ECR_Block);Body->RegisterComponent();Body->SetWorldLocationAndRotation(Center,LargeDrum->GetComponentQuat());
             auto* Visual=NewObject<UStaticMeshComponent>(Dropped,TEXT("DroppedDrumMesh"));Visual->SetStaticMesh(LargeDrum->GetStaticMesh());Visual->SetCollisionEnabled(ECollisionEnabled::NoCollision);Visual->SetCastShadow(true);Visual->SetupAttachment(Body);Visual->RegisterComponent();Visual->SetWorldTransform(LargeDrum->GetComponentTransform());
             Body->SetSimulatePhysics(true);Body->SetMassOverrideInKg(NAME_None,2.5f,true);
-            const bool bAKMDrum=AKMSoviet::Matches(AKMViewmodel)||A762WeaponAssets::Matches(AKMViewmodel);
+            const bool bAKMDrum=NativeFreeDrop;
             Body->SetPhysicsLinearVelocity(bAKMDrum?GetVelocity()+FVector(0,0,-20.f):
                 GetVelocity()+FirstPersonCamera->GetRightVector()*-180.f+FirstPersonCamera->GetForwardVector()*65.f+FVector(0,0,-110.f));
             Body->SetPhysicsAngularVelocityInDegrees(bAKMDrum?FirstPersonCamera->GetRightVector()*12.f:

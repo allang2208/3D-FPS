@@ -233,10 +233,11 @@ struct FControls : FAnimNode_Base
             if(!State.bDual)Targets[0]=FPSBodyPoses::RightHand(State,T,Crouch,Aim,Sprint,Targets[0]);
             const bool FreeLeft=!Melee&&(State.Action==EFPSBodyAction::Reload||State.Action==EFPSBodyAction::ReloadEmpty||State.Action==EFPSBodyAction::Equip);
             const bool PistolBash=State.Action==EFPSBodyAction::GunBash&&State.Family==TEXT("Pistol");
-            bool AdjustHand[2]={Melee||(Gun&&!FreeLeft)||State.bDual,State.bDual||(bLeftGrip&&!FreeLeft)||PistolBash};
-            if(State.bDual)
+            const bool OffhandPistol=State.bDual||State.bOffhandPistol;
+            bool AdjustHand[2]={Melee||(Gun&&!FreeLeft)||State.bDual,OffhandPistol||(bLeftGrip&&!FreeLeft)||PistolBash};
+            if(OffhandPistol)
             {
-                for(int32 I=0;I<2;++I)
+                for(int32 I=State.bDual?0:1;I<2;++I)
                 {
                     const auto& Hand=I==0?State.RightHand:State.LeftHand;const float Side=I==0?-1.f:1.f;
                     const float HandSprint=Hand.bEquipping||Hand.bReloading?0.f:Sprint;
@@ -304,7 +305,7 @@ struct FControls : FAnimNode_Base
             {
                 if(bHasHandHistory&&Blend<1.f&&!(I==1&&RecoveringCast))
                 {FTransform Mixed;Mixed.Blend(EntryHands[I],Targets[I],Blend);Targets[I]=Mixed;}
-                if(I==1&&bLeftGrip&&!FreeLeft&&!State.bDual&&!PistolBash&&State.Action!=EFPSBodyAction::Cast&&!(Traversing&&MotionWeight>ZERO_ANIMWEIGHT_THRESH))
+                if(I==1&&bLeftGrip&&!FreeLeft&&!OffhandPistol&&!PistolBash&&State.Action!=EFPSBodyAction::Cast&&!(Traversing&&MotionWeight>ZERO_ANIMWEIGHT_THRESH))
                     Targets[1]=LeftGrip*Pose.GetComponentSpaceTransform(Hands[0].GetCompactPoseIndex(Bones));
                 if(AdjustHand[I]||(bHasHandHistory&&Blend<1.f))Solve(Pose,Hands[I],Targets[I],FVector(I==0?-65:65,10,105-40*Crouch),1.f);
                 LastHands[I]=Pose.GetComponentSpaceTransform(Hands[I].GetCompactPoseIndex(Bones));

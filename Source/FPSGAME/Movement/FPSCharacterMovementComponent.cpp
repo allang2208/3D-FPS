@@ -83,6 +83,7 @@ void UFPSCharacterMovementComponent::TickComponent(float DeltaTime, ELevelTick T
 
 void UFPSCharacterMovementComponent::OnTeleported()
 {
+    bMeleeDashMomentum=false;
     CancelDodge();
     Super::OnTeleported();
     FrameStairDisplacement = StairVisualOffset = 0.f;

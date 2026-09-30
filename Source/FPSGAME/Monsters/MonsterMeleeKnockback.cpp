@@ -1,15 +1,21 @@
 #include "MonsterCombatComponent.h"
+#include "MonsterObstacleCollision.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "MonsterAIController.h"
 #include "WolfMonster.h"
 #include "PoisonMaggotMonster.h"
+#include "HundredEyedSlagMonster.h"
 #include "NurseZombie.h"
+#include "HumanoidKnockdownComponent.h"
 #include "HandBrainMonster.h"
+#include "FleshHandMonster.h"
+#include "FleshHandKnockdownComponent.h"
 
 void UMonsterCombatComponent::ReceiveMeleeKnockback(APawn* Attacker,float DistanceCM)
 {
     if(!GetOwner()->HasAuthority()||IsDead()||DistanceCM<=0||GetOwner()->ActorHasTag(TEXT("KnockbackImmune")))return;
+    if(IsKnockedDown())return;
     // Called once after both damage components settle. No added stun or parry.
     MeleePushDirection=IsValid(Attacker)?(GetOwner()->GetActorLocation()-Attacker->GetActorLocation()).GetSafeNormal2D():-GetOwner()->GetActorForwardVector().GetSafeNormal2D();
     MeleePushDistance=0;MeleePushAge=0;
@@ -18,18 +24,25 @@ void UMonsterCombatComponent::ReceiveMeleeKnockback(APawn* Attacker,float Distan
 
 void UMonsterCombatComponent::ReceiveStun(APawn* Attacker,float Seconds,float KnockbackCM)
 {
-    // Mirrors the parry reaction's stun flow (interrupt, movement stop, immediate
-    // push) without the parry flag, so the stagger presentation stays the default.
+    // Explicit skill stun, independent of toughness stagger and its duration.
     if(!GetOwner()->HasAuthority()||IsDead())return;
+    if(Seconds<=0.f){ReceiveMeleeKnockback(Attacker,KnockbackCM);return;}
+    if(auto* F=Cast<AFleshHandMonster>(GetOwner());F&&F->Knockdown&&F->Knockdown->IsControlling())
+    { RegisterExplicitStun(Seconds);F->Knockdown->ExtendControl(Seconds);return; }
+    if(auto* N=Cast<ANurseZombie>(GetOwner());N && N->Knockdown && N->Knockdown->IsControlling())
+    { N->Knockdown->ExtendControl(Seconds);return; }
     if(auto* Pawn=Cast<ACharacter>(GetOwner()))
     {
         Pawn->GetCharacterMovement()->StopMovementImmediately();
         if(auto* AI=Cast<AMonsterAIController>(Pawn->GetController())){AI->StopMovement();AI->RememberDamage(Attacker);}
     }
     const float Remaining=IsControlled()?FMath::Max(0.f,ReactionDuration-ReactionTime):0.f;
-    Seconds=FMath::Max(Seconds,Remaining);
-    bStunned=true;Poise=0.f;SinceHit=0.f;
-    if(auto* W=Cast<AWolfMonster>(GetOwner()))W->InterruptAttack(Seconds);
+    RegisterExplicitStun(Seconds);
+    Seconds=FMath::Max(StunSecondsRemaining(),Remaining);
+    bParryReaction=false;Toughness=0.f;SinceHit=0.f;
+    if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))S->InterruptAttack(Seconds);
+    else if(auto* F=Cast<AFleshHandMonster>(GetOwner()))F->InterruptAttack(Seconds);
+    else if(auto* W=Cast<AWolfMonster>(GetOwner()))W->InterruptAttack(Seconds);
     else if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))M->InterruptAttack(Seconds);
     else if(auto* N=Cast<ANurseZombie>(GetOwner()))N->InterruptAttack(Seconds);
     else if(auto* H=Cast<AHandBrainMonster>(GetOwner()))H->InterruptAttack(Seconds);
@@ -59,6 +72,21 @@ bool UMonsterCombatComponent::MoveMeleePush(float Distance)
 {
     auto* Pawn=Cast<ACharacter>(GetOwner());auto* Move=Pawn?Pawn->GetCharacterMovement():nullptr;
     if(!Move||!Move->UpdatedComponent)return false;
-    FHitResult Hit;Move->SafeMoveUpdatedComponent(MeleePushDirection*Distance,Pawn->GetActorQuat(),true,Hit);
-    Move->bForceNextFloorCheck=true;return !Hit.bBlockingHit;
+    const FVector Delta=MeleePushDirection*Distance;
+    const float Fraction=MonsterObstacleCollision::LimitPush(Pawn,Delta);
+    FHitResult Hit;Move->SafeMoveUpdatedComponent(Delta*Fraction,Pawn->GetActorQuat(),true,Hit);
+    Move->bForceNextFloorCheck=true;return Fraction>=1.f && !Hit.bBlockingHit;
+}
+
+bool UMonsterCombatComponent::ReceiveKnockdown(APawn* Attacker,FVector LaunchVelocity,float DownSeconds)
+{
+    if(!GetOwner()->HasAuthority() || IsDead())return false;
+    bool Launched=false;
+    if(auto* F=Cast<AFleshHandMonster>(GetOwner()))Launched=F->Knockdown&&F->Knockdown->Launch(Attacker,LaunchVelocity,DownSeconds);
+    else if(auto* N=Cast<ANurseZombie>(GetOwner()))Launched=N->Knockdown&&N->Knockdown->Launch(Attacker,LaunchVelocity,DownSeconds);
+    if(!Launched)return false;
+    ClearHumanoidStun();
+    ParryPushDistance=MeleePushDistance=0.f;
+    ReactionTime=ReactionDuration=0.f;ExplicitStunUntil=0.0;bParryReaction=false;bStunned=false;Toughness=0.f;
+    return true;
 }

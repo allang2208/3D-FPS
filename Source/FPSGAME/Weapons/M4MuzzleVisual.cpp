@@ -1,3 +1,7 @@
+#include "LMG201WeaponAssets.h"
+#include "HK416WeaponAssets.h"
+#include "HK416Attachments.h"
+#include "Engine/StaticMeshSocket.h"
 #include "../FPSGAMECharacter.h"
 #include "A762Attachments.h"
 #include "SVDAttachments.h"
@@ -21,6 +25,21 @@
 
 void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
 {
+    if (IsHK416Weapon())
+    {
+        const bool Enabled=bInventoryWeaponReady&&Variant==TEXT("true");
+        MuzzleAttachment=HK416Attachments::Configure(this,AKMViewmodel,MuzzleAttachment,TEXT("suppressor"),Enabled);
+        MuzzleVariant=Enabled?Variant:FString();
+        if (Enabled&&MuzzleAttachment&&MuzzleAttachment->GetStaticMesh())
+        {
+            const auto* Tip=MuzzleAttachment->GetStaticMesh()->FindSocket(TEXT("Muzzle"));
+            const auto* Guide=MuzzleAttachment->GetStaticMesh()->FindSocket(TEXT("AimGuide"));
+            if (Tip&&Guide) { MuzzleLocalTip=Tip->RelativeLocation;MuzzleLocalAxis=(Guide->RelativeLocation-Tip->RelativeLocation).GetSafeNormal(); }
+        }
+        if (!SuppressedFireSound) SuppressedFireSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/M4MuzzlesV1/S_M4_Suppressed"));
+        return;
+    }
+
     if (bUseDanWesson715)
     {
         MuzzleAttachment = DanWesson715FittedParts::Configure(this, AKMViewmodel,
@@ -36,13 +55,13 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
     const bool Valid=bASH12Tactical||bASH12Brake||Variant==TEXT("true")||Variant==TEXT("tactical_suppressor")||Variant==TEXT("brake")||Variant==TEXT("titanium_brake");
     const bool bPKM=PKMLowpolyWeaponAssets::Matches(AKMViewmodel);
     const bool bSVD=SVDWeaponAssets::Matches(AKMViewmodel);
-    if (bSVD || A762WeaponAssets::Matches(AKMViewmodel) || bPKM)
+    if (bSVD || A762WeaponAssets::Matches(AKMViewmodel) || bPKM || LMG201WeaponAssets::Matches(AKMViewmodel))
     {
         const bool Enabled=Valid&&bInventoryWeaponReady;
         if (Enabled)
         {
             const FString Key=Variant==TEXT("true")?TEXT("suppressor"):Variant;
-            const FString Path=bSVD?SVDAttachments::MeshPath(Key):bPKM?PKMAttachments::MeshPath(Key):A762Attachments::MeshPath(Key);
+            const FString Path=bSVD?SVDAttachments::MeshPath(Key):bPKM?PKMAttachments::MeshPath(Key):LMG201WeaponAssets::Matches(AKMViewmodel)?LMG201WeaponAssets::AttachmentPath(Key):A762Attachments::MeshPath(Key);
             auto* Part=LoadObject<UStaticMesh>(nullptr,*Path);if (!Part) return;
             if (!MuzzleAttachment)
             {
@@ -54,7 +73,7 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
             MuzzleLocalAxis=-FVector::RightVector;
             const double Length=Key==TEXT("tactical_suppressor")?18.68658:Key==TEXT("suppressor")?18.6:Key==TEXT("brake")?6.8:7.25;
             MuzzleLocalTip=MuzzleLocalAxis*Length;
-            MuzzleAttachment->SetRelativeTransform(FTransform(FQuat(FVector::UpVector,PI),bSVD?SVDAttachments::MuzzleMount:bPKM?PKMAttachments::MuzzleMount:A762WeaponAssets::MuzzleMount,FVector(.01f)));
+            MuzzleAttachment->SetRelativeTransform(FTransform(FQuat(FVector::UpVector,PI),bSVD?SVDAttachments::MuzzleMount:bPKM?PKMAttachments::MuzzleMount:LMG201WeaponAssets::Matches(AKMViewmodel)?LMG201WeaponAssets::MuzzleMount:A762WeaponAssets::MuzzleMount,FVector(.01f)));
         }
         if(bSVD)SVDAttachments::FactorySections(AKMViewmodel,TEXT("FactoryMuzzle"),!Enabled);
         MuzzleVariant=Enabled?Variant:FString();if (MuzzleAttachment) MuzzleAttachment->SetVisibility(Enabled);
@@ -62,7 +81,7 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
             for(int32 L=0;L<Render->LODRenderData.Num();++L)for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)
             {
                 const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;
-                if (Rifle->GetMaterials()[M].MaterialSlotName==TEXT("M_A762_Flash_Hider") || (bPKM&&Rifle->GetMaterials()[M].MaterialSlotName.ToString().Contains(TEXT("__FactoryMuzzle")))) AKMViewmodel->ShowMaterialSection(M,S,!Enabled,L);
+                if ((LMG201WeaponAssets::Matches(AKMViewmodel)&&Rifle->GetMaterials()[M].MaterialSlotName.ToString().StartsWith(TEXT("M_LMG201_FactoryMuzzle"))) || Rifle->GetMaterials()[M].MaterialSlotName==TEXT("M_A762_Flash_Hider") || (bPKM&&Rifle->GetMaterials()[M].MaterialSlotName.ToString().Contains(TEXT("__FactoryMuzzle")))) AKMViewmodel->ShowMaterialSection(M,S,!Enabled,L);
             }
         SuppressedFireSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/M4MuzzlesV1/S_M4_Suppressed"));return;
     }

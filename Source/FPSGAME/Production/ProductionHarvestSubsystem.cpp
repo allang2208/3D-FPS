@@ -62,6 +62,12 @@ void UProductionHarvestSubsystem::ShowStumpAtCut(const FProductionResource& Reso
     // in the same game-thread operation instead of waiting for the stream tick.
     UpdateStumps(Pawn?Pawn->GetActorLocation():Resource.Transform.GetLocation(),GetWorld()->GetTimeSeconds());
 }
+
+void UProductionHarvestSubsystem::InvalidateStumps(const FProductionResource& Resource)
+{
+    Hills=Resource.World;bStumpsDirty=true;
+    // 不 RemoveGrowingTree：劈桩只是收走桩，同一候选点的幼树照常生长。
+}
 void UProductionHarvestSubsystem::DelayDrops(const TArray<FString>& Ids,float Delay)
 {
     const double Time=GetWorld()->GetTimeSeconds()+Delay;
@@ -132,6 +138,7 @@ void UProductionHarvestSubsystem::Deinitialize()
     Pickups.Empty();VisibleAfter.Empty();Effects.Empty();
     ClearGrowingTrees();
     for(auto& Component:Stumps)if(Component)Component->DestroyComponent();Stumps.Empty();
+    if(StumpTrunks){StumpTrunks->DestroyComponent();StumpTrunks=nullptr;}
     if(WoodLoad)WoodLoad->CancelHandle();if(StoneLoad)StoneLoad->CancelHandle();
     WoodLoad.Reset();StoneLoad.Reset();
     for(auto& Handle:FallLoads){if(Handle)Handle->CancelHandle();Handle.Reset();}
@@ -168,5 +175,42 @@ void UProductionHarvestSubsystem::UpdateStumps(const FVector& Eye,double Now)
     for(const auto& Place:Places)Groups[ProductionHarvestAssets::TreeVariant(Place.Mesh)].Add(Place.Transform);
     for(int32 Variant=0;Variant<4;++Variant)
     {Stumps[Variant]->ClearInstances();Stumps[Variant]->AddInstances(Groups[Variant],false,true,false);}
+    UpdateStumpTrunks(Places);
     StumpCell=Cell;bStumpsDirty=false;
+}
+
+void UProductionHarvestSubsystem::UpdateStumpTrunks(const TArray<FTemperatePlacement>& Places)
+{
+    // 树桩碰撞（2026-09-28 用户要求桩可继续劈）：与渲染同一份表、同一节拍重建。
+    // 每个未劈的桩一个 50 cm 见方的矮隐形盒（复用 TrunkCollisionMesh＝100 cm 立方，
+    // 以 0.5 倍缩放落地），组件打 HarvestStump 标签供 ResolveProductionResource 分流；
+    // 已劈开的桩在 GetHarvestedStumps 里就被 TreeStumpScale=0 过滤，不会进这份表。
+    if(Places.IsEmpty()||!Hills.IsValid()||!Hills->Assets||!Hills->Assets->TrunkCollisionMesh.IsValid())
+    {
+        if(StumpTrunks)StumpTrunks->ClearInstances();
+        return;
+    }
+    if(!StumpTrunks)
+    {
+        StumpTrunks=NewObject<UInstancedStaticMeshComponent>(Hills.Get(),TEXT("HarvestStumpTrunks"));
+        Hills->AddInstanceComponent(StumpTrunks);
+        StumpTrunks->SetupAttachment(Hills->GetRootComponent());
+        StumpTrunks->SetMobility(EComponentMobility::Movable);
+        StumpTrunks->SetStaticMesh(Hills->Assets->TrunkCollisionMesh.Get());
+        StumpTrunks->SetCollisionProfileName(TEXT("BlockAll"));
+        StumpTrunks->SetVisibility(false);StumpTrunks->SetCastShadow(false);
+        StumpTrunks->SetCanEverAffectNavigation(false);
+        StumpTrunks->ComponentTags.Add(TEXT("HarvestStump"));
+        StumpTrunks->RegisterComponent();
+    }
+    TArray<FTransform> Trunks;
+    Trunks.Reserve(Places.Num());
+    for(const auto& Place:Places)
+    {
+        const double S=Place.Transform.GetScale3D().X;
+        Trunks.Emplace(Place.Transform.GetRotation(),
+            Place.Transform.GetLocation()+FVector(0,0,25*S),FVector(.5*S,.5*S,.5*S));
+    }
+    StumpTrunks->ClearInstances();
+    StumpTrunks->AddInstances(Trunks,false,true,false);
 }

@@ -1,5 +1,6 @@
 #include "FPSOutfitSecondaryMotion.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Engine/SkeletalMesh.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "HAL/IConsoleManager.h"
 
@@ -11,6 +12,38 @@ constexpr float MaximumOffsetCm=.12f;
 constexpr float Frequency=2.f*UE_PI*6.5f;
 constexpr float Damping=.85f;
 const FName Parameters[]={TEXT("CuffLagLeft"),TEXT("CuffLagRight"),TEXT("CuffLagPreviousLeft"),TEXT("CuffLagPreviousRight")};
+
+void ConfigureCameraRegion(USkeletalMeshComponent& Garment,
+    const TArray<TWeakObjectPtr<UMaterialInstanceDynamic>>& Materials,bool bFirstPerson)
+{
+    const auto* Mesh=Garment.GetSkeletalMeshAsset();if(!Mesh)return;
+    const FReferenceSkeleton& Ref=Mesh->GetRefSkeleton();
+    TArray<FTransform> Rest=Ref.GetRefBonePose();
+    for(int32 I=0;I<Rest.Num();++I)
+        if(const int32 Parent=Ref.GetParentIndex(I);Parent!=INDEX_NONE)Rest[I]=Rest[I]*Rest[Parent];
+    for(int32 Side=0;Side<2;++Side)
+    {
+        const TCHAR* Suffix=Side==0?TEXT("l"):TEXT("r");
+        const TCHAR* Label=Side==0?TEXT("Left"):TEXT("Right");
+        const TCHAR* Bones[]={TEXT("upperarm"),TEXT("lowerarm"),TEXT("hand")};
+        const TCHAR* Points[]={TEXT("Shoulder"),TEXT("Elbow"),TEXT("Wrist")};
+        int32 Indices[3];bool bValid=true;
+        for(int32 I=0;I<3;++I)
+        {
+            Indices[I]=Ref.FindBoneIndex(FName(*FString::Printf(TEXT("%s_%s"),Bones[I],Suffix)));
+            bValid&=Rest.IsValidIndex(Indices[I]);
+        }
+        for(int32 I=0;I<3;++I)
+        {
+            const FVector P=bValid?Rest[Indices[I]].GetLocation():FVector::ZeroVector;
+            const FName Name(*FString::Printf(TEXT("OutfitFade%s%s"),Points[I],Label));
+            for(const auto& Weak:Materials)if(auto* Material=Weak.Get())
+                Material->SetVectorParameterValue(Name,FLinearColor(P.X,P.Y,P.Z,bValid?1.f:0.f));
+        }
+    }
+    for(const auto& Weak:Materials)if(auto* Material=Weak.Get())
+        Material->SetScalarParameterValue(TEXT("OutfitCameraFadeEnabled"),bFirstPerson?1.f:0.f);
+}
 }
 
 void FFPSOutfitSecondaryMotion::Initialize(USkeletalMeshComponent* InSource,USkeletalMeshComponent* InShirt)
@@ -23,6 +56,10 @@ void FFPSOutfitSecondaryMotion::Initialize(USkeletalMeshComponent* InSource,USke
     InShirt->SetComponentTickEnabled(false);
     for(int32 I=0;I<InShirt->GetNumMaterials();++I)
         if(auto* Material=InShirt->CreateAndSetMaterialInstanceDynamic(I))Materials.Add(Material);
+    // Reference-space anatomy is set once, including on single-arm rigs.
+    // Camera distance is evaluated by the material each view; no extra Tick,
+    // bone edits or dependency on the cuff-sway enable/disable setting.
+    ConfigureCameraRegion(*InShirt,Materials,InSource->bOnlyOwnerSee);
     Reset();
 }
 

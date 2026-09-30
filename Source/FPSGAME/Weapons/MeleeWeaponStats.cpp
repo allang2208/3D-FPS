@@ -54,11 +54,28 @@ FMeleeModifiers ColdSteelMelee::EquippedModifiers(const UColdSteelStatusModel* P
     return Item&&G&&ColdSteelInventory::IsTwoHandedSword(*Item)?G->Calculate(Item->Definition,G->Installed(*Item)).Melee:FMeleeModifiers{};
 }
 
+namespace
+{
+// 装备给出的近战体力消耗系数（厚皮革手套 meleeStaminaCost：-0.1 = 少耗 10%），
+// 近战武器与采集工具的挥击都走它；封 0 防止叠成负体力。
+double MeleeStaminaScale(const UColdSteelStatusModel* Profile)
+{
+    return Profile?FMath::Max(0.,1.+Profile->EquipmentBonus(TEXT("meleeStaminaCost"))):1.;
+}
+}
+
 double ColdSteelMelee::AttackStamina(const FColdSteelItem* Item,const UColdSteelStatusModel* Profile)
 {
+    // 采集工具按采集体力结算（改造倍率作用在同一份实值上），不套用近战 15 点口径。
+    if(Item&&ColdSteelInventory::IsEquippedProductionTool(*Item))
+    {
+        const double Harvest=Profile?Profile->StaminaSettings().HarvestCost:FColdSteelStaminaTuning{}.HarvestCost;
+        const auto* Tools=Profile?Profile->GetGameInstance()->GetSubsystem<UGunsmithSystem>():nullptr;
+        return Harvest*(Tools?Tools->Calculate(Item->Definition,Tools->Installed(*Item)).Tool.Stamina:1.)*MeleeStaminaScale(Profile);
+    }
     const double Base=Profile?Profile->StaminaSettings().MeleeCost:FColdSteelStaminaTuning{}.MeleeCost;
     const auto* Gunsmith=Profile?Profile->GetGameInstance()->GetSubsystem<UGunsmithSystem>():nullptr;
-    return Item&&Gunsmith&&ColdSteelInventory::IsMeleeWeapon(*Item)?Base*Gunsmith->Calculate(Item->Definition,Gunsmith->Installed(*Item)).Melee.Stamina*TemporaryModifiers(Profile).Stamina:Base;
+    return Item&&Gunsmith&&ColdSteelInventory::IsMeleeWeapon(*Item)?Base*Gunsmith->Calculate(Item->Definition,Gunsmith->Installed(*Item)).Melee.Stamina*TemporaryModifiers(Profile).Stamina*MeleeStaminaScale(Profile):Base;
 }
 
 FMeleeModifiers ColdSteelMelee::TemporaryModifiers(const UColdSteelStatusModel* Profile)

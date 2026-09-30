@@ -139,6 +139,7 @@ void UVoxelBuildIcons::EnsureStudio()
         .SetTransactional(false).SetForceMipsResident(false).SetLightBrightness(6.f).SetSkyBrightness(1.f));
     StudioSky=LoadObject<UTextureCube>(nullptr,StudioSkyPath);
     if(StudioSky)Studio->SetSkyCubemap(StudioSky);
+    Studio->DirectionalLight->SetForwardShadingPriority(1);
     StudioFill=NewObject<UDirectionalLightComponent>(GetTransientPackage(),NAME_None,RF_Transient);
     StudioFill->SetIntensity(3.f);StudioFill->SetLightColor(FLinearColor(.82f,.91f,1.f));StudioFill->SetCastShadows(false);
     Studio->AddComponent(StudioFill,FTransform(FRotator(-15,150,0)));

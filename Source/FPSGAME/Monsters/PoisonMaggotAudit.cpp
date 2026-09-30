@@ -139,7 +139,8 @@ void UPoisonMaggotAudit::Step()
  {
   Check(TEXT("wall_blocks_flying_venom"),H->Health==BeforeHealth);Wall->Destroy();Arena();Check(TEXT("interrupt_fixture_starts"),Monster->StartSpit(Player.Get()));Next();return;
  }
- if(Stage==9&&T>.7f){UGameplayStatics::ApplyDamage(Monster.Get(),45,PC,Player.Get(),nullptr);UGameplayStatics::ApplyDamage(Monster.Get(),45,PC,Player.Get(),nullptr);Check(TEXT("hits_interrupt_and_stun"),Monster->State==EPoisonMaggotState::Stagger&&Monster->Combat->bStunned);Next();return;}
+ // 韧性闸门：45x2 只累积 49 削韧、不破 70 阈值；80x2（减伤后共 100）才打满并进入破韧硬直。
+ if(Stage==9&&T>.7f){UGameplayStatics::ApplyDamage(Monster.Get(),80,PC,Player.Get(),nullptr);UGameplayStatics::ApplyDamage(Monster.Get(),80,PC,Player.Get(),nullptr);Check(TEXT("hits_interrupt_and_stun"),Monster->State==EPoisonMaggotState::Stagger&&Monster->Combat->bStunned);Next();return;}
  if(Stage==10)
  {
   if(T>.2f&&!Flag){UGameplayStatics::ApplyDamage(Monster.Get(),1,PC,Player.Get(),nullptr);Flag=true;}

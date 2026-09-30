@@ -1,6 +1,7 @@
 #include "FPSGAMEPlayerController.h"
 #include "UI/ColdSteelQuickBarTypes.h"
 #include "UI/TransitLoadingSubsystem.h"
+#include "Dungeons/DungeonRunSubsystem.h"
 #include "SceneTestPortal.h"
 #include "EngineUtils.h"
 #include "FPSGAMECharacter.h"
@@ -19,6 +20,7 @@
 #include "UI/ColdSteelCrateChest.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/GameInstance.h"
+#include "Engine/GameViewportClient.h"
 #include "EngineUtils.h"
 #include "UI/WeatherControlWidget.h"
 #include "UI/DevelopmentPanelWidget.h"
@@ -235,6 +237,18 @@ void AFPSGAMEPlayerController::BeginPlay()
             GetWorldTimerManager().SetTimer(TooltipTimer,[this](){ColdSteelHUD->RunItemTooltipAudit();},12.f,false);
         }
     }
+    // Automation escape hatch: -ClearwaterNoMenu skips the startup mode menu, which otherwise
+    // covers the viewport until a human clicks it. A headless capture run has nobody to click,
+    // so every screenshot came back showing the menu+loading overlay rather than the scene --
+    // which made a rendering investigation look like a scene that refused to draw.
+    if (FParse::Param(FCommandLine::Get(), TEXT("ClearwaterNoMenu")))
+    {
+        if (auto* Loading = GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())
+        {
+            Loading->ReleaseToGameplay();
+        }
+        return;
+    }
     if(auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())Loading->ShowStartupMenu(this);
 }
 
@@ -250,6 +264,8 @@ void AFPSGAMEPlayerController::SetupInputComponent()
 
 bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
 {
+    if(ColdSteelHUD&&ColdSteelHUD->HandleGunAssemblyInput(Params))return true;
+    if(ColdSteelHUD&&ColdSteelHUD->HandleWorldForgeInput(Params))return true;
     if (ExpeditionPanel)
     {
         if (Params.Event == IE_Pressed && Params.Key == EKeys::Escape) CloseExpedition();
@@ -258,7 +274,7 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
     if(auto* AmmoPawn=Cast<AFPSGAMECharacter>(GetPawn());AmmoPawn&&AmmoPawn->IsAmmoWheelOpen())
     {
         if(Params.Key==EKeys::Escape){if(Params.Event==IE_Pressed)AmmoPawn->CancelAmmoSelection();return true;}
-        if(Params.Key==EKeys::MouseScrollUp||Params.Key==EKeys::MouseScrollDown)return true;
+        if(Params.Key==EKeys::MouseScrollUp||Params.Key==EKeys::MouseScrollDown)AmmoPawn->CancelAmmoSelection();
         // 手别由鼠标所在圆盘决定（双持弹两个盘），点击只吞掉，避免选弹时开火。
         if(Params.Key==EKeys::LeftMouseButton||Params.Key==EKeys::RightMouseButton)return true;
     }
@@ -319,12 +335,15 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
         {
             auto* Target=ColdSteelWorldInteraction::TraceTarget(this);
             if(ColdSteelWorldInteraction::IsExpeditionAltar(Target)){OpenExpedition();return true;}
+            if(auto* Run=UDungeonRunSubsystem::Get(GetWorld());Run&&Run->IsShrine(Target)){Run->ClaimShrine(this,Target);return true;}
             if(ColdSteelWorldInteraction::IsTreasureChest(Target)){ColdSteelWorldInteraction::OpenTreasureChest(this,Target);return true;}
             if(auto* Chest=Cast<AColdSteelWarehouseChest>(Target);Chest&&ColdSteelHUD){ColdSteelHUD->OpenWarehouse(Chest);return true;}
             if(auto* Pickup=Cast<AColdSteelPickup>(Target)){Profile->Pickup(Pickup->ItemId);return true;}
             if(auto* Arrow=Cast<ABowArrow>(Target)){Arrow->TryRecover(GetPawn());return true;}
             // 冶炼高炉：E 同时打开背包与独立冶炼面板（面板贴抽屉左侧，可被 Esc／× 单独关闭；炉内按真实时间继续冶炼）。
             // 放在门判定之前：高炉不是门，但两者都靠"命中 Actor 是什么"分派，先特异后泛化。
+            if(ColdSteelWorldInteraction::IsForgingStation(Target)&&ColdSteelHUD)
+            {ColdSteelHUD->OpenForging(Target);return true;}
             if(ColdSteelWorldInteraction::IsSmeltingFurnace(Target)&&ColdSteelHUD)
             {ColdSteelHUD->OpenSmelting(Target);return true;}
             // 工作台：E 同时打开背包与制作面板（格式复刻冶炼面板，制作内容后续设计；
@@ -362,6 +381,24 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
 void AFPSGAMEPlayerController::PlayerTick(float DeltaTime)
 {
     Super::PlayerTick(DeltaTime);
+    if(IsLocalController()&&!ExpeditionPanel&&!GunsmithPanel&&!EnhancementPanel
+        &&(!ColdSteelHUD||(!ColdSteelHUD->IsWorldForging()&&!ColdSteelHUD->IsGunAssembly()))
+        &&(!WeatherPanel||!WeatherPanel->IsPanelOpen())
+        &&(!ColdSteelHUD||!ColdSteelHUD->IsInventoryOpen()))
+    {
+        auto* VP=GetWorld()?GetWorld()->GetGameViewport():nullptr;
+        const bool bInputHeld=(VP&&VP->IgnoreInput())||IsMoveInputIgnored()||IsLookInputIgnored()
+            ||(bShowMouseCursor&&!IsCursorOnlyInteraction());
+        if(bInputHeld&&UGameplayStatics::GetCurrentLevelName(this,true)==TEXT("L_Dungeon_Randomized"))
+        {
+            bool bDungeonReady=false;
+            for(TActorIterator<AActor> It(GetWorld());It;++It)
+                if(It->ActorHasTag(TEXT("DungeonAssembly.Ready"))){bDungeonReady=true;break;}
+            if(auto* Loading=GetGameInstance()?GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>():nullptr;
+                bDungeonReady&&Loading&&!Loading->IsHoldingGameplayInput())
+                Loading->ReleaseToGameplay();
+        }
+    }
     const auto* ScopeCharacter=Cast<AFPSGAMECharacter>(GetPawn());
     const bool Hide=IsLocalController()&&!bShowMouseCursor&&ScopeCharacter&&ScopeCharacter->GetScopePresentationAlpha()>.5f;
     if(Hide==bScopePanelsHidden)return;
@@ -406,6 +443,7 @@ bool AFPSGAMEPlayerController::BlocksOngoingActions(const APlayerController* Pla
 
 void AFPSGAMEPlayerController::ToggleTimelineInteraction()
 {
+    if(ColdSteelHUD&&(ColdSteelHUD->IsWorldForging()||ColdSteelHUD->IsGunAssembly()))return;
     if (GunsmithPanel || EnhancementPanel || ExpeditionPanel) return;
     if (WeatherPanel && WeatherPanel->IsPanelOpen()) return;
     if (!ColdSteelHUD || ColdSteelHUD->IsInventoryOpen()) return;

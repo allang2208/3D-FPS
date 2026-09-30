@@ -26,7 +26,7 @@ FReply UColdSteelSkillPage::NativeOnPreviewMouseButtonDown(const FGeometry& G,co
     PendingDragSkill=NAME_None;
     if(!bDetail&&HUD.IsValid()&&E.GetEffectingButton()==EKeys::LeftMouseButton)
     {
-        const TPair<FName,TSharedPtr<SButton>> Cards[]={{TEXT("meteor"),MeteorDetailButton},{TEXT("flameArmor"),FlameArmorDetailButton},{TEXT("holyLight"),HolyLightDetailButton},{TEXT("lightningStrike"),LightningDetailButton},{TEXT("iceSpike"),IceSpikeDetailButton},{TEXT("fireball"),FireballDetailButton},{TEXT("dodge"),DodgeDetailButton},{TEXT("heavyStrike"),HeavyDetailButton},{TEXT("quickCombat"),QuickCombatDetailButton},{TEXT("whirlwind"),WhirlwindDetailButton}};
+        const TPair<FName,TSharedPtr<SButton>> Cards[]={{TEXT("iceWall"),IceWallDetailButton},{TEXT("meteor"),MeteorDetailButton},{TEXT("flameArmor"),FlameArmorDetailButton},{TEXT("holyLight"),HolyLightDetailButton},{TEXT("lightningStrike"),LightningDetailButton},{TEXT("iceSpike"),IceSpikeDetailButton},{TEXT("fireball"),FireballDetailButton},{TEXT("dodge"),DodgeDetailButton},{TEXT("heavyStrike"),HeavyDetailButton},{TEXT("quickCombat"),QuickCombatDetailButton},{TEXT("whirlwind"),WhirlwindDetailButton}};
         for(const auto& Card:Cards)
         {
             if(!Card.Value||!Card.Value->GetCachedGeometry().IsUnderLocation(E.GetScreenSpacePosition()))continue;
@@ -47,7 +47,7 @@ FReply UColdSteelSkillPage::NativeOnMouseButtonUp(const FGeometry& G,const FPoin
 void UColdSteelSkillPage::NativeOnDragDetected(const FGeometry&,const FPointerEvent& E,UDragDropOperation*& Out)
 {
     const FName Id=PendingDragSkill;PendingDragSkill=NAME_None;
-    if(!Id.IsNone()&&HUD.IsValid())Out=HUD->StartQuickDrag(Id,INDEX_NONE,Id==TEXT("meteor")?&MeteorIconBrush:Id==TEXT("flameArmor")?&FlameArmorIconBrush:Id==TEXT("holyLight")?&HolyLightIconBrush:Id==TEXT("lightningStrike")?&LightningIconBrush:Id==TEXT("whirlwind")?&WhirlwindIconBrush:Id==TEXT("iceSpike")?&IceSpikeIconBrush:Id==TEXT("heavyStrike")?&HeavyIconBrush:Id==TEXT("fireball")?&FireballIconBrush:Id==TEXT("quickCombat")?&QuickCombatIconBrush:&DodgeIconBrush,E.GetScreenSpacePosition());
+    if(!Id.IsNone()&&HUD.IsValid())Out=HUD->StartQuickDrag(Id,INDEX_NONE,Id==TEXT("iceWall")?&IceWallIconBrush:Id==TEXT("meteor")?&MeteorIconBrush:Id==TEXT("flameArmor")?&FlameArmorIconBrush:Id==TEXT("holyLight")?&HolyLightIconBrush:Id==TEXT("lightningStrike")?&LightningIconBrush:Id==TEXT("whirlwind")?&WhirlwindIconBrush:Id==TEXT("iceSpike")?&IceSpikeIconBrush:Id==TEXT("heavyStrike")?&HeavyIconBrush:Id==TEXT("fireball")?&FireballIconBrush:Id==TEXT("quickCombat")?&QuickCombatIconBrush:&DodgeIconBrush,E.GetScreenSpacePosition());
 }
 
 TSharedRef<SWidget> UColdSteelSkillPage::RebuildWidget()
@@ -63,11 +63,11 @@ TSharedRef<SWidget> UColdSteelSkillPage::RebuildWidget()
     SAssignNew(Root,SBox); RefreshLayout(); return Root.ToSharedRef();
 }
 const FColdSteelSkillDefinition& UColdSteelSkillPage::Definition(FName Id) const
-{ if(FireMagic::IsSkill(Id))return Model->FireMagicDefinition(Id);if(Id==TEXT("holyLight"))return Model->HolyLightDefinition();if(Id==TEXT("lightningStrike"))return Model->LightningDefinition();if(Id==TEXT("iceSpike"))return Model->IceSpikeDefinition();if(Id==TEXT("quickCombat"))return Model->QuickCombatDefinition();if(Additional(Id)||Id==TEXT("heavyStrike")||Id==TEXT("whirlwind")||Id==TEXT("dashAttack"))return Model->MasteryDefinition(Id);if(Id==TEXT("fireball"))return Model->FireballDefinition();if(Id==TEXT("criticalStrike"))return Model->CriticalStrikeDefinition();if(Id==TEXT("pistolMastery"))return Model->PistolDefinition();return Id==TEXT("dodge")?Model->DodgeDefinition():(Id==TEXT("dexterousHands")?Model->DexterousHandsDefinition():Model->RifleDefinition()); }
+{ if(Id==TEXT("iceWall"))return Model->IceWallDefinition();if(FireMagic::IsSkill(Id))return Model->FireMagicDefinition(Id);if(Id==TEXT("holyLight"))return Model->HolyLightDefinition();if(Id==TEXT("lightningStrike"))return Model->LightningDefinition();if(Id==TEXT("iceSpike"))return Model->IceSpikeDefinition();if(Id==TEXT("quickCombat"))return Model->QuickCombatDefinition();if(Additional(Id)||Id==TEXT("heavyStrike")||Id==TEXT("whirlwind")||Id==TEXT("dashAttack"))return Model->MasteryDefinition(Id);if(Id==TEXT("fireball"))return Model->FireballDefinition();if(Id==TEXT("criticalStrike"))return Model->CriticalStrikeDefinition();if(Id==TEXT("pistolMastery"))return Model->PistolDefinition();return Id==TEXT("dodge")?Model->DodgeDefinition():(Id==TEXT("dexterousHands")?Model->DexterousHandsDefinition():Model->RifleDefinition()); }
 FColdSteelSkillProgress UColdSteelSkillPage::Progress(FName Id) const
-{ if(FireMagic::IsSkill(Id))return Model->FireMagicProgress(Id);if(Id==TEXT("holyLight"))return Model->HolyLightProgress();if(Id==TEXT("lightningStrike"))return Model->LightningProgress();if(Id==TEXT("iceSpike"))return Model->IceSpikeProgress();if(Id==TEXT("quickCombat"))return Model->QuickCombatProgress();if(Additional(Id)||Id==TEXT("heavyStrike")||Id==TEXT("whirlwind")||Id==TEXT("dashAttack"))return Model->MasteryProgress(Id);if(Id==TEXT("fireball"))return Model->FireballProgress();if(Id==TEXT("criticalStrike"))return Model->CriticalStrikeProgress();if(Id==TEXT("pistolMastery"))return Model->PistolProgress();return Id==TEXT("dodge")?Model->DodgeProgress():(Id==TEXT("dexterousHands")?Model->DexterousHandsProgress():Model->RifleProgress()); }
+{ if(Id==TEXT("iceWall"))return Model->IceWallProgress();if(FireMagic::IsSkill(Id))return Model->FireMagicProgress(Id);if(Id==TEXT("holyLight"))return Model->HolyLightProgress();if(Id==TEXT("lightningStrike"))return Model->LightningProgress();if(Id==TEXT("iceSpike"))return Model->IceSpikeProgress();if(Id==TEXT("quickCombat"))return Model->QuickCombatProgress();if(Additional(Id)||Id==TEXT("heavyStrike")||Id==TEXT("whirlwind")||Id==TEXT("dashAttack"))return Model->MasteryProgress(Id);if(Id==TEXT("fireball"))return Model->FireballProgress();if(Id==TEXT("criticalStrike"))return Model->CriticalStrikeProgress();if(Id==TEXT("pistolMastery"))return Model->PistolProgress();return Id==TEXT("dodge")?Model->DodgeProgress():(Id==TEXT("dexterousHands")?Model->DexterousHandsProgress():Model->RifleProgress()); }
 void UColdSteelSkillPage::ReleaseSlateResources(bool bReleaseChildren)
-{ Super::ReleaseSlateResources(bReleaseChildren); Scroll.Reset(); Root.Reset();MeteorDetailButton.Reset();FlameArmorDetailButton.Reset();LightningDetailButton.Reset();HolyLightDetailButton.Reset();IceSpikeDetailButton.Reset(); DetailButton.Reset();PistolDetailButton.Reset();CriticalDetailButton.Reset();FireballDetailButton.Reset();HeavyDetailButton.Reset();DodgeDetailButton.Reset();DexterousHandsDetailButton.Reset();QuickCombatDetailButton.Reset();WhirlwindDetailButton.Reset();DashAttackDetailButton.Reset(); BackButton.Reset(); FilterButtons.Reset(); }
+{ IceWallDetailButton.Reset();Super::ReleaseSlateResources(bReleaseChildren); Scroll.Reset(); Root.Reset();MeteorDetailButton.Reset();FlameArmorDetailButton.Reset();LightningDetailButton.Reset();HolyLightDetailButton.Reset();IceSpikeDetailButton.Reset(); DetailButton.Reset();PistolDetailButton.Reset();CriticalDetailButton.Reset();FireballDetailButton.Reset();HeavyDetailButton.Reset();DodgeDetailButton.Reset();DexterousHandsDetailButton.Reset();QuickCombatDetailButton.Reset();WhirlwindDetailButton.Reset();DashAttackDetailButton.Reset(); BackButton.Reset(); FilterButtons.Reset(); }
 void UColdSteelSkillPage::NativeTick(const FGeometry& Geometry,float Delta)
 {
     Super::NativeTick(Geometry,Delta);
@@ -97,6 +97,13 @@ void UColdSteelSkillPage::RefreshLayout()
     }
     FireballIconBrush.ImageSize=FVector2D(48/Scale);
     IceSpikeIconBrush.ImageSize=FVector2D(48/Scale);
+    IceWallIconBrush.ImageSize=FVector2D(48/Scale);
+    if(Model&&!IceWallIconTexture)
+    {
+        TArray<uint8> Bytes;
+        if(FFileHelper::LoadFileToArray(Bytes,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/Model->IceWallDefinition().Icon)))IceWallIconTexture=FImageUtils::ImportBufferAsTexture2D(Bytes);
+        if(IceWallIconTexture){IceWallIconBrush.SetResourceObject(IceWallIconTexture);IceWallIconBrush.DrawAs=ESlateBrushDrawType::Image;}
+    }
     LightningIconBrush.ImageSize=FVector2D(48/Scale);
     if(Model&&!LightningIconTexture)
     {
@@ -204,6 +211,7 @@ TSharedRef<SWidget> UColdSteelSkillPage::Overview(bool bCompact,FName Id)
     if(Id==TEXT("criticalStrike")){Tags=TEXT("暴击 / 幸运 / 被动");SkillIcon=&CriticalIconBrush;}
     if(Id==TEXT("fireball")){Tags=TEXT("火焰 / 范围 / 主动魔法");SkillIcon=&FireballIconBrush;}
     if(Id==TEXT("iceSpike")){Tags=TEXT("寒冰 / 齐射 / 主动魔法");SkillIcon=&IceSpikeIconBrush;}
+    if(Id==TEXT("iceWall")){Tags=TEXT("寒冰 / 掩体 / 主动魔法");SkillIcon=&IceWallIconBrush;}
     if(Id==TEXT("meteor")){Tags=TEXT("火焰 / 陨星 / 主动魔法");SkillIcon=&MeteorIconBrush;}
     if(Id==TEXT("flameArmor")){Tags=TEXT("火焰 / 附魔光环 / 主动魔法");SkillIcon=&FlameArmorIconBrush;}
     if(Id==TEXT("holyLight")){Tags=TEXT("圣光 / 敌伤友疗 / 主动魔法");SkillIcon=&HolyLightIconBrush;}
@@ -338,6 +346,24 @@ FString UColdSteelSkillPage::EffectValue(int32 Index,bool bNext) const
         if(Index==2)return FString::Printf(TEXT("+%d"),E.Strength+E.Constitution+E.Dexterity);
         return FString::Printf(TEXT("+%.0f%%"),(1.f/FMath::Max(.05f,1.f-E.CooldownReduction)-1.f)*100);
     }
+    if(SelectedSkill==TEXT("iceWall"))
+    {
+        const auto E=Model->IceWallStats(Model->IceWallProgress().Level+(bNext?1:0));
+        switch(Index)
+        {
+        case 0:return FString::Printf(TEXT("%.0f"),E.Damage);
+        case 1:return FString::Printf(TEXT("%d"),E.Count);
+        case 2:return FString::Printf(TEXT("%.2f m"),E.Width()/100);
+        case 3:return FString::Printf(TEXT("%.1f / %.1f m"),E.HighHeight/100,E.LowHeight/100);
+        case 4:return FString::Printf(TEXT("%.1f s"),E.Duration);
+        case 5:return FString::Printf(TEXT("%.0f"),E.ManaCost);
+        case 6:return FString::Printf(TEXT("%.1f s"),E.Cooldown);
+        case 7:return FString::Printf(TEXT("%.1f m"),E.Range/100);
+        case 8:return FString::Printf(TEXT("%.1f m"),E.ChillRadius/100);
+        case 10:return FString::Printf(TEXT("%.0f"),E.MaxHealth);
+        default:return FString::Printf(TEXT("%d 层 / %.1f s"),E.ChillStacks,E.ChillInterval);
+        }
+    }
     if(SelectedSkill==TEXT("iceSpike"))
     {
         const auto E=Model->IceSpikeStats(Model->IceSpikeProgress().Level+(bNext?1:0));
@@ -394,9 +420,10 @@ FString UColdSteelSkillPage::EffectValue(int32 Index,bool bNext) const
         if(Index==0)return TEXT("F");
         if(Index==1)return FString::Printf(TEXT("%.0f"),C.Damage);
         if(Index==2)return FString::Printf(TEXT("×%.2f"),(T.StrengthFactorBase+T.StrengthFactorPerLevel*FMath::Min(L,Model->QuickCombatDefinition().MaxLevel))*C.DamageMultiplier);
-        if(Index==3)return FString::Printf(TEXT("%.1f s"),C.StunSeconds);
+        if(Index==3)return FString::Printf(TEXT("%.2f"),C.StaminaCost);
         if(Index==4)return FString::Printf(TEXT("%.1f m"),C.KnockbackCM/100);
-        return FString::Printf(TEXT("%.1f s"),C.CooldownSeconds);
+        if(Index==5)return TEXT("无");
+        return FString::Printf(TEXT("−%.0f%%"),FMath::Clamp(T.StaminaReductionPerLevel*(FMath::Clamp(L,1,Model->QuickCombatDefinition().MaxLevel)-1),0.f,1.f)*100.f);
     }
     const bool Pistol=SelectedSkill==TEXT("pistolMastery");
     const auto E=Pistol?Model->PistolEffect(Model->PistolProgress().Level+(bNext?1:0)):Model->RifleEffect(Model->RifleProgress().Level+(bNext?1:0));
@@ -495,6 +522,12 @@ TSharedRef<SWidget> UColdSteelSkillPage::TrainingCard()
         AddReward(TEXT("同次命中至少两个"),D.Lightning.MultiHitExperience);AddReward(TEXT("同次击杀至少两个"),D.Lightning.MultiKillExperience);
         Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Paragraph(TEXT("同次连锁结束后统一结算，以上奖励可叠加；多目标奖励每次各一次。无目标、失败施法、尸体、友方、召唤物不提供修炼；过载保留角色击杀经验，不额外计算闪电修炼。随机暴击同时修炼暴击技能。升级所需经验为当前等级×100，最高20级。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
     }
+    else if(SelectedSkill==TEXT("iceWall"))
+    {
+        AddReward(TEXT("每次落点有效命中"),D.IceWall.HitExperience);AddReward(TEXT("每次直接击杀"),D.IceWall.KillExperience);
+        AddReward(TEXT("同次命中至少两个"),D.IceWall.MultiHitExperience);
+        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Paragraph(TEXT("每个目标在成墙瞬间只结算一次；多目标奖励每堵墙一次。寒冷光环与阻挡本身不刷经验；空放、尸体、友方和召唤物不计修炼。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
+    }
     else if(SelectedSkill==TEXT("iceSpike"))
     {
         AddReward(TEXT("每次有效命中"),D.IceSpike.HitExperience);AddReward(TEXT("每次直接击杀"),D.IceSpike.KillExperience);
@@ -515,7 +548,7 @@ TSharedRef<SWidget> UColdSteelSkillPage::TrainingCard()
     {
         AddReward(TEXT("触发快速进战"),D.UseExperience);
         AddReward(TEXT("使用技能击杀目标"),D.KillExperience);
-        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Paragraph(TEXT("动作实际开始即记 1 点修炼值，挥空也算施放；接触段内排队补发的一记同样算一次。可修炼目标被本次打击直接击杀时额外获得击杀经验，每次施放至多一个目标。命中同时修炼剑精通与暴击技能。满级后停止积累。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
+        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Paragraph(TEXT("动作实际开始后扣一次体力并获得施放修炼，挥空也算；动作未结束时重复按键不重复扣费或计经验。可修炼目标被本次打击直接击杀时额外获得击杀经验，每次施放至多一个目标。命中按当前武器精通与暴击规则修炼。满级后停止积累。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
     }
     else if(SelectedSkill==TEXT("dexterousHands"))
     {
@@ -536,6 +569,7 @@ TSharedRef<SWidget> UColdSteelSkillPage::BuildPage()
     Scroll.Reset();
     LightningDetailButton.Reset();HolyLightDetailButton.Reset();
     IceSpikeDetailButton.Reset();
+    IceWallDetailButton.Reset();
     DetailButton.Reset();PistolDetailButton.Reset();CriticalDetailButton.Reset();FireballDetailButton.Reset();HeavyDetailButton.Reset();DodgeDetailButton.Reset();DexterousHandsDetailButton.Reset();BackButton.Reset();FilterButtons.Reset();
     if (!Model) return Label(TEXT("技能数据暂不可用"),14,ColdSteelUI::TextSecondary);
     auto Column=SNew(SVerticalBox);
@@ -575,6 +609,9 @@ TSharedRef<SWidget> UColdSteelSkillPage::BuildPage()
         if(Category==0||Category==2||Category==3)Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)
             [SAssignNew(IceSpikeDetailButton,SButton).ButtonStyle(&ActionStyle).HAlign(HAlign_Fill).ContentPadding(16/Scale)
                 .OnClicked_UObject(this,&ThisClass::OpenDetail,FName(TEXT("iceSpike")))[Overview(true,TEXT("iceSpike"))]];
+        if(Category==0||Category==2||Category==3)Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)
+            [SAssignNew(IceWallDetailButton,SButton).ButtonStyle(&ActionStyle).HAlign(HAlign_Fill).ContentPadding(16/Scale)
+                .OnClicked_UObject(this,&ThisClass::OpenDetail,FName(TEXT("iceWall")))[Overview(true,TEXT("iceWall"))]];
         if(Category==0||Category==2||Category==3)Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)
             [SAssignNew(LightningDetailButton,SButton).ButtonStyle(&ActionStyle).HAlign(HAlign_Fill).ContentPadding(16/Scale)
                 .OnClicked_UObject(this,&ThisClass::OpenDetail,FName(TEXT("lightningStrike")))[Overview(true,TEXT("lightningStrike"))]];
@@ -639,6 +676,14 @@ TSharedRef<SWidget> UColdSteelSkillPage::BuildPage()
             Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("将火球拖入快捷栏，按绑定键凝聚，再按该键朝准星发射。直接命中不受距离衰减，直击头部要害必定暴击；普通直击和爆炸波及目标各自随机判定暴击，同一目标只结算一次伤害与暴击加成。爆炸伤害从中心 100% 衰减至边缘 50%，掩体可阻挡。伤害半径与热浪最大扩散半径一致；显示伤害未扣目标魔防，也未计额外增伤和暴击。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
             const auto& T=Model->FireballDefinition().Fireball;
             Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(FString::Printf(TEXT("伤害 = 魔攻 ×（%.2f +（等级 − 1）× %.2f），向下取整。蓝耗 = %.0f +（等级 − 1）× %.0f。基础冷却由 1 级 %.1f 秒逐级降至满级 %.1f 秒，常规减冷却最低 %.1f 秒。仅凝聚时扣蓝，最多悬浮 %.0f 秒，结束后计冷却；退出或死亡取消未结束的火球并保留冷却。"),T.MagicBase,T.MagicPerLevel,T.ManaCost,T.ManaCostPerLevel,T.Cooldown,T.MinimumCooldown,T.MinimumCooldown,T.HoverDuration),12,ColdSteelUI::TextTertiary,PageWidth-44)];
+        }
+        else if(SelectedSkill==TEXT("iceWall"))
+        {
+            const TCHAR* Rows[]={TEXT("成墙物理伤害"),TEXT("冰墙段数"),TEXT("墙体宽度"),TEXT("高墙 / 矮墙"),TEXT("持续时间"),TEXT("消耗魔法"),TEXT("发射后冷却"),TEXT("最大施法距离"),TEXT("寒冷光环范围"),TEXT("光环叠层节拍"),TEXT("墙体生命")};
+            for(int32 I=0;I<UE_ARRAY_COUNT(Rows);++I)Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(Rows[I],I)];
+            Scroll->AddSlot().Padding(16/Scale,16/Scale,16/Scale,12/Scale)[TrainingCard()];
+            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("装备法杖后，拖入快捷栏并按绑定键凝聚。凝聚完成后指向地面显示冰墙模型：绿色可放置、红色不可放置；按 R 在高墙和矮墙间切换，再按绑定键发射至当前预览落点。高墙阻挡移动和投射物，矮墙顶面可供机枪脚架支撑。未发射时切走法杖会取消凝聚并退蓝。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
+            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(TEXT("保留原版伤害：向下取整〔10 + 10×等级 + 智力×（1 + 0.25×等级）+ 精神×（1 + 0.25×等级）〕，按物防结算。段数5 + 2×（等级−1）；持续10 + 0.5×（等级−1）秒。凝聚只扣一次蓝，发射开始冷却，切换形态不重复扣费。未发射的凝聚到期、死亡或优先权打断退还实际蓝耗；已发射的不退。墙体、飞行种子和预览不跨读档恢复。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
         }
         else if(SelectedSkill==TEXT("iceSpike"))
         {
@@ -707,8 +752,8 @@ TSharedRef<SWidget> UColdSteelSkillPage::BuildPage()
             const TCHAR* Rows[]={TEXT("伤害倍率"),TEXT("连续奔跑准备时间"),TEXT("体力消耗（含当前配装）"),TEXT("下劈范围（含当前配装）"),TEXT("击退距离"),TEXT("命中扇区"),TEXT("下劈伤害（含当前武器）")};
             for(int32 I=0;I<UE_ARRAY_COUNT(Rows);++I)Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(Rows[I],I)];
             Scroll->AddSlot().Padding(16/Scale,16/Scale,16/Scale,12/Scale)[TrainingCard()];
-            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("持近战兵器按住左 Shift 向前奔跑，就绪后按左键，经0.25秒前摇衔接下劈。准备时间从1级1秒降至20级0.43秒；停跑、后退、离地、体力耗尽或发动动作会重新计时。未就绪按左键使用普通攻击；被动技能不需绑定快捷栏。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
-            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(TEXT("伤害倍率=1.75+0.05×等级。基础消耗20体力，受当前近战配装耗体修正；一次出招只扣一次。从冲刺持剑用0.25秒过渡到下劈，保留原有落点与收势，不附加前冲或回弹。下劈命中正前方60°扇区（左右各30°），每个目标一次；基础版附带击退。完整收势后恢复操作，下一次需重新奔跑准备，无独立冷却。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
+            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("持近战兵器按住左 Shift 向前奔跑，就绪后按左键，经0.25秒前摇衔接下劈。准备时间从1级1秒降至20级0.43秒；蓄满后滑铲、滑铲跳和空中减速均保留就绪，可继续按住 Shift 在空中释放。松开冲刺、发动其他动作，或落地后不再奔跑会重新计时；未蓄满时只在地面奔跑积累。未就绪按左键使用普通攻击；被动技能不需绑定快捷栏。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
+            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(TEXT("伤害倍率=1.75+0.05×等级。基础消耗20体力，受当前近战配装耗体修正；一次出招只扣一次。0.25秒前摇向前突进1米，空中释放保留竖直运动和重力；碰撞阻挡突进，保留原有收势且无回弹。下劈命中正前方60°扇区（左右各30°），每个目标一次；基础版附带击退。完整收势后恢复操作，下一次需重新奔跑准备，无独立冷却。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
         }
         else if(SelectedSkill==TEXT("whirlwind"))
         {
@@ -720,11 +765,11 @@ TSharedRef<SWidget> UColdSteelSkillPage::BuildPage()
         }
         else if(SelectedSkill==TEXT("quickCombat"))
         {
-            const TCHAR* Rows[]={TEXT("触发快捷键"),TEXT("打击伤害（含当前力量）"),TEXT("力量系数"),TEXT("眩晕时间"),TEXT("击退距离"),TEXT("常规冷却")};
+            const TCHAR* Rows[]={TEXT("触发快捷键"),TEXT("打击伤害（含当前力量）"),TEXT("力量系数"),TEXT("体力消耗"),TEXT("击退距离"),TEXT("额外技能冷却"),TEXT("成长体力减耗")};
             for(int32 I=0;I<UE_ARRAY_COUNT(Rows);++I)Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(Rows[I],I)];
             Scroll->AddSlot().Padding(16/Scale,16/Scale,16/Scale,12/Scale)[TrainingCard()];
-            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("不限武器类型。按 F 或快捷栏绑定键快速打击：剑使用独立配重锤打击；单持手枪以握把向前砸击；步枪以枪托或枪身前段砸击。对前方 2 米的单个目标造成基础伤害 25 + 等级×5 + 力量×（5 + 等级×0.1），再乘当前武器的快速近战伤害倍率。基础倍率为 1，陨星锤首增加 0.25；基础击退 1 米，陨星锤首延长至 1.5 米。眩晕（2.5 + 等级×0.1）秒。力量取当前总值，面板伤害与力量系数包含配重修正。基础冷却 12 秒，从动作结束后开始计时。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
-            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(TEXT("命中同时按武器命中修炼剑/手枪精通与暴击。冷却中按键无效。连击进行中按 F，剑会在接触段结束后排队补发一记。双持手枪左手被副枪占用，不触发本技能。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
+            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("按 F 或快捷栏绑定键发动当前武器的快速近战：剑使用配重锤，枪械使用各自的砸击动作。伤害取当前等级、力量和武器快速近战倍率；击退与体力消耗包含装备修正。命中不附加眩晕。技能成长降低体力消耗。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
+            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(TEXT("没有独立冷却。蓄势、释放与收手构成一个完整动作周期，全部结束后即可再次使用。快捷栏遮罩和倒计时跟随当前武器的真实动作时间，并计入攻速与命中停顿；动作中重复按键无效，体力不足时不能发动。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
         }
         else
         {
@@ -748,4 +793,4 @@ FReply UColdSteelSkillPage::SelectCategory(int32 Index)
 FReply UColdSteelSkillPage::OpenDetail(FName Id)
 { SelectedSkill=Id;bDetail=true; if(Scroll)Scroll->SetScrollOffset(0); RefreshLayout(); return FReply::Handled().SetUserFocus(BackButton.ToSharedRef(),EFocusCause::Navigation); }
 bool UColdSteelSkillPage::GoBack()
-{ if(!bDetail)return false; bDetail=false; if(Scroll)Scroll->SetScrollOffset(0); RefreshLayout();auto Button=SelectedSkill==TEXT("dodge")?DodgeDetailButton:(SelectedSkill==TEXT("dexterousHands")?DexterousHandsDetailButton:DetailButton);if(SelectedSkill==TEXT("pistolMastery"))Button=PistolDetailButton;if(SelectedSkill==TEXT("criticalStrike"))Button=CriticalDetailButton;if(SelectedSkill==TEXT("fireball"))Button=FireballDetailButton;if(SelectedSkill==TEXT("heavyStrike"))Button=HeavyDetailButton;if(SelectedSkill==TEXT("quickCombat"))Button=QuickCombatDetailButton;if(SelectedSkill==TEXT("whirlwind"))Button=WhirlwindDetailButton;if(SelectedSkill==TEXT("dashAttack"))Button=DashAttackDetailButton;if(SelectedSkill==TEXT("lightningStrike"))Button=LightningDetailButton;if(SelectedSkill==TEXT("holyLight"))Button=HolyLightDetailButton;if(SelectedSkill==TEXT("meteor"))Button=MeteorDetailButton;if(SelectedSkill==TEXT("flameArmor"))Button=FlameArmorDetailButton;if(Button)FSlateApplication::Get().SetKeyboardFocus(Button,EFocusCause::Navigation); return true; }
+{ if(!bDetail)return false; bDetail=false; if(Scroll)Scroll->SetScrollOffset(0); RefreshLayout();auto Button=SelectedSkill==TEXT("dodge")?DodgeDetailButton:(SelectedSkill==TEXT("dexterousHands")?DexterousHandsDetailButton:DetailButton);if(SelectedSkill==TEXT("pistolMastery"))Button=PistolDetailButton;if(SelectedSkill==TEXT("criticalStrike"))Button=CriticalDetailButton;if(SelectedSkill==TEXT("fireball"))Button=FireballDetailButton;if(SelectedSkill==TEXT("heavyStrike"))Button=HeavyDetailButton;if(SelectedSkill==TEXT("quickCombat"))Button=QuickCombatDetailButton;if(SelectedSkill==TEXT("whirlwind"))Button=WhirlwindDetailButton;if(SelectedSkill==TEXT("dashAttack"))Button=DashAttackDetailButton;if(SelectedSkill==TEXT("lightningStrike"))Button=LightningDetailButton;if(SelectedSkill==TEXT("holyLight"))Button=HolyLightDetailButton;if(SelectedSkill==TEXT("meteor"))Button=MeteorDetailButton;if(SelectedSkill==TEXT("flameArmor"))Button=FlameArmorDetailButton;if(SelectedSkill==TEXT("iceWall"))Button=IceWallDetailButton;if(Button)FSlateApplication::Get().SetKeyboardFocus(Button,EFocusCause::Navigation); return true; }

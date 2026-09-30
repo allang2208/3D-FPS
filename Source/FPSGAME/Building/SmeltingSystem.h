@@ -86,6 +86,13 @@ public:
     void ReconcileIntents(AVoxelBuildWorld* World);
     /** 任务总秒数＝配方秒×批量÷等级速度（进度分母与结算封顶同源）。 */
     double JobTotalSeconds(const AVoxelBuildWorld* World,const FVoxelSmeltingJob& Job,const FColdSteelSmeltingRecipe& R) const;
+    static constexpr int64 CastingCapacity=60;
+    static constexpr int32 CastingQueueCapacity=8;
+    static int64 CastingStored(const FVoxelSmeltingJob& Job);
+    bool CastingBlocked(const AVoxelBuildWorld* World,const FVoxelSmeltingJob& Job) const;
+    bool SettleCasting(AVoxelBuildWorld* World,FIntVector Cell);
+    /** True when an existing casting session or a nearby unclaimed station can accept a queue. */
+    bool HasCastingStation(const AVoxelBuildWorld* World,FIntVector Cell) const;
 private:
     /** 实时进度秒数（不写档）：已积累 + 当前段 min(挂钟,配方剩余,存料)。无任务/无配方返回 -1。 */
     double LiveProgress(const AVoxelBuildWorld* World,FIntVector Cell,const FColdSteelSmeltingRecipe*& OutRecipe) const;

@@ -1,4 +1,5 @@
 #include "BowArrow.h"
+#include "../../Dungeons/WardBreakableGlass.h"
 #include "../../FPSGAMECharacter.h"
 #include "../../Skills/ColdSteelSkillRules.h"
 #include "../../Monsters/MonsterDamageAlert.h"
@@ -166,6 +167,8 @@ void ABowArrow::ResolveLaunchObstruction(const FVector& CameraOrigin)
 void ABowArrow::ApplyHit(const FHitResult& Hit)
 {
     SetActorLocation(Hit.ImpactPoint + Velocity.GetSafeNormal() * 2.f);
+    // Continue flight through the removed pane instead of pinning an arrow in empty air.
+    if(UWardBreakableGlass::BreakHit(Hit,Velocity.GetSafeNormal()))return;
     if (!bResolved)
     {
         bResolved = true;

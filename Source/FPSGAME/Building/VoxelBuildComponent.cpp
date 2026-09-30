@@ -92,8 +92,8 @@ namespace
         return INDEX_NONE;
     }
     // Last frame the drawer widget consumed a key itself; keeps the same press from running twice.
-    // File scope instead of a member so the change stays a function-body patch.
-    uint64 DrawerKeyFrame=0;
+    // 审计 U3（2026-09-23）：原为文件级 static，PIE 双开共享进程级 GFrameCounter，一个窗口的
+    // 抽屉按键会吞掉另一个窗口同帧的 B/Esc/数字键。改为组件成员（见 MarkDrawerKeyHandled）。
     // Voxel construction shapes. The index is the stable brush id: the mouse wheel cycles it and the
     // drawer lists the same table in each material's 其他构造 submenu. bSwapsXY shapes turn with R.
     struct FVoxelBrushShape
@@ -1222,6 +1222,41 @@ bool UVoxelBuildComponent::HandleInput(const FInputKeyEventArgs& Event,bool bMen
 void UVoxelBuildComponent::UpdateWidget()
 {
     if(!Widget||!Palette||!BuildWorld)return;
+    // 审计 U1（2026-09-23）：签名前移到生产端。消费端 ShowState 的守卫只挡 SetText，而这里
+    // 每帧无条件构造 Message/Headline/Brush（4–8 次 Printf + 堆分配），面板收起的建造态照跑。
+    // 廉价分量拼键；消息文本本身也进签名（一次 GetTypeHash，无 Printf）：ValidatePlacement 会在
+    // 同一 Revision 下改写 TargetMessage（如"可放置 N 格"计数变化），漏了就会显示陈旧状态行。
+    // FeedbackTime 的衰减不入键——它的可见效果只有"Feedback 顶替 LiveMessage"这一个边沿。
+    const FString& LiveMessage=SelectedPrefab()?PrefabMessage:TargetMessage;
+    // Placement 的**内容**（格数 + 首格坐标）必须入键：幽灵行的"第 N 层 格(x,y,z)"随瞄准移动，
+    // 而 Revision 不变——只记 IsEmpty 会让状态行冻结在旧落点（审计 U1 自检发现）。
+    // 位域：flags 0..4，Clipped 5..8，Brush 9..12，HasComp 13，Material 14..25，Yaw 26..27，
+    // PrefabMode 28，GrowUp 29，PlacementNum 30..39，CellHash 40..55。
+    const FIntVector SignalCell=Placement.IsEmpty()?FIntVector::ZeroValue:Placement[0];
+    const uint64 CellHash=(uint64)GetTypeHash(SignalCell)&0xFFFF;   // 16 bit 足够区分相邻列
+    const uint64 CheapKey=(uint64)(bCanPlace?1:0)|(uint64)(bPrefabValid?2:0)|(uint64)(bSnapEnabled?4:0)
+        |(uint64)(ClippedPlayerCells&0xF)<<5|(uint64)(Brush&0xF)<<9
+        |(uint64)(SelectedComponent.IsNone()?0:1)<<13
+        |((uint64)(GetTypeHash(SelectedMaterial)&0xFFF))<<14
+        |(uint64)(ComponentYaw&3)<<26|(uint64)(SelectedPrefab()?1:0)<<28
+        |(uint64)(GrowUpPlan?1:0)<<29|(uint64)(Placement.Num()&0x3FF)<<30|CellHash<<40;
+    const FString Signal=FeedbackTime>0?Feedback:LiveMessage;
+    // StructureStatus 的过渡态（正在保存/正在计算/倒塌处理中）不随 Revision 变化，必须入键，
+    // 否则状态行会在整个过渡期冻结。世界侧用 StatusFingerprint() 把这些内部标志折成 uint64；
+    // WeakestJointSummary 文本哈希覆盖"同 Revision 下最弱接缝读数变了"的情况（一次 GetTypeHash）。
+    // JointBits 与 Signal 哈希各占 12 bit、彼此错开，避免移位丢位。
+    const uint64 JointBits=(uint64)GetTypeHash(BuildWorld->WeakestJointSummary())&0xFFF;
+    const uint64 SignalBits=(uint64)GetTypeHash(Signal)&0xFFF;
+    // 位域：Revision 0..31，StatusFingerprint 32..39，JointBits 40..51，SignalBits 52..63。
+    const uint64 Revision=((BuildWorld->StructureRevision()&0xFFFFFFFFull)
+        |((BuildWorld->StatusFingerprint()&0xFFull)<<32))
+        |(JointBits<<40)|(SignalBits<<52);
+    if(CheapKey==LastWidgetCheapKey&&Revision==LastWidgetRevision)
+    {
+        UpdateStructureWarning(*BuildWorld);   // 播报状态机自己带边沿守卫，保持每帧
+        return;
+    }
+    LastWidgetCheapKey=CheapKey;LastWidgetRevision=Revision;
     Widget->SetSelection(SelectedMaterial,SelectedComponent,Brush);
     UpdateStructureWarning(*BuildWorld);
     if(bPanelOpen)

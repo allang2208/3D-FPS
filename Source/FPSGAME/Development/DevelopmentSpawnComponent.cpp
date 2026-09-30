@@ -22,12 +22,16 @@ UDevelopmentSpawnComponent::UDevelopmentSpawnComponent()
     Add(TEXT("FatZombie"), TEXT("胖子僵尸"), TEXT("/Script/FPSGAME.FatZombie"), 60.f);
     Add(TEXT("Mutant3"), TEXT("突变体-3"), TEXT("/Script/FPSGAME.Mutant3"), 50.f);
     Add(TEXT("NurseZombie"), TEXT("护士僵尸"), TEXT("/Game/Monsters/NurseZombie/BP_NurseZombie.BP_NurseZombie_C"), 44.f);
+    Add(TEXT("SpitterZombie"), TEXT("毒液僵尸"), TEXT("/Game/Monsters/SpitterZombie/BP_SpitterZombie.BP_SpitterZombie_C"), 44.f);
     Add(TEXT("WitchRebuilt"), TEXT("巫婆·重建候选"), TEXT("/Script/FPSGAME.WitchRebuiltMonster"), 65.f);
+    Add(TEXT("FleshHand"), TEXT("异变巨手"), TEXT("/Game/Monsters/FleshHand/BP_FleshHand.BP_FleshHand_C"), 120.f);
+    Add(TEXT("FleshHandMinion"), TEXT("小皮肤手"), TEXT("/Game/Monsters/FleshHand/BP_FleshHandMinion.BP_FleshHandMinion_C"), 40.f);
     Add(TEXT("HandBrain"), TEXT("手脑"), TEXT("/Game/Monsters/HandBrain/BP_HandBrain.BP_HandBrain_C"), 125.f);
     Add(TEXT("PoisonMaggot"), TEXT("毒蛆"), TEXT("/Game/Monsters/PoisonMaggot/BP_PoisonMaggot.BP_PoisonMaggot_C"), 120.f);
     Add(TEXT("Wolf"), TEXT("野狼"), TEXT("/Game/Monsters/Wolf/BP_WolfMonster.BP_WolfMonster_C"), 100.f);
     Add(TEXT("ZombieDog"), TEXT("僵尸犬"), TEXT("/Game/Monsters/ZombieDog/V1/BP_ZombieDog.BP_ZombieDog_C"), 100.f);
     Add(TEXT("InfectedDog"), TEXT("感染犬"), TEXT("/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C"), 100.f);
+    Add(TEXT("HundredEyedSlag"), TEXT("百目炉渣"), TEXT("/Script/FPSGAME.HundredEyedSlagMonster"), 100.f);
 }
 
 bool UDevelopmentSpawnComponent::FindLocation(APlayerController* Player, const ACharacter* Defaults,
@@ -100,10 +104,15 @@ int32 UDevelopmentSpawnComponent::SpawnInFront(FName Id, int32 Count, float Dist
         : FMath::Max(Agent.AgentHeight, Capsule->GetScaledCapsuleHalfHeight() * 2.f);
     const auto* Navigation = FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld());
     const ANavigationData* NavData = Navigation ? Navigation->GetNavDataForProps(Agent) : nullptr;
-    if (!NavData || NavData->GetConfig().AgentRadius + KINDA_SMALL_NUMBER < Agent.AgentRadius
+    if (!NavData)
+    {
+        Result = FText::FromString(TEXT("当前场景尚未接入怪物导航，暂时无法生成"));
+        return 0;
+    }
+    if (NavData->GetConfig().AgentRadius + KINDA_SMALL_NUMBER < Agent.AgentRadius
         || NavData->GetConfig().AgentHeight + KINDA_SMALL_NUMBER < Agent.AgentHeight)
     {
-        Result = FText::FromString(TEXT("当前场景缺少适合该怪物体型的导航网格，请先生成场景导航"));
+        Result = FText::FromString(FString::Printf(TEXT("当前场景尚未接入%s所需的导航规格"), *Entry->Name.ToString()));
         return 0;
     }
     Count = FMath::Clamp(Count, 1, 10);
@@ -123,8 +132,10 @@ int32 UDevelopmentSpawnComponent::SpawnInFront(FName Id, int32 Count, float Dist
             Spawned.Add(Monster); ++Created;
         }
     }
+    const bool bNavigationBuilding = Created == 0 && UNavigationSystemV1::IsNavigationBeingBuiltOrLocked(GetWorld());
     Result = FText::FromString(Created == 0
-        ? TEXT("玩家前方没有同时满足落脚和导航覆盖的位置，请面向可行走区域后重试")
+        ? (bNavigationBuilding ? TEXT("附近导航正在生成，请稍后再生成怪物")
+            : TEXT("玩家前方没有同时满足落脚和导航覆盖的位置，请面向可行走区域后重试"))
         : FString::Printf(TEXT("已生成 %d / %d 只%s%s"), Created, Count, *Entry->Name.ToString(),
             Created < Count ? TEXT("，其余位置被地形或其他物体占用") : TEXT("，面向玩家")));
     return Created;

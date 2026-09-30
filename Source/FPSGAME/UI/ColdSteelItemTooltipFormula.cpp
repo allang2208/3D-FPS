@@ -1,8 +1,8 @@
-#include "ColdSteelWeaponText.h"
-#include "../Weapons/Bow/BowStats.h"
 #include "ColdSteelItemTooltipData.h"
 #include "ColdSteelEnhancementSystem.h"
 #include "ColdSteelStatusModel.h"
+#include "ColdSteelItemReadCache.h"
+#include "../Weapons/GunsmithSystem.h"
 #include "Engine/GameInstance.h"
 
 namespace
@@ -37,6 +37,17 @@ void AppendColdSteelTooltipAttackFormula(const FColdSteelItem& Item,UColdSteelSt
     const bool bProductionAxe=ColdSteelInventory::IsEquippedProductionTool(Item);
     const auto* Enhancement=Model?Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;
     if(!Enhancement){FormulaRow(Card,TEXT("攻击力计算公式"),TEXT("—"));return;}
+    double ForgeMultiplier=1;
+    if(const auto Data=ColdSteelItemData::Read(Item.Data))
+    {
+        const TSharedPtr<FJsonObject>* Forge=nullptr;
+        if(Data->TryGetObjectField(TEXT("_forgeQuality"),Forge)&&*Forge)
+            (*Forge)->TryGetNumberField(TEXT("multiplier"),ForgeMultiplier);
+    }
+    ForgeMultiplier=FMath::Clamp(ForgeMultiplier,.75,1.25);
+    // Match ProcessedDamage: forging scales the base formula, not every added damage term.
+    auto WithForging=[&](const FString& Expression)
+    {return FMath::IsNearlyEqual(ForgeMultiplier,1.)?Expression:TEXT("(")+Expression+TEXT(")×")+FormulaNumber(ForgeMultiplier);};
     if(const auto Formula=Enhancement->AttackFormula(Item))
     {
         const double Base=FormulaValue(Formula,TEXT("base")),Flat=FormulaValue(Formula,TEXT("enhanceFlat"));
@@ -60,33 +71,30 @@ void AppendColdSteelTooltipAttackFormula(const FColdSteelItem& Item,UColdSteelSt
             const FString Factor=Group.PerLevel==0?FormulaNumber(Group.Base):TEXT("(")+FormulaNumber(Group.Base)+TEXT("+")+FormulaNumber(Group.PerLevel)+TEXT("L)");
             EnhancedExpression+=TEXT("+")+Factor+TEXT("×")+Names;
         }
-        FormulaRow(Card,TEXT("攻击力计算公式"),BaseExpression);
-        if(!bProductionAxe)FormulaRow(Card,TEXT("强化后攻击力公式 · L=强化等级"),EnhancedExpression);
+        const auto* Gunsmith=Model->GetGameInstance()->GetSubsystem<UGunsmithSystem>();
+        // 近战读剑类倍率，采集工具读工具倍率；两者都作用在基础公式结果上、四舍五入之前。
+        const bool bTool=Gunsmith&&Gunsmith->IsTool(Item.Definition);
+        if(Gunsmith&&(bTool||Gunsmith->IsMelee(Item.Definition)))
+        {
+            const auto Stats=Gunsmith->CalculateItem(Item,Gunsmith->Installed(Item));
+            const double Multiplier=bTool?Stats.Tool.Damage:Stats.Melee.Damage;
+            if(!FMath::IsNearlyEqual(Multiplier,1.))
+            {
+                BaseExpression=TEXT("(")+BaseExpression+TEXT(")×")+FormulaNumber(Multiplier);
+                EnhancedExpression=TEXT("(")+EnhancedExpression+TEXT(")×")+FormulaNumber(Multiplier);
+            }
+        }
+        FormulaRow(Card,TEXT("攻击力计算公式"),WithForging(BaseExpression));
+        if(!bProductionAxe)FormulaRow(Card,TEXT("强化后攻击力公式 · L=强化等级"),WithForging(EnhancedExpression));
     }
     else
     {
         const bool bBow=ColdSteelInventory::IsBow(Item);
         const double AttackScale=bBow?ColdSteelInventory::Number(Item,TEXT("bow_damage_coefficient_scale"),1.5):1.;
         const FString AttackTerm=TEXT("+")+(FMath::IsNearlyEqual(AttackScale,1.)?FString():FormulaNumber(AttackScale)+TEXT("×"))+TEXT("角色攻击力");
-        FormulaRow(Card,TEXT("攻击力计算公式"),FormulaNumber(WeaponBase)+AttackTerm);
-        if(!bProductionAxe)FormulaRow(Card,TEXT("强化后攻击力公式 · L=强化等级"),(
+        FormulaRow(Card,TEXT("攻击力计算公式"),WithForging(FormulaNumber(WeaponBase)+AttackTerm));
+        if(!bProductionAxe)FormulaRow(Card,TEXT("强化后攻击力公式 · L=强化等级"),WithForging(
             bBow?FormulaNumber(WeaponBase)+TEXT("+")+FormulaNumber(WeaponBase*Enhancement->IncreasePerLevel())+TEXT("L")+AttackTerm:
             FormulaNumber(WeaponBase)+TEXT("×(1+")+FormulaNumber(Enhancement->IncreasePerLevel())+TEXT("L)")+AttackTerm));
     }
-    if(ColdSteelInventory::IsBow(Item))
-    {
-        FormulaRow(Card,ColdSteelWeaponText::DamageComposition,TEXT("（基础伤害 + 附加物理伤害 + 附加魔法伤害）×")+
-            FormulaNumber(ColdSteelBow::DrawDamageMultiplier(1.f))+TEXT("；以上攻击力公式为蓄力前基准，伤害分项和武器总伤害已按满弓换算"));
-        FormulaRow(Card,TEXT("命中结算"),TEXT("出箭时按实际蓄力进度与弹种结算，再计算暴击及目标防御；基础与附加伤害共用蓄力倍率"));
-        return;
-    }
-    FormulaRow(Card,ColdSteelWeaponText::DamageComposition,TEXT("基础伤害 + 附加物理伤害 + 附加魔法伤害；附加部分的属性系数已换算为面板实值"));
-    if(bProductionAxe)
-    {
-        FormulaRow(Card,TEXT("命中结算"),TEXT("基础公式四舍五入；沿用角色暴击与敌人物理防御减免。单次攻击，不附加连击、重击或刀剑精通伤害。"));
-        return;
-    }
-    FormulaRow(Card,TEXT("命中结算"),ColdSteelInventory::IsTwoHandedSword(Item)?
-        TEXT("基础和附加共同乘重击、连击等攻击倍率；物理分项按物防、魔法分项按魔防独立减免，最后合计扣血"):
-        TEXT("命中时计算暴击及目标防御；物理分项按物理防御、魔法分项按魔法防御分别结算"));
 }

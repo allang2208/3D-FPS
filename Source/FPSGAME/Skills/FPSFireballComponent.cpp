@@ -1,7 +1,16 @@
 #include "FPSFireballComponent.h"
 #include "../Weapons/RuneSwordComponent.h"
+#include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "FPSFireballProjectile.h"
+#include "FPSIceSpikeComponent.h"
+#include "FPSIceWallComponent.h"
+#include "FPSLightningComponent.h"
+#include "FPSHolyLightComponent.h"
+#include "FPSFireMagicComponent.h"
+#include "../Weapons/RuneOrbBladesComponent.h"
 #include "FPSCastingMeshComponent.h"
+#include "../Combat/CombatStatusFormula.h"
+#include "../Monsters/FPSCombatHealthComponent.h"
 #include "../Movement/FPSTraversalRules.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -28,7 +37,7 @@ void UFPSFireballComponent::BeginPlay()
 {
     Super::BeginPlay();
     AddTickPrerequisiteActor(GetOwner());
-    PoseSettings.Load();
+    PoseSettings.Load();PowerFistSettings.Load();
     // Load once with the player, before the first input.
     Core=CoreAsset.LoadSynchronous();Trail=TrailAsset.LoadSynchronous();Explosion=ExplosionAsset.LoadSynchronous();
     Shockwave=ShockwaveAsset.LoadSynchronous();ImpactSound=ImpactSoundAsset.LoadSynchronous();
@@ -52,19 +61,23 @@ void UFPSFireballComponent::SetHandPhase(EFireballHandPhase Phase)
 {
     if(Phase==EFireballHandPhase::Recovering)
     {
+        CaptureStaffRecovery();
+        if(bPowerFistGesture)PowerFistRecoveryStartAge=FMath::Min(PowerFistSourceAge(),PowerFistSettings.RecoverStart);
         RecoveryReleaseAlpha=HandReleaseFraction();
         RecoveryFromPhase=HandPhase;
         // Keep the unclamped release age so cancellation during impact begins
         // recovery at the actual displaced pose, including after the push ends.
         RecoveryFromFraction=HandPhase==EFireballHandPhase::Releasing?
-            PhaseAge/(FMath::Max(.01f,ReleaseDuration)/FireballCastMotion::ReleasePushSpeed):HandPhaseFraction();
+            PhaseAge/GesturePhaseDuration(EFireballHandPhase::Releasing):HandPhaseFraction();
     }
+    if(Phase==EFireballHandPhase::Raising||Phase==EFireballHandPhase::ReadyingRelease)BeginStaffGesture();
     HandPhase=Phase;PhaseAge=0.f;
+    if(Phase==EFireballHandPhase::None){bPowerFistGesture=false;PowerFistRecoveryStartAge=0.f;bStaffGesture=false;CastingStaff.Reset();}
     if(Phase==EFireballHandPhase::Releasing)
     {
         ReleaseHoldEndAge=0.f;
         ReleaseImpactAges.Reset();
-        ReleaseImpactAges.Add(FMath::Clamp(LaunchContactTime,0.f,FMath::Max(.01f,ReleaseDuration))/FireballCastMotion::ReleasePushSpeed);
+        if(!bPowerFistGesture)ReleaseImpactAges.Add(ReleaseContactAge());
     }
     if(Phase==EFireballHandPhase::Raising || Phase==EFireballHandPhase::ReadyingRelease)
     { ++CastSerial;bHandEntryCaptured=false;bReleaseFromRest=Phase==EFireballHandPhase::ReadyingRelease; }
@@ -77,6 +90,7 @@ void UFPSFireballComponent::CaptureHandEntry(const FTransform& Hand,const FTrans
 float UFPSFireballComponent::HandReleaseFraction() const
 {
     if(HandPhase==EFireballHandPhase::Recovering)return RecoveryReleaseAlpha;
+    if(bStaffGesture)return HandPhase==EFireballHandPhase::Releasing?FMath::Clamp(PhaseAge/ReleaseContactAge(),0.f,1.f):0.f;
     if(HandPhase==EFireballHandPhase::ReadyingRelease)return .48f;
     if(HandPhase!=EFireballHandPhase::Releasing)return 0.f;
     const float T=PhaseAge*FireballCastMotion::ReleasePushSpeed/FMath::Max(.01f,FMath::Min(LaunchContactTime,ReleaseDuration));
@@ -87,6 +101,11 @@ FFireballArmMotion UFPSFireballComponent::SampleHandMotion(const FQuat& HandCorr
     FFireballArmMotion Entry;
     Entry.Wrist=EntryHand.GetLocation();Entry.Rotation=EntryHand.GetRotation();
     Entry.Shoulder=EntryShoulder;Entry.Pole=EntryElbow;
+    if(bPowerFistGesture)
+    {
+        const auto From=PowerFistSettings.Sample(Entry,HandCorrection,PowerFistSourceAge());
+        return HandPhase==EFireballHandPhase::Recovering?PowerFistSettings.Recover(From,Current,HandPhaseFraction()):From;
+    }
     const auto Sample=[&](EFireballHandPhase Phase,float Fraction)
     {
         if(Phase==EFireballHandPhase::Raising)return FireballCastMotion::Gather(PoseSettings,Entry,HandCorrection,Fraction);
@@ -111,6 +130,17 @@ FFireballArmMotion UFPSFireballComponent::SampleHandMotion(const FQuat& HandCorr
 FVector UFPSFireballComponent::HeldOrbPosition() const
 {
     const auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();if(!Camera)return GetOwner()->GetActorLocation();
+    if(bStaffOrb)
+    {
+        FVector Focus=StaffOrbHover;
+        if(!GestureOwner.IsValid()&&HandPhase==EFireballHandPhase::Raising&&IsStaffCasting()&&CastingStaff.IsValid())
+            Focus=StaffCastMotion::Focus(SampleStaffMotion(CastingStaff->CarryPoseInCamera()));
+        return Camera->GetComponentTransform().TransformPosition(Focus);
+    }
+    // Initial collision/space query uses the same staff focus as the new gather.
+    if(!Active.IsValid())
+        if(const auto* Staff=GetOwner()->FindComponentByClass<UStaffWeaponComponent>();Staff&&Staff->CanBeginCast())
+            return Camera->GetComponentTransform().TransformPosition(StaffCastMotion::Focus(Staff->CarryPoseInCamera()));
     FVector Wrist=PoseSettings.GatherWrist;
     if(!GestureOwner.IsValid() && HandPhase==EFireballHandPhase::Raising && bHandEntryCaptured)
     {
@@ -134,12 +164,14 @@ void UFPSFireballComponent::UpdateFallbackHands()
 }
 float UFPSFireballComponent::HandPhaseFraction() const
 {
-    const float Duration=HandPhase==EFireballHandPhase::Raising?RaiseDuration:
-        HandPhase==EFireballHandPhase::Releasing?ReleaseDuration/FireballCastMotion::ReleasePushSpeed:
-        HandPhase==EFireballHandPhase::ReadyingRelease?ReleaseEntryDuration/FireballCastMotion::ReleaseEntrySpeed:RecoveryDuration;
     if(HandPhase==EFireballHandPhase::None)return 0.f;
     if(HandPhase==EFireballHandPhase::Holding)return 1.f;
-    return FMath::Clamp(PhaseAge/FMath::Max(.01f,Duration),0.f,1.f);
+    return FMath::Clamp(PhaseAge/GesturePhaseDuration(HandPhase),0.f,1.f);
+}
+float UFPSFireballComponent::PowerFistSourceAge() const
+{
+    if(HandPhase==EFireballHandPhase::Recovering)return PowerFistRecoveryStartAge;
+    return PhaseAge+(HandPhase==EFireballHandPhase::Releasing?PowerFistSettings.ClenchStart:0.f);
 }
 float UFPSFireballComponent::GatherFraction() const
 { return !GestureOwner.IsValid()&&HandPhase==EFireballHandPhase::Raising?HandPhaseFraction():1.f; }
@@ -153,7 +185,10 @@ void UFPSFireballComponent::RejectHeldLeftHand()
     if(GetWorld())HandNotice.Show(float(GetWorld()->GetTimeSeconds()));
 }
 bool UFPSFireballComponent::IsHandOccupiedNotice() const
-{ return GetWorld()&&HandNotice.Active(float(GetWorld()->GetTimeSeconds())); }
+{
+    const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
+    return Player&&Player->IsSpellHandHeld()&&GetWorld()&&HandNotice.Active(float(GetWorld()->GetTimeSeconds()));
+}
 float UFPSFireballComponent::HandNoticeAlpha() const
 { return GetWorld()?HandNotice.Alpha(float(GetWorld()->GetTimeSeconds())):0.f; }
 float UFPSFireballComponent::HandNoticeRise() const
@@ -161,7 +196,7 @@ float UFPSFireballComponent::HandNoticeRise() const
 FString UFPSFireballComponent::StatusText() const
 {
     if(IsHandOccupiedNotice())return TEXT("左手占用");
-    if(bQueuedCast || (bQueuedLaunch && HandPhase==EFireballHandPhase::None))return TEXT("等待左手");
+    if(bQueuedCast || (bQueuedLaunch && HandPhase==EFireballHandPhase::None))return TEXT("等待施法");
     if(GetWorld()&&GetWorld()->GetTimeSeconds()<MessageUntil)return LastMessage;
     if(!GestureOwner.IsValid())
     {
@@ -187,9 +222,9 @@ void UFPSFireballComponent::Trigger()
     if(!Player||!P||!Player->IsLocallyControlled()||GetWorld()->GetNetMode()!=NM_Standalone)return;
     if(auto* H=Player->FindComponentByClass<UFPSCombatHealthComponent>();H&&H->IsDead())return;
     if(IsFlying()||HandPhase==EFireballHandPhase::Releasing||HandPhase==EFireballHandPhase::ReadyingRelease)return;
-    // An akimbo off-hand pistol owns the left hand until the loadout changes.
-    // Waiting would fire the spell minutes later, so the request is refused.
-    if(Player->IsLeftHandHeldForCast()){RejectHeldLeftHand();return;}
+    // Only palm casting is blocked by held left-hand equipment; a held staff
+    // selects its own right-hand availability for both gather and release.
+    if(Player->IsSpellHandHeld()){RejectHeldLeftHand();return;}
     if(IsPrepared())
     {
         // A prepared orb is independent from the hand. Keep one release request,
@@ -198,7 +233,7 @@ void UFPSFireballComponent::Trigger()
         if(HandPhase==EFireballHandPhase::None)TryBeginQueuedLaunch();
         return;
     }
-    if(IsOccupyingLeftHand())return;
+    if(IsGestureActive())return;
     if(bQueuedCast)return;
     if(P->FireballCooldown()>0){Feedback(TEXT("冷却"));return;}
     if(!P->CanSpendMana(P->FireballStats().ManaCost)){Feedback(TEXT("缺蓝"));return;}
@@ -210,8 +245,8 @@ void UFPSFireballComponent::TryBeginQueuedCast()
 {
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* P=Model();
     if(!bQueuedCast||!Player||!P)return;
-    if(Player->IsLeftHandHeldForCast()){RejectHeldLeftHand();return;}
-    if(Player->IsLeftHandBusyForCast())return;
+    if(Player->IsSpellHandHeld()){RejectHeldLeftHand();return;}
+    if(Player->IsSpellHandBusy())return;
     const auto* PC=Cast<APlayerController>(Player->GetController());
     if(!PC||PC->IsLookInputIgnored()||PC->IsMoveInputIgnored())return;
     bQueuedCast=false;
@@ -230,8 +265,12 @@ void UFPSFireballComponent::TryBeginQueuedCast()
     const float BeforeMana=P->Snapshot().Mana;
     if(!P->BeginFireballCast()){Ball->Destroy();Feedback(TEXT("未施放"));return;}
     RecordGesturePayment(BeforeMana,P->Snapshot().Mana);
-    Active=Ball;Ball->Prepare(this,Player,Snapshot,Core,Trail,Explosion,Shockwave,ImpactSound);
+    GestureSpeed=Snapshot.CastSpeed;
+    if(auto* Status=Player->FindComponentByClass<UCombatStatusFormula>())Status->ConsumeChainSpell();
+    Active=Ball;
     bQueuedLaunch=bLaunchCommitted=false;SetHandPhase(EFireballHandPhase::Raising);
+    bStaffOrb=IsStaffCasting();StaffOrbHover=StaffCastMotion::Focus(StaffCastMotion::Raised());
+    Ball->Prepare(this,Player,Snapshot,Core,Trail,Explosion,Shockwave,ImpactSound);
     LastMessage.Reset();MessageUntil=0;
 }
 void UFPSFireballComponent::TryBeginQueuedLaunch()
@@ -240,13 +279,14 @@ void UFPSFireballComponent::TryBeginQueuedLaunch()
     if(!IsPrepared()){bQueuedLaunch=false;return;}
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
     if(!Player)return;
-    if(Player->IsLeftHandHeldForCast()){RejectHeldLeftHand();return;}
-    if(Player->IsLeftHandBusyForCast())return;
+    if(Player->IsSpellHandHeld()){RejectHeldLeftHand();return;}
+    if(Player->IsSpellHandBusy())return;
     const auto* PC=Cast<APlayerController>(Player->GetController());
     if(!PC || PC->IsLookInputIgnored() || PC->IsMoveInputIgnored())return;
     // Capture the current weapon's hand pose again; it may have changed while
     // the detached orb was hovering. This does not reserve MP or spawn a new orb.
     bQueuedLaunch=false;bLaunchCommitted=false;
+    GestureSpeed=Active->Snapshot().CastSpeed;
     SetHandPhase(EFireballHandPhase::ReadyingRelease);
     LastMessage.Reset();MessageUntil=0;
 }
@@ -258,10 +298,7 @@ void UFPSFireballComponent::LaunchAtContact()
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
     auto* Camera=Player?Player->FindComponentByClass<UCameraComponent>():nullptr;
     if(!Camera)return;
-    const FVector Eye=Camera->GetComponentLocation(),End=Eye+Camera->GetForwardVector()*20000;
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(FireballAim),true,Player);Query.AddIgnoredActor(Active.Get());
-    FHitResult Aim;GetWorld()->LineTraceSingleByChannel(Aim,Eye,End,ECC_Visibility,Query);
-    Active->Launch(Aim.bBlockingHit?Aim.ImpactPoint:End);
+    Active->Launch();
     bLaunchCommitted=true;bQueuedLaunch=false;
 }
 void UFPSFireballComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
@@ -287,8 +324,9 @@ void UFPSFireballComponent::TickComponent(float Delta,ELevelTick Type,FActorComp
     {
         if(HandPhase==EFireballHandPhase::Raising)
         {
-            if(PhaseAge<RaiseDuration)return;
-            const float Remainder=PhaseAge-FMath::Max(.01f,RaiseDuration);
+            const float Raise=GesturePhaseDuration(EFireballHandPhase::Raising);
+            if(PhaseAge<Raise)return;
+            const float Remainder=PhaseAge-Raise;
             // Buff spells can apply on the completed palm-up gathering pose.
             // Other gathering clients pass an empty delegate and retain their own logic.
             if(GestureOwner.IsValid()&&GestureContact.IsBound())LaunchAtContact();
@@ -297,28 +335,25 @@ void UFPSFireballComponent::TickComponent(float Delta,ELevelTick Type,FActorComp
         }
         else if(HandPhase==EFireballHandPhase::ReadyingRelease)
         {
-            const float EntryDuration=FMath::Max(.01f,ReleaseEntryDuration)/FireballCastMotion::ReleaseEntrySpeed;
+            const float EntryDuration=GesturePhaseDuration(EFireballHandPhase::ReadyingRelease);
             if(PhaseAge<EntryDuration)return;
             const float Remainder=PhaseAge-EntryDuration;
             SetHandPhase(EFireballHandPhase::Releasing);PhaseAge=Remainder;
         }
         else if(HandPhase==EFireballHandPhase::Releasing)
         {
-            if(PhaseAge>=FMath::Clamp(LaunchContactTime,0.f,FMath::Max(.01f,ReleaseDuration))/FireballCastMotion::ReleasePushSpeed)LaunchAtContact();
-            // Keep the fast entry/push and smooth recovery, shorten the hold to
-            // fit the requested 1-second default total. The derived hold keeps
-            // its real duration; only the moving stages use casting haste.
-            const float PushDuration=FMath::Max(.01f,ReleaseDuration)/FireballCastMotion::ReleasePushSpeed;
-            const float EntryDuration=FMath::Max(.01f,ReleaseEntryDuration)/FireballCastMotion::ReleaseEntrySpeed;
-            const float HoldDuration=FMath::Max(0.f,FireballCastMotion::ReleaseTotalSeconds-EntryDuration-PushDuration-FMath::Max(.01f,RecoveryDuration));
-            const float ReleaseEnd=FMath::Max(PushDuration+HoldDuration*GestureSpeed,ReleaseHoldEndAge);
+            const float ContactAge=ReleaseContactAge();
+            if(PhaseAge>=ContactAge)LaunchAtContact();
+            // Each gesture uses its own movement/contact clock; endpoint holds
+            // retain real duration while the moving stages use casting haste.
+            const float ReleaseEnd=ReleaseEndAge();
             if(PhaseAge<ReleaseEnd)return;
             const float Remainder=PhaseAge-ReleaseEnd;
             SetHandPhase(EFireballHandPhase::Recovering);PhaseAge=FMath::Max(0.f,Remainder);
         }
         else if(HandPhase==EFireballHandPhase::Recovering)
         {
-            if(PhaseAge>=FMath::Max(.01f,RecoveryDuration))
+            if(PhaseAge>=GesturePhaseDuration(EFireballHandPhase::Recovering))
             {SetHandPhase(EFireballHandPhase::None);GestureOwner.Reset();GestureContact.Unbind();GestureSpeed=1.f;}
             return;
         }
@@ -328,7 +363,14 @@ void UFPSFireballComponent::TickComponent(float Delta,ELevelTick Type,FActorComp
 void UFPSFireballComponent::ProjectileFinished(AFPSFireballProjectile* Projectile)
 {
     if(Active.Get()!=Projectile)return;
-    Active.Reset();bQueuedLaunch=false;bAimPreview=false;
+    if(Projectile&&Projectile->IsFlying())
+    {
+        const auto& Spell=Projectile->Snapshot();
+        const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();
+        if(!Health||!Health->IsDead())
+        {auto* Status=UCombatStatusFormula::GetOrAdd(GetOwner());if(Spell.bGrantChain)Status->AddChainSpell();if(Spell.CastHasteStacks>0)Status->AddHaste(Spell.CastHasteStacks,Spell.CastHasteDuration);}
+    }
+    Active.Reset();bQueuedLaunch=false;bAimPreview=false;bStaffOrb=false;
     // Expiry/cancellation while gathering also gives the hand a recovery phase.
     if(!GestureOwner.IsValid()&&(HandPhase==EFireballHandPhase::Raising || HandPhase==EFireballHandPhase::ReadyingRelease ||
        (HandPhase==EFireballHandPhase::Releasing && !bLaunchCommitted)))SetHandPhase(EFireballHandPhase::Recovering);
@@ -338,28 +380,64 @@ void UFPSFireballComponent::Cancel()
 {
     GestureOwner.Reset();GestureContact.Unbind();GestureSpeed=1.f;
     bQueuedCast=bQueuedLaunch=bLaunchCommitted=false;
-    bAimPreview=false;
+    bAimPreview=false;bStaffOrb=false;
     if(Active.IsValid())Active->Destroy();Active.Reset();SetHandPhase(EFireballHandPhase::None);
     if(FallbackHands)FallbackHands->SetVisibility(false);
 }
 void UFPSFireballComponent::EndPlay(const EEndPlayReason::Type Reason)
 { Cancel();Super::EndPlay(Reason); }
 
-bool UFPSFireballComponent::TryBeginSpellGesture(UActorComponent* Spell,bool bRelease,float Speed,const FSimpleDelegate& Contact)
+bool UFPSFireballComponent::TryBeginSpellGesture(UActorComponent* Spell,bool bRelease,float Speed,const FSimpleDelegate& Contact,bool bPowerFist)
 {
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
-    if(!Spell||!Player||BlocksNewLeftHandAction()||Player->IsLeftHandBusyForCast())return false;
+    if(!Spell||!Player||BlocksNewLeftHandAction()||Player->IsSpellHandBusy())return false;
     const auto* PC=Cast<APlayerController>(Player->GetController());
     if(!PC||PC->IsLookInputIgnored()||PC->IsMoveInputIgnored())return false;
     GestureOwner=Spell;GestureContact=Contact;GestureSpeed=FMath::Max(.1f,Speed);bLaunchCommitted=false;
+    GesturePaidMana=0.f;bDirectCastWindup=false;
+    bPowerFistGesture=bPowerFist&&bRelease;PowerFistRecoveryStartAge=0.f;
     SetHandPhase(bRelease?EFireballHandPhase::ReadyingRelease:EFireballHandPhase::Raising);return true;
 }
+
 void UFPSFireballComponent::RecordGesturePayment(float BeforeMana,float AfterMana,bool bDirectCast)
 {
     GesturePaidMana=FMath::Max(0.f,BeforeMana-AfterMana);
     bDirectCastWindup=bDirectCast;
 }
 
+void UFPSFireballComponent::InterruptForPriority()
+{
+    UActorComponent* Spell=GestureOwner.Get();
+    const EFireballHandPhase Phase=HandPhase;
+    // A one-step spell's ready pose is its gathering windup. For an already
+    // hovering projectile the same pose begins release, so its cost is retained.
+    const bool Gathering=Phase==EFireballHandPhase::Raising ||
+        (bDirectCastWindup && Phase==EFireballHandPhase::ReadyingRelease);
+    const bool PendingContact=Gathering || Phase==EFireballHandPhase::ReadyingRelease ||
+        (Phase==EFireballHandPhase::Releasing && !bLaunchCommitted);
+    const float Refund=Gathering&&!bLaunchCommitted?GesturePaidMana:0.f;
+    GesturePaidMana=0.f;bDirectCastWindup=false;
+    FName Unreleased=NAME_None;
+    if(auto* Holy=GetOwner()->FindComponentByClass<UFPSHolyLightComponent>();Holy&&Holy->HasUnreleasedCast())Unreleased=TEXT("holyLight");
+    else if(auto* Lightning=GetOwner()->FindComponentByClass<UFPSLightningComponent>();Lightning&&Lightning->HasUnreleasedCast())Unreleased=TEXT("lightning");
+    else if(auto* FireMagic=GetOwner()->FindComponentByClass<UFPSFireMagicComponent>();FireMagic&&!FireMagic->UnreleasedSkill().IsNone())Unreleased=FireMagic->UnreleasedSkill();
+    else if(Refund>0.f&&!Spell)Unreleased=TEXT("fireball");
+    // Unbind BEFORE destroying a prepared entity. Its EndPlay callback must
+    // never advance a stale release or restore a hand recovery over the winner.
+    GestureContact.Unbind();GestureOwner.Reset();GestureSpeed=1.f;
+    bQueuedCast=bQueuedLaunch=false;SetAimPreview(false);
+    SetHandPhase(EFireballHandPhase::None);
+    if(auto* Ice=GetOwner()->FindComponentByClass<UFPSIceSpikeComponent>())Ice->InterruptPending(Spell==Ice&&PendingContact);
+    if(auto* IceWall=GetOwner()->FindComponentByClass<UFPSIceWallComponent>())IceWall->InterruptPending(Spell==IceWall&&PendingContact);
+    if(auto* Lightning=GetOwner()->FindComponentByClass<UFPSLightningComponent>())Lightning->InterruptPending();
+    if(auto* HolyLight=GetOwner()->FindComponentByClass<UFPSHolyLightComponent>())HolyLight->InterruptPending();
+    if(auto* FireMagic=GetOwner()->FindComponentByClass<UFPSFireMagicComponent>())FireMagic->CancelPending();
+    if(auto* Blades=GetOwner()->FindComponentByClass<URuneOrbBladesComponent>())Blades->InterruptPending(Spell==Blades&&Gathering);
+    if(!Spell && PendingContact && IsPrepared()){Active->Destroy();Feedback(TEXT("施法中断"));}
+    bLaunchCommitted=false;
+    if(FallbackHands)FallbackHands->SetVisibility(false);
+    if(auto* P=Model();P&&(Refund>0.f||!Unreleased.IsNone()))P->RefundUnreleasedCast(Refund,Unreleased);
+}
 void UFPSFireballComponent::CancelSpellGesture(UActorComponent* Spell)
 {
     if(GestureOwner.Get()!=Spell)return;
@@ -368,7 +446,7 @@ void UFPSFireballComponent::CancelSpellGesture(UActorComponent* Spell)
 }
 bool UFPSFireballComponent::ContinueSpellRelease(UActorComponent* Spell,float HoldSeconds,bool bAddImpact)
 {
-    if(!Spell||GestureOwner.Get()!=Spell||HandPhase!=EFireballHandPhase::Releasing||!bLaunchCommitted)return false;
+    if(!Spell||GestureOwner.Get()!=Spell||bPowerFistGesture||HandPhase!=EFireballHandPhase::Releasing||!bLaunchCommitted)return false;
     ReleaseHoldEndAge=FMath::Max(ReleaseHoldEndAge,PhaseAge+FMath::Max(0.f,HoldSeconds)*GestureSpeed);
     if(bAddImpact)
     {
@@ -382,6 +460,18 @@ void UFPSFireballComponent::SetAimPreview(bool bActive)
 {
     // Only a hovering orb previews; during the gather the press keeps its old meaning
     // (queue the launch), so a second press while charging is never swallowed.
-    bAimPreview=bActive&&IsPrepared()&&HandPhase!=EFireballHandPhase::Raising;
+    if(bActive&&(!IsPrepared()||bQueuedLaunch||HandPhase==EFireballHandPhase::Raising
+        ||HandPhase==EFireballHandPhase::ReadyingRelease||HandPhase==EFireballHandPhase::Releasing))return;
+    bAimPreview=bActive;
     if(auto* Ball=Active.Get())Ball->SetAimPreviewActive(bAimPreview);
+}
+void UFPSFireballComponent::ReleaseAimPreview()
+{
+    if(!bAimPreview||!IsPrepared())return;
+    Active->CommitAimPreview();bAimPreview=false;
+    Trigger();
+    // A rejected request releases the snapshot; menus/cancellation use
+    // SetAimPreview(false), which must never commit a cast by itself.
+    if(!bQueuedLaunch&&HandPhase!=EFireballHandPhase::ReadyingRelease)
+        if(auto* Ball=Active.Get())Ball->SetAimPreviewActive(false);
 }

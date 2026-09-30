@@ -1,4 +1,5 @@
 #include "FPSFireMagicComponent.h"
+#include "../Dungeons/WardBreakableGlass.h"
 #include "FPSMeteorStrike.h"
 #include "FPSFireballComponent.h"
 #include "FireMagicArea.h"
@@ -41,7 +42,11 @@ UColdSteelStatusModel* UFPSFireMagicComponent::Model() const
 UFPSFireballComponent* UFPSFireMagicComponent::Hands() const{return GetOwner()->FindComponentByClass<UFPSFireballComponent>();}
 void UFPSFireMagicComponent::Feedback(FName Skill,const FString& Text){MessageSkill=Skill;Message=Text;MessageUntil=GetWorld()->GetTimeSeconds()+2;}
 void UFPSFireMagicComponent::RejectHeldHand(FName Skill){QueuedSkill=NAME_None;NoticeSkill=Skill;HandNotice.Show(GetWorld()->GetTimeSeconds());}
-bool UFPSFireMagicComponent::IsHandOccupiedNotice(FName Skill) const{return Skill==NoticeSkill&&GetWorld()&&HandNotice.Active(GetWorld()->GetTimeSeconds());}
+bool UFPSFireMagicComponent::IsHandOccupiedNotice(FName Skill) const
+{
+    const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
+    return Skill==NoticeSkill&&Player&&Player->IsSpellHandHeld()&&GetWorld()&&HandNotice.Active(GetWorld()->GetTimeSeconds());
+}
 float UFPSFireMagicComponent::HandNoticeAlpha() const{return GetWorld()?HandNotice.Alpha(GetWorld()->GetTimeSeconds()):0;}
 float UFPSFireMagicComponent::HandNoticeRise() const{return GetWorld()?HandNotice.Rise(GetWorld()->GetTimeSeconds()):0;}
 float UFPSFireMagicComponent::CooldownFraction(FName Skill) const
@@ -50,7 +55,7 @@ FString UFPSFireMagicComponent::StatusText(FName Skill) const
 {
     if(IsHandOccupiedNotice(Skill))return TEXT("左手占用");
     if(Skill==MessageSkill&&GetWorld()->GetTimeSeconds()<MessageUntil)return Message;
-    if(Skill==QueuedSkill)return TEXT("等待左手");if(Skill==CommittedSkill)return TEXT("施法");
+    if(Skill==QueuedSkill)return TEXT("等待施法");if(Skill==CommittedSkill)return TEXT("施法");
     if(Skill==TEXT("flameArmor")&&ArmorTime>0)return FString::Printf(TEXT("焰甲 %.1fs"),ArmorTime);
     if(const auto* M=Model();M&&M->FireMagicCooldown(Skill)>0)return FString::Printf(TEXT("%.1f"),M->FireMagicCooldown(Skill));
     return TEXT("");
@@ -58,7 +63,7 @@ FString UFPSFireMagicComponent::StatusText(FName Skill) const
 bool UFPSFireMagicComponent::Allowed(const FFireMagicCast& Spell,FString& Failure) const
 {
     const auto* M=Model();if(!M)return false;
-    if(Spell.bRequiresStaff&&(!M->Equipped()||ColdSteelInventory::Text(*M->Equipped(),TEXT("weaponType"))!=TEXT("staff")))
+    if(Spell.bRequiresStaff&&!M->HasEquippedStaff())
     {Failure=TEXT("需要法杖");return false;}
     if(Spell.Skill==TEXT("flameArmor"))if(const auto* Status=GetOwner()->FindComponentByClass<UCombatStatusFormula>();Status&&Status->IsImmune())
     {Failure=TEXT("状态免疫");return false;}
@@ -91,7 +96,7 @@ void UFPSFireMagicComponent::Trigger(FName Skill)
     if(!FireMagic::IsSkill(Skill)||!Player||!M||!Player->IsLocallyControlled()||GetWorld()->GetNetMode()!=NM_Standalone)return;
     if(const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
     if(!CommittedSkill.IsNone())return;
-    if(Player->IsLeftHandHeldForCast()){RejectHeldHand(Skill);return;}
+    if(Player->IsSpellHandHeld()){RejectHeldHand(Skill);return;}
     if(!CastSound||(Skill==TEXT("meteor")?!bMeteorAssetsReady:(!AuraSystem||!WeaponSystem||!SparkSystem))){Feedback(Skill,TEXT("缺素材"));return;}
     const auto Spell=M->FireMagicStats(Skill);FString Failure;FVector Point,Normal;
     if(!Allowed(Spell,Failure)||(Skill==TEXT("meteor")&&!SelectGround(Spell,Point,Normal,Failure))){Feedback(Skill,Failure);return;}
@@ -102,10 +107,10 @@ void UFPSFireMagicComponent::ServiceQueue()
 {
     if(QueuedSkill.IsNone())return;
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();auto* H=Hands();if(!Player||!M||!H)return;
-    if(Player->IsLeftHandHeldForCast()){RejectHeldHand(QueuedSkill);return;}
+    if(Player->IsSpellHandHeld()){RejectHeldHand(QueuedSkill);return;}
     const auto* PC=Cast<APlayerController>(Player->GetController());
     if(!PC||PC->IsLookInputIgnored()||PC->IsMoveInputIgnored()){QueuedSkill=NAME_None;return;}
-    if(H->BlocksNewLeftHandAction()||Player->IsLeftHandBusyForCast())return;
+    if(H->BlocksNewLeftHandAction()||Player->IsSpellHandBusy())return;
     const auto Spell=M->FireMagicStats(QueuedSkill);FString Failure;
     if(!Allowed(Spell,Failure)||(QueuedSkill==TEXT("meteor")&&!SelectGround(Spell,LockedPoint,LockedNormal,Failure)))
     {Feedback(QueuedSkill,Failure);QueuedSkill=NAME_None;return;}
@@ -122,6 +127,8 @@ void UFPSFireMagicComponent::ReleaseAtContact()
 {
     if(CommittedSkill.IsNone())return;const FName Skill=CommittedSkill;CommittedSkill=NAME_None;
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());if(!Player)return;
+    if(auto* M=Model();M&&CastSnapshot.bRequiresStaff&&!M->HasEquippedStaff())
+    {M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,Skill);Feedback(Skill,TEXT("需要法杖"));return;}
     if(Skill==TEXT("meteor"))
     {
         const auto* Camera=Player->FindComponentByClass<UCameraComponent>();FHitResult Block;
@@ -172,6 +179,7 @@ void UFPSFireMagicComponent::TickArmor(float Delta)
     while(AuraTimer+UE_KINDA_SMALL_NUMBER>=ArmorSnapshot.TickSeconds)
     {
         AuraTimer-=ArmorSnapshot.TickSeconds;int32 Hits=0;
+        if(ArmorSnapshot.AuraDamage>0)UWardBreakableGlass::BreakInRadius(GetWorld(),Feet,ArmorSnapshot.AuraRadius,Player);
         for(AActor* Target:FireMagic::GroundTargets(Player,Feet,FVector::UpVector,ArmorSnapshot.AuraRadius))
         {
             const int32 Before=ArmorRewards.Hits;
@@ -240,6 +248,16 @@ void UFPSFireMagicComponent::TickComponent(float Delta,ELevelTick Type,FActorCom
     if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())
     {if(!CommittedSkill.IsNone())if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,CommittedSkill);ClearEffects();return;}
     if(!CommittedSkill.IsNone()&&(!Hands()||!Hands()->IsSpellGesture(this)))CommittedSkill=NAME_None;
+    if(!CommittedSkill.IsNone()||!QueuedSkill.IsNone())
+    if(auto* M=Model();M&&!M->HasEquippedStaff())
+    {
+        const FName Pending=!CommittedSkill.IsNone()?CommittedSkill:QueuedSkill;
+        if(!Pending.IsNone()&&M->FireMagicDefinition(Pending).FireMagic.bRequiresStaff)
+        {
+            if(!CommittedSkill.IsNone())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,CommittedSkill);
+            CancelPending();Feedback(Pending,TEXT("需要法杖"));
+        }
+    }
     Strikes.RemoveAll([](const auto& A){return !A.IsValid();});TickArmor(Delta);ServiceQueue();
 }
 void UFPSFireMagicComponent::EndPlay(EEndPlayReason::Type Reason){ClearEffects();Super::EndPlay(Reason);}

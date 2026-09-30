@@ -1,4 +1,5 @@
 #include "WitchMonster.h"
+#include "../Skills/FPSIceWall.h"
 #include "MonsterReactionTiming.h"
 #include "HumanoidKnockdownComponent.h"
 #include "WitchSpellAnimInstance.h"
@@ -90,8 +91,10 @@ bool AWitchMonster::CanCast(APawn* Candidate) const
     if (FVector::DotProduct(GetActorForwardVector(), Aim) < .98f) return false;
     FHitResult Hit; FCollisionQueryParams Query(SCENE_QUERY_STAT(WitchSight), false, this);
     Query.AddIgnoredActor(Candidate);
-    return !GetWorld()->LineTraceSingleByChannel(Hit, GetActorLocation() + FVector(0,0,35),
+    const bool Blocked=GetWorld()->LineTraceSingleByChannel(Hit, GetActorLocation() + FVector(0,0,35),
         Candidate->GetActorLocation(), ECC_Visibility, Query);
+    const auto* Wall=Cast<AFPSIceWall>(Hit.GetActor());
+    return !Blocked||(Wall&&Wall->IsSolid());
 }
 
 void AWitchMonster::Tick(float DeltaSeconds)

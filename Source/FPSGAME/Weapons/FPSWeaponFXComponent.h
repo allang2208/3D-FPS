@@ -51,12 +51,12 @@ struct FFPSWeaponFXTracer
         with a soft halo instead of a solid rod. Hidden when fps.Tracer.HaloWidth <= 1. */
     UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> HaloMesh;
     UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> HaloMaterial;
-    /** 汇聚附魔的螺旋环绕层：一次生成、逐帧只改变换与自转的螺旋管。
-        复用曳光材质，落在同一局部口径（半径 50 / z ∈ [-50,50]）内，因此材质沿轴的头尾与侧面衰减照旧成立。 */
+    /** Real-centimetre convergence helix: stable mesh, unit scale, shader reveal. */
     UPROPERTY(Transient) TObjectPtr<UDynamicMeshComponent> SpiralMesh;
     UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> SpiralMaterial;
     /** 生成当前螺旋管时用的几何参数；控制台改了参数就按这三项判断重建，不在逐帧路径上重建。 */
     float SpiralBuiltTurns=-1.f,SpiralBuiltRadiusCM=0.f,SpiralBuiltThicknessCM=0.f;
+    float SpiralBuiltLengthCM=0.f;
     /** 汇聚弹的白色光柱拖尾：出膛点→弹头的整条路径，命中后原地停住再逐步淡出。
         比曳光段本身活得久，所以它有自己的一条淡出时间线（fps.Tracer.Trail.LingerSeconds）。 */
     UPROPERTY(Transient) TObjectPtr<UDynamicMeshComponent> TrailMesh;
@@ -164,6 +164,7 @@ private:
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UMaterialInterface> SmokeMaterial;
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UMaterialInterface> BrassMaterial;
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UMaterialInterface> TracerMaterial;
+    UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UMaterialInterface> ConvergedMaterial;
     UPROPERTY(Transient) TArray<FFPSWeaponFXParticle> Particles;
     static constexpr int32 MaxParticles = 64;
     UPROPERTY(Transient) TArray<FFPSWeaponFXTracer> Tracers;

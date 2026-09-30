@@ -11,8 +11,10 @@
 const FGunsmithWeapon* UGunsmithSystem::ModifiableWeapon(const FString& Definition) const
 {
     if(const auto* Firearm=Weapon(Definition))return Firearm;
+    if(const auto* Sword=MeleeWeapons.Find(Definition))return Sword;
     if(const auto* Bow=BowWeapons.Find(Definition))return Bow;
-    return MeleeWeapons.Find(Definition);
+    if(const auto* Staff=StaffWeapons.Find(Definition))return Staff;
+    return ToolWeapons.Find(Definition);
 }
 
 void UGunsmithSystem::LoadMeleeCatalog()

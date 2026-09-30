@@ -3224,6 +3224,16 @@
       "perEnhance": 1
     }
   },
+  "ue_steel_gauntlets": {
+    "defense": {
+      "base": 20,
+      "perEnhance": 0
+    },
+    "bonusStats": {
+      "reloadSpeed": -0.1,
+      "bowDrawSpeed": -0.1
+    }
+  },
   "ue_field_gloves": {
     "defense": {
       "base": 2,
@@ -3231,7 +3241,8 @@
     },
     "bonusStats": {
       "meleeAttackSpeed": 0.1,
-      "reloadSpeed": 0.1
+      "reloadSpeed": 0.1,
+      "bowDrawSpeed": 0.1
     }
   },
   "ue_field_gloves_black": {
@@ -4466,16 +4477,6 @@
           "perEnhance": 0.08
         }
       ]
-    }
-  },
-  "ue_steel_gauntlets": {
-    "defense": {
-      "base": 20,
-      "perEnhance": 0
-    },
-    "bonusStats": {
-      "reloadSpeed": -0.1,
-      "bowDrawSpeed": -0.1
     }
   }
 }

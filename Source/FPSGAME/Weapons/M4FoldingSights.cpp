@@ -1,3 +1,4 @@
+#include "LMG201WeaponAssets.h"
 #include "../FPSGAMECharacter.h"
 #include "A762WeaponAssets.h"
 #include "Components/StaticMeshComponent.h"
@@ -17,16 +18,16 @@ void AFPSGAMECharacter::InitializeFoldingSights()
     for(auto Head:FoldingSightHeads)Head->DestroyComponent();
     FoldingSightHeads.Reset();FoldingSightMounts.Reset();FoldingSightAxes.Reset();FoldingSightAngles.Reset();
     const auto* WeaponMesh=AKMViewmodel->GetSkeletalMeshAsset();
-    if (A762WeaponAssets::Matches(AKMViewmodel))
+    if (A762WeaponAssets::Matches(AKMViewmodel) || LMG201WeaponAssets::Matches(AKMViewmodel))
     {
         for (int32 I=0;I<2;++I)
         {
-            auto* Part=LoadObject<UStaticMesh>(nullptr,*A762WeaponAssets::SightPath(I));
+            auto* Part=LoadObject<UStaticMesh>(nullptr,*(LMG201WeaponAssets::Matches(AKMViewmodel)?LMG201WeaponAssets::SightPath(I):A762WeaponAssets::SightPath(I)));
             if (!Part) continue;
             auto* Head=NewObject<UStaticMeshComponent>(this);
             Head->SetStaticMesh(Part);Head->SetCollisionEnabled(ECollisionEnabled::NoCollision);Head->SetCastShadow(false);Head->bReceivesDecals=false;
             Head->SetupAttachment(AKMViewmodel,TEXT("WPN_root"));Head->RegisterComponent();
-            const FTransform Mount(FQuat::Identity,A762WeaponAssets::SightHinges[I],FVector(.01f));
+            const FTransform Mount(FQuat::Identity,LMG201WeaponAssets::Matches(AKMViewmodel)?LMG201WeaponAssets::SightHinges[I]:A762WeaponAssets::SightHinges[I],FVector(.01f));
             Head->SetRelativeTransform(Mount);FoldingSightHeads.Add(Head);FoldingSightMounts.Add(Mount);
             FoldingSightAxes.Add(FVector::ForwardVector);FoldingSightAngles.Add(I==0?-90.f:90.f);
         }

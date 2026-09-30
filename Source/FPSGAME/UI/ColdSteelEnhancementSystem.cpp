@@ -36,20 +36,28 @@ void UColdSteelEnhancementSystem::Initialize(FSubsystemCollectionBase& C)
 bool UColdSteelEnhancementSystem::Supports(const FColdSteelItem& I)const
 {
     if(!Ready||I.Count!=1||(I.Place!=0&&I.Place!=1))return false;
-    if(ColdSteelInventory::IsBow(I)||GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))return true;
+    if(ColdSteelInventory::IsMeleeWeapon(I)||ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("staff")||ColdSteelInventory::IsBow(I)||GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))return true;
     return Num(ReadObj(CombatItemFormula::ReadOnly(I),TEXT("defense")),TEXT("perEnhance"))>0;
 }
 bool UColdSteelEnhancementSystem::CanEnchant(const FColdSteelItem& I,const FColdSteelEnchantOption& O)const
 {
+    if(O.Restriction==TEXT("sword"))return Supports(I)&&GetGameInstance()->GetSubsystem<UGunsmithSystem>()->IsMelee(I.Definition);
+    if(O.Restriction==TEXT("melee"))return Supports(I)&&ColdSteelInventory::IsMeleeWeapon(I);
+    if(ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("staff"))return Supports(I)&&O.Restriction==TEXT("weapon");
     if(!Supports(I)||!GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))return false;
-    return O.Restriction==TEXT("firearm")||O.Restriction==TEXT("weapon");
     // 类别键只对同类武器成立：机枪卷轴不能落到步枪；枪械通用与无限制词缀沿用原口径。
     // 狙击步枪在目录里只有 weaponTypeTag 这一个分类字段（weaponType 仍是 rifle，见 ue_svd）。
     if(O.Restriction==TEXT("sniper"))return ColdSteelInventory::Text(I,TEXT("weaponTypeTag"))==TEXT("狙击步枪");
     if(O.Restriction==TEXT("machineGun"))return ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("machineGun");
+    if(O.Restriction==TEXT("firearm"))
+    {
+        const auto* G=GetGameInstance()->GetSubsystem<UGunsmithSystem>();
+        return !G->IsMelee(I.Definition)&&!G->IsTool(I.Definition)&&!G->IsStaff(I.Definition)&&!G->IsBow(I.Definition);
+    }
+    return O.Restriction==TEXT("weapon");
 }
 const FColdSteelEnchantOption* UColdSteelEnhancementSystem::Scroll(const FString& Id)const{return Options.FindByPredicate([&](const auto& O){return O.Id==Id;});}
-int32 UColdSteelEnhancementSystem::MaxLevel(const FColdSteelItem& I)const{return (ColdSteelInventory::IsBow(I)||GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))?WeaponMax:ArmorMax;}
+int32 UColdSteelEnhancementSystem::MaxLevel(const FColdSteelItem& I)const{return (ColdSteelInventory::IsMeleeWeapon(I)||ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("staff")||ColdSteelInventory::IsBow(I)||GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))?WeaponMax:ArmorMax;}
 double UColdSteelEnhancementSystem::Effect(const FColdSteelItem& I,const TCHAR* Key,double Default)const
 {
     const auto Data=ColdSteelItemData::Read(I.Data);
@@ -77,8 +85,12 @@ double UColdSteelEnhancementSystem::AttackFormulaAttribute(const FColdSteelItem&
     // Match raw allocated + equipment attributes used by the original weapon formulas.
     return (double(P->Attributes.FindRef(Key))+P->EquipmentBonus(Key)+(Key==TEXT("str")&&P->WeaponMastery(&I)==TEXT("swordMastery")?P->MasteryEffect(TEXT("heavyStrike")).Strength:0))*P->InfectionAttributeMultiplier();
 }
-double UColdSteelEnhancementSystem::ProcessedDamage(const FColdSteelItem& I,double Base,double Attack)const
+double UColdSteelEnhancementSystem::ProcessedDamage(const FColdSteelItem& I,double Base,double Attack,double MeleeDamageMultiplier)const
 {
+    const double Forge=FMath::Clamp(Num(ReadObj(ColdSteelItemData::Read(I.Data),TEXT("_forgeQuality")),TEXT("multiplier"),1),.75,1.25);
+    const auto* Gunsmith=GetGameInstance()->GetSubsystem<UGunsmithSystem>();
+    const double MeleeMultiplier=ColdSteelInventory::IsMeleeWeapon(I)?
+        (MeleeDamageMultiplier>=0?MeleeDamageMultiplier:(Gunsmith?Gunsmith->Calculate(I.Definition,Gunsmith->Installed(I)).Melee.Damage:1)):1;
     const double L=FMath::Clamp(ColdSteelInventory::Number(I,TEXT("enhanceLevel")),0.,double(WeaponMax));
     if(const auto Formula=AttackFormula(I))
     {
@@ -93,13 +105,15 @@ double UColdSteelEnhancementSystem::ProcessedDamage(const FColdSteelItem& I,doub
         // Keep current gunsmith part ratios while replacing the obsolete native damage baseline.
         if(const auto* W=GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))
             Result=CoreCombatFormula::Round(Result*Base/W->Base.Damage);
+        // Blade damage scales the weapon formula before crafting, mastery and enchantment bonuses.
+        Result=CoreCombatFormula::Round(Result*MeleeMultiplier*Forge);
         Result=CoreCombatFormula::Round(Result*(1+CraftEffect(I,TEXT("damagePercent"))));
         Result=P->AdditionalWeaponDamage(I,Result);
         return CoreCombatFormula::Round(Result*(1+Effect(I,TEXT("damagePercent"))));
     }
     const double AttackScale=ColdSteelInventory::IsBow(I)?
         FMath::Max(0.,ColdSteelInventory::Number(I,TEXT("bow_damage_coefficient_scale"),1.5)):1.;
-    double Result=Base*(1+L*Increase)+Attack*AttackScale;
+    double Result=(Base*MeleeMultiplier*(1+L*Increase)+Attack*AttackScale)*Forge;
     if(ColdSteelInventory::IsBow(I))
     {
         Result=CoreCombatFormula::Round(Result*(1+CraftEffect(I,TEXT("damagePercent"))));

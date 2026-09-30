@@ -31,8 +31,10 @@ public:
     void VolleyFinished(AFPSIceSpikeVolley* Volley);
     /** Hold the bound key while the group hovers: red trajectory preview until the release. */
     void SetAimPreview(bool bActive);
+    void ReleaseAimPreview();
     bool IsAimPreviewActive() const {return bAimPreview;}
     void Cancel();
+    void InterruptPending(bool bCancelPrepared);
 protected:
     virtual void BeginPlay() override;
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;

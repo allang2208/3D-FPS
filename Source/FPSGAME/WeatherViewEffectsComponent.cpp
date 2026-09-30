@@ -1,4 +1,6 @@
 #include "WeatherViewEffectsComponent.h"
+#include "Weapons/HK416WeaponAssets.h"
+#include "Weapons/LMG201Attachments.h"
 #include "FPSWeatherManager.h"
 #include "FPSGAMECharacter.h"
 #include "WeatherSurfaceComponent.h"
@@ -16,6 +18,7 @@
 #include "Weapons/DanWesson715WeaponAssets.h"
 #include "Weapons/DanWesson715FittedParts.h"
 #include "Weapons/M1911WeaponAssets.h"
+#include "Weapons/G18WeaponAssets.h"
 #include "Weapons/PistolGripSurface.h"
 #include "Weapons/ASH12WeaponAssets.h"
 #include "Weapons/PKMLowpolyWeaponAssets.h"
@@ -70,6 +73,12 @@ void UWeatherViewEffectsComponent::Initialize(UWeatherPresentationAssets* InAsse
         if(const auto* CompactParts=LoadObject<UWeatherPresentationAssets>(nullptr,DanWesson715FittedParts::CompactWetMaterials))
             for(const auto& Entry:CompactParts->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
     if(Assets)
+        if(const auto* G18Materials=LoadObject<UWeatherPresentationAssets>(nullptr,G18WeaponAssets::WetMaterials))
+            for(const auto& Entry:G18Materials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
+    if(Assets)
+        if(const auto* HK416Materials=LoadObject<UWeatherPresentationAssets>(nullptr,HK416WeaponAssets::WetMaterialsPath))
+            for(const auto& Entry:HK416Materials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
+    if(Assets)
         if(const auto* MagazineMaterials=LoadObject<UWeatherPresentationAssets>(nullptr,M1911WeaponAssets::ExtendedMagazineWetMaterials))
             for(const auto& Entry:MagazineMaterials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
     if(Assets)
@@ -78,6 +87,9 @@ void UWeatherViewEffectsComponent::Initialize(UWeatherPresentationAssets* InAsse
     if(Assets)
         if(const auto* ASH12Materials=LoadObject<UWeatherPresentationAssets>(nullptr,ASH12WeaponAssets::WetMaterialsPath))
             for(const auto& Entry:ASH12Materials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
+    if(Assets)
+        if(const auto* LMGMaterials=LoadObject<UWeatherPresentationAssets>(nullptr,LMG201Attachments::WetMaterialsPath))
+            for(const auto& Entry:LMGMaterials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
     if(Assets)
         if(const auto* PKMMaterials=LoadObject<UWeatherPresentationAssets>(nullptr,PKMLowpolyWeaponAssets::WetMaterialsPath))
             for(const auto& Entry:PKMMaterials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);

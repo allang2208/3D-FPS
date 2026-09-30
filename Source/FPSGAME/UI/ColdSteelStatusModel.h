@@ -9,6 +9,7 @@
 
 class APawn;
 struct FMeleeModifiers;
+struct FProductionToolStats;
 struct FSlateBrush;
 class UTexture2D;
 
@@ -99,13 +100,16 @@ public:
     UFUNCTION(BlueprintPure, Category="Skills") FColdSteelSkillProgress QuickCombatProgress() const;
     // Preview overrides isolate a workbench item's parts from the equipped weapon.
     FQuickCombatCast QuickCombatStats(int32 AtLevel=-1,const FMeleeModifiers* PreviewModifiers=nullptr) const;
+    float QuickCombatStaminaCost(int32 AtLevel=-1,const FMeleeModifiers* PreviewModifiers=nullptr) const;
+    /** 快捷栏沿用 CD 接口，数值仅表示当前武器动作周期，不是技能冷却。 */
     float QuickCombatCooldown() const;
     float QuickCombatCooldownDuration() const { return Current.QuickCombatCooldownDuration; }
-    /** 按 F/快捷栏触发：不限定武器类型，按当前武器选动作（剑/手枪/步枪）；冷却中拒绝。 */
+    /** 按 F/快捷栏触发；完整快速近战动作未结束时拒绝再次触发。 */
     bool TriggerQuickCombat();
     bool TrainQuickCombat(int32 Amount);
-    /** 动作实际开始时预留冷却；挥击结束（FinishQuickCombatCast）后才起跳走表。 */
-    bool CommitQuickCombatCast();
+    /** 动作开始扣一次体力并占用；由实际动画时钟更新，结束即解除。 */
+    bool CommitQuickCombatCast(float ActionDuration);
+    void UpdateQuickCombatAction(float Remaining,float Duration);
     void FinishQuickCombatCast();
     const FColdSteelSkillDefinition& RifleDefinition() const { return RifleSkill; }
     UFUNCTION(BlueprintPure, Category="Skills") FColdSteelSkillProgress RifleProgress() const;
@@ -142,6 +146,15 @@ public:
     void FinishHolyLightCast(const FHolyLightRewards& Rewards);
     bool ApplyHolyLightHealing(AActor* Target,const FHolyLightCast& Cast,FHolyLightRewards& Rewards);
     FIceSpikeCast IceSpikeStats(int32 AtLevel=-1) const;
+    const FColdSteelSkillDefinition& IceWallDefinition() const { return IceWallSkill; }
+    FColdSteelSkillProgress IceWallProgress() const;
+    FIceWallCast IceWallStats(int32 AtLevel=-1) const;
+    float IceWallCooldown() const { return HasNoAbilityCooldown()?0.f:Current.IceWallCooldown; }
+    float IceWallCooldownDuration() const { return Current.IceWallCooldownDuration; }
+    bool BeginIceWallCast(const FIceWallCast& Cast);
+    bool CommitIceWallRelease();
+    void ApplyIceWallSpawn(APawn* Shooter,const FIceWallPlacement& Placement,const FIceWallCast& Cast);
+    void ApplyIceWallChill(APawn* Shooter,const FIceWallPlacement& Placement,const FIceWallCast& Cast);
     float IceSpikeCooldown() const { return HasNoAbilityCooldown()?0.f:Current.IceSpikeCooldown; }
     float IceSpikeCooldownDuration() const { return Current.IceSpikeCooldownDuration; }
     bool BeginIceSpikeCast(const FIceSpikeCast& Cast);
@@ -163,7 +176,7 @@ public:
     void RefreshDevelopmentTuning();
     bool BeginFireballCast();
     bool RefundInterruptedSpellMana(float PaidMana);
-    /** Gesture paid mana and started cooldown, but the spell was not released. Empty skill refunds mana only. */
+    /** 手势已扣蓝并起冷却，但法术没有放出时退回。Skill 为空则只退蓝。 */
     bool RefundUnreleasedCast(float PaidMana, FName Skill);
     void FinishFireballCast();
     void ApplyFireballExplosion(APawn* Shooter,const FVector& Center,const FFireballCast& Cast,const FHitResult* DirectHit=nullptr);
@@ -199,6 +212,7 @@ public:
     const TArray<FColdSteelItem>& Items() const { return Current.Items; }
     const FColdSteelItem* FindItem(const FString& Id) const;
     const FColdSteelItem* Equipped(int32 Slot=-1) const;
+    bool HasEquippedStaff() const;
     UFUNCTION(BlueprintCallable, Category="Inventory") bool CycleWeapon();
     const FColdSteelItem* ResolveHotbar(int32 Index) const;
     const TArray<FColdSteelQuickBinding>& QuickBindings() const { return Current.QuickBindings; }
@@ -226,6 +240,9 @@ public:
     bool MoveItem(const FString& Id,int32 Place,int32 Cell,int32 Orientation=-1);
     bool CommitProposal(const FColdSteelProposal& Proposal);
     UFUNCTION(BlueprintCallable, Category="Inventory") bool AddItem(const FString& Definition,int64 Count=1);
+    /** Claim and all items commit together; full backpacks receive saved world drops. */
+    bool GrantDungeonReward(const FString& RunId,FName Claim,const TArray<TPair<FString,int64>>& Loot,FVector DropPosition);
+    bool AppendDungeonReward(FColdSteelProfile& State,FName Claim,const TArray<TPair<FString,int64>>& Loot,FVector DropPosition)const;
     /** 全有或全无地扣除物品（背包优先、仓库兜底），一次事务；不足时不扣任何东西并写入原因。 */
     bool ConsumeItem(const FString& Definition,int64 Count,FString& OutReason);
     bool Split(const FString& Id,int64 Count);
@@ -251,23 +268,40 @@ public:
     bool GrantStartingArmory();
     bool GrantEnhancementMaterials();
     bool GrantProductionTools();
+    const FColdSteelItem* ActiveProductionTool() const;
     /** 主手武器槽上当前装备的弓；非弓（枪械／剑／工具）返回 nullptr。 */
     const FColdSteelItem* ActiveBow() const;
     /** 首次进入世界时把目录里的弓与箭发进背包（幂等，不覆盖玩家已有摆放）。 */
     bool GrantBow();
-    const FColdSteelItem* ActiveProductionTool() const;
     bool ToggleProductionTool(const FString& InstanceId);
     bool SelectProductionTool(const FString& Definition);
     bool StowProductionTool();
     int32 HarvestProgress(const FString& Id) const;
+    /** 树木剩余生命比例（0..1）：缺省满血；旧档按累计命中换算；成熟的重生树读作满血。 */
+    float TreeHealthRatio(const FString& Id) const;
+    /** 岩块剩余生命比例（0..1）：缺省满血；旧档按累计命中（1..3）换算。岩块不重生。 */
+    float RockHealthRatio(const FString& Id) const;
     /** Clears one harvest counter so an excavated topsoil cell can be dug again. */
     bool ResetHarvestProgress(const FString& Id);
     bool HasTreeGrowth(const FString& Id) const;
     float TreeGrowthScale(const FString& Id) const;
+    /** 树桩显示比例：1＝保留待劈，0＝已劈开（不再渲染）。桩不再随幼树长大而消失（2026-09-28）。 */
     float TreeStumpScale(const FString& Id) const;
+    /** 幼树相对候选点基点的随机偏移（cm）；无记录或旧记录为 0＝原地再生。 */
+    FVector2D TreeSaplingOffset(const FString& Id) const;
+    /** 当前树桩相对候选点基点的偏移（cm）＝被砍那棵树当时站的位置。 */
+    FVector2D TreeStumpOffset(const FString& Id) const;
+    /** 树桩剩余生命比例（0..1，缺省/无记录＝1 满血）。 */
+    float StumpHealthRatio(const FString& Id) const;
     bool IsTreeMature(const FString& Id) const;
     void TickTreeGrowthClock(float Delta);
     bool CommitHarvestStrike(const struct FProductionResource& Target,bool& Depleted);
+    /** 树木专用结算：一次挥砍按伐木伤害扣生命值，归零的那一挥才走倒树事务。 */
+    bool CommitTreeStrike(const struct FProductionResource& Target,const struct FProductionToolStats& ToolStats,bool& Depleted);
+    /** 岩块专用结算（2026-09-30 与树木统一为伤害驱动）：一次挥砍按采集伤害扣岩块生命，归零才碎。 */
+    bool CommitRockStrike(const struct FProductionResource& Target,const struct FProductionToolStats& ToolStats,bool& Depleted);
+    /** 树桩专用结算（2026-09-28）：扣树桩生命，劈尽的那一挥掉一块木材并关闭桩记录；不触树倒。 */
+    bool CommitStumpStrike(const struct FProductionResource& Target,const struct FProductionToolStats& ToolStats,bool& Depleted);
     bool AddWarehouseItem(const FColdSteelItem& Item,int32 Preferred=-1);
     int64 WarehouseRemainingCapacity(const FColdSteelItem& Item) const;
     int64 DepositWarehouseAmount(const FColdSteelItem& Item);
@@ -324,6 +358,11 @@ public:
     FString AmmoDefinition() const;
     const FString& ResultMessage() const { return Message; }
     FColdSteelProfile Snapshot() const;
+    const FColdSteelForgeJob& ForgeJob() const {return Current.ForgeJob;}
+    const FColdSteelGunAssemblyJob& GunAssemblyJob() const {return Current.GunAssemblyJob;}
+    void StageGunCalibration(const FString& JobId,float Held,float Time,float Error);
+    // Hit feedback cannot run the synchronous checked-save transaction every click.
+    void StageForgeHit(const FString& JobId,int32 Hits);
     bool CommitState(FColdSteelProfile State);
     bool IsAudit() const { return bAudit; }
     bool AuditFailNextSave = false;
@@ -362,6 +401,7 @@ private:
     FColdSteelSkillDefinition HolyLightSkill;
     FColdSteelSkillDefinition QuickCombatSkill;
     FColdSteelSkillDefinition RuneBladesSkill;
+    FColdSteelSkillDefinition StaffLightSkill;
     struct FFireballRewards { TMap<TWeakObjectPtr<AActor>,int64> Kills; AActor* Victim=nullptr; };
     FFireballRewards* ActiveFireballRewards=nullptr;
     TArray<FColdSteelProgressNotice> ProgressNotices;
@@ -396,13 +436,17 @@ private:
     double LastTrainingPublish = -10.;
     void ApplyToPawn();
     void RefreshDrops();
+    void LoadProductionDefinitions();
     // 弓目录与生产工具同一口径：Content/ColdSteelData/bows.json 按 definition 合并进 Definitions。
     void LoadBowDefinitions();
+    void LoadStaffDefinitions();
+    void NormalizeStaffState(FColdSteelProfile& State) const;
     bool NormalizeBowState(FColdSteelProfile& State) const;
-    void LoadProductionDefinitions();
     void NormalizeProductionState(FColdSteelProfile& State) const;
-    bool StageProductionDrops(FColdSteelProfile& State,const FProductionResource& Target,TArray<FString>& Ids);
+    /** 落地一份收获；`ToolStats` 提供采集产出倍率与额外产出几率（未改造时为出厂口径）。 */
+    bool StageProductionDrops(FColdSteelProfile& State,const FProductionResource& Target,TArray<FString>& Ids,const FProductionToolStats& ToolStats);
     void StampProductionDrop(FColdSteelItem& Item) const;
     friend class AColdSteelPickup;
     FColdSteelSkillDefinition MeteorSkill,FlameArmorSkill;
+    FColdSteelSkillDefinition IceWallSkill;
 };

@@ -19,7 +19,7 @@ void AFPSGAMECharacter::UpdatePistolLocomotion(float DeltaSeconds)
         return;
     }
     const bool bGroundStride = GetCharacterMovement()->IsMovingOnGround()
-        && !bIsSliding && !IsDodging() && !IsTraversing();
+        && !bWeaponJumpAirborne && !bIsSliding && !IsDodging() && !IsTraversing();
     const float Speed = HorizontalSpeed();
     if (bGroundStride && Speed > 15.f)
         if (const auto* Footsteps = FindComponentByClass<UFPSFootstepAudioComponent>())

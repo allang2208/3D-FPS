@@ -145,22 +145,14 @@ static FProfile Profile(const FObject& Module)
 {
     FString Family=Module->GetStringField(TEXT("id"));Module->TryGetStringField(TEXT("family_id"),Family);
     FProfile P=Profile(Family);
-    const TSharedPtr<FJsonObject>* Parameters=nullptr;
-    if(Module->TryGetObjectField(TEXT("dressing_parameters"),Parameters))
-    {
-        double Rear=0,Bridge=0,Core=0;
-        (*Parameters)->TryGetNumberField(TEXT("rear_delta_cm"),Rear);
-        (*Parameters)->TryGetNumberField(TEXT("bridge_delta_cm"),Bridge);
-        (*Parameters)->TryGetNumberField(TEXT("core_offset_cm"),Core);
-        if(Family==TEXT("Drainage"))
-        {
-            for(auto& S:P.Floor)if(S.Position.Y<-1630)S.Position.Y-=Rear;
-            for(auto& S:P.Web)if(S.Position.Y<-1630)S.Position.Y-=Rear;
-            if(P.KeepClear.IsValidIndex(1))P.KeepClear[1]=P.KeepClear[1].ShiftBy(FVector(0,-Bridge,0));
-        }
-        else if(Family==TEXT("VentilationLoop")&&!P.KeepClear.IsEmpty())
-            P.KeepClear[0]=P.KeepClear[0].ShiftBy(FVector(Core,0,0));
-    }
+    const TArray<TSharedPtr<FJsonValue>>* SceneClear=nullptr;
+    if(Module->TryGetArrayField(TEXT("scene_keep_clear"),SceneClear))
+        for(const auto& Value:*SceneClear)
+            P.KeepClear.Add(FBox(Vector(Value->AsObject(),TEXT("min")),Vector(Value->AsObject(),TEXT("max"))));
+    double Limit=0;
+    if(Module->TryGetNumberField(TEXT("scene_max_floor_props"),Limit))P.MaxFloorProps=FMath::Clamp(int32(Limit),0,P.MaxFloorProps);
+    if(Module->TryGetNumberField(TEXT("scene_max_clusters"),Limit))P.MaxClusters=FMath::Clamp(int32(Limit),0,P.MaxClusters);
+    P.MinClusters=FMath::Min(P.MinClusters,P.MaxClusters);
     return P;
 }
 

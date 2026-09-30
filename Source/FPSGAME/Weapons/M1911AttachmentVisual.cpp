@@ -1,3 +1,4 @@
+#include "G18WeaponAssets.h"
 #include "../FPSGAMECharacter.h"
 #include "M1911WeaponAssets.h"
 #include "Components/StaticMeshComponent.h"
@@ -29,7 +30,7 @@ void AFPSGAMECharacter::SetM1911Optic(const FString& Variant)
     const bool Enabled = bInventoryWeaponReady && (Variant == TEXT("holographic") || Variant == TEXT("panoramic_red_dot"));
     if (Enabled && (!HolographicOptic || OpticVariant != Variant))
     {
-        auto* AttachmentMesh = LoadObject<UStaticMesh>(nullptr, *M1911WeaponAssets::AttachmentPath(Variant));
+        auto* AttachmentMesh = LoadObject<UStaticMesh>(nullptr, *(IsG18Weapon()?G18WeaponAssets::AttachmentPath(Variant):M1911WeaponAssets::AttachmentPath(Variant)));
         if (!AttachmentMesh) { UE_LOG(LogTemp, Error, TEXT("M1911 missing optic %s"), *Variant); return; }
         if (!HolographicOptic)
         {
@@ -80,7 +81,7 @@ void AFPSGAMECharacter::SetM1911Muzzle(const FString& Variant)
     {
         const bool Suppressor = Variant == TEXT("true") || Variant == TEXT("tactical_suppressor");
         const FString Part = Variant == TEXT("tactical_suppressor") ? Variant : Suppressor ? TEXT("suppressor") : TEXT("brake");
-        auto* AttachmentMesh = LoadObject<UStaticMesh>(nullptr, *M1911WeaponAssets::AttachmentPath(Part));
+        auto* AttachmentMesh = LoadObject<UStaticMesh>(nullptr, *(IsG18Weapon()?G18WeaponAssets::AttachmentPath(Part):M1911WeaponAssets::AttachmentPath(Part)));
         if (!AttachmentMesh) { UE_LOG(LogTemp, Error, TEXT("M1911 missing muzzle %s"), *Part); return; }
         if (!MuzzleAttachment)
         {
@@ -98,7 +99,7 @@ void AFPSGAMECharacter::SetM1911Muzzle(const FString& Variant)
         // The refined barrel bore is 0.598 cm above the legacy muzzle marker.
         // Each muzzle has its own fitted rear collar; both retain an open bore.
         const float ExtensionCM = Suppressor ? 1.2f : .6f;
-        const FVector Origin = PistolBone(Ref, TEXT("WPN_SOCKET_Muzzle")).GetLocation() + Up * .598f + Forward * (ExtensionCM - .012535f);
+        const FVector Origin = PistolBone(Ref, TEXT("WPN_SOCKET_Muzzle")).GetLocation() + Up * (IsG18Weapon()?0.f:.598f) + Forward * (ExtensionCM - .012535f);
         // FBX imports the can's author +Y as UE -Y. Use its actual bore axis;
         // the old +Y mount turned the body back through the slide.
         const FQuat SourceFrame = FRotationMatrix::MakeFromXZ(-FVector::RightVector, FVector::UpVector).ToQuat();
@@ -106,8 +107,10 @@ void AFPSGAMECharacter::SetM1911Muzzle(const FString& Variant)
         MuzzleAttachment->SetRelativeTransform(Mount.GetRelativeTransform(PistolBone(Ref, TEXT("WPN_Barrel"))));
         MuzzleLocalAxis = -FVector::RightVector;
         MuzzleLocalTip = FVector(0.f, -(Suppressor ? M1911WeaponAssets::SuppressorTipCM : M1911WeaponAssets::BrakeTipCM), 0.f);
+        if(IsG18Weapon() && MuzzleAttachment->DoesSocketExist(TEXT("Muzzle")))
+            MuzzleLocalTip=MuzzleAttachment->GetSocketTransform(TEXT("Muzzle"),RTS_Component).GetLocation();
         if (Suppressor && !SuppressedFireSound)
-            SuppressedFireSound = LoadObject<USoundBase>(nullptr, TEXT("/Game/Weapons/M4MuzzlesV1/S_M4_Suppressed"));
+            SuppressedFireSound = LoadObject<USoundBase>(nullptr, IsG18Weapon()?*G18WeaponAssets::SoundPath(TEXT("Suppressed")):TEXT("/Game/Weapons/M4MuzzlesV1/S_M4_Suppressed"));
     }
     MuzzleVariant = Variant;
     MuzzleAttachment->SetVisibility(true);

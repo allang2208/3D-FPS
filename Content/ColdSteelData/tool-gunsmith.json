@@ -1,0 +1,273 @@
+{
+  "version": 1,
+  "columns": [
+    {
+      "key": "grip",
+      "name": "握把",
+      "default": "原装握把",
+      "description": "双手接触区的缠裹与握位。原装保留这把工具现有的手位与防滑面，不改采集节奏。",
+      "options": [
+        {
+          "id": "cushion_wrap",
+          "name": "缓冲缠把",
+          "description": "厚皮革与麻绳分层缠裹，吸收敲击回震，长时间作业更省力。",
+          "effects": [
+            { "text": "体力消耗 -15%", "benefit": 1 },
+            { "text": "命中宽容半径 +8 cm", "benefit": 1 }
+          ],
+          "stats": {
+            "stamina_mult": 0.85,
+            "harvest_radius_add_cm": 8
+          }
+        },
+        {
+          "id": "quick_hands",
+          "name": "快手握位",
+          "description": "收窄的握位与前移的手位，让起手更快，代价是发力不实。",
+          "effects": [
+            { "text": "攻击速度 +10%", "benefit": 1 },
+            { "text": "基础伤害 -5%", "benefit": -1 },
+            { "text": "体力消耗 +5%", "benefit": -1 }
+          ],
+          "stats": {
+            "attack_speed_mult": 1.1,
+            "damage_mult": 0.95,
+            "stamina_mult": 1.05
+          }
+        },
+        {
+          "id": "firm_hands",
+          "name": "稳固握把",
+          "description": "加宽的防滑握面与护指凸缘，双手发力更稳，起势略慢。",
+          "effects": [
+            { "text": "命中宽容半径 +20 cm", "benefit": 1 },
+            { "text": "最大攻击距离 +5%", "benefit": 1 },
+            { "text": "攻击速度 -5%", "benefit": -1 }
+          ],
+          "stats": {
+            "harvest_radius_add_cm": 20,
+            "combat_reach_mult": 1.05,
+            "attack_speed_mult": 0.95
+          }
+        }
+      ]
+    },
+    {
+      "key": "shaft",
+      "name": "握柄",
+      "default": "原装握柄",
+      "description": "整根柄杆的材质与长度。原装沿用这把工具出厂的柄长、木料与配重。",
+      "options": [
+        {
+          "id": "long_haft",
+          "name": "加长握柄",
+          "description": "接长的柄杆扩大作业半径，双手间距随之后移，挥舞更耗力。",
+          "appearance": "数值改造已生效；加长柄的实体模块与双手间距动作家族按近战模块化流程接入前，沿用原装柄长外形。",
+          "effects": [
+            { "text": "采集距离 +20%", "benefit": 1 },
+            { "text": "最大攻击距离 +10%", "benefit": 1 },
+            { "text": "体力消耗 +10%", "benefit": -1 }
+          ],
+          "stats": {
+            "harvest_reach_mult": 1.2,
+            "combat_reach_mult": 1.1,
+            "stamina_mult": 1.1
+          }
+        },
+        {
+          "id": "ash_haft",
+          "name": "白蜡轻柄",
+          "description": "白蜡木车削的轻量柄杆，回弹快、上手轻，抗击打能力下降。",
+          "effects": [
+            { "text": "攻击速度 +12%", "benefit": 1 },
+            { "text": "体力消耗 -12%", "benefit": 1 },
+            { "text": "基础伤害 -6%", "benefit": -1 }
+          ],
+          "stats": {
+            "attack_speed_mult": 1.12,
+            "stamina_mult": 0.88,
+            "damage_mult": 0.94
+          }
+        },
+        {
+          "id": "ironbound_haft",
+          "name": "铁箍硬木柄",
+          "description": "硬木芯外箍铁环，抗劈裂、能承受全力敲击，整体更沉。",
+          "effects": [
+            { "text": "基础伤害 +15%", "benefit": 1 },
+            { "text": "韧性伤害 +10%", "benefit": 1 },
+            { "text": "攻击速度 -6%", "benefit": -1 }
+          ],
+          "stats": {
+            "damage_mult": 1.15,
+            "toughness_damage_mult": 1.1,
+            "attack_speed_mult": 0.94
+          }
+        }
+      ]
+    },
+    {
+      "key": "fitting",
+      "name": "改件",
+      "default": "原装改件",
+      "description": "柄颈与柄尾的加装件。原装不挂任何附加件，头部按出厂方式固定。",
+      "options": [
+        {
+          "id": "wedge_kit",
+          "name": "楔紧件",
+          "description": "钢楔与垫片把头部重新锁死在柄颈上，敲击不松动、更容易一次咬住。",
+          "effects": [
+            { "text": "所需有效命中 -1 次", "benefit": 1 },
+            { "text": "基础伤害 -5%", "benefit": -1 }
+          ],
+          "stats": {
+            "harvest_hits_add": -1,
+            "damage_mult": 0.95
+          }
+        },
+        {
+          "id": "whetstone_kit",
+          "name": "磨石保养件",
+          "description": "随柄携带的磨石与油壶，作业前修刃，切口更整齐、材料损耗更少。",
+          "effects": [
+            { "text": "采集产出 +15%", "benefit": 1 }
+          ],
+          "stats": {
+            "harvest_yield_mult": 1.15
+          }
+        },
+        {
+          "id": "lucky_charm",
+          "name": "幸运挂饰",
+          "description": "挂在柄尾的骨片与铜铃，猎户与矿工的老习惯，据说能多带出一块料。",
+          "effects": [
+            { "text": "额外产出几率 +15%", "benefit": 1 },
+            { "text": "暴击率 +5%", "benefit": 1 }
+          ],
+          "stats": {
+            "bonus_harvest_chance": 0.15,
+            "crit_chance_add": 5
+          }
+        }
+      ]
+    },
+    {
+      "key": "head",
+      "name": "主部件",
+      "default": "原装主部件",
+      "description": "作业头部本体。原装保留这把工具现有的刃形、镐形与重量，采集与自卫都按出厂口径结算。",
+      "options": [
+        {
+          "id": "felling_head",
+          "name": "伐木宽刃头",
+          "description": "为砍伐树干重新开刃的宽斧头，切口更深、木屑成片剥落。",
+          "weapons": ["tool_axe"],
+          "effects": [
+            { "text": "采集产出 +30%", "benefit": 1 },
+            { "text": "基础伤害 -10%", "benefit": -1 }
+          ],
+          "stats": {
+            "harvest_yield_mult": 1.3,
+            "damage_mult": 0.9
+          }
+        },
+        {
+          "id": "hardened_head",
+          "name": "淬硬斧刃",
+          "description": "整体淬火的斧刃与加厚斧背，专为对付硬木和近身威胁。",
+          "weapons": ["tool_axe"],
+          "effects": [
+            { "text": "基础伤害 +25%", "benefit": 1 },
+            { "text": "韧性伤害 +15%", "benefit": 1 },
+            { "text": "攻击速度 -5%", "benefit": -1 }
+          ],
+          "stats": {
+            "damage_mult": 1.25,
+            "toughness_damage_mult": 1.15,
+            "attack_speed_mult": 0.95
+          }
+        },
+        {
+          "id": "splitting_head",
+          "name": "劈裂斧头",
+          "description": "带劈裂齿的厚重斧头，落点更容易撕开木纤维、崩出额外木料。",
+          "weapons": ["tool_axe"],
+          "effects": [
+            { "text": "额外产出几率 +20%", "benefit": 1 },
+            { "text": "基础伤害 +10%", "benefit": 1 },
+            { "text": "攻击速度 -5%", "benefit": -1 }
+          ],
+          "stats": {
+            "bonus_harvest_chance": 0.2,
+            "damage_mult": 1.1,
+            "attack_speed_mult": 0.95
+          }
+        },
+        {
+          "id": "ore_head",
+          "name": "采矿尖镐头",
+          "description": "收窄的镐尖集中冲击，更容易咬进矿石而不是弹开。",
+          "weapons": ["tool_pickaxe"],
+          "effects": [
+            { "text": "采集产出 +30%", "benefit": 1 },
+            { "text": "基础伤害 -10%", "benefit": -1 }
+          ],
+          "stats": {
+            "harvest_yield_mult": 1.3,
+            "damage_mult": 0.9
+          }
+        },
+        {
+          "id": "crushing_head",
+          "name": "破碎镐头",
+          "description": "加厚的镐身与钝化镐尖，用于砸碎岩块，也更适合近身自卫。",
+          "weapons": ["tool_pickaxe"],
+          "effects": [
+            { "text": "基础伤害 +25%", "benefit": 1 },
+            { "text": "韧性伤害 +15%", "benefit": 1 },
+            { "text": "攻击速度 -5%", "benefit": -1 }
+          ],
+          "stats": {
+            "damage_mult": 1.25,
+            "toughness_damage_mult": 1.15,
+            "attack_speed_mult": 0.95
+          }
+        },
+        {
+          "id": "flanged_head",
+          "name": "棱齿镐头",
+          "description": "带棱齿的镐头，敲击时更容易沿纹理崩落碎块。",
+          "weapons": ["tool_pickaxe"],
+          "effects": [
+            { "text": "额外产出几率 +20%", "benefit": 1 },
+            { "text": "基础伤害 +10%", "benefit": 1 },
+            { "text": "攻击速度 -5%", "benefit": -1 }
+          ],
+          "stats": {
+            "bonus_harvest_chance": 0.2,
+            "damage_mult": 1.1,
+            "attack_speed_mult": 0.95
+          }
+        }
+      ]
+    }
+  ],
+  "weapons": [
+    {
+      "id": "tool_axe",
+      "traits": [
+        { "icon": "mechanic", "text": "按伐木伤害扣减树木生命值，归零后获得木材；改造会影响伐木伤害和采集效率" },
+        { "icon": "mechanic", "text": "握把、握柄、改件与主部件四栏可独立改造，分别影响体力与握位、柄长与挥速、加装件与作业头部" },
+        { "icon": "neutral", "text": "四栏当前为数值改造，沿用原装外形；实体模块拆分后按同一改造 ID 接入" }
+      ]
+    },
+    {
+      "id": "tool_pickaxe",
+      "traits": [
+        { "icon": "mechanic", "text": "达到所需有效命中后获得石材与矿石；武器总伤害不改变采矿次数" },
+        { "icon": "mechanic", "text": "握把、握柄、改件与主部件四栏可独立改造，分别影响体力与握位、柄长与挥速、加装件与作业头部" },
+        { "icon": "neutral", "text": "四栏当前为数值改造，沿用原装外形；实体模块拆分后按同一改造 ID 接入" }
+      ]
+    }
+  ]
+}

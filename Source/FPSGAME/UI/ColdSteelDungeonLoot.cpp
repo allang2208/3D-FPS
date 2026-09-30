@@ -102,13 +102,13 @@ namespace
     }
 }
 
-void FColdSteelDungeonLoot::GrantFromChest(AActor* Chest)
+bool FColdSteelDungeonLoot::GrantFromChest(AActor* Chest)
 {
-    if (!IsValid(Chest)) return;
+    if (!IsValid(Chest)) return false;
     UWorld* World = Chest->GetWorld();
-    if (!World || !World->IsGameWorld()) return;
+    if (!World || !World->IsGameWorld()) return true;
     const UDungeonRunSubsystem* Run = UDungeonRunSubsystem::Get(World);
-    if (!Run || !Run->IsRunActive()) return;   // 编辑器摆放的普通宝箱／非运行场景：开启行为完全不变
+    if (!Run || !Run->IsRunActive()) return true;
 
     // 房间节点：优先解析宝箱 Tags 里的 DungeonModule.<NodeId>.<ModuleId>（前缀精确匹配），失败用就近查询兜底。
     int32 NodeId = INDEX_NONE;
@@ -128,7 +128,7 @@ void FColdSteelDungeonLoot::GrantFromChest(AActor* Chest)
         UE_LOG(LogTemp, Warning, TEXT("[DungeonLoot] 宝箱 %s 无法解析房间节点，按 Depth=0 档发放。"), *Chest->GetName());
 
     const FDungeonRunNode* Node = Run->NodeById(NodeId);
-    const int32 Depth = Node ? Node->Depth : 0;
+    const int32 Depth = Node ? Node->ProgressionDepth : 0;
 
     // 最终宝箱：强制最高档且数量乘 final_multiplier（标签大小写不敏感比较）。
     bool bFinalTreasure = false;
@@ -136,14 +136,18 @@ void FColdSteelDungeonLoot::GrantFromChest(AActor* Chest)
         if (Tag.ToString().Equals(TEXT("DungeonFinalTreasure"), ESearchCase::IgnoreCase)) { bFinalTreasure = true; break; }
 
     const FDungeonLootTable& Table = LootTable();
-    if (Table.Tiers.IsEmpty()) return;   // 表缺失/全空：加载时已警告，这里静默返回
+    if (Table.Tiers.IsEmpty()) return false;
     const FDungeonLootTier* Tier = &Table.Tiers[0];
     for (const FDungeonLootTier& Candidate : Table.Tiers)
         if (Candidate.MinDepth <= Depth) Tier = &Candidate;   // 取 min_depth ≤ Depth 的最高档（升序扫描）
     if (bFinalTreasure) Tier = &Table.Tiers.Last();
 
     // 全部随机经运行种子流：同 seed + 同宝箱节点可复现。
-    FRandomStream Stream = Run->GameplayStream(DungeonRunDomains::ChestLoot ^ ((uint32)NodeId * 0x9E3779B9u));
+    FString ClaimId=Node&&!Node->MissionId.IsEmpty()?Node->MissionId:FString::Printf(TEXT("Node%d"),NodeId);
+    ClaimId+=bFinalTreasure?TEXT(".final_chest"):TEXT(".chest");
+    for(FName Tag:Chest->Tags)if(Tag.ToString().StartsWith(TEXT("DungeonChestClaim.")))
+    {ClaimId=Tag.ToString().RightChop(18);break;}
+    FRandomStream Stream = Run->GameplayStream(DungeonRunDomains::ChestLoot ^ GetTypeHash(ClaimId));
 
     TArray<TPair<FString, int64>> Loot;
     for (int32 Roll = 0; Roll < Tier->Rolls; ++Roll)
@@ -160,7 +164,7 @@ void FColdSteelDungeonLoot::GrantFromChest(AActor* Chest)
         }
         if (!Picked) Picked = &Tier->Entries.Last();
         const int64 Base = Stream.RandRange(Picked->CountMin, Picked->CountMax);
-        const double Multiplier = bFinalTreasure ? Table.FinalMultiplier : (1.0 + Depth * 0.05);
+        const double Multiplier = bFinalTreasure ? Table.FinalMultiplier : (1.0 + Depth * 0.05)*(Node?Node->RewardMultiplier:1.);
         const int64 Count = FMath::Max<int64>(1, FMath::RoundToInt64(Base * Multiplier));
         // 同一物品多次抽中合并计数（保持首次出现顺序，播报稳定）。
         if (TPair<FString, int64>* Slot = Loot.FindByPredicate([&](const TPair<FString, int64>& P) { return P.Key == Picked->Id; }))
@@ -168,14 +172,14 @@ void FColdSteelDungeonLoot::GrantFromChest(AActor* Chest)
         else
             Loot.Emplace(Picked->Id, Count);
     }
-    if (Loot.IsEmpty()) return;
+    if (Loot.IsEmpty()) return false;
 
     UGameInstance* GameInstance = World->GetGameInstance();
     UColdSteelStatusModel* Model = GameInstance ? GameInstance->GetSubsystem<UColdSteelStatusModel>() : nullptr;
     if (!Model)
     {
         UE_LOG(LogTemp, Warning, TEXT("[DungeonLoot] StatusModel 不可用，%d 条宝箱战利品未发放。"), Loot.Num());
-        return;
+        return false;
     }
 
     // 展示名：复用档案子系统缓存的物品目录（items.json 首读归纳并缓存），缺失时回退定义 id。
@@ -186,23 +190,18 @@ void FColdSteelDungeonLoot::GrantFromChest(AActor* Chest)
         return Id;
     };
 
-    TArray<FString> GrantedLines, FailedLines;
+    if(!Model->GrantDungeonReward(Run->RunId(),FName(*ClaimId),Loot,Chest->GetActorLocation()))
+    {Model->PostNotice(TEXT("奖励尚未领取"),TEXT("奖励保存未完成，请再次打开宝箱。"));return false;}
+    TArray<FString> GrantedLines;
     for (const TPair<FString, int64>& Pair : Loot)
     {
-        // AddItem 自动提交档案；弹药 id 走弹药袋（不占背包）；失败（背包满等）写 ResultMessage，只记日志不弹窗轰炸。
-        if (Model->AddItem(Pair.Key, Pair.Value))
-            GrantedLines.Add(FString::Printf(TEXT("%s x%lld"), *DisplayName(Pair.Key), Pair.Value));
-        else
-        {
-            FailedLines.Add(FString::Printf(TEXT("%s x%lld（未发放）"), *DisplayName(Pair.Key), Pair.Value));
-            UE_LOG(LogTemp, Warning, TEXT("[DungeonLoot] 发放失败 %s x%lld：%s"), *Pair.Key, Pair.Value, *Model->ResultMessage());
-        }
+        GrantedLines.Add(FString::Printf(TEXT("%s x%lld"), *DisplayName(Pair.Key), Pair.Value));
     }
 
     FString Detail;
     for (const FString& Line : GrantedLines) Detail += Detail.IsEmpty() ? Line : TEXT("、") + Line;
-    for (const FString& Line : FailedLines) Detail += Detail.IsEmpty() ? Line : TEXT("；") + Line;
     if (!Detail.IsEmpty())
         Model->PostNotice(bFinalTreasure ? TEXT("最终宝箱奖励") : TEXT("宝箱奖励"), Detail, FString(),
-            (GrantedLines.Num() + FailedLines.Num()) > 3 ? 4.2f : 3.2f);
+            GrantedLines.Num() > 3 ? 4.2f : 3.2f);
+    return true;
 }

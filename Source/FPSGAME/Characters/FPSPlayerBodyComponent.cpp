@@ -254,7 +254,8 @@ void UFPSPlayerBodyComponent::RefreshEquipment(){bEquipmentDirty=true;bOutfitDir
 
 void UFPSPlayerBodyComponent::UpdateOwnerVisibility()
 {
-    UFPSPerformanceMetricsSubsystem::CountVisibilityUpdate();
+    UFPSPerformanceMetricsSubsystem::CountVisibilityUpdate(this);
+    FFPSPerformanceScope PerformanceScope(this,TEXT("PlayerBody.OwnerVisibility"));
     if(!Character.IsValid()||!Character->FirstPersonCamera)return;
     const bool bThirdPerson=IsThirdPersonViewEnabled();
     UpdateWorldOwnerVisibility(!bThirdPerson);
@@ -296,7 +297,7 @@ void UFPSPlayerBodyComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
     // Keep weapons stowed through the short return from an interrupted hand pose.
     const float Now=ServerClock();
     if(FPSBodyPoses::Traversing(DisplayState.Motion))WorldWeaponsHiddenUntil=Now+.1f;
-    if(DisplayState.bDual&&DisplayState.Action==EFPSBodyAction::Cast)OffhandWeaponHiddenUntil=Now+.1f;
+    if((DisplayState.bDual||DisplayState.bOffhandPistol)&&DisplayState.Action==EFPSBodyAction::Cast)OffhandWeaponHiddenUntil=Now+.1f;
     VisibilityCountdown-=Delta;
     if(VisibilityCountdown<=0.f){VisibilityCountdown=.2f;UpdateOwnerVisibility();}
     UpdateWorldWeaponPresentation();

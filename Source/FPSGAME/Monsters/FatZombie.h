@@ -10,6 +10,7 @@ class FPSGAME_API AFatZombie : public ANurseZombie
     GENERATED_BODY()
 public:
     AFatZombie(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+    virtual void BeginPlay() override;
     virtual void OnConstruction(const FTransform& Transform) override;
     virtual float TakeDamage(float Damage, const FDamageEvent& Event, AController* EventInstigator, AActor* Causer) override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
@@ -19,12 +20,14 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="FatZombie|Animation", meta=(ClampMin="1", Units="cm/s")) float AnimationWalkSpeed = 80.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="FatZombie|Animation", meta=(ClampMin="0", ClampMax="0.5", Units="s")) float AnimationBlendSeconds = .2f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="FatZombie|Death") bool bDeathRagdoll = true;
-    // Never cut the death clip short, including instances saved with the old .55 s value.
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="FatZombie|Death", meta=(ClampMin="0", Units="s", ToolTip="Minimum delay from death; the full death animation always finishes first.")) float RagdollDelay = 0.f;
+    // Death clips hand off at 60%; retain the serialized delay for the no-clip fallback.
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="FatZombie|Death", meta=(ClampMin="0", Units="s", ToolTip="Fallback delay without a death clip. Death clips hand off to physics at 60%.")) float RagdollDelay = 0.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="FatZombie|Death", meta=(ClampMin="0", ClampMax="300", Units="cm/s")) float RagdollImpulseSpeed = 90.f;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="FatZombie|Death") bool bRagdollActive = false;
     // Editor authoring entry: report stored query/body settings before changing them.
     UFUNCTION(BlueprintCallable, Category="FatZombie|Authoring") static bool PrepareCombatPhysics(USkeletalMesh* InMesh, bool bApply = true);
+    // Author only the dedicated duplicate of the accepted idle animation.
+    UFUNCTION(BlueprintCallable, Category="FatZombie|Authoring") static bool AuthorStaggerAnimation(UAnimSequence* Clip);
 protected:
     virtual void StartDeathPresentation() override;
     virtual void StartHitPresentation(UAnimSequence* Clip, float Duration) override;

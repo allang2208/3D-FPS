@@ -9,6 +9,7 @@
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Development/DevelopmentTuningSubsystem.h"
 #include "../Skills/EnemyAttackDamage.h"
+#include "../Skills/IceWallCombat.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "Animation/AnimSequence.h"
 #include "Components/CapsuleComponent.h"
@@ -117,6 +118,11 @@ bool AWolfMonster::CanAttack(APawn* Victim) const
     if (!IsValid(Victim) || Busy() || !GetCharacterMovement()->IsMovingOnGround()) return false;
     const auto* Vitals = Victim->FindComponentByClass<UFPSCombatHealthComponent>();
     if (Vitals && Vitals->IsDead()) return false;
+    if(IceWallCombat::BlockingWall(this,Victim,BiteTriggerRange))
+    {
+        const auto* Bite=AnimationSet?AnimationSet->FindAction(TEXT("AttackBite")):nullptr;
+        return BiteCooldownLeft<=0.f&&Bite&&Bite->ContactStartSeconds>=0.f&&Bite->ContactEndSeconds>Bite->ContactStartSeconds;
+    }
     const FVector Offset = Victim->GetActorLocation() - GetActorLocation();
     if (bUsePredictiveHunting ? !HuntingSightFrom(Victim, GetActorLocation()) : (FMath::Abs(Offset.Z) > 120.f || !CanSee(Victim))) return false;
     const float Distance = Offset.Size2D();
@@ -141,12 +147,13 @@ bool AWolfMonster::StartAttack(APawn* Victim)
     AttackDirection = (Victim->GetActorLocation() - GetActorLocation()).GetSafeNormal2D();
     SetActorRotation(AttackDirection.Rotation());
     const float Distance = FVector::Dist2D(Victim->GetActorLocation(), GetActorLocation());
-    if (bHowlOnEncounter && !bHasAlerted && Distance > PounceMinRange && ClipLength(TEXT("Howl")) > 0.f)
+    const bool AttackWall=IceWallCombat::BlockingWall(this,Victim,BiteTriggerRange)!=nullptr;
+    if (!AttackWall && bHowlOnEncounter && !bHasAlerted && Distance > PounceMinRange && ClipLength(TEXT("Howl")) > 0.f)
     {
         bHasAlerted = true; bPackAlertSent = false;
         EnterState(EWolfState::Howl);
     }
-    else if (bUsePredictiveHunting ? CanBiteFrom(Victim, GetActorLocation(), BiteTriggerRange) : Distance <= BiteTriggerRange)
+    else if (AttackWall || (bUsePredictiveHunting ? CanBiteFrom(Victim, GetActorLocation(), BiteTriggerRange) : Distance <= BiteTriggerRange))
     {
         bHasAlerted = true; BiteCooldownLeft = BiteCooldown;
         EnterState(EWolfState::Bite);
@@ -209,6 +216,8 @@ void AWolfMonster::SampleAction(FName Action, float SourceSeconds)
 void AWolfMonster::TryContact(float SourceSeconds)
 {
     if (bAttackConsumed || !Target.IsValid()) return;
+    if(IceWallCombat::ApplyMelee(this,Target.Get(),BiteTriggerRange+35.f,State==EWolfState::Pounce?PounceDamage:BiteDamage))
+    {bAttackConsumed=true;return;}
     const auto* Vitals = Target->FindComponentByClass<UFPSCombatHealthComponent>();
     if (Vitals && Vitals->IsDead()) return;
     if (bUsePredictiveHunting)

@@ -4,6 +4,7 @@
 #include "../Monsters/MonsterCombatComponent.h"
 #include "../Monsters/NurseZombie.h"
 #include "../Monsters/HandBrainMonster.h"
+#include "../Monsters/FleshHandMonster.h"
 #include "../Monsters/PoisonMaggotMonster.h"
 #include "../Monsters/WolfMonster.h"
 #include "../FPSGAMECharacter.h"
@@ -24,6 +25,7 @@ bool InfectionVitals(const AActor* Owner, float& Health, float& Maximum)
     if (const auto* H = Owner->FindComponentByClass<UFPSCombatHealthComponent>()) { Health=H->Health; Maximum=H->MaxHealth; }
     else if (const auto* W=Cast<AWolfMonster>(Owner)) { Health=W->Health; Maximum=W->MaxHealth; }
     else if (const auto* N=Cast<ANurseZombie>(Owner)) { Health=N->Health; Maximum=N->MaxHealth; }
+    else if (const auto* F=Cast<AFleshHandMonster>(Owner)) { Health=F->Health; Maximum=F->MaxHealth; }
     else if (const auto* HB=Cast<AHandBrainMonster>(Owner)) { Health=HB->Health; Maximum=HB->MaxHealth; }
     else if (const auto* M=Cast<APoisonMaggotMonster>(Owner)) { Health=M->Health; Maximum=M->MaxHealth; }
     else return false;

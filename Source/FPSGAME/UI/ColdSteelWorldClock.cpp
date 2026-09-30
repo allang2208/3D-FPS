@@ -51,7 +51,7 @@ public:
         {
             const bool Major=I%6==0;const float A=I*2*PI/24-PI/2;
             const FVector2f Direction(FMath::Cos(A),FMath::Sin(A));
-            Line({FVector2f(24)+Direction*(Major?16.f:19.5f),FVector2f(24)+Direction*21.5f},Major?ColdSteelUI::Accent:ColdSteelUI::TextTertiary.CopyWithNewOpacity(.75f),Major?1.6f:.9f,2);
+            Line({FVector2f(24)+Direction*(Major?16.f:19.5f),FVector2f(24)+Direction*21.5f},Major?ColdSteelUI::HUDGoldLight:ColdSteelUI::HUDGoldDim,Major?1.6f:.9f,2);
         }
         if(Available)
         {

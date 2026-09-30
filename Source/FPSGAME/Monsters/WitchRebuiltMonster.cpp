@@ -1,4 +1,5 @@
 #include "WitchRebuiltMonster.h"
+#include "HumanoidKnockdownComponent.h"
 #include "WitchRebuiltAnimInstance.h"
 #include "MonsterCombatComponent.h"
 #include "AIController.h"
@@ -15,6 +16,7 @@
 AWitchRebuiltMonster::AWitchRebuiltMonster(const FObjectInitializer& Initializer) : Super(Initializer)
 {
     Tags.Add(TEXT("WitchRebuilt"));
+    Combat->DizzyPlayRate = .9f;
     WalkSpeed = 82.5f;
     auto* Move = GetCharacterMovement();
     Move->MaxWalkSpeed = WalkSpeed; Move->MaxAcceleration = 130.f;
@@ -126,6 +128,7 @@ void AWitchRebuiltMonster::StartDeathPresentation()
 void AWitchRebuiltMonster::Tick(float Dt)
 {
     Super::Tick(Dt);
+    if (Knockdown && Knockdown->IsFrozen()) return;
     const float Yaw = GetActorRotation().Yaw;
     const float TurnRate = FMath::Abs(FMath::FindDeltaAngleDegrees(PreviousYaw, Yaw)) / FMath::Max(.001f, Dt);
     PreviousYaw = Yaw;

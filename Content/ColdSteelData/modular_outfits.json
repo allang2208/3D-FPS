@@ -6,65 +6,73 @@
       "part": "shirt",
       "material": "",
       "rig_meshes": {
-        "Body": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Olive/Body/SK_Body_Olive.SK_Body_Olive",
-        "M4": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Olive/M4/SK_M4_Olive.SK_M4_Olive",
-        "AKM": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Olive/AKM/SK_AKM_Olive.SK_AKM_Olive",
-        "QBZ191": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Olive/QBZ191/SK_QBZ191_Olive.SK_QBZ191_Olive",
-        "ASH12": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Olive/ASH12/SK_ASH12_Olive.SK_ASH12_Olive",
-        "M16": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Olive/M16/SK_M16_Olive.SK_M16_Olive",
-        "M1911": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Olive/M1911/SK_M1911_Olive.SK_M1911_Olive",
-        "DW715": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Olive/DW715/SK_DW715_Olive.SK_DW715_Olive",
-        "A762": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Olive/A762/SK_A762_Olive.SK_A762_Olive",
-        "SVD": "/Game/Characters/ModularOutfit20260924/SVDShoulderOpening20260929/SK_SVD_field_sweater.SK_SVD_field_sweater",
-        "PKM": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Olive/PKM/SK_PKM_Olive.SK_PKM_Olive",
-        "RuneSword": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Olive/RuneSword/SK_RuneSword_Olive.SK_RuneSword_Olive",
-        "FrostSword": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Olive/FrostSword/SK_FrostSword_Olive.SK_FrostSword_Olive",
-        "FrostArms": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Olive/FrostArms/SK_FrostArms_Olive.SK_FrostArms_Olive",
-        "Axe": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Olive/Axe/SK_Axe_Olive.SK_Axe_Olive",
-        "Pickaxe": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Olive/Pickaxe/SK_Pickaxe_Olive.SK_Pickaxe_Olive",
-        "DW715_l": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Olive/DW715_l/SK_DW715_l_Olive.SK_DW715_l_Olive",
-        "DW715_r": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Olive/DW715_r/SK_DW715_r_Olive.SK_DW715_r_Olive",
-        "M1911_l": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Olive/M1911_l/SK_M1911_l_Olive.SK_M1911_l_Olive",
-        "M1911_r": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Olive/M1911_r/SK_M1911_r_Olive.SK_M1911_r_Olive",
-        "Traversal": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Olive/Traversal/SK_Traversal_Olive.SK_Traversal_Olive",
-        "Bow": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Olive/Bow/SK_Bow_Olive.SK_Bow_Olive",
-        "LMG201": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Olive/LMG201/SK_LMG201_Olive.SK_LMG201_Olive"
+        "Body": "/Game/Characters/ModularOutfit20260924/FieldSweaterSurfaceRepair20260930/Body/SK_Body_FieldSweater.SK_Body_FieldSweater",
+        "M4": "/Game/Characters/ModularOutfit20260924/FieldSweaterCameraRepair20260930/M4/SK_M4_FieldSweater.SK_M4_FieldSweater",
+        "AKM": "/Game/Characters/ModularOutfit20260924/FieldSweaterCameraRepair20260930/AKM/SK_AKM_FieldSweater.SK_AKM_FieldSweater",
+        "QBZ191": "/Game/Characters/ModularOutfit20260924/FieldSweaterCameraRepair20260930/QBZ191/SK_QBZ191_FieldSweater.SK_QBZ191_FieldSweater",
+        "ASH12": "/Game/Characters/ModularOutfit20260924/FieldSweaterCameraRepair20260930/ASH12/SK_ASH12_FieldSweater.SK_ASH12_FieldSweater",
+        "M16": "/Game/Characters/ModularOutfit20260924/FieldSweaterCameraRepair20260930/M16/SK_M16_FieldSweater.SK_M16_FieldSweater",
+        "M1911": "/Game/Characters/ModularOutfit20260924/FieldSweaterCameraRepair20260930/M1911/SK_M1911_FieldSweater.SK_M1911_FieldSweater",
+        "DW715": "/Game/Characters/ModularOutfit20260924/FieldSweaterCameraRepair20260930/DW715/SK_DW715_FieldSweater.SK_DW715_FieldSweater",
+        "A762": "/Game/Characters/ModularOutfit20260924/FieldSweaterCameraRepair20260930/A762/SK_A762_FieldSweater.SK_A762_FieldSweater",
+        "SVD": "/Game/Characters/ModularOutfit20260924/FieldSweaterCameraRepair20260930/SVD/SK_SVD_FieldSweater.SK_SVD_FieldSweater",
+        "PKM": "/Game/Characters/ModularOutfit20260924/FieldSweaterCameraRepair20260930/PKM/SK_PKM_FieldSweater.SK_PKM_FieldSweater",
+        "RuneSword": "/Game/Characters/ModularOutfit20260924/FieldSweaterCameraRepair20260930/RuneSword/SK_RuneSword_FieldSweater.SK_RuneSword_FieldSweater",
+        "FrostSword": "/Game/Characters/ModularOutfit20260924/FieldSweaterCameraRepair20260930/FrostSword/SK_FrostSword_FieldSweater.SK_FrostSword_FieldSweater",
+        "FrostArms": "/Game/Characters/ModularOutfit20260924/FieldSweaterCameraRepair20260930/FrostArms/SK_FrostArms_FieldSweater.SK_FrostArms_FieldSweater",
+        "Axe": "/Game/Characters/ModularOutfit20260924/FieldSweaterCameraRepair20260930/Axe/SK_Axe_FieldSweater.SK_Axe_FieldSweater",
+        "Pickaxe": "/Game/Characters/ModularOutfit20260924/FieldSweaterCameraRepair20260930/Pickaxe/SK_Pickaxe_FieldSweater.SK_Pickaxe_FieldSweater",
+        "DW715_l": "/Game/Characters/ModularOutfit20260924/FieldSweaterCameraRepair20260930/DW715_l/SK_DW715_l_FieldSweater.SK_DW715_l_FieldSweater",
+        "DW715_r": "/Game/Characters/ModularOutfit20260924/FieldSweaterCameraRepair20260930/DW715_r/SK_DW715_r_FieldSweater.SK_DW715_r_FieldSweater",
+        "M1911_l": "/Game/Characters/ModularOutfit20260924/FieldSweaterCameraRepair20260930/M1911_l/SK_M1911_l_FieldSweater.SK_M1911_l_FieldSweater",
+        "M1911_r": "/Game/Characters/ModularOutfit20260924/FieldSweaterCameraRepair20260930/M1911_r/SK_M1911_r_FieldSweater.SK_M1911_r_FieldSweater",
+        "Traversal": "/Game/Characters/ModularOutfit20260924/FieldSweaterSurfaceRepair20260930/Traversal/SK_Traversal_FieldSweater.SK_Traversal_FieldSweater",
+        "Bow": "/Game/Characters/ModularOutfit20260924/FieldSweaterCameraRepair20260930/Bow/SK_Bow_FieldSweater.SK_Bow_FieldSweater",
+        "LMG201": "/Game/Characters/ModularOutfit20260924/FieldSweaterCameraRepair20260930/LMG201/SK_LMG201_FieldSweater.SK_LMG201_FieldSweater"
       },
-      "appearance_family": "FieldSweaterKnit20260929"
+      "appearance_family": "FieldSweaterKnit20260929",
+      "world_covers": [
+        0,
+        1,
+        3,
+        4
+      ]
     },
     "ue_field_sweater_charcoal": {
       "slot": 7,
       "part": "shirt",
       "material": "",
       "rig_meshes": {
-        "Body": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Charcoal/Body/SK_Body_Charcoal.SK_Body_Charcoal",
-        "M4": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Charcoal/M4/SK_M4_Charcoal.SK_M4_Charcoal",
-        "AKM": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Charcoal/AKM/SK_AKM_Charcoal.SK_AKM_Charcoal",
-        "QBZ191": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Charcoal/QBZ191/SK_QBZ191_Charcoal.SK_QBZ191_Charcoal",
-        "ASH12": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Charcoal/ASH12/SK_ASH12_Charcoal.SK_ASH12_Charcoal",
-        "M16": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Charcoal/M16/SK_M16_Charcoal.SK_M16_Charcoal",
-        "M1911": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Charcoal/M1911/SK_M1911_Charcoal.SK_M1911_Charcoal",
-        "DW715": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Charcoal/DW715/SK_DW715_Charcoal.SK_DW715_Charcoal",
-        "A762": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Charcoal/A762/SK_A762_Charcoal.SK_A762_Charcoal",
-        "SVD": "/Game/Characters/ModularOutfit20260924/SVDShoulderOpening20260929/SK_SVD_field_sweater_charcoal.SK_SVD_field_sweater_charcoal",
-        "PKM": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Charcoal/PKM/SK_PKM_Charcoal.SK_PKM_Charcoal",
-        "RuneSword": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Charcoal/RuneSword/SK_RuneSword_Charcoal.SK_RuneSword_Charcoal",
-        "FrostSword": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Charcoal/FrostSword/SK_FrostSword_Charcoal.SK_FrostSword_Charcoal",
-        "FrostArms": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Charcoal/FrostArms/SK_FrostArms_Charcoal.SK_FrostArms_Charcoal",
-        "Axe": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Charcoal/Axe/SK_Axe_Charcoal.SK_Axe_Charcoal",
-        "Pickaxe": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Charcoal/Pickaxe/SK_Pickaxe_Charcoal.SK_Pickaxe_Charcoal",
-        "DW715_l": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Charcoal/DW715_l/SK_DW715_l_Charcoal.SK_DW715_l_Charcoal",
-        "DW715_r": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Charcoal/DW715_r/SK_DW715_r_Charcoal.SK_DW715_r_Charcoal",
-        "M1911_l": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Charcoal/M1911_l/SK_M1911_l_Charcoal.SK_M1911_l_Charcoal",
-        "M1911_r": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Charcoal/M1911_r/SK_M1911_r_Charcoal.SK_M1911_r_Charcoal",
-        "Traversal": "/Game/Characters/ModularOutfit20260924/ShortSleeveTraversalFix20260929/SK_Traversal_Charcoal_Fitted.SK_Traversal_Charcoal_Fitted",
-        "Bow": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Charcoal/Bow/SK_Bow_Charcoal.SK_Bow_Charcoal",
-        "LMG201": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Charcoal/LMG201/SK_LMG201_Charcoal.SK_LMG201_Charcoal"
+        "Body": "/Game/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/BodyV4/SK_Body_Charcoal.SK_Body_Charcoal",
+        "M4": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/M4/SK_M4_Charcoal.SK_M4_Charcoal",
+        "AKM": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/AKM/SK_AKM_Charcoal.SK_AKM_Charcoal",
+        "QBZ191": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/QBZ191/SK_QBZ191_Charcoal.SK_QBZ191_Charcoal",
+        "ASH12": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/ASH12/SK_ASH12_Charcoal.SK_ASH12_Charcoal",
+        "M16": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/M16/SK_M16_Charcoal.SK_M16_Charcoal",
+        "M1911": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/M1911/SK_M1911_Charcoal.SK_M1911_Charcoal",
+        "DW715": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/DW715/SK_DW715_Charcoal.SK_DW715_Charcoal",
+        "A762": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/A762/SK_A762_Charcoal.SK_A762_Charcoal",
+        "SVD": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/SVD/SK_SVD_Charcoal.SK_SVD_Charcoal",
+        "PKM": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/PKM/SK_PKM_Charcoal.SK_PKM_Charcoal",
+        "RuneSword": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/RuneSword/SK_RuneSword_Charcoal.SK_RuneSword_Charcoal",
+        "FrostSword": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/FrostSword/SK_FrostSword_Charcoal.SK_FrostSword_Charcoal",
+        "FrostArms": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/FrostArms/SK_FrostArms_Charcoal.SK_FrostArms_Charcoal",
+        "Axe": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/Axe/SK_Axe_Charcoal.SK_Axe_Charcoal",
+        "Pickaxe": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/Pickaxe/SK_Pickaxe_Charcoal.SK_Pickaxe_Charcoal",
+        "DW715_l": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/DW715_l/SK_DW715_l_Charcoal.SK_DW715_l_Charcoal",
+        "DW715_r": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/DW715_r/SK_DW715_r_Charcoal.SK_DW715_r_Charcoal",
+        "M1911_l": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/M1911_l/SK_M1911_l_Charcoal.SK_M1911_l_Charcoal",
+        "M1911_r": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/M1911_r/SK_M1911_r_Charcoal.SK_M1911_r_Charcoal",
+        "Traversal": "/Game/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/TraversalV2/SK_Traversal_Charcoal.SK_Traversal_Charcoal",
+        "Bow": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/Bow/SK_Bow_Charcoal.SK_Bow_Charcoal",
+        "LMG201": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/LMG201/SK_LMG201_Charcoal.SK_LMG201_Charcoal"
       },
       "appearance_family": "CharcoalCottonTShirt20260929",
       "covers": [],
       "world_covers": [
-        3
+        1,
+        3,
+        4
       ]
     },
     "ue_field_gloves": {
@@ -93,7 +101,8 @@
         "M1911_l": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/M1911_l/SK_M1911_l_Fingerless_Detail.SK_M1911_l_Fingerless_Detail",
         "M1911_r": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/M1911_r/SK_M1911_r_Fingerless_Detail.SK_M1911_r_Fingerless_Detail",
         "Traversal": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/Traversal/SK_Traversal_Fingerless_Detail.SK_Traversal_Fingerless_Detail",
-        "Bow": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/Bow/SK_Bow_Fingerless_Detail.SK_Bow_Fingerless_Detail"
+        "Bow": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/Bow/SK_Bow_Fingerless_Detail.SK_Bow_Fingerless_Detail",
+        "LMG201": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/PKM/SK_PKM_Fingerless_Detail.SK_PKM_Fingerless_Detail"
       },
       "covers": [],
       "skin_meshes": {
@@ -150,7 +159,8 @@
         "M1911_l": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/M1911_l/SK_M1911_l_BlackLeatherDetail.SK_M1911_l_BlackLeatherDetail",
         "M1911_r": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/M1911_r/SK_M1911_r_BlackLeatherDetail.SK_M1911_r_BlackLeatherDetail",
         "Traversal": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/Traversal/SK_Traversal_BlackLeatherDetail.SK_Traversal_BlackLeatherDetail",
-        "Bow": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/Bow/SK_Bow_BlackLeatherDetail.SK_Bow_BlackLeatherDetail"
+        "Bow": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/Bow/SK_Bow_BlackLeatherDetail.SK_Bow_BlackLeatherDetail",
+        "LMG201": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/PKM/SK_PKM_BlackLeatherDetail.SK_PKM_BlackLeatherDetail"
       },
       "covers": [
         2
@@ -183,7 +193,8 @@
         "M1911_l": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/M1911_l/SK_M1911_l_Tactical_Detail.SK_M1911_l_Tactical_Detail",
         "M1911_r": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/M1911_r/SK_M1911_r_Tactical_Detail.SK_M1911_r_Tactical_Detail",
         "Traversal": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/Traversal/SK_Traversal_Tactical_Detail.SK_Traversal_Tactical_Detail",
-        "Bow": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/Bow/SK_Bow_Tactical_Detail.SK_Bow_Tactical_Detail"
+        "Bow": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/Bow/SK_Bow_Tactical_Detail.SK_Bow_Tactical_Detail",
+        "LMG201": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/PKM/SK_PKM_Tactical_Detail.SK_PKM_Tactical_Detail"
       },
       "covers": [
         2
@@ -220,7 +231,8 @@
         "M1911_l": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/M1911_l/SK_M1911_l_Steel_Detail.SK_M1911_l_Steel_Detail",
         "M1911_r": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/M1911_r/SK_M1911_r_Steel_Detail.SK_M1911_r_Steel_Detail",
         "Traversal": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/Traversal/SK_Traversal_Steel_Detail.SK_Traversal_Steel_Detail",
-        "Bow": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/Bow/SK_Bow_Steel_Detail.SK_Bow_Steel_Detail"
+        "Bow": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/Bow/SK_Bow_Steel_Detail.SK_Bow_Steel_Detail",
+        "LMG201": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/PKM/SK_PKM_Steel_Detail.SK_PKM_Steel_Detail"
       }
     },
     "ue_chainmail_shirt": {
@@ -230,30 +242,35 @@
       "appearance_family": "ChainmailInsetBinding20260929",
       "rig_meshes": {
         "Body": "/Game/Characters/ModularOutfit20260924/ChainmailInterlace20260929/Body/SK_Body_ChainmailShirt.SK_Body_ChainmailShirt",
-        "M4": "/Game/Characters/ModularOutfit20260924/ChainmailReloadFit20260929/M4/SK_M4_Chainmail_Fitted.SK_M4_Chainmail_Fitted",
-        "AKM": "/Game/Characters/ModularOutfit20260924/ChainmailReloadFit20260929/AKM/SK_AKM_Chainmail_Fitted.SK_AKM_Chainmail_Fitted",
-        "QBZ191": "/Game/Characters/ModularOutfit20260924/ChainmailReloadFit20260929/QBZ191/SK_QBZ191_Chainmail_Fitted.SK_QBZ191_Chainmail_Fitted",
-        "ASH12": "/Game/Characters/ModularOutfit20260924/ChainmailReloadFit20260929/ASH12/SK_ASH12_Chainmail_Fitted.SK_ASH12_Chainmail_Fitted",
-        "M16": "/Game/Characters/ModularOutfit20260924/ChainmailReloadFit20260929/M16/SK_M16_Chainmail_Fitted.SK_M16_Chainmail_Fitted",
-        "M1911": "/Game/Characters/ModularOutfit20260924/ChainmailReloadFit20260929/M1911/SK_M1911_Chainmail_Fitted.SK_M1911_Chainmail_Fitted",
-        "DW715": "/Game/Characters/ModularOutfit20260924/ChainmailReloadFit20260929/DW715/SK_DW715_Chainmail_Fitted.SK_DW715_Chainmail_Fitted",
-        "A762": "/Game/Characters/ModularOutfit20260924/ChainmailReloadFit20260929/A762/SK_A762_Chainmail_Fitted.SK_A762_Chainmail_Fitted",
-        "SVD": "/Game/Characters/ModularOutfit20260924/SVDShoulderOpening20260929/SK_SVD_chainmail_shirt.SK_SVD_chainmail_shirt",
-        "PKM": "/Game/Characters/ModularOutfit20260924/ChainmailReloadFit20260929/PKM/SK_PKM_Chainmail_Fitted.SK_PKM_Chainmail_Fitted",
+        "M4": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/M4/SK_M4_Chainmail.SK_M4_Chainmail",
+        "AKM": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/AKM/SK_AKM_Chainmail.SK_AKM_Chainmail",
+        "QBZ191": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/QBZ191/SK_QBZ191_Chainmail.SK_QBZ191_Chainmail",
+        "ASH12": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/ASH12/SK_ASH12_Chainmail.SK_ASH12_Chainmail",
+        "M16": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/M16/SK_M16_Chainmail.SK_M16_Chainmail",
+        "M1911": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/M1911/SK_M1911_Chainmail.SK_M1911_Chainmail",
+        "DW715": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/DW715/SK_DW715_Chainmail.SK_DW715_Chainmail",
+        "A762": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/A762/SK_A762_Chainmail.SK_A762_Chainmail",
+        "SVD": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/SVD/SK_SVD_Chainmail.SK_SVD_Chainmail",
+        "PKM": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/PKM/SK_PKM_Chainmail.SK_PKM_Chainmail",
         "RuneSword": "/Game/Characters/ModularOutfit20260924/ChainmailInsetBinding20260929/RuneSword/SK_RuneSword_ChainmailShirt.SK_RuneSword_ChainmailShirt",
         "FrostSword": "/Game/Characters/ModularOutfit20260924/ChainmailInsetBinding20260929/FrostSword/SK_FrostSword_ChainmailShirt.SK_FrostSword_ChainmailShirt",
         "FrostArms": "/Game/Characters/ModularOutfit20260924/ChainmailInsetBinding20260929/FrostArms/SK_FrostArms_ChainmailShirt.SK_FrostArms_ChainmailShirt",
         "Axe": "/Game/Characters/ModularOutfit20260924/ChainmailInsetBinding20260929/Axe/SK_Axe_ChainmailShirt.SK_Axe_ChainmailShirt",
         "Pickaxe": "/Game/Characters/ModularOutfit20260924/ChainmailInsetBinding20260929/Pickaxe/SK_Pickaxe_ChainmailShirt.SK_Pickaxe_ChainmailShirt",
-        "DW715_l": "/Game/Characters/ModularOutfit20260924/ChainmailReloadFit20260929/DW715_l/SK_DW715_l_Chainmail_Fitted.SK_DW715_l_Chainmail_Fitted",
-        "DW715_r": "/Game/Characters/ModularOutfit20260924/ChainmailReloadFit20260929/DW715_r/SK_DW715_r_Chainmail_Fitted.SK_DW715_r_Chainmail_Fitted",
-        "M1911_l": "/Game/Characters/ModularOutfit20260924/ChainmailReloadFit20260929/M1911_l/SK_M1911_l_Chainmail_Fitted.SK_M1911_l_Chainmail_Fitted",
-        "M1911_r": "/Game/Characters/ModularOutfit20260924/ChainmailReloadFit20260929/M1911_r/SK_M1911_r_Chainmail_Fitted.SK_M1911_r_Chainmail_Fitted",
+        "DW715_l": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/DW715_l/SK_DW715_l_Chainmail.SK_DW715_l_Chainmail",
+        "DW715_r": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/DW715_r/SK_DW715_r_Chainmail.SK_DW715_r_Chainmail",
+        "M1911_l": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/M1911_l/SK_M1911_l_Chainmail.SK_M1911_l_Chainmail",
+        "M1911_r": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/M1911_r/SK_M1911_r_Chainmail.SK_M1911_r_Chainmail",
         "Traversal": "/Game/Characters/ModularOutfit20260924/ChainmailInsetBinding20260929/Traversal/SK_Traversal_ChainmailShirt.SK_Traversal_ChainmailShirt",
         "Bow": "/Game/Characters/ModularOutfit20260924/ChainmailInsetBinding20260929/Bow/SK_Bow_ChainmailShirt.SK_Bow_ChainmailShirt",
-        "LMG201": "/Game/Characters/ModularOutfit20260924/ChainmailReloadFit20260929/LMG201/SK_LMG201_Chainmail_Fitted.SK_LMG201_Chainmail_Fitted"
+        "LMG201": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/LMG201/SK_LMG201_Chainmail.SK_LMG201_Chainmail"
       },
-      "secondary_motion": "chainmail_shared_sway_v1"
+      "secondary_motion": "chainmail_shared_sway_v1",
+      "first_person_materials": [
+        "/Game/Characters/ModularOutfit20260924/ChainmailCameraFade20260930/Materials/M_Chainmail_CameraFade.M_Chainmail_CameraFade",
+        "/Game/Characters/ModularOutfit20260924/ChainmailCameraFade20260930/Materials/M_CuffSteel_CameraFade.M_CuffSteel_CameraFade",
+        "/Game/Characters/ModularOutfit20260924/ChainmailCameraFade20260930/Materials/M_Lining_CameraFade.M_Lining_CameraFade"
+      ]
     }
   },
   "profiles": {
@@ -694,6 +711,29 @@
       "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_M1911_r_OriginalGlovedArms.SK_M1911_r_OriginalGlovedArms",
       "original_gloved_source": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_M1911_r_GlovedSource.SK_M1911_r_GlovedSource"
     },
+    "/Game/Characters/ModularOutfit20260924/BarePalmV7/Traversal/SK_Traversal_BareArmsV7.SK_Traversal_BareArmsV7": {
+      "base": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Traversal/SK_Traversal_BareArmsV7.SK_Traversal_BareArmsV7",
+      "shirt": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/Traversal/SK_Traversal_FittedSleevesV1.SK_Traversal_FittedSleevesV1",
+      "gloves": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/Traversal/SK_Traversal_FittedFieldGlovesV1.SK_Traversal_FittedFieldGlovesV1",
+      "hide_source_materials": [
+        0,
+        1,
+        2
+      ],
+      "shirt_covers": [
+        0,
+        1
+      ],
+      "glove_covers": [
+        2
+      ],
+      "rig_profile": "Traversal",
+      "native_bare_skin": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Traversal/SK_Traversal_ac119caae4_WristCoverage.SK_Traversal_ac119caae4_WristCoverage",
+      "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Traversal/SK_Traversal_BareArmsV7.SK_Traversal_BareArmsV7",
+      "native_bare_arms": true,
+      "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_Traversal_OriginalGlovedArms.SK_Traversal_OriginalGlovedArms",
+      "original_gloved_source": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_Traversal_GlovedSource.SK_Traversal_GlovedSource"
+    },
     "/Game/Movement/Traversal/Native/SK_TraversalArms_AnimatedBounds.SK_TraversalArms_AnimatedBounds": {
       "base": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Traversal/SK_Traversal_BareArmsV7.SK_Traversal_BareArmsV7",
       "shirt": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/Traversal/SK_Traversal_FittedSleevesV1.SK_Traversal_FittedSleevesV1",
@@ -760,12 +800,11 @@
       "gloves": "/Game/Weapons/DarkBow20260925/ArmsV4/Outfits/SK_Bow_FieldGloves.SK_Bow_FieldGloves",
       "original_gloved_arms": "/Game/Weapons/DarkBow20260925/ArmsV4/Outfits/SK_Bow_OriginalGlovedArms.SK_Bow_OriginalGlovedArms"
     },
-    "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7": {
-      "base": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7",
-      "shirt": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/M4/SK_M4_FittedSleevesV1.SK_M4_FittedSleevesV1",
-      "gloves": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/M4/SK_M4_FittedFieldGlovesV1.SK_M4_FittedFieldGlovesV1",
+    "/Game/Weapons/AzureRunesword20260913/Modules20260919/SK_RuneSword_Arms.SK_RuneSword_Arms": {
+      "base": "/Game/Characters/ModularOutfit20260924/BarePalmV7/RuneSword/SK_RuneSword_BareArmsV7.SK_RuneSword_BareArmsV7",
+      "shirt": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/RuneSword/SK_RuneSword_FittedSleevesV1.SK_RuneSword_FittedSleevesV1",
+      "gloves": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/RuneSword/SK_RuneSword_FittedFieldGlovesV1.SK_RuneSword_FittedFieldGlovesV1",
       "hide_source_materials": [
-        0,
         1,
         2
       ],
@@ -776,12 +815,12 @@
       "glove_covers": [
         2
       ],
-      "rig_profile": "M4",
-      "native_bare_skin": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M4/SK_M4_14b12f794a_WristCoverage.SK_M4_14b12f794a_WristCoverage",
-      "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7",
+      "rig_profile": "RuneSword",
+      "native_bare_skin": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/RuneSword/SK_RuneSword_f2763de9e9_WristCoverage.SK_RuneSword_f2763de9e9_WristCoverage",
+      "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/BarePalmV7/RuneSword/SK_RuneSword_BareArmsV7.SK_RuneSword_BareArmsV7",
       "native_bare_arms": true,
-      "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_M4_OriginalGlovedArms.SK_M4_OriginalGlovedArms",
-      "original_gloved_source": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_M4_GlovedSource.SK_M4_GlovedSource"
+      "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_RuneSword_OriginalGlovedArms.SK_RuneSword_OriginalGlovedArms",
+      "original_gloved_source": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_RuneSword_GlovedSource.SK_RuneSword_GlovedSource"
     },
     "/Game/Weapons/LMG201/Production20260927/SK_LMG201_Manny.SK_LMG201_Manny": {
       "base": "/Game/Characters/ModularOutfit20260924/BarePalmV7/AKM/SK_AKM_BareArmsV7.SK_AKM_BareArmsV7",
@@ -806,6 +845,29 @@
       "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_AKM_OriginalGlovedArms.SK_AKM_OriginalGlovedArms",
       "original_gloved_source": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_AKM_GlovedSource.SK_AKM_GlovedSource"
     },
+    "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7": {
+      "base": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7",
+      "shirt": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/M4/SK_M4_FittedSleevesV1.SK_M4_FittedSleevesV1",
+      "gloves": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/M4/SK_M4_FittedFieldGlovesV1.SK_M4_FittedFieldGlovesV1",
+      "hide_source_materials": [
+        0,
+        1,
+        2
+      ],
+      "shirt_covers": [
+        0,
+        1
+      ],
+      "glove_covers": [
+        2
+      ],
+      "rig_profile": "M4",
+      "native_bare_skin": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M4/SK_M4_14b12f794a_WristCoverage.SK_M4_14b12f794a_WristCoverage",
+      "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7",
+      "native_bare_arms": true,
+      "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_M4_OriginalGlovedArms.SK_M4_OriginalGlovedArms",
+      "original_gloved_source": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_M4_GlovedSource.SK_M4_GlovedSource"
+    },
     "/Game/Weapons/LMG201/Cover10/SK_LMG201_Cover10.SK_LMG201_Cover10": {
       "base": "/Game/Characters/ModularOutfit20260924/BarePalmV7/PKM/SK_PKM_BareArmsV7.SK_PKM_BareArmsV7",
       "shirt": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/PKM/SK_PKM_FittedSleevesV1.SK_PKM_FittedSleevesV1",
@@ -828,6 +890,94 @@
       "native_bare_arms": true,
       "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_PKM_OriginalGlovedArms.SK_PKM_OriginalGlovedArms",
       "original_gloved_source": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_PKM_GlovedSource.SK_PKM_GlovedSource"
+    },
+    "/Game/Weapons/G18/Integrated20260929/Single/SK_G18_Manny.SK_G18_Manny": {
+      "base": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M1911/SK_M1911_BareArmsV7.SK_M1911_BareArmsV7",
+      "shirt": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/M1911/SK_M1911_FittedSleevesV1.SK_M1911_FittedSleevesV1",
+      "gloves": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/M1911/SK_M1911_FittedFieldGlovesV1.SK_M1911_FittedFieldGlovesV1",
+      "hide_source_materials": [
+        2,
+        3,
+        4
+      ],
+      "shirt_covers": [
+        0,
+        1
+      ],
+      "glove_covers": [
+        2
+      ],
+      "rig_profile": "M1911",
+      "native_bare_skin": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M1911/SK_M1911_36f0ae0334_WristCoverage.SK_M1911_36f0ae0334_WristCoverage",
+      "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M1911/SK_M1911_BareArmsV7.SK_M1911_BareArmsV7",
+      "native_bare_arms": true,
+      "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_M1911_OriginalGlovedArms.SK_M1911_OriginalGlovedArms"
+    },
+    "/Game/Weapons/G18/Integrated20260929/Dual/r/SK_Dual_G18_r.SK_Dual_G18_r": {
+      "base": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M1911_r/SK_M1911_r_BareArmsV7.SK_M1911_r_BareArmsV7",
+      "shirt": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/M1911_r/SK_M1911_r_FittedSleevesV1.SK_M1911_r_FittedSleevesV1",
+      "gloves": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/M1911_r/SK_M1911_r_FittedFieldGlovesV1.SK_M1911_r_FittedFieldGlovesV1",
+      "hide_source_materials": [
+        2,
+        3,
+        4
+      ],
+      "shirt_covers": [
+        0,
+        1
+      ],
+      "glove_covers": [
+        2
+      ],
+      "rig_profile": "M1911_r",
+      "native_bare_skin": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M1911_r/SK_M1911_r_45abd75594_WristCoverage.SK_M1911_r_45abd75594_WristCoverage",
+      "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M1911_r/SK_M1911_r_BareArmsV7.SK_M1911_r_BareArmsV7",
+      "native_bare_arms": true,
+      "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_M1911_r_OriginalGlovedArms.SK_M1911_r_OriginalGlovedArms"
+    },
+    "/Game/Weapons/G18/Integrated20260929/Dual/l/SK_Dual_G18_l.SK_Dual_G18_l": {
+      "base": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M1911_l/SK_M1911_l_BareArmsV7.SK_M1911_l_BareArmsV7",
+      "shirt": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/M1911_l/SK_M1911_l_FittedSleevesV1.SK_M1911_l_FittedSleevesV1",
+      "gloves": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/M1911_l/SK_M1911_l_FittedFieldGlovesV1.SK_M1911_l_FittedFieldGlovesV1",
+      "hide_source_materials": [
+        2,
+        3,
+        4
+      ],
+      "shirt_covers": [
+        0,
+        1
+      ],
+      "glove_covers": [
+        2
+      ],
+      "rig_profile": "M1911_l",
+      "native_bare_skin": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M1911_l/SK_M1911_l_711a1c8444_WristCoverage.SK_M1911_l_711a1c8444_WristCoverage",
+      "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M1911_l/SK_M1911_l_BareArmsV7.SK_M1911_l_BareArmsV7",
+      "native_bare_arms": true,
+      "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_M1911_l_OriginalGlovedArms.SK_M1911_l_OriginalGlovedArms"
+    },
+    "/Game/Weapons/HK416/Reworked20260930/SK_HK416_Manny.SK_HK416_Manny": {
+      "base": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7",
+      "shirt": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/M4/SK_M4_FittedSleevesV1.SK_M4_FittedSleevesV1",
+      "gloves": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/M4/SK_M4_FittedFieldGlovesV1.SK_M4_FittedFieldGlovesV1",
+      "hide_source_materials": [
+        4,
+        5,
+        6
+      ],
+      "shirt_covers": [
+        0,
+        1
+      ],
+      "glove_covers": [
+        2
+      ],
+      "rig_profile": "M4",
+      "native_bare_skin": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M4/SK_M4_14b12f794a_WristCoverage.SK_M4_14b12f794a_WristCoverage",
+      "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7",
+      "native_bare_arms": true,
+      "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_M4_OriginalGlovedArms.SK_M4_OriginalGlovedArms"
     }
   },
   "native_bare_hands_default": false

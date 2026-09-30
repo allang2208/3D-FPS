@@ -110,6 +110,8 @@ void AVoxelBuildWorld::ReanchorVoxelsAround(const TArray<FIntVector>& VacatedCel
         Boundary.Add(Neighbor);
     }
     TSet<FVoxelBuildKey> Done;bool bChanged=false;
+    // 审计 W1（2026-09-23）：重锚整轮共用一次查询参数（每个边界节点原本都要内部 Query 一遍）。
+    const FCollisionQueryParams GroundParams=VoxelGrounding::Query(GetWorld(),this);
     for(const FIntVector& Cell:Boundary)
     {
         for(const FVoxelBuildKey& Key:SupportGraph->Near(CellMin(Cell)))
@@ -118,7 +120,7 @@ void AVoxelBuildWorld::ReanchorVoxelsAround(const TArray<FIntVector>& VacatedCel
             FVoxelSupportNode* Node=SupportGraph->Nodes.Find(Key);
             if(!Node||!Node->bAnchor)continue;           // 原本就没锚：不动它（倒塌由既有流程负责）
             if(PrefabSupportAt(Node->Min))continue;      // 还贴着别的构件：锚不变
-            if(IsGroundAnchor(Node->Min))continue;       // 脚下有地面：锚不变
+            if(IsGroundAnchor(Node->Min,&GroundParams))continue;       // 脚下有地面：锚不变
             Node->bAnchor=false;
             Runtime->DirtySupport.Add(Key);Runtime->NodeEpoch.Add(Key,Revision+1);
             bChanged=true;
@@ -198,7 +200,9 @@ void AVoxelBuildWorld::VerifyPrefabSupport(const TArray<FVoxelEditCell>& Edit)
             if(const FIntVector* CellOwner=PrefabCellOwner.Find(E.Position+Face))Candidates.Add(*CellOwner);
     }
     if(Candidates.IsEmpty())return;
-    TArray<FIntVector> Drop;
+    // 审计 W3（2026-09-23）：Drop 从 TArray 换成 TSet——脱落循环里的 Drop.Contains 与
+    // RemoveAll 谓词都是线性查找，多件同批脱落时是 O(n²)；TSet 把它降到常数。
+    TSet<FIntVector> Drop;
     for(const FVoxelBuildPrefabInstance& Instance:Prefabs)
         if(Candidates.Contains(Instance.Cell)&&!IsPrefabSupported(Instance))
             Drop.Add(Instance.Cell);
@@ -375,6 +379,13 @@ bool AVoxelBuildWorld::RemovePrefab(AActor* Piece)
         return true;
     }
     const FIntVector Cell=Target->AnchorCell();
+    if(Target->PrefabId()==VoxelCastingStationId)
+    {
+        FIntVector Furnace;
+        if(FindCastingFurnace(Cell,Furnace))
+            if(const auto* Job=FindSmelting(Furnace);Job&&(!Job->Recipe.IsNone()||!Job->Queue.IsEmpty()||!Job->Products.IsEmpty()))
+            {Message=TEXT("铸造台仍有任务或成品，请先取出并处理炉内物料");return false;}
+    }
     // 高炉拆除特判（2026-09-23 冶炼）：炉内有矿料或存料先退料（完成退产物、未完退原料、燃料折木材）；
     // 背包放不下就拒绝拆除——与放置"先扣料再提交"同一口径，不静默吞料也不凭空产锭。
     if(FindSmelting(Cell)||FuelAt(Cell)>0)
@@ -418,13 +429,13 @@ bool AVoxelBuildWorld::RemovePrefab(AActor* Piece)
 const FVoxelSmeltingJob* AVoxelBuildWorld::FindSmelting(FIntVector Cell) const
 {
     const FVoxelSmeltingJob* Job=SmeltingJobs.FindByPredicate([Cell](const FVoxelSmeltingJob& E){return E.Cell==Cell;});
-    return Job&&!Job->Recipe.IsNone()?Job:nullptr;
+    return Job&&(!Job->Recipe.IsNone()||Job->bCasting)?Job:nullptr;
 }
 
 FVoxelSmeltingJob* AVoxelBuildWorld::FindSmeltingMutable(FIntVector Cell)
 {
     FVoxelSmeltingJob* Job=SmeltingJobs.FindByPredicate([Cell](const FVoxelSmeltingJob& E){return E.Cell==Cell;});
-    return Job&&!Job->Recipe.IsNone()?Job:nullptr;
+    return Job&&(!Job->Recipe.IsNone()||Job->bCasting)?Job:nullptr;
 }
 
 bool AVoxelBuildWorld::BeginSmelting(FIntVector Cell,FName Recipe,FString& Reason,int64 Batch)
@@ -458,6 +469,10 @@ int32 AVoxelBuildWorld::FurnaceUpgradeLevel(FIntVector Cell,int32 Axis) const
 
 void AVoxelBuildWorld::SetFurnaceUpgradeLevel(FIntVector Cell,int32 Axis,int32 Level)
 {
+    if(Axis==VoxelFurnaceAxisSpeed)
+        if(const auto* Job=FindSmelting(Cell);Job&&Job->bCasting)
+            if(auto* Game=GetGameInstance())
+                if(auto* System=Game->GetSubsystem<UColdSteelSmeltingSystem>())System->SettleFurnace(this,Cell);
     Level=FMath::Clamp(Level,1,VoxelFurnaceAxisMax(Axis));   // 燃料仓 6 档、其余 5 档（2026-09-24 数值调参）
     FVoxelFurnaceFuel* Fuel=Fuels.FindByPredicate([Cell](const FVoxelFurnaceFuel& E){return E.Cell==Cell;});
     if(!Fuel)
@@ -466,6 +481,10 @@ void AVoxelBuildWorld::SetFurnaceUpgradeLevel(FIntVector Cell,int32 Axis,int32 L
     }
     int32 FVoxelFurnaceFuel::* Field=FurnaceLevelField(Axis);
     if(Fuel->*Field==Level)return;
+    if(Axis==VoxelFurnaceAxisSpeed)
+        if(auto* Job=FindSmeltingMutable(Cell);Job&&Job->bCasting)
+            Job->ProgressSeconds*=UColdSteelSmeltingSystem::SpeedMultiplier(Fuel->*Field)
+                /UColdSteelSmeltingSystem::SpeedMultiplier(Level);
     Fuel->*Field=Level;MarkSaveDirty();
 }
 

@@ -1,3 +1,4 @@
+#include "LMG201Attachments.h"
 #include "../FPSGAMECharacter.h"
 #include "A762Attachments.h"
 #include "SVDAttachments.h"
@@ -18,6 +19,7 @@
 void AFPSGAMECharacter::InitializePrismGripAnimations()
 {
     PrismGripAnimations.Reset();
+    if(LMG201WeaponAssets::Matches(AKMViewmodel)){LMG201Attachments::LoadGripFamily(TEXT("prism"),PrismGripAnimations);return;}
     if(!bUsingM4Infima&&!AKMSoviet::Matches(AKMViewmodel)&&!A762WeaponAssets::Matches(AKMViewmodel)&&!PKMLowpolyWeaponAssets::Matches(AKMViewmodel))return;
     const TPair<UAnimSequence*,const TCHAR*> Clips[]={
         {IdleAnimation,TEXT("idle")},{AimAnimation,TEXT("aim")},
@@ -50,7 +52,7 @@ void AFPSGAMECharacter::SetGunsmithHandstop(const FString& Variant)
     {
         const TCHAR* Rifle=bUseASH12?TEXT("ASH12"):bUseQBZ191?TEXT("QBZ191"):
             AKMSoviet::Matches(AKMViewmodel)?TEXT("AKM"):TEXT("M4");
-        const FString Path=SVDWeaponAssets::Matches(AKMViewmodel)?SVDAttachments::MeshPath(TEXT("tactical_vertical")):PKMLowpolyWeaponAssets::Matches(AKMViewmodel)?PKMAttachments::MeshPath(TEXT("tactical_vertical")):A762WeaponAssets::Matches(AKMViewmodel)?A762Attachments::MeshPath(TEXT("tactical_vertical")):bUseM16?M16Attachments::MeshPath(TEXT("tactical_vertical")):FString::Printf(TEXT("/Game/Weapons/TacticalVerticalForegrip20260919/%s/SM_TacticalVerticalForegrip"),Rifle);
+        const FString Path=LMG201WeaponAssets::Matches(AKMViewmodel)?LMG201Attachments::MeshPath(TEXT("tactical_vertical")):SVDWeaponAssets::Matches(AKMViewmodel)?SVDAttachments::MeshPath(TEXT("tactical_vertical")):PKMLowpolyWeaponAssets::Matches(AKMViewmodel)?PKMAttachments::MeshPath(TEXT("tactical_vertical")):A762WeaponAssets::Matches(AKMViewmodel)?A762Attachments::MeshPath(TEXT("tactical_vertical")):bUseM16?M16Attachments::MeshPath(TEXT("tactical_vertical")):FString::Printf(TEXT("/Game/Weapons/TacticalVerticalForegrip20260919/%s/SM_TacticalVerticalForegrip"),Rifle);
         if(auto* TacticalGripMesh=LoadObject<UStaticMesh>(nullptr,*Path))
         {
             VerticalForegrip->EmptyOverrideMaterials();
@@ -64,6 +66,7 @@ void AFPSGAMECharacter::SetGunsmithHandstop(const FString& Variant)
     }
     SetCantedForegrip(Variant==TEXT("canted_foregrip"));
     if(SVDWeaponAssets::Matches(AKMViewmodel)){PrismHandstop=SVDAttachments::Configure(this,AKMViewmodel,PrismHandstop,TEXT("prism"),Variant==TEXT("prism_handstop")&&bInventoryWeaponReady);return;}
+    if(LMG201WeaponAssets::Matches(AKMViewmodel)){PrismHandstop=LMG201Attachments::Configure(this,AKMViewmodel,PrismHandstop,TEXT("prism"),Variant==TEXT("prism_handstop")&&bInventoryWeaponReady);return;}
     if(PKMLowpolyWeaponAssets::Matches(AKMViewmodel)){PrismHandstop=PKMAttachments::Configure(this,AKMViewmodel,PrismHandstop,TEXT("prism"),Variant==TEXT("prism_handstop")&&bInventoryWeaponReady);return;}
     if(A762WeaponAssets::Matches(AKMViewmodel)){PrismHandstop=A762Attachments::Configure(this,AKMViewmodel,PrismHandstop,TEXT("prism"),Variant==TEXT("prism_handstop")&&bInventoryWeaponReady);return;}
     if(bUseM16){PrismHandstop=M16Attachments::Configure(this,AKMViewmodel,PrismHandstop,TEXT("prism"),Variant==TEXT("prism_handstop")&&bInventoryWeaponReady);return;}

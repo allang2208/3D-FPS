@@ -22,7 +22,7 @@ EFPSTraversalAction UFPSTraversalSettings::ClassifyHeight(float Height) const
     return EFPSTraversalAction::Mantle;
 }
 
-EFPSTraversalAction UFPSTraversalSettings::Evaluate(const FFPSTraversalProbe& P) const
+EFPSTraversalAction UFPSTraversalSettings::Evaluate(const FFPSTraversalProbe& P, float SurfaceMaxLandingDrop) const
 {
     EFPSTraversalAction HeightClass = ClassifyHeight(P.Height);
     if (P.bAirborne)
@@ -42,8 +42,9 @@ EFPSTraversalAction UFPSTraversalSettings::Evaluate(const FFPSTraversalProbe& P)
         P.FacingDot < FMath::Cos(FMath::DegreesToRadians(MaxFacingAngle)))
         return EFPSTraversalAction::None;
 
-    const bool bLandingHeightOK = FMath::IsFinite(P.LandingHeightDelta) &&
-        P.LandingHeightDelta >= -(P.bAirborne?AirMaxLandingDrop:MaxLandingDrop) && P.LandingHeightDelta <= MaxLandingRise;
+    const float AllowedDrop=FMath::Max(P.bAirborne?AirMaxLandingDrop:MaxLandingDrop,SurfaceMaxLandingDrop);
+    const bool bLandingHeightOK = FMath::IsFinite(SurfaceMaxLandingDrop) && FMath::IsFinite(P.LandingHeightDelta) &&
+        P.LandingHeightDelta >= -AllowedDrop && P.LandingHeightDelta <= MaxLandingRise;
     if (HeightClass == EFPSTraversalAction::Vault && P.Depth <= VaultMaxDepth &&
         P.bVaultPathClear && P.bLandingStandingSpace && bLandingHeightOK)
         return EFPSTraversalAction::Vault;

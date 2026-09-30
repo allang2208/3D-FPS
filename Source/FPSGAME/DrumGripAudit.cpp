@@ -134,8 +134,9 @@ void AFPSGAMECharacter::RunDrumGripAudit()
     }
     if(DrumGripAuditStage==2||DrumGripAuditStage==4)
     {
-        Check(MagazineAmmo==MagazineCapacity&&MagazineCapacity==50,TEXT("fills 50 round drum"));
-        const int32 Expected=HasInfiniteReserveAmmo()?DrumGripAuditReserve:DrumGripAuditReserve-(DrumGripAuditStage==2?33:50);
+        // +30 over the factory magazine: 17 -> 60 consumes 43, an empty fill consumes 60.
+        Check(MagazineAmmo==MagazineCapacity&&MagazineCapacity==60,TEXT("fills 60 round drum"));
+        const int32 Expected=HasInfiniteReserveAmmo()?DrumGripAuditReserve:DrumGripAuditReserve-(DrumGripAuditStage==2?43:60);
         Check(P->AmmoCount()==Expected,TEXT("ammo accounting preserved"));
         Check(ValidateDrumAttachment(),TEXT("attachment stable after reload"));
         Check(DrumDropCount==(DrumGripAuditStage==2?1:2),TEXT("one physical old drum per reload"));

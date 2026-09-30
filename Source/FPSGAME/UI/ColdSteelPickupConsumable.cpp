@@ -3,6 +3,8 @@
 #include "../Weapons/MeleeRuneVisual.h"
 #include "../Weapons/MeleeGuardAssets.h"
 #include "../Weapons/ModularSwordVisual.h"
+#include "../Weapons/Staff/StaffCatalog.h"
+#include "../Weapons/Staff/StaffAssembly.h"
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
@@ -11,6 +13,25 @@
 bool AColdSteelPickup::BuildConsumable(const FColdSteelItem& Item)
 {
     const FString& Id=Item.Definition;
+    if(ColdSteelStaff::IsStaff(Item))
+    {
+        return BuildStaff(Item);
+    }
+    if(ColdSteelInventory::Text(Item,TEXT("category"))==TEXT("equipment"))
+    {
+        const FString Path=ColdSteelInventory::Text(Item,TEXT("world_mesh"));
+        if(auto* Asset=Path.IsEmpty()?nullptr:LoadObject<UStaticMesh>(nullptr,*Path))
+        {
+            const auto Bounds=Asset->GetBounds();
+            Mesh->SetStaticMesh(Asset);Mesh->SetRelativeScale3D(FVector(1));Mesh->SetRelativeLocation(-Bounds.Origin);
+            const FString MaterialPath=ColdSteelInventory::Text(Item,TEXT("world_material"));
+            if(!MaterialPath.IsEmpty())if(auto* Material=LoadObject<UMaterialInterface>(nullptr,*MaterialPath))
+                for(int32 Slot=0;Slot<Mesh->GetNumMaterials();++Slot)Mesh->SetMaterial(Slot,Material);
+            Body->SetBoxExtent(Bounds.BoxExtent.ComponentMax(FVector(1.f)));
+            return true;
+        }
+        return false;
+    }
     if(ColdSteelInventory::IsMeleeWeapon(Item))
     {
         if(ColdSteelModularSword::Supports(Item))
@@ -30,7 +51,7 @@ bool AColdSteelPickup::BuildConsumable(const FColdSteelItem& Item)
         return true;
     }
     const bool bMaterial=Id==TEXT("enhancement_stone")||Id==TEXT("magic_dust");
-    const bool bScroll=Id==TEXT("enchant_scroll_heavy")||Id==TEXT("enchant_scroll_sharp")||Id==TEXT("enchant_scroll_skeleton")||Id==TEXT("enchant_scroll_tarantula");
+    const bool bScroll=Id.StartsWith(TEXT("enchant_scroll_"));
     const bool bHealthPotion=Id==TEXT("hp_potion")||Id.StartsWith(TEXT("hp_potion_"));
     const bool bManaPotion=Id==TEXT("mp_potion")||Id.StartsWith(TEXT("mp_potion_"));
     if(bHealthPotion||bManaPotion)

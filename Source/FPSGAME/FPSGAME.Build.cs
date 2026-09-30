@@ -24,6 +24,12 @@ public class FPSGAME : ModuleRules
             "GameplayTasks",
             "ImageWrapper"
             ,"Json"
+            // Public because FPSGAME.cpp (the module entry point) calls
+            // AddShaderSourceDirectoryMapping from ShaderCore.h to expose Source/Shaders as
+            // the virtual shader directory /Project, so material Custom nodes can
+            // `#include "/Project/ClearwaterWaves.ush"`. Without file-scope functions a
+            // Custom node cannot compile at all -- its code field is a function body.
+            ,"RenderCore"
         });
         RuntimeDependencies.Add("$(ProjectDir)/Content/ColdSteelData/...", StagedFileType.UFS);
         RuntimeDependencies.Add("$(ProjectDir)/Content/UI/GunsmithWorkbench/Fonts/...", StagedFileType.UFS);
@@ -41,7 +47,7 @@ public class FPSGAME : ModuleRules
         PrivateDependencyModuleNames.AddRange(new[] { "ClothingSystemRuntimeCommon", "ClothingSystemRuntimeInterface" });
         PrivateDependencyModuleNames.AddRange(new[] { "PCG", "GeometryCore", "GeometryFramework" });
         if (Target.bBuildEditor) PrivateDependencyModuleNames.Add("NiagaraEditor");
-        if (Target.bBuildEditor) PrivateDependencyModuleNames.Add("UnrealEd");
+        if (Target.bBuildEditor) PrivateDependencyModuleNames.AddRange(new[] { "UnrealEd", "EditorScriptingUtilities" });
         if (Target.bBuildEditor) PrivateDependencyModuleNames.AddRange(new[] { "MeshDescription", "StaticMeshDescription", "SkeletalMeshDescription" });
         if (Target.bBuildEditor) PrivateDependencyModuleNames.AddRange(new[]
         {

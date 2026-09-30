@@ -3,6 +3,7 @@
 #include "../Development/DevelopmentTuningSubsystem.h"
 #include "../Skills/CorrosivePusDamage.h"
 #include "../Skills/FireballDamage.h"
+#include "../Skills/IceWallCombat.h"
 #include "MonsterCharacterMovementComponent.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterCombatTuning.h"
@@ -93,6 +94,7 @@ bool AHandBrainMonster::CanSee(const AActor* A,FVector From) const
 }
 bool AHandBrainMonster::CanSlamTarget(const APawn* P) const
 {
+ if(IsValid(P)&&SlamLeft<=0&&IceWallCombat::BlockingWall(this,P,SlamTriggerRange))return true;
  if(!IsValid(P)||SlamLeft>0||FVector::Dist2D(P->GetActorLocation(),GetActorLocation())>SlamTriggerRange)return false;
  const FVector Direction=(P->GetActorLocation()-GetActorLocation()).GetSafeNormal2D();
  const FVector Center=GroundPoint(GetActorLocation()+Direction*SlamReach);
@@ -133,6 +135,7 @@ void AHandBrainMonster::DealSlam()
 {
  if(bSlamConsumed||Dead())return;bSlamConsumed=true;
  if(SlamSound)UGameplayStatics::PlaySoundAtLocation(this,SlamSound,SlamCenter,.9f);
+ if(IceWallCombat::ApplyMelee(this,Target.Get(),SlamTriggerRange,PhysicalAttack*2))return;
  for(FConstPlayerControllerIterator It=GetWorld()->GetPlayerControllerIterator();It;++It)
  {
   APawn* P=It->Get()?It->Get()->GetPawn():nullptr;if(!P)continue;

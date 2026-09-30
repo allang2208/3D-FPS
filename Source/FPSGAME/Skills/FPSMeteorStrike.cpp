@@ -1,4 +1,5 @@
 #include "FPSMeteorStrike.h"
+#include "../Dungeons/WardBreakableGlass.h"
 #include "../WorldGeneration/RiverPilotFXSubsystem.h"
 #include "../WorldGeneration/FluidPresentationSubsystem.h"
 #include "../WorldGeneration/GrassDeform/GrassDeformSubsystem.h"
@@ -71,6 +72,8 @@ void AFPSMeteorStrike::DamageArea(bool bExplosion)
 {
     APawn* Caster=Shooter.Get();auto* M=Caster&&Caster->GetGameInstance()?Caster->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;if(!M)return;
     const float Radius=bExplosion?CastSnapshot.Radius:CastSnapshot.AuraRadius;
+    if((bExplosion?CastSnapshot.Damage:CastSnapshot.AuraDamage)>0)
+        UWardBreakableGlass::BreakInRadius(GetWorld(),Destination+Normal*5.f,Radius,Caster);
     // Only the impact flattens grass. The burning field re-enters this function every
     // CastSnapshot.TickSeconds while it lives, so hooking the aura branch would stamp a fresh
     // flatten and a fresh wavefront into the render target several times a second for the whole
@@ -90,7 +93,13 @@ void AFPSMeteorStrike::DamageArea(bool bExplosion)
         if(!M->ApplyFireMagicHit(Caster,Target,CastSnapshot,Amount,Rewards))continue;Hits+=Rewards.Hits-Before;
         if(auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();Combat&&!Combat->IsDead())
         {
-            if(bExplosion&&CastSnapshot.StunSeconds>0)Combat->ReceiveStun(Caster,CastSnapshot.StunSeconds,0);
+            if(bExplosion)
+            {
+                const FVector Away=Offset.GetSafeNormal2D();
+                const bool bLaunched=Combat->ReceiveKnockdown(Caster,Away*FMath::Lerp(520.f,260.f,Ratio)+
+                    FVector(0,0,FMath::Lerp(360.f,220.f,Ratio)),FMath::Max(.8f,CastSnapshot.StunSeconds));
+                if(!bLaunched&&CastSnapshot.StunSeconds>0)Combat->ReceiveStun(Caster,CastSnapshot.StunSeconds,0);
+            }
             const int32 Stacks=bExplosion?CastSnapshot.BurnStacks:CastSnapshot.AuraBurnStacks;
             if(Stacks>0)UCombatStatusFormula::GetOrAdd(Target)->AddBurn(Caster,CastSnapshot.MagicAttack,Stacks,bExplosion?CastSnapshot.BurnSeconds:CastSnapshot.AuraBurnSeconds,bExplosion?CastSnapshot.BurnMultiplier:CastSnapshot.AuraBurnMultiplier,CastSnapshot.TickSeconds);
         }

@@ -1,11 +1,12 @@
 #include "DungeonSpawnDirector.h"
-#include "../Monsters/MonsterDamageAlert.h"
 #include "DungeonRoomEncounter.h"
 #include "DungeonRunSubsystem.h"
 #include "AuthoredDungeonGenerator.h"
 #include "../Monsters/HandBrainMonster.h"
+#include "../Monsters/FleshHandMonster.h"
 #include "../Monsters/MonsterAIController.h"
 #include "../Monsters/MonsterCombatComponent.h"
+#include "../Monsters/MonsterDamageAlert.h"
 #include "../Monsters/NurseZombie.h"
 #include "../Monsters/PoisonMaggotMonster.h"
 #include "../Monsters/WolfMonster.h"
@@ -30,10 +31,9 @@ namespace
 {
     // 节点混合常量（黄金比）：与编成/落点域常量异或后派生每房独立流，
     // 保证同一 seed + 同一域 + 同一节点逐位可复现，且与布局/dressing/水渍流互不干扰。
-    constexpr uint32 NodeMix = 0x9E3779B9u;
     constexpr float PatrolSeconds = .25f;         // 休眠管理 + 房间状态巡检
     constexpr float RoomRetrySeconds = 10.f;      // 落点失败的房间重试（村庄 spawner 口径）
-    constexpr int32 MaxSlotAttempts = 3;          // 同槽最多 3 次，仍失败则放弃该槽
+    constexpr int32 SpawnDirectorMaxSlotAttempts = 3; // 同槽最多 3 次，仍失败则放弃该槽
     constexpr int32 MaxCountPerRoom = 12;
     constexpr float MinPlayerDistance = 1500.f;   // 落点与玩家的最小距离
     constexpr float PlayerEyeOffset = 60.f;
@@ -80,6 +80,7 @@ namespace
     {
         if (const auto* N = Cast<ANurseZombie>(Actor)) return N->Combat != nullptr;
         if (const auto* W = Cast<AWolfMonster>(Actor)) return W->Combat != nullptr;
+        if (const auto* F = Cast<AFleshHandMonster>(Actor)) return F->Combat != nullptr;
         if (const auto* H = Cast<AHandBrainMonster>(Actor)) return H->Combat != nullptr;
         if (const auto* M = Cast<APoisonMaggotMonster>(Actor)) return M->Combat != nullptr;
         return false;
@@ -135,7 +136,7 @@ void ADungeonSpawnDirector::PlanOpening()
     Plans.Reset();
 
     // 目录 spawn 段的每房配方（.cpp 局部）：数量区间 + 加权池。
-    struct FRoomRecipe { int32 PlanIndex = INDEX_NONE; int32 NodeId = INDEX_NONE; int32 MinCount = 2; int32 MaxCount = 4; TArray<FPoolEntry> Pool; double TotalWeight = 0.0; };
+    struct FRoomRecipe { int32 PlanIndex = INDEX_NONE; int32 NodeId = INDEX_NONE; int32 MinCount = 2; int32 MaxCount = 4; TArray<FPoolEntry> Pool; double TotalWeight = 0.0; bool bSealedEncounter = false; };
     TArray<FRoomRecipe> Recipes;
 
     // 1) 候选房：战斗房、非 Boss 区、未清除、有 spawn 配置且能求出落点。
@@ -151,6 +152,7 @@ void ADungeonSpawnDirector::PlanOpening()
 
         FRoomRecipe Recipe;
         Recipe.NodeId = Node.Id;
+        Config->TryGetBoolField(TEXT("sealed_encounter"),Recipe.bSealedEncounter);
         const TArray<TSharedPtr<FJsonValue>>* CountArray = nullptr;
         if (Config->TryGetArrayField(TEXT("count"), CountArray) && CountArray && CountArray->Num() >= 2)
         {
@@ -196,7 +198,7 @@ void ADungeonSpawnDirector::PlanOpening()
         Plan.NodeId = Node.Id;
         Plan.Module = Node.Module;
         Plan.Route = Node.Route;
-        Plan.Depth = Node.Depth;
+        Plan.Depth = Node.ProgressionDepth;
         Plan.Center = Node.Volume.IsValid ? Node.Volume.GetCenter() : Node.Origin;
         BuildRoomCandidates(this, Sub, Node.Id, AnchorRoles, Plan.Candidates);
         if (Plan.Candidates.IsEmpty())
@@ -222,15 +224,15 @@ void ADungeonSpawnDirector::PlanOpening()
         if (!Node) continue;
         Plan.bElite = EliteNodes.Contains(Recipe.NodeId);
 
-        FRandomStream Composition = Sub->GameplayStream(DungeonRunDomains::SpawnComposition ^ ((uint32)Recipe.NodeId * NodeMix));
-        const int32 Count = Composition.RandRange(Recipe.MinCount, Recipe.MaxCount) + (Plan.bElite ? 1 : 0);
+        FRandomStream Composition = Sub->GameplayStream(DungeonRunDomains::SpawnComposition ^ Sub->NodeRandomSalt(Recipe.NodeId));
+        const int32 Count = FMath::Min(MaxCountPerRoom,Composition.RandRange(Recipe.MinCount, Recipe.MaxCount) + (Plan.bElite ? 1 : 0));
         if (Count <= 0)
         {
             UE_LOG(LogTemp, Display, TEXT("[DungeonSpawn] 房 %d 抽出 0 只，留作安静房（不登记清除）。"), Recipe.NodeId);
             continue;   // 配置显式要求空房
         }
         // 深度加成 +1 级 / 每 4 深度，封顶 +4；精英房再 +2 并整组 Elite 品阶。
-        const int32 DepthBonus = FMath::Clamp(Node->Depth / 4, 0, MaxDepthLevelBonus);
+        const int32 DepthBonus = FMath::Clamp(Node->ProgressionDepth / 4, 0, MaxDepthLevelBonus);
         for (int32 Index = 0; Index < Count; ++Index)
         {
             // 加权抽取：只消费本房的编成流，同一 seed 必须可复现。
@@ -245,19 +247,19 @@ void ADungeonSpawnDirector::PlanOpening()
             Slot.Member.Id = Chosen->Id;
             Slot.Member.ClassPath = Chosen->ClassPath;
             Slot.Member.Level = Chosen->Level;
-            Slot.Member.LevelBonus = DepthBonus + (Plan.bElite ? EliteLevelBonus : 0);
+            Slot.Member.LevelBonus = DepthBonus + Node->ThreatBonus + (Plan.bElite ? EliteLevelBonus : 0);
             Slot.Member.bOverrideRank = Plan.bElite || Chosen->bRank;
             Slot.Member.Rank = Plan.bElite ? EMonsterRank::Elite : Chosen->Rank;
             Plan.Slots.Add(MoveTemp(Slot));
         }
         if (Plan.Slots.IsEmpty()) continue;
 
-        if (!Plan.bElite) continue;
+        if (!Plan.bElite && !Recipe.bSealedEncounter) continue;
         FVector DoorCenter = FVector::ZeroVector, DoorNormal = FVector::ZeroVector;
         const int32 Entry = Sub->EntryConnectorFor(Recipe.NodeId);
         const bool bDoor = Entry != INDEX_NONE && Sub->EstimateDoorway(Recipe.NodeId, Entry, DoorCenter, DoorNormal);
         if (!bDoor)
-            UE_LOG(LogTemp, Warning, TEXT("[DungeonSpawn] 精英房 %d 门口估算失败：不封门，只生成精英组。"), Recipe.NodeId);
+            UE_LOG(LogTemp, Warning, TEXT("[DungeonSpawn] 遭遇房 %d 门口估算失败：保留开放战斗。"), Recipe.NodeId);
         const FRotator Facing = bDoor ? FRotator(0, DoorNormal.Rotation().Yaw, 0) : FRotator::ZeroRotator;
         const FTransform At(Facing, bDoor ? DoorCenter : Plan.Center);
         FActorSpawnParameters Params;
@@ -266,7 +268,7 @@ void ADungeonSpawnDirector::PlanOpening()
         auto* Encounter = World->SpawnActor<ADungeonRoomEncounter>(ADungeonRoomEncounter::StaticClass(), At, Params);
         if (!Encounter)
         {
-            UE_LOG(LogTemp, Error, TEXT("[DungeonSpawn] 精英房 %d 的封门遭遇创建失败，退化为普通房刷怪。"), Recipe.NodeId);
+            UE_LOG(LogTemp, Error, TEXT("[DungeonSpawn] 遭遇房 %d 的封门遭遇创建失败，退化为普通房刷怪。"), Recipe.NodeId);
             Plan.bElite = false;
             continue;
         }
@@ -277,7 +279,7 @@ void ADungeonSpawnDirector::PlanOpening()
         Encounter->Activate();
         Plan.Encounter = Encounter;
         Plan.bHandledByEncounter = true;
-        UE_LOG(LogTemp, Display, TEXT("[DungeonSpawn] 精英房 %d（%s，深度 %d）：精英组 %d 只，封门%s"),
+        UE_LOG(LogTemp, Display, TEXT("[DungeonSpawn] 遭遇房 %d（%s，深度 %d）：编成 %d 只，封门%s"),
             Recipe.NodeId, *Plan.Module, Plan.Depth, Group.Num(), bDoor ? TEXT("就绪") : TEXT("跳过"));
     }
 }
@@ -287,15 +289,22 @@ void ADungeonSpawnDirector::SelectEliteRooms(const TArray<int32>& Eligible, TArr
     OutEliteNodes.Reset();
     UDungeonRunSubsystem* Sub = Run.Get();
     if (!Sub || Eligible.IsEmpty()) return;
-    // 精英房选择走独立玩法流；按 Route 前缀固定顺序消费，保证可复现。
+    // Mission roles own elite intent; route names are only a legacy fallback.
+    bool HasMission=false;
+    for(int32 Id:Eligible)if(const auto* Node=Sub->NodeById(Id);Node&&!Node->EncounterRole.IsEmpty())
+    {HasMission=true;if(Node->EncounterRole==TEXT("risk_elite"))OutEliteNodes.Add(Id);}
+    if(HasMission)return;
     FRandomStream Stream = Sub->GameplayStream(DungeonRunDomains::EliteSelection);
-    for (const TCHAR* Prefix : { TEXT("Route1"), TEXT("Route2"), TEXT("Route3") })
+    TArray<FString> Routes;
+    for(int32 Id:Eligible)if(const auto* Node=Sub->NodeById(Id);Node&&Node->Route!=TEXT("Approach"))Routes.AddUnique(Node->Route);
+    Routes.Sort();
+    for (const FString& Prefix : Routes)
     {
         TArray<int32> Group;
         for (int32 NodeId : Eligible)
         {
             const FDungeonRunNode* Node = Sub->NodeById(NodeId);
-            if (Node && Node->Route.StartsWith(Prefix)) Group.Add(NodeId);
+            if (Node && Node->Route==Prefix) Group.Add(NodeId);
         }
         if (Group.IsEmpty()) continue;
         // 深度较深者优先：稳定排序（深度、节点号）后取后半再随机。
@@ -303,8 +312,8 @@ void ADungeonSpawnDirector::SelectEliteRooms(const TArray<int32>& Eligible, TArr
         {
             const FDungeonRunNode* NA = Sub->NodeById(A);
             const FDungeonRunNode* NB = Sub->NodeById(B);
-            const int32 DA = NA ? NA->Depth : 0;
-            const int32 DB = NB ? NB->Depth : 0;
+            const int32 DA = NA ? NA->ProgressionDepth : 0;
+            const int32 DB = NB ? NB->ProgressionDepth : 0;
             return DA != DB ? DA < DB : A < B;
         });
         OutEliteNodes.Add(Group[Stream.RandRange(Group.Num() / 2, Group.Num() - 1)]);
@@ -329,7 +338,8 @@ void ADungeonSpawnDirector::Patrol()
     for (int32 Index = 0; Index < Plans.Num(); ++Index)
     {
         FDungeonRoomSpawnPlan& Plan = Plans[Index];
-        if (Active.Contains(Plan.NodeId) && !Plan.bExplored)
+        const auto* RoomNode=Sub->NodeById(Plan.NodeId);
+        if (Player&&RoomNode&&RoomNode->DistanceSquared(PlayerAt)<=FMath::Square(100.) && !Plan.bExplored)
         {
             Plan.bExplored = true;
             Sub->MarkRoomExplored(Plan.NodeId);
@@ -353,7 +363,7 @@ void ADungeonSpawnDirector::Patrol()
 
     // 生成摊帧 + 就近优先：每 tick 最多推进一间房。全局上限满或整房在玩家闸门内时，
     // 本轮什么都不做，下个巡检（0.25s）自然再试——绝不销毁已生成的怪。
-    if (AliveCount() >= FMath::Max(0, DungeonSpawnGlobalCap.GetValueOnGameThread())) return;
+    if (AliveCount() >= OrdinarySpawnLimit()) return;
     int32 Best = INDEX_NONE;
     double BestDistance = TNumericLimits<double>::Max();
     for (int32 Index = 0; Index < Plans.Num(); ++Index)
@@ -377,7 +387,7 @@ void ADungeonSpawnDirector::AttemptRoomSpawns(int32 RoomIndex)
     GetWorldTimerManager().ClearTimer(Plan.RetryTimer);
     if (Plan.bCleared || Plan.bHandledByEncounter || Plan.Candidates.IsEmpty() || !HasPending(Plan)) return;
 
-    const int32 Cap = FMath::Max(0, DungeonSpawnGlobalCap.GetValueOnGameThread());
+    const int32 Cap = OrdinarySpawnLimit();
     int32 Alive = AliveCount();
     APawn* Player = PlayerPawn(this);
     TArray<int32> Active;
@@ -399,15 +409,16 @@ void ADungeonSpawnDirector::AttemptRoomSpawns(int32 RoomIndex)
             continue;
         }
         ACharacter* Monster = nullptr;
+        bool bSlotPlayerBlocked=false,bSlotPlacementFailed=false;
         for (int32 Try = 0; Try < Plan.Candidates.Num(); ++Try)
         {
             const FVector Ground = Plan.Candidates[Plan.NextCandidate % Plan.Candidates.Num()];
             ++Plan.NextCandidate;
-            if (!PlayerGateAllows(World, Ground, MinPlayerDistance)) { bPlayerBlocked = true; break; }
+            if (!PlayerGateAllows(World, Ground, MinPlayerDistance)) { bSlotPlayerBlocked = true; continue; }
             Monster = SpawnMonsterAtGround(World, this, Slot.Member, Ground, YawToward(Ground, Plan.Center), bAwake,
-                Sub->EnemySlotTag(Plan.NodeId, Index));
+                Sub->EnemySlotTag(Plan.NodeId, Index),Sub->NodeById(Plan.NodeId));
             if (Monster) break;
-            bPlacementFailed = true;   // 该候选不合格，换下一个（锚点用尽即散点）
+            bSlotPlacementFailed = true;
         }
         if (Monster)
         {
@@ -421,16 +432,18 @@ void ADungeonSpawnDirector::AttemptRoomSpawns(int32 RoomIndex)
             UE_LOG(LogTemp, Display, TEXT("[DungeonSpawn] 房 %d 槽 %d 生成 %s%s @ %s"), Plan.NodeId, Index,
                 *Slot.Member.ClassPath, bAwake ? TEXT("（醒）") : TEXT("（休眠）"), *Monster->GetActorLocation().ToString());
         }
-        else if (bPlacementFailed && !bPlayerBlocked && !bCapBlocked)
+        else if (bSlotPlacementFailed && !bSlotPlayerBlocked && !bCapBlocked)
         {
             ++Slot.Attempts;
-            if (Slot.Attempts >= MaxSlotAttempts)
+            if (Slot.Attempts >= SpawnDirectorMaxSlotAttempts)
             {
                 Slot.bGivenUp = true;
                 UE_LOG(LogTemp, Warning, TEXT("[DungeonSpawn] 房 %d 槽 %d 连续 %d 次落点/资产校验失败，放弃该槽：%s"),
                     Plan.NodeId, Index, Slot.Attempts, *Slot.Member.ClassPath);
             }
         }
+        bPlacementFailed|=!Monster&&bSlotPlacementFailed;
+        bPlayerBlocked|=!Monster&&bSlotPlayerBlocked;
         if (bPlayerBlocked || bCapBlocked) break;
     }
 
@@ -507,21 +520,15 @@ void ADungeonSpawnDirector::RaiseDamageAlarm(AActor* DamagedActor)
     const FDungeonRunNode* Node = Sub->NodeById(Plan.NodeId);
     UWorld* World = GetWorld();
     if (!Node || !World) return;
-    // 相邻房 = 与该房共享 connector 邻居的房间（1 跳）。只唤醒两步，不注入目标：
+    // 沿连续通道找到相邻房，到房即停；不向相邻怪注入玩家目标：
     // 受击者自身已由 ReceiveHit 自动 RememberDamage。
     const double Until = World->GetTimeSeconds() + AlertSeconds;
-    for (int32 ConnectorId : Node->Neighbors)
+    TArray<int32> Neighbors;Sub->CollectNeighborRooms(Plan.NodeId,Neighbors);
+    for (int32 NextId : Neighbors)
     {
-        const FDungeonRunNode* Connector = Sub->NodeById(ConnectorId);
-        if (!Connector || !Connector->bConnector) continue;
-        for (int32 NextId : Connector->Neighbors)
-        {
-            const FDungeonRunNode* Next = Sub->NodeById(NextId);
-            if (!Next || Next->bConnector || NextId == Plan.NodeId) continue;
-            AlertUntil.FindOrAdd(NextId) = Until;
-            const int32 Other = PlanIndexOfRoom(NextId);
-            if (Other != INDEX_NONE) WakeRoom(Other);
-        }
+        AlertUntil.FindOrAdd(NextId) = Until;
+        const int32 Other = PlanIndexOfRoom(NextId);
+        if (Other != INDEX_NONE) WakeRoom(Other);
     }
 }
 
@@ -567,9 +574,28 @@ int32 ADungeonSpawnDirector::AliveCount() const
 {
     int32 Count = 0;
     for (const FDungeonRoomSpawnPlan& Plan : Plans)
+    {
+        if(Plan.bHandledByEncounter)
+        {if(const auto* Encounter=Plan.Encounter.Get())Count+=Encounter->AliveCount();continue;}
         for (const FDungeonSpawnSlot& Slot : Plan.Slots)
             if (Slot.bFilled && !Slot.bGivenUp && !IsMonsterDead(Slot.Monster.Get())) ++Count;
+    }
     return Count;
+}
+
+bool ADungeonSpawnDirector::CanSpawnMember()const
+{
+    return bArmed&&AliveCount()<FMath::Max(0,DungeonSpawnGlobalCap.GetValueOnGameThread());
+}
+
+int32 ADungeonSpawnDirector::OrdinarySpawnLimit()const
+{
+    const int32 Cap=FMath::Max(0,DungeonSpawnGlobalCap.GetValueOnGameThread());
+    int32 Reserve=0;
+    for(const auto& Plan:Plans)if(const auto* Encounter=Plan.Encounter.Get())
+        Reserve=FMath::Max(Reserve,Encounter->PendingCount());
+    // Reserve one encounter wave without removing any already spawned monster.
+    return FMath::Max(0,Cap-FMath::Min(Reserve,FMath::Max(0,Cap-1)));
 }
 
 bool ADungeonSpawnDirector::HasPending(const FDungeonRoomSpawnPlan& Plan)
@@ -605,7 +631,7 @@ UClass* ADungeonSpawnDirector::ResolveMonsterClass(const FString& ClassPath)
 }
 
 ACharacter* ADungeonSpawnDirector::SpawnMonsterAtGround(UObject* WorldContext, AActor* Owner, const FDungeonSpawnMember& Member,
-    const FVector& Ground, const FRotator& Facing, bool bAwake, FName SlotTag)
+    const FVector& Ground, const FRotator& Facing, bool bAwake, FName SlotTag, const FDungeonRunNode* Room)
 {
     UWorld* World = ContextWorld(WorldContext);
     UClass* Class = ResolveMonsterClass(Member.ClassPath);
@@ -628,6 +654,7 @@ ACharacter* ADungeonSpawnDirector::SpawnMonsterAtGround(UObject* WorldContext, A
         NavData->GetConfig().AgentHeight + KINDA_SMALL_NUMBER < Agent.AgentHeight) return nullptr;
     // 绝不让投影把怪抬到上层平台或推进隔壁房。
     if (FMath::Abs(Location.Location.Z - Ground.Z) > 55 || (Location.Location - Ground).Size2D() > 150) return nullptr;
+    if(Room&&!Room->AllowsSpawn(Location.Location))return nullptr;
 
     const FVector Position = Location.Location + FVector(0, 0, Capsule->GetScaledCapsuleHalfHeight() + 3);
     const FTransform Transform(FRotator(0, Facing.Yaw, 0), Position);
@@ -686,19 +713,28 @@ void ADungeonSpawnDirector::BuildRoomCandidates(UObject* WorldContext, UDungeonR
     const FDungeonRunNode* Node = Subsystem->NodeById(NodeId);
     if (!Node || !Node->Volume.IsValid) return;
     // 落点流与编成流同构：只依赖 seed + 节点，重试时序不影响可复现性。
-    FRandomStream Placement = Subsystem->GameplayStream(DungeonRunDomains::SpawnPlacement ^ ((uint32)NodeId * NodeMix));
+    FRandomStream Placement = Subsystem->GameplayStream(DungeonRunDomains::SpawnPlacement ^ Subsystem->NodeRandomSalt(NodeId));
 
     // 1) 优先锚点：anchor_roles 前缀合并去重后按流打乱（手写 Fisher-Yates，保证逐位可复现）。
     TArray<ATargetPoint*> Anchors;
     for (const FString& Role : AnchorRoles)
         for (ATargetPoint* Anchor : Subsystem->RoomAnchors(NodeId, *Role))
             if (IsValid(Anchor) && !Anchors.Contains(Anchor)) Anchors.Add(Anchor);
+    // Actor iteration order changes across staged assemblies; order by authored position first.
+    Anchors.StableSort([](const ATargetPoint& A,const ATargetPoint& B)
+    {
+        const FVector P=A.GetActorLocation(),Q=B.GetActorLocation();
+        if(P.X!=Q.X)return P.X<Q.X;
+        if(P.Y!=Q.Y)return P.Y<Q.Y;
+        return P.Z<Q.Z;
+    });
     for (int32 Index = Anchors.Num() - 1; Index > 0; --Index)
     {
         const int32 Other = Placement.RandRange(0, Index);
         Anchors.Swap(Index, Other);
     }
-    for (const ATargetPoint* Anchor : Anchors) OutCandidates.Add(Anchor->GetActorLocation());
+    for (const ATargetPoint* Anchor : Anchors)
+        if(Node->AllowsSpawn(Anchor->GetActorLocation()))OutCandidates.Add(Anchor->GetActorLocation());
 
     // 2) 兜底散点：房间体积内随机 XY + 地面 trace + 坡度闸门（村庄 spawner 口径）。
     //    起始高度阶梯覆盖"体积底=地板面"与"体积底=楼板底"两种目录口径。
@@ -717,6 +753,7 @@ void ADungeonSpawnDirector::BuildRoomCandidates(UObject* WorldContext, UDungeonR
             FHitResult Hit;
             if (!World->LineTraceSingleByChannel(Hit, FVector(X, Y, StartZ), FVector(X, Y, Node->Volume.Min.Z - 60.0), ECC_WorldStatic, Query)) continue;
             if (Hit.ImpactNormal.Z < MinGroundNormalZ || Hit.ImpactPoint.Z < Node->Volume.Min.Z - 20.0) break;
+            if(!Node->AllowsSpawn(Hit.ImpactPoint))continue;
             OutCandidates.Add(Hit.ImpactPoint);
             break;
         }
@@ -738,6 +775,12 @@ void ADungeonSpawnDirector::WriteLevelRank(ACharacter* Monster, const FDungeonSp
         if (Member.Level > 0) W->Level = Member.Level;
         W->Level = FMath::Max(1, W->Level + Member.LevelBonus);
         if (Member.bOverrideRank) W->Rank = Member.Rank;
+    }
+    else if (auto* F = Cast<AFleshHandMonster>(Monster))
+    {
+        if (Member.Level > 0) F->Level = Member.Level;
+        F->Level = FMath::Max(1, F->Level + Member.LevelBonus);
+        if (Member.bOverrideRank) F->Rank = Member.Rank;
     }
     else if (auto* H = Cast<AHandBrainMonster>(Monster))
     {

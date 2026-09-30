@@ -233,7 +233,7 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* 
         };
         for(const FVoxelSmeltingJob& Job:LoadedData->Smelting)
         {
-            if(!IsFurnaceCell(Job.Cell)||Job.Recipe.IsNone()||Job.ProgressSeconds<0||Job.BurnStartTicks<0)
+            if(!IsFurnaceCell(Job.Cell)||(!Job.bCasting&&Job.Recipe.IsNone())||Job.ProgressSeconds<0||Job.BurnStartTicks<0)
             {UE_LOG(LogTemp,Warning,TEXT("Voxel structure skipped an orphan smelting job @格(%d,%d,%d)"),
                 Job.Cell.X,Job.Cell.Y,Job.Cell.Z);continue;}
             SmeltingJobs.Add(Job);
@@ -372,6 +372,12 @@ void AVoxelBuildWorld::RefreshSupportGraph()
     for(const auto& V:FreeVolumes)for(const auto& E:V.Value.Cells)Add(V.Key,E.Key,E.Value);
     // Only exposed bottoms can form a foundation. Interior voxels in tall
     // solid structures need no terrain raycasts during world initialization.
+    // 审计 W2（2026-09-23）：查询参数整轮共用一次；锚定判定按 (Volume, X, Y) 列记忆化——
+    // 同一竖直列只有最底格会被射线命中，其余格子查表即可。2 万格城堡的载入从 N×5 条同步
+    // 射线降到"列数 × 每列首格一次"。语义不变：同列下方有格 ⇒ Covered ⇒ 不调 IsGroundAnchor；
+    // 走到采样时说明该列首格就是候选，结果对整列一致。
+    const FCollisionQueryParams GroundParams=VoxelGrounding::Query(GetWorld(),this);
+    TMap<TTuple<FGuid,FIntVector>,bool> ColumnAnchored;
     for(auto& E:SupportGraph->Nodes)
     {
         bool Covered=false;
@@ -382,7 +388,18 @@ void AVoxelBuildWorld::RefreshSupportGraph()
         }
         // 支撑锚（2026-09-19）：地面锚定之外，面对面贴着已放置构件（门／窗／柱）也算有着落——
         // 以前贴窗框侧面砌的块没有地基路径，整条被"缺少与地基相连的接触面"拒绝。
-        E.Value.bAnchor=!Covered&&(IsGroundAnchor(E.Value.Min)||PrefabSupportAt(E.Value.Min));
+        bool bAnchor=false;
+        if(!Covered)
+        {
+            if(PrefabSupportAt(E.Value.Min))bAnchor=true;
+            else
+            {
+                const auto Column=MakeTuple(E.Key.Volume,FIntVector(E.Key.Cell.X,E.Key.Cell.Y,0));
+                if(const bool* Known=ColumnAnchored.Find(Column))bAnchor=*Known;
+                else {const bool bNew=IsGroundAnchor(E.Value.Min,&GroundParams);ColumnAnchored.Add(Column,bNew);bAnchor=bNew;}
+            }
+        }
+        E.Value.bAnchor=bAnchor;
     }
     SupportGraph->SolveConnectivity();
 }
@@ -396,6 +413,8 @@ bool AVoxelBuildWorld::CanPlaceAt(FVector Origin,const TArray<FIntVector>& Posit
     // Pawn（TActorIterator）并分配 IgnoreActors，而它原来被 ScenePlacementAllowed 逐格调用
     // ——5×5 刷子就是 25 次全 Actor 表遍历 + 25 次分配，且每次校验都会重跑。
     const FCollisionQueryParams Params=VoxelGrounding::Query(GetWorld(),this);
+    // 审计 W1（2026-09-23）：ScenePlacementAllowed 内部的 Sample 也改用这份共享 Params——
+    // 原实现即使传了 CachedParams 也会在锚定采样处重新 Query 一遍，白付 N 次全 Actor 遍历。
     FVoxelSupportGraph Draft;const FGuid DraftId=FGuid::NewGuid();TSet<FIntVector> Seen;
     for(const auto& Cell:Positions)
     {
@@ -461,7 +480,19 @@ bool AVoxelBuildWorld::PlaceFree(FVector Origin,const TArray<FIntVector>& Positi
     if(!bReady||GetNetMode()!=NM_Standalone)return false;
     if(!CanPlaceFree(Origin,Positions,Material,Message))return false;
     FVoxelFreeVolume Volume;Volume.Id=FGuid::NewGuid();Volume.Origin=Origin;FreeVolumes.Add(Volume.Id,Volume);
-    if(!EditVolumeCells(Volume.Id,Positions,Material)){FreeVolumes.Remove(Volume.Id);return false;}
+    if(!EditVolumeCells(Volume.Id,Positions,Material))
+    {
+        // 审计 W4（2026-09-23）：体积回滚只删了 FreeVolumes 条目；若失败发生在 ApplyChanges
+        // 之后，该 Volume 键的 CellDamage/BrokenBonds/NodeEpoch/LoadRatios 残留会永久留在
+        // 存档里（Volume 已失效，任何路径都不会再清）。这里按同一 Volume 键统一清扫。
+        const FGuid Dead=Volume.Id;
+        FreeVolumes.Remove(Dead);
+        for(auto It=CellDamage.CreateIterator();It;++It)if(It.Key().Volume==Dead)It.RemoveCurrent();
+        for(auto It=Runtime->NodeEpoch.CreateIterator();It;++It)if(It.Key().Volume==Dead)It.RemoveCurrent();
+        for(auto It=Runtime->LoadRatios.CreateIterator();It;++It)if(It.Key().Volume==Dead)It.RemoveCurrent();
+        for(auto It=SupportGraph->Broken.CreateIterator();It;++It)if(It->A.Volume==Dead||It->B.Volume==Dead)It.RemoveCurrent();
+        return false;
+    }
     return true;
 }
 
@@ -498,6 +529,9 @@ void AVoxelBuildWorld::SetCell(const FVoxelEditCell& E,bool bAfter)
 
 void AVoxelBuildWorld::ApplyChanges(const TArray<FVoxelEditCell>& Edit)
 {
+    // 审计 W1（2026-09-23）：地面锚定的查询参数提到格循环外构造一次。IsGroundAnchor 每次内部
+    // 都要做一次全 Pawn 遍历 + 5 条射线；拆一面 500 格的墙原来就是 500 次重复 Query。
+    const FCollisionQueryParams GroundParams=VoxelGrounding::Query(GetWorld(),this);
     for(const auto& E:Edit)
     {
         const FVoxelBuildKey Key{E.Volume,E.Position};
@@ -513,7 +547,7 @@ void AVoxelBuildWorld::ApplyChanges(const TArray<FVoxelEditCell>& Edit)
             // A newly built block has fresh joints; old debris has independent identities.
             for(auto It=SupportGraph->Broken.CreateIterator();It;++It)if(It->A==Key||It->B==Key)It.RemoveCurrent();
             const FVector Min=VolumeOrigin(E.Volume)+CellMin(E.Position);
-            const bool Anchor=IsGroundAnchor(Min)||PrefabSupportAt(Min);   // 贴靠构件也算地基（2026-09-19）
+            const bool Anchor=IsGroundAnchor(Min,&GroundParams)||PrefabSupportAt(Min);   // 贴靠构件也算地基（2026-09-19）
             const auto* Definition=Palette->Find(E.After);
             SupportGraph->Add({Key,Min,Anchor,Definition&&Definition->bSupportsWeight,E.After,Palette->Physical(E.After)});
             // Connectivity remains provisional until the worker publishes stresses.
@@ -563,18 +597,28 @@ bool AVoxelBuildWorld::Undo(TMap<FName,int32>* OutRemovedBlocks)
     // 撤销 = 拆除最后一批放置（方块交回调用方回收），而不是恢复之前拆掉的东西。
     const TArray<FVoxelEditCell> Batch=History.Last();History.Pop();
     TArray<FVoxelEditCell> Reverse;TMap<FName,int32> Removed;
+    // 审计 W5（2026-09-23）：批次里被破坏/塌掉的格原来静默跳过，提示语却仍写"已拆除最近一批"——
+    // 玩家以为全撤了。现在计数并写明差额。
+    int32 Missing=0;
     for(const FVoxelEditCell& E:Batch)
     {
         if(E.After.IsNone())continue;
         const FName Existing=VolumeMaterialAt(E.Volume,E.Position);
-        if(Existing.IsNone())continue;
+        if(Existing.IsNone()){++Missing;continue;}
         Removed.FindOrAdd(Existing)++;
         Reverse.Add({E.Position,Existing,NAME_None,E.Volume});
     }
     if(Reverse.IsEmpty()){Message=TEXT("没有可撤销的建造");return false;}
+    // 审计 W6（2026-09-23）：Commit(bRemember=false) 会无条件清掉上一批的保护窗口、又不给
+    // 撤销批次设新窗口——前一批尚未结算完的新件会在无保护状态下被后续解算判负。这里把撤销
+    // 本身当作一次"新事件"：它只拆不建，FreshCells 留空即语义正确（没有新件需要保护），
+    // 但 FreshAt 必须刷新，让旧窗口的到期判定从此刻重新计时，而不是被这次提交提前掐断。
     if(!Commit(Reverse,false)){Message=TEXT("撤销失败 · 结构未改变");return false;}
+    Runtime->FreshAt=GetWorld()->GetTimeSeconds();
     if(OutRemovedBlocks)*OutRemovedBlocks=MoveTemp(Removed);
-    Message=TEXT("已拆除最近一批建造");
+    Message=Missing>0?FString::Printf(TEXT("已拆除最近一批建造 · %d 格"),Reverse.Num())
+        +FString::Printf(TEXT(" · 其中 %d 格已不存在"),Missing)
+        :FString(TEXT("已拆除最近一批建造"));
     return true;
 }
 
@@ -607,7 +651,20 @@ void AVoxelBuildWorld::EndPlay(const EEndPlayReason::Type Reason)
     bClosing=true;
     if(bReady)
     {
-        while(!Runtime->DamageQueue.IsEmpty())TickDamage();
+        // 审计 W7（2026-09-23）：TickDamage 的残骸替换路径会向队列回灌，正常连锁应当收敛，
+        // 但这里没有任何上限——病态连锁（大量残骸同时落地）可以把关卡切换卡死在这行。
+        // 加轮数上限：超出即放弃排空并记日志（世界正在销毁，残留伤害随存档 flush 前丢弃可接受）。
+        int32 DrainRounds=0;
+        while(!Runtime->DamageQueue.IsEmpty())
+        {
+            TickDamage();
+            if(++DrainRounds>=10000)
+            {
+                UE_LOG(LogTemp,Error,TEXT("Voxel structure damage drain did not converge at shutdown slot=%s remaining=%d"),
+                    *SaveSlot,Runtime->DamageQueue.Num());
+                break;
+            }
+        }
         // Join only at world teardown; workers own snapshots and never touch UObjects.
         if(Runtime->Stress.IsValid())Runtime->Stress.Wait();
         for(auto& Job:Runtime->MeshJobs)if(Job.Future.IsValid())Job.Future.Wait();
@@ -646,6 +703,22 @@ void AVoxelBuildWorld::SolverStats(float& OutSeconds,int32& OutNodes,int32& OutB
 bool AVoxelBuildWorld::LastSolveWasFull() const
 {
     return Runtime->bGatherFullSolve;
+}
+
+uint64 AVoxelBuildWorld::StatusFingerprint() const
+{
+    // 审计 U1（2026-09-23）：StructureStatus 的过渡态分支不随 Revision 变化，UI 生产端签名
+    // 需要这些内部标志才能避免"过渡期状态行冻结"。每个分支一个位；顺序与 StructureStatus
+    // 的判定顺序一致。纯位打包，零分配。
+    uint64 Bits=0;
+    if(Runtime->bSaveFailed)Bits|=1;
+    else if(Runtime->bFreshRolledBack)Bits|=2;
+    else if(!Runtime->PendingFragments.IsEmpty()||!Runtime->Activation.IsEmpty())Bits|=4;
+    else if(Runtime->Stress.IsValid()||!Runtime->DirtySupport.IsEmpty()||!Runtime->GatherQueue.IsEmpty())Bits|=8;
+    else if(Runtime->bStressApproximate)Bits|=16;
+    else if(!LegacyProtected.IsEmpty())Bits|=32;
+    else Bits|=(Runtime->bSaveDirty||Runtime->SaveJob.IsValid()?64:128);
+    return Bits;
 }
 
 float AVoxelBuildWorld::WeakestJointRatio() const

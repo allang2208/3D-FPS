@@ -1,4 +1,5 @@
 #include "AuthoredDungeonGenerator.h"
+#include "Templates/Atomic.h"
 #include "../WorldGeneration/RiverPilotFXSubsystem.h"
 #include "DungeonPusChannel.h"
 #include "Async/Async.h"
@@ -26,6 +27,7 @@
 #include "Engine/SpotLight.h"
 #include "Engine/TargetPoint.h"
 #include "Engine/World.h"
+#include "CollisionQueryParams.h"
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonSerializer.h"
 #include "Materials/MaterialInterface.h"
@@ -36,6 +38,11 @@
 #include "Misc/DateTime.h"
 #include "TimerManager.h"
 #include "DungeonBossEncounter.h"
+#include "WardRoomAssembly.h"
+#include "DungeonWallArt.h"
+#include "DungeonRunSubsystem.h"
+#include "DungeonSpawnDirector.h"
+#include "AuthoredDungeonRoomScenes.h"
 #include "../Monsters/HandBrainMonster.h"
 #include "../SceneTestPortal.h"
 #include "NavigationSystem.h"
@@ -65,9 +72,9 @@ FPort ReadPort(const JObject& Data)
     Data->TryGetNumberField(TEXT("width"),Port.Width);Data->TryGetNumberField(TEXT("height"),Port.Height);
     return Port;
 }
-struct FSideSocket { FPort Port; JObject Data; };
-struct FModule { FString Id,Family; FBox Bounds; TArray<FPort> Ports; JObject Data; TArray<FBox> Cells; TArray<FSideSocket> SideSockets; };
-struct FPlaced { int32 Module; FTransform Transform; FBox Bounds; FString Route; TArray<FBox> Cells; int32 Side=-1; };
+struct FSideSocket { FPort Port; JObject Data; int32 SourcePort=INDEX_NONE; };
+struct FModule { FString Id,Family; FBox Bounds; TArray<FPort> Ports; JObject Data; TArray<FBox> Cells; TArray<FSideSocket> SideSockets; TArray<FIntPoint> PortPairs; FString SelectionRoute; int32 MaxPerRun=MAX_int32; bool bRunEligible=true; };
+struct FPlaced { int32 Module; FTransform Transform; FBox Bounds; FString Route; TArray<FBox> Cells; int32 Side=-1; int32 LinkTurns=-1; double LinkLength=0; TArray<int32> ActivePorts; FString MissionId,EncounterRole; int32 ThreatBonus=0; double RewardMultiplier=1.; int32 MissionDepth=INDEX_NONE; };
 struct FSocket { FVector P,N; int32 Owner=-1; double Width=300,Height=280; double ReservedLead=0; };
 struct FPlan
 {
@@ -82,6 +89,17 @@ struct FPlan
     int32 SearchBudget=0;
     int32 MinRooms=3,MaxRooms=5,GroupLinks=3,BranchLinks=6;
     bool bStrictPorts=false;
+    uint32 ConnectionSeed=0;
+    double PlanningDeadline=DBL_MAX;
+    bool bSearchExpired=false;
+    TAtomic<bool>* CancelRequested=nullptr;
+    bool CanSearch()
+    {
+        if(CancelRequested&&CancelRequested->Load())return false;
+        if(bSearchExpired)return false;
+        if(FPlatformTime::Seconds()>PlanningDeadline){bSearchExpired=true;return false;}
+        return true;
+    }
     bool Compatible(const FSocket& Socket,int32 Module,int32 Entry)const
     {
         if(!Modules.IsValidIndex(Module)||!Modules[Module].Ports.IsValidIndex(Entry))return false;
@@ -111,12 +129,32 @@ struct FPlan
         const auto& P=Port<M.Ports.Num()?M.Ports[Port]:M.SideSockets[A.Side].Port;
         return {A.Transform.TransformPosition(P.P),A.Transform.TransformVectorNoScale(P.N),Owner,P.Width,P.Height};
     }
-    int32 PortCount(int32 Owner)const{return Modules[Pieces[Owner].Module].Ports.Num()+(Pieces[Owner].Side>=0?1:0);}
+    int32 OptionalPort(int32 Owner,int32 Side)const
+    {
+        const auto& M=Modules[Pieces[Owner].Module];
+        return M.SideSockets[Side].SourcePort>=0?M.SideSockets[Side].SourcePort:M.Ports.Num();
+    }
+    TArray<int32> OpenPorts(int32 Owner)const
+    {
+        const auto& P=Pieces[Owner];TArray<int32> Result=P.ActivePorts;
+        if(Result.IsEmpty())for(int32 I=0;I<Modules[P.Module].Ports.Num();++I)Result.Add(I);
+        if(P.Side>=0)Result.AddUnique(OptionalPort(Owner,P.Side));return Result;
+    }
+    bool SideAvailable(int32 Owner,int32 Side)const
+    {return Pieces[Owner].Side<0&&!OpenPorts(Owner).Contains(OptionalPort(Owner,Side));}
+    int32 PairedExit(int32 Module,int32 Entry)const
+    {
+        for(const FIntPoint& Pair:Modules[Module].PortPairs)
+        {if(Pair.X==Entry)return Pair.Y;if(Pair.Y==Entry)return Pair.X;}
+        return INDEX_NONE;
+    }
     #include "AuthoredDungeonRoomChoices.inl"
     bool Place(int32 Module,const FTransform& T,const FString& Route,int32 IgnoreFrom=-2,int32 IgnoreOwner=-2,
-               FVector SectorOrigin=FVector::ZeroVector,FVector SectorDir=FVector::ZeroVector,int32 SecondOwner=-2)
+               FVector SectorOrigin=FVector::ZeroVector,FVector SectorDir=FVector::ZeroVector,int32 SecondOwner=-2,
+               const TArray<int32>& ActivePorts={})
     {
         // Room shells stay rigid. Only straight connector length may change.
+        if(Combat.Contains(Module)&&!RoomAllowed(Module,Route))return false;
         const FVector Scale=T.GetScale3D();
         if(T.ContainsNaN()||Scale.GetMin()<=0||!FMath::IsNearlyEqual(Scale.X,1.,.0001)||
            !FMath::IsNearlyEqual(Scale.Z,1.,.0001)||(Module!=Transit&&!FMath::IsNearlyEqual(Scale.Y,1.,.0001)))return false;
@@ -128,7 +166,7 @@ struct FPlan
             if(Overlap(B,Pieces[I].Bounds))
                 for(const FBox& Cell:Cells)for(const FBox& Other:Pieces[I].Cells)if(Overlap(Cell,Other))
                 {
-                    if(!JoinedWallSeam(Module,T,I,Cell.Overlap(Other)))return false;
+                    if(!JoinedWallSeam(Module,T,I,Cell.Overlap(Other),ActivePorts))return false;
                 }
         if(!SectorDir.IsNearlyZero())
         {
@@ -140,7 +178,7 @@ struct FPlan
                 if(Forward<400||FMath::Abs(FVector::DotProduct(D,Side))>Forward*.85+150)return false;
             }
         }
-        Pieces.Add({Module,T,B,Route,Cells});return true;
+        const int32 Added=Pieces.Add({Module,T,B,Route,Cells});Pieces[Added].ActivePorts=ActivePorts;return true;
     }
     bool Corridor(int32 Count,FSocket& S,const FString& Route,int32 Connector=-1)
     {
@@ -157,28 +195,40 @@ struct FPlan
     bool Chain(int32 Remaining,FSocket& S,const FString& Route,FVector SectorOrigin={},FVector SectorDir={})
     {
         if(Remaining==0)return true;
-        if(SearchBudget<=0)return false;
+        if(SearchBudget<=0||!CanSearch())return false;
         const auto Choices=RoomChoices(Route);
         const int32 Before=Pieces.Num();const FSocket Initial=S;
-        const auto Links=RoomLinks(Initial);
+        auto Links=RoomLinks(Initial);
+        RankRoomLinks(Links,Initial,Route);
         for(const auto& Choice:Choices)for(const auto& Link:Links)
         {
             Pieces.SetNum(Before);S=Initial;
-            if(--SearchBudget<0)return false;
-            if(!AttachRoom(Choice.Key,Choice.Value,Initial,Link,Route,S,SectorOrigin,SectorDir))continue;
+            if(--SearchBudget<0||!CanSearch()){Pieces.SetNum(Before);S=Initial;return false;}
+            if(!AttachRoom(Choice.Key,Choice.Value,Initial,Link,Route,S,SectorOrigin,SectorDir,Choice.Exit))continue;
             if(Chain(Remaining-1,S,Route,SectorOrigin,SectorDir))return true;
         }
         Pieces.SetNum(Before);S=Initial;return false;
     }
     #include "AuthoredDungeonRouting.inl"
-    #include "AuthoredDungeonCompactRouting.inl"
-    bool Build(int32 Seed,const FSocket& Start)
+    TAtomic<int32>* SearchProgress=nullptr;
+    TAtomic<int32>* SearchProgressLimit=nullptr;
+    void NoteSearch(int32 Attempt,int32 Limit)
     {
-        if(bBossTerminal&&bCompactBoss)return BuildCompact(Seed,Start);
-        for(int32 Attempt=0;Attempt<80;++Attempt)
+        if(SearchProgress)SearchProgress->Store(Attempt);
+        if(SearchProgressLimit)SearchProgressLimit->Store(Limit);
+    }
+    #include "AuthoredDungeonCompactRouting.inl"
+    #include "AuthoredDungeonTopology.inl"
+    #include "AuthoredDungeonMission.inl"
+    bool BuildOpen(int32 Seed,const FSocket& Start,double Deadline)
+    {
+        constexpr int32 OpenTries=48;
+        for(int32 Attempt=0;Attempt<OpenTries;++Attempt)
         {
-            Pieces.Reset();Counts.Reset();Random.Initialize(Seed+Attempt*7919);SearchBudget=2500;
-            FSocket S=Start;const int32 MainCount=Random.RandRange(MinRooms,MaxRooms);Counts.Add(MainCount);
+            if(FPlatformTime::Seconds()>Deadline||!CanSearch())break;
+            NoteSearch(Attempt+1,OpenTries);
+            Pieces.Reset();Counts.Reset();Random.Initialize(int32(uint32(Seed)+uint32(Attempt)*7919u));SearchBudget=2500;CompactBudget=20000;
+            FSocket S=Start;const int32 MainCount=TopologyCounts[0];Counts.Add(MainCount);
             if(!Chain(MainCount,S,TEXT("Approach"))||!Corridor(GroupLinks,S,TEXT("Approach")))continue;
             if(!Place(Junction,Fit(Junction,0,S),TEXT("Junction"),-2,S.Owner))continue;
             const int32 Hub=Pieces.Num()-1;
@@ -196,7 +246,7 @@ struct FPlan
             if(!Good)continue;
             for(int32 I=0;I<3;++I)
             {
-                const FString Route=FString::Printf(TEXT("Route%d"),I+1);const int32 Count=Random.RandRange(MinRooms,MaxRooms);Counts.Add(Count);
+                const FString Route=FString::Printf(TEXT("Route%d"),I+1);const int32 Count=TopologyCounts[I+1];Counts.Add(Count);
                 FSocket Branch=Exits[I];
                 if(!Chain(Count,Branch,Route,Center,Directions[I])||!Corridor(GroupLinks,Branch,Route))
                 {Good=false;break;}
@@ -207,6 +257,16 @@ struct FPlan
         }
         return false;
     }
+    bool Build(int32 Seed,const FSocket& Start)
+    {
+        if(bBossTerminal&&bCompactBoss)
+        {
+            // A failed underground plan must never become the old same-floor,
+            // 220 m terminal while still reporting an underground manifest.
+            return BuildCompact(Seed,Start,PlanningDeadline);
+        }
+        return BuildOpen(Seed,Start,PlanningDeadline);
+    }
     void AddTreasureRooms(int32 Seed)
     {
         if(Treasure<0||TreasureLink<0||TreasureChance<=0)return;
@@ -215,8 +275,10 @@ struct FPlan
         for(int32 Owner=0;Owner<MainPieces;++Owner)
         {
             const int32 ParentModule=Pieces[Owner].Module;
-            if(!Combat.Contains(ParentModule)||Modules[ParentModule].SideSockets.IsEmpty()||SideRandom.FRand()>=TreasureChance)continue;
-            TArray<int32> Choices;for(int32 I=0;I<Modules[ParentModule].SideSockets.Num();++I)Choices.Add(I);
+            if(!Combat.Contains(ParentModule)||Modules[ParentModule].SideSockets.IsEmpty())continue;
+            const bool bTryTreasure=SideRandom.FRand()<TreasureChance;
+            if(Pieces[Owner].Side>=0||!bTryTreasure)continue;
+            TArray<int32> Choices;for(int32 I=0;I<Modules[ParentModule].SideSockets.Num();++I)if(SideAvailable(Owner,I))Choices.Add(I);
             for(int32 I=Choices.Num()-1;I>0;--I)Choices.Swap(I,SideRandom.RandRange(0,I));
             const int32 Before=Pieces.Num();
             for(int32 Side:Choices)
@@ -229,6 +291,7 @@ struct FPlan
                 if(!Place(TreasureLink,Fit(TreasureLink,0,S),Route,-2,Owner)){Pieces[Owner].Side=-1;continue;}
                 S=Socket(Pieces.Num()-1,1);
                 if(!Place(Treasure,Fit(Treasure,0,S),Route,-2,S.Owner)){Pieces[Owner].Side=-1;continue;}
+                if(!MeasureMissionBudget()){Pieces.SetNum(Before);Pieces[Owner].Side=-1;continue;}
                 // The wall is opened only after both the vestibule and the entire side room fit.
                 Pieces[Owner].Side=Side;++TreasureCount;break;
             }
@@ -269,6 +332,9 @@ struct FAuthoredDungeonBuildState
     bool bStaging=false,bCommitted=false,bNavigationRequested=false;
     double NavigationRequestedAt=0;
     bool bPlanning=true,bPlanSucceeded=false,bRuntime=false,bCompleted=false;
+    TAtomic<int32> SearchAttempt{0};
+    TAtomic<int32> SearchAttemptLimit{1};
+    TAtomic<bool> CancelRequested{false};
 };
 
 namespace
@@ -356,6 +422,7 @@ void AAuthoredDungeonGenerator::Generate(int32 Seed)
     {State->Error=TEXT("地牢目录无法读取");State->bPlanning=false;PumpAssembly(true);return;}
     State->Catalog=Catalog;
     FPlan& Plan=State->Plan;
+    Plan.bLayoutProbe=IsRunningCommandlet()&&FParse::Param(FCommandLine::Get(),TEXT("DungeonLayoutProbe"));
     Plan.MinRooms=FMath::Max(1,int32(Catalog->GetNumberField(TEXT("min_rooms"))));
     Plan.MaxRooms=FMath::Max(Plan.MinRooms,int32(Catalog->GetNumberField(TEXT("max_rooms"))));
     Plan.GroupLinks=FMath::Max(1,int32(Catalog->GetNumberField(TEXT("group_links"))));
@@ -366,11 +433,25 @@ void AAuthoredDungeonGenerator::Generate(int32 Seed)
     {
         JObject D=Value->AsObject();FModule M;M.Data=D;M.Id=D->GetStringField(TEXT("id"));M.Family=M.Id;
         D->TryGetStringField(TEXT("family_id"),M.Family);M.Bounds=FBox(Vec(D,TEXT("min")),Vec(D,TEXT("max")));
+        const JObject* Selection=nullptr;
+        if(D->TryGetObjectField(TEXT("selection"),Selection))
+        {
+            double Chance=1.;(*Selection)->TryGetNumberField(TEXT("chance_per_run"),Chance);
+            (*Selection)->TryGetNumberField(TEXT("max_per_run"),M.MaxPerRun);
+            (*Selection)->TryGetStringField(TEXT("route"),M.SelectionRoute);
+            // One draw per seed/module, outside backtracking and decoration streams.
+            FRandomStream Eligibility(int32(HashCombineFast(uint32(Seed)^0x53504543u,GetTypeHash(M.Id))));
+            M.bRunEligible=Eligibility.FRand()<FMath::Clamp(Chance,0.,1.);
+        }
         for(const auto& V:D->GetArrayField(TEXT("ports")))M.Ports.Add(ReadPort(V->AsObject()));
         for(const auto& V:D->GetArrayField(TEXT("cells"))){JObject C=V->AsObject();M.Cells.Add(FBox(Vec(C,TEXT("min")),Vec(C,TEXT("max"))));}
         const TArray<TSharedPtr<FJsonValue>>* Sides=nullptr;
         if(D->TryGetArrayField(TEXT("side_sockets"),Sides))for(const auto& V:*Sides)
-        {JObject S=V->AsObject();M.SideSockets.Add({ReadPort(S),S});}
+        {JObject S=V->AsObject();int32 Port=INDEX_NONE;S->TryGetNumberField(TEXT("port_index"),Port);M.SideSockets.Add({ReadPort(S),S,Port});}
+        const TArray<TSharedPtr<FJsonValue>>* Pairs=nullptr;
+        if(D->TryGetArrayField(TEXT("port_pairs"),Pairs))for(const auto& V:*Pairs)
+        {const auto& Pair=V->AsArray();if(Pair.Num()==2)M.PortPairs.Add(FIntPoint(int32(Pair[0]->AsNumber()),int32(Pair[1]->AsNumber())));}
+        else if(M.Ports.Num()==2)M.PortPairs.Add(FIntPoint(0,1));
         if(Plan.Find(M.Id)>=0||M.Cells.IsEmpty()||M.Ports.IsEmpty())
         {State->Error=TEXT("地牢模块重复或缺少占地/端口：")+M.Id;State->bPlanning=false;PumpAssembly(true);return;}
         Plan.Modules.Add(M);
@@ -404,28 +485,37 @@ void AAuthoredDungeonGenerator::Generate(int32 Seed)
     for(int32 Index:Plan.Combat)
     {
         const auto& Room=Plan.Modules[Index];FString RoomRole;Room.Data->TryGetStringField(TEXT("role"),RoomRole);
-        if(Room.Ports.Num()!=2||RoomRole==TEXT("boss_terminal")||RoomRole==TEXT("terminal_confluence"))
-        {State->Error=TEXT("普通房池必须使用双门战斗房：")+Room.Id;State->bPlanning=false;PumpAssembly(true);return;}
+        if(Room.PortPairs.IsEmpty()||RoomRole==TEXT("boss_terminal")||RoomRole==TEXT("terminal_confluence"))
+        {State->Error=TEXT("普通房池缺少合法门位配对：")+Room.Id;State->bPlanning=false;PumpAssembly(true);return;}
+        for(const auto& Pair:Room.PortPairs)if(Pair.X==Pair.Y||!Room.Ports.IsValidIndex(Pair.X)||!Room.Ports.IsValidIndex(Pair.Y))
+        {State->Error=TEXT("房间门位配对越界：")+Room.Id;State->bPlanning=false;PumpAssembly(true);return;}
+        if(Room.Ports.Num()>2)for(int32 Port=0;Port<Room.Ports.Num();++Port)
+        {
+            const TArray<TSharedPtr<FJsonValue>>* Closures=nullptr;bool HasClosure=false;
+            if(Room.Data->TryGetArrayField(TEXT("closed_port_parts"),Closures))for(const auto& V:*Closures)
+                if(int32(V->AsObject()->GetNumberField(TEXT("port_index")))==Port&&!V->AsObject()->GetArrayField(TEXT("parts")).IsEmpty())HasClosure=true;
+            if(!HasClosure){State->Error=TEXT("多门房缺少实体封门构件：")+Room.Id;State->bPlanning=false;PumpAssembly(true);return;}
+        }
     }
     if(Plan.Modules[Plan.Transit].Ports.Num()!=2||Plan.Modules[Plan.Threshold].Ports.Num()!=2||Plan.Modules[Plan.Junction].Ports.Num()!=4)
     {State->Error=TEXT("连接件或岔路房端口数量错误");State->bPlanning=false;PumpAssembly(true);return;}
     const AuthoredDungeon::FSocket Start{Vec(Catalog,TEXT("start_position")),Vec(Catalog,TEXT("start_normal")),-1};
+    Plan.SearchProgress=&State->SearchAttempt;
+    Plan.SearchProgressLimit=&State->SearchAttemptLimit;
+    Plan.CancelRequested=&State->CancelRequested;
     auto PlanWork=[State,Start]()
     {
         TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Dungeon_LayoutSearch);
         const double Begin=FPlatformTime::Seconds();
+        State->Plan.PlanningDeadline=Begin+12.;
+        State->Plan.ConfigureTopology(State->Seed);
+        State->Plan.ConfigureMission(State->Seed,State->Catalog);
         State->bPlanSucceeded=State->Plan.Build(State->Seed,Start);
-        if(!State->bPlanSucceeded)
-        {
-            const auto Pool=State->Plan.Combat;
-            State->Plan.Combat.RemoveAll([&](int32 M){return State->Plan.Modules[M].Id!=State->Plan.Modules[M].Family;});
-            if(!State->Plan.Combat.IsEmpty()&&State->Plan.Combat.Num()<Pool.Num())
-                State->bPlanSucceeded=State->Plan.Build(State->Seed,Start);
-            State->Plan.Combat=Pool;
-        }
         if(State->bPlanSucceeded)
         {
+            if(!State->Plan.bMissionEnabled)State->Plan.AddRouteLoops(Start);
             State->Plan.AddTreasureRooms(State->Seed);
+            State->Plan.BindRewardMissions(Start);
             State->bPlanSucceeded=State->Plan.CompleteSocketGraph(Start);
         }
         State->PlanMs=(FPlatformTime::Seconds()-Begin)*1000.;
@@ -446,7 +536,99 @@ void AAuthoredDungeonGenerator::Generate(int32 Seed)
             });
         });
     }
-    else {PlanWork();State->bPlanning=false;PrepareAssembly();PumpAssembly(true);}
+    else
+    {
+        PlanWork();State->bPlanning=false;
+#if WITH_EDITOR
+        // Explicit commandlet-only repro: exercise the production planner and
+        // catalog without spawning geometry, touching saves, or trusting headless physics.
+        if(IsRunningCommandlet()&&FParse::Param(FCommandLine::Get(),TEXT("DungeonLayoutProbe")))
+        {
+            auto Report=MakeShared<FJsonObject>();
+            Report->SetNumberField(TEXT("seed"),Seed);
+            Report->SetBoolField(TEXT("success"),State->bPlanSucceeded);
+            Report->SetStringField(TEXT("failure"),Plan.CompactFailure);
+            Report->SetNumberField(TEXT("plan_ms"),State->PlanMs);
+            Report->SetBoolField(TEXT("expired"),Plan.bSearchExpired);
+            Report->SetNumberField(TEXT("grammar_requested"),Plan.RequestedGrammar);
+            Report->SetNumberField(TEXT("grammar"),Plan.ActualGrammar);
+            Report->SetNumberField(TEXT("split_after"),Plan.SplitAfter);
+            Report->SetNumberField(TEXT("attempt"),State->SearchAttempt.Load());
+            Report->SetNumberField(TEXT("corridor_cm"),Plan.CorridorTotal);
+            Report->SetNumberField(TEXT("corridor_budget_cm"),Plan.CorridorBudget);
+            Report->SetNumberField(TEXT("route_estimate_cm"),Plan.LongestRouteEstimate);
+            Report->SetNumberField(TEXT("route_budget_cm"),Plan.RouteBudget);
+            auto JsonVector=[](FVector V){return TArray<TSharedPtr<FJsonValue>>{MakeShared<FJsonValueNumber>(V.X),MakeShared<FJsonValueNumber>(V.Y),MakeShared<FJsonValueNumber>(V.Z)};};
+            auto JsonSocket=[&](const AuthoredDungeon::FSocket& S)
+            {
+                auto Value=MakeShared<FJsonObject>();Value->SetArrayField(TEXT("position"),JsonVector(S.P));
+                Value->SetArrayField(TEXT("normal"),JsonVector(S.N));Value->SetNumberField(TEXT("width"),S.Width);Value->SetNumberField(TEXT("height"),S.Height);
+                return Value;
+            };
+            Report->SetObjectField(TEXT("start"),JsonSocket(Start));
+            TArray<TSharedPtr<FJsonValue>> Routes,MissionEdgesJson,Loops;
+            for(double Length:Plan.RouteEstimates)Routes.Add(MakeShared<FJsonValueNumber>(Length));
+            Report->SetArrayField(TEXT("route_estimates_cm"),Routes);
+            for(const auto& E:Plan.MissionEdges)
+            {
+                auto Edge=MakeShared<FJsonObject>();Edge->SetStringField(TEXT("from"),E.From);Edge->SetStringField(TEXT("to"),E.To);
+                Edge->SetBoolField(TEXT("optional"),E.bOptional);Edge->SetBoolField(TEXT("realized"),E.bRealized);MissionEdgesJson.Add(MakeShared<FJsonValueObject>(Edge));
+            }
+            Report->SetArrayField(TEXT("mission_edges"),MissionEdgesJson);
+            for(const auto& L:Plan.LoopConnections)
+            {
+                auto Loop=MakeShared<FJsonObject>();Loop->SetNumberField(TEXT("from"),L.From);Loop->SetNumberField(TEXT("to"),L.To);
+                Loop->SetNumberField(TEXT("length"),L.Length);Loops.Add(MakeShared<FJsonValueObject>(Loop));
+            }
+            Report->SetArrayField(TEXT("loops"),Loops);
+            TArray<TSharedPtr<FJsonValue>> CountsJson,PiecesJson;
+            for(int32 Count:Plan.Counts)CountsJson.Add(MakeShared<FJsonValueNumber>(Count));
+            Report->SetArrayField(TEXT("counts"),CountsJson);
+            for(int32 I=0;I<Plan.Pieces.Num();++I)
+            {
+                const auto& P=Plan.Pieces[I];
+                auto Item=MakeShared<FJsonObject>();Item->SetStringField(TEXT("module"),Plan.Modules[P.Module].Id);
+                Item->SetStringField(TEXT("route"),P.Route);Item->SetStringField(TEXT("transform"),P.Transform.ToString());
+                Item->SetStringField(TEXT("mission_id"),P.MissionId);Item->SetNumberField(TEXT("mission_depth"),P.MissionDepth);
+                Item->SetNumberField(TEXT("side"),P.Side);Item->SetNumberField(TEXT("link_cm"),P.LinkLength);Item->SetNumberField(TEXT("link_turns"),P.LinkTurns);
+                Item->SetBoolField(TEXT("combat"),Plan.Combat.Contains(P.Module));
+                Item->SetArrayField(TEXT("origin"),JsonVector(P.Transform.GetLocation()));
+                Item->SetNumberField(TEXT("yaw"),P.Transform.Rotator().Yaw);Item->SetArrayField(TEXT("scale"),JsonVector(P.Transform.GetScale3D()));
+                TArray<TSharedPtr<FJsonValue>> Ports,Cells,Active;
+                for(int32 Port:Plan.OpenPorts(I)){auto S=JsonSocket(Plan.Socket(I,Port));S->SetNumberField(TEXT("index"),Port);Ports.Add(MakeShared<FJsonValueObject>(S));}
+                for(int32 Port:P.ActivePorts)Active.Add(MakeShared<FJsonValueNumber>(Port));
+                for(const auto& C:P.Cells)
+                {
+                    auto Cell=MakeShared<FJsonObject>();Cell->SetArrayField(TEXT("min"),JsonVector(C.Min));Cell->SetArrayField(TEXT("max"),JsonVector(C.Max));
+                    Cells.Add(MakeShared<FJsonValueObject>(Cell));
+                }
+                Item->SetArrayField(TEXT("ports"),Ports);Item->SetArrayField(TEXT("active_ports"),Active);Item->SetArrayField(TEXT("cells"),Cells);
+                PiecesJson.Add(MakeShared<FJsonValueObject>(Item));
+            }
+            Report->SetArrayField(TEXT("pieces"),PiecesJson);
+            TArray<TSharedPtr<FJsonValue>> ProbeJson;
+            for(const auto& P:Plan.ProbePieces)
+            {
+                auto Item=MakeShared<FJsonObject>();Item->SetStringField(TEXT("module"),Plan.Modules[P.Module].Id);
+                Item->SetStringField(TEXT("route"),P.Route);
+                TArray<TSharedPtr<FJsonValue>> Cells;
+                for(const auto& C:P.Cells)
+                {
+                    auto Cell=MakeShared<FJsonObject>();Cell->SetStringField(TEXT("min"),C.Min.ToString());Cell->SetStringField(TEXT("max"),C.Max.ToString());
+                    Cells.Add(MakeShared<FJsonValueObject>(Cell));
+                }
+                Item->SetArrayField(TEXT("cells"),Cells);ProbeJson.Add(MakeShared<FJsonValueObject>(Item));
+            }
+            Report->SetArrayField(TEXT("probe_pieces"),ProbeJson);
+            Report->SetStringField(TEXT("probe_lead"),Plan.ProbeLead.P.ToString());Report->SetStringField(TEXT("probe_top"),Plan.ProbeTop.P.ToString());
+            Report->SetStringField(TEXT("probe_route"),Plan.ProbeRoute);
+            FJsonSerializer::Serialize(Report,TJsonWriterFactory<>::Create(&LastGenerationMetricsJson));
+            LayoutDescription=LastGenerationMetricsJson; // Reflected, in-memory commandlet result; never saved.
+            BuildState.Reset();return;
+        }
+#endif
+        PrepareAssembly();PumpAssembly(true);
+    }
 }
 
 void AAuthoredDungeonGenerator::PrepareAssembly()
@@ -480,10 +662,52 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
         StagedLightModules[From].Portals.Add({To,Center,Extent});
         StagedLightModules[To].Portals.Add({From,Center,Extent});
     };
-    ConnectLights(Plan.Pieces.Num(),0,Vec(Catalog,TEXT("start_position")));
+    const AuthoredDungeon::FSocket EntrySocket{Vec(Catalog,TEXT("start_position")),Vec(Catalog,TEXT("start_normal")),-1};
+    const int32 EntryNode=Plan.EntryPiece(EntrySocket);
+    if(EntryNode==INDEX_NONE){State->Error=TEXT("地牢入口没有匹配的实体接口");return;}
+    ConnectLights(Plan.Pieces.Num(),EntryNode,EntrySocket.P);
+    const auto ProgressionDepths=Plan.PieceDepths(EntryNode,Plan.PieceGraph(false));
+    // Choose bounded visual recipes only after the socket plan is complete. The route RNG
+    // and shared module data remain untouched; manifest and assembly use the same choices.
+    TArray<JObject> SceneModules;
+    TMap<FString,FString> PreviousSceneRecipes,PreviousSceneStates;
+    for(int32 I=0;I<Plan.Pieces.Num();++I)
+        SceneModules.Add(DungeonRoomScenes::Compose(Plan.Modules[Plan.Pieces[I].Module].Data,Seed,I,PreviousSceneRecipes,PreviousSceneStates));
     JObject Graph=MakeShared<FJsonObject>();Graph->SetNumberField(TEXT("seed"),Seed);
-    Graph->SetNumberField(TEXT("generator_version"),Plan.bCompactBoss?2:1);
-    Graph->SetNumberField(TEXT("room_connection_version"),3);
+    Graph->SetNumberField(TEXT("generator_version"),5);
+    Graph->SetNumberField(TEXT("room_scene_version"),1);
+    Graph->SetNumberField(TEXT("room_connection_version"),4);
+    Graph->SetNumberField(TEXT("entry_node"),EntryNode);
+    Graph->SetStringField(TEXT("topology_recipe"),Plan.TopologyRecipe);
+    Graph->SetNumberField(TEXT("loop_goal"),Plan.LoopGoal);
+    Graph->SetNumberField(TEXT("loop_count"),Plan.LoopConnections.Num());
+    Graph->SetNumberField(TEXT("mission_grammar_requested"),Plan.RequestedGrammar);
+    Graph->SetNumberField(TEXT("mission_grammar_realized"),Plan.ActualGrammar);
+    Graph->SetNumberField(TEXT("corridor_total_cm"),Plan.CorridorTotal);
+    Graph->SetNumberField(TEXT("corridor_budget_cm"),Plan.CorridorBudget);
+    Graph->SetNumberField(TEXT("route_span_estimate_cm"),Plan.LongestRouteEstimate);
+    Graph->SetNumberField(TEXT("route_span_budget_cm"),Plan.RouteBudget);
+    TArray<TSharedPtr<FJsonValue>> MissionEdges;
+    for(const auto& Edge:Plan.MissionEdges)
+    {
+        JObject E=MakeShared<FJsonObject>();E->SetStringField(TEXT("from"),Edge.From);E->SetStringField(TEXT("to"),Edge.To);
+        E->SetStringField(TEXT("purpose"),Edge.Purpose);E->SetBoolField(TEXT("optional"),Edge.bOptional);E->SetBoolField(TEXT("realized"),Edge.bRealized);
+        MissionEdges.Add(MakeShared<FJsonValueObject>(E));
+    }
+    Graph->SetArrayField(TEXT("mission_edges"),MissionEdges);
+    TArray<TSharedPtr<FJsonValue>> MissionNodes;TSet<FString> MissionIds;
+    for(const auto& E:Plan.MissionEdges){MissionIds.Add(E.From);MissionIds.Add(E.To);}
+    TArray<FString> OrderedMissionIds=MissionIds.Array();OrderedMissionIds.Sort();
+    for(const FString& Id:OrderedMissionIds)
+    {
+        JObject Node=MakeShared<FJsonObject>();Node->SetStringField(TEXT("id"),Id);int32 PieceIndex=INDEX_NONE;
+        for(int32 I=0;I<Plan.Pieces.Num();++I)if(Plan.Pieces[I].MissionId==Id){PieceIndex=I;break;}
+        if(Id==TEXT("reward.final"))for(int32 I=0;I<Plan.Pieces.Num();++I)if(Plan.Pieces[I].Module==Plan.BossRoom){PieceIndex=I;break;}
+        Node->SetNumberField(TEXT("piece"),PieceIndex);
+        Node->SetStringField(TEXT("binding"),Id==TEXT("entry")?TEXT("start_room"):Id==TEXT("reward.final")?TEXT("boss_authored_reward_room"):TEXT("module"));
+        MissionNodes.Add(MakeShared<FJsonValueObject>(Node));
+    }
+    Graph->SetArrayField(TEXT("mission_nodes"),MissionNodes);
     if(Plan.bCompactBoss)Graph->SetStringField(TEXT("compact_terminal_placement"),TEXT("completed_middle_branch"));
     Graph->SetNumberField(TEXT("room_connection_max_cm"),FPlan::ShortLinkLimit);
     Graph->SetNumberField(TEXT("room_connection_max_turns"),2);
@@ -496,15 +720,47 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
     {
         const auto& P=Plan.Pieces[I];JObject N=MakeShared<FJsonObject>();N->SetNumberField(TEXT("id"),I);N->SetStringField(TEXT("module"),Plan.Modules[P.Module].Id);N->SetStringField(TEXT("route"),P.Route);N->SetArrayField(TEXT("origin"),JsonVector(P.Transform.GetLocation()));N->SetNumberField(TEXT("yaw"),P.Transform.Rotator().Yaw);
         Nodes.Add(MakeShared<FJsonValueObject>(N));
+        N->SetArrayField(TEXT("scale"),JsonVector(P.Transform.GetScale3D()));
+        N->SetStringField(TEXT("mission_id"),P.MissionId);N->SetStringField(TEXT("encounter_role"),P.EncounterRole);
+        N->SetNumberField(TEXT("threat_bonus"),P.ThreatBonus);N->SetNumberField(TEXT("reward_multiplier"),P.RewardMultiplier);
+        FString Recipe;Plan.Modules[P.Module].Data->TryGetStringField(TEXT("interior_recipe_id"),Recipe);N->SetStringField(TEXT("interior_recipe_id"),Recipe);
+        FString SceneRecipe,SceneState;
+        SceneModules[I]->TryGetStringField(TEXT("scene_recipe_id"),SceneRecipe);
+        SceneModules[I]->TryGetStringField(TEXT("scene_state_id"),SceneState);
+        N->SetStringField(TEXT("scene_recipe_id"),SceneRecipe);N->SetStringField(TEXT("scene_state_id"),SceneState);
+        TArray<TSharedPtr<FJsonValue>> Open;for(int32 Port:Plan.OpenPorts(I))Open.Add(MakeShared<FJsonValueNumber>(Port));N->SetArrayField(TEXT("open_ports"),Open);
         N->SetNumberField(TEXT("floor"),FMath::RoundToInt((P.Transform.GetLocation().Z-Vec(Catalog,TEXT("start_position")).Z)/540.));
         N->SetArrayField(TEXT("volume_min"),JsonVector(P.Bounds.Min));N->SetArrayField(TEXT("volume_max"),JsonVector(P.Bounds.Max));
+        N->SetNumberField(TEXT("progression_depth"),P.MissionDepth>=0?P.MissionDepth:ProgressionDepths[I]==MAX_int32?0:ProgressionDepths[I]);
+        TArray<TSharedPtr<FJsonValue>> CellValues;
+        for(const FBox& Cell:P.Cells)
+        {
+            JObject C=MakeShared<FJsonObject>();C->SetArrayField(TEXT("min"),JsonVector(Cell.Min));C->SetArrayField(TEXT("max"),JsonVector(Cell.Max));
+            CellValues.Add(MakeShared<FJsonValueObject>(C));
+        }
+        N->SetArrayField(TEXT("cells"),CellValues);
+        TArray<TSharedPtr<FJsonValue>> WalkCells;const TArray<TSharedPtr<FJsonValue>>* Mask=nullptr;
+        if(Plan.Modules[P.Module].Data->TryGetArrayField(TEXT("walk_mask"),Mask))for(const auto& V:*Mask)
+        {
+            const auto Box=V->AsObject();FBox LocalBox(Vec(Box,TEXT("min")),Vec(Box,TEXT("max")));
+            LocalBox.Max.Z=Plan.Modules[P.Module].Bounds.Max.Z;
+            const FBox WorldBox=LocalBox.TransformBy(P.Transform);JObject Cell=MakeShared<FJsonObject>();
+            Cell->SetArrayField(TEXT("min"),JsonVector(WorldBox.Min));Cell->SetArrayField(TEXT("max"),JsonVector(WorldBox.Max));
+            WalkCells.Add(MakeShared<FJsonValueObject>(Cell));
+        }
+        N->SetArrayField(TEXT("walk_cells"),WalkCells);
+        if(P.LinkTurns>=0){N->SetNumberField(TEXT("entry_link_turns"),P.LinkTurns);N->SetNumberField(TEXT("entry_link_cm"),P.LinkLength);}
         if(P.Side>=0)N->SetStringField(TEXT("side_socket"),Plan.Modules[P.Module].SideSockets[P.Side].Data->GetStringField(TEXT("id")));
-        for(int32 J=0;J<I;++J)for(int32 A=0;A<Plan.PortCount(I);++A)for(int32 B=0;B<Plan.PortCount(J);++B)
+        for(int32 J=0;J<I;++J)for(int32 A:Plan.OpenPorts(I))for(int32 B:Plan.OpenPorts(J))
         {
             const auto SA=Plan.Socket(I,A),SB=Plan.Socket(J,B);
             if(SA.P.Equals(SB.P,1)&&FVector::DotProduct(SA.N,SB.N)<-.99)
             {
                 JObject E=MakeShared<FJsonObject>();E->SetNumberField(TEXT("from"),J);E->SetNumberField(TEXT("from_port"),B);E->SetNumberField(TEXT("to"),I);E->SetNumberField(TEXT("to_port"),A);Edges.Add(MakeShared<FJsonValueObject>(E));
+                E->SetArrayField(TEXT("position"),JsonVector(SA.P));
+                E->SetArrayField(TEXT("from_normal"),JsonVector(SB.N));E->SetArrayField(TEXT("to_normal"),JsonVector(SA.N));
+                E->SetNumberField(TEXT("width"),SA.Width);E->SetNumberField(TEXT("height"),SA.Height);
+                E->SetStringField(TEXT("kind"),P.Route.StartsWith(TEXT("Loop."))||Plan.Pieces[J].Route.StartsWith(TEXT("Loop."))?TEXT("loop"):TEXT("main"));
                 ConnectLights(J,I,SA.P);
             }
         }
@@ -521,6 +777,12 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
         QueuedAssets.Add(Path);
         State->Jobs.Add({TEXT("Dungeon.Resources"),[this,Path](){ResolveGenerationAsset(Path);}});
     };
+    // The fixed shrine uses a separate gameplay stream after the layout commits.
+    // Preload its pool in the normal budgeted resource stage, never on interaction.
+    const TSharedPtr<FJsonObject>* Shrine=nullptr;
+    const TArray<TSharedPtr<FJsonValue>>* Statues=nullptr;
+    if(Catalog->TryGetObjectField(TEXT("start_shrine"),Shrine)&&(*Shrine)->TryGetArrayField(TEXT("statues"),Statues))
+        for(const auto& Statue:*Statues)QueueAsset(Statue->AsObject()->GetStringField(TEXT("mesh")));
     bool RequireNavigation=false;Catalog->TryGetBoolField(TEXT("navigation_required"),RequireNavigation);
     if(RequireNavigation)State->Jobs.Add({TEXT("Dungeon.Resources"),[this,State]()
     {
@@ -533,7 +795,7 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
     TMap<FString,int32> PreviousSurfaceChoices;
     for(int32 Index=0;Index<Plan.Pieces.Num();++Index)
     {
-        const FPlaced& Piece=Plan.Pieces[Index];const JObject D=Plan.Modules[Piece.Module].Data;
+        const FPlaced& Piece=Plan.Pieces[Index];const JObject D=SceneModules[Index];
         TArray<TSharedPtr<FJsonValue>> Parts=D->GetArrayField(TEXT("parts"));
         if(Piece.Side>=0)
         {
@@ -542,7 +804,11 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             Parts.RemoveAll([&](const TSharedPtr<FJsonValue>& V){const FString Path=V->AsObject()->GetStringField(TEXT("mesh"));for(const auto& S:Remove)if(Path.EndsWith(S->AsString()))return true;return false;});
             Parts.Append(Side->GetArrayField(TEXT("parts")));
         }
+        const TArray<TSharedPtr<FJsonValue>>* Closures=nullptr;
+        if(D->TryGetArrayField(TEXT("closed_port_parts"),Closures))for(const auto& V:*Closures)
+        {const auto C=V->AsObject();if(!Plan.OpenPorts(Index).Contains(int32(C->GetNumberField(TEXT("port_index")))))Parts.Append(C->GetArrayField(TEXT("parts")));}
         if(bDressRooms) Parts.Append(DungeonDressing::Build(D,Seed,Index));
+        Parts.Append(DungeonWallArt::Build(D,Seed,Index));
         for(const auto& V:Parts)
         {
             JObject Part=V->AsObject();
@@ -567,7 +833,7 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             const FString Key=InstanceKey(Part,Piece,bOptimizeLights);
             if(!Part->GetBoolField(TEXT("fluid"))&&!Part->HasField(TEXT("half_size")))++State->InstanceCandidates.FindOrAdd(Key);
             const FName Stage=Dressing?TEXT("Dungeon.Dressing"):Part->GetBoolField(TEXT("collision"))?TEXT("Dungeon.MeshCollision"):TEXT("Dungeon.MeshVisuals");
-            State->Jobs.Add({Stage,[this,State,Part,Piece,Index,Params,bOptimizeLights,Key,Dressing,bDressRooms]()
+            State->Jobs.Add({Stage,[this,State,Part,Piece,Index,Params,bOptimizeLights,Key,Dressing,bDressRooms,D]()
             {
             auto* Mesh=Cast<UStaticMesh>(ResolveGenerationAsset(Part->GetStringField(TEXT("mesh"))));
             if(!Mesh){State->Error=TEXT("地牢网格无法载入：")+Part->GetStringField(TEXT("mesh"));return;}
@@ -576,7 +842,7 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             if(Dressing)
             {
                 ++State->DressingCandidates;FString Reason;
-                if(!State->DressingScene.Place(Mesh,Part,State->Plan.Modules[Piece.Module].Data,Piece.Transform,Index,T,Reason))
+                if(!State->DressingScene.Place(Mesh,Part,D,Piece.Transform,Index,T,Reason))
                 {++State->DressingSkipped;++State->DressingRejections.FindOrAdd(Reason);return;}
             }
             else if(bDressRooms)
@@ -584,7 +850,7 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
                 if(Fluid || Hazard) State->DressingScene.FixedBoxes.Add(Mesh->GetBoundingBox().TransformBy(T).ExpandBy(5));
                 else State->DressingScene.AddMesh(Mesh,T,Index,Part->GetStringField(TEXT("mesh")));
             }
-            const bool bInstance=!Dressing&&!Fluid&&!Hazard&&DungeonInstancing.GetValueOnGameThread()!=0&&Mesh->HasValidNaniteData()
+            const bool bInstance=!Dressing&&!Fluid&&!Hazard&&!Part->HasField(TEXT("ward_frame"))&&!Part->HasField(TEXT("blood_receiver"))&&!Part->HasField(TEXT("guardrail_drop"))&&DungeonInstancing.GetValueOnGameThread()!=0&&Mesh->HasValidNaniteData()
                 &&State->InstanceCandidates.FindRef(Key)>1;
             if(bInstance)
             {
@@ -618,6 +884,14 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
                 A=S;C=S->GetStaticMeshComponent();if(!Fluid)++State->StaticFallbacks;
             }
             OwnGenerated(A,Index);
+            if(Part->HasField(TEXT("guardrail_drop")))A->Tags.Add(TEXT("Traversal.GuardrailDrop"));
+            FString WardFrame;
+            if(Part->TryGetStringField(TEXT("ward_frame"),WardFrame))
+                A->Tags.Add(FName(*FString::Printf(TEXT("WardFrame.%d.%s"),Index,*WardFrame)));
+            if(Part->HasField(TEXT("blood_receiver")))
+                A->Tags.Add(FName(*FString::Printf(TEXT("WardBlood.%d"),Index)));
+            if(Part->HasField(TEXT("wall_art")))
+            {A->Tags.Add(TEXT("DungeonWallArt"));C->SetReceivesDecals(false);}
             // SpawnActor registers AStaticMeshActor's static component immediately. After BeginPlay,
             // UE rejects SetStaticMesh on that component. Configure it while unregistered so both
             // the render proxy and physics body are created from the assigned mesh on registration.
@@ -637,6 +911,7 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
                 CastShadow=CastShadow&&!Fluid;
             }
             if(Dressing) Part->TryGetBoolField(TEXT("cast_shadow"),CastShadow);
+            if(Part->HasField(TEXT("wall_art")))CastShadow=false;
             C->SetCollisionProfileName(Part->GetBoolField(TEXT("collision"))?TEXT("BlockAll"):TEXT("NoCollision"));C->SetCastShadow(CastShadow);
             if(Fluid){C->SetEvaluateWorldPositionOffset(true);C->SetVisibleInRayTracing(false);C->SetAffectDistanceFieldLighting(false);}
             if(bInstance)
@@ -653,6 +928,37 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             ++State->Parts;
             }});
         }
+        const TArray<TSharedPtr<FJsonValue>>* WardAssets=nullptr;
+        if(D->TryGetArrayField(TEXT("runtime_assets"),WardAssets))
+            for(const auto& V:*WardAssets)QueueAsset(V->AsString());
+        const TArray<TSharedPtr<FJsonValue>>* WardActors=nullptr;
+        if(D->TryGetArrayField(TEXT("runtime_actors"),WardActors))for(int32 WI=0;WI<WardActors->Num();++WI)
+        {
+            const JObject Spec=(*WardActors)[WI]->AsObject();
+            auto Spawned=MakeShared<TWeakObjectPtr<AActor>>();
+            State->Jobs.Add({TEXT("Dungeon.WardActors"),[this,State,Spec,Piece,Index,Spawned]()
+            {
+                AActor* Frame=nullptr;FString FrameId;
+                if(Spec->TryGetStringField(TEXT("frame_id"),FrameId))
+                {
+                    const FName Tag(*FString::Printf(TEXT("WardFrame.%d.%s"),Index,*FrameId));
+                    for(const auto& Candidate:GeneratedActors)if(IsValid(Candidate)&&Candidate->ActorHasTag(Tag)){Frame=Candidate;break;}
+                    if(!Frame){State->Error=TEXT("病区玻璃门缺少共用门框");return;}
+                }
+                AActor* Actor=WardRoomAssembly::Spawn(GetWorld(),this,Spec,Piece.Transform,Frame,
+                    FName(*FString::Printf(TEXT("WardBlood.%d"),Index)),
+                    [this](const FString& Path){return ResolveGenerationAsset(Path);});
+                if(!Actor){State->Error=TEXT("病区交互组件创建失败");return;}
+                OwnGenerated(Actor,Index);*Spawned=Actor;
+            }});
+            const FString Type=Spec->GetStringField(TEXT("type"));
+            if(Type==TEXT("beds")||Type==TEXT("blood"))
+            {
+                const int32 ScatterSeed=int32(HashCombineFast(uint32(Seed)^0x57415244u,HashCombineFast(uint32(Index),uint32(WI))));
+                State->Jobs.Add({Type==TEXT("beds")?FName(TEXT("Dungeon.WardFurniture")):FName(TEXT("Dungeon.WardBlood")),
+                    [Spawned,ScatterSeed](){if(AActor* Actor=Spawned->Get())WardRoomAssembly::Populate(Actor,ScatterSeed);}});
+            }
+        }
         const TArray<TSharedPtr<FJsonValue>>* Props=nullptr;
         if(D->TryGetArrayField(TEXT("props"),Props))for(const auto& V:*Props)
         {
@@ -665,6 +971,11 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             if(!Mesh){State->Error=TEXT("宝箱骨骼网格无法载入");return;}
             auto* A=GetWorld()->SpawnActor<ASkeletalMeshActor>(ASkeletalMeshActor::StaticClass(),Local(Prop)*Piece.Transform,Params);
             if(!A){State->Error=TEXT("宝箱创建失败");return;}OwnGenerated(A,Index);
+            const FVector ChestLocal=Vec(Prop,TEXT("position"));
+            FString ChestRole=TEXT("chest");Prop->TryGetStringField(TEXT("role"),ChestRole);
+            const FString ChestRoom=Piece.MissionId.IsEmpty()?FString::Printf(TEXT("Node%d"),Index):Piece.MissionId;
+            A->Tags.Add(FName(*FString::Printf(TEXT("DungeonChestClaim.%s.%s.%d.%d.%d"),*ChestRoom,
+                *ChestRole,FMath::RoundToInt(ChestLocal.X),FMath::RoundToInt(ChestLocal.Y),FMath::RoundToInt(ChestLocal.Z))));
             A->Tags.Add(TEXT("DungeonTreasureChest"));A->Tags.Add(TEXT("FutureTreasureLoot"));
             FString PropRole;
             if(Prop->TryGetStringField(TEXT("role"),PropRole)&&PropRole==TEXT("final_reward_chest"))
@@ -738,6 +1049,7 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
         for(int32 LightIndex=0;LightIndex<Lights.Num();++LightIndex)
         {
             const JObject L=Lights[LightIndex]->AsObject();
+            FString FunctionPath;if(L->TryGetStringField(TEXT("light_function"),FunctionPath))QueueAsset(FunctionPath);
             const bool Corridor=Plan.Modules[Piece.Module].Id==TEXT("Transit");
             const bool BossHall=Plan.Modules[Piece.Module].Id==TEXT("BossPumpHall");
             FString LightRole=Corridor?TEXT("corridor"):Brightest.Find(LightIndex)<2?TEXT("key"):TEXT("fill");
@@ -792,8 +1104,22 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
                 L->TryGetBoolField(TEXT("cast_shadows"),Shadows);
             }
             C->SetIntensity(Intensity);C->SetAttenuationRadius(FMath::Max(1.0,Radius));
+            FString FunctionPath;
+            if(L->TryGetStringField(TEXT("light_function"),FunctionPath))
+            {
+                C->SetLightFunctionMaterial(Cast<UMaterialInterface>(ResolveGenerationAsset(FunctionPath)));
+                C->LightFunctionFadeDistance=2700.f;C->DisabledBrightness=1.f;
+            }
             const FVector Color=Vec(L,TEXT("color"));C->SetLightColor(FLinearColor(Color.X,Color.Y,Color.Z));
             C->SetSourceRadius(BossHall?2:5);C->SetSourceLength(Spot?0:60);C->SetCastShadows(Shadows);
+            double AuthoredValue=0;
+            if(L->TryGetNumberField(TEXT("source_radius"),AuthoredValue))C->SetSourceRadius(AuthoredValue);
+            if(L->TryGetNumberField(TEXT("source_length"),AuthoredValue))C->SetSourceLength(AuthoredValue);
+            if(L->TryGetNumberField(TEXT("indirect_lighting_intensity"),AuthoredValue))C->SetIndirectLightingIntensity(AuthoredValue);
+            if(L->TryGetNumberField(TEXT("volumetric_scattering_intensity"),AuthoredValue))C->SetVolumetricScatteringIntensity(AuthoredValue);
+            if(L->TryGetNumberField(TEXT("light_function_fade_distance"),AuthoredValue))C->LightFunctionFadeDistance=AuthoredValue;
+            if(L->TryGetNumberField(TEXT("disabled_brightness"),AuthoredValue))C->DisabledBrightness=AuthoredValue;
+            if(L->TryGetNumberField(TEXT("yaw"),AuthoredValue))A->SetActorRotation(Piece.Transform.TransformRotation(FQuat(FRotator(0,AuthoredValue,0))));
             C->SetMaxDrawDistance(FMath::Max(0.0,DrawDistance));C->SetMaxDistanceFadeRange(FMath::Clamp(FadeRange,0.0,FMath::Max(0.0,DrawDistance)));
             State->NextLights[Index].Lights.Add({C,Intensity,1.f});
             ++State->Lights;
@@ -809,7 +1135,20 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             }});
         }
     }
-    State->PendingDescription=FString::Printf(TEXT("Seed %d | approach %d rooms | branches %d / %d / %d rooms | %d modules | treasure %d"),Seed,Plan.Counts[0],Plan.Counts[1],Plan.Counts[2],Plan.Counts[3],Plan.Pieces.Num(),Plan.TreasureCount);
+    State->PendingDescription=FString::Printf(TEXT("Seed %d | V5 grammar %d | %s | approach %d rooms | branches %d / %d / %d rooms | loops %d/%d | %d modules | treasure %d"),Seed,Plan.ActualGrammar,*Plan.TopologyRecipe,Plan.Counts[0],Plan.Counts[1],Plan.Counts[2],Plan.Counts[3],Plan.LoopConnections.Num(),Plan.LoopGoal,Plan.Pieces.Num(),Plan.TreasureCount);
+    if(State->bRuntime)
+    {
+        // Keep the start corridor clear. Return travel belongs to the final reward exit.
+        // 刷怪导演：随布局装配一次（job 队列天然单次），Configure 只缓存指针；
+        // 武装（Activate）在导航构建完成的收尾批执行。编辑器预览路径零怪物。
+        State->Jobs.Add({TEXT("Dungeon.SpawnDirector"),[this,State]()
+        {
+            FActorSpawnParameters Spawn;Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+            auto* Director=GetWorld()->SpawnActor<ADungeonSpawnDirector>(ADungeonSpawnDirector::StaticClass(),GetActorTransform(),Spawn);
+            if(!Director){State->Error=TEXT("地牢刷怪导演创建失败");return;}
+            OwnGenerated(Director,-1);Director->Configure(this);
+        }});
+    }
     if(bDressRooms) State->Jobs.Add({TEXT("Dungeon.DressingScene"),[this,State]()
     {
         FBox Bounds(ForceInit);for(const auto& Piece:State->Plan.Pieces) Bounds+=Piece.Bounds;
@@ -827,6 +1166,8 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             if(Stage==TEXT("Dungeon.Lights"))return 3;
             if(Stage==TEXT("Dungeon.DressingScene"))return 5;
             if(Stage==TEXT("Dungeon.Dressing"))return 6;
+            if(Stage==TEXT("Dungeon.WardFurniture"))return 7;
+            if(Stage==TEXT("Dungeon.WardBlood"))return 8;
             return 4;
         };
         return Rank(A.Stage)<Rank(B.Stage);
@@ -836,9 +1177,20 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
 
 void AAuthoredDungeonGenerator::OwnGenerated(AActor* Actor,int32 ModuleIndex)
 {
-    const auto& Piece=BuildState->Plan.Pieces[ModuleIndex];
     Actor->SetActorHiddenInGame(true);Actor->SetActorEnableCollision(false);
-    GeneratedActors.Add(Actor);Actor->Tags.Add(TEXT("DungeonRouteGenerated"));Actor->Tags.Add(FName(*Piece.Route));
+    GeneratedActors.Add(Actor);Actor->Tags.Add(TEXT("DungeonRouteGenerated"));
+    if(!BuildState->Plan.Pieces.IsValidIndex(ModuleIndex))
+    {
+        Actor->Tags.Add(TEXT("Start"));
+#if WITH_EDITOR
+        Actor->SetActorLabel(FString::Printf(TEXT("DGN_G_Start_%s"),*Actor->GetClass()->GetName()));
+        Actor->SetFolderPath(TEXT("DungeonRoutes/Start"));
+#endif
+        return;
+    }
+    const auto& Piece=BuildState->Plan.Pieces[ModuleIndex];
+    Actor->Tags.Add(FName(*Piece.Route));
+    if(!Piece.MissionId.IsEmpty())Actor->Tags.Add(FName(*(TEXT("DungeonMission.")+Piece.MissionId)));
     Actor->Tags.Add(FName(*FString::Printf(TEXT("DungeonModule.%d.%s"),ModuleIndex,*BuildState->Plan.Modules[Piece.Module].Id)));
 #if WITH_EDITOR
     Actor->SetActorLabel(FString::Printf(TEXT("DGN_G_%03d_%s_%s"),ModuleIndex,*Piece.Route,*Actor->GetClass()->GetName()));
@@ -882,7 +1234,19 @@ void AAuthoredDungeonGenerator::Tick(float DeltaSeconds)
     Super::Tick(DeltaSeconds);
     if(!BuildState)return;
     HoldPlayers();
-    if(!BuildState->bPlanning)PumpAssembly(false);
+    if(BuildState->bPlanning)
+    {
+        if(auto* Loading=DungeonLoading(this))
+        {
+            const int32 Attempt=FMath::Max(0,BuildState->SearchAttempt.Load());
+            const int32 Limit=FMath::Max(1,BuildState->SearchAttemptLimit.Load());
+            Loading->UpdatePreparation(
+                FText::FromString(FString::Printf(TEXT("正在规划房间与通路（%d/%d）…"),Attempt,Limit)),
+                .02f+.08f*float(Attempt)/float(Limit));
+        }
+        return;
+    }
+    PumpAssembly(false);
 }
 
 void AAuthoredDungeonGenerator::PumpAssembly(bool bSynchronous)
@@ -1048,6 +1412,9 @@ void AAuthoredDungeonGenerator::FinishAssembly(bool bSynchronous)
     }
     GeneratedSeed=State->Seed;LayoutDescription=State->PendingDescription;LayoutManifestJson=State->PendingManifest;
     DungeonWallStains::Apply(GetWorld(),GeneratedSeed);
+    // 运行状态服务：绑定新布局（解析清单/目录、建图、重置档案运行态）。必须先于导演武装。
+    if(State->bRuntime)
+        if(auto* Runs=UDungeonRunSubsystem::Get(GetWorld()))Runs->BindCompletedDungeon(this);
     Tags.AddUnique(TEXT("DungeonAssembly.Ready"));Tags.Remove(TEXT("DungeonAssembly.Failed"));
     BuildState->bCompleted=true;BuildState->FinishedAt=FPlatformTime::Seconds();
     RecordFinalize();
@@ -1059,8 +1426,13 @@ void AAuthoredDungeonGenerator::FinishAssembly(bool bSynchronous)
     GeneratedActors.RemoveAll([](const TObjectPtr<AActor>& Actor){return !IsValid(Actor);});
     for(AActor* Actor:GeneratedActors)if(auto* Hazard=Cast<ADungeonPusChannel>(Actor))Hazard->ActivateDamage();
     for(AActor* Actor:GeneratedActors)if(auto* Encounter=Cast<ADungeonBossEncounter>(Actor))Encounter->ActivateEncounter();
+    for(AActor* Actor:GeneratedActors)if(auto* Director=Cast<ADungeonSpawnDirector>(Actor))Director->Activate();
     StartRoomLighting();ReleasePlayers();
-    if(auto* Loading=DungeonLoading(this))Loading->CompletePreparation();
+    if(auto* Loading=DungeonLoading(this))
+    {
+        Loading->CompletePreparation();
+        Loading->ReleaseToGameplay();
+    }
 }
 
 void AAuthoredDungeonGenerator::RollbackAssembly()
@@ -1073,6 +1445,7 @@ void AAuthoredDungeonGenerator::RollbackAssembly()
 
 void AAuthoredDungeonGenerator::CancelAssembly()
 {
+    if(BuildState)BuildState->CancelRequested.Store(true);
     ++GenerationSerial;RollbackAssembly();BuildState.Reset();GenerationResources.Reset();SetActorTickEnabled(false);ReleasePlayers();
 }
 

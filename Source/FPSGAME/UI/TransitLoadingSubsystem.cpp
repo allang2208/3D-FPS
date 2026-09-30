@@ -86,7 +86,7 @@ TSharedRef<SWidget> MakeView(const TSharedRef<FTransitLoadingView>& State, bool 
     auto Content = SNew(SVerticalBox)
         +SVerticalBox::Slot().AutoHeight()[SNew(STextBlock).Text(FText::FromString(TEXT("TRANSIT ARCHIVE")))
             .Font(ColdSteelUI::NumberFont(9)).ColorAndOpacity(ColdSteelUI::TextTertiary).Justification(ETextJustify::Center)]
-        +SVerticalBox::Slot().AutoHeight().Padding(0,12,0,20)[SNew(STextBlock).Text(State->Title)
+        +SVerticalBox::Slot().AutoHeight().Padding(0,12,0,20)[SNew(STextBlock).Text_Lambda([State](){return State->Title;})
             .Font(ColdSteelUI::TextFont(20,true)).ColorAndOpacity(ColdSteelUI::TextPrimary).Justification(ETextJustify::Center)]
         +SVerticalBox::Slot().AutoHeight()[SNew(SBox).HeightOverride(14)[SNew(SProgressBar)
             .FillColorAndOpacity(ColdSteelUI::Accent)
@@ -144,7 +144,7 @@ void UTransitLoadingSubsystem::BeginTransition(const FString& Map, FSimpleDelega
     ResourcePreparation.Reset();ReleasePreparedPlayer();
     bScenePrepared=false;bPreparationFailed=false;
     bHills=Map.Contains(TEXT("L_TemperateHills_Initial"));
-    bDungeon=Map.Contains(TEXT("L_Dungeon_Generated"))||Map.Contains(TEXT("L_Dungeon_Randomized"));
+    bDungeon=Map.Contains(TEXT("L_Dungeon_Randomized"));
     bDestinationLoaded=false;
     StartedAt=FPlatformTime::Seconds();FinishedAt=0;
     CancelAction=MoveTemp(OnCancel);
@@ -154,17 +154,76 @@ void UTransitLoadingSubsystem::BeginTransition(const FString& Map, FSimpleDelega
     View->Status=FText::FromString(TEXT("正在准备场景资源…"));
     const FString File=FPaths::ProjectContentDir()/TEXT("UI/TransitLoading")/FString::Printf(TEXT("gaia-fertile-lands-%d.png"),FMath::RandRange(1,2));
     if(FPaths::FileExists(File))View->Background=MakeShared<FSlateDynamicImageBrush>(FName(*File),FVector2D(1672,941));
-    AttachOverlay();
+    AttachOverlay(true);
 }
 
-void UTransitLoadingSubsystem::AttachOverlay()
+void UTransitLoadingSubsystem::AttachOverlay(bool bRememberViewportIgnore)
 {
     auto* VP=GetGameInstance()->GetGameViewportClient();
     if(!VP||!View||Overlay)return;
-    bPreviousIgnoreInput=VP->IgnoreInput();VP->SetIgnoreInput(true);AttachedViewport=VP;
+    if(bRememberViewportIgnore)bPreviousIgnoreInput=VP->IgnoreInput();
+    VP->SetIgnoreInput(true);AttachedViewport=VP;
     Overlay=TransitLoading::MakeView(View.ToSharedRef(),true);
     VP->AddViewportWidgetContent(Overlay.ToSharedRef(),100000);
-    FSlateApplication::Get().SetAllUserFocus(Overlay,EFocusCause::SetDirectly);
+    CaptureLoadingInput();
+}
+
+void UTransitLoadingSubsystem::DetachOverlayWidget()
+{
+    if(auto* VP=AttachedViewport.Get())
+    {
+        if(Overlay)VP->RemoveViewportWidgetContent(Overlay.ToSharedRef());
+    }
+    Overlay.Reset();
+}
+
+void UTransitLoadingSubsystem::CaptureLoadingInput()
+{
+    if(auto* PC=UGameplayStatics::GetPlayerController(GetWorld(),0))
+    {
+        if(CursorController.Get()!=PC)
+        {
+            CursorController=PC;
+            bPreviousCursor=PC->bShowMouseCursor;
+        }
+        PC->bShowMouseCursor=true;
+        FInputModeUIOnly Mode;
+        if(Overlay)Mode.SetWidgetToFocus(Overlay);
+        Mode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+        PC->SetInputMode(Mode);
+    }
+    if(Overlay&&FSlateApplication::IsInitialized())
+        FSlateApplication::Get().SetAllUserFocus(Overlay,EFocusCause::SetDirectly);
+}
+
+void UTransitLoadingSubsystem::RestoreGameplayInput()
+{
+    if(auto* VP=GetGameInstance()?GetGameInstance()->GetGameViewportClient():nullptr)
+        VP->SetIgnoreInput(false);
+    auto* PC=UGameplayStatics::GetPlayerController(GetWorld(),0);
+    if(!PC)PC=CursorController.Get();
+    if(PC)
+    {
+        PC->ResetIgnoreInputFlags();
+        PC->bShowMouseCursor=false;
+        PC->SetInputMode(FInputModeGameOnly());
+        if(APawn* Pawn=PC->GetPawn())
+        {
+            Pawn->EnableInput(PC);
+            if(auto* Character=Cast<ACharacter>(Pawn))
+                if(auto* Movement=Character->GetCharacterMovement())Movement->SetComponentTickEnabled(true);
+        }
+        UE_LOG(LogTemp,Display,TEXT("TransitLoading: restore gameplay input map=%s pawn=%s"),
+            *UGameplayStatics::GetCurrentLevelName(PC,true),*GetNameSafe(PC->GetPawn()));
+    }
+    CursorController.Reset();
+    if(FSlateApplication::IsInitialized())FSlateApplication::Get().SetAllUserFocusToGameViewport();
+}
+
+void UTransitLoadingSubsystem::ReleaseToGameplay()
+{
+    if(View&&FinishedAt==0&&!bPreparationFailed)FinishPreparation();
+    RestoreGameplayInput();
 }
 
 void UTransitLoadingSubsystem::BeforeMap(const FString& Map)
@@ -198,7 +257,10 @@ void UTransitLoadingSubsystem::AfterMap(UWorld* World)
     if(!World||World->GetGameInstance()!=GetGameInstance())return;
     bMapLoading=false;bDestinationLoaded=true;
     if(!View)return;
-    AttachOverlay();
+    // LoadMap invalidates viewport widgets. Keep IgnoreInput, rebuild a live overlay
+    // so the player still sees cancel and does not get a "world with no input" gap.
+    DetachOverlayWidget();
+    AttachOverlay(false);
     if(!bHills&&!bDungeon)UpdatePreparation(FText::FromString(TEXT("正在准备场景显示…")),.9f);
 }
 
@@ -246,11 +308,14 @@ void UTransitLoadingSubsystem::FinishPreparation()
     if(!View||FinishedAt>0)return;
     View->Progress=1;View->Status=FText::FromString(TEXT("准备完成"));
     FinishedAt=FMath::Max(FPlatformTime::Seconds(),StartedAt+1.0);
+    // Return GameOnly immediately. Fade is visual only; Tick must not recapture input.
+    RestoreGameplayInput();
 }
 
 void UTransitLoadingSubsystem::FailPreparation(const FText& Reason)
 {
     UpdatePreparation(Reason,0);FinishedAt=0;bPreparationFailed=true;
+    if(View)View->Title=FText::FromString(bDungeon?TEXT("地牢准备失败"):TEXT("场景准备失败"));
 }
 
 void UTransitLoadingSubsystem::Tick(float DeltaTime)
@@ -261,17 +326,15 @@ void UTransitLoadingSubsystem::Tick(float DeltaTime)
         else return;
     }
     if(!View||bMapLoading)return;
-    AttachOverlay();
-    if(auto* PC=UGameplayStatics::GetPlayerController(GetWorld(),0))
+    if(FinishedAt==0)
     {
-        if(CursorController.Get()!=PC)
+        AttachOverlay(false);
+        if(auto* PC=UGameplayStatics::GetPlayerController(GetWorld(),0))
         {
-            CursorController=PC;bPreviousCursor=PC->bShowMouseCursor;
-            PC->bShowMouseCursor=true;
-            if(Overlay)FSlateApplication::Get().SetAllUserFocus(Overlay,EFocusCause::SetDirectly);
+            if(CursorController.Get()!=PC)CaptureLoadingInput();
+            // 遮罩还挂着时，若有后来者（例如新 Pawn 的 BeginPlay）把光标关掉，下一帧夺回。
+            else if(!PC->bShowMouseCursor)PC->bShowMouseCursor=true;
         }
-        // 遮罩还挂着时，若有后来者（例如新 Pawn 的 BeginPlay）把光标关掉，下一帧夺回。
-        else if(!PC->bShowMouseCursor)PC->bShowMouseCursor=true;
     }
     if(View->CancelRequested)
     {
@@ -311,14 +374,12 @@ void UTransitLoadingSubsystem::Tick(float DeltaTime)
 
 void UTransitLoadingSubsystem::RemoveOverlay()
 {
-    if(auto* PC=CursorController.Get())PC->bShowMouseCursor=bPreviousCursor;
-    CursorController.Reset();
+    RestoreGameplayInput();
     if(auto* VP=AttachedViewport.Get())
     {
         if(Overlay)VP->RemoveViewportWidgetContent(Overlay.ToSharedRef());
-        VP->SetIgnoreInput(bPreviousIgnoreInput);
+        VP->SetIgnoreInput(false);
     }
-    if(FSlateApplication::IsInitialized())FSlateApplication::Get().SetAllUserFocusToGameViewport();
     Overlay.Reset();AttachedViewport.Reset();
 }
 
@@ -471,6 +532,7 @@ void UTransitLoadingSubsystem::RetryResources()
     if(!bScenePrepared||!bCompletePreload)return;
     ResourcePreparation.Reset();bPreparationFailed=false;
     if(View){View->RetryAvailable=false;StartedAt=FPlatformTime::Seconds();View->Start=StartedAt;}
+    if(View)View->Title=FText::FromString(TEXT("正在准备场景资源…"));
     CompletePreparation();
 }
 

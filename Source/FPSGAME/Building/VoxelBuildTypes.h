@@ -84,10 +84,23 @@ struct FVoxelBuildPrefabInstance
 /** 可冶炼构件的调色板稳定 ID（Docs/Gameplay/blast-furnace-model-20260923.md）。
  *  归属放数据而不是散落的字符串比较：交互白名单、拆除退回与面板都引用这一个键。 */
 inline const FName VoxelSmeltingFurnaceId(TEXT("blast_furnace"));
+inline const FName VoxelCastingStationId(TEXT("casting_station"));
+
+struct FVoxelCastingOrder
+{
+    FName Recipe;
+    int64 Batch=1;
+};
+struct FVoxelCastingProduct
+{
+    FString Item;
+    int64 Count=0;
+};
 
 /** 工作台构件的调色板稳定 ID（SourceAssets/WorkbenchBuildable20260924，面板规划
  *  Docs/UI/workbench-panel-plan-20260924.md）：E 交互与制作面板引用这一个键。 */
 inline const FName VoxelWorkbenchId(TEXT("workbench_table"));
+inline const FName VoxelGunWorkbenchId(TEXT("gun_workbench_table"));
 
 // VBX v5（只读兼容）：纯挂钟冶炼任务——今天引入 v5 后当天就升级成燃料模型，
 // 老档按"挂钟全额补进度"迁移进 v6（见 AVoxelBuildWorld::Initialize）。
@@ -112,6 +125,16 @@ struct FVoxelSmeltingJob
     double ProgressSeconds=0;
     int64 BurnStartTicks=0;
     int64 BatchCount=1;
+    // VBX v10: one furnace owns one nearby casting station; the receiver is a bounded buffer.
+    bool bCasting=false;
+    FIntVector StationCell=FIntVector::ZeroValue;
+    int64 ProducedBatches=0;
+    TArray<FVoxelCastingOrder> Queue;
+    TArray<FVoxelCastingProduct> Products;
+    int32 ActionSerial=0;
+    int64 CastSerial=0;
+    FName LastCastRecipe;
+    int64 LastCastTicks=0;
 };
 
 // Per-furnace stored fuel (seconds), independent of the job: it survives collect and can be

@@ -19,12 +19,32 @@
 #include "Components/Overlay.h"
 #include "Components/OverlaySlot.h"
 #include "Components/ScrollBox.h"
+#include "Components/SizeBox.h"
 #include "Components/SpinBox.h"
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
 #include "Components/VerticalBoxSlot.h"
 #include "Components/WidgetSwitcher.h"
 #include "InputCoreTypes.h"
+
+namespace
+{
+    /**
+     * 怪物页的选项条与数值框对齐到同页满宽内容与共享标准操作高度。
+     * 宽度取满宽文本的实测内容宽度，滚动条显隐都不会挤压；实测尺寸已经一致时不写入，
+     * 避免每帧让布局失效。DPI 变化时目标高度改变，下一帧自动重算。
+     */
+    void ApplyOptionRowSize(const UWidget* Control, float Width, float Height)
+    {
+        if (!Control) return;
+        auto* Box = Cast<USizeBox>(Control->GetParent());
+        if (!Box) return;
+        const FVector2D Actual = Control->GetCachedGeometry().GetLocalSize();
+        if (FMath::IsNearlyEqual(Actual.X, Width, .5f) && FMath::IsNearlyEqual(Actual.Y, Height, .5f)) return;
+        Box->SetWidthOverride(Width);
+        Box->SetHeightOverride(Height);
+    }
+}
 
 void UDevelopmentPanelWidget::NativeOnInitialized()
 {
@@ -42,13 +62,7 @@ void UDevelopmentPanelWidget::NativeOnInitialized()
     BackdropSlot->SetAnchors(FAnchors(0.f, 0.f, 1.f, 1.f));
     BackdropSlot->SetOffsets(FMargin(0.f));
     BackdropSlot->SetZOrder(0);
-    Shortcut = CreatePanelButton(TEXT("F6  开发面板"), TEXT("DevelopmentOpen"));
-    Shortcut->OnClicked.AddDynamic(this, &ThisClass::OpenDeveloper);
-    ShortcutSlot = Root->AddChildToCanvas(Shortcut);
-    ShortcutSlot->SetAnchors(FAnchors(0, 1));
-    ShortcutSlot->SetAlignment(FVector2D(0, 1));
-    ShortcutSlot->SetAutoSize(true);
-    ShortcutSlot->SetZOrder(2);
+    // F6 remains a keyboard entry; the permanent bottom-left shortcut is retired.
 
     auto* Shell = WidgetTree->ConstructWidget<UOverlay>();
     Panel = Shell;
@@ -96,21 +110,28 @@ void UDevelopmentPanelWidget::NativeOnInitialized()
     {
         MonsterPage->AddChildToVerticalBox(CreatePanelText(Caption, 16, ColdSteelUI::TextPrimary))->SetPadding(FMargin(0,12,0,6));
     };
+    // 三组选项条与「基本调参」页同级：统一 36px 操作高度，宽度在 NativeTick 按实测内容宽度对齐。
+    const auto AddOptionRow = [this, MonsterPage](UWidget* Control)
+    {
+        auto* Box = WidgetTree->ConstructWidget<USizeBox>();
+        Box->SetContent(Control);
+        MonsterPage->AddChildToVerticalBox(Box);
+    };
     Label(TEXT("怪物类型"));
     MonsterChoice = WidgetTree->ConstructWidget<UComboBoxString>();
     MonsterChoice->OnGenerateWidgetEvent.BindDynamic(this, &ThisClass::GenerateMonsterOption);
     MonsterChoice->OnSelectionChanged.AddDynamic(this, &ThisClass::MonsterSelected);
-    MonsterPage->AddChildToVerticalBox(MonsterChoice);
+    AddOptionRow(MonsterChoice);
     Label(TEXT("生成数量"));
     CountBox = WidgetTree->ConstructWidget<USpinBox>();
     CountBox->SetMinValue(1); CountBox->SetMaxValue(10); CountBox->SetMinSliderValue(1); CountBox->SetMaxSliderValue(10);
     CountBox->SetDelta(1); CountBox->SetMinFractionalDigits(0); CountBox->SetMaxFractionalDigits(0); CountBox->SetValue(1);
-    MonsterPage->AddChildToVerticalBox(CountBox);
+    AddOptionRow(CountBox);
     Label(TEXT("前方距离 · 米"));
     DistanceBox = WidgetTree->ConstructWidget<USpinBox>();
     DistanceBox->SetMinValue(3); DistanceBox->SetMaxValue(15); DistanceBox->SetMinSliderValue(3); DistanceBox->SetMaxSliderValue(15);
     DistanceBox->SetDelta(.5f); DistanceBox->SetMinFractionalDigits(1); DistanceBox->SetMaxFractionalDigits(1); DistanceBox->SetValue(5);
-    MonsterPage->AddChildToVerticalBox(DistanceBox);
+    AddOptionRow(DistanceBox);
     SpawnCount = CreatePanelText(TEXT("本面板生成的怪物：0"), 14, ColdSteelUI::TextSecondary);
     MonsterPage->AddChildToVerticalBox(SpawnCount)->SetPadding(FMargin(0,16,0,10));
     SpawnStatus = CreatePanelText(TEXT("选择怪物后点击生成。怪物出现在玩家朝向的前方，并面向玩家。"), 14, ColdSteelUI::TextPrimary);
@@ -142,13 +163,14 @@ void UDevelopmentPanelWidget::NativeOnInitialized()
 
 UWidget* UDevelopmentPanelWidget::GenerateMonsterOption(FString Item)
 {
-    return CreatePanelText(Item, 10.5f, ColdSteelUI::TextPrimary);
+    // 怪物下拉与物品／技能下拉是同一类选项条，共用条目生成，不再单列更小的字号。
+    return GenerateListOption(Item);
 }
 
 UWidget* UDevelopmentPanelWidget::GenerateListOption(FString Item)
 {
-    // 物品与技能下拉的条目可长可短，固定不换行，避免行高被折行撑开。
-    auto* Text = CreatePanelText(Item, 12, ColdSteelUI::TextPrimary);
+    // 怪物、物品与技能下拉的条目：正文档 14px，固定不换行，避免行高被折行撑开。
+    auto* Text = CreatePanelText(Item, 14, ColdSteelUI::TextPrimary);
     Text->SetAutoWrapText(false);
     return Text;
 }
@@ -427,7 +449,8 @@ void UDevelopmentPanelWidget::GenerateItemClicked()
     if (!Model || !Entry) { SetFeatureMessage(TEXT("请选择要生成的物品"), ColdSteelUI::Warning); return; }
     const FString Name = Entry->Name;
     if (Model->AddItem(SelectedItemDefinition, Count))
-        SetFeatureMessage(FString::Printf(TEXT("已生成 %s ×%d → 背包"), *Name, Count), ColdSteelUI::Success);
+        SetFeatureMessage(FString::Printf(TEXT("已生成 %s ×%d → %s"), *Name, Count,
+            Model->AmmoType(SelectedItemDefinition)?TEXT("弹药袋"):TEXT("背包")), ColdSteelUI::Success);
     else
         SetFeatureMessage(FString::Printf(TEXT("生成失败：%s"), *Model->ResultMessage()), ColdSteelUI::Warning);
     RefreshFeatures();
@@ -480,7 +503,7 @@ void UDevelopmentPanelWidget::UpdateLayout()
     const float Width = FMath::Min(View.X - RightInset - 12.f, FMath::Clamp(View.X * .48f, 720.f, 1040.f));
     DrawerSlide = FMath::Max(1.f, Width);
     PanelSlot->SetOffsets(FMargin(-RightInset / Scale, 12.f / Scale, DrawerSlide / Scale, 12.f / Scale));
-    ShortcutSlot->SetPosition(FVector2D(16.f,-90.f) / Scale);
+    if (ShortcutSlot) ShortcutSlot->SetPosition(FVector2D(16.f,-90.f) / Scale);
     Surface->SetPadding(FMargin(18.f / Scale));
     Surface->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassTint, ColdSteelUI::PanelRadius / Scale));
     Blur->SetCornerRadius(FVector4(ColdSteelUI::PanelRadius / Scale));
@@ -499,6 +522,8 @@ void UDevelopmentPanelWidget::UpdateLayout()
 void UDevelopmentPanelWidget::StyleChoice(UComboBoxString* Combo, float Scale)
 {
     if (!Combo) return;
+    // 选项条文字为 14px 正文档，内容与圆角边框之间留出同页卡片级内缩。
+    Combo->SetContentPadding(FMargin(10.f / Scale, 4.f / Scale));
     auto ComboStyle = Combo->GetWidgetStyle();
     ComboStyle.ComboButtonStyle.ButtonStyle = ColdSteelUI::ButtonStyle(1.f / Scale);
     ComboStyle.ComboButtonStyle.DownArrowImage.TintColor = ColdSteelUI::TextSecondary;
@@ -509,7 +534,8 @@ void UDevelopmentPanelWidget::StyleChoice(UComboBoxString* Combo, float Scale)
 void UDevelopmentPanelWidget::StyleCount(USpinBox* Spin, float Scale)
 {
     if (!Spin) return;
-    Spin->SetFont(ColdSteelUI::NumberFont(10.5f / Scale));
+    // 数值框与选项条同档：数值 14px，不再使用表外的 10.5px。
+    Spin->SetFont(ColdSteelUI::NumberFont(14.f / Scale));
     Spin->SetForegroundColor(ColdSteelUI::TextPrimary);
     auto Style = Spin->GetWidgetStyle();
     Style.SetBackgroundBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Content, ColdSteelUI::ButtonRadius / Scale));
@@ -551,6 +577,15 @@ void UDevelopmentPanelWidget::NativeTick(const FGeometry& Geometry, float DeltaS
     Super::NativeTick(Geometry, DeltaSeconds);
     UpdateLayout();
     TickDrawer(DeltaSeconds);
+    // 怪物页的选项条与数值框：满宽说明行提供滚动区实际内容宽度，高度用共享标准操作高度。
+    // 页面未显示时实测宽度为 0，跳过；切到该页后下一帧自动对齐。
+    const float RowWidth = SpawnStatus ? SpawnStatus->GetCachedGeometry().GetLocalSize().X : 0.f;
+    if (RowWidth > 1.f)
+    {
+        const float RowHeight = ColdSteelUI::ActionHeight / ColdSteelUI::PixelScale(this);
+        const UWidget* const Controls[] = {MonsterChoice.Get(), CountBox.Get(), DistanceBox.Get()};
+        for (const UWidget* Control : Controls) ApplyOptionRowSize(Control, RowWidth, RowHeight);
+    }
     // 性能页只在它自己可见时刷新：扫描要遍历世界，没必要在别的页面上白跑。
     if (ActivePage == 3 && IsPanelOpen()) RefreshPerformance(DeltaSeconds);
 }

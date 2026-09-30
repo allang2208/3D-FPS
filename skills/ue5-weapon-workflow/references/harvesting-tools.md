@@ -86,3 +86,15 @@
 - UE 5.8 Python：MI 参数用 `MaterialEditingLibrary.set_material_instance_*_parameter_value`（对象方法已移除）；`StaticMaterial` 只有 `material_slot_name`／`material_interface`；`Texture2D` 无尺寸属性。
 - commandlet 里 `print()`／`unreal.log()` 都不进日志：探针脚本把结果写 JSON 文件再读。
 - 覆盖任何已发布二进制（FBX、图标 PNG）前先备份进任务目录 `Before/` 并把前后散列写进 `before-backup.json`；失败重跑可能把新文件误备为旧文件，备份源优先找作者源文件。
+
+## 采集结算统一为伤害驱动（2026-09-30）
+
+树木、树桩、岩块三类目标全部走生命值口径，命中数结算退役；表土（一挥一层）是唯一例外。
+
+- **岩块 HP**：`ProductionTreeHealth::RockMaxHealth()` = 60 ＝ 出厂十字镐标定伤害约 20/挥 × 旧「三次有效命中」，与旧手感逐次对应；矿石岩块与石块同血、不做尺寸浮动（岩块尺寸来自 PCG，没有树那样的固定缩放带）。调平衡 CVar `fps.Harvest.RockHealthScale`（树木同款 `fps.Harvest.TreeHealthScale`）。
+- **伤害是唯一来源**：`StrikeDamage` = 工具伤害面板（工具公式 + 角色物攻 + 改造 + 附魔）×「所需有效命中」改造折算倍率——**该改造不再减次数而是加伤害**（出厂 3 击改 2 击 ＝ ×1.5）。
+- **存档**：`FColdSteelProfile::RockHealth`（Id→剩余比例 0..1，缺省满血）；旧档 1..3 命中在读档 `RockHealthRatio()` 一次性换算，不迁移遍历——改基础生命不作废旧档。岩块不重生、无成熟门禁。
+- **采尽标记别删**：`HarvestProgress=3` 在 HP 归零时照写——`IsProductionDepleted` 已改 HP 比例判采尽（树/岩），但标记仍是旧档兼容与挖掘循环的接口；`RequiredHits=3` 常量同理保留作标定基准。
+- **表土边界**：一挥一层固定挖掘不走伤害（铲子无伤害属性）；其 `progress≥1` 防连挖闸门必须保留——下挖上限触顶时 `CompleteProductionHarvest` 拒绝挖掘且不复位，无闸门会陷入「发放→回收」死循环。
+- **展示位同步**：「所需有效命中」全家族替换为「采矿伤害 / 伐木伤害 N / 挥」；图鉴的挥砍数 = `SwingsToFell(标准生命, 伤害)`（A 树 / 标准岩 60 点），不再用命中公式推算。
+- 命中管线未动：工具挥击的 `Shot.DamagePanel` 仍默认全物理（钝击），生命扣减是采集侧独立结算。

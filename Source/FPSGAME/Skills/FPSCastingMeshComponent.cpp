@@ -15,7 +15,7 @@ FQuat LimbFrame(const FVector& Direction,const FVector& Plane)
 
 void UFPSCastingMeshComponent::CacheCastSkeleton()
 {
-    PoseMesh=GetSkeletalMeshAsset();ReferencePose.Reset();LeftBones.Reset();EntryLocal.Reset();EntrySerial=0;
+    PoseMesh=GetSkeletalMeshAsset();ReferencePose.Reset();LeftBones.Reset();EntryLocal.Reset();FistEntryCameraPose.Reset();EntrySerial=0;
     BashHandR=GetBoneIndex(TEXT("hand_r"));   // 打击探针（命中射线起点）用的握把手骨
     CastClavicleIndex=GetBoneIndex(TEXT("clavicle_l"));CastUpperIndex=GetBoneIndex(TEXT("upperarm_l"));CastLowerIndex=GetBoneIndex(TEXT("lowerarm_l"));CastHandIndex=GetBoneIndex(TEXT("hand_l"));
     if(!PoseMesh.IsValid() || CastClavicleIndex==INDEX_NONE || CastUpperIndex==INDEX_NONE || CastLowerIndex==INDEX_NONE || CastHandIndex==INDEX_NONE)return;
@@ -42,11 +42,13 @@ void UFPSCastingMeshComponent::FinalizeBoneTransform()
     bool bApplied=false;
     if(bCastActive&&IsVisible()&&!bHiddenInGame){ApplyCastPose(Magic);bApplied=true;}
     // 火球施法结束（不再占用左手）时清入场快照，下一次施法重新捕获。
-    if(!bCastActive){EntrySerial=0;EntryLocal.Reset();}
+    if(!bCastActive){EntrySerial=0;EntryLocal.Reset();FistEntryCameraPose.Reset();}
     CarryHandleDynamics.Apply(*this, GetEditableComponentSpaceTransforms());
     OutgoingBeltDynamics.Apply(*this, GetEditableComponentSpaceTransforms());
+    LMG201BeltDynamics.Apply(*this, GetEditableComponentSpaceTransforms());
     if(bApplyLeftHandCast&&IsVisible()&&!bHiddenInGame&&GetOwner())
         if(auto* Potion=GetOwner()->FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())Potion->ApplyHandPose(*this);
+    OutfitArmClearance.Apply(*this, GetEditableComponentSpaceTransforms());
     Super::FinalizeBoneTransform();
 }
 
@@ -66,11 +68,16 @@ void UFPSCastingMeshComponent::ApplyCastPose(UFPSFireballComponent* Magic)
     if(EntrySerial!=Magic->GetCastSerial() || EntryLocal.Num()!=Pose.Num())
     {
         EntrySerial=Magic->GetCastSerial();EntryLocal=SourcePose;
+        FistEntryCameraPose=SourcePose;
+        for(int32 I:LeftBones)FistEntryCameraPose[I]=ToCamera(SourcePose[I]);
         for(int32 I:LeftBones)EntryLocal[I]=SourcePose[I].GetRelativeTransform(SourcePose[Ref.GetParentIndex(I)]);
         Magic->CaptureHandEntry(ToCamera(SourcePose[CastHandIndex]),ToCamera(SourcePose[CastClavicleIndex]),ToCamera(SourcePose[CastUpperIndex]).GetLocation(),ToCamera(SourcePose[CastLowerIndex]).GetLocation());
     }
     const auto& Settings=Magic->HandPose();
     const auto Phase=Magic->GetHandPhase();const float T=Magic->HandPhaseFraction();
+    const bool bPowerFist=Magic->IsPowerFistGesture();
+    const auto& Fist=Magic->PowerFistPose();
+    const float FistAge=Magic->PowerFistSourceAge(),FistRecovery=Phase==EFireballHandPhase::Recovering?T:0.f;
     // Bone orientation is reconstructed from palm semantics for each loaded rig.
     const FQuat HandCorrection=ReferencePalm.Inverse()*ReferencePose[CastHandIndex].GetRotation();
     const FTransform CurrentHand=ToCamera(SourcePose[CastHandIndex]);
@@ -119,7 +126,25 @@ void UFPSCastingMeshComponent::ApplyCastPose(UFPSFireballComponent* Magic)
     const float SupportRoll=FMath::Clamp(FMath::Atan2(UD|(UpperSide^PalmSide),UpperSide|PalmSide)*.18f,
         -FMath::DegreesToRadians(12.f),FMath::DegreesToRadians(12.f))*FireballCastMotion::Ease(Release);
     UpperPose.SetRotation((FQuat(UD,SupportRoll)*UpperPose.GetRotation()).GetNormalized());
-    if(Phase==EFireballHandPhase::Recovering)
+    if(bPowerFist)
+    {
+        // Carry the accepted V21 frame through the full upper/lower chain.
+        // Blend from the entering live grip, then return to the current grip.
+        const FQuat UpperDeform=FQuat::FindBetweenNormals(ForearmDeform.RotateVector(RU.GetSafeNormal()),UD)*ForearmDeform;
+        UpperPose.SetRotation((UpperDeform*ReferencePose[CastUpperIndex].GetRotation()).GetNormalized());
+        const float Support=Fist.ArmSupportWeight(FistAge,FistRecovery);
+        const auto SupportedRotation=[&](int32 Index,const FVector& RestAxis,const FVector& Axis,const FQuat& Authored)
+        {
+            const FQuat EntryRotation=CameraToMesh*FistEntryCameraPose[Index].GetRotation();
+            const FQuat BaseRotation=FQuat::Slerp(EntryRotation,SourcePose[Index].GetRotation(),FireballCastMotion::Ease(FistRecovery)).GetNormalized();
+            const FQuat Deform=BaseRotation*ReferencePose[Index].GetRotation().Inverse();
+            const FQuat Aligned=FQuat::FindBetweenNormals(Deform.RotateVector(RestAxis.GetSafeNormal()),Axis)*BaseRotation;
+            return FQuat::Slerp(Aligned,Authored,Support).GetNormalized();
+        };
+        UpperPose.SetRotation(SupportedRotation(CastUpperIndex,RU,UD,UpperPose.GetRotation()));
+        LowerPose.SetRotation(SupportedRotation(CastLowerIndex,RL,LD,LowerPose.GetRotation()));
+    }
+    else if(Phase==EFireballHandPhase::Recovering)
     {
         // Carry the live grip's axial orientation onto each solved bone axis.
         // Both rotations aim along that axis, so blending them preserves length
@@ -144,7 +169,12 @@ void UFPSCastingMeshComponent::ApplyCastPose(UFPSFireballComponent* Magic)
         {
             const auto& EntryClavicle=Magic->HandEntryClavicle();
             GoalPose[I]=EntryClavicle*CameraWorld;GoalPose[I]=GoalPose[I].GetRelativeTransform(MeshWorld);
-            GoalPose[I].SetLocation(A+ToMesh(EntryClavicle.GetLocation())-ToMesh(EntryShoulder));
+            if(bPowerFist)
+            {
+                const FTransform EntryUpper=(FistEntryCameraPose[CastUpperIndex]*CameraWorld).GetRelativeTransform(MeshWorld);
+                GoalPose[I]=GoalPose[I].GetRelativeTransform(EntryUpper)*UpperPose;
+            }
+            else GoalPose[I].SetLocation(A+ToMesh(EntryClavicle.GetLocation())-ToMesh(EntryShoulder));
         }
         else if(I==CastUpperIndex)GoalPose[I]=UpperPose;
         else if(I==CastLowerIndex)GoalPose[I]=LowerPose;
@@ -155,6 +185,48 @@ void UFPSCastingMeshComponent::ApplyCastPose(UFPSFireballComponent* Magic)
             // Both upper/lower-arm helpers retain their complete rest-local
             // transform and follow their segment as a rigid group. Fractional
             // roll against a fully rolled parent pinched this mesh during cast.
+            if(bPowerFist)
+            {
+                for(const auto& Digit:Fist.Digits)
+                {
+                    if(!Name.StartsWith(Digit.Key.ToString()+TEXT("_")) || Name.Contains(TEXT("metacarpal")))continue;
+                    const int32 Segment=FCString::Atoi(*Name.Mid(Digit.Key.ToString().Len()+1,2))-1;
+                    if(Segment<0 || Segment>2)break;
+                    const auto ClosedSegmentRotation=[&](int32 Bone,int32 Part)
+                    {
+                        const int32 Next=GetBoneIndex(FName(*FString::Printf(TEXT("%s_%02d_l"),*Digit.Key.ToString(),Part+2)));
+                        FVector RefDirection;
+                        if(Next!=INDEX_NONE)RefDirection=ReferencePose[Next].GetLocation()-ReferencePose[Bone].GetLocation();
+                        else
+                        {
+                            const int32 BoneParent=Ref.GetParentIndex(Bone);
+                            const FVector ParentAxis=ReferencePose[BoneParent].GetRotation().UnrotateVector(ReferencePose[Bone].GetLocation()-ReferencePose[BoneParent].GetLocation());
+                            RefDirection=ReferencePose[Bone].GetRotation().RotateVector(ParentAxis);
+                        }
+                        const float Spread=FMath::DegreesToRadians(Digit.Value.Spread[Part]);
+                        const float Flex=FMath::DegreesToRadians(Digit.Value.Flex[Part]);
+                        const FVector Planar=DesiredPalm.RotateVector(FVector(FMath::Cos(Spread),FMath::Sin(Spread),0));
+                        const FQuat Neutral=LimbFrame(Planar,DesiredPalm.GetAxisZ());
+                        // Carry the curl-plane normal through deep flexion.
+                        const FQuat Curled=FQuat(Neutral.GetAxisY(),-Flex)*Neutral;
+                        return Curled*LimbFrame(RefDirection,ReferencePalm.GetAxisZ()).Inverse()*ReferencePose[Bone].GetRotation();
+                    };
+                    // Interpolate each joint toward its fully closed local
+                    // rotation. Using the partially closed parent here made
+                    // distal joints rush ahead and over-fold during the snap.
+                    const FQuat ClosedParent=Segment>0?ClosedSegmentRotation(Parent,Segment-1):GoalPose[Parent].GetRotation();
+                    const FQuat ClosedLocal=ClosedParent.Inverse()*ClosedSegmentRotation(I,Segment);
+                    FQuat GripLocal=EntryLocal[I].GetRotation();
+                    if(Phase==EFireballHandPhase::Recovering)
+                        GripLocal=FQuat::Slerp(GripLocal,SourcePose[I].GetRelativeTransform(SourcePose[Parent]).GetRotation(),FireballCastMotion::Ease(T));
+                    const FVector2D Weights=Fist.FingerWeights(Digit.Key,FistAge,FistRecovery);
+                    const FQuat Relaxed=FQuat::Slerp(RestLocal.GetRotation(),GripLocal,.25f);
+                    const FQuat From=FQuat::Slerp(GripLocal,Relaxed,Weights.X);
+                    GoalPose[I].SetRotation((GoalPose[Parent].GetRotation()*FQuat::Slerp(From,ClosedLocal,Weights.Y)).GetNormalized());
+                    break;
+                }
+                continue;
+            }
             for(const auto& Digit:Settings.Digits)
             {
                 if(!Name.StartsWith(Digit.Key.ToString()+TEXT("_")) || Name.Contains(TEXT("metacarpal")))continue;

@@ -20,6 +20,16 @@ namespace
     static TAutoConsoleVariable<float> TreeHealthScale(
         TEXT("fps.Harvest.TreeHealthScale"),1.f,
         TEXT("树木生命值整体倍率（1 = 出厂）。只影响砍树需要的挥砍数，不改产出与掉落。"));
+    // 岩块同款调平衡倍率（2026-09-30 岩块 HP 化）。
+    static TAutoConsoleVariable<float> RockHealthScaleCVar(
+        TEXT("fps.Harvest.RockHealthScale"),1.f,
+        TEXT("岩块生命值整体倍率（1 = 出厂）。只影响采矿需要的挥击数，不改产出与掉落。"));
+    /**
+     * 岩块基础生命：标定参考与树木一致——1 级未加点角色手持出厂十字镐
+     * （武器公式 ≈10 ＋ 角色物攻 ≈10 ＝ 20/挥）敲石块 3 击 ＝ 60，与旧的
+     * 「三次有效命中」手感逐次对应；矿石岩块与普通石块同血。
+     */
+    constexpr double RockBaseHealth=60.;
 }
 
 double ProductionTreeHealth::BaseHealth(int32 Variant)
@@ -40,6 +50,21 @@ double ProductionTreeHealth::MaxHealth(const FProductionResource& Resource)
     const double T=FMath::Clamp((Size-PlacementScaleMin)/(PlacementScaleMax-PlacementScaleMin),0.,1.);
     Health*=FMath::Lerp(SizeHealthMin,SizeHealthMax,T);
     return FMath::Max(1.,Health*HealthScale());
+}
+
+double ProductionTreeHealth::StumpMaxHealth(const FProductionResource& Resource)
+{
+    return FMath::Max(1.,MaxHealth(Resource)*.5);
+}
+
+double ProductionTreeHealth::RockMaxHealth()
+{
+    return FMath::Max(1.,RockBaseHealth*RockHealthScale());
+}
+
+double ProductionTreeHealth::RockHealthScale()
+{
+    return FMath::Clamp(double(RockHealthScaleCVar.GetValueOnGameThread()),.05,100.);
 }
 
 double ProductionTreeHealth::StrikeDamage(const FProductionToolStats& Stats)

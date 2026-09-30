@@ -2,6 +2,7 @@
 #include "../Skills/FPSFireMagicComponent.h"
 #include "../Weapons/RuneSwordComponent.h"
 #include "../Weapons/RuneOrbBladesComponent.h"
+#include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelQuickDrag.h"
@@ -11,6 +12,7 @@
 #include "../FPSGAMECharacter.h"
 #include "../Skills/FPSFireballComponent.h"
 #include "../Skills/FPSIceSpikeComponent.h"
+#include "../Skills/FPSIceWallComponent.h"
 #include "../Skills/FPSLightningComponent.h"
 #include "../Skills/FPSHolyLightComponent.h"
 #include "Blueprint/WidgetTree.h"
@@ -27,6 +29,8 @@
 #include "ImageUtils.h"
 #include "Misc/Paths.h"
 #include "ProfilingDebugging/CpuProfilerTrace.h"
+#include "GameFramework/PlayerController.h"
+#include "Rendering/DrawElements.h"
 
 void UColdSteelQuickSlot::Configure(UColdSteelHUDWidget* Owner,int32 SlotIndex,FName InFixedSkill)
 {
@@ -66,7 +70,7 @@ void UColdSteelQuickSlot::Configure(UColdSteelHUDWidget* Owner,int32 SlotIndex,F
     ReadyFlash=WidgetTree->ConstructWidget<UImage>();
     ReadyFlash->SetBrush(ColdSteelUI::RoundedBrush(FLinearColor::White,6/Scale,FLinearColor::Transparent,0));
     ReadyFlash->SetRenderOpacity(0);ReadyFlash->SetVisibility(ESlateVisibility::HitTestInvisible);Fill(ReadyFlash);
-    Key=Text(FixedSkill.IsNone()?ColdSteelQuickBar::KeyLabel(Index):FixedKeyLabel);Key->SetFont(ColdSteelUI::NumberFont(9/Scale));Key->SetColorAndOpacity(ColdSteelUI::Accent);
+    Key=Text(FixedSkill.IsNone()?ColdSteelQuickBar::KeyLabel(Index):FixedKeyLabel);Key->SetFont(ColdSteelUI::NumberFont(9/Scale));Key->SetColorAndOpacity(ColdSteelUI::HUDGoldLight);
     auto* K=Overlay->AddChildToOverlay(Key);K->SetHorizontalAlignment(HAlign_Right);K->SetVerticalAlignment(VAlign_Bottom);K->SetPadding(FMargin(0,0,4/Scale,2/Scale));
     Count=Text(TEXT(""));Count->SetFont(ColdSteelUI::NumberFont(9/Scale,true));auto* C=Overlay->AddChildToOverlay(Count);
     C->SetHorizontalAlignment(HAlign_Center);C->SetVerticalAlignment(VAlign_Top);C->SetPadding(FMargin(0,1/Scale,0,0));
@@ -76,6 +80,10 @@ void UColdSteelQuickSlot::Configure(UColdSteelHUDWidget* Owner,int32 SlotIndex,F
 void UColdSteelQuickSlot::NativeTick(const FGeometry& Geometry,float DeltaTime)
 {
     Super::NativeTick(Geometry,DeltaTime);
+    const auto* PC=GetOwningPlayer();
+    const FString KeyLabel=FixedSkill.IsNone()?ColdSteelQuickBar::KeyLabel(Index):FixedKeyLabel;
+    const bool Gold=!Displayed.IsEmpty()&&(IsHovered()||bGoldPrepared||(PC&&!KeyLabel.IsEmpty()&&PC->IsInputKeyDown(FKey(FName(*KeyLabel)))));
+    if(Gold!=bGoldHighlighted){bGoldHighlighted=Gold;if(const auto Widget=GetCachedWidget())Widget->Invalidate(EInvalidateWidgetReason::Paint);}
     BlinkElapsed=FMath::Fmod(BlinkElapsed+DeltaTime,ColdSteelQuickSlotFX::KeyPeriod);
     if(Key)Key->SetRenderOpacity(ColdSteelQuickSlotFX::KeyOpacity(BlinkElapsed));
     if(FlashElapsed<ColdSteelQuickSlotFX::FlashDuration)
@@ -110,6 +118,11 @@ void UColdSteelQuickSlot::NativeTick(const FGeometry& Geometry,float DeltaTime)
             if(const auto* Ability=Player->FindComponentByClass<UFPSIceSpikeComponent>())
             {Notice=Ability->IsHandOccupiedNotice();NoticeAlpha=Ability->HandNoticeAlpha();NoticeRise=Ability->HandNoticeRise();}
         }
+        else if(Displayed.Skill==TEXT("iceWall"))
+        {
+            if(const auto* Ability=Player->FindComponentByClass<UFPSIceWallComponent>())
+            {Notice=Ability->IsHandOccupiedNotice();NoticeAlpha=Ability->HandNoticeAlpha();NoticeRise=Ability->HandNoticeRise();}
+        }
         else if(Displayed.Skill==TEXT("lightningStrike"))
         {
             if(const auto* Ability=Player->FindComponentByClass<UFPSLightningComponent>())
@@ -133,7 +146,9 @@ void UColdSteelQuickSlot::Refresh()
     TRACE_CPUPROFILER_EVENT_SCOPE(ColdSteelQuickSlot_Refresh);
     auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();if(!Model||!Icon)return;
     // 专属槽不读混放绑定，恒显固定技能；其余数据（图标、冷却、变暗）走同一条显示路径。
-    const auto Binding=FixedSkill.IsNone()?Model->QuickBinding(Index):[&]{FColdSteelQuickBinding B;B.Skill=FixedSkill;return B;}();
+    const auto* Staff=GetOwningPlayerPawn()?GetOwningPlayerPawn()->FindComponentByClass<UStaffWeaponComponent>():nullptr;
+    const auto Binding=FixedSkill.IsNone()?Model->QuickBinding(Index):[&]
+    {FColdSteelQuickBinding B;B.Skill=FixedSkill==TEXT("runeBlades")&&Staff&&Staff->HasIlluminationSpecial()?FName(TEXT("staffLight")):FixedSkill;return B;}();
     const auto* Item=Model->ResolveQuickItem(Index);
     const bool BindingChanged=!bLoaded||!(Binding==Displayed);
     if(BindingChanged)
@@ -155,9 +170,11 @@ void UColdSteelQuickSlot::Refresh()
         const FString KeyText=FixedSkill.IsNone()?ColdSteelQuickBar::KeyLabel(Index):FixedKeyLabel;
         SetToolTipText(FText::FromString(FixedSkill.IsNone()?(Binding.IsEmpty()?FString::Printf(TEXT("%s · 拖入主动技能或消耗品"),*KeyText):
             FString::Printf(TEXT("%s · %s\n拖到空槽移动，拖到其他内容交换；拖出快捷栏解绑"),*Name,*KeyText)):
+            Binding.Skill==TEXT("staffLight")?FString::Printf(TEXT("%s · %s\n按 G 开启／关闭照明；无冷却、无消耗"),*KeyText,*Name):
             FString::Printf(TEXT("%s · %s\n按 %s 直接触发；冷却结束后可用"),*KeyText,*Name,*KeyText)));
     }
     FString Message;float Fraction=0,Remaining=0;bool Dim=false;
+    bGoldPrepared=false;
     Count->SetText(FText::GetEmpty());
     if(FireMagic::IsSkill(Binding.Skill))
     {
@@ -170,14 +187,25 @@ void UColdSteelQuickSlot::Refresh()
         }
         if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice(Binding.Skill)))Remaining=Model->FireMagicCooldown(Binding.Skill);
         Dim=!Model->CanSpendMana(Model->FireMagicStats(Binding.Skill).ManaCost);
+        if(Model->FireMagicDefinition(Binding.Skill).FireMagic.bRequiresStaff&&!Model->HasEquippedStaff())
+        {Dim=true;Remaining=0;Message=TEXT("需要法杖");}
     }
     else if(Binding.Skill==TEXT("fireball"))
     {
         const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<UFPSFireballComponent>():nullptr;
-        if(Ability){Message=Ability->StatusText();Fraction=Ability->CooldownFraction();}
+        if(Ability){Message=Ability->StatusText();Fraction=Ability->CooldownFraction();bGoldPrepared=Ability->IsPrepared();}
         // The refusal notice answers the press itself, so it outranks the countdown.
         if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice()))Remaining=Model->FireballCooldown();
         Dim=!Model->CanSpendMana(Model->FireballStats().ManaCost)&&(!Ability||(!Ability->IsPrepared()&&!Ability->IsFlying()));
+    }
+    else if(Binding.Skill==TEXT("iceWall"))
+    {
+        const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<UFPSIceWallComponent>():nullptr;
+        if(Ability){Message=Ability->StatusText();Fraction=Ability->CooldownFraction();bGoldPrepared=Ability->IsPrepared();}
+        if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice()))Remaining=Model->IceWallCooldown();
+        Dim=!Model->CanSpendMana(Model->IceWallStats().ManaCost)&&(!Ability||!Ability->IsPrepared());
+        if(Model->IceWallDefinition().IceWall.bRequiresStaff&&!Model->HasEquippedStaff())
+        {Dim=true;bGoldPrepared=false;Remaining=0;Message=TEXT("需要法杖");}
     }
     else if(Binding.Skill==TEXT("iceSpike"))
     {
@@ -229,12 +257,18 @@ void UColdSteelQuickSlot::Refresh()
     }
     else if(Binding.Skill==TEXT("quickCombat"))
     {
-        // 用户 2026-09-18：取消武器类型锁——有没有可用动作由技能路由决定，
-        // 快捷槽只显示冷却，不再因为"手里不是剑/单持手枪"变暗或提示需剑/枪。
-        Fraction=Model->QuickCombatCooldownDuration()>0?Model->QuickCombatCooldown()/Model->QuickCombatCooldownDuration():0.f;
+        // This is the selected weapon's complete action cycle, not a skill CD.
         Remaining=Model->QuickCombatCooldown();
-        // Availability darkening mirrors the mask: unusable only while cooling.
-        Dim=Fraction>0.f;
+        const float Duration=Model->QuickCombatCooldownDuration();
+        Fraction=Duration>0.f?Remaining/Duration:0.f;
+        const bool Enough=Model->CanSpendStamina(Model->QuickCombatStaminaCost());
+        Dim=Remaining>0.f||!Enough;
+        if(!Enough)Message=TEXT("体力不足");
+    }
+    else if(Binding.Skill==TEXT("staffLight"))
+    {
+        Dim=!Staff||!Staff->HasIlluminationSpecial();
+        if(Staff&&Staff->IsIlluminationOn()){Message=TEXT("已点亮");bGoldPrepared=true;}
     }
     else if(Binding.Skill==TEXT("runeBlades"))
     {
@@ -250,6 +284,7 @@ void UColdSteelQuickSlot::Refresh()
         {
             Message=TEXT("待发射");
             Count->SetText(FText::AsNumber(Blades->AvailableBladeCount()));
+            bGoldPrepared=true;
         }
     }
     else if(!Binding.ItemDefinition.IsEmpty())
@@ -279,6 +314,19 @@ void UColdSteelQuickSlot::Refresh()
     Icon->SetColorAndOpacity(Dim?FLinearColor(.55f,.55f,.55f,1):FLinearColor::White);
     FallbackIcon->SetRenderOpacity(Dim?.55f:1.f);
 }
+int32 UColdSteelQuickSlot::NativePaint(const FPaintArgs& Args,const FGeometry& Geometry,const FSlateRect& Clip,FSlateWindowElementList& Elements,int32 Layer,const FWidgetStyle& Style,bool Enabled) const
+{
+    const int32 Result=Super::NativePaint(Args,Geometry,Clip,Elements,Layer,Style,Enabled);
+    if(!bGoldHighlighted)return Result;
+    const float U=1.f/ColdSteelUI::PixelScale(this);
+    const auto Brush=ColdSteelUI::RoundedBrush(FLinearColor::Transparent,6*U,ColdSteelUI::HUDGoldLight,1.5f*U);
+    // MakeBox takes the fill tint explicitly; style tint alone paints a white
+    // box over the icon for the entire prepared / hover / key-held highlight.
+    FSlateDrawElement::MakeBox(Elements,Result+1,Geometry.ToPaintGeometry(),&Brush,ESlateDrawEffect::None,
+        Brush.GetTint(Style)*Style.GetColorAndOpacityTint());
+    return Result+1;
+}
+
 FReply UColdSteelQuickSlot::NativeOnMouseButtonDown(const FGeometry&,const FPointerEvent& E)
 {
     // 专属槽只读：不响应按下捕获，也就不会进入拖动流程。

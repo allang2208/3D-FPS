@@ -915,16 +915,18 @@ TArray<TSharedRef<SWidget>> UColdSteelCodexPage::WeaponDetailRows(const FString&
         Rows.Add(DetailRow(TEXT("体力消耗"), FormatNumber(Tool.StaminaCost, 1), ColdSteelUI::TextPrimary));
         Rows.Add(DetailRow(ColdSteelWeaponText::AttackDistance, FormatNumber(Tool.CombatReachCM / 100., 2) + TEXT(" m"), ColdSteelUI::TextPrimary));
         Rows.Add(DetailRow(TEXT("采集距离"), FormatNumber(Tool.HarvestReachCM / 100., 2) + TEXT(" m"), ColdSteelUI::TextSecondary));
-        // 伐木斧按树木生命值结算：图鉴列一次挥砍的伐木伤害与标准树所需挥砍。
-        // 矿镐仍是命中数口径，保留原来的「所需有效命中」。
+        // 树木与岩块都按生命值结算（2026-09-30 岩块统一）：图鉴列一次挥砍的伤害与
+        // 标准树（A 树 60 点）/标准岩（60 点）所需挥砍，挥砍数由伤害对生命求出。
         if (ColdSteelInventory::Text(Probe, TEXT("tool_kind")) == TEXT("pickaxe"))
-            Rows.Add(DetailRow(TEXT("所需有效命中"), FString::Printf(TEXT("%d 次"),
-                ColdSteelTool::HitsNeeded(FProductionResource::RequiredHits, Tool)), ColdSteelUI::TextSecondary));
+        {
+            Rows.Add(DetailRow(TEXT("采矿伤害"), FormatNumber(ProductionTreeHealth::StrikeDamage(Tool), 1) + TEXT(" / 挥"), ColdSteelUI::TextSecondary));
+            Rows.Add(DetailRow(TEXT("标准岩所需挥砍"), FString::Printf(TEXT("%d 次"),
+                ProductionTreeHealth::SwingsToFell(ProductionTreeHealth::RockMaxHealth(), ProductionTreeHealth::StrikeDamage(Tool))), ColdSteelUI::TextSecondary));        }
         else
         {
             Rows.Add(DetailRow(TEXT("伐木伤害"), FormatNumber(ProductionTreeHealth::StrikeDamage(Tool), 1) + TEXT(" / 挥"), ColdSteelUI::TextSecondary));
             Rows.Add(DetailRow(TEXT("标准树所需挥砍"), FString::Printf(TEXT("%d 次"),
-                ColdSteelTool::HitsNeeded(FProductionResource::RequiredHits, Tool)), ColdSteelUI::TextSecondary));
+                ProductionTreeHealth::SwingsToFell(ProductionTreeHealth::BaseHealth(0), ProductionTreeHealth::StrikeDamage(Tool))), ColdSteelUI::TextSecondary));
         }
         Rows.Add(DetailRow(TEXT("采集产出倍率"), FormatNumber(Tool.HarvestYield, 2) + TEXT("×"), ColdSteelUI::TextSecondary));
         Rows.Add(DetailRow(TEXT("改造栏目"), TEXT("握把 · 握柄 · 改件 · 主部件"), ColdSteelUI::TextSecondary));

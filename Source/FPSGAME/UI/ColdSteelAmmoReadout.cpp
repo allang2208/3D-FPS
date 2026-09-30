@@ -154,6 +154,46 @@ void UColdSteelAmmoReadout::PresentDual(const UPistolDualWieldComponent& Dual,co
     }
 }
 
+void UColdSteelAmmoReadout::PresentStaffPistol(const FColdSteelItem& Staff,const UPistolDualWieldComponent& Dual,const UColdSteelStatusModel& Model)
+{
+    SetReserveStatusText(false);SetDualVisible(true);
+    // 主手段杖：法力就是它的“弹药”——当前量占弹匣位，上限占备弹位，
+    // 沿用双持右手段的配色口径（空=红，低于两成=黄）。
+    Weapon->SetText(FText::FromString(TEXT("主手 · ")+ColdSteelInventory::Text(Staff,TEXT("name"))));
+    Calibre->SetText(FText::FromString(TEXT("左键挥杖 · 技能快捷键施法")));
+    MagazineLabel->SetText(FText::FromString(TEXT("法力")));
+    ReserveLabel->SetText(FText::FromString(TEXT("法力上限")));
+    if(Model.HasInfiniteMana())
+    {
+        Current->SetText(FText::FromString(TEXT("∞")));Current->SetColorAndOpacity(ColdSteelUI::TextPrimary);
+        Spare->SetText(FText::FromString(TEXT("∞")));Spare->SetColorAndOpacity(ColdSteelUI::TextSecondary);
+    }
+    else
+    {
+        const float Mana=FMath::Max(0.f,Model.Mana()),Max=FMath::Max(1.f,Model.Derived(TEXT("maxMp")));
+        Current->SetText(FText::FromString(FString::FromInt(FMath::RoundToInt(Mana))));
+        Current->SetColorAndOpacity(Mana<=0?ColdSteelUI::Danger:Mana<=Max*.2f?ColdSteelUI::Warning:ColdSteelUI::TextPrimary);
+        Spare->SetText(FText::FromString(FString::FromInt(FMath::RoundToInt(Model.Derived(TEXT("maxMp"))))));
+        Spare->SetColorAndOpacity(ColdSteelUI::TextSecondary);
+    }
+    // 副手手枪与 PresentDual 的右手段逐字段一致。
+    const auto& Hand=Dual.Hand(1);
+    OffhandName->SetText(FText::FromString(TEXT("副手 · ")+ColdSteelInventory::Text(Hand.Item,TEXT("name"))));
+    FString Detail=TEXT("右键 · ")+Model.AmmoLabel(Model.AmmoDefinitionFor(Hand.Item));
+    if(!Hand.PendingAmmoType.IsEmpty())if(const auto* Target=Model.AmmoType(Hand.PendingAmmoType))Detail+=TEXT(" → ")+Target->Name;
+    if(Hand.Reloading)Detail+=TEXT(" · 换弹中");
+    OffhandCalibre->SetText(FText::FromString(Detail));
+    OffhandMagazineLabel->SetText(FText::FromString(TEXT("弹匣")));
+    OffhandReserveLabel->SetText(FText::FromString(TEXT("备弹")));
+    const bool Unlimited=Dual.InfiniteReserve(1);
+    const int32 Count=FMath::Max(0,Hand.Rounds),Capacity=FMath::Max(1,Hand.Stats.Capacity),Reserve=FMath::Max(0,Dual.Reserve(1));
+    const bool Low=Count>0&&Count<=FMath::Max(1,FMath::CeilToInt(Capacity*.2f));
+    OffhandAmmo->SetText(FText::FromString(FString::Printf(TEXT("%02d / %d"),Count,Capacity)));
+    OffhandAmmo->SetColorAndOpacity(Hand.Reloading?ColdSteelUI::Accent:Count==0?ColdSteelUI::Danger:Low?ColdSteelUI::Warning:ColdSteelUI::TextPrimary);
+    OffhandSpare->SetText(FText::FromString(Unlimited?TEXT("∞"):FString::FromInt(Reserve)));
+    OffhandSpare->SetColorAndOpacity(!Unlimited&&Reserve==0?ColdSteelUI::Warning:ColdSteelUI::TextSecondary);
+}
+
 void UColdSteelAmmoReadout::PresentMelee(const FColdSteelItem& Item,const UColdSteelStatusModel& Model,const AFPSGAMECharacter* Character)
 {
     const auto Readout=Model.MeleeStaminaReadout(Character);
@@ -190,12 +230,32 @@ void UColdSteelAmmoReadout::Refresh(const AFPSGAMECharacter* Character,const UCo
         Spare->SetColorAndOpacity(!Infinite&&Bow->ArrowsInPouch()==0?ColdSteelUI::Warning:ColdSteelUI::TextSecondary);
         return;
     }
-    if(Item&&Model&&!Model->ActiveProductionTool()&&Item->Definition==TEXT("ue_rune_sword"))
+    if(Item&&Model&&!Model->ActiveProductionTool()&&ColdSteelInventory::IsTwoHandedSword(*Item))
     {
         PresentMelee(*Item,*Model,Character);return;
     }
     const auto* Dual=Character?Character->DualPistols.Get():nullptr;
-    const bool Akimbo=Dual&&Dual->IsActive()&&Model;
+    if(Dual&&Dual->IsOffhandOnly()&&Model)
+    {
+        // 法杖+副手手枪：与双持手枪同款双段面板——主手段杖（法力即弹药），副手沿用右手段。
+        if(Item&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff"))
+        {
+            PresentStaffPistol(*Item,*Dual,*Model);
+            return;
+        }
+        SetDualVisible(false);
+        const auto& Hand=Dual->Hand(1);
+        FString AmmoName=Model->AmmoLabel(Model->AmmoDefinitionFor(Hand.Item));
+        if(!Hand.PendingAmmoType.IsEmpty())AmmoName+=TEXT(" → ")+Model->AmmoLabel(Hand.PendingAmmoType)+TEXT(" · 换弹中");
+        Present(TEXT("副手 · ")+ColdSteelInventory::Text(Hand.Item,TEXT("name")),AmmoName,
+            Hand.Rounds,Dual->Reserve(1),Hand.Stats.Capacity,Hand.Reloading,true);
+        MagazineLabel->SetText(FText::FromString(TEXT("弹匣")));
+        Spare->SetText(FText::FromString(Dual->InfiniteReserve(1)?TEXT("∞"):
+            FString::Printf(TEXT("%lld"),Model->PouchCount(Model->AmmoDefinitionFor(Hand.Item)))));
+        if(Dual->InfiniteReserve(1))Spare->SetColorAndOpacity(ColdSteelUI::TextSecondary);
+        return;
+    }
+    const bool Akimbo=Dual&&Dual->IsPair()&&Model;
     SetDualVisible(Akimbo);
     if(Akimbo)PresentDual(*Dual,*Model,Character->HasInfiniteReserveAmmo());
     else

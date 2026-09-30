@@ -52,6 +52,5 @@ inline constexpr const TCHAR* ParryClovenKeep=TEXT("成功弹反保留时间");
 inline constexpr const TCHAR* HarvestYieldMultiplier=TEXT("采集产出倍率");
 inline constexpr const TCHAR* HarvestDistance=TEXT("采集距离");
 inline constexpr const TCHAR* HarvestRadius=TEXT("命中宽容半径");
-inline constexpr const TCHAR* DamageComposition=TEXT("伤害组成");
 inline constexpr const TCHAR* BowScope=TEXT("按当前角色、强化和改造计算；弓以满弓单箭为准，武器总伤害已计满弓蓄力倍率，拉弓耗时、子弹速度和体力消耗也以满弓为准。未计弹种倍率、暴击和目标防御；腰射散布取站立静止值。");
 }

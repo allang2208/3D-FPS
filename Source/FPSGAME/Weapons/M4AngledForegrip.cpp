@@ -1,3 +1,4 @@
+#include "LMG201Attachments.h"
 #include "../FPSGAMECharacter.h"
 #include "A762Attachments.h"
 #include "SVDAttachments.h"
@@ -16,6 +17,7 @@
 void AFPSGAMECharacter::InitializeForegripAnimations()
 {
     ForegripAnimations.Reset();
+    if(LMG201WeaponAssets::Matches(AKMViewmodel)){LMG201Attachments::LoadGripFamily(TEXT("angled"),ForegripAnimations);return;}
     if(!bUsingM4Infima&&!AKMSoviet::Matches(AKMViewmodel)&&!A762WeaponAssets::Matches(AKMViewmodel)&&!PKMLowpolyWeaponAssets::Matches(AKMViewmodel))return;
     const TPair<UAnimSequence*,const TCHAR*> Clips[]={
         {IdleAnimation,TEXT("idle")},{AimAnimation,TEXT("aim")},
@@ -40,6 +42,7 @@ void AFPSGAMECharacter::InitializeForegripAnimations()
 void AFPSGAMECharacter::SetAngledForegrip(bool bEnabled)
 {
     if(SVDWeaponAssets::Matches(AKMViewmodel)){AngledForegrip=SVDAttachments::Configure(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bEnabled&&bInventoryWeaponReady);return;}
+    if(LMG201WeaponAssets::Matches(AKMViewmodel)){AngledForegrip=LMG201Attachments::Configure(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bEnabled&&bInventoryWeaponReady);return;}
     if(PKMLowpolyWeaponAssets::Matches(AKMViewmodel)){AngledForegrip=PKMAttachments::Configure(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bEnabled&&bInventoryWeaponReady);return;}
     if(A762WeaponAssets::Matches(AKMViewmodel)){AngledForegrip=A762Attachments::Configure(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bEnabled&&bInventoryWeaponReady);return;}
     if(bUseM16){AngledForegrip=M16Attachments::Configure(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bEnabled&&bInventoryWeaponReady);return;}

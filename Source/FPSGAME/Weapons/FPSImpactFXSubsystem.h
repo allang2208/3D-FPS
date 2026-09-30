@@ -23,6 +23,7 @@ class FPSGAME_API UFPSImpactFXSubsystem : public UTickableWorldSubsystem
 public:
     UFPSImpactFXSubsystem();
     void SpawnImpact(const FHitResult& Hit, UCameraComponent* ViewCamera);
+    void ClearImpactDecalsForComponent(const UPrimitiveComponent* Component);
     void SpawnPounceLanding(const FHitResult& Ground, const FVector& Forward, float Radius, float Angle, UCameraComponent* ViewCamera, const AActor* Source);
     virtual void OnWorldBeginPlay(UWorld& InWorld) override;
     virtual void Deinitialize() override;
@@ -77,7 +78,9 @@ private:
     UPROPERTY() TArray<TObjectPtr<UMaterialInterface>> ParticleMaterials;
     UPROPERTY() TArray<TObjectPtr<UMaterialInterface>> DecalMaterials;
     UPROPERTY() TObjectPtr<UMaterialInterface> BloodStainMaterial;
-    UPROPERTY() TArray<TObjectPtr<USoundBase>> Sounds;
+UPROPERTY() TArray<TObjectPtr<USoundBase>> Sounds;
+/** Gun-hit cue used instead of the generic flesh bank when a round lands on a body. */
+    UPROPERTY() TObjectPtr<USoundBase> GunHitSound;
     UPROPERTY() TObjectPtr<USoundBase> PounceImpactSound;
     UPROPERTY(Transient) TArray<TObjectPtr<UInstancedStaticMeshComponent>> Renderers;
     UPROPERTY(Transient) TArray<TObjectPtr<UDecalComponent>> Decals;

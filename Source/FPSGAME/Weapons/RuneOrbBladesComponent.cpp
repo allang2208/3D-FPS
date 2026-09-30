@@ -217,6 +217,12 @@ void URuneOrbBladesComponent::EndOrbit()
     else if (auto* H = Hands()) H->CancelSpellGesture(this);
 }
 
+void URuneOrbBladesComponent::InterruptPending(bool bGathering)
+{
+    bQueuedSummon=false;PendingLaunches=0;
+    if(bGathering && bActive)FinishOrbit(false);
+}
+
 void URuneOrbBladesComponent::FinishOrbit(bool bCancelGesture)
 {
     for (auto& Slot : Slots)

@@ -8,10 +8,16 @@
 #include "../Combat/CombatStatusFormula.h"
 #include "../Monsters/MonsterCombatComponent.h"
 #include "RuneSwordCombatTuning.h"
+#include "MeleeSmallTargetQuery.h"
 #include "../Skills/FPSCastingMeshComponent.h"
 #include "../Skills/QuickCombatPistolMotion.h"
 #include "../Skills/QuickCombatImpactShake.h"
 #include "ColdSteelEnchantmentCombat.h"
+#include "FPSRiftSlashProjectile.h"
+#include "GunsmithSystem.h"
+#include "Engine/AssetManager.h"
+#include "Engine/StreamableManager.h"
+#include "NiagaraSystem.h"
 #include "../Skills/ColdSteelSkillRules.h"
 #include "../FPSGAMECharacter.h"
 #include "../FPSGAMEPlayerController.h"
@@ -23,6 +29,7 @@
 #include "Animation/AnimSequence.h"
 #include "Camera/CameraComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/SceneComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/GameInstance.h"
 #include "Engine/SkeletalMesh.h"
@@ -41,6 +48,9 @@ URuneSwordComponent::URuneSwordComponent()
     // player camera. Keep this order for every state: changing groups on attack
     // entry can be too late for the first frame's already queued tick.
     PrimaryComponentTick.TickGroup=TG_PostPhysics;
+    SlashWaveMeshAsset=TSoftObjectPtr<UStaticMesh>(FSoftObjectPath(TEXT("/Game/Weapons/RiftSlash20260930/SM_RiftSlash.SM_RiftSlash")));
+    SlashWaveMaterialAsset=TSoftObjectPtr<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/Weapons/RiftSlash20260930/M_RiftSlash.M_RiftSlash")));
+    SlashWaveMotesAsset=TSoftObjectPtr<UNiagaraSystem>(FSoftObjectPath(TEXT("/Game/Weapons/RiftSlash20260930/NS_RiftSlashMotes.NS_RiftSlashMotes")));
 }
 
 bool URuneSwordComponent::TriggerHeavySkill()
@@ -71,12 +81,23 @@ void URuneSwordComponent::BeginPlay()
     {SetComponentTickEnabled(false);return;}
     Camera=Pawn->FindComponentByClass<UCameraComponent>();
     if(!Camera){SetComponentTickEnabled(false);return;}
+    SlashWaveLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(
+        TArray<FSoftObjectPath>{SlashWaveMeshAsset.ToSoftObjectPath(),SlashWaveMaterialAsset.ToSoftObjectPath(),SlashWaveMotesAsset.ToSoftObjectPath()},
+        FStreamableDelegate::CreateWeakLambda(this,[this]()
+        {
+            SlashWaveMesh=SlashWaveMeshAsset.Get();SlashWaveMaterial=SlashWaveMaterialAsset.Get();SlashWaveMotes=SlashWaveMotesAsset.Get();
+        }));
     // Enforce the same order for instances serialized with the former group.
     SetTickGroup(TG_PostPhysics);
     AddTickPrerequisiteActor(Pawn);
     AddTickPrerequisiteComponent(Pawn->GetCharacterMovement());
+    // An independent presentation parent keeps airborne motion out of the
+    // authored action transforms and avoids feeding last frame's offset back in.
+    JumpPresentationRoot=NewObject<USceneComponent>(Pawn,TEXT("RuneSwordJumpPresentation"));
+    Pawn->AddInstanceComponent(JumpPresentationRoot);JumpPresentationRoot->SetupAttachment(Camera);
+    JumpPresentationRoot->RegisterComponent();
     Viewmodel=NewObject<URuneSwordMeshComponent>(Pawn,TEXT("RuneSwordViewmodel"));
-    Pawn->AddInstanceComponent(Viewmodel);Viewmodel->SetupAttachment(Camera);
+    Pawn->AddInstanceComponent(Viewmodel);Viewmodel->SetupAttachment(JumpPresentationRoot);
     Viewmodel->SetRelativeRotation(FRotator(0,90,0));
     Viewmodel->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     Viewmodel->SetCanEverAffectNavigation(false);Viewmodel->SetOnlyOwnerSee(true);
@@ -136,7 +157,8 @@ void URuneSwordComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
     // Only the fourth hit uses the counterweight impact cue; slash, thrust and the
     // heavy cuts keep the weapon's own hit_sound.
     PommelHitSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Audio/WeaponHit20260916/S_MeleeHit_Quick.S_MeleeHit_Quick"));
-    BlockSound=LoadObject<USoundBase>(nullptr,*(SoundFolder+TEXT("/S_RuneSword_Block")));
+    BlockSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Audio/MeleeBlock20260927/S_MeleeBlock_01.S_MeleeBlock_01"));
+    BlockSoundAlternate=LoadObject<USoundBase>(nullptr,TEXT("/Game/Audio/MeleeBlock20260927/S_MeleeBlock_02.S_MeleeBlock_02"));
     ParrySound=LoadObject<USoundBase>(nullptr,*(SoundFolder+TEXT("/S_RuneSword_Parry")));
     if(!RiftMaterial)
     {
@@ -153,6 +175,15 @@ void URuneSwordComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
     }
     if(!Mesh || !Animations.FindRef(TEXT("Idle")) || !Animations.FindRef(TEXT("Slash1")) || !Animations.FindRef(TEXT("Slash2")) || !Animations.FindRef(TEXT("Thrust")))
     {UE_LOG(LogTemp,Error,TEXT("Two-handed sword assets are missing for %s (animation folder %s)."),*Item->Definition,*Folder);return;}
+    if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))
+    {
+        // Cache the actual mesh/animation family's idle while this rig is hidden.
+        // Long grips keep their own hand spacing; never reuse the previous rig.
+        Arms->ClearWhirlwindEntry();
+        Arms->CacheQuickCombatIdlePose();
+        CurrentClip=NAME_None;
+        SetClip(TEXT("Idle"),true);
+    }
     bEquipping=true;SetClip(TEXT("Equip"),false);
     if(!CurrentAnimation){bEquipping=false;SetClip(TEXT("Idle"),true);}
     ScheduleWalkInspect(false);
@@ -227,7 +258,11 @@ void URuneSwordComponent::SetClip(FName Name,bool bLoop)
 void URuneSwordComponent::SamplePose(float Time)
 {
     if(!Viewmodel || !CurrentAnimation)return;
-    Viewmodel->SetPosition(Time,false);Viewmodel->TickAnimation(0.f,false);Viewmodel->RefreshBoneTransforms();
+    const bool bQuickPose=bAttacking&&bQuickCombatStrike&&CurrentClip==TEXT("PommelStrike");
+    const float PoseTime=bQuickPose?RuneSwordPommelRhythm::QuickCombatRecoveryPoseTime(Time):Time;
+    if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))
+        Arms->SetQuickCombatRecoveryWeight(bQuickPose?RuneSwordPommelRhythm::QuickCombatIdleWeight(PoseTime):0.f);
+    Viewmodel->SetPosition(PoseTime,false);Viewmodel->TickAnimation(0.f,false);Viewmodel->RefreshBoneTransforms();
     ColdSteelMeleeRune::UpdatePose(ModularSword?static_cast<UMeshComponent*>(ModularSword.Get()):Viewmodel.Get());
 }
 
@@ -353,6 +388,7 @@ void URuneSwordComponent::ReleasePrimaryAttack()
 bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride)
 {
     if(!Animations.FindRef(Clip))return false;
+    SwingWaveRange=SwingWaveScale=0.f;
     bool bRuneSwordCooldownTrait=false;
     bQueuedQuickCombat=false;bQuickCombatStrike=false;bQuickCombatContactDone=false;
     if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
@@ -363,6 +399,14 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
             Damage=Stats.Damage;AttackRate=Stats.AttackRate;Reach=Stats.BaseReach;MeleeModifiers=Stats.Modifiers;
             SwingKnockbackCM=Stats.KnockbackCM;
             bRuneSwordCooldownTrait=Item->Definition==TEXT("ue_rune_sword");
+            const auto* Enchant=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();
+            const auto* Gunsmith=GetWorld()->GetGameInstance()->GetSubsystem<UGunsmithSystem>();
+            if(Heavy&&Enchant&&Gunsmith&&Gunsmith->IsMelee(Item->Definition)&&Enchant->Effect(*Item,TEXT("riftSlash"))>0.)
+            {
+                SwingWaveRange=100.f*Enchant->Effect(*Item,TEXT("riftSlashRangeM"));
+                SwingWaveScale=Enchant->Effect(*Item,TEXT("riftSlashDamageScale"));
+                SwingWaveSpeed=100.f*Enchant->Effect(*Item,TEXT("riftSlashSpeedM"),18.);
+            }
         }
         if(!Profile->SpendStamina(StaminaOverride>=0.f?StaminaOverride:ColdSteelMelee::AttackStamina(Profile->Equipped(),Profile))){bQueuedAttack=false;return false;}
     }
@@ -383,7 +427,9 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
     SwingRate=AttackRate;SwingReach=RuneSwordCombatTuning::ScaledReach(Reach,bThrustAttack?RuneSwordThrustRhythm::ReachBonus:0.f)*MeleeModifiers.Range;
     SwingRangeMultiplier=RuneSwordCombatTuning::RangeMultiplier*MeleeModifiers.Range;
     SwingHitReactionMultiplier=MeleeModifiers.HitReaction;
+    // 两条独立通道：剑刃攻击（导魔符文）与配重锤快速近战（凝碧星核），互不混用。
     SwingRuneVulnerability=MeleeModifiers.RuneVulnerability;SwingRuneVulnerabilitySeconds=MeleeModifiers.RuneVulnerabilitySeconds;
+    QuickCombatRuneVulnerability=MeleeModifiers.QuickCombatRuneVulnerability;QuickCombatRuneVulnerabilitySeconds=MeleeModifiers.QuickCombatRuneVulnerabilitySeconds;
     ContactStart=bOverheadAttack?RuneSwordOverheadRhythm::ContactStart:(Heavy?RuneSwordHeavyRhythm::ContactStart:(bThrustAttack?RuneSwordThrustRhythm::ContactStart:(bPommelAttack?RuneSwordPommelRhythm::ContactStart:RuneSwordRhythm::ContactStart)));
     ContactEnd=bOverheadAttack?RuneSwordOverheadRhythm::ContactEnd:(Heavy?RuneSwordHeavyRhythm::ContactEnd:(bThrustAttack?RuneSwordThrustRhythm::ContactEnd:(bPommelAttack?RuneSwordPommelRhythm::ContactEnd:RuneSwordRhythm::ContactEnd)));
     bImpactFeedbackPlayed=bSwingCuePlayed=false;
@@ -391,10 +437,12 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
     SwingPoison=ColdSteelCombat::Snapshot(Character.Get()).Poison;
     SwingSkills=ColdSteelSkills::Snapshot(Character.Get());
     SwingSkills.bRifle=false;SwingSkills.bPistol=false;SwingSkills.WeakpointPercent=0;
-    // Third-stage thrust and heavy releases multiply only their own snapshot.
+    // Third-stage thrust only; other attacks keep the snapshot's global poise multiplier.
     if(bThrustAttack&&!Heavy)SwingSkills.ToughnessDamageMultiplier*=MeleeModifiers.ComboThirdToughness;
     if(Heavy)SwingSkills.ToughnessDamageMultiplier*=MeleeModifiers.HeavyToughness;
-    // 符文长剑专属；按出手时武器身份固定，高地与其他剑不继承。
+    // 命中形式：配重锤是钝器，其余挥砍与突刺按锐器结算削韧。
+    SwingSkills.AttackForm=bPommelAttack?EMonsterAttackForm::Blunt:EMonsterAttackForm::Blade;
+    // 符文长剑专属；按出手时的武器身份固定，高地与其他共用动作的剑不继承。
     // 基础 0.5 秒；剑身Ⅱ的金色符文强化再追加装备值（合计 1.0 秒），同一挥只结算一次。
     SwingCooldownReduceSeconds=bRuneSwordCooldownTrait?.5f+static_cast<float>(MeleeModifiers.CooldownReduceSecondsPerHit):0.f;bSwingCooldownReduced=false;
     SetClip(Clip,false);
@@ -403,21 +451,21 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
     return true;
 }
 
+void URuneSwordComponent::ReleaseSlashWave(const FTransform& Aim)
+{
+    if(!bHeavyAttack||SwingWaveRange<=0.f||SwingWaveScale<=0.f||SwingWaveSpeed<=0.f||!Character.IsValid())return;
+    FActorSpawnParameters Spawn;Spawn.Owner=Character.Get();Spawn.Instigator=Character.Get();
+    Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+    if(auto* Wave=GetWorld()->SpawnActor<AFPSRiftSlashProjectile>(Aim.GetLocation(),Aim.Rotator(),Spawn))
+        Wave->Launch(Aim,SwingDamage*SwingWaveScale,SwingWaveRange,SwingWaveSpeed,SwingSkills,SlashWaveMesh,SlashWaveMaterial,SlashWaveMotes);
+}
+
 bool URuneSwordComponent::BeginQuickCombatStrike()
 {
-    if(bWhirlwind||bDashAttack)return false;
-    // 快速进战：只换动作来源与结算参数，不推进普通连击计数；占用与守卫同普通攻击。
-    if(bGuardHeld || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose)return false;
-    if(Character.IsValid() && Character->IsCastBlockingLeftHandAction())return false;
-    if(!IsEquipped() || !CanUse() || !Viewmodel || !Viewmodel->GetSkeletalMeshAsset())return false;
-    if(bInspecting)CancelAction();
-    if(bCharging || bReturningCharge || bEquipping)return false;
-    if(bAttacking)
-    {
-        // 沿用普通攻击的排队窗口：接触段结束后排队补一记，接触段内丢弃。
-        if(Elapsed>=ContactEnd){bQueuedQuickCombat=true;return true;}
-        return false;
-    }
+    if(!Character.IsValid() || !Character->CanStartQuickCombatPriority())return false;
+    if(!IsEquipped() || !Viewmodel || !Viewmodel->GetSkeletalMeshAsset() || !Animations.FindRef(TEXT("PommelStrike")))return false;
+    Character->InterruptActionsForPriority(false);
+    if(!CanUse())return false;
     return StartQuickCombatStrike();
 }
 
@@ -425,13 +473,17 @@ bool URuneSwordComponent::StartQuickCombatStrike()
 {
     auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if(!Profile || !Animations.FindRef(TEXT("PommelStrike")))return false;
-    if(!StartSwing(TEXT("PommelStrike"),false))return false;
+    // Quick combat pays its skill cost once, not the ordinary sword swing cost.
+    if(!StartSwing(TEXT("PommelStrike"),false,0.f))return false;
+    const float Duration=RuneSwordPommelRhythm::QuickCombatTime(CurrentAnimation->GetPlayLength())/FMath::Max(.01f,SwingRate);
+    if(!Profile->CommitQuickCombatCast(Duration)){CancelAction();return false;}
     bQuickCombatStrike=true;
+    if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))
+        Arms->LimitLocomotionEntry(RuneSwordPommelRhythm::QuickCombatTime(ContactStart)/FMath::Max(.01f,SwingRate));
     const auto Cast=Profile->QuickCombatStats();
     SwingDamage=Cast.Damage;
-    // 击退与眩晕合并进 ReceiveStun 的一次提交，普通推退在此关闭。
+    // The skill submits one pure push after damage, without a stun reaction.
     SwingKnockbackCM=0.f;
-    QuickCombatStunSeconds=Cast.StunSeconds;
     QuickCombatKnockbackCM=Cast.KnockbackCM;
     SwingSkills.ToughnessDamageMultiplier=Cast.ToughnessMultiplier;
     QuickCombatBleedChance=Cast.BleedChance;
@@ -439,7 +491,6 @@ bool URuneSwordComponent::StartQuickCombatStrike()
     // 判定距离用技能自己的 rangeCM：普通挥击的 SwingReach（刀长×2）与技能范围
     // 是两套口径，此前 Max() 混用让快速进战的 reach 门控跑到了 360cm。
     QuickCombatRangeCM=Cast.RangeCM;
-    Profile->CommitQuickCombatCast();
     Profile->TrainQuickCombat(Profile->QuickCombatDefinition().UseExperience);
     return true;
 }
@@ -448,8 +499,8 @@ void URuneSwordComponent::QuickCombatContractHit()
 {
     // 快速进战合同判定（2026-09-19 与手枪版对齐）：接触时刻一次确定性扫射——
     // 起点=配重打击端（画面同源，读不到退眼位），方向=玩家瞄准，长度=技能 rangeCM，
-    // Ø32 球、ECC_Pawn 最近阻挡者。前向走廊/眼位遮挡/沿动画路径采样都不参与：
-    // 三个武器类别共用同一份命中合同，动作本体只负责观感。
+    // 普通配重保留最近目标；陨星锤首在同一球扫范围内贯穿目标，场景仍阻挡。
+    // 小手继续使用原有低位补判范围；不转向或锁定目标。
     // 调用方须先 SamplePose 到接触帧（ReadBlade 读的是当前骨姿态）。
     auto* Pawn=Character.Get();
     if(!Pawn||!GetWorld())return;
@@ -463,42 +514,60 @@ void URuneSwordComponent::QuickCombatContractHit()
         const auto Sample=ReadBlade(Aim);
         if((Sample.Tip-Start).SizeSquared()>1.f){Start=Sample.Tip;bFromPommel=true;}
     }
-    const FVector End=Start+Direction*QuickCombatRangeCM;
-    FHitResult Hit;
-    FCollisionQueryParams Params(SCENE_QUERY_STAT(QuickCombatPommel),false,Pawn);
-    const bool bHit=GetWorld()->SweepSingleByChannel(Hit,Start,End,FQuat::Identity,ECC_Pawn,
-        FCollisionShape::MakeSphere(QuickCombatPistolMotion::QueryRadiusCM),Params);
+    TArray<FHitResult> Hits;
+    if(bQuickCombatAOE)
+        Hits=MeleeSmallTargets::QueryQuickAreaContacts(GetWorld(),Pawn,Aim,Start,QuickCombatRangeCM,
+            QuickCombatPistolMotion::QueryRadiusCM);
+    else
+    {
+        FHitResult Hit;
+        if(MeleeSmallTargets::QueryQuickContact(GetWorld(),Pawn,Aim,Start,QuickCombatRangeCM,
+            QuickCombatPistolMotion::QueryRadiusCM,Hit))Hits.Add(Hit);
+    }
     // Quick-melee shake belongs to this once-only query, including a miss.
-    // Damage, stun, training and confirmation cues still require a real hit.
+    // Damage, knockback, training and confirmation cues still require a real hit.
     bImpactFeedbackPlayed=true;ImpactAge=0.f;
     Pawn->RefreshQuickCombatCamera();
-    AActor* Target=bHit?Hit.GetActor():nullptr;
-    UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 接触 武器=剑 射线=%s 起点=%s 方向=%s 距离=%.0f 目标=%s"),
+    UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 接触 武器=剑 射线=%s 起点=%s 方向=%s 距离=%.0f AOE=%d 接触数=%d"),
         bFromPommel?TEXT("配重端"):TEXT("眼位回退"),*Start.ToCompactString(),*Direction.ToCompactString(),
-        QuickCombatRangeCM,Target?*Target->GetName():TEXT("无"));
-    auto* Combat=Target?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
-    if(!Combat||Combat->IsDead())return;
-    const bool Eligible=!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining"));
-    auto HitSkills=SwingSkills;
-    FWeaponDamageResult DamageResult;
-    const float Applied=Combat->ApplyHitWithReactionScale(SwingHitReactionMultiplier,
-        [&](){return ColdSteelSkills::ApplyHit(Pawn,Hit,SwingDamage,Direction,HitSkills,&DamageResult);});
-    const bool bKilled=Combat->IsDead();
-    if(Applied<=0.f&&!bKilled)return;
-    // 金色符文强化：配重锤打击确认命中同样缩减CD（同一次快速近战只算一次）。
-    if(SwingCooldownReduceSeconds>0.f&&!bSwingCooldownReduced)
+        QuickCombatRangeCM,bQuickCombatAOE?1:0,Hits.Num());
+    for(const auto& Hit:Hits)
     {
-        bSwingCooldownReduced=true;
-        if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->ReduceAllAbilityCooldowns(SwingCooldownReduceSeconds);
+        AActor* Target=Hit.GetActor();
+        auto* Combat=Target?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
+        if(!Combat||Combat->IsDead()||HitActors.Contains(Target))continue;
+        HitActors.Add(Target);
+        const bool Eligible=!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining"));
+        auto HitSkills=SwingSkills;
+        FWeaponDamageResult DamageResult;
+        const float Applied=Combat->ApplyHitWithReactionScale(SwingHitReactionMultiplier,
+            [&](){return ColdSteelSkills::ApplyHit(Pawn,Hit,SwingDamage,Direction,HitSkills,&DamageResult);});
+        const bool bKilled=Combat->IsDead();
+        if(Applied<=0.f&&!bKilled)continue;
+        // 金色符文强化：配重锤打击确认命中同样缩减CD（同一次快速近战只算一次）。
+        if(SwingCooldownReduceSeconds>0.f&&!bSwingCooldownReduced)
+        {
+            bSwingCooldownReduced=true;
+            if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->ReduceAllAbilityCooldowns(SwingCooldownReduceSeconds);
+        }
+        Combat->ReceiveMeleeKnockback(Pawn,QuickCombatKnockbackCM);
+        if(Eligible&&bKilled)QuickCombatKillPending=true;
+        if(bQuickCombatStrike)
+        {
+            // One roll per confirmed target in this strike; reuse the existing bleed stack system.
+            if(!Combat->IsDead()&&QuickCombatBleedChance>0.f&&FMath::FRand()<QuickCombatBleedChance)
+                if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))Status->AddBleeding(Pawn,1);
+            // 配重锤快速近战：凝碧星核通道。
+            if(!Combat->IsDead()&&QuickCombatRuneVulnerability>0)
+                if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))Status->AddRuneMagicVulnerability(QuickCombatRuneVulnerability,QuickCombatRuneVulnerabilitySeconds);
+        }
+        else if(!Combat->IsDead()&&SwingRuneVulnerability>0)
+            // 剑刃攻击：导魔符文通道（含突刺/上挑等全部非配重挥砍）。
+            if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))Status->AddRuneMagicVulnerability(SwingRuneVulnerability,SwingRuneVulnerabilitySeconds);
+        if(!Combat->IsDead()&&Eligible)++SwingTrainingHits;
+        Pawn->NotifyConfirmedWeaponHit(Target,Applied,&DamageResult);
+        ColdSteelCombat::OnHit(Target,Pawn,SwingPoison);
     }
-    // 击退与眩晕合并进 ReceiveStun 一次提交（与手枪版同一口径）。
-    Combat->ReceiveStun(Pawn,QuickCombatStunSeconds,QuickCombatKnockbackCM);
-    if(Eligible&&bKilled)QuickCombatKillPending=true;
-    if(!Combat->IsDead()&&SwingRuneVulnerability>0)
-        if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))Status->AddRuneMagicVulnerability(SwingRuneVulnerability,SwingRuneVulnerabilitySeconds);
-    if(!Combat->IsDead()&&Eligible)++SwingTrainingHits;
-    Pawn->NotifyConfirmedWeaponHit(Target,Applied,&DamageResult);
-    ColdSteelCombat::OnHit(Target,Pawn,SwingPoison);
 }
 
 FVector URuneSwordComponent::AdvanceThrustLunge(float FromTime,float ToTime)
@@ -519,14 +588,30 @@ FVector URuneSwordComponent::AdvanceThrustLunge(float FromTime,float ToTime)
     if(bLungeBlocked || Distance<=0.f)return FVector::ZeroVector;
     auto* Pawn=Character.Get();
     auto* Movement=Pawn?Cast<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement()):nullptr;
-    if(!Movement || Pawn->IsSliding() || Pawn->IsTraversing() || !Movement->IsMovingOnGround() || Movement->IsDodging())
+    if(!Movement || Pawn->IsSliding() || Pawn->IsTraversing() ||
+        (!Movement->IsMovingOnGround()&&!(bDashAttack&&Movement->IsFalling())) || Movement->IsDodging())
     {bLungeBlocked=true;return FVector::ZeroVector;}
     if(!bLungeStarted)
     {
         LungeDirection=Pawn->GetMeleeAimTransform().GetUnitAxis(EAxis::X).GetSafeNormal2D();
         bLungeStarted=true;
     }
-    const FVector Moved=Movement->ApplyMeleeLungeStep(LungeDirection,Distance);
+    FVector Moved;
+    if(bDashAttack&&Movement->IsFalling())
+    {
+        // Air dash spends the same horizontal windup distance through a swept
+        // capsule. Native falling keeps vertical velocity, gravity and landing;
+        // ordinary thrusts and pommel steps still require ground support.
+        const auto* Controller=Pawn->GetController();
+        if(!Controller||Controller->IsMoveInputIgnored()||Pawn->GetNetMode()!=NM_Standalone)
+        {bLungeBlocked=true;return FVector::ZeroVector;}
+        const FVector Before=Pawn->GetActorLocation();
+        FHitResult Hit;
+        Movement->SafeMoveUpdatedComponent(LungeDirection*Distance,Pawn->GetActorQuat(),true,Hit);
+        Moved=Pawn->GetActorLocation()-Before;
+        if(Hit.bBlockingHit)bLungeBlocked=true;
+    }
+    else Moved=Movement->ApplyMeleeLungeStep(LungeDirection,Distance);
     if(FVector::DotProduct(Moved,LungeDirection)+.01f<Distance)bLungeBlocked=true;
     return Moved;
 }
@@ -602,8 +687,8 @@ void URuneSwordComponent::CancelAction()
     bAttacking=bEquipping=bInspecting=bQueuedAttack=bCharging=bReturningCharge=bHeavyAttack=false;HitActors.Reset();
     SwingCooldownReduceSeconds=0.f;bSwingCooldownReduced=false;
     bThrustAttack=bPommelAttack=bLungeStarted=bLungeBlocked=false;LungeDirection=FVector::ZeroVector;
-    bOverheadAttack=false;bQuickCombatStrike=bQueuedQuickCombat=false;bQuickCombatContactDone=false;QuickCombatStunSeconds=0.f;QuickCombatKnockbackCM=0.f;
-    // 取消（死亡/换装/不可用）同样解除冷却预留并保留已提交的冷却，与火球口径一致。
+    bOverheadAttack=false;bQuickCombatStrike=bQueuedQuickCombat=false;bQuickCombatContactDone=false;QuickCombatKnockbackCM=0.f;
+    // Death/equipment interruption releases action occupancy without refunding stamina.
     if(auto* Profile=GetWorld()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr)
     {
         Profile->FinishQuickCombatCast();
@@ -688,16 +773,17 @@ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) 
         // Slow load, one fast drive, hard stop, then the weight draws back. The
         // strike uses the same fast-start curve as the pose, so camera and weapon
         // spend the 0.29 m of counterweight travel together.
+        const float MotionTime=bQuickCombatStrike?RuneSwordPommelRhythm::QuickCombatRecoveryPoseTime(Elapsed):Elapsed;
         const FVector LoadLocation(-10.f,3.2f,2.1f),FollowLocation(15.f,-.8f,-4.2f);
         const FRotator LoadRotation(3.2f,-2.4f,-3.1f),FollowRotation(-4.6f,2.6f,4.2f);
-        if(Elapsed<=ContactStart)
+        if(MotionTime<=ContactStart)
         {
-            const float Gather=FMath::SmoothStep(0.f,RuneSwordPommelRhythm::RaiseEnd,Elapsed);
+            const float Gather=FMath::SmoothStep(0.f,RuneSwordPommelRhythm::RaiseEnd,MotionTime);
             Location=LoadLocation*Gather;Rotation=LoadRotation*Gather;
         }
-        else if(Elapsed<=RuneSwordPommelRhythm::ExtensionEnd)
+        else if(MotionTime<=RuneSwordPommelRhythm::ExtensionEnd)
         {
-            const float U=(Elapsed-ContactStart)/(RuneSwordPommelRhythm::ExtensionEnd-ContactStart);
+            const float U=(MotionTime-ContactStart)/(RuneSwordPommelRhythm::ExtensionEnd-ContactStart);
             const float Push=1.f-FMath::Pow(1.f-U,2.2f),Burst=FMath::Square(FMath::Sin(PI*U));
             Location=FMath::Lerp(LoadLocation,FollowLocation,Push);Location.X+=7.f*Burst;
             Rotation=FMath::Lerp(LoadRotation,FollowRotation,Push);
@@ -707,12 +793,12 @@ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) 
         else
         {
             float Weight;
-            if(Elapsed<=RuneSwordPommelRhythm::ArrestEnd)
-                Weight=1.f+.12f*FMath::Sin(PI*(Elapsed-RuneSwordPommelRhythm::ExtensionEnd)/(RuneSwordPommelRhythm::ArrestEnd-RuneSwordPommelRhythm::ExtensionEnd));
-            else if(Elapsed<=RuneSwordPommelRhythm::ReturnCorner)
-                Weight=FMath::Lerp(1.f,.22f,FMath::SmoothStep(RuneSwordPommelRhythm::ArrestEnd,RuneSwordPommelRhythm::ReturnCorner,Elapsed));
+            if(MotionTime<=RuneSwordPommelRhythm::ArrestEnd)
+                Weight=1.f+.12f*FMath::Sin(PI*(MotionTime-RuneSwordPommelRhythm::ExtensionEnd)/(RuneSwordPommelRhythm::ArrestEnd-RuneSwordPommelRhythm::ExtensionEnd));
+            else if(MotionTime<=RuneSwordPommelRhythm::ReturnCorner)
+                Weight=FMath::Lerp(1.f,.22f,FMath::SmoothStep(RuneSwordPommelRhythm::ArrestEnd,RuneSwordPommelRhythm::ReturnCorner,MotionTime));
             else
-                Weight=.22f*(1.f-FMath::SmoothStep(RuneSwordPommelRhythm::ReturnCorner,RuneSwordPommelRhythm::AttackEnd,Elapsed));
+                Weight=.22f*(1.f-FMath::SmoothStep(RuneSwordPommelRhythm::ReturnCorner,RuneSwordPommelRhythm::AttackEnd,MotionTime));
             Location=FollowLocation*Weight;Rotation=FollowRotation*Weight;
         }
         if(bLungeStarted)
@@ -725,6 +811,11 @@ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) 
             const float Landing=FMath::Clamp((Elapsed-RuneSwordPommelRhythm::LungeEnd)/.14f,0.f,1.f);
             const float Plant=FMath::Square(FMath::Sin(PI*Landing))*(1.f-Landing);
             Location.Z-=1.8f*Plant;Rotation.Pitch+=.6f*Plant;
+        }
+        if(bQuickCombatStrike)
+        {
+            const float ActionWeight=1.f-RuneSwordPommelRhythm::QuickCombatIdleWeight(MotionTime);
+            Location*=ActionWeight;Rotation*=ActionWeight;
         }
     }
     else if(bAttacking)
@@ -859,6 +950,45 @@ bool URuneSwordComponent::GetFireMagicBladePoints(FVector& Base,FVector& Tip) co
     return !Base.Equals(Tip,1.f);
 }
 
+bool URuneSwordComponent::GetEnchantmentBladeAttachment(USceneComponent*& Parent,FName& Socket,FTransform& LocalFrame,float& Length) const
+{
+    if(!IsEquipped()||!Viewmodel||!Viewmodel->IsVisible()||Viewmodel->bHiddenInGame)return false;
+    FVector Base,Tip;FTransform Weapon;
+    if(ModularSword&&ModularSword->GetStaticMesh())
+    {
+        // The rendered blade follows WPN_root even during inspect. Its trace
+        // helpers may be animated independently, so they must not drive VFX.
+        Parent=ModularSword;Socket=NAME_None;Weapon=ModularSword->GetComponentTransform();
+        Base=Weapon.TransformPosition(ModularBladeBase);Tip=Weapon.TransformPosition(ModularBladeTip);
+    }
+    else
+    {
+        const auto* Mesh=Viewmodel->GetSkeletalMeshAsset();if(!Mesh)return false;
+        const auto& Ref=Mesh->GetRefSkeleton();
+        const int32 RootIndex=Ref.FindBoneIndex(TEXT("WPN_root"));
+        const int32 BaseIndex=Ref.FindBoneIndex(TEXT("Blade_Base")),TipIndex=Ref.FindBoneIndex(TEXT("Blade_Tip"));
+        if(RootIndex==INDEX_NONE||BaseIndex==INDEX_NONE||TipIndex==INDEX_NONE)return false;
+        const auto ReferenceComponentPose=[&](int32 Index)
+        {
+            FTransform Result=Ref.GetRefBonePose()[Index];
+            for(int32 I=Ref.GetParentIndex(Index);I!=INDEX_NONE;I=Ref.GetParentIndex(I))Result=Result*Ref.GetRefBonePose()[I];
+            return Result;
+        };
+        // Bind the reference blade endpoints to the same rigid weapon bone as
+        // the skinned sword, rather than sampling separate attack helper tracks.
+        const FTransform ReferenceWeapon=ReferenceComponentPose(RootIndex);
+        Parent=Viewmodel;Socket=TEXT("WPN_root");Weapon=Viewmodel->GetSocketTransform(Socket);
+        Base=Weapon.TransformPosition(ReferenceWeapon.InverseTransformPosition(ReferenceComponentPose(BaseIndex).GetLocation()));
+        Tip=Weapon.TransformPosition(ReferenceWeapon.InverseTransformPosition(ReferenceComponentPose(TipIndex).GetLocation()));
+    }
+    Length=FVector::Distance(Base,Tip);
+    if(Length<1.f)return false;
+    // The sword's local Z runs along the edge; local X supplies a stable roll.
+    const FTransform WorldFrame(FRotationMatrix::MakeFromXZ(Tip-Base,Weapon.GetUnitAxis(EAxis::X)).ToQuat(),Base);
+    LocalFrame=WorldFrame.GetRelativeTransform(Weapon);
+    return true;
+}
+
 FRuneSwordBladeSample URuneSwordComponent::ReadBlade(const FTransform& AimFrame) const
 {
     const FQuat ImportBasis=FRotator(0,90,0).Quaternion();
@@ -949,6 +1079,8 @@ void URuneSwordComponent::ApplySwingHits(const TArray<FHitResult>& Hits,const FV
             const bool Eligible=Combat&&!Combat->IsDead()&&!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining"));
             FWeaponDamageResult DamageResult;
             auto ApplyDamage=[&](){return ColdSteelSkills::ApplyHit(Pawn,Hit,SwingDamage,Direction,HitSkills,&DamageResult);};
+            // 近战不带伤害类型：用作用域标注命中形式（配重锤=钝器，其余=锐器）。
+            const MonsterToughness::FScopedForm FormScope(HitSkills.AttackForm);
             const float Applied=Combat?Combat->ApplyHitWithReactionScale(SwingHitReactionMultiplier,ApplyDamage):ApplyDamage();
             // The contact cue belongs to the contact, not to the damage number: a
             // blow that kills still has to sound like a hit, and the damage pipeline
@@ -976,13 +1108,24 @@ void URuneSwordComponent::ApplySwingHits(const TArray<FHitResult>& Hits,const FV
                     if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->ReduceAllAbilityCooldowns(SwingCooldownReduceSeconds);
                 }
                 if(bDashAttack&&Eligible){++DashHits;if(bKilled)++DashKills;}
-                // 快速进战：击退与眩晕由 ReceiveStun 一次提交；普通攻击只推退。
-                if(Combat){if(bQuickCombatStrike)Combat->ReceiveStun(Pawn,QuickCombatStunSeconds,QuickCombatKnockbackCM);
-                    else Combat->ReceiveMeleeKnockback(Pawn,SwingKnockbackCM);}
+                // 快速进战只推退；重击可击飞。破韧硬直属于上面的伤害结算，不附加眩晕。
+                if(Combat)
+                {
+                    const FVector Away=(Target->GetActorLocation()-Pawn->GetActorLocation()).GetSafeNormal2D();
+                    const bool bLaunched=bHeavyAttack && !bQuickCombatStrike && !bDashAttack &&
+                        Combat->ReceiveKnockdown(Pawn,Away*420.f+FVector(0,0,280.f),.75f);
+                    if(!bLaunched)Combat->ReceiveMeleeKnockback(Pawn,bQuickCombatStrike?QuickCombatKnockbackCM:SwingKnockbackCM);
+                }
                 // 快速进战击杀修炼：可修炼目标被本次打击直接击杀，挥击结束统一提交。
                 if(bQuickCombatStrike&&Eligible&&bKilled)QuickCombatKillPending=true;
-                if(Combat&&!Combat->IsDead()&&SwingRuneVulnerability>0)
-                    if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))Status->AddRuneMagicVulnerability(SwingRuneVulnerability,SwingRuneVulnerabilitySeconds);
+                if(Combat&&!Combat->IsDead())
+                {
+                    // 双通道：配重锤快速近战走凝碧星核，其余剑刃攻击走导魔符文。
+                    const float Vulnerability=bQuickCombatStrike?QuickCombatRuneVulnerability:SwingRuneVulnerability;
+                    const float VulnerabilitySeconds=bQuickCombatStrike?QuickCombatRuneVulnerabilitySeconds:SwingRuneVulnerabilitySeconds;
+                    if(Vulnerability>0)
+                        if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))Status->AddRuneMagicVulnerability(Vulnerability,VulnerabilitySeconds);
+                }
                 if(bHeavyTrainingPending&&Eligible){++HeavyTrainingHits;if(!IsValid(Target)||Combat->IsDead())++HeavyTrainingKills;}
                 if(Target->FindComponentByClass<UMonsterCombatComponent>()&&!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining")))++SwingTrainingHits;
                 Pawn->NotifyConfirmedWeaponHit(Target,Applied,&DamageResult);ColdSteelCombat::OnHit(Target,Pawn,SwingPoison);
@@ -997,6 +1140,8 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
         if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->AdvanceLocomotionEntry(Delta);
     TickDashReadiness(Delta);
     if(!Viewmodel || !IsEquipped())return;
+    if(JumpPresentationRoot)
+        JumpPresentationRoot->SetRelativeTransform(Character->GetWeaponJumpTransform(EFirstPersonJumpRig::Sword));
     if(TickGuardBreak(Delta))return;
     const bool Usable=CanUse();Viewmodel->SetVisibility(Usable && Viewmodel->GetSkeletalMeshAsset(),true);
     if(!Usable)ClearClovenCounter();
@@ -1012,7 +1157,12 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
     const float End=CurrentAnimation->GetPlayLength();
     if(bAttacking)
     {
-        const float Next=FMath::Min(End,Elapsed+Delta*SwingRate);
+        // Map through real playback time so a frame crossing the windup boundary
+        // spends only its remaining time on the original-speed strike/recovery.
+        const float Next=FMath::Min(End,bQuickCombatStrike
+            ? RuneSwordPommelRhythm::QuickCombatSourceTime(
+                RuneSwordPommelRhythm::QuickCombatTime(Elapsed)+Delta*SwingRate)
+            : Elapsed+Delta*SwingRate);
         const FTransform AimBeforeLunge=Character->GetMeleeAimTransform();
         const FVector LungeMoved=AdvanceThrustLunge(Elapsed,Next);
         const FTransform AimNow=Character->GetMeleeAimTransform();
@@ -1037,6 +1187,7 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
                 if(SwingSound)UGameplayStatics::PlaySound2D(this,SwingSound,bOverheadAttack?.90f:(bHeavyAttack?.95f:.72f),FMath::Clamp(SwingRate*(bOverheadAttack?.95f:(bHeavyAttack?.95f:(bThrustAttack?1.25f:1.1f))),.7f,1.4f));
             }
             StartRift(Next-ContactStart);
+            ReleaseSlashWave(AimNow);
         }
         const auto FrameAt=[&](float Time)
         {
@@ -1063,7 +1214,7 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
         else if(bQuickCombatStrike)
         {
             // 快速进战不走动画路径采样：配重接触帧（ExtensionEnd）只做一次
-            // 手枪同款合同判定；走廊/遮挡/沿挥击弧线的旧闸门全部不再参与。
+            // 手枪同款单次判定，包含小手低位范围补充，不沿动画弧线重复结算。
             if(!bQuickCombatContactDone&&Next>=RuneSwordPommelRhythm::ExtensionEnd)
             {
                 bQuickCombatContactDone=true;
@@ -1085,10 +1236,26 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
                 const float T=FMath::Lerp(HitStart,HitEnd,float(Step)/Steps);
                 SamplePose(T);const auto Current=ReadBlade(FrameAt(T));SweepBlade(Previous,Current);Previous=Current;
             }
+            // Once per active frame, never once per blade lane/substep. All hits
+            // share HitActors, damage and reaction handling with the real blade.
+            const bool bSingleTarget=bThrustAttack||bPommelAttack;
+            if(!bSingleTarget||HitActors.IsEmpty())
+            {
+                const auto LowHits=MeleeSmallTargets::QueryLowSector(GetWorld(),Character.Get(),EndFrame,
+                    SwingReach,HitActors,!bSingleTarget,bThrustAttack?30.f:MeleeSmallTargets::LowArcDegrees);
+                ApplySwingHits(LowHits,EndFrame.GetUnitAxis(EAxis::X));
+            }
         }
         if(bHeavyTrainingPending&&Next>=ContactEnd)FinishHeavyTraining();
         SamplePose(Next);PreviousAimFrame=AimNow;
         Elapsed=Next;
+        if(bQuickCombatStrike)
+            if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+            {
+                const float Duration=RuneSwordPommelRhythm::QuickCombatTime(End)/FMath::Max(.01f,SwingRate);
+                const float Remaining=(RuneSwordPommelRhythm::QuickCombatTime(End)-RuneSwordPommelRhythm::QuickCombatTime(Elapsed))/FMath::Max(.01f,SwingRate);
+                Profile->UpdateQuickCombatAction(Remaining,Duration);
+            }
         if(Elapsed>=End)
         {
             FinishDashAttack();
@@ -1100,7 +1267,7 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
             bLungeStarted=bLungeBlocked=false;LastAttackEnd=GetWorld()->GetTimeSeconds();
             if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
             {
-                // 冷却在挥击结束后才起跳；击杀修炼随挥击统一提交。
+                // Full recovery ends the action gate; there is no follow-up cooldown.
                 Profile->FinishQuickCombatCast();
                 if(QuickCombatKillPending)Profile->TrainQuickCombat(Profile->QuickCombatDefinition().KillExperience);
             }
@@ -1140,17 +1307,20 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
     }
     else if(!TickTacticalSprintPose(Delta))
     {
-        const FName Clip=Character->GetVelocity().SizeSquared2D()>400?TEXT("Walk"):TEXT("Idle");
+        const bool GroundStride=Character->GetCharacterMovement()->IsMovingOnGround()
+            && !Character->bWeaponJumpAirborne && !Character->IsSliding();
+        const FName Clip=GroundStride&&Character->GetVelocity().SizeSquared2D()>400?TEXT("Walk"):TEXT("Idle");
         if(Clip!=CurrentClip)SetClip(Clip,true);
-        if(CurrentAnimation){Elapsed=FMath::Fmod(Elapsed+Delta*(Character->IsSprinting()?1.45f:1.f),FMath::Max(.01f,CurrentAnimation->GetPlayLength()));SamplePose(Elapsed);}
+        if(CurrentAnimation){Elapsed=FMath::Fmod(Elapsed+Delta*(GroundStride&&Character->IsSprinting()?1.45f:1.f),FMath::Max(.01f,CurrentAnimation->GetPlayLength()));SamplePose(Elapsed);}
     }
-    const bool Sprint=Character->IsSprinting() && !IsBusy() && !HasTacticalSprintAnimations();
+    const bool Sprint=Character->IsSprinting() && !Character->bWeaponJumpAirborne && !IsBusy() && !HasTacticalSprintAnimations();
     Viewmodel->SetRelativeLocation(FMath::VInterpTo(Viewmodel->GetRelativeLocation(),Sprint?FVector(-4,0,-9):FVector::ZeroVector,Delta,9.f));
     Viewmodel->SetRelativeRotation(FMath::RInterpTo(Viewmodel->GetRelativeRotation(),FRotator(0,90,Sprint?22:0),Delta,9.f));
 }
 
 void URuneSwordComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
+    if(SlashWaveLoad)SlashWaveLoad->CancelHandle();SlashWaveLoad.Reset();
     FinishWhirlwind();
     FinishHeavyTraining();
     // Release a cast that ended with teardown instead of a finished swing, so the
@@ -1163,6 +1333,7 @@ void URuneSwordComponent::EndPlay(const EEndPlayReason::Type Reason)
     ImpactAge=1.f;
     if(ModularSword){ColdSteelModularSword::Clear(ModularSword);ModularSword->DestroyComponent();ModularSword=nullptr;}
     if(Viewmodel)Viewmodel->DestroyComponent();
+    if(JumpPresentationRoot)JumpPresentationRoot->DestroyComponent();
     if(RiftVisual)RiftVisual->DestroyComponent();
     Super::EndPlay(Reason);
 }

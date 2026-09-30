@@ -20,4 +20,7 @@ struct FFireballCast
     float Damage=0, Radius=0, Speed=0, Range=0, MagicMultiplier=0;
     float Gravity=400;
     float ManaCost=50, Cooldown=12, HoverDuration=30;
+    float CastSpeed=1,CastHasteStacks=0,CastHasteDuration=5;
+    float BurnMagicAttack=0,BurnMultiplier=0,BurnSeconds=3,BurnTick=.5f;
+    bool bGrantChain=false;
 };

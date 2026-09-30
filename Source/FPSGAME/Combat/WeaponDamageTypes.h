@@ -25,5 +25,7 @@ struct FWeaponDamageResult
 {
     FWeaponDamageParts BeforeDefense,AfterDefense,Applied;
     bool bResolved=false,bCritical=false;
+    /** This direct contact killed a previously living enemy, before on-hit follow-ups. */
+    bool bKilled=false;
     bool HasAdditional()const{return BeforeDefense.Additional()>0;}
 };

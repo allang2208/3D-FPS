@@ -18,14 +18,18 @@ struct FProductionResource
     uint32 Seed = 0;
     uint64 CandidateId = 0;
     static constexpr int32 RequiredHits = 3;
-    // 0 = default (rocks need three hits; surface soil digs one 20 cm layer per
-    // swing, so it asks for one). Trees no longer use this: they resolve through
-    // MaxHealth below and keep RequiredHits only as the calibrated reference.
-    int32 HitsRequired = 0;
-    int32 HitsNeeded() const { return HitsRequired > 0 ? HitsRequired : RequiredHits; }
+    // 「三次有效命中」只作为标定参考存活：树木/岩块的 StrikeDamage 折算、旧档命中数
+    // （1..3）到生命比例的读档换算都以它为基准。命中数结算已于 2026-09-30 退役——
+    // 树木与岩块走 MaxHealth 生命值口径，表土走「一挥一层」的固定挖掘。
     /**
-     * 生命值上限（2026-09-25）。>0 走生命值口径：一次挥砍按伤害扣血，归零才倒下。
-     * 当前只有树木填它（`ProductionTreeHealth::MaxHealth`）；岩块与表土保持 0 ＝ 命中数口径。
+     * 生命值上限（2026-09-25 树木，2026-09-30 岩块统一）。>0 走生命值口径：一次挥砍按
+     * 伤害扣血，归零才倒下/破碎（树木 `ProductionTreeHealth::MaxHealth`，岩块 RockMaxHealth）；
+     * 表土保持 0 ＝ 固定挖掘，一挥一层。
      */
     double MaxHealth = 0;
+    /**
+     * 树桩目标（2026-09-28）：被砍倒的树留下的桩，有自己的生命（StumpMaxHealth），
+     * 劈尽掉一块木材且不再生倒树；与幼树生长互不影响。解析/结算/掉落据此分流。
+     */
+    bool bStump = false;
 };

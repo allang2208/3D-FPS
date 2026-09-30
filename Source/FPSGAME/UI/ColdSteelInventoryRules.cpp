@@ -26,7 +26,7 @@ static TSharedPtr<const FJsonObject> ReadOnlyObject(const FColdSteelItem& Item)
 }
 FString Text(const FColdSteelItem& Item, const TCHAR* Key) { auto O = ReadOnlyObject(Item); FString V; if(O) O->TryGetStringField(Key,V); return V; }
 double Number(const FColdSteelItem& Item, const TCHAR* Key, double Default) { auto O=ReadOnlyObject(Item); double V=Default; if(O) O->TryGetNumberField(Key,V); return V; }
-bool Flag(const FColdSteelItem& Item, const TCHAR* Key) { if(IsDualPistol(Item) && FCString::Strcmp(Key,TEXT("isTwoHanded"))==0)return false; auto O=ReadOnlyObject(Item); bool V=false; if(O) O->TryGetBoolField(Key,V); return V; }
+bool Flag(const FColdSteelItem& Item, const TCHAR* Key) { if((IsDualPistol(Item)||Text(Item,TEXT("weaponType"))==TEXT("staff")) && FCString::Strcmp(Key,TEXT("isTwoHanded"))==0)return false; auto O=ReadOnlyObject(Item); bool V=false; if(O) O->TryGetBoolField(Key,V); return V; }
 FIntPoint BaseFootprint(const FColdSteelItem& I)
 {
     const FString Type=Text(I,TEXT("weaponType")),Ranged=Text(I,TEXT("rangedType")),Category=Text(I,TEXT("category")),Slot=Text(I,TEXT("equipSlot"));
@@ -71,6 +71,7 @@ bool CanEquip(const FColdSteelItem& I,int32 Slot)
 {
     if(Slot<0 || Slot>=15 || I.Count!=1) return false;
     const FString Type=Text(I,TEXT("weaponType")), Category=Text(I,TEXT("category")), Off=Text(I,TEXT("offhandType"));
+    if(Type==TEXT("staff"))return Slot==6||Slot==9;
     const bool Support=Type==TEXT("shield")||Type==TEXT("spellbook")||Type==TEXT("magic_book")||Off==TEXT("shield")||Off==TEXT("spellbook")||Off==TEXT("magic_book")||Category==TEXT("magic_book");
     const bool Weapon=!Type.IsEmpty()||Category.Contains(TEXT("weapon"))||!Text(I,TEXT("rangedType")).IsEmpty();
     if(Slot==6||Slot==9) return Weapon&&!Support;
@@ -222,6 +223,23 @@ static bool ValidateProfile(const FColdSteelProfile& P,FString& Reason,bool Allo
     for(const auto& Pair:P.AmmoPouch)if(Pair.Key.IsEmpty()||Pair.Value<0||Pair.Value>9007199254740991ll){Reason=TEXT("弹药袋数量无效");return false;}
     if(!ColdSteelSkills::Validate(P,Reason))return false;
     if(!ColdSteelQuickBar::Validate(P,Reason))return false;
+    if(!P.GunAssemblyJob.Id.IsEmpty())
+    {
+        const auto& J=P.GunAssemblyJob;
+        if(J.Recipe.IsNone()||J.Item.InstanceId.IsEmpty()||J.Item.Definition.IsEmpty()||!Object(J.Item)
+            ||J.PartCount<1||J.PartCount>30||J.Scores.Num()!=J.PartCount||J.Misses.Num()!=J.PartCount
+            ||J.InstalledMask<0||uint32(J.InstalledMask)>((1u<<FMath::Clamp(J.PartCount,1,30))-1u)
+            ||!FMath::IsFinite(J.CalibrationDuration)||J.CalibrationDuration<=0
+            ||!FMath::IsFinite(J.CalibrationSeconds)||J.CalibrationSeconds<0||J.CalibrationSeconds>J.CalibrationDuration+.01f
+            ||!FMath::IsFinite(J.CalibrationTime)||J.CalibrationTime<0||!FMath::IsFinite(J.CalibrationError)||J.CalibrationError<0
+            ||!FMath::IsFinite(J.Quality)||J.Quality<0||J.Quality>100
+            ||(J.bFinished&&(uint32(J.InstalledMask)!=((1u<<FMath::Clamp(J.PartCount,1,30))-1u)||J.CalibrationSeconds<J.CalibrationDuration)))
+        {Reason=TEXT("枪械拼装工件数据无效，保留原存档");return false;}
+        for(float Score:J.Scores)if(!FMath::IsFinite(Score)||Score<0||Score>100)return false;
+        for(int32 Misses:J.Misses)if(Misses<0||Misses>10)return false;
+        if(P.Items.ContainsByPredicate([&J](const auto& I){return I.InstanceId==J.Item.InstanceId;}))
+        {Reason=TEXT("拼装成品已在背包中，不能重复领取");return false;}
+    }
     if(P.StaminaVersion<0||P.StaminaVersion>1||!FMath::IsFinite(P.Stamina)||P.Stamina<0||!FMath::IsFinite(P.StaminaRecoveryDelay)||P.StaminaRecoveryDelay<0||P.StaminaRecoveryDelay>60){Reason=TEXT("体力数据无效");return false;}
     Reason=TEXT("存档数据未通过校验，保留原文件");
     if((P.Version!=1&&P.Version!=2)||P.WarehouseLayoutVersion<0||P.WarehouseLayoutVersion>1||P.WarehousePages<1||P.WarehousePages>(P.WarehouseLayoutVersion?ColdSteelWarehouse::MaxPages:500)||P.Level<1||P.Level>10000||P.Experience<0||P.Points<0||P.Kills<0||P.Generation<0||P.Items.Num()>10000||P.Hotbar.Num()!=4||P.HotbarDefinitions.Num()!=4||!FMath::IsFinite(P.Health)||!FMath::IsFinite(P.Mana)||P.Health<0||P.Mana<0)return false;

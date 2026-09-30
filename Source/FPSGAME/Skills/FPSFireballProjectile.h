@@ -21,10 +21,13 @@ class FPSGAME_API AFPSFireballProjectile : public AActor
 public:
     AFPSFireballProjectile();
     void Prepare(UFPSFireballComponent* Ability,APawn* Caster,const FFireballCast& Snapshot,UNiagaraSystem* CoreFX,UNiagaraSystem* TrailFX,UNiagaraSystem* ImpactFX,UMaterialInterface* WaveMaterial,USoundBase* HitSound);
-    void Launch(const FVector& AimPoint);
+    void Launch();
     bool IsFlying() const { return bFlying; }
+    const FFireballCast& Snapshot() const {return Cast;}
     /** Hold-to-preview: red segment from the hovering orb to its predicted contact. */
     void SetAimPreviewActive(bool bActive);
+    /** Key release commits the aim target; the orb follows until gesture contact. */
+    void CommitAimPreview();
     bool IsAimPreviewActive() const {return bAimPreview;}
     static FVector HoverPosition(APawn* Caster);
     virtual void Tick(float Delta) override;
@@ -45,11 +48,14 @@ private:
     /** Ballistic launch state: the flight and the preview share this integration exactly. */
     FVector LaunchPosition=FVector::ZeroVector,LaunchVelocity=FVector::ZeroVector;
     TArray<FVector> PreviewPoints;
+    UPROPERTY(Transient) FVector PreviewAimPoint=FVector::ZeroVector;
     bool bWaterContact=false;
     float Age=0,Distance=0,FlightAge=0,ImpactAge=0,ImpactLightPeak=0;
     bool bFlying=false,bFinished=false;
     bool bAimPreview=false;
+    bool bPreviewLaunchLocked=false;
     UPROPERTY(Transient) TObjectPtr<class ULineBatchComponent> AimPreviewLines;
+    void UpdateHover();
     void UpdateFlightFX(const FVector& PreviousPosition);
     void RefreshAimPreview();
     void Explode(const FHitResult* Hit);

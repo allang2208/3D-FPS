@@ -46,7 +46,10 @@ void UFPSIceSpikeComponent::RejectHeldLeftHand()
     if(GetWorld())HandNotice.Show(float(GetWorld()->GetTimeSeconds()));
 }
 bool UFPSIceSpikeComponent::IsHandOccupiedNotice() const
-{ return GetWorld()&&HandNotice.Active(float(GetWorld()->GetTimeSeconds())); }
+{
+    const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
+    return Player&&Player->IsSpellHandHeld()&&GetWorld()&&HandNotice.Active(float(GetWorld()->GetTimeSeconds()));
+}
 float UFPSIceSpikeComponent::HandNoticeAlpha() const
 { return GetWorld()?HandNotice.Alpha(float(GetWorld()->GetTimeSeconds())):0.f; }
 float UFPSIceSpikeComponent::HandNoticeRise() const
@@ -55,7 +58,7 @@ FString UFPSIceSpikeComponent::StatusText() const
 {
     if(IsHandOccupiedNotice())return TEXT("左手占用");
     if(GetWorld()&&GetWorld()->GetTimeSeconds()<MessageUntil)return Message;
-    if(bQueuedGather||bQueuedRelease)return TEXT("等待左手");
+    if(bQueuedGather||bQueuedRelease)return TEXT("等待施法");
     if(const auto* H=Hands();H&&H->IsSpellGesture(this))
     {
         if(H->GetHandPhase()==EFireballHandPhase::Raising)return TEXT("凝聚");
@@ -72,9 +75,8 @@ void UFPSIceSpikeComponent::Trigger()
     if(!Player||!M||!Player->IsLocallyControlled()||GetWorld()->GetNetMode()!=NM_Standalone)return;
     if(auto* H=Player->FindComponentByClass<UFPSCombatHealthComponent>();H&&H->IsDead())return;
     if(auto* Sword=Player->FindComponentByClass<URuneSwordComponent>();Sword&&Sword->IsGuarding())Sword->ReleaseGuard();
-    // The left-hand gesture is shared with the fireball, so an akimbo off-hand
-    // pistol refuses the request instead of making the spell wait for the hand.
-    if(Player->IsLeftHandHeldForCast()){RejectHeldLeftHand();return;}
+    // Share the fireball's selected casting hand, including right-hand staff.
+    if(Player->IsSpellHandHeld()){RejectHeldLeftHand();return;}
     if(Active.IsValid())
     {
         if(IsPrepared()&&!(Hands()&&Hands()->IsSpellGesture(this)&&(Hands()->GetHandPhase()==EFireballHandPhase::ReadyingRelease||Hands()->GetHandPhase()==EFireballHandPhase::Releasing)))bQueuedRelease=true;
@@ -92,7 +94,7 @@ void UFPSIceSpikeComponent::ServiceQueue()
 {
     auto* M=Model();auto* H=Hands();auto* Player=Cast<APawn>(GetOwner());if(!M||!H||!Player)return;
     // A loadout change while queued drops the request instead of holding it.
-    if((bQueuedGather||bQueuedRelease)&&Cast<AFPSGAMECharacter>(Player)&&Cast<AFPSGAMECharacter>(Player)->IsLeftHandHeldForCast())
+    if((bQueuedGather||bQueuedRelease)&&Cast<AFPSGAMECharacter>(Player)&&Cast<AFPSGAMECharacter>(Player)->IsSpellHandHeld())
     {RejectHeldLeftHand();return;}
     if(bQueuedGather)
     {
@@ -103,7 +105,9 @@ void UFPSIceSpikeComponent::ServiceQueue()
         FActorSpawnParameters Params;Params.Owner=Player;Params.Instigator=Player;Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
         auto* Volley=GetWorld()->SpawnActor<AFPSIceSpikeVolley>(Player->GetActorLocation(),FRotator::ZeroRotator,Params);
         if(!Volley){H->CancelSpellGesture(this);return;}
+        const float BeforeMana=M->Snapshot().Mana;
         if(!M->BeginIceSpikeCast(Snapshot)){Volley->Destroy();H->CancelSpellGesture(this);return;}
+        H->RecordGesturePayment(BeforeMana,M->Snapshot().Mana);
         if(auto* Status=Player->FindComponentByClass<UCombatStatusFormula>())Status->ConsumeChainSpell();
         Active=Volley;Volley->Prepare(this,Player,Snapshot,SpikeMeshes,ShardMesh,IceMaterial,IceShellMaterial,ImpactFX,ImpactSound,Motes,ColdMist);
         MessageUntil=0;return;
@@ -119,10 +123,7 @@ void UFPSIceSpikeComponent::LaunchAtContact()
 {
     if(!IsPrepared())return;
     auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();if(!Camera)return;
-    const FVector Eye=Camera->GetComponentLocation(),End=Eye+Camera->GetForwardVector()*20000;
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(IceSpikeAim),true,GetOwner());Query.AddIgnoredActor(Active.Get());FHitResult Hit;
-    GetWorld()->LineTraceSingleByChannel(Hit,Eye,End,ECC_Visibility,Query);
-    Active->Launch(Hit.bBlockingHit?Hit.ImpactPoint:End);
+    Active->Launch();
 }
 void UFPSIceSpikeComponent::VolleyFinished(AFPSIceSpikeVolley* Volley)
 {if(Active.Get()!=Volley)return;Active.Reset();bQueuedRelease=false;bAimPreview=false;if(auto* H=Hands())H->CancelSpellGesture(this);}
@@ -130,12 +131,30 @@ void UFPSIceSpikeComponent::SetAimPreview(bool bActive)
 {
     // Only a hovering, fully gathered group previews; during the gather the press keeps its
     // old meaning (queue the release) so the first press is never swallowed.
-    const bool bRaising=Hands()&&Hands()->IsSpellGesture(this)&&Hands()->GetHandPhase()==EFireballHandPhase::Raising;
-    bAimPreview=bActive&&IsPrepared()&&!bRaising;
+    const auto* H=Hands();
+    const bool bCastInProgress=H&&H->IsSpellGesture(this)&&(H->GetHandPhase()==EFireballHandPhase::Raising
+        ||H->GetHandPhase()==EFireballHandPhase::ReadyingRelease||H->GetHandPhase()==EFireballHandPhase::Releasing);
+    if(bActive&&(!IsPrepared()||bQueuedRelease||bCastInProgress))return;
+    bAimPreview=bActive;
     if(auto* V=Active.Get())V->SetAimPreviewActive(bAimPreview);
+}
+void UFPSIceSpikeComponent::ReleaseAimPreview()
+{
+    if(!bAimPreview||!IsPrepared())return;
+    Active->CommitAimPreview();bAimPreview=false;
+    Trigger();
+    const auto* H=Hands();
+    const bool bReleasing=H&&H->IsSpellGesture(this)&&H->GetHandPhase()==EFireballHandPhase::ReadyingRelease;
+    if(!bQueuedRelease&&!bReleasing)
+        if(auto* V=Active.Get())V->SetAimPreviewActive(false);
 }
 void UFPSIceSpikeComponent::Cancel()
 {bQueuedGather=bQueuedRelease=false;bAimPreview=false;if(Active.IsValid())Active->Destroy();Active.Reset();if(auto* H=Hands())H->CancelSpellGesture(this);}
+void UFPSIceSpikeComponent::InterruptPending(bool bCancelPrepared)
+{
+    bQueuedGather=bQueuedRelease=false;SetAimPreview(false);
+    if(bCancelPrepared && IsPrepared()){Active->Destroy();Feedback(TEXT("施法中断"));}
+}
 void UFPSIceSpikeComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Delta,Type,Tick);

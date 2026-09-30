@@ -1,8 +1,9 @@
 #include "FPSGAMECharacter.h"
 #include "Weapons/PistolDualWieldComponent.h"
 #include "Production/ProductionToolComponent.h"
-#include "Weapons/Bow/BowWeaponComponent.h"
 #include "Weapons/RuneSwordComponent.h"
+#include "Weapons/Bow/BowWeaponComponent.h"
+#include "Weapons/Staff/StaffWeaponComponent.h"
 #include "UI/ColdSteelStatusModel.h"
 #include "UI/ColdSteelEnhancementSystem.h"
 #include "Monsters/FPSCombatHealthComponent.h"
@@ -10,10 +11,11 @@
 #include "Engine/GameInstance.h"
 #include "Weapons/FPSWeaponFXComponent.h"
 #include "Weapons/GunsmithSystem.h"
+#include "Weapons/LMG201WeaponAssets.h"
 #include "Weapons/WeaponStatEvaluation.h"
+#include "Weapons/ColdSteelEnchantmentCombat.h"
 #include "Movement/FPSTraversalComponent.h"
 
-#include "Weapons/ColdSteelEnchantmentCombat.h"
 void AFPSGAMECharacter::ApplyWeaponAttachmentPresentation(const TMap<FString,FString>& Parts)
 {
     if(bWeaponVisualPartsApplied && AppliedWeaponVisualParts.OrderIndependentCompareEqual(Parts))return;
@@ -41,8 +43,8 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     const auto* Tool=Profile->ActiveProductionTool();
     const FString ToolId=Tool?Tool->InstanceId:FString();
     const bool WasWeaponReady=bInventoryWeaponReady;
-    const bool WasDual=IsDualWieldingPistols();
-    bInventoryWeaponReady=!Profile->ActiveProductionTool()&&I&&(I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_a762")||I->Definition==TEXT("ue_svd")||I->Definition==TEXT("ue_pkm_lowpoly")||I->Definition==TEXT("ue_qbz191")||I->Definition==TEXT("ue_ash12")||I->Definition==TEXT("ue_m16a2")||(I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_dan_wesson715")));
+    const bool WasDual=HasOffhandPistol();
+    bInventoryWeaponReady=!Profile->ActiveProductionTool()&&I&&((I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_hk416"))||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_a762")||I->Definition==TEXT("ue_lmg201")||I->Definition==TEXT("ue_svd")||I->Definition==TEXT("ue_pkm_lowpoly")||I->Definition==TEXT("ue_qbz191")||I->Definition==TEXT("ue_ash12")||I->Definition==TEXT("ue_m16a2")||((I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_g18"))||I->Definition==TEXT("ue_dan_wesson715")));
     const bool ChangedDual=DualPistols && !DualPistols->MatchesEquipment(Profile,bInventoryWeaponReady);
     const bool ChangedWeapon=ActiveInventoryWeapon!=Id||ActiveInventoryWeaponDefinition!=Definition
         ||WasWeaponReady!=bInventoryWeaponReady||ChangedDual||ActiveProductionToolInstance!=ToolId;
@@ -58,7 +60,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     if(auto* H=FindComponentByClass<UFPSCombatHealthComponent>()){H->MaxHealth=Profile->Derived(TEXT("maxHp"));H->Health=FMath::Clamp(P.Health,0.f,H->MaxHealth);}
     // A single-pistol swap retains its existing held-input behavior. Changing
     // between single and dual input mappings requires fresh trigger edges.
-    const bool PistolInput=ChangedWeapon&&!WasDual&&!ChangedDual&&bInventoryWeaponReady&&(I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_dan_wesson715"));
+    const bool PistolInput=ChangedWeapon&&!WasDual&&!ChangedDual&&bInventoryWeaponReady&&((I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_g18"))||I->Definition==TEXT("ue_dan_wesson715"));
     const bool ResumePistolAim=PistolInput&&bAimHeld;
     const bool ResumePistolFire=PistolInput&&bFireHeld;
     if(ChangedWeapon){
@@ -81,14 +83,15 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
         ActiveInventoryWeapon=Id;
         ActiveInventoryWeaponDefinition=Definition;
         bWeaponVisualPartsApplied=false;
-        if(bInventoryWeaponReady){bUseM4Infima=I->Definition==TEXT("ue_m4a1");bUseQBZ191=I->Definition==TEXT("ue_qbz191");bUseASH12=I->Definition==TEXT("ue_ash12");bUseM16=I->Definition==TEXT("ue_m16a2");bUseM1911=I->Definition==TEXT("ue_m1911");bUseDanWesson715=I->Definition==TEXT("ue_dan_wesson715");InitializeWeaponVisuals();}
+        if(bInventoryWeaponReady){bUseM4Infima=(I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_hk416"));bUseQBZ191=I->Definition==TEXT("ue_qbz191");bUseASH12=I->Definition==TEXT("ue_ash12");bUseM16=I->Definition==TEXT("ue_m16a2");bUseM1911=(I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_g18"));bUseDanWesson715=I->Definition==TEXT("ue_dan_wesson715");InitializeWeaponVisuals();}
         else {WeaponState=EAKMWeaponState::Idle;WeaponStateElapsed=WeaponStateDuration=0;}
     }
     AKMViewmodel->SetVisibility(bInventoryWeaponReady && !IsTraversing(),ChangedWeapon);
     if(auto* Tools=FindComponentByClass<UProductionToolComponent>())Tools->RefreshHeldTool();
+    if(RuneSword)RuneSword->RefreshEquipment(Profile);
     // 弓走自己的视模：主手槽不是弓就收起，避免换枪后弓还挂在相机上。
     if(Bow)Bow->RefreshEquipment(Profile);
-    if(RuneSword)RuneSword->RefreshEquipment(Profile);
+    if(Staff)Staff->RefreshEquipment(Profile);
     // Handling stays in UE units; damage resolves through the canonical gamedev weapon formula below.
     const auto* Defaults=GetClass()->GetDefaultObject<AFPSGAMECharacter>();
     // 一个持枪移速乘区同时承载手枪精通加成与机枪类减速；工具或不持枪时为 1。
@@ -120,7 +123,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
         ADSInDuration=Defaults->ADSInDuration;
         MagazineCapacity=Defaults->MagazineCapacity;ReloadDuration=Defaults->ReloadDuration;EmptyReloadDuration=Defaults->EmptyReloadDuration;
         if(I&&Gunsmith->Weapon(I->Definition))
-        {const auto Stats=Gunsmith->Calculate(I->Definition,Parts);ADSInDuration=Stats.ADS;MagazineCapacity=Stats.Capacity;ReloadDuration=Stats.Reload;EmptyReloadDuration=Stats.EmptyReload;
+        {const auto Stats=Gunsmith->CalculateItem(*I,Parts);ADSInDuration=Stats.ADS;MagazineCapacity=Stats.Capacity;ReloadDuration=Stats.Reload;EmptyReloadDuration=Stats.EmptyReload;
             WeaponHandling=Stats.Handling;BallisticRecoilScale=FWeaponHandling::ReferenceBallisticScale*WeaponHandling.RecoilScale;ProjectileSpeedCM=Stats.Speed*100.f;
             HipSpreadMultiplier=FMath::Max(0.f,static_cast<float>(Stats.Spread));
             EffectiveWeaponRangeCM=FMath::Max(1.f,static_cast<float>(Stats.Range*100.));
@@ -138,14 +141,14 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     EmptyReloadDuration=ColdSteelWeaponStats::Reload(I,Profile,EmptyReloadDuration);
     BurstRecoverySeconds=ColdSteelWeaponStats::Interval(I,Profile,BurstRecoverySeconds);
     FireInterval=ColdSteelWeaponStats::Interval(I,Profile,FireInterval);
-    if(I)DamagePerShot=ColdSteelWeaponStats::Damage(*I,Profile,DamagePerShot-Profile->Derived(TEXT("atk")))*Profile->AmmoDamageMultiplier(*I);
-    MagazineAmmo=I&&!ColdSteelInventory::IsMeleeWeapon(*I)?FMath::Clamp(I->Magazine,0,MagazineCapacity):0;ReserveAmmo=I&&ColdSteelInventory::IsMeleeWeapon(*I)?0:Profile->AmmoCount();
-    if(RuneSword && RuneSword->IsEquipped())
     // 涡轮增压（附魔）参数随档案缓存，开火循环只做插值；换枪或失去附魔即清空累计秒数。
     TurboRampParams=ColdSteelCombat::TurboRamp(I?GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr,I);
     if(ChangedWeapon||!TurboRampParams.Enabled)TurboRampSeconds=0.0;
     // 汇聚（附魔）同样随档案缓存：开火时只按弹匣余弹算一次倍率。
     ConvergenceParams=ColdSteelCombat::Convergence(I?GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr,I);
+    if(I)DamagePerShot=ColdSteelWeaponStats::Damage(*I,Profile,DamagePerShot-Profile->Derived(TEXT("atk")))*Profile->AmmoDamageMultiplier(*I);
+    MagazineAmmo=I&&!ColdSteelInventory::IsMeleeWeapon(*I)?FMath::Clamp(I->Magazine,0,MagazineCapacity):0;ReserveAmmo=I&&ColdSteelInventory::IsMeleeWeapon(*I)?0:Profile->AmmoCount();
+    if(RuneSword && RuneSword->IsEquipped())
     {DamagePerShot=RuneSword->EquippedDamage();FireInterval=RuneSword->AttackSeconds();MagazineCapacity=0;ReloadDuration=EmptyReloadDuration=0;}
     if (bUseDanWesson715 && I)
         RevolverCaseCount = FMath::Clamp(static_cast<int32>(ColdSteelInventory::Number(*I, TEXT("revolver_case_count"), I->Magazine)), MagazineAmmo, 6);
@@ -155,7 +158,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     // Reapply held input only after the new pistol's magazine and stats exist.
     // A held trigger starts one semiautomatic shot, then still requires release.
     if(DualPistols)DualPistols->RefreshEquipment(Profile);
-    if(!IsDualWieldingPistols())
+    if(!HasOffhandPistol())
     {
         if(ChangedWeapon && bInventoryWeaponReady)
         {

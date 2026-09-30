@@ -7,7 +7,7 @@
 class UAnimSequence;
 class USkeletalMesh;
 UENUM(BlueprintType)
-enum class ENurseState : uint8 { Idle, Chase, Attack, Stagger, Dead, Recovery };
+enum class ENurseState : uint8 { Idle, Chase, Attack, Stagger, Dead, Recovery, KnockedDown, GettingUp };
 
 UCLASS(Blueprintable)
 class FPSGAME_API ANurseZombie : public ACharacter
@@ -16,7 +16,9 @@ class FPSGAME_API ANurseZombie : public ACharacter
 public:
     ANurseZombie(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
     friend class UMonsterCombatComponent;
+    friend class UHumanoidKnockdownComponent;
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Nurse|Combat") TObjectPtr<class UMonsterCombatComponent> Combat;
+    UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Nurse|Combat") TObjectPtr<class UHumanoidKnockdownComponent> Knockdown;
     virtual void OnConstruction(const FTransform& Transform) override;
     virtual void BeginPlay() override;
     virtual void Tick(float DeltaSeconds) override;
@@ -55,6 +57,8 @@ protected:
     virtual void StartStateAnimation(UAnimSequence* Clip,bool bLoop);
     virtual void SetAttackAnimationTime(float Seconds);
     virtual void SetWalkAnimationRate(float Rate);
+    // Called once after the shared contact checks consume this attack.
+    virtual float ApplyMeleeDamage(APawn* Victim);
 private:
     void SetState(ENurseState NewState);
     bool CanSee(const AActor* Actor) const;

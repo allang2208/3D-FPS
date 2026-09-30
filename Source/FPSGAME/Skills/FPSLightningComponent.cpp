@@ -1,4 +1,5 @@
 #include "FPSLightningComponent.h"
+#include "../Dungeons/WardBreakableGlass.h"
 #include "FPSLightningArc.h"
 #include "FPSFireballComponent.h"
 #include "../FPSGAMECharacter.h"
@@ -29,22 +30,27 @@ UColdSteelStatusModel* UFPSLightningComponent::Model() const
 UFPSFireballComponent* UFPSLightningComponent::Hands() const{return GetOwner()->FindComponentByClass<UFPSFireballComponent>();}
 bool UFPSLightningComponent::IsTarget(AActor* Target) const
 {
+    if(UWardBreakableGlass::IntactPane(Target))return true;
     const auto* C=IsValid(Target)?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
     return Target!=GetOwner()&&C&&!C->IsDead()&&!Target->ActorHasTag(TEXT("Friendly"));
 }
 bool UFPSLightningComponent::VisibleFrom(AActor* Origin,AActor* Target,const FVector& Start) const
 {
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(LightningSight),true,Origin);Query.AddIgnoredActor(GetOwner());Query.AddIgnoredActor(Target);
-    FHitResult Hit;return !GetWorld()->LineTraceSingleByChannel(Hit,Start,Target->GetActorLocation(),ECC_Visibility,Query);
+    FCollisionQueryParams Query(SCENE_QUERY_STAT(LightningSight),true,Origin);Query.AddIgnoredActor(GetOwner());
+    const auto* Pane=UWardBreakableGlass::IntactPane(Target);if(!Pane)Query.AddIgnoredActor(Target);
+    FHitResult Hit;return !GetWorld()->LineTraceSingleByChannel(Hit,Start,UWardBreakableGlass::TargetPoint(Target),ECC_Visibility,Query) || (Pane && Hit.GetComponent()==Pane);
 }
 AActor* UFPSLightningComponent::SelectTarget(const FLightningCast& Spell,FString& Failure) const
 {
     const auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();if(!Camera)return nullptr;
     const FVector Eye=Camera->GetComponentLocation(),Forward=Camera->GetForwardVector();
+    FHitResult AimHit;FCollisionQueryParams AimQuery(SCENE_QUERY_STAT(LightningGlassAim),false,GetOwner());
+    if(GetWorld()->LineTraceSingleByChannel(AimHit,Eye,Eye+Forward*Spell.Range,ECC_Visibility,AimQuery)
+        && Cast<UWardBreakableGlass>(AimHit.GetComponent())){Failure.Empty();return AimHit.GetActor();}
     AActor* Best=nullptr;double Score=DBL_MAX;bool NearAim=false,InRange=false;
     for(TActorIterator<AActor> It(GetWorld());It;++It)
     {
-        AActor* Target=*It;if(!IsTarget(Target))continue;
+        AActor* Target=*It;if(!IsTarget(Target)||UWardBreakableGlass::IntactPane(Target))continue;
         const FVector Offset=Target->GetActorLocation()-Eye;const double Along=FVector::DotProduct(Offset,Forward);
         if(Along<=0)continue;
         const double Perpendicular=(Offset-Forward*Along).Size();if(Perpendicular>Spell.AimRadius)continue;
@@ -57,14 +63,18 @@ AActor* UFPSLightningComponent::SelectTarget(const FLightningCast& Spell,FString
 }
 void UFPSLightningComponent::Feedback(const FString& Text){Message=Text;MessageUntil=GetWorld()->GetTimeSeconds()+2;}
 void UFPSLightningComponent::RejectHeldHand(){bQueued=false;HandNotice.Show(GetWorld()->GetTimeSeconds());}
-bool UFPSLightningComponent::IsHandOccupiedNotice() const{return GetWorld()&&HandNotice.Active(GetWorld()->GetTimeSeconds());}
+bool UFPSLightningComponent::IsHandOccupiedNotice() const
+{
+    const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
+    return Player&&Player->IsSpellHandHeld()&&GetWorld()&&HandNotice.Active(GetWorld()->GetTimeSeconds());
+}
 float UFPSLightningComponent::HandNoticeAlpha() const{return GetWorld()?HandNotice.Alpha(GetWorld()->GetTimeSeconds()):0;}
 float UFPSLightningComponent::HandNoticeRise() const{return GetWorld()?HandNotice.Rise(GetWorld()->GetTimeSeconds()):0;}
 FString UFPSLightningComponent::StatusText() const
 {
     if(IsHandOccupiedNotice())return TEXT("左手占用");
     if(GetWorld()&&GetWorld()->GetTimeSeconds()<MessageUntil)return Message;
-    if(bQueued)return TEXT("等待左手");if(bCommitted)return TEXT("施法");
+    if(bQueued)return TEXT("等待施法");if(bCommitted)return TEXT("施法");
     if(auto* M=Model();M&&M->LightningCooldown()>0)return FString::Printf(TEXT("%.1f"),M->LightningCooldown());return TEXT("");
 }
 float UFPSLightningComponent::CooldownFraction() const
@@ -75,7 +85,7 @@ void UFPSLightningComponent::Trigger()
     if(!Player||!M||!Player->IsLocallyControlled()||GetWorld()->GetNetMode()!=NM_Standalone)return;
     if(const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
     if(bCommitted)return;
-    if(Player->IsLeftHandHeldForCast()){RejectHeldHand();return;}
+    if(Player->IsSpellHandHeld()){RejectHeldHand();return;}
     if(M->LightningCooldown()>0){Feedback(TEXT("冷却"));return;}
     if(!ArcSystem||CastSounds.Num()!=2||CastSounds.Contains(nullptr)){Feedback(TEXT("缺素材"));return;}
     const auto Spell=M->LightningStats();FString Failure;
@@ -88,10 +98,10 @@ void UFPSLightningComponent::ServiceQueue()
 {
     if(!bQueued)return;
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();auto* H=Hands();if(!Player||!M||!H)return;
-    if(Player->IsLeftHandHeldForCast()){RejectHeldHand();return;}
+    if(Player->IsSpellHandHeld()){RejectHeldHand();return;}
     const auto* PC=Cast<APlayerController>(Player->GetController());
     if(!PC||PC->IsLookInputIgnored()||PC->IsMoveInputIgnored()){bQueued=false;return;}
-    if(H->BlocksNewLeftHandAction()||Player->IsLeftHandBusyForCast())return;
+    if(H->BlocksNewLeftHandAction()||Player->IsSpellHandBusy())return;
     const auto Spell=M->LightningStats();FString Failure;AActor* Target=SelectTarget(Spell,Failure);
     if(!Target){bQueued=false;Feedback(Failure);return;}
     if(M->LightningCooldown()>0||!M->CanSpendMana(Spell.ManaCost)){bQueued=false;Feedback(TEXT("未就绪"));return;}
@@ -118,11 +128,12 @@ void UFPSLightningComponent::Overload(AActor* Origin,FLightningRewards& Rewards)
     if(auto* C=Origin->FindComponentByClass<UMonsterCombatComponent>())C->ReceiveStun(Player,CastSnapshot.OverloadStun,0);
     if(auto* S=UCombatStatusFormula::GetOrAdd(Origin))S->AddStun(CastSnapshot.OverloadStun); // 过载眩晕 1.2s：旧 applyStun 口径
     const FVector Start=Origin->GetActorLocation();
+    if(CastSnapshot.OverloadDamage>0)UWardBreakableGlass::BreakInRadius(GetWorld(),Start,CastSnapshot.OverloadRange,Player);
     // Source intent is hostile-to-caster. The old target-faction comparison could shock the player.
     for(TActorIterator<AActor> It(GetWorld());It;++It)
     {
         AActor* Target=*It;
-        if(Target==Origin||!IsTarget(Target)||FVector::Dist(Start,Target->GetActorLocation())>CastSnapshot.OverloadRange||!VisibleFrom(Origin,Target,Start))continue;
+        if(Target==Origin||!IsTarget(Target)||UWardBreakableGlass::IntactPane(Target)||FVector::Dist(Start,Target->GetActorLocation())>CastSnapshot.OverloadRange||!VisibleFrom(Origin,Target,Start))continue;
         SpawnArc(Start,Target->GetActorLocation(),.45f,true);
         M->ApplyLightningHit(Player,Target,Start,CastSnapshot,CastSnapshot.OverloadDamage,Rewards,false);
         // 旧 _triggerElectrifiedOverload：传导电击给每个被链到的敌人 +1 感电层（其自身满层可再过载，级联同旧行为）。
@@ -135,15 +146,15 @@ void UFPSLightningComponent::ReleaseAtContact()
     if(!bCommitted)return;bCommitted=false;
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();const auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();
     AActor* First=LockedTarget.Get();LockedTarget.Reset();
-    if(!Player||!M||!Camera||!IsTarget(First)||FVector::Dist(Player->GetActorLocation(),First->GetActorLocation())>CastSnapshot.Range||!VisibleFrom(Player,First,Camera->GetComponentLocation()))
+    if(!Player||!M||!Camera||!IsTarget(First)||FVector::Dist(Player->GetActorLocation(),UWardBreakableGlass::TargetPoint(First))>CastSnapshot.Range||!VisibleFrom(Player,First,Camera->GetComponentLocation()))
     {if(M)M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT("lightning"));Feedback(TEXT("目标已失效或被遮挡"));return;}
     TArray<TWeakObjectPtr<AActor>> Chain;Chain.Add(First);AActor* Cursor=First;
-    while(Chain.Num()<CastSnapshot.Count)
+    while(!UWardBreakableGlass::IntactPane(First) && Chain.Num()<CastSnapshot.Count)
     {
         AActor* Best=nullptr;float Distance=CastSnapshot.ChainRange;
         for(TActorIterator<AActor> It(GetWorld());It;++It)
         {
-            AActor* Target=*It;if(!IsTarget(Target)||Chain.Contains(Target))continue;
+            AActor* Target=*It;if(!IsTarget(Target)||UWardBreakableGlass::IntactPane(Target)||Chain.Contains(Target))continue;
             const float D=FVector::Dist(Cursor->GetActorLocation(),Target->GetActorLocation());
             if(D<=Distance&&VisibleFrom(Cursor,Target,Cursor->GetActorLocation())){Distance=D;Best=Target;}
         }
@@ -151,15 +162,18 @@ void UFPSLightningComponent::ReleaseAtContact()
     }
     for(const auto& Sound:CastSounds)if(Sound)UGameplayStatics::PlaySoundAtLocation(this,Sound.Get(),Player->GetActorLocation());
     FVector Start=Camera->GetComponentLocation()+Camera->GetForwardVector()*45-Camera->GetRightVector()*22-Camera->GetUpVector()*20;
-    TArray<USkeletalMeshComponent*> Meshes;Player->GetComponents(Meshes);
-    for(auto* Skel:Meshes)
-        if(Skel&&Skel->IsVisible()&&Skel->DoesSocketExist(TEXT("hand_l")))
-        {Start=Skel->GetSocketLocation(TEXT("hand_l"));break;}
+    if(!Hands()||!Hands()->TryStaffCastOrigin(Start))
+    {
+        TArray<USkeletalMeshComponent*> Meshes;Player->GetComponents(Meshes);
+        for(auto* Skel:Meshes)
+            if(Skel&&Skel->IsVisible()&&Skel->DoesSocketExist(TEXT("hand_l")))
+            {Start=Skel->GetSocketLocation(TEXT("hand_l"));break;}
+    }
     FLightningRewards Rewards;
     for(int32 I=0;I<Chain.Num();++I)
     {
         AActor* Target=Chain[I].Get();if(!IsTarget(Target))continue;
-        const FVector End=Target->GetActorLocation();const float Decay=FMath::Pow(1-CastSnapshot.ChainDecay,I);
+        const FVector End=UWardBreakableGlass::TargetPoint(Target);const float Decay=FMath::Pow(1-CastSnapshot.ChainDecay,I);
         SpawnArc(Start,End,.75f+.25f*Decay);
         if(M->ApplyLightningHit(Player,Target,Start,CastSnapshot,FMath::FloorToFloat(CastSnapshot.Damage*Decay),Rewards))
             if(auto* C=Target->FindComponentByClass<UMonsterCombatComponent>();C&&!C->IsDead())

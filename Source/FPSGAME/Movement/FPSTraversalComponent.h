@@ -30,6 +30,9 @@ struct FPSGAME_API FFPSTraversalTarget
     UPROPERTY(BlueprintReadOnly) TObjectPtr<UPrimitiveComponent> Obstacle = nullptr;
     UPROPERTY() TArray<TObjectPtr<UPrimitiveComponent>> Supports;
     UPROPERTY(BlueprintReadOnly) TArray<FFPSTraversalHandhold> Handholds;
+    // The ground was queried, but traversal ends just beyond the rail and CMC
+    // performs the drop. Keep a high fall out of the short vault landing phase.
+    UPROPERTY(BlueprintReadOnly) bool bReleaseIntoFall = false;
 };
 
 // Owned by the character. Queries on press and while an airborne jump request is held.

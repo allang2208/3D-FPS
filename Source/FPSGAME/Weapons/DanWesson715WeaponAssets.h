@@ -62,6 +62,10 @@ namespace DanWesson715WeaponAssets
     inline constexpr float SingleVisible = .10f;
     inline constexpr float SingleSeat = .64f;
     inline constexpr float SingleCloseTail = .70f;
+    // Single-round cylinder closure contact, measured from the end of the loading
+    // loop. Also the reload's Ready stage in WeaponReloadStages.cpp. NOT verified
+    // against the authored clip; kept at its original value.
+    inline constexpr float SingleCloseContact = .37f;
     inline constexpr float SingleLoopBegin(bool bEmpty) { return bEmpty ? SingleEmptyBegin : SingleBegin; }
     inline constexpr float SingleDuration(int32 Count, bool bEmpty = false) { return SingleLoopBegin(bEmpty) + SingleStep * Count + SingleCloseTail; }
     inline constexpr float SingleSeatTime(int32 Index, bool bEmpty) { return SingleLoopBegin(bEmpty) + SingleStep * Index + SingleSeat; }
@@ -82,6 +86,10 @@ namespace DanWesson715WeaponAssets
         if (FCString::Strcmp(Clip, TEXT("reload_empty")) == 0) return SpeedAnimationPath();
         return FString::Printf(TEXT("/Game/Weapons/DanWesson715/Upgrade20260914/Animations/A_DW715_%s.A_DW715_%s"), Clip, Clip);
     }
+    // 快速进战（握把砸击）作者源单发动作：WPN_root 驱动右手，0.60s，接触 0.30s。
+    // 与 FPSQuickCombatComponent 的接触/冷却时钟同源；制作记录见 SourceAssets/DanWesson715QuickCombat20260918。
+    inline constexpr const TCHAR* QuickCombatAnimationPath =
+        TEXT("/Game/Weapons/DanWesson715/QuickCombat20260918/Animations/A_DW715_quickcombat.A_DW715_quickcombat");
     inline FString SoundPath(const FString& Cue)
     {
         if (Cue == TEXT("Fire"))

@@ -271,8 +271,13 @@ void UColdSteelSmeltingWidget::NativeOnInitialized()
     Showcase->SetVisibility(ESlateVisibility::Collapsed);   // 任务中由 RefreshJob 打开
 
     // —— 批量冶炼步进行（2026-09-24）：炉内空闲时显示，−/+ 调批量（1..持有量，封顶 99）。——
+    // 2026-09-25 居中修复（用户"加减号没有位于卡片中央"，截图像素实测 −/＋ 贴卡两端）：
+    // 步进群 [−][读数][＋] 整体在卡宽内水平居中——旧版读数列 Fill 撑满把两钮顶到行两端＝贴卡边。
+    // 读数改 Auto 宽＋两侧 8px 间隔；两钮等宽等间隔，读数中线仍落卡中线（对称不破）。
     BatchRow=WidgetTree->ConstructWidget<UHorizontalBox>();
-    Stack->AddChildToVerticalBox(BatchRow)->SetPadding(FMargin(16/Scale,4/Scale,16/Scale,6/Scale));
+    BatchRowSlot=Stack->AddChildToVerticalBox(BatchRow);
+    BatchRowSlot->SetPadding(FMargin(16/Scale,4/Scale,16/Scale,6/Scale));
+    BatchRowSlot->SetHorizontalAlignment(HAlign_Center);
     auto Small=[&](const FString& Caption)->UButton*
     {
         auto* B=WidgetTree->ConstructWidget<UButton>();
@@ -286,7 +291,7 @@ void UColdSteelSmeltingWidget::NativeOnInitialized()
     BatchMinus=Small(TEXT("−"));BatchMinus->OnClicked.AddDynamic(this,&ThisClass::HandleBatchMinus);
     BatchText=Text(TEXT("批量 ×1"),12,ColdSteelUI::TextSecondary);
     auto* BatchTextSlot=BatchRow->AddChildToHorizontalBox(BatchText);
-    BatchTextSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+    BatchTextSlot->SetPadding(FMargin(8/Scale,0,8/Scale,0));   // 与两钮的间隔；不再 Fill（Fill 把钮顶到卡边）
     BatchTextSlot->SetHorizontalAlignment(HAlign_Center);BatchTextSlot->SetVerticalAlignment(VAlign_Center);
     BatchPlus=Small(TEXT("+"));BatchPlus->OnClicked.AddDynamic(this,&ThisClass::HandleBatchPlus);
     BatchRow->SetVisibility(ESlateVisibility::Collapsed);   // 空闲且有炉子上下文时由 RefreshJob 打开
@@ -504,7 +509,9 @@ void UColdSteelSmeltingWidget::UpdateScale()
     ShowOutSize->SetWidthOverride(48/Scale);ShowOutSize->SetHeightOverride(48/Scale);
     ShowRing->SetPadding(FMargin(6/Scale));
     // 批量/升级（2026-09-24）：页签、弹层与步进行的尺寸同样跟 Scale。
-    if(auto* BS=Cast<UVerticalBoxSlot>(BatchRow->Slot))BS->SetPadding(FMargin(16/Scale,4/Scale,16/Scale,6/Scale));
+    // 2026-09-25：步进行居中归属槽位（HAlign_Center），读数间隔随 Scale 重算——与构建期同一口径。
+    if(BatchRowSlot){BatchRowSlot->SetPadding(FMargin(16/Scale,4/Scale,16/Scale,6/Scale));BatchRowSlot->SetHorizontalAlignment(HAlign_Center);}
+    if(auto* TS=Cast<UHorizontalBoxSlot>(BatchText->Slot))TS->SetPadding(FMargin(8/Scale,0,8/Scale,0));
     for(auto* B:{BatchMinus.Get(),BatchPlus.Get()})if(B)if(auto* SZ=Cast<USizeBox>(B->GetParent()))
         {SZ->SetWidthOverride(30/Scale);SZ->SetHeightOverride(30/Scale);}
     if(UpgradeTabSlot)UpgradeTabSlot->SetSize(FVector2D(36/Scale,60/Scale));
@@ -759,12 +766,13 @@ void UColdSteelSmeltingWidget::RefreshJob()
     const FVoxelSmeltingJob* Job=W?W->FindSmelting(Cell):nullptr;
     const FColdSteelSmeltingRecipe* Recipe=Job?System->Find(Job->Recipe):nullptr;
     const bool bFurnace=W&&W->IsFurnaceAt(Cell);
+    const bool bCasting=bFurnace&&System->HasCastingStation(W,Cell);
     // 列表区只在炉内空闲时开放（规划文档第 6 节：空闲=选料，冶炼中=进度，完成=取出）；
     // 任务中同一区域交给炉况视觉区（A），分区标题随列表一起收起，不留空标题。
-    const bool bShowRows=!Job&&bFurnace&&GetVisibility()!=ESlateVisibility::Collapsed;
+    const bool bShowRows=(!Job||bCasting)&&bFurnace&&GetVisibility()!=ESlateVisibility::Collapsed;
     RowsScroll->SetVisibility(bShowRows?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
     SectionTitle->SetVisibility(bShowRows?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
-    Showcase->SetVisibility(Job&&bFurnace?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
+    Showcase->SetVisibility(Job&&bFurnace&&!bCasting?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
     if(!Job||!bFurnace)bWasDone=false;   // 出炉/拆炉复位完成沿，下次转完成仍会闪光
 
     // —— 批量步进行（2026-09-24 批量冶炼；v9 起上限受"每次投料"升级轴约束）：
@@ -856,7 +864,7 @@ void UColdSteelSmeltingWidget::RefreshJob()
     // 存料不够烧完就转 Warning 橙（要不要添柴一眼可判）；空闲/完成态维持"存料 · 上限"。
     // 2026-09-24 实时化整改：这里只校准锚点，文案由 PaintFuelLine 每帧外推＋变化门控写一次。
     const bool bJobRunning=Job&&bFurnace&&!System->IsDone(W,Cell);
-    bCdRunning=bJobRunning;
+    bCdRunning=bJobRunning&&(!bCasting||!System->CastingBlocked(W,*Job));
     // v8 语义（2026-09-24 用户定稿）：炉内有存料就在烧——外推门按"有料"开，
     // 空闲态"存料 X"同样逐秒走；任务中"还需烧"仍只在有任务时参与。
     bCdBurning=bFurnace&&Fuel>0;
@@ -937,6 +945,45 @@ void UColdSteelSmeltingWidget::RefreshJob()
         if(bDone&&!bWasDone)FlashT=0.f;
         bWasDone=bDone;
     }
+    if(bCasting)
+    {
+        const bool bBuffered=Job&&Job->bCasting;
+        const int64 Stored=bBuffered?System->CastingStored(*Job):0;
+        const int32 Queued=bBuffered?Job->Queue.Num():0;
+        const bool bBlocked=bBuffered&&System->CastingBlocked(W,*Job);
+        const bool bActive=Recipe!=nullptr;
+        const FString State=bBlocked?(Stored>=System->CastingCapacity?TEXT("成品架已满 · 等待领取"):TEXT("铸造台缺失 · 已暂停"))
+            :!bActive?TEXT("连续冶炼 · 待投料"):Fuel<=0?TEXT("燃料耗尽 · 队列暂停"):TEXT("连续冶炼中");
+        JobTitle->SetText(FText::FromString(State));
+        JobTitle->SetColorAndOpacity(bBlocked||(bActive&&Fuel<=0)?ColdSteelUI::Warning:ColdSteelUI::TextPrimary);
+        FString Detail=FString::Printf(TEXT("成品架 %lld / 60 · 待冶炼 %d / 8"),Stored,Queued);
+        if(bBuffered)
+        {
+            FString Products;
+            for(const auto& Product:Job->Products)
+                Products+=(Products.IsEmpty()?TEXT(""):TEXT(" · "))+DefinitionName(Model,Product.Item)+FString::Printf(TEXT(" ×%lld"),Product.Count);
+            if(!Products.IsEmpty())Detail+=TEXT("\n")+Products;
+            if(bActive)Detail+=FString::Printf(TEXT("\n当前：%s %lld / %lld"),*DefinitionName(Model,Recipe->Output),Job->ProducedBatches,Job->BatchCount);
+            FString QueueLine;
+            for(const auto& Order:Job->Queue)
+                if(const auto* QueuedRecipe=System->Find(Order.Recipe))
+                    QueueLine+=(QueueLine.IsEmpty()?TEXT(""):TEXT(" → "))+DefinitionName(Model,QueuedRecipe->Output)+FString::Printf(TEXT(" ×%lld"),Order.Batch);
+            if(!QueueLine.IsEmpty())Detail+=TEXT("\n队列：")+QueueLine;
+        }
+        if(Stored==0&&!bActive&&Queued==0)Detail+=TEXT("\n按轮出料，领取后可手动存入储物箱");
+        JobDetail->SetText(FText::FromString(Detail));
+        JobDetail->SetColorAndOpacity(ColdSteelUI::TextSecondary);
+        JobTime->SetText(FText::FromString(bActive?FString::Printf(TEXT("本项剩余 %.1f 秒%s"),System->RemainingSeconds(W,Cell),bBlocked?TEXT(" · 已暂停"):TEXT("")):TEXT("等待下一项投料")));
+        bBurning=bActive&&!bBlocked&&Fuel>0;
+        CollectButton->SetVisibility(Stored>0?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
+        CollectGlow->SetVisibility(Stored>0?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
+        if(auto* Caption=Cast<UTextBlock>(CollectButton->GetContent()))Caption->SetText(FText::FromString(TEXT("领取成品（按背包空间）")));
+        StartButton->SetVisibility(ESlateVisibility::Visible);
+        StartButton->SetIsEnabled(!SelectedRecipe.IsNone()&&Queued<System->CastingQueueCapacity&&Fuel>0);
+        if(auto* Caption=Cast<UTextBlock>(StartButton->GetContent()))Caption->SetText(FText::FromString(
+            Queued>=System->CastingQueueCapacity?TEXT("待冶炼队列已满"):FString::Printf(TEXT("加入队列 ×%lld"),Batch)));
+    }
+    else if(auto* Caption=Cast<UTextBlock>(CollectButton->GetContent()))Caption->SetText(FText::FromString(TEXT("取出矿锭")));
     // 两条都是通栏 UProgressBar：percent 驱动，轨道与填充同几何（无黑边、不溢出）。
     SmeltBar->SetPercent(FMath::Clamp(AnimSmeltT,0.f,1.f));
     FuelBar->SetPercent(FMath::Clamp(bFuelAlive?AnimFuelRatio:0.f,0.f,1.f));
@@ -1001,12 +1048,15 @@ void UColdSteelSmeltingWidget::HandleStart()
     const FString InputName=DefinitionName(Model,R->Input);
     const double Mul=UColdSteelSmeltingSystem::SpeedMultiplier(World->FurnaceLevel(Cell));
     const double Seconds=R->Seconds*Batch/Mul;   // 与结算同一口径：批量÷等级速度
+    const int64 SubmittedBatch=Batch;
     FString Reason;
     if(System->BeginSmelting(World.Get(),Cell,SelectedRecipe,Reason,Batch))
     {
         SelectedRecipe=NAME_None;
         RefreshRows();RefreshJob();
-        SetStatus(FString::Printf(TEXT("已投料 %s ×%lld · 约 %g 秒后出炉"),*InputName,R->InputCount*Batch,Seconds));
+        SetStatus(System->HasCastingStation(World.Get(),Cell)
+            ?FString::Printf(TEXT("已入队 %s ×%lld · 按顺序冶炼，满架时暂停"),*InputName,R->InputCount*SubmittedBatch)
+            :FString::Printf(TEXT("已投料 %s ×%lld · 约 %g 秒后出炉"),*InputName,R->InputCount*SubmittedBatch,Seconds));
     }
     else SetStatus(Reason,true);
 }
@@ -1074,12 +1124,13 @@ void UColdSteelSmeltingWidget::HandleCollect()
     const FVoxelSmeltingJob* Job=World->FindSmelting(Cell);
     const FColdSteelSmeltingRecipe* R=Job?System->Find(Job->Recipe):nullptr;
     const FString OutputName=R?DefinitionName(Model,R->Output):FString();
-    const int64 OutputCount=R?R->OutputCount:0;
+    const int64 OutputCount=R&&Job?R->OutputCount*FMath::Max<int64>(1,Job->BatchCount):0;
+    const bool bCasting=Job&&Job->bCasting;
     FString Reason;
     if(System->CollectSmelting(World.Get(),Cell,Reason))
     {
         RefreshRows();RefreshJob();
-        SetStatus(FString::Printf(TEXT("已取出 %s ×%lld"),*OutputName,OutputCount));
+        SetStatus(bCasting?Reason:FString::Printf(TEXT("已取出 %s ×%lld"),*OutputName,OutputCount));
     }
     else SetStatus(Reason,true);
 }

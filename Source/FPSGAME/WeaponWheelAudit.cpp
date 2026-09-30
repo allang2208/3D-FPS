@@ -54,7 +54,7 @@ void RunWeaponWheelAudit(AFPSGAMEPlayerController* Owner)
                 Input(EKeys::MouseScrollUp);Verify(6,12,TEXT("inventory wheel up does not switch weapon"));
                 Input(EKeys::MouseScrollDown);Verify(6,12,TEXT("inventory wheel down does not switch weapon"));
                 Input(EKeys::Tab,IE_Released);Input(EKeys::Tab);break;
-            case 7: Input(EKeys::G);Verify(9,17,TEXT("G shortcut preserved after closing inventory"));break;
+            case 7: Input(EKeys::MouseScrollUp);Verify(9,17,TEXT("wheel switch works again after closing inventory"));break;
             case 8:
             {
                 auto Single=Profile->Snapshot();Single.Items.RemoveAll([](const auto& I){return I.Place==1&&I.Cell==6;});

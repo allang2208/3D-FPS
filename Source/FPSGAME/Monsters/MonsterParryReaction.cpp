@@ -1,8 +1,12 @@
 #include "MonsterCombatComponent.h"
+#include "MonsterObstacleCollision.h"
 #include "MonsterAIController.h"
 #include "NurseZombie.h"
+#include "HumanoidKnockdownComponent.h"
 #include "HandBrainMonster.h"
+#include "FleshHandMonster.h"
 #include "PoisonMaggotMonster.h"
+#include "HundredEyedSlagMonster.h"
 #include "WolfMonster.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
@@ -11,6 +15,7 @@ void UMonsterCombatComponent::ReceiveParry(APawn* Defender,float Seconds,float K
     if(!GetOwner()->HasAuthority() || IsDead() || GetOwner()->ActorHasTag(TEXT("ParryImmune")))return;
     const FVector Before=GetOwner()->GetActorLocation();
     const auto* Nurse=Cast<ANurseZombie>(GetOwner());
+    if(IsKnockedDown())return;
     const float AttackTime=Nurse?Nurse->StateTime:-1.f;
     // Set reaction context before InterruptAttack starts each monster's pose.
     bParryReaction=true;
@@ -18,8 +23,11 @@ void UMonsterCombatComponent::ReceiveParry(APawn* Defender,float Seconds,float K
     if(ParryPushDirection.IsNearlyZero())ParryPushDirection=-GetOwner()->GetActorForwardVector().GetSafeNormal2D();
     ParryPushDistance=0.f;ParryPushAge=0.f;
     const float Remaining=IsControlled()?FMath::Max(0.f,ReactionDuration-ReactionTime):0.f;
-    Seconds=FMath::Max(Seconds,Remaining);bStunned=true;Poise=0.f;SinceHit=0.f;
-    if(auto* W=Cast<AWolfMonster>(GetOwner()))W->InterruptAttack(Seconds);
+    RegisterExplicitStun(Seconds);
+    Seconds=FMath::Max(StunSecondsRemaining(),Remaining);Toughness=0.f;SinceHit=0.f;
+    if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))S->InterruptAttack(Seconds);
+    else if(auto* F=Cast<AFleshHandMonster>(GetOwner()))F->InterruptAttack(Seconds);
+    else if(auto* W=Cast<AWolfMonster>(GetOwner()))W->InterruptAttack(Seconds);
     else if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))M->InterruptAttack(Seconds);
     else if(auto* N=Cast<ANurseZombie>(GetOwner()))N->InterruptAttack(Seconds);
     else if(auto* H=Cast<AHandBrainMonster>(GetOwner()))H->InterruptAttack(Seconds);
@@ -54,7 +62,9 @@ bool UMonsterCombatComponent::MoveParryPush(float Distance)
     auto* Move=Pawn?Pawn->GetCharacterMovement():nullptr;
     if(!Move || !Move->UpdatedComponent)return false;
     FHitResult Hit;
-    Move->SafeMoveUpdatedComponent(ParryPushDirection*Distance,Pawn->GetActorQuat(),true,Hit);
+    const FVector Delta=ParryPushDirection*Distance;
+    const float Fraction=MonsterObstacleCollision::LimitPush(Pawn,Delta);
+    Move->SafeMoveUpdatedComponent(Delta*Fraction,Pawn->GetActorQuat(),true,Hit);
     Move->bForceNextFloorCheck=true;
-    return !Hit.bBlockingHit;
+    return Fraction>=1.f && !Hit.bBlockingHit;
 }

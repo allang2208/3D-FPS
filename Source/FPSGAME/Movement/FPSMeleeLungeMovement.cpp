@@ -1,7 +1,59 @@
 #include "FPSCharacterMovementComponent.h"
+#include "../FPSGAMECharacter.h"
+#include "../Combat/CombatStatusFormula.h"
 #include "Engine/ScopedMovementUpdate.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/Controller.h"
+
+bool UFPSCharacterMovementComponent::BeginMeleeDashMomentum(const FVector& IncomingVelocity)
+{
+    if(!CharacterOwner || !UpdatedComponent || GetNetMode()!=NM_Standalone ||
+        (!IsMovingOnGround() && !IsFalling()) || IncomingVelocity.ContainsNaN() ||
+        IncomingVelocity.SizeSquared2D()<=1.f)return false;
+    Velocity.X=IncomingVelocity.X;
+    Velocity.Y=IncomingVelocity.Y;
+    bMeleeDashMomentum=true;
+    UpdateComponentVelocity();
+    return true;
+}
+
+void UFPSCharacterMovementComponent::CalcVelocity(float DeltaTime,float Friction,bool bFluid,float BrakingDeceleration)
+{
+    if(bMeleeDashMomentum)
+    {
+        const auto* Player=Cast<AFPSGAMECharacter>(CharacterOwner);
+        const auto* Status=CharacterOwner?CharacterOwner->FindComponentByClass<UCombatStatusFormula>():nullptr;
+        const bool bInputResumed=Player && !Player->IsMeleeSkillMovementLocked() && !Acceleration.IsNearlyZero();
+        if(!Player || IsDodging() || (!IsMovingOnGround() && !IsFalling()) ||
+            (Player->Controller && Player->Controller->IsMoveInputIgnored()) ||
+            (Status && Status->BlocksMovement()) || bInputResumed)
+        {
+            bMeleeDashMomentum=false;
+        }
+        else
+        {
+            if(!HasValidData() || HasAnimRootMotion() || DeltaTime<MIN_TICK_TIME)return;
+            // Brake the real, collision-constrained velocity. Never restore a
+            // cached speed after hitting a wall, or add the fixed one-metre step.
+            // Native walking/falling still owns capsule sweeps and gravity.
+            constexpr float AirDeceleration=300.f;
+            constexpr float GroundDeceleration=1800.f;
+            const double VerticalSpeed=Velocity.Z;
+            Velocity.Z=0.;
+            ApplyVelocityBraking(DeltaTime,0.f,IsFalling()?AirDeceleration:GroundDeceleration);
+            Velocity.Z=VerticalSpeed;
+            if(Velocity.SizeSquared2D()<=1.f)bMeleeDashMomentum=false;
+            return;
+        }
+    }
+    Super::CalcVelocity(DeltaTime,Friction,bFluid,BrakingDeceleration);
+}
+
+void UFPSCharacterMovementComponent::StopMovementImmediately()
+{
+    bMeleeDashMomentum=false;
+    Super::StopMovementImmediately();
+}
 
 FVector UFPSCharacterMovementComponent::ApplyMeleeLungeStep(const FVector& Direction,float DistanceCM)
 {

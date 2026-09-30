@@ -89,7 +89,8 @@ float AFPSGAMECharacter::TakeDamage(float DamageAmount, const FDamageEvent& Dama
     const auto* Health=FindComponentByClass<UFPSCombatHealthComponent>();
     if(Health && Health->IsDead())return 0.f;
     const auto* Type=DamageEvent.DamageTypeClass?DamageEvent.DamageTypeClass->GetDefaultObject<UDamageType>():nullptr;
-    if(Health)DamageAmount=Health->DamageAfterArmor(DamageAmount,Type);
+    AActor* Attacker=EventInstigator?EventInstigator->GetPawn():DamageCauser;
+    if(Health)DamageAmount=Health->DamageAfterArmor(DamageAmount,Type,Attacker);
     if(!Direct && RuneSword && RuneSword->IsEquipped())DamageAmount=RuneSword->ResolveGuardDamage(DamageAmount,Type,EventInstigator,DamageCauser);
     if(DebugInvincible)return 0.f;
     // A parry returns zero to the attack caller before damage events or its

@@ -4,6 +4,7 @@
 #include "RuneSwordComponent.h"
 #include "MeleeRuneVisual.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/StaticMeshComponent.h"
 #include "Components/DirectionalLightComponent.h"
 #include "Engine/DirectionalLight.h"
 #include "Engine/SkeletalMesh.h"
@@ -40,6 +41,14 @@ void TickFrostRuneVisualDiagnosis(AFPSGAMECharacter* C)
     auto Record=[C,P,Dir](const FString& Tag)
     {
         FString Rows=FString::Printf(TEXT("equipped=%s\n"),P->Equipped()?*P->Equipped()->Data:TEXT("none"));
+        TArray<UStaticMeshComponent*> Blades;C->GetComponents(Blades);
+        for(auto* B:Blades)if(B->GetName().Contains(TEXT("ModularSwordBlade")))
+            for(int32 I=0;I<B->GetNumMaterials();++I)
+            {
+                auto* O=B->GetOverlayMaterial(true,I);
+                Rows+=FString::Printf(TEXT("blade slot=%d material=%s overlay=%s\n"),I,*GetPathNameSafe(B->GetMaterial(I)),*GetPathNameSafe(O));
+                if(auto* D=Cast<UMaterialInstanceDynamic>(O))Rows+=FString::Printf(TEXT("blade mode=%.1f golden=%.1f texture=%s\n"),D->K2_GetScalarParameterValue(TEXT("RuneMode")),D->K2_GetScalarParameterValue(TEXT("GoldenTint")),*GetPathNameSafe(D->K2_GetTextureParameterValue(TEXT("RuneTexture"))));
+            }
         TArray<USkeletalMeshComponent*> Meshes;C->GetComponents(Meshes);
         for(auto* M:Meshes)if(M->GetName()==TEXT("RuneSwordViewmodel"))
         {
@@ -58,11 +67,11 @@ void TickFrostRuneVisualDiagnosis(AFPSGAMECharacter* C)
     Later(6,[C,P]()
     {
         auto State=P->Snapshot();State.Items.Reset();State.Hotbar.Init(TEXT(""),4);State.HotbarDefinitions.Init(TEXT(""),4);
-        auto Sword=P->CreateItem(TEXT("ue_frost_crystal_sword"));Sword.Place=1;Sword.Cell=9;
+        FString Rune=TEXT("erosion_rune"),Guard=TEXT("riposte_guard"),Weapon=TEXT("ue_frost_crystal_sword");
+        FParse::Value(FCommandLine::Get(),TEXT("Rune="),Rune);FParse::Value(FCommandLine::Get(),TEXT("Guard="),Guard);FParse::Value(FCommandLine::Get(),TEXT("Weapon="),Weapon);
+        auto Sword=P->CreateItem(*Weapon);Sword.Place=1;Sword.Cell=9;
         TSharedPtr<FJsonObject> Data;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Sword.Data),Data);
         auto Parts=MakeShared<FJsonObject>();
-        FString Rune=TEXT("erosion_rune"),Guard=TEXT("riposte_guard");
-        FParse::Value(FCommandLine::Get(),TEXT("Rune="),Rune);FParse::Value(FCommandLine::Get(),TEXT("Guard="),Guard);
         Parts->SetStringField(TEXT("blade_2"),Rune);Parts->SetStringField(TEXT("guard"),Guard);Data->SetObjectField(TEXT("gunsmith_parts"),Parts);
         Sword.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Sword.Data));
         State.Items.Add(Sword);State.ActiveWeaponSlot=9;P->CommitState(State);

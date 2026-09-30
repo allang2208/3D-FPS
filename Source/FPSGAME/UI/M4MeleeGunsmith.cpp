@@ -18,7 +18,7 @@ bool UM4GunsmithWidget::IsMeleeWorkbench() const
 
 bool UM4GunsmithWidget::HasSelectedPreview() const
 {
-    if(IsMeleeWorkbench())return StandaloneMelee!=nullptr;
+    if(IsStandaloneWorkbench())return StandaloneMelee!=nullptr;
     const auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     return Profile->Equipped()&&Profile->Equipped()->InstanceId==Model()->Instance();
 }
@@ -52,7 +52,7 @@ void UM4GunsmithWidget::AppendMeleeOverview(const FColdSteelItem& Item)
     Row(TEXT("快速近战伤害"),Before.QuickCombat.Damage,After.QuickCombat.Damage,2,TEXT(""));
     Row(TEXT("快速近战击退距离"),Before.QuickCombat.KnockbackCM,After.QuickCombat.KnockbackCM,1,TEXT(" cm"));
     Row(TEXT("快速近战韧性伤害倍率"),Before.QuickCombat.ToughnessMultiplier,After.QuickCombat.ToughnessMultiplier,2,TEXT("×"));
-    Row(ColdSteelWeaponText::QuickCombatBleed,,Before.QuickCombat.BleedChance*100,After.QuickCombat.BleedChance*100,0,TEXT("%"));
+    Row(ColdSteelWeaponText::QuickCombatBleed,Before.QuickCombat.BleedChance*100,After.QuickCombat.BleedChance*100,0,TEXT("%"));
     Overview.Add({TEXT("快速近战命中方式"),Before.QuickCombat.bAreaHit?TEXT("范围多目标"):TEXT("单目标"),
         After.QuickCombat.bAreaHit?TEXT("范围多目标"):TEXT("单目标"),
         Before.QuickCombat.bAreaHit==After.QuickCombat.bAreaHit?TEXT("—"):After.QuickCombat.bAreaHit?TEXT("启用范围攻击"):TEXT("恢复单目标"),
@@ -60,12 +60,12 @@ void UM4GunsmithWidget::AppendMeleeOverview(const FColdSteelItem& Item)
     Row(TEXT("魔法值消耗倍率"),Before.Modifiers.MagicCost,After.Modifiers.MagicCost,2,TEXT("×"),true);
     Row(TEXT("魔法技能冷却倍率"),Before.Modifiers.MagicCooldown,After.Modifiers.MagicCooldown,2,TEXT("×"),true);
     Row(TEXT("魔法伤害倍率"),Before.Modifiers.MagicDamage,After.Modifiers.MagicDamage,2,TEXT("×"));
-    Row(ColdSteelWeaponText::RuneVulnerability,,Before.Modifiers.RuneVulnerability*100,After.Modifiers.RuneVulnerability*100,0,TEXT("%"));
-    Row(TEXT("魔法易伤持续时间"),Before.Modifiers.RuneVulnerabilitySeconds,After.Modifiers.RuneVulnerabilitySeconds,0,TEXT(" s"));
-    Row(TEXT("普通攻击间隔"),Before.AttackSeconds,After.AttackSeconds,2,TEXT(" s"),true);
+    Row(ColdSteelWeaponText::RuneVulnerability,Before.Modifiers.RuneVulnerability*100,After.Modifiers.RuneVulnerability*100,0,TEXT("%"));
+    Row(TEXT("剑刃易伤持续时间"),Before.Modifiers.RuneVulnerabilitySeconds,After.Modifiers.RuneVulnerabilitySeconds,0,TEXT(" s"));
+    Row(ColdSteelWeaponText::AttackInterval,Before.AttackSeconds*1000,After.AttackSeconds*1000,0,TEXT(" ms"),true);
     Row(TEXT("突刺时间"),Before.ThrustSeconds,After.ThrustSeconds,2,TEXT(" s"),true);
     Row(TEXT("普通挥砍距离"),Before.SlashReach/100,After.SlashReach/100,2,TEXT(" m"));
-    Row(ColdSteelWeaponText::AttackDistance,,Before.ThrustReach/100,After.ThrustReach/100,2,TEXT(" m"));
+    Row(ColdSteelWeaponText::AttackDistance,Before.ThrustReach/100,After.ThrustReach/100,2,TEXT(" m"));
     Row(ColdSteelWeaponText::StaminaCost,Before.AttackStamina,After.AttackStamina,2,TEXT(""),true);
     Row(TEXT("命中硬直时间倍率"),Before.Modifiers.HitReaction,After.Modifiers.HitReaction,2,TEXT("×"));
     Row(TEXT("韧性伤害倍率"),Before.Modifiers.ToughnessDamage,After.Modifiers.ToughnessDamage,2,TEXT("×"));
@@ -75,9 +75,9 @@ void UM4GunsmithWidget::AppendMeleeOverview(const FColdSteelItem& Item)
     Row(TEXT("反击激励持续时间"),Before.Modifiers.RiposteSeconds,After.Modifiers.RiposteSeconds,0,TEXT(" s"));
     if(Before.Modifiers.ClovenSeconds>0 || After.Modifiers.ClovenSeconds>0)
     {
-        Row(ColdSteelWeaponText::ParryClovenKeep,,Before.Modifiers.ClovenSeconds,After.Modifiers.ClovenSeconds,1,TEXT(" s"));
-        Row(ColdSteelWeaponText::ClovenPhysicalDamage,,(Before.Modifiers.ClovenPhysical-1)*100,(After.Modifiers.ClovenPhysical-1)*100,0,TEXT("%"));
-        Row(ColdSteelWeaponText::ClovenToughnessDamage,,(Before.Modifiers.ClovenToughness-1)*100,(After.Modifiers.ClovenToughness-1)*100,0,TEXT("%"));
+        Row(ColdSteelWeaponText::ParryClovenKeep,Before.Modifiers.ClovenSeconds,After.Modifiers.ClovenSeconds,1,TEXT(" s"));
+        Row(ColdSteelWeaponText::ClovenPhysicalDamage,(Before.Modifiers.ClovenPhysical-1)*100,(After.Modifiers.ClovenPhysical-1)*100,0,TEXT("%"));
+        Row(ColdSteelWeaponText::ClovenToughnessDamage,(Before.Modifiers.ClovenToughness-1)*100,(After.Modifiers.ClovenToughness-1)*100,0,TEXT("%"));
     }
     Row(TEXT("反击激励攻速倍率"),Before.Modifiers.RiposteSpeed,After.Modifiers.RiposteSpeed,2,TEXT("×"));
     Row(TEXT("反击激励耐力倍率"),Before.Modifiers.RiposteStamina,After.Modifiers.RiposteStamina,2,TEXT("×"),true);

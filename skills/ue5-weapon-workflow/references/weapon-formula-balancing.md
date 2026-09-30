@@ -44,6 +44,19 @@
 
 - **每把枪有基础系数** `gunsmith.json` 的 `weapons[].base.spread_mult`：键不存在时**静默取 1**，所以"哪把枪漏了"只能读目录，不能信面板。2026-09-21 把所有非手枪枪械的腰射扩散翻倍（`spread_mult: 2`）。配件侧另有 `hip_spread_mult`（激光 0.5、QR 0.7、斜握把 0.8 等），两者连乘——不要在单枪上写特例绕过目录。
 - **准星跟着真实锥角自动走**：准星内缘 = `GetCrosshairHalfExtent()` 把实时锥投影到屏幕（含 FOV、窗口比例、DPI），不带绝对像素钳制。改散布**不需要也不应该**再手调准星像素；准星没跟着动，先查是不是读了旧缓存或另一套散布公式。
-- **ADS 用百分比，不用秒**：`ADS = max(0.001, base.ADS × (1+Σads_percent) + Σads_seconds)`，`base.ADS = ln(20)/base.ads_smooth`。配件目录现写成 `ads_percent`（0.1 = +10%），`ads_seconds` 只留给"固定加减时长"；换算时同步改详情/卡片文案，否则界面还写着旧的"减少 200 ms"。
-- **改完目录要同步三处**：`SkeletonStockAudit` 一类审计的期望值（例 `S.Spread==Base.Spread`）、`Docs/Weapons/attachment-values-20260921.md` 与结构一致性检查 `Tools/Weapons/check_attachment_consistency.py`。审计不过时按目录口径改断言，不要为"让审计过"退回旧公式。
+- **ADS 用百分比，不用秒**：`ADS = max(0.001, base.ADS × (1+Σads_percent) + Σads_seconds)`，`base.ADS = ln(20)/base.ads_smooth`。配件目录写成 `ads_percent`（0.1 = +10%），`ads_seconds` 只留给"固定加减时长"（当前目录零使用者）。激光口径 2026-09-23 由用户按实际效果定稿：`ads_percent=-0.2` = 各枪开镜耗时 −20%（按各自 base 180–450 ms 省 36–90 ms），skill 旧文"−200 ms（绝对值）"说法作废。
+- **改完目录要同步三处**：`SkeletonStockAudit` 一类审计的期望值（例 `S.Spread==Base.Spread`）、`Docs/Weapons/attachment-values-20260921.md`（重新生成遵守 `publication.md` 的目录脏检查）与结构一致性检查 `Tools/Weapons/check_attachment_consistency.py`。审计不过时按目录口径改断言，不要为"让审计过"退回旧公式。
 - 跨会话：目录里可能有别的会话正在加的新武器块，`spread_mult` 只加在**自己负责的那把枪**上；若那一行落在对方未提交的块内，只能留未提交并在交付说明点明。
+
+## 枪械攻击力/成长公式全量审计与调参范式（2026-09-30）
+
+13 把枪械全部进 `combat-weapon-formulas.json` 权威表，回退档（锚点×(1+0.05L)+角色攻击力）清零。
+
+- **公式三级解析顺序**：权威表（按 Definition）→ 源目录 `source-combat-items.json` 经 `CombatItemFormula::Read` 合并（weaponId→**名称**→Definition，实例字段优先）→ 回退档。**名称匹配是脆弱耦合**（改名即静默丢公式），新枪一律直接进权威表；捡回旧公式要字段级校验（G18/PKM 案例）。
+- **内核**：`伤害 = base + L×enhanceFlat + Σ属性×(系数+perEnhance×L)`，再 ×（当前枪匠基伤/表内锚点）重标定——配件改动等比放大整条公式。战斗与浮窗同链（`WeaponStatEvaluation` → `ProcessedDamage`）。
+- **新枪调参范式**：按参照枪**单一乘数**派生（HK416=1.10×M4A1、ASH-12=1.65×AKM），四个检查点（L0 零属性/每级成长/L15 零属性/L15 主属性）倍率必须一致；禁止逐系数手工漂移（A762 反例：四个比率各不相同，曲线随强化收敛）。
+- **成长百分比落在成长分量上**：只动 `enhanceFlat` 与 `perEnhance`，`base` 与属性基础系数不动（L0 未强化手感不变）。固定成长占比保持在总成长 8–10%（族带），`perEnhance` 全族带 0.035–0.075。
+- **保底公式**：`enhanceFlat=0` 的枪（SVD/DW715 案例）零属性角色强化零收益但金币照扣——保底值按「+15 零属性增量 ≈ 锚点 19–29%」的族带推导（SVD 1.5、DW 1.0），满级主属性变化控制在 ≤4%。
+- **面板「物理攻击」是重标定分母**（锚点），不是 L0 实值（零属性 M4A1 实际 7）——物品摘要那行与实感不符是已知口径，浮窗公式卡才是实值。
+- **属性轴现状**（待拍板）：步枪=智/精、手枪=敏/精、机枪=力/精、工具自卫=力/敏——智力 build 用枪最强是移植原版的设计，改轴是单独立项。
+- 审计遗留：G18 已重调为 M1911 下位（335→122.75）；PKM 两轮提额至每级 8.64（@主 60）；HK416=1.10×M4A1。

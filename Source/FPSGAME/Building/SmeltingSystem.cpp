@@ -1,5 +1,6 @@
 #include "SmeltingSystem.h"
 #include "VoxelBuildWorld.h"
+#include "VoxelBuildPrefabActor.h"
 #include "VoxelBuildTypes.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelInventoryTypes.h"
@@ -15,7 +16,8 @@ namespace
     constexpr double TicksToSeconds=1.0/static_cast<double>(ETimespan::TicksPerSecond);
 
     int64 NowTicks(){return FDateTime::UtcNow().GetTicks();}
-    enum { SmeltBegin=1, SmeltCollect=2, SmeltFuel=3, SmeltUpgrade=4, SmeltTeardown=5 };
+    enum { SmeltBegin=1, SmeltCollect=2, SmeltFuel=3, SmeltUpgrade=4, SmeltTeardown=5,
+           CastingEnqueue=6,CastingCollect=7 };
 
     FColdSteelSmeltIntent MakeIntent(AVoxelBuildWorld* World,FIntVector Cell,int32 Kind)
     {
@@ -170,6 +172,7 @@ bool UColdSteelSmeltingSystem::SettleFurnace(AVoxelBuildWorld* World,FIntVector 
 {
     if(!IsValid(World))return false;
     FVoxelSmeltingJob* Job=World->FindSmeltingMutable(Cell);
+    if(Job&&Job->bCasting)return SettleCasting(World,Cell);
     const FColdSteelSmeltingRecipe* R=Job?Find(Job->Recipe):nullptr;
     bool bDirty=false;
     double FuelSeconds=World->FuelAt(Cell);   // 局部名避开成员 Fuel（FColdSteelSmeltingFuel）
@@ -232,7 +235,7 @@ double UColdSteelSmeltingSystem::LiveProgress(const AVoxelBuildWorld* World,FInt
     OutRecipe=R;
     const double Total=JobTotalSeconds(World,*Job,*R);
     double P=FMath::Clamp(Job->ProgressSeconds,0.0,Total);
-    if(Job->BurnStartTicks>0)
+    if(Job->BurnStartTicks>0&&(!Job->bCasting||!CastingBlocked(World,*Job)))
     {
         const int64 Now=NowTicks();
         if(Now>Job->BurnStartTicks)
@@ -256,6 +259,8 @@ float UColdSteelSmeltingSystem::Progress(const AVoxelBuildWorld* World,FIntVecto
 
 bool UColdSteelSmeltingSystem::IsDone(const AVoxelBuildWorld* World,FIntVector Cell) const
 {
+    if(World)if(const auto* Job=World->FindSmelting(Cell);Job&&Job->bCasting)
+        return Job->Recipe.IsNone()&&Job->Queue.IsEmpty();
     const FColdSteelSmeltingRecipe* R=nullptr;
     const double P=LiveProgress(World,Cell,R);
     if(P<0.0||!R)return false;
@@ -284,7 +289,22 @@ bool UColdSteelSmeltingSystem::BeginSmelting(AVoxelBuildWorld* World,FIntVector 
     if(!IsValid(World)){Reason=TEXT("建筑世界未就绪");return false;}
     const FColdSteelSmeltingRecipe* R=Find(Recipe);
     if(!R){Reason=TEXT("该配方不存在");return false;}
-    if(World->FindSmelting(Cell)){Reason=TEXT("这座高炉正在冶炼");return false;}
+    if(!World->IsFurnaceAt(Cell)){Reason=TEXT("目标不是已放置的冶炼高炉");return false;}
+    SettleFurnace(World,Cell);
+    FIntVector Station;
+    const auto* Existing=World->FindSmelting(Cell);
+    const bool bCasting=(Existing&&Existing->bCasting)||World->FindAvailableCastingStation(Cell,Station);
+    if(Existing&&Existing->bCasting)
+    {
+        Station=Existing->StationCell;
+        const auto* Table=World->PrefabActorAt(Station);
+        if((!Table||Table->IsFalling()||Table->PrefabId()!=VoxelCastingStationId)
+            &&!World->FindAvailableCastingStation(Cell,Station))
+        {Reason=TEXT("铸造台已移除，请在高炉旁重新放置；已有成品仍可领取");return false;}
+    }
+    if(Existing&&!bCasting){Reason=TEXT("这座高炉正在冶炼；在旁边放置铸造台可开启连续队列");return false;}
+    if(bCasting&&Existing&&Existing->Queue.Num()>=CastingQueueCapacity)
+    {Reason=TEXT("待冶炼队列已满（最多 8 项）");return false;}
     if(World->FuelAt(Cell)<=0.0){Reason=TEXT("炉内没有燃料，先添加燃料");return false;}
     Batch=FMath::Clamp(Batch,1LL,FMath::Min<int64>(99,BatchCapFor(World->FurnaceUpgradeLevel(Cell,VoxelFurnaceAxisBatch))));   // 面板按持有量夹，这里按批量轴封顶兜底
     auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
@@ -294,6 +314,36 @@ bool UColdSteelSmeltingSystem::BeginSmelting(AVoxelBuildWorld* World,FIntVector 
     if(Model->CreateItem(R->Input).Data.IsEmpty()){Reason=TEXT("物品目录缺少该材料");return false;}
     Model->SyncRuntime();auto P=Model->Snapshot();
     if(!Deduct(P,R->Input,Ore)){Reason=FString::Printf(TEXT("缺少 %lld 块（背包+仓库）"),Ore);return false;}
+    if(bCasting)
+    {
+        const bool bHadJob=Existing!=nullptr;
+        const FVoxelSmeltingJob Before=Existing?*Existing:FVoxelSmeltingJob();
+        auto Intent=MakeIntent(World,Cell,CastingEnqueue);
+        Intent.Item=R->Input;Intent.Count=Ore;Intent.Recipe=Recipe.ToString();Intent.Batch=Batch;
+        Intent.Level=Before.ActionSerial+1;
+        P.SmeltIntents.Add(Intent);
+        if(!Model->CommitState(MoveTemp(P))){Reason=TEXT("保存失败，材料未扣除");return false;}
+        FString StartReason;
+        if(!bHadJob&&!World->BeginSmelting(Cell,Recipe,StartReason,Batch))
+        {RefundIntent(Model,Intent);Reason=StartReason;return false;}
+        auto* Casting=World->FindSmeltingMutable(Cell);
+        Casting->bCasting=true;Casting->StationCell=Station;Casting->ActionSerial=Intent.Level;
+        if(bHadJob)
+        {
+            if(Casting->Recipe.IsNone()&&Casting->Queue.IsEmpty())
+            {Casting->Recipe=Recipe;Casting->BatchCount=Batch;Casting->ProducedBatches=0;Casting->ProgressSeconds=0;}
+            else {auto& Order=Casting->Queue.AddDefaulted_GetRef();Order.Recipe=Recipe;Order.Batch=Batch;}
+        }
+        World->MarkSmeltingDirty();
+        if(!World->FlushPersistenceNow())
+        {
+            if(bHadJob)*World->FindSmeltingMutable(Cell)=Before;else World->ClearSmelting(Cell);
+            World->MarkSmeltingDirty();RefundIntent(Model,Intent);
+            Reason=TEXT("队列保存失败，本次投料已退回");return false;
+        }
+        DropIntent(Model,Intent);SettleCasting(World,Cell);
+        return true;
+    }
     FColdSteelSmeltIntent Intent=MakeIntent(World,Cell,SmeltBegin);
     Intent.Item=R->Input;Intent.Count=Ore;Intent.Recipe=Recipe.ToString();Intent.Batch=Batch;
     P.SmeltIntents.Add(Intent);
@@ -359,6 +409,41 @@ bool UColdSteelSmeltingSystem::CollectSmelting(AVoxelBuildWorld* World,FIntVecto
     SettleFurnace(World,Cell);   // 取出前结算：挂钟能兑现的最后几秒不落空
     const FVoxelSmeltingJob* Job=World->FindSmelting(Cell);
     if(!Job){Reason=TEXT("炉内没有矿料");return false;}
+    if(Job->bCasting)
+    {
+        auto* Status=Model();
+        if(!Status){Reason=TEXT("角色数据未就绪");return false;}
+        Status->SyncRuntime();auto P=Status->Snapshot();
+        TArray<FColdSteelSmeltIntent> Intents;
+        int64 Total=0;int32 Serial=Job->ActionSerial;
+        for(const auto& Product:Job->Products)
+        {
+            int64 Taken=0;
+            for(int64 I=0;I<Product.Count&&I<CastingCapacity;++I)
+            {
+                auto Trial=P;
+                if(!Grant(Status,Trial,Product.Item,1))break;
+                P=MoveTemp(Trial);++Taken;
+            }
+            if(Taken>0)
+            {
+                auto Intent=MakeIntent(World,Cell,CastingCollect);
+                Intent.Item=Product.Item;Intent.Count=Taken;Intent.Level=++Serial;
+                Intents.Add(Intent);P.SmeltIntents.Add(Intent);Total+=Taken;
+            }
+        }
+        if(Total<=0){Reason=CastingStored(*Job)>0?TEXT("背包放不下，成品保留在架上"):TEXT("成品架暂无可领取金属锭");return false;}
+        if(!Status->CommitState(MoveTemp(P))){Reason=TEXT("保存失败，成品保留在架上");return false;}
+        auto* Mutable=World->FindSmeltingMutable(Cell);
+        for(const auto& Intent:Intents)
+            if(auto* Product=Mutable->Products.FindByPredicate([&](const auto& E){return E.Item==Intent.Item;}))Product->Count-=Intent.Count;
+        Mutable->Products.RemoveAll([](const auto& E){return E.Count<=0;});
+        Mutable->ActionSerial=Serial;World->MarkSmeltingDirty();
+        if(World->FlushPersistenceNow())for(const auto& Intent:Intents)DropIntent(Status,Intent);
+        SettleCasting(World,Cell);
+        Reason=FString::Printf(TEXT("已领取 %lld 块金属锭；剩余成品保留在架上"),Total);
+        return true;
+    }
     const FColdSteelSmeltingRecipe* R=Find(Job->Recipe);
     if(!R){Reason=TEXT("配方已下架，炉内矿料无法结算");return false;}
     if(!IsDone(World,Cell)){Reason=TEXT("冶炼尚未完成");return false;}
@@ -391,7 +476,15 @@ bool UColdSteelSmeltingSystem::RefundForTeardown(AVoxelBuildWorld* World,FIntVec
     const int64 WoodUnits=FMath::FloorToInt(Stored/Fuel.SecondsPerUnit);
     const int64 Batch=Job?FMath::Max<int64>(1,Job->BatchCount):1;
     TArray<TPair<FString,int64>> Gives;
-    if(Job&&R)
+    if(Job&&Job->bCasting)
+    {
+        for(const auto& Product:Job->Products)if(Product.Count>0)Gives.Add({Product.Item,Product.Count});
+        if(R&&Job->BatchCount>Job->ProducedBatches)
+            Gives.Add({R->Input,R->InputCount*(Job->BatchCount-Job->ProducedBatches)});
+        for(const auto& Order:Job->Queue)
+            if(const auto* Queued=Find(Order.Recipe))Gives.Add({Queued->Input,Queued->InputCount*Order.Batch});
+    }
+    else if(Job&&R)
     {
         const bool bDone=IsDone(World,Cell);
         Gives.Add({bDone?R->Output:R->Input,(bDone?R->OutputCount:R->InputCount)*Batch});
@@ -460,7 +553,26 @@ void UColdSteelSmeltingSystem::ReconcileIntents(AVoxelBuildWorld* World)
     for(const FColdSteelSmeltIntent& Intent:Pending)
     {
         const FIntVector Cell=IntentCell(Intent);
-        if(Intent.Kind==SmeltBegin)
+        if(Intent.Kind==CastingEnqueue)
+        {
+            const auto* Job=World->FindSmelting(Cell);
+            if(Job&&Job->bCasting&&Job->ActionSerial>=Intent.Level)DropIntent(Model,Intent);
+            else RefundIntent(Model,Intent);
+        }
+        else if(Intent.Kind==CastingCollect)
+        {
+            auto* Job=World->FindSmeltingMutable(Cell);
+            if(Job&&Job->bCasting&&Job->ActionSerial<Intent.Level)
+            {
+                if(auto* Product=Job->Products.FindByPredicate([&](const auto& E){return E.Item==Intent.Item;}))
+                    Product->Count=FMath::Max<int64>(0,Product->Count-Intent.Count);
+                Job->Products.RemoveAll([](const auto& E){return E.Count<=0;});
+                Job->ActionSerial=Intent.Level;World->MarkSmeltingDirty();
+                if(!World->FlushPersistenceNow())continue;
+            }
+            DropIntent(Model,Intent);
+        }
+        else if(Intent.Kind==SmeltBegin)
         {
             if(World->FindSmelting(Cell))DropIntent(Model,Intent);
             else if(!RefundIntent(Model,Intent))UE_LOG(LogTemp,Error,TEXT("Smelting reconcile could not refund ore @格(%d,%d,%d)"),Cell.X,Cell.Y,Cell.Z);

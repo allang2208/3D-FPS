@@ -26,10 +26,28 @@ float UColdSteelStatusModel::TreeGrowthScale(const FString& Id) const
 
 float UColdSteelStatusModel::TreeStumpScale(const FString& Id) const
 {
-    const auto* G=Current.TreeGrowth.Find(Id);if(!G)return 1;
-    const double T=FMath::Clamp((Current.TreeGrowthDay-G->CutAtDay-G->DormantDays)/
-        FMath::Max(.1,double(G->MatureDays-G->DormantDays)*.2),0.0,1.0);
-    return 1-T*T*(3-2*T);
+    // 2026-09-28 用户规则：树桩是可劈的目标，不再随幼树长大自动缩没——保留 1，
+    // 劈开（bStumpCleared）才归 0。旧的「长回来时桩缩掉」曲线退役。
+    const auto* G=Current.TreeGrowth.Find(Id);
+    return G&&G->bStumpCleared?0.f:1.f;
+}
+
+FVector2D UColdSteelStatusModel::TreeSaplingOffset(const FString& Id) const
+{
+    const auto* G=Current.TreeGrowth.Find(Id);
+    return G?G->SaplingOffset:FVector2D::ZeroVector;
+}
+
+FVector2D UColdSteelStatusModel::TreeStumpOffset(const FString& Id) const
+{
+    const auto* G=Current.TreeGrowth.Find(Id);
+    return G?G->StumpOffset:FVector2D::ZeroVector;
+}
+
+float UColdSteelStatusModel::StumpHealthRatio(const FString& Id) const
+{
+    const auto* G=Current.TreeGrowth.Find(Id);
+    return G?FMath::Clamp(G->StumpHealthRatio,0.f,1.f):1.f;
 }
 
 void UColdSteelStatusModel::TickTreeGrowthClock(float Delta)

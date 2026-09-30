@@ -79,4 +79,7 @@ private:
     UPROPERTY(Transient) TObjectPtr<UTexture2D> FlameArmorIconTexture;
     TSharedPtr<SButton> MeteorDetailButton,FlameArmorDetailButton;
     FSlateBrush MeteorIconBrush,FlameArmorIconBrush;
+    UPROPERTY(Transient) TObjectPtr<UTexture2D> IceWallIconTexture;
+    TSharedPtr<SButton> IceWallDetailButton;
+    FSlateBrush IceWallIconBrush;
 };

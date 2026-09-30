@@ -9,6 +9,7 @@
 #include "Serialization/JsonSerializer.h"
 #include "CoreCombatFormula.h"
 #include "CombatItemFormula.h"
+#include "../Dungeons/DungeonRunSubsystem.h"
 namespace
 {
 using J=TSharedPtr<const FJsonObject>;
@@ -98,14 +99,16 @@ void UColdSteelStatusModel::SyncTributeTiles()
 }
 double UColdSteelStatusModel::DungeonEffect(FName Key)const
 {
-    double Total=0;for(const auto& B:Current.FormulaBuffs)if(!B.bTribute&&B.Battles>0)Total+=B.Effects.FindRef(Key);return Total;
+    const auto* Run=UDungeonRunSubsystem::Get(GetWorld());
+    double Total=Run?Run->ShrineEffect(Key):0.;
+    for(const auto& B:Current.FormulaBuffs)if(!B.bTribute&&B.Battles>0)Total+=B.Effects.FindRef(Key);return Total;
 }
 double UColdSteelStatusModel::AdjustCombatStat(FName Key,double Value)const
 {
     if(Key==TEXT("atk"))Value=std::floor(Value*(1+SetEffect(TEXT("atk"))));
     if(Key==TEXT("crit"))Value+=SetEffect(TEXT("crit"));
     const FName Percent(*(Key.ToString()+TEXT("Percent")));
-    if(Key==TEXT("atk")||Key==TEXT("matk")||Key==TEXT("def"))Value=std::floor(Value*(1+DungeonEffect(Percent)/100.));
+    if(Key==TEXT("atk")||Key==TEXT("matk")||Key==TEXT("def")||Key==TEXT("mdef"))Value=std::floor(Value*(1+DungeonEffect(Percent)/100.));
     if(Key==TEXT("atk")||Key==TEXT("matk")||Key==TEXT("def")||Key==TEXT("mdef")||Key==TEXT("crit"))Value=std::floor(Value*TributeEffect(Percent));
     return Value;
 }
@@ -117,7 +120,7 @@ double UColdSteelStatusModel::EquipmentMagicAttack()const
     return CoreCombatFormula::Round(Num(F,TEXT("base"))+L*Num(F,TEXT("enhanceBase"))+Attribute(TEXT("intt"))*(Num(F,TEXT("intMul"))+L*Num(F,TEXT("enhanceIntMul")))+Attribute(TEXT("wis"))*(Num(F,TEXT("wisMul"))+L*Num(F,TEXT("enhanceWisMul"))));
 }
 float UColdSteelStatusModel::CombatMoveMultiplier()const
-{return SetEffect(TEXT("speed"))*FMath::Max(.5,1+DungeonEffect(TEXT("moveSpeedPercent"))/100.)*TributeEffect(TEXT("moveSpeedPercent"));}
+{return SetEffect(TEXT("speed"))*FMath::Max(.5,1+DungeonEffect(TEXT("moveSpeedPercent"))/100.)*TributeEffect(TEXT("moveSpeedPercent"))*FMath::Max(.5,1.+EquipmentBonus(TEXT("moveSpeedPercent")));}
 bool UColdSteelStatusModel::OfferTribute(const FString& Id)
 {
     SyncRuntime();auto P=Snapshot();const int32 Index=P.Items.IndexOfByPredicate([&](const auto& I){return I.InstanceId==Id&&I.Place==0&&I.Count>0;});if(Index<0)return false;

@@ -1,6 +1,7 @@
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelQuickSlot.h"
 #include "../Weapons/RuneOrbBladesComponent.h"
+#include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "Components/Border.h"
 #include "Components/Overlay.h"
 #include "Components/OverlaySlot.h"
@@ -16,11 +17,12 @@ void UColdSteelHUDWidget::BuildQuickSlot(UOverlay* Overlay,int32 Index,FName Fix
 void UColdSteelHUDWidget::RefreshQuickBar()
 {
     for(const auto& QuickSlotWidget:QuickSlots)if(QuickSlotWidget)QuickSlotWidget->Refresh();
-    // G 槽只在装备符文长剑时占位显示；卸下后连同分隔线收起，其余槽位自动补位。
+    // The fixed G slot follows the equipped weapon; it never consumes a learned-skill binding.
     if(RuneBladesSlotSurface&&RuneBladesDivider)
     {
         const auto* Blades=GetOwningPlayerPawn()?GetOwningPlayerPawn()->FindComponentByClass<URuneOrbBladesComponent>():nullptr;
-        const bool bShow=Blades&&Blades->SwordEquipped();
+        const auto* Staff=GetOwningPlayerPawn()?GetOwningPlayerPawn()->FindComponentByClass<UStaffWeaponComponent>():nullptr;
+        const bool bShow=(Blades&&Blades->SwordEquipped())||(Staff&&Staff->HasIlluminationSpecial());
         const auto Visible=bShow?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed;
         if(RuneBladesSlotSurface->GetVisibility()!=Visible)
         {RuneBladesSlotSurface->SetVisibility(Visible);RuneBladesDivider->SetVisibility(Visible);}

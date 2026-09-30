@@ -89,6 +89,11 @@ bool UFPSModularOutfitComponent::IsSteelGauntletEquipped() const
     static const FName SteelGauntlets(TEXT("ue_steel_gauntlets"));
     return Equipped.FindRef(3)==SteelGauntlets;
 }
+bool UFPSModularOutfitComponent::IsChainmailEquipped() const
+{
+    static const FName Chainmail(TEXT("ue_chainmail_shirt"));
+    return Equipped.FindRef(7)==Chainmail;
+}
 void UFPSModularOutfitComponent::SetWorldOutfit(const TArray<FFPSBodyOutfitSlot>& Outfit)
 {
     const auto* Pawn=Cast<APawn>(GetOwner());
@@ -184,7 +189,8 @@ void UFPSModularOutfitComponent::DiscoverSources()
     };
     TSet<FString> CurrentKeys;
     for(auto* Source:Sources)if(Source&&Source->GetSkeletalMeshAsset()&&!Source->ComponentHasTag(TEXT("ModularOutfit"))
-        &&(Source==Body||(Source->IsVisible()&&!Source->bHiddenInGame)))
+        &&(Source==Body||(Source->IsVisible()&&!Source->bHiddenInGame)
+            ||(Source->bOnlyOwnerSee&&Source->ComponentHasTag(TEXT("PreloadModularOutfit")))))
     {
         const auto Profile=Object(Profiles,Source->GetSkeletalMeshAsset()->GetPathName());
         if(Source!=Body)
@@ -226,7 +232,10 @@ void UFPSModularOutfitComponent::DiscoverSources()
         // World weapon copies have the same mesh paths as viewmodels, but have
         // no camera-space ownership. Never grow a second pair of arms on them.
         if(!bWorld&&!Source->bOnlyOwnerSee)continue;
-        if(!bWorld&&(!Source->IsVisible()||Source->bHiddenInGame))continue;
+        // Traversal needs its outfit before the hands enter view. Retain this
+        // presentation between actions; FollowVisibility still gates rendering.
+        if(!bWorld&&(!Source->IsVisible()||Source->bHiddenInGame)
+            &&!Source->ComponentHasTag(TEXT("PreloadModularOutfit")))continue;
         if(bOriginalGloves)
         {
             const FString Original=String(Profile,TEXT("original_gloved_arms"));
@@ -281,6 +290,12 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
         MeshPaths.Add(PartMesh(Shirt,TEXT("shirt")));
         MaterialPaths.Add(String(Shirt,TEXT("material")));
     }
+    // Optional per-slot view materials leave the saved meshes and world-body
+    // materials intact. Load them in the same async batch as the outfit.
+    TArray<FString> ShirtViewMaterials;
+    const TArray<TSharedPtr<FJsonValue>>* ViewMaterials=nullptr;
+    if(!bWorld&&Shirt&&Shirt->TryGetArrayField(TEXT("first_person_materials"),ViewMaterials))
+        for(const auto& Value:*ViewMaterials)ShirtViewMaterials.Add(Value->AsString());
     bool bGloveInBase=false;if(Gloves)Gloves->TryGetBoolField(TEXT("glove_in_base"),bGloveInBase);
     if(Gloves&&!bGloveInBase){MeshPaths.Add(PartMesh(Gloves,TEXT("gloves")));MaterialPaths.Add(String(Gloves,TEXT("material")));}
     TArray<FSoftObjectPath> Paths;
@@ -288,6 +303,8 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
     for(const FString& Path:MeshPaths)
     {if(Path.IsEmpty())return;Paths.AddUnique(FSoftObjectPath(Path));bLoaded&=Cast<USkeletalMesh>(FSoftObjectPath(Path).ResolveObject())!=nullptr;}
     for(const FString& Path:MaterialPaths)if(!Path.IsEmpty())
+    {Paths.AddUnique(FSoftObjectPath(Path));bLoaded&=Cast<UMaterialInterface>(FSoftObjectPath(Path).ResolveObject())!=nullptr;}
+    for(const FString& Path:ShirtViewMaterials)
     {Paths.AddUnique(FSoftObjectPath(Path));bLoaded&=Cast<UMaterialInterface>(FSoftObjectPath(Path).ResolveObject())!=nullptr;}
     if(!bLoaded)
     {
@@ -326,6 +343,9 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
         Part->SetComponentTickEnabled(false);
         if(!MaterialPaths[I].IsEmpty())
             for(int32 M=0;M<Part->GetNumMaterials();++M)Part->SetMaterial(M,Cast<UMaterialInterface>(FSoftObjectPath(MaterialPaths[I]).ResolveObject()));
+        if(I==1&&Shirt)
+            for(int32 M=0;M<FMath::Min(Part->GetNumMaterials(),ShirtViewMaterials.Num());++M)
+                Part->SetMaterial(M,Cast<UMaterialInterface>(FSoftObjectPath(ShirtViewMaterials[M]).ResolveObject()));
         NewParts.Add(Part);
     }
     // Cover the body only once the entire mesh/material recipe is resident.

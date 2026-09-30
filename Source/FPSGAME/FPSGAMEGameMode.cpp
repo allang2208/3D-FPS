@@ -11,6 +11,7 @@
 #include "GameFramework/PlayerStart.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/Engine.h"
+#include "Engine/TargetPoint.h"
 #include "TimerManager.h"
 
 AFPSGAMEGameMode::AFPSGAMEGameMode()

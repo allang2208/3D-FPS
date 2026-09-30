@@ -1,10 +1,12 @@
 #include "FPSTraversalComponent.h"
 #include "FPSTraversalArmsComponent.h"
 #include "../FPSGAMECharacter.h"
+#include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "Animation/AnimSequence.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/StaticMeshComponent.h"
 #include "Engine/World.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
@@ -22,17 +24,30 @@ void UFPSTraversalComponent::SetWeaponHiddenForTraversal(bool bHidden)
     if (bHidden)
     {
         auto* C=CastChecked<AFPSGAMECharacter>(GetOwner());
-        TArray<USceneComponent*> Components;
-        C->AKMViewmodel->GetChildrenComponents(true,Components);
-        Components.Add(C->AKMViewmodel);
-        for (auto* Component:Components)
+        const auto HideTree=[this](USceneComponent* Root)
         {
-            const TWeakObjectPtr<USceneComponent> Key(Component);
-            if (!HiddenWeaponComponents.Contains(Key))
-                HiddenWeaponComponents.Add(Key,Component->bHiddenInGame);
-            // Attachment updates also write visibility. Use an independent render
-            // gate so those updates cannot reveal part of the stowed weapon.
-            Component->SetHiddenInGame(true);
+            if (!Root) return;
+            TArray<USceneComponent*> Components;
+            Root->GetChildrenComponents(true,Components);
+            Components.Add(Root);
+            for (auto* Component:Components)
+            {
+                const TWeakObjectPtr<USceneComponent> Key(Component);
+                if (!HiddenWeaponComponents.Contains(Key))
+                    HiddenWeaponComponents.Add(Key,Component->bHiddenInGame);
+                // Attachment updates also write visibility. Use an independent render
+                // gate so those updates cannot reveal part of the stowed weapon.
+                Component->SetHiddenInGame(true);
+            }
+        };
+        HideTree(C->AKMViewmodel);
+        if (C->Staff)
+        {
+            // Staff and V7 arms are separate camera children, outside the gun
+            // tree. Include their attachments and outfit followers in the same
+            // hand-ownership window and original-state restoration.
+            HideTree(C->Staff->AssemblyRoot());
+            HideTree(C->Staff->ArmsMesh());
         }
         return;
     }
@@ -52,7 +67,9 @@ void UFPSTraversalComponent::InitializePresentation()
     Arms=NewObject<UFPSTraversalArmsComponent>(C,TEXT("TraversalArms"));
     C->AddInstanceComponent(Arms);
     Arms->SetSkeletalMesh(Mesh); Arms->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-    Arms->SetCastShadow(false); Arms->SetVisibility(false); Arms->SetOnlyOwnerSee(false);
+    // Keep the outfit prepared while these short-lived action arms are hidden.
+    Arms->ComponentTags.Add(TEXT("PreloadModularOutfit"));
+    Arms->SetCastShadow(false); Arms->SetVisibility(false); Arms->SetOnlyOwnerSee(true);
     Arms->SetOwnerNoSee(false); Arms->SetHiddenInGame(false);
     Arms->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
     Arms->RegisterComponent(); Arms->SetComponentTickEnabled(false);
@@ -225,20 +242,21 @@ void UFPSTraversalComponent::Finish(bool bSuccess)
     C->GetCharacterMovement()->StopMovementImmediately(); C->ConsumeMovementInputVector();
     // Falling performs a fresh floor query, including when the support was removed mid-action.
     auto* Movement=C->GetCharacterMovement();
+    const bool bDropRelease=bSuccess && LastJumpTarget.bReleaseIntoFall;
     FFindFloorResult Floor;
     if (bSuccess)
     {
         Movement->FindFloor(C->GetActorLocation(),Floor,false);
         const auto* Capsule=C->GetCapsuleComponent();
         const FCollisionQueryParams Query(SCENE_QUERY_STAT(TraversalFinish),false,C);
-        bSuccess=Floor.IsWalkableFloor() && Floor.GetDistanceToFloor()<=12.f &&
-            IsBlockingSupport(Floor.HitResult.GetComponent()) &&
+        bSuccess=(bDropRelease || (Floor.IsWalkableFloor() && Floor.GetDistanceToFloor()<=12.f &&
+            IsBlockingSupport(Floor.HitResult.GetComponent()))) &&
             !GetWorld()->OverlapBlockingTestByProfile(C->GetActorLocation(),Capsule->GetComponentQuat(),
                 Capsule->GetCollisionProfileName(),Capsule->GetCollisionShape(),Query);
     }
     bLastTraversalSucceeded=bSuccess;
-    Movement->SetMovementMode(bSuccess?MOVE_Walking:MOVE_Falling);
-    if (!bSuccess)
+    Movement->SetMovementMode(bSuccess && !bDropRelease?MOVE_Walking:MOVE_Falling);
+    if (!bSuccess || bDropRelease)
     {
         // Resume physics immediately. Only the rendered view returns gradually.
         bReturningCamera=true; CameraReturnSpeed=0.f; CameraReturnCapsule=C->GetActorLocation();

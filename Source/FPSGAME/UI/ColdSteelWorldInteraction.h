@@ -19,9 +19,10 @@ namespace ColdSteelWorldInteraction
     /** Placed blast furnace (palette id `blast_furnace`, not a falling piece); drives the
      *  smelting prompt and the E action that opens the backpack plus the smelting panel. */
     bool IsSmeltingFurnace(const AActor* Target);
+    bool IsForgingStation(const AActor* Target);
     /** Prompt text that also reports the furnace's live state (idle / burning / ready to collect). */
     FString SmeltingFurnacePrompt(const AActor* Target);
-    /** Placed workbench (palette id `workbench_table`, not a falling piece); drives the
+    /** Placed crafting / gun workbench (not a falling piece); drives the
      *  workbench prompt and the E action that opens the backpack plus the crafting panel
      *  (Docs/UI/workbench-panel-plan-20260924.md — shell mirrors the smelting panel). */
     bool IsWorkbench(const AActor* Target);

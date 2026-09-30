@@ -20,10 +20,12 @@ class FPSGAME_API AFPSIceSpikeVolley : public AActor
 public:
     AFPSIceSpikeVolley();
     void Prepare(UFPSIceSpikeComponent* Source,APawn* Shooter,const FIceSpikeCast& Snapshot,const TArray<TObjectPtr<UStaticMesh>>& Spikes,UStaticMesh* Shard,UMaterialInterface* Material,UMaterialInterface* ShellMaterial,UParticleSystem* FX,USoundBase* Sound,UNiagaraSystem* Motes,UNiagaraSystem* ColdMist);
-    void Launch(const FVector& AimPoint);
+    void Launch();
     bool IsFlying() const {return bFlying;}
     /** Red trajectory preview: one segment per hovering shard, refreshed while held. */
     void SetAimPreviewActive(bool bActive);
+    /** Lock the target, keep following until the gesture launches the volley. */
+    void CommitAimPreview();
     bool IsAimPreviewActive() const {return bAimPreview;}
     int32 RemainingCount() const;
     float CastSpeed() const {return Cast.CastSpeed;}
@@ -42,6 +44,7 @@ private:
     };
     TArray<FFlight> Flights;
     TArray<FVector> PreviewPoints;
+    UPROPERTY(Transient) FVector PreviewAimPoint=FVector::ZeroVector;
     UPROPERTY(Transient) TArray<TObjectPtr<UStaticMeshComponent>> Cores;
     UPROPERTY(Transient) TArray<TObjectPtr<UStaticMeshComponent>> Hearts;
     UPROPERTY(Transient) TArray<TObjectPtr<UNiagaraComponent>> Trails;
@@ -57,6 +60,7 @@ private:
     FIceSpikeRewards Rewards;
     bool bFlying=false,bFinished=false;
     bool bAimPreview=false;
+    bool bPreviewLaunchLocked=false;
     UPROPERTY(Transient) TObjectPtr<class ULineBatchComponent> AimPreviewLines;
     float Age=0,FlightAge=0;
     double LastSound=-100;

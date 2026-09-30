@@ -1,0 +1,32 @@
+{
+  "axe": {
+    "asset": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe",
+    "bone": "WPN_root",
+    "base_local": [
+      -0.02901666183555411,
+      -0.00076975703720446,
+      0.5668633248638004
+    ],
+    "tip_local": [
+      0.1561511997243481,
+      -0.0001605075964691073,
+      0.5677888746163398
+    ],
+    "source_vertices": 15972
+  },
+  "pickaxe": {
+    "asset": "/Game/Items/ProductionTools/RusticPickaxe20260919/SK_RusticPickaxe",
+    "bone": "WPN_root",
+    "base_local": [
+      -0.13823608323662545,
+      0.0003735427254123486,
+      0.6318944400118677
+    ],
+    "tip_local": [
+      0.15986693344258393,
+      0.000994412941102852,
+      0.6233030688395703
+    ],
+    "source_vertices": 58687
+  }
+}

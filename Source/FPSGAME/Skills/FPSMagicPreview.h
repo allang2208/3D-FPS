@@ -34,16 +34,19 @@ namespace FPSMagicPreview
 
     /** Aim point both spells launch at: the camera ray's first blocking hit. */
     FVector AimPoint(const APawn* Shooter,const AActor* Ignore);
+    FVector LaunchVelocity(const FVector& Start,const FVector& Aim,float Speed,const FVector& Fallback);
+    /** Clip the last segment at the same travelled-distance budget in preview and flight. */
+    FVector LimitStep(const FVector& Start,const FVector& End,float Remaining);
     /** Sweeps one segment; returns true and fills OutEnd when something blocks it. Corpses are skipped. */
     bool SweepSegment(const APawn* Shooter,const AActor* Ignore,const FVector& Start,const FVector& End,
-        float SweepRadius,FVector& OutEnd);
+        float SweepRadius,FVector& OutEnd,bool bIgnoreDead=true);
     /**
      * Samples the ballistic path the flight actually flies: constant launch velocity plus gravity,
      * fixed time steps, stopping at MaxDistance along the path or at the first blocking contact.
      * OutPoints always starts at Start and ends at the contact/limit, so it can be drawn directly.
      */
     void SamplePath(const APawn* Shooter,const AActor* Ignore,const FVector& Start,const FVector& LaunchVelocity,
-        float Gravity,float MaxDistance,float SweepRadius,TArray<FVector>& OutPoints);
+        float Gravity,float MaxDistance,float SweepRadius,TArray<FVector>& OutPoints,bool bIgnoreDead=true);
 
     /**
      * Starts one frame of preview: lazily creates Owner's line batcher and drops the previous

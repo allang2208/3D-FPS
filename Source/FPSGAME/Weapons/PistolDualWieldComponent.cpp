@@ -1,4 +1,6 @@
 #include "PistolDualWieldComponent.h"
+#include "G18WeaponAssets.h"
+#include "Staff/StaffCatalog.h"
 #include "../FPSGAMECharacter.h"
 #include "../FPSGAMEPlayerController.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -11,12 +13,12 @@
 #include "DanWesson715FittedParts.h"
 #include "M1911MagazineVisual.h"
 #include "M1911WeaponAssets.h"
+#include "WeaponReloadStages.h"
 #include "TacticalDeviceComponent.h"
 #include "../Skills/FPSCastingMeshComponent.h"
 #include "../Skills/FPSQuickCombatComponent.h"
 #include "QuickCombatRecovery.h"
 #include "DualPistolQuickCombatMotion.h"
-#include "../Movement/FPSFootstepAudioComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -54,7 +56,7 @@ bool UPistolDualWieldComponent::LeftBusy() const
 
 bool UPistolDualWieldComponent::InputAvailable() const
 {
-    if(!Player || !Player->HasInventoryWeapon() || Player->IsTraversing() || IsQuickCombatActive())return false;
+    if(!Player || !bActive || Player->IsTraversing() || IsQuickCombatActive())return false;
     const auto* PC=Cast<APlayerController>(Player->GetController());
     if(AFPSGAMEPlayerController::BlocksOngoingActions(PC))return false;
     const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();
@@ -64,7 +66,8 @@ bool UPistolDualWieldComponent::InputAvailable() const
 void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
 {
     auto& H=Hands[Index];H.Item=Item;H.Revolver=Item.Definition==TEXT("ue_dan_wesson715");
-    const FString Base=Root(H.Revolver,Index),Name=Stem(H.Revolver,Index);
+    const bool G18=Item.Definition==G18WeaponAssets::Definition;
+    const FString Base=G18?G18WeaponAssets::DualRoot(Index):Root(H.Revolver,Index),Name=G18?G18WeaponAssets::DualStem(Index):Stem(H.Revolver,Index);
     if(Index==0)H.Mesh=Player->AKMViewmodel;
     else if(!H.Mesh)
     {
@@ -89,6 +92,7 @@ void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
     H.Clips.Empty();
     auto Clip=[&](const FString& Kind)
     {
+        if(G18){H.Clips.Add(Kind,LoadObject<UAnimSequence>(nullptr,*G18WeaponAssets::DualAnimationPath(Index,Kind)));return;}
         const TCHAR* Revision=Kind.StartsWith(TEXT("sprint"))?TEXT("/SprintSmoothV5/Animations/A_"):TEXT("/NaturalAimV3/Animations/A_");
         if(H.Revolver && (Kind.StartsWith(TEXT("single_")) || Kind.StartsWith(TEXT("speed_"))))
             Revision=TEXT("/RevolverReloadFlickV6/Animations/A_");
@@ -105,6 +109,7 @@ void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
         TEXT("quickcombat_fitted"),TEXT("quickcombat_fitted_empty"),TEXT("quickcombat_left_fitted"),TEXT("quickcombat_left_fitted_empty"),
         TEXT("quickcombat_long"),TEXT("quickcombat_long_empty"),TEXT("quickcombat_left_long"),TEXT("quickcombat_left_long_empty")})
     {
+        if(G18){Clip(Kind);continue;}
         if(H.Revolver && FString(Kind).EndsWith(TEXT("_empty")))continue;
         const TCHAR* Revision=TEXT("SpinRecoveryV5");
         const FString Path=FString::Printf(TEXT("/Game/Weapons/DualPistolQuickCombat20260920/%s/%s/%s/Animations/A_%s_%s"),
@@ -119,9 +124,20 @@ void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
             :FString::Printf(TEXT("/Game/Weapons/AKM/Audio/S_AKM_%s"),CueName);
         if(!H.Revolver && FString(CueName).StartsWith(TEXT("Mag")))Path=FString::Printf(TEXT("/Game/Weapons/M4HK416Audio/S_HK416_%s"),CueName);
         if(!H.Revolver && FString(CueName)==TEXT("Equip"))Path=TEXT("/Game/Weapons/M4AnimationAuditFinal/S_HK416_Equip");
+        if(G18)Path=G18WeaponAssets::SoundPath(CueName);
         H.Sounds.Add(CueName,LoadObject<USoundBase>(nullptr,*Path));
     }
     H.Sounds.Add(TEXT("BoltRelease"),H.Sounds.FindRef(TEXT("ChargeRelease")));
+    if(G18)
+    {
+        for(int32 Variant=1;Variant<=4;++Variant)
+            for(const TCHAR* Group:{TEXT("Fire"),TEXT("Suppressed")})
+            {
+                const FString Key=FString::Printf(TEXT("%s_%02d"),Group,Variant);
+                H.Sounds.Add(Key,LoadObject<USoundBase>(nullptr,*G18WeaponAssets::SoundPath(Key)));
+            }
+        H.Sounds.Add(TEXT("Suppressed"),LoadObject<USoundBase>(nullptr,*G18WeaponAssets::SoundPath(TEXT("Suppressed"))));
+    }
     H.Sounds.Add(TEXT("SingleOpen"),H.Sounds.FindRef(TEXT("MagOut")));
     H.Sounds.Add(TEXT("SingleEject"),H.Sounds.FindRef(TEXT("ChargePull")));
     H.Sounds.Add(TEXT("SingleClose"),H.Sounds.FindRef(TEXT("ChargeRelease")));
@@ -138,37 +154,52 @@ void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
     StartAction(Index,TEXT("equip"));
 }
 
+bool UPistolDualWieldComponent::MatchesEquipment(const UColdSteelStatusModel* Model,bool bWeaponReady) const
+{
+    const auto* Main=Model?Model->Equipped():nullptr;
+    const auto* Off=Main?Model->Equipped(Main->Cell==6?8:11):nullptr;
+    const bool Staff=Main && ColdSteelStaff::IsStaff(*Main) && !Model->ActiveProductionTool();
+    const bool Want=Main && Off && ColdSteelInventory::IsDualPistol(*Off)
+        && (Staff || (bWeaponReady && ColdSteelInventory::IsDualPistol(*Main)));
+    if(!Want)return !bActive;
+    return bActive && bOffhandOnly==Staff && MainHandInstance==Main->InstanceId
+        && (Staff || Hands[0].Item.Definition==Main->Definition)
+        && Hands[1].Item.InstanceId==Off->InstanceId && Hands[1].Item.Definition==Off->Definition;
+}
+
+void UPistolDualWieldComponent::Deactivate()
+{
+    if(!bActive)return;
+    if(IsQuickCombatActive())Player->QuickCombatPistol->Cancel();
+    CancelInputs();
+    for(int32 Side=FirstHand();Side<2;++Side)
+    {
+        auto& H=Hands[Side];
+        StopAction(Side);
+        if(H.FX)H.FX->StopEmission();
+        if(H.Anim){H.Anim->bDualPistolAim=false;H.Anim->DualPistolAimAlpha=0.f;}
+    }
+    bActive=false;
+    MainHandInstance.Reset();
+    if(Hands[1].Mesh)Hands[1].Mesh->SetVisibility(false,true);
+    if(Hands[1].Tactical)Hands[1].Tactical->Configure(TEXT(""),TEXT(""),Hands[1].Mesh,false);
+    if(auto* CastMesh=Cast<UFPSCastingMeshComponent>(Player->AKMViewmodel))CastMesh->bApplyLeftHandCast=true;
+}
+
 void UPistolDualWieldComponent::RefreshEquipment(UColdSteelStatusModel* Model)
 {
     Player=Cast<AFPSGAMECharacter>(GetOwner());Profile=Model;
     if(!Player || !Profile)return;
     const auto* Main=Profile->Equipped();
     const auto* Off=Main?Profile->Equipped(Main->Cell==6?8:11):nullptr;
-    const bool Want=Player->HasInventoryWeapon() && Main && Off
-        && ColdSteelInventory::IsDualPistol(*Main) && ColdSteelInventory::IsDualPistol(*Off);
-    // Autosaves and progression republish the same equipment. An inactive
-    // dual-wield controller must not clear the rifle's held trigger or stop
-    // the shared main-hand presentation on an unchanged non-dual loadout.
-    if(!bActive && !Want)return;
-    const bool Changed=Want && (!bActive || Hands[0].Item.InstanceId!=Main->InstanceId || Hands[1].Item.InstanceId!=Off->InstanceId);
-    if(!Want || Changed)
-    {
-        CancelInputs();
-        for(int32 Side=0;Side<2;++Side){StopAction(Side);if(Hands[Side].FX)Hands[Side].FX->StopEmission();}
-    }
-    if(!Want)
-    {
-        const bool WasActive=bActive;bActive=false;
-        for(auto& H:Hands)if(H.Anim){H.Anim->bDualPistolAim=false;H.Anim->DualPistolAimAlpha=0.f;}
-        if(Hands[1].Mesh)Hands[1].Mesh->SetVisibility(false,true);
-        if(Hands[1].Tactical)Hands[1].Tactical->Configure(TEXT(""),TEXT(""),Hands[1].Mesh,false);
-        if(auto* CastMesh=Cast<UFPSCastingMeshComponent>(Player->AKMViewmodel))CastMesh->bApplyLeftHandCast=true;
-        if(WasActive && Player->HasInventoryWeapon() && Main && Main->InstanceId==Hands[0].Item.InstanceId)
-        {
-            Player->InitializeWeaponVisuals();Player->ApplyColdSteelProfile(Profile);Player->StartEquipCharge();
-        }
-        return;
-    }
+    const bool Staff=Main && ColdSteelStaff::IsStaff(*Main) && !Profile->ActiveProductionTool();
+    const bool Want=Main && Off && ColdSteelInventory::IsDualPistol(*Off)
+        && (Staff || (Player->HasInventoryWeapon() && ColdSteelInventory::IsDualPistol(*Main)));
+    // Leaving/replacing a loadout is owned by the character, before it rebuilds
+    // the shared main-hand mesh. Repeated data application never cancels actions.
+    if(!Want)return;
+    const bool Changed=!bActive;
+    bOffhandOnly=Staff;MainHandInstance=Main->InstanceId;
     bActive=true;
     if(Changed)
     {
@@ -178,10 +209,11 @@ void UPistolDualWieldComponent::RefreshEquipment(UColdSteelStatusModel* Model)
         Player->bAimHeld=false;Player->SetAimingState(false);
         Player->ADSProgress=Player->WeaponADSFactor=Player->CameraADSFactor=0;
         Player->WeaponFX->StopEmission();
-        LoadHand(0,*Main);LoadHand(1,*Off);
+        if(!bOffhandOnly)LoadHand(0,*Main);
+        LoadHand(1,*Off);
     }
     auto* G=Player->GetGameInstance()->GetSubsystem<UGunsmithSystem>();
-    for(int32 Side=0;Side<2;++Side)
+    for(int32 Side=FirstHand();Side<2;++Side)
     {
         auto& H=Hands[Side];H.Item=Side?*Off:*Main;
         const auto Parts=G->Installed(H.Item);
@@ -204,9 +236,10 @@ void UPistolDualWieldComponent::RefreshEquipment(UColdSteelStatusModel* Model)
             if(Key!=H.Recipe){CopyLeftAttachments(H.Item,Parts);H.Recipe=Key;}
         }
     }
-    Player->MagazineAmmo=Hands[0].Rounds;Player->RevolverCaseCount=Hands[0].Cases;
+    if(!bOffhandOnly){Player->MagazineAmmo=Hands[0].Rounds;Player->RevolverCaseCount=Hands[0].Cases;}
     if(Changed)UpdateAimTarget(0.f);
-    Pose(0,0);Pose(1,0);
+    if(!bOffhandOnly)Pose(0,0);
+    Pose(1,0);
 }
 
 void UPistolDualWieldComponent::CopyLeftAttachments(const FColdSteelItem& Item,const FGunsmithParts& Parts)
@@ -215,7 +248,7 @@ void UPistolDualWieldComponent::CopyLeftAttachments(const FColdSteelItem& Item,c
     bool Created=false;
     auto* Rig=Player->GetGameInstance()->GetSubsystem<UColdSteelPickupStudio>()->Acquire(Item.Definition,Created);
     if(!Rig)return;
-    if(Created){Rig->bUseM4Infima=Rig->bUseQBZ191=false;Rig->bUseM1911=!Hands[1].Revolver;Rig->bUseDanWesson715=Hands[1].Revolver;Rig->InitializeWeaponVisuals();}
+    if(Created){Rig->ActiveInventoryWeaponDefinition=Item.Definition;Rig->bUseM4Infima=Rig->bUseQBZ191=false;Rig->bUseM1911=!Hands[1].Revolver;Rig->bUseDanWesson715=Hands[1].Revolver;Rig->InitializeWeaponVisuals();}
     Rig->SetGunsmithOpticVariant(Parts.FindRef(TEXT("optic")));Rig->SetGunsmithMuzzle(Parts.FindRef(TEXT("muzzle")));
     Rig->SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")),Player->GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(Item.Definition));Rig->SetGunsmithTactical(TEXT(""));
     Rig->SetGunsmithMagazineAttachment(Parts.FindRef(TEXT("magazine")));
@@ -258,7 +291,7 @@ void UPistolDualWieldComponent::CopyLeftAttachments(const FColdSteelItem& Item,c
     {
         Hands[1].Tactical=NewObject<UTacticalDeviceComponent>(Player);Player->AddInstanceComponent(Hands[1].Tactical);Hands[1].Tactical->RegisterComponent();
     }
-    Hands[1].Tactical->Configure(Hands[1].Revolver?TEXT("DanWesson715"):TEXT("M1911"),Parts.FindRef(TEXT("tactical")),Hands[1].Mesh,true);
+    Hands[1].Tactical->Configure(Hands[1].Item.Definition==G18WeaponAssets::Definition?TEXT("G18"):Hands[1].Revolver?TEXT("DanWesson715"):TEXT("M1911"),Parts.FindRef(TEXT("tactical")),Hands[1].Mesh,true);
     Hands[1].Sounds.Add(TEXT("Suppressed"),Rig->SuppressedFireSound);
     Hands[0].Sounds.Add(TEXT("Suppressed"),Player->SuppressedFireSound);
 }
@@ -266,6 +299,7 @@ void UPistolDualWieldComponent::CopyLeftAttachments(const FColdSteelItem& Item,c
 void UPistolDualWieldComponent::StartAction(int32 Index,const FString& Name,float Rate)
 {
     auto& H=Hands[Index];H.Action=H.Clips.FindRef(Name);H.ActionTime=0;H.ActionRate=Rate;H.ActionStarted=GetWorld()->GetTimeSeconds();H.PlayedCues.Empty();
+    H.ActionBlendStarted=H.ActionStarted;
 }
 void UPistolDualWieldComponent::StopAction(int32 Index)
 {
@@ -275,13 +309,33 @@ void UPistolDualWieldComponent::StopAction(int32 Index)
 void UPistolDualWieldComponent::CancelInputs()
 {
     for(auto& H:Hands)H.Held=H.Pending=false;
-    if(Player)Player->bFireHeld=false;
 }
+
+void UPistolDualWieldComponent::InterruptReloads()
+{
+    for(int32 Side=0;Side<Hands.Num();++Side)if(Hands[Side].Reloading)StopAction(Side);
+}
+
+bool UPistolDualWieldComponent::IsEquipping() const
+{
+    if(!bActive)return false;
+    for(int32 Side=FirstHand();Side<2;++Side)
+        if(Hands[Side].Action && Hands[Side].Action==Hands[Side].Clips.FindRef(TEXT("equip")))return true;
+    return false;
+}
+
+void UPistolDualWieldComponent::InterruptActions()
+{
+    CancelInputs();
+    for(int32 Side=0;Side<Hands.Num();++Side)StopAction(Side);
+}
+
 void UPistolDualWieldComponent::PrepareSingleInspect()
 {
     // Single-weapon setup runs again after leaving dual wield (LoadHand clears
     // the old clip map). Keep this small variant alive without loading on L.
-    Hands[0].Clips.Add(TEXT("single_inspect_empty"),LoadObject<UAnimSequence>(nullptr,*M1911WeaponAssets::AnimationPath(TEXT("inspect_empty"))));
+    const auto* OwnerPlayer=Cast<AFPSGAMECharacter>(GetOwner());
+    Hands[0].Clips.Add(TEXT("single_inspect_empty"),LoadObject<UAnimSequence>(nullptr,*(OwnerPlayer && OwnerPlayer->IsG18Weapon() ? G18WeaponAssets::AnimationPath(TEXT("inspect_empty")) : M1911WeaponAssets::AnimationPath(TEXT("inspect_empty")))));
 }
 
 UAnimSequence* UPistolDualWieldComponent::SingleEmptyInspect() const
@@ -291,7 +345,7 @@ UAnimSequence* UPistolDualWieldComponent::SingleEmptyInspect() const
 
 bool UPistolDualWieldComponent::IsQuickCombatActive() const
 {
-    return bActive && Player && Player->QuickCombatPistol
+    return IsPair() && Player && Player->QuickCombatPistol
         && Player->QuickCombatPistol->GetStyle()==EQuickCombatStyle::DualPistol
         && Player->QuickCombatPistol->IsOccupyingLeftHand();
 }
@@ -327,24 +381,14 @@ FString UPistolDualWieldComponent::QuickCombatClipKind(int32 Side,bool LeftStrik
 
 const TCHAR* UPistolDualWieldComponent::QuickCombatBlockReason() const
 {
-    if(!bActive || !Player || !Player->QuickCombatPistol)return TEXT("双持控制器未就绪");
-    if(!InputAvailable())return TEXT("输入被菜单/移动/死亡/近战占用");
-    if(Player->IsCastBlockingLeftHandAction())return TEXT("施法或近战占用");
-    if(Player->IsWeaponBusy())return TEXT("换弹或其他武装动作占用");
-    if(Player->IsDodging() || Player->IsSliding())return TEXT("闪避/滑铲中");
+    if(!IsPair() || !Player || !Player->QuickCombatPistol)return TEXT("双持控制器未就绪");
+    if(!Player->CanStartQuickCombatPriority())return TEXT("切换武器或输入不可用");
     const bool LeftStrike=DualPistolQuickCombatMotion::StrikingHand(Player->QuickCombatPistol->GetActionSerial()+1u)==1;
     UAnimSequence* Clips[2]={nullptr,nullptr};
     for(int32 Side=0;Side<2;++Side)
     {
         const auto& H=Hands[Side];
-        if(H.Reloading)return TEXT("单手换弹中");
         if(!H.Mesh || !H.Anim)return TEXT("单手视模/动画实例缺失");
-        // A shot has already committed its ammo and damage before its recoil
-        // clip runs. Melee can take ownership immediately; reload transactions
-        // and unknown actions still keep their original interruption contract.
-        if(H.Action && H.Action!=H.Clips.FindRef(TEXT("fire"))
-            && H.Action!=H.Clips.FindRef(TEXT("fire_last"))
-            && H.Action!=H.Clips.FindRef(TEXT("equip")))return TEXT("不可中断的单手动作");
         const FString Kind=QuickCombatClipKind(Side,LeftStrike);
         Clips[Side]=H.Clips.FindRef(Kind);
         if(!Clips[Side])return TEXT("当前出手侧/空仓近战动画缺失");
@@ -372,15 +416,15 @@ bool UPistolDualWieldComponent::BeginQuickCombat()
         Kinds[Side]=QuickCombatClipKind(Side,LeftStrike);
         Clips[Side]=H.Clips.FindRef(Kinds[Side]);
     }
-    CancelInputs();
+    Player->InterruptActionsForPriority(false);
     Player->ExitSprintForWeapon();
     Player->QuickCombatPistol->ConfigureForClipLength(Clips[0]->GetPlayLength(),true);
     if(!Player->QuickCombatPistol->BeginAction())return false;
     const double Started=GetWorld()->GetTimeSeconds();
     for(int32 Side=0;Side<2;++Side)
     {
-        // Stop interrupted equip sounds but retain any automatic reload request
-        // already queued by the shot; it resumes after the melee action ends.
+        // Pending mechanical reload state lives on the item and is resumed
+        // after melee; the interrupted exchange itself is never queued again.
         const bool Queued=Hands[Side].ReloadQueued;
         StopAction(Side);Hands[Side].ReloadQueued=Queued;
         StartAction(Side,Kinds[Side]);
@@ -417,13 +461,13 @@ bool UPistolDualWieldComponent::GetQuickCombatStrikeProbe(FVector& OutOrigin,flo
 }
 void UPistolDualWieldComponent::Trigger(int32 Index,bool Pressed)
 {
-    if(!bActive)return;
+    if(!bActive || Index<FirstHand() || Index>=2)return;
     auto& H=Hands[Index];
-    if(!Pressed){H.Held=H.Pending=false;Player->bFireHeld=Hands[0].Held || Hands[1].Held;return;}
-    if(!InputAvailable() || (Index==1 && Player->IsCastBlockingLeftHandAction()))return;
-    if(!H.Held)H.Pending=true;H.Held=true;Player->bFireHeld=true;
+    if(!Pressed){H.Held=H.Pending=false;return;}
+    if(!InputAvailable() || (IsEquipping() && H.Item.Definition!=G18WeaponAssets::Definition) || (Index==1 && Player->IsCastBlockingLeftHandAction()))return;
+    if(!H.Held)H.Pending=true;H.Held=true;
     Player->ExitSprintForWeapon();
-    if(H.Action==H.Clips.FindRef(TEXT("equip")))H.Action=nullptr;
+    if(H.Action==H.Clips.FindRef(TEXT("equip")))StopAction(Index);
     TryFire(Index);
 }
 int32 UPistolDualWieldComponent::Reserve(int32 Index) const
@@ -435,8 +479,9 @@ bool UPistolDualWieldComponent::InfiniteReserve(int32 Index) const
 void UPistolDualWieldComponent::SyncInventory(TArray<FColdSteelItem>& Items) const
 {
     if(!bActive)return;
-    for(const auto& H:Hands)for(auto& I:Items)if(I.InstanceId==H.Item.InstanceId)
+    for(int32 Side=FirstHand();Side<2;++Side)for(auto& I:Items)if(I.InstanceId==Hands[Side].Item.InstanceId)
     {
+        const auto& H=Hands[Side];
         I.VirtualMagazineAmmo=FMath::Clamp(I.VirtualMagazineAmmo-FMath::Max(0,I.Magazine-H.Rounds),0,H.Rounds);
         I.Magazine=H.Rounds;
         if(H.Revolver)
@@ -457,27 +502,30 @@ void UPistolDualWieldComponent::Advance(float Delta)
     const bool Close=GetWorld()->LineTraceSingleByChannel(Wall,Eye,Eye+Player->FirstPersonCamera->GetForwardVector()*80.f,ECC_Visibility,Query);
     const float WallTarget=Close?1.f-FMath::Clamp((Wall.Distance-25.f)/55.f,0.f,1.f):0.f;
     Player->NearWallAlpha=FMath::FInterpTo(Player->NearWallAlpha,WallTarget,Delta,12.f);
-    if(const auto* Steps=Player->FindComponentByClass<UFPSFootstepAudioComponent>())Phase=Steps->GetStridePhaseRadians();
+    // The character retains the last grounded phase through slide/jump. Reading
+    // the audio clock here would pick up its airborne partial-step reset.
+    Phase=Player->M4SprintPhase;
     // Hold the last running stroke during recovery. The footstep clock resets
     // its partial step when stationary; that reset must not flip the raised guns.
-    if(Player->IsSprinting() && Player->GetCharacterMovement()->IsMovingOnGround() && Player->HorizontalSpeed()>15.f)
+    if(Player->IsSprinting() && !Player->bWeaponJumpAirborne && Player->GetCharacterMovement()->IsMovingOnGround() && Player->HorizontalSpeed()>15.f)
         SprintPhase=Phase;
     if(!InputAvailable())
     {
         CancelInputs();
-        // Menus suspend input, while already started reloads retain their clock.
+        // Menu entry interrupts reload presentation through SuspendWeaponForMenu.
+        // Traversal and death also release these per-hand action clocks.
         if(Player->IsTraversing())for(int32 Side=0;Side<2;++Side)StopAction(Side);
         if(const auto* H=Player->FindComponentByClass<UFPSCombatHealthComponent>();H && H->IsDead())for(int32 Side=0;Side<2;++Side)StopAction(Side);
     }
     auto* Bash=Player->QuickCombatPistol.Get();
-    if(Bash && Bash->GetStyle()==EQuickCombatStyle::DualPistol)
+    if(IsPair() && Bash && Bash->GetStyle()==EQuickCombatStyle::DualPistol)
     {
         if(IsQuickCombatActive() && (!IsQuickCombatClip(0) || !IsQuickCombatClip(1)))Bash->Cancel();
         const float SinceStart=float(FMath::Max(0.0,GetWorld()->GetTimeSeconds()-Hands[0].ActionStarted));
         Bash->AdvanceAction(IsQuickCombatActive()?FMath::Min(Delta,SinceStart):Delta);
         Player->RefreshQuickCombatCamera();
     }
-    for(int32 Side=0;Side<2;++Side)
+    for(int32 Side=FirstHand();Side<2;++Side)
     {
         // Bloom follows the single-weapon contract: rise per shot, recover only
         // after the hand actually stops firing. The old continuous 0.028/s decay
@@ -486,6 +534,7 @@ void UPistolDualWieldComponent::Advance(float Delta)
         // per shot. The hold scales with this hand's own cadence, so a fast pistol
         // and a slow revolver both reach full bloom in a few seconds of fire.
         auto& H=Hands[Side];
+        if(Side==1 && H.Reloading && Player->IsCastBlockingLeftHandAction())StopAction(Side);
         const float Hold=FMath::Max(.12f,float(H.Stats.Interval)*DualPistolSpread::BloomHold);
         const float Recovery=FMath::Clamp(float(GetWorld()->GetTimeSeconds()-H.LastShot-Hold),0.f,Delta);
         H.Bloom=FMath::Max(0.f,H.Bloom-Recovery*DualPistolSpread::BloomRecovery);
@@ -504,19 +553,26 @@ void UPistolDualWieldComponent::Advance(float Delta)
             if(H.Reloading)AdvanceReload(Side,Previous);
             if(H.Action && H.ActionTime>=H.Action->GetPlayLength())
             {
-                if(!H.PendingAmmoType.IsEmpty())
-                {
-                    const FString Target=H.PendingAmmoType;H.PendingAmmoType.Reset();
-                    if(!Profile->CommitAmmoSwitch(H.Item.InstanceId,Target,H.Stats.Capacity))Profile->PostNotice(TEXT("切换弹种未完成"),Profile->ResultMessage());
-                }
                 const bool Queued=H.ReloadQueued;StopAction(Side);H.ReloadQueued=Queued;
             }
         }
-        if(InputAvailable() && !Player->IsChoosingAmmo() && !H.Action && (H.ReloadQueued || (H.Rounds==0 && InfiniteReserve(Side))))BeginReload(Side);
-        TryFire(Side);Pose(Side,Delta);
+        if(InputAvailable() && !Player->IsChoosingAmmo() && !H.Action && (H.ReloadQueued || WeaponReloadStages::NeedsCycle(H.Item)
+            || (H.Rounds==0 && (InfiniteReserve(Side)||Reserve(Side)>0))))BeginReload(Side);
+        if(H.Item.Definition==G18WeaponAssets::Definition)
+        {
+            // Preserve this hand's cadence across variable frame times, with
+            // bounded catch-up. Action gates remain owned by TryFire.
+            for(int32 Shot=0;Shot<4;++Shot)
+            {
+                const double Before=H.NextShot;TryFire(Side);
+                if(H.NextShot==Before || !H.Held || H.Reloading)break;
+            }
+        }
+        else TryFire(Side);
+        Pose(Side,Delta);
     }
-    Player->MagazineAmmo=Hands[0].Rounds;Player->RevolverCaseCount=Hands[0].Cases;
-    Player->ReserveAmmo=Reserve(0);
+    if(!bOffhandOnly)
+    {Player->MagazineAmmo=Hands[0].Rounds;Player->RevolverCaseCount=Hands[0].Cases;Player->ReserveAmmo=Reserve(0);}
 }
 
 void UPistolDualWieldComponent::Pose(int32 Index,float Delta)
@@ -525,7 +581,7 @@ void UPistolDualWieldComponent::Pose(int32 Index,float Delta)
     // Quick melee occupies the left hand, but it continues holding its gun.
     // Only spell casting uses the hidden off-hand weapon presentation.
     const bool Cast=Player->IsCastingWithLeftHand() && !IsQuickCombatActive();
-    const bool Visible=!Player->IsTraversing() && Player->HasInventoryWeapon();
+    const bool Visible=bActive && !Player->IsTraversing();
     H.Mesh->SetVisibility(Visible);
     if(Index==1)
     {
@@ -534,7 +590,7 @@ void UPistolDualWieldComponent::Pose(int32 Index,float Delta)
         for(auto& C:LeftAttachments)if(C)C->SetVisibility(Visible && !Cast);
         if(H.Tactical)H.Tactical->SetPresentationHidden(Cast || !Visible);
     }
-    const bool Running=Player->IsSprinting() && Player->GetCharacterMovement()->IsMovingOnGround()
+    const bool Running=Player->IsSprinting() && !Player->bWeaponJumpAirborne && Player->GetCharacterMovement()->IsMovingOnGround()
         && Player->HorizontalSpeed()>15.f && !Player->IsSliding() && !H.Action && !Cast;
     // Finite ease-in/out: lift over 0.24 s and settle within the existing
     // sprint-to-fire window. An interrupted lift resumes from its current pose.
@@ -542,14 +598,15 @@ void UPistolDualWieldComponent::Pose(int32 Index,float Delta)
     H.SprintBlend=FMath::FInterpConstantTo(H.SprintBlend,Running?1.f:0.f,Delta,1.f/BlendDuration);
     const float U=H.SprintBlend;
     H.Sprint=U*U*U*(U*(U*6.f-15.f)+10.f);
-    const bool Empty=!H.Revolver && H.Rounds==0;
+    const bool Empty=!H.Revolver && (H.Rounds==0 || WeaponReloadStages::NeedsCycle(H.Item));
     H.Anim->IdleClip=H.Clips.FindRef(Empty?TEXT("idle_empty"):TEXT("idle"));H.Anim->AimClip=H.Anim->IdleClip;
     H.Anim->AimAlpha=0;H.Anim->BaseTime=Clock;
     H.Anim->SprintClip=H.Clips.FindRef(Empty?TEXT("sprint_empty"):TEXT("sprint"));
     H.Anim->SprintTime=H.Anim->SprintClip?SprintPhase/(2.f*PI)*H.Anim->SprintClip->GetPlayLength():0.f;
     H.Anim->SprintAlpha=H.Sprint;
     H.Anim->ActionClip=H.Action;H.Anim->ActionTime=H.ActionTime;
-    H.Anim->ActionAlpha=H.Action?FMath::Min(FMath::Clamp(H.ActionTime/.025f,0.f,1.f),FMath::Clamp((H.Action->GetPlayLength()-H.ActionTime)/.035f,0.f,1.f)):0;
+    const float BlendAge=float(GetWorld()->GetTimeSeconds()-H.ActionBlendStarted)*H.ActionRate;
+    H.Anim->ActionAlpha=H.Action?FMath::Min(FMath::Clamp(BlendAge/.025f,0.f,1.f),FMath::Clamp((H.Action->GetPlayLength()-H.ActionTime)/.035f,0.f,1.f)):0;
     const bool QuickAction=IsQuickCombatClip(Index);
     if(QuickAction)H.Anim->ActionAlpha=FMath::Min(FMath::Clamp(H.ActionTime/.025f,0.f,1.f),
         QuickCombatRecovery::RemainingWeight(H.ActionTime,H.Action->GetPlayLength(),DualPistolQuickCombatMotion::IdleHandoffStart));
@@ -559,10 +616,11 @@ void UPistolDualWieldComponent::Pose(int32 Index,float Delta)
     H.Anim->DualPistolAimAlpha=Visible && !(Index==1 && Cast)
         ?(1-H.Sprint)*(1-Player->NearWallAlpha)*(1-Player->DodgePresentationWeight())*(FireAction?1.f:1-H.Anim->ActionAlpha):0.f;
     H.Anim->bRevolver=H.Revolver;H.Anim->RevolverLiveRounds=H.Rounds;H.Anim->RevolverCartridges=H.Cases;
-    const float Walk=Player->GetCharacterMovement()->IsMovingOnGround() && !Player->IsSliding()
-        ?FMath::Clamp(Player->HorizontalSpeed()/Player->WalkSpeed,0.f,1.f)*(1-H.Sprint):0;
+    // Fade the final step out/in with the camera and rifle instead of dropping
+    // the arm offset to zero on takeoff or restoring its full value on landing.
+    const float Walk=Player->GroundLocomotionWeight*(1-H.Sprint);
     const float HandPhase=Phase+(Index?PI:0);
-    FVector Offset(-Player->NearWallAlpha*12,0,Player->LandingOffset*.35f-Player->NearWallAlpha*6);
+    FVector Offset(-Player->NearWallAlpha*12,0,-Player->NearWallAlpha*6);
     Offset+=FVector(-2,0,-6)*Player->DodgePresentationWeight();
     if(!H.Action)Offset+=FVector(.10f*FMath::Sin(2*HandPhase)*Walk,.24f*FMath::Cos(HandPhase)*Walk,.15f*FMath::Sin(Clock*1.9f)*(1-H.Sprint)-.24f*FMath::Cos(2*HandPhase)*Walk);
     // Shot recoil: one spring set per hand, sampled through the same
@@ -578,6 +636,10 @@ void UPistolDualWieldComponent::Pose(int32 Index,float Delta)
     Rotation.Pitch+=FMath::RadiansToDegrees(KickAngles.X);
     Rotation.Yaw-=FMath::RadiansToDegrees(KickAngles.Y)*Mirror;
     Rotation.Roll-=FMath::RadiansToDegrees(KickAngles.Z)*Mirror;
+    FQuat PoseRotation=Rotation.Quaternion();
+    Player->ApplyWeaponCrouchPose(Offset,PoseRotation,true,Index==1);
+    const FTransform JumpPose=Player->GetWeaponJumpTransform(EFirstPersonJumpRig::Pistol,Index==1);
+    Offset=JumpPose.TransformPosition(Offset);PoseRotation=JumpPose.GetRotation()*PoseRotation;
     H.Mesh->SetRelativeLocation(Offset);
-    H.Mesh->SetRelativeRotation(Rotation);
+    H.Mesh->SetRelativeRotation(PoseRotation);
 }

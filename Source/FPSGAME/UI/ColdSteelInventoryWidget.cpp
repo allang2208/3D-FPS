@@ -69,6 +69,56 @@ void UColdSteelInventoryWidget::NativeTick(const FGeometry& G,float Delta)
     }
 }
 void UColdSteelInventoryWidget::NativeDestruct(){if(Model)Model->OnChanged.Remove(ModelHandle);ModelHandle.Reset();if(WeaponIcons)WeaponIcons->OnReady.Remove(IconHandle);IconHandle.Reset();CancelInteraction();Super::NativeDestruct();}
+void UColdSteelInventoryWidget::OnWeaponIconReady(const FString& Recipe)
+{
+    if (!Model || !WeaponIcons || !IsVisible()) return;
+    for (const auto& Item : Model->Items())
+    {
+        const bool InView = bWarehouse ? Model->InOpenStorage(Item) && Item.Cell >= StorageStart() && Item.Cell < StorageStart() + ColdSteelWarehouse::CellsPerPage : Item.Place == 0 || Item.Place == 1;
+        if (InView && WeaponIcons->Supports(Item) && WeaponIcons->Key(Item) == Recipe)
+        {
+            if (auto Slate = GetCachedWidget(); Slate.IsValid()) Slate->Invalidate(EInvalidateWidgetReason::Paint);
+            return;
+        }
+    }
+}
+void UColdSteelInventoryWidget::LoadIcons()
+{
+    RefreshPresentation();
+    if(!Model)return;for(const auto& I:Model->Items()) {
+        if(WeaponIcons&&WeaponIcons->Supports(I)){if(bWarehouse?(Model->InOpenStorage(I)&&I.Cell>=StorageStart()&&I.Cell<StorageStart()+ColdSteelWarehouse::CellsPerPage):(I.Place==0||I.Place==1))WeaponIcons->Request(I);}
+        // Keep the catalog image available while a live weapon preview is pending or failed.
+        if(Icons.Contains(I.Definition)||FailedIcons.Contains(I.Definition))continue;
+        // Weapon artwork follows the current catalog even when an older saved item has no icon field.
+        const FString File=WeaponIcons&&WeaponIcons->Supports(I)?TEXT("Icons/")+I.Definition+TEXT(".png"):Text(I,TEXT("ue_icon"));if(File.IsEmpty())continue;
+        auto* Texture=FImageUtils::ImportFileAsTexture2D(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/File);
+        // A failed import must be remembered: the source file is missing, so
+        // retrying it on every refresh only repeats the disk probe, the engine
+        // warning and a transient UTexture2D allocation that GC then has to reap.
+        if(!Texture){FailedIcons.Add(I.Definition);continue;}
+        Icons.Add(I.Definition,Texture);FSlateBrush Brush;Brush.SetResourceObject(Texture);Brush.ImageSize=FVector2D(Texture->GetSizeX(),Texture->GetSizeY());Brush.DrawAs=ESlateBrushDrawType::Image;
+        if(const auto* P=Presentation.Find(I.InstanceId);P&&P->StaffArt)ColdSteelStaffIcon::FrameImportedTexture(Brush,Texture);
+        IconBrushes.Add(I.Definition,Brush);
+    }
+    for(const auto& B:Model->QuickBindings())
+    {
+        const auto* Skill=Model->QuickSkillDefinition(B.Skill);
+        const FString Key=Skill?TEXT("@skill:")+B.Skill.ToString():B.ItemDefinition;
+        if(Key.IsEmpty()||Icons.Contains(Key)||FailedIcons.Contains(Key))continue;
+        const FString File=Skill?Skill->Icon:Text(Model->CreateItem(B.ItemDefinition),TEXT("ue_icon"));
+        if(File.IsEmpty())continue;
+        auto* Texture=FImageUtils::ImportFileAsTexture2D(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/File);
+        if(!Texture){FailedIcons.Add(Key);continue;}
+        Icons.Add(Key,Texture);FSlateBrush Brush;Brush.SetResourceObject(Texture);Brush.ImageSize=FVector2D(Texture->GetSizeX(),Texture->GetSizeY());Brush.DrawAs=ESlateBrushDrawType::Image;IconBrushes.Add(Key,Brush);
+    }
+    // Item data and asynchronous images are painted directly, outside child-widget bindings.
+    if(auto Slate=GetCachedWidget();Slate.IsValid())Slate->Invalidate(EInvalidateWidgetReason::Paint);
+}
+const FSlateBrush* UColdSteelInventoryWidget::ItemBrush(const FColdSteelItem& I) const
+{
+    if(WeaponIcons&&WeaponIcons->Supports(I))if(const auto* Preview=WeaponIcons->Find(I))return Preview;
+    return IconBrushes.Find(I.Definition);
+}
 FIntPoint UColdSteelInventoryWidget::PendingFootprint(const FColdSteelItem& Item,const UColdSteelItemDrag& Drag)const
 {
     const FIntPoint Stored(Item.Width,Item.Height);
@@ -131,51 +181,6 @@ void UColdSteelInventoryWidget::RefreshDragPreview(UColdSteelItemDrag& Drag)
     PreviewItemDrag(Drag,CursorPos);
     if(auto Slate=GetCachedWidget();Slate.IsValid())Slate->Invalidate(EInvalidateWidgetReason::Paint);
 }
-void UColdSteelInventoryWidget::OnWeaponIconReady(const FString& Recipe)
-{
-    if (!Model || !WeaponIcons || !IsVisible()) return;
-    for (const auto& Item : Model->Items())
-    {
-        const bool InView = bWarehouse ? Item.Place == 4 && Item.Cell >= StorageStart() && Item.Cell < StorageStart() + ColdSteelWarehouse::CellsPerPage : Item.Place == 0 || Item.Place == 1;
-        if (InView && WeaponIcons->Supports(Item) && WeaponIcons->Key(Item) == Recipe)
-        {
-            if (auto Slate = GetCachedWidget(); Slate.IsValid()) Slate->Invalidate(EInvalidateWidgetReason::Paint);
-            return;
-        }
-    }
-}
-void UColdSteelInventoryWidget::LoadIcons()
-{
-    RefreshPresentation();
-    if(!Model)return;for(const auto& I:Model->Items()) {
-        if(WeaponIcons&&WeaponIcons->Supports(I)){if(bWarehouse?(I.Place==4&&I.Cell>=StorageStart()&&I.Cell<StorageStart()+ColdSteelWarehouse::CellsPerPage):(I.Place==0||I.Place==1))WeaponIcons->Request(I);}
-        // Keep the catalog image available while a live weapon preview is pending or failed.
-        if(Icons.Contains(I.Definition))continue;
-        // Weapon artwork follows the current catalog even when an older saved item has no icon field.
-        const FString File=WeaponIcons&&WeaponIcons->Supports(I)?TEXT("Icons/")+I.Definition+TEXT(".png"):Text(I,TEXT("ue_icon"));if(File.IsEmpty())continue;
-        auto* Texture=FImageUtils::ImportFileAsTexture2D(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/File);if(!Texture)continue;
-        Icons.Add(I.Definition,Texture);FSlateBrush Brush;Brush.SetResourceObject(Texture);Brush.ImageSize=FVector2D(Texture->GetSizeX(),Texture->GetSizeY());Brush.DrawAs=ESlateBrushDrawType::Image;
-        if(const auto* P=Presentation.Find(I.InstanceId);P&&P->StaffArt)ColdSteelStaffIcon::FrameImportedTexture(Brush,Texture);
-        IconBrushes.Add(I.Definition,Brush);
-    }
-    for(const auto& B:Model->QuickBindings())
-    {
-        const auto* Skill=Model->QuickSkillDefinition(B.Skill);
-        const FString Key=Skill?TEXT("@skill:")+B.Skill.ToString():B.ItemDefinition;
-        if(Key.IsEmpty()||Icons.Contains(Key))continue;
-        const FString File=Skill?Skill->Icon:Text(Model->CreateItem(B.ItemDefinition),TEXT("ue_icon"));
-        if(File.IsEmpty())continue;
-        auto* Texture=FImageUtils::ImportFileAsTexture2D(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/File);if(!Texture)continue;
-        Icons.Add(Key,Texture);FSlateBrush Brush;Brush.SetResourceObject(Texture);Brush.ImageSize=FVector2D(Texture->GetSizeX(),Texture->GetSizeY());Brush.DrawAs=ESlateBrushDrawType::Image;IconBrushes.Add(Key,Brush);
-    }
-    // Item data and asynchronous images are painted directly, outside child-widget bindings.
-    if(auto Slate=GetCachedWidget();Slate.IsValid())Slate->Invalidate(EInvalidateWidgetReason::Paint);
-}
-const FSlateBrush* UColdSteelInventoryWidget::ItemBrush(const FColdSteelItem& I) const
-{
-    if(WeaponIcons&&WeaponIcons->Supports(I))if(const auto* Preview=WeaponIcons->Find(I))return Preview;
-    return IconBrushes.Find(I.Definition);
-}
 UColdSteelInventoryWidget::FBoardLayout UColdSteelInventoryWidget::Layout(const FGeometry& G)const
 {
     FBoardLayout L;
@@ -207,7 +212,7 @@ bool UColdSteelInventoryWidget::Hit(const FGeometry& G,FVector2D Screen,int32& P
 FString UColdSteelInventoryWidget::IdAt(int32 Place,int32 Cell)const
 {
     if(!Model)return TEXT("");if(Place==3){auto* I=Model->ResolveHotbar(Cell);return I?I->InstanceId:Model->QuickBinding(Cell+ColdSteelQuickBar::ItemOffset).IsEmpty()?TEXT(""):FString::Printf(TEXT("@quick:%d"),Cell);}
-    int32 N=Owner(Model->Items(),Place,Cell);return N>=0?Model->Items()[N].InstanceId:TEXT("");
+    int32 N=Owner(Model->Items(),Place,Cell,Model->ActiveContainer);return N>=0?Model->Items()[N].InstanceId:TEXT("");
 }
 FReply UColdSteelInventoryWidget::NativeOnMouseButtonDown(const FGeometry& G,const FPointerEvent& E)
 {
@@ -268,7 +273,7 @@ FReply UColdSteelInventoryWidget::NativeOnKeyDown(const FGeometry& G,const FKeyE
         if(RotateDraggedItem(G))return FReply::Handled();
     }
     if(K==EKeys::Enter){PerformAction(0);return FReply::Handled();}if(K==EKeys::X){PerformAction(1);return FReply::Handled();}if(K==EKeys::Delete){PerformAction(2);return FReply::Handled();}
-    if(K==EKeys::G){Model->CycleWeapon();return FReply::Handled();}
+    // G 已从键盘轮换武器改为符文长剑飞剑专用（面板内也不再消费它）。
     if(K==EKeys::SpaceBar){if(KeyboardCarry.IsEmpty()){KeyboardCarry=IdAt(FocusPlace,FocusCell);KeyboardHotbar=FocusPlace==3?FocusCell:-1;}else {const bool OK=KeyboardHotbar>=0?(FocusPlace==3?Model->SwapHotbar(KeyboardHotbar,FocusCell):FocusPlace==0&&Model->BindHotbar(KeyboardHotbar,TEXT(""))):DropAt(KeyboardCarry,FocusPlace,FocusCell);InteractionMessage=Model->ResultMessage();if(OK){KeyboardCarry.Empty();KeyboardHotbar=-1;PreviewPlace=-1;}}return FReply::Handled();}
     if(K==EKeys::F){FocusPlace=bWarehouse?4:(FocusPlace==0?1:FocusPlace==1?3:0);FocusCell=StorageStart();}
     else if(K==EKeys::Left||K==EKeys::Right||K==EKeys::Up||K==EKeys::Down){int32 Columns=(FocusPlace==0||FocusPlace==4)?18:FocusPlace==1?3:4;FocusCell+=K==EKeys::Left?-1:K==EKeys::Right?1:K==EKeys::Up?-Columns:Columns;FocusCell=FMath::Clamp(FocusCell,StorageStart(),bWarehouse?StorageStart()+ColdSteelWarehouse::CellsPerPage-1:FocusPlace==0?71:FocusPlace==1?14:3);}
@@ -283,6 +288,7 @@ FReply UColdSteelInventoryWidget::NativeOnKeyDown(const FGeometry& G,const FKeyE
     }
     if(auto* HUD=TooltipHUD()){if(KeyboardCarry.IsEmpty()&&!Selected.IsEmpty())HUD->ShowItemTooltip(Selected,G.LocalToAbsolute(FVector2D(12,28)/Scale),false,this);else HUD->HideItemTooltip(true);}
     HoverPreview=KeyboardCarry;PreviewPlace=FocusPlace;PreviewCell=FocusCell;SwapDestinations.Empty();PreviewReason.Empty();
+    if(const auto* Carried=Model->FindItem(KeyboardCarry))PreviewCells=FIntPoint(Carried->Width,Carried->Height);else PreviewCells=FIntPoint(1,1);
     if(KeyboardCarry.IsEmpty())bPreviewValid=true;
     else if(KeyboardHotbar>=0)bPreviewValid=FocusPlace==0||FocusPlace==3;
     else if(FocusPlace==3){const auto* I=Model->FindItem(KeyboardCarry);bPreviewValid=I&&I->Place==0&&Text(*I,TEXT("category"))==TEXT("consumable");}
@@ -369,7 +375,7 @@ bool UColdSteelInventoryWidget::PreviewItemDrag(UColdSteelItemDrag& D,FVector2D 
         auto Proposal=Model->ProposeMove(D.ItemId,TargetPlace,PreviewCell,Orientation);
         // Keep normal grab-offset placement; retry at an occupied target's anchor only
         // if the original proposal fails and the same inventory rules accept the swap.
-        if(!Proposal.bValid){const int32 N=Owner(Model->Items(),TargetPlace,HoverCell);if(N>=0&&Model->Items()[N].InstanceId!=D.ItemId){
+        if(!Proposal.bValid){const int32 N=Owner(Model->Items(),TargetPlace,HoverCell,Model->ActiveContainer);if(N>=0&&Model->Items()[N].InstanceId!=D.ItemId){
             const int32 Target=Model->Items()[N].Cell;const auto Swap=Model->ProposeMove(D.ItemId,TargetPlace,Target,Orientation);
             if(Swap.bValid){PreviewCell=Target;Proposal=Swap;}else Proposal.Reason=Swap.Reason;
         }}

@@ -2,7 +2,37 @@
 #include "NiagaraSystem.h"
 #if WITH_EDITOR
 #include "NiagaraExternalSystemEditorUtilities.h"
+#include "NiagaraDataInterfaceSpline.h"
+#include "UObject/UObjectHash.h"
 #endif
+bool URainAssetEditor::BindSplineUserObject(UNiagaraSystem* System,FName ParameterName)
+{
+#if WITH_EDITOR
+    if(!System||ParameterName.IsNone())return false;
+    System->Modify();
+    System->GetExposedParameters().AddParameter(FNiagaraVariable(FNiagaraTypeDefinition::GetUObjectDef(),ParameterName));
+    // Build the instance parameter layout before setting the compiled spline
+    // defaults. Compilation can replace these interfaces, so binding is last.
+    System->RequestCompile(true);
+    System->WaitForCompilationComplete(true,false);
+    if(!System->IsValid())return false;
+    TArray<UObject*> Objects;GetObjectsWithOuter(System,Objects,true);
+    int32 Count=0;
+    for(UObject* Object:Objects)
+        if(auto* Spline=Cast<UNiagaraDataInterfaceSpline>(Object))
+        {
+            Spline->Modify();
+            Spline->SourceMode=ENDISpline_SourceMode::ParameterBindingOnly;
+            Spline->SplineUserParameter.Parameter=FNiagaraVariable(FNiagaraTypeDefinition::GetUObjectDef(),ParameterName);
+            ++Count;
+        }
+    System->OnCompiledDataInterfaceChanged();System->MarkPackageDirty();
+    UE_LOG(LogTemp,Display,TEXT("Spline asset binding %s parameter=%s interfaces=%d"),*System->GetPathName(),*ParameterName.ToString(),Count);
+    return Count>0;
+#else
+    return false;
+#endif
+}
 bool URainAssetEditor::SetInput(UNiagaraSystem* System,const FString& Emitter,const FString& Script,const FString& Module,const FString& Input,const FString& Type,const FString& Value)
 {
 #if WITH_EDITOR

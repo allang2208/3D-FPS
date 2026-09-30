@@ -4,18 +4,19 @@
 #include "NiagaraSystem.h"
 #include "AKMSovietCalibration.h"
 #include "A762WeaponAssets.h"
+#include "LMG201WeaponAssets.h"
 #include "PKMLowpolyWeaponAssets.h"
 #include "ASH12WeaponAssets.h"
 #include "../FPSGAMECharacter.h"
 
 #include "Camera/CameraComponent.h"
-#include "Components/PointLightComponent.h"
 #include "Components/DynamicMeshComponent.h"
+#include "Components/PointLightComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
-#include "Engine/StaticMesh.h"
 #include "DynamicMesh/DynamicMesh3.h"
 #include "DynamicMesh/DynamicMeshAttributeSet.h"
+#include "Engine/StaticMesh.h"
 #include "Engine/SkeletalMesh.h"
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
@@ -59,27 +60,13 @@ namespace WeaponFX
     constexpr float TracerEmission = 2.6f;
     constexpr FLinearColor TracerTint = FLinearColor(1.f,.30f,.03f);
     constexpr float TracerFlashSeconds = 0.05f; // 瞬时段（无弹丸飞行）只做短暂淡出
-}
 
-    // 汇聚螺旋管：曳光材质是按"引擎圆柱的局部坐标"写死的（见
-    // SourceAssets/GunplayVFX20260914/TracerVisibleV13.hlsl：半径 50、z 端点 ±50，
-    // 沿轴的头尾渐变与端盖都读 LocalPosition），所以螺旋管必须落在同一局部口径内，
-    // 再把"世界螺旋半径 / 世界管粗 / 段长"通过实例缩放映射进去。
-    // 局部半径固定 20 → 实例 XY 缩放 = 世界螺旋半径 / 20；管粗的局部半径由同一缩放反推。
-    constexpr float SpiralLocalCoilRadius = 20.f;
-    // 段数按圈数推：可见曳光段长 800–1800 cm，圈数少时每圈要够多段，否则螺旋读成多边形。
-    // 上界 512 段（× 10 边 ≈ 5k 三角形）只生成一次，不影响逐帧开销。
-    constexpr int32 SpiralSegmentsPerTurn = 16;
-    constexpr int32 SpiralMaxSegments = 512;
-    constexpr int32 SpiralRingSides = 10;
-    // 光柱只取曳光材质的"亮段"。TracerVisibleV13.hlsl 里 along 是局部 z 的 0→1 映射，
-    // 而 taper = smoothstep(0.03, 0.62, along)：局部 z 从 -50 到 +19 这一段是渐亮、
-    // 甚至完全透明的。照引擎圆柱铺满 z∈[-50,50] 的话，亮度衰减是**按比例**跟着长度走的：
-    // 一条 1000 m 的弹道光柱，最靠近玩家的前 30 m 不透明为 0、前 620 m 都到不了满亮，
-    // 而真正占屏幕像素的恰恰就是这一段——满亮段在 620 m 开外，那里已经不足 1 像素。
-    // 所以自建一段只覆盖亮度平台（局部 z ∈ [13,50] → along 0.63→1.0，taper 恒为 1）的圆柱，
-    // 长度全部交给实例 Z 缩放，几何与弹道长度无关，生成一次即可。
-    constexpr float TrailLocalNear = 13.f;
+    // Author the helix in centimetres, head at zero. The material reveals only
+    // the travelled portion; neither pitch nor cross section stretches per frame.
+    constexpr int32 SpiralSegmentsPerTurn = 24;
+    constexpr int32 SpiralMaxSegments = 768;
+    constexpr int32 SpiralRingSides = 8;
+    constexpr float TrailLocalNear = -50.f;
     constexpr float TrailLocalFar = 50.f;
     // 生成一次螺旋管（含法线与 UV）：法线必须正确，材质用 NormalWS 做侧面衰减。
     void SpiralVertex(UE::Geometry::FDynamicMesh3& Mesh,const FVector3d& Position,const FVector3f& Normal,const FVector2f& UV)
@@ -94,30 +81,28 @@ namespace WeaponFX
         Mesh.Attributes()->PrimaryNormals()->SetTriangle(Id,UE::Geometry::FIndex3i(A,B,C));
         Mesh.Attributes()->PrimaryUV()->SetTriangle(Id,UE::Geometry::FIndex3i(A,B,C));
     }
-    /** Turns 圈螺旋管，局部 z ∈ [-50,50]，局部螺旋半径 20、管半径 TubeRadiusLocal。 */
-    UE::Geometry::FDynamicMesh3 BuildSpiralTube(float Turns,float TubeRadiusLocal)
+    UE::Geometry::FDynamicMesh3 BuildSpiralTube(float Turns,float CoilRadiusCM,float ThicknessCM,float LengthCM)
     {
         using namespace UE::Geometry;
         FDynamicMesh3 Mesh;Mesh.EnableAttributes();
         const float Coil=Turns>0.f?Turns:1.f;
         const int32 Segments=FMath::Clamp(FMath::RoundToInt(Coil*SpiralSegmentsPerTurn),32,SpiralMaxSegments);
-        const float Tube=FMath::Clamp(TubeRadiusLocal,.2f,SpiralLocalCoilRadius*.85f);
-        constexpr float HalfLength=50.f;
+        const float Tube=ThicknessCM*.5f;
         constexpr float TwoPi=2.f*PI;
         TArray<int32> RingStart;RingStart.Reserve(Segments+1);
         for(int32 I=0;I<=Segments;++I)
         {
             const float T=static_cast<float>(I)/Segments;
             const float Angle=TwoPi*Coil*T;
-            const float Z=FMath::Lerp(-HalfLength,HalfLength,T);
+            const float Z=FMath::Lerp(-LengthCM,0.f,T);
             const FVector3d Radial(FMath::Cos(Angle),FMath::Sin(Angle),0);
-            const FVector3d Center=Radial*SpiralLocalCoilRadius+FVector3d(0,0,Z);
-            // 切线：绕轴一圈的切向分量 + 沿轴前进分量（斜率 = 2·半长 / (2π·圈数)），
+            const FVector3d Center=Radial*CoilRadiusCM+FVector3d(0,0,Z);
+            // Tangent combines circular travel and the fixed world-space pitch.
             // 用它建正交基，管环沿路径推进。管是圆的，绕切线滚转不影响外观。
             const FVector3d Forward=FVector3d(
-                -FMath::Sin(Angle)*SpiralLocalCoilRadius,
-                FMath::Cos(Angle)*SpiralLocalCoilRadius,
-                2.0*HalfLength/TwoPi/Coil).GetSafeNormal();
+                -FMath::Sin(Angle)*CoilRadiusCM,
+                FMath::Cos(Angle)*CoilRadiusCM,
+                LengthCM/TwoPi/Coil).GetSafeNormal();
             const FVector3d Ref=FMath::Abs(Forward.Z)<.9?FVector3d(0,0,1):FVector3d(1,0,0);
             const FVector3d U=FVector3d::CrossProduct(Forward,Ref).GetSafeNormal();
             const FVector3d V=FVector3d::CrossProduct(Forward,U).GetSafeNormal();
@@ -141,9 +126,8 @@ namespace WeaponFX
             }
         return Mesh;
     }
-    /** 光柱几何：只覆盖材质亮度平台的圆柱，局部 z ∈ [TrailLocalNear, TrailLocalFar]，
-        半径 50（材质的 radial = length(xy)*0.02 满量程）。绕序与 FPSHolyLightEffect::Column 一致，
-        法线径向外指——材质用 NormalWS 决定侧面 alpha，法线错了整条柱只剩 22% 透明度。 */
+    /** Open cylinder with radial normals. No bright end discs; the dedicated
+        material applies soft transverse coverage and world-space end fades. */
     UE::Geometry::FDynamicMesh3 BuildTrailColumn()
     {
         using namespace UE::Geometry;
@@ -166,6 +150,7 @@ namespace WeaponFX
         }
         return Mesh;
     }
+}
 
 // Optic firing presentation (LPVO 1-6x only). At high magnification the world
 // muzzle flash leaves the narrow frustum almost completely, so the world layer is
@@ -215,7 +200,6 @@ static TAutoConsoleVariable<float> TracerLightLumens(TEXT("fps.Tracer.LightLumen
     TEXT("Lumens of the travelling tracer light; 0 disables world lighting."));
 static TAutoConsoleVariable<float> TracerLightRadiusCM(TEXT("fps.Tracer.LightRadiusCM"),220.f,
     TEXT("Attenuation radius of the travelling tracer light in centimetres."));
-
 // 汇聚附魔（整匣聚合弹）的专属表现：加粗、纯白、螺旋环绕。只走 bConverged 的段，
 // 普通曳光一个字节都不变；全部参数实时可调，便于不改代码定观感。
 static TAutoConsoleVariable<float> TracerConvergedWidth(TEXT("fps.Tracer.Converged.Width"),2.f,
@@ -224,13 +208,12 @@ static TAutoConsoleVariable<FString> TracerConvergedTint(TEXT("fps.Tracer.Conver
     TEXT("Colour of a convergence round as R,G,B (linear). Default is pure white."));
 static TAutoConsoleVariable<float> TracerConvergedEmission(TEXT("fps.Tracer.Converged.Emission"),1.8f,
     TEXT("Additive emission of a convergence round; lower than the orange tracer so white does not clip."));
-static TAutoConsoleVariable<float> TracerConvergedHaloScale(TEXT("fps.Tracer.Converged.HaloScale"),1.2f,
+static TAutoConsoleVariable<float> TracerConvergedHaloScale(TEXT("fps.Tracer.Converged.HaloScale"),1.f,
     TEXT("Extra halo width multiplier for a convergence round."));
 static TAutoConsoleVariable<int32> TracerConvergedSpiral(TEXT("fps.Tracer.Converged.Spiral"),1,
     TEXT("Draw the helical tube wrapped around a convergence round (0 = off)."));
 static TAutoConsoleVariable<float> TracerConvergedSpiralTurns(TEXT("fps.Tracer.Converged.SpiralTurns"),20.f,
-    TEXT("Helix turns along one streak; changing it rebuilds the tube geometry.")
-    TEXT(" One streak is 800-1800 cm long, so a coil needs many turns: 20 gives a 40-90 cm pitch."));
+    TEXT("Helix turns across the maximum streak length. Fixed pitch; only parameter changes rebuild geometry."));
 static TAutoConsoleVariable<float> TracerConvergedSpiralRadiusCM(TEXT("fps.Tracer.Converged.SpiralRadiusCM"),12.f,
     TEXT("World radius of the helix around the trajectory, in centimetres."));
 static TAutoConsoleVariable<float> TracerConvergedSpiralThicknessCM(TEXT("fps.Tracer.Converged.SpiralThicknessCM"),3.f,
@@ -241,20 +224,26 @@ static TAutoConsoleVariable<float> TracerConvergedSpiralSpin(TEXT("fps.Tracer.Co
     TEXT("Helix spin around the trajectory in degrees per second (0 = static coil)."));
 static TAutoConsoleVariable<float> TracerConvergedLightScale(TEXT("fps.Tracer.Converged.LightScale"),1.3f,
     TEXT("Extra lumens for the travelling light of a convergence round (it also turns white)."));
+static TAutoConsoleVariable<float> TracerConvergedMaxWidthCM(TEXT("fps.Tracer.Converged.MaxWidthCM"),14.f,
+    TEXT("Convergence core diameter cap; also limited to leave clearance inside the helix."));
 // 白色光柱拖尾：汇聚弹从出膛点到弹头的整条弹道都发光，命中后原地停住再淡出。
 // 默认做"宽而暗"：光柱靠宽度和低自发光读成柔和的光带，而不是一根硬管（线条感太强就不自然了）。
 static TAutoConsoleVariable<int32> TracerTrailOn(TEXT("fps.Tracer.Trail"),1,
     TEXT("Draw the lingering light column along a convergence round's travelled path (0 = off)."));
 static TAutoConsoleVariable<float> TracerTrailLingerSeconds(TEXT("fps.Tracer.Trail.LingerSeconds"),.5f,
-    TEXT("Seconds the light column holds after the round ends before it is gone (0 = vanish with the streak)."));
+    TEXT("Seconds the column holds after impact, followed by Trail.FadeSeconds."));
+static TAutoConsoleVariable<float> TracerTrailFadeSeconds(TEXT("fps.Tracer.Trail.FadeSeconds"),.35f,
+    TEXT("Seconds for the column to fade after its post-impact hold."));
+static TAutoConsoleVariable<float> TracerTrailNearFadeCM(TEXT("fps.Tracer.Trail.NearFadeCM"),65.f,
+    TEXT("World-space soft emergence distance from the muzzle, independent of total path length."));
 static TAutoConsoleVariable<float> TracerTrailWidth(TEXT("fps.Tracer.Trail.Width"),2.8f,
     TEXT("Light column width multiplier; wider + dimmer reads softer than a thin bright rod."));
-static TAutoConsoleVariable<float> TracerTrailEmission(TEXT("fps.Tracer.Trail.Emission"),.9f,
+static TAutoConsoleVariable<float> TracerTrailEmission(TEXT("fps.Tracer.Trail.Emission"),.55f,
     TEXT("Additive emission of the light column; keep below fps.Tracer.Converged.Emission."));
 // 光柱是唯一一条从枪口起就贴着视线轴的元件，宽度必须有世界上限：核心段的像素宽度在远距离
 // 会被 28/12 cm 的世界上限接住，再乘宽度倍率就是 1.5 m 粗的管子——那已经不是"光柱"，
 // 而是一个糊在玩家眼前的白色大盘子。
-static TAutoConsoleVariable<float> TracerTrailMaxWidthCM(TEXT("fps.Tracer.Trail.MaxWidthCM"),40.f,
+static TAutoConsoleVariable<float> TracerTrailMaxWidthCM(TEXT("fps.Tracer.Trail.MaxWidthCM"),24.f,
     TEXT("Hard world cap on the light column width in centimetres (keeps it a beam, not a wall)."));
 static TAutoConsoleVariable<float> TracerTrailMaxLengthCM(TEXT("fps.Tracer.Trail.MaxLengthCM"),0.f,
     TEXT("Optional cap on the light column length in centimetres (0 = the whole trajectory)."));
@@ -264,6 +253,7 @@ static TAutoConsoleVariable<float> TracerTrailFadePower(TEXT("fps.Tracer.Trail.F
 // 汇聚射击很稀（一次打空弹匣 + 4.6 s 换弹），所以默认开着的噪音可以忽略。
 static TAutoConsoleVariable<int32> TracerDiag(TEXT("fps.Tracer.Diag"),1,
     TEXT("Log one line per convergence tracer open/close so the trail path can be verified in the log."));
+
 UFPSWeaponFXComponent::UFPSWeaponFXComponent()
 {
     PrimaryComponentTick.bCanEverTick = true;
@@ -287,6 +277,9 @@ UFPSWeaponFXComponent::UFPSWeaponFXComponent()
     RifleCasingMaterial = RifleShellSurface.Object;
     static ConstructorHelpers::FObjectFinder<UMaterialInterface> Tracer(TEXT("/Game/Weapons/GunplayFX/M_BallisticTracerVisibleV13.M_BallisticTracerVisibleV13"));
     TracerMaterial = Tracer.Object;
+    static ConstructorHelpers::FObjectFinder<UMaterialInterface> Convergence(
+        TEXT("/Game/Weapons/GunplayFX/M_ConvergenceBeamV2.M_ConvergenceBeamV2"));
+    ConvergedMaterial = Convergence.Object;
     static ConstructorHelpers::FObjectFinder<UNiagaraSystem> EpicMuzzle(TEXT("/Game/Weapons/GunplayFX/NS_FPS_MuzzleFlashV10.NS_FPS_MuzzleFlashV10"));
     static ConstructorHelpers::FObjectFinder<UNiagaraSystem> EpicSmoke(TEXT("/Game/Weapons/GunplayFX/NS_FPS_MuzzleSmokeStreamV15.NS_FPS_MuzzleSmokeStreamV15"));
     static ConstructorHelpers::FObjectFinder<UNiagaraSystem> SmokeImpulse(TEXT("/Game/Weapons/GunplayFX/NS_FPS_MuzzleSmokeShotV15.NS_FPS_MuzzleSmokeShotV15"));
@@ -343,7 +336,7 @@ void UFPSWeaponFXComponent::Initialize(USkeletalMeshComponent* InWeaponMesh, UCa
     const FTransform Rear = Bone(TEXT("WPN_RearSight"));
     const FVector Forward = (Bone(TEXT("WPN_FrontSight")).GetLocation() - Rear.GetLocation()).GetSafeNormal();
     // Use the same authored rail normal as the rifle's gunsmith attachments.
-    const FVector Up = ((AKMSoviet::Matches(WeaponMesh) || A762WeaponAssets::Matches(WeaponMesh)) ? Root : Rear).GetRotation().GetAxisZ();
+    const FVector Up = ((AKMSoviet::Matches(WeaponMesh) || A762WeaponAssets::Matches(WeaponMesh) || LMG201WeaponAssets::Matches(WeaponMesh)) ? Root : Rear).GetRotation().GetAxisZ();
     CasingFrameInRoot = Root.GetRotation().Inverse() * FRotationMatrix::MakeFromXZ(Forward, Up).ToQuat();
     PreviousMuzzlePosition = MuzzleLocation();
     PreviousMuzzleForward = MuzzleForward();
@@ -551,18 +544,18 @@ void UFPSWeaponFXComponent::ReleaseTracer(FFPSWeaponFXTracer& T)
 {
     T.bActive=false;
     T.bFlash=false;
-    T.LingerAge=0.f;
     T.bConverged=false;
+    T.LingerAge=0.f;
     T.RoundId=INDEX_NONE;
     if(T.Mesh)T.Mesh->SetVisibility(false);
     if(T.HaloMesh)T.HaloMesh->SetVisibility(false);
-}
     if(T.SpiralMesh)T.SpiralMesh->SetVisibility(false);
     if(T.TrailMesh)T.TrailMesh->SetVisibility(false);
 }
 
 void UFPSWeaponFXComponent::EnsureSpiral(FFPSWeaponFXTracer& T,float Turns,float CoilRadiusCM,float ThicknessCM)
 {
+    if(!ConvergedMaterial)return;
     if(!T.SpiralMesh)
     {
         T.SpiralMesh=NewObject<UDynamicMeshComponent>(GetOwner());
@@ -575,17 +568,19 @@ void UFPSWeaponFXComponent::EnsureSpiral(FFPSWeaponFXTracer& T,float Turns,float
         T.SpiralMesh->SetCanEverAffectNavigation(false);
         T.SpiralMesh->SetTangentsType(EDynamicMeshComponentTangentsMode::AutoCalculated);
         T.SpiralMesh->RegisterComponent();
-        T.SpiralMaterial=UMaterialInstanceDynamic::Create(TracerMaterial,T.SpiralMesh);
+        T.SpiralMaterial=UMaterialInstanceDynamic::Create(ConvergedMaterial,T.SpiralMesh);
+        T.SpiralMaterial->SetScalarParameterValue(TEXT("Layer"),1.f);
         T.SpiralMesh->SetMaterial(0,T.SpiralMaterial);
     }
     // 几何只在参数变化时重建：逐帧只改变换与自转，渲染器照旧拿到真实速度（无 TSR 残影）。
-    if(!FMath::IsNearlyEqual(T.SpiralBuiltTurns,Turns,.01f)
+    const float MeshLength=TracerMaxLengthCM();
+    if(!FMath::IsNearlyEqual(T.SpiralBuiltLengthCM,MeshLength,.01f)
+        ||!FMath::IsNearlyEqual(T.SpiralBuiltTurns,Turns,.01f)
         ||!FMath::IsNearlyEqual(T.SpiralBuiltRadiusCM,CoilRadiusCM,.01f)
         ||!FMath::IsNearlyEqual(T.SpiralBuiltThicknessCM,ThicknessCM,.01f))
     {
-        // 世界管粗 → 局部管半径：XY 缩放把局部 20 映射到世界螺旋半径，管粗按同一比例反推。
-        const float ScaleXY=FMath::Max(CoilRadiusCM,1.f)/WeaponFX::SpiralLocalCoilRadius;
-        T.SpiralMesh->SetMesh(WeaponFX::BuildSpiralTube(Turns,ThicknessCM*.5f/FMath::Max(ScaleXY,.001f)));
+        T.SpiralMesh->SetMesh(WeaponFX::BuildSpiralTube(Turns,CoilRadiusCM,ThicknessCM,MeshLength));
+        T.SpiralBuiltLengthCM=MeshLength;
         T.SpiralBuiltTurns=Turns;
         T.SpiralBuiltRadiusCM=CoilRadiusCM;
         T.SpiralBuiltThicknessCM=ThicknessCM;
@@ -595,7 +590,7 @@ void UFPSWeaponFXComponent::EnsureSpiral(FFPSWeaponFXTracer& T,float Turns,float
 
 void UFPSWeaponFXComponent::EnsureTrail(FFPSWeaponFXTracer& T)
 {
-    if(T.TrailMesh)return;
+    if(T.TrailMesh||!ConvergedMaterial)return;
     T.TrailMesh=NewObject<UDynamicMeshComponent>(GetOwner());
     GetOwner()->AddInstanceComponent(T.TrailMesh);
     T.TrailMesh->SetMobility(EComponentMobility::Movable);
@@ -606,15 +601,30 @@ void UFPSWeaponFXComponent::EnsureTrail(FFPSWeaponFXTracer& T)
     T.TrailMesh->SetCanEverAffectNavigation(false);
     T.TrailMesh->SetTangentsType(EDynamicMeshComponentTangentsMode::AutoCalculated);
     T.TrailMesh->RegisterComponent();
-    // 几何只覆盖材质亮度平台，与弹道长度无关，所以只生成一次，逐帧只改变换。
+    // Unit cylinder; the dedicated material keeps end fades in world centimetres.
     T.TrailMesh->SetMesh(WeaponFX::BuildTrailColumn());
-    T.TrailMaterial=UMaterialInstanceDynamic::Create(TracerMaterial,T.TrailMesh);
+    T.TrailMaterial=UMaterialInstanceDynamic::Create(ConvergedMaterial,T.TrailMesh);
+    T.TrailMaterial->SetScalarParameterValue(TEXT("Layer"),2.f);
     T.TrailMesh->SetMaterial(0,T.TrailMaterial);
     T.TrailMesh->SetVisibility(false);
+}
 
 void UFPSWeaponFXComponent::ApplyTracerTransform(FFPSWeaponFXTracer& T)
 {
     if(!T.Mesh||!Camera)return;
+    UMaterialInterface* BeamMaterial=T.bConverged&&ConvergedMaterial?ConvergedMaterial.Get():TracerMaterial.Get();
+    // A pooled slot can alternate between ordinary and enchanted rounds. Rebind
+    // only on that transition, never recreate the MID every frame.
+    if(T.Material->Parent!=BeamMaterial)
+    {
+        T.Material=UMaterialInstanceDynamic::Create(BeamMaterial,T.Mesh);
+        T.Mesh->SetMaterial(0,T.Material);
+    }
+    if(T.HaloMesh&&T.HaloMaterial->Parent!=BeamMaterial)
+    {
+        T.HaloMaterial=UMaterialInstanceDynamic::Create(BeamMaterial,T.HaloMesh);
+        T.HaloMesh->SetMaterial(0,T.HaloMaterial);
+    }
     // Head on the round, tail Length behind it: the dash always covers the most recent
     // stretch of the real path, so it can never leave the bore or pierce a wall behind it.
     const FVector Tail=T.Head-T.Direction*T.Length;
@@ -627,12 +637,19 @@ void UFPSWeaponFXComponent::ApplyTracerTransform(FFPSWeaponFXTracer& T)
         Center-Camera->GetComponentLocation(),Camera->GetForwardVector())));
     const float PixelWidth=2.f*ViewDepth*FMath::Tan(FMath::DegreesToRadians(
         FMath::Clamp(Camera->FieldOfView,5.f,150.f)*.5f))/FMath::Max(1,ViewWidth);
-    // 汇聚段整套宽度同比加粗（像素基准、最小直径、世界上限一起乘），只放大近距离会变成
-// "近处粗、远处照旧"的假加粗。
+    // Screen-size compensation, with separate convergence clearance below.
     const float WidthScale=T.bConverged?FMath::Clamp(TracerConvergedWidth.GetValueOnGameThread(),1.f,6.f):1.f;
-    const float Diameter=FMath::Clamp(PixelWidth*FMath::Clamp(TracerWidthPixels.GetValueOnGameThread(),.2f,16.f)*WidthScale,
+    float Diameter=FMath::Clamp(PixelWidth*FMath::Clamp(TracerWidthPixels.GetValueOnGameThread(),.2f,16.f)*WidthScale,
         WeaponFX::TracerMinDiameterCM*WidthScale,
         (ShouldHideCasings()?WeaponFX::TracerScopedDiameterMaxCM:WeaponFX::TracerDiameterMaxCM)*WidthScale);
+    if(T.bConverged)
+    {
+        const float CoilRadius=FMath::Clamp(TracerConvergedSpiralRadiusCM.GetValueOnGameThread(),1.f,120.f);
+        const float TubeWidth=FMath::Clamp(TracerConvergedSpiralThicknessCM.GetValueOnGameThread(),.5f,CoilRadius*.65f);
+        // Leave visible space between the core and the surrounding helix at distance.
+        Diameter=FMath::Min(Diameter,FMath::Max(.5f,FMath::Min(
+            TracerConvergedMaxWidthCM.GetValueOnGameThread(),2.f*CoilRadius-TubeWidth-2.f)));
+    }
     T.Mesh->SetWorldLocationAndRotation(Center,FRotationMatrix::MakeFromZ(T.Head-Tail).Rotator());
     T.Mesh->SetWorldScale3D(FVector(Diameter,Diameter,FMath::Max(1.f,T.Length))/100.f);
     // Colour and brightness are re-applied every frame so console changes show up on streaks
@@ -646,16 +663,16 @@ void UFPSWeaponFXComponent::ApplyTracerTransform(FFPSWeaponFXTracer& T)
     const float Opacity=T.bFlash?FMath::Clamp(1.f-T.FlashAge/WeaponFX::TracerFlashSeconds,0.f,1.f)
         :(T.LingerAge>0.f&&Linger>0.f?FMath::Clamp(1.f-T.LingerAge/Linger,0.f,1.f):1.f);
     T.Material->SetScalarParameterValue(TEXT("Opacity"),Opacity);
-    // Halo pass: same material, wider and much dimmer, so the streak gets a soft outer glow
     // 曳光段自己的淡出走完就先隐藏：光柱拖尾比它活得久，同一格里还要继续淡。
     const bool bDashVisible=Opacity>.002f;
     T.Mesh->SetVisibility(bDashVisible);
+    // Halo pass: same material, wider and much dimmer, so the streak gets a soft outer glow
     // instead of staying a hard rod. Width 1 / emission 0 turns it off at no cost.
     if(T.HaloMesh&&T.HaloMaterial)
     {
         const float HaloScale=FMath::Clamp(TracerHaloWidth.GetValueOnGameThread(),0.f,6.f)
             *(T.bConverged?FMath::Clamp(TracerConvergedHaloScale.GetValueOnGameThread(),1.f,4.f):1.f);
-        const float HaloEmission=FMath::Clamp(TracerHaloEmission.GetValueOnGameThread(),0.f,20.f);
+        const float HaloEmission=FMath::Clamp(TracerHaloEmission.GetValueOnGameThread(),0.f,20.f)*(T.bConverged?.35f:1.f);
         const bool bHalo=bDashVisible&&HaloScale>1.001f&&HaloEmission>0.f;
         T.HaloMesh->SetVisibility(bHalo);
         if(bHalo)
@@ -668,29 +685,28 @@ void UFPSWeaponFXComponent::ApplyTracerTransform(FFPSWeaponFXTracer& T)
             T.HaloMaterial->SetScalarParameterValue(TEXT("Opacity"),Opacity);
         }
     }
-}
     // 汇聚段的螺旋环绕层：唯一一条贴着弹道的螺旋管。几何只在参数变化时重建，逐帧只改
     // 变换与自转；未附魔的段从不创建它，关掉 CVar 时整层隐藏，不占逐帧开销。
     const bool bSpiralWanted=bDashVisible&&T.bConverged&&TracerConvergedSpiral.GetValueOnGameThread()!=0
         &&TracerConvergedSpiralEmission.GetValueOnGameThread()>0.f;
     if(bSpiralWanted)
     {
-        const float Turns=FMath::Clamp(TracerConvergedSpiralTurns.GetValueOnGameThread(),.25f,12.f);
+        const float Turns=FMath::Clamp(TracerConvergedSpiralTurns.GetValueOnGameThread(),.25f,32.f);
         const float CoilRadius=FMath::Clamp(TracerConvergedSpiralRadiusCM.GetValueOnGameThread(),1.f,120.f);
-        const float Thickness=FMath::Clamp(TracerConvergedSpiralThicknessCM.GetValueOnGameThread(),.5f,60.f);
+        const float Thickness=FMath::Clamp(TracerConvergedSpiralThicknessCM.GetValueOnGameThread(),.5f,CoilRadius*.65f);
         EnsureSpiral(T,Turns,CoilRadius,Thickness);
         if(T.SpiralMesh&&T.SpiralMaterial)
         {
-            // 自转是世界时间的纯函数：不需要逐段状态，停火留影期间也照旧旋转。
-            const double Now=GetWorld()?GetWorld()->GetTimeSeconds():0.0;
+            // Freeze rotation when flight ends; the lingering image stays in place.
+            const double Now=(GetWorld()?GetWorld()->GetTimeSeconds():0.0)-(T.bFlash?T.FlashAge:T.LingerAge);
             const float SpinDeg=FMath::Fmod(static_cast<float>(Now)
                 *FMath::Clamp(TracerConvergedSpiralSpin.GetValueOnGameThread(),-3600.f,3600.f)+T.RoundId*37.f,360.f);
             const FQuat Along=FRotationMatrix::MakeFromZ(T.Head-Tail).ToQuat();
-            const float ScaleXY=CoilRadius/WeaponFX::SpiralLocalCoilRadius;
             T.SpiralMesh->SetVisibility(true);
-            T.SpiralMesh->SetWorldLocationAndRotation(Center,
+            T.SpiralMesh->SetWorldLocationAndRotation(T.Head,
                 (Along*FQuat(FVector::UpVector,FMath::DegreesToRadians(SpinDeg))).Rotator());
-            T.SpiralMesh->SetWorldScale3D(FVector(ScaleXY,ScaleXY,FMath::Max(1.f,T.Length))/100.f);
+            T.SpiralMesh->SetWorldScale3D(FVector::OneVector);
+            T.SpiralMaterial->SetScalarParameterValue(TEXT("LengthCM"),T.Length);
             T.SpiralMaterial->SetVectorParameterValue(TEXT("Tint"),Tint);
             T.SpiralMaterial->SetScalarParameterValue(TEXT("Emission"),
                 FMath::Clamp(TracerConvergedSpiralEmission.GetValueOnGameThread(),0.f,20.f));
@@ -698,9 +714,8 @@ void UFPSWeaponFXComponent::ApplyTracerTransform(FFPSWeaponFXTracer& T)
         }
     }
     else if(T.SpiralMesh)T.SpiralMesh->SetVisibility(false);
-    // 白色光柱拖尾：从出膛点到弹头的整条弹道。弹丸还在飞时是满亮度长柱（弹丸到哪，
-    // 柱子铺到哪），命中后原地停住，按 fps.Tracer.Trail.LingerSeconds（默认 0.5 s）逐步
-    // 淡出。出膛点不额外存状态：Head 减去"已飞距离"就是它，直射弹的方向固定，所以精确。
+    // Full travelled path, fixed world-space width. Hold after impact, then fade;
+    // the flying head's screen-size compensation must never inflate the muzzle end.
     const bool bTrailWanted=T.bConverged&&TracerTrailOn.GetValueOnGameThread()!=0
         &&TracerTrailEmission.GetValueOnGameThread()>0.f&&T.TraveledCM>1.f;
     if(bTrailWanted)
@@ -709,23 +724,22 @@ void UFPSWeaponFXComponent::ApplyTracerTransform(FFPSWeaponFXTracer& T)
         if(T.TrailMesh&&T.TrailMaterial)
         {
             const float TrailLinger=FMath::Clamp(TracerTrailLingerSeconds.GetValueOnGameThread(),0.f,3.f);
-            // 拖尾有自己的时间线：曳光段淡完（0.12 s）之后它还继续走完 0.5 s。
-            const float TrailOpacity=(T.LingerAge>0.f&&TrailLinger>0.f)
-                ?FMath::Pow(FMath::Clamp(1.f-T.LingerAge/TrailLinger,0.f,1.f),
-                    FMath::Clamp(TracerTrailFadePower.GetValueOnGameThread(),.25f,4.f))
-                :1.f;
-            const float TrailWidth=FMath::Min(Diameter*FMath::Clamp(TracerTrailWidth.GetValueOnGameThread(),1.f,8.f),
+            const float FadeSeconds=FMath::Clamp(TracerTrailFadeSeconds.GetValueOnGameThread(),0.f,3.f);
+            const float EndAge=T.bFlash?T.FlashAge:T.LingerAge;
+            const float FadeAlpha=EndAge<=TrailLinger?1.f:(FadeSeconds>0.f
+                ?FMath::Clamp(1.f-(EndAge-TrailLinger)/FadeSeconds,0.f,1.f):0.f);
+            const float TrailOpacity=FMath::Pow(FadeAlpha,FMath::Clamp(TracerTrailFadePower.GetValueOnGameThread(),.25f,4.f));
+            const float TrailWidth=FMath::Min(WeaponFX::TracerMinDiameterCM*WidthScale
+                *FMath::Clamp(TracerTrailWidth.GetValueOnGameThread(),1.f,8.f),
                 FMath::Max(4.f,TracerTrailMaxWidthCM.GetValueOnGameThread()));
             // 可选限长：0 = 整条弹道（默认）。非 0 只保留最后一段。
             const float CapCM=FMath::Max(0.f,TracerTrailMaxLengthCM.GetValueOnGameThread());
             const float TrailLength=CapCM>0.f?FMath::Min(T.TraveledCM,CapCM):T.TraveledCM;
             const FVector TrailTail=T.Head-T.Direction*TrailLength;
-            // 几何只覆盖材质亮度平台：局部 z 从 TrailLocalNear 到 TrailLocalFar 共 37 个单位要
-            // 映射到整条光柱，所以 Z 缩放 = 长度/37，组件原点再沿弹道退回 TrailLocalNear*Sz，
-            // 亮段起点才正好落在枪口。XY 缩放把局部半径 50 映射成世界宽度的一半。
+            // Cylinder spans -50..50; independent material fades soften both ends.
             const float ScaleXY=TrailWidth/100.f;
             const float ScaleZ=FMath::Max(1.f,TrailLength)/(WeaponFX::TrailLocalFar-WeaponFX::TrailLocalNear);
-            T.TrailMesh->SetVisibility(true);
+            T.TrailMesh->SetVisibility(TrailOpacity>.002f);
             T.TrailMesh->SetWorldLocationAndRotation(TrailTail-T.Direction*(WeaponFX::TrailLocalNear*ScaleZ),
                 FRotationMatrix::MakeFromZ(T.Direction).Rotator());
             T.TrailMesh->SetWorldScale3D(FVector(ScaleXY,ScaleXY,ScaleZ));
@@ -733,9 +747,13 @@ void UFPSWeaponFXComponent::ApplyTracerTransform(FFPSWeaponFXTracer& T)
             T.TrailMaterial->SetScalarParameterValue(TEXT("Emission"),
                 FMath::Clamp(TracerTrailEmission.GetValueOnGameThread(),0.f,20.f));
             T.TrailMaterial->SetScalarParameterValue(TEXT("Opacity"),TrailOpacity);
+            T.TrailMaterial->SetScalarParameterValue(TEXT("LengthCM"),TrailLength);
+            T.TrailMaterial->SetScalarParameterValue(TEXT("NearFadeCM"),
+                FMath::Clamp(TracerTrailNearFadeCM.GetValueOnGameThread(),1.f,300.f));
         }
     }
     else if(T.TrailMesh)T.TrailMesh->SetVisibility(false);
+}
 
 UPointLightComponent* UFPSWeaponFXComponent::EnsureTracerLight(int32 Index)
 {
@@ -784,9 +802,9 @@ void UFPSWeaponFXComponent::UpdateTracerLights()
     }
     FLinearColor LightColor=WeaponFX::TracerTint;
     ParseTracerTint(TracerTintSetting.GetValueOnGameThread(),LightColor);
-    for(int32 Slot=0;Slot<Slots;++Slot)
     FLinearColor ConvergedLightColor=FLinearColor::White;
     ParseTracerTint(TracerConvergedTint.GetValueOnGameThread(),ConvergedLightColor);
+    for(int32 Slot=0;Slot<Slots;++Slot)
     {
         if(Pick[Slot]==INDEX_NONE)
         {
@@ -1237,13 +1255,14 @@ void UFPSWeaponFXComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
     for (FFPSWeaponFXTracer& T : Tracers)
     {
         if (!T.bActive) continue;
-        if (T.bFlash)
-        // 汇聚弹的格子要活到白色光柱淡完为止：曳光段本体 0.12 s 就淡完并隐藏，
-        // 光柱再单独走 fps.Tracer.Trail.LingerSeconds，然后这个格子才回池。
-        const float TrailLinger=T.bConverged
-            ?FMath::Clamp(TracerTrailLingerSeconds.GetValueOnGameThread(),0.f,3.f):0.f;
+        // Hold and fade are separate phases, including the instantaneous branch.
+        const float TrailLinger=T.bConverged&&TracerTrailOn.GetValueOnGameThread()!=0
+            &&TracerTrailEmission.GetValueOnGameThread()>0.f
+            ?FMath::Clamp(TracerTrailLingerSeconds.GetValueOnGameThread(),0.f,3.f)
+                +FMath::Clamp(TracerTrailFadeSeconds.GetValueOnGameThread(),0.f,3.f):0.f;
         const float StreakHold=FMath::Max(FMath::Clamp(TracerLingerSeconds.GetValueOnGameThread(),0.f,2.f),
             TrailLinger);
+        if (T.bFlash)
         {
             T.FlashAge += DeltaTime;
             if (T.FlashAge >= FMath::Max(WeaponFX::TracerFlashSeconds,TrailLinger))
@@ -1257,7 +1276,7 @@ void UFPSWeaponFXComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
             T.LingerAge += DeltaTime;
             if (T.LingerAge >= StreakHold)
             {
-                // 收段这行同时验证停留时长：汇聚段应当约等于 Trail.LingerSeconds（默认 0.5 s）。
+                // Total post-impact lifetime includes both hold and fade.
                 if(T.bConverged&&TracerDiag.GetValueOnGameThread()!=0)
                     UE_LOG(LogTemp,Display,TEXT("TRACER_CONVERGED close round=%d held=%.2fs traveled=%.0fcm trail=%.0fcm"),
                         T.RoundId,T.LingerAge,T.TraveledCM,

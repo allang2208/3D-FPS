@@ -1,6 +1,7 @@
 #include "ClearwaterWater.h"
 #include "../WorldGeneration/RiverPilotFXSubsystem.h"
 #include "Components/PostProcessComponent.h"
+#include "Components/DirectionalLightComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/World.h"
@@ -19,21 +20,13 @@ namespace ClearwaterWaterDefaults
     static const TCHAR* MeshPath = TEXT("/Game/Clearwater/SM_ClearwaterPlane.SM_ClearwaterPlane");
     static const TCHAR* MaterialPath = TEXT("/Game/Clearwater/MI_ClearwaterWater.MI_ClearwaterWater");
     static const TCHAR* SeabedTag = TEXT("ClearwaterSeabed");
+    static const TCHAR* SeabedMaterialPath = TEXT("/Game/Clearwater/MI_ClearwaterSeabed.MI_ClearwaterSeabed");
     static const TCHAR* UnderwaterMaterialPath =
         TEXT("/Game/Clearwater/MI_ClearwaterUnderwater.MI_ClearwaterUnderwater");
 
-    // clearwater index.html line 130: DEPTH = 1.6 m. Used to size the caustic light shift.
-    static constexpr float WaterDepthCm = 160.f;
-    // Clearwater's IORS[1] (line 322), the middle channel, drives the reference shift.
-    static constexpr float ReferenceIOR = 1.3335f;
-    // Clearwater wraps the caustic pattern over one patch: L = 4.6 m (line 129).
-    static constexpr float CausticPatchCm = 460.f;
-    // Ripple slot lifetime, matching the material's RippleMaxAge parameter.
-    static constexpr float RippleMaxAge = 1.8f;
-
     static TAutoConsoleVariable<int32> CVarEnabled(
         TEXT("fps.Clearwater.Enabled"), 1,
-        TEXT("Drive the Clearwater water effects (caustic scroll, impact ripples, underwater)."));
+        TEXT("Drive Clearwater scene-light parameters and underwater presentation."));
 }
 
 AClearwaterWater::AClearwaterWater()
@@ -108,12 +101,17 @@ void AClearwaterWater::EndPlay(const EEndPlayReason::Type Reason)
 void AClearwaterWater::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
-    if (ClearwaterWaterDefaults::CVarEnabled.GetValueOnGameThread() == 0) return;
+    if (ClearwaterWaterDefaults::CVarEnabled.GetValueOnGameThread() == 0)
+    {
+        bSubmerged = false;
+        SubmergedBlend = 0.f;
+        if (UnderwaterVolume) UnderwaterVolume->BlendWeight = 0.f;
+        return;
+    }
 
     const float Now = GetWorld() ? GetWorld()->GetTimeSeconds() : 0.f;
     UpdateCaustics(Now);
-    UpdateRipples(DeltaSeconds);
-    UpdateSubmerged();
+    UpdateSubmerged(DeltaSeconds);
 }
 
 void AClearwaterWater::Configure()
@@ -131,12 +129,31 @@ void AClearwaterWater::Configure()
     }
     RegisterWithWaterFX();
 
-    // The FX subsystem already made a dynamic instance for slot 0; reuse it rather than
-    // stacking a second one, so the ripple parameters it writes and the ones written here
-    // land on the same object.
+    // Registration owns this MID. A second CreateDynamicMaterialInstance would leave
+    // the shared subsystem writing into a material no longer bound to the surface.
+    if (auto* WaterFX = GetWorld()->GetSubsystem<URiverPilotFXSubsystem>())
+        WaterMID = WaterFX->GetWaterSurfaceMaterial(Surface);
     if (!WaterMID && Surface->GetMaterial(0))
     {
         WaterMID = Surface->CreateDynamicMaterialInstance(0);
+    }
+
+    if (!SceneSun.IsValid())
+    {
+        float BestIntensity = -1.f;
+        for (TActorIterator<AActor> It(GetWorld()); It; ++It)
+        {
+            TInlineComponentArray<UDirectionalLightComponent*> Lights;
+            It->GetComponents(Lights);
+            for (UDirectionalLightComponent* Light : Lights)
+            {
+                if (Light->IsVisible() && Light->Intensity > BestIntensity)
+                {
+                    SceneSun = Light;
+                    BestIntensity = Light->Intensity;
+                }
+            }
+        }
     }
 
     // Find the seabed by tag rather than by path: the authoring pass tags it, and a level
@@ -148,6 +165,10 @@ void AClearwaterWater::Configure()
             if (!It->ActorHasTag(FName(ClearwaterWaterDefaults::SeabedTag))) continue;
             if (auto* Mesh = It->FindComponentByClass<UStaticMeshComponent>())
             {
+                // Earlier maps bound the old master directly. Use the stable instance
+                // so installing the new optics does not require rebuilding the level.
+                if (auto* BedMaterial = LoadObject<UMaterialInterface>(nullptr, ClearwaterWaterDefaults::SeabedMaterialPath))
+                    Mesh->SetMaterial(0, BedMaterial);
                 SeabedMID = Mesh->CreateDynamicMaterialInstance(0);
             }
             break;
@@ -160,131 +181,75 @@ void AClearwaterWater::Configure()
                 nullptr, ClearwaterWaterDefaults::UnderwaterMaterialPath))
         {
             UnderwaterMaterial = Material;
+            UnderwaterMID = UMaterialInstanceDynamic::Create(Material, this);
+            UnderwaterMID->SetScalarParameterValue(TEXT("UnderwaterAmount"), 1.f);
             UnderwaterVolume = NewObject<UPostProcessComponent>(this, TEXT("UnderwaterVolume"));
             UnderwaterVolume->bUnbound = true;
             UnderwaterVolume->Priority = 90.f;
-            UnderwaterVolume->BlendWeight = 1.f;
+            UnderwaterVolume->BlendWeight = 0.f;
             // There is no bOverride_Blendables in UE 5.8: WeightedBlendables is applied
             // unconditionally, so the weight below is what gates the effect.
             UnderwaterVolume->Settings.WeightedBlendables.Array.Empty();
             UnderwaterVolume->Settings.WeightedBlendables.Array.Add(
-                FWeightedBlendable(0.f, Material));
+                FWeightedBlendable(1.f, UnderwaterMID.Get()));
             UnderwaterVolume->SetupAttachment(RootComponent);
             UnderwaterVolume->RegisterComponent();
         }
     }
+    NextSunUpdate = 0.f;
+    UpdateCaustics(GetWorld()->GetTimeSeconds());
 }
 
 void AClearwaterWater::UpdateCaustics(float TimeSeconds)
 {
-    if (!WaterMID && !SeabedMID) return;
-
-    // clearwater derives the caustic registration shift from the refracted sun direction
-    // (renderCaustics, lines 330-334): the flat-surface refraction offset keeps the pattern
-    // registered to the sun, and the per-channel residual is the dispersion fringe.
-    const float El = FMath::DegreesToRadians(SunElevationDeg);
-    const float Az = FMath::DegreesToRadians(SunAzimuthDeg);
-    const float SinI = FMath::Cos(El);
-    const float SinT = SinI / ClearwaterWaterDefaults::ReferenceIOR;
-    const float CosT = FMath::Sqrt(FMath::Max(1.f - SinT * SinT, 0.f));
-    const float TanT = SinT / FMath::Max(CosT, KINDA_SMALL_NUMBER);
-
-    // Direction along the horizontal component of the sun, in UE axes.
-    const float SunX = FMath::Cos(El) * FMath::Cos(Az);
-    const float SunY = FMath::Cos(El) * FMath::Sin(Az);
-    const float Hor = FMath::Max(FMath::Sqrt(SunX * SunX + SunY * SunY), KINDA_SMALL_NUMBER);
-
-    // clearwater: causShift = -sunDir * depth * tan(thetaT), in metres; here in centimetres.
-    const float ShiftX = -SunX / Hor * ClearwaterWaterDefaults::WaterDepthCm * TanT;
-    const float ShiftY = -SunY / Hor * ClearwaterWaterDefaults::WaterDepthCm * TanT;
-
-    // Scroll the two layers so the web drifts with the sun, and layer B at a different rate
-    // so the two never lock into a single sliding image.
-    const float Patch = ClearwaterWaterDefaults::CausticPatchCm;
-    const float UvA_X = (ShiftX + TimeSeconds * 1.6f) / Patch;
-    const float UvA_Y = (ShiftY + TimeSeconds * 0.9f) / Patch;
-    const float UvB_X = (ShiftX * 1.7f - TimeSeconds * 1.1f) / Patch;
-    const float UvB_Y = (ShiftY * 1.7f + TimeSeconds * 1.4f) / Patch;
-
-    const FLinearColor A(UvA_X, UvA_Y, 0.f, 0.f);
-    const FLinearColor B(UvB_X, UvB_Y, 0.f, 0.f);
-    const FLinearColor SunDir(SunX, SunY, FMath::Sin(El), 0.f);
-
-    for (UMaterialInstanceDynamic* MID : { WaterMID.Get(), SeabedMID.Get() })
+    if (TimeSeconds < NextSunUpdate) return;
+    NextSunUpdate = TimeSeconds + 0.25f;
+    const UDirectionalLightComponent* Sun = SceneSun.Get();
+    const FVector Direction = Sun ? -Sun->GetForwardVector() : FVector::UpVector;
+    // Native water reflection/scattering uses UE lighting directly. These values only
+    // project the baked pattern and fade its contrast at night or under dimmed sunlight.
+    const float Daylight = Sun && Sun->IsVisible()
+        ? FMath::Clamp(Sun->Intensity / 10.f, 0.f, 1.f)
+          * FMath::Clamp(float(Direction.Z) * 3.f, 0.f, 1.f) : 0.f;
+    if (SeabedMID)
     {
-        if (!MID) continue;
-        MID->SetVectorParameterValue(TEXT("CausticShiftA"), A);
-        MID->SetVectorParameterValue(TEXT("CausticShiftB"), B);
-        MID->SetVectorParameterValue(TEXT("SunDirection"), SunDir);
+        SeabedMID->SetVectorParameterValue(TEXT("SunDirection"),
+            FLinearColor(Direction.X, Direction.Y, Direction.Z, 0.f));
+        SeabedMID->SetScalarParameterValue(TEXT("CausticDaylight"), Daylight);
+        SeabedMID->SetScalarParameterValue(TEXT("WaterLevelCm"), GetWaterHeight());
+    }
+    if (UnderwaterMID)
+    {
+        UnderwaterMID->SetScalarParameterValue(TEXT("WaterLevelCm"), GetWaterHeight());
+        UnderwaterMID->SetScalarParameterValue(TEXT("WaterDaylight"), Daylight);
     }
 }
 
-void AClearwaterWater::UpdateRipples(float DeltaSeconds)
+void AClearwaterWater::UpdateSubmerged(float DeltaSeconds)
 {
-    if (!WaterMID) return;
-
-    bool bAny = false;
-    for (int32 I = 0; I < 4; ++I)
-    {
-        if (RippleSlots[I].Z < 0.f) continue;
-        RippleSlots[I].Z += DeltaSeconds;
-        if (RippleSlots[I].Z > ClearwaterWaterDefaults::RippleMaxAge)
-        {
-            // Park the slot exactly the way URiverPilotFXSubsystem parks its own slots.
-            RippleSlots[I] = FVector4(0.f, 0.f, -1.f, 0.f);
-        }
-        else
-        {
-            bAny = true;
-        }
-    }
-
-    // Only touch the material while something is actually ringing; a calm surface costs
-    // nothing beyond this loop.
-    const bool bWasAny = RipplesActive > 0;
-    RipplesActive = bAny ? 1 : 0;
-    if (!bAny && !bWasAny) return;
-
-    for (int32 I = 0; I < 4; ++I)
-    {
-        const FVector4& S = RippleSlots[I];
-        WaterMID->SetVectorParameterValue(
-            FName(*FString::Printf(TEXT("WaterHit%d"), I)),
-            FLinearColor(float(S.X), float(S.Y), float(S.Z), float(S.W)));
-    }
-}
-
-void AClearwaterWater::UpdateSubmerged()
-{
-    if (!UnderwaterVolume) return;
-
-    bool bNowSubmerged = false;
+    if (!UnderwaterVolume || !Surface || !Surface->GetStaticMesh()) return;
+    float Target = 0.f;
     if (const APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0))
     {
         FVector ViewLocation;
         FRotator ViewRotation;
         PC->GetPlayerViewPoint(ViewLocation, ViewRotation);
-        bNowSubmerged = ViewLocation.Z < GetWaterHeight();
+        const FVector Local = Surface->GetComponentTransform().InverseTransformPosition(ViewLocation);
+        const FBox Bounds = Surface->GetStaticMesh()->GetBoundingBox();
+        const bool Inside = Local.X >= Bounds.Min.X && Local.X <= Bounds.Max.X
+            && Local.Y >= Bounds.Min.Y && Local.Y <= Bounds.Max.Y;
+        if (Inside) Target = FMath::Clamp((GetWaterHeight() - float(ViewLocation.Z)) / 12.f, 0.f, 1.f);
     }
-
-    if (bNowSubmerged == bSubmerged) return;
-    bSubmerged = bNowSubmerged;
-    // Ramp the blendable rather than switching, so surfacing does not pop.
-    UnderwaterVolume->Settings.WeightedBlendables.Array.Empty();
-    if (UnderwaterMaterial)
-    {
-        UnderwaterVolume->Settings.WeightedBlendables.Array.Add(
-            FWeightedBlendable(bSubmerged ? 1.f : 0.f, UnderwaterMaterial));
-    }
+    bSubmerged = Target > 0.f;
+    SubmergedBlend = FMath::FInterpTo(SubmergedBlend, Target, DeltaSeconds, 12.f);
+    if (Target == 0.f && SubmergedBlend < 0.001f) SubmergedBlend = 0.f;
+    UnderwaterVolume->BlendWeight = SubmergedBlend;
 }
 
 void AClearwaterWater::AddImpactRipple(const FVector& WorldLocation, float Strength)
 {
-    if (!WaterMID) return;
-    FVector4& Slot = RippleSlots[RippleCursor];
-    RippleCursor = (RippleCursor + 1) % 4;
-    Slot = FVector4(WorldLocation.X, WorldLocation.Y, 0.f, FMath::Clamp(Strength, 0.f, 1.f));
-    RipplesActive = 1;
+    if (auto* WaterFX = GetWorld()->GetSubsystem<URiverPilotFXSubsystem>())
+        WaterFX->SubmitSurfaceImpact(Surface, WorldLocation, Strength);
 }
 
 bool AClearwaterWater::RegisterWithWaterFX()
@@ -354,8 +319,11 @@ int32 AClearwaterWater::Install(UWorld* World)
         return 1;
     }
 
-    // Only install where the authored assets actually exist. This is what keeps the call
-    // in the shared game mode from dropping a water body into every unrelated map.
+    // Existing, explicitly placed water actors above remain supported. Automatic spawning
+    // is restricted to the dedicated candidate map, including PIE package prefixes.
+    const FString Map = UGameplayStatics::GetCurrentLevelName(World, true);
+    if (Map != TEXT("L_ClearwaterWater")) return 2;
+
     if (!LoadObject<UStaticMesh>(nullptr, ClearwaterWaterDefaults::MeshPath)) return 2;
     if (!LoadObject<UMaterialInterface>(nullptr, ClearwaterWaterDefaults::MaterialPath)) return 2;
 

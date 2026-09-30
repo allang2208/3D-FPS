@@ -1,9 +1,11 @@
 #include "RuneOrbBladeProjectile.h"
+#include "../Dungeons/WardBreakableGlass.h"
 #include "RuneOrbBladesComponent.h"
 #include "RuneOrbBladeDamage.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../Monsters/MonsterCombatComponent.h"
+#include "../Combat/MonsterToughnessTypes.h"
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Skills/ColdSteelSkillRules.h"
@@ -103,6 +105,7 @@ void ARuneOrbBlade::StartFade()
 void ARuneOrbBlade::ApplyHit(const FHitResult& Hit)
 {
     bFinished = true;
+    UWardBreakableGlass::BreakHit(Hit,Velocity.GetSafeNormal());
     if (auto* Target = Hit.GetActor())
     {
         auto* Combat = Target->FindComponentByClass<UMonsterCombatComponent>();
@@ -121,6 +124,8 @@ void ARuneOrbBlade::ApplyHit(const FHitResult& Hit)
             const CombatFormulaRuntime::MagicHit Magic{CritChance, CritBonus, Pen, DmgBonus, &bCritical, ColdSteelSkills::IsCriticalHit(Hit)};
             const TGuardValue<const CombatFormulaRuntime::MagicHit*> MagicScope(
                 CombatFormulaRuntime::ActiveMagicHit, &Magic);
+            // A blade is a sharp hit for the monster toughness model.
+            const MonsterToughness::FScopedForm FormScope(EMonsterAttackForm::Blade);
             const float Applied = UGameplayStatics::ApplyPointDamage(
                 Target, Damage, Velocity.GetSafeNormal(), Hit, Shooter.IsValid() ? Shooter->GetController() : nullptr, Shooter.Get(),
                 URuneOrbBladeDamage::StaticClass());

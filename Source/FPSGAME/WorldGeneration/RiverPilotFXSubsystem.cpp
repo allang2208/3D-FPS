@@ -20,6 +20,7 @@ void URiverPilotFXSubsystem::OnWorldBeginPlay(UWorld& InWorld)
 {
     Super::OnWorldBeginPlay(InWorld);
     if(InWorld.GetNetMode()==NM_DedicatedServer)return;
+    BeginNativeOptics();
     LastBudgetTime=InWorld.GetTimeSeconds();
     SteamLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(SteamTemplate.ToSoftObjectPath(),
         FStreamableDelegate::CreateWeakLambda(this,[this](){PrepareSteamPool();SteamLoad.Reset();}));
@@ -35,6 +36,7 @@ void URiverPilotFXSubsystem::RegisterLevelWater(ULevel* Level,UWorld* World)
     // Once at level arrival, never a world scan on fire or Tick.
     for(AActor* Actor:Level->Actors)if(IsValid(Actor))
     {
+        RegisterNativeWaterLight(Actor);
         TInlineComponentArray<UStaticMeshComponent*> Meshes(Actor);
         for(auto* Mesh:Meshes)RegisterWaterSurface(Mesh);
     }
@@ -52,7 +54,32 @@ void URiverPilotFXSubsystem::RegisterWaterSurface(UStaticMeshComponent* Componen
         Material->SetScalarParameterValue(TEXT("WaterImpactEnabled"),1.f);
         for(int32 I=0;I<RippleSlots;++I)
             Material->SetVectorParameterValue(FName(*FString::Printf(TEXT("WaterHit%d"),I)),FLinearColor(0,0,-10000,0));
-        StaticSurfaces.Add({Component,Material,Shape});
+        const float ImmersionDepth=Shape->MeshPath.Contains(TEXT("RomanFountain"))?120.f:
+            Shape->MeshPath.Contains(TEXT("ShallowPuddles"))?2.f:0.f;
+        StaticSurfaces.Add({Component,Material,Shape,ImmersionDepth});
+    }
+}
+
+UMaterialInstanceDynamic* URiverPilotFXSubsystem::GetWaterSurfaceMaterial(const UStaticMeshComponent* Component) const
+{
+    for (const auto& Surface : StaticSurfaces)
+        if (Surface.Component.Get() == Component) return Surface.Material.Get();
+    return nullptr;
+}
+
+void URiverPilotFXSubsystem::SubmitSurfaceImpact(UStaticMeshComponent* Component, const FVector& Position, float Strength)
+{
+    for (const auto& Surface : StaticSurfaces)
+    {
+        if (Surface.Component.Get() != Component || !Surface.Material.IsValid()) continue;
+        FFluidWaterContact Contact;
+        Contact.Position = Position;
+        Contact.Normal = Component->GetUpVector();
+        Contact.Material = Surface.Material;
+        Contact.Scale = Surface.Footprint->StrengthScale;
+        Contact.Static = true;
+        EmitWater(Contact, FMath::Clamp(Strength, 0.f, 2.f), FVector::ZeroVector, true);
+        return;
     }
 }
 
@@ -252,6 +279,7 @@ void URiverPilotFXSubsystem::UnbindRiver(ATemperateHillsWorld* River)
 
 void URiverPilotFXSubsystem::Deinitialize()
 {
+    EndNativeOptics();
     FWorldDelegates::LevelAddedToWorld.Remove(LevelAddedHandle);
     if(SplashLoad){SplashLoad->CancelHandle();SplashLoad.Reset();}
     if(SteamLoad){SteamLoad->CancelHandle();SteamLoad.Reset();}

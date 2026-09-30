@@ -53,6 +53,7 @@ void UColdSteelHUDWidget::NativeConstruct()
 }
 void UColdSteelHUDWidget::NativeDestruct()
 {
+    HideWorkbenchInstantly();
     CancelQuickDrag();
     if (StatusModel) StatusModel->OnChanged.Remove(StatusModelHandle);
     StatusModelHandle.Reset();
@@ -156,7 +157,7 @@ UWidget* UColdSteelHUDWidget::BuildStatusPage()
     AddCharacterRow(Combat, TEXT("暴击率"), TEXT("crit"), TEXT("基础暴击率 = 向下取整(2 + 幸运)。随机暴击率 = max(0, 暴击率 - 目标抗暴)。头部要害仍可触发一次暴击。"));
     AddCharacterRow(Combat, TEXT("暴击倍率"), TEXT("critMultiplier"), TEXT("技能倍率 = 1 + 50% + 技能等级 × 5%；步枪精通的要害倍率另行相乘。"));
     AddCharacterRow(Combat, TEXT("暴击抵抗"), TEXT("critRes"), TEXT("基础抵抗 = 体质%。"));
-    AddCharacterRow(Combat, TEXT("攻速倍率"), TEXT("aspd"), TEXT("攻速倍率 = 1 + 敏捷×0.02；只看近战攻击速度。枪械射击间隔取武器基础值（配件与附魔另计）。"));
+    AddCharacterRow(Combat, TEXT("攻速倍率"), TEXT("aspd"), TEXT("攻速倍率 = (1 + 敏捷×0.02) × (1 + 装备近战攻速)。只看近战攻击速度。枪械射击间隔取武器基础值（配件与附魔另计）。"));
     AddCharacterRow(Combat, TEXT("步行速度"), TEXT("moveSpeed"), TEXT("站立、未瞄准时的步行速度上限，读取角色步行配置；不采样实时速度。已含当前武器的持械移速乘区，明细见本行详情。单位：米/秒。"));
     AddCharacterRow(Combat, TEXT("奔跑速度"), TEXT("moveSpeedDetail"), TEXT("站立冲刺状态的速度上限，读取角色奔跑配置；不包含滑铲、瞄准或过渡状态。已含当前武器的持械移速乘区。单位：米/秒。"));
 
@@ -217,7 +218,7 @@ void UColdSteelHUDWidget::RefreshCharacterSheet()
             MachineGunMultiplier,(1.f-MachineGunMultiplier)*100.f,StatusModel->PistolMovementMultiplier()*MachineGunMultiplier);
         CharacterDetails.Add(TEXT("moveSpeed"),MovementDetail);CharacterDetails.Add(TEXT("moveSpeedDetail"),MovementDetail);
         const double DexReloadSpeed=1.+FMath::Max(0.,StatusModel->Attribute(TEXT("dex"))+StatusModel->EquipmentBonus(TEXT("dex"))*StatusModel->InfectionAttributeMultiplier())*ColdSteelWeaponStats::DexReloadSpeedPerPoint;
-        const FString ReloadDetail=FString::Printf(TEXT("基础耗时 ÷（敏捷 %.2f × 快手 %.2f × 附魔/改造）= 实际换弹时间；普通、空仓换弹均生效，动作与音效同步加速。"),DexReloadSpeed,StatusModel->ReloadSpeedMultiplier());
+        const FString ReloadDetail=FString::Printf(TEXT("基础耗时 ÷（敏捷 %.2f × 快手 %.2f × 装备换弹 %.2f × 附魔/改造）= 实际换弹时间；普通、空仓换弹均生效，动作与音效同步加速。"),DexReloadSpeed,StatusModel->ReloadSpeedMultiplier(),1.+StatusModel->EquipmentBonus(TEXT("reloadSpeed")));
         CharacterDetails.Add(TEXT("reload"),ReloadDetail);CharacterDetails.Add(TEXT("emptyReload"),ReloadDetail);
         for (const auto& Pair : StatusModel->Attributes)
         {

@@ -30,7 +30,9 @@ FProductionToolStats ColdSteelTool::Evaluate(const FColdSteelItem& Item,const UC
     R.RateScale=FMath::Clamp(R.Modifiers.AttackSpeed,.25,4.);
     R.SwingSeconds=ColdSteelInventory::Number(Item,TEXT("swing_seconds"),1.1)/R.RateScale;
     R.ContactSeconds=FMath::Min(ColdSteelInventory::Number(Item,TEXT("contact_seconds"),.48)/R.RateScale,R.SwingSeconds*.9);
-    R.StaminaCost=(Profile?Profile->StaminaSettings().HarvestCost:FColdSteelStaminaTuning{}.HarvestCost)*R.Modifiers.Stamina;
+    // 采集体力同样吃装备的近战体力消耗系数（厚皮革手套等），与 ColdSteelMelee::AttackStamina 的工具支路同源。
+    R.StaminaCost=(Profile?Profile->StaminaSettings().HarvestCost:FColdSteelStaminaTuning{}.HarvestCost)*R.Modifiers.Stamina
+        *(Profile?FMath::Max(0.,1.+Profile->EquipmentBonus(TEXT("meleeStaminaCost"))):1.);
     R.HarvestReachCM=ColdSteelInventory::Number(Item,TEXT("harvest_reach_cm"),320)*R.Modifiers.HarvestReach;
     // 宽容半径是「倍率后再加绝对值」：矿镐出厂为 0（只认中心射线），改件的加值才给它辅助宽度。
     R.HarvestRadiusCM=ColdSteelInventory::Number(Item,TEXT("harvest_sweep_radius_cm"),0)*R.Modifiers.HarvestReach
@@ -49,16 +51,6 @@ FProductionToolStats ColdSteelTool::EvaluateActive(const UColdSteelStatusModel* 
 {
     const auto* Tool=Profile?Profile->ActiveProductionTool():nullptr;
     return Tool?Evaluate(*Tool,Profile,Preview):FProductionToolStats{};
-}
-
-int32 ColdSteelTool::HitsNeeded(const FProductionResource& Target,const FProductionToolStats& Stats)
-{
-    return HitsNeeded(Target.HitsNeeded(),Stats);
-}
-
-int32 ColdSteelTool::HitsNeeded(int32 Factory,const FProductionToolStats& Stats)
-{
-    return FMath::Max(1,Factory+Stats.HarvestHitsAdd);
 }
 
 int64 ColdSteelTool::Yield(int64 Factory,const FProductionToolStats& Stats)

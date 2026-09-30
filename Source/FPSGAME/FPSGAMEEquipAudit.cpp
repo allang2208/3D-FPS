@@ -61,7 +61,8 @@ void AFPSGAMECharacter::RunEquipFramingAcceptance(float DeltaSeconds)
     const auto Switch = [&]()
     {
         const FString Previous = ActiveInventoryWeapon;
-        Key(EKeys::G, IE_Pressed); Key(EKeys::G, IE_Released);
+        // G 已改为符文长剑飞剑键；武器轮换验收改走滚轮（同一 CycleWeapon 分支）。
+        Key(EKeys::MouseScrollUp, IE_Pressed); Key(EKeys::MouseScrollUp, IE_Released);
         Verify(TEXT("switch_uses_inventory_instance"), ActiveInventoryWeapon != Previous && WeaponState == EAKMWeaponState::Equipping);
         Verify(TEXT("switch_starts_at_own_hip"), M4ActionFramingAlpha == 0.0f && WeaponADSFactor == 0.0f
             && SprintPoseFactor == 0.0f && AKMViewmodel->GetRelativeLocation().Equals(HipViewmodelLocation, 0.001f));

@@ -37,6 +37,7 @@ enum class EBowStage : uint8
     Release,
     Recover,
     DrawEntry,
+    QuickCombat,
     LetDown,
 };
 
@@ -71,10 +72,12 @@ public:
     UFUNCTION(BlueprintPure, Category="Bow") float DrawFraction() const;
     UFUNCTION(BlueprintPure, Category="Bow") EBowStage GetStage() const { return Stage; }
     UFUNCTION(BlueprintPure, Category="Bow") int32 ArrowsInPouch() const;
-    FString StatusLine() const;
 
     /** 左键按下：0.2 秒到达拉弓首帧，再开始拉弓；箭支只在成功发射时扣除。 */
     void BeginPrimaryAttack();
+    /** Right-hand grab, two-handed down-left sweep, then one-handed idle. */
+    bool BeginQuickCombat();
+    bool GetQuickCombatStrikeProbe(FVector& Origin, float PoseSeconds);
     /** 从箭袋取箭上弦（R 键／自动搭箭共用）；弦上已有箭时什么都不做。 */
     void BeginNock();
     /** Save the selected arrow type, then nock it; spending still happens only at launch. */
@@ -82,7 +85,7 @@ public:
     /** 左键松开：拉距不足 50% 缓收弓；达到门槛按当前拉距结算。满拉力竭仍会发射。 */
     void ReleasePrimaryAttack();
     /** 右键：连续 ADS 对位与轻度变焦，不重启当前拉弓动作。 */
-    void SetSteadyHeld(bool bHeld) { bSteadyHeld = bHeld; }
+    void SetSteadyHeld(bool bHeld) { bSteadyHeld = bHeld && Stage != EBowStage::QuickCombat; }
     bool IsAimHeld() const { return IsEquipped() && bSteadyHeld; }
     float AimAlpha() const { return AimProgress; }
     float AimVerticalFOV(float BaseFOV) const;

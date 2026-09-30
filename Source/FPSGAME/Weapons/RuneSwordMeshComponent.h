@@ -3,7 +3,7 @@
 #include "../Skills/FPSCastingMeshComponent.h"
 #include "RuneSwordMeshComponent.generated.h"
 
-/** Sword-only entry blend, evaluated before the final bone/socket publication. */
+/** Sword entry/recovery blends, evaluated before the final bone/socket publication. */
 UCLASS()
 class FPSGAME_API URuneSwordMeshComponent : public UFPSCastingMeshComponent
 {
@@ -15,6 +15,8 @@ public:
     void CaptureLocomotionEntry();
     void LimitLocomotionEntry(float Seconds);
     void AdvanceLocomotionEntry(float Delta);
+    void CacheQuickCombatIdlePose();
+    void SetQuickCombatRecoveryWeight(float Weight);
     virtual void FinalizeBoneTransform() override;
 private:
     TWeakObjectPtr<USkeletalMesh> EntryMesh;
@@ -22,5 +24,12 @@ private:
     float EntryTime=0.f;
     static constexpr float EntrySeconds=.1f;
     void ApplyWhirlwindEntry();
+    void ApplyQuickCombatRecovery();
+    void BlendSupportedPoses(const TArray<FTransform>& From,const TArray<FTransform>& To,
+        float Alpha,bool bPreserveBoneLengths);
+    TWeakObjectPtr<USkeletalMesh> RecoveryMesh;
+    TArray<FTransform> RecoveryIdlePose;
+    float RecoveryWeight=0.f;
+    bool bCaptureRecoveryIdle=false;
     float EntryDuration=EntrySeconds;
 };

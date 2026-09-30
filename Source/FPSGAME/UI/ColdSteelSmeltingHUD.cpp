@@ -26,11 +26,14 @@ void UColdSteelHUDWidget::OpenSmelting(AActor* Furnace)
     auto* Piece=Cast<AVoxelBuildPrefabActor>(Furnace);
     auto* World=Piece?Cast<AVoxelBuildWorld>(Piece->GetOwner()):nullptr;
     if(!Piece||!World||!World->HasPrefabAt(Piece->AnchorCell()))return;
+    FIntVector FurnaceCell=Piece->AnchorCell();
+    if(Piece->PrefabId()==VoxelCastingStationId&&!World->FindCastingFurnace(FurnaceCell,FurnaceCell))return;
     // 高炉 E＝背包＋面板一起开（2026-09-23 用户澄清）；但打开背包本身永远不带出面板——
     // 面板只在 bSmeltingOpen 时显示，而它只能由这里的 E 交互置真。
     if(bWorkbenchOpen)HideWorkbenchInstantly();   // 与工作台制作面板同贴位互斥：瞬收，避免两层叠画
+    if(bForgingOpen||bForgeRiding)HideForgingInstantly();
     if(!bInventoryOpen){SetInventoryTab(false);SetInventoryOpen(true);}
-    SmeltingWorld=World;SmeltingCell=Piece->AnchorCell();
+    SmeltingWorld=World;SmeltingCell=FurnaceCell;
     bSmeltingOpen=true;bSmeltRiding=false;   // 弹出相位：抽屉到位后面板从其左缘滑出
     if(SmeltingWidget)
     {

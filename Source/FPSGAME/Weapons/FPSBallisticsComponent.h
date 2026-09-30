@@ -24,6 +24,7 @@ struct FFPSFlyingRound
     bool bRiverEntryPlayed=false;
     int32 Piercing=0,Poison=0;
     FColdSteelSkillShot Training;
+    TWeakObjectPtr<AActor> RicochetTarget;
     TArray<TWeakObjectPtr<AActor>> HitActors;
 };
 /** Straight swept projectiles, matching the source Godot zero-gravity fire path. */
@@ -34,6 +35,9 @@ class FPSGAME_API UFPSBallisticsComponent : public UActorComponent
 public:
     UFPSBallisticsComponent();
     void Launch(FVector Start,FVector Direction,float SpeedCM,float RangeCM,float Damage,UFPSWeaponFXComponent* FX,USoundBase* Headshot,float EffectiveRangeCM=0,const FColdSteelItem* ShotItem=nullptr,bool bConverged=false);
+    static bool IsShatterEnemy(AActor* Target,AActor* Shooter);
+    /** Enqueue children outside the active round array; no recursive Launch/JSON reads. */
+    void QueueShatter(const FHitResult& Hit,const FColdSteelSkillShot& Shot,const FWeaponDamageResult& Receipt);
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Fn) override;
     int32 ActiveCount()const{return Rounds.Num();}
     int32 ImpactCount=0;
@@ -41,6 +45,7 @@ public:
     FVector LastImpactPoint=FVector::ZeroVector;
 private:
     TArray<FFPSFlyingRound> Rounds;
+    TArray<FFPSFlyingRound> PendingShatterRounds;
     int32 NextRoundId=0;
     // Per-weapon shot counter for fps.Tracer.Every (presentation pacing only).
     int32 TracerRoundCounter=0;

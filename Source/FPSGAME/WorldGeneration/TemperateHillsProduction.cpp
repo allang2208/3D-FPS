@@ -1,6 +1,7 @@
 #include "TemperateHillsWorld.h"
 #include "../Production/ProductionResource.h"
 #include "../Production/ProductionFallingTree.h"
+#include "../Production/ProductionHarvestAssets.h"
 #include "../Production/ProductionHarvestSubsystem.h"
 #include "../Production/ProductionTreeHealth.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -10,7 +11,9 @@
 #include "Components/DynamicMeshComponent.h"
 #include "Engine/GameInstance.h"
 #include "Engine/StaticMesh.h"
+#include "Kismet/GameplayStatics.h"
 #include "PCGComponent.h"
+#include "Sound/SoundBase.h"
 #include "UObject/UObjectIterator.h"
 
 FString ATemperateHillsWorld::ProductionResourceId(int32 Layer,uint64 Candidate) const
@@ -20,11 +23,16 @@ FString ATemperateHillsWorld::ProductionResourceId(int32 Layer,uint64 Candidate)
 bool ATemperateHillsWorld::IsProductionDepleted(int32 Layer,uint64 Candidate) const
 {
     const auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+    if(!Profile)return false;
     const FString Id=ProductionResourceId(Layer,Candidate);
     // Regrown trees keep one owner for their whole lifetime, including maturity.
     // PCG must not add a second full-size tree when their harvest counter resets.
-    const int32 Needed=Layer==2?1:FProductionResource::RequiredHits;
-    return Profile && ((Layer==0 && Profile->HasTreeGrowth(Id)) || Profile->HarvestProgress(Id)>=Needed);
+    if(Layer==0 && Profile->HasTreeGrowth(Id))return true;
+    // 树木与岩块按生命比例判采尽（2026-09-30 岩块统一；旧档在读档换算里按旧命中数折算），
+    // 表土仍按挖层计数（一挥一层）。
+    if(Layer==0)return Profile->TreeHealthRatio(Id)<=0.f;
+    if(Layer==1)return Profile->RockHealthRatio(Id)<=0.f;
+    return Profile->HarvestProgress(Id)>=1;
 }
 
 bool ATemperateHillsWorld::ResolveProductionResource(const FHitResult& Hit,FProductionResource& Resource,FString& Reason) const
@@ -43,7 +51,6 @@ bool ATemperateHillsWorld::ResolveProductionResource(const FHitResult& Hit,FProd
         Resource.Id=ProductionResourceId(2,Resource.CandidateId); Resource.Name=TEXT("表土");
         Resource.RequiredTool=TEXT("shovel"); Resource.Rewards.Add(TEXT("soil"),2);
         // One swing per 20 cm layer: the excavation below runs on every hit.
-        Resource.HitsRequired=1;
         Resource.Transform=FTransform(FVector((X+.5)*250,(Y+.5)*250,Height((X+.5)*250,(Y+.5)*250)));
         return true;
     }
@@ -55,6 +62,26 @@ bool ATemperateHillsWorld::ResolveProductionResource(const FHitResult& Hit,FProd
     if (const auto* ISM=Cast<UInstancedStaticMeshComponent>(Component))
         if (!ISM->GetInstanceTransform(Hit.Item,Transform,true)) return false;
     FVector Origin=Transform.GetLocation();
+    // 树桩碰撞盒（组件带 HarvestStump 标签，由采集子系统随树桩渲染一起维护）：
+    // 按盒位置在采尽树桩表里找 ≤5 cm 的唯一桩，解析成独立的树桩资源（bStump）——
+    // 有自己的生命，可继续劈；劈尽掉一块木材，不触发倒树。
+    if (Tree && MeshComponent->ComponentTags.Contains(TEXT("HarvestStump")))
+    {
+        TArray<FTemperatePlacement> StumpsNear;
+        GetHarvestedStumps(FBox(Origin-FVector(50,50,50000),Origin+FVector(50,50,50000)),StumpsNear);
+        for (const auto& Stump:StumpsNear)
+        {
+            if (FVector2D::DistSquared(FVector2D(Origin),FVector2D(Stump.Transform.GetLocation()))>25) continue;
+            Resource.World=const_cast<ATemperateHillsWorld*>(this); Resource.Layer=0; Resource.bStump=true;
+            Resource.Transform=Stump.Transform; Resource.Mesh=Stump.Mesh; Resource.Seed=Stump.Key;
+            Resource.CandidateId=Stump.CandidateId; Resource.Id=ProductionResourceId(0,Stump.CandidateId);
+            Resource.Name=TEXT("树桩"); Resource.RequiredTool=TEXT("axe");
+            Resource.Rewards.Add(TEXT("wood"),1);
+            Resource.MaxHealth=ProductionTreeHealth::StumpMaxHealth(Resource);
+            return true;
+        }
+        Reason=TEXT("树桩已经劈开过了"); return false;
+    }
     if (Tree) Origin.Z-=300*Transform.GetScale3D().Z/6;
     TArray<FTemperatePlacement> Candidates;
     GetPlacements(Layer,FBox(Origin-FVector(50,50,50000),Origin+FVector(50,50,50000)),Candidates,true);
@@ -76,12 +103,14 @@ bool ATemperateHillsWorld::ResolveProductionResource(const FHitResult& Hit,FProd
         if (Tree) { Resource.Name=TEXT("树木"); Resource.Rewards.Add(TEXT("wood"),4); Resource.MaxHealth=ProductionTreeHealth::MaxHealth(Resource); }
         else
         {
-            const uint32 Pick=Candidate.Key%100;
-            const FString Ore=Pick<25?TEXT("iron_ore"):Pick<37?TEXT("copper_ore"):Pick<41?TEXT("silver_ore"):Pick<43?TEXT("gold_ore"):TEXT("");
+            const FString Ore=RockOreDefinition(Candidate.Key);
             Resource.Name=Ore==TEXT("iron_ore")?TEXT("含铁岩块"):Ore==TEXT("copper_ore")?TEXT("含铜岩块"):
                 Ore==TEXT("silver_ore")?TEXT("含银岩块"):Ore==TEXT("gold_ore")?TEXT("含金岩块"):TEXT("石块");
             Resource.Rewards.Add(TEXT("stone"),Ore.IsEmpty()?3:1);
             if (!Ore.IsEmpty()) Resource.Rewards.Add(Ore,2);
+            // 岩块与树木统一生命值口径（2026-09-30）：十字镐按采集伤害扣血，归零才碎。
+            // 只在这里算一次，结算与提示栏都读这一份资源快照。
+            Resource.MaxHealth=ProductionTreeHealth::RockMaxHealth();
         }
         return true;
     }
@@ -90,6 +119,20 @@ bool ATemperateHillsWorld::ResolveProductionResource(const FHitResult& Hit,FProd
 
 void ATemperateHillsWorld::CompleteProductionHarvest(const FProductionResource& Resource,const FHitResult& Hit,const FVector& Direction)
 {
+    // 树桩劈开（2026-09-28）：收走这一个桩的碰撞实例与渲染（标脏重建），木屑特效＋
+    // 开裂声；不生成倒树、不再登记新桩——同一候选点的幼树按自己的时钟继续长。
+    if (Resource.Layer==0 && Resource.bStump)
+    {
+        if (auto* ISM=Cast<UInstancedStaticMeshComponent>(Hit.GetComponent())) ISM->RemoveInstance(Hit.Item);
+        if(auto* Harvest=GetWorld()->GetSubsystem<UProductionHarvestSubsystem>())
+        {
+            Harvest->Burst(true,Hit.ImpactPoint,Resource.Seed);
+            Harvest->InvalidateStumps(Resource);
+        }
+        if(auto* Sound=Cast<USoundBase>(ProductionHarvestAssets::TreeSound(false).ResolveObject()))
+            UGameplayStatics::PlaySoundAtLocation(this,Sound,Hit.ImpactPoint,.7f,.9f+(Resource.Seed%11)*.01f);
+        return;
+    }
     if (Resource.Layer==2)
     {
         // Topsoil is real excavation: one completed shovel cycle removes one 20 cm
@@ -151,15 +194,22 @@ void ATemperateHillsWorld::GetHarvestedStumps(const FBox& Bounds,TArray<FTempera
     const auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
     // Reconstruct from the same seeded candidates and persisted depletion IDs.
     // No second stump save schema, and no tree/PCG regeneration on each chop.
-    for(int32 Y=FMath::FloorToInt(Bounds.Min.Y/1200);Y<=FMath::FloorToInt(Bounds.Max.Y/1200);++Y)
-    for(int32 X=FMath::FloorToInt(Bounds.Min.X/1200);X<=FMath::FloorToInt(Bounds.Max.X/1200);++X)
+    // 2026-09-28：树桩可能带偏移（被砍的树不在候选点基点上，最多 ±6.5 m）——枚举各扩
+    // 一格，入盒判定与扎根高度都用偏移后的桩位。
+    for(int32 Y=FMath::FloorToInt(Bounds.Min.Y/1200)-1;Y<=FMath::FloorToInt(Bounds.Max.Y/1200)+1;++Y)
+    for(int32 X=FMath::FloorToInt(Bounds.Min.X/1200)-1;X<=FMath::FloorToInt(Bounds.Max.X/1200)+1;++X)
     {
         FTemperatePlacement P;
-        if(TreeCandidate(X,Y,P)&&Bounds.IsInsideXY(P.Transform.GetLocation())&&IsProductionDepleted(0,P.CandidateId))
-        {
-            const float Scale=Profile?Profile->TreeStumpScale(ProductionResourceId(0,P.CandidateId)):1;
-            if(Scale>.01f){P.Transform.SetScale3D(P.Transform.GetScale3D()*Scale);Out.Add(P);}
-        }
+        if(!TreeCandidate(X,Y,P)||!IsProductionDepleted(0,P.CandidateId))continue;
+        const FString Id=ProductionResourceId(0,P.CandidateId);
+        const float Scale=Profile?Profile->TreeStumpScale(Id):1;
+        if(Scale<=.01f)continue;
+        const FVector2D Offset=Profile?Profile->TreeStumpOffset(Id):FVector2D::ZeroVector;
+        const double SX=P.Transform.GetLocation().X+Offset.X,SY=P.Transform.GetLocation().Y+Offset.Y;
+        if(!Bounds.IsInsideXY(FVector(SX,SY,P.Transform.GetLocation().Z)))continue;
+        P.Transform.SetScale3D(P.Transform.GetScale3D()*Scale);
+        P.Transform.SetLocation(FVector(SX,SY,Height(SX,SY)-10));
+        Out.Add(P);
     }
 }
 
@@ -167,17 +217,20 @@ void ATemperateHillsWorld::GetRegrowingTrees(const FBox& Bounds,TArray<FTemperat
 {
     const auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
     if(!Profile)return;
-    for(int32 Y=FMath::FloorToInt(Bounds.Min.Y/1200);Y<=FMath::FloorToInt(Bounds.Max.Y/1200);++Y)
-    for(int32 X=FMath::FloorToInt(Bounds.Min.X/1200);X<=FMath::FloorToInt(Bounds.Max.X/1200);++X)
+    // 2026-09-28 用户规则：幼树不长在原桩位，而在生长记录的随机偏移处（半径 2.8–6.5 m）；
+    // 枚举各扩一格，入盒判定与扎根高度都用偏移后的树位，缩放仍绕根（原 10 cm 嵌入按比例）。
+    for(int32 Y=FMath::FloorToInt(Bounds.Min.Y/1200)-1;Y<=FMath::FloorToInt(Bounds.Max.Y/1200)+1;++Y)
+    for(int32 X=FMath::FloorToInt(Bounds.Min.X/1200)-1;X<=FMath::FloorToInt(Bounds.Max.X/1200)+1;++X)
     {
         FTemperatePlacement P;if(!TreeCandidate(X,Y,P))continue;
-        const FVector At=P.Transform.GetLocation();
-        if(At.X<Bounds.Min.X||At.X>=Bounds.Max.X||At.Y<Bounds.Min.Y||At.Y>=Bounds.Max.Y)continue;
         const FString Id=ProductionResourceId(0,P.CandidateId);
         if(!Profile->HasTreeGrowth(Id))continue;
         const float Scale=Profile->TreeGrowthScale(Id);if(Scale<=0)continue;
+        const FVector2D Offset=Profile->TreeSaplingOffset(Id);
+        const double SX=P.Transform.GetLocation().X+Offset.X,SY=P.Transform.GetLocation().Y+Offset.Y;
+        if(SX<Bounds.Min.X||SX>=Bounds.Max.X||SY<Bounds.Min.Y||SY>=Bounds.Max.Y)continue;
         P.Transform.SetScale3D(P.Transform.GetScale3D()*Scale);
-        // Scale around the source root, keeping the original 10 cm embed proportional.
+        P.Transform.SetLocation(FVector(SX,SY,Height(SX,SY)-10));
         P.Transform.AddToTranslation(FVector(0,0,10*(1-Scale)));
         Out.Add(P);
     }

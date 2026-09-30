@@ -26,6 +26,9 @@ void UDevelopmentPanelWidget::NativeConstruct()
 
 void UDevelopmentPanelWidget::NativeDestruct()
 {
+    ++PerformanceExportGeneration;
+    bPerformanceExporting = false;
+    if (PerformanceExportButton) PerformanceExportButton->SetIsEnabled(true);
     // 面板被销毁时收回动画不会跑完，HUD 让位必须在这里直接解除。
     if (bHudYielded)
     {

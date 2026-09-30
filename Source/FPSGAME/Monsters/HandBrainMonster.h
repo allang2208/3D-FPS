@@ -50,7 +50,7 @@ public:
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Combat") float SlamReach=160.f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Combat") float SlamTriggerRange=300.f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Combat") float SlamCooldown=6.f;
- UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Combat") float HowlRadius=600.f;
+ UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Combat") float HowlRadius=900.f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Combat") float HowlCooldown=30.f;
  // 弱点只存在于 Howl 吟唱窗口：命中这些骨骼（大小写不敏感的包含匹配）才算要害。
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Combat") TArray<FString> WeakpointBones;

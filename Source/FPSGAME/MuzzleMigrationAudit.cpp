@@ -96,7 +96,9 @@ void AFPSGAMECharacter::RunMuzzleMigrationAudit()
         Check(WeaponHandling.RecoilIndex==100&&WeaponHandling.ShakeIndex==100&&ProjectileSpeedCM==9000&&MagazineAmmo==Ammo,TEXT("factory stats and ammo preserved after removal"));
         // Coexistence with optic and drum; additive ADS penalties match source.
         const auto Combo=G->Calculate(WeaponId,{{TEXT("muzzle"),TEXT("titanium_brake")},{TEXT("magazine"),TEXT("large_drum")},{TEXT("optic"),TEXT("holographic")}});
-        Check(Combo.Capacity==50&&FMath::IsNearlyEqual(Combo.Recoil,70.)&&Combo.ADS>.24, TEXT("muzzle stacks with drum and holographic without replacing their slots"));
+        // Drum capacity is +30 over the thirty-round magazine (60 total, the
+        // 2026-09-17 contract); the Godot-era +20/50 snapshot no longer applies.
+        Check(Combo.Capacity==60&&FMath::IsNearlyEqual(Combo.Recoil,70.)&&Combo.ADS>.24, TEXT("muzzle stacks with drum and holographic without replacing their slots"));
     });
     Later(bAKM?27.f:19.f,[this,Check,Later](){
         auto Target=[this](FVector Where){FActorSpawnParameters Params;Params.ObjectFlags=RF_Transient;auto* A=GetWorld()->SpawnActor<AStaticMeshActor>(Where,FRotator::ZeroRotator,Params);auto* M=A->GetStaticMeshComponent();M->SetMobility(EComponentMobility::Movable);M->SetStaticMesh(LoadObject<UStaticMesh>(nullptr,TEXT("/Engine/BasicShapes/Cube.Cube")));M->SetCollisionEnabled(ECollisionEnabled::QueryOnly);M->SetCollisionResponseToAllChannels(ECR_Ignore);M->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);A->SetActorScale3D(FVector(.02,2,2));auto* H=NewObject<UFPSCombatHealthComponent>(A);H->RegisterComponent();return TPair<AStaticMeshActor*,UFPSCombatHealthComponent*>(A,H);};

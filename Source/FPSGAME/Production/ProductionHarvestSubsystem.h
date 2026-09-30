@@ -5,6 +5,7 @@
 
 struct FStreamableHandle;
 struct FProductionResource;
+struct FTemperatePlacement;
 class AColdSteelPickup;
 class AProductionBreakEffect;
 class ATemperateHillsWorld;
@@ -28,6 +29,8 @@ public:
     void DelayDrops(const TArray<FString>& Ids,float Delay);
     void Burst(bool Wood,const FVector& At,uint32 Seed,bool Landing=false);
     void ShowStumpAtCut(const FProductionResource& Resource);
+    /** 树桩被劈开（2026-09-28）：标记树桩表脏，让下一次刷新收走渲染与碰撞；不动幼树。 */
+    void InvalidateStumps(const FProductionResource& Resource);
 private:
     TSharedPtr<FStreamableHandle> WoodLoad,StoneLoad;
     TSharedPtr<FStreamableHandle> FallLoads[4];
@@ -36,10 +39,14 @@ private:
     TArray<TWeakObjectPtr<AProductionBreakEffect>> Effects;
     TWeakObjectPtr<ATemperateHillsWorld> Hills;
     UPROPERTY(Transient) TArray<TObjectPtr<class UInstancedStaticMeshComponent>> Stumps;
+    /** 树桩隐形碰撞盒（组件带 HarvestStump 标签；ResolveProductionResource 据此解析成可劈的桩）。 */
+    UPROPERTY(Transient) TObjectPtr<class UInstancedStaticMeshComponent> StumpTrunks;
     FIntPoint StumpCell=FIntPoint(MAX_int32,MAX_int32);
     bool bStumpsDirty=true;
     double NextStumpRefresh=0;
     void UpdateStumps(const FVector& Eye,double Now);
+    /** 树桩隐形碰撞盒重建（与树桩渲染同表同节拍）。 */
+    void UpdateStumpTrunks(const TArray<FTemperatePlacement>& Places);
     void UpdateGrowingTrees(const FVector& Eye,double Now);
     void RemoveGrowingTree(uint64 Candidate);
     void ClearGrowingTrees();

@@ -3,6 +3,7 @@
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Development/DevelopmentTuningSubsystem.h"
 #include "../Skills/EnemyAttackDamage.h"
+#include "../Skills/IceWallCombat.h"
 #include "MonsterCharacterMovementComponent.h"
 #include "MonsterCombatComponent.h"
 #include "HumanoidKnockdownComponent.h"
@@ -148,6 +149,8 @@ bool ANurseZombie::CanSee(const AActor* Actor) const
 void ANurseZombie::TryMelee()
 {
     if (bAttackConsumed || !Target.IsValid()) return;
+    if(IceWallCombat::ApplyMelee(this,Target.Get(),MonsterCombatTuning::AttackDistance(AttackRange),AttackDamage,.55f))
+    {bAttackConsumed=true;return;}
     const FVector Offset = Target->GetActorLocation() - GetActorLocation();
     if (Offset.Size2D() > MonsterCombatTuning::AttackDistance(AttackRange) || FMath::Abs(Offset.Z) > 90.f ||
         FVector::DotProduct(GetActorForwardVector(),Offset.GetSafeNormal2D()) < .55f || !CanSee(Target.Get())) return;

@@ -60,9 +60,16 @@ void UM4GunsmithWidget::SetStandaloneMeleeItem(const FColdSteelItem& Item)
 
 void UM4GunsmithWidget::SyncStandaloneMeleePreview()
 {
+    if(IsStaffWorkbench()){SyncStandaloneStaffPreview();return;}
     if(!Capture||!StandaloneMelee||!StandaloneMelee->GetStaticMesh())return;
     const auto* Item=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->FindItem(Model()->Instance());
-    if(Item&&Model()->IsOpen()&&StandaloneKey.StartsWith(Item->InstanceId+TEXT("|")))SetStandaloneMeleeItem(*Item);
+    if(Item&&Model()->IsOpen()&&StandaloneKey.StartsWith(Item->InstanceId+TEXT("|")))
+    {
+        // 工具预览要带上强化草稿等级，否则面板每次重建都会退回实例等级。
+        // Key 里已含 |lv%d，草稿没变时这一句是空操作。
+        if(IsToolWorkbench())SetStandaloneToolItem(*Item,Model()->DraftEnhanceLevel());
+        else SetStandaloneMeleeItem(*Item);
+    }
     const FBox Bounds=ColdSteelModularSword::LocalBounds(StandaloneMelee);
     const FQuat Base=ColdSteelMeleePreview::Rotation(Bounds);
     const FQuat Turn(FVector::UpVector,FMath::DegreesToRadians(PreviewOrbit.X));

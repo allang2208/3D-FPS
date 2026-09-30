@@ -1,4 +1,5 @@
 #include "FPSPlayerBodyComponent.h"
+#include "../UI/FPSPerformanceMetrics.h"
 #include "../FPSGAMECharacter.h"
 #include "../Development/DevelopmentTuningSubsystem.h"
 #include "Camera/CameraTypes.h"
@@ -35,6 +36,9 @@ void UFPSPlayerBodyComponent::ApplyInteractionView(FVector& Eye, FRotator& View)
 
 void UFPSPlayerBodyComponent::UpdateWorldOwnerVisibility(bool bHideFromOwner)
 {
+    // 这条路径由 CalcCamera 每帧驱动，是「每帧重注册」的主要嫌疑位置。
+    UFPSPerformanceMetricsSubsystem::CountWorldVisibilityUpdate(this);
+    FFPSPerformanceScope PerformanceScope(this,TEXT("PlayerBody.WorldVisibility"));
     // fps.body.WorldBody 0 keeps these components hidden regardless of the view mode.
     // This path runs from CalcCamera on every camera update, so without the early out
     // it would put the body straight back on screen.

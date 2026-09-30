@@ -37,14 +37,21 @@ public:
     void RetainBiomeResources(const TArray<TSharedPtr<FStreamableHandle>>& Handles);
     void ShowStartupMenu(APlayerController* Controller);
     bool IsCompletePreloadSelected() const { return bCompletePreload; }
+    /** True while the loading overlay still owns game input (not during fade-out). */
+    bool IsHoldingGameplayInput() const { return StartupOverlay.IsValid() || (View.IsValid() && FinishedAt==0 && Overlay.IsValid()); }
     // 启动方式菜单或加载遮罩当前是否持有玩家光标与输入模式。Pawn 的 BeginPlay 晚于
     // ShowStartupMenu，需要据此跳过"恢复第一人称默认"的抢占，否则初始界面看不见鼠标。
-    bool OwnsPlayerCursor() const { return StartupOverlay.IsValid() || (Overlay.IsValid() && CursorController.IsValid()); }
+    bool OwnsPlayerCursor() const { return IsHoldingGameplayInput(); }
+    /** Immediate GameOnly restore. Safe to call after dungeon/hills preparation completes. */
+    void ReleaseToGameplay();
 
 private:
     void BeforeMap(const FString& Map);
     void AfterMap(UWorld* World);
-    void AttachOverlay();
+    void AttachOverlay(bool bRememberViewportIgnore);
+    void DetachOverlayWidget();
+    void CaptureLoadingInput();
+    void RestoreGameplayInput();
     void RemoveOverlay();
     TSharedPtr<FTransitLoadingView> View;
     TSharedPtr<SWidget> Overlay;

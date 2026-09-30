@@ -1,24 +1,17 @@
 #include "DungeonRoomEncounter.h"
 #include "DungeonRunSubsystem.h"
+#include "DungeonRoomGate.h"
+#include "DungeonRoomGateDimensions.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "Components/BoxComponent.h"
 #include "Components/SceneComponent.h"
-#include "Components/StaticMeshComponent.h"
-#include "Engine/StaticMesh.h"
 #include "Engine/World.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/PlayerController.h"
-#include "Materials/MaterialInterface.h"
-#include "UObject/ConstructorHelpers.h"
 
 namespace
 {
     constexpr float GateTickSeconds = .05f;      // 与 Boss 遭遇同款 armed tick
-    constexpr float GateOpenRate = 1.6f;         // 门板升降速率（GateOpen 单位/秒）
-    constexpr double GateWidth = 340.0;          // 门宽
-    constexpr double GateHeight = 300.0;         // 门高
-    constexpr double GateThickness = 36.0;       // 门厚
-    constexpr double GateOffset = 10.0;          // 门板中心沿法线往房内让出的距离
     constexpr double TriggerDepth = 200.0;       // 触发盒进深
     constexpr double TriggerWidth = 400.0;       // 触发盒横向
     constexpr double TriggerHeight = 320.0;      // 触发盒高度
@@ -26,27 +19,11 @@ namespace
     constexpr double RoomContainMargin = 250.0;  // 判定"玩家还在房内"的体积外扩
     constexpr double RetrySeconds = 10.0;        // 落点失败重试（村庄 spawner 口径）
     constexpr int32 MaxSlotAttempts = 3;
-    // Boss GateMesh 同款资源（catalog boss_encounter.gate_material 指向同一材质实例）。
-    const TCHAR* GateMaterialPath = TEXT("/Game/Dungeons/SeamMetal20260923/Materials/MI_BossStructuralSteel.MI_BossStructuralSteel");
 }
 
 ADungeonRoomEncounter::ADungeonRoomEncounter()
 {
     RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RoomEncounterRoot"));
-    // 门板：/Engine 单位立方体 + 结构钢材质实例，运行时按门口尺寸缩放（Boss Gate 同款资源）。
-    Gate = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("RoomGate"));
-    Gate->SetupAttachment(RootComponent);
-    Gate->SetMobility(EComponentMobility::Movable);
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> Cube(TEXT("/Engine/BasicShapes/Cube.Cube"));
-    if (Cube.Succeeded()) Gate->SetStaticMesh(Cube.Object);
-    static ConstructorHelpers::FObjectFinder<UMaterialInterface> Steel(GateMaterialPath);
-    if (Steel.Succeeded()) GateMaterial = Steel.Object;
-    Gate->SetCollisionProfileName(TEXT("BlockAll"));
-    Gate->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-    Gate->SetGenerateOverlapEvents(false);
-    // 临时门板绝不参与导航重建（Boss Gate 同款）。
-    Gate->SetCanEverAffectNavigation(false);
-    Gate->SetHiddenInGame(true);
     TriggerBox = CreateDefaultSubobject<UBoxComponent>(TEXT("RoomDoorTrigger"));
     TriggerBox->SetupAttachment(RootComponent);
     TriggerBox->SetMobility(EComponentMobility::Movable);
@@ -97,22 +74,42 @@ void ADungeonRoomEncounter::Configure(UDungeonRunSubsystem* InSubsystem, int32 I
     }
     DoorCenter = DoorCenterIn;
     DoorNormal = DoorNormalIn.GetSafeNormal();
-    bDoorValid = !DoorNormal.IsNearlyZero() && !DoorCenter.IsNearlyZero();
+    bDoorValid = !DoorNormal.IsNearlyZero() && !DoorCenter.ContainsNaN();
     if (!bDoorValid)
         UE_LOG(LogTemp, Warning, TEXT("[RoomEncounter] 房 %d 门口参数无效：不封门，只生成精英组。"), InRoomNodeId);
 
-    // 门口几何全部按世界坐标摆放，因此与本体 Actor 的旋转/缩放无关。
+    // Every real connected port gets the same kit, fitted in its own door frame.
+    // The authored room frame remains intact; rails mount on the room-facing side.
     const FRotator Facing = bDoorValid ? FRotator(0, DoorNormal.Rotation().Yaw, 0) : FRotator::ZeroRotator;
-    GateBase = bDoorValid ? DoorCenter - DoorNormal * GateOffset : FVector::ZeroVector;
-    Gate->SetWorldLocationAndRotation(GateBase, Facing);
-    // 单位立方体 100cm：局部 X=厚、Y=宽、Z=高（局部 X 已随法线定向）。
-    Gate->SetRelativeScale3D(FVector(GateThickness, GateWidth, GateHeight) / 100.0);
-    Gate->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-    if (GateMaterial) Gate->SetMaterial(0, GateMaterial);
+    for (ADungeonRoomGate* Previous : Gates) if (IsValid(Previous)) Previous->Destroy();
+    Gates.Reset();
+    if(bDoorValid)if(const auto* Node=InSubsystem?InSubsystem->NodeById(InRoomNodeId):nullptr)
+        for(const FDungeonRunDoor& Door:Node->Doors)
+        {
+            FActorSpawnParameters Params;
+            Params.Owner = this;
+            Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+            auto* Assembly = GetWorld()->SpawnActor<ADungeonRoomGate>(ADungeonRoomGate::StaticClass(), FTransform::Identity, Params);
+            if (!Assembly || !Assembly->Configure(Door))
+            {
+                if (Assembly) Assembly->Destroy();
+                bDoorValid = false;
+                break;
+            }
+            Gates.Add(Assembly);
+        }
+    if (Gates.IsEmpty()) bDoorValid = false;
+    if (!bDoorValid)
+    {
+        for (ADungeonRoomGate* Assembly : Gates) if (IsValid(Assembly)) Assembly->Destroy();
+        Gates.Reset();
+        UE_LOG(LogTemp, Warning, TEXT("[RoomEncounter] 房 %d 闸门资源或门洞不完整：保留开放战斗。"), RoomNodeId);
+    }
     TriggerBox->SetWorldLocationAndRotation(bDoorValid ? DoorCenter + DoorNormal * TriggerInset : FVector::ZeroVector, Facing);
     TriggerBox->SetBoxExtent(FVector(TriggerDepth, TriggerWidth, TriggerHeight) * .5);
     GateOpen = 1.f;
     bSealed = false;
+    bEncounterStarted=false;
     bEncounterComplete = Slots.IsEmpty();
     NextAttemptAt = 0.0;
     NextCandidate = 0;
@@ -128,8 +125,7 @@ void ADungeonRoomEncounter::Activate()
     if (!World || !World->IsGameWorld() || !HasAuthority() || bArmed) return;
     bArmed = true;
     SetActorTickEnabled(true);
-    // 封门失败保护：门口参数无效时不封门，武装即尝试生成精英组（校验闸门照旧生效）。
-    if (!bDoorValid && !bEncounterComplete) AttemptSpawns();
+    // Even encounters without a usable doorway wait for the player to enter.
     UE_LOG(LogTemp, Display, TEXT("[RoomEncounter] 武装：房 %d 精英组 %d 只 封门=%s 落点=%d"),
         RoomNodeId, Slots.Num(), bDoorValid ? TEXT("是") : TEXT("否"), Candidates.Num());
 }
@@ -140,37 +136,41 @@ void ADungeonRoomEncounter::Tick(float DeltaSeconds)
     if (!bArmed || !HasAuthority()) return;
     if (!bEncounterComplete)
     {
-        if (bSealed)
+        const bool Inside=CombatantInside();
+        if (bSealed && (!Inside || (GateOpen > 0.f && IsGateSweepOccupied()))) OpenGate();
+        if(Inside)
         {
-            // 玩家死亡或离开房间 → 放行开门（怪保留），回到触发线可重新封门，绝不把进度锁死。
-            if (!CombatantInside()) OpenGate();
+            bEncounterStarted=true;
+            AttemptSpawns();
+            // Complete the spawn wave before sealing; cap/nav failures leave an exit.
+            if(bDoorValid&&!HasPending()&&AliveCount()>0)SealGate();
         }
-        else if (bDoorValid && TriggerContains(LivePlayer())) SealGate();
-        AttemptSpawns();
-        // 全员 IsDead（或全部落点放弃）即完成；HasPending 保证首轮生成前不会误判。
-        if ((bSealed || !bDoorValid) && AliveCount() == 0 && !HasPending()) Complete();
+        if(bEncounterStarted&&AliveCount()==0&&!HasPending())Complete();
     }
-    GateOpen = FMath::FInterpConstantTo(GateOpen, (bSealed && !bEncounterComplete) ? 0.f : 1.f, DeltaSeconds, GateOpenRate);
+    const float TargetOpen = (bSealed && !bEncounterComplete) ? 0.f : 1.f;
+    GateOpen = FMath::FInterpConstantTo(GateOpen, TargetOpen, DeltaSeconds, float(1. / DungeonRoomGateDimensions::TravelSeconds));
     UpdateGate();
+    // Smooth door motion uses frame ticks only while travelling; encounter polling stays at 20 Hz.
+    SetActorTickInterval(GateOpen == TargetOpen ? GateTickSeconds : 0.f);
     if (bEncounterComplete && GateOpen >= 1.f) SetActorTickEnabled(false);
 }
 
 void ADungeonRoomEncounter::SealGate()
 {
     if (bSealed || bEncounterComplete || !bDoorValid) return;
+    // Use the actual four-track sweep on the room side, including the whole capsule.
+    if (IsGateSweepOccupied()) return;
     bSealed = true;
-    Gate->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+    SetActorTickInterval(0.f);
     Tags.AddUnique(TEXT("DungeonRoom.Sealed"));
-    NextAttemptAt = 0.0;   // 封门当帧就开始落怪，不等重试窗口
-    UE_LOG(LogTemp, Display, TEXT("[RoomEncounter] 房 %d 封门，精英组 %d 只开始落地。"), RoomNodeId, Slots.Num());
-    AttemptSpawns();
+    UE_LOG(LogTemp, Display, TEXT("[RoomEncounter] 房 %d 精英组落地完成，封闭全部连接门。"), RoomNodeId);
 }
 
 void ADungeonRoomEncounter::OpenGate()
 {
     if (!bSealed) return;   // 幂等：导演巡检也会催一次
     bSealed = false;
-    Gate->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    SetActorTickInterval(0.f);
     Tags.Remove(TEXT("DungeonRoom.Sealed"));
     UE_LOG(LogTemp, Display, TEXT("[RoomEncounter] 房 %d 开门。"), RoomNodeId);
 }
@@ -190,16 +190,21 @@ void ADungeonRoomEncounter::Complete()
 void ADungeonRoomEncounter::UpdateGate()
 {
     if (!bDoorValid) return;
-    // Boss 同款升降过渡：GateOpen=0 落下封门，1 完全升到门洞上方后隐藏。
-    Gate->SetWorldLocation(GateBase + FVector(0, 0, GateOpen * (GateHeight + 16.0)));
-    Gate->SetHiddenInGame(GateOpen >= 1.f);
-    Gate->SetVisibility(GateOpen < 1.f);
+    for (ADungeonRoomGate* Assembly : Gates) if (IsValid(Assembly)) Assembly->SetOpenFraction(GateOpen);
+}
+
+bool ADungeonRoomEncounter::IsGateSweepOccupied() const
+{
+    const APawn* Player = LivePlayer();
+    for (const ADungeonRoomGate* Assembly : Gates)
+        if (IsValid(Assembly) && Assembly->IsSweepOccupied(Player)) return true;
+    return false;
 }
 
 void ADungeonRoomEncounter::AttemptSpawns()
 {
     UWorld* World = GetWorld();
-    if (!World || !bArmed || !HasPending()) return;
+    if (!World || !bArmed || !bEncounterStarted || !CombatantInside() || !HasPending()) return;
     const double Now = World->GetTimeSeconds();
     if (Now < NextAttemptAt) return;
     NextAttemptAt = Now + RetrySeconds;
@@ -215,6 +220,8 @@ void ADungeonRoomEncounter::AttemptSpawns()
     {
         FDungeonRoomEncounterSlot& Slot = Slots[Index];
         if (Slot.bGivenUp || Slot.bFilled) continue;
+        if(const auto* Director=Cast<ADungeonSpawnDirector>(GetOwner());Director&&!Director->CanSpawnMember())
+        {NextAttemptAt=Now+.25;return;}
         ACharacter* Monster = nullptr;
         for (int32 Try = 0; Try < Candidates.Num(); ++Try)
         {
@@ -223,7 +230,7 @@ void ADungeonRoomEncounter::AttemptSpawns()
             // 房内落怪不做玩家距离/视线闸门（玩家已进房触发封门）；nav/资产/碰撞闸门与导演完全一致。
             Monster = ADungeonSpawnDirector::SpawnMonsterAtGround(this, this, Slot.Member, Ground,
                 ADungeonSpawnDirector::YawToward(Ground, RoomCenter), true,
-                Sub ? Sub->EnemySlotTag(RoomNodeId, Index) : NAME_None);
+                Sub ? Sub->EnemySlotTag(RoomNodeId, Index) : NAME_None,Sub?Sub->NodeById(RoomNodeId):nullptr);
             if (Monster) break;
         }
         if (Monster)
@@ -268,6 +275,8 @@ bool ADungeonRoomEncounter::TriggerContains(const APawn* Pawn) const
 bool ADungeonRoomEncounter::RoomContains(const APawn* Pawn) const
 {
     if (!IsValid(Pawn) || !RoomVolume.IsValid) return false;
+    if(const auto* Sub=Run.Get())if(const auto* Node=Sub->NodeById(RoomNodeId))
+        return Node->DistanceSquared(Pawn->GetActorLocation())<=FMath::Square(40.);
     return RoomVolume.ExpandBy(FVector(RoomContainMargin)).IsInsideOrOn(Pawn->GetActorLocation());
 }
 
@@ -307,10 +316,17 @@ bool ADungeonRoomEncounter::HasPending() const
     return false;
 }
 
+int32 ADungeonRoomEncounter::PendingCount()const
+{
+    int32 Count=0;for(const auto& Slot:Slots)if(!Slot.bFilled&&!Slot.bGivenUp)++Count;return Count;
+}
+
 void ADungeonRoomEncounter::EndPlay(const EEndPlayReason::Type Reason)
 {
     // 清场照抄 Boss 遭遇：解绑委托 + 销毁自有精英组，跨布局零残留。
     bArmed = false;
+    for (ADungeonRoomGate* Assembly : Gates) if (IsValid(Assembly)) Assembly->Destroy();
+    Gates.Reset();
     for (AActor* Actor : Owned)
     {
         if (!IsValid(Actor)) continue;

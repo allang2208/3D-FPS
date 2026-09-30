@@ -3,6 +3,7 @@
 #include "Components/ActorComponent.h"
 #include "ProductionResource.h"
 #include "ProductionAxeImpactMotion.h"
+#include "ProductionToolStats.h"
 #include "../Skills/ColdSteelSkillTypes.h"
 #include "ProductionToolComponent.generated.h"
 
@@ -15,6 +16,8 @@ class USceneComponent;
 class USoundBase;
 class UParticleSystem;
 class UColdSteelPickupPrompt;
+class UColdSteelStatusModel;
+struct FColdSteelItem;
 struct FStreamableHandle;
 
 /** Local production-tool presentation. Profile owns inventory and depletion commits. */
@@ -29,6 +32,8 @@ public:
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
     bool IsEquipped() const { return !EquippedId.IsEmpty(); }
     bool IsBusy() const { return Elapsed>=0.f || EquipElapsed>=0.f; }
+    bool IsEquipping() const { return EquipElapsed>=0.f; }
+    bool GetEnchantmentBladeAttachment(USceneComponent*& Parent,FName& Socket,FTransform& LocalFrame,float& Length) const;
     void RefreshHeldTool();
     void BeginUse();
     /** Right-click while a shovel is out: raise one 20 cm layer, spending soil. */
@@ -49,6 +54,7 @@ public:
     UPROPERTY(EditAnywhere,Category="Production|Pickaxe Locomotion") FRotator PickaxeWalkAngles=FRotator(.3f,.3f,.55f);
     UPROPERTY(EditAnywhere,Category="Production|Pickaxe Locomotion") FRotator PickaxeRunAngles=FRotator(1.f,1.f,2.f);
 private:
+    static void LoadEnchantmentAnchors();
     friend class UFPSPlayerBodyComponent;
     TWeakObjectPtr<AFPSGAMECharacter> Character;
     UPROPERTY(Transient) TObjectPtr<UCameraComponent> Camera;
@@ -74,6 +80,17 @@ private:
     FColdSteelSkillShot AxeStrike;
     float AxeHarvestReach=320.f, AxeCombatReach=180.f;
     float AxeHarvestRadius=32.f, AxeCombatRadius=24.f;
+    /** 改造实值：采集距离/半径、体力、伤害与挥砍速度都读它，不在各处二次换算。 */
+    FProductionToolStats ToolStats;
+    /** 挥砍速度倍率：真实时间 = 作者时间 ÷ RateScale。1 = 未改造，动作与镜头时序逐帧不变。 */
+    float RateScale=1.f;
+    /** 同一实例改了改造件也要刷新：物品 Data 变化即视为换装。 */
+    uint32 EquippedDataHash=0;
+    /** 作者节奏（SwingSeconds/ContactSeconds 与镜头关键帧）换算成真实时间。 */
+    float AuthoredElapsed() const { return Elapsed*RateScale; }
+    float RealContactSeconds() const { return ContactSeconds/RateScale; }
+    float RealSwingSeconds() const { return SwingSeconds/RateScale; }
+    void ApplyToolStats(const FColdSteelItem* Item,UColdSteelStatusModel* Profile);
     bool CanUse() const;
     /** Shared single-target query for the hint and the contact event. */
     bool TraceAxeContact(FProductionResource& Resource,FHitResult& Hit,FString& Reason) const;

@@ -4,6 +4,9 @@
 #include "FPSPlayerBodyPoses.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/RuneSwordComponent.h"
+#include "../Weapons/Staff/StaffWeaponComponent.h"
+#include "../Weapons/Staff/StaffAssembly.h"
+#include "../Weapons/Staff/StaffGripPose.h"
 #include "../Weapons/PistolDualWieldComponent.h"
 #include "../Production/ProductionToolComponent.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -37,8 +40,9 @@ void ApplyOwnerVisibilityFlags(UPrimitiveComponent* Mesh,bool bOnlyOwnerSee,bool
     if(bOnlyChanged)Mesh->SetOnlyOwnerSee(bOnlyOwnerSee);
     if(bOwnerChanged)Mesh->SetOwnerNoSee(bOwnerNoSee);
     // Count changed fields in this instrumented path, not calls or render-state recreates.
-    if(bOnlyChanged)UFPSPerformanceMetricsSubsystem::CountVisibilityFlagChange();
-    if(bOwnerChanged)UFPSPerformanceMetricsSubsystem::CountVisibilityFlagChange();
+    if(bOnlyChanged||bOwnerChanged)
+        UFPSPerformanceMetricsSubsystem::CountVisibilityFlagChange(Mesh,
+            static_cast<int32>(bOnlyChanged)+static_cast<int32>(bOwnerChanged));
 }
 void ApplyShadowFlags(UPrimitiveComponent* Mesh,bool bCastShadow)
 {
@@ -47,8 +51,9 @@ void ApplyShadowFlags(UPrimitiveComponent* Mesh,bool bCastShadow)
     const bool bHiddenChanged=Mesh->bCastHiddenShadow!=bCastShadow;
     if(bCastChanged)Mesh->SetCastShadow(bCastShadow);
     if(bHiddenChanged)Mesh->SetCastHiddenShadow(bCastShadow);
-    if(bCastChanged)UFPSPerformanceMetricsSubsystem::CountVisibilityFlagChange();
-    if(bHiddenChanged)UFPSPerformanceMetricsSubsystem::CountVisibilityFlagChange();
+    if(bCastChanged||bHiddenChanged)
+        UFPSPerformanceMetricsSubsystem::CountVisibilityFlagChange(Mesh,
+            static_cast<int32>(bCastChanged)+static_cast<int32>(bHiddenChanged));
 }
 static UMaterialInterface* PersistentMaterial(UMaterialInterface* Material)
 {
@@ -97,7 +102,8 @@ FFPSBodyWeapon UFPSPlayerBodyComponent::CaptureWeapon(USkeletalMeshComponent* So
 }
 void UFPSPlayerBodyComponent::CaptureEquipment()
 {
-    UFPSPerformanceMetricsSubsystem::CountEquipmentCapture();
+    UFPSPerformanceMetricsSubsystem::CountEquipmentCapture(this);
+    FFPSPerformanceScope PerformanceScope(this,TEXT("PlayerBody.EquipmentCapture"));
     const auto* Pawn=Character.Get();TArray<FFPSBodyWeapon> Weapons;
     if(Pawn->IsDualWieldingPistols())
     {
@@ -111,6 +117,28 @@ void UFPSPlayerBodyComponent::CaptureEquipment()
     else if(Pawn->HasInventoryWeapon())Weapons.Add(CaptureWeapon(Pawn->AKMViewmodel,Pawn->IdleAnimation,TEXT("hand_r")));
     else if(const auto* Sword=Pawn->FindComponentByClass<URuneSwordComponent>();Sword&&Sword->IsEquipped())
         Weapons.Add(CaptureWeapon(Sword->Viewmodel,Sword->Animations.FindRef(TEXT("Idle")),TEXT("hand_r")));
+    else if(const auto* Staff=Pawn->FindComponentByClass<UStaffWeaponComponent>();Staff&&Staff->IsEquipped()&&Staff->AssemblyRoot()&&Staff->AssemblyRoot()->GetStaticMesh())
+    {
+        FFPSBodyWeapon Entry;const auto* Root=Staff->AssemblyRoot();Entry.StaticMesh=Root->GetStaticMesh();
+        FQuat HandBasis=FQuat::Identity;
+        if(const auto* Body=GetBodyMesh();Body&&Body->GetSkeletalMeshAsset())
+        {const auto& Ref=Body->GetSkeletalMeshAsset()->GetRefSkeleton();FTransform Hand=FTransform::Identity;
+            for(int32 B=Ref.FindBoneIndex(TEXT("hand_r"));B!=INDEX_NONE;B=Ref.GetParentIndex(B))Hand=Hand*Ref.GetRefBonePose()[B];HandBasis=Hand.GetRotation();}
+        const FQuat StaffRotation=HandBasis.Inverse()*FRotator(0,90,0).Quaternion();
+        Entry.StaticGrip=FTransform(StaffRotation,-StaffRotation.RotateVector(StaffGripPose::HoldPoint()));
+        for(auto* C:ColdSteelStaffAssembly::Components(Staff->AssemblyRoot()))
+        {
+            if(C==Root){for(auto* M:C->GetMaterials())Entry.Materials.Add(FPSBodyEquipment::PersistentMaterial(M));continue;}
+            FFPSBodyAttachment Part;Part.Mesh=C->GetStaticMesh();Part.RelativeTransform=C->GetRelativeTransform();
+            for(auto* M:C->GetMaterials())Part.Materials.Add(FPSBodyEquipment::PersistentMaterial(M));Entry.Parts.Add(MoveTemp(Part));
+        }
+        Weapons.Add(MoveTemp(Entry));
+        if(Pawn->HasOffhandPistol())
+        {
+            const auto& Hand=Pawn->DualPistols->Hand(1);
+            Weapons.Add(CaptureWeapon(Hand.Mesh,Hand.Clips.FindRef(TEXT("idle")),TEXT("hand_r")));
+        }
+    }
     else if(const auto* Tool=Pawn->FindComponentByClass<UProductionToolComponent>();Tool&&Tool->IsEquipped())
     {
         if(Tool->bUsesArms)Weapons.Add(CaptureWeapon(Tool->Viewmodel,Tool->Motions.FindRef(TEXT("Idle")),TEXT("hand_r")));
@@ -170,7 +198,7 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
 {
     auto* Body=GetBodyMesh();if(!Body)return;
     if(FPSPlayerBodyWorldBodySuppressed())return;
-    UFPSPerformanceMetricsSubsystem::CountEquipmentRebuild();
+    UFPSPerformanceMetricsSubsystem::CountEquipmentRebuild(this);
     for(auto Part:WorldParts)if(Part)Part->DestroyComponent();WorldParts.Reset();
     for(auto Weapon:WorldWeapons)if(Weapon)Weapon->DestroyComponent();WorldWeapons.Reset();
     WorldEquipmentHands.Reset();
@@ -186,7 +214,16 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
             WorldEquipmentHands.Add(Part,static_cast<uint8>(Index));
             FPSBodyEquipment::WorldVisibility(Part);
             for(int32 I=0;I<Definition.Materials.Num();++I)if(auto* Material=Definition.Materials[I].LoadSynchronous())Part->SetMaterial(I,Material);
-            Part->RegisterComponent();WorldParts.Add(Part);continue;
+            Part->RegisterComponent();WorldParts.Add(Part);
+            for(const auto& Attachment:Definition.Parts)if(auto* ChildMesh=Attachment.Mesh.LoadSynchronous())
+            {
+                auto* Child=NewObject<UStaticMeshComponent>(GetOwner(),NAME_None,RF_Transient);GetOwner()->AddInstanceComponent(Child);
+                Child->SetStaticMesh(ChildMesh);Child->SetupAttachment(Part);Child->SetRelativeTransform(Attachment.RelativeTransform);
+                WorldEquipmentHands.Add(Child,static_cast<uint8>(Index));FPSBodyEquipment::WorldVisibility(Child);
+                for(int32 I=0;I<Attachment.Materials.Num();++I)if(auto* M=Attachment.Materials[I].LoadSynchronous())Child->SetMaterial(I,M);
+                Child->RegisterComponent();WorldParts.Add(Child);
+            }
+            continue;
         }
         auto* Asset=Definition.Mesh.LoadSynchronous();if(!Asset)continue;
         auto* Weapon=NewObject<USkeletalMeshComponent>(GetOwner(),NAME_None,RF_Transient);
@@ -237,7 +274,7 @@ bool UFPSPlayerBodyComponent::IsWorldWeaponStowed(UPrimitiveComponent* Mesh) con
     const float Now=ServerClock();
     if(FPSBodyPoses::Traversing(DisplayState.Motion)||Now<WorldWeaponsHiddenUntil)return true;
     const auto* Hand=WorldEquipmentHands.Find(Mesh);
-    return Hand&&*Hand==1&&((DisplayState.bDual&&DisplayState.Action==EFPSBodyAction::Cast)||Now<OffhandWeaponHiddenUntil);
+    return Hand&&*Hand==1&&(((DisplayState.bDual||DisplayState.bOffhandPistol)&&DisplayState.Action==EFPSBodyAction::Cast)||Now<OffhandWeaponHiddenUntil);
 }
 
 void UFPSPlayerBodyComponent::UpdateWorldWeaponPresentation()
@@ -263,6 +300,7 @@ void UFPSPlayerBodyComponent::ApplyOutfit(const TArray<FFPSBodyOutfitSlot>& Outf
     if(auto* Modular=GetOwner()->FindComponentByClass<UFPSModularOutfitComponent>())Modular->SetWorldOutfit(Outfit);
     if(FPSPlayerBodyWorldBodySuppressed())return;
     auto* Body=GetBodyMesh();if(!Body||!Configuration.IsValid())return;
+    UFPSPerformanceMetricsSubsystem::CountOutfitRebuild(this);
     for(auto Part:OutfitMeshes)if(Part)Part->DestroyComponent();OutfitMeshes.Reset();
     for(auto It=OriginalMaterials.CreateIterator();It;++It)
     {

@@ -5,6 +5,36 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "HAL/IConsoleManager.h"
+#include "Misc/FileHelper.h"
+#include "Misc/Paths.h"
+#include "Dom/JsonObject.h"
+#include "Serialization/JsonSerializer.h"
+
+namespace
+{
+struct FToolElectricAnchor {FVector Base=FVector::ZeroVector,Tip=FVector::ZeroVector;};
+TMap<FString,FToolElectricAnchor> ElectricAnchors;
+}
+
+void UProductionToolComponent::LoadEnchantmentAnchors()
+{
+    static bool bLoaded=false;if(bLoaded)return;bLoaded=true;
+    FString Text;TSharedPtr<FJsonObject> Root;
+    if(!FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/electrified-tool-anchors.json")))
+        ||!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Root)||!Root)return;
+    for(const auto& Entry:Root->Values)
+    {
+        const auto Data=Entry.Value->AsObject();if(!Data)continue;
+        const TArray<TSharedPtr<FJsonValue>> *Base=nullptr,*Tip=nullptr;
+        if(Data->TryGetArrayField(TEXT("base_local"),Base)&&Data->TryGetArrayField(TEXT("tip_local"),Tip)&&Base->Num()==3&&Tip->Num()==3)
+        {
+            FToolElectricAnchor Anchor;
+            Anchor.Base=FVector((*Base)[0]->AsNumber(),(*Base)[1]->AsNumber(),(*Base)[2]->AsNumber());
+            Anchor.Tip=FVector((*Tip)[0]->AsNumber(),(*Tip)[1]->AsNumber(),(*Tip)[2]->AsNumber());
+            ElectricAnchors.Add(FString(*Entry.Key),Anchor);
+        }
+    }
+}
 
 static TAutoConsoleVariable<float> PickaxeImpactCameraScale(TEXT("fps.Tool.PickaxeCamera"),1.f,
     TEXT("Pickaxe windup and single heavy confirmed-impact camera strength. 0 disables this camera layer."));
@@ -15,6 +45,19 @@ bool UProductionToolComponent::HasReadyPresentation() const
     if(!Viewmodel || !Viewmodel->GetSkeletalMeshAsset())return false;
     for(const TCHAR* Clip:{TEXT("Idle"),TEXT("Walk"),TEXT("Equip"),TEXT("Swing"),TEXT("HitRecover")})
         if(((Kind!=TEXT("axe") && Kind!=TEXT("pickaxe")) || FName(Clip)!=TEXT("Walk")) && !Motions.FindRef(FName(Clip)))return false;
+    return true;
+}
+
+bool UProductionToolComponent::GetEnchantmentBladeAttachment(USceneComponent*& Parent,FName& Socket,FTransform& LocalFrame,float& Length) const
+{
+    if(!IsEquipped()||!Viewmodel||!Viewmodel->IsVisible()||Viewmodel->bHiddenInGame||!Viewmodel->DoesSocketExist(TEXT("WPN_root")))return false;
+    // Derived from the imported rigid tool vertices; cached before combat begins.
+    const auto* Anchor=ElectricAnchors.Find(Kind);if(!Anchor)return false;
+    const FTransform Weapon=Viewmodel->GetSocketTransform(TEXT("WPN_root"));
+    const FVector Base=Weapon.TransformPosition(Anchor->Base),Tip=Weapon.TransformPosition(Anchor->Tip);
+    Length=FVector::Distance(Base,Tip);if(Length<1.f)return false;
+    const FTransform WorldFrame(FRotationMatrix::MakeFromXZ(Tip-Base,Weapon.GetUnitAxis(EAxis::Z)).ToQuat(),Base);
+    Parent=Viewmodel;Socket=TEXT("WPN_root");LocalFrame=WorldFrame.GetRelativeTransform(Weapon);
     return true;
 }
 
@@ -48,13 +91,15 @@ void UProductionToolComponent::UpdateHandPresentation(float Delta)
     {
         // Pose, whoosh and the one authoritative contact share the same clock.
         // Only a confirmed resource/enemy hit chooses braced recovery; misses follow through.
+        // 挥砍速度改造只压缩真实时钟：动画仍按作者时间采样，RateScale=1 时逐帧等价。
+        const float Authored=AuthoredElapsed();
         if(bHitConfirmed)
             SampleMotion(TEXT("HitRecover"),Kind==TEXT("pickaxe")?
-                ProductionPickaxeImpact::SourceHitTime(Elapsed-ContactSeconds):
-                .44f*(Elapsed-ContactSeconds)/(Kind==TEXT("axe")?AxeMotion.HitRecoverSeconds:SwingSeconds-ContactSeconds));
+                ProductionPickaxeImpact::SourceHitTime(Authored-ContactSeconds):
+                .44f*(Authored-ContactSeconds)/(Kind==TEXT("axe")?AxeMotion.HitRecoverSeconds:SwingSeconds-ContactSeconds));
         else
-            SampleMotion(TEXT("Swing"),Elapsed<ContactSeconds?
-                .24f*Elapsed/ContactSeconds:.24f+.44f*(Elapsed-ContactSeconds)/(SwingSeconds-ContactSeconds));
+            SampleMotion(TEXT("Swing"),Authored<ContactSeconds?
+                .24f*Authored/ContactSeconds:.24f+.44f*(Authored-ContactSeconds)/(SwingSeconds-ContactSeconds));
     }
     else if(EquipElapsed>=0)
     {
@@ -80,7 +125,9 @@ void UProductionToolComponent::GetCameraMotion(FVector& Location,FRotator& Rotat
 {
     Location=FVector::ZeroVector; Rotation=FRotator::ZeroRotator;
     if(Elapsed<0.f||!IsEquipped()||!CanUse())return;
-    if(Kind==TEXT("axe"))AxeMotion.Sample(Elapsed,bHitConfirmed,Location,Rotation);
-    else if(Kind==TEXT("pickaxe"))ProductionPickaxeImpact::SampleCamera(Elapsed,ContactSeconds,SwingSeconds,
+    // 镜头关键帧是作者秒；改造后的真实时间先换算回作者时间再采样。
+    const float Authored=AuthoredElapsed();
+    if(Kind==TEXT("axe"))AxeMotion.Sample(Authored,bHitConfirmed,Location,Rotation);
+    else if(Kind==TEXT("pickaxe"))ProductionPickaxeImpact::SampleCamera(Authored,ContactSeconds,SwingSeconds,
         bHitConfirmed,PickaxeImpactCameraScale.GetValueOnGameThread(),Location,Rotation);
 }

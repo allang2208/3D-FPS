@@ -41,8 +41,12 @@ void UMonsterAIAudit::Step()
   Check(TEXT("behavior_tree_controller_loaded"),AI->Behavior!=nullptr);Check(TEXT("path_routes_around_wall"),Path->PathPoints.Num()>2);
   auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();if(Health){Health->MaxHealth=10000;Health->Health=10000;}
   // Damage supplies a last-known target through the wall; visibility must not be faked.
+  // 韧性闸门：轻击只累积削韧，不进入硬直。
   UGameplayStatics::ApplyDamage(Nurse.Get(),10,Player->GetController(),Player.Get(),nullptr);
-  Check(TEXT("hit_enters_stagger"),Nurse->State==ENurseState::Stagger);Stage=1;StageTime=0;return;
+  Check(TEXT("subthreshold_hit_only_accumulates"),!Nurse->Combat->IsControlled()&&Nurse->Combat->Toughness>0.f);
+  // 同一目标再来一记足以打满阈值的重击，此时才破韧进入硬直。
+  UGameplayStatics::ApplyDamage(Nurse.Get(),60,Player->GetController(),Player.Get(),nullptr);
+  Check(TEXT("toughness_break_enters_stagger"),Nurse->State==ENurseState::Stagger);Stage=1;StageTime=0;return;
  }
  if(!Nurse.IsValid()||!Player.IsValid()){Check(TEXT("actors_remain_valid"),false);Finish();return;}
  auto* AI=Cast<AMonsterAIController>(Nurse->GetController());
@@ -69,12 +73,14 @@ void UMonsterAIAudit::Step()
   Check(TEXT("stun_releases"),!Nurse->Combat->IsControlled()&&!Nurse->Combat->bStunned);
   // Actual FPS firing input on an unobstructed setup verifies weapon -> reaction.
   Nurse->SetActorLocation(Player->GetActorLocation()+FVector(-280,0,0),false,nullptr,ETeleportType::TeleportPhysics);Nurse->SetActorRotation(FRotator::ZeroRotator);
-  auto* PC=Cast<APlayerController>(Player->GetController());FVector Eye;FRotator Rot;PC->GetPlayerViewPoint(Eye,Rot);PC->SetControlRotation((Nurse->GetMesh()->GetSocketLocation(TEXT("spine_03"))-Eye).Rotation());Before=Nurse->Health;Stage=5;StageTime=0;return;
+  auto* PC=Cast<APlayerController>(Player->GetController());FVector Eye;FRotator Rot;PC->GetPlayerViewPoint(Eye,Rot);PC->SetControlRotation((Nurse->GetMesh()->GetSocketLocation(TEXT("spine_03"))-Eye).Rotation());Before=Nurse->Health;BeforeToughness=Nurse->Combat->Toughness;Stage=5;StageTime=0;return;
  }
  if(Stage==5&&StageTime>.4f){Cast<APlayerController>(Player->GetController())->InputKey(FInputKeyEventArgs::CreateSimulated(EKeys::LeftMouseButton,IE_Pressed,1.f));Stage=6;StageTime=0;return;}
  if(Stage==6&&StageTime>.12f)
  {
-  Cast<APlayerController>(Player->GetController())->InputKey(FInputKeyEventArgs::CreateSimulated(EKeys::LeftMouseButton,IE_Released,0.f));Check(TEXT("real_gun_damage"),Nurse->Health<Before);Check(TEXT("real_gun_stagger"),Nurse->State==ENurseState::Stagger);Capture(TEXT("gun-stagger"));Stage=7;StageTime=0;return;
+  Cast<APlayerController>(Player->GetController())->InputKey(FInputKeyEventArgs::CreateSimulated(EKeys::LeftMouseButton,IE_Released,0.f));Check(TEXT("real_gun_damage"),Nurse->Health<Before);
+  // 2026-09-17 合同：枪械默认不造成硬直、也不累积削韧（只有目录声明 hit_stagger 的枪才关闸门）。
+  Check(TEXT("real_gun_no_stagger"),!Nurse->Combat->IsControlled()&&Nurse->Combat->Toughness<=BeforeToughness+.01f);Capture(TEXT("gun-no-stagger"));Stage=7;StageTime=0;return;
  }
  if(Stage==7&&StageTime>.16f&&StageTime<.23f)Capture(TEXT("gun-recoil-peak"));
  if(Stage==7&&StageTime>1.5f){Check(TEXT("post_gun_control_released"),!Nurse->Combat->IsControlled());AI->SetDecisionEnabled(true);Stage=8;StageTime=0;return;}

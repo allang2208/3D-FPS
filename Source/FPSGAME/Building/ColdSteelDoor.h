@@ -39,6 +39,8 @@ public:
     void Configure(UMaterialInterface* Surface);
     /** Assemble the closed model in a non-playing thumbnail world. */
     void PrepareBuildPreview() {AlignGeometry();}
+    /** Reuse the production hinge/interaction with a separately owned shared frame. */
+    void ConfigureStandaloneLeaf(UStaticMesh* Mesh,bool bPositiveHinge,float OpeningSeconds,float ClosingDelay);
 
 protected:
     virtual void BeginPlay() override;

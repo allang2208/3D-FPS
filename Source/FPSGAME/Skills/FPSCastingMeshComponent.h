@@ -3,6 +3,8 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "../Weapons/PKMCarryHandleDynamics.h"
 #include "../Weapons/PKMOutgoingBeltDynamics.h"
+#include "../Weapons/LMG201BeltDynamics.h"
+#include "../Weapons/FPSOutfitArmClearance.h"
 #include "FPSCastingMeshComponent.generated.h"
 
 class UFPSFireballComponent;
@@ -26,6 +28,7 @@ private:
     FPKMCarryHandleDynamics CarryHandleDynamics;
     TWeakObjectPtr<USkeletalMesh> PoseMesh;
     TArray<FTransform> ReferencePose, SourcePose, GoalPose, EntryLocal;
+    TArray<FTransform> FistEntryCameraPose;
     TArray<int32> LeftBones;
     int32 CastClavicleIndex=INDEX_NONE,CastUpperIndex=INDEX_NONE,CastLowerIndex=INDEX_NONE,CastHandIndex=INDEX_NONE;
     uint32 EntrySerial=0;
@@ -33,4 +36,7 @@ private:
     void CacheCastSkeleton();
     void ApplyCastPose(UFPSFireballComponent* Magic);
     int32 BashHandR=INDEX_NONE;   // 打击探针读取的握把手骨
+    FFPSOutfitArmClearance OutfitArmClearance;
+public:
+    FLMG201BeltDynamics LMG201BeltDynamics;
 };

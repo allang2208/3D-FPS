@@ -1,4 +1,5 @@
 #include "M1911MagazineVisual.h"
+#include "G18WeaponAssets.h"
 #include "M1911WeaponAssets.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -21,7 +22,7 @@ void ShowFactoryMagazine(USkeletalMeshComponent* Host, bool bVisible)
             // Shell, floorplate and follower share this factory atlas. Cartridges
             // retain their separate material and animated bullet bone.
             if (Asset->GetMaterials().IsValidIndex(M)
-                && Asset->GetMaterials()[M].MaterialSlotName == TEXT("M_M1911_Hero_Magazine"))
+                && (Asset->GetMaterials()[M].MaterialSlotName == TEXT("M_M1911_Hero_Magazine") || Asset->GetMaterials()[M].MaterialSlotName == TEXT("M_G18_Magazine")))
                 Host->ShowMaterialSection(M, S, bVisible, L);
         }
 }
@@ -34,7 +35,7 @@ UStaticMeshComponent* Configure(AActor* Owner, USkeletalMeshComponent* Host,
     bEnabled = bEnabled && Asset && Host->DoesSocketExist(Socket);
     if (bEnabled)
     {
-        auto* Mesh = LoadObject<UStaticMesh>(nullptr, *M1911WeaponAssets::AttachmentPath(TEXT("ext_mag")));
+        auto* Mesh = LoadObject<UStaticMesh>(nullptr, *(G18WeaponAssets::Matches(Host)?G18WeaponAssets::AttachmentPath(TEXT("ext_mag")):M1911WeaponAssets::AttachmentPath(TEXT("ext_mag"))));
         if (Mesh)
         {
             if (!Existing)

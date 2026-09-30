@@ -21,7 +21,14 @@ static FArchive& operator<<(FArchive& Ar,FVoxelFragmentSave& F)
 {return Ar<<F.Id<<F.Transform<<F.Cells<<F.BrokenBonds<<F.Velocity<<F.AngularVelocity<<F.bSleeping;}
 static FArchive& operator<<(FArchive& Ar,FVoxelBuildPrefabInstance& P){return Ar<<P.Id<<P.Cell<<P.Yaw<<P.Footprint;}
 static FArchive& operator<<(FArchive& Ar,FVoxelSmeltingJobV5& J){return Ar<<J.Cell<<J.Recipe<<J.StartTicks;}
-static FArchive& operator<<(FArchive& Ar,FVoxelSmeltingJob& J){return Ar<<J.Cell<<J.Recipe<<J.ProgressSeconds<<J.BurnStartTicks<<J.BatchCount;}
+static FArchive& operator<<(FArchive& Ar,FVoxelCastingOrder& O){return Ar<<O.Recipe<<O.Batch;}
+static FArchive& operator<<(FArchive& Ar,FVoxelCastingProduct& P){return Ar<<P.Item<<P.Count;}
+static FArchive& operator<<(FArchive& Ar,FVoxelSmeltingJob& J)
+{return Ar<<J.Cell<<J.Recipe<<J.ProgressSeconds<<J.BurnStartTicks<<J.BatchCount
+    <<J.bCasting<<J.StationCell<<J.ProducedBatches<<J.Queue<<J.Products<<J.ActionSerial
+    <<J.CastSerial<<J.LastCastRecipe<<J.LastCastTicks;}
+static void ReadSmeltingJobV9(FArchive& Ar,FVoxelSmeltingJob& J)
+{Ar<<J.Cell<<J.Recipe<<J.ProgressSeconds<<J.BurnStartTicks<<J.BatchCount;}
 static FArchive& operator<<(FArchive& Ar,FVoxelFurnaceFuel& F){return Ar<<F.Cell<<F.FuelSeconds<<F.Level<<F.FireStartTicks<<F.FuelLevel<<F.BatchLevel;}
 // v6 老布局（无批量数/等级/火种戳）：逐条按旧字段读，新字段取结构默认值（Batch=1、Level=1＝行为与 v6 一致）。
 static void ReadSmeltingJobV6(FArchive& Ar,FVoxelSmeltingJob& J){Ar<<J.Cell<<J.Recipe<<J.ProgressSeconds<<J.BurnStartTicks;J.BatchCount=1;}
@@ -46,16 +53,18 @@ namespace
     // adds batch count to jobs and upgrade level to fuel records; version 8 adds the idle-fire
     // clock to fuel records (2026-09-24 用户定稿：存料随挂钟持续燃烧); version 9 adds the fuel
     // capacity and per-smelt batch axes to fuel records (三轴升级). Older files stop before
-    // the field their version does not reach; v5-v8 read through the migration-only paths.
+    // the field their version does not reach; v5-v9 read through migration-only paths.
+    // Version 10 appends the casting station, FIFO orders, products and transaction serial to each job.
     void Serialize(FArchive& Ar,FVoxelDiskSnapshot& S)
     {
         Ar<<S.Version<<S.CellSizeCm<<S.WorldKey<<S.Cells<<S.FreeVolumes<<S.Damage<<S.BrokenBonds<<S.Fragments<<S.LegacyProtected;
         if(S.Version>=4)Ar<<S.Prefabs;
         if(S.Version==5)Ar<<S.LegacySmelting;
         else if(S.Version==6){ReadListV6(Ar,S.Smelting,ReadSmeltingJobV6);ReadListV6(Ar,S.Fuel,ReadFurnaceFuelV6);}
-        else if(S.Version==7){Ar<<S.Smelting;ReadListV6(Ar,S.Fuel,ReadFurnaceFuelV7);}
-        else if(S.Version==8){Ar<<S.Smelting;ReadListV6(Ar,S.Fuel,ReadFurnaceFuelV8);}
-        else if(S.Version>=9){Ar<<S.Smelting;Ar<<S.Fuel;}
+        else if(S.Version==7){ReadListV6(Ar,S.Smelting,ReadSmeltingJobV9);ReadListV6(Ar,S.Fuel,ReadFurnaceFuelV7);}
+        else if(S.Version==8){ReadListV6(Ar,S.Smelting,ReadSmeltingJobV9);ReadListV6(Ar,S.Fuel,ReadFurnaceFuelV8);}
+        else if(S.Version==9){ReadListV6(Ar,S.Smelting,ReadSmeltingJobV9);Ar<<S.Fuel;}
+        else if(S.Version>=10){Ar<<S.Smelting;Ar<<S.Fuel;}
     }
     FString Path(const FString& Slot){return FPaths::ProjectSavedDir()/TEXT("SaveGames")/(Slot+TEXT(".sav"));}
     // 审计 C6：Write 在首次覆盖前保留的备份路径（原来只在 Write 内部拼一次字符串）。

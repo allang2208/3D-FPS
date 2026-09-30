@@ -11,6 +11,7 @@
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Skills/EnemyAttackDamage.h"
+#include "../Skills/IceWallCombat.h"
 #include "../Development/DevelopmentTuningSubsystem.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "Components/CapsuleComponent.h"
@@ -206,6 +207,7 @@ bool AFleshHandMonster::CanReach(const APawn* P,float Range) const
 bool AFleshHandMonster::CanAttack(APawn* P) const
 {
  if(bMinion||Busy()||Status->IsFrozen()||Status->IsPetrified()||Status->IsStunned())return false;
+ if((GrandLeft<=0||SlamLeft<=0)&&IceWallCombat::BlockingWall(this,P,SlamRadius))return true;
  // Palm-extension Hammer is retired. Only slams and the ranged fist rush can start.
  return ((GrandLeft<=0||SlamLeft<=0)&&CanReach(P,SlamRadius))||CanCharge(P);
 }
@@ -217,8 +219,9 @@ bool AFleshHandMonster::CanCharge(const APawn* P) const
 bool AFleshHandMonster::StartAttack(APawn* P)
 {
  if(!HasAuthority()||!CanAttack(P))return false;
- Queued=GrandLeft<=0&&CanReach(P,SlamRadius)?EFleshHandState::GrandSlam:
-  SlamLeft<=0&&CanReach(P,SlamRadius)?EFleshHandState::Slam:EFleshHandState::ChargeWindup;
+ const bool AttackWall=IceWallCombat::BlockingWall(this,P,SlamRadius)!=nullptr;
+ Queued=GrandLeft<=0&&(AttackWall||CanReach(P,SlamRadius))?EFleshHandState::GrandSlam:
+  SlamLeft<=0&&(AttackWall||CanReach(P,SlamRadius))?EFleshHandState::Slam:EFleshHandState::ChargeWindup;
  Target=LockedTarget=P;StrikeDirection=(P->GetActorLocation()-GetActorLocation()).GetSafeNormal2D();
  SetActorRotation(StrikeDirection.Rotation());if(auto* AI=Cast<AMonsterAIController>(GetController()))AI->StopMovement();
  bConsumed=false;
@@ -443,6 +446,8 @@ void AFleshHandMonster::Impact()
   auto* Attenuation=NewObject<USoundAttenuation>(this);Attenuation->Attenuation.bAttenuate=true;Attenuation->Attenuation.bSpatialize=true;Attenuation->Attenuation.FalloffDistance=1800;
   UGameplayStatics::PlaySoundAtLocation(this,ImpactSound,GetActorLocation(),1.f,1.f,0.f,Attenuation);
  }
+ const float WallMultiplier=Attack==EFleshHandState::Hammer?1.f:Attack==EFleshHandState::Slam?1.5f:2.f;
+ if(IceWallCombat::ApplyMelee(this,LockedTarget.Get(),Attack==EFleshHandState::Hammer?HammerRange:SlamRadius,PhysicalAttack*WallMultiplier))return;
  for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
  {
   APawn* P=It->Get()?It->Get()->GetPawn().Get():nullptr;
@@ -468,6 +473,7 @@ void AFleshHandMonster::Impact()
 }
 void AFleshHandMonster::ContactDamage()
 {
+ if(IceWallCombat::ApplyMelee(this,Target.Get(),150,PhysicalAttack))return;
  for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
  {
   APawn* P=It->Get()?It->Get()->GetPawn().Get():nullptr;if(!CanReach(P,150))continue;

@@ -8,10 +8,11 @@ class UStaticMesh;
 class UMaterialInterface;
 class UMaterialInstanceDynamic;
 class UPostProcessComponent;
+class UDirectionalLightComponent;
 
 /**
  * Clearwater water body: a gridded plane displaced by the reduced Clearwater spectrum,
- * shaded by the optics block ported from https://github.com/Aureliengmz/clearwater (MIT).
+ * with UE SingleLayerWater optics and a spectrum derived from Clearwater (MIT).
  *
  * The actor exists so the surface is a real UStaticMeshComponent. That matters for two
  * reasons:
@@ -25,9 +26,8 @@ class UPostProcessComponent;
  * spectrum evaluation. That keeps gameplay queries deterministic and cheap, and it is what
  * the project's existing flat water bodies already assume.
  *
- * Ticking exists only for effects a material cannot animate on its own: the caustic scroll
- * follows the sun, the impact ripples follow the interaction system, and the underwater
- * blendable follows the camera. Everything else is evaluated in the shader.
+ * Hits and wakes belong to the shared water subsystem. The actor only updates cached
+ * sunlight at 4 Hz and blends the underwater effect at 30 Hz; no per-frame world scans.
  */
 UCLASS()
 class FPSGAME_API AClearwaterWater : public AActor
@@ -74,12 +74,10 @@ private:
     bool RegisterWithWaterFX();
     void UnregisterFromWaterFX();
 
-    /** Pushes the sun-driven caustic scroll into the water and seabed instances. */
+    /** Pushes the current scene sun into the seabed's baked-caustic projection. */
     void UpdateCaustics(float TimeSeconds);
-    /** Ages the impact ripple slots and writes them to the material. */
-    void UpdateRipples(float DeltaSeconds);
     /** Raises/lowers the underwater blendable from the camera position. */
-    void UpdateSubmerged();
+    void UpdateSubmerged(float DeltaSeconds);
 
     /** Dynamic instance created by the FX subsystem, or one we make ourselves. */
     UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> WaterMID = nullptr;
@@ -92,17 +90,10 @@ private:
 
     /** Cached so the submerged toggle never has to hit the asset registry. */
     UPROPERTY(Transient) TObjectPtr<UMaterialInterface> UnderwaterMaterial = nullptr;
-
-    /** Ring buffer of impact ripples: xy world position, z age in seconds, w strength. */
-    FVector4 RippleSlots[4] = {
-        FVector4(0, 0, -1, 0), FVector4(0, 0, -1, 0),
-        FVector4(0, 0, -1, 0), FVector4(0, 0, -1, 0) };
-    int32 RippleCursor = 0;
-    /** 1 while any ripple slot is still ringing, so the material is only written when needed. */
-    int32 RipplesActive = 0;
-
-    float SunElevationDeg = 31.f;
-    float SunAzimuthDeg = 6.f;
+    TWeakObjectPtr<UDirectionalLightComponent> SceneSun;
+    float NextSunUpdate = 0.f;
+    float SubmergedBlend = 0.f;
     bool bRegistered = false;
     bool bSubmerged = false;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> UnderwaterMID = nullptr;
 };

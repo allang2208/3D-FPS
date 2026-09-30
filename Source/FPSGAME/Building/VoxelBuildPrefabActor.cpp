@@ -1,4 +1,5 @@
 #include "VoxelBuildPrefabActor.h"
+#include "CastingToolRackComponent.h"
 #include "Engine/World.h"
 #include "../WorldGeneration/FluidPresentationSubsystem.h"
 #include "Components/StaticMeshComponent.h"
@@ -36,10 +37,16 @@ void AVoxelBuildPrefabActor::Configure(FName InId,FIntVector InCell,int32 InYaw,
 {
     Id=InId;Cell=InCell;QuarterTurns=InYaw;
     if(!MeshComponent)return;
+    if(auto* PreviousRack=FindComponentByClass<UCastingToolRackComponent>())PreviousRack->DestroyComponent();
     MeshComponent->SetStaticMesh(Mesh);
     if(Surface)MeshComponent->SetMaterial(0,Surface);
     if(Contact)MeshComponent->SetPhysMaterialOverride(Contact);
     Tags.AddUnique(TEXT("VoxelBuildPrefab"));
+    if(Id==VoxelCastingStationId&&GetWorld()->IsGameWorld())
+    {
+        auto* Rack=NewObject<UCastingToolRackComponent>(this,NAME_None,RF_Transient);
+        AddInstanceComponent(Rack);Rack->RegisterComponent();Rack->Configure(MeshComponent);
+    }
 }
 
 bool AVoxelBuildPrefabActor::BeginFall(UStaticMesh* FallbackMesh,float LifeSeconds)

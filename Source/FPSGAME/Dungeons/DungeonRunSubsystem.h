@@ -17,7 +17,16 @@ namespace DungeonRunDomains
     constexpr uint32 EliteSelection   = 0x5D0E1A03u;
     constexpr uint32 ChestLoot        = 0x5D0E1A04u;
     constexpr uint32 Alarm            = 0x5D0E1A05u;
+    constexpr uint32 ShrineSelection  = 0x5D0E1A06u;
 }
+
+struct FDungeonRunDoor
+{
+    int32 Neighbor=INDEX_NONE;
+    FVector FloorCenter=FVector::ZeroVector;
+    FVector OutwardNormal=FVector::ZeroVector;
+    double Width=300,Height=280;
+};
 
 /** One layout-manifest node. Connectors stay in the graph for adjacency but never count toward room depth. */
 struct FDungeonRunNode
@@ -25,10 +34,13 @@ struct FDungeonRunNode
     int32 Id = INDEX_NONE;
     FString Module;
     FString Route;
+    FString MissionId,EncounterRole;
+    int32 ThreatBonus=0;
+    double RewardMultiplier=1.;
     int32 Floor = 0;
     FVector Origin = FVector::ZeroVector;
     FBox Volume = FBox(ForceInit);
-    /** Room hops from the start (BFS through the manifest graph; connectors add 0). */
+    /** Shortest room depth from the entry; connectors add 0, rooms add 1. */
     int32 Depth = 0;
     bool bConnector = false;
     bool bCombatRoom = false;
@@ -36,6 +48,23 @@ struct FDungeonRunNode
     bool bTreasure = false;
     bool bBossArea = false;
     TArray<int32> Neighbors;
+    TArray<FBox> Cells;
+    TArray<FBox> WalkCells;
+    TArray<FDungeonRunDoor> Doors;
+    int32 ProgressionDepth=-1;
+    double DistanceSquared(const FVector& Position)const
+    {
+        double Best=TNumericLimits<double>::Max();
+        for(const FBox& Cell:Cells)Best=FMath::Min(Best,Cell.ComputeSquaredDistanceToPoint(Position));
+        return Cells.IsEmpty()&&Volume.IsValid?Volume.ComputeSquaredDistanceToPoint(Position):Best;
+    }
+    bool AllowsSpawn(const FVector& Position)const
+    {
+        if(DistanceSquared(Position)>FMath::Square(20.))return false;
+        if(WalkCells.IsEmpty())return true;
+        for(const FBox& Cell:WalkCells)if(Cell.ComputeSquaredDistanceToPoint(Position)<=FMath::Square(20.))return true;
+        return false;
+    }
 };
 
 /**
@@ -69,27 +98,23 @@ public:
 
     int32 NumNodes() const { return Nodes.Num(); }
     const FDungeonRunNode* NodeById(int32 Id) const;
+    uint32 NodeRandomSalt(int32 Id)const {const auto* N=NodeById(Id);return N&&!N->MissionId.IsEmpty()?GetTypeHash(N->MissionId):uint32(Id)*0x9E3779B9u;}
     const TArray<FDungeonRunNode>& AllNodes() const { return Nodes; }
     /** Catalog room_ids: the ordinary combat-room pool (base rooms plus structural variants). */
     const TArray<FString>& CombatRoomIds() const { return RoomIds; }
 
     /** Ordinary room (never a connector) whose volume contains Position, else INDEX_NONE. */
     int32 NodeNearPosition(const FVector& Position, double MaxDistance = 250.0) const;
-    /**
-     * Rooms the player occupies or touches through at most two connector hops.
-     * Mirrors the room-lighting scheduler BFS so gameplay activation and lighting agree.
-     */
+    /** Occupied rooms and their neighbours, across any length of connector chain. */
     void CollectActiveRooms(const FVector& PlayerPosition, TArray<int32>& OutNodeIds) const;
     /** Anchor TargetPoints of a node whose role tag starts with RolePrefix (nullptr = every anchor). */
     TArray<ATargetPoint*> RoomAnchors(int32 NodeId, const TCHAR* RolePrefix) const;
-    /** Connector neighbour on the entrance side of a room (BFS depth - 1). INDEX_NONE when absent. */
+    /** Connector neighbour on the entrance side (shortest depth - 1). INDEX_NONE when absent. */
     int32 EntryConnectorFor(int32 RoomNodeId) const;
-    /**
-     * Estimated doorway patch where a room volume meets an adjacent connector volume:
-     * the corridor sleeve (expanded) intersected with the room box, snapped to the room face.
-     * Approximation for gates/triggers only; authored geometry stays authoritative for collision.
-     */
+    /** Exact authored socket center and inward normal. False for legacy manifests without sockets. */
     bool EstimateDoorway(int32 RoomNodeId, int32 ConnectorNodeId, FVector& OutCenter, FVector& OutNormal) const;
+    /** Follow any finite connector chain, stopping at the next room. */
+    void CollectNeighborRooms(int32 NodeId,TArray<int32>& OutNodeIds)const;
 
     /** Per-module catalog `spawn` section (nullptr when the module has no spawn config). */
     const TSharedPtr<FJsonObject>* SpawnConfigForModule(const FString& ModuleId) const;
@@ -102,8 +127,15 @@ public:
     /** `DungeonEnemy.<RunId>.<Node>.<Slot>`; consumed by DungeonLayout::RecordKill. */
     FName EnemySlotTag(int32 NodeId, int32 SlotIndex) const;
 
+    bool IsShrine(const AActor* Actor) const;
+    bool CanClaimShrine() const { return bActive && !bShrineClaimed && ShrineActor.IsValid(); }
+    FString ShrinePrompt() const;
+    bool ClaimShrine(class APlayerController* Controller,AActor* Target);
+    double ShrineEffect(FName Key) const;
+    FName ActiveShrineBlessing() const { return bActive && bShrineClaimed ? ShrineBlessing : NAME_None; }
+
 private:
-    static FName RoomKey(int32 NodeId);
+    FName RoomKey(int32 NodeId)const;
     bool ParseLayoutManifest(const FString& Json);
     void ParseCatalog(const FString& Json);
     void ComputeDepth();
@@ -123,4 +155,14 @@ private:
     TSet<FName> Explored;
     bool bActive = false;
     bool bCompleted = false;
+    int32 EntryNodeId=INDEX_NONE;
+    void InitializeShrine();
+    TSharedPtr<FJsonObject> ShrineConfig;
+    TWeakObjectPtr<AActor> ShrineActor;
+    TWeakObjectPtr<class APawn> ShrineRecipient;
+    FName ShrineBlessing;
+    FString ShrineName,ShrineDescription;
+    TMap<FName,double> ShrineEffects;
+    double ShrineHealFraction=0;
+    bool bShrineClaimed=false;
 };

@@ -101,10 +101,95 @@
       }
     ]
   },
+  "ue_g18": {
+    "source": "G18_ITEM_REBALANCE",
+    "base": 5,
+    "enhanceFlat": 0.35,
+    "attrs": [
+      {
+        "key": "dex",
+        "base": 0.35,
+        "perEnhance": 0.035
+      },
+      {
+        "key": "wis",
+        "base": 0.4,
+        "perEnhance": 0.04
+      }
+    ]
+  },
+  "ue_pkm_lowpoly": {
+    "source": "PKM_GROWTH_REBALANCE",
+    "base": 7,
+    "enhanceFlat": 0.72,
+    "attrs": [
+      {
+        "key": "str",
+        "base": 0.3,
+        "perEnhance": 0.072
+      },
+      {
+        "key": "wis",
+        "base": 0.25,
+        "perEnhance": 0.06
+      }
+    ]
+  },
+  "ue_lmg201": {
+    "source": "REF_UE_PKM_PREV_GROWTH",
+    "base": 7,
+    "enhanceFlat": 0.6,
+    "attrs": [
+      {
+        "key": "str",
+        "base": 0.3,
+        "perEnhance": 0.06
+      },
+      {
+        "key": "wis",
+        "base": 0.25,
+        "perEnhance": 0.05
+      }
+    ]
+  },
+  "ue_ash12": {
+    "source": "ASH12_AKM_165_DESIGN",
+    "base": 13,
+    "enhanceFlat": 1,
+    "attrs": [
+      {
+        "key": "int",
+        "base": 0.48,
+        "perEnhance": 0.075
+      },
+      {
+        "key": "wis",
+        "base": 0.48,
+        "perEnhance": 0.075
+      }
+    ]
+  },
+  "ue_hk416": {
+    "source": "HK416_M4A1_110_DESIGN",
+    "base": 7.7,
+    "enhanceFlat": 0.55,
+    "attrs": [
+      {
+        "key": "int",
+        "base": 0.297,
+        "perEnhance": 0.044
+      },
+      {
+        "key": "wis",
+        "base": 0.297,
+        "perEnhance": 0.044
+      }
+    ]
+  },
   "ue_dan_wesson715": {
     "source": "REVOLVER357_ITEM",
     "base": 26,
-    "enhanceFlat": 0,
+    "enhanceFlat": 1,
     "attrs": [
       {
         "key": "dex",
@@ -171,18 +256,18 @@
   },
   "ue_svd": {
     "source": "SVD_ITEM",
-    "base": 32.5,
-    "enhanceFlat": 0,
+    "base": 48.75,
+    "enhanceFlat": 1.5,
     "attrs": [
       {
         "key": "int",
-        "base": 1.0,
-        "perEnhance": 0.125
+        "base": 1.5,
+        "perEnhance": 0.1875
       },
       {
         "key": "wis",
-        "base": 2.0,
-        "perEnhance": 0.1875
+        "base": 3.0,
+        "perEnhance": 0.28125
       }
     ]
   },

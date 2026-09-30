@@ -1,4 +1,5 @@
 #include "ProductionToolComponent.h"
+#include "../Dungeons/WardBreakableGlass.h"
 #include "../FPSGAMECharacter.h"
 #include "../Monsters/MonsterCombatComponent.h"
 #include "../Skills/ColdSteelSkillRules.h"
@@ -48,7 +49,7 @@ bool UProductionToolComponent::TraceAxeContact(FProductionResource& Resource,FHi
         const float Limit=bEnemy?AxeCombatReach:AxeHarvestReach;
         // Swept volume adds width only; its front cap does not extend reach.
         if(FVector::DotProduct(Delta,Forward)<0 || Delta.SizeSquared()>FMath::Square(Limit))return false;
-        if(bEnemy)return true;
+        if(bEnemy || Cast<UWardBreakableGlass>(Candidate.GetComponent()))return true;
         FString TreeReason;
         for(TActorIterator<ATemperateHillsWorld> It(World);It;++It)
             if(It->ResolveProductionResource(Candidate,Tree,TreeReason))return Tree.RequiredTool==Kind;
@@ -58,7 +59,8 @@ bool UProductionToolComponent::TraceAxeContact(FProductionResource& Resource,FHi
     auto SetResult=[&](const FHitResult& Selected,const FProductionResource& Tree,bool bEnemy)
     {
         Hit=Selected;Hit.TraceStart=Start;Hit.TraceEnd=End;Resource=Tree;
-        if(bEnemy)Reason=TEXT("敌人 · 左键攻击（单目标物理伤害）");
+        if(Cast<UWardBreakableGlass>(Selected.GetComponent()))Reason=TEXT("玻璃 · 左键击碎");
+        else if(bEnemy)Reason=TEXT("敌人 · 左键攻击（单目标物理伤害）");
     };
 
     // An exact crosshair contact wins over nearby assistance candidates.
@@ -119,7 +121,7 @@ bool UProductionToolComponent::TraceAxeContact(FProductionResource& Resource,FHi
             SetResult(Candidate,Tree,bEnemy);
         }
     }
-    if(bFound && Resource.Id.IsEmpty())Reason=TEXT("敌人 · 左键攻击（单目标物理伤害）");
+    if(bFound && Resource.Id.IsEmpty() && !Cast<UWardBreakableGlass>(Hit.GetComponent()))Reason=TEXT("敌人 · 左键攻击（单目标物理伤害）");
     return bFound;
 }
 

@@ -10,6 +10,7 @@
 #include "Framework/Application/SlateApplication.h"
 #include "GameFramework/PlayerInput.h"
 #include "InputCoreTypes.h"
+#include "Skills/FPSIceWallComponent.h"
 
 namespace
 {
@@ -34,13 +35,18 @@ void AFPSGAMECharacter::ReloadInputPressed()
     if(bReloadInputHeld||IsAmmoWheelOpen())return;
     const auto* PC=Cast<APlayerController>(Controller);
     if(!PC||PC->bShowMouseCursor||AFPSGAMEPlayerController::BlocksOngoingActions(PC))return;
+    if(auto* IceWall=FindComponentByClass<UFPSIceWallComponent>();IceWall&&IceWall->ToggleShape())return;
     auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     const auto* Gun=Model?Model->Equipped():nullptr;
+    if(Model&&DualPistols&&DualPistols->IsOffhandOnly())Gun=Model->FindItem(DualPistols->Hand(1).Item.InstanceId);
     const auto* Off=Model&&IsDualWieldingPistols()?Model->Equipped(Gun&&Gun->Cell==6?8:11):nullptr;
     const bool bBow = Bow && Bow->IsEquipped() && Model && Model->ActiveBow();
     // R while drawing deliberately lets the string down; the arrow stays reserved.
     if(bBow && Bow->IsDrawing()){Bow->CancelAction(false);return;}
-    if(!Gun||(!bInventoryWeaponReady&&!bBow)||(bBow&&Bow->IsBusy()))return;
+    if(!Gun||(!bInventoryWeaponReady&&!HasOffhandPistol()&&!bBow)||(bBow&&Bow->IsBusy()))return;
+    // A reload on one hand must not swallow R for the other hand. In this
+    // state R requests reloads directly; the ammo wheel stays unavailable.
+    if(HasOffhandPistol()&&DualPistols->IsReloading()){ReloadPressed();return;}
     if(Model->CompatibleAmmo(*Gun).Num()<=1&&(!Off||Model->CompatibleAmmo(*Off).Num()<=1)){ReloadPressed();return;}
     if(IsWeaponBusy()||IsCastBlockingLeftHandAction()||IsTraversing())return;
     bReloadInputHeld=true;ReloadInputStarted=GetWorld()->GetTimeSeconds();AmmoSelectionWeapon=Gun->InstanceId;
@@ -55,7 +61,8 @@ void AFPSGAMECharacter::UpdateAmmoSelection()
     if(!PC||PC->bShowMouseCursor||AFPSGAMEPlayerController::BlocksOngoingActions(PC)||!Focused||
         (Health&&Health->IsDead())||IsTraversing()||IsWeaponBusy()||IsCastBlockingLeftHandAction()||
         (Bow&&Bow->IsEquipped()&&Bow->IsBusy())||
-        !Model||!Model->Equipped()||Model->Equipped()->InstanceId!=AmmoSelectionWeapon)
+        !Model||!Model->Equipped()||(Model->Equipped()->InstanceId!=AmmoSelectionWeapon
+            && !(HasOffhandPistol()&&DualPistols->Hand(1).Item.InstanceId==AmmoSelectionWeapon)))
     {CancelAmmoSelection();return;}
     if(bReloadInputHeld&&!AmmoWheel&&GetWorld()->GetTimeSeconds()-ReloadInputStarted>=.30)
     {
@@ -100,11 +107,11 @@ bool AFPSGAMECharacter::StartAmmoSwitch(const FString& WeaponId,const FString& T
     auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     const auto* PC=Cast<APlayerController>(Controller);
     const bool bBow = Bow && Bow->IsEquipped() && Model && Model->ActiveBow();
-    if((!bInventoryWeaponReady&&!bBow)||!Model||!Model->CanSwitchAmmo(WeaponId,Target)||!PC||
+    if((!bInventoryWeaponReady&&!HasOffhandPistol()&&!bBow)||!Model||!Model->CanSwitchAmmo(WeaponId,Target)||!PC||
         AFPSGAMEPlayerController::BlocksOngoingActions(PC)||IsWeaponBusy()||IsCastBlockingLeftHandAction()||IsTraversing())return false;
     if(bBow)
         return Model->ActiveBow()->InstanceId==WeaponId && Bow->SwitchArrow(Target);
-    if(IsDualWieldingPistols())return DualPistols->SwitchAmmo(WeaponId,Target);
+    if(HasOffhandPistol())return DualPistols->SwitchAmmo(WeaponId,Target);
     if(ActiveInventoryWeapon!=WeaponId)return false;
     PendingAmmoType=Target;PendingAmmoWeapon=WeaponId;
     FireReleased();ReloadPressed();

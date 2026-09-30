@@ -1,6 +1,9 @@
+#include "../Dungeon/DungeonLayout.h"
+#include "FPSIceWall.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "../Combat/CombatFormulaRuntime.h"
+#include "../Weapons/MeleeWeaponStats.h"
 #include "../Combat/CombatItemFormula.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Monsters/MonsterCombatComponent.h"
@@ -31,7 +34,8 @@ FIceSpikeCast UColdSteelStatusModel::IceSpikeStats(int32 AtLevel) const
     C.Speed=T.Speed*T.UnitsToCM;C.Range=T.Range*T.UnitsToCM;
     C.Gravity=T.Gravity*FPSMagicPreview::GravityScale();
     C.CriticalChance=Derived(TEXT("crit"));C.CriticalDamageBonus=CriticalStrikeEffect().CriticalDamageBonus;
-    C.MagicDamageBonus=SetEffect(TEXT("magicDamage"));
+    const auto Rune=ColdSteelMelee::EquippedModifiers(this);
+    C.MagicDamageBonus=(1+SetEffect(TEXT("magicDamage")))*Rune.MagicDamage-1;
     double DamageFactor=1,CostFactor=1,CooldownReduction=0;
     const auto* Player=UGameplayStatics::GetPlayerPawn(this,0);
     const auto* Status=Player?Player->FindComponentByClass<UCombatStatusFormula>():nullptr;
@@ -59,8 +63,9 @@ FIceSpikeCast UColdSteelStatusModel::IceSpikeStats(int32 AtLevel) const
     C.Count=FMath::Max(1,C.Count);
     // The wand hook multiplies every magic spell, so the two spells stay on one damage factor.
     C.Damage=FMath::FloorToFloat(FMath::FloorToDouble(C.DamageBase+C.MagicContribution)*DamageFactor*MagicImplementMultiplier());
-    C.ManaCost=FMath::Max(0.f,FMath::FloorToFloat(C.ManaCost*CostFactor));
+    C.ManaCost=FMath::Max(0.f,FMath::FloorToFloat(C.ManaCost*CostFactor)*float(Rune.MagicCost));
     C.Cooldown*=FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown"))));
+    C.Cooldown*=Rune.MagicCooldown;
     return C;
 }
 
@@ -76,6 +81,11 @@ bool UColdSteelStatusModel::BeginIceSpikeCast(const FIceSpikeCast& Cast)
 void UColdSteelStatusModel::ApplyIceSpikeHit(APawn* Shooter,const FHitResult& Hit,const FIceSpikeCast& Cast,FIceSpikeRewards& Batch)
 {
     AActor* Target=Hit.GetActor();
+    if(auto* Wall=::Cast<AFPSIceWall>(Target);Wall&&Shooter&&Shooter->IsPlayerControlled()&&Shooter->HasAuthority())
+    {
+        UGameplayStatics::ApplyPointDamage(Wall,Cast.Damage,(Hit.TraceEnd-Hit.TraceStart).GetSafeNormal(),Hit,Shooter->GetController(),Shooter,UIceSpikeDamage::StaticClass());
+        return;
+    }
     auto* Combat=IsValid(Target)?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
     if(!Shooter||!Shooter->IsPlayerControlled()||!Shooter->HasAuthority()||Target==Shooter||!Combat||Combat->IsDead()||Target->ActorHasTag(TEXT("Friendly")))return;
     FFireballRewards Rewards;Rewards.Victim=Target;TGuardValue<FFireballRewards*> Scope(ActiveFireballRewards,&Rewards);
@@ -99,8 +109,8 @@ void UColdSteelStatusModel::FinishIceSpikeCast(const FIceSpikeRewards& Batch)
     const auto& T=IceSpikeSkill.IceSpike;
     ColdSteelSkills::AddExperience(P,IceSpikeSkill,Batch.Hits*T.HitExperience+Batch.Kills*T.KillExperience+(Batch.Hits>=2?T.MultiHitExperience:0)+(Batch.Kills>=2?T.MultiKillExperience:0));
     ColdSteelSkills::AddExperience(P,CriticalStrikeSkill,Batch.CriticalHits*CriticalStrikeSkill.CriticalHitExperience+Batch.CriticalKills*CriticalStrikeSkill.CriticalKillExperience);
-    for(const auto& K:Batch.KillRewards){P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);P.Experience+=FMath::FloorToInt64(K.Value*TributeEffect(TEXT("expPercent")));}
+    for(const auto& K:Batch.KillRewards){if(!DungeonLayout::RecordKill(P.DungeonRun,K.Key.Get()))continue;P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);P.Experience+=FMath::FloorToInt64(K.Value*TributeEffect(TEXT("expPercent")));}
     while(P.Level<10000){const int64 Need=(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8;if(P.Experience<Need)break;P.Experience-=Need;++P.Level;P.Points=FMath::Min(P.Points+3,1000000);}
     if(P.Level==10000)P.Experience=FMath::Min(P.Experience,(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8-1);
-    if(CommitState(P))for(const auto& K:Batch.KillRewards)RewardedVictims.Add(K.Key);
+    if(StageTraining(MoveTemp(P)))for(const auto& K:Batch.KillRewards)RewardedVictims.Add(K.Key);
 }

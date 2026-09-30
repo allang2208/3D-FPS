@@ -1,8 +1,10 @@
-#include "BowWeaponComponent.h"
+﻿#include "BowWeaponComponent.h"
 #include "BowArrow.h"
 #include "BowArmsMeshComponent.h"
 #include "BowPartComponent.h"
+#include "BowQuickCombatMotion.h"
 #include "BowStats.h"
+#include "../../Skills/FPSQuickCombatComponent.h"
 #include "../WeaponStatEvaluation.h"
 #include "../GunsmithSystem.h"
 #include "../../FPSGAMECharacter.h"
@@ -302,6 +304,8 @@ void UBowWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
     const FSoftObjectPath HeadPath(ColdSteelInventory::Text(*Item, TEXT("arrow_head_mesh")));
     const FString Prefix = ColdSteelInventory::Text(*Item, TEXT("bow_animation_prefix"));
     const FString GaitPrefix = ColdSteelInventory::Text(*Item, TEXT("bow_locomotion_prefix"));
+    const FString QuickClip = ColdSteelInventory::Text(*Item, TEXT("bow_quick_combat_animation"));
+    const FSoftObjectPath QuickPath(QuickClip.IsEmpty() ? FString(BowQuickCombatMotion::Asset) : QuickClip);
     bUsesArms = !ArmsPath.IsNull();
     TArray<FSoftObjectPath> Paths;
     for (const auto& Pair : PendingPartMeshes) if (!Pair.Value.IsNull()) Paths.Add(Pair.Value);
@@ -312,6 +316,7 @@ void UBowWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
     if (bUsesArms)
     {
         Paths.Add(ArmsPath);
+        Paths.Add(QuickPath);
         for (const TCHAR* Clip : { ClipIdle, ClipDraw, ClipHold, ClipRelease, ClipNock, TEXT("Ready"), TEXT("Equip"), TEXT("Run") })
             Paths.Add(BowAssetPath(Prefix, Clip));
         for (const TCHAR* Key : NockKeys)
@@ -329,7 +334,7 @@ void UBowWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
         if (!Sound.IsNull()) Paths.Add(Sound);
     }
     LoadHandle = UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,
-        FStreamableDelegate::CreateWeakLambda(this, [this, Prefix, GaitPrefix, ArmsPath, HeadPath, NewId, NewSignature, Resolved]()
+        FStreamableDelegate::CreateWeakLambda(this, [this, Prefix, GaitPrefix, ArmsPath, HeadPath, QuickPath, NewId, NewSignature, Resolved]()
         {
             auto* LiveProfile = GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
             const auto* LiveItem = LiveProfile ? LiveProfile->ActiveBow() : nullptr;
@@ -364,6 +369,7 @@ void UBowWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
                 bHasNockMarker = Skeleton && Viewmodel->DoesSocketExist(TEXT("bow_nock"));
                 for (const TCHAR* Clip : { ClipIdle, ClipDraw, ClipHold, ClipRelease, ClipNock, TEXT("Ready"), TEXT("Equip"), TEXT("Run") })
                     Animations.Add(FName(Clip), Cast<UAnimSequence>(BowAssetPath(Prefix, Clip).ResolveObject()));
+                Animations.Add(TEXT("QuickCombat"), Cast<UAnimSequence>(QuickPath.ResolveObject()));
                 for (int32 I = 0; I < UE_ARRAY_COUNT(NockKeys); ++I)
                     if (auto* Clip = Cast<UAnimSequence>(FSoftObjectPath(ColdSteelInventory::Text(*Item, NockKeys[I])).ResolveObject()))
                         Animations.Add(NockRoles[I], Clip);
@@ -609,8 +615,11 @@ bool UBowWeaponComponent::CanUse() const
     const auto* PC = Cast<APlayerController>(Pawn->GetController());
     const auto* Health = Pawn->FindComponentByClass<UFPSCombatHealthComponent>();
     const auto* Building = PC ? PC->FindComponentByClass<UVoxelBuildComponent>() : nullptr;
+    const auto* Bash = Pawn->QuickCombatPistol.Get();
+    const bool bOwnQuickCombat = Stage == EBowStage::QuickCombat && Bash
+        && Bash->GetStyle() == EQuickCombatStyle::Bow && Bash->IsOccupyingLeftHand();
     return bPresentationReady && !AFPSGAMEPlayerController::BlocksOngoingActions(PC) && !Pawn->IsTraversing()
-        && !Pawn->IsCastBlockingLeftHandAction()
+        && (!Pawn->IsCastBlockingLeftHandAction() || bOwnQuickCombat)
         && (!Health || !Health->IsDead()) && (!Building || !Building->IsBuilding());
 }
 
@@ -830,6 +839,44 @@ void UBowWeaponComponent::ReleasePrimaryAttack()
     else SetStage(EBowStage::Ready, 0.f);
 }
 
+bool UBowWeaponComponent::BeginQuickCombat()
+{
+    auto* Pawn = Character.Get();
+    auto* Bash = Pawn ? Pawn->QuickCombatPistol.Get() : nullptr;
+    if (!Pawn || !Bash || !IsEquipped() || !bPresentationReady || !bHasGripMarker
+        || !Pawn->CanStartQuickCombatPriority()) return false;
+    if (ClipLength(TEXT("QuickCombat")) <= KINDA_SMALL_NUMBER)
+    {
+        ShowFeedback(TEXT("弓的快速近战动作尚未加载"));
+        return false;
+    }
+    const FString StartingInstance = InstanceId;
+    Pawn->InterruptActionsForPriority(false);
+    if (InstanceId != StartingInstance || !CanUse()) return false;
+    Pawn->ExitSprintForWeapon();
+    Bash->ConfigureForBow(ClipLength(TEXT("QuickCombat")));
+    if (!Bash->BeginAction()) return false;
+    bTriggerHeld = bSteadyHeld = false;
+    SetStage(EBowStage::QuickCombat, Bash->GetSourceLength());
+    Viewmodel->CaptureEntry(.06f);
+    PlayClip(TEXT("QuickCombat"), 0.f, false);
+    return true;
+}
+
+bool UBowWeaponComponent::GetQuickCombatStrikeProbe(FVector& Origin, float PoseSeconds)
+{
+    auto* Riser = Part(SlotRiser);
+    if (Stage != EBowStage::QuickCombat || !Riser || !bHasGripMarker || !Viewmodel) return false;
+    // Sample the contact pose even when the current frame skipped across it.
+    PlayClip(TEXT("QuickCombat"), PoseSeconds, false);
+    UpdatePoseLayers();
+    UpdateBowGeometry();
+    // The horizontal bow pushes forward between the two held contact points.
+    Origin = Riser->GetComponentTransform().TransformPosition(
+        FVector(0.f, .123f, BowQuickCombatMotion::StrikeLocalZCM));
+    return true;
+}
+
 void UBowWeaponComponent::CancelAction(bool bImmediate)
 {
     if (!bImmediate && IsDrawing() && bArrowNocked && CanUse())
@@ -843,6 +890,9 @@ void UBowWeaponComponent::CancelAction(bool bImmediate)
         ShowFeedback(TEXT("缓收弓：箭仍在弦上"));
         return;
     }
+    if (Stage == EBowStage::QuickCombat && Character.IsValid())
+        if (auto* Bash = Character->QuickCombatPistol.Get(); Bash && Bash->GetStyle() == EQuickCombatStyle::Bow)
+            Bash->Cancel();
     StopDrawAudio();
     StopHandlingAudio();
     bTriggerHeld = bSteadyHeld = false;
@@ -1122,6 +1172,19 @@ void UBowWeaponComponent::AdvanceActionBeforeCamera(float Delta)
     if (Character.IsValid() && Character->IsSprinting() && Stage != EBowStage::Ready && Stage != EBowStage::Equip)
         CancelAction();
     Viewmodel->AdvanceEntry(Delta);
+    if (Stage == EBowStage::QuickCombat)
+    {
+        auto* Bash = Character->QuickCombatPistol.Get();
+        if (Bash && Bash->GetStyle() == EQuickCombatStyle::Bow)
+        {
+            Bash->AdvanceAction(Delta);
+            Elapsed = Bash->GetActionAge();
+        }
+        VisualTime += Delta;
+        if (!Bash || Bash->GetStyle() != EQuickCombatStyle::Bow || !Bash->IsOccupyingLeftHand())
+            SetStage(EBowStage::Ready, 0.f);
+        return;
+    }
     Elapsed += Delta;
     VisualTime += Delta;
     switch (Stage)
@@ -1279,10 +1342,17 @@ void UBowWeaponComponent::UpdatePoseLayers()
         * Viewmodel->GetRelativeTransform();
     const FVector GripLocation = Grip.GetLocation();
     const float Low = FMath::SmoothStep(0.f, 1.f, CrouchProgress);
+    const float PushTime = Stage == EBowStage::QuickCombat
+        ? Elapsed / FMath::Max(.001f, StageSeconds) * BowQuickCombatMotion::Length : 0.f;
+    const float PushWeight = Stage == EBowStage::QuickCombat
+        ? FMath::SmoothStep(0.f, BowQuickCombatMotion::Grip, PushTime)
+            * (1.f - FMath::SmoothStep(BowQuickCombatMotion::LetGo, BowQuickCombatMotion::Length, PushTime)) : 0.f;
+    // The authored push is horizontal even when entered from a crouched or
+    // nocked hold. Fade the holding cant/alignment out and restore on recovery.
     FQuat HipRotation(FVector::ForwardVector,
-        FMath::DegreesToRadians(CrouchCantDegrees * Low));
+        FMath::DegreesToRadians(CrouchCantDegrees * Low * (1.f - PushWeight)));
     HipRotation = (CarryRotation.Quaternion() * HipRotation).GetNormalized();
-    const float HipAlignment = FMath::SmoothStep(0.f, 1.f, HipAimProgress);
+    const float HipAlignment = FMath::SmoothStep(0.f, 1.f, HipAimProgress) * (1.f - PushWeight);
     const FVector HipGrip = GripLocation + HipOffsetCM + CrouchOffsetCM * Low + CarryOffset;
     const FTransform Mount = AnimatedRiserMount();
     const FVector Rest = Mount.TransformPosition(ArrowRestCM);
@@ -1394,7 +1464,7 @@ void UBowWeaponComponent::UpdateBowGeometry()
         const bool bEntryNock = Stage == EBowStage::DrawEntry && bEntryNeedsArrow;
         const float TakePhase = bEntryNock ? Elapsed / DrawEntrySeconds : Elapsed / NockSeconds;
         const bool bTakingArrow = (Stage == EBowStage::Nocking || bEntryNock) && TakePhase >= .34f;
-        const bool bVisibleArrow = (bArrowNocked || bTakingArrow);
+        const bool bVisibleArrow = Stage != EBowStage::QuickCombat && (bArrowNocked || bTakingArrow);
         ArrowRest->SetPartVisible(bVisibleArrow);
         if (bVisibleArrow)
         {
@@ -1444,7 +1514,7 @@ void UBowWeaponComponent::PlayClip(const TCHAR* Name, float Position, bool bLoop
         // Re-capturing here would restart the blend and miss the 0.2 s deadline.
         const bool bFromNockEntry = (Stage == EBowStage::Drawing || (Stage == EBowStage::Ready && bArrowNocked && bNockKeepsDrawPose)) &&
             (CurrentClip == TEXT("QuickNock") || CurrentClip == TEXT("ChainNock") || (CurrentClip == ClipNock && bNockKeepsDrawPose));
-        if (!CurrentClip.IsNone() && !bFromNockEntry && Stage != EBowStage::DrawEntry && Stage != EBowStage::Nocking && Stage != EBowStage::LetDown)
+        if (!CurrentClip.IsNone() && !bFromNockEntry && Stage != EBowStage::DrawEntry && Stage != EBowStage::Nocking && Stage != EBowStage::QuickCombat && Stage != EBowStage::LetDown)
         {
             if (Stage == EBowStage::Release)
             {
@@ -1486,6 +1556,8 @@ void UBowWeaponComponent::SampleArms()
     { PlayClip(Clip, FMath::Clamp(Fraction, 0.f, 1.f) * ClipLength(Clip), false); };
     switch (Stage)
     {
+    case EBowStage::QuickCombat:
+        PlayClip(TEXT("QuickCombat"), Elapsed, false); break;
     case EBowStage::Equip:
         Phase(TEXT("Equip"), Elapsed / EquipSeconds); break;
     case EBowStage::Nocking:
@@ -1546,39 +1618,17 @@ void UBowWeaponComponent::TickComponent(float Delta, ELevelTick Type, FActorComp
     }
 }
 
-FString UBowWeaponComponent::StatusLine() const
-{
-    const UEnum* Enum = StaticEnum<EBowStage>();
-    return FString::Printf(TEXT("%s · 拉距 %d%% · 弦上 %s · 箭袋 %d · %s"),
-        *DisplayName,
-        FMath::FloorToInt(DrawFraction() * 100.f),
-        bArrowNocked ? TEXT("有箭") : TEXT("空"),
-        ArrowsInPouch(),
-        Enum ? *Enum->GetNameStringByValue(static_cast<int64>(Stage)) : TEXT("?"));
-}
-
 void UBowWeaponComponent::ShowFeedback(const FString& Message)
 {
+    // 2026-09-28 用户要求删除弓的白色提示后这里只留状态写入（各调用点的返回流程
+    // 依赖此函数存在），不再有任何显示；需要恢复提示时重建 UpdateHint 的控件路径。
     Feedback = Message;
     FeedbackSeconds = 2.5f;
 }
 
 void UBowWeaponComponent::UpdateHint()
 {
-    const auto* Pawn = Character.Get();
-    auto* PC = Pawn ? Cast<APlayerController>(Pawn->GetController()) : nullptr;
-    if (!PC) return;
-    if (!Prompt)
-    {
-        Prompt = CreateWidget<UColdSteelPickupPrompt>(PC, UColdSteelPickupPrompt::StaticClass());
-        Prompt->AddToViewport(25);
-        Prompt->SetAlignmentInViewport(FVector2D(.5f, .5f));
-    }
-    const bool Show = IsEquipped() && CanUse() && FeedbackSeconds > 0.f;
-    Prompt->SetVisibility(Show ? ESlateVisibility::HitTestInvisible : ESlateVisibility::Collapsed);
-    if (!Show) return;
-    int32 X = 0, Y = 0;
-    PC->GetViewportSize(X, Y);
-    Prompt->SetPositionInViewport(FVector2D(X * .5f, Y * .74f), true);
-    Prompt->SetCaption(FeedbackSeconds > 0.f ? Feedback : StatusLine());
+    // 2026-09-28 用户要求：弓的白色提示字段（弹出式操作反馈，74% 高度）全部删除；
+    // 常驻状态行 StatusLine 原本就是永不显示的死代码，实现与声明已一并移除。
+    if (Prompt) Prompt->SetVisibility(ESlateVisibility::Collapsed);
 }

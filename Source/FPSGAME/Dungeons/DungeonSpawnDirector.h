@@ -11,6 +11,7 @@ class AController;
 class APawn;
 class UDamageType;
 class UDungeonRunSubsystem;
+struct FDungeonRunNode;
 
 /**
  * 一只怪的编成结果（配置条目 + 深度/精英加成）。
@@ -78,6 +79,7 @@ public:
     void Configure(AAuthoredDungeonGenerator* InGenerator);
     /** 导航构建完成后武装：一次性开局规划 + 启动 0.25s 巡检。非游戏世界/无 authority 直接返回。 */
     void Activate();
+    bool CanSpawnMember()const;
 
     // ── 与 ADungeonRoomEncounter 共用的静态闸门（普通池基类约束 = ACharacter + MonsterCombatComponent）──
     /** 类路径解析 + CDO 校验（照抄 SpawnBoss 的口径，泛化到四家族）。失败返回 nullptr。 */
@@ -88,7 +90,7 @@ public:
      * 任一环节失败立即销毁并返回 nullptr（落点失败由调用方重试）。bAwake=false 时按休眠配方落地。
      */
     static ACharacter* SpawnMonsterAtGround(UObject* WorldContext, AActor* Owner, const FDungeonSpawnMember& Member,
-        const FVector& Ground, const FRotator& Facing, bool bAwake, FName SlotTag);
+        const FVector& Ground, const FRotator& Facing, bool bAwake, FName SlotTag, const FDungeonRunNode* Room);
     /** 玩家闸门：与玩家距离 ≥MinDistance 且无视线连通才允许落点（无玩家视为通过）。 */
     static bool PlayerGateAllows(const UObject* WorldContext, const FVector& Candidate, float MinDistance);
     /** 房间落点候选：anchor_roles 锚点（确定性打乱）优先，房间体积内地面 trace 散点兜底。 */
@@ -108,7 +110,7 @@ protected:
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
 
 private:
-    /** 任一族受击 → 该房进入警报集（本 run 不再休眠）+ 相邻房（共享 connector 邻居，1 跳）临时唤醒。 */
+    /** 任一族受击 → 该房进入警报集（本 run 不再休眠）+ 连续通道尽头的相邻房临时唤醒。 */
     UFUNCTION() void OnMonsterDamaged(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser);
     /** Separate from the damage delegate so a silent shot can await death resolution. */
     void RaiseDamageAlarm(AActor* DamagedActor);
@@ -123,6 +125,7 @@ private:
     int32 PlanIndexOfRoom(int32 NodeId) const;
     int32 PlanIndexOfMonster(const AActor* Monster) const;
     int32 AliveCount() const;
+    int32 OrdinarySpawnLimit()const;
     static bool HasPending(const FDungeonRoomSpawnPlan& Plan);
 
     /** 自有怪与自有 encounter 的硬引用（生成器 GeneratedActors 同款），EndPlay 遍历销毁。 */

@@ -1,3 +1,4 @@
+#include "G18WeaponAssets.h"
 #include "PistolDualWieldComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -6,6 +7,7 @@
 #include "FPSWeaponFXComponent.h"
 #include "FPSBallisticsComponent.h"
 #include "DanWesson715WeaponAssets.h"
+#include "WeaponReloadStages.h"
 #include "WeaponDamageFalloff.h"
 #include "Camera/CameraComponent.h"
 #include "Animation/AnimSequence.h"
@@ -27,6 +29,7 @@ float UPistolDualWieldComponent::HandConeSpread(int32 Index) const
 
 float UPistolDualWieldComponent::SharedConeSpread() const
 {
+    if(bOffhandOnly)return HandConeSpread(1);
     if(Hands.Num()<2)return HandConeSpread(0);
     return .5f*(HandConeSpread(0)+HandConeSpread(1));
 }
@@ -34,13 +37,14 @@ float UPistolDualWieldComponent::SharedConeSpread() const
 void UPistolDualWieldComponent::TryFire(int32 Index)
 {
     auto& H=Hands[Index];const double Now=GetWorld()->GetTimeSeconds();
-    if(!H.Pending || !H.Held || !InputAvailable() || Player->IsAmmoWheelOpen() || H.Reloading || Player->IsSprinting()
+    if((!H.Pending && H.Item.Definition!=G18WeaponAssets::Definition) || !H.Held || !InputAvailable() || (IsEquipping() && H.Item.Definition!=G18WeaponAssets::Definition) || Player->IsAmmoWheelOpen() || H.Reloading || Player->IsSprinting()
         || Now<Player->SprintFireUnlockTime || Now<H.NextShot || (Index==1 && Player->IsCastBlockingLeftHandAction()))return;
     H.Pending=false;
+    if(WeaponReloadStages::NeedsCycle(H.Item)){BeginReload(Index);return;}
     if(H.Rounds<=0)
     {
         if(Reserve(Index)>0 || InfiniteReserve(Index))BeginReload(Index);
-        else if(auto* Sound=H.Sounds.FindRef(TEXT("DryClick")).Get())UGameplayStatics::PlaySound2D(this,Sound,.65f);
+        else { if(auto* Sound=H.Sounds.FindRef(TEXT("DryClick")).Get())UGameplayStatics::PlaySound2D(this,Sound,.65f); H.Held=false; }
         return;
     }
     const FVector Eye=Player->FirstPersonCamera->GetComponentLocation();
@@ -55,16 +59,28 @@ void UPistolDualWieldComponent::TryFire(int32 Index)
     const FVector Target=AimHit?Sight.ImpactPoint:Eye+Direction*Range;
     const bool MuzzleBlocked=GetWorld()->LineTraceSingleByChannel(Blocked,Eye,Muzzle,ECC_Visibility,Query);
     --H.Rounds;H.Item.Magazine=H.Rounds;
-    H.NextShot=Now+FMath::Max(.001,H.Stats.Interval);
+    const double ShotInterval=FMath::Max(.001,H.Stats.Interval);
+    H.NextShot=H.Item.Definition==G18WeaponAssets::Definition
+        ? (Now-H.NextShot>.15?Now:H.NextShot)+ShotInterval : Now+ShotInterval;
     H.Pattern=Now-H.LastShot>.4?0:FMath::Min(H.Pattern+1,FWeaponHandling::PatternCount-1);H.LastShot=Now;
     StartAction(Index,!H.Revolver && H.Rounds==0?TEXT("fire_last"):TEXT("fire"));
+    if(!bOffhandOnly){Player->MagazineAmmo=Hands[0].Rounds;Player->RevolverCaseCount=Hands[0].Cases;}
+    // A blocked-muzzle hit may award XP and commit the profile synchronously.
+    // Publish the consumed round before entering that callback, from the hand
+    // counters, without saving or resetting either hand's action clock.
+    Profile->SyncRuntime();
     ++Player->ShotsFired;Player->LastShotWorldTime=Now;
     if(MuzzleBlocked)
     {
         if(Blocked.GetActor())
         {
             const float Damage=float(H.Stats.Damage)*WeaponDamageFalloff::Multiplier(FVector::Distance(Muzzle,Blocked.ImpactPoint),float(H.Stats.Range)*100.f);
-            Player->NotifyConfirmedWeaponHit(Blocked.GetActor(),ColdSteelSkills::ApplyHit(Player,Blocked,Damage,Direction,ColdSteelSkills::Snapshot(Player,&H.Item,true)));
+            FWeaponDamageResult DamageResult;
+            auto Shot=ColdSteelSkills::Snapshot(Player,&H.Item,true);
+            Shot.BulletSource=H.Ballistics;
+            Shot.BulletFX=H.FX;
+            const float Applied=ColdSteelSkills::ApplyHit(Player,Blocked,Damage,Direction,Shot,&DamageResult);
+            Player->NotifyConfirmedWeaponHit(Blocked.GetActor(),Applied,&DamageResult,true);
             ColdSteelCombat::OnHit(Blocked.GetActor(),Player,ColdSteelCombat::Snapshot(Player,&H.Item).Poison);
         }
         H.FX->OnImpact(Blocked);
@@ -73,7 +89,21 @@ void UPistolDualWieldComponent::TryFire(int32 Index)
     H.FX->OnShot(false);
     USoundBase* Sound=H.Suppressed?H.Sounds.FindRef(TEXT("Suppressed")):nullptr;
     if(!Sound)Sound=H.Sounds.FindRef(TEXT("Fire"));
-    if(Sound)UGameplayStatics::PlaySound2D(this,Sound,H.Suppressed?.7f:1.5f,1.f);
+    if(H.Item.Definition==G18WeaponAssets::Definition)
+    {
+        const TCHAR* Prefix=H.Suppressed?TEXT("Suppressed"):TEXT("Fire");
+        int32 Choice=FMath::RandRange(1,4);
+        auto* Variant=H.Sounds.FindRef(FString::Printf(TEXT("%s_%02d"),Prefix,Choice)).Get();
+        if(Variant && Variant==H.Sounds.FindRef(TEXT("PreviousFireVariant")).Get())
+        {
+            Choice=(Choice-1+FMath::RandRange(1,3))%4+1;
+            Variant=H.Sounds.FindRef(FString::Printf(TEXT("%s_%02d"),Prefix,Choice)).Get();
+        }
+        if(Variant)Sound=Variant;
+        H.Sounds.Add(TEXT("PreviousFireVariant"),Sound);
+        if(Sound)Player->PlayFireVoice(Sound,H.Suppressed?.7f:1.5f);
+    }
+    else if(Sound)UGameplayStatics::PlaySound2D(this,Sound,H.Suppressed?.7f:1.5f,1.f);
     UAISense_Hearing::ReportNoiseEvent(this,Player->GetActorLocation(),1.f,Player,H.Suppressed?500.f:1800.f,TEXT("Gunshot"));
     const auto Pattern=FWeaponHandling::Pattern(H.Pattern);
     if(auto* Controller=Player->GetController())
@@ -90,18 +120,18 @@ void UPistolDualWieldComponent::TryFire(int32 Index)
     const float DualRecoilLoad=1.f+FMath::Clamp((H.Bloom+Player->MoveSpread+Player->AirSpread)/DualPistolSpread::RecoilLoadScale,0.f,2.f)*.7f;
     Player->ApplyDualWieldShotFeedback(Index,H.Revolver,H.Stats.Handling,H.Pattern,float(H.Stats.Interval),DualRecoilLoad);
     H.Bloom=FMath::Min(DualPistolSpread::BloomMax,H.Bloom+DualPistolSpread::BloomPerShot);
-    if(H.Rounds==0 && InfiniteReserve(Index))H.ReloadQueued=true;
+    if(H.Rounds==0 && (InfiniteReserve(Index)||Reserve(Index)>0))H.ReloadQueued=true;
 }
 
 void UPistolDualWieldComponent::Reload()
 {
     if(!bActive || !InputAvailable())return;
-    for(int32 Index=0;Index<2;++Index)BeginReload(Index);
+    for(int32 Index=FirstHand();Index<2;++Index)BeginReload(Index);
 }
 bool UPistolDualWieldComponent::SwitchAmmo(const FString& WeaponId,const FString& AmmoType)
 {
     if(!bActive||!InputAvailable()||!Profile->CanSwitchAmmo(WeaponId,AmmoType))return false;
-    for(int32 Index=0;Index<Hands.Num();++Index)if(Hands[Index].Item.InstanceId==WeaponId)
+    for(int32 Index=FirstHand();Index<Hands.Num();++Index)if(Hands[Index].Item.InstanceId==WeaponId)
     {
         auto& H=Hands[Index];if(H.Reloading||(Index==1&&Player->IsCastBlockingLeftHandAction()))return false;
         CancelInputs();StopAction(Index);H.PendingAmmoType=AmmoType;BeginReload(Index);
@@ -113,15 +143,19 @@ void UPistolDualWieldComponent::BeginReload(int32 Index)
 {
     auto& H=Hands[Index];
     const bool Switching=!H.PendingAmmoType.IsEmpty();
-    if(H.Reloading || (!Switching && (H.Rounds>=H.Stats.Capacity || (!InfiniteReserve(Index) && Reserve(Index)<=0))))return;
+    const bool ResumeCycle=!Switching && WeaponReloadStages::NeedsCycle(H.Item);
+    if(H.Reloading)return;
+    if(!ResumeCycle && !Switching && (H.Rounds>=H.Stats.Capacity || (!InfiniteReserve(Index) && Reserve(Index)<=0)))
+    {H.ReloadQueued=false;return;}
     if(Index==1 && Player->IsCastBlockingLeftHandAction()){H.ReloadQueued=true;return;}
-    if(H.Action && H.Action!=H.Clips.FindRef(TEXT("equip"))){H.ReloadQueued=true;return;}
-    H.ReloadQueued=false;H.ReloadStart=Switching?0:H.Rounds;
+    if(H.Action){H.ReloadQueued=true;return;}
+    H.ReloadQueued=false;H.ReloadStart=Switching||ResumeCycle?0:H.Rounds;
     H.ReloadSpeedloader=H.Speedloader;
     const int32 Available=Switching?int32(FMath::Min<int64>(H.Stats.Capacity,Profile->PouchCount(H.PendingAmmoType))):InfiniteReserve(Index)?H.Stats.Capacity:Reserve(Index);
     H.ReloadCount=FMath::Min(H.Stats.Capacity-H.ReloadStart,Available);
-    H.Seated=0;H.CasesCleared=Switching||!H.Revolver || (H.Rounds>0 && !H.Speedloader);
-    const bool Empty=Switching||H.Rounds==0;
+    if(ResumeCycle)H.ReloadCount=1;
+    H.Seated=0;H.CasesCleared=Switching||ResumeCycle||!H.Revolver || (H.Rounds>0 && !H.Speedloader);
+    const bool Empty=Switching||ResumeCycle||H.Rounds==0;
     FString Clip;
     if(!H.Revolver){Clip=Empty?TEXT("reload_empty"):TEXT("reload");H.SourceLength=Empty?2.25f:1.75f;}
     else if(H.Speedloader){Clip=TEXT("speed_0");H.SourceLength=3.85f;H.ReloadCount=FMath::Min(6,Available);}
@@ -136,6 +170,34 @@ void UPistolDualWieldComponent::BeginReload(int32 Index)
     StartAction(Index,Clip,Base/Duration);
     H.Reloading=H.Action!=nullptr;
     H.Pending=false;
+    if(ResumeCycle && H.Action)
+    {
+        H.Seated=FMath::Max(1,H.ReloadCount);
+        const auto Stages=WeaponReloadStages::ForWeapon(H.Item.Definition,UseEmpty,false,H.Revolver&&!H.ReloadSpeedloader,H.ReloadCount);
+        H.ActionTime=Stages.CycleBegin/H.SourceLength*H.Action->GetPlayLength();
+        H.ActionStarted-=H.ActionTime/FMath::Max(.001f,H.ActionRate);
+    }
+}
+
+bool UPistolDualWieldComponent::CommitReloadInsertion(int32 Index,int32 Count,bool Completed)
+{
+    auto& H=Hands[Index];
+    const bool NeedsCycle=H.Revolver || H.ReloadStart==0;
+    const bool Inserted=!H.PendingAmmoType.IsEmpty()
+        ? Profile->CommitAmmoSwitch(H.Item.InstanceId,H.PendingAmmoType,H.Stats.Capacity,NeedsCycle,Count,Completed)
+        : Profile->ReloadDualPistol(H.Item.InstanceId,Count,H.Stats.Capacity,Completed,NeedsCycle)>0;
+    if(Inserted){H.PendingAmmoType.Reset();H.CasesCleared=true;}
+    return Inserted;
+}
+
+bool UPistolDualWieldComponent::CompleteReloadMechanism(int32 Index,float Source)
+{
+    auto& H=Hands[Index];
+    const auto Stages=WeaponReloadStages::ForWeapon(H.Item.Definition,H.ReloadStart==0 || H.ReloadSpeedloader,
+        false,H.Revolver&&!H.ReloadSpeedloader,H.ReloadCount);
+    if(H.Seated>0 && Source+1.e-6f>=Stages.Ready && WeaponReloadStages::NeedsCycle(H.Item))
+        if(!Profile->CompleteWeaponReloadCycle(H.Item.InstanceId)){StopAction(Index);return false;}
+    return true;
 }
 
 void UPistolDualWieldComponent::Cue(int32 Index,const FString& Name,float At,float Previous,float Now)
@@ -160,11 +222,12 @@ void UPistolDualWieldComponent::AdvanceReload(int32 Index,float Previous)
         Cue(Index,TEXT("MagInsert"),1.05f,Previous,Source);
         Cue(Index,TEXT("MagSeat"),1.0667f,Previous,Source);
         if(H.ReloadStart==0)Cue(Index,TEXT("BoltRelease"),1.6f,Previous,Source);
-        if(!H.Seated && Source>=1.0667f)
+        if(!H.Seated && Source>=1.05f)
         {
+            if(!CommitReloadInsertion(Index,H.ReloadCount,true)){StopAction(Index);return;}
             H.Seated=1;
-            if(H.PendingAmmoType.IsEmpty())Profile->ReloadDualPistol(H.Item.InstanceId,H.ReloadCount,H.Stats.Capacity,true);
         }
+        CompleteReloadMechanism(Index,Source);
         return;
     }
     using namespace DanWesson715WeaponAssets;
@@ -180,7 +243,8 @@ void UPistolDualWieldComponent::AdvanceReload(int32 Index,float Previous)
             Cue(Index,C.Name,FMath::Max(0.f,C.Contact/NormalReload*3.85f-C.LeadSeconds*H.ActionRate),Previous,Source);
         if(!H.Seated && Source>=Seat/NormalReload*3.85f)
         {
-            H.Seated=1;if(H.PendingAmmoType.IsEmpty())Profile->ReloadDualPistol(H.Item.InstanceId,H.ReloadCount,6,true);
+            if(!CommitReloadInsertion(Index,H.ReloadCount,true)){StopAction(Index);return;}
+            H.Seated=1;
         }
     }
     else
@@ -194,16 +258,17 @@ void UPistolDualWieldComponent::AdvanceReload(int32 Index,float Previous)
             Cue(Index,FString::Printf(TEXT("MagSeat:%d"),Round),Contact,Previous,Source);
             if(H.Seated==Round && Source>=Contact)
             {
-                ++H.Seated;
-                const int32 Taken=H.PendingAmmoType.IsEmpty()?Profile->ReloadDualPistol(H.Item.InstanceId,1,6,H.Seated==H.ReloadCount):1;
-                if(Taken==0 && !InfiniteReserve(Index))
+                const bool Inserted=CommitReloadInsertion(Index,1,H.Seated+1==H.ReloadCount);
+                if(!Inserted)
                 {
-                    // Keep the closing tail when the other gun exhausted shared reserves.
-                    H.ActionTime=FMath::Max(H.ActionTime,H.Action->GetPlayLength()-SingleCloseTail);
-                    H.ActionStarted=GetWorld()->GetTimeSeconds()-H.ActionTime/H.ActionRate;H.Seated=H.ReloadCount;break;
+                    // Previously seated rounds remain saved, including when the
+                    // other hand exhausted the shared pouch. Resume with closure.
+                    StopAction(Index);return;
                 }
+                ++H.Seated;
             }
         }
         Cue(Index,TEXT("SingleClose"),Begin+SingleStep*H.ReloadCount+.37f,Previous,Source);
     }
+    CompleteReloadMechanism(Index,Source);
 }

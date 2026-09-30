@@ -1,6 +1,8 @@
 #include "DungeonRunSubsystem.h"
 #include "AuthoredDungeonGenerator.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "../UI/StatusEffectsComponent.h"
+#include "GameFramework/Pawn.h"
 #include "Engine/TargetPoint.h"
 #include "Engine/World.h"
 #include "Engine/GameInstance.h"
@@ -69,6 +71,7 @@ void UDungeonRunSubsystem::BindCompletedDungeon(AAuthoredDungeonGenerator* InGen
     CurrentRunId = FString::Printf(TEXT("%d-%08X"), Seed, (uint32)(FDateTime::UtcNow().GetTicks() >> 20));
     BeginProfileRun();
     bActive = true;
+    InitializeShrine();
 
     int32 CombatCount = 0;
     for (const FDungeonRunNode& N : Nodes) if (N.bCombatRoom) ++CombatCount;
@@ -79,6 +82,11 @@ void UDungeonRunSubsystem::BindCompletedDungeon(AAuthoredDungeonGenerator* InGen
 void UDungeonRunSubsystem::UnbindDungeon()
 {
     bActive = false;
+    bShrineClaimed=false;
+    ShrineConfig.Reset();ShrineActor.Reset();ShrineEffects.Reset();ShrineBlessing=NAME_None;
+    ShrineName.Reset();ShrineDescription.Reset();ShrineHealFraction=0;
+    if(ShrineRecipient.IsValid())UStatusEffectsComponent::Notify(ShrineRecipient.Get());
+    ShrineRecipient.Reset();
     bCompleted = false;
     Generator.Reset();
     Nodes.Reset();
@@ -107,7 +115,7 @@ int32 UDungeonRunSubsystem::NodeNearPosition(const FVector& Position, double Max
     for (const FDungeonRunNode& N : Nodes)
     {
         if (N.Id == INDEX_NONE || N.bConnector || !N.Volume.IsValid) continue;
-        const double D = N.Volume.ComputeSquaredDistanceToPoint(Position);
+        const double D = N.DistanceSquared(Position);
         if (D <= BestD) { BestD = D; Best = N.Id; }
     }
     return Best;
@@ -117,39 +125,30 @@ void UDungeonRunSubsystem::CollectActiveRooms(const FVector& PlayerPosition, TAr
 {
     OutNodeIds.Reset();
     if (!bActive || Nodes.IsEmpty()) return;
-
-    // Same contract as the room-lighting scheduler: rooms containing the player seed the search,
-    // connector chains are traversed at most two hops, ordinary rooms never propagate further.
-    TArray<TPair<int32, int32>> Queue;
-    TArray<bool> Visited;
-    TArray<bool> RoomActive;
-    Visited.Init(false, Nodes.Num());
-    RoomActive.Init(false, Nodes.Num());
     for (const FDungeonRunNode& N : Nodes)
     {
         if (N.Id == INDEX_NONE || !N.Volume.IsValid) continue;
-        if (N.Volume.ComputeSquaredDistanceToPoint(PlayerPosition) > FMath::Square(100.0)) continue;
-        if (Visited[N.Id]) continue;
-        Visited[N.Id] = true;
-        Queue.Emplace(N.Id, 0);
-        if (!N.bConnector) RoomActive[N.Id] = true;
+        if (N.DistanceSquared(PlayerPosition) > FMath::Square(100.0)) continue;
+        if(!N.bConnector)OutNodeIds.AddUnique(N.Id);
+        TArray<int32> Adjacent;CollectNeighborRooms(N.Id,Adjacent);
+        for(int32 Next:Adjacent)OutNodeIds.AddUnique(Next);
     }
-    for (int32 Head = 0; Head < Queue.Num(); ++Head)
+}
+
+void UDungeonRunSubsystem::CollectNeighborRooms(int32 NodeId,TArray<int32>& OutNodeIds)const
+{
+    OutNodeIds.Reset();
+    if(!NodeById(NodeId))return;
+    TArray<int32> Queue{NodeId};TSet<int32> Seen{NodeId};
+    for(int32 Head=0;Head<Queue.Num();++Head)
     {
-        const int32 Depth = Queue[Head].Value;
-        const FDungeonRunNode& At = Nodes[Queue[Head].Key];
-        for (int32 Next : At.Neighbors)
+        for(int32 Next:Nodes[Queue[Head]].Neighbors)
         {
-            if (!Nodes.IsValidIndex(Next) || Nodes[Next].Id != Next || Visited[Next]) continue;
-            const bool bNextConnector = Nodes[Next].bConnector;
-            if (bNextConnector && Depth >= 2) continue;
-            Visited[Next] = true;
-            Queue.Emplace(Next, Depth + 1);
-            if (!bNextConnector) RoomActive[Next] = true;
+            const auto* N=NodeById(Next);if(!N||Seen.Contains(Next))continue;
+            Seen.Add(Next);
+            if(N->bConnector)Queue.Add(Next);else OutNodeIds.Add(Next);
         }
     }
-    for (const FDungeonRunNode& N : Nodes)
-        if (N.Id != INDEX_NONE && RoomActive[N.Id]) OutNodeIds.Add(N.Id);
 }
 
 TArray<ATargetPoint*> UDungeonRunSubsystem::RoomAnchors(int32 NodeId, const TCHAR* RolePrefix) const
@@ -181,7 +180,7 @@ int32 UDungeonRunSubsystem::EntryConnectorFor(int32 RoomNodeId) const
     const FDungeonRunNode* Room = NodeById(RoomNodeId);
     if (!Room || Room->bConnector) return INDEX_NONE;
 
-    // Entrance side = connector neighbour whose BFS depth is one below the room
+    // Entrance side = connector neighbour whose shortest room depth is one below the room
     // (connectors add no depth). Fallback: shallowest connector neighbour.
     int32 Best = INDEX_NONE;
     double BestD = TNumericLimits<double>::Max();
@@ -207,34 +206,15 @@ bool UDungeonRunSubsystem::EstimateDoorway(int32 RoomNodeId, int32 ConnectorNode
     const FDungeonRunNode* Room = NodeById(RoomNodeId);
     const FDungeonRunNode* Conn = NodeById(ConnectorNodeId);
     if (!Room || !Conn || Room->bConnector || !Conn->bConnector) return false;
-    if (!Room->Volume.IsValid || !Conn->Volume.IsValid) return false;
-
-    // The corridor sleeve (slightly expanded) intersected with the room box is the doorway patch.
-    const FBox Reach(Conn->Volume.Min - FVector(60, 60, 60), Conn->Volume.Max + FVector(60, 60, 60));
-    const FVector PMin = FVector::Max(Room->Volume.Min, Reach.Min);
-    const FVector PMax = FVector::Min(Room->Volume.Max, Reach.Max);
-    if (PMin.X >= PMax.X || PMin.Y >= PMax.Y || PMin.Z >= PMax.Z) return false;
-
-    // Dominant horizontal axis from the corridor toward the room gives the face normal.
-    const FVector Delta = Room->Origin - Conn->Origin;
-    FVector Normal = FVector::ZeroVector;
-    if (FMath::Abs(Delta.X) >= FMath::Abs(Delta.Y)) Normal = FVector(Delta.X >= 0 ? 1.0 : -1.0, 0, 0);
-    else Normal = FVector(0, Delta.Y >= 0 ? 1.0 : -1.0, 0);
-
-    // A 300 cm interface must leave a plausible lateral patch; reject degenerate touches.
-    const double Lateral = Normal.X != 0 ? (PMax.Y - PMin.Y) : (PMax.X - PMin.X);
-    if (Lateral < 150.0) return false;
-
-    FVector Center = (PMin + PMax) * 0.5;
-    // Snap to the room face and stand the door on the room floor (standard 280 cm opening).
-    if (Normal.X > 0) Center.X = Room->Volume.Min.X;
-    else if (Normal.X < 0) Center.X = Room->Volume.Max.X;
-    if (Normal.Y > 0) Center.Y = Room->Volume.Min.Y;
-    else if (Normal.Y < 0) Center.Y = Room->Volume.Max.Y;
-    Center.Z = Room->Volume.Min.Z + 140.0;
-    OutCenter = Center;
-    OutNormal = Normal;
-    return true;
+    for(const FDungeonRunDoor& Door:Room->Doors)if(Door.Neighbor==ConnectorNodeId)
+    {
+        OutCenter=Door.FloorCenter+FVector(0,0,Door.Height*.5);
+        OutNormal=-Door.OutwardNormal;
+        return true;
+    }
+    // Older manifests without doorway coordinates cannot safely seal an authored
+    // irregular room. Leave the encounter open instead of guessing from its AABB.
+    return false;
 }
 
 const TSharedPtr<FJsonObject>* UDungeonRunSubsystem::SpawnConfigForModule(const FString& ModuleId) const
@@ -272,20 +252,23 @@ void UDungeonRunSubsystem::MarkRunCompleted()
 
 FName UDungeonRunSubsystem::EnemySlotTag(int32 NodeId, int32 SlotIndex) const
 {
-    return FName(*FString::Printf(TEXT("DungeonEnemy.%s.%d.%d"), *CurrentRunId, NodeId, SlotIndex));
+    return FName(*FString::Printf(TEXT("DungeonEnemy.%s.%s.%d"), *CurrentRunId, *RoomKey(NodeId).ToString(), SlotIndex));
 }
 
-FName UDungeonRunSubsystem::RoomKey(int32 NodeId)
+FName UDungeonRunSubsystem::RoomKey(int32 NodeId)const
 {
+    if(const auto* Node=NodeById(NodeId);Node&&!Node->MissionId.IsEmpty())return FName(*Node->MissionId);
     return FName(*FString::Printf(TEXT("Node%d"), NodeId));
 }
 
 bool UDungeonRunSubsystem::ParseLayoutManifest(const FString& Json)
 {
     Nodes.Reset();
+    EntryNodeId=INDEX_NONE;
     TSharedPtr<FJsonObject> Root;
     if (Json.IsEmpty() || !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json), Root) || !Root.IsValid())
         return false;
+    Root->TryGetNumberField(TEXT("entry_node"),EntryNodeId);
 
     const TArray<TSharedPtr<FJsonValue>>* NodeValues = nullptr;
     if (!Root->TryGetArrayField(TEXT("nodes"), NodeValues) || !NodeValues) return false;
@@ -300,15 +283,25 @@ bool UDungeonRunSubsystem::ParseLayoutManifest(const FString& Json)
         Node.Id = Id;
         N->TryGetStringField(TEXT("module"), Node.Module);
         N->TryGetStringField(TEXT("route"), Node.Route);
+        N->TryGetStringField(TEXT("mission_id"),Node.MissionId);N->TryGetStringField(TEXT("encounter_role"),Node.EncounterRole);
+        N->TryGetNumberField(TEXT("threat_bonus"),Node.ThreatBonus);N->TryGetNumberField(TEXT("reward_multiplier"),Node.RewardMultiplier);
         int32 Floor = 0;
         if (N->TryGetNumberField(TEXT("floor"), Floor)) Node.Floor = Floor;
         Node.Origin = ReadVec3(N, TEXT("origin"));
         const FVector VMin = ReadVec3(N, TEXT("volume_min"));
         const FVector VMax = ReadVec3(N, TEXT("volume_max"));
         Node.Volume = FBox(FVector::Min(VMin, VMax), FVector::Max(VMin, VMax));
+        N->TryGetNumberField(TEXT("progression_depth"),Node.ProgressionDepth);
+        const TArray<TSharedPtr<FJsonValue>>* Cells=nullptr;
+        if(N->TryGetArrayField(TEXT("cells"),Cells))for(const auto& Cell:*Cells)
+        {
+            const auto C=Cell->AsObject();if(C.IsValid())Node.Cells.Add(FBox(ReadVec3(C,TEXT("min")),ReadVec3(C,TEXT("max"))));
+        }
         Node.bConnector = IsConnectorModuleId(Node.Module);
         Node.bCombatRoom = RoomIds.Contains(Node.Module);
-        Node.bJunction = Node.Module == TEXT("Junction");
+        if(N->TryGetArrayField(TEXT("walk_cells"),Cells))for(const auto& Cell:*Cells)
+        {const auto C=Cell->AsObject();if(C.IsValid())Node.WalkCells.Add(FBox(ReadVec3(C,TEXT("min")),ReadVec3(C,TEXT("max"))));}
+        Node.bJunction = Node.Module == TEXT("Junction")||Node.Module.StartsWith(TEXT("Fork"));
         Node.bTreasure = Node.Module == TEXT("Treasure");
         Node.bBossArea = IsBossModuleId(Node.Module) || Node.Route.StartsWith(TEXT("Boss"));
         if (Nodes.Num() <= Id) Nodes.SetNum(Id + 1);
@@ -327,6 +320,13 @@ bool UDungeonRunSubsystem::ParseLayoutManifest(const FString& Json)
             if (!NodeById(From) || !NodeById(To) || From == To) continue;
             Nodes[From].Neighbors.AddUnique(To);
             Nodes[To].Neighbors.AddUnique(From);
+            if(E->HasField(TEXT("position"))&&E->HasField(TEXT("from_normal"))&&E->HasField(TEXT("to_normal")))
+            {
+                double Width=300,Height=280;E->TryGetNumberField(TEXT("width"),Width);E->TryGetNumberField(TEXT("height"),Height);
+                const FVector Position=ReadVec3(E,TEXT("position"));
+                Nodes[From].Doors.Add({To,Position,ReadVec3(E,TEXT("from_normal")),Width,Height});
+                Nodes[To].Doors.Add({From,Position,ReadVec3(E,TEXT("to_normal")),Width,Height});
+            }
         }
     }
     return Nodes.Num() > 0;
@@ -353,6 +353,8 @@ void UDungeonRunSubsystem::ParseCatalog(const FString& Json)
             if (V.IsValid() && V->Type == EJson::String) RoomIds.Add(V->AsString());
     }
     StartPosition = ReadVec3(Root, TEXT("start_position"));
+    const TSharedPtr<FJsonObject>* Shrine=nullptr;
+    if(Root->TryGetObjectField(TEXT("start_shrine"),Shrine))ShrineConfig=*Shrine;
     const FVector N = ReadVec3(Root, TEXT("start_normal"));
     if (!N.IsNearlyZero()) StartNormal = N;
 
@@ -376,9 +378,9 @@ void UDungeonRunSubsystem::ComputeDepth()
 {
     if (Nodes.IsEmpty()) return;
     // Root: the piece placed against the authored entry socket.
-    int32 Root = INDEX_NONE;
+    int32 Root = EntryNodeId;
     double Best = TNumericLimits<double>::Max();
-    for (const FDungeonRunNode& N : Nodes)
+    if(!NodeById(Root))for (const FDungeonRunNode& N : Nodes)
     {
         if (N.Id == INDEX_NONE) continue;
         const double D = FVector::DistSquared(N.Origin, StartPosition);
@@ -387,22 +389,23 @@ void UDungeonRunSubsystem::ComputeDepth()
     if (Root == INDEX_NONE) return;
 
     TArray<int32> Queue;
-    TArray<bool> Visited;
-    Visited.Init(false, Nodes.Num());
+    for(auto& Node:Nodes)Node.Depth=MAX_int32;
     Queue.Add(Root);
-    Visited[Root] = true;
-    Nodes[Root].Depth = 0;
+    Nodes[Root].Depth = Nodes[Root].bConnector?0:1;
     for (int32 Head = 0; Head < Queue.Num(); ++Head)
     {
         const FDungeonRunNode& At = Nodes[Queue[Head]];
         for (int32 Next : At.Neighbors)
         {
-            if (!NodeById(Next) || Visited[Next]) continue;
-            Visited[Next] = true;
-            // Connectors add no depth; rooms increment (same contract as RoomDistance in lighting).
-            Nodes[Next].Depth = At.Depth + (Nodes[Next].bConnector ? 0 : 1);
-            Queue.Add(Next);
+            if (!NodeById(Next)) continue;
+            const int32 Candidate=At.Depth+(Nodes[Next].bConnector?0:1);
+            if(Candidate<Nodes[Next].Depth){Nodes[Next].Depth=Candidate;Queue.Add(Next);}
         }
+    }
+    for(auto& Node:Nodes)
+    {
+        if(Node.Depth==MAX_int32)Node.Depth=0;
+        if(Node.ProgressionDepth<0)Node.ProgressionDepth=Node.Depth;
     }
 }
 
@@ -415,6 +418,7 @@ void UDungeonRunSubsystem::BeginProfileRun()
     auto& Run = P.DungeonRun;
     Run.RunId = CurrentRunId;
     Run.Seed = Seed;
+    if(Generator.IsValid()){Run.GeneratorVersion=5;Run.LayoutManifestJson=Generator->LayoutManifestJson;}
     Run.bCompleted = false;
     // Fresh run: all per-slot kill dedup and room state resets. Legacy Rooms/Connections/Events
     // fields stay untouched (save-compatible, never authored by the randomized dungeon).
@@ -437,6 +441,14 @@ void UDungeonRunSubsystem::CommitProfileRunState()
     P.DungeonRun.Cleared = Cleared;
     P.DungeonRun.Explored = Explored;
     P.DungeonRun.bCompleted = bCompleted;
+    for(const auto& Node:Nodes)if(Node.EncounterRole.StartsWith(TEXT("risk"))&&Cleared.Contains(RoomKey(Node.Id)))
+    {
+        const FString Key=RoomKey(Node.Id).ToString();bool HadKill=false;
+        for(FName Enemy:P.DungeonRun.DefeatedEnemies)if(Enemy.ToString().StartsWith(Key+TEXT("."))){HadKill=true;break;}
+        if(!HadKill)continue; // Failed spawn placement must never mint a risk reward.
+        const int64 Gold=FMath::Max<int64>(1,FMath::RoundToInt64((8+Node.ProgressionDepth*2)*(Node.RewardMultiplier-1.)));
+        if(!Model->AppendDungeonReward(P,FName(*(Key+TEXT(".clear_reward"))),{{TEXT("gold"),Gold}},Node.Origin))return;
+    }
     Model->CommitState(MoveTemp(P));
 }
 

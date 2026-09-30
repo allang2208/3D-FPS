@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "FireballTypes.h"
 #include "IceSpikeTypes.h"
+#include "IceWallTypes.h"
 #include "LightningTypes.h"
 #include "HolyLightTypes.h"
 #include "FireMagicTypes.h"
@@ -22,11 +23,10 @@ struct FColdSteelSkillProgress
 /** 快速进战：独立配重锤/枪托打击的固定档参数（skills.json: quickCombat）。 */
 struct FQuickCombatTuning
 {
-    float DamageBase=25.f, DamagePerLevel=5.f;
-    float StrengthFactorBase=5.f, StrengthFactorPerLevel=.1f;
-    float KnockbackCM=100.f, RangeCM=200.f;
-    float StunBase=2.5f, StunPerLevel=.1f;
-    float Cooldown=12.f;
+    float DamageBase=5.f, DamagePerLevel=1.f;
+    float StrengthFactorBase=1.f, StrengthFactorPerLevel=.02f;
+    float KnockbackCM=50.f, RangeCM=200.f;
+    float StaminaCost=15.f, StaminaReductionPerLevel=.02f;
 };
 
 /** 施放时按等级与当前力量取值的一次结算快照。 */
@@ -34,10 +34,9 @@ struct FQuickCombatCast
 {
     float Damage=0.f;
     float DamageMultiplier=1.f;
-    float KnockbackCM=100.f;
-    float StunSeconds=0.f;
+    float KnockbackCM=50.f;
     float RangeCM=200.f;
-    float CooldownSeconds=12.f;
+    float StaminaCost=15.f;
     float ToughnessMultiplier=1.f, BleedChance=0.f;
     bool bAreaHit=false;
 };
@@ -77,6 +76,7 @@ struct FColdSteelSkillDefinition
     FWhirlwindTuning Whirlwind;
     FDashAttackTuning DashAttack;
     FFireMagicTuning FireMagic;
+    FIceWallTuning IceWall;
 };
 
 struct FColdSteelSkillEffect
@@ -97,6 +97,8 @@ struct FColdSteelSkillEffect
 };
 
 // Captured at fire time; weapon swaps and later skill upgrades cannot alter a flying round.
+class UFPSBallisticsComponent;
+class UFPSWeaponFXComponent;
 struct FColdSteelSkillShot
 {
     FName MasteryId;
@@ -122,6 +124,15 @@ struct FColdSteelSkillShot
     float CriticalDamageBonus = 0;
     /** Guaranteed ammo effects captured on release, independent of later selection. */
     int32 AmmoPoisonStacks = 0, AmmoBleedStacks = 0;
+    /** Fired firearm enchantment snapshot. Melee, arrows and spells leave radius zero. */
+    float ShatterRadiusCM=0.f, ShatterDamageScale=1.f, BulletSpeedCM=0.f;
+    /** Secondary bullets inherit resolved pre-defense damage, never roll crit or bounce again. */
+    bool bRicochet=false, bInheritedCritical=false;
+    TWeakObjectPtr<UFPSBallisticsComponent> BulletSource;
+    TWeakObjectPtr<UFPSWeaponFXComponent> BulletFX;
+    /** Only the actual melee item's prefix can start an enchantment discharge. */
+    float ElectrifiedRadiusCM=0.f;
+    int32 ElectrifiedMinLevel=0;
 };
 
 struct FColdSteelProgressNotice

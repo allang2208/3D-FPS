@@ -3,6 +3,7 @@
 #include "GameFramework/SaveGame.h"
 #include "../Skills/ColdSteelSkillTypes.h"
 #include "ColdSteelQuickBarTypes.h"
+#include "../Dungeon/DungeonTypes.h"
 #include "../Combat/ProgressiveInfectionComponent.h"
 #include "ColdSteelInventoryTypes.generated.h"
 
@@ -59,6 +60,18 @@ struct FColdSteelTreeGrowth
     UPROPERTY() double CutAtDay = 0;
     UPROPERTY() float DormantDays = 1;
     UPROPERTY() float MatureDays = 6;
+    // 2026-09-28 用户规则（只追加，不插到前面：字段错位会读坏未重编的翻译单元/旧档）：
+    // 桩与幼树分离——桩留在被砍树的位置等玩家来劈，幼树在附近随机偏移处长回。
+    /** 这是该候选点第几次再生（1 起）；偏移随机流的种子之一。 */
+    UPROPERTY() int32 Generation = 1;
+    /** 幼树相对候选点基点的位置偏移（cm，世界 XY）。默认 0＝旧行为（原地再生）。 */
+    UPROPERTY() FVector2D SaplingOffset = FVector2D::ZeroVector;
+    /** 当前树桩相对候选点基点的偏移（cm）＝被砍那棵树当时站的位置。 */
+    UPROPERTY() FVector2D StumpOffset = FVector2D::ZeroVector;
+    /** 树桩剩余生命比例（1＝没劈过）；树桩生命上限口径见 ProductionTreeHealth::StumpMaxHealth。 */
+    UPROPERTY() float StumpHealthRatio = 1.f;
+    /** 树桩已被劈开（奖励已发，桩不再渲染/不可再砍）；幼树照常生长不受影响。 */
+    UPROPERTY() bool bStumpCleared = false;
 };
 
 USTRUCT()
@@ -76,7 +89,7 @@ struct FColdSteelFormulaBuff
     // 运行时一次性标记（与旧 _worldPeachReviveUsed 同寿命：重新献祭才刷新）：
     bool bPeachUsed=false,bMoonshadowUsed=false;
 };
-/** 冶炼点击已写入角色档、建筑档可能还没落盘时的对账条。Kind：1投料 2收取 3添燃料 4升级 5拆炉。 */
+/** 冶炼点击已写入角色档、建筑档可能还没落盘时的对账条。Kind：1投料 2收取 3添燃料 4升级 5拆炉 6队列投料 7部分收取。 */
 USTRUCT()
 struct FColdSteelSmeltIntent
 {
@@ -93,6 +106,42 @@ struct FColdSteelSmeltIntent
     UPROPERTY() double FuelBefore=0;
     UPROPERTY() double FuelAfter=0;
 };
+/** Paid workpiece kept outside the inventory until the player claims or discards it. */
+USTRUCT()
+struct FColdSteelForgeJob
+{
+    GENERATED_BODY()
+    UPROPERTY() FString Id;
+    UPROPERTY() FName Recipe;
+    UPROPERTY() FColdSteelItem Item;
+    UPROPERTY() int32 Hits=0;
+    UPROPERTY() bool bFinished=false;
+    /** Actual inputs paid at start; empty for legacy jobs that use the recipe fallback. */
+    UPROPERTY() TMap<FString,int64> PaidMaterials;
+};
+
+/** One paid firearm workpiece. Tagged fields keep older profiles compatible. */
+USTRUCT()
+struct FColdSteelGunAssemblyJob
+{
+    GENERATED_BODY()
+    UPROPERTY() FString Id;
+    UPROPERTY() FName Recipe;
+    UPROPERTY() FColdSteelItem Item;
+    UPROPERTY() TMap<FString,int64> PaidMaterials;
+    UPROPERTY() int32 InstalledMask=0;
+    // Defaults preserve jobs saved by the original five-part recipe.
+    UPROPERTY() int32 PartCount=5;
+    UPROPERTY() float CalibrationDuration=5;
+    UPROPERTY() TArray<float> Scores;
+    UPROPERTY() TArray<int32> Misses;
+    UPROPERTY() float CalibrationSeconds=0;
+    UPROPERTY() float CalibrationTime=0;
+    UPROPERTY() float CalibrationError=0;
+    UPROPERTY() float Quality=0;
+    UPROPERTY() bool bFinished=false;
+};
+
 USTRUCT()
 struct FColdSteelProfile
 {
@@ -111,7 +160,6 @@ struct FColdSteelProfile
     /** 储物容器键->容量页数（一页 18x12=216 格）。首次打开对应箱子时按档位登记，
      *  之后只增不减，避免调低档位后箱内物品越界。 */
     UPROPERTY() TMap<FString,int32> StoragePages;
-    UPROPERTY() TArray<FColdSteelSmeltIntent> SmeltIntents;
     UPROPERTY() int32 AmmoPouchVersion = 0;
     UPROPERTY() TMap<FString,int64> AmmoPouch;
     UPROPERTY() TArray<FString> Hotbar;
@@ -145,13 +193,21 @@ struct FColdSteelProfile
     UPROPERTY() float HolyLightCooldownDuration = 0;
     UPROPERTY() float WhirlwindCooldown = 0;
     UPROPERTY() float WhirlwindCooldownDuration = 0;
+    // Legacy serialized names retained; these now mirror only the live action
+    // remaining/duration and are cleared when loading an interrupted session.
     UPROPERTY() float QuickCombatCooldown = 0;
     UPROPERTY() float QuickCombatCooldownDuration = 0;
     UPROPERTY() bool bQuickCombatReserved = false;
     // Optional tagged fields: legacy profiles start with no tools or depleted nodes.
     UPROPERTY() int32 ProductionSupplyVersion = 0;
     UPROPERTY() FString ActiveProductionTool;
-    UPROPERTY() TMap<FString,int32> HarvestProgress; // world GUID:v1:layer:candidate -> 1..3 hits
+    UPROPERTY() TMap<FString,int32> HarvestProgress; // world GUID:v1:layer:candidate -> 表土挖层计数；岩块／树木采尽时补写采尽标记（命中数结算已退役）
+    /** 树木生命值口径（2026-09-25）：world GUID:v1:0:candidate -> 剩余生命比例 0..1；缺省＝满血。
+     *  存比例而不是绝对值，调树种生命不会作废旧档；成熟的重生树按满血读，不重写记录。 */
+    UPROPERTY() TMap<FString,float> TreeHealth;
+    /** 岩块生命值口径（2026-09-30 与树木统一）：world GUID:v1:1:candidate -> 剩余生命比例 0..1；缺省＝满血。
+     *  旧档按 HarvestProgress（1..3 次命中）在读档时换算，不迁移遍历。 */
+    UPROPERTY() TMap<FString,float> RockHealth;
     UPROPERTY() int32 TreeGrowthVersion = 0;
     UPROPERTY() double TreeGrowthDay = 0; // online gameplay time; pause/offline do not advance
     UPROPERTY() TMap<FString,FColdSteelTreeGrowth> TreeGrowth;
@@ -160,7 +216,17 @@ struct FColdSteelProfile
     UPROPERTY() float MeteorCooldownDuration = 0;
     UPROPERTY() float FlameArmorCooldown = 0;
     UPROPERTY() float FlameArmorCooldownDuration = 0;
+    // Geometry, encounters and reward receipts travel with the same character transaction.
+    UPROPERTY() FDungeonRunState DungeonRun;
     UPROPERTY() FInfectionState Infection;
+    UPROPERTY() TArray<FColdSteelSmeltIntent> SmeltIntents;
+    UPROPERTY() FColdSteelForgeJob ForgeJob;
+    UPROPERTY() FColdSteelGunAssemblyJob GunAssemblyJob;
+    // Skill schema v17: the preparation reserves cooldown, release starts its clock.
+    UPROPERTY() float IceWallCooldown = 0;
+    UPROPERTY() float IceWallCooldownDuration = 0;
+    UPROPERTY() bool bIceWallReserved = false;
+    UPROPERTY() float IceWallReservedMana = 0;
 };
 
 UCLASS()
@@ -182,7 +248,7 @@ struct FColdSteelProposal
 
 namespace ColdSteelInventory
 {
-    inline bool IsDualPistol(const FColdSteelItem& I) { return I.Definition==TEXT("ue_m1911") || I.Definition==TEXT("ue_dan_wesson715"); }
+    inline bool IsDualPistol(const FColdSteelItem& I) { return (I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_g18")) || I.Definition==TEXT("ue_dan_wesson715"); }
     FPSGAME_API FString Text(const FColdSteelItem& Item, const TCHAR* Key);
     FPSGAME_API double Number(const FColdSteelItem& Item, const TCHAR* Key, double Default = 0);
     FPSGAME_API bool Flag(const FColdSteelItem& Item, const TCHAR* Key);

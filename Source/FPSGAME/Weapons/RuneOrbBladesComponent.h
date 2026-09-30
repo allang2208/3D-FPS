@@ -31,6 +31,7 @@ public:
     { return CooldownDuration > 0.f ? FMath::Clamp(Cooldown / CooldownDuration, 0.f, 1.f) : 0.f; }
     // The orbit ends when the sword is stowed or swapped, exactly like the 2D weapon switch.
     void EndOrbit();
+    void InterruptPending(bool bGathering);
     // Blade kills trim all running ability cooldowns through the shared profile path.
     void NotifyBladeResult(bool bKilled);
     void ReduceCooldown(float Seconds) { Cooldown = FMath::Max(0.f, Cooldown - FMath::Max(0.f, Seconds)); }

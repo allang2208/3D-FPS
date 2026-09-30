@@ -32,7 +32,7 @@ public:
     TSharedPtr<class SWidget> GetPreviewSurface() const {return PreviewSurface;}
     const TArray<FGunsmithOverviewRow>& GetOverviewRows() const {return Overview;}
     bool HasWorkbenchCapture() const {return Capture!=nullptr&&PreviewTarget!=nullptr&&(!bStandalone||StandaloneRig!=nullptr||StandaloneMelee!=nullptr);}
-    bool CanAimPreview() const {return HasWorkbenchCapture()&&StandaloneMelee==nullptr&&!(IsMeleeWorkbench()||IsBowWorkbench());}
+    bool CanAimPreview() const {return HasWorkbenchCapture()&&StandaloneMelee==nullptr&&!IsStandaloneWorkbench();}
     void SetStandaloneItem(const FColdSteelItem& Item);
     void TickStandalonePreview(float Delta,TSharedPtr<class SWidget> Surface);
     void CloseStandalonePreview();
@@ -48,17 +48,39 @@ private:
     friend class AFPSGAMEPlayerController;
     friend class AFPSGAMECharacter;
     class UGunsmithSystem* Model() const;
-    bool IsBowWorkbench() const;
-    void AppendBowOverview(const FColdSteelItem& Item);
-    void SetStandaloneBowItem(const FColdSteelItem& Item);
-    void SyncStandaloneBowPreview();
-    TSharedPtr<struct FStreamableHandle> BowPreviewLoad;
-    FString BowPreviewInputKey;
     bool IsMeleeWorkbench() const;
+    bool IsBowWorkbench() const;
+    bool IsStaffWorkbench() const;
+    void AppendStaffOverview(const FColdSteelItem& Item);
+    void SetStandaloneStaffItem(const FColdSteelItem& Item);
+    void SyncStandaloneStaffPreview();
+    void AppendBowOverview(const FColdSteelItem& Item);
+    /** 采集工具（伐木斧、矿镐）工作台：数值口径独立，布局沿用近战那套。 */
+    bool IsToolWorkbench() const;
+    /** 近战与工具都不绑定角色装备栏，统一走独立网格预览。 */
+    bool IsStandaloneWorkbench() const;
     bool HasSelectedPreview() const;
     void AppendMeleeOverview(const FColdSteelItem& Item);
+    void AppendToolOverview(const FColdSteelItem& Item);
+    /** 右侧总览「强化」段：排在「采集」「自卫」之后，全部为外观行，无数值。 */
+    void AppendToolEnhanceOverview(const FColdSteelItem& Item);
     TSharedRef<SWidget> BuildWorkbench();
     TSharedRef<SWidget> BuildOption(const FString& SlotKey,const FString& Id);
+    /** 底部选项区标题：「强化」不是改造槽、不在 Slots() 里，不能靠 IndexOfByKey 反查，必须显式给。 */
+    FString OptionsTitle() const;
+    int32 OptionsCount() const;
+    /** 强化档位卡：等级序号＋材质名＋一句外观说明＋角标（已装备／可强化／需先强化到 Lv.N）。 */
+    TSharedRef<SWidget> BuildEnhanceCard(int32 Level);
+    /** 重建底部档位卡列表；仅在选中「强化」栏目时由 RefreshEnhanceOptions 调用。 */
+    void RefreshEnhanceOptions();
+    /** 选中某个档位（只有当前+1 会被模型接受，其余在卡片上已禁用）。 */
+    void ChooseEnhanceLevel(int32 Level);
+    /** 中央预览按草稿等级即时换金属材质；草稿为 0 时用实例等级。 */
+    void SyncEnhancePreview();
+    /** 右侧详情区：所选档位名、外观说明、「消耗 待定」「数值 本次不影响」。 */
+    void AppendEnhanceDetails(int32 Level);
+    /** 档位卡列表的草稿／预览是否需要重建（等级或草稿变化才为真）。 */
+    bool EnhanceOptionsDirty() const;
     bool IsCategoryAvailable(const FString& SlotKey) const;
     void RefreshSelectedOption();
     float SelectedDetailsWidth() const;
@@ -75,6 +97,12 @@ private:
     void TickCapture(float Delta);
     void PoseStandalone();
     void SetStandaloneMeleeItem(const FColdSteelItem& Item);
+    void SetStandaloneBowItem(const FColdSteelItem& Item);
+    void SyncStandaloneBowPreview();
+    TSharedPtr<struct FStreamableHandle> BowPreviewLoad;
+    FString BowPreviewInputKey;
+    /** LevelOverride>0 时按草稿等级预览金属材质（阶段 1-C）；默认 0＝用实例等级。 */
+    void SetStandaloneToolItem(const FColdSteelItem& Item,int32 LevelOverride=0);
     void SyncStandaloneMeleePreview();
     bool bStandalone=false;
     FString StandaloneKey;
@@ -105,6 +133,9 @@ private:
     TMap<FString,TSharedPtr<class SWidget>> OptionCards;
     FString OptionsSignature,OptionsCategory;
     FString InspectedOptionKey;
+    /** 底部档位卡的内存键（含草稿等级）与上一次中央预览用的草稿等级。 */
+    FString EnhanceSignature;
+    int32 PreviewEnhanceLevel=-1;
     TSharedPtr<class SWidget> PreviewSurface;
     FVector2D PreviewOrbit=FVector2D::ZeroVector;
     float PreviewZoom=1.f;
@@ -114,7 +145,7 @@ private:
     bool bCompareFactory=false;
     FDelegateHandle GunsmithHandle,ProfileHandle;
     FSlateBrush BackgroundBrush,PreviewBrush,PanelBrush,RowBrush;
-    FButtonStyle NormalButton,SelectedButton,PrimaryButton;
+    FButtonStyle NormalButton,SelectedButton,PrimaryButton,ExclusiveButton;
     UPROPERTY() TObjectPtr<class UTexture2D> BackgroundTexture;
     UPROPERTY() TObjectPtr<class UTextureRenderTarget2D> PreviewTarget;
     UPROPERTY() TObjectPtr<class UTextureRenderTarget2D> PreviewCoverageTarget;

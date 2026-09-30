@@ -22,8 +22,11 @@ class USoundBase;
 class UColdSteelStatusModel;
 class UStaticMesh;
 class UStaticMeshComponent;
+class USceneComponent;
 class UMaterialInstanceDynamic;
 class UMaterialInterface;
+class UNiagaraSystem;
+struct FStreamableHandle;
 
 /** Standalone first-person sword. The inventory owns the equipped instance and saves. */
 UCLASS(ClassGroup=(Weapons), meta=(BlueprintSpawnableComponent))
@@ -40,6 +43,8 @@ public:
     UFUNCTION(BlueprintPure, Category="Rune Sword") bool IsBusy() const { return bWhirlwind || bAttacking || bEquipping || bCharging || bReturningCharge || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose; }
     UFUNCTION(BlueprintCallable, Category="Rune Sword") void BeginInspect();
     UFUNCTION(BlueprintPure, Category="Rune Sword") bool IsInspecting() const { return bInspecting; }
+    bool IsEquipping() const { return bEquipping; }
+    bool IsQuickCombatActive() const { return bQuickCombatStrike; }
     UFUNCTION(BlueprintPure, Category="Rune Sword") bool IsGuarding() const { return bGuarding; }
     UFUNCTION(BlueprintCallable, Category="Rune Sword") void BeginGuard();
     UFUNCTION(BlueprintCallable, Category="Rune Sword") void ReleaseGuard();
@@ -61,17 +66,22 @@ public:
     bool TryBeginDashAttack();
     bool IsDashAttackActive() const { return bDashAttack; }
     float DashReadyFraction() const;
+    /** A physical sprint release ends readiness without cancelling an active attack. */
+    void ResetDashReadiness() { DashSprintSeconds=0.f; }
     /** Authored carry progress, used by the shared footstep-driven sprint camera. */
     float TacticalSprintPoseWeight() const;
     /** 快速进战：以独立配重锤动作发动技能打击（伤害/击退/眩晕走技能公式）。 */
     UFUNCTION(BlueprintCallable, Category="Rune Sword") bool BeginQuickCombatStrike();
     void CancelAction();
     bool GetFireMagicBladePoints(FVector& Base,FVector& Tip) const;
+    /** Presentation attachment, independent of the combat-only Blade_Base/Tip animation tracks. */
+    bool GetEnchantmentBladeAttachment(USceneComponent*& Parent,FName& Socket,FTransform& LocalFrame,float& Length) const;
 private:
     friend class URuneSwordAuditCommandlet;
     friend class UFPSPlayerBodyComponent;
     TWeakObjectPtr<AFPSGAMECharacter> Character;
     UPROPERTY(Transient) TObjectPtr<UCameraComponent> Camera;
+    UPROPERTY(Transient) TObjectPtr<class USceneComponent> JumpPresentationRoot;
     UPROPERTY(Transient) TObjectPtr<USkeletalMeshComponent> Viewmodel;
     UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> ModularSword;
     FVector ModularBladeBase=FVector::ZeroVector,ModularBladeTip=FVector::ZeroVector;
@@ -84,14 +94,26 @@ private:
     /** Impact cue for the pommel strike; other attacks keep the weapon's hit_sound. */
     UPROPERTY(Transient) TObjectPtr<USoundBase> PommelHitSound;
     UPROPERTY(Transient) TObjectPtr<USoundBase> BlockSound;
+    UPROPERTY(Transient) TObjectPtr<USoundBase> BlockSoundAlternate;
     UPROPERTY(Transient) TObjectPtr<USoundBase> ParrySound;
     UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> RiftVisual;
     UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> RiftMaterial;
     UPROPERTY(Transient) TArray<TObjectPtr<UStaticMesh>> RiftMeshes;
+    UPROPERTY(EditDefaultsOnly,Category="Enchantment") TSoftObjectPtr<UStaticMesh> SlashWaveMeshAsset;
+    UPROPERTY(EditDefaultsOnly,Category="Enchantment") TSoftObjectPtr<UMaterialInterface> SlashWaveMaterialAsset;
+    UPROPERTY(EditDefaultsOnly,Category="Enchantment") TSoftObjectPtr<UNiagaraSystem> SlashWaveMotesAsset;
+    UPROPERTY(Transient) TObjectPtr<UStaticMesh> SlashWaveMesh;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInterface> SlashWaveMaterial;
+    UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> SlashWaveMotes;
+    TSharedPtr<FStreamableHandle> SlashWaveLoad;
+    float SwingWaveRange=0.f,SwingWaveScale=0.f,SwingWaveSpeed=1800.f;
+    void ReleaseSlashWave(const FTransform& Aim);
     FString InstanceId;
     FString EquippedMeshPath;
     FMeleeModifiers MeleeModifiers;
     float SwingRuneVulnerability=0, SwingRuneVulnerabilitySeconds=0;
+    // SwingRuneVulnerability*=剑刃攻击通道（导魔符文）；QuickCombat*=配重锤快速近战通道（凝碧星核）。
+    float QuickCombatRuneVulnerability=0, QuickCombatRuneVulnerabilitySeconds=0;
     // 金色符文强化：每次确认命中后本挥缩减技能CD的秒数与已缩减标记（每挥一次）。
     float SwingCooldownReduceSeconds=0;bool bSwingCooldownReduced=false;
     FName CurrentClip;
@@ -150,7 +172,7 @@ private:
     bool bPommelAttack=false;
     // 快速进战技能打击：使用配重锤动作，伤害/击退/眩晕与范围来自技能公式。
     bool bQuickCombatStrike=false,bQueuedQuickCombat=false,QuickCombatKillPending=false;
-    float QuickCombatStunSeconds=0.f,QuickCombatKnockbackCM=0.f;
+    float QuickCombatKnockbackCM=0.f;
     // 命中走手枪版同一份合同（QuickCombatContractHit）：距离用技能 rangeCM，
     // 不再借用普通挥击的 SwingReach；接触帧只判一次。
     float QuickCombatRangeCM=200.f;

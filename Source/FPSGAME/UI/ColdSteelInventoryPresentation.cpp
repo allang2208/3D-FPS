@@ -3,6 +3,7 @@
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelUIStyle.h"
 #include "GunsmithUIStyle.h"
+#include "../Production/ProductionToolEnhance.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "Engine/GameInstance.h"
 #include "Framework/Application/SlateApplication.h"
@@ -75,8 +76,15 @@ void UColdSteelInventoryWidget::RefreshPresentation()
     for(const auto& I:Model->Items()){
         TSharedPtr<FJsonObject> Data;if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data)||!Data)continue;
         auto& P=Presentation.Add(I.InstanceId);Data->TryGetStringField(TEXT("name"),P.Name);Data->TryGetStringField(TEXT("rarity"),P.Rarity);
+        // 口径与 ColdSteelInventory::IsMeleeWeapon 一致（符文剑、斧／镐、weapon_melee 类别），
+        // 但 category 直接从这份已解析的 Data 取，不在每帧绘制里重读 Item.Data。
+        FString Category;Data->TryGetStringField(TEXT("category"),Category);
+        P.MeleeArt=I.Definition==TEXT("ue_rune_sword")||IsEquippedProductionTool(I)||Category==TEXT("weapon_melee");
         FString WeaponType;Data->TryGetStringField(TEXT("weaponType"),WeaponType);P.StaffArt=WeaponType==TEXT("staff");
         double Level=0;Data->TryGetNumberField(TEXT("enhanceLevel"),Level);P.Enhancement=FMath::Max(0,int32(Level));
+        // 工具强化是独立字段与独立语义：只对斧／镐读取，其他物品保持 0，
+        // 避免把武器强度等级写进工具档位（也避免工具档位点亮武器「已强化」光晕）。
+        if(IsEquippedProductionTool(I))P.ToolEnhanceLevel=ColdSteelToolEnhance::Level(I);
         const TSharedPtr<FJsonObject>* Craft=nullptr;const TSharedPtr<FJsonObject>* Enchant=nullptr;
         P.Crafted=(Guns&&!Guns->Installed(I).IsEmpty())||(Data->TryGetObjectField(TEXT("_craftData"),Craft)&&!(*Craft)->Values.IsEmpty());
         if(Data->TryGetObjectField(TEXT("_enchantData"),Enchant)){const TSharedPtr<FJsonObject>* Affix=nullptr;P.Enchanted=(*Enchant)->TryGetObjectField(TEXT("prefix"),Affix)||(*Enchant)->TryGetObjectField(TEXT("suffix"),Affix);}
@@ -126,8 +134,12 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
             const float ImageX=GearSlot>=0?W*.48f:Left,ImageWidth=W-ImageX-Right,ImageHeight=H-(Name?20:8);
             // A turned bag item draws upright and rotates about its centre, so the fit is transposed.
             const bool Turned=GearSlot<0&&I.bRotated;
+            // 装备栏卡片左边 48% 是槽名与物品名，图区只剩右边那条横长条；近战与工具的
+            // 竖直立绘按等比 fit 会被压成一条窄影。这里让它们横放，与枪械图同一口径
+            // （刃尖／枪口都朝左），复用下面已有的转置 fit 与旋转贴法。
+            const bool Lay=GearSlot>=0&&P&&P->MeleeArt&&Brush->ImageSize.Y>Brush->ImageSize.X;
             FVector2D Size=Brush->ImageSize;
-            const float Fit=Turned?FMath::Min(FMath::Max(1.f,ImageHeight)/FMath::Max(1.f,float(Size.X)),FMath::Max(1.f,ImageWidth)/FMath::Max(1.f,float(Size.Y)))
+            const float Fit=Turned||Lay?FMath::Min(FMath::Max(1.f,ImageHeight)/FMath::Max(1.f,float(Size.X)),FMath::Max(1.f,ImageWidth)/FMath::Max(1.f,float(Size.Y)))
                                   :FMath::Min(FMath::Max(1.f,ImageWidth)/FMath::Max(1.f,float(Size.X)),FMath::Max(1.f,ImageHeight)/FMath::Max(1.f,float(Size.Y)));
             Size*=Fit;
             if(Name&&P&&P->StaffArt)Size=ColdSteelStaffIcon::InventorySize(Brush->ImageSize,FVector2D(W,H),Turned);
@@ -137,7 +149,9 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
             const auto Geometry=G.ToPaintGeometry(Size/Scale,FSlateLayoutTransform((ImageCenter-Size*.5f)/Scale));
             // The rotation point is local pixels, not normalised: an unset value turns about the box centre,
             // which keeps the transposed art centred inside the item card.
-            if(Turned)FSlateDrawElement::MakeRotatedBox(Out,Layer+2,Geometry,Brush,ESlateDrawEffect::None,PI*.5f,TOptional<FVector2f>(),FSlateDrawElement::RelativeToElement,FLinearColor(1,1,1,Opacity));
+            // 屏幕坐标 Y 向下，正角是顺时针：背包转放项用 +90° 还原，装备栏横放用 −90°
+            // 把朝上的刃尖转到朝左。
+            if(Turned||Lay)FSlateDrawElement::MakeRotatedBox(Out,Layer+2,Geometry,Brush,ESlateDrawEffect::None,Turned?PI*.5f:-PI*.5f,TOptional<FVector2f>(),FSlateDrawElement::RelativeToElement,FLinearColor(1,1,1,Opacity));
             else FSlateDrawElement::MakeBox(Out,Layer+2,Geometry,Brush,ESlateDrawEffect::None,FLinearColor(1,1,1,Opacity));
         }else if(GearSlot<0)Label(P?P->Name:I.Definition,X+Left,Y+H/2-6,12,GunsmithUI::Text,W-Left-Right);
         if(GearSlot>=0){
@@ -146,7 +160,8 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
             Label(P?P->Name:I.Definition,X+10,Y+23,14,GunsmithUI::Text,TextWidth);
             if(H>=66)Label(Active?TEXT("当前使用"):TEXT("已装备"),X+10,Y+H-20,12,Active?GunsmithUI::Silver:GunsmithUI::Secondary,TextWidth);
         }
-        if(Name&&W>=80){
+        // Names show in the item's top-left cell at any width; narrow cells truncate with an ellipsis.
+        if(Name){
             const float TitleSpace=W-Left-Right-(P&&P->Enhancement>0?CornerSize:0);
             const FString Title=P?P->Name:I.Definition;const auto Font=GunsmithUI::TextFont(12/Scale);const float Width=FMath::Min(float(Measure->Measure(Title,Font).X*Scale)+8,TitleSpace);
             Box(X+Left,Y+3,Width,16,GunsmithUI::Gray(20,190),FLinearColor::Transparent,3,0,3);Label(Title,X+Left+3,Y+3,12,GunsmithUI::Text,TitleSpace-6);
@@ -157,9 +172,19 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
         if(I.Cooldown>0){DrawCard(Fade(ColdSteelUI::GlassTint,.65f),FLinearColor::Transparent,3);Label(FString::Printf(TEXT("%.1f"),I.Cooldown),X+4,Y+H/2-6,12,ColdSteelUI::Warning,W-8,true);}
         if(P&&!Hotbar){
             const float Time=GlintSeconds+float(GetTypeHash(I.InstanceId)%1000)/1000.f;
-            if(P->Enhancement>0)DrawProcessingCorner(Out,Layer+4,G,Scale,FVector2f(CardMax.X-CornerInset,CardMin.Y+CornerInset),FVector2f(-1,0),FVector2f(0,1),CornerSize,CornerRadius,ColdSteelUI::Enhanced,Time,Opacity);
+            // 工具强化复用右上加工光晕：只在 ≥2 级点亮，色统一走 ColdSteelUI::Enhanced。
+            // 不按档位分色——稀有度已有 6 档语义色，挪用会混淆两套口径。
+            if(P->Enhancement>0||P->ToolEnhanceLevel>=2)DrawProcessingCorner(Out,Layer+4,G,Scale,FVector2f(CardMax.X-CornerInset,CardMin.Y+CornerInset),FVector2f(-1,0),FVector2f(0,1),CornerSize,CornerRadius,ColdSteelUI::Enhanced,Time,Opacity);
             if(P->Crafted)DrawProcessingCorner(Out,Layer+4,G,Scale,FVector2f(CardMax.X-CornerInset,CardMax.Y-CornerInset),FVector2f(-1,0),FVector2f(0,-1),CornerSize,CornerRadius,ColdSteelUI::Crafted,Time+.7f,Opacity);
             if(P->Enchanted)DrawProcessingCorner(Out,Layer+4,G,Scale,FVector2f(CardMin.X+CornerInset,CardMax.Y-CornerInset),FVector2f(1,0),FVector2f(0,-1),CornerSize,CornerRadius,ColdSteelUI::Enchanted,Time+1.4f,Opacity);
+            // 左下角等级芯片：出厂 1 级也显示 Lv.1（石头与青铜外观差别大，背包里要能分辨）。
+            // 工具不可堆叠（Count 恒 1），与右下数量芯片不会重叠。
+            if(P->ToolEnhanceLevel>0){
+                const FString LevelText=FString::Printf(TEXT("Lv.%d"),P->ToolEnhanceLevel);const float FontSize=12;
+                const float Width=FMath::Min(W-4,float(Measure->Measure(LevelText,GunsmithUI::NumberFont(FontSize/Scale)).X*Scale)+5);
+                Box(X+2,Y+H-FontSize-4,Width,FontSize+2,GunsmithUI::Gray(10,220),FLinearColor::Transparent,2,0,3);
+                Label(LevelText,X+4,Y+H-FontSize-4,FontSize,GunsmithUI::Text,Width-2,true);
+            }
         }
         DrawCard(FLinearColor::Transparent,SelectedItem?GunsmithUI::Silver:GunsmithUI::Edge,5);
         Opacity=1;

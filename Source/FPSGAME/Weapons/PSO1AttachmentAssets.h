@@ -1,7 +1,8 @@
 #pragma once
 #include "CoreMinimal.h"
 
-// PSO-1 is an opt-in side-mounted accessory. SVD retains its factory assembly.
+// PSO-1 is reserved for the Russian weapon family; never add it as a universal optic.
+// SVD retains its factory assembly.
 namespace PSO1AttachmentAssets
 {
 inline constexpr const TCHAR* Variant = TEXT("pso1_4x");

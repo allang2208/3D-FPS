@@ -27,8 +27,11 @@ public:
     void TransitionTo(UAnimSequence* Clip, bool bLoop, bool bCombatClock, float BlendSeconds,
         const FMonsterClipTransition& Settings = FMonsterClipTransition());
     void SetCombatTime(float Seconds);
+    void SetControlledBlendTime(float Seconds);
     void FinishClip();
     void HoldClipAtTime(float Seconds);
+    void HoldSnapshot(const FPoseSnapshot& Pose);
+    void RecoverFromSnapshot(UAnimSequence* Clip, const FPoseSnapshot& Pose, float BlendSeconds);
     void BeginHitReaction(UAnimSequence* ReactionClip, const FVector& WorldDirection, bool bParried, float BlendSeconds = 0.f);
     void BeginHitReaction(const FVector& WorldDirection) { BeginHitReaction(nullptr, WorldDirection, false); }
     void SetHitReactionTime(float Elapsed, float Remaining);
@@ -40,6 +43,7 @@ public:
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> OutgoingLoop;
     float OutgoingLoopTime = 0.f;
     bool bGroundLowerBody = false;
+    bool bExternalReactionBlend = false;
     float ClipTime = 0.f;
     float BlendAlpha = 1.f;
     bool bLooping = true;

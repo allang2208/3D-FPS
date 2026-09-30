@@ -1,4 +1,5 @@
 #include "FPSHolyLightComponent.h"
+#include "../Dungeons/WardBreakableGlass.h"
 #include "FPSHolyLightEffect.h"
 #include "HolyLightTargets.h"
 #include "FPSFireballComponent.h"
@@ -30,21 +31,26 @@ UColdSteelStatusModel* UFPSHolyLightComponent::Model() const
 UFPSFireballComponent* UFPSHolyLightComponent::Hands() const{return GetOwner()->FindComponentByClass<UFPSFireballComponent>();}
 bool UFPSHolyLightComponent::IsTarget(AActor* Target) const
 {
+    if(UWardBreakableGlass::IntactPane(Target))return true;
     return HolyLightTargets::IsAlive(Target)&&(HolyLightTargets::IsFriendly(Target)||Target->FindComponentByClass<UMonsterCombatComponent>());
 }
 bool UFPSHolyLightComponent::VisibleFrom(AActor* Origin,AActor* Target,const FVector& Start) const
 {
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(HolyLightSight),true,Origin);Query.AddIgnoredActor(GetOwner());Query.AddIgnoredActor(Target);
-    FHitResult Hit;return !GetWorld()->LineTraceSingleByChannel(Hit,Start,Target->GetActorLocation(),ECC_Visibility,Query);
+    FCollisionQueryParams Query(SCENE_QUERY_STAT(HolyLightSight),true,Origin);Query.AddIgnoredActor(GetOwner());
+    const auto* Pane=UWardBreakableGlass::IntactPane(Target);if(!Pane)Query.AddIgnoredActor(Target);
+    FHitResult Hit;return !GetWorld()->LineTraceSingleByChannel(Hit,Start,UWardBreakableGlass::TargetPoint(Target),ECC_Visibility,Query) || (Pane && Hit.GetComponent()==Pane);
 }
 AActor* UFPSHolyLightComponent::SelectTarget(const FHolyLightCast& Spell,FString& Failure) const
 {
     const auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();if(!Camera)return nullptr;
     const FVector Eye=Camera->GetComponentLocation(),Forward=Camera->GetForwardVector();
+    FHitResult AimHit;FCollisionQueryParams AimQuery(SCENE_QUERY_STAT(HolyLightGlassAim),false,GetOwner());
+    if(GetWorld()->LineTraceSingleByChannel(AimHit,Eye,Eye+Forward*Spell.Range,ECC_Visibility,AimQuery)
+        && Cast<UWardBreakableGlass>(AimHit.GetComponent())){Failure.Empty();return AimHit.GetActor();}
     AActor* Best=nullptr;double Score=DBL_MAX;bool NearAim=false,InRange=false;
     for(TActorIterator<AActor> It(GetWorld());It;++It)
     {
-        AActor* Target=*It;if(Target==GetOwner()||!IsTarget(Target))continue;
+        AActor* Target=*It;if(Target==GetOwner()||!IsTarget(Target)||UWardBreakableGlass::IntactPane(Target))continue;
         const FVector Offset=Target->GetActorLocation()-Eye;const double Along=FVector::DotProduct(Offset,Forward);
         if(Along<=0)continue;
         const double Perpendicular=(Offset-Forward*Along).Size();if(Perpendicular>Spell.AimRadius)continue;
@@ -57,14 +63,18 @@ AActor* UFPSHolyLightComponent::SelectTarget(const FHolyLightCast& Spell,FString
 }
 void UFPSHolyLightComponent::Feedback(const FString& Text){Message=Text;MessageUntil=GetWorld()->GetTimeSeconds()+2;}
 void UFPSHolyLightComponent::RejectHeldHand(){bQueued=false;HandNotice.Show(GetWorld()->GetTimeSeconds());}
-bool UFPSHolyLightComponent::IsHandOccupiedNotice() const{return GetWorld()&&HandNotice.Active(GetWorld()->GetTimeSeconds());}
+bool UFPSHolyLightComponent::IsHandOccupiedNotice() const
+{
+    const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
+    return Player&&Player->IsSpellHandHeld()&&GetWorld()&&HandNotice.Active(GetWorld()->GetTimeSeconds());
+}
 float UFPSHolyLightComponent::HandNoticeAlpha() const{return GetWorld()?HandNotice.Alpha(GetWorld()->GetTimeSeconds()):0;}
 float UFPSHolyLightComponent::HandNoticeRise() const{return GetWorld()?HandNotice.Rise(GetWorld()->GetTimeSeconds()):0;}
 FString UFPSHolyLightComponent::StatusText() const
 {
     if(IsHandOccupiedNotice())return TEXT("左手占用");
     if(GetWorld()&&GetWorld()->GetTimeSeconds()<MessageUntil)return Message;
-    if(bQueued)return TEXT("等待左手");if(bCommitted)return TEXT("施法");
+    if(bQueued)return TEXT("等待施法");if(bCommitted)return TEXT("施法");
     if(auto* M=Model();M&&M->HolyLightCooldown()>0)return FString::Printf(TEXT("%.1f"),M->HolyLightCooldown());return TEXT("");
 }
 float UFPSHolyLightComponent::CooldownFraction() const
@@ -75,7 +85,7 @@ void UFPSHolyLightComponent::Trigger(bool bSelf)
     if(!Player||!M||!Player->IsLocallyControlled()||GetWorld()->GetNetMode()!=NM_Standalone)return;
     if(const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
     if(bCommitted)return;
-    if(Player->IsLeftHandHeldForCast()){RejectHeldHand();return;}
+    if(Player->IsSpellHandHeld()){RejectHeldHand();return;}
     if(M->HolyLightCooldown()>0){Feedback(TEXT("冷却"));return;}
     if(!MoteSystem||CastSounds.Num()!=1||CastSounds.Contains(nullptr)){Feedback(TEXT("缺素材"));return;}
     const auto Spell=M->HolyLightStats();FString Failure;
@@ -88,10 +98,10 @@ void UFPSHolyLightComponent::ServiceQueue()
 {
     if(!bQueued)return;
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();auto* H=Hands();if(!Player||!M||!H)return;
-    if(Player->IsLeftHandHeldForCast()){RejectHeldHand();return;}
+    if(Player->IsSpellHandHeld()){RejectHeldHand();return;}
     const auto* PC=Cast<APlayerController>(Player->GetController());
     if(!PC||PC->IsLookInputIgnored()||PC->IsMoveInputIgnored()){bQueued=false;return;}
-    if(H->BlocksNewLeftHandAction()||Player->IsLeftHandBusyForCast())return;
+    if(H->BlocksNewLeftHandAction()||Player->IsSpellHandBusy())return;
     const auto Spell=M->HolyLightStats();FString Failure;AActor* Target=bQueuedSelf?Player:SelectTarget(Spell,Failure);
     if(!Target){bQueued=false;Feedback(Failure);return;}
     if(M->HolyLightCooldown()>0||!M->CanSpendMana(Spell.ManaCost)){bQueued=false;Feedback(TEXT("未就绪"));return;}
@@ -110,7 +120,7 @@ void UFPSHolyLightComponent::ReleaseAtContact()
     if(!bCommitted)return;bCommitted=false;
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();const auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();
     AActor* Target=LockedTarget.Get();LockedTarget.Reset();
-    if(!Player||!M||!Camera||!IsTarget(Target)||(Target!=Player&&(FVector::Dist(Player->GetActorLocation(),Target->GetActorLocation())>CastSnapshot.Range||!VisibleFrom(Player,Target,Camera->GetComponentLocation()))))
+    if(!Player||!M||!Camera||!IsTarget(Target)||(Target!=Player&&(FVector::Dist(Player->GetActorLocation(),UWardBreakableGlass::TargetPoint(Target))>CastSnapshot.Range||!VisibleFrom(Player,Target,Camera->GetComponentLocation()))))
     {if(M)M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT("holyLight"));Feedback(TEXT("目标已失效或被遮挡"));return;}
     for(const auto& Sound:CastSounds)if(Sound)UGameplayStatics::PlaySoundAtLocation(this,Sound.Get(),Target->GetActorLocation());
     FHolyLightRewards Rewards;

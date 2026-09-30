@@ -92,6 +92,12 @@ FFPSTraversalTarget UFPSTraversalComponent::FindTarget(bool bJumpPressed, bool b
     P.EdgeDistance=FMath::Max(0.f,FVector::DotProduct(Wall.ImpactPoint-Start,-Wall.ImpactNormal.GetSafeNormal2D())-Radius);
     P.FacingDot=FVector::DotProduct(Forward,-Wall.ImpactNormal.GetSafeNormal2D());
     if (!P.bStableObstacle) return Reject(TEXT("UnstableObstacle"));
+    static const FName GuardrailDropTag(TEXT("Traversal.GuardrailDrop"));
+    const bool bGuardrailDrop=Result.Obstacle->ComponentHasTag(GuardrailDropTag) ||
+        Result.Obstacle->GetOwner()->ActorHasTag(GuardrailDropTag);
+    const float NormalLandingDrop=P.bAirborne?Rules->AirMaxLandingDrop:Rules->MaxLandingDrop;
+    const float SurfaceLandingDrop=bGuardrailDrop?300.f:0.f;
+    const float LandingDropLimit=FMath::Max(NormalLandingDrop,SurfaceLandingDrop);
     if (P.FacingDot < MinFacingDot) return Reject(TEXT("ObliqueWall"));
     if (P.EdgeDistance>Rules->MaxEdgeDistance) return Reject(TEXT("TooFarFromWall"));
     // Facing is an input gate. Support pads and depth must follow the wall, not
@@ -215,7 +221,7 @@ FFPSTraversalTarget UFPSTraversalComponent::FindTarget(bool bJumpPressed, bool b
             const FVector LandingXY=Result.FrontEdge+Forward*(Depth+PadRadius+2.f);
             FHitResult Landing;
             if (Ray(Landing,FVector(LandingXY.X,LandingXY.Y,FloorZ+Rules->MaxLandingRise+1.f),
-                FVector(LandingXY.X,LandingXY.Y,FloorZ-(P.bAirborne?Rules->AirMaxLandingDrop:Rules->MaxLandingDrop)-1.f)) && Movement->IsWalkable(Landing))
+                FVector(LandingXY.X,LandingXY.Y,FloorZ-LandingDropLimit-1.f)) && Movement->IsWalkable(Landing))
             {
                 VaultSupports.Reset();
                 if (SupportedPad(Landing,VaultSupports))
@@ -239,11 +245,20 @@ FFPSTraversalTarget UFPSTraversalComponent::FindTarget(bool bJumpPressed, bool b
             if (P.bVaultPathClear || Depth>=Rules->VaultMaxDepth) break;
         }
     }
-    Result.Action=Rules->Evaluate(P);
+    Result.Action=Rules->Evaluate(P,SurfaceLandingDrop);
     const bool bVault=Result.Action==EFPSTraversalAction::Vault;
     for (const auto& Support:bVault?VaultSupports:MantleSupports) Result.Supports.AddUnique(Support);
     Result.Destination=bVault?VaultEnd:MantleEnd;
     Result.RaisedEnd=bVault?VaultRaised:MantleRaised;
+    Result.bReleaseIntoFall=bVault && bGuardrailDrop && P.LandingHeightDelta < -NormalLandingDrop;
+    if (Result.bReleaseIntoFall)
+    {
+        // The landing pad and full descending capsule sweep were accepted above.
+        // Release outside the rail; gravity, falling collision and normal landing
+        // handling own the descent instead of accelerating metres of drop into
+        // the last fraction of the vault animation.
+        Result.Destination=VaultRaised;
+    }
     Result.Reason=Result.Action==EFPSTraversalAction::None?TEXT("InsufficientSpaceOrPath"):TEXT("Eligible");
     return Result;
 }

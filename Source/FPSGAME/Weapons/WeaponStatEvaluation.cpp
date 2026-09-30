@@ -63,10 +63,3 @@ FString ColdSteelWeaponStats::AmmoName(const FString& Definition)
     const auto* Name=Names.Find(Definition);
     return Name?*Name:Definition.IsEmpty()?FString():TEXT("未知口径");
 }
-double ColdSteelWeaponStats::NativeM4Base(const UColdSteelStatusModel* Model,const TCHAR* Property)
-{
-    const auto* Pawn=Model?Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(Model,0)):nullptr;
-    const auto* Defaults=Pawn?Pawn->GetClass()->GetDefaultObject<AFPSGAMECharacter>():GetDefault<AFPSGAMECharacter>();
-    const auto* Field=FindFProperty<FFloatProperty>(Defaults->GetClass(),Property);
-    return Field?Field->GetPropertyValue_InContainer(Defaults):0;
-}

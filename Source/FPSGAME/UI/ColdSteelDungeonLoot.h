@@ -13,6 +13,6 @@ class AActor;
 class FColdSteelDungeonLoot
 {
 public:
-    /** 唯一入口：按档位 roll 战利品并经 UColdSteelStatusModel::AddItem 发放（自动提交），最后一条 PostNotice 播报。 */
-    static void GrantFromChest(AActor* Chest);
+    /** 领取标记与全部战利品同事务提交；失败返回 false，允许宝箱重新交互。 */
+    static bool GrantFromChest(AActor* Chest);
 };

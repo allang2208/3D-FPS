@@ -1,4 +1,6 @@
 #include "FPSIceSpikeVolley.h"
+#include "FPSIceWall.h"
+#include "../Dungeons/WardBreakableGlass.h"
 #include "../WorldGeneration/FluidPresentationSubsystem.h"
 #include "FPSIceSpikeComponent.h"
 #include "FPSFireballComponent.h"
@@ -42,7 +44,9 @@ AFPSIceSpikeVolley::AFPSIceSpikeVolley()
 void AFPSIceSpikeVolley::Prepare(UFPSIceSpikeComponent* InSource,APawn* InShooter,const FIceSpikeCast& Snapshot,const TArray<TObjectPtr<UStaticMesh>>& Spikes,UStaticMesh* Shard,UMaterialInterface* Material,UMaterialInterface* ShellMaterial,UParticleSystem* FX,USoundBase* Sound,UNiagaraSystem* Motes,UNiagaraSystem* ColdMist)
 {
     Source=InSource;Shooter=InShooter;Cast=Snapshot;ShardMesh=Shard;IceMaterial=Material;ImpactFX=FX;ImpactSound=Sound;
-    AddTickPrerequisiteActor(InShooter);Flights.SetNum(Cast.Count);
+    AddTickPrerequisiteActor(InShooter);AddTickPrerequisiteComponent(InSource);
+    if(auto* Hands=InShooter->FindComponentByClass<UFPSFireballComponent>())AddTickPrerequisiteComponent(Hands);
+    Flights.SetNum(Cast.Count);
     for(int32 I=0;I<Cast.Count;++I)
     {
         // Randomise each spike once; continuous noise supplies smooth, frame-independent drift.
@@ -168,8 +172,18 @@ void AFPSIceSpikeVolley::UpdateHover()
 void AFPSIceSpikeVolley::SetAimPreviewActive(bool bActive)
 {
     bAimPreview=bActive;
+    bPreviewLaunchLocked=false;
+    if(bActive)PreviewPoints.Reset();
     // Lines carry a short lifetime, so stopping the refresh is enough to clear the preview.
     if(!bActive)FPSMagicPreview::Clear(AimPreviewLines);
+}
+
+void AFPSIceSpikeVolley::CommitAimPreview()
+{
+    if(!bAimPreview||bFlying||bFinished||!Shooter.IsValid())return;
+    if(PreviewPoints.IsEmpty())RefreshAimPreview();
+    SetAimPreviewActive(false);
+    bPreviewLaunchLocked=true;
 }
 
 void AFPSIceSpikeVolley::RefreshAimPreview()
@@ -179,31 +193,44 @@ void AFPSIceSpikeVolley::RefreshAimPreview()
     // the shard lines across the screen.
     FPSMagicPreview::BeginRefresh(AimPreviewLines,this);
     const FVector AimPoint=FPSMagicPreview::AimPoint(Shooter.Get(),this);
-    for(const FFlight& F:Flights)
+    PreviewAimPoint=AimPoint;
+    for(FFlight& F:Flights)
     {
         if(!F.bActive)continue;
         // Same arc Launch() builds: from this shard's hover offset to the shared aim point, then
         // dropping under the cast's gravity.
         const FVector ToAim=AimPoint-F.Position;
-        const FVector Direction=ToAim.GetSafeNormal(UE_SMALL_NUMBER,FVector::ForwardVector);
+        F.LaunchPosition=F.Position;
+        F.LaunchVelocity=FPSMagicPreview::LaunchVelocity(F.Position,AimPoint,Cast.Speed,Shooter->GetActorForwardVector());
+        F.Remaining=FMath::Min(float(ToAim.Size()),Cast.Range);
+        F.bAimEndpoint=ToAim.Size()<Cast.Range;
         // Shared prediction: an already dead body is passed through, walls and living enemies stop it.
-        FPSMagicPreview::SamplePath(Shooter.Get(),this,F.Position,Direction*Cast.Speed,Cast.Gravity,
-            FMath::Min(float(ToAim.Size()),Cast.Range),18.f,PreviewPoints);
+        FPSMagicPreview::SamplePath(Shooter.Get(),this,F.LaunchPosition,F.LaunchVelocity,Cast.Gravity,
+            F.Remaining,18.f,PreviewPoints);
         FPSMagicPreview::DrawPath(AimPreviewLines,PreviewPoints);
     }
 }
 
-void AFPSIceSpikeVolley::Launch(const FVector& AimPoint)
+void AFPSIceSpikeVolley::Launch()
 {
-    if(bFinished||bFlying)return;bFlying=true;FlightAge=0;
+    if(bFinished||bFlying||!Shooter.IsValid())return;
+    // The contact callback runs ahead of the volley tick: use this frame's
+    // followed positions, not the previous frame or the key-release origins.
+    UpdateHover();
+    const bool bUsePreview=bPreviewLaunchLocked;
+    const FVector AimPoint=bUsePreview?PreviewAimPoint:FPSMagicPreview::AimPoint(Shooter.Get(),this);
+    SetAimPreviewActive(false);
+    bFlying=true;FlightAge=0;
     for(int32 I=0;I<Flights.Num();++I)
     {
         // Each shard keeps its own hover offset and flies to the shared aim point, so the volley
         // converges on what the crosshair covers. Gravity then bends every arc the same way.
-        auto& F=Flights[I];const FVector ToAim=AimPoint-F.Position;
-        const float ToAimDistance=float(ToAim.Size());
-        F.Direction=ToAim.GetSafeNormal(UE_SMALL_NUMBER,FVector::ForwardVector);F.Remaining=FMath::Min(ToAimDistance,Cast.Range);F.bAimEndpoint=ToAimDistance<Cast.Range;
-        F.LaunchPosition=F.Position;F.LaunchVelocity=F.Direction*Cast.Speed;
+        auto& F=Flights[I];
+        const float ToAimDistance=FVector::Distance(AimPoint,F.Position);
+        F.Remaining=FMath::Min(ToAimDistance,Cast.Range);F.bAimEndpoint=ToAimDistance<Cast.Range;
+        F.LaunchPosition=F.Position;
+        F.LaunchVelocity=FPSMagicPreview::LaunchVelocity(F.Position,AimPoint,Cast.Speed,Shooter->GetActorForwardVector());
+        F.Direction=F.LaunchVelocity.GetSafeNormal();
         FRotator Facing=F.Direction.Rotation();Facing.Roll=I*113.f;
         Cores[I]->SetWorldLocation(F.Position);Cores[I]->SetWorldRotation(Facing);Cores[I]->SetWorldScale3D(FVector::OneVector);Cores[I]->SetVisibility(true,true);
         auto* Trail=Trails[I].Get();Trail->SetWorldLocation(F.Position);Trail->SetVariablePosition(TEXT("User.PreviousPosition"),F.Position);Trail->SetVariablePosition(TEXT("User.CurrentPosition"),F.Position);
@@ -233,7 +260,8 @@ void AFPSIceSpikeVolley::Tick(float Delta)
         const FVector Previous=F.Position;
         // Ballistic step: the analytic position comes from the shared launch state, so the drop is
         // frame-rate independent and the preview line reproduces exactly this arc.
-        const FVector Next=F.LaunchPosition+F.LaunchVelocity*FlightAge+.5f*Gravity*FlightAge*FlightAge;
+        const FVector Next=FPSMagicPreview::LimitStep(Previous,
+            F.LaunchPosition+F.LaunchVelocity*FlightAge+.5f*Gravity*FlightAge*FlightAge,F.Remaining);
         const float Step=FVector::Distance(Previous,Next);const FVector End=Next;
         F.Direction=(F.LaunchVelocity+Gravity*FlightAge).GetSafeNormal(UE_SMALL_NUMBER,FVector::ForwardVector);
         Trails[I]->SetVariablePosition(TEXT("User.PreviousPosition"),F.Position);
@@ -253,6 +281,7 @@ void AFPSIceSpikeVolley::Tick(float Delta)
         if(bBlocked)
         {
             const FHitResult First=Hit;
+            UWardBreakableGlass::BreakHit(First,F.Direction);
             // Source hit loop settles overlapping contacts before destroying a spike.
             // Limit that cluster to one diameter, independent of frame time; never pierce a wall.
             TSet<AActor*> Settled;
@@ -260,6 +289,8 @@ void AFPSIceSpikeVolley::Tick(float Delta)
             do
             {
                 AActor* Target=Hit.GetActor();
+                if(::Cast<AFPSIceWall>(Target))
+                {if(M)M->ApplyIceSpikeHit(Shooter.Get(),Hit,Cast,Rewards);break;}
                 if(!Target||!Target->FindComponentByClass<UMonsterCombatComponent>()||Settled.Contains(Target))break;
                 Settled.Add(Target);if(M)M->ApplyIceSpikeHit(Shooter.Get(),Hit,Cast,Rewards);
                 Query.AddIgnoredActor(Target);
@@ -297,7 +328,7 @@ void AFPSIceSpikeVolley::Finish()
     if(!Shooter.IsValid())return;
     if(GetGameInstance())if(auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())M->FinishIceSpikeCast(Rewards);
     const auto* Health=Shooter->FindComponentByClass<UFPSCombatHealthComponent>();
-    if(Health&&!Health->IsDead()&&(Cast.bGrantChain||Cast.CastHasteStacks>0))
+    if(bFlying&&Health&&!Health->IsDead()&&(Cast.bGrantChain||Cast.CastHasteStacks>0))
     {auto* Status=UCombatStatusFormula::GetOrAdd(Shooter.Get());if(Cast.bGrantChain)Status->AddChainSpell();Status->AddHaste(Cast.CastHasteStacks,Cast.CastHasteDuration);}
     if(Source.IsValid())Source->VolleyFinished(this);Source.Reset();
 }

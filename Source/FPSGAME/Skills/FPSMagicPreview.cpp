@@ -36,8 +36,18 @@ FVector FPSMagicPreview::AimPoint(const APawn* Shooter,const AActor* Ignore)
     return Hit.bBlockingHit?Hit.ImpactPoint:End;
 }
 
+FVector FPSMagicPreview::LaunchVelocity(const FVector& Start,const FVector& Aim,float Speed,const FVector& Fallback)
+{return (Aim-Start).GetSafeNormal(UE_SMALL_NUMBER,Fallback)*Speed;}
+
+FVector FPSMagicPreview::LimitStep(const FVector& Start,const FVector& End,float Remaining)
+{
+    const FVector Delta=End-Start;
+    const double Length=Delta.Size();
+    return Length>FMath::Max(0.f,Remaining)?Start+Delta*(FMath::Max(0.f,Remaining)/Length):End;
+}
+
 bool FPSMagicPreview::SweepSegment(const APawn* Shooter,const AActor* Ignore,const FVector& Start,
-    const FVector& End,float SweepRadius,FVector& OutEnd)
+    const FVector& End,float SweepRadius,FVector& OutEnd,bool bIgnoreDead)
 {
     OutEnd=End;
     if(!Shooter||!Shooter->GetWorld())return false;
@@ -50,14 +60,16 @@ bool FPSMagicPreview::SweepSegment(const APawn* Shooter,const AActor* Ignore,con
     {
         if(!Shooter->GetWorld()->SweepSingleByChannel(Hit,Start,End,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(SweepRadius),Query))break;
         const auto* Blocking=IsValid(Hit.GetActor())?Hit.GetActor()->FindComponentByClass<UMonsterCombatComponent>():nullptr;
-        if(!Blocking||!Blocking->IsDead()){OutEnd=Hit.ImpactPoint;return true;}
+        // The arc follows the projectile centre; ImpactPoint is a surface point
+        // up to one collision radius away from the centre used by actual flight.
+        if(!bIgnoreDead||!Blocking||!Blocking->IsDead()){OutEnd=Hit.Location;return true;}
         Query.AddIgnoredActor(Hit.GetActor());
     }
     return false;
 }
 
 void FPSMagicPreview::SamplePath(const APawn* Shooter,const AActor* Ignore,const FVector& Start,
-    const FVector& LaunchVelocity,float Gravity,float MaxDistance,float SweepRadius,TArray<FVector>& OutPoints)
+    const FVector& LaunchVelocity,float Gravity,float MaxDistance,float SweepRadius,TArray<FVector>& OutPoints,bool bIgnoreDead)
 {
     OutPoints.Reset();
     OutPoints.Add(Start);
@@ -68,9 +80,9 @@ void FPSMagicPreview::SamplePath(const APawn* Shooter,const AActor* Ignore,const
     {
         // Same ballistic integration the flight uses, so the drawn arc is the real trajectory.
         const float T=Step*StepSeconds;
-        const FVector Next=Start+LaunchVelocity*T+.5f*Acceleration*T*T;
+        const FVector Next=LimitStep(Previous,Start+LaunchVelocity*T+.5f*Acceleration*T*T,MaxDistance-Travelled);
         FVector End;
-        if(SweepSegment(Shooter,Ignore,Previous,Next,SweepRadius,End)){OutPoints.Add(End);return;}
+        if(SweepSegment(Shooter,Ignore,Previous,Next,SweepRadius,End,bIgnoreDead)){OutPoints.Add(End);return;}
         Travelled+=FVector::Distance(Previous,Next);
         Previous=Next;
         OutPoints.Add(Next);

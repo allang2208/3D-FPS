@@ -59,6 +59,10 @@ UFPSImpactFXSubsystem::UFPSImpactFXSubsystem()
     }
     ConstructorHelpers::FObjectFinder<UMaterialInterface> BloodMark(TEXT("/Game/Weapons/GunplayFX/Impacts/Blood/M_FleshStainV3.M_FleshStainV3"));
     BloodStainMaterial = BloodMark.Object;
+    // A round landing on a body reports with the gun-hit cue instead of the generic
+    // flesh bank, which is what distinguishes firearm hits from melee hits.
+    ConstructorHelpers::FObjectFinder<USoundBase> GunHit(TEXT("/Game/Audio/WeaponHit20260916/S_GunHit.S_GunHit"));
+    GunHitSound = GunHit.Object;
     ConstructorHelpers::FObjectFinder<UMaterialInterface> GroundWave(TEXT("/Game/Monsters/Mutant3Meshy/Effects/M_Mutant3LandingWave.M_Mutant3LandingWave"));
     ParticleMaterials.Add(GroundWave.Object);
     ConstructorHelpers::FObjectFinder<USoundBase> PounceSound(TEXT("/Game/Monsters/Mutant3Meshy/Effects/S_Mutant3PounceImpact.S_Mutant3PounceImpact"));
@@ -241,6 +245,9 @@ EFPSImpactSurface UFPSImpactFXSubsystem::ResolveSurface(const FHitResult& Hit)
 void UFPSImpactFXSubsystem::SpawnImpact(const FHitResult& Hit, UCameraComponent* ViewCamera)
 {
     if (!bReady || !Hit.bBlockingHit || !IsValid(ViewCamera)) return;
+    // Whole-pane break owns its burst/audio. Do not leave a floating bullet decal
+    // on glass whose collision and visible surface were just removed by damage.
+    if(Hit.GetComponent() && Hit.GetComponent()->ComponentHasTag(TEXT("Glass.Broken")))return;
     const FVector ToHit=Hit.ImpactPoint-ViewCamera->GetComponentLocation();
     const float Distance=ToHit.Size();
     const double Now=GetWorld()->GetTimeSeconds();
@@ -481,11 +488,23 @@ void UFPSImpactFXSubsystem::AddBloodStain(const FHitResult& Ground,const FVector
     Decal->SetVisibility(true);BloodDecalUntil[Index]=Now+Flight+28.;
 }
 
+void UFPSImpactFXSubsystem::ClearImpactDecalsForComponent(const UPrimitiveComponent* Component)
+{
+    for(int32 I=0;I<Decals.Num();++I)
+        if(IsValid(Decals[I]) && Decals[I]->GetAttachParent()==Component)
+        {
+            Decals[I]->SetVisibility(false);
+            Decals[I]->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
+            DecalUntil[I]=0.;
+        }
+}
+
 void UFPSImpactFXSubsystem::AddDecal(const FHitResult& Hit,EFPSImpactSurface Surface,double Now)
 {
     // No projected bullet holes on deforming flesh or loose dirt. No decals on
     // merged destructible buildings: a removed cell would leave a floating mark.
     if(Surface==EFPSImpactSurface::Flesh || Surface==EFPSImpactSurface::Dirt || Cast<AVoxelBuildWorld>(Hit.GetActor()) || !Hit.GetComponent())return;
+    if(Hit.GetComponent()->ComponentHasTag(TEXT("Glass.Broken")))return;
     UMaterialInterface* Material=DecalMaterials[static_cast<uint8>(Surface)];
     if(!Material)return;
     for(int32 I=0;I<DecalSlots;++I)
@@ -514,9 +533,10 @@ void UFPSImpactFXSubsystem::PlayImpactSound(const FVector& Position,EFPSImpactSu
     if(Slot==INDEX_NONE)return; // Preserve playing tails; skip extra impacts.
     const int32 Bank=static_cast<uint8>(Surface);
     int32 Variant=FMath::RandRange(0,2);if(Variant==LastSoundVariant[Bank])Variant=(Variant+1)%3;
-    USoundBase* Sound=Sounds[Bank*3+Variant];if(!Sound)return;
+    const bool bTarget=Surface==EFPSImpactSurface::Flesh;
+    USoundBase* Sound=bTarget&&GunHitSound?GunHitSound:Sounds[Bank*3+Variant];if(!Sound)return;
     auto* Voice=Voices[Slot].Get();Voice->SetSound(Sound);Voice->SetWorldLocation(Position);
-    Voice->SetVolumeMultiplier(Surface==EFPSImpactSurface::Metal?.28f:.23f);
+    Voice->SetVolumeMultiplier(bTarget?.85f:(Surface==EFPSImpactSurface::Metal?.28f:.23f));
     Voice->SetPitchMultiplier(FMath::FRandRange(.94f,1.06f));Voice->Play();
     VoiceUntil[Slot]=Now+.45;LastSoundVariant[Bank]=Variant;LastSoundTime=Now;
 }

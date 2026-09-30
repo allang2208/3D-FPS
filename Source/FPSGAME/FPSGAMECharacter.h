@@ -18,6 +18,7 @@ class UFPSWeaponFXComponent;
 class UFPSGunplayAnimInstance;
 struct FGunsmithWeapon;
 
+enum class EFirstPersonJumpRig : uint8 { Rifle, Pistol, Sword };
 
 UENUM(BlueprintType)
 enum class EAKMWeaponState : uint8
@@ -48,6 +49,8 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
     friend class UFPSPlayerBodyComponent;
     friend class UWeaponBipodDeploymentComponent;
     friend class UBowWeaponComponent;
+    friend class UStaffWeaponComponent;
+    friend struct FStaffLocomotion;
 
 public:
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM4Infima = true;
@@ -60,10 +63,13 @@ public:
     // inheriting any of the pistol framing, movement or dual-wield behaviour.
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bSingleShotTrigger = false;
     bool IsPistolWeapon() const { return bUseM1911 || bUseDanWesson715; }
-    bool UsesSingleShotTrigger() const { return IsPistolWeapon() || bSingleShotTrigger; }
+    bool IsG18Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_g18"); }
+    bool IsHK416Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_hk416"); }
+    bool UsesSingleShotTrigger() const { return !IsG18Weapon() && (IsPistolWeapon() || bSingleShotTrigger); }
     UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class UPistolDualWieldComponent> DualPistols;
     UPROPERTY(VisibleAnywhere, Category="Skills") TObjectPtr<class UFPSQuickCombatComponent> QuickCombatPistol;
     bool IsDualWieldingPistols() const;
+    bool HasOffhandPistol() const;
     /** 手枪版快速进战：单持松左手、右手持枪握把前砸；仲裁通过后转交动作组件。 */
 bool TriggerPistolQuickCombat();
     /** 步枪版快速进战（M4 枪托砸击）：双手持枪的整枪动作；仲裁通过后转交同一动作组件。 */
@@ -74,7 +80,11 @@ bool TriggerPistolQuickCombat();
     AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
     void ApplyColdSteelProfile(class UColdSteelStatusModel* Profile);
     bool HasInventoryWeapon() const { return bInventoryWeaponReady; }
-    // Casting owns the left hand independently from movement and firearm hip fire.
+    // Spells select the held staff/right hand, otherwise the original left hand.
+    bool IsSpellHandHeld() const;
+    bool IsSpellHandBusy() const;
+    bool IsSpellGestureBlocking() const;
+    // Physical left-hand users (including potions) keep their own occupancy.
     bool IsLeftHandBusyForCast() const;
     // The off-hand pistol of an akimbo pair holds the left hand until the loadout
     // changes, so left-hand spells refuse the request instead of queueing behind it.
@@ -88,6 +98,7 @@ bool TriggerPistolQuickCombat();
     // Single-weapon hip cone, or the real per-hand dual cone while both pistols
     // are out; the reticle and the shot direction must share this one value.
     float GetHipSpread() const;
+    float BaseLookHorizontalFOV() const {return VerticalToHorizontalFOV(BaseVerticalFieldOfView);}
     FVector2D GetCrosshairHalfExtent(FVector2D LocalSize) const;
     /** bFirearmHit selects the gun hit cue; melee and skills keep the shared one. */
     void NotifyConfirmedWeaponHit(AActor* Target, float AppliedDamage,const FWeaponDamageResult* DamageResult=nullptr,bool bFirearmHit=false);
@@ -151,6 +162,7 @@ public:
     float StockAuditNextTime=0.f;
     bool HasPrismHandstop() const;
     bool HasVerticalForegrip() const;
+    bool HasLMG201ClothBox() const;
     bool HasCantedForegrip() const;
     bool HasAngledForegrip() const;
     FVector GetEffectiveMuzzleLocation() const;
@@ -203,9 +215,10 @@ public:
 protected:
     UPROPERTY(VisibleAnywhere, Category="FPS Movement") TObjectPtr<class UFPSTraversalComponent> Traversal;
     UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class URuneSwordComponent> RuneSword;
+    UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class URuneOrbBladesComponent> RuneOrbBlades;
     // 第一人称弓：与双手工具同族，由库存实例驱动；动作时钟在相机合成之前推进。
     UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class UBowWeaponComponent> Bow;
-    UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class URuneOrbBladesComponent> RuneOrbBlades;
+    UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class UStaffWeaponComponent> Staff;
     void SetAngledForegrip(bool bEnabled);
     void InitializeForegripAnimations();
     void InitializePrismGripAnimations();
@@ -333,6 +346,19 @@ protected:
     float LocomotionSideAlpha = 0.0f;
     float RifleLocomotionWeight = 0.0f;
     bool bLocomotionInitialized = false;
+    // Crouch moves the complete firearm/arms assembly in camera space.
+    float WeaponCrouchProgress = 0.f;
+    void UpdateWeaponCrouchPose(float DeltaSeconds);
+    void ApplyWeaponCrouchPose(FVector& Location, FQuat& Rotation, bool bPistol, bool bLeftHand = false) const;
+    // One physical jump clock shared by firearms and the two-handed sword rig.
+    void UpdateWeaponJumpPose(float DeltaSeconds);
+    FTransform GetWeaponJumpTransform(EFirstPersonJumpRig Rig, bool bLeftHand = false) const;
+    FVector WeaponJumpOffset = FVector::ZeroVector, WeaponJumpVelocity = FVector::ZeroVector;
+    FVector WeaponJumpAngles = FVector::ZeroVector, WeaponJumpAngularVelocity = FVector::ZeroVector;
+    float WeaponAirSeconds = 0.f, WeaponJumpSide = 1.f, WeaponJumpMomentum = 1.f;
+    float WeaponJumpActionProgress = 0.f, WeaponJumpPreviousVerticalSpeed = 0.f;
+    bool bWeaponJumpInitialized = false, bWeaponWasFalling = false, bWeaponJumpAirborne = false;
+    double LastSlideJumpAt = -100.;
     // Camera-space framing; sprint arm/weapon motion is authored in separate clips.
     UPROPERTY(EditDefaultsOnly, Category = "Pistol|Viewmodel") FVector PistolHipViewmodelLocation = FVector(-2.f, 3.f, -6.5f);
     UPROPERTY(EditDefaultsOnly, Category = "Pistol|Viewmodel") FVector RevolverHipViewmodelLocation = FVector(1.f, 3.2f, -7.f);
@@ -395,9 +421,12 @@ private:
     FVector LastDrumDropStart=FVector::ZeroVector;
     bool bGunsmithInspection=false;
     bool bDrumInstalled=false;
+    int32 LMG201FeedVisibility=INDEX_NONE;
     UPROPERTY(Transient) TObjectPtr<class UAnimSequence> DrumReloadAnimation;
     UPROPERTY(Transient) TMap<TObjectPtr<class UAnimSequence>, TObjectPtr<class UAnimSequence>> DrumSupportAnimations;
     UPROPERTY(Transient) TObjectPtr<class UAnimSequence> DrumReloadEmptyAnimation;
+    UPROPERTY(Transient) TObjectPtr<class UAnimSequence> LMG201ClothReloadAnimation;
+    UPROPERTY(Transient) TObjectPtr<class UAnimSequence> LMG201ClothReloadEmptyAnimation;
     UPROPERTY(Transient) TArray<TObjectPtr<class UStaticMeshComponent>> FoldingSightHeads;
     TArray<FTransform> FoldingSightMounts;
     TArray<FVector> FoldingSightAxes;
@@ -457,6 +486,10 @@ private:
     void StopMovementForMeleeSkill();
     void StartSprintToFireLock(double StartTime);
     void ServiceHeldFire();
+    /** 当前攻击间隔＝基础间隔×涡轮增压爬升倍率；未附魔时等于基础间隔。 */
+    double EffectiveFireInterval() const;
+    /** 推进持续开火秒数；松开扳机、换弹、切枪或弹匣空时立即回到初始档。 */
+    void UpdateTurboRamp(float DeltaSeconds);
     void EmitMechanicalCue(int32 CueIndex);
     void PlayMechanicalSound(USoundBase* Sound, float Volume, float StartTime = 0.f);
     void StopMechanicalAudio();
@@ -482,14 +515,11 @@ private:
     bool bReloadAmmoCommitted = false;
     bool bReloadCycleOnly = false;
     float ReloadResumeElapsed = 0.f;
-    /** 当前攻击间隔＝基础间隔×涡轮增压爬升倍率；未附魔时等于基础间隔。 */
-    double EffectiveFireInterval() const;
-    /** 推进持续开火秒数；松开扳机、换弹、切枪或弹匣空时立即回到初始档。 */
-    void UpdateTurboRamp(float DeltaSeconds);
     void ApplyShotFeedback();
     FVector ComputeShotDirection() const;
     void RunWeaponAudit(float DeltaSeconds);
     void RunGunplayAcceptance(float DeltaSeconds);
+    void RunSVDFirstReloadCapture(float DeltaSeconds);
     void RunRifleSprintAcceptance(float DeltaSeconds);
     void RunQuickCombatAcceptance(float DeltaSeconds);
     void PlayWeaponAnimation(UAnimSequence* Animation, bool bLoop, float PlayRate = 1.0f, float StartPosition = 0.0f);
@@ -607,6 +637,12 @@ private:
     double NextAllowedShotTime = 0.0;
     double LastShotWorldTime = -1.0;
     double TriggerFirstShotWorldTime = -1.0;
+    // 涡轮增压（附魔）：持续开火累计秒数与当前装备解析出的爬升参数，
+    // 随档案刷新一起更新，开火循环不再读 JSON。
+    double TurboRampSeconds = 0.0;
+    FColdSteelTurboRamp TurboRampParams;
+    // 汇聚（附魔）：一次射击打空弹匣的开关与倍率，同样随档案缓存。
+    FColdSteelConvergence ConvergenceParams;
     static constexpr int32 MaxFireCatchUpShots = 4;
     bool bUsingReplacement = false;
     bool bSightCalibrated = false;
@@ -632,12 +668,6 @@ private:
     float SprintCameraFactor = 0.0f;
 
     FVector GunKickPosition = FVector::ZeroVector;
-    // 涡轮增压（附魔）：持续开火累计秒数与当前装备解析出的爬升参数，
-    // 随档案刷新一起更新，开火循环不再读 JSON。
-    double TurboRampSeconds = 0.0;
-    FColdSteelTurboRamp TurboRampParams;
-    // 汇聚（附魔）：一次射击打空弹匣的开关与倍率，同样随档案缓存。
-    FColdSteelConvergence ConvergenceParams;
     FVector GunKickPositionVelocity = FVector::ZeroVector;
     FVector GunKickRotation = FVector::ZeroVector;
     FVector GunKickRotationVelocity = FVector::ZeroVector;
@@ -729,6 +759,9 @@ private:
     int32 AuditBoltReleaseCues = 0;
     float AuditMaxMechanicalLateness = 0.0f;
     float AuditMaxEmptyBoltTravelCM = 0.0f;
+    // Retain a downhill slide across short, supported gaps between stair treads.
+    bool bSlideDownhill = false;
+
     // Presentation state only. Appended to preserve the order of existing fields;
     // a normal native build is required before using these members in an editor.
     float DisplayedLPVOMagnification = 1.f;

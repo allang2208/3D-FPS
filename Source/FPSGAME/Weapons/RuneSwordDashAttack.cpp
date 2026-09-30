@@ -24,18 +24,41 @@ void URuneSwordComponent::TickDashReadiness(float Delta)
     const auto* Pawn=Character.Get();
     const auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     const bool Eligible=Pawn&&IsEquipped()&&!IsBusy()&&!bGuardHeld&&CanUse()&&
-        !Pawn->IsCastBlockingLeftHandAction()&&Pawn->IsSprinting()&&Pawn->GetVelocity().SizeSquared2D()>2500.f&&
-        !Pawn->IsDodging()&&!Pawn->IsSliding()&&Pawn->GetCharacterMovement()->IsMovingOnGround()&&
+        !Pawn->IsCastBlockingLeftHandAction()&&Pawn->bSprintHeld&&
+        !Pawn->IsDodging()&&
         Profile&&!Profile->ActiveProductionTool()&&Profile->MasteryProgress(TEXT("dashAttack")).Level>0;
-    DashSprintSeconds=Eligible?FMath::Min(DashSprintSeconds+Delta,DashReadySeconds(Profile)):0.f;
+    if(!Eligible){ResetDashReadiness();return;}
+    const float ReadySeconds=DashReadySeconds(Profile);
+    const auto* Movement=Pawn->GetCharacterMovement();
+    const bool bGroundSprint=Pawn->IsSprinting()&&!Pawn->IsSliding()&&Movement->IsMovingOnGround()&&
+        Pawn->GetVelocity().SizeSquared2D()>2500.f;
+    // Only earned readiness survives locomotion changes. The airborne flag also
+    // covers the pending LaunchCharacter frame between slide exit and takeoff.
+    const bool bSlideOrJump=Pawn->IsSliding()||Movement->IsFalling()||Pawn->bWeaponJumpAirborne||
+        !Movement->PendingLaunchVelocity.IsZero();
+    if(DashSprintSeconds>=ReadySeconds&&bSlideOrJump)
+    {
+        // Once earned, airborne braking or an apex cannot discard the charge.
+        // Sprint release and action interruption still reset it normally.
+        DashSprintSeconds=ReadySeconds;
+        return;
+    }
+    DashSprintSeconds=bGroundSprint?FMath::Min(DashSprintSeconds+Delta,ReadySeconds):0.f;
 }
 
 float URuneSwordComponent::DashReadyFraction() const
 {
     const auto* Pawn=Character.Get();
-    if(DashSprintSeconds<=0.f||!Pawn||!Pawn->IsSprinting()||IsBusy())return 0.f;
+    if(DashSprintSeconds<=0.f||!Pawn||!Pawn->bSprintHeld||IsBusy())return 0.f;
     const auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
-    return Profile?FMath::Clamp(DashSprintSeconds/DashReadySeconds(Profile),0.f,1.f):0.f;
+    if(!Profile)return 0.f;
+    const float ReadySeconds=DashReadySeconds(Profile);
+    const auto* Movement=Pawn->GetCharacterMovement();
+    const bool bRetainedReady=DashSprintSeconds>=ReadySeconds&&
+        (Pawn->IsSliding()||Movement->IsFalling()||Pawn->bWeaponJumpAirborne||!Movement->PendingLaunchVelocity.IsZero());
+    if(!bRetainedReady&&(!Pawn->IsSprinting()||!Movement->IsMovingOnGround()||
+        Pawn->GetVelocity().SizeSquared2D()<=2500.f))return 0.f;
+    return FMath::Clamp(DashSprintSeconds/ReadySeconds,0.f,1.f);
 }
 
 bool URuneSwordComponent::TryBeginDashAttack()
@@ -45,12 +68,20 @@ bool URuneSwordComponent::TryBeginDashAttack()
     auto* Pawn=Character.Get();
     if(bInspecting)CancelAction();
     if(!Pawn||!IsEquipped()||IsBusy()||bGuardHeld||!CanUse()||!Viewmodel||!Viewmodel->GetSkeletalMeshAsset()||
-        !Animations.FindRef(TEXT("Overhead"))||!Pawn->IsSprinting()||Pawn->IsCastBlockingLeftHandAction()||
-        Pawn->IsDodging()||Pawn->IsSliding()||!Pawn->GetCharacterMovement()->IsMovingOnGround()||
-        Pawn->GetVelocity().SizeSquared2D()<=2500.f)return false;
+        !Animations.FindRef(TEXT("Overhead"))||!Pawn->bSprintHeld||Pawn->IsCastBlockingLeftHandAction()||
+        Pawn->IsDodging())return false;
     auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if(!Profile||Profile->ActiveProductionTool()||Profile->MasteryProgress(TEXT("dashAttack")).Level<1)return false;
-    if(DashSprintSeconds+UE_SMALL_NUMBER<DashReadySeconds(Profile))return false;
+    // Share the displayed readiness contract: a charged slide/jump is a valid
+    // release even though locomotion no longer reports grounded sprinting.
+    if(DashReadyFraction()<1.f-UE_SMALL_NUMBER)return false;
+    auto* Movement=Cast<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement());
+    // A slide jump may still be queued in LaunchCharacter on this input frame.
+    // Capture its actual horizontal launch before the action clears locomotion.
+    const bool bPendingJump=Movement && !Movement->PendingLaunchVelocity.IsZero();
+    const bool bCarryMomentum=Movement && (Movement->IsFalling() || bPendingJump);
+    const FVector CarryVelocity=Movement
+        ?(bPendingJump?Movement->PendingLaunchVelocity:Movement->Velocity):FVector::ZeroVector;
     const FDashAttackCast Cast=Profile->DashAttackStats();
     const double StatsSeconds=FPlatformTime::Seconds();
     const bool bFromHighCarry=IsTacticalSprintClip(CurrentClip)&&Animations.FindRef(TEXT("SprintOverhead"));
@@ -63,14 +94,28 @@ bool URuneSwordComponent::TryBeginDashAttack()
     DashCast=Cast;bDashAttack=bDashTrainingPending=true;bDashCenterCaptured=false;
     DashHits=DashKills=0;DashSprintSeconds=DashTravelCM=DashBounceLeftCM=0.f;
     LungeDirection=Pawn->GetMeleeAimTransform().GetUnitAxis(EAxis::X).GetSafeNormal2D();
-    bLungeStarted=true; // Keep the release direction throughout the one-metre step.
+    bLungeStarted=true; // Keep the attack direction throughout the release.
     SwingDamage=Cast.Damage;SwingReach=Cast.RangeCM;SwingKnockbackCM=Cast.KnockbackCM;
     // 冲刺持剑用0.25秒过渡到下劈接触起点；音效、裂隙和判定仍由
     // 同一接触窗触发，前摇期间不命中，接触后的落点与收势保持原时序。
     SwingRate=1.f;
     Elapsed=ContactStart-RuneSwordOverheadRhythm::DashWindupSeconds;
     SamplePose(Elapsed);
+    if(Pawn->IsSliding())Pawn->StopSlide(true);
     Pawn->StopMovementForMeleeSkill();
+    if(bCarryMomentum && Movement->BeginMeleeDashMomentum(CarryVelocity))
+    {
+        // The inherited speed owns this cast's displacement, including after
+        // contact. Suppress the separate, fixed-distance windup lunge entirely.
+        bLungeBlocked=true;
+    }
+    else
+    {
+        // Grounded releases keep their original one-metre step. A queued jump
+        // still retains its vertical launch even when it has no horizontal speed.
+        Pawn->GetCharacterMovement()->PendingLaunchVelocity.X=0.;
+        Pawn->GetCharacterMovement()->PendingLaunchVelocity.Y=0.;
+    }
     const double EndSeconds=FPlatformTime::Seconds();
     if(EndSeconds-BeginSeconds>.004)
         UE_LOG(LogTemp,Display,TEXT("[DashAttackPerf] entry_ms=%.3f stats_ms=%.3f swing_ms=%.3f stop_ms=%.3f"),
@@ -83,11 +128,10 @@ void URuneSwordComponent::DashAttackContractHit()
     TRACE_CPUPROFILER_EVENT_SCOPE(DashAttack_Contact);
     const double BeginSeconds=FPlatformTime::Seconds();
     auto* Pawn=Character.Get();
-    if(!bDashCenterCaptured)
-    {
-        // 在原下劈接触开始时固定扇区中心；前摇突进已结束，不附加回弹。
-        DashCenter=Pawn->GetActorLocation();bDashCenterCaptured=true;
-    }
+    // The original contact window and per-target deduplication remain intact.
+    // Carry the sector with the moving player so an airborne release cannot
+    // leave its damage volume behind at the start of the swing.
+    DashCenter=Pawn->GetActorLocation();bDashCenterCaptured=true;
     const auto Hits=RuneSwordCombat::QuerySector(GetWorld(),Pawn,DashCenter,LungeDirection,
         DashCast.RangeCM,DashCast.ArcDegrees,HitActors);
     const double QuerySeconds=FPlatformTime::Seconds();

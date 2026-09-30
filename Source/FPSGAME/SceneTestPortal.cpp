@@ -176,7 +176,8 @@ int32 ASceneTestPortal::InstallHillsLink(UWorld* World)
 {
     if (!World || !World->IsGameWorld() || World->GetNetMode() != NM_Standalone) return 2;
     const FString Current = UGameplayStatics::GetCurrentLevelName(World, true);
-    if (Current != TEXT("DayNight_Lighting") && Current != TEXT("L_TemperateHills_Initial")) return 2;
+    const bool bDataArchiveSubject = Current == TEXT("L_AbandonedDataArchive_Subject");
+    if (Current != TEXT("DayNight_Lighting") && Current != TEXT("L_TemperateHills_Initial") && !bDataArchiveSubject) return 2;
     APawn* Pawn = UGameplayStatics::GetPlayerPawn(World, 0);
     if (!Pawn) return 0;
     const FName LinkTag(TEXT("ScenePortal.HillsLink"));
@@ -184,13 +185,23 @@ int32 ASceneTestPortal::InstallHillsLink(UWorld* World)
         if (It->ActorHasTag(LinkTag)) return 1;
 
     const bool bHills = Current == TEXT("L_TemperateHills_Initial");
-    const FString Map = bHills ? ScenePortalMaps::Hub : ScenePortalMaps::Hills;
-    const FString Label = bHills ? TEXT("HOME / God Space") : TEXT("TEMPERATE HILLS\nBlack Poplar");
-    const FString Options = bHills ? FString() : TEXT("HillsContinue");
-    const FColor Color = bHills ? FColor::Cyan : FColor(100, 255, 145);
+    const bool bReturnToHub = bHills || bDataArchiveSubject;
+    const FString Map = bReturnToHub ? ScenePortalMaps::Hub : ScenePortalMaps::Hills;
+    const FString Label = bReturnToHub ? TEXT("HOME / God Space") : TEXT("TEMPERATE HILLS\nBlack Poplar");
+    const FString Options = bReturnToHub ? FString() : TEXT("HillsContinue");
+    const FColor Color = bReturnToHub ? FColor::Cyan : FColor(100, 255, 145);
     FRotator Facing(0, Pawn->GetActorRotation().Yaw + 180.f, 0);
     FVector Position = Pawn->GetActorLocation() - Pawn->GetActorForwardVector() * ScenePortalMaps::PortalSpacing;
     bool bFixedHubAnchor = false;
+    if (bDataArchiveSubject)
+        for (TActorIterator<AActor> It(World); It; ++It)
+            if (It->ActorHasTag(TEXT("DataArchive.Subject.ReturnAnchor")))
+            {
+                Position = It->GetActorLocation();
+                Facing = It->GetActorRotation();
+                bFixedHubAnchor = true;
+                break;
+            }
     if (!bHills)
         for (TActorIterator<AActor> It(World); It; ++It)
             if (It->ActorHasTag(TEXT("GodSpace.HillsPortalAnchor")))

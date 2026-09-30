@@ -42,13 +42,17 @@ void AFPSGAMEPlayerController::RunGunsmithWorkbenchAudit()
         for(const auto& Blur:GunsmithPanel->GlassLayers)Check(!Blur->IsUsingLowQualityFallbackBrush(),TEXT("glass uses real blur render path"));
         for(const TCHAR* Font:{TEXT("NotoSansSC-Regular.otf"),TEXT("NotoSansSC-Medium.otf"),TEXT("JetBrainsMono-Regular.ttf"),TEXT("JetBrainsMono-Medium.ttf")})
             Check(IFileManager::Get().FileExists(*(FPaths::ProjectContentDir()/TEXT("UI/GunsmithWorkbench/Fonts")/Font)),TEXT("project font exists independently of Windows installed faces"));
+        // The catalog is the reference: the panel must follow it rather than a
+        // frozen snapshot, so retuning gunsmith.json cannot stale this audit.
+        const auto Factory=G->Calculate(G->Definition(),FGunsmithParts());
+        const auto Draft=G->Calculate(G->Definition(),G->Draft());
         const auto* Capacity=Rows.FindByPredicate([](const auto& R){return R.Label==TEXT("弹匣容量");});
         const auto* ADS=Rows.FindByPredicate([](const auto& R){return R.Label==TEXT("开镜耗时");});
         const auto* Reload=Rows.FindByPredicate([](const auto& R){return R.Label==TEXT("普通换弹");});
         const auto* Speed=Rows.FindByPredicate([](const auto& R){return R.Label==TEXT("子弹速度");});
-        Check(Capacity&&Capacity->Current==TEXT("30 发")&&Capacity->Final==TEXT("50 发")&&Capacity->Benefit==1,TEXT("capacity before after and benefit"));
-        Check(ADS&&ADS->Current==TEXT("240 ms")&&ADS->Final==TEXT("209 ms")&&ADS->Benefit==1,TEXT("faster ADS uses lower-is-better semantics"));
-        Check(Reload&&Reload->Benefit==-1&&Reload->Final==FString::Printf(TEXT("%.2f s"),G->Calculate(G->Definition(),G->Draft()).Reload),TEXT("reload display derives from current catalog"));
+        Check(Capacity&&Capacity->Current==FString::Printf(TEXT("%.0f 发"),double(Factory.Capacity))&&Capacity->Final==FString::Printf(TEXT("%.0f 发"),double(Draft.Capacity))&&Capacity->Benefit==1,TEXT("capacity before after and benefit"));
+        Check(ADS&&ADS->Current==FString::Printf(TEXT("%.0f ms"),Factory.ADS*1000)&&ADS->Final==FString::Printf(TEXT("%.0f ms"),Draft.ADS*1000)&&ADS->Benefit==-1,TEXT("drum slows ADS with lower-is-better semantics"));
+        Check(Reload&&Reload->Benefit==-1&&Reload->Final==FString::Printf(TEXT("%.2f s"),Draft.Reload),TEXT("reload display derives from current catalog"));
         Check(Speed&&Speed->Final==TEXT("90 m/s"),TEXT("projectile speed matches migrated M4 baseline"));
         Check(C->GetMagazineCapacity()==30&&C->GetMagazineAmmo()==17,TEXT("presentation preview preserves live ammo"));
     });
@@ -107,17 +111,22 @@ void AFPSGAMEPlayerController::RunGunsmithWorkbenchAudit()
     });
     Later(8,[this,P,G,Check](){if(!GunsmithPanel)return;P->AuditFailNextSave=true;Check(!GunsmithPanel->ApplyDraft()&&G->Pending()==2,TEXT("failed save retains draft"));Check(GunsmithPanel->ApplyDraft(),TEXT("apply uses existing transaction"));
         bool Unchanged=true;for(const auto& R:GunsmithPanel->GetOverviewRows())Unchanged&=R.Delta==TEXT("—");Check(Unchanged,TEXT("after application current comparison has no deltas"));
-        GunsmithPanel->SetCompareFactory(true);const auto& Rows=GunsmithPanel->GetOverviewRows();Check(Rows[1].Current==TEXT("30 发")&&Rows[1].Delta==TEXT("+20 发"),TEXT("factory comparison retains cumulative attachment impact"));
+        GunsmithPanel->SetCompareFactory(true);const auto& Rows=GunsmithPanel->GetOverviewRows();
+        const auto FactoryRow=G->Calculate(G->Definition(),FGunsmithParts());const auto DraftRow=G->Calculate(G->Definition(),G->Draft());
+        Check(Rows[1].Current==FString::Printf(TEXT("%.0f 发"),double(FactoryRow.Capacity))&&Rows[1].Delta==FString::Printf(TEXT("+%.0f 发"),double(DraftRow.Capacity-FactoryRow.Capacity)),TEXT("factory comparison retains cumulative attachment impact"));
         GunsmithPanel->SelectCategory(TEXT("optic"));
     });
     Later(10,[Dir](){FScreenshotRequest::RequestScreenshot(Dir/TEXT("workbench-factory.png"),true,false);});
     Later(11,[this](){if(GunsmithPanel)GunsmithPanel->SetAimPreview(true);});
     Later(13,[C,Check,Dir](){float E=0;Check(C->ValidateGunsmithSight(E)&&C->ValidateFoldingSights(true),TEXT("live ADS and folding sights preserved"));FScreenshotRequest::RequestScreenshot(Dir/TEXT("workbench-ads.png"),true,false);});
-    Later(14,[this,P,C,Check,PreviewWorlds,BaselineWorlds](){auto* Panel=GunsmithPanel.Get();if(!Panel)return;
+    Later(14,[this,P,C,G,Check,PreviewWorlds,BaselineWorlds](){auto* Panel=GunsmithPanel.Get();if(!Panel)return;
+        // Read the installed capacity while the workbench still has a definition;
+        // CloseGunsmith() clears the draft.
+        const int32 InstalledCapacity=P->Equipped()?G->Calculate(G->Definition(),G->Installed(*P->Equipped())).Capacity:0;
         auto Surface=Panel->GetPreviewSurface();auto& App=FSlateApplication::Get();auto Window=App.FindWidgetWindow(Surface.ToSharedRef());
         if(Window){const auto Geometry=Surface->GetCachedGeometry();const FVector2D At=Geometry.LocalToAbsolute(Geometry.GetLocalSize()*.5f);const TSet<FKey> Held{EKeys::LeftMouseButton};App.ProcessMouseButtonDownEvent(Window->GetNativeWindow(),FPointerEvent(0,At,At,Held,EKeys::LeftMouseButton,0,FModifierKeysState()));}
         Check(Surface->HasMouseCapture(),TEXT("begin captured drag before closing"));CloseGunsmith();Check(!Surface->HasMouseCapture(),TEXT("closing during drag releases pointer"));
-        Check(!Panel->HasWorkbenchCapture()&&PreviewWorlds()==BaselineWorlds,TEXT("close releases capture and studio world"));Check(C->HasGunsmithDrum()&&C->GetMagazineCapacity()==50,TEXT("closing preserves applied configuration"));Check(P->ReloadProfile()&&C->HasGunsmithDrum(),TEXT("saved configuration restores"));});
+        Check(!Panel->HasWorkbenchCapture()&&PreviewWorlds()==BaselineWorlds,TEXT("close releases capture and studio world"));Check(C->HasGunsmithDrum()&&C->GetMagazineCapacity()==InstalledCapacity,TEXT("closing preserves applied configuration"));Check(P->ReloadProfile()&&C->HasGunsmithDrum(),TEXT("saved configuration restores"));});
     Later(15,[this,G,C,Check](){Check(OpenGunsmith(),TEXT("reopen workbench"));if(!GunsmithPanel)return;
         GunsmithPanel->ChooseOption(TEXT("optic"),TEXT("prism_scope_2x"));Check(GunsmithPanel->ApplyDraft(),TEXT("save non-holographic optic for undo regression"));
         GunsmithPanel->ChooseDrum(false);GunsmithPanel->ChooseOption(TEXT("optic"),TEXT("lpvo_1_6x"));GunsmithPanel->UndoDraft();

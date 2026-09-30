@@ -1,4 +1,5 @@
 #include "PoisonMaggotMonster.h"
+#include "../Skills/FPSIceWall.h"
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Development/DevelopmentTuningSubsystem.h"
 #include "MonsterCharacterMovementComponent.h"
@@ -65,7 +66,9 @@ bool APoisonMaggotMonster::CanSpit(APawn* Victim) const
  if(!IsValid(Victim)||Combat->IsBusy()||CooldownLeft>0||FVector::Dist2D(Victim->GetActorLocation(),GetActorLocation())>MonsterCombatTuning::AttackDistance(AttackRange))return false;
  auto* H=Victim->FindComponentByClass<UFPSCombatHealthComponent>();if(H&&H->IsDead())return false;
  FCollisionQueryParams Q(SCENE_QUERY_STAT(MaggotSight),false,this);Q.AddIgnoredActor(Victim);FHitResult Hit;
- return !GetWorld()->LineTraceSingleByChannel(Hit,Mouth(),Victim->GetActorLocation(),ECC_Visibility,Q);
+ const bool Blocked=GetWorld()->LineTraceSingleByChannel(Hit,Mouth(),Victim->GetActorLocation(),ECC_Visibility,Q);
+ const auto* Wall=Cast<AFPSIceWall>(Hit.GetActor());
+ return !Blocked||(Wall&&Wall->IsSolid());
 }
 bool APoisonMaggotMonster::StartSpit(APawn* Victim)
 {

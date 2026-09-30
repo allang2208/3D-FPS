@@ -10,6 +10,8 @@ class ULevel;
 class UNiagaraSystem;
 class UPrimitiveComponent;
 class UStaticMeshComponent;
+class UInstancedStaticMeshComponent;
+class UStaticMesh;
 class AVoxelBuildPrefabActor;
 class AVoxelBuildWorld;
 struct FVoxelSmeltingJob;
@@ -28,6 +30,8 @@ public:
     virtual TStatId GetStatId() const override;
     int32 AllocateDetail(const FVector& Position,int32 Requested,bool bImportant=false);
     FVector WindAt(const FVector& Position,float* OutShelter=nullptr);   // OutShelter＝屋檐遮蔽系数（阵风同系数缩放，防雨天下风向不一致）
+    /** Furnace smoke and hanging tools share the same weather gust and roof attenuation. */
+    FVector WindWithGustAt(const FVector& Position);
     void ConfigureSmoke(UNiagaraComponent* FX,int32 Requested,bool bWet=false);
     bool ReserveGeometryQueries(int32 Count,bool bHazard=false);
     bool MoveMist(FVector& Position,FVector& Velocity,const FVector& Previous,float Radius);
@@ -66,16 +70,19 @@ private:
         // —— 出铁口熔融金属流与凝固锭（2026-09-25，同上案）——
         /** 上一拍「任务在炉且已完成」（UColdSteelSmeltingSystem::IsDone 口径）；上升沿才放出铁。 */
         bool bWasDone=false;
-        /** 本次出铁的起始时刻（GetTimeSeconds）；0＝未出铁。t≥1.6s 才展示凝固锭。 */
-        double TapAt=0;
+        /** World/material start time; -1 is idle. Show the solid ingot after 5.4 s. */
+        double TapAt=-1;
         /** 金流 NS 组件（池位，最多 4 座炉同时出铁）；随 Body 变换，注入即衰减，不被动销毁。 */
         TWeakObjectPtr<UNiagaraComponent> TapFX;
         /** 凝固锭展示组件（池位，默认隐藏；展示到任务被取出）。 */
         TWeakObjectPtr<UStaticMeshComponent> Ingot;
-        /** 借用的锭池桶位：每炉一个固定桶，避免三个炉子抢同一个池。 */
-        int32 IngotSlot=-1;
+        /** Continuous tube and horizontal mould surface, attached in furnace mesh space. */
+        TWeakObjectPtr<UStaticMeshComponent> CastingMesh;
         /** 上一拍展示的锭定义（MI_<def> 用；bDone 变 false 即清空）。 */
         FString IngotDef;
+        TWeakObjectPtr<UInstancedStaticMeshComponent> Rack[4];
+        int32 RackCounts[4]={-1,-1,-1,-1};
+        TWeakObjectPtr<UStaticMeshComponent> RackParent;
     };
     TArray<FWalker> Walkers;
     TArray<FSmoke> Smoke;
@@ -98,25 +105,20 @@ private:
     TArray<FFurnaceSmoke> Furnaces;
     float FurnaceClock=0;
     double FurnaceScanAt=0;   // 1Hz 构件对账（SpawnActor 生成事件早于 Configure 写 Id，不可靠）
-    /** 出铁锭池展示桶位：每炉一个固定桶（0..2，与产出锭模一一对应），-1＝未占用。 */
-    int32 IngotSlots[3]={-1,-1,-1};
     UPROPERTY() TSoftObjectPtr<UNiagaraSystem> FurnaceTemplate=TSoftObjectPtr<UNiagaraSystem>(
         FSoftObjectPath(TEXT("/Game/Fluids/FurnaceSmoke20260924/NS_FurnaceBlackSmoke.NS_FurnaceBlackSmoke")));
     UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> FurnaceAsset;
     TSharedPtr<FStreamableHandle> FurnaceLoad;
-    /** 出铁口熔融金属流（2026-09-25）：软引用异步预载，未就绪时静默跳过（无同步 Load）。
-     *  定名 NS_FurnaceMoltenTap（弃 NS_FurnaceTapMetal）：资产名是发射器名 FurnaceTapMetalFlow
-     *  的前缀时，Niagara 编译可复现地出现幻影 SystemUpdateScript Custom Hlsl 报错（valid=0），
-     *  逐字节相同内容换名即过；复现探针 Tools/Fluids/probe_tap_name_cache.py。 */
+    /** Decorative casting droplets. The primary liquid surface has its own bounded pool. */
     UPROPERTY() TSoftObjectPtr<UNiagaraSystem> TapTemplate=TSoftObjectPtr<UNiagaraSystem>(
-        FSoftObjectPath(TEXT("/Game/Fluids/FurnaceTapMetal20260925/NS_FurnaceMoltenTap.NS_FurnaceMoltenTap")));
+        FSoftObjectPath(TEXT("/Game/Fluids/FurnaceCasting20260926/NS_CastingDroplets.NS_CastingDroplets")));
     UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> TapAsset;
     TSharedPtr<FStreamableHandle> TapLoad;
     /** 有界池：≤4 座炉同时出铁（设计定稿并发上限），池位不够时本炉这次不出铁。 */
     UPROPERTY(Transient) TArray<TObjectPtr<UNiagaraComponent>> TapPool;
-    /** 凝固锭展示组件池：三炉各一个固定桶位（SM_Ingot＋MI_<def>），默认隐藏、无碰撞无物理。 */
+    /** Lazy ingot pool, at most one per registered furnace (32); no collision or physics. */
     UPROPERTY(Transient) TArray<TObjectPtr<UStaticMeshComponent>> IngotPool;
-    /** 四个 MI_<def>Ingot 与 SM_Ingot 的异步批量预载句柄（与 NS 同一次请求）。 */
+    /** Retained async handle owns the casting mesh, ingot and all four metal materials. */
     TSharedPtr<FStreamableHandle> TapMeshLoad;
     bool bReady=false,bHasView=false;
     void RegisterActor(AActor* Actor);
@@ -129,4 +131,16 @@ private:
     /** 出铁口熔融金属流与凝固锭（2026-09-25）：完成上升沿触发，全部在既有 5Hz 拍内，只读玩法数据。 */
     void UpdateFurnaceTap(FFurnaceSmoke& Entry,AVoxelBuildWorld* Build,const FVoxelSmeltingJob* Job,
         const UStaticMeshComponent* Body,const FVector& Mouth,bool bDone,double Now);
+    void ReleaseFurnaceTap(FFurnaceSmoke& Entry);
+    void ReleaseFurnaceIngot(FFurnaceSmoke& Entry);
+    void UpdateCastingRack(FFurnaceSmoke& Entry,AVoxelBuildWorld* Build,const FVoxelSmeltingJob* Job);
+    void ReleaseCastingRack(FFurnaceSmoke& Entry);
+    // Appended reflected field: four continuous liquid surfaces; ordinary build required.
+    UPROPERTY(Transient) TArray<TObjectPtr<UStaticMeshComponent>> CastingPool;
+    UPROPERTY() TSoftObjectPtr<UStaticMesh> CastingTemplate=TSoftObjectPtr<UStaticMesh>(
+        FSoftObjectPath(TEXT("/Game/Fluids/FurnaceCasting20260926/SM_FurnaceCastingSurface.SM_FurnaceCastingSurface")));
+    /** Four instanced metal lanes per registered furnace, each with at most three representative ingots. */
+    UPROPERTY(Transient) TArray<TObjectPtr<UInstancedStaticMeshComponent>> CastingRackPool;
+    uint64 GustFrame=MAX_uint64;
+    FVector SharedRainGust=FVector::ZeroVector;
 };

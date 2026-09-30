@@ -69,6 +69,15 @@ void AColdSteelDoor::Configure(UMaterialInterface* Surface)
     if(Frame)for(int32 Index=0;Index<FMath::Max(1,Frame->GetNumMaterials());++Index)Frame->SetMaterial(Index,Surface);
 }
 
+void AColdSteelDoor::ConfigureStandaloneLeaf(UStaticMesh* Mesh,bool bPositiveHinge,float OpeningSeconds,float ClosingDelay)
+{
+    Frame->SetStaticMesh(nullptr);Frame->SetCollisionProfileName(TEXT("NoCollision"));Frame->SetVisibility(false);
+    Leaf->SetStaticMesh(Mesh);Leaf->SetRelativeRotation(FRotator(0,bPositiveHinge?180:0,0));
+    bHingeOnPositiveY=bPositiveHinge;OpenAngleDegrees=85.f;
+    OpenSeconds=OpeningSeconds;AutoCloseSeconds=ClosingDelay;
+    AlignGeometry();
+}
+
 void AColdSteelDoor::AlignGeometry()
 {
     // 关键：StarterContent 的 SM_Door / SM_DoorFrame pivot 在包围盒边缘（门框在底边、门板在角上）。
@@ -256,7 +265,10 @@ void AColdSteelDoor::ApplyAngle(float DeltaSeconds)
 {
     if(FMath::IsNearlyEqual(CurrentAngle,TargetAngle,.05f))
     {
+        // 审计 C1（2026-09-23）：静止分支原来直接 return，最后 ≤0.05° 的残差永远不落进铰链——
+        // CurrentAngle==TargetAngle 而组件不是，状态与表示不一致（窗版本是落的）。这里补齐。
         CurrentAngle=TargetAngle;
+        Hinge->SetRelativeRotation(FRotator(0.f,CurrentAngle,0.f));
         return;
     }
     const float Step=FMath::Max(1.f,OpenSeconds>KINDA_SMALL_NUMBER?OpenAngleDegrees/OpenSeconds:180.f);

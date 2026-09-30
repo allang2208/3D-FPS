@@ -11,6 +11,13 @@ void FPKMSoftChain::Solve(const TArray<FVector>& Guide, const FTransform& Compon
     double Now, double Gravity, int32 PinnedStart, bool PinEnd, double Strength,
     double Corridor, TArray<FVector>& Result)
 {
+    Solve(Guide,Component,Now,Gravity,PinnedStart,PinEnd,Strength,Corridor,Result,FPKMSoftChainSettings());
+}
+
+void FPKMSoftChain::Solve(const TArray<FVector>& Guide, const FTransform& Component,
+    double Now, double Gravity, int32 PinnedStart, bool PinEnd, double Strength,
+    double Corridor, TArray<FVector>& Result, const FPKMSoftChainSettings& Settings)
+{
     Result=Guide;
     if (Guide.Num()<3 || Strength<=.001) { Reset(); return; }
     TArray<FVector> Target;
@@ -44,9 +51,9 @@ void FPKMSoftChain::Solve(const TArray<FVector>& Guide, const FTransform& Compon
                 if (Pinned(I)) { Positions[I]=Goals[I]; continue; }
                 // Loose positional guidance keeps the chain on its authored
                 // side of the receiver while gravity and inertia bend it.
-                Velocities[I]*=FMath::Exp(-3.6*Dt);
-                Velocities[I]+=(FVector(0,0,Gravity*.65)*Strength+
-                    (Goals[I]-Positions[I])*42.)*Dt;
+                Velocities[I]*=FMath::Exp(-Settings.VelocityDamping*Dt);
+                Velocities[I]+=(FVector(0,0,Gravity*Settings.GravityScale)*Strength+
+                    (Goals[I]-Positions[I])*Settings.Guidance)*Dt;
                 Positions[I]+=Velocities[I]*Dt;
             }
             for (int32 Iteration=0;Iteration<20;++Iteration)

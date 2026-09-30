@@ -25,6 +25,7 @@ private:
     void BuildWeaponSection(UVerticalBox* Parent,bool bOffhand);
     void SetDualVisible(bool Visible);
     void PresentDual(const class UPistolDualWieldComponent& Dual,const UColdSteelStatusModel& Model,bool InfiniteReserve);
+    void PresentStaffPistol(const FColdSteelItem& Staff,const class UPistolDualWieldComponent& Dual,const UColdSteelStatusModel& Model);
     void Present(const FString& Name,const FString& Ammo,int32 Magazine,int32 Reserve,int32 Capacity,bool Reloading,bool Equipped);
     void PresentMelee(const FColdSteelItem& Item,const UColdSteelStatusModel& Model,const AFPSGAMECharacter* Character);
     void SetReserveStatusText(bool Enabled);

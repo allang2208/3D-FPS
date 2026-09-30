@@ -141,7 +141,7 @@ void AFPSGAMECharacter::RunForegripAudit()
     if(ForegripAuditStage==6||ForegripAuditStage==8||ForegripAuditStage==10||ForegripAuditStage==12)
     {
         Check(MagazineAmmo==MagazineCapacity,TEXT("reload completes ammo contract"));
-        if(bAKM&&bDrumInstalled){Check(ValidateDrumAttachment()&&MagazineCapacity==50,TEXT("AKM drum seated and original magazine hidden"));Check(bForegripAuditSawDrop,TEXT("AKM completed ordered drum release"));}
+        if(bAKM&&bDrumInstalled){Check(ValidateDrumAttachment()&&MagazineCapacity==60,TEXT("AKM drum seated and original magazine hidden"));Check(bForegripAuditSawDrop,TEXT("AKM completed ordered drum release"));}
         Check(HasGrip()&&GunplayAnimation->IdleClip==GripAnimations.FindRef(IdleAnimation),TEXT("reload restores selected grasp"));Capture(FString::Printf(TEXT("returned_%d"),ForegripAuditStage));++ForegripAuditStage;ForegripAuditNextTime=Now+.5f;return;
     }
     if(ForegripAuditStage==13){if(FParse::Param(FCommandLine::Get(),TEXT("AKMReloadSide")))PC->SetViewTarget(this);Install(TEXT("underbarrel"),bPrismAudit?TEXT("angled_foregrip"):TEXT("prism_handstop"));ForegripAuditStage=14;ForegripAuditNextTime=Now+.5f;return;}

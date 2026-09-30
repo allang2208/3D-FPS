@@ -1,4 +1,5 @@
 #include "ColdSteelStatusModel.h"
+#include "../Weapons/WeaponReloadStages.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "../Skills/ColdSteelSkillRules.h"
@@ -22,6 +23,8 @@ FString UColdSteelStatusModel::AmmoDefinitionFor(const FColdSteelItem& Item) con
 {
     if(ColdSteelInventory::IsBow(Item))
     {
+        const auto* Selected = AmmoType(Item.LoadedAmmoType);
+        if (Selected && Selected->Enabled && Selected->Group == AmmoGroupFor(Item)) return Selected->Id;
         const FString Arrow=ColdSteelInventory::Text(Item,TEXT("arrow_ammo"));
         return Arrow.IsEmpty()?FString(TEXT("arrow_wood")):Arrow;
     }
@@ -31,7 +34,7 @@ int32 UColdSteelStatusModel::AmmoCountFor(const FColdSteelItem& Item) const
 {
     return int32(FMath::Min<int64>(PouchCount(AmmoDefinitionFor(Item)),MAX_int32));
 }
-int32 UColdSteelStatusModel::ReloadDualPistol(const FString& Id,int32 Requested,int32 Capacity,bool Completed)
+int32 UColdSteelStatusModel::ReloadDualPistol(const FString& Id,int32 Requested,int32 Capacity,bool Completed,int32 NeedsCycle)
 {
     if(!CurrentPawn.IsValid() || Requested<=0)return 0;
     SyncRuntime();auto P=Snapshot();auto* Gun=P.Items.FindByPredicate([&](const auto& I){return I.InstanceId==Id && EquippedPistol(I,P.ActiveWeaponSlot);});
@@ -41,6 +44,7 @@ int32 UColdSteelStatusModel::ReloadDualPistol(const FString& Id,int32 Requested,
     const int32 Taken=Infinite?Requested:int32(FMath::Min<int64>(Requested,P.AmmoPouch.FindRef(Def)));if(Taken<=0)return 0;
     if(!Infinite)P.AmmoPouch.FindOrAdd(Def)-=Taken;
     Gun->Magazine+=Taken;
+    if(!WeaponReloadStages::SetNeedsCycle(*Gun,NeedsCycle))return 0;
     if(Infinite)Gun->VirtualMagazineAmmo+=Taken;
     if(Gun->Definition==TEXT("ue_dan_wesson715"))Cases(*Gun,FMath::Max(Gun->Magazine,int32(ColdSteelInventory::Number(*Gun,TEXT("revolver_case_count"),0))));
     P.Items.RemoveAll([](const auto& I){return I.Count<=0;});

@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "Subsystems/WorldSubsystem.h"
 #include "TemperateHillsRiver.h"
+#include "TimerManager.h"
 #include "RiverPilotFXSubsystem.generated.h"
 
 class ATemperateHillsWorld;
@@ -11,6 +12,8 @@ class UNiagaraSystem;
 class UNiagaraComponent;
 class UStaticMeshComponent;
 class ULevel;
+class UDirectionalLightComponent;
+class UPostProcessComponent;
 struct FStreamableHandle;
 struct FWaterImpactFootprint;
 
@@ -19,6 +22,7 @@ struct FRegisteredWaterSurface
     TWeakObjectPtr<UStaticMeshComponent> Component;
     TWeakObjectPtr<UMaterialInstanceDynamic> Material;
     const FWaterImpactFootprint* Footprint=nullptr;
+    float ImmersionDepthCm=0; // Local-space column cap; zero keeps the candidate's own volume.
 };
 
 struct FFluidWaterContact
@@ -54,6 +58,10 @@ public:
      *  void and silently refuses components with no impact footprint, so a caller that
      *  must know whether interaction is live needs to ask. */
     bool IsWaterSurfaceRegistered(const UStaticMeshComponent* Component) const;
+    /** Reuse the registered MID: replacing it would disconnect hits and wakes. */
+    UMaterialInstanceDynamic* GetWaterSurfaceMaterial(const UStaticMeshComponent* Component) const;
+    /** Explicit authored-surface contact, through the same global slots and FX budget. */
+    void SubmitSurfaceImpact(UStaticMeshComponent* Component, const FVector& Position, float Strength);
     virtual void OnWorldBeginPlay(UWorld& InWorld) override;
     virtual void Deinitialize() override;
 protected:
@@ -86,4 +94,21 @@ private:
     double LastBudgetTime=0;
     float Tokens=6;
     int32 RippleCursor=0;
+
+    void BeginNativeOptics();
+    void EndNativeOptics();
+    void RegisterNativeWaterLight(AActor* Actor);
+    void PrepareNativeUnderwater();
+    void UpdateNativeOptics();
+    bool FindNativeImmersion(const FVector& View, FFluidWaterContact& Contact) const;
+    FTimerHandle NativeOpticsTimer;
+    FDelegateHandle NativeLightSpawnHandle;
+    TArray<TWeakObjectPtr<UDirectionalLightComponent>> NativeLights;
+    TSharedPtr<FStreamableHandle> NativeUnderwaterLoad;
+    double LastNativeUpdate=0,NextNativeLightUpdate=0;
+    float NativeDaylight=0;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> NativeUnderwaterMID;
+    UPROPERTY(Transient) TObjectPtr<UPostProcessComponent> NativeUnderwaterVolume;
+    UPROPERTY() TSoftObjectPtr<UMaterialInterface> NativeUnderwaterTemplate=TSoftObjectPtr<UMaterialInterface>(
+        FSoftObjectPath(TEXT("/Game/Clearwater/MI_ClearwaterUnderwater.MI_ClearwaterUnderwater")));
 };

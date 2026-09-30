@@ -42,6 +42,7 @@ public:
     void RefreshInventory();
     /** Local visual pose layers use the current equipment, never inventory copies. */
     bool IsSteelGauntletEquipped() const;
+    bool IsChainmailEquipped() const;
     /** Offline authoring only; never changes the imported close-range mesh. */
     UFUNCTION(BlueprintCallable, Category="Outfit|Authoring", meta=(ScriptName="configure_outfit_lods"))
     static bool ConfigureDistanceLODs(USkeletalMesh* Mesh);

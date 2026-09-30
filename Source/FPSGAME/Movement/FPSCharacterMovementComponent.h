@@ -24,6 +24,12 @@ public:
     // One grounded capsule sweep, with no residual velocity. Returns actual displacement.
     FVector ApplyMeleeLungeStep(const FVector& Direction, float DistanceCM);
 
+    // Carry a released airborne dash through native collision and landing.
+    // Local single-player action; horizontal speed decays until rest or new input.
+    bool BeginMeleeDashMomentum(const FVector& IncomingVelocity);
+    virtual void CalcVelocity(float DeltaTime, float Friction, bool bFluid, float BrakingDeceleration) override;
+    virtual void StopMovementImmediately() override;
+
     // Centimetres per second; constant interpolation has no spring or exponential tail.
     UPROPERTY(EditDefaultsOnly, Category="Movement|Stairs", meta=(ClampMin="1", Units="cm/s"))
     float StairVisualSpeed = 220.f;
@@ -56,4 +62,5 @@ private:
     bool bCaptureStairs = false;
     bool bLastFrameSteppedUp = false;
     bool bLeavingStairJump = false;
+    bool bMeleeDashMomentum = false;
 };

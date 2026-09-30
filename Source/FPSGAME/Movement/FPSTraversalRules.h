@@ -61,7 +61,9 @@ public:
 
     bool IsValidConfiguration() const;
     EFPSTraversalAction ClassifyHeight(float Height) const;
-    EFPSTraversalAction Evaluate(const FFPSTraversalProbe& Probe) const;
+    // An authored guardrail can allow a deeper, fully queried landing. Default
+    // callers (including Blueprint EvaluateObstacle) retain the ordinary limits.
+    EFPSTraversalAction Evaluate(const FFPSTraversalProbe& Probe, float SurfaceMaxLandingDrop = 0.f) const;
 };
 
 UCLASS()

@@ -1,4 +1,3 @@
-#include "../Weapons/Bow/BowArrow.h"
 #include "ColdSteelWorldInteraction.h"
 #include "Engine/World.h"
 #include "Engine/GameInstance.h"
@@ -11,6 +10,9 @@
 #include "../Building/ColdSteelDoorInteraction.h"
 #include "ColdSteelWarehouseChest.h"
 #include "ColdSteelPickup.h"
+#include "../Weapons/Bow/BowArrow.h"
+#include "ColdSteelDungeonLoot.h"
+#include "../Dungeons/DungeonRunSubsystem.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Animation/AnimSequence.h"
 #include "Misc/FileHelper.h"
@@ -86,7 +88,13 @@ bool ColdSteelWorldInteraction::IsSmeltingFurnace(const AActor* Target)
     // 高炉是普通静态构件（调色板 `blast_furnace`，无逻辑件）：命中 Actor 就是占位记录本身。
     // 落体件（BeginFall 后）已不在构件记录里，不再可交互——与门对 `VoxelDetached` 的免疫同一口径。
     const auto* Piece=Cast<AVoxelBuildPrefabActor>(Target);
-    return Piece&&Piece->PrefabId()==VoxelSmeltingFurnaceId&&!Piece->IsFalling();
+    return Piece&&(Piece->PrefabId()==VoxelSmeltingFurnaceId||Piece->PrefabId()==VoxelCastingStationId)&&!Piece->IsFalling();
+}
+
+bool ColdSteelWorldInteraction::IsForgingStation(const AActor* Target)
+{
+    const auto* Piece=Cast<AVoxelBuildPrefabActor>(Target);
+    return Piece&&Piece->PrefabId()==VoxelCastingStationId&&!Piece->IsFalling();
 }
 
 FString ColdSteelWorldInteraction::SmeltingFurnacePrompt(const AActor* Target)
@@ -94,12 +102,21 @@ FString ColdSteelWorldInteraction::SmeltingFurnacePrompt(const AActor* Target)
     const auto* Piece=Cast<AVoxelBuildPrefabActor>(Target);
     if(!IsSmeltingFurnace(Target))return FString();
     const auto* World=Piece?Cast<AVoxelBuildWorld>(Piece->GetOwner()):nullptr;
-    if(World)if(const FVoxelSmeltingJob* Job=World->FindSmelting(Piece->AnchorCell()))
+    FIntVector Cell=Piece->AnchorCell();
+    const bool bTable=Piece->PrefabId()==VoxelCastingStationId;
+    if(bTable&&(!World||!World->FindCastingFurnace(Cell,Cell)))
+        return TEXT("铸造台 · 在附近高炉投料后使用");
+    if(World)if(const FVoxelSmeltingJob* Job=World->FindSmelting(Cell))
     {
         (void)Job;   // 任务存在性判定；状态读取走系统的 (World,Cell) 口径
         auto* Game=World->GetWorld()?World->GetWorld()->GetGameInstance():nullptr;
         auto* System=Game?Game->GetSubsystem<UColdSteelSmeltingSystem>():nullptr;
-        const FIntVector Cell=Piece->AnchorCell();
+        if(Job->bCasting)
+        {
+            const int64 Stored=UColdSteelSmeltingSystem::CastingStored(*Job);
+            if(Stored>=UColdSteelSmeltingSystem::CastingCapacity)return TEXT("成品架已满 · 领取后继续冶炼");
+            return FString::Printf(TEXT("%s · 成品 %lld / 60 · 打开队列"),bTable?TEXT("铸造台"):TEXT("冶炼高炉"),Stored);
+        }
         if(System&&System->IsDone(World,Cell))return TEXT("冶炼高炉 · 取出矿锭");
         if(System&&System->IsBurning(World,Cell))return TEXT("冶炼高炉 · 冶炼中");
         return TEXT("冶炼高炉 · 等待燃料");   // 停炉：有任务、未烧完、火已熄
@@ -112,13 +129,14 @@ bool ColdSteelWorldInteraction::IsWorkbench(const AActor* Target)
     // 工作台与高炉同一口径：普通静态构件（调色板 `workbench_table`，无逻辑件），
     // 命中 Actor 就是占位记录本身；落体件不再可交互。
     const auto* Piece=Cast<AVoxelBuildPrefabActor>(Target);
-    return Piece&&Piece->PrefabId()==VoxelWorkbenchId&&!Piece->IsFalling();
+    return Piece&&(Piece->PrefabId()==VoxelWorkbenchId||Piece->PrefabId()==VoxelGunWorkbenchId)&&!Piece->IsFalling();
 }
 
 FString ColdSteelWorldInteraction::WorkbenchPrompt(const AActor* Target)
 {
-    // 制作内容后续设计（Docs/UI/workbench-panel-plan-20260924.md）：暂无炉况类实时状态可报。
-    return IsWorkbench(Target)?FString(TEXT("工作台 · 打开制作面板")):FString();
+    if(!IsWorkbench(Target))return FString();
+    const auto* Piece=Cast<AVoxelBuildPrefabActor>(Target);
+    return Piece->PrefabId()==VoxelGunWorkbenchId?TEXT("枪械工作台 · 打开拼装界面"):TEXT("工作台 · 打开制作面板");
 }
 
 bool ColdSteelWorldInteraction::OpenTreasureChest(const APlayerController* PC,AActor* Target)
@@ -169,6 +187,7 @@ bool ColdSteelWorldInteraction::OpenTreasureChest(const APlayerController* PC,AA
         }
         Target->Tags.Remove(TreasureOpeningTag);
         Target->Tags.AddUnique(TreasureOpenedTag);
+        if(!FColdSteelDungeonLoot::GrantFromChest(Target))Target->Tags.Remove(TreasureOpenedTag);
     }),Duration,false);
     return true;
 }
@@ -180,6 +199,8 @@ ColdSteelWorldInteraction::FInteractionHint ColdSteelWorldInteraction::ResolveIn
     FInteractionHint Hint;
     if(!IsValid(Target))return Hint;
     if(IsExpeditionAltar(Target)){Hint.Text=TEXT("祭坛 · 打开出征面板");return Hint;}
+    if(const auto* Run=UDungeonRunSubsystem::Get(Target->GetWorld());Run&&Run->IsShrine(Target))
+    {Hint.Text=Run->ShrinePrompt();Hint.bAction=Run->CanClaimShrine();return Hint;}
     if(IsTreasureChest(Target))
     {
         Hint.Text=TreasureChestPrompt(Target);
@@ -189,6 +210,7 @@ ColdSteelWorldInteraction::FInteractionHint ColdSteelWorldInteraction::ResolveIn
     if(const auto* Chest=Cast<AColdSteelWarehouseChest>(Target)){Hint.Text=Chest->GetPromptLabel();return Hint;}
     if(const auto* Pickup=Cast<AColdSteelPickup>(Target)){Hint.Text=Pickup->GetPromptText();return Hint;}
     if(const auto* Arrow=Cast<ABowArrow>(Target)){Hint.Text=Arrow->RecoveryPrompt();Hint.bAction=Arrow->CanRecover();return Hint;}
+    if(IsForgingStation(Target)){Hint.Text=TEXT("铸造台 · 锻造 / 冶炼领锭");return Hint;}
     if(IsSmeltingFurnace(Target)){Hint.Text=SmeltingFurnacePrompt(Target);return Hint;}
     if(IsWorkbench(Target)){Hint.Text=WorkbenchPrompt(Target);return Hint;}
     if(UColdSteelDoorInteraction::IsDoor(Target)){Hint.Text=TEXT("门 · 开／关");return Hint;}

@@ -1,10 +1,12 @@
-#include "../Weapons/Bow/BowAssembly.h"
+#include "../Weapons/LMG201WeaponAssets.h"
+#include "../Weapons/HK416WeaponAssets.h"
 #include "ColdSteelWeaponIcons.h"
 #include "ColdSteelMeleePreview.h"
 #include "ColdSteelStaffPreview.h"
+#include "../Weapons/ModularSwordVisual.h"
 #include "../Weapons/Staff/StaffCatalog.h"
 #include "../Weapons/Staff/StaffAssembly.h"
-#include "../Weapons/ModularSwordVisual.h"
+#include "../Weapons/Bow/BowAssembly.h"
 #include "../Weapons/MeleeRuneVisual.h"
 #include "../Weapons/FrostSwordRunes.h"
 #include "../Weapons/A762Attachments.h"
@@ -18,6 +20,7 @@
 #include "../Weapons/SVDWeaponAssets.h"
 #include "../Weapons/SVDAttachments.h"
 #include "../Weapons/M1911WeaponAssets.h"
+#include "../Weapons/G18WeaponAssets.h"
 #include "../Weapons/DanWesson715WeaponAssets.h"
 #include "../Weapons/PistolGripSurface.h"
 #include "../Weapons/DanWesson715FittedParts.h"
@@ -102,10 +105,17 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
     else
     {
         if(D==TEXT("ue_svd")){Add(SVDWeaponAssets::MeshPath,true);Add(SVDWeaponAssets::AnimationPath(TEXT("idle")),true);}
+        else if(D==TEXT("ue_lmg201"))
+        {
+            Add(LMG201WeaponAssets::MeshPath,true);Add(LMG201WeaponAssets::AnimationPath(TEXT("idle")),true);
+            for(int32 I=0;I<2;++I)Add(LMG201WeaponAssets::SightPath(I),true);
+            for(const TCHAR* Name:{TEXT("BipodBase"),TEXT("BipodLegA"),TEXT("BipodLegB")})Add(LMG201WeaponAssets::PartPath(Name),true);
+        }
         else if(D==TEXT("ue_a762")){Add(A762WeaponAssets::MeshPath,true);Add(A762WeaponAssets::AnimationPath(TEXT("idle")),true);for(int32 I=0;I<2;++I)Add(A762WeaponAssets::SightPath(I));}
         else if(D==TEXT("ue_pkm_lowpoly")){Add(PKMLowpolyWeaponAssets::MeshPath,true);Add(PKMLowpolyWeaponAssets::AnimationPath(TEXT("idle")),true);}
         else if(D==TEXT("ue_m16a2")){Add(M16WeaponAssets::MeshPath,true);Add(M16WeaponAssets::AnimationPath(TEXT("idle")),true);}
         else if(D==TEXT("ue_ash12")){Add(ASH12WeaponAssets::MeshPath,true);Add(ASH12WeaponAssets::AnimationPath(TEXT("idle")),true);}
+        else if(D==G18WeaponAssets::Definition){Add(G18WeaponAssets::MeshPath,true);Add(G18WeaponAssets::AnimationPath(TEXT("idle")),true);}
         else if(D==TEXT("ue_m1911")){Add(TEXT("/Game/Weapons/M1911/RearFinish20260913/SK_M1911_Manny"),true);Add(M1911WeaponAssets::AnimationPath(TEXT("idle")),true);}
         else if(D==TEXT("ue_dan_wesson715")){Add(DanWesson715WeaponAssets::MeshPath,true);Add(DanWesson715WeaponAssets::AnimationPath(TEXT("idle")),true);}
         else if(D==TEXT("ue_qbz191"))
@@ -114,6 +124,7 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
             Add(TEXT("/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_idle"),true);
             Add(TEXT("/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_RearSight"));Add(TEXT("/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_FrontSight"));
         }
+        else if(D==HK416WeaponAssets::Definition){Add(HK416WeaponAssets::MeshPath,true);Add(HK416WeaponAssets::AnimationPath(TEXT("idle")),true);}
         else if(D==TEXT("ue_m4a1"))
         {
             Add(TEXT("/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416"),true);Add(TEXT("/Game/Weapons/M4ContactImpactFinal/A_AKM_idle"),true);
@@ -130,6 +141,14 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
         {
             FString Key=Part.Value;
             if(Key.IsEmpty()||Key==TEXT("false")||Key==TEXT("factory"))continue;
+            if(D==HK416WeaponAssets::Definition)
+            {
+                if(Part.Key==TEXT("muzzle"))Key=TEXT("suppressor");
+                if(Part.Key==TEXT("underbarrel"))Key=TEXT("vertical");
+                Add(HK416WeaponAssets::AttachmentPath(Key),true);
+                continue;
+            }
+
             if(Part.Key==TEXT("reargrip")&&PistolGripSurface::IsPart(Key))
             {
                 Add(PistolGripSurface::MeshPath(GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(D)),true);
@@ -154,7 +173,16 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
                 if(Key==TEXT("lpvo_1_6x"))Add(SVDAttachments::MeshPath(TEXT("lpvo_ring")));
                 continue;
             }
-            if(D==TEXT("ue_a762"))Add(A762Attachments::MeshPath(Key));
+            if(D==TEXT("ue_lmg201"))
+            {
+                // The ammo box and belt are sections of the private feed mesh.
+                if(Part.Key==TEXT("magazine")&&Key==TEXT("large_drum"))Add(LMG201WeaponAssets::DrumMeshPath);
+                if(Part.Key==TEXT("bipod") || Part.Key==TEXT("magazine"))continue;
+                if(Key==TEXT("true"))Key=TEXT("suppressor");
+                Add(LMG201WeaponAssets::AttachmentPath(Key));
+                if(Key==TEXT("lpvo_1_6x"))Add(LMG201WeaponAssets::AttachmentPath(TEXT("lpvo_ring")));
+            }
+            else if(D==TEXT("ue_a762"))Add(A762Attachments::MeshPath(Key));
             else if(D==TEXT("ue_pkm_lowpoly"))
             {
                 if(Key==TEXT("pkm_bipod"))
@@ -164,6 +192,11 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
             else if(D==TEXT("ue_m16a2"))Add(M16Attachments::MeshPath(Key));
             else if(D==TEXT("ue_qbz191"))Add(QBZ191Attachments::MeshPath(Key));
             else if(D==TEXT("ue_ash12"))Add(ASH12WeaponAssets::OpticMeshPath(Key));
+            else if(D==G18WeaponAssets::Definition)
+            {
+                if(Part.Key==TEXT("muzzle")&&Key==TEXT("true"))Key=TEXT("suppressor");
+                if(Part.Key!=TEXT("barrel")&&Part.Key!=TEXT("trigger"))Add(G18WeaponAssets::AttachmentPath(Key));
+            }
             else if(D==TEXT("ue_m1911"))Add(M1911WeaponAssets::AttachmentPath(Key));
             else if(D==TEXT("ue_dan_wesson715"))
             {

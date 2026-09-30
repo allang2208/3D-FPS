@@ -41,8 +41,9 @@ void UProductionToolComponent::UpdateTwoHandLocomotion(float Delta)
         // Confirmed contact owns the complete lodged/frozen pose.
         AxeLocomotionOffset=FVector::ZeroVector;
         AxeLocomotionRotation=FQuat::Identity;
+        // 撬动关键帧是作者秒：改造后的真实时间先换算回作者时间。
         if(bPickaxe)AxeLocomotionRotation=FRotator(
-            ProductionPickaxeImpact::PryDegrees(Elapsed-ContactSeconds),0,0).Quaternion();
+            ProductionPickaxeImpact::PryDegrees(AuthoredElapsed()-ContactSeconds),0,0).Quaternion();
     }
 
     // Move both arms and the held tool together. Rotating around the grip midpoint

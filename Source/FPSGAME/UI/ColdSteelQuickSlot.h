@@ -14,6 +14,7 @@ public:
     void Refresh();
 protected:
     virtual void NativeTick(const FGeometry&,float DeltaTime) override;
+    virtual int32 NativePaint(const FPaintArgs&,const FGeometry&,const FSlateRect&,FSlateWindowElementList&,int32,const FWidgetStyle&,bool) const override;
     virtual FReply NativeOnMouseButtonDown(const FGeometry&,const FPointerEvent&) override;
     virtual FReply NativeOnMouseButtonUp(const FGeometry&,const FPointerEvent&) override;
     virtual void NativeOnDragDetected(const FGeometry&,const FPointerEvent&,UDragDropOperation*&) override;
@@ -25,6 +26,8 @@ private:
     FName FixedSkill=NAME_None;
     FString FixedKeyLabel;
     bool bLoaded=false;
+    bool bGoldPrepared=false;
+    bool bGoldHighlighted=false;
     FColdSteelQuickBinding Displayed;
     float BlinkElapsed=0.f;
     float FlashElapsed=.6f;

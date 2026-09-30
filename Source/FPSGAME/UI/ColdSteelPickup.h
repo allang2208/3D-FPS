@@ -33,6 +33,8 @@ private:
     friend class UColdSteelPickupStudio;
     bool BuildWeapon(const FColdSteelItem& Item,class UGameInstance* Context=nullptr);
     bool BuildConsumable(const FColdSteelItem& Item);
+    bool BuildStaff(const FColdSteelItem& Item);
+    TSharedPtr<struct FStreamableHandle> StaffLoad;
     bool BuildProductionTool(const FColdSteelItem& Item);
     bool BuildProductionMaterial(const FColdSteelItem& Item);
     void InstallProductionMaterial(class UStaticMesh* Asset,bool Wood,const FString& Definition=FString());

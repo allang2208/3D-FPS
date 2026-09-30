@@ -108,6 +108,10 @@ void ATemperateHillsWorld::ResolveSession()
     FParse::Value(FCommandLine::Get(),TEXT("HillsLabel="),Label);
     AuditDir=FPaths::ProjectSavedDir()/TEXT("TemperateHills")/Label;
     Slot=bAudit?TEXT("TemperateHills_Audit"):TEXT("TemperateHills_World");
+#if !UE_BUILD_SHIPPING
+    // Portal regression needs real hills travel without touching the player's world save.
+    if(FParse::Param(FCommandLine::Get(),TEXT("GrassPortalAudit")))Slot=TEXT("TemperateHills_GrassPortalAudit");
+#endif
     int32 Requested=Seed;
     // Portal re-entry continues the existing world even when this process was
     // originally launched with a new-world or explicit-seed command-line flag.
@@ -440,6 +444,24 @@ bool ATemperateHillsWorld::TreeCandidate(int32 GX,int32 GY,FTemperatePlacement& 
     return !Out.Mesh.IsNull();
 }
 
+FString ATemperateHillsWorld::RockOreDefinition(uint32 Key)
+{
+    // Single source of truth for a rock candidate's mineral. TemperateHillsProduction
+    // resolves rewards from the same formula, so what the vein material shows and
+    // what the pickaxe drops can never drift apart.
+    const uint32 Pick=Key%100;
+    return Pick<25?TEXT("iron_ore"):Pick<37?TEXT("copper_ore"):Pick<41?TEXT("silver_ore"):Pick<43?TEXT("gold_ore"):TEXT("");
+}
+
+FSoftObjectPath ATemperateHillsWorld::OreRockVariantMesh(uint32 Key)
+{
+    const uint32 Pick=Key%100;
+    if(Pick>=43)return FSoftObjectPath();
+    const TCHAR* Suffix=Pick<25?TEXT("Iron"):Pick<37?TEXT("Copper"):Pick<41?TEXT("Silver"):TEXT("Gold");
+    return FSoftObjectPath(FString::Printf(
+        TEXT("/Game/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_%s.SM_LS_Rock_00A_%s"),Suffix,Suffix));
+}
+
 void ATemperateHillsWorld::GetPlacements(int32 Layer,const FBox& Bounds,TArray<FTemperatePlacement>& Out,bool IncludeRegrowth) const
 {
     if(!Assets||Layer<0||Layer>3)return;
@@ -489,6 +511,10 @@ void ATemperateHillsWorld::GetPlacements(int32 Layer,const FBox& Bounds,TArray<F
             const FQuat Rotation=FQuat(N,TemperateHills::Unit(K+4)*2*PI)*FQuat::FindBetweenNormals(FVector::UpVector,N);
             P.Transform=FTransform(Rotation,FVector(X,Y,Height(X,Y)-(Layer==1?35:3)),FVector(Scale));
             P.Mesh=List[K%List.Num()].ToSoftObjectPath();P.Key=K;P.CandidateId=TemperateHills::CellId(GX,GY);
+            // Ore-bearing candidates swap to the vein variant mesh (one shared shape,
+            // per-mineral material). Pure stones keep the four-mesh rotation.
+            if(Layer==1)
+                if(const FSoftObjectPath Vein=OreRockVariantMesh(K);Vein.IsValid())P.Mesh=Vein;
         }
         const FVector Pos=P.Transform.GetLocation();
         if(Layer<=1&&IsProductionDepleted(Layer,P.CandidateId))continue;
@@ -518,6 +544,7 @@ void ATemperateHillsWorld::GetPlacements(int32 Layer,const FBox& Bounds,TArray<F
             const double Base=Rock.IsValid()?Rock.Get()->GetBoundingBox().Min.Z:0;
             P.Transform=FTransform(Rotation,FVector(X,Y,Height(X,Y)-(Base+18)*Scale),FVector(Scale));
             P.Mesh=Rock.ToSoftObjectPath();P.Key=K;
+            if(const FSoftObjectPath Vein=OreRockVariantMesh(K);Vein.IsValid())P.Mesh=Vein;
             P.CandidateId=TemperateHills::CellId(GX,GY)^0x4000000000000000ULL;
             if(IsProductionDepleted(1,P.CandidateId))continue;
             Out.Add(P);

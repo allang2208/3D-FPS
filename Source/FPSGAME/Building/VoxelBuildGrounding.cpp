@@ -94,11 +94,14 @@ bool AVoxelBuildWorld::ResolveGroundPlacement(const FHitResult& Surface,FIntVect
     return true;
 }
 
-bool AVoxelBuildWorld::IsGroundAnchor(FVector Min) const
+bool AVoxelBuildWorld::IsGroundAnchor(FVector Min,const FCollisionQueryParams* CachedParams) const
 {
     VoxelGrounding::FFootprint Ground;
+    // 审计 W1（2026-09-23）：与 ScenePlacementAllowed 同一处理——批循环外构造一次查询参数传进来，
+    // 避免每格一次全 Pawn 遍历。CachedParams 为空时保持原行为自行构造（单点调用路径）。
+    const FCollisionQueryParams Owned=CachedParams?FCollisionQueryParams():VoxelGrounding::Query(GetWorld(),this);
     return VoxelGrounding::Sample(GetWorld(),Min,Min.Z+VoxelGrounding::AnchorProbeRiseCm,
-        Min.Z-VoxelGrounding::ContactToleranceCm,VoxelGrounding::Query(GetWorld(),this),Ground);
+        Min.Z-VoxelGrounding::ContactToleranceCm,CachedParams?*CachedParams:Owned,Ground);
 }
 
 bool AVoxelBuildWorld::ScenePlacementAllowed(FVector Min,FString& Reason,bool* OutAnchor,const FCollisionQueryParams* CachedParams) const

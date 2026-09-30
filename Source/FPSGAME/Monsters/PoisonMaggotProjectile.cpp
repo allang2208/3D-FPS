@@ -13,6 +13,7 @@
 #include "Misc/Parse.h"
 #include "../UI/StatusEffectsComponent.h"
 #include "../Combat/CombatStatusFormula.h"
+#include "../Skills/FPSIceWall.h"
 APoisonMaggotProjectile::APoisonMaggotProjectile()
 {
  PrimaryActorTick.bCanEverTick=true;
@@ -85,6 +86,8 @@ void APoisonMaggotProjectile::Tick(float Dt)
  {
   UpdateLiquidVisual(Dt*Hit.Time,Start,Hit.Location);
   if(auto* FX=GetWorld()->GetSubsystem<UPoisonMaggotVenomFX>())FX->AddImpact(Hit,Velocity);
+  if(auto* Wall=Cast<AFPSIceWall>(Hit.GetActor()))
+   UGameplayStatics::ApplyDamage(Wall,HitDamage,Shooter->GetController(),Shooter.Get(),UMaggotVenomDamage::StaticClass());
   if(FParse::Param(FCommandLine::Get(),TEXT("MonsterFeedbackProbe")))UE_LOG(LogTemp,Display,TEXT("MAGGOT_IMPACT_PROBE actor=%s component=%s profile=%s visibility=%d pawn=%d initial=%d"),*GetPathNameSafe(Hit.GetActor()),*GetNameSafe(Hit.GetComponent()),Hit.GetComponent()?*Hit.GetComponent()->GetCollisionProfileName().ToString():TEXT("none"),Hit.GetComponent()?int32(Hit.GetComponent()->GetCollisionResponseToChannel(ECC_Visibility)):-1,Hit.GetComponent()?int32(Hit.GetComponent()->GetCollisionResponseToChannel(ECC_Pawn)):-1,Hit.bStartPenetrating);
   if(auto* P=Cast<APawn>(Hit.GetActor()))if(P->IsPlayerControlled())
   {

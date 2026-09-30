@@ -6,6 +6,7 @@
 #include "ColdSteelEnhancementSystem.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "../Weapons/WeaponStatEvaluation.h"
+#include "../Production/ProductionToolEnhance.h"
 #include "Engine/GameInstance.h"
 #include "Widgets/Layout/SBorder.h"
 #include "Widgets/Layout/SScrollBox.h"
@@ -18,6 +19,25 @@ TSharedRef<STextBlock> Text(const FString& S,int32 Size,FLinearColor Color,bool 
 FString Value(double N,int32 Digits,const TCHAR* Unit){return FString::Printf(TEXT("%.*f%s"),Digits,N,Unit);}
 FLinearColor BenefitColor(int32 Benefit){return Benefit>0?ColdSteelUI::Success:Benefit<0?ColdSteelUI::Danger:GunsmithUI::Secondary;}
 }
+void UM4GunsmithWidget::AppendToolEnhanceOverview(const FColdSteelItem& Item)
+{
+    // 只读外观行：等级与材质名是"当前 → 草稿"，两个数值列保留「—」。
+    // 本阶段刻意不显示采集产出／所需命中／自卫总伤害的数字变化——强化不改这些值，
+    // 显示任何数字（含 0）都等于暗示了尚未授权的强化数值。
+    const int32 Current=ColdSteelToolEnhance::Level(Item);
+    const int32 Draft=Model()->DraftEnhanceLevel();
+    const int32 Final=Draft>0?Draft:Current;
+    const auto* CurrentRow=ColdSteelToolEnhance::Find(Current);
+    const auto* FinalRow=ColdSteelToolEnhance::Find(Final);
+    const FString CurrentName=CurrentRow?CurrentRow->Name:TEXT("—");
+    const FString FinalName=FinalRow?FinalRow->Name:TEXT("—");
+    Overview.Add({TEXT("强化"),TEXT(""),TEXT(""),TEXT(""),0});
+    Overview.Add({TEXT("强化等级"),FString::Printf(TEXT("Lv.%d"),Current),FString::Printf(TEXT("Lv.%d"),Final),
+        Final==Current?TEXT("—"):TEXT("+1"),Final==Current?0:-1});
+    Overview.Add({TEXT("金属材质"),CurrentName,FinalName,TEXT("—"),0});
+    Overview.Add({TEXT("强化不影响数值"),TEXT("—"),TEXT("—"),TEXT("—"),0});
+}
+
 void UM4GunsmithWidget::RefreshPresentation()
 {
     PreviewMotion=1.f;
@@ -28,8 +48,8 @@ void UM4GunsmithWidget::RefreshPresentation()
         SelectedCategory.Reset();
         for(const auto& Key:G->Slots(G->Definition()))if(IsCategoryAvailable(Key)){SelectedCategory=Key;break;}
     }
-    const auto S=G->Calculate(G->Definition(),G->Draft());
-    const auto B=G->Calculate(G->Definition(),bCompareFactory?FGunsmithParts():G->Installed(*I));
+    const auto S=G->CalculateItem(*I,G->Draft());
+    const auto B=G->CalculateItem(*I,bCompareFactory?FGunsmithParts():G->Installed(*I));
     Overview.Reset();
     auto Row=[this](const TCHAR* Name,double Before,double After,int32 Digits,const TCHAR* Unit,bool Lower=false)
     {
@@ -37,7 +57,9 @@ void UM4GunsmithWidget::RefreshPresentation()
         R.Delta=FMath::Abs(D)<.00001?TEXT("—"):FString(D>0?TEXT("+"):TEXT(""))+Value(D,Digits,Unit);
         R.Benefit=FMath::Abs(D)<.00001?0:((D>0)!=Lower?1:-1);Overview.Add(R);
     };
-    if(IsBowWorkbench()){AppendBowOverview(*I);SetStandaloneBowItem(*I);}
+    if(IsStaffWorkbench()){AppendStaffOverview(*I);SetStandaloneStaffItem(*I);}
+    else if(IsBowWorkbench()){AppendBowOverview(*I);SetStandaloneBowItem(*I);}
+    else if(IsToolWorkbench())AppendToolOverview(*I);
     else if(IsMeleeWorkbench())AppendMeleeOverview(*I);
     else
     {
@@ -91,9 +113,18 @@ void UM4GunsmithWidget::RefreshPresentation()
     else if(G->Definition()==TEXT("ue_akm")||G->Definition()==TEXT("ue_pkm_lowpoly")||G->Definition()==TEXT("ue_svd"))Overview.Add({TEXT("机械瞄具"),TEXT("固定机瞄"),TEXT("固定机瞄"),TEXT("—"),0});
     else Overview.Add({TEXT("机械瞄具"),BeforeParts.Contains(TEXT("optic"))?TEXT("折下"):TEXT("竖起"),G->Draft().Contains(TEXT("optic"))?TEXT("折下"):TEXT("竖起"),TEXT("—"),0});
     }
-    StatusText=G->Pending()>0?FString::Printf(TEXT("待应用 · %d 项    %s"),G->Pending(),*G->Message()):TEXT("当前配置    ")+G->Message();
+    StatusText=G->Pending()>0?FString::Printf(TEXT("待应用 · %d 项    %s"),G->Pending(),*G->ApplyFeedback()):TEXT("当前配置    ")+G->Message();
     if(OptionScroll)
     {
+        // 第五栏「强化」不是改造槽：目录里没有它的 Options 条目，卡片来源是等级阶梯目录，
+        // 因此走独立分支，不能落到下面的 Options.Find(SelectedCategory) 反查。
+        if(SelectedCategory==TEXT("enhance"))
+        {
+            OptionsSignature.Reset();OptionsCategory=TEXT("enhance");
+            if(EnhanceOptionsDirty())RefreshEnhanceOptions();
+        }
+        else
+        {
         const auto* Options=G->ModifiableWeapon(G->Definition())->Options.Find(SelectedCategory);
         FString Signature=G->Definition()+TEXT("|")+SelectedCategory;
         if(Options)for(const auto& O:*Options)Signature+=TEXT("|")+O.Id+O.Name+O.Description;
@@ -108,8 +139,11 @@ void UM4GunsmithWidget::RefreshPresentation()
             }
             if(ChangedCategory)OptionScroll->ScrollToStart();
         }
+        }
     }
     RefreshSelectedOption();
+    // 中央预览按草稿等级即时换金属材质；草稿为 0 时用实例等级（幂等，仅草稿变化时才重建）。
+    if(IsToolWorkbench())SyncEnhancePreview();
     if(OverviewList)
     {
         OverviewList->ClearChildren();

@@ -24,7 +24,7 @@ template<typename TRig> static void ApplyUnderbarrel(TRig* Rig,const FString& Va
 bool AColdSteelPickup::BuildWeapon(const FColdSteelItem& Item,UGameInstance* Context)
 {
     const double Begin=FPlatformTime::Seconds();ON_SCOPE_EXIT { UE_LOG(LogTemp,Display,TEXT("DropTiming: model %.3f ms"),(FPlatformTime::Seconds()-Begin)*1000); };
-    if(Item.Definition!=TEXT("ue_m4a1")&&Item.Definition!=TEXT("ue_akm")&&Item.Definition!=TEXT("ue_a762")&&Item.Definition!=TEXT("ue_svd")&&Item.Definition!=TEXT("ue_pkm_lowpoly")&&Item.Definition!=TEXT("ue_qbz191")&&Item.Definition!=TEXT("ue_ash12")&&Item.Definition!=TEXT("ue_m16a2")&&Item.Definition!=TEXT("ue_m1911")&&Item.Definition!=TEXT("ue_dan_wesson715"))return false;
+    if(Item.Definition!=TEXT("ue_m4a1")&&Item.Definition!=TEXT("ue_hk416")&&Item.Definition!=TEXT("ue_akm")&&Item.Definition!=TEXT("ue_a762")&&Item.Definition!=TEXT("ue_lmg201")&&Item.Definition!=TEXT("ue_svd")&&Item.Definition!=TEXT("ue_pkm_lowpoly")&&Item.Definition!=TEXT("ue_qbz191")&&Item.Definition!=TEXT("ue_ash12")&&Item.Definition!=TEXT("ue_m16a2")&&Item.Definition!=TEXT("ue_m1911")&&Item.Definition!=TEXT("ue_g18")&&Item.Definition!=TEXT("ue_dan_wesson715"))return false;
     if(!Context)Context=GetGameInstance();auto* Pool=Context->GetSubsystem<UColdSteelPickupStudio>();
     TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Pickup_BuildWeapon);
     FFPSPerformanceScope BuildScope(Context,TEXT("Pickup.BuildWeapon"),Pool->Key(Item));
@@ -32,7 +32,7 @@ bool AColdSteelPickup::BuildWeapon(const FColdSteelItem& Item,UGameInstance* Con
     if(Created){
         TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Pickup_InitializeVisuals);
         FFPSPerformanceScope VisualScope(Context,TEXT("Pickup.InitializeVisuals"));
-        Rig->ActiveInventoryWeaponDefinition=Item.Definition;Rig->bUseM4Infima=Item.Definition==TEXT("ue_m4a1");Rig->bUseQBZ191=Item.Definition==TEXT("ue_qbz191");Rig->bUseASH12=Item.Definition==TEXT("ue_ash12");Rig->bUseM16=Item.Definition==TEXT("ue_m16a2");Rig->bUseM1911=Item.Definition==TEXT("ue_m1911");Rig->bUseDanWesson715=Item.Definition==TEXT("ue_dan_wesson715");Rig->InitializeWeaponVisuals(true);
+        Rig->ActiveInventoryWeaponDefinition=Item.Definition;Rig->bUseM4Infima=(Item.Definition==TEXT("ue_m4a1")||Item.Definition==TEXT("ue_hk416"));Rig->bUseQBZ191=Item.Definition==TEXT("ue_qbz191");Rig->bUseASH12=Item.Definition==TEXT("ue_ash12");Rig->bUseM16=Item.Definition==TEXT("ue_m16a2");Rig->bUseM1911=(Item.Definition==TEXT("ue_m1911")||Item.Definition==TEXT("ue_g18"));Rig->bUseDanWesson715=Item.Definition==TEXT("ue_dan_wesson715");Rig->InitializeWeaponVisuals(true);
     }
     auto* Source=Rig->AKMViewmodel.Get();if(!Source||!Source->GetSkeletalMeshAsset())return false;
     Source->SetWorldTransform(FTransform::Identity);Source->PlayAnimation(Rig->IdleAnimation,false);Source->SetPosition(0,false);Source->TickAnimation(0,false);Source->RefreshBoneTransforms();Source->UpdateComponentToWorld();
@@ -44,7 +44,7 @@ bool AColdSteelPickup::BuildWeapon(const FColdSteelItem& Item,UGameInstance* Con
     for(int32 M=0;M<Source->GetNumMaterials();++M)Weapon->SetMaterial(M,Source->GetMaterial(M));
     for(int32 L=0;L<Render->LODRenderData.Num();++L)for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S){
         const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;const FString Name=Asset->GetMaterials()[M].MaterialSlotName.ToString().ToLower();
-        const bool HandMaterial=Name.Contains(TEXT("hand"))&&!Name.Contains(TEXT("handguard"));
+        const bool HandMaterial=Name.Contains(TEXT("hand"))&&!Name.Contains(TEXT("handguard"))&&!Name.Contains(TEXT("charginghandle"))&&!Name.Contains(TEXT("carryhandle"));
         const bool Visible=Source->IsMaterialSectionShown(M,L)&&!Name.Contains(TEXT("manny"))&&!HandMaterial&&!Name.Contains(TEXT("glove"))&&!Name.Contains(TEXT("sleeve"))&&Name!=TEXT("skin");
         Source->ShowMaterialSection(M,S,Visible,L);Weapon->ShowMaterialSection(M,S,Visible,L);
     }

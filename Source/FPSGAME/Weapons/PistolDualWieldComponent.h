@@ -64,10 +64,11 @@ struct FDualPistolHand
     float ActionTime=0, ActionRate=1, SourceLength=0, Sprint=0, SprintBlend=0, Bloom=0;
     double NextShot=0, LastShot=-10;
     double ActionStarted=0;
+    double ActionBlendStarted=0;
     TSet<FString> PlayedCues;
 };
 
-/** Two inventory instances, two trigger edges and reload clocks; one player camera. */
+/** Pistol pair or staff/offhand pistol; each active hand owns its trigger, ammo and action clock. */
 UCLASS()
 class FPSGAME_API UPistolDualWieldComponent : public UActorComponent
 {
@@ -76,12 +77,16 @@ class FPSGAME_API UPistolDualWieldComponent : public UActorComponent
 public:
     UPistolDualWieldComponent();
     bool IsActive() const { return bActive; }
-    bool HasHeldTrigger() const { return bActive && (Hands[0].Held || Hands[1].Held); }
-    bool IsReloading() const { return bActive && (Hands[0].Reloading || Hands[1].Reloading); }
+    bool IsPair() const { return bActive && !bOffhandOnly; }
+    bool IsOffhandOnly() const { return bActive && bOffhandOnly; }
+    bool HasHeldTrigger() const { return bActive && ((!bOffhandOnly && Hands[0].Held) || Hands[1].Held); }
+    bool IsReloading() const { return bActive && ((!bOffhandOnly && Hands[0].Reloading) || Hands[1].Reloading); }
+    bool IsEquipping() const;
     // Reuse the pistol controller's GC-tracked cache for the single M1911
     // empty-slide variant; dual wield itself has no inspect action.
     void PrepareSingleInspect();
     UAnimSequence* SingleEmptyInspect() const;
+    void InterruptActions();
     bool LeftBusy() const;
     const FDualPistolHand& Hand(int32 Index) const { return Hands[Index]; }
     bool MatchesEquipment(const UColdSteelStatusModel* Model, bool bWeaponReady) const;
@@ -101,6 +106,7 @@ public:
     void Reload();
     bool SwitchAmmo(const FString& WeaponId,const FString& AmmoType);
     void CancelInputs();
+    void InterruptReloads();
     bool BeginQuickCombat();
     bool IsQuickCombatActive() const;
     bool GetQuickCombatStrikeProbe(FVector& OutOrigin,float ContactTime);
@@ -113,6 +119,9 @@ private:
     UPROPERTY(Transient) TObjectPtr<UColdSteelStatusModel> Profile;
     UPROPERTY(Transient) TArray<TObjectPtr<class USceneComponent>> LeftAttachments;
     bool bActive=false;
+    bool bOffhandOnly=false;
+    FString MainHandInstance;
+    int32 FirstHand() const { return bOffhandOnly ? 1 : 0; }
     float Clock=0, Phase=0, SprintPhase=0;
     float AimInverseDistance=1.f/1200.f;
     FVector AimTargetWorld=FVector::ZeroVector;
@@ -123,6 +132,8 @@ private:
     void StartAction(int32 Index,const FString& Name,float Rate=1.f);
     void BeginReload(int32 Index);
     void AdvanceReload(int32 Index,float PreviousSource);
+    bool CommitReloadInsertion(int32 Index,int32 Count,bool Completed);
+    bool CompleteReloadMechanism(int32 Index,float Source);
     void TryFire(int32 Index);
     void StopAction(int32 Index);
     void Cue(int32 Index,const FString& Name,float At,float Previous,float Now);

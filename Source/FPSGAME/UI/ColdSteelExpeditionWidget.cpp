@@ -1,4 +1,4 @@
-#include "ColdSteelExpeditionWidget.h"
+﻿#include "ColdSteelExpeditionWidget.h"
 #include "ColdSteelUIStyle.h"
 #include "ColdSteelStatusModel.h"
 #include "../FPSGAMEPlayerController.h"
@@ -87,8 +87,10 @@ void UColdSteelExpeditionWidget::ConfirmDeparture()
 {
     if (!CanConfirm()) return;
     const FName RequestedId = SelectedId;
-    // No saving, charging, travel or fabricated success in the view. The receiver returns feedback.
     Feedback = OnDepartureRequested.Execute(RequestedId);
+    // Travel closes the panel before OpenLevel; the widget may already be torn down.
+    if (!IsValid(this)) return;
+    if (Feedback.IsEmpty()) Close();
 }
 
 void UColdSteelExpeditionWidget::SelectDestination(FName Id)

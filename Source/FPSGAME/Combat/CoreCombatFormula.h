@@ -31,12 +31,12 @@ inline Stats Enemy(const Attributes& A)
     Stats S=Player(A);S.Atk=Round(A.Str*.5+A.Dex*.5);S.Def=std::floor(A.Con*1.5+A.Str*.3);
     S.Matk=std::floor(A.Int*.5+A.Wis*.5);S.MaxHp=100+A.Con*5;return S;
 }
-inline double Defense(double Damage,double Def,bool Magic=false,double Penetration=0,double Shred=0,double Corrosion=1)
+inline double Defense(double Damage,double Def,bool bMagic=false,double Penetration=0,double Shred=0,double Corrosion=1)
 {
     if(Damage<=0)return Damage;
-    if(Magic)Def=std::floor(Def*(1-std::clamp(Shred,0.,.95)));
+    if(bMagic)Def=std::floor(Def*(1-std::clamp(Shred,0.,.95)));
     if(Penetration!=0)Def=std::floor(Def*(1-std::clamp(Penetration,0.,1.)));
-    if(!Magic)Def=std::max(0.,std::floor(Def*Corrosion));
+    if(!bMagic)Def=std::max(0.,std::floor(Def*Corrosion));
     return std::max(std::floor(Damage*(1-Def/(Def+60))),std::floor(Damage*.1));
 }
 inline double CriticalChance(double Chance,double Resistance) { return std::max(0.,Chance-Resistance); }

@@ -1,5 +1,6 @@
 #include "MonsterAIController.h"
 #include "MonsterCombatComponent.h"
+#include "../Skills/IceWallCombat.h"
 #include "MonsterBTNodes.h"
 #include "Mutant3.h"
 #include "WolfMonster.h"
@@ -117,7 +118,8 @@ void AMonsterAIController::UpdateKnowledge()
  B->SetValueAsObject(TEXT("Target"),Valid?KnownTarget.Get():nullptr);
  B->SetValueAsVector(TEXT("LastKnown"),LastKnown);B->SetValueAsVector(TEXT("Home"),HomeFeet);
  B->SetValueAsBool(TEXT("Visible"),Visible);B->SetValueAsBool(TEXT("Returning"),bReturning);
- B->SetValueAsBool(TEXT("CanAttack"),!bReturning&&Visible&&C->CanAttack(KnownTarget.Get()));
+ const bool WallInWay=Valid&&!Visible&&IceWallCombat::BlockingWall(GetPawn(),KnownTarget.Get(),C->AggroRange());
+ B->SetValueAsBool(TEXT("CanAttack"),!bReturning&&(Visible||WallInWay)&&C->CanAttack(KnownTarget.Get()));
  B->SetValueAsBool(TEXT("HasTarget"),Valid&&!bReturning);
 }
 void AMonsterAIController::NavigateTo(FVector Destination,float Acceptance)

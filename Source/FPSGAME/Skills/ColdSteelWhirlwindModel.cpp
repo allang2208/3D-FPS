@@ -47,5 +47,5 @@ void UColdSteelStatusModel::TrainWhirlwind(int32 Hits,int32 Kills)
     const auto& D=MasteryDefinition(TEXT("whirlwind"));
     const int32 XP=Hits*D.HitExperience+(Hits>=2?D.MultiHitExperience:0)+Kills*D.KillExperience;
     if(XP<=0||MasteryProgress(D.Id).Level>=D.MaxLevel)return;
-    SyncRuntime();auto P=Snapshot();ColdSteelSkills::AddExperience(P,D,XP);CommitState(P);
+    SyncRuntime();auto P=Snapshot();ColdSteelSkills::AddExperience(P,D,XP);StageTraining(MoveTemp(P));
 }

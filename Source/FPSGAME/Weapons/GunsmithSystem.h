@@ -40,11 +40,25 @@ struct FMeleeModifiers
     double HeavyToughness=1;
     double HeavyToughnessMultiplier() const {return ToughnessDamage*HeavyToughness;}
 };
+/**
+ * 采集工具（伐木斧、矿镐）改造倍率：倍率相乘、绝对值相加，1／0 = 未改造。
+ * 口径唯一权威是 `Content/ColdSteelData/tool-gunsmith.json` 与 `GunsmithSystem.cpp::Calculate`；
+ * 采集与自卫两条链路都读同一份结果（见 `Production/ProductionToolStats.h`）。
+ * HarvestHitsAdd 为负表示更快采尽；应用端把所需命中夹在 ≥1。
+ */
+struct FToolModifiers
+{
+    double Damage=1, AttackSpeed=1, Stamina=1, CombatReach=1, ToughnessDamage=1;
+    double HarvestYield=1, HarvestReach=1;
+    double HarvestRadiusAddCM=0, BonusHarvestChance=0, CriticalChanceAdd=0;
+    int32 HarvestHitsAdd=0;
+};
 struct FGunsmithStats
 {
     // Bow factors are independent from firearm handling and magazine rules.
     struct FBowModifiers { double Damage=1,Draw=1,Speed=1,Stamina=1,Nock=1,Hold=1,Sway=1,Spread=1,ADS=1; } Bow;
     FMeleeModifiers Melee;
+    FToolModifiers Tool;
     FWeaponHandling Handling;
     double ADS=0.3, ADSPercent=0, ADSSeconds=0, Recoil=100, Shake=100, RecoilMultiplier=1, ShakeMultiplier=1, StabilityMultiplier=1;
     double Interval=0.13, Reload=1.5, EmptyReload=1.5, Speed=90, Range=40, Spread=1, Damage=25;
@@ -58,6 +72,7 @@ struct FGunsmithOption
     FGunsmithStats::FBowModifiers Bow;
     TSharedPtr<FJsonObject> BowVisual;
     FMeleeModifiers Melee;
+    FToolModifiers Tool;
     TArray<FString> CompatibleWeapons;
     FString Id, Name, Description;
     /** 数值改造先行时如实说明当前外观归属；空串表示沿用本槽 factory 外形。 */
@@ -102,19 +117,36 @@ public:
     FString CategoryLabel(const FString& Definition,const FString& Slot) const;
     // Weapon remains the firearm contract used by ammunition and combat callers.
     const FGunsmithWeapon* ModifiableWeapon(const FString& Definition) const;
-    bool IsBow(const FString& Definition) const {return BowWeapons.Contains(Definition);}
-    FColdSteelItem ResolveBowVisual(const FColdSteelItem& Item,const FGunsmithParts* Parts=nullptr) const;
     bool IsMelee(const FString& Definition) const {return MeleeWeapons.Contains(Definition);}
+    /** 采集工具（伐木斧、矿镐）：走工具四栏目录，不套用剑类连击／格挡口径。 */
+    bool IsTool(const FString& Definition) const {return ToolWeapons.Contains(Definition);}
+    bool IsStaff(const FString& Definition) const {return StaffWeapons.Contains(Definition);}
+    bool IsBow(const FString& Definition) const {return BowWeapons.Contains(Definition);}
+    /** Resolve a transient visual recipe; draft parts never mutate the equipped item. */
+    FColdSteelItem ResolveBowVisual(const FColdSteelItem& Item,const FGunsmithParts* Parts=nullptr) const;
     const FGunsmithOption* Option(const FString& Definition,const FString& Slot,const FString& Id) const;
     FGunsmithParts Installed(const FColdSteelItem&) const;
     FGunsmithParts Normalize(const FString& Definition,const FGunsmithParts&) const;
     FGunsmithStats Calculate(const FString& Definition,const FGunsmithParts&) const;
+    FGunsmithStats CalculateItem(const FColdSteelItem& Item,const FGunsmithParts&) const;
     bool Begin(const FString& Instance);
     bool Select(const FString& Slot,const FString& OptionId);
     bool Apply();
     bool CanApply(FString& Reason) const;
+    FString ApplyFeedback() const;
     void Undo();
     void Close();
+    /**
+     * 工具强化草稿等级（阶段 1-C）：0＝无草稿，非 0＝「应用」时要写进物品 Data 的 `tool_enhance_level`。
+     * 这是**瞬时草稿**，与 `Preview` 同寿命：不写进 `gunsmith_parts`，不进 `NormalizeProductionState`
+     * 的刷新白名单，`Undo`／`Close` 一律丢弃。规则为逐级 +1：只接受 `Current+1`，其余拒绝。
+     */
+    bool SetDraftEnhanceLevel(int32 Level);
+    int32 DraftEnhanceLevel() const {return DraftEnhanceLevelValue;}
+    /** 当前实例的出厂／已安装等级；不在工具工作台时返回 0。 */
+    int32 CurrentEnhanceLevel() const;
+    /** 逐级 +1 检查：OutNextLevel＝当前+1；已满级或无当前实例时为 false。 */
+    bool CanEnhanceNow(int32& OutNextLevel) const;
     int32 Pending() const;
     bool IsOpen() const {return bOpen;}
     const FString& Instance() const {return InstanceId;}
@@ -124,21 +156,29 @@ public:
     const TArray<FString>& Slots() const{return SlotKeys;}
     const TArray<FString>& Categories()const{return CategoryNames;}
     const TArray<FString>& Defaults()const{return DefaultNames;}
-    const TArray<FString>& Slots(const FString& Definition) const {return IsBow(Definition)?BowSlotKeys:IsMelee(Definition)?MeleeSlotKeys:SlotKeys;}
-    const TArray<FString>& Categories(const FString& Definition) const {return IsBow(Definition)?BowCategoryNames:IsMelee(Definition)?MeleeCategoryNames:CategoryNames;}
-    const TArray<FString>& Defaults(const FString& Definition) const {return IsBow(Definition)?BowDefaultNames:IsMelee(Definition)?MeleeDefaultNames:DefaultNames;}
+    const TArray<FString>& Slots(const FString& Definition) const {return IsStaff(Definition)?StaffSlotKeys:IsBow(Definition)?BowSlotKeys:IsTool(Definition)?ToolSlotKeys:IsMelee(Definition)?MeleeSlotKeys:SlotKeys;}
+    const TArray<FString>& Categories(const FString& Definition) const {return IsStaff(Definition)?StaffCategoryNames:IsBow(Definition)?BowCategoryNames:IsTool(Definition)?ToolCategoryNames:IsMelee(Definition)?MeleeCategoryNames:CategoryNames;}
+    const TArray<FString>& Defaults(const FString& Definition) const {return IsStaff(Definition)?StaffDefaultNames:IsBow(Definition)?BowDefaultNames:IsTool(Definition)?ToolDefaultNames:IsMelee(Definition)?MeleeDefaultNames:DefaultNames;}
     FGunsmithChanged OnChanged;
     TSharedPtr<FJsonObject> Catalog;
 private:
     TMap<FString,FGunsmithWeapon> Weapons;
+    TMap<FString,FGunsmithWeapon> MeleeWeapons;
+    // 采集工具独立成表：四栏目录、数值口径与剑类不同，避免 IsMelee 的剑类分支误覆盖工具。
+    TMap<FString,FGunsmithWeapon> ToolWeapons;
     TMap<FString,FGunsmithWeapon> BowWeapons;
     TArray<FString> BowSlotKeys,BowCategoryNames,BowDefaultNames;
     void LoadBowCatalog();
-    TMap<FString,FGunsmithWeapon> MeleeWeapons;
+    void LoadStaffCatalog();
+    TMap<FString,FGunsmithWeapon> StaffWeapons;
+    TArray<FString> StaffSlotKeys,StaffCategoryNames,StaffDefaultNames;
     TArray<FString> MeleeSlotKeys,MeleeCategoryNames,MeleeDefaultNames;
     void LoadMeleeCatalog();
+    TArray<FString> ToolSlotKeys,ToolCategoryNames,ToolDefaultNames;
+    void LoadToolCatalog();
     TArray<FString> SlotKeys,CategoryNames,DefaultNames;
     FGunsmithParts Preview, Original;
+    int32 DraftEnhanceLevelValue=0;
     FString InstanceId, DefinitionId, Status;
     bool bOpen=false;
 };

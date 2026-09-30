@@ -5,7 +5,7 @@
 namespace
 {
 // Matches the accepted Belt08 visual spacing. Values are in viewmodel cm.
-constexpr double Pitch=1.832636;
+constexpr double OutgoingLinkPitch=1.832636;
 constexpr double TabLead=1.5;
 // At the upper edge of the box, before the tail can reach the supporting arm.
 constexpr double RetireDistance=14.7;
@@ -113,7 +113,7 @@ void FPKMOutgoingBeltDynamics::Apply(USkeletalMeshComponent& Mesh, TArray<FTrans
     FVector Down=Frame.UnrotateVector(GravityCS);
     Down.X=0.; Down=Down.GetSafeNormal(UE_SMALL_NUMBER,FVector(0,0,-1));
     TArray<FVector> Guide,Curve;
-    for (int32 I=0;I<10;++I) Guide.Add(Origin+Frame.RotateVector(OutletPoint(I*Pitch,Down)));
+    for (int32 I=0;I<10;++I) Guide.Add(Origin+Frame.RotateVector(OutletPoint(I*OutgoingLinkPitch,Down)));
     if (bOutletFollowingHand!=(Follow!=INDEX_NONE)) OutletChain.Reset();
     bOutletFollowingHand=Follow!=INDEX_NONE;
     if (Active && OldVisible && !bInspection)
@@ -122,7 +122,7 @@ void FPKMOutgoingBeltDynamics::Apply(USkeletalMeshComponent& Mesh, TArray<FTrans
     else { OutletChain.Reset(); Curve=Guide; }
     const auto Sample=[&](double Distance)
     {
-        const double U=FMath::Clamp(Distance/Pitch,0.,double(Curve.Num()-1));
+        const double U=FMath::Clamp(Distance/OutgoingLinkPitch,0.,double(Curve.Num()-1));
         const int32 I=FMath::Min(FMath::FloorToInt(U),Curve.Num()-2);
         return FMath::Lerp(Curve[I],Curve[I+1],U-I);
     };
@@ -144,14 +144,14 @@ void FPKMOutgoingBeltDynamics::Apply(USkeletalMeshComponent& Mesh, TArray<FTrans
     for (int32 I=0;I<25;++I)
     {
         const int32 Generation=Newest-((Newest-I+25)%25);
-        const double Distance=(Feed-Generation)*Pitch;
+        const double Distance=(Feed-Generation)*OutgoingLinkPitch;
         const double Visibility=Active && OldVisible && Generation>=0 && Distance>.001?Fade(Distance):0.;
-        const FVector A=Sample(Distance),B=Sample(Distance-Pitch);
+        const FVector A=Sample(Distance),B=Sample(Distance-OutgoingLinkPitch);
         const FVector Tangent=Sample(Distance+.02)-Sample(Distance-.02);
         Place(Clips[I],A,Tangent,Visibility);
         Place(Bridges[I],(A+B)*.5,A-B,Visibility);
     }
-    const double Lead=Feed*Pitch+TabLead;
+    const double Lead=Feed*OutgoingLinkPitch+TabLead;
     const FVector TabOffset=Mounted(Tab,Follow).GetLocation()-Origin-Forward*TabLead;
     Place(Tab,Sample(Lead)+TabOffset,Sample(Lead+.02)-Sample(Lead-.02),!Active?1.:Fade(Lead));
     // Its __NewBelt material section supplies the exact new-belt visibility

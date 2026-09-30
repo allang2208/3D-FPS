@@ -7,8 +7,16 @@
 class SMeleePartIcon : public SLeafWidget
 {
 public:
-    SLATE_BEGIN_ARGS(SMeleePartIcon){} SLATE_ARGUMENT(FString,Part) SLATE_END_ARGS()
-    void Construct(const FArguments& Args){Part=Args._Part;SetVisibility(EVisibility::HitTestInvisible);}
+    SLATE_BEGIN_ARGS(SMeleePartIcon){} SLATE_ARGUMENT(FString,Part)
+    /** 采集工具四栏（握把／握柄／改件／主部件）用工具自己的矢量符号，不借剑类图形。 */
+    SLATE_ARGUMENT(bool,bTool)
+    /** 主部件按工具类型分别画斧头或镐头。 */
+    SLATE_ARGUMENT(FString,Definition)
+    /** 禁用档位卡把图标整体压暗；不传＝原色。 */
+    SLATE_ARGUMENT(FLinearColor,ColorAndOpacity)
+    SLATE_END_ARGS()
+    void Construct(const FArguments& Args){Part=Args._Part;bTool=Args._bTool;Definition=Args._Definition;
+        ColorAndOpacity=Args._ColorAndOpacity;SetVisibility(EVisibility::HitTestInvisible);}
     virtual FVector2D ComputeDesiredSize(float)const override{return FVector2D(48,48);}
     virtual int32 OnPaint(const FPaintArgs&,const FGeometry& Geometry,const FSlateRect&,FSlateWindowElementList& Elements,
         int32 Layer,const FWidgetStyle& Style,bool)const override
@@ -19,8 +27,65 @@ public:
         {
             TArray<FVector2D> Path;for(const auto& Point:Points)Path.Add(Offset+Point*Scale);
             FSlateDrawElement::MakeLines(Elements,Layer,Geometry.ToPaintGeometry(),Path,ESlateDrawEffect::None,
-                (Accent?GunsmithUI::Silver:GunsmithUI::Muted)*Style.GetColorAndOpacityTint(),true,Width*Scale);
+                (Accent?GunsmithUI::Silver:GunsmithUI::Muted)*Style.GetColorAndOpacityTint()*ColorAndOpacity,true,Width*Scale);
         };
+        if(bTool)
+        {
+            if(Part==TEXT("head"))
+            {
+                // 主部件：柄杆 + 斧头或镐头，按工具定义分开画。
+                Line({{21,10},{27,10},{27,44},{21,44},{21,10}},1.f,false);
+                if(Definition==TEXT("tool_pickaxe"))
+                {
+                    Line({{6,16},{42,16},{42,21},{6,21},{6,16}},2.f);
+                    Line({{6,21},{12,31},{17,21}},2.f);
+                    Line({{31,21},{36,31},{42,21}},2.f);
+                    Line({{18,12},{30,12}},1.f,false);
+                }
+                else
+                {
+                    Line({{27,11},{38,15},{40,23},{35,29},{27,25},{27,11}},2.f);
+                    Line({{38,15},{40,23},{35,29}},2.5f);
+                    Line({{19,13},{29,13}},1.f,false);
+                }
+            }
+            else if(Part==TEXT("shaft"))
+            {
+                // 握柄：整根柄杆、上箍与柄尾铁套。
+                Line({{22,4},{26,4},{27,40},{21,40},{22,4}},2.f);
+                Line({{18,10},{30,10},{30,14},{18,14},{18,10}},1.f,false);
+                Line({{19,34},{29,34},{29,41},{19,41},{19,34}},1.f,false);
+                Line({{24,17},{24,31}},1.f,false);
+            }
+            else if(Part==TEXT("enhance"))
+            {
+                // 强化：底部砧座＋向上五道层叠档位刻痕（最高档最长），与工具三栏同风格。
+                Line({{9,38},{39,38},{39,43},{9,43},{9,38}},2.f);
+                Line({{14,33},{34,33},{34,38},{14,38},{14,33}},1.f,false);
+                for(int32 I=0;I<5;++I)
+                {
+                    const double Width=9.+I*2.5;
+                    Line({{24-Width*.5,32.-I*5.5},{24+Width*.5,32.-I*5.5}},2.f);
+                }
+            }
+            else if(Part==TEXT("fitting"))
+            {
+                // 改件：柄颈加装件——头部孔眼、钢楔与两颗铆钉。
+                Line({{17,6},{31,6},{31,17},{17,17},{17,6}},1.f,false);
+                Line({{24,8},{29,15},{19,15},{24,8}},2.f);
+                Line({{21,17},{27,17},{27,40},{21,40},{21,17}},1.f,false);
+                Line({{19,22},{29,22}},2.f);Line({{19,29},{29,29}},2.f);
+            }
+            else
+            {
+                // 握把：双手接触区的缠裹与加宽握面。
+                Line({{20,6},{28,6},{27,42},{21,42},{20,6}},1.f,false);
+                for(int32 Y=15;Y<32;Y+=6)Line({{20.,double(Y)},{28.,double(Y-5)}},2.f);
+                Line({{15,32},{33,32},{33,39},{15,39},{15,32}},2.f);
+                Line({{19,42},{29,42}},1.f,false);
+            }
+            return Layer;
+        }
         if(Part==TEXT("blade_1")||Part==TEXT("blade_2"))
         {
             Line({{24,4},{31,13},{29,35},{19,35},{17,13},{24,4}});
@@ -48,4 +113,7 @@ public:
     }
 private:
     FString Part;
+    bool bTool=false;
+    FString Definition;
+    FLinearColor ColorAndOpacity=FLinearColor::White;
 };

@@ -2,6 +2,7 @@
 #include "../FPSGAMECharacter.h"
 #include "../FPSGAMEPlayerController.h"
 #include "../Weapons/RuneSwordComponent.h"
+#include "../Weapons/MeleeWeaponStats.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonSerializer.h"
@@ -45,7 +46,7 @@ float UColdSteelStatusModel::StaminaRecoveryRate() const
 FColdSteelMeleeStaminaReadout UColdSteelStatusModel::MeleeStaminaReadout(const AFPSGAMECharacter* Pawn) const
 {
     FColdSteelMeleeStaminaReadout Result;
-    const float Available=FMath::Max(0.f,Current.Stamina),Cost=StaminaTuning.MeleeCost;
+    const float Available=FMath::Max(0.f,Current.Stamina),Cost=ColdSteelMelee::AttackStamina(Equipped(),this);
     Result.bUnlimitedAttacks=Cost==0.f;
     if(Cost>0.f)Result.AvailableAttacks=FMath::FloorToInt(double(Available)/double(Cost));
     const float Missing=FMath::Max(0.f,MaxStamina()-Available);

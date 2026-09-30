@@ -1323,6 +1323,48 @@
     "stack_max": 99,
     "type": "附魔卷轴"
   },
+  "enchant_scroll_rift_slash": {
+    "rarity": "epic",
+    "category": "consumable",
+    "desc": "为剑类武器附魔后缀「裂空」。蓄满重击挥出时，向前发射一道蓝白弧形剑气，射程 12 米，造成本次重击 100% 的伤害。穿透敌人，每个敌人仅命中一次，遇墙消散；未蓄满不触发，剑气不再触发附魔连锁，不额外消耗法力。",
+    "grade": "epic",
+    "icon": "Icons/magic_scroll_realistic_v1.png",
+    "ue_icon": "Icons/magic_scroll_realistic_v1.png",
+    "icon_fallback": "✦",
+    "name": "附魔卷轴：裂空",
+    "price": 4000,
+    "scroll_id": "riftSlash",
+    "stack_max": 99,
+    "type": "附魔卷轴"
+  },
+  "enchant_scroll_electrified": {
+    "rarity": "epic",
+    "category": "consumable",
+    "desc": "为所有近战武器附魔前缀「感电的」。近战命中后有 25% 概率向 5 米内随机一名其他敌人释放闪电；本次近战击杀敌人时，放电概率为 100%。闪电击杀后向被击杀者周围 5 米内所有敌人继续放电，可重复连锁。闪电等级取 10 与玩家当前闪电等级中的较高值，逐跳沿用技能伤害衰减。同一轮不重复命中，受墙体遮挡；不消耗法力、不占用主动技能冷却。刃部附带环绕电弧。",
+    "grade": "epic",
+    "icon": "Icons/magic_scroll_realistic_v1.png",
+    "ue_icon": "Icons/magic_scroll_realistic_v1.png",
+    "icon_fallback": "✦",
+    "name": "附魔卷轴：感电的",
+    "price": 4000,
+    "scroll_id": "electrifiedMelee",
+    "stack_max": 99,
+    "type": "附魔卷轴"
+  },
+  "enchant_scroll_shatter_bullet": {
+    "rarity": "epic",
+    "category": "consumable",
+    "desc": "为所有枪械附魔后缀「碎裂子弹」。命中敌人后向 5 米内随机一名其他敌人弹射；击杀时向范围内所有其他敌人各弹射一颗。弹射造成原命中 100% 的伤害，仅弹射一次，受墙体遮挡。",
+    "grade": "epic",
+    "icon": "Icons/magic_scroll_realistic_v1.png",
+    "ue_icon": "Icons/magic_scroll_realistic_v1.png",
+    "icon_fallback": "✦",
+    "name": "附魔卷轴：碎裂子弹",
+    "price": 4000,
+    "scroll_id": "shatterBullet",
+    "stack_max": 99,
+    "type": "附魔卷轴"
+  },
   "enchant_scroll_skeleton": {
     "rarity": "rare",
     "category": "consumable",
@@ -3286,7 +3328,7 @@
     "desc": "炭灰色细密棉布短袖 T恤，上臂袖口向内卷边，露出下段上臂和前臂，可与手套独立搭配。",
     "ue_icon": "Icons/FieldSweaterKnit20260929/ue_field_sweater_charcoal.png",
     "icon_fallback": "衣",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Pickups/SM_Charcoal_Garment.SM_Charcoal_Garment",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/PickupsV3/SM_Charcoal_Garment.SM_Charcoal_Garment",
     "world_material": ""
   },
   "ue_field_gloves": {
@@ -3327,7 +3369,7 @@
   },
   "ue_original_gloves": {
     "id": "ue_original_gloves",
-    "name": "原版战术手套",
+    "name": "厚皮革手套",
     "category": "equipment",
     "type": "手套",
     "equipSlot": "gloves",
@@ -3337,11 +3379,45 @@
     "price": 20,
     "grid_w": 2,
     "grid_h": 2,
-    "desc": "沿用旧式战术手套的棕皮革，贴合掌指，掌面防滑，腕口以卷边和缝线收束。可单独穿戴，也可搭配上衣；脱下后露出双手。",
+    "defense": {
+      "base": 8
+    },
+    "bonusStats": {
+      "meleeAttackSpeed": 0.1,
+      "meleeStaminaCost": -0.1
+    },
+    "desc": "厚实皮革整面缝制，掌面做了防滑纹处理，潮湿或发力握持时都不易打滑；腕口以卷边和缝线收束。可单独穿戴，也可搭配上衣；脱下后露出双手。",
     "ue_icon": "Icons/GloveCompanionDetail20260928/ue_original_gloves.png",
     "icon_fallback": "手",
     "world_mesh": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/Pickups/SM_Tactical_Detail_Pickup.SM_Tactical_Detail_Pickup",
     "world_material": ""
+  },
+  "ue_lmg201": {
+    "category": "weapon",
+    "desc": "201 轻机枪以长枪管、提把与展开式双脚架组成鲜明轮廓。黑色机匣配合镂空枪托，弧形弹匣便于携行和快速更换。它承担班组持续火力支援，既可肩射，也可借助脚架稳定射击。",
+    "equipSlot": "weapon",
+    "icon": "",
+    "id": "ue_lmg201",
+    "isTwoHanded": true,
+    "name": "201轻机枪",
+    "rarity": "common",
+    "stack_max": 1,
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "32"
+      },
+      {
+        "name": "弹匣容量",
+        "value": "30"
+      }
+    ],
+    "type": "武器",
+    "weaponType": "machineGun",
+    "weaponTypeTag": "轻机枪",
+    "ue_icon": "Icons/ue_lmg201.png",
+    "grid_w": 5,
+    "grid_h": 2
   },
   "ue_steel_gauntlets": {
     "id": "ue_steel_gauntlets",
@@ -3373,10 +3449,70 @@
     "price": 35,
     "grid_w": 3,
     "grid_h": 3,
+    "defense": {
+      "base": 60
+    },
+    "bonusStats": {
+      "moveSpeedPercent": -0.05,
+      "meleeAttackSpeed": -0.05
+    },
     "desc": "灰钢锁环交错覆盖衣身与双臂，磨亮环面与暗色衬底形成层次，袖口采用实体金属环和暗色包边，可与手套独立搭配。",
     "ue_icon": "Icons/ChainmailInterlace20260929/ue_chainmail_shirt.png",
     "icon_fallback": "甲",
     "world_mesh": "/Game/Characters/ModularOutfit20260924/ChainmailShirt20260928/Pickups/SM_ChainmailShirt_Pickup.SM_ChainmailShirt_Pickup",
     "world_material": "/Game/Characters/ModularOutfit20260924/ChainmailInterlace20260929/Materials/MI_Chainmail_Rings_Standard.MI_Chainmail_Rings_Standard"
+  },
+  "ue_g18": {
+    "id": "ue_g18",
+    "name": "G18",
+    "icon": "Icons/ue_g18.png",
+    "ue_icon": "Icons/ue_g18.png",
+    "category": "weapon",
+    "weaponType": "pistol",
+    "rangedType": "pistol",
+    "weaponTypeTag": "手枪",
+    "equipSlot": "weapon",
+    "isTwoHanded": false,
+    "rarity": "common",
+    "stack_max": 1,
+    "grid_w": 3,
+    "grid_h": 2,
+    "type": "武器",
+    "desc": "奥地利格洛克公司设计的自动手枪，采用聚合物底把与短行程后座结构，发射九毫米手枪弹。紧凑枪身适合快速拔枪与近距离连续射击；连射会迅速消耗弹匣并积累后坐，短促连射更容易控制。",
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "18"
+      },
+      {
+        "name": "弹匣容量",
+        "value": "17"
+      }
+    ]
+  },
+  "ue_hk416": {
+    "category": "weapon",
+    "desc": "德国黑克勒与科赫研制的突击步枪，采用短行程活塞导气结构。导轨护木便于配置瞄具、照明和前握把，伸缩枪托便于调整持枪姿态。适合以短点射控制远处目标，也可用连续射击应对近距离交战。",
+    "equipSlot": "weapon",
+    "icon": "Icons/ue_hk416.png",
+    "id": "ue_hk416",
+    "isTwoHanded": true,
+    "name": "HK416",
+    "rarity": "common",
+    "stack_max": 1,
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "30"
+      },
+      {
+        "name": "弹匣容量",
+        "value": "30"
+      }
+    ],
+    "type": "武器",
+    "weaponType": "rifle",
+    "weaponTypeTag": "突击步枪",
+    "ue_icon": "Icons/ue_hk416.png"
   }
 }

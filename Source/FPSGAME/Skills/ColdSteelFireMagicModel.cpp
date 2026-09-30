@@ -53,7 +53,7 @@ FFireMagicCast UColdSteelStatusModel::FireMagicStats(FName Id,int32 AtLevel) con
             CostFactor+=Craft(TEXT("magicMpCostPercent"))+Chain*Craft(TEXT("chainSpellMpCostPercent"));
             CooldownReduction=Craft(TEXT("magicCooldownPercent"));C.Range*=1+Craft(TEXT("magicRangePercent"));
             C.CastSpeed=FMath::Max(.1f,float(1+Craft(TEXT("castSpeedPercent"))));
-            DamageFactor=(1+Craft(TEXT("magicDamagePercent")))*(1+Chain*Craft(TEXT("chainSpellDamagePercent")));
+            DamageFactor=(1+Craft(TEXT("magicDamagePercent"))+Craft(TEXT("fireDamagePercent")))*(1+Chain*Craft(TEXT("chainSpellDamagePercent")));
             C.bGrantChain=Craft(TEXT("chainSpellDamagePercent"))!=0;
             C.CastHasteStacks=Craft(TEXT("castHasteStacks"));C.CastHasteDuration=E->CraftEffect(*Item,TEXT("castHasteDuration"),5000)/1000;
         }
@@ -66,6 +66,7 @@ FFireMagicCast UColdSteelStatusModel::FireMagicStats(FName Id,int32 AtLevel) con
 bool UColdSteelStatusModel::BeginFireMagicCast(const FFireMagicCast& Spell)
 {
     if(!FireMagic::IsSkill(Spell.Skill)||FireMagicCooldown(Spell.Skill)>0||!CanSpendMana(Spell.ManaCost))return false;
+    if(FireMagicDefinition(Spell.Skill).FireMagic.bRequiresStaff&&!HasEquippedStaff())return false;
     SyncRuntime();auto P=Snapshot();if(!HasInfiniteMana())P.Mana-=Spell.ManaCost;
     float& Remaining=Spell.Skill==TEXT("meteor")?P.MeteorCooldown:P.FlameArmorCooldown;
     float& Duration=Spell.Skill==TEXT("meteor")?P.MeteorCooldownDuration:P.FlameArmorCooldownDuration;

@@ -31,7 +31,7 @@ TSharedRef<SButton> UColdSteelEnhancementWidget::Button(const FString& Text,TFun
 {
     return SNew(SButton).ButtonStyle(Primary?&PrimaryStyle:Selected?&SelectedStyle:&Normal)
         .ContentPadding(FMargin(12,0)).HAlign(HAlign_Fill).VAlign(VAlign_Center).IsEnabled(Enabled)
-        .ToolTipText(FText::FromString(Text)).OnClicked_Lambda([Action](){Action();return FReply::Handled();})
+        .OnClicked_Lambda([Action](){Action();return FReply::Handled();})
         [SNew(SBox).MinDesiredHeight(ColdSteelUI::ActionHeight).VAlign(VAlign_Center)
             [SNew(STextBlock).Text(FText::FromString(Text)).Font(GunsmithUI::TextFont(14,true))
                 .ColorAndOpacity(Primary?ColdSteelUI::Gray(22):ColdSteelUI::TextPrimary).Justification(ETextJustify::Center)]];

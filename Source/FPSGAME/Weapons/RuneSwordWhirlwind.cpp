@@ -54,10 +54,11 @@ bool URuneSwordComponent::BeginWhirlwind()
     ImpactAge=1.f;ImpactStrength=1.f;
     WhirlwindYaw=Character->GetControlRotation().Yaw;
     HitActors.Reset();SwingSkills=ColdSteelSkills::Snapshot(Character.Get());
-    SwingSkills.WeakpointPercent=0;SwingPoison=ColdSteelCombat::Snapshot(Character.Get()).Poison;
+    SwingSkills.WeakpointPercent=0;SwingSkills.AttackForm=EMonsterAttackForm::Blade;SwingPoison=ColdSteelCombat::Snapshot(Character.Get()).Poison;
     SwingHitReactionMultiplier=MeleeModifiers.HitReaction;
     // 旋风斩属剑刃攻击：导魔符文易伤通道照常挂载；金色强化按确认命中缩减CD（整个旋风只触发一次）。
     SwingRuneVulnerability=MeleeModifiers.RuneVulnerability;SwingRuneVulnerabilitySeconds=MeleeModifiers.RuneVulnerabilitySeconds;
+    // 命中减冷却属于符文长剑，不因共用旋风动作授予高地或其他剑。
     SwingCooldownReduceSeconds=Item->Definition==TEXT("ue_rune_sword")?.5f+static_cast<float>(MeleeModifiers.CooldownReduceSecondsPerHit):0.f;bSwingCooldownReduced=false;
     StopRift();Character->StopMovementForMeleeSkill();
     WhirlwindEntryLocation=Viewmodel->GetRelativeLocation();WhirlwindEntryRotation=Viewmodel->GetRelativeRotation();
@@ -179,6 +180,8 @@ void URuneSwordComponent::SweepWhirlwind(float FromDegrees,float ToDegrees)
         const FVector Direction=(Target->GetActorLocation()-Pawn->GetActorLocation()).GetSafeNormal2D();
         FWeaponDamageResult Result;
         auto Apply=[&] {return ColdSteelSkills::ApplyHit(Pawn,Hit,WhirlwindCast.Damage,Direction,Shot,&Result);};
+        // 大旋风全程是刃口，按锐器折算削韧。
+        const MonsterToughness::FScopedForm FormScope(EMonsterAttackForm::Blade);
         const float Applied=Combat?Combat->ApplyHitWithReactionScale(SwingHitReactionMultiplier,Apply):Apply();
         const bool Killed=Combat&&Combat->IsDead();
         if(Applied<=0.f&&!Killed)continue;

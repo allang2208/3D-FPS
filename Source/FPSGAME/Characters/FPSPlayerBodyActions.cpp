@@ -30,6 +30,7 @@ FFPSBodyState UFPSPlayerBodyComponent::SampleLocalState() const
     State.Family=Pawn->HasInventoryWeapon()?(Pawn->IsPistolWeapon()?TEXT("Pistol"):TEXT("Rifle")):TEXT("Unarmed");
     State.bAiming=Pawn->IsAiming();State.bSprinting=Pawn->IsSprinting();
     State.bCrouched=Pawn->bIsCrouched;State.bSliding=Pawn->IsSliding();State.bDual=Pawn->IsDualWieldingPistols();
+    State.bOffhandPistol=Pawn->HasOffhandPistol();
     State.AimPitch=FMath::RoundToFloat(FRotator::NormalizeAxis(Pawn->GetBaseAimRotation().Pitch));
     State.LastShotAt=Pawn->LastShotWorldTime>=0.?Now-(LocalNow-Pawn->LastShotWorldTime):-100.f;
     if(Pawn->HasInventoryWeapon())
@@ -45,10 +46,10 @@ FFPSBodyState UFPSPlayerBodyComponent::SampleLocalState() const
         }
         Timed(Action,Pawn->WeaponStateElapsed,Pawn->WeaponStateDuration);
     }
-    if(State.bDual&&Pawn->DualPistols)
+    if(State.bOffhandPistol&&Pawn->DualPistols)
     {
-        State.Family=TEXT("Pistol");
-        for(int32 I=0;I<2;++I)
+        if(State.bDual)State.Family=TEXT("Pistol");
+        for(int32 I=State.bDual?0:1;I<2;++I)
         {
             const auto& Hand=Pawn->DualPistols->Hand(I);
             auto& BodyHand=I==0?State.RightHand:State.LeftHand;
@@ -129,11 +130,11 @@ FFPSBodyState UFPSPlayerBodyComponent::SampleLocalState() const
     }
     // IsCastingWithLeftHand intentionally includes gun bash for input arbitration.
     // Presentation must ask the spell owner, not reinterpret that shared busy flag.
-    if(const auto* Magic=Pawn->FindComponentByClass<UFPSFireballComponent>();Magic&&Magic->IsOccupyingLeftHand())
+    if(const auto* FireballMagic=Pawn->FindComponentByClass<UFPSFireballComponent>();FireballMagic&&FireballMagic->IsOccupyingLeftHand())
     {
         State.Action=EFPSBodyAction::Cast;State.bHasActionProgress=true;State.ActionDuration=0.f;
-        State.ActionProgress=Magic->HandPhaseFraction();State.ReleaseFraction=Magic->HandReleaseFraction();
-        switch(Magic->GetHandPhase())
+        State.ActionProgress=FireballMagic->HandPhaseFraction();State.ReleaseFraction=FireballMagic->HandReleaseFraction();
+        switch(FireballMagic->GetHandPhase())
         {
         case EFireballHandPhase::Raising:State.ActionVariant=TEXT("Gather");break;
         case EFireballHandPhase::ReadyingRelease:State.ActionVariant=TEXT("Ready");break;

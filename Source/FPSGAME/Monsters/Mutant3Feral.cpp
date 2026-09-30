@@ -3,6 +3,7 @@
 #include "FPSCombatHealthComponent.h"
 #include "MonsterCombatTuning.h"
 #include "../Skills/EnemyAttackDamage.h"
+#include "../Skills/IceWallCombat.h"
 #include "../Movement/PlayerGuardBreakComponent.h"
 #include "../Weapons/FPSImpactFXSubsystem.h"
 #include "Mutant3PounceCameraShake.h"
@@ -51,7 +52,10 @@ bool AMutant3::CanStartFeralAttack(APawn* Victim) const
     if (!HasAuthority() || !IsValid(Victim) || !GetWorld() || Health <= 0.f ||
         State == ENurseState::Dead || State == ENurseState::Stagger || State == ENurseState::Attack ||
         FeralPhase != EMutant3FeralPhase::None || GetWorld()->GetTimeSeconds() < NextFeralAttackAt ||
-        !GetCharacterMovement()->IsMovingOnGround() || !HasFeralSight(Victim)) return false;
+        !GetCharacterMovement()->IsMovingOnGround()) return false;
+    if(IceWallCombat::BlockingWall(this,Victim,GetClawStartDistance()))
+        return !ClawClips.IsEmpty()&&ClawClips[NextClawIndex%ClawClips.Num()]!=nullptr;
+    if(!HasFeralSight(Victim))return false;
     if (CanClawFrom(Victim, GetActorLocation(), GetClawStartDistance()))
         return !ClawClips.IsEmpty() && ClawClips[NextClawIndex % ClawClips.Num()] != nullptr;
     if (GetWorld()->GetTimeSeconds() < NextPounceAt || !PounceWindupClip || !PounceFlightClip || !PounceLandClip)
@@ -152,7 +156,7 @@ bool AMutant3::StartFeralAttack(APawn* Victim)
     FeralTarget = Victim;
     ClawsPerformed = 0;
     State = ENurseState::Attack;
-    if (!CanClawFrom(Victim, GetActorLocation(), GetClawStartDistance()))
+    if (!IceWallCombat::BlockingWall(this,Victim,GetClawStartDistance()) && !CanClawFrom(Victim, GetActorLocation(), GetClawStartDistance()))
     {
         NextPounceAt = GetWorld()->GetTimeSeconds()+FMath::Max(0.f, PounceCooldownSeconds);
         BeginFeralPhase(EMutant3FeralPhase::Windup, PounceWindupClip, .16f);
@@ -194,6 +198,8 @@ void AMutant3::TryClawContact()
 {
     APawn* Victim = FeralTarget.Get();
     if (bFeralHitConsumed || !Victim) return;
+    if(IceWallCombat::ApplyMelee(this,Victim,MonsterCombatTuning::AttackDistance(AttackRange),AttackDamage*ClawDamageScale,.42261826f))
+    {bFeralHitConsumed=true;return;}
     const FVector Offset = Victim->GetActorLocation()-GetActorLocation();
     // 130 degree frontal sector; range, vertical reach and obstruction match
     // pursuit/selection, with 15 cm of contact slack after the windup.

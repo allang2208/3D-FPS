@@ -12,6 +12,7 @@ bool StraightTo(FSocket& S,FVector Destination,const FString& Route,int32 GoalOw
     Remaining=Forward;
     while(Remaining>.1)
     {
+        if(!CanSearch())return false;
         // Keep repeated 4 m modules and a single short closure, never scale a combat room.
         double Length=FMath::Min(400.,Remaining);
         if(Remaining>400.1&&Remaining-Length<80.)Length=Remaining-80.;
@@ -129,6 +130,7 @@ bool RouteTo(FSocket Start,const FSocket& Goal,const FString& Route,double MaxLe
     int32 Found=-1,Expanded=0;
     while(!Open.empty()&&++Expanded<(bCompactBoss?600:160000))
     {
+        if(!CanSearch())return false;
         if(bCompactBoss&&--CompactBudget<0)return false;
         const auto Current=Open.top();Open.pop();const int32 State=Current.State,Node=State/4,Heading=State%4;
         if(Node==Last&&Heading==Direction(-Goal.N)){Found=State;break;}

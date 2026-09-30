@@ -1,4 +1,7 @@
 #include "M4TacticalSprintComponent.h"
+#include "HK416WeaponAssets.h"
+#include "LMG201Attachments.h"
+#include "LMG201WeaponAssets.h"
 #include "FPSGunplayAnimInstance.h"
 #include "Animation/AnimSequence.h"
 #include "ASH12WeaponAssets.h"
@@ -21,13 +24,32 @@ void UM4TacticalSprintComponent::Configure(ERifleSprintWeapon Weapon)
 {
     Reset();
     const auto* Character=Cast<AFPSGAMECharacter>(GetOwner());
+    const bool bHK416=Character&&Character->IsHK416Weapon();
+    const bool bHadHK416=!Clips.IsEmpty()&&Clips[0]&&Clips[0]->GetPathName().StartsWith(TEXT("/Game/Weapons/HK416/"));
     const bool bA762=Character && Character->ActiveInventoryWeaponDefinition==A762WeaponAssets::Definition;
     const bool bHadA762=!Clips.IsEmpty() && Clips[0] && Clips[0]->GetPathName().StartsWith(TEXT("/Game/Weapons/A762/"));
-    if (CurrentWeapon != Weapon || bA762!=bHadA762) Clips.Reset();
+    const bool bLMG=Character && Character->ActiveInventoryWeaponDefinition==LMG201WeaponAssets::Definition;
+    const bool bHadLMG=!Clips.IsEmpty() && Clips[0] && Clips[0]->GetPathName().StartsWith(TEXT("/Game/Weapons/LMG201/"));
+    if (CurrentWeapon != Weapon || bA762!=bHadA762 || bLMG!=bHadLMG || bHK416!=bHadHK416) Clips.Reset();
     CurrentWeapon = Weapon;
     CurrentGrip = EM4SprintGrip::Base;
     bEnabled = Weapon != ERifleSprintWeapon::None;
     if (!bEnabled || !Clips.IsEmpty()) return;
+    if (bHK416)
+    {
+        for (const TCHAR* Family:{TEXT("base"),TEXT("base"),TEXT("base"),TEXT("vertical"),TEXT("base"),TEXT("base")})
+            for (const TCHAR* Kind:{TEXT("sprint_enter"),TEXT("sprint_loop"),TEXT("sprint_exit")})
+                Clips.Add(LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(Kind,Family)));
+        return;
+    }
+
+    if (bLMG)
+    {
+        for(const TCHAR* Family:{TEXT("base"),TEXT("base"),TEXT("angled"),TEXT("vertical"),TEXT("canted"),TEXT("prism")})
+            for(const TCHAR* Clip:{TEXT("sprint_enter"),TEXT("sprint_loop"),TEXT("sprint_exit")})
+                Clips.Add(LoadObject<UAnimSequence>(nullptr,*(FCString::Strcmp(Family,TEXT("base"))==0?LMG201WeaponAssets::AnimationPath(Clip):LMG201Attachments::AnimationPath(Family,Clip))));
+        return;
+    }
     if (Weapon==ERifleSprintWeapon::SVD)
     {
         for(const TCHAR* Family:{TEXT("base"),TEXT("base"),TEXT("angled"),TEXT("vertical"),TEXT("canted"),TEXT("prism")})

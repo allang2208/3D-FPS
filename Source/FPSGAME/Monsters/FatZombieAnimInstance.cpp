@@ -1,5 +1,7 @@
 #include "FatZombieAnimInstance.h"
 #include "NurseZombie.h"
+#include "MonsterCombatComponent.h"
+#include "MonsterReactionTiming.h"
 #include "Animation/AnimInstanceProxy.h"
 #include "Animation/AnimSequence.h"
 #include "Animation/AnimNodeSpaceConversions.h"
@@ -128,6 +130,7 @@ void UFatZombieAnimInstance::TransitionTo(UAnimSequence* Clip, bool bLoop, bool 
     OutgoingLoopTime = ClipTime;
     OutgoingLoopRate = PlayRate;
     bGroundLowerBody = Settings.bGroundLowerBody;
+    bExternalReactionBlend = false;
     bPlayingHitClip = false;
     bRewindingParry = false;
     PendingHitClip = nullptr;
@@ -153,6 +156,33 @@ void UFatZombieAnimInstance::TransitionTo(UAnimSequence* Clip, bool bLoop, bool 
 void UFatZombieAnimInstance::SetCombatTime(float Seconds)
 {
     if (ActiveClip && bUseCombatClock && !bPlayingHitClip) ClipTime = FMath::Clamp(Seconds, 0.f, ActiveClip->GetPlayLength());
+}
+
+void UFatZombieAnimInstance::HoldSnapshot(const FPoseSnapshot& Pose)
+{
+    bExternalReactionBlend = false;
+    ActiveClip = nullptr; OutgoingLoop = nullptr; PendingHitClip = nullptr;
+    PreviousPose = Pose; BlendAlpha = 0.f; BlendDuration = BlendElapsed = 0.f;
+    bGroundLowerBody = bPlayingHitClip = bRewindingParry = bLooping = false;
+    bUseCombatClock = true;
+    HitRotationVector = HitStartRotation = HitPeakRotation = FVector::ZeroVector;
+}
+
+void UFatZombieAnimInstance::SetControlledBlendTime(float Seconds)
+{
+    // Stagger deliberately skips NativeUpdateAnimation's free-running clock.
+    // The owning combat reaction advances both its sample and this transition.
+    bExternalReactionBlend = true;
+    BlendElapsed = FMath::Max(0.f,Seconds);
+    const float T = BlendDuration > SMALL_NUMBER ? FMath::Clamp(BlendElapsed/BlendDuration,0.f,1.f) : 1.f;
+    BlendAlpha = T*T*(3.f-2.f*T);
+}
+
+void UFatZombieAnimInstance::RecoverFromSnapshot(UAnimSequence* Clip, const FPoseSnapshot& Pose, float BlendSeconds)
+{
+    TransitionTo(Clip, false, true, BlendSeconds);
+    PreviousPose = Pose;
+    BlendAlpha = Pose.bIsValid && BlendSeconds > SMALL_NUMBER ? 0.f : 1.f;
 }
 
 void UFatZombieAnimInstance::FinishClip()
@@ -230,9 +260,14 @@ void UFatZombieAnimInstance::SetHitReactionTime(float Elapsed, float Remaining)
             const float T = FMath::Clamp(HitElapsed / BlendDuration, 0.f, 1.f);
             BlendAlpha = T * T * (3.f - 2.f * T);
         }
-        // The authored clip recoils in .1 s, holds through .6 s and recovers
-        // over .3 s. A long control extends the hold, never the attack.
-        const float Time = HitElapsed < .1f ? HitElapsed : (Remaining > .3f ? .1f : .6f + .3f - FMath::Max(0.f, Remaining));
+        // Stagger advances into the authored recovery instead of parking at the
+        // peak. Freeze/petrify retain a fixed pose; stun has its own Dizzy player.
+        const auto* Zombie=Cast<ANurseZombie>(TryGetPawnOwner());
+        const auto* Combat=Zombie?Zombie->Combat.Get():nullptr;
+        const float Length=ActiveClip->GetPlayLength();
+        const float Time = Combat && Combat->IsImmobileReaction() ? FMath::Min(HitElapsed,.1f) :
+            Combat && !Combat->bStunned ? MonsterReactionTiming::StaggerSample(HitElapsed,Remaining,Length,.1f,Length-.3f) :
+            (HitElapsed < .1f ? HitElapsed : (Remaining > .3f ? .1f : Length - FMath::Max(0.f, Remaining)));
         ClipTime = FMath::Clamp(Time, 0.f, ActiveClip->GetPlayLength());
         return;
     }

@@ -1,4 +1,5 @@
 #include "WitchProjectile.h"
+#include "../Skills/FPSIceWall.h"
 #include "../WorldGeneration/FluidPresentationSubsystem.h"
 #include "../WorldGeneration/GrassDeform/GrassDeformSubsystem.h"
 #include "WitchMonster.h"
@@ -306,6 +307,8 @@ void AWitchProjectile::Tick(float Delta)
     }
     if (First)
     {
+        if(auto* Wall=Cast<AFPSIceWall>(First->GetActor()))
+            UGameplayStatics::ApplyDamage(Wall,HitDamage,Shooter->GetController(),Shooter.Get(),UWitchMagicDamage::StaticClass());
         if (bBottle)
         {
             const FVector ImpactVelocity = Delta>UE_SMALL_NUMBER ? (End-Start)/Delta : FVector::ZeroVector;

@@ -90,6 +90,7 @@ void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
     CriticalStrikeSkill=ColdSteelSkills::LoadDefinition(TEXT("criticalStrike"));
     FireballSkill=ColdSteelSkills::LoadDefinition(TEXT("fireball"));
     IceSpikeSkill=ColdSteelSkills::LoadDefinition(TEXT("iceSpike"));
+    IceWallSkill=ColdSteelSkills::LoadDefinition(TEXT("iceWall"));
     LightningSkill=ColdSteelSkills::LoadDefinition(TEXT("lightningStrike"));
     HolyLightSkill=ColdSteelSkills::LoadDefinition(TEXT("holyLight"));
     MeteorSkill=ColdSteelSkills::LoadDefinition(TEXT("meteor"));
@@ -228,9 +229,16 @@ bool UColdSteelStatusModel::ReloadProfile()
     const bool StaminaMigrated=NormalizeStamina(Clean);
     const bool AbandonedFireball=Clean.bFireballReserved;Clean.bFireballReserved=false;
     const bool AbandonedIce=Clean.bIceSpikeReserved;Clean.bIceSpikeReserved=false;
+    const bool AbandonedIceWall=Clean.bIceWallReserved;Clean.bIceWallReserved=false;
+    if(AbandonedIceWall)
+    {
+        Clean.Mana=FMath::Min(float(ResourceMaximum(Clean,true)),Clean.Mana+Clean.IceWallReservedMana);
+        Clean.IceWallCooldown=Clean.IceWallCooldownDuration=0;
+    }
+    Clean.IceWallReservedMana=0;
     const bool AbandonedQuick=Clean.bQuickCombatReserved||Clean.QuickCombatCooldown>0.f||Clean.QuickCombatCooldownDuration>0.f;
     Clean.bQuickCombatReserved=false;Clean.QuickCombatCooldown=Clean.QuickCombatCooldownDuration=0.f;
-    bool Removed=RemoveRetiredWeapons(Clean)||Migrated||SkillsMigrated||QuickBarMigrated||StaminaMigrated||AbandonedFireball||AbandonedIce||AbandonedQuick||AmmoMigrated||BestFootprintMigrated;
+    bool Removed=RemoveRetiredWeapons(Clean)||Migrated||SkillsMigrated||QuickBarMigrated||StaminaMigrated||AbandonedFireball||AbandonedIce||AbandonedIceWall||AbandonedQuick||AmmoMigrated||BestFootprintMigrated;
     // Refresh authorized material rarity and scroll presentation on existing instances.
     for(auto& I:Clean.Items)
     {
@@ -529,6 +537,8 @@ bool UColdSteelStatusModel::AwardKill(AActor* Victim,int64 Reward)
 }
 const FColdSteelItem* UColdSteelStatusModel::FindItem(const FString& Id)const{return Current.Items.FindByPredicate([&](const auto& I){return I.InstanceId==Id;});}
 const FColdSteelItem* UColdSteelStatusModel::Equipped(int32 S)const{int32 N=Owner(Current.Items,1,S<0?Current.ActiveWeaponSlot:S);return N>=0?&Current.Items[N]:nullptr;}
+bool UColdSteelStatusModel::HasEquippedStaff() const
+{const auto* Item=Equipped();return Item&&!ActiveProductionTool()&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff");}
 bool UColdSteelStatusModel::CycleWeapon(){if(!Current.ActiveProductionTool.IsEmpty())return StowProductionTool();SyncRuntime();auto P=Snapshot();int32 Other=P.ActiveWeaponSlot==6?9:6;if(Owner(P.Items,1,Other)<0){Message=TEXT("另一组武器槽为空");return false;}P.ActiveWeaponSlot=Other;return CommitState(P);}
 FColdSteelItem UColdSteelStatusModel::CreateItem(const FString& Def,int64 Count)const
 {
@@ -643,6 +653,7 @@ void UColdSteelStatusModel::ReduceAllAbilityCooldowns(float Seconds)
     // yet, so only running cooldowns shrink (2D rune-sword contract, 0.5 s per event).
     if(!Current.bFireballReserved)Current.FireballCooldown=FMath::Max(0.f,Current.FireballCooldown-Seconds);
     if(!Current.bIceSpikeReserved)Current.IceSpikeCooldown=FMath::Max(0.f,Current.IceSpikeCooldown-Seconds);
+    if(!Current.bIceWallReserved)Current.IceWallCooldown=FMath::Max(0.f,Current.IceWallCooldown-Seconds);
     Current.LightningCooldown=FMath::Max(0.f,Current.LightningCooldown-Seconds);
     Current.HolyLightCooldown=FMath::Max(0.f,Current.HolyLightCooldown-Seconds);
     Current.MeteorCooldown=FMath::Max(0.f,Current.MeteorCooldown-Seconds);
@@ -660,6 +671,8 @@ void UColdSteelStatusModel::TickRuntime(float Delta,AFPSGAMECharacter* Pawn)
     else if(!Current.bFireballReserved)Current.FireballCooldown=FMath::Max(0.f,Current.FireballCooldown-Delta);
     if(HasNoAbilityCooldown())Current.IceSpikeCooldown=0.f;
     else if(!Current.bIceSpikeReserved)Current.IceSpikeCooldown=FMath::Max(0.f,Current.IceSpikeCooldown-Delta);
+    if(HasNoAbilityCooldown())Current.IceWallCooldown=0.f;
+    else if(!Current.bIceWallReserved)Current.IceWallCooldown=FMath::Max(0.f,Current.IceWallCooldown-Delta);
     Current.LightningCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.LightningCooldown-Delta);
     Current.HolyLightCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.HolyLightCooldown-Delta);
     Current.MeteorCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.MeteorCooldown-Delta);

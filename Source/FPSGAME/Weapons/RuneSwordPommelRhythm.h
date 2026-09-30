@@ -15,6 +15,38 @@ namespace RuneSwordPommelRhythm
     inline constexpr float TurnEnd=.40f, DrawEnd=.58f, RaiseEnd=.72f;
     inline constexpr float ContactStart=.84f, ExtensionEnd=.92f, ContactEnd=.92f;
     inline constexpr float ArrestEnd=.98f, ReturnCorner=1.30f, AttackEnd=1.60f;
+    // User-tuned 0.20 s load, followed by the original 0.08 s drive: contact at
+    // 0.28 s before the equipped attack-speed multiplier. Recovery keeps its
+    // duration while the pose/camera mapping below softens its acceleration.
+    inline constexpr float QuickCombatWindupSeconds=.20f;
+    inline float QuickCombatTime(float SourceTime)
+    {
+        return SourceTime<ContactStart ? SourceTime*QuickCombatWindupSeconds/ContactStart
+            : QuickCombatWindupSeconds+SourceTime-ContactStart;
+    }
+    inline float QuickCombatSourceTime(float Time)
+    {
+        return Time<QuickCombatWindupSeconds ? Time*ContactStart/QuickCombatWindupSeconds
+            : ContactStart+Time-QuickCombatWindupSeconds;
+    }
+    inline float RecoveryEase(float Alpha)
+    {
+        const float T=FMath::Clamp(Alpha,0.f,1.f);
+        return T*T*T*(T*(T*6.f-15.f)+10.f);
+    }
+    inline float QuickCombatRecoveryPoseTime(float SourceTime)
+    {
+        // Preserve release, contact and the arrest. Re-sample the complete
+        // authored withdrawal with zero velocity/acceleration at either end.
+        if(SourceTime<=ArrestEnd)return SourceTime;
+        return FMath::Lerp(ArrestEnd,AttackEnd,RecoveryEase((SourceTime-ArrestEnd)/(AttackEnd-ArrestEnd)));
+    }
+    inline float QuickCombatIdleWeight(float PoseTime)
+    {
+        // Settle into this mesh/grip's own idle before the action ends, without
+        // cutting across the extended strike or its first withdrawal segment.
+        return RecoveryEase((PoseTime-ReturnCorner)/(AttackEnd-ReturnCorner));
+    }
     // The strike steps in only far enough to put its short reach on the target:
     // 24 cm against the thrust's metre, on the same ground-swept path.
     inline constexpr float LungeStart=.82f, LungeEnd=.98f, LungeDistance=24.f;

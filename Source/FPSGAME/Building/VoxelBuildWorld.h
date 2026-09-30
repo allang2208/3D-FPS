@@ -24,9 +24,9 @@ public:
     // Version 5 appended furnace smelting jobs (pure wall-clock); version 6 replaces that chunk
     // with the fuel model (accumulated progress + per-furnace stored fuel); version 7 adds batch
     // count to jobs and furnace upgrade level to fuel records; version 8 adds the idle-fire clock;
-    // version 9 splits upgrades into three axes (fuel capacity + per-run input cap).
+    // version 9 splits upgrades into three axes; version 10 adds casting queues and output racks.
     // 该默认值是 UHT 字面量，升版本时必须与 VoxelBuildPersistence.h 的 GVoxelBuildSaveVersion 同步。
-    UPROPERTY() int32 Version=9;
+    UPROPERTY() int32 Version=10;
     UPROPERTY() int32 CellSizeCm=20;
     UPROPERTY() FString WorldKey;
     UPROPERTY() TArray<FVoxelSavedCell> Cells;
@@ -109,6 +109,9 @@ public:
     const FString& ResultMessage() const {return Message;}
     bool OwnsSurface(const UPrimitiveComponent* Component) const;
     uint64 StructureRevision() const {return Revision;}
+    /** 审计 U1（2026-09-23）：StructureStatus 各过渡态（正在保存/计算承重/倒塌处理中/回滚提示）
+        不随 Revision 变化；UI 生产端签名需要把它们折成一个廉价指纹，否则状态行会在过渡期冻结。 */
+    uint64 StatusFingerprint() const;
     FString StructureStatus() const;
     /** 存档槽名（不带扩展名）；验收工具会用它核对磁盘文件。 */
     const FString& SaveSlotName() const;
@@ -147,6 +150,10 @@ public:
     /** 结算改写任务字段后标脏存档（FindSmeltingMutable 的写回配套；SetFuel 自带标脏）。 */
     void MarkSmeltingDirty(){MarkSaveDirty();}
     bool BeginSmelting(FIntVector Cell,FName Recipe,FString& Reason,int64 Batch=1);
+    /** User-action lookup only: nearest free receiver within 3.5 m, same floor. */
+    bool FindAvailableCastingStation(FIntVector Furnace,FIntVector& OutStation) const;
+    bool FindCastingFurnace(FIntVector Station,FIntVector& OutFurnace) const;
+    AVoxelBuildPrefabActor* PrefabActorAt(FIntVector Cell) const;
     /** 高炉升级等级（VBX v7，存在燃料记录里）：无记录＝1 级。速度轴的旧名（大量既有调用）。 */
     int32 FurnaceLevel(FIntVector Cell) const;
     /** 写等级（封顶 VoxelFurnaceMaxLevel）；没有记录时创建一条 0 燃料记录承载等级。 */
@@ -224,7 +231,8 @@ private:
     /** CachedParams 由调用方在格循环外构造一次（审计 P3）：本函数会被 CanPlaceAt 逐格调用，
      *  而 VoxelGrounding::Query 每次构造都要遍历全部 Pawn。传 nullptr 时自行构造。 */
     bool ScenePlacementAllowed(FVector Min,FString& Reason,bool* OutAnchor=nullptr,const FCollisionQueryParams* CachedParams=nullptr) const;
-    bool IsGroundAnchor(FVector Min) const;
+    /** CachedParams：审计 W1——批循环外构造一次共享；为空时自行 Query。 */
+    bool IsGroundAnchor(FVector Min,const FCollisionQueryParams* CachedParams=nullptr) const;
     bool CanCommit(const TArray<FVoxelEditCell>& Edit,FString& Reason) const;
     void RefreshSupportGraph();
     AVoxelBuildPrefabActor* SpawnPrefab(const FVoxelBuildPrefabInstance& Instance);

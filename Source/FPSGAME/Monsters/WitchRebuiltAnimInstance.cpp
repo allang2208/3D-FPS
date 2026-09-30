@@ -132,7 +132,7 @@ void UWitchRebuiltAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
     TurnAlpha = FMath::FInterpTo(TurnAlpha, DesiredTurn, DeltaSeconds, 10.f);
     if (TurnClip) TurnTime = FMath::Fmod(TurnTime + DeltaSeconds * FMath::Clamp(FMath::Abs(YawRate) / 60.f, .5f, 1.6f), TurnClip->GetPlayLength());
     // The shared stagger clock advances the hit evaluator, including its entrance blend.
-    if (Character->State == ENurseState::Stagger) BlendAlpha = FMath::Clamp(ClipTime / .15f, 0.f, 1.f);
+    if (Character->State == ENurseState::Stagger && !bExternalReactionBlend) BlendAlpha = FMath::Clamp(ClipTime / .15f, 0.f, 1.f);
     const float Dt = FMath::Max(0.f, DeltaSeconds);
     const float Speed = Character->GetVelocity().Size2D();
     WalkAlpha = FMath::FInterpTo(WalkAlpha, FMath::Clamp(Speed / 15.f, 0.f, 1.f), Dt, 7.f);

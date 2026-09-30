@@ -1,3 +1,4 @@
+#include "LMG201Attachments.h"
 #include "../FPSGAMECharacter.h"
 #include "A762Attachments.h"
 #include "SVDAttachments.h"
@@ -16,6 +17,7 @@
 void AFPSGAMECharacter::InitializeCantedGripAnimations()
 {
     CantedGripAnimations.Reset();
+    if(LMG201WeaponAssets::Matches(AKMViewmodel)){LMG201Attachments::LoadGripFamily(TEXT("canted"),CantedGripAnimations);return;}
     if(!bUsingM4Infima&&!AKMSoviet::Matches(AKMViewmodel)&&!A762WeaponAssets::Matches(AKMViewmodel)&&!PKMLowpolyWeaponAssets::Matches(AKMViewmodel))return;
     const TPair<UAnimSequence*,const TCHAR*> Clips[]={
         {IdleAnimation,TEXT("idle")},{AimAnimation,TEXT("aim")},
@@ -39,6 +41,7 @@ void AFPSGAMECharacter::InitializeCantedGripAnimations()
 void AFPSGAMECharacter::SetCantedForegrip(bool bEnabled)
 {
     if(SVDWeaponAssets::Matches(AKMViewmodel)){CantedForegrip=SVDAttachments::Configure(this,AKMViewmodel,CantedForegrip,TEXT("canted"),bEnabled&&bInventoryWeaponReady);return;}
+    if(LMG201WeaponAssets::Matches(AKMViewmodel)){CantedForegrip=LMG201Attachments::Configure(this,AKMViewmodel,CantedForegrip,TEXT("canted"),bEnabled&&bInventoryWeaponReady);return;}
     if(PKMLowpolyWeaponAssets::Matches(AKMViewmodel)){CantedForegrip=PKMAttachments::Configure(this,AKMViewmodel,CantedForegrip,TEXT("canted"),bEnabled&&bInventoryWeaponReady);return;}
     if(A762WeaponAssets::Matches(AKMViewmodel)){CantedForegrip=A762Attachments::Configure(this,AKMViewmodel,CantedForegrip,TEXT("canted"),bEnabled&&bInventoryWeaponReady);return;}
     if(bUseM16){CantedForegrip=M16Attachments::Configure(this,AKMViewmodel,CantedForegrip,TEXT("canted"),bEnabled&&bInventoryWeaponReady);return;}

@@ -1,4 +1,5 @@
 #include "WeaponBipodDeploymentComponent.h"
+#include "LMG201WeaponAssets.h"
 #include "PKMBipodComponent.h"
 #include "PKMLowpolyWeaponAssets.h"
 #include "WeaponHandling.h"
@@ -71,7 +72,7 @@ void UWeaponBipodDeploymentComponent::EndPlay(const EEndPlayReason::Type Reason)
 UPKMBipodComponent* UWeaponBipodDeploymentComponent::EquippedBipod() const
 {
     auto* C=Character.Get();
-    if(!C || !C->bInventoryWeaponReady || !PKMLowpolyWeaponAssets::Matches(C->AKMViewmodel))return nullptr;
+    if(!C || !C->bInventoryWeaponReady || (!PKMLowpolyWeaponAssets::Matches(C->AKMViewmodel)&&!LMG201WeaponAssets::Matches(C->AKMViewmodel)))return nullptr;
     auto* Part=Cast<UPKMBipodComponent>(PKMLowpolyWeaponAssets::FindBipod(C));
     return Part && Part->IsVisible() && !Part->bHiddenInGame ? Part : nullptr;
 }

@@ -1,4 +1,6 @@
+#include "../Dungeon/DungeonLayout.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "../Dungeons/WardBreakableGlass.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Combat/CombatItemFormula.h"
@@ -75,6 +77,9 @@ bool UColdSteelStatusModel::BeginLightningCast(const FLightningCast& Spell)
 
 bool UColdSteelStatusModel::ApplyLightningHit(APawn* Shooter,AActor* Target,const FVector& Origin,const FLightningCast& Spell,float Damage,FLightningRewards& Batch,bool bTrain)
 {
+    if(Shooter && Shooter->HasAuthority() && Damage>0)
+        if(auto* Pane=UWardBreakableGlass::IntactPane(Target))
+        {Pane->BreakAt(Pane->GetComponentLocation(),Pane->GetComponentLocation()-Origin);return false;}
     auto* Combat=IsValid(Target)?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
     if(!Shooter||!Shooter->IsPlayerControlled()||!Shooter->HasAuthority()||Target==Shooter||!Combat||Combat->IsDead()||Target->ActorHasTag(TEXT("Friendly")))return false;
     FFireballRewards Rewards;Rewards.Victim=Target;TGuardValue<FFireballRewards*> Scope(ActiveFireballRewards,&Rewards);
@@ -102,7 +107,7 @@ void UColdSteelStatusModel::FinishLightningCast(const FLightningRewards& Batch)
     SyncRuntime();auto P=Snapshot();const auto& T=LightningSkill.Lightning;
     ColdSteelSkills::AddExperience(P,LightningSkill,Batch.Hits*T.HitExperience+Batch.Kills*T.KillExperience+(Batch.Hits>=2?T.MultiHitExperience:0)+(Batch.Kills>=2?T.MultiKillExperience:0));
     ColdSteelSkills::AddExperience(P,CriticalStrikeSkill,Batch.CriticalHits*CriticalStrikeSkill.CriticalHitExperience+Batch.CriticalKills*CriticalStrikeSkill.CriticalKillExperience);
-    for(const auto& K:Batch.KillRewards){P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);P.Experience+=FMath::FloorToInt64(K.Value*TributeEffect(TEXT("expPercent")));}
+    for(const auto& K:Batch.KillRewards){if(!DungeonLayout::RecordKill(P.DungeonRun,K.Key.Get()))continue;P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);P.Experience+=FMath::FloorToInt64(K.Value*TributeEffect(TEXT("expPercent")));}
     while(P.Level<10000){const int64 Need=(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8;if(P.Experience<Need)break;P.Experience-=Need;++P.Level;P.Points=FMath::Min(P.Points+3,1000000);}
     if(P.Level==10000)P.Experience=FMath::Min(P.Experience,(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8-1);
     if(StageTraining(MoveTemp(P)))for(const auto& K:Batch.KillRewards)RewardedVictims.Add(K.Key);

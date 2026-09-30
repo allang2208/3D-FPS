@@ -112,6 +112,9 @@ void UColdSteelProgressNotification::NativeTick(const FGeometry& Geometry,float 
     if(Card)
     {
         const float Alpha=bActive?FMath::Min(FMath::Clamp(Elapsed/.18f,0.f,1.f),FMath::Clamp((Active.Duration-Elapsed)/.35f,0.f,1.f)):0.f;
+        // Slate draws a rounded brush's outline with its own vertex channel that ignores RenderOpacity,
+        // so an opacity-0 card would still leave its 1px Border stroke on screen. Collapse it when idle.
+        Card->SetVisibility(Alpha>0.f?EVisibility::Visible:EVisibility::Collapsed);
         Card->SetRenderOpacity(Alpha);
         Card->SetRenderTransform(FSlateRenderTransform(FVector2D(0,-8*(1-Alpha)/Scale)));
     }

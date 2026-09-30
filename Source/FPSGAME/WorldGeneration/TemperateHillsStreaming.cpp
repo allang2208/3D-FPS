@@ -305,7 +305,15 @@ void ATemperateHillsWorld::LoadNextEnvironmentStage()
             HillsStreaming::AddPaths(Paths,Assets->RiverUnderstory);
         }
         if(Stage==1)HillsStreaming::AddPaths(Paths,Assets->Shrubs);
-        if(Stage==2){HillsStreaming::AddPaths(Paths,Assets->Rocks);HillsStreaming::AddPaths(Paths,Assets->RiverRocks);}
+        if(Stage==2)
+        {
+            HillsStreaming::AddPaths(Paths,Assets->Rocks);HillsStreaming::AddPaths(Paths,Assets->RiverRocks);
+            // Vein variants are selected in GetPlacements, not from the Rocks list, so
+            // preload them here to avoid a synchronous mesh load on the first ore cell.
+            for(const FString Name:{TEXT("Iron"),TEXT("Copper"),TEXT("Silver"),TEXT("Gold")})
+                Paths.Add(FSoftObjectPath(FString::Printf(
+                    TEXT("/Game/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_%s.SM_LS_Rock_00A_%s"),*Name,*Name)));
+        }
         S.Status=FText::FromString(Stage==0?TEXT("正在载入附近草地…"):Stage==1?TEXT("正在载入林下灌木…"):TEXT("正在载入坡地岩石…"));
     }
     else if(Stage<7)

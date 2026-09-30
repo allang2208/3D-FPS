@@ -3,6 +3,7 @@
 #include "../Skills/ColdSteelSkillRules.h"
 #include "../FPSGAMECharacter.h"
 #include "FPSWeaponFXComponent.h"
+#include "FPSShatterFXSubsystem.h"
 #include "ColdSteelEnchantmentCombat.h"
 #include "../WorldGeneration/RiverPilotFXSubsystem.h"
 #include "Engine/World.h"
@@ -31,6 +32,9 @@ void UFPSBallisticsComponent::Launch(FVector Start,FVector Direction,float Speed
     const auto Effects=ColdSteelCombat::Snapshot(GetOwner(),ShotItem);
     FFPSFlyingRound Round;Round.Id=NextRoundId++;Round.Training=ColdSteelSkills::Snapshot(GetOwner(),ShotItem,true);Round.Position=Start;Round.Direction=Direction.GetSafeNormal();Round.Speed=SpeedCM*SpeedScale;Round.Remaining=RangeCM;Round.Damage=Damage;Round.Timestamp=GetWorld()->GetTimeSeconds();Round.Piercing=Effects.Piercing;Round.Poison=Effects.Poison;Rounds.Add(MoveTemp(Round));
     Rounds.Last().EffectiveRangeCM=EffectiveRangeCM;
+    Rounds.Last().Training.BulletSource=this;
+    Rounds.Last().Training.BulletFX=FX;
+    Rounds.Last().Training.BulletSpeedCM=Rounds.Last().Speed;
     // Counter starts at zero, so the first round of a magazine always carries a tracer and
     // then every Nth one does — a burst reads as spaced streaks instead of a solid tube.
     Rounds.Last().bShowTracer=(TracerRoundCounter++%TracerInterval)==0;
@@ -44,9 +48,14 @@ void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
     const double Now=GetWorld()->GetTimeSeconds();
     const auto* Pawn=Cast<APawn>(GetOwner());
     auto* RiverFX=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>();
+    auto* ShatterFX=GetWorld()->GetSubsystem<UFPSShatterFXSubsystem>();
     for(int32 I=Rounds.Num()-1;I>=0;--I)
     {
-        auto& R=Rounds[I];const float Distance=FMath::Min(R.Remaining,R.Speed*static_cast<float>(FMath::Max(0.,Now-R.Timestamp)));
+        auto& R=Rounds[I];
+        if(R.Training.bRicochet&&!IsShatterEnemy(R.RicochetTarget.Get(),GetOwner()))
+        {if(ShatterFX)ShatterFX->EndTrace(this,R.Id);Rounds.RemoveAtSwap(I);continue;}
+        auto* RoundFX=R.Training.BulletFX.Get();
+        const float Distance=FMath::Min(R.Remaining,R.Speed*static_cast<float>(FMath::Max(0.,Now-R.Timestamp)));
         R.Timestamp=Now;if(Distance<=0)continue;
         const FVector Start=R.Position;
         const FVector End=R.Position+R.Direction*Distance;FHitResult Hit;
@@ -55,28 +64,46 @@ void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
         bool Stopped=false;
         while(GetWorld()->LineTraceSingleByChannel(Hit,R.Position,End,ECC_Visibility,Params))
         {
+            // Each shatter child belongs to one selected enemy. Other bodies,
+            // including allies and corpses, neither take its damage nor steal it.
+            if(R.Training.bRicochet&&Cast<APawn>(Hit.GetActor())&&Hit.GetActor()!=R.RicochetTarget.Get())
+            {Params.AddIgnoredActor(Hit.GetActor());continue;}
             ++ImpactCount;
             LastImpactPoint=Hit.ImpactPoint;
             if(Hit.GetActor())
             {
                 const float HitDistance=R.TraveledCM+FVector::Distance(Start,Hit.ImpactPoint);
                 const float HitDamage=R.Damage*WeaponDamageFalloff::Multiplier(HitDistance,R.EffectiveRangeCM);
-                const float Applied = ColdSteelSkills::ApplyHit(GetOwner(),Hit,HitDamage,R.Direction,R.Training);
-                if(auto* Shooter=Cast<AFPSGAMECharacter>(GetOwner())) Shooter->NotifyConfirmedWeaponHit(Hit.GetActor(),Applied);
+                FWeaponDamageResult DamageResult;
+                const float Applied = ColdSteelSkills::ApplyHit(GetOwner(),Hit,HitDamage,R.Direction,R.Training,&DamageResult);
+                if(auto* Shooter=Cast<AFPSGAMECharacter>(GetOwner())) Shooter->NotifyConfirmedWeaponHit(Hit.GetActor(),Applied,&DamageResult,true);
             }
             ColdSteelCombat::OnHit(Hit.GetActor(),GetOwner(),R.Poison);
-            if(WeaponFX&&(!RiverFX||!RiverFX->IsSubmergedRiverbed(Hit)))WeaponFX->OnImpact(Hit);
-            if(HeadshotSound&&ColdSteelSkills::IsCriticalHit(Hit))UGameplayStatics::PlaySound2D(this,HeadshotSound,.630957f);
+            if(RoundFX&&(!RiverFX||!RiverFX->IsSubmergedRiverbed(Hit)))RoundFX->OnImpact(Hit);
+            if(R.Training.bRicochet&&ShatterFX)
+                ShatterFX->Burst(Hit.ImpactPoint,Hit.ImpactNormal,EShatterBurst::Arrival);
+            if(!R.Training.bRicochet&&HeadshotSound&&ColdSteelSkills::IsCriticalHit(Hit))UGameplayStatics::PlaySound2D(this,HeadshotSound,.630957f);
             // Penetrate targets, never walls. Each target takes damage once per round.
             if(R.Piercing>0&&Cast<APawn>(Hit.GetActor())){--R.Piercing;R.HitActors.Add(Hit.GetActor());Params.AddIgnoredActor(Hit.GetActor());R.Position=Hit.ImpactPoint;continue;}
             Stopped=true;break;
         }
         const FVector Reached=Stopped?Hit.ImpactPoint:End;
         if(!R.bRiverEntryPlayed&&RiverFX&&RiverFX->TryBulletCrossing(Start,Reached,R.Speed))R.bRiverEntryPlayed=true;
-        if(WeaponFX&&R.bShowTracer)WeaponFX->OnTracerSegment(R.Id,Start,Reached,R.bConverged);
+        if(R.Training.bRicochet)
+        {
+            if(ShatterFX)ShatterFX->Trace(this,R.Id,Start,Reached,Stopped||R.Remaining<=Distance);
+        }
+        else if(RoundFX&&R.bShowTracer)RoundFX->OnTracerSegment(R.Id,Start,Reached,R.bConverged);
         if(Stopped){Rounds.RemoveAtSwap(I);continue;}
         R.Position=End;R.Remaining-=Distance;R.TraveledCM+=Distance;
         if(R.Remaining<=KINDA_SMALL_NUMBER)Rounds.RemoveAtSwap(I);
+    }
+    // ApplyHit may enqueue many children while R references Rounds[I]. Append
+    // only after that loop, and do not simulate children recursively this frame.
+    if(!PendingShatterRounds.IsEmpty())
+    {
+        Rounds.Append(MoveTemp(PendingShatterRounds));
+        PendingShatterRounds.Reset();
     }
     if(Rounds.IsEmpty())SetComponentTickEnabled(false);
 }
