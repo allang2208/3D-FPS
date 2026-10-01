@@ -67,6 +67,7 @@ void UColdSteelNetChannelComponent::BeginPlay()
         {
             SyntheticShotCountdown = 12.f;
         }
+        bClientAutoWalk = FParse::Param(FCommandLine::Get(), TEXT("MPClientWalk"));
     }
 }
 
@@ -82,6 +83,22 @@ void UColdSteelNetChannelComponent::TickComponent(float DeltaTime, ELevelTick Ti
 
     if (GetOwnerRole() != ROLE_Authority)
     {
+        // M4 取证：客户端自动驾驶（真实输入路径）。
+        if (bClientAutoWalk)
+        {
+            AutoWalkPhase += DeltaTime;
+            if (AFPSGAMECharacter* LocalChar = Cast<AFPSGAMECharacter>(PC->GetPawn()))
+            {
+                LocalChar->MPSetAutoInput(true, FMath::Fmod(AutoWalkPhase, 8.f) < 4.f); // 4s 冲刺 / 4s 走路
+                ClientPosProbe += DeltaTime;
+                if (ClientPosProbe >= 3.f)
+                {
+                    ClientPosProbe = 0.f;
+                    const FVector L = LocalChar->GetActorLocation();
+                    UE_LOG(LogColdSteelNet, Warning, TEXT("MPTEST client pos: x=%.0f y=%.0f vel=%.0f"), L.X, L.Y, LocalChar->GetVelocity().Size());
+                }
+            }
+        }
         // M3 测试钩：合成命中（找一只非玩家 pawn 当靶）。
         if (SyntheticShotCountdown >= 0.f)
         {

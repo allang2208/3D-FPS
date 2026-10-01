@@ -58,6 +58,33 @@ AFPSNetGameMode::AFPSNetGameMode()
 void AFPSNetGameMode::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
+    // M4 取证：服务器侧每 2s 记录所有玩家坐标（对照观察者视口判断"跑出场"是服务器真跑还是观察者幽灵）。
+    PositionProbeTimer += DeltaSeconds;
+    if (PositionProbeTimer >= 2.f)
+    {
+        PositionProbeTimer = 0.f;
+        for (FConstControllerIterator It = GetWorld()->GetControllerIterator(); It; ++It)
+        {
+            if (AController* C = It->Get())
+            {
+                if (const APawn* P = C->GetPawn())
+                {
+                    const FVector Loc = P->GetActorLocation();
+                    if (const ACharacter* Char = Cast<ACharacter>(P))
+                    {
+                        if (const UCharacterMovementComponent* M = Char->GetCharacterMovement())
+                        {
+                            UE_LOG(LogColdSteelNet, Warning,
+                                TEXT("MPTEST pos: %s local=%d x=%.0f y=%.0f tick=%d mode=%d vel=%.0f"),
+                                *P->GetName(), C->IsLocalController() ? 1 : 0, Loc.X, Loc.Y,
+                                M->IsComponentTickEnabled() ? 1 : 0, int32(M->MovementMode), M->Velocity.Size());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     if (!bAutoWalkDemo || GetNetMode() == NM_Standalone)
     {
         return;

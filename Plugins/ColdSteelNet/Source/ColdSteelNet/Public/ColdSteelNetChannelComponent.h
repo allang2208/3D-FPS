@@ -118,6 +118,10 @@ private:
     /** M3 测试钩：-MPClientShot 启动参数，客户端入图 12s 后向最近怪物发一发合成命中（自动化验证战斗链）。 */
     float SyntheticShotCountdown = -1.f;
     int32 SyntheticShotAttempts = 0;
+    /** M4 取证：-MPClientWalk 客户端自动驾驶——注入真实移动输入走完整 CMC 预测路径（每 4s 切换冲刺）。 */
+    bool bClientAutoWalk = false;
+    float AutoWalkPhase = 0.f;
+    float ClientPosProbe = 0.f;
     /** 分块上传状态：客户端侧计数器 / 服务端侧攒包。 */
     int32 UploadCounter = 0;
     /** 变更检测+限速上行：与上次成功上传的整块比对，无变化零流量；1KB 分片、每 tick ≤2 片。 */
