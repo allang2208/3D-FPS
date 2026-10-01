@@ -1,5 +1,7 @@
 #include "FPSRiftSlashProjectile.h"
 #include "FPSMeleeLightningComponent.h"
+#include "../FPSGAMECharacter.h"
+#include "../Combat/WeaponDamageTypes.h"
 #include "../Skills/ColdSteelSkillRules.h"
 #include "../Monsters/MonsterCombatComponent.h"
 #include "Components/SceneComponent.h"
@@ -10,6 +12,8 @@
 #include "Materials/MaterialInstanceDynamic.h"
 #include "NiagaraComponent.h"
 #include "NiagaraSystem.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundBase.h"
 
 AFPSRiftSlashProjectile::AFPSRiftSlashProjectile()
 {
@@ -28,9 +32,10 @@ AFPSRiftSlashProjectile::AFPSRiftSlashProjectile()
 }
 
 void AFPSRiftSlashProjectile::Launch(const FTransform& Aim,float Damage,float RangeCM,float SpeedCM,
-    const FColdSteelSkillShot& Snapshot,UStaticMesh* Mesh,UMaterialInterface* Material,UNiagaraSystem* Particles)
+    const FColdSteelSkillShot& Snapshot,UStaticMesh* Mesh,UMaterialInterface* Material,UNiagaraSystem* Particles,USoundBase* HitSound)
 {
     Direction=Aim.GetUnitAxis(EAxis::X);HitDamage=Damage;Remaining=RangeCM;Speed=SpeedCM;Shot=Snapshot;
+    ImpactSound=HitSound;
     // Secondary sword damage cannot recursively produce more enchantment attacks.
     // Keep this release's typed damage, critical chance, penetration and mastery.
     Shot.ShatterRadiusCM=0.f;Shot.ElectrifiedRadiusCM=0.f;Shot.ElectrifiedMinLevel=0;
@@ -43,7 +48,7 @@ void AFPSRiftSlashProjectile::Launch(const FTransform& Aim,float Damage,float Ra
         WakeMaterial=UMaterialInstanceDynamic::Create(Material,this);
         Blade->SetMaterial(0,BladeMaterial);Wake->SetMaterial(0,WakeMaterial);
         WakeMaterial->SetScalarParameterValue(TEXT("Layer"),1.f);
-        Wake->SetRelativeLocation(FVector(-17,0,0));Wake->SetRelativeScale3D(FVector(2.7,1.025,1.08));
+        Wake->SetRelativeLocation(FVector(-14,0,0));Wake->SetRelativeScale3D(FVector(2.1,1.025,1.06));
         BladeMaterial->SetScalarParameterValue(TEXT("Opacity"),0.f);
         WakeMaterial->SetScalarParameterValue(TEXT("Opacity"),0.f);
     }
@@ -86,7 +91,17 @@ void AFPSRiftSlashProjectile::Advance(float Distance)
         AActor* Target=Hit.GetActor();
         if((bWall&&Hit.Time>=WallTime)||HitActors.Contains(Target)||!UFPSMeleeLightningComponent::IsEnemy(Target,GetOwner()))continue;
         HitActors.Add(Target);
-        if(ColdSteelSkills::ApplyHit(GetOwner(),Hit,HitDamage,Direction,Shot)>0.f)HitGlow=1.f;
+        FWeaponDamageResult DamageResult;
+        const float Applied=ColdSteelSkills::ApplyHit(GetOwner(),Hit,HitDamage,Direction,Shot,&DamageResult);
+        if(Applied>0.f)
+        {
+            HitGlow=1.f;
+            // Capture the releasing sword's cue, just like its damage snapshot.
+            // A weapon swap must not change feedback from a wave already in flight.
+            if(ImpactSound)UGameplayStatics::PlaySoundAtLocation(this,ImpactSound,Hit.ImpactPoint,.90f,.85f);
+            if(auto* Character=Cast<AFPSGAMECharacter>(GetOwner()))
+                Character->NotifyConfirmedWeaponHit(Target,Applied,&DamageResult);
+        }
     }
     SetActorLocation(FMath::Lerp(Start,End,WallTime));Remaining-=Distance*WallTime;
     if(bWall||Remaining<=UE_KINDA_SMALL_NUMBER)FinishFlight();
@@ -105,8 +120,8 @@ void AFPSRiftSlashProjectile::Tick(float DeltaSeconds)
     Age+=DeltaSeconds;HitGlow=FMath::Max(0.f,HitGlow-DeltaSeconds*12.f);
     if(!bFinished)Advance(FMath::Min(Remaining,Speed*DeltaSeconds));
     else FadeAge+=DeltaSeconds;
-    const float Fade=bFinished?FMath::Clamp(1.f-FadeAge/.16f,0.f,1.f):1.f;
-    const float Alpha=FMath::Min(1.f,Age/.035f)*Fade;
+    const float Fade=bFinished?1.f-FMath::SmoothStep(0.f,.20f,FadeAge):1.f;
+    const float Alpha=FMath::SmoothStep(0.f,.05f,Age)*Fade;
     for(auto* Material:{BladeMaterial.Get(),WakeMaterial.Get()})if(Material)
     {
         Material->SetScalarParameterValue(TEXT("Age"),Age);
@@ -114,5 +129,5 @@ void AFPSRiftSlashProjectile::Tick(float DeltaSeconds)
         Material->SetScalarParameterValue(TEXT("Dissolve"),bFinished?1.f-Fade:0.f);
         Material->SetScalarParameterValue(TEXT("HitGlow"),HitGlow);
     }
-    if(bFinished&&FadeAge>=.16f){Motes->DeactivateImmediate();Destroy();}
+    if(bFinished&&FadeAge>=.20f){Motes->DeactivateImmediate();Destroy();}
 }

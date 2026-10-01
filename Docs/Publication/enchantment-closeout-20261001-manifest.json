@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-01",
+  "scope": "enchantments and M1911 suppressed audio binding",
+  "archive_root": "trash/enchantment-closeout-20261001",
+  "files": [
+    {
+      "source": "Tools/Skills/apply_electrified_glow.py",
+      "target": "trash/enchantment-closeout-20261001/Tools/Skills/apply_electrified_glow.py",
+      "bytes": 648,
+      "sha256": "3278d40ac356d243fdaf20383ac22a5e6a7f437fbede6fd18ae8bd0d76a8bdf2",
+      "reason": "Superseded orbit-only wrapper; V3 integrates both weapon arcs and orbit assets.",
+      "retained_replacement": "Tools/Skills/apply_electrified_v3.py"
+    },
+    {
+      "source": "Tools/Skills/electrified_glow_livecoding.json",
+      "target": "trash/enchantment-closeout-20261001/Tools/Skills/electrified_glow_livecoding.json",
+      "bytes": 115,
+      "sha256": "1160665acc7c2ecceba809940629033999b474e6e69162add6c77782c59b3db4",
+      "reason": "One-off Live Coding request; final native implementation and regular build records are retained.",
+      "retained_replacement": "Source/FPSGAME/Weapons/FPSMeleeLightningComponent.cpp"
+    }
+  ]
+}

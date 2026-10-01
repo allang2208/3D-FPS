@@ -11,6 +11,7 @@ class UMaterialInterface;
 class UMaterialInstanceDynamic;
 class UNiagaraComponent;
 class UNiagaraSystem;
+class USoundBase;
 
 /** One charged sword release. Pierces bodies once each; world cover ends flight. */
 UCLASS(NotBlueprintable, Transient)
@@ -20,7 +21,7 @@ class FPSGAME_API AFPSRiftSlashProjectile : public AActor
 public:
     AFPSRiftSlashProjectile();
     void Launch(const FTransform& Aim,float Damage,float RangeCM,float SpeedCM,
-        const FColdSteelSkillShot& Snapshot,UStaticMesh* Mesh,UMaterialInterface* Material,UNiagaraSystem* Particles);
+        const FColdSteelSkillShot& Snapshot,UStaticMesh* Mesh,UMaterialInterface* Material,UNiagaraSystem* Particles,USoundBase* HitSound);
     virtual void Tick(float DeltaSeconds) override;
 private:
     UPROPERTY() TObjectPtr<USceneComponent> Root;
@@ -29,6 +30,7 @@ private:
     UPROPERTY() TObjectPtr<UNiagaraComponent> Motes;
     UPROPERTY() TObjectPtr<UMaterialInstanceDynamic> BladeMaterial;
     UPROPERTY() TObjectPtr<UMaterialInstanceDynamic> WakeMaterial;
+    UPROPERTY() TObjectPtr<USoundBase> ImpactSound;
     FColdSteelSkillShot Shot;
     TSet<TWeakObjectPtr<AActor>> HitActors;
     FVector Direction=FVector::ForwardVector;

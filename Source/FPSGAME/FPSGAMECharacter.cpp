@@ -24,6 +24,7 @@
 #include "Skills/FPSIceWallComponent.h"
 #include "Skills/FPSLightningComponent.h"
 #include "Weapons/FPSMeleeLightningComponent.h"
+#include "Weapons/FPSRiftBladeComponent.h"
 #include "Skills/FPSHolyLightComponent.h"
 #include "Skills/FPSFireMagicComponent.h"
 #include "Skills/FPSQuickCombatComponent.h"
@@ -217,6 +218,7 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
     CreateDefaultSubobject<UFPSIceWallComponent>(TEXT("IceWallSkill"));
     CreateDefaultSubobject<UFPSLightningComponent>(TEXT("LightningSkill"));
     CreateDefaultSubobject<UFPSMeleeLightningComponent>(TEXT("MeleeLightningEnchantment"));
+    CreateDefaultSubobject<UFPSRiftBladeComponent>(TEXT("RiftBladeEnchantment"));
     CreateDefaultSubobject<UFPSHolyLightComponent>(TEXT("HolyLightSkill"));
     CreateDefaultSubobject<UFPSFireMagicComponent>(TEXT("FireMagicSkills"));
     QuickCombatPistol=CreateDefaultSubobject<UFPSQuickCombatComponent>(TEXT("QuickCombatPistol"));
@@ -665,6 +667,12 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
         RifleFireConcurrency->Concurrency.bLimitToOwner=true;
         RifleFireConcurrency->Concurrency.ResolutionRule=EMaxConcurrentResolutionRule::StopOldest;
         RifleFireConcurrency->Concurrency.VoiceStealReleaseTime=.02f;
+    }
+    else if (bUseM1911)
+    {
+        // Keep the original M1911 suppressed cue, never the previous weapon's
+        // cached cue. Dual-wield main-hand audio reads this binding as well.
+        SuppressedFireSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/M4MuzzlesV1/S_M4_Suppressed"));
     }
     if (bUsingM4Infima && !IsPistolWeapon() && !PKMLowpolyWeaponAssets::Matches(AKMViewmodel))
     {

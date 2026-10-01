@@ -1,4 +1,5 @@
 #include "ColdSteelStatusModel.h"
+#include "ColdSteelEnhancementSystem.h"
 #include "../Weapons/WeaponReloadStages.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/GunsmithSystem.h"
@@ -60,4 +61,33 @@ bool UColdSteelStatusModel::EjectDualPistolCases(const FString& Id,bool DiscardL
         if(DiscardLive){I.Magazine=0;I.VirtualMagazineAmmo=0;}Cases(I,I.Magazine);return CommitState(P);
     }
     return false;
+}
+
+int32 UColdSteelStatusModel::ReloadCowboyPistol(const FString& Id,int32 Capacity)
+{
+    if(!CurrentPawn.IsValid() || Capacity<=0)return 0;
+    const auto* Item=FindItem(Id);
+    const auto* Enchants=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();
+    if(!Item || !EquippedPistol(*Item,Current.ActiveWeaponSlot) || !Enchants
+        || Enchants->Effect(*Item,TEXT("cowboyReload"))<=0)return 0;
+
+    SyncRuntime();
+    auto State=Snapshot();
+    auto* Gun=State.Items.FindByPredicate([&](const auto& I){return I.InstanceId==Id && EquippedPistol(I,State.ActiveWeaponSlot);});
+    if(!Gun)return 0;
+    const FString AmmoId=AmmoDefinitionFor(*Gun);
+    const int32 Missing=FMath::Max(0,Capacity-Gun->Magazine);
+    // Range/training infinite reserves must not manufacture Cowboy ammunition.
+    const int32 Taken=int32(FMath::Min<int64>(Missing,State.AmmoPouch.FindRef(AmmoId)));
+    if(Taken<=0)return 0;
+    if(!WeaponReloadStages::SetNeedsCycle(*Gun,0))return 0;
+    State.AmmoPouch.FindOrAdd(AmmoId)-=Taken;
+    Gun->Magazine+=Taken;
+    Gun->LoadedAmmoType=AmmoId;
+    // Retain unfired rounds, replace spent cases, and leave the cylinder ready.
+    if(Gun->Definition==TEXT("ue_dan_wesson715"))Cases(*Gun,Gun->Magazine);
+    // Automatic enchantment reloads do not train the manual reload skill.
+    if(!CommitState(MoveTemp(State)))return 0;
+    if(CurrentPawn.IsValid())CurrentPawn->NotifyCowboyReload();
+    return Taken;
 }

@@ -457,7 +457,7 @@ void URuneSwordComponent::ReleaseSlashWave(const FTransform& Aim)
     FActorSpawnParameters Spawn;Spawn.Owner=Character.Get();Spawn.Instigator=Character.Get();
     Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     if(auto* Wave=GetWorld()->SpawnActor<AFPSRiftSlashProjectile>(Aim.GetLocation(),Aim.Rotator(),Spawn))
-        Wave->Launch(Aim,SwingDamage*SwingWaveScale,SwingWaveRange,SwingWaveSpeed,SwingSkills,SlashWaveMesh,SlashWaveMaterial,SlashWaveMotes);
+        Wave->Launch(Aim,SwingDamage*SwingWaveScale,SwingWaveRange,SwingWaveSpeed,SwingSkills,SlashWaveMesh,SlashWaveMaterial,SlashWaveMotes,HitSound);
 }
 
 bool URuneSwordComponent::BeginQuickCombatStrike()

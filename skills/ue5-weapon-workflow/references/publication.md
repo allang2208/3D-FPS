@@ -71,6 +71,11 @@ git -c http.proxy=http://127.0.0.1:7890 ls-remote origin
 
 这时按 `-U0` 重新切片，每个 hunk 只含一段连续改动，标记永不误带。`Saved/stage_u0.py` 是这轮的一次性脚本（`--keep-contains` / `--drop-contains`，逻辑同工具版，只把 `-U3` 换成 `-U0`），补丁仍用 `git apply --cached --unidiff-zero --whitespace=nowarn --recount` 落地。`-U0` 没有上下文可模糊匹配，只能用于"索引 = 补丁基线"；基线变了要重新生成，不要挪用旧补丁。
 
+### 纯新增 hunk 的零长度坐标（2026-10-01）
+
+- 本轮复核发现 `stage_session_hunks.py` 重算纯新增 hunk 时少算一行：`@@ -N,0 +M,K @@` 的旧侧 N 表示“在第 N 行之后插入”，新侧首行应为 `N + 前方净增量 + 1`。直接用 `N + 净增量`，`git apply --unidiff-zero` 可能成功但将代码插到闭合括号之前；`--check` 不检查语义，不能以成功返回判断位置正确。
+- 使用该工具的纯新增结果前，先修正坐标或按旧侧边界将所选 hunk 重建为 HEAD 上的候选内容，再生成带上下文的补丁。复核暂存后的完整函数与成员顺序。本轮通过只更新自己已暂存路径的 blob 修正，工作区和其他人的暂存条目均不改写。
+
 ### 按标记丢弃 hunk 的通用做法（2026-09-21）
 
 - `Tools/AssetPipeline/stage_session_hunks.py` 的标记是写死的；本轮新增通用版 `Tools/Weapons/stage_weapon_hunks.py`：`--file`（可多次）加 `--drop-contains <子串>`（可多次），保留除命中标记外的全部 hunk，**先打印 KEEP/DROP 报告再写补丁**，然后 `git apply --cached <补丁>`。丢掉前面的 hunk 会让后面的行号偏移，靠上下文匹配即可（本轮 35 保留 / 7 丢弃全部干净落位，`--check` 无告警）。

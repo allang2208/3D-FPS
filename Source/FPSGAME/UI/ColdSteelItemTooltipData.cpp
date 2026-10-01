@@ -113,6 +113,14 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
             {Row(C,TEXT("射速倍率"),RateMultiplier(TurboStart)+TEXT(" → ")+RateMultiplier(TurboPeak)+TEXT(" 倍"),1);
                 Row(C,TEXT("加速时间"),N(TurboSeconds)+TEXT(" 秒，停火立即复位"),1);}
             bool ConvergenceShot=false;EE->TryGetBoolField(TEXT("convergenceShot"),ConvergenceShot);
+            bool Cowboy=false;EE->TryGetBoolField(TEXT("cowboyReload"),Cowboy);
+            if(Cowboy)
+            {
+                Row(C,TEXT("牛仔补弹"),TEXT("进入滑铲状态 0.25 秒后，瞬间补满本枪弹匣"),1);
+                Row(C,TEXT("弹药消耗"),TEXT("扣除弹药袋中当前对应弹药；不足时补入剩余数量"));
+                Row(C,TEXT("触发限制"),TEXT("每次滑铲仅一次；无对应弹药或满弹匣不触发；双持仅附魔枪生效"));
+                Row(C,TEXT("换弹表现"),TEXT("无换弹动画，仅播放一次开弹巢声或插弹匣声"));
+            }
             bool RiftSlash=false;EE->TryGetBoolField(TEXT("riftSlash"),RiftSlash);
             if(RiftSlash)
             {

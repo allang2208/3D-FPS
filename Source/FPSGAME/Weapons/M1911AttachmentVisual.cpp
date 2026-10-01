@@ -109,7 +109,9 @@ void AFPSGAMECharacter::SetM1911Muzzle(const FString& Variant)
         MuzzleLocalTip = FVector(0.f, -(Suppressor ? M1911WeaponAssets::SuppressorTipCM : M1911WeaponAssets::BrakeTipCM), 0.f);
         if(IsG18Weapon() && MuzzleAttachment->DoesSocketExist(TEXT("Muzzle")))
             MuzzleLocalTip=MuzzleAttachment->GetSocketTransform(TEXT("Muzzle"),RTS_Component).GetLocation();
-        if (Suppressor && !SuppressedFireSound)
+        // The cached cue can belong to a previously equipped weapon. Bind the
+        // current pistol's cue when mounting, including the off-hand source rig.
+        if (Suppressor)
             SuppressedFireSound = LoadObject<USoundBase>(nullptr, IsG18Weapon()?*G18WeaponAssets::SoundPath(TEXT("Suppressed")):TEXT("/Game/Weapons/M4MuzzlesV1/S_M4_Suppressed"));
     }
     MuzzleVariant = Variant;

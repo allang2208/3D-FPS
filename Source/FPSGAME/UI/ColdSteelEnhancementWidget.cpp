@@ -230,6 +230,8 @@ void UColdSteelEnhancementWidget::Refresh()
                         Summary(FString::Printf(TEXT("打空 %d 发弹匣：合计 %.0f → 聚合 %.0f 伤害"),Stats.Capacity,PerShot*Stats.Capacity,PerShot*Stats.Capacity*ConvergenceScale),12,ColdSteelUI::TextSecondary);
                 }
                 // 碎裂/感电与涡轮、汇聚同为模式型词缀：给一行实战说明，呈现口径统一。
+                if(E->Effect(After,TEXT("cowboyReload"))>0.)
+                    Summary(TEXT("进入滑铲状态 0.25 秒后，从弹药袋瞬间补弹；每次滑铲一次，仅附魔枪生效，无换弹动画"),12,ColdSteelUI::TextSecondary);
                 if(E->Effect(After,TEXT("shatterBullet"))>0.)
                     Summary(FString::Printf(TEXT("命中后向 %.0f 米内弹射一颗，继承 %.0f%% 伤害；击杀时全员弹射"),E->Effect(After,TEXT("shatterRadiusM")),E->Effect(After,TEXT("shatterDamageScale"))*100),12,ColdSteelUI::TextSecondary);
                 if(E->Effect(After,TEXT("electrifiedMelee"))>0.)

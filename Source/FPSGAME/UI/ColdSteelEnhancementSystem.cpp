@@ -49,6 +49,7 @@ bool UColdSteelEnhancementSystem::CanEnchant(const FColdSteelItem& I,const FCold
     // 狙击步枪在目录里只有 weaponTypeTag 这一个分类字段（weaponType 仍是 rifle，见 ue_svd）。
     if(O.Restriction==TEXT("sniper"))return ColdSteelInventory::Text(I,TEXT("weaponTypeTag"))==TEXT("狙击步枪");
     if(O.Restriction==TEXT("machineGun"))return ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("machineGun");
+    if(O.Restriction==TEXT("pistol"))return ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("pistol");
     if(O.Restriction==TEXT("firearm"))
     {
         const auto* G=GetGameInstance()->GetSubsystem<UGunsmithSystem>();

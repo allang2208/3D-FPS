@@ -107,6 +107,8 @@ bool TriggerPistolQuickCombat();
     void NotifyConfirmedWeaponHit(AActor* Target, float AppliedDamage,const FWeaponDamageResult* DamageResult=nullptr,bool bFirearmHit=false);
     float GetHitMarkerOpacity() const;
     bool GetMonsterHitFeedback(FMonsterHitFeedback& Out) const;
+    void NotifyCowboyReload();
+    float GetCowboyReloadHintOpacity() const;
 private:
     double LastConfirmedWeaponHitTime = -1000.0;
     bool bResolvingActionInterrupt = false;
@@ -480,6 +482,7 @@ private:
     void RefreshMovementState();
     void StartSlide();
     void StopSlide(bool bTryToStand);
+    void TryCowboyReload();
     void TryBufferedJump();
     void UpdateSlide(float DeltaSeconds);
     void UpdateWeaponState(float DeltaSeconds);
@@ -783,4 +786,6 @@ private:
     void UpdateScopeLensMaterial();
     // Whole-assembly hip framing; appended so existing presentation fields retain their order.
     FRifleHipFraming RifleHipFraming;
+    // Transient success feedback in the existing hint row above stamina.
+    UPROPERTY(Transient) double CowboyReloadHintUntil = -1.0;
 };

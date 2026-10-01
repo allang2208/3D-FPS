@@ -23,6 +23,7 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/AudioComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Camera/CameraComponent.h"
 #include "Animation/AnimSequence.h"
 #include "Engine/GameInstance.h"
@@ -314,6 +315,24 @@ void UPistolDualWieldComponent::CancelInputs()
 void UPistolDualWieldComponent::InterruptReloads()
 {
     for(int32 Side=0;Side<Hands.Num();++Side)if(Hands[Side].Reloading)StopAction(Side);
+}
+
+void UPistolDualWieldComponent::TryCowboyReload()
+{
+    if(!bActive || !Profile)return;
+    // Main then offhand share one pouch. Each successful transaction refreshes
+    // both hand counters before the next hand calculates its remaining reserve.
+    for(int32 Side=FirstHand();Side<Hands.Num();++Side)
+    {
+        const FString WeaponId=Hands[Side].Item.InstanceId;
+        if(Profile->ReloadCowboyPistol(WeaponId,Hands[Side].Stats.Capacity)<=0)continue;
+        if(Hands[Side].Reloading)StopAction(Side);
+        auto& H=Hands[Side];
+        H.ReloadQueued=false;
+        H.PendingAmmoType.Reset();
+        if(auto* Sound=H.Sounds.FindRef(H.Revolver?TEXT("SingleOpen"):TEXT("MagInsert")).Get())
+            UGameplayStatics::PlaySound2D(this,Sound,.8f);
+    }
 }
 
 bool UPistolDualWieldComponent::IsEquipping() const

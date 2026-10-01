@@ -351,6 +351,9 @@ public:
     const FSlateBrush* AmmoIcon(const FString& Id);
     int32 AmmoCountFor(const FColdSteelItem& Item) const;
     int32 ReloadDualPistol(const FString& InstanceId,int32 Requested,int32 Capacity,bool Completed,int32 NeedsCycle=0);
+    // Cowboy transfers real pouch rounds only and finishes the mechanism in the
+    // same saved transaction. Returns the number loaded, or zero on no change.
+    int32 ReloadCowboyPistol(const FString& InstanceId,int32 Capacity);
     bool EjectDualPistolCases(const FString& InstanceId,bool DiscardLive);
     int32 ConsumeAmmo(int32 Requested, bool bCompletedReload=false, bool bReloadStep=false, int32 NeedsCycle=0);
     bool ClearRevolverSpentCases(bool bDiscardLiveRounds = false);

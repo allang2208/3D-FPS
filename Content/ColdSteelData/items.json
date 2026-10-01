@@ -1323,10 +1323,24 @@
     "stack_max": 99,
     "type": "附魔卷轴"
   },
+  "enchant_scroll_cowboy": {
+    "rarity": "epic",
+    "category": "consumable",
+    "desc": "为手枪附魔后缀「牛仔」。进入滑铲状态 0.25 秒后，扣除弹药袋中当前对应弹药并瞬间补满弹匣；不足时补入剩余数量，无对应弹药或弹匣已满时不触发。每次滑铲仅一次，双持时仅对附魔枪生效。不播放换弹动画，只播放一次开弹巢声（左轮）或插弹匣声（其他手枪）。",
+    "grade": "epic",
+    "icon": "Icons/magic_scroll_realistic_v1.png",
+    "ue_icon": "Icons/magic_scroll_realistic_v1.png",
+    "icon_fallback": "✦",
+    "name": "附魔卷轴：牛仔",
+    "price": 4000,
+    "scroll_id": "cowboy",
+    "stack_max": 99,
+    "type": "附魔卷轴"
+  },
   "enchant_scroll_rift_slash": {
     "rarity": "epic",
     "category": "consumable",
-    "desc": "为剑类武器附魔后缀「裂空」。蓄满重击挥出时，向前发射一道蓝白弧形剑气，射程 12 米，造成本次重击 100% 的伤害。穿透敌人，每个敌人仅命中一次，遇墙消散；未蓄满不触发，剑气不再触发附魔连锁，不额外消耗法力。",
+    "desc": "为剑类武器附魔后缀「裂空」。蓄满重击挥出时，向前发射一道中间宽厚、两端收尖的蓝白剑气，射程 12 米，造成本次重击 100% 的伤害。穿透敌人，每个敌人仅命中一次，遇墙消散；未蓄满不触发，剑气不再触发附魔连锁，不额外消耗法力。",
     "grade": "epic",
     "icon": "Icons/magic_scroll_realistic_v1.png",
     "ue_icon": "Icons/magic_scroll_realistic_v1.png",

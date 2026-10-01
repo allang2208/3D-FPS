@@ -52,7 +52,12 @@ void UColdSteelHUDWidget::UpdateStaminaLayout(const FGeometry& Geometry)
         const auto* Bipod=Character?Character->BipodDeployment.Get():nullptr;
         const auto State=Bipod?Bipod->GetDeploymentState():EWeaponBipodDeploymentState::Unavailable;
         FString ActionHint;bool Complete=false;float PreparationProgress=0.f;
-        if(State==EWeaponBipodDeploymentState::Deploying || State==EWeaponBipodDeploymentState::Deployed)
+        const float CowboyHintOpacity=Character?Character->GetCowboyReloadHintOpacity():0.f;
+        if(CowboyHintOpacity>0.f)
+        {
+            ActionHint=TEXT("已自动换弹");Complete=true;PreparationProgress=1.f;
+        }
+        else if(State==EWeaponBipodDeploymentState::Deploying || State==EWeaponBipodDeploymentState::Deployed)
         {
             Complete=State==EWeaponBipodDeploymentState::Deployed;
             PreparationProgress=Complete?1.f:FMath::Clamp(Bipod->GetDeploymentBlend(),0.f,1.f);
@@ -81,6 +86,7 @@ void UColdSteelHUDWidget::UpdateStaminaLayout(const FGeometry& Geometry)
             }
         }
         DashAttackReadyText->SetVisibility(ActionHint.IsEmpty()?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
+        DashAttackReadyText->SetRenderOpacity(CowboyHintOpacity>0.f?CowboyHintOpacity:1.f);
         const FText Hint=FText::FromString(ActionHint);
         if(!DashAttackReadyText->GetText().EqualTo(Hint))DashAttackReadyText->SetText(Hint);
         // Shared readiness ramp: red -> yellow -> blue -> green at equal progress intervals.

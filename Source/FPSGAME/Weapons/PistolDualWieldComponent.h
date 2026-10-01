@@ -104,6 +104,7 @@ public:
     void Advance(float Delta);
     void Trigger(int32 Index,bool Pressed);
     void Reload();
+    void TryCowboyReload();
     bool SwitchAmmo(const FString& WeaponId,const FString& AmmoType);
     void CancelInputs();
     void InterruptReloads();

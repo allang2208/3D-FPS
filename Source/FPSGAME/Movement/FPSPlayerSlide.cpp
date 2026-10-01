@@ -8,6 +8,7 @@
 void AFPSGAMECharacter::UpdateSlide(float DeltaSeconds)
 {
     UCharacterMovementComponent* Movement = GetCharacterMovement();
+    const float PreviousSlideAge = SlideAge;
     SlideAge += DeltaSeconds;
     FVector HorizontalVelocity(Movement->Velocity.X, Movement->Velocity.Y, 0.f);
     const float Speed = HorizontalVelocity.Size();
@@ -91,5 +92,10 @@ void AFPSGAMECharacter::UpdateSlide(float DeltaSeconds)
     }
     Movement->Velocity.X = HorizontalVelocity.X;
     Movement->Velocity.Y = HorizontalVelocity.Y;
+    // Resolve the elapsed slide time before this frame's decay can end it.
+    // Otherwise a threshold crossing on the last slide frame is silently lost.
+    // StartSlide resets the age; sustained downhill slides still trigger once.
+    constexpr float CowboyReloadDelay = .25f;
+    if (PreviousSlideAge < CowboyReloadDelay && SlideAge >= CowboyReloadDelay) TryCowboyReload();
     if (SlideTimeRemaining <= 0.f || HorizontalSpeed() <= CrouchSpeed) StopSlide(false);
 }

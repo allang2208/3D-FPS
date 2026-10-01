@@ -4,6 +4,7 @@
 #include "Weapons/DanWesson715WeaponAssets.h"
 #include "Weapons/FPSGunplayAnimInstance.h"
 #include "Weapons/LMG201WeaponAssets.h"
+#include "Weapons/PistolDualWieldComponent.h"
 #include "Monsters/FPSCombatHealthComponent.h"
 #include "Animation/AnimSequence.h"
 #include "Engine/GameInstance.h"
@@ -14,6 +15,36 @@ bool AFPSGAMECharacter::NeedsReloadCycle() const
     const auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
     const auto* Item=Profile?Profile->FindItem(ActiveInventoryWeapon):nullptr;
     return Item && WeaponReloadStages::NeedsCycle(*Item);
+}
+
+void AFPSGAMECharacter::NotifyCowboyReload()
+{
+    if(const UWorld* World=GetWorld())CowboyReloadHintUntil=World->GetTimeSeconds()+2.0;
+}
+
+float AFPSGAMECharacter::GetCowboyReloadHintOpacity() const
+{
+    const UWorld* World=GetWorld();
+    return World?FMath::Clamp(float((CowboyReloadHintUntil-World->GetTimeSeconds())/.3),0.f,1.f):0.f;
+}
+
+void AFPSGAMECharacter::TryCowboyReload()
+{
+    if(DualPistols && DualPistols->IsActive())
+    {
+        DualPistols->TryCowboyReload();
+        return;
+    }
+    if(!bInventoryWeaponReady || !IsPistolWeapon())return;
+    auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    const FString WeaponId=ActiveInventoryWeapon;
+    if(!Profile || Profile->ReloadCowboyPistol(WeaponId,MagazineCapacity)<=0)return;
+    // Publish ammo first: a failed save or an empty pouch must leave any ongoing
+    // reload untouched. Successful publication already refreshed the counters.
+    InterruptReload();
+    bRevolverReloadAfterFire=bReloadAfterCasting=false;
+    PendingAmmoType.Reset();PendingAmmoWeapon.Reset();
+    PlaySound2D(bUseDanWesson715?MagOutSound.Get():MagInsertSound.Get(),.8f);
 }
 
 void AFPSGAMECharacter::InitializeReloadStages(bool CycleOnly)
