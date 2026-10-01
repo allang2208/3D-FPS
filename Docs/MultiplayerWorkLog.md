@@ -19,19 +19,21 @@
 | Git Bash 坑 | URL 里 `/Game/...` 要 `MSYS_NO_PATHCONV=1` 前缀，否则前导斜杠被转义 |
 | worktree 拆除坑 | 先 `rmdir` 断 junction（DDC 等）再 `git worktree remove`（既有教训） |
 
-## 1. 当前状态（最后更新：2026-09-30 21:20，M2 代码完成+编译通过，运行验证被用户暂停）
+## 1. 当前状态（最后更新：2026-10-01 09:40，M3 代码完成+核心链路已证实，补验排队）
 
-- **M1 已全部验收收口**（详见 git 历史与 §3.5 战况：日志两轮复现 + 单机回归 + 用户视觉确认）。
-- **M2 档案权威化代码全部完成并编译 Succeeded（Editor 目标）**：
-  - 游戏模块 6 处改动（见 §3.7，均为分支工作区改动、未提交——与主仓 WIP 混合）；
-  - 插件新增 `UColdSteelNetChannelComponent`（档案桥：客户端 0.8s 心跳全量快照上行→服务端影子档案→应用到服务端 pawn→20s 节流落盘主机 `ColdSteelMP_<名>_<crc>` 槽；重连载回；`MirrorBlob` 回程预留 M3）；
-  - 关键工程决策：**FColdSteelProfile 含 TMap 不能进 RPC/复制属性** → 传输用 `TArray<uint8>` 字节块（`FObjectAndNameAsStringProxyArchive+ArNoDelta`，与 SaveGameToSlot 同口径——传输即存档格式）。
-- **双目标编译均 Succeeded**（Editor + Game，2026-10-01；Game 目标验证了 WITH_EDITOR=0 路径）。
-- **运行验证：用户自行安排中**。轮 1 中断前已达成 `NumPlayers=2`（加入成功），影子创建/应用/落盘证据未及产生（客户端心跳未及处理即被杀）。
-- **恢复验证的最短路径**：重跑 §4 冒烟（任意一轮），然后 grep 主机日志 `MPTEST shadow profile created` / `MPTEST shadow applied` / `guest profile saved to host disk`，并确认 `Saved/SaveGames/ColdSteelMP_*.sav` 存在；第二轮重连看 `guest slot found on host disk`。手动验收项：客人开背包/拖装备/喝药（UI 路径全走既有代码，理论零改动）。
-- **下一步**：恢复验证 → M2 收口 → M3 战斗权威化。
+- **M1 已收口**；**M2 代码完成编译过**（提交 57051fc8；游戏模块 6 处在 §3.7）。
+- **M3 战斗权威化代码完成，双目标编译 Succeeded，核心链路已在空闲机窗全绿证实（2026-10-01 01:19 轮 MPM3H/C.log）**：
+  - 客人合成命中发出 → **主机权威结算 dmg=15.0** → **客户端回执 applied=15.0（两端一致）**；
+  - **血量复制双向工作**：客人 200.0 复制可见；主机被蛆咬 92→88 在客户端逐秒可见（服务端权威→复制）。
+- **M3 实现要点**（游戏模块改动见 §3.8）：
+  - 转发钩子 `ColdSteelSkills::NetHitForward`（插件启动注册）挂在 ApplyHit 顶部——枪械/近战/法术三管线一处分叉；
+  - 通道 `ServerReportHit`（RPC 安全镜像结构）→ 服务端用射手**影子档案**跑原版 `ApplySkillWeaponHit` → `ClientConfirmHit` 回执（客户端 NotifyConfirmedWeaponHit 命中反馈）；
+  - 血量组件 Health/MaxHealth 补复制（怪物+玩家统一）；六处击杀奖励 `IsLocalController` 门槛换 `AwardKillByOwner`（主机单例/远端影子按射手归属）。
+- **发现并修复的传输 bug**：整块档案 RPC（数万字节）**超过 RPC 载荷上限被静默丢弃**（小 RPC 到达、大 RPC 消失、无任何日志）→ 已改 **8KB 分块上行**（UploadId 防串包、reliable 保序、服务端攒齐入档）。⚠️ MirrorBlob 下行（复制属性）同样有大载荷风险——M4 用到回程时同样要分块/差分，已记 perf 台账。
+- **待补验（下一个空闲机窗一次跑完）**：分块上传后的影子创建/主机落盘（M2 断言）+ M3 全链带影子归属复验（上轮命中走的是单例回退，链路已证但影子归属未证）。机器被用户占用时主机 300s 起不完是常态——**验证只在空闲窗口做**（经验：空闲内存 >12GB、CPU<30%）。
+- 手动验收项（用户）：客人背包/拖装备/喝药；双端对怪射击手感。
 
-### ⚠️ worktree 特殊构造（接手必读）
+### ⚠️ worktree 特殊构造（接手必读）### ⚠️ worktree 特殊构造（接手必读）
 
 主仓 `.gitignore:83` 排除了整个 `/Content/*`（81GB 重资产不在 git 里，只 44 个 JSON 强跟踪）。因此 worktree 采用**混合构造**：
 - `Source/ Config/ Docs/` 等 = HEAD 检出 + **主仓工作区覆盖层**（`Tools/mp_overlay_sync.py` 同步，原因见 §5 坑#3）；
@@ -66,6 +68,21 @@
   - 客人侧 hub 图无天气（FPSWeatherManager 服务端 spawn 不复制）；
   - 若客人进程崩在角色 BeginPlay（`FPSGAMECharacter.cpp:349-360` 对 Controller 直写输入模式、`:339` AttachPawn 抢档案）→ 属已知坑，本地门禁修复项。
 - 日志锚点：`grep -E "MPTEST|Join succeeded|Possess" Saved/Logs/MPHost.log MPClient.log`。
+
+## 3.8 M3 战斗权威化改动清单（2026-10-01，未入分支提交，重放即生效）
+
+> 游戏模块侧；插件侧（通道命中上报/回执/分块上传/合成射击钩/模块注册）已提交分支。
+
+**① `Skills/ColdSteelSkillRules.h/.cpp`**：命名空间内新增
+- `using FColdSteelNetHitForward = bool(*)(AActor*, const FHitResult&, float, const FVector&, const FColdSteelSkillShot&)` + `NetHitForward()`（函数指针存取）；
+- `AwardKillByOwner(UGameInstance*, AController* Instigator, AActor* Victim, int64 XP)`：按射手归属选档案（远端玩家 pawn 的 `GetNetShadowProfile()` 优先，回退单例）；
+- `ApplyHit` 顶部一行：`if(Shooter&&!Shooter->HasAuthority()&&NetHitForward()&&NetHitForward()(Shooter,Hit,Damage,Direction,Shot))return 0.f;`
+
+**② `Monsters/FPSCombatHealthComponent.h/.cpp`**：Health 改 `ReplicatedUsing=OnRep_Health`、MaxHealth 加 `Replicated`；`GetLifetimeReplicatedProps`(DOREPLIFETIME×2)+`OnRep_Health`（测试期 Warning 日志）；BeginPlay `SetIsReplicated(true)`；cpp 加 `Net/UnrealNetwork.h`。
+
+**③ 六处击杀奖励**（HandBrain/FleshHand/HundredEyedSlag/PoisonMaggot/NurseZombie/Wolf 各 .cpp）：`PC->IsLocalController()&&GetGameInstance())...GetSubsystem...AwardKill` → `GetGameInstance())ColdSteelSkills::AwardKillByOwner(GetGameInstance(),PC,this,ExperienceReward)`；五文件头部加 `#include "../Skills/ColdSteelSkillRules.h"`。
+
+**④ 坑**：5.8 的 FHitResult 用 `FActorInstanceHandle HitObjectHandle`（不是 FHitObjectHandle），赋值 `Hit.HitObjectHandle=FActorInstanceHandle(Target)`；模块类继承 `IModuleInterface`（FDefaultModuleInterface 不存在）；怪物 cpp 原先不含 SkillRules 头。
 
 ## 3.7 M2 档案权威化改动清单（2026-09-30，游戏模块 6 处，未入分支提交，重放即生效）
 

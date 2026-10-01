@@ -3,6 +3,8 @@
 
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
+#include "Engine/ActorInstanceHandle.h"
+#include "EngineUtils.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/PlayerState.h"
 #include "Kismet/GameplayStatics.h"
@@ -54,12 +56,17 @@ void UColdSteelNetChannelComponent::GetLifetimeReplicatedProps(TArray<FLifetimeP
 void UColdSteelNetChannelComponent::BeginPlay()
 {
     Super::BeginPlay();
-    const APlayerController* PC = Cast<APlayerController>(GetOwner());
+    APlayerController* PC = Cast<APlayerController>(GetOwner());
     if (PC && PC->IsLocalController() && GetOwnerRole() != ROLE_Authority)
     {
         // 客户端：本机档案就绪即发首帧，之后 0.8s 心跳。
         ClientHeartbeat = 0.f;
         UE_LOG(LogColdSteelNet, Log, TEXT("Channel ready on owning client"));
+        // M3 测试钩：合成命中（自动化验证客户端→服务端战斗链）。
+        if (FParse::Param(FCommandLine::Get(), TEXT("MPClientShot")))
+        {
+            SyntheticShotCountdown = 12.f;
+        }
     }
 }
 
@@ -75,6 +82,45 @@ void UColdSteelNetChannelComponent::TickComponent(float DeltaTime, ELevelTick Ti
 
     if (GetOwnerRole() != ROLE_Authority)
     {
+        // M3 测试钩：合成命中（找一只非玩家 pawn 当靶）。
+        if (SyntheticShotCountdown >= 0.f)
+        {
+            SyntheticShotCountdown -= DeltaTime;
+            if (SyntheticShotCountdown <= 0.f)
+            {
+                SyntheticShotCountdown = 3.f;
+                if (++SyntheticShotAttempts > 20)
+                {
+                    SyntheticShotCountdown = -1.f;
+                }
+                else if (AFPSGAMECharacter* LocalChar = Cast<AFPSGAMECharacter>(PC->GetPawn()))
+                {
+                    APawn* TargetPawn = nullptr;
+                    for (TActorIterator<APawn> It(GetWorld()); It; ++It)
+                    {
+                        APawn* Candidate = *It;
+                        if (Candidate && Candidate != LocalChar && !Candidate->IsPlayerControlled())
+                        {
+                            TargetPawn = Candidate;
+                            break;
+                        }
+                    }
+                    if (TargetPawn)
+                    {
+                        FColdSteelNetHitReport Report;
+                        Report.Target = TargetPawn;
+                        Report.HitLocation = TargetPawn->GetActorLocation();
+                        Report.HitNormal = FVector::UpVector;
+                        Report.Damage = 25.f;
+                        Report.Direction = (TargetPawn->GetActorLocation() - LocalChar->GetActorLocation()).GetSafeNormal();
+                        ServerReportHit(Report);
+                        UE_LOG(LogColdSteelNet, Warning, TEXT("MPTEST synthetic hit sent -> %s"), *GetNameSafe(TargetPawn));
+                        SyntheticShotCountdown = -1.f;
+                    }
+                }
+            }
+        }
+
         // 客户端心跳上行：固定节奏全量快照（LAN 带宽可忽略；WAN 需改增量，见 perf 台账）。
         ClientHeartbeat -= DeltaTime;
         if (ClientHeartbeat <= 0.f)
@@ -91,7 +137,19 @@ void UColdSteelNetChannelComponent::TickComponent(float DeltaTime, ELevelTick Ti
                 ScratchSave->Profile = Model->Snapshot();
                 TArray<uint8> Blob;
                 SaveToBlob(ScratchSave, Blob);
-                ServerSubmitProfile(Blob);
+                // 分块上行：单发大 RPC 会被静默丢弃。
+                constexpr int32 ChunkSize = 8192;
+                const int32 TotalChunks = FMath::Max(1, FMath::DivideAndRoundUp(Blob.Num(), ChunkSize));
+                const int32 UploadId = ++UploadCounter;
+                for (int32 Index = 0; Index < TotalChunks; ++Index)
+                {
+                    const int32 Start = Index * ChunkSize;
+                    const int32 Count = FMath::Min(ChunkSize, Blob.Num() - Start);
+                    TArray<uint8> Chunk;
+                    Chunk.Append(Blob.GetData() + Start, Count);
+                    ServerSubmitProfileChunk(UploadId, Index, TotalChunks, Chunk);
+                }
+                UE_LOG(LogColdSteelNet, Log, TEXT("heartbeat upload: %d bytes / %d chunks"), Blob.Num(), TotalChunks);
             }
         }
         return;
@@ -110,15 +168,38 @@ void UColdSteelNetChannelComponent::TickComponent(float DeltaTime, ELevelTick Ti
     }
 }
 
-void UColdSteelNetChannelComponent::ServerSubmitProfile_Implementation(const TArray<uint8>& ProfileBlob)
+void UColdSteelNetChannelComponent::ServerSubmitProfileChunk_Implementation(int32 UploadId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk)
 {
-    if (GetOwnerRole() != ROLE_Authority)
+    if (GetOwnerRole() != ROLE_Authority || TotalChunks <= 0 || ChunkIndex < 0 || ChunkIndex >= TotalChunks)
     {
         return;
     }
-    if (UColdSteelProfileSave* Save = BlobToSave(ProfileBlob))
+    if (UploadId != IncomingUploadId)
     {
-        ApplyGuestProfile(Save->Profile);
+        IncomingUploadId = UploadId;
+        IncomingBlob.Reset();
+        IncomingReceived = 0;
+        IncomingTotal = TotalChunks;
+    }
+    // reliable 同 actor 通道保序：按到达顺序尾接即可，偏移不符说明丢包/重放，丢弃该包。
+    constexpr int32 ChunkSize = 8192;
+    if (ChunkIndex * ChunkSize != IncomingBlob.Num() || Chunk.Num() > ChunkSize)
+    {
+        return;
+    }
+    IncomingBlob.Append(Chunk);
+    ++IncomingReceived;
+    if (IncomingReceived >= IncomingTotal)
+    {
+        TArray<uint8> Completed = MoveTemp(IncomingBlob);
+        IncomingUploadId = INDEX_NONE;
+        IncomingReceived = 0;
+        IncomingTotal = 0;
+        if (UColdSteelProfileSave* Save = BlobToSave(Completed))
+        {
+            UE_LOG(LogColdSteelNet, Warning, TEXT("MPTEST profile upload complete: %d bytes"), Completed.Num());
+            ApplyGuestProfile(Save->Profile);
+        }
     }
 }
 
@@ -209,4 +290,120 @@ void UColdSteelNetChannelComponent::SaveShadowToHostDisk()
         UE_LOG(LogColdSteelNet, Warning, TEXT("MPTEST guest profile saved to host disk: %s items=%d hp=%.0f"),
             *SlotName, Save->Profile.Items.Num(), Save->Profile.Health);
     }
+}
+
+bool UColdSteelNetChannelComponent::ForwardHitStatic(AActor* Shooter, const FHitResult& Hit, float Damage, const FVector& Direction, const FColdSteelSkillShot& Shot)
+{
+    const APawn* Pawn = Cast<APawn>(Shooter);
+    AController* Controller = Pawn ? Pawn->GetController() : nullptr;
+    UColdSteelNetChannelComponent* Channel = Controller ? Controller->FindComponentByClass<UColdSteelNetChannelComponent>() : nullptr;
+    if (!Channel)
+    {
+        return false;
+    }
+
+    FColdSteelNetHitReport Report;
+    Report.Target = Hit.GetActor();
+    Report.HitLocation = Hit.ImpactPoint;
+    Report.HitNormal = Hit.ImpactNormal;
+    Report.BoneName = Hit.BoneName;
+    Report.Damage = Damage;
+    Report.Direction = Direction;
+    Report.AttackForm = static_cast<uint8>(Shot.AttackForm);
+    Report.MasteryId = Shot.MasteryId;
+    Report.ItemDefinition = Shot.ItemDefinition;
+    Report.ExtraMasteryExperience = Shot.ExtraMasteryExperience;
+    Report.AmmoPoisonStacks = Shot.AmmoPoisonStacks;
+    Report.AmmoBleedStacks = Shot.AmmoBleedStacks;
+    Report.ArmorPenetration = Shot.ArmorPenetration;
+    Report.ToughnessDamageMultiplier = Shot.ToughnessDamageMultiplier;
+    Report.MagicPenetration = Shot.MagicPenetration;
+    Report.CriticalChance = Shot.CriticalChance;
+    Report.WeakpointPercent = Shot.WeakpointPercent;
+    Report.CriticalDamageBonus = Shot.CriticalDamageBonus;
+    if (Shot.bMeleeStrike) Report.Flags |= 1 << 0;
+    if (Shot.bRifle) Report.Flags |= 1 << 1;
+    if (Shot.bPistol) Report.Flags |= 1 << 2;
+    if (Shot.bMelee) Report.Flags |= 1 << 3;
+    if (Shot.bRicochet) Report.Flags |= 1 << 4;
+    if (Shot.bInheritedCritical) Report.Flags |= 1 << 5;
+    Channel->ServerReportHit(Report);
+    return true;
+}
+
+void UColdSteelNetChannelComponent::ServerReportHit_Implementation(const FColdSteelNetHitReport& Report)
+{
+    if (GetOwnerRole() != ROLE_Authority || !Report.Target)
+    {
+        return;
+    }
+    APlayerController* PC = Cast<APlayerController>(GetOwner());
+    AFPSGAMECharacter* Shooter = PC ? Cast<AFPSGAMECharacter>(PC->GetPawn()) : nullptr;
+    if (!Shooter)
+    {
+        return;
+    }
+    UColdSteelStatusModel* Model = Shooter->GetNetShadowProfile();
+    if (!Model)
+    {
+        const UGameInstance* GI = PC->GetGameInstance();
+        Model = GI ? GI->GetSubsystem<UColdSteelStatusModel>() : nullptr;
+    }
+    if (!Model)
+    {
+        return;
+    }
+
+    FHitResult Hit(Report.HitLocation, Report.HitNormal);
+    Hit.BoneName = Report.BoneName;
+    Hit.HitObjectHandle = FActorInstanceHandle(Report.Target.Get());
+    Hit.bBlockingHit = true;
+
+    FColdSteelSkillShot Shot;
+    Shot.MasteryId = Report.MasteryId;
+    Shot.ItemDefinition = Report.ItemDefinition;
+    Shot.AttackForm = static_cast<EMonsterAttackForm>(Report.AttackForm);
+    Shot.ExtraMasteryExperience = Report.ExtraMasteryExperience;
+    Shot.ArmorPenetration = Report.ArmorPenetration;
+    Shot.ToughnessDamageMultiplier = Report.ToughnessDamageMultiplier;
+    Shot.MagicPenetration = Report.MagicPenetration;
+    Shot.CriticalChance = Report.CriticalChance;
+    Shot.WeakpointPercent = Report.WeakpointPercent;
+    Shot.CriticalDamageBonus = Report.CriticalDamageBonus;
+    Shot.AmmoPoisonStacks = Report.AmmoPoisonStacks;
+    Shot.AmmoBleedStacks = Report.AmmoBleedStacks;
+    Shot.bMeleeStrike = (Report.Flags & (1 << 0)) != 0;
+    Shot.bRifle = (Report.Flags & (1 << 1)) != 0;
+    Shot.bPistol = (Report.Flags & (1 << 2)) != 0;
+    Shot.bMelee = (Report.Flags & (1 << 3)) != 0;
+    Shot.bRicochet = (Report.Flags & (1 << 4)) != 0;
+    Shot.bInheritedCritical = (Report.Flags & (1 << 5)) != 0;
+
+    FWeaponDamageResult Receipt;
+    const float Applied = Model->ApplySkillWeaponHit(Shooter, Hit, Report.Damage, Report.Direction, Shot, &Receipt);
+    UE_LOG(LogColdSteelNet, Warning, TEXT("MPTEST hit applied: shooter=%s target=%s dmg=%.1f crit=%d killed=%d"),
+        *GetNameSafe(Shooter), *GetNameSafe(Report.Target), Applied, Receipt.bCritical ? 1 : 0, Receipt.bKilled ? 1 : 0);
+
+    FColdSteelNetHitReceipt Out;
+    Out.Target = Report.Target;
+    Out.Applied = Applied;
+    Out.bCritical = Receipt.bCritical;
+    Out.bKilled = Receipt.bKilled;
+    ClientConfirmHit(Out);
+}
+
+void UColdSteelNetChannelComponent::ClientConfirmHit_Implementation(const FColdSteelNetHitReceipt& Receipt)
+{
+    APlayerController* PC = Cast<APlayerController>(GetOwner());
+    AFPSGAMECharacter* LocalChar = PC ? Cast<AFPSGAMECharacter>(PC->GetPawn()) : nullptr;
+    if (!LocalChar || !Receipt.Target)
+    {
+        return;
+    }
+    FWeaponDamageResult Result;
+    Result.bResolved = true;
+    Result.bCritical = Receipt.bCritical;
+    Result.bKilled = Receipt.bKilled;
+    LocalChar->NotifyConfirmedWeaponHit(Receipt.Target, Receipt.Applied, &Result, true);
+    UE_LOG(LogColdSteelNet, Warning, TEXT("MPTEST hit confirmed on client: target=%s applied=%.1f"), *GetNameSafe(Receipt.Target), Receipt.Applied);
 }
