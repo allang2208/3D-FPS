@@ -202,12 +202,12 @@ void AFPSGAMECharacter::TryAttachLocalProfile()
 ```bash
 # 主机（worktree 根目录下执行；轻量图 + 离屏 + 免 Python；形态原因见 §5 坑#7）
 MSYS_NO_PATHCONV=1 "E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe" \
-  D:/FPS3D/FPSGAME-mp/FPSGAME.uproject \
+  D:/FPS3D/FPSGAME-mp/FPSGAME-Online.uproject \
   "/Game/Tests/PoisonMaggot/L_PoisonMaggot?listen?game=/Script/ColdSteelNet.FPSNetGameMode" \
   -game -log=MPHost.log -RenderOffscreen -ResX=640 -ResY=360 -nosound "-LogCmds=r.RayTracing 0" &
 # 客人（主机 MPTEST NetGameMode active 出现后再启动；断言词是 Welcomed 不是 Join succeeded）
 MSYS_NO_PATHCONV=1 "E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe" \
-  D:/FPS3D/FPSGAME-mp/FPSGAME.uproject 127.0.0.1:7777 \
+  D:/FPS3D/FPSGAME-mp/FPSGAME-Online.uproject 127.0.0.1:7777 \
   -game -log=MPClient.log -RenderOffscreen -ResX=640 -ResY=360 -nosound "-LogCmds=r.RayTracing 0" &
 # 断言（UE 日志时间戳是 HH.MM:SS 点分隔，grep 时别写冒号；taskkill 后 sleep 6 再读）
 grep -a "MPTEST\|Login request" Saved/Logs/MPHost.log        # 期望出现第2个 PostLogin/NumPlayers=2
@@ -222,7 +222,7 @@ taskkill //IM UnrealEditor.exe //F
 1. **FAB 站内搜索**参数是 `q` 不是 `query`；fab.com 直抓 403 要走 IAB；FAB 详情页 goto 常超时但页面其实在加载（等 5s 再 snapshot）。
 2. **主仓 git 视图不可信**：`git status` 报 Source 只有 7 个改动，实际全量 diff 有 **527 个文件**不同（与"git diff 展示会错序"旧案同源）。**任何"以主仓当前状态为准"的操作必须用文件级 diff/copy（`Tools/mp_overlay_sync.py`），不能用 git status。**
 3. **HEAD 不可编**（老毛病"坏的是提交版"）：直接从 HEAD 检出的 Source 编不过（缺类/缺文件）。解法=坑#2 的覆盖层同步，同步后清掉 `Intermediate/` 再编（否则 UBT 的 SourceFileCache/TargetMetadata 缓存着 HEAD 版本的首包含信息，会报假 IWYU 错误"Expected X.h to be first header included"，文件明明是对的）。
-4. **Bash 调 .bat 的三层坑**：直接执行引号路径失败；`cmd //c 'mklink ...'` 双引号内反斜杠被吞（要用单引号）；8.3 短路径（PROGRA~2）在 E 盘被禁用。**最终可用姿势：`powershell -NoProfile -Command "& 'E:/Program Files (x86)/UE_5.8/Engine/Build/BatchFiles/Build.bat' FPSGAME Win64 Development -Project=D:/FPS3D/FPSGAME-mp/FPSGAME.uproject"`**。
+4. **Bash 调 .bat 的三层坑**：直接执行引号路径失败；`cmd //c 'mklink ...'` 双引号内反斜杠被吞（要用单引号）；8.3 短路径（PROGRA~2）在 E 盘被禁用。**最终可用姿势：`powershell -NoProfile -Command "& 'E:/Program Files (x86)/UE_5.8/Engine/Build/BatchFiles/Build.bat' FPSGAME Win64 Development -Project=D:/FPS3D/FPSGAME-mp/FPSGAME-Online.uproject"`**。
 5. **引擎 `Engine/Config/BaseGame.ini:116` 有 `bShareMaterialShaderCode=True`**（2026-09-08 19:43 改的，疑似打包会话遗留）。后果：未打包游戏进程在 `FShaderCodeLibrary::InitForRuntime` 直接暴毙。已在 worktree `Config/DefaultGame.ini` 项目级覆盖 False。**主线修复建议同款**（这很可能就是主线"-game 15 秒崩溃"悬案的一半）。
 6. **`Engine/GlobalShaderCache-PCD3D_SM6.bin` 全机不存在**：裸跑 `Binaries/Win64/FPSGAME.exe`（未打包、装版引擎）必死于"built to load COOKED content"。这是悬案的另一半。装版引擎的正确 -game 姿态见坑#7。
 7. **-game 的正确姿态 = `UnrealEditor.exe <uproject> <map>?… -game`**（编辑器二进制游戏模式，按需编着色器），**不是**裸 FPSGAME.exe。这要求 worktree 编过 **FPSGAMEEditor 目标**（UnrealEditor-FPSGAME.dll 等）。UnrealEditor-Cmd 跑命令行同理。双进程冒烟全部用这个形态。
