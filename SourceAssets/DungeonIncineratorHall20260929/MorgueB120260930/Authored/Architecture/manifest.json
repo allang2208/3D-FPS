@@ -1,0 +1,112 @@
+{
+  "objects": [
+    {
+      "name": "SM_Incinerator_Stairs_MorgueB1",
+      "kind": "Stairs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueB120260930\\Authored\\Architecture\\SM_Incinerator_Stairs_MorgueB1.fbx",
+      "materials": {
+        "RS_BridgeDeck": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BridgeDeck",
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 9612,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_B1Floor_MorgueB1",
+      "kind": "B1Floor",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueB120260930\\Authored\\Architecture\\SM_Incinerator_B1Floor_MorgueB1.fbx",
+      "materials": {
+        "RS_Mortar": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_ExposedMortar",
+        "RS_ClinicalFloor": "/Game/Dungeons/IncineratorHall20260929/MorgueB1V1/Materials/M_ClinicalFloor"
+      },
+      "triangles": 8160,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_B1Walls_MorgueB1",
+      "kind": "B1Walls",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueB120260930\\Authored\\Architecture\\SM_Incinerator_B1Walls_MorgueB1.fbx",
+      "materials": {
+        "RS_ClinicalPlaster": "/Game/Dungeons/IncineratorHall20260929/MorgueB1V1/Materials/M_ClinicalPlaster"
+      },
+      "triangles": 204,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_B1Wainscot_MorgueB1",
+      "kind": "B1Wainscot",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueB120260930\\Authored\\Architecture\\SM_Incinerator_B1Wainscot_MorgueB1.fbx",
+      "materials": {
+        "RS_ClinicalTile": "/Game/Dungeons/IncineratorHall20260929/MorgueB1V1/Materials/M_ClinicalTile"
+      },
+      "triangles": 43344,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_B1DoorFrames_MorgueB1",
+      "kind": "B1DoorFrames",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueB120260930\\Authored\\Architecture\\SM_Incinerator_B1DoorFrames_MorgueB1.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "triangles": 144,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_B1Nosing_MorgueB1",
+      "kind": "B1Nosing",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueB120260930\\Authored\\Architecture\\SM_Incinerator_B1Nosing_MorgueB1.fbx",
+      "materials": {
+        "RS_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint"
+      },
+      "triangles": 288,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_B1ShaftSpine_MorgueB1",
+      "kind": "B1ShaftSpine",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueB120260930\\Authored\\Architecture\\SM_Incinerator_B1ShaftSpine_MorgueB1.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 12,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_B1Structure_MorgueB1",
+      "kind": "B1Structure",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueB120260930\\Authored\\Architecture\\SM_Incinerator_B1Structure_MorgueB1.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 72,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_B1Services_MorgueB1",
+      "kind": "B1Services",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueB120260930\\Authored\\Architecture\\SM_Incinerator_B1Services_MorgueB1.fbx",
+      "materials": {
+        "RS_PipeEnamel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 120,
+      "collision": true,
+      "sample_only": false
+    }
+  ],
+  "tests_run": false,
+  "rendered": false,
+  "revision": "incinerator_morgue_b1_v1_20260930",
+  "ceramic_source": "DungeonTileFracture20260922 through CorridorSurfaces",
+  "source_units": "metres; UE centimetres"
+}

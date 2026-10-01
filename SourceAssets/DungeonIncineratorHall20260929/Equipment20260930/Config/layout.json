@@ -1,0 +1,19 @@
+{
+  "revision": "precision_equipment_v1_20260930",
+  "ue_base": "/Game/Dungeons/IncineratorHall20260929/EquipmentV1",
+  "map": "/Game/GameMaps/Design/L_AbandonedIncineratorHall_Subject",
+  "post_install_script": "../SceneFix20260930/Scripts/install_fixes.py",
+  "coordinates": "Blender metres to UE centimetres: x,-y,z",
+  "replace_architecture_labels": ["SM_Incinerator_FurnaceDoors", "SM_Incinerator_FurnaceDoorFrames", "SM_Incinerator_FurnaceDetails"],
+  "instances": [
+    {"id":"Door_01", "mesh":"FurnaceDoorKit", "position":[-6,-7.25,0], "yaw":0},
+    {"id":"Door_02", "mesh":"FurnaceDoorKit", "position":[0,-7.25,0], "yaw":0},
+    {"id":"Door_03", "mesh":"FurnaceDoorKit", "position":[6,-7.25,0], "yaw":0},
+    {"id":"ChargingTrolley", "mesh":"ChargingTrolley", "position":[-6,-3.60,0], "yaw":0},
+    {"id":"MedicalWasteHopper", "mesh":"MedicalWasteHopper", "position":[6,-3.60,0], "yaw":0},
+    {"id":"PowerCabinet", "asset":"/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_PowerCabinet", "position":[0,9.55,2.4], "yaw":0}
+  ],
+  "cart_max_footprint_m":[1.8,2.0],
+  "state":"Cold, isolated, static environmental props; no new interaction or animation",
+  "tests_run":false
+}

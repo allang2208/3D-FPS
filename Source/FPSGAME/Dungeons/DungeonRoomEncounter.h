@@ -22,13 +22,13 @@ struct FDungeonRoomEncounterSlot
 };
 
 /**
- * 封门精英房遭遇：ADungeonBossEncounter 的泛化兄弟（多怪、任意家族、无奖励门），
- * 不改动 Boss 类本身。由 ADungeonSpawnDirector 在开局规划里为任务图标记的精英房创建：
+ * 房间封门遭遇：普通房、过渡房、主题房与精英房统一使用，Boss 仍由独立遭遇持有。
+ * 由 ADungeonSpawnDirector 在开局规划里为所有有刷怪编成的房间创建：
  * SpawnActor → Configure(...) → Activate()（与 Boss 同批，导航构建完成之后）。
  *
- * 玩家进房 → 用导演同款校验闸门和全局存活预算生成精英组（生成即唤醒态，不休眠）→
- * 全组落地后封闭所有连接门 → 全员 IsDead 即开门并 MarkRoomCleared。门口参数无效时不封门。
- * 玩家死亡/离开房间 → 放行开门（怪保留），回到触发线可重新封门，避免把进度锁死。
+ * 玩家完整进房且离开门扇扫掠区 → 锁定全部连接门并生成编成，待生成槽位也属于战斗。
+ * 全员 IsDead 且无待生成槽位才开门并 MarkRoomCleared；离开体积不解锁。
+ * 玩家死亡 → 放行重试（怪保留、不登记清除），重新进入后再次锁定。
  */
 UCLASS()
 class FPSGAME_API ADungeonRoomEncounter : public AActor
@@ -43,10 +43,12 @@ public:
 
     /**
      * 导演/生成器入口。InCandidateGround 为空时自行用导演的确定性落点配方补齐
-     * （同 seed + 同节点结果一致）。门口参数无效（EstimateDoorway 失败）→ 不封门。
+     * （同 seed + 同节点结果一致）。主入口估算失败时按房间体积触发，闸门取真实 Doors。
+     * bSealConnectedDoors=false 仅保留给显式开放遭遇调用方；地牢导演统一传 true。
      */
     void Configure(UDungeonRunSubsystem* InSubsystem, int32 InRoomNodeId, const TArray<FDungeonSpawnMember>& InGroup,
-        const FVector& DoorCenter, const FVector& DoorNormal, const TArray<FVector>& InCandidateGround = TArray<FVector>());
+        const FVector& DoorCenter, const FVector& DoorNormal, const TArray<FVector>& InCandidateGround = TArray<FVector>(),
+        bool bSealConnectedDoors = true);
     /** 导航构建完成后武装（Boss ActivateEncounter 同款两段式）。 */
     void Activate();
     bool IsCleared() const { return bEncounterComplete; }

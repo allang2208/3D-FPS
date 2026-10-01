@@ -1,0 +1,310 @@
+{
+  "revision": "morgue_open_plan_v2_20260930",
+  "ue_base": "/Game/Dungeons/IncineratorHall20260929/MorgueOpenPlanV2",
+  "map": "/Game/GameMaps/Design/L_AbandonedIncineratorHall_Subject",
+  "floor_z": -3.6,
+  "ceiling_z": -0.25,
+  "rect_m": [
+    -14,
+    -10.5,
+    14,
+    10.5
+  ],
+  "stairs": {
+    "rect_m": [
+      -13,
+      -7.65,
+      -8.6,
+      -2.65
+    ],
+    "west_flight_x": [
+      -12.85,
+      -11.05
+    ],
+    "east_flight_x": [
+      -10.6,
+      -8.8
+    ],
+    "risers_per_flight": 12,
+    "rise_m": 0.15,
+    "going_m": 0.275,
+    "landing_y": [
+      -7.65,
+      -5.95
+    ]
+  },
+  "zones": [
+    {
+      "id": "open_mortuary_hall",
+      "description": "Continuous receiving and cold storage hall, no foyer partition"
+    },
+    {
+      "id": "preparation_and_wash",
+      "rect_m": [
+        -4.8,
+        5.2,
+        2,
+        10.36
+      ]
+    },
+    {
+      "id": "cold_service",
+      "rect_m": [
+        2,
+        5.2,
+        8.8,
+        10.36
+      ]
+    }
+  ],
+  "freezer_modules": [
+    {
+      "key": "ColdBankClosed",
+      "origin": [
+        11.15,
+        -4.2,
+        -3.6
+      ],
+      "yaw": 90,
+      "first_slot": 1
+    },
+    {
+      "key": "ColdBankClosed",
+      "origin": [
+        11.15,
+        -3.05,
+        -3.6
+      ],
+      "yaw": 90,
+      "first_slot": 4
+    },
+    {
+      "key": "ColdBankOpen",
+      "origin": [
+        11.15,
+        -1.9,
+        -3.6
+      ],
+      "yaw": 90,
+      "first_slot": 7
+    },
+    {
+      "key": "ColdBankClosed",
+      "origin": [
+        11.15,
+        -0.75,
+        -3.6
+      ],
+      "yaw": 90,
+      "first_slot": 10
+    }
+  ],
+  "props": [
+    {
+      "key": "MortuaryTrolley",
+      "origin": [
+        7.8,
+        -1.9,
+        -3.6
+      ],
+      "yaw": 90
+    },
+    {
+      "key": "MortuaryTrolley",
+      "origin": [
+        -8,
+        2.5,
+        -3.6
+      ],
+      "yaw": 0
+    },
+    {
+      "key": "PreparationTable",
+      "origin": [
+        -1.5,
+        7.75,
+        -3.6
+      ],
+      "yaw": 90
+    },
+    {
+      "key": "WashSink",
+      "origin": [
+        0.95,
+        9.98,
+        -3.6
+      ],
+      "yaw": 0
+    },
+    {
+      "key": "RecordsDesk",
+      "origin": [
+        -10.0,
+        1.6,
+        -3.6
+      ],
+      "yaw": 0
+    }
+  ],
+  "ash_station": {
+    "origin": [
+      10.6,
+      -8.1,
+      0
+    ],
+    "inlet": [
+      8.29,
+      -8.7,
+      2.55
+    ],
+    "outward_axis": [
+      1,
+      0,
+      0
+    ]
+  },
+  "lights": [
+    {
+      "id": "StairUpper",
+      "position": [
+        -12,
+        -3.9,
+        1.5
+      ],
+      "lumens": 420,
+      "radius_cm": 440,
+      "shadow": true
+    },
+    {
+      "id": "StairLanding",
+      "position": [
+        -10.8,
+        -6.9,
+        0.45
+      ],
+      "lumens": 350,
+      "radius_cm": 440,
+      "shadow": true
+    },
+    {
+      "id": "Receiving",
+      "position": [
+        -9,
+        0.5,
+        -0.58
+      ],
+      "lumens": 1000,
+      "radius_cm": 650,
+      "shadow": true
+    },
+    {
+      "id": "OpenSouth",
+      "position": [
+        -2.5,
+        -6.8,
+        -0.58
+      ],
+      "lumens": 1100,
+      "radius_cm": 730,
+      "shadow": false
+    },
+    {
+      "id": "OpenCentre",
+      "position": [
+        2,
+        0.4,
+        -0.58
+      ],
+      "lumens": 1100,
+      "radius_cm": 750,
+      "shadow": false
+    },
+    {
+      "id": "ColdFront",
+      "position": [
+        8.3,
+        -2.1,
+        -0.58
+      ],
+      "lumens": 1050,
+      "radius_cm": 610,
+      "shadow": true
+    },
+    {
+      "id": "NorthWest",
+      "position": [
+        -9,
+        7.0,
+        -0.58
+      ],
+      "lumens": 800,
+      "radius_cm": 620,
+      "shadow": false
+    },
+    {
+      "id": "Wash",
+      "position": [
+        -1.4,
+        7.8,
+        -0.58
+      ],
+      "lumens": 650,
+      "radius_cm": 500,
+      "shadow": false
+    },
+    {
+      "id": "Service",
+      "position": [
+        5.4,
+        7.8,
+        -0.58
+      ],
+      "lumens": 500,
+      "radius_cm": 500,
+      "shadow": false
+    }
+  ],
+  "reference": "https://www.mopec.com/wp-content/uploads/2021/05/KA1300-Refrigeration-SpecSheet.pdf",
+  "state": "Abandoned mortuary, closed cold storage plus one empty extended tray; static authored equipment",
+  "tests_run": false,
+  "outline_m": [
+    [
+      -14,
+      -7.5
+    ],
+    [
+      -9,
+      -10.5
+    ],
+    [
+      9,
+      -10.5
+    ],
+    [
+      14,
+      -7.5
+    ],
+    [
+      14,
+      7.5
+    ],
+    [
+      9,
+      10.5
+    ],
+    [
+      -14,
+      10.5
+    ]
+  ],
+  "door_frame_wall_recess_m": 0.006,
+  "door_frame_depth_m": 0.28,
+  "transfer_door": {
+    "origin": [
+      -13.79,
+      4.0,
+      -3.6
+    ],
+    "yaw": 90
+  }
+}

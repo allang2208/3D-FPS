@@ -1,0 +1,102 @@
+{
+  "size": [
+    4096,
+    2048
+  ],
+  "rects": {
+    "graphite": [
+      8,
+      8,
+      1016,
+      1016
+    ],
+    "teal": [
+      1032,
+      8,
+      2040,
+      1016
+    ],
+    "ochre": [
+      2056,
+      8,
+      3064,
+      1016
+    ],
+    "steel": [
+      3080,
+      8,
+      4088,
+      1016
+    ],
+    "chrome": [
+      8,
+      1032,
+      1016,
+      2040
+    ],
+    "rubber": [
+      1032,
+      1032,
+      2040,
+      2040
+    ],
+    "soot": [
+      2056,
+      1032,
+      3064,
+      2040
+    ],
+    "labels": [
+      3080,
+      1032,
+      4088,
+      2040
+    ],
+    "door_plate": [
+      3092,
+      1044,
+      4076,
+      1239
+    ],
+    "trolley_plate": [
+      3092,
+      1260,
+      4076,
+      1414
+    ],
+    "waste_plate": [
+      3092,
+      1438,
+      4076,
+      1624
+    ],
+    "hazard": [
+      3092,
+      1644,
+      4076,
+      1740
+    ],
+    "service": [
+      3092,
+      1762,
+      3652,
+      2026
+    ],
+    "gauge": [
+      3677,
+      1766,
+      3927,
+      2016
+    ],
+    "bio": [
+      3950,
+      1770,
+      4072,
+      2020
+    ]
+  },
+  "seed": 930184,
+  "color_workflow": "Linear albedo encoded to sRGB once; labels drawn in display sRGB",
+  "provenance": "Original procedural PBR/signage; corrosion microheight reuses local WroughtIron derivative from owned Sharur Normandy Village T_MetalRust_00A. Project use only; source licence retained with original asset.",
+  "scan_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlastFurnace20260923\\Authored\\Textures\\BlastFurnace_WroughtIron_Height.png"
+}

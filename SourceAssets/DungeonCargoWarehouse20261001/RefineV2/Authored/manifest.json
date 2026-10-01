@@ -1,0 +1,159 @@
+{
+  "objects": [
+    {
+      "name": "SM_CargoWarehouse_Racks_V2",
+      "kind": "Racks",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\RefineV2\\Authored\\SM_CargoWarehouse_Racks_V2.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint"
+      },
+      "triangles": 10528,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_RackHardware_V2",
+      "kind": "RackHardware",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\RefineV2\\Authored\\SM_CargoWarehouse_RackHardware_V2.fbx",
+      "materials": {
+        "RS_ServiceHardware": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel"
+      },
+      "triangles": 20160,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_RackBraces_V2",
+      "kind": "RackBraces",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\RefineV2\\Authored\\SM_CargoWarehouse_RackBraces_V2.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 288,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_RackDecks_V2",
+      "kind": "RackDecks",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\RefineV2\\Authored\\SM_CargoWarehouse_RackDecks_V2.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 2256,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_RackGuards_V2",
+      "kind": "RackGuards",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\RefineV2\\Authored\\SM_CargoWarehouse_RackGuards_V2.fbx",
+      "materials": {
+        "RS_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 3008,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_Hoist_V2",
+      "kind": "Hoist",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\RefineV2\\Authored\\SM_CargoWarehouse_Hoist_V2.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "RS_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 9436,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_HoistHook_V2",
+      "kind": "HoistHook",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\RefineV2\\Authored\\SM_CargoWarehouse_HoistHook_V2.fbx",
+      "materials": {
+        "RS_ServiceHardware": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel",
+        "RS_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "triangles": 41328,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_HoistChain_V2",
+      "kind": "HoistChain",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\RefineV2\\Authored\\SM_CargoWarehouse_HoistChain_V2.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 1428,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_FloorMarkings_V2",
+      "kind": "FloorMarkings",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\RefineV2\\Authored\\SM_CargoWarehouse_FloorMarkings_V2.fbx",
+      "materials": {
+        "RS_FloorPaint": "/Game/Dungeons/CargoWarehouse20261001/RefineV2/Materials/M_CargoWarehouse_FloorPaint"
+      },
+      "triangles": 108,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_Signs_V2",
+      "kind": "Signs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\RefineV2\\Authored\\SM_CargoWarehouse_Signs_V2.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_Labels": "/Game/Dungeons/CargoWarehouse20261001/Materials/M_CargoWarehouse_Labels",
+        "RS_ServiceHardware": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel"
+      },
+      "triangles": 7154,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    }
+  ],
+  "revision": "cargo_warehouse_refine_v2_20261001",
+  "tests_run": false,
+  "rendered": false,
+  "source_units": "metres; UE centimetres",
+  "coordinates": "Blender (x,y,z) -> Unreal (100*x,-100*y,100*z)"
+}

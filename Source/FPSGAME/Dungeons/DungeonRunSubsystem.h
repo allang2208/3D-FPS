@@ -120,6 +120,8 @@ public:
     const TSharedPtr<FJsonObject>* SpawnConfigForModule(const FString& ModuleId) const;
 
     bool IsRoomCleared(int32 NodeId) const { return Cleared.Contains(RoomKey(NodeId)); }
+    /** Any one complete themed branch is sufficient; never require the other two. */
+    bool AnyThemedRouteCleared() const;
     void MarkRoomCleared(int32 NodeId);
     bool IsRoomExplored(int32 NodeId) const { return Explored.Contains(RoomKey(NodeId)); }
     void MarkRoomExplored(int32 NodeId);

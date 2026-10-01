@@ -36,6 +36,7 @@ public class FPSGAME : ModuleRules
         PrivateDependencyModuleNames.Add("AudioMixer");
         PrivateDependencyModuleNames.Add("AutoFootstep");
         PrivateDependencyModuleNames.Add("MoviePlayer");
+        PrivateDependencyModuleNames.Add("ImageCore"); // Bounded expedition thumbnails decoded off the game thread.
         RuntimeDependencies.Add("$(ProjectDir)/Content/UI/TransitLoading/...", StagedFileType.UFS);
         PrivateDependencyModuleNames.Add("PhysicsCore");
         PrivateDependencyModuleNames.Add("Chaos");

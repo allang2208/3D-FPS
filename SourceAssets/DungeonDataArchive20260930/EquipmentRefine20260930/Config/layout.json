@@ -1,0 +1,211 @@
+{
+  "revision": "archive_equipment_v2_20260930",
+  "ue_base": "/Game/Dungeons/DataArchive20260930/EquipmentV2",
+  "tag": "DataArchive.Equipment.V2",
+  "seed": 930527,
+  "wall_inner_m": 11.86,
+  "wall_clearance_m": 0.05,
+  "instances": [
+    {
+      "id": "ServerWest1",
+      "mesh_path": "/Game/Dungeons/DataArchive20260930/EquipmentV1/Meshes/SM_Archive_ServerRack_V1",
+      "position": [
+        -11.1,
+        -5.73,
+        0.16
+      ],
+      "yaw": -90
+    },
+    {
+      "id": "ServerWest2",
+      "mesh_path": "/Game/Dungeons/DataArchive20260930/EquipmentV1/Meshes/SM_Archive_ServerRack_V1",
+      "position": [
+        -11.1,
+        -4.91,
+        0.16
+      ],
+      "yaw": -90
+    },
+    {
+      "id": "ServerWest3",
+      "mesh_path": "/Game/Dungeons/DataArchive20260930/EquipmentV1/Meshes/SM_Archive_ServerRack_V1",
+      "position": [
+        -11.1,
+        -4.09,
+        0.16
+      ],
+      "yaw": -90
+    },
+    {
+      "id": "ServerWest4",
+      "mesh_path": "/Game/Dungeons/DataArchive20260930/EquipmentV1/Meshes/SM_Archive_ServerRack_V1",
+      "position": [
+        -11.1,
+        -3.27,
+        0.16
+      ],
+      "yaw": -90
+    },
+    {
+      "id": "ServerEast1",
+      "mesh_path": "/Game/Dungeons/DataArchive20260930/EquipmentV1/Meshes/SM_Archive_ServerRack_V1",
+      "position": [
+        11.1,
+        3.27,
+        0.16
+      ],
+      "yaw": 90
+    },
+    {
+      "id": "ServerEast2",
+      "mesh_path": "/Game/Dungeons/DataArchive20260930/EquipmentV1/Meshes/SM_Archive_ServerRack_V1",
+      "position": [
+        11.1,
+        4.09,
+        0.16
+      ],
+      "yaw": 90
+    },
+    {
+      "id": "ServerEast3",
+      "mesh_path": "/Game/Dungeons/DataArchive20260930/EquipmentV1/Meshes/SM_Archive_ServerRack_V1",
+      "position": [
+        11.1,
+        4.91,
+        0.16
+      ],
+      "yaw": 90
+    },
+    {
+      "id": "ServerEast4",
+      "mesh_path": "/Game/Dungeons/DataArchive20260930/EquipmentV1/Meshes/SM_Archive_ServerRack_V1",
+      "position": [
+        11.1,
+        5.73,
+        0.16
+      ],
+      "yaw": 90
+    },
+    {
+      "id": "FileArchive1",
+      "mesh": "FileArchive_UpperOpen",
+      "position": [
+        -6.46,
+        -11.4,
+        0.16
+      ],
+      "yaw": 180,
+      "variant": "UpperOpen"
+    },
+    {
+      "id": "FileArchive2",
+      "mesh": "FileArchive_Closed",
+      "position": [
+        -5.1,
+        -11.4,
+        0.16
+      ],
+      "yaw": 180,
+      "variant": "Closed"
+    },
+    {
+      "id": "FileArchive3",
+      "mesh": "FileArchive_LowerOpen",
+      "position": [
+        -3.7399999999999993,
+        -11.4,
+        0.16
+      ],
+      "yaw": 180,
+      "variant": "LowerOpen"
+    },
+    {
+      "id": "TapeLibrary1",
+      "mesh": "TapeLibrary_Empty",
+      "position": [
+        3.7399999999999993,
+        -11.4,
+        0.16
+      ],
+      "yaw": 180,
+      "variant": "Empty"
+    },
+    {
+      "id": "TapeLibrary2",
+      "mesh": "TapeLibrary_Sparse",
+      "position": [
+        5.1,
+        -11.4,
+        0.16
+      ],
+      "yaw": 180,
+      "variant": "Sparse"
+    },
+    {
+      "id": "TapeLibrary3",
+      "mesh": "TapeLibrary_Full",
+      "position": [
+        6.46,
+        -11.4,
+        0.16
+      ],
+      "yaw": 180,
+      "variant": "Full"
+    },
+    {
+      "id": "CentralDispatch",
+      "mesh": "DispatchConsole",
+      "position": [
+        0,
+        11.12,
+        0
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "RecordsDeskA",
+      "mesh": "RecordsDesk_A",
+      "position": [
+        -2.35,
+        11.37,
+        0
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "RecordsDeskB",
+      "mesh": "RecordsDesk_B",
+      "position": [
+        2.35,
+        11.37,
+        0
+      ],
+      "yaw": 0
+    }
+  ],
+  "replace_actor_labels": [
+    "DataArchive_RecordsDesk0",
+    "DataArchive_RecordsDesk1",
+    "DataArchive_RecordsDesk2"
+  ],
+  "replace_tags": [
+    "DataArchive.Equipment.V1",
+    "DataArchive.Equipment.V2"
+  ],
+  "power": [
+    {
+      "label": "DataArchive_PowerCabinetWest",
+      "sign": -1,
+      "y": 4.65
+    },
+    {
+      "label": "DataArchive_PowerCabinetEast",
+      "sign": 1,
+      "y": -4.65
+    }
+  ],
+  "notes": "Seeded offline arrangements persist on saved map. No runtime Tick / cabinet interaction.",
+  "sample_retired": true,
+  "production_map": "/Game/GameMaps/L_Dungeon_Randomized",
+  "module": "AbandonedDataArchive"
+}

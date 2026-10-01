@@ -1,0 +1,290 @@
+{
+  "objects": [
+    {
+      "name": "SM_AnatomyTheatre_Floors",
+      "kind": "Floors",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_Floors.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 664,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_Paving",
+      "kind": "Paving",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_Paving.fbx",
+      "materials": {
+        "RS_Ceramic": "/Game/Dungeons/AnatomyTheatre20261001/Materials/M_Theatre_Ceramic"
+      },
+      "triangles": 5624,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_Walls",
+      "kind": "Walls",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_Walls.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 5292,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_Tiles",
+      "kind": "Tiles",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_Tiles.fbx",
+      "materials": {
+        "RS_V2_WallReliefBed": "/Game/Dungeons/AtmosphereV2/WallRelief/Materials/MI_WallMortar_Bed.MI_WallMortar_Bed",
+        "RS_V2_NaturalCeramicCore": "/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalCeramicCore.M_NaturalCeramicCore",
+        "RS_V2_NaturalCeramicAtlas": "/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalCeramicAtlas.M_NaturalCeramicAtlas",
+        "RS_V2_WallReliefFinish": "/Game/Dungeons/AtmosphereV2/WallRelief/Materials/MI_WallMortar_Finish.MI_WallMortar_Finish",
+        "RS_V2_CeramicFractureCore": "/Game/Dungeons/AtmosphereV2/TileFracture/Materials/M_CeramicFractureCore"
+      },
+      "triangles": 335575,
+      "collision": false,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_Frames",
+      "kind": "Frames",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_Frames.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 144,
+      "collision": false,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_Roof",
+      "kind": "Roof",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_Roof.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 160,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_Terraces",
+      "kind": "Terraces",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_Terraces.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 10800,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_TerraceFinish",
+      "kind": "TerraceFinish",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_TerraceFinish.fbx",
+      "materials": {
+        "RS_Ceramic": "/Game/Dungeons/AnatomyTheatre20261001/Materials/M_Theatre_Ceramic"
+      },
+      "triangles": 1200,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_Nosing",
+      "kind": "Nosing",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_Nosing.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 10320,
+      "collision": false,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_SeatFrames",
+      "kind": "SeatFrames",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_SeatFrames.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "triangles": 5280,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_SeatHardware",
+      "kind": "SeatHardware",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_SeatHardware.fbx",
+      "materials": {
+        "RS_ServiceHardware": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel"
+      },
+      "triangles": 44352,
+      "collision": false,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_SeatWood",
+      "kind": "SeatWood",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_SeatWood.fbx",
+      "materials": {
+        "RS_Wood": "/Game/Dungeons/AnatomyTheatre20261001/Materials/M_Theatre_Wood"
+      },
+      "triangles": 23760,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_WritingLedges",
+      "kind": "WritingLedges",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_WritingLedges.fbx",
+      "materials": {
+        "RS_Wood": "/Game/Dungeons/AnatomyTheatre20261001/Materials/M_Theatre_Wood"
+      },
+      "triangles": 4752,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_RadialStairs",
+      "kind": "RadialStairs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_RadialStairs.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 3456,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_Railings",
+      "kind": "Railings",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_Railings.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "triangles": 6896,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_Gallery",
+      "kind": "Gallery",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_Gallery.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 732,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_SideStairs",
+      "kind": "SideStairs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_SideStairs.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 2592,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_RoofRibs",
+      "kind": "RoofRibs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_RoofRibs.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 120,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_Services",
+      "kind": "Services",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_Services.fbx",
+      "materials": {
+        "RS_PipeEnamel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 3020,
+      "collision": false,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_AutopsyTable",
+      "kind": "AutopsyTable",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_AutopsyTable.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "RS_PipeEnamel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_Rubber": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      },
+      "triangles": 3336,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_SurgicalLight",
+      "kind": "SurgicalLight",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_SurgicalLight.fbx",
+      "materials": {
+        "RS_PipeEnamel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_LampGlass": "/Game/Dungeons/AnatomyTheatre20261001/Materials/M_Theatre_LampGlass",
+        "RS_Rubber": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      },
+      "triangles": 4228,
+      "collision": false,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_TeachingBoard",
+      "kind": "TeachingBoard",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_TeachingBoard.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_Chalkboard": "/Game/Dungeons/AnatomyTheatre20261001/Materials/M_Theatre_Chalkboard",
+        "RS_PipeEnamel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel"
+      },
+      "triangles": 432,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_Lettering",
+      "kind": "Lettering",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_Lettering.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 1724,
+      "collision": false,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_LampHangers",
+      "kind": "LampHangers",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\Authored\\SM_AnatomyTheatre_LampHangers.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 896,
+      "collision": false,
+      "sample_only": false
+    }
+  ],
+  "tests_run": false,
+  "rendered": false,
+  "revision": "anatomy_theatre_subject_v1_20261001",
+  "ceramic_source": "DungeonTileFracture20260922 through CorridorSurfaces",
+  "source_units": "metres; UE centimetres",
+  "sample_retired": true,
+  "production_module": "AbandonedAnatomyTheatre"
+}

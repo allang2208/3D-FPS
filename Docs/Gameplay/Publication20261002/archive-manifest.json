@@ -1,0 +1,898 @@
+[
+  {
+    "source": "SourceAssets/DungeonAnatomyTheatre20261001/Authored/AbandonedAnatomyTheatre_Structure.blend1",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonAnatomyTheatre20261001/Authored/AbandonedAnatomyTheatre_Structure.blend1",
+    "bytes": 94995207,
+    "sha256": "35aabfbfd130d340d04a8c60a26735831b8005169ba1b4c86117d7e00425b714",
+    "reason": "Blender automatic previous-save backup; current editable .blend retained",
+    "replacement": "SourceAssets/DungeonAnatomyTheatre20261001/Authored/AbandonedAnatomyTheatre_Structure.blend"
+  },
+  {
+    "source": "SourceAssets/DungeonAnatomyTheatre20261001/Backup/Config/DefaultGame.ini",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonAnatomyTheatre20261001/Backup/Config/DefaultGame.ini",
+    "bytes": 16355,
+    "sha256": "7be190d94aea432bc440aa0d6dd1c3f404cd5e4a4b52c5fa6058efc291fe4a5b",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "Config/DefaultGame.ini"
+  },
+  {
+    "source": "SourceAssets/DungeonAnatomyTheatre20261001/Backup/Source/FPSGAME/SceneTestPortal.cpp",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonAnatomyTheatre20261001/Backup/Source/FPSGAME/SceneTestPortal.cpp",
+    "bytes": 10134,
+    "sha256": "da5c6135e891988207068b59e70d75269e9011c275f5700379cae740e7420b1c",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "Source/FPSGAME/SceneTestPortal.cpp"
+  },
+  {
+    "source": "SourceAssets/DungeonAnatomyTheatre20261001/Backup/Source/FPSGAME/UI/ColdSteelExpeditionController.cpp",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonAnatomyTheatre20261001/Backup/Source/FPSGAME/UI/ColdSteelExpeditionController.cpp",
+    "bytes": 5228,
+    "sha256": "5c74f6736a6ba11c7a26a0ffbf2c89f012ed255d44769f11656bf6c80435fbe2",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "Source/FPSGAME/UI/ColdSteelExpeditionController.cpp"
+  },
+  {
+    "source": "SourceAssets/DungeonAnatomyTheatre20261001/CentreLight20261001/Backup/room.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonAnatomyTheatre20261001/CentreLight20261001/Backup/room.json",
+    "bytes": 9473,
+    "sha256": "e992be44243274e28b329f5e4a9f1d7935f32655d5dd9dde89c03e26fdc38c85",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonAnatomyTheatre20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Backup/catalog-481462a43fbf.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Backup/catalog-481462a43fbf.json",
+    "bytes": 254316,
+    "sha256": "481462a43fbfd1443f145fbdc894a02328005039a74638c951351856177bf95e",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonAnatomyTheatre20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Backup/Config/DefaultGame.ini",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Backup/Config/DefaultGame.ini",
+    "bytes": 16700,
+    "sha256": "3c4cc042c14d61b61b80f939e78736517a041305d823bc5199eaf2e7c92a0ae6",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "Config/DefaultGame.ini"
+  },
+  {
+    "source": "SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Backup/Source/FPSGAME/SceneTestPortal.cpp",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Backup/Source/FPSGAME/SceneTestPortal.cpp",
+    "bytes": 10638,
+    "sha256": "812215329a492b7af0141f4c803ab07fdcf0d582fa3127770aec9aea3fac925f",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "Source/FPSGAME/SceneTestPortal.cpp"
+  },
+  {
+    "source": "SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Backup/Source/FPSGAME/UI/ColdSteelExpeditionController.cpp",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Backup/Source/FPSGAME/UI/ColdSteelExpeditionController.cpp",
+    "bytes": 6289,
+    "sha256": "2488899934e0c4cb31d155bb8a80bfd61b09e46244b3b34bb6dd7c59dddd9a68",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "Source/FPSGAME/UI/ColdSteelExpeditionController.cpp"
+  },
+  {
+    "source": "SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Backup/SourceAssets/DungeonAnatomyTheatre20261001/Authored/manifest.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Backup/SourceAssets/DungeonAnatomyTheatre20261001/Authored/manifest.json",
+    "bytes": 12059,
+    "sha256": "51452bae270e0c5f50c50c1391eaea35d9740e3f4db920c43ffd413a53f47975",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonAnatomyTheatre20261001/Authored/manifest.json"
+  },
+  {
+    "source": "SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Backup/SourceAssets/DungeonAnatomyTheatre20261001/Config/room.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Backup/SourceAssets/DungeonAnatomyTheatre20261001/Config/room.json",
+    "bytes": 9474,
+    "sha256": "598d45820e18448bcc7a340cdee3622a331151034c37cb8a2a9fdbd89c0c43b5",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonAnatomyTheatre20261001/Config/room.json"
+  },
+  {
+    "source": "SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Backup/SourceAssets/DungeonAnatomyTheatre20261001/Scripts/author_theatre.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Backup/SourceAssets/DungeonAnatomyTheatre20261001/Scripts/author_theatre.py",
+    "bytes": 11458,
+    "sha256": "5c39ba300d4a1fe08aaf8ba10e5571dec90f1968878e1934253a82dd6d021e76",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonAnatomyTheatre20261001/Scripts/author_theatre.py"
+  },
+  {
+    "source": "SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Backup/SourceAssets/DungeonAnatomyTheatre20261001/Scripts/prepare_design.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Backup/SourceAssets/DungeonAnatomyTheatre20261001/Scripts/prepare_design.py",
+    "bytes": 3173,
+    "sha256": "d7d73cc87f6b9a3e9052778ab97dea214afadc528393d04a3e3cadd6209f3606",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonAnatomyTheatre20261001/Scripts/prepare_design.py"
+  },
+  {
+    "source": "SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Backup/SourceAssets/DungeonRouteRepairs20260922/Scripts/extend_catalog.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Backup/SourceAssets/DungeonRouteRepairs20260922/Scripts/extend_catalog.py",
+    "bytes": 7090,
+    "sha256": "5d72ba491860ce1fd1201232c3ba95a0e2502a8d9bd7c627417de3160c069789",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonRouteRepairs20260922/Scripts/extend_catalog.py"
+  },
+  {
+    "source": "SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Scripts/retire_subject.ps1",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Scripts/retire_subject.ps1",
+    "bytes": 3704,
+    "sha256": "04aa7b13610c3ce3ce6e98e5563c2deb5d42362a0d31c2017df7cd79c3146deb",
+    "reason": "Completed one-time sample retirement or editor-context operation; production authoring retained",
+    "replacement": "SourceAssets/DungeonRoutes20260922/Config/catalog.json"
+  },
+  {
+    "source": "SourceAssets/DungeonAnatomyTheatre20261001/SeatLightRefine20261001/Backup/author_theatre.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonAnatomyTheatre20261001/SeatLightRefine20261001/Backup/author_theatre.py",
+    "bytes": 10488,
+    "sha256": "a384766c07d2fd9a4227e8189dd12ea3421b232018cae9df3ec870db72de4e8a",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonAnatomyTheatre20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonAnatomyTheatre20261001/SeatLightRefine20261001/Backup/dungeon-anatomy-theatre-subject-20261001.md",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonAnatomyTheatre20261001/SeatLightRefine20261001/Backup/dungeon-anatomy-theatre-subject-20261001.md",
+    "bytes": 4841,
+    "sha256": "4bc00e8c6767b5c8c1f119d3f257c2d69c535407c939f70a9487990bb9e88b87",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonAnatomyTheatre20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonAnatomyTheatre20261001/SeatLightRefine20261001/Backup/export_geometry.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonAnatomyTheatre20261001/SeatLightRefine20261001/Backup/export_geometry.py",
+    "bytes": 3267,
+    "sha256": "11641017d9087e30fe0055780b2b04d7689cdd247ee50e60393deda339b4403c",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonAnatomyTheatre20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonAnatomyTheatre20261001/SeatLightRefine20261001/Backup/prepare_design.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonAnatomyTheatre20261001/SeatLightRefine20261001/Backup/prepare_design.py",
+    "bytes": 2943,
+    "sha256": "4aa169a1fe2437a0e24afd3c68313e4f95e4475a53780b3c19b63dbd49b24847",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonAnatomyTheatre20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonAnatomyTheatre20261001/SeatLightRefine20261001/Backup/room.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonAnatomyTheatre20261001/SeatLightRefine20261001/Backup/room.json",
+    "bytes": 9229,
+    "sha256": "98427421503bab0aa203628dfc92676d1b11425edc9a7442dce14f2013742db3",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonAnatomyTheatre20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonAnatomyTheatre20261001/SeatLightRefine20261001/Backup/sources.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonAnatomyTheatre20261001/SeatLightRefine20261001/Backup/sources.json",
+    "bytes": 1146,
+    "sha256": "8dae7d2c2fe88245ce65c3f2254d351f44f4e15215454417f62a07956e0d9956",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonAnatomyTheatre20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonCargoWarehouse20261001/Authored/AbandonedCargoWarehouseStation_Source.blend1",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonCargoWarehouse20261001/Authored/AbandonedCargoWarehouseStation_Source.blend1",
+    "bytes": 79870159,
+    "sha256": "3f6cf0840597611d6665c003e42453f75cd7ff98bde867f6ed506efad7247221",
+    "reason": "Blender automatic previous-save backup; current editable .blend retained",
+    "replacement": "SourceAssets/DungeonCargoWarehouse20261001/Authored/AbandonedCargoWarehouseStation_Source.blend"
+  },
+  {
+    "source": "SourceAssets/DungeonCargoWarehouse20261001/RefineV2/Authored/AbandonedCargoWarehouseStation_Source.blend1",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonCargoWarehouse20261001/RefineV2/Authored/AbandonedCargoWarehouseStation_Source.blend1",
+    "bytes": 83916732,
+    "sha256": "9f5b1bcc35b52daa0944fd30880e2ee99106a69e73dac1338bd30f6ad2b91574",
+    "reason": "Blender automatic previous-save backup; current editable .blend retained",
+    "replacement": "SourceAssets/DungeonCargoWarehouse20261001/RefineV2/Authored/AbandonedCargoWarehouseStation_Source.blend"
+  },
+  {
+    "source": "SourceAssets/DungeonDataArchive20260930/Equipment20260930/Authored/ArchiveEquipment_Editable.blend1",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonDataArchive20260930/Equipment20260930/Authored/ArchiveEquipment_Editable.blend1",
+    "bytes": 29541731,
+    "sha256": "6be2278d8586590bba7364a85eb6fbd2dfb0c9b0d86a35370b3830bfee4e70de",
+    "reason": "Blender automatic previous-save backup; current editable .blend retained",
+    "replacement": "SourceAssets/DungeonDataArchive20260930/Equipment20260930/Authored/ArchiveEquipment_Editable.blend"
+  },
+  {
+    "source": "SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Authored/ArchiveEquipment_Editable.blend1",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Authored/ArchiveEquipment_Editable.blend1",
+    "bytes": 33240642,
+    "sha256": "3e2da032c2857fa95eae36cd361ce3b8ef30413aeee34964112918e0f59b0919",
+    "reason": "Blender automatic previous-save backup; current editable .blend retained",
+    "replacement": "SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Authored/ArchiveEquipment_Editable.blend"
+  },
+  {
+    "source": "SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Backup/map-sha256.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Backup/map-sha256.json",
+    "bytes": 229,
+    "sha256": "c71dd674d7f369b196746a161f2d62361892e99d4cea2f21aa2ea68c84675662",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonDataArchive20260930 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Backup/room-before-v2.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Backup/room-before-v2.json",
+    "bytes": 6201,
+    "sha256": "f492fdb9472232559b2dbafc82ae27cbd97f75d7fcbb8ac33fd7f816f2375713",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonDataArchive20260930 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/catalog-73c5d9b2751d.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/catalog-73c5d9b2751d.json",
+    "bytes": 221788,
+    "sha256": "73c5d9b2751d288488953abeb4d67fba6ac05fa7b56baa0f0ea67c9d389221ac",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonDataArchive20260930 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/Config/DefaultGame.ini",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/Config/DefaultGame.ini",
+    "bytes": 16336,
+    "sha256": "15076b22a5fdc1f43fc8a0dbbb0e2bec57f91611ae03ccf3d284c5d05788ea2a",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "Config/DefaultGame.ini"
+  },
+  {
+    "source": "SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/Source/FPSGAME/SceneTestPortal.cpp",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/Source/FPSGAME/SceneTestPortal.cpp",
+    "bytes": 10633,
+    "sha256": "1e67e328a6706fd6defecb083c1ca7471601e1ef1045cc19c8419ddcd0474119",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "Source/FPSGAME/SceneTestPortal.cpp"
+  },
+  {
+    "source": "SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/Source/FPSGAME/UI/ColdSteelExpeditionController.cpp",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/Source/FPSGAME/UI/ColdSteelExpeditionController.cpp",
+    "bytes": 6296,
+    "sha256": "ddfe79cb2e60107fc7ef665384c2e3d6acccac83ec18507529cc10ab01c2b54f",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "Source/FPSGAME/UI/ColdSteelExpeditionController.cpp"
+  },
+  {
+    "source": "SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+    "bytes": 21659,
+    "sha256": "cb351d7a8271faa95295f10ee868154da672ac122257d820f0c3cd68d5db09a3",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "Source/FPSGAME/Weapons/GunsmithSystem.cpp"
+  },
+  {
+    "source": "SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/SourceAssets/DungeonDataArchive20260930/Authored/manifest.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/SourceAssets/DungeonDataArchive20260930/Authored/manifest.json",
+    "bytes": 9250,
+    "sha256": "6e298db94c15e5390564dc6396f2cf8e02f50acc437284b769788338098e2d83",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonDataArchive20260930/Authored/manifest.json"
+  },
+  {
+    "source": "SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/SourceAssets/DungeonDataArchive20260930/Config/room.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/SourceAssets/DungeonDataArchive20260930/Config/room.json",
+    "bytes": 6438,
+    "sha256": "0f020199457e566dcdaeff79cf9b2b89e71b9492aaf7ee5c782996b309c8d8bc",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonDataArchive20260930/Config/room.json"
+  },
+  {
+    "source": "SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/SourceAssets/DungeonDataArchive20260930/Equipment20260930/Config/layout.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/SourceAssets/DungeonDataArchive20260930/Equipment20260930/Config/layout.json",
+    "bytes": 2861,
+    "sha256": "35db515546904d9e9a4b9e86b40ae09d2d8baef7e2786228299845bbbb8ef584",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonDataArchive20260930/Equipment20260930/Config/layout.json"
+  },
+  {
+    "source": "SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Config/layout.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Config/layout.json",
+    "bytes": 4521,
+    "sha256": "b0cc83c5cc2c9350a9da5d59b487e4aa8343205bcff2834cfb273d5d5064ea40",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Config/layout.json"
+  },
+  {
+    "source": "SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Scripts/configure_layout.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Scripts/configure_layout.py",
+    "bytes": 2366,
+    "sha256": "89a37fad996bbb1348f651e781b2f1a5962dfa57e13b7d11d95d3908e6bce5b6",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Scripts/configure_layout.py"
+  },
+  {
+    "source": "SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/SourceAssets/DungeonDataArchive20260930/Scripts/author_archive.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/SourceAssets/DungeonDataArchive20260930/Scripts/author_archive.py",
+    "bytes": 7781,
+    "sha256": "f3269f0e5059afbfda2391cf1a939f8af2dbdd7f028fd6bd3b8d42c75699f3c2",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonDataArchive20260930/Scripts/author_archive.py"
+  },
+  {
+    "source": "SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/SourceAssets/DungeonDataArchive20260930/Scripts/prepare_design.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/SourceAssets/DungeonDataArchive20260930/Scripts/prepare_design.py",
+    "bytes": 2727,
+    "sha256": "c3b5cf286ae829d864f70a6f0d8e91b7575d2049542213951845168b8ef44a56",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonDataArchive20260930/Scripts/prepare_design.py"
+  },
+  {
+    "source": "SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/SourceAssets/DungeonRouteRepairs20260922/Scripts/extend_catalog.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonDataArchive20260930/Pool20261001/Backup/SourceAssets/DungeonRouteRepairs20260922/Scripts/extend_catalog.py",
+    "bytes": 6774,
+    "sha256": "dbf68955063cf5878a745a9d2b16241c5b0bdd62fb30ad7453e2615b10e6bb34",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonRouteRepairs20260922/Scripts/extend_catalog.py"
+  },
+  {
+    "source": "SourceAssets/DungeonDataArchive20260930/Pool20261001/Scripts/retire_subject.ps1",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonDataArchive20260930/Pool20261001/Scripts/retire_subject.ps1",
+    "bytes": 3816,
+    "sha256": "2eb10298f0180361240c4ffcf0ba98f96d182c77ee28fc73c0b381dee092a147",
+    "reason": "Completed one-time sample retirement or editor-context operation; production authoring retained",
+    "replacement": "SourceAssets/DungeonRoutes20260922/Config/catalog.json"
+  },
+  {
+    "source": "SourceAssets/DungeonFlueGasStation20261001/MantleFooting20261001/Backup/FPSTraversalComponent.cpp",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonFlueGasStation20261001/MantleFooting20261001/Backup/FPSTraversalComponent.cpp",
+    "bytes": 18174,
+    "sha256": "4a1f87e64252cbda610e0110ede37f0fe26d56ce36005bc52c4fb18c8f62e967",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonFlueGasStation20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonFlueGasStation20261001/MantleFooting20261001/Backup/manifest.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonFlueGasStation20261001/MantleFooting20261001/Backup/manifest.json",
+    "bytes": 307,
+    "sha256": "6414694e98dd15fd2ef6057d6e270338001b398f3bad173b650dc2ecf287b608",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonFlueGasStation20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonFlueGasStation20261001/Production20261001/Backup/catalog-16e3fac465d0.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonFlueGasStation20261001/Production20261001/Backup/catalog-16e3fac465d0.json",
+    "bytes": 282350,
+    "sha256": "16e3fac465d0cb8c0137e4e87963bf2a0c397c4da1836f7efdc8467786ef18c1",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonFlueGasStation20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonFlueGasStation20261001/Production20261001/Scripts/end_pie_for_retirement.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonFlueGasStation20261001/Production20261001/Scripts/end_pie_for_retirement.py",
+    "bytes": 204,
+    "sha256": "4258771ca2f9858f8f68d9d6f9e0ee4e4223b2eabe1e679c7efedcbfeeeb8b21",
+    "reason": "Completed one-time sample retirement or editor-context operation; production authoring retained",
+    "replacement": "SourceAssets/DungeonRoutes20260922/Config/catalog.json"
+  },
+  {
+    "source": "SourceAssets/DungeonFlueGasStation20261001/RailTraversal20261001/Backup/FPSTraversalComponent.cpp",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonFlueGasStation20261001/RailTraversal20261001/Backup/FPSTraversalComponent.cpp",
+    "bytes": 15489,
+    "sha256": "13d4e8d3b7406a2875cc4e6d4931807111a78e22f882a06751dafc77c69e2857",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonFlueGasStation20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonFlueGasStation20261001/RailTraversal20261001/Backup/FPSTraversalRules.cpp",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonFlueGasStation20261001/RailTraversal20261001/Backup/FPSTraversalRules.cpp",
+    "bytes": 3679,
+    "sha256": "e83f45d3fb7eec489c18324bd42019296f308b07111a620fb5a504f5893eff99",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonFlueGasStation20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonFlueGasStation20261001/RailTraversal20261001/Backup/FPSTraversalRules.h",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonFlueGasStation20261001/RailTraversal20261001/Backup/FPSTraversalRules.h",
+    "bytes": 4626,
+    "sha256": "86e080d02bbe5502159d592ebb266d6cb26fb572ea1bcabd744514a5607f6ad3",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonFlueGasStation20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonFlueGasStation20261001/RailTraversal20261001/Backup/manifest.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonFlueGasStation20261001/RailTraversal20261001/Backup/manifest.json",
+    "bytes": 888,
+    "sha256": "393d47431f8bc13b5c118f08355be476e5f106be567b82f01cd73b60f01852ff",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonFlueGasStation20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonFlueGasStation20261001/RefineV2/Authored/AbandonedFlueGasStation_Source.blend1",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonFlueGasStation20261001/RefineV2/Authored/AbandonedFlueGasStation_Source.blend1",
+    "bytes": 83031365,
+    "sha256": "2b1fe951f67a079dd6d2e3c94aa0a04b15b4bba642a5f141822e36c56a069dc2",
+    "reason": "Blender automatic previous-save backup; current editable .blend retained",
+    "replacement": "SourceAssets/DungeonFlueGasStation20261001/RefineV2/Authored/AbandonedFlueGasStation_Source.blend"
+  },
+  {
+    "source": "SourceAssets/DungeonFlueGasStation20261001/RefineV2/Backup/manifest.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonFlueGasStation20261001/RefineV2/Backup/manifest.json",
+    "bytes": 2740,
+    "sha256": "232666e7836f66f3e63941277995e10f6a4825dc1f43c3ccae928402b454378e",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonFlueGasStation20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonFlueGasStation20261001/RefineV2/Backup/SourceAssets/DungeonFlueGasStation20261001/Config/module-draft.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonFlueGasStation20261001/RefineV2/Backup/SourceAssets/DungeonFlueGasStation20261001/Config/module-draft.json",
+    "bytes": 19208,
+    "sha256": "59512d42ef0e6fff1b6d05f350560d21d0959ecd5126d3227556013b8b3c4660",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonFlueGasStation20261001/Config/module-draft.json"
+  },
+  {
+    "source": "SourceAssets/DungeonFlueGasStation20261001/RefineV2/Backup/SourceAssets/DungeonFlueGasStation20261001/Config/room.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonFlueGasStation20261001/RefineV2/Backup/SourceAssets/DungeonFlueGasStation20261001/Config/room.json",
+    "bytes": 6085,
+    "sha256": "dd4060b4af48288463e8a09eae6d14c261205103dca23aaf6077b764098c831f",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonFlueGasStation20261001/Config/room.json"
+  },
+  {
+    "source": "SourceAssets/DungeonFlueGasStation20261001/RefineV2/Backup/SourceAssets/DungeonFlueGasStation20261001/Scripts/author_labels.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonFlueGasStation20261001/RefineV2/Backup/SourceAssets/DungeonFlueGasStation20261001/Scripts/author_labels.py",
+    "bytes": 2874,
+    "sha256": "75b9ab39d29897f2f15326e5e80986c222d5eef4bf7142401b84146aadb45287",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonFlueGasStation20261001/Scripts/author_labels.py"
+  },
+  {
+    "source": "SourceAssets/DungeonFlueGasStation20261001/RefineV2/Backup/SourceAssets/DungeonFlueGasStation20261001/Scripts/author_station.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonFlueGasStation20261001/RefineV2/Backup/SourceAssets/DungeonFlueGasStation20261001/Scripts/author_station.py",
+    "bytes": 15880,
+    "sha256": "56dfb52375693172354e4d79caa7648fd0dcad36d5fe29102c3cffec05318f3e",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonFlueGasStation20261001/Scripts/author_station.py"
+  },
+  {
+    "source": "SourceAssets/DungeonFlueGasStation20261001/RefineV2/Backup/SourceAssets/DungeonFlueGasStation20261001/Scripts/export_geometry.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonFlueGasStation20261001/RefineV2/Backup/SourceAssets/DungeonFlueGasStation20261001/Scripts/export_geometry.py",
+    "bytes": 3821,
+    "sha256": "fc5d92497226df3d5f7059f3668b84a98a0ce527e112e7e0e348c4bbd114a33d",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonFlueGasStation20261001/Scripts/export_geometry.py"
+  },
+  {
+    "source": "SourceAssets/DungeonFlueGasStation20261001/RefineV2/Backup/SourceAssets/DungeonFlueGasStation20261001/Scripts/prepare_design.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonFlueGasStation20261001/RefineV2/Backup/SourceAssets/DungeonFlueGasStation20261001/Scripts/prepare_design.py",
+    "bytes": 3448,
+    "sha256": "8da0b3676eb8e71cf8a79727607856fc2c77ff8498df7e72fca473b75bfc015a",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonFlueGasStation20261001/Scripts/prepare_design.py"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/AshStation20260930/Authored/AshReceivingStation_PrecisionV3.blend1",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/AshStation20260930/Authored/AshReceivingStation_PrecisionV3.blend1",
+    "bytes": 24055479,
+    "sha256": "4044fc8f9ce07fc45ca76b398e48dc256cbb4c715ef0a91f6291da368aa59e6d",
+    "reason": "Blender automatic previous-save backup; current editable .blend retained",
+    "replacement": "SourceAssets/DungeonIncineratorHall20260929/AshStation20260930/Authored/AshReceivingStation_PrecisionV3.blend"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/AshStation20260930/Backup/L_AbandonedIncineratorHall_Subject.umap",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/AshStation20260930/Backup/L_AbandonedIncineratorHall_Subject.umap",
+    "bytes": 118574,
+    "sha256": "1179ecae9f83a9d046e73872e35697e1049f302f6d6ba3c7c6c4cabcb5aabf18",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonIncineratorHall20260929 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/AshStation20260930/Backup/room-before-expansion.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/AshStation20260930/Backup/room-before-expansion.json",
+    "bytes": 7284,
+    "sha256": "89bec6dda9353ff98dd4d18f3905dee0f6b0d5f9ad25d84afc654cbe616402b3",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonIncineratorHall20260929 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/AshStation20260930/Scripts/editor_target_state.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/AshStation20260930/Scripts/editor_target_state.py",
+    "bytes": 868,
+    "sha256": "edc568c1a61251bd972158095a6bc24cefd123b42e8228bfc947f4274e18580b",
+    "reason": "Completed one-time sample retirement or editor-context operation; production authoring retained",
+    "replacement": "SourceAssets/DungeonRoutes20260922/Config/catalog.json"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/CautionFix20260930/Backup/L_AbandonedIncineratorHall_Subject.umap",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/CautionFix20260930/Backup/L_AbandonedIncineratorHall_Subject.umap",
+    "bytes": 142951,
+    "sha256": "ccc5d520dd8bec1ff223ac6dd62831a478fecd2fb014ceaa734fc0ae4b441bea",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonIncineratorHall20260929 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/CautionFix20260930/Scripts/editor_target_state.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/CautionFix20260930/Scripts/editor_target_state.py",
+    "bytes": 893,
+    "sha256": "f0959c76fbe2e5ff630839ed3abd82c40223ace597397799984895944b01b426",
+    "reason": "Completed one-time sample retirement or editor-context operation; production authoring retained",
+    "replacement": "SourceAssets/DungeonRoutes20260922/Config/catalog.json"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/Equipment20260930/Backup/L_AbandonedIncineratorHall_Subject.umap",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/Equipment20260930/Backup/L_AbandonedIncineratorHall_Subject.umap",
+    "bytes": 111294,
+    "sha256": "5cc014baa239c01537352029f6b4e38cafdeb94452d5f450533801388200f432",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonIncineratorHall20260929 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/MorgueB120260930/Authored/Morgue_Equipment_And_StairRails.blend1",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/MorgueB120260930/Authored/Morgue_Equipment_And_StairRails.blend1",
+    "bytes": 25671214,
+    "sha256": "cd62439726fdc0635f51bff87d0aed2a474cdc6b98743d89e5a57d70108af06c",
+    "reason": "Blender automatic previous-save backup; current editable .blend retained",
+    "replacement": "SourceAssets/DungeonIncineratorHall20260929/MorgueB120260930/Authored/Morgue_Equipment_And_StairRails.blend"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/MorgueB120260930/Backup/L_AbandonedIncineratorHall_Subject.umap",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/MorgueB120260930/Backup/L_AbandonedIncineratorHall_Subject.umap",
+    "bytes": 142951,
+    "sha256": "f581aadc7219f7c075687a29e5f7cbf860229345cf603ffbf1c8b0313e97dab0",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonIncineratorHall20260929 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/MorgueB120260930/Scripts/editor_target_state.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/MorgueB120260930/Scripts/editor_target_state.py",
+    "bytes": 821,
+    "sha256": "ed29da857d70cfac59e3ee70e96c20e79c9a83f017d2da40a79a939bd868af2f",
+    "reason": "Completed one-time sample retirement or editor-context operation; production authoring retained",
+    "replacement": "SourceAssets/DungeonRoutes20260922/Config/catalog.json"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/MorgueBlood20260930/Backup/L_AbandonedIncineratorHall_Subject.umap",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/MorgueBlood20260930/Backup/L_AbandonedIncineratorHall_Subject.umap",
+    "bytes": 216894,
+    "sha256": "fa7bbcc869ec3ad2537716ef31eafd49a18ce6a7221683d75ba902004eab545f",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonIncineratorHall20260929 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/MorgueBlood20260930/Scripts/editor_target_state.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/MorgueBlood20260930/Scripts/editor_target_state.py",
+    "bytes": 821,
+    "sha256": "ed29da857d70cfac59e3ee70e96c20e79c9a83f017d2da40a79a939bd868af2f",
+    "reason": "Completed one-time sample retirement or editor-context operation; production authoring retained",
+    "replacement": "SourceAssets/DungeonRoutes20260922/Config/catalog.json"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/MorgueLighting20260930/Backup/L_AbandonedIncineratorHall_Subject.umap",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/MorgueLighting20260930/Backup/L_AbandonedIncineratorHall_Subject.umap",
+    "bytes": 209058,
+    "sha256": "5b0f887392fc59480039c7771849bff403411513ecdde3ea0c1fa795102993ef",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonIncineratorHall20260929 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/MorgueLighting20260930/Scripts/editor_target_state.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/MorgueLighting20260930/Scripts/editor_target_state.py",
+    "bytes": 821,
+    "sha256": "ed29da857d70cfac59e3ee70e96c20e79c9a83f017d2da40a79a939bd868af2f",
+    "reason": "Completed one-time sample retirement or editor-context operation; production authoring retained",
+    "replacement": "SourceAssets/DungeonRoutes20260922/Config/catalog.json"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/MorgueOpenPlan20260930/Authored/Morgue_OpenPlan_SignsV2.blend1",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/MorgueOpenPlan20260930/Authored/Morgue_OpenPlan_SignsV2.blend1",
+    "bytes": 450401,
+    "sha256": "54ab33d58456a50103e6b8c9910eeddab9f1ecc5770aef4ab1d132fe77532f40",
+    "reason": "Blender automatic previous-save backup; current editable .blend retained",
+    "replacement": "SourceAssets/DungeonIncineratorHall20260929/MorgueOpenPlan20260930/Authored/Morgue_OpenPlan_SignsV2.blend"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/MorgueOpenPlan20260930/Backup/L_AbandonedIncineratorHall_Subject.umap",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/MorgueOpenPlan20260930/Backup/L_AbandonedIncineratorHall_Subject.umap",
+    "bytes": 202713,
+    "sha256": "7a8a966ab72e34be804b99e285a2c50c2251523e662b9b005425d3a8f25f2a2d",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonIncineratorHall20260929 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/MorgueOpenPlan20260930/Scripts/editor_target_state.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/MorgueOpenPlan20260930/Scripts/editor_target_state.py",
+    "bytes": 821,
+    "sha256": "ed29da857d70cfac59e3ee70e96c20e79c9a83f017d2da40a79a939bd868af2f",
+    "reason": "Completed one-time sample retirement or editor-context operation; production authoring retained",
+    "replacement": "SourceAssets/DungeonRoutes20260922/Config/catalog.json"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/Pool20260930/Backup/catalog-dec03d8071ae.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/Pool20260930/Backup/catalog-dec03d8071ae.json",
+    "bytes": 174240,
+    "sha256": "dec03d8071ae2c915a106bdc1c76393d0767aafc4c4bd5333e5c2fe5b8552df5",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonIncineratorHall20260929 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/Pool20260930/Scripts/retire_subject.ps1",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/Pool20260930/Scripts/retire_subject.ps1",
+    "bytes": 3339,
+    "sha256": "5c1d3f38a3b9535fdc5ed0eebcccc28150d3645edc545a862717cb2549b71ee8",
+    "reason": "Completed one-time sample retirement or editor-context operation; production authoring retained",
+    "replacement": "SourceAssets/DungeonRoutes20260922/Config/catalog.json"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/SceneFix20260930/Backup/FPSTraversalComponent.cpp",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/SceneFix20260930/Backup/FPSTraversalComponent.cpp",
+    "bytes": 14572,
+    "sha256": "658f81bc1209fc5914c373a85f56a8376d46e59e2e46198c25c1cb156a60c468",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonIncineratorHall20260929 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/SceneFix20260930/Backup/FPSTraversalComponent.h",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/SceneFix20260930/Backup/FPSTraversalComponent.h",
+    "bytes": 5572,
+    "sha256": "58c9416353b0a7caa54e286791ed0b152d88522e9d3d9272bea0f5df4fc17592",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonIncineratorHall20260929 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/SceneFix20260930/Backup/FPSTraversalExecution.cpp",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/SceneFix20260930/Backup/FPSTraversalExecution.cpp",
+    "bytes": 15738,
+    "sha256": "11f17dc315cfa9b6fcc81168420b25a35c6b2023090fa38820c8aaec3863bd07",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonIncineratorHall20260929 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/SceneFix20260930/Backup/FPSTraversalRules.cpp",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/SceneFix20260930/Backup/FPSTraversalRules.cpp",
+    "bytes": 3537,
+    "sha256": "6c2e1bd9744707ab3901105ac8363ac8c0836775bc99489478b7acf48c48aa30",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonIncineratorHall20260929 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/SceneFix20260930/Backup/FPSTraversalRules.h",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/SceneFix20260930/Backup/FPSTraversalRules.h",
+    "bytes": 4430,
+    "sha256": "401537a191734d01a12e058572425af0c322653423ff0cc293ee46b5ca4e94f4",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonIncineratorHall20260929 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/SceneFix20260930/Backup/L_AbandonedIncineratorHall_Subject.umap",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/SceneFix20260930/Backup/L_AbandonedIncineratorHall_Subject.umap",
+    "bytes": 118270,
+    "sha256": "56f77e2fdcb70909f833a1ae11f96730f5d840e636b051881efc61b0d497b8f7",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonIncineratorHall20260929 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonIncineratorHall20260929/Signage20260930/Backup/L_AbandonedIncineratorHall_Subject.umap",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonIncineratorHall20260929/Signage20260930/Backup/L_AbandonedIncineratorHall_Subject.umap",
+    "bytes": 124589,
+    "sha256": "2ca4a5330dbf29208482f96cf02741d05e9242261cac7feefbf962cea12c48b5",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonIncineratorHall20260929 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Materials/M_WSDetail_BareEdge.uasset",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Materials/M_WSDetail_BareEdge.uasset",
+    "bytes": 12409,
+    "sha256": "72200404d63df581645e392437f98793a14616570c0bd959968f2f76ec9b02ff",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "Content/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Materials/M_WSDetail_BareEdge.uasset"
+  },
+  {
+    "source": "SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Materials/M_WSDetail_PaintRed.uasset",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Materials/M_WSDetail_PaintRed.uasset",
+    "bytes": 12302,
+    "sha256": "3311fead0080877570dcf9033a5070135ad934d0ba0e8f52eb399426752421e5",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "Content/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Materials/M_WSDetail_PaintRed.uasset"
+  },
+  {
+    "source": "SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Materials/M_WSDetail_Whiteboard.uasset",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Materials/M_WSDetail_Whiteboard.uasset",
+    "bytes": 12538,
+    "sha256": "1c91a0262b92c623e8e8feaabcf3f37497a6514244d0804f1e88d99b27230e65",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "Content/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Materials/M_WSDetail_Whiteboard.uasset"
+  },
+  {
+    "source": "SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSculpt/Materials/M_WSSculpt_Machined.uasset",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSculpt/Materials/M_WSSculpt_Machined.uasset",
+    "bytes": 13239,
+    "sha256": "58acc6113b881d18a59ed3e8c1f69e1c8119faef29777c53b6592978d02d20a6",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "Content/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSculpt/Materials/M_WSSculpt_Machined.uasset"
+  },
+  {
+    "source": "SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSculpt/Materials/M_WSSculpt_RubberGrip.uasset",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSculpt/Materials/M_WSSculpt_RubberGrip.uasset",
+    "bytes": 11859,
+    "sha256": "ff70b5e75fe1e7ab85b5c2216a047c1f33d012dd95ee99f592641a389bca1c91",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "Content/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSculpt/Materials/M_WSSculpt_RubberGrip.uasset"
+  },
+  {
+    "source": "SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSurface/Materials/M_WSFinish_ExposedEdge.uasset",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSurface/Materials/M_WSFinish_ExposedEdge.uasset",
+    "bytes": 10237,
+    "sha256": "6473f968b9ea4529859fa7370b9391ef43408449a57f12fcf508a8e1d190f87d",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "Content/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSurface/Materials/M_WSFinish_ExposedEdge.uasset"
+  },
+  {
+    "source": "SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Dungeons/AtmosphereV2/Services/Materials/M_Service_Gasket.uasset",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Dungeons/AtmosphereV2/Services/Materials/M_Service_Gasket.uasset",
+    "bytes": 8733,
+    "sha256": "0ffb62789f9cca79eef08c917d3b65c8a578da6b3210b91e1b69653267e4081c",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "Content/Dungeons/AtmosphereV2/Services/Materials/M_Service_Gasket.uasset"
+  },
+  {
+    "source": "SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Dungeons/AtmosphereV2/Services/Materials/M_Service_Hardware.uasset",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Dungeons/AtmosphereV2/Services/Materials/M_Service_Hardware.uasset",
+    "bytes": 11221,
+    "sha256": "e6bd4c0cd0ceac7751e5443f576b0e96b203f6d4b02466e4daa653da5944d86e",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "Content/Dungeons/AtmosphereV2/Services/Materials/M_Service_Hardware.uasset"
+  },
+  {
+    "source": "SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Props/SquareAltar20260922/Materials/M_Altar_BlueSapphire.uasset",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Props/SquareAltar20260922/Materials/M_Altar_BlueSapphire.uasset",
+    "bytes": 10655,
+    "sha256": "f4e3e42ddaa30816923df935cdd844d0cf82a40f9f05025cf195503800a0cd0f",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "Content/Props/SquareAltar20260922/Materials/M_Altar_BlueSapphire.uasset"
+  },
+  {
+    "source": "SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Props/SquareAltar20260922/Materials/M_Altar_PolishedMolding.uasset",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Props/SquareAltar20260922/Materials/M_Altar_PolishedMolding.uasset",
+    "bytes": 14335,
+    "sha256": "a9afd664f865e718613734e346fdf2cc9ea8546a57d96993f7632c6134fd75e6",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "Content/Props/SquareAltar20260922/Materials/M_Altar_PolishedMolding.uasset"
+  },
+  {
+    "source": "SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Props/SquareAltar20260922/Materials/M_Altar_SatinGold.uasset",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Props/SquareAltar20260922/Materials/M_Altar_SatinGold.uasset",
+    "bytes": 10746,
+    "sha256": "aac93d51d5b065acc1efbe48072832f8bbd716fbafdd6414303e8b9590c35395",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "Content/Props/SquareAltar20260922/Materials/M_Altar_SatinGold.uasset"
+  },
+  {
+    "source": "SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Props/SquareAltar20260922/Materials/M_Altar_WhiteMarble.uasset",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonNaniteUsage20261001/Backup/Content/Props/SquareAltar20260922/Materials/M_Altar_WhiteMarble.uasset",
+    "bytes": 14432,
+    "sha256": "d51ff7beb1f6ff79f14c531ecfaf691b96f9ac749923be228bca16539c14166b",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "Content/Props/SquareAltar20260922/Materials/M_Altar_WhiteMarble.uasset"
+  },
+  {
+    "source": "SourceAssets/DungeonSplitLevels20261001/Authored/SplitLevelRamps.blend1",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonSplitLevels20261001/Authored/SplitLevelRamps.blend1",
+    "bytes": 496721,
+    "sha256": "bd38ac92dde7ba320063b005ad726ccab5e43eebdee1f0ffe4221d21c5c6c3c4",
+    "reason": "Blender automatic previous-save backup; current editable .blend retained",
+    "replacement": "SourceAssets/DungeonSplitLevels20261001/Authored/SplitLevelRamps.blend"
+  },
+  {
+    "source": "SourceAssets/DungeonSplitLevels20261001/Backup/catalog-6dd9f4d461e6.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonSplitLevels20261001/Backup/catalog-6dd9f4d461e6.json",
+    "bytes": 334976,
+    "sha256": "6dd9f4d461e6592ad121f5fd834c5fc89ed2e20e75d04d72c2394fb2646fe067",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonSplitLevels20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonSplitLevels20261001/Backup/L_Dungeon_Randomized-11239e0879a7.umap",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonSplitLevels20261001/Backup/L_Dungeon_Randomized-11239e0879a7.umap",
+    "bytes": 31122,
+    "sha256": "11239e0879a79236fcd57dbad1d0397446dd9dc3cd41b96ef5ac8ab85fb4e89e",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonSplitLevels20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonThemedRoutes20261001/Authored/FreightWarehouseLink.blend1",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonThemedRoutes20261001/Authored/FreightWarehouseLink.blend1",
+    "bytes": 100626961,
+    "sha256": "fdc6a0210407c2296af0bd1340c2f5562749df02f53e87550cb3492803aeb89d",
+    "reason": "Blender automatic previous-save backup; current editable .blend retained",
+    "replacement": "SourceAssets/DungeonThemedRoutes20261001/Authored/FreightWarehouseLink.blend"
+  },
+  {
+    "source": "SourceAssets/DungeonThemedRoutes20261001/Backup/catalog-a2c73ec1a3a0.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonThemedRoutes20261001/Backup/catalog-a2c73ec1a3a0.json",
+    "bytes": 295139,
+    "sha256": "a2c73ec1a3a0336bd27fc6bfcf1509a7f5d9b48458e45967455d827260150cfd",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonThemedRoutes20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonThemedRoutes20261001/Backup/catalog-before-reorder-9a62e974f3e1.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonThemedRoutes20261001/Backup/catalog-before-reorder-9a62e974f3e1.json",
+    "bytes": 334976,
+    "sha256": "9a62e974f3e13467f67786a9d2da1785fc3b6abec9b13e5fd21fd83ea935c554",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonThemedRoutes20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonThemedRoutes20261001/Backup/L_Dungeon_Randomized-9747a13b45c4.umap",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonThemedRoutes20261001/Backup/L_Dungeon_Randomized-9747a13b45c4.umap",
+    "bytes": 31122,
+    "sha256": "9747a13b45c4980a24610099768eae7c5175d1a581e36bf77bb62b8115b12221",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonThemedRoutes20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonThemedRoutes20261001/Backup/L_Dungeon_Randomized-before-reorder-e634720e8ab5.umap",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonThemedRoutes20261001/Backup/L_Dungeon_Randomized-before-reorder-e634720e8ab5.umap",
+    "bytes": 31122,
+    "sha256": "e634720e8ab537293b0bf6daa5a9ca07f812ca2b6ee16102abc95f4951cee387",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonThemedRoutes20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonThemedRoutes20261001/Backup/L_Dungeon_Randomized-before-transition-counts-93a8bb8778b7.umap",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonThemedRoutes20261001/Backup/L_Dungeon_Randomized-before-transition-counts-93a8bb8778b7.umap",
+    "bytes": 31258,
+    "sha256": "93a8bb8778b7125ed2b7c79965b77af4b7bdf544484fab1d1a6bce924251b1cc",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonThemedRoutes20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonThemedRoutes20261001/Backup/FreightRouteOnly/catalog-e7564cefe823.json",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonThemedRoutes20261001/Backup/FreightRouteOnly/catalog-e7564cefe823.json",
+    "bytes": 345059,
+    "sha256": "87b9f45e2c7dc6393feb88a0ebdad5e58994173055b8535a3ec71a17611cae23",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonThemedRoutes20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonThemedRoutes20261001/Backup/FreightRouteOnly/L_Dungeon_Randomized-e7564cefe823.umap",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonThemedRoutes20261001/Backup/FreightRouteOnly/L_Dungeon_Randomized-e7564cefe823.umap",
+    "bytes": 31122,
+    "sha256": "e7564cefe8236f5df231448901a0a042ba507a421b73b7d228a0ff16c5f69d11",
+    "reason": "Superseded pre-refinement or pre-production snapshot; current source/config/assets retained",
+    "replacement": "SourceAssets/DungeonThemedRoutes20261001 (current production sources and saved assets)"
+  },
+  {
+    "source": "SourceAssets/DungeonThemedRoutes20261001/Scripts/retire_warehouse.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonThemedRoutes20261001/Scripts/retire_warehouse.py",
+    "bytes": 9593,
+    "sha256": "1a904fd699d23d2ca7e92f52ba0d0473c0957c3cfdd6b7ea083be3eeb227a9bd",
+    "reason": "Completed one-time sample retirement or editor-context operation; production authoring retained",
+    "replacement": "SourceAssets/DungeonRoutes20260922/Config/catalog.json"
+  },
+  {
+    "source": "SourceAssets/DungeonFlueGasStation20261001/Production20261001/Scripts/finalize.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonFlueGasStation20261001/Production20261001/Scripts/finalize.py",
+    "bytes": 5047,
+    "sha256": "df3fffd719f24d5a4576dd1a65a0b24238c8e9388b36c6f3dd25c067a4a4944a",
+    "reason": "Completed one-time source rewrite or sample retirement; resulting author sources/config retained",
+    "replacement": "SourceAssets/DungeonRoutes20260922/Config/catalog.json and current room author/import scripts"
+  },
+  {
+    "source": "SourceAssets/DungeonFlueGasStation20261001/Production20261001/Scripts/retire_loaded.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonFlueGasStation20261001/Production20261001/Scripts/retire_loaded.py",
+    "bytes": 1140,
+    "sha256": "9dec3a504052c182b80324a93a8592c437386eeef81120a93160216206d7a471",
+    "reason": "Completed one-time source rewrite or sample retirement; resulting author sources/config retained",
+    "replacement": "SourceAssets/DungeonRoutes20260922/Config/catalog.json and current room author/import scripts"
+  },
+  {
+    "source": "SourceAssets/DungeonDataArchive20260930/Pool20261001/Scripts/finalize_authoring.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonDataArchive20260930/Pool20261001/Scripts/finalize_authoring.py",
+    "bytes": 2955,
+    "sha256": "2277ba32dbf8451e2ab3cb11a634ec72f0258846253282bd4527ff690872a181",
+    "reason": "Completed one-time source rewrite or sample retirement; resulting author sources/config retained",
+    "replacement": "SourceAssets/DungeonRoutes20260922/Config/catalog.json and current room author/import scripts"
+  },
+  {
+    "source": "SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Scripts/finalize_authoring.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Scripts/finalize_authoring.py",
+    "bytes": 1706,
+    "sha256": "dd3fc595218c20a87556ec1f33875bc41948c81c8c48da1b479c5ead91c3f10f",
+    "reason": "Completed one-time source rewrite or sample retirement; resulting author sources/config retained",
+    "replacement": "SourceAssets/DungeonRoutes20260922/Config/catalog.json and current room author/import scripts"
+  },
+  {
+    "source": "SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Scripts/prepare_revision.py",
+    "destination": "trash/dungeon-closeout-20261002/SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Scripts/prepare_revision.py",
+    "bytes": 2012,
+    "sha256": "c624f599cf36cdd6e17e0b9f7c9f973bd0818b4af6690d20c6f93a9c2a10143e",
+    "reason": "Completed one-time source rewrite or sample retirement; resulting author sources/config retained",
+    "replacement": "SourceAssets/DungeonRoutes20260922/Config/catalog.json and current room author/import scripts"
+  }
+]

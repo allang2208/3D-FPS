@@ -1,0 +1,27 @@
+{
+  "revision": "incinerator_label_railings_v2_20260930",
+  "objects": [
+    {
+      "key": "FurnaceDoorKit",
+      "name": "SM_Incinerator_FurnaceDoorKit_V2",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\SceneFix20260930\\Authored\\SM_Incinerator_FurnaceDoorKit_V2.fbx",
+      "material": "/Game/Dungeons/IncineratorHall20260929/EquipmentV1/Materials/M_IncineratorEquipment_Atlas",
+      "triangles": 40803,
+      "collision_boxes_or_convexes": 3,
+      "collision_policy": "simple_and_complex",
+      "ue_path": "/Game/Dungeons/IncineratorHall20260929/SceneFixV2/Meshes/SM_Incinerator_FurnaceDoorKit_V2"
+    },
+    {
+      "key": "Railings",
+      "name": "SM_Incinerator_Railings_V2",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\SceneFix20260930\\Authored\\SM_Incinerator_Railings_V2.fbx",
+      "material": "/Game/Dungeons/IncineratorHall20260929/EquipmentV1/Materials/M_IncineratorEquipment_Atlas",
+      "triangles": 69020,
+      "collision_boxes_or_convexes": 15,
+      "collision_policy": "simple_and_complex",
+      "ue_path": "/Game/Dungeons/IncineratorHall20260929/SceneFixV2/Meshes/SM_Incinerator_Railings_V2"
+    }
+  ],
+  "tests_run": false,
+  "rendered": false
+}

@@ -1,0 +1,38 @@
+{
+  "name": "SM_Freight_PalletJack",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\CartPlacement\\Authored\\SM_Freight_PalletJack.fbx",
+  "asset": "/Game/Dungeons/CargoWarehouse20261001/Reused/Meshes/SM_Freight_PalletJack",
+  "materials": {
+    "RS_PaintedSteel": "/Game/Dungeons/AtmosphereV2/Materials/M_PaintedSteel",
+    "RS_BareSteel": "/Game/Dungeons/AtmosphereV2/Materials/M_BareSteel",
+    "RS_ServicePaint": "/Game/Dungeons/AtmosphereV2/Services/Materials/M_Service_Paint",
+    "RS_ServiceHardware": "/Game/Dungeons/CombatExpansion20260922/Materials/M_PipeCutSteel",
+    "RS_Rubber": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber",
+    "RS_YellowPaint": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_YellowPaint"
+  },
+  "triangles": 85052,
+  "bounds_m": {
+    "min": [
+      -0.406000018119812,
+      -0.8299999237060547,
+      0.0
+    ],
+    "max": [
+      0.406000018119812,
+      0.8349990844726562,
+      1.3949999809265137
+    ]
+  },
+  "collision_hulls": 5,
+  "nanite": true,
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonVentFreight20260922\\Authored\\Dungeon_VentFreight.blend",
+  "source_object": "SM_RS_FreightTransfer_Props",
+  "source_sha256": "adcf39547d1b53315cd15b5b7b15a07c15043011b71de65825198d03e71684e5",
+  "pivot_source_m": [
+    1.3899999856948853,
+    11.555000305175781,
+    0.0
+  ],
+  "tests_run": false,
+  "rendered": false
+}

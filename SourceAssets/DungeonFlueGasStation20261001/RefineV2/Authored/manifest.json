@@ -1,0 +1,205 @@
+{
+  "objects": [
+    {
+      "name": "SM_FlueGas_WetPipework_V2",
+      "kind": "WetPipework",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFlueGasStation20261001\\RefineV2\\Authored\\SM_FlueGas_WetPipework_V2.fbx",
+      "materials": {
+        "RS_PipeEnamel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel",
+        "RS_PipeInner": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeInner",
+        "RS_PipeCutSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 32448,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_FlueGas_PipeCouplings_V2",
+      "kind": "PipeCouplings",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFlueGasStation20261001\\RefineV2\\Authored\\SM_FlueGas_PipeCouplings_V2.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_Rubber": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber",
+        "RS_ServiceHardware": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel",
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "triangles": 11056,
+      "collision": false,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_FlueGas_Valves_V2",
+      "kind": "Valves",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFlueGasStation20261001\\RefineV2\\Authored\\SM_FlueGas_Valves_V2.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint",
+        "RS_ServiceHardware": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel"
+      },
+      "triangles": 4576,
+      "collision": false,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_FlueGas_Instruments_V2",
+      "kind": "Instruments",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFlueGasStation20261001\\RefineV2\\Authored\\SM_FlueGas_Instruments_V2.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_Labels": "/Game/Dungeons/FlueGasStation20261001/RefineV2/Materials/M_FlueGas_Labels_V2",
+        "RS_Rubber": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      },
+      "triangles": 6224,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_FlueGas_Signs_V2",
+      "kind": "Signs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFlueGasStation20261001\\RefineV2\\Authored\\SM_FlueGas_Signs_V2.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_Labels": "/Game/Dungeons/FlueGasStation20261001/RefineV2/Materials/M_FlueGas_Labels_V2",
+        "RS_ServiceHardware": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel"
+      },
+      "triangles": 8200,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_FlueGas_GasDucts_V2",
+      "kind": "GasDucts",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFlueGasStation20261001\\RefineV2\\Authored\\SM_FlueGas_GasDucts_V2.fbx",
+      "materials": {
+        "RS_PipeEnamel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel",
+        "RS_PipeInner": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeInner",
+        "RS_PipeCutSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel"
+      },
+      "triangles": 27264,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_FlueGas_Exhaust_V2",
+      "kind": "Exhaust",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFlueGasStation20261001\\RefineV2\\Authored\\SM_FlueGas_Exhaust_V2.fbx",
+      "materials": {
+        "RS_PipeEnamel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel",
+        "RS_PipeInner": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeInner",
+        "RS_PipeCutSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel"
+      },
+      "triangles": 17088,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_FlueGas_Railings_V2",
+      "kind": "Railings",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFlueGasStation20261001\\RefineV2\\Authored\\SM_FlueGas_Railings_V2.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 744,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": true,
+      "simple_collision_hulls": 3
+    },
+    {
+      "name": "SM_FlueGas_StairRails_V2",
+      "kind": "StairRails",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFlueGasStation20261001\\RefineV2\\Authored\\SM_FlueGas_StairRails_V2.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "triangles": 720,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": true,
+      "simple_collision_hulls": 8
+    },
+    {
+      "name": "SM_FlueGas_ControlPanel_V2",
+      "kind": "ControlPanel",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFlueGasStation20261001\\RefineV2\\Authored\\SM_FlueGas_ControlPanel_V2.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "RS_Rubber": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber",
+        "RS_PipeEnamel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 1316,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_FlueGas_ControlHardware_V2",
+      "kind": "ControlHardware",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFlueGasStation20261001\\RefineV2\\Authored\\SM_FlueGas_ControlHardware_V2.fbx",
+      "materials": {
+        "RS_ServiceHardware": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_Labels": "/Game/Dungeons/FlueGasStation20261001/RefineV2/Materials/M_FlueGas_Labels_V2",
+        "RS_Rubber": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber",
+        "RS_Green": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_GreenPaint",
+        "RS_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint",
+        "RS_Red": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_RedPaint"
+      },
+      "triangles": 15230,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_FlueGas_FloorMarkings_V2",
+      "kind": "FloorMarkings",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFlueGasStation20261001\\RefineV2\\Authored\\SM_FlueGas_FloorMarkings_V2.fbx",
+      "materials": {
+        "RS_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint"
+      },
+      "triangles": 16,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    }
+  ],
+  "revision": "flue_gas_controls_pipes_rails_v2_20261001",
+  "tests_run": false,
+  "rendered": false,
+  "source_units": "metres; UE centimetres",
+  "coordinates": "Blender (x,y,z) -> Unreal (100*x,-100*y,100*z)",
+  "sample_retired": true
+}

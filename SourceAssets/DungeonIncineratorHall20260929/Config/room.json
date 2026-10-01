@@ -1,0 +1,410 @@
+{
+  "id": "AbandonedIncineratorHall",
+  "revision": "incinerator_architecture_v1_20260929",
+  "phase": "production_pool",
+  "ue_base": "/Game/Dungeons/IncineratorHall20260929",
+  "lower_level_layout": "MorgueOpenPlan20260930/Config/layout.json",
+  "coordinate_system": "Blender metres; UE centimetres (x,-y,z)",
+  "hall": {
+    "outline": [
+      [
+        -14,
+        -7.5
+      ],
+      [
+        -9,
+        -10.5
+      ],
+      [
+        9,
+        -10.5
+      ],
+      [
+        14,
+        -7.5
+      ],
+      [
+        14,
+        7.5
+      ],
+      [
+        9,
+        10.5
+      ],
+      [
+        -14,
+        10.5
+      ]
+    ],
+    "height": 8.0,
+    "wall_thickness": 0.28
+  },
+  "ports": [
+    {
+      "id": "receiving",
+      "position": [
+        -16,
+        0,
+        0
+      ],
+      "normal": [
+        -1,
+        0,
+        0
+      ],
+      "width": 3.0,
+      "height": 2.8
+    },
+    {
+      "id": "service",
+      "position": [
+        16,
+        0,
+        0
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "width": 3.0,
+      "height": 2.8
+    }
+  ],
+  "furnaces": {
+    "centres_x": [
+      -6.0,
+      0.0,
+      6.0
+    ],
+    "body_y": [
+      -10.1,
+      -7.25
+    ],
+    "height": 4.7,
+    "bay_width": 4.6,
+    "opening_width": 2.2,
+    "opening_height": 2.6,
+    "loading_length": 2.25,
+    "operating": false
+  },
+  "observation": {
+    "x": [
+      -7.0,
+      7.0
+    ],
+    "y": [
+      5.6,
+      10.1
+    ],
+    "top": 2.4,
+    "stairs_width": 2.6,
+    "stairs_centre_y": 7.0,
+    "steps": 16,
+    "going": 0.3,
+    "rise": 0.15
+  },
+  "ash_pit": {
+    "rect": [
+      -13.0,
+      -7.65,
+      -8.6,
+      -2.65
+    ],
+    "floor": -1.2,
+    "recovery_steps": 8,
+    "recovery_going": 0.3,
+    "recovery_width": 1.6,
+    "recovery_centre_x": -11.95,
+    "equipment_revision": "AshStation20260930",
+    "receiver_position_m": [
+      -9.8,
+      -7.03,
+      -1.2
+    ],
+    "front_service_lane_min_m": 1.2
+  },
+  "clear_areas_m": [
+    {
+      "name": "continuous seven-metre working aisle",
+      "rect": [
+        -13.6,
+        -2.3,
+        13.6,
+        4.7
+      ]
+    },
+    {
+      "name": "furnace apron",
+      "rect": [
+        -8.7,
+        -4.8,
+        9.0,
+        -2.3
+      ]
+    }
+  ],
+  "player_start_m": [
+    -14.65,
+    0,
+    0.98
+  ],
+  "player_yaw": 0.0,
+  "return_anchor_m": [
+    -15.75,
+    0,
+    0
+  ],
+  "furnishing_reservations": [
+    {
+      "id": "furnace_door_mechanics",
+      "centres_m": [
+        [
+          -6,
+          -7.25,
+          0
+        ],
+        [
+          0,
+          -7.25,
+          0
+        ],
+        [
+          6,
+          -7.25,
+          0
+        ]
+      ],
+      "max_width_m": 3.22,
+      "status": "precision_v1_installed"
+    },
+    {
+      "id": "loading_trolleys",
+      "centres_m": [
+        [
+          -6,
+          -3.6,
+          0
+        ],
+        [
+          6,
+          -3.6,
+          0
+        ]
+      ],
+      "max_footprint_m": [
+        1.8,
+        2.0
+      ],
+      "status": "one_roller_cart_and_one_lidded_hopper_installed"
+    },
+    {
+      "id": "control_console",
+      "rect": [
+        -3.0,
+        8.6,
+        1.0,
+        9.9
+      ],
+      "floor": 2.4
+    },
+    {
+      "id": "waste_bins",
+      "rect": [
+        10.0,
+        -5.7,
+        12.7,
+        -3.2
+      ],
+      "floor": 0.0
+    }
+  ],
+  "lights": [
+    {
+      "id": "Incinerator_00",
+      "position": [
+        -10,
+        1.0,
+        6.4
+      ],
+      "warm": false,
+      "lumens": 2100,
+      "radius_cm": 850,
+      "role": "entry",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 3400,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Incinerator_01",
+      "position": [
+        -3,
+        1.0,
+        6.4
+      ],
+      "warm": false,
+      "lumens": 2400,
+      "radius_cm": 850,
+      "role": "fill",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3400,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Incinerator_02",
+      "position": [
+        4,
+        1.0,
+        6.4
+      ],
+      "warm": false,
+      "lumens": 2400,
+      "radius_cm": 850,
+      "role": "key",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 3400,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Incinerator_03",
+      "position": [
+        11,
+        1.0,
+        6.4
+      ],
+      "warm": false,
+      "lumens": 1800,
+      "radius_cm": 850,
+      "role": "exit",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3400,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Incinerator_04",
+      "position": [
+        -6,
+        -5.0,
+        6.2
+      ],
+      "warm": true,
+      "lumens": 1250,
+      "radius_cm": 850,
+      "role": "equipment",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 3400,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Incinerator_05",
+      "position": [
+        0,
+        -5.0,
+        6.2
+      ],
+      "warm": true,
+      "lumens": 1250,
+      "radius_cm": 850,
+      "role": "equipment",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3400,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Incinerator_06",
+      "position": [
+        6,
+        -5.0,
+        6.2
+      ],
+      "warm": true,
+      "lumens": 1250,
+      "radius_cm": 850,
+      "role": "equipment",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3400,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Incinerator_07",
+      "position": [
+        -4,
+        8.2,
+        6.4
+      ],
+      "warm": false,
+      "lumens": 1450,
+      "radius_cm": 850,
+      "role": "gallery",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3400,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Incinerator_08",
+      "position": [
+        4,
+        8.2,
+        6.4
+      ],
+      "warm": false,
+      "lumens": 1450,
+      "radius_cm": 850,
+      "role": "gallery",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 3400,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Incinerator_09",
+      "position": [
+        -15,
+        0,
+        3.05
+      ],
+      "warm": false,
+      "lumens": 500,
+      "radius_cm": 420,
+      "role": "entry",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3400,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Incinerator_10",
+      "position": [
+        15,
+        0,
+        3.05
+      ],
+      "warm": false,
+      "lumens": 500,
+      "radius_cm": 420,
+      "role": "exit",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3400,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Incinerator_11",
+      "position": [
+        -10.5,
+        -4.8,
+        3.0
+      ],
+      "warm": true,
+      "lumens": 450,
+      "radius_cm": 420,
+      "role": "pit",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3400,
+      "fade_range_cm": 650
+    }
+  ],
+  "tests_run": false,
+  "random_pool_registered": true,
+  "environment_damage": false,
+  "pool_install_script": "Pool20260930/Scripts/install_pool.py",
+  "pool_module": "Pool20260930/Config/module.json",
+  "retirement_manifest": "trash/incinerator-subject-retired-20260930/manifest.json"
+}

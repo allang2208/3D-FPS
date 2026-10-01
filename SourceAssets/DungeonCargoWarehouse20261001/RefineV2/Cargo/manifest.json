@@ -1,0 +1,19 @@
+{
+  "objects": [
+    {
+      "name": "SM_Facility_CargoStack",
+      "key": "CargoStack",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\RefineV2\\Cargo\\SM_Facility_CargoStack.fbx",
+      "materials": {
+        "FacilityProp_Atlas": "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      },
+      "triangles": 32440,
+      "collision": true,
+      "collision_boxes": 2,
+      "revision": "precision_prop_polish_20260928"
+    }
+  ],
+  "units": "metres; imported as UE centimetres",
+  "tests_run": false,
+  "source": "Original precise geometry and original PBR atlas; same production mesh paths and collision volumes"
+}

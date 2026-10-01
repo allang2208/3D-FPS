@@ -13,6 +13,10 @@ description: UE5.6-UE5.8 PCG generation and runtime-heightfield ground workflow 
 
 # Quick Start
 
+- 固定主题组合、错层坡道、路线预算及清房后开闸，读取 [主题路线与房间闸门](references/themed-routes-and-room-gates.md)。
+
+- 新场景/房间开发、统一栏杆翻越、控制台直达预览及用户确认后的样板清理，先读 [场景开发标准流程](references/scene-development-standard.md)。默认不新增祭坛出征入口；正式接入收尾包含样板退役。
+
 - 地牢墙面扫描、颗粒/视差、霉斑与渗水贴花，读取 [地牢表面制作](references/dungeon-surface-authoring.md)，先确定实际材质入口与污渍层，再调整密度和表现。
 
 - 扩展已认可样板、随机房间池、门洞拼接、岔路和 Boss 终点时，读取 [保留设计语义的随机地牢](references/authored-dungeon-generation.md)。

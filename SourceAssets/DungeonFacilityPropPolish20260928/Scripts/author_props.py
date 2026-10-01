@@ -75,12 +75,20 @@ def bolt(c,axis=(0,-1,0),scale=1):
     lathe(center,n,[(0,.0065*scale),(.004*scale,.0065*scale),(.005*scale,.0056*scale),(.005*scale,.0028*scale),(.0025*scale,.0028*scale)],'steel',6,False)
     lathe(center+n*.00255*scale,n,[(0,.0026*scale),(.0001*scale,.0026*scale)],'dark',6,False)
 
-def plaque(c,width,height,surface,axis=(0,-1,0),thickness=.0015,backing='steel'):
+def plaque(c,width,height,surface,axis=(0,-1,0),thickness=.0015,backing='steel',single_surface=False):
     n,u,v=basis(axis);c=Vector(c)
+    first_face=len(F)
     # Backing dimensions and rotation are derived from the printed face basis.
     if abs(n.y)>.9:box(c-n*thickness*.5,(width,thickness,height),backing,.0006)
     elif abs(n.x)>.9:box(c-n*thickness*.5,(thickness,width,height),backing,.0006)
     else:box(c-n*thickness*.5,(width,height,thickness),backing,.0006)
+    if single_surface:
+        # Print into the actual front cap. No duplicate face or sub-mm depth gap.
+        for fi in range(first_face,len(F)):
+            points=[Vector(V[i]) for i in F[fi]]
+            if all(abs((p-c).dot(n))<1.e-7 for p in points):
+                UV[fi]=[tex(surface,.5+(p-c).dot(u)/width,.5-(p-c).dot(v)/height) for p in points]
+        return
     c+=n*.0004
     face([c-u*width*.5-v*height*.5,c+u*width*.5-v*height*.5,c+u*width*.5+v*height*.5,c-u*width*.5+v*height*.5],surface)
 
@@ -215,11 +223,11 @@ def cargo():
             box((cx,y,hz),(.009,.198,.094),'steel',.004)
             for dy in (-.074,.074):bolt((cx+sign*.006,y+dy,hz),(sign,0,0),.55)
             tube([(cx+sign*.012,y-.063,hz+.005),(cx+sign*.030,y-.063,hz-.013),(cx+sign*.032,y-.054,hz-.060),(cx+sign*.032,y+.054,hz-.060),(cx+sign*.030,y+.063,hz-.013),(cx+sign*.012,y+.063,hz+.005)],.006,'steel',12)
-        plaque((x,y-sy*.5-.016,z-.045 if number<2 else z-.025),min(.292,sx*.48),.129,'cargo_0'+str(number+1),thickness=.001,backing='dark')
+        plaque((x,y-sy*.5-.0085,z-.045 if number<2 else z-.025),min(.292,sx*.48),.129,'cargo_0'+str(number+1),thickness=.003,backing='dark',single_surface=True)
         if number<2:
-            plaque((x+sx*.5-.002,y+.280,z-.102),.107,.125,'arrows',(1,0,0),thickness=.001,backing='red')
+            plaque((x+sx*.5,y+.280,z-.102),.107,.125,'arrows',(1,0,0),thickness=.003,backing='red',single_surface=True)
         else:
-            plaque((x+sx*.5-.002,y+.215,z-.035),.090,.107,'fragile',(1,0,0),thickness=.001,backing='red')
+            plaque((x+sx*.5,y+.215,z-.035),.090,.107,'fragile',(1,0,0),thickness=.003,backing='red',single_surface=True)
 
 def material():
     mat=bpy.data.materials.get(SLOT) or bpy.data.materials.new(SLOT);mat.use_nodes=True
@@ -236,7 +244,7 @@ def material():
     norm=nodes.new('ShaderNodeNormalMap');links.new(maps['NormalGL'].outputs['Color'],norm.inputs['Color']);links.new(norm.outputs['Normal'],bsdf.inputs['Normal'])
     return mat
 
-def build_all(output_dir=None,reset=True,save=True,layout_start=0):
+def build_all(output_dir=None,reset=True,save=True,layout_start=0,only=None):
     if reset:bpy.ops.wm.read_factory_settings(use_empty=True)
     bpy.context.scene.unit_settings.system='METRIC';bpy.context.scene.unit_settings.scale_length=1
     dest=Path(output_dir or ROOT/'Authored');dest.mkdir(parents=True,exist_ok=True)
@@ -244,6 +252,7 @@ def build_all(output_dir=None,reset=True,save=True,layout_start=0):
     specs=[('PowerCabinet',cabinet,[((0,0,.96),(1.6,.68,1.92))]),
            ('CargoStack',cargo,[((0,0,.64),(1.9,1.12,1.28)),((-.4,.03,1.32),(.7,.79,.34))])]
     for index,(key,build,colliders) in enumerate(specs):
+        if only and key not in only:continue
         V.clear();F.clear();UV.clear();SMOOTH.clear();build()
         name='SM_Facility_'+key;mesh=bpy.data.meshes.new(name);mesh.from_pydata(V,[],F);mesh.update();mesh.materials.append(mat)
         obj=bpy.data.objects.new(name,mesh);bpy.context.collection.objects.link(obj)

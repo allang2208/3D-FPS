@@ -102,6 +102,27 @@ namespace
     }
 }
 
+TArray<FColdSteelDungeonLootPreview> FColdSteelDungeonLoot::PreviewItems()
+{
+    const auto& Table=LootTable();
+    TArray<FColdSteelDungeonLootPreview> Result;
+    for(int32 I=0;I<Table.Tiers.Num();++I)
+        for(const auto& Entry:Table.Tiers[I].Entries)
+        {
+            if(Entry.Weight<=0)continue;
+            auto* Existing=Result.FindByPredicate([&](const auto& Row){return Row.Definition==Entry.Id;});
+            if(!Existing)
+            {
+                Result.Add({Entry.Id,Table.Tiers[I].MinDepth,false});
+                Existing=&Result.Last();
+            }
+            Existing->bInFinalTier|=I==Table.Tiers.Num()-1;
+        }
+    return Result;
+}
+
+double FColdSteelDungeonLoot::FinalQuantityMultiplier(){return LootTable().FinalMultiplier;}
+
 bool FColdSteelDungeonLoot::GrantFromChest(AActor* Chest)
 {
     if (!IsValid(Chest)) return false;

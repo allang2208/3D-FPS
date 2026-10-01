@@ -1,0 +1,41 @@
+{
+  "room": "AbandonedAnatomyTheatre",
+  "new_geometry": "Original procedural Blender authoring in Scripts/author_theatre.py; editable blend and FBX retained",
+  "new_textures": "V1 procedural wood retained only as original source; V2 seats now reference the existing abandoned workbench scanned wood material. No new or duplicated texture packages in V2.",
+  "reused": [
+    {
+      "source": "DungeonRoomShells20260922 / DungeonTileFracture20260922",
+      "usage": "Approved ceramic wall surfaces and detailing helpers"
+    },
+    {
+      "source": "DungeonWallUpgrade20260924 / DungeonWallDamage20260923 / DungeonSeamMetal20260923",
+      "usage": "Existing concrete, metal, enamel and surface materials"
+    },
+    {
+      "source": "DungeonIncineratorHall20260929/MorgueB1V1",
+      "usage": "Wash sink, preparation table and mortuary trolley"
+    },
+    {
+      "source": "DungeonFacilityScenes20260927 / DungeonFacilityPropPolish20260928",
+      "usage": "Existing power cabinet"
+    },
+    {
+      "source": "DungeonIndustrialV1",
+      "usage": "Existing warm/cool ceiling fixtures"
+    },
+    {
+      "source": "DungeonWorkbenchKit20260921 / DungeonWorkshopBenchPolish20260921",
+      "usage": "V2 seats and writing ledges directly reference /Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3",
+      "texture_source": "Existing ambientCG Wood051 2K CC0 maps; original files in AKMIntegration20260910/Redwood/Wood051",
+      "uv_contract": "UV0 local long grain at 1.72 m longitudinal / 0.62 m cross grain scale, independent board offsets; neutral vertex RGB variation, UV1 neutral local coordinates for existing surface noise"
+    },
+    {
+      "source": "DungeonIsolationWard20260929/BloodScan / DungeonIncineratorHall20260929/MorgueBlood20260930",
+      "usage": "Three shallow scanned blood decals on the autopsy tabletop, shared material and textures"
+    }
+  ],
+  "external_downloads": [],
+  "license_note": "Existing third-party dependencies retain their original project provenance; no new redistribution permission is implied.",
+  "tests_run": false,
+  "rendered": false
+}

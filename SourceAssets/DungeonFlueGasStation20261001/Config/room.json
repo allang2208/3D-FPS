@@ -1,0 +1,339 @@
+{
+  "id": "AbandonedFlueGasStation",
+  "name": "废弃烟气净化站",
+  "revision": "flue_gas_controls_pipes_rails_v2_20261001",
+  "phase": "production_reserved",
+  "ue_base": "/Game/Dungeons/FlueGasStation20261001",
+  "sample_map": null,
+  "hall": {
+    "width": 28.0,
+    "length": 24.0,
+    "height": 8.0,
+    "wall_thickness": 0.28
+  },
+  "towers": [
+    {
+      "id": "ST-01",
+      "position": [
+        -8,
+        -5,
+        0
+      ],
+      "radius": 1.55
+    },
+    {
+      "id": "ST-02",
+      "position": [
+        -8,
+        2,
+        0
+      ],
+      "radius": 1.55
+    }
+  ],
+  "filter": {
+    "position": [
+      8.6,
+      0.8,
+      0
+    ],
+    "width": 4.8,
+    "length": 7.0
+  },
+  "platform": {
+    "rect": [
+      -13.5,
+      8.5,
+      13.5,
+      11.65
+    ],
+    "height": 2.4
+  },
+  "stairs": {
+    "centres_x": [
+      -12.4,
+      12.4
+    ],
+    "start_y": 3.1,
+    "width": 1.8,
+    "steps": 15,
+    "rise": 0.16,
+    "going": 0.36
+  },
+  "clear_combat_rect_m": [
+    -4.35,
+    -7.0,
+    4.35,
+    7.8
+  ],
+  "ports": [
+    {
+      "id": "Incinerator",
+      "position": [
+        -16,
+        -8,
+        0
+      ],
+      "normal": [
+        -1,
+        0,
+        0
+      ],
+      "width": 3.0,
+      "height": 2.8
+    },
+    {
+      "id": "Onward",
+      "position": [
+        16,
+        -8,
+        0
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "width": 3.0,
+      "height": 2.8
+    }
+  ],
+  "player_start_m": [
+    -12.5,
+    -8,
+    1.05
+  ],
+  "player_yaw": 0,
+  "return_portal_m": [
+    -15.45,
+    -8,
+    0
+  ],
+  "return_portal_yaw": 0,
+  "reused_parts": [
+    {
+      "id": "PowerCabinet",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_PowerCabinet",
+      "position": [
+        5,
+        -11.35,
+        0
+      ],
+      "yaw": 180,
+      "collision": true
+    }
+  ],
+  "lights": [
+    {
+      "id": "Entry",
+      "position": [
+        -15,
+        -8,
+        3.05
+      ],
+      "lumens": 260,
+      "radius_cm": 370,
+      "cast_shadows": false,
+      "tint": [
+        1,
+        0.76,
+        0.48
+      ],
+      "fixture": true,
+      "role": "path",
+      "indirect": 0.7,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 500
+    },
+    {
+      "id": "Exit",
+      "position": [
+        15,
+        -8,
+        3.05
+      ],
+      "lumens": 280,
+      "radius_cm": 370,
+      "cast_shadows": false,
+      "tint": [
+        1,
+        0.76,
+        0.48
+      ],
+      "fixture": true,
+      "role": "path",
+      "indirect": 0.7,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 500
+    },
+    {
+      "id": "FrontAisle",
+      "position": [
+        0,
+        -7,
+        5.5
+      ],
+      "lumens": 1450,
+      "radius_cm": 1080,
+      "cast_shadows": true,
+      "tint": [
+        0.6,
+        0.73,
+        0.79
+      ],
+      "fixture": true,
+      "role": "key",
+      "indirect": 0.7,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 500
+    },
+    {
+      "id": "Centre",
+      "position": [
+        0,
+        1.5,
+        6.0
+      ],
+      "lumens": 1950,
+      "radius_cm": 1250,
+      "cast_shadows": true,
+      "tint": [
+        0.59,
+        0.72,
+        0.77
+      ],
+      "fixture": true,
+      "role": "key",
+      "indirect": 0.7,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 500
+    },
+    {
+      "id": "Scrubber",
+      "position": [
+        -8,
+        -1.5,
+        6.9
+      ],
+      "lumens": 680,
+      "radius_cm": 800,
+      "cast_shadows": false,
+      "tint": [
+        0.72,
+        0.78,
+        0.73
+      ],
+      "fixture": true,
+      "role": "path",
+      "indirect": 0.7,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 500
+    },
+    {
+      "id": "Filter",
+      "position": [
+        8.3,
+        -4.4,
+        5.4
+      ],
+      "lumens": 730,
+      "radius_cm": 720,
+      "cast_shadows": false,
+      "tint": [
+        0.79,
+        0.74,
+        0.6
+      ],
+      "fixture": true,
+      "role": "path",
+      "indirect": 0.7,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 500
+    },
+    {
+      "id": "WestStair",
+      "position": [
+        -12.4,
+        5.3,
+        5.4
+      ],
+      "lumens": 460,
+      "radius_cm": 510,
+      "cast_shadows": false,
+      "tint": [
+        0.6,
+        0.72,
+        0.76
+      ],
+      "fixture": true,
+      "role": "path",
+      "indirect": 0.7,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 500
+    },
+    {
+      "id": "EastStair",
+      "position": [
+        12.4,
+        5.3,
+        5.4
+      ],
+      "lumens": 400,
+      "radius_cm": 510,
+      "cast_shadows": false,
+      "tint": [
+        0.6,
+        0.72,
+        0.76
+      ],
+      "fixture": true,
+      "role": "path",
+      "indirect": 0.7,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 500
+    },
+    {
+      "id": "Gallery",
+      "position": [
+        0,
+        10.1,
+        6.1
+      ],
+      "lumens": 820,
+      "radius_cm": 900,
+      "cast_shadows": false,
+      "tint": [
+        0.75,
+        0.67,
+        0.48
+      ],
+      "fixture": true,
+      "role": "path",
+      "indirect": 0.7,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 500
+    }
+  ],
+  "postprocess": {
+    "exposure_ev": 0.7,
+    "exposure_bias": -0.1,
+    "indirect_intensity": 0.75,
+    "vignette": 0.3,
+    "bloom": 0.25
+  },
+  "route_intent": {
+    "predecessor": "AbandonedIncineratorHall",
+    "successor": "DataArchive convergence via optional transition",
+    "fixed_adjacency": true,
+    "registration": "production_catalog_reserved_for_fixed_themed_route"
+  },
+  "tests_run": false,
+  "rendered": false,
+  "random_pool_registered": false,
+  "active_refinement": "RefineV2",
+  "refinement_author": "RefineV2/Scripts/author_revision.py",
+  "refinement_installer": "RefineV2/Scripts/import_assets.py",
+  "sample_retired": true,
+  "user_accepted": true,
+  "production_module": "Production20261001/Config/module.json"
+}

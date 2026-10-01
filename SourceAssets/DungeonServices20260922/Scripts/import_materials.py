@@ -20,7 +20,7 @@ for key,filename in man['channels'].items():
 def make(name):
     path=BASE+'/Materials/'+name;mat=u.load_asset(path)
     if not mat:mat=A.create_asset(name,BASE+'/Materials',u.Material,u.MaterialFactoryNew())
-    mat.modify();L.delete_all_material_expressions(mat);return mat
+    mat.modify();mat.set_editor_property('used_with_nanite',True);L.delete_all_material_expressions(mat);return mat
 def node(klass):return L.create_material_expression(mat,getattr(u,'MaterialExpression'+klass))
 def connect(a,ao,b,bi):
     if not L.connect_material_expressions(a,ao,b,bi):raise RuntimeError('Material input '+bi)

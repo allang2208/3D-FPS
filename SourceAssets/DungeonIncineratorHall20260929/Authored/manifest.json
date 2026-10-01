@@ -1,0 +1,281 @@
+{
+  "objects": [
+    {
+      "name": "SM_Incinerator_Floors",
+      "kind": "Floors",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_Floors.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 732,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_AshPit",
+      "kind": "AshPit",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_AshPit.fbx",
+      "materials": {
+        "RS_Mortar": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_ExposedMortar",
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 648,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_Stairs",
+      "kind": "Stairs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_Stairs.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete",
+        "RS_BridgeDeck": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BridgeDeck",
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "triangles": 7776,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_Railings",
+      "kind": "Railings",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_Railings.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 6312,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_Walls",
+      "kind": "Walls",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_Walls.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 2268,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_Tiles",
+      "kind": "Tiles",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_Tiles.fbx",
+      "materials": {
+        "RS_V2_WallReliefBed": "/Game/Dungeons/AtmosphereV2/WallRelief/Materials/MI_WallMortar_Bed.MI_WallMortar_Bed",
+        "RS_V2_NaturalCeramicAtlas": "/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalCeramicAtlas.M_NaturalCeramicAtlas",
+        "RS_V2_NaturalCeramicCore": "/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalCeramicCore.M_NaturalCeramicCore",
+        "RS_V2_WallReliefFinish": "/Game/Dungeons/AtmosphereV2/WallRelief/Materials/MI_WallMortar_Finish.MI_WallMortar_Finish",
+        "RS_V2_CeramicFractureCore": "/Game/Dungeons/AtmosphereV2/TileFracture/Materials/M_CeramicFractureCore"
+      },
+      "triangles": 190184,
+      "collision": false,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_Frames",
+      "kind": "Frames",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_Frames.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_ServiceHardware": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel"
+      },
+      "triangles": 5872,
+      "collision": false,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_Roof",
+      "kind": "Roof",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_Roof.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 48,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_RoofTrusses",
+      "kind": "RoofTrusses",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_RoofTrusses.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 480,
+      "collision": false,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_Columns",
+      "kind": "Columns",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_Columns.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 192,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_FurnaceMasonry",
+      "kind": "FurnaceMasonry",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_FurnaceMasonry.fbx",
+      "materials": {
+        "RS_Mortar": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_ExposedMortar",
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 1620,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_FurnaceDoors",
+      "kind": "FurnaceDoors",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_FurnaceDoors.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "triangles": 324,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_FurnaceDoorFrames",
+      "kind": "FurnaceDoorFrames",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_FurnaceDoorFrames.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 144,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_FurnaceDetails",
+      "kind": "FurnaceDetails",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_FurnaceDetails.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_Rubber": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      },
+      "triangles": 1200,
+      "collision": false,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_LoadingTroughs",
+      "kind": "LoadingTroughs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_LoadingTroughs.fbx",
+      "materials": {
+        "RS_BridgeDeck": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BridgeDeck",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 972,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_LoadingSupports",
+      "kind": "LoadingSupports",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_LoadingSupports.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "triangles": 144,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_ExhaustHoods",
+      "kind": "ExhaustHoods",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_ExhaustHoods.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "triangles": 36,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_Services",
+      "kind": "Services",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_Services.fbx",
+      "materials": {
+        "RS_PipeEnamel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel",
+        "RS_PipeInner": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeInner",
+        "RS_PipeCutSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel",
+        "RS_ServiceHardware": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "triangles": 206400,
+      "collision": false,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_FloorGuides",
+      "kind": "FloorGuides",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_FloorGuides.fbx",
+      "materials": {
+        "RS_RailSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_FreightTrack"
+      },
+      "triangles": 72,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_ObservationDeck",
+      "kind": "ObservationDeck",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_ObservationDeck.fbx",
+      "materials": {
+        "RS_BridgeDeck": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BridgeDeck"
+      },
+      "triangles": 108,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_ObservationSupports",
+      "kind": "ObservationSupports",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_ObservationSupports.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 228,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_StairNosing",
+      "kind": "StairNosing",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_StairNosing.fbx",
+      "materials": {
+        "RS_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint"
+      },
+      "triangles": 384,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_SamplePortCaps",
+      "kind": "SamplePortCaps",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Authored\\SM_Incinerator_SamplePortCaps.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "triangles": 216,
+      "collision": true,
+      "sample_only": true
+    }
+  ],
+  "tests_run": false,
+  "rendered": false,
+  "revision": "incinerator_architecture_v1_20260929",
+  "ceramic_source": "DungeonTileFracture20260922 through CorridorSurfaces",
+  "source_units": "metres; UE centimetres"
+}

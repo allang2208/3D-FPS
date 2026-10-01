@@ -71,11 +71,24 @@ FFPSTraversalTarget UFPSTraversalComponent::FindTarget(bool bJumpPressed, bool b
     if (!P.bAirborne)
     {
         if (!Ray(Ground,Feet+Up*10.f,Feet-Up*25.f) || !Movement->IsWalkable(Ground))
-            return Reject(TEXT("NoGroundSupport"));
+        {
+            // An open-riser tread can support the capsule beside its centre ray.
+            // Use CMC's actual floor contact, never an assumed floor height.
+            const FFindFloorResult& Floor=Movement->CurrentFloor;
+            if (!Floor.IsWalkableFloor() || Floor.GetDistanceToFloor()>25.f ||
+                !IsBlockingSupport(Floor.HitResult.GetComponent())) return Reject(TEXT("NoGroundSupport"));
+            Ground=Floor.HitResult;
+        }
         FloorZ=Ground.ImpactPoint.Z;
     }
     // In air use the current capsule's reach, not a fictional floor underneath it.
     // Chest, knee and low probes let a jump catch both tall walls and a nearly-cleared lip.
+    static const FName GuardrailDropTag(TEXT("Traversal.GuardrailDrop"));
+    const auto IsAuthoredGuardrail=[&](const UPrimitiveComponent* Surface)
+    {
+        return IsStableSurface(Surface) && (Surface->ComponentHasTag(GuardrailDropTag) ||
+            Surface->GetOwner()->ActorHasTag(GuardrailDropTag));
+    };
     FHitResult Wall;
     // Keep physical wall clearance independent of the allowed view angle.
     const float MinFacingDot=FMath::Cos(FMath::DegreesToRadians(Rules->MaxFacingAngle));
@@ -85,16 +98,27 @@ FFPSTraversalTarget UFPSTraversalComponent::FindTarget(bool bJumpPressed, bool b
         const FVector A(Start.X,Start.Y,FloorZ+Height);
         return Ray(Wall,A,A+Forward*WallRange);
     };
-    const bool bWallHit=P.bAirborne?(WallAt(Half) || WallAt(50.f) || WallAt(10.f)):WallAt(Rules->StepHeight+.05f);
+    bool bWallHit=P.bAirborne?(WallAt(Half) || WallAt(50.f) || WallAt(10.f)):WallAt(Rules->StepHeight+.05f);
+    if (!bWallHit || !IsAuthoredGuardrail(Wall.GetComponent()))
+    {
+        // From the low side, the knee ray can hit the stair stringer (or pass
+        // underneath it). Seek the tagged rail above it, not an arbitrary wall.
+        const float Reach=P.bAirborne?Rules->AirMaxLedgeHeight:Rules->MantleMaxHeight;
+        for (float Height : {Half,Rules->VaultMaxHeight,(Rules->VaultMaxHeight+Reach)*.5f,Reach-1.f})
+        {
+            FHitResult Rail;
+            const FVector A(Start.X,Start.Y,FloorZ+Height);
+            if (Ray(Rail,A,A+Forward*WallRange) && IsAuthoredGuardrail(Rail.GetComponent()))
+            { Wall=Rail; bWallHit=true; break; }
+        }
+    }
     if (!bWallHit) return Reject(TEXT("NoWallInReach"));
     Result.Obstacle=Wall.GetComponent();
     P.bStableObstacle=IsStableSurface(Result.Obstacle);
     P.EdgeDistance=FMath::Max(0.f,FVector::DotProduct(Wall.ImpactPoint-Start,-Wall.ImpactNormal.GetSafeNormal2D())-Radius);
     P.FacingDot=FVector::DotProduct(Forward,-Wall.ImpactNormal.GetSafeNormal2D());
     if (!P.bStableObstacle) return Reject(TEXT("UnstableObstacle"));
-    static const FName GuardrailDropTag(TEXT("Traversal.GuardrailDrop"));
-    const bool bGuardrailDrop=Result.Obstacle->ComponentHasTag(GuardrailDropTag) ||
-        Result.Obstacle->GetOwner()->ActorHasTag(GuardrailDropTag);
+    const bool bGuardrailDrop=IsAuthoredGuardrail(Result.Obstacle);
     const float NormalLandingDrop=P.bAirborne?Rules->AirMaxLandingDrop:Rules->MaxLandingDrop;
     const float SurfaceLandingDrop=bGuardrailDrop?300.f:0.f;
     const float LandingDropLimit=FMath::Max(NormalLandingDrop,SurfaceLandingDrop);
@@ -171,20 +195,39 @@ FFPSTraversalTarget UFPSTraversalComponent::FindTarget(bool bJumpPressed, bool b
         return !GetWorld()->OverlapBlockingTestByProfile(Foot+Up*(Half+2.f),FQuat::Identity,Profile,
             FCollisionShape::MakeCapsule(Radius,Half),Params);
     };
-    const auto SupportedPad=[&](FHitResult& Center,TArray<TObjectPtr<UPrimitiveComponent>>& Supports)
+    const auto SupportedPad=[&](FHitResult& Center,TArray<TObjectPtr<UPrimitiveComponent>>& Supports,bool bMantleFooting)
     {
-        // Sample corners and edge midpoints. Accept modest unevenness, but reject
-        // holes and steep surfaces; stand above the highest sampled support.
-        float Highest=Center.ImpactPoint.Z;
+        // Feet need a supported patch, not the torso's entire horizontal disc.
+        // Mantling a shallow cabinet may overhang its rim; the full capsule still
+        // determines standing clearance, resting height and the complete route.
+        const float SupportRadius=bMantleFooting?Radius*.5f:PadRadius-1.f;
+        float Highest=Center.ImpactPoint.Z, Lowest=Highest;
+        const float SupportTolerance=bGuardrailDrop?FMath::Max(8.f,Movement->MaxStepHeight):8.f;
         for (float X : {-1.f,0.f,1.f}) for (float Y : {-1.f,0.f,1.f})
         {
-            const FVector Pos=Center.ImpactPoint+(Forward*X+Right*Y).GetClampedToMaxSize(1.f)*(PadRadius-1.f);
+            const FVector Pos=Center.ImpactPoint+(Forward*X+Right*Y).GetClampedToMaxSize(1.f)*SupportRadius;
             FHitResult Support;
             if (!Ray(Support,Pos+Up*60.f,Pos-Up*60.f) || !IsStableSurface(Support.GetComponent()) || !Movement->IsWalkable(Support) ||
-                FMath::Abs(FVector::DotProduct(Support.ImpactPoint-Center.ImpactPoint,Center.ImpactNormal))>8.f)
+                FMath::Abs(FVector::DotProduct(Support.ImpactPoint-Center.ImpactPoint,Center.ImpactNormal))>SupportTolerance)
                 return false;
             Supports.AddUnique(Support.GetComponent());
             Highest=FMath::Max(Highest,(float)Support.ImpactPoint.Z);
+            Lowest=FMath::Min(Lowest,(float)Support.ImpactPoint.Z);
+        }
+        if (bGuardrailDrop || bMantleFooting)
+        {
+            // Resolve where the unchanged rounded capsule actually rests instead
+            // of leaving it floating above a rim or the highest sampled tread.
+            if (bGuardrailDrop && Highest-Lowest>SupportTolerance) return false;
+            FHitResult Rest;
+            const FVector XY(Center.ImpactPoint.X,Center.ImpactPoint.Y,0.f);
+            if (!GetWorld()->SweepSingleByProfile(Rest,XY+Up*(Highest+Half+2.f),
+                XY+Up*(Lowest+Half-2.f),FQuat::Identity,Profile,
+                FCollisionShape::MakeCapsule(Radius,Half),Params) || Rest.bStartPenetrating ||
+                !IsStableSurface(Rest.GetComponent()) || !Movement->IsWalkable(Rest)) return false;
+            Supports.AddUnique(Rest.GetComponent());
+            Center.ImpactPoint.Z=Rest.Location.Z-Half;
+            return StandingSpace(Center.ImpactPoint);
         }
         Center.ImpactPoint.Z=Highest;
         return StandingSpace(Center.ImpactPoint);
@@ -196,23 +239,38 @@ FFPSTraversalTarget UFPSTraversalComponent::FindTarget(bool bJumpPressed, bool b
             FCollisionShape::MakeCapsule(Radius,Half),Params);
     };
     Result.RaisedStart=FVector(Start.X,Start.Y,LipHeight+Half+3.f);
-    FVector MantleFoot=Result.FrontEdge+Forward*(PadRadius+2.f);
+    FVector MantleEnd=FVector::ZeroVector, MantleRaised=FVector::ZeroVector;
     TArray<TObjectPtr<UPrimitiveComponent>> MantleSupports,VaultSupports;
-    FHitResult MantleSupport;
-    if (Ray(MantleSupport,MantleFoot+Up*60.f,MantleFoot-Up*60.f) &&
-        IsStableSurface(MantleSupport.GetComponent()) && Movement->IsWalkable(MantleSupport))
+    const float PreferredDepth=Radius+2.f;
+    const float NearDepth=Radius*.5f+2.f;
+    const float CenterDepth=FMath::Clamp(P.Depth*.5f,NearDepth,PreferredDepth+30.f);
+    // Prefer the previous landing on broad platforms, then look nearer the lip
+    // or toward the measured centre. A fixed torso-radius offset can put a shallow
+    // cabinet's landing against the rear wall even when its centre is usable.
+    const float MantleDepths[]={PreferredDepth,CenterDepth,(PreferredDepth+NearDepth)*.5f,
+        NearDepth,PreferredDepth+15.f,PreferredDepth+30.f};
+    for (float Depth : MantleDepths)
     {
-        P.bTopStandingSpace=SupportedPad(MantleSupport,MantleSupports);
-        MantleFoot=MantleSupport.ImpactPoint;
+        const FVector Candidate=Result.FrontEdge+Forward*Depth;
+        FHitResult MantleSupport;
+        if (!Ray(MantleSupport,Candidate+Up*60.f,Candidate-Up*60.f) ||
+            !IsStableSurface(MantleSupport.GetComponent()) || !Movement->IsWalkable(MantleSupport)) continue;
+        MantleSupports.Reset();
+        if (!SupportedPad(MantleSupport,MantleSupports,true)) continue;
+        const FVector End=MantleSupport.ImpactPoint+Up*(Half+2.f);
+        const FVector RaisedStart(Start.X,Start.Y,FMath::Max(LipHeight+Half+3.f,(float)End.Z+1.f));
+        const FVector RaisedEnd(End.X,End.Y,RaisedStart.Z);
+        if (!ClearSegment(Start,RaisedStart) || !ClearSegment(RaisedStart,RaisedEnd) ||
+            !ClearSegment(RaisedEnd,End)) continue;
+        P.bTopStandingSpace=P.bApproachClear=P.bMantlePathClear=true;
+        Result.RaisedStart=RaisedStart; MantleRaised=RaisedEnd; MantleEnd=End;
+        break;
     }
-    Result.RaisedStart.Z=FMath::Max(Result.RaisedStart.Z,MantleFoot.Z+Half+3.f);
-    P.bApproachClear=ClearSegment(Start,Result.RaisedStart);
-    const FVector MantleEnd=MantleFoot+Up*(Half+2.f);
-    const FVector MantleRaised=FVector(MantleEnd.X,MantleEnd.Y,Result.RaisedStart.Z);
-    P.bMantlePathClear=P.bApproachClear && ClearSegment(Result.RaisedStart,MantleRaised) && ClearSegment(MantleRaised,MantleEnd);
     FVector VaultEnd=FVector::ZeroVector, VaultRaised=FVector::ZeroVector;
-    if (HeightClass==EFPSTraversalAction::Vault)
+    if (HeightClass==EFPSTraversalAction::Vault || bGuardrailDrop)
     {
+        const float LandingRiseLimit=bGuardrailDrop?FMath::Max(Rules->MaxLandingRise,P.Height):Rules->MaxLandingRise;
+        const float LiftLimit=bGuardrailDrop?(P.bAirborne?Rules->AirMaxLedgeHeight:Rules->MantleMaxHeight):Rules->VaultMaxHeight;
         const float FirstDepth=P.Depth>0.f && P.Depth<=Rules->VaultMaxDepth?P.Depth:20.f;
         // Bound the search by the allowed obstacle depth. Every candidate still
         // needs standing support, headroom and the entire swept route.
@@ -220,16 +278,16 @@ FFPSTraversalTarget UFPSTraversalComponent::FindTarget(bool bJumpPressed, bool b
         {
             const FVector LandingXY=Result.FrontEdge+Forward*(Depth+PadRadius+2.f);
             FHitResult Landing;
-            if (Ray(Landing,FVector(LandingXY.X,LandingXY.Y,FloorZ+Rules->MaxLandingRise+1.f),
+            if (Ray(Landing,FVector(LandingXY.X,LandingXY.Y,FloorZ+LandingRiseLimit+1.f),
                 FVector(LandingXY.X,LandingXY.Y,FloorZ-LandingDropLimit-1.f)) && Movement->IsWalkable(Landing))
             {
                 VaultSupports.Reset();
-                if (SupportedPad(Landing,VaultSupports))
+                if (SupportedPad(Landing,VaultSupports,false))
                 {
                     VaultEnd=Landing.ImpactPoint+Up*(Half+2.f);
                     for (float Lift : {0.f,10.f,20.f})
                     {
-                        if (P.Height+Lift>Rules->VaultMaxHeight) continue;
+                        if (P.Height+Lift>LiftLimit) continue;
                         const FVector Raised=FVector(Start.X,Start.Y,LipHeight+Half+3.f+Lift);
                         VaultRaised=FVector(VaultEnd.X,VaultEnd.Y,Raised.Z);
                         if (ClearSegment(Start,Raised) && ClearSegment(Raised,VaultRaised) && ClearSegment(VaultRaised,VaultEnd))
@@ -245,12 +303,13 @@ FFPSTraversalTarget UFPSTraversalComponent::FindTarget(bool bJumpPressed, bool b
             if (P.bVaultPathClear || Depth>=Rules->VaultMaxDepth) break;
         }
     }
-    Result.Action=Rules->Evaluate(P,SurfaceLandingDrop);
-    const bool bVault=Result.Action==EFPSTraversalAction::Vault;
-    for (const auto& Support:bVault?VaultSupports:MantleSupports) Result.Supports.AddUnique(Support);
-    Result.Destination=bVault?VaultEnd:MantleEnd;
-    Result.RaisedEnd=bVault?VaultRaised:MantleRaised;
-    Result.bReleaseIntoFall=bVault && bGuardrailDrop && P.LandingHeightDelta < -NormalLandingDrop;
+    Result.Action=Rules->Evaluate(P,SurfaceLandingDrop,bGuardrailDrop);
+    const bool bCrossing=Result.Action==EFPSTraversalAction::Vault ||
+        (Result.Action==EFPSTraversalAction::Mantle && bGuardrailDrop && P.bVaultPathClear);
+    for (const auto& Support:bCrossing?VaultSupports:MantleSupports) Result.Supports.AddUnique(Support);
+    Result.Destination=bCrossing?VaultEnd:MantleEnd;
+    Result.RaisedEnd=bCrossing?VaultRaised:MantleRaised;
+    Result.bReleaseIntoFall=bCrossing && bGuardrailDrop && P.LandingHeightDelta < -NormalLandingDrop;
     if (Result.bReleaseIntoFall)
     {
         // The landing pad and full descending capsule sweep were accepted above.

@@ -20,6 +20,8 @@ public:
     ADungeonRoomGate();
     bool Configure(const FDungeonRunDoor& Door);
     void SetOpenFraction(float Fraction);
+    /** Close the full doorway to pawns immediately while the visible grille travels. */
+    void SetEncounterLocked(bool bLocked);
     bool IsSweepOccupied(const APawn* Pawn) const;
 
 private:
@@ -33,4 +35,5 @@ private:
     double PanelHeight = 0.;
     float LastOpenFraction = -1.f;
     UPROPERTY() TArray<TObjectPtr<UBoxComponent>> FrameBlockers;
+    UPROPERTY() TObjectPtr<UBoxComponent> EncounterBarrier;
 };

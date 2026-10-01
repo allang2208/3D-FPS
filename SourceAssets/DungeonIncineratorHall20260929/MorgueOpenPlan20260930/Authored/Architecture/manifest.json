@@ -1,0 +1,104 @@
+{
+  "objects": [
+    {
+      "name": "SM_Incinerator_Stairs_OpenB1V2",
+      "kind": "Stairs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueOpenPlan20260930\\Authored\\Architecture\\SM_Incinerator_Stairs_OpenB1V2.fbx",
+      "materials": {
+        "RS_BridgeDeck": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BridgeDeck",
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 8556,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_B1Floor_OpenB1V2",
+      "kind": "B1Floor",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueOpenPlan20260930\\Authored\\Architecture\\SM_Incinerator_B1Floor_OpenB1V2.fbx",
+      "materials": {
+        "RS_Mortar": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_ExposedMortar",
+        "RS_ClinicalFloor": "/Game/Dungeons/IncineratorHall20260929/MorgueOpenPlanV2/Materials/M_ClinicalFloor"
+      },
+      "triangles": 19224,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_B1Walls_OpenB1V2",
+      "kind": "B1Walls",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueOpenPlan20260930\\Authored\\Architecture\\SM_Incinerator_B1Walls_OpenB1V2.fbx",
+      "materials": {
+        "RS_ClinicalPlaster": "/Game/Dungeons/IncineratorHall20260929/MorgueOpenPlanV2/Materials/M_ClinicalPlaster"
+      },
+      "triangles": 180,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_B1Wainscot_OpenB1V2",
+      "kind": "B1Wainscot",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueOpenPlan20260930\\Authored\\Architecture\\SM_Incinerator_B1Wainscot_OpenB1V2.fbx",
+      "materials": {
+        "RS_ClinicalTile": "/Game/Dungeons/IncineratorHall20260929/MorgueOpenPlanV2/Materials/M_ClinicalTile"
+      },
+      "triangles": 34200,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_B1DoorFrames_OpenB1V2",
+      "kind": "B1DoorFrames",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueOpenPlan20260930\\Authored\\Architecture\\SM_Incinerator_B1DoorFrames_OpenB1V2.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "triangles": 56,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_B1Nosing_OpenB1V2",
+      "kind": "B1Nosing",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueOpenPlan20260930\\Authored\\Architecture\\SM_Incinerator_B1Nosing_OpenB1V2.fbx",
+      "materials": {
+        "RS_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint"
+      },
+      "triangles": 288,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_B1Structure_OpenB1V2",
+      "kind": "B1Structure",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueOpenPlan20260930\\Authored\\Architecture\\SM_Incinerator_B1Structure_OpenB1V2.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 204,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_B1Services_OpenB1V2",
+      "kind": "B1Services",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueOpenPlan20260930\\Authored\\Architecture\\SM_Incinerator_B1Services_OpenB1V2.fbx",
+      "materials": {
+        "RS_PipeEnamel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "triangles": 384,
+      "collision": true,
+      "sample_only": false
+    }
+  ],
+  "tests_run": false,
+  "rendered": false,
+  "revision": "morgue_open_plan_v2_20260930",
+  "ceramic_source": "DungeonTileFracture20260922 through CorridorSurfaces",
+  "source_units": "metres; UE centimetres"
+}

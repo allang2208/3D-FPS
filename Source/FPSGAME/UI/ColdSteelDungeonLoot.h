@@ -3,6 +3,13 @@
 
 class AActor;
 
+struct FColdSteelDungeonLootPreview
+{
+    FString Definition;
+    int32 MinimumDepth=0;
+    bool bInFinalTier=false;
+};
+
 /**
  * 地牢宝箱战利品：运行中（UDungeonRunSubsystem::IsRunActive）的宝箱开启后按房间深度发放随机奖励。
  * 战利品表 Content/ColdSteelData/dungeon_loot.json 一次性读取并静态缓存（不做热重载）。
@@ -13,6 +20,9 @@ class AActor;
 class FColdSteelDungeonLoot
 {
 public:
+    /** Read the same cached candidates as GrantFromChest, without drawing or granting loot. */
+    static TArray<FColdSteelDungeonLootPreview> PreviewItems();
+    static double FinalQuantityMultiplier();
     /** 领取标记与全部战利品同事务提交；失败返回 false，允许宝箱重新交互。 */
     static bool GrantFromChest(AActor* Chest);
 };

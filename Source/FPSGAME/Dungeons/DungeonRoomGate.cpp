@@ -58,6 +58,15 @@ ADungeonRoomGate::ADungeonRoomGate()
         FrameBlockers.Add(Box);
     }
     Tags.Add(TEXT("DungeonRoom.Grille"));
+    EncounterBarrier = CreateDefaultSubobject<UBoxComponent>(TEXT("EncounterBarrier"));
+    EncounterBarrier->SetupAttachment(RootComponent);
+    EncounterBarrier->SetMobility(EComponentMobility::Movable);
+    EncounterBarrier->SetCollisionProfileName(TEXT("BlockAll"));
+    EncounterBarrier->SetCollisionResponseToAllChannels(ECR_Ignore);
+    EncounterBarrier->SetCollisionResponseToChannel(ECC_Pawn,ECR_Block);
+    EncounterBarrier->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    EncounterBarrier->SetGenerateOverlapEvents(false);
+    EncounterBarrier->SetCanEverAffectNavigation(false);
 }
 
 bool ADungeonRoomGate::Configure(const FDungeonRunDoor& Door)
@@ -83,6 +92,10 @@ bool ADungeonRoomGate::Configure(const FDungeonRunDoor& Door)
     Head->SetRelativeScale3D(FVector((ClearWidth + 22.) / (NominalWidth + 22.), 1.,
         (GuideHeight - ClearHeight) / (NominalGuideHeight - NominalHeight)));
     const double LastTrack = FirstTrack + (PanelCount - 1) * TrackPitch;
+    EncounterBarrier->SetRelativeLocation(FVector(0.,(FirstTrack+LastTrack)*.5,ClearHeight*.5));
+    EncounterBarrier->SetBoxExtent(FVector(ClearWidth*.5+SideOverlap,
+        (LastTrack-FirstTrack+PanelThickness)*.5,ClearHeight*.5));
+    SetEncounterLocked(false);
     for (int32 Index = 0; Index < 2; ++Index)
     {
         // Side volumes begin at the clear edge, never across the doorway.
@@ -130,6 +143,12 @@ void ADungeonRoomGate::SetOpenFraction(float Fraction)
     Panels->SetHiddenInGame(Fraction >= 1.f);
 }
 
+void ADungeonRoomGate::SetEncounterLocked(bool bLocked)
+{
+    const auto Collision=bLocked?ECollisionEnabled::QueryAndPhysics:ECollisionEnabled::NoCollision;
+    if(EncounterBarrier->GetCollisionEnabled()!=Collision)EncounterBarrier->SetCollisionEnabled(Collision);
+}
+
 bool ADungeonRoomGate::IsSweepOccupied(const APawn* Pawn) const
 {
     using namespace DungeonRoomGateDimensions;
@@ -140,8 +159,11 @@ bool ADungeonRoomGate::IsSweepOccupied(const APawn* Pawn) const
     const double HalfHeight = Capsule ? Capsule->GetScaledCapsuleHalfHeight() : 100.;
     const FVector Local = GetActorTransform().InverseTransformPosition(Pawn->GetActorLocation());
     const double LastTrack = FirstTrack + (PanelCount - 1) * TrackPitch;
+    // Room containment includes the wall/door collar. Reserve its outside edge
+    // too: a pawn approaching from the corridor must not start the encounter
+    // before its entire capsule has crossed behind the last gate track.
     return FMath::Abs(Local.X) < ClearWidth * .5 + SideOverlap + Radius &&
-        Local.Y > FirstTrack - PanelThickness * .5 - Radius - 2. &&
+        Local.Y > -Radius - 200. &&
         Local.Y < LastTrack + PanelThickness * .5 + Radius + 2. &&
         Local.Z + HalfHeight > -PanelOverlap * .5 && Local.Z - HalfHeight < ClearHeight + OpenClearance + PanelHeight;
 }

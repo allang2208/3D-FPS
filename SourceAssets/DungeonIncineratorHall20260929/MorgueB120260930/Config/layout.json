@@ -1,0 +1,41 @@
+{
+  "revision":"incinerator_morgue_b1_v1_20260930",
+  "ue_base":"/Game/Dungeons/IncineratorHall20260929/MorgueB1V1",
+  "map":"/Game/GameMaps/Design/L_AbandonedIncineratorHall_Subject",
+  "floor_z":-3.6,
+  "ceiling_z":-0.25,
+  "rect_m":[-13,-7.65,7.8,4.85],
+  "stairs":{"rect_m":[-13,-7.65,-8.6,-2.65],"west_flight_x":[-12.85,-11.05],"east_flight_x":[-10.6,-8.8],"risers_per_flight":12,"rise_m":0.15,"going_m":0.275,"landing_y":[-7.65,-5.95]},
+  "zones":[
+    {"id":"transfer_foyer","rect_m":[-13,-2.65,-6,4.85]},
+    {"id":"cold_storage","rect_m":[-6,-7.65,7.8,2.3]},
+    {"id":"preparation_and_wash","rect_m":[-6,2.3,1.8,4.85]},
+    {"id":"cold_service","rect_m":[1.8,2.3,7.8,4.85]}
+  ],
+  "freezer_modules":[
+    {"key":"ColdBankClosed","origin":[5.15,-4.2,-3.6],"yaw":90,"first_slot":1},
+    {"key":"ColdBankClosed","origin":[5.15,-3.05,-3.6],"yaw":90,"first_slot":4},
+    {"key":"ColdBankOpen","origin":[5.15,-1.9,-3.6],"yaw":90,"first_slot":7},
+    {"key":"ColdBankClosed","origin":[5.15,-0.75,-3.6],"yaw":90,"first_slot":10}
+  ],
+  "props":[
+    {"key":"MortuaryTrolley","origin":[0.8,-1.9,-3.6],"yaw":90},
+    {"key":"MortuaryTrolley","origin":[-10.9,2.75,-3.6],"yaw":0},
+    {"key":"PreparationTable","origin":[-2.45,3.48,-3.6],"yaw":90},
+    {"key":"WashSink","origin":[0.35,4.52,-3.6],"yaw":0},
+    {"key":"RecordsDesk","origin":[-7.15,3.7,-3.6],"yaw":0}
+  ],
+  "ash_station":{"origin":[10.6,-8.1,0],"inlet":[8.29,-8.7,2.55],"outward_axis":[1,0,0]},
+  "lights":[
+    {"id":"StairUpper","position":[-12,-3.9,1.5],"lumens":420,"radius_cm":440,"shadow":true},
+    {"id":"StairLanding","position":[-10.8,-6.9,0.45],"lumens":350,"radius_cm":440,"shadow":true},
+    {"id":"Foyer","position":[-9.8,0.5,-0.58],"lumens":900,"radius_cm":560,"shadow":true},
+    {"id":"ColdFront","position":[2.8,-2.65,-0.58],"lumens":1050,"radius_cm":610,"shadow":true},
+    {"id":"ColdBack","position":[-2.5,-4.8,-0.58],"lumens":700,"radius_cm":580,"shadow":false},
+    {"id":"Wash","position":[-2,3.45,-0.58],"lumens":550,"radius_cm":440,"shadow":false},
+    {"id":"Service","position":[4.7,3.45,-0.58],"lumens":350,"radius_cm":370,"shadow":false}
+  ],
+  "reference":"https://www.mopec.com/wp-content/uploads/2021/05/KA1300-Refrigeration-SpecSheet.pdf",
+  "state":"Abandoned mortuary, closed cold storage plus one empty extended tray; static authored equipment",
+  "tests_run":false
+}

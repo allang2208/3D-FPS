@@ -1,0 +1,117 @@
+[
+  {
+    "id": "Loading01",
+    "kind": "loading",
+    "number": "01",
+    "rect_m": [
+      -8,
+      -7.12,
+      -4,
+      -2.35
+    ],
+    "pixels": [
+      1536,
+      1792
+    ],
+    "texture": "T_IncineratorPaint_Loading01",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Signage20260930\\Authored\\Textures\\T_IncineratorPaint_Loading01.png"
+  },
+  {
+    "id": "Loading02",
+    "kind": "loading",
+    "number": "02",
+    "rect_m": [
+      -2,
+      -7.12,
+      2,
+      -2.35
+    ],
+    "pixels": [
+      1536,
+      1792
+    ],
+    "texture": "T_IncineratorPaint_Loading02",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Signage20260930\\Authored\\Textures\\T_IncineratorPaint_Loading02.png"
+  },
+  {
+    "id": "Loading03",
+    "kind": "loading",
+    "number": "03",
+    "rect_m": [
+      4,
+      -7.12,
+      8,
+      -2.35
+    ],
+    "pixels": [
+      1536,
+      1792
+    ],
+    "texture": "T_IncineratorPaint_Loading03",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Signage20260930\\Authored\\Textures\\T_IncineratorPaint_Loading03.png"
+  },
+  {
+    "id": "MainAisle",
+    "kind": "aisle",
+    "rect_m": [
+      -13.6,
+      -1.72,
+      13.6,
+      1.72
+    ],
+    "pixels": [
+      4096,
+      512
+    ],
+    "texture": "T_IncineratorPaint_MainAisle",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Signage20260930\\Authored\\Textures\\T_IncineratorPaint_MainAisle.png"
+  },
+  {
+    "id": "WasteBay",
+    "kind": "waste",
+    "rect_m": [
+      10,
+      -5.7,
+      12.7,
+      -3.2
+    ],
+    "pixels": [
+      1536,
+      1536
+    ],
+    "texture": "T_IncineratorPaint_WasteBay",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Signage20260930\\Authored\\Textures\\T_IncineratorPaint_WasteBay.png"
+  },
+  {
+    "id": "PitFront",
+    "kind": "hazard",
+    "rect_m": [
+      -11.05,
+      -2.61,
+      -8.7,
+      -2.43
+    ],
+    "pixels": [
+      2048,
+      256
+    ],
+    "texture": "T_IncineratorPaint_PitFront",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Signage20260930\\Authored\\Textures\\T_IncineratorPaint_PitFront.png"
+  },
+  {
+    "id": "PitSide",
+    "kind": "hazard",
+    "rect_m": [
+      -8.57,
+      -7.42,
+      -8.43,
+      -2.76
+    ],
+    "pixels": [
+      128,
+      2048
+    ],
+    "texture": "T_IncineratorPaint_PitSide",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Signage20260930\\Authored\\Textures\\T_IncineratorPaint_PitSide.png"
+  }
+]

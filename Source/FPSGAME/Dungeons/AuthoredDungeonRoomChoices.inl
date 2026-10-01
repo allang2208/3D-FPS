@@ -20,12 +20,25 @@ double RoomRepetitionCost(int32 Module,const FString& Route)const
     return Cost;
 }
 struct FRoomChoice {int32 Key,Value,Exit;};
-TArray<FRoomChoice> RoomChoices(const FString& Route)
+TArray<FRoomChoice> RoomChoices(const FString& Route,int32 Ordinal=INDEX_NONE,bool bReverse=false)
 {
+    const int32 Required=bThemedRoutes?ThemeRequirement(Route,Ordinal):INDEX_NONE;
+    if(Required>=0)
+    {
+        TArray<FRoomChoice> Fixed;
+        if(!RoomAllowed(Required,Route))return Fixed;
+        for(const auto& Pair:Modules[Required].PortPairs)
+        {
+            Fixed.Add({Required,bReverse?Pair.Y:Pair.X,bReverse?Pair.X:Pair.Y});
+            if(!ForwardOnlyModules.Contains(Required))Fixed.Add({Required,bReverse?Pair.X:Pair.Y,bReverse?Pair.Y:Pair.X});
+        }
+        return Fixed;
+    }
     TArray<FString> Families;TArray<TArray<int32>> Variants;
     for(int32 M:Combat)
     {
         if(!RoomAllowed(M,Route))continue;
+        if(bThemedRoutes&&!TransitionFamilies.Contains(Modules[M].Family))continue;
         int32 F=Families.IndexOfByKey(Modules[M].Family);
         if(F==INDEX_NONE){F=Families.Add(Modules[M].Family);Variants.AddDefaulted();}
         Variants[F].Add(M);

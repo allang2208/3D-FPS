@@ -6,6 +6,8 @@ struct FShortLink
     FSocket End;
     double Length=0;
     int32 Turns=0;
+    int32 Ramp=INDEX_NONE,RampEntry=0;
+    FTransform RampTransform;
 };
 
 double LinkCost(const FShortLink& Link,double ReservedLead=0)const
@@ -98,13 +100,15 @@ bool AttachRoom(int32 Module,int32 Entry,const FSocket& Start,const FShortLink& 
                 FSocket& Exit,FVector SectorOrigin={},FVector SectorDir={},int32 ExitPort=INDEX_NONE)
 {
     if(ExitPort==INDEX_NONE)ExitPort=PairedExit(Module,Entry);
-    if(!Modules[Module].Ports.IsValidIndex(ExitPort)||!Compatible(Link.End,Module,Entry)||Link.Length+Start.ReservedLead>ShortLinkLimit+.1)return false;
+    const double Limit=Link.Ramp>=0?ThemeRampLinkLimit:ShortLinkLimit;
+    if(!Modules[Module].Ports.IsValidIndex(ExitPort)||!Compatible(Link.End,Module,Entry)||Link.Length+Start.ReservedLead>Limit+.1)return false;
     const int32 Before=Pieces.Num();
     // Reserve the whole room first. Corridors must avoid its other walls too;
     // only the exact matching doorway permits an architectural seam overlap.
     if(!Place(Module,Fit(Module,Entry,Link.End),Route,-2,-2,SectorOrigin,SectorDir,-2,{Entry,ExitPort}))return false;
     const FSocket Goal=Socket(Before,Entry);
-    if(!PlaceRoutePolyline(Start,Goal,Route,Link.Points,ShortLinkLimit-Start.ReservedLead,ShortLinkLimit))
+    if(!(Link.Ramp>=0?PlaceRampRoomLink(Start,Goal,Route,Link):
+        PlaceRoutePolyline(Start,Goal,Route,Link.Points,ShortLinkLimit-Start.ReservedLead,ShortLinkLimit)))
     {Pieces.SetNum(Before);return false;}
     // Preserve connector-before-room ordering used by staged assembly. FPlaced
     // stores no owner indices; only the two local socket indices need refreshing.

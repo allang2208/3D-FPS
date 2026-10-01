@@ -455,3 +455,7 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 ## 冰墙、暴风雪与图标恢复（2026-10-01发布）
 
 当前冰墙FabIceV3／GatherV2／SlamV3／TerrainV1与暴风雪StormV2／ChargedV3的制作入口、本机依赖、图标及未测试范围见 [魔法整理发布](Skills/skills-magic-publication-20261001.md)。BlockV1预览／声音、Fab冰母版、Normandy云、冰锥与滚动烟尘必须先恢复合法本机资源；公开仓库不包含这些UE包、音频、二进制源和PNG。不要运行历史制作入口覆盖当前正式表现。
+
+## 主题地牢、错层坡道与全房闸门（2026-10-02）
+
+本对话五个房间主题及其制作脚本、目录、生成/遭遇源码、翻越、出征 UI 和技能沉淀见 [地牢发布记录](Gameplay/dungeon-publication-20261002.md)。112 份退役快照/备份/收尾脚本移入 trash；正式 Blender 源、导出、纹理、生产地图与本机安装回执保留。素材复用与再分发边界见 [主题资产说明](../ThirdPartyNotices/DUNGEON_THEMES_20261002.md)。本轮直接发布现有运行源码增量，不再叠加旧交接补丁；Git 仍不包含完整本机二进制 Content，恢复后才能运行。最新全房封门已有基础 DLL 构建，未进行本轮游戏测试。

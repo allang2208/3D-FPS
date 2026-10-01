@@ -1,0 +1,244 @@
+{
+  "objects": [
+    {
+      "name": "SM_DataArchive_Floors",
+      "kind": "Floors",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\Authored\\SM_DataArchive_Floors.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 4324,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_Paving",
+      "kind": "Paving",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\Authored\\SM_DataArchive_Paving.fbx",
+      "materials": {
+        "RS_Panel": "/Game/Dungeons/DataArchive20260930/Materials/M_ArchivePanel"
+      },
+      "triangles": 5608,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_Stairs",
+      "kind": "Stairs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\Authored\\SM_DataArchive_Stairs.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 1728,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_Nosing",
+      "kind": "Nosing",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\Authored\\SM_DataArchive_Nosing.fbx",
+      "materials": {
+        "RS_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint"
+      },
+      "triangles": 192,
+      "collision": false,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_PitCoping",
+      "kind": "PitCoping",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\Authored\\SM_DataArchive_PitCoping.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 96,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_Railings",
+      "kind": "Railings",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\Authored\\SM_DataArchive_Railings.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 1920,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_Walls",
+      "kind": "Walls",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\Authored\\SM_DataArchive_Walls.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 2376,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_Frames",
+      "kind": "Frames",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\Authored\\SM_DataArchive_Frames.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 144,
+      "collision": false,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_Roof",
+      "kind": "Roof",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\Authored\\SM_DataArchive_Roof.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 52,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_CeilingBeams",
+      "kind": "CeilingBeams",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\Authored\\SM_DataArchive_CeilingBeams.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 48,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_Columns",
+      "kind": "Columns",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\Authored\\SM_DataArchive_Columns.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 48,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_CableTrays",
+      "kind": "CableTrays",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\Authored\\SM_DataArchive_CableTrays.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 1872,
+      "collision": false,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_Conduits",
+      "kind": "Conduits",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\Authored\\SM_DataArchive_Conduits.fbx",
+      "materials": {
+        "RS_Rubber": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      },
+      "triangles": 1056,
+      "collision": false,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_CableHangers",
+      "kind": "CableHangers",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\Authored\\SM_DataArchive_CableHangers.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 384,
+      "collision": false,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_EquipmentBases",
+      "kind": "EquipmentBases",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\Authored\\SM_DataArchive_EquipmentBases.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "triangles": 48,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_BayFrames",
+      "kind": "BayFrames",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\Authored\\SM_DataArchive_BayFrames.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 144,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_BayPanels",
+      "kind": "BayPanels",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\Authored\\SM_DataArchive_BayPanels.fbx",
+      "materials": {
+        "RS_Panel": "/Game/Dungeons/DataArchive20260930/Materials/M_ArchivePanel"
+      },
+      "triangles": 48,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_DisplayFrames",
+      "kind": "DisplayFrames",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\Authored\\SM_DataArchive_DisplayFrames.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 48,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_DisplayScreens",
+      "kind": "DisplayScreens",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\Authored\\SM_DataArchive_DisplayScreens.fbx",
+      "materials": {
+        "RS_Screen": "/Game/Dungeons/DataArchive20260930/Materials/M_DormantScreen"
+      },
+      "triangles": 36,
+      "collision": false,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_DisplayMounts",
+      "kind": "DisplayMounts",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\Authored\\SM_DataArchive_DisplayMounts.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 72,
+      "collision": false,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_LampHangers",
+      "kind": "LampHangers",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\Authored\\SM_DataArchive_LampHangers.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 216,
+      "collision": false,
+      "sample_only": false
+    }
+  ],
+  "tests_run": false,
+  "rendered": false,
+  "revision": "data_archive_structure_v1_20260930",
+  "ceramic_source": "DungeonTileFracture20260922 through CorridorSurfaces",
+  "source_units": "metres; UE centimetres",
+  "sample_retired": true,
+  "production_module": "AbandonedDataArchive"
+}

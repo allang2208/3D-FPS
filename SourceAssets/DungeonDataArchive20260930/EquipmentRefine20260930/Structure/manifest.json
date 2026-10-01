@@ -1,0 +1,54 @@
+{
+  "objects": [
+    {
+      "name": "SM_DataArchive_Railings_V2",
+      "kind": "Railings",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\EquipmentRefine20260930\\Structure\\SM_DataArchive_Railings_V2.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 4800,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_EquipmentBases_V2",
+      "kind": "EquipmentBases",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\EquipmentRefine20260930\\Structure\\SM_DataArchive_EquipmentBases_V2.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "triangles": 48,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_BayFrames_V2",
+      "kind": "BayFrames",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\EquipmentRefine20260930\\Structure\\SM_DataArchive_BayFrames_V2.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 144,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_DataArchive_BayPanels_V2",
+      "kind": "BayPanels",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\EquipmentRefine20260930\\Structure\\SM_DataArchive_BayPanels_V2.fbx",
+      "materials": {
+        "RS_Panel": "/Game/Dungeons/DataArchive20260930/Materials/M_ArchivePanel"
+      },
+      "triangles": 48,
+      "collision": true,
+      "sample_only": false
+    }
+  ],
+  "tests_run": false,
+  "rendered": false,
+  "revision": "data_archive_structure_v1_20260930",
+  "ceramic_source": "DungeonTileFracture20260922 through CorridorSurfaces",
+  "source_units": "metres; UE centimetres"
+}

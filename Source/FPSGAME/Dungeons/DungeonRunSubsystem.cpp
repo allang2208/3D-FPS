@@ -38,6 +38,19 @@ void UDungeonRunSubsystem::Initialize(FSubsystemCollectionBase& Collection)
     Super::Initialize(Collection);
 }
 
+bool UDungeonRunSubsystem::AnyThemedRouteCleared() const
+{
+    if(!bActive)return false;
+    for(int32 R=1;R<=3;++R)
+    {
+        const FString Route=FString::Printf(TEXT("Route%d"),R);int32 Rooms=0;bool Complete=true;
+        for(const auto& Node:Nodes)if(Node.bCombatRoom&&Node.Route==Route)
+        {++Rooms;if(!IsRoomCleared(Node.Id)){Complete=false;break;}}
+        if(Rooms>0&&Complete)return true;
+    }
+    return false;
+}
+
 void UDungeonRunSubsystem::Deinitialize()
 {
     UnbindDungeon();
@@ -298,6 +311,9 @@ bool UDungeonRunSubsystem::ParseLayoutManifest(const FString& Json)
             const auto C=Cell->AsObject();if(C.IsValid())Node.Cells.Add(FBox(ReadVec3(C,TEXT("min")),ReadVec3(C,TEXT("max"))));
         }
         Node.bConnector = IsConnectorModuleId(Node.Module);
+        bool SplitLevelRamp=false;
+        N->TryGetBoolField(TEXT("split_level_ramp"),SplitLevelRamp);
+        Node.bConnector |= SplitLevelRamp;
         Node.bCombatRoom = RoomIds.Contains(Node.Module);
         if(N->TryGetArrayField(TEXT("walk_cells"),Cells))for(const auto& Cell:*Cells)
         {const auto C=Cell->AsObject();if(C.IsValid())Node.WalkCells.Add(FBox(ReadVec3(C,TEXT("min")),ReadVec3(C,TEXT("max"))));}
@@ -359,6 +375,9 @@ void UDungeonRunSubsystem::ParseCatalog(const FString& Json)
     if (!N.IsNearlyZero()) StartNormal = N;
 
     const TArray<TSharedPtr<FJsonValue>>* Modules = nullptr;
+    const TSharedPtr<FJsonObject>* ThemedRoutes = nullptr;
+    const bool bThemedRouteClear = Root->TryGetObjectField(TEXT("themed_routes"), ThemedRoutes)
+        && ThemedRoutes && ThemedRoutes->IsValid();
     if (Root->TryGetArrayField(TEXT("modules"), Modules) && Modules)
     {
         for (const TSharedPtr<FJsonValue>& Value : *Modules)
@@ -369,7 +388,20 @@ void UDungeonRunSubsystem::ParseCatalog(const FString& Json)
             if (!M->TryGetStringField(TEXT("id"), Id) || Id.IsEmpty()) continue;
             const TSharedPtr<FJsonObject>* Spawn = nullptr;
             if (M->TryGetObjectField(TEXT("spawn"), Spawn) && Spawn && Spawn->IsValid())
-                SpawnConfigs.Add(Id, *Spawn);
+            {
+                // A clear-to-open exit needs an entry-triggered wave, even when
+                // the authored room intentionally leaves its entrance open.
+                // Derive this from the same gate specification the assembler uses.
+                auto RuntimeSpawn = MakeShared<FJsonObject>();
+                RuntimeSpawn->Values = (*Spawn)->Values;
+                const TSharedPtr<FJsonObject>* Gate = nullptr;
+                RuntimeSpawn->SetBoolField(TEXT("progression_encounter"),
+                    M->TryGetObjectField(TEXT("progression_gate"), Gate) && Gate && Gate->IsValid());
+                // The archive requires an entire branch, including its ordinary
+                // rooms. Their waves need the same entry/reservation guarantee.
+                RuntimeSpawn->SetBoolField(TEXT("themed_route_clear_encounter"), bThemedRouteClear);
+                SpawnConfigs.Add(Id, RuntimeSpawn);
+            }
         }
     }
 }

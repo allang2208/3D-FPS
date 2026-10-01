@@ -136,7 +136,7 @@ void ADungeonSpawnDirector::PlanOpening()
     Plans.Reset();
 
     // 目录 spawn 段的每房配方（.cpp 局部）：数量区间 + 加权池。
-    struct FRoomRecipe { int32 PlanIndex = INDEX_NONE; int32 NodeId = INDEX_NONE; int32 MinCount = 2; int32 MaxCount = 4; TArray<FPoolEntry> Pool; double TotalWeight = 0.0; bool bSealedEncounter = false; };
+    struct FRoomRecipe { int32 PlanIndex = INDEX_NONE; int32 NodeId = INDEX_NONE; int32 MinCount = 2; int32 MaxCount = 4; TArray<FPoolEntry> Pool; double TotalWeight = 0.0; };
     TArray<FRoomRecipe> Recipes;
 
     // 1) 候选房：战斗房、非 Boss 区、未清除、有 spawn 配置且能求出落点。
@@ -152,7 +152,6 @@ void ADungeonSpawnDirector::PlanOpening()
 
         FRoomRecipe Recipe;
         Recipe.NodeId = Node.Id;
-        Config->TryGetBoolField(TEXT("sealed_encounter"),Recipe.bSealedEncounter);
         const TArray<TSharedPtr<FJsonValue>>* CountArray = nullptr;
         if (Config->TryGetArrayField(TEXT("count"), CountArray) && CountArray && CountArray->Num() >= 2)
         {
@@ -186,7 +185,8 @@ void ADungeonSpawnDirector::PlanOpening()
             continue;
         }
 
-        // 落点候选提前求出：没有可用落点的房不进计划，也不参与精英房抽取。
+        // Every configured room owns an entry encounter. Empty candidate sets
+        // are resolved by its bounded spawn-failure policy, not silently skipped.
         TArray<FString> AnchorRoles;
         const TArray<TSharedPtr<FJsonValue>>* Roles = nullptr;
         if (Config->TryGetArrayField(TEXT("anchor_roles"), Roles) && Roles)
@@ -201,11 +201,6 @@ void ADungeonSpawnDirector::PlanOpening()
         Plan.Depth = Node.ProgressionDepth;
         Plan.Center = Node.Volume.IsValid ? Node.Volume.GetCenter() : Node.Origin;
         BuildRoomCandidates(this, Sub, Node.Id, AnchorRoles, Plan.Candidates);
-        if (Plan.Candidates.IsEmpty())
-        {
-            UE_LOG(LogTemp, Warning, TEXT("[DungeonSpawn] 房 %d（%s）锚点与散点都不可用，跳过该房。"), Node.Id, *Node.Module);
-            continue;
-        }
         Recipe.PlanIndex = Plans.Add(MoveTemp(Plan));
         Eligible.Add(Node.Id);
         Recipes.Add(MoveTemp(Recipe));
@@ -228,8 +223,10 @@ void ADungeonSpawnDirector::PlanOpening()
         const int32 Count = FMath::Min(MaxCountPerRoom,Composition.RandRange(Recipe.MinCount, Recipe.MaxCount) + (Plan.bElite ? 1 : 0));
         if (Count <= 0)
         {
-            UE_LOG(LogTemp, Display, TEXT("[DungeonSpawn] 房 %d 抽出 0 只，留作安静房（不登记清除）。"), Recipe.NodeId);
-            continue;   // 配置显式要求空房
+            Plan.bCleared = true;
+            Sub->MarkRoomCleared(Recipe.NodeId);
+            UE_LOG(LogTemp, Display, TEXT("[DungeonSpawn] 房 %d 配置为零怪，保持开放并登记清除。"), Recipe.NodeId);
+            continue;
         }
         // 深度加成 +1 级 / 每 4 深度，封顶 +4；精英房再 +2 并整组 Elite 品阶。
         const int32 DepthBonus = FMath::Clamp(Node->ProgressionDepth / 4, 0, MaxDepthLevelBonus);
@@ -254,12 +251,13 @@ void ADungeonSpawnDirector::PlanOpening()
         }
         if (Plan.Slots.IsEmpty()) continue;
 
-        if (!Plan.bElite && !Recipe.bSealedEncounter) continue;
+        // Ordinary, transition and authored progression rooms all seal during
+        // their wave. Their original progression shutters retain their own rules.
         FVector DoorCenter = FVector::ZeroVector, DoorNormal = FVector::ZeroVector;
         const int32 Entry = Sub->EntryConnectorFor(Recipe.NodeId);
         const bool bDoor = Entry != INDEX_NONE && Sub->EstimateDoorway(Recipe.NodeId, Entry, DoorCenter, DoorNormal);
         if (!bDoor)
-            UE_LOG(LogTemp, Warning, TEXT("[DungeonSpawn] 遭遇房 %d 门口估算失败：保留开放战斗。"), Recipe.NodeId);
+            UE_LOG(LogTemp, Warning, TEXT("[DungeonSpawn] 遭遇房 %d 主入口估算失败：使用房间体积触发，按真实连接门封闸。"), Recipe.NodeId);
         const FRotator Facing = bDoor ? FRotator(0, DoorNormal.Rotation().Yaw, 0) : FRotator::ZeroRotator;
         const FTransform At(Facing, bDoor ? DoorCenter : Plan.Center);
         FActorSpawnParameters Params;
@@ -275,12 +273,12 @@ void ADungeonSpawnDirector::PlanOpening()
         Owned.Add(Encounter);
         TArray<FDungeonSpawnMember> Group;
         for (const FDungeonSpawnSlot& Slot : Plan.Slots) Group.Add(Slot.Member);
-        Encounter->Configure(Sub, Recipe.NodeId, Group, DoorCenter, DoorNormal, Plan.Candidates);
+        Encounter->Configure(Sub, Recipe.NodeId, Group, DoorCenter, DoorNormal, Plan.Candidates, true);
         Encounter->Activate();
         Plan.Encounter = Encounter;
         Plan.bHandledByEncounter = true;
-        UE_LOG(LogTemp, Display, TEXT("[DungeonSpawn] 遭遇房 %d（%s，深度 %d）：编成 %d 只，封门%s"),
-            Recipe.NodeId, *Plan.Module, Plan.Depth, Group.Num(), bDoor ? TEXT("就绪") : TEXT("跳过"));
+        UE_LOG(LogTemp, Display, TEXT("[DungeonSpawn] 遭遇房 %d（%s，深度 %d）：编成 %d 只，进房封闭全部连接门，清除后开门。"),
+            Recipe.NodeId, *Plan.Module, Plan.Depth, Group.Num());
     }
 }
 

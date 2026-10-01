@@ -1,0 +1,76 @@
+{
+  "objects": [
+    {
+      "name": "SM_RouteRamp540_Structure",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonSplitLevels20261001\\Authored\\SM_RouteRamp540_Structure.fbx",
+      "asset": "/Game/Dungeons/SplitLevels20261001/Meshes/SM_RouteRamp540_Structure",
+      "materials": {
+        "Concrete": "/Game/Dungeons/AtmosphereV2/Materials/M_Concrete",
+        "Steel": "/Game/Dungeons/AtmosphereV2/Materials/M_PaintedSteel",
+        "Yellow": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_YellowPaint",
+        "Glass": "/Game/Dungeons/AtmosphereV2/Materials/M_CoolGlass"
+      },
+      "collision": true
+    },
+    {
+      "name": "SM_RouteRamp540_Details",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonSplitLevels20261001\\Authored\\SM_RouteRamp540_Details.fbx",
+      "asset": "/Game/Dungeons/SplitLevels20261001/Meshes/SM_RouteRamp540_Details",
+      "materials": {
+        "Concrete": "/Game/Dungeons/AtmosphereV2/Materials/M_Concrete",
+        "Steel": "/Game/Dungeons/AtmosphereV2/Materials/M_PaintedSteel",
+        "Yellow": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_YellowPaint",
+        "Glass": "/Game/Dungeons/AtmosphereV2/Materials/M_CoolGlass"
+      },
+      "collision": false
+    },
+    {
+      "name": "SM_RouteRamp1080_Structure",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonSplitLevels20261001\\Authored\\SM_RouteRamp1080_Structure.fbx",
+      "asset": "/Game/Dungeons/SplitLevels20261001/Meshes/SM_RouteRamp1080_Structure",
+      "materials": {
+        "Concrete": "/Game/Dungeons/AtmosphereV2/Materials/M_Concrete",
+        "Steel": "/Game/Dungeons/AtmosphereV2/Materials/M_PaintedSteel",
+        "Yellow": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_YellowPaint",
+        "Glass": "/Game/Dungeons/AtmosphereV2/Materials/M_CoolGlass"
+      },
+      "collision": true
+    },
+    {
+      "name": "SM_RouteRamp1080_Details",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonSplitLevels20261001\\Authored\\SM_RouteRamp1080_Details.fbx",
+      "asset": "/Game/Dungeons/SplitLevels20261001/Meshes/SM_RouteRamp1080_Details",
+      "materials": {
+        "Concrete": "/Game/Dungeons/AtmosphereV2/Materials/M_Concrete",
+        "Steel": "/Game/Dungeons/AtmosphereV2/Materials/M_PaintedSteel",
+        "Yellow": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_YellowPaint",
+        "Glass": "/Game/Dungeons/AtmosphereV2/Materials/M_CoolGlass"
+      },
+      "collision": false
+    },
+    {
+      "name": "SM_RouteRamp1620_Structure",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonSplitLevels20261001\\Authored\\SM_RouteRamp1620_Structure.fbx",
+      "asset": "/Game/Dungeons/SplitLevels20261001/Meshes/SM_RouteRamp1620_Structure",
+      "materials": {
+        "Concrete": "/Game/Dungeons/AtmosphereV2/Materials/M_Concrete",
+        "Steel": "/Game/Dungeons/AtmosphereV2/Materials/M_PaintedSteel",
+        "Yellow": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_YellowPaint",
+        "Glass": "/Game/Dungeons/AtmosphereV2/Materials/M_CoolGlass"
+      },
+      "collision": true
+    },
+    {
+      "name": "SM_RouteRamp1620_Details",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonSplitLevels20261001\\Authored\\SM_RouteRamp1620_Details.fbx",
+      "asset": "/Game/Dungeons/SplitLevels20261001/Meshes/SM_RouteRamp1620_Details",
+      "materials": {
+        "Concrete": "/Game/Dungeons/AtmosphereV2/Materials/M_Concrete",
+        "Steel": "/Game/Dungeons/AtmosphereV2/Materials/M_PaintedSteel",
+        "Yellow": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_YellowPaint",
+        "Glass": "/Game/Dungeons/AtmosphereV2/Materials/M_CoolGlass"
+      },
+      "collision": false
+    }
+  ]
+}

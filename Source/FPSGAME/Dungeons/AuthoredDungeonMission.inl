@@ -4,6 +4,10 @@ bool bMissionEnabled=false;
 int32 ForkLeft=-1,ForkRight=-1,RequestedGrammar=0,ActualGrammar=0,SplitAfter=0;
 double CorridorBudget=0,RouteBudget=0,CorridorTotal=0,LongestRouteEstimate=0;
 TArray<double> RouteEstimates;
+// FixedWalk belongs to authored rooms/hubs and the shared terminal. Only Links
+// can grow with the embedding; their allowance comes from the drawn room slots.
+struct FMissionRouteLength {double FixedWalk=0,Links=0,LinkLimit=0;};
+TArray<FMissionRouteLength> RouteLengthDetails;
 struct FMissionEdge {FString From,To,Purpose;bool bOptional=false,bRealized=false;};
 TArray<FMissionEdge> MissionEdges;
 TMap<FString,int32> MissionRouteStarts;
@@ -18,7 +22,7 @@ void ConfigureMission(int32 Seed,const JObject& Catalog)
     ForkLeft=Find(TEXT("ForkLeft"));ForkRight=Find(TEXT("ForkRight"));
     if(!bMissionEnabled)return;
     FRandomStream Stream(int32(HashCombineFast(uint32(Seed),0x4D495353u)));
-    RequestedGrammar=Stream.RandRange(0,2);
+    RequestedGrammar=bThemedRoutes?0:Stream.RandRange(0,2);
     if(ForkLeft<0||ForkRight<0)RequestedGrammar=0;
     SplitAfter=Stream.RandRange(1,FMath::Max(1,TopologyCounts[0]-1));
     double PerRoom=900,Fixed=4000;
@@ -27,6 +31,15 @@ void ConfigureMission(int32 Seed,const JObject& Catalog)
     RouteBudget=36000;(*Rules)->TryGetNumberField(TEXT("route_estimate_max_cm"),RouteBudget);
     int32 RoomCount=0;for(int32 Count:TopologyCounts)RoomCount+=Count;
     CorridorBudget=FMath::Max(0.,Fixed+PerRoom*RoomCount);
+    if(bThemedRoutes)
+    {
+        // Each core may change floor at its entrance and return at its exit;
+        // the final planar closure stays compact. Count real ramp walking length.
+        const double ExtraPerRoute=2.*(ThemeRampLinkLimit-ShortLinkLimit)+ThemeBridgeLimit-ShortLinkLimit;
+        CorridorBudget+=3.*ExtraPerRoute;
+        // The themed route limit is measured per selected room chain below.
+        // The legacy scalar limit cannot represent 5-7 rooms of different sizes.
+    }
 }
 
 void MakeMissionGraph(int32 Grammar)
@@ -50,8 +63,14 @@ void MakeMissionGraph(int32 Grammar)
         {const FString Id=MissionRoom(Route,I);Add(Previous,Id,R==1?TEXT("risk_shortcut"):TEXT("exploration"));Previous=Id;}
         Add(Previous,TEXT("confluence"),TEXT("descent"));
     }
-    Add(TEXT("confluence"),TEXT("boss"),TEXT("boss_approach"));
+    if(bThemedRoutes)
+    {
+        Add(TEXT("confluence"),TEXT("archive"),TEXT("shared_archive"));
+        Add(TEXT("archive"),TEXT("boss"),TEXT("any_route_clear_then_archive"));
+    }
+    else Add(TEXT("confluence"),TEXT("boss"),TEXT("boss_approach"));
     Add(TEXT("boss"),TEXT("reward.final"),TEXT("boss_locked_reward"));
+    if(bThemedRoutes)return;
     // Only optional edges between ordinary branch rooms: neither entry nor the
     // boss/reward gate can acquire a bypass through a return link.
     for(int32 R=1;R<=3;++R)for(int32 I=0;I<Counts[R];++I)
@@ -147,7 +166,8 @@ void BindMainMissions(const FSocket& Start)
         if(P.MissionId==TEXT("fork.early"))P.MissionDepth=SplitAfter+1;
         if(P.MissionId==TEXT("fork.late"))P.MissionDepth=Counts[0]+(ActualGrammar?2:1);
         if(P.Module==BossConfluence){P.MissionId=TEXT("confluence");P.MissionDepth=MaxStage+1;}
-        if(P.Module==BossRoom){P.MissionId=TEXT("boss");P.MissionDepth=MaxStage+2;}
+        if(bThemedRoutes&&P.Module==SharedArchive){P.MissionId=TEXT("archive");P.MissionDepth=MaxStage+2;P.EncounterRole=TEXT("special_combat");}
+        if(P.Module==BossRoom){P.MissionId=TEXT("boss");P.MissionDepth=MaxStage+(bThemedRoutes?3:2);}
         if(P.Module==Treasure&&P.Route.StartsWith(TEXT("Boss")))P.MissionId=TEXT("reward.final");
     }
 }
@@ -162,12 +182,13 @@ bool MissionAllowsLoop(int32 A,int32 B)const
 
 bool MeasureMissionBudget()
 {
-    CorridorTotal=0;LongestRouteEstimate=0;RouteEstimates.Reset();TMap<FString,double> Lengths;
+    CorridorTotal=0;LongestRouteEstimate=0;RouteEstimates.Reset();RouteLengthDetails.Reset();TMap<FString,double> Lengths;
+    if(bThemedRoutes)RouteBudget=0;
     TArray<double> PieceLengths;
     for(int32 I=0;I<Pieces.Num();++I)
     {
         const auto& P=Pieces[I];const auto& M=Modules[P.Module];double Length=AuthoredWalk(P.Module);
-        const bool Connector=P.Module==Transit||P.Module==Threshold||P.Module==TreasureLink||P.Module==Elbow||P.Module==StairDrop||P.Module==BossApproach;
+        const bool Connector=P.Module==Transit||P.Module==Threshold||P.Module==TreasureLink||P.Module==Elbow||P.Module==StairDrop||P.Module==BossApproach||IsThemeRamp(P.Module);
         if(Length<0)
         {
             if(Connector&&M.Ports.Num()==2)Length=P.Module==Elbow?400.:(M.Ports[0].P-M.Ports[1].P).Size();
@@ -211,6 +232,7 @@ bool MeasureMissionBudget()
             }
             return false;
         };
+        bool RoutesWithinBudget=true;
         for(int32 R=1;R<=3;++R)
         {
             const FString Route=FString::Printf(TEXT("Route%d"),R);
@@ -220,7 +242,7 @@ bool MeasureMissionBudget()
                 return Tag==TEXT("Approach")||Tag==TEXT("Junction")||Tag==TEXT("JunctionEarly")||
                     Tag==Route||Tag==Route+TEXT("_Closure")||Tag==Route+TEXT("_Confluence")||
                     Tag==TEXT("BossDescent")||Tag==TEXT("BossLowerLink")||Tag==TEXT("BossConfluence")||
-                    Tag==TEXT("BossApproach")||Tag==TEXT("BossTerminal");
+                    Tag==TEXT("BossApproach")||Tag==TEXT("BossTerminal")||Tag==TEXT("Archive")||Tag==TEXT("ArchiveLink");
             };
             TArray<int32> Parent;Parent.Init(INDEX_NONE,Pieces.Num());Parent[Entry]=Entry;
             TArray<int32> Queue{Entry};
@@ -231,6 +253,7 @@ bool MeasureMissionBudget()
             TArray<int32> Path;
             for(int32 At=Boss;;At=Parent[At]){Path.Add(At);if(At==Entry)break;}
             double Walk=0;
+            FMissionRouteLength Detail;
             for(int32 I=0;I<Path.Num();++I)
             {
                 const int32 At=Path[I],Module=Pieces[At].Module;
@@ -244,10 +267,33 @@ bool MeasureMissionBudget()
                     Length=FMath::Abs(Delta.X)+FMath::Abs(Delta.Y)+FMath::Abs(Delta.Z);
                 }
                 Walk+=Length;
+                // The descent, boss approach and two shared terminal sleeves
+                // are fixed authored geometry, not a solver-created detour.
+                const bool VariableLink=(Module==Transit||Module==Threshold||Module==Elbow||IsThemeRamp(Module))&&
+                    Pieces[At].Route!=TEXT("BossLowerLink")&&Pieces[At].Route!=TEXT("ArchiveLink");
+                if(VariableLink)Detail.Links+=Length;else Detail.FixedWalk+=Length;
             }
+            if(bThemedRoutes)
+            {
+                // Approach: entry -> A rooms -> fork (A+1 joins).
+                // Branch: fork -> R rooms -> descent (R+1 joins).
+                // Count doorway links, never their tessellated mesh pieces.
+                Detail.LinkLimit=(Counts[0]+Counts[R]+2)*ShortLinkLimit;
+                if(bThemeBridgeSearch)Detail.LinkLimit+=ThemeBridgeLimit-ShortLinkLimit;
+                if(FMath::Abs(ThemeCoreLevels.FindRef(Route))>.1)
+                    Detail.LinkLimit+=2.*(ThemeRampLinkLimit-ShortLinkLimit);
+                RoutesWithinBudget&=Detail.Links<=Detail.LinkLimit+.1;
+                RouteBudget=FMath::Max(RouteBudget,Detail.FixedWalk+Detail.LinkLimit);
+            }
+            else
+            {
+                Detail.LinkLimit=RouteBudget-Detail.FixedWalk;
+                RoutesWithinBudget&=Walk<=RouteBudget;
+            }
+            RouteLengthDetails.Add(Detail);
             RouteEstimates.Add(Walk);LongestRouteEstimate=FMath::Max(LongestRouteEstimate,Walk);
         }
-        return !bMissionEnabled||(CorridorTotal<=CorridorBudget&&LongestRouteEstimate<=RouteBudget);
+        return !bMissionEnabled||(CorridorTotal<=CorridorBudget&&RoutesWithinBudget);
     }
     for(int32 R=1;R<=3;++R)
     {
@@ -262,10 +308,28 @@ bool MeasureMissionBudget()
     return !bMissionEnabled||(CorridorTotal<=CorridorBudget&&LongestRouteEstimate<=RouteBudget);
 }
 
+TArray<TSharedPtr<FJsonValue>> MissionRouteLengthsJson()const
+{
+    TArray<TSharedPtr<FJsonValue>> Result;
+    for(int32 I=0;I<RouteLengthDetails.Num();++I)
+    {
+        const auto& D=RouteLengthDetails[I];auto Value=MakeShared<FJsonObject>();
+        Value->SetStringField(TEXT("route"),FString::Printf(TEXT("Route%d"),I+1));
+        Value->SetNumberField(TEXT("authored_walk_cm"),D.FixedWalk);
+        Value->SetNumberField(TEXT("link_walk_cm"),D.Links);
+        Value->SetNumberField(TEXT("link_budget_cm"),D.LinkLimit);
+        Value->SetNumberField(TEXT("total_walk_cm"),D.FixedWalk+D.Links);
+        Value->SetNumberField(TEXT("total_budget_cm"),D.FixedWalk+D.LinkLimit);
+        Result.Add(MakeShared<FJsonValueObject>(Value));
+    }
+    return Result;
+}
+
 bool FinalizeMissionLayout(const FSocket& Start)
 {
     if(!bMissionEnabled)return true;
     BindMainMissions(Start);
+    if(!ThemeLayoutMatches()){CompactFailure=TEXT("主题房顺序不完整，放弃该方案");return false;}
     const auto PhysicalGraph=PieceGraph(false);
     for(const auto& Edge:MissionEdges)if(!Edge.bOptional)
     {
@@ -282,8 +346,19 @@ bool FinalizeMissionLayout(const FSocket& Start)
     }
     if(!MeasureMissionBudget())
     {
-        CompactFailure=FString::Printf(TEXT("完整布局超出路线预算：通道 %.0f/%.0f cm，路线估算 %.0f/%.0f cm"),
-            CorridorTotal,CorridorBudget,LongestRouteEstimate,RouteBudget);return false;
+        if(CorridorTotal>CorridorBudget)
+            CompactFailure=FString::Printf(TEXT("完整布局通道总量超出预算：%.0f/%.0f cm"),CorridorTotal,CorridorBudget);
+        else
+        {
+            CompactFailure=TEXT("完整布局的入口至首领路径无法计量");
+            for(int32 I=0;I<RouteLengthDetails.Num();++I)
+            {
+                const auto& D=RouteLengthDetails[I];if(D.Links<=D.LinkLimit+.1)continue;
+                CompactFailure=FString::Printf(TEXT("路线 %d 连接距离超出预算：%.0f/%.0f cm；房间与终点固定路程 %.0f cm"),
+                    I+1,D.Links,D.LinkLimit,D.FixedWalk);break;
+            }
+        }
+        return false;
     }
     const auto Base=Pieces;
     AddRouteLoops(Start);

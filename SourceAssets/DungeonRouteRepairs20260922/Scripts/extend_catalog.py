@@ -88,4 +88,27 @@ def extend(catalog):
     if ward_receipt.exists() and read(ward_receipt).get('stage')=='map_saved':
         import runpy
         catalog=runpy.run_path(str(ward/'Scripts/extend_catalog.py'))['extend'](catalog)
+    incinerator=ROOT.parent/'DungeonIncineratorHall20260929/Pool20260930'
+    incinerator_receipt=incinerator/'Receipts/install.json'
+    if incinerator_receipt.exists() and read(incinerator_receipt).get('stage')=='map_saved':
+        import runpy
+        catalog=runpy.run_path(str(incinerator/'Scripts/extend_catalog.py'))['extend'](catalog)
+    archive=ROOT.parent/'DungeonDataArchive20260930/Pool20261001'
+    archive_receipt=archive/'Receipts/install.json'
+    if archive_receipt.exists() and read(archive_receipt).get('stage')=='map_saved':
+        import runpy
+        catalog=runpy.run_path(str(archive/'Scripts/extend_catalog.py'))['extend'](catalog)
+    theatre=ROOT.parent/'DungeonAnatomyTheatre20261001/Pool20261001'
+    theatre_receipt=theatre/'Receipts/install.json'
+    if theatre_receipt.exists() and read(theatre_receipt).get('stage')=='map_saved':
+        import runpy
+        catalog=runpy.run_path(str(theatre/'Scripts/extend_catalog.py'))['extend'](catalog)
+    flue=ROOT.parent/'DungeonFlueGasStation20261001/Production20261001'
+    if (flue/'Receipts/install.json').exists() and read(flue/'Receipts/install.json').get('stage')=='map_saved':
+        import runpy
+        catalog=runpy.run_path(str(flue/'Scripts/extend_catalog.py'))['extend'](catalog)
+    themed=ROOT.parent/'DungeonThemedRoutes20261001'
+    if (themed/'Receipts/install.json').exists() and read(themed/'Receipts/install.json').get('stage')=='map_saved':
+        import runpy
+        catalog=runpy.run_path(str(themed/'Scripts/extend_catalog.py'))['extend'](catalog)
     return catalog

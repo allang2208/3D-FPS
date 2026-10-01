@@ -1,0 +1,230 @@
+{
+  "revision": "morgue_hospital_lighting_v1_20260930",
+  "map": "/Game/GameMaps/Design/L_AbandonedIncineratorHall_Subject",
+  "ue_base": "/Game/Dungeons/IncineratorHall20260929/MorgueLightingV1",
+  "lights": [
+    {
+      "id": "StairUpper",
+      "position": [
+        -12,
+        -3.9,
+        1.5
+      ],
+      "lumens": 170,
+      "radius_cm": 330,
+      "shadow": true,
+      "fault": "steady",
+      "phase": 0,
+      "emission": 1.0,
+      "tint": [
+        0.69,
+        0.82,
+        0.88
+      ],
+      "indirect": 0.35,
+      "max_draw_distance_cm": 1800,
+      "fade_range_cm": 300
+    },
+    {
+      "id": "StairLanding",
+      "position": [
+        -10.8,
+        -6.9,
+        0.45
+      ],
+      "lumens": 140,
+      "radius_cm": 340,
+      "shadow": true,
+      "fault": "steady",
+      "phase": 0,
+      "emission": 0.8,
+      "tint": [
+        0.69,
+        0.82,
+        0.88
+      ],
+      "indirect": 0.35,
+      "max_draw_distance_cm": 1800,
+      "fade_range_cm": 300
+    },
+    {
+      "id": "Receiving",
+      "position": [
+        -9,
+        0.5,
+        -0.58
+      ],
+      "lumens": 230,
+      "radius_cm": 430,
+      "shadow": true,
+      "fault": "steady",
+      "phase": 0,
+      "emission": 1.0,
+      "tint": [
+        0.68,
+        0.82,
+        0.78
+      ],
+      "indirect": 0.35,
+      "max_draw_distance_cm": 1800,
+      "fade_range_cm": 300
+    },
+    {
+      "id": "OpenSouth",
+      "position": [
+        -2.5,
+        -6.8,
+        -0.58
+      ],
+      "lumens": 0,
+      "radius_cm": 350,
+      "shadow": false,
+      "fault": "dead",
+      "phase": 0,
+      "emission": 0,
+      "tint": [
+        0.68,
+        0.82,
+        0.78
+      ],
+      "indirect": 0.35,
+      "max_draw_distance_cm": 1800,
+      "fade_range_cm": 300
+    },
+    {
+      "id": "OpenCentre",
+      "position": [
+        2,
+        0.4,
+        -0.58
+      ],
+      "lumens": 280,
+      "radius_cm": 440,
+      "shadow": false,
+      "fault": "flicker",
+      "phase": 3.7,
+      "emission": 1.4,
+      "tint": [
+        0.66,
+        0.82,
+        0.75
+      ],
+      "indirect": 0.15,
+      "max_draw_distance_cm": 1800,
+      "fade_range_cm": 300
+    },
+    {
+      "id": "ColdFront",
+      "position": [
+        8.3,
+        -2.1,
+        -0.58
+      ],
+      "lumens": 350,
+      "radius_cm": 440,
+      "shadow": true,
+      "fault": "steady",
+      "phase": 0,
+      "emission": 1.25,
+      "tint": [
+        0.67,
+        0.8,
+        0.89
+      ],
+      "indirect": 0.35,
+      "max_draw_distance_cm": 1800,
+      "fade_range_cm": 300
+    },
+    {
+      "id": "NorthWest",
+      "position": [
+        -9,
+        7.0,
+        -0.58
+      ],
+      "lumens": 0,
+      "radius_cm": 350,
+      "shadow": false,
+      "fault": "dead",
+      "phase": 0,
+      "emission": 0,
+      "tint": [
+        0.68,
+        0.82,
+        0.78
+      ],
+      "indirect": 0.35,
+      "max_draw_distance_cm": 1800,
+      "fade_range_cm": 300
+    },
+    {
+      "id": "Wash",
+      "position": [
+        -1.4,
+        7.8,
+        -0.58
+      ],
+      "lumens": 170,
+      "radius_cm": 320,
+      "shadow": false,
+      "fault": "flicker",
+      "phase": 12.43,
+      "emission": 1.1,
+      "tint": [
+        0.73,
+        0.83,
+        0.72
+      ],
+      "indirect": 0.15,
+      "max_draw_distance_cm": 1800,
+      "fade_range_cm": 300
+    },
+    {
+      "id": "Service",
+      "position": [
+        5.4,
+        7.8,
+        -0.58
+      ],
+      "lumens": 95,
+      "radius_cm": 280,
+      "shadow": false,
+      "fault": "steady",
+      "phase": 0,
+      "emission": 0.65,
+      "tint": [
+        1.0,
+        0.59,
+        0.29
+      ],
+      "indirect": 0.35,
+      "max_draw_distance_cm": 1800,
+      "fade_range_cm": 300
+    }
+  ],
+  "postprocess": {
+    "center_m": [
+      0,
+      0,
+      -2.25
+    ],
+    "extent_cm": [
+      1420,
+      1070,
+      155
+    ],
+    "blend_radius_cm": 90,
+    "exposure_ev": 1.0,
+    "exposure_bias": -0.25,
+    "indirect_intensity": 0.55,
+    "saturation": 0.83,
+    "contrast": 1.055,
+    "vignette": 0.32,
+    "bloom": 0.12
+  },
+  "source_references": [
+    "SourceAssets/DungeonIsolationWard20260929/Scripts/author_atmosphere_materials.py",
+    "https://dev.epicgames.com/documentation/en-us/unreal-engine/using-light-functions-in-unreal-engine"
+  ],
+  "tests_run": false
+}

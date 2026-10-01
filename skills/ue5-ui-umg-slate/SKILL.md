@@ -14,6 +14,8 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 
 # Quick Start
 
+- 出征页奖励/规则空白、行前准备与缩略图刷新，读取 [出征面板的真实内容](references/expedition-live-content.md)，共享实际掉落表和角色数据。
+
 - 改造栏图标采用用户认可的金属方框图片，PNG 已含边框时不重复绘制或内缩；分类、原厂、选项与强化入口共用 [改造图标标准](../ue5-weapon-workflow/references/attachment-icons.md)。
 
 - 背包 F 转向后图标缩小、透明留白与拖动尺寸跳变，读取 [运行时图标的横竖比例](references/runtime-icon-pipeline.md)，同步目录图和动态图的可见轮廓规则。

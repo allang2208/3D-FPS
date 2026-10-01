@@ -1,0 +1,51 @@
+{
+  "size": [
+    2048,
+    2048
+  ],
+  "rects": {
+    "furnace1": [
+      24,
+      24,
+      2024,
+      392
+    ],
+    "furnace2": [
+      24,
+      424,
+      2024,
+      792
+    ],
+    "furnace3": [
+      24,
+      824,
+      2024,
+      1192
+    ],
+    "stop": [
+      24,
+      1232,
+      1000,
+      1512
+    ],
+    "biohazard": [
+      1032,
+      1232,
+      2024,
+      2024
+    ],
+    "entry": [
+      24,
+      1544,
+      1000,
+      1934
+    ],
+    "steel": [
+      32,
+      1960,
+      200,
+      2020
+    ]
+  },
+  "source": "Original typesetting; Windows fonts rendered to artwork, font files not distributed"
+}

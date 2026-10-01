@@ -1,0 +1,2244 @@
+{
+  "id": "AbandonedDataArchive",
+  "family_id": "AbandonedDataArchive",
+  "role": "room",
+  "encounter_role": "special_combat",
+  "revision": "archive_accepted_v2_pool_20261001",
+  "min": [
+    -1420,
+    -1220,
+    -95
+  ],
+  "max": [
+    1420,
+    1220,
+    642
+  ],
+  "cells": [
+    {
+      "min": [
+        -1220.0,
+        -819.9999999999999,
+        -95.0
+      ],
+      "max": [
+        1220.0,
+        819.9999999999999,
+        642.0
+      ]
+    },
+    {
+      "min": [
+        -1220.0,
+        -919.9999999999999,
+        -95.0
+      ],
+      "max": [
+        1220.0,
+        -800,
+        642.0
+      ]
+    },
+    {
+      "min": [
+        -1220.0,
+        800,
+        -95.0
+      ],
+      "max": [
+        1220.0,
+        919.9999999999999,
+        642.0
+      ]
+    },
+    {
+      "min": [
+        -1130.0,
+        -1019.9999999999999,
+        -95.0
+      ],
+      "max": [
+        1130.0,
+        -900,
+        642.0
+      ]
+    },
+    {
+      "min": [
+        -1130.0,
+        900,
+        -95.0
+      ],
+      "max": [
+        1130.0,
+        1019.9999999999999,
+        642.0
+      ]
+    },
+    {
+      "min": [
+        -1030.0,
+        -1120.0,
+        -95.0
+      ],
+      "max": [
+        1030.0,
+        -1000,
+        642.0
+      ]
+    },
+    {
+      "min": [
+        -1030.0,
+        1000,
+        -95.0
+      ],
+      "max": [
+        1030.0,
+        1120.0,
+        642.0
+      ]
+    },
+    {
+      "min": [
+        -930.0000000000001,
+        -1220.0,
+        -95.0
+      ],
+      "max": [
+        930.0000000000001,
+        -1100,
+        642.0
+      ]
+    },
+    {
+      "min": [
+        -930.0000000000001,
+        1100,
+        -95.0
+      ],
+      "max": [
+        930.0000000000001,
+        1220.0,
+        642.0
+      ]
+    },
+    {
+      "min": [
+        -1420.0,
+        -250.0,
+        -35.0
+      ],
+      "max": [
+        -1180.0,
+        250.0,
+        372.0
+      ]
+    },
+    {
+      "min": [
+        1180.0,
+        -250.0,
+        -35.0
+      ],
+      "max": [
+        1420.0,
+        250.0,
+        372.0
+      ]
+    }
+  ],
+  "ports": [
+    {
+      "id": "Receiving",
+      "position": [
+        -1400,
+        0,
+        0
+      ],
+      "normal": [
+        -1,
+        0,
+        0
+      ],
+      "width": 300.0,
+      "height": 280.0
+    },
+    {
+      "id": "Service",
+      "position": [
+        1400,
+        0,
+        0
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "width": 300.0,
+      "height": 280.0
+    }
+  ],
+  "port_pairs": [
+    [
+      0,
+      1
+    ]
+  ],
+  "parts": [
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/Meshes/SM_DataArchive_Floors",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_DataArchive_Floors"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/Meshes/SM_DataArchive_Paving",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/DataArchive20260930/Materials/M_ArchivePanel"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_DataArchive_Paving"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/Meshes/SM_DataArchive_Stairs",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_DataArchive_Stairs"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/Meshes/SM_DataArchive_Nosing",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_DataArchive_Nosing"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/Meshes/SM_DataArchive_PitCoping",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_DataArchive_PitCoping"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/EquipmentV2/Structure/SM_DataArchive_Railings_V2",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_DataArchive_Railings"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/Meshes/SM_DataArchive_Walls",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_DataArchive_Walls"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/Meshes/SM_DataArchive_Frames",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_DataArchive_Frames"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/Meshes/SM_DataArchive_Roof",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_DataArchive_Roof"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/Meshes/SM_DataArchive_CeilingBeams",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_DataArchive_CeilingBeams"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/Meshes/SM_DataArchive_Columns",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_DataArchive_Columns"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/Meshes/SM_DataArchive_CableTrays",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_DataArchive_CableTrays"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/Meshes/SM_DataArchive_Conduits",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_DataArchive_Conduits"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/Meshes/SM_DataArchive_CableHangers",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_DataArchive_CableHangers"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/EquipmentV2/Structure/SM_DataArchive_EquipmentBases_V2",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_DataArchive_EquipmentBases"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/EquipmentV2/Structure/SM_DataArchive_BayFrames_V2",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_DataArchive_BayFrames"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/EquipmentV2/Structure/SM_DataArchive_BayPanels_V2",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/DataArchive20260930/Materials/M_ArchivePanel"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_DataArchive_BayPanels"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/Meshes/SM_DataArchive_DisplayFrames",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_DataArchive_DisplayFrames"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/Meshes/SM_DataArchive_DisplayScreens",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/DataArchive20260930/Materials/M_DormantScreen"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_DataArchive_DisplayScreens"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/Meshes/SM_DataArchive_DisplayMounts",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_DataArchive_DisplayMounts"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/Meshes/SM_DataArchive_LampHangers",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_DataArchive_LampHangers"
+    },
+    {
+      "position": [
+        -1146.5499916076658,
+        -465.00000000000006,
+        0.0
+      ],
+      "yaw": -90.00000000000001,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_PowerCabinet",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "DataArchive_PowerCabinetWest"
+    },
+    {
+      "position": [
+        1146.5499916076658,
+        465.00000000000006,
+        0.0
+      ],
+      "yaw": 89.99999999999999,
+      "pitch": 0.0,
+      "roll": -0.0,
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_PowerCabinet",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "DataArchive_PowerCabinetEast"
+    },
+    {
+      "position": [
+        -1300.0,
+        0.0,
+        305.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_WarmTube"
+      ],
+      "cast_shadow": true,
+      "source_label": "Fixture_Entry"
+    },
+    {
+      "position": [
+        1300.0,
+        0.0,
+        305.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_WarmTube"
+      ],
+      "cast_shadow": true,
+      "source_label": "Fixture_Exit"
+    },
+    {
+      "position": [
+        -300.0,
+        0.0,
+        490.00000000000006
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_CoolTube"
+      ],
+      "cast_shadow": true,
+      "source_label": "Fixture_CentreWest"
+    },
+    {
+      "position": [
+        300.0,
+        0.0,
+        490.00000000000006
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_CoolTube"
+      ],
+      "cast_shadow": true,
+      "source_label": "Fixture_CentreEast"
+    },
+    {
+      "position": [
+        -470.0,
+        -900.0,
+        509.99999999999994
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_CoolTube"
+      ],
+      "cast_shadow": true,
+      "source_label": "Fixture_North"
+    },
+    {
+      "position": [
+        470.0,
+        900.0,
+        509.99999999999994
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_CoolTube"
+      ],
+      "cast_shadow": true,
+      "source_label": "Fixture_South"
+    },
+    {
+      "position": [
+        -900.0,
+        420.0,
+        509.99999999999994
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_CoolTube"
+      ],
+      "cast_shadow": true,
+      "source_label": "Fixture_West"
+    },
+    {
+      "position": [
+        900.0,
+        -420.0,
+        509.99999999999994
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_CoolTube"
+      ],
+      "cast_shadow": true,
+      "source_label": "Fixture_East"
+    },
+    {
+      "position": [
+        0.0,
+        -930.0000000000001,
+        509.99999999999994
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_CoolTube"
+      ],
+      "cast_shadow": true,
+      "source_label": "Fixture_Control"
+    },
+    {
+      "position": [
+        -1110.0,
+        573.0,
+        16.0
+      ],
+      "yaw": -90.00000000000001,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/EquipmentV1/Meshes/SM_Archive_ServerRack_V1",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/DataArchive20260930/EquipmentV1/Materials/M_ArchiveEquipment_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "DataArchive_Equipment_ServerWest1"
+    },
+    {
+      "position": [
+        -1110.0,
+        491.0,
+        16.0
+      ],
+      "yaw": -90.00000000000001,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/EquipmentV1/Meshes/SM_Archive_ServerRack_V1",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/DataArchive20260930/EquipmentV1/Materials/M_ArchiveEquipment_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "DataArchive_Equipment_ServerWest2"
+    },
+    {
+      "position": [
+        -1110.0,
+        409.0,
+        16.0
+      ],
+      "yaw": -90.00000000000001,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/EquipmentV1/Meshes/SM_Archive_ServerRack_V1",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/DataArchive20260930/EquipmentV1/Materials/M_ArchiveEquipment_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "DataArchive_Equipment_ServerWest3"
+    },
+    {
+      "position": [
+        -1110.0,
+        327.0,
+        16.0
+      ],
+      "yaw": -90.00000000000001,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/EquipmentV1/Meshes/SM_Archive_ServerRack_V1",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/DataArchive20260930/EquipmentV1/Materials/M_ArchiveEquipment_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "DataArchive_Equipment_ServerWest4"
+    },
+    {
+      "position": [
+        1110.0,
+        -327.0,
+        16.0
+      ],
+      "yaw": 89.99999999999999,
+      "pitch": 0.0,
+      "roll": -0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/EquipmentV1/Meshes/SM_Archive_ServerRack_V1",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/DataArchive20260930/EquipmentV1/Materials/M_ArchiveEquipment_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "DataArchive_Equipment_ServerEast1"
+    },
+    {
+      "position": [
+        1110.0,
+        -409.0,
+        16.0
+      ],
+      "yaw": 89.99999999999999,
+      "pitch": 0.0,
+      "roll": -0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/EquipmentV1/Meshes/SM_Archive_ServerRack_V1",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/DataArchive20260930/EquipmentV1/Materials/M_ArchiveEquipment_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "DataArchive_Equipment_ServerEast2"
+    },
+    {
+      "position": [
+        1110.0,
+        -491.0,
+        16.0
+      ],
+      "yaw": 89.99999999999999,
+      "pitch": 0.0,
+      "roll": -0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/EquipmentV1/Meshes/SM_Archive_ServerRack_V1",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/DataArchive20260930/EquipmentV1/Materials/M_ArchiveEquipment_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "DataArchive_Equipment_ServerEast3"
+    },
+    {
+      "position": [
+        1110.0,
+        -573.0,
+        16.0
+      ],
+      "yaw": 89.99999999999999,
+      "pitch": 0.0,
+      "roll": -0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/EquipmentV1/Meshes/SM_Archive_ServerRack_V1",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/DataArchive20260930/EquipmentV1/Materials/M_ArchiveEquipment_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "DataArchive_Equipment_ServerEast4"
+    },
+    {
+      "position": [
+        -646.0,
+        1140.0,
+        16.0
+      ],
+      "yaw": 180.0,
+      "pitch": 0.0,
+      "roll": -0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/EquipmentV2/Meshes/SM_Archive_FileArchive_UpperOpen_V2",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/DataArchive20260930/EquipmentV2/Materials/M_ArchiveEquipment_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "DataArchive_Equipment_FileArchive1"
+    },
+    {
+      "position": [
+        -509.99999999999994,
+        1140.0,
+        16.0
+      ],
+      "yaw": 180.0,
+      "pitch": 0.0,
+      "roll": -0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/EquipmentV2/Meshes/SM_Archive_FileArchive_Closed_V2",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/DataArchive20260930/EquipmentV2/Materials/M_ArchiveEquipment_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "DataArchive_Equipment_FileArchive2"
+    },
+    {
+      "position": [
+        -373.99999999999994,
+        1140.0,
+        16.0
+      ],
+      "yaw": 180.0,
+      "pitch": 0.0,
+      "roll": -0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/EquipmentV2/Meshes/SM_Archive_FileArchive_LowerOpen_V2",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/DataArchive20260930/EquipmentV2/Materials/M_ArchiveEquipment_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "DataArchive_Equipment_FileArchive3"
+    },
+    {
+      "position": [
+        373.99999999999994,
+        1140.0,
+        16.0
+      ],
+      "yaw": 180.0,
+      "pitch": 0.0,
+      "roll": -0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/EquipmentV2/Meshes/SM_Archive_TapeLibrary_Empty_V2",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/DataArchive20260930/EquipmentV2/Materials/M_ArchiveEquipment_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "DataArchive_Equipment_TapeLibrary1"
+    },
+    {
+      "position": [
+        509.99999999999994,
+        1140.0,
+        16.0
+      ],
+      "yaw": 180.0,
+      "pitch": 0.0,
+      "roll": -0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/EquipmentV2/Meshes/SM_Archive_TapeLibrary_Sparse_V2",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/DataArchive20260930/EquipmentV2/Materials/M_ArchiveEquipment_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "DataArchive_Equipment_TapeLibrary2"
+    },
+    {
+      "position": [
+        646.0,
+        1140.0,
+        16.0
+      ],
+      "yaw": 180.0,
+      "pitch": 0.0,
+      "roll": -0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/EquipmentV2/Meshes/SM_Archive_TapeLibrary_Full_V2",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/DataArchive20260930/EquipmentV2/Materials/M_ArchiveEquipment_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "DataArchive_Equipment_TapeLibrary3"
+    },
+    {
+      "position": [
+        0.0,
+        -1112.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/EquipmentV2/Meshes/SM_Archive_DispatchConsole_V2",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/DataArchive20260930/EquipmentV2/Materials/M_ArchiveEquipment_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "DataArchive_Equipment_CentralDispatch"
+    },
+    {
+      "position": [
+        -235.0,
+        -1137.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/EquipmentV2/Meshes/SM_Archive_RecordsDesk_A_V2",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/DataArchive20260930/EquipmentV2/Materials/M_ArchiveEquipment_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "DataArchive_Equipment_RecordsDeskA"
+    },
+    {
+      "position": [
+        235.0,
+        -1137.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/DataArchive20260930/EquipmentV2/Meshes/SM_Archive_RecordsDesk_B_V2",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/DataArchive20260930/EquipmentV2/Materials/M_ArchiveEquipment_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "DataArchive_Equipment_RecordsDeskB"
+    }
+  ],
+  "lights": [
+    {
+      "position": [
+        -1300.0,
+        0.0,
+        292.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "type": "point",
+      "source_label": "Light_Entry",
+      "role": "path",
+      "intensity": 260.0,
+      "radius": 300.0,
+      "optimized_radius_cm": 300.0,
+      "color": [
+        1.0,
+        0.7529422044754028,
+        0.4793201684951782
+      ],
+      "cast_shadows": false,
+      "max_draw_distance_cm": 2600.0,
+      "fade_range_cm": 400.0,
+      "source_radius": 12.0,
+      "source_length": 0.0,
+      "indirect_lighting_intensity": 1.0,
+      "volumetric_scattering_intensity": 1.0
+    },
+    {
+      "position": [
+        1300.0,
+        0.0,
+        292.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "type": "point",
+      "source_label": "Light_Exit",
+      "role": "path",
+      "intensity": 260.0,
+      "radius": 300.0,
+      "optimized_radius_cm": 300.0,
+      "color": [
+        1.0,
+        0.7529422044754028,
+        0.4793201684951782
+      ],
+      "cast_shadows": false,
+      "max_draw_distance_cm": 2600.0,
+      "fade_range_cm": 400.0,
+      "source_radius": 12.0,
+      "source_length": 0.0,
+      "indirect_lighting_intensity": 1.0,
+      "volumetric_scattering_intensity": 1.0
+    },
+    {
+      "position": [
+        -300.0,
+        0.0,
+        477.00000000000006
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "type": "point",
+      "source_label": "Light_CentreWest",
+      "role": "key",
+      "intensity": 700.0,
+      "radius": 620.0,
+      "optimized_radius_cm": 620.0,
+      "color": [
+        0.6583747863769531,
+        0.7991027235984802,
+        1.0
+      ],
+      "cast_shadows": true,
+      "max_draw_distance_cm": 2600.0,
+      "fade_range_cm": 400.0,
+      "source_radius": 12.0,
+      "source_length": 0.0,
+      "indirect_lighting_intensity": 1.0,
+      "volumetric_scattering_intensity": 1.0
+    },
+    {
+      "position": [
+        300.0,
+        0.0,
+        477.00000000000006
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "type": "point",
+      "source_label": "Light_CentreEast",
+      "role": "key",
+      "intensity": 600.0,
+      "radius": 620.0,
+      "optimized_radius_cm": 620.0,
+      "color": [
+        0.6583747863769531,
+        0.7991027235984802,
+        1.0
+      ],
+      "cast_shadows": true,
+      "max_draw_distance_cm": 2600.0,
+      "fade_range_cm": 400.0,
+      "source_radius": 12.0,
+      "source_length": 0.0,
+      "indirect_lighting_intensity": 1.0,
+      "volumetric_scattering_intensity": 1.0
+    },
+    {
+      "position": [
+        -470.0,
+        -900.0,
+        497.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "type": "point",
+      "source_label": "Light_North",
+      "role": "key",
+      "intensity": 450.0,
+      "radius": 620.0,
+      "optimized_radius_cm": 620.0,
+      "color": [
+        0.6583747863769531,
+        0.7991027235984802,
+        1.0
+      ],
+      "cast_shadows": false,
+      "max_draw_distance_cm": 2600.0,
+      "fade_range_cm": 400.0,
+      "source_radius": 12.0,
+      "source_length": 0.0,
+      "indirect_lighting_intensity": 1.0,
+      "volumetric_scattering_intensity": 1.0
+    },
+    {
+      "position": [
+        470.0,
+        900.0,
+        497.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "type": "point",
+      "source_label": "Light_South",
+      "role": "key",
+      "intensity": 360.0,
+      "radius": 620.0,
+      "optimized_radius_cm": 620.0,
+      "color": [
+        0.6583747863769531,
+        0.7991027235984802,
+        1.0
+      ],
+      "cast_shadows": false,
+      "max_draw_distance_cm": 2600.0,
+      "fade_range_cm": 400.0,
+      "source_radius": 12.0,
+      "source_length": 0.0,
+      "indirect_lighting_intensity": 1.0,
+      "volumetric_scattering_intensity": 1.0
+    },
+    {
+      "position": [
+        -900.0,
+        420.0,
+        497.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "type": "point",
+      "source_label": "Light_West",
+      "role": "key",
+      "intensity": 350.0,
+      "radius": 620.0,
+      "optimized_radius_cm": 620.0,
+      "color": [
+        0.6583747863769531,
+        0.7991027235984802,
+        1.0
+      ],
+      "cast_shadows": false,
+      "max_draw_distance_cm": 2600.0,
+      "fade_range_cm": 400.0,
+      "source_radius": 12.0,
+      "source_length": 0.0,
+      "indirect_lighting_intensity": 1.0,
+      "volumetric_scattering_intensity": 1.0
+    },
+    {
+      "position": [
+        900.0,
+        -420.0,
+        497.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "type": "point",
+      "source_label": "Light_East",
+      "role": "key",
+      "intensity": 400.0,
+      "radius": 620.0,
+      "optimized_radius_cm": 620.0,
+      "color": [
+        0.6583747863769531,
+        0.7991027235984802,
+        1.0
+      ],
+      "cast_shadows": false,
+      "max_draw_distance_cm": 2600.0,
+      "fade_range_cm": 400.0,
+      "source_radius": 12.0,
+      "source_length": 0.0,
+      "indirect_lighting_intensity": 1.0,
+      "volumetric_scattering_intensity": 1.0
+    },
+    {
+      "position": [
+        0.0,
+        -930.0000000000001,
+        497.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "type": "point",
+      "source_label": "Light_Control",
+      "role": "key",
+      "intensity": 280.0,
+      "radius": 620.0,
+      "optimized_radius_cm": 620.0,
+      "color": [
+        0.6583747863769531,
+        0.7991027235984802,
+        1.0
+      ],
+      "cast_shadows": true,
+      "max_draw_distance_cm": 2600.0,
+      "fade_range_cm": 400.0,
+      "source_radius": 12.0,
+      "source_length": 0.0,
+      "indirect_lighting_intensity": 1.0,
+      "volumetric_scattering_intensity": 1.0
+    }
+  ],
+  "runtime_actors": [
+    {
+      "type": "post_process",
+      "position": [
+        0.0,
+        0.0,
+        273.5
+      ],
+      "yaw": 0,
+      "extent": [
+        1220.0,
+        819.9999999999999,
+        368.5
+      ],
+      "blend_radius": 40,
+      "priority": 10,
+      "exposure_ev": 0.6000000238418579,
+      "exposure_bias": -0.20000000298023224,
+      "indirect_intensity": 1.0,
+      "saturation": 1.0,
+      "contrast": 1.0,
+      "vignette": 0.4000000059604645,
+      "bloom": 0.675000011920929
+    },
+    {
+      "type": "post_process",
+      "position": [
+        0.0,
+        -860.0,
+        273.5
+      ],
+      "yaw": 0,
+      "extent": [
+        1220.0,
+        59.99999999999994,
+        368.5
+      ],
+      "blend_radius": 40,
+      "priority": 10,
+      "exposure_ev": 0.6000000238418579,
+      "exposure_bias": -0.20000000298023224,
+      "indirect_intensity": 1.0,
+      "saturation": 1.0,
+      "contrast": 1.0,
+      "vignette": 0.4000000059604645,
+      "bloom": 0.675000011920929
+    },
+    {
+      "type": "post_process",
+      "position": [
+        0.0,
+        860.0,
+        273.5
+      ],
+      "yaw": 0,
+      "extent": [
+        1220.0,
+        59.99999999999994,
+        368.5
+      ],
+      "blend_radius": 40,
+      "priority": 10,
+      "exposure_ev": 0.6000000238418579,
+      "exposure_bias": -0.20000000298023224,
+      "indirect_intensity": 1.0,
+      "saturation": 1.0,
+      "contrast": 1.0,
+      "vignette": 0.4000000059604645,
+      "bloom": 0.675000011920929
+    },
+    {
+      "type": "post_process",
+      "position": [
+        0.0,
+        -960.0,
+        273.5
+      ],
+      "yaw": 0,
+      "extent": [
+        1130.0,
+        59.99999999999994,
+        368.5
+      ],
+      "blend_radius": 40,
+      "priority": 10,
+      "exposure_ev": 0.6000000238418579,
+      "exposure_bias": -0.20000000298023224,
+      "indirect_intensity": 1.0,
+      "saturation": 1.0,
+      "contrast": 1.0,
+      "vignette": 0.4000000059604645,
+      "bloom": 0.675000011920929
+    },
+    {
+      "type": "post_process",
+      "position": [
+        0.0,
+        960.0,
+        273.5
+      ],
+      "yaw": 0,
+      "extent": [
+        1130.0,
+        59.99999999999994,
+        368.5
+      ],
+      "blend_radius": 40,
+      "priority": 10,
+      "exposure_ev": 0.6000000238418579,
+      "exposure_bias": -0.20000000298023224,
+      "indirect_intensity": 1.0,
+      "saturation": 1.0,
+      "contrast": 1.0,
+      "vignette": 0.4000000059604645,
+      "bloom": 0.675000011920929
+    },
+    {
+      "type": "post_process",
+      "position": [
+        0.0,
+        -1060.0,
+        273.5
+      ],
+      "yaw": 0,
+      "extent": [
+        1030.0,
+        60.0,
+        368.5
+      ],
+      "blend_radius": 40,
+      "priority": 10,
+      "exposure_ev": 0.6000000238418579,
+      "exposure_bias": -0.20000000298023224,
+      "indirect_intensity": 1.0,
+      "saturation": 1.0,
+      "contrast": 1.0,
+      "vignette": 0.4000000059604645,
+      "bloom": 0.675000011920929
+    },
+    {
+      "type": "post_process",
+      "position": [
+        0.0,
+        1060.0,
+        273.5
+      ],
+      "yaw": 0,
+      "extent": [
+        1030.0,
+        60.0,
+        368.5
+      ],
+      "blend_radius": 40,
+      "priority": 10,
+      "exposure_ev": 0.6000000238418579,
+      "exposure_bias": -0.20000000298023224,
+      "indirect_intensity": 1.0,
+      "saturation": 1.0,
+      "contrast": 1.0,
+      "vignette": 0.4000000059604645,
+      "bloom": 0.675000011920929
+    },
+    {
+      "type": "post_process",
+      "position": [
+        0.0,
+        -1160.0,
+        273.5
+      ],
+      "yaw": 0,
+      "extent": [
+        930.0000000000001,
+        60.0,
+        368.5
+      ],
+      "blend_radius": 40,
+      "priority": 10,
+      "exposure_ev": 0.6000000238418579,
+      "exposure_bias": -0.20000000298023224,
+      "indirect_intensity": 1.0,
+      "saturation": 1.0,
+      "contrast": 1.0,
+      "vignette": 0.4000000059604645,
+      "bloom": 0.675000011920929
+    },
+    {
+      "type": "post_process",
+      "position": [
+        0.0,
+        1160.0,
+        273.5
+      ],
+      "yaw": 0,
+      "extent": [
+        930.0000000000001,
+        60.0,
+        368.5
+      ],
+      "blend_radius": 40,
+      "priority": 10,
+      "exposure_ev": 0.6000000238418579,
+      "exposure_bias": -0.20000000298023224,
+      "indirect_intensity": 1.0,
+      "saturation": 1.0,
+      "contrast": 1.0,
+      "vignette": 0.4000000059604645,
+      "bloom": 0.675000011920929
+    },
+    {
+      "type": "post_process",
+      "position": [
+        -1300.0,
+        0.0,
+        168.5
+      ],
+      "yaw": 0,
+      "extent": [
+        120.0,
+        250.0,
+        203.5
+      ],
+      "blend_radius": 40,
+      "priority": 10,
+      "exposure_ev": 0.6000000238418579,
+      "exposure_bias": -0.20000000298023224,
+      "indirect_intensity": 1.0,
+      "saturation": 1.0,
+      "contrast": 1.0,
+      "vignette": 0.4000000059604645,
+      "bloom": 0.675000011920929
+    },
+    {
+      "type": "post_process",
+      "position": [
+        1300.0,
+        0.0,
+        168.5
+      ],
+      "yaw": 0,
+      "extent": [
+        120.0,
+        250.0,
+        203.5
+      ],
+      "blend_radius": 40,
+      "priority": 10,
+      "exposure_ev": 0.6000000238418579,
+      "exposure_bias": -0.20000000298023224,
+      "indirect_intensity": 1.0,
+      "saturation": 1.0,
+      "contrast": 1.0,
+      "vignette": 0.4000000059604645,
+      "bloom": 0.675000011920929
+    }
+  ],
+  "anchors": [
+    {
+      "position": [
+        -370.0,
+        370.0,
+        -55.00000000000001
+      ],
+      "role": "archive_combat"
+    },
+    {
+      "position": [
+        0,
+        370.0,
+        -55.00000000000001
+      ],
+      "role": "archive_combat"
+    },
+    {
+      "position": [
+        370.0,
+        370.0,
+        -55.00000000000001
+      ],
+      "role": "archive_combat"
+    },
+    {
+      "position": [
+        -370.0,
+        -370.0,
+        -55.00000000000001
+      ],
+      "role": "archive_combat"
+    },
+    {
+      "position": [
+        0,
+        -370.0,
+        -55.00000000000001
+      ],
+      "role": "archive_combat"
+    },
+    {
+      "position": [
+        370.0,
+        -370.0,
+        -55.00000000000001
+      ],
+      "role": "archive_combat"
+    },
+    {
+      "position": [
+        -370.0,
+        0,
+        -55.00000000000001
+      ],
+      "role": "archive_combat"
+    },
+    {
+      "position": [
+        370.0,
+        0,
+        -55.00000000000001
+      ],
+      "role": "archive_combat"
+    },
+    {
+      "position": [
+        -900,
+        400,
+        5.0
+      ],
+      "role": "archive_combat"
+    },
+    {
+      "position": [
+        -900,
+        -400,
+        5.0
+      ],
+      "role": "archive_combat"
+    },
+    {
+      "position": [
+        900,
+        400,
+        5.0
+      ],
+      "role": "archive_combat"
+    },
+    {
+      "position": [
+        900,
+        -400,
+        5.0
+      ],
+      "role": "archive_combat"
+    },
+    {
+      "position": [
+        -400,
+        900,
+        5.0
+      ],
+      "role": "archive_combat"
+    },
+    {
+      "position": [
+        400,
+        900,
+        5.0
+      ],
+      "role": "archive_combat"
+    },
+    {
+      "position": [
+        -400,
+        -900,
+        5.0
+      ],
+      "role": "archive_combat"
+    },
+    {
+      "position": [
+        400,
+        -900,
+        5.0
+      ],
+      "role": "archive_combat"
+    }
+  ],
+  "walk_mask": [
+    {
+      "min": [
+        -575.0,
+        -575.0,
+        -65.0
+      ],
+      "max": [
+        575.0,
+        575.0,
+        220.00000000000003
+      ]
+    },
+    {
+      "min": [
+        -1040.0,
+        -780.0,
+        -5.0
+      ],
+      "max": [
+        -625.0,
+        780.0,
+        280.0
+      ]
+    },
+    {
+      "min": [
+        625.0,
+        -780.0,
+        -5.0
+      ],
+      "max": [
+        1040.0,
+        780.0,
+        280.0
+      ]
+    },
+    {
+      "min": [
+        -780.0,
+        625.0,
+        -5.0
+      ],
+      "max": [
+        780.0,
+        1040.0,
+        280.0
+      ]
+    },
+    {
+      "min": [
+        -780.0,
+        -1040.0,
+        -5.0
+      ],
+      "max": [
+        780.0,
+        -625.0,
+        280.0
+      ]
+    },
+    {
+      "min": [
+        -1400,
+        -145.0,
+        -65.0
+      ],
+      "max": [
+        -570.0,
+        145.0,
+        280.0
+      ]
+    },
+    {
+      "min": [
+        570.0,
+        -145.0,
+        -65.0
+      ],
+      "max": [
+        1400,
+        145.0,
+        280.0
+      ]
+    },
+    {
+      "min": [
+        -145.0,
+        570.0,
+        -65.0
+      ],
+      "max": [
+        145.0,
+        1010.0,
+        280.0
+      ]
+    },
+    {
+      "min": [
+        -145.0,
+        -1010.0,
+        -65.0
+      ],
+      "max": [
+        145.0,
+        -570.0,
+        280.0
+      ]
+    }
+  ],
+  "walk_polyline": [
+    [
+      -1400,
+      0,
+      5
+    ],
+    [
+      -850,
+      0,
+      5
+    ],
+    [
+      -810,
+      0,
+      -10
+    ],
+    [
+      -750,
+      0,
+      -25
+    ],
+    [
+      -690,
+      0,
+      -40
+    ],
+    [
+      -630,
+      0,
+      -55
+    ],
+    [
+      630,
+      0,
+      -55
+    ],
+    [
+      690,
+      0,
+      -40
+    ],
+    [
+      750,
+      0,
+      -25
+    ],
+    [
+      810,
+      0,
+      -10
+    ],
+    [
+      850,
+      0,
+      5
+    ],
+    [
+      1400,
+      0,
+      5
+    ]
+  ],
+  "selection": {
+    "chance_per_run": 0.3,
+    "max_per_run": 1,
+    "route": "Approach"
+  },
+  "spawn": {
+    "source": "DungeonDataArchive20260930",
+    "theme": "abandoned_data_archive",
+    "count": [
+      4,
+      6
+    ],
+    "anchor_roles": [
+      "archive_combat"
+    ],
+    "pool": [
+      {
+        "id": "FatZombie",
+        "class": "/Script/FPSGAME.FatZombie",
+        "weight": 3,
+        "level": 4,
+        "rank": "normal"
+      },
+      {
+        "id": "Mutant3",
+        "class": "/Script/FPSGAME.Mutant3",
+        "weight": 1,
+        "level": 9,
+        "rank": "elite"
+      },
+      {
+        "id": "InfectedDog",
+        "class": "/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C",
+        "weight": 2,
+        "level": 7,
+        "rank": "normal"
+      },
+      {
+        "id": "FleshHandMinion",
+        "class": "/Game/Monsters/FleshHand/BP_FleshHandMinion.BP_FleshHandMinion_C",
+        "weight": 1,
+        "level": 1,
+        "rank": "minor"
+      },
+      {
+        "id": "FleshHand",
+        "class": "/Game/Monsters/FleshHand/BP_FleshHand.BP_FleshHand_C",
+        "weight": 2,
+        "level": 12,
+        "rank": "lord"
+      }
+    ],
+    "sealed_encounter": true
+  },
+  "runtime_assets": []
+}

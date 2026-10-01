@@ -1,0 +1,1346 @@
+{
+  "base_commit": "b2c26033c83a2f8d5c58b45862c1ebde9313ad99",
+  "scope": "This conversation: dungeon room authoring, theme/split-level routing, encounter gates, traversal and expedition UI",
+  "hash_basis": "Git index bytes; excludes this manifest itself",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 90865,
+      "sha256": "3862135c8b97af11eccf0416877a0ad2a593b685ad65249c75bbc32d33867004"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 10401,
+      "sha256": "d464167b25ca43251827014a1e9ee5979d20e4a85563d415fac710ca5235a786"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "bytes": 12200,
+      "sha256": "affcdbdd12c6a0fc7e4bc91932e4d2755b8ae28e896c53e8164c271e1e6a299f"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes": 70603,
+      "sha256": "93a16dcff5888ded54807a66e44d194efed216f4f6779742594724e949fea7b3"
+    },
+    {
+      "path": "Docs/Backlog.md",
+      "bytes": 19186,
+      "sha256": "7aaf9846ad4fe6176cbd10f4174784dd37f971eaadad7f643bf38e6082a53263"
+    },
+    {
+      "path": "Docs/Gameplay/Publication20261002/archive-manifest.json",
+      "bytes": 66844,
+      "sha256": "1d6921eff178620601a86e1144acb68bd6e989008473b7e4c1f85361c36d84c6"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-all-room-gates-20261002.md",
+      "bytes": 2768,
+      "sha256": "6797b65f427c355dd21a60f1eb45afde82f62d22ba730dac014dec2b9d81c193"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-anatomy-theatre-pool-20261001.md",
+      "bytes": 3454,
+      "sha256": "42f8b312b1f663bc2f0439bcf327a73edd76055b7d3b3e03bd0bf6e6e6e7e0ea"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-anatomy-theatre-subject-20261001.md",
+      "bytes": 7337,
+      "sha256": "b38cc5d3f095d67c33bbf8b73434f44fbe6f3f37dae9508041b11a576e0a2df3"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-archive-exit-and-freight-pool-20261001.md",
+      "bytes": 3758,
+      "sha256": "2a372769047427a4be38fd1a497414079bbe7c0f37674271d5499f31c1e45d77"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-cargo-warehouse-cart-20261001.md",
+      "bytes": 1705,
+      "sha256": "ef5ab806ab0f34a2978f09b7d27798f1ed7a38357b890d764f89da1c5af2e14d"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-cargo-warehouse-refine-20261001.md",
+      "bytes": 2265,
+      "sha256": "4397bc0e672e67e955c2a804990aa62fe2e00f3e204fb4ddb5e5c9c619667efc"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-cargo-warehouse-subject-20261001.md",
+      "bytes": 3830,
+      "sha256": "cb6e00bceaa61ef5ba2dc65ff9a904df64b7f411d4e2775ee1ef97d656c55822"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-data-archive-equipment-20260930.md",
+      "bytes": 4643,
+      "sha256": "3d1845b5e71da1977dafa7a390fa632c53a55d8adcab72c2b29f0314ce124fd6"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-data-archive-pool-20261001.md",
+      "bytes": 4207,
+      "sha256": "2d464283480296864d02cbb0f56ed7d3ac15d0dc3642214e7fda7fd2ad95014e"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-data-archive-refinement-20260930.md",
+      "bytes": 4751,
+      "sha256": "ad2067b6a25d1a25a7ef7c192934f64a71a98d103223a495cb2dfb5bee65748a"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-data-archive-subject-20260930.md",
+      "bytes": 3974,
+      "sha256": "facd622740c18a154c0e1455c946dd3cf37f582feff560013fd27063a6da0094"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-empty-scatter-physics-fix-20261001.md",
+      "bytes": 1829,
+      "sha256": "37750bef23f75338808b81f0de464df9d3a0fa379aafa4d62ed69e9ee90a2adb"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-five-new-templates-proposal-20260928.md",
+      "bytes": 6946,
+      "sha256": "2234235078dc379f9545fa65a8a2ca09f2ec0e85ca4560c40505eb505783350c"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-flue-gas-station-refinement-20261001.md",
+      "bytes": 3771,
+      "sha256": "910ad9aa2f2a1d8b7e4603031bf2572d07160d203a2ea303b1101d2df65db63b"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-flue-gas-station-subject-20261001.md",
+      "bytes": 4282,
+      "sha256": "9a75c90f74c1d088cb3166b6ca680b4a7741a2ccc3e2ee50ebff53d7c4a7fd69"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-incinerator-ash-station-20260930.md",
+      "bytes": 5173,
+      "sha256": "10860bd871b2bcc953461b3f0fdcc0a307f0c2777e5de1af27f66073578fe754"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-incinerator-caution-sign-fix-20260930.md",
+      "bytes": 1652,
+      "sha256": "2d8f20314d37af0417da6d588b2738ada0ae848536a170e9305b9610c011fc69"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-incinerator-equipment-20260930.md",
+      "bytes": 6665,
+      "sha256": "7efb208aebf0bfd521afceb39b2cfd3bca6b6e5cae50ff0344930852df6b43f4"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-incinerator-hall-assets-20260930.md",
+      "bytes": 5956,
+      "sha256": "eb736135e61a498d34bf675c7b8b1fa545413a5f7d9a781b6d9cbfeb81fc858f"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-incinerator-hall-subject-20260930.md",
+      "bytes": 5693,
+      "sha256": "c4fc609dd2f6510d2974ec6d6e87bff44703bf61727c026cf2a3516fc04639b4"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-incinerator-morgue-b1-20260930.md",
+      "bytes": 5242,
+      "sha256": "ed7b5c2e8f5123549fede0a335ece1ff404c6b17e0f3a6eed7dbcf41f02a5619"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-incinerator-morgue-blood-20260930.md",
+      "bytes": 2595,
+      "sha256": "35f5a1da9e2a499b80aa0616f129e0619d658ab8d570cd37b4ce69fb03000d4c"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-incinerator-morgue-lighting-20260930.md",
+      "bytes": 3641,
+      "sha256": "c19e6984a074da07201402d3acb685defdc97a3b9fbb6a5c4e8e343783e42abb"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-incinerator-morgue-open-plan-20260930.md",
+      "bytes": 3694,
+      "sha256": "822e6a6da2905d0316794149550c580f9fbbca37ec163abb29bd8442b87331e6"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-incinerator-pool-20260930.md",
+      "bytes": 2558,
+      "sha256": "4c7dc3bb3a9a60ab17f97e2f52b56fdff452a2a359fa4e722dc94bf4da378479"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-incinerator-scene-fixes-20260930.md",
+      "bytes": 5444,
+      "sha256": "ddb9c1466ea39a370872891316f78c1d7bf796987d662309c82effb6842881da"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-incinerator-signage-20260930.md",
+      "bytes": 3613,
+      "sha256": "29e8658f2b9d8d75ea2950b76be7c366f82371f68c12e73bda9e61a6b1d307a9"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-progression-wave-fix-20261001.md",
+      "bytes": 2979,
+      "sha256": "70752f227a16bfac1eadea67dc61ded0f9a49d47c674cf6f4fb69d27e91a373e"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-publication-20261002.md",
+      "bytes": 4279,
+      "sha256": "87892e2637bd53a672a4dfdb62cdb2cf68973c3afd01320a60bc3327ed2e74c8"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-route-length-budget-fix-20261001.md",
+      "bytes": 3085,
+      "sha256": "37c68e2f213b861e7056377e010faeec96298935e031229ebe4206c743f3a639"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-split-level-routing-20261001.md",
+      "bytes": 3881,
+      "sha256": "732f0eae3b393a32e52e96299ecd90d33b2fab725466872ff7fb30473c38ed95"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-themed-bridge-fix-20261001.md",
+      "bytes": 3237,
+      "sha256": "8b4704e64a2cfb7428fe19406a7d26b7688f36479832c4f9609e4aeb7b2d6b5b"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-themed-door-seam-fix-20261001.md",
+      "bytes": 1786,
+      "sha256": "3fe900d99d05c018739d7d172ba366309a87e6a410dc1528e37121054d6662ba"
+    },
+    {
+      "path": "Docs/Gameplay/dungeon-themed-routes-20261001.md",
+      "bytes": 7187,
+      "sha256": "5046e2d7fc55fb138164524a43ec9297d862c4b3d1c2bfa97d104abbfe4c1e9b"
+    },
+    {
+      "path": "Docs/Gameplay/flue-gas-rail-two-way-traversal-20261001.md",
+      "bytes": 2669,
+      "sha256": "4641c555854e1b26850462a1360c72735fe00abfd48c5243c612382bb084f4f1"
+    },
+    {
+      "path": "Docs/Gameplay/traversal-shallow-top-footing-20261001.md",
+      "bytes": 2107,
+      "sha256": "f7598df3b836c34a84e11dec5b518407d3176d3af5118b2c055ddd25567a41c9"
+    },
+    {
+      "path": "Docs/UI/expedition-content-plan-20261001.md",
+      "bytes": 3057,
+      "sha256": "30f8a9000443b4deba1a06e80041c8a49a7645647c2a2de71dbf6d3a5ea33555"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonCompactRouting.inl",
+      "bytes": 33858,
+      "sha256": "85376a6fc395606db932d75c389269ec03a9b7ba3a026b03a417257d2b1289f1"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp",
+      "bytes": 100542,
+      "sha256": "6c78f3e6574ff1e80ee448321f0686f00ba82cb9a4029510c05bf1d54bba4ab1"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonMission.inl",
+      "bytes": 20845,
+      "sha256": "cefc2d9ad6bb624d5b7df95db9824ab79237cf9beb3bc20b63ab0ed23cf8dcfc"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonRoomChoices.inl",
+      "bytes": 4671,
+      "sha256": "2951f00d7e829134c0dfee2a4bab3e8ad62141e3ef5f4dd331d51f9244a1efd2"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonRouting.inl",
+      "bytes": 9706,
+      "sha256": "c14e49531115fbdf77db8638c8ee30ab7772f12dca2735910e4d4589b6031c96"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonShortLinks.inl",
+      "bytes": 9407,
+      "sha256": "26ecdd35b8c9b297cfdcd6c814908dc476400835dae789a66b8af2e7efc6a1f2"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonSplitLevels.inl",
+      "bytes": 5437,
+      "sha256": "8e63bc1f9f23af05dffb0449076ab4c1a3fe91541678df48095e6333bf1ce3e5"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonThemedRoutes.inl",
+      "bytes": 7953,
+      "sha256": "b91fb938a3d456c19b539d5aa8a1bc89df7601df13ae357c63ad1aae7c2219ae"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonProgressionGate.cpp",
+      "bytes": 3534,
+      "sha256": "d83514ca1f99ec3d1cd0650078731540b4fb44795e1f0eab1e79d765afce4c1e"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonProgressionGate.h",
+      "bytes": 873,
+      "sha256": "5cbb9cc0ec96b134747e074b238485a98878a2327fe3e7998fb38b4593c31f09"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRoomEncounter.cpp",
+      "bytes": 15325,
+      "sha256": "4e2f867baa7235a4e613908c51dcadcc7db979a9a374665852ce483b492ab161"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRoomEncounter.h",
+      "bytes": 3907,
+      "sha256": "290d2755eb1c7e9995496d2699e3487e01018b7dc84c503c2bab140097019b03"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRoomGate.cpp",
+      "bytes": 10031,
+      "sha256": "c380e4202de915827ae826123b065e0c24a25deb6aa06ee4646c111fe358d35f"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRoomGate.h",
+      "bytes": 1426,
+      "sha256": "9c0079c45135679f562ec0bf6ede6dcae7fc4ebe9d25b8800e6624b30860dbc1"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp",
+      "bytes": 20040,
+      "sha256": "56fc8cf5af37a9f2405074c302959f66b66023f6498f05ba1f79e617133aa564"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.h",
+      "bytes": 7472,
+      "sha256": "3c1d62c264b0b2920019e1321cabba4a606b88c6b82d2ae6c828f85da18890a4"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonSpawnDirector.cpp",
+      "bytes": 41906,
+      "sha256": "faced7065891bb0bb4f93f494dfd082f53bd19bbced151197e226c2ddd138ec9"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonWallArt.cpp",
+      "bytes": 4689,
+      "sha256": "d3670f6b7b0dd137d0442d310b2b82738617ff10ecd3b7b59b2f14d7870ae06a"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAME.Build.cs",
+      "bytes": 3015,
+      "sha256": "845e9258cc8b218c204ecfe18362be3e1218678817a4e0ba2df97a697e6f5cf6"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEPlayerController.h",
+      "bytes": 3142,
+      "sha256": "36e188ad20d0358142d7af081e8f8c92a066fe77c7e42a43d77bdcc6a6f04b38"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSTraversalComponent.cpp",
+      "bytes": 19012,
+      "sha256": "bd911ca329793b3c4e1ec8692dc1475e266d921b2f6a025a2994f98d1181f719"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSTraversalRules.cpp",
+      "bytes": 3830,
+      "sha256": "37f5630b5e1440d6c1bc06928c537be4269b45a078ae2966e8bdabbef690ccea"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSTraversalRules.h",
+      "bytes": 4610,
+      "sha256": "55fcca146b41a4e5dea36a6460bf6f9221fdda1b04b5b15428835f3e5fb04781"
+    },
+    {
+      "path": "Source/FPSGAME/SceneTestPortal.cpp",
+      "bytes": 9912,
+      "sha256": "e4a5c639d0b3828fcd9d477d1f7e8bc110cb59e00857e78f2f11fe701ed6978f"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelDungeonLoot.cpp",
+      "bytes": 10804,
+      "sha256": "f0a4172e3ba73643b4e4703201d774fa89910744604d9e55efda9a990ff13dd8"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelDungeonLoot.h",
+      "bytes": 1168,
+      "sha256": "1fa0d2febbbc35ce2eda86d5a437dd0eb23f4cfcf4964cfcda2b690c2f7a31a8"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelExpeditionController.cpp",
+      "bytes": 7247,
+      "sha256": "006b8b79c01203a203ff3c8e836e4f4c6a6f5f39285614546ea47a730903040e"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelExpeditionDetails.cpp",
+      "bytes": 11789,
+      "sha256": "8557edc074cf04a2a0baf8fed6dde10992dfbb5afb272e573713c3aa4d04bd4c"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelExpeditionLayout.cpp",
+      "bytes": 19645,
+      "sha256": "43855e246cc0280b3cbe02bd97a2d7799e4faa47d70d1cb4fdc5521793767cfc"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelExpeditionPreparation.cpp",
+      "bytes": 7579,
+      "sha256": "1de1a01f89670d367b2b08dd09e6a4b17cbbd402bf3b5e8a2ebd8bce2b2dcc61"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelExpeditionWidget.cpp",
+      "bytes": 7056,
+      "sha256": "db0c471d638c9dc5f203c3799f0684766acda0337463270822c9656673a660ac"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelExpeditionWidget.h",
+      "bytes": 4214,
+      "sha256": "523711859a556af736b7a6212d5c1d4eb1a0f4a86c5015698f018f20bc1c6e89"
+    },
+    {
+      "path": "SourceAssets/DungeonAnatomyTheatre20261001/Authored/manifest.json",
+      "bytes": 11421,
+      "sha256": "ebc8b09942e1b25ac5f071b892cf0f5ca2e9da91b66a7b6bbadb05a07b229341"
+    },
+    {
+      "path": "SourceAssets/DungeonAnatomyTheatre20261001/Config/room.json",
+      "bytes": 9114,
+      "sha256": "cf34779189f2b3c752db0f2bd96b9dd543f833013e4c0ca25aad3d04dc7be431"
+    },
+    {
+      "path": "SourceAssets/DungeonAnatomyTheatre20261001/Config/sources.json",
+      "bytes": 2145,
+      "sha256": "be96c04abe5fd0e7cfb56ee3d26ee5827a44a97be5a8fc7e51040d8542a706f3"
+    },
+    {
+      "path": "SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Config/module.json",
+      "bytes": 40051,
+      "sha256": "75b08d8d1eb9ad91b38b7ade5b1160049cab550d631b98aec4b0e7110f81361e"
+    },
+    {
+      "path": "SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Scripts/extend_catalog.py",
+      "bytes": 793,
+      "sha256": "845a2944b384e3f4095c083350b09d8663a69d481fc3fa8d111760ef1bfd2252"
+    },
+    {
+      "path": "SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Scripts/install_pool.py",
+      "bytes": 3252,
+      "sha256": "c14f19769497b4fc7fbeb96d53ea7961ad757988e745d0d48c6be2c352bec33e"
+    },
+    {
+      "path": "SourceAssets/DungeonAnatomyTheatre20261001/README.md",
+      "bytes": 981,
+      "sha256": "33b36d0fd132d2c639e5051c7adc40d16b0d071dedbd7aa26b071cc1fcd96ce7"
+    },
+    {
+      "path": "SourceAssets/DungeonAnatomyTheatre20261001/Scripts/author_theatre.py",
+      "bytes": 11392,
+      "sha256": "5e1a6410a629a0559083d05856566e3675f9ef2fb9dfffc6fd17eb5205390386"
+    },
+    {
+      "path": "SourceAssets/DungeonAnatomyTheatre20261001/Scripts/author_wood.py",
+      "bytes": 1222,
+      "sha256": "846dd0ad672fdf0eca325b7aeb7f7df258f5bc0fd8360776a39347cae60a163f"
+    },
+    {
+      "path": "SourceAssets/DungeonAnatomyTheatre20261001/Scripts/export_geometry.py",
+      "bytes": 4157,
+      "sha256": "7f953b1092f791799dcfd47ffda899c98dcab892175107df0865458b23e26903"
+    },
+    {
+      "path": "SourceAssets/DungeonAnatomyTheatre20261001/Scripts/geometry.py",
+      "bytes": 6299,
+      "sha256": "bf4d2300ebe89c2ac41ecfbd296d32d8cd50e0a375734b2b9070d9f9050a19df"
+    },
+    {
+      "path": "SourceAssets/DungeonAnatomyTheatre20261001/Scripts/import_materials.py",
+      "bytes": 3855,
+      "sha256": "23d7133542e20d71ff24362ed32b15126a7554e4b46aa439811d6a9fa5593067"
+    },
+    {
+      "path": "SourceAssets/DungeonAnatomyTheatre20261001/Scripts/prepare_design.py",
+      "bytes": 3339,
+      "sha256": "86bee2bd5674831825ef7bb995a869e120a89d1734b254ece8d180ef1f18ca0a"
+    },
+    {
+      "path": "SourceAssets/DungeonAnatomyTheatre20261001/SeatLightRefine20261001/Authored/manifest.json",
+      "bytes": 1191,
+      "sha256": "727f6cb5d9d54d762a6baace09bc7ee5d21b568b54c46e53b4ed8d5e808db845"
+    },
+    {
+      "path": "SourceAssets/DungeonAnatomyTheatre20261001/SeatLightRefine20261001/Scripts/author_seats.py",
+      "bytes": 436,
+      "sha256": "7ad5ded1cafe870a528ea6cb503b3bcf7cb45034756d5986684eb6ca4aa3ae9c"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/Authored/atlas.json",
+      "bytes": 650,
+      "sha256": "924174f72be2b64e30016592c0bec15366660f89e51d138778c7ea47a4b37007"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/Authored/manifest.json",
+      "bytes": 15772,
+      "sha256": "ca48b18b9ae0a2c733354bcf920d3fe23223b3c0909a599c3fa9379acd98a719"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/CartPlacement/Authored/manifest.json",
+      "bytes": 1435,
+      "sha256": "a52e5d4c652653a80400a6a6341eac3507b47e550ff2407a2e99f37bcb5eb518"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/CartPlacement/Scripts/extract_cart.py",
+      "bytes": 3957,
+      "sha256": "060adfae1c522a5634e2b28382e33c3ff3472f63a137779cf1bbf44b11d60a98"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/CartPlacement/Scripts/import_asset.py",
+      "bytes": 3398,
+      "sha256": "c490ba7df17b4a683eda8d9acb58267a485e78f74451d6bdea6f4f27e2377645"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/Config/room.json",
+      "bytes": 12143,
+      "sha256": "5602d5fc843e8b4ba756dc1d1e8911958ba0b92025089e85223a2e05e26d4f8a"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/Config/sources.json",
+      "bytes": 564,
+      "sha256": "0c2343489cf212715d6b4cbfd7c87e1193e45158baf792f81d61ed9a960a7b31"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/README.md",
+      "bytes": 971,
+      "sha256": "80745ecf57b19fa535c1c6b5f20855a3bbbd340363b01367051f98f75d31f98d"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/RefineV2/Authored/atlas.json",
+      "bytes": 650,
+      "sha256": "924174f72be2b64e30016592c0bec15366660f89e51d138778c7ea47a4b37007"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/RefineV2/Authored/manifest.json",
+      "bytes": 6178,
+      "sha256": "99c369e6cbfedab6d73fc1c09aea10a2503df2fbecf074531fb8d3ff0b988ce3"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/RefineV2/Cargo/manifest.json",
+      "bytes": 676,
+      "sha256": "1e5d5dac2d64be4c3b2235f96a39a10e4e54f134a5bf934de18a43dc41bfaa9a"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/RefineV2/Scripts/author_revision.py",
+      "bytes": 773,
+      "sha256": "fec693906abf51a35d217458a1a0012f0ff0ba0ba9f56710ecbd95296b4d68ff"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/RefineV2/Scripts/finish_floor.py",
+      "bytes": 550,
+      "sha256": "bba6d4b8e609e07a5b7aaab4f632db5cd60d3d7f3c66de75929b42120c4df88c"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/RefineV2/Scripts/import_assets.py",
+      "bytes": 6913,
+      "sha256": "5ff27c5c4fc3d65b35896db01533782eebb8b3c46259f526d84ee25ac018ac85"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/Scripts/author_labels.py",
+      "bytes": 1724,
+      "sha256": "8c668e43254aa0244d94f004deff03d8f38ebf93e9b330842ed386f2477992fe"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/Scripts/author_structure_finish.py",
+      "bytes": 597,
+      "sha256": "10cb493957fd78dd7d84393d90a92a0698bfbb2019291b1a9783d690b45e9903"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/Scripts/author_warehouse.py",
+      "bytes": 6365,
+      "sha256": "d8eb790dd71c42864063fb2b15ff70bf0743b0385071382ec8986511eb997d71"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/Scripts/export_geometry.py",
+      "bytes": 5153,
+      "sha256": "7d7e09c0fbe93f65d3cf8515a70caf3226ffbff89a5811b171b049d57e427947"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/Scripts/finish_pipeline.py",
+      "bytes": 1397,
+      "sha256": "60e8544a695314a7e5b3ae0ba1ba0a59351c3ae8e0e16a7679216504605f35c4"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/Scripts/import_assets.py",
+      "bytes": 7083,
+      "sha256": "10509529301a9b2afab10e303c1d4003e5c71d7b2deb8a6c8d640d455d9aecf4"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/Scripts/prepare_design.py",
+      "bytes": 4431,
+      "sha256": "89c9a438118379eaf0b8cf44b99b6b8311e648f176f5c53df11a8b8b28506fd6"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/Scripts/prepare_pipeline.py",
+      "bytes": 1541,
+      "sha256": "de8ee2b31815600876ac8fa08ea1b74a3c812a49d88d25e4bae1c62f7b0e5d98"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/Scripts/refined_details.py",
+      "bytes": 6615,
+      "sha256": "8452c43809984d8ebd5ca9f837a9f7f76cca219693b307b123f084a83dd21f77"
+    },
+    {
+      "path": "SourceAssets/DungeonCargoWarehouse20261001/Scripts/reimport_structure.py",
+      "bytes": 7091,
+      "sha256": "76010a04ffad917bb6df6e258cffd28818cefe7af467ab0431c50dfad41dd931"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/Authored/manifest.json",
+      "bytes": 8664,
+      "sha256": "6693e7300876cffb9d76cb56f1395107a3d36ebf879545e8c74e394d727e3b9e"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/Config/room.json",
+      "bytes": 5194,
+      "sha256": "bd3c0674470802839f0b35250d453960570c04be4f3a19b9823f0094569ebd24"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/Equipment20260930/Authored/atlas.json",
+      "bytes": 8417,
+      "sha256": "5a64510d27433258afc8f2d1d5fa7ec2a04c83c783cd09c70b5d9c3370c52108"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/Equipment20260930/Authored/manifest.json",
+      "bytes": 4762,
+      "sha256": "84a7f66f3549f0525fa1899456f8b56bab1c60c598c1d169c292584e55453388"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/Equipment20260930/Config/layout.json",
+      "bytes": 2792,
+      "sha256": "e813c5b7ab84c5e98798dba4334ffd47daad67e7ac96e1fca5c88172effc9a9b"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/Equipment20260930/Config/references.json",
+      "bytes": 9812,
+      "sha256": "ef194a6045bdfaf5c4f7bc3b3d3fd6a8369c0cbf14c064b9a5295e8fd5db807d"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/Equipment20260930/Scripts/author_equipment.py",
+      "bytes": 23602,
+      "sha256": "5e021e0d9391d95154fff12609adb68f96c39143a4a429d83d7fc5eb4c9b7f95"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/Equipment20260930/Scripts/author_textures.py",
+      "bytes": 7637,
+      "sha256": "6c8e46265f9b9149b7499f407eec3da664cfd88f001b44e979eb5aa7a0c2de00"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/Equipment20260930/Scripts/import_assets.py",
+      "bytes": 6675,
+      "sha256": "d811d84a0f0e4d37e7b62c2f3f4ce3d8c4dedde1be366a91399f4d53466ff011"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/Equipment20260930/Scripts/mesh_helpers.py",
+      "bytes": 4844,
+      "sha256": "4b65a7522d6b9c3702de163b8bf5293c9404a3042b894905bca274a24d60ea07"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/Equipment20260930/Scripts/prepare_layout.py",
+      "bytes": 1041,
+      "sha256": "81bbc529b498d3086283264df468a8976e37ef6a9a435de77b47999720c349ce"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/Equipment20260930/Scripts/render_preview.py",
+      "bytes": 2974,
+      "sha256": "505235887212f4e50f291fc18c8497c2d37fd68565cf102c400613a1f83f5c7e"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Authored/atlas.json",
+      "bytes": 8566,
+      "sha256": "95695e241ab684b6f6c937b35a4cddfd1aa14c4d32fefe7e01a8e85193fdc3ab"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Authored/manifest.json",
+      "bytes": 10587,
+      "sha256": "9fcd5e21de44ef8ae8a4787d1f7dabdbd34d57bdcb56df96985cbd3634538437"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Config/layout.json",
+      "bytes": 4369,
+      "sha256": "bf68883305d65595c12ff5ba34a5578b637ae1a0a1fd8df68cdbb788cb96a84e"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Scripts/author_equipment.py",
+      "bytes": 23962,
+      "sha256": "fba5650b963979e0a52aca26ba07bcbc87a4a71b1beecda82bfb5c7ea601772f"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Scripts/author_structure_patch.py",
+      "bytes": 797,
+      "sha256": "e11e2a3ef0b5f167a91308e360ee4685d10e3bc8f0ff721a75ad5252776d03c7"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Scripts/author_textures.py",
+      "bytes": 8198,
+      "sha256": "7ce29888099d705c5f63a1235e02e49ca5ffdaecdae0a3ba4a61293ba2ca9934"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Scripts/configure_layout.py",
+      "bytes": 2391,
+      "sha256": "f526ee92f6aeec2cb5d864fc795df09a9b7beb02cfab8bd86bf762d5b62655c7"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Scripts/finish_surface_import.py",
+      "bytes": 283,
+      "sha256": "39d9fabb411d1715511028021522d9755305ca67b15b8c030079f870640be0f0"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Scripts/import_assets.py",
+      "bytes": 7089,
+      "sha256": "2dfc986187d5d3e6c8ba3d024e98f9045b925a448b80deae518ca81276a00dbd"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Scripts/import_structure.py",
+      "bytes": 2959,
+      "sha256": "5c31083fba05dd805adbd2479e2a94b15354fdfda096290962025298f9fbf89e"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Scripts/mesh_helpers.py",
+      "bytes": 4844,
+      "sha256": "c91810a73b6d5d9b27f15e155157ef8767b8873ceb5c3cb342f7965b7d13e875"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Scripts/refined_parts.py",
+      "bytes": 11718,
+      "sha256": "c4f285c38e4666c1b1817efcf7268b5319121e3ba7675a847e6d01fa202086c7"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Structure/manifest.json",
+      "bytes": 2018,
+      "sha256": "fc32b4f507c70bd1eae25ec1d66619214aa36aa7613104dcdbd9959b2eec883d"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/Pool20261001/Config/module.json",
+      "bytes": 47446,
+      "sha256": "86438526e9776cce90f64fde772738d63d3528dbccb798a876cb7d2c426a24c5"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/Pool20261001/Scripts/extend_catalog.py",
+      "bytes": 865,
+      "sha256": "017460d993d416463f100bf34fc4b8ee76ff683521925e43ad4bd86e8e0c16bc"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/Pool20261001/Scripts/install_pool.py",
+      "bytes": 9692,
+      "sha256": "59ffbf484462fa752907c226e27a82e1b227d2d569403aec5a84b343bc23966e"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/README.md",
+      "bytes": 1010,
+      "sha256": "933c490ab20f8d5f1f23d13b91a2cdeca7712aa33ae9b8b4748df87091a02b88"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/Scripts/author_archive.py",
+      "bytes": 7809,
+      "sha256": "934484ed58326a859a5102b4752d7d10d77fcd0e040a8d27627c20d790032e98"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/Scripts/export_geometry.py",
+      "bytes": 3277,
+      "sha256": "bd2e82117d0f9af08fce893a87810b3dd55c3bf9fb5c724774a57c6a9c6aa9ab"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/Scripts/geometry.py",
+      "bytes": 6299,
+      "sha256": "bf4d2300ebe89c2ac41ecfbd296d32d8cd50e0a375734b2b9070d9f9050a19df"
+    },
+    {
+      "path": "SourceAssets/DungeonDataArchive20260930/Scripts/prepare_design.py",
+      "bytes": 2434,
+      "sha256": "63227efa4069f56ffa36d6deb8e6df6a447898111c145e0290d1d0d42910ec06"
+    },
+    {
+      "path": "SourceAssets/DungeonFacilityPropPolish20260928/Scripts/author_props.py",
+      "bytes": 19483,
+      "sha256": "73be952ad0eb64a2facc1a17ffac917769c21b3da2fde1d87b3440ade6ac7830"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/Authored/atlas.json",
+      "bytes": 861,
+      "sha256": "71c3f0160eb195ba9db53df50b2650ad979e63fdcc2dd68c7dffe429839e38e1"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/Authored/manifest.json",
+      "bytes": 19844,
+      "sha256": "e1c569fbe5974899614c66a87cdbe4f18a66a4ac5fad2e69acbadf18cfcc0a8b"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/CabinetDiagnosis20261001/diagnosis.md",
+      "bytes": 2558,
+      "sha256": "5ea3af0886dd605ec14dcbc948003b5da1d539b88bb180cc16dc94a36181d88a"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/CabinetDiagnosis20261001/read_cabinet.py",
+      "bytes": 2858,
+      "sha256": "a9344cb48b693ab93a25e7c4befe349c7593d40c53f378d4579d7e46100aeccb"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/CabinetDiagnosis20261001/read_collision.py",
+      "bytes": 661,
+      "sha256": "cbffbbf895def7e256ed434b09e4e12889116f99a7352f17ca1e4793669c31e8"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/Config/module-draft.json",
+      "bytes": 18845,
+      "sha256": "bef89131bbe9ebff7c1ee5c1b4f982f60159b935fb7da16f688f2da4e49de77c"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/Config/room.json",
+      "bytes": 5990,
+      "sha256": "991e59d7d0c5d86d4a81e908f705242f001d0e62244d11cf36d7e08d63917cf1"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/Config/sources.json",
+      "bytes": 678,
+      "sha256": "382d1a418dd977fbf595920a02cfb51b9cd019ace632e20b2f75a2fbb034c170"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/Production20261001/Config/module.json",
+      "bytes": 21027,
+      "sha256": "e1ca3a55e143c8417d231c5dc38b4c91dc4b154d447cddf0a67f41f0e218d7fc"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/Production20261001/Scripts/extend_catalog.py",
+      "bytes": 821,
+      "sha256": "279fbc933a3d8d73c584c6a9ce85dfbe08b2f2e25b8a869bb8ddd89d7afa689c"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/Production20261001/Scripts/install.py",
+      "bytes": 2474,
+      "sha256": "5c0ff1fd6fbb7f3d1767e6111268a8c7ad712fb0ad47521e58b43c750f59751a"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/Production20261001/Scripts/prepare.py",
+      "bytes": 1440,
+      "sha256": "929283ab345ccf2b64dba4344245deedee113e647a78f8527267b807fdd9b5ba"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/README.md",
+      "bytes": 970,
+      "sha256": "cdef0fbcb2a950fb7e563b134c4f000bc6c8034964b3c77911753103a99967ec"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/RefineV2/Authored/atlas.json",
+      "bytes": 1408,
+      "sha256": "78ffa186dfa3f0ae9fde67d9b5e428933ec352aa866219a61f5751e4ef92bcaa"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/RefineV2/Authored/manifest.json",
+      "bytes": 8569,
+      "sha256": "eaa3e8cd487bf5f40c78e50da05a70d4c505c10afcb5ffdc31987ba310640be2"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/RefineV2/Scripts/author_revision.py",
+      "bytes": 811,
+      "sha256": "1d13f4ce35e273e66fff1f7b77289627e589127d2d740f1b62674b6e3772fdbe"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/RefineV2/Scripts/diagnose_source.py",
+      "bytes": 2463,
+      "sha256": "aca264631b95bdf2cf4e0ff5647848e07ab98cc64094907761bc22e41974d18a"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/RefineV2/Scripts/import_assets.py",
+      "bytes": 6571,
+      "sha256": "7cee83470d61a6d309a7905546ddb0a06ac4b095daf9a42756f91df516823bcb"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/Scripts/author_labels.py",
+      "bytes": 3459,
+      "sha256": "4786fb4dd69a493cf9e8593287f984d7169e1bb286c3a4c15fb61dcbf3ad4ed1"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/Scripts/author_station.py",
+      "bytes": 22083,
+      "sha256": "97751f0345558f83c2b5dfcff1e0e0e11399daa8a988e6d70dfc1184c084bb22"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/Scripts/export_geometry.py",
+      "bytes": 5077,
+      "sha256": "1c7d810e7aa5755a0564db41e2542cefa4480e65f419a925ccda409b9394e0ad"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/Scripts/import_assets.py",
+      "bytes": 6920,
+      "sha256": "66d6103b2f82817e963bb4ba4e3dcfac2c9a84137fa7293ad8344a77eb9197a4"
+    },
+    {
+      "path": "SourceAssets/DungeonFlueGasStation20261001/Scripts/prepare_design.py",
+      "bytes": 3557,
+      "sha256": "2483f4ce27d39e7f3754ee83a3e7dec8b975a5aa8339d83e8675fc04a5f61fd7"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/AshStation20260930/Authored/Architecture/manifest.json",
+      "bytes": 1792,
+      "sha256": "6fdd31375b41910e492c941cb22100cc4fa99c630e31fd522f6500a903ecfcf1"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/AshStation20260930/Authored/manifest.json",
+      "bytes": 5080,
+      "sha256": "b47f2c50cefa653c81a9c272758230b27e30733ec58a32bbce4ed3c1cd621be3"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/AshStation20260930/Authored/sign_atlas.json",
+      "bytes": 499,
+      "sha256": "441742cfec6d316d23250999fd811c8594c2f2f3dcd5e39c446d0909a55689e5"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/AshStation20260930/Config/layout.json",
+      "bytes": 459,
+      "sha256": "499f094b3c2bd8599a9a15d2ee26cc1f8094e26ac834c3724733dd0ad5fbc176"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/AshStation20260930/Scripts/author_architecture.py",
+      "bytes": 691,
+      "sha256": "58f8fec5e0640f92e1fd6b184d7577a47d3b4db5851c78b46645bebf2093a02e"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/AshStation20260930/Scripts/author_sign_textures.py",
+      "bytes": 2068,
+      "sha256": "94d2dab7e3df3db92eb9b08b676626514d5ee25227db2cc070c1b5fdcdf17db3"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/AshStation20260930/Scripts/author_station.py",
+      "bytes": 10520,
+      "sha256": "03005177845ae39b695dba3ecf1aebbb99eec955dc1024ef0a9a880afb76e267"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Authored/manifest.json",
+      "bytes": 11264,
+      "sha256": "f897d9796e70d103c0337d922ba5959c72a15c1069ab26eaa6313fb3407ac207"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/CautionFix20260930/Authored/manifest.json",
+      "bytes": 732,
+      "sha256": "9caac9dec89dd56c8ca6715d2420852c7f21e54ecd9e5b61c48a6699be22b216"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/CautionFix20260930/Scripts/author_fix.py",
+      "bytes": 1353,
+      "sha256": "27f560e05baaea01165dffeedd922a814c6f0e9e7ea926a435ddda1a71da2dd1"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Config/room.json",
+      "bytes": 7183,
+      "sha256": "3ce93ab8ab5d53bcbbd6b51c80ab124da4c1aeb227c9f9091a72af82cd132271"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Equipment20260930/Authored/atlas.json",
+      "bytes": 1559,
+      "sha256": "dcdfb2af70090b1d8e4526ff8b9c1526b2ac3a01916dda22adef41d6076a6981"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Equipment20260930/Authored/manifest.json",
+      "bytes": 3304,
+      "sha256": "7796f7fe77097fa8bf7860953d7fc15cd29bf763269c131703dc3ed81ad621e4"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Equipment20260930/Config/layout.json",
+      "bytes": 1192,
+      "sha256": "abe358fa3a0197de0322d626583373287fb87e9ac7e0b222e93acf60acae0ebc"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Equipment20260930/Scripts/author_equipment.py",
+      "bytes": 25297,
+      "sha256": "c88c096ed71e0bbe71dbf6c3faaefa5d107c79ba142a0c1ca63d2fb29ab8b118"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Equipment20260930/Scripts/author_textures.py",
+      "bytes": 6629,
+      "sha256": "70b84043f7fa1b87bf20f6e28cdb09d2d2bd4df387eac19e90b01a5701bd6032"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Equipment20260930/Scripts/mesh_helpers.py",
+      "bytes": 4854,
+      "sha256": "40f284b803b37af813b2b39ba1463554205503d98946a3d9a532a438ad29ff27"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/MorgueB120260930/Authored/Architecture/manifest.json",
+      "bytes": 4653,
+      "sha256": "7347f98e1ed3d87f79d91d478598168fee23528ecf01a5e08efea0e13df5ef96"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/MorgueB120260930/Authored/manifest.json",
+      "bytes": 8554,
+      "sha256": "67764123ab1ba6105d096562345e67c5938d9e06b126bb521c497d2576166d31"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/MorgueB120260930/Authored/sign_atlas.json",
+      "bytes": 1554,
+      "sha256": "1f0f84e873b41976b4dbab63825ec5e05fb50ace82ae8c92f4bf97a616eb3d36"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/MorgueB120260930/Config/layout.json",
+      "bytes": 2370,
+      "sha256": "676bf7540d66ac9f6fb1fefa4200e8fcf549d33afed727e1281f1cb3bce04f25"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/MorgueB120260930/Scripts/author_architecture.py",
+      "bytes": 5213,
+      "sha256": "b1c0f0f2c54c2ec3657cbeee4e3227ac2eada5cdf9d462b050b74f1d1f44008e"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/MorgueB120260930/Scripts/author_props.py",
+      "bytes": 10388,
+      "sha256": "dbf70893f2ddef746f9088d60993cd9f63e1b43618919a3c0281c6b7b00516fc"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/MorgueB120260930/Scripts/author_textures.py",
+      "bytes": 2104,
+      "sha256": "4414fc75d5d118800295bb467b69b2630751697412b276c82b3be0b94fb307d6"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/MorgueBlood20260930/Config/blood.json",
+      "bytes": 11412,
+      "sha256": "416fbe1a431b5b396d4b6745944566de5f53656e60faa5b0705ed3b4e6840118"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/MorgueBlood20260930/Scripts/prepare.py",
+      "bytes": 3013,
+      "sha256": "1f814df129ecb8c1447953126b2d824a821246e63506867c06633e0805ad6b21"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/MorgueLighting20260930/Config/lighting.json",
+      "bytes": 4333,
+      "sha256": "b00112f1e178f04ccd485b2c0bc079e0a090a8b5de83515d5c58f12437752ebe"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/MorgueLighting20260930/Scripts/author_assets.py",
+      "bytes": 7538,
+      "sha256": "6fbb9070ae81efb50c2a7b0ccd47c0f7a64b2425ded1aae2a9bf760b5c869f28"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/MorgueLighting20260930/Scripts/prepare.py",
+      "bytes": 1909,
+      "sha256": "af72e8306af95f526816b5e9e5d963d971b7b46d88c7884c912d17cbb41c4738"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/MorgueOpenPlan20260930/Authored/Architecture/manifest.json",
+      "bytes": 4523,
+      "sha256": "24bce2bfc5cd358da66e56a8738c5da97a46b93462ecbb35f04d4081bda51f5a"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/MorgueOpenPlan20260930/Authored/manifest.json",
+      "bytes": 9292,
+      "sha256": "909988003d987cbac5ab985b35aa0fa4db39bc9176648d8a46aeed21c4be4c68"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/MorgueOpenPlan20260930/Authored/sign_atlas.json",
+      "bytes": 1554,
+      "sha256": "1f0f84e873b41976b4dbab63825ec5e05fb50ace82ae8c92f4bf97a616eb3d36"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/MorgueOpenPlan20260930/Config/layout.json",
+      "bytes": 4717,
+      "sha256": "3ef163368466b898ad65c599da0942dcf3266a57917df440e4db7f3321b14391"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/MorgueOpenPlan20260930/Scripts/author_architecture.py",
+      "bytes": 6704,
+      "sha256": "8456f8a887884e8043407067a20f6f3e6c2d5c798c5f4acd8fde6f21c2d3d322"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/MorgueOpenPlan20260930/Scripts/author_signs.py",
+      "bytes": 3930,
+      "sha256": "c32ad3f9338150533e95b3e6ad216568e5e88502648a3ed844f11fb93856c202"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/MorgueOpenPlan20260930/Scripts/author_textures.py",
+      "bytes": 2104,
+      "sha256": "916bd5a1f30e36b793a288c9f5e9c6e68282b2936e2d728598d107bbacd16481"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/MorgueOpenPlan20260930/Scripts/prepare.py",
+      "bytes": 2326,
+      "sha256": "3f8e4e2065254b808d59b3ceabf2ee748e96dad7bdf86b44ac3bc203591728e5"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Pool20260930/Config/module.json",
+      "bytes": 71644,
+      "sha256": "9d6b1455e48ac17a3c7ffe1185dcd7988b0de34bb59ccd59cd1dfd27b2c85ab2"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Pool20260930/Scripts/extend_catalog.py",
+      "bytes": 798,
+      "sha256": "705eb11e32860c1e69d45b57c8543192462ea77f9cd0321b3162447de0df415f"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Pool20260930/Scripts/install_loaded_pool.py",
+      "bytes": 803,
+      "sha256": "2102c34b78090d027ed94dc09d129a98892e1e082141839ff800f4fd8bcccb7b"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Pool20260930/Scripts/install_pool.py",
+      "bytes": 9514,
+      "sha256": "db27a5a20b9023c329e60fb5ef6fad079c47c72a39a31da2dc42de2a5c0174a3"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Pool20260930/Scripts/read_ownership.py",
+      "bytes": 1017,
+      "sha256": "d4017be477d7d10115579007273a84c4e4c1f08da2a401e877c026467a98a6f5"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/README.md",
+      "bytes": 1020,
+      "sha256": "8d3bf39e25d473229bec544de8988717ddfa590e9629274a137bede550c96c8b"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/SceneFix20260930/Authored/manifest.json",
+      "bytes": 1247,
+      "sha256": "732ad582cbfccce01980adeaffd2b5667ac3d8c76e9b8ecb53947053d07300ff"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/SceneFix20260930/Config/railings.json",
+      "bytes": 2813,
+      "sha256": "17f21fe6670407a0949d71ed1bf4d76a1c9e59fe67dd4fbd735ebfedc5b60eab"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/SceneFix20260930/Scripts/author_fixes.py",
+      "bytes": 9799,
+      "sha256": "97550540503f4774bb740f652be9c8321f40e866a4630beb28bf5651e3987f3a"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Scripts/author_hall.py",
+      "bytes": 8532,
+      "sha256": "bff33487d5a7e0163eaf539149a09e1c9b82f5c6060bbcb8e06eddb1c2621c14"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Scripts/export_geometry.py",
+      "bytes": 3238,
+      "sha256": "6abe160d37642cfe10f5544fb8627301e526a48864a764fd7259d61343c024a8"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Scripts/geometry.py",
+      "bytes": 6299,
+      "sha256": "bf4d2300ebe89c2ac41ecfbd296d32d8cd50e0a375734b2b9070d9f9050a19df"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Scripts/prepare_design.py",
+      "bytes": 3699,
+      "sha256": "7e9b26251bcf956e39ce965d5b0b2c5b9fe2147a592375c0775bae8359b8b724"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Signage20260930/Authored/floor_paint.json",
+      "bytes": 2616,
+      "sha256": "e7752ff653b5bee4b94f9fb080ec3743d9ecf057d91c989dd8ec9de4ee368974"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Signage20260930/Authored/manifest.json",
+      "bytes": 673,
+      "sha256": "cb4e9632776e89e14e7e41949a94727b8cef252e624552497860f7eb22dbc7cc"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Signage20260930/Authored/sign_atlas.json",
+      "bytes": 630,
+      "sha256": "9b3c503e5ed275bd110ee043dc5a6155312e1be34f2332ed244ad165493cbfcf"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Signage20260930/Config/layout.json",
+      "bytes": 1363,
+      "sha256": "3124ed18c036aa322c806e8a8ee49546b0e6671253ee4ff5a4afe1ab8b04776e"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Signage20260930/Scripts/author_signs.py",
+      "bytes": 2580,
+      "sha256": "8d2383bc58b930ab2a000a6293a938ecbcaab81a3624d2b73c84c919da4f0a67"
+    },
+    {
+      "path": "SourceAssets/DungeonIncineratorHall20260929/Signage20260930/Scripts/author_textures.py",
+      "bytes": 6626,
+      "sha256": "bf746e09571e5bc71ee3beddd593c70dd9e36fd7c2defcbc592966ae43989ed2"
+    },
+    {
+      "path": "SourceAssets/DungeonNaniteUsage20261001/README.md",
+      "bytes": 915,
+      "sha256": "daa4b42537f5cffb435e70803d4899ca0ea96acac29e20277c83d7c53019318f"
+    },
+    {
+      "path": "SourceAssets/DungeonNaniteUsage20261001/Scripts/fix_reported_materials.py",
+      "bytes": 2750,
+      "sha256": "27777bdfae082eee817b5f61d9d27c4d988a0ae9d67a94006e5facd067cfb41d"
+    },
+    {
+      "path": "SourceAssets/DungeonRouteRepairs20260922/Scripts/extend_catalog.py",
+      "bytes": 7986,
+      "sha256": "416b70a5b8205635c71d78c2fd4c7b65d15ba2af4a70ff08120cc896a5e0bad2"
+    },
+    {
+      "path": "SourceAssets/DungeonRoutes20260922/Config/catalog.json",
+      "bytes": 658678,
+      "sha256": "094a3a824e95864e2285b38bdee97c233f9a291be81f8dd5dff1366423d82b17"
+    },
+    {
+      "path": "SourceAssets/DungeonServices20260922/Scripts/import_materials.py",
+      "bytes": 4325,
+      "sha256": "97f3aa0e391fe107929f0fc953aeb5fa900b1b265a1a46886612db490ac93272"
+    },
+    {
+      "path": "SourceAssets/DungeonSplitLevels20261001/Authored/manifest.json",
+      "bytes": 3738,
+      "sha256": "26b42f442b4822904074a01f25741c3a3aeae5ab120a068be1a3488a5e3aaadd"
+    },
+    {
+      "path": "SourceAssets/DungeonSplitLevels20261001/Config/catalog.json",
+      "bytes": 658678,
+      "sha256": "094a3a824e95864e2285b38bdee97c233f9a291be81f8dd5dff1366423d82b17"
+    },
+    {
+      "path": "SourceAssets/DungeonSplitLevels20261001/Config/ramps.json",
+      "bytes": 20308,
+      "sha256": "635a7f23131f5d40c9eb24af6e89179f64de359d708588aaa8ab70bd3275dbb4"
+    },
+    {
+      "path": "SourceAssets/DungeonSplitLevels20261001/README.md",
+      "bytes": 914,
+      "sha256": "5f96cd85291528bda11373f230a6afd4f5cd8b0306648eec18ec2464496932d1"
+    },
+    {
+      "path": "SourceAssets/DungeonSplitLevels20261001/Scripts/author_ramps.py",
+      "bytes": 7490,
+      "sha256": "9195a02904cf1f4bf015f520d3f1a357d94d827cb8e19ab000f49445ef761710"
+    },
+    {
+      "path": "SourceAssets/DungeonSplitLevels20261001/Scripts/background_install.py",
+      "bytes": 4721,
+      "sha256": "28593de4bce9388e0980931a0023cd93da120eaf1d6b7ba8842161cfde4a0c8d"
+    },
+    {
+      "path": "SourceAssets/DungeonSplitLevels20261001/Scripts/extend_catalog.py",
+      "bytes": 668,
+      "sha256": "5bb3d5bf5c3c0c6150493aba474b89f7a804d6d7f6e272284df080dfe37ab6a5"
+    },
+    {
+      "path": "SourceAssets/DungeonThemedRoutes20261001/Authored/manifest.json",
+      "bytes": 17775,
+      "sha256": "1876fa35d93e6f81e1d2364694aa0ed2fecc6ba5d82e9c25c8d46ec7851059f6"
+    },
+    {
+      "path": "SourceAssets/DungeonThemedRoutes20261001/Config/catalog.json",
+      "bytes": 658678,
+      "sha256": "094a3a824e95864e2285b38bdee97c233f9a291be81f8dd5dff1366423d82b17"
+    },
+    {
+      "path": "SourceAssets/DungeonThemedRoutes20261001/Config/warehouse-module.json",
+      "bytes": 43892,
+      "sha256": "3c876437823f0a2d2ce180bd5566735898b58b12f2fd7f60463a5d76d05ff285"
+    },
+    {
+      "path": "SourceAssets/DungeonThemedRoutes20261001/README.md",
+      "bytes": 1024,
+      "sha256": "4ee1d9fcf2d65e9348999e7e5f364f8cdbf3bf106c5d7192a3d8ca2a96242a41"
+    },
+    {
+      "path": "SourceAssets/DungeonThemedRoutes20261001/Scripts/author_freight_link.py",
+      "bytes": 4423,
+      "sha256": "8deca5758b0a8bfb7f48dcb8ad290b43d76f5b0393b23dcd3b89e30976f35632"
+    },
+    {
+      "path": "SourceAssets/DungeonThemedRoutes20261001/Scripts/extend_catalog.py",
+      "bytes": 5465,
+      "sha256": "f81281d98e21b5c0e05a2e6a0ed8100e1ad7014f91c669ed06dcd5b18ebf1a3f"
+    },
+    {
+      "path": "SourceAssets/DungeonThemedRoutes20261001/Scripts/import_assets.py",
+      "bytes": 3525,
+      "sha256": "16cb31605790f704890c19a9f4c6219af93546371126a8f7520057a6f6e472eb"
+    },
+    {
+      "path": "SourceAssets/DungeonThemedRoutes20261001/Scripts/install_production.py",
+      "bytes": 2986,
+      "sha256": "da2745a4a4cbffa3888ad5943935558545eed964b68dc672da1a8a9ffc383757"
+    },
+    {
+      "path": "SourceAssets/DungeonThemedRoutes20261001/Scripts/reorder_freight.py",
+      "bytes": 3102,
+      "sha256": "3e371d6297f53206a528f330cc516ffd60dd62a9bcf15c35e817f3f8195ab956"
+    },
+    {
+      "path": "SourceAssets/DungeonThemedRoutes20261001/Scripts/save_freight_route_only.py",
+      "bytes": 2461,
+      "sha256": "4d315b40f3c2360b8d76da2272b9886be1fe863864a25a568871fd2c3c63bb43"
+    },
+    {
+      "path": "SourceAssets/DungeonThemedRoutes20261001/Scripts/set_transition_counts.py",
+      "bytes": 1937,
+      "sha256": "a2c231d3347fd301aa4f7d20389a9f69de301da50baa90a2e2837e8c734ee4f3"
+    },
+    {
+      "path": "SourceAssets/DungeonWorkshopDetail20260921/Scripts/import_workshop.py",
+      "bytes": 5174,
+      "sha256": "54a010cf5789899240ee6b06dff2f610502471ffd33547693112df5207b468dc"
+    },
+    {
+      "path": "SourceAssets/DungeonWorkshopSculpt20260921/Scripts/import_components.py",
+      "bytes": 6045,
+      "sha256": "b9784654aa86086a52b08ea31aaf0b373b49b9314dc6f9e4dc7e503686dbf71d"
+    },
+    {
+      "path": "SourceAssets/DungeonWorkshopSurface20260921/Scripts/import_finish.py",
+      "bytes": 8610,
+      "sha256": "02555913ed1331e39fbd88503cbf8d3e4790a81d7180f91e72bd2a47d854bfac"
+    },
+    {
+      "path": "SourceAssets/SquareAltar20260922/import_materials.py",
+      "bytes": 4250,
+      "sha256": "55c0c78d98072e429229a72609287edccb7567b182a40745809d1db00d065362"
+    },
+    {
+      "path": "ThirdPartyNotices/DUNGEON_THEMES_20261002.md",
+      "bytes": 1790,
+      "sha256": "cac68370c22b2a056a8b6b98724366919615a761369fdedb70af3d319128423d"
+    },
+    {
+      "path": "WORKFLOW.md",
+      "bytes": 9193,
+      "sha256": "8d0863d8f613d8b8ba9457e6661d669e20fa57192a5b3093f0056ec153e7780c"
+    },
+    {
+      "path": "skills/ue5-pcg-building/SKILL.md",
+      "bytes": 13164,
+      "sha256": "504bef097e83629962bfa35717048e4b40e6abebfc883ff1897ce5bc409ef372"
+    },
+    {
+      "path": "skills/ue5-pcg-building/references/authored-dungeon-generation.md",
+      "bytes": 23706,
+      "sha256": "6df30e582efe73698c9e8db69ff210e1db9d011c0f6dac2c9e552d21e73b5ec3"
+    },
+    {
+      "path": "skills/ue5-pcg-building/references/scene-development-standard.md",
+      "bytes": 6742,
+      "sha256": "62ea2377713dafe70b1fd3c1d95aa98adf0c5e4cca9f64d557e6252115439c2b"
+    },
+    {
+      "path": "skills/ue5-pcg-building/references/special-dungeon-interiors.md",
+      "bytes": 7634,
+      "sha256": "031ed9129689afe5fab55e0d94ab4485bb70a6e412bd66c4872e2b38f253c6e1"
+    },
+    {
+      "path": "skills/ue5-pcg-building/references/themed-routes-and-room-gates.md",
+      "bytes": 6910,
+      "sha256": "ca7404fbf211387e892ecdcf22830476fd5b7791bc7e516b0543ab6203edc087"
+    },
+    {
+      "path": "skills/ue5-ui-umg-slate/SKILL.md",
+      "bytes": 13519,
+      "sha256": "6169128647371948c6f5fc0adef04d00e57f10006d459d2c0328acc0c5916552"
+    },
+    {
+      "path": "skills/ue5-ui-umg-slate/references/expedition-live-content.md",
+      "bytes": 2370,
+      "sha256": "9b50621ecebd0112ba3eaffe9a822a633f9d4ffb24b15bdd2fcf4b01f1c77aa5"
+    },
+    {
+      "path": "skills/ue5-world-interaction/SKILL.md",
+      "bytes": 10194,
+      "sha256": "a7b01c579b18a27abd7c9eb1083bf232fa53497daf8a23b402b1d3f5079e35aa"
+    }
+  ],
+  "partial_paths": [
+    ".gitignore",
+    "Docs/AssetSetup.md",
+    "Docs/Backlog.md",
+    "Config/DefaultGame.ini",
+    "WORKFLOW.md",
+    "AGENTS.md",
+    "skills/ue5-ui-umg-slate/SKILL.md"
+  ],
+  "archive_manifest": "Docs/Gameplay/Publication20261002/archive-manifest.json",
+  "publication_checks": {
+    "exact_scope": true,
+    "text_only": true,
+    "credential_pattern_matches": 0,
+    "json_parse": true,
+    "diff_check": true
+  },
+  "runtime_tests_run": false,
+  "ue_started": false
+}

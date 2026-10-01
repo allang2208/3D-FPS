@@ -3,7 +3,7 @@
 namespace
 {
     using J=TSharedPtr<FJsonObject>;
-    FVector Vec(const J& O,const TCHAR* Key)
+    FVector WallArtVector(const J& O,const TCHAR* Key)
     {
         const auto& V=O->GetArrayField(Key);
         return FVector(V[0]->AsNumber(),V[1]->AsNumber(),V[2]->AsNumber());
@@ -50,14 +50,14 @@ TArray<TSharedPtr<FJsonValue>> DungeonWallArt::Build(const J& Module,int32 Seed,
                 const J Art=Candidate->AsObject();const FString Id=Art->GetStringField(TEXT("id"));
                 bool Repeat=false;Group->TryGetBoolField(TEXT("allow_repeat"),Repeat);
                 if(!Repeat&&Used.Contains(Id))continue;
-                const FVector Extent=Vec(Art,TEXT("extent"));
+                const FVector Extent=WallArtVector(Art,TEXT("extent"));
                 const double Scale=Art->GetNumberField(TEXT("scale"));
                 const double HalfWidth=Extent.X*Scale,HalfHeight=Extent.Z*Scale;
                 const double AvailableX=Slot->GetNumberField(TEXT("half_width"))-HalfWidth;
                 const double AvailableZ=Slot->GetNumberField(TEXT("half_height"))-HalfHeight;
                 if(AvailableX<0||AvailableZ<0)continue;
                 const FRotator Rotation(0,Slot->GetNumberField(TEXT("yaw")),0);
-                FVector Center=Vec(Slot,TEXT("center"));
+                FVector Center=WallArtVector(Slot,TEXT("center"));
                 const double Jitter=Slot->GetNumberField(TEXT("jitter"));
                 Center+=Rotation.RotateVector(FVector(Random.FRandRange(-1,1)*FMath::Min(Jitter,AvailableX),0,
                     Random.FRandRange(-1,1)*FMath::Min(Jitter*.5,AvailableZ)));
@@ -68,7 +68,7 @@ TArray<TSharedPtr<FJsonValue>> DungeonWallArt::Build(const J& Module,int32 Seed,
                 bool Overlap=false;for(const FBox& Other:Occupied)if(Bounds.Intersect(Other)){Overlap=true;break;}
                 if(Overlap)continue;
                 J Part=MakeShared<FJsonObject>();Part->SetStringField(TEXT("mesh"),Art->GetStringField(TEXT("mesh")));
-                VectorField(Part,TEXT("position"),Center-Rotation.RotateVector(Vec(Art,TEXT("origin"))*Scale));
+                VectorField(Part,TEXT("position"),Center-Rotation.RotateVector(WallArtVector(Art,TEXT("origin"))*Scale));
                 VectorField(Part,TEXT("scale"),FVector(Scale));Part->SetNumberField(TEXT("yaw"),Rotation.Yaw);
                 Part->SetBoolField(TEXT("collision"),false);Part->SetBoolField(TEXT("affects_navigation"),false);
                 Part->SetBoolField(TEXT("fluid"),false);Part->SetBoolField(TEXT("cast_shadow"),false);

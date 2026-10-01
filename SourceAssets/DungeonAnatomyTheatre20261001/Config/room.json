@@ -1,0 +1,496 @@
+{
+  "id": "AbandonedAnatomyTheatre",
+  "revision": "anatomy_accepted_blood_pool_20261001",
+  "phase": "production_pool",
+  "ue_base": "/Game/Dungeons/AnatomyTheatre20261001",
+  "production_map": "/Game/GameMaps/L_Dungeon_Randomized",
+  "sample_retired": true,
+  "pool_install_script": "Pool20261001/Scripts/install_pool.py",
+  "hall": {
+    "outline": [
+      [
+        -14,
+        -12
+      ],
+      [
+        14,
+        -12
+      ],
+      [
+        14,
+        -2
+      ],
+      [
+        13.932586173410757,
+        -0.6277600353861517
+      ],
+      [
+        13.730993925645226,
+        0.7312645082257956
+      ],
+      [
+        13.397164700250924,
+        2.0639854815624723
+      ],
+      [
+        12.934313455158014,
+        3.3575680531112573
+      ],
+      [
+        12.346897700876971,
+        4.599554315563967
+      ],
+      [
+        11.640574572235634,
+        5.7779832622744305
+      ],
+      [
+        10.822146347078318,
+        6.881505978291036
+      ],
+      [
+        9.899494936611665,
+        7.899494936611665
+      ],
+      [
+        8.881505978291036,
+        8.822146347078316
+      ],
+      [
+        7.777983262274432,
+        9.640574572235634
+      ],
+      [
+        6.599554315563969,
+        10.34689770087697
+      ],
+      [
+        5.357568053111258,
+        10.934313455158014
+      ],
+      [
+        4.063985481562472,
+        11.397164700250926
+      ],
+      [
+        2.7312645082257965,
+        11.730993925645226
+      ],
+      [
+        1.3722399646138508,
+        11.932586173410755
+      ],
+      [
+        8.572527594031472e-16,
+        12.0
+      ],
+      [
+        -1.372239964613849,
+        11.932586173410757
+      ],
+      [
+        -2.7312645082257947,
+        11.730993925645226
+      ],
+      [
+        -4.0639854815624705,
+        11.397164700250926
+      ],
+      [
+        -5.357568053111256,
+        10.934313455158014
+      ],
+      [
+        -6.599554315563967,
+        10.346897700876971
+      ],
+      [
+        -7.777983262274427,
+        9.640574572235636
+      ],
+      [
+        -8.881505978291035,
+        8.82214634707832
+      ],
+      [
+        -9.899494936611664,
+        7.899494936611665
+      ],
+      [
+        -10.822146347078318,
+        6.881505978291036
+      ],
+      [
+        -11.640574572235636,
+        5.7779832622744305
+      ],
+      [
+        -12.34689770087697,
+        4.599554315563969
+      ],
+      [
+        -12.934313455158014,
+        3.357568053111258
+      ],
+      [
+        -13.397164700250924,
+        2.063985481562473
+      ],
+      [
+        -13.730993925645226,
+        0.7312645082258005
+      ],
+      [
+        -13.932586173410755,
+        -0.6277600353861486
+      ],
+      [
+        -14.0,
+        -1.9999999999999982
+      ]
+    ],
+    "height": 8.0,
+    "wall_thickness": 0.28
+  },
+  "arc_center": [
+    0,
+    -2
+  ],
+  "tiers": {
+    "inner_radius": 5.7,
+    "depth": 1.2,
+    "count": 4,
+    "rise": 0.54
+  },
+  "gallery": {
+    "inner_radius": 10.5,
+    "outer_radius": 13.72,
+    "height": 2.16
+  },
+  "seating": {
+    "wood_material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3",
+    "seat_bevel_m": 0.01,
+    "writing_ledge_bevel_m": 0.008,
+    "bevel_segments": 5
+  },
+  "side_stairs": {
+    "centres_x": [
+      -11.35,
+      11.35
+    ],
+    "width": 4.0,
+    "start_y": -7.4,
+    "end_y": -2.0,
+    "steps": 12,
+    "rise": 0.18,
+    "going": 0.45
+  },
+  "radial_stairs": {
+    "angle_intervals_deg": [
+      [
+        43,
+        77
+      ],
+      [
+        103,
+        137
+      ]
+    ],
+    "width_at_inner_radius": 3.33,
+    "steps": 12,
+    "rise": 0.18,
+    "going": 0.4
+  },
+  "clear_combat_rect_m": [
+    -4,
+    -6.4,
+    4,
+    1.6
+  ],
+  "ports": [
+    {
+      "id": "Entry",
+      "position": [
+        -16,
+        -10,
+        0
+      ],
+      "normal": [
+        -1,
+        0,
+        0
+      ],
+      "width": 3.0,
+      "height": 2.8
+    },
+    {
+      "id": "Service",
+      "position": [
+        16,
+        -10,
+        0
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "width": 3.0,
+      "height": 2.8
+    }
+  ],
+  "reused_parts": [
+    {
+      "id": "WashSink",
+      "mesh": "/Game/Dungeons/IncineratorHall20260929/MorgueB1V1/Meshes/SM_Incinerator_WashSink_MorgueB1",
+      "position": [
+        -6,
+        -11.35,
+        0
+      ],
+      "yaw": 180,
+      "collision": true
+    },
+    {
+      "id": "PreparationTable",
+      "mesh": "/Game/Dungeons/IncineratorHall20260929/MorgueB1V1/Meshes/SM_Incinerator_PreparationTable_MorgueB1",
+      "position": [
+        5.9,
+        -11.05,
+        0
+      ],
+      "yaw": 180,
+      "collision": true
+    },
+    {
+      "id": "MortuaryTrolley",
+      "mesh": "/Game/Dungeons/IncineratorHall20260929/MorgueB1V1/Meshes/SM_Incinerator_MortuaryTrolley_MorgueB1",
+      "position": [
+        -7,
+        -8.6,
+        0
+      ],
+      "yaw": 90,
+      "collision": true
+    },
+    {
+      "id": "PowerCabinet",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_PowerCabinet",
+      "position": [
+        9,
+        -11.25,
+        0
+      ],
+      "yaw": 180,
+      "collision": true
+    }
+  ],
+  "lights": [
+    {
+      "id": "Entry",
+      "position": [
+        -15,
+        -10,
+        3.04
+      ],
+      "lumens": 240,
+      "radius_cm": 330,
+      "cast_shadows": false,
+      "tint": [
+        1,
+        0.76,
+        0.48
+      ],
+      "role": "path",
+      "max_draw_distance_cm": 3000,
+      "fade_range_cm": 500,
+      "fixture": true,
+      "indirect": 0.55
+    },
+    {
+      "id": "Service",
+      "position": [
+        15,
+        -10,
+        3.04
+      ],
+      "lumens": 220,
+      "radius_cm": 330,
+      "cast_shadows": false,
+      "tint": [
+        1,
+        0.76,
+        0.48
+      ],
+      "role": "path",
+      "max_draw_distance_cm": 3000,
+      "fade_range_cm": 500,
+      "fixture": true,
+      "indirect": 0.55
+    },
+    {
+      "id": "TeachingFocus",
+      "position": [
+        0,
+        -8.8,
+        3.02
+      ],
+      "lumens": 700,
+      "radius_cm": 550,
+      "cast_shadows": true,
+      "tint": [
+        0.72,
+        0.84,
+        0.88
+      ],
+      "role": "key",
+      "max_draw_distance_cm": 3000,
+      "fade_range_cm": 500,
+      "fixture": false,
+      "indirect": 0.55
+    },
+    {
+      "id": "Centre",
+      "position": [
+        -0.4,
+        -2,
+        6.2
+      ],
+      "lumens": 2400,
+      "radius_cm": 1400,
+      "cast_shadows": true,
+      "tint": [
+        0.48,
+        0.61,
+        0.68
+      ],
+      "role": "key",
+      "max_draw_distance_cm": 3000,
+      "fade_range_cm": 500,
+      "fixture": true,
+      "indirect": 0.8
+    },
+    {
+      "id": "WestStair",
+      "position": [
+        -11.35,
+        -4.6,
+        5.15
+      ],
+      "lumens": 230,
+      "radius_cm": 480,
+      "cast_shadows": false,
+      "tint": [
+        0.57,
+        0.72,
+        0.77
+      ],
+      "role": "path",
+      "max_draw_distance_cm": 3000,
+      "fade_range_cm": 500,
+      "fixture": true,
+      "indirect": 0.55
+    },
+    {
+      "id": "EastStair",
+      "position": [
+        11.35,
+        -4.6,
+        5.15
+      ],
+      "lumens": 195,
+      "radius_cm": 480,
+      "cast_shadows": false,
+      "tint": [
+        0.57,
+        0.72,
+        0.77
+      ],
+      "role": "path",
+      "max_draw_distance_cm": 3000,
+      "fade_range_cm": 500,
+      "fixture": true,
+      "indirect": 0.55
+    },
+    {
+      "id": "BackGallery",
+      "position": [
+        0,
+        10.1,
+        6.3
+      ],
+      "lumens": 270,
+      "radius_cm": 620,
+      "cast_shadows": false,
+      "tint": [
+        0.54,
+        0.69,
+        0.75
+      ],
+      "role": "path",
+      "max_draw_distance_cm": 3000,
+      "fade_range_cm": 500,
+      "fixture": true,
+      "indirect": 0.55
+    },
+    {
+      "id": "WestGallery",
+      "position": [
+        -8.65,
+        6.5,
+        6.3
+      ],
+      "lumens": 150,
+      "radius_cm": 440,
+      "cast_shadows": false,
+      "tint": [
+        0.59,
+        0.72,
+        0.72
+      ],
+      "role": "path",
+      "max_draw_distance_cm": 3000,
+      "fade_range_cm": 500,
+      "fixture": true,
+      "indirect": 0.55
+    },
+    {
+      "id": "EastGallery",
+      "position": [
+        8.65,
+        6.5,
+        6.3
+      ],
+      "lumens": 130,
+      "radius_cm": 440,
+      "cast_shadows": false,
+      "tint": [
+        0.59,
+        0.72,
+        0.72
+      ],
+      "role": "path",
+      "max_draw_distance_cm": 3000,
+      "fade_range_cm": 500,
+      "fixture": true,
+      "indirect": 0.55
+    }
+  ],
+  "tests_run": false,
+  "environment_damage": false,
+  "random_pool_registered": true,
+  "blood": {
+    "material": "/Game/Dungeons/IsolationWard20260929/BloodScan/M_WardBlood_Quixel",
+    "count": 3,
+    "placement": "tabletop only; captured runtime decals in Pool20261001/Config/module.json"
+  },
+  "postprocess": {
+    "exposure_ev": 0.7,
+    "exposure_bias": -0.15,
+    "indirect_intensity": 0.65,
+    "saturation": 0.85,
+    "contrast": 1.05,
+    "vignette": 0.35,
+    "bloom": 0.35
+  }
+}

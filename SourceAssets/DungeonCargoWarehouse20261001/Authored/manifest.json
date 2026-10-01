@@ -1,0 +1,440 @@
+{
+  "objects": [
+    {
+      "name": "SM_CargoWarehouse_Floors",
+      "kind": "Floors",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_Floors.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 564,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_Paving",
+      "kind": "Paving",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_Paving.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 9840,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_Walls",
+      "kind": "Walls",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_Walls.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 3384,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_Frames",
+      "kind": "Frames",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_Frames.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 144,
+      "collision": false,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_Roof",
+      "kind": "Roof",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_Roof.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 36,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_Columns",
+      "kind": "Columns",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_Columns.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 7520,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_Hardware",
+      "kind": "Hardware",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_Hardware.fbx",
+      "materials": {
+        "RS_ServiceHardware": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel"
+      },
+      "triangles": 10080,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_RoofRibs",
+      "kind": "RoofRibs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_RoofRibs.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "triangles": 300,
+      "collision": false,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_Dock",
+      "kind": "Dock",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_Dock.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 188,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_DockEdge",
+      "kind": "DockEdge",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_DockEdge.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 188,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_DockBumpers",
+      "kind": "DockBumpers",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_DockBumpers.fbx",
+      "materials": {
+        "RS_Rubber": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      },
+      "triangles": 36,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_StairTreads",
+      "kind": "StairTreads",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_StairTreads.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 3008,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_Nosing",
+      "kind": "Nosing",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_Nosing.fbx",
+      "materials": {
+        "RS_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint"
+      },
+      "triangles": 192,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_StairRails",
+      "kind": "StairRails",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_StairRails.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 480,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": true,
+      "simple_collision_hulls": 4
+    },
+    {
+      "name": "SM_CargoWarehouse_Railings",
+      "kind": "Railings",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_Railings.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 672,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": true,
+      "simple_collision_hulls": 4
+    },
+    {
+      "name": "SM_CargoWarehouse_Racks",
+      "kind": "Racks",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_Racks.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint"
+      },
+      "triangles": 10528,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_RackHardware",
+      "kind": "RackHardware",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_RackHardware.fbx",
+      "materials": {
+        "RS_ServiceHardware": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel"
+      },
+      "triangles": 20160,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_RackBraces",
+      "kind": "RackBraces",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_RackBraces.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 288,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_RackDecks",
+      "kind": "RackDecks",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_RackDecks.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 2256,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_RackGuards",
+      "kind": "RackGuards",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_RackGuards.fbx",
+      "materials": {
+        "RS_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 3008,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_Hoist",
+      "kind": "Hoist",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_Hoist.fbx",
+      "materials": {
+        "RS_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint",
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "triangles": 1516,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_HoistChain",
+      "kind": "HoistChain",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_HoistChain.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 88,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_HoistHook",
+      "kind": "HoistHook",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_HoistHook.fbx",
+      "materials": {
+        "RS_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 208,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_RollerFrame",
+      "kind": "RollerFrame",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_RollerFrame.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "triangles": 2256,
+      "collision": true,
+      "sample_only": false,
+      "nanite": true,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_Rollers",
+      "kind": "Rollers",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_Rollers.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 1596,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_FloorMarkings",
+      "kind": "FloorMarkings",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_FloorMarkings.fbx",
+      "materials": {
+        "RS_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint"
+      },
+      "triangles": 180,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_Signs",
+      "kind": "Signs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_Signs.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_Labels": "/Game/Dungeons/CargoWarehouse20261001/Materials/M_CargoWarehouse_Labels",
+        "RS_ServiceHardware": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel"
+      },
+      "triangles": 7154,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_SignSupports",
+      "kind": "SignSupports",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_SignSupports.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 24,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_CableTrays",
+      "kind": "CableTrays",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_CableTrays.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_Rubber": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      },
+      "triangles": 624,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    },
+    {
+      "name": "SM_CargoWarehouse_LampHangers",
+      "kind": "LampHangers",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\Authored\\SM_CargoWarehouse_LampHangers.fbx",
+      "materials": {
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 792,
+      "collision": false,
+      "sample_only": false,
+      "nanite": false,
+      "guardrail_drop": false,
+      "simple_collision_hulls": 0
+    }
+  ],
+  "revision": "cargo_warehouse_subject_v1_20261001",
+  "tests_run": false,
+  "rendered": false,
+  "source_units": "metres; UE centimetres",
+  "coordinates": "Blender (x,y,z) -> Unreal (100*x,-100*y,100*z)"
+}

@@ -30,6 +30,7 @@ public:
     void CloseEnhancement();
     UFUNCTION(BlueprintCallable, Category="Cold Steel UI") bool OpenExpedition();
     UFUNCTION(BlueprintCallable, Category="Cold Steel UI") void CloseExpedition();
+    void PrepareExpeditionEquipment();
     void RunEnhancementAudit();
     void RunM4GunsmithAudit();
     void RunM4DrumAudit();

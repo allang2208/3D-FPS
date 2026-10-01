@@ -22,7 +22,8 @@ EFPSTraversalAction UFPSTraversalSettings::ClassifyHeight(float Height) const
     return EFPSTraversalAction::Mantle;
 }
 
-EFPSTraversalAction UFPSTraversalSettings::Evaluate(const FFPSTraversalProbe& P, float SurfaceMaxLandingDrop) const
+EFPSTraversalAction UFPSTraversalSettings::Evaluate(const FFPSTraversalProbe& P, float SurfaceMaxLandingDrop,
+    bool bGuardrailCrossing) const
 {
     EFPSTraversalAction HeightClass = ClassifyHeight(P.Height);
     if (P.bAirborne)
@@ -43,11 +44,12 @@ EFPSTraversalAction UFPSTraversalSettings::Evaluate(const FFPSTraversalProbe& P,
         return EFPSTraversalAction::None;
 
     const float AllowedDrop=FMath::Max(P.bAirborne?AirMaxLandingDrop:MaxLandingDrop,SurfaceMaxLandingDrop);
+    const float AllowedRise=bGuardrailCrossing?FMath::Max(MaxLandingRise,P.Height):MaxLandingRise;
     const bool bLandingHeightOK = FMath::IsFinite(SurfaceMaxLandingDrop) && FMath::IsFinite(P.LandingHeightDelta) &&
-        P.LandingHeightDelta >= -AllowedDrop && P.LandingHeightDelta <= MaxLandingRise;
-    if (HeightClass == EFPSTraversalAction::Vault && P.Depth <= VaultMaxDepth &&
+        P.LandingHeightDelta >= -AllowedDrop && P.LandingHeightDelta <= AllowedRise;
+    if ((HeightClass == EFPSTraversalAction::Vault || bGuardrailCrossing) && P.Depth <= VaultMaxDepth &&
         P.bVaultPathClear && P.bLandingStandingSpace && bLandingHeightOK)
-        return EFPSTraversalAction::Vault;
+        return HeightClass; // Tall rails use the existing climbing animation and reach limit.
 
     // A broad low platform, or a blocked far side, may still allow climbing onto its top.
     // Actual support and capsule clearance decide whether a top is usable;

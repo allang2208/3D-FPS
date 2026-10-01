@@ -15,8 +15,6 @@ namespace
 {
     const TCHAR* RandomizedDungeonMap = TEXT("/Game/GameMaps/L_Dungeon_Randomized");
     const FName RandomizedDungeonId(TEXT("randomized_dungeon"));
-    const TCHAR* DataArchiveSubjectMap = TEXT("/Game/GameMaps/Design/L_AbandonedDataArchive_Subject");
-    const FName DataArchiveSubjectId(TEXT("data_archive_subject"));
 }
 
 bool AFPSGAMEPlayerController::OpenExpedition()
@@ -47,32 +45,32 @@ bool AFPSGAMEPlayerController::OpenExpedition()
     Facility.Name = TEXT("地下设施");
     Facility.Category = TEXT("地牢 / 地下探索");
     Facility.Description = TEXT("深入废弃的地下设施。工业通道连接遗迹与异常区域，封闭空间中仍有未知的威胁等待揭晓。");
-    Facility.Scale = TEXT("随机作者房间装配，含支线与首领终点");
-    Facility.Threat = TEXT("封闭通道、怪物与首领遭遇");
+    Facility.Scale = TEXT("三条主题路线 · 每条 5–7 间");
+    Facility.Threat = TEXT("封闭通道 · 区域清剿 · 首领战");
     Facility.EntryCost = TEXT("无需祭品");
-    Facility.bCanDepart = true;
+    Facility.Completion = TEXT("清理任意一路与数据档案中心，进入最终首领区域。");
+    Facility.bDungeonLoot = true;
+    Facility.Routes = {
+        {TEXT("货运路线"),TEXT("货运转运间 → 货运仓库 → 地下车站")},
+        {TEXT("医疗路线"),TEXT("排水间 → 隔离病区 → 解剖教学剧场")},
+        {TEXT("处理路线"),TEXT("破损支护室 → 焚化处理厅 → 净化站")},
+    };
+    Facility.bCanDepart = GetNetMode()==NM_Standalone && FPackageName::DoesPackageExist(RandomizedDungeonMap);
+    if(!Facility.bCanDepart)Facility.BlockReason=GetNetMode()!=NM_Standalone?TEXT("联机模式暂不支持出征"):TEXT("目的地关卡缺失");
     Facility.Rules = {
-        TEXT("本次出征不消耗祭品与钥匙。"),
-        TEXT("确认后进入随机地牢；地牢内起点与首领房可返回主场景。"),
+        {TEXT("进入与路线"),TEXT("无需祭品或钥匙。三条路线可自由选择；清理任意一条完整路线与数据档案中心，即可开启通往首领的闸门，无需清完全部三路。")},
+        {TEXT("房间与闸门"),TEXT("每条路线由前置 1–2 间过渡房、固定 3 间主题房、后置 1–2 间过渡房组成。货运转运间清怪后开闸，依次进入仓库与地下车站。")},
+        {TEXT("探索与奖励"),TEXT("额外支路可继续探索，随机宝箱侧室并非每局必有。击败首领后开放最终宝箱房；宝箱内容随机抽取，预览物品不保证全部获得。")},
+        {TEXT("返程与再次出征"),TEXT("通过起点返程入口或首领后的奖励区入口返回主场景。再次出征会生成新的地牢，原局清理进度不会作为下一局继续。")},
+        {TEXT("死亡与已获物品"),TEXT("死亡后在当前关卡重新生成角色；已经获得并保存的物品不会因死亡或返程被清空。首领交战在死亡或离场后重置。")},
+        {TEXT("领取与背包空间"),TEXT("宝箱奖励领取后随角色档案保存，弹药进入弹药袋。背包放不下的物品留在宝箱旁，返程前请拾取；主背包空格数不代表一定能放入任意形状的大件。")},
     };
     TArray<FColdSteelExpeditionDestination> Entries;
     Entries.Add(MoveTemp(Facility));
-    FColdSteelExpeditionDestination Archive;
-    Archive.Id = DataArchiveSubjectId;
-    Archive.Name = TEXT("废弃数据档案中心 · 主体样板");
-    Archive.Category = TEXT("地下设施 / 独立场景");
-    Archive.Description = TEXT("多边形档案调度厅，中央下沉开放区与四向宽梯连接外围设备环廊。机柜分区、熄灭屏幕及桥架保留检索设施的轮廓。");
-    Archive.Scale = TEXT("24 × 24 米主体，中央下沉 0.6 米");
-    Archive.Threat = TEXT("设备停用；主体制作阶段，无怪物与环境伤害");
-    Archive.EntryCost = TEXT("无需祭品");
-    Archive.bCanDepart = true;
-    Archive.Rules = { TEXT("进入独立主体场景，不改变随机房间池。"), TEXT("入口门斗内按 E 返回主场景。") };
-    Entries.Add(MoveTemp(Archive));
     Panel->SetDestinations(MoveTemp(Entries));
     Panel->OnDepartureRequested.BindLambda([this](FName Id)
     {
-        const TCHAR* DestinationMap = Id == RandomizedDungeonId ? RandomizedDungeonMap :
-            Id == DataArchiveSubjectId ? DataArchiveSubjectMap : nullptr;
+        const TCHAR* DestinationMap = Id == RandomizedDungeonId ? RandomizedDungeonMap : nullptr;
         if (!DestinationMap) return FText::FromString(TEXT("未知目的地"));
         if (GetNetMode() != NM_Standalone) return FText::FromString(TEXT("联机模式暂不支持出征"));
         if (!FPackageName::DoesPackageExist(DestinationMap))
@@ -100,6 +98,15 @@ bool AFPSGAMEPlayerController::OpenExpedition()
     SetInputMode(Mode);
     Panel->SetKeyboardFocus();
     return true;
+}
+
+void AFPSGAMEPlayerController::PrepareExpeditionEquipment()
+{
+    // Reuse the existing close path so this panel releases only its own input locks.
+    bExpeditionReturnToInventory=false;
+    bExpeditionReturnToCursor=false;
+    CloseExpedition();
+    if(ColdSteelHUD&&!ColdSteelHUD->IsInventoryOpen())ToggleInventory();
 }
 
 void AFPSGAMEPlayerController::CloseExpedition()

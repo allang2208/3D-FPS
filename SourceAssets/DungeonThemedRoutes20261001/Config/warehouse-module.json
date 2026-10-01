@@ -1,0 +1,1973 @@
+{
+  "id": "AbandonedCargoWarehouse",
+  "family_id": "AbandonedCargoWarehouse",
+  "parts": [
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_Floors",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_Paving",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_Walls",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_Frames",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_Roof",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_Columns",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_Hardware",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_RoofRibs",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_Dock",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_DockEdge",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_DockBumpers",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_StairTreads",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_Nosing",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_StairRails",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": true
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_Railings",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": true
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/RefineV2/Meshes/SM_CargoWarehouse_Racks_V2",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/RefineV2/Meshes/SM_CargoWarehouse_RackHardware_V2",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/RefineV2/Meshes/SM_CargoWarehouse_RackBraces_V2",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/RefineV2/Meshes/SM_CargoWarehouse_RackDecks_V2",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/RefineV2/Meshes/SM_CargoWarehouse_RackGuards_V2",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint",
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/RefineV2/Meshes/SM_CargoWarehouse_Hoist_V2",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint",
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/RefineV2/Meshes/SM_CargoWarehouse_HoistChain_V2",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/RefineV2/Meshes/SM_CargoWarehouse_HoistHook_V2",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel",
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint",
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_RollerFrame",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_Rollers",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/RefineV2/Meshes/SM_CargoWarehouse_FloorMarkings_V2",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/CargoWarehouse20261001/RefineV2/Materials/M_CargoWarehouse_FloorPaint"
+      ],
+      "cast_shadow": false,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/RefineV2/Meshes/SM_CargoWarehouse_Signs_V2",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "/Game/Dungeons/CargoWarehouse20261001/Materials/M_CargoWarehouse_Labels",
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel"
+      ],
+      "cast_shadow": false,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_SignSupports",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_CableTrays",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_LampHangers",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        -1330.0,
+        213.0,
+        20.0
+      ],
+      "yaw": -90.00000000000001,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        -1330.0,
+        447.0,
+        183.0
+      ],
+      "yaw": -90.00000000000001,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        -1330.0,
+        213.0,
+        183.0
+      ],
+      "yaw": -90.00000000000001,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        -1330.0,
+        447.0,
+        346.0
+      ],
+      "yaw": -90.00000000000001,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        -1330.0,
+        -193.00000000000003,
+        20.0
+      ],
+      "yaw": -90.00000000000001,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        -1330.0,
+        -426.99999999999994,
+        20.0
+      ],
+      "yaw": -90.00000000000001,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        -1330.0,
+        -426.99999999999994,
+        183.0
+      ],
+      "yaw": -90.00000000000001,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        1330.0,
+        447.0,
+        20.0
+      ],
+      "yaw": 89.99999999999999,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        1330.0,
+        447.0,
+        183.0
+      ],
+      "yaw": 89.99999999999999,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        1330.0,
+        213.0,
+        183.0
+      ],
+      "yaw": 89.99999999999999,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        1330.0,
+        447.0,
+        346.0
+      ],
+      "yaw": 89.99999999999999,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        1330.0,
+        213.0,
+        346.0
+      ],
+      "yaw": 89.99999999999999,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        493.0,
+        1295.0,
+        20.0
+      ],
+      "yaw": 180.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        493.0,
+        1295.0,
+        346.0
+      ],
+      "yaw": 180.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        727.0,
+        1295.0,
+        346.0
+      ],
+      "yaw": 180.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        -700.0,
+        200.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        -700.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 180.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        670.0,
+        300.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        700.0,
+        100.0,
+        0.0
+      ],
+      "yaw": 180.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        -750.0,
+        -520.0,
+        0.0
+      ],
+      "yaw": 89.99999999999999,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        700.0,
+        -760.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        -500.0,
+        -1150.0,
+        120.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        470.0,
+        -1130.0,
+        120.0
+      ],
+      "yaw": 180.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_PowerCabinet",
+      "position": [
+        1030.0,
+        1335.0,
+        0.0
+      ],
+      "yaw": 180.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_ServiceSpares",
+      "position": [
+        -900.0,
+        -1290.0,
+        120.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_Service_Paint",
+        "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "position": [
+        -1600.0,
+        900.0,
+        305.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_WarmTube"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        -700.0,
+        900.0,
+        560.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_CoolTube"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        300.0,
+        800.0,
+        600.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_CoolTube"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        0.0,
+        0.0,
+        610.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_CoolTube"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        -1100.0,
+        -100.0,
+        550.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_CoolTube"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        1100.0,
+        100.0,
+        550.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_CoolTube"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        0.0,
+        -1100.0,
+        660.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_CoolTube"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        1000.0,
+        -500.0,
+        509.99999999999994
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_CoolTube"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "position": [
+        1600.0,
+        -500.0,
+        305.0
+      ],
+      "yaw": 0.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_WarmTube"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": false,
+      "guardrail_drop": false
+    },
+    {
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Reused/Meshes/SM_Freight_PalletJack",
+      "position": [
+        -509.99999999999994,
+        -370.0,
+        0.2
+      ],
+      "yaw": 180.0,
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/AtmosphereV2/Materials/M_PaintedSteel",
+        "/Game/Dungeons/AtmosphereV2/Materials/M_BareSteel",
+        "/Game/Dungeons/AtmosphereV2/Services/Materials/M_Service_Paint",
+        "/Game/Dungeons/CombatExpansion20260922/Materials/M_PipeCutSteel",
+        "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber",
+        "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_YellowPaint"
+      ],
+      "cast_shadow": true,
+      "affects_navigation": true,
+      "guardrail_drop": false
+    }
+  ],
+  "lights": [
+    {
+      "position": [
+        -1600.0,
+        900.0,
+        292.0
+      ],
+      "type": "point",
+      "intensity": 420.0,
+      "radius": 420.0,
+      "optimized_radius_cm": 420.0,
+      "color": [
+        1.0,
+        0.7605245113372803,
+        0.4910208582878113
+      ],
+      "cast_shadows": false,
+      "role": "path",
+      "source_radius": 16.0,
+      "indirect_lighting_intensity": 0.699999988079071,
+      "max_draw_distance_cm": 3400.0,
+      "fade_range_cm": 500.0
+    },
+    {
+      "position": [
+        -700.0,
+        900.0,
+        547.0
+      ],
+      "type": "point",
+      "intensity": 1800.0,
+      "radius": 1100.0,
+      "optimized_radius_cm": 1100.0,
+      "color": [
+        0.7230551242828369,
+        0.7912979125976562,
+        0.7991027235984802
+      ],
+      "cast_shadows": true,
+      "role": "key",
+      "source_radius": 16.0,
+      "indirect_lighting_intensity": 0.699999988079071,
+      "max_draw_distance_cm": 3400.0,
+      "fade_range_cm": 500.0
+    },
+    {
+      "position": [
+        300.0,
+        800.0,
+        587.0
+      ],
+      "type": "point",
+      "intensity": 1900.0,
+      "radius": 1200.0,
+      "optimized_radius_cm": 1200.0,
+      "color": [
+        0.7304607629776001,
+        0.7912979125976562,
+        0.7991027235984802
+      ],
+      "cast_shadows": false,
+      "role": "path",
+      "source_radius": 16.0,
+      "indirect_lighting_intensity": 0.699999988079071,
+      "max_draw_distance_cm": 3400.0,
+      "fade_range_cm": 500.0
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        597.0
+      ],
+      "type": "point",
+      "intensity": 2600.0,
+      "radius": 1450.0,
+      "optimized_radius_cm": 1450.0,
+      "color": [
+        0.6795424818992615,
+        0.7681511640548706,
+        0.7912979125976562
+      ],
+      "cast_shadows": true,
+      "role": "key",
+      "source_radius": 16.0,
+      "indirect_lighting_intensity": 0.699999988079071,
+      "max_draw_distance_cm": 3400.0,
+      "fade_range_cm": 500.0
+    },
+    {
+      "position": [
+        -1100.0,
+        -100.0,
+        537.0
+      ],
+      "type": "point",
+      "intensity": 900.0,
+      "radius": 740.0,
+      "optimized_radius_cm": 740.0,
+      "color": [
+        0.637596845626831,
+        0.7529422044754028,
+        0.7835378050804138
+      ],
+      "cast_shadows": false,
+      "role": "path",
+      "source_radius": 16.0,
+      "indirect_lighting_intensity": 0.699999988079071,
+      "max_draw_distance_cm": 3400.0,
+      "fade_range_cm": 500.0
+    },
+    {
+      "position": [
+        1100.0,
+        100.0,
+        537.0
+      ],
+      "type": "point",
+      "intensity": 1000.0,
+      "radius": 750.0,
+      "optimized_radius_cm": 750.0,
+      "color": [
+        0.7011018991470337,
+        0.7835378050804138,
+        0.7835378050804138
+      ],
+      "cast_shadows": false,
+      "role": "path",
+      "source_radius": 16.0,
+      "indirect_lighting_intensity": 0.699999988079071,
+      "max_draw_distance_cm": 3400.0,
+      "fade_range_cm": 500.0
+    },
+    {
+      "position": [
+        0.0,
+        -1100.0,
+        647.0
+      ],
+      "type": "point",
+      "intensity": 1800.0,
+      "radius": 1200.0,
+      "optimized_radius_cm": 1200.0,
+      "color": [
+        0.8631572127342224,
+        0.7605245113372803,
+        0.5711248517036438
+      ],
+      "cast_shadows": true,
+      "role": "key",
+      "source_radius": 16.0,
+      "indirect_lighting_intensity": 0.699999988079071,
+      "max_draw_distance_cm": 3400.0,
+      "fade_range_cm": 500.0
+    },
+    {
+      "position": [
+        1000.0,
+        -500.0,
+        497.0
+      ],
+      "type": "point",
+      "intensity": 850.0,
+      "radius": 780.0,
+      "optimized_radius_cm": 780.0,
+      "color": [
+        0.7529422044754028,
+        0.7835378050804138,
+        0.68668532371521
+      ],
+      "cast_shadows": false,
+      "role": "path",
+      "source_radius": 16.0,
+      "indirect_lighting_intensity": 0.699999988079071,
+      "max_draw_distance_cm": 3400.0,
+      "fade_range_cm": 500.0
+    },
+    {
+      "position": [
+        1600.0,
+        -500.0,
+        292.0
+      ],
+      "type": "point",
+      "intensity": 450.0,
+      "radius": 430.0,
+      "optimized_radius_cm": 430.0,
+      "color": [
+        0.7991027235984802,
+        0.8631572127342224,
+        0.6583747863769531
+      ],
+      "cast_shadows": false,
+      "role": "path",
+      "source_radius": 16.0,
+      "indirect_lighting_intensity": 0.699999988079071,
+      "max_draw_distance_cm": 3400.0,
+      "fade_range_cm": 500.0
+    }
+  ],
+  "ports": [
+    {
+      "id": "FreightGate",
+      "position": [
+        -1700.0,
+        900.0,
+        0.0
+      ],
+      "normal": [
+        -1,
+        0,
+        0
+      ],
+      "width": 300,
+      "height": 280.0
+    },
+    {
+      "id": "Onward",
+      "position": [
+        1700.0,
+        -500.0,
+        0.0
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "width": 300,
+      "height": 280.0
+    }
+  ],
+  "port_pairs": [
+    [
+      0,
+      1
+    ]
+  ],
+  "cells": [
+    {
+      "min": [
+        -1515,
+        -1415,
+        -32
+      ],
+      "max": [
+        1515,
+        1415,
+        887
+      ]
+    },
+    {
+      "min": [
+        -1715,
+        666,
+        -32
+      ],
+      "max": [
+        -1500,
+        1134,
+        518
+      ]
+    },
+    {
+      "min": [
+        1500,
+        -714,
+        -32
+      ],
+      "max": [
+        1715,
+        -286,
+        518
+      ]
+    }
+  ],
+  "anchors": [
+    {
+      "position": [
+        -180,
+        -500,
+        5
+      ],
+      "role": "cargo_warehouse_combat"
+    },
+    {
+      "position": [
+        -180,
+        0,
+        5
+      ],
+      "role": "cargo_warehouse_combat"
+    },
+    {
+      "position": [
+        -180,
+        550,
+        5
+      ],
+      "role": "cargo_warehouse_combat"
+    },
+    {
+      "position": [
+        0,
+        -500,
+        5
+      ],
+      "role": "cargo_warehouse_combat"
+    },
+    {
+      "position": [
+        0,
+        0,
+        5
+      ],
+      "role": "cargo_warehouse_combat"
+    },
+    {
+      "position": [
+        0,
+        550,
+        5
+      ],
+      "role": "cargo_warehouse_combat"
+    },
+    {
+      "position": [
+        180,
+        -500,
+        5
+      ],
+      "role": "cargo_warehouse_combat"
+    },
+    {
+      "position": [
+        180,
+        0,
+        5
+      ],
+      "role": "cargo_warehouse_combat"
+    },
+    {
+      "position": [
+        180,
+        550,
+        5
+      ],
+      "role": "cargo_warehouse_combat"
+    }
+  ],
+  "route_intent": {
+    "predecessor": "FreightTransfer cleared internal gate",
+    "single_entry": true,
+    "old_transfer_exit": "physically_closed_in_FreightTransfer_WarehouseLink",
+    "successor": "route onward via warehouse exit",
+    "registration": "fixed_freight_sequence"
+  },
+  "revision": "warehouse_accepted_20261001",
+  "min": [
+    -1715,
+    -1415,
+    -32
+  ],
+  "max": [
+    1715,
+    1415,
+    887
+  ],
+  "role": "room",
+  "encounter_role": "special_combat",
+  "selection": {
+    "chance_per_run": 1,
+    "max_per_run": 1
+  },
+  "runtime_actors": [
+    {
+      "type": "post_process",
+      "position": [
+        0,
+        0,
+        400
+      ],
+      "yaw": 0,
+      "extent": [
+        1500,
+        1400,
+        485
+      ],
+      "blend_radius": 40,
+      "priority": 10,
+      "exposure_ev": 0.699999988079071,
+      "exposure_bias": -0.05000000074505806,
+      "indirect_intensity": 0.75,
+      "saturation": 1.0,
+      "contrast": 1.0,
+      "vignette": 0.2800000011920929,
+      "bloom": 0.25
+    }
+  ],
+  "walk_polyline": [
+    [
+      -1700,
+      900,
+      5
+    ],
+    [
+      0,
+      900,
+      5
+    ],
+    [
+      0,
+      -500,
+      5
+    ],
+    [
+      1700,
+      -500,
+      5
+    ]
+  ],
+  "walk_mask": [
+    {
+      "min": [
+        -1700,
+        700,
+        -5
+      ],
+      "max": [
+        230,
+        1100,
+        280
+      ]
+    },
+    {
+      "min": [
+        -230,
+        -605,
+        -5
+      ],
+      "max": [
+        230,
+        900,
+        280
+      ]
+    },
+    {
+      "min": [
+        0,
+        -700,
+        -5
+      ],
+      "max": [
+        1700,
+        -300,
+        280
+      ]
+    }
+  ],
+  "spawn": {
+    "source": "DungeonCargoWarehouse20261001",
+    "theme": "cargo_warehouse",
+    "count": [
+      4,
+      6
+    ],
+    "anchor_roles": [
+      "cargo_warehouse_combat"
+    ],
+    "pool": [
+      {
+        "id": "FatZombie",
+        "class": "/Script/FPSGAME.FatZombie",
+        "weight": 3,
+        "level": 4,
+        "rank": "normal"
+      },
+      {
+        "id": "Mutant3",
+        "class": "/Script/FPSGAME.Mutant3",
+        "weight": 1,
+        "level": 9,
+        "rank": "elite"
+      },
+      {
+        "id": "InfectedDog",
+        "class": "/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C",
+        "weight": 2,
+        "level": 7,
+        "rank": "normal"
+      },
+      {
+        "id": "FleshHandMinion",
+        "class": "/Game/Monsters/FleshHand/BP_FleshHandMinion.BP_FleshHandMinion_C",
+        "weight": 1,
+        "level": 1,
+        "rank": "minor"
+      },
+      {
+        "id": "FleshHand",
+        "class": "/Game/Monsters/FleshHand/BP_FleshHand.BP_FleshHand_C",
+        "weight": 2,
+        "level": 12,
+        "rank": "lord"
+      }
+    ]
+  }
+}

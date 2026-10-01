@@ -1,0 +1,45 @@
+{
+  "objects": [
+    {
+      "name": "SM_Incinerator_Floors_AshV3",
+      "kind": "Floors",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\AshStation20260930\\Authored\\Architecture\\SM_Incinerator_Floors_AshV3.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 732,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_AshPit_AshV3",
+      "kind": "AshPit",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\AshStation20260930\\Authored\\Architecture\\SM_Incinerator_AshPit_AshV3.fbx",
+      "materials": {
+        "RS_Mortar": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_ExposedMortar",
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 648,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_Incinerator_Stairs_AshV3",
+      "kind": "Stairs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\AshStation20260930\\Authored\\Architecture\\SM_Incinerator_Stairs_AshV3.fbx",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete",
+        "RS_BridgeDeck": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BridgeDeck",
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "triangles": 7776,
+      "collision": true,
+      "sample_only": false
+    }
+  ],
+  "tests_run": false,
+  "rendered": false,
+  "revision": "ash_station_expansion_v3_20260930",
+  "ceramic_source": "DungeonTileFracture20260922 through CorridorSurfaces",
+  "source_units": "metres; UE centimetres"
+}

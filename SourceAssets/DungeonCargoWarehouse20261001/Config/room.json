@@ -1,0 +1,622 @@
+{
+  "id": "AbandonedCargoWarehouse",
+  "name": "废弃货运仓库",
+  "revision": "cargo_warehouse_refine_v2_20261001",
+  "phase": "production",
+  "ue_base": "/Game/Dungeons/CargoWarehouse20261001",
+  "sample_map": null,
+  "hall": {
+    "width": 30,
+    "length": 28,
+    "height": 8.5
+  },
+  "platform": {
+    "height": 1.2,
+    "rect": [
+      -14.7,
+      9,
+      14.7,
+      13.7
+    ]
+  },
+  "ports": [
+    {
+      "id": "FreightGate",
+      "position": [
+        -17,
+        -9,
+        0
+      ],
+      "normal": [
+        -1,
+        0,
+        0
+      ],
+      "width": 3,
+      "height": 2.8
+    },
+    {
+      "id": "Onward",
+      "position": [
+        17,
+        5,
+        0
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "width": 3,
+      "height": 2.8
+    }
+  ],
+  "player_start_m": [
+    -15.9,
+    -9,
+    1.05
+  ],
+  "player_yaw": 0,
+  "return_portal_m": [
+    -16.4,
+    -9,
+    0
+  ],
+  "return_portal_yaw": 0,
+  "reused_parts": [
+    {
+      "id": "RackCargo_0",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        -13.3,
+        -2.13,
+        0.2
+      ],
+      "yaw": -90,
+      "collision": true,
+      "rack_id": "W1"
+    },
+    {
+      "id": "RackCargo_1",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        -13.3,
+        -4.47,
+        1.83
+      ],
+      "yaw": -90,
+      "collision": true,
+      "rack_id": "W1"
+    },
+    {
+      "id": "RackCargo_2",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        -13.3,
+        -2.13,
+        1.83
+      ],
+      "yaw": -90,
+      "collision": true,
+      "rack_id": "W1"
+    },
+    {
+      "id": "RackCargo_3",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        -13.3,
+        -4.47,
+        3.46
+      ],
+      "yaw": -90,
+      "collision": true,
+      "rack_id": "W1"
+    },
+    {
+      "id": "RackCargo_4",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        -13.3,
+        1.9300000000000002,
+        0.2
+      ],
+      "yaw": -90,
+      "collision": true,
+      "rack_id": "W2"
+    },
+    {
+      "id": "RackCargo_5",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        -13.3,
+        4.27,
+        0.2
+      ],
+      "yaw": -90,
+      "collision": true,
+      "rack_id": "W2"
+    },
+    {
+      "id": "RackCargo_6",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        -13.3,
+        4.27,
+        1.83
+      ],
+      "yaw": -90,
+      "collision": true,
+      "rack_id": "W2"
+    },
+    {
+      "id": "RackCargo_7",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        13.3,
+        -4.47,
+        0.2
+      ],
+      "yaw": 90,
+      "collision": true,
+      "rack_id": "E1"
+    },
+    {
+      "id": "RackCargo_8",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        13.3,
+        -4.47,
+        1.83
+      ],
+      "yaw": 90,
+      "collision": true,
+      "rack_id": "E1"
+    },
+    {
+      "id": "RackCargo_9",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        13.3,
+        -2.13,
+        1.83
+      ],
+      "yaw": 90,
+      "collision": true,
+      "rack_id": "E1"
+    },
+    {
+      "id": "RackCargo_10",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        13.3,
+        -4.47,
+        3.46
+      ],
+      "yaw": 90,
+      "collision": true,
+      "rack_id": "E1"
+    },
+    {
+      "id": "RackCargo_11",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        13.3,
+        -2.13,
+        3.46
+      ],
+      "yaw": 90,
+      "collision": true,
+      "rack_id": "E1"
+    },
+    {
+      "id": "RackCargo_12",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        4.93,
+        -12.95,
+        0.2
+      ],
+      "yaw": 180,
+      "collision": true,
+      "rack_id": "E2"
+    },
+    {
+      "id": "RackCargo_13",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        4.93,
+        -12.95,
+        3.46
+      ],
+      "yaw": 180,
+      "collision": true,
+      "rack_id": "E2"
+    },
+    {
+      "id": "RackCargo_14",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        7.27,
+        -12.95,
+        3.46
+      ],
+      "yaw": 180,
+      "collision": true,
+      "rack_id": "E2"
+    },
+    {
+      "id": "FloorCargo_0",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        -7,
+        -2,
+        0
+      ],
+      "yaw": 0,
+      "collision": true
+    },
+    {
+      "id": "FloorCargo_1",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        -7,
+        0,
+        0
+      ],
+      "yaw": 180,
+      "collision": true
+    },
+    {
+      "id": "FloorCargo_2",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        6.7,
+        -3,
+        0
+      ],
+      "yaw": 0,
+      "collision": true
+    },
+    {
+      "id": "FloorCargo_3",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        7.0,
+        -1,
+        0
+      ],
+      "yaw": 180,
+      "collision": true
+    },
+    {
+      "id": "FloorCargo_4",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        -7.5,
+        5.2,
+        0
+      ],
+      "yaw": 90,
+      "collision": true
+    },
+    {
+      "id": "FloorCargo_5",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        7,
+        7.6,
+        0
+      ],
+      "yaw": 0,
+      "collision": true
+    },
+    {
+      "id": "FloorCargo_6",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        -5,
+        11.5,
+        1.2
+      ],
+      "yaw": 0,
+      "collision": true
+    },
+    {
+      "id": "FloorCargo_7",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_CargoStack",
+      "position": [
+        4.7,
+        11.3,
+        1.2
+      ],
+      "yaw": 180,
+      "collision": true
+    },
+    {
+      "id": "PowerCabinet",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_PowerCabinet",
+      "position": [
+        10.3,
+        -13.35,
+        0
+      ],
+      "yaw": 180,
+      "collision": true
+    },
+    {
+      "id": "ServiceSpares",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_ServiceSpares",
+      "position": [
+        -9,
+        12.9,
+        1.2
+      ],
+      "yaw": 0,
+      "collision": true
+    },
+    {
+      "id": "PalletJack",
+      "mesh": "/Game/Dungeons/CargoWarehouse20261001/Reused/Meshes/SM_Freight_PalletJack",
+      "position": [
+        -5.1,
+        3.7,
+        0.002
+      ],
+      "yaw": 180,
+      "collision": true
+    }
+  ],
+  "lights": [
+    {
+      "id": "Entry",
+      "position": [
+        -16,
+        -9,
+        3.05
+      ],
+      "lumens": 420,
+      "radius_cm": 420,
+      "cast_shadows": false,
+      "tint": [
+        1,
+        0.76,
+        0.49
+      ],
+      "role": "path",
+      "indirect": 0.7,
+      "max_draw_distance_cm": 3400,
+      "fade_range_cm": 500
+    },
+    {
+      "id": "EntryLane",
+      "position": [
+        -7,
+        -9,
+        5.6
+      ],
+      "lumens": 1800,
+      "radius_cm": 1100,
+      "cast_shadows": true,
+      "tint": [
+        0.72,
+        0.79,
+        0.8
+      ],
+      "role": "key",
+      "indirect": 0.7,
+      "max_draw_distance_cm": 3400,
+      "fade_range_cm": 500
+    },
+    {
+      "id": "Front",
+      "position": [
+        3,
+        -8,
+        6.0
+      ],
+      "lumens": 1900,
+      "radius_cm": 1200,
+      "cast_shadows": false,
+      "tint": [
+        0.73,
+        0.79,
+        0.8
+      ],
+      "role": "path",
+      "indirect": 0.7,
+      "max_draw_distance_cm": 3400,
+      "fade_range_cm": 500
+    },
+    {
+      "id": "Centre",
+      "position": [
+        0,
+        0,
+        6.1
+      ],
+      "lumens": 2600,
+      "radius_cm": 1450,
+      "cast_shadows": true,
+      "tint": [
+        0.68,
+        0.77,
+        0.79
+      ],
+      "role": "key",
+      "indirect": 0.7,
+      "max_draw_distance_cm": 3400,
+      "fade_range_cm": 500
+    },
+    {
+      "id": "WestRack",
+      "position": [
+        -11,
+        1,
+        5.5
+      ],
+      "lumens": 900,
+      "radius_cm": 740,
+      "cast_shadows": false,
+      "tint": [
+        0.64,
+        0.75,
+        0.78
+      ],
+      "role": "path",
+      "indirect": 0.7,
+      "max_draw_distance_cm": 3400,
+      "fade_range_cm": 500
+    },
+    {
+      "id": "EastRack",
+      "position": [
+        11,
+        -1,
+        5.5
+      ],
+      "lumens": 1000,
+      "radius_cm": 750,
+      "cast_shadows": false,
+      "tint": [
+        0.7,
+        0.78,
+        0.78
+      ],
+      "role": "path",
+      "indirect": 0.7,
+      "max_draw_distance_cm": 3400,
+      "fade_range_cm": 500
+    },
+    {
+      "id": "Dock",
+      "position": [
+        0,
+        11,
+        6.6
+      ],
+      "lumens": 1800,
+      "radius_cm": 1200,
+      "cast_shadows": true,
+      "tint": [
+        0.86,
+        0.76,
+        0.57
+      ],
+      "role": "key",
+      "indirect": 0.7,
+      "max_draw_distance_cm": 3400,
+      "fade_range_cm": 500
+    },
+    {
+      "id": "ExitLane",
+      "position": [
+        10,
+        5,
+        5.1
+      ],
+      "lumens": 850,
+      "radius_cm": 780,
+      "cast_shadows": false,
+      "tint": [
+        0.75,
+        0.78,
+        0.69
+      ],
+      "role": "path",
+      "indirect": 0.7,
+      "max_draw_distance_cm": 3400,
+      "fade_range_cm": 500
+    },
+    {
+      "id": "Exit",
+      "position": [
+        16,
+        5,
+        3.05
+      ],
+      "lumens": 450,
+      "radius_cm": 430,
+      "cast_shadows": false,
+      "tint": [
+        0.8,
+        0.86,
+        0.66
+      ],
+      "role": "path",
+      "indirect": 0.7,
+      "max_draw_distance_cm": 3400,
+      "fade_range_cm": 500
+    }
+  ],
+  "racks": [
+    {
+      "id": "W1",
+      "position": [
+        -13.3,
+        -3.3,
+        0
+      ],
+      "width": 4.8,
+      "depth": 1.7,
+      "height": 4.7,
+      "yaw_blender": 0
+    },
+    {
+      "id": "W2",
+      "position": [
+        -13.3,
+        3.1,
+        0
+      ],
+      "width": 4.8,
+      "depth": 1.7,
+      "height": 4.7,
+      "yaw_blender": 0
+    },
+    {
+      "id": "E1",
+      "position": [
+        13.3,
+        -3.3,
+        0
+      ],
+      "width": 4.8,
+      "depth": 1.7,
+      "height": 4.7,
+      "yaw_blender": 0
+    },
+    {
+      "id": "E2",
+      "position": [
+        6.1,
+        -12.95,
+        0
+      ],
+      "width": 4.8,
+      "depth": 1.7,
+      "height": 4.7,
+      "yaw_blender": -90
+    }
+  ],
+  "postprocess": {
+    "exposure_ev": 0.7,
+    "exposure_bias": -0.05,
+    "indirect_intensity": 0.75,
+    "vignette": 0.28,
+    "bloom": 0.25
+  },
+  "route_intent": {
+    "predecessor": "FreightTransfer cleared internal gate",
+    "single_entry": true,
+    "old_transfer_exit": "physically_closed_in_FreightTransfer_WarehouseLink",
+    "successor": "route onward via warehouse exit",
+    "registration": "fixed_freight_sequence"
+  },
+  "tests_run": false,
+  "rendered": false,
+  "active_refinement": "RefineV2",
+  "refinement_author": "RefineV2/Scripts/author_revision.py",
+  "refinement_installer": "RefineV2/Scripts/import_assets.py",
+  "sample_retired": true,
+  "production_module": "SourceAssets/DungeonThemedRoutes20261001/Config/warehouse-module.json"
+}

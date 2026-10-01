@@ -3,15 +3,32 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Styling/SlateTypes.h"
+#include "ColdSteelItemTooltipData.h"
 #include "ColdSteelExpeditionWidget.generated.h"
+
+struct FColdSteelExpeditionSection
+{
+    FString Title,Text;
+};
+
+struct FColdSteelExpeditionReward
+{
+    FColdSteelTooltipContent Content;
+    FString Availability;
+    FString IconPath;
+    int32 Group=0;
+    TSharedPtr<FSlateBrush> Brush;
+    TWeakPtr<class SImage> Image;
+};
 
 /** Presentation only. The caller owns eligibility, costs and any departure transaction. */
 struct FColdSteelExpeditionDestination
 {
     FName Id;
     FString Name, Category, Description;
-    FString RecommendedLevel, Scale, Threat, EntryCost;
-    TArray<FString> Rewards, Rules;
+    FString RecommendedLevel, Scale, Threat, EntryCost, Completion;
+    TArray<FColdSteelExpeditionSection> Routes, Rules;
+    bool bDungeonLoot=false;
     bool bCanDepart = false;
     FString BlockReason;
 };
@@ -37,6 +54,12 @@ private:
     void RefreshList();
     void RefreshDetail();
     void RefreshPreparation();
+    void RefreshPreparationData();
+    void BuildRewardPreview();
+    void LoadNextRewardIcon();
+    void AddRewards();
+    TSharedRef<class SWidget> RewardCard(FColdSteelExpeditionReward& Reward);
+    TSharedRef<class SWidget> Section(const FString& Title,const FString& Text);
     void UpdateLayout();
     void SelectDestination(FName Id);
     void ConfirmDeparture();
@@ -58,6 +81,13 @@ private:
     FText Feedback;
     bool bAvailableOnly = false;
     bool bSingleColumnFacts = false;
+    bool bRewardsLoaded=false;
+    bool bRewardIconLoading=false,bClosing=false;
+    int32 NextRewardIcon=0;
+    int32 RewardColumns=1;
+    FString PreparationKey;
+    TArray<FColdSteelExpeditionReward> RewardPreview;
+    float PreparedMaxMana=0.f;
     int32 DetailTab = 0, CompactPage = 0, LayoutMode = -1;
     FDelegateHandle ProfileHandle;
     TSharedPtr<class SBox> BodyHost;
@@ -66,9 +96,12 @@ private:
     TSharedPtr<class SEditableTextBox> Search;
     TMap<FName, TSharedPtr<class SButton>> CatalogButtons;
     TArray<TSharedPtr<class SButton>> FilterButtons, DetailButtons, CompactButtons;
-    FSlateBrush PanelBrush, FallbackBrush, CardBrush, HeroBrush;
+    FSlateBrush PanelBrush, FallbackBrush, CardBrush, HeroBrush, RewardTooltipBrush;
     UPROPERTY(Transient) TObjectPtr<class UTexture2D> DestinationArtwork;
+    UPROPERTY(Transient) TArray<TObjectPtr<class UTexture2D>> RewardTextures;
+    TWeakObjectPtr<class UFPSCombatHealthComponent> PlayerHealth;
     FSlateBrush DestinationArtBrush;
     FButtonStyle NormalStyle, SelectedStyle, PrimaryStyle;
+    FProgressBarStyle ResourceStyle;
     FEditableTextBoxStyle SearchStyle;
 };

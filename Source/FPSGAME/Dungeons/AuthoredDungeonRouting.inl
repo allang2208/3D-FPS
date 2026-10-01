@@ -60,7 +60,7 @@ bool PlaceRoutePolyline(FSocket Start,const FSocket& Goal,const FString& Route,T
     return true;
 }
 
-bool RouteTo(FSocket Start,const FSocket& Goal,const FString& Route,double MaxLength=DBL_MAX,double MaxStraight=DBL_MAX)
+bool RouteTo(FSocket Start,const FSocket& Goal,const FString& Route,double MaxLength=DBL_MAX,double MaxStraight=DBL_MAX,int32 ExpansionLimit=0)
 {
     if(FMath::Abs(Start.P.Z-Goal.P.Z)>1)return false; // Floors connect only through authored stair ports.
     if(Start.P.Equals(Goal.P,1))return FVector::DotProduct(Start.N,Goal.N)<-.999;
@@ -128,7 +128,7 @@ bool RouteTo(FSocket Start,const FSocket& Goal,const FString& Route,double MaxLe
     auto Direction=[](FVector V){return FMath::Abs(V.X)>.5?(V.X>0?0:1):(V.Y>0?2:3);};
     const int32 Initial=First*4+Direction(Start.N);Cost[Initial]=0;Open.push({0,Initial});
     int32 Found=-1,Expanded=0;
-    while(!Open.empty()&&++Expanded<(bCompactBoss?600:160000))
+    while(!Open.empty()&&++Expanded<(ExpansionLimit>0?ExpansionLimit:bCompactBoss?600:160000))
     {
         if(!CanSearch())return false;
         if(bCompactBoss&&--CompactBudget<0)return false;

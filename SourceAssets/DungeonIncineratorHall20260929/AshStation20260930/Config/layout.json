@@ -1,0 +1,11 @@
+{
+  "revision":"ash_station_expansion_v3_20260930",
+  "ue_base":"/Game/Dungeons/IncineratorHall20260929/AshStationV3",
+  "map":"/Game/GameMaps/Design/L_AbandonedIncineratorHall_Subject",
+  "receiver_origin_m":[-9.8,-7.03,-1.2],
+  "inlet_at_furnace_m":[-8.29,-8.05,0.77],
+  "main_sign_position_m":[-10.65,-2.59,0],
+  "caution_sign_position_m":[-9.025,-2.43,0.75],
+  "state":"Cold, isolated, static ash receiving and maintenance station",
+  "tests_run":false
+}

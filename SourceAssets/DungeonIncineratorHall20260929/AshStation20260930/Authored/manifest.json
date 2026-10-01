@@ -1,0 +1,254 @@
+{
+  "revision": "ash_station_expansion_v3_20260930",
+  "objects": [
+    {
+      "key": "Railings",
+      "name": "SM_Incinerator_Railings_AshV3",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\AshStation20260930\\Authored\\SM_Incinerator_Railings_AshV3.fbx",
+      "material": "/Game/Dungeons/IncineratorHall20260929/EquipmentV1/Materials/M_IncineratorEquipment_Atlas",
+      "triangles": 71588,
+      "collision_boxes_or_convexes": 15,
+      "collision_policy": "simple_and_complex",
+      "ue_path": "/Game/Dungeons/IncineratorHall20260929/AshStationV3/Meshes/SM_Incinerator_Railings_AshV3"
+    },
+    {
+      "key": "AshReceiver",
+      "name": "SM_Incinerator_AshReceiver_V3",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\AshStation20260930\\Authored\\SM_Incinerator_AshReceiver_V3.fbx",
+      "material": "/Game/Dungeons/IncineratorHall20260929/EquipmentV1/Materials/M_IncineratorEquipment_Atlas",
+      "triangles": 31572,
+      "collision_boxes_or_convexes": 7,
+      "collision_policy": "simple_and_complex",
+      "ue_path": "/Game/Dungeons/IncineratorHall20260929/AshStationV3/Meshes/SM_Incinerator_AshReceiver_V3",
+      "position_m": [
+        -9.800000190734863,
+        -7.03000020980835,
+        -1.2000000476837158
+      ]
+    },
+    {
+      "key": "AshDrawer",
+      "name": "SM_Incinerator_AshDrawer_V3",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\AshStation20260930\\Authored\\SM_Incinerator_AshDrawer_V3.fbx",
+      "material": "/Game/Dungeons/IncineratorHall20260929/EquipmentV1/Materials/M_IncineratorEquipment_Atlas",
+      "triangles": 28736,
+      "collision_boxes_or_convexes": 2,
+      "collision_policy": "simple_and_complex",
+      "ue_path": "/Game/Dungeons/IncineratorHall20260929/AshStationV3/Meshes/SM_Incinerator_AshDrawer_V3",
+      "position_m": [
+        -9.800000190734863,
+        -7.03000020980835,
+        -1.2000000476837158
+      ]
+    },
+    {
+      "key": "AshSigns",
+      "name": "SM_Incinerator_AshSigns_V3",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\AshStation20260930\\Authored\\SM_Incinerator_AshSigns_V3.fbx",
+      "material": "/Game/Dungeons/IncineratorHall20260929/AshStationV3/Materials/M_AshStation_Signage",
+      "triangles": 2600,
+      "collision_boxes_or_convexes": 0,
+      "collision_policy": "none",
+      "ue_path": "/Game/Dungeons/IncineratorHall20260929/AshStationV3/Meshes/SM_Incinerator_AshSigns_V3"
+    }
+  ],
+  "tests_run": false,
+  "rendered": false,
+  "rail_runs": [
+    {
+      "a": [
+        -13.0,
+        -2.57,
+        0
+      ],
+      "b": [
+        -12.75,
+        -2.57,
+        0
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        -11.149999999999999,
+        -2.57,
+        0
+      ],
+      "b": [
+        -8.6,
+        -2.57,
+        0
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        -13.08,
+        -7.65,
+        0
+      ],
+      "b": [
+        -13.08,
+        -2.65,
+        0
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        -8.52,
+        -7.65,
+        0
+      ],
+      "b": [
+        -8.52,
+        -2.65,
+        0
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        -13.0,
+        -7.73,
+        0
+      ],
+      "b": [
+        -8.6,
+        -7.73,
+        0
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        -12.83,
+        -5.05,
+        -1.05
+      ],
+      "b": [
+        -12.83,
+        -2.65,
+        0
+      ],
+      "height": 0.98
+    },
+    {
+      "a": [
+        -11.069999999999999,
+        -5.05,
+        -1.05
+      ],
+      "b": [
+        -11.069999999999999,
+        -2.65,
+        0
+      ],
+      "height": 0.98
+    },
+    {
+      "a": [
+        -7.0,
+        5.659999999999999,
+        2.4
+      ],
+      "b": [
+        7.0,
+        5.659999999999999,
+        2.4
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        -7.0,
+        10.049999999999999,
+        2.4
+      ],
+      "b": [
+        7.0,
+        10.049999999999999,
+        2.4
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        -11.8,
+        5.78,
+        0.15
+      ],
+      "b": [
+        -7.0,
+        5.78,
+        2.4
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        -11.8,
+        8.22,
+        0.15
+      ],
+      "b": [
+        -7.0,
+        8.22,
+        2.4
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        -7.0,
+        8.33,
+        2.4
+      ],
+      "b": [
+        -7.0,
+        10.049999999999999,
+        2.4
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        11.8,
+        5.78,
+        0.15
+      ],
+      "b": [
+        7.0,
+        5.78,
+        2.4
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        11.8,
+        8.22,
+        0.15
+      ],
+      "b": [
+        7.0,
+        8.22,
+        2.4
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        7.0,
+        8.33,
+        2.4
+      ],
+      "b": [
+        7.0,
+        10.049999999999999,
+        2.4
+      ],
+      "height": 1.1
+    }
+  ]
+}

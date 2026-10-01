@@ -8,6 +8,8 @@ description: UE5.6-UE5.8 world interaction systems for pickups, spawners, overla
 后台优先：不主动启动 UE 编辑器；不主动检查、测试、启动 PIE、截图或验收渲染；不向其他对话/任务发协调消息。完整规则与「按改动选执行方式」表见仓库根 `AGENTS.md` 和 [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)。
 
 # Quick Start
+- 地牢进房封门、完整编成清除、档案至 Boss 推进锁，读取 [主题路线与房间闸门](../ue5-pcg-building/references/themed-routes-and-room-gates.md)，以实际节点和 alive/pending 状态定位。
+- FPSGAME 场景栏杆、楼梯与家具翻越，读取 [场景开发标准：统一翻越制作合同](../ue5-pcg-building/references/scene-development-standard.md)。复用现有判定；专用栏杆需连续碰撞及 `Traversal.GuardrailDrop`，样板和生成模块保持一致。
 - For harvested trees, original stumps, cut-plane hinges, or Nanite tree crowns, read [tree cutting and falling](references/tree-harvest-cut-and-fall.md).
 - For FPSGAME dropped weapon models, gravity, camera-aimed E interactions, or drop hitches, read [physical pickups and preview reuse](references/fpsgame-physical-pickups.md).
 - For FPSGAME 20 cm voxel building (grid snapping, ghost preview, instanced gold outline, snap vs free placement), read [voxel placement interaction](references/fpsgame-voxel-placement.md).

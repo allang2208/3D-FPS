@@ -1,0 +1,109 @@
+{
+  "revision": "precision_equipment_v1_20260930",
+  "objects": [
+    {
+      "key": "FurnaceDoorKit",
+      "name": "SM_Incinerator_FurnaceDoorKit_V1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Equipment20260930\\Authored\\SM_Incinerator_FurnaceDoorKit_V1.fbx",
+      "materials": {
+        "IncineratorEquipment_Atlas": "/Game/Dungeons/IncineratorHall20260929/EquipmentV1/Materials/M_IncineratorEquipment_Atlas"
+      },
+      "triangles": 40351,
+      "bounds_m": [
+        [
+          -1.990531086921692,
+          -0.18000000715255737,
+          0.19999998807907104
+        ],
+        [
+          1.2200000286102295,
+          0.5802245736122131,
+          3.0999999046325684
+        ]
+      ],
+      "size_m": [
+        3.2105311155319214,
+        0.7602245807647705,
+        2.8999999165534973
+      ],
+      "collision_boxes": 3,
+      "parts": [
+        "01_Fixed_frame_and_seal",
+        "02_Insulated_door_and_stiffeners",
+        "03_Three_knuckle_hinges",
+        "04_Handwheel_gearcase_and_six_dogs",
+        "05_Hydraulic_ram_mounts_and_hoses"
+      ]
+    },
+    {
+      "key": "ChargingTrolley",
+      "name": "SM_Incinerator_ChargingTrolley_V1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Equipment20260930\\Authored\\SM_Incinerator_ChargingTrolley_V1.fbx",
+      "materials": {
+        "IncineratorEquipment_Atlas": "/Game/Dungeons/IncineratorHall20260929/EquipmentV1/Materials/M_IncineratorEquipment_Atlas"
+      },
+      "triangles": 49186,
+      "bounds_m": [
+        [
+          -0.7170000076293945,
+          -0.8690000176429749,
+          -0.0015999972820281982
+        ],
+        [
+          0.7170000076293945,
+          0.8810000419616699,
+          1.0910000801086426
+        ]
+      ],
+      "size_m": [
+        1.434000015258789,
+        1.7500000596046448,
+        1.0926000773906708
+      ],
+      "collision_boxes": 2,
+      "parts": [
+        "01_Chassis_and_braked_casters",
+        "02_Roller_table_and_bearings",
+        "03_Folded_lower_tray_and_push_handle"
+      ]
+    },
+    {
+      "key": "MedicalWasteHopper",
+      "name": "SM_Incinerator_MedicalWasteHopper_V1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Equipment20260930\\Authored\\SM_Incinerator_MedicalWasteHopper_V1.fbx",
+      "materials": {
+        "IncineratorEquipment_Atlas": "/Game/Dungeons/IncineratorHall20260929/EquipmentV1/Materials/M_IncineratorEquipment_Atlas"
+      },
+      "triangles": 54436,
+      "bounds_m": [
+        [
+          -0.8289999961853027,
+          -0.8115000128746033,
+          -0.0015999972820281982
+        ],
+        [
+          0.8289999961853027,
+          0.902999997138977,
+          1.5933196544647217
+        ]
+      ],
+      "size_m": [
+        1.6579999923706055,
+        1.7145000100135803,
+        1.5949196517467499
+      ],
+      "collision_boxes": 3,
+      "parts": [
+        "01_Chassis_fork_pockets_and_casters",
+        "02_Tipping_cradle_and_trunnions",
+        "03_Welded_tapered_bin_and_folded_rim",
+        "04_Separate_sealed_lids_hinges_and_handles",
+        "05_Latch_safety_chain_drain_and_signage"
+      ]
+    }
+  ],
+  "units": "metres; FBX axis -Y/Z",
+  "state": "Static cold equipment",
+  "tests_run": false,
+  "rendered": false
+}

@@ -1,0 +1,18 @@
+{
+  "revision": "incinerator_signs_and_floor_paint_v1_20260930",
+  "objects": [
+    {
+      "key": "HallSigns",
+      "name": "SM_Incinerator_HallSigns_V1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\Signage20260930\\Authored\\SM_Incinerator_HallSigns_V1.fbx",
+      "material": "/Game/Dungeons/IncineratorHall20260929/SignageV1/Materials/M_IncineratorSigns",
+      "triangles": 8032,
+      "collision_boxes_or_convexes": 0,
+      "collision_policy": "none",
+      "ue_path": "/Game/Dungeons/IncineratorHall20260929/SignageV1/Meshes/SM_Incinerator_HallSigns_V1"
+    }
+  ],
+  "board_count": 8,
+  "tests_run": false,
+  "rendered": false
+}

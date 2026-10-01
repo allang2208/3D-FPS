@@ -1,0 +1,23 @@
+{
+  "revision": "incinerator_signs_and_floor_paint_v1_20260930",
+  "ue_base": "/Game/Dungeons/IncineratorHall20260929/SignageV1",
+  "map": "/Game/GameMaps/Design/L_AbandonedIncineratorHall_Subject",
+  "coordinate_system": "Blender metres; UE centimetres (x,-y,z)",
+  "furnace_centres_x": [-6, 0, 6],
+  "furnace_sign_face_y": -7.238,
+  "signs": [
+    {"id":"WasteHazard", "surface":"biohazard", "centre_m":[13.848,-4.3,1.8], "normal":[-1,0,0], "size_m":[0.86,0.68]},
+    {"id":"Entry", "surface":"entry", "centre_m":[-14.9,2.098,2.0], "normal":[0,-1,0], "size_m":[1.2,0.48]}
+  ],
+  "floor_paint": [
+    {"id":"Loading01", "kind":"loading", "number":"01", "rect_m":[-8,-7.12,-4,-2.35], "pixels":[1536,1792]},
+    {"id":"Loading02", "kind":"loading", "number":"02", "rect_m":[-2,-7.12,2,-2.35], "pixels":[1536,1792]},
+    {"id":"Loading03", "kind":"loading", "number":"03", "rect_m":[4,-7.12,8,-2.35], "pixels":[1536,1792]},
+    {"id":"MainAisle", "kind":"aisle", "rect_m":[-13.6,-1.72,13.6,1.72], "pixels":[4096,512]},
+    {"id":"WasteBay", "kind":"waste", "rect_m":[10,-5.7,12.7,-3.2], "pixels":[1536,1536]},
+    {"id":"PitFront", "kind":"hazard", "rect_m":[-11.05,-2.61,-8.7,-2.43], "pixels":[2048,256]},
+    {"id":"PitSide", "kind":"hazard", "rect_m":[-8.57,-7.42,-8.43,-2.76], "pixels":[128,2048]}
+  ],
+  "projection_half_depth_cm": 2.0,
+  "tests_run": false
+}

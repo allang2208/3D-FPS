@@ -1,0 +1,1224 @@
+{
+  "id": "AbandonedFlueGasStation",
+  "family_id": "AbandonedFlueGasStation",
+  "parts": [
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_Floors",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_Paving",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_Walls",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_Frames",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_Roof",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_Columns",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_RoofRibs",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_EquipmentPlinths",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_Scrubber1",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/RefineV2/Meshes/SM_FlueGas_WetPipework_V2",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/RefineV2/Meshes/SM_FlueGas_Valves_V2",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/RefineV2/Meshes/SM_FlueGas_Instruments_V2",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/RefineV2/Meshes/SM_FlueGas_Signs_V2",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_Scrubber2",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/RefineV2/Meshes/SM_FlueGas_GasDucts_V2",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_DuctFlanges",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_DuctSupports",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_BaghouseFrame",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_Baghouse",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_BaghouseDoors",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_Hoppers",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_DustBins",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_FanSkid",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_FanHousing",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_FanMotor",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/RefineV2/Meshes/SM_FlueGas_Exhaust_V2",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_PlatformDeck",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_PlatformFrame",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/RefineV2/Meshes/SM_FlueGas_Railings_V2",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "guardrail_drop": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_KickPlates",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_StairTreads",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_Nosing",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_StairStringers",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/RefineV2/Meshes/SM_FlueGas_StairRails_V2",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "guardrail_drop": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/RefineV2/Meshes/SM_FlueGas_ControlPanel_V2",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_DrainChannels",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_DrainGrates",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/RefineV2/Meshes/SM_FlueGas_FloorMarkings_V2",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_CableTrays",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_LampHangers",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_PowerCabinet",
+      "position": [
+        500.0,
+        1135.0,
+        0.0
+      ],
+      "yaw": 180,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "position": [
+        -1500.0,
+        800.0,
+        305.0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "position": [
+        1500.0,
+        800.0,
+        305.0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        0.0,
+        700.0,
+        550.0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        0.0,
+        -150.0,
+        600.0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        -800.0,
+        150.0,
+        690.0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        830.0000000000001,
+        440.00000000000006,
+        540.0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        -1240.0,
+        -530.0,
+        540.0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        1240.0,
+        -530.0,
+        540.0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "position": [
+        0.0,
+        -1010.0,
+        610.0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false
+    },
+    {
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/RefineV2/Meshes/SM_FlueGas_PipeCouplings_V2",
+      "collision": false
+    },
+    {
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "mesh": "/Game/Dungeons/FlueGasStation20261001/RefineV2/Meshes/SM_FlueGas_ControlHardware_V2",
+      "collision": false
+    }
+  ],
+  "lights": [
+    {
+      "position": [
+        -1500.0,
+        800.0,
+        292.0
+      ],
+      "intensity": 260,
+      "radius": 370,
+      "color": [
+        1,
+        0.76,
+        0.48
+      ],
+      "cast_shadows": false,
+      "role": "path",
+      "source_radius": 16,
+      "indirect_intensity": 0.7,
+      "max_draw_distance": 3200,
+      "max_distance_fade_range": 500
+    },
+    {
+      "position": [
+        1500.0,
+        800.0,
+        292.0
+      ],
+      "intensity": 280,
+      "radius": 370,
+      "color": [
+        1,
+        0.76,
+        0.48
+      ],
+      "cast_shadows": false,
+      "role": "path",
+      "source_radius": 16,
+      "indirect_intensity": 0.7,
+      "max_draw_distance": 3200,
+      "max_distance_fade_range": 500
+    },
+    {
+      "position": [
+        0.0,
+        700.0,
+        537.0
+      ],
+      "intensity": 1450,
+      "radius": 1080,
+      "color": [
+        0.6,
+        0.73,
+        0.79
+      ],
+      "cast_shadows": true,
+      "role": "key",
+      "source_radius": 16,
+      "indirect_intensity": 0.7,
+      "max_draw_distance": 3200,
+      "max_distance_fade_range": 500
+    },
+    {
+      "position": [
+        0.0,
+        -150.0,
+        587.0
+      ],
+      "intensity": 1950,
+      "radius": 1250,
+      "color": [
+        0.59,
+        0.72,
+        0.77
+      ],
+      "cast_shadows": true,
+      "role": "key",
+      "source_radius": 16,
+      "indirect_intensity": 0.7,
+      "max_draw_distance": 3200,
+      "max_distance_fade_range": 500
+    },
+    {
+      "position": [
+        -800.0,
+        150.0,
+        677.0
+      ],
+      "intensity": 680,
+      "radius": 800,
+      "color": [
+        0.72,
+        0.78,
+        0.73
+      ],
+      "cast_shadows": false,
+      "role": "path",
+      "source_radius": 16,
+      "indirect_intensity": 0.7,
+      "max_draw_distance": 3200,
+      "max_distance_fade_range": 500
+    },
+    {
+      "position": [
+        830.0000000000001,
+        440.00000000000006,
+        527.0
+      ],
+      "intensity": 730,
+      "radius": 720,
+      "color": [
+        0.79,
+        0.74,
+        0.6
+      ],
+      "cast_shadows": false,
+      "role": "path",
+      "source_radius": 16,
+      "indirect_intensity": 0.7,
+      "max_draw_distance": 3200,
+      "max_distance_fade_range": 500
+    },
+    {
+      "position": [
+        -1240.0,
+        -530.0,
+        527.0
+      ],
+      "intensity": 460,
+      "radius": 510,
+      "color": [
+        0.6,
+        0.72,
+        0.76
+      ],
+      "cast_shadows": false,
+      "role": "path",
+      "source_radius": 16,
+      "indirect_intensity": 0.7,
+      "max_draw_distance": 3200,
+      "max_distance_fade_range": 500
+    },
+    {
+      "position": [
+        1240.0,
+        -530.0,
+        527.0
+      ],
+      "intensity": 400,
+      "radius": 510,
+      "color": [
+        0.6,
+        0.72,
+        0.76
+      ],
+      "cast_shadows": false,
+      "role": "path",
+      "source_radius": 16,
+      "indirect_intensity": 0.7,
+      "max_draw_distance": 3200,
+      "max_distance_fade_range": 500
+    },
+    {
+      "position": [
+        0.0,
+        -1010.0,
+        597.0
+      ],
+      "intensity": 820,
+      "radius": 900,
+      "color": [
+        0.75,
+        0.67,
+        0.48
+      ],
+      "cast_shadows": false,
+      "role": "path",
+      "source_radius": 16,
+      "indirect_intensity": 0.7,
+      "max_draw_distance": 3200,
+      "max_distance_fade_range": 500
+    }
+  ],
+  "ports": [
+    {
+      "id": "Incinerator",
+      "position": [
+        -1600.0,
+        800.0,
+        0.0
+      ],
+      "normal": [
+        -1,
+        0,
+        0
+      ],
+      "width": 300.0,
+      "height": 280.0
+    },
+    {
+      "id": "Onward",
+      "position": [
+        1600.0,
+        800.0,
+        0.0
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "width": 300.0,
+      "height": 280.0
+    }
+  ],
+  "port_pairs": [
+    [
+      0,
+      1
+    ]
+  ],
+  "cells": [
+    {
+      "min": [
+        -1414,
+        -1214,
+        -32
+      ],
+      "max": [
+        1414,
+        1214,
+        834
+      ]
+    },
+    {
+      "min": [
+        -1615,
+        586,
+        -32
+      ],
+      "max": [
+        -1400,
+        1014,
+        368
+      ]
+    },
+    {
+      "min": [
+        1400,
+        586,
+        -32
+      ],
+      "max": [
+        1615,
+        1014,
+        368
+      ]
+    }
+  ],
+  "anchors": [
+    {
+      "position": [
+        -300,
+        -550,
+        5
+      ],
+      "role": "flue_gas_combat"
+    },
+    {
+      "position": [
+        -300,
+        -50,
+        5
+      ],
+      "role": "flue_gas_combat"
+    },
+    {
+      "position": [
+        -300,
+        450,
+        5
+      ],
+      "role": "flue_gas_combat"
+    },
+    {
+      "position": [
+        0,
+        -550,
+        5
+      ],
+      "role": "flue_gas_combat"
+    },
+    {
+      "position": [
+        0,
+        -50,
+        5
+      ],
+      "role": "flue_gas_combat"
+    },
+    {
+      "position": [
+        0,
+        450,
+        5
+      ],
+      "role": "flue_gas_combat"
+    },
+    {
+      "position": [
+        300,
+        -550,
+        5
+      ],
+      "role": "flue_gas_combat"
+    },
+    {
+      "position": [
+        300,
+        -50,
+        5
+      ],
+      "role": "flue_gas_combat"
+    },
+    {
+      "position": [
+        300,
+        450,
+        5
+      ],
+      "role": "flue_gas_combat"
+    }
+  ],
+  "route_intent": {
+    "predecessor": "AbandonedIncineratorHall",
+    "successor": "DataArchive convergence via optional transition",
+    "fixed_adjacency": true,
+    "registration": "production_catalog_reserved_for_fixed_themed_route"
+  },
+  "min": [
+    -1615,
+    -1214,
+    -32
+  ],
+  "max": [
+    1615,
+    1214,
+    834
+  ],
+  "role": "room",
+  "encounter_role": "special_combat",
+  "revision": "accepted_flue_gas_20261001",
+  "runtime_actors": [],
+  "selection": {
+    "chance_per_run": 1.0,
+    "max_per_run": 1
+  },
+  "walk_polyline": [
+    [
+      -1600,
+      800,
+      5
+    ],
+    [
+      0,
+      800,
+      5
+    ],
+    [
+      1600,
+      800,
+      5
+    ]
+  ],
+  "walk_mask": [
+    {
+      "min": [
+        -435,
+        -780,
+        -5
+      ],
+      "max": [
+        435,
+        900,
+        40
+      ]
+    }
+  ],
+  "spawn": {
+    "source": "DungeonFlueGasStation20261001",
+    "theme": "abandoned_flue_gas_station",
+    "count": [
+      4,
+      6
+    ],
+    "anchor_roles": [
+      "flue_gas_combat"
+    ],
+    "pool": [
+      {
+        "id": "FatZombie",
+        "class": "/Script/FPSGAME.FatZombie",
+        "weight": 3,
+        "level": 4,
+        "rank": "normal"
+      },
+      {
+        "id": "Mutant3",
+        "class": "/Script/FPSGAME.Mutant3",
+        "weight": 1,
+        "level": 9,
+        "rank": "elite"
+      },
+      {
+        "id": "InfectedDog",
+        "class": "/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C",
+        "weight": 2,
+        "level": 7,
+        "rank": "normal"
+      },
+      {
+        "id": "FleshHandMinion",
+        "class": "/Game/Monsters/FleshHand/BP_FleshHandMinion.BP_FleshHandMinion_C",
+        "weight": 1,
+        "level": 1,
+        "rank": "minor"
+      },
+      {
+        "id": "FleshHand",
+        "class": "/Game/Monsters/FleshHand/BP_FleshHand.BP_FleshHand_C",
+        "weight": 2,
+        "level": 12,
+        "rank": "lord"
+      }
+    ],
+    "sealed_encounter": true
+  }
+}

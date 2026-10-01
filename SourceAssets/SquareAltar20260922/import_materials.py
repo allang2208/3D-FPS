@@ -58,8 +58,14 @@ recipes={
 for name,(color,roughness,metallic,stone) in recipes.items():
     path=ROOT+'/Materials/M_'+name
     mat=u.load_asset(path)
-    if mat:continue
+    if mat:
+        if not mat.get_editor_property('used_with_nanite'):
+            mat.modify();mat.set_editor_property('used_with_nanite',True)
+            L.recompile_material(mat)
+        save(mat)
+        continue
     mat=A.create_asset('M_'+name,ROOT+'/Materials',u.Material,u.MaterialFactoryNew())
+    mat.set_editor_property('used_with_nanite',True)
     tint=vector(mat,'BaseTint',color)
     if stone:
         sample=L.create_material_expression(mat,u.MaterialExpressionTextureSampleParameter2D)

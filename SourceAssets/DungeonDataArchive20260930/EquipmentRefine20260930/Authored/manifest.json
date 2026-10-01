@@ -1,0 +1,284 @@
+{
+  "revision": "archive_equipment_v2_20260930",
+  "objects": [
+    {
+      "kind": "FileArchive_Closed",
+      "name": "SM_Archive_FileArchive_Closed_V2",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\EquipmentRefine20260930\\Authored\\SM_Archive_FileArchive_Closed_V2.fbx",
+      "triangles": 18432,
+      "vertices": 9560,
+      "material": "/Game/Dungeons/DataArchive20260930/EquipmentV2/Materials/M_ArchiveEquipment_Atlas",
+      "slot": "ArchiveEquipment_Atlas",
+      "collision_hulls": 1,
+      "bounds_min": [
+        -0.5572299957275391,
+        -0.3604999780654907,
+        0.0
+      ],
+      "bounds_max": [
+        0.5572299957275391,
+        0.30000001192092896,
+        1.9500000476837158
+      ],
+      "semantic_parts": [
+        "Folded cabinet shell and plinth",
+        "Central divider and recessed empty drawer sockets",
+        "Drawer 1-1 extension 0.00 contents 0",
+        "Drawer 1-2 extension 0.00 contents 0",
+        "Drawer 1-3 extension 0.00 contents 0",
+        "Drawer 1-4 extension 0.00 contents 0",
+        "Drawer 1-5 extension 0.00 contents 0",
+        "Drawer 2-1 extension 0.00 contents 0",
+        "Drawer 2-2 extension 0.00 contents 0",
+        "Drawer 2-3 extension 0.00 contents 0",
+        "Drawer 2-4 extension 0.00 contents 0",
+        "Drawer 2-5 extension 0.00 contents 0"
+      ]
+    },
+    {
+      "kind": "FileArchive_UpperOpen",
+      "name": "SM_Archive_FileArchive_UpperOpen_V2",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\EquipmentRefine20260930\\Authored\\SM_Archive_FileArchive_UpperOpen_V2.fbx",
+      "triangles": 22384,
+      "vertices": 11640,
+      "material": "/Game/Dungeons/DataArchive20260930/EquipmentV2/Materials/M_ArchiveEquipment_Atlas",
+      "slot": "ArchiveEquipment_Atlas",
+      "collision_hulls": 3,
+      "bounds_min": [
+        -0.5572299957275391,
+        -0.6204999089241028,
+        0.0
+      ],
+      "bounds_max": [
+        0.5572299957275391,
+        0.30000001192092896,
+        1.9500000476837158
+      ],
+      "semantic_parts": [
+        "Folded cabinet shell and plinth",
+        "Central divider and recessed empty drawer sockets",
+        "Drawer 1-1 extension 0.00 contents 0",
+        "Drawer 1-2 extension 0.00 contents 0",
+        "Drawer 1-3 extension 0.00 contents 0",
+        "Drawer 1-4 extension 0.00 contents 0",
+        "Drawer 1-5 extension 0.26 contents 8",
+        "Drawer 2-1 extension 0.00 contents 0",
+        "Drawer 2-2 extension 0.09 contents 0",
+        "Drawer 2-3 extension 0.00 contents 0",
+        "Drawer 2-4 extension 0.00 contents 0",
+        "Drawer 2-5 extension 0.00 contents 0"
+      ]
+    },
+    {
+      "kind": "FileArchive_LowerOpen",
+      "name": "SM_Archive_FileArchive_LowerOpen_V2",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\EquipmentRefine20260930\\Authored\\SM_Archive_FileArchive_LowerOpen_V2.fbx",
+      "triangles": 21556,
+      "vertices": 11208,
+      "material": "/Game/Dungeons/DataArchive20260930/EquipmentV2/Materials/M_ArchiveEquipment_Atlas",
+      "slot": "ArchiveEquipment_Atlas",
+      "collision_hulls": 3,
+      "bounds_min": [
+        -0.5572299957275391,
+        -0.6604999303817749,
+        0.0
+      ],
+      "bounds_max": [
+        0.5572299957275391,
+        0.30000001192092896,
+        1.9500000476837158
+      ],
+      "semantic_parts": [
+        "Folded cabinet shell and plinth",
+        "Central divider and recessed empty drawer sockets",
+        "Drawer 1-1 extension 0.00 contents 0",
+        "Drawer 1-2 extension 0.00 contents 0",
+        "Drawer 1-3 extension 0.16 contents 5",
+        "Drawer 1-4 extension 0.00 contents 0",
+        "Drawer 1-5 extension 0.00 contents 0",
+        "Drawer 2-1 extension 0.30 contents 0",
+        "Drawer 2-2 extension 0.00 contents 0",
+        "Drawer 2-3 extension 0.00 contents 0",
+        "Drawer 2-4 extension 0.00 contents 0",
+        "Drawer 2-5 extension 0.00 contents 0"
+      ]
+    },
+    {
+      "kind": "TapeLibrary_Full",
+      "name": "SM_Archive_TapeLibrary_Full_V2",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\EquipmentRefine20260930\\Authored\\SM_Archive_TapeLibrary_Full_V2.fbx",
+      "triangles": 68948,
+      "vertices": 36216,
+      "material": "/Game/Dungeons/DataArchive20260930/EquipmentV2/Materials/M_ArchiveEquipment_Atlas",
+      "slot": "ArchiveEquipment_Atlas",
+      "collision_hulls": 1,
+      "bounds_min": [
+        -0.5572299957275391,
+        -0.37199991941452026,
+        0.0
+      ],
+      "bounds_max": [
+        0.5572299957275391,
+        0.3100000023841858,
+        2.049999952316284
+      ],
+      "semantic_parts": [
+        "Folded cabinet shell and plinth",
+        "Five rows of adjustable shelves with visible empty interiors",
+        "Storage drawers with rails and real inner pans",
+        "Header with lock and archive plaque",
+        "Seeded archive contents Full"
+      ]
+    },
+    {
+      "kind": "TapeLibrary_Sparse",
+      "name": "SM_Archive_TapeLibrary_Sparse_V2",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\EquipmentRefine20260930\\Authored\\SM_Archive_TapeLibrary_Sparse_V2.fbx",
+      "triangles": 31158,
+      "vertices": 16516,
+      "material": "/Game/Dungeons/DataArchive20260930/EquipmentV2/Materials/M_ArchiveEquipment_Atlas",
+      "slot": "ArchiveEquipment_Atlas",
+      "collision_hulls": 2,
+      "bounds_min": [
+        -0.5572299957275391,
+        -0.49199992418289185,
+        0.0
+      ],
+      "bounds_max": [
+        0.5572299957275391,
+        0.3100000023841858,
+        2.049999952316284
+      ],
+      "semantic_parts": [
+        "Folded cabinet shell and plinth",
+        "Five rows of adjustable shelves with visible empty interiors",
+        "Storage drawers with rails and real inner pans",
+        "Header with lock and archive plaque",
+        "Seeded archive contents Sparse"
+      ]
+    },
+    {
+      "kind": "TapeLibrary_Empty",
+      "name": "SM_Archive_TapeLibrary_Empty_V2",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\EquipmentRefine20260930\\Authored\\SM_Archive_TapeLibrary_Empty_V2.fbx",
+      "triangles": 24622,
+      "vertices": 13124,
+      "material": "/Game/Dungeons/DataArchive20260930/EquipmentV2/Materials/M_ArchiveEquipment_Atlas",
+      "slot": "ArchiveEquipment_Atlas",
+      "collision_hulls": 2,
+      "bounds_min": [
+        -0.5572299957275391,
+        -0.591999888420105,
+        0.0
+      ],
+      "bounds_max": [
+        0.5572299957275391,
+        0.3100000023841858,
+        2.049999952316284
+      ],
+      "semantic_parts": [
+        "Folded cabinet shell and plinth",
+        "Five rows of adjustable shelves with visible empty interiors",
+        "Storage drawers with rails and real inner pans",
+        "Header with lock and archive plaque",
+        "Seeded archive contents Empty"
+      ]
+    },
+    {
+      "kind": "DispatchConsole",
+      "name": "SM_Archive_DispatchConsole_V2",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\EquipmentRefine20260930\\Authored\\SM_Archive_DispatchConsole_V2.fbx",
+      "triangles": 56218,
+      "vertices": 29853,
+      "material": "/Game/Dungeons/DataArchive20260930/EquipmentV2/Materials/M_ArchiveEquipment_Atlas",
+      "slot": "ArchiveEquipment_Atlas",
+      "collision_hulls": 4,
+      "bounds_min": [
+        -1.3679999113082886,
+        -0.5630000233650208,
+        0.0
+      ],
+      "bounds_max": [
+        1.3679999113082886,
+        0.6218672394752502,
+        1.4545000791549683
+      ],
+      "semantic_parts": [
+        "Two pedestal cabinets knee opening and recessed kickplates",
+        "Pedestal ventilation and cable grommets",
+        "Pedestal ventilation and cable grommets",
+        "Sloping desktop and shaped side returns",
+        "Raised sloped instrument housing",
+        "Two analog meters and three rotary selectors",
+        "Recessed CRT bezel curved glass and lower adjustment keys",
+        "Sixteen push buttons toggles and emergency stop",
+        "Recessed keyboard individual keycaps and desktop selectors",
+        "Rear power and data connections with supported cable",
+        "Hinged pedestal doors and service fittings",
+        "Instrument surround seams legends and captive fasteners",
+        "Rear service lid cable tray and strain reliefs",
+        "Removable desktop edge trim and operators footrest"
+      ]
+    },
+    {
+      "kind": "RecordsDesk_A",
+      "name": "SM_Archive_RecordsDesk_A_V2",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\EquipmentRefine20260930\\Authored\\SM_Archive_RecordsDesk_A_V2.fbx",
+      "triangles": 9152,
+      "vertices": 4792,
+      "material": "/Game/Dungeons/DataArchive20260930/EquipmentV2/Materials/M_ArchiveEquipment_Atlas",
+      "slot": "ArchiveEquipment_Atlas",
+      "collision_hulls": 4,
+      "bounds_min": [
+        -0.75,
+        -0.4184999465942383,
+        0.0
+      ],
+      "bounds_max": [
+        0.75,
+        0.41398724913597107,
+        0.8540000319480896
+      ],
+      "semantic_parts": [
+        "Rolled edge desktop layered panel and rear upstand",
+        "Tubular legs welded aprons feet and stretcher",
+        "Suspended stationery drawer and runners",
+        "Cable grommet and mounted utility strip",
+        "In-tray folded lips and page stack",
+        "Different working paperwork arrangement A"
+      ]
+    },
+    {
+      "kind": "RecordsDesk_B",
+      "name": "SM_Archive_RecordsDesk_B_V2",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\EquipmentRefine20260930\\Authored\\SM_Archive_RecordsDesk_B_V2.fbx",
+      "triangles": 9520,
+      "vertices": 4984,
+      "material": "/Game/Dungeons/DataArchive20260930/EquipmentV2/Materials/M_ArchiveEquipment_Atlas",
+      "slot": "ArchiveEquipment_Atlas",
+      "collision_hulls": 4,
+      "bounds_min": [
+        -0.75,
+        -0.4934999644756317,
+        0.0
+      ],
+      "bounds_max": [
+        0.75,
+        0.41398724913597107,
+        0.8933999538421631
+      ],
+      "semantic_parts": [
+        "Rolled edge desktop layered panel and rear upstand",
+        "Tubular legs welded aprons feet and stretcher",
+        "Suspended stationery drawer and runners",
+        "Cable grommet and mounted utility strip",
+        "In-tray folded lips and page stack",
+        "Different working paperwork arrangement B"
+      ]
+    }
+  ],
+  "reference": "../../Equipment20260930/References",
+  "material_slots_per_mesh": 1,
+  "tests_run": false,
+  "variation_seed": 930527
+}

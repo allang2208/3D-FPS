@@ -1,0 +1,317 @@
+{
+  "revision": "incinerator_morgue_b1_v1_20260930",
+  "objects": [
+    {
+      "key": "Railings",
+      "name": "SM_Incinerator_Railings_MorgueB1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueB120260930\\Authored\\SM_Incinerator_Railings_MorgueB1.fbx",
+      "material": "/Game/Dungeons/IncineratorHall20260929/EquipmentV1/Materials/M_IncineratorEquipment_Atlas",
+      "triangles": 79328,
+      "collision_boxes_or_convexes": 16,
+      "collision_policy": "simple_and_complex",
+      "ue_path": "/Game/Dungeons/IncineratorHall20260929/MorgueB1V1/Meshes/SM_Incinerator_Railings_MorgueB1"
+    },
+    {
+      "key": "ColdBankClosed",
+      "name": "SM_Incinerator_ColdBankClosed_MorgueB1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueB120260930\\Authored\\SM_Incinerator_ColdBankClosed_MorgueB1.fbx",
+      "material": "/Game/Dungeons/IncineratorHall20260929/EquipmentV1/Materials/M_IncineratorEquipment_Atlas",
+      "triangles": 11432,
+      "collision_boxes_or_convexes": 0,
+      "collision_policy": "complex_as_simple",
+      "ue_path": "/Game/Dungeons/IncineratorHall20260929/MorgueB1V1/Meshes/SM_Incinerator_ColdBankClosed_MorgueB1"
+    },
+    {
+      "key": "ColdBankOpen",
+      "name": "SM_Incinerator_ColdBankOpen_MorgueB1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueB120260930\\Authored\\SM_Incinerator_ColdBankOpen_MorgueB1.fbx",
+      "material": "/Game/Dungeons/IncineratorHall20260929/EquipmentV1/Materials/M_IncineratorEquipment_Atlas",
+      "triangles": 11616,
+      "collision_boxes_or_convexes": 0,
+      "collision_policy": "complex_as_simple",
+      "ue_path": "/Game/Dungeons/IncineratorHall20260929/MorgueB1V1/Meshes/SM_Incinerator_ColdBankOpen_MorgueB1"
+    },
+    {
+      "key": "MortuaryTrolley",
+      "name": "SM_Incinerator_MortuaryTrolley_MorgueB1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueB120260930\\Authored\\SM_Incinerator_MortuaryTrolley_MorgueB1.fbx",
+      "material": "/Game/Dungeons/IncineratorHall20260929/EquipmentV1/Materials/M_IncineratorEquipment_Atlas",
+      "triangles": 24740,
+      "collision_boxes_or_convexes": 0,
+      "collision_policy": "complex_as_simple",
+      "ue_path": "/Game/Dungeons/IncineratorHall20260929/MorgueB1V1/Meshes/SM_Incinerator_MortuaryTrolley_MorgueB1"
+    },
+    {
+      "key": "PreparationTable",
+      "name": "SM_Incinerator_PreparationTable_MorgueB1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueB120260930\\Authored\\SM_Incinerator_PreparationTable_MorgueB1.fbx",
+      "material": "/Game/Dungeons/IncineratorHall20260929/EquipmentV1/Materials/M_IncineratorEquipment_Atlas",
+      "triangles": 1284,
+      "collision_boxes_or_convexes": 0,
+      "collision_policy": "complex_as_simple",
+      "ue_path": "/Game/Dungeons/IncineratorHall20260929/MorgueB1V1/Meshes/SM_Incinerator_PreparationTable_MorgueB1"
+    },
+    {
+      "key": "WashSink",
+      "name": "SM_Incinerator_WashSink_MorgueB1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueB120260930\\Authored\\SM_Incinerator_WashSink_MorgueB1.fbx",
+      "material": "/Game/Dungeons/IncineratorHall20260929/EquipmentV1/Materials/M_IncineratorEquipment_Atlas",
+      "triangles": 2796,
+      "collision_boxes_or_convexes": 0,
+      "collision_policy": "complex_as_simple",
+      "ue_path": "/Game/Dungeons/IncineratorHall20260929/MorgueB1V1/Meshes/SM_Incinerator_WashSink_MorgueB1"
+    },
+    {
+      "key": "RecordsDesk",
+      "name": "SM_Incinerator_RecordsDesk_MorgueB1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueB120260930\\Authored\\SM_Incinerator_RecordsDesk_MorgueB1.fbx",
+      "material": "/Game/Dungeons/IncineratorHall20260929/EquipmentV1/Materials/M_IncineratorEquipment_Atlas",
+      "triangles": 1132,
+      "collision_boxes_or_convexes": 0,
+      "collision_policy": "complex_as_simple",
+      "ue_path": "/Game/Dungeons/IncineratorHall20260929/MorgueB1V1/Meshes/SM_Incinerator_RecordsDesk_MorgueB1"
+    },
+    {
+      "key": "TransferDoor",
+      "name": "SM_Incinerator_TransferDoor_MorgueB1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueB120260930\\Authored\\SM_Incinerator_TransferDoor_MorgueB1.fbx",
+      "material": "/Game/Dungeons/IncineratorHall20260929/EquipmentV1/Materials/M_IncineratorEquipment_Atlas",
+      "triangles": 704,
+      "collision_boxes_or_convexes": 0,
+      "collision_policy": "complex_as_simple",
+      "ue_path": "/Game/Dungeons/IncineratorHall20260929/MorgueB1V1/Meshes/SM_Incinerator_TransferDoor_MorgueB1"
+    },
+    {
+      "key": "AshReceiver",
+      "name": "SM_Incinerator_AshReceiver_MorgueB1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueB120260930\\Authored\\SM_Incinerator_AshReceiver_MorgueB1.fbx",
+      "material": "/Game/Dungeons/IncineratorHall20260929/EquipmentV1/Materials/M_IncineratorEquipment_Atlas",
+      "triangles": 31572,
+      "collision_boxes_or_convexes": 0,
+      "collision_policy": "complex_as_simple",
+      "ue_path": "/Game/Dungeons/IncineratorHall20260929/MorgueB1V1/Meshes/SM_Incinerator_AshReceiver_MorgueB1"
+    },
+    {
+      "key": "MorgueSigns",
+      "name": "SM_Incinerator_MorgueSigns_MorgueB1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\MorgueB120260930\\Authored\\SM_Incinerator_MorgueSigns_MorgueB1.fbx",
+      "material": "/Game/Dungeons/IncineratorHall20260929/MorgueB1V1/Materials/M_MorgueSigns",
+      "triangles": 2576,
+      "collision_boxes_or_convexes": 0,
+      "collision_policy": "none",
+      "ue_path": "/Game/Dungeons/IncineratorHall20260929/MorgueB1V1/Meshes/SM_Incinerator_MorgueSigns_MorgueB1"
+    }
+  ],
+  "rail_runs": [
+    {
+      "a": [
+        -7.0,
+        5.659999999999999,
+        2.4
+      ],
+      "b": [
+        7.0,
+        5.659999999999999,
+        2.4
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        -7.0,
+        10.049999999999999,
+        2.4
+      ],
+      "b": [
+        7.0,
+        10.049999999999999,
+        2.4
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        -11.8,
+        5.78,
+        0.15
+      ],
+      "b": [
+        -7.0,
+        5.78,
+        2.4
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        -11.8,
+        8.22,
+        0.15
+      ],
+      "b": [
+        -7.0,
+        8.22,
+        2.4
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        -7.0,
+        8.33,
+        2.4
+      ],
+      "b": [
+        -7.0,
+        10.049999999999999,
+        2.4
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        11.8,
+        5.78,
+        0.15
+      ],
+      "b": [
+        7.0,
+        5.78,
+        2.4
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        11.8,
+        8.22,
+        0.15
+      ],
+      "b": [
+        7.0,
+        8.22,
+        2.4
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        7.0,
+        8.33,
+        2.4
+      ],
+      "b": [
+        7.0,
+        10.049999999999999,
+        2.4
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        -11.05,
+        -2.57,
+        0
+      ],
+      "b": [
+        -8.6,
+        -2.57,
+        0
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        -13.08,
+        -7.65,
+        0
+      ],
+      "b": [
+        -13.08,
+        -2.65,
+        0
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        -8.52,
+        -7.65,
+        0
+      ],
+      "b": [
+        -8.52,
+        -2.65,
+        0
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        -13,
+        -7.73,
+        0
+      ],
+      "b": [
+        -8.6,
+        -7.73,
+        0
+      ],
+      "height": 1.1
+    },
+    {
+      "a": [
+        -12.91,
+        -2.65,
+        0
+      ],
+      "b": [
+        -12.91,
+        -5.95,
+        -1.8
+      ],
+      "height": 0.95
+    },
+    {
+      "a": [
+        -11.0,
+        -2.65,
+        0
+      ],
+      "b": [
+        -11.0,
+        -5.95,
+        -1.8
+      ],
+      "height": 0.95
+    },
+    {
+      "a": [
+        -10.65,
+        -5.95,
+        -1.8
+      ],
+      "b": [
+        -10.65,
+        -2.65,
+        -3.6
+      ],
+      "height": 0.95
+    },
+    {
+      "a": [
+        -8.75,
+        -5.95,
+        -1.8
+      ],
+      "b": [
+        -8.75,
+        -2.65,
+        -3.6
+      ],
+      "height": 0.95
+    }
+  ],
+  "tests_run": false,
+  "rendered": false
+}

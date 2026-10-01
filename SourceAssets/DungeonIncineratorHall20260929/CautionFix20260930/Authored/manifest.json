@@ -1,0 +1,26 @@
+{
+  "objects": [
+    {
+      "key": "AshSigns",
+      "name": "SM_Incinerator_AshSigns_V4",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonIncineratorHall20260929\\CautionFix20260930\\Authored\\SM_Incinerator_AshSigns_V4.fbx",
+      "material": "/Game/Dungeons/IncineratorHall20260929/AshStationV3/Materials/M_AshStation_Signage",
+      "triangles": 3304,
+      "collision_boxes_or_convexes": 0,
+      "collision_policy": "none",
+      "ue_path": "/Game/Dungeons/IncineratorHall20260929/CautionFixV4/Meshes/SM_Incinerator_AshSigns_V4"
+    }
+  ],
+  "caution_position_m": [
+    -9.025,
+    -2.43,
+    0.75
+  ],
+  "previous_caution_position_m": [
+    -9.31,
+    -2.525,
+    0.75
+  ],
+  "tests_run": false,
+  "rendered": false
+}

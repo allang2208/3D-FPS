@@ -1,0 +1,294 @@
+{
+  "id": "AbandonedDataArchive",
+  "revision": "archive_accepted_v2_pool_20261001",
+  "phase": "production_pool",
+  "ue_base": "/Game/Dungeons/DataArchive20260930",
+  "hall": {
+    "outline": [
+      [
+        -12,
+        -8
+      ],
+      [
+        -8,
+        -12
+      ],
+      [
+        8,
+        -12
+      ],
+      [
+        12,
+        -8
+      ],
+      [
+        12,
+        8
+      ],
+      [
+        8,
+        12
+      ],
+      [
+        -8,
+        12
+      ],
+      [
+        -12,
+        8
+      ]
+    ],
+    "height": 6.1,
+    "wall_thickness": 0.28
+  },
+  "central_floor_m": -0.6,
+  "central_rect_m": [
+    -6,
+    -6,
+    6,
+    6
+  ],
+  "ports": [
+    {
+      "id": "Receiving",
+      "position": [
+        -14,
+        0,
+        0
+      ],
+      "normal": [
+        -1,
+        0,
+        0
+      ],
+      "width": 3.0,
+      "height": 2.8
+    },
+    {
+      "id": "Service",
+      "position": [
+        14,
+        0,
+        0
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "width": 3.0,
+      "height": 2.8
+    }
+  ],
+  "reused_parts": [
+    {
+      "id": "PowerCabinetWest",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_PowerCabinet",
+      "position": [
+        -11.465499916076658,
+        4.65,
+        0.0
+      ],
+      "yaw": -90,
+      "collision": true,
+      "wall_alignment": "outermost back surface 0.05 m inside inner wall; accepted saved placement"
+    },
+    {
+      "id": "PowerCabinetEast",
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_PowerCabinet",
+      "position": [
+        11.465499916076658,
+        -4.65,
+        0.0
+      ],
+      "yaw": 90,
+      "collision": true,
+      "wall_alignment": "outermost back surface 0.05 m inside inner wall; accepted saved placement"
+    }
+  ],
+  "equipment_bays": [
+    {
+      "id": "PaperArchiveA",
+      "center": [
+        -5.1,
+        -11.4,
+        0
+      ],
+      "width": 4.8,
+      "depth": 0.86
+    },
+    {
+      "id": "TapeArchiveB",
+      "center": [
+        5.1,
+        -11.4,
+        0
+      ],
+      "width": 4.8,
+      "depth": 0.86
+    },
+    {
+      "id": "ServerArchiveC",
+      "center": [
+        -11.16,
+        -4.5,
+        0
+      ],
+      "width": 4.0,
+      "depth": 1.35
+    },
+    {
+      "id": "ServerArchiveD",
+      "center": [
+        11.16,
+        4.5,
+        0
+      ],
+      "width": 4.0,
+      "depth": 1.35
+    }
+  ],
+  "lights": [
+    {
+      "id": "Entry",
+      "position": [
+        -13,
+        0,
+        3.05
+      ],
+      "lumens": 260,
+      "radius_cm": 300,
+      "warm": true,
+      "cast_shadows": false,
+      "role": "path",
+      "max_draw_distance_cm": 2600,
+      "fade_range_cm": 400
+    },
+    {
+      "id": "Exit",
+      "position": [
+        13,
+        0,
+        3.05
+      ],
+      "lumens": 260,
+      "radius_cm": 300,
+      "warm": true,
+      "cast_shadows": false,
+      "role": "path",
+      "max_draw_distance_cm": 2600,
+      "fade_range_cm": 400
+    },
+    {
+      "id": "CentreWest",
+      "position": [
+        -3,
+        0,
+        4.9
+      ],
+      "lumens": 700,
+      "radius_cm": 620,
+      "warm": false,
+      "cast_shadows": true,
+      "role": "key",
+      "max_draw_distance_cm": 2600,
+      "fade_range_cm": 400
+    },
+    {
+      "id": "CentreEast",
+      "position": [
+        3,
+        0,
+        4.9
+      ],
+      "lumens": 600,
+      "radius_cm": 620,
+      "warm": false,
+      "cast_shadows": true,
+      "role": "key",
+      "max_draw_distance_cm": 2600,
+      "fade_range_cm": 400
+    },
+    {
+      "id": "North",
+      "position": [
+        -4.7,
+        9,
+        5.1
+      ],
+      "lumens": 450,
+      "radius_cm": 620,
+      "warm": false,
+      "cast_shadows": false,
+      "role": "key",
+      "max_draw_distance_cm": 2600,
+      "fade_range_cm": 400
+    },
+    {
+      "id": "South",
+      "position": [
+        4.7,
+        -9,
+        5.1
+      ],
+      "lumens": 360,
+      "radius_cm": 620,
+      "warm": false,
+      "cast_shadows": false,
+      "role": "key",
+      "max_draw_distance_cm": 2600,
+      "fade_range_cm": 400
+    },
+    {
+      "id": "West",
+      "position": [
+        -9,
+        -4.2,
+        5.1
+      ],
+      "lumens": 350,
+      "radius_cm": 620,
+      "warm": false,
+      "cast_shadows": false,
+      "role": "key",
+      "max_draw_distance_cm": 2600,
+      "fade_range_cm": 400
+    },
+    {
+      "id": "East",
+      "position": [
+        9,
+        4.2,
+        5.1
+      ],
+      "lumens": 400,
+      "radius_cm": 620,
+      "warm": false,
+      "cast_shadows": false,
+      "role": "key",
+      "max_draw_distance_cm": 2600,
+      "fade_range_cm": 400
+    },
+    {
+      "id": "Control",
+      "position": [
+        0,
+        9.3,
+        5.1
+      ],
+      "lumens": 280,
+      "radius_cm": 620,
+      "warm": false,
+      "cast_shadows": true,
+      "role": "key",
+      "max_draw_distance_cm": 2600,
+      "fade_range_cm": 400
+    }
+  ],
+  "random_pool_registered": true,
+  "tests_run": false,
+  "environment_damage": false,
+  "sample_retired": true,
+  "production_map": "/Game/GameMaps/L_Dungeon_Randomized",
+  "pool_install_script": "Pool20261001/Scripts/install_pool.py"
+}

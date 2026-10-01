@@ -48,7 +48,7 @@ void ADungeonRoomEncounter::BeginPlay()
 }
 
 void ADungeonRoomEncounter::Configure(UDungeonRunSubsystem* InSubsystem, int32 InRoomNodeId, const TArray<FDungeonSpawnMember>& InGroup,
-    const FVector& DoorCenterIn, const FVector& DoorNormalIn, const TArray<FVector>& InCandidateGround)
+    const FVector& DoorCenterIn, const FVector& DoorNormalIn, const TArray<FVector>& InCandidateGround, bool bSealConnectedDoors)
 {
     Run = InSubsystem;
     RoomNodeId = InRoomNodeId;
@@ -74,9 +74,10 @@ void ADungeonRoomEncounter::Configure(UDungeonRunSubsystem* InSubsystem, int32 I
     }
     DoorCenter = DoorCenterIn;
     DoorNormal = DoorNormalIn.GetSafeNormal();
-    bDoorValid = !DoorNormal.IsNearlyZero() && !DoorCenter.ContainsNaN();
-    if (!bDoorValid)
-        UE_LOG(LogTemp, Warning, TEXT("[RoomEncounter] 房 %d 门口参数无效：不封门，只生成精英组。"), InRoomNodeId);
+    const auto* RoomNode=InSubsystem?InSubsystem->NodeById(InRoomNodeId):nullptr;
+    bDoorValid = bSealConnectedDoors && RoomNode && !RoomNode->Doors.IsEmpty();
+    if (bSealConnectedDoors && !bDoorValid)
+        UE_LOG(LogTemp, Error, TEXT("[RoomEncounter] 房 %d 缺少真实连接门，无法安装战斗闸门。"), InRoomNodeId);
 
     // Every real connected port gets the same kit, fitted in its own door frame.
     // The authored room frame remains intact; rails mount on the room-facing side.
@@ -103,20 +104,20 @@ void ADungeonRoomEncounter::Configure(UDungeonRunSubsystem* InSubsystem, int32 I
     {
         for (ADungeonRoomGate* Assembly : Gates) if (IsValid(Assembly)) Assembly->Destroy();
         Gates.Reset();
-        UE_LOG(LogTemp, Warning, TEXT("[RoomEncounter] 房 %d 闸门资源或门洞不完整：保留开放战斗。"), RoomNodeId);
+        if (bSealConnectedDoors)
+            UE_LOG(LogTemp, Warning, TEXT("[RoomEncounter] 房 %d 闸门资源或门洞不完整：保留开放战斗。"), RoomNodeId);
     }
     TriggerBox->SetWorldLocationAndRotation(bDoorValid ? DoorCenter + DoorNormal * TriggerInset : FVector::ZeroVector, Facing);
     TriggerBox->SetBoxExtent(FVector(TriggerDepth, TriggerWidth, TriggerHeight) * .5);
     GateOpen = 1.f;
     bSealed = false;
     bEncounterStarted=false;
-    bEncounterComplete = Slots.IsEmpty();
+    bEncounterComplete = false;
     NextAttemptAt = 0.0;
     NextCandidate = 0;
     UpdateGate();
     Tags.AddUnique(TEXT("DungeonRoom.Encounter"));
-    if (bEncounterComplete)
-        UE_LOG(LogTemp, Warning, TEXT("[RoomEncounter] 房 %d 的精英组为空，遭遇直接判完成。"), InRoomNodeId);
+    if (Slots.IsEmpty())Complete();
 }
 
 void ADungeonRoomEncounter::Activate()
@@ -126,7 +127,7 @@ void ADungeonRoomEncounter::Activate()
     bArmed = true;
     SetActorTickEnabled(true);
     // Even encounters without a usable doorway wait for the player to enter.
-    UE_LOG(LogTemp, Display, TEXT("[RoomEncounter] 武装：房 %d 精英组 %d 只 封门=%s 落点=%d"),
+    UE_LOG(LogTemp, Display, TEXT("[RoomEncounter] 武装：房 %d 遭遇组 %d 只 封门=%s 落点=%d"),
         RoomNodeId, Slots.Num(), bDoorValid ? TEXT("是") : TEXT("否"), Candidates.Num());
 }
 
@@ -136,15 +137,23 @@ void ADungeonRoomEncounter::Tick(float DeltaSeconds)
     if (!bArmed || !HasAuthority()) return;
     if (!bEncounterComplete)
     {
-        const bool Inside=CombatantInside();
-        if (bSealed && (!Inside || (GateOpen > 0.f && IsGateSweepOccupied()))) OpenGate();
-        if(Inside)
+        const APawn* Player=LivePlayer();
+        const bool Inside=Player&&(RoomContains(Player)||TriggerContains(Player));
+        // Death releases the room for retry without granting a clear. Walking
+        // outside its volume or touching a closing gate never unlocks a live wave.
+        if(!Player)OpenGate();
+        else if(Inside&&!bSealed&&(!bDoorValid||!IsGateSweepOccupied()))
         {
-            bEncounterStarted=true;
-            AttemptSpawns();
-            // Complete the spawn wave before sealing; cap/nav failures leave an exit.
-            if(bDoorValid&&!HasPending()&&AliveCount()>0)SealGate();
+            const auto* Director=Cast<ADungeonSpawnDirector>(GetOwner());
+            // Do not trap a player in a new, empty room while another encounter
+            // occupies every global spawn slot. A partial live wave stays locked.
+            if(bEncounterStarted||!Director||Director->CanSpawnMember())
+            {
+                SealGate();
+                bEncounterStarted=true;
+            }
         }
+        if(Player&&bEncounterStarted&&(bSealed||(!bDoorValid&&Inside)))AttemptSpawns();
         if(bEncounterStarted&&AliveCount()==0&&!HasPending())Complete();
     }
     const float TargetOpen = (bSealed && !bEncounterComplete) ? 0.f : 1.f;
@@ -158,20 +167,23 @@ void ADungeonRoomEncounter::Tick(float DeltaSeconds)
 void ADungeonRoomEncounter::SealGate()
 {
     if (bSealed || bEncounterComplete || !bDoorValid) return;
-    // Use the actual four-track sweep on the room side, including the whole capsule.
+    // The entry safety region includes the outside collar and the entire capsule.
     if (IsGateSweepOccupied()) return;
     bSealed = true;
     SetActorTickInterval(0.f);
     Tags.AddUnique(TEXT("DungeonRoom.Sealed"));
-    UE_LOG(LogTemp, Display, TEXT("[RoomEncounter] 房 %d 精英组落地完成，封闭全部连接门。"), RoomNodeId);
+    for(ADungeonRoomGate* Assembly:Gates)if(IsValid(Assembly))Assembly->SetEncounterLocked(true);
+    UE_LOG(LogTemp, Display, TEXT("[RoomEncounter] 房 %d 战斗锁定，封闭全部连接门；存活=%d，待生成=%d。"), RoomNodeId,AliveCount(),PendingCount());
 }
 
 void ADungeonRoomEncounter::OpenGate()
 {
+    if(!bEncounterComplete&&LivePlayer())return;
     if (!bSealed) return;   // 幂等：导演巡检也会催一次
     bSealed = false;
     SetActorTickInterval(0.f);
     Tags.Remove(TEXT("DungeonRoom.Sealed"));
+    for(ADungeonRoomGate* Assembly:Gates)if(IsValid(Assembly))Assembly->SetEncounterLocked(false);
     UE_LOG(LogTemp, Display, TEXT("[RoomEncounter] 房 %d 开门。"), RoomNodeId);
 }
 
@@ -183,7 +195,7 @@ void ADungeonRoomEncounter::Complete()
     OpenGate();
     Tags.AddUnique(TEXT("DungeonRoom.Cleared"));
     if (Run.IsValid()) Run->MarkRoomCleared(RoomNodeId);
-    UE_LOG(LogTemp, Display, TEXT("[RoomEncounter] 房 %d 精英组清空%s，开门并登记清除。"),
+    UE_LOG(LogTemp, Display, TEXT("[RoomEncounter] 房 %d 遭遇组清空%s，开门并登记清除。"),
         RoomNodeId, bWasSealed ? TEXT("（封门战）") : TEXT("（无门口战）"));
 }
 
@@ -204,7 +216,7 @@ bool ADungeonRoomEncounter::IsGateSweepOccupied() const
 void ADungeonRoomEncounter::AttemptSpawns()
 {
     UWorld* World = GetWorld();
-    if (!World || !bArmed || !bEncounterStarted || !CombatantInside() || !HasPending()) return;
+    if (!World || !bArmed || !bEncounterStarted || (!bSealed&&!CombatantInside()) || !HasPending()) return;
     const double Now = World->GetTimeSeconds();
     if (Now < NextAttemptAt) return;
     NextAttemptAt = Now + RetrySeconds;
@@ -212,7 +224,7 @@ void ADungeonRoomEncounter::AttemptSpawns()
     {
         // 没有可用落点：整组放弃，Tick 据此判完成并开门，绝不把玩家锁在房里。
         for (FDungeonRoomEncounterSlot& Slot : Slots) if (!Slot.bFilled) Slot.bGivenUp = true;
-        UE_LOG(LogTemp, Warning, TEXT("[RoomEncounter] 房 %d 没有可用落点，精英组放弃生成。"), RoomNodeId);
+        UE_LOG(LogTemp, Warning, TEXT("[RoomEncounter] 房 %d 没有可用落点，遭遇组放弃生成。"), RoomNodeId);
         return;
     }
     UDungeonRunSubsystem* Sub = Run.Get();
@@ -239,7 +251,7 @@ void ADungeonRoomEncounter::AttemptSpawns()
             Slot.bFilled = true;
             Owned.Add(Monster);
             Monster->OnDestroyed.AddDynamic(this, &ADungeonRoomEncounter::OnMonsterDestroyed);
-            UE_LOG(LogTemp, Display, TEXT("[RoomEncounter] 房 %d 槽 %d 精英 %s 落地 @ %s"),
+            UE_LOG(LogTemp, Display, TEXT("[RoomEncounter] 房 %d 槽 %d 怪物 %s 落地 @ %s"),
                 RoomNodeId, Index, *Slot.Member.ClassPath, *Monster->GetActorLocation().ToString());
         }
         else
@@ -265,7 +277,7 @@ void ADungeonRoomEncounter::OnMonsterDestroyed(AActor* DestroyedActor)
 
 bool ADungeonRoomEncounter::TriggerContains(const APawn* Pawn) const
 {
-    if (!IsValid(Pawn) || !bDoorValid) return false;
+    if (!IsValid(Pawn) || !bDoorValid || DoorNormal.IsNearlyZero() || DoorCenter.ContainsNaN()) return false;
     // Boss Contains 同款：转到触发盒局部空间做盒判定（盒已按门口法线定向）。
     const FVector Local = TriggerBox->GetComponentTransform().InverseTransformPosition(Pawn->GetActorLocation());
     const FVector Extent = TriggerBox->GetUnscaledBoxExtent();

@@ -41,6 +41,7 @@ for key,recipe in recipes.items():
     name='M_WSFinish_'+key+('_R2' if key=='ToolSteel' else '');path=DEST+'/Materials/'+name;m=u.load_asset(path)
     if not m:
         m=A.create_asset(name,DEST+'/Materials',u.Material,u.MaterialFactoryNew())
+        m.set_editor_property('used_with_nanite',True)
         if recipe.get('two_sided'):m.set_editor_property('two_sided',True)
         if recipe.get('masked'):
             m.set_editor_property('blend_mode',u.BlendMode.BLEND_MASKED)
@@ -76,7 +77,10 @@ for key,recipe in recipes.items():
         if 'Roughness' not in recipe.get('maps',{}):output(scalar(m,recipe.get('roughness',.6)),'ROUGHNESS')
         if 'Metallic' not in recipe.get('maps',{}):output(scalar(m,recipe['metallic']),'METALLIC')
         output(scalar(m,.30),'SPECULAR')
-        L.layout_material_expressions(m);L.recompile_material(m);save(m)
+        L.layout_material_expressions(m);L.recompile_material(m)
+    if not m.get_editor_property('used_with_nanite'):
+        m.modify();m.set_editor_property('used_with_nanite',True);L.recompile_material(m)
+    save(m)
     receipt['materials'][key]=m.get_path_name();write()
 for entry in manifest['objects']:
     name=entry['name'];folder=DEST+'/Meshes';path=folder+'/'+name;mesh=u.load_asset(path)

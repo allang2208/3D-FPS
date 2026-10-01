@@ -61,9 +61,10 @@ public:
 
     bool IsValidConfiguration() const;
     EFPSTraversalAction ClassifyHeight(float Height) const;
-    // An authored guardrail can allow a deeper, fully queried landing. Default
-    // callers (including Blueprint EvaluateObstacle) retain the ordinary limits.
-    EFPSTraversalAction Evaluate(const FFPSTraversalProbe& Probe, float SurfaceMaxLandingDrop = 0.f) const;
+    // Authored rails can land on stairs behind a reachable grip, in either direction.
+    // Default callers (including Blueprint EvaluateObstacle) retain ordinary limits.
+    EFPSTraversalAction Evaluate(const FFPSTraversalProbe& Probe, float SurfaceMaxLandingDrop = 0.f,
+        bool bGuardrailCrossing = false) const;
 };
 
 UCLASS()

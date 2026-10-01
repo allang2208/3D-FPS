@@ -1,5 +1,6 @@
 ﻿#include "ColdSteelExpeditionWidget.h"
 #include "ColdSteelUIStyle.h"
+#include "Blueprint/WidgetLayoutLibrary.h"
 #include "ImageUtils.h"
 #include "Engine/Texture2D.h"
 #include "Misc/Paths.h"
@@ -96,7 +97,7 @@ TSharedRef<SButton> UColdSteelExpeditionWidget::Action(const FString& Text, TFun
 
 TSharedRef<SWidget> UColdSteelExpeditionWidget::BuildCatalog()
 {
-    auto Filters = SNew(SHorizontalBox);
+    auto Filters = SNew(SHorizontalBox).Visibility_Lambda([this]() { return Destinations.Num()>1 ? EVisibility::Visible : EVisibility::Collapsed; });
     for (int32 Index = 0; Index < 2; ++Index)
     {
         TSharedPtr<SButton> Button;
@@ -114,7 +115,7 @@ TSharedRef<SWidget> UColdSteelExpeditionWidget::BuildCatalog()
                 +SHorizontalBox::Slot().AutoWidth()[SNew(STextBlock).Text_Lambda([this]() { return FText::AsNumber(VisibleIds.Num()); })
                     .Font(ColdSteelUI::NumberFont(10.5f)).ColorAndOpacity(ColdSteelUI::TextTertiary)]]
         +SVerticalBox::Slot().AutoHeight().Padding(0, 0, 0, 8)
-            [SNew(SBox).MinDesiredHeight(36)
+            [SNew(SBox).MinDesiredHeight(36).Visibility_Lambda([this]() { return Destinations.Num()>1 ? EVisibility::Visible : EVisibility::Collapsed; })
                 [SAssignNew(Search, SEditableTextBox).Style(&SearchStyle).Text(FText::FromString(Query))
                     .HintText(FText::FromString(TEXT("搜索目的地 / 类型")))
                     .OnTextChanged_Lambda([this](const FText& Text) { Query = Text.ToString().TrimStartAndEnd(); RefreshList(); })]]
@@ -182,6 +183,9 @@ TSharedRef<SWidget> UColdSteelExpeditionWidget::RebuildWidget()
     FallbackBrush = ColdSteelUI::RoundedBrush(ColdSteelUI::GlassFallback, ColdSteelUI::PanelRadius);
     CardBrush = ColdSteelUI::RoundedBrush(ColdSteelUI::Content, ColdSteelUI::CardRadius);
     HeroBrush = ColdSteelUI::RoundedBrush(ColdSteelUI::StatusCard, ColdSteelUI::CardRadius);
+    RewardTooltipBrush = ColdSteelUI::RoundedBrush(ColdSteelUI::ItemTooltipSurface, ColdSteelUI::CardRadius, ColdSteelUI::ItemTooltipBorder, 1);
+    ResourceStyle.SetBackgroundImage(ColdSteelUI::RoundedBrush(ColdSteelUI::Content,2,FLinearColor::Transparent,0));
+    ResourceStyle.SetFillImage(ColdSteelUI::RoundedBrush(FLinearColor::White,2,FLinearColor::Transparent,0));
     NormalStyle = ColdSteelUI::ButtonStyle();
     NormalStyle.SetNormalPadding(FMargin(0)).SetPressedPadding(FMargin(0));
     SelectedStyle = NormalStyle;
@@ -242,10 +246,12 @@ TSharedRef<SWidget> UColdSteelExpeditionWidget::RebuildWidget()
     UpdateLayout();
     // Cancel UMG's canvas DPI; thresholds and typography use actual available pixels, as the other workbenches do.
     return SNew(SDPIScaler).DPIScale_Lambda([this]() { return 1.f / ColdSteelUI::PixelScale(this); })
-        [SNew(SBorder).BorderBackgroundColor(ColdSteelUI::Gray(10, 225)).Padding(12)
+        [SNew(SBorder).BorderBackgroundColor(ColdSteelUI::Gray(10, 225)).Padding(12).HAlign(HAlign_Center)
+            [SNew(SBox).WidthOverride_Lambda([this]()
+                { const float ViewWidth=UWidgetLayoutLibrary::GetViewportSize(this).X;return ViewWidth>0?FMath::Max(0.f,FMath::Min(1800.f,ViewWidth-24.f)):1800.f; })
             [SNew(SBackgroundBlur).BlurStrength(ColdSteelUI::GlassBlurStrength).BlurRadius(ColdSteelUI::GlassBlurRadius).CornerRadius(FVector4(ColdSteelUI::PanelRadius))
                 .LowQualityFallbackBrush(&FallbackBrush).Padding(0)
-                [SNew(SBorder).BorderImage(&PanelBrush).Padding(16)[Content]]]];
+                [SNew(SBorder).BorderImage(&PanelBrush).Padding(16)[Content]]]]];
 }
 
 void UColdSteelExpeditionWidget::UpdateLayout()
@@ -254,32 +260,33 @@ void UColdSteelExpeditionWidget::UpdateLayout()
     const float Width = BodyHost->GetCachedGeometry().GetLocalSize().X;
     const float Height = BodyHost->GetCachedGeometry().GetLocalSize().Y;
     const int32 Mode = Width < 100 ? 0 : (Width < 900 || (Height > 0 && Height < 480)) ? 2 : Width < 1280 ? 1 : 0;
-    const float DetailWidth = Width - (Mode == 0 ? 600.f : Mode == 1 ? 280.f : 28.f);
+    const float DetailWidth = Width - (Mode == 0 ? 618.f : Mode == 1 ? 270.f : 34.f);
     const bool SingleColumn = DetailWidth < 560.f;
+    const int32 Columns = FMath::Clamp(FMath::FloorToInt(DetailWidth/250.f),1,3);
     if (LayoutMode == Mode)
     {
-        if (bSingleColumnFacts != SingleColumn) { bSingleColumnFacts = SingleColumn; RefreshDetail(); }
+        if (bSingleColumnFacts != SingleColumn || RewardColumns != Columns)
+        { bSingleColumnFacts = SingleColumn; RewardColumns = Columns; RefreshDetail(); }
         return;
     }
     bSingleColumnFacts = SingleColumn;
+    RewardColumns = Columns;
     LayoutMode = Mode;
     BodyHost->SetContent(SNullWidget::NullWidget);
     CatalogRows.Reset(); DetailRows.Reset(); PreparationRows.Reset(); Search.Reset(); DetailScroll.Reset();
     CatalogButtons.Reset(); FilterButtons.Reset(); DetailButtons.Reset();
     if (Mode == 0)
         BodyHost->SetContent(SNew(SHorizontalBox)
-            +SHorizontalBox::Slot().AutoWidth().Padding(0, 0, 12, 0)[SNew(SBox).WidthOverride(248)[BuildCatalog()]]
+            +SHorizontalBox::Slot().AutoWidth().Padding(0, 0, 12, 0)[SNew(SBox).WidthOverride(224)[BuildCatalog()]]
             +SHorizontalBox::Slot().FillWidth(1).Padding(0, 0, 12, 0)[BuildDetail()]
-            +SHorizontalBox::Slot().AutoWidth()[SNew(SBox).WidthOverride(300)[BuildPreparation()]]);
+            +SHorizontalBox::Slot().AutoWidth()[SNew(SBox).WidthOverride(336)[BuildPreparation()]]);
     else if (Mode == 1)
         BodyHost->SetContent(SNew(SHorizontalBox)
-            +SHorizontalBox::Slot().AutoWidth().Padding(0, 0, 12, 0)[SNew(SBox).WidthOverride(240)[BuildCatalog()]]
+            +SHorizontalBox::Slot().AutoWidth().Padding(0, 0, 12, 0)[SNew(SBox).WidthOverride(224)[BuildCatalog()]]
             +SHorizontalBox::Slot().FillWidth(1)[SNew(SVerticalBox)
                 +SVerticalBox::Slot().FillHeight(.62f).Padding(0, 0, 0, 12)[BuildDetail()]
                 +SVerticalBox::Slot().FillHeight(.38f)[BuildPreparation()]]);
     else
         BodyHost->SetContent(CompactPage == 0 ? BuildCatalog() : CompactPage == 1 ? BuildDetail() : BuildPreparation());
     RefreshList();
-    RefreshDetail();
-    RefreshPreparation();
 }

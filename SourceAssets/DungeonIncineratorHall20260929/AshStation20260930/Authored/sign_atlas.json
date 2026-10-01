@@ -1,0 +1,39 @@
+{
+  "size": [
+    2048,
+    2048
+  ],
+  "rects": {
+    "main": [
+      24,
+      24,
+      2024,
+      825
+    ],
+    "machine": [
+      24,
+      860,
+      2024,
+      1405
+    ],
+    "caution": [
+      24,
+      1440,
+      1300,
+      2024
+    ],
+    "gate": [
+      1330,
+      1440,
+      2024,
+      1750
+    ],
+    "bin": [
+      1330,
+      1780,
+      2024,
+      2024
+    ]
+  },
+  "source": "Original Chinese typeset signage; Microsoft YaHei rendered as artwork, font not redistributed"
+}

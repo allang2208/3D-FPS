@@ -1,0 +1,31 @@
+{
+  "objects": [
+    {
+      "name": "SM_AnatomyTheatre_SeatWood_V2",
+      "kind": "SeatWood",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\SeatLightRefine20261001\\Authored\\SM_AnatomyTheatre_SeatWood_V2.fbx",
+      "materials": {
+        "RS_Wood": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      },
+      "triangles": 94160,
+      "collision": true,
+      "sample_only": false
+    },
+    {
+      "name": "SM_AnatomyTheatre_WritingLedges_V2",
+      "kind": "WritingLedges",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonAnatomyTheatre20261001\\SeatLightRefine20261001\\Authored\\SM_AnatomyTheatre_WritingLedges_V2.fbx",
+      "materials": {
+        "RS_Wood": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      },
+      "triangles": 18832,
+      "collision": true,
+      "sample_only": false
+    }
+  ],
+  "tests_run": false,
+  "rendered": false,
+  "revision": "anatomy_theatre_seat_light_v2_20261001",
+  "ceramic_source": "DungeonTileFracture20260922 through CorridorSurfaces",
+  "source_units": "metres; UE centimetres"
+}

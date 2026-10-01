@@ -1,0 +1,13 @@
+{
+  "new_geometry": "Original Blender procedural hard-surface meshes; editable blend and FBX retained",
+  "new_textures": "Original equipment lettering, gauge faces and safety sign atlas authored with Pillow; no generated reference images",
+  "reused": [
+    "DungeonSeamMetal20260923 industrial steel/enamel/rubber materials",
+    "DungeonWallUpgrade20260924 concrete",
+    "DungeonIndustrialV1 ceiling fixtures",
+    "DungeonFacilityScenes20260927 power cabinet",
+    "DungeonRoomShells20260922 geometry helpers"
+  ],
+  "external_downloads": [],
+  "license_note": "Shared project dependencies retain their existing provenance; no new third-party download or redistribution."
+}
