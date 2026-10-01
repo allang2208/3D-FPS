@@ -19,21 +19,15 @@
 | Git Bash 坑 | URL 里 `/Game/...` 要 `MSYS_NO_PATHCONV=1` 前缀，否则前导斜杠被转义 |
 | worktree 拆除坑 | 先 `rmdir` 断 junction（DDC 等）再 `git worktree remove`（既有教训） |
 
-## 1. 当前状态（最后更新：2026-10-01 13:10，M4 世界同步代码全部写完，编译被占用阻塞）
+## 1. 当前状态（最后更新：2026-10-01 13:45，M4 编译过、丘陵验证被用户暂停）
 
-- **M1-M3 全部闭环**（自动化验证全绿；用户手动验收仍欠：背包/装备/喝药/对射手感）。
-- **主仓闪退已修**：`SVDGripProfiles.cpp` 空武器定义守卫（用户编辑器 12:52 启动，DLL 12:51 已含修复 ✓）。
-- **M4 世界同步代码全部写完（待编译）**——`TemperateHillsWorld.h/.cpp` 十处改动：
-  1. `bReplicates=true` + `GetLifetimeReplicatedProps`（Seed/WorldId/NetEdits/NetEditsVersion 四路复制）；
-  2. BeginPlay 闸门改三分支：专用服拒/客户端等待复制（`HILLS_NET client: awaiting replicated session`）/监听服照常；
-  3. 后半段管线提炼 `StartWorldPipeline()`（客户端跳过 Slot 检查——不落盘）；
-  4. **Tick 顶部客户端确定性重建入口**：等 `WorldId.IsValid()` → 转换 NetEdits → RebuildEditBuckets → 启动管线（日志锚点 `MPTEST hills client session: seed=N edits=M`）；
-  5. `ConvertNetEdits/SyncNetEdits/OnRep_NetEdits` 三件套；AddTerrainEdit 尾部 `SyncNetEdits()`（全量≤256 条重发，差分留 perf 轮）；
-  6. `#include "Net/UnrealNetwork.h"`。
-- **编译阻塞**：用户主仓编辑器在跑（引擎级 Live Coding 互斥锁）+ 空闲内存仅 415MB。**恢复=编辑器关闭后重跑构建**，然后丘陵图双进程验证（主机 `L_TemperateHills_Initial?listen`、客户端加入，断言客户端 `MPTEST hills client session` + 双端 HILLS 就绪日志）。
-- M4 余项（本轮之后）：挖坑编辑两端一致（OnRep_NetEdits 已写，待实测）、传送门 seamless travel、昼夜两端一致性观察。
+- M1-M3 全部闭环；主仓闪退已修（用户编辑器已带修复运行）。
+- **M4 世界同步代码完成且编译 Succeeded**（worklog 上一版所列十处改动）。
+- **M4 首轮丘陵验证定位到关键阻塞**：客户端网络 travel 到重资产图（丘陵/DayNight 同病根）1.3s 静默失败 `Travel Failure: Failed to load package 'L_TemperateHills_Initial'`（直开同图正常——主机 50s 即 HILLS_READY seed=-2051251055 全 14/14 格）。**规避方案已实现并编译**：`UColdSteelNetConnectSubsystem`（`-MPConnect=<addr> -MPConnectDelay=<秒>`，客户端先本地直开把资产编译热，再从进程内 open 连线，旅行重载命中热缓存）。
+- **验证被用户暂停**（"先暂停吧"）：暂停前主机第二轮 HILLS_READY 已就绪，客户端尚在本地直载阶段（无关键行）。**恢复=重跑 §4 丘陵姿势**（客户端带 -MPConnect=127.0.0.1:7777 -MPConnectDelay=150 直开丘陵图），断言客户端 `connect issuing` → `Welcomed` → **`MPTEST hills client session: seed=-2051251055`（与主机同种子=确定性重建成立）**。
+- M4 之后的余项：挖坑编辑 OnRep 双端一致实测、传送门 seamless travel、昼夜一致性观察、重图 travel 失败的根治（当前只有规避）。
 
-### ⚠️ worktree 特殊构造（接手必读）### ⚠️ worktree 特殊构造（接手必读）### ⚠️ worktree 特殊构造（接手必读）### ⚠️ worktree 特殊构造（接手必读）
+### ⚠️ worktree 特殊构造（接手必读）### ⚠️ worktree 特殊构造（接手必读）### ⚠️ worktree 特殊构造（接手必读）### ⚠️ worktree 特殊构造（接手必读）### ⚠️ worktree 特殊构造（接手必读）
 
 主仓 `.gitignore:83` 排除了整个 `/Content/*`（81GB 重资产不在 git 里，只 44 个 JSON 强跟踪）。因此 worktree 采用**混合构造**：
 - `Source/ Config/ Docs/` 等 = HEAD 检出 + **主仓工作区覆盖层**（`Tools/mp_overlay_sync.py` 同步，原因见 §5 坑#3）；
