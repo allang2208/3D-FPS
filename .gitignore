@@ -1830,3 +1830,21 @@ __pycache__/
 /SourceAssets/DungeonThemedRoutes20261001/**/__pycache__/
 !/SourceAssets/DungeonCargoWarehouse20261001/RefineV2/Cargo/manifest.json
 !/SourceAssets/DungeonDataArchive20260930/EquipmentRefine20260930/Structure/manifest.json
+
+# Hundred-eyed Slag: publish owned recipes/prose, not Meshy/Epic payloads,
+# sampled donor poses, UE packages, native products or local transport receipts.
+/SourceAssets/HundredEyedSlagMeshy20260930/**
+!/SourceAssets/HundredEyedSlagMeshy20260930/**/
+!/SourceAssets/HundredEyedSlagMeshy20260930/**/*.py
+!/SourceAssets/HundredEyedSlagMeshy20260930/**/*.ps1
+!/SourceAssets/HundredEyedSlagMeshy20260930/**/*.md
+!/SourceAssets/HundredEyedSlagMeshy20260930/**/*.hlsl
+!/SourceAssets/HundredEyedSlagMeshy20260930/meshy_settings.json
+!/SourceAssets/HundredEyedSlagMeshy20260930/AuthoringV1/skeleton_spec.json
+!/SourceAssets/HundredEyedSlagMeshy20260930/AuthoringV1/animation_contract.json
+!/SourceAssets/HundredEyedSlagMeshy20260930/AuthoringV1/source_geometry.json
+!/SourceAssets/HundredEyedSlagMeshy20260930/Publication20261002/archive-manifest.json
+!/SourceAssets/HundredEyedSlagMeshy20260930/Publication20261002/published-files.json
+!/SourceAssets/HundredEyedSlagMeshy20260930/Publication20261002/runtime-handoff.json
+/SourceAssets/HundredEyedSlagMeshy20260930/Meshy/
+/SourceAssets/HundredEyedSlagMeshy20260930/PolishV2/NativeObjects/

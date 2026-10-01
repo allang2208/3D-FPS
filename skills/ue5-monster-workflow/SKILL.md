@@ -108,6 +108,8 @@ description: 制作与接入 UE5 怪物，支持 Meshy 已蒙皮绑骨的人形�
 
 ## 按需参考
 
+- 不对称巨臂的供体重定向、下劈收势、根单位布娃娃和身体目盲浓烟，读 [百目炉渣案例](references/hundred-eyed-slag.md)。区分已认可攻击主体与仍待用户确认的修订。
+
 - 毒蛆液团、巫婆普通毒弹、毒雾尾迹和撞击湿痕制作读 [黏液表现](references/venom-liquid.md)，复用世界效果池并保留各自伤害合同；当前修订未进行游戏或画面测试。
 
 - 修改怪物 AI、枪击硬直、眩晕、寻路和行为选择时读 [Behavior Tree 约定](references/monster-ai.md)。

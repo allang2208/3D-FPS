@@ -1,0 +1,51 @@
+{
+  "api_base": "https://api.meshy.ai/openapi",
+  "proxy": "http://127.0.0.1:7897",
+  "common": {
+    "ai_model": "meshy-7.1",
+    "geometry_resolution": "2k",
+    "texture_resolution": "4k",
+    "should_texture": true,
+    "enable_pbr": true,
+    "should_remesh": false,
+    "pose_mode": "",
+    "image_enhancement": false,
+    "remove_lighting": true,
+    "target_formats": [
+      "glb",
+      "fbx",
+      "obj"
+    ],
+    "auto_size": false,
+    "alpha_thumbnail": false,
+    "multi_view_thumbnails": false
+  },
+  "assets": {
+    "body": {
+      "images": [
+        "Inputs/body/front.png",
+        "Inputs/body/right.png",
+        "Inputs/body/back.png"
+      ],
+      "options": {}
+    }
+  },
+  "reference_version": "V2",
+  "reference_order": [
+    "front",
+    "anatomical right profile facing left",
+    "back"
+  ],
+  "planned_dimensions_m": {
+    "length": 2.2,
+    "width": 1.9,
+    "height": 1.2
+  },
+  "dimension_status": "Design intent only; Meshy output scale not yet authored",
+  "estimated_generation_credits": 35,
+  "credentials": "MESHY_API_KEY in process/User/Machine environment only",
+  "sources": [
+    "https://docs.meshy.ai/en/api/multi-image-to-3d",
+    "https://docs.meshy.ai/en/api/pricing"
+  ]
+}

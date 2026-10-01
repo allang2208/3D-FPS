@@ -459,3 +459,9 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 ## 主题地牢、错层坡道与全房闸门（2026-10-02）
 
 本对话五个房间主题及其制作脚本、目录、生成/遭遇源码、翻越、出征 UI 和技能沉淀见 [地牢发布记录](Gameplay/dungeon-publication-20261002.md)。112 份退役快照/备份/收尾脚本移入 trash；正式 Blender 源、导出、纹理、生产地图与本机安装回执保留。素材复用与再分发边界见 [主题资产说明](../ThirdPartyNotices/DUNGEON_THEMES_20261002.md)。本轮直接发布现有运行源码增量，不再叠加旧交接补丁；Git 仍不包含完整本机二进制 Content，恢复后才能运行。最新全房封门已有基础 DLL 构建，未进行本轮游戏测试。
+
+## 百目炉渣巨臂与身体浓烟（2026-10-02）
+
+恢复本机 `Content/Monsters/HundredEyedSlag` 的 V1 骨架与基础动作、PolishV2 跑动／死亡／材质、ArticulationV12 三档网格、原路径下的 RampageV8 横扫与 V9 下劈收势、ThreeAttacksV13 激光片段、EyeLaserJumpV11 激光材质、EyeChargeV14 眼部蓄能、RagdollGroundV16 物理资产、WorldSmokeV19 目盲材质与 SmokeVisibilityFixV21 浓烟系统／材质。当前三攻击、伤害和状态以运行源码为准。
+
+公开本次原创玩法、作者配方和恢复说明；Meshy 模型／PBR、Epic Rampage 网格与供体动画／逐帧采样、复用 MayuOrbs／ElectricMagic／Niagara Examples 材质、Mantaflow 图集、UE 包、DLL 和导入回执留在本机。旧日期不能作为判废理由，当前作者仍读 V1–V9 的模型／蒙皮输入和 V17 噪声。归档清单、最新路径、来源与未测试边界见 [百目炉渣整理与发布](Monsters/hundred-eyed-slag-publication-20261002.md)。

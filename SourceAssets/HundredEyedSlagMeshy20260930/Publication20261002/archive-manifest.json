@@ -1,0 +1,1745 @@
+{
+  "files": [
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/References/RejectedV1/hundred_eyed_slag_turnaround_v1.png",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/References/RejectedV1/hundred_eyed_slag_turnaround_v1.png",
+      "bytes": 1957739,
+      "sha256": "c34e7b63b4fe7b461cbce49bca4489e03563c67dc337c6cb7aceb09f605e79e4",
+      "reason": "User rejected the initial reference; V2 and Inputs/body are retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/References/RejectedV1/prompt.txt",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/References/RejectedV1/prompt.txt",
+      "bytes": 3454,
+      "sha256": "8261842f1da49c457d7d8f66326b07d33956382a01e974299ecb3b1a74a98a51",
+      "reason": "User rejected the initial reference; V2 and Inputs/body are retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/animation_contract.json",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/animation_contract.json",
+      "bytes": 17217,
+      "sha256": "e3e3caf12a7da171fe370186fe5d872c8f30e67e3d32eb9473718201bb994d76",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/animation_installation.json",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/animation_installation.json",
+      "bytes": 2557,
+      "sha256": "f427c2cd62aa1fe9e382988f5c3997c5a3f04d068ece89f5e12aace34cf479cf",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/author_charge.py",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/author_charge.py",
+      "bytes": 12618,
+      "sha256": "14055a70e17f2be944a59cb43516c03b79172469d5162bd4168340c8e7b236ab",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/authoring.log",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/authoring.log",
+      "bytes": 1384,
+      "sha256": "d82df53ee0172e63d827769b84a056060e04287af2e19c1e0d18cb5c9c58f79b",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/build_installation.json",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/build_installation.json",
+      "bytes": 578,
+      "sha256": "61306a2450347653ea8a5df8914fd80126d10f6926a8d5ddfae0ce2308a4194f",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Build-Background.ps1",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Build-Background.ps1",
+      "bytes": 2000,
+      "sha256": "ebb3c119fdc29d77ebd3f6d6d6ee1d0ae3dbfd2fc59ffe1c7cdffe47b0484ef8",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/build-console-20261001-170217.txt",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/build-console-20261001-170217.txt",
+      "bytes": 13817,
+      "sha256": "6d27ba29e45f22d513eedf26c2d63332ae366a7fd6774ab107b00d1f7c4e0883",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/end_play_batch-20261001-170930-360.txt",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/end_play_batch-20261001-170930-360.txt",
+      "bytes": 518,
+      "sha256": "e2a5fd22f5a9874f44d3ef85a5eb7e64e4a2412d0e10bfb9ea98542595305f71",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/end_play_bridge-20261001-170605-609.txt",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/end_play_bridge-20261001-170605-609.txt",
+      "bytes": 529,
+      "sha256": "7ec9c954256cb06728d058205f69f4467c45dd62510bb97eb33faa3440d88545",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/end_play_bridge-20261001-170741-971.txt",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/end_play_bridge-20261001-170741-971.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/finish_install.py",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/finish_install.py",
+      "bytes": 3669,
+      "sha256": "16e98de1f2a562344880063911f34eb63d92d0c927f0eeb7ebcca50ea7c5df4b",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Finish-Background.ps1",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Finish-Background.ps1",
+      "bytes": 3505,
+      "sha256": "40896dc0aba699f2a67fbf186e25efc9d5a1f385563465e52d8d47d07920029a",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/HundredEyedSlag_ChargeV10.blend",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/HundredEyedSlag_ChargeV10.blend",
+      "bytes": 78376837,
+      "sha256": "e34f583a43ea379e9848f4729e3e900865aa5a004b5c2262a730a645502155e1",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/HundredEyedSlag_ChargeV10.blend1",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/HundredEyedSlag_ChargeV10.blend1",
+      "bytes": 78377885,
+      "sha256": "83ec22cf53d1dc1afbb67c0be87dfeed0636ec0748fa8938446cb9e72d4394d0",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/install_animations.py",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/install_animations.py",
+      "bytes": 4708,
+      "sha256": "aa880967995f219c005cc9099b41c21d169078bac07ca159977007c37ab7202d",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/install_batch-20261001-170934-569.txt",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/install_batch-20261001-170934-569.txt",
+      "bytes": 531,
+      "sha256": "effb88283165fa1bfd645f7056da7be5b060556c5c80badc94c43fb22eccc6b6",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/install_bridge-20261001-165356-631.txt",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/install_bridge-20261001-165356-631.txt",
+      "bytes": 901,
+      "sha256": "78ba6442a4e3a6631da4120ca5084324f03ab541cbd624ecd0d554cedb6368b9",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/install_bridge-20261001-170532.txt",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/install_bridge-20261001-170532.txt",
+      "bytes": 1153,
+      "sha256": "c675e922ad790006f210c06b164dc12d776f51138811f757685edf5d9e3a58da",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/install_bridge-20261001-170624.txt",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/install_bridge-20261001-170624.txt",
+      "bytes": 1153,
+      "sha256": "c675e922ad790006f210c06b164dc12d776f51138811f757685edf5d9e3a58da",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/installation_complete.json",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/installation_complete.json",
+      "bytes": 410,
+      "sha256": "cf28ed18df7596de0e5cf2fa4fd9ca88b60d8d4512829e0c851c458e75ae5c52",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/prepare_save-20261001-165347-774.txt",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/prepare_save-20261001-165347-774.txt",
+      "bytes": 529,
+      "sha256": "7a801baa79a4099c8e4a8dd7a50b069e1d97abbc6903aaa6f2d6c9bca336219c",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Save-InExistingEditor.ps1",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Save-InExistingEditor.ps1",
+      "bytes": 1926,
+      "sha256": "5defc6bcc12ca53952783040e7a7dc1fc20e5649983f71eb5dde8b1ac332d678",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Before/Monsters/HundredEyedSlag/ChargeV10/Animations/A_HundredEyedSlag_ChargeImpact.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Before/Monsters/HundredEyedSlag/ChargeV10/Animations/A_HundredEyedSlag_ChargeImpact.uasset",
+      "bytes": 107837,
+      "sha256": "9ac4e8125914fae1c8f55a913ba44e2dce923336393384a5112553313fe1f177",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Before/Monsters/HundredEyedSlag/ChargeV10/Animations/A_HundredEyedSlag_ChargeRecover.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Before/Monsters/HundredEyedSlag/ChargeV10/Animations/A_HundredEyedSlag_ChargeRecover.uasset",
+      "bytes": 151624,
+      "sha256": "557faa5ecdf5075018d2001ecbbba6a6b67c53abdd2993ab66a5f301f82a906d",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Before/Monsters/HundredEyedSlag/ChargeV10/Animations/A_HundredEyedSlag_ChargeRush.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Before/Monsters/HundredEyedSlag/ChargeV10/Animations/A_HundredEyedSlag_ChargeRush.uasset",
+      "bytes": 87132,
+      "sha256": "19ee7fde503745da19eee06cb7e135599ccd8878e00cf66f99b4195df9f692d2",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Before/Monsters/HundredEyedSlag/ChargeV10/Animations/A_HundredEyedSlag_ChargeWindup.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Before/Monsters/HundredEyedSlag/ChargeV10/Animations/A_HundredEyedSlag_ChargeWindup.uasset",
+      "bytes": 164594,
+      "sha256": "e1d15344b2de1ac5a6c050e1703ef2faa9d5cd0cc5920e347b1d4668b445491c",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1_Skeleton.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1_Skeleton.uasset",
+      "bytes": 17166,
+      "sha256": "75c19c69a88aa8a3d260e987b7ff914c8d030b57781721b87e4530196b9beedf",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Delivery/Animations/A_HundredEyedSlag_ChargeImpact_V10.fbx",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Delivery/Animations/A_HundredEyedSlag_ChargeImpact_V10.fbx",
+      "bytes": 346172,
+      "sha256": "840f60c1f55e286abcc8ebc2f08f975e9609d310de1fb18bcd0ed5ff5c84456e",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Delivery/Animations/A_HundredEyedSlag_ChargeRecover_V10.fbx",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Delivery/Animations/A_HundredEyedSlag_ChargeRecover_V10.fbx",
+      "bytes": 389484,
+      "sha256": "bfe5ce7b4fc4ff5b5fb90dc8157eb2fe444c8a4a0084ad51bd96de219c4a33b1",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Delivery/Animations/A_HundredEyedSlag_ChargeRush_V10.fbx",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Delivery/Animations/A_HundredEyedSlag_ChargeRush_V10.fbx",
+      "bytes": 358060,
+      "sha256": "de9c8fc61d7aed6bdcaab0f2d40d0c797e73843290429bad48a04f460d522e39",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Delivery/Animations/A_HundredEyedSlag_ChargeWindup_V10.fbx",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ChargeV10/Delivery/Animations/A_HundredEyedSlag_ChargeWindup_V10.fbx",
+      "bytes": 398028,
+      "sha256": "8e44e0886ca6ecfec65c683df891fad76fbac3101446062dd732bac12f742849",
+      "reason": "Charge attack cancelled in V11; current native role set and production inputs do not reference ChargeV10.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21; RampageV8; RampageRecoverV9; ArticulationV12; ThreeAttacksV13",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/AggressionV5/Before/HundredEyedSlagMonster.cpp",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/AggressionV5/Before/HundredEyedSlagMonster.cpp",
+      "bytes": 22336,
+      "sha256": "5ab92bc4c4a39c6779ce43e15720f90e03987dfb1992ef92778eb26a098ac1a0",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/AggressionV5/Before/HundredEyedSlagMonster.h",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/AggressionV5/Before/HundredEyedSlagMonster.h",
+      "bytes": 5673,
+      "sha256": "44f98fe62569f640b0e16ff067a92d63e16a271a41c5df7e09a8d7e499a48c32",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/AggressionV5/Before/MonsterCombatComponent.cpp",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/AggressionV5/Before/MonsterCombatComponent.cpp",
+      "bytes": 20386,
+      "sha256": "6c6fe600bf6d73b694b3a0043f771f218faebf12c2641ff67f8a70ccdcdd1caf",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ApeRecoveryV7/Before/Monsters/HundredEyedSlag/PolishV2/SK_HundredEyedSlag_V2.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ApeRecoveryV7/Before/Monsters/HundredEyedSlag/PolishV2/SK_HundredEyedSlag_V2.uasset",
+      "bytes": 26679444,
+      "sha256": "c3bd10b64f301a68f674aaba08c68b97461aef2d466f3241ed40e91fe78cd4d6",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ApeRecoveryV7/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1_Skeleton.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ApeRecoveryV7/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1_Skeleton.uasset",
+      "bytes": 17163,
+      "sha256": "aa51c42ee98a424f562346c7db37fbde0fa69a0eb146995e20642448e39e3687",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ApeRecoveryV7/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ApeRecoveryV7/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1.uasset",
+      "bytes": 26684910,
+      "sha256": "5784fee6e07ef44c1b97881435751c2b5bd6d1756021c245a3f925293fa87a11",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ApeRecoveryV7/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_AttackSlam_R.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ApeRecoveryV7/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_AttackSlam_R.uasset",
+      "bytes": 212487,
+      "sha256": "42a04cf04f35334a914ee4fde0c525816b4fbca0e050a5f01709dff5f6fbfcbc",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ApeRecoveryV7/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_AttackSweep_R.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ApeRecoveryV7/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_AttackSweep_R.uasset",
+      "bytes": 177958,
+      "sha256": "1dd7be1dcd8cf1004e561c3f47bb29fedf3fbfb468328e24136b2804e30a2567",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ArticulationV12/Before/Source/FPSGAME/Monsters/HundredEyedSlagMonster.cpp",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ArticulationV12/Before/Source/FPSGAME/Monsters/HundredEyedSlagMonster.cpp",
+      "bytes": 27529,
+      "sha256": "03e02a9b55d37862d2ccfd379fd137adbd207fe9181acbb8d940f8974f664fec",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ArticulationV12/Before/Source/FPSGAME/Monsters/HundredEyedSlagMonster.h",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ArticulationV12/Before/Source/FPSGAME/Monsters/HundredEyedSlagMonster.h",
+      "bytes": 10975,
+      "sha256": "6c44bd920843d94c52643289ec5694142cb72e3052ea0cb10ea001118f63c7f1",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ArticulationV12/Before/Source/FPSGAME/Monsters/HundredEyedSlagSpecialAttacks.cpp",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ArticulationV12/Before/Source/FPSGAME/Monsters/HundredEyedSlagSpecialAttacks.cpp",
+      "bytes": 12451,
+      "sha256": "ee48a3bec71d97797113732a1ce9d8acdad84d80097f2a1998a963bf55bc2b32",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ArticulationV12/HundredEyedSlag_ArticulationV12.blend1",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ArticulationV12/HundredEyedSlag_ArticulationV12.blend1",
+      "bytes": 78839500,
+      "sha256": "96d45a772ee388f30bac1412839929e4dbd492c2741e25e9a0354431ce1f4b2e",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/ArticulationV12/HundredEyedSlag_ArticulationV12.blend",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/author_black_mist.py.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/author_black_mist.py.before",
+      "bytes": 9392,
+      "sha256": "858b753b6758a8a08ef5d65af634ca1bec76bab1e84103b2839ded960a565304",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/HundredEyedSlagMonster.cpp.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/HundredEyedSlagMonster.cpp.before",
+      "bytes": 33409,
+      "sha256": "0425562b7f9f2ff05a9e26266c5e090d349f2cfd7cf9e5c4134bb065f3c3e8d9",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/HundredEyedSlagMonster.h.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/HundredEyedSlagMonster.h.before",
+      "bytes": 13025,
+      "sha256": "d7af33c3c805c5646e389144631daccf6b125424544c97c4f734a2a1964538f4",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/production_status.json.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/production_status.json.before",
+      "bytes": 5836,
+      "sha256": "a5329efc51349da4f032f39850c77002863f63c494b1e813ddbf7b089b29b2e0",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/SlagBlackMist.cpp.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/SlagBlackMist.cpp.before",
+      "bytes": 3389,
+      "sha256": "4755b792ba4e4199a6239691a83639aa5cd72ee5c3be3dc6f434d102753d5b6b",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/SlagMistViewComponent.cpp.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/SlagMistViewComponent.cpp.before",
+      "bytes": 5876,
+      "sha256": "7d4daa5d1fd462284a0ca4bd78566bfe3ae8972cf38f8e3eb9bd673e2b122383",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BlackMistV17/HundredEyedSlagMonster.cpp.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BlackMistV17/HundredEyedSlagMonster.cpp.before",
+      "bytes": 32483,
+      "sha256": "b00774bc1807582f9dd2617a6d334ff29cb2366d12c427929fd8f628ccdd0ac9",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BlackMistV17/HundredEyedSlagMonster.h.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BlackMistV17/HundredEyedSlagMonster.h.before",
+      "bytes": 12350,
+      "sha256": "fde0561bd82348ed3582188350d389faed1cacba8355819f37d145b3d529f71c",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BlackMistV17/production_status.json.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BlackMistV17/production_status.json.before",
+      "bytes": 5321,
+      "sha256": "37de6137928ad1430f26b3568221e10f4bcd9f2b632a7d4488cc864d30dbc7d7",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BlackMistV17/status_effects.json.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BlackMistV17/status_effects.json.before",
+      "bytes": 31152,
+      "sha256": "d84185e4446a400defc835cb41d3ecf1c17ec25f8d6609799c693117e23499a5",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/Expansion50Percent20261002/build_installation.json.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/Expansion50Percent20261002/build_installation.json.before",
+      "bytes": 1166,
+      "sha256": "0caa9c16a6d4b5ca94660f309ad78206cff7f09f6bd919a53edf6771b6537977",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/Expansion50Percent20261002/installation_complete.json.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/Expansion50Percent20261002/installation_complete.json.before",
+      "bytes": 2637,
+      "sha256": "7eac890a8af574b517077f311d21cd77af1397d1d8f40de8af61d255be7394ea",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/Expansion50Percent20261002/production_status.json.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/Expansion50Percent20261002/production_status.json.before",
+      "bytes": 6847,
+      "sha256": "070687d7dea45fc1a8fcecd98cf3d91a8e411b91c254e6364a308d5727bcddd2",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/Expansion50Percent20261002/SlagBlackMist.cpp.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/Expansion50Percent20261002/SlagBlackMist.cpp.before",
+      "bytes": 7721,
+      "sha256": "424ff06c75922b97b2ee9d922448ded14dfade67605f8aa382eb913b0b9234c4",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/HundredEyedSlagMonster.h.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/HundredEyedSlagMonster.h.before",
+      "bytes": 13138,
+      "sha256": "e36b62291f7412c3834fc00b73ccf5204dea86ee067ab3128e407dde0e6d72f4",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/production_status.json.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/production_status.json.before",
+      "bytes": 6435,
+      "sha256": "7e8ac33043e18d6fa7ba73df42a0dcf9aca0769068673eecbabd392ec769180a",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/SlagBlackMist.cpp.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/SlagBlackMist.cpp.before",
+      "bytes": 5983,
+      "sha256": "90d27349ef83dc935a9a496b4248f395b0ece76ee4fccb076ad5b5327c1185e1",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/SlagBlackMist.h.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/SlagBlackMist.h.before",
+      "bytes": 1471,
+      "sha256": "31a981400d0aaf97ffbcd7e3008c7221e17ce277bad16c54da894928df30a6c3",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ClawV6/Before/Monsters/HundredEyedSlag/PolishV2/SK_HundredEyedSlag_V2.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ClawV6/Before/Monsters/HundredEyedSlag/PolishV2/SK_HundredEyedSlag_V2.uasset",
+      "bytes": 26677842,
+      "sha256": "dcc78df3a0b78103a0596213d619e263a93627a804cb0e923f22e0259f8151c4",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ClawV6/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1_Skeleton.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ClawV6/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1_Skeleton.uasset",
+      "bytes": 17167,
+      "sha256": "64e20029da618438f4a95acdfac28ce884ff9110ad872168b9335aff7ac4c3c4",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ClawV6/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ClawV6/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1.uasset",
+      "bytes": 26683308,
+      "sha256": "b4540a52d38f341ce8a07dc7f3ec2351987300ce704fd65d99e217beef36cdab",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ClawV6/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_AttackSweep_R.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ClawV6/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_AttackSweep_R.uasset",
+      "bytes": 175218,
+      "sha256": "2f0486416801a0e77dfe77c452d6980290877400c1e27b3f7a7c59c9dccd9bc0",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ClawV6/Before/Source/FPSGAME/Monsters/HundredEyedSlagMonster.cpp",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ClawV6/Before/Source/FPSGAME/Monsters/HundredEyedSlagMonster.cpp",
+      "bytes": 24247,
+      "sha256": "85a3464ddb7bb831bccfa8dedc672f3f60ea163798659cfcf9732947b01a6435",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ClawV6/HundredEyedSlag_ClawV6.blend1",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ClawV6/HundredEyedSlag_ClawV6.blend1",
+      "bytes": 77164853,
+      "sha256": "9ffdca74bb100e5f33e62dacd9e18a32337a55d4355fbb1d94430b261ec2c329",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/ClawV6/HundredEyedSlag_ClawV6.blend",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/EyeChargeV14/Before/production_status.json",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/EyeChargeV14/Before/production_status.json",
+      "bytes": 4599,
+      "sha256": "19f8a3509bcc70868ab3e2c2271dc2fa839d47715792f116f42f0f1b9e58f3cb",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/EyeChargeV14/Before/README.md",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/EyeChargeV14/Before/README.md",
+      "bytes": 6893,
+      "sha256": "0ca2a6e1897f7fd0a9a23ca3240cb79cd4664ba6c5ad4078e8ed1b058ae2aa7f",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/EyeChargeV14/Before/Source/HundredEyedSlagMonster.cpp",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/EyeChargeV14/Before/Source/HundredEyedSlagMonster.cpp",
+      "bytes": 28889,
+      "sha256": "4f7a07cfed4b0bec8455f838ee2383d3d39b9c2df046101a0119116bbeca9a12",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/EyeChargeV14/Before/Source/HundredEyedSlagMonster.h",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/EyeChargeV14/Before/Source/HundredEyedSlagMonster.h",
+      "bytes": 11997,
+      "sha256": "f832e99be02741ad9b2d8176e452247f4c7c283aa5529bde7ef188de8916b69b",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/EyeChargeV14/Before/Source/HundredEyedSlagSpecialAttacks.cpp",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/EyeChargeV14/Before/Source/HundredEyedSlagSpecialAttacks.cpp",
+      "bytes": 10354,
+      "sha256": "9d55488c2c5c57d0bd5ea3c49c3dbd2fc83f6b8a2beaf505cf2355c45bd027be",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/EyeLaserJumpV11/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1_Skeleton.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/EyeLaserJumpV11/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1_Skeleton.uasset",
+      "bytes": 17166,
+      "sha256": "75c19c69a88aa8a3d260e987b7ff914c8d030b57781721b87e4530196b9beedf",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/EyeLaserJumpV11/Before/Source/FPSGAME/Monsters/HundredEyedSlagCharge.cpp",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/EyeLaserJumpV11/Before/Source/FPSGAME/Monsters/HundredEyedSlagCharge.cpp",
+      "bytes": 12980,
+      "sha256": "34f13d66995f6360614788ddc7a1f381daa12e33e4b965fd6a260d2b51ebaef6",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/EyeLaserJumpV11/Before/Source/FPSGAME/Monsters/HundredEyedSlagMonster.cpp",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/EyeLaserJumpV11/Before/Source/FPSGAME/Monsters/HundredEyedSlagMonster.cpp",
+      "bytes": 25903,
+      "sha256": "b0048040c54b9f9742277d904fa1d777fbc681a7dbe6ca72c0d956ef8b6d0f52",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/EyeLaserJumpV11/Before/Source/FPSGAME/Monsters/HundredEyedSlagMonster.h",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/EyeLaserJumpV11/Before/Source/FPSGAME/Monsters/HundredEyedSlagMonster.h",
+      "bytes": 7765,
+      "sha256": "1dfc4abb16f8f16e941882d52715f39218fe915ac4eee7363337e0c2a4661678",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/EyeLaserJumpV11/Before/Source/FPSGAME/Weapons/FPSImpactFXPounce.cpp",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/EyeLaserJumpV11/Before/Source/FPSGAME/Weapons/FPSImpactFXPounce.cpp",
+      "bytes": 4464,
+      "sha256": "0227dd896848a865b84bf6ff64c6c49f7f7a31c1dafda0d5c72be77bc90f8171",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/EyeLaserJumpV11/Before/Source/FPSGAME/Weapons/FPSImpactFXSlagCharge.cpp",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/EyeLaserJumpV11/Before/Source/FPSGAME/Weapons/FPSImpactFXSlagCharge.cpp",
+      "bytes": 3008,
+      "sha256": "44d48d7cffc4ba396e72cdd5ddcd0235add5ddcc59364d8b62b090b9858e6906",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/EyeLaserJumpV11/Before/Source/FPSGAME/Weapons/FPSImpactFXSubsystem.h",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/EyeLaserJumpV11/Before/Source/FPSGAME/Weapons/FPSImpactFXSubsystem.h",
+      "bytes": 5616,
+      "sha256": "37d821a932aeb23db2c7748192e60d3be87af15903d2d0be43da93d882f13d0d",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/EyeLaserJumpV11/HundredEyedSlag_EyeLaserJumpV11.blend1",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/EyeLaserJumpV11/HundredEyedSlag_EyeLaserJumpV11.blend1",
+      "bytes": 78986300,
+      "sha256": "65e20363ca9caf80395d15a21bb895789f27a32b829ca77682db1b69af955cca",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/EyeLaserJumpV11/HundredEyedSlag_EyeLaserJumpV11.blend",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/PolishV2/PA_HundredEyedSlag_V2.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/PolishV2/PA_HundredEyedSlag_V2.uasset",
+      "bytes": 41573,
+      "sha256": "30f2cb6629626f4490fdf0b3c5a49b42b840132551041f1f39a68010d2e0e7e9",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/PolishV2/SK_HundredEyedSlag_V2.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/PolishV2/SK_HundredEyedSlag_V2.uasset",
+      "bytes": 27582747,
+      "sha256": "cc26784f36b5cc9e4c1f112879f4d87bc833c3a5eed95897d0f9234d19bf011b",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/PolishV2/Animations/A_HundredEyedSlag_Death_V2.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/PolishV2/Animations/A_HundredEyedSlag_Death_V2.uasset",
+      "bytes": 85258,
+      "sha256": "b065477c90821db0c453a1d5d9109fdd437c010f9c322661a0eb8f623dcc0ec4",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/PolishV2/Animations/A_HundredEyedSlag_Move_V2.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/PolishV2/Animations/A_HundredEyedSlag_Move_V2.uasset",
+      "bytes": 71812,
+      "sha256": "11f19a1e69abedc5eed1ed35ad52df8e0f847945aba56dc8a968fccb653f5c00",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/PolishV2/Animations/A_HundredEyedSlag_Run_V2.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/PolishV2/Animations/A_HundredEyedSlag_Run_V2.uasset",
+      "bytes": 63742,
+      "sha256": "aa3b5fca5ef201afa62e6744ce96d645d6956fe9269b85e56371d09f418db695",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/PA_HundredEyedSlag_V2.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/PA_HundredEyedSlag_V2.uasset",
+      "bytes": 34354,
+      "sha256": "d1099059f3938786adfdc9d73056af7fe4ad2f76f584f1d0b740efb965d6a587",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1_Skeleton.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1_Skeleton.uasset",
+      "bytes": 15517,
+      "sha256": "b5cc1e7d4b2097718ebc637ca65c3a12ab32167916b147f7c50b1303a3ffc8b6",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1.uasset",
+      "bytes": 27588212,
+      "sha256": "ff9fb57b3abc59cfcb858c186de688c4f75dfd071caae247eb7872260f1549d9",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_AttackSlam_R.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_AttackSlam_R.uasset",
+      "bytes": 119161,
+      "sha256": "d944c55831d622f5f5dbb08ec52f95c099415278a0ab9df9fe2ee5941bf461c3",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_AttackSweep_R.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_AttackSweep_R.uasset",
+      "bytes": 103844,
+      "sha256": "2e9ad26529cf82f959e49b3942bdb009709d57126c3324abd29f2c1411af1a7c",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_Death.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_Death.uasset",
+      "bytes": 90117,
+      "sha256": "d701f54079d6d96e60f5c377a2b7ae1c4d21e88e4c7d512a782160867df773dd",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_HitFront.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_HitFront.uasset",
+      "bytes": 68737,
+      "sha256": "8abd5c12ec77b061a44ed04111ded1d83bd60c138248f095e9f55cfaea6f811b",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_HitLeft.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_HitLeft.uasset",
+      "bytes": 70271,
+      "sha256": "cefb4d6c67d66fe80e8b406934fc4ba1650c76768d7b845576b938939b995823",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_HitRight.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_HitRight.uasset",
+      "bytes": 70293,
+      "sha256": "5903da71586774c8f69629fa8ca259f8d77b9718e440f99fbe6bdd1919da1ad6",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_Idle.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_Idle.uasset",
+      "bytes": 162359,
+      "sha256": "d18f40963cc0fda7c1d10d2d8000c33bb1fa8d300a028a3ba2ca8338cda89d25",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_Move.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_Move.uasset",
+      "bytes": 77089,
+      "sha256": "57cee75344c3e2acddeab0ccd4529b8a96ee859678f9fa31f0669227f834fa42",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_Run.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_Run.uasset",
+      "bytes": 69051,
+      "sha256": "94ab45a133a045c81425b22059cdd9b21756c6a36561cc1b6aae419db39718dd",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_SpecialAshBurst.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_SpecialAshBurst.uasset",
+      "bytes": 139939,
+      "sha256": "bf7f49d45e454770fbd732dda53efb2f73cabff95e5a68d186c7fcd3db825eeb",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_SpecialCharge_RM.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_SpecialCharge_RM.uasset",
+      "bytes": 131270,
+      "sha256": "e545798632569f231f58ac8337d88d44fd55e0b37411d3d208e4c5200174dcd6",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_SpecialCharge.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_SpecialCharge.uasset",
+      "bytes": 130693,
+      "sha256": "8155fea140ffb0754034cc79d0d053d942f908810a7dbb344a2f1d1bb5d5c348",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_Stagger.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_Stagger.uasset",
+      "bytes": 89915,
+      "sha256": "aeff078d0154d9165c80e0bc8b7302647f935113289deb04616d98eaf3c0cb05",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_StunEnter.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_StunEnter.uasset",
+      "bytes": 72505,
+      "sha256": "1bd408d4b62bcf86a8f2fdb7e10a704fe9f61c83138a5435609abf679503abea",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_StunExit.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_StunExit.uasset",
+      "bytes": 76247,
+      "sha256": "5da98d31cceb79bf86202e40e9d4a3d882e834b1a2e7f3388d75a051c4c43885",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_StunLoop.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/HeroHandV4/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_StunLoop.uasset",
+      "bytes": 126862,
+      "sha256": "eef9dc322f16c474b7008dc4fbccd6a5550dfadc9aab4be712327e8e074d3d2c",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/LaserSustainV15/Before/production_status.json",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/LaserSustainV15/Before/production_status.json",
+      "bytes": 4871,
+      "sha256": "24a3089a3bc060b6e18ea8bbbd0f5c3829152a3b5cef36e495a9d5047f9a9443",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/LaserSustainV15/Before/README.md",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/LaserSustainV15/Before/README.md",
+      "bytes": 7564,
+      "sha256": "87267aa18d60ec864305acccadcfa549f02ae79ce5ddec851f54a73721b5b007",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/LaserSustainV15/Before/Source/HundredEyedSlagMonster.cpp",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/LaserSustainV15/Before/Source/HundredEyedSlagMonster.cpp",
+      "bytes": 29002,
+      "sha256": "076f6452276ca5dd66b08a8179b702ff20f7597cfb7a5134453bae26a9eef35e",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/LaserSustainV15/Before/Source/HundredEyedSlagMonster.h",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/LaserSustainV15/Before/Source/HundredEyedSlagMonster.h",
+      "bytes": 12004,
+      "sha256": "c3e72575567b550818e70c386f411e6b025ff2d5710a1cb2c37d5a67ced029f6",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/LaserSustainV15/Before/Source/HundredEyedSlagSpecialAttacks.cpp",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/LaserSustainV15/Before/Source/HundredEyedSlagSpecialAttacks.cpp",
+      "bytes": 9992,
+      "sha256": "0d1bb65d763b0338f524adb4d4cacf797e360c02f498ef197f3dbd00cf99d902",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/PolishV2/HundredEyedSlag_PolishV2.blend1",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/PolishV2/HundredEyedSlag_PolishV2.blend1",
+      "bytes": 228268201,
+      "sha256": "79467244d5d2aeacd7c2e0dff89d6d676a66181f38b10871255c3189a8469e58",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/PolishV2/HundredEyedSlag_PolishV2.blend",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RagdollGroundV16/HundredEyedSlagMonster.cpp.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RagdollGroundV16/HundredEyedSlagMonster.cpp.before",
+      "bytes": 29056,
+      "sha256": "2cb281f39bc1e208291d10582c863a50057801147c5a3e5ea15444ad0107094b",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RagdollGroundV16/HundredEyedSlagPhysics.cpp.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RagdollGroundV16/HundredEyedSlagPhysics.cpp.before",
+      "bytes": 7092,
+      "sha256": "b4c5e2ada2996b9fa369993acc0fb0747cac7d9b551e35f47c8bfb90dde1751d",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RampageRecoverV9/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1_Skeleton.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RampageRecoverV9/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1_Skeleton.uasset",
+      "bytes": 17166,
+      "sha256": "75c19c69a88aa8a3d260e987b7ff914c8d030b57781721b87e4530196b9beedf",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RampageRecoverV9/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_AttackSlam_R.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RampageRecoverV9/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_AttackSlam_R.uasset",
+      "bytes": 170258,
+      "sha256": "ef9d356ab83dc896601ea3265b3ada77604263c4ccaeb12637f319944d54a902",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RampageV8/Before/Monsters/HundredEyedSlag/PolishV2/SK_HundredEyedSlag_V2.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RampageV8/Before/Monsters/HundredEyedSlag/PolishV2/SK_HundredEyedSlag_V2.uasset",
+      "bytes": 26638918,
+      "sha256": "b22e3dd73e70648c6181920da8156597ee64beff6f7c0e6967d3e5d03d494d15",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RampageV8/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1_Skeleton.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RampageV8/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1_Skeleton.uasset",
+      "bytes": 17170,
+      "sha256": "c940be07183f53a70671284ca2435501a531225768e1b011389c2ca03f0cb345",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RampageV8/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RampageV8/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1.uasset",
+      "bytes": 26644384,
+      "sha256": "a897f47d12628fe56fba40b5c16e049bbe3950621f9b68b90011269db06661e7",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RampageV8/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_AttackSlam_R.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RampageV8/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_AttackSlam_R.uasset",
+      "bytes": 200176,
+      "sha256": "197bffaa3771c8ce4df51cbbb2347026aedbacef099af1636185a662f8713b75",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RampageV8/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_AttackSweep_R.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RampageV8/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_AttackSweep_R.uasset",
+      "bytes": 168347,
+      "sha256": "527561a01b5944771d15a36e7039f39f36d7331806552e50f5cc4ccbadeeb003",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RampageV8/HundredEyedSlag_RampageV8.blend1",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RampageV8/HundredEyedSlag_RampageV8.blend1",
+      "bytes": 77767339,
+      "sha256": "a32ac63bfd420c4afaed1c38ce415cc5364fd5c09040eda70874e0253e156142",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/RampageV8/HundredEyedSlag_RampageV8.blend",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/PolishV2/PA_HundredEyedSlag_V2.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/PolishV2/PA_HundredEyedSlag_V2.uasset",
+      "bytes": 34145,
+      "sha256": "b975529ee8ae4e49a8188ee45ed5191d5015be85b7300b1dfebd0d09d6e9cee8",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/PolishV2/SK_HundredEyedSlag_V2.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/PolishV2/SK_HundredEyedSlag_V2.uasset",
+      "bytes": 422841446,
+      "sha256": "a4b22a9ea8694ebb1f05217fe09c0d2e0aa912f1c5f7bbc5f511de462bfeda3a",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/PolishV2/Animations/A_HundredEyedSlag_Death_V2.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/PolishV2/Animations/A_HundredEyedSlag_Death_V2.uasset",
+      "bytes": 134937,
+      "sha256": "63ebaebcf130f870c6374bb6ff85d70717df10d110f6aa88040689e04cc3c743",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/PolishV2/Animations/A_HundredEyedSlag_Move_V2.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/PolishV2/Animations/A_HundredEyedSlag_Move_V2.uasset",
+      "bytes": 126003,
+      "sha256": "d60885fa84decf62c06c2e21b1f7d9dff089b989f6c003e89af28b320dbb480e",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/PolishV2/Animations/A_HundredEyedSlag_Run_V2.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/PolishV2/Animations/A_HundredEyedSlag_Run_V2.uasset",
+      "bytes": 99437,
+      "sha256": "1baa07816a018473ae199354c451dfd9ffc00193b2befeaa7bbdcb646ccf2ae9",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/PolishV2/Materials/M_HundredEyedSlag_Skin_V2.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/PolishV2/Materials/M_HundredEyedSlag_Skin_V2.uasset",
+      "bytes": 9565,
+      "sha256": "dced6cece784b2faf4f52e8e446c284b9787bd19ffe529cf753cf05d865e7c23",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1.uasset",
+      "bytes": 422962525,
+      "sha256": "66dd73ad50f94ad2e3f878773aeab3c8de5d2fb4222809999dc66d0cc2e911aa",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_AttackSlam_R.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_AttackSlam_R.uasset",
+      "bytes": 143850,
+      "sha256": "b7668d29108cd3c0683f7d7cf390109971fa3c9c755abc07523a1362cc7a6e5d",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_AttackSweep_R.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_AttackSweep_R.uasset",
+      "bytes": 125909,
+      "sha256": "629742d150ab87a638f34302e7cc76ab9bc7f3d78949cfba5d30a01fe9e6d9c9",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_Death.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_Death.uasset",
+      "bytes": 306902,
+      "sha256": "bb5e38bcfa208bac0ea0b27a39b1ce9afdcfb48b8b1f2a21bb8e504f6321c721",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_HitFront.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_HitFront.uasset",
+      "bytes": 69298,
+      "sha256": "0c217c7058f68df1a3c09f8f019a31a0f23388f9f90b7384564886b2e7a45283",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_HitLeft.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_HitLeft.uasset",
+      "bytes": 70832,
+      "sha256": "9c78ee25633199cc51258d540555208187b6f394aa043d62034501e48bb2842b",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_HitRight.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_HitRight.uasset",
+      "bytes": 70854,
+      "sha256": "68555eb57a25d96ddda1b8d29690bf0e7c7f511cbff5458e38ccdbe4fc608498",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_Idle.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_Idle.uasset",
+      "bytes": 179880,
+      "sha256": "66276d5b2a4bf7cde37e7888d959a3013edbcb705fdb4322c7d2dbdc86b35035",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_Move.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_Move.uasset",
+      "bytes": 180626,
+      "sha256": "7301ac6a80214dfbee310a87c5f5fc816812e26647dd2ce72e9a538cef400959",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_Run.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_Run.uasset",
+      "bytes": 124204,
+      "sha256": "d313bfe135580130f51f4c9953a2994ea4ff59da4476040c476341854a355724",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_SpecialAshBurst.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_SpecialAshBurst.uasset",
+      "bytes": 158676,
+      "sha256": "e9a9c8b504f4d57559d9807a8a56d3154a416c1dc9970dfb2528351e4107bc01",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_SpecialCharge_RM.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_SpecialCharge_RM.uasset",
+      "bytes": 193783,
+      "sha256": "fc5d31377223618549e6aa2d1041500f15bc831202fa0c0e95af0366acefcaa6",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_SpecialCharge.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_SpecialCharge.uasset",
+      "bytes": 193206,
+      "sha256": "a906fc1c2ddff1377a30d4aa2b74af04bc09a332ba042d2b61130ede9c1fbea7",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_Stagger.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_Stagger.uasset",
+      "bytes": 95244,
+      "sha256": "8832a06e2bb210fe447984bb896c88e65a427d900b4dff3500912e033c94d06c",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_StunEnter.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_StunEnter.uasset",
+      "bytes": 73162,
+      "sha256": "10c4a91ab55a98d87dadf6c78f90e1ed6af6fe2b7394565083a3bd4801021fbe",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_StunExit.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_StunExit.uasset",
+      "bytes": 77000,
+      "sha256": "1c94edf6a9ced6208f43ae2464ca4bdb02460d5bab3cae49a5c813724beab971",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_StunLoop.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Animations/A_HundredEyedSlag_StunLoop.uasset",
+      "bytes": 173759,
+      "sha256": "713613c8c6bd8c7fab15fd881c8ba42527f7ec532e3b5ba1c2bb6dd6d358bce9",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Textures/T_HundredEyedSlag_BaseColor.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Textures/T_HundredEyedSlag_BaseColor.uasset",
+      "bytes": 29571804,
+      "sha256": "6e2e0c413358452a639afa1f56ca817d8d0701d77c31800e77df7c2e547519cf",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Textures/T_HundredEyedSlag_Metallic.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Textures/T_HundredEyedSlag_Metallic.uasset",
+      "bytes": 169574,
+      "sha256": "9e80ff45f34a1c77a62d67e9bc53db666964ff8285aff6308b7d9cc92fb2c9b4",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Textures/T_HundredEyedSlag_Roughness.uasset",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/Before/Monsters/HundredEyedSlag/V1/Textures/T_HundredEyedSlag_Roughness.uasset",
+      "bytes": 2061902,
+      "sha256": "0dc31c27c466a80c805ad9e1ee7ab4bfb6e6f811f32d679bbe0bb9c4f23fc9df",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/HundredEyedSlag_RuntimeV3.blend1",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/HundredEyedSlag_RuntimeV3.blend1",
+      "bytes": 66226256,
+      "sha256": "6af89b382c665030c717907af61df24a3b96a32c1c52b6de33dde114a41d0db1",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/RuntimeV3/HundredEyedSlag_RuntimeV3.blend",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21/Backup/Source/FPSGAME/Monsters/SlagBlackMist.cpp",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21/Backup/Source/FPSGAME/Monsters/SlagBlackMist.cpp",
+      "bytes": 7893,
+      "sha256": "74c073af304b8438b3590ea7bd8f66c307e8881851a4f1202e37f06e80911105",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21/Backup/SourceAssets/HundredEyedSlagMeshy20260930/production_status.json",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21/Backup/SourceAssets/HundredEyedSlagMeshy20260930/production_status.json",
+      "bytes": 7206,
+      "sha256": "2677b23cac40928c55aa341a9cb679f28e422cec2c33ba5b5385ca8731b18a31",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21/Backup/SourceAssets/HundredEyedSlagMeshy20260930/README.md",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21/Backup/SourceAssets/HundredEyedSlagMeshy20260930/README.md",
+      "bytes": 11097,
+      "sha256": "1ce930beae661db4e39d65c19a4d40ee6818f5b2cf58fb130f19bdcf3e74d5df",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ThreeAttacksV13/Before/Source/FPSGAME/Monsters/HundredEyedSlagMonster.cpp",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ThreeAttacksV13/Before/Source/FPSGAME/Monsters/HundredEyedSlagMonster.cpp",
+      "bytes": 28489,
+      "sha256": "b5cc9eba39b1e3e1d912653bcf2c2fe3d64055c6e2cf5a6897e9d2b33ce6999d",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ThreeAttacksV13/Before/Source/FPSGAME/Monsters/HundredEyedSlagMonster.h",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ThreeAttacksV13/Before/Source/FPSGAME/Monsters/HundredEyedSlagMonster.h",
+      "bytes": 11304,
+      "sha256": "03a66e3a44304eee42ca4960e8beaa4a6c36fd259f3d99b6fe6ef3676b80e7e5",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ThreeAttacksV13/Before/Source/FPSGAME/Monsters/HundredEyedSlagSpecialAttacks.cpp",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ThreeAttacksV13/Before/Source/FPSGAME/Monsters/HundredEyedSlagSpecialAttacks.cpp",
+      "bytes": 15358,
+      "sha256": "7a71654c14c417964eef88ed4ceb477cda6be1d1235b02a269c3acf6dd87f592",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/ThreeAttacksV13/Before/Source/FPSGAME/UI/ColdSteelExpeditionDetails.cpp",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/ThreeAttacksV13/Before/Source/FPSGAME/UI/ColdSteelExpeditionDetails.cpp",
+      "bytes": 11788,
+      "sha256": "1c15ffba91b5e20902261057c82f3189422db3cb7aea7370a9a2337cd0198329",
+      "reason": "Superseded pre-change snapshot; active source and saved asset/build receipts retained.",
+      "retained_replacement": "Current Source/FPSGAME/Monsters and SourceAssets/HundredEyedSlagMeshy20260930 production chain",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/WorldSmokeV19/HundredEyedSlagMonster.cpp.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/WorldSmokeV19/HundredEyedSlagMonster.cpp.before",
+      "bytes": 33602,
+      "sha256": "af825d0316bf6e53ff33ce008b60472ffc22debce263b5ae5448fc96fbab29a0",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/WorldSmokeV19/HundredEyedSlagSpecialAttacks.cpp.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/WorldSmokeV19/HundredEyedSlagSpecialAttacks.cpp.before",
+      "bytes": 10981,
+      "sha256": "e8952863e4836cb0ef0ed2ddee58571b1756e01fb4e154d18ebc7e8358b1a2a3",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/WorldSmokeV19/production_status.json.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/WorldSmokeV19/production_status.json.before",
+      "bytes": 6212,
+      "sha256": "0b5f887050fe21e56db202aa4db034cfb47f7606e594b3a234e4fed9e3d871c1",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/WorldSmokeV19/SlagBlackMist.cpp.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/WorldSmokeV19/SlagBlackMist.cpp.before",
+      "bytes": 3735,
+      "sha256": "19b2a047225935533adfe22d616d450d8cdb97430c6218762351acd53203ba40",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/WorldSmokeV19/SlagBlackMist.h.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/WorldSmokeV19/SlagBlackMist.h.before",
+      "bytes": 1128,
+      "sha256": "70bc37c45e5974f1fcdb855b65773632506d7645252e2916acdc8aeb3e794aa0",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/WorldSmokeV19/SlagMistViewComponent.cpp.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/WorldSmokeV19/SlagMistViewComponent.cpp.before",
+      "bytes": 6068,
+      "sha256": "c8d3b1719f4d22b30749a6263d33ab9faae6cbefaabcbf196288456f34bdbb82",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/WorldSmokeV19/SlagMistViewComponent.h.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/WorldSmokeV19/SlagMistViewComponent.h.before",
+      "bytes": 1103,
+      "sha256": "9293a6aba7490039c82fd20e202a070726801bc93a39a71290d816e26f7f90cc",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/WorldSmokeV19/status_effects.json.before",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/WorldSmokeV19/status_effects.json.before",
+      "bytes": 31433,
+      "sha256": "c1c1b8d608c7e93ecd8c36a7ebcd4c34f58ed115a4ba09af2e619b7b16bf5510",
+      "reason": "Superseded backup copy; matching current file or latest saved source retained.",
+      "retained_replacement": "Current monster source, production_status and installation receipts",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21/read_particle_values.py",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21/read_particle_values.py",
+      "bytes": 2651,
+      "sha256": "4b4e7e15696e56f597c51d63b69301dea4977aad744b4482eb936480366f8102",
+      "reason": "Discarded commandlet simulation/bridge attempt; no live particle cache frames. Diagnosis limits retained in V21 docs.",
+      "retained_replacement": "Docs/Monsters/hundred-eyed-slag-smoke-visibility-v21-20261002.md; SmokeVisibilityFixV21/saved_configuration.json",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21/particle_values.json",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21/particle_values.json",
+      "bytes": 653,
+      "sha256": "67f4954d46272209601f4038d2e9c22d812c8dbed1785029f3719130d41e1032",
+      "reason": "Discarded commandlet simulation/bridge attempt; no live particle cache frames. Diagnosis limits retained in V21 docs.",
+      "retained_replacement": "Docs/Monsters/hundred-eyed-slag-smoke-visibility-v21-20261002.md; SmokeVisibilityFixV21/saved_configuration.json",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21/particle-read-console.txt",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21/particle-read-console.txt",
+      "bytes": 33974,
+      "sha256": "356698124364b71ef0b41065a84c166d1aed10812c422de432ddd3e258e88772",
+      "reason": "Discarded commandlet simulation/bridge attempt; no live particle cache frames. Diagnosis limits retained in V21 docs.",
+      "retained_replacement": "Docs/Monsters/hundred-eyed-slag-smoke-visibility-v21-20261002.md; SmokeVisibilityFixV21/saved_configuration.json",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21/particle-read-commandlet.log",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21/particle-read-commandlet.log",
+      "bytes": 279188,
+      "sha256": "48065612508c5de3b914630e35097613704d3a956d93332b9f51458ff4bc650c",
+      "reason": "Discarded commandlet simulation/bridge attempt; no live particle cache frames. Diagnosis limits retained in V21 docs.",
+      "retained_replacement": "Docs/Monsters/hundred-eyed-slag-smoke-visibility-v21-20261002.md; SmokeVisibilityFixV21/saved_configuration.json",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21/particle-read-rhi-console.txt",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21/particle-read-rhi-console.txt",
+      "bytes": 37539,
+      "sha256": "c088fc2bfc70dee859a96550f781379c986727aec9be3df0ea77469ea03c8df5",
+      "reason": "Discarded commandlet simulation/bridge attempt; no live particle cache frames. Diagnosis limits retained in V21 docs.",
+      "retained_replacement": "Docs/Monsters/hundred-eyed-slag-smoke-visibility-v21-20261002.md; SmokeVisibilityFixV21/saved_configuration.json",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21/particle-read-rhi.log",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21/particle-read-rhi.log",
+      "bytes": 297132,
+      "sha256": "62ae35a53034c3be68608223bd33c14c28146a88be37daa4d231f94947723c00",
+      "reason": "Discarded commandlet simulation/bridge attempt; no live particle cache frames. Diagnosis limits retained in V21 docs.",
+      "retained_replacement": "Docs/Monsters/hundred-eyed-slag-smoke-visibility-v21-20261002.md; SmokeVisibilityFixV21/saved_configuration.json",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21/stack-read-20261002-005511.txt",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21/stack-read-20261002-005511.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Discarded commandlet simulation/bridge attempt; no live particle cache frames. Diagnosis limits retained in V21 docs.",
+      "retained_replacement": "Docs/Monsters/hundred-eyed-slag-smoke-visibility-v21-20261002.md; SmokeVisibilityFixV21/saved_configuration.json",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/asset-commandlet-20261001-234239.log",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/asset-commandlet-20261001-234239.log",
+      "bytes": 286475,
+      "sha256": "5a90a718896c3664f1750f16dcfade646163d06eeaba321eff5f7be15fd4c406",
+      "reason": "Superseded smoke-only repair/author pipeline; standalone V21 author and current native references retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/asset-console-20261001-234239.txt",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/asset-console-20261001-234239.txt",
+      "bytes": 573674,
+      "sha256": "a32d40a0320f360bd0da5b75409e21e93b4742fb0e40207d264c16c7fb7be569",
+      "reason": "Superseded smoke-only repair/author pipeline; standalone V21 author and current native references retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/asset_installation.json",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/asset_installation.json",
+      "bytes": 757,
+      "sha256": "9e65c90632fb1e7cbe682594f30d5b460cb230c9e4965219982eeb022df367ee",
+      "reason": "Superseded smoke-only repair/author pipeline; standalone V21 author and current native references retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/author-20261001-234043-447.txt",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/author-20261001-234043-447.txt",
+      "bytes": 1190,
+      "sha256": "bcb8cd9ee5bf91a5cb18c703f79e7bf4aacc97acb36847a2319a392bebd5f0a5",
+      "reason": "Superseded smoke-only repair/author pipeline; standalone V21 author and current native references retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/build-console-20261001-234239.txt",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/build-console-20261001-234239.txt",
+      "bytes": 2182,
+      "sha256": "b438b206f06b2b64e94ec6c8a394f87651b9b1823e29f2320fa3d4bf26b3be17",
+      "reason": "Superseded smoke-only repair/author pipeline; standalone V21 author and current native references retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/build_installation.json",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/build_installation.json",
+      "bytes": 1165,
+      "sha256": "336a964e77690e217074de2b7f92df59b980968001a2205d59b3dc7ae59641f2",
+      "reason": "Superseded smoke-only repair/author pipeline; standalone V21 author and current native references retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/finalize_delivery.py",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/finalize_delivery.py",
+      "bytes": 2268,
+      "sha256": "b1fecc095ff5a99a5efa55931905db37eb46a7b37335315f725fb8afaf98be78",
+      "reason": "Superseded smoke-only repair/author pipeline; standalone V21 author and current native references retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/Finish-Background.ps1",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/Finish-Background.ps1",
+      "bytes": 5149,
+      "sha256": "566cc2741b51b1f3b79584815830dad6eaad6ff53f05174f667f6c378c4d48d6",
+      "reason": "Superseded smoke-only repair/author pipeline; standalone V21 author and current native references retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/installation_complete.json",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BlackMistFixV18/installation_complete.json",
+      "bytes": 1881,
+      "sha256": "9d01fc8ad1a3bd8dde0b08ffa06f027d2dfbc1b6ae2db7f819aa399016bf1f30",
+      "reason": "Superseded smoke-only repair/author pipeline; standalone V21 author and current native references retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/asset-bridge-20261002-004020.txt",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/asset-bridge-20261002-004020.txt",
+      "bytes": 711,
+      "sha256": "a05af815ec389e145489bc8975fc296c9d8a9cfe8c3b2516a8f803a35ce53e8d",
+      "reason": "Superseded smoke-only repair/author pipeline; standalone V21 author and current native references retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/asset-commandlet-20261002-004214.log",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/asset-commandlet-20261002-004214.log",
+      "bytes": 280169,
+      "sha256": "02c4c9b42451bf55a5255688091f0ed09f9a0488c2ec39c49edb6efb16bffb9e",
+      "reason": "Superseded smoke-only repair/author pipeline; standalone V21 author and current native references retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/asset-console-20261002-004214.txt",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/asset-console-20261002-004214.txt",
+      "bytes": 281116,
+      "sha256": "15953009290dede188dd091f5fbebd185e7a97b1f02ed2925540e23bb47a0594",
+      "reason": "Superseded smoke-only repair/author pipeline; standalone V21 author and current native references retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/asset_installation.json",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/asset_installation.json",
+      "bytes": 887,
+      "sha256": "a68cf743a63b08c1672bc0aa9a283f521de650549a9acc3f71b91343570b7dad",
+      "reason": "Superseded smoke-only repair/author pipeline; standalone V21 author and current native references retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/author_body_smoke.py",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/author_body_smoke.py",
+      "bytes": 8402,
+      "sha256": "3a52002c42c86eb2cb94aa887f62546b6521108191f6b126b1ca5355344fb9dc",
+      "reason": "Superseded smoke-only repair/author pipeline; standalone V21 author and current native references retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/build-console-20261002-004214.txt",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/build-console-20261002-004214.txt",
+      "bytes": 4802,
+      "sha256": "ab7826aa548ba5c62c3bcb99d8477de80f02fbad0c57be4d55e2b0d189f49f0d",
+      "reason": "Superseded smoke-only repair/author pipeline; standalone V21 author and current native references retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/build-console-20261002-004711.txt",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/build-console-20261002-004711.txt",
+      "bytes": 4288,
+      "sha256": "0afaf5cd6a8b9d0e6ecb49ee8d5ee83d03d663a1be6e1c6271418e2d7940a84b",
+      "reason": "Superseded smoke-only repair/author pipeline; standalone V21 author and current native references retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/build_installation.json",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/build_installation.json",
+      "bytes": 1165,
+      "sha256": "4494bc8a1b87b55b117e8182089306374402ec03b71a40ed274c76dc2c45300e",
+      "reason": "Superseded smoke-only repair/author pipeline; standalone V21 author and current native references retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/Expansion50Percent20261002/finalize_coverage.py",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/Expansion50Percent20261002/finalize_coverage.py",
+      "bytes": 3670,
+      "sha256": "642f70ca2109c913e1481679451700e1dbf719bd0a42f2522a0bc21a17b2c1c2",
+      "reason": "Superseded smoke-only repair/author pipeline; standalone V21 author and current native references retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/Expansion50Percent20261002/installation_complete.json",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/Expansion50Percent20261002/installation_complete.json",
+      "bytes": 2020,
+      "sha256": "eea56e912344188a6cb283b93ab096ad9041b27d4ae58fa099f236eb018bdc24",
+      "reason": "Superseded smoke-only repair/author pipeline; standalone V21 author and current native references retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/finalize_delivery.py",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/finalize_delivery.py",
+      "bytes": 3919,
+      "sha256": "58c9ce1b743d56ce5f246a0c8c194a776902bd9c1d7519fa981be672fc5f0791",
+      "reason": "Superseded smoke-only repair/author pipeline; standalone V21 author and current native references retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/Finish-Background.ps1",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/Finish-Background.ps1",
+      "bytes": 5020,
+      "sha256": "ad547c5e7f747cb4c03c3dd09f287a211b23c73eaecac7c3173ef509cbcefd15",
+      "reason": "Superseded smoke-only repair/author pipeline; standalone V21 author and current native references retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21",
+      "readback_matches": true
+    },
+    {
+      "original": "SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/installation_complete.json",
+      "archived": "trash/hundred-eyed-slag-20261002/SourceAssets/HundredEyedSlagMeshy20260930/BodySmokeV20/installation_complete.json",
+      "bytes": 3312,
+      "sha256": "2d16bacef757cb11b2b01ccab45b99c1dbff11cbaab6c1318994f340694938bb",
+      "reason": "Superseded smoke-only repair/author pipeline; standalone V21 author and current native references retained.",
+      "retained_replacement": "SourceAssets/HundredEyedSlagMeshy20260930/SmokeVisibilityFixV21",
+      "readback_matches": true
+    }
+  ],
+  "file_count": 193,
+  "recoverable": true,
+  "archive_root": "trash/hundred-eyed-slag-20261002",
+  "task": "hundred-eyed-slag-20261002"
+}

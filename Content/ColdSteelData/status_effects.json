@@ -1,6 +1,15 @@
 {
   "effects": [
     {
+      "type": "blind",
+      "icon": "◉",
+      "name": "目盲",
+      "color": "#706575",
+      "description": "置身浓雾时视野模糊并被烟灰遮挡，雾内持续刷新2秒目盲，离开浓雾立即解除。",
+      "kind": "debuff",
+      "group": "combat"
+    },
+    {
       "type": "stun",
       "icon": "💫",
       "name": "眩晕",

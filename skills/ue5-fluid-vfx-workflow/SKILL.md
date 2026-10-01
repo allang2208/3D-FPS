@@ -32,6 +32,7 @@ description: 为 FPSGAME 制作和优化 UE5 流体特效，包括枪口烟、�
 | 对象池、距离分级、风、碰撞、危险边界 | [运行接入与预算](references/runtime-budget.md) |
 | 方块、卡片、过淡、图集串帧、材质异常 | [透明与可见性问题](references/transparency-and-visibility.md) |
 | 找到当前源码、作者入口、资产与后台落盘方式 | [FPSGAME 接入地图](references/fpsgame-map.md) |
+| 移动身体持续黑烟、离体烟迹、浓度保留与雾体不可见 | [身体浓烟与可见性](references/body-smoke-and-visibility.md) |
 
 ## 制作流程
 

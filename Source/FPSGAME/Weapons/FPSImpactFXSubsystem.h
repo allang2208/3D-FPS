@@ -25,6 +25,7 @@ public:
     void SpawnImpact(const FHitResult& Hit, UCameraComponent* ViewCamera);
     void ClearImpactDecalsForComponent(const UPrimitiveComponent* Component);
     void SpawnPounceLanding(const FHitResult& Ground, const FVector& Forward, float Radius, float Angle, UCameraComponent* ViewCamera, const AActor* Source);
+    void SpawnSlagSlam(const FHitResult& Ground, const FVector& Forward, float Radius, UCameraComponent* ViewCamera, const AActor* Source);
     virtual void OnWorldBeginPlay(UWorld& InWorld) override;
     virtual void Deinitialize() override;
     virtual void Tick(float DeltaTime) override;

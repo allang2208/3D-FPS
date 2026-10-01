@@ -1,0 +1,241 @@
+{
+  "actions": [
+    {
+      "name": "Idle",
+      "seconds": 3.0,
+      "loop": true,
+      "intent": "Slow uneven breathing, shell drift and intermittent front-plate tension",
+      "fps": 30,
+      "start_frame": 1,
+      "end_frame_inclusive": 91,
+      "frame_time_formula": "(frame - 1) / 30",
+      "file": "Animations/A_HundredEyedSlag_Idle.fbx",
+      "action": "A_HundredEyedSlag_Idle",
+      "root_motion": false
+    },
+    {
+      "name": "Move",
+      "seconds": 1.6,
+      "loop": true,
+      "reference_speed_m_s": 0.39,
+      "intent": "Four-beat heavy asymmetric creep; extended support on the large right forelimb",
+      "fps": 30,
+      "start_frame": 1,
+      "end_frame_inclusive": 49,
+      "frame_time_formula": "(frame - 1) / 30",
+      "file": "Animations/A_HundredEyedSlag_Move.fbx",
+      "action": "A_HundredEyedSlag_Move",
+      "root_motion": false
+    },
+    {
+      "name": "Run",
+      "seconds": 0.9,
+      "loop": true,
+      "reference_speed_m_s": 0.91,
+      "intent": "Low alternating-diagonal scuttle with faster forelimb recovery",
+      "fps": 30,
+      "start_frame": 1,
+      "end_frame_inclusive": 28,
+      "frame_time_formula": "(frame - 1) / 30",
+      "file": "Animations/A_HundredEyedSlag_Run.fbx",
+      "action": "A_HundredEyedSlag_Run",
+      "root_motion": false
+    },
+    {
+      "name": "AttackSweep_R",
+      "seconds": 1.4,
+      "loop": false,
+      "hit_window_s": [
+        0.54,
+        0.73
+      ],
+      "intent": "Load left supports, raise the large right limb, sweep across the front, recover",
+      "fps": 30,
+      "start_frame": 1,
+      "end_frame_inclusive": 43,
+      "frame_time_formula": "(frame - 1) / 30",
+      "file": "Animations/A_HundredEyedSlag_AttackSweep_R.fbx",
+      "action": "A_HundredEyedSlag_AttackSweep_R",
+      "root_motion": false
+    },
+    {
+      "name": "AttackSlam_R",
+      "seconds": 1.8,
+      "loop": false,
+      "hit_window_s": [
+        0.84,
+        1.0
+      ],
+      "intent": "Raise the large right hand, strike downward, absorb impact and recover",
+      "fps": 30,
+      "start_frame": 1,
+      "end_frame_inclusive": 55,
+      "frame_time_formula": "(frame - 1) / 30",
+      "file": "Animations/A_HundredEyedSlag_AttackSlam_R.fbx",
+      "action": "A_HundredEyedSlag_AttackSlam_R",
+      "root_motion": false
+    },
+    {
+      "name": "SpecialAshBurst",
+      "seconds": 2.4,
+      "loop": false,
+      "release_s": 1.0,
+      "hit_window_s": [
+        1.0,
+        1.18
+      ],
+      "intent": "Brace all four feet, crouch and tension shell, erupt through the front fissure, recoil; animation only",
+      "fps": 30,
+      "start_frame": 1,
+      "end_frame_inclusive": 73,
+      "frame_time_formula": "(frame - 1) / 30",
+      "file": "Animations/A_HundredEyedSlag_SpecialAshBurst.fbx",
+      "action": "A_HundredEyedSlag_SpecialAshBurst",
+      "root_motion": false
+    },
+    {
+      "name": "SpecialCharge",
+      "seconds": 2.0,
+      "loop": false,
+      "hit_window_s": [
+        0.56,
+        1.24
+      ],
+      "reference_speed_m_s": 2.1,
+      "intent": "Crouch and brace, low three-step forward scuttle, decelerate and recover",
+      "fps": 30,
+      "start_frame": 1,
+      "end_frame_inclusive": 61,
+      "frame_time_formula": "(frame - 1) / 30",
+      "file": "Animations/A_HundredEyedSlag_SpecialCharge.fbx",
+      "action": "A_HundredEyedSlag_SpecialCharge",
+      "root_motion": false
+    },
+    {
+      "name": "SpecialCharge_RM",
+      "seconds": 2.0,
+      "loop": false,
+      "root_motion": true,
+      "root_distance_m": 1.4,
+      "hit_window_s": [
+        0.56,
+        1.24
+      ],
+      "intent": "Same charge body motion, with forward root displacement",
+      "fps": 30,
+      "start_frame": 1,
+      "end_frame_inclusive": 61,
+      "frame_time_formula": "(frame - 1) / 30",
+      "file": "Animations/A_HundredEyedSlag_SpecialCharge_RM.fbx",
+      "action": "A_HundredEyedSlag_SpecialCharge_RM"
+    },
+    {
+      "name": "HitFront",
+      "seconds": 0.5,
+      "loop": false,
+      "intent": "Brief backward impulse and damped recovery",
+      "fps": 30,
+      "start_frame": 1,
+      "end_frame_inclusive": 16,
+      "frame_time_formula": "(frame - 1) / 30",
+      "file": "Animations/A_HundredEyedSlag_HitFront.fbx",
+      "action": "A_HundredEyedSlag_HitFront",
+      "root_motion": false
+    },
+    {
+      "name": "HitLeft",
+      "seconds": 0.5,
+      "loop": false,
+      "intent": "Impact from left, rightward recoil with supported feet",
+      "fps": 30,
+      "start_frame": 1,
+      "end_frame_inclusive": 16,
+      "frame_time_formula": "(frame - 1) / 30",
+      "file": "Animations/A_HundredEyedSlag_HitLeft.fbx",
+      "action": "A_HundredEyedSlag_HitLeft",
+      "root_motion": false
+    },
+    {
+      "name": "HitRight",
+      "seconds": 0.5,
+      "loop": false,
+      "intent": "Impact from right, leftward recoil with supported feet",
+      "fps": 30,
+      "start_frame": 1,
+      "end_frame_inclusive": 16,
+      "frame_time_formula": "(frame - 1) / 30",
+      "file": "Animations/A_HundredEyedSlag_HitRight.fbx",
+      "action": "A_HundredEyedSlag_HitRight",
+      "root_motion": false
+    },
+    {
+      "name": "Stagger",
+      "seconds": 1.05,
+      "loop": false,
+      "intent": "Strong impact, prolonged loss of support, slow recovery; separate from stun",
+      "fps": 30,
+      "start_frame": 1,
+      "end_frame_inclusive": 33,
+      "frame_time_formula": "(frame - 1) / 30",
+      "file": "Animations/A_HundredEyedSlag_Stagger.fbx",
+      "action": "A_HundredEyedSlag_Stagger",
+      "root_motion": false
+    },
+    {
+      "name": "StunEnter",
+      "seconds": 0.6,
+      "loop": false,
+      "intent": "Sink into a braced, drooped stunned pose",
+      "fps": 30,
+      "start_frame": 1,
+      "end_frame_inclusive": 19,
+      "frame_time_formula": "(frame - 1) / 30",
+      "file": "Animations/A_HundredEyedSlag_StunEnter.fbx",
+      "action": "A_HundredEyedSlag_StunEnter",
+      "root_motion": false
+    },
+    {
+      "name": "StunLoop",
+      "seconds": 2.0,
+      "loop": true,
+      "intent": "Unsteady shell sway, subdued forequarters and asymmetric toe tremor",
+      "fps": 30,
+      "start_frame": 1,
+      "end_frame_inclusive": 61,
+      "frame_time_formula": "(frame - 1) / 30",
+      "file": "Animations/A_HundredEyedSlag_StunLoop.fbx",
+      "action": "A_HundredEyedSlag_StunLoop",
+      "root_motion": false
+    },
+    {
+      "name": "StunExit",
+      "seconds": 0.7,
+      "loop": false,
+      "intent": "Restore shoulder load and return to neutral support",
+      "fps": 30,
+      "start_frame": 1,
+      "end_frame_inclusive": 22,
+      "frame_time_formula": "(frame - 1) / 30",
+      "file": "Animations/A_HundredEyedSlag_StunExit.fbx",
+      "action": "A_HundredEyedSlag_StunExit",
+      "root_motion": false
+    },
+    {
+      "name": "Death",
+      "seconds": 2.8,
+      "loop": false,
+      "ragdoll_handoff_s": 1.68,
+      "hold_from_s": 2.2,
+      "intent": "Final recoil, buckle large right support, collapse onto right shell, settle and hold",
+      "fps": 30,
+      "start_frame": 1,
+      "end_frame_inclusive": 85,
+      "frame_time_formula": "(frame - 1) / 30",
+      "file": "Animations/A_HundredEyedSlag_Death.fbx",
+      "action": "A_HundredEyedSlag_Death",
+      "root_motion": false
+    }
+  ],
+  "status": "authoring",
+  "tested": false
+}
