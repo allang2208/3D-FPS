@@ -63,6 +63,17 @@
   - 若客人进程崩在角色 BeginPlay（`FPSGAMECharacter.cpp:349-360` 对 Controller 直写输入模式、`:339` AttachPawn 抢档案）→ 属已知坑，本地门禁修复项。
 - 日志锚点：`grep -E "MPTEST|Join succeeded|Possess" Saved/Logs/MPHost.log MPClient.log`。
 
+## 3.11 冲刺失控五层洋葱·终局修复（2026-10-01 晚，FPSGAMECharacter.cpp，未入分支提交）
+
+**用户实测症状链**：冲刺后对方模型跑出场/消失、停不回来 → 模型跑走但脚印烟尘留在真实位置 → 双方看到的模型位置和动作不一致。
+**五层剥洋葱（每层都真实存在，逐层修复后最终收敛在根因）**：
+1. 冲刺意图不上报（服务器按走路速度模拟）→ ServerSetSprinting RPC（§3.10）；
+2. 僵尸键（失焦无 KeyUp）→ 物理键态护栏 GetAsyncKeyState（§3.10b，IsInputKeyDown 与僵尸键同事件流，v1 无效）；
+3. Mesh 网格平滑外推失控 → NetworkSmoothingMode=Disabled（用户观察"脚印留原地模型跑走"定位）；
+4. **N 倍速档案 tick**：Profile->TickRuntime 被每个 pawn 各调一次，N 人局单例档案每帧 tick N 遍（体力/回血 N 倍速）→ IsLocallyControlled 门禁；
+5. **Tick 表现门禁（根因主刀）**：角色 Tick 的 11 个纯表现函数（相机/视模/瞄准镜/越野表现/支架表现/枪械反馈/跳姿/涡轮/鼓坠/折叠瞄具）在每台机器的每个 pawn 副本上全跑——服务器为 3 个角色跑全套第一人称表现拖出秒级卡顿 → 移动确认断流（96 saved moves ×11 次/会话）→ 预测与权威永久分叉=用户看到的全部症状。门禁后远端副本只跑玩法与移动。保留全端：ServiceHeldFire/UpdateActionPose（喂身体状态采样）/武器状态机/换弹服务。
+**取证工具留存**：NetGameMode 每 2s 的 MPTEST pos 探针 + 冲刺双端打点（下一步复现对照用）。
+
 ## 3.10 移动状态复制·冲刺同步（2026-10-01，FPSGAMECharacter.h/.cpp + Profile.cpp，未入分支提交）
 
 **症状**（用户实测定位）：战术冲刺持续奔跑后对方模型消失，停止后也不同步。
