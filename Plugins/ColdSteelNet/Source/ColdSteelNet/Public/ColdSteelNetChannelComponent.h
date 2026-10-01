@@ -120,6 +120,15 @@ private:
     int32 SyntheticShotAttempts = 0;
     /** 分块上传状态：客户端侧计数器 / 服务端侧攒包。 */
     int32 UploadCounter = 0;
+    /** 变更检测+限速上行：与上次成功上传的整块比对，无变化零流量；1KB 分片、每 tick ≤2 片。 */
+    static constexpr int32 ProfileChunkSize = 1024;
+    TArray<uint8> LastSentBlob;
+    bool bHasLastSent = false;
+    TArray<uint8> PendingUpload;
+    int32 PendingUploadId = 0;
+    int32 NextChunkIndex = 0;
+    int32 PendingTotalChunks = 0;
+    float HeartbeatTimer = 2.f;
     int32 IncomingUploadId = INDEX_NONE;
     int32 IncomingReceived = 0;
     int32 IncomingTotal = 0;

@@ -19,21 +19,16 @@
 | Git Bash 坑 | URL 里 `/Game/...` 要 `MSYS_NO_PATHCONV=1` 前缀，否则前导斜杠被转义 |
 | worktree 拆除坑 | 先 `rmdir` 断 junction（DDC 等）再 `git worktree remove`（既有教训） |
 
-## 1. 当前状态（最后更新：2026-10-01 09:40，M3 代码完成+核心链路已证实，补验排队）
+## 1. 当前状态（最后更新：2026-10-01 13:00，**M2+M3 自动化验证全绿闭环**，剩用户手动验收）
 
-- **M1 已收口**；**M2 代码完成编译过**（提交 57051fc8；游戏模块 6 处在 §3.7）。
-- **M3 战斗权威化代码完成，双目标编译 Succeeded，核心链路已在空闲机窗全绿证实（2026-10-01 01:19 轮 MPM3H/C.log）**：
-  - 客人合成命中发出 → **主机权威结算 dmg=15.0** → **客户端回执 applied=15.0（两端一致）**；
-  - **血量复制双向工作**：客人 200.0 复制可见；主机被蛆咬 92→88 在客户端逐秒可见（服务端权威→复制）。
-- **M3 实现要点**（游戏模块改动见 §3.8）：
-  - 转发钩子 `ColdSteelSkills::NetHitForward`（插件启动注册）挂在 ApplyHit 顶部——枪械/近战/法术三管线一处分叉；
-  - 通道 `ServerReportHit`（RPC 安全镜像结构）→ 服务端用射手**影子档案**跑原版 `ApplySkillWeaponHit` → `ClientConfirmHit` 回执（客户端 NotifyConfirmedWeaponHit 命中反馈）；
-  - 血量组件 Health/MaxHealth 补复制（怪物+玩家统一）；六处击杀奖励 `IsLocalController` 门槛换 `AwardKillByOwner`（主机单例/远端影子按射手归属）。
-- **发现并修复的传输 bug**：整块档案 RPC（数万字节）**超过 RPC 载荷上限被静默丢弃**（小 RPC 到达、大 RPC 消失、无任何日志）→ 已改 **8KB 分块上行**（UploadId 防串包、reliable 保序、服务端攒齐入档）。⚠️ MirrorBlob 下行（复制属性）同样有大载荷风险——M4 用到回程时同样要分块/差分，已记 perf 台账。
-- **待补验（下一个空闲机窗一次跑完）**：分块上传后的影子创建/主机落盘（M2 断言）+ M3 全链带影子归属复验（上轮命中走的是单例回退，链路已证但影子归属未证）。机器被用户占用时主机 300s 起不完是常态——**验证只在空闲窗口做**（经验：空闲内存 >12GB、CPU<30%）。
-- 手动验收项（用户）：客人背包/拖装备/喝药；双端对怪射击手感。
+- **M1/M2/M3 代码+自动化验证全部闭环**（2026-10-01 12:41 轮 MPV4H/C.log 完整证据链）：
+  分块上传 83821B 送达 → 影子档案创建(items=25,hp=200) → 应用服务端 pawn → **命中走影子权威结算 15.0** → 客户端回执 15.0 一致 → **主机磁盘 77KB 档案落地** → 零 Fatal。
+- 今日三修：①影子 NewObject Outer 改 GameInstance（子系统 ClassWithin 断言）②上传改 1KB 分片×每 tick≤2 片+变更检测（11×8KB 连发灌爆 reliable 窗口被丢）③Python 崩溃正解=`Engine.Python.IsEnabledByDefault=0`（[Plugins] DisabledPlugins 无效，M1 归因修正，入 [SystemSettings]）。
+- **顺手修了主仓**：`SVDGripProfiles.cpp`（并行会话 09:19 新 WIP）空武器定义→双斜杠包名 Fatal 闪退，加一行守卫并主编译过——用户两次点名该崩溃后动手，只加守卫未动逻辑。
+- **已知限制（记档）**：①重连槽名不稳定（玩家名=机器名+进程随机串，落盘✓重连匹配✗，归 M6 账号）②快照每 2s 全量重传（HP/时间戳字段恒变，LAN 无碍，差分入 perf 台账）③MirrorBlob 下行同有大载荷风险（用时需分块）。
+- **剩余**：用户手动验收（客人背包/拖装备/喝药、双端对射手感）→ M2/M3 收口 → M4 世界同步。
 
-### ⚠️ worktree 特殊构造（接手必读）### ⚠️ worktree 特殊构造（接手必读）
+### ⚠️ worktree 特殊构造（接手必读）### ⚠️ worktree 特殊构造（接手必读）### ⚠️ worktree 特殊构造（接手必读）
 
 主仓 `.gitignore:83` 排除了整个 `/Content/*`（81GB 重资产不在 git 里，只 44 个 JSON 强跟踪）。因此 worktree 采用**混合构造**：
 - `Source/ Config/ Docs/` 等 = HEAD 检出 + **主仓工作区覆盖层**（`Tools/mp_overlay_sync.py` 同步，原因见 §5 坑#3）；
@@ -100,6 +95,8 @@
     UColdSteelStatusModel* CreateShadowModel(const FColdSteelProfile& GuestProfile);
     void AdoptNetMirror(const FColdSteelProfile& External);
 ```
+
+**③b `Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp`（2026-10-01 追加）**：`CreateShadowModel` 里 `NewObject<UColdSteelStatusModel>` 的 Outer 必须传 `GetGameInstance()`（子系统类 ClassWithin=UGameInstance，传 TransientPackage 撞 UObjectGlobals:3480 断言崩进程）。
 
 **③ `Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp`**：
 - `Publish` 定义后新增 `CreateShadowModel`（NewObject 影子；复制 Definitions/WeaponAmmoGroups/AmmoTypes/StaminaTuning/全部技能定义成员；`Publish(GuestProfile)`；`bPersistenceBlocked=true`）与 `AdoptNetMirror`（=Publish）；

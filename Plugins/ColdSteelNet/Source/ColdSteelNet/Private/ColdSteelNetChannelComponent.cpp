@@ -121,11 +121,11 @@ void UColdSteelNetChannelComponent::TickComponent(float DeltaTime, ELevelTick Ti
             }
         }
 
-        // 客户端心跳上行：固定节奏全量快照（LAN 带宽可忽略；WAN 需改增量，见 perf 台账）。
-        ClientHeartbeat -= DeltaTime;
-        if (ClientHeartbeat <= 0.f)
+        // 变更检测：每 2s 对比一次快照，无变化零流量（perf：闲时上行=0）。
+        HeartbeatTimer -= DeltaTime;
+        if (HeartbeatTimer <= 0.f)
         {
-            ClientHeartbeat = 0.8f;
+            HeartbeatTimer = 2.f;
             const UGameInstance* GI = PC ? PC->GetGameInstance() : nullptr;
             if (const UColdSteelStatusModel* Model = GI ? GI->GetSubsystem<UColdSteelStatusModel>() : nullptr)
             {
@@ -137,19 +137,37 @@ void UColdSteelNetChannelComponent::TickComponent(float DeltaTime, ELevelTick Ti
                 ScratchSave->Profile = Model->Snapshot();
                 TArray<uint8> Blob;
                 SaveToBlob(ScratchSave, Blob);
-                // 分块上行：单发大 RPC 会被静默丢弃。
-                constexpr int32 ChunkSize = 8192;
-                const int32 TotalChunks = FMath::Max(1, FMath::DivideAndRoundUp(Blob.Num(), ChunkSize));
-                const int32 UploadId = ++UploadCounter;
-                for (int32 Index = 0; Index < TotalChunks; ++Index)
+                const TArray<uint8>& Reference = PendingUpload.Num() > 0 ? PendingUpload : LastSentBlob;
+                if (!bHasLastSent || Reference != Blob)
                 {
-                    const int32 Start = Index * ChunkSize;
-                    const int32 Count = FMath::Min(ChunkSize, Blob.Num() - Start);
-                    TArray<uint8> Chunk;
-                    Chunk.Append(Blob.GetData() + Start, Count);
-                    ServerSubmitProfileChunk(UploadId, Index, TotalChunks, Chunk);
+                    PendingUpload = MoveTemp(Blob);
+                    PendingUploadId = ++UploadCounter;
+                    NextChunkIndex = 0;
+                    PendingTotalChunks = FMath::Max(1, FMath::DivideAndRoundUp(PendingUpload.Num(), ProfileChunkSize));
+                    UE_LOG(LogColdSteelNet, Warning, TEXT("MPTEST profile upload started: %d bytes / %d chunks"),
+                        PendingUpload.Num(), PendingTotalChunks);
                 }
-                UE_LOG(LogColdSteelNet, Log, TEXT("heartbeat upload: %d bytes / %d chunks"), Blob.Num(), TotalChunks);
+            }
+        }
+        // 限速分片上行：每 tick ≤2 片（1KB），避免灌爆 reliable 窗口（实测 11×8KB 连发即溢出丢包）。
+        if (PendingUpload.Num() > 0)
+        {
+            int32 SentThisTick = 0;
+            while (NextChunkIndex < PendingTotalChunks && SentThisTick < 2)
+            {
+                const int32 Start = NextChunkIndex * ProfileChunkSize;
+                const int32 Count = FMath::Min(ProfileChunkSize, PendingUpload.Num() - Start);
+                TArray<uint8> Chunk;
+                Chunk.Append(PendingUpload.GetData() + Start, Count);
+                ServerSubmitProfileChunk(PendingUploadId, NextChunkIndex, PendingTotalChunks, Chunk);
+                ++NextChunkIndex;
+                ++SentThisTick;
+            }
+            if (NextChunkIndex >= PendingTotalChunks)
+            {
+                LastSentBlob = MoveTemp(PendingUpload);
+                bHasLastSent = true;
+                PendingUpload.Reset();
             }
         }
         return;
@@ -182,7 +200,7 @@ void UColdSteelNetChannelComponent::ServerSubmitProfileChunk_Implementation(int3
         IncomingTotal = TotalChunks;
     }
     // reliable 同 actor 通道保序：按到达顺序尾接即可，偏移不符说明丢包/重放，丢弃该包。
-    constexpr int32 ChunkSize = 8192;
+    constexpr int32 ChunkSize = UColdSteelNetChannelComponent::ProfileChunkSize;
     if (ChunkIndex * ChunkSize != IncomingBlob.Num() || Chunk.Num() > ChunkSize)
     {
         return;
