@@ -232,4 +232,5 @@ private:
     void ClearGuard();
     float QuickCombatBleedChance=0.f;
     bool bQuickCombatAOE=false;
+    FString EquippedAnimationFolder;
 };

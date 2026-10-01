@@ -9,6 +9,8 @@ if not library:
     factory=u.DataAssetFactory();factory.set_editor_property('data_asset_class',u.WeatherPresentationAssets)
     library=u.AssetToolsHelpers.get_asset_tools().create_asset('DA_HK416_WetMaterials',ROOT,u.WeatherPresentationAssets,factory)
 current={str(k):v.get_path_name() for k,v in library.get_editor_property('wet_materials').items()}
+# Preserve published accessory pairs and the unified instances' self mappings.
+wetmap={**dict(library.get_editor_property('wet_materials')),**wetmap}
 expected={k:v.get_path_name() for k,v in wetmap.items()}
 # UV-only reimports do not change the saved material library. Keep the existing
 # package instead of attempting an unnecessary rewrite of a loaded data asset.

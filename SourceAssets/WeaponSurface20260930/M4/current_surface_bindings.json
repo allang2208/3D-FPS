@@ -1,0 +1,122 @@
+{
+  "version": "M4-AuthoredFinish-Refine01-20261001",
+  "recipe": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponSurface20260930\\M4\\Refine01\\recipe.json",
+  "meshes": {
+    "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416.SK_M4_FoldingSights_HK416": {
+      "Flash_Hider_001": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_muzzle_fc2249074e.MI_M4_R01_muzzle_fc2249074e",
+      "Grip_Default_001": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_furniture_a4414f4092.MI_M4_R01_furniture_a4414f4092",
+      "Keymod_material_001": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_handguard_5443427b73.MI_M4_R01_handguard_5443427b73",
+      "Body_001": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_receiver_dfe90de9b6.MI_M4_R01_receiver_dfe90de9b6",
+      "Magazine_Light_001": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_magazine_c307d3159b.MI_M4_R01_magazine_c307d3159b",
+      "Classic_Stock_001": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_furniture_28a7b3d0db.MI_M4_R01_furniture_28a7b3d0db"
+    },
+    "/Game/Weapons/M4FoldingSights/SM_M4_RearSight.SM_M4_RearSight": {
+      "Body_001": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_accessory_15e8db4c30.MI_M4_R01_accessory_15e8db4c30"
+    },
+    "/Game/Weapons/M4FoldingSights/SM_M4_FrontSight.SM_M4_FrontSight": {
+      "Keymod_material_001": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_handguard_818a04b2a1.MI_M4_R01_handguard_818a04b2a1"
+    },
+    "/Game/Weapons/M4VerticalGripCompact75/SM_VerticalForegrip.SM_VerticalForegrip": {
+      "Body_004": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_accessory_15e8db4c30.MI_M4_R01_accessory_15e8db4c30"
+    },
+    "/Game/Weapons/M4CantedForegrip/SM_CantedForegrip.SM_CantedForegrip": {
+      "Body_004": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_accessory_15e8db4c30.MI_M4_R01_accessory_15e8db4c30"
+    },
+    "/Game/Weapons/ResonanceGrip20260913/MeshyIntegration/M4/SM_ResonanceGrip.SM_ResonanceGrip": {
+      "Resonance_Metal_M4_001": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_accessory_ff6bf9fdbf.MI_M4_R01_accessory_ff6bf9fdbf"
+    },
+    "/Game/Weapons/TacticalVerticalForegrip20260919/M4/SM_TacticalVerticalForegrip.SM_TacticalVerticalForegrip": {
+      "M_TacticalVerticalForegrip_Candidate": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_accessory_18dd58b055.MI_M4_R01_accessory_18dd58b055"
+    },
+    "/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_PrismHandstop.SM_PrismHandstop": {
+      "Prism_Polymer": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_accessory_bf464bc4dd.MI_M4_R01_accessory_bf464bc4dd",
+      "Prism_Saddle": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_mount_428ebdbf42.MI_M4_R01_mount_428ebdbf42"
+    },
+    "/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_LPVO1to6X.SM_LPVO1to6X": {
+      "LPVO_Body": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_optic_bbc585015c.MI_M4_R01_optic_bbc585015c"
+    },
+    "/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_PrismScope2X.SM_PrismScope2X": {
+      "Scope2X_Body": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_optic_de267eb564.MI_M4_R01_optic_de267eb564"
+    },
+    "/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_PanoramicRedDot.SM_PanoramicRedDot": {
+      "Panoramic_Body": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_optic_abdf5bda1f.MI_M4_R01_optic_abdf5bda1f"
+    },
+    "/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_M4_Holographic.SM_M4_Holographic": {
+      "Holosight": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_optic_d22317db54.MI_M4_R01_optic_d22317db54"
+    },
+    "/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_LPVORing.SM_LPVORing": {
+      "LPVO_Body": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_optic_0e03b36142.MI_M4_R01_optic_0e03b36142"
+    },
+    "/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_M4_LargeDrum.SM_M4_LargeDrum": {
+      "DrumPolymer": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_magazine_aaddddb387.MI_M4_R01_magazine_aaddddb387",
+      "DrumFasteners": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_magazine_aaddddb387.MI_M4_R01_magazine_aaddddb387",
+      "DrumIndex": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_magazine_aaddddb387.MI_M4_R01_magazine_aaddddb387"
+    },
+    "/Game/Weapons/M4GridUnified20260919/SM_M4_ExtMag40_Grid.SM_M4_ExtMag40_Grid": {
+      "Magazine Light_001": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_magazine_7a22bc212d.MI_M4_R01_magazine_7a22bc212d"
+    },
+    "/Game/Weapons/M4MuzzlesV1/SM_M4_suppressor.SM_M4_suppressor": {
+      "RifleMetal": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_muzzle_42f8b14c95.MI_M4_R01_muzzle_42f8b14c95"
+    },
+    "/Game/Weapons/M4MuzzlesV1/SM_M4_brake.SM_M4_brake": {
+      "RifleMetal": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_muzzle_42f8b14c95.MI_M4_R01_muzzle_42f8b14c95"
+    },
+    "/Game/Weapons/M4MuzzlesV1/SM_M4_titanium_brake.SM_M4_titanium_brake": {
+      "RifleMetal": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_muzzle_42f8b14c95.MI_M4_R01_muzzle_42f8b14c95"
+    },
+    "/Game/Weapons/TacticalSuppressor20260913/M4/SM_TacticalSuppressor.SM_TacticalSuppressor": {
+      "TacticalShell": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_muzzle_46961a9551.MI_M4_R01_muzzle_46961a9551",
+      "TacticalMount": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_mount_1b7b9a182f.MI_M4_R01_mount_1b7b9a182f"
+    },
+    "/Game/Weapons/ReferenceStock5080/SM_SkeletonStock.SM_SkeletonStock": {
+      "StockMetal": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_furniture_f026e38a69.MI_M4_R01_furniture_f026e38a69",
+      "StockPolymer": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_furniture_9f6c390ae5.MI_M4_R01_furniture_9f6c390ae5"
+    },
+    "/Game/Weapons/QRPerformanceStock/Meshy20260913/M4/SM_PerformanceStock.SM_PerformanceStock": {
+      "StockMetal_M4": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_furniture_af9919e918.MI_M4_R01_furniture_af9919e918",
+      "StockPolymer_M4": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_furniture_cfcd352b03.MI_M4_R01_furniture_cfcd352b03"
+    },
+    "/Game/Weapons/CoreStock20260914/Meshy0914005605/M4/SM_CoreStock.SM_CoreStock": {
+      "CoreStockBody": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_furniture_4dceb13b47.MI_M4_R01_furniture_4dceb13b47",
+      "CoreStockAdapter": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_mount_cf266eff2a.MI_M4_R01_mount_cf266eff2a"
+    },
+    "/Game/Weapons/TacticalTelescopicStock20260914/M4/SM_TacticalTelescopicStock.SM_TacticalTelescopicStock": {
+      "TacticalStock_Metal_M4": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_furniture_39ab639ccc.MI_M4_R01_furniture_39ab639ccc",
+      "TacticalStock_Polymer_M4": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_furniture_be3c98bdba.MI_M4_R01_furniture_be3c98bdba",
+      "TacticalStock_Adapter_M4": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_mount_9d3fc0bb98.MI_M4_R01_mount_9d3fc0bb98"
+    },
+    "/Game/Weapons/StableAntiSlipRearGrip/Selected91727/M4/SM_StableAntiSlipRearGrip.SM_StableAntiSlipRearGrip": {
+      "M_StableAntiSlipRearGrip": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_furniture_345c2e0588.MI_M4_R01_furniture_345c2e0588",
+      "M_StableGrip_Collar_M4": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_mount_58601c7aad.MI_M4_R01_mount_58601c7aad"
+    },
+    "/Game/Weapons/RearGripFinish20260913/M4/balanced/Seam20260914/SM_BalancedRearGrip.SM_BalancedRearGrip": {
+      "M_BalancedRearGrip": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_furniture_2a96f50aa4.MI_M4_R01_furniture_2a96f50aa4",
+      "M_BalancedRearGrip_Collar": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_mount_7e7362e040.MI_M4_R01_mount_7e7362e040"
+    },
+    "/Game/Weapons/RearGripFinish20260913/M4/phantom/SM_PhantomRearGrip.SM_PhantomRearGrip": {
+      "M_PhantomRearGrip": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_furniture_fa91e71498.MI_M4_R01_furniture_fa91e71498",
+      "M_PhantomRearGrip_Collar": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_mount_34040cae2e.MI_M4_R01_mount_34040cae2e"
+    },
+    "/Game/Weapons/HK416/ARParts20261001/M4/SM_416_Stock.SM_416_Stock": {
+      "M_HK416_Stock": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_furniture_45cca1520e.MI_M4_R01_furniture_45cca1520e"
+    },
+    "/Game/Weapons/HK416/ARParts20261001/M4/SM_416_RearGrip.SM_416_RearGrip": {
+      "M_HK416_Lower_body": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_furniture_313bdfe6ce.MI_M4_R01_furniture_313bdfe6ce"
+    },
+    "/Game/Weapons/TacticalDevices20260913/HunyuanV3/M4/flashlight/SM_TacticalDevice.SM_TacticalDevice": {
+      "M_Tactical_flashlight": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/M4/flashlight/M_M4_flashlight_Body_MetalTail.M_M4_flashlight_Body_MetalTail",
+      "M_Tactical_Collar": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_mount_3b90647a37.MI_M4_R01_mount_3b90647a37"
+    },
+    "/Game/Weapons/TacticalDevices20260913/M4/laser/SM_TacticalDevice.SM_TacticalDevice": {
+      "M_Tactical_laser": "/Game/Weapons/TacticalDevices20260913/M4/laser/M_M4_laser_Body_OpticalV2.M_M4_laser_Body_OpticalV2",
+      "M_Tactical_Collar": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_mount_8f08ad0bcf.MI_M4_R01_mount_8f08ad0bcf"
+    }
+  },
+  "wet_library": "/Game/Weather/RainVisibility/DA_WeatherPresentation.DA_WeatherPresentation",
+  "runtime_override_materials": [
+    "/Game/Weapons/TacticalDevices20260913/HunyuanV3/M4/flashlight/M_M4_flashlight_Body_MetalTail.M_M4_flashlight_Body_MetalTail",
+    "/Game/Weapons/TacticalDevices20260913/M4/laser/M_M4_laser_Body_OpticalV2.M_M4_laser_Body_OpticalV2"
+  ],
+  "geometry_changed": false,
+  "tested": false
+}

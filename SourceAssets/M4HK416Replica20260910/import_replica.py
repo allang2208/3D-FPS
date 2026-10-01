@@ -1,6 +1,8 @@
 import unreal,json,hashlib
 from pathlib import Path
+from runpy import run_path
 OUT=Path('D:/FPS3D/FPSGAME/SourceAssets/M4HK416Replica20260910');DEST='/Game/Weapons/M4HK416Replica'
+apply_current_bindings=run_path(str(OUT.parent/'WeaponSurface20260930/M4/current_bindings.py'))['apply_current_bindings']
 old=unreal.load_asset('/Game/Weapons/M4FoldingSights/SK_M4_FoldingSights');assert old
 skel=unreal.load_asset(DEST+'/SK_M4_HK416_Skeleton')
 if not skel:skel=unreal.AssetToolsHelpers.get_asset_tools().duplicate_asset('SK_M4_HK416_Skeleton',DEST,old.skeleton)
@@ -15,7 +17,7 @@ def imp(name,kind):
 mesh=imp('SK_M4_FoldingSights_HK416',unreal.FBXImportType.FBXIT_SKELETAL_MESH)
 materials={str(m.material_slot_name):m.material_interface for m in old.materials};slots=mesh.materials
 for i,m in enumerate(slots):m.material_interface=materials[str(m.material_slot_name)];slots[i]=m
-mesh.set_editor_property('materials',slots);unreal.EditorAssetLibrary.save_loaded_asset(mesh,only_if_is_dirty=False)
+mesh.set_editor_property('materials',slots);apply_current_bindings(mesh);unreal.EditorAssetLibrary.save_loaded_asset(mesh,only_if_is_dirty=False)
 unreal.EditorAssetLibrary.save_loaded_asset(skel,only_if_is_dirty=False)
 report={}
 def pose(a,t,kind):

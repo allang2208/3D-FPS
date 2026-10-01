@@ -433,3 +433,7 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 ## 201 弹箱换弹与后续局部修订（2026-10-01）
 
 当前是 ClothReload44.4b+BeltFit53+ArmHinge55 的十条布箱换弹，枪面 F50、提把撤除 H56、固定供弹入口 F57、三款后握把母版恢复 R58。运行时代码已在 main，本轮补充此前遗漏的作者配方与依赖；旧提把及一次性补丁等 86 份文件已归档。当前恢复顺序、公开源码/本机合法资产边界及未实机验收事项见 [201 补充发布](Weapons/lmg201-publication-20261001.md)。不要按目录编号执行旧全量导入器覆盖当前资产。
+
+## 九枪表面与动作差量（2026-10-01）
+
+本轮九枪表面配方、A762 扩容/接口制作、SVD 与全武器动作差量制作的当前入口和公开范围见 [阶段发布](Weapons/weapon-surface-animation-publication-20261001.md)。原作者贴图、网格、密集采样、完整动画和 UE 包保留本机来源链；绑定清单必须与实际恢复的材质资产一起使用，不能以公开源码代替本地内容恢复。未进行本次独立构建或游戏测试。

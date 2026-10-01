@@ -6,6 +6,7 @@
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelPickupStudio.h"
 #include "FPSGunplayAnimInstance.h"
+#include "WeaponGripProfile.h"
 #include "FPSWeaponFXComponent.h"
 #include "FPSBallisticsComponent.h"
 #include "WeaponStatEvaluation.h"
@@ -41,6 +42,10 @@ FString Root(bool Revolver,int32 Side)
 FString Stem(bool Revolver,int32 Side)
 {
     return FString::Printf(TEXT("Dual_%s_%s"),Revolver?TEXT("DW715"):TEXT("M1911"),Side?TEXT("l"):TEXT("r"));
+}
+FName PistolPoseFamily(const FString& Kind)
+{
+    return Kind.Contains(TEXT("_long"))?FName(TEXT("long")):Kind.Contains(TEXT("_fitted"))?FName(TEXT("fitted")):FName(NAME_None);
 }
 }
 
@@ -91,8 +96,24 @@ void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
     H.Anim=Cast<UFPSGunplayAnimInstance>(H.Mesh->GetAnimInstance());
     if(Index==0)Player->GunplayAnimation=H.Anim;
     H.Clips.Empty();
+    H.PoseProfiles.Reset();H.ActionPoseProfile=NAME_None;
+    for(const TCHAR* Family:{TEXT("fitted"),TEXT("long")})
+    {
+        const FString Path=FString::Printf(TEXT("/Game/Weapons/AnimationProfiles20261001/%s/Dual_%s/DA_%s"),*Item.Definition,Index?TEXT("l"):TEXT("r"),Family);
+        if(auto* Layer=LoadObject<UWeaponGripProfile>(nullptr,*Path,nullptr,LOAD_NoWarn);Layer&&Layer->Family==Family)
+            H.PoseProfiles.Add(Family,Layer);
+    }
+    const auto SharedQuickClip=[&](const FString& Kind)->UAnimSequence*
+    {
+        const auto* Layer=H.PoseProfiles.FindRef(PistolPoseFamily(Kind)).Get();
+        if(!Layer)return nullptr;
+        const FString BaseKind=Kind.Replace(TEXT("_fitted"),TEXT("")).Replace(TEXT("_long"),TEXT(""));
+        const auto* Motion=Layer->FindAction(*BaseKind);
+        return Motion?Motion->Playback():nullptr;
+    };
     auto Clip=[&](const FString& Kind)
     {
+        if(auto* Shared=SharedQuickClip(Kind)){H.Clips.Add(Kind,Shared);return;}
         if(G18){H.Clips.Add(Kind,LoadObject<UAnimSequence>(nullptr,*G18WeaponAssets::DualAnimationPath(Index,Kind)));return;}
         const TCHAR* Revision=Kind.StartsWith(TEXT("sprint"))?TEXT("/SprintSmoothV5/Animations/A_"):TEXT("/NaturalAimV3/Animations/A_");
         if(H.Revolver && (Kind.StartsWith(TEXT("single_")) || Kind.StartsWith(TEXT("speed_"))))
@@ -110,6 +131,7 @@ void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
         TEXT("quickcombat_fitted"),TEXT("quickcombat_fitted_empty"),TEXT("quickcombat_left_fitted"),TEXT("quickcombat_left_fitted_empty"),
         TEXT("quickcombat_long"),TEXT("quickcombat_long_empty"),TEXT("quickcombat_left_long"),TEXT("quickcombat_left_long_empty")})
     {
+        if(auto* Shared=SharedQuickClip(Kind)){H.Clips.Add(Kind,Shared);continue;}
         if(G18){Clip(Kind);continue;}
         if(H.Revolver && FString(Kind).EndsWith(TEXT("_empty")))continue;
         const TCHAR* Revision=TEXT("SpinRecoveryV5");
@@ -301,6 +323,7 @@ void UPistolDualWieldComponent::StartAction(int32 Index,const FString& Name,floa
 {
     auto& H=Hands[Index];H.Action=H.Clips.FindRef(Name);H.ActionTime=0;H.ActionRate=Rate;H.ActionStarted=GetWorld()->GetTimeSeconds();H.PlayedCues.Empty();
     H.ActionBlendStarted=H.ActionStarted;
+    H.ActionPoseProfile=PistolPoseFamily(Name);
 }
 void UPistolDualWieldComponent::StopAction(int32 Index)
 {
@@ -597,6 +620,7 @@ void UPistolDualWieldComponent::Advance(float Delta)
 void UPistolDualWieldComponent::Pose(int32 Index,float Delta)
 {
     auto& H=Hands[Index];if(!H.Mesh || !H.Anim)return;
+    H.Anim->GripProfile=H.Action?H.PoseProfiles.FindRef(H.ActionPoseProfile).Get():nullptr;
     // Quick melee occupies the left hand, but it continues holding its gun.
     // Only spell casting uses the hidden off-hand weapon presentation.
     const bool Cast=Player->IsCastingWithLeftHand() && !IsQuickCombatActive();

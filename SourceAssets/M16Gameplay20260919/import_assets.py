@@ -1,7 +1,9 @@
 """Import the M16 mesh and private animation set inside the running editor."""
 import unreal as u,json
 from pathlib import Path
+from runpy import run_path
 O=Path(__file__).parent
+apply_current_bindings=run_path(str(O.parent/'WeaponSurface20260930/M16/current_bindings.py'))['apply_current_bindings']
 D='/Game/Weapons/M16A2/Gameplay20260919'
 reload_only=globals().get('M16_RELOAD_ONLY',False)
 empty_only=globals().get('M16_EMPTY_ONLY',False)
@@ -43,6 +45,7 @@ else:
         slot.material_interface=gun_material if name.startswith('M_M16_') else bindings[name]
         slots[i]=slot
     mesh.set_editor_property('materials',slots)
+    apply_current_bindings(mesh)
     if not u.EditorAssetLibrary.save_loaded_asset(mesh,False):raise RuntimeError('M16 mesh save failed')
 compression=u.load_asset('/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel')
 clips={}

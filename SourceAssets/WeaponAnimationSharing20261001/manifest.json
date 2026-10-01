@@ -1,0 +1,3298 @@
+{
+ "profiles": [
+  {
+   "weapon": "ue_m4a1",
+   "family": "angled",
+   "mesh": "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_m4a1/DA_angled",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/M4ContactImpactFinal/A_AKM_idle",
+     "authored": "/Game/Weapons/M4ForegripWristNatural/A_M4_Foregrip_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim",
+     "authored": "/Game/Weapons/M4ForegripWristNatural/A_M4_Foregrip_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/M4ContactImpactFinal/A_AKM_fire",
+     "authored": "/Game/Weapons/M4ForegripWristNatural/A_M4_Foregrip_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim_fire",
+     "authored": "/Game/Weapons/M4ForegripWristNatural/A_M4_Foregrip_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_equip_charge",
+     "authored": "/Game/Weapons/M4ForegripWristNatural/A_M4_Foregrip_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/M4TacticalTossFinal/A_M4_HK416_reload",
+     "authored": "/Game/Weapons/M4ForegripWristNatural/A_M4_Foregrip_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/M4SlapImpactFinal/A_M4_HK416_reload_empty",
+     "authored": "/Game/Weapons/M4ForegripWristNatural/A_M4_Foregrip_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload",
+     "authored": "/Game/Weapons/M4ForegripWristNatural/A_M4_Foregrip_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty",
+     "authored": "/Game/Weapons/M4ForegripWristNatural/A_M4_Foregrip_drum_reload_empty"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/M4TacticalSprint20260915/Base/A_M4_TacticalSprint_Base_Enter",
+     "authored": "/Game/Weapons/M4TacticalSprint20260915/Angled/A_M4_TacticalSprint_Angled_Enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/M4TacticalSprint20260915/Base/A_M4_TacticalSprint_Base_Loop",
+     "authored": "/Game/Weapons/M4TacticalSprint20260915/Angled/A_M4_TacticalSprint_Angled_Loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/M4TacticalSprint20260915/Base/A_M4_TacticalSprint_Base_Exit",
+     "authored": "/Game/Weapons/M4TacticalSprint20260915/Angled/A_M4_TacticalSprint_Angled_Exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/M4QuickMeleeReplica20260919/Base/A_M4_QuickCombat_Base",
+     "authored": "/Game/Weapons/M4QuickMeleeReplica20260919/Angled/A_M4_QuickCombat_Angled"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_m4a1",
+   "family": "vertical",
+   "mesh": "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_m4a1/DA_vertical",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/M4ContactImpactFinal/A_AKM_idle",
+     "authored": "/Game/Weapons/M4VerticalGripVRENatural/Vertical/A_M4_Vertical_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim",
+     "authored": "/Game/Weapons/M4VerticalGripVRENatural/Vertical/A_M4_Vertical_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/M4ContactImpactFinal/A_AKM_fire",
+     "authored": "/Game/Weapons/M4VerticalGripVRENatural/Vertical/A_M4_Vertical_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim_fire",
+     "authored": "/Game/Weapons/M4VerticalGripVRENatural/Vertical/A_M4_Vertical_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_equip_charge",
+     "authored": "/Game/Weapons/M4VerticalGripVRENatural/Vertical/A_M4_Vertical_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/M4TacticalTossFinal/A_M4_HK416_reload",
+     "authored": "/Game/Weapons/M4VerticalGripVRENatural/Vertical/A_M4_Vertical_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/M4SlapImpactFinal/A_M4_HK416_reload_empty",
+     "authored": "/Game/Weapons/M4VerticalGripVRENatural/Vertical/A_M4_Vertical_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload",
+     "authored": "/Game/Weapons/M4VerticalGripVRENatural/Vertical/A_M4_Vertical_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty",
+     "authored": "/Game/Weapons/M4VerticalGripVRENatural/Vertical/A_M4_Vertical_drum_reload_empty"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/M4TacticalSprint20260915/Base/A_M4_TacticalSprint_Base_Enter",
+     "authored": "/Game/Weapons/M4TacticalSprint20260915/Vertical/A_M4_TacticalSprint_Vertical_Enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/M4TacticalSprint20260915/Base/A_M4_TacticalSprint_Base_Loop",
+     "authored": "/Game/Weapons/M4TacticalSprint20260915/Vertical/A_M4_TacticalSprint_Vertical_Loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/M4TacticalSprint20260915/Base/A_M4_TacticalSprint_Base_Exit",
+     "authored": "/Game/Weapons/M4TacticalSprint20260915/Vertical/A_M4_TacticalSprint_Vertical_Exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/M4QuickMeleeReplica20260919/Base/A_M4_QuickCombat_Base",
+     "authored": "/Game/Weapons/M4QuickMeleeReplica20260919/Vertical/A_M4_QuickCombat_Vertical"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_m4a1",
+   "family": "canted",
+   "mesh": "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_m4a1/DA_canted",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/M4ContactImpactFinal/A_AKM_idle",
+     "authored": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim",
+     "authored": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/M4ContactImpactFinal/A_AKM_fire",
+     "authored": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim_fire",
+     "authored": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_equip_charge",
+     "authored": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/M4TacticalTossFinal/A_M4_HK416_reload",
+     "authored": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/M4SlapImpactFinal/A_M4_HK416_reload_empty",
+     "authored": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload",
+     "authored": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty",
+     "authored": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_drum_reload_empty"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/M4TacticalSprint20260915/Base/A_M4_TacticalSprint_Base_Enter",
+     "authored": "/Game/Weapons/M4TacticalSprint20260915/Canted/A_M4_TacticalSprint_Canted_Enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/M4TacticalSprint20260915/Base/A_M4_TacticalSprint_Base_Loop",
+     "authored": "/Game/Weapons/M4TacticalSprint20260915/Canted/A_M4_TacticalSprint_Canted_Loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/M4TacticalSprint20260915/Base/A_M4_TacticalSprint_Base_Exit",
+     "authored": "/Game/Weapons/M4TacticalSprint20260915/Canted/A_M4_TacticalSprint_Canted_Exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/M4QuickMeleeReplica20260919/Base/A_M4_QuickCombat_Base",
+     "authored": "/Game/Weapons/M4QuickMeleeReplica20260919/Canted/A_M4_QuickCombat_Canted"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_m4a1",
+   "family": "prism",
+   "mesh": "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_m4a1/DA_prism",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/M4ContactImpactFinal/A_AKM_idle",
+     "authored": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim",
+     "authored": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/M4ContactImpactFinal/A_AKM_fire",
+     "authored": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim_fire",
+     "authored": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_equip_charge",
+     "authored": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/M4TacticalTossFinal/A_M4_HK416_reload",
+     "authored": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/M4SlapImpactFinal/A_M4_HK416_reload_empty",
+     "authored": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload",
+     "authored": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty",
+     "authored": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_drum_reload_empty"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/M4TacticalSprint20260915/Base/A_M4_TacticalSprint_Base_Enter",
+     "authored": "/Game/Weapons/M4TacticalSprint20260915/Prism/A_M4_TacticalSprint_Prism_Enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/M4TacticalSprint20260915/Base/A_M4_TacticalSprint_Base_Loop",
+     "authored": "/Game/Weapons/M4TacticalSprint20260915/Prism/A_M4_TacticalSprint_Prism_Loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/M4TacticalSprint20260915/Base/A_M4_TacticalSprint_Base_Exit",
+     "authored": "/Game/Weapons/M4TacticalSprint20260915/Prism/A_M4_TacticalSprint_Prism_Exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/M4QuickMeleeReplica20260919/Base/A_M4_QuickCombat_Base",
+     "authored": "/Game/Weapons/M4QuickMeleeReplica20260919/Prism/A_M4_QuickCombat_Prism"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_m4a1",
+   "family": "drum",
+   "mesh": "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_m4a1/DA_drum",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/M4ContactImpactFinal/A_AKM_idle",
+     "authored": "/Game/Weapons/M4DrumGripRebuilt/Support/A_AKM_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim",
+     "authored": "/Game/Weapons/M4DrumGripRebuilt/Support/A_AKM_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/M4ContactImpactFinal/A_AKM_fire",
+     "authored": "/Game/Weapons/M4DrumGripRebuilt/Support/A_AKM_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim_fire",
+     "authored": "/Game/Weapons/M4DrumGripRebuilt/Support/A_AKM_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_equip_charge",
+     "authored": "/Game/Weapons/M4DrumGripRebuilt/Support/A_M4_HK416_equip_charge"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/M4TacticalSprint20260915/Base/A_M4_TacticalSprint_Base_Enter",
+     "authored": "/Game/Weapons/M4TacticalSprint20260915/Drum/A_M4_TacticalSprint_Drum_Enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/M4TacticalSprint20260915/Base/A_M4_TacticalSprint_Base_Loop",
+     "authored": "/Game/Weapons/M4TacticalSprint20260915/Drum/A_M4_TacticalSprint_Drum_Loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/M4TacticalSprint20260915/Base/A_M4_TacticalSprint_Base_Exit",
+     "authored": "/Game/Weapons/M4TacticalSprint20260915/Drum/A_M4_TacticalSprint_Drum_Exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/M4QuickMeleeReplica20260919/Base/A_M4_QuickCombat_Base",
+     "authored": "/Game/Weapons/M4QuickMeleeReplica20260919/Drum/A_M4_QuickCombat_Drum"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_hk416",
+   "family": "angled",
+   "mesh": "/Game/Weapons/HK416/Reworked20260930/SK_HK416_Manny",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_hk416/DA_angled",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_idle",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/angled/A_HK416_angled_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_aim",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/angled/A_HK416_angled_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_fire",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/angled/A_HK416_angled_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_aim_fire",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/angled/A_HK416_angled_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_equip_charge",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/angled/A_HK416_angled_equip_charge"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_reload",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/angled/A_HK416_angled_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_reload_empty",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/angled/A_HK416_angled_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_drum_reload",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/angled/A_HK416_angled_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_drum_reload_empty",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/angled/A_HK416_angled_drum_reload_empty"
+    },
+    {
+     "role": "inspect",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_inspect",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/angled/A_HK416_angled_inspect"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_sprint_enter",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/angled/A_HK416_angled_sprint_enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_sprint_loop",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/angled/A_HK416_angled_sprint_loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_sprint_exit",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/angled/A_HK416_angled_sprint_exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_quick_melee",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/angled/A_HK416_angled_quick_melee"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_hk416",
+   "family": "vertical",
+   "mesh": "/Game/Weapons/HK416/Reworked20260930/SK_HK416_Manny",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_hk416/DA_vertical",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_idle",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/vertical/A_HK416_vertical_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_aim",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/vertical/A_HK416_vertical_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_fire",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/vertical/A_HK416_vertical_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_aim_fire",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/vertical/A_HK416_vertical_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_equip_charge",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/vertical/A_HK416_vertical_equip_charge"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_reload",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/vertical/A_HK416_vertical_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_reload_empty",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/vertical/A_HK416_vertical_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_drum_reload",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/vertical/A_HK416_vertical_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_drum_reload_empty",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/vertical/A_HK416_vertical_drum_reload_empty"
+    },
+    {
+     "role": "inspect",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_inspect",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/vertical/A_HK416_vertical_inspect"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_sprint_enter",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/vertical/A_HK416_vertical_sprint_enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_sprint_loop",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/vertical/A_HK416_vertical_sprint_loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_sprint_exit",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/vertical/A_HK416_vertical_sprint_exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_quick_melee",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/vertical/A_HK416_vertical_quick_melee"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_hk416",
+   "family": "canted",
+   "mesh": "/Game/Weapons/HK416/Reworked20260930/SK_HK416_Manny",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_hk416/DA_canted",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_idle",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/canted/A_HK416_canted_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_aim",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/canted/A_HK416_canted_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_fire",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/canted/A_HK416_canted_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_aim_fire",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/canted/A_HK416_canted_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_equip_charge",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/canted/A_HK416_canted_equip_charge"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_reload",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/canted/A_HK416_canted_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_reload_empty",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/canted/A_HK416_canted_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_drum_reload",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/canted/A_HK416_canted_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_drum_reload_empty",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/canted/A_HK416_canted_drum_reload_empty"
+    },
+    {
+     "role": "inspect",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_inspect",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/canted/A_HK416_canted_inspect"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_sprint_enter",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/canted/A_HK416_canted_sprint_enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_sprint_loop",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/canted/A_HK416_canted_sprint_loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_sprint_exit",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/canted/A_HK416_canted_sprint_exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_quick_melee",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/canted/A_HK416_canted_quick_melee"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_hk416",
+   "family": "prism",
+   "mesh": "/Game/Weapons/HK416/Reworked20260930/SK_HK416_Manny",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_hk416/DA_prism",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_idle",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/prism/A_HK416_prism_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_aim",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/prism/A_HK416_prism_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_fire",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/prism/A_HK416_prism_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_aim_fire",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/prism/A_HK416_prism_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_equip_charge",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/prism/A_HK416_prism_equip_charge"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_reload",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/prism/A_HK416_prism_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_reload_empty",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/prism/A_HK416_prism_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_drum_reload",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/prism/A_HK416_prism_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_drum_reload_empty",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/prism/A_HK416_prism_drum_reload_empty"
+    },
+    {
+     "role": "inspect",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_inspect",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/prism/A_HK416_prism_inspect"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_sprint_enter",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/prism/A_HK416_prism_sprint_enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_sprint_loop",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/prism/A_HK416_prism_sprint_loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_sprint_exit",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/prism/A_HK416_prism_sprint_exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_quick_melee",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/prism/A_HK416_prism_quick_melee"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_hk416",
+   "family": "drum",
+   "mesh": "/Game/Weapons/HK416/Reworked20260930/SK_HK416_Manny",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_hk416/DA_drum",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_idle",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/drum/A_HK416_drum_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_aim",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/drum/A_HK416_drum_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_fire",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/drum/A_HK416_drum_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_aim_fire",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/drum/A_HK416_drum_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_equip_charge",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/drum/A_HK416_drum_equip_charge"
+    },
+    {
+     "role": "inspect",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_inspect",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/drum/A_HK416_drum_inspect"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_sprint_enter",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/drum/A_HK416_drum_sprint_enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_sprint_loop",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/drum/A_HK416_drum_sprint_loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_sprint_exit",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/drum/A_HK416_drum_sprint_exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_quick_melee",
+     "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/drum/A_HK416_drum_quick_melee"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_akm",
+   "family": "angled",
+   "mesh": "/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_akm/DA_angled",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/AKMIntegration/SourceMatched/A_AKM_idle",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/AKMIntegration/SourceMatched/A_AKM_aim",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/AKMIntegration/SourceMatched/A_AKM_fire",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/AKMIntegration/SourceMatched/A_AKM_aim_fire",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/AKMIntegration/EquipCharge/A_AKM_equip",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload_empty",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/AKMDrumFreeDrop20260920/base/A_AKM_drum_reload",
+     "authored": "/Game/Weapons/AKMDrumFreeDrop20260920/angled/A_AKM_angled_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/AKMDrumFreeDrop20260920/base/A_AKM_drum_reload_empty",
+     "authored": "/Game/Weapons/AKMDrumFreeDrop20260920/angled/A_AKM_angled_drum_reload_empty"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Base/A_AKM_TacticalSprint_Base_Enter",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Angled/A_AKM_TacticalSprint_Angled_Enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Base/A_AKM_TacticalSprint_Base_Loop",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Angled/A_AKM_TacticalSprint_Angled_Loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Base/A_AKM_TacticalSprint_Base_Exit",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Angled/A_AKM_TacticalSprint_Angled_Exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/RifleQuickMelee20260919/AKM/Base/A_AKM_QuickCombat_Base",
+     "authored": "/Game/Weapons/RifleQuickMelee20260919/AKM/Angled/A_AKM_QuickCombat_Angled"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_akm",
+   "family": "vertical",
+   "mesh": "/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_akm/DA_vertical",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/AKMIntegration/SourceMatched/A_AKM_idle",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripVRENatural/vertical/A_AKM_vertical_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/AKMIntegration/SourceMatched/A_AKM_aim",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripVRENatural/vertical/A_AKM_vertical_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/AKMIntegration/SourceMatched/A_AKM_fire",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripVRENatural/vertical/A_AKM_vertical_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/AKMIntegration/SourceMatched/A_AKM_aim_fire",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripVRENatural/vertical/A_AKM_vertical_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/AKMIntegration/EquipCharge/A_AKM_equip",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripVRENatural/vertical/A_AKM_vertical_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripVRENatural/vertical/A_AKM_vertical_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload_empty",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripVRENatural/vertical/A_AKM_vertical_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/AKMDrumFreeDrop20260920/base/A_AKM_drum_reload",
+     "authored": "/Game/Weapons/AKMDrumFreeDrop20260920/vertical/A_AKM_vertical_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/AKMDrumFreeDrop20260920/base/A_AKM_drum_reload_empty",
+     "authored": "/Game/Weapons/AKMDrumFreeDrop20260920/vertical/A_AKM_vertical_drum_reload_empty"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Base/A_AKM_TacticalSprint_Base_Enter",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Vertical/A_AKM_TacticalSprint_Vertical_Enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Base/A_AKM_TacticalSprint_Base_Loop",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Vertical/A_AKM_TacticalSprint_Vertical_Loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Base/A_AKM_TacticalSprint_Base_Exit",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Vertical/A_AKM_TacticalSprint_Vertical_Exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/RifleQuickMelee20260919/AKM/Base/A_AKM_QuickCombat_Base",
+     "authored": "/Game/Weapons/RifleQuickMelee20260919/AKM/Vertical/A_AKM_QuickCombat_Vertical"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_akm",
+   "family": "canted",
+   "mesh": "/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_akm/DA_canted",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/AKMIntegration/SourceMatched/A_AKM_idle",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/AKMIntegration/SourceMatched/A_AKM_aim",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/AKMIntegration/SourceMatched/A_AKM_fire",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/AKMIntegration/SourceMatched/A_AKM_aim_fire",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/AKMIntegration/EquipCharge/A_AKM_equip",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload_empty",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/AKMDrumFreeDrop20260920/base/A_AKM_drum_reload",
+     "authored": "/Game/Weapons/AKMDrumFreeDrop20260920/canted/A_AKM_canted_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/AKMDrumFreeDrop20260920/base/A_AKM_drum_reload_empty",
+     "authored": "/Game/Weapons/AKMDrumFreeDrop20260920/canted/A_AKM_canted_drum_reload_empty"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Base/A_AKM_TacticalSprint_Base_Enter",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Canted/A_AKM_TacticalSprint_Canted_Enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Base/A_AKM_TacticalSprint_Base_Loop",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Canted/A_AKM_TacticalSprint_Canted_Loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Base/A_AKM_TacticalSprint_Base_Exit",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Canted/A_AKM_TacticalSprint_Canted_Exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/RifleQuickMelee20260919/AKM/Base/A_AKM_QuickCombat_Base",
+     "authored": "/Game/Weapons/RifleQuickMelee20260919/AKM/Canted/A_AKM_QuickCombat_Canted"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_akm",
+   "family": "prism",
+   "mesh": "/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_akm/DA_prism",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/AKMIntegration/SourceMatched/A_AKM_idle",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/AKMIntegration/SourceMatched/A_AKM_aim",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/AKMIntegration/SourceMatched/A_AKM_fire",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/AKMIntegration/SourceMatched/A_AKM_aim_fire",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/AKMIntegration/EquipCharge/A_AKM_equip",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload_empty",
+     "authored": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/AKMDrumFreeDrop20260920/base/A_AKM_drum_reload",
+     "authored": "/Game/Weapons/AKMDrumFreeDrop20260920/prism/A_AKM_prism_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/AKMDrumFreeDrop20260920/base/A_AKM_drum_reload_empty",
+     "authored": "/Game/Weapons/AKMDrumFreeDrop20260920/prism/A_AKM_prism_drum_reload_empty"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Base/A_AKM_TacticalSprint_Base_Enter",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Prism/A_AKM_TacticalSprint_Prism_Enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Base/A_AKM_TacticalSprint_Base_Loop",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Prism/A_AKM_TacticalSprint_Prism_Loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Base/A_AKM_TacticalSprint_Base_Exit",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Prism/A_AKM_TacticalSprint_Prism_Exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/RifleQuickMelee20260919/AKM/Base/A_AKM_QuickCombat_Base",
+     "authored": "/Game/Weapons/RifleQuickMelee20260919/AKM/Prism/A_AKM_QuickCombat_Prism"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_qbz191",
+   "family": "angled",
+   "mesh": "/Game/Weapons/QBZ191/RearGrip20260913/SK_QBZ191_Manny",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_qbz191/DA_angled",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_idle",
+     "authored": "/Game/Weapons/QBZ191/Refined20260913/Animations/angled/A_QBZ191_angled_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_aim",
+     "authored": "/Game/Weapons/QBZ191/Refined20260913/Animations/angled/A_QBZ191_angled_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_fire",
+     "authored": "/Game/Weapons/QBZ191/Refined20260913/Animations/angled/A_QBZ191_angled_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_aim_fire",
+     "authored": "/Game/Weapons/QBZ191/Refined20260913/Animations/angled/A_QBZ191_angled_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/QBZ191/Attachments20260913/Animations/base/A_QBZ191_equip_charge",
+     "authored": "/Game/Weapons/QBZ191/Attachments20260913/Animations/angled/A_QBZ191_angled_equip_charge"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/QBZ191/Attachments20260913/Animations/base/A_QBZ191_reload",
+     "authored": "/Game/Weapons/QBZ191/Attachments20260913/Animations/angled/A_QBZ191_angled_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/QBZ191/Attachments20260913/Animations/base/A_QBZ191_reload_empty",
+     "authored": "/Game/Weapons/QBZ191/Attachments20260913/Animations/angled/A_QBZ191_angled_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/QBZ191/Attachments20260913/Animations/base/A_QBZ191_drum_reload",
+     "authored": "/Game/Weapons/QBZ191/Attachments20260913/Animations/angled/A_QBZ191_angled_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/QBZ191/Attachments20260913/Animations/base/A_QBZ191_drum_reload_empty",
+     "authored": "/Game/Weapons/QBZ191/Attachments20260913/Animations/angled/A_QBZ191_angled_drum_reload_empty"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Base/A_QBZ191_TacticalSprint_Base_Enter",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Angled/A_QBZ191_TacticalSprint_Angled_Enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Base/A_QBZ191_TacticalSprint_Base_Loop",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Angled/A_QBZ191_TacticalSprint_Angled_Loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Base/A_QBZ191_TacticalSprint_Base_Exit",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Angled/A_QBZ191_TacticalSprint_Angled_Exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/RifleQuickMelee20260919/QBZ191/Base/A_QBZ191_QuickCombat_Base",
+     "authored": "/Game/Weapons/RifleQuickMelee20260919/QBZ191/Angled/A_QBZ191_QuickCombat_Angled"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_qbz191",
+   "family": "vertical",
+   "mesh": "/Game/Weapons/QBZ191/RearGrip20260913/SK_QBZ191_Manny",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_qbz191/DA_vertical",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_idle",
+     "authored": "/Game/Weapons/QBZ191/Refined20260913/Animations/vertical/A_QBZ191_vertical_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_aim",
+     "authored": "/Game/Weapons/QBZ191/Refined20260913/Animations/vertical/A_QBZ191_vertical_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_fire",
+     "authored": "/Game/Weapons/QBZ191/Refined20260913/Animations/vertical/A_QBZ191_vertical_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_aim_fire",
+     "authored": "/Game/Weapons/QBZ191/Refined20260913/Animations/vertical/A_QBZ191_vertical_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/QBZ191/Attachments20260913/Animations/base/A_QBZ191_equip_charge",
+     "authored": "/Game/Weapons/QBZ191/Attachments20260913/Animations/vertical/A_QBZ191_vertical_equip_charge"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/QBZ191/Attachments20260913/Animations/base/A_QBZ191_reload",
+     "authored": "/Game/Weapons/QBZ191/Attachments20260913/Animations/vertical/A_QBZ191_vertical_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/QBZ191/Attachments20260913/Animations/base/A_QBZ191_reload_empty",
+     "authored": "/Game/Weapons/QBZ191/Attachments20260913/Animations/vertical/A_QBZ191_vertical_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/QBZ191/Attachments20260913/Animations/base/A_QBZ191_drum_reload",
+     "authored": "/Game/Weapons/QBZ191/Attachments20260913/Animations/vertical/A_QBZ191_vertical_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/QBZ191/Attachments20260913/Animations/base/A_QBZ191_drum_reload_empty",
+     "authored": "/Game/Weapons/QBZ191/Attachments20260913/Animations/vertical/A_QBZ191_vertical_drum_reload_empty"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Base/A_QBZ191_TacticalSprint_Base_Enter",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Vertical/A_QBZ191_TacticalSprint_Vertical_Enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Base/A_QBZ191_TacticalSprint_Base_Loop",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Vertical/A_QBZ191_TacticalSprint_Vertical_Loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Base/A_QBZ191_TacticalSprint_Base_Exit",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Vertical/A_QBZ191_TacticalSprint_Vertical_Exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/RifleQuickMelee20260919/QBZ191/Base/A_QBZ191_QuickCombat_Base",
+     "authored": "/Game/Weapons/RifleQuickMelee20260919/QBZ191/Vertical/A_QBZ191_QuickCombat_Vertical"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_qbz191",
+   "family": "canted",
+   "mesh": "/Game/Weapons/QBZ191/RearGrip20260913/SK_QBZ191_Manny",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_qbz191/DA_canted",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_idle",
+     "authored": "/Game/Weapons/QBZ191/Refined20260913/Animations/canted/A_QBZ191_canted_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_aim",
+     "authored": "/Game/Weapons/QBZ191/Refined20260913/Animations/canted/A_QBZ191_canted_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_fire",
+     "authored": "/Game/Weapons/QBZ191/Refined20260913/Animations/canted/A_QBZ191_canted_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_aim_fire",
+     "authored": "/Game/Weapons/QBZ191/Refined20260913/Animations/canted/A_QBZ191_canted_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/QBZ191/Attachments20260913/Animations/base/A_QBZ191_equip_charge",
+     "authored": "/Game/Weapons/QBZ191/Attachments20260913/Animations/canted/A_QBZ191_canted_equip_charge"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/QBZ191/Attachments20260913/Animations/base/A_QBZ191_reload",
+     "authored": "/Game/Weapons/QBZ191/Attachments20260913/Animations/canted/A_QBZ191_canted_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/QBZ191/Attachments20260913/Animations/base/A_QBZ191_reload_empty",
+     "authored": "/Game/Weapons/QBZ191/Attachments20260913/Animations/canted/A_QBZ191_canted_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/QBZ191/Attachments20260913/Animations/base/A_QBZ191_drum_reload",
+     "authored": "/Game/Weapons/QBZ191/Attachments20260913/Animations/canted/A_QBZ191_canted_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/QBZ191/Attachments20260913/Animations/base/A_QBZ191_drum_reload_empty",
+     "authored": "/Game/Weapons/QBZ191/Attachments20260913/Animations/canted/A_QBZ191_canted_drum_reload_empty"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Base/A_QBZ191_TacticalSprint_Base_Enter",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Canted/A_QBZ191_TacticalSprint_Canted_Enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Base/A_QBZ191_TacticalSprint_Base_Loop",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Canted/A_QBZ191_TacticalSprint_Canted_Loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Base/A_QBZ191_TacticalSprint_Base_Exit",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Canted/A_QBZ191_TacticalSprint_Canted_Exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/RifleQuickMelee20260919/QBZ191/Base/A_QBZ191_QuickCombat_Base",
+     "authored": "/Game/Weapons/RifleQuickMelee20260919/QBZ191/Canted/A_QBZ191_QuickCombat_Canted"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_qbz191",
+   "family": "prism",
+   "mesh": "/Game/Weapons/QBZ191/RearGrip20260913/SK_QBZ191_Manny",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_qbz191/DA_prism",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_idle",
+     "authored": "/Game/Weapons/QBZ191/Refined20260913/Animations/prism/A_QBZ191_prism_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_aim",
+     "authored": "/Game/Weapons/QBZ191/Refined20260913/Animations/prism/A_QBZ191_prism_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_fire",
+     "authored": "/Game/Weapons/QBZ191/Refined20260913/Animations/prism/A_QBZ191_prism_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_aim_fire",
+     "authored": "/Game/Weapons/QBZ191/Refined20260913/Animations/prism/A_QBZ191_prism_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/QBZ191/Attachments20260913/Animations/base/A_QBZ191_equip_charge",
+     "authored": "/Game/Weapons/QBZ191/Attachments20260913/Animations/prism/A_QBZ191_prism_equip_charge"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/QBZ191/Attachments20260913/Animations/base/A_QBZ191_reload",
+     "authored": "/Game/Weapons/QBZ191/Attachments20260913/Animations/prism/A_QBZ191_prism_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/QBZ191/Attachments20260913/Animations/base/A_QBZ191_reload_empty",
+     "authored": "/Game/Weapons/QBZ191/Attachments20260913/Animations/prism/A_QBZ191_prism_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/QBZ191/Attachments20260913/Animations/base/A_QBZ191_drum_reload",
+     "authored": "/Game/Weapons/QBZ191/Attachments20260913/Animations/prism/A_QBZ191_prism_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/QBZ191/Attachments20260913/Animations/base/A_QBZ191_drum_reload_empty",
+     "authored": "/Game/Weapons/QBZ191/Attachments20260913/Animations/prism/A_QBZ191_prism_drum_reload_empty"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Base/A_QBZ191_TacticalSprint_Base_Enter",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Prism/A_QBZ191_TacticalSprint_Prism_Enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Base/A_QBZ191_TacticalSprint_Base_Loop",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Prism/A_QBZ191_TacticalSprint_Prism_Loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Base/A_QBZ191_TacticalSprint_Base_Exit",
+     "authored": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Prism/A_QBZ191_TacticalSprint_Prism_Exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/RifleQuickMelee20260919/QBZ191/Base/A_QBZ191_QuickCombat_Base",
+     "authored": "/Game/Weapons/RifleQuickMelee20260919/QBZ191/Prism/A_QBZ191_QuickCombat_Prism"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_ash12",
+   "family": "angled",
+   "mesh": "/Game/Weapons/ASH12/Surface20260919/SK_ASH12_Surface",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_ash12/DA_angled",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_idle",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/angled/A_ASH12_angled_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_aim",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/angled/A_ASH12_angled_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_fire",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/angled/A_ASH12_angled_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_aim_fire",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/angled/A_ASH12_angled_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_equip_charge",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/angled/A_ASH12_angled_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/ASH12/ReloadReference20260919/A_ASH12_reload",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/angled/A_ASH12_angled_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/ASH12/ReloadReference20260919/A_ASH12_reload_empty",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/angled/A_ASH12_angled_reload_empty"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/ASH12/TacticalSprint20260919/A_ASH12_TacticalSprint_Enter",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/angled/A_ASH12_angled_SprintEnter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/ASH12/TacticalSprint20260919/A_ASH12_TacticalSprint_Loop",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/angled/A_ASH12_angled_SprintLoop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/ASH12/TacticalSprint20260919/A_ASH12_TacticalSprint_Exit",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/angled/A_ASH12_angled_SprintExit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/RifleQuickMelee20260919/ASH12/Base/A_ASH12_QuickCombat_Base",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/angled/A_ASH12_angled_QuickCombat"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_ash12",
+   "family": "vertical",
+   "mesh": "/Game/Weapons/ASH12/Surface20260919/SK_ASH12_Surface",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_ash12/DA_vertical",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_idle",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/vertical/A_ASH12_vertical_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_aim",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/vertical/A_ASH12_vertical_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_fire",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/vertical/A_ASH12_vertical_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_aim_fire",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/vertical/A_ASH12_vertical_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_equip_charge",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/vertical/A_ASH12_vertical_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/ASH12/ReloadReference20260919/A_ASH12_reload",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/vertical/A_ASH12_vertical_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/ASH12/ReloadReference20260919/A_ASH12_reload_empty",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/vertical/A_ASH12_vertical_reload_empty"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/ASH12/TacticalSprint20260919/A_ASH12_TacticalSprint_Enter",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/vertical/A_ASH12_vertical_SprintEnter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/ASH12/TacticalSprint20260919/A_ASH12_TacticalSprint_Loop",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/vertical/A_ASH12_vertical_SprintLoop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/ASH12/TacticalSprint20260919/A_ASH12_TacticalSprint_Exit",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/vertical/A_ASH12_vertical_SprintExit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/RifleQuickMelee20260919/ASH12/Base/A_ASH12_QuickCombat_Base",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/vertical/A_ASH12_vertical_QuickCombat"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_ash12",
+   "family": "canted",
+   "mesh": "/Game/Weapons/ASH12/Surface20260919/SK_ASH12_Surface",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_ash12/DA_canted",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_idle",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/canted/A_ASH12_canted_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_aim",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/canted/A_ASH12_canted_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_fire",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/canted/A_ASH12_canted_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_aim_fire",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/canted/A_ASH12_canted_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_equip_charge",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/canted/A_ASH12_canted_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/ASH12/ReloadReference20260919/A_ASH12_reload",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/canted/A_ASH12_canted_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/ASH12/ReloadReference20260919/A_ASH12_reload_empty",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/canted/A_ASH12_canted_reload_empty"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/ASH12/TacticalSprint20260919/A_ASH12_TacticalSprint_Enter",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/canted/A_ASH12_canted_SprintEnter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/ASH12/TacticalSprint20260919/A_ASH12_TacticalSprint_Loop",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/canted/A_ASH12_canted_SprintLoop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/ASH12/TacticalSprint20260919/A_ASH12_TacticalSprint_Exit",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/canted/A_ASH12_canted_SprintExit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/RifleQuickMelee20260919/ASH12/Base/A_ASH12_QuickCombat_Base",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/canted/A_ASH12_canted_QuickCombat"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_ash12",
+   "family": "prism",
+   "mesh": "/Game/Weapons/ASH12/Surface20260919/SK_ASH12_Surface",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_ash12/DA_prism",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_idle",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/prism/A_ASH12_prism_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_aim",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/prism/A_ASH12_prism_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_fire",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/prism/A_ASH12_prism_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_aim_fire",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/prism/A_ASH12_prism_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_equip_charge",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/prism/A_ASH12_prism_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/ASH12/ReloadReference20260919/A_ASH12_reload",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/prism/A_ASH12_prism_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/ASH12/ReloadReference20260919/A_ASH12_reload_empty",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/prism/A_ASH12_prism_reload_empty"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/ASH12/TacticalSprint20260919/A_ASH12_TacticalSprint_Enter",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/prism/A_ASH12_prism_SprintEnter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/ASH12/TacticalSprint20260919/A_ASH12_TacticalSprint_Loop",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/prism/A_ASH12_prism_SprintLoop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/ASH12/TacticalSprint20260919/A_ASH12_TacticalSprint_Exit",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/prism/A_ASH12_prism_SprintExit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/RifleQuickMelee20260919/ASH12/Base/A_ASH12_QuickCombat_Base",
+     "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/prism/A_ASH12_prism_QuickCombat"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_m16a2",
+   "family": "angled",
+   "mesh": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_m16a2/DA_angled",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_idle",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_aim",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_fire",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_aim_fire",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_equip_charge",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_reload",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_reload_empty",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/base/A_M16_base_drum_reload",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/base/A_M16_base_drum_reload_empty",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_drum_reload_empty"
+    },
+    {
+     "role": "inspect",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_inspect",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_inspect"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_sprint_enter",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_SprintEnter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_sprint_loop",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_SprintLoop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_sprint_exit",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_SprintExit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_quick_melee",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_QuickCombat"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_m16a2",
+   "family": "vertical",
+   "mesh": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_m16a2/DA_vertical",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_idle",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_aim",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_fire",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_aim_fire",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_equip_charge",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_reload",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_reload_empty",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/base/A_M16_base_drum_reload",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/base/A_M16_base_drum_reload_empty",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_drum_reload_empty"
+    },
+    {
+     "role": "inspect",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_inspect",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_inspect"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_sprint_enter",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_SprintEnter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_sprint_loop",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_SprintLoop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_sprint_exit",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_SprintExit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_quick_melee",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_QuickCombat"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_m16a2",
+   "family": "canted",
+   "mesh": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_m16a2/DA_canted",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_idle",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_aim",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_fire",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_aim_fire",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_equip_charge",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_reload",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_reload_empty",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/base/A_M16_base_drum_reload",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/base/A_M16_base_drum_reload_empty",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_drum_reload_empty"
+    },
+    {
+     "role": "inspect",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_inspect",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_inspect"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_sprint_enter",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_SprintEnter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_sprint_loop",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_SprintLoop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_sprint_exit",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_SprintExit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_quick_melee",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_QuickCombat"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_m16a2",
+   "family": "prism",
+   "mesh": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_m16a2/DA_prism",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_idle",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_aim",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_fire",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_aim_fire",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_equip_charge",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_reload",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_reload_empty",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/base/A_M16_base_drum_reload",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/base/A_M16_base_drum_reload_empty",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_drum_reload_empty"
+    },
+    {
+     "role": "inspect",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_inspect",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_inspect"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_sprint_enter",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_SprintEnter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_sprint_loop",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_SprintLoop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_sprint_exit",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_SprintExit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_quick_melee",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_QuickCombat"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_m16a2",
+   "family": "drum",
+   "mesh": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_m16a2/DA_drum",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_idle",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/drum/A_M16_drum_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_aim",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/drum/A_M16_drum_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_fire",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/drum/A_M16_drum_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_aim_fire",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/drum/A_M16_drum_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_equip_charge",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/drum/A_M16_drum_equip"
+    },
+    {
+     "role": "inspect",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_inspect",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/drum/A_M16_drum_inspect"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_sprint_enter",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/drum/A_M16_drum_SprintEnter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_sprint_loop",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/drum/A_M16_drum_SprintLoop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_sprint_exit",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/drum/A_M16_drum_SprintExit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_quick_melee",
+     "authored": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/drum/A_M16_drum_QuickCombat"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_a762",
+   "family": "angled",
+   "mesh": "/Game/Weapons/A762/Integrated20260920/SK_A762_Manny",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_a762/DA_angled",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_idle",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_aim",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_fire",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_aim_fire",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_equip",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_reload",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_reload_empty",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/A762/Accessories05/Animations/base/A_A762_base_drum_reload",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/A762/Accessories05/Animations/base/A_A762_base_drum_reload_empty",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_drum_reload_empty"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_sprint_enter",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_sprint_enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_sprint_loop",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_sprint_loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_sprint_exit",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_sprint_exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/RifleQuickMelee20260919/AKM/Base/A_AKM_QuickCombat_Base",
+     "authored": "/Game/Weapons/RifleQuickMelee20260919/AKM/Angled/A_AKM_QuickCombat_Angled"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_a762",
+   "family": "vertical",
+   "mesh": "/Game/Weapons/A762/Integrated20260920/SK_A762_Manny",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_a762/DA_vertical",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_idle",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_aim",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_fire",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_aim_fire",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_equip",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_reload",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_reload_empty",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/A762/Accessories05/Animations/base/A_A762_base_drum_reload",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/A762/Accessories05/Animations/base/A_A762_base_drum_reload_empty",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_drum_reload_empty"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_sprint_enter",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_sprint_enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_sprint_loop",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_sprint_loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_sprint_exit",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_sprint_exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/RifleQuickMelee20260919/AKM/Base/A_AKM_QuickCombat_Base",
+     "authored": "/Game/Weapons/RifleQuickMelee20260919/AKM/Vertical/A_AKM_QuickCombat_Vertical"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_a762",
+   "family": "canted",
+   "mesh": "/Game/Weapons/A762/Integrated20260920/SK_A762_Manny",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_a762/DA_canted",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_idle",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/canted/A_A762_canted_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_aim",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/canted/A_A762_canted_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_fire",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/canted/A_A762_canted_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_aim_fire",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/canted/A_A762_canted_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_equip",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/canted/A_A762_canted_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_reload",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/canted/A_A762_canted_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_reload_empty",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/canted/A_A762_canted_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/A762/Accessories05/Animations/base/A_A762_base_drum_reload",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/canted/A_A762_canted_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/A762/Accessories05/Animations/base/A_A762_base_drum_reload_empty",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/canted/A_A762_canted_drum_reload_empty"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_sprint_enter",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/canted/A_A762_canted_sprint_enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_sprint_loop",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/canted/A_A762_canted_sprint_loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_sprint_exit",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/canted/A_A762_canted_sprint_exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/RifleQuickMelee20260919/AKM/Base/A_AKM_QuickCombat_Base",
+     "authored": "/Game/Weapons/RifleQuickMelee20260919/AKM/Canted/A_AKM_QuickCombat_Canted"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_a762",
+   "family": "prism",
+   "mesh": "/Game/Weapons/A762/Integrated20260920/SK_A762_Manny",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_a762/DA_prism",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_idle",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/prism/A_A762_prism_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_aim",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/prism/A_A762_prism_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_fire",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/prism/A_A762_prism_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_aim_fire",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/prism/A_A762_prism_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_equip",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/prism/A_A762_prism_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_reload",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/prism/A_A762_prism_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_reload_empty",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/prism/A_A762_prism_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/A762/Accessories05/Animations/base/A_A762_base_drum_reload",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/prism/A_A762_prism_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/A762/Accessories05/Animations/base/A_A762_base_drum_reload_empty",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/prism/A_A762_prism_drum_reload_empty"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_sprint_enter",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/prism/A_A762_prism_sprint_enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_sprint_loop",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/prism/A_A762_prism_sprint_loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_sprint_exit",
+     "authored": "/Game/Weapons/A762/Accessories05/Animations/prism/A_A762_prism_sprint_exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/RifleQuickMelee20260919/AKM/Base/A_AKM_QuickCombat_Base",
+     "authored": "/Game/Weapons/RifleQuickMelee20260919/AKM/Prism/A_AKM_QuickCombat_Prism"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_pkm_lowpoly",
+   "family": "angled",
+   "mesh": "/Game/Weapons/PKMLowpoly20260922/Accessories14/SK_PKM_Manny_Modular",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_pkm_lowpoly/DA_angled",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_idle",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/angled/A_PKM_angled_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_aim",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/angled/A_PKM_angled_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_fire",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/angled/A_PKM_angled_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_aim_fire",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/angled/A_PKM_angled_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_equip",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/angled/A_PKM_angled_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_reload",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/angled/A_PKM_angled_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_reload_empty",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/angled/A_PKM_angled_reload_empty"
+    },
+    {
+     "role": "inspect",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_inspect",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/angled/A_PKM_angled_inspect"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_sprint_enter",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/angled/A_PKM_angled_sprint_enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_sprint_loop",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/angled/A_PKM_angled_sprint_loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_sprint_exit",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/angled/A_PKM_angled_sprint_exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_quick_melee",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/angled/A_PKM_angled_quick_melee"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_pkm_lowpoly",
+   "family": "vertical",
+   "mesh": "/Game/Weapons/PKMLowpoly20260922/Accessories14/SK_PKM_Manny_Modular",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_pkm_lowpoly/DA_vertical",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_idle",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/vertical/A_PKM_vertical_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_aim",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/vertical/A_PKM_vertical_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_fire",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/vertical/A_PKM_vertical_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_aim_fire",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/vertical/A_PKM_vertical_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_equip",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/vertical/A_PKM_vertical_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_reload",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/vertical/A_PKM_vertical_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_reload_empty",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/vertical/A_PKM_vertical_reload_empty"
+    },
+    {
+     "role": "inspect",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_inspect",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/vertical/A_PKM_vertical_inspect"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_sprint_enter",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/vertical/A_PKM_vertical_sprint_enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_sprint_loop",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/vertical/A_PKM_vertical_sprint_loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_sprint_exit",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/vertical/A_PKM_vertical_sprint_exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_quick_melee",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/vertical/A_PKM_vertical_quick_melee"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_pkm_lowpoly",
+   "family": "canted",
+   "mesh": "/Game/Weapons/PKMLowpoly20260922/Accessories14/SK_PKM_Manny_Modular",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_pkm_lowpoly/DA_canted",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_idle",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/canted/A_PKM_canted_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_aim",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/canted/A_PKM_canted_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_fire",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/canted/A_PKM_canted_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_aim_fire",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/canted/A_PKM_canted_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_equip",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/canted/A_PKM_canted_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_reload",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/canted/A_PKM_canted_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_reload_empty",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/canted/A_PKM_canted_reload_empty"
+    },
+    {
+     "role": "inspect",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_inspect",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/canted/A_PKM_canted_inspect"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_sprint_enter",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/canted/A_PKM_canted_sprint_enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_sprint_loop",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/canted/A_PKM_canted_sprint_loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_sprint_exit",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/canted/A_PKM_canted_sprint_exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_quick_melee",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/canted/A_PKM_canted_quick_melee"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_pkm_lowpoly",
+   "family": "prism",
+   "mesh": "/Game/Weapons/PKMLowpoly20260922/Accessories14/SK_PKM_Manny_Modular",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_pkm_lowpoly/DA_prism",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_idle",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/prism/A_PKM_prism_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_aim",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/prism/A_PKM_prism_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_fire",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/prism/A_PKM_prism_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_aim_fire",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/prism/A_PKM_prism_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_equip",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/prism/A_PKM_prism_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_reload",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/prism/A_PKM_prism_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_reload_empty",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/prism/A_PKM_prism_reload_empty"
+    },
+    {
+     "role": "inspect",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_inspect",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/prism/A_PKM_prism_inspect"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_sprint_enter",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/prism/A_PKM_prism_sprint_enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_sprint_loop",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/prism/A_PKM_prism_sprint_loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_sprint_exit",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/prism/A_PKM_prism_sprint_exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_quick_melee",
+     "authored": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/prism/A_PKM_prism_quick_melee"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_lmg201",
+   "family": "angled",
+   "mesh": "/Game/Weapons/LMG201/Cover10/SK_LMG201_Cover10",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_lmg201/DA_angled",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_idle",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/angled/A_LMG201_angled_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_aim",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/angled/A_LMG201_angled_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_fire",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/angled/A_LMG201_angled_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_aim_fire",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/angled/A_LMG201_angled_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_equip",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/angled/A_LMG201_angled_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/LMG201/Magazine24/Animations/base/A_LMG201_base_reload",
+     "authored": "/Game/Weapons/LMG201/Magazine24/Animations/angled/A_LMG201_angled_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/LMG201/Magazine24/Animations/base/A_LMG201_base_reload_empty",
+     "authored": "/Game/Weapons/LMG201/Magazine24/Animations/angled/A_LMG201_angled_reload_empty"
+    },
+    {
+     "role": "inspect",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_inspect",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/angled/A_LMG201_angled_inspect"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_sprint_enter",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/angled/A_LMG201_angled_sprint_enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_sprint_loop",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/angled/A_LMG201_angled_sprint_loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_sprint_exit",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/angled/A_LMG201_angled_sprint_exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_quick_melee",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/angled/A_LMG201_angled_quick_melee"
+    },
+    {
+     "role": "cloth_reload",
+     "base": "/Game/Weapons/LMG201/ClothReload44/Animations/base/A_LMG201_base_reload",
+     "authored": "/Game/Weapons/LMG201/ClothReload44/Animations/angled/A_LMG201_angled_reload"
+    },
+    {
+     "role": "cloth_reload_empty",
+     "base": "/Game/Weapons/LMG201/ClothReload44/Animations/base/A_LMG201_base_reload_empty",
+     "authored": "/Game/Weapons/LMG201/ClothReload44/Animations/angled/A_LMG201_angled_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/LMG201/Drum46/Animations/base/A_LMG201_base_drum_reload",
+     "authored": "/Game/Weapons/LMG201/Drum46/Animations/angled/A_LMG201_angled_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/LMG201/Drum46/Animations/base/A_LMG201_base_drum_reload_empty",
+     "authored": "/Game/Weapons/LMG201/Drum46/Animations/angled/A_LMG201_angled_drum_reload_empty"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_lmg201",
+   "family": "vertical",
+   "mesh": "/Game/Weapons/LMG201/Cover10/SK_LMG201_Cover10",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_lmg201/DA_vertical",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_idle",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/vertical/A_LMG201_vertical_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_aim",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/vertical/A_LMG201_vertical_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_fire",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/vertical/A_LMG201_vertical_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_aim_fire",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/vertical/A_LMG201_vertical_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_equip",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/vertical/A_LMG201_vertical_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/LMG201/Magazine24/Animations/base/A_LMG201_base_reload",
+     "authored": "/Game/Weapons/LMG201/Magazine24/Animations/vertical/A_LMG201_vertical_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/LMG201/Magazine24/Animations/base/A_LMG201_base_reload_empty",
+     "authored": "/Game/Weapons/LMG201/Magazine24/Animations/vertical/A_LMG201_vertical_reload_empty"
+    },
+    {
+     "role": "inspect",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_inspect",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/vertical/A_LMG201_vertical_inspect"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_sprint_enter",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/vertical/A_LMG201_vertical_sprint_enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_sprint_loop",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/vertical/A_LMG201_vertical_sprint_loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_sprint_exit",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/vertical/A_LMG201_vertical_sprint_exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_quick_melee",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/vertical/A_LMG201_vertical_quick_melee"
+    },
+    {
+     "role": "cloth_reload",
+     "base": "/Game/Weapons/LMG201/ClothReload44/Animations/base/A_LMG201_base_reload",
+     "authored": "/Game/Weapons/LMG201/ClothReload44/Animations/vertical/A_LMG201_vertical_reload"
+    },
+    {
+     "role": "cloth_reload_empty",
+     "base": "/Game/Weapons/LMG201/ClothReload44/Animations/base/A_LMG201_base_reload_empty",
+     "authored": "/Game/Weapons/LMG201/ClothReload44/Animations/vertical/A_LMG201_vertical_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/LMG201/Drum46/Animations/base/A_LMG201_base_drum_reload",
+     "authored": "/Game/Weapons/LMG201/Drum46/Animations/vertical/A_LMG201_vertical_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/LMG201/Drum46/Animations/base/A_LMG201_base_drum_reload_empty",
+     "authored": "/Game/Weapons/LMG201/Drum46/Animations/vertical/A_LMG201_vertical_drum_reload_empty"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_lmg201",
+   "family": "canted",
+   "mesh": "/Game/Weapons/LMG201/Cover10/SK_LMG201_Cover10",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_lmg201/DA_canted",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_idle",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/canted/A_LMG201_canted_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_aim",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/canted/A_LMG201_canted_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_fire",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/canted/A_LMG201_canted_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_aim_fire",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/canted/A_LMG201_canted_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_equip",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/canted/A_LMG201_canted_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/LMG201/Magazine24/Animations/base/A_LMG201_base_reload",
+     "authored": "/Game/Weapons/LMG201/Magazine24/Animations/canted/A_LMG201_canted_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/LMG201/Magazine24/Animations/base/A_LMG201_base_reload_empty",
+     "authored": "/Game/Weapons/LMG201/Magazine24/Animations/canted/A_LMG201_canted_reload_empty"
+    },
+    {
+     "role": "inspect",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_inspect",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/canted/A_LMG201_canted_inspect"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_sprint_enter",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/canted/A_LMG201_canted_sprint_enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_sprint_loop",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/canted/A_LMG201_canted_sprint_loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_sprint_exit",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/canted/A_LMG201_canted_sprint_exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_quick_melee",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/canted/A_LMG201_canted_quick_melee"
+    },
+    {
+     "role": "cloth_reload",
+     "base": "/Game/Weapons/LMG201/ClothReload44/Animations/base/A_LMG201_base_reload",
+     "authored": "/Game/Weapons/LMG201/ClothReload44/Animations/canted/A_LMG201_canted_reload"
+    },
+    {
+     "role": "cloth_reload_empty",
+     "base": "/Game/Weapons/LMG201/ClothReload44/Animations/base/A_LMG201_base_reload_empty",
+     "authored": "/Game/Weapons/LMG201/ClothReload44/Animations/canted/A_LMG201_canted_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/LMG201/Drum46/Animations/base/A_LMG201_base_drum_reload",
+     "authored": "/Game/Weapons/LMG201/Drum46/Animations/canted/A_LMG201_canted_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/LMG201/Drum46/Animations/base/A_LMG201_base_drum_reload_empty",
+     "authored": "/Game/Weapons/LMG201/Drum46/Animations/canted/A_LMG201_canted_drum_reload_empty"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_lmg201",
+   "family": "prism",
+   "mesh": "/Game/Weapons/LMG201/Cover10/SK_LMG201_Cover10",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_lmg201/DA_prism",
+   "pairs": [
+    {
+     "role": "idle",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_idle",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/prism/A_LMG201_prism_idle"
+    },
+    {
+     "role": "aim",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_aim",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/prism/A_LMG201_prism_aim"
+    },
+    {
+     "role": "fire",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_fire",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/prism/A_LMG201_prism_fire"
+    },
+    {
+     "role": "aim_fire",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_aim_fire",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/prism/A_LMG201_prism_aim_fire"
+    },
+    {
+     "role": "equip",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_equip",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/prism/A_LMG201_prism_equip"
+    },
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/LMG201/Magazine24/Animations/base/A_LMG201_base_reload",
+     "authored": "/Game/Weapons/LMG201/Magazine24/Animations/prism/A_LMG201_prism_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/LMG201/Magazine24/Animations/base/A_LMG201_base_reload_empty",
+     "authored": "/Game/Weapons/LMG201/Magazine24/Animations/prism/A_LMG201_prism_reload_empty"
+    },
+    {
+     "role": "inspect",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_inspect",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/prism/A_LMG201_prism_inspect"
+    },
+    {
+     "role": "sprint_enter",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_sprint_enter",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/prism/A_LMG201_prism_sprint_enter"
+    },
+    {
+     "role": "sprint_loop",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_sprint_loop",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/prism/A_LMG201_prism_sprint_loop"
+    },
+    {
+     "role": "sprint_exit",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_sprint_exit",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/prism/A_LMG201_prism_sprint_exit"
+    },
+    {
+     "role": "quick_melee",
+     "base": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_quick_melee",
+     "authored": "/Game/Weapons/LMG201/Accessories22/Animations/prism/A_LMG201_prism_quick_melee"
+    },
+    {
+     "role": "cloth_reload",
+     "base": "/Game/Weapons/LMG201/ClothReload44/Animations/base/A_LMG201_base_reload",
+     "authored": "/Game/Weapons/LMG201/ClothReload44/Animations/prism/A_LMG201_prism_reload"
+    },
+    {
+     "role": "cloth_reload_empty",
+     "base": "/Game/Weapons/LMG201/ClothReload44/Animations/base/A_LMG201_base_reload_empty",
+     "authored": "/Game/Weapons/LMG201/ClothReload44/Animations/prism/A_LMG201_prism_reload_empty"
+    },
+    {
+     "role": "drum_reload",
+     "base": "/Game/Weapons/LMG201/Drum46/Animations/base/A_LMG201_base_drum_reload",
+     "authored": "/Game/Weapons/LMG201/Drum46/Animations/prism/A_LMG201_prism_drum_reload"
+    },
+    {
+     "role": "drum_reload_empty",
+     "base": "/Game/Weapons/LMG201/Drum46/Animations/base/A_LMG201_base_drum_reload_empty",
+     "authored": "/Game/Weapons/LMG201/Drum46/Animations/prism/A_LMG201_prism_drum_reload_empty"
+    }
+   ]
+  },
+  {
+   "weapon": "Melee",
+   "family": "Sword_LongGrip",
+   "mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/Melee/DA_Sword_LongGrip",
+   "pairs": [
+    {
+     "role": "Idle",
+     "base": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Idle",
+     "authored": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Idle"
+    },
+    {
+     "role": "Walk",
+     "base": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Walk",
+     "authored": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Walk"
+    },
+    {
+     "role": "Whirlwind",
+     "base": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_WhirlwindV5",
+     "authored": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_WhirlwindV5"
+    },
+    {
+     "role": "Equip",
+     "base": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Equip",
+     "authored": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Equip"
+    },
+    {
+     "role": "Inspect",
+     "base": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Inspect",
+     "authored": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Inspect"
+    },
+    {
+     "role": "Overhead",
+     "base": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Overhead",
+     "authored": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Overhead"
+    },
+    {
+     "role": "Slash1",
+     "base": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Slash1",
+     "authored": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Slash1"
+    },
+    {
+     "role": "Slash2",
+     "base": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Slash2",
+     "authored": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Slash2"
+    },
+    {
+     "role": "Thrust",
+     "base": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Thrust",
+     "authored": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Thrust"
+    },
+    {
+     "role": "PommelStrike",
+     "base": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_PommelStrike",
+     "authored": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_PommelStrike"
+    },
+    {
+     "role": "HeavyCharge",
+     "base": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_HeavyCharge",
+     "authored": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_HeavyCharge"
+    },
+    {
+     "role": "HeavyRelease",
+     "base": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_HeavyRelease",
+     "authored": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_HeavyRelease"
+    },
+    {
+     "role": "Guard",
+     "base": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Guard",
+     "authored": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Guard"
+    },
+    {
+     "role": "GuardHit",
+     "base": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_GuardHit",
+     "authored": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_GuardHit"
+    },
+    {
+     "role": "GuardBreak",
+     "base": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_GuardBreak",
+     "authored": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_GuardBreak"
+    },
+    {
+     "role": "SprintEnter",
+     "base": "/Game/Weapons/AzureRunesword20260913/TacticalSprint20260921/A_RuneSword_SprintEnter",
+     "authored": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/TacticalSprint20260921/A_RuneSword_SprintEnter"
+    },
+    {
+     "role": "SprintLoop",
+     "base": "/Game/Weapons/AzureRunesword20260913/TacticalSprint20260921/A_RuneSword_SprintLoop",
+     "authored": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/TacticalSprint20260921/A_RuneSword_SprintLoop"
+    },
+    {
+     "role": "SprintExit",
+     "base": "/Game/Weapons/AzureRunesword20260913/TacticalSprint20260921/A_RuneSword_SprintExit",
+     "authored": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/TacticalSprint20260921/A_RuneSword_SprintExit"
+    },
+    {
+     "role": "SprintOverhead",
+     "base": "/Game/Weapons/AzureRunesword20260913/TacticalSprint20260921/A_RuneSword_SprintOverhead",
+     "authored": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/TacticalSprint20260921/A_RuneSword_SprintOverhead"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_m1911/Dual_r",
+   "family": "fitted",
+   "mesh": "/Game/Weapons/PistolDualWield20260914/M1911/r/SK_Dual_M1911_r",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_m1911/Dual_r/DA_fitted",
+   "pairs": [
+    {
+     "role": "quickcombat",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/r/Animations/A_Dual_M1911_r_quickcombat",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/r/Animations/A_Dual_M1911_r_quickcombat_fitted"
+    },
+    {
+     "role": "quickcombat_empty",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/r/Animations/A_Dual_M1911_r_quickcombat_empty",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/r/Animations/A_Dual_M1911_r_quickcombat_fitted_empty"
+    },
+    {
+     "role": "quickcombat_left",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/r/Animations/A_Dual_M1911_r_quickcombat_left",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/r/Animations/A_Dual_M1911_r_quickcombat_left_fitted"
+    },
+    {
+     "role": "quickcombat_left_empty",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/r/Animations/A_Dual_M1911_r_quickcombat_left_empty",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/r/Animations/A_Dual_M1911_r_quickcombat_left_fitted_empty"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_m1911/Dual_r",
+   "family": "long",
+   "mesh": "/Game/Weapons/PistolDualWield20260914/M1911/r/SK_Dual_M1911_r",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_m1911/Dual_r/DA_long",
+   "pairs": [
+    {
+     "role": "quickcombat",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/r/Animations/A_Dual_M1911_r_quickcombat",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/r/Animations/A_Dual_M1911_r_quickcombat_long"
+    },
+    {
+     "role": "quickcombat_empty",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/r/Animations/A_Dual_M1911_r_quickcombat_empty",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/r/Animations/A_Dual_M1911_r_quickcombat_long_empty"
+    },
+    {
+     "role": "quickcombat_left",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/r/Animations/A_Dual_M1911_r_quickcombat_left",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/r/Animations/A_Dual_M1911_r_quickcombat_left_long"
+    },
+    {
+     "role": "quickcombat_left_empty",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/r/Animations/A_Dual_M1911_r_quickcombat_left_empty",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/r/Animations/A_Dual_M1911_r_quickcombat_left_long_empty"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_m1911/Dual_l",
+   "family": "fitted",
+   "mesh": "/Game/Weapons/PistolDualWield20260914/M1911/l/SK_Dual_M1911_l",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_m1911/Dual_l/DA_fitted",
+   "pairs": [
+    {
+     "role": "quickcombat",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/l/Animations/A_Dual_M1911_l_quickcombat",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/l/Animations/A_Dual_M1911_l_quickcombat_fitted"
+    },
+    {
+     "role": "quickcombat_empty",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/l/Animations/A_Dual_M1911_l_quickcombat_empty",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/l/Animations/A_Dual_M1911_l_quickcombat_fitted_empty"
+    },
+    {
+     "role": "quickcombat_left",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/l/Animations/A_Dual_M1911_l_quickcombat_left",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/l/Animations/A_Dual_M1911_l_quickcombat_left_fitted"
+    },
+    {
+     "role": "quickcombat_left_empty",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/l/Animations/A_Dual_M1911_l_quickcombat_left_empty",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/l/Animations/A_Dual_M1911_l_quickcombat_left_fitted_empty"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_m1911/Dual_l",
+   "family": "long",
+   "mesh": "/Game/Weapons/PistolDualWield20260914/M1911/l/SK_Dual_M1911_l",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_m1911/Dual_l/DA_long",
+   "pairs": [
+    {
+     "role": "quickcombat",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/l/Animations/A_Dual_M1911_l_quickcombat",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/l/Animations/A_Dual_M1911_l_quickcombat_long"
+    },
+    {
+     "role": "quickcombat_empty",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/l/Animations/A_Dual_M1911_l_quickcombat_empty",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/l/Animations/A_Dual_M1911_l_quickcombat_long_empty"
+    },
+    {
+     "role": "quickcombat_left",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/l/Animations/A_Dual_M1911_l_quickcombat_left",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/l/Animations/A_Dual_M1911_l_quickcombat_left_long"
+    },
+    {
+     "role": "quickcombat_left_empty",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/l/Animations/A_Dual_M1911_l_quickcombat_left_empty",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/l/Animations/A_Dual_M1911_l_quickcombat_left_long_empty"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_g18/Dual_r",
+   "family": "fitted",
+   "mesh": "/Game/Weapons/G18/Integrated20260929/Dual/r/SK_Dual_G18_r",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_g18/Dual_r/DA_fitted",
+   "pairs": [
+    {
+     "role": "quickcombat",
+     "base": "/Game/Weapons/G18/Integrated20260929/Dual/r/Animations/A_Dual_G18_r_quickcombat",
+     "authored": "/Game/Weapons/G18/Integrated20260929/Dual/r/Animations/A_Dual_G18_r_quickcombat_fitted"
+    },
+    {
+     "role": "quickcombat_empty",
+     "base": "/Game/Weapons/G18/Integrated20260929/Dual/r/Animations/A_Dual_G18_r_quickcombat_empty",
+     "authored": "/Game/Weapons/G18/Integrated20260929/Dual/r/Animations/A_Dual_G18_r_quickcombat_fitted_empty"
+    },
+    {
+     "role": "quickcombat_left",
+     "base": "/Game/Weapons/G18/Integrated20260929/Dual/r/Animations/A_Dual_G18_r_quickcombat_left",
+     "authored": "/Game/Weapons/G18/Integrated20260929/Dual/r/Animations/A_Dual_G18_r_quickcombat_left_fitted"
+    },
+    {
+     "role": "quickcombat_left_empty",
+     "base": "/Game/Weapons/G18/Integrated20260929/Dual/r/Animations/A_Dual_G18_r_quickcombat_left_empty",
+     "authored": "/Game/Weapons/G18/Integrated20260929/Dual/r/Animations/A_Dual_G18_r_quickcombat_left_fitted_empty"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_g18/Dual_r",
+   "family": "long",
+   "mesh": "/Game/Weapons/G18/Integrated20260929/Dual/r/SK_Dual_G18_r",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_g18/Dual_r/DA_long",
+   "pairs": [
+    {
+     "role": "quickcombat",
+     "base": "/Game/Weapons/G18/Integrated20260929/Dual/r/Animations/A_Dual_G18_r_quickcombat",
+     "authored": "/Game/Weapons/G18/Integrated20260929/Dual/r/Animations/A_Dual_G18_r_quickcombat_long"
+    },
+    {
+     "role": "quickcombat_empty",
+     "base": "/Game/Weapons/G18/Integrated20260929/Dual/r/Animations/A_Dual_G18_r_quickcombat_empty",
+     "authored": "/Game/Weapons/G18/Integrated20260929/Dual/r/Animations/A_Dual_G18_r_quickcombat_long_empty"
+    },
+    {
+     "role": "quickcombat_left",
+     "base": "/Game/Weapons/G18/Integrated20260929/Dual/r/Animations/A_Dual_G18_r_quickcombat_left",
+     "authored": "/Game/Weapons/G18/Integrated20260929/Dual/r/Animations/A_Dual_G18_r_quickcombat_left_long"
+    },
+    {
+     "role": "quickcombat_left_empty",
+     "base": "/Game/Weapons/G18/Integrated20260929/Dual/r/Animations/A_Dual_G18_r_quickcombat_left_empty",
+     "authored": "/Game/Weapons/G18/Integrated20260929/Dual/r/Animations/A_Dual_G18_r_quickcombat_left_long_empty"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_g18/Dual_l",
+   "family": "fitted",
+   "mesh": "/Game/Weapons/G18/Integrated20260929/Dual/l/SK_Dual_G18_l",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_g18/Dual_l/DA_fitted",
+   "pairs": [
+    {
+     "role": "quickcombat",
+     "base": "/Game/Weapons/G18/Integrated20260929/Dual/l/Animations/A_Dual_G18_l_quickcombat",
+     "authored": "/Game/Weapons/G18/Integrated20260929/Dual/l/Animations/A_Dual_G18_l_quickcombat_fitted"
+    },
+    {
+     "role": "quickcombat_empty",
+     "base": "/Game/Weapons/G18/Integrated20260929/Dual/l/Animations/A_Dual_G18_l_quickcombat_empty",
+     "authored": "/Game/Weapons/G18/Integrated20260929/Dual/l/Animations/A_Dual_G18_l_quickcombat_fitted_empty"
+    },
+    {
+     "role": "quickcombat_left",
+     "base": "/Game/Weapons/G18/Integrated20260929/Dual/l/Animations/A_Dual_G18_l_quickcombat_left",
+     "authored": "/Game/Weapons/G18/Integrated20260929/Dual/l/Animations/A_Dual_G18_l_quickcombat_left_fitted"
+    },
+    {
+     "role": "quickcombat_left_empty",
+     "base": "/Game/Weapons/G18/Integrated20260929/Dual/l/Animations/A_Dual_G18_l_quickcombat_left_empty",
+     "authored": "/Game/Weapons/G18/Integrated20260929/Dual/l/Animations/A_Dual_G18_l_quickcombat_left_fitted_empty"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_g18/Dual_l",
+   "family": "long",
+   "mesh": "/Game/Weapons/G18/Integrated20260929/Dual/l/SK_Dual_G18_l",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_g18/Dual_l/DA_long",
+   "pairs": [
+    {
+     "role": "quickcombat",
+     "base": "/Game/Weapons/G18/Integrated20260929/Dual/l/Animations/A_Dual_G18_l_quickcombat",
+     "authored": "/Game/Weapons/G18/Integrated20260929/Dual/l/Animations/A_Dual_G18_l_quickcombat_long"
+    },
+    {
+     "role": "quickcombat_empty",
+     "base": "/Game/Weapons/G18/Integrated20260929/Dual/l/Animations/A_Dual_G18_l_quickcombat_empty",
+     "authored": "/Game/Weapons/G18/Integrated20260929/Dual/l/Animations/A_Dual_G18_l_quickcombat_long_empty"
+    },
+    {
+     "role": "quickcombat_left",
+     "base": "/Game/Weapons/G18/Integrated20260929/Dual/l/Animations/A_Dual_G18_l_quickcombat_left",
+     "authored": "/Game/Weapons/G18/Integrated20260929/Dual/l/Animations/A_Dual_G18_l_quickcombat_left_long"
+    },
+    {
+     "role": "quickcombat_left_empty",
+     "base": "/Game/Weapons/G18/Integrated20260929/Dual/l/Animations/A_Dual_G18_l_quickcombat_left_empty",
+     "authored": "/Game/Weapons/G18/Integrated20260929/Dual/l/Animations/A_Dual_G18_l_quickcombat_left_long_empty"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_dan_wesson715/Dual_r",
+   "family": "fitted",
+   "mesh": "/Game/Weapons/PistolDualWield20260914/DW715/r/SK_Dual_DW715_r",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_dan_wesson715/Dual_r/DA_fitted",
+   "pairs": [
+    {
+     "role": "quickcombat",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/DW715/r/Animations/A_Dual_DW715_r_quickcombat",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/DW715/r/Animations/A_Dual_DW715_r_quickcombat_fitted"
+    },
+    {
+     "role": "quickcombat_left",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/DW715/r/Animations/A_Dual_DW715_r_quickcombat_left",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/DW715/r/Animations/A_Dual_DW715_r_quickcombat_left_fitted"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_dan_wesson715/Dual_r",
+   "family": "long",
+   "mesh": "/Game/Weapons/PistolDualWield20260914/DW715/r/SK_Dual_DW715_r",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_dan_wesson715/Dual_r/DA_long",
+   "pairs": [
+    {
+     "role": "quickcombat",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/DW715/r/Animations/A_Dual_DW715_r_quickcombat",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/DW715/r/Animations/A_Dual_DW715_r_quickcombat_long"
+    },
+    {
+     "role": "quickcombat_left",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/DW715/r/Animations/A_Dual_DW715_r_quickcombat_left",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/DW715/r/Animations/A_Dual_DW715_r_quickcombat_left_long"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_dan_wesson715/Dual_l",
+   "family": "fitted",
+   "mesh": "/Game/Weapons/PistolDualWield20260914/DW715/l/SK_Dual_DW715_l",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_dan_wesson715/Dual_l/DA_fitted",
+   "pairs": [
+    {
+     "role": "quickcombat",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/DW715/l/Animations/A_Dual_DW715_l_quickcombat",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/DW715/l/Animations/A_Dual_DW715_l_quickcombat_fitted"
+    },
+    {
+     "role": "quickcombat_left",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/DW715/l/Animations/A_Dual_DW715_l_quickcombat_left",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/DW715/l/Animations/A_Dual_DW715_l_quickcombat_left_fitted"
+    }
+   ]
+  },
+  {
+   "weapon": "ue_dan_wesson715/Dual_l",
+   "family": "long",
+   "mesh": "/Game/Weapons/PistolDualWield20260914/DW715/l/SK_Dual_DW715_l",
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_dan_wesson715/Dual_l/DA_long",
+   "pairs": [
+    {
+     "role": "quickcombat",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/DW715/l/Animations/A_Dual_DW715_l_quickcombat",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/DW715/l/Animations/A_Dual_DW715_l_quickcombat_long"
+    },
+    {
+     "role": "quickcombat_left",
+     "base": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/DW715/l/Animations/A_Dual_DW715_l_quickcombat_left",
+     "authored": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/DW715/l/Animations/A_Dual_DW715_l_quickcombat_left_long"
+    }
+   ]
+  }
+ ],
+ "unavailable_legacy_routes": [
+  {
+   "weapon": "ue_ash12",
+   "family": "angled",
+   "role": "drum_reload",
+   "base": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload",
+   "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/angled/A_ASH12_angled_drum_reload"
+  },
+  {
+   "weapon": "ue_ash12",
+   "family": "angled",
+   "role": "drum_reload_empty",
+   "base": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty",
+   "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/angled/A_ASH12_angled_drum_reload_empty"
+  },
+  {
+   "weapon": "ue_ash12",
+   "family": "vertical",
+   "role": "drum_reload",
+   "base": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload",
+   "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/vertical/A_ASH12_vertical_drum_reload"
+  },
+  {
+   "weapon": "ue_ash12",
+   "family": "vertical",
+   "role": "drum_reload_empty",
+   "base": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty",
+   "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/vertical/A_ASH12_vertical_drum_reload_empty"
+  },
+  {
+   "weapon": "ue_ash12",
+   "family": "canted",
+   "role": "drum_reload",
+   "base": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload",
+   "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/canted/A_ASH12_canted_drum_reload"
+  },
+  {
+   "weapon": "ue_ash12",
+   "family": "canted",
+   "role": "drum_reload_empty",
+   "base": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty",
+   "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/canted/A_ASH12_canted_drum_reload_empty"
+  },
+  {
+   "weapon": "ue_ash12",
+   "family": "prism",
+   "role": "drum_reload",
+   "base": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload",
+   "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/prism/A_ASH12_prism_drum_reload"
+  },
+  {
+   "weapon": "ue_ash12",
+   "family": "prism",
+   "role": "drum_reload_empty",
+   "base": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty",
+   "authored": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/prism/A_ASH12_prism_drum_reload_empty"
+  }
+ ]
+}

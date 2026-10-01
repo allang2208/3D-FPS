@@ -1,0 +1,57 @@
+{
+  "base_commit": "4c51afaa008e684525bbb9a03a93811414ee92ac",
+  "files": 236,
+  "bytes": 1583045,
+  "format_counts": {
+    "python": 134,
+    "json": 18,
+    "powershell": 5
+  },
+  "syntax_errors": [],
+  "sensitive_findings": [],
+  "missing_local_links": [],
+  "whitespace_exit": 0,
+  "assets_and_dense_samples_published": false,
+  "game_tested": false,
+  "native_rebuilt": false,
+  "full_staged_diff_sha256": "615096a6bca3ef0488b9882329c9d9da88a5a4959324a8c0f517efcea93a9f19",
+  "scope": "Source publication checks only; no Unreal, game, visual, native compilation or runtime regression was executed for this publication.",
+  "powershell_parse_errors": [],
+  "relative_links_checked": 235,
+  "missing_public_links": [],
+  "skill_mirrors": [
+    {
+      "path": "skills/ue5-fps-arms-animation/SKILL.md",
+      "synced": true
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/weapon-animation-sharing.md",
+      "synced": true
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/authored-finish-unification.md",
+      "synced": true
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/extmag-lengthening.md",
+      "synced": true
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/generated-rifle-refinement.md",
+      "synced": true
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/weapon-finish.md",
+      "synced": true
+    }
+  ],
+  "archive": {
+    "files": 6,
+    "bytes": 211783620,
+    "source_and_destination_hashes_matched": true,
+    "manifest": "archive-manifest.json"
+  },
+  "diff_hash_scope": "Reviewed 236 content files, before adding these two publication records",
+  "binary_assets": "Remain local and are excluded from this public source commit.",
+  "partial_file_policy": "Only owned changes were staged from shared files. Parallel changes remain in the worktree."
+}

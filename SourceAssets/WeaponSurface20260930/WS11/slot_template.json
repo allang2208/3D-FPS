@@ -1,0 +1,27 @@
+{
+  "standard": "WS1.1",
+  "status": "template_not_ready_for_import",
+  "weapon": null,
+  "mesh": null,
+  "slot": null,
+  "material_instance": null,
+  "parent": null,
+  "surface_family": null,
+  "physical_model_note": null,
+  "source": {"material": null, "recipe": null, "revision": null},
+  "parameters": {"scalars": {}, "linear_rgb_vectors": {}, "static_switches": {}, "base_property_overrides": {}},
+  "inputs": {
+    "BaseColor": {"asset": null, "encoding": "sRGB for ordinary color images; declare linear sources explicitly", "uv_channel": null, "uv_transform": null, "source_weight": null},
+    "ORM": {"asset": null, "channels": {"R": "AO", "G": "Roughness", "B": "Metallic"}, "srgb": false, "compression": "Masks", "uv_channel": null, "uv_transform": null, "required": false},
+    "Normal": {"asset": null, "srgb": false, "compression": "Normalmap", "convention": null, "green_conversion_stage": null, "uv_channel": null, "uv_transform": null, "tangent_frame": null},
+    "SurfaceMask": {"asset": null, "channels": {"R": "convex edge", "G": "cavity", "B": "AO", "A": "exposure"}, "srgb": false, "uv_channel": null, "uv_transform": null},
+    "Regions": {"source": null, "channel_semantics": {}, "protected_markings": null, "weather_exterior": null}
+  },
+  "physical_scale": {"grain_tile_cm": null, "edge_radius_mm": null, "rib_height_mm": null, "bead_scale_source": null},
+  "normal_order": ["source structure", "local rib or bevel in compatible tangent frame", "wetness"],
+  "ao_composition": null,
+  "texture_resolution_basis": null,
+  "wetness": {"parameter": "WeaponWetness", "route": null, "table": null, "layers": 1},
+  "protected_channels_and_slots": [],
+  "production": {"recipe_prepared": false, "assets_saved": false, "user_visual_feedback": null, "tested": false}
+}

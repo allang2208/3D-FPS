@@ -1,7 +1,9 @@
 """Import production AR fits and reuse the existing 416 part icons; save only these packages."""
 import unreal as u,json,re
 from pathlib import Path
+from runpy import run_path
 O=Path(__file__).parent;P=O.parents[1];D='/Game/Weapons/HK416/ARParts20261001';H='/Game/Weapons/HK416/Reworked20260930'
+apply_m16_bindings=run_path(str(O.parent/'WeaponSurface20260930/M16/current_bindings.py'))['apply_current_bindings']
 if Path(u.Paths.convert_relative_path_to_full(u.Paths.project_dir())).resolve()!=P.resolve():raise RuntimeError('Wrong project for AR furniture publication')
 A=u.AssetToolsHelpers.get_asset_tools();E=u.EditorAssetLibrary
 models=json.loads((O/'models.json').read_text(encoding='utf-8'))
@@ -29,6 +31,8 @@ try:
   for i,slot in enumerate(slots):
    slot.material_interface=bindings[canonical(slot.material_slot_name)];slots[i]=slot
   mesh.set_editor_property('static_materials',slots)
+  apply_m16_bindings(mesh)
+  slots=list(mesh.static_materials)
   editor=u.get_editor_subsystem(u.StaticMeshEditorSubsystem) or u.new_object(u.StaticMeshEditorSubsystem)
   settings=editor.get_lod_build_settings(mesh,0)
   settings.use_full_precision_u_vs=True;settings.recompute_normals=False;settings.recompute_tangents=True;editor.set_lod_build_settings(mesh,0,settings)

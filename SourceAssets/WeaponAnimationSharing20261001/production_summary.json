@@ -1,0 +1,122 @@
+{
+  "complete": true,
+  "tested": false,
+  "totals": {
+    "saved_profiles": 52,
+    "pairs": 564,
+    "delta_pairs": 544,
+    "retained_pairs": 20,
+    "bytes": 22386988,
+    "keys": 459424
+  },
+  "groups": {
+    "ue_m4a1": {
+      "saved_profiles": 5,
+      "pairs": 61,
+      "delta_pairs": 41,
+      "retained_pairs": 20,
+      "bytes": 1920548,
+      "keys": 39453
+    },
+    "ue_hk416": {
+      "saved_profiles": 5,
+      "pairs": 66,
+      "delta_pairs": 66,
+      "retained_pairs": 0,
+      "bytes": 2601115,
+      "keys": 52812
+    },
+    "ue_akm": {
+      "saved_profiles": 4,
+      "pairs": 52,
+      "delta_pairs": 52,
+      "retained_pairs": 0,
+      "bytes": 2563739,
+      "keys": 53376
+    },
+    "ue_qbz191": {
+      "saved_profiles": 4,
+      "pairs": 52,
+      "delta_pairs": 52,
+      "retained_pairs": 0,
+      "bytes": 2040462,
+      "keys": 41489
+    },
+    "ue_ash12": {
+      "saved_profiles": 4,
+      "pairs": 44,
+      "delta_pairs": 44,
+      "retained_pairs": 0,
+      "bytes": 1113812,
+      "keys": 21350
+    },
+    "ue_m16a2": {
+      "saved_profiles": 5,
+      "pairs": 66,
+      "delta_pairs": 66,
+      "retained_pairs": 0,
+      "bytes": 2647777,
+      "keys": 53263
+    },
+    "ue_a762": {
+      "saved_profiles": 4,
+      "pairs": 52,
+      "delta_pairs": 52,
+      "retained_pairs": 0,
+      "bytes": 2555414,
+      "keys": 53242
+    },
+    "ue_pkm_lowpoly": {
+      "saved_profiles": 4,
+      "pairs": 48,
+      "delta_pairs": 48,
+      "retained_pairs": 0,
+      "bytes": 1299636,
+      "keys": 26262
+    },
+    "ue_lmg201": {
+      "saved_profiles": 4,
+      "pairs": 64,
+      "delta_pairs": 64,
+      "retained_pairs": 0,
+      "bytes": 4704444,
+      "keys": 100090
+    },
+    "Melee": {
+      "saved_profiles": 1,
+      "pairs": 19,
+      "delta_pairs": 19,
+      "retained_pairs": 0,
+      "bytes": 363114,
+      "keys": 7357
+    },
+    "ue_m1911": {
+      "saved_profiles": 4,
+      "pairs": 16,
+      "delta_pairs": 16,
+      "retained_pairs": 0,
+      "bytes": 225900,
+      "keys": 4222
+    },
+    "ue_g18": {
+      "saved_profiles": 4,
+      "pairs": 16,
+      "delta_pairs": 16,
+      "retained_pairs": 0,
+      "bytes": 232560,
+      "keys": 4378
+    },
+    "ue_dan_wesson715": {
+      "saved_profiles": 4,
+      "pairs": 8,
+      "delta_pairs": 8,
+      "retained_pairs": 0,
+      "bytes": 118467,
+      "keys": 2130
+    }
+  },
+  "unique_converted_variants": 540,
+  "unique_retained_variants": 20,
+  "unique_variants_without_full_clip_reference": 540,
+  "source_animations_deleted": false
+}

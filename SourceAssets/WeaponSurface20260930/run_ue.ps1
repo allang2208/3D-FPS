@@ -1,4 +1,4 @@
-param([Parameter(Mandatory=$true)][string]$Script,[int]$GateSeconds=120,[switch]$WithRHI)
+param([Parameter(Mandatory=$true)][string]$Script,[int]$GateSeconds=120,[switch]$WithRHI,[switch]$FileCache)
 # Runs one UE Python script: through the project bridge when an FPSGAME editor is
 # open, otherwise as a headless commandlet. Holds the shared UE batch gate.
 $ErrorActionPreference='Stop'
@@ -17,7 +17,8 @@ try {
     # Only this project counts: D:/FPS3D/FPSGAME-mp editors also contain "FPSGAME" in their name.
     $project='D:[\\/]FPS3D[\\/]FPSGAME[\\/]FPSGAME\.uproject'
     $all=@(Get-CimInstance Win32_Process -Filter "Name='UnrealEditor.exe' OR Name='UnrealEditor-Cmd.exe'")
-    $running=@($all | Where-Object {$_.CommandLine -match $project})
+    # UnrealEditor.exe -game is a standalone game and has no editor Python node.
+    $running=@($all | Where-Object {$_.CommandLine -match $project -and $_.CommandLine -notmatch '(?i)(?:^|\s)-game(?:\s|$)'})
     $others=@($all | Where-Object {$_.Name -eq 'UnrealEditor.exe' -and $_.CommandLine -notmatch $project})
     if($running | Where-Object {$_.Name -eq 'UnrealEditor-Cmd.exe'}){throw 'An existing project commandlet is running; preserve state.'}
     if($running | Where-Object {$_.Name -eq 'UnrealEditor.exe'}) {
@@ -30,7 +31,8 @@ try {
         $log=Join-Path $logDir "$name.$stamp.log"
         $out=Join-Path $logDir "$name.$stamp.stdout.log"
         # Skeletal FBX export needs render resources; everything else runs render-less.
-        $rhi=if($WithRHI){@()}else{@('-nullrhi')}
+        $rhi=@(if(-not $WithRHI){'-nullrhi'})
+        if($FileCache){$rhi+='-DDC=(ProjectPak,EnginePak,Local)'}
         & 'E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/UnrealEditor-Cmd.exe' 'D:/FPS3D/FPSGAME/FPSGAME.uproject' -run=pythonscript "-script=$scriptPath" -unattended -nop4 -nosplash @rhi "-abslog=$log" *> $out
         $result=$LASTEXITCODE
         Select-String -LiteralPath $log -Pattern 'LogPython:.*(WEAPON_SURFACE|A762_SURFACE|Error|Traceback)|Error:' | Select-Object -Last 20 | ForEach-Object {$_.Line}

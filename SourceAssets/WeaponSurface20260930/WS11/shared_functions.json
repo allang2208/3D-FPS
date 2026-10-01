@@ -1,0 +1,24 @@
+{
+  "version": "WS1.1-preparation-20261001",
+  "status": "interfaces_defined_no_ue_function_assets_created",
+  "principle": "Move common math first; keep source sampling, region masks and tangent reconstruction in adapters.",
+  "functions": [
+    {"name": "MF_WS_Grain", "source": "hlsl/WS_Grain.hlsl", "inputs": ["grain texture", "pre-skinned or undeformed local position cm", "matching local normal", "tile cm"], "outputs": ["grain RGBA"], "preserve": "Current triplanar projection and channel meanings."},
+    {"name": "MF_WS_EdgeCavity", "source": "hlsl/WS_Wear.hlsl", "inputs": ["surface mask RGBA", "grain RGBA", "edge and scratch controls"], "outputs": ["wear data"], "preserve": "First extraction preserves old math; separating geometric edge definition from exposed substrate is a later explicit revision."},
+    {"name": "MF_WS_DryColorRoughness", "source": "hlsl/WS_ColorRough.hlsl", "inputs": ["source color and roughness", "finish parameters", "region-resolved controls", "mask", "grain", "wear"], "outputs": ["linear dry color RGB", "dry roughness"], "preserve": "Color weights, markings and per-part roughness remain caller-owned."},
+    {"name": "MF_WS_MetalAO", "source": "hlsl/WS_MetalAO.hlsl", "inputs": ["region metal identity", "substrate identity", "wear", "mask", "AO strength"], "outputs": ["metallic", "surface AO"], "preserve": "Caller combines source AO once; do not infer material identity from a mesh name."},
+    {"name": "MF_WS_WetBeads", "source": "hlsl/WS_Beads.hlsl", "inputs": ["UV0", "bead scale", "WeaponWetness times exterior mask"], "outputs": ["bead data"], "preserve": "One weather driver; interiors and optics retain their coverage masks."},
+    {"name": "MF_WS_WetFilm", "source": "hlsl/WS_Wet.hlsl", "inputs": ["dry color and roughness", "bead data"], "outputs": ["wet color and roughness"], "preserve": "Retain current curve during extraction; per-family response coefficients are a separate future change."},
+    {"name": "MF_WS_WetNormal", "source": "hlsl/WS_WetNormal.hlsl", "inputs": ["fully assembled dry normal", "bead data"], "outputs": ["final normal"], "preserve": "Wetness follows source normal, seam reconstruction and bevel composition."}
+  ],
+  "adapters_to_keep": [
+    {"name": "A762", "responsibility": "UV1 body mask, UV0 source atlas and accessory-specific masks; retain real geometry bevels."},
+    {"name": "ASH12Regions", "responsibility": "Vertex RGB material regions, polymer/bolt/bore overrides and bore wetness exclusion."},
+    {"name": "ASH12Static", "responsibility": "Static-only usage and authored normal tiling."},
+    {"name": "ASH12ExtMag", "responsibility": "Alternate UV1 samples and UV2-6 tangent seam matrices; no skeletal usage."},
+    {"name": "SVDSource", "responsibility": "Source metal mask, markings, polymer/rubber/cheekpad preservation, PSO exterior and original sampling."},
+    {"name": "SVDRefine03", "responsibility": "RNM bevel normal, local magazine ribs, dielectric remapping and per-part overrides."},
+    {"name": "OpticalProtected", "responsibility": "Keep glass, reticles, masked apertures and emissive mixed housings outside ordinary surface migration."}
+  ],
+  "merge_rule": "Shared functions do not prove graph equivalence. Do not merge source masters until their full sampling, regions, switches, usage and protected paths are accounted for."
+}

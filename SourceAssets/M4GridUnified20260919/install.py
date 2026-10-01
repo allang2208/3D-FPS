@@ -1,6 +1,8 @@
 import unreal as u,json
 from pathlib import Path
+from runpy import run_path
 O=Path(__file__).parent;D='/Game/Weapons/M4GridUnified20260919';E=u.EditorAssetLibrary;A=u.AssetToolsHelpers.get_asset_tools();report={}
+apply_current_bindings=run_path(str(O.parent/'WeaponSurface20260930/M4/current_bindings.py'))['apply_current_bindings']
 u.SystemLibrary.execute_console_command(None,'Interchange.FeatureFlags.Import.FBX 0')
 materials={'M4':'/Game/Weapons/ExtMagContinuity20260919/Materials/M_M4_Continuous'}
 for gun,path in materials.items():
@@ -12,6 +14,7 @@ for gun,path in materials.items():
  slots=mesh.static_materials
  for i,slot in enumerate(slots):slot.material_interface=material;slots[i]=slot
  mesh.set_editor_property('static_materials',slots)
+ apply_current_bindings(mesh)
  if not E.save_loaded_asset(mesh,False):raise RuntimeError('Save failed '+name)
  report[gun]=dict(mesh=mesh.get_path_name(),materials=[s.material_interface.get_path_name() for s in mesh.static_materials],tested=False)
  (O/'installed.json').write_text(json.dumps(report,indent=2))

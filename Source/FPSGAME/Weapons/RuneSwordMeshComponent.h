@@ -1,14 +1,18 @@
 #pragma once
 
 #include "../Skills/FPSCastingMeshComponent.h"
+#include "WeaponGripComponentLayer.h"
 #include "RuneSwordMeshComponent.generated.h"
 
+class UWeaponGripProfile;
 /** Sword entry/recovery blends, evaluated before the final bone/socket publication. */
 UCLASS()
 class FPSGAME_API URuneSwordMeshComponent : public UFPSCastingMeshComponent
 {
     GENERATED_BODY()
 public:
+    UWeaponGripProfile* GetGripProfile() const {return GripProfile;}
+    void SetGripProfile(UWeaponGripProfile* Profile) {GripProfile=Profile;}
     void CaptureWhirlwindEntry();
     void SetWhirlwindEntryTime(float Seconds);
     void ClearWhirlwindEntry();
@@ -32,4 +36,6 @@ private:
     float RecoveryWeight=0.f;
     bool bCaptureRecoveryIdle=false;
     float EntryDuration=EntrySeconds;
+    UPROPERTY(Transient) TObjectPtr<class UWeaponGripProfile> GripProfile;
+    FWeaponGripComponentLayer GripLayer;
 };

@@ -1,7 +1,9 @@
 """Reimport only the four M16 stock variants, retaining their runtime slots."""
 import unreal as u,json,shutil
 from pathlib import Path
+from runpy import run_path
 O=Path(__file__).parent;P=O.parent.parent;E=u.EditorAssetLibrary;A=u.AssetToolsHelpers.get_asset_tools()
+apply_current_bindings=run_path(str(O.parent/'WeaponSurface20260930/M16/current_bindings.py'))['apply_current_bindings']
 spec=json.loads((O/'repairs.json').read_text());baseline=json.loads((O/'runtime_sources.json').read_text())['stocks'];report={}
 for key,row in spec['stocks'].items():
  old_info=baseline[key];path=old_info['asset'];old=u.load_asset(path)
@@ -22,6 +24,7 @@ for key,row in spec['stocks'].items():
   material=bindings.get(str(slot.material_slot_name))
   if not material:raise RuntimeError('Unknown stock material slot '+str(slot.material_slot_name))
   asset.set_material(index,u.load_asset(material))
+ apply_current_bindings(asset)
  E.set_metadata_tag(asset,'M16InterfaceSource','M16RecoveryStocks20260920: closed actual 106-vertex receiver cut and solid stem shoulder; preserved donor UV0..3')
  saved=E.save_loaded_asset(asset,False)
  if not saved:raise RuntimeError('Could not save '+path)

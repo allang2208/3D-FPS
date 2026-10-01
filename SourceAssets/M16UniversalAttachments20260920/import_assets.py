@@ -1,7 +1,9 @@
 """Author/save private M16 assets in the full editor through the batch mutex."""
 import unreal as u,json,re,time
 from pathlib import Path
+from runpy import run_path
 O=Path(__file__).parent;D='/Game/Weapons/M16A2/UniversalAttachments20260920'
+apply_current_bindings=run_path(str(O.parent/'WeaponSurface20260930/M16/current_bindings.py'))['apply_current_bindings']
 A=u.AssetToolsHelpers.get_asset_tools();L=u.MaterialEditingLibrary;E=u.EditorAssetLibrary
 if u.get_editor_subsystem(u.LevelEditorSubsystem).is_in_play_in_editor():raise RuntimeError('End PIE before attachment import')
 models=json.loads((O/'models.json').read_text());animations=json.loads((O/'animations.json').read_text())
@@ -109,6 +111,7 @@ for key,part in models['parts'].items():
    binding=matches[0]
   s.material_interface=material(key,binding,part['bindings'][binding]);slots[i]=s
  mesh.set_editor_property('static_materials',slots)
+ apply_current_bindings(mesh)
  editor=u.get_editor_subsystem(u.StaticMeshEditorSubsystem);settings=editor.get_lod_build_settings(mesh,0)
  settings.recompute_normals=False;settings.recompute_tangents=True;settings.use_mikk_t_space=True;settings.use_high_precision_tangent_basis=True;settings.use_full_precision_u_vs=True;editor.set_lod_build_settings(mesh,0,settings)
  for name,spec in part['sockets'].items():
@@ -120,7 +123,8 @@ for key,part in models['parts'].items():
  b=mesh.get_bounds();extent=list(b.box_extent.to_tuple())
  receipt['meshes'][key]={'asset':mesh.get_path_name(),'extent_cm':extent,'frame':part['frame'],'materials':{str(s.material_slot_name):s.material_interface.get_path_name() for s in mesh.static_materials},'saved':True};record()
 factory=u.DataAssetFactory();factory.set_editor_property('data_asset_class',u.WeatherPresentationAssets)
-library=u.load_asset(D+'/DA_M16_AttachmentWetMaterials') or A.create_asset('DA_M16_AttachmentWetMaterials',D,u.WeatherPresentationAssets,factory);library.set_editor_property('wet_materials',wet);save(library)
+library=u.load_asset(D+'/DA_M16_AttachmentWetMaterials') or A.create_asset('DA_M16_AttachmentWetMaterials',D,u.WeatherPresentationAssets,factory)
+library.set_editor_property('wet_materials',{**dict(library.get_editor_property('wet_materials')),**wet});save(library)
 skeleton=load('/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny').skeleton;compression=load('/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel')
 for key,clip in animations['clips'].items():
  if key in receipt['animations']:continue

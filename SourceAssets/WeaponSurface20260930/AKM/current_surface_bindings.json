@@ -1,0 +1,130 @@
+{
+  "version": "AKM-AuthoredFinish-Refine02-20261001",
+  "recipe": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponSurface20260930\\AKM\\Refine02\\recipe.json",
+  "meshes": {
+    "/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative.SK_AKM_MannyNative": {
+      "M_AKM_Soviet_Magazine": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_magazine_be97ccbfab.MI_AKM_R01_magazine_be97ccbfab",
+      "M_AKM_Soviet_PBR": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_receiver_0430bc0fce.MI_AKM_R01_receiver_0430bc0fce",
+      "M_AKM_FactoryStock": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_furniture_metal_1b41e59013.MI_AKM_R01_furniture_metal_1b41e59013",
+      "M_AKM_FactoryRearGrip": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_furniture_metal_1b41e59013.MI_AKM_R01_furniture_metal_1b41e59013"
+    },
+    "/Game/Weapons/AttachmentFinish20260913/AKM/Meshes/SM_AKM_vertical.SM_AKM_vertical": {
+      "Body_004": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_accessory_036cfc5761.MI_AKM_R01_accessory_036cfc5761",
+      "AKM_AdapterSteel": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_95eca09dd1.MI_AKM_R01_mount_95eca09dd1"
+    },
+    "/Game/Weapons/AttachmentFinish20260913/AKM/Meshes/SM_AKM_canted_CompactMount.SM_AKM_canted_CompactMount": {
+      "Body_004": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_2fb586015f.MI_AKM_R01_mount_2fb586015f",
+      "AKM_AdapterSteel": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_95eca09dd1.MI_AKM_R01_mount_95eca09dd1"
+    },
+    "/Game/Weapons/AttachmentFinish20260913/AKM/Meshes/SM_AKM_prism.SM_AKM_prism": {
+      "prism_Prism_Saddle": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_9780d61ca8.MI_AKM_R01_mount_9780d61ca8",
+      "AKM_AdapterSteel": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_b86ce69efe.MI_AKM_R01_mount_b86ce69efe"
+    },
+    "/Game/Weapons/AttachmentFinish20260913/AKM/Meshes/SM_AKM_drum.SM_AKM_drum": {
+      "drum_DrumPolymer": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_magazine_dd9b3b77ba.MI_AKM_R01_magazine_dd9b3b77ba",
+      "drum_DrumFasteners": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_magazine_dd9b3b77ba.MI_AKM_R01_magazine_dd9b3b77ba",
+      "drum_DrumIndex": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_magazine_dd9b3b77ba.MI_AKM_R01_magazine_dd9b3b77ba"
+    },
+    "/Game/Weapons/AttachmentFinish20260913/AKM/Meshes/SM_AKM_suppressor.SM_AKM_suppressor": {
+      "suppressor_RifleMetal": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_muzzle_e45e4e63f4.MI_AKM_R01_muzzle_e45e4e63f4"
+    },
+    "/Game/Weapons/AttachmentFinish20260913/AKM/Meshes/SM_AKM_brake.SM_AKM_brake": {
+      "brake_RifleMetal": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_muzzle_bedaa2fbce.MI_AKM_R01_muzzle_bedaa2fbce"
+    },
+    "/Game/Weapons/AttachmentFinish20260913/AKM/Meshes/SM_AKM_titanium_brake.SM_AKM_titanium_brake": {
+      "titanium_brake_RifleMetal": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_muzzle_cbc80963a1.MI_AKM_R01_muzzle_cbc80963a1"
+    },
+    "/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/SM_AKM_optic.SM_AKM_optic": {
+      "optic_Holosight": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_optic_39e3b3f13a.MI_AKM_R01_optic_39e3b3f13a",
+      "AKM_Soviet_MountSteel": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_95eca09dd1.MI_AKM_R01_mount_95eca09dd1"
+    },
+    "/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/SM_LPVO1to6X.SM_LPVO1to6X": {
+      "LPVO_Body": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_optic_a7d187bfe5.MI_AKM_R01_optic_a7d187bfe5"
+    },
+    "/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/SM_PrismScope2X.SM_PrismScope2X": {
+      "Scope2X_Body": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_optic_b3999b2c2d.MI_AKM_R01_optic_b3999b2c2d"
+    },
+    "/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/SM_PanoramicRedDot.SM_PanoramicRedDot": {
+      "Panoramic_Body": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_optic_9b290b8489.MI_AKM_R01_optic_9b290b8489"
+    },
+    "/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/SM_LPVORing.SM_LPVORing": {
+      "LPVO_Body": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_optic_a7d187bfe5.MI_AKM_R01_optic_a7d187bfe5"
+    },
+    "/Game/Weapons/AKMIntegration/SovietFab/Optics/SM_AKM_Mount_lpvo_1_6x.SM_AKM_Mount_lpvo_1_6x": {
+      "AKM_Soviet_MountSteel": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_95eca09dd1.MI_AKM_R01_mount_95eca09dd1"
+    },
+    "/Game/Weapons/AKMIntegration/SovietFab/Optics/SM_AKM_Mount_prism_scope_2x.SM_AKM_Mount_prism_scope_2x": {
+      "AKM_Soviet_MountSteel": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_95eca09dd1.MI_AKM_R01_mount_95eca09dd1"
+    },
+    "/Game/Weapons/AKMIntegration/SovietFab/Optics/SM_AKM_Mount_panoramic_red_dot.SM_AKM_Mount_panoramic_red_dot": {
+      "AKM_Soviet_MountSteel": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_95eca09dd1.MI_AKM_R01_mount_95eca09dd1"
+    },
+    "/Game/Weapons/ExtMagContinuity20260919/SM_ExtMag_AKM40_Continuous.SM_ExtMag_AKM40_Continuous": {
+      "M_AKM_Soviet_Magazine": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_magazine_c6ee681923.MI_AKM_R01_magazine_c6ee681923",
+      "AKM_Magazine_Mouth": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_magazine_c929034134.MI_AKM_R01_magazine_c929034134"
+    },
+    "/Game/Weapons/ResonanceGrip20260913/MeshyIntegration/AKM/SM_ResonanceGrip.SM_ResonanceGrip": {
+      "Resonance_Metal_AKM_001": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_accessory_b932e3ee56.MI_AKM_R01_accessory_b932e3ee56"
+    },
+    "/Game/Weapons/TacticalVerticalForegrip20260919/AKM/SM_TacticalVerticalForegrip.SM_TacticalVerticalForegrip": {
+      "M_TacticalVerticalForegrip_Candidate": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_accessory_8f0ba2cc58.MI_AKM_R01_accessory_8f0ba2cc58",
+      "M_AKM_Soviet_MountSteel": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_95eca09dd1.MI_AKM_R01_mount_95eca09dd1"
+    },
+    "/Game/Weapons/TacticalSuppressor20260913/AKM/SM_TacticalSuppressor.SM_TacticalSuppressor": {
+      "TacticalShell": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_muzzle_39df39bb7a.MI_AKM_R01_muzzle_39df39bb7a",
+      "TacticalMount": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_2c49ee119d.MI_AKM_R01_mount_2c49ee119d"
+    },
+    "/Game/Weapons/ReferenceStock5080/AKM/SM_SkeletonStock.SM_SkeletonStock": {
+      "StockMetal": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_furniture_metal_8094fed324.MI_AKM_R01_furniture_metal_8094fed324"
+    },
+    "/Game/Weapons/QRPerformanceStock/Meshy20260913/AKM/SM_PerformanceStock.SM_PerformanceStock": {
+      "StockMetal_AKM": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_furniture_metal_fa86914fae.MI_AKM_R01_furniture_metal_fa86914fae",
+      "StockAdapter_AKM": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_2eeffacc12.MI_AKM_R01_mount_2eeffacc12"
+    },
+    "/Game/Weapons/CoreStock20260914/Meshy0914005605/AKM/SM_CoreStock.SM_CoreStock": {
+      "CoreStockBody": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_furniture_metal_3f542578ee.MI_AKM_R01_furniture_metal_3f542578ee",
+      "CoreStockAdapter": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_18d5c467eb.MI_AKM_R01_mount_18d5c467eb"
+    },
+    "/Game/Weapons/TacticalTelescopicStock20260914/AKM/SM_TacticalTelescopicStock.SM_TacticalTelescopicStock": {
+      "TacticalStock_Metal_AKM": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_furniture_metal_edccb170c2.MI_AKM_R01_furniture_metal_edccb170c2",
+      "TacticalStock_Adapter_AKM": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_822fbe70c5.MI_AKM_R01_mount_822fbe70c5"
+    },
+    "/Game/Weapons/StableAntiSlipRearGrip/Selected91727/AKM/SM_StableAntiSlipRearGrip.SM_StableAntiSlipRearGrip": {
+      "M_StableGrip_Collar_AKM": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_89fd38824f.MI_AKM_R01_mount_89fd38824f"
+    },
+    "/Game/Weapons/RearGripFinish20260913/AKM/balanced/SM_BalancedRearGrip.SM_BalancedRearGrip": {
+      "M_BalancedRearGrip": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_furniture_metal_7f0934e0d0.MI_AKM_R01_furniture_metal_7f0934e0d0",
+      "M_BalancedRearGrip_Collar": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_a8aca91e39.MI_AKM_R01_mount_a8aca91e39"
+    },
+    "/Game/Weapons/RearGripFinish20260913/AKM/phantom/SM_PhantomRearGrip.SM_PhantomRearGrip": {
+      "M_PhantomRearGrip": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_furniture_metal_82a50b73b5.MI_AKM_R01_furniture_metal_82a50b73b5",
+      "M_PhantomRearGrip_Collar": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_75329df74f.MI_AKM_R01_mount_75329df74f"
+    },
+    "/Game/Weapons/PSO1Russian20260923/AKM/SM_PSO1_AKM.SM_PSO1_AKM": {
+      "PSO1_AKM_Adapter": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_d85776a7cd.MI_AKM_R01_mount_d85776a7cd",
+      "PSO1_AKM_Shell": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_optic_f9d6088492.MI_AKM_R01_optic_f9d6088492"
+    },
+    "/Game/Weapons/TacticalDevices20260913/AKM/laser/SM_TacticalDevice.SM_TacticalDevice": {
+      "M_Tactical_laser": "/Game/Weapons/TacticalDevices20260913/AKM/laser/M_AKM_laser_Body_OpticalV2.M_AKM_laser_Body_OpticalV2",
+      "M_Tactical_Collar": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_d6c787a550.MI_AKM_R01_mount_d6c787a550"
+    },
+    "/Game/Weapons/TacticalDevices20260913/HunyuanV3/AKM/flashlight/SM_TacticalDevice.SM_TacticalDevice": {
+      "M_Tactical_flashlight": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/AKM/flashlight/M_AKM_flashlight_Body_MetalTail.M_AKM_flashlight_Body_MetalTail",
+      "M_Tactical_Collar": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_3c7ed344f1.MI_AKM_R01_mount_3c7ed344f1"
+    }
+  },
+  "runtime_override_materials": [
+    "/Game/Weapons/TacticalDevices20260913/AKM/laser/M_AKM_laser_Body_OpticalV2.M_AKM_laser_Body_OpticalV2",
+    "/Game/Weapons/TacticalDevices20260913/HunyuanV3/AKM/flashlight/M_AKM_flashlight_Body_MetalTail.M_AKM_flashlight_Body_MetalTail"
+  ],
+  "geometry_changed": false,
+  "tested": false,
+  "component_revisions": {
+    "AKM.large_drum": {
+      "version": "AKM-DrumFinish03-20261001",
+      "instance": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_magazine_dd9b3b77ba.MI_AKM_R01_magazine_dd9b3b77ba",
+      "parent": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Master/M_AKM_DrumFinish03.M_AKM_DrumFinish03",
+      "recipe": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponSurface20260930\\AKM\\DrumFinish03\\apply_finish.py"
+    }
+  }
+}

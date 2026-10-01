@@ -79,6 +79,9 @@ try:
   for label,path in info['materials'].items():
    if path=='EXISTING_A762':mat=existing[label]
    elif path=='A762_STEEL':mat=steel
+   elif key.endswith('reargrip') and info.get('source','').startswith(('A762ReceiverGrip20261001','A762GripClearance20261001')):
+    # Current neck slots have semantic names and already reference the saved finish.
+    mat=u.load_asset(path)
    else:
     i=int(label.rsplit('_',1)[1]);original=u.load_asset(path)
     if key=='laser' and i==0:original=u.load_asset('/Game/Weapons/TacticalDevices20260913/AKM/laser/M_AKM_laser_Body_OpticalV2') or original

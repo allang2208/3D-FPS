@@ -1,7 +1,9 @@
 """Author/save private HK416 assets in the full editor through the batch mutex."""
 import unreal as u,json,re,time
 from pathlib import Path
+from runpy import run_path
 O=Path(__file__).parent;D='/Game/Weapons/HK416/CommonAttachments20260930';H='/Game/Weapons/HK416/Reworked20260930';P=O.parents[1]
+apply_current_bindings=run_path(str(P/'SourceAssets/WeaponSurface20260930/HK416/current_bindings.py'))['apply_current_bindings']
 A=u.AssetToolsHelpers.get_asset_tools();L=u.MaterialEditingLibrary;E=u.EditorAssetLibrary
 host=Path(u.Paths.convert_relative_path_to_full(u.Paths.project_dir())).resolve()
 if host not in (P.resolve(),(P/'Saved/AssetAuthoring/HK416CommonHost').resolve()) or Path(u.Paths.convert_relative_path_to_full(u.Paths.project_content_dir())).resolve()!=(P/'Content').resolve():raise RuntimeError('Wrong project/content mount for HK416 asset authoring')
@@ -78,6 +80,7 @@ try:
     m=models['ring_rotation_blender'];x=u.Vector(m[0][0],-m[1][0],m[2][0]);z=u.Vector(m[0][2],-m[1][2],m[2][2])
     socket.set_editor_property('relative_rotation',u.MathLibrary.make_rot_from_xz(x,z))
   E.set_metadata_tag(mesh,'HK416CommonParts','Source UV0 preserved, measured interfaces, metal coating UV3, September 30 2026')
+  apply_current_bindings(mesh)
   save(mesh);receipt['meshes'][key]=mesh.get_path_name();record()
  oldmesh=load(H+'/SK_HK416_Manny');oldslots={str(x.material_slot_name):x.material_interface for x in oldmesh.materials}
  opt=u.FbxImportUI();opt.automated_import_should_detect_type=False;opt.mesh_type_to_import=u.FBXImportType.FBXIT_SKELETAL_MESH;opt.import_as_skeletal=True;opt.import_mesh=True;opt.import_materials=False;opt.import_textures=False;opt.import_animations=False;opt.create_physics_asset=False;opt.skeleton=oldmesh.skeleton
@@ -93,7 +96,7 @@ try:
   if name=='M_HK416_Stock':
    slot.material_slot_name='M_HK416_FactoryStock';slots[i]=slot
   if 'Manny' in name:arms.append(i)
- mesh.set_editor_property('materials',slots);save(mesh)
+ mesh.set_editor_property('materials',slots);apply_current_bindings(mesh);save(mesh)
  receipt['skeletal_mesh']=mesh.get_path_name();receipt['arm_materials']=arms;record()
  for key,clip in animations['clips'].items():
   if globals().get('RESUME_SAVED',False) and key in receipt['animations']:continue

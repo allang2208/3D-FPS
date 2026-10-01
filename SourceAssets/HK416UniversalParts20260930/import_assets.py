@@ -1,7 +1,9 @@
 """Author and save common part assets through the existing serialized UE bridge."""
 import unreal as u,json,re,shutil,importlib.util
 from pathlib import Path
+from runpy import run_path
 O=Path(__file__).parent;P=O.parents[1];ROOT='/Game/Weapons/CommonHK41620260930';H='/Game/Weapons/HK416/Reworked20260930'
+apply_m16_bindings=run_path(str(O.parent/'WeaponSurface20260930/M16/current_bindings.py'))['apply_current_bindings']
 if Path(u.Paths.convert_relative_path_to_full(u.Paths.project_dir())).resolve() != P.resolve():
     raise RuntimeError('This common attachment batch belongs to D:/FPS3D/FPSGAME only')
 A=u.AssetToolsHelpers.get_asset_tools();report={'saved':[],'meshes':{},'icons':{},'runtime_tested':False}
@@ -43,6 +45,7 @@ try:
             else:mat=bindings[entry['family']][name]
             slot.material_interface=mat;slots[i]=slot
         mesh.set_editor_property('static_materials',slots)
+        apply_m16_bindings(mesh)
         for name,p in entry['sockets_blender_m'].items():
             socket=mesh.find_socket(name)
             if not socket:

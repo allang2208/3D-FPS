@@ -66,6 +66,8 @@ struct FDualPistolHand
     double ActionStarted=0;
     double ActionBlendStarted=0;
     TSet<FString> PlayedCues;
+    UPROPERTY(Transient) TMap<FName,TObjectPtr<class UWeaponGripProfile>> PoseProfiles;
+    FName ActionPoseProfile;
 };
 
 /** Pistol pair or staff/offhand pistol; each active hand owns its trigger, ammo and action clock. */

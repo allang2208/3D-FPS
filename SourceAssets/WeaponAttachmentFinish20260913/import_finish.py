@@ -4,6 +4,11 @@ from pathlib import Path
 O=Path(__file__).parent;D='/Game/Weapons/AttachmentFinish20260913'
 A=u.AssetToolsHelpers.get_asset_tools();E=u.EditorAssetLibrary;L=u.MaterialEditingLibrary
 sources=json.loads((O/'sources.json').read_text());auth=json.loads((O/'authoring.json').read_text());profiles=json.loads((O/'profiles.json').read_text())
+akm_surface_file=O.parent/'WeaponSurface20260930/AKM/current_surface_bindings.json'
+if not akm_surface_file.exists():akm_surface_file=O.parent/'WeaponSurface20260930/AKM/Refine01/bindings.json'
+akm_surface=json.loads(akm_surface_file.read_text()) if akm_surface_file.exists() else {}
+m4_surface_file=O.parent/'WeaponSurface20260930/M4/current_surface_bindings.json'
+m4_surface=json.loads(m4_surface_file.read_text()) if m4_surface_file.exists() else {}
 report={}
 def save(a):
  if not E.save_loaded_asset(a,False):raise RuntimeError('Save failed '+a.get_path_name())
@@ -93,9 +98,14 @@ def make_material(info,index,original,author):
  return result
 for ident,author in auth.items():
  info=sources[ident];path=D+'/'+info['family']+'/Meshes/'+info['path'].rsplit('/',1)[1];bindings={};aliases={};changed=[]
+ surface=akm_surface if info['family']=='AKM' else m4_surface if info['family']=='M4' else {}
+ current_finish=surface.get('meshes',{}).get(path+'.'+path.rsplit('/',1)[1],{})
  for i,slot in enumerate(info['slots']):
   original=u.load_asset(slot['material']);target=is_target(info['family'],info['key'],slot['slot'])
-  bindings[slot['slot']]=make_material(info,i,original,author) if target else original
+  if slot['slot'] in current_finish:
+   bindings[slot['slot']]=u.load_asset(current_finish[slot['slot']])
+   if not bindings[slot['slot']]:raise RuntimeError('Missing saved '+info['family']+' finish '+current_finish[slot['slot']])
+  else:bindings[slot['slot']]=make_material(info,i,original,author) if target else original
   if target:changed.append(slot['slot'])
   exported=author['export_slots'][i];aliases[exported]=slot['slot'];aliases[exported.replace('.','_')]=slot['slot']
  t=u.AssetImportTask();t.filename=author['file'];t.destination_path=path.rsplit('/',1)[0];t.destination_name=path.rsplit('/',1)[1];t.automated=True;t.replace_existing=True;t.save=False
@@ -108,6 +118,7 @@ for ident,author in auth.items():
   slot.material_interface=bindings[label];slot.material_slot_name=u.Name(label);slots[i]=slot
  mesh.set_editor_property('static_materials',slots)
  E.set_metadata_tag(mesh,'WeaponFinishReference',profiles[info['family']]['reference_material']);E.set_metadata_tag(mesh,'WeaponFinishUV',str(author['uv_index']))
+ if current_finish:E.set_metadata_tag(mesh,info['family']+'SurfaceFinishRevision',surface['version'])
  save(mesh)
  report[ident]={'mesh':path,'previous_mesh':info['path'],'reference':profiles[info['family']]['reference_material'],'changed_slots':changed,'slots':{str(s.material_slot_name):s.material_interface.get_path_name() for s in slots},'triangles':mesh.get_num_triangles(0),'uv_index':author['uv_index']}
  (O/'installed.json').write_text(json.dumps(report,indent=2));u.log('WEAPON_FINISH_INSTALLED '+ident)

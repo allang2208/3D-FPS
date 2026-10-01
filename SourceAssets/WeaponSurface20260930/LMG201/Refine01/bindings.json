@@ -1,0 +1,191 @@
+{
+  "version": "LMG201-SurfaceStandard-Refine01-20261001",
+  "changed_slots": {
+    "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_angled.SM_LMG201_angled": {
+      "LMG20122_Interface": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_mount_04222ef6f3.MI_LMG201_R01_mount_04222ef6f3",
+      "LMG20122_angled_1": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_26c7a21b21.MI_LMG201_R01_receiver_26c7a21b21"
+    },
+    "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_balanced_reargrip.SM_LMG201_balanced_reargrip": {
+      "LMG20122_Interface": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_grip_79d60ac85c.MI_LMG201_R01_grip_79d60ac85c",
+      "LMG20122_balanced_reargrip_1": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_grip_79d60ac85c.MI_LMG201_R01_grip_79d60ac85c"
+    },
+    "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_canted.SM_LMG201_canted": {
+      "LMG20122_Interface": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_mount_04222ef6f3.MI_LMG201_R01_mount_04222ef6f3",
+      "LMG20122_canted_0": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_f042ae5c45.MI_LMG201_R01_receiver_f042ae5c45",
+      "LMG20122_canted_1": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_b71843a0e4.MI_LMG201_R01_receiver_b71843a0e4"
+    },
+    "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_core_stock.SM_LMG201_core_stock": {
+      "LMG20122_Interface": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_mount_04222ef6f3.MI_LMG201_R01_mount_04222ef6f3",
+      "LMG20122_core_stock_1": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_88181b2398.MI_LMG201_R01_receiver_88181b2398",
+      "LMG20122_core_stock_2": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_de7e117c07.MI_LMG201_R01_receiver_de7e117c07",
+      "LMG20122_core_stock_3": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_08d2df07d1.MI_LMG201_R01_receiver_08d2df07d1"
+    },
+    "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_flashlight.SM_LMG201_flashlight": {
+      "LMG20122_Interface": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_mount_04222ef6f3.MI_LMG201_R01_mount_04222ef6f3",
+      "LMG20122_flashlight_1": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_49eb8be908.MI_LMG201_R01_receiver_49eb8be908",
+      "LMG20122_flashlight_2": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_75a2c471cc.MI_LMG201_R01_receiver_75a2c471cc"
+    },
+    "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_laser.SM_LMG201_laser": {
+      "LMG20122_Interface": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_mount_04222ef6f3.MI_LMG201_R01_mount_04222ef6f3",
+      "LMG20122_laser_1": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_eda15e6fee.MI_LMG201_R01_receiver_eda15e6fee",
+      "LMG20122_laser_2": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_90ad945ee2.MI_LMG201_R01_receiver_90ad945ee2"
+    },
+    "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_phantom_reargrip.SM_LMG201_phantom_reargrip": {
+      "LMG20122_Interface": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_grip_d2621c3bf7.MI_LMG201_R01_grip_d2621c3bf7",
+      "LMG20122_phantom_reargrip_1": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_grip_d2621c3bf7.MI_LMG201_R01_grip_d2621c3bf7"
+    },
+    "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_prism.SM_LMG201_prism": {
+      "LMG20122_Interface": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_mount_04222ef6f3.MI_LMG201_R01_mount_04222ef6f3",
+      "LMG20122_prism_0": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_4667a398f9.MI_LMG201_R01_receiver_4667a398f9",
+      "LMG20122_prism_1": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_f70a83c9e1.MI_LMG201_R01_receiver_f70a83c9e1",
+      "LMG20122_prism_2": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_591a10ac94.MI_LMG201_R01_receiver_591a10ac94"
+    },
+    "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_pso1_4x.SM_LMG201_pso1_4x": {
+      "LMG20122_pso1_4x_0": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_optic_ed4d768fc1.MI_LMG201_R01_optic_ed4d768fc1",
+      "LMG20122_pso1_4x_1": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_optic_b2fbe059ff.MI_LMG201_R01_optic_b2fbe059ff"
+    },
+    "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_qr_performance.SM_LMG201_qr_performance": {
+      "LMG20122_Interface": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_mount_04222ef6f3.MI_LMG201_R01_mount_04222ef6f3",
+      "LMG20122_qr_performance_1": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_2a6a808392.MI_LMG201_R01_receiver_2a6a808392",
+      "LMG20122_qr_performance_2": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_041477d37e.MI_LMG201_R01_receiver_041477d37e",
+      "LMG20122_qr_performance_3": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_269f096885.MI_LMG201_R01_receiver_269f096885",
+      "LMG20122_qr_performance_4": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_f72e78a0fd.MI_LMG201_R01_receiver_f72e78a0fd"
+    },
+    "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_skeleton.SM_LMG201_skeleton": {
+      "LMG20122_Interface": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_mount_04222ef6f3.MI_LMG201_R01_mount_04222ef6f3",
+      "LMG20122_skeleton_1": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_48e25d66fb.MI_LMG201_R01_receiver_48e25d66fb",
+      "LMG20122_skeleton_2": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_dea86d4bb9.MI_LMG201_R01_receiver_dea86d4bb9",
+      "LMG20122_skeleton_3": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_f5fd76e090.MI_LMG201_R01_receiver_f5fd76e090"
+    },
+    "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_stable_antislip_reargrip.SM_LMG201_stable_antislip_reargrip": {
+      "LMG20122_Interface": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_grip_bd7ed6f32e.MI_LMG201_R01_grip_bd7ed6f32e",
+      "LMG20122_stable_antislip_reargrip_1": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_grip_bd7ed6f32e.MI_LMG201_R01_grip_bd7ed6f32e"
+    },
+    "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_tactical_telescopic.SM_LMG201_tactical_telescopic": {
+      "LMG20122_Interface": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_mount_04222ef6f3.MI_LMG201_R01_mount_04222ef6f3",
+      "LMG20122_tactical_telescopic_1": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_a59e484c7c.MI_LMG201_R01_receiver_a59e484c7c",
+      "LMG20122_tactical_telescopic_2": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_5fcca535fc.MI_LMG201_R01_receiver_5fcca535fc",
+      "LMG20122_tactical_telescopic_3": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_f873cdb12d.MI_LMG201_R01_receiver_f873cdb12d",
+      "LMG20122_tactical_telescopic_4": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_6f8aca1c43.MI_LMG201_R01_receiver_6f8aca1c43"
+    },
+    "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_tactical_vertical.SM_LMG201_tactical_vertical": {
+      "LMG20122_Interface": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_mount_04222ef6f3.MI_LMG201_R01_mount_04222ef6f3",
+      "LMG20122_tactical_vertical_1": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_6c38ba88a4.MI_LMG201_R01_receiver_6c38ba88a4",
+      "LMG20122_tactical_vertical_2": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_b25e4f38f0.MI_LMG201_R01_receiver_b25e4f38f0"
+    },
+    "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_vertical.SM_LMG201_vertical": {
+      "LMG20122_Interface": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_mount_04222ef6f3.MI_LMG201_R01_mount_04222ef6f3",
+      "LMG20122_vertical_0": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_3f34553a6c.MI_LMG201_R01_receiver_3f34553a6c",
+      "LMG20122_vertical_1": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_0aceb6a551.MI_LMG201_R01_receiver_0aceb6a551"
+    },
+    "/Game/Weapons/LMG201/Cover10/SK_LMG201_Cover10.SK_LMG201_Cover10": {
+      "M_LMG201_CarryHandle": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_8a8aac1e99.MI_LMG201_R01_receiver_8a8aac1e99",
+      "M_LMG201_ReceiverReferenceHardware": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_19f3ed4681.MI_LMG201_R01_receiver_19f3ed4681",
+      "M_LMG201_ChargingHandle": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_steel_b08b7a0e98.MI_LMG201_R01_steel_b08b7a0e98",
+      "M_LMG201_FactoryStock_Polymer": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_polymer_09380dc691.MI_LMG201_R01_polymer_09380dc691",
+      "M_LMG201_FactoryMuzzle": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_muzzle_9c04f0fa44.MI_LMG201_R01_muzzle_9c04f0fa44",
+      "M_LMG201_CarryHandle_Polymer": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_polymer_89e46c0fb1.MI_LMG201_R01_polymer_89e46c0fb1",
+      "M_LMG201_FactoryRearGrip": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_polymer_9095a31282.MI_LMG201_R01_polymer_9095a31282",
+      "M_LMG201_Handguard_UpperSteel": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_front_4844e587b8.MI_LMG201_R01_front_4844e587b8",
+      "M_LMG201_FactoryStock": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_polymer_54bfdb90c0.MI_LMG201_R01_polymer_54bfdb90c0",
+      "M_LMG201_Handguard": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_front_c457d6c160.MI_LMG201_R01_front_c457d6c160",
+      "M_LMG201_Magazine": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_magazine_6e587841a4.MI_LMG201_R01_magazine_6e587841a4",
+      "M_LMG201_Receiver": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_0e6a2c3242.MI_LMG201_R01_receiver_0e6a2c3242",
+      "M_LMG201_Trigger": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_steel_571e62857b.MI_LMG201_R01_steel_571e62857b",
+      "M_LMG201_ReceiverReferenceRail": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_c96159cc54.MI_LMG201_R01_receiver_c96159cc54",
+      "M_LMG201_ReceiverReferenceCover": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_cover_80678eaf20.MI_LMG201_R01_cover_80678eaf20",
+      "M_LMG201_Video26_Body": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_353f94bbfc.MI_LMG201_R01_receiver_353f94bbfc",
+      "M_LMG201_R30_Steel": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_98050325eb.MI_LMG201_R01_receiver_98050325eb",
+      "M_LMG201_FactoryMuzzle_R30_Surface": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_muzzle_768a3c6a62.MI_LMG201_R01_muzzle_768a3c6a62",
+      "M_LMG201_R30_Surface": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_bde67523a7.MI_LMG201_R01_receiver_bde67523a7",
+      "M_LMG201_FactoryStock_R30_Surface": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_stock_mount_1268007889.MI_LMG201_R01_stock_mount_1268007889",
+      "M_LMG201_FactoryRearGrip_R30_Surface": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_polymer_caebd85e2e.MI_LMG201_R01_polymer_caebd85e2e",
+      "M_LMG201_D35_Coat": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_98050325eb.MI_LMG201_R01_receiver_98050325eb",
+      "M_LMG201_D35_Satin": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_steel_a52d0fa7b9.MI_LMG201_R01_steel_a52d0fa7b9",
+      "M_LMG201_D35_Receiver": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_6fa50a6960.MI_LMG201_R01_receiver_6fa50a6960",
+      "M_LMG201_D35_ControlSatin": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_steel_a52d0fa7b9.MI_LMG201_R01_steel_a52d0fa7b9",
+      "M_LMG201_D35_ControlCoat": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_98050325eb.MI_LMG201_R01_receiver_98050325eb",
+      "M_LMG201_F37_Cover": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_cover_e9dcb04e75.MI_LMG201_R01_cover_e9dcb04e75",
+      "M_LMG201_F37_Receiver": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_6fa50a6960.MI_LMG201_R01_receiver_6fa50a6960",
+      "M_LMG201_R38_Cover": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_cover_08f39dfbef.MI_LMG201_R01_cover_08f39dfbef",
+      "M_LMG201_R38_Satin": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_steel_9cb74e5bda.MI_LMG201_R01_steel_9cb74e5bda",
+      "M_LMG201_H39_Cover": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_cover_544a892e3a.MI_LMG201_R01_cover_544a892e3a",
+      "M_LMG201_H39_Handguard": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_front_d65fca957c.MI_LMG201_R01_front_d65fca957c",
+      "M_LMG201_H39_Receiver": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_e2bdbec0c1.MI_LMG201_R01_receiver_e2bdbec0c1",
+      "M_LMG201_A40_Cover": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_cover_d4feee1f3f.MI_LMG201_R01_cover_d4feee1f3f",
+      "M_LMG201_S41_Cover": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_cover_d4feee1f3f.MI_LMG201_R01_cover_d4feee1f3f",
+      "M_LMG201_S42_Cover": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_cover_d4feee1f3f.MI_LMG201_R01_cover_d4feee1f3f",
+      "M_LMG201_S42_Satin": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_steel_571e62857b.MI_LMG201_R01_steel_571e62857b",
+      "M_LMG201_FactoryRearGrip_G43_Seat": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_polymer_bad78a1050.MI_LMG201_R01_polymer_bad78a1050",
+      "M_LMG201_FactoryRearGrip_G43": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_polymer_ca4952ca42.MI_LMG201_R01_polymer_ca4952ca42",
+      "M_LMG201_G43_EdgeCoat": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_730a578d5b.MI_LMG201_R01_receiver_730a578d5b",
+      "M_LMG201_G43_LidCoat": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_cover_973fe505e1.MI_LMG201_R01_cover_973fe505e1",
+      "M_LMG201_FactoryRearGrip_J44": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_grip_d5ce58090f.MI_LMG201_R01_grip_d5ce58090f",
+      "M_LMG201_F50_Handguard": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_front_60991ac4c6.MI_LMG201_R01_front_60991ac4c6",
+      "M_LMG201_F50_HandguardFastener": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_fastener_be1b3d99bc.MI_LMG201_R01_fastener_be1b3d99bc",
+      "M_LMG201_F50_Receiver": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_5b2112011f.MI_LMG201_R01_receiver_5b2112011f",
+      "M_LMG201_FactoryStock_F50": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_polymer_12201d2d6a.MI_LMG201_R01_polymer_12201d2d6a",
+      "M_LMG201_FactoryStock_F50_Fastener": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_fastener_be1b3d99bc.MI_LMG201_R01_fastener_be1b3d99bc",
+      "M_LMG201_FactoryStock_F50_Pad": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_rubber_2985f84130.MI_LMG201_R01_rubber_2985f84130",
+      "M_LMG201_Magazine_F50": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_magazine_38aab62456.MI_LMG201_R01_magazine_38aab62456",
+      "M_LMG201_H54_CarryHandle_Polymer": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_polymer_12201d2d6a.MI_LMG201_R01_polymer_12201d2d6a",
+      "M_LMG201_H54_CarryHandle_Coat": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_5b2112011f.MI_LMG201_R01_receiver_5b2112011f"
+    },
+    "/Game/Weapons/LMG201/Drum46/SM_LMG201_LargeDrum.SM_LMG201_LargeDrum": {
+      "D46_DrumPolymer": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_polymer_730badbb29.MI_LMG201_R01_polymer_730badbb29",
+      "D46_DrumFasteners": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_fastener_a003aeccf9.MI_LMG201_R01_fastener_a003aeccf9",
+      "D46_DrumIndex": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_polymer_730badbb29.MI_LMG201_R01_polymer_730badbb29",
+      "D47_AdapterCoat": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_mount_4043a84412.MI_LMG201_R01_mount_4043a84412",
+      "D47_ShoulderPolymer": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_polymer_04a96fec3a.MI_LMG201_R01_polymer_04a96fec3a"
+    },
+    "/Game/Weapons/LMG201/Production20260927/Attachments/SM_LMG201_brake.SM_LMG201_brake": {
+      "A762_brake_0": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_muzzle_47f6585955.MI_LMG201_R01_muzzle_47f6585955"
+    },
+    "/Game/Weapons/LMG201/Production20260927/Attachments/SM_LMG201_holographic.SM_LMG201_holographic": {
+      "A762_holographic_0": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_optic_e63561ecfc.MI_LMG201_R01_optic_e63561ecfc"
+    },
+    "/Game/Weapons/LMG201/Production20260927/Attachments/SM_LMG201_lpvo_1_6x.SM_LMG201_lpvo_1_6x": {
+      "A762_lpvo_1_6x_2": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_optic_975c525737.MI_LMG201_R01_optic_975c525737"
+    },
+    "/Game/Weapons/LMG201/Production20260927/Attachments/SM_LMG201_lpvo_ring.SM_LMG201_lpvo_ring": {
+      "A762_lpvo_ring_0": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_optic_a44f4d0925.MI_LMG201_R01_optic_a44f4d0925"
+    },
+    "/Game/Weapons/LMG201/Production20260927/Attachments/SM_LMG201_panoramic_red_dot.SM_LMG201_panoramic_red_dot": {
+      "A762_panoramic_red_dot_2": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_optic_737ea94e61.MI_LMG201_R01_optic_737ea94e61"
+    },
+    "/Game/Weapons/LMG201/Production20260927/Attachments/SM_LMG201_prism_scope_2x.SM_LMG201_prism_scope_2x": {
+      "A762_prism_scope_2x_2": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_optic_12bdb7c278.MI_LMG201_R01_optic_12bdb7c278"
+    },
+    "/Game/Weapons/LMG201/Production20260927/Attachments/SM_LMG201_suppressor.SM_LMG201_suppressor": {
+      "A762_suppressor_0": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_muzzle_43199bb913.MI_LMG201_R01_muzzle_43199bb913"
+    },
+    "/Game/Weapons/LMG201/Production20260927/Attachments/SM_LMG201_tactical_suppressor.SM_LMG201_tactical_suppressor": {
+      "A762_tactical_suppressor_0": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_muzzle_c6f5c00a09.MI_LMG201_R01_muzzle_c6f5c00a09",
+      "A762_tactical_suppressor_2": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_muzzle_e6b3468df7.MI_LMG201_R01_muzzle_e6b3468df7"
+    },
+    "/Game/Weapons/LMG201/Production20260927/SM_LMG201_BipodBase.SM_LMG201_BipodBase": {
+      "M_LMG201_BipodBase": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_bipod_87e8563a78.MI_LMG201_R01_bipod_87e8563a78",
+      "M_LMG201_S42_Cover": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_bipod_53cfab137d.MI_LMG201_R01_bipod_53cfab137d",
+      "M_LMG201_S42_Satin": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_steel_8d7c904313.MI_LMG201_R01_steel_8d7c904313"
+    },
+    "/Game/Weapons/LMG201/Production20260927/SM_LMG201_BipodLegA.SM_LMG201_BipodLegA": {
+      "M_LMG201_BipodLegA": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_bipod_8c50707c33.MI_LMG201_R01_bipod_8c50707c33",
+      "M_LMG201_S42_Cover": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_bipod_53cfab137d.MI_LMG201_R01_bipod_53cfab137d"
+    },
+    "/Game/Weapons/LMG201/Production20260927/SM_LMG201_BipodLegB.SM_LMG201_BipodLegB": {
+      "M_LMG201_BipodLegB": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_bipod_70d5794430.MI_LMG201_R01_bipod_70d5794430",
+      "M_LMG201_S42_Cover": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_bipod_53cfab137d.MI_LMG201_R01_bipod_53cfab137d"
+    },
+    "/Game/Weapons/LMG201/Production20260927/SM_LMG201_FrontSight.SM_LMG201_FrontSight": {
+      "M_LMG201_D35_Sight": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_front_526b705ccd.MI_LMG201_R01_front_526b705ccd",
+      "M_LMG201_D35_Coat": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_front_434088b659.MI_LMG201_R01_front_434088b659"
+    },
+    "/Game/Weapons/LMG201/Production20260927/SM_LMG201_RearSight.SM_LMG201_RearSight": {
+      "M_LMG201_D35_Coat": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_optic_37bcc9776a.MI_LMG201_R01_optic_37bcc9776a",
+      "M_LMG201_D35_Satin": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_steel_8d7c904313.MI_LMG201_R01_steel_8d7c904313",
+      "M_LMG201_D35_Sight": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_optic_6cd9536d7c.MI_LMG201_R01_optic_6cd9536d7c"
+    }
+  },
+  "geometry_changed": false,
+  "tested": false
+}

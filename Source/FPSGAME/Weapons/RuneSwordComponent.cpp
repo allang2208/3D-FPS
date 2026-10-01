@@ -27,6 +27,7 @@
 #include "../Building/VoxelBuildComponent.h"
 #include "../Movement/FPSCharacterMovementComponent.h"
 #include "Animation/AnimSequence.h"
+#include "WeaponGripProfile.h"
 #include "Camera/CameraComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/SceneComponent.h"
@@ -133,22 +134,40 @@ void URuneSwordComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
     if(NewId!=InstanceId || NewId.IsEmpty() || MeleeModifiers.ClovenSeconds<=0)ClearClovenCounter();
     const FString NewMeshPath=NewId.IsEmpty()?FString():(Modular?ColdSteelModularSword::ArmsMesh(*Item):ColdSteelMeleeGuard::Viewmodel(*Item));
     const FString NewAnimationFolder=NewId.IsEmpty()?FString():ColdSteelModularSword::AnimationFolder(*Item);
-    const UAnimSequence* Idle=Animations.FindRef(TEXT("Idle")).Get();
-    const bool bSameAnimationFolder=NewId.IsEmpty()||(Idle&&Idle->GetPathName().StartsWith(NewAnimationFolder+TEXT("/")));
+    const bool bSameAnimationFolder=NewId.IsEmpty()||EquippedAnimationFolder==NewAnimationFolder;
     if(NewId==InstanceId&&NewMeshPath==EquippedMeshPath&&bSameAnimationFolder){RefreshModularSword(NewId.IsEmpty()?nullptr:Item);ColdSteelMeleeRune::Apply(Viewmodel,NewId.IsEmpty()||Modular?FString():ColdSteelMeleeRune::Selected(*Item),Item?Item->Definition:FString());return;}
     CancelAction();InstanceId=NewId;EquippedMeshPath=NewMeshPath;NextSlash=0;
     Viewmodel->SetVisibility(false,true);
-    if(NewId.IsEmpty()){RefreshModularSword(nullptr);return;}
+    if(NewId.IsEmpty())
+    {
+        if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->SetGripProfile(nullptr);
+        EquippedAnimationFolder.Reset();RefreshModularSword(nullptr);return;
+    }
     const FString Folder=NewAnimationFolder;
-    const FString SoundFolder=ColdSteelInventory::Text(*Item,TEXT("animation_folder"));
+    EquippedAnimationFolder=Folder;
+    UWeaponGripProfile* GripProfile=nullptr;
+    if(Folder==TEXT("/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations"))
+        GripProfile=LoadObject<UWeaponGripProfile>(nullptr,TEXT("/Game/Weapons/AnimationProfiles20261001/Melee/DA_Sword_LongGrip"),nullptr,LOAD_NoWarn);
+    if(GripProfile&&GripProfile->Family!=TEXT("Sword_LongGrip"))GripProfile=nullptr;
     auto* Mesh=LoadObject<USkeletalMesh>(nullptr,*EquippedMeshPath);
+    if(GripProfile)
+        for(const auto& Layer:GripProfile->Clips)
+            if(!Layer.Retained&&(!Mesh||!Layer.Base||Layer.Base->GetSkeleton()!=Mesh->GetSkeleton()))
+            {GripProfile=nullptr;break;}
+    if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->SetGripProfile(GripProfile);
+    const auto LoadClip=[GripProfile](FName Role,const FString& Path)->UAnimSequence*
+    {
+        if(GripProfile)if(const auto* Layer=GripProfile->FindAction(Role))return Layer->Playback();
+        return LoadObject<UAnimSequence>(nullptr,*Path);
+    };
+    const FString SoundFolder=ColdSteelInventory::Text(*Item,TEXT("animation_folder"));
     Viewmodel->SetSkeletalMesh(Mesh);Animations.Reset();
     RefreshModularSword(Item);
     ColdSteelMeleeRune::Apply(Viewmodel,Modular?FString():ColdSteelMeleeRune::Selected(*Item),Item->Definition);
     for(const TCHAR* Clip:{TEXT("Idle"),TEXT("Walk"),TEXT("Whirlwind"),TEXT("Equip"),TEXT("Inspect"),TEXT("Overhead"),TEXT("Slash1"),TEXT("Slash2"),TEXT("Thrust"),TEXT("PommelStrike"),TEXT("HeavyCharge"),TEXT("HeavyRelease"),TEXT("Guard"),TEXT("GuardHit"),TEXT("GuardBreak")})
-        Animations.Add(FName(Clip),LoadObject<UAnimSequence>(nullptr,*(Folder+TEXT("/A_RuneSword_")+Clip+(FCString::Strcmp(Clip,TEXT("Whirlwind"))==0?TEXT("V5"):TEXT("")))));
+        Animations.Add(FName(Clip),LoadClip(Clip,Folder+TEXT("/A_RuneSword_")+Clip+(FCString::Strcmp(Clip,TEXT("Whirlwind"))==0?TEXT("V5"):TEXT(""))));
     for(const TCHAR* Clip:{TEXT("SprintEnter"),TEXT("SprintLoop"),TEXT("SprintExit"),TEXT("SprintOverhead")})
-        Animations.Add(FName(Clip),LoadObject<UAnimSequence>(nullptr,*(Folder+TEXT("/TacticalSprint20260921/A_RuneSword_")+Clip)));
+        Animations.Add(FName(Clip),LoadClip(Clip,Folder+TEXT("/TacticalSprint20260921/A_RuneSword_")+Clip));
     if(!HasTacticalSprintAnimations())
         UE_LOG(LogTemp,Warning,TEXT("Sword tactical sprint clips missing in %s; using the previous locomotion pose."),*Folder);
     SwingSound=LoadObject<USoundBase>(nullptr,*ColdSteelInventory::Text(*Item,TEXT("swing_sound")));

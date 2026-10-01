@@ -1,6 +1,8 @@
 import unreal as u,json
 from pathlib import Path
+from runpy import run_path
 O=Path(__file__).parent;D='/Game/Weapons/M16A2/UniversalAttachments20260920';E=u.EditorAssetLibrary;A=u.AssetToolsHelpers.get_asset_tools();L=u.MaterialEditingLibrary;report={}
+apply_current_bindings=run_path(str(O.parent/'WeaponSurface20260930/M16/current_bindings.py'))['apply_current_bindings']
 def save(a):E.save_loaded_asset(a,False)
 def import_file(file,name,folder,options=None):
  t=u.AssetImportTask();t.filename=str(file);t.destination_path=folder;t.destination_name=name;t.automated=True;t.replace_existing=True;t.save=False
@@ -26,7 +28,7 @@ for key in ['holographic','panoramic_red_dot','prism_scope_2x','lpvo_1_6x','bala
   label=str(s.material_slot_name)
   if label not in bindings:raise RuntimeError('Unbound slot '+key+'/'+label)
   s.material_interface=bindings[label];slots[i]=s
- mesh.set_editor_property('static_materials',slots);E.set_metadata_tag(mesh,'M16Refinement','Source-seated carry handle / dedicated clear glass / factory-conforming grip collar 20260920');save(mesh)
+ mesh.set_editor_property('static_materials',slots);apply_current_bindings(mesh);E.set_metadata_tag(mesh,'M16Refinement','Source-seated carry handle / dedicated clear glass / factory-conforming grip collar 20260920');save(mesh)
  report[key]={'asset':mesh.get_path_name(),'slots':{str(s.material_slot_name):s.material_interface.get_path_name() for s in mesh.static_materials}}
 sound=import_file(O/'Audio/S_M16_OriginalFire.wav','S_M16_OriginalFire','/Game/Weapons/M16A2/OriginalAudio20260920');sound.set_editor_property('volume',1.);sound.set_editor_property('pitch',1.);save(sound);report['audio']=sound.get_path_name()
 skeleton=u.load_asset('/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny').skeleton;compression=u.load_asset('/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel')

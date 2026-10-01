@@ -1,0 +1,44 @@
+{
+  "version": "WS1.1-preparation-20261001",
+  "status": "authoring_candidates_not_installed",
+  "parameter_names": "canonical WS1 names; SVD maps these to WS_ names",
+  "profiles": {
+    "CleanMetalFine": {
+      "source": "SVD/Refine03/make_recipe.py",
+      "eligible_presets": ["CleanSatinSteel", "CleanAnodized"],
+      "scope": "uniform metal region only",
+      "scalars": {
+        "GrainRoughness": 0.012,
+        "MottleRoughness": 0.005,
+        "EdgeWear": 0.025,
+        "EdgeHighlight": 0.06,
+        "CavityDarken": 0.025,
+        "CavityRoughness": 0.018
+      },
+      "preserve": ["FinishColor", "Metallic", "Specular", "Roughness", "EdgeColor", "EdgeRoughness", "GrainTileCm", "all textures", "all UV transforms", "all region masks", "all wetness settings"]
+    },
+    "MagazineMetalFine": {
+      "source": "SVD/Refine03/make_recipe.py",
+      "scope": "reference for a specifically identified satin metal magazine; never infer from the slot name alone",
+      "automatic_assignment": false,
+      "scalars": {
+        "GrainRoughness": 0.009,
+        "MottleRoughness": 0.004,
+        "EdgeWear": 0.025,
+        "EdgeHighlight": 0.055,
+        "CavityDarken": 0.025,
+        "CavityRoughness": 0.018
+      },
+      "preserve": ["material identity", "authored ribs", "base roughness", "all textures", "all UV transforms"]
+    },
+    "PreserveCurrent": {
+      "scalars": {},
+      "scope": "SVD Refine03, polymer, rubber, interior, optical materials and other protected surfaces"
+    }
+  },
+  "parameter_adapters": {
+    "A762_WS1": {"prefix": "", "unprefixed": ["WeaponWetness"]},
+    "ASH12_WS1": {"prefix": "", "unprefixed": ["WeaponWetness"]},
+    "SVD_Refine03": {"prefix": "WS_", "unprefixed": ["WeaponWetness"], "preserve_namespaces": ["R03_", "Magazine", "SVD_"]}
+  }
+}

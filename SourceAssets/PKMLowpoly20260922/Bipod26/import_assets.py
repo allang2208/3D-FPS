@@ -2,6 +2,8 @@
 import unreal as u,json,hashlib
 from pathlib import Path
 O=Path(__file__).parent;P=O.parents[2];D='/Game/Weapons/PKMLowpoly20260922/Bipod26'
+current_finish=O.parent/'current_surface_bindings.json'
+current_slots=json.loads(current_finish.read_text(encoding='utf-8'))['meshes'] if current_finish.exists() else {}
 spec=json.loads((O/'authoring.json').read_text());E=u.EditorAssetLibrary;A=u.AssetToolsHelpers.get_asset_tools();report={}
 old=u.load_asset('/Game/Weapons/PKMLowpoly20260922/Bipod07/SM_PKM_Bipod')
 if not old:raise RuntimeError('Existing separated PKM bipod missing')
@@ -24,7 +26,11 @@ try:
         A.import_asset_tasks([task]);path=D+'/'+info['name'];mesh=u.load_asset(path)
         if not mesh or not task.imported_object_paths:raise RuntimeError('Import failed: '+key)
         slots=mesh.static_materials
-        for i,slot in enumerate(slots):slot.material_interface=material;slots[i]=slot
+        for i,slot in enumerate(slots):
+            current=current_slots.get(mesh.get_path_name(),{}).get(str(slot.material_slot_name))
+            slot.material_interface=u.load_asset(current) if current else material
+            if not slot.material_interface:raise RuntimeError('Missing current PKM bipod material '+str(current))
+            slots[i]=slot
         mesh.set_editor_property('static_materials',slots)
         size=list((mesh.get_bounds().box_extent*2).to_tuple())
         if max(abs(a-b) for a,b in zip(size,info['size_cm']))>.05:raise RuntimeError('FBX unit mismatch '+key+': '+str(size))
@@ -32,7 +38,7 @@ try:
         if not E.save_asset(path,False):raise RuntimeError('Save failed: '+path)
         disk=P/'Content'/(path.removeprefix('/Game/')+'.uasset')
         report[key]={'asset':mesh.get_path_name(),'saved':True,'size_cm':size,
-            'material':material.get_path_name(),'wet':wet[material.get_path_name()],
+            'material':slots[0].material_interface.get_path_name(),'wet':wet[slots[0].material_interface.get_path_name()],
             'sha256':hashlib.sha256(disk.read_bytes()).hexdigest()}
         (O/'import_receipt.json').write_text(json.dumps(report,indent=2))
     icons=P/'Content/ColdSteelData/AttachmentIcons20260913'

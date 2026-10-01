@@ -6,14 +6,28 @@ The runtime also reads MaterialSlotName for old/new prop visibility, so both
 names must describe the same geometry after a reimport.
 """
 import unreal as u
+import json
+from pathlib import Path
 
 BOX_PAINT_PATH='/Game/Weapons/PKMLowpoly20260922/AmmoBox30/Materials/M_PKM_AmmoBoxPaint_Dry'
+
+def current_surface_override(name,mesh_path='/Game/Weapons/PKMLowpoly20260922/Accessories14/SK_PKM_Manny_Modular.SK_PKM_Manny_Modular'):
+ # Saved slot deltas preserve the latest surface while geometry is reimported.
+ manifest=Path(__file__).resolve().parents[1]/'current_surface_bindings.json'
+ if not manifest.exists():return None
+ path=json.loads(manifest.read_text(encoding='utf-8'))['meshes'].get(mesh_path,{}).get(name)
+ if not path:return None
+ material=u.load_asset(path)
+ if not material:raise RuntimeError('Missing current PKM finish '+path)
+ return material
 
 def box_paint_override(name):
  # Legacy author blends label the painted box as QBZ_Body. Both reload props
  # retain their section names for visibility, but must not inherit gun steel.
- if name.endswith(('__OldBox','__NewBox')) and u.EditorAssetLibrary.does_asset_exist(BOX_PAINT_PATH):
-  return u.load_asset(BOX_PAINT_PATH)
+ if name.endswith(('__OldBox','__NewBox')):
+  current=current_surface_override(name)
+  if current:return current
+  if u.EditorAssetLibrary.does_asset_exist(BOX_PAINT_PATH):return u.load_asset(BOX_PAINT_PATH)
  return None
 
 def imported_name(slot):
@@ -31,7 +45,7 @@ def bind_materials(mesh,surfaces,previous):
  slots=mesh.materials;changes=[]
  for i,slot in enumerate(slots):
   before=str(slot.material_slot_name);name=imported_name(slot);base=name.split('__')[0]
-  material=box_paint_override(name)
+  material=current_surface_override(name,mesh.get_path_name()) or box_paint_override(name)
   if not material:
    material=u.load_asset(surfaces[base]) if base in surfaces else previous.get(name) or previous.get(base)
   if not material:raise RuntimeError('No PKM material binding for imported section '+name)

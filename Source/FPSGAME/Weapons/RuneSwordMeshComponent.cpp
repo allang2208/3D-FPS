@@ -2,6 +2,9 @@
 #include "RuneSwordComponent.h"
 #include "Engine/SkeletalMesh.h"
 #include "TwoBoneIK.h"
+#include "WeaponGripProfile.h"
+#include "Animation/AnimSingleNodeInstance.h"
+#include "Animation/AnimSequence.h"
 
 namespace
 {
@@ -109,6 +112,8 @@ void URuneSwordMeshComponent::AdvanceLocomotionEntry(float Delta)
 
 void URuneSwordMeshComponent::FinalizeBoneTransform()
 {
+    if(auto* Single=GetSingleNodeInstance())
+        GripLayer.Apply(GripProfile,Cast<UAnimSequence>(Single->GetCurrentAsset()),GetPosition(),*this);
     if(bCaptureRecoveryIdle)
     {
         // Capture the sampled idle before any action/casting overlay is applied.

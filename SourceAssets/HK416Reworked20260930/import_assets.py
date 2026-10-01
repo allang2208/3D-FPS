@@ -1,7 +1,9 @@
 """Background import/save of the authored HK416 mesh, fittings and animations."""
 import unreal as u,ast,copy,hashlib,json,re
 from pathlib import Path
+from runpy import run_path
 O=Path(__file__).parent;P=O.parents[1];ROOT='/Game/Weapons/HK416/Reworked20260930'
+apply_current_bindings=run_path(str(P/'SourceAssets/WeaponSurface20260930/HK416/current_bindings.py'))['apply_current_bindings']
 A=u.AssetToolsHelpers.get_asset_tools();E=u.EditorAssetLibrary;L=u.MaterialEditingLibrary
 auth=json.loads((O/'authoring.json').read_text());report={'saved':[],'materials':{},'static':{},'animations':{},'runtime_tested':False}
 def record():(O/'import_receipt.json').write_text(json.dumps(report,indent=2))
@@ -97,6 +99,7 @@ try:
     system=u.get_editor_subsystem(u.SkeletalMeshEditorSubsystem)
     for lod in range(system.get_lod_count(mesh)):
         settings=system.get_lod_build_settings(mesh,lod);settings.use_full_precision_u_vs=True;system.set_lod_build_settings(mesh,lod,settings)
+    apply_current_bindings(mesh)
     save(mesh);save(mesh.skeleton);report['mesh']=mesh.get_path_name();report['arm_materials']=arm_ids;record()
     for key,clip in auth['clips'].items():
         family,kind=key.split('/');file=Path(clip['fbx']);opt=u.FbxImportUI();opt.automated_import_should_detect_type=False;opt.mesh_type_to_import=u.FBXImportType.FBXIT_ANIMATION
@@ -112,7 +115,7 @@ try:
         opt.static_mesh_import_data.normal_import_method=u.FBXNormalImportMethod.FBXNIM_IMPORT_NORMALS
         part=imported(entry['fbx'],ROOT+'/Attachments','SM_HK416_'+key,opt);slots=list(part.static_materials)
         for i,slot in enumerate(slots):slot.material_interface=materials[re.sub(r'[._]\d{3}$','',str(slot.material_slot_name))];slots[i]=slot
-        part.set_editor_property('static_materials',slots);save(part);report['static'][key]=part.get_path_name();record()
+        part.set_editor_property('static_materials',slots);apply_current_bindings(part);save(part);report['static'][key]=part.get_path_name();record()
 finally:u.SystemLibrary.execute_console_command(None,flag+' '+str(previous))
 
 file=O/'finish_publication.py'

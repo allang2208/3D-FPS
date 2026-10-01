@@ -1,0 +1,50 @@
+[
+  {
+    "size": 209055681,
+    "destination": "trash/weapon-surface-animation-20261001/SourceAssets/WeaponSurface20260930/A762/A762_SurfaceBake.blend1",
+    "sha256": "b267627890175f9c93cb6dded77fee651a5b2a878a227693591f880b1742bbef",
+    "source": "SourceAssets/WeaponSurface20260930/A762/A762_SurfaceBake.blend1",
+    "reason": "Superseded Blender automatic backup; editable bake source retained",
+    "retained_replacement": "SourceAssets/WeaponSurface20260930/A762/A762_SurfaceBake.blend"
+  },
+  {
+    "size": 2719206,
+    "destination": "trash/weapon-surface-animation-20261001/SourceAssets/A762ExtendedMagazine20261001/A762_ExtMag_Continuous07.blend1",
+    "sha256": "c702da6ecac8c278e36386352b4ef48280d5be52afa37dd61df06e6a1da78d12",
+    "source": "SourceAssets/A762ExtendedMagazine20261001/A762_ExtMag_Continuous07.blend1",
+    "reason": "Superseded Blender automatic backup; final editable Continuous07 retained",
+    "retained_replacement": "SourceAssets/A762ExtendedMagazine20261001/A762_ExtMag_Continuous07.blend"
+  },
+  {
+    "size": 3759,
+    "destination": "trash/weapon-surface-animation-20261001/SourceAssets/WeaponAnimationSharing20261001/extend_runtime.py",
+    "sha256": "96b9de2108af29e306074b014fda291d6ec067cd4a56f05aa9a9704ac760c5e8",
+    "source": "SourceAssets/WeaponAnimationSharing20261001/extend_runtime.py",
+    "reason": "Completed one-shot source migration; current C++ and production profile installers replace this non-repeatable patcher",
+    "retained_replacement": "Source/FPSGAME/Weapons/WeaponGripProfile.cpp"
+  },
+  {
+    "sha256": "8fcde42cd741c2feb030de3dc4b8422a182b4edb230b1db6edb923ff5d8ecf49",
+    "destination": "trash/weapon-surface-animation-20261001/SourceAssets/A762ReceiverGrip20261001/finish_phantom.py",
+    "retained_replacement": "SourceAssets/A762ReceiverGrip20261001/author.py",
+    "reason": "Rejected full-lattice voxel remesh experiment; final author preserves source lattice",
+    "source": "SourceAssets/A762ReceiverGrip20261001/finish_phantom.py",
+    "size": 2043
+  },
+  {
+    "sha256": "204dea50358c9c88bcfa7ed1aac6999803eba7533fa8b72912d514615e2b1525",
+    "destination": "trash/weapon-surface-animation-20261001/SourceAssets/A762ReceiverGrip20261001/reduce_phantom.py",
+    "retained_replacement": "SourceAssets/A762ReceiverGrip20261001/author.py",
+    "reason": "Retired decimation step for rejected full-lattice reconstruction",
+    "source": "SourceAssets/A762ReceiverGrip20261001/reduce_phantom.py",
+    "size": 1252
+  },
+  {
+    "sha256": "b100c03402f7121e9c02710f6f23f9f759359c7a062a6a6b513ccbe754431153",
+    "destination": "trash/weapon-surface-animation-20261001/SourceAssets/A762ReceiverGrip20261001/restore_phantom_lattice.py",
+    "retained_replacement": "SourceAssets/A762ReceiverGrip20261001/author.py",
+    "reason": "Completed one-shot restoration patch already integrated into final author",
+    "source": "SourceAssets/A762ReceiverGrip20261001/restore_phantom_lattice.py",
+    "size": 1679
+  }
+]

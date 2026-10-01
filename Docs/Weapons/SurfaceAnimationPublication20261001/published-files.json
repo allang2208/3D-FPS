@@ -1,0 +1,1192 @@
+{
+  "base_commit": "4c51afaa008e684525bbb9a03a93811414ee92ac",
+  "content_files": 236,
+  "content_bytes": 1583045,
+  "hash_source": "Exact staged Git blobs, not shared worktree versions",
+  "record_files_excluded_from_self_hashes": [
+    "Docs/Weapons/SurfaceAnimationPublication20261001/published-files.json",
+    "Docs/Weapons/SurfaceAnimationPublication20261001/publication-checks.json"
+  ],
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 83869,
+      "sha256": "356d3b6fe4bbedaa1f08dfa976af309cc7d5e2e6b46750cdfabf7c7eb46ecad6"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes": 66252,
+      "sha256": "7cbc174844e8d943cbc97d0b600fc35ee09450f7486a4cc71d28ebcbeb3e74ae"
+    },
+    {
+      "path": "Docs/Weapons/SurfaceAnimationPublication20261001/archive-manifest.json",
+      "bytes": 2984,
+      "sha256": "985719b9cf929e99fb344b94c851aaf37f45ffc6f2d2d9076c5d3f27ccf8e129"
+    },
+    {
+      "path": "Docs/Weapons/a762-extended-magazine-continuity-20261001.md",
+      "bytes": 4501,
+      "sha256": "48325b40d57ca34c617ea5e66057d432212fc32444e1e59d8d0561b1f42071fa"
+    },
+    {
+      "path": "Docs/Weapons/a762-finish-refine06-20261001.md",
+      "bytes": 4659,
+      "sha256": "e63c18b77f8ef7fd214f04ab801b762ad40381ca0abc237e4b961b3de1deb6c4"
+    },
+    {
+      "path": "Docs/Weapons/a762-receiver-grip-junction-20261001.md",
+      "bytes": 4489,
+      "sha256": "65aa671655f1e68b46ce09309d05d6bd444851ffcf423f18f62fbdc3f8bab19e"
+    },
+    {
+      "path": "Docs/Weapons/a762-surface-standard-20260930.md",
+      "bytes": 17439,
+      "sha256": "7bacb6356d9cde9ba9209cfc299cb4a5356368d3b5c902599c7488c3d4562820"
+    },
+    {
+      "path": "Docs/Weapons/akm-surface-standard-20261001.md",
+      "bytes": 9953,
+      "sha256": "1ddce4ae3c685da341d74bc5ac268ed7a29e42a85b6eef6c4c40c4939f43543a"
+    },
+    {
+      "path": "Docs/Weapons/ash12-finish-refine02-20261001.md",
+      "bytes": 4845,
+      "sha256": "c21578267da5f3c8612b5231918faaca1a065e913f73cf73be2a0df13231225a"
+    },
+    {
+      "path": "Docs/Weapons/ash12-surface-standard-20260930.md",
+      "bytes": 6172,
+      "sha256": "9e50e9d0438cbb6d1676ad185cccd5eab0da1e931e6b19578eb461940b21be45"
+    },
+    {
+      "path": "Docs/Weapons/hk416-surface-standard-20261001.md",
+      "bytes": 3532,
+      "sha256": "62a536ffb050ed6b2d6b93c9b83cb40e75395fbb95ca948f8493f34f8e8117e9"
+    },
+    {
+      "path": "Docs/Weapons/lmg201-surface-standard-20261001.md",
+      "bytes": 4586,
+      "sha256": "b54f74cb672833fb56b8566cb3c5dd854919a31fb626e539e4baa87898ababbd"
+    },
+    {
+      "path": "Docs/Weapons/m16-surface-standard-20261001.md",
+      "bytes": 4640,
+      "sha256": "3491d922ecf48afb8851fa4b6ef48f47b7f7cc966fa925b89c3a5a2f417130f7"
+    },
+    {
+      "path": "Docs/Weapons/m4-surface-standard-20261001.md",
+      "bytes": 4935,
+      "sha256": "ccec2ed2f406d6a59255286d427b6aaef56d23a65948d3563372e898823132d9"
+    },
+    {
+      "path": "Docs/Weapons/pkm-refined-finish-20260927.md",
+      "bytes": 1764,
+      "sha256": "127cbd3d90c8e75e5c84def92c6c63d9ce9749746278911ea614143400915d2f"
+    },
+    {
+      "path": "Docs/Weapons/pkm-surface-standard-20261001.md",
+      "bytes": 2945,
+      "sha256": "10c0518811f8a17f6900b87d1f9924d857287daf5a41d324f7fb798c508e7b6e"
+    },
+    {
+      "path": "Docs/Weapons/svd-factory-magazine-satin-20261001.md",
+      "bytes": 2708,
+      "sha256": "296bb4121b1f2aec76ece71ad677dfe9338dffb599784f6e476a342fa65ee74d"
+    },
+    {
+      "path": "Docs/Weapons/svd-finish-refine04-20261001.md",
+      "bytes": 4317,
+      "sha256": "b2af773d532085188e4a3b3c97e9712aca95a24404dd1465043d6232ef0971a9"
+    },
+    {
+      "path": "Docs/Weapons/svd-grip-profiles-20261001.md",
+      "bytes": 4663,
+      "sha256": "82bcae03d34c9e083b6df46ef58bde5a404c47972b2cda5b42ec18e4b52ec0c5"
+    },
+    {
+      "path": "Docs/Weapons/svd-refine03-and-reload-return-20261001.md",
+      "bytes": 4615,
+      "sha256": "7655572d8421b0c51fbd28e9e9155955c2a9164300a1896299cf73f95e7f9ea3"
+    },
+    {
+      "path": "Docs/Weapons/svd-surface-standard-20261001.md",
+      "bytes": 6467,
+      "sha256": "40ae8594400e3de870c7922ed19f256d6e245e14769f9c0203e063905e39ec73"
+    },
+    {
+      "path": "Docs/Weapons/weapon-animation-sharing-20261001.md",
+      "bytes": 6664,
+      "sha256": "d52f2829ef4894f368ed239a4ca22b1402efe8d1036b6e328839692da239e3eb"
+    },
+    {
+      "path": "Docs/Weapons/weapon-surface-animation-publication-20261001.md",
+      "bytes": 5350,
+      "sha256": "99a1907c37e7a29560749c601d80f299d7c6b105afdacce15862f6a2090a6d76"
+    },
+    {
+      "path": "Docs/Weapons/weapon-surface-contract-20261001.md",
+      "bytes": 15344,
+      "sha256": "e1951f84cbfb94c32b765540e53cc78d95495fbcc80bdeb58ad6bed419755bbd"
+    },
+    {
+      "path": "Docs/Weapons/weapon-surface-preparation-20261001.md",
+      "bytes": 6794,
+      "sha256": "7fb6a85252ade6f3cc8adbcb388fdadcf26501cf630e364a3f481e6ea339c323"
+    },
+    {
+      "path": "Docs/Weapons/weapon-surface-standard-20260930.md",
+      "bytes": 11655,
+      "sha256": "3efb5b54a7eb85973153b4f02fa3b445156a7a5d721a5316d72429d50f0fbc3c"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp",
+      "bytes": 37405,
+      "sha256": "75e6d9202e81196eae0ed66afdec731ccd351343f6de26d101abe20f321002a9"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.h",
+      "bytes": 7116,
+      "sha256": "055b3e92c8c841bed157f1bcfd0a417bb95b2b00c64e0dee274a38fc7d4b0ea3"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+      "bytes": 78827,
+      "sha256": "31a6670904a728cadcd3d496bb6a61b585d9736740031032e6961e8a2c5c9e12"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "bytes": 13044,
+      "sha256": "2f34ea74bc3b86165bcf210311556a34c3814744f8062e015b114f40080c26fd"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordMeshComponent.cpp",
+      "bytes": 11473,
+      "sha256": "aa1ae7c46278423b6e56eb355a5d8e76537cd494acb0e9602edbf954733762ac"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordMeshComponent.h",
+      "bytes": 1580,
+      "sha256": "a5d86175b3fb0668593aa696c2720f584e3a7bb77377d9679efe05152785efc1"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponGripComponentLayer.cpp",
+      "bytes": 1814,
+      "sha256": "cca32c389009d645383e2ba2424b6b2cc9790cd4042b8dcdf3060335dc7b32b5"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponGripComponentLayer.h",
+      "bytes": 730,
+      "sha256": "c39ddd60dd22607b4011ab4487b50b27b0c279c87a4ae021e5e76fce5b424a0a"
+    },
+    {
+      "path": "SourceAssets/A762ExtendedMagazine20261001/README.md",
+      "bytes": 3750,
+      "sha256": "321f1a598d7817573e0c91189fb6f78a060158d166c21733133b142c194bbd40"
+    },
+    {
+      "path": "SourceAssets/A762ExtendedMagazine20261001/author.py",
+      "bytes": 11588,
+      "sha256": "b676b196b7042ed3f3935cd558d8cbab5a35d98bde2e6fdd6a4509792c2adbdd"
+    },
+    {
+      "path": "SourceAssets/A762ExtendedMagazine20261001/candidate_batch.py",
+      "bytes": 221,
+      "sha256": "d4199cbb6307f7ec48276dab38230e6ab17d4f0b9dfe32730e1ad4b519d9923b"
+    },
+    {
+      "path": "SourceAssets/A762ExtendedMagazine20261001/capture_candidate.py",
+      "bytes": 4133,
+      "sha256": "fe19f387843f92aafb226063189f76ccecefacd4778539293c5c350a6b9c09ac"
+    },
+    {
+      "path": "SourceAssets/A762ExtendedMagazine20261001/capture_inputs.py",
+      "bytes": 4125,
+      "sha256": "12a33f08bc08ed4347de52e621206388a976b0d7d22b264d41195c76127e988b"
+    },
+    {
+      "path": "SourceAssets/A762ExtendedMagazine20261001/capture_saved.py",
+      "bytes": 4095,
+      "sha256": "ae88c32f310db32ad74b7113fcda148d6007b7eb0d48d52cdc6498f85f2e0357"
+    },
+    {
+      "path": "SourceAssets/A762ExtendedMagazine20261001/curve.py",
+      "bytes": 2773,
+      "sha256": "62b03086f39c921074917800310a3b48adbcdcf53fc86062af126ca963673424"
+    },
+    {
+      "path": "SourceAssets/A762ExtendedMagazine20261001/inspect_geometry.py",
+      "bytes": 6187,
+      "sha256": "ad81a829ce8d4cc53ea543d13419b72fc1b282d045281a23b796d45798712f07"
+    },
+    {
+      "path": "SourceAssets/A762ExtendedMagazine20261001/install.py",
+      "bytes": 7269,
+      "sha256": "6cbb13ecf2e9e34d4bc6fa4a37f647e70481f6e2007e73e84927ac498e3f6be8"
+    },
+    {
+      "path": "SourceAssets/A762ExtendedMagazine20261001/install_candidate.py",
+      "bytes": 136,
+      "sha256": "93b96b6ac39242cb3734ea2b365147045649c6191d6b3813352df046e76bac96"
+    },
+    {
+      "path": "SourceAssets/A762ExtendedMagazine20261001/locate_uv.py",
+      "bytes": 514,
+      "sha256": "7ecfae1e18877a16a02770753e2fd628a6831bd6afe0b1c2e6e72576f289893a"
+    },
+    {
+      "path": "SourceAssets/A762ExtendedMagazine20261001/measure_saved.py",
+      "bytes": 2444,
+      "sha256": "a184fb0ff6550562924636bc888701dfd688206a5892ebc16bffea144eee6232"
+    },
+    {
+      "path": "SourceAssets/A762ExtendedMagazine20261001/read_build.py",
+      "bytes": 613,
+      "sha256": "4d41d1b5447b1935929005661b9da57b562af0267366ab83749006d62fcafda6"
+    },
+    {
+      "path": "SourceAssets/A762ExtendedMagazine20261001/read_final.py",
+      "bytes": 164,
+      "sha256": "21cf862509a7de090b430d66d8b40d12792de1c056151381f4eda6228c3e4f77"
+    },
+    {
+      "path": "SourceAssets/A762ExtendedMagazine20261001/save_final.py",
+      "bytes": 161,
+      "sha256": "83bc20406969a90707d916afaa26904e00a2152c78083315bbfa0e506a1a4665"
+    },
+    {
+      "path": "SourceAssets/A762GripClearance20261001/README.md",
+      "bytes": 2301,
+      "sha256": "e1c766354f9795597ca5b3320b9771816983c88732d5d2869e86cf1cfe074141"
+    },
+    {
+      "path": "SourceAssets/A762GripClearance20261001/author.py",
+      "bytes": 3130,
+      "sha256": "45f2f2ed39cd7cb00fd82bb98d19d9d1aa7b325286b93f671cb6239f14f454c5"
+    },
+    {
+      "path": "SourceAssets/A762GripClearance20261001/author_blend.py",
+      "bytes": 1480,
+      "sha256": "75fa5be44ad48d8d299036e517cbdb777e5380b9ad6012349c8fdb8e5f9cfdde"
+    },
+    {
+      "path": "SourceAssets/A762GripClearance20261001/capture.py",
+      "bytes": 2943,
+      "sha256": "1356fd7a2d32b30973e42bbd94612c381889ef54342381116ac73142d696ae0f"
+    },
+    {
+      "path": "SourceAssets/A762GripClearance20261001/install.py",
+      "bytes": 4897,
+      "sha256": "2af96bd2eeabea93844ec41116eef603b54f34389d7ac31c41ea3e2719affe17"
+    },
+    {
+      "path": "SourceAssets/A762Meshy20260920/Accessories05/author_geometry.py",
+      "bytes": 13280,
+      "sha256": "a638ba66754688856800ee9a8a7cb586bc390ad29547e31261e42f64f90115f4"
+    },
+    {
+      "path": "SourceAssets/A762Meshy20260920/Accessories05/import_geometry.py",
+      "bytes": 9374,
+      "sha256": "f68b0cf69736e9910ba7410b0ff13a58d6198e3e33aab2135c6dce12018f0853"
+    },
+    {
+      "path": "SourceAssets/A762ReceiverGrip20261001/README.md",
+      "bytes": 3656,
+      "sha256": "bbd44172e645d4da01bcdd199585d0bc35f8552ba77dd8fd4b269fc6f6c5d375"
+    },
+    {
+      "path": "SourceAssets/A762ReceiverGrip20261001/analyze_parts.py",
+      "bytes": 1439,
+      "sha256": "16c31184df89e5ccb3d11f8eed03331f9c172f89b922fb47ab10ab2de5fc9b67"
+    },
+    {
+      "path": "SourceAssets/A762ReceiverGrip20261001/author.py",
+      "bytes": 23479,
+      "sha256": "6bb3c26916bcad4f18f820ea0f0b4a3bd48f67f92e2ce42f65a639240bc5fabe"
+    },
+    {
+      "path": "SourceAssets/A762ReceiverGrip20261001/capture_inputs.py",
+      "bytes": 3747,
+      "sha256": "39562a9a7fa35c8352c9e9ce14641f16a1006afb6802446d572b733909cbdf7e"
+    },
+    {
+      "path": "SourceAssets/A762ReceiverGrip20261001/capture_uvs.py",
+      "bytes": 1159,
+      "sha256": "b0bce85c568b765c61c0eb07915490ad30c3233c235b167f7fedfb60e972f261"
+    },
+    {
+      "path": "SourceAssets/A762ReceiverGrip20261001/finish_export.py",
+      "bytes": 2346,
+      "sha256": "21ebc081f0178e4112cd7a984b0458402867a577c325e68becf8173f651c3bcc"
+    },
+    {
+      "path": "SourceAssets/A762ReceiverGrip20261001/geometry.py",
+      "bytes": 2217,
+      "sha256": "d81318ca04c84dd5929c9c2ecc4fd6256c85adcaf1f8996ae50a3ff80c37fefc"
+    },
+    {
+      "path": "SourceAssets/A762ReceiverGrip20261001/inspect_bolt_grip.py",
+      "bytes": 1813,
+      "sha256": "d2a60a54e6b49e9f4acbe5f083b7288398f655d524fd583958f2d04165e74a7c"
+    },
+    {
+      "path": "SourceAssets/A762ReceiverGrip20261001/inspect_input.py",
+      "bytes": 3888,
+      "sha256": "c629632ba2079e81dbca9379b820db71d595512cc6957249df3dff9ab9a9caf8"
+    },
+    {
+      "path": "SourceAssets/A762ReceiverGrip20261001/inspect_phantom_shell.py",
+      "bytes": 718,
+      "sha256": "567352f0a2d328d3bf02fe3ba9cd1a7a4c1286590335ab292fd6ef8258543710"
+    },
+    {
+      "path": "SourceAssets/A762ReceiverGrip20261001/inspect_result.py",
+      "bytes": 3264,
+      "sha256": "d65458181e1c14636314046462f0420652439e16a12a829ad779d8dc7c5bd3da"
+    },
+    {
+      "path": "SourceAssets/A762ReceiverGrip20261001/install.py",
+      "bytes": 11065,
+      "sha256": "400873a60006b1b75db70efe85e49bee1367593ee1ab1b65afd6512cb5c43190"
+    },
+    {
+      "path": "SourceAssets/A762ReceiverGrip20261001/read_frames.py",
+      "bytes": 1017,
+      "sha256": "f556b9bf6bef381eb9a8abc3c781c0183122ec683c4e6065c696d336f0c5c578"
+    },
+    {
+      "path": "SourceAssets/A762ReceiverGrip20261001/read_saved.py",
+      "bytes": 1896,
+      "sha256": "1a0daf084334c469d9f402863e9101d9fe27829b95520f177aaa9b96c9654fcd"
+    },
+    {
+      "path": "SourceAssets/A762ReceiverGrip20261001/reexport.py",
+      "bytes": 699,
+      "sha256": "b698cda2aa4d28ba37309dfa86a0f335263afb6ee7624c0038e600b03f8872c7"
+    },
+    {
+      "path": "SourceAssets/A762ReceiverGrip20261001/shell_cleanup.py",
+      "bytes": 738,
+      "sha256": "77307f9dd70e7224fda6b457cba26e635918d680fd30e07947030195b28fb01d"
+    },
+    {
+      "path": "SourceAssets/HK416AttachmentRepair20261001/import_surfaces.py",
+      "bytes": 1937,
+      "sha256": "193bb9a027f2cdb223c6db9849c1b1c36af624a15bda63d8a388274eb4ba00c5"
+    },
+    {
+      "path": "SourceAssets/HK416CommonAttachments20260930/import_assets.py",
+      "bytes": 10456,
+      "sha256": "27746295e9272341bacef12767fbbae888e03e40ddad536e2a857dd001a803b9"
+    },
+    {
+      "path": "SourceAssets/HK416FactoryParts20261001/import_assets.py",
+      "bytes": 4032,
+      "sha256": "0d7e7d23e6d56fcb091fee4eabb19b4fe6534f1cb9964a7bf32b59b283d9d6bd"
+    },
+    {
+      "path": "SourceAssets/HK416Reworked20260930/finish_publication.py",
+      "bytes": 2442,
+      "sha256": "3ea46537fa61286ee24c91362df918e36fb03d5e4c1c142fadf2a8daed1b2efc"
+    },
+    {
+      "path": "SourceAssets/HK416Reworked20260930/import_assets.py",
+      "bytes": 10203,
+      "sha256": "49d307d905eb380b027080ed82f92ccfe70c50b85119dfe3bff4298c4182fc77"
+    },
+    {
+      "path": "SourceAssets/HK416UniversalParts20260930/import_assets.py",
+      "bytes": 6313,
+      "sha256": "aaad8fed4e9ffe989acc8b8c9b975e0e2084d5480b918eb2088cc1695f2011c5"
+    },
+    {
+      "path": "SourceAssets/LMG20120260927/Material21/bindings.json",
+      "bytes": 32392,
+      "sha256": "5023436ae6e74f44a7e18fbf74352016b9e52ea5a143ae5497633ac0410cce7f"
+    },
+    {
+      "path": "SourceAssets/LargeDrumUpgrade20260920/Scripts/install_assets.py",
+      "bytes": 8838,
+      "sha256": "e39fd3f981b25e5418946d5f2cec86c448fafc372e205b7b0f2991c6538a7990"
+    },
+    {
+      "path": "SourceAssets/M16Gameplay20260919/import_assets.py",
+      "bytes": 4002,
+      "sha256": "c1ad6743959523f1a247d0f1a8a1b4b229e70c9185985a3c1a6207bbba34fb86"
+    },
+    {
+      "path": "SourceAssets/M16RecoveryStocks20260920/install_stocks.py",
+      "bytes": 3332,
+      "sha256": "af6bba7c4533c4826e035bd0789bf5cf7343ab04e877f954ef6918cc0abc23a2"
+    },
+    {
+      "path": "SourceAssets/M16Refinement20260920/install.py",
+      "bytes": 4654,
+      "sha256": "d1a0a1d8fa1dff7915a05806f4fb085ac91bf94c94f80ee4d38fedcd2ddf5056"
+    },
+    {
+      "path": "SourceAssets/M16UniversalAttachments20260920/import_assets.py",
+      "bytes": 12007,
+      "sha256": "b03437e8f5fb8e8185cff1c34b98caf43e72ebdbd42d8fc9f810ed7b63ac9fee"
+    },
+    {
+      "path": "SourceAssets/M4GridUnified20260919/install.py",
+      "bytes": 1818,
+      "sha256": "777d0b823b57974eed8c8ee0660e946803bf725ee98c6a18a5bc3c6d6a66feb9"
+    },
+    {
+      "path": "SourceAssets/M4HK416Replica20260910/import_replica.py",
+      "bytes": 4875,
+      "sha256": "d68b55883cc8a49bb4af06a7fcb2949e1683e86646bcc763affdfd1d901ede8b"
+    },
+    {
+      "path": "SourceAssets/PKMLowpoly20260922/Belt08/material_binding.py",
+      "bytes": 2643,
+      "sha256": "0d84afae3e58b5d005024882c69106130ca6b21a89c93c59efce837ca13e84da"
+    },
+    {
+      "path": "SourceAssets/PKMLowpoly20260922/Bipod26/import_assets.py",
+      "bytes": 4579,
+      "sha256": "a038c59999a79adb522e2a61448d23d751bcbadf65a87b0273050a1d41fd9784"
+    },
+    {
+      "path": "SourceAssets/PKMLowpoly20260922/current_surface_bindings.json",
+      "bytes": 14028,
+      "sha256": "cf09e8fe47f4896360fdb142552a6b3863e74bd63675d48921c8076b47315242"
+    },
+    {
+      "path": "SourceAssets/PKMRefinedFinish20260927/install_finish.py",
+      "bytes": 6138,
+      "sha256": "99d4edcb05f6a93d244aa9950fb5cbc2b8682df82795e0f0e7722c761c37b8fb"
+    },
+    {
+      "path": "SourceAssets/SVDGripProfiles20261001/install_profiles.py",
+      "bytes": 4820,
+      "sha256": "40dabba5cca9f08a8a2fa877d613c6f28139e9e90a57fce880025b3d77eb4788"
+    },
+    {
+      "path": "SourceAssets/SVDReloadReturn20261001/author_return.py",
+      "bytes": 7891,
+      "sha256": "7eb76c73f9f96f472af3f9caf5970244df2204442e4fa17b1e896489cd657d76"
+    },
+    {
+      "path": "SourceAssets/SVDReloadReturn20261001/import_return.py",
+      "bytes": 4469,
+      "sha256": "e379f2d2b8d5a90326a8d82f99a4c6ef2015c34f48877c51d4e732dc080be140"
+    },
+    {
+      "path": "SourceAssets/WeaponAnimationSharing20261001/install_profiles.py",
+      "bytes": 5002,
+      "sha256": "7e9050e67f145651a55746800d22de0a3d042a0182f80dca4ff4fd8eb903a311"
+    },
+    {
+      "path": "SourceAssets/WeaponAnimationSharing20261001/make_manifest.py",
+      "bytes": 9309,
+      "sha256": "1547827e675ebb005b38f50a569477ad6df206203d088856ec71979c80303623"
+    },
+    {
+      "path": "SourceAssets/WeaponAnimationSharing20261001/manifest.json",
+      "bytes": 142008,
+      "sha256": "dfc477e266795b339fd359f60f14e1767c447a4af94f776f2fe541b6c3e88b45"
+    },
+    {
+      "path": "SourceAssets/WeaponAnimationSharing20261001/production_summary.json",
+      "bytes": 2546,
+      "sha256": "cb6a772c600937e061fa41e2d2438376d8c3a56599cc623d8589874f4534c1d9"
+    },
+    {
+      "path": "SourceAssets/WeaponAnimationSharing20261001/run_install.ps1",
+      "bytes": 657,
+      "sha256": "c1ead07afbd8c8008eef3eab9e33d3bd4c9936d1f2e188fb9da034025c916298"
+    },
+    {
+      "path": "SourceAssets/WeaponAnimationSharing20261001/summarize_receipt.py",
+      "bytes": 1712,
+      "sha256": "00a0a902b08f60745a606255facaf23cac617ccb80a343bd21fcf8a559fc1368"
+    },
+    {
+      "path": "SourceAssets/WeaponAttachmentFinish20260913/import_finish.py",
+      "bytes": 9994,
+      "sha256": "12726f0c018c890d6197e97362a006a37ab2d122ff093121ad1adb606e332550"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/A762/Refine06/README.md",
+      "bytes": 2541,
+      "sha256": "d60aa7df0e20e2647c76a9c820737a1f65941290f1233c3867a38defbf1cf45e"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/A762/Refine06/apply_finish.py",
+      "bytes": 6550,
+      "sha256": "da44880ac39c70861188a2ba7d2a671d4fc7abc9dfc37d638de84ac6ac5184e6"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/A762/Refine06/capture_inputs.py",
+      "bytes": 2807,
+      "sha256": "8c60dde5471212105fef299f0be0b02b9dea2049c224725c52fd5c84f4fcb661"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/A762/Refine06/produce.py",
+      "bytes": 7751,
+      "sha256": "47f1671cfb3b0701482367b7735550f18210169c4f38abd32246feebd168d2de"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/DrumFinish03/PolymerColor.hlsl",
+      "bytes": 574,
+      "sha256": "f4ffd7d5ce60e71fe39297f9b8e780fde560ec7e0e96a03e0486d275e1968787"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/DrumFinish03/PolymerRoughness.hlsl",
+      "bytes": 408,
+      "sha256": "3b1688327045861c18efe9bfe25d86d0d6b3f91676568644e287317ed1c73c84"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/DrumFinish03/apply_finish.py",
+      "bytes": 8315,
+      "sha256": "274339a1b4d3ced423a632ed3098230383b8f86ff5654f3b22ab00ec7861ef5c"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/DrumFinish03/prepare_parent.py",
+      "bytes": 224,
+      "sha256": "55bb494dfb860e6d8111e4f64fada444b8f07d71c89e7ba31fd41791bff21987"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/DrumFinish03/read_source.py",
+      "bytes": 1777,
+      "sha256": "3bfc8e3c9ef390e1f4c445f284db3f3d40f4dde3b05dc2a81ea08be0bd6ed241"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/Refine01/FineGrain.hlsl",
+      "bytes": 326,
+      "sha256": "8f1f10ecd5f8b58b80c96e1d87f73cbffa6b5067afb2c21f2f97214520d9b635"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/Refine01/FinishColor.hlsl",
+      "bytes": 807,
+      "sha256": "7e74e85a5d68dc24cf6793c6fac520480b4102656996f893553189ac5a0f5763"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/Refine01/FinishRoughness.hlsl",
+      "bytes": 605,
+      "sha256": "71962e0a0a3adffd786633a792f99ce479af3f6c181a685ee007f974744adaf0"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/Refine01/README.md",
+      "bytes": 3486,
+      "sha256": "9e4077e67b934ba8bb43d57d2b745f6897a688418bcb18c7acb782a898ee17eb"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/Refine01/apply_finish.py",
+      "bytes": 16860,
+      "sha256": "e5f622c09843eab56ac0e381e5781e6a2fd96c623c1cca30fe08ba4f9e5498c1"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/Refine01/bindings.json",
+      "bytes": 11296,
+      "sha256": "0a74096d72374e7c200e05b38dad3ad5098f0151d41fab44e791a4eb208f4976"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/Refine01/capture_inputs.py",
+      "bytes": 7391,
+      "sha256": "94bf4c7b29c0d4a1306f28b0f9d168ba64ee98a1965c695e7aee0ebc4706d8b9"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/Refine01/finalize_records.py",
+      "bytes": 691,
+      "sha256": "9d750c6483e75dada84906bb20da5610b6100457e189f9be6b66af9e40c76b0e"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/Refine01/produce.py",
+      "bytes": 5440,
+      "sha256": "0906d0344af4cef984b1cb9ee7405fd0c27035c997bac0edcd36f12592cc07f5"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/Refine01/rebind_current.py",
+      "bytes": 3774,
+      "sha256": "5f7ac1a1a226c9e803d7fbf0ba8423bcf31c52953f502e19970d5c567f1acd33"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/Refine02/FinishColor.hlsl",
+      "bytes": 828,
+      "sha256": "b0ec066de7871b0625e7ac2cd134849ba280a5ffb2677a2e55710ac53d751276"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/Refine02/FinishRoughness.hlsl",
+      "bytes": 745,
+      "sha256": "7dea8f35f6886d00e93634970d0cd3b0e43322fee3ee89a96c0962a7b62d00b4"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/Refine02/README.md",
+      "bytes": 2804,
+      "sha256": "3adcbca736bc4e49fed63431dcb4da59ad4de563fa652e69eafc7b2b3f32de10"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/Refine02/apply_refine02.py",
+      "bytes": 7139,
+      "sha256": "93f66672f04b4caaaf49013380b1728c092bb70b83205305e5f34d184011c3b4"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/Refine02/produce.py",
+      "bytes": 1638,
+      "sha256": "b15a24d03a4fa8bf80d4e9d5d81506db6210428635b65c778e355cb0dfdce06e"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/RuntimeRouteRepair/inspect_routes.py",
+      "bytes": 4493,
+      "sha256": "083290a27f6eeae53ee1d88364ef441fd820f19bede3494d34d6479d9acbea8c"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/RuntimeRouteRepair/inspect_world_routes.py",
+      "bytes": 3017,
+      "sha256": "622694f810f30e323b9a0d02b25ab99bb25d21001a05994e7648b550e5251acd"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/RuntimeRouteRepair/prepare_probe.py",
+      "bytes": 1399,
+      "sha256": "3fdffd93c212164079ba2952435f12badbf5b1cc6514fccc68a3bbeee2991de2"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/RuntimeRouteRepair/run_probe.ps1",
+      "bytes": 1961,
+      "sha256": "4431958c8a403fff3dcc6beadfaf6cf3d139beda40f8696b126bc68ea27e4627"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/AKM/current_surface_bindings.json",
+      "bytes": 11777,
+      "sha256": "fc3d27137a30ebde268753cdd99e97fca806945b83f156feb03d8593475a54ea"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/ASH12/README.md",
+      "bytes": 2546,
+      "sha256": "c4d7f5130f59553c6acc4778466f7b21cd6d16de7303c84f950a408636932b92"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/ASH12/Refine02/README.md",
+      "bytes": 1524,
+      "sha256": "7c8b97f9d320117233ddd77173b856ab048e0a22e3633fdf6b46ed8c904d3c38"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/ASH12/Refine02/apply_finish.py",
+      "bytes": 10904,
+      "sha256": "0dbc397d322312ee627c3c750ed6e3b5f14de49ca730819db40bc284924b736a"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/ASH12/Refine02/capture_inputs.py",
+      "bytes": 3824,
+      "sha256": "2a6771f30a6a157b50393aacb594254cfb28a9a02b6c0427e945d3486c41138e"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/ASH12/Refine02/produce.py",
+      "bytes": 4963,
+      "sha256": "e3eb2452bbeb2bee89d3da58b2750c5440db7fa0ab89c7a8e2abe3782df0ab4e"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/ASH12/bake_surface.py",
+      "bytes": 4335,
+      "sha256": "51369879eeafc74428931789687c01dab2fc86181bfe96a1a9f853ca2fb0d0aa"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/ASH12/build_region_master.py",
+      "bytes": 8847,
+      "sha256": "2d26d24510f96a66f0a2294a7d373d0b2a49dabd5d0b4f77166349b047bc34cc"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/ASH12/export_bones.py",
+      "bytes": 2343,
+      "sha256": "90217560098b78b749397acd566da0a4e3f6d98765117f5ab0bb3ef02a93fd74"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/ASH12/export_inputs.py",
+      "bytes": 4998,
+      "sha256": "4fffa048741410d2c4735fc0b24036abfc882410a53428724ec3a6d52dcda0d7"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/ASH12/install_all.py",
+      "bytes": 1631,
+      "sha256": "c5fbb15ed17a9decc79a40fede9a4922fa7cbce4065ee70a51f9031889313fa3"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/ASH12/install_surface.py",
+      "bytes": 7089,
+      "sha256": "a2e641e73d6ab878f044972b9a6ebdee416249c08d9e6ec9e2f3ae2968cecb13"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/ASH12/install_uv.py",
+      "bytes": 11111,
+      "sha256": "57629a63de23fef80a71812afaa84163520c1453a5fcf509aa51ef6746be7536"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/ASH12/plan_surface.py",
+      "bytes": 3484,
+      "sha256": "63b8445d41c5d0751dbe98d8dd514f0cf9329e87c0650a8a3eea55f9fb3b2ec4"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/ASH12/seat_pose.py",
+      "bytes": 1667,
+      "sha256": "a7dbb0889acd6f03d9d38e530e3d96462c9b90698fdc66ffeea549adfed3a4ec"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/HK416/Refine01/FineGrain.hlsl",
+      "bytes": 326,
+      "sha256": "8f1f10ecd5f8b58b80c96e1d87f73cbffa6b5067afb2c21f2f97214520d9b635"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/HK416/Refine01/FinishColor.hlsl",
+      "bytes": 828,
+      "sha256": "b0ec066de7871b0625e7ac2cd134849ba280a5ffb2677a2e55710ac53d751276"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/HK416/Refine01/FinishRoughness.hlsl",
+      "bytes": 745,
+      "sha256": "7dea8f35f6886d00e93634970d0cd3b0e43322fee3ee89a96c0962a7b62d00b4"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/HK416/Refine01/PolymerColor.hlsl",
+      "bytes": 560,
+      "sha256": "a17bfd757b8f4a3995de4c166755f8ee881b512020d09622eed3d9af7cb19d8b"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/HK416/Refine01/PolymerRoughness.hlsl",
+      "bytes": 410,
+      "sha256": "d508562802892c2b17b47e6d8e79cd3bb13e4c978e722b4b947d8f48318ebf9c"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/HK416/Refine01/apply_finish.py",
+      "bytes": 18336,
+      "sha256": "8127131a9d0c7246a0e73c543bdfe8c8338469635ee48f6872dab181fc4e43c8"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/HK416/Refine01/bindings.json",
+      "bytes": 13309,
+      "sha256": "47235b510a34b5f857a3e08541c0a3076d2900a3b9098785125017b209b50605"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/HK416/Refine01/capture_inputs.py",
+      "bytes": 5436,
+      "sha256": "82d695e6f8e7b12e93a7364d03f3492fb9f98f256596d4b2e4488612b399cb15"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/HK416/Refine01/finalize_records.py",
+      "bytes": 847,
+      "sha256": "21d1226263b4b2c1e147761793490d970b90fc654dfb3c647ab6596b346adc19"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/HK416/Refine01/produce.py",
+      "bytes": 4729,
+      "sha256": "a7282d124e4d1a699a50a7acadaa910b0cb0df8e6cbd14b72678ac482b49d1ea"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/HK416/current_bindings.py",
+      "bytes": 1440,
+      "sha256": "c9b6b7b54fc974299cb5ee8758237cd669d11cebd04ece5850ec1cc1d1406c4a"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/HK416/current_surface_bindings.json",
+      "bytes": 13309,
+      "sha256": "47235b510a34b5f857a3e08541c0a3076d2900a3b9098785125017b209b50605"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/LMG201/Refine01/README.md",
+      "bytes": 2255,
+      "sha256": "25e085f88dee1594fa9a996510fcdcf4bb979b0889238f0fbaf7b46decc379e8"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/LMG201/Refine01/apply_finish.py",
+      "bytes": 14055,
+      "sha256": "f46d7f5098d9c54e67b220440e0b3ace21f960f25f6d039c8799f169968edd71"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/LMG201/Refine01/bindings.json",
+      "bytes": 22330,
+      "sha256": "cf8abc2be8914ea21c049325f7b3a9e39c2a5042903da0e8519c8fb96dd7c3a6"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/LMG201/Refine01/capture_inputs.py",
+      "bytes": 3602,
+      "sha256": "334e7c6d411cdb6c16b383cd6919217c8fce4b6663ea70bf9eae8248ee1acd32"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/LMG201/Refine01/finalize_records.py",
+      "bytes": 1148,
+      "sha256": "938d0095fb89be03d270f099f3ee90eaac7d08c303c178f3ae9fd1997221b2eb"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/LMG201/Refine01/produce.py",
+      "bytes": 5874,
+      "sha256": "d0f251ceff9afdd7dd6f5470b645a9a222c304b83bc921fbbc26c2687d8c4fba"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M16/Refine01/FineGrain.hlsl",
+      "bytes": 326,
+      "sha256": "8f1f10ecd5f8b58b80c96e1d87f73cbffa6b5067afb2c21f2f97214520d9b635"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M16/Refine01/FinishColor.hlsl",
+      "bytes": 828,
+      "sha256": "b0ec066de7871b0625e7ac2cd134849ba280a5ffb2677a2e55710ac53d751276"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M16/Refine01/FinishRoughness.hlsl",
+      "bytes": 745,
+      "sha256": "7dea8f35f6886d00e93634970d0cd3b0e43322fee3ee89a96c0962a7b62d00b4"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M16/Refine01/PolymerColor.hlsl",
+      "bytes": 560,
+      "sha256": "a17bfd757b8f4a3995de4c166755f8ee881b512020d09622eed3d9af7cb19d8b"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M16/Refine01/PolymerRoughness.hlsl",
+      "bytes": 410,
+      "sha256": "d508562802892c2b17b47e6d8e79cd3bb13e4c978e722b4b947d8f48318ebf9c"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M16/Refine01/apply_finish.py",
+      "bytes": 19375,
+      "sha256": "445e0ccdda11595cf826e1f2d0f64b1970dccb60810886e4f3d96515204f729d"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M16/Refine01/bindings.json",
+      "bytes": 14028,
+      "sha256": "1579eca6ba59d4c98651a86679ede7b419dcfaa0d1d0ae36da16e75325cb90e5"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M16/Refine01/capture_inputs.py",
+      "bytes": 5820,
+      "sha256": "c97b6b27454657cd9a9785498eec3860fdedf5675260fd12531053db4a8b7002"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M16/Refine01/finalize_records.py",
+      "bytes": 843,
+      "sha256": "1baf44b8a140db74a0868a98f466d63ac2486c885ea7e678441798d2b26a5182"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M16/Refine01/produce.py",
+      "bytes": 5185,
+      "sha256": "c2d631a447e32b32214653f6f7e7980f1f34a7904b7919e33b93772120f49e31"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M16/current_bindings.py",
+      "bytes": 1434,
+      "sha256": "8e675f9605eb333871e1296303396a27d08a299422c58b36bdf2c4722561197c"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M16/current_surface_bindings.json",
+      "bytes": 14028,
+      "sha256": "1579eca6ba59d4c98651a86679ede7b419dcfaa0d1d0ae36da16e75325cb90e5"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M16/run_finish.ps1",
+      "bytes": 778,
+      "sha256": "ef7e2004953d3f247263ab4ec29af944e7e0f30dc4a037479ef89c8ccf15a1a6"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M4/Refine01/FineGrain.hlsl",
+      "bytes": 326,
+      "sha256": "8f1f10ecd5f8b58b80c96e1d87f73cbffa6b5067afb2c21f2f97214520d9b635"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M4/Refine01/FinishColor.hlsl",
+      "bytes": 828,
+      "sha256": "b0ec066de7871b0625e7ac2cd134849ba280a5ffb2677a2e55710ac53d751276"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M4/Refine01/FinishRoughness.hlsl",
+      "bytes": 745,
+      "sha256": "7dea8f35f6886d00e93634970d0cd3b0e43322fee3ee89a96c0962a7b62d00b4"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M4/Refine01/PolymerColor.hlsl",
+      "bytes": 560,
+      "sha256": "a17bfd757b8f4a3995de4c166755f8ee881b512020d09622eed3d9af7cb19d8b"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M4/Refine01/PolymerRoughness.hlsl",
+      "bytes": 410,
+      "sha256": "d508562802892c2b17b47e6d8e79cd3bb13e4c978e722b4b947d8f48318ebf9c"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M4/Refine01/apply_finish.py",
+      "bytes": 23479,
+      "sha256": "8a352d51512e9c8bbbf677969ad5e19bec6bf64263bc7a06b723334d2ca3148b"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M4/Refine01/bindings.json",
+      "bytes": 10218,
+      "sha256": "3b9d6aadd87189f0e9638e12bab2f76700e6917ee274a68bbeacf682e7fbf737"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M4/Refine01/capture_inputs.py",
+      "bytes": 7356,
+      "sha256": "5382d77c3c81d9d94410679fe3668665399d8c7774ffb8dd8e2bffeb783d73e6"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M4/Refine01/finalize_records.py",
+      "bytes": 899,
+      "sha256": "0b318e87c5ffaea7aac78350dd0a892bd8d505674f177d708c010b906c363b65"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M4/Refine01/produce.py",
+      "bytes": 6122,
+      "sha256": "442a9cc282a43a39512366e1e325deec88149ae4cff107720cc8adb0698e59b3"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M4/Refine01/read_source_contracts.py",
+      "bytes": 938,
+      "sha256": "627f8b0c9f7dd978799d72b240c5ce861dea1e14dc45c3481eecc1cd0cec7a58"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M4/current_bindings.py",
+      "bytes": 1431,
+      "sha256": "5a559a428e3ccb20b9ca9bae13141d39444f60e56494f1343d30d3022df7b365"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M4/current_surface_bindings.json",
+      "bytes": 10218,
+      "sha256": "3b9d6aadd87189f0e9638e12bab2f76700e6917ee274a68bbeacf682e7fbf737"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/M4/run_finish.ps1",
+      "bytes": 672,
+      "sha256": "4f7d6044411062550ff6dfbf911a50283f38ca80eea817972ca40990f81ca42a"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/PKM/Refine01/README.md",
+      "bytes": 3340,
+      "sha256": "284d0d535ff62dbd319380ca727e397237baa4d5c1b1a2321fbaeebc72ef03cf"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/PKM/Refine01/apply_finish.py",
+      "bytes": 12806,
+      "sha256": "77d66c3df475657a4f65c6b6569c02413e4b69c43b28d27343b4b08ddcc7e64f"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/PKM/Refine01/bindings.json",
+      "bytes": 14028,
+      "sha256": "cf09e8fe47f4896360fdb142552a6b3863e74bd63675d48921c8076b47315242"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/PKM/Refine01/capture_inputs.py",
+      "bytes": 3877,
+      "sha256": "ebb734ff0424128204de4246af568b6c9870ea6b53673ba3121f2a0109f2cd47"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/PKM/Refine01/finalize_records.py",
+      "bytes": 882,
+      "sha256": "c9fca1bf68271fa9bcd4d47312ef2e71db1b7bc48ebe93c2cf7d9d982f462dfd"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/PKM/Refine01/produce.py",
+      "bytes": 5793,
+      "sha256": "059bf8626d2fecd534a8a06fc9815e9c14613fe66dbadd1def8de845b2138db3"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/PKM/Refine01/rebind_current.py",
+      "bytes": 3385,
+      "sha256": "7aec133199d926866ec9799e593468b8a9719c3c049442aa42929307658c145d"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/README.md",
+      "bytes": 2476,
+      "sha256": "5a6770eeedc8084b21f6e2cd960f59e1effc612a00d8faa196d50d243c7132f4"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/MagazineSatin02/PanelNormal.hlsl",
+      "bytes": 1291,
+      "sha256": "b0e05490276070f20cbf665c7b2f4b33cf8cfaa6fa3f8d432630a45c6248c1bd"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/MagazineSatin02/apply_finish.py",
+      "bytes": 7743,
+      "sha256": "56f0570411c4d2d90bbb9487a368a1720ad90dccd03346d0efac63cce7e8fd6c"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/README.md",
+      "bytes": 1336,
+      "sha256": "aed37c095d3b4d8cd17fb78d2dcb59a973eaaa401770ec1eb3983f1e22f0be03"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/Refine03/DielectricFinish.hlsl",
+      "bytes": 603,
+      "sha256": "eae967ded44b3ea957dc05f33a58a5c69390a119886f5cfe2808cadf855e0f3e"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/Refine03/LayerNormal.hlsl",
+      "bytes": 327,
+      "sha256": "44559898d6f1fd421875f67a8343e6422afec5aee6f289d25c7e34cbdcc0f721"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/Refine03/apply_finish.py",
+      "bytes": 8141,
+      "sha256": "b66144ecd52ba2facc1f0bd7f8b3f0a97690abffa0f932d43f8c50ff49822bbf"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/Refine03/bake_edges.py",
+      "bytes": 3629,
+      "sha256": "d87d861addf5bf9d2fcd59e5ec23f45208ba4e1791e3d694a9863098c5e6ff2d"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/Refine03/collect.py",
+      "bytes": 154,
+      "sha256": "142bb53100188be7ca0a126aeefe35bf9deb6049785289801d654b13a747e99c"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/Refine03/export_inputs.py",
+      "bytes": 4864,
+      "sha256": "ab6f466eeafa6c4d537c8cae7bf8e000166cd8e7531589feecd2651edeb64320"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/Refine03/make_recipe.py",
+      "bytes": 2978,
+      "sha256": "0d71d7b644177521b3aae37f6a57be6d2c9010a286d0199bc9d2b99dd803c0b2"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/Refine03/read_graphs.py",
+      "bytes": 1943,
+      "sha256": "467f78caafe9bc2e417c3e81d8f3e72ddb207442259df55221ea0b64a9028c2a"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/Refine04/DielectricFinish.hlsl",
+      "bytes": 1023,
+      "sha256": "fbdf785a4f7eb8feeb7da387a0c90e12249abc7dd62618d8058467f92590911c"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/Refine04/README.md",
+      "bytes": 1282,
+      "sha256": "eaf593675b36fee3a1ac14f1cbf90ecdd11a6331e63e7527e89844aae0c9411d"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/Refine04/apply_finish.py",
+      "bytes": 9085,
+      "sha256": "cdef509bf120d2ae64dda5dfa6421bc0b37d9f28814aa076e309a1ca5729ef82"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/Refine04/capture_inputs.py",
+      "bytes": 3734,
+      "sha256": "aa0be88112db5a92d4f0569f18ea710d66c72be2e54e0d68536eca0e8241ee6b"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/Refine04/produce.py",
+      "bytes": 3496,
+      "sha256": "d5321bec56c426331cf25be2a4df682637943e54a720328d12ffb6bf1d08c551"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/bake_surface.py",
+      "bytes": 4376,
+      "sha256": "94ab64864e26b2c5a8b8ea31c15405ddf0cc1ca2130f63ae49b9274147dad503"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/build_adapters.py",
+      "bytes": 6313,
+      "sha256": "bc78e58ea93bd51dc647cc7c620aaf67bb10cc733a3715e9fd4bded0583f0f0e"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/collect.py",
+      "bytes": 155,
+      "sha256": "6407f6daf2f28fbc557d36dfcdae1e566692424ef7711f65beab6294329000b6"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/export_bones.py",
+      "bytes": 2359,
+      "sha256": "ad8981609f8e7f0bab801ce56f62ad32d05165e974230bf3c422b0b3a79901ec"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/export_inputs.py",
+      "bytes": 4856,
+      "sha256": "d6d29562c380d8e00245533b0ba906f589471485428cd5127d12ee7f9be82647"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/install_all.py",
+      "bytes": 1904,
+      "sha256": "33aa2bfc70016879647801878b620c474518165165ed6309fc62edfe48c11ef9"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/install_surface.py",
+      "bytes": 7868,
+      "sha256": "d97eaead005cda9ec81cc3cf95a38f2555f274192204430f81a7ad4a37f04ba6"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/install_uv.py",
+      "bytes": 11165,
+      "sha256": "56ec9691321e0eebc5a60a9ec88e005d568f7852da7849e8db3de62cecbd2d0c"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/plan_surface.py",
+      "bytes": 3314,
+      "sha256": "d264a1306a653d2202ba05b5b75a799d140a3bbdee2466425b7e45c04330d1f4"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/read_graphs.py",
+      "bytes": 1943,
+      "sha256": "467f78caafe9bc2e417c3e81d8f3e72ddb207442259df55221ea0b64a9028c2a"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/seat_pose.py",
+      "bytes": 1665,
+      "sha256": "3388cf6375642fc99a730ea50f896538fa26ebdf4d819fa04615f53d5d7c03d5"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/SVD/ws_graph.py",
+      "bytes": 6149,
+      "sha256": "637eed653c9084f0a88e055a9f89d85b0a794adab4faa4f9f38bd6a5d3325980"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/WS11/README.md",
+      "bytes": 3515,
+      "sha256": "45bbedcf8f983187577d59528bed22fd2e8038857419a1074defcb673e261047"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/WS11/prepare.py",
+      "bytes": 7331,
+      "sha256": "7c3432ab82c203e62c8a5b32166d272edccf8072fd335d2e9774333a830950c9"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/WS11/profiles.json",
+      "bytes": 1798,
+      "sha256": "c510d6549f76a0cd6ae6622b7310296585687193668bba5018ba589463736061"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/WS11/shared_functions.json",
+      "bytes": 3350,
+      "sha256": "fa5948b059f69b60b81193ce64491724f3a83fe66e8fe60429fe372882504a5d"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/WS11/slot_template.json",
+      "bytes": 1785,
+      "sha256": "6a917cf3b655f007126a33ca5d4c2aa0e33c02a1ff36f81655be9ae79486a7ae"
+    },
+    {
+      "path": "SourceAssets/WeaponSurface20260930/run_ue.ps1",
+      "bytes": 3344,
+      "sha256": "0676b51c391fb32e9f26bc6450db465427c6896b17fa544b68faadb04edfff94"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/SKILL.md",
+      "bytes": 18424,
+      "sha256": "02ae5bbce96358abdeab4927ec2a690f9c1331071949fa29e821a2de42eee90a"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/weapon-animation-sharing.md",
+      "bytes": 3645,
+      "sha256": "f4e1f490165f4bfcb7948c377beda8fa35f35f6b4e3a37562ef87a83aa3c7521"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/authored-finish-unification.md",
+      "bytes": 3863,
+      "sha256": "4c316cc7d497730b10b3a55c3949f009eb497909944677c26e47328703435ebe"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/extmag-lengthening.md",
+      "bytes": 8667,
+      "sha256": "85d80dd8b666b46af89e4da38af9fcc54c16706faede1a8510988204b62e44aa"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/generated-rifle-refinement.md",
+      "bytes": 7685,
+      "sha256": "c46f7736bafcefd7669c5ec3914b9bf66dd2c5aab3b0aee306feb8e94e312c8a"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/weapon-finish.md",
+      "bytes": 24617,
+      "sha256": "faf4a1b6ebb5fa4c53f20de065cc3adf44cbe81e2e408c528e4cb67384994986"
+    }
+  ]
+}

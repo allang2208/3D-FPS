@@ -1,5 +1,5 @@
 """Fit common parts to A762's authored interfaces; keep accepted main surfaces."""
-import bpy,bmesh,json,math
+import bpy,bmesh,json,math,shutil
 from pathlib import Path
 from mathutils import Matrix,Vector
 O=Path(__file__).parent;D=O/'Exports';D.mkdir(exist_ok=True)
@@ -28,6 +28,30 @@ def material(name):
  return m
 # Donor parts preserve original UVs, vertex masks and structural normals.
 for key,info in sources['meshes'].items():
+ if key=='phantom_reargrip':
+  clearance=O.parents[1]/'A762GripClearance20261001'
+  latest=clearance/'install_receipt.json'
+  if latest.exists() and json.loads(latest.read_text()).get('complete'):
+   row=json.loads(latest.read_text())['saved']['/Game/Weapons/A762/Accessories05/Meshes/SM_A762_phantom_reargrip']
+   used={'A762_phantom_reargrip_0','A762_phantom_reargrip_Neck08'}
+   shutil.copy2(clearance/'Exports/SM_A762_phantom_reargrip_R09.fbx',D/'SM_A762_phantom_reargrip.fbx')
+   report['meshes'][key]={'name':'SM_A762_'+key,'materials':{s:m for s,m in zip(row['slots'],row['materials']) if s in used},
+    'sockets':{},'source':'A762GripClearance20261001 R09: retracted front neck, retained lattice'}
+   print('A762_PART_AUTHORED',key,'GripClearance09',flush=True)
+   continue
+ if key.endswith('reargrip'):
+  detail=O.parents[1]/'A762ReceiverGrip20261001'
+  receipt=detail/'install_receipt.json'
+  if receipt.exists() and json.loads(receipt.read_text()).get('complete'):
+   revision=json.loads(receipt.read_text());plan=json.loads((detail/'authoring.json').read_text())
+   used={p['slot'] for p in plan['parts'] if p['target']==key}
+   row=revision['saved']['/Game/Weapons/A762/Accessories05/Meshes/SM_A762_'+key]
+   bindings={s:m for s,m in zip(row['slots'],row['materials']) if s in used}
+   shutil.copy2(detail/'Exports'/('SM_A762_'+key+'_R08.fbx'),D/('SM_A762_'+key+'.fbx'))
+   report['meshes'][key]={'name':'SM_A762_'+key,'materials':bindings,
+    'sockets':{},'source':'A762ReceiverGrip20261001 continuous fitted neck; no cuboid tang'}
+   print('A762_PART_AUTHORED',key,'ReceiverGrip08',flush=True)
+   continue
  bpy.ops.wm.read_factory_settings(use_empty=True)
  bpy.ops.import_scene.fbx(filepath=info['source'][0]);obs=[o for o in bpy.context.scene.objects if o.type=='MESH']
  materials={};source_slots=info['materials']
@@ -104,7 +128,18 @@ for ob in body:
  copy.data.transform(pose['WPN_SOCKET_Magazine'].inverted()@root)
  for mat in copy.data.materials:materials[mat.name]='EXISTING_A762'
  parts.append(copy)
-export(parts,'SM_A762_ext_mag');report['meshes']['ext_mag']={'name':'SM_A762_ext_mag','materials':materials,'source':'Refinement04 original magazine, lower curved extension','sockets':{}}
+# The height-based stretch above is historical. Once Continuous07 is installed,
+# keep its authored curve/section/UV work when regenerating this accessory batch.
+continuous=O.parents[1]/'A762ExtendedMagazine20261001'
+installed=continuous/'install_receipt.json'
+if installed.exists() and json.loads(installed.read_text()).get('complete'):
+ shutil.copy2(continuous/'Exports/SM_A762_ext_mag_Continuous07.fbx',D/'SM_A762_ext_mag.fbx')
+ materials={name:'EXISTING_A762' for name in json.loads((continuous/'authoring.json').read_text())['material_slots']}
+ ext_source='A762ExtendedMagazine20261001 Continuous07; continuous arc and original section depth'
+else:
+ export(parts,'SM_A762_ext_mag')
+ ext_source='Refinement04 original magazine, historical height-based extension'
+report['meshes']['ext_mag']={'name':'SM_A762_ext_mag','materials':materials,'source':ext_source,'sockets':{}}
 for ob in parts:bpy.data.objects.remove(ob,do_unlink=True)
 
 # Separate the fixed sight bases from the moving heads. The old assembly's

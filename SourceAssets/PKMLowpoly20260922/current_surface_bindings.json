@@ -1,0 +1,133 @@
+{
+  "version": "PKM-SurfaceStandard-Refine01-20261001",
+  "recipe": "SourceAssets/WeaponSurface20260930/PKM/Refine01/recipe.json",
+  "rebind_script": "SourceAssets/WeaponSurface20260930/PKM/Refine01/rebind_current.py",
+  "meshes": {
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/SK_PKM_Manny_Modular.SK_PKM_Manny_Modular": {
+      "PKM_QBZ_Steel": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_steel_006f2eadbd.MI_PKM_R01_steel_006f2eadbd",
+      "PKM_QBZ_Body": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_receiver_9fddfb63fc.MI_PKM_R01_receiver_9fddfb63fc",
+      "PKM_QBZ_Body__FactoryStock": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_stock_metal_b144f99e4e.MI_PKM_R01_stock_metal_b144f99e4e",
+      "PKM_QBZ_Body__OldBox": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_paint_884259a446.MI_PKM_R01_paint_884259a446",
+      "PKM_QBZ_Body__FactoryMuzzle": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_muzzle_de81974862.MI_PKM_R01_muzzle_de81974862",
+      "PKM_QBZ_Body__NewBox": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_paint_884259a446.MI_PKM_R01_paint_884259a446"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/OpticMount23/SM_PKM_optic_rail.SM_PKM_optic_rail": {
+      "PKM23_ReceiverMetal": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_e8c1ddd6e3.MI_PKM_R01_mount_e8c1ddd6e3"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Bipod26/SM_PKM_Bipod_Base.SM_PKM_Bipod_Base": {
+      "PKM_QBZ_Body": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_bipod_5af97b41eb.MI_PKM_R01_bipod_5af97b41eb"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Bipod26/SM_PKM_Bipod_LegA.SM_PKM_Bipod_LegA": {
+      "PKM_QBZ_Body": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_bipod_5af97b41eb.MI_PKM_R01_bipod_5af97b41eb"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Bipod26/SM_PKM_Bipod_LegB.SM_PKM_Bipod_LegB": {
+      "PKM_QBZ_Body": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_bipod_5af97b41eb.MI_PKM_R01_bipod_5af97b41eb"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_angled.SM_PKM_angled": {
+      "PKM14_Interface": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_a65b0dae20.MI_PKM_R01_mount_a65b0dae20",
+      "PKM14_angled_0": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_50a5eea87d.MI_PKM_R01_accessory_50a5eea87d"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_balanced_reargrip.SM_PKM_balanced_reargrip": {
+      "PKM14_Interface": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_a65b0dae20.MI_PKM_R01_mount_a65b0dae20",
+      "PKM14_balanced_reargrip_0": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_b715d3419e.MI_PKM_R01_accessory_b715d3419e",
+      "PKM14_balanced_reargrip_1": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_d934797266.MI_PKM_R01_accessory_d934797266"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_brake.SM_PKM_brake": {
+      "PKM14_brake_0": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_muzzle_71b6ba55e8.MI_PKM_R01_muzzle_71b6ba55e8"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_canted.SM_PKM_canted": {
+      "PKM14_canted_0": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_7a5671fc1e.MI_PKM_R01_accessory_7a5671fc1e",
+      "PKM14_canted_1": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_36b6c4c245.MI_PKM_R01_accessory_36b6c4c245",
+      "PKM14_Interface": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_a65b0dae20.MI_PKM_R01_mount_a65b0dae20"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_core_stock.SM_PKM_core_stock": {
+      "PKM14_Interface": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_a65b0dae20.MI_PKM_R01_mount_a65b0dae20",
+      "PKM14_core_stock_0": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_stock_metal_02d084b612.MI_PKM_R01_stock_metal_02d084b612",
+      "PKM14_core_stock_1": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_rubber_78e9bced8c.MI_PKM_R01_rubber_78e9bced8c",
+      "PKM14_core_stock_2": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_stock_metal_b176676df9.MI_PKM_R01_stock_metal_b176676df9"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_flashlight.SM_PKM_flashlight": {
+      "PKM14_Interface": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_a65b0dae20.MI_PKM_R01_mount_a65b0dae20",
+      "PKM14_flashlight_0": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_optic_c3b65cf9d7.MI_PKM_R01_optic_c3b65cf9d7",
+      "PKM14_flashlight_1": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_optic_771565ee17.MI_PKM_R01_optic_771565ee17"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_holographic.SM_PKM_holographic": {
+      "PKM14_holographic_0": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_optic_6c71a2bd76.MI_PKM_R01_optic_6c71a2bd76"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_laser.SM_PKM_laser": {
+      "PKM14_Interface": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_a65b0dae20.MI_PKM_R01_mount_a65b0dae20",
+      "PKM14_laser_0": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_optic_93e63d341d.MI_PKM_R01_optic_93e63d341d",
+      "PKM14_laser_1": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_optic_98e350d2fc.MI_PKM_R01_optic_98e350d2fc"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_lpvo_1_6x.SM_PKM_lpvo_1_6x": {
+      "PKM14_lpvo_1_6x_2": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_optic_fae1814f2d.MI_PKM_R01_optic_fae1814f2d"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_lpvo_ring.SM_PKM_lpvo_ring": {
+      "PKM14_lpvo_ring_0": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_optic_38183a5a0a.MI_PKM_R01_optic_38183a5a0a"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_panoramic_red_dot.SM_PKM_panoramic_red_dot": {
+      "PKM14_panoramic_red_dot_2": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_optic_7e05da6d18.MI_PKM_R01_optic_7e05da6d18"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_phantom_reargrip.SM_PKM_phantom_reargrip": {
+      "PKM14_Interface": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_a65b0dae20.MI_PKM_R01_mount_a65b0dae20",
+      "PKM14_phantom_reargrip_0": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_cd55e203c4.MI_PKM_R01_accessory_cd55e203c4",
+      "PKM14_phantom_reargrip_1": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_22c09d603b.MI_PKM_R01_accessory_22c09d603b"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_prism.SM_PKM_prism": {
+      "PKM14_prism_0": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_grip_92c26a1bd2.MI_PKM_R01_grip_92c26a1bd2",
+      "PKM14_prism_1": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_8c1c26355e.MI_PKM_R01_accessory_8c1c26355e",
+      "PKM14_prism_2": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_d3f712da47.MI_PKM_R01_accessory_d3f712da47",
+      "PKM14_Interface": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_a65b0dae20.MI_PKM_R01_mount_a65b0dae20"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_prism_scope_2x.SM_PKM_prism_scope_2x": {
+      "PKM14_prism_scope_2x_2": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_optic_e3d54766d9.MI_PKM_R01_optic_e3d54766d9"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_qr_performance.SM_PKM_qr_performance": {
+      "PKM14_Interface": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_a65b0dae20.MI_PKM_R01_mount_a65b0dae20",
+      "PKM14_qr_performance_0": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_stock_metal_1094c86930.MI_PKM_R01_stock_metal_1094c86930",
+      "PKM14_qr_performance_1": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_polymer_29081e4f4e.MI_PKM_R01_polymer_29081e4f4e",
+      "PKM14_qr_performance_2": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_rubber_850f3890d2.MI_PKM_R01_rubber_850f3890d2",
+      "PKM14_qr_performance_3": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_stock_metal_e2e1b6bee5.MI_PKM_R01_stock_metal_e2e1b6bee5"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_skeleton.SM_PKM_skeleton": {
+      "PKM14_Interface": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_a65b0dae20.MI_PKM_R01_mount_a65b0dae20",
+      "PKM14_skeleton_0": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_stock_metal_beab7c0122.MI_PKM_R01_stock_metal_beab7c0122",
+      "PKM14_skeleton_1": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_polymer_66c546fe6f.MI_PKM_R01_polymer_66c546fe6f",
+      "PKM14_skeleton_2": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_rubber_b8b86330f4.MI_PKM_R01_rubber_b8b86330f4"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_stable_antislip_reargrip.SM_PKM_stable_antislip_reargrip": {
+      "PKM14_Interface": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_a65b0dae20.MI_PKM_R01_mount_a65b0dae20",
+      "PKM14_stable_antislip_reargrip_0": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_grip_4da40445d7.MI_PKM_R01_grip_4da40445d7",
+      "PKM14_stable_antislip_reargrip_1": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_bc8e7759f0.MI_PKM_R01_accessory_bc8e7759f0"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_suppressor.SM_PKM_suppressor": {
+      "PKM14_suppressor_0": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_muzzle_a4765a5d74.MI_PKM_R01_muzzle_a4765a5d74"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_tactical_suppressor.SM_PKM_tactical_suppressor": {
+      "PKM14_tactical_suppressor_0": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_muzzle_72dc3e6de5.MI_PKM_R01_muzzle_72dc3e6de5",
+      "PKM14_tactical_suppressor_2": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_muzzle_c9c4f992ce.MI_PKM_R01_muzzle_c9c4f992ce"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_tactical_telescopic.SM_PKM_tactical_telescopic": {
+      "PKM14_Interface": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_a65b0dae20.MI_PKM_R01_mount_a65b0dae20",
+      "PKM14_tactical_telescopic_0": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_stock_metal_38031d9165.MI_PKM_R01_stock_metal_38031d9165",
+      "PKM14_tactical_telescopic_1": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_polymer_c1b5e76fd6.MI_PKM_R01_polymer_c1b5e76fd6",
+      "PKM14_tactical_telescopic_2": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_rubber_5551935bbc.MI_PKM_R01_rubber_5551935bbc",
+      "PKM14_tactical_telescopic_3": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_stock_metal_fb399b4a6e.MI_PKM_R01_stock_metal_fb399b4a6e"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_tactical_vertical.SM_PKM_tactical_vertical": {
+      "PKM14_Interface": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_a65b0dae20.MI_PKM_R01_mount_a65b0dae20",
+      "PKM14_tactical_vertical_0": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_6411f36f26.MI_PKM_R01_accessory_6411f36f26",
+      "PKM14_tactical_vertical_2": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_62e4656773.MI_PKM_R01_accessory_62e4656773"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_titanium_brake.SM_PKM_titanium_brake": {
+      "PKM14_titanium_brake_0": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_muzzle_692699e886.MI_PKM_R01_muzzle_692699e886"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_vertical.SM_PKM_vertical": {
+      "PKM14_vertical_0": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_faea6e8a46.MI_PKM_R01_accessory_faea6e8a46",
+      "PKM14_vertical_1": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_df9ce7371e.MI_PKM_R01_accessory_df9ce7371e",
+      "PKM14_Interface": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_a65b0dae20.MI_PKM_R01_mount_a65b0dae20"
+    }
+  },
+  "geometry_changed": false,
+  "tested": false
+}

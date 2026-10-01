@@ -1,8 +1,10 @@
 """Install the model upgrade at the existing drum paths in the running editor."""
 import json
 from pathlib import Path
+from runpy import run_path
 import unreal as u
 O=Path('D:/FPS3D/FPSGAME/SourceAssets/LargeDrumUpgrade20260920')
+apply_m4_bindings=run_path(str(O.parent/'WeaponSurface20260930/M4/current_bindings.py'))['apply_current_bindings']
 D='/Game/Weapons/LargeDrumUpgrade20260920'
 E=u.EditorAssetLibrary;A=u.AssetToolsHelpers.get_asset_tools();L=u.MaterialEditingLibrary
 sources=json.loads((O/'Reference/current_assets.json').read_text())
@@ -109,6 +111,7 @@ for gun,source in sources.items():
  for i,slot in enumerate(slots):
   slot.material_interface=mat;slot.material_slot_name=source['slots'][i]['slot'];slots[i]=slot
  mesh.set_editor_property('static_materials',slots)
+ if gun=='M4':apply_m4_bindings(mesh)
  E.set_metadata_tag(mesh,'ModelRevision','LargeDrumUpgrade20260920; original feed interface and runtime frame preserved')
  save(mesh)
  lod=u.ModelingService.set_lods(path,[1.,.55,.25],True,True)

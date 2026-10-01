@@ -1,5 +1,7 @@
 # PKM 表面材质升级 — 2026-09-27
 
+当前表面已升级至 [2026-10-01 R01](pkm-surface-standard-20261001.md)，下文为历史制作记录。
+
 用户要求参考 QBZ-191 或 SVD 调整 PKM 枪钢及弹药箱；原哑光版本观感不理想。本次采用 SVD 的独立缎面涂层思路，并保留 PKM 已有 QBZ 系枪钢分区与绿色弹箱身份。
 
 制作源、目标参数、恢复备份和执行入口见 [PKMRefinedFinish20260927](../../SourceAssets/PKMRefinedFinish20260927/README.md)。
