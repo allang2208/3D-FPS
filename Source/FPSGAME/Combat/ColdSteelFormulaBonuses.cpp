@@ -123,7 +123,7 @@ float UColdSteelStatusModel::CombatMoveMultiplier()const
 {return SetEffect(TEXT("speed"))*FMath::Max(.5,1+DungeonEffect(TEXT("moveSpeedPercent"))/100.)*TributeEffect(TEXT("moveSpeedPercent"))*FMath::Max(.5,1.+EquipmentBonus(TEXT("moveSpeedPercent")));}
 bool UColdSteelStatusModel::OfferTribute(const FString& Id)
 {
-    SyncRuntime();auto P=Snapshot();const int32 Index=P.Items.IndexOfByPredicate([&](const auto& I){return I.InstanceId==Id&&I.Place==0&&I.Count>0;});if(Index<0)return false;
+    SyncRuntime();auto P=Snapshot();const int32 Index=P.Items.IndexOfByPredicate([&](const auto& I){return I.InstanceId==Id&&(I.Place==0||I.Place==ColdSteelInventory::ColdSteelCompartment::Place)&&I.Count>0;});if(Index<0)return false;
     auto& I=P.Items[Index];if(ColdSteelInventory::Text(I,TEXT("category"))!=TEXT("tribute"))return false;
     const auto E=Obj(Read(&I),TEXT("effects"));if(!E)return false;
     FColdSteelFormulaBuff Buff;Buff.Id=FName(*I.Definition);Buff.bTribute=true;Buff.RemainingSeconds=1800;Buff.Rarity=ColdSteelInventory::Text(I,TEXT("rarity"));

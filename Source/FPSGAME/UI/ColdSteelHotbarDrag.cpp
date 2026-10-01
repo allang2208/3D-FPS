@@ -39,8 +39,7 @@ bool UColdSteelHUDWidget::CanDropOnHotbar(const UColdSteelItemDrag* Drag)const
     const auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if(!Drag->IsCurrent(Model))return false;
     const auto* Item=Model?Model->FindItem(Drag->ItemId):nullptr;
-    if(!Item||Item->Place!=Drag->SourcePlace||Item->Cell!=Drag->SourceCell||Item->Place!=0||Text(*Item,TEXT("category"))!=TEXT("consumable"))return false;
-    if(Drag->HotbarIndex>=0){const auto* Bound=Model->ResolveHotbar(Drag->HotbarIndex);return Bound&&Bound->InstanceId==Drag->ItemId;}
+    if(!Item||Item->Place!=Drag->SourcePlace||Item->Cell!=Drag->SourceCell||(Item->Place!=0&&Item->Place!=ColdSteelCompartment::Place)||Text(*Item,TEXT("category"))!=TEXT("consumable"))return false;
     return true;
 }
 
@@ -110,14 +109,13 @@ bool UColdSteelHUDWidget::NativeOnDrop(const FGeometry& Geometry,const FDragDrop
     }
     if(Target>=0&&CanDropOnHotbar(Drag)){
         auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
-        if(Drag->HotbarIndex>=0)Model->SwapQuickBindings(Drag->HotbarIndex+ColdSteelQuickBar::ItemOffset,Target);
-        else Model->BindQuickItem(Target,Drag->ItemId);
+        Model->BindQuickItem(Target,Drag->ItemId);
         if(Drag->SourceBoard.IsValid())Drag->SourceBoard->InteractionMessage=Model->ResultMessage();
         RefreshAmmo();
     }
     const FVector2D Position=Event.GetScreenSpacePosition();
     const bool OverHotbar=HotbarCanvasSlot&&HotbarCanvasSlot->GetContent()&&HotbarCanvasSlot->GetContent()->GetCachedGeometry().IsUnderLocation(Position);
-    if(Target<0&&bInventoryDragOutside&&!OverHotbar&&Geometry.IsUnderLocation(Position)&&Drag->HotbarIndex<0){
+    if(Target<0&&bInventoryDragOutside&&!OverHotbar&&Geometry.IsUnderLocation(Position)){
         auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
         const auto* Item=Model->FindItem(Drag->ItemId);
         if(Item&&(Item->Place<=1||(Item->Place==4&&bWarehouseOpen))&&Item->Place==Drag->SourcePlace&&Item->Cell==Drag->SourceCell){

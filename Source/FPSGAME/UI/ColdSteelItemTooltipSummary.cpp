@@ -164,7 +164,7 @@ void CompleteColdSteelTooltipSummary(const FColdSteelItem& Item,UColdSteelStatus
     // All production tools share the wide presentation, not just axe/pickaxe;
     // the shovel's terrain rules need the same room the harvest tools get.
     Out.bWideIcon=Weapon||ColdSteelInventory::IsBow(Item)||ColdSteelInventory::IsTwoHandedSword(Item)||ColdSteelInventory::IsEquippedProductionTool(Item)||ColdSteelInventory::Text(Item,TEXT("category"))==TEXT("tool");
-    Out.Location=Item.Place==1?TEXT("已装备"):Item.Place==4?TEXT("仓库"):TEXT("背包");
+    Out.Location=Item.Place==1?TEXT("已装备"):Item.Place==4?TEXT("仓库"):Item.Place==ColdSteelCompartment::Place?TEXT("夹层"):TEXT("背包");
     if(Item.Place==1&&SlotNames().IsValidIndex(Item.Cell))Out.Location+=TEXT(" · ")+SlotNames()[Item.Cell];
     if(Model&&Model->Equipped()&&Model->Equipped()->InstanceId==Item.InstanceId)Out.Location+=TEXT(" · 当前武器");
     if(Weapon)Out.Location+=TEXT(" · ")+ColdSteelWeaponStats::AmmoName(Weapon->Ammo);

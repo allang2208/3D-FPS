@@ -59,7 +59,7 @@ void UColdSteelHUDWidget::RunInventoryGlassAudit()
         case 8:GetOwningPlayer()->ConsoleCommand(TEXT("r.SetRes 960x540w"));break;
         case 9:Safe();Scroll->ScrollToStart();Shot(TEXT("overview-960"));break;
         case 10:Scroll->ScrollToEnd();break;
-        case 11:{const auto View=Scroll->GetCachedGeometry();const auto End=View.AbsoluteToLocal(Geometry.LocalToAbsolute(FVector2D(12,Layout.HotY+85)/Board->Scale));Check(End.Y<=View.GetLocalSize().Y+2&&End.Y>=0,TEXT("small viewport reaches quick items and final instructions"));Shot(TEXT("bottom-960"));break;}
+        case 11:{const auto View=Scroll->GetCachedGeometry();const auto End=View.AbsoluteToLocal(Geometry.LocalToAbsolute(FVector2D(12,Layout.HotY+30)/Board->Scale));Check(End.Y<=View.GetLocalSize().Y+2&&End.Y>=0,TEXT("small viewport scrolls to the bag footer feedback line"));Shot(TEXT("bottom-960"));break;}
         case 12:GetOwningPlayer()->ConsoleCommand(TEXT("r.SetRes 1920x1080w"));break;
         case 13:FSlateApplication::Get().SetApplicationScale(Run->AppScale*1.5f);break;
         case 14:Safe();Scroll->ScrollToStart();Shot(TEXT("ui-scale-150"));break;

@@ -18,6 +18,10 @@ FColdSteelProposal UColdSteelStatusModel::ProposeWarehouse(const FString& Id,int
     auto R=ColdSteelWarehouse::Transfer(Current.Items,Id,Place,Cell,OpenStorageCapacity(),WarehousePage,Orientation,ActiveContainer);R.Revision=Current.Generation;return R;
 }
 bool UColdSteelStatusModel::TransferWarehouse(const FString& Id,int32 Place,int32 Cell,int32 Orientation){SyncRuntime();return CommitProposal(ProposeWarehouse(Id,Place,Cell,Orientation));}
+FColdSteelProposal UColdSteelStatusModel::ProposeCompartment(const FString& Id,int32 Place,int32 Cell,int32 Orientation) const
+{
+    auto R=ColdSteelCompartment::Transfer(Current.Items,Id,Place,Cell,ColdSteelInventory::CompartmentGrid(Current.Items),Orientation);R.Revision=Current.Generation;return R;
+}
 bool UColdSteelStatusModel::GrantStartingArmory()
 {
     auto State=Snapshot();bool Changed=false;
@@ -125,14 +129,14 @@ bool UColdSteelStatusModel::SortWarehouse(const FString& Mode,int32 Category)
 int64 UColdSteelStatusModel::CountMaterial(const FString& Def)const
 {
     if(AmmoType(Def))return PouchCount(Def);
-    int64 Count=0;for(const auto& I:Current.Items)if(I.Definition==Def&&(I.Place==0||(I.Place==4&&I.Container.IsEmpty())))Count+=I.Count;return Count;
+    int64 Count=0;for(const auto& I:Current.Items)if(I.Definition==Def&&(I.Place==0||I.Place==ColdSteelCompartment::Place||(I.Place==4&&I.Container.IsEmpty())))Count+=I.Count;return Count;
 }
 bool UColdSteelStatusModel::ConsumeMaterial(const FString& Def,int64 Amount)
 {
     if(AmmoType(Def))return SpendAmmo(Def,Amount);
     if(Amount<=0||CountMaterial(Def)<Amount)return false;
     SyncRuntime();auto P=Snapshot();int64 Left=Amount;
-    for(int32 Place:{0,4})for(int32 N=P.Items.Num()-1;N>=0&&Left>0;--N){auto& I=P.Items[N];if(I.Place!=Place||(Place==4&&!I.Container.IsEmpty())||I.Definition!=Def)continue;int64 Used=FMath::Min(Left,I.Count);I.Count-=Used;Left-=Used;}
+    for(int32 Place:{0,5,4})for(int32 N=P.Items.Num()-1;N>=0&&Left>0;--N){auto& I=P.Items[N];if(I.Place!=Place||(Place==4&&!I.Container.IsEmpty())||I.Definition!=Def)continue;int64 Used=FMath::Min(Left,I.Count);I.Count-=Used;Left-=Used;}
     P.Items.RemoveAll([](const auto& I){return I.Count<=0;});return CommitState(P);
 }
 bool UColdSteelStatusModel::AddWarehouseItem(const FColdSteelItem& Source,int32 Preferred)

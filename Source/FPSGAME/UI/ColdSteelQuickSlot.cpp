@@ -289,7 +289,8 @@ void UColdSteelQuickSlot::Refresh()
     }
     else if(!Binding.ItemDefinition.IsEmpty())
     {
-        const int64 Quantity=Item?Item->Count:0;Count->SetText(FText::FromString(FString::Printf(TEXT("%lld"),Quantity)));Count->SetColorAndOpacity(Quantity>0?ColdSteelUI::Success:ColdSteelUI::Danger);Dim=Quantity==0;
+        // 背包+夹层合并计数：槽位显示同类消耗品总数；消耗目标由 ResolveQuickItem 优先取背包堆。
+        const int64 Quantity=Model->QuickItemCount(Index);Count->SetText(FText::FromString(FString::Printf(TEXT("%lld"),Quantity)));Count->SetColorAndOpacity(Quantity>0?ColdSteelUI::Success:ColdSteelUI::Danger);Dim=Quantity==0;
         if(Item&&Item->Cooldown>0){Remaining=Item->Cooldown;Fraction=FMath::Clamp(Remaining/FMath::Max(.1f,float(ColdSteelInventory::Number(*Item,TEXT("useCooldown")))),0.f,1.f);}
     }
     if(Remaining>0)Message=FString::Printf(TEXT("%.1f"),Remaining);

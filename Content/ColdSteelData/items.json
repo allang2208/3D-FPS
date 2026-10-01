@@ -3532,5 +3532,41 @@
       "stock": "hk416_stock",
       "reargrip": "hk416_reargrip"
     }
+  },
+  "ue_portable_backpack": {
+    "id": "ue_portable_backpack",
+    "name": "便携背包",
+    "category": "equipment",
+    "type": "背包装备",
+    "equipSlot": "backpack",
+    "rarity": "uncommon",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 60,
+    "grid_w": 3,
+    "grid_h": 3,
+    "bagExtraCells": 18,
+    "bagCompartmentCells": 36,
+    "desc": "折叠合金支架把主背包撑出一排余量，底部独立夹层再容纳 6×6=36 格小件；只能装入装备栏的背包装备槽。",
+    "icon_fallback": "包"
+  },
+  "ue_mountain_backpack": {
+    "id": "ue_mountain_backpack",
+    "name": "登山包",
+    "category": "equipment",
+    "type": "背包装备",
+    "equipSlot": "backpack",
+    "rarity": "uncommon",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 80,
+    "grid_w": 3,
+    "grid_h": 3,
+    "bagExtraCells": 18,
+    "bagCompartmentCells": 30,
+    "bagCompartmentColumns": 5,
+    "bagCompartmentRows": 6,
+    "desc": "外挂绑带给主背包加长一横列（+18 格），底部独立夹层按长×宽 5×6 布局共 30 格；只能装入装备栏的背包装备槽。",
+    "icon_fallback": "包"
   }
 }

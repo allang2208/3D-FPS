@@ -553,18 +553,19 @@ FColdSteelItem UColdSteelStatusModel::CreateItem(const FString& Def,int64 Count)
     const auto Size=Footprint(I);I.Width=Size.X;I.Height=Size.Y;
     return I;
 }
-FColdSteelProposal UColdSteelStatusModel::ProposeMove(const FString& Id,int32 Place,int32 Cell,int32 Orientation)const{const auto* I=FindItem(Id);if(Place==4||(I&&I->Place==4))return ProposeWarehouse(Id,Place,Cell,Orientation);auto P=ColdSteelInventory::Move(Current.Items,Id,Place,Cell,Orientation);P.Revision=Current.Generation;return P;}
+FColdSteelProposal UColdSteelStatusModel::ProposeMove(const FString& Id,int32 Place,int32 Cell,int32 Orientation)const{const auto* I=FindItem(Id);if(Place==4||(I&&I->Place==4))return ProposeWarehouse(Id,Place,Cell,Orientation);if(Place==ColdSteelCompartment::Place||(I&&I->Place==ColdSteelCompartment::Place))return ProposeCompartment(Id,Place,Cell,Orientation);auto P=ColdSteelInventory::Move(Current.Items,Id,Place,Cell,Orientation);P.Revision=Current.Generation;return P;}
 bool UColdSteelStatusModel::CommitProposal(const FColdSteelProposal& R){if(!R.bValid){Message=R.Reason;return false;}if(R.Revision!=Current.Generation){Message=TEXT("物品已变化，请重新拖动");return false;}auto P=Snapshot();P.Items=R.Items;if(R.ActiveWeaponSlot>=0){P.ActiveWeaponSlot=R.ActiveWeaponSlot;P.ActiveProductionTool.Reset();}return CommitState(P);}
 bool UColdSteelStatusModel::MoveItem(const FString& Id,int32 Place,int32 Cell,int32 Orientation){SyncRuntime();return CommitProposal(ProposeMove(Id,Place,Cell,Orientation));}
 bool UColdSteelStatusModel::AddItem(const FString& Def,int64 Count){if(AmmoType(Def))return GrantAmmo(Def,Count);if(Count<=0||Count>9007199254740991ll||!Definitions.Contains(Def))return false;SyncRuntime();auto P=Snapshot();if(!Insert(P.Items,CreateItem(Def,Count))){Message=TEXT("背包空间不足");return false;}return CommitState(P);}
 bool UColdSteelStatusModel::Split(const FString& Id,int64 Count)
 {
     SyncRuntime();auto P=Snapshot();auto* I=P.Items.FindByPredicate([&](const auto& V){return V.InstanceId==Id;});
-    if(!I||(I->Place!=0&&I->Place!=4)||Count<=0||Count>=I->Count||Text(*I,TEXT("category"))==TEXT("gold"))return false;
+    if(!I||(I->Place!=0&&I->Place!=4&&I->Place!=ColdSteelCompartment::Place)||Count<=0||Count>=I->Count||Text(*I,TEXT("category"))==TEXT("gold"))return false;
     auto Part=*I;Part.InstanceId=FGuid::NewGuid().ToString(EGuidFormats::Digits);Part.Count=Count;int32 Cell=-1;
-    const int32 Capacity=I->Place==4?OpenStorageCapacity():72; // 储物箱按自身会话容量找空位
+    const FIntPoint CompGrid=I->Place==ColdSteelCompartment::Place?CompartmentGrid(P.Items):FIntPoint::ZeroValue;
+    const int32 Capacity=I->Place==4?OpenStorageCapacity():I->Place==ColdSteelCompartment::Place?CompGrid.X*CompGrid.Y:BagRows(P.Items)*18; // 储物箱按自身会话容量找空位
     const int32 Start=I->Place==4?(I->Cell/ColdSteelWarehouse::CellsPerPage)*ColdSteelWarehouse::CellsPerPage:0;
-    for(int32 N=0;N<Capacity;++N){const int32 C=(Start+N)%Capacity;if(I->Place==4?ColdSteelWarehouse::Fits(P.Items,Part,C,Capacity):Fits(P.Items,Part,C)){Cell=C;break;}}
+    for(int32 N=0;N<Capacity;++N){const int32 C=(Start+N)%Capacity;if(I->Place==4?ColdSteelWarehouse::Fits(P.Items,Part,C,Capacity):I->Place==ColdSteelCompartment::Place?ColdSteelCompartment::Fits(P.Items,Part,C,CompGrid):Fits(P.Items,Part,C)){Cell=C;break;}}
     if(Cell<0){Message=TEXT("没有连续空间拆分，原数量保留");return false;}
     I->Count-=Count;Part.Cell=Cell;P.Items.Add(Part);if(!CommitState(P))return false;
     if(Part.Place==4&&WarehousePage!=Cell/ColdSteelWarehouse::CellsPerPage){WarehousePage=Cell/ColdSteelWarehouse::CellsPerPage;Message=TEXT("已拆分，并切换到新堆叠所在页");OnChanged.Broadcast();}
@@ -575,7 +576,19 @@ bool UColdSteelStatusModel::Sort()
     SyncRuntime();auto P=Snapshot();TArray<FColdSteelItem> Bag;for(const auto& I:P.Items)if(I.Place==0)Bag.Add(I);P.Items.RemoveAll([](const auto& I){return I.Place==0;});
     Bag.Sort([](const auto&A,const auto&B){if(A.Width*A.Height!=B.Width*B.Height)return A.Width*A.Height>B.Width*B.Height;return Text(A,TEXT("category"))+Text(A,TEXT("name"))+A.InstanceId<Text(B,TEXT("category"))+Text(B,TEXT("name"))+B.InstanceId;});
     // Sort preserves stack instances (the source pack contract does not merge them).
-    for(auto I:Bag){int32 C=-1;for(int32 N=0;N<72;++N)if(Fits(P.Items,I,N)){C=N;break;}if(C<0){Message=TEXT("无法整理，原布局保留");return false;}I.Cell=C;P.Items.Add(I);}return CommitState(P);
+    const int32 BagCells=BagRows(P.Items)*18;
+    for(auto I:Bag){int32 C=-1;for(int32 N=0;N<BagCells;++N)if(Fits(P.Items,I,N)){C=N;break;}if(C<0){Message=TEXT("无法整理，原布局保留");return false;}I.Cell=C;P.Items.Add(I);}return CommitState(P);
+}
+bool UColdSteelStatusModel::SortCompartment()
+{
+    SyncRuntime();auto P=Snapshot();TArray<FColdSteelItem> Stored;
+    for(const auto& I:P.Items)if(I.Place==ColdSteelCompartment::Place)Stored.Add(I);
+    if(Stored.IsEmpty()){Message=TEXT("夹层没有可整理的物品");return false;}
+    P.Items.RemoveAll([](const auto& I){return I.Place==ColdSteelCompartment::Place;});
+    // Sort preserves stack instances (the source pack contract does not merge them).
+    Stored.Sort([](const auto&A,const auto&B){if(A.Width*A.Height!=B.Width*B.Height)return A.Width*A.Height>B.Width*B.Height;return Text(A,TEXT("category"))+Text(A,TEXT("name"))+A.InstanceId<Text(B,TEXT("category"))+Text(B,TEXT("name"))+B.InstanceId;});
+    const FIntPoint CompGrid=CompartmentGrid(P.Items);const int32 Capacity=CompGrid.X*CompGrid.Y;
+    for(auto I:Stored){int32 C=-1;for(int32 N=0;N<Capacity;++N)if(ColdSteelCompartment::Fits(P.Items,I,N,CompGrid)){C=N;break;}if(C<0){Message=TEXT("无法整理，原布局保留");return false;}I.Cell=C;P.Items.Add(I);}return CommitState(P);
 }
 bool UColdSteelStatusModel::BindHotbar(int32 Index,const FString& Id){return Index>=0&&Index<4&&BindQuickItem(Index+ColdSteelQuickBar::ItemOffset,Id);}
 bool UColdSteelStatusModel::SwapHotbar(int32 A,int32 B){return A>=0&&A<4&&B>=0&&B<4&&SwapQuickBindings(A+ColdSteelQuickBar::ItemOffset,B+ColdSteelQuickBar::ItemOffset);}
@@ -588,7 +601,7 @@ bool UColdSteelStatusModel::UseItem(const FString& Id)
 }
 bool UColdSteelStatusModel::UseConsumableAtContact(const FString& Id,bool bPotionContact)
 {
-    SyncRuntime();auto P=Snapshot();int32 N=P.Items.IndexOfByPredicate([&](const auto& I){return I.InstanceId==Id;});if(N<0||P.Items[N].Place!=0)return false;
+    SyncRuntime();auto P=Snapshot();int32 N=P.Items.IndexOfByPredicate([&](const auto& I){return I.InstanceId==Id;});if(N<0||(P.Items[N].Place!=0&&P.Items[N].Place!=ColdSteelCompartment::Place))return false;
     auto& I=P.Items[N];if(I.Cooldown>0){Message=TEXT("物品冷却中");return false;}
     TSharedPtr<FJsonObject> O;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),O);const TSharedPtr<FJsonObject>* Effect=nullptr;
     if(!O||!O->TryGetObjectField(TEXT("useEffect"),Effect)||!CurrentPawn.IsValid()){Message=TEXT("该物品当前无法使用");return false;}
@@ -609,7 +622,7 @@ bool UColdSteelStatusModel::DefaultAction(const FString& Id)
 {
     const auto* Found=FindItem(Id);if(!Found)return false;const auto I=*Found;
     if(I.Place==4)return TransferWarehouse(Id,0);
-    if(bWarehouseOpen&&(I.Place==0||I.Place==1))return TransferWarehouse(Id,4);
+    if(bWarehouseOpen&&(I.Place==0||I.Place==1||I.Place==ColdSteelCompartment::Place))return TransferWarehouse(Id,4);
     if(I.Place==1)return MoveItem(Id,0,-1);
     if(Text(I,TEXT("category"))==TEXT("consumable")||(Text(I,TEXT("category"))==TEXT("tool")&&!IsEquippedProductionTool(I)))return UseItem(Id);
     for(int32 S=0;S<15;++S)if(CanEquip(I,S)&&!Equipped(S)&&!Locked(Current.Items,S))return MoveItem(Id,1,S);
@@ -748,7 +761,15 @@ bool UColdSteelStatusModel::ClearRevolverSpentCases(bool bDiscardLiveRounds)
 }
 bool UColdSteelStatusModel::Drop(const FString& Id)
 {
-    if(!CurrentPawn.IsValid())return false;SyncRuntime();auto P=Snapshot();auto* I=P.Items.FindByPredicate([&](const auto& V){return V.InstanceId==Id;});if(!I||(I->Place>1&&!(I->Place==4&&bWarehouseOpen)))return false;
+    if(!CurrentPawn.IsValid())return false;SyncRuntime();auto P=Snapshot();auto* I=P.Items.FindByPredicate([&](const auto& V){return V.InstanceId==Id;});
+    if(!I||(I->Place>2&&I->Place!=ColdSteelCompartment::Place&&!(I->Place==4&&bWarehouseOpen)))return false;
+    if(I->Place==1&&I->Cell==14)
+        // 背包本体落到地面会让夹层与扩展格失去宿主（存档校验会整档拒绝），先清空才允许丢弃。
+        for(const auto& V:P.Items)
+        {
+            if(V.Place==ColdSteelCompartment::Place){Message=TEXT("夹层还有物品，先清空再丢弃背包");return false;}
+            if(V.Place==0&&V.Cell+(V.Height-1)*18+V.Width-1>=4*18){Message=TEXT("扩展背包格里还有物品，先腾出后再丢弃背包");return false;}
+        }
     const FVector Origin=CurrentPawn->GetActorLocation();
     FVector Candidate=Origin+CurrentPawn->GetActorForwardVector()*120;
     FCollisionQueryParams Query(SCENE_QUERY_STAT(InventoryGroundDrop),false,CurrentPawn.Get());

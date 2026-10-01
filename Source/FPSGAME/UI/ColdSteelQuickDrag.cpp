@@ -73,8 +73,7 @@ bool UColdSteelHUDWidget::DropInventoryOnQuickBar(UColdSteelItemDrag* Drag,int32
     auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if(CanDropOnHotbar(Drag))
     {
-        if(Drag->HotbarIndex>=0)Model->SwapQuickBindings(Drag->HotbarIndex+ColdSteelQuickBar::ItemOffset,Target);
-        else Model->BindQuickItem(Target,Drag->ItemId);
+        Model->BindQuickItem(Target,Drag->ItemId);
         if(Drag->SourceBoard.IsValid())Drag->SourceBoard->InteractionMessage=Model->ResultMessage();
     }
     else if(Drag->SourceBoard.IsValid())Drag->SourceBoard->InteractionMessage=TEXT("仅可绑定背包消耗品；物品变化后请重新拖动");

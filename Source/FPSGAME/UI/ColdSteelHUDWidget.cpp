@@ -661,9 +661,6 @@ void UColdSteelHUDWidget::BuildInventory(UCanvasPanel* Root)
     CodexPage->SetHUD(this);
     auto* CodexSlot=Body->AddChildToVerticalBox(CodexPage);
     CodexSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));CodexSlot->SetHorizontalAlignment(HAlign_Fill);
-    auto* Footer=Body->AddChildToVerticalBox(MakeInventoryText(TEXT("Tab 收起  ·  Caps 状态  ·  P 技能  ·  右键物品操作"),12,GunsmithUI::Muted));
-    InventoryFooterSlot=Footer;
-    Footer->SetPadding(FMargin(ReferenceUnits(18),ReferenceUnits(8),ReferenceUnits(18),ReferenceUnits(10)));
     BuildStatusTooltip(Root);
     BuildEquipmentTooltip(Root);
     SetInventoryTab(false);

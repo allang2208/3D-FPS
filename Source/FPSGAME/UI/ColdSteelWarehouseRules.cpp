@@ -59,7 +59,14 @@ FColdSteelProposal Transfer(const TArray<FColdSteelItem>& Items,const FString& I
     if(From<0||Cell< -1||Capacity<1)return R;
     auto I=Items[From];const int32 OldPlace=I.Place,OldCell=I.Cell;
     const FString SourceContainer=I.Container;const int32 SourceWidth=I.Width,SourceHeight=I.Height;
-    if(OldPlace!=0&&OldPlace!=1&&OldPlace!=Place)return R;
+    if(OldPlace!=0&&OldPlace!=1&&OldPlace!=ColdSteelCompartment::Place&&OldPlace!=Place)return R;
+    if(OldPlace==1&&OldCell==14)
+        // 背包本体进仓库同样让夹层与扩展格失去宿主，先清空才允许存入。
+        for(const auto& V:Items)
+        {
+            if(V.Place==ColdSteelCompartment::Place){R.Reason=TEXT("夹层还有物品，先清空再存入仓库");return R;}
+            if(V.Place==0&&V.Cell+(V.Height-1)*18+V.Width-1>=4*18){R.Reason=TEXT("扩展背包格里还有物品，先腾出后再存入仓库");return R;}
+        }
     if(OldPlace==Place&&I.Container!=WarehouseContainer)return R; // 只能操作当前会话所在储物容器
     if(Destination!=Place&&!(OldPlace==Place&&(Destination==0||Destination==1)))return R;
     if(Destination==Place&&Cell>=Capacity)return R;
@@ -85,7 +92,7 @@ FColdSteelProposal Transfer(const TArray<FColdSteelItem>& Items,const FString& I
             if(Flag(I,TEXT("isTwoHanded"))&&(Cell==6||Cell==9)){N=Owner(R.Items,1,Cell==6?8:11);if(N>=0)Blockers.Add(N);}
         }else{
             const int32 Row=Destination==Place?(Cell%CellsPerPage)/Columns:Cell/Columns;
-            if(Cell<0||Cell>=(Destination==Place?Capacity:72)||Cell%Columns+I.Width>Columns||Row+I.Height>(Destination==Place?Rows:4)){R.Reason=TEXT("物品超出网格边界，请向内移动");return R;}
+            if(Cell<0||Cell>=(Destination==Place?Capacity:BagRows(Items)*18)||Cell%Columns+I.Width>Columns||Row+I.Height>(Destination==Place?Rows:BagRows(Items))){R.Reason=TEXT("物品超出网格边界，请向内移动");return R;}
             for(int32 Y=0;Y<I.Height;++Y)for(int32 X=0;X<I.Width;++X){const int32 N=Owner(R.Items,Destination,Cell+Y*Columns+X,I.Container);if(N>=0)Blockers.Add(N);}
             if(Blockers.Num()==1){auto& T=R.Items[*Blockers.CreateConstIterator()];if(Compatible(T,I)){
                 const int64 Amount=FMath::Min(I.Count,T.StackMax-T.Count);if(Amount<=0){R.Reason=TEXT("目标堆叠已满");return R;}
@@ -125,7 +132,7 @@ FColdSteelProposal Transfer(const TArray<FColdSteelItem>& Items,const FString& I
             if(OldPlace==1)Source.Cell=0;
             const int32 Start=ReturnPlace==Place?(OldCell/CellsPerPage)*CellsPerPage:0;
             bool Exhausted=false;
-            if(!PlaceDisplaced(R.Items,MoveTemp(Displaced),Source,Cell,Exhausted,ReturnPlace,Start,ReturnPlace==Place?Rows:4,ReturnPlace==Place?WarehouseContainer:FString())){
+            if(!PlaceDisplaced(R.Items,MoveTemp(Displaced),Source,Cell,Exhausted,ReturnPlace,Start,ReturnPlace==Place?Rows:BagRows(Items),ReturnPlace==Place?WarehouseContainer:FString())){
                 R.Items=Items;R.Reason=Exhausted?TEXT("自动摆放较复杂，请调整落点后重试"):TEXT("没有连续空间安置被交换物品");return R;
             }
         }

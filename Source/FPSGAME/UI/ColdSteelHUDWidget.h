@@ -223,7 +223,6 @@ private:
     UPROPERTY(Transient) TObjectPtr<UBorder> InventoryHeaderSurface;
     UPROPERTY(Transient) TObjectPtr<class USizeBox> InventoryHeaderSize;
     TArray<TWeakObjectPtr<class USizeBox>> InventoryTabSizes;
-    UPROPERTY(Transient) TObjectPtr<class UVerticalBoxSlot> InventoryFooterSlot;
     UWidget* BuildStatusPage();
     UWidget* BuildEquipmentPage();
     void BuildStatusTooltip(UCanvasPanel* Root);

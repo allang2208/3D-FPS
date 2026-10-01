@@ -76,9 +76,24 @@ bool UColdSteelStatusModel::CanBindQuickSkill(FName Id) const
 const FColdSteelItem* UColdSteelStatusModel::ResolveQuickItem(int32 Index) const
 {
     const auto B=QuickBinding(Index);if(!B.Skill.IsNone()||B.ItemDefinition.IsEmpty())return nullptr;
-    const auto* I=FindItem(B.ItemId);
-    if(I&&I->Place==0&&I->Definition==B.ItemDefinition&&ColdSteelInventory::Text(*I,TEXT("category"))==TEXT("consumable"))return I;
-    return Current.Items.FindByPredicate([&](const auto& V){return V.Place==0&&V.Definition==B.ItemDefinition&&ColdSteelInventory::Text(V,TEXT("category"))==TEXT("consumable");});
+    // 背包与夹层的同类消耗品在快捷栏视为一体：显示合计（QuickItemCount），消耗优先背包那堆，
+    // 背包堆耗尽（实例移除）后解析自然落到夹层堆上，绑定不因换堆而失效。
+    const FColdSteelItem* CompartmentStack=nullptr;
+    for(const auto& V:Current.Items)
+    {
+        if(V.Definition!=B.ItemDefinition||(V.Place!=0&&V.Place!=ColdSteelInventory::ColdSteelCompartment::Place)||ColdSteelInventory::Text(V,TEXT("category"))!=TEXT("consumable"))continue;
+        if(V.Place==0)return &V;
+        if(!CompartmentStack)CompartmentStack=&V;
+    }
+    return CompartmentStack;
+}
+int64 UColdSteelStatusModel::QuickItemCount(int32 Index) const
+{
+    const auto B=QuickBinding(Index);if(!B.Skill.IsNone()||B.ItemDefinition.IsEmpty())return 0;
+    int64 Total=0;
+    for(const auto& V:Current.Items)
+        if(V.Definition==B.ItemDefinition&&(V.Place==0||V.Place==ColdSteelInventory::ColdSteelCompartment::Place)&&ColdSteelInventory::Text(V,TEXT("category"))==TEXT("consumable"))Total+=V.Count;
+    return Total;
 }
 bool UColdSteelStatusModel::BindQuickSkill(int32 Index,FName Id)
 {

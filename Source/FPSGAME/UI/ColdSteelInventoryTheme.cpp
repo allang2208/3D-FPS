@@ -71,7 +71,6 @@ void UColdSteelHUDWidget::UpdateInventoryLayout(const FGeometry& Geometry)
         if(GunAssemblySlot&&bGunOut)GunAssemblySlot->SetOffsets(FMargin(-WBDock/Scale,12/Scale,WB/Scale,12/Scale));
         InventoryHeaderSurface->SetPadding(FMargin(18/Scale,12/Scale));InventoryHeaderSize->SetHeightOverride(36/Scale);
         for(auto& WeakSize:InventoryTabSizes)if(auto* Size=WeakSize.Get())Size->SetHeightOverride(40/Scale);
-        InventoryFooterSlot->SetPadding(FMargin(18/Scale,8/Scale,18/Scale,10/Scale));
         Cast<UButtonSlot>(CloseButton->GetContent()->Slot)->SetPadding(FMargin(12/Scale,8/Scale));
         if(WarehouseSlot){WarehouseSlot->SetAnchors(FAnchors(0,0,0,1));WarehouseSlot->SetAlignment(FVector2D::ZeroVector);WarehouseSlot->SetOffsets(FMargin(12/Scale,12/Scale,Width/Scale,12/Scale));}
         if(SmeltingSlot)

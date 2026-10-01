@@ -218,6 +218,8 @@ public:
     const TArray<FColdSteelQuickBinding>& QuickBindings() const { return Current.QuickBindings; }
     FColdSteelQuickBinding QuickBinding(int32 Index) const;
     const FColdSteelItem* ResolveQuickItem(int32 Index) const;
+    /** 快捷栏合并计数：绑定定义在背包+夹层的同类消耗品总数（视为一体显示与消耗）。 */
+    int64 QuickItemCount(int32 Index) const;
     const FColdSteelSkillDefinition* QuickSkillDefinition(FName Id) const;
     bool CanBindQuickSkill(FName Id) const;
     bool BindQuickSkill(int32 Index,FName Id);
@@ -247,6 +249,8 @@ public:
     bool ConsumeItem(const FString& Definition,int64 Count,FString& OutReason);
     bool Split(const FString& Id,int64 Count);
     bool Sort();
+    /** 整理夹层(Place 5)：与 Sort 同口径（大件优先/类别+名称），布局保留语义一致。 */
+    bool SortCompartment();
     bool BindHotbar(int32 Index,const FString& Id);
     bool SwapHotbar(int32 A,int32 B);
     bool UseItem(const FString& Id);
@@ -262,6 +266,8 @@ public:
     bool DefaultAction(const FString& Id);
     FColdSteelProposal ProposeWarehouse(const FString& Id,int32 Place,int32 Cell=-1,int32 Orientation=-1) const;
     bool TransferWarehouse(const FString& Id,int32 Place,int32 Cell=-1,int32 Orientation=-1);
+    /** 夹层(Place 5)提案：由背包装备撑出的独立格空间，容量随装备动态变化。 */
+    FColdSteelProposal ProposeCompartment(const FString& Id,int32 Place,int32 Cell=-1,int32 Orientation=-1) const;
     bool WarehouseBatch(bool bMatching);
     bool StoreMatchingToWarehouse();
     bool SortWarehouse(const FString& Mode,int32 Category=-1);

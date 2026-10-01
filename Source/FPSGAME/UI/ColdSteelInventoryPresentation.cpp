@@ -216,16 +216,22 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
     for(int32 N=1;N<Rows;++N)Box(12,L.BagY+N*L.Cell,L.Width-24,1,GunsmithUI::Gray(220,22),FLinearColor::Transparent,0);
     for(const auto& I:Model->Items())if(I.Place==Container&&(!bWarehouse||I.Container==Model->ActiveContainer)&&I.Cell>=Start&&I.Cell<Start+Rows*18)Item(I,12+I.Cell%18*L.Cell,L.BagY+(I.Cell-Start)/18*L.Cell,I.Width*L.Cell,I.Height*L.Cell,true);
     if(HoverPlace==Container&&PointerCell>=Start&&HoverId.IsEmpty())Box(12+PointerCell%18*L.Cell,L.BagY+(PointerCell-Start)/18*L.Cell,L.Cell,L.Cell,Fade(ColdSteelUI::Accent,.04f),Fade(ColdSteelUI::Accent,.65f),2,1,5);
-    if(!bWarehouse){
-    Label(TEXT("数字快捷栏"),12,L.HotY-21,14,GunsmithUI::Text,100);Label(TEXT("技能 / 消耗品"),L.Width-128,L.HotY-19,12,GunsmithUI::Muted,116);
-    for(int32 N=0;N<4;++N){const float X=12+N*54;Box(X,L.HotY,48,46,GunsmithUI::Gray(22,120),GunsmithUI::Edge,7);if(const auto* I=Model->ResolveHotbar(N))Item(*I,X,L.HotY,48,46,false,true);
-        else {
-            const auto B=Model->QuickBinding(N+ColdSteelQuickBar::ItemOffset);
-            const FString Key=B.Skill.IsNone()?B.ItemDefinition:TEXT("@skill:")+B.Skill.ToString();
-            if(const auto* Brush=IconBrushes.Find(Key))FSlateDrawElement::MakeBox(Out,Layer+2,G.ToPaintGeometry(FVector2D(40,40)/Scale,FSlateLayoutTransform(FVector2D(X+4,L.HotY+3)/Scale)),Brush,ESlateDrawEffect::None,FLinearColor::White);
-            if(!B.ItemDefinition.IsEmpty())Label(TEXT("0"),X+4,L.HotY+2,12,ColdSteelUI::Danger,20,true);
-        }
-        Box(X+31,L.HotY+28,15,16,GunsmithUI::Gray(15,230),FLinearColor::Transparent,3,0,3);Label(FString::FromInt(N+1),X+35,L.HotY+29,12,GunsmithUI::Text,12,true);}
+    // 夹层：背包装备（槽14）撑出的独立格空间。标题/计数/分隔线/网格与"空间背包"同款版式，
+    // 网格尺寸（长×宽＝列×行）由装备的背包定义，宽度自然随列数伸缩，靠左对齐。
+    if(L.CompY>0&&L.CompGrid.X>0)
+    {
+        const FIntPoint CG=L.CompGrid;const int32 Cap=CG.X*CG.Y;int32 Used=0,CompCount=0;
+        for(const auto& I:Model->Items())if(I.Place==ColdSteelCompartment::Place){Used+=I.Width*I.Height;++CompCount;}
+        Box(4,L.CompY-36,L.Width-8,CG.Y*L.Cell+42,GunsmithUI::Gray(120,8),GunsmithUI::Gray(220,22),10);
+        Label(TEXT("夹层"),12,L.CompY-28,16,GunsmithUI::Text,150);
+        Label(FString::Printf(TEXT("%d / %d 格 · %d 件"),Used,Cap,CompCount),L.Width-246,L.CompY-25,12,Used>=Cap?ColdSteelUI::Warning:GunsmithUI::Secondary,180,true);
+        Box(L.Width-60,L.CompY-30,48,24,bCompSortHovered?GunsmithUI::Gray(75,200):GunsmithUI::Gray(43,160),bCompSortHovered?GunsmithUI::Silver:GunsmithUI::Edge,4);Label(TEXT("整理"),L.Width-50,L.CompY-25,12,GunsmithUI::Text,38);
+        Box(12,L.CompY-5,L.Width-24,2,GunsmithUI::Gray(15,180));Box(12,L.CompY-5,(L.Width-24)*FMath::Clamp(Used/float(Cap),0.f,1.f),2,Used>=Cap?ColdSteelUI::Warning:Fade(GunsmithUI::Silver,.6f));
+        Box(12,L.CompY,CG.X*L.Cell,CG.Y*L.Cell,GunsmithUI::Gray(15,95),GunsmithUI::Edge,0);
+        for(int32 N=1;N<CG.X;++N)Box(12+N*L.Cell,L.CompY,1,CG.Y*L.Cell,GunsmithUI::Gray(220,22),FLinearColor::Transparent,0);
+        for(int32 N=1;N<CG.Y;++N)Box(12,L.CompY+N*L.Cell,CG.X*L.Cell,1,GunsmithUI::Gray(220,22),FLinearColor::Transparent,0);
+        for(const auto& I:Model->Items())if(I.Place==ColdSteelCompartment::Place)Item(I,12+I.Cell%CG.X*L.Cell,L.CompY+I.Cell/CG.X*L.Cell,I.Width*L.Cell,I.Height*L.Cell,true);
+        if(HoverPlace==ColdSteelCompartment::Place&&PointerCell>=0&&HoverId.IsEmpty())Box(12+PointerCell%CG.X*L.Cell,L.CompY+PointerCell/CG.X*L.Cell,L.Cell,L.Cell,Fade(ColdSteelUI::Accent,.04f),Fade(ColdSteelUI::Accent,.65f),2,1,5);
     }
     if((PreviewPlace==Container||(PreviewPlace==1&&Container==0))&&bPreviewValid)for(const auto& R:SwapDestinations)Box(12+R.Min.X*L.Cell,L.BagY+R.Min.Y*L.Cell,R.Width()*L.Cell,R.Height()*L.Cell,Fade(ColdSteelUI::Accent,.1f),ColdSteelUI::Accent,2,1,5);
     if(PreviewPlace>=0&&PreviewCell>=0){const auto* I=Model->FindItem(HoverPreview);float X=12,Y=0,W=48,H=L.GearHeight;
@@ -234,18 +240,15 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
             FIntPoint PreviewSpan=PreviewCells;
             if(PreviewSpan.X*PreviewSpan.Y<=1&&I&&I->Width*I->Height>1)PreviewSpan=FIntPoint(I->Width,I->Height);
             X+=PreviewCell%18*L.Cell;Y=L.BagY+(PreviewCell-Start)/18*L.Cell;W=FMath::Min(PreviewSpan.X*L.Cell,L.Width-X-12);H=FMath::Min(PreviewSpan.Y*L.Cell,L.BagY+Rows*L.Cell-Y);}
-        else if(PreviewPlace==1){X+=PreviewCell%3*(L.GearWidth+6);Y=L.GearY+PreviewCell/3*L.GearPitch;W=L.GearWidth;}else{X+=PreviewCell*54;Y=L.HotY;H=46;}
+        else if(PreviewPlace==1){X+=PreviewCell%3*(L.GearWidth+6);Y=L.GearY+PreviewCell/3*L.GearPitch;W=L.GearWidth;}
+        else if(PreviewPlace==ColdSteelCompartment::Place){X+=PreviewCell%L.CompGrid.X*L.Cell;Y=L.CompY+PreviewCell/L.CompGrid.X*L.Cell;W=PreviewCells.X*L.Cell;H=PreviewCells.Y*L.Cell;}
         const auto Color=I?(bPreviewValid?ColdSteelUI::Success:ColdSteelUI::Danger):ColdSteelUI::Accent;Box(X,Y,W,H,Fade(Color,.12f),Color,2,2,5);
     }
-    FString Message=TEXT("拖动放置 / 交换物品");
-    if(bPreviewRotatable)Message+=TEXT(" · F 调整摆放方向");
-    FLinearColor Tone=GunsmithUI::Secondary;
+    FString Message;FLinearColor Tone=GunsmithUI::Secondary;
     if(PreviewPlace>=0&&!PreviewReason.IsEmpty()){Message=PreviewReason;Tone=bPreviewValid?ColdSteelUI::Success:ColdSteelUI::Danger;}
     else if(!InteractionMessage.IsEmpty()){Message=InteractionMessage;Tone=ColdSteelUI::Accent;}
     else if(const auto* P=Presentation.Find(Selected)){Message=TEXT("已选中 · ")+P->Name;Tone=ColdSteelUI::TextPrimary;}
-    Label(Message,12,L.HotY+(bWarehouse?14:54),12,Tone,L.Width-24);
-    const auto* Selection=Model->FindItem(Selected);
-    const bool Gun=Selection&&GetGameInstance()->GetSubsystem<UGunsmithSystem>()->ModifiableWeapon(Selection->Definition);
-    Label(bWarehouse?TEXT("单击查看 · 右键取出 · Shift+单击拆分"):Gun?TEXT("单击查看 · 右键装备 · J 改造"):TEXT("单击查看 · 右键使用 · Shift+单击拆分"),12,L.HotY+(bWarehouse?33:73),12,ColdSteelUI::TextTertiary,L.Width-24);
+    if(!Message.IsEmpty())Label(Message,12,L.HotY+14,12,Tone,L.Width-24);
+    if(bWarehouse)Label(TEXT("单击查看 · 右键取出 · Shift+单击拆分"),12,L.HotY+33,12,ColdSteelUI::TextTertiary,L.Width-24);
     return Layer+6;
 }

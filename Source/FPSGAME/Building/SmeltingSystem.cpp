@@ -36,10 +36,10 @@ namespace
     {
         int64 Available=0;
         for(const FColdSteelItem& Item:P.Items)
-            if(Item.Definition==Def&&(Item.Place==0||(Item.Place==4&&Item.Container.IsEmpty())))Available+=Item.Count;
+            if(Item.Definition==Def&&(Item.Place==0||Item.Place==ColdSteelInventory::ColdSteelCompartment::Place||(Item.Place==4&&Item.Container.IsEmpty())))Available+=Item.Count;
         if(Available<Count)return false;
         int64 Left=Count;
-        for(int32 Place:{0,4})
+        for(int32 Place:{0,5,4})
             for(int32 Index=P.Items.Num()-1;Index>=0&&Left>0;--Index)
             {
                 FColdSteelItem& Item=P.Items[Index];

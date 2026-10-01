@@ -78,7 +78,7 @@ void UColdSteelHUDWidget::RunInventoryVisualAudit()
             Check(Hits,TEXT("all 72 painted bag cells match interaction coordinates"));
             Check(Board->Presentation.Num()==P->Items().Num(),TEXT("presentation cache reflects all current instances"));
             bool Badges=true;for(const auto& I:P->Items()){const auto* A=Board->Presentation.Find(I.InstanceId);if(I.Definition==TEXT("ue_m4a1"))Badges&=A&&!ColdSteelUI::RarityLabel(A->Rarity).IsEmpty();if(I.Cell==36)Badges&=A&&A->Crafted&&A->Enchanted&&A->Enhancement==10;}
-            Check(Badges,TEXT("six rarity labels and saved processing badges present"));Check(L.HotY+85<=L.Height,TEXT("feedback and key hints inside scroll content"));Shot(TEXT("overview"));break;}
+            Check(Badges,TEXT("six rarity labels and saved processing badges present"));Check(L.HotY+34<=L.Height,TEXT("bag footer feedback line inside scroll content"));Shot(TEXT("overview"));break;}
         case 1:Board->Selected=R->Gun;Board->HoverPlace=0;Board->PointerCell=0;Scroll->ScrollToEnd();Shot(TEXT("selected"));break;
         case 2:{const auto Proposal=P->ProposeMove(R->Gun,0,71);Check(!Proposal.bValid,TEXT("edge rejection preview uses real inventory proposal"));Board->HoverPreview=R->Gun;Board->PreviewPlace=0;Board->PreviewCell=71;Board->bPreviewValid=Proposal.bValid;Board->PreviewReason=Proposal.Reason;Shot(TEXT("rejected"));break;}
         case 3:{const auto Proposal=P->ProposeMove(R->Gun,0,48);Check(Proposal.bValid,TEXT("free destination preview uses real inventory proposal"));Board->PreviewCell=48;Board->bPreviewValid=Proposal.bValid;Board->PreviewReason=Proposal.bValid?TEXT("松开放置 / 交换物品"):Proposal.Reason;Shot(TEXT("allowed"));break;}

@@ -284,8 +284,9 @@ namespace ColdSteelInventory
     FPSGAME_API bool Locked(const TArray<FColdSteelItem>& Items, int32 Slot);
     FPSGAME_API int32 Owner(const TArray<FColdSteelItem>& Items, int32 Place, int32 Cell);
     /** 仓库(4)格位占用查询按储物归属分域：主仓库传 ""，储物箱传其 Container 键；
-     *  背包/装备等非仓库位的占用判定忽略 Container。 */
-    FPSGAME_API int32 Owner(const TArray<FColdSteelItem>& Items, int32 Place, int32 Cell, const FString& Container);
+     *  背包/装备等非仓库位的占用判定忽略 Container。夹层(5)占用按 CompGrid 折行
+     *  （零值＝按当前装备的背包推导；加载校验传整表预算值保证与装备栏顺序无关）。 */
+    FPSGAME_API int32 Owner(const TArray<FColdSteelItem>& Items, int32 Place, int32 Cell, const FString& Container, FIntPoint CompGrid = FIntPoint::ZeroValue);
     FPSGAME_API bool Fits(const TArray<FColdSteelItem>& Items, const FColdSteelItem& Item, int32 Cell);
     FPSGAME_API bool Insert(TArray<FColdSteelItem>& Items, FColdSteelItem Item, int32 Preferred = -1);
     FPSGAME_API FColdSteelProposal Move(const TArray<FColdSteelItem>& Items, const FString& Id, int32 Place, int32 Cell, int32 Orientation = -1);
@@ -293,4 +294,25 @@ namespace ColdSteelInventory
     // Checked load migration only; normal inventory transactions keep strict validation.
     FPSGAME_API bool MigrateLegacyWoodFootprints(FColdSteelProfile& Profile, bool& Changed, FString& Reason);
     FPSGAME_API const TArray<FString>& SlotNames();
+    /** 背包装备槽(14)撑出的主背包行数：基础 4 行，装备的背包物品按 bagExtraCells 每 18 格加一行。 */
+    FPSGAME_API int32 BagRows(const TArray<FColdSteelItem>& Items);
+    /** 背包装备槽(14)的占有者；空槽返回 INDEX_NONE。 */
+    FPSGAME_API int32 EquippedBag(const TArray<FColdSteelItem>& Items);
+    /** 单件背包物品的夹层网格（长×宽＝列×行，bagCompartmentColumns/Rows，缺省 6×6）；
+     *  未定义夹层（bagCompartmentCells 缺失或 ≤0）返回 (0,0)。容量＝列×行。 */
+    FPSGAME_API FIntPoint CompartmentGridOf(const FColdSteelItem& BagItem);
+    /** 背包装备槽(14)撑出的夹层网格；未装备背包或无夹层返回 (0,0)。 */
+    FPSGAME_API FIntPoint CompartmentGrid(const TArray<FColdSteelItem>& Items);
+    /** 背包装备槽(14)撑出的夹层容量（格）＝列×行；未装备背包或物品未定义夹层时为 0。 */
+    FPSGAME_API int32 CompartmentCells(const TArray<FColdSteelItem>& Items);
+    /** 夹层(Place 5)：由背包装备撑出的独立格空间，网格尺寸（长×宽）与容量都由装备的背包定义。 */
+    namespace ColdSteelCompartment
+    {
+        constexpr int32 Place = 5;
+        constexpr int32 MaxColumns = 18; // 网格列上限＝抽屉宽度口径（18 格）；行上限给足纵向空间。
+        constexpr int32 MaxRows = 24;
+        FPSGAME_API bool Fits(const TArray<FColdSteelItem>& Items, const FColdSteelItem& Item, int32 Cell, FIntPoint Grid);
+        /** 夹层内移动/放回背包(0)/穿装备(1)：夹层自身格间、背包↔夹层双向；Grid 为当前夹层网格（列×行）。 */
+        FPSGAME_API FColdSteelProposal Transfer(const TArray<FColdSteelItem>& Items, const FString& Id, int32 Destination, int32 Cell, FIntPoint Grid, int32 Orientation = -1);
+    }
 }

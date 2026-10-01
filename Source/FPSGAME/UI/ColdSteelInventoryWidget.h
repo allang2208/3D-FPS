@@ -12,7 +12,6 @@ class UColdSteelItemDrag : public UDragDropOperation
 public:
     FString ItemId;
     FIntPoint GrabOffset=FIntPoint::ZeroValue;
-    int32 HotbarIndex=-1;
     int32 SourcePlace=-1,SourceCell=-1;
     FColdSteelItem SourceSnapshot;
     bool bHasSourceSnapshot=false;
@@ -102,7 +101,6 @@ private:
     FVector2D PressPosition;
     TWeakObjectPtr<UColdSteelItemDrag> ActivePointerDrag;
     bool bPendingClick=false;
-    int32 KeyboardHotbar=-1;
     UPROPERTY(Transient) TObjectPtr<class UColdSteelInventoryPopup> ItemMenu;
     bool bPreviewValid=false;
     TArray<FIntRect> SwapDestinations;
@@ -114,7 +112,7 @@ private:
     int32 PressPlace=-1,PressCell=-1;
     bool bConfirmDrop=false;
     float Scale=1;
-    struct FBoardLayout {float Width,Cell,GearWidth,GearHeight,GearY,GearPitch,BagY,HotY,Height;};
+    struct FBoardLayout {float Width,Cell,GearWidth,GearHeight,GearY,GearPitch,BagY,HotY,Height;float CompY=0;FIntPoint CompGrid=FIntPoint::ZeroValue;};
     FBoardLayout Layout(const FGeometry& G)const;
     bool Hit(const FGeometry&,FVector2D Screen,int32& Place,int32& Cell)const;
     FString IdAt(int32 Place,int32 Cell)const;
@@ -135,6 +133,7 @@ private:
     TMap<FString,FItemPresentation> Presentation;
     int32 HoverPlace=-1,PointerCell=-1;
     bool bSortHovered=false;
+    bool bCompSortHovered=false;
     bool bProcessingAnimated=false;
     float GlintSeconds=0;
 };

@@ -81,15 +81,15 @@ bool UColdSteelStatusModel::ConsumeItem(const FString& Definition,int64 Count,FS
     SyncRuntime();auto P=Snapshot();
     int64 Available=0;
     for(const FColdSteelItem& Item:P.Items)
-        if(Item.Definition==Definition&&(Item.Place==0||(Item.Place==4&&Item.Container.IsEmpty())))Available+=Item.Count; // 与 ConsumeMaterial 同域：储物箱不参与
+        if(Item.Definition==Definition&&(Item.Place==0||Item.Place==ColdSteelCompartment::Place||(Item.Place==4&&Item.Container.IsEmpty())))Available+=Item.Count; // 与 ConsumeMaterial 同域：储物箱不参与，夹层参与
     if(Available<Count)
     {
-        OutReason=FString::Printf(TEXT("缺少 %lld 块（背包+仓库共 %lld）"),Count-Available,Available);
+        OutReason=FString::Printf(TEXT("缺少 %lld 块（背包+夹层+仓库共 %lld）"),Count-Available,Available);
         return false;
     }
     // 背包先扣，再扣仓库；两类都按"后来者先扣"的顺序，保持堆叠状态稳定。
     int64 Left=Count;
-    for(int32 Place: {0,4})
+    for(int32 Place: {0,5,4})
     {
         for(int32 Index=P.Items.Num()-1;Index>=0&&Left>0;--Index)
         {

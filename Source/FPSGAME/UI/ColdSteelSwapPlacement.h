@@ -16,7 +16,10 @@ inline bool PlaceDisplaced(TArray<FColdSteelItem>& Items, TArray<FColdSteelItem>
     TArray<FEntry> Entries;
     TArray<uint32> Occupied;Occupied.Init(0,Rows);
     for(const auto& I:Items) if(I.Place==Place&&I.Container==Container&&I.Cell>=PageStart&&I.Cell<PageStart+Rows*18)
-        for(int32 Y=0;Y<I.Height;++Y) Occupied[(I.Cell-PageStart)/18+Y]|=((1u<<I.Width)-1)<< (I.Cell%18);
+        for(int32 Y=0;Y<I.Height;++Y){const int32 Row=(I.Cell-PageStart)/18+Y;
+            // 行数由调用方按当前背包装备传入；跨行物品只可能溢出到更高行（那里不会产生
+            // 候选位），钳掉越界写防止掩码数组越界崩溃。
+            if(Row>=0&&Row<Rows)Occupied[Row]|=((1u<<I.Width)-1)<< (I.Cell%18);}
     for(const auto& I:Displaced)
     {
         FEntry Entry; Entry.Item=I;

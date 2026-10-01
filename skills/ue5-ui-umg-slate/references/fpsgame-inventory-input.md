@@ -48,9 +48,37 @@
 
 历史证据：2026-09-11 的补修记录为 `Docs/UI/drop-hitch-and-backpack-close-20260911.md`，含三个分辨率各 25 项及最终 77 项拖放复测。一次快捷栏拖动中断当时未稳定复现，仍是观察项；这些数量不是当前运行结果或无缺陷保证。
 
+## PlaceDisplaced 行掩码必须跟当前背包行数走（2026-10-01 崩溃修复）
+
+- `PlaceDisplaced`（ColdSteelSwapPlacement.h）按 `Rows` 参数分配行占用掩码 `Occupied.Init(0,Rows)`，再扫**全部**同 Place 物品写 `Occupied[Cell/18+Y]`。背包行数变成装备驱动（便携背包 +1 行）后，`Move` 里两处调用传默认 `Rows=4`：一个跨在基础 4 行边界上的物品（如 1×2 卡在 70/71 格，占 3、4 两行）会写 `Occupied[4]` → `Array index out of bounds: 4 into an array of size 4`，拖动悬停预览即崩。
+- 修法两件事都做：调用点一律传 `BagRows(Items)`（用**事务前**的数组算——替换背包的流程里守卫已保证新背包覆盖现有占用）；`PlaceDisplaced` 本体对掩码写做 `Row<Rows` 钳制（跨行物品只会溢到更高行，那里不产生候选位，钳掉既防崩又不漏正确占用）。
+- 教训：**给"写死 4 行"的背包加装备驱动扩行时，凡是按 `Cell/18` 索引行数组的扫描都要重审**——占用掩码、行循环上界、数组大小三处必须同源。仓库侧 `WarehouseRemainingCapacity` 的同类数组因物品不能跨页而天然安全。
+
 ## 装备替换回填的自动朝向（2026-09-27）
 
 - 右键装备、拖到装备槽以及自动卸下时，旧装备回填可尝试两种朝向；手动拖到明确背包格子时保留玩家选定朝向。不要把自动旋转加进所有调用共用的 `Insert`，以免改变手动摆放语义。
 - 先尝试原有朝向的完整布局，失败再开放旋转。双手武器挤出的主／副手一起规划，不能让第一个贪心落位占掉第二个唯一可用矩形。候选记录实际宽高、旋转状态和行位掩码，回溯失败完整撤销占位。
 - 优先使用新装备腾出的区域，再找附近连续空位；装备槽编号不是背包坐标，不能参与格子相对偏移。搜索预算耗尽与空间不足返回不同原因，事务失败不发布半成品布局。
 - 悬停高亮与提示读取同一次 proposal 中旧装备的最终 Cell／Width／Height／bRotated，确保预览与提交一致。当前入口 `ColdSteelSwapPlacement.h`、`ColdSteelInventoryRules.cpp` 和 `ColdSteelInventoryWidget.cpp`；见 `Docs/UI/equipment-backpack-auto-orientation-20260927.md`。
+
+## 背包内"数字快捷栏"整块退役（2026-10-01）
+
+- 背包抽屉底部的"数字快捷栏"四槽镜像（标题、"技能 / 消耗品"角标、四槽位、下方"拖动放置 / 交换物品""单击查看…"两行静态说明，以及抽屉 UMG Footer"Tab 收起…"行）已按用户要求整体删除；`FBoardLayout.HotY` 语义收窄为"背包格底缘/落款锚点"，背包高度 `HotY+34`，仓库分支布局未动。
+- 随块删除的交互：`Hit` 的 Place==3 区、右键解绑、双击 `UseHotbar`、槽位 `StartQuickDrag`/`DropQuickDrag`、键盘 F 焦点轮换的快捷栏站与 Space 搬运解绑、`UColdSteelItemDrag::HotbarIndex` 字段（HUD 级 `CanDropOnHotbar`/`NativeOnDrop` 的换绑分支一并退役）。
+- **真快捷栏（HUD 底部 ColdSteelQuickSlot/HotbarDrag/SkillPage）零改动**：背包格子拖到真快捷栏绑定（`BindQuickItem`）、槽间拖动交换、拖出解绑、技能页拖入绑定全部保留；模型层 `BindHotbar/SwapHotbar/UseHotbar/ResolveHotbar` 服务端能力不动（`ColdSteelInventoryAudit` 的模型级用例照旧）。
+- 反馈行改为**只在有内容时绘制**（PreviewReason／InteractionMessage／已选中），默认态背包底部无文字；静态操作说明不再恢复。仓库页保留"单击查看 · 右键取出"说明行。
+- 审计同步：`ColdSteelInventoryDragAudit` case 5 删去两条快捷栏搬运用例；VisualAudit/GlassAudit 的底部内容锚从 `HotY+85` 收到 `HotY+34`/`HotY+30`。跑拖放验收前先读当前脚本阶段数。
+
+## 背包装备与夹层（Place 5，2026-10-01）
+
+- 便携背包（`ue_portable_backpack`，`equipSlot:"backpack"`＝装备栏 14 号"背包装备"槽）用两个字段撑容量：`bagExtraCells`（每 18 格＝主背包加一行）与 `bagCompartmentCells`（夹层容量，≤36）。没有建模/贴图，无 `ue_icon` 时背包卡片显示名字文本。
+- 容量全部由装备的背包物品派生：`ColdSteelInventory::BagRows/CompartmentCells/EquippedBag`（Rules.cpp）每次扫 14 号槽占主并读其 Data（`ColdSteelItemData::Read` 按载荷缓存）。`Owner` 的背包分支已去掉 `Cell<72` 写死界（改纯几何匹配），行数边界由 `Fits`/调用方裁剪；**加载校验 `ValidateProfile` 必须先按整表算 `ProfileBagRows/ProfileCompCells` 再逐件校验**——装备栏条目在 Items 数组里可能排在夹层/扩展格物品之后，逐件动态算容量会顺序漏判。
+- 夹层＝`Place 5`，**网格尺寸＝长×宽（列×行）由装备的背包定义**（`CompartmentGrid`，缺省 6×6，上限列 18/行 24，容量＝列×行；约定详见 item-asset 技能的 backpack-equipment.md）。转移规则在 `ColdSteelCompartmentRules.cpp` 的 `Transfer`（网格作参数传递）：目的地 5（夹层内挪动/放入）、0（放回背包，Cell -1 自动寻位带旋转重试）、1（直接穿装备）；单件占用＝交换（被压物品回到来源腾出的位置，放不下整次取消）；来源可为 0/1/4（仓库 `Transfer` 已放行夹层来源，仓库↔夹层拖动靠共享板 DragOver 命中夹层区）。模型侧 `ProposeMove` 按"目标或来源是 5"路由到 `ProposeCompartment`。
+- **14 号槽占有者变更保护**（Rules.cpp `Move` 内）：卸下或替换背包时，夹层物品与扩展格（Cell≥新行数×18）物品必须能被更换后的背包继续容纳，否则拒绝（"夹层还有物品，先清空再卸下背包"）——否则存档出现越界孤儿，加载校验整档拒绝。夹层里的背包本身（槽14→夹层）在 `Transfer` 顶部单独拒绝。
+- UI：`FBoardLayout.CompY`（0＝无夹层）在 `Layout()` 里按 `CompartmentCells>0` 追加区块，面板高度随之伸缩；绘制与"空间背包"同款版式（标题"夹层"＋右侧"X / 36 格 · N 件"＋分隔线＋进度条＋6×6 网格），`Hit` 增加夹层命中（Place 5），拖放/悬停/浮窗走通用链路，浮窗位置行显示"夹层"。
+- 夹层与背包同权（2026-10-01 第二轮）：夹层头部有"整理"按钮（`SortCompartment`，大件优先/类别+名称，空夹层给提示）；Shift 单击/浮窗均可拆分（`Split` 按落点容量找格，浮窗文案"确认后放入夹层空位"）；制造/熔炼/建筑材料（`ConsumeItem`/`CountMaterial`/`ConsumeMaterial`）/强化卷轴与费用（BackpackOnly 视夹层为随身）/献祭/快捷栏绑定解析（`ResolveQuickItem`）全部把 Place 5 计入消耗域，扣减顺序 背包→夹层→仓库；右键/双击与背包同语义（消耗品直接用、装备直接穿——`Compartment::Transfer` 支持 Destination 1，被换装备回夹层原格）；背包格拖到真快捷栏绑定消耗品也接受夹层来源（`CanDropOnHotbar`）；键盘 F 轮换 背包→装备→夹层→背包（未装备带夹层的背包时不进夹层站），方向键夹层按 6 列、Space 搬运通用。
+- 卸背包自动搬家与快捷栏并堆（2026-10-01 第四轮，同日修订卸下规则）：槽14更换/卸下时，夹层中超出新容量的物品随**同一事务**搬进背包（`Insert` 会并入同类堆），扩展格里放不进新行数的物品也自动回落重排（优先原列底部）；连同放回的背包本体一起装不下则整体拒绝（"背包空间不足，无法卸下背包装备"），不发布半成品——判据是"收缩后无法存放才拒绝"，不是"扩展格有物品就拒绝"。**所有能让背包离开槽14的通路都要防宿主丢失**：`Move`（迁移）、`Drop`（丢地面，拒绝）、仓库 `Transfer`（存仓库，拒绝）——漏一条就会在下次加载时因夹层容量=0 而整档校验失败。快捷栏把背包+夹层的同类消耗品视为一体：`QuickItemCount` 显示合计，`ResolveQuickItem` 按背包→夹层优先解析消耗目标（背包堆耗尽实例移除后自然落到夹层堆），绑定按 Definition 不按实例，换堆不失效。
+- 夹层拖拽对齐（2026-10-01 第三轮）：夹层目标的落点预览走**独立分支**，与背包同口径——高亮框按抓取锚对齐（`HoverCell%Columns-GrabOffset`，钳到 `Columns/Rows-PreviewCells`），悬停被占格时换到该物品锚点预览交换；超出夹层尺寸给"这个朝向需要 X×Y 格，夹层只有 6×6"提示。**从夹层发起**拖动时 `NativeOnDragDetected` 的 `GrabOffset`（按 6 列算）与幽灵贴图基准 `Origin`（CompY+6 列）都要按夹层坐标算，否则幽灵锚点乱跳、预览错位——背包/装备/仓库来源的公式不能直接套。
+- 夹层来源可转向：`RotateDraggedItem` 的来源白名单（0/1/4）要加 Place 5，F 转向才对夹层拖出的物品生效；落点侧 `Compartment::Transfer` 已按 `ApplyOrientation(Orientation)` 提交待定朝向，两侧对称。
+- 夹层复查批（2026-10-01 回头检查，5 处修正）：(1) `Compartment::Fits` 必须把 Grid **透传给 Owner**（`Owner(...,FString(),Grid)`）——加载校验时装备栏可能还没进 Placed，Owner 自推导得零网格会跳过重叠判定漏放坏档；(2) `NativeOnMouseLeave` 与 `bSortHovered` 一起复位 `bCompSortHovered`，否则悬停离开后残留，点空处误触"整理夹层"；(3) 卸下/换装事务里所有网格边界（Move 的落点边界、被换装备的 PlaceDisplaced 回填、换装落格 Fits）一律用**移动后行数**（BagChangeRows/RowsAfter），用装备中行数会让矮物品落进即将消失的扩展行成坏档、或换大背包时误拒；(4) 仓库打开时 `DefaultAction` 的存入分支要含 Place 5（右键菜单"存入仓库"按钮才名实相符，底层 WarehouseRules::Transfer 已放行夹层来源）。通用教训：**容量装备驱动化之后，凡事务中途计算"当前容量"的地方都要问一句——这算的是移动前还是移动后？**
+- 命名空间坑：没有 `using namespace ColdSteelInventory` 的文件（如 ColdSteelQuickBarModel.cpp）里，`ColdSteelCompartment::Place` 必须全限定 `ColdSteelInventory::ColdSteelCompartment::Place`，否则 C2653；UBT 控制台会吞真实错误，去 UnrealBuildTool 的 Log.txt 看。
