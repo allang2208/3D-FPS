@@ -3,6 +3,7 @@
 #include "LMG201Attachments.h"
 #include "LMG201WeaponAssets.h"
 #include "FPSGunplayAnimInstance.h"
+#include "WeaponGripProfile.h"
 #include "Animation/AnimSequence.h"
 #include "ASH12WeaponAssets.h"
 #include "M16WeaponAssets.h"
@@ -35,9 +36,25 @@ void UM4TacticalSprintComponent::Configure(ERifleSprintWeapon Weapon)
     CurrentGrip = EM4SprintGrip::Base;
     bEnabled = Weapon != ERifleSprintWeapon::None;
     if (!bEnabled || !Clips.IsEmpty()) return;
+    const auto* Shared=Character?Character->WeaponGripProfileFor(EM4SprintGrip::Angled):nullptr;
+    const bool bNeedsDrum=Weapon==ERifleSprintWeapon::M4||Weapon==ERifleSprintWeapon::M16||bHK416;
+    if(Shared&&(!bNeedsDrum||Character->WeaponGripProfileFor(EM4SprintGrip::Drum)))
+    {
+        TArray<TObjectPtr<UAnimSequence>> SharedClips;
+        for(int32 Grip=0;Grip<6;++Grip)
+            for(const TCHAR* Role:{TEXT("sprint_enter"),TEXT("sprint_loop"),TEXT("sprint_exit")})
+            {
+                const auto* Profile=Character->WeaponGripProfileFor(static_cast<EM4SprintGrip>(Grip));
+                const auto* Layer=(Profile?Profile:Shared)->FindAction(Role);
+                // A missing attachment profile keeps the complete legacy sprint set.
+                if((Grip>=2&&!Profile)||!Layer){SharedClips.Reset();break;}
+                SharedClips.Add(Profile?Layer->Playback():Layer->Base.Get());
+            }
+        if(SharedClips.Num()==18){Clips=MoveTemp(SharedClips);return;}
+    }
     if (bHK416)
     {
-        for (const TCHAR* Family:{TEXT("base"),TEXT("base"),TEXT("base"),TEXT("vertical"),TEXT("base"),TEXT("base")})
+        for (const TCHAR* Family:{TEXT("base"),TEXT("drum"),TEXT("angled"),TEXT("vertical"),TEXT("canted"),TEXT("prism")})
             for (const TCHAR* Kind:{TEXT("sprint_enter"),TEXT("sprint_loop"),TEXT("sprint_exit")})
                 Clips.Add(LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(Kind,Family)));
         return;
@@ -52,9 +69,15 @@ void UM4TacticalSprintComponent::Configure(ERifleSprintWeapon Weapon)
     }
     if (Weapon==ERifleSprintWeapon::SVD)
     {
+        int32 GripIndex=0;
         for(const TCHAR* Family:{TEXT("base"),TEXT("base"),TEXT("angled"),TEXT("vertical"),TEXT("canted"),TEXT("prism")})
+        {
+            const bool bShared=FCString::Strcmp(Family,TEXT("base"))==0
+                ||(Character&&Character->WeaponGripProfileFor(static_cast<EM4SprintGrip>(GripIndex)));
             for(const TCHAR* Clip:{TEXT("sprint_enter"),TEXT("sprint_loop"),TEXT("sprint_exit")})
-                Clips.Add(LoadObject<UAnimSequence>(nullptr,*(FCString::Strcmp(Family,TEXT("base"))==0?SVDWeaponAssets::AnimationPath(Clip):SVDAttachments::AnimationPath(Family,Clip))));
+                Clips.Add(LoadObject<UAnimSequence>(nullptr,*(bShared?SVDWeaponAssets::AnimationPath(Clip):SVDAttachments::AnimationPath(Family,Clip))));
+            ++GripIndex;
+        }
         return;
     }
     if (Weapon==ERifleSprintWeapon::PKM)

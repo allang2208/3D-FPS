@@ -20,6 +20,7 @@
 void AFPSGAMECharacter::InitializeVerticalGripAnimations()
 {
     VerticalGripAnimations.Reset();
+    if(InitializeWeaponGripFamily(TEXT("vertical"),VerticalGripAnimations))return;
     if(LMG201WeaponAssets::Matches(AKMViewmodel)){LMG201Attachments::LoadGripFamily(TEXT("vertical"),VerticalGripAnimations);return;}
     if(!bUsingM4Infima&&!AKMSoviet::Matches(AKMViewmodel)&&!A762WeaponAssets::Matches(AKMViewmodel)&&!PKMLowpolyWeaponAssets::Matches(AKMViewmodel))return;
     const TPair<UAnimSequence*,const TCHAR*> Clips[]={

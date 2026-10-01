@@ -132,6 +132,19 @@ FGunsmithParts UGunsmithSystem::Normalize(const FString& D,const FGunsmithParts&
         if(Slot==TEXT("stock")&&Id==TEXT("true"))Id=TEXT("compact");
         if(Id!=TEXT("false")&&Option(D,Slot,Id))Result.Add(Slot,Id);
     }
+    // Named factory parts are real options with stats. Resolve legacy empty /
+    // false factory slots through the catalog, preserving every installed
+    // replacement. Only weapons explicitly declaring defaults opt into this.
+    const auto* W=ModifiableWeapon(D);
+    const TSharedPtr<FJsonObject>* Factory=nullptr;
+    if(W && W->Source && W->Source->TryGetObjectField(TEXT("default_parts"),Factory))
+        for(const auto& P:(*Factory)->Values)
+        {
+            const FString Slot(*P.Key);
+            FString Id;
+            if(!Result.Contains(Slot) && P.Value->TryGetString(Id) && Option(D,Slot,Id))
+                Result.Add(Slot,Id);
+        }
     return Result;
 }
 FGunsmithParts UGunsmithSystem::Installed(const FColdSteelItem& I)const

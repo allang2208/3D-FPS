@@ -4,6 +4,7 @@
 #include "GameFramework/Character.h"
 #include "Weapons/WeaponHandling.h"
 #include "Weapons/WeaponReloadStages.h"
+#include "Weapons/RifleHipFraming.h"
 #include "Weapons/M4TacticalSprintComponent.h"
 #include "Weapons/ColdSteelEnchantmentCombat.h"
 #include "Monsters/MonsterHitFeedback.h"
@@ -16,6 +17,7 @@ class USoundBase;
 class UAudioComponent;
 class UFPSWeaponFXComponent;
 class UFPSGunplayAnimInstance;
+class UWeaponGripProfile;
 struct FGunsmithWeapon;
 
 enum class EFirstPersonJumpRig : uint8 { Rifle, Pistol, Sword };
@@ -53,6 +55,7 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
     friend struct FStaffLocomotion;
 
 public:
+    UWeaponGripProfile* WeaponGripProfileFor(EM4SprintGrip Grip) const;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM4Infima = true;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseQBZ191 = false;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseASH12 = false;
@@ -167,7 +170,7 @@ public:
     bool HasAngledForegrip() const;
     FVector GetEffectiveMuzzleLocation() const;
     FVector GetEffectiveMuzzleForward() const;
-    bool IsMuzzleSuppressed() const {return MuzzleVariant==TEXT("true")||MuzzleVariant==TEXT("tactical_suppressor")||(bUseASH12&&MuzzleVariant==TEXT("ash12_tactical_suppressor"));}
+    bool IsMuzzleSuppressed() const {return MuzzleVariant==TEXT("true")||MuzzleVariant==TEXT("tactical_suppressor")||MuzzleVariant==TEXT("multi_caliber_suppressor")||(bUseASH12&&MuzzleVariant==TEXT("ash12_tactical_suppressor"));}
     void SetGunsmithInspection(bool bInspect);
     void UpdateGunsmithCapture(class USceneCaptureComponent2D* Capture, bool bAim);
     bool HasGunsmithDrum() const {return bDrumVisual;}
@@ -234,6 +237,8 @@ protected:
     // gunplay graph moves the left arm onto the selected grip. 0 = off, 1 = idle/aim/fire, 2 = all.
     int32 GripLayerMode() const;
     UAnimSequence* GripFamilyClip(UAnimSequence* Base) const;
+    bool InitializeWeaponGripFamily(FName Family,TMap<TObjectPtr<UAnimSequence>,TObjectPtr<UAnimSequence>>& Map);
+    UPROPERTY(Transient) TMap<FName,TObjectPtr<UWeaponGripProfile>> WeaponGripProfiles;
     void RunForegripAudit();
     int32 ForegripAuditStage=0, ForegripAuditFailures=0, ForegripAuditCapture=0;
     float ForegripAuditNextTime=0.f, ForegripAuditLastCapture=-1.f;
@@ -326,7 +331,7 @@ protected:
 
     // Runtime-probed Godot calibration. The +19 cm Y offset compensates the merged FBX pivot.
     UPROPERTY(EditDefaultsOnly, Category = "AKM|Viewmodel") FVector HipViewmodelLocation = FVector(10.0f, 31.0f, -3.0f);
-    // M4 framing matched to the Godot Infima rifle's projected hip sights at 75 degrees vertical FOV.
+    // Common rifle/sniper framing ruler, measured from M4 idle at 75 degrees vertical FOV.
     UPROPERTY(EditDefaultsOnly, Category = "M4|Viewmodel") FVector M4HipViewmodelLocation = FVector(0.0f, 7.0f, -7.0f);
     // Leave room for both hands and the magazine during equip/reload.
     UPROPERTY(EditDefaultsOnly, Category = "M4|Viewmodel") FVector M4ActionViewmodelLocation = FVector(10.0f, 0.0f, -5.0f);
@@ -776,4 +781,6 @@ private:
     void InitializeScopeOptics();
     void AdvanceScopeOptics(float DeltaSeconds);
     void UpdateScopeLensMaterial();
+    // Whole-assembly hip framing; appended so existing presentation fields retain their order.
+    FRifleHipFraming RifleHipFraming;
 };

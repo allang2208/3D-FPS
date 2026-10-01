@@ -1,3 +1,6 @@
+#include "HK416Attachments.h"
+#include "HK416WeaponAssets.h"
+#include "AR416Furniture.h"
 #include "LMG201Attachments.h"
 #include "../FPSGAMECharacter.h"
 #include "A762Attachments.h"
@@ -23,6 +26,13 @@ bool IsFactoryRearGrip(const FName& Slot)
 
 void AFPSGAMECharacter::SetGunsmithRearGrip(const FString& Variant, const FGunsmithWeapon* Weapon)
 {
+    if (IsHK416Weapon())
+    {
+        const bool Enabled=bInventoryWeaponReady&&(Variant==HK416WeaponAssets::RearGripPart||Variant==TEXT("phantom_reargrip")||Variant==TEXT("stable_antislip_reargrip")||Variant==TEXT("balanced_reargrip"));
+        RearGripAttachment=HK416Attachments::Configure(this,AKMViewmodel,RearGripAttachment,Variant,Enabled);
+        HK416Attachments::FactorySections(AKMViewmodel,TEXT("FactoryRearGrip"),!(Enabled&&RearGripAttachment&&RearGripAttachment->IsVisible()));
+        return;
+    }
     if (bUseDanWesson715)
     {
         RearGripAttachment = DanWesson715FittedParts::Configure(this, AKMViewmodel,
@@ -42,13 +52,14 @@ void AFPSGAMECharacter::SetGunsmithRearGrip(const FString& Variant, const FGunsm
     if(!Asset)return;
     const bool StableGrip=Variant==TEXT("stable_antislip_reargrip");
     const bool BalancedGrip=Variant==TEXT("balanced_reargrip");
-    bool Enabled=bInventoryWeaponReady&&(Variant==TEXT("phantom_reargrip")||StableGrip||BalancedGrip);
+    const bool Grip416=Variant==HK416WeaponAssets::RearGripPart&&AR416Furniture::Supports(ActiveInventoryWeaponDefinition);
+    bool Enabled=bInventoryWeaponReady&&(Grip416||Variant==TEXT("phantom_reargrip")||StableGrip||BalancedGrip);
     bool HasFactory=false;
     for(const auto& Material:Asset->GetMaterials())HasFactory|=IsFactoryRearGrip(Material.MaterialSlotName);
     if(Enabled&&HasFactory)
     {
         const TCHAR* Family=bUseQBZ191?TEXT("QBZ191"):AKMSoviet::Matches(Rifle)?TEXT("AKM"):TEXT("M4");
-        const FString Path=LMG201WeaponAssets::Matches(Rifle)?LMG201Attachments::MeshPath(Variant):PKMLowpolyWeaponAssets::Matches(Rifle)?PKMAttachments::MeshPath(Variant):A762WeaponAssets::Matches(Rifle)?A762Attachments::MeshPath(Variant):bUseM16?M16Attachments::MeshPath(Variant):StableGrip
+        const FString Path=Grip416?AR416Furniture::MeshPath(ActiveInventoryWeaponDefinition,Variant):LMG201WeaponAssets::Matches(Rifle)?LMG201Attachments::MeshPath(Variant):PKMLowpolyWeaponAssets::Matches(Rifle)?PKMAttachments::MeshPath(Variant):A762WeaponAssets::Matches(Rifle)?A762Attachments::MeshPath(Variant):bUseM16?M16Attachments::MeshPath(Variant):StableGrip
             ?FString::Printf(TEXT("/Game/Weapons/StableAntiSlipRearGrip/Selected91727/%s/SM_StableAntiSlipRearGrip.SM_StableAntiSlipRearGrip"),Family)
             :BalancedGrip
                 ?(FCString::Strcmp(Family,TEXT("M4"))==0
@@ -64,6 +75,7 @@ void AFPSGAMECharacter::SetGunsmithRearGrip(const FString& Variant, const FGunsm
                 RearGripAttachment->SetCastShadow(false);RearGripAttachment->bReceivesDecals=false;
                 RearGripAttachment->SetupAttachment(Rifle,TEXT("WPN_root"));RearGripAttachment->RegisterComponent();
             }
+            if(RearGripAttachment->GetStaticMesh()!=GripMesh)RearGripAttachment->EmptyOverrideMaterials();
             RearGripAttachment->SetStaticMesh(GripMesh);
             // Each fitted FBX is authored in its rifle's root frame. Bone scale is 100x.
             RearGripAttachment->SetRelativeTransform(FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f)));

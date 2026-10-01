@@ -1,4 +1,4 @@
-﻿#include "GripPoseLayer.h"
+#include "GripPoseLayer.h"
 #include "LMG201WeaponAssets.h"
 #include "PKMLowpolyWeaponAssets.h"
 #include "../FPSGAMECharacter.h"
@@ -265,6 +265,7 @@ void FGripPoseLayerNode::Evaluate_AnyThread(FPoseContext& Output)
 
 int32 AFPSGAMECharacter::GripLayerMode() const
 {
+    if(WeaponGripProfileFor(ResolveRifleGripProfile()))return 0; // Authored differences replace the older IK layer.
     if(!PKMLowpolyWeaponAssets::Matches(AKMViewmodel)&&!LMG201WeaponAssets::Matches(AKMViewmodel))return 0;
     return GripFamilyClip(IdleAnimation)?FMath::Clamp(FGripPoseLayer::Mode(),0,2):0;
 }

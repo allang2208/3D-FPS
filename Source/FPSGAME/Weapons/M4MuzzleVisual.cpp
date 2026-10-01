@@ -1,6 +1,7 @@
 #include "LMG201WeaponAssets.h"
 #include "HK416WeaponAssets.h"
 #include "HK416Attachments.h"
+#include "CommonHK416Parts.h"
 #include "Engine/StaticMeshSocket.h"
 #include "../FPSGAMECharacter.h"
 #include "A762Attachments.h"
@@ -25,10 +26,42 @@
 
 void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
 {
+    if (Variant == CommonHK416Parts::Suppressor)
+    {
+        if (!bInventoryWeaponReady) { SetGunsmithMuzzle(TEXT("false")); return; }
+        if (MuzzleVariant == Variant && MuzzleAttachment && MuzzleAttachment->GetStaticMesh())
+        { MuzzleAttachment->SetVisibility(true); return; }
+        auto* SuppressorMesh = LoadObject<UStaticMesh>(nullptr, *CommonHK416Parts::MeshPath(ActiveInventoryWeaponDefinition, Variant));
+        if (!SuppressorMesh) { UE_LOG(LogTemp, Error, TEXT("Multi-caliber suppressor: missing fitted part for %s"), *ActiveInventoryWeaponDefinition); return; }
+        // The 715 uses its measured +X-forward muzzle interface. Other hosts
+        // retain their normal suppressor's barrel parent and factory visibility.
+        SetGunsmithMuzzle(bUseDanWesson715 ? FString(DanWesson715FittedParts::Brake) : FString(TEXT("true")));
+        if (!MuzzleAttachment || !MuzzleAttachment->IsVisible()) return;
+        if (!IsHK416Weapon())
+        {
+            FVector Inlet = FVector::ZeroVector;
+            if (AKMSoviet::Matches(AKMViewmodel)) Inlet = FVector(.08f, 57.7f, 5.08883f);
+            else if (bUseQBZ191) Inlet = FVector(.0759f, 50.0835f, 6.0775f);
+            const FTransform Interface(FRotationMatrix::MakeFromXZ(MuzzleLocalAxis, FVector::UpVector).ToQuat(), Inlet);
+            MuzzleAttachment->SetRelativeTransform(Interface * MuzzleAttachment->GetRelativeTransform());
+        }
+        MuzzleAttachment->EmptyOverrideMaterials(); MuzzleAttachment->SetStaticMesh(SuppressorMesh);
+        const auto* Tip = SuppressorMesh->FindSocket(TEXT("Muzzle"));
+        const auto* Guide = SuppressorMesh->FindSocket(TEXT("AimGuide"));
+        if (Tip && Guide)
+        {
+            MuzzleLocalTip = Tip->RelativeLocation;
+            MuzzleLocalAxis = (Guide->RelativeLocation - Tip->RelativeLocation).GetSafeNormal();
+        }
+        MuzzleVariant = Variant;
+        if (!SuppressedFireSound) SuppressedFireSound = LoadObject<USoundBase>(nullptr, TEXT("/Game/Weapons/M4MuzzlesV1/S_M4_Suppressed"));
+        return;
+    }
     if (IsHK416Weapon())
     {
-        const bool Enabled=bInventoryWeaponReady&&Variant==TEXT("true");
-        MuzzleAttachment=HK416Attachments::Configure(this,AKMViewmodel,MuzzleAttachment,TEXT("suppressor"),Enabled);
+        const bool Enabled=bInventoryWeaponReady&&(Variant==TEXT("true")||Variant==TEXT("tactical_suppressor")||Variant==TEXT("brake"));
+        MuzzleAttachment=HK416Attachments::Configure(this,AKMViewmodel,MuzzleAttachment,Variant==TEXT("true")?TEXT("suppressor"):Variant,Enabled);
+        HK416Attachments::FactorySections(AKMViewmodel,TEXT("FactoryMuzzle"),!Enabled);
         MuzzleVariant=Enabled?Variant:FString();
         if (Enabled&&MuzzleAttachment&&MuzzleAttachment->GetStaticMesh())
         {

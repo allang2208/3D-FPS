@@ -1,3 +1,5 @@
+#include "HK416Attachments.h"
+#include "HK416WeaponAssets.h"
 #include "../FPSGAMECharacter.h"
 #include "A762Attachments.h"
 #include "M16Attachments.h"
@@ -53,6 +55,20 @@ bool AFPSGAMECharacter::HasLMG201ClothBox() const
 
 void AFPSGAMECharacter::SetGunsmithMagazineAttachment(const FString& Id)
 {
+    if (IsHK416Weapon())
+    {
+        const bool Drum=Id==TEXT("large_drum")&&bInventoryWeaponReady;
+        const bool Ext=Id==TEXT("ext_mag")&&bInventoryWeaponReady;
+        const FString NextId=(Drum||Ext)?Id:FString();
+        if(MagazineAttachmentId!=NextId||!Drum)bDrumReleasedDuringReload=bDrumMagazineHidden=false;
+        MagazineAttachmentId=NextId;
+        LargeDrum=HK416Attachments::Configure(this,AKMViewmodel,LargeDrum,Id,Drum||Ext,TEXT("WPN_SOCKET_Magazine"));
+        const bool Present=(Drum||Ext)&&LargeDrum&&LargeDrum->GetStaticMesh()&&LargeDrum->IsVisible();
+        bDrumVisual=Drum&&Present;
+        if(LargeDrum){DrumMount=LargeDrum->GetRelativeTransform();LargeDrum->SetVisibility(Present&&!bDrumMagazineHidden);}
+        HK416Attachments::FactorySections(AKMViewmodel,TEXT("Magazine"),!Present);
+        return;
+    }
     if(LMG201WeaponAssets::Matches(AKMViewmodel))
     {
         const bool Drum=Id==TEXT("large_drum")&&bInventoryWeaponReady;

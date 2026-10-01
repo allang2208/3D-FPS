@@ -1,3 +1,6 @@
+#include "HK416Attachments.h"
+#include "HK416WeaponAssets.h"
+#include "AR416Furniture.h"
 #include "LMG201Attachments.h"
 #include "../FPSGAMECharacter.h"
 #include "A762Attachments.h"
@@ -41,6 +44,15 @@ FTransform ASHCheekRestMount(const USkeletalMesh* Asset)
 void AFPSGAMECharacter::SetGunsmithStock(const FString& Variant)
 {
     if (IsPistolWeapon()) return;
+    if (IsHK416Weapon())
+    {
+        const bool Enabled=bInventoryWeaponReady&&(Variant==HK416WeaponAssets::StockPart||Variant==TEXT("skeleton")||Variant==TEXT("core_stock")||Variant==TEXT("qr_performance")||Variant==TEXT("tactical_telescopic"));
+        StockAttachment=HK416Attachments::Configure(this,AKMViewmodel,StockAttachment,Variant,Enabled);
+        bSkeletonStock=Enabled&&StockAttachment&&StockAttachment->IsVisible();
+        if(StockAttachment)StockMount=StockAttachment->GetRelativeTransform();
+        HK416Attachments::FactorySections(AKMViewmodel,TEXT("FactoryStock"),!bSkeletonStock);
+        return;
+    }
     auto* Rifle=AKMViewmodel.Get();auto* Asset=Rifle?Rifle->GetSkeletalMeshAsset():nullptr;
     if(!Asset)return;
     const bool AKM=AKMSoviet::Matches(Rifle);
@@ -52,7 +64,8 @@ void AFPSGAMECharacter::SetGunsmithStock(const FString& Variant)
     const bool Core=Variant==TEXT("core_stock");
     const bool Tactical=Variant==TEXT("tactical_telescopic");
     const bool CheekRest=bUseASH12&&Variant==TEXT("ash12_cheek_rest");
-    const bool Enabled=(CheekRest||(!bUseASH12&&(Variant==TEXT("skeleton")||QR||Core||Tactical)&&(bUsingM4Infima||AKM||bUseQBZ191||A762||PKM||SVD||LMG201)))&&bInventoryWeaponReady;
+    const bool Stock416=Variant==HK416WeaponAssets::StockPart&&AR416Furniture::Supports(ActiveInventoryWeaponDefinition);
+    const bool Enabled=(Stock416||CheekRest||(!bUseASH12&&(Variant==TEXT("skeleton")||QR||Core||Tactical)&&(bUsingM4Infima||AKM||bUseQBZ191||A762||PKM||SVD||LMG201)))&&bInventoryWeaponReady;
     const bool ReplaceFactory=Enabled&&!CheekRest;
     bool HasSection=false;
     for(const auto& Material:Asset->GetMaterials())HasSection|=IsFactoryStock(Material.MaterialSlotName.ToString());
@@ -66,7 +79,7 @@ void AFPSGAMECharacter::SetGunsmithStock(const FString& Variant)
             StockPath=AKM?TEXT("/Game/Weapons/CoreStock20260914/Meshy0914005605/AKM/SM_CoreStock.SM_CoreStock"):TEXT("/Game/Weapons/CoreStock20260914/Meshy0914005605/M4/SM_CoreStock.SM_CoreStock");
         else if(Tactical)
             StockPath=AKM?TEXT("/Game/Weapons/TacticalTelescopicStock20260914/AKM/SM_TacticalTelescopicStock.SM_TacticalTelescopicStock"):TEXT("/Game/Weapons/TacticalTelescopicStock20260914/M4/SM_TacticalTelescopicStock.SM_TacticalTelescopicStock");
-        auto* StockMesh=LoadObject<UStaticMesh>(nullptr,LMG201?*LMG201Attachments::MeshPath(Variant):SVD?*SVDAttachments::MeshPath(Variant):PKM?*PKMAttachments::MeshPath(Variant):A762?*A762Attachments::MeshPath(Variant):bUseM16?*M16Attachments::MeshPath(Variant):CheekRest?ASH12WeaponAssets::CheekRestMeshPath:(bUseQBZ191?*QBZ191Attachments::MeshPath(Variant):StockPath));
+        auto* StockMesh=LoadObject<UStaticMesh>(nullptr,Stock416?*AR416Furniture::MeshPath(ActiveInventoryWeaponDefinition,Variant):LMG201?*LMG201Attachments::MeshPath(Variant):SVD?*SVDAttachments::MeshPath(Variant):PKM?*PKMAttachments::MeshPath(Variant):A762?*A762Attachments::MeshPath(Variant):bUseM16?*M16Attachments::MeshPath(Variant):CheekRest?ASH12WeaponAssets::CheekRestMeshPath:(bUseQBZ191?*QBZ191Attachments::MeshPath(Variant):StockPath));
         if(!StockMesh){UE_LOG(LogTemp,Error,TEXT("SKELETON_STOCK: mesh missing"));return;}
         if(!StockAttachment)
         {
@@ -80,7 +93,7 @@ void AFPSGAMECharacter::SetGunsmithStock(const FString& Variant)
         StockAttachment->SetStaticMesh(StockMesh);
         // Author frame: +X toward buttpad. FBX reflects Blender Y; root inherits 100x scale.
         // Each receiver was measured in root space; the shared stock keeps physical size.
-        StockMount=(bUseM16||bUseQBZ191||A762||PKM||SVD||LMG201)?FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f)):
+        StockMount=(Stock416||bUseM16||bUseQBZ191||A762||PKM||SVD||LMG201)?FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f)):
             FTransform(FQuat(FVector::UpVector,-PI*.5f),AKM?FVector(.0008f,-.083f,.035f):FVector(0,-.0385f,.0725f),FVector(.01f));
         if(CheekRest)StockMount=ASHCheekRestMount(Asset);
         StockAttachment->SetRelativeTransform(StockMount);

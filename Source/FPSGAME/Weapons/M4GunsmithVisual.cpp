@@ -1,6 +1,7 @@
 #include "LMG201WeaponAssets.h"
 #include "HK416WeaponAssets.h"
 #include "HK416Attachments.h"
+#include "CommonHK416Parts.h"
 #include "../FPSGAMECharacter.h"
 #include "Bow/BowWeaponComponent.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
@@ -28,15 +29,48 @@ void AFPSGAMECharacter::SetGunsmithOptic(bool bHolographic)
 }
 void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
 {
+    if (Variant == CommonHK416Parts::Optic)
+    {
+        if (!bInventoryWeaponReady) { SetGunsmithOpticVariant(TEXT("false")); return; }
+        if (OpticVariant == Variant && bHolographicOptic && HolographicOptic && HolographicOptic->GetStaticMesh())
+        {
+            HolographicOptic->SetVisibility(true);
+            if (IsHK416Weapon()) HK416Attachments::FactorySections(AKMViewmodel,TEXT("FactorySights"),false);
+            return;
+        }
+        auto* EOTHMesh = LoadObject<UStaticMesh>(nullptr, *CommonHK416Parts::MeshPath(ActiveInventoryWeaponDefinition, Variant));
+        if (!EOTHMesh) { UE_LOG(LogTemp, Error, TEXT("EOTH: missing fitted optic for %s"), *ActiveInventoryWeaponDefinition); return; }
+        // Reuse the host's accepted attachment bone, rail, folding-sight and
+        // factory-section rules. Only the independent optical assembly changes.
+        SetGunsmithOpticVariant(CommonHK416Parts::OpticInterface(ActiveInventoryWeaponDefinition));
+        if (!bHolographicOptic || !HolographicOptic) return;
+        HolographicOptic->EmptyOverrideMaterials();
+        HolographicOptic->SetStaticMesh(EOTHMesh);
+        OpticVariant = Variant; LPVOMagnification = 1.f; bSightCalibrated = false;
+        return;
+    }
     if (IsHK416Weapon())
     {
-        const bool Enabled=bInventoryWeaponReady&&Variant==TEXT("holographic");
-        HolographicOptic=HK416Attachments::Configure(this,AKMViewmodel,HolographicOptic,TEXT("holographic"),Enabled);
+        const bool Enabled=bInventoryWeaponReady&&(Variant==TEXT("holographic")||Variant==TEXT("panoramic_red_dot")||Variant==TEXT("prism_scope_2x")||Variant==TEXT("lpvo_1_6x"));
+        HolographicOptic=HK416Attachments::Configure(this,AKMViewmodel,HolographicOptic,Variant,Enabled);
+        // The fixed front/rear sights are a separate skinned section. Apply
+        // the same state for held weapons, gunsmith drafts, icons and pickups.
+        HK416Attachments::FactorySections(AKMViewmodel,TEXT("FactorySights"),!Enabled);
         if (AKMOpticBridge) AKMOpticBridge->SetVisibility(false);
         if (LPVORing) LPVORing->SetVisibility(false);
         if (bHolographicOptic!=Enabled||OpticVariant!=Variant) bSightCalibrated=false;
-        bHolographicOptic=Enabled;OpticVariant=Enabled?Variant:FString();LPVOMagnification=1.f;
+        if (OpticVariant!=Variant) LPVOMagnification=1.f;
+        bHolographicOptic=Enabled;OpticVariant=Enabled?Variant:FString();
         if (HolographicOptic) HolographicMount=HolographicOptic->GetRelativeTransform();
+        if (Enabled&&Variant==TEXT("lpvo_1_6x"))
+        {
+            LPVORing=HK416Attachments::Configure(this,AKMViewmodel,LPVORing,TEXT("lpvo_ring"),true);
+            if (LPVORing)
+            {
+                LPVORing->AttachToComponent(HolographicOptic,FAttachmentTransformRules::KeepRelativeTransform,TEXT("ZoomRing"));
+                LPVORing->SetRelativeTransform(FTransform(FRotator(0,0,(LPVOMagnification-1.f)*24.f)));
+            }
+        }
         return;
     }
 
@@ -216,7 +250,7 @@ FVector AFPSGAMECharacter::HolographicAimPoint() const
 }
 FVector AFPSGAMECharacter::OpticLocalAimPoint() const
 {
-    if (IsHK416Weapon() && HolographicOptic && HolographicOptic->GetStaticMesh())
+    if ((IsHK416Weapon() || OpticVariant == CommonHK416Parts::Optic) && HolographicOptic && HolographicOptic->GetStaticMesh())
         if (const auto* Center = HolographicOptic->GetStaticMesh()->FindSocket(TEXT("SightRear")))
             return Center->RelativeLocation;
     if ((bUseDanWesson715 || OpticVariant==PSO1AttachmentAssets::Variant) && HolographicOptic && HolographicOptic->GetStaticMesh())

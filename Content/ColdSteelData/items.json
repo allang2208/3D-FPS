@@ -3513,6 +3513,10 @@
     "type": "武器",
     "weaponType": "rifle",
     "weaponTypeTag": "突击步枪",
-    "ue_icon": "Icons/ue_hk416.png"
+    "ue_icon": "Icons/ue_hk416.png",
+    "gunsmith_parts": {
+      "stock": "hk416_stock",
+      "reargrip": "hk416_reargrip"
+    }
   }
 }

@@ -5,6 +5,7 @@
 #include "FPSGunplayAnimInstance.generated.h"
 
 class UAnimSequence;
+class UWeaponGripProfile;
 
 // Local first-person presentation. Gameplay owns the clock; the graph only blends poses.
 UCLASS(Transient)
@@ -38,6 +39,8 @@ public:
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> GripAimBase;
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> GripAimFamily;
     bool bGripIdle=false,bGripAim=false,bGripSprint=false,bGripAction=false,bGripActionAim=false;
+    // Compact authored corrections; one attachment family shared by all source channels.
+    UPROPERTY(Transient) TObjectPtr<UWeaponGripProfile> GripProfile;
 protected:
     virtual FAnimInstanceProxy* CreateAnimInstanceProxy() override;
     virtual void DestroyAnimInstanceProxy(FAnimInstanceProxy* Proxy) override;

@@ -1,5 +1,6 @@
 #include "FPSGAMECharacter.h"
 #include "Weapons/HK416WeaponAssets.h"
+#include "Weapons/WeaponGripProfile.h"
 #include "Weapons/HK416Attachments.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/StaticMeshSocket.h"
@@ -29,6 +30,7 @@
 #include "WorldGeneration/GrassDeform/GrassFootstepFeedbackComponent.h"
 #include "Weapons/QuickCombatRecovery.h"
 #include "Weapons/RifleReloadRecovery.h"
+#include "Weapons/RifleReloadHandoff.h"
 #include "Skills/FPSCastingMeshComponent.h"
 #include "Perception/AISense_Hearing.h"
 #include "Weapons/AKMSovietCalibration.h"
@@ -362,6 +364,7 @@ void AFPSGAMECharacter::BeginPlay()
 
 void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
 {
+    RifleHipFraming = FRifleHipFraming();
     bWeaponVisualPartsApplied=false;
     // Reset per-weapon trigger semantics here, not inside a weapon branch: the branches only
     // assign their own weapon, so a flag set by the SVD would otherwise stick to every weapon
@@ -525,6 +528,10 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
         LMG201WeaponAssets::SetMagazineSections(AKMViewmodel,LMG201FeedVisibility);
     }
     IdleAnimation = LoadAKMAnimation(TEXT("A_AKM_idle"));
+    RifleHipFraming.Initialize(ActiveInventoryWeaponDefinition, IdleAnimation,
+        M4HipViewmodelLocation, GetViewmodelBaseRotation(), ViewmodelScale, AKMSoviet::Matches(AKMViewmodel));
+    AKMViewmodel->SetRelativeLocation(RifleHipFraming.Location(HipViewmodelLocation));
+    AKMViewmodel->SetRelativeRotation(RifleHipFraming.Rotation(GetViewmodelBaseRotation().Quaternion()));
     if (bPresentationOnly)
     {
         // Callers pose the preview explicitly. No combat clips, grip families, audio or FX are needed.
@@ -536,8 +543,8 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
     AimFireAnimation = LoadAKMAnimation(TEXT("A_AKM_aim_fire"));
     ReloadAnimation = LoadAKMAnimation(TEXT("A_AKM_reload"));
     ReloadEmptyAnimation = LoadAKMAnimation(TEXT("A_AKM_reload_empty"));
-    DrumReloadAnimation=(IsHK416Weapon()||SVDWeaponAssets::Matches(AKMViewmodel))?nullptr:LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload"));
-    DrumReloadEmptyAnimation=(IsHK416Weapon()||SVDWeaponAssets::Matches(AKMViewmodel))?nullptr:LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty"));
+    DrumReloadAnimation=IsHK416Weapon()?LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(TEXT("drum_reload"))):SVDWeaponAssets::Matches(AKMViewmodel)?nullptr:LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload"));
+    DrumReloadEmptyAnimation=IsHK416Weapon()?LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(TEXT("drum_reload_empty"))):SVDWeaponAssets::Matches(AKMViewmodel)?nullptr:LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty"));
     if(AKMSoviet::Matches(AKMViewmodel)){
         ReloadAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload"));
         ReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload_empty"));
@@ -558,7 +565,16 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
     if(bUseM1911 && DualPistols)DualPistols->PrepareSingleInspect();
     if (bUsingReplacement) EquipAnimation = LoadAKMAnimation(TEXT("A_AKM_equip"));
     DrumSupportAnimations.Reset();
-    if (bUsingM4Infima && !IsHK416Weapon() && !bUseQBZ191 && !bUseM16 && !IsPistolWeapon() && !SVDWeaponAssets::Matches(AKMViewmodel) && !PKMLowpolyWeaponAssets::Matches(AKMViewmodel))
+    WeaponGripProfiles.Reset();
+    const bool bSharedDrum=InitializeWeaponGripFamily(TEXT("drum"),DrumSupportAnimations);
+    if(!bSharedDrum && IsHK416Weapon())
+    {
+        const TPair<UAnimSequence*,const TCHAR*> Support[]={{IdleAnimation,TEXT("idle")},{AimAnimation,TEXT("aim")},{FireAnimation,TEXT("fire")},{AimFireAnimation,TEXT("aim_fire")},{EquipAnimation,TEXT("equip_charge")},{InspectAnimation,TEXT("inspect")}};
+        for(const auto& Pair:Support)if(Pair.Key)
+            if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(Pair.Value,TEXT("drum"))))DrumSupportAnimations.Add(Pair.Key,Clip);
+    }
+
+    if (!bSharedDrum && bUsingM4Infima && !IsHK416Weapon() && !bUseQBZ191 && !bUseM16 && !IsPistolWeapon() && !SVDWeaponAssets::Matches(AKMViewmodel) && !PKMLowpolyWeaponAssets::Matches(AKMViewmodel))
         for (UAnimSequence* Base : {IdleAnimation.Get(), AimAnimation.Get(), FireAnimation.Get(), AimFireAnimation.Get(), EquipAnimation.Get()})
             if (Base)
             {
@@ -572,7 +588,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
         DrumReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,*A762Attachments::AnimationPath(TEXT("base"),TEXT("drum_reload_empty")));
     }
     ForegripAnimations.Reset(); PrismGripAnimations.Reset(); VerticalGripAnimations.Reset(); CantedGripAnimations.Reset();
-    if (bUseM16)
+    if (!bSharedDrum && bUseM16)
     {
         const TPair<UAnimSequence*,const TCHAR*> Support[]={{IdleAnimation,TEXT("idle")},{AimAnimation,TEXT("aim")},
             {FireAnimation,TEXT("fire")},{AimFireAnimation,TEXT("aim_fire")},{EquipAnimation,TEXT("equip")},{InspectAnimation,TEXT("inspect")}};
@@ -583,16 +599,9 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
     }
     if (!IsPistolWeapon())
     {
-        if (!IsHK416Weapon())
-        {
-            InitializeForegripAnimations();
-            InitializePrismGripAnimations();
-            InitializeCantedGripAnimations();
-        }
-        else
-        {
-            ForegripAnimations.Reset();PrismGripAnimations.Reset();CantedGripAnimations.Reset();
-        }
+        InitializeForegripAnimations();
+        InitializePrismGripAnimations();
+        InitializeCantedGripAnimations();
         InitializeVerticalGripAnimations();
     }
     PistolIdleEmptyAnimation = bUseM1911 ? LoadAKMAnimation(TEXT("A_AKM_idle_empty")) : nullptr;
@@ -1443,7 +1452,13 @@ EM4SprintGrip AFPSGAMECharacter::ResolveRifleGripProfile() const
 
 UAnimSequence* AFPSGAMECharacter::RifleQuickCombatClip(EM4SprintGrip Grip)
 {
-    if (IsHK416Weapon()) return LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(TEXT("quick_melee"),Grip==EM4SprintGrip::Vertical?TEXT("vertical"):TEXT("base")));
+    if(const auto* Profile=WeaponGripProfileFor(Grip))
+        if(const auto* Layer=Profile->FindAction(TEXT("quick_melee")))return Layer->Playback();
+    if (IsHK416Weapon())
+    {
+        const TCHAR* Family=Grip==EM4SprintGrip::Vertical?TEXT("vertical"):Grip==EM4SprintGrip::Angled?TEXT("angled"):Grip==EM4SprintGrip::Canted?TEXT("canted"):Grip==EM4SprintGrip::Prism?TEXT("prism"):Grip==EM4SprintGrip::Drum?TEXT("drum"):TEXT("base");
+        return LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(TEXT("quick_melee"),Family));
+    }
     if(LMG201WeaponAssets::Matches(AKMViewmodel))
     {
         const TCHAR* Families[]={TEXT("base"),TEXT("base"),TEXT("angled"),TEXT("vertical"),TEXT("canted"),TEXT("prism")};
@@ -1452,6 +1467,7 @@ UAnimSequence* AFPSGAMECharacter::RifleQuickCombatClip(EM4SprintGrip Grip)
     }
     if(SVDWeaponAssets::Matches(AKMViewmodel))
     {
+        if(const auto* Profile=WeaponGripProfileFor(Grip);Profile&&Profile->Find(QuickCombatAnimation))return QuickCombatAnimation.Get();
         const TCHAR* Families[]={TEXT("base"),TEXT("base"),TEXT("angled"),TEXT("vertical"),TEXT("canted"),TEXT("prism")};
         const int32 Index=static_cast<int32>(Grip);
         return Index>1&&Index<UE_ARRAY_COUNT(Families)?LoadObject<UAnimSequence>(nullptr,*SVDAttachments::AnimationPath(Families[Index],TEXT("quick_melee"))):QuickCombatAnimation.Get();
@@ -1959,7 +1975,7 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     // this weapon's hip anchor and must not visit the centered action framing.
     const bool bPKMReloadFraming = PKMLowpolyWeaponAssets::Matches(AKMViewmodel);
     const bool bClothReloadFraming=HasLMG201ClothBox()&&IsReloading();
-    const bool bUseActionFraming = (bUsingM4Infima||bClothReloadFraming)
+    const bool bUseActionFraming = (bUsingM4Infima||bClothReloadFraming||RifleHipFraming.IsReady())
         && !IsPistolWeapon() && !IsTraversing() && IsWeaponBusy() && WeaponState != EAKMWeaponState::Equipping;
     float ActionFramingTarget = bUseActionFraming ? 1.0f : 0.0f;
     if(!QuickCombatPistol||!QuickCombatPistol->IsImpactPaused())
@@ -1980,7 +1996,18 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
             /(LMG201WeaponAssets::ClothDuration-LMG201WeaponAssets::ClothEventTime(
                 LMG201WeaponAssets::ClothReturnStart,bPendingEmptyReload)),0.f,1.f));
     }
-    else if ((SVDWeaponAssets::Matches(AKMViewmodel) || bPKMReloadFraming)
+    else if (RifleReloadHandoff::Supports(ActiveInventoryWeaponDefinition)
+        && IsReloading() && ActiveActionAnimation)
+    {
+        // The calibrated hip location AND rotation must be reached before the
+        // state ends. Use the mapped end, not clip length: M4/HK416 drums keep
+        // their nonlinear source clock. Do not filter this recovery weight.
+        const auto Handoff = RifleReloadHandoff::ForWeapon(ActiveInventoryWeaponDefinition,
+            bPendingEmptyReload, bDrumInstalled, ReloadSourceTime(WeaponStateDuration));
+        M4ActionFramingAlpha = FMath::Min(M4ActionFramingAlpha,
+            Handoff.FramingWeight(ReloadSourceTime(WeaponStateElapsed)));
+    }
+    else if (bPKMReloadFraming
         && IsReloading() && ActiveActionAnimation)
     {
         // Recover the gun and both hands' component anchor during the existing
@@ -1991,28 +2018,6 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
         M4ActionFramingAlpha = FMath::Min(M4ActionFramingAlpha,
             RifleReloadRecovery::RemainingWeight(ReloadSourceTime(WeaponStateElapsed),
                 ActiveActionAnimation->GetPlayLength(), ReturnSeconds));
-    }
-    else if (bUseQBZ191 && WeaponState == EAKMWeaponState::Reloading && ActiveActionAnimation)
-    {
-        // The normal return brings the right shoulder sleeve next to the eye
-        // while the old centered action anchor stays 10 cm forward. Return
-        // the complete gun/arms anchor after seating, on the same source clock.
-        M4ActionFramingAlpha = FMath::Min(M4ActionFramingAlpha,
-            RifleReloadRecovery::RemainingWeight(ReloadSourceTime(WeaponStateElapsed),
-                ActiveActionAnimation->GetPlayLength(), RifleReloadRecovery::QBZ191NormalReturnSeconds));
-    }
-    else if (bUseM16 && IsReloading() && ActiveActionAnimation)
-    {
-        // The M16 pose already ends at idle. Return the component anchor in
-        // that same authored tail, rather than starting a filtered correction
-        // after FinishReload. Empty reload keeps its charging-handle contact
-        // through source frame 143; normal reload recovers from frame 108.
-        const float ReturnSeconds = WeaponState == EAKMWeaponState::ReloadingEmpty
-            ? 19.f / 60.f : 18.f / 60.f;
-        const float RemainingSourceSeconds = ActiveActionAnimation->GetPlayLength()
-            - ReloadSourceTime(WeaponStateElapsed);
-        M4ActionFramingAlpha = FMath::Min(M4ActionFramingAlpha,
-            FMath::Clamp(RemainingSourceSeconds / ReturnSeconds, 0.f, 1.f));
     }
     else if (QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand())
     {
@@ -2126,9 +2131,10 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     NearWallAlpha = FMath::Lerp(NearWallAlpha, WallTarget, 1.0f - FMath::Exp(-12.0f * DeltaSeconds));
     const FVector ADSTarget = bSightCalibrated ? CalibratedADSLocation : ADSViewmodelLocation;
     // Standard magazine and drum share the same camera-space framing.
-    const FVector HipLocation = HipViewmodelLocation;
-    const FVector ActionLocation = M4ActionViewmodelLocation;
-    const FVector HipFraming = (bUsingM4Infima||bClothReloadFraming)
+    const FVector HipLocation = RifleHipFraming.Location(HipViewmodelLocation);
+    // Keep each existing action's working space; AKM/A762 previously used their hip anchor.
+    const FVector ActionLocation = (bUsingM4Infima||bClothReloadFraming) ? M4ActionViewmodelLocation : HipViewmodelLocation;
+    const FVector HipFraming = (bUsingM4Infima||bClothReloadFraming||RifleHipFraming.IsReady())
         ? FMath::Lerp(HipLocation, ActionLocation, M4ActionFramingAlpha)
         : HipLocation;
     FVector TargetLocation = FMath::Lerp(HipFraming + UEHipPose + SprintOffset, ADSTarget + UEADSRecoil, WeaponADSFactor);
@@ -2147,7 +2153,9 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     ADSKickAngles = ADSKickAngles.GetClampedToMaxSize(0.025f) * VisualRecoilScale * RecoilProfile.ADSRotationScale * ScopeConvergence
         + ClipADSRotation * ScopeConvergence;
     const FVector GodotAngles = HipAngles + (WeaponBobRotation + WeaponSwayRotation + FVector(0.39f * LegacySprint, 0.0f, 0.0f)) * Suppress * BipodMotion + ClipRotation;
-    const FRotator BaseRotation = GetViewmodelBaseRotation();
+    const FRotator BaseRotation = RifleHipFraming.IsReady() ? FQuat::Slerp(
+        RifleHipFraming.Rotation(GetViewmodelBaseRotation().Quaternion()),
+        GetViewmodelBaseRotation().Quaternion(), M4ActionFramingAlpha).Rotator() : GetViewmodelBaseRotation();
     const FRotator HipRotation(BaseRotation.Pitch + FMath::RadiansToDegrees(GodotAngles.X), BaseRotation.Yaw - FMath::RadiansToDegrees(GodotAngles.Y), BaseRotation.Roll - FMath::RadiansToDegrees(GodotAngles.Z));
     // Premultiply in camera space: adding pitch to a mesh already yawed 90 degrees
     // rotates about the wrong axis and fails to raise the muzzle.
@@ -2643,8 +2651,8 @@ void AFPSGAMECharacter::StartEquipCharge()
     ResetPistolLocomotion();
     ResetRifleLocomotion();
     WeaponBobPosition = WeaponBobRotation = FVector::ZeroVector;
-    AKMViewmodel->SetRelativeLocation(HipViewmodelLocation);
-    AKMViewmodel->SetRelativeRotation(GetViewmodelBaseRotation());
+    AKMViewmodel->SetRelativeLocation(RifleHipFraming.Location(HipViewmodelLocation));
+    AKMViewmodel->SetRelativeRotation(RifleHipFraming.Rotation(GetViewmodelBaseRotation().Quaternion()));
     if (GunplayAnimation)
     {
         GunplayAnimation->AimAlpha = 0.0f;
@@ -2715,7 +2723,7 @@ void AFPSGAMECharacter::FinishWeaponAction()
     PendingAmmoType.Reset();PendingAmmoWeapon.Reset();
     bReloadAmmoCommitted=bReloadCycleOnly=false;ReloadResumeElapsed=0.f;
     const bool bFinishedQuickCombat = WeaponState == EAKMWeaponState::QuickCombat;
-    const bool bFinishedRifleReload = (bUseM16
+    const bool bFinishedRifleReload = (RifleReloadHandoff::Supports(ActiveInventoryWeaponDefinition) || bUseM16
         || (bUseQBZ191 && WeaponState == EAKMWeaponState::Reloading) || SVDWeaponAssets::Matches(AKMViewmodel)
         || PKMLowpolyWeaponAssets::Matches(AKMViewmodel)||HasLMG201ClothBox()) && IsReloading();
     const double CompletedAt = bFinishedQuickCombat && bUseASH12
@@ -3250,7 +3258,7 @@ void AFPSGAMECharacter::UpdateADSPose()
             Root=Root*Local;
         }
         const FTransform Mount=HolographicMount*Root;
-        if (IsHK416Weapon() && HolographicOptic && HolographicOptic->GetStaticMesh())
+        if ((IsHK416Weapon() || OpticVariant == TEXT("eoth_holographic")) && HolographicOptic && HolographicOptic->GetStaticMesh())
         {
             const UStaticMesh* OpticMesh=HolographicOptic->GetStaticMesh();
             const auto* R=OpticMesh->FindSocket(TEXT("SightRear"));
@@ -3376,6 +3384,7 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
 {
     if(IsDualWieldingPistols())return;
     if (!GunplayAnimation) return;
+    GunplayAnimation->GripProfile=WeaponGripProfileFor(ResolveRifleGripProfile());
     const bool bPKMWeapon = PKMLowpolyWeaponAssets::Matches(AKMViewmodel);
     const bool bPKMFeedAction = bPKMWeapon && ActiveActionAnimation
         && (ActiveActionAnimation == FireAnimation || ActiveActionAnimation == AimFireAnimation);
@@ -3438,6 +3447,7 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
     const bool PistolEmpty = bUseM1911 && !bPistolWorkbench && (MagazineAmmo == 0 || NeedsReloadCycle())
         && (!IsReloading() || ReloadSourceTime(WeaponStateElapsed) < M1911Source::SlideRelease);
     GunplayAnimation->IdleClip=PistolEmpty ? PistolIdleEmptyAnimation.Get() : DrumPose(IdleAnimation);
+    RifleHipFraming.SelectIdle(GunplayAnimation->IdleClip,GunplayAnimation->GripProfile);
     GunplayAnimation->AimClip=PistolEmpty ? PistolAimEmptyAnimation.Get() : DrumPose(AimAnimation);
     GunplayAnimation->BaseTime = FeedbackTime;
     GunplayAnimation->AimAlpha = WeaponADSFactor;
@@ -3470,13 +3480,15 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
             : FMath::Clamp((ActionDuration - ActionElapsed) / BlendOut, 0.0f, 1.0f);
         GunplayAnimation->ActionClip = DrumPose(ActiveActionAnimation);
         GunplayAnimation->ActionAlpha = FMath::Min(In, Out);
-        if (SVDWeaponAssets::Matches(AKMViewmodel) && IsReloading())
+        if (RifleReloadHandoff::Supports(ActiveInventoryWeaponDefinition) && IsReloading())
         {
-            // The final idle handoff shares the source clock and has a soft
-            // start/stop. It cannot reach back into the charging-handle grasp.
+            // Share the framing's source clock/end without shortening the
+            // authored hand-return arc. IdleClip/GripIdle already select the
+            // installed grip and magazine; BaseTime keeps breathing continuous.
+            const auto Handoff = RifleReloadHandoff::ForWeapon(ActiveInventoryWeaponDefinition,
+                bPendingEmptyReload, bDrumInstalled, ReloadSourceTime(WeaponStateDuration));
             GunplayAnimation->ActionAlpha = FMath::Min(In,
-                RifleReloadRecovery::RemainingWeight(ReloadSourceTime(WeaponStateElapsed),
-                    ActiveActionAnimation->GetPlayLength(), .10f));
+                Handoff.PoseWeight(ReloadSourceTime(WeaponStateElapsed)));
         }
         // Both prop sets have different parked poses. Fade only into the reload;
         // its authored grip return hands off to idle without blending props through the gun.

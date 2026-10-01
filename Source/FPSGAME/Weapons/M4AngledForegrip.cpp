@@ -1,3 +1,5 @@
+#include "HK416Attachments.h"
+#include "HK416WeaponAssets.h"
 #include "LMG201Attachments.h"
 #include "../FPSGAMECharacter.h"
 #include "A762Attachments.h"
@@ -17,6 +19,15 @@
 void AFPSGAMECharacter::InitializeForegripAnimations()
 {
     ForegripAnimations.Reset();
+    if(InitializeWeaponGripFamily(TEXT("angled"),ForegripAnimations))return;
+    if(IsHK416Weapon())
+    {
+        const TPair<UAnimSequence*,const TCHAR*> Clips[]={{IdleAnimation,TEXT("idle")},{AimAnimation,TEXT("aim")},{FireAnimation,TEXT("fire")},{AimFireAnimation,TEXT("aim_fire")},{EquipAnimation,TEXT("equip_charge")},{ReloadAnimation,TEXT("reload")},{ReloadEmptyAnimation,TEXT("reload_empty")},{DrumReloadAnimation,TEXT("drum_reload")},{DrumReloadEmptyAnimation,TEXT("drum_reload_empty")},{InspectAnimation,TEXT("inspect")}};
+        for(const auto& Pair:Clips) if(Pair.Key)
+            if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(Pair.Value,TEXT("angled")))) ForegripAnimations.Add(Pair.Key,Clip);
+        return;
+    }
+
     if(LMG201WeaponAssets::Matches(AKMViewmodel)){LMG201Attachments::LoadGripFamily(TEXT("angled"),ForegripAnimations);return;}
     if(!bUsingM4Infima&&!AKMSoviet::Matches(AKMViewmodel)&&!A762WeaponAssets::Matches(AKMViewmodel)&&!PKMLowpolyWeaponAssets::Matches(AKMViewmodel))return;
     const TPair<UAnimSequence*,const TCHAR*> Clips[]={
@@ -41,6 +52,7 @@ void AFPSGAMECharacter::InitializeForegripAnimations()
 
 void AFPSGAMECharacter::SetAngledForegrip(bool bEnabled)
 {
+    if(IsHK416Weapon()){AngledForegrip=HK416Attachments::Configure(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bEnabled&&bInventoryWeaponReady);return;}
     if(SVDWeaponAssets::Matches(AKMViewmodel)){AngledForegrip=SVDAttachments::Configure(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bEnabled&&bInventoryWeaponReady);return;}
     if(LMG201WeaponAssets::Matches(AKMViewmodel)){AngledForegrip=LMG201Attachments::Configure(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bEnabled&&bInventoryWeaponReady);return;}
     if(PKMLowpolyWeaponAssets::Matches(AKMViewmodel)){AngledForegrip=PKMAttachments::Configure(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bEnabled&&bInventoryWeaponReady);return;}

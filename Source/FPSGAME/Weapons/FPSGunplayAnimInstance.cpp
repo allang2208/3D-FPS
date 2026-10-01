@@ -8,6 +8,8 @@
 #include "PistolDualAimNode.h"
 #include "SteelGauntletPoseNode.h"
 #include "GripPoseLayer.h"
+#include "WeaponGripProfile.h"
+#include "WeaponGripProfileNode.h"
 
 // Apply cartridge visibility after blending so a partially loaded cylinder
 // never gains live rounds from the idle pose. Baked extraction stays intact.
@@ -69,21 +71,27 @@ struct FFPSGunplayAnimProxy : FAnimInstanceProxy
     FSteelGauntletPoseNode SteelGauntletPose;
     // GripLayer56: one layer per channel, before the channels are blended.
     FGripPoseLayerNode IdleGrip, SprintGrip, AimGrip, ActionGrip;
+    FWeaponGripProfileNode IdleProfile, AimProfile, ActionProfile, SprintProfile, SprintLoopProfile;
 
     explicit FFPSGunplayAnimProxy(UAnimInstance* Instance) : FAnimInstanceProxy(Instance)
     {
         IdleGrip.Source.SetLinkNode(&Idle);
-        SprintBlend.A.SetLinkNode(&IdleGrip);
-        SprintMotionBlend.A.SetLinkNode(&Sprint);
-        SprintMotionBlend.B.SetLinkNode(&SprintLoop);
+        IdleProfile.Source.SetLinkNode(&IdleGrip);
+        SprintBlend.A.SetLinkNode(&IdleProfile);
+        SprintProfile.Source.SetLinkNode(&Sprint);
+        SprintLoopProfile.Source.SetLinkNode(&SprintLoop);
+        SprintMotionBlend.A.SetLinkNode(&SprintProfile);
+        SprintMotionBlend.B.SetLinkNode(&SprintLoopProfile);
         SprintGrip.Source.SetLinkNode(&SprintMotionBlend);
         SprintBlend.B.SetLinkNode(&SprintGrip);
         AimBlend.A.SetLinkNode(&SprintBlend);
         AimGrip.Source.SetLinkNode(&Aim);
-        AimBlend.B.SetLinkNode(&AimGrip);
+        AimProfile.Source.SetLinkNode(&AimGrip);
+        AimBlend.B.SetLinkNode(&AimProfile);
         ActionBlend.A.SetLinkNode(&AimBlend);
         ActionGrip.Source.SetLinkNode(&Action);
-        ActionBlend.B.SetLinkNode(&ActionGrip);
+        ActionProfile.Source.SetLinkNode(&ActionGrip);
+        ActionBlend.B.SetLinkNode(&ActionProfile);
         CartridgePose.Source.SetLinkNode(&ActionBlend);
         DualAim.Source.SetLinkNode(&CartridgePose);
         DualAim.Reference.SetLinkNode(&DualAimReference);
@@ -94,7 +102,8 @@ struct FFPSGunplayAnimProxy : FAnimInstanceProxy
     virtual void GetCustomNodes(TArray<FAnimNode_Base*>& Nodes) override
     {
         Nodes.Append({&Idle, &Sprint, &SprintLoop, &SprintMotionBlend, &SprintBlend, &Aim, &Action, &AimBlend, &ActionBlend, &CartridgePose, &DualAimReference, &DualAim, &SteelGauntletPose,
-            &IdleGrip, &SprintGrip, &AimGrip, &ActionGrip});
+            &IdleGrip, &SprintGrip, &AimGrip, &ActionGrip,
+            &IdleProfile, &AimProfile, &ActionProfile, &SprintProfile, &SprintLoopProfile});
     }
     virtual void PreUpdate(UAnimInstance* Instance, float DeltaSeconds) override
     {
@@ -140,6 +149,15 @@ struct FFPSGunplayAnimProxy : FAnimInstanceProxy
         Grip(AimGrip, Data->bGripAim, Data->GripAimBase, Data->GripAimFamily, Data->AimClip);
         Grip(ActionGrip, Data->bGripAction, Data->bGripActionAim ? Data->GripAimBase : Data->GripIdleBase,
             Data->bGripActionAim ? Data->GripAimFamily : Data->GripIdleFamily, Data->ActionClip);
+        const auto Profile=[Data](FWeaponGripProfileNode& Node,UAnimSequence* Clip,float Time)
+        {
+            Node.Profile=Data->GripProfile;Node.Clip=Clip;Node.Time=Time;
+        };
+        Profile(IdleProfile,Data->IdleClip,LoopTime(Data->IdleClip,Data->BaseTime));
+        Profile(AimProfile,Data->AimClip?Data->AimClip:Data->IdleClip,0.f);
+        Profile(ActionProfile,Data->ActionClip?Data->ActionClip:Data->IdleClip,Data->ActionTime);
+        Profile(SprintProfile,Data->SprintClip?Data->SprintClip:Data->IdleClip,Data->SprintTime);
+        Profile(SprintLoopProfile,Data->SprintLoopClip?Data->SprintLoopClip:Data->IdleClip,Data->SprintLoopTime);
         SteelGauntletPose.Configure(*Data);
     }
 };

@@ -330,6 +330,21 @@
               "ads_percent": 0.1
             }
           }
+        ,
+          {
+            "id": "eoth_holographic",
+            "name": "EOTH全息瞄准镜",
+            "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
+            "effects": [
+              {
+                "text": "开镜耗时减少5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05
+            }
+          }
         ],
         "magazine": [
           {
@@ -497,6 +512,41 @@
               "ads_percent": 0.15
             }
           }
+        ,
+          {
+            "id": "multi_caliber_suppressor",
+            "name": "多口径消音器",
+            "description": "通过开放式管口与适配接环连接枪管，减轻开火声与射击扰动。",
+            "effects": [
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              },
+              {
+                "text": "子弹速度降低15%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05,
+              "bullet_speed_mult": 0.85,
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 0.9
+            }
+          }
         ],
         "stock": [
           {
@@ -505,6 +555,25 @@
             "description": "恢复当前枪械的原厂枪托。",
             "effects": [],
             "stats": {}
+          },
+          {
+            "id": "hk416_stock",
+            "name": "416后托",
+            "description": "带缓冲管与贴肩垫的伸缩枪托。",
+            "effects": [
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "hip_spread_mult": 0.9
+            }
           },
           {
             "id": "skeleton",
@@ -610,6 +679,25 @@
             "description": "拆下改造后握把，恢复这把枪的原厂后握把。",
             "effects": [],
             "stats": {}
+          },
+          {
+            "id": "hk416_reargrip",
+            "name": "416后握",
+            "description": "带防滑纹理的聚合物后握把。",
+            "effects": [
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "hip_spread_mult": 0.9
+            }
           },
           {
             "id": "phantom_reargrip",
@@ -959,6 +1047,21 @@
             ],
             "stats": {}
           }
+        ,
+          {
+            "id": "eoth_holographic",
+            "name": "EOTH全息瞄准镜",
+            "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
+            "effects": [
+              {
+                "text": "开镜耗时减少5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05
+            }
+          }
         ],
         "magazine": [
           {
@@ -1124,6 +1227,41 @@
               "recoil_mult": 0.7,
               "stability_mult": 1.2,
               "ads_percent": 0.15
+            }
+          }
+        ,
+          {
+            "id": "multi_caliber_suppressor",
+            "name": "多口径消音器",
+            "description": "通过开放式管口与适配接环连接枪管，减轻开火声与射击扰动。",
+            "effects": [
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              },
+              {
+                "text": "子弹速度降低15%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05,
+              "bullet_speed_mult": 0.85,
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 0.9
             }
           }
         ],
@@ -1576,6 +1714,21 @@
               "ads_percent": 0.1
             }
           }
+        ,
+          {
+            "id": "eoth_holographic",
+            "name": "EOTH全息瞄准镜",
+            "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
+            "effects": [
+              {
+                "text": "开镜耗时减少5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05
+            }
+          }
         ],
         "magazine": [
           {
@@ -1743,6 +1896,41 @@
               "ads_percent": 0.15
             }
           }
+        ,
+          {
+            "id": "multi_caliber_suppressor",
+            "name": "多口径消音器",
+            "description": "通过开放式管口与适配接环连接枪管，减轻开火声与射击扰动。",
+            "effects": [
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              },
+              {
+                "text": "子弹速度降低15%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05,
+              "bullet_speed_mult": 0.85,
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 0.9
+            }
+          }
         ],
         "stock": [
           {
@@ -1751,6 +1939,25 @@
             "description": "恢复当前枪械的原厂枪托。",
             "effects": [],
             "stats": {}
+          },
+          {
+            "id": "hk416_stock",
+            "name": "416后托",
+            "description": "带缓冲管与贴肩垫的伸缩枪托。",
+            "effects": [
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "hip_spread_mult": 0.9
+            }
           },
           {
             "id": "skeleton",
@@ -1856,6 +2063,25 @@
             "description": "拆下改造后握把，恢复这把枪的原厂后握把。",
             "effects": [],
             "stats": {}
+          },
+          {
+            "id": "hk416_reargrip",
+            "name": "416后握",
+            "description": "带防滑纹理的聚合物后握把。",
+            "effects": [
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "hip_spread_mult": 0.9
+            }
           },
           {
             "id": "phantom_reargrip",
@@ -2075,6 +2301,21 @@
             ],
             "stats": {}
           }
+        ,
+          {
+            "id": "eoth_holographic",
+            "name": "EOTH全息瞄准镜",
+            "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
+            "effects": [
+              {
+                "text": "开镜耗时减少5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05
+            }
+          }
         ],
         "muzzle": [
           {
@@ -2159,6 +2400,41 @@
               "recoil_mult": 0.85,
               "stability_mult": 1.15,
               "ads_percent": 0.1
+            }
+          }
+        ,
+          {
+            "id": "multi_caliber_suppressor",
+            "name": "多口径消音器",
+            "description": "通过开放式管口与适配接环连接枪管，减轻开火声与射击扰动。",
+            "effects": [
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              },
+              {
+                "text": "子弹速度降低15%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05,
+              "bullet_speed_mult": 0.85,
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 0.9
             }
           }
         ],
@@ -2341,6 +2617,21 @@
             ],
             "stats": {}
           }
+        ,
+          {
+            "id": "eoth_holographic",
+            "name": "EOTH全息瞄准镜",
+            "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
+            "effects": [
+              {
+                "text": "开镜耗时减少5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05
+            }
+          }
         ],
         "muzzle": [
           {
@@ -2425,6 +2716,41 @@
               "recoil_mult": 0.85,
               "stability_mult": 1.15,
               "ads_percent": 0.1
+            }
+          }
+        ,
+          {
+            "id": "multi_caliber_suppressor",
+            "name": "多口径消音器",
+            "description": "通过开放式管口与适配接环连接枪管，减轻开火声与射击扰动。",
+            "effects": [
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              },
+              {
+                "text": "子弹速度降低15%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05,
+              "bullet_speed_mult": 0.85,
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 0.9
             }
           }
         ],
@@ -2620,6 +2946,21 @@
               "ads_percent": 0.15
             }
           }
+        ,
+          {
+            "id": "eoth_holographic",
+            "name": "EOTH全息瞄准镜",
+            "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
+            "effects": [
+              {
+                "text": "开镜耗时减少5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05
+            }
+          }
         ],
         "tactical": [
           {
@@ -2797,6 +3138,41 @@
               "ads_percent": 0.1
             }
           }
+        ,
+          {
+            "id": "multi_caliber_suppressor",
+            "name": "多口径消音器",
+            "description": "通过开放式管口与适配接环连接枪管，减轻开火声与射击扰动。",
+            "effects": [
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              },
+              {
+                "text": "子弹速度降低15%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05,
+              "bullet_speed_mult": 0.85,
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 0.9
+            }
+          }
         ]
       },
       "base": {
@@ -2936,6 +3312,21 @@
               "ads_percent": 0.1
             }
           }
+        ,
+          {
+            "id": "eoth_holographic",
+            "name": "EOTH全息瞄准镜",
+            "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
+            "effects": [
+              {
+                "text": "开镜耗时减少5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05
+            }
+          }
         ],
         "magazine": [
           {
@@ -3058,6 +3449,41 @@
               "recoil_mult": 0.75,
               "stability_mult": 1.25,
               "hip_spread_mult": 0.8
+            }
+          }
+        ,
+          {
+            "id": "multi_caliber_suppressor",
+            "name": "多口径消音器",
+            "description": "通过开放式管口与适配接环连接枪管，减轻开火声与射击扰动。",
+            "effects": [
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              },
+              {
+                "text": "子弹速度降低15%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05,
+              "bullet_speed_mult": 0.85,
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 0.9
             }
           }
         ],
@@ -3365,6 +3791,21 @@
               "ads_percent": 0.1
             }
           }
+        ,
+          {
+            "id": "eoth_holographic",
+            "name": "EOTH全息瞄准镜",
+            "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
+            "effects": [
+              {
+                "text": "开镜耗时减少5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05
+            }
+          }
         ],
         "magazine": [
           {
@@ -3532,6 +3973,41 @@
               "ads_percent": 0.15
             }
           }
+        ,
+          {
+            "id": "multi_caliber_suppressor",
+            "name": "多口径消音器",
+            "description": "通过开放式管口与适配接环连接枪管，减轻开火声与射击扰动。",
+            "effects": [
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              },
+              {
+                "text": "子弹速度降低15%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05,
+              "bullet_speed_mult": 0.85,
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 0.9
+            }
+          }
         ],
         "underbarrel": [
           {
@@ -3666,6 +4142,25 @@
             "stats": {}
           },
           {
+            "id": "hk416_stock",
+            "name": "416后托",
+            "description": "带缓冲管与贴肩垫的伸缩枪托。",
+            "effects": [
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "hip_spread_mult": 0.9
+            }
+          },
+          {
             "id": "skeleton",
             "name": "骨架枪托",
             "description": "双管上梁、镂空后架与橡胶抵肩垫，使用对应枪型的安装接口。",
@@ -3769,6 +4264,25 @@
             "description": "保留 M16A2 原厂后握把。",
             "effects": [],
             "stats": {}
+          },
+          {
+            "id": "hk416_reargrip",
+            "name": "416后握",
+            "description": "带防滑纹理的聚合物后握把。",
+            "effects": [
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "hip_spread_mult": 0.9
+            }
           },
           {
             "id": "phantom_reargrip",
@@ -4119,6 +4633,21 @@
             ],
             "stats": {}
           }
+        ,
+          {
+            "id": "eoth_holographic",
+            "name": "EOTH全息瞄准镜",
+            "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
+            "effects": [
+              {
+                "text": "开镜耗时减少5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05
+            }
+          }
         ],
         "magazine": [
           {
@@ -4284,6 +4813,41 @@
               "recoil_mult": 0.7,
               "stability_mult": 1.2,
               "ads_percent": 0.15
+            }
+          }
+        ,
+          {
+            "id": "multi_caliber_suppressor",
+            "name": "多口径消音器",
+            "description": "通过开放式管口与适配接环连接枪管，减轻开火声与射击扰动。",
+            "effects": [
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              },
+              {
+                "text": "子弹速度降低15%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05,
+              "bullet_speed_mult": 0.85,
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 0.9
             }
           }
         ],
@@ -4598,6 +5162,21 @@
               "ads_percent": 0.1
             }
           }
+        ,
+          {
+            "id": "eoth_holographic",
+            "name": "EOTH全息瞄准镜",
+            "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
+            "effects": [
+              {
+                "text": "开镜耗时减少5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05
+            }
+          }
         ],
         "muzzle": [
           {
@@ -4706,6 +5285,41 @@
               "recoil_mult": 0.7,
               "stability_mult": 1.2,
               "ads_percent": 0.15
+            }
+          }
+        ,
+          {
+            "id": "multi_caliber_suppressor",
+            "name": "多口径消音器",
+            "description": "通过开放式管口与适配接环连接枪管，减轻开火声与射击扰动。",
+            "effects": [
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              },
+              {
+                "text": "子弹速度降低15%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05,
+              "bullet_speed_mult": 0.85,
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 0.9
             }
           }
         ],
@@ -5294,6 +5908,21 @@
             ],
             "stats": {}
           }
+        ,
+          {
+            "id": "eoth_holographic",
+            "name": "EOTH全息瞄准镜",
+            "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
+            "effects": [
+              {
+                "text": "开镜耗时减少5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05
+            }
+          }
         ],
         "muzzle": [
           {
@@ -5402,6 +6031,41 @@
               "recoil_mult": 0.7,
               "stability_mult": 1.2,
               "ads_percent": 0.15
+            }
+          }
+        ,
+          {
+            "id": "multi_caliber_suppressor",
+            "name": "多口径消音器",
+            "description": "通过开放式管口与适配接环连接枪管，减轻开火声与射击扰动。",
+            "effects": [
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              },
+              {
+                "text": "子弹速度降低15%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05,
+              "bullet_speed_mult": 0.85,
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 0.9
             }
           }
         ],
@@ -5732,6 +6396,21 @@
               "ads_percent": 0.1
             }
           }
+        ,
+          {
+            "id": "eoth_holographic",
+            "name": "EOTH全息瞄准镜",
+            "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
+            "effects": [
+              {
+                "text": "开镜耗时减少5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05
+            }
+          }
         ],
         "muzzle": [
           {
@@ -5840,6 +6519,41 @@
               "recoil_mult": 0.7,
               "stability_mult": 1.2,
               "ads_percent": 0.15
+            }
+          }
+        ,
+          {
+            "id": "multi_caliber_suppressor",
+            "name": "多口径消音器",
+            "description": "通过开放式管口与适配接环连接枪管，减轻开火声与射击扰动。",
+            "effects": [
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              },
+              {
+                "text": "子弹速度降低15%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05,
+              "bullet_speed_mult": 0.85,
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 0.9
             }
           }
         ],
@@ -6268,7 +6982,10 @@
     "optic",
     "muzzle",
     "underbarrel",
-    "tactical"
+    "tactical",
+    "stock",
+    "reargrip",
+    "magazine"
   ],
   "base": {
     "spread_mult": 2,
@@ -6291,11 +7008,11 @@
     },
     {
       "icon": "neutral",
-      "text": "原厂机械瞄具，支持全息瞄准镜与消音器"
+      "text": "支持通用瞄具、枪口、前握把、枪托、后握把及战术挂件"
     },
     {
       "icon": "neutral",
-      "text": "RVG 垂直握把使用独立握持动作；镭射与手电可选装"
+      "text": "原装、扩容弹匣与弹鼓可选；前握把与弹鼓使用对应握持及换弹动作"
     }
   ],
   "options": {
@@ -6318,6 +7035,60 @@
           }
         ],
         "stats": {}
+      },
+      {
+        "id": "eoth_holographic",
+        "name": "EOTH全息瞄准镜",
+        "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
+        "effects": [
+          {
+            "text": "开镜耗时减少5%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "ads_percent": -0.05
+        }
+      },
+      {
+        "id": "panoramic_red_dot",
+        "name": "全景薄框红点瞄具",
+        "description": "1×宽视窗薄框红点，石墨色阳极氧化壳体、独立镀膜镜片和亮度按键。",
+        "effects": [
+          {
+            "text": "1×红点瞄具；开镜耗时不变",
+            "benefit": 0
+          }
+        ],
+        "stats": {}
+      },
+      {
+        "id": "prism_scope_2x",
+        "name": "紧凑型二倍棱镜瞄具",
+        "description": "固定 2× 放大，短镜筒、镀膜镜片与中心十字分划，配窄导轨底座。",
+        "effects": [
+          {
+            "text": "开镜耗时增加5%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "ads_percent": 0.05
+        }
+      },
+      {
+        "id": "lpvo_1_6x",
+        "name": "1–6× 低倍可变瞄准镜",
+        "description": "长镜筒、双环悬臂座与倍率拨杆；瞄准时滚轮调节 1～6×，每格 0.5×。",
+        "effects": [
+          {
+            "text": "开镜耗时增加10%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "ads_percent": 0.1
+        }
       }
     ],
     "muzzle": [
@@ -6351,6 +7122,93 @@
           "stability_mult": 1.1,
           "bullet_speed_mult": 0.85
         }
+      },
+      {
+        "id": "multi_caliber_suppressor",
+        "name": "多口径消音器",
+        "description": "通过开放式管口与适配接环连接枪管，减轻开火声与射击扰动。",
+        "effects": [
+          {
+            "text": "开镜耗时增加5%",
+            "benefit": -1
+          },
+          {
+            "text": "子弹速度降低15%",
+            "benefit": -1
+          },
+          {
+            "text": "后坐力降低20%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高15%",
+            "benefit": 1
+          },
+          {
+            "text": "腰射随机散布减少10%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "ads_percent": 0.05,
+          "bullet_speed_mult": 0.85,
+          "recoil_mult": 0.8,
+          "stability_mult": 1.15,
+          "hip_spread_mult": 0.9
+        }
+      },
+      {
+        "id": "tactical_suppressor",
+        "name": "战术消音器",
+        "description": "精细斜纹战术消音器，降低枪声与枪口火光。",
+        "effects": [
+          {
+            "text": "后坐力降低25%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高25%",
+            "benefit": 1
+          },
+          {
+            "text": "子弹速度降低20%",
+            "benefit": -1
+          },
+          {
+            "text": "开镜耗时增加5%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "recoil_mult": 0.75,
+          "stability_mult": 1.25,
+          "bullet_speed_mult": 0.8,
+          "ads_percent": 0.05
+        }
+      },
+      {
+        "id": "brake",
+        "name": "枪口制退器",
+        "description": "三组侧孔制退结构，减轻后坐、提高枪械稳定性。",
+        "effects": [
+          {
+            "text": "后坐力降低15%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高15%",
+            "benefit": 1
+          },
+          {
+            "text": "开镜耗时增加10%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "recoil_mult": 0.85,
+          "stability_mult": 1.15,
+          "ads_percent": 0.1
+        }
       }
     ],
     "underbarrel": [
@@ -6383,6 +7241,97 @@
           "ads_percent": 0.05,
           "recoil_mult": 0.9,
           "stability_mult": 1.1
+        }
+      },
+      {
+        "id": "canted_foregrip",
+        "name": "45°侧倾握把",
+        "description": "向枪身左下方侧倾，左手外侧包握，使用专用支撑及换弹回握动作。",
+        "effects": [
+          {
+            "text": "后坐力降低15%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性降低15%",
+            "benefit": -1
+          },
+          {
+            "text": "腰射随机散布减少20%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "recoil_mult": 0.85,
+          "stability_mult": 0.85,
+          "hip_spread_mult": 0.8
+        }
+      },
+      {
+        "id": "tactical_vertical_foregrip",
+        "name": "战术垂直握把",
+        "description": "收颈式聚合物前握把，带侧面凹区与横向防滑纹，金属夹座适配护木下导轨。",
+        "effects": [
+          {
+            "text": "缩短开镜耗时",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "ads_percent": -0.25
+        }
+      },
+      {
+        "id": "prism_handstop",
+        "name": "棱镜阻手器",
+        "description": "棱面短阻手器，带防滑纹理，安装于 M4 护木下方。",
+        "effects": [
+          {
+            "text": "开镜耗时减少10%",
+            "benefit": 1
+          },
+          {
+            "text": "后坐力降低5%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高25%",
+            "benefit": 1
+          },
+          {
+            "text": "腰射随机散布减少5%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "ads_percent": -0.1,
+          "recoil_mult": 0.95,
+          "stability_mult": 1.25,
+          "hip_spread_mult": 0.95
+        }
+      },
+      {
+        "id": "angled_foregrip",
+        "name": "共振二代前握把",
+        "description": "紧凑镂空前握把，食指、中指和无名指穿孔抓握，拇指与小拇指在外侧贴合，沿用 M4 金属与防滑材质。",
+        "effects": [
+          {
+            "text": "开镜耗时增加10%",
+            "benefit": -1
+          },
+          {
+            "text": "后坐力降低15%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高15%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "ads_percent": 0.1,
+          "recoil_mult": 0.85,
+          "stability_mult": 1.15
         }
       }
     ],
@@ -6425,8 +7374,274 @@
         ],
         "stats": {}
       }
+    ],
+    "stock": [
+      {
+        "id": "hk416_stock",
+        "name": "416后托",
+        "description": "带缓冲管与贴肩垫的伸缩枪托。",
+        "effects": [
+          {
+            "text": "后坐力降低10%",
+            "benefit": 1
+          },
+          {
+            "text": "腰射随机散布减少10%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "recoil_mult": 0.9,
+          "hip_spread_mult": 0.9
+        }
+      },
+      {
+        "id": "skeleton",
+        "name": "骨架枪托",
+        "description": "双管上梁、镂空后架与橡胶抵肩垫，使用对应枪型的安装接口。",
+        "effects": [
+          {
+            "text": "开镜耗时减少20%",
+            "benefit": 1
+          },
+          {
+            "text": "后坐力增加15%",
+            "benefit": -1
+          },
+          {
+            "text": "枪械稳定性提高10%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "ads_percent": -0.2,
+          "recoil_mult": 1.15,
+          "stability_mult": 1.1
+        }
+      },
+      {
+        "id": "core_stock",
+        "name": "镂空轻型枪托",
+        "description": "轻量化镂空枪托，使用对应枪型的安装接口。降低后坐力、提升枪械稳定性，不影响开镜耗时。",
+        "effects": [
+          {
+            "text": "后坐力降低10%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高5%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "recoil_mult": 0.9,
+          "stability_mult": 1.05
+        }
+      },
+      {
+        "id": "qr_performance",
+        "name": "高性能后托",
+        "description": "宽贴腮面、镂空斜撑后架与橡胶肩垫，使用对应枪型的安装接口。",
+        "effects": [
+          {
+            "text": "后坐力降低20%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高15%",
+            "benefit": 1
+          },
+          {
+            "text": "腰射随机散布减少30%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "recoil_mult": 0.8,
+          "stability_mult": 1.15,
+          "hip_spread_mult": 0.7
+        }
+      },
+      {
+        "id": "tactical_telescopic",
+        "name": "战术伸缩枪托",
+        "description": "可调节贴腮面与伸缩结构，使用对应枪型的安装接口。缩短开镜耗时，降低后坐力并提升枪械稳定性，但增加腰射随机散布。",
+        "effects": [
+          {
+            "text": "开镜耗时减少5%",
+            "benefit": 1
+          },
+          {
+            "text": "后坐力降低15%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高15%",
+            "benefit": 1
+          },
+          {
+            "text": "腰射随机散布增加25%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "ads_percent": -0.05,
+          "recoil_mult": 0.85,
+          "stability_mult": 1.15,
+          "hip_spread_mult": 1.25
+        }
+      }
+    ],
+    "reargrip": [
+      {
+        "id": "hk416_reargrip",
+        "name": "416后握",
+        "description": "带防滑纹理的聚合物后握把。",
+        "effects": [
+          {
+            "text": "后坐力降低10%",
+            "benefit": 1
+          },
+          {
+            "text": "腰射随机散布减少10%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "recoil_mult": 0.9,
+          "hip_spread_mult": 0.9
+        }
+      },
+      {
+        "id": "phantom_reargrip",
+        "name": "幻影后握把",
+        "description": "镂空框架后握把，带横向防滑纹理。开镜耗时增加、后坐力降低，但增加腰射随机散布。",
+        "effects": [
+          {
+            "text": "开镜耗时增加15%",
+            "benefit": -1
+          },
+          {
+            "text": "后坐力降低10%",
+            "benefit": 1
+          },
+          {
+            "text": "腰射随机散布增加10%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "ads_percent": 0.15,
+          "recoil_mult": 0.9,
+          "hip_spread_mult": 1.1
+        }
+      },
+      {
+        "id": "stable_antislip_reargrip",
+        "name": "稳固防滑后握",
+        "description": "实心人体工学后握把，指槽与橡胶防滑面提升握持稳定性。",
+        "effects": [
+          {
+            "text": "开镜耗时增加10%",
+            "benefit": -1
+          },
+          {
+            "text": "后坐力降低20%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高15%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "ads_percent": 0.1,
+          "recoil_mult": 0.8,
+          "stability_mult": 1.15
+        }
+      },
+      {
+        "id": "balanced_reargrip",
+        "name": "均衡后握把",
+        "description": "实心聚合物后握把，带横向防滑纹理与对应枪型的连接件，降低后坐力并提升枪械稳定性。",
+        "effects": [
+          {
+            "text": "后坐力降低10%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高10%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "recoil_mult": 0.9,
+          "stability_mult": 1.1
+        }
+      }
+    ],
+    "magazine": [
+      {
+        "id": "false",
+        "name": "原厂弹匣",
+        "description": "30 发标准弹匣。",
+        "effects": [],
+        "stats": {}
+      },
+      {
+        "id": "ext_mag",
+        "name": "扩容弹匣",
+        "description": "沿原厂 M4 聚合物弹匣加长，保留插接段与防滑肋纹。",
+        "effects": [
+          {
+            "text": "弹匣容量增加10发",
+            "benefit": 1
+          },
+          {
+            "text": "装填耗时更长",
+            "benefit": -1
+          },
+          {
+            "text": "开镜耗时增加5%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "mag_delta": 10,
+          "reload_mult": 1.25,
+          "ads_percent": 0.05
+        }
+      },
+      {
+        "id": "large_drum",
+        "name": "大弹鼓",
+        "description": "大容量弹鼓，延长持续射击时间，装填耗时更长。",
+        "effects": [
+          {
+            "text": "弹匣容量增加30发",
+            "benefit": 1
+          },
+          {
+            "text": "装填耗时更长",
+            "benefit": -1
+          },
+          {
+            "text": "开镜耗时增加10%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "mag_delta": 30,
+          "reload_mult": 1.75,
+          "ads_percent": 0.1
+        }
+      }
     ]
-  }
+  },
+      "default_parts": {
+        "stock": "hk416_stock",
+        "reargrip": "hk416_reargrip"
+      }
 }
 ],
   "common_options": {}
