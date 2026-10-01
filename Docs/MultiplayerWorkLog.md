@@ -63,6 +63,25 @@
   - 若客人进程崩在角色 BeginPlay（`FPSGAMECharacter.cpp:349-360` 对 Controller 直写输入模式、`:339` AttachPawn 抢档案）→ 属已知坑，本地门禁修复项。
 - 日志锚点：`grep -E "MPTEST|Join succeeded|Possess" Saved/Logs/MPHost.log MPClient.log`。
 
+## 3.9 PIE/联机客户端视口修复（2026-10-01，TransitLoadingSubsystem.cpp，未入分支提交）
+
+**症状**：PIE 双人（Listen Server）或联机客户端视口卡在过场加载进度条（纹丝不动）；服务器侧登录/档案链全绿。
+**根因链**：①过场遮罩 View 的完成条件是单机流程旗标（bDestinationLoaded 等），联网客户端世界永远凑不齐；②BeforeMap 置位的 `bMapLoading` 在 AfterMap 里被 `World->GetGameInstance()!=GetGameInstance()` 守卫挡住不清理（PIE 多实例/网络旅行下判定不等），后续 Tick 全部在 `if(!View||bMapLoading)return` 提前退出，遮罩淡出/移除代码永远不跑——进度条冻结在"准备完成"。
+**修复**（`Tick` 顶部，注入在 StartupView 检查之前）：
+```cpp
+if(View&&FinishedAt==0&&GetWorld()&&GetWorld()->GetNetMode()==NM_Client
+    &&UGameplayStatics::GetPlayerPawn(GetWorld(),0))
+{
+    UE_LOG(... net-client bypass ...);
+    bStartupChosen=true;bDestinationLoaded=true;bCompletePreload=true;
+    bMapLoading=false;bPreparationFailed=false;
+    RestoreGameplayInput();
+    if(View.IsValid()){RemoveOverlay();View.Reset();FinishedAt=0;} // 当场撕遮罩，不走依赖旗标的淡出路径
+    return;
+}
+```
+**坑**：Build.bat/UBT 的 Live Coding 检查在引擎层全局生效——主仓编辑器开着会挡住 worktree 构建（连直接调 UBT dll 也挡）；需主编辑器 Ctrl+Alt+F11 或关闭。引擎自带 dotnet 在 `Engine/Binaries/ThirdParty/DotNet/10.0/win-x64/dotnet.exe`。
+
 ## 3.8 M3 战斗权威化改动清单（2026-10-01，未入分支提交，重放即生效）
 
 > 游戏模块侧；插件侧（通道命中上报/回执/分块上传/合成射击钩/模块注册）已提交分支。
