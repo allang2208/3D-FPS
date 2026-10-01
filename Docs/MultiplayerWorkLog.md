@@ -63,6 +63,13 @@
   - 若客人进程崩在角色 BeginPlay（`FPSGAMECharacter.cpp:349-360` 对 Controller 直写输入模式、`:339` AttachPawn 抢档案）→ 属已知坑，本地门禁修复项。
 - 日志锚点：`grep -E "MPTEST|Join succeeded|Possess" Saved/Logs/MPHost.log MPClient.log`。
 
+## 3.10 移动状态复制·冲刺同步（2026-10-01，FPSGAMECharacter.h/.cpp + Profile.cpp，未入分支提交）
+
+**症状**（用户实测定位）：战术冲刺持续奔跑后对方模型消失，停止后也不同步。
+**根因**：`MaxWalkSpeed` 由 `bIsSprinting`（本地输入派生）直接设置（FPSGAMECharacter.cpp:1579），自定义 CMC 无 FSavedMove 预测通道——远端玩家的服务器副本上 `bIsSprinting` 恒 false → 服务器按走路速度模拟冲刺客户端 → 位置分叉 → 修正把服务器侧位置拉到观战者视野外。
+**修复**：`bServerSprinting`（服务端侧意图）+ `ServerSetSprinting`（Server/Reliable RPC，拥有连接天然限权）；速度行改用 `bEffectiveSprinting = bIsSprinting || bServerSprinting`（本地预测照旧 + 服务器同速）。
+**同类已知未修**：`bMovementAiming`（ADSWalkSpeed）同路径轻微微分叉，下轮处理；slide 的速度倍率同理。
+
 ## 3.9 PIE/联机客户端视口修复（2026-10-01，TransitLoadingSubsystem.cpp，未入分支提交）
 
 **症状**：PIE 双人（Listen Server）或联机客户端视口卡在过场加载进度条（纹丝不动）；服务器侧登录/档案链全绿。
