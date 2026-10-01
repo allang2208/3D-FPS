@@ -70,6 +70,8 @@
 **修复**：`bServerSprinting`（服务端侧意图）+ `ServerSetSprinting`（Server/Reliable RPC，拥有连接天然限权）；速度行改用 `bEffectiveSprinting = bIsSprinting || bServerSprinting`（本地预测照旧 + 服务器同速）。
 **同类已知未修**：`bMovementAiming`（ADSWalkSpeed）同路径轻微微分叉，下轮处理；slide 的速度倍率同理。
 
+**3.10b 僵尸输入护栏（同日追加，Tick 顶部）**：窗口失焦时输入绑定收不到 KeyUp（PIE 多窗口/Alt+Tab），Shift/W 变僵尸键→弃管玩家永续冲刺跑出场（冲刺同步修好后此现象显形——同步前表现为"服务器分叉消失"）。护栏=本地每帧轮询物理键态（IsInputKeyDown）单向清零 bSprintHeld/MoveInput 的残留分量，不覆盖正常按下路径。5.8 无 bReleaseKeysOnFocusLoss 开关（引擎头文件核实），故用轮询方案；对真实玩家 Alt+Tab 同样有效。
+
 ## 3.9 PIE/联机客户端视口修复（2026-10-01，TransitLoadingSubsystem.cpp，未入分支提交）
 
 **症状**：PIE 双人（Listen Server）或联机客户端视口卡在过场加载进度条（纹丝不动）；服务器侧登录/档案链全绿。
