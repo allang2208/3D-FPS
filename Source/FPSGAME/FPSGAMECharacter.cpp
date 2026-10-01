@@ -22,7 +22,9 @@
 #include "Skills/FPSFireballComponent.h"
 #include "Skills/FPSIceSpikeComponent.h"
 #include "Skills/FPSIceWallComponent.h"
+#include "Skills/FPSBlizzardComponent.h"
 #include "Skills/FPSLightningComponent.h"
+#include "Skills/FPSElectricMagicComponent.h"
 #include "Weapons/FPSMeleeLightningComponent.h"
 #include "Weapons/FPSRiftBladeComponent.h"
 #include "Skills/FPSHolyLightComponent.h"
@@ -216,7 +218,9 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
     CreateDefaultSubobject<UFPSPotionUseComponent>(TEXT("PotionUse"));
     CreateDefaultSubobject<UFPSIceSpikeComponent>(TEXT("IceSpikeSkill"));
     CreateDefaultSubobject<UFPSIceWallComponent>(TEXT("IceWallSkill"));
+    CreateDefaultSubobject<UFPSBlizzardComponent>(TEXT("BlizzardSkill"));
     CreateDefaultSubobject<UFPSLightningComponent>(TEXT("LightningSkill"));
+    CreateDefaultSubobject<UFPSElectricMagicComponent>(TEXT("ElectricMagicSkills"));
     CreateDefaultSubobject<UFPSMeleeLightningComponent>(TEXT("MeleeLightningEnchantment"));
     CreateDefaultSubobject<UFPSRiftBladeComponent>(TEXT("RiftBladeEnchantment"));
     CreateDefaultSubobject<UFPSHolyLightComponent>(TEXT("HolyLightSkill"));
@@ -816,7 +820,8 @@ void AFPSGAMECharacter::Tick(float DeltaSeconds)
 
 bool AFPSGAMECharacter::IsMeleeSkillMovementLocked() const
 {
-    return RuneSword && (RuneSword->IsWhirlwindActive() || RuneSword->IsDashAttackActive());
+    const auto* Electric=FindComponentByClass<UFPSElectricMagicComponent>();
+    return (Electric&&Electric->IsCharging())||(RuneSword && (RuneSword->IsWhirlwindActive() || RuneSword->IsDashAttackActive()));
 }
 
 void AFPSGAMECharacter::StopMovementForMeleeSkill()
@@ -857,14 +862,14 @@ void AFPSGAMECharacter::MoveRight(float Value)
 void AFPSGAMECharacter::Turn(float Value)
 {
     if(IsAmmoWheelOpen()){MoveAmmoPointer(FVector2D(Value,0));return;}
-    if(IsMeleeSkillMovementLocked())return;
+    if(RuneSword&&(RuneSword->IsWhirlwindActive()||RuneSword->IsDashAttackActive()))return;
     if (const auto* PC=Cast<APlayerController>(Controller); PC && PC->bShowMouseCursor) return;
     LookInput.X += Value; AddControllerYawInput(Value * LookSensitivityScale());
 }
 void AFPSGAMECharacter::LookUp(float Value)
 {
     if(IsAmmoWheelOpen()){MoveAmmoPointer(FVector2D(0,Value));return;}
-    if(IsMeleeSkillMovementLocked())return;
+    if(RuneSword&&(RuneSword->IsWhirlwindActive()||RuneSword->IsDashAttackActive()))return;
     if (const auto* PC=Cast<APlayerController>(Controller); PC && PC->bShowMouseCursor) return;
     LookInput.Y += Value; AddControllerPitchInput(Value * LookSensitivityScale());
 }
@@ -3097,8 +3102,10 @@ void AFPSGAMECharacter::SuspendWeaponForMenu()
     if(auto* Ice=FindComponentByClass<UFPSIceSpikeComponent>())Ice->SetAimPreview(false);
     if(auto* IceWall=FindComponentByClass<UFPSIceWallComponent>())IceWall->SuspendPreview();
     if(auto* Lightning=FindComponentByClass<UFPSLightningComponent>())Lightning->Cancel();
+    if(auto* Electric=FindComponentByClass<UFPSElectricMagicComponent>())Electric->CancelPending();
     if(auto* HolyLight=FindComponentByClass<UFPSHolyLightComponent>())HolyLight->Cancel();
     if(auto* FireMagic=FindComponentByClass<UFPSFireMagicComponent>())FireMagic->CancelPending();
+    if(auto* Blizzard=FindComponentByClass<UFPSBlizzardComponent>())Blizzard->SuspendPreview();
 }
 bool AFPSGAMECharacter::IsCastBlockingLeftHandAction() const
 {
@@ -3119,8 +3126,10 @@ bool AFPSGAMECharacter::IsSpellGestureBlocking() const
     const auto* Ice=FindComponentByClass<UFPSIceSpikeComponent>();
     if(const auto* IceWall=FindComponentByClass<UFPSIceWallComponent>();IceWall&&IceWall->HasQueuedAction())return true;
     const auto* Lightning=FindComponentByClass<UFPSLightningComponent>();
+    if(const auto* Electric=FindComponentByClass<UFPSElectricMagicComponent>();Electric&&Electric->HasQueuedAction())return true;
     const auto* HolyLight=FindComponentByClass<UFPSHolyLightComponent>();
     if(const auto* FireMagic=FindComponentByClass<UFPSFireMagicComponent>();FireMagic&&FireMagic->HasQueuedAction())return true;
+    if(const auto* Blizzard=FindComponentByClass<UFPSBlizzardComponent>();Blizzard&&Blizzard->HasQueuedAction())return true;
     return (Magic && Magic->BlocksNewLeftHandAction())||(Ice&&Ice->HasQueuedAction())||(Lightning&&Lightning->HasQueuedAction())||(HolyLight&&HolyLight->HasQueuedAction());
 }
 void AFPSGAMECharacter::ServiceReloadAfterCasting()

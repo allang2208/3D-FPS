@@ -17,6 +17,15 @@
 FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
 {
     FColdSteelSkillDefinition D;D.Id=Id;
+    if(ElectricMagic::IsSkill(Id))
+    {
+        const bool bLance=Id==TEXT("thunderLance");
+        D.Name=bLance?TEXT("贯穿雷枪"):TEXT("雷暴领域");
+        D.Icon=bLance?TEXT("Skills/thunder_lance_cold_steel.png"):TEXT("Skills/storm_domain_cold_steel.png");
+        D.Description=bLance?TEXT("长按绑定键充能，松键发射贯穿雷枪；未满充在收拢准星内散射，100%充能合并为点并保持待释放。"):TEXT("雷云跟随玩家，每0.9秒自动落雷、传导并叠加感电。");
+        if(bLance){auto& T=D.ElectricMagic;T.DamageBase=110;T.DamagePerLevel=14;T.MagicBase=1.8f;T.MagicPerLevel=.26f;T.IntelligenceBase=2;T.IntelligencePerLevel=.30f;T.ManaBase=120;T.ManaGrowth=35;T.Cooldown=32;T.CooldownReduction=4;T.RangeBase=900;T.RangePerLevel=15;T.ElectrifyStacks=2;T.ElectrifySeconds=5;T.StunSeconds=0;T.HitExperience=2;T.KillExperience=10;T.MultiHitExperience=8;T.MultiKillExperience=10;}
+    }
+    if(Id==TEXT("blizzard")){D.Name=TEXT("暴风雪");D.Description=TEXT("在准星地面召唤持续伤害与寒冷的暴风雪区域。");D.Icon=TEXT("Skills/blizzard_cold_steel.png");}
     if(Id==TEXT("staffLight"))
     {D.Name=TEXT("水晶照明");D.Description=TEXT("学徒长杖的特殊功能：按 G 切换水晶照明，无冷却、无消耗。抬杖动作只播放一次，照明持续至再次按 G 或卸下法杖。");D.Icon=TEXT("Skills/staff_light_cold_steel.png");return D;}
     if(Id==TEXT("dodge")){D.Name=TEXT("闪避");D.Description=TEXT("短按左 Shift 后松开，朝输入方向快速闪避；无输入时沿朝向。动作期间无敌。");D.Icon=TEXT("Skills/dodge_cold_steel.png");}
@@ -68,6 +77,24 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
     D.LuckPerLevel=FMath::Clamp(int32(Num(TEXT("luckPerLevel"),1)),0,100);
     D.CriticalHitExperience=FMath::Clamp(int32(Num(TEXT("criticalHitExperience"),1)),0,10000);
     D.CriticalKillExperience=FMath::Clamp(int32(Num(TEXT("criticalKillExperience"),10)),0,10000);
+    if(ElectricMagic::IsSkill(Id))
+    {
+        auto& T=D.ElectricMagic;
+        T.DamageBase=Num(TEXT("damageBase"),T.DamageBase);T.DamagePerLevel=Num(TEXT("damagePerLevel"),T.DamagePerLevel);
+        T.MagicBase=Num(TEXT("magicBase"),T.MagicBase);T.MagicPerLevel=Num(TEXT("magicPerLevel"),T.MagicPerLevel);
+        T.IntelligenceBase=Num(TEXT("intelligenceBase"),T.IntelligenceBase);T.IntelligencePerLevel=Num(TEXT("intelligencePerLevel"),T.IntelligencePerLevel);
+        T.ManaBase=Num(TEXT("manaBase"),T.ManaBase);T.ManaGrowth=Num(TEXT("manaGrowth"),T.ManaGrowth);
+        T.Cooldown=Num(TEXT("cooldown"),T.Cooldown);T.CooldownReduction=Num(TEXT("cooldownReduction"),T.CooldownReduction);
+        T.Duration=Num(TEXT("duration"),T.Duration);T.DurationGrowth=Num(TEXT("durationGrowth"),T.DurationGrowth);
+        T.RadiusBase=Num(TEXT("radiusBase"),T.RadiusBase);T.RadiusPerLevel=Num(TEXT("radiusPerLevel"),T.RadiusPerLevel);
+        T.RangeBase=Num(TEXT("rangeBase"),T.RangeBase);T.RangePerLevel=Num(TEXT("rangePerLevel"),T.RangePerLevel);T.UnitsToCM=Num(TEXT("unitsToCM"),T.UnitsToCM);
+        T.StrikeSeconds=FMath::Max(.1f,float(Num(TEXT("strikeSeconds"),T.StrikeSeconds)));T.ChainRange=Num(TEXT("chainRange"),T.ChainRange);T.ChainDecay=Num(TEXT("chainDecay"),T.ChainDecay);
+        T.ChainExtraBase=Num(TEXT("chainExtraBase"),T.ChainExtraBase);T.ChainLevelStep=FMath::Max(1,int32(Num(TEXT("chainLevelStep"),T.ChainLevelStep)));
+        T.StunSeconds=Num(TEXT("stunSeconds"),T.StunSeconds);T.ElectrifyStacks=Num(TEXT("electrifyStacks"),T.ElectrifyStacks);T.ElectrifySeconds=Num(TEXT("electrifySeconds"),T.ElectrifySeconds);
+        T.MinCharge=Num(TEXT("minCharge"),T.MinCharge);T.MaxCharge=Num(TEXT("maxCharge"),T.MaxCharge);T.ChargeBonus=Num(TEXT("chargeBonus"),T.ChargeBonus);T.StackDamage=Num(TEXT("stackDamage"),T.StackDamage);
+        T.HalfWidth=Num(TEXT("halfWidth"),T.HalfWidth);T.KnockbackBase=Num(TEXT("knockbackBase"),T.KnockbackBase);T.KnockbackGrowth=Num(TEXT("knockbackGrowth"),T.KnockbackGrowth);T.EndRadius=Num(TEXT("endRadius"),T.EndRadius);
+        T.HitExperience=Num(TEXT("hitExperience"),T.HitExperience);T.KillExperience=Num(TEXT("killExperience"),T.KillExperience);T.MultiHitExperience=Num(TEXT("multiHitExperience"),T.MultiHitExperience);T.MultiKillExperience=Num(TEXT("multiKillExperience"),T.MultiKillExperience);
+    }
     if(Id==TEXT("fireball"))
     {
         auto& F=D.Fireball;
@@ -104,6 +131,23 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
         F.HitExperience=Num(TEXT("hitExperience"),4);F.KillExperience=Num(TEXT("killExperience"),12);
         F.MultiHitExperience=Num(TEXT("multiHitExperience"),10);F.MultiKillExperience=Num(TEXT("multiKillExperience"),10);
     }
+    if(Id==TEXT("blizzard"))
+    {
+        auto& F=D.Blizzard;
+        O->TryGetBoolField(TEXT("requiresStaff"),F.bRequiresStaff);
+        F.DamageBase=Num(TEXT("damageBase"),5);F.DamagePerLevel=Num(TEXT("damagePerLevel"),2);
+        F.MagicBase=Num(TEXT("magicBase"),.12);F.MagicPerLevel=Num(TEXT("magicPerLevel"),.02);
+        F.IntelligenceBase=Num(TEXT("intelligenceBase"),.12);F.IntelligencePerLevel=Num(TEXT("intelligencePerLevel"),.02);
+        F.RadiusXBase=Num(TEXT("radiusXBase"),200);F.RadiusXPerLevel=Num(TEXT("radiusXPerLevel"),8);
+        F.RadiusYBase=Num(TEXT("radiusYBase"),124);F.RadiusYPerLevel=Num(TEXT("radiusYPerLevel"),5);
+        F.ManaCost=Num(TEXT("manaCost"),150);F.Cooldown=Num(TEXT("cooldown"),40);F.CooldownReduction=Num(TEXT("cooldownReduction"),5);
+        F.Duration=Num(TEXT("duration"),5);F.DurationGrowth=Num(TEXT("durationGrowth"),5);
+        F.Range=Num(TEXT("maxRange"),650);F.UnitsToCM=Num(TEXT("unitsToCM"),1.5);
+        F.TickSeconds=FMath::Max(.1f,float(Num(TEXT("tickSeconds"),.5)));
+        F.ChillStacks=Num(TEXT("chillStacks"),1);F.ChillSeconds=Num(TEXT("chillSeconds"),2.5);F.ChillSlow=Num(TEXT("chillSlowPercent"),.035);
+        F.HitExperience=Num(TEXT("hitExperience"),1);F.KillExperience=Num(TEXT("killExperience"),6);
+        F.MultiHitExperience=Num(TEXT("multiHitExperience"),5);F.MultiKillExperience=Num(TEXT("multiKillExperience"),10);
+    }
     if(Id==TEXT("iceWall"))
     {
         auto& F=D.IceWall;
@@ -117,8 +161,11 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
         F.Duration=Num(TEXT("duration"),10);F.DurationPerLevel=Num(TEXT("durationPerLevel"),.5);
         F.SegmentSpacing=Num(TEXT("segmentSpacing"),28);F.Thickness=Num(TEXT("thicknessCM"),62);
         F.HighHeight=Num(TEXT("highHeightCM"),260);F.LowHeight=Num(TEXT("lowHeightCM"),100);
-        F.HoverDuration=Num(TEXT("hoverDuration"),30);F.FlySpeed=Num(TEXT("flySpeedCM"),1600);
-        F.GrowthSeconds=FMath::Max(.05f,float(Num(TEXT("growthSeconds"),.5)));
+        F.HoverDuration=Num(TEXT("hoverDuration"),30);
+        F.RiseSeconds=FMath::Max(.05f,float(Num(TEXT("riseSeconds"),.08)));
+        F.RiseHeight=FMath::Max(0.f,float(Num(TEXT("riseHeightCM"),160)));
+        F.DropSeconds=FMath::Max(.05f,float(Num(TEXT("dropSeconds"),.06)));
+        F.DropHeight=FMath::Max(0.f,float(Num(TEXT("dropHeightCM"),360)));
         F.MaxHealth=FMath::Max(1.f,float(Num(TEXT("maxHealth"),300)));
         F.MaxHealthPerLevel=FMath::Max(0.f,float(Num(TEXT("maxHealthPerLevel"),50)));
         F.Knockback=Num(TEXT("hitKnockback"),50);F.PushDistanceMultiplier=Num(TEXT("pushDistanceMultiplier"),2);
@@ -218,7 +265,7 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
 }
 bool ColdSteelSkills::Migrate(FColdSteelProfile& P)
 {
-    if (P.SkillProgressVersion >= 17) return false;
+    if (P.SkillProgressVersion >= 19) return false;
     if (P.SkillProgressVersion < 8)
     {
         P.Skills.FindOrAdd(TEXT("rifleMastery"));P.Skills.FindOrAdd(TEXT("dodge"));P.Skills.FindOrAdd(TEXT("dexterousHands"));P.Skills.FindOrAdd(TEXT("pistolMastery"));P.Skills.FindOrAdd(TEXT("criticalStrike"));P.Skills.FindOrAdd(TEXT("fireball"));for(FName Id:{FName(TEXT("swordMastery")),FName(TEXT("machineGunMastery")),FName(TEXT("shotgunMastery")),FName(TEXT("bowMastery"))})P.Skills.FindOrAdd(Id);P.Skills.FindOrAdd(TEXT("heavyStrike"));
@@ -247,12 +294,28 @@ bool ColdSteelSkills::Migrate(FColdSteelProfile& P)
     P.Skills.FindOrAdd(TEXT("dashAttack"));
     P.Skills.FindOrAdd(TEXT("meteor"));P.Skills.FindOrAdd(TEXT("flameArmor"));
     P.Skills.FindOrAdd(TEXT("iceWall"));
-    P.SkillProgressVersion=17;
+    P.Skills.FindOrAdd(TEXT("blizzard"));
+    for(FName Id:{FName(TEXT("stormDomain")),FName(TEXT("thunderLance"))}){P.Skills.FindOrAdd(Id);P.ElectricCooldowns.FindOrAdd(Id);P.ElectricCooldownDurations.FindOrAdd(Id);}
+    P.SkillProgressVersion=19;
     return true;
 }
 bool ColdSteelSkills::Validate(const FColdSteelProfile& P, FString& Reason)
 {
-    if (P.SkillProgressVersion<0 || P.SkillProgressVersion>17 || P.Skills.Num()>128) { Reason=TEXT("技能存档版本或数量无效"); return false; }
+    if (P.SkillProgressVersion<0 || P.SkillProgressVersion>19 || P.Skills.Num()>128) { Reason=TEXT("技能存档版本或数量无效"); return false; }
+    if(P.SkillProgressVersion>=19)
+    {
+        if(P.ElectricCooldowns.Num()>2||P.ElectricCooldownDurations.Num()>2||P.ElectricReservedMana.Num()>2){Reason=TEXT("电系技能存档无效");return false;}
+        for(FName Id:{FName(TEXT("stormDomain")),FName(TEXT("thunderLance"))})
+        {
+            const float R=P.ElectricCooldowns.FindRef(Id),D=P.ElectricCooldownDurations.FindRef(Id);
+            if(!P.Skills.Contains(Id)||!P.ElectricCooldowns.Contains(Id)||!P.ElectricCooldownDurations.Contains(Id)||!FMath::IsFinite(R)||!FMath::IsFinite(D)||R<0||D<R||D>300){Reason=TEXT("电系技能进度或冷却无效");return false;}
+        }
+        for(const auto& R:P.ElectricReservedMana)if(!ElectricMagic::IsSkill(R.Key)||!FMath::IsFinite(R.Value)||R.Value<0){Reason=TEXT("电系未释放蓝耗无效");return false;}
+    }
+    if(P.SkillProgressVersion>=18&&(!P.Skills.Contains(TEXT("blizzard"))||!FMath::IsFinite(P.BlizzardCooldown)||P.BlizzardCooldown<0||!FMath::IsFinite(P.BlizzardCooldownDuration)||P.BlizzardCooldownDuration<P.BlizzardCooldown||P.BlizzardCooldownDuration>300))
+    {Reason=TEXT("暴风雪进度或冷却无效");return false;}
+    if(P.SkillProgressVersion>=18&&(!FMath::IsFinite(P.BlizzardReservedMana)||P.BlizzardReservedMana<0||(!P.bBlizzardReserved&&P.BlizzardReservedMana!=0)))
+    {Reason=TEXT("暴风雪未释放蓝耗无效");return false;}
     if(P.SkillProgressVersion>=17&&(!P.Skills.Contains(TEXT("iceWall"))||!FMath::IsFinite(P.IceWallCooldown)||P.IceWallCooldown<0||!FMath::IsFinite(P.IceWallCooldownDuration)||P.IceWallCooldownDuration<P.IceWallCooldown||P.IceWallCooldownDuration>300))
     {Reason=TEXT("冰墙进度或冷却无效");return false;}
     if(P.SkillProgressVersion>=17&&(!FMath::IsFinite(P.IceWallReservedMana)||P.IceWallReservedMana<0||(!P.bIceWallReserved&&P.IceWallReservedMana!=0)))

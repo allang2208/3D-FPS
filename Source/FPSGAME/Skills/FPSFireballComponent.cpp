@@ -4,7 +4,9 @@
 #include "FPSFireballProjectile.h"
 #include "FPSIceSpikeComponent.h"
 #include "FPSIceWallComponent.h"
+#include "FPSBlizzardComponent.h"
 #include "FPSLightningComponent.h"
+#include "FPSElectricMagicComponent.h"
 #include "FPSHolyLightComponent.h"
 #include "FPSFireMagicComponent.h"
 #include "../Weapons/RuneOrbBladesComponent.h"
@@ -57,6 +59,16 @@ UColdSteelStatusModel* UFPSFireballComponent::Model() const
 { return GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr; }
 bool UFPSFireballComponent::IsPrepared() const { return Active.IsValid()&&!Active->IsFlying(); }
 bool UFPSFireballComponent::IsFlying() const { return Active.IsValid()&&Active->IsFlying(); }
+bool UFPSFireballComponent::HasOtherPreparedSpell(const UActorComponent* Requester) const
+{
+    if(Requester!=this&&IsPrepared())return true;
+    const auto* Owner=GetOwner();if(!Owner)return false;
+    if(const auto* Ice=Owner->FindComponentByClass<UFPSIceSpikeComponent>();Ice&&Requester!=Ice&&Ice->IsPrepared())return true;
+    if(const auto* Wall=Owner->FindComponentByClass<UFPSIceWallComponent>();Wall&&Requester!=Wall&&Wall->HasUnreleasedCast())return true;
+    if(const auto* Blizzard=Owner->FindComponentByClass<UFPSBlizzardComponent>();Blizzard&&Requester!=Blizzard&&Blizzard->HasUnreleasedCast())return true;
+    if(const auto* Electric=Owner->FindComponentByClass<UFPSElectricMagicComponent>();Electric&&Requester!=Electric&&Electric->IsCharging())return true;
+    return false;
+}
 void UFPSFireballComponent::SetHandPhase(EFireballHandPhase Phase)
 {
     if(Phase==EFireballHandPhase::Recovering)
@@ -217,10 +229,11 @@ float UFPSFireballComponent::CooldownFraction() const
 }
 void UFPSFireballComponent::Trigger()
 {
-    if(auto* Sword=GetOwner()->FindComponentByClass<URuneSwordComponent>();Sword && Sword->IsGuarding())Sword->ReleaseGuard();
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* P=Model();
     if(!Player||!P||!Player->IsLocallyControlled()||GetWorld()->GetNetMode()!=NM_Standalone)return;
     if(auto* H=Player->FindComponentByClass<UFPSCombatHealthComponent>();H&&H->IsDead())return;
+    if(HasOtherPreparedSpell(this)){bQueuedCast=bQueuedLaunch=false;Feedback(TEXT("先释放已积蓄魔法"));return;}
+    if(auto* Sword=GetOwner()->FindComponentByClass<URuneSwordComponent>();Sword && Sword->IsGuarding())Sword->ReleaseGuard();
     if(IsFlying()||HandPhase==EFireballHandPhase::Releasing||HandPhase==EFireballHandPhase::ReadyingRelease)return;
     // Only palm casting is blocked by held left-hand equipment; a held staff
     // selects its own right-hand availability for both gather and release.
@@ -245,6 +258,7 @@ void UFPSFireballComponent::TryBeginQueuedCast()
 {
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* P=Model();
     if(!bQueuedCast||!Player||!P)return;
+    if(HasOtherPreparedSpell(this)){bQueuedCast=false;Feedback(TEXT("先释放已积蓄魔法"));return;}
     if(Player->IsSpellHandHeld()){RejectHeldLeftHand();return;}
     if(Player->IsSpellHandBusy())return;
     const auto* PC=Cast<APlayerController>(Player->GetController());
@@ -390,7 +404,7 @@ void UFPSFireballComponent::EndPlay(const EEndPlayReason::Type Reason)
 bool UFPSFireballComponent::TryBeginSpellGesture(UActorComponent* Spell,bool bRelease,float Speed,const FSimpleDelegate& Contact,bool bPowerFist)
 {
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
-    if(!Spell||!Player||BlocksNewLeftHandAction()||Player->IsSpellHandBusy())return false;
+    if(!Spell||!Player||HasOtherPreparedSpell(Spell)||BlocksNewLeftHandAction()||Player->IsSpellHandBusy())return false;
     const auto* PC=Cast<APlayerController>(Player->GetController());
     if(!PC||PC->IsLookInputIgnored()||PC->IsMoveInputIgnored())return false;
     GestureOwner=Spell;GestureContact=Contact;GestureSpeed=FMath::Max(.1f,Speed);bLaunchCommitted=false;
@@ -418,7 +432,8 @@ void UFPSFireballComponent::InterruptForPriority()
     const float Refund=Gathering&&!bLaunchCommitted?GesturePaidMana:0.f;
     GesturePaidMana=0.f;bDirectCastWindup=false;
     FName Unreleased=NAME_None;
-    if(auto* Holy=GetOwner()->FindComponentByClass<UFPSHolyLightComponent>();Holy&&Holy->HasUnreleasedCast())Unreleased=TEXT("holyLight");
+    if(auto* Electric=GetOwner()->FindComponentByClass<UFPSElectricMagicComponent>();Electric&&!Electric->UnreleasedSkill().IsNone())Unreleased=Electric->UnreleasedSkill();
+    else if(auto* Holy=GetOwner()->FindComponentByClass<UFPSHolyLightComponent>();Holy&&Holy->HasUnreleasedCast())Unreleased=TEXT("holyLight");
     else if(auto* Lightning=GetOwner()->FindComponentByClass<UFPSLightningComponent>();Lightning&&Lightning->HasUnreleasedCast())Unreleased=TEXT("lightning");
     else if(auto* FireMagic=GetOwner()->FindComponentByClass<UFPSFireMagicComponent>();FireMagic&&!FireMagic->UnreleasedSkill().IsNone())Unreleased=FireMagic->UnreleasedSkill();
     else if(Refund>0.f&&!Spell)Unreleased=TEXT("fireball");
@@ -430,8 +445,10 @@ void UFPSFireballComponent::InterruptForPriority()
     if(auto* Ice=GetOwner()->FindComponentByClass<UFPSIceSpikeComponent>())Ice->InterruptPending(Spell==Ice&&PendingContact);
     if(auto* IceWall=GetOwner()->FindComponentByClass<UFPSIceWallComponent>())IceWall->InterruptPending(Spell==IceWall&&PendingContact);
     if(auto* Lightning=GetOwner()->FindComponentByClass<UFPSLightningComponent>())Lightning->InterruptPending();
+    if(auto* Electric=GetOwner()->FindComponentByClass<UFPSElectricMagicComponent>())Electric->CancelPending(false);
     if(auto* HolyLight=GetOwner()->FindComponentByClass<UFPSHolyLightComponent>())HolyLight->InterruptPending();
     if(auto* FireMagic=GetOwner()->FindComponentByClass<UFPSFireMagicComponent>())FireMagic->CancelPending();
+    if(auto* Blizzard=GetOwner()->FindComponentByClass<UFPSBlizzardComponent>())Blizzard->InterruptPending(Spell==Blizzard&&PendingContact);
     if(auto* Blades=GetOwner()->FindComponentByClass<URuneOrbBladesComponent>())Blades->InterruptPending(Spell==Blades&&Gathering);
     if(!Spell && PendingContact && IsPrepared()){Active->Destroy();Feedback(TEXT("施法中断"));}
     bLaunchCommitted=false;

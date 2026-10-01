@@ -16,6 +16,7 @@
 #include "../Weapons/RuneSwordComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/WeaponBipodDeploymentComponent.h"
+#include "../Skills/FPSElectricMagicComponent.h"
 
 void UColdSteelHUDWidget::BuildStamina(UCanvasPanel* Root)
 {
@@ -53,7 +54,14 @@ void UColdSteelHUDWidget::UpdateStaminaLayout(const FGeometry& Geometry)
         const auto State=Bipod?Bipod->GetDeploymentState():EWeaponBipodDeploymentState::Unavailable;
         FString ActionHint;bool Complete=false;float PreparationProgress=0.f;
         const float CowboyHintOpacity=Character?Character->GetCowboyReloadHintOpacity():0.f;
-        if(CowboyHintOpacity>0.f)
+        const auto* Electric=Pawn?Pawn->FindComponentByClass<UFPSElectricMagicComponent>():nullptr;
+        const bool bChargingLance=Electric&&Electric->IsCharging();
+        if(bChargingLance)
+        {
+            PreparationProgress=Electric->LanceChargeFraction();Complete=PreparationProgress>=1.f;
+            ActionHint=Complete?TEXT("已充能完毕"):FString::Printf(TEXT("雷枪充能  %d%%"),FMath::FloorToInt(PreparationProgress*100.f));
+        }
+        else if(CowboyHintOpacity>0.f)
         {
             ActionHint=TEXT("已自动换弹");Complete=true;PreparationProgress=1.f;
         }
@@ -86,16 +94,11 @@ void UColdSteelHUDWidget::UpdateStaminaLayout(const FGeometry& Geometry)
             }
         }
         DashAttackReadyText->SetVisibility(ActionHint.IsEmpty()?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
-        DashAttackReadyText->SetRenderOpacity(CowboyHintOpacity>0.f?CowboyHintOpacity:1.f);
+        DashAttackReadyText->SetRenderOpacity(!bChargingLance&&CowboyHintOpacity>0.f?CowboyHintOpacity:1.f);
         const FText Hint=FText::FromString(ActionHint);
         if(!DashAttackReadyText->GetText().EqualTo(Hint))DashAttackReadyText->SetText(Hint);
         // Shared readiness ramp: red -> yellow -> blue -> green at equal progress intervals.
-        static const FLinearColor ProgressColors[]={ColdSteelUI::Danger,
-            FLinearColor::FromSRGBColor(FColor(240,211,113)),
-            FLinearColor::FromSRGBColor(FColor(112,180,255)),ColdSteelUI::Success};
-        const float ColorPosition=FMath::Clamp(PreparationProgress,0.f,1.f)*3.f;
-        const int32 ColorSegment=FMath::Min(FMath::FloorToInt(ColorPosition),2);
-        DashAttackReadyText->SetColorAndOpacity(FMath::Lerp(ProgressColors[ColorSegment],ProgressColors[ColorSegment+1],ColorPosition-ColorSegment));
+        DashAttackReadyText->SetColorAndOpacity(ColdSteelUI::ActionProgressColor(PreparationProgress));
         DashAttackReadyText->SetFont(ColdSteelUI::TextFont(16*.75f/S));
         if(auto* DashCanvasSlot=Cast<UCanvasPanelSlot>(DashAttackReadyText->Slot))
         {DashCanvasSlot->SetPosition(StaminaSlot->GetPosition()+FVector2D(0,-25/S));DashCanvasSlot->SetSize(FVector2D(FMath::Min(400.f/S,FMath::Max(1.f,View.X-24/S)),26/S));}

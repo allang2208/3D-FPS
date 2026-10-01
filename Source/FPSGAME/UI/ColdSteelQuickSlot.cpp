@@ -13,7 +13,9 @@
 #include "../Skills/FPSFireballComponent.h"
 #include "../Skills/FPSIceSpikeComponent.h"
 #include "../Skills/FPSIceWallComponent.h"
+#include "../Skills/FPSBlizzardComponent.h"
 #include "../Skills/FPSLightningComponent.h"
+#include "../Skills/FPSElectricMagicComponent.h"
 #include "../Skills/FPSHolyLightComponent.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/Image.h"
@@ -123,6 +125,16 @@ void UColdSteelQuickSlot::NativeTick(const FGeometry& Geometry,float DeltaTime)
             if(const auto* Ability=Player->FindComponentByClass<UFPSIceWallComponent>())
             {Notice=Ability->IsHandOccupiedNotice();NoticeAlpha=Ability->HandNoticeAlpha();NoticeRise=Ability->HandNoticeRise();}
         }
+        else if(Displayed.Skill==TEXT("blizzard"))
+        {
+            if(const auto* Ability=Player->FindComponentByClass<UFPSBlizzardComponent>())
+            {Notice=Ability->IsHandOccupiedNotice();NoticeAlpha=Ability->HandNoticeAlpha();NoticeRise=Ability->HandNoticeRise();}
+        }
+        else if(ElectricMagic::IsSkill(Displayed.Skill))
+        {
+            if(const auto* Ability=Player->FindComponentByClass<UFPSElectricMagicComponent>())
+            {Notice=Ability->IsHandOccupiedNotice(Displayed.Skill);NoticeAlpha=Ability->HandNoticeAlpha();NoticeRise=Ability->HandNoticeRise();}
+        }
         else if(Displayed.Skill==TEXT("lightningStrike"))
         {
             if(const auto* Ability=Player->FindComponentByClass<UFPSLightningComponent>())
@@ -198,6 +210,13 @@ void UColdSteelQuickSlot::Refresh()
         if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice()))Remaining=Model->FireballCooldown();
         Dim=!Model->CanSpendMana(Model->FireballStats().ManaCost)&&(!Ability||(!Ability->IsPrepared()&&!Ability->IsFlying()));
     }
+    else if(Binding.Skill==TEXT("blizzard"))
+    {
+        const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<UFPSBlizzardComponent>():nullptr;
+        if(Ability){Message=Ability->StatusText();Fraction=Ability->CooldownFraction();}
+        if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice()))Remaining=Model->BlizzardCooldown();
+        Dim=!Model->CanSpendMana(Model->BlizzardStats().ManaCost)&&(!Ability||!Ability->HasUnreleasedCast());
+    }
     else if(Binding.Skill==TEXT("iceWall"))
     {
         const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<UFPSIceWallComponent>():nullptr;
@@ -214,6 +233,19 @@ void UColdSteelQuickSlot::Refresh()
         // The refusal notice answers the press itself, so it outranks the countdown.
         if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice()))Remaining=Model->IceSpikeCooldown();
         Dim=!Model->CanSpendMana(Model->IceSpikeStats().ManaCost)&&(!Ability||Ability->ActiveCount()==0);
+    }
+    else if(ElectricMagic::IsSkill(Binding.Skill))
+    {
+        const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<UFPSElectricMagicComponent>():nullptr;
+        if(Ability)
+        {
+            Message=Ability->StatusText(Binding.Skill);Fraction=Ability->CooldownFraction(Binding.Skill);
+            bGoldPrepared=Ability->UnreleasedSkill()==Binding.Skill;
+            if(Binding.Skill==TEXT("stormDomain")&&Ability->DomainRemaining()>0)
+                Count->SetText(FText::FromString(FString::Printf(TEXT("%.0fs"),FMath::CeilToFloat(Ability->DomainRemaining()))));
+        }
+        if(Fraction>0&&!bGoldPrepared&&!(Ability&&Ability->IsHandOccupiedNotice(Binding.Skill)))Remaining=Model->ElectricMagicCooldown(Binding.Skill);
+        Dim=!Model->CanSpendMana(Model->ElectricMagicStats(Binding.Skill).Hit.ManaCost)&&!bGoldPrepared;
     }
     else if(Binding.Skill==TEXT("lightningStrike"))
     {

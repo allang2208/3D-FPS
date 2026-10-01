@@ -437,3 +437,21 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 ## 九枪表面与动作差量（2026-10-01）
 
 本轮九枪表面配方、A762 扩容/接口制作、SVD 与全武器动作差量制作的当前入口和公开范围见 [阶段发布](Weapons/weapon-surface-animation-publication-20261001.md)。原作者贴图、网格、密集采样、完整动画和 UE 包保留本机来源链；绑定清单必须与实际恢复的材质资产一起使用，不能以公开源码代替本地内容恢复。未进行本次独立构建或游戏测试。
+
+## 雷暴领域与贯穿雷枪（2026-10-01）
+
+原版两个剩余电系技能已接入数据、修炼、Profile v19、冷钢详情与快捷栏。合法本机闪电／Blizzard StormV2依赖恢复后，运行 Tools/Skills/build_electric_magic_assets.py 生成并保存 /Game/Skills/ElectricMagic；图标从 SourceAssets/ElectricMagic20261001/Icons 恢复。雷枪满充保持的电团 Infinite 系统规则已同步全量作者；杖前魔法阵可由 Tools/Skills/build_thunder_lance_circle.py 独立保存至 ThunderLanceV2，无外部贴图依赖。来源、完整提示词与恢复入口见 [电系迁移说明](Skills/electric-magic-migration-20261001.md) 和 [雷枪充能优化](Skills/thunder-lance-charge-aim-20261001.md)。本轮不主动实机测试，母版与音频不公开再分发。
+
+电矛发射光柱的恢复入口为 `Tools/Skills/build_thunder_lance_column.py`：ThunderLanceV2 的 Column／Coil 两份材质加引擎 Cylinder，无外部贴图／模型依赖。全量电系作者 beam() 调用同一入口；当前源码已从旧 `NS_ThunderLanceBeam` 闪电切到这组连续柱体。制作和实际保存／构建范围见 [电矛光柱](Skills/thunder-lance-column-20261001.md)，不自动运行游戏测试。
+
+电矛光柱加粗／十字准星／杖前魔法阵增强及暴风雪凝聚棋盘格修复见 [可读性与材质修复](Skills/magic-readability-and-blizzard-material-fix-20261001.md)。定向作者 `Tools/Skills/refine_magic_readability_20261001.py` 只保存五份相关材质，已经通过现有桥落盘；全量作者同步关闭凝聚乌云的 Output Velocity，避免与 Normandy DepthFade 再次发生 SM6 编译冲突。普通源码构建状态另见该制作记录；未实机测试。
+
+电矛后续按用户提供的彗星亚兹勒截图改为原创翻卷能量束／跳动电丝，当前引用 `/Game/Skills/ElectricMagic/ThunderFluxV3` 四资产。先用 `make_thunder_flux_mesh.py`（Blender）和 `bake_thunder_flux_fields.py`（NumPy/Pillow）生成 `SourceAssets/ThunderLanceFlux20261001` 的宿主／密度数据，再执行 `build_thunder_flux_v3.py` 实际导入与保存。`build_thunder_lance_column.py` 已转为同一入口；旧V2圆柱／光环包保留恢复。最新参数、制作来源及实际构建范围见 [电矛能量洪流](Skills/thunder-lance-flux-20261001.md)，未运行游戏测试。
+
+该入口已同步后续射程翻倍／视觉增强50%版本：当前技能数据900／15→1800／30，束身直径264／168／87cm、电丝291cm，发光与爆闪规模×1.5；束身使用Translucent实际遮挡背景、电丝保留Additive，HLSL提高分层覆盖。无需重做既有FBX／密度PNG；重新执行定向作者保存当前材质。当前制作回执在 `Saved/ThunderFluxStrength20261001`，与初版回执分别保留。
+
+本对话冰墙／暴风雪／电系技能的源码发布、当前恢复入口及本机素材边界见 [魔法整理发布](Skills/skills-magic-publication-20261001.md)。11份退役脚本／旧电矛资产已归档到本机trash，当前魔法阵和正式制作源保留；旧V2发射包不再位于正式Content目录。
+
+## 冰墙、暴风雪与图标恢复（2026-10-01发布）
+
+当前冰墙FabIceV3／GatherV2／SlamV3／TerrainV1与暴风雪StormV2／ChargedV3的制作入口、本机依赖、图标及未测试范围见 [魔法整理发布](Skills/skills-magic-publication-20261001.md)。BlockV1预览／声音、Fab冰母版、Normandy云、冰锥与滚动烟尘必须先恢复合法本机资源；公开仓库不包含这些UE包、音频、二进制源和PNG。不要运行历史制作入口覆盖当前正式表现。

@@ -91,7 +91,10 @@ void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
     FireballSkill=ColdSteelSkills::LoadDefinition(TEXT("fireball"));
     IceSpikeSkill=ColdSteelSkills::LoadDefinition(TEXT("iceSpike"));
     IceWallSkill=ColdSteelSkills::LoadDefinition(TEXT("iceWall"));
+    BlizzardSkill=ColdSteelSkills::LoadDefinition(TEXT("blizzard"));
     LightningSkill=ColdSteelSkills::LoadDefinition(TEXT("lightningStrike"));
+    StormDomainSkill=ColdSteelSkills::LoadDefinition(TEXT("stormDomain"));
+    ThunderLanceSkill=ColdSteelSkills::LoadDefinition(TEXT("thunderLance"));
     HolyLightSkill=ColdSteelSkills::LoadDefinition(TEXT("holyLight"));
     MeteorSkill=ColdSteelSkills::LoadDefinition(TEXT("meteor"));
     FlameArmorSkill=ColdSteelSkills::LoadDefinition(TEXT("flameArmor"));
@@ -236,9 +239,23 @@ bool UColdSteelStatusModel::ReloadProfile()
         Clean.IceWallCooldown=Clean.IceWallCooldownDuration=0;
     }
     Clean.IceWallReservedMana=0;
+    const bool AbandonedBlizzard=Clean.bBlizzardReserved;Clean.bBlizzardReserved=false;
+    if(AbandonedBlizzard)
+    {
+        Clean.Mana=FMath::Min(float(ResourceMaximum(Clean,true)),Clean.Mana+Clean.BlizzardReservedMana);
+        Clean.BlizzardCooldown=Clean.BlizzardCooldownDuration=0;
+    }
+    Clean.BlizzardReservedMana=0;
+    const bool AbandonedElectric=!Clean.ElectricReservedMana.IsEmpty();
+    for(const auto& Reserved:Clean.ElectricReservedMana)
+    {
+        Clean.Mana=FMath::Min(float(ResourceMaximum(Clean,true)),Clean.Mana+Reserved.Value);
+        Clean.ElectricCooldowns.Add(Reserved.Key,0);Clean.ElectricCooldownDurations.Add(Reserved.Key,0);
+    }
+    Clean.ElectricReservedMana.Reset();
     const bool AbandonedQuick=Clean.bQuickCombatReserved||Clean.QuickCombatCooldown>0.f||Clean.QuickCombatCooldownDuration>0.f;
     Clean.bQuickCombatReserved=false;Clean.QuickCombatCooldown=Clean.QuickCombatCooldownDuration=0.f;
-    bool Removed=RemoveRetiredWeapons(Clean)||Migrated||SkillsMigrated||QuickBarMigrated||StaminaMigrated||AbandonedFireball||AbandonedIce||AbandonedIceWall||AbandonedQuick||AmmoMigrated||BestFootprintMigrated;
+    bool Removed=RemoveRetiredWeapons(Clean)||Migrated||SkillsMigrated||QuickBarMigrated||StaminaMigrated||AbandonedFireball||AbandonedIce||AbandonedIceWall||AbandonedBlizzard||AbandonedElectric||AbandonedQuick||AmmoMigrated||BestFootprintMigrated;
     // Refresh authorized material rarity and scroll presentation on existing instances.
     for(auto& I:Clean.Items)
     {
@@ -662,11 +679,13 @@ void UColdSteelStatusModel::AttachPawn(AFPSGAMECharacter* Pawn)
 void UColdSteelStatusModel::ReduceAllAbilityCooldowns(float Seconds)
 {
     if(Seconds<=0.f)return;
+    for(auto& Pair:Current.ElectricCooldowns)Pair.Value=FMath::Max(0.f,Pair.Value-Seconds);
     // Mirrors the TickRuntime decrement: reserved casts have not started their clock
     // yet, so only running cooldowns shrink (2D rune-sword contract, 0.5 s per event).
     if(!Current.bFireballReserved)Current.FireballCooldown=FMath::Max(0.f,Current.FireballCooldown-Seconds);
     if(!Current.bIceSpikeReserved)Current.IceSpikeCooldown=FMath::Max(0.f,Current.IceSpikeCooldown-Seconds);
     if(!Current.bIceWallReserved)Current.IceWallCooldown=FMath::Max(0.f,Current.IceWallCooldown-Seconds);
+    if(!Current.bBlizzardReserved)Current.BlizzardCooldown=FMath::Max(0.f,Current.BlizzardCooldown-Seconds);
     Current.LightningCooldown=FMath::Max(0.f,Current.LightningCooldown-Seconds);
     Current.HolyLightCooldown=FMath::Max(0.f,Current.HolyLightCooldown-Seconds);
     Current.MeteorCooldown=FMath::Max(0.f,Current.MeteorCooldown-Seconds);
@@ -680,10 +699,13 @@ void UColdSteelStatusModel::ReduceAllAbilityCooldowns(float Seconds)
 void UColdSteelStatusModel::TickRuntime(float Delta,AFPSGAMECharacter* Pawn)
 {
     if(Pawn!=CurrentPawn.Get())return;for(auto& I:Current.Items)I.Cooldown=FMath::Max(0.f,I.Cooldown-Delta);
+    for(auto& Pair:Current.ElectricCooldowns)Pair.Value=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Pair.Value-Delta);
     if(HasNoAbilityCooldown())Current.FireballCooldown=0.f;
     else if(!Current.bFireballReserved)Current.FireballCooldown=FMath::Max(0.f,Current.FireballCooldown-Delta);
     if(HasNoAbilityCooldown())Current.IceSpikeCooldown=0.f;
     else if(!Current.bIceSpikeReserved)Current.IceSpikeCooldown=FMath::Max(0.f,Current.IceSpikeCooldown-Delta);
+    if(HasNoAbilityCooldown())Current.BlizzardCooldown=0.f;
+    else if(!Current.bBlizzardReserved)Current.BlizzardCooldown=FMath::Max(0.f,Current.BlizzardCooldown-Delta);
     if(HasNoAbilityCooldown())Current.IceWallCooldown=0.f;
     else if(!Current.bIceWallReserved)Current.IceWallCooldown=FMath::Max(0.f,Current.IceWallCooldown-Delta);
     Current.LightningCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.LightningCooldown-Delta);

@@ -4,6 +4,7 @@
 #include "ColdSteelWorldInteraction.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/Bow/BowWeaponComponent.h"
+#include "../Skills/FPSElectricMagicComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "Rendering/DrawElements.h"
 #include "Styling/CoreStyle.h"
@@ -104,6 +105,32 @@ int32 UColdSteelHUDWidget::NativePaint(const FPaintArgs& Args,const FGeometry& G
         }
     }
     // Delayed projectiles and magic can confirm a hit after the weapon is put away.
+    if(const auto* Electric=Character->FindComponentByClass<UFPSElectricMagicComponent>();Electric&&Electric->IsCharging())
+    {
+        const float Charge=Electric->LanceChargeFraction();const auto Extent=Electric->LanceCrosshairExtent(Geometry.GetLocalSize());
+        const auto Color=ColdSteelUI::ActionProgressColor(Charge);
+        const float DotSize=FMath::Max(2.f,3.f*Scale);
+        const auto* Brush=FCoreStyle::Get().GetBrush(TEXT("WhiteBrush"));
+        auto Bar=[&](FVector2D Position,FVector2D Size)
+        {
+            const float Border=FMath::Max(.6f,Scale);
+            FSlateDrawElement::MakeBox(Elements,Result+1,Geometry.ToPaintGeometry(Size+FVector2D(Border*2),FSlateLayoutTransform(Center+Position-FVector2D(Border))),
+                Brush,ESlateDrawEffect::None,FLinearColor(0,0,0,.75f));
+            FSlateDrawElement::MakeBox(Elements,Result+2,Geometry.ToPaintGeometry(Size,FSlateLayoutTransform(Center+Position)),
+                Brush,ESlateDrawEffect::None,Color);
+        };
+        const float Length=9.f*Scale*(1.f-Charge),HalfWidth=DotSize*.5f;
+        if(Charge<1.f&&Length>.01f)
+        {
+            // Inner edges track the projected scatter radius, as the gun crosshair does.
+            Bar(FVector2D(-HalfWidth,-Extent.Y-Length),FVector2D(DotSize,Length));
+            Bar(FVector2D(-HalfWidth,Extent.Y),FVector2D(DotSize,Length));
+            Bar(FVector2D(-Extent.X-Length,-HalfWidth),FVector2D(Length,DotSize));
+            Bar(FVector2D(Extent.X,-HalfWidth),FVector2D(Length,DotSize));
+        }
+        Bar(FVector2D(-HalfWidth),FVector2D(DotSize));
+        return Result+2;
+    }
     const auto* Bow=Character->FindComponentByClass<UBowWeaponComponent>();
     const bool bBow=Bow&&Bow->IsEquipped();
     if(Character->IsTraversing() || (bBow ? !Bow->ShouldShowCrosshair() : !Character->HasInventoryWeapon()&&!Character->HasOffhandPistol()))return Result+2;

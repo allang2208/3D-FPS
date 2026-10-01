@@ -6,6 +6,7 @@
 #include "../Weapons/MeleeWeaponStats.h"
 #include "../FPSGAMECharacter.h"
 #include "ColdSteelSkillRules.h"
+#include "IceWallPlacement.h"
 #include "Components/PrimitiveComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Engine/GameInstance.h"
@@ -13,20 +14,6 @@
 #include "Engine/OverlapResult.h"
 #include "GameFramework/Character.h"
 #include "Kismet/GameplayStatics.h"
-
-namespace
-{
-TSet<AActor*> IceWallTargets(UWorld* World,APawn* Shooter,const FIceWallPlacement& P,const FVector& Extent)
-{
-    TArray<FOverlapResult> Overlaps;TSet<AActor*> Targets;
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(IceWallTargets),false,Shooter);
-    World->OverlapMultiByObjectType(Overlaps,P.Location+FVector(0,0,Extent.Z),P.Rotation.Quaternion(),FCollisionObjectQueryParams::AllDynamicObjects,FCollisionShape::MakeBox(Extent),Query);
-    for(const auto& H:Overlaps)
-        if(auto* A=H.GetActor();A&&A!=Shooter&&!A->ActorHasTag(TEXT("Friendly")))
-            if(auto* Combat=A->FindComponentByClass<UMonsterCombatComponent>();Combat&&!Combat->IsDead())Targets.Add(A);
-    return Targets;
-}
-}
 
 FColdSteelSkillProgress UColdSteelStatusModel::IceWallProgress() const
 {const auto* P=Current.Skills.Find(IceWallSkill.Id);return P?*P:FColdSteelSkillProgress();}
@@ -41,7 +28,8 @@ FIceWallCast UColdSteelStatusModel::IceWallStats(int32 AtLevel) const
     C.Count=T.CountBase+(L-1)*T.CountPerLevel;C.SegmentSpacing=T.SegmentSpacing*T.UnitsToCM;
     C.Duration=T.Duration+(L-1)*T.DurationPerLevel;C.Range=T.Range*T.UnitsToCM;
     C.HighHeight=T.HighHeight;C.LowHeight=T.LowHeight;C.Thickness=T.Thickness;
-    C.HoverDuration=T.HoverDuration;C.FlySpeed=T.FlySpeed;C.GrowthSeconds=T.GrowthSeconds;
+    C.HoverDuration=T.HoverDuration;C.RiseSeconds=T.RiseSeconds;C.RiseHeight=T.RiseHeight;
+    C.DropSeconds=T.DropSeconds;C.DropHeight=T.DropHeight;
     C.MaxHealth=T.MaxHealth+(L-1)*T.MaxHealthPerLevel;
     C.ManaCost=T.ManaCost;C.Cooldown=T.Cooldown;
     C.Knockback=T.Knockback*T.UnitsToCM;C.PushDistanceMultiplier=T.PushDistanceMultiplier;
@@ -85,30 +73,25 @@ bool UColdSteelStatusModel::CommitIceWallRelease()
     SyncRuntime();auto P=Snapshot();P.bIceWallReserved=false;P.IceWallReservedMana=0;return CommitState(MoveTemp(P));
 }
 
-void UColdSteelStatusModel::ApplyIceWallSpawn(APawn* Shooter,const FIceWallPlacement& Plan,const FIceWallCast& C)
+void UColdSteelStatusModel::ApplyIceWallSpawn(APawn* Shooter,const FIceWallPlacement& Plan,const FIceWallCast& C,TSet<AActor*>* Impacted)
 {
     if(!Shooter||!Shooter->IsPlayerControlled()||!Shooter->HasAuthority())return;
-    const FVector Half(C.Thickness*.5f,C.Width()*.5f,C.Height(Plan.Shape)*.5f);
-    const auto Targets=IceWallTargets(GetWorld(),Shooter,Plan,Half);
+    const auto Targets=IceWallPlacement::Monsters(GetWorld(),Plan,C);
+    if(Impacted)*Impacted=Targets;
     int32 Hits=0,Kills=0;FFireballRewards Rewards;
     TGuardValue<FFireballRewards*> RewardScope(ActiveFireballRewards,&Rewards);
     for(auto* Target:Targets)
     {
-        auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();if(!Combat||Combat->IsDead())continue;
+        auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();if(!Combat||Combat->IsDead()||Target==Shooter||Target->ActorHasTag(TEXT("Friendly")))continue;
         Rewards.Victim=Target;
         const float Applied=UGameplayStatics::ApplyDamage(Target,C.Damage,Shooter->GetController(),Shooter,nullptr);
         const bool bTraining=!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining"));
         if(Applied>0)
         {if(auto* P=Cast<AFPSGAMECharacter>(Shooter))P->NotifyConfirmedWeaponHit(Target,Applied);if(bTraining){++Hits;if(Combat->IsDead())++Kills;}}
         if(Combat->IsDead())continue;
-        FVector Extent;FVector Center;Target->GetActorBounds(true,Center,Extent);
-        const FVector Local=Plan.Rotation.UnrotateVector(Target->GetActorLocation()-Plan.Location);
-        const float Side=Local.X>=0?1.f:-1.f;
-        const float Clearance=FMath::Max(Extent.X,Extent.Y)+Half.X+8-FMath::Abs(Local.X);
-        const float Distance=FMath::Max(0.f,Clearance)*C.PushDistanceMultiplier+C.Knockback;
-        const FVector Direction=Plan.Rotation.Vector()*Side;
-        // Sweep to a safe side before creating collision. Never teleport through nearby walls.
-        FHitResult PushHit;Target->SetActorLocation(Target->GetActorLocation()+Direction*Distance,true,&PushHit);
+        // Apply the landing chill before displacement. Even a target pushed beyond
+        // the later aura keeps this impact's slow; the initial aura excludes it.
+        UCombatStatusFormula::GetOrAdd(Target)->AddChill(C.ChillStacks,C.ChillDuration,C.ChillSlow);
     }
     SyncRuntime();auto P=Snapshot();const auto& T=IceWallSkill.IceWall;
     ColdSteelSkills::AddExperience(P,IceWallSkill,Hits*T.HitExperience+Kills*T.KillExperience+(Hits>=2?T.MultiHitExperience:0));
@@ -118,18 +101,18 @@ void UColdSteelStatusModel::ApplyIceWallSpawn(APawn* Shooter,const FIceWallPlace
     if(StageTraining(MoveTemp(P)))for(const auto& K:Rewards.Kills)RewardedVictims.Add(K.Key);
 }
 
-void UColdSteelStatusModel::ApplyIceWallChill(APawn* Shooter,const FIceWallPlacement& Plan,const FIceWallCast& C)
+void UColdSteelStatusModel::ApplyIceWallChill(APawn* Shooter,const FIceWallPlacement& Plan,const FIceWallCast& C,const TSet<AActor*>* Excluded)
 {
     if(!Shooter||!Shooter->HasAuthority()||C.ChillRadius<=0)return;
-    const FVector Half(C.Thickness*.5f,C.Width()*.5f,C.Height(Plan.Shape)*.5f);
-    const auto Targets=IceWallTargets(GetWorld(),Shooter,Plan,FVector(Half.X+C.ChillRadius,Half.Y+C.ChillRadius,Half.Z));
+    const auto Targets=IceWallPlacement::Monsters(GetWorld(),Plan,C,C.ChillRadius);
     for(auto* Target:Targets)
     {
-        if(const auto* Capsule=Target->FindComponentByClass<UCapsuleComponent>();Capsule&&FMath::Abs(Capsule->GetComponentLocation().Z-Capsule->GetScaledCapsuleHalfHeight()-Plan.Location.Z)>45)continue;
+        if((Excluded&&Excluded->Contains(Target))||Target==Shooter||Target->ActorHasTag(TEXT("Friendly")))continue;
+        const auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();if(!Combat||Combat->IsDead())continue;
         const FVector At=Plan.Rotation.UnrotateVector(Target->GetActorLocation()-Plan.Location);
-        // Rounded distance to the wall footprint, on the wall's own elevation.
-        const float X=FMath::Max(0.f,float(FMath::Abs(At.X))-float(Half.X));
-        const float Y=FMath::Max(0.f,float(FMath::Abs(At.Y))-float(Half.Y));
+        if(const auto* Capsule=Target->FindComponentByClass<UCapsuleComponent>();Capsule&&FMath::Abs(Capsule->GetComponentLocation().Z-Capsule->GetScaledCapsuleHalfHeight()-Plan.Location.Z-IceWallPlacement::GroundAt(Plan,float(At.X),float(At.Y)))>45)continue;
+        const float X=FMath::Max(0.f,float(FMath::Abs(At.X))-C.Thickness*.5f);
+        const float Y=FMath::Max(0.f,FMath::Max(Plan.MinAlong()-float(At.Y),float(At.Y)-Plan.MaxAlong()));
         if(X*X+Y*Y<=C.ChillRadius*C.ChillRadius)UCombatStatusFormula::GetOrAdd(Target)->AddChill(C.ChillStacks,C.ChillDuration,C.ChillSlow);
     }
 }

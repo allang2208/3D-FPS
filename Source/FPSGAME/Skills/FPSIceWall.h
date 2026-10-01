@@ -12,6 +12,7 @@ class UStaticMesh;
 class UParticleSystem;
 class USoundBase;
 class UFPSIceWallComponent;
+class UNiagaraComponent;
 
 /** A seed, placement ghost or temporary wall. Geometry never owns gameplay collision. */
 UCLASS()
@@ -43,14 +44,29 @@ private:
     UPROPERTY(Transient) TObjectPtr<UParticleSystem> BreakFX;
     UPROPERTY(Transient) TObjectPtr<USoundBase> BreakSound;
     TWeakObjectPtr<UFPSIceWallComponent> Component;
-    enum class EState : uint8 { Seed, Preview, Flight, Growing, Solid, Shattered };
+    enum class EState : uint8 { Seed, Preview, Rising, Falling, Solid, Shattered };
     EState State=EState::Seed;
     FIceWallCast Tuning;
     FIceWallPlacement Plan;
-    FVector FlightStart=FVector::ZeroVector;
-    float Age=0,FlightSeconds=.4f,AuraAge=0;
+    FVector ReleaseOrigin=FVector::ZeroVector;
+    float Age=0,DropHeight=0,AuraAge=0;
     int32 LayoutShape=-1;
     void BuildLayout(EIceWallShape Shape);
     void Land();
-    void BecomeSolid();
+    void BeginDrop();
+    void UpdateDrop();
+    void EmitLandingFX();
+    void ShakeNearbyPlayers();
+    void UpdateColdMist(float Delta);
+    UPROPERTY(Transient) TObjectPtr<UNiagaraComponent> ColdMist;
+    FVector PreviousMistPosition=FVector::ZeroVector;
+    float MistEnvironmentAge=.2f;
+    void EnableTerrainBarriers();
+    void ExtrudeMonsters();
+    void RetryExtrusion();
+    void RestoreMonsterIgnores();
+    TArray<TWeakObjectPtr<AActor>> PendingMonsters;
+    float ExtrusionAge=0;
+    int32 ExtrusionCursor=0;
+    UPROPERTY(Transient) TArray<TObjectPtr<UBoxComponent>> TerrainBarriers;
 };

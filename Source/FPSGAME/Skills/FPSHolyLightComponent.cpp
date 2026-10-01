@@ -85,6 +85,8 @@ void UFPSHolyLightComponent::Trigger(bool bSelf)
     if(!Player||!M||!Player->IsLocallyControlled()||GetWorld()->GetNetMode()!=NM_Standalone)return;
     if(const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
     if(bCommitted)return;
+    if(const auto* H=Hands();H&&H->HasOtherPreparedSpell(this))
+    {bQueued=false;Feedback(TEXT("先释放已积蓄魔法"));return;}
     if(Player->IsSpellHandHeld()){RejectHeldHand();return;}
     if(M->HolyLightCooldown()>0){Feedback(TEXT("冷却"));return;}
     if(!MoteSystem||CastSounds.Num()!=1||CastSounds.Contains(nullptr)){Feedback(TEXT("缺素材"));return;}
@@ -98,6 +100,7 @@ void UFPSHolyLightComponent::ServiceQueue()
 {
     if(!bQueued)return;
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();auto* H=Hands();if(!Player||!M||!H)return;
+    if(H->HasOtherPreparedSpell(this)){bQueued=false;Feedback(TEXT("先释放已积蓄魔法"));return;}
     if(Player->IsSpellHandHeld()){RejectHeldHand();return;}
     const auto* PC=Cast<APlayerController>(Player->GetController());
     if(!PC||PC->IsLookInputIgnored()||PC->IsMoveInputIgnored()){bQueued=false;return;}

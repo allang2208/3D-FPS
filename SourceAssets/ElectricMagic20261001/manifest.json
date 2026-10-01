@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-01",
+  "engine": "UE5.8.2",
+  "tool": "image_gen.imagegen",
+  "icons": {
+    "stormDomain": {
+      "output": "Icons/storm_domain_cold_steel.png",
+      "runtime": "Content/ColdSteelData/Skills/storm_domain_cold_steel.png",
+      "prompt": "Use case: stylized-concept. Create one square production game skill icon for a grounded realistic first-person dark fantasy action game, skill 'Storm Domain'. Full image is a single icon, no text, no letters, no digits, no UI captions. Current Cold Steel UI style: graphite black background, understated slim weathered silver metal border with lightly chamfered corners, realistic materials, strong readability at 48 pixels. Center subject: a compact layered dark storm cloud floating above rough stone ground, several sharp blue-violet lightning discharges strike downward and branch naturally around the impact. Dense deep-grey volumetric cloud lit subtly by electric light inside, blue-white bright lightning core with restrained violet edge, sparks and a small dark atmospheric halo. Crisp silhouette, central cloud occupies upper half, strikes occupy lower half. Tangible realistic cloud textures and physical light, carefully controlled bloom, no cartoon, no flat vector symbol, no painterly brushwork, no gold decoration, no snow or ice, no character, no watermark. Fill the square; border belongs to the icon."
+    },
+    "thunderLance": {
+      "output": "Icons/thunder_lance_cold_steel.png",
+      "runtime": "Content/ColdSteelData/Skills/thunder_lance_cold_steel.png",
+      "prompt": "Use case: stylized-concept. Create one square production game skill icon for a grounded realistic first-person dark fantasy action game, skill 'Piercing Thunder Lance'. Full image is a single icon, no text, no letters, no digits, no UI captions. Current Cold Steel UI style: graphite black background, understated slim weathered silver metal border with lightly chamfered corners, realistic materials, strong readability at 48 pixels. Center subject: one perfectly straight focused electric railgun lance, diagonal from lower left to upper right, needle-bright blue-white core, layered blue-violet plasma sheath, two compressed acceleration rings along it, small branching electrical filaments close to the shaft and a compact bright electrical burst at its forward end. It is energy, no physical spear, no weapon prop, no storm cloud. Strong long clear silhouette, electrical texture looks photographic and tangible, dark atmosphere, realistic light, controlled bloom, silver frame consistent with Cold Steel icons. No cartoon, no flat vector symbol, no painterly brushwork, no gold decoration, no character, no watermark. Fill the square; border belongs to the icon."
+    }
+  },
+  "sources": {
+    "original": "E:/无尽轮回/长期备份/2026-7-13-1/game-dev",
+    "spells": [
+      "data/skills.json",
+      "src/entities/components/storm-domain-system.js",
+      "src/entities/components/thunder-lance-system.js",
+      "src/effects/storm-cloud-fx.js"
+    ],
+    "audio": [
+      "SourceAssets/Lightning20260920/S_LightningCast1.wav",
+      "SourceAssets/Lightning20260920/S_LightningCast2.wav"
+    ],
+    "cloud": "Installed owned Normandy storm cloud via Blizzard/StormV2",
+    "beam": "Installed owned Dr.Game Free Spline VFX via Skills/Lightning"
+  },
+  "generated_icon": true,
+  "third_party_assets_redistributed": false,
+  "previewed": false,
+  "tested": false
+}

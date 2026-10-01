@@ -52,6 +52,7 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
     friend class UWeaponBipodDeploymentComponent;
     friend class UBowWeaponComponent;
     friend class UStaffWeaponComponent;
+    friend class UFPSElectricMagicComponent;
     friend struct FStaffLocomotion;
 
 public:

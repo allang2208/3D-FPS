@@ -2,7 +2,7 @@
 
 案例 `Docs/Skills/fire-magic-migration-20260921.md`，实际配置 `Content/ColdSteelData/skills.json`。两项使用 `FPSFireMagicComponent`，模型为 `ColdSteelFireMagicModel.cpp`，陨星 Actor 为 `FPSMeteorStrike`。原 game-dev 数值保留 K=1..20，范围每单位1.5cm，不套用后续调整过的火球伤害公式。
 
-- 用户指定 `meteor.requiresStaff=false` 先直接施放；保留开关与已有 staff 词条接口，不能声称完整法杖已迁移。
+- 当前 `meteor.requiresStaff=true`（2026-09-30 用户补充要求）；当前激活主手需装备法杖，起手和释放前判断，未释放切走法杖退蓝并撤销冷却。2026-09-21 迁移时曾按当时要求设为 false，该旧口径已更新；`flameArmor` 继续按其当前配置取值。详细范围见工程 `Docs/Skills/staff-required-magic-20260930.md`。
 - 陨星原版最终实现无地面预警红圈：实体燃烧岩体、0.65秒坠落、中心全额至边缘半额爆炸、2秒眩晕、3层灼烧、每0.5秒火场及叠灼烧；火场无油面。三维落点用准星，地面/顶板射线忽略身体，伤害筛选保留地层与遮挡。
 - 焰甲12→30秒，非魔法有效命中追加独立魔法伤害，光环每0.5秒；不增加防御。武器火焰取实际刀刃/枪口端点，脚边显示环不代表完整伤害半径。
 - 附伤必须清除 ActiveTrainingHit / ActiveFireballRewards 上下文，避免计作武器精通击杀或吞掉角色即时击杀奖励；不回调武器结算入口，不递归触发。

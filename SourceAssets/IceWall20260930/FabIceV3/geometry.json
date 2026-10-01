@@ -1,0 +1,30 @@
+[
+  {
+    "mesh": "SM_IceBlock_01",
+    "triangles": 5734,
+    "unit": "meters",
+    "interfaces": "flat center Y/Z bearings; chipped X shoulders",
+    "uv": "face projection, one repeat per authoring meter"
+  },
+  {
+    "mesh": "SM_IceBlock_02",
+    "triangles": 5752,
+    "unit": "meters",
+    "interfaces": "flat center Y/Z bearings; chipped X shoulders",
+    "uv": "face projection, one repeat per authoring meter"
+  },
+  {
+    "mesh": "SM_IceBlock_03",
+    "triangles": 5734,
+    "unit": "meters",
+    "interfaces": "flat center Y/Z bearings; chipped X shoulders",
+    "uv": "face projection, one repeat per authoring meter"
+  },
+  {
+    "mesh": "SM_IceBlock_04",
+    "triangles": 5770,
+    "unit": "meters",
+    "interfaces": "flat center Y/Z bearings; chipped X shoulders",
+    "uv": "face projection, one repeat per authoring meter"
+  }
+]

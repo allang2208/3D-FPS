@@ -75,7 +75,7 @@ bool UColdSteelStatusModel::BeginLightningCast(const FLightningCast& Spell)
     return CommitState(P);
 }
 
-bool UColdSteelStatusModel::ApplyLightningHit(APawn* Shooter,AActor* Target,const FVector& Origin,const FLightningCast& Spell,float Damage,FLightningRewards& Batch,bool bTrain)
+bool UColdSteelStatusModel::ApplyLightningHit(APawn* Shooter,AActor* Target,const FVector& Origin,const FLightningCast& Spell,float Damage,FLightningRewards& Batch,bool bTrain,const FHitResult* DirectHit)
 {
     if(Shooter && Shooter->HasAuthority() && Damage>0)
         if(auto* Pane=UWardBreakableGlass::IntactPane(Target))
@@ -84,11 +84,12 @@ bool UColdSteelStatusModel::ApplyLightningHit(APawn* Shooter,AActor* Target,cons
     if(!Shooter||!Shooter->IsPlayerControlled()||!Shooter->HasAuthority()||Target==Shooter||!Combat||Combat->IsDead()||Target->ActorHasTag(TEXT("Friendly")))return false;
     FFireballRewards Rewards;Rewards.Victim=Target;TGuardValue<FFireballRewards*> Scope(ActiveFireballRewards,&Rewards);
     bool Critical=false;
-    // A locked spell has no aimed bone contact; it can randomly crit but cannot invent a headshot.
-    const CombatFormulaRuntime::MagicHit Context{Spell.CriticalChance,Spell.CriticalDamageBonus,Spell.MagicPenetration,Spell.MagicDamageBonus,&Critical,false};
+    // Only a real beam trace against this target can grant a guaranteed weakpoint critical.
+    const CombatFormulaRuntime::MagicHit Context{Spell.CriticalChance,Spell.CriticalDamageBonus,Spell.MagicPenetration,Spell.MagicDamageBonus,&Critical,DirectHit&&DirectHit->GetActor()==Target&&ColdSteelSkills::IsCriticalHit(*DirectHit)};
     TGuardValue<const CombatFormulaRuntime::MagicHit*> MagicScope(CombatFormulaRuntime::ActiveMagicHit,&Context);
     const FVector End=Target->GetActorLocation();
     FHitResult Hit(Target,Cast<UPrimitiveComponent>(Target->GetRootComponent()),End,(Origin-End).GetSafeNormal());
+    if(DirectHit&&DirectHit->GetActor()==Target)Hit=*DirectHit;
     Hit.TraceStart=Origin;Hit.TraceEnd=End;
     const float Applied=UGameplayStatics::ApplyPointDamage(Target,Damage,(End-Origin).GetSafeNormal(),Hit,Shooter->GetController(),Shooter,ULightningDamage::StaticClass());
     for(const auto& K:Rewards.Kills)Batch.KillRewards.FindOrAdd(K.Key)=K.Value;

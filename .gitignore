@@ -1703,3 +1703,22 @@ __pycache__/
 !/SourceAssets/WeaponSurface20260930/M16/Refine01/bindings.json
 !/SourceAssets/WeaponSurface20260930/PKM/Refine01/bindings.json
 !/SourceAssets/WeaponSurface20260930/LMG201/Refine01/bindings.json
+
+# Magic publication 20261001: publish recipes/prose/original HLSL only.
+# Licensed ice/cloud/audio, imported packages, binary sources and receipts stay local.
+/SourceAssets/IceWall20260930/**
+!/SourceAssets/IceWall20260930/**/
+!/SourceAssets/IceWall20260930/**/*.md
+!/SourceAssets/IceWall20260930/geometry.json
+!/SourceAssets/IceWall20260930/FabIceV3/geometry.json
+!/SourceAssets/IceWall20260930/RealisticV2/geometry.json
+/SourceAssets/Blizzard20260930/**
+!/SourceAssets/Blizzard20260930/**/
+!/SourceAssets/Blizzard20260930/**/*.md
+/SourceAssets/ElectricMagic20261001/**
+!/SourceAssets/ElectricMagic20261001/**/
+!/SourceAssets/ElectricMagic20261001/README.md
+!/SourceAssets/ElectricMagic20261001/manifest.json
+/SourceAssets/ThunderLanceFlux20261001/**
+!/SourceAssets/ThunderLanceFlux20261001/README.md
+!/SourceAssets/ThunderLanceFlux20261001/*.hlsl

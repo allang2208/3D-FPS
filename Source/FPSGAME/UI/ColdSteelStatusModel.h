@@ -129,12 +129,20 @@ public:
     const FColdSteelSkillDefinition& IceSpikeDefinition() const { return IceSpikeSkill; }
     FColdSteelSkillProgress IceSpikeProgress() const;
     const FColdSteelSkillDefinition& LightningDefinition() const { return LightningSkill; }
+    const FColdSteelSkillDefinition& ElectricMagicDefinition(FName Id) const;
+    FColdSteelSkillProgress ElectricMagicProgress(FName Id) const;
+    FElectricMagicCast ElectricMagicStats(FName Id,int32 AtLevel=-1) const;
+    float ElectricMagicCooldown(FName Id) const;
+    float ElectricMagicCooldownDuration(FName Id) const;
+    bool BeginElectricMagicCast(FName Id,const FElectricMagicCast& Spell);
+    bool CommitElectricMagicRelease(FName Id);
+    void FinishElectricMagicCast(FName Id,const FElectricMagicRewards& Rewards);
     FColdSteelSkillProgress LightningProgress() const;
     FLightningCast LightningStats(int32 AtLevel=-1) const;
     float LightningCooldown() const { return HasNoAbilityCooldown()?0.f:Current.LightningCooldown; }
     float LightningCooldownDuration() const { return Current.LightningCooldownDuration; }
     bool BeginLightningCast(const FLightningCast& Cast);
-    bool ApplyLightningHit(APawn* Shooter,AActor* Target,const FVector& Origin,const FLightningCast& Cast,float Damage,FLightningRewards& Rewards,bool bTrain=true);
+    bool ApplyLightningHit(APawn* Shooter,AActor* Target,const FVector& Origin,const FLightningCast& Cast,float Damage,FLightningRewards& Rewards,bool bTrain=true,const FHitResult* DirectHit=nullptr);
     void FinishLightningCast(const FLightningRewards& Rewards);
     const FColdSteelSkillDefinition& HolyLightDefinition() const { return HolyLightSkill; }
     FColdSteelSkillProgress HolyLightProgress() const;
@@ -153,8 +161,17 @@ public:
     float IceWallCooldownDuration() const { return Current.IceWallCooldownDuration; }
     bool BeginIceWallCast(const FIceWallCast& Cast);
     bool CommitIceWallRelease();
-    void ApplyIceWallSpawn(APawn* Shooter,const FIceWallPlacement& Placement,const FIceWallCast& Cast);
-    void ApplyIceWallChill(APawn* Shooter,const FIceWallPlacement& Placement,const FIceWallCast& Cast);
+    const FColdSteelSkillDefinition& BlizzardDefinition() const { return BlizzardSkill; }
+    FColdSteelSkillProgress BlizzardProgress() const;
+    FBlizzardCast BlizzardStats(int32 AtLevel=-1) const;
+    float BlizzardCooldown() const;
+    float BlizzardCooldownDuration() const;
+    bool BeginBlizzardCast(const FBlizzardCast& Spell);
+    bool CommitBlizzardRelease();
+    bool ApplyBlizzardHit(APawn* Shooter,AActor* Target,const FBlizzardCast& Spell,FBlizzardRewards& Rewards);
+    void FinishBlizzardCast(const FBlizzardRewards& Rewards);
+    void ApplyIceWallSpawn(APawn* Shooter,const FIceWallPlacement& Placement,const FIceWallCast& Cast,TSet<AActor*>* Impacted=nullptr);
+    void ApplyIceWallChill(APawn* Shooter,const FIceWallPlacement& Placement,const FIceWallCast& Cast,const TSet<AActor*>* Excluded=nullptr);
     float IceSpikeCooldown() const { return HasNoAbilityCooldown()?0.f:Current.IceSpikeCooldown; }
     float IceSpikeCooldownDuration() const { return Current.IceSpikeCooldownDuration; }
     bool BeginIceSpikeCast(const FIceSpikeCast& Cast);
@@ -407,6 +424,7 @@ private:
     FColdSteelSkillDefinition FireballSkill;
     FColdSteelSkillDefinition IceSpikeSkill;
     FColdSteelSkillDefinition LightningSkill;
+    FColdSteelSkillDefinition StormDomainSkill,ThunderLanceSkill;
     FColdSteelSkillDefinition HolyLightSkill;
     FColdSteelSkillDefinition QuickCombatSkill;
     FColdSteelSkillDefinition RuneBladesSkill;
@@ -458,4 +476,5 @@ private:
     friend class AColdSteelPickup;
     FColdSteelSkillDefinition MeteorSkill,FlameArmorSkill;
     FColdSteelSkillDefinition IceWallSkill;
+    FColdSteelSkillDefinition BlizzardSkill;
 };

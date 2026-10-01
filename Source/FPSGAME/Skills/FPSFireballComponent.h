@@ -36,6 +36,9 @@ public:
     UFUNCTION(BlueprintCallable,Category="Skills") void Trigger();
     bool IsPrepared() const;
     bool IsFlying() const;
+    // A held spell reserves magic casting independently of the physical hand.
+    // Its own release remains available; launched effects do not reserve casting.
+    bool HasOtherPreparedSpell(const UActorComponent* Requester) const;
     bool IsGestureActive() const { return HandPhase!=EFireballHandPhase::None; }
     bool IsStaffCasting() const { return bStaffGesture&&IsGestureActive(); }
     UFUNCTION(BlueprintPure,Category="Skills|Fireball") bool IsOccupyingLeftHand() const { return IsGestureActive()&&!bStaffGesture; }

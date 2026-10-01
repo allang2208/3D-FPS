@@ -41,6 +41,14 @@ namespace ColdSteelUI
     inline const FLinearColor StaminaDeep = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("666B35FF")));
     inline const FLinearColor Danger = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("FF8193FF")));
     inline const FLinearColor Success = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("68D5ADFF")));
+    inline FLinearColor ActionProgressColor(float Progress)
+    {
+        static const FLinearColor Colors[]={Danger,FLinearColor::FromSRGBColor(FColor(240,211,113)),
+            FLinearColor::FromSRGBColor(FColor(112,180,255)),Success};
+        const float Position=FMath::Clamp(Progress,0.f,1.f)*3.f;
+        const int32 Segment=FMath::Min(FMath::FloorToInt(Position),2);
+        return FMath::Lerp(Colors[Segment],Colors[Segment+1],Position-Segment);
+    }
     // 韧性语义色（2026-09-29）：受击目标面板的韧性栏专用（破韧控制资源，紫罗兰系，
     // 与生命红/魔法蓝/体力橄榄/Gold 装饰互斥）；登记于设计系统 §2。
     inline const FLinearColor Toughness = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("9A8BC7FF")));

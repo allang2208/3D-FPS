@@ -82,4 +82,10 @@ private:
     UPROPERTY(Transient) TObjectPtr<UTexture2D> IceWallIconTexture;
     TSharedPtr<SButton> IceWallDetailButton;
     FSlateBrush IceWallIconBrush;
+    UPROPERTY(Transient) TObjectPtr<UTexture2D> BlizzardIconTexture;
+    TSharedPtr<SButton> BlizzardDetailButton;
+    FSlateBrush BlizzardIconBrush;
+    UPROPERTY(Transient) TMap<FName,TObjectPtr<UTexture2D>> ElectricIconTextures;
+    TMap<FName,FSlateBrush> ElectricIconBrushes;
+    TMap<FName,TSharedPtr<SButton>> ElectricDetailButtons;
 };

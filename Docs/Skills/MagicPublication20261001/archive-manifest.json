@@ -1,0 +1,90 @@
+[
+  {
+    "original": "Tools/Skills/migrate_blizzard_source.py",
+    "archived": "trash/skills-magic-publication-20261001/Tools/Skills/migrate_blizzard_source.py",
+    "bytes": 17162,
+    "sha256": "6CEC05BD5ED0E8A3E84D822CF509F434465F97221849C3138F760D0F35AF4687",
+    "reason": "Completed one-time source integration or resolved cast/material diagnosis; no active production caller",
+    "replacement": "Current Source/FPSGAME magic implementation and maintained Tools/Skills asset authors"
+  },
+  {
+    "original": "Tools/Skills/migrate_electric_source.py",
+    "archived": "trash/skills-magic-publication-20261001/Tools/Skills/migrate_electric_source.py",
+    "bytes": 5914,
+    "sha256": "D4AE71487F8EBF3D303AE2AF2DD055B7BB0E51A092EBA757C42B5C881E944172",
+    "reason": "Completed one-time source integration or resolved cast/material diagnosis; no active production caller",
+    "replacement": "Current Source/FPSGAME magic implementation and maintained Tools/Skills asset authors"
+  },
+  {
+    "original": "Tools/Skills/integrate_electric_ui.py",
+    "archived": "trash/skills-magic-publication-20261001/Tools/Skills/integrate_electric_ui.py",
+    "bytes": 11449,
+    "sha256": "01F966467F0E255C39A5E93304F0F2337FB369CDABAAE07A5D4AB4140B214AC9",
+    "reason": "Completed one-time source integration or resolved cast/material diagnosis; no active production caller",
+    "replacement": "Current Source/FPSGAME magic implementation and maintained Tools/Skills asset authors"
+  },
+  {
+    "original": "Tools/Skills/inspect_blizzard_cloud_channels.py",
+    "archived": "trash/skills-magic-publication-20261001/Tools/Skills/inspect_blizzard_cloud_channels.py",
+    "bytes": 1768,
+    "sha256": "F11D4F923ECB68270E70A2D0AC5DFB929ED591D666FCD1A50B4B10F01087AA98",
+    "reason": "Completed one-time source integration or resolved cast/material diagnosis; no active production caller",
+    "replacement": "Current Source/FPSGAME magic implementation and maintained Tools/Skills asset authors"
+  },
+  {
+    "original": "Tools/Skills/inspect_blizzard_cloud_mask.py",
+    "archived": "trash/skills-magic-publication-20261001/Tools/Skills/inspect_blizzard_cloud_mask.py",
+    "bytes": 3325,
+    "sha256": "CD7F86BEC1D82327694706EBEED6D9A4AFBB93474FBE71328FCCCB08E36E87D5",
+    "reason": "Completed one-time source integration or resolved cast/material diagnosis; no active production caller",
+    "replacement": "Current Source/FPSGAME magic implementation and maintained Tools/Skills asset authors"
+  },
+  {
+    "original": "Tools/Skills/inspect_blizzard_cloud_visibility.py",
+    "archived": "trash/skills-magic-publication-20261001/Tools/Skills/inspect_blizzard_cloud_visibility.py",
+    "bytes": 6517,
+    "sha256": "DEC2D154FCA3779387DB8B6DF1C3CCCBFBB2700D1D04796869BC870FC17B1E72",
+    "reason": "Completed one-time source integration or resolved cast/material diagnosis; no active production caller",
+    "replacement": "Current Source/FPSGAME magic implementation and maintained Tools/Skills asset authors"
+  },
+  {
+    "original": "Tools/Skills/inspect_blizzard_existing_runtime.py",
+    "archived": "trash/skills-magic-publication-20261001/Tools/Skills/inspect_blizzard_existing_runtime.py",
+    "bytes": 3396,
+    "sha256": "790893AA9891A6666A2061A82E5353A7D5ABE75570FEDF6A60551C3068EA01CC",
+    "reason": "Completed one-time source integration or resolved cast/material diagnosis; no active production caller",
+    "replacement": "Current Source/FPSGAME magic implementation and maintained Tools/Skills asset authors"
+  },
+  {
+    "original": "Tools/Skills/read_ice_wall_sampler_issue.py",
+    "archived": "trash/skills-magic-publication-20261001/Tools/Skills/read_ice_wall_sampler_issue.py",
+    "bytes": 1265,
+    "sha256": "AA469FB1DEE82D48D54626BAFF19C823755925B766D736BEF155B4F497E2482B",
+    "reason": "Completed one-time source integration or resolved cast/material diagnosis; no active production caller",
+    "replacement": "Current Source/FPSGAME magic implementation and maintained Tools/Skills asset authors"
+  },
+  {
+    "original": "Content/Skills/ElectricMagic/NS_ThunderLanceBeam.uasset",
+    "archived": "trash/skills-magic-publication-20261001/Content/Skills/ElectricMagic/NS_ThunderLanceBeam.uasset",
+    "bytes": 1782779,
+    "sha256": "D3D1CD0F07445D8628B0299F7B0025A95AF860BE1DC92F10DDACF27DCB22EB72",
+    "reason": "Superseded beam with no AssetRegistry referencers and no current runtime/author reference",
+    "replacement": "Content/Skills/ElectricMagic/ThunderFluxV3; active ThunderLanceCircle remains in place"
+  },
+  {
+    "original": "Content/Skills/ElectricMagic/ThunderLanceV2/M_ThunderLanceColumn.uasset",
+    "archived": "trash/skills-magic-publication-20261001/Content/Skills/ElectricMagic/ThunderLanceV2/M_ThunderLanceColumn.uasset",
+    "bytes": 17209,
+    "sha256": "E0015B1C586F15FB24E24E3B6A573F5268F63B403F6C72F3282EBD5CAEF63A33",
+    "reason": "Superseded beam with no AssetRegistry referencers and no current runtime/author reference",
+    "replacement": "Content/Skills/ElectricMagic/ThunderFluxV3; active ThunderLanceCircle remains in place"
+  },
+  {
+    "original": "Content/Skills/ElectricMagic/ThunderLanceV2/M_ThunderLanceCoil.uasset",
+    "archived": "trash/skills-magic-publication-20261001/Content/Skills/ElectricMagic/ThunderLanceV2/M_ThunderLanceCoil.uasset",
+    "bytes": 19807,
+    "sha256": "E50814CA879717C95918934B652AC109D30A47A40998EE7A9AABCF28FDAB00E0",
+    "reason": "Superseded beam with no AssetRegistry referencers and no current runtime/author reference",
+    "replacement": "Content/Skills/ElectricMagic/ThunderFluxV3; active ThunderLanceCircle remains in place"
+  }
+]

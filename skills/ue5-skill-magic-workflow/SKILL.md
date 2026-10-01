@@ -21,11 +21,15 @@ description: 开发和迁移 FPSGAME 的主动、被动技能与魔法，贯通�
 
 持杖举起／前挥、右手施法占用、火球／冰锥跟随至接触发射及预览不对线，读取 [持杖施法与瞄准](references/staff-cast-and-aim.md)：手势开始时选分支，同帧杖尖，松手确认与接触发射共用状态。
 
-陨星和灼锋焰甲等火场／武器附魔先读 [陨星与灼锋焰甲](references/fire-magic-migration.md)：原版数值、暂不要求法杖、非魔法附伤隔离、整次修炼与火把特效副本。
+陨星和灼锋焰甲等火场／武器附魔先读 [陨星与灼锋焰甲](references/fire-magic-migration.md)：原版数值、陨星法杖限定、非魔法附伤隔离、整次修炼与火把特效副本。2026-09-30 用户要求陨星与冰墙仅当前装备法杖可施放，其他技能的范围按明确要求和当前配置执行。
 
 圣光等敌伤友疗的锁定魔法先读 [圣光与敌伤友疗](references/holy-light-migration.md)：同组阵营、Alt 自愈、僵尸分类、治疗与伤害词条分离、续疗，以及现有 Holy Spline 光粒和原版光柱重建。
 
 闪电等锁定连锁法术先读 [闪电与锁定连锁](references/lightning-migration.md)：目标与视线、起手提交、整次修炼、感电／过载以及现有 Spline VFX 的作者入口。当前迁移已接入，未进行实机验收。
+
+雷暴领域与贯穿雷枪读取 [领域落雷与蓄力贯穿](references/electric-magic-migration.md)：随身雷云、松键释放、原版成长与感电增伤、墙面截断、Profile v19退款预留及电系资产作者。仅陨星与冰墙限制法杖；其余范围沿用户具体要求执行。
+
+电系光柱的粗细、密度、流动与棋盘格问题读取同一引用的「光束制作的可复用规则」；当前制作与恢复入口为ThunderFluxV3，参数和用户测试边界见工程记录。
 
 冰锥或整组多枚投射物的迁移，先读 [冰锥与多枚投射物](references/ice-spike-migration.md)：源码全链、数量台阶、整组冷却／修炼、法杖联动及共享手势。2026-09-16 起冰锥与火球同口径：不再单独计算智力、总量比旧公式低约 30%、蓝耗随等级增长、基础冷却 12→8 秒；旧的「保留原版魔攻＋智力」条款作废，取数一律以当前 `skills.json` 为准。魔杖乘数接口 `wandSpellMultiplier` 已在火球公式预留。
 
@@ -37,6 +41,8 @@ description: 开发和迁移 FPSGAME 的主动、被动技能与魔法，贯通�
 - 技能定义与每级效果、成本、伤害、经验和界面说明取同一数据入口；被动效果从当前等级派生，不在加载时反复叠加。
 - 先列出主动／被动、解锁、等级上限、冷却起点、资源扣除时点、施法接触点、可打断阶段和动作占用。一个已展示但不能升级、保存或使用的卡片不算接入完成。
 - 当前入口：`Content/ColdSteelData/skills.json`、`Source/FPSGAME/Skills/ColdSteelSkillRules.*`、`ColdSteelSkillModel.cpp`、`UI/ColdSteelStatusModel.*`。专项参数可独立 JSON，原生数值与面板共用计算结果。
+
+冰墙的凝聚、建筑式预览、R 切高／矮墙与发射成墙，读取 [冰墙迁移](references/ice-wall-migration.md)：原版物理伤害、整次修炼、连续碰撞／导航、脚架顶面和未释放退款。资产已后台保存，实机状态以工程案例为准。
 
 ## 2. 玩法、进度和快捷栏一起接入
 
@@ -92,3 +98,5 @@ description: 开发和迁移 FPSGAME 的主动、被动技能与魔法，贯通�
 `quickCombat`：触发键 F（武器检视已让位到 L）。剑类走符文剑第四连击配重锤（`BeginQuickCombatStrike`，复用第四击节奏与单目标窄走廊）；单持手枪走程序化握把砸击（**V5 关键帧化候选，等 Dan Wesson 715 实机验收**；V1–V4 被否，根因与教训见 [手枪握把砸击尝试](../ue5-fps-arms-animation/references/pistol-grip-bash-attempt.md)）。命中 2m 单目标：伤害 25+5×等级+力量×(5+0.1×等级)，击退 1m、眩晕 (2.5+0.1×等级) 秒（怪物 `ReceiveStun`）；基础冷却 12s（预留-结束起跳合同）；修炼释放 +1、技能击杀 +15。数据入口 `skills.json:quickCombat`；动作参数集中在 `QuickCombatPistolMotion.h` 的 7 键表（0.60s 六段节奏、肘极/肩线/左手松握/相机语言、命中探针方向），组件 `FPSQuickCombatComponent.*`，姿态层 `FPSCastingMeshComponent::ApplyQuickCombatPose`，打击探针 `GetQuickCombatStrikeProbe()`；案例与未测范围 `Docs/Skills/quick-combat-placeholder-20260917.md`。
 
 - 连续奔跑就绪后的被动下劈、60°扇区与群怪出手开销：[冲刺攻击](references/dash-attack.md)。动作前摇与技能判定同步修改，数值／修炼／存档／准备提示一起接入。
+
+暴风雪迁移与固定椭圆区域、起手付款/读档退还及结束汇总修炼见 [暴风雪迁移](references/blizzard-migration.md)。仅陨星和冰墙要求法杖，暴风雪不要求。

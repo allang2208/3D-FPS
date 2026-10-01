@@ -4,6 +4,50 @@
 #include "NiagaraComponent.h"
 #include "NiagaraSystem.h"
 #include "NiagaraEmitterHandle.h"
+#include "Components/StaticMeshComponent.h"
+#include "Engine/StaticMesh.h"
+#include "Materials/MaterialInstanceDynamic.h"
+
+void AFPSLightningArc::InitializeColumn(UStaticMesh* Tube,UMaterialInterface* BodyMaterial,UMaterialInterface* FilamentMaterial,const FVector& Start,const FVector& End,const FLightningCast& Spell)
+{
+    if(!Tube||!BodyMaterial||!FilamentMaterial){Destroy();return;}
+    Tags.Add(TEXT("ThunderLanceColumn"));Age=0;Hold=Spell.Duration;Fade=FMath::Max(.01f,Spell.Fade);
+    const FVector Delta=End-Start;const float Length=FMath::Max(1.f,float(Delta.Size()));
+    SetActorLocationAndRotation(Start,Delta.Rotation());
+    Path->ClearSplinePoints(false);Path->AddSplinePoint(FVector::ZeroVector,ESplineCoordinateSpace::Local,false);
+    Path->AddSplinePoint(FVector(Length,0,0),ESplineCoordinateSpace::Local,false);Path->UpdateSpline();
+    FX->DeactivateImmediate();FX->SetAsset(nullptr);
+    const auto Bounds=Tube->GetBounds();const float MeshDiameter=FMath::Max(1.f,2.f*Bounds.BoxExtent.X),MeshHeight=FMath::Max(1.f,2.f*Bounds.BoxExtent.Z);
+    // An irregular rolling envelope surrounds a coherent white-blue core.
+    // The fourth tube carries snapped, branched electric paths instead of coils.
+    const float Widths[]={264.f,168.f,87.f,291.f},Opacities[]={.45f,.93f,1.f,1.f},Emissions[]={12.f,21.f,31.5f,42.f};
+    const FLinearColor Colors[]={FLinearColor::FromSRGBColor(FColor(65,145,255)),FLinearColor::FromSRGBColor(FColor(125,225,255)),
+        FLinearColor::FromSRGBColor(FColor(225,246,255)),FLinearColor::FromSRGBColor(FColor(170,225,255))};
+    FRandomStream Cosmetic{int32(FPlatformTime::Cycles())};const float Seed=Cosmetic.FRandRange(0.f,100.f);
+    const FVector Axis=Delta.GetSafeNormal();
+    auto MakeTube=[&](const FString& Name,UMaterialInterface* Material,float Diameter)
+    {
+        auto* Mesh=NewObject<UStaticMeshComponent>(this,*Name);AddInstanceComponent(Mesh);Mesh->SetupAttachment(Path);
+        Mesh->SetStaticMesh(Tube);Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);Mesh->SetCanEverAffectNavigation(false);
+        Mesh->SetCastShadow(false);Mesh->SetReceivesDecals(false);Mesh->SetRelativeRotation(FRotator(90,0,0));
+        Mesh->SetRelativeScale3D(FVector(Diameter/MeshDiameter,Diameter/MeshDiameter,Length/MeshHeight));Mesh->SetBoundsScale(1.5f);
+        auto* MaterialInstance=UMaterialInstanceDynamic::Create(Material,Mesh);Mesh->SetMaterial(0,MaterialInstance);Mesh->RegisterComponent();return Mesh;
+    };
+    for(int32 I=0;I<4;++I)
+    {
+        auto* Mesh=MakeTube(FString::Printf(TEXT("FluxLayer%d"),I),I==3?FilamentMaterial:BodyMaterial,Widths[I]);
+        Mesh->SetRelativeLocation(FVector(Length*.5f,0,0));Mesh->SetTranslucentSortPriority(I+1);
+        auto* Material=Cast<UMaterialInstanceDynamic>(Mesh->GetMaterial(0));
+        Material->SetVectorParameterValue(TEXT("BeamColor"),Colors[I]);Material->SetScalarParameterValue(TEXT("Opacity"),Opacities[I]);
+        Material->SetScalarParameterValue(TEXT("Emission"),Emissions[I]);Material->SetScalarParameterValue(TEXT("Role"),I<3?2.f-I:3.f);
+        Material->SetScalarParameterValue(TEXT("Radius"),Widths[I]*.5f);Material->SetScalarParameterValue(TEXT("Length"),Length);
+        Material->SetScalarParameterValue(TEXT("Seed"),Seed+I*.731f);
+        Material->SetVectorParameterValue(TEXT("Origin"),FLinearColor(Start.X,Start.Y,Start.Z,0.f));
+        Material->SetVectorParameterValue(TEXT("Axis"),FLinearColor(Axis.X,Axis.Y,Axis.Z,0.f));
+    }
+    ImpactLight->SetRelativeLocation(FVector(Length,0,0));ImpactLight->SetLightColor(FLinearColor(.4f,.7f,1.f));ImpactLight->SetAttenuationRadius(210.f);
+    BaseLight=3600.f;ImpactLight->SetIntensity(BaseLight);SetLifeSpan(Hold+Fade+.05f);
+}
 
 AFPSLightningArc::AFPSLightningArc()
 {
@@ -107,6 +151,17 @@ void AFPSLightningArc::Tick(float Delta)
 {
     if(bBladeAttached&&!BoundBlade.IsValid()){Destroy();return;}
     Super::Tick(Delta);Age+=Delta;
+    if(Tags.Contains(TEXT("ThunderLanceColumn")))
+    {
+        const float Total=FMath::Max(.01f,Hold+Fade),Alpha=Age<Hold?1.f:FMath::Clamp(1.f-(Age-Hold)/Fade,0.f,1.f);
+        TInlineComponentArray<UStaticMeshComponent*> Meshes(this);
+        for(auto* Mesh:Meshes)
+        {
+            if(auto* Material=Cast<UMaterialInstanceDynamic>(Mesh->GetMaterial(0)))
+            {Material->SetScalarParameterValue(TEXT("BeamAlpha"),Alpha);Material->SetScalarParameterValue(TEXT("BeamAge"),Age);}
+        }
+        ImpactLight->SetIntensity(BaseLight*Alpha*(1.f+1.25f*FMath::Exp(-Age*32.f)));if(Age>=Total)Destroy();return;
+    }
     if(bBladeAttached)SetActorRelativeRotation(FQuat(FVector::ForwardVector,Age*.7f));
     const float Alpha=Age<Hold?1.f:FMath::Clamp(1-(Age-Hold)/Fade,0.f,1.f);
     const float Flash=BladeFlash();

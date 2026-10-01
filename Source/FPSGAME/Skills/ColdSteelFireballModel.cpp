@@ -136,14 +136,18 @@ bool UColdSteelStatusModel::RefundUnreleasedCast(float PaidMana,FName Skill)
 {
     if(PaidMana<=0.f&&Skill.IsNone())return true;
     SyncRuntime();auto P=Snapshot();
+    if(Skill==TEXT("blizzard"))PaidMana=P.bBlizzardReserved?P.BlizzardReservedMana:0.f;
+    if(ElectricMagic::IsSkill(Skill))PaidMana=P.ElectricReservedMana.FindRef(Skill);
     if(Skill==TEXT("iceWall"))PaidMana=P.bIceWallReserved?P.IceWallReservedMana:0.f;
     if(PaidMana>0.f)P.Mana=FMath::Min(float(Derived(TEXT("maxMp"))),P.Mana+PaidMana);
     auto Clear=[&](float& Remaining,float& Duration){Remaining=0.f;Duration=0.f;};
+    if(ElectricMagic::IsSkill(Skill)){P.ElectricReservedMana.Remove(Skill);P.ElectricCooldowns.Add(Skill,0);P.ElectricCooldownDurations.Add(Skill,0);}
     if(Skill==TEXT("holyLight"))Clear(P.HolyLightCooldown,P.HolyLightCooldownDuration);
     else if(Skill==TEXT("lightning"))Clear(P.LightningCooldown,P.LightningCooldownDuration);
     else if(Skill==TEXT("meteor"))Clear(P.MeteorCooldown,P.MeteorCooldownDuration);
     else if(Skill==TEXT("flameArmor"))Clear(P.FlameArmorCooldown,P.FlameArmorCooldownDuration);
     else if(Skill==TEXT("fireball")){P.bFireballReserved=false;Clear(P.FireballCooldown,P.FireballCooldownDuration);}
+    else if(Skill==TEXT("blizzard")){P.bBlizzardReserved=false;P.BlizzardReservedMana=0;Clear(P.BlizzardCooldown,P.BlizzardCooldownDuration);}
     else if(Skill==TEXT("iceSpike"))Clear(P.IceSpikeCooldown,P.IceSpikeCooldownDuration);
     else if(Skill==TEXT("iceWall")){P.bIceWallReserved=false;P.IceWallReservedMana=0;Clear(P.IceWallCooldown,P.IceWallCooldownDuration);}
     return CommitState(MoveTemp(P));

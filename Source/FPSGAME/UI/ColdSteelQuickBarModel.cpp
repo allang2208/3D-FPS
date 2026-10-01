@@ -3,7 +3,9 @@
 #include "../Skills/FPSFireballComponent.h"
 #include "../Skills/FPSIceSpikeComponent.h"
 #include "../Skills/FPSIceWallComponent.h"
+#include "../Skills/FPSBlizzardComponent.h"
 #include "../Skills/FPSLightningComponent.h"
+#include "../Skills/FPSElectricMagicComponent.h"
 #include "../Skills/FPSHolyLightComponent.h"
 #include "../Skills/FPSFireMagicComponent.h"
 #include "GameFramework/PlayerController.h"
@@ -53,7 +55,7 @@ bool Validate(const FColdSteelProfile& P,FString& Reason)
     {
         if(!B.Skill.IsNone())
         {
-            if((!FireMagic::IsSkill(B.Skill)&&B.Skill!=TEXT("fireball")&&B.Skill!=TEXT("iceSpike")&&B.Skill!=TEXT("iceWall")&&B.Skill!=TEXT("lightningStrike")&&B.Skill!=TEXT("holyLight")&&B.Skill!=TEXT("dodge")&&B.Skill!=TEXT("heavyStrike")&&B.Skill!=TEXT("quickCombat")&&B.Skill!=TEXT("whirlwind"))||!B.ItemId.IsEmpty()||!B.ItemDefinition.IsEmpty()||Skills.Contains(B.Skill))return false;
+            if((!ElectricMagic::IsSkill(B.Skill)&&!FireMagic::IsSkill(B.Skill)&&B.Skill!=TEXT("fireball")&&B.Skill!=TEXT("iceSpike")&&B.Skill!=TEXT("iceWall")&&B.Skill!=TEXT("blizzard")&&B.Skill!=TEXT("lightningStrike")&&B.Skill!=TEXT("holyLight")&&B.Skill!=TEXT("dodge")&&B.Skill!=TEXT("heavyStrike")&&B.Skill!=TEXT("quickCombat")&&B.Skill!=TEXT("whirlwind"))||!B.ItemId.IsEmpty()||!B.ItemDefinition.IsEmpty()||Skills.Contains(B.Skill))return false;
             Skills.Add(B.Skill);
         }
         else if(!B.ItemDefinition.IsEmpty())
@@ -70,7 +72,7 @@ bool Validate(const FColdSteelProfile& P,FString& Reason)
 FColdSteelQuickBinding UColdSteelStatusModel::QuickBinding(int32 Index) const
 { return Current.QuickBindings.IsValidIndex(Index)?Current.QuickBindings[Index]:FColdSteelQuickBinding(); }
 const FColdSteelSkillDefinition* UColdSteelStatusModel::QuickSkillDefinition(FName Id) const
-{ if(Id==TEXT("iceWall"))return &IceWallSkill;if(Id==TEXT("staffLight"))return &StaffLightSkill;if(FireMagic::IsSkill(Id))return &FireMagicDefinition(Id);if(Id==TEXT("holyLight"))return &HolyLightSkill;if(Id==TEXT("lightningStrike"))return &LightningSkill;if(Id==TEXT("iceSpike"))return &IceSpikeSkill;if(Id==TEXT("heavyStrike")||Id==TEXT("whirlwind"))return &MasteryDefinition(Id);if(Id==TEXT("quickCombat"))return &QuickCombatSkill;if(Id==TEXT("runeBlades"))return &RuneBladesSkill;return Id==TEXT("fireball")?&FireballSkill:Id==TEXT("dodge")?&DodgeSkill:nullptr; }
+{ if(ElectricMagic::IsSkill(Id))return &ElectricMagicDefinition(Id);if(Id==TEXT("blizzard"))return &BlizzardSkill;if(Id==TEXT("iceWall"))return &IceWallSkill;if(Id==TEXT("staffLight"))return &StaffLightSkill;if(FireMagic::IsSkill(Id))return &FireMagicDefinition(Id);if(Id==TEXT("holyLight"))return &HolyLightSkill;if(Id==TEXT("lightningStrike"))return &LightningSkill;if(Id==TEXT("iceSpike"))return &IceSpikeSkill;if(Id==TEXT("heavyStrike")||Id==TEXT("whirlwind"))return &MasteryDefinition(Id);if(Id==TEXT("quickCombat"))return &QuickCombatSkill;if(Id==TEXT("runeBlades"))return &RuneBladesSkill;return Id==TEXT("fireball")?&FireballSkill:Id==TEXT("dodge")?&DodgeSkill:nullptr; }
 bool UColdSteelStatusModel::CanBindQuickSkill(FName Id) const
 { const auto* P=Current.Skills.Find(Id);return QuickSkillDefinition(Id)&&P&&P->Level>0; }
 const FColdSteelItem* UColdSteelStatusModel::ResolveQuickItem(int32 Index) const
@@ -143,9 +145,11 @@ bool UColdSteelStatusModel::UseQuickBinding(int32 Index)
     if(B.Skill==TEXT("quickCombat"))return TriggerQuickCombat();
     if(B.Skill==TEXT("fireball"))if(auto* Ability=Player->FindComponentByClass<UFPSFireballComponent>()){Ability->Trigger();return true;}
     if(B.Skill==TEXT("iceSpike"))if(auto* Ability=Player->FindComponentByClass<UFPSIceSpikeComponent>()){Ability->Trigger();return true;}
+    if(B.Skill==TEXT("blizzard"))if(auto* Ability=Player->FindComponentByClass<UFPSBlizzardComponent>()){Ability->Trigger();return true;}
     if(B.Skill==TEXT("iceWall"))if(auto* Ability=Player->FindComponentByClass<UFPSIceWallComponent>()){Ability->Trigger();return true;}
     if(B.Skill==TEXT("holyLight"))if(auto* Ability=Player->FindComponentByClass<UFPSHolyLightComponent>())
     {const auto* PC=Cast<APlayerController>(Player->GetController());Ability->Trigger(PC&&(PC->IsInputKeyDown(EKeys::LeftAlt)||PC->IsInputKeyDown(EKeys::RightAlt)));return true;}
+    if(ElectricMagic::IsSkill(B.Skill))if(auto* Ability=Player->FindComponentByClass<UFPSElectricMagicComponent>()){Ability->Trigger(B.Skill);return true;}
     if(B.Skill==TEXT("lightningStrike"))if(auto* Ability=Player->FindComponentByClass<UFPSLightningComponent>()){Ability->Trigger();return true;}
     if(FireMagic::IsSkill(B.Skill))if(auto* Ability=Player->FindComponentByClass<UFPSFireMagicComponent>()){Ability->Trigger(B.Skill);return true;}
     return false;
@@ -154,7 +158,8 @@ bool UColdSteelStatusModel::UseQuickBinding(int32 Index)
 bool UColdSteelStatusModel::BeginSpellAimPreview(int32 Index)
 {
     const FName Skill=QuickBinding(Index).Skill;
-    if(Skill!=TEXT("fireball")&&Skill!=TEXT("iceSpike"))return false;
+    if(Skill==TEXT("thunderLance")){auto* Pawn=UGameplayStatics::GetPlayerPawn(this,0);if(!CanBindQuickSkill(Skill)||!Pawn)return false;if(auto* Ability=Pawn->FindComponentByClass<UFPSElectricMagicComponent>()){Ability->Trigger(Skill);return true;}return false;}
+    if(Skill!=TEXT("fireball")&&Skill!=TEXT("iceSpike")&&Skill!=TEXT("blizzard"))return false;
     auto* Player=Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(this,0));
     if(!Player)return false;
     if(Skill==TEXT("fireball"))
@@ -164,9 +169,16 @@ bool UColdSteelStatusModel::BeginSpellAimPreview(int32 Index)
         Ability->SetAimPreview(true);
         if(!Ability->IsAimPreviewActive())return false;
     }
-    else
+    else if(Skill==TEXT("iceSpike"))
     {
         auto* Ability=Player->FindComponentByClass<UFPSIceSpikeComponent>();
+        if(!Ability)return false;
+        Ability->SetAimPreview(true);
+        if(!Ability->IsAimPreviewActive())return false;
+    }
+    else
+    {
+        auto* Ability=Player->FindComponentByClass<UFPSBlizzardComponent>();
         if(!Ability)return false;
         Ability->SetAimPreview(true);
         if(!Ability->IsAimPreviewActive())return false;
@@ -177,6 +189,7 @@ bool UColdSteelStatusModel::BeginSpellAimPreview(int32 Index)
 
 bool UColdSteelStatusModel::EndSpellAimPreview(int32 Index)
 {
+    if(QuickBinding(Index).Skill==TEXT("thunderLance")){if(auto* Pawn=UGameplayStatics::GetPlayerPawn(this,0))if(auto* Ability=Pawn->FindComponentByClass<UFPSElectricMagicComponent>())Ability->ReleaseLance();return true;}
     if(AimPreviewIndex!=Index)return false;
     AimPreviewIndex=INDEX_NONE;
     auto* Player=Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(this,0));
@@ -194,6 +207,11 @@ bool UColdSteelStatusModel::EndSpellAimPreview(int32 Index)
         if(auto* Ability=Player->FindComponentByClass<UFPSIceSpikeComponent>())
         {if(Ability->IsAimPreviewActive())Ability->ReleaseAimPreview();}
     }
+    else if(Skill==TEXT("blizzard"))
+    {
+        if(auto* Ability=Player->FindComponentByClass<UFPSBlizzardComponent>())
+        {if(Ability->IsAimPreviewActive())Ability->ReleaseAimPreview();}
+    }
     return true;
 }
 
@@ -205,4 +223,6 @@ void UColdSteelStatusModel::CancelSpellAimPreview()
     if(auto* Fireball=Player->FindComponentByClass<UFPSFireballComponent>())Fireball->SetAimPreview(false);
     if(auto* Ice=Player->FindComponentByClass<UFPSIceSpikeComponent>())Ice->SetAimPreview(false);
     if(auto* IceWall=Player->FindComponentByClass<UFPSIceWallComponent>())IceWall->SuspendPreview();
+    if(auto* Blizzard=Player->FindComponentByClass<UFPSBlizzardComponent>())Blizzard->SuspendPreview();
+    if(auto* Electric=Player->FindComponentByClass<UFPSElectricMagicComponent>())Electric->CancelPending();
 }

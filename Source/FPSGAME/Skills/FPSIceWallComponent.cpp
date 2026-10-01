@@ -1,5 +1,6 @@
 #include "FPSIceWallComponent.h"
 #include "FPSIceWall.h"
+#include "IceWallPlacement.h"
 #include "FPSFireballComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../FPSGAMEPlayerController.h"
@@ -15,6 +16,9 @@
 #include "Engine/World.h"
 #include "Engine/OverlapResult.h"
 #include "Engine/StaticMesh.h"
+#include "Engine/AssetManager.h"
+#include "Engine/StreamableManager.h"
+#include "NiagaraSystem.h"
 #include "Materials/MaterialInterface.h"
 #include "Particles/ParticleSystem.h"
 #include "Sound/SoundBase.h"
@@ -31,6 +35,9 @@ void UFPSIceWallComponent::BeginPlay()
     BreakFX=LoadObject<UParticleSystem>(nullptr,TEXT("/Game/Skills/IceSpike/P_IceSpikeImpact.P_IceSpikeImpact"));
     BreakSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Skills/IceSpike/S_IceImpact.S_IceImpact"));
     CastSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Skills/IceWall/BlockV1/S_IceWallCast.S_IceWallCast"));
+    const TArray<FSoftObjectPath> Effects={ColdMistTemplate.ToSoftObjectPath(),LandingTemplate.ToSoftObjectPath()};
+    ColdMistLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Effects,
+        FStreamableDelegate::CreateWeakLambda(this,[this](){ColdMistAsset=ColdMistTemplate.Get();LandingAsset=LandingTemplate.Get();}));
 }
 UColdSteelStatusModel* UFPSIceWallComponent::Model() const
 {return GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;}
@@ -56,7 +63,12 @@ FString UFPSIceWallComponent::StatusText() const
     if(bQueuedGather)return TEXT("等待施法");
     if(Seed.IsValid()&&!bGathered)return TEXT("凝聚");
     if(bReleaseRequested)return TEXT("释放");
-    if(IsPrepared())return Displayed.bValid?(Shape==EIceWallShape::Low?TEXT("矮墙·R"):TEXT("高墙·R")):Displayed.Reason;
+    if(IsPrepared())
+    {
+        if(!Displayed.bValid)return Displayed.Reason;
+        const FString Label=Shape==EIceWallShape::Low?TEXT("矮墙·R"):TEXT("高墙·R");
+        return Displayed.bTrimmed?Label+TEXT("·截短"):Label;
+    }
     if(auto* M=Model();M&&M->IceWallCooldown()>0)return FString::Printf(TEXT("%.1f"),M->IceWallCooldown());
     return TEXT("");
 }
@@ -74,6 +86,8 @@ void UFPSIceWallComponent::Trigger()
     auto* P=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();
     if(!P||!M||!P->IsLocallyControlled()||GetWorld()->GetNetMode()!=NM_Standalone||!InputAvailable())return;
     if(auto* Health=P->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
+    if(const auto* H=Hands();H&&H->HasOtherPreparedSpell(this))
+    {bQueuedGather=false;Feedback(TEXT("先释放已积蓄魔法"));return;}
     if(M->IceWallDefinition().IceWall.bRequiresStaff&&!M->HasEquippedStaff()){Cancel();Feedback(TEXT("需要法杖"));return;}
     if(P->IsSpellHandHeld()){RejectHeldHand();return;}
     if(Seed.IsValid())
@@ -81,7 +95,7 @@ void UFPSIceWallComponent::Trigger()
         if(!IsPrepared())return;
         FString Reason;
         // Commit exactly the displayed plan. Contact may revalidate it, never retarget it.
-        if(!Displayed.bValid||!ValidatePlacement(Displayed,Seed->Snapshot(),true,Reason))
+        if(!Displayed.bValid||!ValidatePlacement(Displayed,Seed->Snapshot(),Reason))
         {Feedback(Reason.IsEmpty()?Displayed.Reason:Reason);return;}
         Committed=Displayed;bReleaseRequested=true;if(Preview.IsValid())Preview->SetActorHiddenInGame(true);
     }
@@ -98,6 +112,8 @@ void UFPSIceWallComponent::ServiceQueue()
 {
     auto* M=Model();auto* H=Hands();auto* P=Cast<AFPSGAMECharacter>(GetOwner());
     if(!M||!H||!P||!InputAvailable())return;
+    if((bQueuedGather||bReleaseRequested)&&H->HasOtherPreparedSpell(this))
+    {bQueuedGather=false;bReleaseRequested=false;Feedback(TEXT("先释放已积蓄魔法"));return;}
     if((bQueuedGather||bReleaseRequested)&&M->IceWallDefinition().IceWall.bRequiresStaff&&!M->HasEquippedStaff())
     {Cancel();Feedback(TEXT("需要法杖"));return;}
     if((bQueuedGather||bReleaseRequested)&&P->IsSpellHandHeld()){RejectHeldHand();return;}
@@ -129,7 +145,7 @@ void UFPSIceWallComponent::LaunchAtContact()
     if(auto* M=Model();M&&M->IceWallDefinition().IceWall.bRequiresStaff&&!M->HasEquippedStaff())
     {Cancel();Feedback(TEXT("需要法杖"));return;}
     FString Reason;
-    if(!InputAvailable()||!ValidatePlacement(Committed,Seed->Snapshot(),true,Reason))
+    if(!InputAvailable()||!ValidatePlacement(Committed,Seed->Snapshot(),Reason))
     {bReleaseRequested=false;Feedback(Reason.IsEmpty()?TEXT("释放取消"):Reason);PreviewAge=1;return;}
     auto* M=Model();auto* H=Hands();
     if(!M||!H||!M->CommitIceWallRelease()){Cancel();return;}
@@ -155,33 +171,11 @@ void UFPSIceWallComponent::SuspendPreview()
     bReleaseRequested=false;PreviewAge=1;Displayed.bValid=false;
     if(auto* H=Hands();H&&H->IsSpellGesture(this)&&bGathered)H->CancelSpellGesture(this);
 }
-bool UFPSIceWallComponent::ValidatePlacement(const FIceWallPlacement& P,const FIceWallCast& C,bool bAllowEnemies,FString& Reason) const
+bool UFPSIceWallComponent::ValidatePlacement(const FIceWallPlacement& P,const FIceWallCast& C,FString& Reason) const
 {
-    auto Reject=[&](const TCHAR* Text){Reason=Text;return false;};
-    if(FVector::DistSquared2D(GetOwner()->GetActorLocation(),P.Location)>FMath::Square(C.Range))return Reject(TEXT("超距"));
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(IceWallPlacement),false);
-    if(Seed.IsValid())Query.AddIgnoredActor(Seed.Get());if(Preview.IsValid())Query.AddIgnoredActor(Preview.Get());
-    TArray<FOverlapResult> Hits;
-    GetWorld()->OverlapMultiByChannel(Hits,P.Location+FVector(0,0,C.Height(P.Shape)*.5f+5),P.Rotation.Quaternion(),ECC_Pawn,
-        FCollisionShape::MakeBox(FVector(C.Thickness*.5f,C.Width()*.5f,C.Height(P.Shape)*.5f-5)),Query);
-    for(const auto& Hit:Hits)
-    {
-        auto* A=Hit.GetActor();auto* Primitive=Hit.GetComponent();
-        if(!A||!Primitive||Primitive->GetCollisionResponseToChannel(ECC_Pawn)!=ECR_Block)continue;
-        const auto* Enemy=A->FindComponentByClass<UMonsterCombatComponent>();
-        if(Enemy&&Enemy->IsDead())continue;
-        if(Enemy&&bAllowEnemies&&!A->ActorHasTag(TEXT("Friendly")))continue;
-        return Reject(Cast<APawn>(A)?TEXT("有人占位"):TEXT("位置遮挡"));
-    }
-    Query.AddIgnoredActor(GetOwner());
-    // Both wall ends and the center need real support on the same floor.
-    for(float Along:{-C.Width()*.5f+2,0.f,C.Width()*.5f-2})
-    {
-        const FVector Base=P.Location+P.Rotation.RotateVector(FVector(0,Along,0));FHitResult Floor;
-        if(!GetWorld()->LineTraceSingleByChannel(Floor,Base+FVector(0,0,25),Base-FVector(0,0,45),ECC_Visibility,Query)
-            ||Floor.ImpactNormal.Z<.9||FMath::Abs(Floor.ImpactPoint.Z-P.Location.Z)>6||Cast<APawn>(Floor.GetActor()))return Reject(TEXT("地面不平"));
-    }
-    Reason.Reset();return true;
+    if(FVector::DistSquared2D(GetOwner()->GetActorLocation(),P.Location)>FMath::Square(C.Range))
+    {Reason=TEXT("超距");return false;}
+    return IceWallPlacement::Validate(GetWorld(),P,C,Reason);
 }
 void UFPSIceWallComponent::UpdatePreview()
 {
@@ -192,18 +186,19 @@ void UFPSIceWallComponent::UpdatePreview()
     FCollisionQueryParams Query(SCENE_QUERY_STAT(IceWallAim),false,GetOwner());Query.AddIgnoredActor(Seed.Get());Query.AddIgnoredActor(Preview.Get());
     const FVector Eye=Camera->GetComponentLocation();FHitResult Aim,Floor;
     const FVector End=Eye+Camera->GetForwardVector()*C.Range;
-    const bool bAim=GetWorld()->LineTraceSingleByChannel(Aim,Eye,End,ECC_Visibility,Query);
+    const bool bAim=IceWallPlacement::TraceWithoutCreatures(GetWorld(),Eye,End,Query,Aim);
     const FVector Target=bAim?Aim.ImpactPoint:End;
     P.Location=Target;
-    const bool bFloor=GetWorld()->LineTraceSingleByChannel(Floor,Target+FVector(0,0,25),Target-FVector(0,0,C.Range),ECC_Visibility,Query);
+    const bool bFloor=IceWallPlacement::TraceWithoutCreatures(GetWorld(),Target+FVector(0,0,25),Target-FVector(0,0,C.Range),Query,Floor);
     if(bFloor)P.Location=Floor.ImpactPoint;
-    if(!bFloor||Floor.ImpactNormal.Z<.9||Cast<APawn>(Floor.GetActor()))P.Reason=TEXT("指向地面");
-    else P.bValid=ValidatePlacement(P,C,true,P.Reason);
+    if(!bFloor||Floor.ImpactNormal.Z<.5735764f)P.Reason=TEXT("指向可支撑的坡面");
+    else if(FVector::DistSquared2D(GetOwner()->GetActorLocation(),P.Location)>FMath::Square(C.Range))P.Reason=TEXT("超距");
+    else P.bValid=IceWallPlacement::Build(GetWorld(),P,C,P.Reason);
     // A visible ground point behind a foreground obstacle cannot become a placement candidate.
     if(P.bValid)
     {
         FHitResult Sight;
-        if(GetWorld()->LineTraceSingleByChannel(Sight,Eye,P.Location+FVector(0,0,12),ECC_Visibility,Query)
+        if(IceWallPlacement::TraceWithoutCreatures(GetWorld(),Eye,P.Location+FVector(0,0,12),Query,Sight)
             &&FVector::DistSquared(Sight.ImpactPoint,P.Location)>FMath::Square(32.f))
         {P.bValid=false;P.Reason=TEXT("落点遮挡");}
     }
@@ -251,11 +246,13 @@ void UFPSIceWallComponent::TickComponent(float Delta,ELevelTick Type,FActorCompo
     if(!bGathered&&H&&H->IsSpellGesture(this))Fraction=H->HandPhaseFraction();
     Seed->Gather(Fraction,SeedOrigin());
     if(bGathered){PreparedAge+=Delta;if(PreparedAge>=Seed->Snapshot().HoverDuration){Cancel();Feedback(TEXT("凝聚到期"));return;}}
-    PreviewAge+=Delta;if(PreviewAge>=.05f){PreviewAge=0;UpdatePreview();}
+    PreviewAge+=Delta;if(PreviewAge>=.12f){PreviewAge=0;UpdatePreview();}
 }
 void UFPSIceWallComponent::EndPlay(EEndPlayReason::Type Reason)
 {
+    if(ColdMistLoad){ColdMistLoad->CancelHandle();ColdMistLoad.Reset();}
     Cancel();
     for(auto W:ReleasedWalls)if(W.IsValid())W->Destroy();ReleasedWalls.Reset();
+    ColdMistAsset=nullptr;LandingAsset=nullptr;
     Super::EndPlay(Reason);
 }

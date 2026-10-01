@@ -96,6 +96,8 @@ void UFPSFireMagicComponent::Trigger(FName Skill)
     if(!FireMagic::IsSkill(Skill)||!Player||!M||!Player->IsLocallyControlled()||GetWorld()->GetNetMode()!=NM_Standalone)return;
     if(const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
     if(!CommittedSkill.IsNone())return;
+    if(const auto* H=Hands();H&&H->HasOtherPreparedSpell(this))
+    {QueuedSkill=NAME_None;Feedback(Skill,TEXT("先释放已积蓄魔法"));return;}
     if(Player->IsSpellHandHeld()){RejectHeldHand(Skill);return;}
     if(!CastSound||(Skill==TEXT("meteor")?!bMeteorAssetsReady:(!AuraSystem||!WeaponSystem||!SparkSystem))){Feedback(Skill,TEXT("缺素材"));return;}
     const auto Spell=M->FireMagicStats(Skill);FString Failure;FVector Point,Normal;
@@ -107,6 +109,8 @@ void UFPSFireMagicComponent::ServiceQueue()
 {
     if(QueuedSkill.IsNone())return;
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();auto* H=Hands();if(!Player||!M||!H)return;
+    if(H->HasOtherPreparedSpell(this))
+    {Feedback(QueuedSkill,TEXT("先释放已积蓄魔法"));QueuedSkill=NAME_None;return;}
     if(Player->IsSpellHandHeld()){RejectHeldHand(QueuedSkill);return;}
     const auto* PC=Cast<APlayerController>(Player->GetController());
     if(!PC||PC->IsLookInputIgnored()||PC->IsMoveInputIgnored()){QueuedSkill=NAME_None;return;}

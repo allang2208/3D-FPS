@@ -36,6 +36,7 @@ public:
     // Returns true once at the overload threshold. The spell owns the resulting chain.
     bool AddElectrified(int32 Stacks,float Seconds,int32 OverloadThreshold,float BonusPerStack);
     float ElectricMultiplier()const{return ElectrifiedTime>0?1+ElectrifiedStacks*ElectrifiedBonus:1.f;}
+    int32 ElectrifiedCount()const{return ElectrifiedTime>0?ElectrifiedStacks:0;}
 
     // ===== gamedev 状态机制迁移（旧 DamageableEntity.apply* 家族） =====
     /** 眩晕：移速/闪避/动作封锁 + 状态栏卡片；玩家额外走破防输入锁。旧 applyStun。 */

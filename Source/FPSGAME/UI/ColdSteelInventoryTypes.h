@@ -227,6 +227,14 @@ struct FColdSteelProfile
     UPROPERTY() float IceWallCooldownDuration = 0;
     UPROPERTY() bool bIceWallReserved = false;
     UPROPERTY() float IceWallReservedMana = 0;
+    UPROPERTY() float BlizzardCooldown = 0;
+    UPROPERTY() float BlizzardCooldownDuration = 0;
+    UPROPERTY() bool bBlizzardReserved = false;
+    UPROPERTY() float BlizzardReservedMana = 0;
+    // Schema v19: persist electric cooldowns and refund abandoned windups on load.
+    UPROPERTY() TMap<FName,float> ElectricCooldowns;
+    UPROPERTY() TMap<FName,float> ElectricCooldownDurations;
+    UPROPERTY() TMap<FName,float> ElectricReservedMana;
 };
 
 UCLASS()

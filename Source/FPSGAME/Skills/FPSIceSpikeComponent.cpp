@@ -74,6 +74,8 @@ void UFPSIceSpikeComponent::Trigger()
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();
     if(!Player||!M||!Player->IsLocallyControlled()||GetWorld()->GetNetMode()!=NM_Standalone)return;
     if(auto* H=Player->FindComponentByClass<UFPSCombatHealthComponent>();H&&H->IsDead())return;
+    if(const auto* H=Hands();H&&H->HasOtherPreparedSpell(this))
+    {bQueuedGather=bQueuedRelease=false;Feedback(TEXT("先释放已积蓄魔法"));return;}
     if(auto* Sword=Player->FindComponentByClass<URuneSwordComponent>();Sword&&Sword->IsGuarding())Sword->ReleaseGuard();
     // Share the fireball's selected casting hand, including right-hand staff.
     if(Player->IsSpellHandHeld()){RejectHeldLeftHand();return;}
@@ -93,6 +95,8 @@ void UFPSIceSpikeComponent::Trigger()
 void UFPSIceSpikeComponent::ServiceQueue()
 {
     auto* M=Model();auto* H=Hands();auto* Player=Cast<APawn>(GetOwner());if(!M||!H||!Player)return;
+    if((bQueuedGather||bQueuedRelease)&&H->HasOtherPreparedSpell(this))
+    {bQueuedGather=bQueuedRelease=false;Feedback(TEXT("先释放已积蓄魔法"));return;}
     // A loadout change while queued drops the request instead of holding it.
     if((bQueuedGather||bQueuedRelease)&&Cast<AFPSGAMECharacter>(Player)&&Cast<AFPSGAMECharacter>(Player)->IsSpellHandHeld())
     {RejectHeldLeftHand();return;}

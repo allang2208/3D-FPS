@@ -3,7 +3,9 @@
 #include "FireballTypes.h"
 #include "IceSpikeTypes.h"
 #include "IceWallTypes.h"
+#include "BlizzardTypes.h"
 #include "LightningTypes.h"
+#include "ElectricMagicTypes.h"
 #include "HolyLightTypes.h"
 #include "FireMagicTypes.h"
 #include "WhirlwindTypes.h"
@@ -71,12 +73,14 @@ struct FColdSteelSkillDefinition
     FFireballTuning Fireball;
     FIceSpikeTuning IceSpike;
     FLightningTuning Lightning;
+    FElectricMagicTuning ElectricMagic;
     FHolyLightTuning HolyLight;
     FQuickCombatTuning QuickCombat;
     FWhirlwindTuning Whirlwind;
     FDashAttackTuning DashAttack;
     FFireMagicTuning FireMagic;
     FIceWallTuning IceWall;
+    FBlizzardTuning Blizzard;
 };
 
 struct FColdSteelSkillEffect

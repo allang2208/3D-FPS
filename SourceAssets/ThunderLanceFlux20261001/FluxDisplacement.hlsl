@@ -1,0 +1,12 @@
+float3 axis = normalize(Axis);
+float3 delta = P - Origin;
+float along = dot(delta, axis);
+float q = saturate(along / max(Length, 1.0));
+float3 radial = delta - axis * along;
+float3 radialDirection = radial / max(length(radial), .01);
+float2 uv = flux.FlowUV(P, Origin, Axis, Age, Seed);
+float3 field = Texture2DSampleLevel(NoiseTex, NoiseTexSampler, uv, 0).rgb;
+float envelope = smoothstep(0, .04, q) * (1.0 - smoothstep(.93, 1.0, q));
+float strength = Role < .5 ? .045 : (Role < 1.5 ? .16 : .30);
+float fold = (field.r - .5) * 2.0 + .22 * sin(along / 38.0 - Age * 42.0 + field.g * 6.2831853);
+return radialDirection * Radius * strength * fold * envelope;

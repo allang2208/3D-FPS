@@ -12,6 +12,8 @@ class UStaticMesh;
 class UMaterialInterface;
 class UParticleSystem;
 class USoundBase;
+class UNiagaraSystem;
+struct FStreamableHandle;
 
 UCLASS(ClassGroup=(Skills),meta=(BlueprintSpawnableComponent))
 class FPSGAME_API UFPSIceWallComponent : public UActorComponent
@@ -21,6 +23,7 @@ public:
     UFPSIceWallComponent();
     UFUNCTION(BlueprintCallable,Category="Skills|IceWall") void Trigger();
     bool IsPrepared() const { return Seed.IsValid()&&bGathered&&!bReleaseRequested; }
+    bool HasUnreleasedCast() const { return Seed.IsValid(); }
     bool HasQueuedAction() const { return bQueuedGather||bReleaseRequested; }
     bool IsPlacementActive() const;
     bool ToggleShape();
@@ -32,8 +35,10 @@ public:
     bool IsHandOccupiedNotice() const;
     float HandNoticeAlpha() const;
     float HandNoticeRise() const;
-    bool ValidatePlacement(const FIceWallPlacement& Placement,const FIceWallCast& Cast,bool bAllowEnemies,FString& Reason) const;
+    bool ValidatePlacement(const FIceWallPlacement& Placement,const FIceWallCast& Cast,FString& Reason) const;
     void WallEnded(AFPSIceWall* Wall);
+    UNiagaraSystem* ColdMistSystem() const { return ColdMistAsset.Get(); }
+    UNiagaraSystem* LandingSystem() const { return LandingAsset.Get(); }
 protected:
     virtual void BeginPlay() override;
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
@@ -65,4 +70,12 @@ private:
     UColdSteelStatusModel* Model() const;
     UFPSFireballComponent* Hands() const;
     AFPSIceWall* SpawnWall(bool bGhost,const FIceWallCast& Cast);
+    // Append reflected fields; load the cosmetic layer before a cast, never on Tick.
+    UPROPERTY() TSoftObjectPtr<UNiagaraSystem> ColdMistTemplate=TSoftObjectPtr<UNiagaraSystem>(
+        FSoftObjectPath(TEXT("/Game/Skills/IceWall/TerrainV1/NS_IceWallColdMist.NS_IceWallColdMist")));
+    UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> ColdMistAsset;
+    TSharedPtr<FStreamableHandle> ColdMistLoad;
+    UPROPERTY() TSoftObjectPtr<UNiagaraSystem> LandingTemplate=TSoftObjectPtr<UNiagaraSystem>(
+        FSoftObjectPath(TEXT("/Game/Skills/IceWall/TerrainV1/NS_IceWallLanding.NS_IceWallLanding")));
+    UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> LandingAsset;
 };

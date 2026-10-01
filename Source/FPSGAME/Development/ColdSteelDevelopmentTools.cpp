@@ -32,7 +32,7 @@ const TArray<FName>& UColdSteelStatusModel::SkillCatalog() const
         TEXT("rifleMastery"),TEXT("pistolMastery"),TEXT("swordMastery"),
         TEXT("machineGunMastery"),TEXT("shotgunMastery"),TEXT("bowMastery"),
         TEXT("heavyStrike"),TEXT("whirlwind"),TEXT("dashAttack"),TEXT("criticalStrike"),TEXT("dodge"),
-        TEXT("dexterousHands"),TEXT("fireball"),TEXT("iceSpike"),TEXT("lightningStrike"),TEXT("holyLight"),TEXT("quickCombat")};
+        TEXT("dexterousHands"),TEXT("fireball"),TEXT("iceSpike"),TEXT("lightningStrike"),TEXT("stormDomain"),TEXT("thunderLance"),TEXT("holyLight"),TEXT("quickCombat")};
     return Ids;
 }
 
@@ -46,6 +46,7 @@ const FColdSteelSkillDefinition& UColdSteelStatusModel::DevelopmentSkillDefiniti
     if(Id==TEXT("fireball"))return FireballDefinition();
     if(Id==TEXT("iceSpike"))return IceSpikeDefinition();
     if(Id==TEXT("lightningStrike"))return LightningDefinition();
+    if(ElectricMagic::IsSkill(Id))return ElectricMagicDefinition(Id);
     if(Id==TEXT("holyLight"))return HolyLightDefinition();
     if(Id==TEXT("quickCombat"))return QuickCombatDefinition();
     return MasteryDefinition(Id);
