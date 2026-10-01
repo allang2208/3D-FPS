@@ -19,15 +19,14 @@
 | Git Bash 坑 | URL 里 `/Game/...` 要 `MSYS_NO_PATHCONV=1` 前缀，否则前导斜杠被转义 |
 | worktree 拆除坑 | 先 `rmdir` 断 junction（DDC 等）再 `git worktree remove`（既有教训） |
 
-## 1. 当前状态（最后更新：2026-10-01 13:45，M4 编译过、丘陵验证被用户暂停）
+## 1. 当前状态（最后更新：2026-10-02 00:20，移动同步排查暂停归档，待办已登记）
 
-- M1-M3 全部闭环；主仓闪退已修（用户编辑器已带修复运行）。
-- **M4 世界同步代码完成且编译 Succeeded**（worklog 上一版所列十处改动）。
-- **M4 首轮丘陵验证定位到关键阻塞**：客户端网络 travel 到重资产图（丘陵/DayNight 同病根）1.3s 静默失败 `Travel Failure: Failed to load package 'L_TemperateHills_Initial'`（直开同图正常——主机 50s 即 HILLS_READY seed=-2051251055 全 14/14 格）。**规避方案已实现并编译**：`UColdSteelNetConnectSubsystem`（`-MPConnect=<addr> -MPConnectDelay=<秒>`，客户端先本地直开把资产编译热，再从进程内 open 连线，旅行重载命中热缓存）。
-- **验证被用户暂停**（"先暂停吧"）：暂停前主机第二轮 HILLS_READY 已就绪，客户端尚在本地直载阶段（无关键行）。**恢复=重跑 §4 丘陵姿势**（客户端带 -MPConnect=127.0.0.1:7777 -MPConnectDelay=150 直开丘陵图），断言客户端 `connect issuing` → `Welcomed` → **`MPTEST hills client session: seed=-2051251055`（与主机同种子=确定性重建成立）**。
-- M4 之后的余项：挖坑编辑 OnRep 双端一致实测、传送门 seamless travel、昼夜一致性观察、重图 travel 失败的根治（当前只有规避）。
+- **暂停点**：PIE 移动分叉的最终根因假设=**编辑器"后台使用较少 CPU"对失焦 PIE 视口的节流**（唯一能同时解释"同会话一客平滑一客断流"不对称的假设；-game 双进程冲刺+心跳全开已证完全同步）。**用户已暂停排查**。
+- **⏳ 待办（恢复时从这里开始）**：①用户侧 30 秒验证——编辑器首选项→性能→取消"在后台使用较少 CPU"→重跑 PIE 冲刺对照；②若仍分叉→PIE 各窗口挂帧率探针逐窗对账；③悬案：自驾钩子里冲刺门未过闸（CanSprint 简单，疑 bForwardIntent/时序，已加强制旁路可用）；④M4 丘陵验证恢复（预热连线姿势）；⑤重图网络旅行 LoadPackage 根治；⑥ADS 移速同类分叉；⑦档案 2s 全量重传差分化（perf 台账）。
+- 硬件误判教训：日志 GPU 名（GTX 750 Ti）是用户改的设备名（实际 3080 Ti）；磁盘"慢"也为测法假象（枚举混入计时，精确测 348MB/198ms）。**环境结论只认实测**。
+- M1-M3 自动化全绿；主仓闪退修复在并行会话 WIP 文件内随其发布；分支 22 提交待合并（接入窗口=主线 WIP 落盘静默期）。
 
-### ⚠️ worktree 特殊构造（接手必读）### ⚠️ worktree 特殊构造（接手必读）### ⚠️ worktree 特殊构造（接手必读）### ⚠️ worktree 特殊构造（接手必读）### ⚠️ worktree 特殊构造（接手必读）
+### ⚠️ worktree 特殊构造（接手必读）### ⚠️ worktree 特殊构造（接手必读）### ⚠️ worktree 特殊构造（接手必读）### ⚠️ worktree 特殊构造（接手必读）### ⚠️ worktree 特殊构造（接手必读）### ⚠️ worktree 特殊构造（接手必读）
 
 主仓 `.gitignore:83` 排除了整个 `/Content/*`（81GB 重资产不在 git 里，只 44 个 JSON 强跟踪）。因此 worktree 采用**混合构造**：
 - `Source/ Config/ Docs/` 等 = HEAD 检出 + **主仓工作区覆盖层**（`Tools/mp_overlay_sync.py` 同步，原因见 §5 坑#3）；
