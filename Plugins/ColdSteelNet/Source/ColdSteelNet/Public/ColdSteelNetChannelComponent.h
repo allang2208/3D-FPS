@@ -133,4 +133,6 @@ private:
     int32 IncomingReceived = 0;
     int32 IncomingTotal = 0;
     TArray<uint8> IncomingBlob;
+    /** 最近一次已应用的上传整块：字节级相同的新快照直接跳过（perf：HP/计时漂移导致的 2s 重传不再重复触发 ApplyColdSteelProfile）。 */
+    TArray<uint8> LastAppliedBlob;
 };

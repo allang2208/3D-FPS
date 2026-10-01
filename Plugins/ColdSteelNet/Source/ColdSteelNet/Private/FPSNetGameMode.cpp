@@ -208,10 +208,18 @@ void AFPSNetGameMode::RestartPlayer(AController* NewPlayer)
     {
         UE_LOG(LogColdSteelNet, Warning, TEXT("MPTEST No PlayerStart in level; origin+250 fallback"));
         RestartPlayerAtTransform(NewPlayer, FTransform(FVector(0.f, 0.f, 250.f)));
+        if (APawn* Pawn = NewPlayer->GetPawn())
+        {
+            Pawn->bAlwaysRelevant = true; // M4：合作服玩家互见
+        }
         UE_LOG(LogColdSteelNet, Warning, TEXT("MPTEST RestartPlayer exit(fallback): pawn=%s"), *GetNameSafe(NewPlayer ? NewPlayer->GetPawn() : nullptr));
         return;
     }
     Super::RestartPlayer(NewPlayer);
+    if (APawn* Pawn = NewPlayer ? NewPlayer->GetPawn() : nullptr)
+    {
+        Pawn->bAlwaysRelevant = true; // M4：合作服玩家互见，不做距离/相关性剔除
+    }
     UE_LOG(LogColdSteelNet, Warning, TEXT("MPTEST RestartPlayer exit: pawn=%s"), *GetNameSafe(NewPlayer ? NewPlayer->GetPawn() : nullptr));
 }
 

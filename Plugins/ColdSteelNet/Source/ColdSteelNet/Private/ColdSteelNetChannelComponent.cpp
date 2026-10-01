@@ -213,6 +213,11 @@ void UColdSteelNetChannelComponent::ServerSubmitProfileChunk_Implementation(int3
         IncomingUploadId = INDEX_NONE;
         IncomingReceived = 0;
         IncomingTotal = 0;
+        if (Completed == LastAppliedBlob)
+        {
+            return; // 字节级相同：档案无实质变化，跳过应用（多人时消除 2s 一次的重放卡顿）
+        }
+        LastAppliedBlob = Completed;
         if (UColdSteelProfileSave* Save = BlobToSave(Completed))
         {
             UE_LOG(LogColdSteelNet, Warning, TEXT("MPTEST profile upload complete: %d bytes"), Completed.Num());
