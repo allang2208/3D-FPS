@@ -1175,6 +1175,13 @@ void AFPSGAMECharacter::ReloadPressed()
             ?TArray<float>{52.f/120.f*Scale,195.f/120.f*Scale,220.f/120.f*Scale,270.f/120.f*Scale,350.f/120.f*Scale}
             :TArray<float>{52.f/120.f*Scale,195.f/120.f*Scale,220.f/120.f*Scale};
     if(LMG201WeaponAssets::Matches(AKMViewmodel)&&bDrumInstalled)MechanicalCueTimes[0]=.3f*Scale;
+    if(LMG201WeaponAssets::Matches(AKMViewmodel)&&bPendingEmptyReload&&MechanicalCueSounds.Num()>=5)
+    {
+        // 弹夹/弹鼓空仓换弹的拉栓两接触（后拉/归位）换已验收的 AKM 视频拉栓声——
+        // 191 家族没有拉栓录音，按真实机械动作选源；装备上膛仍播 PKM，本轮只动换弹。
+        if(auto* Pull=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/AKM/VideoAudio20260921/S_AKM_ChargePull.S_AKM_ChargePull")))MechanicalCueSounds[3]=Pull;
+        if(auto* Release=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/AKM/VideoAudio20260921/S_AKM_ChargeRelease.S_AKM_ChargeRelease")))MechanicalCueSounds[4]=Release;
+    }
     for (float& Cue : MechanicalCueTimes) Cue = ReloadRuntimeTime(Cue / Scale);
     if(HasLMG201ClothBox())
     {
@@ -3003,15 +3010,22 @@ USoundBase* AFPSGAMECharacter::LoadAKMSound(const TCHAR* AssetName)
     }
     if (LMG201WeaponAssets::Matches(AKMViewmodel))
     {
-        // The magazine and equip branches used to retain AKM video sounds even
-        // after the belt reload switched to PKM. Reuse the same current PKM
-        // contact objects here, while retaining the 201 magazine contact times.
+        // 2026-10-02 用户指派：弹夹（Magazine24）与弹鼓（Drum46）两条换弹路线改干净音源。
+        // 弹匣三接触引用 QBZ-191 弹夹/大弹鼓换弹共用的 HK416 磁条音组；缺失时回退现用
+        // PKM 接触音并记录路径。拉栓接触不在装载层重定向——装备上膛仍播 PKM，换弹的
+        // 拉栓音在换弹站点替换，接触时刻全部保留 201 自己的，不动 201 动画时钟。
         const TCHAR* Contact = nullptr;
-        if (FCString::Strcmp(AssetName, TEXT("S_AKM_MagOut")) == 0) Contact = TEXT("BoxOut");
-        else if (FCString::Strcmp(AssetName, TEXT("S_AKM_MagInsert")) == 0) Contact = TEXT("BoxInsert");
-        else if (FCString::Strcmp(AssetName, TEXT("S_AKM_MagSeat")) == 0) Contact = TEXT("BeltSeat");
+        const TCHAR* MagPath = nullptr;
+        if (FCString::Strcmp(AssetName, TEXT("S_AKM_MagOut")) == 0)
+        {MagPath = TEXT("/Game/Weapons/M4HK416Audio/S_HK416_MagOut.S_HK416_MagOut");Contact = TEXT("BoxOut");}
+        else if (FCString::Strcmp(AssetName, TEXT("S_AKM_MagInsert")) == 0)
+        {MagPath = TEXT("/Game/Weapons/M4HK416Audio/S_HK416_MagInsert.S_HK416_MagInsert");Contact = TEXT("BoxInsert");}
+        else if (FCString::Strcmp(AssetName, TEXT("S_AKM_MagSeat")) == 0)
+        {MagPath = TEXT("/Game/Weapons/M4HK416Audio/S_HK416_MagSeat.S_HK416_MagSeat");Contact = TEXT("BeltSeat");}
         else if (FCString::Strcmp(AssetName, TEXT("S_AKM_ChargePull")) == 0) Contact = TEXT("ChargeRearStop");
         else if (FCString::Strcmp(AssetName, TEXT("S_AKM_ChargeRelease")) == 0) Contact = TEXT("ChargeFrontStop");
+        if (MagPath)
+            if (USoundBase* Mag = LoadObject<USoundBase>(nullptr, MagPath)) return Mag;
         if (Contact) return PKMReloadAudio::LoadContact(Contact);
     }
     if (LMG201WeaponAssets::Matches(AKMViewmodel) && FCString::Strcmp(AssetName, TEXT("S_AKM_Fire")) == 0)

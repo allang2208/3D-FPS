@@ -1,0 +1,19 @@
+{
+  "sources": {
+    "button_click.mp3": {
+      "path": "E:/无尽轮回/长期备份/2026-7-13-1/game-dev/assets/sounds/ui/button_click.mp3",
+      "sha256_16": "30A2B01A3D07D10B",
+      "spec": "E:/无尽轮回/长期备份/2026-7-13-1/game-dev/assets/sounds/ui/button_click.mp3\nsamplerate: 48000 Hz\nchannels: 2\nduration: 44844 samples\nformat: MPEG-1/2 Audio [MP3]\nsubtype: MPEG Layer III [MPEG_LAYER_III]"
+    },
+    "罗马庭院.wav": {
+      "path": "E:/无尽轮回/长期备份/2026-7-13-1/game-dev/assets/sounds/music/罗马庭院.wav",
+      "sha256_16": "70824D5B4DBD17D7",
+      "spec": "E:/无尽轮回/长期备份/2026-7-13-1/game-dev/assets/sounds/music/罗马庭院.wav\nsamplerate: 48000 Hz\nchannels: 2\nduration: 01:17.960 min\nformat: WAV (Microsoft) [WAV]\nsubtype: Signed 16 bit PCM [PCM_16]"
+    }
+  },
+  "derived": {
+    "S_Button_Click.wav": "button_click.mp3 整段转 48kHz PCM_16",
+    "S_RomanCourtyard.wav": "罗马庭院.wav 原样复制（本就 48kHz PCM_16）"
+  },
+  "gamedev_bgm_mapping": "audio-config.json bgm.main（main 场景=主神空间）= assets/sounds/music/罗马庭院.wav"
+}

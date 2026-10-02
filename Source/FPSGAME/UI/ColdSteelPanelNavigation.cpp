@@ -186,6 +186,7 @@ void UColdSteelHUDWidget::TickPanelNavigation(const FGeometry& Geometry,float De
 
 void UColdSteelHUDWidget::ActivatePanelNavigation(int32 Entry)
 {
+    PlayButtonClick();
     if(IsQuickDragging()){CancelQuickDrag();return;}
     // 入口序（0 状态／1 背包／2 技能／3 图鉴）与抽屉页面号不同：图鉴是第 4 页。
     const int32 Page=Entry==3?4:Entry;

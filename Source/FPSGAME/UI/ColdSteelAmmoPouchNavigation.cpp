@@ -4,7 +4,7 @@
 #include "Engine/GameInstance.h"
 
 void UColdSteelHUDWidget::OpenAmmoPouch()
-{SetInventoryPage(3);SetInventoryOpen(true);}
+{PlayButtonClick();SetInventoryPage(3);SetInventoryOpen(true);}
 void UColdSteelHUDWidget::RequestAmmoChange(const FString& WeaponId,const FString& Target)
 {
     auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
