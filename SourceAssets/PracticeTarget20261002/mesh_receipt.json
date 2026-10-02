@@ -1,0 +1,28 @@
+{
+  "asset": "/Game/Props/PracticeTarget20261002/SM_PracticeTarget.SM_PracticeTarget",
+  "slots": [
+    {
+      "index": 0,
+      "slot": "Material_0",
+      "material": "/Game/Dungeons/AnatomyTheatre20261001/Materials/M_Theatre_Wood.M_Theatre_Wood"
+    },
+    {
+      "index": 1,
+      "slot": "M_Room_Canvas",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Canvas.M_Room_Canvas"
+    },
+    {
+      "index": 2,
+      "slot": "M_Room_RedPaint",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_RedPaint.M_Room_RedPaint"
+    },
+    {
+      "index": 3,
+      "slot": "M_Room_YellowPaint",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_YellowPaint.M_Room_YellowPaint"
+    }
+  ],
+  "bounds": "<Struct 'Vector' (0x000001AA0BF62F98) {x: 32.400000, y: 63.000000, z: 99.618206}>",
+  "triangles": -1,
+  "collision": "CTF_USE_COMPLEX_AS_SIMPLE"
+}

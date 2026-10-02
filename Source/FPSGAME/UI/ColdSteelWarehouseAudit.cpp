@@ -49,6 +49,27 @@ void UColdSteelHUDWidget::RunWarehouseAudit()
     auto Check=[R](bool OK,const TCHAR* Name){++R->Checks;if(!OK)++R->Failures;UE_LOG(LogTemp,Display,TEXT("WarehouseAudit: %s %s"),OK?TEXT("PASS"):TEXT("FAIL"),Name);};
     auto Signature=[](const TArray<FColdSteelItem>& Items){TArray<FString> Rows;for(const auto& I:Items)Rows.Add(FString::Printf(TEXT("%s|%s|%lld|%d|%d|%d|%s"),*I.InstanceId,*I.Definition,I.Count,I.Place,I.Cell,I.Magazine,*I.Data));Rows.Sort();return FString::Join(Rows,TEXT("\n"));};
     if(FParse::Param(FCommandLine::Get(),TEXT("WarehouseLoadAudit"))){FString Expected;Check(FFileHelper::LoadFileToString(Expected,*(R->Output/M->ProfileSlot()+TEXT(".txt")))&&Expected==Signature(M->Items()),TEXT("new process exact item id data ammo place restoration"));UE_LOG(LogTemp,Display,TEXT("WarehouseAudit: COMPLETE checks=%d failures=%d"),R->Checks,R->Failures);GetOwningPlayer()->ConsoleCommand(TEXT("quit"));return;}
+    // 扩行专项：仅数据层断言，配合 -nullrhi 可在无 GPU 环境快速定位“背包多出横列未生效”。
+    if(FParse::Param(FCommandLine::Get(),TEXT("ColdSteelBagRowsAudit")))
+    {
+        auto P=M->Snapshot();P.Items.Empty();
+        auto Mountain=M->CreateItem(TEXT("ue_mountain_backpack"));
+        auto Stone=M->CreateItem(TEXT("stone"),50);Stone.Cell=0;
+        P.Items={Mountain,Stone};
+        Check(M->CommitState(P),TEXT("mountain bag fixture committed"));
+        Check(M->MoveItem(Mountain.InstanceId,1,14),TEXT("mountain bag equips to slot 14"));
+        const auto* Eq=M->FindItem(Mountain.InstanceId);
+        Check(Eq&&Eq->Place==1&&Eq->Cell==14,TEXT("equipped state persists at cell 14"));
+        const FIntPoint CompGrid=CompartmentGrid(M->Items());
+        UE_LOG(LogTemp,Display,TEXT("BagRowsAudit: equipped=%s place=%d cell=%d bagExtraCells=%.0f bagRows=%d compGrid=%dx%d"),
+            Eq?*Eq->Definition:TEXT("none"),Eq?Eq->Place:-1,Eq?Eq->Cell:-1,
+            Eq?Number(*Eq,TEXT("bagExtraCells")):-1.0,BagRows(M->Items()),CompGrid.X,CompGrid.Y);
+        Check(BagRows(M->Items())==5,TEXT("equipped mountain bag adds one bag row"));
+        Check(CompGrid==FIntPoint(5,6),TEXT("mountain bag compartment is 5x6"));
+        Check(M->MoveItem(Mountain.InstanceId,0,-1)&&BagRows(M->Items())==4,TEXT("unequipping restores four rows"));
+        UE_LOG(LogTemp,Display,TEXT("WarehouseAudit: COMPLETE checks=%d failures=%d"),R->Checks,R->Failures);
+        GetOwningPlayer()->ConsoleCommand(TEXT("quit"));return;
+    }
     const int32 Capacity=M->WarehouseCapacity();Check(Capacity==5*ColdSteelWarehouse::CellsPerPage,TEXT("five spatial warehouse pages"));
     int32 Guns=0;for(const auto& I:M->Items())if(I.Place==4&&I.Definition.StartsWith(TEXT("fps_")))++Guns;
     Check(Guns==0&&!M->Snapshot().ArmoryReceived.ContainsByPredicate([](const FString& Id){return Id.StartsWith(TEXT("fps_"));}),TEXT("retired weapons are no longer granted"));

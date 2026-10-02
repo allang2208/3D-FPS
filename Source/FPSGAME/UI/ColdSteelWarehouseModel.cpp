@@ -17,19 +17,33 @@ FColdSteelProposal UColdSteelStatusModel::ProposeWarehouse(const FString& Id,int
 {
     auto R=ColdSteelWarehouse::Transfer(Current.Items,Id,Place,Cell,OpenStorageCapacity(),WarehousePage,Orientation,ActiveContainer);R.Revision=Current.Generation;return R;
 }
-bool UColdSteelStatusModel::TransferWarehouse(const FString& Id,int32 Place,int32 Cell,int32 Orientation){SyncRuntime();return CommitProposal(ProposeWarehouse(Id,Place,Cell,Orientation));}
+bool UColdSteelStatusModel::TransferWarehouse(const FString& Id,int32 Place,int32 Cell,int32 Orientation)
+{
+    SyncRuntime();
+    // 储物箱（含地牢宝箱容器）里的弹药物品"取出"＝按拾取口径转弹药池；普通物品照常走仓库规则。
+    if(const FColdSteelItem* Prev=FindItem(Id);(Place==0||Place==ColdSteelCompartment::Place)&&Prev&&Prev->Place==ColdSteelWarehouse::Place&&!Prev->Container.IsEmpty()&&AmmoType(Prev->Definition))
+        return ConvertChestAmmoToPool(Id);
+    return CommitProposal(ProposeWarehouse(Id,Place,Cell,Orientation));
+}
 FColdSteelProposal UColdSteelStatusModel::ProposeCompartment(const FString& Id,int32 Place,int32 Cell,int32 Orientation) const
 {
-    auto R=ColdSteelCompartment::Transfer(Current.Items,Id,Place,Cell,ColdSteelInventory::CompartmentGrid(Current.Items),Orientation);R.Revision=Current.Generation;return R;
+    // 与仓库 Transfer 的会话校验同口径：Place 4 来源必须属于当前打开的储物容器——
+    // 否则夹层通道能把关着的箱子/主仓库物品抽出来（UI 只渲染活动容器，这里兜非 UI 调用方）。
+    if(const auto* I=FindItem(Id);I&&I->Place==ColdSteelWarehouse::Place&&I->Container!=ActiveContainer)
+    {
+        FColdSteelProposal R;R.Items=Current.Items;R.Revision=Current.Generation;
+        R.Reason=TEXT("无法移动：空间不足或目标无效，物品保留原处");return R;
+    }
+    auto R=ColdSteelCompartment::Transfer(Current.Items,Id,Place,Cell,ColdSteelInventory::CompartmentGrid(Current.Items),OpenStorageCapacity(),Orientation);R.Revision=Current.Generation;return R;
 }
 bool UColdSteelStatusModel::GrantStartingArmory()
 {
     auto State=Snapshot();bool Changed=false;
-    for (const TCHAR* Definition : {TEXT("ue_hk416"), TEXT("ue_g18"), TEXT("ue_svd"), TEXT("ue_pkm_lowpoly"), TEXT("ue_a762"), TEXT("ue_lmg201"), TEXT("ue_akm"), TEXT("ue_qbz191"), TEXT("ue_ash12"), TEXT("ue_m1911"), TEXT("ue_dan_wesson715"), TEXT("ue_rune_sword"), TEXT("ue_frost_crystal_sword"), TEXT("ue_highland_claymore"), TEXT("ue_apprentice_staff")})
+    for (const TCHAR* Definition : {TEXT("ue_hk416"), TEXT("ue_pit_viper2011"), TEXT("ue_g18"), TEXT("ue_svd"), TEXT("ue_pkm_lowpoly"), TEXT("ue_a762"), TEXT("ue_lmg201"), TEXT("ue_akm"), TEXT("ue_qbz191"), TEXT("ue_ash12"), TEXT("ue_m1911"), TEXT("ue_dan_wesson715"), TEXT("ue_rune_sword"), TEXT("ue_frost_crystal_sword"), TEXT("ue_highland_claymore"), TEXT("ue_apprentice_staff"), TEXT("ue_tang_dao")})
     {
         if(State.ArmoryReceived.Contains(Definition))continue;
         auto Gun=CreateItem(Definition);if(Gun.Data.IsEmpty())return false;
-        Gun.Magazine=IsMeleeWeapon(Gun)?0:FString(Definition)==TEXT("ue_g18")?17:FString(Definition)==TEXT("ue_svd")?10:FString(Definition)==TEXT("ue_pkm_lowpoly")?100:FString(Definition)==TEXT("ue_m1911")?7:FString(Definition)==TEXT("ue_dan_wesson715")?6:FString(Definition)==TEXT("ue_ash12")?20:30;
+        Gun.Magazine=IsMeleeWeapon(Gun)?0:FString(Definition)==TEXT("ue_pit_viper2011")?15:FString(Definition)==TEXT("ue_g18")?17:FString(Definition)==TEXT("ue_svd")?10:FString(Definition)==TEXT("ue_pkm_lowpoly")?100:FString(Definition)==TEXT("ue_m1911")?7:FString(Definition)==TEXT("ue_dan_wesson715")?6:FString(Definition)==TEXT("ue_ash12")?20:30;
         if(!ColdSteelWarehouse::Insert(State.Items,Gun,WarehouseCapacity()))return false;
         if(FString(Definition)==TEXT("ue_svd"))
         {
@@ -46,6 +60,10 @@ bool UColdSteelStatusModel::GrantStartingArmory()
         if(FString(Definition)==TEXT("ue_qbz191")||FString(Definition)==TEXT("ue_lmg201"))
         {
             if(!AddAmmoToState(State,TEXT("ammo_58"),120))return false;
+        }
+        if(FString(Definition)==TEXT("ue_pit_viper2011"))
+        {
+            if(!AddAmmoToState(State,TEXT("ammo_9"),150))return false;
         }
         if(FString(Definition)==TEXT("ue_g18"))
         {

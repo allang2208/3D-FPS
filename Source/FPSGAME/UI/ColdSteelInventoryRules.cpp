@@ -425,4 +425,75 @@ bool MigrateLegacyWoodFootprints(FColdSteelProfile& Profile,bool& Changed,FStrin
     if(Changed)Profile=MoveTemp(Next);
     return true;
 }
+bool MigrateAuthoredGridFootprints(FColdSteelProfile& Profile,bool& Changed,FString& Reason)
+{
+    Changed=false;
+    // 作者占格字段（grid_w/grid_h）变更后的旧实例回填：实例 Data 快照按旧尺寸
+    // 自洽（缺字段＝默认 1×1），严格校验可入；迁移把当前口径写回快照并按新
+    // 占格重新落位。2026-10-01：enchant_scroll_* 1×1→1×2 竖直，金属锭 1×1→2×1。
+    static const struct {const TCHAR* Prefix;const TCHAR* Exact;int32 W;int32 H;} Rules[]=
+    {
+        {TEXT("enchant_scroll_"),nullptr,1,2},
+        {nullptr,TEXT("ironIngot"),2,1},
+        {nullptr,TEXT("copperIngot"),2,1},
+        {nullptr,TEXT("silverIngot"),2,1},
+        {nullptr,TEXT("goldIngot"),2,1},
+    };
+    if(!ValidateProfile(Profile,Reason,false))return false;
+    auto Next=Profile;
+    const FIntPoint CompGrid=CompartmentGrid(Next.Items);
+    for(int32 N=0;N<Next.Items.Num();++N)
+    {
+        auto& Item=Next.Items[N];
+        int32 W=0,H=0;
+        for(const auto& Rule:Rules)
+            if((Rule.Prefix&&Item.Definition.StartsWith(Rule.Prefix))||(Rule.Exact&&Item.Definition==Rule.Exact)){W=Rule.W;H=Rule.H;break;}
+        if(!W||(Number(Item,TEXT("grid_w"))==W&&Number(Item,TEXT("grid_h"))==H))continue;
+        TSharedPtr<FJsonObject> Data;
+        if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data)||!Data)continue;
+        Data->SetNumberField(TEXT("grid_w"),W);Data->SetNumberField(TEXT("grid_h"),H);
+        Item.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));
+        ApplyOrientation(Item,0);
+        if(Item.Place==0||(Item.Place==4&&Next.WarehouseLayoutVersion==1)||Item.Place==ColdSteelCompartment::Place)
+        {
+            auto Others=Next.Items;Others.RemoveAt(N);
+            const int32 Capacity=Item.Place==0?BagRows(Others)*18:
+                Item.Place==ColdSteelCompartment::Place?CompGrid.X*CompGrid.Y:
+                (Item.Container.IsEmpty()?Next.WarehousePages:FMath::Max(1,Next.StoragePages.FindRef(Item.Container)))*ColdSteelWarehouse::CellsPerPage;
+            const auto FitsHere=[&](int32 Cell){return Item.Place==0?Fits(Others,Item,Cell):
+                Item.Place==ColdSteelCompartment::Place?ColdSteelCompartment::Fits(Others,Item,Cell,CompGrid):
+                ColdSteelWarehouse::Fits(Others,Item,Cell,Capacity);};
+            if(!FitsHere(Item.Cell))
+            {
+                int32 Cell=INDEX_NONE;
+                for(int32 C=0;C<Capacity;++C)if(FitsHere(C)){Cell=C;break;}
+                if(Cell!=INDEX_NONE)Item.Cell=Cell;
+                else
+                {
+                    // An expanded item must never erase the profile when its
+                    // old bag/crate/compartment is full. Preserve its ID/count
+                    // in the main warehouse, adding a page only if needed.
+                    if(Next.WarehouseLayoutVersion!=1)
+                    {Reason=TEXT("旧占格迁移空间不足，原存档保留");return false;}
+                    Item.Place=4;Item.Container.Reset();Item.BackpackCell=-1;
+                    while(Cell==INDEX_NONE)
+                    {
+                        const int32 WarehouseCapacity=Next.WarehousePages*ColdSteelWarehouse::CellsPerPage;
+                        for(int32 C=0;C<WarehouseCapacity;++C)
+                            if(ColdSteelWarehouse::Fits(Others,Item,C,WarehouseCapacity)){Cell=C;break;}
+                        if(Cell!=INDEX_NONE)break;
+                        if(Next.WarehousePages>=ColdSteelWarehouse::MaxPages)
+                        {Reason=TEXT("旧占格迁移空间不足，原存档保留");return false;}
+                        ++Next.WarehousePages;
+                    }
+                    Item.Cell=Cell;
+                }
+            }
+        }
+        Changed=true;
+    }
+    if(!Validate(Next,Reason))return false;
+    if(Changed)Profile=MoveTemp(Next);
+    return true;
+}
 }

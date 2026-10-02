@@ -1,4 +1,5 @@
 #include "ColdSteelHUDWidget.h"
+#include "ColdSteelSceneContainer.h"
 #include "Framework/Application/SlateApplication.h"
 #include "ColdSteelGunAssemblyWidget.h"
 #include "ColdSteelSmeltingWidget.h"
@@ -32,6 +33,8 @@
 #include "Components/BackgroundBlur.h"
 #include "Components/Border.h"
 #include "Components/Button.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundBase.h"
 #include "Components/ButtonSlot.h"
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
@@ -430,12 +433,14 @@ void UColdSteelHUDWidget::UpdateInteractHint()
     const auto* Character=PC?Cast<AFPSGAMECharacter>(PC->GetPawn()):nullptr;
     // 与旧准星提示同一出现条件：任一面板打开／光标显示／弹药轮／命中反馈 期间都不出浮窗。
     FString Text;bool bAction=true;
-    if(Character&&!IsWorldForging()&&!IsGunAssembly()&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor&&!Character->IsAmmoWheelOpen())
+    const bool bWorldInteraction=Character&&!IsWorldForging()&&!IsGunAssembly()&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor&&!Character->IsAmmoWheelOpen();
+    AActor* ContainerFocus=ColdSteelWorldInteraction::UpdateSceneContainerHighlight(PC,bWorldInteraction);
+    if(bWorldInteraction)
     {
         FMonsterHitFeedback Feedback;
         if(!Character->GetMonsterHitFeedback(Feedback))
         {
-            const auto Hint=ColdSteelWorldInteraction::ResolveInteractionHint(ColdSteelWorldInteraction::TraceTarget(PC));
+            const auto Hint=ColdSteelWorldInteraction::ResolveInteractionHint(ContainerFocus?ContainerFocus:ColdSteelWorldInteraction::TraceTarget(PC));
             if(!Hint.Text.IsEmpty()){Text=Hint.Text;bAction=Hint.bAction;}
         }
     }
@@ -1483,8 +1488,14 @@ void UColdSteelHUDWidget::SetInventoryAuditState(int32 State)
     }
 }
 
-void UColdSteelHUDWidget::HandleStatusTabClicked() { OpenStatus(); }
-void UColdSteelHUDWidget::HandleEquipmentTabClicked() { SetInventoryTab(false); }
+void UColdSteelHUDWidget::PlayButtonClick()
+{
+    if (auto* Sound = LoadObject<USoundBase>(nullptr, TEXT("/Game/Audio/GamedevUI20261002/S_Button_Click.S_Button_Click")))
+        UGameplayStatics::PlaySound2D(this, Sound, 1.f, 1.f);
+}
+
+void UColdSteelHUDWidget::HandleStatusTabClicked() { PlayButtonClick(); OpenStatus(); }
+void UColdSteelHUDWidget::HandleEquipmentTabClicked() { PlayButtonClick(); SetInventoryTab(false); }
 void UColdSteelHUDWidget::HandleStrengthHovered() { ShowStatusTooltip(TEXT("str")); }
 void UColdSteelHUDWidget::HandleDexterityHovered() { ShowStatusTooltip(TEXT("dex")); }
 void UColdSteelHUDWidget::HandleIntelligenceHovered() { ShowStatusTooltip(TEXT("intt")); }

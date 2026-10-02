@@ -312,6 +312,11 @@ namespace FPSBodyPreloadPrivate
                 {
                     AddPath(Out, WorldMesh);
                 }
+                FString WorldStaticMesh;
+                if ((*Settings)->TryGetStringField(TEXT("world_static_mesh"), WorldStaticMesh))
+                {
+                    AddPath(Out, WorldStaticMesh);
+                }
                 const TSharedPtr<FJsonObject>* Overrides = nullptr;
                 if ((*Settings)->TryGetObjectField(TEXT("body_materials"), Overrides) ||
                     (*Settings)->TryGetObjectField(TEXT("first_person_materials"), Overrides))

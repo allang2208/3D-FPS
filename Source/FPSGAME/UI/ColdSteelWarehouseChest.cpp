@@ -171,7 +171,7 @@ bool AColdSteelWarehouseChest::CanInteract(const APawn* Pawn)const
 }
 bool AColdSteelWarehouseChest::IsWithinReach(const APawn* Pawn)const
 {
-    return IsValid(Pawn)&&Pawn->GetWorld()==GetWorld()&&Pawn->GetNetMode()==NM_Standalone&&FVector::Dist(Pawn->GetActorLocation(),GetActorLocation()+FVector(0,0,70))<=InteractionRadius;
+    return IsValid(Pawn)&&Pawn->GetWorld()==GetWorld()&&Pawn->GetNetMode()!=NM_Client&&FVector::Dist(Pawn->GetActorLocation(),GetActorLocation()+FVector(0,0,70))<=InteractionRadius;
 }
 void AColdSteelWarehouseChest::SetOpen(bool Open)
 {

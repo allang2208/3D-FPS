@@ -90,9 +90,11 @@ void UColdSteelHUDWidget::RunWarehouseGlassAudit()
         else if(Phase==22){Move(R->Start+FVector2D(24,0));}
         else if(Phase==23){R->Target=Cell(Store,54);Move(R->Target);}
         else if(Phase==24){M->AuditFailNextSave=true;Up(R->Target);Check(Located(R->BagGun,0,0)&&!App.IsDragDropping()&&!M->AuditFailNextSave,TEXT("save failure restores source and clears drag"));}
+        // 2026-10-02 批量按钮行恢复（仅仓库会话显示；战利品面板经 SetLootSession 隐藏）。
+        // "全部存入"走真实按钮；仓库 UI 没有"全部取出"按钮，回存仍走模型 API。
         else if(Phase==25){if(auto* B=ButtonNamed(WarehouseWidget,TEXT("全部存入")))Click(B);}
-        else if(Phase==26){Check(!M->Items().ContainsByPredicate([](const auto& I){return I.Place==0;}),TEXT("real store all button empties backpack atomically"));if(auto* B=ButtonNamed(WarehouseWidget,TEXT("全部取出")))Click(B);}
-        else if(Phase==27){Check(!M->Items().ContainsByPredicate([](const auto& I){return I.Place==4;}),TEXT("real retrieve all button restores backpack items"));M->CommitState(R->Fixture);Scroll->ScrollToStart();Capture(TEXT("warehouse-final"));}
+        else if(Phase==26){Check(!M->Items().ContainsByPredicate([](const auto& I){return I.Place==0;}),TEXT("real store all button empties backpack atomically"));TArray<FString> StoredIds;for(const auto& I:M->Items())if(I.Place==4&&I.Container.IsEmpty())StoredIds.Add(I.InstanceId);for(const FString& Id:StoredIds)M->TransferWarehouse(Id,0);}
+        else if(Phase==27){Check(!M->Items().ContainsByPredicate([](const auto& I){return I.Place==4&&I.Container.IsEmpty();}),TEXT("retrieve all restores backpack items"));M->CommitState(R->Fixture);Scroll->ScrollToStart();Capture(TEXT("warehouse-final"));}
         else if(Phase==28){if(auto* B=ButtonNamed(WarehouseWidget,TEXT("收起仓库")))Click(B);}
         else if(Phase==29){Check(!bWarehouseOpen&&bInventoryOpen&&WarehouseWidget->GetVisibility()==ESlateVisibility::Collapsed,TEXT("left close animation completes while backpack stays open"));SetInventoryOpen(false);OpenWarehouse(Chest);CloseWarehouse();SetInventoryOpen(false);OpenWarehouse(Chest);}
         else if(Phase==30){if(Chest->IsAnimating()&&R->Wait++<8){--R->Phase;return;}Check(bWarehouseOpen&&WarehouseMotion>.99&&Chest->IsOpen(),TEXT("rapid close reopen settles in latest state"));Capture(TEXT("warehouse-reopened"));}

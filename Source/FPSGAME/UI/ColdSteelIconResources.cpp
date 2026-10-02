@@ -1,5 +1,7 @@
 #include "../Weapons/LMG201WeaponAssets.h"
 #include "../Weapons/HK416WeaponAssets.h"
+#include "../Weapons/AR416Furniture.h"
+#include "../Weapons/CommonHK416Parts.h"
 #include "ColdSteelWeaponIcons.h"
 #include "ColdSteelMeleePreview.h"
 #include "ColdSteelStaffPreview.h"
@@ -21,10 +23,12 @@
 #include "../Weapons/SVDAttachments.h"
 #include "../Weapons/M1911WeaponAssets.h"
 #include "../Weapons/G18WeaponAssets.h"
+#include "../Weapons/PitViper2011WeaponAssets.h"
 #include "../Weapons/DanWesson715WeaponAssets.h"
 #include "../Weapons/PistolGripSurface.h"
 #include "../Weapons/DanWesson715FittedParts.h"
 #include "../Production/ProductionHarvestAssets.h"
+#include "../Characters/FPSPlayerBodyTypes.h"
 #include "Engine/AssetManager.h"
 #include "Engine/GameInstance.h"
 #include "Engine/StreamableManager.h"
@@ -73,6 +77,11 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
         Add(ProductionHarvestAssets::PickupMesh(D,0).ToString(),true);
         Add(ProductionHarvestAssets::PickupMaterial(D).ToString(),true);
     }
+    else if(const FSoftObjectPath OutfitMesh=FPSBodyEquipment::StaticOutfitMesh(D);OutfitMesh.IsValid())
+    {
+        // 刚性装备（登山包）：预取佩戴网格本体，材质贴图由捕获列表顺带常驻。
+        Add(OutfitMesh.ToString(),true);
+    }
     else if(ColdSteelMeleePreview::Supports(Item))
     {
         if(ColdSteelModularSword::Supports(Item))
@@ -90,6 +99,10 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
             Add(TEXT("/Game/Weapons/AzureRunesword20260913/NativeRuneGold20260922/MI_AzureRunesword_NativeGold"));
             Add(TEXT("/Game/Weapons/AzureRunesword20260913/NativeRuneGold20260922/T_RuneSword_NativeMask"));
             Add(TEXT("/Game/Weapons/AzureRunesword20260913/NativeRuneGold20260922/T_RuneSword_GuardNativeMask"));
+        }
+        else if(D==ColdSteelFrostRunes::TangDao&&Visual==ColdSteelFrostRunes::AuspiciousCloud)
+        {
+            Add(ColdSteelFrostRunes::CloudMask,true);
         }
         else if(!Visual.IsEmpty()&&Visual!=TEXT("false"))
         {
@@ -115,6 +128,7 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
         else if(D==TEXT("ue_pkm_lowpoly")){Add(PKMLowpolyWeaponAssets::MeshPath,true);Add(PKMLowpolyWeaponAssets::AnimationPath(TEXT("idle")),true);}
         else if(D==TEXT("ue_m16a2")){Add(M16WeaponAssets::MeshPath,true);Add(M16WeaponAssets::AnimationPath(TEXT("idle")),true);}
         else if(D==TEXT("ue_ash12")){Add(ASH12WeaponAssets::MeshPath,true);Add(ASH12WeaponAssets::AnimationPath(TEXT("idle")),true);}
+        else if(D==PitViper2011WeaponAssets::Definition){Add(PitViper2011WeaponAssets::MeshPath,true);Add(PitViper2011WeaponAssets::AnimationPath(TEXT("idle")),true);}
         else if(D==G18WeaponAssets::Definition){Add(G18WeaponAssets::MeshPath,true);Add(G18WeaponAssets::AnimationPath(TEXT("idle")),true);}
         else if(D==TEXT("ue_m1911")){Add(TEXT("/Game/Weapons/M1911/RearFinish20260913/SK_M1911_Manny"),true);Add(M1911WeaponAssets::AnimationPath(TEXT("idle")),true);}
         else if(D==TEXT("ue_dan_wesson715")){Add(DanWesson715WeaponAssets::MeshPath,true);Add(DanWesson715WeaponAssets::AnimationPath(TEXT("idle")),true);}
@@ -141,18 +155,40 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
         {
             FString Key=Part.Value;
             if(Key.IsEmpty()||Key==TEXT("false")||Key==TEXT("factory"))continue;
+            if(AR416Furniture::IsPart(Key)&&AR416Furniture::Supports(D))
+            {
+                Add(AR416Furniture::MeshPath(D,Key),true);
+                continue;
+            }
+            if (Part.Key == TEXT("optic") && Key == CommonHK416Parts::Optic)
+            {
+                Add(CommonHK416Parts::MeshPath(D, Key), true);
+                // Native interface setup also needs its donor and any bridge.
+                Key = CommonHK416Parts::OpticInterface(D);
+                if (D == TEXT("ue_pkm_lowpoly")) Add(PKMAttachments::MeshPath(TEXT("optic_rail")), true);
+            }
+            if (Part.Key == TEXT("muzzle") && Key == CommonHK416Parts::Suppressor)
+            {
+                Add(CommonHK416Parts::MeshPath(D, Key), true);
+                if (D == TEXT("ue_dan_wesson715"))
+                { Add(DanWesson715FittedParts::MeshPath(DanWesson715FittedParts::Brake), true); continue; }
+                Key = TEXT("suppressor");
+            }
             if(D==HK416WeaponAssets::Definition)
             {
-                if(Part.Key==TEXT("muzzle"))Key=TEXT("suppressor");
-                if(Part.Key==TEXT("underbarrel"))Key=TEXT("vertical");
+                if(Part.Key==TEXT("muzzle")&&Key==TEXT("true"))Key=TEXT("suppressor");
+                if(Part.Key==TEXT("underbarrel"))
+                    Key=Key==TEXT("vertical_foregrip")?TEXT("vertical"):Key==TEXT("tactical_vertical_foregrip")?TEXT("tactical_vertical"):Key==TEXT("canted_foregrip")?TEXT("canted"):Key==TEXT("prism_handstop")?TEXT("prism"):TEXT("angled");
+                if(Key==TEXT("lpvo_1_6x"))Add(HK416WeaponAssets::AttachmentPath(TEXT("lpvo_ring")),true);
                 Add(HK416WeaponAssets::AttachmentPath(Key),true);
                 continue;
             }
 
             if(Part.Key==TEXT("reargrip")&&PistolGripSurface::IsPart(Key))
             {
-                Add(PistolGripSurface::MeshPath(GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(D)),true);
-                Add(PistolGripSurface::MaterialPath(Key),true);
+                const auto* GripWeapon=GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(D);
+                Add(PistolGripSurface::MeshPath(GripWeapon,Key),true);
+                Add(PistolGripSurface::MaterialPath(Key,GripWeapon),true);
                 continue;
             }
             if(Part.Key==TEXT("optic")&&Key==PSO1AttachmentAssets::Variant)

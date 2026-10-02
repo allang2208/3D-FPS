@@ -43,7 +43,7 @@ void UColdSteelWarehouseWidget::NativeOnInitialized()
     auto* Heading=WidgetTree->ConstructWidget<UHorizontalBox>();HeaderSize->SetContent(Heading);
     Title=Text(TEXT("仓库"),20,false,true);auto* TitleSlot=Heading->AddChildToHorizontalBox(Title);TitleSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));TitleSlot->SetVerticalAlignment(VAlign_Center);
     Capacity=Text(TEXT(""),12,true);auto* CapacitySlot=Heading->AddChildToHorizontalBox(Capacity);CapacitySlot->SetVerticalAlignment(VAlign_Center);CapacitySlot->SetPadding(FMargin(0,0,12/Scale,0));
-    auto* X=Button(TEXT("收起仓库"));Heading->AddChildToHorizontalBox(X);X->OnClicked.AddDynamic(this,&ThisClass::Close);
+    CloseButton=Button(TEXT("收起仓库"));Heading->AddChildToHorizontalBox(CloseButton);CloseButton->OnClicked.AddDynamic(this,&ThisClass::Close);
     ActionSize=WidgetTree->ConstructWidget<USizeBox>();ActionSlot=Stack->AddChildToVerticalBox(ActionSize);
     auto* Actions=WidgetTree->ConstructWidget<UHorizontalBox>();ActionSize->SetContent(Actions);
     auto AddAction=[&](UWidget* W){auto* Slot=Actions->AddChildToHorizontalBox(W);Slot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));Slot->SetHorizontalAlignment(HAlign_Fill);Slot->SetVerticalAlignment(VAlign_Fill);ActionSlots.Add(Slot);};
@@ -54,7 +54,7 @@ void UColdSteelWarehouseWidget::NativeOnInitialized()
     SortMenu=WidgetTree->ConstructWidget<UComboBoxString>();SortMenu->OnGenerateWidgetEvent.BindDynamic(this,&ThisClass::SortOption);
     for(const FString Option:{TEXT("整理仓库"),TEXT("按稀有度"),TEXT("按价值"),TEXT("近战武器"),TEXT("远程武器"),TEXT("盾牌"),TEXT("防具与饰品"),TEXT("消耗品"),TEXT("强化材料"),TEXT("材料"),TEXT("贡品"),TEXT("金币"),TEXT("其他")})SortMenu->AddOption(Option);
     SortMenu->SetSelectedIndex(0);AddAction(SortMenu);SortMenu->OnSelectionChanged.AddDynamic(this,&ThisClass::SortChanged);
-    Scroll=WidgetTree->ConstructWidget<UScrollBox>();Scroll->SetAllowOverscroll(false);Stack->AddChildToVerticalBox(Scroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+    Scroll=WidgetTree->ConstructWidget<UScrollBox>();Scroll->SetAllowOverscroll(false);Scroll->SetConsumeMouseWheel(EConsumeMouseWheel::Never);Stack->AddChildToVerticalBox(Scroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     Board=CreateWidget<UColdSteelInventoryWidget>(GetOwningPlayer());Board->ConfigureWarehouse(HUD);Scroll->AddChild(Board);
     auto* Footer=WidgetTree->ConstructWidget<UHorizontalBox>();FooterSlot=Stack->AddChildToVerticalBox(Footer);
     Previous=Button(TEXT("上一页"));Footer->AddChildToHorizontalBox(Previous);Previous->OnClicked.AddDynamic(this,&ThisClass::PreviousPage);
@@ -86,19 +86,36 @@ void UColdSteelWarehouseWidget::SetTitle(const FString& Caption){if(Title&&Title
 void UColdSteelWarehouseWidget::Refresh()
 {
     if(!Model||!Capacity)return;int32 Used=0,Count=0;for(const auto& I:Model->Items())if(Model->InOpenStorage(I)){Used+=I.Width*I.Height;++Count;}
-    const int32 Pages=Model->WarehouseCapacity()/ColdSteelWarehouse::CellsPerPage;Model->WarehousePage=FMath::Clamp(Model->WarehousePage,0,Pages-1);
+    // 容量与页数按当前储物会话容器（主仓库=全部页；储物箱/宝箱=自己登记的页数），不再用主仓库口径。
+    const int32 Pages=FMath::Max(1,Model->OpenStorageCapacity()/ColdSteelWarehouse::CellsPerPage);Model->WarehousePage=FMath::Clamp(Model->WarehousePage,0,Pages-1);
     if(ShownPage!=Model->WarehousePage){ShownPage=Model->WarehousePage;if(Board)Board->ResetStoragePage();Scroll->ScrollToStart();}
-    Capacity->SetText(FText::FromString(FString::Printf(TEXT("%d / %d 格"),Used,Model->WarehouseCapacity())));
+    Capacity->SetText(FText::FromString(FString::Printf(TEXT("%d / %d 格"),Used,Model->OpenStorageCapacity())));
     Page->SetText(FText::FromString(FString::Printf(TEXT("%d / %d 页 · %d 件"),Model->WarehousePage+1,Pages,Count)));
     Previous->SetIsEnabled(Model->WarehousePage>0);Next->SetIsEnabled(Model->WarehousePage<Pages-1);
     if(Board)Board->LoadIcons();
 }
 void UColdSteelWarehouseWidget::Close(){if(HUD)HUD->CloseWarehouse();}
+// 滚轮翻页：上滚=前一页、下滚=后一页，首尾循环；拖动/点击处不吞事件故冒泡到面板。
+FReply UColdSteelWarehouseWidget::NativeOnMouseWheel(const FGeometry& G,const FPointerEvent& E)
+{
+    if(!Model)return FReply::Unhandled();
+    const int32 Pages=FMath::Max(1,Model->OpenStorageCapacity()/ColdSteelWarehouse::CellsPerPage);
+    if(Pages<2)return FReply::Unhandled();
+    Model->WarehousePage=(Model->WarehousePage+(E.GetWheelDelta()>0?-1:1)+Pages)%Pages;
+    Board->ResetStoragePage();Scroll->ScrollToStart();Refresh();
+    return FReply::Handled();
+}
+void UColdSteelWarehouseWidget::SetLootSession(bool bLoot)
+{
+    bLootSession=bLoot;
+    if(ActionSize)ActionSize->SetVisibility(bLoot?ESlateVisibility::Collapsed:ESlateVisibility::Visible);
+    if(auto* T=CloseButton?Cast<UTextBlock>(CloseButton->GetContent()):nullptr)T->SetText(FText::FromString(bLoot?TEXT("×"):TEXT("收起仓库")));
+}
 void UColdSteelWarehouseSortOption::SetCaption(const FString& Caption){auto* Label=WidgetTree->ConstructWidget<UTextBlock>();Label->SetText(FText::FromString(Caption));Label->SetFont(GunsmithUI::TextFont(14/ColdSteelUI::PixelScale(this)));Label->SetColorAndOpacity(GunsmithUI::Text);Label->SetJustification(ETextJustify::Center);WidgetTree->RootWidget=Label;}
 UWidget* UColdSteelWarehouseWidget::SortOption(FString Item){auto* Option=CreateWidget<UColdSteelWarehouseSortOption>(GetOwningPlayer());Option->SetCaption(Item);return Option;}
 void UColdSteelWarehouseWidget::StoreAll(){Model->WarehouseBatch(false);Board->InteractionMessage=Model->ResultMessage();Refresh();}
 void UColdSteelWarehouseWidget::Matching(){Model->WarehouseBatch(true);Board->InteractionMessage=Model->ResultMessage();Refresh();}
 void UColdSteelWarehouseWidget::StoreMatching(){Model->StoreMatchingToWarehouse();Board->InteractionMessage=Model->ResultMessage();Refresh();}
 void UColdSteelWarehouseWidget::PreviousPage(){FSlateApplication::Get().CancelDragDrop();Model->WarehousePage=FMath::Max(0,Model->WarehousePage-1);Board->ResetStoragePage();Scroll->ScrollToStart();Refresh();}
-void UColdSteelWarehouseWidget::NextPage(){FSlateApplication::Get().CancelDragDrop();Model->WarehousePage=FMath::Min(Model->WarehouseCapacity()/ColdSteelWarehouse::CellsPerPage-1,Model->WarehousePage+1);Board->ResetStoragePage();Scroll->ScrollToStart();Refresh();}
+void UColdSteelWarehouseWidget::NextPage(){FSlateApplication::Get().CancelDragDrop();Model->WarehousePage=FMath::Min(Model->OpenStorageCapacity()/ColdSteelWarehouse::CellsPerPage-1,Model->WarehousePage+1);Board->ResetStoragePage();Scroll->ScrollToStart();Refresh();}
 void UColdSteelWarehouseWidget::SortChanged(FString Selection,ESelectInfo::Type Type){const int32 N=SortMenu->FindOptionIndex(Selection);if(N<1)return;Model->SortWarehouse(N==1?TEXT("rarity"):N==2?TEXT("price"):TEXT("category"),N-3);SortMenu->SetSelectedIndex(0);Board->InteractionMessage=Model->ResultMessage();Scroll->ScrollToStart();Refresh();}

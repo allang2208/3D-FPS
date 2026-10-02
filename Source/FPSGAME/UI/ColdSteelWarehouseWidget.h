@@ -20,11 +20,14 @@ public:
     void CancelInteraction();
     /** 面板标题跟随当前储物容器："仓库"或某个储物箱的档位名。 */
     void SetTitle(const FString& Caption);
+    /** 战利品/宝箱会话打开时调用：隐藏批量操作行、关闭按钮改用 ×，仓库会话保持原样。 */
+    void SetLootSession(bool bLoot);
 protected:
     virtual void NativeOnInitialized() override;
     virtual void NativeConstruct() override;
     virtual void NativeTick(const FGeometry&,float) override;
     virtual void NativeDestruct() override;
+    virtual FReply NativeOnMouseWheel(const FGeometry&,const FPointerEvent&) override;
 private:
     friend class UColdSteelHUDWidget;
     int32 ShownPage=-1;
@@ -36,6 +39,7 @@ private:
     UPROPERTY() TObjectPtr<UTextBlock> Title;
     UPROPERTY() TObjectPtr<UButton> Previous;
     UPROPERTY() TObjectPtr<UButton> Next;
+    UPROPERTY() TObjectPtr<UButton> CloseButton;
     UPROPERTY() TObjectPtr<UComboBoxString> SortMenu;
     UPROPERTY() TObjectPtr<UScrollBox> Scroll;
     UPROPERTY() TObjectPtr<class UBackgroundBlur> Blur;
@@ -48,6 +52,7 @@ private:
     TArray<FLabel> Labels;
     TArray<TWeakObjectPtr<UButton>> Buttons;
     TArray<TWeakObjectPtr<class UHorizontalBoxSlot>> ActionSlots;
+    bool bLootSession=false;
     float Scale=1;
     FDelegateHandle ChangedHandle;
     UTextBlock* Text(const FString& Caption,float Pixels,bool Numeric=false,bool Medium=false);

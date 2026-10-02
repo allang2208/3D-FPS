@@ -91,6 +91,7 @@ private:
     bool PrepareMelee(const FColdSteelItem& Item);
     bool PrepareBow(const FColdSteelItem& Item);
     bool PrepareMaterial(const FColdSteelItem& Item);
+    bool PrepareEquipment(const FColdSteelItem& Item);
     void BeginReadback(const FString& Key);
     void PollReadback();
     void CancelReadback();

@@ -7,6 +7,12 @@
 #include "Serialization/JsonSerializer.h"
 #include "../FPSGAMECharacter.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
+#include "../Combat/CombatStatusFormula.h"
+float UColdSteelStatusModel::BerserkAttackSpeedMultiplier() const
+{
+    const auto* Status=CurrentPawn.IsValid()?CurrentPawn->FindComponentByClass<UCombatStatusFormula>():nullptr;
+    return Status?Status->BerserkAttackSpeed():1.f;
+}
 double UColdSteelStatusModel::EquipmentBonus(FName Key) const
 {return EquipmentBonusFor(Current,Key);}
 double UColdSteelStatusModel::EquipmentBonusFor(const FColdSteelProfile& State,FName Key)
@@ -17,7 +23,7 @@ double UColdSteelStatusModel::EquipmentBonusFor(const FColdSteelProfile& State,F
         if(ColdSteelInventory::Text(Item,TEXT("weaponType"))==TEXT("shield")&&Item.Cell!=(State.ActiveWeaponSlot==6?8:11))continue;
         const auto O=CombatItemFormula::ReadOnly(Item);if(!O)continue;
         double L=0;O->TryGetNumberField(TEXT("enhanceLevel"),L);
-        for(const auto& Pair:TArray<TPair<FString,double>>{{TEXT("bonusStats"),1},{TEXT("bonusPerEnhance"),L}})
+        for(const auto& Pair:TArray<TPair<FString,double>>{{TEXT("bonusStats"),1},{TEXT("bonusPerEnhance"),L},{TEXT("_enchantEffects"),1}})
         {const TSharedPtr<FJsonObject>* B=nullptr;double V=0;if(O->TryGetObjectField(Pair.Key,B)&&(*B)->TryGetNumberField(Name,V))Sum+=V*Pair.Value;}
     }
     return Sum;
@@ -85,7 +91,7 @@ float UColdSteelStatusModel::Derived(FName Key) const
     if (Key == TEXT("crit")) return AdjustCombatStat(Key,S.Crit+CoreCombatFormula::Round(EquipmentBonus(Key)));
     if (Key == TEXT("speed")) return std::floor(S.Speed*CombatMoveMultiplier());
     if (Key == TEXT("mpRegen")) return Resources.MpRegen*TributeEffect(TEXT("mpRegenPercent"))*(1+DungeonEffect(TEXT("mpRegenPercent"))/100.);
-    if (Key == TEXT("aspd")) return S.AttackSpeed*(1.+EquipmentBonus(TEXT("meleeAttackSpeed")));
+    if (Key == TEXT("aspd")) return S.AttackSpeed*(1.+EquipmentBonus(TEXT("meleeAttackSpeed")))*BerserkAttackSpeedMultiplier();
     if (Key == TEXT("staminaRegen")) return Resources.StaminaRegen*SetEffect(Key)*TributeEffect(TEXT("staminaRegenPercent"))*(1+DungeonEffect(TEXT("staminaRegenPercent"))/100.);
     return 0;
 }

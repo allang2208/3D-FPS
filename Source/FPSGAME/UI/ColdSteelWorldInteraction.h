@@ -3,11 +3,14 @@
 class APlayerController;
 class APawn;
 class AActor;
+class AColdSteelSceneContainer;
 namespace ColdSteelWorldInteraction
 {
     /** Interaction reach stays at the player's eyes when the development camera pulls back. */
     void GetReachViewPoint(const APlayerController* Controller,FVector& Eye,FRotator& View);
     AActor* TraceTarget(const APlayerController* Controller,float Reach=250.f);
+    AColdSteelSceneContainer* FocusedSceneContainer(const APlayerController* Controller);
+    AColdSteelSceneContainer* UpdateSceneContainerHighlight(const APlayerController* Controller,bool bAllowed);
     bool IsFocused(const APawn* Pawn,const AActor* Target,float Reach=250.f);
     /** Authored hub altar; the same target predicate drives its prompt and E action. */
     bool IsExpeditionAltar(const AActor* Target);

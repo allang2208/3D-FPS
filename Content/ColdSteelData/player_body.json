@@ -62,5 +62,13 @@
     "Land": "/Game/Characters/Mannequins/Anims/Unarmed/Jump/MM_Land.MM_Land",
     "Dead": "/Game/Characters/Mannequins/Anims/Death/MM_Death_Front_01.MM_Death_Front_01"
   },
-  "outfits": {}
+  "outfits": {
+    "ue_mountain_backpack": {
+      "world_static_mesh": "/Game/Characters/SovietBackpack20261002/SM_SovietBackpack.SM_SovietBackpack",
+      "attach_bone": "spine_03",
+      "attach_location": [12.64, -16.49, 0.0],
+      "attach_rotation": [-90.0, 3.59, 0.0],
+      "attach_scale": [1.0, 1.0, 1.0]
+    }
+  }
 }

@@ -39,3 +39,13 @@
 - 快捷栏把背包+夹层的同类消耗品**视为一体**：`QuickItemCount` 显示合计，`ResolveQuickItem` 按"背包→夹层"优先解析消耗目标。
 - UI：夹层区块标题/计数（"X / Y 格 · N 件"）/分隔线/整理按钮与"空间背包"同款版式，网格宽度随列数伸缩靠左对齐；键盘 F 轮换进夹层站，方向键按当前列数折行。
 - 校验红线：`ValidateProfile` 必须先按整表算 `BagRows/CompartmentGrid` 再逐件校验（装备栏条目可能排在夹层物品之后）；凡按 `Cell/列数` 索引行数组的扫描（占用掩码、行上界、数组大小）必须与当前网格同源，否则越界崩溃。
+
+
+## 装备件挂载与图标（2026-10-02 登山包修正）
+
+- **组件空间朝向约定（SKM_Manny_PlayerSkin 参考姿态）**：角色面朝 **+Y**（ball_l 相对 foot_l 的指向），背为 -Y，左右为 ±X；spine_03 位于 (0,4.3,113.4)，骨系自旋 (pitch,yaw,roll)=(86.4,-90,-90)。
+- **UE Python unreal.Transform 的 * 是 *a 语序**（与 C++ FTransform 相反）；骨骼相对变换用 des.make_relative(bone)（= des*bone.inverse()），写完用
+el*bone==des 反向验证。one.inverse()*des 算出来的不是 SetRelativeTransform 要的东西。
+- **JSON 挂载**：player_body.json 的 outfits.<def> 配 world_static_mesh+ttach_bone+ttach_location+ttach_rotation[pitch,yaw,roll]+ttach_scale；运行时 FPSBodyEquipment::ApplyOutfit 建 UStaticMeshComponent 挂骨（OutfitStaticMeshes）。
+- **包体正/反面判定用顶点壳层密度**：满幅大平面=正面盖（苏联包 -Y 面 7277 顶点），集中凸起=背带面（+Y 面 1838 顶点）；贴背平面在网格 +Y≈+4~8（密度分界），背带极端 +27.4 探过肩线形成搭肩。
+- **装备件图标**：FPSBodyEquipment::StaticOutfitMesh 读 world_static_mesh，Supports() 对配了该字段的装备自动成立；PrepareEquipment（ColdSteelEquipmentIcon.cpp）正面直拍 yaw-90、顶点剪影投影取景（圆角物体 AABB 取景只到 ~69% 填充，顶点投影到 91%+）。

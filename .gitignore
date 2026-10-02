@@ -135,6 +135,7 @@ __pycache__/
 # Downloaded Fab production-tool source packages remain local.
 /SourceAssets/FreeProductionTools20260913/Original/
 
+# M1911 licensed source motion, dense source probes and local publication snapshots.
 /SourceAssets/M1911Integration20260913/Before/
 /SourceAssets/M1911Integration20260913/manny_reference.json
 /SourceAssets/M1911P9Retarget20260913/donor.pkl
@@ -679,7 +680,6 @@ __pycache__/
 !/SourceAssets/GamedevTreasureChest20260923/**/*.py
 !/SourceAssets/GamedevTreasureChest20260923/**/*.md
 /SourceAssets/HDRSkyBC6H20260924/
-
 # Potion publication: source recipes are public; generated media/receipts stay local.
 /SourceAssets/PotionUse20260926/import_receipt.json
 /SourceAssets/PotionUse20260926/manifest.json
@@ -952,10 +952,6 @@ __pycache__/
 !/SourceAssets/FurnaceCasting20260926/**/*.md
 !/SourceAssets/FurnaceCasting20260926/**/*.hlsl
 
-# Original generated expedition concept art, approved for this UI publication.
-!/Content/ColdSteelUI/Expedition/
-!/Content/ColdSteelUI/Expedition/underground_facility.png
-
 # Sword publication 20260927: recipes only; licensed geometry, backups and receipts stay local.
 /SourceAssets/HighlandClaymoreMeshy20260922/UniformThickness20260927/**
 !/SourceAssets/HighlandClaymoreMeshy20260922/UniformThickness20260927/**/
@@ -1080,6 +1076,10 @@ __pycache__/
 !/Content/ColdSteelData/Skills/rune_orb_blades_cold_steel.png
 !/SourceAssets/RuneOrbBladePolish20260927/rune_orb_blades_cold_steel.png
 
+# Original generated expedition concept art, approved for this UI publication.
+!/Content/ColdSteelUI/Expedition/
+!/Content/ColdSteelUI/Expedition/underground_facility.png
+
 # Attachments / optics / preview publication 2026-09-27: recipes only; licensed assets stay local.
 /SourceAssets/SVDExtendedMagazine20260927/**
 !/SourceAssets/SVDExtendedMagazine20260927/**/
@@ -1182,6 +1182,8 @@ __pycache__/
 /SourceAssets/ApprenticeStaff20260927/**/Before/
 /SourceAssets/ApprenticeStaff20260927/**/__pycache__/
 /Source/FPSGAME/Weapons/Staff/StaffAuthoredPoseV13.h
+/Source/FPSGAME/Weapons/Staff/StaffAuthoredPrimaryV27.h
+/Source/FPSGAME/Weapons/Staff/StaffAuthoredPrimaryV28.h
 /Source/FPSGAME/Weapons/Staff/StaffAuthoredLeftGaitV16.h
 
 # God Space: publish recipes and authored layout parameters, not licensed
@@ -1287,6 +1289,7 @@ __pycache__/
 !/SourceAssets/LMG20120260927/Repair36/rebuild_lid.py
 !/SourceAssets/LMG20120260927/Repair36/run_headless.ps1
 !/SourceAssets/LMG20120260927/Detail35/model.py
+
 
 # Spitter: recipes and compact contracts only; licensed assets, dense data,
 # service/download receipts, previews and binary production remain local.
@@ -1480,6 +1483,25 @@ __pycache__/
 !/SourceAssets/LMG20120260927/Video26/*.md
 !/SourceAssets/LMG20120260927/Video26/*.py
 /SourceAssets/LMG20120260927/ClothReload44/Diagnostics/patch*.py
+
+# Magic publication 20261001: publish recipes/prose/original HLSL only.
+# Licensed ice/cloud/audio, imported packages, binary sources and receipts stay local.
+/SourceAssets/IceWall20260930/**
+!/SourceAssets/IceWall20260930/**/
+!/SourceAssets/IceWall20260930/**/*.md
+!/SourceAssets/IceWall20260930/geometry.json
+!/SourceAssets/IceWall20260930/FabIceV3/geometry.json
+!/SourceAssets/IceWall20260930/RealisticV2/geometry.json
+/SourceAssets/Blizzard20260930/**
+!/SourceAssets/Blizzard20260930/**/
+!/SourceAssets/Blizzard20260930/**/*.md
+/SourceAssets/ElectricMagic20261001/**
+!/SourceAssets/ElectricMagic20261001/**/
+!/SourceAssets/ElectricMagic20261001/README.md
+!/SourceAssets/ElectricMagic20261001/manifest.json
+/SourceAssets/ThunderLanceFlux20261001/**
+!/SourceAssets/ThunderLanceFlux20261001/README.md
+!/SourceAssets/ThunderLanceFlux20261001/*.hlsl
 
 # G18/HK416 publication 20261001: recipes public; licensed assets, dense data and snapshots local.
 /SourceAssets/EOTHReticle20261001/*
@@ -1703,25 +1725,6 @@ __pycache__/
 !/SourceAssets/WeaponSurface20260930/M16/Refine01/bindings.json
 !/SourceAssets/WeaponSurface20260930/PKM/Refine01/bindings.json
 !/SourceAssets/WeaponSurface20260930/LMG201/Refine01/bindings.json
-
-# Magic publication 20261001: publish recipes/prose/original HLSL only.
-# Licensed ice/cloud/audio, imported packages, binary sources and receipts stay local.
-/SourceAssets/IceWall20260930/**
-!/SourceAssets/IceWall20260930/**/
-!/SourceAssets/IceWall20260930/**/*.md
-!/SourceAssets/IceWall20260930/geometry.json
-!/SourceAssets/IceWall20260930/FabIceV3/geometry.json
-!/SourceAssets/IceWall20260930/RealisticV2/geometry.json
-/SourceAssets/Blizzard20260930/**
-!/SourceAssets/Blizzard20260930/**/
-!/SourceAssets/Blizzard20260930/**/*.md
-/SourceAssets/ElectricMagic20261001/**
-!/SourceAssets/ElectricMagic20261001/**/
-!/SourceAssets/ElectricMagic20261001/README.md
-!/SourceAssets/ElectricMagic20261001/manifest.json
-/SourceAssets/ThunderLanceFlux20261001/**
-!/SourceAssets/ThunderLanceFlux20261001/README.md
-!/SourceAssets/ThunderLanceFlux20261001/*.hlsl
 
 # Theme dungeon publication 20261002: recipes and compact authoring data only.
 /SourceAssets/DungeonAnatomyTheatre20261001/**
@@ -2012,3 +2015,14 @@ __pycache__/
 /Source/FPSGAME/Weapons/Staff/StaffAuthoredReleaseAnatomy20261001.h
 /Source/FPSGAME/Weapons/Unarmed/UnarmedAuthoredIdle20261001.h
 /Source/FPSGAME/Weapons/Unarmed/UnarmedAuthoredLocomotion20261001.h
+
+# BackpackMount20261002 / PracticeTarget20261002: 授权资产源（OBJ/贴图）与产物仅留本地，脚本与文档入库
+/SourceAssets/BackpackMount20261002/**
+!/SourceAssets/BackpackMount20261002/**/*.py
+!/SourceAssets/BackpackMount20261002/**/*.ps1
+!/SourceAssets/BackpackMount20261002/**/*.md
+/SourceAssets/PracticeTarget20261002/**
+!/SourceAssets/PracticeTarget20261002/**/*.py
+!/SourceAssets/PracticeTarget20261002/**/*.ps1
+!/SourceAssets/PracticeTarget20261002/**/*.md
+!/SourceAssets/PracticeTarget20261002/**/*.json

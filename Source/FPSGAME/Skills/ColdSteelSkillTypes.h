@@ -132,11 +132,23 @@ struct FColdSteelSkillShot
     float ShatterRadiusCM=0.f, ShatterDamageScale=1.f, BulletSpeedCM=0.f;
     /** Secondary bullets inherit resolved pre-defense damage, never roll crit or bounce again. */
     bool bRicochet=false, bInheritedCritical=false;
+    /** 联机命中上报的攻击语义上下文（本地结构体，ForwardHit 透传进 Report）：
+     *  弓=拉弦比 0-1；其余武器族留 0。客户端只报"怎么打的"，不报"打了多少"。 */
+    float DamageContext = 0.f;
+    /** 联机上报攻击语义位：0x0F=近战连段阶段(1-3)，0x10=重击(蓄力)，0x20=旋风斩，0x40=裂斩波。 */
+    uint8 AttackMeta = 0;
     TWeakObjectPtr<UFPSBallisticsComponent> BulletSource;
     TWeakObjectPtr<UFPSWeaponFXComponent> BulletFX;
     /** Only the actual melee item's prefix can start an enchantment discharge. */
     float ElectrifiedRadiusCM=0.f;
     int32 ElectrifiedMinLevel=0;
+    /** 狂暴仅捕获实际近战物品；当前持有实例仍须与本次攻击来源一致。 */
+    FString BerserkSourceInstance;
+    float BerserkSpeedPerStack=0.f,BerserkDecaySeconds=0.f;
+    int32 BerserkMaxStacks=0;
+    /** 大盲注：捕获实际手枪词缀；赌注只由这类命中增加、加成与消耗。 */
+    float WagerCriticalBonusPerStack=0.f,WagerSeconds=0.f;
+    int32 WagerMaxStacks=0;
 };
 
 struct FColdSteelProgressNotice

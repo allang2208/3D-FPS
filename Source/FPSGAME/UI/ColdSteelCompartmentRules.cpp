@@ -1,4 +1,5 @@
 #include "ColdSteelInventoryTypes.h"
+#include "ColdSteelWarehouseRules.h"
 using namespace ColdSteelInventory;
 
 // 夹层（Place 5）是背包装备撑出的独立格空间：网格尺寸＝长×宽（列×行），由装备的背包
@@ -36,13 +37,25 @@ static bool InsertCompartment(TArray<FColdSteelItem>& Items,FColdSteelItem I,FIn
     }
     Items=MoveTemp(Next);return true;
 }
-FColdSteelProposal Transfer(const TArray<FColdSteelItem>& Items,const FString& Id,int32 Destination,int32 Cell,FIntPoint Grid,int32 Orientation)
+FColdSteelProposal Transfer(const TArray<FColdSteelItem>& Items,const FString& Id,int32 Destination,int32 Cell,FIntPoint Grid,int32 WarehouseCapacity,int32 Orientation)
 {
     FColdSteelProposal R;R.Items=Items;R.Reason=TEXT("无法移动：空间不足或目标无效，物品保留原处");
     const int32 From=Items.IndexOfByPredicate([&](const auto& I){return I.InstanceId==Id;});
     if(From<0||Grid.X<1||Grid.Y<1)return R;
     const int32 Capacity=Grid.X*Grid.Y;
     auto I=Items[From];const int32 OldPlace=I.Place,OldCell=I.Cell;
+    // 回写来源位置的余量/被交换物必须还原来源语义：Container 在进夹层时清空，
+    // 待定朝向会改写宽高与 bRotated；仓库来源的回填格还要按源容器容量校验。
+    const FString SourceContainer=I.Container;const int32 SourceWidth=I.Width,SourceHeight=I.Height;const bool SourceRotated=I.bRotated;
+    // 被压物回来源腾出的原格：夹层/背包/仓库各走各的 Fits；仓库来源先还原源容器归属再按其容量校验。
+    // 装备来源(1)没有可回填的格子域——拒绝，与既有行为一致。
+    auto ReturnToSource=[&](FColdSteelItem& D)->bool
+    {
+        if(OldPlace==Place)return Fits(R.Items,D,OldCell,Grid);
+        if(OldPlace==0)return ColdSteelInventory::Fits(R.Items,D,OldCell);
+        if(OldPlace==ColdSteelWarehouse::Place){D.Container=SourceContainer;return ColdSteelWarehouse::Fits(R.Items,D,OldCell,WarehouseCapacity);}
+        return false;
+    };
     // 背包装备槽(14)里的背包不进夹层：卸下背包必须走背包格路径，让规则层校验扩展格并自动搬夹层。
     if(OldPlace==1&&OldCell==14){R.Reason=TEXT("背包装备请先卸到背包");return R;}
     if(OldPlace!=0&&OldPlace!=1&&OldPlace!=4&&OldPlace!=Place)return R;
@@ -74,7 +87,8 @@ FColdSteelProposal Transfer(const TArray<FColdSteelItem>& Items,const FString& I
                     const int64 Amount=FMath::Min(I.Count,T.StackMax-T.Count);
                     if(Amount<=0){R.Reason=TEXT("目标堆叠已满");return R;}
                     T.Count+=Amount;I.Count-=Amount;
-                    if(I.Count>0){I.Place=OldPlace;I.Cell=OldCell;R.Items.Add(I);} // 余量回原位
+                    // 余量回到来源原格：容器归属、格尺寸与朝向全部还原成拖动前的值。
+                    if(I.Count>0){I.Place=OldPlace;I.Cell=OldCell;I.Container=SourceContainer;I.Width=SourceWidth;I.Height=SourceHeight;I.bRotated=SourceRotated;R.Items.Add(I);}
                     R.bValid=true;R.Reason.Empty();return R;
                 }
                 // 单件占用＝交换：被压物品回到本次移动腾出的位置（夹层原格或背包原格）。
@@ -82,11 +96,9 @@ FColdSteelProposal Transfer(const TArray<FColdSteelItem>& Items,const FString& I
                 I.Place=Place;I.Cell=Cell;I.Map.Empty();I.Position=FVector::ZeroVector;R.Items.Add(I);
                 for(auto& D:Displaced)
                 {
-                    bool bBack=false;
-                    if(OldPlace==Place)bBack=Fits(R.Items,D,OldCell,Grid);
-                    else if(OldPlace==0)bBack=ColdSteelInventory::Fits(R.Items,D,OldCell);
-                    if(!bBack){R.Items=Items;R.Reason=TEXT("没有连续空间安置被交换物品");return R;}
-                    D.Place=OldPlace==Place?Place:0;D.Cell=OldCell;D.Map.Empty();D.Position=FVector::ZeroVector;D.Container.Empty();
+                    if(!ReturnToSource(D)){R.Items=Items;R.Reason=TEXT("没有连续空间安置被交换物品");return R;}
+                    D.Place=OldPlace;D.Cell=OldCell;D.Map.Empty();D.Position=FVector::ZeroVector;
+                    D.Container=OldPlace==ColdSteelWarehouse::Place?SourceContainer:FString();
                     R.Items.Add(D);
                 }
             }
@@ -105,8 +117,10 @@ FColdSteelProposal Transfer(const TArray<FColdSteelItem>& Items,const FString& I
         I.Place=1;I.Cell=Cell;I.Map.Empty();I.Position=FVector::ZeroVector;R.Items.Add(I);
         for(auto& D:Displaced)
         {
-            if(!Fits(R.Items,D,OldCell,Grid)){R.Items=Items;R.Reason=TEXT("夹层放不下被交换装备");return R;}
-            D.Place=Place;D.Cell=OldCell;D.Map.Empty();D.Position=FVector::ZeroVector;R.Items.Add(D);
+            if(!ReturnToSource(D)){R.Items=Items;R.Reason=TEXT("夹层放不下被交换装备");return R;}
+            D.Place=OldPlace;D.Cell=OldCell;D.Map.Empty();D.Position=FVector::ZeroVector;
+            D.Container=OldPlace==ColdSteelWarehouse::Place?SourceContainer:FString();
+            R.Items.Add(D);
         }
         if(Cell==6||Cell==9)R.ActiveWeaponSlot=Cell;
     }
@@ -132,16 +146,19 @@ FColdSteelProposal Transfer(const TArray<FColdSteelItem>& Items,const FString& I
                     const int64 Amount=FMath::Min(I.Count,T.StackMax-T.Count);
                     if(Amount<=0){R.Reason=TEXT("目标堆叠已满");return R;}
                     T.Count+=Amount;I.Count-=Amount;
-                    if(I.Count>0){I.Place=Place;I.Cell=OldCell;R.Items.Add(I);} // 余量留在夹层原格
+                    // 余量留在夹层原格：还原拖动前的宽高与朝向（待定朝向只作用于并入目标堆的部分）。
+                    if(I.Count>0){I.Place=Place;I.Cell=OldCell;I.Width=SourceWidth;I.Height=SourceHeight;I.bRotated=SourceRotated;R.Items.Add(I);}
                     R.bValid=true;R.Reason.Empty();return R;
                 }
                 TArray<FColdSteelItem> Displaced;for(int32 N=R.Items.Num()-1;N>=0;--N)if(Blockers.Contains(N)){Displaced.Add(R.Items[N]);R.Items.RemoveAt(N);}
                 I.Place=0;I.Cell=Cell;I.Map.Empty();I.Position=FVector::ZeroVector;R.Items.Add(I);
                 for(auto& D:Displaced)
                 {
-                    // 被压的背包物品换进夹层腾出的原格；放不下则整次移动取消。
-                    if(!Fits(R.Items,D,OldCell,Grid)){R.Items=Items;R.Reason=TEXT("夹层放不下被交换物品");return R;}
-                    D.Place=Place;D.Cell=OldCell;D.Map.Empty();D.Position=FVector::ZeroVector;D.Container.Empty();R.Items.Add(D);
+                    // 被压的背包物品回来源腾出的原格（夹层/背包/仓库按来源各归其位）；放不下则整次移动取消。
+                    if(!ReturnToSource(D)){R.Items=Items;R.Reason=TEXT("夹层放不下被交换物品");return R;}
+                    D.Place=OldPlace;D.Cell=OldCell;D.Map.Empty();D.Position=FVector::ZeroVector;
+                    D.Container=OldPlace==ColdSteelWarehouse::Place?SourceContainer:FString();
+                    R.Items.Add(D);
                 }
             }
             else {I.Place=0;I.Cell=Cell;I.Map.Empty();I.Position=FVector::ZeroVector;R.Items.Add(I);}

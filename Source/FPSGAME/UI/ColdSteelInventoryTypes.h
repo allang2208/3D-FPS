@@ -256,7 +256,7 @@ struct FColdSteelProposal
 
 namespace ColdSteelInventory
 {
-    inline bool IsDualPistol(const FColdSteelItem& I) { return (I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_g18")) || I.Definition==TEXT("ue_dan_wesson715"); }
+    inline bool IsDualPistol(const FColdSteelItem& I) { return (I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_g18")||I.Definition==TEXT("ue_pit_viper2011")) || I.Definition==TEXT("ue_dan_wesson715"); }
     FPSGAME_API FString Text(const FColdSteelItem& Item, const TCHAR* Key);
     FPSGAME_API double Number(const FColdSteelItem& Item, const TCHAR* Key, double Default = 0);
     FPSGAME_API bool Flag(const FColdSteelItem& Item, const TCHAR* Key);
@@ -301,6 +301,7 @@ namespace ColdSteelInventory
     FPSGAME_API bool Validate(const FColdSteelProfile& Profile, FString& Reason);
     // Checked load migration only; normal inventory transactions keep strict validation.
     FPSGAME_API bool MigrateLegacyWoodFootprints(FColdSteelProfile& Profile, bool& Changed, FString& Reason);
+    FPSGAME_API bool MigrateAuthoredGridFootprints(FColdSteelProfile& Profile, bool& Changed, FString& Reason);
     FPSGAME_API const TArray<FString>& SlotNames();
     /** 背包装备槽(14)撑出的主背包行数：基础 4 行，装备的背包物品按 bagExtraCells 每 18 格加一行。 */
     FPSGAME_API int32 BagRows(const TArray<FColdSteelItem>& Items);
@@ -320,7 +321,8 @@ namespace ColdSteelInventory
         constexpr int32 MaxColumns = 18; // 网格列上限＝抽屉宽度口径（18 格）；行上限给足纵向空间。
         constexpr int32 MaxRows = 24;
         FPSGAME_API bool Fits(const TArray<FColdSteelItem>& Items, const FColdSteelItem& Item, int32 Cell, FIntPoint Grid);
-        /** 夹层内移动/放回背包(0)/穿装备(1)：夹层自身格间、背包↔夹层双向；Grid 为当前夹层网格（列×行）。 */
-        FPSGAME_API FColdSteelProposal Transfer(const TArray<FColdSteelItem>& Items, const FString& Id, int32 Destination, int32 Cell, FIntPoint Grid, int32 Orientation = -1);
+        /** 夹层内移动/放入夹层(5)/放回背包(0)/穿装备(1)：夹层自身格间、背包/装备/仓库↔夹层双向；
+         *  Grid 为当前夹层网格（列×行）；WarehouseCapacity 只在仓库来源的交换回填时用来校验腾出格。 */
+        FPSGAME_API FColdSteelProposal Transfer(const TArray<FColdSteelItem>& Items, const FString& Id, int32 Destination, int32 Cell, FIntPoint Grid, int32 WarehouseCapacity, int32 Orientation = -1);
     }
 }

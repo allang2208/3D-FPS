@@ -210,7 +210,8 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
     Label(bWarehouse?(Model->ActiveContainer.IsEmpty()?TEXT("仓储空间"):*Model->ActiveStorageCaption):TEXT("空间背包"),12,L.BagY-28,16,GunsmithUI::Text,150);
     Label(FString::Printf(TEXT("%d / %d 格 · %d 件"),Cells,Rows*18,Count),L.Width-246,L.BagY-25,12,Cells>=Rows*18?ColdSteelUI::Warning:GunsmithUI::Secondary,180,true);
     Box(L.Width-60,L.BagY-30,48,24,bSortHovered?GunsmithUI::Gray(75,200):GunsmithUI::Gray(43,160),bSortHovered?GunsmithUI::Silver:GunsmithUI::Edge,4);Label(TEXT("整理"),L.Width-50,L.BagY-25,12,GunsmithUI::Text,38);
-    Box(12,L.BagY-5,L.Width-24,2,GunsmithUI::Gray(15,180));Box(12,L.BagY-5,(L.Width-24)*FMath::Clamp(Cells/float(Rows*18),0.f,1.f),2,Cells>=Rows*18?ColdSteelUI::Warning:Fade(GunsmithUI::Silver,.6f));
+    // 容量横线走设计系统 2.22 暗金身份层：轨道 ItemTooltipGoldRule、填充 HUDGold（与经验条同源），满仓保留 Warning 语义色。
+    Box(12,L.BagY-5,L.Width-24,2,ColdSteelUI::ItemTooltipGoldRule);Box(12,L.BagY-5,(L.Width-24)*FMath::Clamp(Cells/float(Rows*18),0.f,1.f),2,Cells>=Rows*18?ColdSteelUI::Warning:ColdSteelUI::HUDGold);
     Box(12,L.BagY,L.Width-24,L.Cell*Rows,GunsmithUI::Gray(15,95),GunsmithUI::Edge,0);
     for(int32 N=1;N<18;++N)Box(12+N*L.Cell,L.BagY,1,Rows*L.Cell,GunsmithUI::Gray(220,22),FLinearColor::Transparent,0);
     for(int32 N=1;N<Rows;++N)Box(12,L.BagY+N*L.Cell,L.Width-24,1,GunsmithUI::Gray(220,22),FLinearColor::Transparent,0);
@@ -226,7 +227,7 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
         Label(TEXT("夹层"),12,L.CompY-28,16,GunsmithUI::Text,150);
         Label(FString::Printf(TEXT("%d / %d 格 · %d 件"),Used,Cap,CompCount),L.Width-246,L.CompY-25,12,Used>=Cap?ColdSteelUI::Warning:GunsmithUI::Secondary,180,true);
         Box(L.Width-60,L.CompY-30,48,24,bCompSortHovered?GunsmithUI::Gray(75,200):GunsmithUI::Gray(43,160),bCompSortHovered?GunsmithUI::Silver:GunsmithUI::Edge,4);Label(TEXT("整理"),L.Width-50,L.CompY-25,12,GunsmithUI::Text,38);
-        Box(12,L.CompY-5,L.Width-24,2,GunsmithUI::Gray(15,180));Box(12,L.CompY-5,(L.Width-24)*FMath::Clamp(Used/float(Cap),0.f,1.f),2,Used>=Cap?ColdSteelUI::Warning:Fade(GunsmithUI::Silver,.6f));
+        Box(12,L.CompY-5,L.Width-24,2,ColdSteelUI::ItemTooltipGoldRule);Box(12,L.CompY-5,(L.Width-24)*FMath::Clamp(Used/float(Cap),0.f,1.f),2,Used>=Cap?ColdSteelUI::Warning:ColdSteelUI::HUDGold);
         Box(12,L.CompY,CG.X*L.Cell,CG.Y*L.Cell,GunsmithUI::Gray(15,95),GunsmithUI::Edge,0);
         for(int32 N=1;N<CG.X;++N)Box(12+N*L.Cell,L.CompY,1,CG.Y*L.Cell,GunsmithUI::Gray(220,22),FLinearColor::Transparent,0);
         for(int32 N=1;N<CG.Y;++N)Box(12,L.CompY+N*L.Cell,CG.X*L.Cell,1,GunsmithUI::Gray(220,22),FLinearColor::Transparent,0);

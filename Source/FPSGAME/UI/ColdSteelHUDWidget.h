@@ -29,6 +29,8 @@ class FPSGAME_API UColdSteelHUDWidget : public UCommonActivatableWidget
 
 public:
     UFUNCTION() void OpenAmmoPouch();
+    // 原项目 gamedev uiCues.buttonClick 的迁移音：抽屉页签与右侧栏目入口按钮点击共用。
+    void PlayButtonClick();
     void RequestAmmoChange(const FString& WeaponId,const FString& Target);
     UFUNCTION(BlueprintCallable, Category = "Cold Steel UI")
     void ToggleInventory();
@@ -77,6 +79,9 @@ public:
     /** 图鉴：右侧抽屉第 4 页（武器／怪物档案），快捷键 K。 */
     UFUNCTION(BlueprintCallable,Category="Cold Steel UI") void OpenCodex();
     void OpenWarehouse(class AColdSteelWarehouseChest* Chest);
+    /** 地牢宝箱战利品面板（2026-10-02）：与仓库宝箱同款 UI/规则，绑定宝箱自己的仓库容器（一页）。
+     *  Anchor 是宝箱 Actor——离开其 240cm 内自动关闭（与仓库离开距离同规则），不触发宝箱开合动画。 */
+    void OpenChestLootStorage(class AActor* Anchor,const FString& ContainerKey,int32 Pages,const FString& Caption);
     void CloseWarehouse();
     bool IsWarehouseOpen() const { return bWarehouseOpen; }
     /** 冶炼高炉 E 交互：打开背包并把冶炼面板挂到背包左侧（同一开合生命周期）。
@@ -140,6 +145,8 @@ private:
     UPROPERTY() TObjectPtr<UCanvasPanelSlot> WarehouseSlot;
     UPROPERTY() TObjectPtr<UBorder> WarehouseDetails;
     TWeakObjectPtr<class AColdSteelWarehouseChest> WarehouseChest;
+    /** 非仓库 chest 类的储物会话锚（当前只有地牢宝箱战利品面板）；与 WarehouseChest 互斥。 */
+    TWeakObjectPtr<class AActor> WarehouseAnchor;
     bool bWarehouseOpen=false;
     float WarehouseMotion=0,WarehouseStart=0,WarehouseElapsed=.3f;
     // 冶炼面板：贴在背包抽屉左侧的半宽侧板（Docs/UI/smelting-panel-plan-20260923.md）。

@@ -36,7 +36,20 @@ void UColdSteelHUDWidget::OpenWarehouse(AColdSteelWarehouseChest* Chest)
     const FString Caption=Chest->GetStorageCaption().IsEmpty()?FString(TEXT("仓库")):Chest->GetStorageCaption();
     M->BeginStorageSession(Chest->GetStorageKey(),Chest->GetStoragePages(),Caption);
     bWarehouseOpen=true;WarehouseStart=WarehouseMotion;WarehouseElapsed=0;
-    WarehouseWidget->SetTitle(Caption);WarehouseWidget->ResetPage();WarehouseWidget->SetVisibility(ESlateVisibility::Visible);WarehouseWidget->SetKeyboardFocus();Chest->SetOpen(true);
+    WarehouseWidget->SetTitle(Caption);WarehouseWidget->SetLootSession(false);WarehouseWidget->ResetPage();WarehouseWidget->SetVisibility(ESlateVisibility::Visible);WarehouseWidget->SetKeyboardFocus();Chest->SetOpen(true);
+}
+void UColdSteelHUDWidget::OpenChestLootStorage(AActor* Anchor,const FString& ContainerKey,int32 Pages,const FString& Caption)
+{
+    // 地牢宝箱战利品面板：与 OpenWarehouse 同一套面板/规则/动效，差异只有三处——
+    // 不做新手军械与强化补给发放（那是主仓库的一次性补给）、不播宝箱开合动画（开启动画已由
+    // OpenTreasureChest 播完）、离开判据按锚点 Actor 的 240cm 距离（与仓库 InteractionRadius 同值）。
+    if(!Anchor||ContainerKey.IsEmpty())return;
+    if(bWarehouseOpen)return;
+    WarehouseChest.Reset();WarehouseAnchor=Anchor;SetInventoryTab(false);SetInventoryOpen(true);
+    auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();M->bWarehouseOpen=true;
+    M->BeginStorageSession(ContainerKey,Pages,Caption);
+    bWarehouseOpen=true;WarehouseStart=WarehouseMotion;WarehouseElapsed=0;
+    WarehouseWidget->SetTitle(Caption);WarehouseWidget->SetLootSession(true);WarehouseWidget->ResetPage();WarehouseWidget->SetVisibility(ESlateVisibility::Visible);WarehouseWidget->SetKeyboardFocus();
 }
 void UColdSteelHUDWidget::CloseWarehouse()
 {
@@ -45,6 +58,7 @@ void UColdSteelHUDWidget::CloseWarehouse()
     HideWarehouseDetails();
     WarehouseWidget->CancelInteraction();
     FSlateApplication::Get().CancelDragDrop();bWarehouseOpen=false;
+    WarehouseAnchor.Reset();
     auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();M->bWarehouseOpen=false;M->EndStorageSession(); // 关闭即回到主仓库口径
     WarehouseStart=WarehouseMotion;WarehouseElapsed=0;WarehouseWidget->SetVisibility(ESlateVisibility::HitTestInvisible);
     if(bInventoryOpen&&CloseButton)CloseButton->SetKeyboardFocus();
@@ -66,14 +80,29 @@ void UColdSteelHUDWidget::HideWarehouseDetails(){if(WarehouseDetails){WarehouseD
 void UColdSteelHUDWidget::TickWarehouse(const FGeometry& G,float Delta)
 {
     if(!WarehouseWidget)return;
-    if(bWarehouseOpen&&(!WarehouseChest.IsValid()||!WarehouseChest->IsWithinReach(GetOwningPlayerPawn())))CloseWarehouse();
+    if(bWarehouseOpen)
+    {
+        if(WarehouseChest.IsValid())
+        {
+            if(!WarehouseChest->IsWithinReach(GetOwningPlayerPawn()))CloseWarehouse();
+        }
+        else if(WarehouseAnchor.IsValid())
+        {
+            // 战利品面板：与仓库同值 240cm 距离判据，离开即关（AColdSteelWarehouseChest::IsWithinReach 同口径）。
+            const auto* Pawn=GetOwningPlayerPawn();
+            if(!Pawn||Pawn->GetNetMode()==NM_Client
+                ||FVector::Dist(Pawn->GetActorLocation(),WarehouseAnchor->GetActorLocation()+FVector(0,0,70))>240.f)
+                CloseWarehouse();
+        }
+        else CloseWarehouse();
+    }
     WarehouseElapsed=FMath::Min(.3f,WarehouseElapsed+Delta);
     const float T=WarehouseElapsed/.3f;
     auto Bezier=[](float X,float A,float B){float Low=0,High=1,U=0;for(int N=0;N<16;++N){U=(Low+High)*.5f;float V=3*(1-U)*(1-U)*U*A+3*(1-U)*U*U*B+U*U*U;if(V<X)Low=U;else High=U;}return 3*(1-U)*U*U+U*U*U;};
     WarehouseMotion=FMath::Lerp(WarehouseStart,bWarehouseOpen?1.f:0.f,Bezier(T,.4f,.2f));
     const float Scale=ColdSteelUI::PixelScale(this);
     WarehouseWidget->SetRenderTranslation(FVector2D(-(1-WarehouseMotion)*(InventoryWidth+12)/Scale,0));WarehouseWidget->SetRenderOpacity(WarehouseMotion);
-    if(!bWarehouseOpen&&T>=1){WarehouseWidget->SetVisibility(ESlateVisibility::Collapsed);if(WarehouseChest.IsValid())WarehouseChest->SetOpen(false);WarehouseChest.Reset();}
+    if(!bWarehouseOpen&&T>=1){WarehouseWidget->SetVisibility(ESlateVisibility::Collapsed);if(WarehouseChest.IsValid())WarehouseChest->SetOpen(false);WarehouseChest.Reset();WarehouseAnchor.Reset();}
 }
 bool UColdSteelHUDWidget::HandleInventoryOutsideClick(FVector2D Position)
 {

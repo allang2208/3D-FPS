@@ -20,6 +20,9 @@
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Rendering/SkeletalMeshRenderData.h"
 #include "Dom/JsonObject.h"
+#include "Serialization/JsonSerializer.h"
+#include "Misc/FileHelper.h"
+#include "Misc/Paths.h"
 
 namespace FPSBodyEquipment
 {
@@ -74,6 +77,37 @@ static void WorldVisibility(UPrimitiveComponent* Mesh)
     const auto* Body=Mesh->GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>();
     ApplyOwnerVisibilityFlags(Mesh,/*bOnlyOwnerSee=*/false,/*bOwnerNoSee=*/!Body||!Body->IsThirdPersonViewEnabled());
     // Final shadow/visibility policy is applied after the equipment's hand is registered.
+}
+static FVector JsonVector(const TSharedPtr<FJsonObject>& Obj,const TCHAR* Key,FVector Default)
+{
+    const TArray<TSharedPtr<FJsonValue>>* Values=nullptr;
+    if(!Obj||!Obj->TryGetArrayField(Key,Values)||Values->Num()<3)return Default;
+    return FVector((*Values)[0]->AsNumber(),(*Values)[1]->AsNumber(),(*Values)[2]->AsNumber());
+}
+static TSharedPtr<FJsonObject> OutfitDefinitions()
+{
+    // Static equipment bindings are content data; reload only once per process.
+    static TSharedPtr<FJsonObject> Definitions;
+    static bool bLoaded=false;
+    if(bLoaded)return Definitions;
+    bLoaded=true;
+    FString Json;
+    if(!FFileHelper::LoadFileToString(Json,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/player_body.json"))))return Definitions;
+    TSharedPtr<FJsonObject> Root;
+    if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json),Root)||!Root)return Definitions;
+    const TSharedPtr<FJsonObject>* Outfits=nullptr;
+    if(Root->TryGetObjectField(TEXT("outfits"),Outfits))Definitions=*Outfits;
+    return Definitions;
+}
+FSoftObjectPath StaticOutfitMesh(const FString& Definition)
+{
+    const auto Definitions=OutfitDefinitions();
+    if(!Definitions.IsValid())return FSoftObjectPath();
+    const TSharedPtr<FJsonObject>* Settings=nullptr;
+    if(!Definitions->TryGetObjectField(Definition,Settings))return FSoftObjectPath();
+    FString Path;
+    if(!(*Settings)->TryGetStringField(TEXT("world_static_mesh"),Path))return FSoftObjectPath();
+    return FSoftObjectPath(Path);
 }
 }
 
@@ -183,7 +217,10 @@ void UFPSPlayerBodyComponent::CaptureEquipment()
         if(GetNetMode()!=NM_DedicatedServer)RebuildWeapons(Weapons);
         bOutfitDirty=true;
     }
-    if(bOutfitDirty&&Pawn->GetGameInstance())if(auto* Profile=Pawn->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+    // 联机：远端 pawn 的装备来源是影子档案（GetNetShadowProfile），不是主机单例。
+    UColdSteelStatusModel* OutfitProfile=Pawn->GetNetShadowProfile();
+    if(!OutfitProfile&&Pawn->GetGameInstance())OutfitProfile=Pawn->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    if(bOutfitDirty&&OutfitProfile)if(auto* Profile=OutfitProfile)
     {
         LocalOutfit.Reset();
         for(const auto& Item:Profile->Items())if(Item.Place==1&&Item.Cell!=6&&Item.Cell!=8&&Item.Cell!=9&&Item.Cell!=11)
@@ -302,6 +339,7 @@ void UFPSPlayerBodyComponent::ApplyOutfit(const TArray<FFPSBodyOutfitSlot>& Outf
     auto* Body=GetBodyMesh();if(!Body||!Configuration.IsValid())return;
     UFPSPerformanceMetricsSubsystem::CountOutfitRebuild(this);
     for(auto Part:OutfitMeshes)if(Part)Part->DestroyComponent();OutfitMeshes.Reset();
+    for(auto Part:OutfitStaticMeshes)if(Part)Part->DestroyComponent();OutfitStaticMeshes.Reset();
     for(auto It=OriginalMaterials.CreateIterator();It;++It)
     {
         auto* Mesh=It.Key().Get();if(!IsValid(Mesh)){It.RemoveCurrent();continue;}
@@ -334,6 +372,21 @@ void UFPSPlayerBodyComponent::ApplyOutfit(const TArray<FFPSBodyOutfitSlot>& Outf
             GetOwner()->AddInstanceComponent(Part);Part->SetSkeletalMeshAsset(Asset);Part->SetupAttachment(Body);
             FPSBodyEquipment::WorldVisibility(Part);Part->RegisterComponent();Part->SetLeaderPoseComponent(Body);
             OutfitMeshes.Add(Part);
+        }
+        FString StaticPath;
+        // 刚性装备件（背包等）：静态网格直接挂骨骼，变换由 JSON 给出骨骼相对偏移。
+        if((*Settings)->TryGetStringField(TEXT("world_static_mesh"),StaticPath))if(auto* Asset=LoadObject<UStaticMesh>(nullptr,*StaticPath))
+        {
+            auto* Part=NewObject<UStaticMeshComponent>(GetOwner(),NAME_None,RF_Transient);
+            GetOwner()->AddInstanceComponent(Part);Part->SetStaticMesh(Asset);
+            FString Bone=TEXT("spine_03");(*Settings)->TryGetStringField(TEXT("attach_bone"),Bone);
+            Part->SetupAttachment(Body,FName(*Bone));
+            const FVector L=FPSBodyEquipment::JsonVector(*Settings,TEXT("attach_location"),FVector::ZeroVector);
+            const FVector R=FPSBodyEquipment::JsonVector(*Settings,TEXT("attach_rotation"),FVector::ZeroVector);
+            const FVector S=FPSBodyEquipment::JsonVector(*Settings,TEXT("attach_scale"),FVector::OneVector);
+            Part->SetRelativeTransform(FTransform(FRotator(R.X,R.Y,R.Z).Quaternion(),L,S));
+            FPSBodyEquipment::WorldVisibility(Part);Part->RegisterComponent();
+            OutfitStaticMeshes.Add(Part);
         }
         const TArray<TSharedPtr<FJsonValue>>* Hidden=nullptr;
         if(Render&&(*Settings)->TryGetArrayField(TEXT("hide_body_materials"),Hidden))

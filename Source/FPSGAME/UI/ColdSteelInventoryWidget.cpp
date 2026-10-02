@@ -12,6 +12,8 @@
 #include "Components/ScrollBox.h"
 #include "Components/TextBlock.h"
 #include "Components/Image.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundBase.h"
 #include "Components/ScaleBox.h"
 #include "ColdSteelInventoryPopup.h"
 #include "Engine/GameInstance.h"
@@ -226,8 +228,10 @@ FReply UColdSteelInventoryWidget::NativeOnMouseButtonDown(const FGeometry& G,con
         if(!Selected.IsEmpty()&&E.GetEffectingButton()==EKeys::LeftMouseButton){PressedItem=Selected;PressPosition=E.GetScreenSpacePosition();bPendingClick=true;return FReply::Handled().DetectDrag(TakeWidget(),EKeys::LeftMouseButton);}
         return FReply::Handled();
     }
-    if(E.GetEffectingButton()==EKeys::LeftMouseButton&&P.X>=L.Width-60&&P.X<L.Width-12&&P.Y>=L.BagY-30&&P.Y<L.BagY-6)PerformAction(3);
-    if(E.GetEffectingButton()==EKeys::LeftMouseButton&&bCompSortHovered)PerformAction(8);
+    // 整理按钮共用迁移自原项目 gamedev 的 uiCues.buttonClick 确认音。
+    auto PlaySortClick=[this](){if(auto* S=LoadObject<USoundBase>(nullptr,TEXT("/Game/Audio/GamedevUI20261002/S_Button_Click.S_Button_Click")))UGameplayStatics::PlaySound2D(this,S,1.f,1.f);};
+    if(E.GetEffectingButton()==EKeys::LeftMouseButton&&P.X>=L.Width-60&&P.X<L.Width-12&&P.Y>=L.BagY-30&&P.Y<L.BagY-6){PlaySortClick();PerformAction(3);}
+    if(E.GetEffectingButton()==EKeys::LeftMouseButton&&bCompSortHovered){PlaySortClick();PerformAction(8);}
     return FReply::Handled();
 }
 FReply UColdSteelInventoryWidget::NativeOnMouseButtonUp(const FGeometry& G,const FPointerEvent& E)
@@ -335,7 +339,7 @@ bool UColdSteelInventoryWidget::PreviewItemDrag(UColdSteelItemDrag& D,FVector2D 
     const int32 Orientation=D.bRotated?1:0;
     PreviewCells=PendingFootprint(*Source,D);
     // Hint only over bag/warehouse grids. Gear targets keep authored shape on drop.
-    bPreviewRotatable=(PreviewPlace==0||PreviewPlace==4)&&(D.SourcePlace==0||D.SourcePlace==1||D.SourcePlace==4)&&CanRotate(*Source);
+    bPreviewRotatable=(PreviewPlace==0||PreviewPlace==4||PreviewPlace==ColdSteelCompartment::Place)&&(D.SourcePlace==0||D.SourcePlace==1||D.SourcePlace==4||D.SourcePlace==ColdSteelCompartment::Place)&&CanRotate(*Source);
     if(PreviewPlace==0||PreviewPlace==4){
         const int32 TargetPlace=PreviewPlace,Start=StorageStart();
         // Firearms become 2x5 when turned, which no backpack row set can hold; say that plainly rather

@@ -23,6 +23,9 @@ public:
     void SetAuthoritativeState(const FFPSBodyState& State);
     void SetAuthoritativeEquipment(const TArray<FFPSBodyWeapon>& Weapons, const TArray<FFPSBodyOutfitSlot>& Outfit);
     UFUNCTION(BlueprintCallable, Category="Player Body") void RefreshEquipment();
+    /** 联机：拥有端把离散动作过渡（换弹/施法/挥砍/格挡等）上报到服务端，
+     *  服务端并入远端 pawn 的权威身体态。仅在服务端调用。 */
+    void ServerRecordAction(EFPSBodyAction Action, FName Variant, float Duration);
     UFUNCTION(BlueprintPure, Category="Player Body") class USkeletalMeshComponent* GetBodyMesh() const;
     /** Applies `fps.body.WorldBody` to the body, world weapon, attachment and outfit
      *  components. Safe to call every visibility refresh; only changed flags are set. */
@@ -51,6 +54,8 @@ private:
     // Includes the weapon and every copied part; array indices can change when an asset is absent.
     TMap<TWeakObjectPtr<class UPrimitiveComponent>, uint8> WorldEquipmentHands;
     UPROPERTY(Transient) TArray<TObjectPtr<class USkeletalMeshComponent>> OutfitMeshes;
+    // 刚性装备件（背包等静态网格按骨骼 socket 挂载），随 OutfitMeshes 同批重建/显隐。
+    UPROPERTY(Transient) TArray<TObjectPtr<class UStaticMeshComponent>> OutfitStaticMeshes;
     UPROPERTY(Transient) TMap<TObjectPtr<class UMeshComponent>, FFPSBodyOriginalMaterials> OriginalMaterials;
     TSharedPtr<class FJsonObject> Configuration;
     FFPSBodyState DisplayState;
@@ -59,6 +64,7 @@ private:
     FString EquipmentKey;
     FDelegateHandle ProfileChanged;
     float RefreshCountdown = 0.f;
+    float RemoteEquipCountdown = 0.f;
     float VisibilityCountdown = 0.f;
     float WorldWeaponsHiddenUntil = 0.f;
     float OffhandWeaponHiddenUntil = 0.f;
@@ -70,6 +76,13 @@ private:
     float ServerClock() const;
     void InitializeBody();
     FFPSBodyState SampleLocalState() const;
+    /** 服务端：为非本机控制的远端 pawn 组装权威身体态——服务端可信事实
+     *  （CMC 意图位/装备/瞄准俯仰）+ 客户端汇报的离散动作。 */
+    FFPSBodyState SampleRemoteAuthorityState() const;
+    EFPSBodyAction ReportedAction = EFPSBodyAction::None;
+    FName ReportedActionVariant;
+    float ReportedActionStartedAt = -100.f;
+    float ReportedActionDuration = 0.f;
     void CaptureEquipment();
     FFPSBodyWeapon CaptureWeapon(class USkeletalMeshComponent* Mesh, class UAnimSequence* Idle, FName Grip) const;
     void RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapons);

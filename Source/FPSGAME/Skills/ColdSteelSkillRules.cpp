@@ -1,11 +1,15 @@
 #include "ColdSteelSkillRules.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "../Weapons/MeleeWeaponStats.h"
 #include "../Weapons/WeaponStatEvaluation.h"
 #include "../Weapons/FPSBallisticsComponent.h"
 #include "../Weapons/FPSMeleeLightningComponent.h"
+#include "../Weapons/ColdSteelEnchantmentCombat.h"
+#include "../Combat/CombatStatusFormula.h"
 #include "../Monsters/HandBrainMonster.h"
+#include "../Props/FPSPracticeTarget.h"
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonSerializer.h"
 #include "Misc/FileHelper.h"
@@ -93,6 +97,7 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
         T.StunSeconds=Num(TEXT("stunSeconds"),T.StunSeconds);T.ElectrifyStacks=Num(TEXT("electrifyStacks"),T.ElectrifyStacks);T.ElectrifySeconds=Num(TEXT("electrifySeconds"),T.ElectrifySeconds);
         T.MinCharge=Num(TEXT("minCharge"),T.MinCharge);T.MaxCharge=Num(TEXT("maxCharge"),T.MaxCharge);T.ChargeBonus=Num(TEXT("chargeBonus"),T.ChargeBonus);T.StackDamage=Num(TEXT("stackDamage"),T.StackDamage);
         T.HalfWidth=Num(TEXT("halfWidth"),T.HalfWidth);T.KnockbackBase=Num(TEXT("knockbackBase"),T.KnockbackBase);T.KnockbackGrowth=Num(TEXT("knockbackGrowth"),T.KnockbackGrowth);T.EndRadius=Num(TEXT("endRadius"),T.EndRadius);
+        T.BeamHold=FMath::Clamp(float(Num(TEXT("beamHold"),T.BeamHold)),.05f,4.f);T.BeamFade=FMath::Clamp(float(Num(TEXT("beamFade"),T.BeamFade)),.05f,2.f);
         T.HitExperience=Num(TEXT("hitExperience"),T.HitExperience);T.KillExperience=Num(TEXT("killExperience"),T.KillExperience);T.MultiHitExperience=Num(TEXT("multiHitExperience"),T.MultiHitExperience);T.MultiKillExperience=Num(TEXT("multiKillExperience"),T.MultiKillExperience);
     }
     if(Id==TEXT("fireball"))
@@ -359,6 +364,8 @@ bool ColdSteelSkills::IsCriticalHit(const FHitResult& Hit)
     // （cranium）一律不触发要害必暴。随机暴击是角色属性驱动（见 Snapshot 的 crit chance），
     // 不经此处，所以近战/枪械仍可按概率对其暴击，符合"平时无固定弱点、可被随机暴击"的口径。
     if(const auto* Brain=Cast<AHandBrainMonster>(Hit.GetActor()))return Brain->IsWeakpointHit(Hit);
+    // 训练靶：命中点落在靶心正面区域即要害（靶心无骨骼，按网格本地坐标判定）。
+    if(const auto* Target=Cast<AFPSPracticeTarget>(Hit.GetActor()))return Target->IsBullseyeHit(Hit);
     const FString Bone=Hit.BoneName.ToString();return Bone.Contains(TEXT("head"),ESearchCase::IgnoreCase)||Bone.Equals(TEXT("cranium"),ESearchCase::IgnoreCase);
 }
 FColdSteelSkillEffect ColdSteelSkills::Effect(const FColdSteelSkillDefinition& D, int32 Level)
@@ -404,9 +411,13 @@ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelIt
 {
     FColdSteelSkillShot Shot;
     if(const FColdSteelItem* Source=Item?Item:nullptr)Shot.ItemDefinition=Source->Definition;
-    if (Shooter && Shooter->GetGameInstance()) if (auto* M=Shooter->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+    // 联机：服务端上远端玩家的数值来源是影子档案，不是 GameInstance 单例（单例是主机的档）。
+    UColdSteelStatusModel* M=nullptr;
+    if(const auto* Character=Cast<AFPSGAMECharacter>(Shooter))M=Character->GetNetShadowProfile();
+    if(!M&&Shooter&&Shooter->GetGameInstance())M=Shooter->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    if (M)
     { Shot.bRifle=IsRifle(Item?Item:M->Equipped());Shot.bPistol=IsPistol(Item?Item:M->Equipped()); Shot.WeakpointPercent=Shot.bRifle?M->RifleEffect().WeakpointPercent:0;Shot.CriticalDamageBonus=M->CriticalStrikeEffect().CriticalDamageBonus; }
-    if(Shooter&&Shooter->GetGameInstance())if(auto* M=Shooter->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+    if(M)
     {
         Shot.CriticalChance=M->Derived(TEXT("crit"));Shot.MasteryId=M->WeaponMastery(Item?Item:M->Equipped());
         if(const auto* I=Item?Item:M->Equipped())if(auto* E=Shooter->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
@@ -424,6 +435,9 @@ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelIt
                 {Shot.AmmoPoisonStacks=Ammo->PoisonStacks;Shot.AmmoBleedStacks=Ammo->BleedStacks;}
             }
             if(Shot.ItemDefinition.IsEmpty())Shot.ItemDefinition=I->Definition;
+            const auto Wager=ColdSteelCombat::BigBlind(Shooter->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>(),I);
+            if(Wager.Enabled)
+            {Shot.WagerCriticalBonusPerStack=Wager.CriticalBonusPerStack;Shot.WagerSeconds=Wager.Seconds;Shot.WagerMaxStacks=Wager.MaxStacks;}
             Shot.bMelee=ColdSteelInventory::IsMeleeWeapon(*I);
             // 武器自带的暴击伤害加成（items 定义 critDamageBonus，SVD=0.5）与暴击技能倍率相加后，
             // 在 ColdSteelSkillModel 里只乘一次（要害或随机暴击同一击不叠加）。
@@ -436,12 +450,19 @@ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelIt
                 Shot.DamagePanel=Melee.DamageParts;
                 Shot.ArmorPenetration=FMath::Clamp(Shot.ArmorPenetration+float(Melee.Modifiers.PhysicalArmorPenetration),0.f,1.f);
                 Shot.ToughnessDamageMultiplier=Melee.Modifiers.ToughnessDamage;
-                if(const auto* E=Shooter->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
-                    if(!bFiredRound&&E->Effect(*I,TEXT("electrifiedMelee"))>0.)
+                if(const auto* E=Shooter->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();E&&!bFiredRound)
+                {
+                    if(E->Effect(*I,TEXT("electrifiedMelee"))>0.)
                     {
                         Shot.ElectrifiedRadiusCM=E->Effect(*I,TEXT("electrifiedRadiusM"))*100.;
                         Shot.ElectrifiedMinLevel=int32(E->Effect(*I,TEXT("electrifiedMinLevel")));
                     }
+                    const float Speed=E->Effect(*I,TEXT("berserkSpeedPerStack"));
+                    const float Period=E->Effect(*I,TEXT("berserkDecaySeconds"));
+                    const int32 Limit=int32(E->Effect(*I,TEXT("berserkMaxStacks")));
+                    if(E->Effect(*I,TEXT("berserkMelee"))>0.&&Speed>0.f&&Period>0.f&&Limit>0)
+                    {Shot.BerserkSourceInstance=I->InstanceId;Shot.BerserkSpeedPerStack=Speed;Shot.BerserkDecaySeconds=Period;Shot.BerserkMaxStacks=Limit;}
+                }
             }
             else if(ColdSteelInventory::IsBow(*I))
                 Shot.DamagePanel=ColdSteelWeaponStats::DamageParts(*I,M,ColdSteelInventory::Number(*I,TEXT("full_damage"),69));
@@ -462,10 +483,51 @@ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelIt
     }
     return Shot;
 }
+ColdSteelSkills::FColdSteelNetHitForward& ColdSteelSkills::NetHitForward()
+{
+    static FColdSteelNetHitForward Instance=nullptr;
+    return Instance;
+}
+void ColdSteelSkills::AwardKillByOwner(UGameInstance* GameInstance,AController* Instigator,AActor* Victim,int64 ExperienceReward)
+{
+    if(!GameInstance)return;
+    UColdSteelStatusModel* Model=GameInstance->GetSubsystem<UColdSteelStatusModel>();
+    if(const auto* Killer=Cast<AFPSGAMECharacter>(Instigator?Instigator->GetPawn():nullptr))
+        if(auto* Shadow=Killer->GetNetShadowProfile())Model=Shadow; // M3: 远端玩家的击杀记到影子档案
+    if(Model)Model->AwardKill(Victim,ExperienceReward);
+}
+void ColdSteelSkills::NotifyKillByOwner(UGameInstance* GameInstance,AController* Instigator,AActor* Victim)
+{
+    if(!GameInstance||!Victim||!Victim->HasAuthority())return;
+    const auto* Killer=Cast<AFPSGAMECharacter>(Instigator?Instigator->GetPawn():nullptr);
+    if(!Killer||Killer==Victim)return;
+    UColdSteelStatusModel* Model=Killer->GetNetShadowProfile();
+    if(!Model)Model=GameInstance->GetSubsystem<UColdSteelStatusModel>();
+    if(Model)Model->ApplyKillStaminaRecovery(Victim);
+}
+void ColdSteelSkills::GrantBerserkOnWeaponHit(AActor* Shooter,const FColdSteelSkillShot& Shot)
+{
+    if(!Shooter||!Shooter->HasAuthority()||!Shot.bMelee||Shot.BerserkSourceInstance.IsEmpty()
+        ||Shot.BerserkSpeedPerStack<=0.f||Shot.BerserkDecaySeconds<=0.f||Shot.BerserkMaxStacks<=0)return;
+    UColdSteelStatusModel* Model=nullptr;
+    if(const auto* Player=Cast<AFPSGAMECharacter>(Shooter))Model=Player->GetNetShadowProfile();
+    if(!Model&&Shooter->GetGameInstance())Model=Shooter->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    const auto* Held=Model?Model->ActiveProductionTool():nullptr;
+    if(!Held&&Model)Held=Model->Equipped();
+    if(!Held||Held->InstanceId!=Shot.BerserkSourceInstance)return;
+    if(auto* Status=UCombatStatusFormula::GetOrAdd(Shooter))
+        Status->AddBerserk(Shot.BerserkSpeedPerStack,Shot.BerserkDecaySeconds,Shot.BerserkMaxStacks);
+}
 float ColdSteelSkills::ApplyHit(AActor* Shooter,const FHitResult& Hit,float Damage,const FVector& Direction,const FColdSteelSkillShot& Shot,FWeaponDamageResult* Result)
 {
+    // M3 联机：客户端命不本地结算，转发权威服务器（枪械/近战/法术共用此汇入点）。
+    if(Shooter&&!Shooter->HasAuthority()&&NetHitForward()&&NetHitForward()(Shooter,Hit,Damage,Direction,Shot))return 0.f;
     if(Result)*Result={};
-    if (Shooter && Shooter->GetGameInstance()) if (auto* M=Shooter->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+    // 联机：服务端结算远端玩家命中时用影子档案（GetNetShadowProfile），主机/单机回退单例。
+    UColdSteelStatusModel* M=nullptr;
+    if(const auto* Character=Cast<AFPSGAMECharacter>(Shooter))M=Character->GetNetShadowProfile();
+    if(!M&&Shooter&&Shooter->GetGameInstance())M=Shooter->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    if (M)
     {
         // Capture eligibility before the original victim dies. This common fired-shot
         // path covers flying, hitscan, blocked-muzzle and either dual-wield hand.
@@ -474,7 +536,10 @@ float ColdSteelSkills::ApplyHit(AActor* Shooter,const FHitResult& Hit,float Dama
         FWeaponDamageResult Receipt;
         const bool bElectrified=Shot.bMelee&&Shot.ElectrifiedRadiusCM>0.f&&Shot.ElectrifiedMinLevel>0
             &&Shooter->HasAuthority()&&UFPSMeleeLightningComponent::IsEnemy(Hit.GetActor(),Shooter);
+        const bool bBerserk=Shot.bMelee&&Shot.BerserkMaxStacks>0&&Damage>0.f
+            &&Shooter->HasAuthority()&&UFPSMeleeLightningComponent::IsEnemy(Hit.GetActor(),Shooter);
         const float Applied=M->ApplySkillWeaponHit(Shooter,Hit,Damage,Direction,Shot,Result?Result:&Receipt);
+        if(bBerserk)GrantBerserkOnWeaponHit(Shooter,Shot);
         if(bElectrified&&Damage>0.f)
             if(auto* Lightning=Shooter->FindComponentByClass<UFPSMeleeLightningComponent>())
             {

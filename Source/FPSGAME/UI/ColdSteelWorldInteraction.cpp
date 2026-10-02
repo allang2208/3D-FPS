@@ -9,10 +9,13 @@
 #include "../Building/SmeltingSystem.h"
 #include "../Building/ColdSteelDoorInteraction.h"
 #include "ColdSteelWarehouseChest.h"
+#include "ColdSteelSceneContainer.h"
 #include "ColdSteelPickup.h"
 #include "../Weapons/Bow/BowArrow.h"
 #include "ColdSteelDungeonLoot.h"
 #include "../Dungeons/DungeonRunSubsystem.h"
+#include "../FPSGAMEPlayerController.h"
+#include "ColdSteelHUDWidget.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Animation/AnimSequence.h"
 #include "Misc/FileHelper.h"
@@ -34,7 +37,7 @@ void ColdSteelWorldInteraction::GetReachViewPoint(const APlayerController* PC,FV
 }
 AActor* ColdSteelWorldInteraction::TraceTarget(const APlayerController* PC,float Reach)
 {
-    if(!IsValid(PC)||!PC->GetPawn()||PC->bShowMouseCursor||PC->GetNetMode()!=NM_Standalone)return nullptr;
+    if(!IsValid(PC)||!PC->GetPawn()||PC->bShowMouseCursor||PC->GetNetMode()==NM_Client)return nullptr;
     FVector Eye;FRotator View;GetReachViewPoint(PC,Eye,View);
     FCollisionQueryParams Query(SCENE_QUERY_STAT(ColdSteelUse),false,PC->GetPawn());
     TArray<FHitResult> Hits;
@@ -51,6 +54,47 @@ AActor* ColdSteelWorldInteraction::TraceTarget(const APlayerController* PC,float
 bool ColdSteelWorldInteraction::IsFocused(const APawn* Pawn,const AActor* Target,float Reach)
 {
     return IsValid(Pawn)&&IsValid(Target)&&Pawn->GetWorld()==Target->GetWorld()&&TraceTarget(Cast<APlayerController>(Pawn->GetController()),Reach)==Target;
+}
+AColdSteelSceneContainer* ColdSteelWorldInteraction::FocusedSceneContainer(const APlayerController* PC)
+{
+    if(!IsValid(PC)||!PC->GetPawn()||PC->bShowMouseCursor||PC->GetNetMode()==NM_Client)return nullptr;
+    if(auto* Exact=Cast<AColdSteelSceneContainer>(TraceTarget(PC)))return Exact;
+    FVector Eye;FRotator View;GetReachViewPoint(PC,Eye,View);
+    FCollisionQueryParams Query(SCENE_QUERY_STAT(ColdSteelContainerFocus),false,PC->GetPawn());
+    FHitResult Hit;
+    // A narrow aim corridor catches open shelving gaps and the immediate rim.
+    // First blocking surface wins; furniture behind a wall never receives focus.
+    if(!PC->GetWorld()->SweepSingleByChannel(Hit,Eye,Eye+View.Vector()*250.f,FQuat::Identity,
+        ECC_Visibility,FCollisionShape::MakeSphere(18.f),Query))return nullptr;
+    auto* Container=Cast<AColdSteelSceneContainer>(Hit.GetActor());
+    if(Container&&FVector::Dist(PC->GetPawn()->GetActorLocation(),Container->GetActorLocation()+FVector(0,0,70))<=240.f)
+        return Container;
+    return nullptr;
+}
+
+AColdSteelSceneContainer* ColdSteelWorldInteraction::UpdateSceneContainerHighlight(const APlayerController* PC,bool bAllowed)
+{
+    // Standalone local HUD owns the single focus. No actor idle ticks or world scans.
+    static TWeakObjectPtr<const APlayerController> Owner;
+    static TWeakObjectPtr<AColdSteelSceneContainer> Previous;
+    static double LastUpdate=-1.;
+    const double Now=IsValid(PC)&&PC->GetWorld()?PC->GetWorld()->GetTimeSeconds():0.;
+    if(Owner.Get()!=PC||!bAllowed||Now<LastUpdate)
+    {
+        if(Previous.IsValid())Previous->SetViewHighlighted(false);
+        Previous.Reset();Owner=PC;LastUpdate=-1.;
+    }
+    if(!bAllowed)return nullptr;
+    if(LastUpdate>=0.&&Now-LastUpdate<.06)return Previous.Get();
+    LastUpdate=Now;
+    auto* Next=FocusedSceneContainer(PC);
+    if(Next!=Previous.Get())
+    {
+        if(Previous.IsValid())Previous->SetViewHighlighted(false);
+        Previous=Next;
+        if(Next)Next->SetViewHighlighted(true);
+    }
+    return Next;
 }
 bool ColdSteelWorldInteraction::IsExpeditionAltar(const AActor* Target)
 {
@@ -75,11 +119,11 @@ FString ColdSteelWorldInteraction::TreasureChestPrompt(const AActor* Target)
     if(Target->ActorHasTag(TEXT("DungeonFinalTreasure")))
     {
         if(Target->ActorHasTag(TreasureOpeningTag))return TEXT("最终宝箱 · 开启中");
-        if(Target->ActorHasTag(TreasureOpenedTag))return TEXT("最终宝箱 · 已开启");
+        if(Target->ActorHasTag(TreasureOpenedTag))return TEXT("最终宝箱 · 打开战利品");
         return TEXT("最终宝箱 · 开启");
     }
     if(Target->ActorHasTag(TreasureOpeningTag))return TEXT("探险宝箱 · 开启中");
-    if(Target->ActorHasTag(TreasureOpenedTag))return TEXT("探险宝箱 · 已开启");
+    if(Target->ActorHasTag(TreasureOpenedTag))return TEXT("探险宝箱 · 打开战利品");
     return TEXT("探险宝箱 · 开启");
 }
 
@@ -139,10 +183,27 @@ FString ColdSteelWorldInteraction::WorkbenchPrompt(const AActor* Target)
     return Piece->PrefabId()==VoxelGunWorkbenchId?TEXT("枪械工作台 · 打开拼装界面"):TEXT("工作台 · 打开制作面板");
 }
 
+namespace
+{
+    /** 已开启宝箱的战利品面板：与仓库宝箱同款 UI，绑定 DungeonChest.<领取键> 容器（一页）。
+     *  开启动画结束与重复按 E 两条路共用；无运行上下文时静默不打开。 */
+    void OpenChestLootPanel(const APlayerController* PC,AActor* Chest)
+    {
+        const auto* Impl=Cast<AFPSGAMEPlayerController>(PC);
+        auto* HUD=Impl?Impl->GetColdSteelHUD():nullptr;
+        if(!HUD||!Chest)return;
+        const FString Key=FColdSteelDungeonLoot::ChestStorageKey(Chest);
+        if(Key.IsEmpty())return;
+        HUD->OpenChestLootStorage(Chest,Key,1,TEXT("宝箱战利品"));
+    }
+}
+
 bool ColdSteelWorldInteraction::OpenTreasureChest(const APlayerController* PC,AActor* Target)
 {
     // TraceTarget also enforces standalone mode, cursor state, occlusion and 2.5 m eye reach.
-    if(!IsTreasureChest(Target)||IsTreasureChestActivated(Target)||TraceTarget(PC)!=Target)return false;
+    if(!IsTreasureChest(Target)||TraceTarget(PC)!=Target)return false;
+    if(Target->ActorHasTag(TreasureOpeningTag))return false;
+    if(Target->ActorHasTag(TreasureOpenedTag)){OpenChestLootPanel(PC,Target);return true;} // 重复按 E＝重开面板
     if(Target->ActorHasTag(TEXT("DungeonReward.Locked")))return false;
     auto* Mesh=Target->FindComponentByClass<USkeletalMeshComponent>();
     if(!Mesh||!Mesh->GetSkeletalMeshAsset())return false;
@@ -172,8 +233,9 @@ bool ColdSteelWorldInteraction::OpenTreasureChest(const APlayerController* PC,AA
 
     const float Duration=Clip->GetPlayLength();
     const TWeakObjectPtr<USkeletalMeshComponent> WeakMesh=Mesh;
+    TWeakObjectPtr<const APlayerController> WeakPC=PC;
     FTimerHandle FinishTimer;
-    Target->GetWorldTimerManager().SetTimer(FinishTimer,FTimerDelegate::CreateWeakLambda(Target,[Target,WeakMesh,Duration]()
+    Target->GetWorldTimerManager().SetTimer(FinishTimer,FTimerDelegate::CreateWeakLambda(Target,[Target,WeakMesh,WeakPC,Duration]()
     {
         if(auto* ChestMesh=WeakMesh.Get())
         {
@@ -187,7 +249,12 @@ bool ColdSteelWorldInteraction::OpenTreasureChest(const APlayerController* PC,AA
         }
         Target->Tags.Remove(TreasureOpeningTag);
         Target->Tags.AddUnique(TreasureOpenedTag);
-        if(!FColdSteelDungeonLoot::GrantFromChest(Target))Target->Tags.Remove(TreasureOpenedTag);
+        // 2026-10-02 仓库式取物：roll 写进宝箱容器（不直接发放、不播报），成功后弹出仓库同款面板。
+        FString StorageKey;
+        if(!FColdSteelDungeonLoot::StoreFromChest(Target,StorageKey))
+            Target->Tags.Remove(TreasureOpenedTag); // 写入失败＝未领取，保持可重试
+        else if(!StorageKey.IsEmpty())
+            OpenChestLootPanel(WeakPC.Get(),Target);
     }),Duration,false);
     return true;
 }
@@ -204,9 +271,12 @@ ColdSteelWorldInteraction::FInteractionHint ColdSteelWorldInteraction::ResolveIn
     if(IsTreasureChest(Target))
     {
         Hint.Text=TreasureChestPrompt(Target);
-        Hint.bAction=!IsTreasureChestActivated(Target)&&!Target->ActorHasTag(FName(TEXT("DungeonReward.Locked")));
+        // 已开启的宝箱保持可交互：E 重开战利品面板（2026-10-02 仓库式取物）。
+        Hint.bAction=!Target->ActorHasTag(TreasureOpeningTag)&&!Target->ActorHasTag(FName(TEXT("DungeonReward.Locked")));
         return Hint;
     }
+    if(const auto* Container=Cast<AColdSteelSceneContainer>(Target))
+    {Hint.Text=Container->GetPromptLabel();Hint.bAction=!Container->IsOpening();return Hint;}
     if(const auto* Chest=Cast<AColdSteelWarehouseChest>(Target)){Hint.Text=Chest->GetPromptLabel();return Hint;}
     if(const auto* Pickup=Cast<AColdSteelPickup>(Target)){Hint.Text=Pickup->GetPromptText();return Hint;}
     if(const auto* Arrow=Cast<ABowArrow>(Target)){Hint.Text=Arrow->RecoveryPrompt();Hint.bAction=Arrow->CanRecover();return Hint;}

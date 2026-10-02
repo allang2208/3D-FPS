@@ -48,6 +48,12 @@ protected:
 
 private:
     UPROPERTY(VisibleAnywhere, Category="Development") TObjectPtr<UDevelopmentSpawnComponent> DevelopmentSpawner;
+    /** 主神空间（Hub 地图）驻留 BGM 组件：随控制器存活、换图自动销毁。 */
+    UPROPERTY(Transient) TObjectPtr<class UAudioComponent> HubMusic;
+    /** 主神空间测试宝箱（2026-10-02）：出生点旁生成一只地牢宝箱（DungeonTreasure.HubTest），仅 Hub 调用。 */
+    void SpawnHubTestChest();
+    /** 主神空间训练靶（2026-10-02）：出生点前方 5.5m 生成可命中木架靶（GodSpace.PracticeTarget），仅 Hub 调用。 */
+    void SpawnHubPracticeTarget();
     UPROPERTY(VisibleAnywhere,Category="Building") TObjectPtr<class UVoxelBuildComponent> VoxelBuilder;
     /** -VoxelBuildAudit 时创建的建筑系统验收运行器。 */
     UPROPERTY(Transient) TObjectPtr<class UVoxelBuildAudit> VoxelBuildAudit;

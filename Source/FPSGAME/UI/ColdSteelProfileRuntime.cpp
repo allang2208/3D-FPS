@@ -133,13 +133,49 @@ void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
 void UColdSteelStatusModel::Deinitialize(){SaveNow();Super::Deinitialize();}
 FColdSteelProfile UColdSteelStatusModel::Snapshot() const {auto P=Current;P.Name=CharacterName;P.Class=CharacterClass;P.Level=Level;P.Points=AttributePoints;P.Attributes=Attributes;return P;}
 void UColdSteelStatusModel::Publish(const FColdSteelProfile& P){Current=P;CharacterName=P.Name;CharacterClass=P.Class;Level=P.Level;AttributePoints=P.Points;Attributes=P.Attributes;bTrainingDirty=false;TrainingFlushAccumulator=0.f;OnStaminaChanged.Broadcast();}
+UColdSteelStatusModel* UColdSteelStatusModel::CreateShadowModel(const FColdSteelProfile& GuestProfile)
+{
+    UColdSteelStatusModel* Shadow=NewObject<UColdSteelStatusModel>(GetGameInstance()); // 子系统类 ClassWithin=UGameInstance：Outer 必须是 GameInstance，TransientPackage 会撞 UObjectGlobals 断言
+    // 只读目录状态整体复制：物品定义、武器弹药分组、弹药目录、体力调参、技能定义（全字段随本实例目录走）。
+    Shadow->Definitions=Definitions;
+    Shadow->WeaponAmmoGroups=WeaponAmmoGroups;
+    Shadow->AmmoTypes=AmmoTypes;
+    Shadow->StaminaTuning=StaminaTuning;
+    Shadow->DodgeSkill=DodgeSkill;
+    Shadow->DexterousHandsSkill=DexterousHandsSkill;
+    Shadow->RifleSkill=RifleSkill;
+    Shadow->PistolSkill=PistolSkill;
+    Shadow->CriticalStrikeSkill=CriticalStrikeSkill;
+    Shadow->FireballSkill=FireballSkill;
+    Shadow->IceSpikeSkill=IceSpikeSkill;
+    Shadow->IceWallSkill=IceWallSkill;
+    Shadow->BlizzardSkill=BlizzardSkill;
+    Shadow->LightningSkill=LightningSkill;
+    Shadow->StormDomainSkill=StormDomainSkill;
+    Shadow->ThunderLanceSkill=ThunderLanceSkill;
+    Shadow->HolyLightSkill=HolyLightSkill;
+    Shadow->MeteorSkill=MeteorSkill;
+    Shadow->FlameArmorSkill=FlameArmorSkill;
+    Shadow->QuickCombatSkill=QuickCombatSkill;
+    Shadow->RuneBladesSkill=RuneBladesSkill;
+    Shadow->StaffLightSkill=StaffLightSkill;
+    Shadow->Publish(GuestProfile);
+    Shadow->bPersistenceBlocked=true;
+    return Shadow;
+}
+void UColdSteelStatusModel::AdoptNetMirror(const FColdSteelProfile& External)
+{
+    Publish(External);
+}
 bool UColdSteelStatusModel::CommitState(FColdSteelProfile State)
 {
     return PersistState(MoveTemp(State),true);
 }
 bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn)
 {
-    if(bPersistenceBlocked||(GetWorld()&&GetWorld()->GetNetMode()!=NM_Standalone)){Message=TEXT("当前玩家数据不可写入");return false;}
+    // M2 联机：放开监听服/客户端的档案写入（各自写各自磁盘副本）；专用服拒绝（无本地玩家档案语义）。
+    // 影子模型永远被 bPersistenceBlocked 拦截，持久化由联机会话显式处理。
+    if(bPersistenceBlocked||(GetWorld()&&GetWorld()->GetNetMode()==NM_DedicatedServer)){Message=TEXT("当前玩家数据不可写入");return false;}
     RemoveRetiredWeapons(State);
     bool AmmoChanged=false;
     if(!NormalizeAmmo(State,AmmoChanged)){Message=TEXT("弹药数据迁移失败，原存档保留");return false;}
@@ -219,6 +255,10 @@ bool UColdSteelStatusModel::ReloadProfile()
         // Wood changed from 1x1 to 1x2 on 2026-09-24. The old loader
         // rejected both slots before reaching its later wood migration.
         if(!MigrateLegacyWoodFootprints(Save->Profile,FootprintMigrated,Reason))
+        {UE_LOG(LogTemp,Warning,TEXT("ColdSteel profile %s%s rejected: %s"),*SaveSlot,S,*Reason);continue;}
+        // 2026-10-01 作者占格回填：卷轴 1x1→1x2 竖直、金属锭 1x1→2x1 横放；
+        // 迁移把当前 grid_w/grid_h 写回每个旧实例的 Data 快照。
+        if(!MigrateAuthoredGridFootprints(Save->Profile,FootprintMigrated,Reason))
         {UE_LOG(LogTemp,Warning,TEXT("ColdSteel profile %s%s rejected: %s"),*SaveSlot,S,*Reason);continue;}
         if(!Best||Save->Profile.Generation>Best->Profile.Generation)
         {Best=Save;BestFootprintMigrated=FootprintMigrated;}
@@ -465,6 +505,30 @@ bool UColdSteelStatusModel::ReloadProfile()
                     I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
                 }
             }
+            // 背包容积字段同为目录权威：实例 Data 是创建时快照，目录补/调
+            // bagExtraCells 与夹层尺寸后，已持有背包需跟上才能扩出横列。
+            // 这里只同步纯容量字段，不碰占格(grid_w/h)、身份与放置状态；
+            // 若扩行造成既有占用越界，交给本节末尾的占格校验统一处理。
+            FString CatalogEquipSlot;
+            if(CatalogData&&CatalogData->TryGetStringField(TEXT("equipSlot"),CatalogEquipSlot)&&CatalogEquipSlot==TEXT("backpack"))
+            {
+                if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
+                {
+                    bool BagUpdated=false;
+                    for(const TCHAR* Key:{TEXT("bagExtraCells"),TEXT("bagCompartmentCells"),TEXT("bagCompartmentColumns"),TEXT("bagCompartmentRows")})
+                    {
+                        double CatalogValue=0,StoredValue=0;
+                        const bool bHasCatalog=CatalogData->TryGetNumberField(Key,CatalogValue);
+                        const bool bHasStored=ItemData->TryGetNumberField(Key,StoredValue);
+                        if(bHasCatalog&&(!bHasStored||StoredValue!=CatalogValue))
+                        {ItemData->SetNumberField(Key,CatalogValue);BagUpdated=true;}
+                    }
+                    if(BagUpdated)
+                    {
+                        I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+                    }
+                }
+            }
         }
         const bool Material=I.Definition==TEXT("enhancement_stone")||I.Definition==TEXT("magic_dust");
         if(!Material&&I.Definition!=TEXT("enchant_scroll_heavy")&&I.Definition!=TEXT("enchant_scroll_sharp")&&I.Definition!=TEXT("enchant_scroll_skeleton")&&I.Definition!=TEXT("enchant_scroll_tarantula"))continue;
@@ -511,6 +575,7 @@ bool UColdSteelStatusModel::GainExperience(int64 Amount)
 }
 bool UColdSteelStatusModel::AwardKill(AActor* Victim,int64 Reward)
 {
+    ApplyKillStaminaRecovery(Victim);
     if(!Victim||RewardedVictims.Contains(Victim)||Reward<=0||Reward>1000000000)return false;
     if(ActiveFireballRewards && ActiveFireballRewards->Victim==Victim){ActiveFireballRewards->Kills.FindOrAdd(Victim)=Reward;return true;}
     SyncRuntime();auto P=Snapshot();if(!DungeonLayout::RecordKill(P.DungeonRun,Victim))return false;P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);
@@ -582,14 +647,23 @@ FColdSteelItem UColdSteelStatusModel::CreateItem(const FString& Def,int64 Count)
     const auto Size=Footprint(I);I.Width=Size.X;I.Height=Size.Y;
     return I;
 }
-FColdSteelProposal UColdSteelStatusModel::ProposeMove(const FString& Id,int32 Place,int32 Cell,int32 Orientation)const{const auto* I=FindItem(Id);if(Place==4||(I&&I->Place==4))return ProposeWarehouse(Id,Place,Cell,Orientation);if(Place==ColdSteelCompartment::Place||(I&&I->Place==ColdSteelCompartment::Place))return ProposeCompartment(Id,Place,Cell,Orientation);auto P=ColdSteelInventory::Move(Current.Items,Id,Place,Cell,Orientation);P.Revision=Current.Generation;return P;}
+FColdSteelProposal UColdSteelStatusModel::ProposeMove(const FString& Id,int32 Place,int32 Cell,int32 Orientation)const{const auto* I=FindItem(Id);if(Place==ColdSteelCompartment::Place||(I&&I->Place==ColdSteelCompartment::Place&&Place!=ColdSteelWarehouse::Place))return ProposeCompartment(Id,Place,Cell,Orientation);if(Place==4||(I&&I->Place==4))return ProposeWarehouse(Id,Place,Cell,Orientation);auto P=ColdSteelInventory::Move(Current.Items,Id,Place,Cell,Orientation);P.Revision=Current.Generation;return P;}
 bool UColdSteelStatusModel::CommitProposal(const FColdSteelProposal& R){if(!R.bValid){Message=R.Reason;return false;}if(R.Revision!=Current.Generation){Message=TEXT("物品已变化，请重新拖动");return false;}auto P=Snapshot();P.Items=R.Items;if(R.ActiveWeaponSlot>=0){P.ActiveWeaponSlot=R.ActiveWeaponSlot;P.ActiveProductionTool.Reset();}return CommitState(P);}
-bool UColdSteelStatusModel::MoveItem(const FString& Id,int32 Place,int32 Cell,int32 Orientation){SyncRuntime();return CommitProposal(ProposeMove(Id,Place,Cell,Orientation));}
+bool UColdSteelStatusModel::MoveItem(const FString& Id,int32 Place,int32 Cell,int32 Orientation)
+{
+    SyncRuntime();
+    // 与 TransferWarehouse 同口径：拖拽把储物箱里的弹药物品放进背包/夹层＝转弹药池。
+    if(const FColdSteelItem* Prev=FindItem(Id);(Place==0||Place==ColdSteelCompartment::Place)&&Prev&&Prev->Place==ColdSteelWarehouse::Place&&!Prev->Container.IsEmpty()&&AmmoType(Prev->Definition))
+        return ConvertChestAmmoToPool(Id);
+    return CommitProposal(ProposeMove(Id,Place,Cell,Orientation));
+}
 bool UColdSteelStatusModel::AddItem(const FString& Def,int64 Count){if(AmmoType(Def))return GrantAmmo(Def,Count);if(Count<=0||Count>9007199254740991ll||!Definitions.Contains(Def))return false;SyncRuntime();auto P=Snapshot();if(!Insert(P.Items,CreateItem(Def,Count))){Message=TEXT("背包空间不足");return false;}return CommitState(P);}
 bool UColdSteelStatusModel::Split(const FString& Id,int64 Count)
 {
     SyncRuntime();auto P=Snapshot();auto* I=P.Items.FindByPredicate([&](const auto& V){return V.InstanceId==Id;});
     if(!I||(I->Place!=0&&I->Place!=4&&I->Place!=ColdSteelCompartment::Place)||Count<=0||Count>=I->Count||Text(*I,TEXT("category"))==TEXT("gold"))return false;
+    // 仓库层拆分的容量/起点都按当前会话容器算，非本容器的堆叠不能借道（见 ProposeCompartment 同口径）。
+    if(I->Place==4&&I->Container!=ActiveContainer)return false;
     auto Part=*I;Part.InstanceId=FGuid::NewGuid().ToString(EGuidFormats::Digits);Part.Count=Count;int32 Cell=-1;
     const FIntPoint CompGrid=I->Place==ColdSteelCompartment::Place?CompartmentGrid(P.Items):FIntPoint::ZeroValue;
     const int32 Capacity=I->Place==4?OpenStorageCapacity():I->Place==ColdSteelCompartment::Place?CompGrid.X*CompGrid.Y:BagRows(P.Items)*18; // 储物箱按自身会话容量找空位
@@ -797,6 +871,8 @@ bool UColdSteelStatusModel::Drop(const FString& Id)
 {
     if(!CurrentPawn.IsValid())return false;SyncRuntime();auto P=Snapshot();auto* I=P.Items.FindByPredicate([&](const auto& V){return V.InstanceId==Id;});
     if(!I||(I->Place>2&&I->Place!=ColdSteelCompartment::Place&&!(I->Place==4&&bWarehouseOpen)))return false;
+    // 仓库层物品只能动当前打开会话的容器：面板开着不代表关着的箱子/别的箱子能被倒出。
+    if(I->Place==4&&I->Container!=ActiveContainer)return false;
     if(I->Place==1&&I->Cell==14)
         // 背包本体落到地面会让夹层与扩展格失去宿主（存档校验会整档拒绝），先清空才允许丢弃。
         for(const auto& V:P.Items)

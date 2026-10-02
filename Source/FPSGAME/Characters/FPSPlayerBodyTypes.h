@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "UObject/SoftObjectPath.h"
 #include "FPSPlayerBodyTypes.generated.h"
 
 class UPrimitiveComponent;
@@ -12,6 +13,11 @@ namespace FPSBodyEquipment
      *  dirties the primitive's render state. Defined in FPSPlayerBodyEquipment.cpp. */
     void ApplyOwnerVisibilityFlags(UPrimitiveComponent* Mesh, bool bOnlyOwnerSee, bool bOwnerNoSee);
     void ApplyShadowFlags(UPrimitiveComponent* Mesh, bool bCastShadow);
+    /** Static world mesh bound to an equipment definition by
+     *  ColdSteelData/player_body.json outfits[].world_static_mesh. Invalid when the
+     *  definition has no rigid attachment; the icon studio shares this source so the
+     *  inventory picture is the mesh actually worn. */
+    FSoftObjectPath StaticOutfitMesh(const FString& Definition);
 }
 
 UENUM(BlueprintType)

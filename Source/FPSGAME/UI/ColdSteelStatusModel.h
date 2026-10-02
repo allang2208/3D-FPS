@@ -59,6 +59,7 @@ public:
     double MoonshadowUntil=0;
     UFUNCTION(BlueprintPure) double DungeonEffect(FName Key) const;
     float CombatMoveMultiplier() const;
+    float BerserkAttackSpeedMultiplier() const;
     void TickFormulaBuffs(float Delta);
     UFUNCTION(BlueprintCallable) bool OfferTribute(const FString& ItemId);
     UFUNCTION(BlueprintCallable) bool ApplyDungeonFormulaBuff(FName Id,const TMap<FName,float>& Effects,int32 Battles);
@@ -69,6 +70,7 @@ public:
     void SyncDungeonBattleTiles();
     static double EquipmentBonusFor(const FColdSteelProfile& State,FName Key);
     static double ResourceMaximum(const FColdSteelProfile& State,bool Mana);
+    static double StaminaMaximum(const FColdSteelProfile& State,const FColdSteelStaminaTuning& Tuning);
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Character") int32 AttributePoints = 0;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Character") TMap<FName, int32> Attributes;
     FColdSteelStatusChanged OnChanged;
@@ -80,6 +82,8 @@ public:
     bool CanSpendStamina(float Amount) const;
     bool SpendStamina(float Amount);
     void DelayStaminaRecovery();
+    // Called on an attributed death, independently of experience/gold eligibility.
+    void ApplyKillStaminaRecovery(AActor* Victim);
     float StaminaRecoveryWait() const { return Current.StaminaRecoveryDelay; }
     FColdSteelMeleeStaminaReadout MeleeStaminaReadout(const class AFPSGAMECharacter* Pawn) const;
     bool SprintExhausted() const { return Current.bSprintExhausted; }
@@ -262,6 +266,19 @@ public:
     /** Claim and all items commit together; full backpacks receive saved world drops. */
     bool GrantDungeonReward(const FString& RunId,FName Claim,const TArray<TPair<FString,int64>>& Loot,FVector DropPosition);
     bool AppendDungeonReward(FColdSteelProfile& State,FName Claim,const TArray<TPair<FString,int64>>& Loot,FVector DropPosition)const;
+    /** 地牢宝箱战利品入箱（2026-10-02）：roll 结果写进宝箱自己的仓库容器（Place 4 + Container 键），
+     *  同事务登记页数与领取标记；重复调用（已领取）直接返回 true 不再写入，面板改由交互层打开。
+     *  弹药条目按全局拾取口径直接入弹药池——弹药物品只作为地面/宝箱暂存态存在。
+     *  与 GrantDungeonReward 一样要求 RunId 匹配当前运行；主神空间测试箱（bHubTest）豁免运行匹配，
+     *  RunId 允许为空。失败返回 false，宝箱保持可重试。 */
+    bool StoreDungeonChestLoot(const FString& RunId,FName Claim,const TArray<TPair<FString,int64>>& Loot,
+        const FString& ContainerKey,int32 Pages,bool bHubTest=false);
+    /** 该领取标记在当前运行里是否已发放过（重复开箱不重 roll，只开面板）。 */
+    bool HasDungeonClaim(FName Claim) const { return Current.DungeonRun.Claimed.Contains(Claim); }
+    /** 测试箱专用：领取标记在案但容器已空＝清除标记，下次开箱重新 roll。 */
+    bool ReleaseHubTestClaimIfEmpty(const FString& ContainerKey,FName Claim);
+    /** 弹药物品离开储物箱进背包＝按拾取口径转弹药池（MoveItem/TransferWarehouse 共用）。 */
+    bool ConvertChestAmmoToPool(const FString& Id);
     /** 全有或全无地扣除物品（背包优先、仓库兜底），一次事务；不足时不扣任何东西并写入原因。 */
     bool ConsumeItem(const FString& Definition,int64 Count,FString& OutReason);
     bool Split(const FString& Id,int64 Count);
@@ -384,6 +401,11 @@ public:
     FString AmmoDefinition() const;
     const FString& ResultMessage() const { return Message; }
     FColdSteelProfile Snapshot() const;
+    /** M2 联机：为远端玩家创建影子档案模型——只读目录状态从本实例整体复制，档案以传入值发布；
+     *  影子永不写盘（bPersistenceBlocked），持久化由联机会话显式处理。 */
+    UColdSteelStatusModel* CreateShadowModel(const FColdSteelProfile& GuestProfile);
+    /** M2 联机：把外部档案灌进本模型（只发布不落盘）——客户端收权威镜像回写、影子收上行快照都用它。 */
+    void AdoptNetMirror(const FColdSteelProfile& External);
     const FColdSteelForgeJob& ForgeJob() const {return Current.ForgeJob;}
     const FColdSteelGunAssemblyJob& GunAssemblyJob() const {return Current.GunAssemblyJob;}
     void StageGunCalibration(const FString& JobId,float Held,float Time,float Error);
@@ -477,4 +499,5 @@ private:
     FColdSteelSkillDefinition MeteorSkill,FlameArmorSkill;
     FColdSteelSkillDefinition IceWallSkill;
     FColdSteelSkillDefinition BlizzardSkill;
+    TSet<TWeakObjectPtr<AActor>> KillStaminaVictims;
 };

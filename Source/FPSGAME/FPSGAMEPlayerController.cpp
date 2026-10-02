@@ -17,7 +17,9 @@
 #include "Weapons/Bow/BowArrow.h"
 #include "UI/ColdSteelWorldInteraction.h"
 #include "UI/ColdSteelWarehouseChest.h"
+#include "UI/ColdSteelSceneContainer.h"
 #include "UI/ColdSteelCrateChest.h"
+#include "Props/FPSPracticeTarget.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/GameInstance.h"
 #include "Engine/GameViewportClient.h"
@@ -27,6 +29,12 @@
 #include "Development/DevelopmentSpawnComponent.h"
 #include "UI/WeatherPanelValidation.h"
 #include "Components/InputComponent.h"
+#include "Components/AudioComponent.h"
+#include "Components/BoxComponent.h"
+#include "Animation/SkeletalMeshActor.h"
+#include "Animation/AnimSequence.h"
+#include "GameFramework/PlayerStart.h"
+#include "Sound/SoundBase.h"
 #include "HAL/FileManager.h"
 #include "HAL/IConsoleManager.h"
 
@@ -59,9 +67,108 @@ AFPSGAMEPlayerController::AFPSGAMEPlayerController()
     bShowMouseCursor = false;
 }
 
+/** 主神空间测试宝箱（2026-10-02 用户指派）：出生点旁放一只地牢宝箱，实机验证仓库式取物面板。
+ *  DungeonTreasure.HubTest＝无运行上下文也可 roll（Depth 0 档、按领取键固定种子）；
+ *  DungeonChestClaim.HubTest＝稳定领取键；战利品被取空后下次开箱自动重新 roll。 */
+void AFPSGAMEPlayerController::SpawnHubTestChest()
+{
+    for (TActorIterator<ASkeletalMeshActor> It(GetWorld()); It; ++It)
+        if (It->ActorHasTag(TEXT("DungeonTreasure.HubTest"))) return; // 本局已生成过
+    auto* Mesh = LoadObject<USkeletalMesh>(nullptr,
+        TEXT("/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest"));
+    if (!Mesh) { UE_LOG(LogTemp, Warning, TEXT("HubTestChest: 宝箱网格缺失")); return; }
+
+    // 出生点锚：与 GameMode 出生／仓库宝箱固定生成同一数据源（首个 PlayerStart），贴地后放右侧 220cm。
+    FVector Base = FVector::ZeroVector; FRotator Facing = FRotator::ZeroRotator; bool bAnchor = false;
+    for (TActorIterator<APlayerStart> It(GetWorld()); It; ++It)
+    {
+        FCollisionQueryParams Query(SCENE_QUERY_STAT(HubTestChestFloor), false, *It);
+        FHitResult Floor;
+        const FVector Probe = It->GetActorLocation();
+        if (GetWorld()->LineTraceSingleByChannel(Floor, Probe + FVector(0, 0, 300), Probe - FVector(0, 0, 2000), ECC_Visibility, Query)
+            && Floor.bBlockingHit && !Floor.bStartPenetrating)
+            Base = Floor.ImpactPoint;
+        else Base = Probe;
+        Facing = It->GetActorRotation(); bAnchor = true;
+        break;
+    }
+    if (!bAnchor) return;
+
+    const FVector Side = FRotationMatrix(Facing).GetUnitAxis(EAxis::Y);
+    auto* Chest = GetWorld()->SpawnActor<ASkeletalMeshActor>(ASkeletalMeshActor::StaticClass(),
+        Base + Side * 220.f, FRotator(0.f, Facing.Yaw + 180.f, 0.f));
+    if (!Chest) return;
+    Chest->Tags.Add(TEXT("DungeonTreasureChest"));
+    Chest->Tags.Add(TEXT("DungeonTreasure.HubTest"));
+    Chest->Tags.Add(TEXT("DungeonChestClaim.HubTest"));
+    auto* Component = Chest->GetSkeletalMeshComponent();
+    Component->SetSkeletalMeshAsset(Mesh);
+    Component->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    if (auto* Closed = LoadObject<UAnimSequence>(nullptr,
+        TEXT("/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_ClosedPose.A_TreasureChest_ClosedPose")))
+    {
+        Component->PlayAnimation(Closed, false); Component->SetPosition(Closed->GetPlayLength(), false); Component->SetPlayRate(0.f);
+        Component->TickAnimation(0.f, false); Component->RefreshBoneTransforms(); Component->SetComponentTickEnabled(false);
+        Component->ComponentTags.Add(TEXT("DungeonClosedPoseFrozen"));
+    }
+    // 与地牢生成器同口径：骨骼网格不参与射线（NoCollision），交互命中靠 BlockAll 盒体（尺寸取 treasure_chest_assets.json）。
+    auto* Box = NewObject<UBoxComponent>(Chest);
+    Chest->AddInstanceComponent(Box);
+    Box->SetupAttachment(Component);
+    Box->SetBoxExtent(FVector(59.5f, 74.3f, 55.1f));
+    Box->SetRelativeLocation(FVector(6.2f, 5.2f, 55.1f));
+    Box->SetCollisionProfileName(TEXT("BlockAll"));
+    Box->RegisterComponent();
+}
+
+/** 主神空间训练靶（2026-10-02 用户指派）：出生点前方下靶位生成圆环木架靶，承接全武器命中，
+ *  浮出伤害数字并在头顶牌滚动 DPS。与 SpawnHubTestChest 同一出生点锚、同贴地方式。 */
+void AFPSGAMEPlayerController::SpawnHubPracticeTarget()
+{
+    for (TActorIterator<AFPSPracticeTarget> It(GetWorld()); It; ++It)
+        if (It->ActorHasTag(TEXT("GodSpace.PracticeTarget"))) return; // 本局已生成过
+
+    FVector Base = FVector::ZeroVector; FRotator Facing = FRotator::ZeroRotator; bool bAnchor = false;
+    for (TActorIterator<APlayerStart> It(GetWorld()); It; ++It)
+    {
+        Base = It->GetActorLocation();
+        Facing = It->GetActorRotation(); bAnchor = true;
+        break;
+    }
+    if (!bAnchor) return;
+
+    const FVector Forward = FRotationMatrix(Facing).GetUnitAxis(EAxis::X);
+    const FVector Spot = Base + Forward * 550.f;
+    FHitResult Floor;
+    FCollisionQueryParams Query(SCENE_QUERY_STAT(HubPracticeTargetFloor), false);
+    FVector Position = Spot;
+    if (GetWorld()->LineTraceSingleByChannel(Floor, Spot + FVector(0, 0, 200), Spot - FVector(0, 0, 1500), ECC_Visibility, Query)
+        && Floor.bBlockingHit && !Floor.bStartPenetrating)
+        Position = Floor.ImpactPoint;
+
+    auto* Target = GetWorld()->SpawnActor<AFPSPracticeTarget>(Position, FRotator(0.f, Facing.Yaw + 180.f, 0.f));
+    if (Target) Target->Tags.Add(TEXT("GodSpace.PracticeTarget"));
+}
+
 void AFPSGAMEPlayerController::BeginPlay()
 {
     Super::BeginPlay();
+    // 主神空间驻留 BGM：原项目 audio-config 的 bgm.main（main 场景＝主神空间，罗马庭院），
+    // 沿用其 music 声道 0.6 音量。SoundWave 已设循环；组件随控制器存活、换图销毁，
+    // 因此只在 Hub（DayNight_Lighting）内自动循环，去 hills/地牢自动停止。
+    if (UGameplayStatics::GetCurrentLevelName(this, true) == TEXT("DayNight_Lighting"))
+    {
+        if (auto* Sound = LoadObject<USoundBase>(nullptr, TEXT("/Game/Audio/GodSpaceBGM20261002/S_RomanCourtyard.S_RomanCourtyard")))
+        {
+            HubMusic = NewObject<UAudioComponent>(this);
+            HubMusic->SetSound(Sound);
+            HubMusic->SetVolumeMultiplier(.6f);
+            HubMusic->bAutoDestroy = false;
+            HubMusic->Play();
+        }
+        SpawnHubTestChest();
+        SpawnHubPracticeTarget();
+    }
     // 建筑系统验收：-VoxelBuildAudit（材质表 / 过载曲线 / 体素块目录 / 放置-撤销-拆除闭环 / 存档落盘）
     if(UVoxelBuildAudit::Requested())
     {
@@ -264,6 +371,8 @@ void AFPSGAMEPlayerController::SetupInputComponent()
 
 bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
 {
+    // Action handlers own inspection interruption. Raw keys and look/move axes
+    // also describe ordinary locomotion, empty shortcuts and UI-only input.
     if(ColdSteelHUD&&ColdSteelHUD->HandleGunAssemblyInput(Params))return true;
     if(ColdSteelHUD&&ColdSteelHUD->HandleWorldForgeInput(Params))return true;
     if (ExpeditionPanel)
@@ -326,6 +435,10 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
         if(Params.Key==EKeys::MouseScrollUp||Params.Key==EKeys::MouseScrollDown)
             if(auto* C=Cast<AFPSGAMECharacter>(GetPawn());C&&C->AdjustOpticMagnification(Params.Key==EKeys::MouseScrollUp?.5f:-.5f))return true;
         auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+        const auto InterruptInspection=[this]()
+        {
+            if(auto* C=Cast<AFPSGAMECharacter>(GetPawn()))C->InterruptWeaponInspection();
+        };
         if(Params.Key==EKeys::Eight){Profile->SelectProductionTool(TEXT("tool_shovel"));return true;}
         if(Params.Key==EKeys::F7){Profile->StowProductionTool();return true;}
         // G 已让位给符文长剑·环绕飞剑（角色 BindAction "RuneBlades"），武器轮换只留滚轮。
@@ -335,11 +448,12 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
         {
             auto* Target=ColdSteelWorldInteraction::TraceTarget(this);
             if(ColdSteelWorldInteraction::IsExpeditionAltar(Target)){OpenExpedition();return true;}
-            if(auto* Run=UDungeonRunSubsystem::Get(GetWorld());Run&&Run->IsShrine(Target)){Run->ClaimShrine(this,Target);return true;}
-            if(ColdSteelWorldInteraction::IsTreasureChest(Target)){ColdSteelWorldInteraction::OpenTreasureChest(this,Target);return true;}
+            if(auto* Run=UDungeonRunSubsystem::Get(GetWorld());Run&&Run->IsShrine(Target)){InterruptInspection();Run->ClaimShrine(this,Target);return true;}
+            if(ColdSteelWorldInteraction::IsTreasureChest(Target)){InterruptInspection();ColdSteelWorldInteraction::OpenTreasureChest(this,Target);return true;}
+            if(auto* Container=ColdSteelWorldInteraction::FocusedSceneContainer(this)){InterruptInspection();Container->TrySearch(this);return true;}
             if(auto* Chest=Cast<AColdSteelWarehouseChest>(Target);Chest&&ColdSteelHUD){ColdSteelHUD->OpenWarehouse(Chest);return true;}
-            if(auto* Pickup=Cast<AColdSteelPickup>(Target)){Profile->Pickup(Pickup->ItemId);return true;}
-            if(auto* Arrow=Cast<ABowArrow>(Target)){Arrow->TryRecover(GetPawn());return true;}
+            if(auto* Pickup=Cast<AColdSteelPickup>(Target)){InterruptInspection();Profile->Pickup(Pickup->ItemId);return true;}
+            if(auto* Arrow=Cast<ABowArrow>(Target)){InterruptInspection();Arrow->TryRecover(GetPawn());return true;}
             // 冶炼高炉：E 同时打开背包与独立冶炼面板（面板贴抽屉左侧，可被 Esc／× 单独关闭；炉内按真实时间继续冶炼）。
             // 放在门判定之前：高炉不是门，但两者都靠"命中 Actor 是什么"分派，先特异后泛化。
             if(ColdSteelWorldInteraction::IsForgingStation(Target)&&ColdSteelHUD)
@@ -356,13 +470,14 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
                 if(auto* Doors=GetWorld()?GetWorld()->GetSubsystem<UColdSteelDoorInteraction>():nullptr)
                 {
                     FString Entry;
+                    InterruptInspection();
                     // 开关门保持安静：不占提示栏、也不触发提示栏的音效；入口名仍然写日志便于排查。
                     Doors->TryInteract(Target,GetPawn(),Entry);
                     return true;
                 }
             }
             // Nearby portals receive E through their existing input component before a bound skill.
-            for(TActorIterator<ASceneTestPortal> It(GetWorld());It;++It)if(It->IsWithinInteractionRange(GetPawn()))return Super::InputKey(Params);
+            for(TActorIterator<ASceneTestPortal> It(GetWorld());It;++It)if(It->IsWithinInteractionRange(GetPawn())){InterruptInspection();return Super::InputKey(Params);}
         }
         // Z: one key picks up every drop around the player (blocks, equipment, materials). Ctrl+Z is
         // the build undo and is consumed by the building component before it reaches this branch.
@@ -371,6 +486,9 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
         const int32 QuickIndex=ColdSteelQuickBar::KeyIndex(Params.Key);
         if(QuickIndex>=0)
         {
+            const auto Binding=Profile->QuickBinding(QuickIndex);
+            // Dodge shares the locomotion policy even when triggered by a skill slot.
+            if(!Binding.IsEmpty()&&Binding.Skill!=TEXT("dodge"))InterruptInspection();
             if(Profile->BeginSpellAimPreview(QuickIndex))return true;
             Profile->UseQuickBinding(QuickIndex);return true;
         }
